@@ -1,0 +1,5 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Dev-only notes: excluded from `git archive` (CurseForge / release zips still use archive)
+docs/DAY_LOG_*.md export-ignore

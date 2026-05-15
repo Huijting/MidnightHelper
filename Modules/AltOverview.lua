@@ -1,0 +1,1067 @@
+--[[
+	Midnight Helper — Account snapshot (dedicated main tab + panel).
+
+	Snapshots: MidnightHelperDB.charCurrencies[guid]
+]]
+
+local addonName, ns = ...
+
+local COFFER_KEY = 3028
+local COFFER_SHARDS = 3310
+local UNDERCOIN = 2803
+
+--- Layout: keys / shards narrow; Undercoins wider so the header fits.
+local PAD_L = 4
+local PAD_R = 6
+local COL_W_KEYS = 34
+local COL_W_SHARDS = 40
+local COL_W_UNDER = 86
+local COL_W_VAULT = 110
+local NUM_GAP = 4
+local ROW_ACTION_W = 18
+local ROW_ACTION_GAP = 4
+local ROW_H = 17
+local HEADER_ROW_H = 17
+
+local accountPanelMounted = false
+local ui = {}
+
+local pendingSaveTimer
+
+local function RowActionOffset()
+	return ROW_ACTION_W + ROW_ACTION_GAP
+end
+
+local function TotalNumericBlockWidth()
+	return PAD_R + COL_W_UNDER + COL_W_SHARDS + COL_W_KEYS + 2 * NUM_GAP
+end
+
+local function BuildVaultCategorySnapshot(activities, wantedType)
+	local rows = {}
+	local maxProgress = 0
+	for _, a in ipairs(activities) do
+		if type(a) == "table" and tonumber(a.type) == wantedType and tonumber(a.threshold) then
+			rows[#rows + 1] = a
+			local p = math.floor(tonumber(a.progress) or 0)
+			if p > maxProgress then
+				maxProgress = p
+			end
+		end
+	end
+
+	if #rows == 0 then
+		return { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false }
+	end
+
+	table.sort(rows, function(a, b)
+		return (tonumber(a.threshold) or 0) < (tonumber(b.threshold) or 0)
+	end)
+
+	local unlocked = 0
+	local nextThreshold = tonumber(rows[1].threshold) or 0
+	for _, a in ipairs(rows) do
+		local th = tonumber(a.threshold) or 0
+		if maxProgress >= th then
+			unlocked = unlocked + 1
+		elseif th > 0 then
+			nextThreshold = th
+			break
+		end
+	end
+
+	return {
+		unlocked = unlocked,
+		total = #rows,
+		progress = maxProgress,
+		nextThreshold = nextThreshold,
+		available = true,
+	}
+end
+
+local function GetVaultSnapshot()
+	if not C_WeeklyRewards or not C_WeeklyRewards.GetActivities then
+		return {
+			world = { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false },
+			dungeons = { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false },
+			raids = { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false },
+			anyAvailable = false,
+		}
+	end
+	local ok, acts = pcall(C_WeeklyRewards.GetActivities)
+	if not ok or type(acts) ~= "table" then
+		return {
+			world = { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false },
+			dungeons = { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false },
+			raids = { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false },
+			anyAvailable = false,
+		}
+	end
+
+	local raids = BuildVaultCategorySnapshot(acts, 3)
+	local dungeons = BuildVaultCategorySnapshot(acts, 1)
+	local world = BuildVaultCategorySnapshot(acts, 6)
+	local hasAvailableRewards = false
+	if C_WeeklyRewards and C_WeeklyRewards.HasAvailableRewards then
+		local okAvail, avail = pcall(C_WeeklyRewards.HasAvailableRewards)
+		if okAvail and avail then
+			hasAvailableRewards = true
+		end
+	end
+	local anyAvailable = raids.available or dungeons.available or world.available
+	return {
+		world = world,
+		dungeons = dungeons,
+		raids = raids,
+		anyAvailable = anyAvailable,
+		hasAvailableRewards = hasAvailableRewards,
+	}
+end
+
+local function IsResetDayNow()
+	local now = date("*t")
+	return now and tonumber(now.wday) == 4 -- 1=Sunday, 4=Wednesday
+end
+
+local function GetLocalResetAnchorTs()
+	local now = time()
+	local t = date("*t", now)
+	if not t then
+		return now
+	end
+	local daysSinceReset = ((tonumber(t.wday) or 1) - 4) % 7 -- Wednesday anchor
+	local resetDay = {
+		year = t.year,
+		month = t.month,
+		day = t.day - daysSinceReset,
+		hour = 8,
+		min = 0,
+		sec = 0,
+	}
+	local anchor = time(resetDay)
+	if anchor and now < anchor then
+		anchor = anchor - 7 * 24 * 60 * 60
+	end
+	return anchor or now
+end
+
+local function FormatRelativeTime(ts)
+	local v = tonumber(ts) or 0
+	if v <= 0 then
+		return ns:L("ALT_UPDATED_UNKNOWN")
+	end
+	local d = math.max(0, math.floor(time() - v))
+	if d < 60 then
+		return ns:L("ALT_UPDATED_SECONDS"):format(d)
+	elseif d < 3600 then
+		return ns:L("ALT_UPDATED_MINUTES"):format(math.floor(d / 60))
+	elseif d < 86400 then
+		return ns:L("ALT_UPDATED_HOURS"):format(math.floor(d / 3600))
+	end
+	return ns:L("ALT_UPDATED_DAYS"):format(math.floor(d / 86400))
+end
+
+--------------------------------------------------------------------------------
+local function GetCurrencyQty(id)
+	local cid = tonumber(id)
+	if not cid or not C_CurrencyInfo or not C_CurrencyInfo.GetCurrencyInfo then
+		return 0
+	end
+	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, cid)
+	if ok and info then
+		local q = info.quantity
+		if q ~= nil then
+			return tonumber(q) or 0
+		end
+	end
+	return 0
+end
+
+local function GetPlayerProfessionsText()
+	if not GetProfessions or not GetProfessionInfo then
+		return ""
+	end
+	local parts = {}
+	local p1, p2, archaeology, fishing, cooking, firstAid = GetProfessions()
+	for _, slot in ipairs({ p1, p2, archaeology, fishing, cooking, firstAid }) do
+		if slot then
+			local ok, name = pcall(function()
+				return (select(1, GetProfessionInfo(slot)))
+			end)
+			if ok and type(name) == "string" and name ~= "" then
+				parts[#parts + 1] = name
+			end
+		end
+	end
+	local s = table.concat(parts, " · ")
+	return s
+end
+
+local function GetShortProfessionsText(fullText)
+	local s = tostring(fullText or "")
+	if #s > 44 then
+		s = string.sub(s, 1, 42) .. "…"
+	end
+	return s
+end
+
+local function SaveCurrentSnapshot()
+	local db = ns.db
+	if not db then
+		return
+	end
+	if type(db.charCurrencies) ~= "table" then
+		db.charCurrencies = {}
+	end
+
+	local guid = UnitGUID("player")
+	if not guid then
+		return
+	end
+
+	local nm, realm = UnitFullName("player")
+	if type(nm) ~= "string" or nm == "" then
+		nm = UnitName("player")
+	end
+	if type(nm) ~= "string" or nm == "" then
+		nm = "?"
+	end
+	realm = realm or (GetRealmName and GetRealmName()) or ""
+
+	local professionsFull = GetPlayerProfessionsText()
+	db.charCurrencies[guid] = {
+		name = nm,
+		realm = realm,
+		keys = GetCurrencyQty(COFFER_KEY),
+		shards = GetCurrencyQty(COFFER_SHARDS),
+		undercoin = GetCurrencyQty(UNDERCOIN),
+		vaultUnlocked = 0,
+		vaultTotal = 0,
+		vaultProgress = 0,
+		vaultNextThreshold = 0,
+		vaultAvailable = 0,
+		vaultWorldUnlocked = 0,
+		vaultWorldTotal = 0,
+		vaultWorldProgress = 0,
+		vaultWorldNextThreshold = 0,
+		vaultWorldAvailable = 0,
+		vaultDungeonUnlocked = 0,
+		vaultDungeonTotal = 0,
+		vaultDungeonProgress = 0,
+		vaultDungeonNextThreshold = 0,
+		vaultDungeonAvailable = 0,
+		vaultRaidUnlocked = 0,
+		vaultRaidTotal = 0,
+		vaultRaidProgress = 0,
+		vaultRaidNextThreshold = 0,
+		vaultRaidAvailable = 0,
+		vaultHasAvailableRewards = 0,
+		professions = GetShortProfessionsText(professionsFull),
+		professionsFull = professionsFull,
+		ts = time(),
+	}
+	local snap = GetVaultSnapshot()
+	db.charCurrencies[guid].vaultWorldUnlocked = snap.world.unlocked
+	db.charCurrencies[guid].vaultWorldTotal = snap.world.total
+	db.charCurrencies[guid].vaultWorldProgress = snap.world.progress
+	db.charCurrencies[guid].vaultWorldNextThreshold = snap.world.nextThreshold
+	db.charCurrencies[guid].vaultWorldAvailable = snap.world.available and 1 or 0
+	db.charCurrencies[guid].vaultDungeonUnlocked = snap.dungeons.unlocked
+	db.charCurrencies[guid].vaultDungeonTotal = snap.dungeons.total
+	db.charCurrencies[guid].vaultDungeonProgress = snap.dungeons.progress
+	db.charCurrencies[guid].vaultDungeonNextThreshold = snap.dungeons.nextThreshold
+	db.charCurrencies[guid].vaultDungeonAvailable = snap.dungeons.available and 1 or 0
+	db.charCurrencies[guid].vaultRaidUnlocked = snap.raids.unlocked
+	db.charCurrencies[guid].vaultRaidTotal = snap.raids.total
+	db.charCurrencies[guid].vaultRaidProgress = snap.raids.progress
+	db.charCurrencies[guid].vaultRaidNextThreshold = snap.raids.nextThreshold
+	db.charCurrencies[guid].vaultRaidAvailable = snap.raids.available and 1 or 0
+	db.charCurrencies[guid].vaultHasAvailableRewards = snap.hasAvailableRewards and 1 or 0
+	db.charCurrencies[guid].vaultUnlocked = snap.world.unlocked
+	db.charCurrencies[guid].vaultTotal = snap.world.total
+	db.charCurrencies[guid].vaultProgress = snap.world.progress
+	db.charCurrencies[guid].vaultNextThreshold = snap.world.nextThreshold
+	db.charCurrencies[guid].vaultAvailable = snap.anyAvailable and 1 or 0
+end
+
+local function ScheduleSave()
+	if pendingSaveTimer then
+		return
+	end
+	pendingSaveTimer = true
+	if C_Timer and C_Timer.After then
+		C_Timer.After(1.2, function()
+			pendingSaveTimer = false
+			SaveCurrentSnapshot()
+			if ns._mhAltOverviewRefreshRows then
+				ns:_mhAltOverviewRefreshRows()
+			end
+		end)
+	else
+		pendingSaveTimer = false
+		SaveCurrentSnapshot()
+		if ns._mhAltOverviewRefreshRows then
+			ns:_mhAltOverviewRefreshRows()
+		end
+	end
+end
+
+local function FormatCharLabel(name, realm)
+	local nm = name
+	if type(nm) ~= "string" or nm == "" or nm == "?" then
+		return ns:L("ALT_OVERVIEW_UNKNOWN")
+	end
+	local r = realm
+	if type(r) ~= "string" then
+		r = ""
+	end
+	local s = nm .. (r ~= "" and ("-" .. r) or "")
+	if #s > 26 then
+		return nm .. "…"
+	end
+	return s
+end
+
+local function SortSnapshotEntries(entries, currentGuid)
+	table.sort(entries, function(a, b)
+		local ag = a.guid or ""
+		local bg = b.guid or ""
+		local ac = (ag == currentGuid) and 0 or 1
+		local bc = (bg == currentGuid) and 0 or 1
+		if ac ~= bc then
+			return ac < bc
+		end
+		local na = string.lower(tostring(a.name or ""))
+		local nb = string.lower(tostring(b.name or ""))
+		if na ~= nb then
+			return na < nb
+		end
+		local ra = string.lower(tostring(a.realm or ""))
+		local rb = string.lower(tostring(b.realm or ""))
+		if ra ~= rb then
+			return ra < rb
+		end
+		return ag < bg
+	end)
+end
+
+--------------------------------------------------------------------------------
+--- Three numeric columns (Keys, Shards, Undercoins): centered under each header band.
+local function AnchorThreeNumericCells(keysFs, shardsFs, underFs, row)
+	local rightShift = RowActionOffset()
+	local cxUnder = PAD_R + COL_W_UNDER / 2
+	local cxShards = PAD_R + COL_W_UNDER + NUM_GAP + COL_W_SHARDS / 2
+	local cxKeys = PAD_R + COL_W_UNDER + NUM_GAP + COL_W_SHARDS + NUM_GAP + COL_W_KEYS / 2
+
+	underFs:SetWidth(COL_W_UNDER)
+	underFs:SetJustifyH("CENTER")
+	underFs:ClearAllPoints()
+	underFs:SetPoint("CENTER", row, "RIGHT", -(cxUnder + rightShift), 0)
+
+	shardsFs:SetWidth(COL_W_SHARDS)
+	shardsFs:SetJustifyH("CENTER")
+	shardsFs:ClearAllPoints()
+	shardsFs:SetPoint("CENTER", row, "RIGHT", -(cxShards + rightShift), 0)
+
+	keysFs:SetWidth(COL_W_KEYS)
+	keysFs:SetJustifyH("CENTER")
+	keysFs:ClearAllPoints()
+	keysFs:SetPoint("CENTER", row, "RIGHT", -(cxKeys + rightShift), 0)
+end
+
+local function LayoutNameCell(fs, row)
+	fs:ClearAllPoints()
+	fs:SetPoint("LEFT", row, "LEFT", PAD_L, 0)
+	fs:SetPoint("RIGHT", row, "RIGHT", -(TotalNumericBlockWidth() + COL_W_VAULT + 6 + RowActionOffset()), 0)
+	fs:SetJustifyH("LEFT")
+	fs:SetWordWrap(false)
+end
+
+local function MakeDataRow(parent, idx)
+	local row = CreateFrame("Frame", nil, parent)
+	row:SetHeight(ROW_H)
+	row:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -(HEADER_ROW_H + (idx - 1) * ROW_H))
+	row.bg = row:CreateTexture(nil, "BACKGROUND", nil, -3)
+	row.bg:SetAllPoints()
+
+	row.nameFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	LayoutNameCell(row.nameFs, row)
+	row.vaultFs = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	row.vaultFs:SetWidth(COL_W_VAULT)
+	row.vaultFs:SetJustifyH("RIGHT")
+	row.vaultFs:SetPoint("RIGHT", row, "RIGHT", -(TotalNumericBlockWidth() + 4 + RowActionOffset()), 0)
+	row.vaultGlow = row:CreateTexture(nil, "BACKGROUND", nil, -1)
+	row.vaultGlow:SetAllPoints()
+	row.vaultGlow:SetColorTexture(0.2, 0.9, 0.3, 0.12)
+	row.vaultGlow:Hide()
+	row.vaultPulse = row.vaultGlow:CreateAnimationGroup()
+	row.vaultPulse:SetLooping("REPEAT")
+	do
+		local fadeIn = row.vaultPulse:CreateAnimation("Alpha")
+		fadeIn:SetOrder(1)
+		fadeIn:SetFromAlpha(0.08)
+		fadeIn:SetToAlpha(0.2)
+		fadeIn:SetDuration(1.7)
+		fadeIn:SetSmoothing("IN_OUT")
+		local fadeOut = row.vaultPulse:CreateAnimation("Alpha")
+		fadeOut:SetOrder(2)
+		fadeOut:SetFromAlpha(0.2)
+		fadeOut:SetToAlpha(0.08)
+		fadeOut:SetDuration(1.7)
+		fadeOut:SetSmoothing("IN_OUT")
+	end
+	row.vaultTextPulse = row.vaultFs:CreateAnimationGroup()
+	row.vaultTextPulse:SetLooping("REPEAT")
+	do
+		local tIn = row.vaultTextPulse:CreateAnimation("Alpha")
+		tIn:SetOrder(1)
+		tIn:SetFromAlpha(0.45)
+		tIn:SetToAlpha(1.0)
+		tIn:SetDuration(0.85)
+		tIn:SetSmoothing("IN_OUT")
+		local tOut = row.vaultTextPulse:CreateAnimation("Alpha")
+		tOut:SetOrder(2)
+		tOut:SetFromAlpha(1.0)
+		tOut:SetToAlpha(0.45)
+		tOut:SetDuration(0.85)
+		tOut:SetSmoothing("IN_OUT")
+	end
+
+	row.keysFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	row.shardsFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	row.underFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	AnchorThreeNumericCells(row.keysFs, row.shardsFs, row.underFs, row)
+	row.deleteBtn = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+	row.deleteBtn:SetSize(ROW_ACTION_W, ROW_H - 2)
+	row.deleteBtn:SetPoint("RIGHT", row, "RIGHT", -2, 0)
+	row.deleteBtn:SetText("x")
+	row.deleteBtn:SetAlpha(0.9)
+
+	return row
+end
+
+local function MakeHeaderRow(parent)
+	local row = CreateFrame("Frame", nil, parent)
+	row:SetHeight(HEADER_ROW_H)
+	row:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
+
+	row.charH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	LayoutNameCell(row.charH, row)
+	row.charH:SetJustifyH("LEFT")
+
+	row.keysH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	row.shardsH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	row.underH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	AnchorThreeNumericCells(row.keysH, row.shardsH, row.underH, row)
+
+	return row
+end
+
+--------------------------------------------------------------------------------
+local function IsValidPlayerGuid(guid)
+	return type(guid) == "string" and guid ~= "" and string.match(guid, "^Player%-") ~= nil
+end
+
+local function IsUsableSnapshotName(name)
+	if type(name) ~= "string" then
+		return false
+	end
+	local n = name:match("^%s*(.-)%s*$") or ""
+	if n == "" or n == "?" then
+		return false
+	end
+	return true
+end
+
+function ns:_mhAltOverviewDeleteSnapshotGuid(guid)
+	if not ns.db or type(ns.db.charCurrencies) ~= "table" then
+		return
+	end
+	if type(guid) ~= "string" or guid == "" then
+		return
+	end
+	ns.db.charCurrencies[guid] = nil
+	if ns._mhAltOverviewRefreshRows then
+		ns:_mhAltOverviewRefreshRows()
+	end
+end
+
+local function ConfirmDeleteSnapshotGuid(guid, label)
+	if type(guid) ~= "string" or guid == "" then
+		return
+	end
+	if not StaticPopupDialogs or not StaticPopup_Show then
+		return
+	end
+	local key = "MIDNIGHTHELPER_ALT_SNAPSHOT_DELETE_CONFIRM"
+	if not StaticPopupDialogs[key] then
+		StaticPopupDialogs[key] = {
+			text = "",
+			button1 = ACCEPT,
+			button2 = CANCEL,
+			OnAccept = function(_, data)
+				if data and data.guid and ns._mhAltOverviewDeleteSnapshotGuid then
+					ns:_mhAltOverviewDeleteSnapshotGuid(data.guid)
+				end
+			end,
+			timeout = 0,
+			whileDead = true,
+			hideOnEscape = true,
+			preferredIndex = 3,
+		}
+	end
+	StaticPopupDialogs[key].text = ns:L("ALT_OVERVIEW_DELETE_CONFIRM_FMT")
+	StaticPopup_Show(key, tostring(label or "?"), nil, { guid = guid })
+end
+
+function ns:_mhAltOverviewCollectEntries()
+	local bag = ns.db and ns.db.charCurrencies
+	local entries = {}
+	if type(bag) ~= "table" then
+		return entries
+	end
+
+	for guid, snap in pairs(bag) do
+		if
+			type(snap) == "table"
+			and type(guid) == "string"
+			and IsValidPlayerGuid(guid)
+			and IsUsableSnapshotName(snap.name)
+		then
+			entries[#entries + 1] = {
+				guid = guid,
+				name = snap.name,
+				realm = snap.realm or "",
+				keys = tonumber(snap.keys) or 0,
+				shards = tonumber(snap.shards) or 0,
+				undercoin = tonumber(snap.undercoin) or 0,
+				vaultUnlocked = tonumber(snap.vaultUnlocked) or 0,
+				vaultTotal = tonumber(snap.vaultTotal) or 0,
+				vaultProgress = tonumber(snap.vaultProgress) or 0,
+				vaultNextThreshold = tonumber(snap.vaultNextThreshold) or 0,
+				vaultAvailable = tonumber(snap.vaultAvailable) or 0,
+				vaultWorldUnlocked = tonumber(snap.vaultWorldUnlocked) or tonumber(snap.vaultUnlocked) or 0,
+				vaultWorldTotal = tonumber(snap.vaultWorldTotal) or tonumber(snap.vaultTotal) or 0,
+				vaultWorldProgress = tonumber(snap.vaultWorldProgress) or tonumber(snap.vaultProgress) or 0,
+				vaultWorldNextThreshold = tonumber(snap.vaultWorldNextThreshold) or tonumber(snap.vaultNextThreshold) or 0,
+				vaultWorldAvailable = tonumber(snap.vaultWorldAvailable) or tonumber(snap.vaultAvailable) or 0,
+				vaultDungeonUnlocked = tonumber(snap.vaultDungeonUnlocked) or 0,
+				vaultDungeonTotal = tonumber(snap.vaultDungeonTotal) or 0,
+				vaultDungeonProgress = tonumber(snap.vaultDungeonProgress) or 0,
+				vaultDungeonNextThreshold = tonumber(snap.vaultDungeonNextThreshold) or 0,
+				vaultDungeonAvailable = tonumber(snap.vaultDungeonAvailable) or 0,
+				vaultRaidUnlocked = tonumber(snap.vaultRaidUnlocked) or 0,
+				vaultRaidTotal = tonumber(snap.vaultRaidTotal) or 0,
+				vaultRaidProgress = tonumber(snap.vaultRaidProgress) or 0,
+				vaultRaidNextThreshold = tonumber(snap.vaultRaidNextThreshold) or 0,
+				vaultRaidAvailable = tonumber(snap.vaultRaidAvailable) or 0,
+				vaultHasAvailableRewards = tonumber(snap.vaultHasAvailableRewards) or 0,
+				professions = type(snap.professions) == "string" and snap.professions or "",
+				professionsFull = type(snap.professionsFull) == "string" and snap.professionsFull
+					or (type(snap.professions) == "string" and snap.professions or ""),
+				ts = tonumber(snap.ts) or 0,
+			}
+		end
+	end
+	return entries
+end
+
+function ns:_mhAltOverviewSyncExpandState()
+	local entries = self:_mhAltOverviewCollectEntries()
+	local n = #entries
+	if ui.expandPanel then
+		ui.expandPanel:Show()
+	end
+	if ui.hint then
+		ui.hint:Show()
+	end
+	self:_mhAltOverviewApplyTitle(n)
+end
+
+function ns:_mhAltOverviewApplyTitle(savedCount)
+	if not ui.pageTitle then
+		return
+	end
+	local base = ns:L("ALT_OVERVIEW_TITLE")
+	ui.pageTitle:SetFormattedText("%s  (%d)", base, savedCount or 0)
+end
+
+function ns:_mhAltOverviewRefreshRows()
+	local scroll = ui.scroll
+	local content = ui.content
+	if not scroll or not content then
+		return
+	end
+
+	for _, row in ipairs(ui.dataRows or {}) do
+		row:Hide()
+	end
+	ui.dataRows = ui.dataRows or {}
+
+	local entries = self:_mhAltOverviewCollectEntries()
+	local curGuid = UnitGUID("player")
+	SortSnapshotEntries(entries, curGuid)
+	local isResetDay = IsResetDayNow()
+
+	local cw = content:GetWidth()
+	if cw < 80 then
+		cw = 400
+	end
+	content:SetWidth(cw)
+
+	if #entries == 0 then
+		if ui.emptyHint then
+			ui.emptyHint:ClearAllPoints()
+			ui.emptyHint:SetPoint("TOPLEFT", content, "TOPLEFT", 4, -HEADER_ROW_H - 2)
+			ui.emptyHint:SetWidth(cw - 8)
+			ui.emptyHint:SetText(ns:L("ALT_OVERVIEW_EMPTY"))
+			ui.emptyHint:Show()
+		end
+		if ui.headerRow then
+			ui.headerRow:Hide()
+		end
+		content:SetHeight(math.max(HEADER_ROW_H + ROW_H, 28))
+		if scroll.UpdateScrollChildRect then
+			scroll:UpdateScrollChildRect()
+		end
+		self:_mhAltOverviewSyncExpandState()
+		return
+	end
+
+	if ui.emptyHint then
+		ui.emptyHint:Hide()
+	end
+	if ui.headerRow then
+		ui.headerRow:Show()
+	end
+
+	for i, e in ipairs(entries) do
+		local row = ui.dataRows[i]
+		if not row then
+			row = MakeDataRow(content, i)
+			ui.dataRows[i] = row
+		end
+		row:SetWidth(cw)
+		row:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -(HEADER_ROW_H + (i - 1) * ROW_H))
+		row:Show()
+		if row.bg and row.bg.SetColorTexture then
+			if (i % 2) == 1 then
+				row.bg:SetColorTexture(1, 1, 1, 0.03)
+			else
+				row.bg:SetColorTexture(1, 1, 1, 0.08)
+			end
+		end
+
+		local tag = ""
+		if e.guid == curGuid then
+			tag = " " .. ns:L("ALT_OVERVIEW_YOU")
+		end
+		local base = FormatCharLabel(e.name, e.realm) .. tag
+		local prof = e.professions or ""
+		if prof ~= "" then
+			base = base .. "  |cff888888" .. prof .. "|r"
+		end
+		row.nameFs:SetText(base)
+		if e.guid == curGuid then
+			row.nameFs:SetTextColor(1, 0.92, 0.45)
+		else
+			row.nameFs:SetTextColor(0.95, 0.95, 0.95)
+		end
+		row.keysFs:SetText(tostring(e.keys))
+		row.shardsFs:SetText(tostring(e.shards))
+		row.underFs:SetText(tostring(e.undercoin))
+		if row.deleteBtn then
+			local canDelete = e.guid ~= curGuid
+			row.deleteBtn:SetEnabled(canDelete)
+			row.deleteBtn:SetAlpha(canDelete and 0.9 or 0.35)
+			row.deleteBtn:SetScript("OnClick", function()
+				if canDelete then
+					ConfirmDeleteSnapshotGuid(e.guid, FormatCharLabel(e.name, e.realm))
+				end
+			end)
+			row.deleteBtn:SetScript("OnEnter", function(self)
+				if not GameTooltip then
+					return
+				end
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				if canDelete then
+					GameTooltip:SetText(ns:L("ALT_OVERVIEW_DELETE_HINT"), 1, 0.85, 0.6, true)
+				else
+					GameTooltip:SetText(ns:L("ALT_OVERVIEW_DELETE_DISABLED_HINT"), 0.8, 0.8, 0.8, true)
+				end
+				GameTooltip:Show()
+			end)
+			row.deleteBtn:SetScript("OnLeave", function()
+				if GameTooltip then
+					GameTooltip:Hide()
+				end
+			end)
+		end
+		local worldUnlocked = math.max(0, math.floor(tonumber(e.vaultWorldUnlocked) or 0))
+		local worldTotal = math.max(0, math.floor(tonumber(e.vaultWorldTotal) or 0))
+		local worldProgress = math.max(0, math.floor(tonumber(e.vaultWorldProgress) or 0))
+		local worldNextT = math.max(0, math.floor(tonumber(e.vaultWorldNextThreshold) or 0))
+		local worldAvailable = (tonumber(e.vaultWorldAvailable) or 0) == 1 or worldTotal > 0
+		local dungeonUnlocked = math.max(0, math.floor(tonumber(e.vaultDungeonUnlocked) or 0))
+		local dungeonTotal = math.max(0, math.floor(tonumber(e.vaultDungeonTotal) or 0))
+		local dungeonProgress = math.max(0, math.floor(tonumber(e.vaultDungeonProgress) or 0))
+		local dungeonNextT = math.max(0, math.floor(tonumber(e.vaultDungeonNextThreshold) or 0))
+		local dungeonAvailable = (tonumber(e.vaultDungeonAvailable) or 0) == 1 or dungeonTotal > 0
+		local raidUnlocked = math.max(0, math.floor(tonumber(e.vaultRaidUnlocked) or 0))
+		local raidTotal = math.max(0, math.floor(tonumber(e.vaultRaidTotal) or 0))
+		local raidProgress = math.max(0, math.floor(tonumber(e.vaultRaidProgress) or 0))
+		local raidNextT = math.max(0, math.floor(tonumber(e.vaultRaidNextThreshold) or 0))
+		local raidAvailable = (tonumber(e.vaultRaidAvailable) or 0) == 1 or raidTotal > 0
+		local hasAvailableRewards = (tonumber(e.vaultHasAvailableRewards) or 0) == 1
+		local available = worldAvailable or dungeonAvailable or raidAvailable
+		local unlockedAny = (worldUnlocked + dungeonUnlocked + raidUnlocked) > 0
+		if hasAvailableRewards then
+			row.vaultFs:SetText(ns:L("ALT_VAULT_CLAIM_READY"))
+			row.vaultFs:SetTextColor(1, 0.84, 0.18)
+		elseif (not hasAvailableRewards) and ((tonumber(e.ts) or 0) < GetLocalResetAnchorTs()) and unlockedAny then
+			row.vaultFs:SetText(ns:L("ALT_VAULT_CLAIM_LIKELY"))
+			row.vaultFs:SetTextColor(1, 0.72, 0.22)
+		elseif not available then
+			row.vaultFs:SetText(ns:L("ALT_VAULT_EMPTY"))
+			row.vaultFs:SetTextColor(0.58, 0.58, 0.58)
+		else
+			row.vaultFs:SetText(ns:L("ALT_VAULT_ROW_FMT"):format(worldUnlocked, dungeonUnlocked, raidUnlocked))
+		end
+		if unlockedAny then
+			row.vaultFs:SetTextColor(0.38, 0.95, 0.42)
+		elseif worldProgress > 0 or dungeonProgress > 0 or raidProgress > 0 then
+			row.vaultFs:SetTextColor(0.9, 0.82, 0.45)
+		else
+			row.vaultFs:SetTextColor(0.58, 0.58, 0.58)
+		end
+		row.vaultTip = {
+			world = { available = worldAvailable, unlocked = worldUnlocked, total = worldTotal, progress = worldProgress, nextThreshold = worldNextT },
+			dungeons = {
+				available = dungeonAvailable,
+				unlocked = dungeonUnlocked,
+				total = dungeonTotal,
+				progress = dungeonProgress,
+				nextThreshold = dungeonNextT,
+			},
+			raids = { available = raidAvailable, unlocked = raidUnlocked, total = raidTotal, progress = raidProgress, nextThreshold = raidNextT },
+			availableAny = available,
+			unlockedAny = unlockedAny,
+			hasAvailableRewards = hasAvailableRewards,
+			lastUpdated = tonumber(e.ts) or 0,
+			staleSinceReset = (tonumber(e.ts) or 0) < GetLocalResetAnchorTs(),
+			likelyClaim = false,
+			professionsFull = e.professionsFull or "",
+		}
+		row.vaultTip.likelyClaim = (not row.vaultTip.hasAvailableRewards) and row.vaultTip.staleSinceReset and unlockedAny
+		if row.vaultGlow then
+			if isResetDay and (hasAvailableRewards or row.vaultTip.likelyClaim or (available and unlockedAny)) then
+				row.vaultGlow:Show()
+				if row.vaultPulse and not row.vaultPulse:IsPlaying() then
+					row.vaultPulse:Play()
+				end
+				if hasAvailableRewards and row.vaultTextPulse and not row.vaultTextPulse:IsPlaying() then
+					row.vaultTextPulse:Play()
+				elseif (not hasAvailableRewards) and row.vaultTextPulse and row.vaultTextPulse:IsPlaying() then
+					row.vaultTextPulse:Stop()
+					row.vaultFs:SetAlpha(1.0)
+				end
+			else
+				if row.vaultPulse and row.vaultPulse:IsPlaying() then
+					row.vaultPulse:Stop()
+				end
+				if row.vaultTextPulse and row.vaultTextPulse:IsPlaying() then
+					row.vaultTextPulse:Stop()
+				end
+				row.vaultFs:SetAlpha(1.0)
+				row.vaultGlow:SetAlpha(0.12)
+				row.vaultGlow:Hide()
+			end
+		end
+		row:SetScript("OnEnter", function(self)
+			if not GameTooltip then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:ClearLines()
+			if self.vaultTip.professionsFull and self.vaultTip.professionsFull ~= "" then
+				GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROFESSIONS"), 0.9, 0.9, 0.9)
+				GameTooltip:AddLine(self.vaultTip.professionsFull, 0.75, 0.82, 1, true)
+				if string.find(self.vaultTip.professionsFull, "…", 1, true) then
+					GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROFESSIONS_SYNC_HINT"), 0.8, 0.8, 0.8, true)
+				end
+				GameTooltip:AddLine(" ")
+			end
+			GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_TITLE"), 1, 0.9, 0.5)
+			if self.vaultTip.hasAvailableRewards then
+				GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_CLAIM_READY"), 1, 0.84, 0.18, true)
+				GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_RESET_CONTEXT"), 0.82, 0.82, 0.82, true)
+				GameTooltip:AddLine(" ")
+			elseif self.vaultTip.likelyClaim then
+				GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_CLAIM_LIKELY"), 1, 0.72, 0.22, true)
+				GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_CLAIM_LIKELY_NOTE"), 0.84, 0.84, 0.84, true)
+				GameTooltip:AddLine(" ")
+			end
+			if not self.vaultTip.availableAny then
+				GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_UNAVAILABLE"), 0.85, 0.85, 0.85, true)
+			else
+				local function AddVaultCategory(label, cat)
+					if not cat.available then
+						GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_ROW_UNAVAILABLE"):format(label), 0.65, 0.65, 0.65)
+						return
+					end
+					GameTooltip:AddLine(
+						ns:L("ALT_VAULT_TOOLTIP_ROW_READY"):format(label, cat.unlocked, math.max(1, cat.total)),
+						0.9,
+						0.9,
+						0.9
+					)
+					GameTooltip:AddLine(
+						ns:L("ALT_VAULT_TOOLTIP_ROW_NEXT"):format(label, cat.progress, math.max(1, cat.nextThreshold)),
+						0.75,
+						0.82,
+						1
+					)
+				end
+
+				AddVaultCategory(ns:L("ALT_VAULT_WORLD"), self.vaultTip.world)
+				AddVaultCategory(ns:L("ALT_VAULT_DUNGEONS"), self.vaultTip.dungeons)
+				AddVaultCategory(ns:L("ALT_VAULT_RAIDS"), self.vaultTip.raids)
+
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddLine(
+					ns:L("ALT_VAULT_RESET_GLOW_HINT"),
+					0.7,
+					0.9,
+					0.7,
+					true
+				)
+			end
+			GameTooltip:AddLine(" ")
+			GameTooltip:AddLine(
+				ns:L("ALT_VAULT_TOOLTIP_LAST_UPDATED"):format(FormatRelativeTime(self.vaultTip.lastUpdated)),
+				0.72,
+				0.72,
+				0.72,
+				true
+			)
+			if self.vaultTip.staleSinceReset then
+				GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_STALE_RESET"), 1, 0.82, 0.3, true)
+			end
+			GameTooltip:Show()
+		end)
+		row:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		if row.abundFs then
+			row.abundFs:Hide()
+		end
+		if row.moxFs then
+			row.moxFs:Hide()
+		end
+	end
+
+	for j = #entries + 1, #ui.dataRows do
+		ui.dataRows[j]:Hide()
+	end
+
+	local bodyH = HEADER_ROW_H + #entries * ROW_H + 6
+	content:SetHeight(math.max(bodyH, 24))
+	if scroll.UpdateScrollChildRect then
+		scroll:UpdateScrollChildRect()
+	end
+
+	self:_mhAltOverviewSyncExpandState()
+end
+
+function ns:_mhAltOverviewRefreshHeaderTexts()
+	if not ui.headerRow then
+		return
+	end
+	local h = ui.headerRow
+	h.charH:SetText(ns:L("ALT_COL_CHARACTER"))
+	h.keysH:SetText(ns:L("ALT_COL_KEYS"))
+	h.shardsH:SetText(ns:L("ALT_COL_SHARDS"))
+	h.underH:SetText(ns:L("ALT_COL_UNDERCOINS"))
+	if h.abundH then
+		h.abundH:Hide()
+	end
+	if h.moxH then
+		h.moxH:Hide()
+	end
+end
+
+function ns:_mhAltOverviewRefreshTexts()
+	if ui.hint then
+		ui.hint:SetText(ns:L("ALT_OVERVIEW_HINT"))
+	end
+	do
+		local list = self:_mhAltOverviewCollectEntries()
+		self:_mhAltOverviewApplyTitle(#list)
+	end
+	self:_mhAltOverviewRefreshHeaderTexts()
+	self:_mhAltOverviewRefreshRows()
+end
+
+local function BuildAccountSnapshotHost(host)
+	ui.host = host
+
+	ui.pageTitle = host:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	ui.pageTitle:SetPoint("TOPLEFT", host, "TOPLEFT", 10, -10)
+	ui.pageTitle:SetPoint("TOPRIGHT", host, "TOPRIGHT", -10, -10)
+	ui.pageTitle:SetJustifyH("LEFT")
+
+	ui.hint = host:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	ui.hint:SetPoint("TOPLEFT", ui.pageTitle, "BOTTOMLEFT", 0, -6)
+	ui.hint:SetPoint("TOPRIGHT", ui.pageTitle, "BOTTOMRIGHT", 0, -6)
+	ui.hint:SetJustifyH("LEFT")
+
+	ui.expandPanel = CreateFrame("Frame", nil, host)
+	ui.expandPanel:SetPoint("TOPLEFT", ui.hint, "BOTTOMLEFT", 0, -10)
+	ui.expandPanel:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", -8, 8)
+
+	local scroll = CreateFrame("ScrollFrame", "MidnightHelperAltOverviewScroll", ui.expandPanel)
+	scroll:SetPoint("TOPLEFT", ui.expandPanel, "TOPLEFT", 0, 0)
+	scroll:SetPoint("BOTTOMRIGHT", ui.expandPanel, "BOTTOMRIGHT", 0, 0)
+	scroll:EnableMouseWheel(true)
+
+	local content = CreateFrame("Frame", nil, scroll)
+	content:SetHeight(40)
+	scroll:SetScrollChild(content)
+
+	ui.scroll = scroll
+	ui.content = content
+
+	ui.headerRow = MakeHeaderRow(content)
+	ui.emptyHint = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	ui.emptyHint:SetJustifyH("LEFT")
+	ui.emptyHint:Hide()
+
+	local step = (WORLDWIDE_SCROLL_STEP and math.floor(WORLDWIDE_SCROLL_STEP * 0.65)) or 22
+	scroll:SetScript("OnMouseWheel", function(self, delta)
+		local cur = self:GetVerticalScroll() or 0
+		local max = self:GetVerticalScrollRange() or 0
+		local nextv = cur - delta * step
+		if nextv < 0 then
+			nextv = 0
+		elseif nextv > max then
+			nextv = max
+		end
+		self:SetVerticalScroll(nextv)
+	end)
+
+	content:SetScript("OnSizeChanged", function(self)
+		local w = self:GetWidth()
+		for _, row in ipairs(ui.dataRows or {}) do
+			if row and row:IsShown() then
+				row:SetWidth(w)
+			end
+		end
+		if ui.headerRow then
+			ui.headerRow:SetWidth(w)
+		end
+	end)
+
+	ns:_mhAltOverviewRefreshTexts()
+end
+
+local function MountAccountSnapshotPanel()
+	if accountPanelMounted then
+		return
+	end
+	local panel = ns.panels and ns.panels.account
+	if not panel then
+		return
+	end
+
+	accountPanelMounted = true
+
+	if panel._header then
+		panel._header:Hide()
+	end
+	if panel._body then
+		panel._body:Hide()
+	end
+
+	local host = CreateFrame("Frame", "MidnightHelperAccountSnapshotHost", panel)
+	host:SetAllPoints(panel)
+
+	BuildAccountSnapshotHost(host)
+
+	host:SetScript("OnShow", function()
+		SaveCurrentSnapshot()
+		if ns._mhAltOverviewRefreshRows then
+			ns:_mhAltOverviewRefreshRows()
+		end
+	end)
+
+	host:SetScript("OnSizeChanged", function()
+		local w = host:GetWidth() or 0
+		if ui.content then
+			ui.content:SetWidth(math.max(80, w - 28))
+		end
+		if ns._mhAltOverviewRefreshRows then
+			ns:_mhAltOverviewRefreshRows()
+		end
+	end)
+end
+
+function ns:_mhAltOverviewAfterEnsure()
+	MountAccountSnapshotPanel()
+	SaveCurrentSnapshot()
+	if ns._mhAltOverviewRefreshRows then
+		ns:_mhAltOverviewRefreshRows()
+	end
+end
+
+--------------------------------------------------------------------------------
+do
+	local orig = ns.EnsureMainUI
+	function ns:EnsureMainUI(...)
+		local main = orig(self, ...)
+		self:_mhAltOverviewAfterEnsure()
+		return main
+	end
+end
+
+--------------------------------------------------------------------------------
+do
+	local orig = ns.RefreshLocaleUI
+	function ns:RefreshLocaleUI()
+		if orig then
+			orig(self)
+		end
+		if self._mhAltOverviewRefreshTexts then
+			self:_mhAltOverviewRefreshTexts()
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
+--- Delves accordion changes: refresh snapshot rows (same underlying character data).
+function ns:_mhAltOverviewAccordionSync()
+	if self._mhAltOverviewRefreshRows then
+		self:_mhAltOverviewRefreshRows()
+	end
+end
+
+--------------------------------------------------------------------------------
+local ev = CreateFrame("Frame", nil, UIParent)
+ev:RegisterEvent("PLAYER_LOGIN")
+ev:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
+ev:RegisterEvent("WEEKLY_REWARDS_UPDATE")
+ev:SetScript("OnEvent", function(_, event)
+	if not ns.db then
+		return
+	end
+	if event == "PLAYER_LOGIN" then
+		SaveCurrentSnapshot()
+		if ns._mhAltOverviewRefreshRows then
+			ns:_mhAltOverviewRefreshRows()
+		end
+	elseif event == "CURRENCY_DISPLAY_UPDATE" then
+		ScheduleSave()
+	elseif event == "WEEKLY_REWARDS_UPDATE" then
+		ScheduleSave()
+	end
+end)

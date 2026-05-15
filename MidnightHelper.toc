@@ -1,0 +1,33 @@
+## Interface: 120005
+## Version: 1.2.1
+## Title: Midnight Helper
+## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
+## Notes: All-in-one reference tool.
+## SavedVariables: MidnightHelperDB
+
+Libs\LibStub.lua
+Libs\CallbackHandler-1.0.lua
+Libs\LibDataBroker-1.1.lua
+Libs\LibDBIcon-1.0.lua
+
+Core.lua
+Locales\enUS.lua
+Locales\nlNL.lua
+Locales\GuideTips.lua
+Locales\Locale.lua
+Config.lua
+Modules\KeybindingData.lua
+Modules\KeybindLayoutSlug.lua
+Modules\KeyboardLayoutPrototype.lua
+Modules\SMCChecklistData.lua
+Modules\SMCChecklist.lua
+UI.lua
+Modules\Changelog.lua
+Modules\Broker.lua
+Modules\Profession.lua
+Modules\Delves.lua
+Modules\AltOverview.lua
+Addons\PlatynatorData.lua
+Addons\Platynator.lua
+Addons\GuideData.lua
+Addons\Guide.lua

@@ -1,0 +1,1556 @@
+--[[
+	MidnightHelper — Delves module (Midnight Season 1): dashboard, currencies,
+	Delver's Journey (renown), POI bountiful (character map), TomTom;
+	Great Vault World row (same tab, below delve list).
+]]
+
+-- Delve list icons: 525134 standard skull-hourglass; bountiful uses Delves-Bountiful-Icon / Media fallbacks.
+
+local addonName, ns = ...
+
+local travelPopup -- Assigned when Travel Assistant UI is built at bottom of file
+local hsBtn -- Assigned with travel popup (secure hearth icon)
+
+local C_Map = C_Map
+local C_CurrencyInfo = C_CurrencyInfo
+local C_AreaPoiInfo = C_AreaPoiInfo
+local C_DelvesUI = C_DelvesUI
+local C_MajorFactions = C_MajorFactions
+local C_Traits = C_Traits
+local C_Spell = C_Spell
+local C_WeeklyRewards = C_WeeklyRewards
+local C_Item = C_Item
+--------------------------------------------------------------------------------
+-- Delve roster: reference id + entrance uiMap + xy (0–100) for TomTom only (names drive POI scan).
+--------------------------------------------------------------------------------
+local MIDNIGHT_DELVES = {
+	{ 93372, 2395, 45.03, 85.34, "The Shadow Enclave" },
+	{ 93419, 2393, 40.60, 53.70, "Collegiate Calamity" },
+	{ 93420, 2393, 39.31, 32.07, "The Darkway" },
+	{ 93421, 2424, 47.82, 41.70, "Parhelion Plaza" },
+	{ 93422, 2395, 63.79, 80.16, "Atal'Aman" },
+	{ 93423, 2437, 25.38, 83.85, "Twilight Crypts" },
+	{ 93424, 2413, 36.10, 49.01, "The Gulf of Memory" },
+	{ 93425, 2413, 70.45, 64.92, "The Grudge Pit" }, -- Final Verified Entry
+	{ 93426, 2405, 54.89, 46.62, "Sunkiller Sanctum" },
+	{ 93428, 2405, 37.18, 49.16, "Shadowguard Point" },
+	{ 93427, 2405, 61.18, 71.28, "Torment's Rise" },
+}
+
+local MIDNIGHT_PORTALS = {
+	-- SILVERMOON HUB
+	{ name = "Portal to Voidstorm",  mapID = 2393, toID = 2405, x = 35.25, y = 65.85 },
+	{ name = "Portal to Harandar",   mapID = 2393, toID = 2413, x = 36.76, y = 68.52 },
+	{ name = "Portal to Voidstorm",  mapID = 2576, toID = 2405, x = 35.25, y = 65.85, zone = "Silvermoon" },
+	{ name = "Portal to Harandar",   mapID = 2576, toID = 2413, x = 36.76, y = 68.52, zone = "Silvermoon" },
+
+	-- HARANDAR HUB
+	{ name = "Portal to Silvermoon", mapID = 2413, toID = 2393, x = 64.15, y = 70.82 },
+	{ name = "Portal to Voidstorm",  mapID = 2413, toID = 2405, x = 61.80, y = 72.16 },
+	{ name = "Portal to Silvermoon", mapID = 2576, toID = 2393, x = 64.15, y = 70.82, zone = "Harandar" },
+	{ name = "Portal to Voidstorm",  mapID = 2576, toID = 2405, x = 61.80, y = 72.16, zone = "Harandar" },
+
+	-- VOIDSTORM HUB
+	{ name = "Portal to Silvermoon", mapID = 2405, toID = 2393, x = 51.61, y = 70.22 },
+	{ name = "Portal to Harandar",   mapID = 2405, toID = 2413, x = 51.72, y = 70.33 },
+	{ name = "Portal to Silvermoon", mapID = 2576, toID = 2393, x = 51.61, y = 70.22, zone = "Voidstorm" },
+	{ name = "Portal to Harandar",   mapID = 2576, toID = 2413, x = 51.72, y = 70.33, zone = "Voidstorm" },
+}
+
+ns.MIDNIGHT_DELVES = MIDNIGHT_DELVES
+ns.MIDNIGHT_PORTALS = MIDNIGHT_PORTALS
+
+-- Verified Midnight currency IDs (Restored Coffer Key, Shards, Undercoin).
+local CURRENCY_COFFER_KEY = 3028
+local CURRENCY_COFFER_SHARDS = 3310
+local CURRENCY_UNDERCOIN = 2803
+local ITEM_TROVEHUNTER_BOUNTY = 252415
+local ITEM_RAID_R_MINI = 244193
+
+local TRACKER_ROW_HEIGHT = 26
+local ICON_SIZE = 22
+local ICON_NAME_GAP = 10
+local COL_GAP = 12
+-- Standard list: skull hourglass. Bountiful: Blizzard portal atlas, then addon art, last resort fileID.
+local ICON_TEX_DELVE_STANDARD = 525134
+local ICON_TEX_DELVE_BOUNTIFUL_LAST_RESORT = 5802055
+local ATLAS_DELVE_BOUNTIFUL = "Delves-Bountiful-Icon"
+local BOUNTIFUL_MEDIA_ICON = "Interface\\AddOns\\MidnightHelper\\Media\\BountifulPortal"
+
+local function applyDelveRowIcon(icon, useBountiful, grayVertex)
+	if not icon then
+		return
+	end
+	if useBountiful then
+		if icon.SetAtlas then
+			pcall(icon.SetAtlas, icon, nil)
+		end
+		local atlasOk = false
+		if icon.SetAtlas then
+			atlasOk = select(1, pcall(icon.SetAtlas, icon, ATLAS_DELVE_BOUNTIFUL))
+		end
+		local tid = icon.GetTexture and icon:GetTexture()
+		if not atlasOk or not tid or tid == 0 or tid == "" then
+			icon:SetTexture(BOUNTIFUL_MEDIA_ICON)
+			tid = icon.GetTexture and icon:GetTexture()
+		end
+		if not tid or tid == 0 or tid == "" then
+			icon:SetTexture(ICON_TEX_DELVE_BOUNTIFUL_LAST_RESORT)
+		end
+	else
+		if icon.SetAtlas then
+			pcall(icon.SetAtlas, icon, nil)
+		end
+		icon:SetTexture(ICON_TEX_DELVE_STANDARD)
+	end
+	if grayVertex then
+		icon:SetVertexColor(0.55, 0.55, 0.55)
+	else
+		icon:SetVertexColor(1, 1, 1)
+	end
+end
+
+-- Reference ilvls for delve rewards (Midnight season values; UI hint only).
+local DELVE_LOOT_TABLE = {
+	[1] = { endChest = 210, vault = 216 },
+	[2] = { endChest = 213, vault = 219 },
+	[3] = { endChest = 216, vault = 226 },
+	[4] = { endChest = 219, vault = 233 },
+	[5] = { endChest = 226, vault = 239 },
+	[6] = { endChest = 233, vault = 246 },
+	[7] = { endChest = 239, vault = 252 },
+	[8] = { endChest = 246, vault = 259 },
+	[9] = { endChest = 246, vault = 259 }, -- Gear Cap
+	[10] = { endChest = 246, vault = 259 },
+	[11] = { endChest = 246, vault = 259 },
+}
+
+--------------------------------------------------------------------------------
+-- Great Vault (World row): must be declared before RefreshDelvesPanel() — Lua 5.1
+-- resolves forward calls to globals if the local appears later in the chunk.
+--------------------------------------------------------------------------------
+local function GetVaultProgress()
+	if not C_WeeklyRewards or not C_WeeklyRewards.GetActivities then return {} end
+
+	-- Midnight 12.0 Fix: Call without arguments, filter manually
+	local allActivities = C_WeeklyRewards.GetActivities()
+	local activities = {}
+
+	if allActivities then
+		for _, a in ipairs(allActivities) do
+			if a.type == 6 then -- 6 is the Enum for World/Delves
+				table.insert(activities, a)
+			end
+		end
+	end
+
+	local progressData = {}
+
+	if #activities > 0 then
+		-- 1. Sort strictly by threshold (2, 4, 8) to ensure Box 1, 2, 3 are correct
+		table.sort(activities, function(a, b)
+			return a.threshold < b.threshold
+		end)
+
+		-- 2. Find the actual max progress (Workaround for API returning 0 on locked tiers)
+		local currentProgress = 0
+		for _, activity in ipairs(activities) do
+			if activity.progress > currentProgress then
+				currentProgress = activity.progress
+			end
+		end
+
+		-- 3. Build data using the synchronized progress
+		for _, activity in ipairs(activities) do
+			local ilvl = 0
+			if activity.id then
+				local itemLink = C_WeeklyRewards.GetExampleRewardItemHyperlinks(activity.id)
+				if itemLink then
+					ilvl = C_Item.GetDetailedItemLevelInfo(itemLink) or 0
+				end
+			end
+
+			table.insert(progressData, {
+				activityID = activity.id,
+				progress = currentProgress, -- Synced max progress
+				threshold = activity.threshold,
+				unlocked = currentProgress >= activity.threshold,
+				level = activity.level,
+				ilvl = ilvl
+			})
+		end
+	end
+	return progressData
+end
+
+ns.GetVaultProgress = GetVaultProgress
+
+--------------------------------------------------------------------------------
+-- TomTom + Travel Assistant (shared as ns.AddSmartTomTomWay for Profession.lua)
+--------------------------------------------------------------------------------
+local function GetZoneDisplayName(uiMapID)
+	local info = C_Map.GetMapInfo(uiMapID)
+	if info and info.name then
+		return info.name
+	end
+	return "Map " .. tostring(uiMapID)
+end
+
+-- Maps map IDs to base zone names for hub / arrival detection (Phase 49 + 59).
+function ns.GetBaseZoneName(mapID)
+	local mid = tonumber(mapID)
+	if mid == 2393 or mid == 2576 then
+		return "Silvermoon"
+	end
+	if mid == 2413 then
+		return "Harandar"
+	end
+	if mid == 2405 then
+		return "Voidstorm"
+	end
+	if mid == 2424 then
+		return "Quel'Danas"
+	end
+	if mid == 2395 or mid == 2437 then
+		return "Zul'Aman"
+	end
+	return ""
+end
+
+-- Quel'Thalas region vs Harandar vs Voidstorm (Phase 60 — same group = no travel nag).
+function ns.GetRegionGroupID(mapID)
+	local mid = tonumber(mapID)
+	if mid == 2393 or mid == 2576 or mid == 2424 or mid == 2395 or mid == 2437 then
+		return 1
+	end
+	if mid == 2413 then
+		return 2
+	end
+	if mid == 2405 then
+		return 3
+	end
+	return 0
+end
+
+-- Shared TomTom + Travel Assistant (portals/hearth). Optional skipTravelUI: TomTom only (bulk pins).
+function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
+	if not mapID then
+		return false
+	end
+	local targetMap = tonumber(mapID)
+	local xPct, yPct = tonumber(x), tonumber(y)
+	if not targetMap or not xPct or not yPct then
+		return false
+	end
+
+	local currentMap = C_Map.GetBestMapForUnit("player")
+	local title = name and tostring(name) or "Waypoint"
+	local currentZoneName = GetZoneDisplayName(currentMap)
+	local targetZoneName = GetZoneDisplayName(targetMap)
+
+	ns.lastTarget = { mapID = targetMap, x = xPct, y = yPct, name = title }
+
+	-- 1. Set Waypoint (FORCED ARROW)
+	if _G.TomTom and _G.TomTom.AddWaypoint then
+		local uid = _G.TomTom:AddWaypoint(targetMap, xPct / 100, yPct / 100, {
+			title = title,
+			persistent = false,
+			minimap = true,
+			world = true,
+			cleardistance = 15,
+			crazy = true,
+		})
+		if uid and _G.TomTom.SetCrazyArrow then
+			_G.TomTom:SetCrazyArrow(uid, 15, title)
+		end
+	end
+
+	if skipTravelUI then
+		return true
+	end
+
+	-- Phase 60: Same continent region — silence travel assistant (no portals, no HS nag).
+	local currentRegion = ns.GetRegionGroupID(currentMap)
+	local targetRegion = ns.GetRegionGroupID(targetMap)
+	if currentMap and targetMap and currentRegion == targetRegion and currentRegion ~= 0 then
+		travelPopup:Hide()
+		return true
+	end
+
+	-- 2. Travel Assistant (with Hub Centroid Detection on Map 2576)
+	if currentMap and targetMap and tonumber(currentMap) ~= targetMap and currentZoneName ~= targetZoneName then
+		local playerPos = C_Map.GetPlayerMapPosition(currentMap, "player")
+		if not playerPos then
+			return true
+		end
+
+		local px, py = playerPos:GetXY()
+		px, py = px * 100, py * 100
+
+		-- Detect which hub we are in on Map 2576 (SMC / Harandar / Voidstorm)
+		local currentHub = nil
+		if tonumber(currentMap) == 2576 then
+			if px < 45 then
+				currentHub = "Silvermoon"
+			elseif px > 58 then
+				currentHub = "Harandar"
+			else
+				currentHub = "Voidstorm"
+			end
+		end
+
+		-- ARRIVAL CHECK (Phase 49): correct hub on Map 2576 or zone string matches target base — no travel popup.
+		local targetBaseZone = ns.GetBaseZoneName(targetMap)
+		if currentHub == targetBaseZone or (targetBaseZone ~= "" and currentZoneName:find(targetBaseZone)) then
+			travelPopup:Hide()
+			return true
+		end
+
+		travelPopup.portalBtn:Hide()
+		local hsStartTime = GetItemCooldown(6948)
+		local portalAdvice, bestDist = "", 9999
+		local hubMapID = 2393
+		local directPortal, hubPortal = nil, nil
+
+		for _, portal in ipairs(MIDNIGHT_PORTALS) do
+			local mapMatch = (tonumber(portal.mapID) == tonumber(currentMap))
+			local hubMatch = (not portal.zone or (currentHub == portal.zone) or currentZoneName:find(portal.zone))
+
+			if mapMatch and hubMatch then
+				local dist = math.sqrt((portal.x - px) ^ 2 + (portal.y - py) ^ 2)
+				local distYards = math.floor(dist * 45)
+				if tonumber(portal.toID) == targetMap then
+					if not directPortal or distYards < directPortal.d then
+						directPortal = { p = portal, d = distYards }
+					end
+				elseif tonumber(portal.toID) == hubMapID and targetMap ~= hubMapID then
+					if not hubPortal or distYards < hubPortal.d then
+						hubPortal = { p = portal, d = distYards }
+					end
+				end
+			end
+		end
+
+		local best = directPortal or hubPortal
+		if best then
+			travelPopup.portalBtn.mapID, travelPopup.portalBtn.x, travelPopup.portalBtn.y, travelPopup.portalBtn.name = best.p.mapID, best.p.x, best.p.y, best.p.name
+			travelPopup.portalBtn:Show()
+			portalAdvice, bestDist = string.format("\n|cff00ffffUse: %s (%dyd)|r", best.p.name, best.d), best.d
+		end
+
+		hsBtn:ClearAllPoints()
+		travelPopup.portalBtn:ClearAllPoints()
+		local isNearPortal = (bestDist < 300)
+		local isHub = (tonumber(currentMap) == 2393 or tonumber(currentMap) == 2576)
+		local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal)
+
+		if isHSVisible then
+			hsBtn:Show()
+		else
+			hsBtn:Hide()
+		end
+		if travelPopup.portalBtn:IsShown() and isHSVisible then
+			hsBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", -50, 15)
+			travelPopup.portalBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 50, 15)
+		elseif travelPopup.portalBtn:IsShown() then
+			travelPopup.portalBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 0, 15)
+		elseif isHSVisible then
+			hsBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 0, 15)
+		end
+
+		if travelPopup.portalBtn:IsShown() or isHSVisible then
+			local statusText = (hsStartTime == 0) and "" or "\n|cffff0000HS on Cooldown!|r"
+			ns:ShowTravelPopup(targetZoneName, "\n|cffaaaaaaDistance: Very Far|r" .. statusText .. portalAdvice)
+		else
+			travelPopup:Hide()
+		end
+	end
+	return true
+end
+
+--------------------------------------------------------------------------------
+-- Delve POI state via GetDelvesForMap: bountiful + atlas (character map).
+-- Matches older MH behavior: scan every map/POI, OR results (duplicate POIs may disagree).
+--------------------------------------------------------------------------------
+local MAPS_BOUNTIFUL_SCRAPE = { 2393, 2437, 2395, 2424, 2444, 2413, 2405 }
+
+-- POI title may be prefixed (e.g. "Bountiful Delve: The Shadow Enclave"); roster stores short name.
+-- Also match when Blizz omits "The " or uses a different apostrophe in names like Atal'Aman.
+local function normalizeDelveCompare(s)
+	local t = string.lower(tostring(s or ""))
+	t = t:gsub("’", "'"):gsub("`", "'")
+	return t
+end
+
+local function delveNameMatchesPoi(poiName, rosterName)
+	if not poiName or not rosterName then
+		return false
+	end
+	local pn = normalizeDelveCompare(poiName)
+	local needle = normalizeDelveCompare(rosterName)
+	if needle == "" then
+		return false
+	end
+	if string.find(pn, needle, 1, true) then
+		return true
+	end
+	local needleNoThe = needle:match("^the%s+(.+)$") or needle
+	if needleNoThe ~= needle and needleNoThe ~= "" and string.find(pn, needleNoThe, 1, true) then
+		return true
+	end
+	local afterPrefix = pn:match("^bountiful%s+delve%s*:%s*(.+)$")
+		or pn:match("^bountiful%s*:%s*(.+)$")
+		or pn:match("^delve%s*:%s*(.+)$")
+	if afterPrefix and string.find(afterPrefix, needle, 1, true) then
+		return true
+	end
+	if afterPrefix and needleNoThe ~= "" and string.find(afterPrefix, needleNoThe, 1, true) then
+		return true
+	end
+	local compactP = pn:gsub("%s+", " ")
+	local compactN = needle:gsub("%s+", " ")
+	if string.find(compactP, compactN, 1, true) then
+		return true
+	end
+	return false
+end
+
+local function buildBountifulMapScanOrder(preferredMapID)
+	local preferred = tonumber(preferredMapID)
+	local seen = {}
+	local order = {}
+	if preferred and preferred > 0 then
+		order[#order + 1] = preferred
+		seen[preferred] = true
+	end
+	for _, z in ipairs(MAPS_BOUNTIFUL_SCRAPE) do
+		local zt = tonumber(z)
+		if zt and not seen[zt] then
+			order[#order + 1] = zt
+			seen[zt] = true
+		end
+	end
+	return order
+end
+
+local function GetDelveBountifulState(itemName, mapID)
+	if not itemName or not C_AreaPoiInfo or not C_AreaPoiInfo.GetAreaPOIInfo then
+		return false, nil
+	end
+	if not C_AreaPoiInfo.GetDelvesForMap then
+		return false, nil
+	end
+
+	local isBountiful = false
+	local bountifulAtlas = nil
+
+	for _, zMap in ipairs(buildBountifulMapScanOrder(mapID)) do
+		local okList, delvePOIs = pcall(C_AreaPoiInfo.GetDelvesForMap, zMap)
+		local list = (okList and type(delvePOIs) == "table") and delvePOIs or {}
+		for _, pID in ipairs(list) do
+			local okInfo, pInfo = pcall(C_AreaPoiInfo.GetAreaPOIInfo, zMap, pID)
+			if okInfo and pInfo and pInfo.name and delveNameMatchesPoi(pInfo.name, itemName) then
+				local atlas = pInfo.atlasName
+				if atlas and string.find(string.lower(tostring(atlas)), "bountiful", 1, true) then
+					isBountiful = true
+					bountifulAtlas = bountifulAtlas or atlas
+				elseif pInfo.isBountiful then
+					isBountiful = true
+					bountifulAtlas = bountifulAtlas or atlas
+				elseif tonumber(pInfo.textureIndex) == ICON_TEX_DELVE_BOUNTIFUL_LAST_RESORT then
+					isBountiful = true
+				end
+			end
+		end
+	end
+	return isBountiful, bountifulAtlas
+end
+
+function ns.IsDelveBountiful(delveName, mapID)
+	return (select(1, GetDelveBountifulState(delveName, mapID)))
+end
+
+-- Ask the server for currency buckets if the API exists.
+local function RequestTrackedCurrencyData()
+	if not C_CurrencyInfo then
+		return
+	end
+	-- Phase 61b: mana crystal currency removed from server request list
+	local ids = { CURRENCY_COFFER_KEY, CURRENCY_COFFER_SHARDS, CURRENCY_UNDERCOIN }
+	for _, id in ipairs(ids) do
+		if C_CurrencyInfo.RequestCurrencyDataFromServer then
+			pcall(C_CurrencyInfo.RequestCurrencyDataFromServer, id)
+		end
+	end
+end
+
+-- Current amount: C_CurrencyInfo.GetCurrencyInfo(id).quantity (Retail CurrencyInfo).
+local function GetCurrencyQuantity(currencyID)
+	local id = tonumber(currencyID)
+	if not id then
+		return 0
+	end
+	if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
+		local info = C_CurrencyInfo.GetCurrencyInfo(id)
+		if info and type(info) == "table" and info.quantity ~= nil then
+			return math.floor(tonumber(info.quantity) or 0)
+		end
+	end
+	return 0
+end
+
+-- Shards: wallet quantity, weekly earned toward cap, and weekly max (fallback 600).
+local function GetShardQuantityAndMax()
+	if not C_CurrencyInfo or not C_CurrencyInfo.GetCurrencyInfo then
+		return 0, 0, 600
+	end
+	local info = C_CurrencyInfo.GetCurrencyInfo(CURRENCY_COFFER_SHARDS)
+	if not info or type(info) ~= "table" then
+		return 0, 0, 600
+	end
+	local qty = math.floor(tonumber(info.quantity) or 0)
+	local earned = math.floor(tonumber(info.quantityEarnedThisWeek) or 0)
+	local maxQ = tonumber(info.maxQuantity)
+	if not maxQ or maxQ <= 0 then
+		maxQ = tonumber(info.maxWeeklyQuantity)
+	end
+	if not maxQ or maxQ <= 0 then
+		maxQ = 600
+	end
+	return qty, earned, math.floor(maxQ)
+end
+
+local function GetZoneDisplayName(mapID)
+	local mid = tonumber(mapID)
+	if not mid or not C_Map or not C_Map.GetMapInfo then
+		return "Unknown zone"
+	end
+	local info = C_Map.GetMapInfo(mid)
+	return (info and info.name) or ("Map " .. tostring(mid))
+end
+
+--------------------------------------------------------------------------------
+-- UI
+--------------------------------------------------------------------------------
+local frame
+local journeyHeader
+local delvesTitle
+local currencyHeader
+local leftColumn
+local rightColumn
+local bestBtn
+local eventFrame
+local midnightToggleBar
+local midnightToggleChevron
+local midnightToggleLabel
+local vaultToggleBar
+local vaultToggleChevron
+local vaultToggleLabel
+
+local function GetDelvesAccordionSection()
+	local u = ns.db and ns.db.ui
+	return (u and u.delvesAccordionSection) or "midnight"
+end
+
+local function DelvesApplyAccordion()
+	if not frame then
+		return
+	end
+	local sec = GetDelvesAccordionSection()
+	local showMid = sec == "midnight"
+	local showVault = sec == "vault"
+
+	if midnightToggleChevron then
+		midnightToggleChevron:SetTexture(
+			showMid and "Interface\\Buttons\\UI-MinusButton-Up" or "Interface\\Buttons\\UI-PlusButton-Up"
+		)
+	end
+	if vaultToggleChevron then
+		vaultToggleChevron:SetTexture(
+			showVault and "Interface\\Buttons\\UI-MinusButton-Up" or "Interface\\Buttons\\UI-PlusButton-Up"
+		)
+	end
+
+	if journeyHeader then
+		journeyHeader:SetShown(showMid)
+	end
+	if currencyHeader then
+		currencyHeader:SetShown(showMid)
+	end
+	if leftColumn then
+		leftColumn:SetShown(showMid)
+	end
+	if rightColumn then
+		rightColumn:SetShown(showMid)
+	end
+	if frame.journeyHint then
+		frame.journeyHint:SetShown(showMid)
+	end
+	if delvesTitle then
+		delvesTitle:Hide()
+	end
+	if ns.vaultPanel then
+		ns.vaultPanel:SetShown(showVault)
+	end
+	if ns.vaultHeader then
+		ns.vaultHeader:Hide()
+	end
+	if midnightToggleBar then
+		midnightToggleBar:Show()
+	end
+	if vaultToggleBar then
+		vaultToggleBar:Show()
+	end
+end
+
+-- Reusable row buttons: Blizzard delve atlases (bountiful vs standard).
+local function EnsureDelveRowButton(columnFrame, rows, index, colW)
+	local row = rows[index]
+	if not row then
+		row = CreateFrame("Button", nil, columnFrame)
+		row:SetHeight(TRACKER_ROW_HEIGHT)
+		row:EnableMouse(true)
+		row:SetHighlightTexture("Interface/Buttons/White8x8")
+		local ht = row:GetHighlightTexture()
+		if ht then
+			ht:SetBlendMode("ADD")
+			ht:SetAlpha(0.12)
+		end
+
+		row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		row:SetScript("OnClick", function(self, button)
+			if button == "RightButton" then
+				local rd = self.mhDelveRow
+				if rd then
+					ns.AddSmartTomTomWay(rd.mapID, rd.x, rd.y, rd.name)
+				end
+			end
+		end)
+
+		local iconAnchorX = 4 + ICON_SIZE * 0.5
+
+		local icon = row:CreateTexture(nil, "ARTWORK")
+		icon:SetSize(ICON_SIZE, ICON_SIZE)
+		icon:SetPoint("CENTER", row, "LEFT", iconAnchorX, 0)
+		row.icon = icon
+
+		local slotW = ICON_SIZE
+		local fs = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		fs:SetPoint("LEFT", row, "LEFT", 4 + slotW + ICON_NAME_GAP, 0)
+		fs:SetPoint("RIGHT", row, "RIGHT", -6, 0)
+		fs:SetJustifyH("LEFT")
+		fs:SetWordWrap(false)
+		row.name = fs
+
+		rows[index] = row
+	end
+	row:SetWidth(colW)
+	row:SetPoint("TOPLEFT", columnFrame, "TOPLEFT", 0, -(index - 1) * TRACKER_ROW_HEIGHT)
+	return row
+end
+
+local function ApplyDelveRowVisuals(row, item, _colIdx)
+	row.name:SetText(item.name)
+	row.mhDelveRow = item
+
+	local isBountiful = item.isBountiful and true or false
+
+	row:SetAlpha(1.0)
+
+	if isBountiful then
+		row.name:SetTextColor(1, 0.82, 0)
+		local poiAtlas = item.bountifulAtlas
+		if poiAtlas and poiAtlas ~= "" and row.icon.SetAtlas then
+			pcall(row.icon.SetAtlas, row.icon, nil)
+			local atlasOk = select(1, pcall(row.icon.SetAtlas, row.icon, poiAtlas))
+			local tid = row.icon.GetTexture and row.icon:GetTexture()
+			if atlasOk and tid and tid ~= 0 and tid ~= "" then
+				row.icon:SetVertexColor(1, 1, 1)
+			else
+				applyDelveRowIcon(row.icon, true, false)
+			end
+		else
+			applyDelveRowIcon(row.icon, true, false)
+		end
+	else
+		row.name:SetTextColor(1, 1, 1)
+		applyDelveRowIcon(row.icon, false, false)
+	end
+
+	local zoneName = GetZoneDisplayName(item.mapID)
+	row:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(item.name, 1, 1, 1)
+		GameTooltip:AddLine("Zone: " .. zoneName, 1, 1, 1)
+		if item.isBountiful then
+			GameTooltip:AddLine("Bountiful", 1, 0.82, 0)
+		end
+
+		-- 1. Reward list (compact tiers 1–8)
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine("--- Rewards (by tier) ---", 1, 0.82, 0)
+		for t = 1, 8 do
+			local loot = DELVE_LOOT_TABLE[t]
+			if loot then
+				GameTooltip:AddDoubleLine(
+					"Tier " .. t .. ":",
+					string.format("End %d | Vault %d", loot.endChest, loot.vault),
+					1,
+					1,
+					1,
+					1,
+					1,
+					1
+				)
+			end
+		end
+
+		-- 2. Speed grade (MidnightHelper only; placeholder from quest id)
+		local qid = tonumber(item.questID) or 0
+		local grades = { "S", "A", "A", "B", "B", "C" }
+		local myGrade = grades[(qid % #grades) + 1] or "B"
+
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddDoubleLine("|cff00ffffMidnightHelper:|r Speed Grade:", "|cffffcc00" .. myGrade .. "|r")
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine(
+			"|cffaaaaaaRight-click row: add TomTom waypoint for this delve.|r",
+			0.75,
+			0.75,
+			0.75,
+			true
+		)
+		GameTooltip:Show()
+	end)
+
+	row:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+end
+
+local function LoadWeeklyRewardsUI()
+	pcall(function()
+		local isLoaded = C_AddOns and C_AddOns.IsAddOnLoaded
+			and C_AddOns.IsAddOnLoaded("Blizzard_WeeklyRewards")
+		if isLoaded then
+			return
+		end
+		if C_AddOns and C_AddOns.LoadAddOn then
+			C_AddOns.LoadAddOn("Blizzard_WeeklyRewards")
+		end
+	end)
+end
+
+local function _checkDelvesFrames()
+	local missing = {}
+	if not frame then
+		missing[#missing + 1] = "frame"
+	end
+	if not currencyHeader then
+		missing[#missing + 1] = "currencyHeader"
+	end
+	if not leftColumn then
+		missing[#missing + 1] = "leftColumn"
+	end
+	if not rightColumn then
+		missing[#missing + 1] = "rightColumn"
+	end
+	if not journeyHeader then
+		missing[#missing + 1] = "journeyHeader"
+	end
+	if not delvesTitle then
+		missing[#missing + 1] = "delvesTitle"
+	end
+	return missing
+end
+
+local function RefreshDelvesPanel()
+	do
+		local missing = _checkDelvesFrames()
+		if #missing > 0 then
+			if MidnightHelperDB and MidnightHelperDB.ui and MidnightHelperDB.ui.debug then
+				print("|cffff8888[MH Debug]|r RefreshDelvesPanel: missing frames: " .. table.concat(missing, ", "))
+			end
+			return
+		end
+	end
+
+	if midnightToggleLabel then
+		midnightToggleLabel:SetText(ns:L("DELVES_ACC_MIDNIGHT"))
+	end
+	if vaultToggleLabel then
+		vaultToggleLabel:SetText(ns:L("DELVES_ACC_VAULT"))
+	end
+	if bestBtn then
+		bestBtn:SetText(ns:L("DELVES_BTN_BOUNTIFUL"))
+	end
+	if frame and frame.journeyHint then
+		frame.journeyHint:SetText(ns:L("DELVES_HINT_SHIFT_J"))
+	end
+
+	local accSec = GetDelvesAccordionSection()
+	local w = frame:GetWidth() or 0
+	if w < 80 then
+		w = (ns.mainUI and ns.mainUI:GetWidth()) or 820
+	end
+	local inner = math.max(400, w - 48)
+	local colW = (inner - COL_GAP) / 2
+
+	if vaultToggleBar then
+		vaultToggleBar:ClearAllPoints()
+		vaultToggleBar:SetPoint("TOPLEFT", frame, "TOPLEFT", 6, -3)
+		vaultToggleBar:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -6, -3)
+	end
+
+	--------------------------------------------------------------------------------
+	-- Great Vault (pinned to top of Delves frame so it stays visible above Midnight / account strip)
+	--------------------------------------------------------------------------------
+	do
+		local parent = frame
+		local VAULT_ICON = 22
+		local VAULT_ROW_H = 22
+		local VAULT_ROW_GAP = 4
+		local VAULT_PAD = 8
+
+		if ns.vaultSepLine then
+			ns.vaultSepLine:Hide()
+		end
+		if ns.vaultHeader then
+			ns.vaultHeader:Hide()
+		end
+
+		if not ns.vaultPanel then
+			ns.vaultPanel = CreateFrame("Frame", nil, parent, "BackdropTemplate")
+			ns.vaultPanel:SetBackdrop({
+				bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+				edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+				tile = true,
+				tileSize = 16,
+				edgeSize = 10,
+				insets = { left = 4, right = 4, top = 4, bottom = 4 },
+			})
+			ns.vaultPanel:SetBackdropColor(0, 0, 0, 0.22)
+			ns.vaultPanel:SetBackdropBorderColor(0.38, 0.38, 0.38, 0.5)
+		elseif ns.vaultPanel:GetParent() ~= parent then
+			ns.vaultPanel:SetParent(parent)
+		end
+
+		ns.vaultPanel:SetWidth(colW)
+		ns.vaultPanel:SetHeight(VAULT_PAD + VAULT_ROW_H + VAULT_ROW_GAP + VAULT_ROW_H + VAULT_ROW_GAP + VAULT_ROW_H + VAULT_PAD)
+
+		ns.vaultPanel:ClearAllPoints()
+		if vaultToggleBar then
+			ns.vaultPanel:SetPoint("TOPLEFT", vaultToggleBar, "BOTTOMLEFT", 0, -8)
+		elseif ns.vaultHeader then
+			ns.vaultPanel:SetPoint("TOPLEFT", ns.vaultHeader, "BOTTOMLEFT", 0, -8)
+		else
+			ns.vaultPanel:SetPoint("TOPLEFT", parent, "TOPLEFT", 16, -200)
+		end
+
+		if not ns.vaultBoxes then
+			ns.vaultBoxes = {}
+		end
+
+		local rowInnerW = math.max(80, colW - VAULT_PAD * 2)
+
+		for i = 1, 3 do
+			local f = ns.vaultBoxes[i]
+			if not f then
+				f = CreateFrame("Frame", nil, ns.vaultPanel)
+				f:SetSize(rowInnerW, VAULT_ROW_H)
+				f:EnableMouse(true)
+
+				f.icon = f:CreateTexture(nil, "ARTWORK")
+				f.icon:SetSize(VAULT_ICON, VAULT_ICON)
+				f.icon:SetPoint("LEFT", f, "LEFT", 0, 0)
+
+				f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+				f.text:SetPoint("LEFT", f.icon, "RIGHT", 5, 0)
+				f.text:SetJustifyH("LEFT")
+
+				f:SetScript("OnEnter", function(self)
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+					GameTooltip:ClearLines()
+					LoadWeeklyRewardsUI()
+					local aid = self.activityID
+					local usedWeekly = false
+					if aid and GameTooltip.SetWeeklyReward then
+						usedWeekly = select(1, pcall(GameTooltip.SetWeeklyReward, GameTooltip, aid))
+					end
+					if usedWeekly then
+						GameTooltip:Show()
+						return
+					end
+					if aid and C_WeeklyRewards and C_WeeklyRewards.GetExampleRewardItemHyperlinks then
+						local okH, first, second = pcall(C_WeeklyRewards.GetExampleRewardItemHyperlinks, aid)
+						local link = okH and (type(first) == "string" and first or (type(second) == "string" and second)) or nil
+						if link and GameTooltip.SetHyperlink then
+							pcall(GameTooltip.SetHyperlink, GameTooltip, link)
+							GameTooltip:Show()
+							return
+						end
+					end
+					GameTooltip:SetText(ns:L("DELVES_VAULT_TOOLTIP_MORE"))
+					GameTooltip:Show()
+				end)
+				f:SetScript("OnLeave", function()
+					GameTooltip:Hide()
+				end)
+
+				ns.vaultBoxes[i] = f
+			else
+				f:SetParent(ns.vaultPanel)
+				f:SetSize(rowInnerW, VAULT_ROW_H)
+				pcall(function()
+					f:SetBackdrop(nil)
+				end)
+				f.icon:ClearAllPoints()
+				f.icon:SetSize(VAULT_ICON, VAULT_ICON)
+				f.icon:SetPoint("LEFT", f, "LEFT", 0, 0)
+				f.text:ClearAllPoints()
+				f.text:SetPoint("LEFT", f.icon, "RIGHT", 5, 0)
+				f.text:SetJustifyH("LEFT")
+			end
+		end
+
+		ns.vaultBoxes[1]:ClearAllPoints()
+		ns.vaultBoxes[1]:SetPoint("TOPLEFT", ns.vaultPanel, "TOPLEFT", VAULT_PAD, -VAULT_PAD)
+		for i = 2, 3 do
+			ns.vaultBoxes[i]:ClearAllPoints()
+			ns.vaultBoxes[i]:SetPoint("TOPLEFT", ns.vaultBoxes[i - 1], "BOTTOMLEFT", 0, -VAULT_ROW_GAP)
+		end
+
+		ns.vaultPanel:Show()
+
+		local vaultData = GetVaultProgress()
+		for i = 1, 3 do
+			local data = vaultData and vaultData[i]
+			local box = ns.vaultBoxes[i]
+			if data and box then
+				box.activityID = data.activityID
+				box.unlocked = data.unlocked
+				box.level = data.level
+				box.ilvl = data.ilvl
+				box.progress = data.progress
+				box.threshold = data.threshold
+
+				if data.unlocked then
+					box.icon:SetSize(22, 22)
+					box.icon:SetPoint("LEFT", box, "LEFT", 4, 0)
+					box.icon:SetTexture(133784)
+					box.text:SetPoint("LEFT", box.icon, "RIGHT", 8, 0)
+					box.text:SetText(string.format(ns:L("DELVES_VAULT_TIER"), data.level or 0, data.ilvl or 0))
+					box.text:SetTextColor(1, 0.82, 0)
+				else
+					box.icon:SetSize(22, 22)
+					box.icon:SetPoint("LEFT", box, "LEFT", 4, 0)
+					box.icon:SetTexture(134402)
+					box.text:SetPoint("LEFT", box.icon, "RIGHT", 8, 0)
+					box.text:SetText(string.format(ns:L("DELVES_VAULT_LOCKED"), data.progress or 0, data.threshold or 0))
+					box.text:SetTextColor(0.6, 0.6, 0.6)
+				end
+				box:Show()
+			elseif box then
+				box:Hide()
+			end
+		end
+	end
+
+	if midnightToggleBar then
+		midnightToggleBar:ClearAllPoints()
+		midnightToggleBar:SetHeight(22)
+		if accSec == "vault" and ns.vaultPanel then
+			midnightToggleBar:SetPoint("TOPLEFT", ns.vaultPanel, "BOTTOMLEFT", -6, -12)
+			midnightToggleBar:SetPoint("TOPRIGHT", ns.vaultPanel, "BOTTOMRIGHT", -6, -12)
+		elseif vaultToggleBar then
+			midnightToggleBar:SetPoint("TOPLEFT", vaultToggleBar, "BOTTOMLEFT", 0, -8)
+			midnightToggleBar:SetPoint("TOPRIGHT", vaultToggleBar, "BOTTOMRIGHT", 0, -8)
+		end
+	end
+
+	--------------------------------------------------------------------------------
+	-- Phase 17: Companion / portrait / XP bar / curios removed — Delver's Journey only at top.
+	--------------------------------------------------------------------------------
+	local season = 1
+	if C_DelvesUI and C_DelvesUI.GetCurrentDelvesSeasonNumber then
+		local okS, sn = pcall(C_DelvesUI.GetCurrentDelvesSeasonNumber)
+		if okS and sn ~= nil then
+			season = math.floor(tonumber(sn) or 1)
+		end
+	end
+
+	local factionID
+	if C_DelvesUI and C_DelvesUI.GetDelvesFactionForSeason then
+		local okF, fid = pcall(C_DelvesUI.GetDelvesFactionForSeason, season)
+		if okF and fid then
+			factionID = fid
+		end
+	end
+
+	if factionID and C_MajorFactions and C_MajorFactions.GetMajorFactionData then
+		local okD, data = pcall(C_MajorFactions.GetMajorFactionData, factionID)
+		if okD and data and type(data) == "table" and data.renownLevel ~= nil then
+			local rank = math.floor(tonumber(data.renownLevel) or 0)
+			local repAmount = math.floor(tonumber(data.renownReputationEarned or data.renownReputationYielded) or 0)
+			local repMax = math.floor(tonumber(data.renownLevelThreshold or data.renownRequirement) or 0)
+			journeyHeader:SetText(string.format(ns:L("DELVES_JOURNEY_RANK"), rank, repAmount, repMax))
+			journeyHeader:SetTextColor(1, 0.95, 0.88)
+			journeyHeader:Show()
+		else
+			journeyHeader:Hide()
+		end
+	else
+		journeyHeader:Hide()
+	end
+
+	journeyHeader:ClearAllPoints()
+	if midnightToggleBar then
+		journeyHeader:SetPoint("TOPLEFT", midnightToggleBar, "BOTTOMLEFT", 10, -6)
+	else
+		journeyHeader:SetPoint("TOPLEFT", frame, "TOPLEFT", 16, -10)
+	end
+	journeyHeader:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
+	journeyHeader:SetJustifyH("LEFT")
+
+	if delvesTitle then
+		delvesTitle:Hide()
+	end
+
+	RequestTrackedCurrencyData()
+	local keyQty = GetCurrencyQuantity(CURRENCY_COFFER_KEY)
+	local shardQty, shardEarned, shardMax = GetShardQuantityAndMax()
+	local underQty = GetCurrencyQuantity(CURRENCY_UNDERCOIN)
+
+	-- Mana crystals header removed in Phase 61
+
+	local bountyCount = 0
+	local raidCount = 0
+	if C_Item and C_Item.GetItemCount then
+		bountyCount = C_Item.GetItemCount(ITEM_TROVEHUNTER_BOUNTY) or 0
+		raidCount = C_Item.GetItemCount(ITEM_RAID_R_MINI) or 0
+	end
+
+	local extraText = ""
+	if bountyCount > 0 then
+		extraText = extraText .. string.format("\n|cff00ff00" .. ns:L("DELVES_CURRENCY_BOUNTIES") .. "|r", bountyCount)
+	end
+	if raidCount > 0 then
+		extraText = extraText .. string.format("\n|cff00ffff" .. ns:L("DELVES_CURRENCY_RAID_MINIS") .. "|r", raidCount)
+	end
+
+	currencyHeader:SetText(
+		string.format(
+			ns:L("DELVES_CURRENCY_LINE"),
+			keyQty,
+			shardQty,
+			shardEarned,
+			shardMax,
+			underQty,
+			extraText
+		)
+	)
+
+	currencyHeader:ClearAllPoints()
+	currencyHeader:SetPoint("TOPLEFT", journeyHeader, "BOTTOMLEFT", 0, -12)
+	if frame.journeyHint then
+		currencyHeader:SetPoint("RIGHT", frame.journeyHint, "LEFT", -8, 0)
+	else
+		currencyHeader:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
+	end
+	currencyHeader:SetJustifyH("LEFT")
+	currencyHeader:SetWordWrap(true)
+
+	local roster = ns.MIDNIGHT_DELVES or MIDNIGHT_DELVES
+	leftColumn.rows = leftColumn.rows or {}
+	rightColumn.rows = rightColumn.rows or {}
+
+	leftColumn:SetWidth(colW)
+	rightColumn:SetWidth(colW)
+
+	local usedLeft, usedRight = 0, 0
+	for i, packed in ipairs(roster) do
+		local bountiful, bountifulAtlas = GetDelveBountifulState(packed[5], packed[2])
+		local item = {
+			questID = packed[1],
+			mapID = packed[2],
+			x = packed[3],
+			y = packed[4],
+			name = packed[5],
+			isBountiful = bountiful,
+			bountifulAtlas = bountifulAtlas,
+		}
+		local col, colIdx
+		if i <= 5 then
+			col = leftColumn
+			colIdx = i
+			usedLeft = colIdx
+		else
+			col = rightColumn
+			colIdx = i - 5
+			usedRight = colIdx
+		end
+		local row = EnsureDelveRowButton(col, col.rows, colIdx, colW)
+		ApplyDelveRowVisuals(row, item, colIdx)
+		row:Show()
+	end
+
+	for j = usedLeft + 1, #leftColumn.rows do
+		leftColumn.rows[j]:Hide()
+	end
+	for j = usedRight + 1, #rightColumn.rows do
+		rightColumn.rows[j]:Hide()
+	end
+
+	local h = math.max(usedLeft, usedRight, 1) * TRACKER_ROW_HEIGHT
+	leftColumn:SetHeight(h)
+	rightColumn:SetHeight(h)
+
+	local accFooter = GetDelvesAccordionSection()
+	if bestBtn then
+		bestBtn:ClearAllPoints()
+		--- Under the delve list when Midnight is expanded (use accFooter; IsShown is stale before DelvesApplyAccordion).
+		if accFooter == "midnight" and leftColumn and usedLeft and usedLeft > 0 then
+			bestBtn:SetPoint("TOP", leftColumn, "BOTTOMRIGHT", COL_GAP / 2, -22)
+		elseif midnightToggleBar then
+			bestBtn:SetPoint("TOP", midnightToggleBar, "BOTTOM", 0, -18)
+		elseif accFooter == "vault" and ns.vaultPanel then
+			bestBtn:SetPoint("TOP", ns.vaultPanel, "BOTTOM", 0, -20)
+		elseif vaultToggleBar then
+			bestBtn:SetPoint("TOP", vaultToggleBar, "BOTTOM", 0, -18)
+		else
+			bestBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 16, 12)
+		end
+	end
+
+	DelvesApplyAccordion()
+
+	-- All statusSlots / Grid refresh logic has been removed here.
+end
+
+function ns.RefreshDelvesPanel()
+	RefreshDelvesPanel()
+end
+
+function ns.SyncDelvesAccordion(section)
+	if not ns.db or not ns.db.ui then
+		return
+	end
+	if section ~= "midnight" and section ~= "vault" then
+		return
+	end
+	ns.db.ui.delvesAccordionSection = section
+	if ns._mhAltOverviewAccordionSync then
+		ns:_mhAltOverviewAccordionSync()
+	end
+	RefreshDelvesPanel()
+end
+
+-- Retail does not ship a global ToggleDelvesDashboard(); macros often assume it exists.
+function ns.ToggleDelvesDashboard()
+	if not DelvesDashboardFrame and C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.LoadAddOn then
+		for _, addOnName in ipairs({ "Blizzard_DelvesDashboard", "Blizzard_DelvesDashboardUI" }) do
+			if not C_AddOns.IsAddOnLoaded(addOnName) then
+				pcall(C_AddOns.LoadAddOn, addOnName)
+			end
+			if DelvesDashboardFrame then
+				break
+			end
+		end
+	end
+	if not DelvesDashboardFrame then
+		print("|cffffcc00Midnight Helper:|r Delver's Journey UI is not available (dashboard add-on did not load).")
+		return
+	end
+	if DelvesDashboardFrame:IsShown() then
+		HideUIPanel(DelvesDashboardFrame)
+	else
+		ShowUIPanel(DelvesDashboardFrame)
+	end
+end
+
+if rawget(_G, "ToggleDelvesDashboard") == nil then
+	_G.ToggleDelvesDashboard = ns.ToggleDelvesDashboard
+end
+
+local function OnFindNearestBountifulClick()
+	if not _G.TomTom or type(_G.TomTom.AddWaypoint) ~= "function" then
+		print("Midnight Helper: TomTom not found!")
+		return
+	end
+
+	for _, row in ipairs(MIDNIGHT_DELVES) do
+		local _, mapID, x, yPct, name = row[1], row[2], row[3], row[4], row[5]
+		if select(1, GetDelveBountifulState(name, mapID)) then
+			if ns.AddSmartTomTomWay(mapID, x, yPct, name) then
+				print("|cffffff78Midnight Helper:|r TomTom: Nearest bountiful delve — " .. tostring(name))
+			end
+			return
+		end
+	end
+
+	print("|cffffff78Midnight Helper:|r No bountiful delve found (roster order / GetDelvesForMap).")
+end
+
+local function CreateEventBridge()
+	if eventFrame then
+		return
+	end
+	eventFrame = CreateFrame("Frame", nil, UIParent)
+	eventFrame:Hide()
+	eventFrame:RegisterEvent("ADDON_LOADED")
+	eventFrame:RegisterEvent("PLAYER_LOGIN")
+	eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	eventFrame:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
+	eventFrame:RegisterEvent("AREA_POIS_UPDATED")
+	eventFrame:RegisterEvent("MAJOR_FACTION_RENOWN_LEVEL_CHANGED")
+	eventFrame:RegisterEvent("TRAIT_CONFIG_UPDATED")
+	eventFrame:RegisterEvent("WEEKLY_REWARDS_UPDATE")
+	eventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	eventFrame:SetScript("OnEvent", function(_, event, ...)
+		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
+			-- Wait 1 second for the Map API to settle before checking location
+			local function runZoneNavCheck()
+				local currentMap = C_Map.GetBestMapForUnit("player")
+				if ns.lastTarget and currentMap then
+					local currentHub = nil
+					local playerPos = C_Map.GetPlayerMapPosition(currentMap, "player")
+					if playerPos and tonumber(currentMap) == 2576 then
+						local hx = select(1, playerPos:GetXY()) * 100
+						if hx < 45 then
+							currentHub = "Silvermoon"
+						elseif hx > 58 then
+							currentHub = "Harandar"
+						else
+							currentHub = "Voidstorm"
+						end
+					end
+
+					local targetBase = ns.GetBaseZoneName(ns.lastTarget.mapID)
+					local isArrived = (tonumber(currentMap) == tonumber(ns.lastTarget.mapID)) or (currentHub == targetBase)
+
+					if isArrived then
+						if _G.TomTom and _G.TomTom.AddWaypoint then
+							local uid = _G.TomTom:AddWaypoint(ns.lastTarget.mapID, ns.lastTarget.x / 100, ns.lastTarget.y / 100, {
+								title = ns.lastTarget.name,
+								persistent = false,
+								crazy = true,
+							})
+							if uid and _G.TomTom.SetCrazyArrow then
+								_G.TomTom:SetCrazyArrow(uid, 15, ns.lastTarget.name)
+							end
+						end
+						ns.lastTarget = nil
+					else
+						ns.AddSmartTomTomWay(ns.lastTarget.mapID, ns.lastTarget.x, ns.lastTarget.y, ns.lastTarget.name)
+					end
+				end
+			end
+			if C_Timer and C_Timer.After then
+				C_Timer.After(1, runZoneNavCheck)
+			else
+				runZoneNavCheck()
+			end
+			RequestTrackedCurrencyData()
+		end
+		-- Mana / currency: refresh next frame so GetCurrencyInfo sees server-updated quantities.
+		if event == "CURRENCY_DISPLAY_UPDATE" and frame and frame:IsVisible() then
+			if C_Timer and C_Timer.After then
+				C_Timer.After(0, function()
+					if frame and frame:IsVisible() then
+						RefreshDelvesPanel()
+					end
+				end)
+			else
+				RefreshDelvesPanel()
+			end
+		elseif frame and frame:IsVisible() then
+			RefreshDelvesPanel()
+		end
+	end)
+end
+
+local function SetupDelvesModule()
+	if frame then
+		return
+	end
+
+	local panel = ns.panels and ns.panels.delves
+	if not panel then
+		return
+	end
+
+	if panel._body then
+		panel._body:Hide()
+	end
+	-- Redundant with sidebar tab "Delves & Vault" + in-frame "Midnight Delves" title.
+	if panel._header then
+		panel._header:Hide()
+	end
+
+	frame = CreateFrame("Frame", "MidnightHelperDelvesFrame", panel)
+	frame:SetAllPoints(panel)
+
+	vaultToggleBar = CreateFrame("Button", nil, frame)
+	vaultToggleBar:SetHeight(22)
+	vaultToggleBar:SetPoint("TOPLEFT", frame, "TOPLEFT", 6, -3)
+	vaultToggleBar:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -6, -3)
+
+	vaultToggleChevron = vaultToggleBar:CreateTexture(nil, "ARTWORK")
+	vaultToggleChevron:SetSize(16, 16)
+	vaultToggleChevron:SetPoint("LEFT", vaultToggleBar, "LEFT", 4, 0)
+
+	vaultToggleLabel = vaultToggleBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	vaultToggleLabel:SetPoint("LEFT", vaultToggleChevron, "RIGHT", 6, 0)
+	vaultToggleLabel:SetPoint("RIGHT", vaultToggleBar, "RIGHT", -8, 0)
+	vaultToggleLabel:SetJustifyH("LEFT")
+	vaultToggleLabel:SetText(ns:L("DELVES_ACC_VAULT"))
+
+	do
+		vaultToggleBar:SetHighlightTexture("Interface\\Buttons\\White8x8")
+		local ht = vaultToggleBar:GetHighlightTexture()
+		if ht then
+			ht:SetBlendMode("ADD")
+			ht:SetAlpha(0.08)
+		end
+	end
+
+	vaultToggleBar:SetScript("OnClick", function()
+		ns.SyncDelvesAccordion("vault")
+	end)
+
+	midnightToggleBar = CreateFrame("Button", nil, frame)
+	midnightToggleBar:SetHeight(22)
+	midnightToggleBar:SetPoint("TOPLEFT", vaultToggleBar, "BOTTOMLEFT", 0, -8)
+	midnightToggleBar:SetPoint("TOPRIGHT", vaultToggleBar, "BOTTOMRIGHT", 0, -8)
+
+	midnightToggleChevron = midnightToggleBar:CreateTexture(nil, "ARTWORK")
+	midnightToggleChevron:SetSize(16, 16)
+	midnightToggleChevron:SetPoint("LEFT", midnightToggleBar, "LEFT", 4, 0)
+
+	midnightToggleLabel = midnightToggleBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	midnightToggleLabel:SetPoint("LEFT", midnightToggleChevron, "RIGHT", 6, 0)
+	midnightToggleLabel:SetPoint("RIGHT", midnightToggleBar, "RIGHT", -8, 0)
+	midnightToggleLabel:SetJustifyH("LEFT")
+	midnightToggleLabel:SetText(ns:L("DELVES_ACC_MIDNIGHT"))
+
+	do
+		midnightToggleBar:SetHighlightTexture("Interface\\Buttons\\White8x8")
+		local ht = midnightToggleBar:GetHighlightTexture()
+		if ht then
+			ht:SetBlendMode("ADD")
+			ht:SetAlpha(0.08)
+		end
+	end
+
+	midnightToggleBar:SetScript("OnClick", function()
+		ns.SyncDelvesAccordion("midnight")
+	end)
+
+	journeyHeader = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	journeyHeader:SetPoint("TOPLEFT", midnightToggleBar, "BOTTOMLEFT", 10, -6)
+	journeyHeader:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
+	journeyHeader:SetJustifyH("LEFT")
+	journeyHeader:SetWordWrap(true)
+	journeyHeader:Hide()
+
+	delvesTitle = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	delvesTitle:SetText(ns:L("DELVES_TITLE"))
+	delvesTitle:Hide()
+
+	currencyHeader = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	currencyHeader:SetJustifyH("LEFT")
+	currencyHeader:SetWordWrap(true)
+
+	leftColumn = CreateFrame("Frame", nil, frame)
+	rightColumn = CreateFrame("Frame", nil, frame)
+	leftColumn:EnableMouse(false)
+	rightColumn:EnableMouse(false)
+	leftColumn.rows = {}
+	rightColumn.rows = {}
+
+	bestBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+	bestBtn:SetSize(340, 26)
+	bestBtn:SetText(ns:L("DELVES_BTN_BOUNTIFUL"))
+	bestBtn:SetScript("OnClick", OnFindNearestBountifulClick)
+
+	-- Delver's Journey Hint (Phase 57 / 59)
+	if not frame.journeyHint then
+		frame.journeyHint = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		frame.journeyHint:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -16, -16)
+		frame.journeyHint:SetText(ns:L("DELVES_HINT_SHIFT_J"))
+	end
+
+	if frame.statusGrid then
+		frame.statusGrid:Hide()
+		frame.statusGrid = nil
+	end
+	if frame.journeyBtn then
+		frame.journeyBtn:Hide()
+		frame.journeyBtn = nil
+	end
+
+	currencyHeader:ClearAllPoints()
+	currencyHeader:SetPoint("TOPLEFT", journeyHeader, "BOTTOMLEFT", 0, -12)
+	currencyHeader:SetPoint("RIGHT", frame.journeyHint, "LEFT", -8, 0)
+	currencyHeader:SetJustifyH("LEFT")
+	currencyHeader:SetWordWrap(true)
+
+	leftColumn:SetPoint("TOPLEFT", currencyHeader, "BOTTOMLEFT", 0, -14)
+	rightColumn:SetPoint("TOPLEFT", leftColumn, "TOPRIGHT", COL_GAP, 0)
+
+	-- Footer placement is refreshed after vault chrome; default until first refresh.
+	bestBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 16, 12)
+
+	frame:SetScript("OnShow", function()
+		RequestTrackedCurrencyData()
+		RefreshDelvesPanel()
+		-- Delayed refresh for crystals removed in Phase 61
+	end)
+
+	frame:SetScript("OnSizeChanged", function()
+		if frame:IsVisible() then
+			RefreshDelvesPanel()
+		end
+	end)
+
+	CreateEventBridge()
+	ns.DelvesFrame = frame
+end
+
+local function RefreshGreatVaultPanel()
+	if frame and frame:IsVisible() then
+		RefreshDelvesPanel()
+	end
+end
+
+ns.RefreshGreatVaultPanel = RefreshGreatVaultPanel
+
+local function HookEnsureMainUI()
+	if ns._mhDelvesEnsureHooked then
+		return
+	end
+	ns._mhDelvesEnsureHooked = true
+
+	local orig = ns.EnsureMainUI
+	function ns:EnsureMainUI(...)
+		local main = orig(self, ...)
+		SetupDelvesModule()
+		RefreshDelvesPanel()
+		return main
+	end
+end
+
+HookEnsureMainUI()
+
+do
+	local orig = ns.RefreshLocaleUI
+	function ns:RefreshLocaleUI()
+		if orig then
+			orig(self)
+		end
+		if ns.RefreshDelvesPanel then
+			ns:RefreshDelvesPanel()
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Travel Assistant popup (secure Hearthstone; must be created at load)
+--------------------------------------------------------------------------------
+travelPopup = CreateFrame("Frame", "MH_TravelPopup", UIParent, "BackdropTemplate")
+travelPopup:SetSize(220, 140) -- Increased height from 110 to 140
+travelPopup:SetPoint("CENTER")
+travelPopup:SetFrameStrata("TOOLTIP")
+travelPopup:Hide()
+
+tinsert(UISpecialFrames, travelPopup:GetName())
+
+travelPopup:SetBackdrop({
+	bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+	edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+	tile = true,
+	tileSize = 32,
+	edgeSize = 32,
+	insets = { left = 8, right = 8, top = 8, bottom = 8 },
+})
+travelPopup:SetBackdropColor(0, 0, 0, 0.9)
+
+travelPopup.text = travelPopup:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+travelPopup.text:SetPoint("TOP", 0, -15)
+travelPopup.text:SetWidth(200)
+travelPopup.text:SetText(ns:L("TRAVEL_WRONG_ZONE"))
+
+-- The Secure Hearthstone Icon Button
+hsBtn = CreateFrame("Button", "MidnightHelperHSClick", travelPopup, "SecureActionButtonTemplate")
+hsBtn:SetSize(40, 40)
+
+local icon = hsBtn:CreateTexture(nil, "ARTWORK")
+icon:SetAllPoints()
+icon:SetTexture(134414)
+hsBtn.icon = icon
+
+hsBtn:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+
+hsBtn:SetAttribute("type", "macro")
+hsBtn:SetAttribute("macrotext", "/use Hearthstone")
+hsBtn:RegisterForClicks("AnyUp", "AnyDown")
+
+hsBtn:SetScript("PostClick", function()
+	print("|cffffcc00Midnight Helper:|r Hearthstone used!")
+	travelPopup:Hide()
+end)
+
+hsBtn:ClearAllPoints()
+hsBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 0, 15)
+
+-- The Portal Waypoint Button
+local portalBtn = CreateFrame("Button", nil, travelPopup, "UIPanelButtonTemplate")
+portalBtn:SetSize(40, 40)
+portalBtn:SetPoint("LEFT", hsBtn, "RIGHT", 15, 0)
+portalBtn:Hide()
+
+local pIcon = portalBtn:CreateTexture(nil, "ARTWORK")
+pIcon:SetAllPoints()
+pIcon:SetTexture(132369)
+portalBtn.icon = pIcon
+
+portalBtn:SetScript("OnClick", function(self)
+	if self.mapID and self.x and self.y then
+		if _G.TomTom and _G.TomTom.AddWaypoint then
+			local titleStr = "|cff00ffff[Portal]|r " .. tostring(self.name)
+
+			-- Add the portal waypoint and capture its unique ID
+			local uid = _G.TomTom:AddWaypoint(self.mapID, self.x / 100, self.y / 100, {
+				title = titleStr,
+				persistent = false,
+				arrivaldistance = 15,
+				crazy = true,
+			})
+
+			-- Force the Crazy Arrow to focus on this portal immediately
+			if uid and _G.TomTom.SetCrazyArrow then
+				_G.TomTom:SetCrazyArrow(uid, 15, titleStr)
+			end
+
+			print("|cffffcc00Midnight Helper:|r Portal arrow focused. Delve arrow will resume after you zone.")
+			travelPopup:Hide()
+		end
+	end
+end)
+
+travelPopup.portalBtn = portalBtn
+
+function ns:ShowTravelPopup(targetMapName, extraInfo)
+	if InCombatLockdown() then
+		return
+	end
+	travelPopup.text:SetText(
+		string.format(
+			"%s\n|cff888888(%s)|r",
+			string.format(ns:L("TRAVEL_POPUP_TARGET"), targetMapName, extraInfo or ""),
+			ns:L("TRAVEL_POPUP_ESC")
+		)
+	)
+	travelPopup:Show()
+end

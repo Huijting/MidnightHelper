@@ -1,0 +1,153 @@
+# MidnightHelper — Cursor Rules
+
+This is a World of Warcraft addon (Lua + TOC). These rules apply to every
+session. Read them before touching any file.
+
+---
+
+## Architecture
+
+### Namespace
+Every file starts with `local addonName, ns = ...`
+`ns` is the shared addon table. Never use a global addon table. Never rename `ns`.
+
+### Load order (from MidnightHelper.toc)
+1. `Core.lua`       — event frame, SavedVariables, slash commands
+2. `Config.lua`     — shared currency / config (`ns.Config`)
+3. `UI.lua`         — main shell, sidebar, tab routing
+4. `Modules/Profession.lua` — Profession treasure tracker, KP summary
+5. `Modules/Delves.lua`     — Delves dashboard, Great Vault, currencies
+
+This list mirrors the current `MidnightHelper.toc` for reference only. **Load
+order and `.toc` contents are user-controlled** — never add, remove, or reorder
+`.toc` lines unless the user explicitly asks (see Change discipline).
+
+Each module hooks `ns.EnsureMainUI` once using a guard flag
+(`ns._mhDelvesEnsureHooked`, `ns._mhProfessionEnsureHooked`). Do not stack
+duplicate hooks on the same module. Do not change the hook pattern (single
+guarded wrap per module).
+
+### SavedVariables
+`MidnightHelperDB` is the saved variable (declared in `.toc`).
+`ns.db` is always a reference to `MidnightHelperDB` after `InitSavedVariables()`.
+`DEFAULT_DB` defines the schema; `MergeDefaults` fills in missing keys.
+
+### Tab IDs
+The sidebar tab IDs are `"delves"` and `"professions"`. Do not rename tab IDs
+without updating routing in `UI.lua` and any code that keys off them.
+Panels are stored in `ns.panels["delves"]` and `ns.panels["professions"]`.
+
+### Modules/Delves.lua (discipline)
+Treat `Modules/Delves.lua` like any other module: focused changes for the requested
+task. Avoid broad refactors, data-table reshuffles, or formatting-only passes
+unless the user explicitly asks (same intent as **Change discipline**).
+
+---
+
+## WoW API rules
+
+### Always use the modern C_AddOns API
+```lua
+-- CORRECT
+C_AddOns.IsAddOnLoaded("AddonName")
+C_AddOns.LoadAddOn("AddonName")
+
+-- WRONG — deprecated
+IsAddOnLoaded("AddonName")
+UIParentLoadAddOn("AddonName")
+```
+
+### Always wrap WoW API calls in pcall when the return value is uncertain
+```lua
+local ok, result = pcall(C_SomeAPI.SomeFunction, arg1, arg2)
+if ok and result then
+    -- use result
+end
+```
+
+### Never assume an API exists — always guard
+```lua
+if C_DelvesUI and C_DelvesUI.GetCompanionInfoForActivePlayer then
+    -- safe to call
+end
+```
+
+---
+
+## Debugging
+
+`/mh debug` toggles `ns.db.ui.debug` and prints internal state.
+When `ns.db.ui.debug` is true, silent guards in refresh functions should
+print which frame or variable is missing instead of returning silently.
+
+Never use bare `return` in a refresh function without at least a conditional
+debug print.
+
+---
+
+## Data tables — do not modify
+
+`MIDNIGHT_DELVES` in `Modules/Delves.lua` — delve roster.
+`MIDNIGHT_DATA` in `Modules/Profession.lua` — profession treasures + books.
+`MIDNIGHT_SKILL_LINE_BY_PROFESSION_ENUM` in `Modules/Profession.lua` — skill line IDs.
+
+These are reference data. If quest IDs or coordinates need updating, change
+only the data values, not the table structure.
+
+---
+
+## UI layout rules
+
+### Anchor chains
+Frames in Delves are positioned in this dependency order:
+valeeraHeader -> journeyHeader -> curioFrames -> delvesTitle ->
+currencyHeader -> leftColumn / rightColumn -> vaultHeader -> vaultBoxes -> bestBtn
+
+If you move or re-anchor any frame in this chain, re-anchor all frames below
+it in the chain too.
+
+### Frame naming
+Named frames use the pattern MidnightHelper<Module><Purpose>:
+- MidnightHelperMainUI
+- MidnightHelperEventFrame
+- MidnightHelperDelvesFrame
+- MidnightHelperProfessionFrame
+- MidnightHelperProfessionTrackerScroll
+- MidnightHelperLeftColumn
+- MidnightHelperRightColumn
+- MidnightHelperTab_delves
+- MidnightHelperTab_professions
+
+Do not rename these. Blizzard's UISpecialFrames and other systems reference
+them by name.
+
+---
+
+## Localization — `nlNL` with English game terms
+
+For `Locales/nlNL.lua`, keep **WoW UI vocabulary in English** when the game uses
+that term (e.g. *Bountiful Delve*, *Flask*, *Great Vault*, *Delver's Journey*,
+*Tier*, *ilvl*, *Keys / Shards / Undercoins*, *Weekly*, *Locked*). Only
+translate full-sentence **shell** text (search label, about, tooltips for
+non-proper-noun phrases) where appropriate. Duplicate the same English string
+as `enUS` when in doubt.
+
+---
+
+## Change discipline
+
+- Fix one thing at a time. Do not bundle unrelated changes.
+- After every change, state which variables you touched and confirm they are
+  still in scope.
+- Do not reformat code outside the changed block.
+- Do not rename variables, functions, or frames.
+- Do not add new tabs, modules, or features unless the user explicitly asks.
+- Do not modify `.toc` or files in `Media/` unless the user explicitly asks.
+  That includes load order: the user keeps authority over `MidnightHelper.toc`.
+
+---
+
+## One-change, one-commit rule
+
+After each fix, remind the user to commit in GitHub Desktop before continuing.
+This ensures every working state is recoverable.

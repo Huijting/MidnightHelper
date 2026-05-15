@@ -1,0 +1,5 @@
+tools/__pycache__/
+tools/guide_spell_names.json
+
+# Release artifacts (build locally with tools/package.ps1)
+dist/

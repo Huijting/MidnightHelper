@@ -1,0 +1,1992 @@
+[
+  {
+    "i": 0,
+    "en": "Always keep Moonfire and Sunfire active on your target for damage over time.",
+    "nl": "Houd Moonfire en Sunfire altijd actief op je doelwit voor schade over tijd."
+  },
+  {
+    "i": 1,
+    "en": "Use Wrath to activate Solar Eclipse and increase your nature damage.",
+    "nl": "Gebruik Wrath om Solar Eclipse te activeren en je natuurschade te verhogen."
+  },
+  {
+    "i": 2,
+    "en": "Use Starfire during Lunar Eclipse to hit multiple enemies at once.",
+    "nl": "Gebruik Starfire tijdens Lunar Eclipse om meerdere vijanden tegelijk te raken."
+  },
+  {
+    "i": 3,
+    "en": "Starsurge is your most powerful attack; use this once you have enough Astral Power.",
+    "nl": "Starsurge is je krachtigste aanval; gebruik dit zodra je genoeg Astral Power hebt."
+  },
+  {
+    "i": 4,
+    "en": "Starfall is perfect for groups of monsters; it touches everything nearby.",
+    "nl": "Starfall is perfect voor groepen monsters; het raakt alles in de buurt."
+  },
+  {
+    "i": 5,
+    "en": "Don't forget Barkskin when you're attacked; it reduces damage.",
+    "nl": "Vergeet Barkskin niet als je aangevallen wordt; het vermindert de schade."
+  },
+  {
+    "i": 6,
+    "en": "Typhoon is useful for blowing enemies away if they get too close.",
+    "nl": "Typhoon is handig om vijanden van je af te blazen als ze te dichtbij komen."
+  },
+  {
+    "i": 7,
+    "en": "Soothe removes anger (Enrage) from monsters; very useful in dungeons.",
+    "nl": "Soothe verwijdert woede (Enrage) van monsters; erg handig in dungeons."
+  },
+  {
+    "i": 8,
+    "en": "Dash helps you escape quickly or run to your next goal faster.",
+    "nl": "Dash helpt je om snel te ontsnappen of sneller naar je volgende doel te rennen."
+  },
+  {
+    "i": 9,
+    "en": "Always stay in Moonkin Form for more damage and extra armor.",
+    "nl": "Blijf altijd in Moonkin Form voor meer schade en extra bepantsering."
+  },
+  {
+    "i": 10,
+    "en": "Start battles with Rake from Prowl for extra damage and bleed.",
+    "nl": "Begin gevechten met Rake vanuit Prowl voor extra schade en een bleed."
+  },
+  {
+    "i": 11,
+    "en": "Rip is your main finisher; always keep this bleed active on strong enemies.",
+    "nl": "Rip is je belangrijkste finisher; houd deze bleed altijd actief op sterke vijanden."
+  },
+  {
+    "i": 12,
+    "en": "Use Ferocious Bite as a finisher if your enemy is almost dead or your Rip is already active.",
+    "nl": "Gebruik Ferocious Bite als finisher als je vijand bijna dood is of je Rip al actief is."
+  },
+  {
+    "i": 13,
+    "en": "Shred is your main attack to build up Combo Points.",
+    "nl": "Shred is je belangrijkste aanval om Combo Points op te bouwen."
+  },
+  {
+    "i": 14,
+    "en": "Tiger's Fury instantly gives you Energy and increases your damage; use this often!",
+    "nl": "Tiger's Fury geeft je direct Energy en verhoogt je schade; gebruik dit vaak!"
+  },
+  {
+    "i": 15,
+    "en": "Thrash hits all enemies around you and makes them bleed; good for groups.",
+    "nl": "Thrash raakt alle vijanden om je heen en laat ze bloeden; goed voor groepen."
+  },
+  {
+    "i": 16,
+    "en": "Survival Instincts are your strongest defense; use this in case of major dangers.",
+    "nl": "Survival Instincts is je sterkste verdediging; gebruik dit bij grote gevaren."
+  },
+  {
+    "i": 17,
+    "en": "Skull Bash interrupts enemy spells and takes you straight to your target.",
+    "nl": "Skull Bash onderbreekt vijandelijke toverspreuken en brengt je direct naar je doel."
+  },
+  {
+    "i": 18,
+    "en": "Maim can stun an enemy if you want to freeze them for a moment.",
+    "nl": "Maim kan een vijand verdoven (stun) als je ze even stil wilt zetten."
+  },
+  {
+    "i": 19,
+    "en": "Predatory Swiftness ensures that you can sometimes use Regrowth immediately and for free.",
+    "nl": "Predatory Swiftness zorgt dat je Regrowth soms direct en gratis kunt gebruiken."
+  },
+  {
+    "i": 20,
+    "en": "Use Moonfire to pull from afar — safer than jumping in the face.",
+    "nl": "Gebruik Moonfire om van veraf te trekken — veiliger dan in het gezicht springen."
+  },
+  {
+    "i": 21,
+    "en": "Bear Form is your tank form while leveling — stay in it if you take a hit.",
+    "nl": "Bear Form is jouw tank-vorm tijdens het levelen — blijf daar in als je klappen krijgt."
+  },
+  {
+    "i": 22,
+    "en": "Ironfur tegen fysieke klappen: niet vergeten bij elites en rares.",
+    "nl": "Ironfur tegen fysieke klappen: niet vergeten bij elites en rares."
+  },
+  {
+    "i": 23,
+    "en": "Growl helpt als een andere speler per ongeluk dreiging pakt.",
+    "nl": "Growl helpt als een andere speler per ongeluk dreiging pakt."
+  },
+  {
+    "i": 24,
+    "en": "Thrash multiple enemies; keep it active for AOE threat.",
+    "nl": "Thrash bij meerdere vijanden; houd het actief voor AOE-dreiging."
+  },
+  {
+    "i": 25,
+    "en": "Mangle is een belangrijke bouwsteen — gebruik het vaak.",
+    "nl": "Mangle is een belangrijke bouwsteen — gebruik het vaak."
+  },
+  {
+    "i": 26,
+    "en": "Barkskin is for “oops” moments — don't keep it for too long until you're almost dead.",
+    "nl": "Barkskin is voor ‘oeps’-momenten — niet te lang bewaren tot je bijna dood bent."
+  },
+  {
+    "i": 27,
+    "en": "Frenzied Regeneration: genees op tijd, niet pas op het allerlaatste moment.",
+    "nl": "Frenzied Regeneration: genees op tijd, niet pas op het allerlaatste moment."
+  },
+  {
+    "i": 28,
+    "en": "Keep Mark of the Wild active; this free buff gives extra stats and makes every pull a bit safer.",
+    "nl": "Houd Mark of the Wild actief; deze gratis buff geeft extra stats en maakt elke pull net wat veiliger."
+  },
+  {
+    "i": 29,
+    "en": "Skull Bash onderbreekt vijandelijke casts — leer hem klaar te hebben in dungeons.",
+    "nl": "Skull Bash onderbreekt vijandelijke casts — leer hem klaar te hebben in kerkers."
+  },
+  {
+    "i": 30,
+    "en": "Always keep Rejuvenation active on the tank for constant healing.",
+    "nl": "Houd Rejuvenation altijd actief op de tank voor constante healing."
+  },
+  {
+    "i": 31,
+    "en": "Lifebloom moet altijd op de tank staan; het geeft een grote heal als het afloopt.",
+    "nl": "Lifebloom moet altijd op de tank staan; het geeft een grote genezing als het afgelopen is."
+  },
+  {
+    "i": 32,
+    "en": "Use Wild Growth if the entire group takes damage.",
+    "nl": "Gebruik Wild Growth als de hele groep schade krijgt."
+  },
+  {
+    "i": 33,
+    "en": "Regrowth is your quick heal for emergencies.",
+    "nl": "Regrowth is je snelle heal voor noodgevallen."
+  },
+  {
+    "i": 34,
+    "en": "Swiftmend gives an immediate big heal, but you must have Rejuvenation on the target first.",
+    "nl": "Swiftmend geeft een directe grote heal, maar je moet eerst Rejuvenation op het doel hebben."
+  },
+  {
+    "i": 35,
+    "en": "Leg Efflorescence (de cirkel) neer op de plek waar de meeste mensen staan.",
+    "nl": "Leg Efflorescentie (de cirkel) neer op de plek waar de meeste mensen staan."
+  },
+  {
+    "i": 36,
+    "en": "Use Moonfire and Sunfire to help with damage if no one dies.",
+    "nl": "Gebruik Moonfire en Sunfire om mee te helpen met schade als er niemand doodgaat."
+  },
+  {
+    "i": 37,
+    "en": "Ironbark reduces the damage the tank takes; use this for big hits.",
+    "nl": "Ironbark vermindert de schade die de tank krijgt; gebruik dit bij grote klappen."
+  },
+  {
+    "i": 38,
+    "en": "Use Innervate on yourself if you're low on mana and need to heal a lot.",
+    "nl": "Gebruik Innervate op jezelf als je mana bijna op is en je veel moet healen."
+  },
+  {
+    "i": 39,
+    "en": "Nature's Swiftness makes your next Regrowth free and instant.",
+    "nl": "Nature's Swiftness maakt je volgende Regrowth gratis en direct."
+  },
+  {
+    "i": 40,
+    "en": "Death Strike is your most important button; it heals you and gives you a shield after damage.",
+    "nl": "Death Strike is je belangrijkste knop; het geneest je en geeft een schild na schade."
+  },
+  {
+    "i": 41,
+    "en": "Marrowrend builds up Bone Shield. Always keep this above 5 stacks for extra armor.",
+    "nl": "Marrowrend bouwt Bone Shield op. Houd dit altijd boven de 5 stacks voor extra pantser."
+  },
+  {
+    "i": 42,
+    "en": "Heart Strike is je 'filler' aanval om Runic Power op te bouwen, vooral in Death and Decay.",
+    "nl": "Heart Strike is een 'opvullende' aanval op Runic Power om te bouwen, vooral in Death and Decay."
+  },
+  {
+    "i": 43,
+    "en": "Deliver Death and Decay to groups of enemies so that your Heart Strike hits multiple targets.",
+    "nl": "Leg Death and Decay neer bij groepen vijanden zodat je Heart Strike meerdere doelen raakt."
+  },
+  {
+    "i": 44,
+    "en": "Blood Boil spreads your diseases and helps keep all monsters' attention.",
+    "nl": "Blood Boil verspreidt je ziektes en helpt om de aandacht van alle monsters vast te houden."
+  },
+  {
+    "i": 45,
+    "en": "Dancing Rune Weapon is a strong defense that helps you parry attacks.",
+    "nl": "Dancing Rune Weapon is een sterke verdediging die je helpt om aanvallen te pareren."
+  },
+  {
+    "i": 46,
+    "en": "Vampiric Blood temporarily gives you much more life; use this if you are in danger.",
+    "nl": "Vampiric Blood geeft je tijdelijk veel meer leven; gebruik dit als je in gevaar bent."
+  },
+  {
+    "i": 47,
+    "en": "Anti-Magic Shell blocks magical damage and prevents you from suffering adverse effects.",
+    "nl": "Anti-Magic Shell blokkeert magische schade en voorkomt dat je nadelige effecten krijgt."
+  },
+  {
+    "i": 48,
+    "en": "Asphyxiate paralyzes an enemy for a few seconds; useful for stopping dangerous spells.",
+    "nl": "Asphyxiate verlamt een vijand voor een paar seconden; handig om gevaarlijke spreuken te stoppen."
+  },
+  {
+    "i": 49,
+    "en": "Death Grip instantly pulls an enemy towards you. Perfect for retrieving escapees.",
+    "nl": "Death Grip trekt een vijand direct naar je toe. Perfect om vluchters terug te halen."
+  },
+  {
+    "i": 50,
+    "en": "Frost Strike is your main way to spend Runic Power.",
+    "nl": "Frost Strike is je belangrijkste manier om Runic Power uit te geven."
+  },
+  {
+    "i": 51,
+    "en": "Howling Blast applies Frost Fever. Always use it when the Rime proc lights up.",
+    "nl": "Howling Blast brengt Frost Fever aan. Gebruik het altijd als de Rime-proc oplicht."
+  },
+  {
+    "i": 52,
+    "en": "Obliterate is your main attack. Use this when you have Killing Machine procs for critical damage.",
+    "nl": "Obliterate is je hoofdaanval. Gebruik dit wanneer je Killing Machine procs hebt voor kritieke schade."
+  },
+  {
+    "i": 53,
+    "en": "Remorseless Winter does constant damage around you; ideal for groups of monsters.",
+    "nl": "Remorseless Winter doet constante schade om je heen; ideaal voor groepen monsters."
+  },
+  {
+    "i": 54,
+    "en": "Pillar of Frost greatly increases your Strength; use this in every major battle.",
+    "nl": "Pillar of Frost verhoogt je Strength enorm; gebruik dit bij elk groot gevecht."
+  },
+  {
+    "i": 55,
+    "en": "Empower Rune Weapon instantly gives you back runes and Runic Power for extra burst.",
+    "nl": "Empower Rune Weapon geeft je direct runes en Runic Power terug voor extra burst."
+  },
+  {
+    "i": 56,
+    "en": "Chains of Ice slows down enemies extremely; useful for keeping distance or stopping someone.",
+    "nl": "Chains of Ice vertraagt vijanden extreem; handig om afstand te houden of iemand te stoppen."
+  },
+  {
+    "i": 57,
+    "en": "Mind Freeze is je 'kick' om toverspreuken van vijanden te onderbreken.",
+    "nl": "Mind Freeze is je 'kick' om toverspreuken van vijanden te onderbreken."
+  },
+  {
+    "i": 58,
+    "en": "Don't forget Death Strike if your life is low; it costs Runic Power but saves your life.",
+    "nl": "Vergeet Death Strike niet als je leven laag is; het kost Runic Power maar redt je leven."
+  },
+  {
+    "i": 59,
+    "en": "Outbreak besmet alle vijanden direct met Virulent Plague. Begin elk gevecht hiermee.",
+    "nl": "Uitbraak besmet alle vijanden direct met virulente pest. Begin met elk gevecht."
+  },
+  {
+    "i": 60,
+    "en": "Festering Strike applies Festering Wounds to your target.",
+    "nl": "Festering Strike brengt Festering Wounds aan op je doelwit."
+  },
+  {
+    "i": 61,
+    "en": "Scourge Strike explodes the Festering Wounds for high damage.",
+    "nl": "Scourge Strike laat de Festering Wounds ontploffen voor grote schade."
+  },
+  {
+    "i": 62,
+    "en": "Death Coil is your spender for Runic Power; it makes your active cap stronger.",
+    "nl": "Death Coil is je spender voor Runic Power; het maakt je actieve pet sterker."
+  },
+  {
+    "i": 63,
+    "en": "Apocalypse summons armies of the undead by detonating Festering Wounds. Use this for burst.",
+    "nl": "Apocalypse roept legers ondoden op door Festering Wounds te laten ontploffen. Gebruik dit voor burst."
+  },
+  {
+    "i": 64,
+    "en": "Dark Transformation turns your Ghoul into a monstrous beast with new powers.",
+    "nl": "Dark Transformation verandert je Ghoul in een monsterlijk beest met nieuwe krachten."
+  },
+  {
+    "i": 65,
+    "en": "Army of the Dead summons a massive army; save this for the toughest bosses.",
+    "nl": "Army of the Dead roept een enorm leger op; bewaar dit voor de allersterkste bazen."
+  },
+  {
+    "i": 66,
+    "en": "Fight within your Death and Decay so that your Scourge Strike hits multiple enemies at once.",
+    "nl": "Vecht binnen je Death and Decay zodat je Scourge Strike meerdere vijanden tegelijk raakt."
+  },
+  {
+    "i": 67,
+    "en": "Anti-Magic Shell is essentieel om magische spreuken te negeren tijdens het vechten.",
+    "nl": "Anti-Magic Shell is essentieel voor magische spreuken te avontuurlijke tijdens het vechten."
+  },
+  {
+    "i": 68,
+    "en": "Chaos Strike is your main spender.",
+    "nl": "Chaos Strike is je grootste spender."
+  },
+  {
+    "i": 69,
+    "en": "Use Blade Dance on cooldown for AoE.",
+    "nl": "Gebruik Blade Dance tijdens de cooldown voor AoE."
+  },
+  {
+    "i": 70,
+    "en": "Eye Beam gives you Metamorphosis; use it often.",
+    "nl": "Eye Beam geeft je Metamorfose; gebruik het vaak."
+  },
+  {
+    "i": 71,
+    "en": "Fel Rush for movement and damage.",
+    "nl": "Fel Rush voor beweging en schade."
+  },
+  {
+    "i": 72,
+    "en": "Blur is your best defensive.",
+    "nl": "Vervaging is je beste verdediging."
+  },
+  {
+    "i": 73,
+    "en": "Vengeful Retreat to gain Fury.",
+    "nl": "Wraakzuchtige retraite om woede te verwerven."
+  },
+  {
+    "i": 74,
+    "en": "Metamorphosis for big burst.",
+    "nl": "Metamorfose voor grote uitbarsting."
+  },
+  {
+    "i": 75,
+    "en": "Immolation Aura for passive AoE.",
+    "nl": "Immolatie Aura voor passieve AoE."
+  },
+  {
+    "i": 76,
+    "en": "Disrupt to interrupt casts.",
+    "nl": "Disrupt om casts te onderbreken."
+  },
+  {
+    "i": 77,
+    "en": "Consume Magic to dispel enemies.",
+    "nl": "Gebruik magie om vijanden te verdrijven."
+  },
+  {
+    "i": 78,
+    "en": "Soul Carver for big damage/heals.",
+    "nl": "Soul Carver voor grote schade/genezingen."
+  },
+  {
+    "i": 79,
+    "en": "Demon Spikes must be active when taking physical hits.",
+    "nl": "Demon Spikes moeten actief zijn bij het nemen van fysieke treffers."
+  },
+  {
+    "i": 80,
+    "en": "Immolation Aura generates Fury.",
+    "nl": "Immolatie Aura genereert woede."
+  },
+  {
+    "i": 81,
+    "en": "Fel Devastation is your \"oh-sh*t\" heal.",
+    "nl": "Fel Devastation is jouw \"oh-sh*t\" genezing."
+  },
+  {
+    "i": 82,
+    "en": "Sigil of Flame for pull/AoE.",
+    "nl": "Sigil of Flame voor pull/AoE."
+  },
+  {
+    "i": 83,
+    "en": "Infernal Strike for mobility.",
+    "nl": "Infernal Strike voor mobiliteit."
+  },
+  {
+    "i": 84,
+    "en": "Frailty stacks help you survive.",
+    "nl": "Frailty-stacks helpen je te overleven."
+  },
+  {
+    "i": 85,
+    "en": "Sigil of Silence for casters.",
+    "nl": "Sigil of Silence voor casters."
+  },
+  {
+    "i": 86,
+    "en": "Metamorphosis for maximum HP.",
+    "nl": "Metamorfose voor maximale HP."
+  },
+  {
+    "i": 87,
+    "en": "Throw Glaive to pick up adds.",
+    "nl": "Gooi Glaive om advertenties op te rapen."
+  },
+  {
+    "i": 88,
+    "en": "Void Bolt is your main damage spell.",
+    "nl": "Void Bolt is je belangrijkste schadespreuk."
+  },
+  {
+    "i": 89,
+    "en": "Use Consumer of Souls to heal.",
+    "nl": "Gebruik Consumer of Souls om te genezen."
+  },
+  {
+    "i": 90,
+    "en": "Essence Tear for AoE damage.",
+    "nl": "Essence Tear voor AoE-schade."
+  },
+  {
+    "i": 91,
+    "en": "Void Metamorphosis is your big burst.",
+    "nl": "Void Metamorphosis is jouw grote uitbarsting."
+  },
+  {
+    "i": 92,
+    "en": "Chaos Nova for stun.",
+    "nl": "Chaos Nova voor verdoving."
+  },
+  {
+    "i": 93,
+    "en": "Spectral Sight to find hidden enemies.",
+    "nl": "Spectral Sight om verborgen vijanden te vinden."
+  },
+  {
+    "i": 94,
+    "en": "Imprison for CC.",
+    "nl": "Gevangenisstraf voor CC."
+  },
+  {
+    "i": 95,
+    "en": "Netherwalk to avoid damage.",
+    "nl": "Netherwalk om schade te voorkomen."
+  },
+  {
+    "i": 96,
+    "en": "Sigil of Silence to stop casters.",
+    "nl": "Sigil of Silence om casters te stoppen."
+  },
+  {
+    "i": 97,
+    "en": "Glaive Toss for pulling.",
+    "nl": "Glaive Toss voor trekken."
+  },
+  {
+    "i": 98,
+    "en": "Disintegrate is your main spender for single targets.",
+    "nl": "Disintegrate is uw belangrijkste spender voor afzonderlijke doelstellingen."
+  },
+  {
+    "i": 99,
+    "en": "Pyre for AoE groups.",
+    "nl": "Pyre voor AoE-groepen."
+  },
+  {
+    "i": 100,
+    "en": "Always keep Fire Breath on cooldown (Empower level 1 is usually enough).",
+    "nl": "Houd de vuurademhaling altijd tijdens de cooldown (empower-niveau 1 is meestal voldoende)."
+  },
+  {
+    "i": 101,
+    "en": "Eternity Surge is great for multiple targets.",
+    "nl": "Eternity Surge is geweldig voor meerdere doelen."
+  },
+  {
+    "i": 102,
+    "en": "Use Living Flame as your filler.",
+    "nl": "Gebruik Living Flame als vulmiddel."
+  },
+  {
+    "i": 103,
+    "en": "Hover allows you to cast while moving; use it often!",
+    "nl": "Met Hover kunt u werpen terwijl u beweegt; gebruik het vaak!"
+  },
+  {
+    "i": 104,
+    "en": "Dragonrage is your big burst cooldown.",
+    "nl": "Dragonrage is je grote cooldown."
+  },
+  {
+    "i": 105,
+    "en": "Obsidian Scales for defense.",
+    "nl": "Obsidiaanweegschalen ter verdediging."
+  },
+  {
+    "i": 106,
+    "en": "Quell to interrupt enemies.",
+    "nl": "Quell om vijanden te onderbreken."
+  },
+  {
+    "i": 107,
+    "en": "Landslide to root enemies in place.",
+    "nl": "Aardverschuiving om vijanden op hun plaats te wortelen."
+  },
+  {
+    "i": 108,
+    "en": "Echo is your most important combo tool.",
+    "nl": "Echo is je belangrijkste combo-tool."
+  },
+  {
+    "i": 109,
+    "en": "Dream Breath is a massive group heal (Empower as needed).",
+    "nl": "Dream Breath is een enorme groepsgenezing (empower indien nodig)."
+  },
+  {
+    "i": 110,
+    "en": "Spiritbloom for burst healing on multiple targets.",
+    "nl": "Spiritbloom voor burst-genezing op meerdere doelen."
+  },
+  {
+    "i": 111,
+    "en": "Use Reversion to keep people topped up.",
+    "nl": "Gebruik Reversion om mensen opgewaardeerd te houden."
+  },
+  {
+    "i": 112,
+    "en": "Verdant Embrace is a strong targeted heal.",
+    "nl": "Verdant Embrace is een sterk gerichte genezing."
+  },
+  {
+    "i": 113,
+    "en": "Rewind can save a group after a massive damage spike.",
+    "nl": "Terugspoelen kan een groep redden na een enorme schadepiek."
+  },
+  {
+    "i": 114,
+    "en": "Temporal Anomaly provides shields to everyone it touches.",
+    "nl": "Temporal Anomaly biedt schilden voor iedereen die het aanraakt."
+  },
+  {
+    "i": 115,
+    "en": "Dream Flight for high-mobility healing.",
+    "nl": "Droomvlucht voor genezing met hoge mobiliteit."
+  },
+  {
+    "i": 116,
+    "en": "Emerald Blossom for cheap AoE heals.",
+    "nl": "Emerald Blossom voor goedkope AoE-genezingen."
+  },
+  {
+    "i": 117,
+    "en": "Stasis to store and repeat your best heals.",
+    "nl": "Stasis om je beste genezingen op te slaan en te herhalen."
+  },
+  {
+    "i": 118,
+    "en": "Ebon Might must have 100% uptime to buff your allies.",
+    "nl": "Ebon Might moet 100% uptime hebben om je bondgenoten te verbeteren."
+  },
+  {
+    "i": 119,
+    "en": "Upheaval extends your buffs.",
+    "nl": "Upheaval breidt je verbeteringen uit."
+  },
+  {
+    "i": 120,
+    "en": "Breath of Eons is your big support cooldown; time it with your group's burst.",
+    "nl": "Breath of Eons is je grote cooldown voor ondersteuning; time het met de burst van uw groep."
+  },
+  {
+    "i": 121,
+    "en": "Blistering Scales on the tank.",
+    "nl": "Blaarvorming op de tank."
+  },
+  {
+    "i": 122,
+    "en": "Prescience on your best DPS players.",
+    "nl": "Voorkennis over je beste DPS-spelers."
+  },
+  {
+    "i": 123,
+    "en": "Eruption is your main spender to extend Ebon Might.",
+    "nl": "Eruption is uw belangrijkste uitgever om Ebon Might uit te breiden."
+  },
+  {
+    "i": 124,
+    "en": "Source of Magic for your healers' mana.",
+    "nl": "Bron van magie voor de mana van je genezers."
+  },
+  {
+    "i": 125,
+    "en": "Spatial Paradox helps healers cast while moving.",
+    "nl": "Spatial Paradox helpt genezers te casten terwijl ze bewegen."
+  },
+  {
+    "i": 126,
+    "en": "Rescue to move allies out of danger.",
+    "nl": "Redding om bondgenoten uit de gevarenzone te halen."
+  },
+  {
+    "i": 127,
+    "en": "Landslide for crowd control.",
+    "nl": "Aardverschuiving voor crowd control."
+  },
+  {
+    "i": 128,
+    "en": "Kill Command is your main attack; it lets your cap attack directly.",
+    "nl": "Kill Command is je belangrijkste aanval; het laat je pet direct aanvallen."
+  },
+  {
+    "i": 129,
+    "en": "Use Barbed Shot to shorten Bestial Wrath's cooldown.",
+    "nl": "Gebruik Barbed Shot om de cooldown van Bestial Wrath te verkorten."
+  },
+  {
+    "i": 130,
+    "en": "Bestial Wrath increases your damage and enrages your pet.",
+    "nl": "Bestial Wrath verhoogt je schade en maakt je pet razend."
+  },
+  {
+    "i": 131,
+    "en": "Kill Shot is your finisher for enemies under 20% health.",
+    "nl": "Kill Shot is je finisher voor vijanden onder 20% gezondheid."
+  },
+  {
+    "i": 132,
+    "en": "Use Multi-Shot to activate Kill Cleave for your pet.",
+    "nl": "Gebruik Multi-Shot om Kill Cleave te activeren voor je pet."
+  },
+  {
+    "i": 133,
+    "en": "Exhilaration heals you and your pet instantly.",
+    "nl": "Exhilaration geneest jou en je pet onmiddellijk."
+  },
+  {
+    "i": 134,
+    "en": "Aspect of the Turtle blocks all damage if you get into trouble.",
+    "nl": "Aspect of the Turtle blokkeert alle schade als je in de problemen komt."
+  },
+  {
+    "i": 135,
+    "en": "Counter Shot onderbreekt vijandelijke toverspreuken.",
+    "nl": "Counter Shot onderbreekt vijandelijke toverspreuken."
+  },
+  {
+    "i": 136,
+    "en": "Misdirection on your cap ensures that it retains all threat.",
+    "nl": "Misdirection op je pet zorgt dat hij alle dreiging vasthoudt."
+  },
+  {
+    "i": 137,
+    "en": "Mend Pet should always be active when your pet takes damage.",
+    "nl": "Mend Pet moet altijd actief zijn als je pet schade krijgt."
+  },
+  {
+    "i": 138,
+    "en": "Aimed Shot does the most damage; don't waste your charges.",
+    "nl": "Aimed Shot doet de meeste schade; verspil je charges niet."
+  },
+  {
+    "i": 139,
+    "en": "Rapid Fire generates Focus and deals heavy damage.",
+    "nl": "Rapid Fire genereert Focus en doet zware schade."
+  },
+  {
+    "i": 140,
+    "en": "Arcane Shot is your main way to spend Focus.",
+    "nl": "Arcane Shot is je belangrijkste manier om Focus uit te geven."
+  },
+  {
+    "i": 141,
+    "en": "Trueshot is your big cooldown for fast Aimed Shots.",
+    "nl": "Trueshot is je grote cooldown voor snelle Aimed Shots."
+  },
+  {
+    "i": 142,
+    "en": "Multi-Shot activates Trick Shots for AoE damage.",
+    "nl": "Multi-Shot activeert Trick Shots voor AoE schade."
+  },
+  {
+    "i": 143,
+    "en": "Aspect of the Cheetah helps you move quickly.",
+    "nl": "Aspect of the Cheetah helpt je om snel te verplaatsen."
+  },
+  {
+    "i": 144,
+    "en": "Binding Shot houdt groepen vijanden op hun plek.",
+    "nl": "Binding Shot houdt van groepen vijanden op hun plek."
+  },
+  {
+    "i": 145,
+    "en": "Freezing Trap completely knocks out one enemy.",
+    "nl": "Freezing Trap zet één vijand volledig buiten spel."
+  },
+  {
+    "i": 146,
+    "en": "Use Aspect of the Turtle on dangerous attacks.",
+    "nl": "Gebruik Aspect of the Turtle bij gevaarlijke aanvallen."
+  },
+  {
+    "i": 147,
+    "en": "Feign Death lets monsters ignore you when things get too hot.",
+    "nl": "Feign Death laat monsters je negeren als het te heet wordt."
+  },
+  {
+    "i": 148,
+    "en": "Kill Command generates Focus for your attacks.",
+    "nl": "Kill Command genereert Focus voor je aanvallen."
+  },
+  {
+    "i": 149,
+    "en": "Wildfire Bomb is your main source of damage over time.",
+    "nl": "Wildfire Bomb is je belangrijkste bron van schade over tijd."
+  },
+  {
+    "i": 150,
+    "en": "Mongoose Bite is your strongest attack; try to build stacks.",
+    "nl": "Mongoose Bite is je sterkste aanval; probeer stacks op te bouwen."
+  },
+  {
+    "i": 151,
+    "en": "Always keep Serpent Sting active on strong enemies.",
+    "nl": "Houd Serpent Sting altijd actief op sterke vijanden."
+  },
+  {
+    "i": 152,
+    "en": "Coordinated Assault strengthens the collaboration with your pet.",
+    "nl": "Coordinated Assault versterkt de samenwerking met je pet."
+  },
+  {
+    "i": 153,
+    "en": "Harpoon pulls you directly towards your enemy.",
+    "nl": "Harpoon trekt je direct naar je vijand toe."
+  },
+  {
+    "i": 154,
+    "en": "Fury of the Eagle is a powerful attack for groups of monsters.",
+    "nl": "Fury of the Eagle is een krachtige aanval voor groepen monsters."
+  },
+  {
+    "i": 155,
+    "en": "Aspect of the Turtle for maximum defense.",
+    "nl": "Aspect of the Turtle voor maximale verdediging."
+  },
+  {
+    "i": 156,
+    "en": "Intimidation allows your cap to stun the target.",
+    "nl": "Intimidation laat je pet het doelwit verdoven (stun)."
+  },
+  {
+    "i": 157,
+    "en": "Disengage om snel achteruit te springen en afstand te nemen.",
+    "nl": "Schakel om snel achteruit te springen en afstand te nemen uit."
+  },
+  {
+    "i": 158,
+    "en": "Arcane Blast is your base; the more stacks, the harder the hit (and the more mana).",
+    "nl": "Arcane Blast is je basis; hoe meer stacks, hoe harder de klap (en hoe meer mana)."
+  },
+  {
+    "i": 159,
+    "en": "Only use Arcane Missiles when Clearcasting is active for a free attack.",
+    "nl": "Gebruik Arcane Missiles alleen als Clearcasting actief is voor een gratis aanval."
+  },
+  {
+    "i": 160,
+    "en": "Arcane Barrage drains your stacks and gives your mana some rest.",
+    "nl": "Arcane Barrage loost je stacks en geeft je mana weer wat rust."
+  },
+  {
+    "i": 161,
+    "en": "Evocation is your lifeline; use it to replenish your mana very quickly.",
+    "nl": "Evocation is je levenslijn; gebruik het om je mana razendsnel aan te vullen."
+  },
+  {
+    "i": 162,
+    "en": "Alter Time is your best friend: it resets your life and place to 10 seconds ago.",
+    "nl": "Alter Time is je beste vriend: het zet je leven en plek terug naar 10 seconden geleden."
+  },
+  {
+    "i": 163,
+    "en": "Arcane Surge is your most powerful attack; it consumes all your mana for massive damage and then quickly regenerates it.",
+    "nl": "Arcane Surge is je krachtigste aanval; het verbruikt al je mana voor enorme schade en herstelt het daarna snel."
+  },
+  {
+    "i": 164,
+    "en": "Mirror Image summons three copies of yourself to distract enemies and reduce damage.",
+    "nl": "Mirror Image roept drie kopieën van jezelf op om vijanden af te leiden en schade te verminderen."
+  },
+  {
+    "i": 165,
+    "en": "Slow is perfect for keeping one strong enemy at bay while you charge your spells.",
+    "nl": "Slow is perfect om één sterke vijand op afstand te houden terwijl je je spreuken oplaadt."
+  },
+  {
+    "i": 166,
+    "en": "Counterspell stopt vijandelijk toveren; essentieel in dungeons en tegen elite monsters.",
+    "nl": "Counterspell stopte vijandelijk toveren; in kerkers en tegen elite-monsters."
+  },
+  {
+    "i": 167,
+    "en": "Don't forget Arcane Intellect; this buff should always be active for increased damage and mana.",
+    "nl": "Vergeet Arcane Intellect niet; deze buff moet altijd actief zijn voor meer schade en mana."
+  },
+  {
+    "i": 168,
+    "en": "Hold down Fireball until you get a critical hit (Heating Up).",
+    "nl": "Houd Fireball ingedrukt tot je een kritieke treffer (Heating Up) krijgt."
+  },
+  {
+    "i": 169,
+    "en": "Fire Blast guarantees a crit; use this to activate your Hot Streak instantly.",
+    "nl": "Fire Blast garandeert een crit; gebruik dit om je Hot Streak direct te activeren."
+  },
+  {
+    "i": 170,
+    "en": "Pyroblast alleen afvuren als hij instant is (Hot Streak) voor maximale chaos.",
+    "nl": "Pyroblast alleen afvuren als hij instant is (Hot Streak) voor maximale chaos."
+  },
+  {
+    "i": 171,
+    "en": "Combustion is your burst window; everything that touches you is then critical.",
+    "nl": "Combustion is je burst-venster; alles wat je raakt is dan kritiek."
+  },
+  {
+    "i": 172,
+    "en": "Flamestrike is the king of AoE; ideal for large groups.",
+    "nl": "Flamestrike is de koning van de AoE; ideaal voor grote groepen."
+  },
+  {
+    "i": 173,
+    "en": "Dragon's Breath disorients all enemies in front of you; ideal if they get too close.",
+    "nl": "Dragon's Breath desoriënteert alle vijanden voor je; ideaal als ze te dichtbij komen."
+  },
+  {
+    "i": 174,
+    "en": "Phoenix Flames gives you a guaranteed critical hit and helps you build Hot Streak.",
+    "nl": "Phoenix Flames geeft je een gegarandeerde kritieke treffer en helpt je Hot Streak op te bouwen."
+  },
+  {
+    "i": 175,
+    "en": "You can use Scorch while running; perfect for when you need to dodge but still want to attack.",
+    "nl": "Scorch kun je al rennend gebruiken; perfect voor als je moet ontwijken maar toch wilt aanvallen."
+  },
+  {
+    "i": 176,
+    "en": "Use Counterspell to instantly interrupt dangerous enemy spells.",
+    "nl": "Gebruik Counterspell om gevaarlijke spreuken van vijanden direct te onderbreken."
+  },
+  {
+    "i": 177,
+    "en": "Blazing Barrier absorbs damage and deals some fire damage back to attackers.",
+    "nl": "Blazing Barrier absorbeert schade en doet een beetje vuurschade terug aan aanvallers."
+  },
+  {
+    "i": 178,
+    "en": "Frostbolt slows down enemies so they can never touch you.",
+    "nl": "Frostbolt vertraagt vijanden zodat ze je nooit kunnen aanraken."
+  },
+  {
+    "i": 179,
+    "en": "You should cast Flurry immediately as soon as Brain Freeze lights up for a combo.",
+    "nl": "Flurry moet je direct casten zodra Brain Freeze oplicht voor een combo."
+  },
+  {
+    "i": 180,
+    "en": "Ice Lance deals triple damage against frozen enemies.",
+    "nl": "Ice Lance doet driedubbele schade tegen bevroren vijanden."
+  },
+  {
+    "i": 181,
+    "en": "Frozen Orb continuously generates Fingers of Frost; perfect for groups.",
+    "nl": "Frozen Orb genereert aan de lopende band Fingers of Frost; perfect voor groepen."
+  },
+  {
+    "i": 182,
+    "en": "Ice Block is your emergency button; it makes you invulnerable for 10 seconds.",
+    "nl": "Ice Block is je noodknop; het maakt je 10 seconden onkwetsbaar."
+  },
+  {
+    "i": 183,
+    "en": "Your Water Elemental can Freeze enemies, which instantly gives you Fingers of Frost procs.",
+    "nl": "Je Water Elemental kan vijanden bevriezen (Freeze), wat je direct Fingers of Frost procs geeft."
+  },
+  {
+    "i": 184,
+    "en": "Icy Veins lets you cast much faster; use this with large groups or bosses.",
+    "nl": "Icy Veins laat je veel sneller casten; gebruik dit bij grote groepen of bazen."
+  },
+  {
+    "i": 185,
+    "en": "Cone of Cold slows down all enemies in a cone in front of you; useful for escape.",
+    "nl": "Cone of Cold vertraagt alle vijanden in een kegel voor je; handig om te ontsnappen."
+  },
+  {
+    "i": 186,
+    "en": "Interrupt enemies with Counterspell to prevent them from damaging you.",
+    "nl": "Onderbreek vijanden met Counterspell om te voorkomen dat ze jou schade doen."
+  },
+  {
+    "i": 187,
+    "en": "Ice Barrier is your main shield; try to always have this active during battles.",
+    "nl": "Ice Barrier is je belangrijkste schild; probeer dit altijd actief te hebben tijdens gevechten."
+  },
+  {
+    "i": 188,
+    "en": "Keg Smash is your main threat attack and slows down enemies.",
+    "nl": "Keg Smash is je belangrijkste aanval voor dreiging en vertraagt vijanden."
+  },
+  {
+    "i": 189,
+    "en": "Blackout Kick reduces the cooldown of your brews; use it often.",
+    "nl": "Blackout Kick verlaagt de cooldown van je brouwsels; gebruik het vaak."
+  },
+  {
+    "i": 190,
+    "en": "Breath of Fire burns enemies; they do less damage when hit by Keg Smash.",
+    "nl": "Breath of Fire verbrandt vijanden; ze doen minder schade als ze geraakt zijn door Keg Smash."
+  },
+  {
+    "i": 191,
+    "en": "Purifying Brew is essential to halve your Stagger (damage saved).",
+    "nl": "Purifying Brew is essentieel om je Stagger (opgeslagen schade) te halveren."
+  },
+  {
+    "i": 192,
+    "en": "Celestial Brew gives you a huge shield based on how much damage you purged.",
+    "nl": "Celestial Brew geeft je een enorm schild op basis van hoeveel schade je hebt gezuiverd."
+  },
+  {
+    "i": 193,
+    "en": "Rushing Jade Wind deals constant damage around you; good for holding groups.",
+    "nl": "Rushing Jade Wind zorgt voor constante schade om je heen; goed om groepen vast te houden."
+  },
+  {
+    "i": 194,
+    "en": "Fortifying Brew is your emergency button for extra life and less incoming damage.",
+    "nl": "Fortifying Brew is je noodknop voor extra leven en minder inkomende schade."
+  },
+  {
+    "i": 195,
+    "en": "Expel Harm heals you instantly and draws all Healing Spheres to you.",
+    "nl": "Expel Harm geneest je direct en trekt alle Healing Spheres naar je toe."
+  },
+  {
+    "i": 196,
+    "en": "Spear Hand Strike onderbreekt vijandelijke toverspreuken.",
+    "nl": "Spear Hand Strike onderbreekt vijandelijke toverspreuken."
+  },
+  {
+    "i": 197,
+    "en": "Leg Sweep stuns all enemies around you for a few seconds.",
+    "nl": "Leg Sweep verlamt alle vijanden om je heen voor een paar seconden."
+  },
+  {
+    "i": 198,
+    "en": "Soothing Mist is the foundation of your healing; you can cast other spells directly while channeling this.",
+    "nl": "Soothing Mist is de basis van je genezing; je kunt andere spreuken direct gebruiken terwijl je dit kanaalt."
+  },
+  {
+    "i": 199,
+    "en": "Renewing Mist verspreidt zich naar gewonde bondgenoten; houd dit op zoveel mogelijk mensen.",
+    "nl": "Vernieuwende Mist verspreidt zich naar gewonde bondgenoten; houd dit op zoveel mogelijke mensen."
+  },
+  {
+    "i": 200,
+    "en": "Enveloping Mist provides powerful healing over time and boosts your other heals on that target.",
+    "nl": "Enveloping Mist geeft een krachtige genezing over tijd en versterkt je andere heals op dat doelwit."
+  },
+  {
+    "i": 201,
+    "en": "Vivify heals your main target and anyone who has a Renewing Mist.",
+    "nl": "Vivify geneest je hoofddoel en iedereen die een Renewing Mist heeft."
+  },
+  {
+    "i": 202,
+    "en": "Essence Font is your best option for healing the entire group at once.",
+    "nl": "Essence Font is je beste optie voor het genezen van de hele groep tegelijk."
+  },
+  {
+    "i": 203,
+    "en": "Revival is a huge instant heal for the entire raid and removes all adverse effects.",
+    "nl": "Revival is een enorme directe heal voor de hele raid en verwijdert alle nadelige effecten."
+  },
+  {
+    "i": 204,
+    "en": "Life Cocoon geeft een bondgenoot een groot schild en verhoogt de genezing die ze ontvangen.",
+    "nl": "Life Cocoon geeft een bondgenoot een groot schild en verhoogt de genezing die ze ontvangen."
+  },
+  {
+    "i": 205,
+    "en": "Thunder Focus Tea strengthens your next spell; use it wisely.",
+    "nl": "Thunder Focus Tea versterkt je volgende spreuk; gebruik het slim."
+  },
+  {
+    "i": 206,
+    "en": "Use Leg Sweep to stun enemies and reduce damage on the tank.",
+    "nl": "Gebruik Leg Sweep om vijanden te stunnen en de schade op de tank te verminderen."
+  },
+  {
+    "i": 207,
+    "en": "Paralysis completely silences an enemy; useful to make a fight easier.",
+    "nl": "Paralysis zet een vijand volledig stil; handig om een gevecht makkelijker te maken."
+  },
+  {
+    "i": 208,
+    "en": "Tiger Palm bouwt Chi op; gebruik het nooit twee keer achter elkaar (Mastery!).",
+    "nl": "Tiger Palm bouwt Chi op; gebruik het nooit twee keer achter elkaar (Meesterschap!)."
+  },
+  {
+    "i": 209,
+    "en": "Blackout Kick is a cheap way to continue your combo streak.",
+    "nl": "Blackout Kick is een goedkope manier om je combo-serie voort te zetten."
+  },
+  {
+    "i": 210,
+    "en": "Rising Sun Kick is your strongest attack against a single target.",
+    "nl": "Rising Sun Kick is je sterkste aanval tegen één doelwit."
+  },
+  {
+    "i": 211,
+    "en": "Fists of Fury deals massive damage to all enemies in front of you; remain stationary during use.",
+    "nl": "Fists of Fury doet enorme schade aan alle vijanden voor je; blijf stilstaan tijdens het gebruik."
+  },
+  {
+    "i": 212,
+    "en": "Spinning Crane Kick is your best attack against large groups of monsters.",
+    "nl": "Spinning Crane Kick is je beste aanval tegen grote groepen monsters."
+  },
+  {
+    "i": 213,
+    "en": "Touch of Death doodt vijanden met minder leven dan jij direct; gebruik het bij elke kans.",
+    "nl": "Touch of Death doodt vijanden met minder leven dan jij direct; gebruik het bij elke kans."
+  },
+  {
+    "i": 214,
+    "en": "Touch of Karma sends incoming damage back to your enemy; your best defense.",
+    "nl": "Touch of Karma stuurt inkomende schade terug naar je vijand; je beste verdediging."
+  },
+  {
+    "i": 215,
+    "en": "Chi Wave bounces between allies and enemies for both damage and healing.",
+    "nl": "Chi Wave stuitert tussen bondgenoten en vijanden voor zowel schade als genezing."
+  },
+  {
+    "i": 216,
+    "en": "Use Spear Hand Strike to stop dangerous spells from enemies.",
+    "nl": "Gebruik Spear Hand Strike om gevaarlijke spreuken van vijanden te stoppen."
+  },
+  {
+    "i": 217,
+    "en": "Flying Serpent Kick helps you move through the world or battle at lightning speed.",
+    "nl": "Flying Serpent Kick helpt je om razendsnel door de wereld of het gevecht te bewegen."
+  },
+  {
+    "i": 218,
+    "en": "Holy Shock is your main spell; use it for both quick healing and damage.",
+    "nl": "Holy Shock is je belangrijkste spreuk; gebruik het voor zowel snelle genezing als schade."
+  },
+  {
+    "i": 219,
+    "en": "Word of Glory is your best way to spend Holy Power for instant healing.",
+    "nl": "Word of Glory is je beste manier om Holy Power uit te geven voor directe genezing."
+  },
+  {
+    "i": 220,
+    "en": "Flash of Light is snel maar duur; gebruik het alleen in noodsituaties.",
+    "nl": "Flash of Light is snel maar duur; gebruik het alleen in vereisten."
+  },
+  {
+    "i": 221,
+    "en": "Always keep Beacon of Light on the tank so he receives healing while you help others.",
+    "nl": "Houd Beacon of Light altijd op de tank zodat hij genezing ontvangt terwijl jij anderen helpt."
+  },
+  {
+    "i": 222,
+    "en": "Avenging Wrath (Wings) greatly increases your healing and damage; save this for tough moments.",
+    "nl": "Avenging Wrath (Vleugels) verhoogt je genezing en schade enorm; bewaar dit voor zware momenten."
+  },
+  {
+    "i": 223,
+    "en": "Light's Hammer is great for healing a group that is close together.",
+    "nl": "Light's Hammer is fantastisch voor het genezen van een groep die dicht bij elkaar staat."
+  },
+  {
+    "i": 224,
+    "en": "Divine Protection reduces the damage you take; don't forget to protect yourself!",
+    "nl": "Divine Protection vermindert de schade die jij krijgt; vergeet jezelf niet te beschermen!"
+  },
+  {
+    "i": 225,
+    "en": "Hammer of Justice stuns an enemy for 6 seconds; perfect for stopping dangerous spells.",
+    "nl": "Hammer of Justice verlamt een vijand voor 6 seconden; perfect om gevaarlijke spreuken te stoppen."
+  },
+  {
+    "i": 226,
+    "en": "Blessing of Freedom verwijdert bewegingsbeperkende effecten van jezelf of een bondgenoot.",
+    "nl": "Blessing of Freedom actieve bewegingsbeperkende effecten van jezelf of een bondgenoot."
+  },
+  {
+    "i": 227,
+    "en": "Lay on Hands instantly heals a target for 100% of your maximum life; your ultimate emergency button.",
+    "nl": "Lay on Hands geneest een doelwit direct voor 100% van jouw maximale leven; je ultieme noodknop."
+  },
+  {
+    "i": 228,
+    "en": "Shield of the Righteous is your main defense; it increases your armor immensely.",
+    "nl": "Shield of the Righteous is je belangrijkste verdediging; het verhoogt je pantser enorm."
+  },
+  {
+    "i": 229,
+    "en": "Avenger's Shield interrupts enemies and gives you a shield; use it as soon as you can.",
+    "nl": "Avenger's Shield onderbreekt vijanden en geeft je een schild; gebruik het zodra het kan."
+  },
+  {
+    "i": 230,
+    "en": "Consecration should always be under your feet for additional damage reduction.",
+    "nl": "Consecration moet altijd onder je voeten liggen voor extra schadevermindering."
+  },
+  {
+    "i": 231,
+    "en": "Crusader Strike builds up Holy Power that you need for your shield or healing.",
+    "nl": "Crusader Strike bouwt Holy Power op die je nodig hebt voor je schild of genezing."
+  },
+  {
+    "i": 232,
+    "en": "Judgment generates Holy Power and makes your enemies hit harder.",
+    "nl": "Judgment genereert Holy Power en zorgt dat je vijanden harder geraakt worden."
+  },
+  {
+    "i": 233,
+    "en": "Seraphim increases all your secondary stats for a short time; use it for extra strength.",
+    "nl": "Seraphim verhoogt al je secundaire stats voor een korte tijd; gebruik het voor extra kracht."
+  },
+  {
+    "i": 234,
+    "en": "Guardian of Ancient Kings is your strongest defense against massive blows.",
+    "nl": "Guardian of Ancient Kings is je sterkste verdediging tegen enorme klappen."
+  },
+  {
+    "i": 235,
+    "en": "Ardent Defender prevents you from dying from a fatal blow; an indispensable rescue.",
+    "nl": "Ardent Defender voorkomt dat je doodgaat bij een fatale klap; een onmisbare redding."
+  },
+  {
+    "i": 236,
+    "en": "Hand of Reckoning trekt de aandacht van een monster naar jou toe (Taunt).",
+    "nl": "Hand of Reckoning trekt de aandacht van een monster naar jou toe (Bespotting)."
+  },
+  {
+    "i": 237,
+    "en": "Hammer of the Righteous is your main attack against groups of enemies.",
+    "nl": "Hammer of the Righteous is je belangrijkste aanval tegen groepen vijanden."
+  },
+  {
+    "i": 238,
+    "en": "Templar's Verdict is your most powerful attack; use it once you have 3 or more Holy Power.",
+    "nl": "Templar's Verdict is je krachtigste aanval; gebruik het zodra je 3 of meer Holy Power hebt."
+  },
+  {
+    "i": 239,
+    "en": "Blade of Justice bouwt snel Holy Power op; gebruik het op cooldown.",
+    "nl": "Blade of Justice bouwt snel Holy Power op; gebruik de cooldown."
+  },
+  {
+    "i": 240,
+    "en": "Judgment ensures that your target takes more damage from your next Holy Power attack.",
+    "nl": "Judgment zorgt dat je doelwit meer schade krijgt van je volgende Holy Power aanval."
+  },
+  {
+    "i": 241,
+    "en": "Crusader Strike is your basic attack to fill gaps in your rotation.",
+    "nl": "Crusader Strike is je basis-aanval om gaten in je rotatie op te vullen."
+  },
+  {
+    "i": 242,
+    "en": "Divine Storm is your best weapon against groups of enemies; it affects everyone around you.",
+    "nl": "Divine Storm is je beste wapen tegen groepen vijanden; het raakt iedereen om je heen."
+  },
+  {
+    "i": 243,
+    "en": "Hammer of Wrath can only be used on enemies with low life or during Wings.",
+    "nl": "Hammer of Wrath kun je alleen gebruiken op vijanden met weinig leven of tijdens Vleugels."
+  },
+  {
+    "i": 244,
+    "en": "Avenging Wrath (Wings) makes all your attacks much stronger; use this for maximum burst.",
+    "nl": "Avenging Wrath (Vleugels) maakt al je aanvallen veel sterker; gebruik dit voor maximale burst."
+  },
+  {
+    "i": 245,
+    "en": "Shield of Vengeance absorbs damage and then explodes for additional damage to enemies.",
+    "nl": "Shield of Vengeance absorbeert schade en ontploft daarna voor extra schade aan vijanden."
+  },
+  {
+    "i": 246,
+    "en": "Divine Shield (Bubble) makes you completely invulnerable; ideal for surviving dangerous situations.",
+    "nl": "Divine Shield (Bubble) maakt je volledig onkwetsbaar; ideaal om gevaarlijke situaties te overleven."
+  },
+  {
+    "i": 247,
+    "en": "Divine Steed helps you move quickly in the heat of battle.",
+    "nl": "Divine Steed helpt je om snel te verplaatsen in het heetst van de strijd."
+  },
+  {
+    "i": 248,
+    "en": "Atonement is your most important mechanism; heal allies by damaging enemies.",
+    "nl": "Atonement is je belangrijkste mechanisme; genees bondgenoten door vijanden schade toe te brengen."
+  },
+  {
+    "i": 249,
+    "en": "Power Word: Shield provides an instant buff and applies Atonement to your target.",
+    "nl": "Power Word: Shield geeft een directe buffer en brengt Atonement aan op je doelwit."
+  },
+  {
+    "i": 250,
+    "en": "Penance is your most versatile spell; use it for burst damage or instant healing.",
+    "nl": "Penance is je meest veelzijdige spreuk; gebruik het voor burst-schade of directe genezing."
+  },
+  {
+    "i": 251,
+    "en": "Smite is your basic attack to keep Atonement healing active without consuming much mana.",
+    "nl": "Smite is je basis-aanval om Atonement-genezing actief te houden zonder veel mana te verbruiken."
+  },
+  {
+    "i": 252,
+    "en": "Mind Blast does significant damage and prevents some of the enemy's subsequent damage.",
+    "nl": "Mind Blast doet flinke schade en voorkomt een deel van de volgende schade die de vijand doet."
+  },
+  {
+    "i": 253,
+    "en": "Pain Suppression greatly reduces incoming damage; use this on the tank in case of major impacts.",
+    "nl": "Pain Suppression vermindert inkomende schade enorm; gebruik dit op de tank bij grote klappen."
+  },
+  {
+    "i": 254,
+    "en": "Power Word: Barrier places a dome that protects everyone inside from harm.",
+    "nl": "Power Word: Barrier plaatst een koepel die iedereen binnenin beschermt tegen schade."
+  },
+  {
+    "i": 255,
+    "en": "Schism increases the damage you do to the target, which also increases your healing.",
+    "nl": "Schism verhoogt de schade die je doet aan het doelwit, wat ook je genezing versterkt."
+  },
+  {
+    "i": 256,
+    "en": "Purify removes adverse magical effects and diseases from your allies.",
+    "nl": "Purify verwijdert nadelige magische effecten en ziektes van je bondgenoten."
+  },
+  {
+    "i": 257,
+    "en": "Leap of Faith draws an ally to you; perfect for saving people from fire.",
+    "nl": "Leap of Faith trekt een bondgenoot naar je toe; perfect om mensen uit het vuur te redden."
+  },
+  {
+    "i": 258,
+    "en": "Flash Heal is your quick emergency healing for individual goals.",
+    "nl": "Flash Heal is je snelle nood-genezing voor individuele doelen."
+  },
+  {
+    "i": 259,
+    "en": "Holy Word: Serenity is een enorme directe heal met een lange cooldown die verkort wordt door Flash Heal.",
+    "nl": "Heilig Woord: Serenity is een enorme directe genezing met een lange cooldown die verkort wordt door Flash Heal."
+  },
+  {
+    "i": 260,
+    "en": "Holy Word: Sanctify is your best option for healing a group in close proximity.",
+    "nl": "Holy Word: Sanctify is je beste optie voor het genezen van een groep die dicht bij elkaar staat."
+  },
+  {
+    "i": 261,
+    "en": "Renew provides healing over time; keep this active on the tank or players who take constant damage.",
+    "nl": "Renew geeft genezing over tijd; houd dit actief op de tank of spelers die constante schade krijgen."
+  },
+  {
+    "i": 262,
+    "en": "Prayer of Mending jumps to other allies when the target takes damage.",
+    "nl": "Prayer of Mending springt over naar andere bondgenoten zodra het doelwit schade krijgt."
+  },
+  {
+    "i": 263,
+    "en": "Divine Hymn is a powerful channel spell that heals the entire party and increases their healing received.",
+    "nl": "Divine Hymn is een krachtige kanaal-spreuk die de hele groep geneest en hun ontvangen healing verhoogt."
+  },
+  {
+    "i": 264,
+    "en": "Guardian Spirit verhoogt de ontvangen genezing en voorkomt dat het doelwit doodgaat.",
+    "nl": "Guardian Spirit verhoogt de ontvangst genezing en voorkomt dat het beoogde doodgaat."
+  },
+  {
+    "i": 265,
+    "en": "Power Infusion greatly increases your Haste; you can also put this on a strong DPS player.",
+    "nl": "Power Infusion verhoogt je Haste enorm; je kunt dit ook op een sterke DPS-speler zetten."
+  },
+  {
+    "i": 266,
+    "en": "Fade causes monsters to temporarily ignore you if you've built up too much threat.",
+    "nl": "Fade zorgt ervoor dat monsters je tijdelijk negeren als je teveel dreiging hebt opgebouwd."
+  },
+  {
+    "i": 267,
+    "en": "Symbol of Hope restores some of the mana to all healers in your party.",
+    "nl": "Symbol of Hope herstelt een deel van de mana van alle healers in je groep."
+  },
+  {
+    "i": 268,
+    "en": "Shadow Word: Pain must always be kept active on all your enemies.",
+    "nl": "Shadow Word: Pain moet je altijd actief houden op al je vijanden."
+  },
+  {
+    "i": 269,
+    "en": "Vampiric Touch deals damage over time and restores a bit of your own life.",
+    "nl": "Vampiric Touch brengt schade over tijd aan en herstelt een beetje van je eigen leven."
+  },
+  {
+    "i": 270,
+    "en": "Mind Blast builds Insanity and does significant direct damage.",
+    "nl": "Mind Blast bouwt Insanity op en doet flinke directe schade."
+  },
+  {
+    "i": 271,
+    "en": "Mind Flay is your filler spell that slows the enemy while you wait for your other cooldowns.",
+    "nl": "Mind Flay is je filler-spreuk die de vijand vertraagt terwijl je wacht op je andere cooldowns."
+  },
+  {
+    "i": 272,
+    "en": "You can only use Void Bolt during Voidform; it refreshes the duration of your illnesses.",
+    "nl": "Void Bolt kun je alleen gebruiken tijdens Voidform; het ververst de duur van je ziektes."
+  },
+  {
+    "i": 273,
+    "en": "Shadow Word: Death is your finisher for enemies who are near death.",
+    "nl": "Shadow Word: Death is je finisher voor vijanden die bijna dood zijn."
+  },
+  {
+    "i": 274,
+    "en": "Shadow Crash is perfect for applying Vampiric Touch to groups of enemies.",
+    "nl": "Shadow Crash is perfect voor het aanbrengen van Vampiric Touch op groepen vijanden."
+  },
+  {
+    "i": 275,
+    "en": "Dispersion reduces all incoming damage by 75%; your best way to survive.",
+    "nl": "Dispersion vermindert alle inkomende schade met 75%; je beste manier om te overleven."
+  },
+  {
+    "i": 276,
+    "en": "Shadowfiend summons a creature that attacks your enemy and generates Insanity for you.",
+    "nl": "Shadowfiend roept een wezen op dat je vijand aanvalt en Insanity voor je genereert."
+  },
+  {
+    "i": 277,
+    "en": "Vampiric Embrace converts some of your damage into healing for the group.",
+    "nl": "Vampiric Embrace zorgt dat een deel van je schade wordt omgezet in genezing voor de groep."
+  },
+  {
+    "i": 278,
+    "en": "Garrote is your start; it applies bleed and generates Combo Points.",
+    "nl": "Garrote is je start; het brengt een bleed aan en genereert Combo Points."
+  },
+  {
+    "i": 279,
+    "en": "Rupture is your main finisher; always keep this bleed active on your target.",
+    "nl": "Rupture is je belangrijkste finisher; houd deze bleed altijd actief op je doelwit."
+  },
+  {
+    "i": 280,
+    "en": "Backstab is your base builder for Combo Points when you are behind the target.",
+    "nl": "Backstab is je basis-opbouwer voor Combo Points als je achter het doelwit staat."
+  },
+  {
+    "i": 281,
+    "en": "Dispatch is your powerful finisher when the enemy is low on life.",
+    "nl": "Dispatch is je krachtige finisher als de vijand weinig leven heeft."
+  },
+  {
+    "i": 282,
+    "en": "Vendetta marks your enemy for extra damage; use this for burst.",
+    "nl": "Vendetta markeert je vijand voor extra schade; gebruik dit voor burst."
+  },
+  {
+    "i": 283,
+    "en": "Vanish makes you disappear in the middle of a fight; useful for escaping or reopening.",
+    "nl": "Vanish laat je verdwijnen in het midden van een gevecht; handig om te ontsnappen of opnieuw te openen."
+  },
+  {
+    "i": 284,
+    "en": "Kick interrupts enemy spells; essential to prevent damage.",
+    "nl": "Kick onderbreekt vijandelijke spreuken; essentieel om schade te voorkomen."
+  },
+  {
+    "i": 285,
+    "en": "Shadowstep lets you appear directly behind your target.",
+    "nl": "Shadowstep laat je direct achter je doelwit verschijnen."
+  },
+  {
+    "i": 286,
+    "en": "Evasion greatly increases your dodge chance when you take physical hits.",
+    "nl": "Evasion verhoogt je ontwijkingskans enorm als je fysieke klappen krijgt."
+  },
+  {
+    "i": 287,
+    "en": "Cloak of Shadows makes you immune to magic and removes adverse effects.",
+    "nl": "Cloak of Shadows maakt je immuun voor magie en verwijdert nadelige effecten."
+  },
+  {
+    "i": 288,
+    "en": "Sinister Strike is your main attack to build up Combo Points.",
+    "nl": "Sinister Strike is je hoofdaanval om Combo Points op te bouwen."
+  },
+  {
+    "i": 289,
+    "en": "Roll the Bones gives you random combat bonuses; always keep this active.",
+    "nl": "Roll the Bones geeft je willekeurige gevechtsbonussen; houd dit altijd actief."
+  },
+  {
+    "i": 290,
+    "en": "Eviscerate is your standard high damage finisher.",
+    "nl": "Eviscerate is je standaard finisher voor grote schade."
+  },
+  {
+    "i": 291,
+    "en": "Use Pistol Shot when 'Opportunity' lights up for free Combo Points.",
+    "nl": "Pistol Shot gebruik je wanneer 'Opportunity' oplicht voor gratis Combo Points."
+  },
+  {
+    "i": 292,
+    "en": "Blade Flurry ensures that your attacks hit all nearby enemies; ideal for groups.",
+    "nl": "Blade Flurry zorgt dat je aanvallen alle vijanden in de buurt raken; ideaal voor groepen."
+  },
+  {
+    "i": 293,
+    "en": "Adrenaline Rush greatly increases your Energy generation and attack speed.",
+    "nl": "Adrenaline Rush verhoogt je Energy-generatie en aanvalssnelheid enorm."
+  },
+  {
+    "i": 294,
+    "en": "Blind disorients an enemy for a minute; perfect for crowd control.",
+    "nl": "Blind desoriënteert een vijand voor een minuut; perfect voor crowd control."
+  },
+  {
+    "i": 295,
+    "en": "Vanish is your emergency button to escape from dangerous situations.",
+    "nl": "Vanish is je noodknop om uit gevaarlijke situaties te ontsnappen."
+  },
+  {
+    "i": 296,
+    "en": "Kick die vervelende tovenaars om hun spreuken te stoppen.",
+    "nl": "Kick die relevante tovenaars om hun spreuken te stoppen."
+  },
+  {
+    "i": 297,
+    "en": "Feint reduces the damage you take from area attacks (AoE).",
+    "nl": "Feint vermindert de schade die je krijgt van gebiedsaanvallen (AoE)."
+  },
+  {
+    "i": 298,
+    "en": "Shadowstrike is your strongest opener and Combo Point builder from Stealth or Shadow Dance.",
+    "nl": "Shadowstrike is je sterkste opener en Combo Point opbouwer vanuit Stealth of Shadow Dance."
+  },
+  {
+    "i": 299,
+    "en": "Eviscerate is your primary finisher for maximum damage.",
+    "nl": "Eviscerate is je primaire finisher voor maximale schade."
+  },
+  {
+    "i": 300,
+    "en": "Black Powder is your finisher for groups of enemies.",
+    "nl": "Black Powder is je finisher voor groepen vijanden."
+  },
+  {
+    "i": 301,
+    "en": "Shadow Dance lets you use Stealth attacks without being invisible.",
+    "nl": "Shadow Dance laat je Stealth-aanvallen gebruiken zonder dat je onzichtbaar bent."
+  },
+  {
+    "i": 302,
+    "en": "Shadow Blades ensures that your attacks do extra damage and generate more Combo Points.",
+    "nl": "Shadow Blades zorgt dat je aanvallen extra schade doen en meer Combo Points genereren."
+  },
+  {
+    "i": 303,
+    "en": "Shuriken Tornado is perfect om in één keer een hele groep vijanden met ziektes te besmetten.",
+    "nl": "Shuriken Tornado is perfect om in één keer een hele groep vijanden met ziekten te besmetten."
+  },
+  {
+    "i": 304,
+    "en": "Vanish resets your stealth capabilities in the middle of a battle.",
+    "nl": "Vanish reset je stealth-mogelijkheden midden in een gevecht."
+  },
+  {
+    "i": 305,
+    "en": "Kick is onmisbaar om vijanden te onderbreken.",
+    "nl": "Kick is essentieel om vijanden te onderbreken."
+  },
+  {
+    "i": 306,
+    "en": "Kidney Shot stuns (stuns) an enemy based on your Combo Points.",
+    "nl": "Kidney Shot verlamt (stun) een vijand op basis van je Combo Points."
+  },
+  {
+    "i": 307,
+    "en": "Cloak of Shadows protects you from all magical attacks.",
+    "nl": "Cloak of Shadows beschermt je tegen alle magische aanvallen."
+  },
+  {
+    "i": 308,
+    "en": "Lightning Bolt is your basic attack to build up Maelstrom.",
+    "nl": "Lightning Bolt is je basis-aanval om Maelstrom op te bouwen."
+  },
+  {
+    "i": 309,
+    "en": "Chain Lightning is your best weapon against groups of enemies.",
+    "nl": "Chain Lightning is je beste wapen tegen groepen vijanden."
+  },
+  {
+    "i": 310,
+    "en": "Earth Shock is your powerful finisher; use it when your Maelstrom is almost full.",
+    "nl": "Earth Shock is je krachtige finisher; gebruik het als je Maelstrom bijna vol is."
+  },
+  {
+    "i": 311,
+    "en": "Lava Burst is guaranteed to deal critical damage if Flame Shock is on the target.",
+    "nl": "Lava Burst doet gegarandeerd kritieke schade als Flame Shock op het doelwit staat."
+  },
+  {
+    "i": 312,
+    "en": "Always keep Flame Shock active on your enemies for constant damage.",
+    "nl": "Houd Flame Shock altijd actief op je vijanden voor constante schade."
+  },
+  {
+    "i": 313,
+    "en": "Fire Elemental increases the damage of your Lava Burst and generates Maelstrom.",
+    "nl": "Fire Elemental verhoogt de schade van je Lava Burst en genereert Maelstrom."
+  },
+  {
+    "i": 314,
+    "en": "Astral Shift reduces incoming damage by 40%; your main defense.",
+    "nl": "Astral Shift vermindert inkomende schade met 40%; je belangrijkste verdediging."
+  },
+  {
+    "i": 315,
+    "en": "Wind Shear is de beste interrupt in het spel; gebruik het vaak!",
+    "nl": "Wind Shear is de beste onderbreking in het spel; gebruik het vaak!"
+  },
+  {
+    "i": 316,
+    "en": "Capacitor Totem verlamt alle vijanden in de buurt na 2 seconden.",
+    "nl": "Condensator Totem verlamt alle vijanden in de buurt na 2 seconden."
+  },
+  {
+    "i": 317,
+    "en": "Bloodlust (of Heroism) verhoogt de aanvalssnelheid van de hele groep enorm.",
+    "nl": "Bloodlust (of Heroism) verhoogt de aanvalssnelheid van de hele groep enorm."
+  },
+  {
+    "i": 318,
+    "en": "Stormstrike is your main attack; use it as soon as it becomes available.",
+    "nl": "Stormstrike is je hoofdaanval; gebruik het zodra het beschikbaar is."
+  },
+  {
+    "i": 319,
+    "en": "Rockbiter generates Maelstrom and boosts your next attacks.",
+    "nl": "Rockbiter genereert Maelstrom en versterkt je volgende aanvallen."
+  },
+  {
+    "i": 320,
+    "en": "Lava Lash is your secondary attack to spend Maelstrom.",
+    "nl": "Lava Lash is je secundaire aanval om Maelstrom uit te geven."
+  },
+  {
+    "i": 321,
+    "en": "Use Crash Lightning against groups to make your other attacks AoE as well.",
+    "nl": "Gebruik Crash Lightning tegen groepen om je andere aanvallen ook AoE te maken."
+  },
+  {
+    "i": 322,
+    "en": "Flame Shock should always be on your target for extra damage over time.",
+    "nl": "Flame Shock moet altijd op je doelwit staan voor extra schade over tijd."
+  },
+  {
+    "i": 323,
+    "en": "Feral Spirit summons two wolves that deal damage and generate Maelstrom for you.",
+    "nl": "Feral Spirit roept twee wolven op die schade doen en Maelstrom voor je genereren."
+  },
+  {
+    "i": 324,
+    "en": "Don't forget Astral Shift for heavy hits; it saves your life.",
+    "nl": "Vergeet Astral Shift niet bij zware klappen; het redt je leven."
+  },
+  {
+    "i": 325,
+    "en": "Wind Shear om vijandelijke tovenaars direct het zwijgen op te leggen.",
+    "nl": "Windschering om vijandelijke tovenaars direct te zwijgen op te leggen."
+  },
+  {
+    "i": 326,
+    "en": "Use Capacitor Totem to gain breathing space in large groups.",
+    "nl": "Gebruik Capacitor Totem om ademruimte te krijgen bij grote groepen."
+  },
+  {
+    "i": 327,
+    "en": "Ghost Wolf helps you move quickly and ignore delays.",
+    "nl": "Ghost Wolf helpt je om snel te verplaatsen en vertragingen te negeren."
+  },
+  {
+    "i": 328,
+    "en": "Riptide geeft een directe heal en een sterke genezing over tijd.",
+    "nl": "Riptide geeft een directe genezing en een krachtige genezing gedurende de tijd."
+  },
+  {
+    "i": 329,
+    "en": "Chain Heal is de koning van de groepsgenezing; het springt over naar gewonde bondgenoten.",
+    "nl": "Chain Heal is de koning van de groepsgenezing; het springt over naar gewonde bondgenoten."
+  },
+  {
+    "i": 330,
+    "en": "Healing Wave is slow but efficient; use this when damage is low.",
+    "nl": "Healing Wave is langzaam maar efficiënt; gebruik dit als de schade laag is."
+  },
+  {
+    "i": 331,
+    "en": "Healing Surge is your quick emergency healing for critical situations.",
+    "nl": "Healing Surge is je snelle nood-genezing voor kritieke situaties."
+  },
+  {
+    "i": 332,
+    "en": "Healing Stream Totem geeft passieve genezing aan de groep terwijl jij andere dingen doet.",
+    "nl": "Healing Stream Totem geeft passieve genezing aan de groep terwijl jij andere dingen doet."
+  },
+  {
+    "i": 333,
+    "en": "Spirit Link Totem egaliseert het leven van iedereen in de buurt; een echte levensredder.",
+    "nl": "Spirit Link Totem egaliseert het leven van iedereen in de buurt; een echte levensredder."
+  },
+  {
+    "i": 334,
+    "en": "Use Astral Shift to take less damage yourself while healing others.",
+    "nl": "Gebruik Astral Shift om zelf minder schade te krijgen terwijl je anderen geneest."
+  },
+  {
+    "i": 335,
+    "en": "Als healer is Wind Shear ook jouw taak; stop die spreuken!",
+    "nl": "Als healer is Wind Shear ook jouw taak; stop met die spreuken!"
+  },
+  {
+    "i": 336,
+    "en": "Elemental Mastery greatly increases your Haste for faster healing.",
+    "nl": "Elemental Mastery verhoogt je Haste enorm voor snellere genezing."
+  },
+  {
+    "i": 337,
+    "en": "Healing Tide Totem is your strongest group healing cooldown; save this for major AOE damage.",
+    "nl": "Healing Tide Totem is je sterkste groeps-heal cooldown; bewaar dit voor grote AOE schade."
+  },
+  {
+    "i": 338,
+    "en": "Agony should always be on your target; it does more and more damage the longer it ticks.",
+    "nl": "Agony moet altijd op je doelwit staan; het doet steeds meer schade naarmate het langer tikt."
+  },
+  {
+    "i": 339,
+    "en": "Corruption is your basic curse for constant damage over time.",
+    "nl": "Corruption is je basis-vloek voor constante schade over tijd."
+  },
+  {
+    "i": 340,
+    "en": "Unstable Affliction is your strongest curse; you can only have one active at a time.",
+    "nl": "Unstable Affliction is je sterkste vloek; je kunt er maar één tegelijk actief hebben."
+  },
+  {
+    "i": 341,
+    "en": "Vile Taint is perfect om een hele groep vijanden tegelijk te besmetten met Agony.",
+    "nl": "Vile Taint is perfect voor een hele groep vijanden die tegelijkertijd besmet zijn met Agony."
+  },
+  {
+    "i": 342,
+    "en": "Malefic Rapture deals massive damage to anyone bearing your curses.",
+    "nl": "Malefic Rapture doet enorme schade aan iedereen die jouw vloeken draagt."
+  },
+  {
+    "i": 343,
+    "en": "Shadow Bolt is your filler spell to build up Soul Shards.",
+    "nl": "Shadow Bolt is je filler-spreuk om Soul Shards op te bouwen."
+  },
+  {
+    "i": 344,
+    "en": "Keep your Soul Rot cooldown ready for extra damage on multiple targets.",
+    "nl": "Houd je Soul Rot cooldown paraat voor extra schade op meerdere doelen."
+  },
+  {
+    "i": 345,
+    "en": "Soul Fire does significant damage and instantly gives you a Soul Shard.",
+    "nl": "Soul Fire doet flinke schade en geeft je direct een Soul Shard."
+  },
+  {
+    "i": 346,
+    "en": "Demonic Circle lets you instantly teleport back to a safe place.",
+    "nl": "Demonic Circle laat je direct terug teleporteren naar een veilige plek."
+  },
+  {
+    "i": 347,
+    "en": "Don't forget to craft your Healthstone; it is your own free 'potion'.",
+    "nl": "Vergeet je Healthstone niet te maken; het is je eigen gratis 'potion'."
+  },
+  {
+    "i": 348,
+    "en": "Hand of Gul'dan consumes your Soul Shards to summon Wild Imps.",
+    "nl": "Hand of Gul'dan verbruikt je Soul Shards om Wild Imps op te roepen."
+  },
+  {
+    "i": 349,
+    "en": "Call Dreadstalkers should be used immediately as soon as the cooldown is over.",
+    "nl": "Call Dreadstalkers moet je direct gebruiken zodra de cooldown voorbij is."
+  },
+  {
+    "i": 350,
+    "en": "Demonbolt genereert 2 Soul Shards; gebruik het als 'Demonic Core' oplicht.",
+    "nl": "Demonbolt hoofd 2 Soul Shards; gebruik het als 'Demonic Core' oplicht."
+  },
+  {
+    "i": 351,
+    "en": "Summon Demonic Tyrant increases the duration of all your active demons and makes them stronger.",
+    "nl": "Summon Demonic Tyrant verlengt de duur van al je actieve demonen en maakt ze sterker."
+  },
+  {
+    "i": 352,
+    "en": "Implosion explodes all your Imps for massive damage to groups of enemies.",
+    "nl": "Implosion laat al je Imps ontploffen voor enorme schade aan groepen vijanden."
+  },
+  {
+    "i": 353,
+    "en": "Shadow Bolt is your basic way to collect Soul Shards.",
+    "nl": "Shadow Bolt is je basis-manier om Soul Shards te verzamelen."
+  },
+  {
+    "i": 354,
+    "en": "Demonic Strength lets your Felguard perform a powerful turn count.",
+    "nl": "Demonic Strength laat je Felguard een krachtige draaiaantal uitvoeren."
+  },
+  {
+    "i": 355,
+    "en": "Grimoire: Felguard summons a second guard for extra damage and a stun.",
+    "nl": "Grimoire: Felguard roept een tweede bewaker op voor extra schade en een stun."
+  },
+  {
+    "i": 356,
+    "en": "Unending Resolve reduces incoming damage and prevents your spells from being interrupted.",
+    "nl": "Unending Resolve vermindert inkomende schade en voorkomt dat je spreuken worden onderbroken."
+  },
+  {
+    "i": 357,
+    "en": "Keep your Voidwalker active while leveling so it takes all the hits.",
+    "nl": "Houd je Voidwalker actief tijdens het levelen zodat hij alle klappen opvangt."
+  },
+  {
+    "i": 358,
+    "en": "Chaos Bolt is your strongest attack; use it to dump your Soul Shard Fragments.",
+    "nl": "Chaos Bolt is je zwaarste aanval; gebruik het om je Soul Shard Fragments te lozen."
+  },
+  {
+    "i": 359,
+    "en": "Incinerate is your filler to build up Soul Shard Fragments.",
+    "nl": "Incinerate is je filler om Soul Shard Fragments op te bouwen."
+  },
+  {
+    "i": 360,
+    "en": "Conflagrate is instant and gives you 'Backdraft', making your subsequent spells faster.",
+    "nl": "Conflagrate is instant en geeft je 'Backdraft', waardoor je volgende spreuken sneller gaan."
+  },
+  {
+    "i": 361,
+    "en": "Immolate should always burn on your enemy for constant damage and extra fragments.",
+    "nl": "Immolate moet altijd op je vijand branden voor constante schade en extra fragmenten."
+  },
+  {
+    "i": 362,
+    "en": "Summon Infernal is your big cooldown; it rains fire and paralyzes enemies on impact.",
+    "nl": "Summon Infernal is je grote cooldown; het regent vuur en verlamt vijanden bij de inslag."
+  },
+  {
+    "i": 363,
+    "en": "Rain of Fire is your best weapon against large groups of enemies.",
+    "nl": "Rain of Fire is je beste wapen tegen grote groepen vijanden."
+  },
+  {
+    "i": 364,
+    "en": "Shadowburn is perfect om vijanden met weinig leven snel af te maken.",
+    "nl": "Shadowburn is perfect om vijanden met weinig leven snel af te maken."
+  },
+  {
+    "i": 365,
+    "en": "Havoc also lets your spells hit a second target; essential for 'cleave' damage.",
+    "nl": "Havoc laat je spreuken ook een tweede doelwit raken; essentieel voor 'cleave' schade."
+  },
+  {
+    "i": 366,
+    "en": "Command Demon lets you use your active demon's special ability.",
+    "nl": "Command Demon laat je de speciale vaardigheid van je actieve demoon gebruiken."
+  },
+  {
+    "i": 367,
+    "en": "Use Unending Resolve when you know a big blow is coming.",
+    "nl": "Gebruik Unending Resolve als je weet dat er een grote klap aan komt."
+  },
+  {
+    "i": 368,
+    "en": "Mortal Strike is your hardest blow; use it as soon as you can to spend Rage.",
+    "nl": "Mortal Strike is je zwaarste klap; gebruik het zodra het kan om Rage uit te geven."
+  },
+  {
+    "i": 369,
+    "en": "Overpower cannot be dodged and amplifies your next Mortal Strike.",
+    "nl": "Overpower kan niet worden ontweken en versterkt je volgende Mortal Strike."
+  },
+  {
+    "i": 370,
+    "en": "Colossus Smash breaks your enemy's armor for massive damage phases.",
+    "nl": "Colossus Smash breekt het pantser van je vijand voor enorme schade-fases."
+  },
+  {
+    "i": 371,
+    "en": "Execute is your deadly finisher for enemies under 20% health.",
+    "nl": "Execute is je dodelijke finisher voor vijanden onder de 20% gezondheid."
+  },
+  {
+    "i": 372,
+    "en": "Bladestorm turns you into a whirlwind of steel; ideal for groups of enemies.",
+    "nl": "Bladestorm verandert je in een wervelwind van staal; ideaal voor groepen vijanden."
+  },
+  {
+    "i": 373,
+    "en": "Slam is your filler attack if you have too much Rage and other attacks are on cooldown.",
+    "nl": "Slam is je filler-aanval als je teveel Rage hebt en andere aanvallen op cooldown staan."
+  },
+  {
+    "i": 374,
+    "en": "Die by the Sword is your best defense; it blocks almost all physical attacks.",
+    "nl": "Die by the Sword is je beste verdediging; het blokkeert bijna alle fysieke aanvallen."
+  },
+  {
+    "i": 375,
+    "en": "Pummel interrupts enemy spells; don't let those wizards cast!",
+    "nl": "Pummel onderbreekt vijandelijke spreuken; laat die tovenaars niet casten!"
+  },
+  {
+    "i": 376,
+    "en": "Storm Bolt paralyzes (stun) an enemy from a distance; useful to stop danger.",
+    "nl": "Storm Bolt verlamt (stun) een vijand van een afstand; handig om gevaar te stoppen."
+  },
+  {
+    "i": 377,
+    "en": "Charge is de beste manier om het gevecht direct te openen en Rage op te bouwen.",
+    "nl": "Charge is de beste manier om het gevecht direct te openen en Rage op te bouwen."
+  },
+  {
+    "i": 378,
+    "en": "Rampage is your main attack; it makes you 'Enraged' for extra speed and damage.",
+    "nl": "Rampage is je belangrijkste aanval; het maakt je 'Enraged' voor extra snelheid en schade."
+  },
+  {
+    "i": 379,
+    "en": "Bloodthirst heals you a little bit and is your main builder of Rage.",
+    "nl": "Bloodthirst geneest je een klein beetje en is je hoofdbouwer van Rage."
+  },
+  {
+    "i": 380,
+    "en": "Raging Blow does significant damage and can often be used twice in a row.",
+    "nl": "Raging Blow doet flinke schade en kan vaak twee keer achter elkaar gebruikt worden."
+  },
+  {
+    "i": 381,
+    "en": "Execute builds up a ton of Rage and deals heavy damage to weak enemies.",
+    "nl": "Execute bouwt enorm veel Rage op en doet zware schade aan zwakke vijanden."
+  },
+  {
+    "i": 382,
+    "en": "Recklessness is your big cooldown; you get 100% more Rage and many more crits.",
+    "nl": "Recklessness is je grote cooldown; je krijgt 100% meer Rage en veel meer crits."
+  },
+  {
+    "i": 383,
+    "en": "Whirlwind makes your next 2 attacks hit multiple enemies; essential for AoE.",
+    "nl": "Whirlwind zorgt dat je volgende 2 aanvallen meerdere vijanden raken; essentieel voor AoE."
+  },
+  {
+    "i": 384,
+    "en": "Enraged Regeneration heals you immensely as long as you keep using Bloodthirst.",
+    "nl": "Enraged Regeneration geneest je enorm zolang je Bloodthirst blijft gebruiken."
+  },
+  {
+    "i": 385,
+    "en": "Use Pummel to instantly stop those annoying enemy spells.",
+    "nl": "Gebruik Pummel om die irritante spreuken van vijanden direct te stoppen."
+  },
+  {
+    "i": 386,
+    "en": "Piercing Howl slows down all enemies around you; useful for control.",
+    "nl": "Piercing Howl vertraagt alle vijanden om je heen; handig voor controle."
+  },
+  {
+    "i": 387,
+    "en": "Heroic Leap lets you bridge great distances; perfect for mobility.",
+    "nl": "Heroic Leap laat je grote afstanden overbruggen; perfect voor mobiliteit."
+  },
+  {
+    "i": 388,
+    "en": "Shield Slam is your strongest threat attack and generates a lot of Rage.",
+    "nl": "Shield Slam is je sterkste aanval voor dreiging en genereert veel Rage."
+  },
+  {
+    "i": 389,
+    "en": "Thunder Clap slows down enemies and keeps groups of monsters away from you.",
+    "nl": "Thunder Clap vertraagt vijanden en houdt groepen monsters bij je weg."
+  },
+  {
+    "i": 390,
+    "en": "Revenge hits back hard after a block or dodge; free damage against groups.",
+    "nl": "Revenge slaat hard terug na een blok of ontwijking; gratis schade tegen groepen."
+  },
+  {
+    "i": 391,
+    "en": "Shield Block should always be active when taking physical hits from monsters.",
+    "nl": "Shield Block moet altijd actief zijn als je fysieke klappen opvangt van monsters."
+  },
+  {
+    "i": 392,
+    "en": "Ignore Pain absorbs a large portion of incoming damage; use your Rage on this.",
+    "nl": "Ignore Pain absorbeert een groot deel van de inkomende schade; gebruik je Rage hieraan."
+  },
+  {
+    "i": 393,
+    "en": "Avatar turns you into a giant; you do more damage and break out of delays.",
+    "nl": "Avatar verandert je in een reus; je doet meer schade en breekt uit vertragingen."
+  },
+  {
+    "i": 394,
+    "en": "Shield Wall is your strongest defense; use this if things really threaten to go wrong.",
+    "nl": "Shield Wall is je sterkste verdediging; gebruik dit als het écht fout dreigt te gaan."
+  },
+  {
+    "i": 395,
+    "en": "Last Stand temporarily increases your maximum life; your ultimate emergency button.",
+    "nl": "Last Stand verhoogt tijdelijk je maximale leven; je ultieme noodknop."
+  },
+  {
+    "i": 396,
+    "en": "Pummel is essential for forcing wizards towards you by stopping their casts.",
+    "nl": "Pummel is essentieel om tovenaars naar je toe te dwingen door hun casts te stoppen."
+  },
+  {
+    "i": 397,
+    "en": "Intercept (or Charge) helps you quickly get to enemies or allies.",
+    "nl": "Intercept (of Charge) helpt je om snel bij vijanden of bondgenoten te komen."
+  }
+]

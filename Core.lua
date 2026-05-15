@@ -1,0 +1,335 @@
+--[[
+	MidnightHelper - Core.lua (load order: first)
+
+	This file owns saved-variable initialization, a hidden event frame, and
+	slash-command routing. The Blizzard client passes (addonName, ns) via ...
+	to every TOC-loaded file; all modules share the same `ns` table.
+]]
+
+--------------------------------------------------------------------------------
+-- Namespace: addonName + private addon table (ns), provided by the client.
+--------------------------------------------------------------------------------
+local addonName, ns = ...
+
+--------------------------------------------------------------------------------
+-- Default settings merged into MidnightHelperDB on first run
+--------------------------------------------------------------------------------
+local DEFAULT_DB = {
+	--- Display language: enUS (default) or nlNL (see Locales/*.lua).
+	locale = "enUS",
+	ui = {
+		-- If true, the main window will be shown automatically after login.
+		openOnLogin = false,
+		debug = false,
+		scale = 1.0,
+		--- Legacy (ignored): alt snapshot lived in Delves; now a dedicated `account` tab.
+		altOverviewExpanded = false,
+		--- Delves tab accordion: `"midnight"` | `"vault"`.
+		delvesAccordionSection = "midnight",
+	},
+	-- Leveling Guides: optional preview of another class/spec (see Addons/Guide.lua search bar).
+	guide = {
+		preview = false,
+		classToken = "",
+		specIndex = 0,
+	},
+	--- Minimap button (LibDBIcon-1.0): hide, minimapPos, lock.
+	minimap = {
+		hide = false,
+	},
+	settings = {
+		--- Guide tab visibility: "auto" (hide at level 90+), "always", "hidden".
+		guideVisibility = "auto",
+		--- Compact mode: denser main UI layout for smaller resolutions.
+		compactMode = false,
+	},
+	changelog = {
+		--- Last addon version for which the changelog popup was dismissed.
+		lastSeenVersion = "",
+		--- User opted out permanently.
+		hideForever = false,
+	},
+}
+
+local function MergeDefaults(target, defaults)
+	if type(target) ~= "table" then
+		target = {}
+	end
+	for k, v in pairs(defaults) do
+		if type(v) == "table" then
+			target[k] = MergeDefaults(target[k], v)
+		elseif target[k] == nil then
+			target[k] = v
+		end
+	end
+	return target
+end
+
+--------------------------------------------------------------------------------
+-- Saved variables: MidnightHelperDB (see MidnightHelper.toc)
+--------------------------------------------------------------------------------
+function ns:InitSavedVariables()
+	if type(MidnightHelperDB) ~= "table" then
+		MidnightHelperDB = {}
+	end
+
+	if not MidnightHelperDB.charCurrencies then
+		MidnightHelperDB.charCurrencies = {}
+	end
+
+	MergeDefaults(MidnightHelperDB, DEFAULT_DB)
+	self.db = MidnightHelperDB
+
+	--- Legacy flag cleanup (accordion uses `ui.delvesAccordionSection`; do not force `"alt"`).
+	if MidnightHelperDB.ui and MidnightHelperDB.ui.altOverviewExpanded == true then
+		MidnightHelperDB.ui.altOverviewExpanded = false
+	end
+
+	--- Default Delves tab: Midnight Delves expanded, Account snapshot collapsed (drop persisted `"alt"`).
+	if MidnightHelperDB.ui and MidnightHelperDB.ui.delvesAccordionSection == "alt" then
+		MidnightHelperDB.ui.delvesAccordionSection = "midnight"
+	end
+
+	--- Remove invalid / stale alt snapshot entries (bad GUID keys, empty names).
+	do
+		local bag = MidnightHelperDB.charCurrencies
+		if type(bag) == "table" then
+			for guid, snap in pairs(bag) do
+				if type(snap) ~= "table" then
+					bag[guid] = nil
+				elseif type(guid) ~= "string" or not string.match(guid, "^Player%-") then
+					bag[guid] = nil
+				else
+					local nm = snap.name
+					if type(nm) ~= "string" or nm == "" or nm == "?" then
+						bag[guid] = nil
+					end
+				end
+			end
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Central event dispatcher
+--------------------------------------------------------------------------------
+function ns:OnEvent(event, ...)
+	if event == "ADDON_LOADED" then
+		local loadedAddon = ...
+		if loadedAddon ~= addonName then
+			return
+		end
+
+		self:InitSavedVariables()
+
+		-- Trigger module setup in a single, predictable call.
+		-- Both Delves and Profession hook EnsureMainUI; calling it once here
+		-- ensures they initialise in TOC load order, not in hook-wrapping order.
+		if self.EnsureMainUI then
+			self:EnsureMainUI()
+		end
+
+		if self.db and self.db.ui and self.db.ui.openOnLogin and self.ShowMainUI then
+			self:ShowMainUI()
+		end
+
+		self.eventFrame:UnregisterEvent("ADDON_LOADED")
+		return
+	end
+end
+
+function ns:SetLocale(code, silent)
+	local normalized = self.NormalizeLocaleInput and self:NormalizeLocaleInput(code) or code
+	if not normalized then
+		return false
+	end
+	if self.db then
+		self.db.locale = normalized
+	end
+	if not silent then
+		local label = normalized == "nlNL" and self:L("LOCALE_NAME_NL") or self:L("LOCALE_NAME_EN")
+		DEFAULT_CHAT_FRAME:AddMessage(
+			("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), self:L("LANG_SET"):format(label))
+		)
+	end
+	if self.RefreshLocaleUI then
+		self:RefreshLocaleUI()
+	end
+	return true
+end
+
+function ns:GetGuideVisibilityMode()
+	local mode = self.db and self.db.settings and self.db.settings.guideVisibility
+	if mode == "always" or mode == "hidden" or mode == "auto" then
+		return mode
+	end
+	return "auto"
+end
+
+function ns:IsGuideTabEnabled()
+	local mode = self:GetGuideVisibilityMode()
+	if mode == "always" then
+		return true
+	end
+	if mode == "hidden" then
+		return false
+	end
+	if self.db and self.db.guide and self.db.guide.preview == true then
+		return true
+	end
+	local level = UnitLevel and UnitLevel("player") or 0
+	return (tonumber(level) or 0) < 90
+end
+
+function ns:SetGuideVisibilityMode(mode, silent)
+	local normalized = tostring(mode or ""):lower()
+	if normalized ~= "auto" and normalized ~= "always" and normalized ~= "hidden" then
+		return false
+	end
+	if self.db and self.db.settings then
+		self.db.settings.guideVisibility = normalized
+	end
+	if self.RefreshGuideTabVisibility then
+		self:RefreshGuideTabVisibility()
+	end
+	if not silent then
+		local map = {
+			auto = self:L("SETTINGS_GUIDE_MODE_AUTO"),
+			always = self:L("SETTINGS_GUIDE_MODE_ALWAYS"),
+			hidden = self:L("SETTINGS_GUIDE_MODE_HIDDEN"),
+		}
+		local label = map[normalized] or normalized
+		DEFAULT_CHAT_FRAME:AddMessage(
+			("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), self:L("SETTINGS_GUIDE_MODE_SET"):format(label))
+		)
+	end
+	return true
+end
+
+function ns:IsCompactModeEnabled()
+	return self.db and self.db.settings and self.db.settings.compactMode == true
+end
+
+function ns:SetCompactModeEnabled(enabled, silent)
+	local value = enabled and true or false
+	if self.db and self.db.settings then
+		self.db.settings.compactMode = value
+	end
+	if self.ApplyCompactMode then
+		self:ApplyCompactMode()
+	end
+	if not silent then
+		local state = value and self:L("SETTINGS_BOOL_ON") or self:L("SETTINGS_BOOL_OFF")
+		DEFAULT_CHAT_FRAME:AddMessage(
+			("|cffffcc00%s|r Compact mode: %s"):format(self:L("PRINT_PREFIX"), state)
+		)
+	end
+	return true
+end
+
+--------------------------------------------------------------------------------
+-- Hidden core frame: registers events and forwards to ns:OnEvent
+--------------------------------------------------------------------------------
+ns.eventFrame = CreateFrame("Frame", "MidnightHelperEventFrame", UIParent)
+ns.eventFrame:SetScript("OnEvent", function(_, event, ...)
+	ns:OnEvent(event, ...)
+end)
+ns.eventFrame:RegisterEvent("ADDON_LOADED")
+
+--------------------------------------------------------------------------------
+-- Slash commands: /mh and /midnight toggle the main window (implemented in UI.lua)
+--------------------------------------------------------------------------------
+SLASH_MIDNIGHTHELPER1 = "/mh"
+SLASH_MIDNIGHTHELPER2 = "/midnight"
+
+SlashCmdList["MIDNIGHTHELPER"] = function(msg)
+	msg = (msg or ""):gsub("^%s+", ""):gsub("%s+$", "")
+
+	if msg == "lang" then
+		DEFAULT_CHAT_FRAME:AddMessage(
+			("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("LANG_SLASH_HINT"))
+		)
+		return
+	end
+
+	local langArg = msg:match("^lang%s+(.+)$")
+	if langArg then
+		if not ns:NormalizeLocaleInput(langArg) then
+			local bad = langArg
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("LANG_UNKNOWN"):format(bad))
+			)
+			return
+		end
+		ns:SetLocale(langArg)
+		return
+	end
+
+	if msg == "guide" then
+		if ns._mhGuidePrintLayout then
+			ns._mhGuidePrintLayout()
+		else
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("GUIDE_MODULE_NOT_LOADED")))
+		end
+		return
+	end
+
+	if msg == "settings" then
+		if ns.OpenSettingsPanel then
+			ns:OpenSettingsPanel()
+		elseif ns.ToggleQuickSettings then
+			ns:ToggleQuickSettings(ns.mainUI)
+		else
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))
+			)
+		end
+		return
+	end
+
+	if msg == "changelog" then
+		if ns.ShowChangelogWindow then
+			ns:ShowChangelogWindow(true)
+		else
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))
+			)
+		end
+		return
+	end
+
+	if msg == "debug" then
+		-- Toggle debug mode
+		if ns.db and ns.db.ui then
+			ns.db.ui.debug = not ns.db.ui.debug
+		end
+		local stateKey = (ns.db and ns.db.ui and ns.db.ui.debug) and "DEBUG_STATE_ON" or "DEBUG_STATE_OFF"
+		print(
+			("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("DEBUG_MODE"):format(ns:L(stateKey)))
+		)
+
+		-- Dump current state
+		print("  ns.panels:       " .. (ns.panels and "ok" or "NIL"))
+		print("  ns.DelvesFrame:  " .. (ns.DelvesFrame and "ok" or "NIL"))
+		print("  ns.ProfessionFrame: " .. (ns.ProfessionFrame and "ok" or "NIL"))
+		print("  ns.mainUI:       " .. (ns.mainUI and "ok" or "NIL"))
+		print("  ns.db:           " .. (ns.db and "ok" or "NIL"))
+		print("  uiSelectedTab:   " .. tostring(ns.uiSelectedTab))
+		return
+	end
+
+	if msg ~= "" then
+		DEFAULT_CHAT_FRAME:AddMessage(
+			("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UNKNOWN_COMMAND"):format(msg))
+		)
+		return
+	end
+
+	if ns.ToggleMainWindow then
+		ns:ToggleMainWindow()
+	else
+		DEFAULT_CHAT_FRAME:AddMessage(
+			("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))
+		)
+	end
+end
