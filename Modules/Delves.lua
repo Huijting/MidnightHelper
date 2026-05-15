@@ -1107,19 +1107,30 @@ local function RefreshDelvesPanel()
 	rightColumn:SetHeight(h)
 
 	local accFooter = GetDelvesAccordionSection()
-	if bestBtn then
+	if bestBtn and frame then
 		bestBtn:ClearAllPoints()
-		--- Under the delve list when Midnight is expanded (use accFooter; IsShown is stale before DelvesApplyAccordion).
+		local fw = math.max(200, frame:GetWidth() or 400)
+		local inset = 12
+		local bw = math.min(340, math.max(160, fw - inset * 2))
+		bestBtn:SetSize(bw, 26)
+
+		--- Horizontal: center in the Delves frame (offsets are parent-relative — never use GetLeft() here).
+		local xCenter = (fw - bw) / 2
+		local function PinBtnCentered(vertAnchor, vertOffset)
+			bestBtn:SetPoint("TOP", vertAnchor, "BOTTOM", 0, vertOffset)
+			bestBtn:SetPoint("LEFT", frame, "LEFT", xCenter, 0)
+		end
+
 		if accFooter == "midnight" and leftColumn and usedLeft and usedLeft > 0 then
-			bestBtn:SetPoint("TOP", leftColumn, "BOTTOMRIGHT", COL_GAP / 2, -22)
+			PinBtnCentered(leftColumn, -22)
 		elseif midnightToggleBar then
-			bestBtn:SetPoint("TOP", midnightToggleBar, "BOTTOM", 0, -18)
+			PinBtnCentered(midnightToggleBar, -18)
 		elseif accFooter == "vault" and ns.vaultPanel then
-			bestBtn:SetPoint("TOP", ns.vaultPanel, "BOTTOM", 0, -20)
+			PinBtnCentered(ns.vaultPanel, -20)
 		elseif vaultToggleBar then
-			bestBtn:SetPoint("TOP", vaultToggleBar, "BOTTOM", 0, -18)
+			PinBtnCentered(vaultToggleBar, -18)
 		else
-			bestBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 16, 12)
+			bestBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", xCenter, 12)
 		end
 	end
 
