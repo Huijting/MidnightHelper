@@ -13,13 +13,10 @@ local GAP = 5
 
 local MODIFIER_KEYS = {
 	Esc = true,
-	Tab = true,
 	Caps = true,
-	LShift = true,
+	--- LShift / LCtrl / LAlt: highlighted as team “preferred” keys (see PREFERRED_BAR_KEYS), not dimmed modifiers.
 	RShift = true,
-	LCtrl = true,
 	RCtrl = true,
-	LAlt = true,
 	RAlt = true,
 	LWin = true,
 	RWin = true,
@@ -28,21 +25,34 @@ local MODIFIER_KEYS = {
 	Enter = true,
 	[" "] = true,
 }
-local function SpellNameFromID(spellID)
-	if not spellID or spellID < 1 then
-		return nil
-	end
-	local ok, si = pcall(function()
-		if C_Spell and C_Spell.GetSpellInfo then
-			return C_Spell.GetSpellInfo(spellID)
-		end
-		return nil
-	end)
-	if ok and si and si.name and si.name ~= "" then
-		return si.name
-	end
-	return ("Spell %d"):format(spellID)
-end
+
+--- Default WoW-style movement; always shown bright green in this preview.
+local MOVEMENT_KEYS = {
+	W = true,
+	A = true,
+	S = true,
+	D = true,
+}
+
+--- Tab: team uses it to cycle targets quickly (cyan highlight).
+local TARGET_KEYS = {
+	Tab = true,
+}
+
+--- Extra function-row + modifier keys the Midnight team keeps free for spells / combos (same “lit” treatment as F1).
+local PREFERRED_BAR_KEYS = {
+	F2 = true,
+	F3 = true,
+	F4 = true,
+	LShift = true,
+	LCtrl = true,
+	LAlt = true,
+}
+
+local COLOR_TEXT_SPELL = { 1, 0.88, 0.42 }
+local COLOR_TEXT_MOVEMENT = { 0.2, 1, 0.38 }
+local COLOR_TEXT_TARGET = { 0.35, 0.85, 1 }
+local COLOR_TEXT_DIM = { 0.52, 0.5, 0.46 }
 
 local function ProtoResolveSlug()
 	local slug = ns.MH_GetHunterKeybindSlugForUi and ns.MH_GetHunterKeybindSlugForUi()
@@ -59,20 +69,15 @@ local function ProtoTooltipForKey(uiKey, slot, spec)
 	end
 	local sp = spec.spellByUiKey[uiKey]
 	if not sp or not sp.id then
-		if uiKey == "G" then
-			return ns:L("LAYOUT_KEY_G_OPTIONAL_TOOLTIP")
-		end
 		return ns:L("LAYOUT_KEY_EMPTY_TOOLTIP")
 	end
-	local name = SpellNameFromID(sp.id) or ("#" .. tostring(sp.id))
-	local cat = ""
 	if slot and slot.categoryLocaleKey then
-		cat = ns:L(slot.categoryLocaleKey)
+		local cat = ns:L(slot.categoryLocaleKey)
+		if cat ~= "" then
+			return ns:L("LAYOUT_KEY_ROLE_TOOLTIP_FMT"):format(cat)
+		end
 	end
-	if cat ~= "" then
-		return ns:L("LAYOUT_KEY_SPELL_TOOLTIP_FMT"):format(name, cat)
-	end
-	return name
+	return ns:L("LAYOUT_KEY_EMPTY_TOOLTIP")
 end
 
 --- Build pixel positions: ISO block (Enter spans Q+Caps only), RShift flush with RCtrl.
@@ -199,6 +204,9 @@ local function BuildKeyPositions()
 	end
 
 	maxX = math.max(maxX, numBlockRight, topStart + topStripW)
+	--- Room for beginner legend under the board (still inside the scroll child).
+	local LEGEND_AREA_H = 68
+	maxY = maxY + LEGEND_AREA_H
 	return P, maxX + M + 10, maxY + M + 12
 end
 
@@ -287,6 +295,22 @@ local function LabelForPrototypeKey(uiKey)
 	return uiKey
 end
 
+local function ProtoKeycapLabel(btn)
+	if not btn or not btn.GetRegions then
+		return nil
+	end
+	local fs = btn.GetFontString and btn:GetFontString()
+	if fs then
+		return fs
+	end
+	for _, r in ipairs({ btn:GetRegions() }) do
+		if r and r.GetObjectType and r:IsObjectType("FontString") then
+			return r
+		end
+	end
+	return nil
+end
+
 function ns.KeyboardLayoutPrototype_Refresh(panel)
 	if not panel or not panel._mhProtoButtons then
 		return
@@ -310,24 +334,46 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 	for uiKey, btn in pairs(panel._mhProtoButtons) do
 		if btn then
 			local slot = slotByUi[uiKey]
+			local sp = spec and spec.spellByUiKey and spec.spellByUiKey[uiKey]
+			local hasSpell = sp and sp.id
 			local tip
 			local plain
+			local fs = ProtoKeycapLabel(btn)
+			local function tintLabel(rgb)
+				if fs and fs.SetTextColor then
+					fs:SetTextColor(rgb[1], rgb[2], rgb[3])
+				end
+			end
 
-			if not usedUiKeys[uiKey] then
+			if MOVEMENT_KEYS[uiKey] then
+				tip = ns:L("LAYOUT_KEY_MOVEMENT_TOOLTIP")
+				plain = PlainTooltipText(tip)
+				btn:SetAlpha(1)
+				tintLabel(COLOR_TEXT_MOVEMENT)
+			elseif TARGET_KEYS[uiKey] then
+				tip = ns:L("LAYOUT_KEY_TAB_TOOLTIP")
+				plain = PlainTooltipText(tip)
+				btn:SetAlpha(1)
+				tintLabel(COLOR_TEXT_TARGET)
+			elseif PREFERRED_BAR_KEYS[uiKey] and not usedUiKeys[uiKey] then
+				tip = ns:L("LAYOUT_KEY_PREFERRED_TOOLTIP")
+				plain = PlainTooltipText(tip)
+				btn:SetAlpha(1)
+				tintLabel(COLOR_TEXT_SPELL)
+			elseif not usedUiKeys[uiKey] or (uiKey == "G" and not hasSpell) then
 				tip = ProtoTooltipForDimmedKey(uiKey)
 				plain = PlainTooltipText(tip)
 				btn:SetAlpha(0.32)
+				tintLabel(COLOR_TEXT_DIM)
 			else
 				tip = ProtoTooltipForKey(uiKey, slot, spec)
 				plain = PlainTooltipText(tip)
-				local sp = spec and spec.spellByUiKey and spec.spellByUiKey[uiKey]
-				if uiKey == "G" and (not sp or not sp.id) then
-					btn:SetAlpha(0.52)
-				elseif sp and sp.id then
+				if hasSpell then
 					btn:SetAlpha(1)
 				else
 					btn:SetAlpha(0.62)
 				end
+				tintLabel(COLOR_TEXT_SPELL)
 			end
 
 			btn._mhProtoTipText = plain
@@ -340,6 +386,9 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 	end
 	if panel._mhProtoSubtitle then
 		panel._mhProtoSubtitle:SetText(ns:L("LAYOUT_PROTOTYPE_SUBTITLE"))
+	end
+	if panel._mhProtoLegend then
+		panel._mhProtoLegend:SetText(ns:L("LAYOUT_LEGEND"))
 	end
 
 	if panel._mhProtoHost then
@@ -430,6 +479,18 @@ function ns.BuildKeyboardLayoutPrototypePanel(panel)
 		b:SetText(LabelForPrototypeKey(uiKey))
 		panel._mhProtoButtons[uiKey] = b
 	end
+
+	if not panel._mhProtoLegend then
+		local leg = host:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		leg:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 8, 8)
+		leg:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", -10, 8)
+		leg:SetJustifyH("LEFT")
+		leg:SetJustifyV("TOP")
+		leg:SetWordWrap(true)
+		leg:SetSpacing(2)
+		panel._mhProtoLegend = leg
+	end
+	panel._mhProtoLegend:SetText(ns:L("LAYOUT_LEGEND"))
 
 	ns.KeyboardLayoutPrototype_Refresh(panel)
 

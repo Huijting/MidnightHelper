@@ -193,6 +193,10 @@ function ns:RefreshLocaleUI()
 	if self.uiSelectedTab == "guide" and self._mhGuideRefresh then
 		self:_mhGuideRefresh()
 	end
+	local layoutPanel = self._mhGuideLayoutPanel
+	if layoutPanel and layoutPanel._mhProtoBuilt and ns.KeyboardLayoutPrototype_Refresh then
+		ns.KeyboardLayoutPrototype_Refresh(layoutPanel)
+	end
 	if self._mhRefreshSidePanel then
 		self:_mhRefreshSidePanel(self.uiSelectedTab or "delves")
 	end
