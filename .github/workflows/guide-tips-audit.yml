@@ -21,6 +21,8 @@ on:
 jobs:
   audit:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
 
@@ -37,7 +39,4 @@ jobs:
         run: python tools/audit_guide_spell_tips.py
 
       - name: Lua syntax check
-        run: |
-          while IFS= read -r file; do
-            luac5.1 -p "$file"
-          done < <(find Addons Locales Modules -type f -name "*.lua")
+        run: python tools/lua_syntax_check.py
