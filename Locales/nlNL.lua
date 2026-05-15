@@ -75,6 +75,14 @@ ns._mhLocales.nlNL = {
 	KEYBIND_PALADIN_CAT_DEFENSIVES = "Defensives",
 	KEYBIND_PALADIN_CAT_BLESSINGS = "Zegeningen / mobility",
 
+	KEYBIND_ROLE_INTERRUPT = "Interrupt",
+	KEYBIND_ROLE_MAIN_ROTATION = "Rotatie",
+	KEYBIND_ROLE_SPENDER = "Spender",
+	KEYBIND_ROLE_UTILITY = "Utility",
+	KEYBIND_ROLE_DEFENSIVE = "Defensive",
+	KEYBIND_ROLE_MOBILITY = "Mobility / pet",
+	KEYBIND_ROLE_COOLDOWN = "Cooldown bar",
+
 	LAYOUT_PROTOTYPE_SUBTITLE = "Prototype — volledig US-toetsenbord: Midnight-toetsen lichten op; de rest is grijs. Hover of klik. Tips in de Gids kunnen hierheen springen en een toets oplichten. Later verwijderbaar.",
 	LAYOUT_KEY_UNUSED_TOOLTIP = "|cff888888Niet gebruikt in de Midnight Hunter-bindmap.|r",
 	LAYOUT_KEY_MODIFIER_TOOLTIP = "|cff888888Modifier — WoW regelt Shift/Ctrl/Alt-combo's los van deze spell-map.|r",
@@ -82,6 +90,7 @@ ns._mhLocales.nlNL = {
 	LAYOUT_KEY_EMPTY_TOOLTIP = "|cffaaaaaaNog geen rol op deze toets in de huidige spec-map.|r",
 	LAYOUT_KEY_G_OPTIONAL_TOOLTIP = "|cffaaaaaaSlot G bestaat in het raster maar wordt hier vaak leeg gelaten — optionele bind.|r",
 	LAYOUT_KEY_ROLE_TOOLTIP_FMT = "|cffffcc00%s|r",
+	LAYOUT_KEY_BIND_LAYER_FMT = "|cffe0e070%s|r — %s",
 	LAYOUT_KEY_MOVEMENT_TOOLTIP = "Bewegen: W vooruit, S achteruit, A/D strafen, muis om te draaien. Standaard WoW — hou deze toetsen vrij om te lopen.",
 	LAYOUT_KEY_TAB_TOOLTIP = "Tab wisselt van doel. Standaard in WoW — hou Tab vrij om in gevecht snel het juiste doelwit te kiezen.",
 	LAYOUT_KEY_PREFERRED_TOOLTIP = "Midnight-tip: hou deze toets vrij voor spells, macro's of Shift/Ctrl/Alt-combo's — zelfde idee als de oplichtende F-toetsen op je actiebalken.",

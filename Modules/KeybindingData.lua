@@ -5,7 +5,8 @@
 	Physical layout reference: `data/KeyboardLayoutMidnight.md` (team gebruikt **geen G** op de hoofdrij
 	`1–4 Q E R F` — BM plaatst Survival of the Fittest op **R**, niet op G).
 	`categoryLocaleKey` drives row labels (Main Rotation, Spender, …).
-	Spells: specsById[slug].spellByUiKey[ui_key] = { id, minLevel }.
+	Spells: specsById[slug].spellByUiKey[bind_key] = { id, minLevel, role? }.
+	Bind keys: base ("Q") or modifier ("Alt+Q") — see Modules/KeybindSchema.lua (schema v5).
 	Optional: abilitiesWithoutHotkey, guideSpellsWithoutKeycap (hunter_early + hunter_beast_mastery).
 	Paladin uses `slotsPaladin` (same geometry; Paladin_* column ids + PCAT labels).
 ]]
@@ -14,7 +15,7 @@ local addonName, ns = ...
 
 ns.KeybindingReference = ns.KeybindingReference or {}
 
-ns.KeybindingReference.schema_version = 4
+ns.KeybindingReference.schema_version = 5
 ns.KeybindingReference.patch_target = "12.0.5.67314"
 
 ns.KeybindingReference.columns = {
@@ -148,7 +149,7 @@ ns.KeybindingReference.specsById = {
 			["3"] = { id = 193455, minLevel = 35 },
 			["4"] = { id = 19574, minLevel = 23 },
 			["Q"] = { id = 2643, minLevel = 23 },
-			["E"] = { id = 147362, minLevel = 20 },
+			["E"] = { id = 147362, minLevel = 20, role = "interrupt" },
 			["F"] = { id = 187650, minLevel = 10 },
 			--- Slot **G** exists in the grid UI but this team does not bind G — leave empty (see KeyboardLayoutMidnight.md).
 			["Z"] = { id = 781, minLevel = 4 },
@@ -255,9 +256,10 @@ function ns.Keybinding_GetSpellLabelForKey(specId, uiKey)
 	if not spec then
 		return nil
 	end
-	if spec.spellByUiKey and spec.spellByUiKey[uiKey] then
-		local e = spec.spellByUiKey[uiKey]
-		local sid = e and tonumber(e.id)
+	local base = (ns.Keybind_GetBaseUiKey and ns.Keybind_GetBaseUiKey(uiKey)) or uiKey
+	local layers = ns.Keybind_GetBindingsOnBase and ns.Keybind_GetBindingsOnBase(spec, base)
+	if layers and #layers > 0 and layers[1].entry then
+		local sid = tonumber(layers[1].entry.id)
 		if sid and sid > 0 and C_Spell and C_Spell.GetSpellInfo then
 			local ok, si = pcall(C_Spell.GetSpellInfo, sid)
 			if ok and si and si.name and si.name ~= "" then
@@ -267,7 +269,7 @@ function ns.Keybinding_GetSpellLabelForKey(specId, uiKey)
 	end
 	local slotList = ns.Keybinding_GetSlotsForSlug and ns.Keybinding_GetSlotsForSlug(specId) or ref.slots
 	for _, slot in ipairs(slotList or {}) do
-		if slot.ui_key == uiKey then
+		if slot.ui_key == base then
 			local col = slot.maps_to_column
 			if col and spec.abilities and spec.abilities[col] then
 				return spec.abilities[col]
@@ -278,7 +280,7 @@ function ns.Keybinding_GetSpellLabelForKey(specId, uiKey)
 	return nil
 end
 
---- Midnight keyboard `ui_key` for a spell id (e.g. "Q", "F1") in the current spec slug.
+--- Bind key for a spell id (e.g. "Q", "Alt+E") in the current spec slug.
 function ns.MH_Keybind_GetUiKeyForSpell(spellId, specSlug)
 	local ref = ns.KeybindingReference
 	local sid = tonumber(spellId)
@@ -287,18 +289,25 @@ function ns.MH_Keybind_GetUiKeyForSpell(spellId, specSlug)
 	end
 	specSlug = specSlug or "hunter_early"
 	local spec = ref.specsById and ref.specsById[specSlug]
-	if not spec or not spec.spellByUiKey then
-		return nil
-	end
-	for k, def in pairs(spec.spellByUiKey) do
-		if type(def) == "table" and tonumber(def.id) == sid then
-			return k
-		end
+	if ns.Keybind_FindSpellBindKey then
+		return ns.Keybind_FindSpellBindKey(spec, sid)
 	end
 	return nil
 end
 
---- Action-bar key label (e.g. "1", "F1") for a spell id in a spec slug; drives Guide inline [key] hints.
+--- Physical layout key for highlighting (strips Alt/Shift/Ctrl).
+function ns.MH_Keybind_GetLayoutUiKeyForSpell(spellId, specSlug)
+	local bindKey = ns.MH_Keybind_GetUiKeyForSpell(spellId, specSlug)
+	if not bindKey then
+		return nil
+	end
+	if ns.Keybind_GetBaseUiKey then
+		return ns.Keybind_GetBaseUiKey(bindKey)
+	end
+	return bindKey
+end
+
+--- Action-bar key label (e.g. "1", "Alt+E") for a spell id; drives Guide inline [key] hints.
 function ns.MH_Keybind_GetKeycapLabelForSpell(spellId, specSlug)
 	local ref = ns.KeybindingReference
 	local sid = tonumber(spellId)
@@ -306,21 +315,27 @@ function ns.MH_Keybind_GetKeycapLabelForSpell(spellId, specSlug)
 		return nil
 	end
 	specSlug = specSlug or "hunter_early"
-	local uiKey = ns.MH_Keybind_GetUiKeyForSpell(sid, specSlug)
-	if not uiKey then
+	local bindKey = ns.MH_Keybind_GetUiKeyForSpell(sid, specSlug)
+	if not bindKey then
 		return nil
 	end
-	local slotList = ns.Keybinding_GetSlotsForSlug and ns.Keybinding_GetSlotsForSlug(specSlug) or ref.slots
-	for _, slot in ipairs(slotList or {}) do
-		if slot.ui_key == uiKey and slot.key_labels then
-			local kb = slot.key_labels.keyboard_numrow
-			if kb and kb ~= "" then
-				return kb
-			end
-			return uiKey
+	if ns.Keybind_FormatKeycap then
+		local cap = ns.Keybind_FormatKeycap(bindKey)
+		if cap and cap ~= "" then
+			return cap
 		end
 	end
-	return uiKey
+	local base = ns.Keybind_GetBaseUiKey and ns.Keybind_GetBaseUiKey(bindKey) or bindKey
+	local slotList = ns.Keybinding_GetSlotsForSlug and ns.Keybinding_GetSlotsForSlug(specSlug) or ref.slots
+	for _, slot in ipairs(slotList or {}) do
+		if slot.ui_key == base and slot.key_labels then
+			local kb = slot.key_labels.keyboard_numrow
+			if kb and kb ~= "" and not ns.Keybind_GetModifier(bindKey) then
+				return kb
+			end
+		end
+	end
+	return base or bindKey
 end
 
 --- True when guide `{SPELL:id}` layout should not append a [|key|] tail (spellbook-only utilities).

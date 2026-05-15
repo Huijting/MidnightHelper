@@ -16,6 +16,7 @@ Locales\nlNL.lua
 Locales\GuideTips.lua
 Locales\Locale.lua
 Config.lua
+Modules\KeybindSchema.lua
 Modules\KeybindingData.lua
 Modules\KeybindLayoutSlug.lua
 Modules\KeyboardLayoutPrototype.lua

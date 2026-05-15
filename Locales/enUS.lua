@@ -75,6 +75,14 @@ ns._mhLocales.enUS = {
 	KEYBIND_PALADIN_CAT_DEFENSIVES = "Defensives",
 	KEYBIND_PALADIN_CAT_BLESSINGS = "Blessings / mobility",
 
+	KEYBIND_ROLE_INTERRUPT = "Interrupt",
+	KEYBIND_ROLE_MAIN_ROTATION = "Main rotation",
+	KEYBIND_ROLE_SPENDER = "Spender",
+	KEYBIND_ROLE_UTILITY = "Utility",
+	KEYBIND_ROLE_DEFENSIVE = "Defensive",
+	KEYBIND_ROLE_MOBILITY = "Mobility / pet",
+	KEYBIND_ROLE_COOLDOWN = "Cooldown bar",
+
 	LAYOUT_PROTOTYPE_SUBTITLE = "Prototype — full US keyboard preview: Midnight keys light up; others grayed. Hover or click. Tips in the Guide tab can jump here and highlight a key. Safe to remove when replaced.",
 	LAYOUT_KEY_UNUSED_TOOLTIP = "|cff888888Not used in the Midnight Hunter bind map.|r",
 	LAYOUT_KEY_MODIFIER_TOOLTIP = "|cff888888Modifier key — WoW handles Shift/Ctrl/Alt combos separately from this spell map.|r",
@@ -82,6 +90,7 @@ ns._mhLocales.enUS = {
 	LAYOUT_KEY_EMPTY_TOOLTIP = "|cffaaaaaaNo role on this key in the current spec map yet.|r",
 	LAYOUT_KEY_G_OPTIONAL_TOOLTIP = "|cffaaaaaaSlot G exists in the grid but this team often leaves it empty — optional bind.|r",
 	LAYOUT_KEY_ROLE_TOOLTIP_FMT = "|cffffcc00%s|r",
+	LAYOUT_KEY_BIND_LAYER_FMT = "|cffe0e070%s|r — %s",
 	LAYOUT_KEY_MOVEMENT_TOOLTIP = "Move your character: W forward, S back, A/D strafe, mouse to turn. WoW uses these by default — keep them free for walking.",
 	LAYOUT_KEY_TAB_TOOLTIP = "Tab switches targets. WoW uses it by default — keep Tab free so you can pick the right enemy quickly in combat.",
 	LAYOUT_KEY_PREFERRED_TOOLTIP = "Midnight tip: keep this key free for spells, macros, or Shift/Ctrl/Alt combos — same idea as the lit F-keys on your action bars.",

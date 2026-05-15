@@ -1428,6 +1428,11 @@ local function PopulateUniversalGuideContent()
 
 		local slug = ns.MH_GetHunterKeybindSlugForUi and ns.MH_GetHunterKeybindSlugForUi()
 		local uiKey = slug and sid and ns.MH_Keybind_GetUiKeyForSpell and ns.MH_Keybind_GetUiKeyForSpell(sid, slug)
+		local keycap = slug
+			and sid
+			and ns.MH_Keybind_GetKeycapLabelForSpell
+			and ns.MH_Keybind_GetKeycapLabelForSpell(sid, slug)
+		local keyLabel = keycap or uiKey
 		local noKeycap = slug and sid and ns.MH_Keybind_IsGuideSpellWithoutKeycap
 			and ns.MH_Keybind_IsGuideSpellWithoutKeycap(sid, slug)
 		if uiKey and not noKeycap and ns.MH_GuideOpenLayoutForSpell then
@@ -1435,7 +1440,7 @@ local function PopulateUniversalGuideContent()
 			local keyBtn = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
 			keyBtn:SetSize(30, 22)
 			keyBtn:SetPoint("RIGHT", row, "RIGHT", -2, 0)
-			keyBtn:SetText(uiKey)
+			keyBtn:SetText(keyLabel or uiKey)
 			local fsKey = keyBtn:GetFontString()
 			if fsKey and fsKey.SetTextColor then
 				fsKey:SetTextColor(1, 0.88, 0.42)
@@ -1449,7 +1454,7 @@ local function PopulateUniversalGuideContent()
 					return
 				end
 				gt:SetOwner(self, "ANCHOR_LEFT")
-				gt:SetText(ns:L("GUIDE_TIP_LAYOUT_KEY_BTN_FMT"):format(uiKey), 1, 1, 1)
+				gt:SetText(ns:L("GUIDE_TIP_LAYOUT_KEY_BTN_FMT"):format(keyLabel or uiKey), 1, 1, 1)
 				gt:Show()
 			end)
 			keyBtn:SetScript("OnLeave", function()
@@ -1988,6 +1993,11 @@ local function PopulateUniversalGuideContent()
 		scroll:SetVerticalScroll(0)
 	end
 	SyncGuideScrollBarState()
+
+	local layoutPanel = ns._mhGuideLayoutPanel
+	if layoutPanel and layoutPanel._mhProtoBuilt and ns.KeyboardLayoutPrototype_Refresh then
+		ns.KeyboardLayoutPrototype_Refresh(layoutPanel)
+	end
 end
 
 -- Populate after layout: ScrollFrame often reports height 0 during the same frame as Show/Create.

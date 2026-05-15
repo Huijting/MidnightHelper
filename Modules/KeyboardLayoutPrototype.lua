@@ -131,11 +131,17 @@ function ns.MH_GuideOpenLayoutForSpell(spellId)
 	if ns.MH_Keybind_IsGuideSpellWithoutKeycap and ns.MH_Keybind_IsGuideSpellWithoutKeycap(spellId, slug) then
 		return false
 	end
-	local uiKey = ns.MH_Keybind_GetUiKeyForSpell and ns.MH_Keybind_GetUiKeyForSpell(spellId, slug)
-	if not uiKey then
+	local layoutKey = ns.MH_Keybind_GetLayoutUiKeyForSpell and ns.MH_Keybind_GetLayoutUiKeyForSpell(spellId, slug)
+	if not layoutKey then
+		layoutKey = ns.MH_Keybind_GetUiKeyForSpell and ns.MH_Keybind_GetUiKeyForSpell(spellId, slug)
+		if layoutKey and ns.Keybind_GetBaseUiKey then
+			layoutKey = ns.Keybind_GetBaseUiKey(layoutKey) or layoutKey
+		end
+	end
+	if not layoutKey then
 		return false
 	end
-	return ns.MH_GuideOpenLayoutForKey(uiKey)
+	return ns.MH_GuideOpenLayoutForKey(layoutKey)
 end
 
 local function ProtoResolveSlug()
@@ -143,25 +149,71 @@ local function ProtoResolveSlug()
 	if slug then
 		return slug
 	end
+	local db = ns.db
+	if db and type(db.guide) == "table" and db.guide.preview then
+		return nil
+	end
 	return "hunter_early"
 end
 
+local function ProtoSpellName(spellId)
+	local sid = tonumber(spellId)
+	if not sid or sid < 1 or not C_Spell or not C_Spell.GetSpellInfo then
+		return nil
+	end
+	local ok, si = pcall(C_Spell.GetSpellInfo, sid)
+	if ok and si and si.name and si.name ~= "" then
+		return si.name
+	end
+	return nil
+end
+
 local function ProtoTooltipForKey(uiKey, slot, spec)
-	local ref = ns.KeybindingReference
-	if not ref or not spec or not spec.spellByUiKey then
+	if not spec or not spec.spellByUiKey then
 		return ns:L("LAYOUT_KEY_EMPTY_TOOLTIP")
 	end
-	local sp = spec.spellByUiKey[uiKey]
-	if not sp or not sp.id then
+	local layers = ns.Keybind_GetBindingsOnBase and ns.Keybind_GetBindingsOnBase(spec, uiKey) or {}
+	if #layers == 0 then
+		local sp = spec.spellByUiKey[uiKey]
+		if sp and sp.id then
+			layers = { { bindKey = uiKey, entry = sp } }
+		end
+	end
+	if #layers == 0 then
 		return ns:L("LAYOUT_KEY_EMPTY_TOOLTIP")
 	end
+	local lines = {}
 	if slot and slot.categoryLocaleKey then
 		local cat = ns:L(slot.categoryLocaleKey)
 		if cat ~= "" then
-			return ns:L("LAYOUT_KEY_ROLE_TOOLTIP_FMT"):format(cat)
+			lines[#lines + 1] = ns:L("LAYOUT_KEY_ROLE_TOOLTIP_FMT"):format(cat)
 		end
 	end
-	return ns:L("LAYOUT_KEY_EMPTY_TOOLTIP")
+	for i = 1, #layers do
+		local layer = layers[i]
+		local entry = layer.entry
+		local cap = ns.Keybind_FormatKeycap and ns.Keybind_FormatKeycap(layer.bindKey) or layer.bindKey
+		local name = entry and ProtoSpellName(entry.id)
+		if entry and entry.role and ns.Keybind_GetRoleLocaleKey then
+			local rk = ns.Keybind_GetRoleLocaleKey(entry.role)
+			if rk and rk ~= "" then
+				local roleLabel = ns:L(rk)
+				if roleLabel ~= "" then
+					lines[#lines + 1] = ns:L("LAYOUT_KEY_BIND_LAYER_FMT"):format(cap, roleLabel)
+				elseif name then
+					lines[#lines + 1] = ns:L("LAYOUT_KEY_BIND_LAYER_FMT"):format(cap, name)
+				end
+			elseif name then
+				lines[#lines + 1] = ns:L("LAYOUT_KEY_BIND_LAYER_FMT"):format(cap, name)
+			end
+		elseif name then
+			lines[#lines + 1] = ns:L("LAYOUT_KEY_BIND_LAYER_FMT"):format(cap, name)
+		end
+	end
+	if #lines == 0 then
+		return ns:L("LAYOUT_KEY_EMPTY_TOOLTIP")
+	end
+	return table.concat(lines, "\n")
 end
 
 --- Build pixel positions: ISO block (Enter spans Q+Caps only), RShift flush with RCtrl.
@@ -401,9 +453,17 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 	end
 	local ref = ns.KeybindingReference
 	local slug = ProtoResolveSlug()
-	local spec = ref and ref.specsById and ref.specsById[slug]
-	local slots = ref and ref.slots
+	local spec = slug and ref and ref.specsById and ref.specsById[slug]
+	local slots
+	if slug and ref then
+		slots = (ns.Keybinding_GetSlotsForSlug and ns.Keybinding_GetSlotsForSlug(slug)) or ref.slots
+	else
+		slots = {}
+	end
 	local highlightKey = panel._mhProtoHighlightKey or ns._mhLayoutHighlightKey
+	if highlightKey and ns.Keybind_GetBaseUiKey then
+		highlightKey = ns.Keybind_GetBaseUiKey(highlightKey) or highlightKey
+	end
 	local slotByUi = {}
 	local usedUiKeys = {}
 	if type(slots) == "table" then
@@ -419,8 +479,8 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 	for uiKey, btn in pairs(panel._mhProtoButtons) do
 		if btn then
 			local slot = slotByUi[uiKey]
-			local sp = spec and spec.spellByUiKey and spec.spellByUiKey[uiKey]
-			local hasSpell = sp and sp.id
+			local layers = spec and ns.Keybind_GetBindingsOnBase and ns.Keybind_GetBindingsOnBase(spec, uiKey) or {}
+			local hasSpell = #layers > 0
 			local tip
 			local plain
 			local fs = ProtoKeycapLabel(btn)
