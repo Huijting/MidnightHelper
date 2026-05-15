@@ -1,4 +1,4 @@
-﻿--[[
+--[[
 	Experimental Leveling sub-tab: ISO-style keyboard preview (NL/UK-like):
 	L-shaped Enter spans Q + Caps only (no stub key on Q row); \| sits on the home row (before Enter),
 	not beside Z. AltGr / RWin / Menu on the bottom; RShift aligns with RCtrl (no arrow island).

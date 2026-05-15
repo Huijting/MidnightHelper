@@ -927,11 +927,20 @@ local function TrimString(s)
 	return (tostring(s or ""):gsub("^%s*(.-)%s*$", "%1"))
 end
 
+local function GuideChatMsg(key, ...)
+	local fmt = ns:L(key)
+	local text = fmt
+	if select("#", ...) > 0 then
+		text = fmt:format(...)
+	end
+	print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), text))
+end
+
 local function ApplyGuideSearchQuery(raw)
 	EnsureGuideSearchIndex()
 	local q = string.lower(TrimString(raw))
 	if q == "" then
-		print("|cffffcc00Midnight Helper:|r Typ een zoekterm (bijv. |cffffffffhavoc|r, |cffffffffdelves|r, |cffffffffsmc|r).")
+		GuideChatMsg("SEARCH_CHAT_EMPTY")
 		return
 	end
 
@@ -972,7 +981,7 @@ local function ApplyGuideSearchQuery(raw)
 			ns:ShowMainUI()
 			ns.SelectTab("delves")
 		end
-		print("|cffffcc00Midnight Helper:|r Tab geopend: Delves & Vault")
+		GuideChatMsg("SEARCH_CHAT_TAB_DELVES")
 		return
 	end
 
@@ -981,7 +990,7 @@ local function ApplyGuideSearchQuery(raw)
 			ns:ShowMainUI()
 			ns.SelectTab("professions")
 		end
-		print("|cffffcc00Midnight Helper:|r Tab geopend: Professions")
+		GuideChatMsg("SEARCH_CHAT_TAB_PROFESSIONS")
 		return
 	end
 
@@ -990,7 +999,7 @@ local function ApplyGuideSearchQuery(raw)
 			ns:ShowMainUI()
 			ns.SelectTab("smcguide")
 		end
-		print("|cffffcc00Midnight Helper:|r Tab geopend: SMC City Guide")
+		GuideChatMsg("SEARCH_CHAT_TAB_SMC")
 		return
 	end
 
@@ -1033,7 +1042,7 @@ local function ApplyGuideSearchQuery(raw)
 			else
 				doJump()
 			end
-			print(("|cffffcc00Midnight Helper:|r SMC City Guide → |cffffffff%s|r"):format(tostring(p.label or "?")))
+			GuideChatMsg("SEARCH_CHAT_SMC_PIN_FMT", tostring(p.label or "?"))
 			return
 		end
 	end
@@ -1043,7 +1052,7 @@ local function ApplyGuideSearchQuery(raw)
 			ns:ShowMainUI()
 			ns.SelectTab("addons")
 		end
-		print("|cffffcc00Midnight Helper:|r Tab geopend: Addons")
+		GuideChatMsg("SEARCH_CHAT_TAB_ADDONS")
 		return
 	end
 
@@ -1055,7 +1064,7 @@ local function ApplyGuideSearchQuery(raw)
 		if ns.SelectAddonSubTab and ns._mhAddonSubTabById and ns._mhAddonSubTabById.platynator then
 			ns.SelectAddonSubTab("platynator")
 		end
-		print("|cffffcc00Midnight Helper:|r Tab geopend: Addons (Platynator)")
+		GuideChatMsg("SEARCH_CHAT_TAB_ADDONS_PLATY")
 		return
 	end
 
@@ -1064,7 +1073,7 @@ local function ApplyGuideSearchQuery(raw)
 			ns:ShowMainUI()
 			ns.SelectTab("guide")
 		end
-		print("|cffffcc00Midnight Helper:|r Tab geopend: Leveling Guides")
+		GuideChatMsg("SEARCH_CHAT_TAB_GUIDE")
 		return
 	end
 
@@ -1089,7 +1098,7 @@ local function ApplyGuideSearchQuery(raw)
 	end
 
 	if not best then
-		print("|cffffcc00Midnight Helper:|r Geen match voor \"" .. tostring(raw) .. "\". Probeer een spec-naam (havoc, guardian, …) of delves / smc / professions.")
+		GuideChatMsg("SEARCH_CHAT_NO_MATCH_FMT", tostring(raw))
 		return
 	end
 
@@ -1106,13 +1115,7 @@ local function ApplyGuideSearchQuery(raw)
 		ns:ShowMainUI()
 		ns.SelectTab("guide")
 	end
-	print(
-		("|cffffcc00Midnight Helper:|r Guide-weergave: |cffffffff%s|r (%s %d)"):format(
-			best.title,
-			best.classFile,
-			best.specIndex
-		)
-	)
+	GuideChatMsg("SEARCH_CHAT_GUIDE_PREVIEW_FMT", best.title, best.classFile, best.specIndex)
 	ScheduleGuidePopulate()
 end
 
@@ -1130,7 +1133,7 @@ local function ClearGuidePreviewAndRefresh()
 		ns.mhSearchEdit:SetText("")
 	end
 	ScheduleGuidePopulate()
-	print("|cffffcc00Midnight Helper:|r Guide toont weer jouw eigen klasse/spec.")
+	GuideChatMsg("SEARCH_CHAT_GUIDE_PREVIEW_CLEARED")
 end
 
 ns.MH_RunSearchQuery = ApplyGuideSearchQuery

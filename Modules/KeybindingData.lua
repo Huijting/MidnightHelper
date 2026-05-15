@@ -1,4 +1,4 @@
-﻿--[[
+--[[
 	MidnightHelper — Keybinding / Abilities reference (Hunter Module 1–2, Paladin early + Retribution).
 
 	Visible keys: 1–4, Q, E, F, R, Z, X, C, V, plus F1 (G exists on the preview keyboard but is not a Midnight bind).
