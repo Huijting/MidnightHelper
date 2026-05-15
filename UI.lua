@@ -111,6 +111,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_PROFESSIONS"
 	elseif tabId == "guide" then
 		return "INFO_DRAWER_BODY_GUIDE"
+	elseif tabId == "macros" then
+		return "INFO_DRAWER_BODY_MACROS"
 	elseif tabId == "addons" then
 		return "INFO_DRAWER_BODY_ADDONS"
 	end
@@ -192,6 +194,10 @@ function ns:RefreshLocaleUI()
 
 	if self.uiSelectedTab == "guide" and self._mhGuideRefresh then
 		self:_mhGuideRefresh()
+	end
+	local macroPanel = self.panels and self.panels.macros
+	if macroPanel and macroPanel._mhRefreshMacros then
+		macroPanel._mhRefreshMacros()
 	end
 	local layoutPanel = self._mhGuideLayoutPanel
 	if layoutPanel and layoutPanel._mhProtoBuilt and ns.KeyboardLayoutPrototype_Refresh then
@@ -881,6 +887,7 @@ local TAB_DEFS = {
 	{ id = "smcguide", labelKey = "TAB_SMC" },
 	{ id = "professions", labelKey = "TAB_PROFESSIONS" },
 	{ id = "guide", labelKey = "TAB_GUIDE" },
+	{ id = "macros", labelKey = "TAB_MACROS" },
 	{ id = "addons", labelKey = "TAB_ADDONS" },
 }
 
@@ -1222,6 +1229,7 @@ function ns:EnsureMainUI()
 				smcguide = "TAB_SMC",
 				professions = "TAB_PROFESSIONS",
 				guide = "TAB_GUIDE",
+				macros = "TAB_MACROS",
 				addons = "TAB_ADDONS",
 			}
 			local tabName = self:L(keyById[tabId] or "TAB_DELVES")
@@ -1328,6 +1336,8 @@ function ns:EnsureMainUI()
 			local panel = CreateModulePanel(tab.id, ns:L(tab.labelKey))
 			if tab.id == "smcguide" then
 				BuildSMCCityGuidePanel(panel)
+			elseif tab.id == "macros" and ns.BuildInterruptMacrosPanel then
+				ns.BuildInterruptMacrosPanel(panel)
 			end
 		end
 	end
@@ -1483,26 +1493,37 @@ function ns:EnsureMainUI()
 		local yy = -8
 		for _, tab in ipairs(TAB_DEFS) do
 			local btn = ns.tabButtons and ns.tabButtons[tab.id]
-			if btn then
+			if not btn then
+				-- skip
+			elseif tab.id == "addons" or tab.id == "macros" then
 				btn:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
 				btn:ClearAllPoints()
-				if tab.id == "addons" then
-					btn:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
+				btn:Show()
+			else
+				btn:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
+				btn:ClearAllPoints()
+				local visible = true
+				if tab.id == "guide" and ns.IsGuideTabEnabled then
+					visible = ns:IsGuideTabEnabled()
+				end
+				if visible then
+					btn:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
+					yy = yy - lm.sidebarTabStep
 					btn:Show()
 				else
-					local visible = true
-					if tab.id == "guide" and ns.IsGuideTabEnabled then
-						visible = ns:IsGuideTabEnabled()
-					end
-					if visible then
-						btn:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
-						btn:Show()
-						yy = yy - lm.sidebarTabStep
-					else
-						btn:Hide()
-					end
+					btn:Hide()
 				end
 			end
+		end
+		local addB = ns.tabButtons and ns.tabButtons.addons
+		local macB = ns.tabButtons and ns.tabButtons.macros
+		if addB then
+			addB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
+		end
+		if macB and addB then
+			macB:SetPoint("BOTTOM", addB, "TOP", 0, 6)
+		elseif macB then
+			macB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
 		end
 
 		if ns.uiSelectedTab == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then

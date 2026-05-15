@@ -20,6 +20,8 @@ Modules\KeybindSchema.lua
 Modules\KeybindingData.lua
 Modules\KeybindLayoutSlug.lua
 Modules\KeyboardLayoutPrototype.lua
+Modules\InterruptMacrosData.lua
+Modules\InterruptMacros.lua
 Modules\SMCChecklistData.lua
 Modules\SMCChecklist.lua
 UI.lua
