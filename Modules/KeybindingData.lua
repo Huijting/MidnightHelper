@@ -1,4 +1,4 @@
---[[
+﻿--[[
 	MidnightHelper — Keybinding / Abilities reference (Hunter Module 1–2, Paladin early + Retribution).
 
 	Visible keys: 1–4, Q, E, F, R, Z, X, C, V, plus F1 (G exists on the preview keyboard but is not a Midnight bind).
@@ -278,8 +278,8 @@ function ns.Keybinding_GetSpellLabelForKey(specId, uiKey)
 	return nil
 end
 
---- Action-bar key label (e.g. "1", "F1") for a spell id in a spec slug; drives Guide inline [key] hints.
-function ns.MH_Keybind_GetKeycapLabelForSpell(spellId, specSlug)
+--- Midnight keyboard `ui_key` for a spell id (e.g. "Q", "F1") in the current spec slug.
+function ns.MH_Keybind_GetUiKeyForSpell(spellId, specSlug)
 	local ref = ns.KeybindingReference
 	local sid = tonumber(spellId)
 	if not ref or not sid or sid < 1 then
@@ -290,13 +290,23 @@ function ns.MH_Keybind_GetKeycapLabelForSpell(spellId, specSlug)
 	if not spec or not spec.spellByUiKey then
 		return nil
 	end
-	local uiKey
 	for k, def in pairs(spec.spellByUiKey) do
 		if type(def) == "table" and tonumber(def.id) == sid then
-			uiKey = k
-			break
+			return k
 		end
 	end
+	return nil
+end
+
+--- Action-bar key label (e.g. "1", "F1") for a spell id in a spec slug; drives Guide inline [key] hints.
+function ns.MH_Keybind_GetKeycapLabelForSpell(spellId, specSlug)
+	local ref = ns.KeybindingReference
+	local sid = tonumber(spellId)
+	if not ref or not sid or sid < 1 then
+		return nil
+	end
+	specSlug = specSlug or "hunter_early"
+	local uiKey = ns.MH_Keybind_GetUiKeyForSpell(sid, specSlug)
 	if not uiKey then
 		return nil
 	end

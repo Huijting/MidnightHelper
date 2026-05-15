@@ -1392,6 +1392,9 @@ function ns:EnsureMainUI()
 			if which == "guide" then
 				guideBody:Show()
 				layoutPanel:Hide()
+				if ns.KeyboardLayoutPrototype_SetHighlight then
+					ns.KeyboardLayoutPrototype_SetHighlight(layoutPanel, nil)
+				end
 				MHRefreshGuideSubTabChrome("guide")
 				if ns._mhGuideRefresh then
 					ns:_mhGuideRefresh()

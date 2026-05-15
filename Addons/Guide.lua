@@ -1355,6 +1355,23 @@ local function PopulateUniversalGuideContent()
 
 	addSectionHeader(scrollContent, ns:L("GUIDE_SECTION_TOP_TIPS_FMT"):format(playerName), fullW, 24, 4, th)
 
+	local layoutSlug = ns.MH_GetHunterKeybindSlugForUi and ns.MH_GetHunterKeybindSlugForUi()
+	if layoutSlug then
+		local tipsHintFs = scrollContent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		tipsHintFs:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 4, y)
+		tipsHintFs:SetWidth(fullW - 8)
+		tipsHintFs:SetJustifyH("LEFT")
+		tipsHintFs:SetWordWrap(true)
+		tipsHintFs:SetSpacing(2)
+		tipsHintFs:SetText(ns:L("GUIDE_TIPS_KEY_HINT"))
+		tipsHintFs:SetTextColor(0.78, 0.74, 0.68)
+		local hintH = tipsHintFs:GetStringHeight()
+		if not hintH or hintH < 1 then
+			hintH = 36
+		end
+		nextY(hintH + 8)
+	end
+
 	local tipsHost = CreateFrame("Frame", nil, scrollContent)
 	tipsHost:SetSize(fullW, 1)
 	tipsHost:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, y)
@@ -1405,6 +1422,40 @@ local function PopulateUniversalGuideContent()
 		fs:SetTextColor(0.92, 0.90, 0.82)
 		local tipStr = tip.textKey and ns:L(tip.textKey) or tip.text or ""
 		fs:SetText(tipStr)
+
+		local slug = ns.MH_GetHunterKeybindSlugForUi and ns.MH_GetHunterKeybindSlugForUi()
+		local uiKey = slug and sid and ns.MH_Keybind_GetUiKeyForSpell and ns.MH_Keybind_GetUiKeyForSpell(sid, slug)
+		local noKeycap = slug and sid and ns.MH_Keybind_IsGuideSpellWithoutKeycap
+			and ns.MH_Keybind_IsGuideSpellWithoutKeycap(sid, slug)
+		if uiKey and not noKeycap and ns.MH_GuideOpenLayoutForSpell then
+			fs:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", -36, 0)
+			local keyBtn = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+			keyBtn:SetSize(30, 22)
+			keyBtn:SetPoint("RIGHT", row, "RIGHT", -2, 0)
+			keyBtn:SetText(uiKey)
+			local fsKey = keyBtn:GetFontString()
+			if fsKey and fsKey.SetTextColor then
+				fsKey:SetTextColor(1, 0.88, 0.42)
+			end
+			keyBtn:SetScript("OnClick", function()
+				ns.MH_GuideOpenLayoutForSpell(sid)
+			end)
+			keyBtn:SetScript("OnEnter", function(self)
+				local gt = _G.GameTooltip
+				if not gt then
+					return
+				end
+				gt:SetOwner(self, "ANCHOR_LEFT")
+				gt:SetText(ns:L("GUIDE_TIP_LAYOUT_KEY_BTN_FMT"):format(uiKey), 1, 1, 1)
+				gt:Show()
+			end)
+			keyBtn:SetScript("OnLeave", function()
+				local gt = _G.GameTooltip
+				if gt then
+					gt:Hide()
+				end
+			end)
+		end
 
 		yy = yy - TIP_ROW_HEIGHT - TIP_ROW_GAP
 	end

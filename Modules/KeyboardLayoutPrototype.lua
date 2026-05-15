@@ -1,4 +1,4 @@
---[[
+﻿--[[
 	Experimental Leveling sub-tab: ISO-style keyboard preview (NL/UK-like):
 	L-shaped Enter spans Q + Caps only (no stub key on Q row); \| sits on the home row (before Enter),
 	not beside Z. AltGr / RWin / Menu on the bottom; RShift aligns with RCtrl (no arrow island).
@@ -53,6 +53,90 @@ local COLOR_TEXT_SPELL = { 1, 0.88, 0.42 }
 local COLOR_TEXT_MOVEMENT = { 0.2, 1, 0.38 }
 local COLOR_TEXT_TARGET = { 0.35, 0.85, 1 }
 local COLOR_TEXT_DIM = { 0.52, 0.5, 0.46 }
+
+local function ProtoEnsureGlow(btn)
+	if not btn or not btn.CreateTexture then
+		return nil
+	end
+	if not btn._mhProtoGlow then
+		local g = btn:CreateTexture(nil, "OVERLAY", nil, 7)
+		g:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+		g:SetBlendMode("ADD")
+		g:SetPoint("TOPLEFT", btn, "TOPLEFT", -5, 5)
+		g:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", 5, -5)
+		g:Hide()
+		btn._mhProtoGlow = g
+	end
+	return btn._mhProtoGlow
+end
+
+function ns.KeyboardLayoutPrototype_SetHighlight(panel, uiKey)
+	if panel then
+		panel._mhProtoHighlightKey = uiKey
+	end
+	ns._mhLayoutHighlightKey = uiKey
+end
+
+function ns.MH_GuideOpenLayoutForKey(uiKey)
+	if not uiKey or uiKey == "" then
+		return false
+	end
+	if ns.EnsureMainUI then
+		local main = ns:EnsureMainUI()
+		if main and not main:IsShown() and ns.ToggleMainWindow then
+			ns:ToggleMainWindow()
+		end
+	end
+	if ns.SelectTab then
+		ns.SelectTab("guide")
+	end
+	if ns._mhSelectGuideSubTab then
+		ns._mhSelectGuideSubTab("layout")
+	end
+	local panel = ns._mhGuideLayoutPanel
+	ns.KeyboardLayoutPrototype_SetHighlight(panel, uiKey)
+	if panel then
+		if ns.BuildKeyboardLayoutPrototypePanel then
+			ns.BuildKeyboardLayoutPrototypePanel(panel)
+		end
+		if ns.KeyboardLayoutPrototype_Refresh then
+			ns.KeyboardLayoutPrototype_Refresh(panel)
+		end
+		local scroll = _G.MidnightHelperKeyboardProtoScroll
+		local btn = panel._mhProtoButtons and panel._mhProtoButtons[uiKey]
+		if scroll and scroll.SetVerticalScroll and btn and btn._mhProtoLayoutY then
+			local viewH = scroll:GetHeight() or 320
+			local maxScroll = 0
+			if scroll.GetVerticalScrollRange then
+				maxScroll = scroll:GetVerticalScrollRange() or 0
+			end
+			local target = btn._mhProtoLayoutY - viewH * 0.35
+			if target < 0 then
+				target = 0
+			end
+			if target > maxScroll then
+				target = maxScroll
+			end
+			scroll:SetVerticalScroll(target)
+		end
+	end
+	return true
+end
+
+function ns.MH_GuideOpenLayoutForSpell(spellId)
+	local slug = ns.MH_GetHunterKeybindSlugForUi and ns.MH_GetHunterKeybindSlugForUi()
+	if not slug then
+		return false
+	end
+	if ns.MH_Keybind_IsGuideSpellWithoutKeycap and ns.MH_Keybind_IsGuideSpellWithoutKeycap(spellId, slug) then
+		return false
+	end
+	local uiKey = ns.MH_Keybind_GetUiKeyForSpell and ns.MH_Keybind_GetUiKeyForSpell(spellId, slug)
+	if not uiKey then
+		return false
+	end
+	return ns.MH_GuideOpenLayoutForKey(uiKey)
+end
 
 local function ProtoResolveSlug()
 	local slug = ns.MH_GetHunterKeybindSlugForUi and ns.MH_GetHunterKeybindSlugForUi()
@@ -319,6 +403,7 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 	local slug = ProtoResolveSlug()
 	local spec = ref and ref.specsById and ref.specsById[slug]
 	local slots = ref and ref.slots
+	local highlightKey = panel._mhProtoHighlightKey or ns._mhLayoutHighlightKey
 	local slotByUi = {}
 	local usedUiKeys = {}
 	if type(slots) == "table" then
@@ -378,6 +463,20 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 
 			btn._mhProtoTipText = plain
 			ProtoAttachTooltip(btn, tip)
+
+			local glow = ProtoEnsureGlow(btn)
+			if glow then
+				if highlightKey and uiKey == highlightKey then
+					glow:Show()
+					glow:SetVertexColor(1, 0.88, 0.25, 0.95)
+					btn:SetAlpha(1)
+					local extra = ns:L("LAYOUT_KEY_HIGHLIGHT_FROM_GUIDE")
+					btn._mhProtoTipText = plain .. "\n" .. PlainTooltipText(extra)
+					ProtoAttachTooltip(btn, tip .. "\n" .. extra)
+				else
+					glow:Hide()
+				end
+			end
 		end
 	end
 
@@ -477,6 +576,7 @@ function ns.BuildKeyboardLayoutPrototypePanel(panel)
 		b:SetSize(w, h)
 		b:SetPoint("TOPLEFT", host, "TOPLEFT", xy[1], -xy[2])
 		b:SetText(LabelForPrototypeKey(uiKey))
+		b._mhProtoLayoutY = xy[2]
 		panel._mhProtoButtons[uiKey] = b
 	end
 
