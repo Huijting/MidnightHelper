@@ -1,4 +1,5 @@
 # Build MidnightHelper-<Version>.zip for CurseForge (folder MidnightHelper/ at zip root).
+# When asked to "build the CurseForge zip" or "release package", run this script from the repo root.
 $ErrorActionPreference = "Stop"
 # Repo root (folder containing MidnightHelper.toc)
 $src = Split-Path -Parent $PSScriptRoot
@@ -17,8 +18,11 @@ $folder = Join-Path $stagingRoot "MidnightHelper"
 New-Item -ItemType Directory -Path $folder | Out-Null
 
 $robolog = Join-Path $stagingRoot "robocopy.log"
-$excludeDirs = @(".git", ".cursor", "tools", "docs", ".github", "dist", "__pycache__")
-$xf = @(".cursorrules", "PHASES.txt", ".gitattributes", ".gitignore")
+$excludeDirs = @(".git", ".cursor", "tools", "docs", ".github", "dist", "data", "__pycache__")
+$xf = @(
+	".cursorrules", "PHASES.txt", ".gitattributes", ".gitignore",
+	"README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md", "CURSEFORGE_DESCRIPTION.md"
+)
 $args = @($src, $folder, "/E", "/NFL", "/NDL", "/NJH", "/NJS", "/nc", "/ns", "/np")
 foreach ($d in $excludeDirs) {
 	$args += "/XD"
@@ -32,6 +36,12 @@ foreach ($f in $xf) {
 $rc = $LASTEXITCODE
 if ($rc -gt 7) {
 	throw "robocopy failed with exit code $rc"
+}
+
+# Stray duplicate at repo root (real asset lives in Media/).
+$rootPlaty = Join-Path $folder "Platy1.tga"
+if (Test-Path $rootPlaty) {
+	Remove-Item $rootPlaty -Force
 }
 
 $dist = Join-Path $src "dist"
