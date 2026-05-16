@@ -18,6 +18,22 @@ All notable changes to this project are documented in this file.
   - "Next unlock at: x / y"
 - Better unavailable messaging for characters where Great Vault is not available yet.
 
+## [1.2.2] - 2026-05-16
+
+### Added
+
+- **Macros** tab: per-spec team interrupt macro plus utility macros (cursor / mouseover / focus), EN and NL descriptions.
+- Guide search **preview** drives keyboard layout and macros for another class/spec without relogging.
+- Guide search chat and strings respect `/mh lang en` or `nl`.
+
+### Changed
+
+- Midnight key layout roles (interrupt on E, overflow Alt / Shift / Ctrl).
+
+### Note
+
+- Addon is still actively evolving; expect ongoing tweaks and improvements.
+
 ## [1.2.1] - 2026-04-30
 
 ### Fixed

@@ -129,9 +129,9 @@ ns._mhLocales.enUS = {
 	INFO_DRAWER_BODY_MACROS = "Interrupt tab: team kick macro (focus first). Utility tab: extra spec macros (cursor ground spells, mouseover heals, and similar) from the team pack. Pick a row, read the tip, copy the text.\n\nData can change after patches - report missing spells to the team.",
 	INFO_DRAWER_BODY_ADDONS = "Hub for optional tools bundled inside Midnight Helper rather than separate downloads.\n\nChoose a sub-tab along the top—today that is Platynator: Wago link, profile-string import, and the MF Platynator visual gallery.\n\nAdditional partner panels register here automatically when future modules ship.",
 	ABOUT_WINDOW_TITLE = "About Midnight Helper",
-	ABOUT_WINDOW_BODY = "Version: 1.2.1\n\nAuthors: Inchy & Gemma & Cursor\n\nAll-in-one Midnight reference: Delves & Vault, Account snapshot, SMC City Guide, Professions (KP + treasures), Leveling Guides, integrated addon tools—English / Nederlands.",
+	ABOUT_WINDOW_BODY = "Version: 1.2.2\n\nAuthors: Inchy & Gemma & Cursor\n\nAll-in-one Midnight reference: Delves & Vault, Account snapshot, SMC City Guide, Professions (KP + treasures), Leveling Guides, integrated addon tools—English / Nederlands.",
 
-	ABOUT_POPUP_TEXT = "Addon: |cffffcc00Midnight Helper|r\n\nVersion: 1.2.1\n\nAuthors: Inchy & Gemma & Cursor\n\nDescription: Delves, Account snapshot, SMC pins, Professions KP tracker, Leveling Guides, bundled tools — EN/NL.",
+	ABOUT_POPUP_TEXT = "Addon: |cffffcc00Midnight Helper|r\n\nVersion: 1.2.2\n\nAuthors: Inchy & Gemma & Cursor\n\nDescription: Delves, Account snapshot, SMC pins, Professions KP tracker, Leveling Guides, bundled tools — EN/NL.",
 	CHANGELOG_TITLE = "Midnight Helper Changelog",
 	CHANGELOG_SUBTITLE = "Version %s",
 	CHANGELOG_VERSION_FMT = "Version %s",
@@ -145,6 +145,11 @@ ns._mhLocales.enUS = {
 	CHANGELOG_121_1 = "Main window: inner panels respect the gold dialog frame—corner ornaments stay visible and the bottom/right “empty gutter” next to the resize grip is gone.",
 	CHANGELOG_121_2 = "Info and About use standard Blizzard panel buttons again (same treatment as Search / My character) for a consistent look on all clients.",
 	CHANGELOG_121_3 = "Minor polish only; Delves, Vault, guides, and localization behavior unchanged—safe drop-in update.",
+	CHANGELOG_122_1 = "Macros tab: one-click team interrupt macro plus curated utility macros per spec (cursor, mouseover, focus)—copy, paste, play.",
+	CHANGELOG_122_2 = "Preview any spec without relogging: guide search updates leveling tips, keyboard layout, and macros for that class/spec in one go.",
+	CHANGELOG_122_3 = "Guide search and chat messages follow your language choice (/mh lang en or nl).",
+	CHANGELOG_122_4 = "Midnight key layout refresh: interrupt on E, clearer role slots, smarter overflow (Alt, Shift, Ctrl).",
+	CHANGELOG_122_5 = "Still cooking: everything in Midnight Helper is subject to change and steady improvement—patches will keep landing. Feedback welcome!",
 
 	LANG_ROW_EN_TOOLTIP = "English (default UI language)",
 	LANG_ROW_NL_TOOLTIP = "Nederlands",

@@ -4,6 +4,16 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "1.2.2",
+		lines = {
+			"CHANGELOG_122_1",
+			"CHANGELOG_122_2",
+			"CHANGELOG_122_3",
+			"CHANGELOG_122_4",
+			"CHANGELOG_122_5",
+		},
+	},
+	{
 		version = "1.2.1",
 		lines = {
 			"CHANGELOG_121_1",
@@ -49,11 +59,33 @@ local function BuildChangelogBodyText()
 		local head = COLOR_SECTION .. ns:L("CHANGELOG_VERSION_FMT"):format(e.version) .. ":|r"
 		local lines = { head }
 		for j = 1, #(e.lines or {}) do
-			lines[#lines + 1] = COLOR_BULLET .. "• " .. ns:L(e.lines[j]) .. "|r"
+			lines[#lines + 1] = COLOR_BULLET .. "- " .. ns:L(e.lines[j]) .. "|r"
 		end
 		blocks[#blocks + 1] = table.concat(lines, "\n")
 	end
 	return table.concat(blocks, "\n\n")
+end
+
+local function LayoutChangelogScroll(f)
+	local scroll = f._scroll
+	local content = f._content
+	local body = f._body
+	if not scroll or not content or not body then
+		return
+	end
+	local scrollW = scroll:GetWidth() or 600
+	local textW = math.max(320, scrollW - 24)
+	content:SetWidth(textW)
+	body:SetWidth(textW - 8)
+	body:SetText(BuildChangelogBodyText())
+	local bodyH = body:GetStringHeight() or 1
+	content:SetHeight(math.max(bodyH + 20, 40))
+	if scroll.UpdateScrollChildRect then
+		scroll:UpdateScrollChildRect()
+	end
+	if scroll.SetVerticalScroll then
+		scroll:SetVerticalScroll(0)
+	end
 end
 
 local function EnsureChangelogFrame()
@@ -110,21 +142,21 @@ local function EnsureChangelogFrame()
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", f, "TOPLEFT", 20, -52)
 	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -44, 100)
+	f._scroll = scroll
 
 	local content = CreateFrame("Frame", nil, scroll)
-	content:SetSize(1, 1)
+	content:SetSize(600, 40)
 	scroll:SetScrollChild(content)
 
 	local body = content:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-	body:SetPoint("TOPLEFT", content, "TOPLEFT", 0, 0)
-	body:SetPoint("TOPRIGHT", content, "TOPRIGHT", -8, 0)
+	body:SetPoint("TOPLEFT", content, "TOPLEFT", 4, -4)
 	body:SetJustifyH("LEFT")
 	body:SetJustifyV("TOP")
-	body:SetSpacing(6)
-	body:SetText(BuildChangelogBodyText())
-	content:SetHeight(math.max(1, body:GetStringHeight() + 16))
+	body:SetWordWrap(true)
+	body:SetSpacing(4)
 	f._body = body
 	f._content = content
+	LayoutChangelogScroll(f)
 
 	-- Labels wrap within left column so they never draw over the bottom-right close button.
 	local FOOTER_TEXT_W = 480
@@ -185,6 +217,9 @@ local function EnsureChangelogFrame()
 		cbVersion:SetChecked(false)
 		cbNever:SetChecked(false)
 	end)
+	f:SetScript("OnShow", function()
+		LayoutChangelogScroll(f)
+	end)
 
 	changelogFrame = f
 
@@ -224,8 +259,7 @@ function ns:ShowChangelogWindow(force)
 	local f = EnsureChangelogFrame()
 	f._title:SetText(ns:L("CHANGELOG_TITLE"))
 	f._subtitle:SetText(ns:L("CHANGELOG_SUBTITLE"):format(version))
-	f._body:SetText(BuildChangelogBodyText())
-	f._content:SetHeight(math.max(1, f._body:GetStringHeight() + 16))
+	LayoutChangelogScroll(f)
 	f:Show()
 end
 
