@@ -1117,6 +1117,9 @@ local function ApplyGuideSearchQuery(raw)
 	end
 	GuideChatMsg("SEARCH_CHAT_GUIDE_PREVIEW_FMT", best.title, best.classFile, best.specIndex)
 	ScheduleGuidePopulate()
+	if ns.MH_RefreshMacrosPanel then
+		ns.MH_RefreshMacrosPanel()
+	end
 end
 
 local function ClearGuidePreviewAndRefresh()
@@ -1134,6 +1137,9 @@ local function ClearGuidePreviewAndRefresh()
 	end
 	ScheduleGuidePopulate()
 	GuideChatMsg("SEARCH_CHAT_GUIDE_PREVIEW_CLEARED")
+	if ns.MH_RefreshMacrosPanel then
+		ns.MH_RefreshMacrosPanel()
+	end
 end
 
 ns.MH_RunSearchQuery = ApplyGuideSearchQuery
@@ -1997,6 +2003,9 @@ local function PopulateUniversalGuideContent()
 	local layoutPanel = ns._mhGuideLayoutPanel
 	if layoutPanel and layoutPanel._mhProtoBuilt and ns.KeyboardLayoutPrototype_Refresh then
 		ns.KeyboardLayoutPrototype_Refresh(layoutPanel)
+	end
+	if ns.MH_RefreshMacrosPanel then
+		ns.MH_RefreshMacrosPanel()
 	end
 end
 

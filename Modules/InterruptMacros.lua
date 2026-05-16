@@ -1,19 +1,157 @@
 local addonName, ns = ...
 
---- @return body string|nil, reason string|nil, classToken string|nil, specIndex number, specName string|nil
-function ns.MH_GetInterruptMacroContext()
-	local classLocalized, classFile = UnitClass("player")
-	if not classFile then
-		return nil, "noclass", nil, 0, nil
+local TAB_TEX_ACTIVE = { 0.98, 0.94, 0.82 }
+local TAB_TEX_INACTIVE = { 0.78, 0.72, 0.62 }
+local SEP_COLOR = { 0.78, 0.62, 0.32, 0.55 }
+
+local TYPE_BTN_W = 96
+local TYPE_BTN_H = 24
+local TYPE_NAV_H = 34
+local PICK_NAV_H = 30
+local PICK_BTN_H = 22
+local PICK_BTN_PAD = 6
+local SCROLL_BOTTOM_PAD = 46
+
+ns.MacroPanelTypes = {
+	{
+		id = "interrupt",
+		labelKey = "MACROS_TYPE_INTERRUPT",
+		subtitleKey = "MACROS_INTERRUPT_SUBTITLE",
+		getContext = function(panel)
+			return ns.MH_GetInterruptMacroContext()
+		end,
+	},
+	{
+		id = "utility",
+		labelKey = "MACROS_TYPE_UTILITY",
+		getContext = function(panel)
+			return ns.MH_GetUtilityMacroContext(panel)
+		end,
+	},
+}
+
+local function TintButtonTextures(btn, r, g, b)
+	if not btn or not btn.GetRegions then
+		return
 	end
-	local token = string.upper(classFile)
-	local specIdx = (GetSpecialization and GetSpecialization()) or 0
-	local specName
-	if specIdx > 0 and GetSpecializationInfo then
-		local ok, _, name = pcall(GetSpecializationInfo, specIdx)
-		if ok and name and name ~= "" then
-			specName = name
+	for _, region in ipairs({ btn:GetRegions() }) do
+		if region.GetObjectType and region:IsObjectType("Texture") and region.SetVertexColor then
+			region:SetVertexColor(r, g, b)
 		end
+	end
+end
+
+local function IsNlLocale()
+	local code = (ns.db and ns.db.locale) or "enUS"
+	return code == "nlNL" or code == "nl"
+end
+
+local function GetEntryDescription(entry)
+	if not entry then
+		return ""
+	end
+	if IsNlLocale() then
+		return entry.descNl or entry.descEn or ""
+	end
+	return entry.descEn or entry.descNl or ""
+end
+
+local function GetMacroTypeDef(typeId)
+	for i = 1, #(ns.MacroPanelTypes or {}) do
+		local def = ns.MacroPanelTypes[i]
+		if def and def.id == typeId then
+			return def
+		end
+	end
+	return nil
+end
+
+local function RefreshMacroTypeChrome(panel)
+	local active = panel._mhMacrosSelectedType or "interrupt"
+	local buttons = panel._mhMacrosTypeButtons
+	if not buttons then
+		return
+	end
+	for id, btn in pairs(buttons) do
+		if id == active then
+			btn:SetAlpha(1)
+			TintButtonTextures(btn, TAB_TEX_ACTIVE[1], TAB_TEX_ACTIVE[2], TAB_TEX_ACTIVE[3])
+		else
+			btn:SetAlpha(0.88)
+			TintButtonTextures(btn, TAB_TEX_INACTIVE[1], TAB_TEX_INACTIVE[2], TAB_TEX_INACTIVE[3])
+		end
+	end
+end
+
+local function RefreshUtilityPickChrome(panel)
+	local active = panel._mhMacrosUtilityIndex or 1
+	local buttons = panel._mhMacrosPickButtons
+	if not buttons then
+		return
+	end
+	for idx, btn in pairs(buttons) do
+		if idx == active then
+			btn:SetAlpha(1)
+			TintButtonTextures(btn, TAB_TEX_ACTIVE[1], TAB_TEX_ACTIVE[2], TAB_TEX_ACTIVE[3])
+		else
+			btn:SetAlpha(0.88)
+			TintButtonTextures(btn, TAB_TEX_INACTIVE[1], TAB_TEX_INACTIVE[2], TAB_TEX_INACTIVE[3])
+		end
+	end
+end
+
+function ns.MH_GetUtilityMacroList()
+	local token, specIdx = ns.MH_GetMacroClassSpecContext()
+	if not token then
+		return nil
+	end
+	if specIdx < 1 then
+		return nil, token, specIdx
+	end
+	local t = ns.TeamMacrosByClassSpec and ns.TeamMacrosByClassSpec[token]
+	local list = t and t[specIdx]
+	if not list or #list < 1 then
+		return nil, token, specIdx
+	end
+	return list, token, specIdx
+end
+
+--- body, reason, token, specIdx, specName, entryName, entryDesc
+function ns.MH_GetUtilityMacroContext(panel)
+	local list, token, specIdx = ns.MH_GetUtilityMacroList()
+	local _t, _s, _p, _c, specName = ns.MH_GetMacroClassSpecContext()
+	if not list then
+		if not token then
+			return nil, "noclass", nil, 0, nil, nil, nil
+		end
+		if specIdx < 1 then
+			return nil, "nospec", token, specIdx, specName, nil, nil
+		end
+		return nil, "noutility", token, specIdx, specName, nil, nil
+	end
+	local idx = (panel and panel._mhMacrosUtilityIndex) or 1
+	if idx < 1 or idx > #list then
+		idx = 1
+	end
+	local entry = list[idx]
+	if not entry or not entry.macro or entry.macro == "" then
+		return nil, "empty", token, specIdx, specName, nil, nil
+	end
+	return entry.macro, nil, token, specIdx, specName, entry.name, GetEntryDescription(entry)
+end
+
+function ns.MH_GetMacroContextForType(typeId, panel)
+	local def = GetMacroTypeDef(typeId)
+	if not def or not def.getContext then
+		return nil, "notype", nil, 0, nil, nil, nil
+	end
+	return def.getContext(panel)
+end
+
+function ns.MH_GetInterruptMacroContext()
+	local token, specIdx, _preview, _classLocalized, specName = ns.MH_GetMacroClassSpecContext()
+	if not token then
+		return nil, "noclass", nil, 0, nil
 	end
 	local t = ns.InterruptMacrosByClassSpec and ns.InterruptMacrosByClassSpec[token]
 	if not t then
@@ -33,15 +171,140 @@ function ns.MH_GetInterruptMacroContext()
 	return body, nil, token, specIdx, specName
 end
 
+local function MaybeResetUtilityIndexForSpec(panel)
+	local token, specIdx = ns.MH_GetMacroClassSpecContext()
+	local key = (token or "") .. ":" .. tostring(specIdx or 0)
+	if panel._mhMacrosSpecKey ~= key then
+		panel._mhMacrosSpecKey = key
+		panel._mhMacrosUtilityIndex = 1
+	end
+end
+
+local function RebuildUtilityPickNav(panel)
+	local pickScroll = panel._mhMacrosPickScroll
+	local pickChild = panel._mhMacrosPickChild
+	if not pickScroll or not pickChild then
+		return
+	end
+	MaybeResetUtilityIndexForSpec(panel)
+	if panel._mhMacrosPickButtons then
+		for _, btn in pairs(panel._mhMacrosPickButtons) do
+			if btn and btn.Hide then
+				btn:Hide()
+			end
+		end
+	end
+	panel._mhMacrosPickButtons = {}
+
+	local list = ns.MH_GetUtilityMacroList()
+	if not list or #list < 1 then
+		pickScroll:Hide()
+		panel._mhMacrosUtilityIndex = 1
+		return
+	end
+
+	if (panel._mhMacrosUtilityIndex or 1) > #list then
+		panel._mhMacrosUtilityIndex = 1
+	end
+
+	pickScroll:Show()
+	local x = 0
+	for i = 1, #list do
+		local entry = list[i]
+		local btn = panel._mhMacrosPickButtons[i]
+		if not btn then
+			btn = CreateFrame("Button", "MidnightHelperMacroPick_" .. i, pickChild, "UIPanelButtonTemplate")
+			panel._mhMacrosPickButtons[i] = btn
+			btn:SetHeight(PICK_BTN_H)
+			btn:SetScript("OnClick", function()
+				panel._mhMacrosUtilityIndex = i
+				RefreshUtilityPickChrome(panel)
+				if panel._mhRefreshMacros then
+					panel._mhRefreshMacros()
+				end
+			end)
+		end
+		local label = entry.name or ("Macro " .. i)
+		btn:SetText(label)
+		local fs = btn.GetFontString and btn:GetFontString()
+		local tw = (fs and fs.GetStringWidth and fs:GetStringWidth()) or 60
+		local w = math.max(72, tw + 24)
+		btn:SetWidth(w)
+		btn:ClearAllPoints()
+		btn:SetPoint("TOPLEFT", pickChild, "TOPLEFT", x, 0)
+		btn:Show()
+		x = x + w + PICK_BTN_PAD
+	end
+	pickChild:SetSize(math.max(1, x), PICK_BTN_H + 4)
+	if pickScroll.UpdateScrollChildRect then
+		pickScroll:UpdateScrollChildRect()
+	end
+	if pickScroll.SetHorizontalScroll then
+		pickScroll:SetHorizontalScroll(0)
+	end
+	RefreshUtilityPickChrome(panel)
+end
+
+local function SelectMacroType(panel, typeId)
+	if not panel or not typeId then
+		return
+	end
+	if not GetMacroTypeDef(typeId) then
+		typeId = (ns.MacroPanelTypes[1] and ns.MacroPanelTypes[1].id) or "interrupt"
+	end
+	panel._mhMacrosSelectedType = typeId
+	if typeId == "utility" then
+		RebuildUtilityPickNav(panel)
+	else
+		if panel._mhMacrosPickScroll then
+			panel._mhMacrosPickScroll:Hide()
+		end
+		if panel._mhMacrosMacroName then
+			panel._mhMacrosMacroName:Hide()
+		end
+	end
+	RefreshMacroTypeChrome(panel)
+	if panel._mhRefreshMacros then
+		panel._mhRefreshMacros()
+	end
+end
+
+local function LayoutSubtitleAnchor(panel, typeId)
+	local subtitle = panel._mhMacrosSubtitle
+	if not subtitle then
+		return
+	end
+	subtitle:ClearAllPoints()
+	subtitle:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -8)
+	if typeId == "utility" and panel._mhMacrosPickScroll and panel._mhMacrosPickScroll:IsShown() then
+		if panel._mhMacrosMacroName and panel._mhMacrosMacroName:IsShown() then
+			subtitle:SetPoint("TOPLEFT", panel._mhMacrosMacroName, "BOTTOMLEFT", 0, -6)
+		else
+			subtitle:SetPoint("TOPLEFT", panel._mhMacrosPickScroll, "BOTTOMLEFT", 0, -6)
+		end
+	else
+		subtitle:SetPoint("TOPLEFT", panel._mhMacrosSep, "BOTTOMLEFT", 0, -8)
+	end
+end
+
 local function RefreshMacrosPanel(panel)
 	if not panel or not panel._mhMacrosEdit then
 		return
 	end
-	local body, reason, _token, _specIdx, specName = ns.MH_GetInterruptMacroContext()
-	local classLocalized = select(1, UnitClass("player"))
+	ns._mhMacrosActivePanel = panel
+	local typeId = panel._mhMacrosSelectedType or "interrupt"
+	local def = GetMacroTypeDef(typeId)
+	local body, reason, _token, _specIdx, specName, entryName, entryDesc =
+		ns.MH_GetMacroContextForType(typeId, panel)
+	local _tokenCtx, _specCtx, isPreview, classLocalized, specNameCtx = ns.MH_GetMacroClassSpecContext()
+	if specNameCtx and specNameCtx ~= "" then
+		specName = specNameCtx
+	end
 	local eb = panel._mhMacrosEdit
 	local specLine = panel._mhMacrosSpecLine
 	local hint = panel._mhMacrosHint
+	local subtitle = panel._mhMacrosSubtitle
+	local macroName = panel._mhMacrosMacroName
 
 	if panel._header and panel._header.SetText then
 		panel._header:SetText(ns:L("TAB_MACROS"))
@@ -50,16 +313,55 @@ local function RefreshMacrosPanel(panel)
 		panel._mhMacrosCopyBtn:SetText(ns:L("MACROS_COPY_BUTTON"))
 	end
 
-	if panel._mhMacrosSubtitle and panel._mhMacrosSubtitle.SetText then
-		panel._mhMacrosSubtitle:SetText(ns:L("MACROS_PANEL_SUBTITLE"))
+	local typeButtons = panel._mhMacrosTypeButtons
+	if typeButtons then
+		for id, btn in pairs(typeButtons) do
+			local tdef = GetMacroTypeDef(id)
+			if tdef and tdef.labelKey and btn.SetText then
+				btn:SetText(ns:L(tdef.labelKey))
+			end
+		end
+	end
+	RefreshMacroTypeChrome(panel)
+
+	if typeId == "utility" then
+		RebuildUtilityPickNav(panel)
+		if macroName then
+			if entryName and entryName ~= "" then
+				macroName:SetText(ns:L("MACROS_MACRO_NAME_FMT"):format(entryName))
+				macroName:Show()
+			else
+				macroName:Hide()
+			end
+		end
+	else
+		if macroName then
+			macroName:Hide()
+		end
+	end
+	LayoutSubtitleAnchor(panel, typeId)
+
+	if subtitle then
+		if typeId == "utility" then
+			if entryDesc and entryDesc ~= "" then
+				subtitle:SetText(entryDesc .. "\n\n" .. ns:L("MACROS_COPY_SUFFIX"))
+			elseif reason == "noutility" then
+				subtitle:SetText(ns:L("MACROS_ERR_NO_UTILITY"))
+			else
+				subtitle:SetText(ns:L("MACROS_UTILITY_SUBTITLE"))
+			end
+		elseif def and def.subtitleKey then
+			subtitle:SetText(ns:L(def.subtitleKey))
+		end
 	end
 
 	if specLine then
+		local previewMark = isPreview and ns:L("GUIDE_PREVIEW_MARK") or ""
 		if classLocalized and specName and specName ~= "" then
-			specLine:SetText(ns:L("MACROS_SPEC_LINE_FMT"):format(classLocalized, specName))
+			specLine:SetText(ns:L("MACROS_SPEC_LINE_FMT"):format(classLocalized, specName) .. previewMark)
 			specLine:Show()
 		elseif classLocalized then
-			specLine:SetText(classLocalized)
+			specLine:SetText(classLocalized .. previewMark)
 			specLine:Show()
 		else
 			specLine:Hide()
@@ -83,8 +385,12 @@ local function RefreshMacrosPanel(panel)
 			msgKey = "MACROS_ERR_NO_SPEC"
 		elseif reason == "empty" then
 			msgKey = "MACROS_ERR_EMPTY_SPEC"
+		elseif reason == "noutility" then
+			msgKey = "MACROS_ERR_NO_UTILITY"
 		elseif reason == "noclassdata" or reason == "nospecdata" then
 			msgKey = "MACROS_ERR_NO_DATA"
+		elseif reason == "notype" then
+			msgKey = "MACROS_ERR_NO_TYPE"
 		end
 		eb:SetText(ns:L(msgKey))
 		eb:SetTextColor(0.75, 0.72, 0.65)
@@ -96,12 +402,19 @@ local function RefreshMacrosPanel(panel)
 		end
 	end
 
-	if eb.GetNumLines and eb.SetHeight and panel._mhMacrosScroll then
+	if eb.SetHeight and panel._mhMacrosScroll then
 		local sw = panel._mhMacrosScroll:GetWidth() or 600
-		-- UIPanelScrollFrameTemplate: leave room for vertical scrollbar + padding.
 		local w = math.max(160, sw - 36)
 		eb:SetWidth(w)
-		local n = eb:GetNumLines() or 1
+		local n = 1
+		if eb.GetNumLines then
+			n = eb:GetNumLines() or 1
+		else
+			local text = eb.GetText and eb:GetText() or ""
+			for _ in string.gmatch(text, "\n") do
+				n = n + 1
+			end
+		end
 		local _, fontH = eb:GetFont()
 		fontH = fontH or 12
 		eb:SetHeight(math.max(120, n * (fontH + 2) + 16))
@@ -119,16 +432,69 @@ function ns.BuildInterruptMacrosPanel(panel)
 		return
 	end
 	panel._mhMacrosBuilt = true
+	panel._mhMacrosSelectedType = "interrupt"
+	panel._mhMacrosUtilityIndex = 1
 	if panel._body then
 		panel._body:Hide()
 	end
 
+	local typeNav = CreateFrame("Frame", nil, panel)
+	typeNav:SetHeight(TYPE_NAV_H)
+	typeNav:SetPoint("TOPLEFT", panel._header, "BOTTOMLEFT", 0, -4)
+	typeNav:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -4)
+	panel._mhMacrosTypeNav = typeNav
+
+	panel._mhMacrosTypeButtons = {}
+	local navX = 0
+	for i = 1, #(ns.MacroPanelTypes or {}) do
+		local mdef = ns.MacroPanelTypes[i]
+		if mdef and mdef.id and mdef.labelKey then
+			local btn = CreateFrame("Button", "MidnightHelperMacroType_" .. mdef.id, typeNav, "UIPanelButtonTemplate")
+			btn:SetSize(TYPE_BTN_W, TYPE_BTN_H)
+			btn:SetPoint("TOPLEFT", typeNav, "TOPLEFT", navX, -4)
+			btn:SetText(ns:L(mdef.labelKey))
+			btn:SetScript("OnClick", function()
+				SelectMacroType(panel, mdef.id)
+			end)
+			panel._mhMacrosTypeButtons[mdef.id] = btn
+			navX = navX + TYPE_BTN_W + 6
+		end
+	end
+
+	local sep = panel:CreateTexture(nil, "ARTWORK")
+	sep:SetHeight(1)
+	sep:SetPoint("TOPLEFT", typeNav, "BOTTOMLEFT", 0, -2)
+	sep:SetPoint("TOPRIGHT", typeNav, "BOTTOMRIGHT", 0, -2)
+	sep:SetColorTexture(SEP_COLOR[1], SEP_COLOR[2], SEP_COLOR[3], SEP_COLOR[4])
+	panel._mhMacrosSep = sep
+
+	local pickScroll = CreateFrame("ScrollFrame", "MidnightHelperMacrosPickScroll", panel, "UIPanelScrollFrameTemplate")
+	pickScroll:SetHeight(PICK_NAV_H)
+	pickScroll:SetPoint("TOPLEFT", sep, "BOTTOMLEFT", 0, -6)
+	pickScroll:SetPoint("TOPRIGHT", sep, "BOTTOMRIGHT", 0, -6)
+	pickScroll:Hide()
+	panel._mhMacrosPickScroll = pickScroll
+
+	local pickChild = CreateFrame("Frame", nil, pickScroll)
+	pickChild:SetSize(1, PICK_BTN_H + 4)
+	pickScroll:SetScrollChild(pickChild)
+	panel._mhMacrosPickChild = pickChild
+	panel._mhMacrosPickButtons = {}
+
+	local macroName = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	macroName:SetPoint("TOPLEFT", pickScroll, "BOTTOMLEFT", 0, -4)
+	macroName:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -4)
+	macroName:SetJustifyH("LEFT")
+	macroName:SetTextColor(1, 0.88, 0.42)
+	macroName:Hide()
+	panel._mhMacrosMacroName = macroName
+
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	subtitle:SetPoint("TOPLEFT", panel._header, "BOTTOMLEFT", 0, -6)
-	subtitle:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -6)
+	subtitle:SetPoint("TOPLEFT", sep, "BOTTOMLEFT", 0, -8)
+	subtitle:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -8)
 	subtitle:SetJustifyH("LEFT")
 	subtitle:SetWordWrap(true)
-	subtitle:SetText(ns:L("MACROS_PANEL_SUBTITLE"))
+	subtitle:SetSpacing(2)
 	subtitle:SetTextColor(0.78, 0.74, 0.68)
 	panel._mhMacrosSubtitle = subtitle
 
@@ -148,7 +514,7 @@ function ns.BuildInterruptMacrosPanel(panel)
 		if not eb or not eb.GetText then
 			return
 		end
-		local macroBody = ns.MH_GetInterruptMacroContext()
+		local macroBody = ns.MH_GetMacroContextForType(panel._mhMacrosSelectedType or "interrupt", panel)
 		if not macroBody then
 			return
 		end
@@ -166,13 +532,10 @@ function ns.BuildInterruptMacrosPanel(panel)
 	hint:SetTextColor(0.55, 0.53, 0.48)
 	panel._mhMacrosHint = hint
 
-	local scrollBottomPad = 46
-
 	local scroll = CreateFrame("ScrollFrame", "MidnightHelperMacrosScroll", panel, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", specLine, "BOTTOMLEFT", 0, -10)
-	scroll:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 12, scrollBottomPad)
-	-- Full content width minus small edge inset (scrollbar sits inside the template).
-	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -12, scrollBottomPad)
+	scroll:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 12, SCROLL_BOTTOM_PAD)
+	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -12, SCROLL_BOTTOM_PAD)
 
 	local eb = CreateFrame("EditBox", "MidnightHelperMacrosEdit", scroll)
 	eb:SetMultiLine(true)
@@ -197,6 +560,7 @@ function ns.BuildInterruptMacrosPanel(panel)
 	end
 
 	panel:SetScript("OnShow", function()
+		ns._mhMacrosActivePanel = panel
 		if panel._mhRefreshMacros then
 			panel._mhRefreshMacros()
 		end
@@ -208,6 +572,7 @@ function ns.BuildInterruptMacrosPanel(panel)
 	ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 	ev:SetScript("OnEvent", function()
 		if panel:IsShown() and panel._mhRefreshMacros then
+			panel._mhMacrosSpecKey = nil
 			panel._mhRefreshMacros()
 		end
 	end)
@@ -217,4 +582,6 @@ function ns.BuildInterruptMacrosPanel(panel)
 			panel._mhRefreshMacros()
 		end
 	end)
+
+	SelectMacroType(panel, panel._mhMacrosSelectedType)
 end

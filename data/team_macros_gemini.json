@@ -1,0 +1,451 @@
+{
+  "Death Knight": {
+    "Blood": [
+      {
+        "name": "Cursor DnD",
+        "description": "Plaatst Death and Decay direct op je muispositie.",
+        "macro": "#showtooltip Death and Decay\n/cast [@cursor] Death and Decay"
+      },
+      {
+        "name": "Mouseover Grip",
+        "description": "Trekt de vijand naar je toe waar je met je muis over zweeft.",
+        "macro": "#showtooltip Death Grip\n/cast [@mouseover,harm,nodead][] Death Grip"
+      }
+    ],
+    "Frost": [
+      {
+        "name": "Cursor DnD",
+        "description": "Plaatst Death and Decay direct op je muispositie.",
+        "macro": "#showtooltip Death and Decay\n/cast [@cursor] Death and Decay"
+      }
+    ],
+    "Unholy": [
+      {
+        "name": "Cursor DnD",
+        "description": "Plaatst Death and Decay direct op je muispositie.",
+        "macro": "#showtooltip Death and Decay\n/cast [@cursor] Death and Decay"
+      },
+      {
+        "name": "Pet Hook",
+        "description": "Laat je pet direct zijn Abomination Hook gebruiken op je focus doel.",
+        "macro": "#showtooltip Hook\n/cast [@focus,harm,nodead][] Hook"
+      }
+    ]
+  },
+  "Demon Hunter": {
+    "Havoc": [
+      {
+        "name": "Cursor Sigil",
+        "description": "Plaatst Sigil of Flame direct op je muispositie.",
+        "macro": "#showtooltip Sigil of Flame\n/cast [@cursor] Sigil of Flame"
+      },
+      {
+        "name": "Cursor Metamorphosis",
+        "description": "Springt direct naar je muispositie voor Metamorphosis.",
+        "macro": "#showtooltip Metamorphosis\n/cast [@cursor] Metamorphosis"
+      }
+    ],
+    "Vengeance": [
+      {
+        "name": "Cursor Sigils",
+        "description": "Plaatst al je Sigils direct op je muispositie zonder richtcirkel.",
+        "macro": "#showtooltip Sigil of Flame\n/cast [@cursor] Sigil of Flame"
+      },
+      {
+        "name": "Mouseover Taunt",
+        "description": "Spookt vijanden aan via je muiscursor.",
+        "macro": "#showtooltip Torment\n/cast [@mouseover,harm,nodead][] Torment"
+      }
+    ]
+  },
+  "Druid": {
+    "Balance": [
+      {
+        "name": "Cursor Starfall",
+        "description": "Plaatst Starfall direct op je muispositie.",
+        "macro": "#showtooltip Starfall\n/cast [@cursor] Starfall"
+      },
+      {
+        "name": "Mouseover Decurse",
+        "description": "Verwijdert vloeken van groepsleden via je muis.",
+        "macro": "#showtooltip Remove Corruption\n/cast [@mouseover,help,nodead][] Remove Corruption"
+      }
+    ],
+    "Feral": [
+      {
+        "name": "Mouseover Regrowth",
+        "description": "Heal een teamlid met je Predatory Swiftness proc zonder je target te verliezen.",
+        "macro": "#showtooltip Regrowth\n/cast [@mouseover,help,nodead][] Regrowth"
+      }
+    ],
+    "Guardian": [
+      {
+        "name": "Cursor Vortex",
+        "description": "Plaatst Ursol's Vortex direct onder je muis.",
+        "macro": "#showtooltip Ursol's Vortex\n/cast [@cursor] Ursol's Vortex"
+      }
+    ],
+    "Restoration": [
+      {
+        "name": "Mouseover Heals",
+        "description": "Cast Rejuvenation op het doel onder je muis.",
+        "macro": "#showtooltip Rejuvenation\n/cast [@mouseover,help,nodead][] Rejuvenation"
+      },
+      {
+        "name": "Cursor Efflorescence",
+        "description": "Plaatst de healing cirkel direct op je muispositie.",
+        "macro": "#showtooltip Efflorescence\n/cast [@cursor] Efflorescence"
+      }
+    ]
+  },
+  "Evoker": {
+    "Augmentation": [
+      {
+        "name": "Mouseover Rescue",
+        "description": "Vliegt direct naar het teamlid onder je muis om ze te verplaatsen.",
+        "macro": "#showtooltip Rescue\n/cast [@mouseover,help,nodead][] Rescue"
+      },
+      {
+        "name": "Cursor Eruption",
+        "description": "Cast Eruption direct op de vijand onder je muis.",
+        "macro": "#showtooltip Eruption\n/cast [@cursor] Eruption"
+      }
+    ],
+    "Devastation": [
+      {
+        "name": "Hover Cancel",
+        "description": "Zet Hover aan, of stopt het direct bij een tweede klik om snel te landen.",
+        "macro": "#showtooltip Hover\n/cast Hover\n/cancelaura Hover"
+      },
+      {
+        "name": "Cursor Deep Breath",
+        "description": "Vliegt direct in een rechte lijn naar je muispositie.",
+        "macro": "#showtooltip Deep Breath\n/cast [@cursor] Deep Breath"
+      }
+    ],
+    "Preservation": [
+      {
+        "name": "Mouseover Spiritbloom",
+        "description": "Healt de groep onder je muiscursor.",
+        "macro": "#showtooltip Spiritbloom\n/cast [@mouseover,help,nodead][] Spiritbloom"
+      },
+      {
+        "name": "Cursor Emerald Blossom",
+        "description": "Plaatst de bloem direct op je muispositie.",
+        "macro": "#showtooltip Emerald Blossom\n/cast [@cursor] Emerald Blossom"
+      }
+    ]
+  },
+  "Hunter": {
+    "Beast Mastery": [
+      {
+        "name": "Smart Misdirection",
+        "description": "Misdirection op je focus (tank) indien aanwezig, anders op je pet.",
+        "macro": "#showtooltip Misdirection\n/cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection"
+      },
+      {
+        "name": "Turtle Cancel",
+        "description": "Zet je schild aan en direct uit bij een tweede klik om weer te kunnen aanvalen.",
+        "macro": "#showtooltip Aspect of the Turtle\n/cast Aspect of the Turtle\n/cancelaura Aspect of the Turtle"
+      }
+    ],
+    "Marksmanship": [
+      {
+        "name": "Cursor Volley",
+        "description": "Gooit Volley direct op je muispositie.",
+        "macro": "#showtooltip Volley\n/cast [@cursor] Volley"
+      },
+      {
+        "name": "Smart Misdirection",
+        "description": "Misdirection op je focus (tank) indien aanwezig, anders op je pet.",
+        "macro": "#showtooltip Misdirection\n/cast [@focus,help,nodead][@pet,exists,nodead][] Misdirection"
+      }
+    ],
+    "Survival": [
+      {
+        "name": "Cursor Traps",
+        "description": "Gooit je vallen direct op je muiscursor.",
+        "macro": "#showtooltip Freezing Trap\n/cast [@cursor] Freezing Trap"
+      },
+      {
+        "name": "Mouseover Harpoon",
+        "description": "Schiethaken naar de vijand onder je muis.",
+        "macro": "#showtooltip Harpoon\n/cast [@mouseover,harm,nodead][] Harpoon"
+      }
+    ]
+  },
+  "Mage": {
+    "Arcane": [
+      {
+        "name": "Ice Block Cancel",
+        "description": "Activeert Ice Block en heft het direct op bij de volgende klik.",
+        "macro": "#showtooltip Ice Block\n/stopcasting\n/cast Ice Block\n/cancelaura Ice Block"
+      },
+      {
+        "name": "Focus Polymorph",
+        "description": "Verandert je focus doelwit in een schaap.",
+        "macro": "#showtooltip Polymorph\n/cast [@focus,harm,nodead][] Polymorph"
+      }
+    ],
+    "Fire": [
+      {
+        "name": "Cursor Flamestrike",
+        "description": "Gooit een vuurzee direct op je muispositie.",
+        "macro": "#showtooltip Flamestrike\n/cast [@cursor] Flamestrike"
+      },
+      {
+        "name": "Ice Block Cancel",
+        "description": "Activeert Ice Block en heft het direct op bij de volgende klik.",
+        "macro": "#showtooltip Ice Block\n/stopcasting\n/cast Ice Block\n/cancelaura Ice Block"
+      }
+    ],
+    "Frost": [
+      {
+        "name": "Cursor Blizzard",
+        "description": "Plaatst Blizzard direct op je muiscursor.",
+        "macro": "#showtooltip Blizzard\n/cast [@cursor] Blizzard"
+      },
+      {
+        "name": "Ice Block Cancel",
+        "description": "Activeert Ice Block en heft het direct op bij de volgende klik.",
+        "macro": "#showtooltip Ice Block\n/stopcasting\n/cast Ice Block\n/cancelaura Ice Block"
+      }
+    ]
+  },
+  "Monk": {
+    "Brewmaster": [
+      {
+        "name": "Cursor Dave",
+        "description": "Plaatst de Ox Statue direct op je muispositie.",
+        "macro": "#showtooltip Summon Black Ox Statue\n/cast [@cursor] Summon Black Ox Statue"
+      },
+      {
+        "name": "Mouseover Taunt",
+        "description": "Spookt vijanden aan via je muiscursor of frames.",
+        "macro": "#showtooltip Provoke\n/cast [@mouseover,harm,nodead][] Provoke"
+      }
+    ],
+    "Mistweaver": [
+      {
+        "name": "Help/Harm Buttons",
+        "description": "Vivify op vrienden, Tiger Palm op vijanden.",
+        "macro": "#showtooltip\n/cast [@mouseover,help,nodead][help,nodead] Vivify; [@mouseover,harm,nodead][harm,nodead][] Tiger Palm"
+      },
+      {
+        "name": "Mouseover Jade Statue",
+        "description": "Plaatst je healing standbeeld direct op je muispositie.",
+        "macro": "#showtooltip Summon Jade Serpent Statue\n/cast [@cursor] Summon Jade Serpent Statue"
+      }
+    ],
+    "Windwalker": [
+      {
+        "name": "Cursor Ring of Peace",
+        "description": "Plaatst de Ring of Peace direct op je muiscursor.",
+        "macro": "#showtooltip Ring of Peace\n/cast [@cursor] Ring of Peace"
+      }
+    ]
+  },
+  "Paladin": {
+    "Holy": [
+      {
+        "name": "Mouseover Beacon",
+        "description": "Zet Beacon of Light direct op het teamlid onder je muis.",
+        "macro": "#showtooltip Beacon of Light\n/cast [@mouseover,help,nodead][] Beacon of Light"
+      },
+      {
+        "name": "Bubble Cancel",
+        "description": "Zet Divine Shield direct aan en uit om mechanics te skippen.",
+        "macro": "#showtooltip Divine Shield\n/cast Divine Shield\n/cancelaura Divine Shield"
+      }
+    ],
+    "Protection": [
+      {
+        "name": "Mouseover Blessings",
+        "description": "Cast Blessing of Protection snel via je muis.",
+        "macro": "#showtooltip Blessing of Protection\n/cast [@mouseover,help,nodead][] Blessing of Protection"
+      },
+      {
+        "name": "Mouseover Taunt",
+        "description": "Taunt vijanden via je muiscursor.",
+        "macro": "#showtooltip Hand of Reckoning\n/cast [@mouseover,harm,nodead][] Hand of Reckoning"
+      }
+    ],
+    "Retribution": [
+      {
+        "name": "Cursor Execution",
+        "description": "Plaatst Execution Sentence of Final Reckoning direct op je muis.",
+        "macro": "#showtooltip Final Reckoning\n/cast [@cursor] Final Reckoning"
+      },
+      {
+        "name": "Bubble Cancel",
+        "description": "Zet Divine Shield direct aan en uit om door te kunnen dps'en.",
+        "macro": "#showtooltip Divine Shield\n/cast Divine Shield\n/cancelaura Divine Shield"
+      }
+    ]
+  },
+  "Priest": {
+    "Discipline": [
+      {
+        "name": "Mouseover Shield",
+        "description": "Plaatst Power Word: Shield direct via je muis.",
+        "macro": "#showtooltip Power Word: Shield\n/cast [@mouseover,help,nodead][] Power Word: Shield"
+      },
+      {
+        "name": "Cursor Barrier",
+        "description": "Plaatst de healing koepel direct op je muispositie.",
+        "macro": "#showtooltip Power Word: Barrier\n/cast [@cursor] Power Word: Barrier"
+      }
+    ],
+    "Holy": [
+      {
+        "name": "Mouseover Life",
+        "description": "Cast Leap of Faith om het teamlid onder je muis te redden.",
+        "macro": "#showtooltip Leap of Faith\n/cast [@mouseover,help,nodead][] Leap of Faith"
+      },
+      {
+        "name": "Cursor Sanctify",
+        "description": "Gooit Holy Word: Sanctify direct op je muispositie.",
+        "macro": "#showtooltip Holy Word: Sanctify\n/cast [@cursor] Holy Word: Sanctify"
+      }
+    ],
+    "Shadow": [
+      {
+        "name": "Cursor Shadow Crash",
+        "description": "Sleutelmacro: Gooit Shadow Crash direct op je muis om snel Dots te verspreiden.",
+        "macro": "#showtooltip Shadow Crash\n/cast [@cursor] Shadow Crash"
+      }
+    ]
+  },
+  "Rogue": {
+    "Assassination": [
+      {
+        "name": "Mouseover Tricks",
+        "description": "Geeft direct je dreiging (threat) aan de tank onder je muis.",
+        "macro": "#showtooltip Tricks of the Trade\n/cast [@mouseover,help,nodead][] Tricks of the Trade"
+      },
+      {
+        "name": "Focus Blind",
+        "description": "Gooit Blind op je focus doelwit zonder je huidige target kwijt te raken.",
+        "macro": "#showtooltip Blind\n/cast [@focus,harm,nodead][] Blind"
+      }
+    ],
+    "Outlaw": [
+      {
+        "name": "Mouseover Tricks",
+        "description": "Geeft direct je dreiging aan de tank onder je muis.",
+        "macro": "#showtooltip Tricks of the Trade\n/cast [@mouseover,help,nodead][] Tricks of the Trade"
+      },
+      {
+        "name": "Cursor Grappling Hook",
+        "description": "Slingert je direct naar je muispositie.",
+        "macro": "#showtooltip Grappling Hook\n/cast [@cursor] Grappling Hook"
+      }
+    ],
+    "Subtlety": [
+      {
+        "name": "Mouseover Tricks",
+        "description": "Geeft direct je dreiging aan de tank onder je muis.",
+        "macro": "#showtooltip Tricks of the Trade\n/cast [@mouseover,help,nodead][] Tricks of the Trade"
+      }
+    ]
+  },
+  "Shaman": {
+    "Elemental": [
+      {
+        "name": "Cursor Earthquake",
+        "description": "Plaatst Earthquake direct onder je muis.",
+        "macro": "#showtooltip Earthquake\n/cast [@cursor] Earthquake"
+      },
+      {
+        "name": "Cursor Totems",
+        "description": "Plaatst Capacitor Totem direct op je muispositie.",
+        "macro": "#showtooltip Capacitor Totem\n/cast [@cursor] Capacitor Totem"
+      }
+    ],
+    "Enhancement": [
+      {
+        "name": "Cursor Totems",
+        "description": "Plaatst Windfury of Capacitor Totem direct op je muispositie.",
+        "macro": "#showtooltip Windfury Totem\n/cast [@cursor] Windfury Totem"
+      }
+    ],
+    "Restoration": [
+      {
+        "name": "Cursor Healing Rain",
+        "description": "Plaatst Healing Rain direct op je muis.",
+        "macro": "#showtooltip Healing Rain\n/cast [@cursor] Healing Rain"
+      },
+      {
+        "name": "Help/Harm 2-in-1",
+        "description": "Riptide op vrienden, Flame Shock op vijanden.",
+        "macro": "#showtooltip\n/cast [@mouseover,help,nodead][help,nodead] Riptide; [@mouseover,harm,nodead][harm,nodead][] Flame Shock"
+      }
+    ]
+  },
+  "Warlock": {
+    "Affliction": [
+      {
+        "name": "Cursor Vile Taint",
+        "description": "Plaatst Vile Taint direct op je muispositie.",
+        "macro": "#showtooltip Vile Taint\n/cast [@cursor] Vile Taint"
+      },
+      {
+        "name": "Focus Fear",
+        "description": "Cast Fear op je focus doelwit.",
+        "macro": "#showtooltip Fear\n/cast [@focus,harm,nodead][] Fear"
+      }
+    ],
+    "Demonology": [
+      {
+        "name": "Cursor Guillotine",
+        "description": "Gooit de bijl van je pet direct op je muispositie.",
+        "macro": "#showtooltip Guillotine\n/cast [@cursor] Guillotine"
+      }
+    ],
+    "Destruction": [
+      {
+        "name": "Cursor Rain of Fire",
+        "description": "Gooit Rain of Fire direct op je muiscursor.",
+        "macro": "#showtooltip Rain of Fire\n/cast [@cursor] Rain of Fire"
+      },
+      {
+        "name": "Mouseover Havoc",
+        "description": "Plaatst Havoc op de vijand waar je met je muis over zweeft.",
+        "macro": "#showtooltip Havoc\n/cast [@mouseover,harm,nodead][] Havoc"
+      }
+    ]
+  },
+  "Warrior": {
+    "Arms": [
+      {
+        "name": "Cursor Ravager",
+        "description": "Gooit Ravager of Bladestorm direct op je muispositie.",
+        "macro": "#showtooltip Ravager\n/cast [@cursor] Ravager"
+      },
+      {
+        "name": "Mouseover Intervene",
+        "description": "Snoeft direct naar het teamlid onder je muis om schade op te vangen.",
+        "macro": "#showtooltip Intervene\n/cast [@mouseover,help,nodead][] Intervene"
+      }
+    ],
+    "Fury": [
+      {
+        "name": "Cursor Spear",
+        "description": "Gooit je speer/ravager direct op je muispositie.",
+        "macro": "#showtooltip Spear of Bastion\n/cast [@cursor] Spear of Bastion"
+      }
+    ],
+    "Protection": [
+      {
+        "name": "Mouseover Intervene",
+        "description": "Vliegt naar een teamlid toe om ze te beschermen.",
+        "macro": "#showtooltip Intervene\n/cast [@mouseover,help,nodead][] Intervene"
+      },
+      {
+        "name": "Cursor Heroic Leap",
+        "description": "Springt direct naar de locatie van je muis.",
+        "macro": "#showtooltip Heroic Leap\n/cast [@cursor] Heroic Leap"
+      }
+    ]
+  }
+}
