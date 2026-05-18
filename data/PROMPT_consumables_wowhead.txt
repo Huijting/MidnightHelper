@@ -1,0 +1,126 @@
+================================================================================
+COPY THIS ENTIRE BLOCK INTO CHATGPT (or similar) — Midnight Helper consumables JSON
+================================================================================
+
+You are helping build a World of Warcraft addon data file for **Midnight Helper**.
+
+## Your task
+
+Produce **one valid JSON file** with recommended **PvE consumables per class and specialization** for the current retail patch.
+
+**Primary source:** Wowhead (official item pages and class guides on wowhead.com).  
+**Secondary cross-check only:** Icy Veins consumables sections — do not copy their text verbatim.
+
+## Output rules (strict)
+
+1. Output **only JSON** — no markdown fences, no commentary before or after.
+2. Every item must include a numeric **item ID** verified on Wowhead (`https://www.wowhead.com/item=ID`).
+3. Item **names** must match the **enUS** in-game name from Wowhead.
+4. Include a **wowheadUrl** per item (`https://www.wowhead.com/item=ID`).
+5. If a category does not apply to a spec (e.g. **Death Knight has no weapon oil** — Runeforging), set `"omitWeaponOil": true` and omit the `weaponOil` object OR set it to `null`.
+6. **Do not invent item IDs.** If you cannot verify an ID, omit that entry and add a string in `"warnings": ["..."]` at spec level.
+7. Use **English** for `noteEn`; optional `noteNl` (Dutch) one short sentence per category max.
+8. Cover **all 39 retail specs** (no Devourer DH):
+
+Classes and specs (exact spelling):
+- Death Knight: Blood, Frost, Unholy
+- Demon Hunter: Havoc, Vengeance
+- Druid: Balance, Feral, Guardian, Restoration
+- Evoker: Devastation, Preservation, Augmentation
+- Hunter: Beast Mastery, Marksmanship, Survival
+- Mage: Arcane, Fire, Frost
+- Monk: Brewmaster, Mistweaver, Windwalker
+- Paladin: Holy, Protection, Retribution
+- Priest: Discipline, Holy, Shadow
+- Rogue: Assassination, Outlaw, Subtlety
+- Shaman: Elemental, Enhancement, Restoration
+- Warlock: Affliction, Demonology, Destruction
+- Warrior: Arms, Fury, Protection
+
+## JSON shape
+
+Top level:
+
+```json
+{
+  "meta": {
+    "gameVersion": "<e.g. 12.0.5>",
+    "contentPhase": "<e.g. Midnight Season 1>",
+    "primarySource": "https://www.wowhead.com",
+    "generatedAt": "YYYY-MM-DD",
+    "localeItemNames": "enUS"
+  },
+  "Death Knight": {
+    "Blood": { ... },
+    "Frost": { ... },
+    "Unholy": { ... }
+  },
+  ...
+}
+```
+
+Per spec object:
+
+- `sourcePages`: array of Wowhead guide URLs you used (at least one).
+- `warnings`: optional array of strings for unverified items.
+- `omitWeaponOil`: boolean (true for Death Knight specs).
+- For each category below, use the same structure:
+
+Categories (keys):
+
+| JSON key | UI label | Notes |
+|----------|----------|--------|
+| flask | Flask | List best + alternates (stat-specific flasks) |
+| combatPotion | Combat Potion | DPS/tank combat pots for Midnight |
+| healingPotion | Health Potion | Highest healing potion for current expansion |
+| weaponOil | Weapon Buff | Skip for DK (`omitWeaponOil`) |
+| augmentRune | Augment Rune | Current season augment rune |
+| feast | Feast | Group feast items |
+| personalFood | Personal Food | Solo food when not using feast |
+
+Category object shape:
+
+```json
+"flask": {
+  "best": [ { "id": 123, "name": "...", "wowheadUrl": "..." } ],
+  "alternates": [ ... ],
+  "noteEn": "One short line why this is best.",
+  "noteNl": "Optioneel: korte Nederlandse regel."
+}
+```
+
+- `best`: 1–2 items (primary recommendation).
+- `alternates`: 0–4 items (valid alternatives).
+- Order arrays by priority (best first).
+
+## Tank / healer notes
+
+- **Tanks:** prefer defensive combat potion where Wowhead recommends (e.g. Withering Vitality) in `combatPotion`; stat flask matching role.
+- **Healers / casters:** Intellect food and flasks where appropriate.
+- **Melee:** Strength or Agility as per spec.
+
+## Known Midnight items (verify IDs on Wowhead — do not trust from memory alone)
+
+Examples to look up fresh each patch:
+- Flask of the Magisters, Flask of the Shattered Sun, Flask of the Blood Knights, Flask of the Blood Knights (Strength)
+- Light's Potential, Potion of Recklessness
+- Thalassian Phoenix Oil
+- Void-Touched Augment Rune
+- Silvermoon Parade, Quel'dorei Medley (if separate feast exists)
+- Silvermoon Health Potion (if different from Algari Healing Potion)
+
+## When a new patch releases
+
+Re-run this same prompt with:
+
+> Patch **12.0.5** (or newer) is live. Regenerate the full JSON for all 39 specs using only Wowhead item pages from the current patch. Replace all item IDs. Keep the same JSON schema.
+
+---
+
+## After ChatGPT responds
+
+1. Save as: `data/consumables_wowhead.json` in the MidnightHelper repo.
+2. Spot-check 3 specs in-game (tooltip on item link).
+3. We import into `GuideData.lua` / consumables UI via a generator script (to be added).
+
+================================================================================

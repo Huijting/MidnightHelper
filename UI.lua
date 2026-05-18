@@ -113,6 +113,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_GUIDE"
 	elseif tabId == "macros" then
 		return "INFO_DRAWER_BODY_MACROS"
+	elseif tabId == "consumables" then
+		return "INFO_DRAWER_BODY_CONSUMABLES"
 	elseif tabId == "addons" then
 		return "INFO_DRAWER_BODY_ADDONS"
 	end
@@ -198,6 +200,10 @@ function ns:RefreshLocaleUI()
 	local macroPanel = self.panels and self.panels.macros
 	if macroPanel and macroPanel._mhRefreshMacros then
 		macroPanel._mhRefreshMacros()
+	end
+	local consPanel = self.panels and self.panels.consumables
+	if consPanel and consPanel._mhRefreshConsumables then
+		consPanel._mhRefreshConsumables()
 	end
 	local layoutPanel = self._mhGuideLayoutPanel
 	if layoutPanel and layoutPanel._mhProtoBuilt and ns.KeyboardLayoutPrototype_Refresh then
@@ -888,6 +894,7 @@ local TAB_DEFS = {
 	{ id = "professions", labelKey = "TAB_PROFESSIONS" },
 	{ id = "guide", labelKey = "TAB_GUIDE" },
 	{ id = "macros", labelKey = "TAB_MACROS" },
+	{ id = "consumables", labelKey = "TAB_CONSUMABLES" },
 	{ id = "addons", labelKey = "TAB_ADDONS" },
 }
 
@@ -1338,6 +1345,8 @@ function ns:EnsureMainUI()
 				BuildSMCCityGuidePanel(panel)
 			elseif tab.id == "macros" and ns.BuildInterruptMacrosPanel then
 				ns.BuildInterruptMacrosPanel(panel)
+			elseif tab.id == "consumables" and ns.BuildConsumablesPanel then
+				ns.BuildConsumablesPanel(panel)
 			end
 		end
 	end
@@ -1495,7 +1504,7 @@ function ns:EnsureMainUI()
 			local btn = ns.tabButtons and ns.tabButtons[tab.id]
 			if not btn then
 				-- skip
-			elseif tab.id == "addons" or tab.id == "macros" then
+			elseif tab.id == "addons" or tab.id == "macros" or tab.id == "consumables" then
 				btn:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
 				btn:ClearAllPoints()
 				btn:Show()
@@ -1516,11 +1525,19 @@ function ns:EnsureMainUI()
 			end
 		end
 		local addB = ns.tabButtons and ns.tabButtons.addons
+		local conB = ns.tabButtons and ns.tabButtons.consumables
 		local macB = ns.tabButtons and ns.tabButtons.macros
 		if addB then
 			addB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
 		end
-		if macB and addB then
+		if conB and addB then
+			conB:SetPoint("BOTTOM", addB, "TOP", 0, 6)
+		elseif conB then
+			conB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
+		end
+		if macB and conB then
+			macB:SetPoint("BOTTOM", conB, "TOP", 0, 6)
+		elseif macB and addB then
 			macB:SetPoint("BOTTOM", addB, "TOP", 0, 6)
 		elseif macB then
 			macB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)

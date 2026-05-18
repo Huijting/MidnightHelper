@@ -1120,6 +1120,9 @@ local function ApplyGuideSearchQuery(raw)
 	if ns.MH_RefreshMacrosPanel then
 		ns.MH_RefreshMacrosPanel()
 	end
+	if ns.MH_RefreshConsumablesPanel then
+		ns.MH_RefreshConsumablesPanel()
+	end
 end
 
 local function ClearGuidePreviewAndRefresh()
@@ -1139,6 +1142,9 @@ local function ClearGuidePreviewAndRefresh()
 	GuideChatMsg("SEARCH_CHAT_GUIDE_PREVIEW_CLEARED")
 	if ns.MH_RefreshMacrosPanel then
 		ns.MH_RefreshMacrosPanel()
+	end
+	if ns.MH_RefreshConsumablesPanel then
+		ns.MH_RefreshConsumablesPanel()
 	end
 end
 

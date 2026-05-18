@@ -1,0 +1,5318 @@
+{
+  "meta": {
+    "gameVersion": "12.0.5",
+    "contentPhase": "Midnight Season 1",
+    "primarySource": "https://www.wowhead.com",
+    "generatedAt": "2026-05-18",
+    "localeItemNames": "enUS"
+  },
+  "Death Knight": {
+    "Blood": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/death-knight/blood/enchants-gems-pve-tank"
+      ],
+      "omitWeaponOil": true,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241297,
+            "name": "Potion of Zealotry",
+            "wowheadUrl": "https://www.wowhead.com/item=241297"
+          }
+        ],
+        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 242745,
+            "name": "Hearty Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242745"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242273,
+            "name": "Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242273"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": null
+    },
+    "Frost": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/death-knight/frost/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": true,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": null
+    },
+    "Unholy": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/death-knight/unholy/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": true,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": null
+    }
+  },
+  "Demon Hunter": {
+    "Havoc": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/demon-hunter/havoc/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Vengeance": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/demon-hunter/vengeance/enchants-gems-pve-tank"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 242745,
+            "name": "Hearty Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242745"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242273,
+            "name": "Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242273"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Druid": {
+    "Balance": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/druid/balance/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Feral": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/druid/feral/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Guardian": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/druid/guardian/enchants-gems-pve-tank"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 242745,
+            "name": "Hearty Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242745"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242273,
+            "name": "Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242273"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Restoration": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/druid/restoration/enchants-gems-pve-healer"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Evoker": {
+    "Devastation": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/evoker/devastation/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Preservation": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/evoker/preservation/enchants-gems-pve-healer"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Augmentation": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/evoker/augmentation/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Hunter": {
+    "Beast Mastery": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/hunter/beast-mastery/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Marksmanship": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/hunter/marksmanship/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Survival": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/hunter/survival/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Mage": {
+    "Arcane": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/mage/arcane/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Fire": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/mage/fire/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Frost": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/mage/frost/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Monk": {
+    "Brewmaster": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/monk/brewmaster/enchants-gems-pve-tank"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 242745,
+            "name": "Hearty Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242745"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242273,
+            "name": "Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242273"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Mistweaver": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/monk/mistweaver/enchants-gems-pve-healer"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Windwalker": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/monk/windwalker/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Paladin": {
+    "Holy": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/paladin/holy/enchants-gems-pve-healer"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Protection": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/paladin/protection/enchants-gems-pve-tank"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 242745,
+            "name": "Hearty Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242745"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242273,
+            "name": "Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242273"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Retribution": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/paladin/retribution/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Priest": {
+    "Discipline": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/priest/discipline/enchants-gems-pve-healer"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Holy": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/priest/holy/enchants-gems-pve-healer"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Shadow": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/priest/shadow/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Rogue": {
+    "Assassination": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/rogue/assassination/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Outlaw": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/rogue/outlaw/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Subtlety": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/rogue/subtlety/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Shaman": {
+    "Elemental": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/shaman/elemental/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use Thalassian Phoenix Oil unless Flametongue Weapon is preferred by your current build."
+      }
+    },
+    "Enhancement": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/shaman/enhancement/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use Thalassian Phoenix Oil unless Windfury/Flametongue weapon imbues are required by your build."
+      }
+    },
+    "Restoration": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/shaman/restoration/enchants-gems-pve-healer"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Warlock": {
+    "Affliction": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/warlock/affliction/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Demonology": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/warlock/demonology/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Destruction": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/warlock/destruction/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255846,
+            "name": "Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=255846"
+          },
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  },
+  "Warrior": {
+    "Arms": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/warrior/arms/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Fury": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/warrior/fury/enchants-gems-pve-dps"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 266985,
+            "name": "Hearty Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 255845,
+            "name": "Silvermoon Parade",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    },
+    "Protection": {
+      "sourcePages": [
+        "https://www.wowhead.com/guide/classes/warrior/protection/enchants-gems-pve-tank"
+      ],
+      "omitWeaponOil": false,
+      "flask": {
+        "best": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "noteEn": "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "noteEn": "Use this as the default tank potion when you want throughput with manageable risk."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Void-Touched Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 242745,
+            "name": "Hearty Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242745"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242273,
+            "name": "Blooming Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=242273"
+          },
+          {
+            "id": 266996,
+            "name": "Hearty Harandar Celebration",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Hearty Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Impossibly Royal Roast",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      }
+    }
+  }
+}
