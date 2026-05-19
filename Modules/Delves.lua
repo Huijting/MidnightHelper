@@ -396,6 +396,7 @@ function ns.GetYardsToMapWaypoint(targetMap, xPct, yPct)
 	return math.sqrt(dx * dx + dy * dy)
 end
 
+--- True when navigation to the delve waypoint can stop (at entrance or inside delve).
 function ns.IsMidnightTravelComplete(currentMap, targetMap, targetX, targetY, targetName)
 	currentMap = tonumber(currentMap)
 	targetMap = tonumber(targetMap)
@@ -407,8 +408,23 @@ function ns.IsMidnightTravelComplete(currentMap, targetMap, targetX, targetY, ta
 		return true
 	end
 
-	if currentMap == targetMap then
+	if targetX and targetY and ns.GetYardsToMapWaypoint(targetMap, targetX, targetY) <= TRAVEL_ARRIVAL_YARDS then
 		return true
+	end
+
+	return false
+end
+
+--- Hide Travel Assistant popup without clearing TomTom — same zone/region is not "arrived" yet.
+function ns.ShouldSuppressTravelPopup(currentMap, targetMap, targetX, targetY, targetName)
+	if ns.IsMidnightTravelComplete(currentMap, targetMap, targetX, targetY, targetName) then
+		return true
+	end
+
+	currentMap = tonumber(currentMap)
+	targetMap = tonumber(targetMap)
+	if not currentMap or not targetMap then
+		return false
 	end
 
 	local currentHub = ns.GetPlayerHubContext(currentMap)
@@ -420,10 +436,6 @@ function ns.IsMidnightTravelComplete(currentMap, targetMap, targetX, targetY, ta
 
 	local currentZoneName = GetZoneDisplayName(currentMap)
 	if targetBase ~= "" and currentZoneName:find(targetBase, 1, true) then
-		return true
-	end
-
-	if targetX and targetY and ns.GetYardsToMapWaypoint(targetMap, targetX, targetY) <= TRAVEL_ARRIVAL_YARDS then
 		return true
 	end
 
@@ -471,7 +483,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 		return true
 	end
 
-	if ns.IsMidnightTravelComplete(currentMap, targetMap, xPct, yPct, title) then
+	if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
 		travelPopup:Hide()
 		return true
 	end
@@ -497,8 +509,8 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 		end
 		local py = select(2, playerPos:GetXY()) * 100
 
-		-- ARRIVAL CHECK: hub/zone/distance — no travel popup when already at the delve.
-		if ns.IsMidnightTravelComplete(currentMap, targetMap, xPct, yPct, title) then
+		-- ARRIVAL CHECK: only when near waypoint — same zone after a portal still needs the arrow.
+		if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
 			travelPopup:Hide()
 			return true
 		end
@@ -1425,8 +1437,28 @@ local function CreateEventBridge()
 						travelPopup:Hide()
 						ns.lastTarget = nil
 					else
-						-- Refresh TomTom arrow only — do not re-open HS/portal popup on subzone changes.
-						ns.AddSmartTomTomWay(lt.mapID, lt.x, lt.y, lt.name, true)
+						-- After portal / zone: restore delve arrow (TomTom only, no travel popup).
+						local function restoreDelveArrow()
+							if not ns.lastTarget or not ns.IsTomTomReady() then
+								return
+							end
+							local t = ns.lastTarget
+							local uid = _G.TomTom:AddWaypoint(t.mapID, t.x / 100, t.y / 100, {
+								title = t.name,
+								persistent = false,
+								minimap = true,
+								world = true,
+								cleardistance = 15,
+								crazy = true,
+							})
+							if uid and _G.TomTom.SetCrazyArrow then
+								_G.TomTom:SetCrazyArrow(uid, 15, t.name)
+							end
+						end
+						restoreDelveArrow()
+						if C_Timer and C_Timer.After then
+							C_Timer.After(0.5, restoreDelveArrow)
+						end
 					end
 				end
 			end
