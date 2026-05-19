@@ -684,9 +684,9 @@ function ns:_mhAltOverviewRefreshRows()
 				end
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 				if canDelete then
-					GameTooltip:SetText(ns:L("ALT_OVERVIEW_DELETE_HINT"), 1, 0.85, 0.6, true)
+					GameTooltip:SetText(ns:L("ALT_OVERVIEW_DELETE_HINT"), 1, 0.85, 0.6, 1, true)
 				else
-					GameTooltip:SetText(ns:L("ALT_OVERVIEW_DELETE_DISABLED_HINT"), 0.8, 0.8, 0.8, true)
+					GameTooltip:SetText(ns:L("ALT_OVERVIEW_DELETE_DISABLED_HINT"), 0.8, 0.8, 0.8, 1, true)
 				end
 				GameTooltip:Show()
 			end)
