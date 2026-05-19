@@ -14,7 +14,7 @@ local UNDERCOIN = 2803
 local PAD_L = 4
 local PAD_R = 6
 local COL_W_KEYS = 34
-local COL_W_SHARDS = 40
+local COL_W_SHARDS = 62
 local COL_W_UNDER = 86
 local COL_W_VAULT = 110
 local NUM_GAP = 4
@@ -176,6 +176,49 @@ local function GetCurrencyQty(id)
 	return 0
 end
 
+-- Wallet total, weekly earned toward cap, weekly max (Blizzard resets weekly on Wednesday).
+local function GetShardQuantityAndMax()
+	if not C_CurrencyInfo or not C_CurrencyInfo.GetCurrencyInfo then
+		return 0, 0, 600
+	end
+	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, COFFER_SHARDS)
+	if not ok or not info or type(info) ~= "table" then
+		return 0, 0, 600
+	end
+	local qty = math.floor(tonumber(info.quantity) or 0)
+	local earned = math.floor(tonumber(info.quantityEarnedThisWeek) or 0)
+	local maxQ = tonumber(info.maxQuantity)
+	if not maxQ or maxQ <= 0 then
+		maxQ = tonumber(info.maxWeeklyQuantity)
+	end
+	if not maxQ or maxQ <= 0 then
+		maxQ = 600
+	end
+	return qty, earned, math.floor(maxQ)
+end
+
+local function GetEffectiveShardsWeekly(weekly, snapshotTs)
+	local w = math.floor(tonumber(weekly) or 0)
+	local ts = tonumber(snapshotTs) or 0
+	if ts > 0 and ts < GetLocalResetAnchorTs() then
+		return 0, true
+	end
+	return w, false
+end
+
+local function FormatShardsCell(total, weekly, weeklyMax, weeklyStale)
+	total = math.floor(tonumber(total) or 0)
+	weekly = math.floor(tonumber(weekly) or 0)
+	weeklyMax = math.floor(tonumber(weeklyMax) or 600)
+	if weeklyMax <= 0 then
+		return tostring(total)
+	end
+	if weeklyStale and weekly == 0 then
+		return string.format(ns:L("ALT_SHARDS_CELL_STALE_FMT"), total)
+	end
+	return string.format(ns:L("ALT_SHARDS_CELL_FMT"), total, weekly, weeklyMax)
+end
+
 local function GetPlayerProfessionsText()
 	if not GetProfessions or not GetProfessionInfo then
 		return ""
@@ -228,11 +271,14 @@ local function SaveCurrentSnapshot()
 	realm = realm or (GetRealmName and GetRealmName()) or ""
 
 	local professionsFull = GetPlayerProfessionsText()
+	local shardQty, shardWeekly, shardMax = GetShardQuantityAndMax()
 	db.charCurrencies[guid] = {
 		name = nm,
 		realm = realm,
 		keys = GetCurrencyQty(COFFER_KEY),
-		shards = GetCurrencyQty(COFFER_SHARDS),
+		shards = shardQty,
+		shardsWeekly = shardWeekly,
+		shardsWeeklyMax = shardMax,
 		undercoin = GetCurrencyQty(UNDERCOIN),
 		vaultUnlocked = 0,
 		vaultTotal = 0,
@@ -453,6 +499,12 @@ local function MakeHeaderRow(parent)
 	row.underH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	AnchorThreeNumericCells(row.keysH, row.shardsH, row.underH, row)
 
+	row.shardsHit = CreateFrame("Button", nil, row)
+	row.shardsHit:SetSize(COL_W_SHARDS + 12, HEADER_ROW_H)
+	row.shardsHit:SetPoint("CENTER", row.shardsH, "CENTER")
+	row.shardsHit:SetAlpha(0.001)
+	row.shardsHit:EnableMouse(true)
+
 	return row
 end
 
@@ -533,6 +585,8 @@ function ns:_mhAltOverviewCollectEntries()
 				realm = snap.realm or "",
 				keys = tonumber(snap.keys) or 0,
 				shards = tonumber(snap.shards) or 0,
+				shardsWeekly = tonumber(snap.shardsWeekly) or 0,
+				shardsWeeklyMax = tonumber(snap.shardsWeeklyMax) or 600,
 				undercoin = tonumber(snap.undercoin) or 0,
 				vaultUnlocked = tonumber(snap.vaultUnlocked) or 0,
 				vaultTotal = tonumber(snap.vaultTotal) or 0,
@@ -667,7 +721,14 @@ function ns:_mhAltOverviewRefreshRows()
 			row.nameFs:SetTextColor(0.95, 0.95, 0.95)
 		end
 		row.keysFs:SetText(tostring(e.keys))
-		row.shardsFs:SetText(tostring(e.shards))
+		local shardsWeekly, shardsWeeklyStale = GetEffectiveShardsWeekly(e.shardsWeekly, e.ts)
+		local shardsWeeklyMax = tonumber(e.shardsWeeklyMax) or 600
+		row.shardsFs:SetText(FormatShardsCell(e.shards, shardsWeekly, shardsWeeklyMax, shardsWeeklyStale))
+		if shardsWeeklyMax > 0 and shardsWeekly >= shardsWeeklyMax then
+			row.shardsFs:SetTextColor(0.45, 1, 0.55)
+		else
+			row.shardsFs:SetTextColor(0.95, 0.95, 0.95)
+		end
 		row.underFs:SetText(tostring(e.undercoin))
 		if row.deleteBtn then
 			local canDelete = e.guid ~= curGuid
@@ -750,6 +811,10 @@ function ns:_mhAltOverviewRefreshRows()
 			staleSinceReset = (tonumber(e.ts) or 0) < GetLocalResetAnchorTs(),
 			likelyClaim = false,
 			professionsFull = e.professionsFull or "",
+			shardsTotal = tonumber(e.shards) or 0,
+			shardsWeekly = shardsWeekly,
+			shardsWeeklyMax = shardsWeeklyMax,
+			shardsWeeklyStale = shardsWeeklyStale,
 		}
 		row.vaultTip.likelyClaim = (not row.vaultTip.hasAvailableRewards) and row.vaultTip.staleSinceReset and unlockedAny
 		if row.vaultGlow then
@@ -790,6 +855,25 @@ function ns:_mhAltOverviewRefreshRows()
 				end
 				GameTooltip:AddLine(" ")
 			end
+			GameTooltip:AddLine(
+				ns:L("ALT_TOOLTIP_SHARDS_TOTAL"):format(self.vaultTip.shardsTotal or 0),
+				0.9,
+				0.9,
+				0.9
+			)
+			GameTooltip:AddLine(
+				ns:L("ALT_TOOLTIP_SHARDS_WEEKLY"):format(
+					self.vaultTip.shardsWeekly or 0,
+					self.vaultTip.shardsWeeklyMax or 600
+				),
+				0.75,
+				0.88,
+				1
+			)
+			if self.vaultTip.shardsWeeklyStale then
+				GameTooltip:AddLine(ns:L("ALT_TOOLTIP_SHARDS_WEEKLY_STALE"), 1, 0.82, 0.3, true)
+			end
+			GameTooltip:AddLine(" ")
 			GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_TITLE"), 1, 0.9, 0.5)
 			if self.vaultTip.hasAvailableRewards then
 				GameTooltip:AddLine(ns:L("ALT_VAULT_TOOLTIP_CLAIM_READY"), 1, 0.84, 0.18, true)
@@ -882,6 +966,21 @@ function ns:_mhAltOverviewRefreshHeaderTexts()
 	h.charH:SetText(ns:L("ALT_COL_CHARACTER"))
 	h.keysH:SetText(ns:L("ALT_COL_KEYS"))
 	h.shardsH:SetText(ns:L("ALT_COL_SHARDS"))
+	if h.shardsHit then
+		h.shardsHit:SetScript("OnEnter", function(self)
+			if not GameTooltip then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+			GameTooltip:SetText(ns:L("ALT_COL_SHARDS_HINT"), 1, 0.92, 0.55, 1, true)
+			GameTooltip:Show()
+		end)
+		h.shardsHit:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+	end
 	h.underH:SetText(ns:L("ALT_COL_UNDERCOINS"))
 	if h.abundH then
 		h.abundH:Hide()
