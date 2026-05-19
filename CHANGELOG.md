@@ -18,6 +18,25 @@ All notable changes to this project are documented in this file.
   - "Next unlock at: x / y"
 - Better unavailable messaging for characters where Great Vault is not available yet.
 
+## [1.2.3] - 2026-05-19
+
+### Fixed
+
+- **Travel Assistant (Delves):** no longer suggests Hearthstone when you are already near a delve entrance or after you enter the delve; zone changes no longer re-open the travel popup.
+- **Bountiful delve routing:** fixed a Lua error when calculating distance to the waypoint (`GetWorldPosFromMapPos` return value).
+
+### Added
+
+- **Consumables** sidebar tab (Wowhead-backed lists per spec, with guide search preview).
+
+### Changed
+
+- Clearer **TomTom** guidance (EN/NL): TomTom is recommended for the map arrow; Travel Assistant (Hearthstone / hub portals) works without TomTom. Info drawer, tooltips, travel popup hint, and chat messages updated.
+
+### Note
+
+- Minor drop-in update — safe to install over 1.2.2.
+
 ## [1.2.2] - 2026-05-16
 
 ### Added

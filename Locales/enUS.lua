@@ -135,9 +135,9 @@ ns._mhLocales.enUS = {
 	INFO_DRAWER_BODY_MACROS = "Interrupt tab: team kick macro (focus first). Utility tab: extra spec macros (cursor ground spells, mouseover heals, and similar) from the team pack. Pick a row, read the tip, copy the text.\n\nData can change after patches - report missing spells to the team.",
 	INFO_DRAWER_BODY_ADDONS = "Hub for optional tools bundled inside Midnight Helper rather than separate downloads.\n\nChoose a sub-tab along the top—today that is Platynator: Wago link, profile-string import, and the MF Platynator visual gallery.\n\nAdditional partner panels register here automatically when future modules ship.",
 	ABOUT_WINDOW_TITLE = "About Midnight Helper",
-	ABOUT_WINDOW_BODY = "Version: 1.2.2\n\nAuthors: Inchy & Gemma & Cursor\n\nAll-in-one Midnight reference: Delves & Vault, Account snapshot, SMC City Guide, Professions (KP + treasures), Leveling Guides, integrated addon tools—English / Nederlands.",
+	ABOUT_WINDOW_BODY = "Version: 1.2.3\n\nAuthors: Inchy & Gemma & Cursor\n\nAll-in-one Midnight reference: Delves & Vault, Account snapshot, SMC City Guide, Professions (KP + treasures), Leveling Guides, integrated addon tools—English / Nederlands.",
 
-	ABOUT_POPUP_TEXT = "Addon: |cffffcc00Midnight Helper|r\n\nVersion: 1.2.2\n\nAuthors: Inchy & Gemma & Cursor\n\nDescription: Delves, Account snapshot, SMC pins, Professions KP tracker, Leveling Guides, bundled tools — EN/NL.",
+	ABOUT_POPUP_TEXT = "Addon: |cffffcc00Midnight Helper|r\n\nVersion: 1.2.3\n\nAuthors: Inchy & Gemma & Cursor\n\nDescription: Delves, Account snapshot, SMC pins, Professions KP tracker, Leveling Guides, bundled tools — EN/NL.",
 	CHANGELOG_TITLE = "Midnight Helper Changelog",
 	CHANGELOG_SUBTITLE = "Version %s",
 	CHANGELOG_VERSION_FMT = "Version %s",
@@ -156,6 +156,10 @@ ns._mhLocales.enUS = {
 	CHANGELOG_122_3 = "Guide search and chat messages follow your language choice (/mh lang en or nl).",
 	CHANGELOG_122_4 = "Midnight key layout refresh: interrupt on E, clearer role slots, smarter overflow (Alt, Shift, Ctrl).",
 	CHANGELOG_122_5 = "Still cooking: everything in Midnight Helper is subject to change and steady improvement—patches will keep landing. Feedback welcome!",
+	CHANGELOG_123_1 = "Fixed Travel Assistant wrongly suggesting Hearthstone when you were already near a delve or inside one.",
+	CHANGELOG_123_2 = "Fixed a Lua error when routing to bountiful delves (map position API).",
+	CHANGELOG_123_3 = "Consumables sidebar tab: Wowhead-backed lists per spec, with guide search preview.",
+	CHANGELOG_123_4 = "Clearer TomTom guidance (EN/NL): optional for map arrows; Travel Assistant works without TomTom.",
 
 	LANG_ROW_EN_TOOLTIP = "English (default UI language)",
 	LANG_ROW_NL_TOOLTIP = "Nederlands",

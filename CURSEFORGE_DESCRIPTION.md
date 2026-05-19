@@ -4,7 +4,8 @@ Midnight Helper is an all-in-one utility addon for WoW Retail players who want a
 
 ### Highlights
 
-- Delves dashboard and Great Vault helper
+- Delves dashboard and Great Vault helper (Travel Assistant for cross-zone hops; TomTom optional for map arrows)
+- Consumables tab per spec (Wowhead-backed, with guide search preview)
 - Account snapshot with alt overview
 - Compact Great Vault status per character:
   - World / Dungeons / Raids
