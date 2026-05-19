@@ -127,7 +127,7 @@ ns._mhLocales.enUS = {
 	INFO_DRAWER_TOGGLE_SHOW = "Info",
 	INFO_DRAWER_TOGGLE_HIDE = "Close",
 	INFO_DRAWER_TITLE_FMT = "%s - How to use",
-	INFO_DRAWER_BODY_DELVES = "Midnight Delves command center for your current character.\n\nExpand Great Vault for weekly reward tracking, or Midnight Delves for season currencies (Restored Coffer Keys, weekly Shards, Undercoins), Delver's Journey / renown, and the full delve roster—each row can ping TomTom to the entrance with live bountiful detection from map POIs. Travel Assistant plus portal shortcuts near the bottom covers hearthstone actions and hub-to-hub hops.\n\nUse Find Nearest Bountiful when TomTom is installed to route toward the closest active bountiful delve portal.",
+	INFO_DRAWER_BODY_DELVES = "Midnight Delves command center for your current character.\n\nExpand Great Vault for weekly reward tracking, or Midnight Delves for season currencies (Restored Coffer Keys, weekly Shards, Undercoins), Delver's Journey / renown, and the full delve roster with live bountiful detection from map POIs.\n\nNavigation: right-click a row to route to the entrance. |cffffcc00TomTom (recommended)|r adds the map arrow and waypoint queue. |cff00ff00Travel Assistant|r (popup when you are far away) shows Hearthstone and hub portal shortcuts and works |cffffff00without|r TomTom.\n\nFind Nearest Bountiful requires TomTom to be installed.",
 	INFO_DRAWER_BODY_ACCOUNT = "Cross-character roster stored locally by this addon (saved variables on your PC—not Blizzard cloud sync).\n\nEach row lists Keys, Shards, Undercoins, professions echo, and a compact Great Vault summary with rich tooltips; your logged-in character is highlighted and sorting favors usefulness.\n\nRows refresh on login and currency / weekly events. Delete only removes addon snapshot data—never your actual WoW character.",
 	INFO_DRAWER_BODY_SMC = "Silvermoon City reference for Midnight (map 2393). The same scroll starts with the Weekly / hub checklist when quest IDs are configured, then continues into categorized pin grids—Essential Services, Travel, Quest hubs, Profession trainers, Gathering, and more.\n\nEach location button sets Blizzard's user waypoint and, with TomTom installed, mirrors it through the slash helper (/way #2393 …).\n\nChecklist progress tints related waypoint buttons green; update quest IDs in data after major patches if a row looks wrong.",
 	INFO_DRAWER_BODY_PROFESSIONS = "Tracks Midnight profession Knowledge Points (KP) for your current character, plus currency lines when the client exposes them (Unalloyed Abundance, Artisan's Moxie, weekly Shards of Dundun).\n\nBelow that, two columns list Knowledge Pickup quests and profession books per trade—icons show whether each quest is complete. Click a row to send only that pin to TomTom (clears other waypoints; Travel Assistant handles cross-zone hops when TomTom is loaded).\n\nBottom buttons batch-queue incomplete pins: Generate Treasures or Generate Books (nearest unfinished first when your map position is available).",
@@ -242,8 +242,14 @@ ns._mhLocales.enUS = {
 	DELVES_VAULT_TOOLTIP_MORE = "Complete more delves to unlock this reward.",
 	DELVES_VAULT_TIER = "Tier %d (ilvl %d)",
 	DELVES_VAULT_LOCKED = "[%d/%d] Locked",
+	DELVES_ROW_TT_RIGHTCLICK = "Right-click: route to this delve entrance.",
+	DELVES_ROW_TT_TOMTOM = "TomTom (recommended): map arrow and waypoint.",
+	DELVES_ROW_TT_TRAVEL = "Travel Assistant: Hearthstone and hub portals — works without TomTom.",
+	DELVES_BOUNTIFUL_ROUTE = "|cffffff78Midnight Helper:|r TomTom: nearest bountiful delve — %s",
+	TOMTOM_MISSING = "|cffffcc00Midnight Helper:|r TomTom is not loaded. Install TomTom for map arrows; Travel Assistant still works without it.",
 	TRAVEL_WRONG_ZONE = "You are in a different zone!",
 	TRAVEL_POPUP_TARGET = "Target: %s%s",
+	TRAVEL_TOMTOM_HINT = "\n|cffff9900Install TomTom for the navigation arrow.|r",
 	TRAVEL_POPUP_ESC = "ESC to cancel",
 
 	-- Leveling guide (Guide.lua + Locales/GuideTips.lua)

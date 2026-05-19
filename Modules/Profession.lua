@@ -455,8 +455,8 @@ local function ClearTomTomAndAddSingleWaypoint(row)
 	if not row or C_QuestLog.IsQuestFlaggedCompleted(row[1]) then
 		return
 	end
-	if not _G.TomTom or type(_G.TomTom.ClearAllWaypoints) ~= "function" then
-		print("Midnight Helper: TomTom not found!")
+	if not ns.IsTomTomReady or not ns.IsTomTomReady() then
+		print(ns:L("TOMTOM_MISSING"))
 		return
 	end
 	pcall(function()
@@ -970,8 +970,8 @@ local function SetupProfessionModule()
 	end
 
 	local function RunTomTomGenerate(nameFilter, kindLabel)
-		if not _G.TomTom or type(_G.TomTom.ClearAllWaypoints) ~= "function" then
-			print("Midnight Helper: TomTom not found!")
+		if not ns.IsTomTomReady or not ns.IsTomTomReady() then
+			print(ns:L("TOMTOM_MISSING"))
 			return
 		end
 		if not ns.AddSmartTomTomWay then

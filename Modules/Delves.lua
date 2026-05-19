@@ -14,6 +14,7 @@ local hsBtn -- Assigned with travel popup (secure hearth icon)
 local C_Map = C_Map
 local C_CurrencyInfo = C_CurrencyInfo
 local C_AreaPoiInfo = C_AreaPoiInfo
+local C_PartyInfo = C_PartyInfo
 local C_DelvesUI = C_DelvesUI
 local C_MajorFactions = C_MajorFactions
 local C_Traits = C_Traits
@@ -188,6 +189,10 @@ ns.GetVaultProgress = GetVaultProgress
 --------------------------------------------------------------------------------
 -- TomTom + Travel Assistant (shared as ns.AddSmartTomTomWay for Profession.lua)
 --------------------------------------------------------------------------------
+function ns.IsTomTomReady()
+	return _G.TomTom and type(_G.TomTom.AddWaypoint) == "function"
+end
+
 local function GetZoneDisplayName(uiMapID)
 	local info = C_Map.GetMapInfo(uiMapID)
 	if info and info.name then
@@ -232,6 +237,203 @@ function ns.GetRegionGroupID(mapID)
 	return 0
 end
 
+local MIDNIGHT_OVERWORLD_MAPS = {
+	[2576] = true,
+	[2393] = true,
+	[2413] = true,
+	[2405] = true,
+	[2395] = true,
+	[2437] = true,
+	[2424] = true,
+}
+
+local TRAVEL_ARRIVAL_YARDS = 400
+
+function ns.ResolveHubOnMap2576(pxPercent)
+	local px = tonumber(pxPercent)
+	if not px then
+		return nil
+	end
+	if px < 45 then
+		return "Silvermoon"
+	end
+	if px > 58 then
+		return "Harandar"
+	end
+	return "Voidstorm"
+end
+
+-- Map 2576 is one canvas; hub slice drives region (fixes Harandar delves while still on 2576).
+function ns.GetEffectiveRegionGroupID(mapID, hubName)
+	local mid = tonumber(mapID)
+	if mid == 2576 and hubName then
+		if hubName == "Silvermoon" then
+			return 1
+		end
+		if hubName == "Harandar" then
+			return 2
+		end
+		if hubName == "Voidstorm" then
+			return 3
+		end
+	end
+	return ns.GetRegionGroupID(mapID)
+end
+
+function ns.GetPlayerHubContext(currentMap)
+	local mid = tonumber(currentMap)
+	if not mid then
+		return nil, nil
+	end
+	if mid == 2576 then
+		local playerPos = C_Map.GetPlayerMapPosition(mid, "player")
+		if not playerPos then
+			return nil, nil
+		end
+		local px = select(1, playerPos:GetXY()) * 100
+		return ns.ResolveHubOnMap2576(px), px
+	end
+	local base = ns.GetBaseZoneName(mid)
+	if base ~= "" then
+		return base, nil
+	end
+	return nil, nil
+end
+
+local function IsMidnightDelveWaypoint(name, mapID)
+	if not name or not mapID then
+		return false
+	end
+	for _, row in ipairs(MIDNIGHT_DELVES) do
+		if row[2] == tonumber(mapID) and row[5] == name then
+			return true
+		end
+	end
+	return false
+end
+
+local function IsPlayerInActiveDelve()
+	if C_PartyInfo and C_PartyInfo.IsDelveInProgress then
+		local ok, active = pcall(C_PartyInfo.IsDelveInProgress)
+		if ok and active then
+			return true
+		end
+	end
+	return false
+end
+
+local function MapHasAncestor(mapID, ancestorID)
+	local id = tonumber(mapID)
+	local anc = tonumber(ancestorID)
+	if not id or not anc then
+		return false
+	end
+	for _ = 1, 10 do
+		if id == anc then
+			return true
+		end
+		local info = C_Map.GetMapInfo(id)
+		if not info or not info.parentMapID or info.parentMapID == 0 then
+			break
+		end
+		id = info.parentMapID
+	end
+	return false
+end
+
+local function MapsLinkedForTravel(currentMap, targetMap)
+	local cur, tgt = tonumber(currentMap), tonumber(targetMap)
+	if not cur or not tgt then
+		return false
+	end
+	if cur == tgt then
+		return true
+	end
+	if MapHasAncestor(cur, tgt) or MapHasAncestor(tgt, cur) then
+		return true
+	end
+	if MIDNIGHT_OVERWORLD_MAPS[cur] and MIDNIGHT_OVERWORLD_MAPS[tgt] then
+		return true
+	end
+	return false
+end
+
+local function WorldPosToXY(worldPos)
+	if not worldPos then
+		return nil, nil
+	end
+	if worldPos.GetXY then
+		return worldPos:GetXY()
+	end
+	return worldPos.x, worldPos.y
+end
+
+function ns.GetYardsToMapWaypoint(targetMap, xPct, yPct)
+	local playerMap = C_Map.GetBestMapForUnit("player")
+	targetMap = tonumber(targetMap)
+	xPct, yPct = tonumber(xPct), tonumber(yPct)
+	if not playerMap or not targetMap or not xPct or not yPct then
+		return math.huge
+	end
+	local playerPos = C_Map.GetPlayerMapPosition(playerMap, "player")
+	if not playerPos then
+		return math.huge
+	end
+	local okT, contT, worldT = pcall(C_Map.GetWorldPosFromMapPos, targetMap, CreateVector2D(xPct / 100, yPct / 100))
+	local okP, contP, worldP = pcall(C_Map.GetWorldPosFromMapPos, playerMap, playerPos)
+	if not okT or not okP or not worldT or not worldP then
+		return math.huge
+	end
+	if contT and contP and contT ~= contP then
+		return math.huge
+	end
+	local tx, ty = WorldPosToXY(worldT)
+	local px, py = WorldPosToXY(worldP)
+	if not tx or not ty or not px or not py then
+		return math.huge
+	end
+	local dx, dy = px - tx, py - ty
+	return math.sqrt(dx * dx + dy * dy)
+end
+
+function ns.IsMidnightTravelComplete(currentMap, targetMap, targetX, targetY, targetName)
+	currentMap = tonumber(currentMap)
+	targetMap = tonumber(targetMap)
+	if not currentMap or not targetMap then
+		return false
+	end
+
+	if IsPlayerInActiveDelve() and IsMidnightDelveWaypoint(targetName, targetMap) then
+		return true
+	end
+
+	if currentMap == targetMap then
+		return true
+	end
+
+	local currentHub = ns.GetPlayerHubContext(currentMap)
+	local targetBase = ns.GetBaseZoneName(targetMap)
+
+	if currentHub and targetBase ~= "" and currentHub == targetBase then
+		return true
+	end
+
+	local currentZoneName = GetZoneDisplayName(currentMap)
+	if targetBase ~= "" and currentZoneName:find(targetBase, 1, true) then
+		return true
+	end
+
+	if targetX and targetY and ns.GetYardsToMapWaypoint(targetMap, targetX, targetY) <= TRAVEL_ARRIVAL_YARDS then
+		return true
+	end
+
+	if MapsLinkedForTravel(currentMap, targetMap) and currentHub and targetBase ~= "" and currentHub == targetBase then
+		return true
+	end
+
+	return false
+end
+
 -- Shared TomTom + Travel Assistant (portals/hearth). Optional skipTravelUI: TomTom only (bulk pins).
 function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 	if not mapID then
@@ -250,8 +452,8 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 
 	ns.lastTarget = { mapID = targetMap, x = xPct, y = yPct, name = title }
 
-	-- 1. Set Waypoint (FORCED ARROW)
-	if _G.TomTom and _G.TomTom.AddWaypoint then
+	-- 1. Set Waypoint (FORCED ARROW; requires TomTom)
+	if ns.IsTomTomReady() then
 		local uid = _G.TomTom:AddWaypoint(targetMap, xPct / 100, yPct / 100, {
 			title = title,
 			persistent = false,
@@ -269,8 +471,14 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 		return true
 	end
 
+	if ns.IsMidnightTravelComplete(currentMap, targetMap, xPct, yPct, title) then
+		travelPopup:Hide()
+		return true
+	end
+
 	-- Phase 60: Same continent region — silence travel assistant (no portals, no HS nag).
-	local currentRegion = ns.GetRegionGroupID(currentMap)
+	local currentHub, px = ns.GetPlayerHubContext(currentMap)
+	local currentRegion = ns.GetEffectiveRegionGroupID(currentMap, currentHub)
 	local targetRegion = ns.GetRegionGroupID(targetMap)
 	if currentMap and targetMap and currentRegion == targetRegion and currentRegion ~= 0 then
 		travelPopup:Hide()
@@ -284,24 +492,13 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 			return true
 		end
 
-		local px, py = playerPos:GetXY()
-		px, py = px * 100, py * 100
-
-		-- Detect which hub we are in on Map 2576 (SMC / Harandar / Voidstorm)
-		local currentHub = nil
-		if tonumber(currentMap) == 2576 then
-			if px < 45 then
-				currentHub = "Silvermoon"
-			elseif px > 58 then
-				currentHub = "Harandar"
-			else
-				currentHub = "Voidstorm"
-			end
+		if not px then
+			px = select(1, playerPos:GetXY()) * 100
 		end
+		local py = select(2, playerPos:GetXY()) * 100
 
-		-- ARRIVAL CHECK (Phase 49): correct hub on Map 2576 or zone string matches target base — no travel popup.
-		local targetBaseZone = ns.GetBaseZoneName(targetMap)
-		if currentHub == targetBaseZone or (targetBaseZone ~= "" and currentZoneName:find(targetBaseZone)) then
+		-- ARRIVAL CHECK: hub/zone/distance — no travel popup when already at the delve.
+		if ns.IsMidnightTravelComplete(currentMap, targetMap, xPct, yPct, title) then
 			travelPopup:Hide()
 			return true
 		end
@@ -622,6 +819,9 @@ local function EnsureDelveRowButton(columnFrame, rows, index, colW)
 			if button == "RightButton" then
 				local rd = self.mhDelveRow
 				if rd then
+					if not ns.IsTomTomReady() then
+						print(ns:L("TOMTOM_MISSING"))
+					end
 					ns.AddSmartTomTomWay(rd.mapID, rd.x, rd.y, rd.name)
 				end
 			end
@@ -714,13 +914,9 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddDoubleLine("|cff00ffffMidnightHelper:|r Speed Grade:", "|cffffcc00" .. myGrade .. "|r")
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(
-			"|cffaaaaaaRight-click row: add TomTom waypoint for this delve.|r",
-			0.75,
-			0.75,
-			0.75,
-			true
-		)
+		GameTooltip:AddLine(ns:L("DELVES_ROW_TT_RIGHTCLICK"), 0.75, 0.75, 0.75, true)
+		GameTooltip:AddLine(ns:L("DELVES_ROW_TT_TOMTOM"), 0.75, 0.75, 0.75, true)
+		GameTooltip:AddLine(ns:L("DELVES_ROW_TT_TRAVEL"), 0.75, 0.75, 0.75, true)
 		GameTooltip:Show()
 	end)
 
@@ -1185,8 +1381,8 @@ if rawget(_G, "ToggleDelvesDashboard") == nil then
 end
 
 local function OnFindNearestBountifulClick()
-	if not _G.TomTom or type(_G.TomTom.AddWaypoint) ~= "function" then
-		print("Midnight Helper: TomTom not found!")
+	if not ns.IsTomTomReady() then
+		print(ns:L("TOMTOM_MISSING"))
 		return
 	end
 
@@ -1194,7 +1390,7 @@ local function OnFindNearestBountifulClick()
 		local _, mapID, x, yPct, name = row[1], row[2], row[3], row[4], row[5]
 		if select(1, GetDelveBountifulState(name, mapID)) then
 			if ns.AddSmartTomTomWay(mapID, x, yPct, name) then
-				print("|cffffff78Midnight Helper:|r TomTom: Nearest bountiful delve — " .. tostring(name))
+				print(string.format(ns:L("DELVES_BOUNTIFUL_ROUTE"), tostring(name)))
 			end
 			return
 		end
@@ -1224,36 +1420,13 @@ local function CreateEventBridge()
 			local function runZoneNavCheck()
 				local currentMap = C_Map.GetBestMapForUnit("player")
 				if ns.lastTarget and currentMap then
-					local currentHub = nil
-					local playerPos = C_Map.GetPlayerMapPosition(currentMap, "player")
-					if playerPos and tonumber(currentMap) == 2576 then
-						local hx = select(1, playerPos:GetXY()) * 100
-						if hx < 45 then
-							currentHub = "Silvermoon"
-						elseif hx > 58 then
-							currentHub = "Harandar"
-						else
-							currentHub = "Voidstorm"
-						end
-					end
-
-					local targetBase = ns.GetBaseZoneName(ns.lastTarget.mapID)
-					local isArrived = (tonumber(currentMap) == tonumber(ns.lastTarget.mapID)) or (currentHub == targetBase)
-
-					if isArrived then
-						if _G.TomTom and _G.TomTom.AddWaypoint then
-							local uid = _G.TomTom:AddWaypoint(ns.lastTarget.mapID, ns.lastTarget.x / 100, ns.lastTarget.y / 100, {
-								title = ns.lastTarget.name,
-								persistent = false,
-								crazy = true,
-							})
-							if uid and _G.TomTom.SetCrazyArrow then
-								_G.TomTom:SetCrazyArrow(uid, 15, ns.lastTarget.name)
-							end
-						end
+					local lt = ns.lastTarget
+					if ns.IsMidnightTravelComplete(currentMap, lt.mapID, lt.x, lt.y, lt.name) then
+						travelPopup:Hide()
 						ns.lastTarget = nil
 					else
-						ns.AddSmartTomTomWay(ns.lastTarget.mapID, ns.lastTarget.x, ns.lastTarget.y, ns.lastTarget.name)
+						-- Refresh TomTom arrow only — do not re-open HS/portal popup on subzone changes.
+						ns.AddSmartTomTomWay(lt.mapID, lt.x, lt.y, lt.name, true)
 					end
 				end
 			end
@@ -1528,7 +1701,7 @@ portalBtn.icon = pIcon
 
 portalBtn:SetScript("OnClick", function(self)
 	if self.mapID and self.x and self.y then
-		if _G.TomTom and _G.TomTom.AddWaypoint then
+		if ns.IsTomTomReady() then
 			local titleStr = "|cff00ffff[Portal]|r " .. tostring(self.name)
 
 			-- Add the portal waypoint and capture its unique ID
@@ -1546,6 +1719,8 @@ portalBtn:SetScript("OnClick", function(self)
 
 			print("|cffffcc00Midnight Helper:|r Portal arrow focused. Delve arrow will resume after you zone.")
 			travelPopup:Hide()
+		else
+			print(ns:L("TOMTOM_MISSING"))
 		end
 	end
 end)
@@ -1556,10 +1731,14 @@ function ns:ShowTravelPopup(targetMapName, extraInfo)
 	if InCombatLockdown() then
 		return
 	end
+	local extra = extraInfo or ""
+	if not ns.IsTomTomReady() then
+		extra = extra .. ns:L("TRAVEL_TOMTOM_HINT")
+	end
 	travelPopup.text:SetText(
 		string.format(
 			"%s\n|cff888888(%s)|r",
-			string.format(ns:L("TRAVEL_POPUP_TARGET"), targetMapName, extraInfo or ""),
+			string.format(ns:L("TRAVEL_POPUP_TARGET"), targetMapName, extra),
 			ns:L("TRAVEL_POPUP_ESC")
 		)
 	)
