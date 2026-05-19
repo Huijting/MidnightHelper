@@ -10,6 +10,33 @@ local addonName, ns = ...
 
 local travelPopup -- Assigned when Travel Assistant UI is built at bottom of file
 local hsBtn -- Assigned with travel popup (secure hearth icon)
+local travelHidePending
+
+-- Popup contains secure buttons; Hide() is blocked during combat lockdown.
+local function SafeHideTravelPopup()
+	if not travelPopup or not travelPopup:IsShown() then
+		return
+	end
+	if InCombatLockdown() then
+		if not travelHidePending then
+			travelHidePending = CreateFrame("Frame")
+			travelHidePending:SetScript("OnEvent", function(self, event)
+				if event == "PLAYER_REGEN_ENABLED" and not InCombatLockdown() then
+					self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+					SafeHideTravelPopup()
+				end
+			end)
+		end
+		travelHidePending:RegisterEvent("PLAYER_REGEN_ENABLED")
+		return
+	end
+	if travelHidePending then
+		travelHidePending:UnregisterEvent("PLAYER_REGEN_ENABLED")
+	end
+	travelPopup:Hide()
+end
+
+ns.SafeHideTravelPopup = SafeHideTravelPopup
 
 local C_Map = C_Map
 local C_CurrencyInfo = C_CurrencyInfo
@@ -484,7 +511,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 	end
 
 	if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
-		travelPopup:Hide()
+		SafeHideTravelPopup()
 		return true
 	end
 
@@ -493,7 +520,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 	local currentRegion = ns.GetEffectiveRegionGroupID(currentMap, currentHub)
 	local targetRegion = ns.GetRegionGroupID(targetMap)
 	if currentMap and targetMap and currentRegion == targetRegion and currentRegion ~= 0 then
-		travelPopup:Hide()
+		SafeHideTravelPopup()
 		return true
 	end
 
@@ -511,7 +538,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 
 		-- ARRIVAL CHECK: only when near waypoint — same zone after a portal still needs the arrow.
 		if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
-			travelPopup:Hide()
+			SafeHideTravelPopup()
 			return true
 		end
 
@@ -571,7 +598,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 			local statusText = (hsStartTime == 0) and "" or "\n|cffff0000HS on Cooldown!|r"
 			ns:ShowTravelPopup(targetZoneName, "\n|cffaaaaaaDistance: Very Far|r" .. statusText .. portalAdvice)
 		else
-			travelPopup:Hide()
+			SafeHideTravelPopup()
 		end
 	end
 	return true
@@ -1434,7 +1461,7 @@ local function CreateEventBridge()
 				if ns.lastTarget and currentMap then
 					local lt = ns.lastTarget
 					if ns.IsMidnightTravelComplete(currentMap, lt.mapID, lt.x, lt.y, lt.name) then
-						travelPopup:Hide()
+						SafeHideTravelPopup()
 						ns.lastTarget = nil
 					else
 						-- After portal / zone: restore delve arrow (TomTom only, no travel popup).
@@ -1714,7 +1741,7 @@ hsBtn:RegisterForClicks("AnyUp", "AnyDown")
 
 hsBtn:SetScript("PostClick", function()
 	print("|cffffcc00Midnight Helper:|r Hearthstone used!")
-	travelPopup:Hide()
+	SafeHideTravelPopup()
 end)
 
 hsBtn:ClearAllPoints()
@@ -1750,7 +1777,7 @@ portalBtn:SetScript("OnClick", function(self)
 			end
 
 			print("|cffffcc00Midnight Helper:|r Portal arrow focused. Delve arrow will resume after you zone.")
-			travelPopup:Hide()
+			SafeHideTravelPopup()
 		else
 			print(ns:L("TOMTOM_MISSING"))
 		end
