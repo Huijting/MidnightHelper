@@ -1,48 +1,27 @@
-# Next session — Midnight Helper (2026-05-20)
+# Next session — Midnight Helper
 
-Pick up from `main` @ `ec70932` (everything pushed).
-
-## Test first (delve / travel)
-
-- [ ] SMC → portal → Harandar/Voidstorm delve: TomTom arrow returns after zoning
-- [ ] Enter delve (e.g. Shadowguard Point): no `ADDON_ACTION_BLOCKED` on travel popup
-- [ ] Near delve / inside delve: no false Hearthstone popup
-- [ ] Account snapshot: shards show `total (weekly/600)`; relog alts once for weekly data
+Pick up from `main` after **1.2.4** release.
 
 ## Release
 
-- [ ] **CurseForge 1.2.4** zip (`tools/package.ps1`) — bundle since 1.2.3:
-  - Travel Assistant delve fixes (false HS, portal arrow restore, combat-safe popup hide)
-  - Account snapshot weekly shards + delete tooltip fix
-- [ ] Paste changelog on CurseForge project page
+- [x] **CurseForge 1.2.4** zip (`tools/package.ps1`) — `dist/MidnightHelper-1.2.4.zip`
+- [ ] Paste changelog on CurseForge project page (see `CHANGELOG.md` / in-game changelog 1.2.4)
 
-## Expansion ideas (prioritize with user)
+## Test when possible
+
+- [ ] Vault reminder: chat + minimap tooltip + ping (needs open claim or reset-day LIKELY)
+- [ ] Routing without TomTom: delve row, Find bountiful, profession pin → Blizzard waypoint on map
+- [ ] Macros: Copy team pack → Ctrl+C → paste into macro editor
+- [ ] Account snapshot tooltip: profession weekly lines after relog crafters
+
+## Backlog (optional)
 
 ### Quick polish
 
-- Consumables: open tab from guide search / spec preview (not only via sidebar)
-- Account snapshot: sort/filter; clearer “stale since Wednesday” badge
-- Delves: bountiful quick-action per row; coffer keys in snapshot
-
-### Medium
-
-- Great Vault: reset-day reminder (chat or minimap ping)
-- Professions: mirror weekly currencies in Account snapshot
-- Macros: one-click “copy team pack” or slot helper
-- TomTom optional: Blizzard user waypoint fallback when TomTom missing
+- Delves: coffer keys column in Account snapshot
 
 ### Larger (later)
 
 - Keyboard layout + macros for more classes
 - SMC checklist: maintain/verify quest IDs per patch
 - Alt snapshot export/import (local string, no cloud)
-
-## Recent fixes (context)
-
-| Commit     | Topic |
-|-----------|--------|
-| `ec70932` | `SafeHideTravelPopup` — no Hide() during combat lockdown |
-| `0d1c7ae` | TomTom arrow after portal; strict “arrived” = distance only |
-| `20f306f` | Weekly shard cap in Account snapshot |
-| `5882277` | Travel Assistant + TomTom docs (EN/NL) |
-| `25d06db` | Delete tooltip `SetText` alpha fix |

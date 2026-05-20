@@ -285,6 +285,10 @@ local function SaveCurrentSnapshot()
 	realm = realm or (GetRealmName and GetRealmName()) or ""
 
 	local professionsFull = GetPlayerProfessionsText()
+	local profAbund, profDundun, profMoxie = 0, 0, ""
+	if ns.GetProfessionWeeklySnapshot then
+		profAbund, profDundun, profMoxie = ns.GetProfessionWeeklySnapshot()
+	end
 	local shardQty, shardWeekly, shardMax = GetShardQuantityAndMax()
 	db.charCurrencies[guid] = {
 		name = nm,
@@ -320,6 +324,9 @@ local function SaveCurrentSnapshot()
 		vaultHasAvailableRewards = 0,
 		professions = GetShortProfessionsText(professionsFull),
 		professionsFull = professionsFull,
+		profAbundance = profAbund,
+		profDundun = profDundun,
+		profMoxie = profMoxie,
 		ts = time(),
 	}
 	local snap = GetVaultSnapshot()
@@ -779,6 +786,9 @@ function ns:_mhAltOverviewCollectEntries()
 				professions = type(snap.professions) == "string" and snap.professions or "",
 				professionsFull = type(snap.professionsFull) == "string" and snap.professionsFull
 					or (type(snap.professions) == "string" and snap.professions or ""),
+				profAbundance = tonumber(snap.profAbundance) or 0,
+				profDundun = tonumber(snap.profDundun) or 0,
+				profMoxie = type(snap.profMoxie) == "string" and snap.profMoxie or "",
 				ts = tonumber(snap.ts) or 0,
 			}
 		end
@@ -867,6 +877,9 @@ function ns:_mhAltOverviewRefreshRows()
 			e.ilvl = GetPlayerItemLevel()
 			e.undercoin = GetCurrencyQty(UNDERCOIN)
 			e.manaCrystals = GetCurrencyQty(UNTAINTED_MANA_CRYSTALS)
+			if ns.GetProfessionWeeklySnapshot then
+				e.profAbundance, e.profDundun, e.profMoxie = ns.GetProfessionWeeklySnapshot()
+			end
 		end
 		local row = ui.dataRows[i]
 		if not row then
@@ -1003,6 +1016,9 @@ function ns:_mhAltOverviewRefreshRows()
 			staleSinceReset = (tonumber(e.ts) or 0) < GetLocalResetAnchorTs(),
 			likelyClaim = false,
 			professionsFull = e.professionsFull or "",
+			profAbundance = tonumber(e.profAbundance) or 0,
+			profDundun = tonumber(e.profDundun) or 0,
+			profMoxie = type(e.profMoxie) == "string" and e.profMoxie or "",
 			shardsTotal = tonumber(e.shards) or 0,
 			shardsWeekly = shardsWeekly,
 			shardsWeeklyMax = shardsWeeklyMax,
@@ -1071,6 +1087,19 @@ function ns:_mhAltOverviewRefreshRows()
 				GameTooltip:AddLine(self.vaultTip.professionsFull, 0.75, 0.82, 1, true)
 				if string.find(self.vaultTip.professionsFull, "…", 1, true) then
 					GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROFESSIONS_SYNC_HINT"), 0.8, 0.8, 0.8, true)
+				end
+				local abund = tonumber(self.vaultTip.profAbundance) or 0
+				local dundun = tonumber(self.vaultTip.profDundun) or 0
+				local moxie = self.vaultTip.profMoxie or ""
+				if abund > 0 or dundun > 0 or moxie ~= "" then
+					GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROF_WEEKLY_TITLE"), 0.9, 0.9, 0.5)
+					if abund > 0 then
+						GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROF_ABUND_FMT"):format(abund), 0.75, 0.88, 1)
+					end
+					GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROF_DUNDUN_FMT"):format(dundun), 0.75, 0.88, 1)
+					if moxie ~= "" then
+						GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROF_MOXIE_FMT"):format(moxie), 0.75, 0.88, 1, true)
+					end
 				end
 				GameTooltip:AddLine(" ")
 			end

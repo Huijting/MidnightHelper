@@ -455,13 +455,11 @@ local function ClearTomTomAndAddSingleWaypoint(row)
 	if not row or C_QuestLog.IsQuestFlaggedCompleted(row[1]) then
 		return
 	end
-	if not ns.IsTomTomReady or not ns.IsTomTomReady() then
-		print(ns:L("TOMTOM_MISSING"))
-		return
+	if ns.IsTomTomReady and ns.IsTomTomReady() then
+		pcall(function()
+			_G.TomTom:ClearAllWaypoints()
+		end)
 	end
-	pcall(function()
-		_G.TomTom:ClearAllWaypoints()
-	end)
 	if not ns.AddSmartTomTomWay then
 		print("|cffff5555Midnight Helper:|r Travel Assistant unavailable (Delves module not loaded).")
 		return
@@ -970,18 +968,16 @@ local function SetupProfessionModule()
 	end
 
 	local function RunTomTomGenerate(nameFilter, kindLabel)
-		if not ns.IsTomTomReady or not ns.IsTomTomReady() then
-			print(ns:L("TOMTOM_MISSING"))
-			return
-		end
 		if not ns.AddSmartTomTomWay then
 			print("|cffff5555Midnight Helper:|r Travel Assistant unavailable (Delves module not loaded).")
 			return
 		end
 
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
+		if ns.IsTomTomReady and ns.IsTomTomReady() then
+			pcall(function()
+				_G.TomTom:ClearAllWaypoints()
+			end)
+		end
 
 		local primaryProfessions = GetPrimaryProfessionEntries()
 		local pMap, pX, pY = GetPlayerMapPositionForWaypoints()
@@ -1100,6 +1096,41 @@ local function SetupProfessionModule()
 	ns.ProfessionFrame = frame
 
 	RefreshProfessionPanel()
+end
+
+--- Snapshot fields for Account tab: abund qty, Dundun weekly count, compact Moxie summary.
+function ns.GetProfessionWeeklySnapshot()
+	local abund = 0
+	local dundun = 0
+	local moxParts = {}
+
+	local abundID = Config.UNALLOYED_ABUNDANCE_CURRENCY_CODE
+	if abundID then
+		abund = GetCurrencyQuantity(abundID) or 0
+	end
+
+	local shardItemId = Config.SHARD_OF_DUNDUN_ITEM_ID
+	if shardItemId then
+		dundun = GetItemQuantityByID(shardItemId) or 0
+	end
+
+	local moxTable = Config.ARTISANS_MOXIE_CURRENCY_CODES
+	if moxTable then
+		local p1, p2 = GetProfessions()
+		for _, prof in ipairs({ p1, p2 }) do
+			if prof then
+				local _, _, name, profEnum = MapProfessionSlotToSkillLine(prof)
+				if profEnum and moxTable[profEnum] then
+					local mq = GetCurrencyQuantity(moxTable[profEnum]) or 0
+					if mq > 0 and name and name ~= "" then
+						moxParts[#moxParts + 1] = name .. " " .. tostring(mq)
+					end
+				end
+			end
+		end
+	end
+
+	return abund, dundun, table.concat(moxParts, " · ")
 end
 
 local function HookEnsureMainUI()

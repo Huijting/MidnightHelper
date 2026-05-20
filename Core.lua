@@ -241,6 +241,34 @@ function ns:SetCompactModeEnabled(enabled, silent)
 	return true
 end
 
+--- Blizzard map waypoint using 0–100 map coordinates (fallback when TomTom is absent).
+function ns.SetBlizzardUserWaypoint(mapID, xPct, yPct)
+	local targetMap = tonumber(mapID)
+	local xN, yN = tonumber(xPct), tonumber(yPct)
+	if not targetMap or not xN or not yN then
+		return false
+	end
+	local x = xN / 100
+	local y = yN / 100
+	if x <= 0 or y <= 0 then
+		return false
+	end
+	if not UiMapPoint or not UiMapPoint.CreateFromCoordinates then
+		return false
+	end
+	local ok, mapPoint = pcall(UiMapPoint.CreateFromCoordinates, targetMap, x, y)
+	if not ok or not mapPoint then
+		return false
+	end
+	if C_Map and C_Map.SetUserWaypoint then
+		pcall(C_Map.SetUserWaypoint, mapPoint)
+	end
+	if C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
+		pcall(C_SuperTrack.SetSuperTrackedUserWaypoint, true)
+	end
+	return true
+end
+
 --------------------------------------------------------------------------------
 -- Hidden core frame: registers events and forwards to ns:OnEvent
 --------------------------------------------------------------------------------

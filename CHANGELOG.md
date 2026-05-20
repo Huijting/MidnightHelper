@@ -7,16 +7,21 @@ All notable changes to this project are documented in this file.
 ### Added
 
 - Leveling Guides tab: **Layout** sub-tab with the ISO keyboard prototype (Midnight key highlights) using `Modules/KeyboardLayoutPrototype.lua` and `Modules/KeybindingData.lua`.
-- Account snapshot now includes compact Great Vault status for World, Dungeons, and Raids.
-- Reset-day subtle pulse highlight for characters with claimable vault rewards.
 - SMC City Guide: weekly/hub checklist using `C_QuestLog.IsQuestFlaggedCompleted`; waypoint buttons for linked pins tint green when done. Configure quest IDs in `Modules/SMCChecklistData.lua` (verify after patches). Default ships with **no** quest IDs until confirmed (avoids false “Done” from placeholder IDs).
+
+## [1.2.4] - 2026-05-20
+
+### Added
+
+- **Great Vault reset reminders:** chat on login, minimap tooltip lines, pulsing minimap icon (toggle in minimap quick settings).
+- **Blizzard map waypoint fallback** when TomTom is not installed (delves, profession pins, bountiful finder, portal step).
+- **Macros:** “Copy team pack” — interrupt + all utility macros for the current spec in one block.
+- **Account snapshot:** profession weekly currencies in row tooltip (Abundance, Dundun shards, Moxie summary).
 
 ### Changed
 
-- Vault tooltip wording made clearer:
-  - "Choices unlocked: x / y"
-  - "Next unlock at: x / y"
-- Better unavailable messaging for characters where Great Vault is not available yet.
+- Account snapshot: sort/filter toolbar, level/ilvl, stale-since-Wednesday badge, Untainted Mana-Crystals column.
+- Guide search routes consumable keywords to the Consumables tab; multi-word queries improved.
 
 ## [1.2.3] - 2026-05-19
 

@@ -226,10 +226,16 @@ local function RouteToDelveRow(rd)
 	if not rd or not rd.mapID then
 		return false
 	end
-	if not ns.IsTomTomReady() then
-		print(ns:L("TOMTOM_MISSING"))
+	local ok = ns.AddSmartTomTomWay(rd.mapID, rd.x, rd.y, rd.name)
+	if ok and not ns.IsTomTomReady() then
+		print(
+			("|cffffcc00%s|r %s"):format(
+				ns:L("PRINT_PREFIX"),
+				ns:L("BLIZZARD_WAYPOINT_SET"):format(tostring(rd.name or "Delve"))
+			)
+		)
 	end
-	return ns.AddSmartTomTomWay(rd.mapID, rd.x, rd.y, rd.name) and true or false
+	return ok and true or false
 end
 
 --------------------------------------------------------------------------------
@@ -510,7 +516,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 
 	ns.lastTarget = { mapID = targetMap, x = xPct, y = yPct, name = title }
 
-	-- 1. Set Waypoint (FORCED ARROW; requires TomTom)
+	-- 1. Waypoint: TomTom arrow when available, else Blizzard user waypoint + SuperTrack.
 	if ns.IsTomTomReady() then
 		local uid = _G.TomTom:AddWaypoint(targetMap, xPct / 100, yPct / 100, {
 			title = title,
@@ -523,6 +529,8 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 		if uid and _G.TomTom.SetCrazyArrow then
 			_G.TomTom:SetCrazyArrow(uid, 15, title)
 		end
+	elseif ns.SetBlizzardUserWaypoint then
+		ns.SetBlizzardUserWaypoint(targetMap, xPct, yPct)
 	end
 
 	if skipTravelUI then
@@ -1505,11 +1513,6 @@ if rawget(_G, "ToggleDelvesDashboard") == nil then
 end
 
 local function OnFindNearestBountifulClick()
-	if not ns.IsTomTomReady() then
-		print(ns:L("TOMTOM_MISSING"))
-		return
-	end
-
 	for _, row in ipairs(MIDNIGHT_DELVES) do
 		local _, mapID, x, yPct, name = row[1], row[2], row[3], row[4], row[5]
 		if select(1, GetDelveBountifulState(name, mapID)) then
@@ -1551,20 +1554,24 @@ local function CreateEventBridge()
 					else
 						-- After portal / zone: restore delve arrow (TomTom only, no travel popup).
 						local function restoreDelveArrow()
-							if not ns.lastTarget or not ns.IsTomTomReady() then
+							if not ns.lastTarget then
 								return
 							end
 							local t = ns.lastTarget
-							local uid = _G.TomTom:AddWaypoint(t.mapID, t.x / 100, t.y / 100, {
-								title = t.name,
-								persistent = false,
-								minimap = true,
-								world = true,
-								cleardistance = 15,
-								crazy = true,
-							})
-							if uid and _G.TomTom.SetCrazyArrow then
-								_G.TomTom:SetCrazyArrow(uid, 15, t.name)
+							if ns.IsTomTomReady() then
+								local uid = _G.TomTom:AddWaypoint(t.mapID, t.x / 100, t.y / 100, {
+									title = t.name,
+									persistent = false,
+									minimap = true,
+									world = true,
+									cleardistance = 15,
+									crazy = true,
+								})
+								if uid and _G.TomTom.SetCrazyArrow then
+									_G.TomTom:SetCrazyArrow(uid, 15, t.name)
+								end
+							elseif ns.SetBlizzardUserWaypoint then
+								ns.SetBlizzardUserWaypoint(t.mapID, t.x, t.y)
 							end
 						end
 						restoreDelveArrow()
@@ -1848,7 +1855,6 @@ portalBtn:SetScript("OnClick", function(self)
 		if ns.IsTomTomReady() then
 			local titleStr = "|cff00ffff[Portal]|r " .. tostring(self.name)
 
-			-- Add the portal waypoint and capture its unique ID
 			local uid = _G.TomTom:AddWaypoint(self.mapID, self.x / 100, self.y / 100, {
 				title = titleStr,
 				persistent = false,
@@ -1856,12 +1862,19 @@ portalBtn:SetScript("OnClick", function(self)
 				crazy = true,
 			})
 
-			-- Force the Crazy Arrow to focus on this portal immediately
 			if uid and _G.TomTom.SetCrazyArrow then
 				_G.TomTom:SetCrazyArrow(uid, 15, titleStr)
 			end
 
 			print("|cffffcc00Midnight Helper:|r Portal arrow focused. Delve arrow will resume after you zone.")
+			SafeHideTravelPopup()
+		elseif ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(self.mapID, self.x, self.y) then
+			print(
+				("|cffffcc00%s|r %s"):format(
+					ns:L("PRINT_PREFIX"),
+					ns:L("BLIZZARD_WAYPOINT_PORTAL"):format(tostring(self.name or "Portal"))
+				)
+			)
 			SafeHideTravelPopup()
 		else
 			print(ns:L("TOMTOM_MISSING"))
@@ -1877,7 +1890,7 @@ function ns:ShowTravelPopup(targetMapName, extraInfo)
 	end
 	local extra = extraInfo or ""
 	if not ns.IsTomTomReady() then
-		extra = extra .. ns:L("TRAVEL_TOMTOM_HINT")
+		extra = extra .. ns:L("TRAVEL_BLIZZARD_WAYPOINT_HINT")
 	end
 	travelPopup.text:SetText(
 		string.format(
