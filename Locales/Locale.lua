@@ -24,6 +24,21 @@ function ns:L(key)
 	return s
 end
 
+--- Game fonts often miss Unicode arrows/dashes; use for player-visible strings in UI.
+function ns:SafeL(key)
+	local s = self:L(key)
+	if type(s) ~= "string" then
+		return s
+	end
+	return s
+		:gsub("\226\128\148", "-")
+		:gsub("\226\128\147", "-")
+		:gsub("\226\134\146", "->")
+		:gsub("→", "->")
+		:gsub("—", "-")
+		:gsub("–", "-")
+end
+
 --- Resolve short slash args: en -> enUS, nl -> nlNL
 function ns:NormalizeLocaleInput(arg)
 	local a = (arg or ""):lower()

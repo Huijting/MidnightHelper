@@ -14,6 +14,7 @@ Core.lua
 Locales\enUS.lua
 Locales\nlNL.lua
 Locales\GuideTips.lua
+Locales\GuideGroups.lua
 Locales\Locale.lua
 Config.lua
 Modules\KeybindSchema.lua

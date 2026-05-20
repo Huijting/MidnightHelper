@@ -10,7 +10,9 @@ local TIP_ROW_HEIGHT = 32
 local TIP_ROW_GAP = 8
 local CONS_ROW_HEIGHT = 24
 local CONS_ROW_GAP = 2
-local ADVISOR_BOX_HEIGHT = 228
+local ADVISOR_BOX_HEIGHT = 240
+local ADVISOR_TAB_H = 22
+local ADVISOR_TAB_GAP = 6
 local SPEC_HEADER_ICON_SIZE = 32
 local CONS_COPY_BTN = 18
 local consNameCopyFrame
@@ -702,6 +704,38 @@ local ADVISOR_DEFENSIVE_KEYWORDS = {
 	"overleving",
 }
 
+local function ResolveAdvisorArchetype(roleLabel)
+	local role = string.lower(tostring(roleLabel or ""))
+	if string.find(role, "tank", 1, true) then
+		return "tank"
+	end
+	if string.find(role, "healer", 1, true) or string.find(role, "heal", 1, true) then
+		return "healer"
+	end
+	if string.find(role, "support", 1, true) or string.find(role, "aug", 1, true) then
+		return "support"
+	end
+	if string.find(role, "melee", 1, true) then
+		return "melee"
+	end
+	return "caster"
+end
+
+local function BuildGroupsAdvisorLines(roleLabel, bracketKey)
+	local arch = string.upper(ResolveAdvisorArchetype(roleLabel))
+	local bk = tonumber(bracketKey) or 10
+	local prefix = "GUIDE_GROUPS_" .. arch .. "_" .. tostring(bk) .. "_"
+	local lines = {}
+	for i = 1, 3 do
+		local key = prefix .. i
+		local s = ns:L(key)
+		if type(s) == "string" and s ~= "" and s ~= key then
+			lines[#lines + 1] = s
+		end
+	end
+	return lines
+end
+
 local function BuildAutoAdvisorLeveling(data, roleLabel)
 	local pool = {}
 	for i = 1, #(data and data.tips or {}) do
@@ -751,47 +785,31 @@ local function BuildAutoAdvisorLeveling(data, roleLabel)
 		return out
 	end
 
-	local role = string.lower(tostring(roleLabel or ""))
+	local arch = ResolveAdvisorArchetype(roleLabel)
 	local roleKeys = {
 		tank = { "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_TANK_1", "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_TANK_2" },
 		healer = { "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_HEALER_1", "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_HEALER_2" },
 		support = { "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_SUPPORT_1", "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_SUPPORT_2" },
 		melee = { "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_MELEE_1", "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_MELEE_2" },
-		ranged = { "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_RANGED_1", "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_RANGED_2" },
+		caster = { "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_RANGED_1", "GUIDE_LEVEL_ADVISOR_AUTO_TALENT_RANGED_2" },
 	}
-	local selectedKeys = roleKeys.ranged
-	if string.find(role, "tank", 1, true) then
-		selectedKeys = roleKeys.tank
-	elseif string.find(role, "healer", 1, true) then
-		selectedKeys = roleKeys.healer
-	elseif string.find(role, "support", 1, true) then
-		selectedKeys = roleKeys.support
-	elseif string.find(role, "melee", 1, true) then
-		selectedKeys = roleKeys.melee
-	end
+	local selectedKeys = roleKeys[arch] or roleKeys.caster
 	local talentFocus = { ns:L(selectedKeys[1]), ns:L(selectedKeys[2]) }
 
+	local function bracketEntry(offStart, offCount, defStart, defCount, bk)
+		return {
+			rotation = pickRows(offensivePool, offStart, offCount),
+			defensives = pickRows(defensivePool, defStart, defCount),
+			talentFocus = talentFocus,
+			groups = BuildGroupsAdvisorLines(roleLabel, bk),
+		}
+	end
+
 	return {
-		[10] = {
-			rotation = pickRows(offensivePool, 1, 3),
-			defensives = pickRows(defensivePool, 1, 2),
-			talentFocus = talentFocus,
-		},
-		[30] = {
-			rotation = pickRows(offensivePool, 2, 3),
-			defensives = pickRows(defensivePool, 2, 2),
-			talentFocus = talentFocus,
-		},
-		[60] = {
-			rotation = pickRows(offensivePool, 3, 3),
-			defensives = pickRows(defensivePool, 3, 2),
-			talentFocus = talentFocus,
-		},
-		[80] = {
-			rotation = pickRows(offensivePool, 4, 2),
-			defensives = pickRows(defensivePool, 4, 2),
-			talentFocus = talentFocus,
-		},
+		[10] = bracketEntry(1, 3, 1, 2, 10),
+		[30] = bracketEntry(2, 3, 2, 2, 30),
+		[60] = bracketEntry(3, 3, 3, 2, 60),
+		[80] = bracketEntry(4, 2, 4, 2, 80),
 	}
 end
 
@@ -1034,6 +1052,29 @@ local function ApplyGuideSearchQuery(raw)
 			end
 		end
 		return false
+	end
+
+	if qHits({
+		"in groups",
+		"ingroup",
+		"in group",
+		"groepen",
+		"groep",
+		"group tips",
+		"dungeon tips",
+		"interrupt priority",
+		"interrupt prio",
+	}) then
+		if ns.ShowMainUI and ns.SelectTab then
+			ns:ShowMainUI()
+			ns.SelectTab("guide")
+			ns._mhGuideAdvisorTab = "groups"
+			if ns._mhSelectGuideSubTab then
+				ns._mhSelectGuideSubTab("guide")
+			end
+		end
+		GuideChatMsg("SEARCH_CHAT_GUIDE_GROUPS")
+		return
 	end
 
 	if qHits({
@@ -1615,7 +1656,10 @@ local function PopulateUniversalGuideContent()
 	advisorTitle:SetText(ns:L("GUIDE_LEVEL_ADVISOR_BETA"))
 
 	local selectedLevel = math.max(10, math.min(90, tonumber(level) or 10))
-	local selectedTab = "rotation"
+	local selectedTab = ns._mhGuideAdvisorTab or "rotation"
+	if ns._mhGuideAdvisorTab then
+		ns._mhGuideAdvisorTab = nil
+	end
 	local effectiveLeveling = data.leveling
 	local bracketKey, bracketEntry = ResolveGuideLevelingBracket(effectiveLeveling, selectedLevel)
 	if not bracketEntry then
@@ -1628,14 +1672,52 @@ local function PopulateUniversalGuideContent()
 	end
 
 	if bracketEntry then
+		local tabDefs = {
+			{ key = "rotation", labelKey = "GUIDE_LEVEL_ADVISOR_TAB_ROTATION", dataKey = "rotation" },
+			{ key = "defensives", labelKey = "GUIDE_LEVEL_ADVISOR_TAB_DEFENSIVES", dataKey = "defensives" },
+			{ key = "groups", labelKey = "GUIDE_LEVEL_ADVISOR_TAB_GROUPS", dataKey = "groups" },
+			{ key = "talentFocus", labelKey = "GUIDE_LEVEL_ADVISOR_TAB_TALENTS", dataKey = "talentFocus" },
+		}
+		local tabButtons = {}
+		local prevBtn
+		for i = 1, #tabDefs do
+			local td = tabDefs[i]
+			local label = ns:L(td.labelKey)
+			if label == td.labelKey then
+				if td.dataKey == "groups" then
+					label = "In groups"
+				elseif td.dataKey == "talentFocus" then
+					label = "Talents"
+				end
+			end
+			local btn = CreateFrame("Button", nil, advisorHost, "UIPanelButtonTemplate")
+			btn:SetHeight(ADVISOR_TAB_H)
+			btn:SetText(label)
+			local fs = btn.GetFontString and btn:GetFontString()
+			local textW = 64
+			if fs and fs.GetStringWidth then
+				textW = fs:GetStringWidth() or textW
+			end
+			btn:SetWidth(math.min(130, math.max(72, math.ceil(textW) + 20)))
+			if prevBtn then
+				btn:SetPoint("LEFT", prevBtn, "RIGHT", ADVISOR_TAB_GAP, 0)
+			else
+				btn:SetPoint("TOPLEFT", advisorHost, "TOPLEFT", 10, -32)
+			end
+			btn._mhTabKey = td.key
+			btn._mhDataKey = td.dataKey
+			tabButtons[#tabButtons + 1] = btn
+			prevBtn = btn
+		end
+
 		local levelLabel = advisorHost:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		levelLabel:SetPoint("TOPLEFT", advisorHost, "TOPLEFT", 10, -32)
+		levelLabel:SetPoint("TOPLEFT", advisorHost, "TOPLEFT", 10, -58)
 		levelLabel:SetJustifyH("LEFT")
 		levelLabel:SetTextColor(0.95, 0.90, 0.62)
 
 		local slider = CreateFrame("Slider", nil, advisorHost, "OptionsSliderTemplate")
-		slider:SetPoint("TOPLEFT", advisorHost, "TOPLEFT", 88, -36)
-		slider:SetPoint("TOPRIGHT", advisorHost, "TOPRIGHT", -18, -36)
+		slider:SetPoint("TOPLEFT", advisorHost, "TOPLEFT", 88, -62)
+		slider:SetPoint("TOPRIGHT", advisorHost, "TOPRIGHT", -18, -62)
 		slider:SetMinMaxValues(10, 90)
 		slider:SetValueStep(1)
 		slider:SetObeyStepOnDrag(true)
@@ -1650,27 +1732,8 @@ local function PopulateUniversalGuideContent()
 			slider.Text:SetText("")
 		end
 
-		local tabDefs = {
-			{ key = "rotation", label = ns:L("GUIDE_LEVEL_ADVISOR_TAB_ROTATION"), dataKey = "rotation" },
-			{ key = "defensives", label = ns:L("GUIDE_LEVEL_ADVISOR_TAB_DEFENSIVES"), dataKey = "defensives" },
-			{ key = "talentFocus", label = ns:L("GUIDE_LEVEL_ADVISOR_TAB_TALENTS"), dataKey = "talentFocus" },
-		}
-		local tabButtons = {}
-		local tx = 10
-		for i = 1, #tabDefs do
-			local td = tabDefs[i]
-			local btn = CreateFrame("Button", nil, advisorHost, "UIPanelButtonTemplate")
-			btn:SetSize(110, 20)
-			btn:SetPoint("TOPLEFT", advisorHost, "TOPLEFT", tx, -62)
-			btn:SetText(td.label)
-			btn._mhTabKey = td.key
-			btn._mhDataKey = td.dataKey
-			tabButtons[#tabButtons + 1] = btn
-			tx = tx + 114
-		end
-
 		local bodyFs = advisorHost:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		bodyFs:SetPoint("TOPLEFT", advisorHost, "TOPLEFT", 10, -88)
+		bodyFs:SetPoint("TOPLEFT", advisorHost, "TOPLEFT", 10, -92)
 		bodyFs:SetPoint("BOTTOMRIGHT", advisorHost, "BOTTOMRIGHT", -10, 10)
 		bodyFs:SetJustifyH("LEFT")
 		bodyFs:SetJustifyV("TOP")
@@ -1683,12 +1746,19 @@ local function PopulateUniversalGuideContent()
 			levelLabel:SetText(ns:L("GUIDE_LEVEL_ADVISOR_LEVEL_FMT"):format(selectedLevel))
 			for i = 1, #tabButtons do
 				local b = tabButtons[i]
-				local active = b._mhTabKey == selectedTab
+				local active = b._mhDataKey == selectedTab
 				b:SetAlpha(active and 1 or 0.85)
 			end
 			local lines = {}
 			if bracketEntry and selectedTab then
-				lines = NormalizeGuideLevelingLines(bracketEntry[selectedTab])
+				if selectedTab == "groups" then
+					lines = NormalizeGuideLevelingLines(bracketEntry.groups)
+					if #lines == 0 then
+						lines = BuildGroupsAdvisorLines(headerRole, bracketKey)
+					end
+				else
+					lines = NormalizeGuideLevelingLines(bracketEntry[selectedTab])
+				end
 			end
 			local out = {}
 			if bracketKey then
@@ -1718,7 +1788,7 @@ local function PopulateUniversalGuideContent()
 		for i = 1, #tabButtons do
 			local b = tabButtons[i]
 			b:SetScript("OnClick", function(self)
-				selectedTab = self._mhDataKey
+				selectedTab = self._mhDataKey or self._mhTabKey
 				refreshAdvisor()
 			end)
 		end
@@ -1741,6 +1811,7 @@ local function PopulateUniversalGuideContent()
 	end
 	nextY(ADVISOR_BOX_HEIGHT + 12)
 
+	local wowheadCons = ns.MH_GetConsumablesWowheadForSpec and ns.MH_GetConsumablesWowheadForSpec(classToken, specIdx)
 	local cons = data.consumables
 	local function consumableEntryPresent(v)
 		if type(v) == "number" and v > 0 then
@@ -1756,16 +1827,56 @@ local function PopulateUniversalGuideContent()
 		end
 		return false
 	end
-	local hasAnyCons = false
+	local hasLegacyCons = false
 	if cons then
 		for _, ck in ipairs({ "feast", "food", "flask", "potion", "healingPotion", "weaponOil", "rune" }) do
 			if consumableEntryPresent(cons[ck]) then
-				hasAnyCons = true
+				hasLegacyCons = true
 				break
 			end
 		end
 	end
-	if hasAnyCons then
+	if wowheadCons or hasLegacyCons then
+		addSectionHeader(scrollContent, ns:L("GUIDE_SECTION_CONSUMABLES_KIT"), fullW, nil, nil, th)
+		local consHost = CreateFrame("Frame", nil, scrollContent)
+		consHost:SetWidth(fullW)
+		local ry = -4
+
+		local hintFs = consHost:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		hintFs:SetPoint("TOPLEFT", consHost, "TOPLEFT", 8, ry)
+		hintFs:SetWidth(fullW - 16)
+		hintFs:SetJustifyH("LEFT")
+		hintFs:SetWordWrap(true)
+		hintFs:SetTextColor(0.78, 0.76, 0.7)
+		hintFs:SetText(ns:L("GUIDE_CONSUMABLES_SIDEBAR_HINT"))
+		ry = ry - (hintFs:GetStringHeight() or 18) - 8
+
+		local openConsBtn = CreateFrame("Button", nil, consHost, "UIPanelButtonTemplate")
+		openConsBtn:SetSize(168, 24)
+		openConsBtn:SetPoint("TOPLEFT", consHost, "TOPLEFT", 8, ry)
+		openConsBtn:SetText(ns:L("GUIDE_CONSUMABLES_OPEN_TAB"))
+		openConsBtn:SetScript("OnClick", function()
+			if guideIsPreviewView and ns.MH_SetConsumablesPreview then
+				ns.MH_SetConsumablesPreview(classToken, specIdx)
+			end
+			if ns.ShowMainUI then
+				ns:ShowMainUI()
+			end
+			if ns.SelectTab then
+				ns.SelectTab("consumables")
+			end
+		end)
+		ry = ry - 30
+
+		if wowheadCons and ns.MH_BuildConsumablesIntoHost then
+			local listHost = CreateFrame("Frame", nil, consHost)
+			listHost:SetPoint("TOPLEFT", consHost, "TOPLEFT", 4, ry)
+			local listH = ns.MH_BuildConsumablesIntoHost(listHost, classToken, specIdx, fullW - 12)
+			if ns.MH_EnsureConsumablesItemListener then
+				ns.MH_EnsureConsumablesItemListener(listHost)
+			end
+			ry = ry - (listH or 48) - 4
+		elseif hasLegacyCons and cons then
 		local order = {
 			{ key = "feast", label = "Feast" },
 			{ key = "food", label = "Solo food" },
@@ -1848,12 +1959,8 @@ local function PopulateUniversalGuideContent()
 		end
 
 		local hasUsableRows = #usableRows > 0
-		local sectionTitleKey = hasUsableRows and "GUIDE_SECTION_CONSUMABLES_USABLE" or "GUIDE_SECTION_CONSUMABLES_LATER"
-		addSectionHeader(scrollContent, ns:L(sectionTitleKey), fullW, nil, nil, th)
-		local consHost = CreateFrame("Frame", nil, scrollContent)
-		consHost:SetWidth(fullW)
 		consHost._itemRows = {}
-		local ry = 0
+		local legacyRy = ry
 		if hasUsableRows then
 			for i = 1, #usableRows do
 				local rowData = usableRows[i]
@@ -1861,7 +1968,7 @@ local function PopulateUniversalGuideContent()
 				local entryLabel = rowData.label or ""
 				local row = CreateFrame("Frame", nil, consHost)
 				row:SetSize(fullW - 8, CONS_ROW_HEIGHT)
-				row:SetPoint("TOPLEFT", consHost, "TOPLEFT", 8, ry)
+				row:SetPoint("TOPLEFT", consHost, "TOPLEFT", 8, legacyRy)
 
 				local labelFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 				labelFs:SetPoint("LEFT", row, "LEFT", 0, 0)
@@ -1942,25 +2049,27 @@ local function PopulateUniversalGuideContent()
 
 				consHost._itemRows[#consHost._itemRows + 1] = { id = itemID, nameFs = nameFs, copyBtn = copyBtn, itemID = itemID, theme = th }
 
-				ry = ry - CONS_ROW_HEIGHT - CONS_ROW_GAP
+				legacyRy = legacyRy - CONS_ROW_HEIGHT - CONS_ROW_GAP
 			end
+			ry = legacyRy
 		else
 			local noUsableFs = consHost:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-			noUsableFs:SetPoint("TOPLEFT", consHost, "TOPLEFT", 8, -2)
+			noUsableFs:SetPoint("TOPLEFT", consHost, "TOPLEFT", 8, legacyRy)
 			noUsableFs:SetPoint("TOPRIGHT", consHost, "TOPRIGHT", -8, -2)
 			noUsableFs:SetJustifyH("LEFT")
 			noUsableFs:SetWordWrap(true)
 			noUsableFs:SetTextColor(0.92, 0.86, 0.76)
+			local curLevel = UnitLevel and (UnitLevel("player") or 0) or 0
 			local notice = ns:L("GUIDE_CONSUMABLES_NONE_USABLE")
-			if earliestLockedLevel and earliestLockedLevel > 0 then
+			if earliestLockedLevel and earliestLockedLevel > 0 and curLevel < earliestLockedLevel then
 				notice = notice .. "\n" .. ns:L("GUIDE_CONSUMABLES_NEXT_UNLOCK_FMT"):format(earliestLockedLevel)
+			elseif curLevel >= 61 then
+				notice = ns:L("GUIDE_CONSUMABLES_USE_SIDEBAR")
 			end
 			noUsableFs:SetText(notice)
 			local noticeHeight = noUsableFs:GetStringHeight() or 28
-			ry = -(noticeHeight + 8)
+			ry = legacyRy - (noticeHeight + 8)
 		end
-		consHost:SetHeight(math.max(8, math.abs(ry) - CONS_ROW_GAP))
-		consHost:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, y)
 		consHost:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 		consHost:SetScript("OnEvent", function(self, _, itemID, success)
 			if not itemID or not self._itemRows then
@@ -1983,6 +2092,10 @@ local function PopulateUniversalGuideContent()
 				ScheduleGuidePopulate()
 			end
 		end)
+		end
+
+		consHost:SetHeight(math.max(8, math.abs(ry) - CONS_ROW_GAP))
+		consHost:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, y)
 		local ch = consHost:GetHeight() or 24
 		nextY(ch + 12)
 	end

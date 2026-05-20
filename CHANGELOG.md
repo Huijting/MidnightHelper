@@ -6,6 +6,9 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- **Leveling Guides — In groups** advisor tab: dungeon/raid interrupt priority, defensive timing, and party tips per role (tank, healer, melee, caster, support) at level brackets 10/30/60/80.
+- Search keywords (`in groups`, `dungeon tips`, `interrupt priority`, …) open Leveling Guides on the In groups tab.
+
 - Leveling Guides tab: **Layout** sub-tab with the ISO keyboard prototype (Midnight key highlights) using `Modules/KeyboardLayoutPrototype.lua` and `Modules/KeybindingData.lua`.
 - SMC City Guide: weekly/hub checklist using `C_QuestLog.IsQuestFlaggedCompleted`; waypoint buttons for linked pins tint green when done. Configure quest IDs in `Modules/SMCChecklistData.lua` (verify after patches). Default ships with **no** quest IDs until confirmed (avoids false “Done” from placeholder IDs).
 

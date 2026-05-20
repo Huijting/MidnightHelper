@@ -42,6 +42,10 @@ local DEFAULT_DB = {
 		},
 		--- Role Academy tab: "tank" | "heal" (see Modules/RoleAcademy.lua).
 		roleAcademyTrack = "tank",
+		roleAcademyPreflight = {
+			tank = {},
+			heal = {},
+		},
 	},
 	-- Leveling Guides: optional preview of another class/spec (see Addons/Guide.lua search bar).
 	guide = {
