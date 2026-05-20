@@ -84,14 +84,14 @@ local GROUP_EN = {
 	GUIDE_GROUPS_SUPPORT_10_2 = "Interrupt or CC if your kit has it; control reduces healing load.",
 	GUIDE_GROUPS_SUPPORT_10_3 = "Stay in range of the tank pack; do not buff from three rooms away.",
 	GUIDE_GROUPS_SUPPORT_30_1 = "Dungeon: refresh buff discipline between pulls - do not drop coverage mid-chain.",
-GROUP_EN.GUIDE_GROUPS_SUPPORT_30_2 = "Use defensives when melee reaches you; positioning is still your job."
-GROUP_EN.GUIDE_GROUPS_SUPPORT_30_3 = "Call when you need a breather to rebuff - that is normal in learning groups."
-GROUP_EN.GUIDE_GROUPS_SUPPORT_60_1 = "LFR: learn one mechanic per boss; buff timers matter less than not dying to floor effects."
-GROUP_EN.GUIDE_GROUPS_SUPPORT_60_2 = "Help with interrupts on dangerous casts - prevention stabilizes the whole raid."
-GROUP_EN.GUIDE_GROUPS_SUPPORT_60_3 = "Keep a personal defensive for overlap phases."
-GROUP_EN.GUIDE_GROUPS_SUPPORT_80_1 = "Heroic: plan movement so support spells land on the right players during mechanics."
-GROUP_EN.GUIDE_GROUPS_SUPPORT_80_2 = "Do not sacrifice yourself for marginal buff uptime - alive support wins."
-GROUP_EN.	GUIDE_GROUPS_SUPPORT_80_3 = "Pair with Role Academy for party chat before queue.",
+	GUIDE_GROUPS_SUPPORT_30_2 = "Use defensives when melee reaches you; positioning is still your job.",
+	GUIDE_GROUPS_SUPPORT_30_3 = "Call when you need a breather to rebuff - that is normal in learning groups.",
+	GUIDE_GROUPS_SUPPORT_60_1 = "LFR: learn one mechanic per boss; buff timers matter less than not dying to floor effects.",
+	GUIDE_GROUPS_SUPPORT_60_2 = "Help with interrupts on dangerous casts - prevention stabilizes the whole raid.",
+	GUIDE_GROUPS_SUPPORT_60_3 = "Keep a personal defensive for overlap phases.",
+	GUIDE_GROUPS_SUPPORT_80_1 = "Heroic: plan movement so support spells land on the right players during mechanics.",
+	GUIDE_GROUPS_SUPPORT_80_2 = "Do not sacrifice yourself for marginal buff uptime - alive support wins.",
+	GUIDE_GROUPS_SUPPORT_80_3 = "Pair with Role Academy for party chat before queue.",
 }
 
 local GROUP_NL = {
