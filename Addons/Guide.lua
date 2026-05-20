@@ -1037,6 +1037,30 @@ local function ApplyGuideSearchQuery(raw)
 	end
 
 	if qHits({
+		"academy",
+		"role academy",
+		"masterclass",
+		"master class",
+		"tank track",
+		"heal track",
+		"leren tank",
+		"leren heal",
+		"tanken",
+		"healen",
+		"group role",
+		"dungeon anxiety",
+		"raid anxiety",
+		"mentor",
+	}) then
+		if ns.ShowMainUI and ns.SelectTab then
+			ns:ShowMainUI()
+			ns.SelectTab("academy")
+		end
+		GuideChatMsg("SEARCH_CHAT_TAB_ACADEMY")
+		return
+	end
+
+	if qHits({
 		"delve",
 		"delves",
 		"vault",

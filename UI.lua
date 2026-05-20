@@ -115,6 +115,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_MACROS"
 	elseif tabId == "consumables" then
 		return "INFO_DRAWER_BODY_CONSUMABLES"
+	elseif tabId == "academy" then
+		return "INFO_DRAWER_BODY_ACADEMY"
 	elseif tabId == "addons" then
 		return "INFO_DRAWER_BODY_ADDONS"
 	end
@@ -181,6 +183,9 @@ function ns:RefreshLocaleUI()
 	end
 	if ns.SMC_RefreshDynamicChecklist then
 		ns.SMC_RefreshDynamicChecklist()
+	end
+	if ns.MH_RefreshRoleAcademyPanel and self.panels and self.panels.academy then
+		ns.MH_RefreshRoleAcademyPanel(self.panels.academy)
 	end
 
 	if r.guideSubTabButtons then
@@ -895,6 +900,7 @@ local TAB_DEFS = {
 	{ id = "guide", labelKey = "TAB_GUIDE" },
 	{ id = "macros", labelKey = "TAB_MACROS" },
 	{ id = "consumables", labelKey = "TAB_CONSUMABLES" },
+	{ id = "academy", labelKey = "TAB_ACADEMY" },
 	{ id = "addons", labelKey = "TAB_ADDONS" },
 }
 
@@ -1237,6 +1243,7 @@ function ns:EnsureMainUI()
 				professions = "TAB_PROFESSIONS",
 				guide = "TAB_GUIDE",
 				macros = "TAB_MACROS",
+				academy = "TAB_ACADEMY",
 				addons = "TAB_ADDONS",
 			}
 			local tabName = self:L(keyById[tabId] or "TAB_DELVES")
@@ -1347,6 +1354,8 @@ function ns:EnsureMainUI()
 				ns.BuildInterruptMacrosPanel(panel)
 			elseif tab.id == "consumables" and ns.BuildConsumablesPanel then
 				ns.BuildConsumablesPanel(panel)
+			elseif tab.id == "academy" and ns.BuildRoleAcademyPanel then
+				ns.BuildRoleAcademyPanel(panel)
 			end
 		end
 	end

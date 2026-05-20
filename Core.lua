@@ -40,6 +40,8 @@ local DEFAULT_DB = {
 			minimap = true,
 			ping = true,
 		},
+		--- Role Academy tab: "tank" | "heal" (see Modules/RoleAcademy.lua).
+		roleAcademyTrack = "tank",
 	},
 	-- Leveling Guides: optional preview of another class/spec (see Addons/Guide.lua search bar).
 	guide = {

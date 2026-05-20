@@ -1,26 +1,24 @@
 # Next session — Midnight Helper
 
-Pick up from `main` after **1.2.4** release.
+Pick up from `main` after **1.2.5** (Role Academy).
 
 ## Release
 
-- [x] **CurseForge 1.2.4** zip (`tools/package.ps1`) — `dist/MidnightHelper-1.2.4.zip`
-- [ ] Paste changelog on CurseForge project page (see `CHANGELOG.md` / in-game changelog 1.2.4)
+- [ ] **CurseForge 1.2.5** zip (`tools/package.ps1`) — `dist/MidnightHelper-1.2.5.zip`
+- [ ] Paste changelog on CurseForge
 
-## Test when possible
+## Test
 
-- [ ] Vault reminder: chat + minimap tooltip + ping (needs open claim or reset-day LIKELY)
-- [ ] Routing without TomTom: delve row, Find bountiful, profession pin → Blizzard waypoint on map
-- [ ] Account snapshot tooltip: profession weekly lines after relog crafters
+- [ ] Role Academy: tank/heal switch, scroll content, quick links
+- [ ] Search: `tank`, `heal`, `academy` → Role Academy tab
+- [ ] Vault reminder (when claims or reset-day LIKELY)
 
-## Backlog (optional)
+## Paused
 
-### Quick polish
+- Alt snapshot export/import
+- SMC checklist quest IDs
 
-- Delves: coffer keys column in Account snapshot
+## Backlog (later)
 
-### Larger (later)
-
-- Keyboard layout + macros for more classes
-- SMC checklist: maintain/verify quest IDs per patch
-- Alt snapshot export/import (local string, no cloud)
+- Per-spec **In groups** advisor text in Leveling Guides
+- Keyboard layouts for more classes

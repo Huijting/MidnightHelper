@@ -9,6 +9,14 @@ All notable changes to this project are documented in this file.
 - Leveling Guides tab: **Layout** sub-tab with the ISO keyboard prototype (Midnight key highlights) using `Modules/KeyboardLayoutPrototype.lua` and `Modules/KeybindingData.lua`.
 - SMC City Guide: weekly/hub checklist using `C_QuestLog.IsQuestFlaggedCompleted`; waypoint buttons for linked pins tint green when done. Configure quest IDs in `Modules/SMCChecklistData.lua` (verify after patches). Default ships with **no** quest IDs until confirmed (avoids false “Done” from placeholder IDs).
 
+## [1.2.5] - 2026-05-20
+
+### Added
+
+- **Role Academy** tab: tank and heal tracks (mindset, prep, triage, anxiety ladder from delves → dungeons/raids).
+- Quick links to Macros, Consumables, Leveling Guides, and Delves from the academy panel.
+- Search routes keywords such as `tank`, `heal`, `academy`, and `mentor` to Role Academy.
+
 ## [1.2.4] - 2026-05-20
 
 ### Added
