@@ -11,7 +11,6 @@ Pick up from `main` after **1.2.4** release.
 
 - [ ] Vault reminder: chat + minimap tooltip + ping (needs open claim or reset-day LIKELY)
 - [ ] Routing without TomTom: delve row, Find bountiful, profession pin → Blizzard waypoint on map
-- [ ] Macros: Copy team pack → Ctrl+C → paste into macro editor
 - [ ] Account snapshot tooltip: profession weekly lines after relog crafters
 
 ## Backlog (optional)

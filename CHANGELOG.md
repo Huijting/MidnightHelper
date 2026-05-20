@@ -15,7 +15,6 @@ All notable changes to this project are documented in this file.
 
 - **Great Vault reset reminders:** chat on login, minimap tooltip lines, pulsing minimap icon (toggle in minimap quick settings).
 - **Blizzard map waypoint fallback** when TomTom is not installed (delves, profession pins, bountiful finder, portal step).
-- **Macros:** “Copy team pack” — interrupt + all utility macros for the current spec in one block.
 - **Account snapshot:** profession weekly currencies in row tooltip (Abundance, Dundun shards, Moxie summary).
 
 ### Changed

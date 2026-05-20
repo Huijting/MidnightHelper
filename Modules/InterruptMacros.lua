@@ -171,38 +171,6 @@ function ns.MH_GetInterruptMacroContext()
 	return body, nil, token, specIdx, specName
 end
 
---- Interrupt + all utility macros for current class/spec (paste into macro editor).
-function ns.MH_BuildTeamMacroPack(panel)
-	local lines = {}
-	local intBody = ns.MH_GetInterruptMacroContext()
-	if intBody and intBody ~= "" then
-		lines[#lines + 1] = "# " .. ns:L("MACROS_PACK_INTERRUPT_HEADER")
-		lines[#lines + 1] = intBody
-	end
-	local list = ns.MH_GetUtilityMacroList()
-	if list then
-		if #lines > 0 then
-			lines[#lines + 1] = ""
-		end
-		lines[#lines + 1] = "# " .. ns:L("MACROS_PACK_UTILITY_HEADER")
-		for i = 1, #list do
-			local entry = list[i]
-			if entry and entry.macro and entry.macro ~= "" then
-				lines[#lines + 1] = "# " .. tostring(entry.name or ("Macro " .. i))
-				lines[#lines + 1] = entry.macro
-				lines[#lines + 1] = ""
-			end
-		end
-	end
-	if #lines == 0 then
-		return nil
-	end
-	while lines[#lines] == "" do
-		lines[#lines] = nil
-	end
-	return table.concat(lines, "\n")
-end
-
 local function MaybeResetUtilityIndexForSpec(panel)
 	local token, specIdx = ns.MH_GetMacroClassSpecContext()
 	local key = (token or "") .. ":" .. tostring(specIdx or 0)
@@ -344,9 +312,6 @@ local function RefreshMacrosPanel(panel)
 	if panel._mhMacrosCopyBtn and panel._mhMacrosCopyBtn.SetText then
 		panel._mhMacrosCopyBtn:SetText(ns:L("MACROS_COPY_BUTTON"))
 	end
-	if panel._mhMacrosPackBtn and panel._mhMacrosPackBtn.SetText then
-		panel._mhMacrosPackBtn:SetText(ns:L("MACROS_PACK_COPY_BUTTON"))
-	end
 
 	local typeButtons = panel._mhMacrosTypeButtons
 	if typeButtons then
@@ -413,9 +378,6 @@ local function RefreshMacrosPanel(panel)
 		if panel._mhMacrosCopyBtn and panel._mhMacrosCopyBtn.Enable then
 			panel._mhMacrosCopyBtn:Enable()
 		end
-		if panel._mhMacrosPackBtn and panel._mhMacrosPackBtn.Enable then
-			panel._mhMacrosPackBtn:Enable()
-		end
 	else
 		eb:SetText("")
 		local msgKey = "MACROS_ERR_GENERIC"
@@ -437,9 +399,6 @@ local function RefreshMacrosPanel(panel)
 		end
 		if panel._mhMacrosCopyBtn and panel._mhMacrosCopyBtn.Disable then
 			panel._mhMacrosCopyBtn:Disable()
-		end
-		if panel._mhMacrosPackBtn and panel._mhMacrosPackBtn.Disable then
-			panel._mhMacrosPackBtn:Disable()
 		end
 	end
 
@@ -565,32 +524,8 @@ function ns.BuildInterruptMacrosPanel(panel)
 	end)
 	panel._mhMacrosCopyBtn = copyBtn
 
-	local packBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
-	packBtn:SetSize(132, 24)
-	packBtn:SetPoint("LEFT", copyBtn, "RIGHT", 8, 0)
-	packBtn:SetText(ns:L("MACROS_PACK_COPY_BUTTON"))
-	packBtn:SetScript("OnClick", function()
-		local eb = panel._mhMacrosEdit
-		if not eb or not eb.SetText or not eb.SetFocus then
-			return
-		end
-		local pack = ns.MH_BuildTeamMacroPack(panel)
-		if not pack or pack == "" then
-			return
-		end
-		eb:SetText(pack)
-		eb:SetTextColor(0.92, 0.90, 0.82)
-		eb:SetFocus(true)
-		local t = eb:GetText() or ""
-		eb:HighlightText(0, string.len(t))
-		if panel._mhMacrosHint and panel._mhMacrosHint.SetText then
-			panel._mhMacrosHint:SetText(ns:L("MACROS_PACK_COPY_HINT"))
-		end
-	end)
-	panel._mhMacrosPackBtn = packBtn
-
 	local hint = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-	hint:SetPoint("LEFT", packBtn, "RIGHT", 10, 0)
+	hint:SetPoint("LEFT", copyBtn, "RIGHT", 10, 0)
 	hint:SetPoint("RIGHT", panel, "RIGHT", -12, 14)
 	hint:SetJustifyH("LEFT")
 	hint:SetText(ns:L("MACROS_COPY_HINT"))
