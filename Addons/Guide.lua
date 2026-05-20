@@ -936,6 +936,89 @@ local function GuideChatMsg(key, ...)
 	print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), text))
 end
 
+-- Words stripped when matching a spec alongside consumable search terms (e.g. "food frost" → frost).
+local CONSUMABLE_SEARCH_TOKENS = {
+	consumable = true,
+	consumables = true,
+	flask = true,
+	flasks = true,
+	feast = true,
+	food = true,
+	potion = true,
+	potions = true,
+	verbruik = true,
+	verbruiks = true,
+	runeforg = true,
+	runeforge = true,
+	oil = true,
+}
+
+local function ScoreGuideSearchRow(row, needle)
+	if not needle or needle == "" or not row.blob:find(needle, 1, true) then
+		return nil
+	end
+	local titleL = string.lower(row.title)
+	local score = 0
+	if titleL:find(needle, 1, true) then
+		score = score + 400
+	end
+	if #needle > 0 and #needle <= #titleL and titleL:sub(1, #needle) == needle then
+		score = score + 200
+	end
+	score = score - (#row.title) * 0.05
+	return score
+end
+
+local function FindBestGuideSearchEntry(q)
+	local best, bestScore = nil, -1e9
+	local function consider(needle)
+		if not needle or needle == "" then
+			return
+		end
+		for i = 1, #guideSearchEntries do
+			local row = guideSearchEntries[i]
+			local score = ScoreGuideSearchRow(row, needle)
+			if score and score > bestScore then
+				bestScore = score
+				best = row
+			end
+		end
+	end
+	consider(q)
+	for w in string.gmatch(q, "%S+") do
+		if not CONSUMABLE_SEARCH_TOKENS[w] then
+			consider(w)
+		end
+	end
+	return best
+end
+
+local function QueryHasConsumableKeyword(q, qHitsFn)
+	if qHitsFn({
+		"consumable",
+		"consumables",
+		"flask",
+		"flasks",
+		"feast",
+		"food",
+		"potion",
+		"potions",
+		"healing pot",
+		"weapon oil",
+		"runeforg",
+		"verbruik",
+		"verbruiks",
+	}) then
+		return true
+	end
+	for w in string.gmatch(q, "%S+") do
+		if CONSUMABLE_SEARCH_TOKENS[w] then
+			return true
+		end
+	end
+	return false
+end
+
 local function ApplyGuideSearchQuery(raw)
 	EnsureGuideSearchIndex()
 	local q = string.lower(TrimString(raw))
@@ -1077,45 +1160,44 @@ local function ApplyGuideSearchQuery(raw)
 		return
 	end
 
-	local best, bestScore = nil, -1e9
-	for i = 1, #guideSearchEntries do
-		local row = guideSearchEntries[i]
-		if row.blob:find(q, 1, true) then
-			local titleL = string.lower(row.title)
-			local score = 0
-			if titleL:find(q, 1, true) then
-				score = score + 400
-			end
-			if #q > 0 and #q <= #titleL and titleL:sub(1, #q) == q then
-				score = score + 200
-			end
-			score = score - (#row.title) * 0.05
-			if score > bestScore then
-				bestScore = score
-				best = row
-			end
-		end
-	end
+	local best = FindBestGuideSearchEntry(q)
+	local wantsConsumables = QueryHasConsumableKeyword(q, qHits)
 
-	if not best then
+	if not best and not wantsConsumables then
 		GuideChatMsg("SEARCH_CHAT_NO_MATCH_FMT", tostring(raw))
 		return
 	end
 
 	local gdb = SanitizeGuideDb()
-	if gdb then
+	if best and gdb then
 		gdb.preview = true
 		gdb.classToken = best.classFile
 		gdb.specIndex = best.specIndex
+	elseif wantsConsumables and gdb then
+		gdb.preview = false
+		gdb.classToken = ""
+		gdb.specIndex = 0
 	end
 	if ns.RefreshGuideTabVisibility then
 		ns:RefreshGuideTabVisibility()
 	end
 	if ns.ShowMainUI and ns.SelectTab then
 		ns:ShowMainUI()
-		ns.SelectTab("guide")
+		if wantsConsumables then
+			ns.SelectTab("consumables")
+		else
+			ns.SelectTab("guide")
+		end
 	end
-	GuideChatMsg("SEARCH_CHAT_GUIDE_PREVIEW_FMT", best.title, best.classFile, best.specIndex)
+	if wantsConsumables then
+		if best then
+			GuideChatMsg("SEARCH_CHAT_CONS_PREVIEW_FMT", best.title, best.classFile, best.specIndex)
+		else
+			GuideChatMsg("SEARCH_CHAT_TAB_CONSUMABLES")
+		end
+	else
+		GuideChatMsg("SEARCH_CHAT_GUIDE_PREVIEW_FMT", best.title, best.classFile, best.specIndex)
+	end
 	ScheduleGuidePopulate()
 	if ns.MH_RefreshMacrosPanel then
 		ns.MH_RefreshMacrosPanel()
