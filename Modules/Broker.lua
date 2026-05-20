@@ -29,7 +29,7 @@ local function EnsureSettingsFrame()
 	end
 
 	local f = CreateFrame("Frame", "MidnightHelperQuickSettings", UIParent, "BackdropTemplate")
-	f:SetSize(360, 188)
+	f:SetSize(360, 268)
 	f:SetFrameStrata("DIALOG")
 	f:SetFrameLevel(2100)
 	f:SetClampedToScreen(true)
@@ -148,6 +148,32 @@ local function EnsureSettingsFrame()
 	hint:SetTextColor(0.82, 0.8, 0.74)
 	f._hint = hint
 
+	local vaultLabel = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	vaultLabel:SetPoint("TOPLEFT", hint, "BOTTOMLEFT", 0, -14)
+	vaultLabel:SetTextColor(0.95, 0.9, 0.74)
+	f._vaultLabel = vaultLabel
+
+	local function MakeVaultChk(parent, anchor, offsetY, key)
+		local chk = CreateFrame("CheckButton", nil, parent, "UICheckButtonTemplate")
+		chk:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", -2, offsetY)
+		chk:SetScript("OnClick", function(self)
+			if ns.SetVaultReminderOption then
+				ns.SetVaultReminderOption(key, self:GetChecked())
+			end
+			if parent._refresh then
+				parent:_refresh()
+			end
+		end)
+		local txt = chk.text or _G[chk:GetName() .. "Text"]
+		chk._text = txt
+		return chk
+	end
+
+	f._vaultEnabled = MakeVaultChk(f, vaultLabel, -6, "enabled")
+	f._vaultChat = MakeVaultChk(f, f._vaultEnabled, -4, "chat")
+	f._vaultMinimap = MakeVaultChk(f, f._vaultChat, -4, "minimap")
+	f._vaultPing = MakeVaultChk(f, f._vaultMinimap, -4, "ping")
+
 	function f:_refresh()
 		self._title:SetText(ns:L("SETTINGS_TITLE"))
 		self._langLabel:SetText(ns:L("SETTINGS_LANGUAGE_LABEL"))
@@ -156,6 +182,25 @@ local function EnsureSettingsFrame()
 		self._modeAlways:SetText(ns:L("SETTINGS_GUIDE_MODE_ALWAYS"))
 		self._modeHidden:SetText(ns:L("SETTINGS_GUIDE_MODE_HIDDEN"))
 		self._hint:SetText(ns:L("SETTINGS_HINT"))
+		self._vaultLabel:SetText(ns:L("SETTINGS_VAULT_REMINDER_LABEL"))
+		local vaultKeys = {
+			{ chk = self._vaultEnabled, key = "enabled", loc = "SETTINGS_VAULT_REMINDER_ENABLED" },
+			{ chk = self._vaultChat, key = "chat", loc = "SETTINGS_VAULT_REMINDER_CHAT" },
+			{ chk = self._vaultMinimap, key = "minimap", loc = "SETTINGS_VAULT_REMINDER_MINIMAP" },
+			{ chk = self._vaultPing, key = "ping", loc = "SETTINGS_VAULT_REMINDER_PING" },
+		}
+		local vs = ns.GetVaultReminderSettings and ns.GetVaultReminderSettings() or {}
+		for _, row in ipairs(vaultKeys) do
+			if row.chk then
+				row.chk:SetChecked(vs[row.key] ~= false)
+				if row.chk._text and row.chk._text.SetText then
+					row.chk._text:SetText(ns:L(row.loc))
+					if row.chk._text.SetTextColor then
+						row.chk._text:SetTextColor(0.95, 0.9, 0.74)
+					end
+				end
+			end
+		end
 
 		local loc = ns:GetEffectiveLocaleCode()
 		TintBtn(self._langEn, loc ~= "nlNL")
@@ -610,6 +655,9 @@ function ns:InitMinimapBroker()
 			local modeLabel = ns:L(modeKeyByValue[mode] or "SETTINGS_GUIDE_MODE_AUTO")
 			tt:AddLine(ns:L("BROKER_TOOLTIP_LANGUAGE_FMT"):format(langLabel), 0.82, 0.86, 0.92)
 			tt:AddLine(ns:L("BROKER_TOOLTIP_GUIDE_FMT"):format(modeLabel), 0.82, 0.86, 0.92)
+			if ns.AppendVaultReminderTooltip then
+				ns.AppendVaultReminderTooltip(tt)
+			end
 		end,
 	})
 
@@ -624,6 +672,9 @@ function ns:InitMinimapBroker()
 	end
 
 	self:RefreshBrokerLocale()
+	if ns.UpdateVaultReminderPresentation then
+		ns.UpdateVaultReminderPresentation()
+	end
 end
 
 do
@@ -633,6 +684,9 @@ do
 			orig(self)
 		end
 		self:RefreshBrokerLocale()
+		if ns.UpdateVaultReminderPresentation then
+			ns.UpdateVaultReminderPresentation()
+		end
 	end
 end
 

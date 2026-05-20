@@ -33,6 +33,13 @@ local DEFAULT_DB = {
 			filterStaleOnly = false,
 			filterHasKeysOnly = false,
 		},
+		--- Great Vault reset reminders (chat, minimap tooltip, icon pulse).
+		vaultReminder = {
+			enabled = true,
+			chat = true,
+			minimap = true,
+			ping = true,
+		},
 	},
 	-- Leveling Guides: optional preview of another class/spec (see Addons/Guide.lua search bar).
 	guide = {

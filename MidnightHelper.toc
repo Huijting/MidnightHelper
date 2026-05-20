@@ -31,6 +31,7 @@ Modules\SMCChecklistData.lua
 Modules\SMCChecklist.lua
 UI.lua
 Modules\Changelog.lua
+Modules\VaultReminder.lua
 Modules\Broker.lua
 Modules\Profession.lua
 Modules\Delves.lua
