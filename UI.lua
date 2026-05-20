@@ -350,6 +350,7 @@ local SMC_CATEGORIES = {
 			{ id = "bmah", label = "BMAH", description = "Zet een waypoint naar het Black Market Auction House.", atlas = "services-icon-auctioneer", x = 51.86, y = 48.56 },
 			{ id = "transmog", label = "Transmog", description = "Zet een waypoint naar Transmog en Void Storage.", atlas = "services-icon-transmogrifier", x = 52.87, y = 57.44 },
 			{ id = "crafting_orders", label = "Crafting Orders (Mar'nah)", description = "Zet een waypoint naar crafting orders in de Bazaar (bijv. Mar'nah).", atlas = "services-icon-battlenet", x = 45.0, y = 55.6 },
+			{ id = "creation_catalyst", label = "Creation Catalyst", description = "Zet een waypoint naar de Creation Catalyst in de Bazaar (neutral).", atlas = "creationcatalyst-32x32", x = 40.31, y = 64.85 },
 		},
 	},
 	{
@@ -358,16 +359,29 @@ local SMC_CATEGORIES = {
 			{ id = "portals", label = "Portal Room", description = "Zet een waypoint naar de portal room.", atlas = "portal-horde-white", x = 53.37, y = 66.31 },
 			{ id = "portal_voidstorm", label = "Portal to Voidstorm", description = "Zet een waypoint naar de portal naar Voidstorm.", atlas = "portal-horde-white", x = 35.25, y = 65.85 },
 			{ id = "portal_harandar", label = "Portal to Harandar", description = "Zet een waypoint naar de portal naar Harandar.", atlas = "portal-horde-white", x = 36.76, y = 68.52 },
+			{ id = "timeways", label = "Timeways (Lindormi)", description = "Zet een waypoint naar de Timeways-portal bij Lindormi.", atlas = "portal-horde-white", x = 42.30, y = 58.30 },
 			{ id = "mplus_teleports", label = "M+ Teleports", description = "Zet een waypoint naar de M+ teleport locatie.", atlas = "flightmaster", x = 42.03, y = 58.30 },
 		},
 	},
 	{
 		title = "Quest Hubs",
 		items = {
+			{ id = "prey_hub", label = "Prey Hub", description = "Zet een waypoint naar de Prey-hub (in de inn, Adventure Guide / Prey).", atlas = "ui-delves", x = 56.19, y = 65.33 },
 			{ id = "astalor", label = "Magister Astalor Bloodsworn", description = "Zet een waypoint naar Magister Astalor Bloodsworn (prey quest giver).", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
 			{ id = "weekly_hub", label = "Weekly Quest Givers", description = "Zet een waypoint naar Aethas, Liadrin en Halduron (weekly hub).", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
+			{ id = "delves_hq", label = "Delves HQ", description = "Zet een waypoint naar het Delves-hoofdkwartier.", atlas = "ui-delves", x = 52.10, y = 77.70 },
 			{ id = "valeera_delves", label = "Valeera Sanguinar (Delves)", description = "Zet een waypoint naar Valeera Sanguinar, Delves questgiver.", atlas = "ui-delves", x = 52.40, y = 78.20 },
 			{ id = "training_dummies", label = "Training Dummies", description = "Zet een waypoint naar de training dummies in Silvermoon City.", atlas = "services-icon-dueling", x = 36.0, y = 84.2 },
+			{ id = "pvp_hub", label = "PvP Hub", description = "Zet een waypoint naar de PvP-hub in Silvermoon City.", atlas = "pvpqueue-icon-honor", x = 34.40, y = 81.00 },
+		},
+	},
+	{
+		title = "Horde District (Horde only)",
+		items = {
+			{ id = "horde_inn", label = "Horde Inn", description = "Zet een waypoint naar de Horde-inn (Court of Blood, alleen Horde).", atlas = "services-icon-innkeeper", x = 66.91, y = 62.09 },
+			{ id = "horde_bank", label = "Horde Bank & Vault", description = "Zet een waypoint naar bank en Great Vault in het Horde-gedeelte.", atlas = "services-icon-bank", x = 72.04, y = 64.87 },
+			{ id = "horde_ah", label = "Horde Auction House", description = "Zet een waypoint naar het Auction House in het Horde-gedeelte.", atlas = "services-icon-auctioneer", x = 67.64, y = 70.74 },
+			{ id = "horde_creation_catalyst", label = "Horde Creation Catalyst", description = "Zet een waypoint naar de Creation Catalyst in Court of Blood (alleen Horde).", atlas = "creationcatalyst-32x32", x = 70.06, y = 83.27 },
 		},
 	},
 	{
@@ -386,6 +400,7 @@ local SMC_CATEGORIES = {
 	{
 		title = "Gathering",
 		items = {
+			{ id = "fishing", label = "Fishing", description = "Zet een waypoint naar de Fishing-trainer / visplek in de Bazaar.", atlas = "ui-profession-fishing", x = 44.70, y = 60.20 },
 			{ id = "herbalism_trainer", label = "Herbalism Trainer", description = "Zet een waypoint naar de Herbalism trainer.", atlas = "ui-profession-herbalism", x = 48.20, y = 51.52 },
 			{ id = "mining_trainer", label = "Mining Trainer", description = "Zet een waypoint naar de Mining trainer.", atlas = "ui-profession-mining", x = 42.68, y = 52.84 },
 			{ id = "skinning_trainer", label = "Skinning Trainer", description = "Zet een waypoint naar de Skinning trainer.", atlas = "ui-profession-skinning", x = 43.27, y = 55.59 },

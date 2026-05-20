@@ -4,7 +4,7 @@
 	Great Vault World row (same tab, below delve list).
 ]]
 
--- Delve list icons: 525134 standard skull-hourglass; bountiful uses Delves-Bountiful-Icon / Media fallbacks.
+-- Delve list icons: per-delve atlas from C_AreaPoiInfo (map POI); bountiful keeps portal atlas / Media fallbacks.
 
 local addonName, ns = ...
 
@@ -41,6 +41,7 @@ ns.SafeHideTravelPopup = SafeHideTravelPopup
 local C_Map = C_Map
 local C_CurrencyInfo = C_CurrencyInfo
 local C_AreaPoiInfo = C_AreaPoiInfo
+local C_Minimap = C_Minimap
 local C_PartyInfo = C_PartyInfo
 local C_DelvesUI = C_DelvesUI
 local C_MajorFactions = C_MajorFactions
@@ -100,11 +101,72 @@ local TRACKER_ROW_HEIGHT = 26
 local ICON_SIZE = 22
 local ICON_NAME_GAP = 10
 local COL_GAP = 12
--- Standard list: skull hourglass. Bountiful: Blizzard portal atlas, then addon art, last resort fileID.
+-- Fallback skull-hourglass when POI atlas unavailable. Bountiful: portal atlas, addon art, fileID.
 local ICON_TEX_DELVE_STANDARD = 525134
 local ICON_TEX_DELVE_BOUNTIFUL_LAST_RESORT = 5802055
 local ATLAS_DELVE_BOUNTIFUL = "Delves-Bountiful-Icon"
 local BOUNTIFUL_MEDIA_ICON = "Interface\\AddOns\\MidnightHelper\\Media\\BountifulPortal"
+
+local function isAtlasBountiful(atlas)
+	if not atlas or atlas == "" then
+		return false
+	end
+	return string.find(string.lower(tostring(atlas)), "bountiful", 1, true) ~= nil
+end
+
+local function poiAtlasCandidates(atlas, textureKit)
+	if not atlas or atlas == "" then
+		return nil
+	end
+	local out = {}
+	local seen = {}
+	local function add(name)
+		if name and name ~= "" and not seen[name] then
+			seen[name] = true
+			out[#out + 1] = name
+		end
+	end
+	if textureKit and textureKit ~= "" then
+		add(string.format("%s-%s", textureKit, atlas))
+	end
+	add(atlas)
+	return out
+end
+
+local function tryApplyPoiAtlas(icon, atlas, textureKit)
+	if not icon or not atlas or atlas == "" or not icon.SetAtlas then
+		return false
+	end
+	local candidates = poiAtlasCandidates(atlas, textureKit)
+	if not candidates then
+		return false
+	end
+	for _, name in ipairs(candidates) do
+		pcall(icon.SetAtlas, icon, nil)
+		local atlasOk = select(1, pcall(icon.SetAtlas, icon, name))
+		local tid = icon.GetTexture and icon:GetTexture()
+		if atlasOk and tid and tid ~= 0 and tid ~= "" then
+			return true
+		end
+	end
+	return false
+end
+
+local function tryApplyPoiTextureIndex(icon, textureIndex)
+	if not icon or not textureIndex or not C_Minimap or not C_Minimap.GetPOITextureCoords then
+		return false
+	end
+	local ok, x1, x2, y1, y2 = pcall(C_Minimap.GetPOITextureCoords, textureIndex)
+	if not ok or not x1 then
+		return false
+	end
+	if icon.SetAtlas then
+		pcall(icon.SetAtlas, icon, nil)
+	end
+	icon:SetTexture("Interface/Minimap/POIIcons")
+	icon:SetTexCoord(x1, x2, y1, y2)
+	return true
+end
 
 local function applyDelveRowIcon(icon, useBountiful, grayVertex)
 	if not icon then
@@ -632,7 +694,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 end
 
 --------------------------------------------------------------------------------
--- Delve POI state via GetDelvesForMap: bountiful + atlas (character map).
+-- Delve POI state via GetDelvesForMap: bountiful flag + per-delve atlas (character map).
 -- Matches older MH behavior: scan every map/POI, OR results (duplicate POIs may disagree).
 --------------------------------------------------------------------------------
 local MAPS_BOUNTIFUL_SCRAPE = { 2393, 2437, 2395, 2424, 2444, 2413, 2405 }
@@ -696,16 +758,20 @@ local function buildBountifulMapScanOrder(preferredMapID)
 	return order
 end
 
-local function GetDelveBountifulState(itemName, mapID)
+local function GetDelvePoiState(itemName, mapID)
 	if not itemName or not C_AreaPoiInfo or not C_AreaPoiInfo.GetAreaPOIInfo then
-		return false, nil
+		return false, nil, nil, nil, nil
 	end
 	if not C_AreaPoiInfo.GetDelvesForMap then
-		return false, nil
+		return false, nil, nil, nil, nil
 	end
 
 	local isBountiful = false
 	local bountifulAtlas = nil
+	local bountifulTextureKit = nil
+	local delveAtlas = nil
+	local delveTextureKit = nil
+	local delveTextureIndex = nil
 
 	for _, zMap in ipairs(buildBountifulMapScanOrder(mapID)) do
 		local okList, delvePOIs = pcall(C_AreaPoiInfo.GetDelvesForMap, zMap)
@@ -714,23 +780,36 @@ local function GetDelveBountifulState(itemName, mapID)
 			local okInfo, pInfo = pcall(C_AreaPoiInfo.GetAreaPOIInfo, zMap, pID)
 			if okInfo and pInfo and pInfo.name and delveNameMatchesPoi(pInfo.name, itemName) then
 				local atlas = pInfo.atlasName
-				if atlas and string.find(string.lower(tostring(atlas)), "bountiful", 1, true) then
+				local textureKit = pInfo.uiTextureKit
+				if atlas and isAtlasBountiful(atlas) then
 					isBountiful = true
 					bountifulAtlas = bountifulAtlas or atlas
+					bountifulTextureKit = bountifulTextureKit or textureKit
 				elseif pInfo.isBountiful then
 					isBountiful = true
 					bountifulAtlas = bountifulAtlas or atlas
+					bountifulTextureKit = bountifulTextureKit or textureKit
 				elseif tonumber(pInfo.textureIndex) == ICON_TEX_DELVE_BOUNTIFUL_LAST_RESORT then
 					isBountiful = true
+				elseif atlas and not isAtlasBountiful(atlas) then
+					delveAtlas = delveAtlas or atlas
+					delveTextureKit = delveTextureKit or textureKit
+				elseif pInfo.textureIndex and not delveTextureIndex then
+					delveTextureIndex = pInfo.textureIndex
 				end
 			end
 		end
 	end
+	return isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex
+end
+
+local function GetDelveBountifulState(itemName, mapID)
+	local isBountiful, bountifulAtlas = GetDelvePoiState(itemName, mapID)
 	return isBountiful, bountifulAtlas
 end
 
 function ns.IsDelveBountiful(delveName, mapID)
-	return (select(1, GetDelveBountifulState(delveName, mapID)))
+	return (select(1, GetDelvePoiState(delveName, mapID)))
 end
 
 -- Ask the server for currency buckets if the API exists.
@@ -942,22 +1021,19 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 
 	if isBountiful then
 		row.name:SetTextColor(1, 0.82, 0)
-		local poiAtlas = item.bountifulAtlas
-		if poiAtlas and poiAtlas ~= "" and row.icon.SetAtlas then
-			pcall(row.icon.SetAtlas, row.icon, nil)
-			local atlasOk = select(1, pcall(row.icon.SetAtlas, row.icon, poiAtlas))
-			local tid = row.icon.GetTexture and row.icon:GetTexture()
-			if atlasOk and tid and tid ~= 0 and tid ~= "" then
-				row.icon:SetVertexColor(1, 1, 1)
-			else
-				applyDelveRowIcon(row.icon, true, false)
-			end
+		if tryApplyPoiAtlas(row.icon, item.bountifulAtlas, item.bountifulTextureKit) then
+			row.icon:SetVertexColor(1, 1, 1)
 		else
 			applyDelveRowIcon(row.icon, true, false)
 		end
 	else
 		row.name:SetTextColor(1, 1, 1)
-		applyDelveRowIcon(row.icon, false, false)
+		if tryApplyPoiAtlas(row.icon, item.delveAtlas, item.delveTextureKit)
+			or tryApplyPoiTextureIndex(row.icon, item.delveTextureIndex) then
+			row.icon:SetVertexColor(1, 1, 1)
+		else
+			applyDelveRowIcon(row.icon, false, false)
+		end
 	end
 
 	local zoneName = GetZoneDisplayName(item.mapID)
@@ -1398,7 +1474,8 @@ local function RefreshDelvesPanel()
 
 	local usedLeft, usedRight = 0, 0
 	for i, packed in ipairs(roster) do
-		local bountiful, bountifulAtlas = GetDelveBountifulState(packed[5], packed[2])
+		local bountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex =
+			GetDelvePoiState(packed[5], packed[2])
 		local item = {
 			questID = packed[1],
 			mapID = packed[2],
@@ -1407,6 +1484,10 @@ local function RefreshDelvesPanel()
 			name = packed[5],
 			isBountiful = bountiful,
 			bountifulAtlas = bountifulAtlas,
+			bountifulTextureKit = bountifulTextureKit,
+			delveAtlas = delveAtlas,
+			delveTextureKit = delveTextureKit,
+			delveTextureIndex = delveTextureIndex,
 		}
 		local col, colIdx
 		if i <= 5 then

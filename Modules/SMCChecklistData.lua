@@ -15,7 +15,7 @@ ns.SMC_CHECKLIST_DEF = {
 	{
 		id = "astalor_prey",
 		labelKey = "SMC_CHK_ASTALOR",
-		pinIds = { "astalor" },
+		pinIds = { "prey_hub", "astalor" },
 		-- Fill questIds after you confirm the real Midnight Astalor / weekly quest ID(s) in-game (/dump or Wowhead).
 		questIds = {},
 		mode = "any",
