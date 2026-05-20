@@ -26,6 +26,13 @@ local DEFAULT_DB = {
 		altOverviewExpanded = false,
 		--- Delves tab accordion: `"midnight"` | `"vault"`.
 		delvesAccordionSection = "midnight",
+		--- Account snapshot tab: sort + filter (see Modules/AltOverview.lua).
+		accountSnapshot = {
+			sortBy = "name",
+			sortDesc = false,
+			filterStaleOnly = false,
+			filterHasKeysOnly = false,
+		},
 	},
 	-- Leveling Guides: optional preview of another class/spec (see Addons/Guide.lua search bar).
 	guide = {

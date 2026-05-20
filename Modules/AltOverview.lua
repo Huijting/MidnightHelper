@@ -9,13 +9,14 @@ local addonName, ns = ...
 local COFFER_KEY = 3028
 local COFFER_SHARDS = 3310
 local UNDERCOIN = 2803
+local UNTAINTED_MANA_CRYSTALS = 3356
 
 --- Layout: keys / shards narrow; Undercoins wider so the header fits.
 local PAD_L = 4
 local PAD_R = 6
 local COL_W_KEYS = 34
 local COL_W_SHARDS = 62
-local COL_W_UNDER = 86
+local COL_W_UNDER = 96
 local COL_W_VAULT = 110
 local NUM_GAP = 4
 local ROW_ACTION_W = 18
@@ -161,6 +162,19 @@ local function FormatRelativeTime(ts)
 end
 
 --------------------------------------------------------------------------------
+local function GetPlayerItemLevel()
+	if GetAverageItemLevel then
+		local ok, overall, equipped = pcall(GetAverageItemLevel)
+		if ok then
+			local v = tonumber(equipped) or tonumber(overall) or 0
+			if v > 0 then
+				return math.floor(v + 0.5)
+			end
+		end
+	end
+	return 0
+end
+
 local function GetCurrencyQty(id)
 	local cid = tonumber(id)
 	if not cid or not C_CurrencyInfo or not C_CurrencyInfo.GetCurrencyInfo then
@@ -280,6 +294,9 @@ local function SaveCurrentSnapshot()
 		shardsWeekly = shardWeekly,
 		shardsWeeklyMax = shardMax,
 		undercoin = GetCurrencyQty(UNDERCOIN),
+		manaCrystals = GetCurrencyQty(UNTAINTED_MANA_CRYSTALS),
+		level = UnitLevel("player") or 0,
+		ilvl = GetPlayerItemLevel(),
 		vaultUnlocked = 0,
 		vaultTotal = 0,
 		vaultProgress = 0,
@@ -367,27 +384,162 @@ local function FormatCharLabel(name, realm)
 	return s
 end
 
-local function SortSnapshotEntries(entries, currentGuid)
-	table.sort(entries, function(a, b)
-		local ag = a.guid or ""
-		local bg = b.guid or ""
-		local ac = (ag == currentGuid) and 0 or 1
-		local bc = (bg == currentGuid) and 0 or 1
-		if ac ~= bc then
-			return ac < bc
+local ACCOUNT_SNAPSHOT_SORT_CYCLE = { "name", "level", "keys", "shards", "undercoin", "updated" }
+
+local function GetAccountSnapshotSettings()
+	local uiDb = ns.db and ns.db.ui
+	if type(uiDb) ~= "table" then
+		return {
+			sortBy = "name",
+			sortDesc = false,
+			filterStaleOnly = false,
+			filterHasKeysOnly = false,
+		}
+	end
+	if type(uiDb.accountSnapshot) ~= "table" then
+		uiDb.accountSnapshot = {
+			sortBy = "name",
+			sortDesc = false,
+			filterStaleOnly = false,
+			filterHasKeysOnly = false,
+		}
+	end
+	return uiDb.accountSnapshot
+end
+
+local function SnapshotEntryIsStale(e)
+	local _, shardsWeeklyStale = GetEffectiveShardsWeekly(e.shardsWeekly, e.ts)
+	local staleSinceReset = (tonumber(e.ts) or 0) > 0 and (tonumber(e.ts) or 0) < GetLocalResetAnchorTs()
+	return shardsWeeklyStale or staleSinceReset
+end
+
+local function FilterSnapshotEntries(entries, settings)
+	local out = {}
+	for i = 1, #entries do
+		local e = entries[i]
+		if settings.filterStaleOnly and not SnapshotEntryIsStale(e) then
+			-- skip
+		elseif settings.filterHasKeysOnly and (tonumber(e.keys) or 0) <= 0 then
+			-- skip
+		else
+			out[#out + 1] = e
 		end
+	end
+	return out
+end
+
+local function CompareSnapshotEntries(a, b, currentGuid, sortBy, sortDesc)
+	local ag = a.guid or ""
+	local bg = b.guid or ""
+	local ac = (ag == currentGuid) and 0 or 1
+	local bc = (bg == currentGuid) and 0 or 1
+	if ac ~= bc then
+		return ac < bc
+	end
+
+	local av, bv
+	if sortBy == "level" then
+		av, bv = tonumber(a.level) or 0, tonumber(b.level) or 0
+	elseif sortBy == "keys" then
+		av, bv = tonumber(a.keys) or 0, tonumber(b.keys) or 0
+	elseif sortBy == "shards" then
+		av, bv = tonumber(a.shards) or 0, tonumber(b.shards) or 0
+	elseif sortBy == "undercoin" then
+		av, bv = tonumber(a.undercoin) or 0, tonumber(b.undercoin) or 0
+	elseif sortBy == "updated" then
+		av, bv = tonumber(a.ts) or 0, tonumber(b.ts) or 0
+	else
 		local na = string.lower(tostring(a.name or ""))
 		local nb = string.lower(tostring(b.name or ""))
 		if na ~= nb then
-			return na < nb
+			return sortDesc and (na > nb) or (na < nb)
 		end
 		local ra = string.lower(tostring(a.realm or ""))
 		local rb = string.lower(tostring(b.realm or ""))
 		if ra ~= rb then
-			return ra < rb
+			return sortDesc and (ra > rb) or (ra < rb)
 		end
 		return ag < bg
+	end
+
+	if av ~= bv then
+		if sortDesc then
+			return av > bv
+		end
+		return av < bv
+	end
+
+	local na = string.lower(tostring(a.name or ""))
+	local nb = string.lower(tostring(b.name or ""))
+	if na ~= nb then
+		return na < nb
+	end
+	return ag < bg
+end
+
+local function SortSnapshotEntries(entries, currentGuid, settings)
+	local sortBy = settings and settings.sortBy or "name"
+	local sortDesc = settings and settings.sortDesc
+	if sortDesc == nil then
+		sortDesc = sortBy ~= "name"
+	end
+	table.sort(entries, function(a, b)
+		return CompareSnapshotEntries(a, b, currentGuid, sortBy, sortDesc)
 	end)
+end
+
+local function CycleAccountSnapshotSort()
+	local settings = GetAccountSnapshotSettings()
+	local idx = 1
+	for i = 1, #ACCOUNT_SNAPSHOT_SORT_CYCLE do
+		if ACCOUNT_SNAPSHOT_SORT_CYCLE[i] == settings.sortBy then
+			idx = i
+			break
+		end
+	end
+	idx = (idx % #ACCOUNT_SNAPSHOT_SORT_CYCLE) + 1
+	settings.sortBy = ACCOUNT_SNAPSHOT_SORT_CYCLE[idx]
+	if settings.sortBy == "name" then
+		settings.sortDesc = false
+	else
+		settings.sortDesc = true
+	end
+end
+
+local function SetAccountSnapshotSort(sortBy)
+	local settings = GetAccountSnapshotSettings()
+	settings.sortBy = sortBy
+	if sortBy == "name" then
+		settings.sortDesc = false
+	else
+		settings.sortDesc = true
+	end
+end
+
+local function RefreshAccountSnapshotToolbar()
+	if not ui.sortBtn or not ui.staleFilterBtn or not ui.keysFilterBtn then
+		return
+	end
+	local settings = GetAccountSnapshotSettings()
+	local sortKey = "ALT_SNAPSHOT_SORT_NAME"
+	if settings.sortBy == "level" then
+		sortKey = "ALT_SNAPSHOT_SORT_LEVEL"
+	elseif settings.sortBy == "keys" then
+		sortKey = "ALT_SNAPSHOT_SORT_KEYS"
+	elseif settings.sortBy == "shards" then
+		sortKey = "ALT_SNAPSHOT_SORT_SHARDS"
+	elseif settings.sortBy == "undercoin" then
+		sortKey = "ALT_SNAPSHOT_SORT_UNDER"
+	elseif settings.sortBy == "updated" then
+		sortKey = "ALT_SNAPSHOT_SORT_UPDATED"
+	end
+	ui.sortBtn:SetText(ns:L(sortKey))
+	ui.staleFilterBtn:SetText(
+		settings.filterStaleOnly and ns:L("ALT_SNAPSHOT_FILTER_STALE_ON") or ns:L("ALT_SNAPSHOT_FILTER_STALE")
+	)
+	ui.keysFilterBtn:SetText(
+		settings.filterHasKeysOnly and ns:L("ALT_SNAPSHOT_FILTER_KEYS_ON") or ns:L("ALT_SNAPSHOT_FILTER_KEYS")
+	)
 end
 
 --------------------------------------------------------------------------------
@@ -505,6 +657,18 @@ local function MakeHeaderRow(parent)
 	row.shardsHit:SetAlpha(0.001)
 	row.shardsHit:EnableMouse(true)
 
+	row.keysHit = CreateFrame("Button", nil, row)
+	row.keysHit:SetSize(COL_W_KEYS + 12, HEADER_ROW_H)
+	row.keysHit:SetPoint("CENTER", row.keysH, "CENTER")
+	row.keysHit:SetAlpha(0.001)
+	row.keysHit:EnableMouse(true)
+
+	row.underHit = CreateFrame("Button", nil, row)
+	row.underHit:SetSize(COL_W_UNDER + 12, HEADER_ROW_H)
+	row.underHit:SetPoint("CENTER", row.underH, "CENTER")
+	row.underHit:SetAlpha(0.001)
+	row.underHit:EnableMouse(true)
+
 	return row
 end
 
@@ -588,6 +752,9 @@ function ns:_mhAltOverviewCollectEntries()
 				shardsWeekly = tonumber(snap.shardsWeekly) or 0,
 				shardsWeeklyMax = tonumber(snap.shardsWeeklyMax) or 600,
 				undercoin = tonumber(snap.undercoin) or 0,
+				manaCrystals = tonumber(snap.manaCrystals) or tonumber(snap.voidlightMarl) or 0,
+				level = tonumber(snap.level) or 0,
+				ilvl = tonumber(snap.ilvl) or 0,
 				vaultUnlocked = tonumber(snap.vaultUnlocked) or 0,
 				vaultTotal = tonumber(snap.vaultTotal) or 0,
 				vaultProgress = tonumber(snap.vaultProgress) or 0,
@@ -651,9 +818,11 @@ function ns:_mhAltOverviewRefreshRows()
 	end
 	ui.dataRows = ui.dataRows or {}
 
-	local entries = self:_mhAltOverviewCollectEntries()
+	local settings = GetAccountSnapshotSettings()
+	local allEntries = self:_mhAltOverviewCollectEntries()
+	local entries = FilterSnapshotEntries(allEntries, settings)
 	local curGuid = UnitGUID("player")
-	SortSnapshotEntries(entries, curGuid)
+	SortSnapshotEntries(entries, curGuid, settings)
 	local isResetDay = IsResetDayNow()
 
 	local cw = content:GetWidth()
@@ -667,7 +836,11 @@ function ns:_mhAltOverviewRefreshRows()
 			ui.emptyHint:ClearAllPoints()
 			ui.emptyHint:SetPoint("TOPLEFT", content, "TOPLEFT", 4, -HEADER_ROW_H - 2)
 			ui.emptyHint:SetWidth(cw - 8)
-			ui.emptyHint:SetText(ns:L("ALT_OVERVIEW_EMPTY"))
+			if #allEntries > 0 then
+				ui.emptyHint:SetText(ns:L("ALT_SNAPSHOT_FILTER_EMPTY"))
+			else
+				ui.emptyHint:SetText(ns:L("ALT_OVERVIEW_EMPTY"))
+			end
 			ui.emptyHint:Show()
 		end
 		if ui.headerRow then
@@ -689,6 +862,12 @@ function ns:_mhAltOverviewRefreshRows()
 	end
 
 	for i, e in ipairs(entries) do
+		if e.guid == curGuid then
+			e.level = UnitLevel("player") or e.level
+			e.ilvl = GetPlayerItemLevel()
+			e.undercoin = GetCurrencyQty(UNDERCOIN)
+			e.manaCrystals = GetCurrencyQty(UNTAINTED_MANA_CRYSTALS)
+		end
 		local row = ui.dataRows[i]
 		if not row then
 			row = MakeDataRow(content, i)
@@ -710,6 +889,14 @@ function ns:_mhAltOverviewRefreshRows()
 			tag = " " .. ns:L("ALT_OVERVIEW_YOU")
 		end
 		local base = FormatCharLabel(e.name, e.realm) .. tag
+		local lvl = math.floor(tonumber(e.level) or 0)
+		local ilvl = math.floor(tonumber(e.ilvl) or 0)
+		if lvl > 0 then
+			base = base .. "  " .. ns:L("ALT_ROW_LEVEL_ILVL_FMT"):format(lvl, ilvl)
+		end
+		if SnapshotEntryIsStale(e) then
+			base = base .. " " .. ns:L("ALT_STALE_WED_BADGE")
+		end
 		local prof = e.professions or ""
 		if prof ~= "" then
 			base = base .. "  |cff888888" .. prof .. "|r"
@@ -724,12 +911,17 @@ function ns:_mhAltOverviewRefreshRows()
 		local shardsWeekly, shardsWeeklyStale = GetEffectiveShardsWeekly(e.shardsWeekly, e.ts)
 		local shardsWeeklyMax = tonumber(e.shardsWeeklyMax) or 600
 		row.shardsFs:SetText(FormatShardsCell(e.shards, shardsWeekly, shardsWeeklyMax, shardsWeeklyStale))
-		if shardsWeeklyMax > 0 and shardsWeekly >= shardsWeeklyMax then
+		if shardsWeeklyStale then
+			row.shardsFs:SetTextColor(1, 0.82, 0.35)
+		elseif shardsWeeklyMax > 0 and shardsWeekly >= shardsWeeklyMax then
 			row.shardsFs:SetTextColor(0.45, 1, 0.55)
 		else
 			row.shardsFs:SetTextColor(0.95, 0.95, 0.95)
 		end
-		row.underFs:SetText(tostring(e.undercoin))
+		row.underFs:SetText(ns:L("ALT_UNDER_MANA_CELL_FMT"):format(
+			math.floor(tonumber(e.undercoin) or 0),
+			math.floor(tonumber(e.manaCrystals) or 0)
+		))
 		if row.deleteBtn then
 			local canDelete = e.guid ~= curGuid
 			row.deleteBtn:SetEnabled(canDelete)
@@ -786,13 +978,13 @@ function ns:_mhAltOverviewRefreshRows()
 			row.vaultFs:SetTextColor(0.58, 0.58, 0.58)
 		else
 			row.vaultFs:SetText(ns:L("ALT_VAULT_ROW_FMT"):format(worldUnlocked, dungeonUnlocked, raidUnlocked))
-		end
-		if unlockedAny then
-			row.vaultFs:SetTextColor(0.38, 0.95, 0.42)
-		elseif worldProgress > 0 or dungeonProgress > 0 or raidProgress > 0 then
-			row.vaultFs:SetTextColor(0.9, 0.82, 0.45)
-		else
-			row.vaultFs:SetTextColor(0.58, 0.58, 0.58)
+			if unlockedAny then
+				row.vaultFs:SetTextColor(0.38, 0.95, 0.42)
+			elseif worldProgress > 0 or dungeonProgress > 0 or raidProgress > 0 then
+				row.vaultFs:SetTextColor(0.9, 0.82, 0.45)
+			else
+				row.vaultFs:SetTextColor(0.58, 0.58, 0.58)
+			end
 		end
 		row.vaultTip = {
 			world = { available = worldAvailable, unlocked = worldUnlocked, total = worldTotal, progress = worldProgress, nextThreshold = worldNextT },
@@ -815,6 +1007,11 @@ function ns:_mhAltOverviewRefreshRows()
 			shardsWeekly = shardsWeekly,
 			shardsWeeklyMax = shardsWeeklyMax,
 			shardsWeeklyStale = shardsWeeklyStale,
+			keys = tonumber(e.keys) or 0,
+			level = lvl,
+			ilvl = ilvl,
+			manaCrystals = tonumber(e.manaCrystals) or 0,
+			undercoin = tonumber(e.undercoin) or 0,
 		}
 		row.vaultTip.likelyClaim = (not row.vaultTip.hasAvailableRewards) and row.vaultTip.staleSinceReset and unlockedAny
 		if row.vaultGlow then
@@ -847,6 +1044,28 @@ function ns:_mhAltOverviewRefreshRows()
 			end
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:ClearLines()
+			if (tonumber(self.vaultTip.level) or 0) > 0 then
+				GameTooltip:AddLine(
+					ns:L("ALT_TOOLTIP_LEVEL_ILVL_FMT"):format(
+						tonumber(self.vaultTip.level) or 0,
+						tonumber(self.vaultTip.ilvl) or 0
+					),
+					0.9,
+					0.9,
+					0.9
+				)
+			end
+			GameTooltip:AddLine(ns:L("ALT_TOOLTIP_KEYS"):format(tonumber(self.vaultTip.keys) or 0), 0.9, 0.9, 0.9)
+			GameTooltip:AddLine(
+				ns:L("ALT_TOOLTIP_UNDER_MANA_FMT"):format(
+					tonumber(self.vaultTip.undercoin) or 0,
+					tonumber(self.vaultTip.manaCrystals) or 0
+				),
+				0.75,
+				0.88,
+				1
+			)
+			GameTooltip:AddLine(" ")
 			if self.vaultTip.professionsFull and self.vaultTip.professionsFull ~= "" then
 				GameTooltip:AddLine(ns:L("ALT_TOOLTIP_PROFESSIONS"), 0.9, 0.9, 0.9)
 				GameTooltip:AddLine(self.vaultTip.professionsFull, 0.75, 0.82, 1, true)
@@ -966,22 +1185,37 @@ function ns:_mhAltOverviewRefreshHeaderTexts()
 	h.charH:SetText(ns:L("ALT_COL_CHARACTER"))
 	h.keysH:SetText(ns:L("ALT_COL_KEYS"))
 	h.shardsH:SetText(ns:L("ALT_COL_SHARDS"))
-	if h.shardsHit then
-		h.shardsHit:SetScript("OnEnter", function(self)
-			if not GameTooltip then
-				return
-			end
-			GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
-			GameTooltip:SetText(ns:L("ALT_COL_SHARDS_HINT"), 1, 0.92, 0.55, 1, true)
-			GameTooltip:Show()
-		end)
-		h.shardsHit:SetScript("OnLeave", function()
-			if GameTooltip then
-				GameTooltip:Hide()
+	local function wireHeaderHit(hit, sortBy, hintKey)
+		if not hit then
+			return
+		end
+		hit:SetScript("OnClick", function()
+			SetAccountSnapshotSort(sortBy)
+			RefreshAccountSnapshotToolbar()
+			if ns._mhAltOverviewRefreshRows then
+				ns:_mhAltOverviewRefreshRows()
 			end
 		end)
+		if hintKey then
+			hit:SetScript("OnEnter", function(self)
+				if not GameTooltip then
+					return
+				end
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+				GameTooltip:SetText(ns:L(hintKey), 1, 0.92, 0.55, 1, true)
+				GameTooltip:Show()
+			end)
+			hit:SetScript("OnLeave", function()
+				if GameTooltip then
+					GameTooltip:Hide()
+				end
+			end)
+		end
 	end
-	h.underH:SetText(ns:L("ALT_COL_UNDERCOINS"))
+	wireHeaderHit(h.keysHit, "keys", "ALT_COL_KEYS_HINT")
+	wireHeaderHit(h.shardsHit, "shards", "ALT_COL_SHARDS_HINT")
+	wireHeaderHit(h.underHit, "undercoin", "ALT_COL_UNDER_MANA_HINT")
+	h.underH:SetText(ns:L("ALT_COL_UNDER_MANA"))
 	if h.abundH then
 		h.abundH:Hide()
 	end
@@ -994,6 +1228,7 @@ function ns:_mhAltOverviewRefreshTexts()
 	if ui.hint then
 		ui.hint:SetText(ns:L("ALT_OVERVIEW_HINT"))
 	end
+	RefreshAccountSnapshotToolbar()
 	do
 		local list = self:_mhAltOverviewCollectEntries()
 		self:_mhAltOverviewApplyTitle(#list)
@@ -1015,8 +1250,49 @@ local function BuildAccountSnapshotHost(host)
 	ui.hint:SetPoint("TOPRIGHT", ui.pageTitle, "BOTTOMRIGHT", 0, -6)
 	ui.hint:SetJustifyH("LEFT")
 
+	ui.toolbar = CreateFrame("Frame", nil, host)
+	ui.toolbar:SetHeight(24)
+	ui.toolbar:SetPoint("TOPLEFT", ui.hint, "BOTTOMLEFT", 0, -6)
+	ui.toolbar:SetPoint("TOPRIGHT", ui.hint, "BOTTOMRIGHT", 0, -6)
+
+	ui.sortBtn = CreateFrame("Button", nil, ui.toolbar, "UIPanelButtonTemplate")
+	ui.sortBtn:SetSize(148, 22)
+	ui.sortBtn:SetPoint("LEFT", ui.toolbar, "LEFT", 0, 0)
+	ui.sortBtn:SetScript("OnClick", function()
+		CycleAccountSnapshotSort()
+		RefreshAccountSnapshotToolbar()
+		if ns._mhAltOverviewRefreshRows then
+			ns:_mhAltOverviewRefreshRows()
+		end
+	end)
+
+	ui.staleFilterBtn = CreateFrame("Button", nil, ui.toolbar, "UIPanelButtonTemplate")
+	ui.staleFilterBtn:SetSize(92, 22)
+	ui.staleFilterBtn:SetPoint("LEFT", ui.sortBtn, "RIGHT", 6, 0)
+	ui.staleFilterBtn:SetScript("OnClick", function()
+		local s = GetAccountSnapshotSettings()
+		s.filterStaleOnly = not s.filterStaleOnly
+		RefreshAccountSnapshotToolbar()
+		if ns._mhAltOverviewRefreshRows then
+			ns:_mhAltOverviewRefreshRows()
+		end
+	end)
+
+	ui.keysFilterBtn = CreateFrame("Button", nil, ui.toolbar, "UIPanelButtonTemplate")
+	ui.keysFilterBtn:SetSize(88, 22)
+	ui.keysFilterBtn:SetPoint("LEFT", ui.staleFilterBtn, "RIGHT", 6, 0)
+	ui.keysFilterBtn:SetScript("OnClick", function()
+		local s = GetAccountSnapshotSettings()
+		s.filterHasKeysOnly = not s.filterHasKeysOnly
+		RefreshAccountSnapshotToolbar()
+		if ns._mhAltOverviewRefreshRows then
+			ns:_mhAltOverviewRefreshRows()
+		end
+	end)
+	RefreshAccountSnapshotToolbar()
+
 	ui.expandPanel = CreateFrame("Frame", nil, host)
-	ui.expandPanel:SetPoint("TOPLEFT", ui.hint, "BOTTOMLEFT", 0, -10)
+	ui.expandPanel:SetPoint("TOPLEFT", ui.toolbar, "BOTTOMLEFT", 0, -8)
 	ui.expandPanel:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", -8, 8)
 
 	local scroll = CreateFrame("ScrollFrame", "MidnightHelperAltOverviewScroll", ui.expandPanel)

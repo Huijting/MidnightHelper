@@ -88,10 +88,11 @@ local MIDNIGHT_PORTALS = {
 ns.MIDNIGHT_DELVES = MIDNIGHT_DELVES
 ns.MIDNIGHT_PORTALS = MIDNIGHT_PORTALS
 
--- Verified Midnight currency IDs (Restored Coffer Key, Shards, Undercoin).
+-- Verified Midnight currency IDs (Restored Coffer Key, Shards, Undercoin, Untainted Mana-Crystals).
 local CURRENCY_COFFER_KEY = 3028
 local CURRENCY_COFFER_SHARDS = 3310
 local CURRENCY_UNDERCOIN = 2803
+local CURRENCY_UNTAINTED_MANA_CRYSTALS = 3356
 local ITEM_TROVEHUNTER_BOUNTY = 252415
 local ITEM_RAID_R_MINI = 244193
 
@@ -212,6 +213,24 @@ local function GetVaultProgress()
 end
 
 ns.GetVaultProgress = GetVaultProgress
+
+local function VaultHasClaimableRewards()
+	if not C_WeeklyRewards or not C_WeeklyRewards.HasAvailableRewards then
+		return false
+	end
+	local ok, avail = pcall(C_WeeklyRewards.HasAvailableRewards)
+	return ok and avail == true
+end
+
+local function RouteToDelveRow(rd)
+	if not rd or not rd.mapID then
+		return false
+	end
+	if not ns.IsTomTomReady() then
+		print(ns:L("TOMTOM_MISSING"))
+	end
+	return ns.AddSmartTomTomWay(rd.mapID, rd.x, rd.y, rd.name) and true or false
+end
 
 --------------------------------------------------------------------------------
 -- TomTom + Travel Assistant (shared as ns.AddSmartTomTomWay for Profession.lua)
@@ -711,8 +730,12 @@ local function RequestTrackedCurrencyData()
 	if not C_CurrencyInfo then
 		return
 	end
-	-- Phase 61b: mana crystal currency removed from server request list
-	local ids = { CURRENCY_COFFER_KEY, CURRENCY_COFFER_SHARDS, CURRENCY_UNDERCOIN }
+	local ids = {
+		CURRENCY_COFFER_KEY,
+		CURRENCY_COFFER_SHARDS,
+		CURRENCY_UNDERCOIN,
+		CURRENCY_UNTAINTED_MANA_CRYSTALS,
+	}
 	for _, id in ipairs(ids) do
 		if C_CurrencyInfo.RequestCurrencyDataFromServer then
 			pcall(C_CurrencyInfo.RequestCurrencyDataFromServer, id)
@@ -855,14 +878,8 @@ local function EnsureDelveRowButton(columnFrame, rows, index, colW)
 
 		row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 		row:SetScript("OnClick", function(self, button)
-			if button == "RightButton" then
-				local rd = self.mhDelveRow
-				if rd then
-					if not ns.IsTomTomReady() then
-						print(ns:L("TOMTOM_MISSING"))
-					end
-					ns.AddSmartTomTomWay(rd.mapID, rd.x, rd.y, rd.name)
-				end
+			if button == "LeftButton" or button == "RightButton" then
+				RouteToDelveRow(self.mhDelveRow)
 			end
 		end)
 
@@ -881,6 +898,11 @@ local function EnsureDelveRowButton(columnFrame, rows, index, colW)
 		fs:SetWordWrap(false)
 		row.name = fs
 
+		row.routeMark = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		row.routeMark:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+		row.routeMark:SetText("|cffffcc00>|r")
+		row.routeMark:Hide()
+
 		rows[index] = row
 	end
 	row:SetWidth(colW)
@@ -895,6 +917,20 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 	local isBountiful = item.isBountiful and true or false
 
 	row:SetAlpha(1.0)
+
+	if row.routeBtn then
+		row.routeBtn:Hide()
+		row.routeBtn:EnableMouse(false)
+	end
+	if row.routeMark then
+		if isBountiful then
+			row.routeMark:Show()
+			row.name:SetPoint("RIGHT", row.routeMark, "LEFT", -2, 0)
+		else
+			row.routeMark:Hide()
+			row.name:SetPoint("RIGHT", row, "RIGHT", -6, 0)
+		end
+	end
 
 	if isBountiful then
 		row.name:SetTextColor(1, 0.82, 0)
@@ -953,6 +989,10 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddDoubleLine("|cff00ffffMidnightHelper:|r Speed Grade:", "|cffffcc00" .. myGrade .. "|r")
 		GameTooltip:AddLine(" ")
+		if item.isBountiful then
+			GameTooltip:AddLine(ns:L("DELVES_ROW_ROUTE_BTN"), 1, 0.88, 0.45, true)
+			GameTooltip:AddLine(ns:L("DELVES_ROW_TT_LEFTCLICK"), 0.75, 0.75, 0.75, true)
+		end
 		GameTooltip:AddLine(ns:L("DELVES_ROW_TT_RIGHTCLICK"), 0.75, 0.75, 0.75, true)
 		GameTooltip:AddLine(ns:L("DELVES_ROW_TT_TOMTOM"), 0.75, 0.75, 0.75, true)
 		GameTooltip:AddLine(ns:L("DELVES_ROW_TT_TRAVEL"), 0.75, 0.75, 0.75, true)
@@ -1072,7 +1112,6 @@ local function RefreshDelvesPanel()
 		end
 
 		ns.vaultPanel:SetWidth(colW)
-		ns.vaultPanel:SetHeight(VAULT_PAD + VAULT_ROW_H + VAULT_ROW_GAP + VAULT_ROW_H + VAULT_ROW_GAP + VAULT_ROW_H + VAULT_PAD)
 
 		ns.vaultPanel:ClearAllPoints()
 		if vaultToggleBar then
@@ -1149,8 +1188,47 @@ local function RefreshDelvesPanel()
 			end
 		end
 
+		local vaultClaimReady = VaultHasClaimableRewards()
+		if not ns.vaultClaimLine then
+			ns.vaultClaimLine = ns.vaultPanel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+			ns.vaultClaimLine:SetJustifyH("LEFT")
+			ns.vaultClaimLine:SetJustifyV("TOP")
+			ns.vaultClaimLine:SetWordWrap(true)
+		end
+		ns.vaultClaimLine:ClearAllPoints()
+		ns.vaultClaimLine:SetWidth(rowInnerW)
+		ns.vaultClaimLine:SetPoint("TOPLEFT", ns.vaultPanel, "TOPLEFT", VAULT_PAD, -VAULT_PAD)
+		if vaultClaimReady then
+			ns.vaultClaimLine:SetText(ns:L("DELVES_VAULT_CLAIM_READY"))
+			ns.vaultClaimLine:SetTextColor(1, 0.84, 0.18)
+			ns.vaultClaimLine:Show()
+		else
+			ns.vaultClaimLine:SetText("")
+			ns.vaultClaimLine:Hide()
+		end
+
+		local claimStripH = 0
+		if vaultClaimReady then
+			local h = ns.vaultClaimLine:GetStringHeight()
+			if not h or h < 1 then
+				h = 12
+			end
+			claimStripH = math.max(52, math.floor(h + 10))
+		end
+
+		local vaultPanelH = VAULT_PAD
+			+ claimStripH
+			+ VAULT_ROW_H
+			+ VAULT_ROW_GAP
+			+ VAULT_ROW_H
+			+ VAULT_ROW_GAP
+			+ VAULT_ROW_H
+			+ VAULT_PAD
+		ns.vaultPanel:SetHeight(vaultPanelH)
+
+		local firstRowY = -(VAULT_PAD + claimStripH)
 		ns.vaultBoxes[1]:ClearAllPoints()
-		ns.vaultBoxes[1]:SetPoint("TOPLEFT", ns.vaultPanel, "TOPLEFT", VAULT_PAD, -VAULT_PAD)
+		ns.vaultBoxes[1]:SetPoint("TOPLEFT", ns.vaultPanel, "TOPLEFT", VAULT_PAD, firstRowY)
 		for i = 2, 3 do
 			ns.vaultBoxes[i]:ClearAllPoints()
 			ns.vaultBoxes[i]:SetPoint("TOPLEFT", ns.vaultBoxes[i - 1], "BOTTOMLEFT", 0, -VAULT_ROW_GAP)
@@ -1177,6 +1255,13 @@ local function RefreshDelvesPanel()
 					box.text:SetPoint("LEFT", box.icon, "RIGHT", 8, 0)
 					box.text:SetText(string.format(ns:L("DELVES_VAULT_TIER"), data.level or 0, data.ilvl or 0))
 					box.text:SetTextColor(1, 0.82, 0)
+				elseif vaultClaimReady then
+					box.icon:SetSize(22, 22)
+					box.icon:SetPoint("LEFT", box, "LEFT", 4, 0)
+					box.icon:SetTexture(133784)
+					box.text:SetPoint("LEFT", box.icon, "RIGHT", 8, 0)
+					box.text:SetText(string.format(ns:L("DELVES_VAULT_LOCKED"), data.progress or 0, data.threshold or 0))
+					box.text:SetTextColor(0.85, 0.85, 0.85)
 				else
 					box.icon:SetSize(22, 22)
 					box.icon:SetPoint("LEFT", box, "LEFT", 4, 0)
@@ -1256,8 +1341,7 @@ local function RefreshDelvesPanel()
 	local keyQty = GetCurrencyQuantity(CURRENCY_COFFER_KEY)
 	local shardQty, shardEarned, shardMax = GetShardQuantityAndMax()
 	local underQty = GetCurrencyQuantity(CURRENCY_UNDERCOIN)
-
-	-- Mana crystals header removed in Phase 61
+	local manaCrystalQty = GetCurrencyQuantity(CURRENCY_UNTAINTED_MANA_CRYSTALS)
 
 	local bountyCount = 0
 	local raidCount = 0
@@ -1282,6 +1366,7 @@ local function RefreshDelvesPanel()
 			shardEarned,
 			shardMax,
 			underQty,
+			manaCrystalQty,
 			extraText
 		)
 	)
