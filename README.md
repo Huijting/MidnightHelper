@@ -7,6 +7,7 @@ It combines Delves, Great Vault progress, alt snapshots, professions utilities, 
 ## Features
 
 - Delves dashboard with current currencies and bountiful tracking.
+- **Delve Coach** — in-delve tips for all 11 Midnight delves (EN/NL), boss 3D preview, scroll-zoom, spell tooltips.
 - Great Vault helper on the Delves tab.
 - Account snapshot with per-character overview:
   - Keys, Shards, Undercoins
@@ -23,6 +24,7 @@ It combines Delves, Great Vault progress, alt snapshots, professions utilities, 
 - `/mh lang en` - Switch language to English
 - `/mh lang nl` - Switch language to Dutch
 - `/mh settings` - Open quick settings
+- `/mh coach` - Open Delve Coach (picker or active delve)
 - `/mh debug` - Toggle debug mode
 
 ## Requirements

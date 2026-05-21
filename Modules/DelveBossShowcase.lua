@@ -11,6 +11,7 @@ local _, ns = ...
 ---@field y number|nil
 ---@field z number|nil
 ---@field facing number|nil
+---@field portraitZoom number|nil
 
 ---@class MHDelveBossVisual
 ---@field creatureId number
@@ -20,33 +21,100 @@ local _, ns = ...
 ---@field y number|nil
 ---@field z number|nil
 ---@field facing number|nil
+---@field portraitZoom number|nil
 
+-- SetCamDistanceScale: higher = camera further = smaller on screen (more body visible).
+-- Tuned from in-game Delve Coach screenshots (May 2026).
 local DEFAULT_BOSS_FRAME = {
-	cam = 0.58,
+	cam = 1.0,
 	x = 0,
 	y = 0,
-	z = -0.22,
+	z = 0,
 	facing = 0.32,
+	portraitZoom = 0,
 }
 
---- Per-creature camera tweaks (large mushrooms, hydras, faceless ones need zoom-out).
+local BOSS_CAM_MIN = 0.45
+local BOSS_CAM_MAX = 2.0
+local BOSS_CAM_WHEEL_STEP = 0.07
+
+local function GetDelveCoachSettings()
+	local s = ns.db and ns.db.ui and ns.db.ui.delveCoach
+	return type(s) == "table" and s or nil
+end
+
+function ns:GetDelveBossCamOverride(creatureId)
+	local s = GetDelveCoachSettings()
+	if not s or type(s.bossCam) ~= "table" then
+		return nil
+	end
+	creatureId = tonumber(creatureId)
+	if not creatureId then
+		return nil
+	end
+	local cam = tonumber(s.bossCam[creatureId]) or tonumber(s.bossCam[tostring(creatureId)])
+	if not cam then
+		return nil
+	end
+	return math.max(BOSS_CAM_MIN, math.min(BOSS_CAM_MAX, cam))
+end
+
+function ns:SetDelveBossCamOverride(creatureId, cam)
+	local s = GetDelveCoachSettings()
+	if not s then
+		return
+	end
+	creatureId = tonumber(creatureId)
+	cam = tonumber(cam)
+	if not creatureId or not cam then
+		return
+	end
+	if type(s.bossCam) ~= "table" then
+		s.bossCam = {}
+	end
+	s.bossCam[creatureId] = math.max(BOSS_CAM_MIN, math.min(BOSS_CAM_MAX, cam))
+end
+
+--- Scroll up = zoom in (model larger); scroll down = zoom out.
+function ns:AdjustDelveBossCam(model, creatureId, bossEntry, wheelDelta)
+	if not model or not creatureId or not wheelDelta or wheelDelta == 0 then
+		return
+	end
+	creatureId = tonumber(creatureId)
+	if not creatureId then
+		return
+	end
+	local frame = self:GetDelveBossFrame(creatureId, bossEntry)
+	local cam = tonumber(frame.cam) or DEFAULT_BOSS_FRAME.cam
+	if wheelDelta > 0 then
+		cam = cam - BOSS_CAM_WHEEL_STEP
+	else
+		cam = cam + BOSS_CAM_WHEEL_STEP
+	end
+	self:SetDelveBossCamOverride(creatureId, cam)
+	frame.cam = self:GetDelveBossCamOverride(creatureId) or cam
+	self:ApplyDelveBossFrameSettings(model, frame)
+	return frame.cam
+end
+
+--- Per-creature camera tweaks.
 local CREATURE_FRAMES = {
-	[246621] = { cam = 0.48, z = -0.38 },
-	[246680] = { cam = 0.50, z = -0.35 },
-	[247114] = { cam = 0.52, z = -0.30 },
-	[247910] = { cam = 0.36, z = -0.62, y = -0.05 },
-	[248257] = { cam = 0.34, z = -0.58, y = -0.08 },
-	[248320] = { cam = 0.36, z = -0.60, y = -0.05 },
-	[250939] = { cam = 0.38, z = -0.55 },
-	[251032] = { cam = 0.54, z = -0.28 },
-	[252352] = { cam = 0.56, z = -0.26 },
-	[254772] = { cam = 0.38, z = -0.58 },
-	[254769] = { cam = 0.56, z = -0.26 },
-	[254773] = { cam = 0.54, z = -0.28 },
-	[255108] = { cam = 0.42, z = -0.48 },
-	[256683] = { cam = 0.46, z = -0.40 },
-	[256817] = { cam = 0.56, z = -0.26 },
-	[248676] = { cam = 0.55, z = -0.28 },
+	[246621] = { cam = 1.05 },
+	[246680] = { cam = 0.86 }, -- Lumenia: too small
+	[247114] = { cam = 1.38, z = -0.04 }, -- Jin'Ma: torso close-up
+	[247910] = { cam = 1.22, z = -0.10, y = -0.03 }, -- Gyrospore: dark, cap clipped
+	[248257] = { cam = 1.18, z = -0.08 }, -- Mycomight
+	[248320] = { cam = 1.28, z = -0.10 }, -- Brightthorn: head fills frame
+	[250939] = { cam = 1.42, z = -0.08 }, -- Mul'tha'ul: shoulders only
+	[251032] = { cam = 0.86, z = -0.02 }, -- Darza: too small / dark
+	[252352] = { cam = 1.05 },
+	[254772] = { cam = 1.15, z = -0.06, y = -0.02 }, -- Hydrangea
+	[254769] = { cam = 1.32 }, -- Garand: torso close-up
+	[254773] = { cam = 1.08 }, -- Voidscorned Vagrant
+	[255108] = { cam = 0.98 },
+	[256683] = { cam = 0.96 },
+	[256817] = { cam = 1.35 }, -- Gulkat: torso close-up
+	[248676] = { cam = 0.88 }, -- Patram: too small
 }
 
 ---@type table<string, MHDelveBossVisual[]>
@@ -125,10 +193,14 @@ function ns:GetDelveBossFrame(creatureId, bossEntry)
 	end
 	if bossEntry then
 		for k, v in pairs(bossEntry) do
-			if k == "cam" or k == "x" or k == "y" or k == "z" or k == "facing" then
+			if k == "cam" or k == "x" or k == "y" or k == "z" or k == "facing" or k == "portraitZoom" then
 				frame[k] = v
 			end
 		end
+	end
+	local userCam = self:GetDelveBossCamOverride(creatureId)
+	if userCam then
+		frame.cam = userCam
 	end
 	return frame
 end
@@ -154,11 +226,11 @@ function ns:ClearDelveBossCreatureModel(model)
 	end
 	model._mhPendingCreatureId = nil
 	model._mhLoadedCreatureId = nil
-	if model.SetCreature then
-		pcall(model.SetCreature, model, 0)
-	end
 	if model.ClearModel then
 		pcall(model.ClearModel, model)
+	end
+	if model.SetCamDistanceScale then
+		pcall(model.SetCamDistanceScale, model, 1)
 	end
 	if model.SetAnimation then
 		pcall(model.SetAnimation, model, 0, 0)
@@ -172,9 +244,13 @@ function ns:ApplyDelveBossFrameSettings(model, frame)
 	end
 	local x = tonumber(frame.x) or 0
 	local y = tonumber(frame.y) or 0
-	local z = tonumber(frame.z) or -0.22
+	local z = tonumber(frame.z) or 0
 	local facing = tonumber(frame.facing) or 0.32
 	local cam = tonumber(frame.cam) or DEFAULT_BOSS_FRAME.cam
+	local portraitZoom = tonumber(frame.portraitZoom)
+	if portraitZoom == nil then
+		portraitZoom = DEFAULT_BOSS_FRAME.portraitZoom or 0
+	end
 
 	if model.SetPosition then
 		model:SetPosition(x, y, z)
@@ -182,17 +258,17 @@ function ns:ApplyDelveBossFrameSettings(model, frame)
 	if model.SetFacing then
 		model:SetFacing(facing)
 	end
-	if model.SetCamDistanceScale then
-		model:SetCamDistanceScale(cam)
-	end
-	if model.SetPortraitZoom then
-		pcall(model.SetPortraitZoom, model, 0)
-	end
 	if model.SetAnimation then
 		pcall(model.SetAnimation, model, 0, 0)
 	end
 	if model.SetDoBlend then
 		model:SetDoBlend(true)
+	end
+	if model.SetPortraitZoom then
+		pcall(model.SetPortraitZoom, model, portraitZoom)
+	end
+	if model.SetCamDistanceScale then
+		model:SetCamDistanceScale(cam)
 	end
 	if model.RefreshCamera then
 		pcall(model.RefreshCamera, model)
@@ -224,14 +300,17 @@ local function FinishDelveBossCreatureModel(model, creatureId, frame)
 	ns:ApplyDelveBossFrameSettings(model, frame)
 
 	local function refit()
-		if model._mhLoadedCreatureId ~= creatureId then
+		if not model or model._mhLoadedCreatureId ~= creatureId then
 			return
 		end
-		ns:ApplyDelveBossFrameSettings(model, frame)
+		local fresh = ns:GetDelveBossFrame(creatureId, model._mhBossEntry)
+		ns:ApplyDelveBossFrameSettings(model, fresh)
 	end
 	if C_Timer and C_Timer.After then
 		C_Timer.After(0.05, refit)
-		C_Timer.After(0.15, refit)
+		C_Timer.After(0.12, refit)
+		C_Timer.After(0.25, refit)
+		C_Timer.After(0.45, refit)
 	end
 	return true
 end
@@ -247,6 +326,7 @@ function ns:ApplyDelveBossCreatureModel(model, creatureId, bossEntry)
 	end
 
 	local frame = self:GetDelveBossFrame(creatureId, bossEntry)
+	model._mhBossEntry = bossEntry
 
 	if model._mhLoadedCreatureId == creatureId and model.IsShown and model:IsShown() then
 		self:ApplyDelveBossFrameSettings(model, frame)

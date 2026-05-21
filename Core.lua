@@ -48,6 +48,7 @@ local DEFAULT_DB = {
 			width = 320,
 			height = 480,
 			bossIndex = {},
+			bossCam = {},
 			point = "RIGHT",
 			relPoint = "RIGHT",
 			x = -36,

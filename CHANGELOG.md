@@ -12,6 +12,22 @@ All notable changes to this project are documented in this file.
 - Leveling Guides tab: **Layout** sub-tab with the ISO keyboard prototype (Midnight key highlights) using `Modules/KeyboardLayoutPrototype.lua` and `Modules/KeybindingData.lua`.
 - SMC City Guide: weekly/hub checklist using `C_QuestLog.IsQuestFlaggedCompleted`; waypoint buttons for linked pins tint green when done. Configure quest IDs in `Modules/SMCChecklistData.lua` (verify after patches). Default ships with **no** quest IDs until confirmed (avoids false “Done” from placeholder IDs).
 
+## [1.2.6] - 2026-05-21
+
+### Added
+
+- **Delve Coach:** floating in-delve tips panel for all **11 Midnight Season 1 delves** (Overview, Route, Trash, Boss).
+- **English and Dutch** tip text (`/mh lang en` / `/mh lang nl`); locale validation for every delve section.
+- **Boss spotlight:** 3D creature preview with prev/next; **mouse-wheel zoom** per boss (saved per character).
+- **Blue spell hyperlinks** in tips (hover/click for spell tooltips where IDs are known).
+- **Preview** from Delves tab (“Delve Coach (preview tips)”) and `/mh coach`; auto-show when entering a delve (optional).
+- Resizable, draggable coach window with minimize.
+
+### Fixed
+
+- Boss model camera framing and `SetLight` crash on `PlayerModel`.
+- GameTooltip `SetText` signature on boss zoom hint (retail API).
+
 ## [1.2.5] - 2026-05-20
 
 ### Added

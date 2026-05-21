@@ -2,6 +2,8 @@
 	Midnight Helper — Delve Coach tip bodies (per delve, EN + NL).
 	Sources: primarily Icy Veins delve guides; Torment's Rise also Boostmatch/Wowhead.
 	Line breaks use |n; bullets use • for readable lists in-game.
+
+	Locale audit: 11 delves × 4 sections = 44 body keys in enUS and nlNL each (88 total).
 ]]
 
 local _, ns = ...
@@ -16,6 +18,19 @@ local function merge(target, patch)
 end
 
 merge(ns._mhLocales and ns._mhLocales.enUS, {
+	-- Display names (coach title / picker; rosterName stays English for POI matching)
+	DELVE_NAME_SHADOW_ENCLAVE = "The Shadow Enclave",
+	DELVE_NAME_COLLEGIATE_CALAMITY = "Collegiate Calamity",
+	DELVE_NAME_THE_DARKWAY = "The Darkway",
+	DELVE_NAME_PARHELION_PLAZA = "Parhelion Plaza",
+	DELVE_NAME_ATAL_AMAN = "Atal'Aman",
+	DELVE_NAME_TWILIGHT_CRYPTS = "Twilight Crypts",
+	DELVE_NAME_GULF_OF_MEMORY = "The Gulf of Memory",
+	DELVE_NAME_GRUDGE_PIT = "The Grudge Pit",
+	DELVE_NAME_SUNKILLER_SANCTUM = "Sunkiller Sanctum",
+	DELVE_NAME_SHADOWGUARD_POINT = "Shadowguard Point",
+	DELVE_NAME_TORMENTS_RISE = "Torment's Rise",
+
 	-- The Shadow Enclave
 	DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW = "• Southwest Eversong Woods (Ruins of Deathholme).|n• Three variants: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: stop rituals, void orbs, cultists (leveling).|n• Final boss every run: Lord Antenorian.",
 	DELVE_TIP_SHADOW_ENCLAVE_ROUTE = "• Mirror Shine: carry mirrors through dark halls; hit Shadow Nexuses to spread light (avoids grues).|n• Shadowy Supplies: loot Twilight's Blade valuables from mobs or the ground.|n• Traitor's Due: chase Antenorian through the delve to the boss room.",
@@ -84,6 +99,18 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 })
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
+	DELVE_NAME_SHADOW_ENCLAVE = "The Shadow Enclave",
+	DELVE_NAME_COLLEGIATE_CALAMITY = "Collegiate Calamity",
+	DELVE_NAME_THE_DARKWAY = "The Darkway",
+	DELVE_NAME_PARHELION_PLAZA = "Parhelion Plaza",
+	DELVE_NAME_ATAL_AMAN = "Atal'Aman",
+	DELVE_NAME_TWILIGHT_CRYPTS = "Twilight Crypts",
+	DELVE_NAME_GULF_OF_MEMORY = "The Gulf of Memory",
+	DELVE_NAME_GRUDGE_PIT = "The Grudge Pit",
+	DELVE_NAME_SUNKILLER_SANCTUM = "Sunkiller Sanctum",
+	DELVE_NAME_SHADOWGUARD_POINT = "Shadowguard Point",
+	DELVE_NAME_TORMENTS_RISE = "Torment's Rise",
+
 	-- The Shadow Enclave
 	DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW = "• Zuidwest Eversong Woods (bij Ruins of Deathholme).|n• Drie varianten: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: stop rituals, void orbs en cultists (leveling).|n• Eindbaas in elke run: Lord Antenorian.",
 	DELVE_TIP_SHADOW_ENCLAVE_ROUTE = "• Mirror Shine: draag spiegels door donkere gangen; raak Shadow Nexuses om licht te verspreiden (voorkomt grues).|n• Shadowy Supplies: pak buit van Twilight's Blade of van de grond.|n• Traitor's Due: achtervolg Antenorian door de delve tot de baaskamer.",

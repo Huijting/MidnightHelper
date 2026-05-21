@@ -54,6 +54,7 @@ local function GetSettings()
 			width = COACH_DEFAULT_W,
 			height = COACH_DEFAULT_H,
 			bossIndex = {},
+			bossCam = {},
 			point = "RIGHT",
 			relPoint = "RIGHT",
 			x = -36,
@@ -68,6 +69,7 @@ local function GetSettings()
 			width = COACH_DEFAULT_W,
 			height = COACH_DEFAULT_H,
 			bossIndex = {},
+			bossCam = {},
 			point = "RIGHT",
 			relPoint = "RIGHT",
 			x = -36,
@@ -83,6 +85,9 @@ local function GetSettings()
 	end
 	if type(s.bossIndex) ~= "table" then
 		s.bossIndex = {}
+	end
+	if type(s.bossCam) ~= "table" then
+		s.bossCam = {}
 	end
 	return s
 end
@@ -516,6 +521,29 @@ local function EnsureCoachFrame()
 	if modelHost.SetClipsChildren then
 		modelHost:SetClipsChildren(true)
 	end
+	modelHost:EnableMouse(true)
+	modelHost:EnableMouseWheel(true)
+	modelHost:SetScript("OnMouseWheel", function(_, delta)
+		if not delta or delta == 0 then
+			return
+		end
+		local m = f._bossModel
+		local creatureId = m and m._mhLoadedCreatureId
+		if not creatureId or not ns.AdjustDelveBossCam then
+			return
+		end
+		ns:AdjustDelveBossCam(m, creatureId, m._mhBossEntry, delta)
+	end)
+	if GameTooltip then
+		modelHost:SetScript("OnEnter", function()
+			GameTooltip:SetOwner(modelHost, "ANCHOR_RIGHT")
+			GameTooltip:SetText(ns:L("DELVE_COACH_BOSS_ZOOM_HINT"), 1, 1, 1, 1, true)
+			GameTooltip:Show()
+		end)
+		modelHost:SetScript("OnLeave", function()
+			GameTooltip:Hide()
+		end)
+	end
 	f._bossModelHost = modelHost
 
 	local bossModel
@@ -634,7 +662,8 @@ function ns:ShowDelveCoach(entryId, options)
 		f._userDismissed = false
 
 		local tag = isPreview and (" " .. self:L("DELVE_COACH_PREVIEW_TAG")) or ""
-		f._title:SetText(self:L("DELVE_COACH_TITLE") .. " — " .. (entry.rosterName or "") .. tag)
+		local delveLabel = (ns.GetDelveTipDisplayName and ns:GetDelveTipDisplayName(entry)) or entry.rosterName or ""
+		f._title:SetText(self:L("DELVE_COACH_TITLE") .. " — " .. delveLabel .. tag)
 		f._bodyText = BuildCoachBody(entry)
 		ApplyCoachSize(f)
 		UpdateBossShowcase(f, entryId)
@@ -761,7 +790,7 @@ function ns:OpenDelveCoachPicker(anchor)
 		btn:Show()
 		btn:EnableMouse(true)
 		btn:SetWidth(scrollW - 8)
-		btn:SetText(entry.rosterName or entry.id)
+		btn:SetText((ns.GetDelveTipDisplayName and ns:GetDelveTipDisplayName(entry)) or entry.rosterName or entry.id)
 		btn:ClearAllPoints()
 		btn:SetPoint("TOPLEFT", content, "TOPLEFT", 4, y)
 		y = y - 28
