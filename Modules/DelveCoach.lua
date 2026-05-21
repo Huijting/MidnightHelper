@@ -262,7 +262,7 @@ local function UpdateBossShowcase(f, entryId)
 		ns:ClearDelveBossCreatureModel(model)
 	end
 	if ns.ApplyDelveBossCreatureModel and model then
-		ns:ApplyDelveBossCreatureModel(model, boss.creatureId)
+		ns:ApplyDelveBossCreatureModel(model, boss.creatureId, boss)
 	end
 	f._bossEntryId = entryId
 	f._bossShowcaseIndex = idx
