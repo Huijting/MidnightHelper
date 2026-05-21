@@ -128,7 +128,7 @@ function ns:ApplyDelveBossCreatureModel(model, creatureId)
 		model:SetCamDistanceScale(0.9)
 	end
 	if model.SetAnimation then
-		model:SetAnimation(0, -1)
+		pcall(model.SetAnimation, model, 0, 0)
 	end
 	if model.SetDoBlend then
 		model:SetDoBlend(true)
