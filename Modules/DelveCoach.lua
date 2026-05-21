@@ -19,7 +19,10 @@ local COACH_MIN_H = 120
 local COACH_MAX_W = 520
 local COACH_MAX_H = 720
 local COACH_TITLE_H = 36
-local BOSS_PANEL_H = 132
+local BOSS_PANEL_H = 156
+local BOSS_NAME_BAR_H = 22
+local BOSS_MODEL_INSET_TOP = 22
+local BOSS_MODEL_INSET_SIDE = 32
 local RESIZE_GRIP = 16
 local COACH_FRAME_STRATA = "FULLSCREEN_DIALOG"
 local COACH_FRAME_LEVEL = 500
@@ -465,10 +468,10 @@ local function EnsureCoachFrame()
 	f._bossTitle = bossTitle
 
 	local bossNameBg = CreateFrame("Frame", nil, bossPanel, "BackdropTemplate")
-	bossNameBg:SetPoint("LEFT", bossPanel, "LEFT", 30, 0)
-	bossNameBg:SetPoint("RIGHT", bossPanel, "RIGHT", -30, 0)
-	bossNameBg:SetPoint("BOTTOM", bossPanel, "BOTTOM", 0, 4)
-	bossNameBg:SetHeight(22)
+	bossNameBg:SetPoint("LEFT", bossPanel, "LEFT", BOSS_MODEL_INSET_SIDE, 0)
+	bossNameBg:SetPoint("RIGHT", bossPanel, "RIGHT", -BOSS_MODEL_INSET_SIDE, 0)
+	bossNameBg:SetPoint("BOTTOM", bossPanel, "BOTTOM", 0, 6)
+	bossNameBg:SetHeight(BOSS_NAME_BAR_H)
 	bossNameBg:SetFrameLevel(bossPanel:GetFrameLevel() + 12)
 	if bossNameBg.SetBackdrop then
 		bossNameBg:SetBackdrop({
@@ -507,17 +510,24 @@ local function EnsureCoachFrame()
 	end)
 	f._bossNext = bossNext
 
+	local modelHost = CreateFrame("Frame", nil, bossPanel)
+	modelHost:SetPoint("TOPLEFT", bossPanel, "TOPLEFT", BOSS_MODEL_INSET_SIDE, -BOSS_MODEL_INSET_TOP)
+	modelHost:SetPoint("BOTTOMRIGHT", bossPanel, "BOTTOMRIGHT", -BOSS_MODEL_INSET_SIDE, BOSS_NAME_BAR_H + 10)
+	if modelHost.SetClipsChildren then
+		modelHost:SetClipsChildren(true)
+	end
+	f._bossModelHost = modelHost
+
 	local bossModel
-	local modelOk, modelFrame = pcall(CreateFrame, "PlayerModel", nil, bossPanel)
+	local modelOk, modelFrame = pcall(CreateFrame, "PlayerModel", nil, modelHost)
 	if modelOk and modelFrame then
 		bossModel = modelFrame
 	elseif CreateFrame then
-		bossModel = CreateFrame("DressUpModel", nil, bossPanel)
+		bossModel = CreateFrame("DressUpModel", nil, modelHost)
 	end
 	if bossModel then
-		bossModel:SetPoint("TOPLEFT", bossPanel, "TOPLEFT", 34, -26)
-		bossModel:SetPoint("BOTTOMRIGHT", bossNameBg, "TOPRIGHT", -4, 2)
-		bossModel:SetFrameLevel(bossPanel:GetFrameLevel() + 4)
+		bossModel:SetAllPoints(modelHost)
+		bossModel:SetFrameLevel(modelHost:GetFrameLevel() + 2)
 		bossModel:EnableMouse(false)
 	end
 	f._bossModel = bossModel

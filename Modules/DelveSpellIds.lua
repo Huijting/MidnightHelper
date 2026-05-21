@@ -12,7 +12,7 @@ local _, ns = ...
 ns.DELVE_SPELL_IDS = {
 	-- The Shadow Enclave — Lord Antenorian
 	shadowveil_annihilation = 1256093,
-	-- shadow_bolt: not linked on Icy Veins; add ID after verifying on Wowhead or in-game
+	shadow_bolt = 1256015,
 
 	-- Collegiate Calamity
 	wildroot_weave = 1263720,
@@ -75,14 +75,13 @@ ns.DELVE_SPELL_IDS = {
 	emptiness_of_the_void = 1256351,
 	imploding_strike = 1256355,
 	oblivion_shell = 1255886,
-	-- dread_portal / umbral_rage: add from Wowhead boss page when confirmed
+	umbral_rage = 1256180,
+	-- dread_portal: no Wowhead spell with this exact name in Nullaeus ID range yet (tips use mechanic name)
 }
 
 --- Display name when no ID is mapped yet ({SPELL:@token} without entry above).
 ns.DELVE_SPELL_FALLBACK = {
-	shadow_bolt = "Shadow Bolt",
 	void_bolt_patram = "Void Bolt",
 	dread_portal = "Dread Portal",
-	umbral_rage = "Umbral Rage",
 	twilight_seekers = "Twilight Seekers",
 }

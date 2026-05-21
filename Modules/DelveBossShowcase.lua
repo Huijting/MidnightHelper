@@ -36,7 +36,8 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 250939, label = "Mul'tha'ul" },
 	},
 	grudge_pit = {
-		-- Brightthorn: use Thornmaw spawn model until a dedicated Brightthorn NPC ID is confirmed.
+		-- Brightthorn / Mycomight: no dedicated Wowhead NPC yet (DBM encounter files still TODO).
+		-- 248320 = Unstoppable Thornmaw <Spawn of Brightthorn>; 248257 = Fungarian [PH] placeholder.
 		{ creatureId = 248320, label = "Brightthorn" },
 		{ creatureId = 247910, label = "Gyrospore" },
 		{ creatureId = 248257, label = "Mycomight" },
@@ -127,13 +128,13 @@ local function FinishDelveBossCreatureModel(model, creatureId)
 	model._mhLoadedCreatureId = creatureId
 	model:Show()
 	if model.SetPosition then
-		model:SetPosition(0, 0, -0.15)
+		model:SetPosition(0, 0, -0.35)
 	end
 	if model.SetFacing then
 		model:SetFacing(0.35)
 	end
 	if model.SetCamDistanceScale then
-		model:SetCamDistanceScale(1.05)
+		model:SetCamDistanceScale(0.82)
 	end
 	if model.SetAnimation then
 		pcall(model.SetAnimation, model, 0, 0)
