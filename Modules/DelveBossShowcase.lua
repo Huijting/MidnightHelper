@@ -86,16 +86,26 @@ function ns:SetDelveBossShowcaseIndex(entryId, index)
 	end
 end
 
-function ns:ApplyDelveBossCreatureModel(model, creatureId)
+function ns:ClearDelveBossCreatureModel(model)
 	if not model then
-		return false
+		return
 	end
-	creatureId = tonumber(creatureId)
-	if not creatureId or creatureId <= 0 then
-		if model.ClearModel then
-			model:ClearModel()
-		end
-		model:Hide()
+	model._mhPendingCreatureId = nil
+	model._mhLoadedCreatureId = nil
+	if model.SetCreature then
+		pcall(model.SetCreature, model, 0)
+	end
+	if model.ClearModel then
+		pcall(model.ClearModel, model)
+	end
+	if model.SetAnimation then
+		pcall(model.SetAnimation, model, 0, 0)
+	end
+	model:Hide()
+end
+
+local function FinishDelveBossCreatureModel(model, creatureId)
+	if not model or model._mhPendingCreatureId ~= creatureId then
 		return false
 	end
 
@@ -109,29 +119,57 @@ function ns:ApplyDelveBossCreatureModel(model, creatureId)
 		end
 	end)
 
-	if not ok then
-		if model.ClearModel then
-			model:ClearModel()
-		end
-		model:Hide()
+	if not ok or model._mhPendingCreatureId ~= creatureId then
+		ns:ClearDelveBossCreatureModel(model)
 		return false
 	end
 
+	model._mhLoadedCreatureId = creatureId
 	model:Show()
 	if model.SetPosition then
-		model:SetPosition(0, 0, 0)
+		model:SetPosition(0, 0, -0.15)
 	end
 	if model.SetFacing then
 		model:SetFacing(0.35)
 	end
 	if model.SetCamDistanceScale then
-		model:SetCamDistanceScale(0.9)
+		model:SetCamDistanceScale(1.05)
 	end
 	if model.SetAnimation then
 		pcall(model.SetAnimation, model, 0, 0)
 	end
 	if model.SetDoBlend then
 		model:SetDoBlend(true)
+	end
+	if model.RefreshCamera then
+		pcall(model.RefreshCamera, model)
+	end
+	return true
+end
+
+function ns:ApplyDelveBossCreatureModel(model, creatureId)
+	if not model then
+		return false
+	end
+	creatureId = tonumber(creatureId)
+	if not creatureId or creatureId <= 0 then
+		self:ClearDelveBossCreatureModel(model)
+		return false
+	end
+
+	if model._mhLoadedCreatureId == creatureId and model.IsShown and model:IsShown() then
+		return true
+	end
+
+	self:ClearDelveBossCreatureModel(model)
+	model._mhPendingCreatureId = creatureId
+
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0, function()
+			FinishDelveBossCreatureModel(model, creatureId)
+		end)
+	else
+		FinishDelveBossCreatureModel(model, creatureId)
 	end
 	return true
 end

@@ -255,10 +255,14 @@ local function UpdateBossShowcase(f, entryId)
 	if f._bossNext then
 		f._bossNext:SetShown(#bosses > 1)
 	end
+	if entryId ~= f._bossEntryId and model and ns.ClearDelveBossCreatureModel then
+		ns:ClearDelveBossCreatureModel(model)
+	end
 	if ns.ApplyDelveBossCreatureModel and model then
 		ns:ApplyDelveBossCreatureModel(model, boss.creatureId)
 	end
 	f._bossEntryId = entryId
+	f._bossShowcaseIndex = idx
 end
 
 local function CycleBossShowcase(f, delta)
@@ -460,8 +464,24 @@ local function EnsureCoachFrame()
 	bossTitle:SetText(ns:L("DELVE_COACH_BOSS_SHOWCASE"))
 	f._bossTitle = bossTitle
 
-	local bossName = bossPanel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	bossName:SetPoint("TOP", bossPanel, "TOP", 0, -22)
+	local bossNameBg = CreateFrame("Frame", nil, bossPanel, "BackdropTemplate")
+	bossNameBg:SetPoint("LEFT", bossPanel, "LEFT", 30, 0)
+	bossNameBg:SetPoint("RIGHT", bossPanel, "RIGHT", -30, 0)
+	bossNameBg:SetPoint("BOTTOM", bossPanel, "BOTTOM", 0, 4)
+	bossNameBg:SetHeight(22)
+	bossNameBg:SetFrameLevel(bossPanel:GetFrameLevel() + 12)
+	if bossNameBg.SetBackdrop then
+		bossNameBg:SetBackdrop({
+			bgFile = "Interface\\Buttons\\WHITE8X8",
+			edgeFile = nil,
+		})
+		bossNameBg:SetBackdropColor(0.02, 0.03, 0.06, 0.82)
+	end
+	f._bossNameBg = bossNameBg
+
+	local bossName = bossNameBg:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	bossName:SetPoint("CENTER", bossNameBg, "CENTER", 0, 0)
+	bossName:SetJustifyH("CENTER")
 	bossName:SetTextColor(1, 0.9, 0.55)
 	f._bossName = bossName
 
@@ -495,9 +515,9 @@ local function EnsureCoachFrame()
 		bossModel = CreateFrame("DressUpModel", nil, bossPanel)
 	end
 	if bossModel then
-		bossModel:SetSize(BOSS_PANEL_H - 28, BOSS_PANEL_H - 32)
-		bossModel:SetPoint("BOTTOM", bossPanel, "BOTTOM", 0, 6)
-		bossModel:SetFrameLevel(bossPanel:GetFrameLevel() + 2)
+		bossModel:SetPoint("TOPLEFT", bossPanel, "TOPLEFT", 34, -26)
+		bossModel:SetPoint("BOTTOMRIGHT", bossNameBg, "TOPRIGHT", -4, 2)
+		bossModel:SetFrameLevel(bossPanel:GetFrameLevel() + 4)
 		bossModel:EnableMouse(false)
 	end
 	f._bossModel = bossModel
