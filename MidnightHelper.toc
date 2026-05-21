@@ -15,7 +15,12 @@ Locales\enUS.lua
 Locales\nlNL.lua
 Locales\GuideTips.lua
 Locales\GuideGroups.lua
+Locales\DelveTips.lua
 Locales\Locale.lua
+Modules\DelveTipsData.lua
+Modules\DelveSpellIds.lua
+Modules\DelveTipMarkup.lua
+Modules\DelveBossShowcase.lua
 Config.lua
 Modules\KeybindSchema.lua
 Modules\KeybindingData.lua
@@ -37,6 +42,7 @@ Modules\VaultReminder.lua
 Modules\Broker.lua
 Modules\Profession.lua
 Modules\Delves.lua
+Modules\DelveCoach.lua
 Modules\AltOverview.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua

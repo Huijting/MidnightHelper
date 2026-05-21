@@ -1,0 +1,828 @@
+--[[
+	Midnight Helper — Delve Coach: floating in-delve tips panel + preview picker.
+]]
+
+local _, ns = ...
+
+local C_Map = C_Map
+local C_PartyInfo = C_PartyInfo
+
+local coachFrame
+local pickerFrame
+local wasInDelve = false
+local currentEntryId
+
+local COACH_DEFAULT_W = 320
+local COACH_DEFAULT_H = 480
+local COACH_MIN_W = 260
+local COACH_MIN_H = 120
+local COACH_MAX_W = 520
+local COACH_MAX_H = 720
+local COACH_TITLE_H = 36
+local BOSS_PANEL_H = 132
+local RESIZE_GRIP = 16
+local COACH_FRAME_STRATA = "FULLSCREEN_DIALOG"
+local COACH_FRAME_LEVEL = 500
+local COLOR_SECTION = "|cffffcc00"
+local COLOR_BODY = "|cffffffff"
+
+local function BringCoachFrameToFront(f)
+	if not f then
+		return
+	end
+	if f.SetFrameStrata then
+		f:SetFrameStrata(COACH_FRAME_STRATA)
+	end
+	if f.SetFrameLevel then
+		f:SetFrameLevel(COACH_FRAME_LEVEL)
+	end
+	if f.Raise then
+		f:Raise()
+	end
+end
+
+local function GetSettings()
+	local ui = ns.db and ns.db.ui
+	if type(ui) ~= "table" then
+		return {
+			enabled = true,
+			autoShow = true,
+			minimized = false,
+			width = COACH_DEFAULT_W,
+			height = COACH_DEFAULT_H,
+			bossIndex = {},
+			point = "RIGHT",
+			relPoint = "RIGHT",
+			x = -36,
+			y = 0,
+		}
+	end
+	if type(ui.delveCoach) ~= "table" then
+		ui.delveCoach = {
+			enabled = true,
+			autoShow = true,
+			minimized = false,
+			width = COACH_DEFAULT_W,
+			height = COACH_DEFAULT_H,
+			bossIndex = {},
+			point = "RIGHT",
+			relPoint = "RIGHT",
+			x = -36,
+			y = 0,
+		}
+	end
+	local s = ui.delveCoach
+	if s.width == nil then
+		s.width = COACH_DEFAULT_W
+	end
+	if s.height == nil then
+		s.height = COACH_DEFAULT_H
+	end
+	if type(s.bossIndex) ~= "table" then
+		s.bossIndex = {}
+	end
+	return s
+end
+
+local function ClampCoachSize(w, h)
+	w = math.max(COACH_MIN_W, math.min(COACH_MAX_W, tonumber(w) or COACH_DEFAULT_W))
+	h = math.max(COACH_MIN_H, math.min(COACH_MAX_H, tonumber(h) or COACH_DEFAULT_H))
+	return w, h
+end
+
+local function ApplyCoachSize(f)
+	local s = GetSettings()
+	local w, h = ClampCoachSize(s.width, s.height)
+	if f._minimized then
+		f:SetSize(w, COACH_TITLE_H)
+	else
+		f:SetSize(w, h)
+	end
+end
+
+local function SaveCoachSize(f)
+	if f._minimized then
+		return
+	end
+	local s = GetSettings()
+	s.width, s.height = ClampCoachSize(f:GetWidth(), f:GetHeight())
+end
+
+local function normalizeDelveName(s)
+	if type(s) ~= "string" then
+		return ""
+	end
+	s = s:lower():gsub("^%s+", ""):gsub("%s+$", "")
+	s = s:gsub("^bountiful%s+delve%s*:%s*", "")
+	s = s:gsub("^delve%s*:%s*", "")
+	return s
+end
+
+local function namesMatch(a, b)
+	local na = normalizeDelveName(a)
+	local nb = normalizeDelveName(b)
+	if na == "" or nb == "" then
+		return false
+	end
+	if na == nb or na:find(nb, 1, true) or nb:find(na, 1, true) then
+		return true
+	end
+	return false
+end
+
+local function IsDelveInProgress()
+	if C_PartyInfo and C_PartyInfo.IsDelveInProgress then
+		local ok, active = pcall(C_PartyInfo.IsDelveInProgress)
+		if ok and active then
+			return true
+		end
+	end
+	return false
+end
+
+local function CollectZoneStrings()
+	local out = {}
+	local function add(s)
+		if type(s) == "string" and s ~= "" then
+			out[#out + 1] = s
+		end
+	end
+	add(GetSubZoneText and GetSubZoneText() or nil)
+	add(GetZoneText and GetZoneText() or nil)
+	add(GetRealZoneText and GetRealZoneText() or nil)
+	if C_Map and C_Map.GetBestMapForUnit then
+		local mapID = C_Map.GetBestMapForUnit("player")
+		for _ = 1, 14 do
+			if not mapID then
+				break
+			end
+			local info = C_Map.GetMapInfo(mapID)
+			if info and info.name then
+				add(info.name)
+			end
+			if not info or not info.parentMapID or info.parentMapID == 0 then
+				break
+			end
+			mapID = info.parentMapID
+		end
+	end
+	return out
+end
+
+local function ResolveActiveDelveEntry()
+	local entries = ns.DELVE_TIP_ENTRIES
+	if type(entries) ~= "table" then
+		return nil
+	end
+	local zones = CollectZoneStrings()
+	for _, entry in ipairs(entries) do
+		for i = 1, #zones do
+			if namesMatch(zones[i], entry.rosterName) then
+				return entry
+			end
+		end
+	end
+	return nil
+end
+
+local function BuildCoachBody(entry)
+	if not entry or type(entry.sections) ~= "table" then
+		return ns:L("DELVE_COACH_UNKNOWN")
+	end
+	local blocks = {}
+	for i = 1, #entry.sections do
+		local sec = entry.sections[i]
+		local title = ns:L(sec.titleKey or "DELVE_COACH_SEC_OVERVIEW")
+		local body = ns:L(sec.bodyKey or "")
+		if ns.ExpandDelveTipMarkup then
+			body = ns:ExpandDelveTipMarkup(body)
+		end
+		blocks[#blocks + 1] = COLOR_SECTION .. title .. ":|r|n" .. COLOR_BODY .. body .. "|r"
+	end
+	return table.concat(blocks, "|n|n")
+end
+
+local function ApplySavedPoint(f)
+	local s = GetSettings()
+	f:ClearAllPoints()
+	f:SetPoint(s.point or "RIGHT", UIParent, s.relPoint or "RIGHT", tonumber(s.x) or -36, tonumber(s.y) or 0)
+end
+
+local function SavePoint(f)
+	local s = GetSettings()
+	local point, _, relPoint, x, y = f:GetPoint(1)
+	if point then
+		s.point = point
+		s.relPoint = relPoint or point
+		s.x = x or -36
+		s.y = y or 0
+	end
+end
+
+local function UpdateBossShowcase(f, entryId)
+	local panel = f._bossPanel
+	local model = f._bossModel
+	local nameFs = f._bossName
+	local counter = f._bossCounter
+	if not panel or not entryId then
+		return
+	end
+
+	local bosses = ns.GetDelveBossShowcase and ns:GetDelveBossShowcase(entryId)
+	if not bosses or #bosses == 0 then
+		panel:Hide()
+		return
+	end
+
+	panel:Show()
+	local idx = ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId) or 1
+	idx = math.max(1, math.min(#bosses, idx))
+	local boss = bosses[idx]
+	if nameFs then
+		nameFs:SetText(boss.label or "")
+	end
+	if counter then
+		if #bosses > 1 then
+			counter:SetText(("%d / %d"):format(idx, #bosses))
+			counter:Show()
+		else
+			counter:Hide()
+		end
+	end
+	if f._bossPrev then
+		f._bossPrev:SetShown(#bosses > 1)
+	end
+	if f._bossNext then
+		f._bossNext:SetShown(#bosses > 1)
+	end
+	if ns.ApplyDelveBossCreatureModel and model then
+		ns:ApplyDelveBossCreatureModel(model, boss.creatureId)
+	end
+	f._bossEntryId = entryId
+end
+
+local function CycleBossShowcase(f, delta)
+	local entryId = f._bossEntryId
+	if not entryId then
+		return
+	end
+	local bosses = ns.GetDelveBossShowcase and ns:GetDelveBossShowcase(entryId)
+	if not bosses or #bosses < 2 then
+		return
+	end
+	local idx = ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId) or 1
+	idx = idx + (delta or 1)
+	if idx > #bosses then
+		idx = 1
+	elseif idx < 1 then
+		idx = #bosses
+	end
+	if ns.SetDelveBossShowcaseIndex then
+		ns:SetDelveBossShowcaseIndex(entryId, idx)
+	end
+	UpdateBossShowcase(f, entryId)
+end
+
+local function LayoutCoachScroll(f)
+	local scroll = f._scroll
+	local content = f._content
+	local body = f._body
+	if not scroll or not content or not body then
+		return
+	end
+	local scrollW = scroll:GetWidth() or 260
+	local textW = math.max(220, scrollW - 16)
+	content:SetWidth(textW)
+	if f._bodyHost then
+		f._bodyHost:SetWidth(textW)
+	end
+	body:SetWidth(textW - 8)
+	body:SetText(f._bodyText or "")
+
+	local function applyHeights()
+		local lineH = body.GetLineHeight and body:GetLineHeight() or 14
+		local numLines = body.GetNumLines and body:GetNumLines() or 1
+		local bodyH = math.max((numLines * lineH) + 12, 40)
+		local totalH = math.max(bodyH + 16, 48)
+		content:SetHeight(totalH)
+		if f._bodyHost then
+			f._bodyHost:SetHeight(totalH)
+		end
+		if scroll.UpdateScrollChildRect then
+			scroll:UpdateScrollChildRect()
+		end
+	end
+
+	applyHeights()
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0, applyHeights)
+	end
+	if scroll.SetVerticalScroll then
+		scroll:SetVerticalScroll(0)
+	end
+end
+
+local function SetMinimized(f, minimized)
+	local s = GetSettings()
+	s.minimized = minimized and true or false
+	f._minimized = minimized and true or false
+	if minimized then
+		if f._scroll then
+			f._scroll:Hide()
+		end
+		if f._hint then
+			f._hint:Hide()
+		end
+		if f._bossPanel then
+			f._bossPanel:Hide()
+		end
+		if f._resizeGrip then
+			f._resizeGrip:Hide()
+		end
+		f:SetHeight(COACH_TITLE_H)
+	else
+		if f._scroll then
+			f._scroll:Show()
+		end
+		if f._hint then
+			f._hint:Show()
+		end
+		if f._resizeGrip then
+			f._resizeGrip:Show()
+		end
+		ApplyCoachSize(f)
+		if currentEntryId then
+			UpdateBossShowcase(f, currentEntryId)
+		end
+		LayoutCoachScroll(f)
+	end
+	if f._minBtn and f._minBtn.SetText then
+		f._minBtn:SetText(minimized and "+" or "-")
+	end
+end
+
+local function EnsureCoachFrame()
+	if coachFrame then
+		return coachFrame
+	end
+
+	local f = CreateFrame("Frame", "MidnightHelperDelveCoach", UIParent, "BackdropTemplate")
+	f:SetSize(COACH_DEFAULT_W, COACH_DEFAULT_H)
+	BringCoachFrameToFront(f)
+	f:SetClampedToScreen(true)
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	if f.SetResizable then
+		f:SetResizable(true)
+	end
+	if f.SetResizeBounds then
+		f:SetResizeBounds(COACH_MIN_W, COACH_MIN_H, COACH_MAX_W, COACH_MAX_H)
+	end
+	f:SetBackdrop({
+		bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+		edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
+		tile = true,
+		tileSize = 32,
+		edgeSize = 32,
+		insets = { left = 11, right = 12, top = 12, bottom = 11 },
+	})
+	f:SetBackdropColor(0.05, 0.05, 0.08, 0.92)
+	f:Hide()
+
+	tinsert(UISpecialFrames, f:GetName())
+
+	local titleBar = CreateFrame("Frame", nil, f)
+	titleBar:SetHeight(28)
+	titleBar:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -8)
+	titleBar:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -8)
+	titleBar:EnableMouse(true)
+	titleBar:RegisterForDrag("LeftButton")
+	titleBar:SetScript("OnDragStart", function()
+		f:StartMoving()
+	end)
+	titleBar:SetScript("OnDragStop", function()
+		f:StopMovingOrSizing()
+		SavePoint(f)
+	end)
+	f._titleBar = titleBar
+
+	local title = titleBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	title:SetPoint("LEFT", titleBar, "LEFT", 0, 0)
+	title:SetPoint("RIGHT", titleBar, "RIGHT", -52, 0)
+	title:SetJustifyH("LEFT")
+	title:SetWordWrap(false)
+	f._title = title
+
+	local minBtn = CreateFrame("Button", nil, titleBar, "UIPanelButtonTemplate")
+	minBtn:SetSize(22, 22)
+	minBtn:SetPoint("RIGHT", titleBar, "RIGHT", -26, 0)
+	minBtn:SetText("-")
+	f._minBtn = minBtn
+	minBtn:SetScript("OnClick", function()
+		local s = GetSettings()
+		SetMinimized(f, not s.minimized)
+	end)
+
+	local closeBtn = CreateFrame("Button", nil, titleBar, "UIPanelCloseButton")
+	closeBtn:SetSize(22, 22)
+	closeBtn:SetPoint("RIGHT", titleBar, "RIGHT", 0, 0)
+	closeBtn:SetScript("OnClick", function()
+		ns:HideDelveCoach(true)
+	end)
+
+	local hint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	hint:SetPoint("TOPLEFT", titleBar, "BOTTOMLEFT", 0, -2)
+	hint:SetPoint("TOPRIGHT", titleBar, "BOTTOMRIGHT", 0, -2)
+	hint:SetJustifyH("LEFT")
+	hint:SetWordWrap(true)
+	hint:SetText(ns:L("DELVE_COACH_DRAG_HINT"))
+	f._hint = hint
+
+	local bossPanel = CreateFrame("Frame", nil, f, "BackdropTemplate")
+	bossPanel:SetPoint("TOPLEFT", hint, "BOTTOMLEFT", 4, -4)
+	bossPanel:SetPoint("TOPRIGHT", hint, "BOTTOMRIGHT", -4, -4)
+	bossPanel:SetHeight(BOSS_PANEL_H)
+	if bossPanel.SetBackdrop then
+		bossPanel:SetBackdrop({
+			bgFile = "Interface\\Buttons\\WHITE8X8",
+			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+			tile = false,
+			edgeSize = 12,
+			insets = { left = 3, right = 3, top = 3, bottom = 3 },
+		})
+		bossPanel:SetBackdropColor(0.04, 0.06, 0.1, 0.88)
+		bossPanel:SetBackdropBorderColor(0.45, 0.38, 0.22, 0.9)
+	end
+	f._bossPanel = bossPanel
+
+	local bossTitle = bossPanel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	bossTitle:SetPoint("TOPLEFT", bossPanel, "TOPLEFT", 8, -6)
+	bossTitle:SetText(ns:L("DELVE_COACH_BOSS_SHOWCASE"))
+	f._bossTitle = bossTitle
+
+	local bossName = bossPanel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	bossName:SetPoint("TOP", bossPanel, "TOP", 0, -22)
+	bossName:SetTextColor(1, 0.9, 0.55)
+	f._bossName = bossName
+
+	local bossCounter = bossPanel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	bossCounter:SetPoint("TOPRIGHT", bossPanel, "TOPRIGHT", -8, -6)
+	f._bossCounter = bossCounter
+
+	local bossPrev = CreateFrame("Button", nil, bossPanel, "UIPanelButtonTemplate")
+	bossPrev:SetSize(22, 22)
+	bossPrev:SetPoint("LEFT", bossPanel, "LEFT", 6, -8)
+	bossPrev:SetText("<")
+	bossPrev:SetScript("OnClick", function()
+		CycleBossShowcase(f, -1)
+	end)
+	f._bossPrev = bossPrev
+
+	local bossNext = CreateFrame("Button", nil, bossPanel, "UIPanelButtonTemplate")
+	bossNext:SetSize(22, 22)
+	bossNext:SetPoint("RIGHT", bossPanel, "RIGHT", -6, -8)
+	bossNext:SetText(">")
+	bossNext:SetScript("OnClick", function()
+		CycleBossShowcase(f, 1)
+	end)
+	f._bossNext = bossNext
+
+	local bossModel
+	local modelOk, modelFrame = pcall(CreateFrame, "PlayerModel", nil, bossPanel)
+	if modelOk and modelFrame then
+		bossModel = modelFrame
+	elseif CreateFrame then
+		bossModel = CreateFrame("DressUpModel", nil, bossPanel)
+	end
+	if bossModel then
+		bossModel:SetSize(BOSS_PANEL_H - 28, BOSS_PANEL_H - 32)
+		bossModel:SetPoint("BOTTOM", bossPanel, "BOTTOM", 0, 6)
+		bossModel:SetFrameLevel(bossPanel:GetFrameLevel() + 2)
+		bossModel:EnableMouse(false)
+	end
+	f._bossModel = bossModel
+
+	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", bossPanel, "BOTTOMLEFT", 0, -6)
+	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -28, 14)
+	scroll:EnableMouse(false)
+	scroll:EnableMouseWheel(true)
+	f._scroll = scroll
+
+	local content = CreateFrame("Frame", nil, scroll)
+	content:SetSize(260, 40)
+	content:EnableMouse(true)
+	scroll:SetScrollChild(content)
+	f._content = content
+
+	local bodyHost = CreateFrame("Frame", nil, content)
+	bodyHost:SetPoint("TOPLEFT", content, "TOPLEFT", 0, 0)
+	bodyHost:SetPoint("RIGHT", content, "RIGHT", 0, 0)
+	bodyHost:EnableMouse(true)
+	f._bodyHost = bodyHost
+
+	local body = CreateFrame("EditBox", nil, bodyHost)
+	body:SetPoint("TOPLEFT", bodyHost, "TOPLEFT", 0, 0)
+	body:SetPoint("BOTTOMRIGHT", bodyHost, "BOTTOMRIGHT", 0, 0)
+	body:SetMultiLine(true)
+	body:SetFontObject("GameFontHighlight")
+	body:SetJustifyH("LEFT")
+	body:SetJustifyV("TOP")
+	body:SetAutoFocus(false)
+	body:EnableMouse(true)
+	if body.SetMaxLetters then
+		body:SetMaxLetters(0)
+	end
+	if ns.AttachDelveTipHyperlinksToEditBox then
+		ns:AttachDelveTipHyperlinksToEditBox(body)
+	end
+	f._body = body
+
+	local grip = CreateFrame("Button", nil, f)
+	grip:SetSize(RESIZE_GRIP, RESIZE_GRIP)
+	grip:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -6, 6)
+	grip:SetFrameLevel(f:GetFrameLevel() + 20)
+	grip:RegisterForDrag("LeftButton")
+	grip:SetNormalTexture("Interface\\Buttons\\UI-ResizeButton-Up")
+	grip:SetPushedTexture("Interface\\Buttons\\UI-ResizeButton-Down")
+	grip:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
+	grip:SetScript("OnDragStart", function()
+		f:StartSizing("BOTTOMRIGHT")
+	end)
+	grip:SetScript("OnDragStop", function()
+		f:StopMovingOrSizing()
+		SaveCoachSize(f)
+		LayoutCoachScroll(f)
+	end)
+	f._resizeGrip = grip
+
+	f:SetScript("OnSizeChanged", function()
+		if f._minimized then
+			return
+		end
+		SaveCoachSize(f)
+		LayoutCoachScroll(f)
+	end)
+
+	ApplySavedPoint(f)
+	ApplyCoachSize(f)
+	coachFrame = f
+	return f
+end
+
+function ns:RefreshDelveCoachLocale()
+	if not coachFrame then
+		return
+	end
+	if coachFrame._hint then
+		coachFrame._hint:SetText(self:L("DELVE_COACH_DRAG_HINT"))
+	end
+	if coachFrame._bossTitle then
+		coachFrame._bossTitle:SetText(self:L("DELVE_COACH_BOSS_SHOWCASE"))
+	end
+	if currentEntryId then
+		self:ShowDelveCoach(currentEntryId, { preview = coachFrame._previewMode })
+	end
+end
+
+function ns:ShowDelveCoach(entryId, options)
+	options = options or {}
+	local entry = ns.GetDelveTipEntryById and ns.GetDelveTipEntryById(entryId)
+	if not entry then
+		return false, "no_entry"
+	end
+	local s = GetSettings()
+	local isPreview = options.preview and true or false
+	if not s.enabled and not isPreview then
+		return false, "disabled"
+	end
+
+	local ok, err = pcall(function()
+		local f = EnsureCoachFrame()
+		currentEntryId = entryId
+		f._previewMode = isPreview
+		f._userDismissed = false
+
+		local tag = isPreview and (" " .. self:L("DELVE_COACH_PREVIEW_TAG")) or ""
+		f._title:SetText(self:L("DELVE_COACH_TITLE") .. " — " .. (entry.rosterName or "") .. tag)
+		f._bodyText = BuildCoachBody(entry)
+		ApplyCoachSize(f)
+		UpdateBossShowcase(f, entryId)
+		LayoutCoachScroll(f)
+
+		ApplySavedPoint(f)
+		if isPreview then
+			SetMinimized(f, false)
+		else
+			SetMinimized(f, s.minimized)
+		end
+		BringCoachFrameToFront(f)
+		f:Show()
+	end)
+
+	if not ok then
+		local msg = tostring(err)
+		print(("|cffffcc00%s|r %s (%s)"):format(self:L("PRINT_PREFIX"), self:L("DELVE_COACH_OPEN_FAILED"), msg))
+		return false, msg
+	end
+	return true
+end
+
+function ns:HideDelveCoach(userClose)
+	if not coachFrame then
+		return
+	end
+	if userClose and not coachFrame._previewMode then
+		coachFrame._userDismissed = true
+	end
+	coachFrame:Hide()
+end
+
+function ns:ToggleDelveCoach()
+	local f = EnsureCoachFrame()
+	if f:IsShown() then
+		self:HideDelveCoach(true)
+		return false
+	end
+	if currentEntryId then
+		self:ShowDelveCoach(currentEntryId, { preview = f._previewMode })
+		return true
+	end
+	local active = ResolveActiveDelveEntry()
+	if active then
+		self:ShowDelveCoach(active.id, { preview = false })
+		return true
+	end
+	self:OpenDelveCoachPicker()
+	return true
+end
+
+local function EnsurePickerFrame()
+	if pickerFrame then
+		return pickerFrame
+	end
+
+	local f = CreateFrame("Frame", "MidnightHelperDelveCoachPicker", UIParent, "BackdropTemplate")
+	f:SetSize(280, 380)
+	BringCoachFrameToFront(f)
+	f:SetClampedToScreen(true)
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	f:SetBackdrop({
+		bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+		edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
+		tile = true,
+		tileSize = 32,
+		edgeSize = 32,
+		insets = { left = 11, right = 12, top = 12, bottom = 11 },
+	})
+	f:Hide()
+	tinsert(UISpecialFrames, f:GetName())
+
+	local title = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	title:SetPoint("TOP", f, "TOP", 0, -14)
+	f._title = title
+
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -4, -4)
+	close:SetScript("OnClick", function()
+		f:Hide()
+	end)
+
+	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -36)
+	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -28, 12)
+	scroll:EnableMouse(true)
+	scroll:EnableMouseWheel(true)
+	f._scroll = scroll
+
+	local content = CreateFrame("Frame", nil, scroll)
+	content:SetSize(240, 10)
+	content:EnableMouse(true)
+	scroll:SetScrollChild(content)
+	f._content = content
+	f._buttons = {}
+
+	pickerFrame = f
+	return f
+end
+
+function ns:OpenDelveCoachPicker(anchor)
+	local f = EnsurePickerFrame()
+	f._title:SetText(self:L("DELVE_COACH_PICKER_TITLE"))
+
+	local scroll = f._scroll
+	local content = f._content
+	local scrollW = math.max(200, (scroll and scroll:GetWidth() or 240) - 8)
+	content:SetWidth(scrollW)
+
+	local y = -4
+	local entries = ns.DELVE_TIP_ENTRIES or {}
+	for i, entry in ipairs(entries) do
+		local btn = f._buttons[i]
+		if not btn then
+			btn = CreateFrame("Button", nil, content, "UIPanelButtonTemplate")
+			btn:SetHeight(24)
+			f._buttons[i] = btn
+		end
+		btn:Show()
+		btn:EnableMouse(true)
+		btn:SetWidth(scrollW - 8)
+		btn:SetText(entry.rosterName or entry.id)
+		btn:ClearAllPoints()
+		btn:SetPoint("TOPLEFT", content, "TOPLEFT", 4, y)
+		y = y - 28
+		local entryId = entry.id
+		btn:SetScript("OnClick", function()
+			local shown, reason = ns:ShowDelveCoach(entryId, { preview = true })
+			if shown then
+				f:Hide()
+			elseif reason == "disabled" then
+				print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("DELVE_COACH_PREVIEW_DISABLED")))
+			end
+		end)
+	end
+	for j = #entries + 1, #(f._buttons or {}) do
+		if f._buttons[j] then
+			f._buttons[j]:Hide()
+		end
+	end
+	content:SetHeight(math.max(40, (#entries * 28) + 8))
+	if scroll and scroll.UpdateScrollChildRect then
+		scroll:UpdateScrollChildRect()
+	end
+	if scroll and scroll.SetVerticalScroll then
+		scroll:SetVerticalScroll(0)
+	end
+
+	f:ClearAllPoints()
+	f:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
+	BringCoachFrameToFront(f)
+	f:Show()
+end
+
+local function OnDelveStateTick()
+	local inDelve = IsDelveInProgress()
+	if inDelve and not wasInDelve then
+		if coachFrame then
+			coachFrame._userDismissed = false
+		end
+	end
+	if not inDelve and wasInDelve then
+		ns:HideDelveCoach(false)
+		currentEntryId = nil
+		if coachFrame then
+			coachFrame._previewMode = false
+		end
+	end
+	wasInDelve = inDelve
+
+	local s = GetSettings()
+	if not s.enabled or not s.autoShow then
+		return
+	end
+	if not inDelve then
+		return
+	end
+	if coachFrame and coachFrame._userDismissed and not coachFrame._previewMode then
+		return
+	end
+
+	local entry = ResolveActiveDelveEntry()
+	if entry then
+		if currentEntryId ~= entry.id or not (coachFrame and coachFrame:IsShown()) then
+			ns:ShowDelveCoach(entry.id, { preview = false })
+		end
+	end
+end
+
+local ev = CreateFrame("Frame", nil, UIParent)
+ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+ev:RegisterEvent("ZONE_CHANGED")
+ev:RegisterEvent("ZONE_CHANGED_INDOORS")
+ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+ev:SetScript("OnEvent", function()
+	OnDelveStateTick()
+end)
+ev:SetScript("OnUpdate", function(self, elapsed)
+	self._elapsed = (self._elapsed or 0) + elapsed
+	if self._elapsed >= 1.0 then
+		self._elapsed = 0
+		OnDelveStateTick()
+	end
+end)
+
+do
+	local orig = ns.RefreshLocaleUI
+	function ns:RefreshLocaleUI()
+		if orig then
+			orig(self)
+		end
+		if self.RefreshDelveCoachLocale then
+			self:RefreshDelveCoachLocale()
+		end
+	end
+end

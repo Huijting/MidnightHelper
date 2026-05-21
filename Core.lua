@@ -40,6 +40,19 @@ local DEFAULT_DB = {
 			minimap = true,
 			ping = true,
 		},
+		--- Floating Delve Coach panel (position, minimize state).
+		delveCoach = {
+			enabled = true,
+			autoShow = true,
+			minimized = false,
+			width = 320,
+			height = 480,
+			bossIndex = {},
+			point = "RIGHT",
+			relPoint = "RIGHT",
+			x = -36,
+			y = 0,
+		},
 		--- Role Academy tab: "tank" | "heal" (see Modules/RoleAcademy.lua).
 		roleAcademyTrack = "tank",
 		roleAcademyPreflight = {
@@ -327,6 +340,21 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 			ns:OpenSettingsPanel()
 		elseif ns.ToggleQuickSettings then
 			ns:ToggleQuickSettings(ns.mainUI)
+		else
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))
+			)
+		end
+		return
+	end
+
+	if msg == "coach" or msg == "delve" or msg == "delves" then
+		if ns.ToggleDelveCoach then
+			local shown = ns:ToggleDelveCoach()
+			local key = shown and "DELVE_COACH_SLASH_OPEN" or "DELVE_COACH_SLASH_CLOSED"
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L(key))
+			)
 		else
 			DEFAULT_CHAT_FRAME:AddMessage(
 				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))

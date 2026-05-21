@@ -106,6 +106,19 @@ local ICON_TEX_DELVE_STANDARD = 525134
 local ICON_TEX_DELVE_BOUNTIFUL_LAST_RESORT = 5802055
 local ATLAS_DELVE_BOUNTIFUL = "Delves-Bountiful-Icon"
 local BOUNTIFUL_MEDIA_ICON = "Interface\\AddOns\\MidnightHelper\\Media\\BountifulPortal"
+--- Nemesis delve (Torment's Rise): POI often has no atlas, only generic minimap textureIndex.
+local DELVE_NEMESIS_NAME = "Torment's Rise"
+local ATLAS_DELVE_NEMESIS_CANDIDATES = {
+	"Delves-Nemesis-Icon",
+	"delves-nemesis-icon",
+	"Delves-Nemesis",
+}
+local ATLAS_DELVE_STANDARD_CANDIDATES = {
+	"Delves-Entrance-Icon",
+	"delves-entrance-icon",
+	"Delves-Default-Icon",
+	"ui-delves",
+}
 
 local function isAtlasBountiful(atlas)
 	if not atlas or atlas == "" then
@@ -131,6 +144,21 @@ local function poiAtlasCandidates(atlas, textureKit)
 	end
 	add(atlas)
 	return out
+end
+
+local function tryAtlasCandidates(icon, candidates)
+	if not icon or not icon.SetAtlas or type(candidates) ~= "table" then
+		return false
+	end
+	for _, name in ipairs(candidates) do
+		pcall(icon.SetAtlas, icon, nil)
+		local atlasOk = select(1, pcall(icon.SetAtlas, icon, name))
+		local tid = icon.GetTexture and icon:GetTexture()
+		if atlasOk and tid and tid ~= 0 and tid ~= "" then
+			return true
+		end
+	end
+	return false
 end
 
 local function tryApplyPoiAtlas(icon, atlas, textureKit)
@@ -758,12 +786,40 @@ local function buildBountifulMapScanOrder(preferredMapID)
 	return order
 end
 
-local function GetDelvePoiState(itemName, mapID)
+local function absorbPoiInfo(isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex, pInfo)
+	if not pInfo then
+		return isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex
+	end
+	local atlas = pInfo.atlasName
+	local textureKit = pInfo.uiTextureKit
+	if atlas and isAtlasBountiful(atlas) then
+		isBountiful = true
+		bountifulAtlas = bountifulAtlas or atlas
+		bountifulTextureKit = bountifulTextureKit or textureKit
+	elseif pInfo.isBountiful then
+		isBountiful = true
+		bountifulAtlas = bountifulAtlas or atlas
+		bountifulTextureKit = bountifulTextureKit or textureKit
+	elseif tonumber(pInfo.textureIndex) == ICON_TEX_DELVE_BOUNTIFUL_LAST_RESORT then
+		isBountiful = true
+	elseif atlas and not isAtlasBountiful(atlas) then
+		delveAtlas = delveAtlas or atlas
+		delveTextureKit = delveTextureKit or textureKit
+	elseif pInfo.textureIndex and not delveTextureIndex then
+		local ti = tonumber(pInfo.textureIndex)
+		if ti and ti ~= ICON_TEX_DELVE_STANDARD then
+			delveTextureIndex = ti
+		end
+	end
+	return isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex
+end
+
+local function GetDelvePoiState(itemName, mapID, poiRefId)
 	if not itemName or not C_AreaPoiInfo or not C_AreaPoiInfo.GetAreaPOIInfo then
-		return false, nil, nil, nil, nil
+		return false, nil, nil, nil, nil, nil
 	end
 	if not C_AreaPoiInfo.GetDelvesForMap then
-		return false, nil, nil, nil, nil
+		return false, nil, nil, nil, nil, nil
 	end
 
 	local isBountiful = false
@@ -772,6 +828,20 @@ local function GetDelvePoiState(itemName, mapID)
 	local delveAtlas = nil
 	local delveTextureKit = nil
 	local delveTextureIndex = nil
+	local refId = tonumber(poiRefId)
+
+	for _, zMap in ipairs(buildBountifulMapScanOrder(mapID)) do
+		local okList, delvePOIs = pcall(C_AreaPoiInfo.GetDelvesForMap, zMap)
+		local list = (okList and type(delvePOIs) == "table") and delvePOIs or {}
+		for _, pID in ipairs(list) do
+			local okInfo, pInfo = pcall(C_AreaPoiInfo.GetAreaPOIInfo, zMap, pID)
+			if okInfo and pInfo and refId and tonumber(pID) == refId then
+				isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex =
+					absorbPoiInfo(isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex, pInfo)
+				return isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex
+			end
+		end
+	end
 
 	for _, zMap in ipairs(buildBountifulMapScanOrder(mapID)) do
 		local okList, delvePOIs = pcall(C_AreaPoiInfo.GetDelvesForMap, zMap)
@@ -779,24 +849,8 @@ local function GetDelvePoiState(itemName, mapID)
 		for _, pID in ipairs(list) do
 			local okInfo, pInfo = pcall(C_AreaPoiInfo.GetAreaPOIInfo, zMap, pID)
 			if okInfo and pInfo and pInfo.name and delveNameMatchesPoi(pInfo.name, itemName) then
-				local atlas = pInfo.atlasName
-				local textureKit = pInfo.uiTextureKit
-				if atlas and isAtlasBountiful(atlas) then
-					isBountiful = true
-					bountifulAtlas = bountifulAtlas or atlas
-					bountifulTextureKit = bountifulTextureKit or textureKit
-				elseif pInfo.isBountiful then
-					isBountiful = true
-					bountifulAtlas = bountifulAtlas or atlas
-					bountifulTextureKit = bountifulTextureKit or textureKit
-				elseif tonumber(pInfo.textureIndex) == ICON_TEX_DELVE_BOUNTIFUL_LAST_RESORT then
-					isBountiful = true
-				elseif atlas and not isAtlasBountiful(atlas) then
-					delveAtlas = delveAtlas or atlas
-					delveTextureKit = delveTextureKit or textureKit
-				elseif pInfo.textureIndex and not delveTextureIndex then
-					delveTextureIndex = pInfo.textureIndex
-				end
+				isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex =
+					absorbPoiInfo(isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex, pInfo)
 			end
 		end
 	end
@@ -885,6 +939,7 @@ local currencyHeader
 local leftColumn
 local rightColumn
 local bestBtn
+local coachBtn
 local eventFrame
 local midnightToggleBar
 local midnightToggleChevron
@@ -1028,8 +1083,17 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 		end
 	else
 		row.name:SetTextColor(1, 1, 1)
-		if tryApplyPoiAtlas(row.icon, item.delveAtlas, item.delveTextureKit)
-			or tryApplyPoiTextureIndex(row.icon, item.delveTextureIndex) then
+		local iconOk = false
+		if item.isNemesisDelve and tryAtlasCandidates(row.icon, ATLAS_DELVE_NEMESIS_CANDIDATES) then
+			iconOk = true
+		elseif tryApplyPoiAtlas(row.icon, item.delveAtlas, item.delveTextureKit) then
+			iconOk = true
+		elseif item.delveTextureIndex and tryApplyPoiTextureIndex(row.icon, item.delveTextureIndex) then
+			iconOk = true
+		elseif tryAtlasCandidates(row.icon, ATLAS_DELVE_STANDARD_CANDIDATES) then
+			iconOk = true
+		end
+		if iconOk then
 			row.icon:SetVertexColor(1, 1, 1)
 		else
 			applyDelveRowIcon(row.icon, false, false)
@@ -1472,16 +1536,32 @@ local function RefreshDelvesPanel()
 	leftColumn:SetWidth(colW)
 	rightColumn:SetWidth(colW)
 
+	local mapDelveAtlasFallback = {}
+	for _, packed in ipairs(roster) do
+		local _, _, _, da, dtk = GetDelvePoiState(packed[5], packed[2], packed[1])
+		if da and not mapDelveAtlasFallback[packed[2]] then
+			mapDelveAtlasFallback[packed[2]] = { atlas = da, kit = dtk }
+		end
+	end
+
 	local usedLeft, usedRight = 0, 0
 	for i, packed in ipairs(roster) do
 		local bountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex =
-			GetDelvePoiState(packed[5], packed[2])
+			GetDelvePoiState(packed[5], packed[2], packed[1])
+		if packed[5] == DELVE_NEMESIS_NAME and not delveAtlas then
+			local fb = mapDelveAtlasFallback[packed[2]]
+			if fb then
+				delveAtlas = fb.atlas
+				delveTextureKit = fb.kit
+			end
+		end
 		local item = {
 			questID = packed[1],
 			mapID = packed[2],
 			x = packed[3],
 			y = packed[4],
 			name = packed[5],
+			isNemesisDelve = packed[5] == DELVE_NEMESIS_NAME,
 			isBountiful = bountiful,
 			bountifulAtlas = bountifulAtlas,
 			bountifulTextureKit = bountifulTextureKit,
@@ -1516,30 +1596,42 @@ local function RefreshDelvesPanel()
 	rightColumn:SetHeight(h)
 
 	local accFooter = GetDelvesAccordionSection()
-	if bestBtn and frame then
-		bestBtn:ClearAllPoints()
+	if frame then
 		local fw = math.max(200, frame:GetWidth() or 400)
 		local inset = 12
 		local bw = math.min(340, math.max(160, fw - inset * 2))
-		bestBtn:SetSize(bw, 26)
-
-		--- Horizontal: center in the Delves frame (offsets are parent-relative — never use GetLeft() here).
 		local xCenter = (fw - bw) / 2
-		local function PinBtnCentered(vertAnchor, vertOffset)
-			bestBtn:SetPoint("TOP", vertAnchor, "BOTTOM", 0, vertOffset)
-			bestBtn:SetPoint("LEFT", frame, "LEFT", xCenter, 0)
+		local function PinFooterBtn(btn, vertAnchor, vertOffset)
+			if not btn then
+				return
+			end
+			btn:ClearAllPoints()
+			btn:SetSize(bw, 26)
+			btn:SetPoint("TOP", vertAnchor, "BOTTOM", 0, vertOffset)
+			btn:SetPoint("LEFT", frame, "LEFT", xCenter, 0)
 		end
-
+		local footerAnchor = frame
+		local footerOffset = 12
 		if accFooter == "midnight" and leftColumn and usedLeft and usedLeft > 0 then
-			PinBtnCentered(leftColumn, -22)
+			footerAnchor = leftColumn
+			footerOffset = -22
 		elseif midnightToggleBar then
-			PinBtnCentered(midnightToggleBar, -18)
+			footerAnchor = midnightToggleBar
+			footerOffset = -18
 		elseif accFooter == "vault" and ns.vaultPanel then
-			PinBtnCentered(ns.vaultPanel, -20)
+			footerAnchor = ns.vaultPanel
+			footerOffset = -20
 		elseif vaultToggleBar then
-			PinBtnCentered(vaultToggleBar, -18)
-		else
-			bestBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", xCenter, 12)
+			footerAnchor = vaultToggleBar
+			footerOffset = -18
+		end
+		if coachBtn then
+			PinFooterBtn(coachBtn, footerAnchor, footerOffset)
+		end
+		if bestBtn then
+			local coachOffset = coachBtn and -30 or footerOffset
+			local bestAnchor = coachBtn or footerAnchor
+			PinFooterBtn(bestBtn, bestAnchor, coachOffset)
 		end
 	end
 
@@ -1784,6 +1876,17 @@ local function SetupDelvesModule()
 	rightColumn:EnableMouse(false)
 	leftColumn.rows = {}
 	rightColumn.rows = {}
+
+	coachBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+	coachBtn:SetSize(340, 26)
+	coachBtn:SetText(ns:L("DELVES_BTN_COACH"))
+	coachBtn:SetScript("OnClick", function()
+		if ns.OpenDelveCoachPicker then
+			ns:OpenDelveCoachPicker()
+		else
+			print(("|cffffcc00%s|r Delve Coach module not loaded."):format(ns:L("PRINT_PREFIX")))
+		end
+	end)
 
 	bestBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
 	bestBtn:SetSize(340, 26)
