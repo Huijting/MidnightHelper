@@ -14,6 +14,9 @@ local Config = {
 	UNALLOYED_ABUNDANCE_CURRENCY_CODE = 3401,
 	--- Weekly tracker: Shards of Dundun (bags / weekly progress display).
 	SHARD_OF_DUNDUN_ITEM_ID = 258901,
+	--- Delve consumables (minimap quick-use + Delves tab currency line).
+	DELVE_ITEM_RAID_R_MINI = 244193, -- L00T RAID-R Mini — highlights Mislaid Curiosities
+	DELVE_ITEM_TROVEHUNTER_BOUNTY = 252415, -- Trovehunter's Bounty — Hidden Trove
 	--- Maps Enum.Profession → Artisan's Moxie currency ID for that trade.
 	ARTISANS_MOXIE_CURRENCY_CODES = {},
 }

@@ -698,5 +698,8 @@ f:SetScript("OnEvent", function(_, _, name)
 	end
 	if ns.db then
 		ns:InitMinimapBroker()
+		if ns.InitDelveItemBrokers then
+			ns:InitDelveItemBrokers()
+		end
 	end
 end)

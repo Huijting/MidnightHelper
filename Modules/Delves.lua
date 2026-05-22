@@ -94,8 +94,9 @@ local CURRENCY_COFFER_KEY = 3028
 local CURRENCY_COFFER_SHARDS = 3310
 local CURRENCY_UNDERCOIN = 2803
 local CURRENCY_UNTAINTED_MANA_CRYSTALS = 3356
-local ITEM_TROVEHUNTER_BOUNTY = 252415
-local ITEM_RAID_R_MINI = 244193
+local Config = ns.Config or {}
+local ITEM_TROVEHUNTER_BOUNTY = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY or 252415
+local ITEM_RAID_R_MINI = Config.DELVE_ITEM_RAID_R_MINI or 244193
 
 local TRACKER_ROW_HEIGHT = 26
 local ICON_SIZE = 22
@@ -463,6 +464,8 @@ local function IsPlayerInActiveDelve()
 	end
 	return false
 end
+
+ns.IsPlayerInActiveDelve = IsPlayerInActiveDelve
 
 local function MapHasAncestor(mapID, ancestorID)
 	local id = tonumber(mapID)

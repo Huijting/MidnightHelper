@@ -41,10 +41,22 @@ local DEFAULT_DB = {
 			ping = true,
 		},
 		--- Floating Delve Coach panel (position, minimize state).
+		--- Floating RAID-R Mini / Trovehunter's Bounty buttons (beside Delve Coach in delves).
+		delveItemsPopup = {
+			enabled = true,
+			autoShowInDelve = true,
+			point = "CENTER",
+			relPoint = "CENTER",
+			x = 0,
+			y = 80,
+			userPositioned = false,
+		},
 		delveCoach = {
 			enabled = true,
 			autoShow = true,
+			shareTestMode = false,
 			minimized = false,
+			scale = 1,
 			width = 320,
 			height = 480,
 			bossIndex = {},
@@ -69,6 +81,13 @@ local DEFAULT_DB = {
 	},
 	--- Minimap button (LibDBIcon-1.0): hide, minimapPos, lock.
 	minimap = {
+		hide = false,
+	},
+	--- Delve consumable minimap icons (separate position/hide per icon).
+	minimapDelveRadar = {
+		hide = false,
+	},
+	minimapDelveTreasure = {
 		hide = false,
 	},
 	settings = {

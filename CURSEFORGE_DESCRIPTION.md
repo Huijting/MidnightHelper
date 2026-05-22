@@ -4,6 +4,7 @@ Midnight Helper is an all-in-one utility addon for WoW Retail players who want a
 
 ### Highlights
 
+- **Delve Coach** with party share, in-delve consumable popup (RAID-R Mini / Trovehunter's Bounty), and minimap quick-use icons
 - Delves dashboard and Great Vault helper (Travel Assistant for cross-zone hops; TomTom optional for map arrows)
 - Consumables tab per spec (Wowhead-backed, with guide search preview)
 - Account snapshot with alt overview

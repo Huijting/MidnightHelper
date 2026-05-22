@@ -12,6 +12,30 @@ All notable changes to this project are documented in this file.
 - Leveling Guides tab: **Layout** sub-tab with the ISO keyboard prototype (Midnight key highlights) using `Modules/KeyboardLayoutPrototype.lua` and `Modules/KeybindingData.lua`.
 - SMC City Guide: weekly/hub checklist using `C_QuestLog.IsQuestFlaggedCompleted`; waypoint buttons for linked pins tint green when done. Configure quest IDs in `Modules/SMCChecklistData.lua` (verify after patches). Default ships with **no** quest IDs until confirmed (avoids false “Done” from placeholder IDs).
 
+## [1.3.0] - 2026-05-19
+
+### Added
+
+- **Delve Party Share:** send Delve Coach tips to party, raid, or instance chat (brief, boss, sections, copy dialog). Recipients do not need this addon. **Test (/say)** on Delve Coach for solo testing.
+- **Delve items popup:** quick-use panel for **RAID-R Mini** (244193) and **Trovehunter's Bounty** (252415) when you carry them in a delve.
+- **Minimap launchers** for those items (left-click opens popup, right-click uses item) — visible **only during an active delve**.
+- **Delve Coach:** Shift + mouse wheel scales the whole panel (like the main Midnight Helper window). Resize via corner grip, bottom bar, or right edge; mouse wheel scrolls tip text.
+- Party-share chat lines with **spell hyperlinks** (EN/NL).
+
+### Changed
+
+- Delve items UI auto-shows when entering a delve (retries until `IsDelveInProgress` is true). Closing the popup suppresses auto-show until the next delve.
+- Boss spotlight: more reliable first-load preview, loading text no longer hidden behind the model, saved zoom per boss.
+
+### Fixed
+
+- Party share only sends when you are in a real group (avoids Blizzard “You aren't in a party” spam when solo).
+- Delve Coach “More” share menu, share API wiring, and assorted open/layout edge cases from 1.2.6 testing.
+
+### Note
+
+- Major feature release for CurseForge. Small follow-up patches may use the **Valeera** codename in release notes.
+
 ## [1.2.6] - 2026-05-21
 
 ### Added

@@ -37,6 +37,7 @@ local DEFAULT_BOSS_FRAME = {
 local BOSS_CAM_MIN = 0.45
 local BOSS_CAM_MAX = 2.0
 local BOSS_CAM_WHEEL_STEP = 0.07
+local MODEL_RETRY_DELAYS = { 0, 0.12, 0.3, 0.6, 1.0, 1.8, 3.0 }
 
 local function GetDelveCoachSettings()
 	local s = ns.db and ns.db.ui and ns.db.ui.delveCoach
@@ -220,10 +221,84 @@ function ns:SetDelveBossShowcaseIndex(entryId, index)
 	end
 end
 
+local function CancelBossModelRetries(model)
+	if not model then
+		return
+	end
+	model._mhRetryGeneration = (model._mhRetryGeneration or 0) + 1
+end
+
+local function FinishDelveBossCreatureModel(model, creatureId, frame)
+	if not model or model._mhPendingCreatureId ~= creatureId then
+		return false
+	end
+
+	local ok = pcall(function()
+		if model.SetCreatureData then
+			model:SetCreatureData(creatureId)
+		elseif model.SetCreature then
+			model:SetCreature(creatureId)
+		else
+			error("no SetCreature")
+		end
+	end)
+
+	if not ok or model._mhPendingCreatureId ~= creatureId then
+		ns:ClearDelveBossCreatureModel(model)
+		return false
+	end
+
+	model._mhLoadedCreatureId = creatureId
+	model:Show()
+	if model._mhLoadingFs and model._mhLoadingFs.Hide then
+		model._mhLoadingFs:Hide()
+	end
+	ns:ApplyDelveBossFrameSettings(model, frame)
+
+	local function refit()
+		if not model or model._mhLoadedCreatureId ~= creatureId then
+			return
+		end
+		local fresh = ns:GetDelveBossFrame(creatureId, model._mhBossEntry)
+		ns:ApplyDelveBossFrameSettings(model, fresh)
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.05, refit)
+		C_Timer.After(0.12, refit)
+		C_Timer.After(0.25, refit)
+		C_Timer.After(0.45, refit)
+	end
+	return true
+end
+
+local function ScheduleBossModelRetries(model, creatureId, bossEntry)
+	if not model or not creatureId or not C_Timer or not C_Timer.After then
+		return
+	end
+	local frame = ns:GetDelveBossFrame(creatureId, bossEntry)
+	CancelBossModelRetries(model)
+	local generation = model._mhRetryGeneration or 0
+	for _, delay in ipairs(MODEL_RETRY_DELAYS) do
+		C_Timer.After(delay, function()
+			if not model or model._mhRetryGeneration ~= generation then
+				return
+			end
+			if model._mhLoadedCreatureId == creatureId then
+				return
+			end
+			if model._mhPendingCreatureId ~= creatureId then
+				model._mhPendingCreatureId = creatureId
+			end
+			FinishDelveBossCreatureModel(model, creatureId, frame)
+		end)
+	end
+end
+
 function ns:ClearDelveBossCreatureModel(model)
 	if not model then
 		return
 	end
+	CancelBossModelRetries(model)
 	model._mhPendingCreatureId = nil
 	model._mhLoadedCreatureId = nil
 	if model.ClearModel then
@@ -275,46 +350,6 @@ function ns:ApplyDelveBossFrameSettings(model, frame)
 	end
 end
 
-local function FinishDelveBossCreatureModel(model, creatureId, frame)
-	if not model or model._mhPendingCreatureId ~= creatureId then
-		return false
-	end
-
-	local ok = pcall(function()
-		if model.SetCreatureData then
-			model:SetCreatureData(creatureId)
-		elseif model.SetCreature then
-			model:SetCreature(creatureId)
-		else
-			error("no SetCreature")
-		end
-	end)
-
-	if not ok or model._mhPendingCreatureId ~= creatureId then
-		ns:ClearDelveBossCreatureModel(model)
-		return false
-	end
-
-	model._mhLoadedCreatureId = creatureId
-	model:Show()
-	ns:ApplyDelveBossFrameSettings(model, frame)
-
-	local function refit()
-		if not model or model._mhLoadedCreatureId ~= creatureId then
-			return
-		end
-		local fresh = ns:GetDelveBossFrame(creatureId, model._mhBossEntry)
-		ns:ApplyDelveBossFrameSettings(model, fresh)
-	end
-	if C_Timer and C_Timer.After then
-		C_Timer.After(0.05, refit)
-		C_Timer.After(0.12, refit)
-		C_Timer.After(0.25, refit)
-		C_Timer.After(0.45, refit)
-	end
-	return true
-end
-
 function ns:ApplyDelveBossCreatureModel(model, creatureId, bossEntry)
 	if not model then
 		return false
@@ -333,15 +368,13 @@ function ns:ApplyDelveBossCreatureModel(model, creatureId, bossEntry)
 		return true
 	end
 
+	CancelBossModelRetries(model)
 	self:ClearDelveBossCreatureModel(model)
 	model._mhPendingCreatureId = creatureId
 
-	if C_Timer and C_Timer.After then
-		C_Timer.After(0, function()
-			FinishDelveBossCreatureModel(model, creatureId, frame)
-		end)
-	else
-		FinishDelveBossCreatureModel(model, creatureId, frame)
+	if FinishDelveBossCreatureModel(model, creatureId, frame) then
+		return true
 	end
+	ScheduleBossModelRetries(model, creatureId, bossEntry)
 	return true
 end

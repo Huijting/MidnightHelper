@@ -15,15 +15,20 @@ local currentEntryId
 local COACH_DEFAULT_W = 320
 local COACH_DEFAULT_H = 480
 local COACH_MIN_W = 260
-local COACH_MIN_H = 120
-local COACH_MAX_W = 520
-local COACH_MAX_H = 720
+local COACH_MIN_H = 340
+local COACH_MAX_W = 580
+local COACH_MAX_H = 800
 local COACH_TITLE_H = 36
 local BOSS_PANEL_H = 156
 local BOSS_NAME_BAR_H = 22
 local BOSS_MODEL_INSET_TOP = 22
 local BOSS_MODEL_INSET_SIDE = 32
-local RESIZE_GRIP = 16
+local RESIZE_GRIP = 22
+local RESIZE_EDGE_H = 8
+local SCROLL_WHEEL_STEP = 42
+local COACH_SCALE_MIN = 0.65
+local COACH_SCALE_MAX = 1.75
+local COACH_SCALE_WHEEL_STEP = 0.05
 local COACH_FRAME_STRATA = "FULLSCREEN_DIALOG"
 local COACH_FRAME_LEVEL = 500
 local COLOR_SECTION = "|cffffcc00"
@@ -51,6 +56,7 @@ local function GetSettings()
 			enabled = true,
 			autoShow = true,
 			minimized = false,
+			scale = 1,
 			width = COACH_DEFAULT_W,
 			height = COACH_DEFAULT_H,
 			bossIndex = {},
@@ -66,6 +72,7 @@ local function GetSettings()
 			enabled = true,
 			autoShow = true,
 			minimized = false,
+			scale = 1,
 			width = COACH_DEFAULT_W,
 			height = COACH_DEFAULT_H,
 			bossIndex = {},
@@ -77,6 +84,9 @@ local function GetSettings()
 		}
 	end
 	local s = ui.delveCoach
+	if s.scale == nil then
+		s.scale = 1
+	end
 	if s.width == nil then
 		s.width = COACH_DEFAULT_W
 	end
@@ -98,6 +108,31 @@ local function ClampCoachSize(w, h)
 	return w, h
 end
 
+local function ClampCoachScale(scale)
+	scale = tonumber(scale) or 1
+	return math.max(COACH_SCALE_MIN, math.min(COACH_SCALE_MAX, scale))
+end
+
+local function ApplyCoachScale(f)
+	if not f or not f.SetScale then
+		return 1
+	end
+	local s = GetSettings()
+	local scale = ClampCoachScale(s.scale)
+	s.scale = scale
+	f:SetScale(scale)
+	return scale
+end
+
+local function AdjustCoachScale(f, wheelDelta)
+	if not f or not wheelDelta or wheelDelta == 0 then
+		return
+	end
+	local s = GetSettings()
+	s.scale = ClampCoachScale((s.scale or 1) + (wheelDelta * COACH_SCALE_WHEEL_STEP))
+	ApplyCoachScale(f)
+end
+
 local function ApplyCoachSize(f)
 	local s = GetSettings()
 	local w, h = ClampCoachSize(s.width, s.height)
@@ -106,6 +141,7 @@ local function ApplyCoachSize(f)
 	else
 		f:SetSize(w, h)
 	end
+	ApplyCoachScale(f)
 end
 
 local function SaveCoachSize(f)
@@ -266,8 +302,25 @@ local function UpdateBossShowcase(f, entryId)
 	if entryId ~= f._bossEntryId and model and ns.ClearDelveBossCreatureModel then
 		ns:ClearDelveBossCreatureModel(model)
 	end
+	if f._bossLoading then
+		f._bossLoading:SetText(ns:L("DELVE_COACH_BOSS_LOADING"))
+		f._bossLoading:Show()
+	end
+	if model then
+		model._mhLoadingFs = f._bossLoading
+	end
 	if ns.ApplyDelveBossCreatureModel and model then
 		ns:ApplyDelveBossCreatureModel(model, boss.creatureId, boss)
+	end
+	if model and model._mhLoadedCreatureId == boss.creatureId and f._bossLoading then
+		f._bossLoading:Hide()
+	elseif f._bossLoading and C_Timer and C_Timer.After then
+		local creatureId = boss.creatureId
+		C_Timer.After(0.05, function()
+			if model and model._mhLoadedCreatureId == creatureId and f._bossLoading then
+				f._bossLoading:Hide()
+			end
+		end)
 	end
 	f._bossEntryId = entryId
 	f._bossShowcaseIndex = idx
@@ -295,7 +348,20 @@ local function CycleBossShowcase(f, delta)
 	UpdateBossShowcase(f, entryId)
 end
 
-local function LayoutCoachScroll(f)
+local function ScrollCoachByDelta(scroll, delta)
+	if not scroll or not delta or delta == 0 then
+		return
+	end
+	if not scroll.GetVerticalScroll or not scroll.SetVerticalScroll then
+		return
+	end
+	local cur = scroll:GetVerticalScroll() or 0
+	local maxRange = scroll.GetVerticalScrollRange and scroll:GetVerticalScrollRange() or 0
+	local nextScroll = math.max(0, math.min(maxRange, cur - (delta * SCROLL_WHEEL_STEP)))
+	scroll:SetVerticalScroll(nextScroll)
+end
+
+local function LayoutCoachScroll(f, resetScroll)
 	local scroll = f._scroll
 	local content = f._content
 	local body = f._body
@@ -303,7 +369,7 @@ local function LayoutCoachScroll(f)
 		return
 	end
 	local scrollW = scroll:GetWidth() or 260
-	local textW = math.max(220, scrollW - 16)
+	local textW = math.max(200, scrollW - 20)
 	content:SetWidth(textW)
 	if f._bodyHost then
 		f._bodyHost:SetWidth(textW)
@@ -328,10 +394,63 @@ local function LayoutCoachScroll(f)
 	applyHeights()
 	if C_Timer and C_Timer.After then
 		C_Timer.After(0, applyHeights)
+		C_Timer.After(0.05, applyHeights)
 	end
-	if scroll.SetVerticalScroll then
+	if resetScroll and scroll.SetVerticalScroll then
 		scroll:SetVerticalScroll(0)
 	end
+end
+
+local function RelayoutCoachFrame(f)
+	if not f or f._minimized then
+		return
+	end
+	if f._scroll and f._bossPanel then
+		f._scroll:Show()
+	end
+	LayoutCoachScroll(f, false)
+end
+
+local function HandleCoachMouseWheel(f, delta)
+	if not f or f._minimized or not delta or delta == 0 then
+		return
+	end
+	if IsShiftKeyDown and IsShiftKeyDown() then
+		AdjustCoachScale(f, delta)
+		return
+	end
+	local focus = GetMouseFocus and GetMouseFocus()
+	if focus and (focus == f._bossModelHost or focus == f._bossModel) then
+		return
+	end
+	if f._scroll and f._scroll:IsShown() then
+		ScrollCoachByDelta(f._scroll, delta)
+	end
+end
+
+local function BindCoachMouseWheel(frame, f)
+	if not frame then
+		return
+	end
+	frame:EnableMouseWheel(true)
+	frame:SetScript("OnMouseWheel", function(_, delta)
+		HandleCoachMouseWheel(f, delta)
+	end)
+end
+
+local function ScheduleRelayoutCoachFrame(f)
+	if not f or not C_Timer or not C_Timer.After then
+		RelayoutCoachFrame(f)
+		return
+	end
+	f._mhRelayoutToken = (f._mhRelayoutToken or 0) + 1
+	local token = f._mhRelayoutToken
+	C_Timer.After(0, function()
+		if f._mhRelayoutToken ~= token then
+			return
+		end
+		RelayoutCoachFrame(f)
+	end)
 end
 
 local function SetMinimized(f, minimized)
@@ -345,11 +464,20 @@ local function SetMinimized(f, minimized)
 		if f._hint then
 			f._hint:Hide()
 		end
+		if f._shareBar then
+			f._shareBar:Hide()
+		end
 		if f._bossPanel then
 			f._bossPanel:Hide()
 		end
 		if f._resizeGrip then
 			f._resizeGrip:Hide()
+		end
+		if f._resizeBar then
+			f._resizeBar:Hide()
+		end
+		if f._resizeRight then
+			f._resizeRight:Hide()
 		end
 		f:SetHeight(COACH_TITLE_H)
 	else
@@ -359,14 +487,23 @@ local function SetMinimized(f, minimized)
 		if f._hint then
 			f._hint:Show()
 		end
+		if f._shareBar then
+			f._shareBar:Show()
+		end
 		if f._resizeGrip then
 			f._resizeGrip:Show()
+		end
+		if f._resizeBar then
+			f._resizeBar:Show()
+		end
+		if f._resizeRight then
+			f._resizeRight:Show()
 		end
 		ApplyCoachSize(f)
 		if currentEntryId then
 			UpdateBossShowcase(f, currentEntryId)
 		end
-		LayoutCoachScroll(f)
+		LayoutCoachScroll(f, true)
 	end
 	if f._minBtn and f._minBtn.SetText then
 		f._minBtn:SetText(minimized and "+" or "-")
@@ -375,6 +512,17 @@ end
 
 local function EnsureCoachFrame()
 	if coachFrame then
+		if coachFrame._resizeGrip then
+			coachFrame._resizeGrip:SetSize(RESIZE_GRIP, RESIZE_GRIP)
+		end
+		if coachFrame._bossLoading and coachFrame._bossLoading.SetFontObject then
+			if not coachFrame._bossLoading:GetFont() then
+				coachFrame._bossLoading:SetFontObject(GameFontDisable or GameFontHighlightSmall)
+			end
+		end
+		ApplyCoachSize(coachFrame)
+		ApplyCoachScale(coachFrame)
+		RelayoutCoachFrame(coachFrame)
 		return coachFrame
 	end
 
@@ -417,6 +565,7 @@ local function EnsureCoachFrame()
 		SavePoint(f)
 	end)
 	f._titleBar = titleBar
+	BindCoachMouseWheel(titleBar, f)
 
 	local title = titleBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	title:SetPoint("LEFT", titleBar, "LEFT", 0, 0)
@@ -450,9 +599,151 @@ local function EnsureCoachFrame()
 	hint:SetText(ns:L("DELVE_COACH_DRAG_HINT"))
 	f._hint = hint
 
+	local shareBar = CreateFrame("Frame", nil, f)
+	shareBar:SetPoint("TOPLEFT", hint, "BOTTOMLEFT", 0, -4)
+	shareBar:SetPoint("TOPRIGHT", hint, "BOTTOMRIGHT", 0, -4)
+	shareBar:SetHeight(52)
+	f._shareBar = shareBar
+	BindCoachMouseWheel(shareBar, f)
+
+	local shareHint = shareBar:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	shareHint:SetPoint("TOPLEFT", shareBar, "TOPLEFT", 0, 0)
+	shareHint:SetPoint("TOPRIGHT", shareBar, "TOPRIGHT", -108, 0)
+	shareHint:SetJustifyH("LEFT")
+	shareHint:SetWordWrap(true)
+	shareHint:SetText(ns:L("DELVE_SHARE_BAR_HINT"))
+	f._shareHint = shareHint
+
+	local testChk = CreateFrame("CheckButton", nil, shareBar, "UICheckButtonTemplate")
+	testChk:SetSize(22, 22)
+	testChk:SetPoint("TOPRIGHT", shareBar, "TOPRIGHT", 0, 0)
+	local testLbl = shareBar:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	testLbl:SetPoint("RIGHT", testChk, "LEFT", 0, 0)
+	testLbl:SetText(ns:L("DELVE_SHARE_TEST_MODE"))
+	f._shareTestChk = testChk
+	f._shareTestLabel = testLbl
+	testChk:SetScript("OnClick", function(self)
+		if ns.SetDelvePartyShareTestMode then
+			ns.SetDelvePartyShareTestMode(self:GetChecked())
+		end
+	end)
+	if ns.GetDelvePartyShareTestMode then
+		testChk:SetChecked(ns.GetDelvePartyShareTestMode())
+	end
+
+	local btnRow = CreateFrame("Frame", nil, shareBar)
+	btnRow:SetPoint("TOPLEFT", shareHint, "BOTTOMLEFT", 0, -2)
+	btnRow:SetPoint("RIGHT", shareBar, "RIGHT", 0, 0)
+	btnRow:SetHeight(24)
+	f._shareBtnRow = btnRow
+
+	local function MakeShareBtn(parent, labelKey, width)
+		local b = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+		b:SetSize(width or 72, 22)
+		b._mhLabelKey = labelKey
+		b:SetText(ns:L(labelKey))
+		return b
+	end
+
+	local btnBrief = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_BRIEF", 88)
+	btnBrief:SetPoint("LEFT", btnRow, "LEFT", 0, 0)
+	btnBrief:SetScript("OnClick", function()
+		if currentEntryId and ns.SendDelvePartyShare then
+			ns.SendDelvePartyShare(currentEntryId, "brief")
+		end
+	end)
+	f._shareBtnBrief = btnBrief
+
+	local btnBoss = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_BOSS", 52)
+	btnBoss:SetPoint("LEFT", btnBrief, "RIGHT", 4, 0)
+	btnBoss:SetScript("OnClick", function()
+		if currentEntryId and ns.SendDelvePartyShare then
+			ns.SendDelvePartyShare(currentEntryId, "boss")
+		end
+	end)
+	f._shareBtnBoss = btnBoss
+
+	local btnMore = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_MORE", 52)
+	btnMore:SetPoint("LEFT", btnBoss, "RIGHT", 4, 0)
+	f._shareBtnMore = btnMore
+
+	local btnCopy = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_COPY", 58)
+	btnCopy:SetPoint("LEFT", btnMore, "RIGHT", 4, 0)
+	btnCopy:SetScript("OnClick", function()
+		if currentEntryId and ns.ToggleDelvePartyShareCopy then
+			ns.ToggleDelvePartyShareCopy(currentEntryId, "brief")
+		end
+	end)
+	f._shareBtnCopy = btnCopy
+
+	local MORE_SHARE_MENU = {
+		{ mode = "overview", labelKey = "DELVE_SHARE_MENU_OVERVIEW" },
+		{ mode = "route", labelKey = "DELVE_SHARE_MENU_ROUTE" },
+		{ mode = "trash", labelKey = "DELVE_SHARE_MENU_TRASH" },
+		{ separator = true },
+		{ mode = "all", labelKey = "DELVE_SHARE_MENU_ALL" },
+	}
+
+	local function CloseShareDropDown()
+		if CloseDropDownMenus then
+			CloseDropDownMenus()
+		end
+	end
+
+	local function InitDelveShareMoreMenu(dropdown, level)
+		if level ~= 1 then
+			return
+		end
+		local entryId = dropdown._mhEntryId
+		if not entryId or not UIDropDownMenu_CreateInfo or not UIDropDownMenu_AddButton then
+			return
+		end
+		for _, item in ipairs(MORE_SHARE_MENU) do
+			local info = UIDropDownMenu_CreateInfo()
+			if item.separator then
+				info.text = ""
+				info.isTitle = true
+				info.notCheckable = true
+				info.disabled = true
+			else
+				info.text = ns:L(item.labelKey)
+				info.notCheckable = true
+				info.func = function()
+					CloseShareDropDown()
+					if ns.SendDelvePartyShare then
+						ns.SendDelvePartyShare(entryId, item.mode)
+					end
+				end
+			end
+			UIDropDownMenu_AddButton(info, level)
+		end
+	end
+
+	btnMore:SetScript("OnClick", function(self)
+		if not currentEntryId then
+			return
+		end
+		if not UIDropDownMenu_Initialize or not ToggleDropDownMenu then
+			print(
+				("|cffffcc00%s|r %s"):format(
+					ns:L("PRINT_PREFIX"),
+					ns:L("DELVE_SHARE_MENU_UNAVAILABLE") or "Share menu unavailable."
+				)
+			)
+			return
+		end
+		if not f._moreMenuFrame then
+			f._moreMenuFrame = CreateFrame("Frame", "MidnightHelperDelveShareMenu", UIParent, "UIDropDownMenuTemplate")
+		end
+		local menu = f._moreMenuFrame
+		menu._mhEntryId = currentEntryId
+		UIDropDownMenu_Initialize(menu, InitDelveShareMoreMenu, "MENU")
+		ToggleDropDownMenu(1, nil, menu, self, 0, 0)
+	end)
+
 	local bossPanel = CreateFrame("Frame", nil, f, "BackdropTemplate")
-	bossPanel:SetPoint("TOPLEFT", hint, "BOTTOMLEFT", 4, -4)
-	bossPanel:SetPoint("TOPRIGHT", hint, "BOTTOMRIGHT", -4, -4)
+	bossPanel:SetPoint("TOPLEFT", shareBar, "BOTTOMLEFT", 4, -4)
+	bossPanel:SetPoint("TOPRIGHT", shareBar, "BOTTOMRIGHT", -4, -4)
 	bossPanel:SetHeight(BOSS_PANEL_H)
 	if bossPanel.SetBackdrop then
 		bossPanel:SetBackdrop({
@@ -466,6 +757,7 @@ local function EnsureCoachFrame()
 		bossPanel:SetBackdropBorderColor(0.45, 0.38, 0.22, 0.9)
 	end
 	f._bossPanel = bossPanel
+	BindCoachMouseWheel(bossPanel, f)
 
 	local bossTitle = bossPanel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	bossTitle:SetPoint("TOPLEFT", bossPanel, "TOPLEFT", 8, -6)
@@ -560,11 +852,36 @@ local function EnsureCoachFrame()
 	end
 	f._bossModel = bossModel
 
+	local bossLoading = bossPanel:CreateFontString(nil, "ARTWORK", "GameFontDisable")
+	bossLoading:SetPoint("CENTER", modelHost, "CENTER", 0, 0)
+	if not bossLoading:GetFont() and bossLoading.SetFontObject then
+		bossLoading:SetFontObject(GameFontHighlightSmall)
+	end
+	bossLoading:SetTextColor(0.75, 0.78, 0.85)
+	bossLoading:SetText(ns:L("DELVE_COACH_BOSS_LOADING"))
+	bossLoading:Hide()
+	if bossLoading.SetDrawLayer then
+		bossLoading:SetDrawLayer("ARTWORK", -1)
+	end
+	if modelHost and bossLoading.SetFrameLevel then
+		bossLoading:SetFrameLevel(modelHost:GetFrameLevel())
+	end
+	f._bossLoading = bossLoading
+	if bossModel then
+		bossModel._mhLoadingFs = bossLoading
+	end
+
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", bossPanel, "BOTTOMLEFT", 0, -6)
-	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -28, 14)
-	scroll:EnableMouse(false)
+	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, RESIZE_EDGE_H + 8)
+	scroll:EnableMouse(true)
 	scroll:EnableMouseWheel(true)
+	if scroll.SetClipsChildren then
+		scroll:SetClipsChildren(true)
+	end
+	scroll:SetScript("OnMouseWheel", function(_, delta)
+		HandleCoachMouseWheel(f, delta)
+	end)
 	f._scroll = scroll
 
 	local content = CreateFrame("Frame", nil, scroll)
@@ -596,9 +913,55 @@ local function EnsureCoachFrame()
 	end
 	f._body = body
 
+	local resizeRight = CreateFrame("Frame", nil, f)
+	resizeRight:SetWidth(RESIZE_EDGE_H)
+	resizeRight:SetPoint("TOPRIGHT", f, "TOPRIGHT", -4, -36)
+	resizeRight:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -4, RESIZE_GRIP + 8)
+	resizeRight:EnableMouse(true)
+	resizeRight:RegisterForDrag("LeftButton")
+	resizeRight:SetScript("OnDragStart", function()
+		f:StartSizing("RIGHT")
+	end)
+	resizeRight:SetScript("OnDragStop", function()
+		f:StopMovingOrSizing()
+		SaveCoachSize(f)
+		ScheduleRelayoutCoachFrame(f)
+	end)
+	f._resizeRight = resizeRight
+
+	local resizeBar = CreateFrame("Frame", nil, f)
+	resizeBar:SetHeight(RESIZE_EDGE_H)
+	resizeBar:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 10, 4)
+	resizeBar:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(RESIZE_GRIP + 10), 4)
+	resizeBar:EnableMouse(true)
+	resizeBar:RegisterForDrag("LeftButton")
+	resizeBar:SetScript("OnDragStart", function()
+		f:StartSizing("BOTTOM")
+	end)
+	resizeBar:SetScript("OnDragStop", function()
+		f:StopMovingOrSizing()
+		SaveCoachSize(f)
+		ScheduleRelayoutCoachFrame(f)
+	end)
+	if resizeBar.SetScript then
+		resizeBar:SetScript("OnEnter", function()
+			if GameTooltip then
+				GameTooltip:SetOwner(resizeBar, "ANCHOR_TOP")
+				GameTooltip:SetText(ns:L("DELVE_COACH_RESIZE_HINT"), 1, 1, 1, 1, true)
+				GameTooltip:Show()
+			end
+		end)
+		resizeBar:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+	end
+	f._resizeBar = resizeBar
+
 	local grip = CreateFrame("Button", nil, f)
 	grip:SetSize(RESIZE_GRIP, RESIZE_GRIP)
-	grip:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -6, 6)
+	grip:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -4, 4)
 	grip:SetFrameLevel(f:GetFrameLevel() + 20)
 	grip:RegisterForDrag("LeftButton")
 	grip:SetNormalTexture("Interface\\Buttons\\UI-ResizeButton-Up")
@@ -610,16 +973,45 @@ local function EnsureCoachFrame()
 	grip:SetScript("OnDragStop", function()
 		f:StopMovingOrSizing()
 		SaveCoachSize(f)
-		LayoutCoachScroll(f)
+		ScheduleRelayoutCoachFrame(f)
 	end)
+	if grip.SetScript then
+		grip:SetScript("OnEnter", function()
+			if GameTooltip then
+				GameTooltip:SetOwner(grip, "ANCHOR_TOPLEFT")
+				GameTooltip:SetText(ns:L("DELVE_COACH_RESIZE_HINT"), 1, 1, 1, 1, true)
+				GameTooltip:Show()
+			end
+		end)
+		grip:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+	end
 	f._resizeGrip = grip
+
+	BindCoachMouseWheel(f, f)
 
 	f:SetScript("OnSizeChanged", function()
 		if f._minimized then
 			return
 		end
 		SaveCoachSize(f)
-		LayoutCoachScroll(f)
+		ScheduleRelayoutCoachFrame(f)
+	end)
+
+	f:SetScript("OnShow", function()
+		if currentEntryId then
+			UpdateBossShowcase(f, currentEntryId)
+			if C_Timer and C_Timer.After then
+				C_Timer.After(0.5, function()
+					if f:IsShown() and currentEntryId then
+						UpdateBossShowcase(f, currentEntryId)
+					end
+				end)
+			end
+		end
 	end)
 
 	ApplySavedPoint(f)
@@ -635,8 +1027,20 @@ function ns:RefreshDelveCoachLocale()
 	if coachFrame._hint then
 		coachFrame._hint:SetText(self:L("DELVE_COACH_DRAG_HINT"))
 	end
+	if ns.UpdateDelveShareBarUI then
+		ns:UpdateDelveShareBarUI()
+	end
+	for _, key in ipairs({ "_shareBtnBrief", "_shareBtnBoss", "_shareBtnMore", "_shareBtnCopy" }) do
+		local b = coachFrame[key]
+		if b and b._mhLabelKey and b.SetText then
+			b:SetText(self:L(b._mhLabelKey))
+		end
+	end
 	if coachFrame._bossTitle then
 		coachFrame._bossTitle:SetText(self:L("DELVE_COACH_BOSS_SHOWCASE"))
+	end
+	if ns.RefreshDelvePartyShareLocale then
+		ns:RefreshDelvePartyShareLocale()
 	end
 	if currentEntryId then
 		self:ShowDelveCoach(currentEntryId, { preview = coachFrame._previewMode })
@@ -667,7 +1071,7 @@ function ns:ShowDelveCoach(entryId, options)
 		f._bodyText = BuildCoachBody(entry)
 		ApplyCoachSize(f)
 		UpdateBossShowcase(f, entryId)
-		LayoutCoachScroll(f)
+		LayoutCoachScroll(f, true)
 
 		ApplySavedPoint(f)
 		if isPreview then
@@ -677,6 +1081,15 @@ function ns:ShowDelveCoach(entryId, options)
 		end
 		BringCoachFrameToFront(f)
 		f:Show()
+		if ns.UpdateDelveShareBarUI then
+			ns:UpdateDelveShareBarUI()
+		end
+		if ns.RefreshDelveItemsPopup then
+			ns:RefreshDelveItemsPopup()
+		end
+		if not isPreview and ns.MaybeAutoShowDelveItemsPopup then
+			ns:MaybeAutoShowDelveItemsPopup()
+		end
 	end)
 
 	if not ok then
@@ -829,12 +1242,31 @@ local function OnDelveStateTick()
 		if coachFrame then
 			coachFrame._userDismissed = false
 		end
+		if ns.ClearDelveItemsAutoShowSuppress then
+			ns:ClearDelveItemsAutoShowSuppress()
+		end
+		if ns.ScheduleDelveItemsAutoShowRetries then
+			ns:ScheduleDelveItemsAutoShowRetries()
+		elseif ns.MaybeAutoShowDelveItemsPopup then
+			ns:MaybeAutoShowDelveItemsPopup()
+		end
 	end
 	if not inDelve and wasInDelve then
 		ns:HideDelveCoach(false)
 		currentEntryId = nil
 		if coachFrame then
 			coachFrame._previewMode = false
+		end
+		if ns.HideDelveItemsPopup then
+			ns:HideDelveItemsPopup()
+		end
+		if ns.RefreshDelveItemBrokers then
+			ns:RefreshDelveItemBrokers()
+		end
+	end
+	if inDelve and not wasInDelve then
+		if ns.RefreshDelveItemBrokers then
+			ns:RefreshDelveItemBrokers()
 		end
 	end
 	wasInDelve = inDelve
@@ -846,15 +1278,28 @@ local function OnDelveStateTick()
 	if not inDelve then
 		return
 	end
+	if coachFrame and coachFrame._mhOpenFailUntil then
+		local now = GetTime and GetTime() or 0
+		if now < coachFrame._mhOpenFailUntil then
+			return
+		end
+		coachFrame._mhOpenFailUntil = nil
+	end
 	if coachFrame and coachFrame._userDismissed and not coachFrame._previewMode then
 		return
 	end
 
 	local entry = ResolveActiveDelveEntry()
 	if entry then
-		if currentEntryId ~= entry.id or not (coachFrame and coachFrame:IsShown()) then
-			ns:ShowDelveCoach(entry.id, { preview = false })
+		local needOpen = currentEntryId ~= entry.id or not (coachFrame and coachFrame:IsShown())
+		if needOpen then
+			local ok = ns:ShowDelveCoach(entry.id, { preview = false })
+			if not ok and coachFrame then
+				coachFrame._mhOpenFailUntil = (GetTime and GetTime() or 0) + 8
+			end
 		end
+	elseif coachFrame and coachFrame._mhOpenFailUntil then
+		coachFrame._mhOpenFailUntil = nil
 	end
 end
 

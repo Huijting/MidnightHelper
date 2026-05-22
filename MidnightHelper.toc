@@ -1,5 +1,5 @@
 ## Interface: 120005
-## Version: 1.2.6
+## Version: 1.3.0
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.
@@ -21,6 +21,7 @@ Modules\DelveTipsData.lua
 Modules\DelveSpellIds.lua
 Modules\DelveTipMarkup.lua
 Modules\DelveBossShowcase.lua
+Modules\DelvePartyShare.lua
 Config.lua
 Modules\KeybindSchema.lua
 Modules\KeybindingData.lua
@@ -40,6 +41,8 @@ UI.lua
 Modules\Changelog.lua
 Modules\VaultReminder.lua
 Modules\Broker.lua
+Modules\DelveItemBrokers.lua
+Modules\DelveItemsPopup.lua
 Modules\Profession.lua
 Modules\Delves.lua
 Modules\DelveCoach.lua

@@ -96,6 +96,62 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DELVE_TIP_TORMENTS_RISE_ROUTE = "• Dedicated instance portal (not a rotating world delve).|n• Use Adventure Guide (Shift-J) or TomTom.|n• Weekly bounty: Beacon of Hope can pull Nullaeus into a normal delve at 50% instead.",
 	DELVE_TIP_TORMENTS_RISE_TRASH = "• Pactsworn mobs live in regular delves, not inside Torment's Rise.|n• Pace cooldowns — save defensives and interrupts for Nullaeus.",
 	DELVE_TIP_TORMENTS_RISE_BOSS = "• Interrupt {SPELL:@devouring_essence} every cast (DoT + feeds {SPELL:@umbral_rage} stacks).|n• {SPELL:@dread_portal}: 100% damage reduction until all adds die — full AoE burst on spawn.|n• {SPELL:@oblivion_shell} phase is a DPS check.|n• {SPELL:@umbral_rage}: +10% damage per stack if adds or DoTs linger — kill adds fast.",
+
+	-- Party chat (short; spell tokens expand to links for the whole group)
+	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "SW Eversong (Deathholme). Variants: mirrors, supplies, traitor. Final boss: Lord Antenorian.",
+	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Mirrors: hit Shadow Nexuses for light. Supplies: loot Twilight valuables. Traitor: stop rituals, chase to boss.",
+	DELVE_CHAT_SHADOW_ENCLAVE_TRASH = "Mirror light = Dazzled (more crits). Interrupt shadow casters. Don't stack on bad ground.",
+	DELVE_CHAT_SHADOW_ENCLAVE_BOSS = "Kick {SPELL:@shadow_bolt}. Teleport leaves a pool — keep him central. {SPELL:@shadowveil_annihilation}: kill 3 Orbs (only the unshielded orb). Burst orbs.",
+
+	DELVE_CHAT_COLLEGIATE_CALAMITY_OVERVIEW = "NW Silvermoon / Eversong (university). Siege / Faculty / Glow variants. Three different final bosses.",
+	DELVE_CHAT_COLLEGIATE_CALAMITY_ROUTE = "Siege: close void portals. Faculty: Eye of Revelation — yellow students through walls. Glow: Deweeder + clear Luminibulb.",
+	DELVE_CHAT_COLLEGIATE_CALAMITY_TRASH = "Siege: portals first. Faculty: reveal then kill students. Glow: channel Deweeder while moving.",
+	DELVE_CHAT_COLLEGIATE_CALAMITY_BOSS = "Hydrangea: kill {SPELL:@wildroot_weave} before {SPELL:@lightbloom_salvo}. Garand: dodge {SPELL:@shadow_laceration}, spread {SPELL:@twilight_crash}. Vagrant: kick {SPELL:@terrifying_power}.",
+
+	DELVE_CHAT_THE_DARKWAY_OVERVIEW = "North Silvermoon Arcway. Focusers, Leyline, or 7 Aberrations. Boss: Infiltrator Gulkat.",
+	DELVE_CHAT_THE_DARKWAY_ROUTE = "Focusers: return ley focusers to center. Leyline: tap conduits for 3 crystals. Ogre: kill 7 Unstable Aberrations mid.",
+	DELVE_CHAT_THE_DARKWAY_TRASH = "Interrupt Twilight Seekers and Arcane Deluge. Pull out of tight corners.",
+	DELVE_CHAT_THE_DARKWAY_BOSS = "Kick Seekers. Dodge {SPELL:@abyssal_burst}. {SPELL:@illusory_deceit}: stay clear of exploding illusions.",
+
+	DELVE_CHAT_PARHELION_PLAZA_OVERVIEW = "West Isle of Quel'Danas (Sunwell). Three variants — harder delve. Boss: Gladius Slaurna.",
+	DELVE_CHAT_PARHELION_PLAZA_ROUTE = "Bombing Run: arcane device for portals (40s carry). Holding the Line: weapons + barricades. Parade: sentinels vs pylons.",
+	DELVE_CHAT_PARHELION_PLAZA_TRASH = "Kick Voidcaller Void Bolt. Clear Devouring Host waves before boss.",
+	DELVE_CHAT_PARHELION_PLAZA_BOSS = "Kill 3 Voidcallers fast (kick Void Bolt). If one lives through {SPELL:@devouring_nova}, Slaurna buffs hard. Dodge {SPELL:@voidscar_raze}, fight center.",
+
+	DELVE_CHAT_ATAL_AMAN_OVERVIEW = "West Zul'Aman. Ritual / Toadly / Totem variants. Boss: Spiritflayer Jin'Ma.",
+	DELVE_CHAT_ATAL_AMAN_ROUTE = "Ritual: rescue furbolgs. Toadly: Hex Stick on hexed Amani. Totem: destroy totems, free Akil'zon.",
+	DELVE_CHAT_ATAL_AMAN_TRASH = "Interrupt Vilebranch. Totem run: totems on path first.",
+	DELVE_CHAT_ATAL_AMAN_BOSS = "{SPELL:@flaying_knife} spirits = +10% dmg each — pick yours up. Dodge {SPELL:@raging_spirits}. Before {SPELL:@claim_spirits}, collect spirits or Jin'Ma buffs.",
+
+	DELVE_CHAT_TWILIGHT_CRYPTS_OVERVIEW = "SW Zul'Aman (Broken Throne). Loa / Party Crasher / Trapped. Boss: Blademaster Darza.",
+	DELVE_CHAT_TWILIGHT_CRYPTS_ROUTE = "Loa: don't cross Mot'amra's path. Party Crasher: escort, traps, levers. Trapped: hostages + levers.",
+	DELVE_CHAT_TWILIGHT_CRYPTS_TRASH = "Mot'amra = big knockback on his path. Interrupt summoners. Watch trap tiles.",
+	DELVE_CHAT_TWILIGHT_CRYPTS_BOSS = "Dodge {SPELL:@shade_cleave} (melee range stops {SPELL:@dark_pursuit}). Drag Darza out of {SPELL:@bask_in_the_twilight} (+30% dmg inside).",
+
+	DELVE_CHAT_GULF_OF_MEMORY_OVERVIEW = "West Harandar. Munchies / Descent / Sporasaur. Bosses: Lumenia or Mul'tha'ul.",
+	DELVE_CHAT_GULF_OF_MEMORY_ROUTE = "Munchies: Alnmoth Storm on the move. Descent: light candles, avoid dark. Sporasaur: kick Sporbits into shielded mobs.",
+	DELVE_CHAT_GULF_OF_MEMORY_TRASH = "Stay lit in Descent. Kick Sporbits early. You can move while channeling storm.",
+	DELVE_CHAT_GULF_OF_MEMORY_BOSS = "Lumenia: kill {SPELL:@radiant_command} add before it reaches you. Mul'tha'ul: dispel {SPELL:@hopeless_curse}, kite {SPELL:@tear_it_down}, respect {SPELL:@unanswered_call}.",
+
+	DELVE_CHAT_GRUDGE_PIT_OVERVIEW = "SE Harandar arena delve. Champion / Rotstalk / Invasion. Bosses: Brightthorn, Gyrospore, or Mycomight.",
+	DELVE_CHAT_GRUDGE_PIT_ROUTE = "Champion: wave arena (Sporbits help). Rotstalk: punt fans, taunt crowd. Invasion: free fighters, blow spawn points.",
+	DELVE_CHAT_GRUDGE_PIT_TRASH = "Use Sporbits in arena. Clear invasion waves. Don't ignore Rotstalk fans.",
+	DELVE_CHAT_GRUDGE_PIT_BOSS = "Brightthorn: dodge {SPELL:@solar_charge}, interrupt Bloom Thorn, turn from {SPELL:@blinding_burst}. Gyrospore: dodge {SPELL:@fungalstorm}, burst when dizzy. Mycomight: puddles away from fight.",
+
+	DELVE_CHAT_SUNKILLER_SANCTUM_OVERVIEW = "East Voidstorm. Core / Not Expected / Gravity variants. Boss: Esuritus (or 3 Umbraroot, no boss).",
+	DELVE_CHAT_SUNKILLER_SANCTUM_ROUTE = "Core: stop Domanaar stealing orbs (speed + DR buff). Not Expected: 3 Corrupted Umbraroot. Gravity: singularities drop shields.",
+	DELVE_CHAT_SUNKILLER_SANCTUM_TRASH = "Kill Voidcallers every pack — they buff Esuritus. Pick up orbs in Core.",
+	DELVE_CHAT_SUNKILLER_SANCTUM_BOSS = "All Voidcallers dead before {SPELL:@gorge} or +damage stacks. Kick {SPELL:@calling_bolt}. Dispel {SPELL:@coalescing_malediction}. Dodge {SPELL:@crushing_rift} (4 callers).",
+
+	DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW = "West Voidstorm vs ethereals. Calamitous / Wildlife / Stolen Mana. Boss: Chief-Arcanist Patram.",
+	DELVE_CHAT_SHADOWGUARD_POINT_ROUTE = "Calamitous: overload stabilizers with Arcane Charges (don't stand in blasts). Wildlife: free mobs carefully. Mana: rifle containers.",
+	DELVE_CHAT_SHADOWGUARD_POINT_TRASH = "Interrupt ethereals. Plan charge carries safely.",
+	DELVE_CHAT_SHADOWGUARD_POINT_BOSS = "Kick {SPELL:@void_bolt_patram}. Kill Void Emissary before {SPELL:@submit_to_the_void} or Patram gets the buff. Dodge {SPELL:@discordant_hymn}.",
+
+	DELVE_CHAT_TORMENTS_RISE_OVERVIEW = "Nemesis delve (Voidstorm). Tier ? / ?? rules. Boss Nullaeus — healer Valeera recommended on ??.",
+	DELVE_CHAT_TORMENTS_RISE_ROUTE = "Dedicated portal (Shift-J / TomTom). Not a rotating world delve.",
+	DELVE_CHAT_TORMENTS_RISE_TRASH = "Save CDs for Nullaeus — no Pactsworn trash inside.",
+	DELVE_CHAT_TORMENTS_RISE_BOSS = "Kick every {SPELL:@devouring_essence}. {SPELL:@dread_portal}: AoE adds until dead. {SPELL:@oblivion_shell} = DPS check. Don't stack {SPELL:@umbral_rage}.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
@@ -176,4 +232,59 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_TIP_TORMENTS_RISE_ROUTE = "• Eigen instance-portal (geen roterende world-delve).|n• Adventure Guide (Shift-J) of TomTom.|n• Weekly bounty: Beacon of Hope kan Nullaeus op 50% in een normale delve trekken.",
 	DELVE_TIP_TORMENTS_RISE_TRASH = "• Pactsworn zit in normale delves, niet in Torment's Rise.|n• Verdeel cooldowns voor Nullaeus.",
 	DELVE_TIP_TORMENTS_RISE_BOSS = "• Onderbreek {SPELL:@devouring_essence} elke cast (DoT + {SPELL:@umbral_rage}-stacks).|n• {SPELL:@dread_portal}: baas 100% damage reduction tot alle adds dood — volle AoE op spawn.|n• {SPELL:@oblivion_shell}: DPS-check.|n• {SPELL:@umbral_rage}: +10% damage per stack — kill adds snel.",
+
+	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "ZW Eversong (Deathholme). Varianten: spiegels, supplies, traitor. Eindbaas: Lord Antenorian.",
+	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Spiegels: Shadow Nexuses voor licht. Supplies: buit looten. Traitor: rituals stoppen, achtervolg naar baas.",
+	DELVE_CHAT_SHADOW_ENCLAVE_TRASH = "Spiegellicht = Dazzled (meer crits). Onderbreek casters. Niet stapelen op vuil.",
+	DELVE_CHAT_SHADOW_ENCLAVE_BOSS = "Kick {SPELL:@shadow_bolt}. Teleport = plas — houd hem centraal. {SPELL:@shadowveil_annihilation}: 3 Orbs (alleen onbeschermde). Burst orbs.",
+
+	DELVE_CHAT_COLLEGIATE_CALAMITY_OVERVIEW = "NW Silvermoon / Eversong (universiteit). Siege / Faculty / Glow. Drie eindbazen.",
+	DELVE_CHAT_COLLEGIATE_CALAMITY_ROUTE = "Siege: sluit portals. Faculty: Eye of Revelation — gele studenten door muren. Glow: Deweeder + Luminibulb.",
+	DELVE_CHAT_COLLEGIATE_CALAMITY_TRASH = "Siege: portals eerst. Faculty: onthul, kill studenten. Glow: Deweeder tijdens lopen.",
+	DELVE_CHAT_COLLEGIATE_CALAMITY_BOSS = "Hydrangea: kill {SPELL:@wildroot_weave} vóór {SPELL:@lightbloom_salvo}. Garand: ontwijk {SPELL:@shadow_laceration}, spreid {SPELL:@twilight_crash}. Vagrant: kick {SPELL:@terrifying_power}.",
+
+	DELVE_CHAT_THE_DARKWAY_OVERVIEW = "Noord Silvermoon Arcway. Focusers, Leyline of 7 Aberrations. Baas: Infiltrator Gulkat.",
+	DELVE_CHAT_THE_DARKWAY_ROUTE = "Focusers: ley focusers naar centrum. Leyline: conduits voor 3 crystals. Ogre: 7 Aberrations mid.",
+	DELVE_CHAT_THE_DARKWAY_TRASH = "Onderbreek Seekers en Arcane Deluge. Pull uit hoeken.",
+	DELVE_CHAT_THE_DARKWAY_BOSS = "Kick Seekers. Ontwijk {SPELL:@abyssal_burst}. {SPELL:@illusory_deceit}: weg van exploderende illusies.",
+
+	DELVE_CHAT_PARHELION_PLAZA_OVERVIEW = "West Quel'Danas (Sunwell). Drie varianten — zware delve. Baas: Gladius Slaurna.",
+	DELVE_CHAT_PARHELION_PLAZA_ROUTE = "Bombing Run: device voor portals (40s dragen). Holding the Line: wapens + barricades. Parade: sentinels vs pylons.",
+	DELVE_CHAT_PARHELION_PLAZA_TRASH = "Kick Voidcaller Void Bolt. Clear Devouring Host vóór baas.",
+	DELVE_CHAT_PARHELION_PLAZA_BOSS = "Kill 3 Voidcallers snel. Overleeft er één {SPELL:@devouring_nova}, Slaurna bufft hard. Ontwijk {SPELL:@voidscar_raze}, vecht centraal.",
+
+	DELVE_CHAT_ATAL_AMAN_OVERVIEW = "West Zul'Aman. Ritual / Toadly / Totem. Baas: Spiritflayer Jin'Ma.",
+	DELVE_CHAT_ATAL_AMAN_ROUTE = "Ritual: red furbolgs. Toadly: Hex Stick. Totem: vernietig totems, Akil'zon.",
+	DELVE_CHAT_ATAL_AMAN_TRASH = "Onderbreek Vilebranch. Totem: totems op pad eerst.",
+	DELVE_CHAT_ATAL_AMAN_BOSS = "{SPELL:@flaying_knife} spirits = +10% dmg — pak de jouwe. Ontwijk {SPELL:@raging_spirits}. Vóór {SPELL:@claim_spirits}: spirits ophalen.",
+
+	DELVE_CHAT_TWILIGHT_CRYPTS_OVERVIEW = "ZW Zul'Aman (Broken Throne). Loa / Party Crasher / Trapped. Baas: Blademaster Darza.",
+	DELVE_CHAT_TWILIGHT_CRYPTS_ROUTE = "Loa: niet door Mot'amra's pad. Party Crasher: escort, vallen. Trapped: gijzelaars + levers.",
+	DELVE_CHAT_TWILIGHT_CRYPTS_TRASH = "Mot'amra = knockback op zijn pad. Onderbreek summoners. Let op vallen.",
+	DELVE_CHAT_TWILIGHT_CRYPTS_BOSS = "Ontwijk {SPELL:@shade_cleave} (dichtbij = geen {SPELL:@dark_pursuit}). Trek Darza uit {SPELL:@bask_in_the_twilight} (+30% dmg erin).",
+
+	DELVE_CHAT_GULF_OF_MEMORY_OVERVIEW = "West Harandar. Munchies / Descent / Sporasaur. Bazen: Lumenia of Mul'tha'ul.",
+	DELVE_CHAT_GULF_OF_MEMORY_ROUTE = "Munchies: Alnmoth Storm onderweg. Descent: kaarsen, uit duisternis. Sporasaur: schop Sporbits in schild.",
+	DELVE_CHAT_GULF_OF_MEMORY_TRASH = "Blijf in licht (Descent). Schop Sporbits vroeg. Storm = bewegen mag.",
+	DELVE_CHAT_GULF_OF_MEMORY_BOSS = "Lumenia: kill {SPELL:@radiant_command}-add vóór explode. Mul'tha'ul: dispel {SPELL:@hopeless_curse}, kit {SPELL:@tear_it_down}, {SPELL:@unanswered_call}.",
+
+	DELVE_CHAT_GRUDGE_PIT_OVERVIEW = "ZO Harandar arena. Champion / Rotstalk / Invasion. Bazen: Brightthorn, Gyrospore of Mycomight.",
+	DELVE_CHAT_GRUDGE_PIT_ROUTE = "Champion: golven (Sporbits). Rotstalk: fans schoppen, taunt crowd. Invasion: fighters vrij, spawn points.",
+	DELVE_CHAT_GRUDGE_PIT_TRASH = "Sporbits in arena. Clear invasion-golven. Rotstalk-fans niet negeren.",
+	DELVE_CHAT_GRUDGE_PIT_BOSS = "Brightthorn: ontwijk {SPELL:@solar_charge}, interrupt Bloom Thorn, weg van {SPELL:@blinding_burst}. Gyrospore: ontwijk {SPELL:@fungalstorm}, burst dizzy. Mycomight: plassen weg.",
+
+	DELVE_CHAT_SUNKILLER_SANCTUM_OVERVIEW = "Oost Voidstorm. Core / Not Expected / Gravity. Baas Esuritus (of 3 Umbraroot, geen baas).",
+	DELVE_CHAT_SUNKILLER_SANCTUM_ROUTE = "Core: stop Domanaar met orbs (snelheid + DR). Not Expected: 3 Umbraroot. Gravity: singularities voor schilden.",
+	DELVE_CHAT_SUNKILLER_SANCTUM_TRASH = "Kill Voidcallers elke pack — buffen Esuritus. Orbs pakken in Core.",
+	DELVE_CHAT_SUNKILLER_SANCTUM_BOSS = "Alle Voidcallers dood vóór {SPELL:@gorge}. Kick {SPELL:@calling_bolt}. Dispel {SPELL:@coalescing_malediction}. Ontwijk {SPELL:@crushing_rift}.",
+
+	DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW = "West Voidstorm vs ethereals. Calamitous / Wildlife / Mana. Baas: Patram.",
+	DELVE_CHAT_SHADOWGUARD_POINT_ROUTE = "Calamitous: overload met Arcane Charges (niet in explosie). Wildlife: voorzichtig vrijlaten. Mana: rifle op containers.",
+	DELVE_CHAT_SHADOWGUARD_POINT_TRASH = "Onderbreek ethereals. Charges veilig dragen.",
+	DELVE_CHAT_SHADOWGUARD_POINT_BOSS = "Kick {SPELL:@void_bolt_patram}. Kill Void Emissary vóór {SPELL:@submit_to_the_void}. Ontwijk {SPELL:@discordant_hymn}.",
+
+	DELVE_CHAT_TORMENTS_RISE_OVERVIEW = "Nemesis-delve (Voidstorm). Tier ? / ?? regels. Baas Nullaeus — healer Valeera op ??.",
+	DELVE_CHAT_TORMENTS_RISE_ROUTE = "Eigen portal (Shift-J / TomTom). Geen roterende world-delve.",
+	DELVE_CHAT_TORMENTS_RISE_TRASH = "Bewaar CDs voor Nullaeus — geen Pactsworn binnen.",
+	DELVE_CHAT_TORMENTS_RISE_BOSS = "Kick elke {SPELL:@devouring_essence}. {SPELL:@dread_portal}: AoE adds tot dood. {SPELL:@oblivion_shell} = DPS-check. Geen {SPELL:@umbral_rage}-stacks.",
 })
