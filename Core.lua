@@ -32,8 +32,8 @@ end
 -- Default settings merged into MidnightHelperDB on first run
 --------------------------------------------------------------------------------
 local DEFAULT_DB = {
-	--- Display language: enUS (default) or nlNL (see Locales/*.lua).
-	locale = "enUS",
+	--- Display language: "auto" (WoW client), explicit pack (enUS, deDE, …), or nlNL (manual only).
+	locale = "auto",
 	ui = {
 		-- If true, the main window will be shown automatically after login.
 		openOnLogin = false,
@@ -191,6 +191,9 @@ function ns:OnEvent(event, ...)
 		end
 
 		self:InitSavedVariables()
+		if self.MigrateLocalePreference then
+			self:MigrateLocalePreference()
+		end
 
 		-- Trigger module setup in a single, predictable call.
 		-- Both Delves and Profession hook EnsureMainUI; calling it once here
@@ -217,7 +220,8 @@ function ns:SetLocale(code, silent)
 		self.db.locale = normalized
 	end
 	if not silent then
-		local label = normalized == "nlNL" and self:L("LOCALE_NAME_NL") or self:L("LOCALE_NAME_EN")
+		local label = self.GetLanguageStatusLabel and self:GetLanguageStatusLabel()
+			or self:GetLocaleDisplayName(normalized)
 		DEFAULT_CHAT_FRAME:AddMessage(
 			("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), self:L("LANG_SET"):format(label))
 		)

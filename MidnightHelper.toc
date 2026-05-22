@@ -12,6 +12,7 @@ Libs\LibDBIcon-1.0.lua
 
 Core.lua
 Locales\enUS.lua
+Locales\deDE.lua
 Locales\nlNL.lua
 Locales\GuideTips.lua
 Locales\GuideGroups.lua

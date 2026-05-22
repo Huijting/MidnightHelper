@@ -1591,15 +1591,19 @@ local function RefreshDelvesPanel()
 		local fw = math.max(200, frame:GetWidth() or 400)
 		local inset = 12
 		local bw = math.min(340, math.max(160, fw - inset * 2))
-		local xCenter = (fw - bw) / 2
 		local function PinFooterBtn(btn, vertAnchor, vertOffset)
 			if not btn then
 				return
 			end
+			local btnW = bw
+			local fs = btn.GetFontString and btn:GetFontString()
+			if fs and fs.GetStringWidth then
+				btnW = math.min(bw, math.max(160, fs:GetStringWidth() + 28))
+			end
 			btn:ClearAllPoints()
-			btn:SetSize(bw, 26)
+			btn:SetSize(btnW, 26)
 			btn:SetPoint("TOP", vertAnchor, "BOTTOM", 0, vertOffset)
-			btn:SetPoint("LEFT", frame, "LEFT", xCenter, 0)
+			btn:SetPoint("LEFT", frame, "LEFT", (fw - btnW) / 2, 0)
 		end
 		local footerAnchor = frame
 		local footerOffset = 12

@@ -42,8 +42,10 @@ local function TintButtonTextures(btn, r, g, b)
 end
 
 local function IsNlLocale()
-	local code = (ns.db and ns.db.locale) or "enUS"
-	return code == "nlNL" or code == "nl"
+	if ns.IsDutchLocaleActive then
+		return ns:IsDutchLocaleActive()
+	end
+	return false
 end
 
 local function GetEntryDescription(entry)

@@ -523,6 +523,18 @@ local function SetAccountSnapshotSort(sortBy)
 	end
 end
 
+local function FitToolbarButton(btn, minWidth)
+	if not btn or not btn.GetFontString then
+		return
+	end
+	local fs = btn:GetFontString()
+	if not fs or not fs.GetStringWidth then
+		return
+	end
+	local w = fs:GetStringWidth() + 28
+	btn:SetWidth(math.max(minWidth or 72, w))
+end
+
 local function RefreshAccountSnapshotToolbar()
 	if not ui.sortBtn or not ui.staleFilterBtn or not ui.keysFilterBtn then
 		return
@@ -547,6 +559,9 @@ local function RefreshAccountSnapshotToolbar()
 	ui.keysFilterBtn:SetText(
 		settings.filterHasKeysOnly and ns:L("ALT_SNAPSHOT_FILTER_KEYS_ON") or ns:L("ALT_SNAPSHOT_FILTER_KEYS")
 	)
+	FitToolbarButton(ui.sortBtn, 108)
+	FitToolbarButton(ui.staleFilterBtn, 88)
+	FitToolbarButton(ui.keysFilterBtn, 72)
 end
 
 --------------------------------------------------------------------------------

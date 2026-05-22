@@ -27,8 +27,10 @@ local QUALITY_RGB = {
 }
 
 local function IsNlLocale()
-	local code = (ns.db and ns.db.locale) or "enUS"
-	return code == "nlNL" or code == "nl"
+	if ns.IsDutchLocaleActive then
+		return ns:IsDutchLocaleActive()
+	end
+	return false
 end
 
 function ns.MH_GetConsumablesWowheadForSpec(classToken, specIndex)

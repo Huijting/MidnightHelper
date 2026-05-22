@@ -23,13 +23,43 @@ local function TintBtn(btn, active)
 	end
 end
 
+local function OnLanguageChosen(host, code)
+	ns:SetLocale(code)
+	if ns.RefreshGuideTabVisibility then
+		ns:RefreshGuideTabVisibility()
+	end
+	if host and host._refresh then
+		host:_refresh()
+	end
+end
+
+local function RefreshLanguageButtonTints(host)
+	if not host then
+		return
+	end
+	local pref = ns.GetLocalePreferenceCode and ns:GetLocalePreferenceCode() or "enUS"
+	local auto = ns.MH_LOCALE_AUTO or "auto"
+	if host._langAuto then
+		TintBtn(host._langAuto, pref == auto)
+	end
+	if host._langEn then
+		TintBtn(host._langEn, pref == "enUS")
+	end
+	if host._langDe then
+		TintBtn(host._langDe, pref == "deDE")
+	end
+	if host._langNl then
+		TintBtn(host._langNl, pref == "nlNL")
+	end
+end
+
 local function EnsureSettingsFrame()
 	if settingsFrame then
 		return settingsFrame
 	end
 
 	local f = CreateFrame("Frame", "MidnightHelperQuickSettings", UIParent, "BackdropTemplate")
-	f:SetSize(360, 268)
+	f:SetSize(440, 292)
 	f:SetFrameStrata("DIALOG")
 	f:SetFrameLevel(2100)
 	f:SetClampedToScreen(true)
@@ -72,38 +102,48 @@ local function EnsureSettingsFrame()
 	langLabel:SetTextColor(0.95, 0.9, 0.74)
 	f._langLabel = langLabel
 
+	local langAuto = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	langAuto:SetSize(96, 24)
+	langAuto:SetPoint("TOPLEFT", langLabel, "BOTTOMLEFT", 0, -6)
+	langAuto:SetScript("OnClick", function()
+		OnLanguageChosen(f, ns.MH_LOCALE_AUTO or "auto")
+	end)
+	f._langAuto = langAuto
+
 	local langEn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-	langEn:SetSize(100, 24)
-	langEn:SetPoint("TOPLEFT", langLabel, "BOTTOMLEFT", 0, -6)
-	langEn:SetText("English")
+	langEn:SetSize(72, 24)
+	langEn:SetPoint("LEFT", langAuto, "RIGHT", 6, 0)
 	langEn:SetScript("OnClick", function()
-		ns:SetLocale("enUS")
-		if ns.RefreshGuideTabVisibility then
-			ns:RefreshGuideTabVisibility()
-		end
-		if f._refresh then
-			f:_refresh()
-		end
+		OnLanguageChosen(f, "enUS")
 	end)
 	f._langEn = langEn
 
+	local langDe = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	langDe:SetSize(72, 24)
+	langDe:SetPoint("LEFT", langEn, "RIGHT", 6, 0)
+	langDe:SetScript("OnClick", function()
+		OnLanguageChosen(f, "deDE")
+	end)
+	f._langDe = langDe
+
 	local langNl = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-	langNl:SetSize(100, 24)
-	langNl:SetPoint("LEFT", langEn, "RIGHT", 8, 0)
-	langNl:SetText("Nederlands")
+	langNl:SetSize(88, 24)
+	langNl:SetPoint("LEFT", langDe, "RIGHT", 6, 0)
 	langNl:SetScript("OnClick", function()
-		ns:SetLocale("nlNL")
-		if ns.RefreshGuideTabVisibility then
-			ns:RefreshGuideTabVisibility()
-		end
-		if f._refresh then
-			f:_refresh()
-		end
+		OnLanguageChosen(f, "nlNL")
 	end)
 	f._langNl = langNl
 
+	local langHint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	langHint:SetPoint("TOPLEFT", langAuto, "BOTTOMLEFT", 0, -6)
+	langHint:SetPoint("RIGHT", f, "RIGHT", -12, 0)
+	langHint:SetJustifyH("LEFT")
+	langHint:SetWordWrap(true)
+	langHint:SetTextColor(0.72, 0.74, 0.78)
+	f._langHint = langHint
+
 	local guideLabel = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-	guideLabel:SetPoint("TOPLEFT", langEn, "BOTTOMLEFT", 0, -14)
+	guideLabel:SetPoint("TOPLEFT", langHint, "BOTTOMLEFT", 0, -10)
 	guideLabel:SetTextColor(0.95, 0.9, 0.74)
 	f._guideLabel = guideLabel
 
@@ -177,6 +217,21 @@ local function EnsureSettingsFrame()
 	function f:_refresh()
 		self._title:SetText(ns:L("SETTINGS_TITLE"))
 		self._langLabel:SetText(ns:L("SETTINGS_LANGUAGE_LABEL"))
+		if self._langAuto then
+			self._langAuto:SetText(ns:L("LOCALE_NAME_AUTO"))
+		end
+		if self._langEn then
+			self._langEn:SetText(ns:L("LOCALE_NAME_EN"))
+		end
+		if self._langDe then
+			self._langDe:SetText(ns:L("LOCALE_NAME_deDE"))
+		end
+		if self._langNl then
+			self._langNl:SetText(ns:L("LOCALE_NAME_NL"))
+		end
+		if self._langHint then
+			self._langHint:SetText(ns:L("LOCALE_AUTO_HINT"))
+		end
 		self._guideLabel:SetText(ns:L("SETTINGS_GUIDE_LABEL"))
 		self._modeAuto:SetText(ns:L("SETTINGS_GUIDE_MODE_AUTO"))
 		self._modeAlways:SetText(ns:L("SETTINGS_GUIDE_MODE_ALWAYS"))
@@ -202,9 +257,7 @@ local function EnsureSettingsFrame()
 			end
 		end
 
-		local loc = ns:GetEffectiveLocaleCode()
-		TintBtn(self._langEn, loc ~= "nlNL")
-		TintBtn(self._langNl, loc == "nlNL")
+		RefreshLanguageButtonTints(self)
 
 		local mode = ns:GetGuideVisibilityMode()
 		TintBtn(self._modeAuto, mode == "auto")
@@ -349,7 +402,7 @@ local function EnsureSettingsCategoryFrame()
 	reset:SetSize(152, 24)
 	reset:SetPoint("LEFT", openMain, "RIGHT", 8, 0)
 	reset:SetScript("OnClick", function()
-		ns:SetLocale("enUS", true)
+		ns:SetLocale(ns.MH_LOCALE_AUTO or "auto", true)
 		ns:SetGuideVisibilityMode("auto", true)
 		if ns.SetCompactModeEnabled then
 			ns:SetCompactModeEnabled(false, true)
@@ -373,7 +426,7 @@ local function EnsureSettingsCategoryFrame()
 	local languageBox = CreateFrame("Frame", nil, panel, "BackdropTemplate")
 	languageBox:SetPoint("TOPLEFT", langLabel, "TOPLEFT", -8, 16)
 	languageBox:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -16, 16)
-	languageBox:SetHeight(58)
+	languageBox:SetHeight(78)
 	if languageBox.SetBackdrop then
 		languageBox:SetBackdrop({
 			bgFile = "Interface\\Buttons\\WHITE8X8",
@@ -390,36 +443,48 @@ local function EnsureSettingsCategoryFrame()
 	langLabel:SetDrawLayer("ARTWORK", 1)
 	panel._languageBox = languageBox
 
+	local langAuto = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	langAuto:SetSize(108, 24)
+	langAuto:SetPoint("TOPLEFT", langLabel, "BOTTOMLEFT", 0, -8)
+	langAuto:SetScript("OnClick", function()
+		OnLanguageChosen(panel, ns.MH_LOCALE_AUTO or "auto")
+	end)
+	panel._langAuto = langAuto
+
 	local langEn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
-	langEn:SetSize(120, 24)
-	langEn:SetPoint("TOPLEFT", langLabel, "BOTTOMLEFT", 0, -8)
+	langEn:SetSize(88, 24)
+	langEn:SetPoint("LEFT", langAuto, "RIGHT", 6, 0)
 	langEn:SetScript("OnClick", function()
-		ns:SetLocale("enUS")
-		if ns.RefreshGuideTabVisibility then
-			ns:RefreshGuideTabVisibility()
-		end
-		if panel._refresh then
-			panel:_refresh()
-		end
+		OnLanguageChosen(panel, "enUS")
 	end)
 	panel._langEn = langEn
 
+	local langDe = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	langDe:SetSize(88, 24)
+	langDe:SetPoint("LEFT", langEn, "RIGHT", 6, 0)
+	langDe:SetScript("OnClick", function()
+		OnLanguageChosen(panel, "deDE")
+	end)
+	panel._langDe = langDe
+
 	local langNl = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
-	langNl:SetSize(120, 24)
-	langNl:SetPoint("LEFT", langEn, "RIGHT", 8, 0)
+	langNl:SetSize(96, 24)
+	langNl:SetPoint("LEFT", langDe, "RIGHT", 6, 0)
 	langNl:SetScript("OnClick", function()
-		ns:SetLocale("nlNL")
-		if ns.RefreshGuideTabVisibility then
-			ns:RefreshGuideTabVisibility()
-		end
-		if panel._refresh then
-			panel:_refresh()
-		end
+		OnLanguageChosen(panel, "nlNL")
 	end)
 	panel._langNl = langNl
 
+	local langHint = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+	langHint:SetPoint("TOPLEFT", langAuto, "BOTTOMLEFT", 0, -6)
+	langHint:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
+	langHint:SetJustifyH("LEFT")
+	langHint:SetWordWrap(true)
+	langHint:SetTextColor(0.72, 0.74, 0.78)
+	panel._langHint = langHint
+
 	local guideLabel = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-	guideLabel:SetPoint("TOPLEFT", langEn, "BOTTOMLEFT", 0, -14)
+	guideLabel:SetPoint("TOPLEFT", langHint, "BOTTOMLEFT", 0, -10)
 	panel._guideLabel = guideLabel
 
 	local guideBox = CreateFrame("Frame", nil, panel, "BackdropTemplate")
@@ -498,8 +563,17 @@ local function EnsureSettingsCategoryFrame()
 		self._generalLabel:SetText(ns:L("SETTINGS_SECTION_GENERAL"))
 		self._langLabel:SetText(ns:L("SETTINGS_SECTION_LANGUAGE"))
 		self._guideLabel:SetText(ns:L("SETTINGS_SECTION_GUIDE"))
+		if self._langAuto then
+			self._langAuto:SetText(ns:L("LOCALE_NAME_AUTO"))
+		end
 		self._langEn:SetText(ns:L("LOCALE_NAME_EN"))
+		if self._langDe then
+			self._langDe:SetText(ns:L("LOCALE_NAME_deDE"))
+		end
 		self._langNl:SetText(ns:L("LOCALE_NAME_NL"))
+		if self._langHint then
+			self._langHint:SetText(ns:L("LOCALE_AUTO_HINT"))
+		end
 		self._modeAuto:SetText(ns:L("SETTINGS_GUIDE_MODE_AUTO"))
 		self._modeAlways:SetText(ns:L("SETTINGS_GUIDE_MODE_ALWAYS"))
 		self._modeHidden:SetText(ns:L("SETTINGS_GUIDE_MODE_HIDDEN"))
@@ -522,9 +596,7 @@ local function EnsureSettingsCategoryFrame()
 			end
 		end
 
-		local loc = ns:GetEffectiveLocaleCode()
-		TintBtn(self._langEn, loc ~= "nlNL")
-		TintBtn(self._langNl, loc == "nlNL")
+		RefreshLanguageButtonTints(self)
 
 		local mode = ns:GetGuideVisibilityMode()
 		local modeKeyByValue = {
@@ -533,7 +605,7 @@ local function EnsureSettingsCategoryFrame()
 			hidden = "SETTINGS_GUIDE_MODE_HIDDEN",
 		}
 		local modeLabel = ns:L(modeKeyByValue[mode] or "SETTINGS_GUIDE_MODE_AUTO")
-		local langLabel = loc == "nlNL" and ns:L("LOCALE_NAME_NL") or ns:L("LOCALE_NAME_EN")
+		local langLabel = ns.GetLanguageStatusLabel and ns:GetLanguageStatusLabel() or ns:L("LOCALE_NAME_EN")
 		local loginEnabled = ns.db and ns.db.ui and ns.db.ui.openOnLogin
 		local loginLabel = loginEnabled and ns:L("SETTINGS_BOOL_ON") or ns:L("SETTINGS_BOOL_OFF")
 		self._status:SetText(
@@ -647,7 +719,7 @@ function ns:InitMinimapBroker()
 			tt:AddLine(ns:L("BROKER_TOOLTIP_HINT"), 0.86, 0.86, 0.82, true)
 			tt:AddLine(" ")
 			tt:AddLine(ns:L("BROKER_TOOLTIP_CURRENT_SETTINGS"), 1, 0.9, 0.5)
-			local langLabel = ns:GetEffectiveLocaleCode() == "nlNL" and ns:L("LOCALE_NAME_NL") or ns:L("LOCALE_NAME_EN")
+			local langLabel = ns.GetLanguageStatusLabel and ns:GetLanguageStatusLabel() or ns:L("LOCALE_NAME_EN")
 			local modeKeyByValue = {
 				auto = "SETTINGS_GUIDE_MODE_AUTO",
 				always = "SETTINGS_GUIDE_MODE_ALWAYS",

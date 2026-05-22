@@ -1,6 +1,6 @@
 --[[
 	Leveling Guides — "In groups" advisor lines (tank / healer / melee / caster / support).
-	Merged into enUS and nlNL at load time.
+	Merged into enUS, deDE, and nlNL at load time.
 ]]
 
 local _, ns = ...
@@ -94,6 +94,74 @@ local GROUP_EN = {
 	GUIDE_GROUPS_SUPPORT_80_3 = "Pair with Role Academy for party chat before queue.",
 }
 
+local SHARED_DE = {
+	GUIDE_LEVEL_ADVISOR_TAB_GROUPS = "In Gruppen",
+	SEARCH_CHAT_GUIDE_GROUPS = "Leveling Guides geöffnet (Tab In Gruppen)",
+}
+
+local GROUP_DE = {
+	GUIDE_GROUPS_TANK_10_1 = "In Dungeons: Unterbrich zuerst Heilungen und gruppengefährdende Casts. Sag im Chat, welchen Cast du kickst.",
+	GUIDE_GROUPS_TANK_10_2 = "Starte schwere Pulls mit einer großen Defensive; behalte eine zweite für Overlap oder eine Boss-Ability.",
+	GUIDE_GROUPS_TANK_10_3 = "Pull in einem Tempo, das dein Heiler schafft – zwei kleine Packs schlagen eine Wipe-Chain.",
+	GUIDE_GROUPS_TANK_30_1 = "Drehe Cleaves und Atem weg von der Gruppe; wähle einen festen Spot für Bosse.",
+	GUIDE_GROUPS_TANK_30_2 = "Kenne deinen Taunt-Backup in LFG (Swap, Grip oder Hard-Taunt auf Adds).",
+	GUIDE_GROUPS_TANK_30_3 = "Ruf eine Pause zwischen Pulls, wenn Mana oder Cooldowns niedrig sind – gutes Leadership.",
+	GUIDE_GROUPS_TANK_60_1 = "LFR/Heroic: Lerne eine Boss-Regel pro Wipe (stehen bleiben, Taunt-Swap, Soak) statt DPS zu jagen.",
+	GUIDE_GROUPS_TANK_60_2 = "Stacke Mitigation mit Heiler-Externals – nicht zweimal dasselbe Fenster für einen Hit.",
+	GUIDE_GROUPS_TANK_60_3 = "Interrupt-Prio: jedes Mal der gleiche gefährliche Cast; Backup-Kick nur wenn du nicht reinkommst.",
+	GUIDE_GROUPS_TANK_80_1 = "M+ und Heroic: Pull nur, was die Gruppe abgesprochen hat; Routenwissen verhindert Panic-Chains.",
+	GUIDE_GROUPS_TANK_80_2 = "Plane, welche Defensive welche Boss-Ability deckt – nicht \"drücken bei niedriger HP\".",
+	GUIDE_GROUPS_TANK_80_3 = "Role Academy hat kopierbare Party-Chat-Zeilen vor dem Queue.",
+	GUIDE_GROUPS_HEALER_10_1 = "Übe Mouseover- oder Focus-Heals vor LFG – das Tank-Frame ist dein Anker.",
+	GUIDE_GROUPS_HEALER_10_2 = "Solange der Pack lebt: Tank hat Prio; lass DPS einen Kratzer nehmen, wenn Mana knapp ist.",
+	GUIDE_GROUPS_HEALER_10_3 = "Sag der Gruppe, dass du lernst – die meisten werden langsamer, wenn du fragst.",
+	GUIDE_GROUPS_HEALER_30_1 = "Trink zwischen Dungeon-Pulls; \"oom, 5 sec\" ist valide Koordination.",
+	GUIDE_GROUPS_HEALER_30_2 = "External oder großer Heal auf den Tank in Spike-Fenstern schlägt Panic auf alle.",
+	GUIDE_GROUPS_HEALER_30_3 = "Nutze Interrupt oder CC, wenn du sie hast – Schaden verhindern ist günstiger als heilen.",
+	GUIDE_GROUPS_HEALER_60_1 = "LFR: Lerne vorhersehbare raidweite Timer; du brauchst nicht jede Bar die ganze Zeit auf 100%.",
+	GUIDE_GROUPS_HEALER_60_2 = "Effiziente Heals standardmäßig; teure Globals für Tank + Near-Death sparen.",
+	GUIDE_GROUPS_HEALER_60_3 = "Persönliche Defensive, bevor du nicht mehr casten kannst – toter Heiler heilt niemanden.",
+	GUIDE_GROUPS_HEALER_80_1 = "Raid: Merk dir, wer welche Raid-Damage-Phase deckt (Cooldown-Kadenz).",
+	GUIDE_GROUPS_HEALER_80_2 = "Triage bleibt: du -> Tank -> Sterbende -> Rest.",
+	GUIDE_GROUPS_HEALER_80_3 = "Kopiere Party-Chat-Zeilen aus Role Academy, wenn die Queue nervös macht.",
+	GUIDE_GROUPS_MELEE_10_1 = "Interrupt ist Gruppenjob – kicke den gefährlichen Cast, auch wenn du nicht der \"Main Kick\" bist.",
+	GUIDE_GROUPS_MELEE_10_2 = "Nutze deine Defensive, bevor du vorhersehbarem Schaden ausgesetzt bist – nicht nach dem One-Shot.",
+	GUIDE_GROUPS_MELEE_10_3 = "Zieh keine Extra-Packs für den Tank, außer die Gruppe hat zugestimmt.",
+	GUIDE_GROUPS_MELEE_30_1 = "Dungeon: Cleave weg vom Heiler, wenn möglich; stack für AoE nur wenn es sicher ist.",
+	GUIDE_GROUPS_MELEE_30_2 = "Burst auf Packs, die der Tank hält – nicht auf Runner, die du alleine gezogen hast.",
+	GUIDE_GROUPS_MELEE_30_3 = "Sag Bescheid, wenn du Positionierung lernst – Kommunikation löst die meiste Pug-Reibung.",
+	GUIDE_GROUPS_MELEE_60_1 = "LFR: Mechanics schlagen Rotation; ein failed Mechanic wiped öfter als niedriger DPS.",
+	GUIDE_GROUPS_MELEE_60_2 = "Health Pot oder Defensive gibt Lernpuffer; am Leben bleiben hält die Moral hoch.",
+	GUIDE_GROUPS_MELEE_60_3 = "Wisse, welche Casts nicht interruptible sind – hör auf, immune Spells zu kicken.",
+	GUIDE_GROUPS_MELEE_80_1 = "Heroic/M+: Studiere einen Fight zur Zeit; Uptime zählt weniger als keine Mechanics zu failen.",
+	GUIDE_GROUPS_MELEE_80_2 = "Flask, Food und Macros aus Midnight Helper – gleiche Prep wie Tank und Heiler.",
+	GUIDE_GROUPS_MELEE_80_3 = "Delves sind ein sanfterer Schritt vor Dungeon-Pugs.",
+	GUIDE_GROUPS_CASTER_10_1 = "Interrupt aus der Distanz ist trotzdem dein Job – nenne den Cast im Party-Chat.",
+	GUIDE_GROUPS_CASTER_10_2 = "Nutze Defensives, bevor eine Mechanic trifft; Caster sterben schnell bei gierigem Casten.",
+	GUIDE_GROUPS_CASTER_10_3 = "Body-Pull nicht vor dem Tank; lass Threat settle vor großem AoE.",
+	GUIDE_GROUPS_CASTER_30_1 = "Dungeon: Steh in Heiler-Range ohne in Bodeneffekten zu stacken.",
+	GUIDE_GROUPS_CASTER_30_2 = "Spare AoE für vom Tank gruppierte Packs; verstreute Mobs verschwenden Cooldowns.",
+	GUIDE_GROUPS_CASTER_30_3 = "Wenn du lernst, sag es – die meisten Gruppen nehmen langsames Clear lieber als Wipe-Chains.",
+	GUIDE_GROUPS_CASTER_60_1 = "LFR: Bewege dich früh bei Mechanics; toter DPS interrupted null.",
+	GUIDE_GROUPS_CASTER_60_2 = "Behalte eine Defensive als Lernpuffer für neue Bosse.",
+	GUIDE_GROUPS_CASTER_60_3 = "Interrupt-Prio: Heals und große Nukes vor kleinem Damage.",
+	GUIDE_GROUPS_CASTER_80_1 = "Heroic: Pre-Position vor Cast-Fenstern; geplante Bewegung schlägt Panik-Laufen.",
+	GUIDE_GROUPS_CASTER_80_2 = "Consumables und Utility-Macros aus Midnight Helper – gleiche Prep wie andere Rollen.",
+	GUIDE_GROUPS_CASTER_80_3 = "Role Academy Party-Chat hilft bei langsamen Pulls oder Mana-Pausen.",
+	GUIDE_GROUPS_SUPPORT_10_1 = "Halte Core-Buffs auf der Gruppe vor Damage-Spikes – tote Support hilft nicht.",
+	GUIDE_GROUPS_SUPPORT_10_2 = "Interrupt oder CC, wenn dein Kit es hat; Control reduziert Heal-Last.",
+	GUIDE_GROUPS_SUPPORT_10_3 = "Bleib in Range des Tank-Packs; buffe nicht aus drei Räumen Entfernung.",
+	GUIDE_GROUPS_SUPPORT_30_1 = "Dungeon: Buff-Disziplin zwischen Pulls – keine Lücke mitten in einer Chain.",
+	GUIDE_GROUPS_SUPPORT_30_2 = "Nutze Defensives, wenn Melee dich erreicht; Positionierung bleibt dein Job.",
+	GUIDE_GROUPS_SUPPORT_30_3 = "Ruf, wenn du eine Pause zum Rebuff brauchst – normal in Lerngruppen.",
+	GUIDE_GROUPS_SUPPORT_60_1 = "LFR: Lerne eine Mechanic pro Boss; Buff-Timer zählen weniger als Bodeneffekte.",
+	GUIDE_GROUPS_SUPPORT_60_2 = "Hilf bei Interrupts auf gefährlichen Casts – Prävention stabilisiert den Raid.",
+	GUIDE_GROUPS_SUPPORT_60_3 = "Behalte eine persönliche Defensive für Overlap-Phasen.",
+	GUIDE_GROUPS_SUPPORT_80_1 = "Heroic: Plane Bewegung, damit Support-Spells bei den richtigen Spielern landen.",
+	GUIDE_GROUPS_SUPPORT_80_2 = "Opfere dich nicht für marginale Buff-Uptime – lebende Support gewinnt.",
+	GUIDE_GROUPS_SUPPORT_80_3 = "Nutze Role Academy für Party-Chat vor dem Queue.",
+}
+
 local GROUP_NL = {
 	GUIDE_GROUPS_TANK_10_1 = "In dungeons: interrupt enemy heals en party-wiping casts eerst. Zeg in chat welke cast je kickt.",
 	GUIDE_GROUPS_TANK_10_2 = "Open scary pulls met een grote defensive; bewaar een tweede voor overlap of een boss-ability.",
@@ -159,5 +227,7 @@ local GROUP_NL = {
 
 merge(ns._mhLocales.enUS or {}, SHARED_EN)
 merge(ns._mhLocales.enUS or {}, GROUP_EN)
+merge(ns._mhLocales.deDE or {}, SHARED_DE)
+merge(ns._mhLocales.deDE or {}, GROUP_DE)
 merge(ns._mhLocales.nlNL or {}, SHARED_NL)
 merge(ns._mhLocales.nlNL or {}, GROUP_NL)
