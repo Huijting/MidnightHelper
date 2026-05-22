@@ -334,10 +334,14 @@ function ns:ApplyDelveBossFrameSettings(model, frame)
 		model:SetFacing(facing)
 	end
 	if model.SetAnimation then
-		pcall(model.SetAnimation, model, 0, 0)
+		-- variation -1 loops idle on PlayerModel (static pose at 0,0 looks "frozen").
+		pcall(model.SetAnimation, model, 0, -1)
 	end
 	if model.SetDoBlend then
 		model:SetDoBlend(true)
+	end
+	if model.SetPaused then
+		pcall(model.SetPaused, model, false)
 	end
 	if model.SetPortraitZoom then
 		pcall(model.SetPortraitZoom, model, portraitZoom)

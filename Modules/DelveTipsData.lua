@@ -46,6 +46,8 @@ ns.DELVE_TIP_ENTRIES = {
 		rosterName = "The Darkway",
 		nameKey = "DELVE_NAME_THE_DARKWAY",
 		poiId = 93420,
+		-- In-game subzone is often "The Arcway" (Silvermoon), not the roster name.
+		zoneAliases = { "Arcway", "Darkway", "Gulkat", "Gulkar", "Infiltrator Gulkat", "Eversong" },
 		sections = {
 			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_THE_DARKWAY_OVERVIEW" },
 			{ titleKey = "DELVE_COACH_SEC_ROUTE", bodyKey = "DELVE_TIP_THE_DARKWAY_ROUTE" },
@@ -211,4 +213,112 @@ function ns:ValidateDelveTipLocales()
 		end
 	end
 	return #issues == 0, issues
+end
+
+local function normalizeDelveName(s)
+	if type(s) ~= "string" then
+		return ""
+	end
+	s = s:lower():gsub("^%s+", ""):gsub("%s+$", "")
+	s = s:gsub("^bountiful%s+delve%s*:%s*", "")
+	s = s:gsub("^delve%s*:%s*", "")
+	return s
+end
+
+local function namesMatch(a, b)
+	local na = normalizeDelveName(a)
+	local nb = normalizeDelveName(b)
+	if na == "" or nb == "" then
+		return false
+	end
+	if na == nb or na:find(nb, 1, true) or nb:find(na, 1, true) then
+		return true
+	end
+	return false
+end
+
+local function CollectZoneStrings()
+	local out = {}
+	local function add(s)
+		if type(s) == "string" and s ~= "" then
+			out[#out + 1] = s
+		end
+	end
+	add(GetSubZoneText and GetSubZoneText() or nil)
+	add(GetZoneText and GetZoneText() or nil)
+	add(GetRealZoneText and GetRealZoneText() or nil)
+	if C_Map and C_Map.GetBestMapForUnit then
+		local mapID = C_Map.GetBestMapForUnit("player")
+		for _ = 1, 14 do
+			if not mapID then
+				break
+			end
+			local info = C_Map.GetMapInfo(mapID)
+			if info and info.name then
+				add(info.name)
+			end
+			if not info or not info.parentMapID or info.parentMapID == 0 then
+				break
+			end
+			mapID = info.parentMapID
+		end
+	end
+	return out
+end
+
+local function ZoneMatchesDelveEntry(zoneStr, entry)
+	if not zoneStr or not entry then
+		return false, 0
+	end
+	if namesMatch(zoneStr, entry.rosterName) then
+		return true, 4
+	end
+	if type(entry.zoneAliases) == "table" then
+		for _, alias in ipairs(entry.zoneAliases) do
+			if namesMatch(zoneStr, alias) then
+				return true, 3
+			end
+		end
+	end
+	local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entry.id]
+	if type(bosses) == "table" then
+		for _, boss in ipairs(bosses) do
+			if boss.label and namesMatch(zoneStr, boss.label) then
+				return true, 5
+			end
+		end
+	end
+	return false, 0
+end
+
+function ns.GetActiveDelveTipEntryForPlayer()
+	local entries = ns.DELVE_TIP_ENTRIES
+	if type(entries) ~= "table" then
+		return nil
+	end
+	local zones = CollectZoneStrings()
+	local bestEntry
+	local bestScore = 0
+	for _, entry in ipairs(entries) do
+		for i = 1, #zones do
+			local matched, score = ZoneMatchesDelveEntry(zones[i], entry)
+			if matched and score > bestScore then
+				bestScore = score
+				bestEntry = entry
+			end
+		end
+	end
+	return bestEntry
+end
+
+function ns.IsPlayerInActiveDelve()
+	if C_PartyInfo and C_PartyInfo.IsDelveInProgress then
+		local ok, active = pcall(C_PartyInfo.IsDelveInProgress)
+		if not ok or not active then
+			return false
+		end
+	else
+		return false
+	end
+	return ns.GetActiveDelveTipEntryForPlayer() ~= nil
 end

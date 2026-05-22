@@ -5,7 +5,7 @@
 	- L00T RAID-R Mini (curio radar)
 	- Trovehunter's Bounty (Hidden Trove)
 
-	Visible regardless of whether the main window is open.
+	Visible only while inside an active Midnight delve (API + zone match).
 ]]
 
 local addonName, ns = ...
@@ -245,6 +245,9 @@ local eventFrame = CreateFrame("Frame")
 eventFrame:RegisterEvent("ADDON_LOADED")
 eventFrame:RegisterEvent("BAG_UPDATE_DELAYED")
 eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+eventFrame:RegisterEvent("ZONE_CHANGED")
+eventFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
+eventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 eventFrame:SetScript("OnEvent", function(_, event, arg1)
 	if event == "ADDON_LOADED" then
 		if arg1 ~= addonName then
@@ -255,12 +258,38 @@ eventFrame:SetScript("OnEvent", function(_, event, arg1)
 		end
 		return
 	end
+	if not IsDelveItemsUiAllowed() then
+		if ns.HideDelveItemsUiLeavingDelve then
+			ns:HideDelveItemsUiLeavingDelve()
+		elseif ns.RefreshDelveItemBrokers then
+			ns:RefreshDelveItemBrokers()
+		end
+		eventFrame._mhWasInDelve = false
+		return
+	end
 	if ns.RefreshDelveItemBrokers then
 		ns:RefreshDelveItemBrokers()
 	end
 	if ns.RefreshDelveItemsPopup then
 		ns:RefreshDelveItemsPopup()
 	end
+end)
+
+eventFrame:SetScript("OnUpdate", function(self, elapsed)
+	self._elapsed = (self._elapsed or 0) + elapsed
+	if self._elapsed < 0.5 then
+		return
+	end
+	self._elapsed = 0
+	local inDelve = IsDelveItemsUiAllowed()
+	if not inDelve and self._mhWasInDelve then
+		if ns.HideDelveItemsUiLeavingDelve then
+			ns:HideDelveItemsUiLeavingDelve()
+		elseif ns.RefreshDelveItemBrokers then
+			ns:RefreshDelveItemBrokers()
+		end
+	end
+	self._mhWasInDelve = inDelve and true or false
 end)
 
 do

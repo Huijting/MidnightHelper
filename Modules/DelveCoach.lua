@@ -214,17 +214,8 @@ local function CollectZoneStrings()
 end
 
 local function ResolveActiveDelveEntry()
-	local entries = ns.DELVE_TIP_ENTRIES
-	if type(entries) ~= "table" then
-		return nil
-	end
-	local zones = CollectZoneStrings()
-	for _, entry in ipairs(entries) do
-		for i = 1, #zones do
-			if namesMatch(zones[i], entry.rosterName) then
-				return entry
-			end
-		end
+	if ns.GetActiveDelveTipEntryForPlayer then
+		return ns.GetActiveDelveTipEntryForPlayer()
 	end
 	return nil
 end
@@ -1005,11 +996,13 @@ local function EnsureCoachFrame()
 		if currentEntryId then
 			UpdateBossShowcase(f, currentEntryId)
 			if C_Timer and C_Timer.After then
-				C_Timer.After(0.5, function()
-					if f:IsShown() and currentEntryId then
-						UpdateBossShowcase(f, currentEntryId)
-					end
-				end)
+				for _, delay in ipairs({ 0.5, 1.5, 3.0 }) do
+					C_Timer.After(delay, function()
+						if f:IsShown() and currentEntryId then
+							UpdateBossShowcase(f, currentEntryId)
+						end
+					end)
+				end
 			end
 		end
 	end)
@@ -1237,7 +1230,7 @@ function ns:OpenDelveCoachPicker(anchor)
 end
 
 local function OnDelveStateTick()
-	local inDelve = IsDelveInProgress()
+	local inDelve = ns.IsPlayerInActiveDelve and ns.IsPlayerInActiveDelve() or IsDelveInProgress()
 	if inDelve and not wasInDelve then
 		if coachFrame then
 			coachFrame._userDismissed = false
@@ -1257,11 +1250,13 @@ local function OnDelveStateTick()
 		if coachFrame then
 			coachFrame._previewMode = false
 		end
-		if ns.HideDelveItemsPopup then
+		if ns.HideDelveItemsUiLeavingDelve then
+			ns:HideDelveItemsUiLeavingDelve()
+		elseif ns.HideDelveItemsPopup then
 			ns:HideDelveItemsPopup()
-		end
-		if ns.RefreshDelveItemBrokers then
-			ns:RefreshDelveItemBrokers()
+			if ns.RefreshDelveItemBrokers then
+				ns:RefreshDelveItemBrokers()
+			end
 		end
 	end
 	if inDelve and not wasInDelve then

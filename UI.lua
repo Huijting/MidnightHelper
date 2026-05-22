@@ -133,6 +133,10 @@ function ns:RefreshLocaleUI()
 	if r.title and r.title.SetText then
 		r.title:SetText(self:L("MAIN_TITLE"))
 	end
+	if r.titleVersion and r.titleVersion.SetText then
+		local ver = ns.GetAddonVersion and ns.GetAddonVersion() or "?"
+		r.titleVersion:SetText(self:L("MAIN_TITLE_VERSION_FMT"):format(ver))
+	end
 	if r.searchHint and r.searchHint.SetText then
 		r.searchHint:SetText(self:L("SEARCH_LABEL"))
 	end
@@ -1031,6 +1035,10 @@ function ns:EnsureMainUI()
 	title:SetShadowOffset(1, -1)
 	title:SetShadowColor(0, 0, 0, 1)
 
+	local titleVersion = titleBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	titleVersion:SetPoint("LEFT", title, "RIGHT", 8, -1)
+	titleVersion:SetTextColor(0.72, 0.82, 0.95)
+
 	-- Close hides the shell; slash can reopen.
 	local closeBtn = CreateFrame("Button", nil, titleBar, "UIPanelCloseButton")
 	closeBtn:SetPoint("RIGHT", titleBar, "RIGHT", -4, 0)
@@ -1251,7 +1259,8 @@ function ns:EnsureMainUI()
 		local mode = self._mhSidePanelMode or "info"
 		if mode == "about" then
 			infoTitle:SetText(self:L("ABOUT_WINDOW_TITLE"))
-			infoBody:SetText(self:L("ABOUT_WINDOW_BODY"))
+			local ver = ns.GetAddonVersion and ns.GetAddonVersion() or "?"
+			infoBody:SetText(self:L("ABOUT_VERSION_FMT"):format(ver) .. "\n\n" .. self:L("ABOUT_WINDOW_BODY"))
 		else
 			local keyById = {
 				delves = "TAB_DELVES",
@@ -1596,6 +1605,7 @@ function ns:EnsureMainUI()
 
 	ns._mhLocaleRefs = {
 		title = title,
+		titleVersion = titleVersion,
 		searchHint = searchBarHint,
 		searchResetBtn = searchResetBtn,
 		searchGoBtn = searchGoBtn,

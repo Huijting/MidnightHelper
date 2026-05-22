@@ -11,6 +11,23 @@
 --------------------------------------------------------------------------------
 local addonName, ns = ...
 
+--- Installed version from MidnightHelper.toc (## Version); used in UI and changelog.
+function ns.GetAddonVersion()
+	if C_AddOns and C_AddOns.GetAddOnMetadata then
+		local ok, v = pcall(C_AddOns.GetAddOnMetadata, addonName, "Version")
+		if ok and type(v) == "string" and v ~= "" then
+			return v
+		end
+	end
+	if GetAddOnMetadata then
+		local ok, v = pcall(GetAddOnMetadata, addonName, "Version")
+		if ok and type(v) == "string" and v ~= "" then
+			return v
+		end
+	end
+	return "?"
+end
+
 --------------------------------------------------------------------------------
 -- Default settings merged into MidnightHelperDB on first run
 --------------------------------------------------------------------------------

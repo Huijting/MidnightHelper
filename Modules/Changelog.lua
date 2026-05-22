@@ -80,17 +80,8 @@ local CHANGELOG_ENTRIES = {
 }
 
 local function GetAddonVersion()
-	if C_AddOns and C_AddOns.GetAddOnMetadata then
-		local v = C_AddOns.GetAddOnMetadata(addonName, "Version")
-		if type(v) == "string" and v ~= "" then
-			return v
-		end
-	end
-	if GetAddOnMetadata then
-		local v = GetAddOnMetadata(addonName, "Version")
-		if type(v) == "string" and v ~= "" then
-			return v
-		end
+	if ns.GetAddonVersion then
+		return ns.GetAddonVersion()
 	end
 	return "0.0.0"
 end

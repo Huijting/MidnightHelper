@@ -455,18 +455,6 @@ local function IsMidnightDelveWaypoint(name, mapID)
 	return false
 end
 
-local function IsPlayerInActiveDelve()
-	if C_PartyInfo and C_PartyInfo.IsDelveInProgress then
-		local ok, active = pcall(C_PartyInfo.IsDelveInProgress)
-		if ok and active then
-			return true
-		end
-	end
-	return false
-end
-
-ns.IsPlayerInActiveDelve = IsPlayerInActiveDelve
-
 local function MapHasAncestor(mapID, ancestorID)
 	local id = tonumber(mapID)
 	local anc = tonumber(ancestorID)
@@ -549,7 +537,7 @@ function ns.IsMidnightTravelComplete(currentMap, targetMap, targetX, targetY, ta
 		return false
 	end
 
-	if IsPlayerInActiveDelve() and IsMidnightDelveWaypoint(targetName, targetMap) then
+	if ns.IsPlayerInActiveDelve and ns.IsPlayerInActiveDelve() and IsMidnightDelveWaypoint(targetName, targetMap) then
 		return true
 	end
 

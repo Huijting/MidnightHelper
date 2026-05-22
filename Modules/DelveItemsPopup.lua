@@ -59,7 +59,22 @@ function ns:SuppressDelveItemsAutoShow()
 	end
 end
 
+function ns:CancelDelveItemsAutoShowRetries()
+	autoShowRetryGen = autoShowRetryGen + 1
+end
+
+function ns:HideDelveItemsUiLeavingDelve()
+	self:CancelDelveItemsAutoShowRetries()
+	self:HideDelveItemsPopup()
+	if self.RefreshDelveItemBrokers then
+		self:RefreshDelveItemBrokers()
+	end
+end
+
 function ns:ScheduleDelveItemsAutoShowRetries()
+	if not IsDelveItemsUiAllowed() then
+		return
+	end
 	autoShowRetryGen = autoShowRetryGen + 1
 	local gen = autoShowRetryGen
 	local delays = { 0.35, 1.0, 2.5, 5.0 }
@@ -543,20 +558,24 @@ eventFrame:SetScript("OnEvent", function(_, event, arg1)
 		return
 	end
 
-	if event:find("ZONE") and ns.ScheduleDelveItemsAutoShowRetries then
-		ns:ScheduleDelveItemsAutoShowRetries()
-	end
-
 	local inDelve = IsDelveItemsUiAllowed()
 	if not inDelve then
-		if popupFrame then
-			popupFrame:Hide()
+		if ns.HideDelveItemsUiLeavingDelve then
+			ns:HideDelveItemsUiLeavingDelve()
+		else
+			if popupFrame then
+				popupFrame:Hide()
+			end
+			if ns.RefreshDelveItemBrokers then
+				ns:RefreshDelveItemBrokers()
+			end
 		end
 		eventFrame._mhWasInDelve = false
-		if ns.RefreshDelveItemBrokers then
-			ns:RefreshDelveItemBrokers()
-		end
 		return
+	end
+
+	if event:find("ZONE") and ns.ScheduleDelveItemsAutoShowRetries then
+		ns:ScheduleDelveItemsAutoShowRetries()
 	end
 
 	if inDelve and not eventFrame._mhWasInDelve and ns.ClearDelveItemsAutoShowSuppress then
@@ -588,11 +607,8 @@ eventFrame:SetScript("OnUpdate", function(self, elapsed)
 		end
 	end
 	if not inDelve and self._mhWasInDelve then
-		if popupFrame then
-			popupFrame:Hide()
-		end
-		if ns.RefreshDelveItemBrokers then
-			ns:RefreshDelveItemBrokers()
+		if ns.HideDelveItemsUiLeavingDelve then
+			ns:HideDelveItemsUiLeavingDelve()
 		end
 	end
 	self._mhWasInDelve = inDelve and true or false
