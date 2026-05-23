@@ -17,7 +17,7 @@ ns._mhLocales.enUS = {
 	UI_LOADING = "UI is still loading.",
 	LANG_SET = "Language set to %s.",
 	LANG_UNKNOWN = "Unknown language %q. Use: auto, en, nl, de, fr, es, …",
-	LANG_SLASH_HINT = "Usage: /mh lang auto  |  /mh lang en  |  /mh lang nl  (auto = WoW client language)",
+	LANG_SLASH_HINT = "Usage: /mh lang auto  |  /mh lang en  |  /mh lang de  |  /mh lang fr  |  /mh lang nl  (auto = WoW client language)",
 	LOCALE_NAME_AUTO = "Automatic (WoW client)",
 	LOCALE_NAME_EN = "English",
 	LOCALE_NAME_NL = "Nederlands (addon)",

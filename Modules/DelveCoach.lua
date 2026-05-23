@@ -628,16 +628,52 @@ local function EnsureCoachFrame()
 	btnRow:SetHeight(24)
 	f._shareBtnRow = btnRow
 
-	local function MakeShareBtn(parent, labelKey, width)
+	local shareBtnList = {}
+
+	local function FitCoachShareButton(btn, minWidth)
+		if not btn or not btn.GetFontString then
+			return
+		end
+		local fs = btn:GetFontString()
+		if not fs or not fs.GetStringWidth then
+			return
+		end
+		local w = (fs:GetStringWidth() or 0) + 18
+		btn:SetWidth(math.max(minWidth or 44, w))
+	end
+
+	local function ReflowShareButtons()
+		local prev
+		for i = 1, #shareBtnList do
+			local b = shareBtnList[i]
+			if b and b._mhLabelKey then
+				b:SetText(ns:L(b._mhLabelKey))
+				FitCoachShareButton(b, i == 1 and 52 or 40)
+				b:ClearAllPoints()
+				if not prev then
+					b:SetPoint("LEFT", btnRow, "LEFT", 0, 0)
+				else
+					b:SetPoint("LEFT", prev, "RIGHT", 4, 0)
+				end
+				prev = b
+			end
+		end
+	end
+
+	local function MakeShareBtn(parent, labelKey, minWidth)
 		local b = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
-		b:SetSize(width or 72, 22)
+		b:SetHeight(22)
 		b._mhLabelKey = labelKey
+		b._mhMinWidth = minWidth or 44
 		b:SetText(ns:L(labelKey))
+		FitCoachShareButton(b, b._mhMinWidth)
+		shareBtnList[#shareBtnList + 1] = b
 		return b
 	end
 
-	local btnBrief = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_BRIEF", 88)
-	btnBrief:SetPoint("LEFT", btnRow, "LEFT", 0, 0)
+	f._reflowShareButtons = ReflowShareButtons
+
+	local btnBrief = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_BRIEF", 52)
 	btnBrief:SetScript("OnClick", function()
 		if currentEntryId and ns.SendDelvePartyShare then
 			ns.SendDelvePartyShare(currentEntryId, "brief")
@@ -645,8 +681,7 @@ local function EnsureCoachFrame()
 	end)
 	f._shareBtnBrief = btnBrief
 
-	local btnBoss = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_BOSS", 52)
-	btnBoss:SetPoint("LEFT", btnBrief, "RIGHT", 4, 0)
+	local btnBoss = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_BOSS", 40)
 	btnBoss:SetScript("OnClick", function()
 		if currentEntryId and ns.SendDelvePartyShare then
 			ns.SendDelvePartyShare(currentEntryId, "boss")
@@ -654,18 +689,17 @@ local function EnsureCoachFrame()
 	end)
 	f._shareBtnBoss = btnBoss
 
-	local btnMore = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_MORE", 52)
-	btnMore:SetPoint("LEFT", btnBoss, "RIGHT", 4, 0)
+	local btnMore = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_MORE", 40)
 	f._shareBtnMore = btnMore
 
-	local btnCopy = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_COPY", 58)
-	btnCopy:SetPoint("LEFT", btnMore, "RIGHT", 4, 0)
+	local btnCopy = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_COPY", 44)
 	btnCopy:SetScript("OnClick", function()
 		if currentEntryId and ns.ToggleDelvePartyShareCopy then
 			ns.ToggleDelvePartyShareCopy(currentEntryId, "brief")
 		end
 	end)
 	f._shareBtnCopy = btnCopy
+	ReflowShareButtons()
 
 	local MORE_SHARE_MENU = {
 		{ mode = "overview", labelKey = "DELVE_SHARE_MENU_OVERVIEW" },
@@ -1023,11 +1057,8 @@ function ns:RefreshDelveCoachLocale()
 	if ns.UpdateDelveShareBarUI then
 		ns:UpdateDelveShareBarUI()
 	end
-	for _, key in ipairs({ "_shareBtnBrief", "_shareBtnBoss", "_shareBtnMore", "_shareBtnCopy" }) do
-		local b = coachFrame[key]
-		if b and b._mhLabelKey and b.SetText then
-			b:SetText(self:L(b._mhLabelKey))
-		end
+	if coachFrame._reflowShareButtons then
+		coachFrame._reflowShareButtons()
 	end
 	if coachFrame._bossTitle then
 		coachFrame._bossTitle:SetText(self:L("DELVE_COACH_BOSS_SHOWCASE"))

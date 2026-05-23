@@ -19,7 +19,7 @@ ns._mhLocales.nlNL = {
 	UI_LOADING = "Interface laadt nog.",
 	LANG_SET = "Taal ingesteld op %s.",
 	LANG_UNKNOWN = "Onbekende taal %q. Gebruik: auto, en, nl, de, fr, es, …",
-	LANG_SLASH_HINT = "Gebruik: /mh lang auto  |  /mh lang en  |  /mh lang nl  (auto = WoW-clienttaal)",
+	LANG_SLASH_HINT = "Gebruik: /mh lang auto  |  /mh lang en  |  /mh lang de  |  /mh lang fr  |  /mh lang nl  (auto = WoW-clienttaal)",
 	LOCALE_NAME_AUTO = "Automatisch (WoW-client)",
 	LOCALE_NAME_EN = "English",
 	LOCALE_NAME_NL = "Nederlands (addon)",

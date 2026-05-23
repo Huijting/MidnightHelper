@@ -26,12 +26,6 @@ local QUALITY_RGB = {
 	[5] = { 1.0, 0.5, 0.0 },
 }
 
-local function IsNlLocale()
-	if ns.IsDutchLocaleActive then
-		return ns:IsDutchLocaleActive()
-	end
-	return false
-end
 
 function ns.MH_GetConsumablesWowheadForSpec(classToken, specIndex)
 	if not classToken or not specIndex or specIndex < 1 then
@@ -144,10 +138,13 @@ local function CategoryNote(cat)
 	if not cat then
 		return ""
 	end
-	if IsNlLocale() and cat.noteNl and cat.noteNl ~= "" then
-		return cat.noteNl
+	if cat.noteKey and cat.noteKey ~= "" then
+		local s = ns:L(cat.noteKey)
+		if s and s ~= cat.noteKey then
+			return s
+		end
 	end
-	return cat.noteEn or ""
+	return cat.noteEn or cat.noteNl or ""
 end
 
 local function ClearFrameChildren(frame)

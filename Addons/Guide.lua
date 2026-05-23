@@ -390,6 +390,26 @@ local function DestroyAllChildren(parent)
 	end
 end
 
+-- FontStrings created on scrollContent are regions, not child frames — clear them too.
+local function DestroyAllRegions(parent)
+	if not parent or not parent.GetRegions then
+		return
+	end
+	for _ = 1, 128 do
+		local regions = { parent:GetRegions() }
+		if #regions == 0 then
+			break
+		end
+		for i = 1, #regions do
+			local r = regions[i]
+			if r and r.SetParent then
+				r:Hide()
+				r:SetParent(nil)
+			end
+		end
+	end
+end
+
 -- Centered onboarding / placeholder copy inside scrollContent (tips/links hidden).
 local function PlaceCenteredGuideMessage(parent, fullW, markup)
 	if lastGuideCenterFs and lastGuideCenterFs.SetParent then
@@ -820,6 +840,7 @@ function ns.ClearGuideUI()
 
 	-- Frames only; FontStrings on scrollContent are cleared via lastGuideCenterFs / child frames (e.g. gearHost).
 	DestroyAllChildren(scrollContent)
+	DestroyAllRegions(scrollContent)
 	if lastGuideCenterFs and lastGuideCenterFs.SetParent then
 		lastGuideCenterFs:Hide()
 		lastGuideCenterFs:SetParent(nil)
@@ -1519,8 +1540,11 @@ local function PopulateUniversalGuideContent()
 
 	local layoutSlug = ns.MH_GetHunterKeybindSlugForUi and ns.MH_GetHunterKeybindSlugForUi()
 	if layoutSlug then
-		local tipsHintFs = scrollContent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		tipsHintFs:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 4, y)
+		local hintBar = CreateFrame("Frame", nil, scrollContent)
+		hintBar:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, y)
+		hintBar:SetWidth(fullW)
+		local tipsHintFs = hintBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		tipsHintFs:SetPoint("TOPLEFT", hintBar, "TOPLEFT", 4, 0)
 		tipsHintFs:SetWidth(fullW - 8)
 		tipsHintFs:SetJustifyH("LEFT")
 		tipsHintFs:SetWordWrap(true)
@@ -1531,6 +1555,7 @@ local function PopulateUniversalGuideContent()
 		if not hintH or hintH < 1 then
 			hintH = 36
 		end
+		hintBar:SetHeight(hintH)
 		nextY(hintH + 8)
 	end
 
@@ -1582,7 +1607,10 @@ local function PopulateUniversalGuideContent()
 		fs:SetSpacing(2)
 		fs:SetWordWrap(true)
 		fs:SetTextColor(0.92, 0.90, 0.82)
-		local tipStr = tip.textKey and ns:L(tip.textKey) or tip.text or ""
+		local tipStr = (ns.MH_ResolveGuideTipText and ns:MH_ResolveGuideTipText(tip))
+			or (tip.textKey and ns:L(tip.textKey))
+			or tip.text
+			or ""
 		fs:SetText(tipStr)
 
 		local slug = ns.MH_GetHunterKeybindSlugForUi and ns.MH_GetHunterKeybindSlugForUi()

@@ -1,6 +1,6 @@
 # i18n roadmap — Midnight Helper
 
-**Laatste update:** 2026-05-19  
+**Laatste update:** 2026-05-23  
 **Versie op schijf:** `MidnightHelper.toc` → **1.3.1**  
 **Git:** na commit `i18n Phase A+B` — DE shell + auto-locale live in repo
 
@@ -14,14 +14,18 @@ Dit document is de **vaste draad** voor vertalingen. Chatgeschiedenis sync niet 
 |------|--------|--------------|
 | **A — Auto-locale** | ✅ Done | `locale = "auto"` volgt `GetLocale()`; `nlNL` nooit auto; fallback `enUS` |
 | **B — deDE shell** | ✅ Done | `Locales/deDE.lua` (~546 UI-keys); merge uit `enUS` voor rest |
-| **C — deDE inhoud** | 🔲 Open | Delve Coach tips, `GUIDE_ADVISOR_*`, per-spec `GUIDE_GEAR_*` |
-| **D — frFR shell** | 🔲 Volgende | Zelfde patroon als DE; Blizzard: **Gouffre** / **gouffre généreux** |
-| **E — esES / ptBR / …** | 🔲 Later | Per prioriteit CurseForge / spelersbasis |
+| **C — deDE inhoud** | 🔲 Open | Delve Coach tip bodies, `GUIDE_ADVISOR_*`, per-spec `GUIDE_GEAR_*` |
+| **D — frFR shell** | ✅ Done | `Locales/frFR.lua` + `GROUP_FR`; Blizzard: **Gouffre** / **Grande chambre forte** |
+| **D2 — frFR polish** | 🔲 Open | Advisor/gear EN; Delve tip bodies EN; resterende vous-vorm UI |
+| **DE polish** | 🟡 Deels | Academy/INFO **du**; `TAB_DELVES` → **Tiefen & Große Schatzkammer** |
+| **E — esES shell** | ✅ Done | `Locales/esES.lua` + `GROUP_ES`; Blizzard: **Profundidades** / **Gran Bóveda** |
+| **E2 — esES polish** | 🔲 Open | Advisor/gear EN; resterende machinevertaling UI |
+| **F — ptBR / …** | 🔲 Later | Per prioriteit CurseForge / spelersbasis |
 
 ### Locale-packs geladen (TOC-volgorde)
 
 ```
-enUS.lua → deDE.lua → nlNL.lua → GuideTips → GuideGroups → DelveTips → Locale.lua
+enUS.lua → deDE.lua → frFR.lua → esES.lua → nlNL.lua → GuideTips → GuideGroups → DelveTips → Locale.lua
 ```
 
 ### Handmatig vs automatisch
@@ -31,7 +35,9 @@ enUS.lua → deDE.lua → nlNL.lua → GuideTips → GuideGroups → DelveTips �
 | `enUS` | ja (EN/EN-GB) | Default + fallback |
 | `deDE` | ja | UI shell DE; advisor/tips deels EN |
 | `nlNL` | **nee** | Altijd handmatig (`/mh lang nl` of knop) |
-| `frFR`, `esES`, … | nee (tot pack bestaat) | Auto → EN + status “pack pending” |
+| `frFR` | ja | UI shell FR; advisor/tips deels EN |
+| `esES` | ja | UI shell ES; advisor/gear deels EN |
+| `esMX`, … | nee (tot pack bestaat) | Auto → EN + status “pack pending” |
 
 ### Commando’s
 
@@ -39,10 +45,12 @@ enUS.lua → deDE.lua → nlNL.lua → GuideTips → GuideGroups → DelveTips �
 /mh lang auto   — WoW-clienttaal (als pack bestaat)
 /mh lang en     — Engels
 /mh lang de     — Deutsch
+/mh lang fr     — Français
+/mh lang es     — Español
 /mh lang nl     — Nederlands (addon)
 ```
 
-Minimap → Instellingen → knoppen **Automatisch / English / Deutsch / Nederlands**.
+Minimap → Instellingen → knoppen **Automatisch / English / Deutsch / Français** (rij 1) en **Español / Nederlands** (rij 2).
 
 ---
 
@@ -145,5 +153,5 @@ Daarna **handmatig** `tools/build_deDE.py` → dict `fixes` controleren (Blizzar
 
 1. **deDE polish** — Sie→du, DelveTips DE namen, eventueel top 3 delve tip-secties NL→DE handmatig  
 2. **frFR Phase B** — shell + GuideGroups + Blizzard-term check  
-3. **esES** of **ptBR** — naar bereik  
-4. **Phase C** per taal — advisor + gear + delve bodies (groot; per PR/taal splitsen)
+3. **ptBR** of **esES polish** — naar bereik  
+4. **Phase C** per taal — advisor + gear (groot; per PR/taal splitsen)

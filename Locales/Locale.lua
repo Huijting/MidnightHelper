@@ -1,6 +1,6 @@
 --[[
 	Midnight Helper — Locale resolver (shell uses ns:L from UI/Core).
-	Load after Locales/enUS.lua, deDE.lua, and nlNL.lua.
+	Load after Locales/enUS.lua, deDE.lua, frFR.lua, esES.lua, and nlNL.lua.
 
 	Phase A: "auto" follows WoW GetLocale() when a matching pack exists; otherwise enUS.
 	nlNL is never auto-selected (addon-only); players choose it manually.

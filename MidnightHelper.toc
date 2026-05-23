@@ -13,8 +13,13 @@ Libs\LibDBIcon-1.0.lua
 Core.lua
 Locales\enUS.lua
 Locales\deDE.lua
+Locales\frFR.lua
+Locales\esES.lua
 Locales\nlNL.lua
+Locales\ConsumablesNotes.lua
 Locales\GuideTips.lua
+Modules\GuideTipSpellNames.lua
+Modules\GuideTipText.lua
 Locales\GuideGroups.lua
 Locales\DelveTips.lua
 Locales\Locale.lua

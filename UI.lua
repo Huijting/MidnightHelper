@@ -100,6 +100,26 @@ local function MHGetLayoutMetrics()
 	}
 end
 
+local function FitSidebarTabButton(btn, sidebarWidth)
+	if not btn or not btn.GetFontString then
+		return
+	end
+	local fs = btn:GetFontString()
+	if not fs or not fs.GetStringWidth then
+		return
+	end
+	local maxW = (sidebarWidth or MHGetLayoutMetrics().sidebarWidth) - 16
+	local textW = fs:GetStringWidth() or 0
+	if textW + 24 > maxW and fs.SetFont then
+		local font, size, flags = fs:GetFont()
+		if font and size and size > 9 then
+			fs:SetFont(font, size - 1, flags)
+			textW = fs:GetStringWidth() or textW
+		end
+	end
+	btn:SetWidth(maxW)
+end
+
 local function MHGetInfoBodyKeyForTab(tabId)
 	if tabId == "delves" then
 		return "INFO_DRAWER_BODY_DELVES"
@@ -155,6 +175,7 @@ function ns:RefreshLocaleUI()
 			local key = r.tabKeys[id]
 			if key and btn and btn.SetText then
 				btn:SetText(self:L(key))
+				FitSidebarTabButton(btn)
 			end
 		end
 	end
@@ -1526,6 +1547,7 @@ function ns:EnsureMainUI()
 		btn:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, y)
 		y = y - MHGetLayoutMetrics().sidebarTabStep
 		btn:SetText(ns:L(tab.labelKey))
+		FitSidebarTabButton(btn, MHGetLayoutMetrics().sidebarWidth)
 		btn:SetScript("OnClick", function()
 			SelectTab(tab.id)
 		end)
@@ -1540,10 +1562,14 @@ function ns:EnsureMainUI()
 			if not btn then
 				-- skip
 			elseif tab.id == "addons" or tab.id == "macros" or tab.id == "consumables" then
+				btn:SetText(ns:L(tab.labelKey))
+				FitSidebarTabButton(btn, lm.sidebarWidth)
 				btn:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
 				btn:ClearAllPoints()
 				btn:Show()
 			else
+				btn:SetText(ns:L(tab.labelKey))
+				FitSidebarTabButton(btn, lm.sidebarWidth)
 				btn:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
 				btn:ClearAllPoints()
 				local visible = true

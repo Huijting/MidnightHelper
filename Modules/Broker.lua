@@ -48,6 +48,12 @@ local function RefreshLanguageButtonTints(host)
 	if host._langDe then
 		TintBtn(host._langDe, pref == "deDE")
 	end
+	if host._langFr then
+		TintBtn(host._langFr, pref == "frFR")
+	end
+	if host._langEs then
+		TintBtn(host._langEs, pref == "esES")
+	end
 	if host._langNl then
 		TintBtn(host._langNl, pref == "nlNL")
 	end
@@ -59,7 +65,7 @@ local function EnsureSettingsFrame()
 	end
 
 	local f = CreateFrame("Frame", "MidnightHelperQuickSettings", UIParent, "BackdropTemplate")
-	f:SetSize(440, 292)
+	f:SetSize(440, 350)
 	f:SetFrameStrata("DIALOG")
 	f:SetFrameLevel(2100)
 	f:SetClampedToScreen(true)
@@ -126,16 +132,32 @@ local function EnsureSettingsFrame()
 	end)
 	f._langDe = langDe
 
+	local langFr = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	langFr:SetSize(72, 24)
+	langFr:SetPoint("LEFT", langDe, "RIGHT", 6, 0)
+	langFr:SetScript("OnClick", function()
+		OnLanguageChosen(f, "frFR")
+	end)
+	f._langFr = langFr
+
+	local langEs = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	langEs:SetSize(72, 24)
+	langEs:SetPoint("TOPLEFT", langAuto, "BOTTOMLEFT", 0, -6)
+	langEs:SetScript("OnClick", function()
+		OnLanguageChosen(f, "esES")
+	end)
+	f._langEs = langEs
+
 	local langNl = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	langNl:SetSize(88, 24)
-	langNl:SetPoint("LEFT", langDe, "RIGHT", 6, 0)
+	langNl:SetPoint("LEFT", langEs, "RIGHT", 6, 0)
 	langNl:SetScript("OnClick", function()
 		OnLanguageChosen(f, "nlNL")
 	end)
 	f._langNl = langNl
 
 	local langHint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	langHint:SetPoint("TOPLEFT", langAuto, "BOTTOMLEFT", 0, -6)
+	langHint:SetPoint("TOPLEFT", langNl, "BOTTOMLEFT", 0, -6)
 	langHint:SetPoint("RIGHT", f, "RIGHT", -12, 0)
 	langHint:SetJustifyH("LEFT")
 	langHint:SetWordWrap(true)
@@ -225,6 +247,12 @@ local function EnsureSettingsFrame()
 		end
 		if self._langDe then
 			self._langDe:SetText(ns:L("LOCALE_NAME_deDE"))
+		end
+		if self._langFr then
+			self._langFr:SetText(ns:L("LOCALE_NAME_frFR"))
+		end
+		if self._langEs then
+			self._langEs:SetText(ns:L("LOCALE_NAME_esES"))
 		end
 		if self._langNl then
 			self._langNl:SetText(ns:L("LOCALE_NAME_NL"))
@@ -426,7 +454,7 @@ local function EnsureSettingsCategoryFrame()
 	local languageBox = CreateFrame("Frame", nil, panel, "BackdropTemplate")
 	languageBox:SetPoint("TOPLEFT", langLabel, "TOPLEFT", -8, 16)
 	languageBox:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -16, 16)
-	languageBox:SetHeight(78)
+	languageBox:SetHeight(108)
 	if languageBox.SetBackdrop then
 		languageBox:SetBackdrop({
 			bgFile = "Interface\\Buttons\\WHITE8X8",
@@ -467,16 +495,32 @@ local function EnsureSettingsCategoryFrame()
 	end)
 	panel._langDe = langDe
 
+	local langFr = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	langFr:SetSize(88, 24)
+	langFr:SetPoint("LEFT", langDe, "RIGHT", 6, 0)
+	langFr:SetScript("OnClick", function()
+		OnLanguageChosen(panel, "frFR")
+	end)
+	panel._langFr = langFr
+
+	local langEs = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	langEs:SetSize(88, 24)
+	langEs:SetPoint("TOPLEFT", langAuto, "BOTTOMLEFT", 0, -8)
+	langEs:SetScript("OnClick", function()
+		OnLanguageChosen(panel, "esES")
+	end)
+	panel._langEs = langEs
+
 	local langNl = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
 	langNl:SetSize(96, 24)
-	langNl:SetPoint("LEFT", langDe, "RIGHT", 6, 0)
+	langNl:SetPoint("LEFT", langEs, "RIGHT", 6, 0)
 	langNl:SetScript("OnClick", function()
 		OnLanguageChosen(panel, "nlNL")
 	end)
 	panel._langNl = langNl
 
 	local langHint = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	langHint:SetPoint("TOPLEFT", langAuto, "BOTTOMLEFT", 0, -6)
+	langHint:SetPoint("TOPLEFT", langNl, "BOTTOMLEFT", 0, -6)
 	langHint:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
 	langHint:SetJustifyH("LEFT")
 	langHint:SetWordWrap(true)
@@ -569,6 +613,12 @@ local function EnsureSettingsCategoryFrame()
 		self._langEn:SetText(ns:L("LOCALE_NAME_EN"))
 		if self._langDe then
 			self._langDe:SetText(ns:L("LOCALE_NAME_deDE"))
+		end
+		if self._langFr then
+			self._langFr:SetText(ns:L("LOCALE_NAME_frFR"))
+		end
+		if self._langEs then
+			self._langEs:SetText(ns:L("LOCALE_NAME_esES"))
 		end
 		self._langNl:SetText(ns:L("LOCALE_NAME_NL"))
 		if self._langHint then
