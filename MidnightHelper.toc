@@ -21,6 +21,7 @@ Locales\GuideTips.lua
 Modules\GuideTipSpellNames.lua
 Modules\GuideTipText.lua
 Locales\GuideGroups.lua
+Locales\GuideAdvisor.lua
 Locales\DelveTips.lua
 Locales\Locale.lua
 Modules\DelveTipsData.lua
