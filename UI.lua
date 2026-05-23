@@ -188,7 +188,7 @@ function ns:RefreshLocaleUI()
 		for id, btn in pairs(self.tabButtons) do
 			local key = r.tabKeys[id]
 			if key and btn and btn.SetText then
-				btn:SetText(self:L(key))
+				btn:SetText(self:EscapeButtonAmpersand(self:L(key)))
 				FitSidebarTabButton(btn)
 			end
 		end
@@ -1312,10 +1312,10 @@ function ns:EnsureMainUI()
 			infoBody:SetText(self:L(MHGetInfoBodyKeyForTab(tabId)))
 		end
 		local infoToggleKey = (infoWindow:IsShown() and mode == "info") and "INFO_DRAWER_TOGGLE_HIDE" or "INFO_DRAWER_TOGGLE_SHOW"
-		infoToggleBtn:SetText(self:L(infoToggleKey))
+		infoToggleBtn:SetText(self:EscapeButtonAmpersand(self:L(infoToggleKey)))
 		FitTitleBarButton(infoToggleBtn, 56, 120)
 		local aboutBtnKey = (infoWindow:IsShown() and mode == "about") and "INFO_DRAWER_TOGGLE_HIDE" or "ABOUT_BUTTON"
-		aboutBtn:SetText(self:L(aboutBtnKey))
+		aboutBtn:SetText(self:EscapeButtonAmpersand(self:L(aboutBtnKey)))
 		FitTitleBarButton(aboutBtn, 56, 100)
 	end
 

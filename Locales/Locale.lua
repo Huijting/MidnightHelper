@@ -253,6 +253,51 @@ function ns:LChat(key)
 	return s
 end
 
+--- Latin chat label for script locales when the WoW client cannot render Cyrillic/CJK.
+local CHAT_LOCALE_ROMAN_NAMES = {
+	ruRU = "Russian",
+	koKR = "Korean",
+	zhCN = "Chinese (Simplified)",
+	zhTW = "Chinese (Traditional)",
+}
+
+function ns:GetLocaleDisplayNameForChat(code)
+	if code == ns.MH_LOCALE_AUTO then
+		local wow = self:GetWoWClientLocaleCode()
+		local eff = self:GetEffectiveLocaleCode()
+		if wow == eff then
+			return self:GetLocaleDisplayName(ns.MH_LOCALE_AUTO)
+		end
+		return ("%s -> %s"):format(
+			CHAT_LOCALE_ROMAN_NAMES[wow] or wow,
+			CHAT_LOCALE_ROMAN_NAMES[eff] or eff
+		)
+	end
+	if CHAT_LOCALE_ROMAN_NAMES[code] and self:GetChatLocaleCode() ~= code then
+		return CHAT_LOCALE_ROMAN_NAMES[code]
+	end
+	return self:GetLocaleDisplayName(code)
+end
+
+function ns:PrintChat(message)
+	if type(message) ~= "string" or message == "" then
+		return
+	end
+	if DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.AddMessage then
+		local prefix = self:LChat("PRINT_PREFIX")
+		DEFAULT_CHAT_FRAME:AddMessage(("|cffffcc00%s|r %s"):format(prefix, message))
+	end
+end
+
+function ns:PrintChatKey(key, ...)
+	local fmt = self:LChat(key)
+	local msg = fmt
+	if select("#", ...) > 0 then
+		msg = fmt:format(...)
+	end
+	self:PrintChat(msg)
+end
+
 --- Game fonts often miss Unicode arrows/dashes; use for player-visible strings in UI.
 function ns:SafeL(key)
 	local s = self:L(key)
@@ -295,4 +340,23 @@ end
 
 function ns:IsDutchLocaleActive()
 	return self:GetEffectiveLocaleCode() == "nlNL"
+end
+
+--- WoW buttons treat & as a keyboard accelerator; that breaks many Cyrillic/CJK labels.
+local BUTTON_AMPERSAND_ESCAPE_LOCALES = {
+	ruRU = true,
+	koKR = true,
+	zhCN = true,
+	zhTW = true,
+}
+
+function ns:EscapeButtonAmpersand(text)
+	if type(text) ~= "string" then
+		return text
+	end
+	local loc = self.GetEffectiveLocaleCode and self:GetEffectiveLocaleCode()
+	if not BUTTON_AMPERSAND_ESCAPE_LOCALES[loc] then
+		return text
+	end
+	return text:gsub("&", "&&")
 end

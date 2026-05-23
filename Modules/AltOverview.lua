@@ -16,6 +16,14 @@ local PAD_L = 4
 local PAD_R = 6
 local COL_W_KEYS = 34
 local COL_W_SHARDS = 62
+
+local function GetColWShards()
+	local loc = ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode()
+	if loc == "ruRU" or loc == "deDE" or loc == "frFR" then
+		return 70
+	end
+	return COL_W_SHARDS
+end
 local COL_W_UNDER = 96
 local COL_W_VAULT = 110
 local NUM_GAP = 4
@@ -34,7 +42,7 @@ local function RowActionOffset()
 end
 
 local function TotalNumericBlockWidth()
-	return PAD_R + COL_W_UNDER + COL_W_SHARDS + COL_W_KEYS + 2 * NUM_GAP
+	return PAD_R + COL_W_UNDER + GetColWShards() + COL_W_KEYS + 2 * NUM_GAP
 end
 
 local function BuildVaultCategorySnapshot(activities, wantedType)
@@ -569,15 +577,16 @@ end
 local function AnchorThreeNumericCells(keysFs, shardsFs, underFs, row)
 	local rightShift = RowActionOffset()
 	local cxUnder = PAD_R + COL_W_UNDER / 2
-	local cxShards = PAD_R + COL_W_UNDER + NUM_GAP + COL_W_SHARDS / 2
-	local cxKeys = PAD_R + COL_W_UNDER + NUM_GAP + COL_W_SHARDS + NUM_GAP + COL_W_KEYS / 2
+	local shardW = GetColWShards()
+	local cxShards = PAD_R + COL_W_UNDER + NUM_GAP + shardW / 2
+	local cxKeys = PAD_R + COL_W_UNDER + NUM_GAP + shardW + NUM_GAP + COL_W_KEYS / 2
 
 	underFs:SetWidth(COL_W_UNDER)
 	underFs:SetJustifyH("CENTER")
 	underFs:ClearAllPoints()
 	underFs:SetPoint("CENTER", row, "RIGHT", -(cxUnder + rightShift), 0)
 
-	shardsFs:SetWidth(COL_W_SHARDS)
+	shardsFs:SetWidth(GetColWShards())
 	shardsFs:SetJustifyH("CENTER")
 	shardsFs:ClearAllPoints()
 	shardsFs:SetPoint("CENTER", row, "RIGHT", -(cxShards + rightShift), 0)
@@ -674,7 +683,7 @@ local function MakeHeaderRow(parent)
 	AnchorThreeNumericCells(row.keysH, row.shardsH, row.underH, row)
 
 	row.shardsHit = CreateFrame("Button", nil, row)
-	row.shardsHit:SetSize(COL_W_SHARDS + 12, HEADER_ROW_H)
+	row.shardsHit:SetSize(GetColWShards() + 12, HEADER_ROW_H)
 	row.shardsHit:SetPoint("CENTER", row.shardsH, "CENTER")
 	row.shardsHit:SetAlpha(0.001)
 	row.shardsHit:EnableMouse(true)

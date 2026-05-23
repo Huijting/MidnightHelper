@@ -182,6 +182,21 @@ function ns:GetDelveTipDisplayName(entry)
 	return entry.rosterName or entry.id or ""
 end
 
+function ns:GetDelveChatDisplayName(entry)
+	if not entry then
+		return ""
+	end
+	local loc = ns.GetChatLocaleCode and ns:GetChatLocaleCode() or nil
+	if entry.nameKey and loc and ns._mhLocales then
+		local pack = ns._mhLocales[loc]
+		local localized = pack and pack[entry.nameKey]
+		if localized and localized ~= entry.nameKey then
+			return localized
+		end
+	end
+	return entry.rosterName or entry.id or ""
+end
+
 --- Returns ok, list of missing locale keys (for dev / release checks).
 function ns:ValidateDelveTipLocales()
 	local issues = {}

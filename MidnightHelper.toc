@@ -49,6 +49,7 @@ Modules\SMCChecklist.lua
 UI.lua
 Modules\Changelog.lua
 Modules\VaultReminder.lua
+Modules\MidnightToast.lua
 Modules\Broker.lua
 Modules\DelveItemBrokers.lua
 Modules\DelveItemsPopup.lua

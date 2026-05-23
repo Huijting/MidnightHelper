@@ -68,6 +68,11 @@ local DEFAULT_DB = {
 			y = 80,
 			userPositioned = false,
 		},
+		--- Event-style toasts (bounty detected, etc.).
+		toast = {
+			enabled = true,
+			delveBounty = true,
+		},
 		delveCoach = {
 			enabled = true,
 			autoShow = true,
@@ -220,23 +225,22 @@ function ns:SetLocale(code, silent)
 		self.db.locale = normalized
 	end
 	if not silent then
-		local label = self.GetLanguageStatusLabel and self:GetLanguageStatusLabel()
+		local label = self.GetLocaleDisplayNameForChat and self:GetLocaleDisplayNameForChat(normalized)
+			or self:GetLanguageStatusLabel()
 			or self:GetLocaleDisplayName(normalized)
-		DEFAULT_CHAT_FRAME:AddMessage(
-			("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), self:L("LANG_SET"):format(label))
-		)
-		if self.GetChatLocaleCode and self.GetEffectiveLocaleCode then
-			local eff = self:GetEffectiveLocaleCode()
-			local chat = self:GetChatLocaleCode()
-			if chat ~= eff then
-				local fb = ns._mhLocales and ns._mhLocales.enUS
-				local hint = fb and fb.LANG_SET_CHAT_FALLBACK
-				if hint and hint ~= "" then
-					DEFAULT_CHAT_FRAME:AddMessage(
-						("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), hint)
-					)
+		if self.PrintChatKey then
+			self:PrintChatKey("LANG_SET", label)
+			if self.GetChatLocaleCode and self.GetEffectiveLocaleCode then
+				local eff = self:GetEffectiveLocaleCode()
+				local chat = self:GetChatLocaleCode()
+				if chat ~= eff then
+					self:PrintChatKey("LANG_SET_CHAT_FALLBACK")
 				end
 			end
+		else
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), self:L("LANG_SET"):format(label))
+			)
 		end
 	end
 	if self.RefreshLocaleUI then
@@ -409,6 +413,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 			DEFAULT_CHAT_FRAME:AddMessage(
 				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L(key))
 			)
+		else
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))
+			)
+		end
+		return
+	end
+
+	if msg == "toast" or msg == "toast test" or msg == "toast bounty" then
+		if ns.PreviewDelveBountyToast then
+			ns:PreviewDelveBountyToast()
 		else
 			DEFAULT_CHAT_FRAME:AddMessage(
 				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))

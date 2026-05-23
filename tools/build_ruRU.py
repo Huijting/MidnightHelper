@@ -75,7 +75,9 @@ def protect(s: str) -> tuple[str, list[str]]:
 def restore(s: str, tokens: list[str]) -> str:
     for i, tok in enumerate(tokens):
         s = s.replace(f"__TK{i}__", tok)
-    return s
+        # Google sometimes Cyrillicizes TK placeholders (__ТК0__).
+        s = s.replace(f"__ТК{i}__", tok)
+    return re.sub(r"__T[KК](\d+)__", lambda m: tokens[int(m.group(1))] if int(m.group(1)) < len(tokens) else m.group(0), s)
 
 
 def translate_batch(texts: list[str], translator) -> list[str]:
@@ -135,7 +137,7 @@ def main() -> None:
         "LANG_SLASH_HINT": "Команды: /mh lang auto  |  /mh lang en  |  /mh lang de  |  /mh lang fr  |  /mh lang es  |  /mh lang pt  |  /mh lang ru  |  /mh lang nl",
         "UNKNOWN_COMMAND": "Неизвестная команда %q. Используйте: /mh, /mh coach, /mh debug, /mh guide, /mh settings, /mh lang auto|en|de|fr|es|pt|ru|nl.",
         "LANG_ROW_RU_TOOLTIP": "Русский",
-        "TAB_DELVES": "Глубины & Хранилище",
+        "TAB_DELVES": "Глубины · Хранилище",
         "SEARCH_CHAT_TAB_DELVES": "Открыта вкладка: Глубины и Великое Хранилище",
         "DELVES_BTN_BOUNTIFUL": "Найти ближайшую щедрую глубину",
         "DELVES_ROW_ROUTE_BTN": "Клик по строке: маршрут к этой щедрой глубине (TomTom).",

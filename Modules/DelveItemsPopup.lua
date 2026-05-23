@@ -40,6 +40,7 @@ local popupFrame
 local secureButtons = {}
 local autoShowSuppressed = false
 local autoShowRetryGen = 0
+local bountyToastShownThisDelve = false
 
 local function IsDelveItemsUiAllowed()
 	return ns.IsPlayerInActiveDelve and ns.IsPlayerInActiveDelve()
@@ -65,10 +66,60 @@ end
 
 function ns:HideDelveItemsUiLeavingDelve()
 	self:CancelDelveItemsAutoShowRetries()
+	bountyToastShownThisDelve = false
 	self:HideDelveItemsPopup()
 	if self.RefreshDelveItemBrokers then
 		self:RefreshDelveItemBrokers()
 	end
+end
+
+function ns:MaybeShowDelveBountyToast()
+	if bountyToastShownThisDelve then
+		return
+	end
+	if not IsDelveItemsUiAllowed() then
+		return
+	end
+	local ui = ns.db and ns.db.ui
+	local toastCfg = ui and ui.toast
+	if toastCfg and (toastCfg.enabled == false or toastCfg.delveBounty == false) then
+		return
+	end
+	if GetItemCount(ITEM_TREASURE) < 1 then
+		return
+	end
+	if not ns.QueueMidnightToast then
+		return
+	end
+	bountyToastShownThisDelve = true
+	ns:QueueMidnightToast({
+		id = "delve_bounty",
+		icon = GetItemIcon(ITEM_TREASURE),
+		titleKey = "TOAST_BOUNTY_TITLE",
+		bodyKey = "TOAST_BOUNTY_BODY",
+		onClick = function()
+			if ns.ShowDelveItemsPopup then
+				ns:ShowDelveItemsPopup()
+			end
+		end,
+	})
+end
+
+function ns:PreviewDelveBountyToast()
+	if not ns.QueueMidnightToast then
+		return
+	end
+	ns:QueueMidnightToast({
+		id = "delve_bounty_preview",
+		icon = GetItemIcon(ITEM_TREASURE),
+		titleKey = "TOAST_BOUNTY_TITLE",
+		bodyKey = "TOAST_BOUNTY_BODY",
+		onClick = function()
+			if ns.ShowDelveItemsPopup then
+				ns:ShowDelveItemsPopup()
+			end
+		end,
+	})
 end
 
 function ns:ScheduleDelveItemsAutoShowRetries()
@@ -580,11 +631,15 @@ eventFrame:SetScript("OnEvent", function(_, event, arg1)
 
 	if inDelve and not eventFrame._mhWasInDelve and ns.ClearDelveItemsAutoShowSuppress then
 		ns:ClearDelveItemsAutoShowSuppress()
+		bountyToastShownThisDelve = false
 	end
 	eventFrame._mhWasInDelve = inDelve
 
 	if ns.RefreshDelveItemsPopup then
 		ns:RefreshDelveItemsPopup()
+	end
+	if ns.MaybeShowDelveBountyToast then
+		ns:MaybeShowDelveBountyToast()
 	end
 	if ns.MaybeAutoShowDelveItemsPopup then
 		ns:MaybeAutoShowDelveItemsPopup()

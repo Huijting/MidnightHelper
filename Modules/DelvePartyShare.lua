@@ -172,13 +172,17 @@ local function GetShareChannel()
 end
 
 local function ChatPrint(key, ...)
-	local msg = ns.L and ns:L(key) or key
+	if ns.PrintChatKey then
+		ns:PrintChatKey(key, ...)
+		return
+	end
+	local msg = ns.LChat and ns:LChat(key) or (ns.L and ns:L(key) or key)
 	if select("#", ...) > 0 then
 		msg = msg:format(...)
 	end
 	if DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.AddMessage then
 		DEFAULT_CHAT_FRAME:AddMessage(
-			("|cff71d5ff%s|r %s"):format(ns.L and ns:L("PRINT_PREFIX") or "Midnight Helper:", msg)
+			("|cff71d5ff%s|r %s"):format(ns.LChat and ns:LChat("PRINT_PREFIX") or "Midnight Helper:", msg)
 		)
 	end
 end
@@ -189,7 +193,12 @@ function ns.BuildDelvePartyShareLines(entryId, mode)
 		return nil, "no_entry"
 	end
 
-	local delveName = (ns.GetDelveTipDisplayName and ns:GetDelveTipDisplayName(entry)) or entry.rosterName or entryId
+	local delveName
+	if ns.GetDelveChatDisplayName then
+		delveName = ns:GetDelveChatDisplayName(entry)
+	else
+		delveName = (ns.GetDelveTipDisplayName and ns:GetDelveTipDisplayName(entry)) or entry.rosterName or entryId
+	end
 	local modes = {}
 	if mode == "brief" then
 		modes = BRIEF_MODES
@@ -234,7 +243,7 @@ function ns.BuildDelvePartyShareLines(entryId, mode)
 			if mode == "brief" or mode == "all" then
 				head = ("%s %s (%d/%d) %s"):format(CHAT_PREFIX, delveName, partIdx, totalParts, block.label)
 			else
-				head = ("%s %s — %s"):format(CHAT_PREFIX, delveName, block.label)
+				head = ("%s %s - %s"):format(CHAT_PREFIX, delveName, block.label)
 			end
 			if #chunks > 1 then
 				head = head .. (" [%d/%d]"):format(j, #chunks)
