@@ -210,11 +210,11 @@ function ns.BuildDelvePartyShareLines(entryId, mode)
 	local blocks = {}
 	for _, m in ipairs(modes) do
 		local bodyKey = ns.GetDelvePartyShareBodyKey(entryId, m)
-		local body = bodyKey and ns.L and ns:L(bodyKey) or ""
+		local body = bodyKey and ns.LChat and ns:LChat(bodyKey) or (bodyKey and ns.L and ns:L(bodyKey) or "")
 		if body == "" or body == bodyKey then
 			return nil, "missing_locale"
 		end
-		local label = ns:L(SECTION_MODES[m].labelKey)
+		local label = (ns.LChat and ns:LChat(SECTION_MODES[m].labelKey)) or ns:L(SECTION_MODES[m].labelKey)
 		blocks[#blocks + 1] = { mode = m, label = label, body = PrepareShareBody(body) }
 	end
 
@@ -249,7 +249,7 @@ function ns.BuildDelvePartyShareLines(entryId, mode)
 
 	local s = GetShareSettings()
 	if s.footer and #lines > 0 then
-		lines[#lines + 1] = ns:L("DELVE_SHARE_FOOTER")
+		lines[#lines + 1] = (ns.LChat and ns:LChat("DELVE_SHARE_FOOTER")) or ns:L("DELVE_SHARE_FOOTER")
 	end
 
 	return lines, nil, delveName, #lines

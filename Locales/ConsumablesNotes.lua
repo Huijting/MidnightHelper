@@ -105,6 +105,24 @@ local PT = {
 	CONS_NOTE_15 = "Poção tank padrão com throughput e risco controlado.",
 }
 
+local RU = {
+	CONS_NOTE_01 = "Крит — стандартный ДПС-настой; симуйте персонажа для вторичных статов.",
+	CONS_NOTE_02 = "Актуальная руна усиления Midnight сезона 1.",
+	CONS_NOTE_03 = "Скорость — стандартный настой хилера; симуйте для вторичных статов.",
+	CONS_NOTE_04 = "Самое высокое проверенное зелье здоровья Midnight.",
+	CONS_NOTE_05 = "Мастерство — стандартный ДПС-настой; симуйте для вторичных статов.",
+	CONS_NOTE_06 = "Пиршество на основной стат — безопасный групповой выбор для интеллект-спеков.",
+	CONS_NOTE_07 = "Пиршество на основной стат — безопасный групповой выбор.",
+	CONS_NOTE_08 = "Личная еда на основной стат, если нет пиршества.",
+	CONS_NOTE_09 = "Пиршество на вторичный стат сильно для танков; основной стат — безопасная альтернатива.",
+	CONS_NOTE_10 = "Масло феникса талассийского, если Язык пламени не лучше для билда.",
+	CONS_NOTE_11 = "Масло феникса, если Неистовство ветров / Язык пламени обязательны.",
+	CONS_NOTE_12 = "Стандартный временный баф оружия, если нет своей имбуи спеки.",
+	CONS_NOTE_13 = "Указанный танк-настой; универсальность для большей защиты.",
+	CONS_NOTE_14 = "Указанное зелье как burst/throughput в PvE.",
+	CONS_NOTE_15 = "Стандартное танк-зелье с уроном и контролируемым риском.",
+}
+
 local FR = {
 	CONS_NOTE_01 = "Le crit est la flasque DPS par défaut ; simule ton personnage pour les stats secondaires.",
 	CONS_NOTE_02 = "Rune d'augmentation Midnight saison 1 actuelle.",
@@ -129,3 +147,4 @@ merge(ns._mhLocales.deDE or {}, DE)
 merge(ns._mhLocales.frFR or {}, FR)
 merge(ns._mhLocales.esES or {}, ES)
 merge(ns._mhLocales.ptBR or {}, PT)
+merge(ns._mhLocales.ruRU or {}, RU)

@@ -22,7 +22,7 @@ Dit document is de **vaste draad** voor vertalingen. Chatgeschiedenis sync niet 
 | `frFR` | Français | ja | ✅ | ✅ | 🔲 vous-vorm | in-game FR |
 | `esES` | Español | ja (+ `esMX`→`esES`) | ✅ | ✅ | 🟡 profundidad | in-game ES |
 | `ptBR` | Português (BR) | ja | ✅ | ✅ | 🔲 | in-game ptBR |
-| `ruRU` | Русский | ja (na pack) | 🔲 | 🔲 | 🔲 | in-game ruRU |
+| `ruRU` | Русский | ja | ✅ | ✅ | 🔲 | in-game ruRU |
 
 **Phase B** = UI-shell, `GuideGroups`, `ConsumablesNotes`, `GuideTips` + `DelveTips` merges, broker-knop.  
 **Phase C** = `GUIDE_ADVISOR_*` (~1128) + per-spec `GUIDE_GEAR_*` (~165) — zie `Locales/GuideAdvisor.lua`.  
@@ -49,15 +49,16 @@ Dit document is de **vaste draad** voor vertalingen. Chatgeschiedenis sync niet 
 | **A — Auto-locale** | ✅ Done | `locale = "auto"` volgt `GetLocale()`; `nlNL` nooit auto; fallback `enUS` |
 | **B — deDE / frFR / esES** | ✅ Done | UI-shell + groups + tips + delve bodies |
 | **B — ptBR** | ✅ Done | Shell + groups + tips/delve + broker **Português** |
-| **B — ruRU** | 🔲 Open | Zelfde patroon als ptBR; **verplicht vóór CF** |
+| **B — ruRU** | ✅ Done | Shell + groups + tips/delve + broker **Русский** |
 | **C — deDE / frFR / esES** | ✅ Done | `Locales/GuideAdvisor.lua` (~1288 keys × 3) |
-| **C — ptBR / ruRU** | 🔲 Na B | Zelfde generator als Phase C |
+| **C — ptBR** | ✅ Done | `ptBR_PHASE_C` in `GuideAdvisor.lua` |
+| **C — ruRU** | ✅ Done | `ruRU_PHASE_C` in `GuideAdvisor.lua` |
 | **Polish** | 🔲 Doorlopend | Per taal na C |
 
 ### Locale-packs geladen (TOC-volgorde)
 
 ```
-enUS.lua → deDE.lua → frFR.lua → esES.lua → ptBR.lua → nlNL.lua
+enUS.lua → deDE.lua → frFR.lua → esES.lua → ptBR.lua → ruRU.lua → nlNL.lua
 → ConsumablesNotes.lua → GuideTips.lua → GuideTipSpellNames.lua → GuideTipText.lua
 → GuideGroups.lua → GuideAdvisor.lua → DelveTips.lua → Locale.lua
 ```
@@ -89,7 +90,7 @@ enUS.lua → deDE.lua → frFR.lua → esES.lua → ptBR.lua → nlNL.lua
 /mh lang ru     — Русский (na ruRU-pack)
 ```
 
-Minimap → Instellingen: rij 1 **Auto / EN / DE / FR** — rij 2 **ES / PT** — rij 3 **NL** (ru-knop bij ruRU B).
+Minimap → Instellingen: rij 1 **Auto / EN / DE / FR** — rij 2 **ES / PT** — rij 3 **RU / NL**.
 
 ---
 

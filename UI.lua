@@ -100,6 +100,20 @@ local function MHGetLayoutMetrics()
 	}
 end
 
+local function FitTitleBarButton(btn, minW, maxW)
+	if not btn or not btn.GetFontString then
+		return
+	end
+	local fs = btn:GetFontString()
+	if not fs or not fs.GetStringWidth then
+		return
+	end
+	minW = minW or 56
+	maxW = maxW or 120
+	local w = math.ceil((fs:GetStringWidth() or 0) + 14)
+	btn:SetWidth(math.min(maxW, math.max(minW, w)))
+end
+
 local function FitSidebarTabButton(btn, sidebarWidth)
 	if not btn or not btn.GetFontString then
 		return
@@ -1299,8 +1313,10 @@ function ns:EnsureMainUI()
 		end
 		local infoToggleKey = (infoWindow:IsShown() and mode == "info") and "INFO_DRAWER_TOGGLE_HIDE" or "INFO_DRAWER_TOGGLE_SHOW"
 		infoToggleBtn:SetText(self:L(infoToggleKey))
+		FitTitleBarButton(infoToggleBtn, 56, 120)
 		local aboutBtnKey = (infoWindow:IsShown() and mode == "about") and "INFO_DRAWER_TOGGLE_HIDE" or "ABOUT_BUTTON"
 		aboutBtn:SetText(self:L(aboutBtnKey))
+		FitTitleBarButton(aboutBtn, 56, 100)
 	end
 
 	local function reanchorInfoWindow()

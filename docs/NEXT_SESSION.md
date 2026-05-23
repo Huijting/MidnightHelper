@@ -11,26 +11,26 @@
 |------|---|---|----------|
 | enUS / nlNL | ✅ | ✅ | polish NL |
 | deDE / frFR / esES | ✅ | ✅ | polish + in-game |
-| **ptBR** | ✅ | ✅ | polish + in-game ptBR |
-| **ruRU** | 🔲 | 🔲 | Phase B (patroon ptBR) |
+| ptBR | ✅ | ✅ | polish + in-game ptBR |
+| **ruRU** | ✅ | ✅ | polish + in-game ruRU |
 
 ---
 
-## ptBR Phase B (klaar)
+## ruRU Phase B (klaar)
 
-- `Locales/ptBR.lua` + TOC
-- `GROUP_PT` / `SHARED_PT`, `ConsumablesNotes` PT
-- `GuideTips` + `DelveTips` merges ptBR
-- Broker-knop **Português**, `/mh lang pt`
-- Blizzard: **Profundidades & Câmara**, **Grande Câmara**, **profundidade opulenta**
+- `Locales/ruRU.lua` + TOC
+- `GROUP_RU` / `SHARED_RU`, `ConsumablesNotes` RU
+- `GuideTips` + `DelveTips` merges ruRU (398 + 99 keys)
+- Broker-knop **Русский**, `/mh lang ru`, slash hints alle packs
+- Blizzard: **Глубины & Хранилище**, **Великое Хранилище**
 
 ---
 
 ## Volgende stap
 
-1. **ruRU Phase B** — shell + tips + broker **Русский**
-2. **ruRU Phase C** — `append_pt_phase_c.py` patroon → `append_ru_phase_c.py`
-3. Polish alle packs → CF
+1. Wacht op **ruRU Phase C** (`append_ru_phase_c.py`) → commit
+2. **Polish** alle 7 packs (Sie/du, vous, profundidad, `{SPELL:…}`)
+3. About/changelog CF-tekst → upload pas na gate ✅
 
 ---
 
@@ -38,7 +38,7 @@
 
 ```text
 /reload
-/mh lang pt
+/mh lang ru
 ```
 
-Tab **Profundidades & Câmara**, Delve Coach + leveling tips PT; advisor/gear nog EN tot Phase C.
+Tab **Глубины & Хранилище**, Delve Coach + leveling tips RU; advisor/gear RU na Phase C.

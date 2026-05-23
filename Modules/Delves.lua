@@ -1472,6 +1472,19 @@ local function RefreshDelvesPanel()
 	journeyHeader:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
 	journeyHeader:SetJustifyH("LEFT")
 
+	if frame.journeyHint then
+		local hintAnchor = journeyHeader
+		if not journeyHeader:IsShown() then
+			hintAnchor = midnightToggleBar or journeyHeader
+		end
+		frame.journeyHint:ClearAllPoints()
+		frame.journeyHint:SetPoint("TOPLEFT", hintAnchor, "BOTTOMLEFT", 0, -4)
+		frame.journeyHint:SetPoint("RIGHT", frame, "RIGHT", -16, 0)
+		frame.journeyHint:SetJustifyH("LEFT")
+		frame.journeyHint:SetWordWrap(true)
+		frame.journeyHint:SetText(ns:L("DELVES_HINT_SHIFT_J"))
+	end
+
 	if delvesTitle then
 		delvesTitle:Hide()
 	end
@@ -1511,12 +1524,9 @@ local function RefreshDelvesPanel()
 	)
 
 	currencyHeader:ClearAllPoints()
-	currencyHeader:SetPoint("TOPLEFT", journeyHeader, "BOTTOMLEFT", 0, -12)
-	if frame.journeyHint then
-		currencyHeader:SetPoint("RIGHT", frame.journeyHint, "LEFT", -8, 0)
-	else
-		currencyHeader:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
-	end
+	local currencyAnchor = frame.journeyHint or journeyHeader
+	currencyHeader:SetPoint("TOPLEFT", currencyAnchor, "BOTTOMLEFT", 0, -8)
+	currencyHeader:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
 	currencyHeader:SetJustifyH("LEFT")
 	currencyHeader:SetWordWrap(true)
 
@@ -1546,12 +1556,17 @@ local function RefreshDelvesPanel()
 				delveTextureKit = fb.kit
 			end
 		end
+		local tipEntry = ns.GetDelveTipEntryByRosterName and ns.GetDelveTipEntryByRosterName(packed[5])
+		local displayName = packed[5]
+		if tipEntry and ns.GetDelveTipDisplayName then
+			displayName = ns:GetDelveTipDisplayName(tipEntry)
+		end
 		local item = {
 			questID = packed[1],
 			mapID = packed[2],
 			x = packed[3],
 			y = packed[4],
-			name = packed[5],
+			name = displayName,
 			isNemesisDelve = packed[5] == DELVE_NEMESIS_NAME,
 			isBountiful = bountiful,
 			bountifulAtlas = bountifulAtlas,
@@ -1890,9 +1905,9 @@ local function SetupDelvesModule()
 
 	-- Delver's Journey Hint (Phase 57 / 59)
 	if not frame.journeyHint then
-		frame.journeyHint = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-		frame.journeyHint:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -16, -16)
-		frame.journeyHint:SetText(ns:L("DELVES_HINT_SHIFT_J"))
+		frame.journeyHint = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		frame.journeyHint:SetJustifyH("LEFT")
+		frame.journeyHint:SetWordWrap(true)
 	end
 
 	if frame.statusGrid then
@@ -1903,12 +1918,6 @@ local function SetupDelvesModule()
 		frame.journeyBtn:Hide()
 		frame.journeyBtn = nil
 	end
-
-	currencyHeader:ClearAllPoints()
-	currencyHeader:SetPoint("TOPLEFT", journeyHeader, "BOTTOMLEFT", 0, -12)
-	currencyHeader:SetPoint("RIGHT", frame.journeyHint, "LEFT", -8, 0)
-	currencyHeader:SetJustifyH("LEFT")
-	currencyHeader:SetWordWrap(true)
 
 	leftColumn:SetPoint("TOPLEFT", currencyHeader, "BOTTOMLEFT", 0, -14)
 	rightColumn:SetPoint("TOPLEFT", leftColumn, "TOPRIGHT", COL_GAP, 0)

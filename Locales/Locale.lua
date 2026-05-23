@@ -1,6 +1,6 @@
 --[[
 	Midnight Helper — Locale resolver (shell uses ns:L from UI/Core).
-	Load after Locales/enUS.lua, deDE.lua, frFR.lua, esES.lua, ptBR.lua, and nlNL.lua.
+	Load after Locales/enUS.lua, deDE.lua, frFR.lua, esES.lua, ptBR.lua, ruRU.lua, and nlNL.lua.
 
 	Phase A: "auto" follows WoW GetLocale() when a matching pack exists; otherwise enUS.
 	nlNL is never auto-selected (addon-only); players choose it manually.
@@ -210,10 +210,43 @@ function ns:MigrateLocalePreference()
 	db.locale = ns.MH_LOCALE_AUTO
 end
 
+--- Locales that need matching WoW client fonts in chat (Cyrillic/CJK).
+local CHAT_SCRIPT_LOCALES = {
+	ruRU = true,
+	koKR = true,
+	zhCN = true,
+	zhTW = true,
+}
+
+--- Locale pack for party/chat strings (falls back when client cannot render the script).
+function ns:GetChatLocaleCode()
+	local effective = self:GetEffectiveLocaleCode()
+	if not CHAT_SCRIPT_LOCALES[effective] then
+		return effective
+	end
+	local wow = self:GetWoWClientLocaleCode()
+	if wow == effective then
+		return effective
+	end
+	if self:HasLocalePack(wow) and not CHAT_SCRIPT_LOCALES[wow] then
+		return wow
+	end
+	return ns.MH_LOCALE_FALLBACK
+end
+
 ---@param key string
 ---@return string
 function ns:L(key)
 	local loc = self:GetEffectiveLocaleCode()
+	local pack = ns._mhLocales and ns._mhLocales[loc]
+	local fb = ns._mhLocales and ns._mhLocales.enUS
+	local s = pack and pack[key] or fb and fb[key] or key
+	return s
+end
+
+--- Like L() but uses GetChatLocaleCode (English delve share on enUS client + ruRU addon UI).
+function ns:LChat(key)
+	local loc = self:GetChatLocaleCode()
 	local pack = ns._mhLocales and ns._mhLocales[loc]
 	local fb = ns._mhLocales and ns._mhLocales.enUS
 	local s = pack and pack[key] or fb and fb[key] or key

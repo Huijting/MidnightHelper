@@ -225,6 +225,19 @@ function ns:SetLocale(code, silent)
 		DEFAULT_CHAT_FRAME:AddMessage(
 			("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), self:L("LANG_SET"):format(label))
 		)
+		if self.GetChatLocaleCode and self.GetEffectiveLocaleCode then
+			local eff = self:GetEffectiveLocaleCode()
+			local chat = self:GetChatLocaleCode()
+			if chat ~= eff then
+				local fb = ns._mhLocales and ns._mhLocales.enUS
+				local hint = fb and fb.LANG_SET_CHAT_FALLBACK
+				if hint and hint ~= "" then
+					DEFAULT_CHAT_FRAME:AddMessage(
+						("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), hint)
+					)
+				end
+			end
+		end
 	end
 	if self.RefreshLocaleUI then
 		self:RefreshLocaleUI()

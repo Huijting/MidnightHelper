@@ -57,6 +57,9 @@ local function RefreshLanguageButtonTints(host)
 	if host._langPt then
 		TintBtn(host._langPt, pref == "ptBR")
 	end
+	if host._langRu then
+		TintBtn(host._langRu, pref == "ruRU")
+	end
 	if host._langNl then
 		TintBtn(host._langNl, pref == "nlNL")
 	end
@@ -68,7 +71,7 @@ local function EnsureSettingsFrame()
 	end
 
 	local f = CreateFrame("Frame", "MidnightHelperQuickSettings", UIParent, "BackdropTemplate")
-	f:SetSize(440, 378)
+	f:SetSize(440, 406)
 	f:SetFrameStrata("DIALOG")
 	f:SetFrameLevel(2100)
 	f:SetClampedToScreen(true)
@@ -159,9 +162,17 @@ local function EnsureSettingsFrame()
 	end)
 	f._langPt = langPt
 
+	local langRu = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	langRu:SetSize(72, 24)
+	langRu:SetPoint("TOPLEFT", langAuto, "BOTTOMLEFT", 0, -32)
+	langRu:SetScript("OnClick", function()
+		OnLanguageChosen(f, "ruRU")
+	end)
+	f._langRu = langRu
+
 	local langNl = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	langNl:SetSize(88, 24)
-	langNl:SetPoint("TOPLEFT", langAuto, "BOTTOMLEFT", 0, -32)
+	langNl:SetPoint("LEFT", langRu, "RIGHT", 6, 0)
 	langNl:SetScript("OnClick", function()
 		OnLanguageChosen(f, "nlNL")
 	end)
@@ -267,6 +278,9 @@ local function EnsureSettingsFrame()
 		end
 		if self._langPt then
 			self._langPt:SetText(ns:L("LOCALE_NAME_ptBR"))
+		end
+		if self._langRu then
+			self._langRu:SetText(ns:L("LOCALE_NAME_ruRU"))
 		end
 		if self._langNl then
 			self._langNl:SetText(ns:L("LOCALE_NAME_NL"))
@@ -533,16 +547,24 @@ local function EnsureSettingsCategoryFrame()
 	end)
 	panel._langPt = langPt
 
+	local langRu = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	langRu:SetSize(88, 24)
+	langRu:SetPoint("TOPLEFT", langEs, "BOTTOMLEFT", 0, -8)
+	langRu:SetScript("OnClick", function()
+		OnLanguageChosen(panel, "ruRU")
+	end)
+	panel._langRu = langRu
+
 	local langNl = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
 	langNl:SetSize(96, 24)
-	langNl:SetPoint("TOPLEFT", langEs, "BOTTOMLEFT", 0, -8)
+	langNl:SetPoint("LEFT", langRu, "RIGHT", 6, 0)
 	langNl:SetScript("OnClick", function()
 		OnLanguageChosen(panel, "nlNL")
 	end)
 	panel._langNl = langNl
 
 	local langHint = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	langHint:SetPoint("TOPLEFT", langNl, "BOTTOMLEFT", 0, -6)
+	langHint:SetPoint("TOPLEFT", langRu, "BOTTOMLEFT", 0, -6)
 	langHint:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
 	langHint:SetJustifyH("LEFT")
 	langHint:SetWordWrap(true)
@@ -644,6 +666,9 @@ local function EnsureSettingsCategoryFrame()
 		end
 		if self._langPt then
 			self._langPt:SetText(ns:L("LOCALE_NAME_ptBR"))
+		end
+		if self._langRu then
+			self._langRu:SetText(ns:L("LOCALE_NAME_ruRU"))
 		end
 		self._langNl:SetText(ns:L("LOCALE_NAME_NL"))
 		if self._langHint then
