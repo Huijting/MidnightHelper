@@ -1,6 +1,6 @@
 --[[
 	Midnight Helper — Locale resolver (shell uses ns:L from UI/Core).
-	Load after Locales/enUS.lua, deDE.lua, frFR.lua, esES.lua, ptBR.lua, ruRU.lua, and nlNL.lua.
+	Load after Locales/enUS.lua, deDE.lua, frFR.lua, esES.lua, ptBR.lua, and nlNL.lua.
 
 	Phase A: "auto" follows WoW GetLocale() when a matching pack exists; otherwise enUS.
 	nlNL is never auto-selected (addon-only); players choose it manually.
@@ -21,7 +21,6 @@ ns.MH_WOW_CLIENT_LOCALES = {
 	"itIT",
 	"koKR",
 	"ptBR",
-	"ruRU",
 	"zhCN",
 	"zhTW",
 }
@@ -43,7 +42,6 @@ local LOCALE_NAME_KEYS = {
 	esMX = "LOCALE_NAME_esMX",
 	itIT = "LOCALE_NAME_itIT",
 	ptBR = "LOCALE_NAME_ptBR",
-	ruRU = "LOCALE_NAME_ruRU",
 	koKR = "LOCALE_NAME_koKR",
 	zhCN = "LOCALE_NAME_zhCN",
 	zhTW = "LOCALE_NAME_zhTW",
@@ -78,9 +76,6 @@ local SLASH_ALIASES = {
 	italian = "itIT",
 	pt = "ptBR",
 	ptbr = "ptBR",
-	ru = "ruRU",
-	ruru = "ruRU",
-	russian = "ruRU",
 	ko = "koKR",
 	kokr = "koKR",
 	korean = "koKR",
@@ -204,6 +199,10 @@ function ns:MigrateLocalePreference()
 		db.locale = ns.MH_LOCALE_AUTO
 		return
 	end
+	if pref == "ruRU" or pref == "ru" then
+		db.locale = ns.MH_LOCALE_AUTO
+		return
+	end
 	if self:IsKnownLocalePreference(pref) then
 		return
 	end
@@ -212,7 +211,6 @@ end
 
 --- Locales that need matching WoW client fonts in chat (Cyrillic/CJK).
 local CHAT_SCRIPT_LOCALES = {
-	ruRU = true,
 	koKR = true,
 	zhCN = true,
 	zhTW = true,
@@ -244,7 +242,7 @@ function ns:L(key)
 	return s
 end
 
---- Like L() but uses GetChatLocaleCode (English delve share on enUS client + ruRU addon UI).
+--- Like L() but uses GetChatLocaleCode (Latin fallback when client cannot render CJK chat).
 function ns:LChat(key)
 	local loc = self:GetChatLocaleCode()
 	local pack = ns._mhLocales and ns._mhLocales[loc]
@@ -255,7 +253,6 @@ end
 
 --- Latin chat label for script locales when the WoW client cannot render Cyrillic/CJK.
 local CHAT_LOCALE_ROMAN_NAMES = {
-	ruRU = "Russian",
 	koKR = "Korean",
 	zhCN = "Chinese (Simplified)",
 	zhTW = "Chinese (Traditional)",
@@ -344,7 +341,6 @@ end
 
 --- WoW buttons treat & as a keyboard accelerator; that breaks many Cyrillic/CJK labels.
 local BUTTON_AMPERSAND_ESCAPE_LOCALES = {
-	ruRU = true,
 	koKR = true,
 	zhCN = true,
 	zhTW = true,

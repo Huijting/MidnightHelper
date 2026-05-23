@@ -19,7 +19,7 @@ local COL_W_SHARDS = 62
 
 local function GetColWShards()
 	local loc = ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode()
-	if loc == "ruRU" or loc == "deDE" or loc == "frFR" then
+	if loc == "deDE" or loc == "frFR" then
 		return 70
 	end
 	return COL_W_SHARDS

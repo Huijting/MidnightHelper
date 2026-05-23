@@ -207,7 +207,6 @@ function ns:ValidateDelveTipLocales()
 		{ code = "frFR", pack = ns._mhLocales and ns._mhLocales.frFR },
 		{ code = "esES", pack = ns._mhLocales and ns._mhLocales.esES },
 		{ code = "ptBR", pack = ns._mhLocales and ns._mhLocales.ptBR },
-		{ code = "ruRU", pack = ns._mhLocales and ns._mhLocales.ruRU },
 	}
 	for _, entry in ipairs(ns.DELVE_TIP_ENTRIES or {}) do
 		if entry.nameKey then
@@ -331,14 +330,16 @@ function ns.GetActiveDelveTipEntryForPlayer()
 	return bestEntry
 end
 
-function ns.IsPlayerInActiveDelve()
+--- Active delve **run** only (C_PartyInfo). Zone name match is for coach tips, not consumables UI.
+function ns.IsDelveInstanceInProgress()
 	if C_PartyInfo and C_PartyInfo.IsDelveInProgress then
 		local ok, active = pcall(C_PartyInfo.IsDelveInProgress)
-		if not ok or not active then
-			return false
-		end
-	else
-		return false
+		return ok and active == true
 	end
-	return ns.GetActiveDelveTipEntryForPlayer() ~= nil
+	return false
+end
+
+--- True when the player is in any active delve run (API). Zone name match is optional for coach tips only.
+function ns.IsPlayerInActiveDelve()
+	return ns.IsDelveInstanceInProgress()
 end

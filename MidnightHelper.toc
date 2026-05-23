@@ -16,7 +16,6 @@ Locales\deDE.lua
 Locales\frFR.lua
 Locales\esES.lua
 Locales\ptBR.lua
-Locales\ruRU.lua
 Locales\nlNL.lua
 Locales\ConsumablesNotes.lua
 Locales\GuideTips.lua
@@ -53,6 +52,8 @@ Modules\MidnightToast.lua
 Modules\Broker.lua
 Modules\DelveItemBrokers.lua
 Modules\DelveItemsPopup.lua
+Modules\DelveCuriosData.lua
+Modules\DelveCuriosAdvisor.lua
 Modules\Profession.lua
 Modules\Delves.lua
 Modules\DelveCoach.lua

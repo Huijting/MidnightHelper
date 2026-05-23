@@ -105,46 +105,9 @@ local PT = {
 	CONS_NOTE_15 = "Poção tank padrão com throughput e risco controlado.",
 }
 
-local RU = {
-	CONS_NOTE_01 = "Крит — стандартный ДПС-настой; симуйте персонажа для вторичных статов.",
-	CONS_NOTE_02 = "Актуальная руна усиления Midnight сезона 1.",
-	CONS_NOTE_03 = "Скорость — стандартный настой хилера; симуйте для вторичных статов.",
-	CONS_NOTE_04 = "Самое высокое проверенное зелье здоровья Midnight.",
-	CONS_NOTE_05 = "Мастерство — стандартный ДПС-настой; симуйте для вторичных статов.",
-	CONS_NOTE_06 = "Пиршество на основной стат — безопасный групповой выбор для интеллект-спеков.",
-	CONS_NOTE_07 = "Пиршество на основной стат — безопасный групповой выбор.",
-	CONS_NOTE_08 = "Личная еда на основной стат, если нет пиршества.",
-	CONS_NOTE_09 = "Пиршество на вторичный стат сильно для танков; основной стат — безопасная альтернатива.",
-	CONS_NOTE_10 = "Масло феникса талассийского, если Язык пламени не лучше для билда.",
-	CONS_NOTE_11 = "Масло феникса, если Неистовство ветров / Язык пламени обязательны.",
-	CONS_NOTE_12 = "Стандартный временный баф оружия, если нет своей имбуи спеки.",
-	CONS_NOTE_13 = "Указанный танк-настой; универсальность для большей защиты.",
-	CONS_NOTE_14 = "Указанное зелье как burst/throughput в PvE.",
-	CONS_NOTE_15 = "Стандартное танк-зелье с уроном и контролируемым риском.",
-}
-
-local FR = {
-	CONS_NOTE_01 = "Le crit est la flasque DPS par défaut ; simule ton personnage pour les stats secondaires.",
-	CONS_NOTE_02 = "Rune d'augmentation Midnight saison 1 actuelle.",
-	CONS_NOTE_03 = "La hâte est la flasque soigneur par défaut ; simule ton personnage pour les stats secondaires.",
-	CONS_NOTE_04 = "Potion de soin Midnight la plus élevée vérifiée.",
-	CONS_NOTE_05 = "La maîtrise est la flasque DPS par défaut ; simule ton personnage pour les stats secondaires.",
-	CONS_NOTE_06 = "Le festin en stat principale est le choix de groupe sûr pour les specs Intelligence.",
-	CONS_NOTE_07 = "Le festin en stat principale est le choix de groupe sûr.",
-	CONS_NOTE_08 = "Nourriture perso en stat principale si pas de festin.",
-	CONS_NOTE_09 = "Festin en stat secondaire fort pour tank ; festin principal en alternative sûre.",
-	CONS_NOTE_10 = "Huile de phénix thalassienne sauf si Arme langue-de-feu convient mieux à ton build.",
-	CONS_NOTE_11 = "Huile de phénix thalassienne sauf si Furie des vents / Langue-de-feu sont requis.",
-	CONS_NOTE_12 = "Buff d'arme temporaire par défaut sauf imbue spécifique à ta classe/spec.",
-	CONS_NOTE_13 = "Flasque tank listée ; passe en Polyvalence pour plus de défense.",
-	CONS_NOTE_14 = "Potion listée comme choix burst/throughput en PvE.",
-	CONS_NOTE_15 = "Potion tank par défaut avec throughput et risque maîtrisé.",
-}
-
 merge(ns._mhLocales.enUS or {}, EN)
 merge(ns._mhLocales.nlNL or {}, NL)
 merge(ns._mhLocales.deDE or {}, DE)
 merge(ns._mhLocales.frFR or {}, FR)
 merge(ns._mhLocales.esES or {}, ES)
 merge(ns._mhLocales.ptBR or {}, PT)
-merge(ns._mhLocales.ruRU or {}, RU)

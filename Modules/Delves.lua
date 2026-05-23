@@ -938,6 +938,13 @@ local midnightToggleLabel
 local vaultToggleBar
 local vaultToggleChevron
 local vaultToggleLabel
+local midnightScroll
+local midnightScrollChild
+
+local FOOTER_BTN_H = 26
+local FOOTER_BTN_H_GAP = 8
+local FOOTER_BOTTOM_INSET = 12
+local FOOTER_RESERVED = FOOTER_BOTTOM_INSET + FOOTER_BTN_H + 10
 
 local function GetDelvesAccordionSection()
 	local u = ns.db and ns.db.ui
@@ -977,6 +984,12 @@ local function DelvesApplyAccordion()
 	end
 	if frame.journeyHint then
 		frame.journeyHint:SetShown(showMid)
+	end
+	if ns.DelveCurioPanel then
+		ns.DelveCurioPanel:SetShown(showMid)
+	end
+	if midnightScroll then
+		midnightScroll:SetShown(showMid)
 	end
 	if delvesTitle then
 		delvesTitle:Hide()
@@ -1198,6 +1211,9 @@ local function RefreshDelvesPanel()
 	end
 	if bestBtn then
 		bestBtn:SetText(ns:L("DELVES_BTN_BOUNTIFUL"))
+	end
+	if coachBtn then
+		coachBtn:SetText(ns:L("DELVES_BTN_COACH"))
 	end
 	if frame and frame.journeyHint then
 		frame.journeyHint:SetText(ns:L("DELVES_HINT_SHIFT_J"))
@@ -1530,6 +1546,35 @@ local function RefreshDelvesPanel()
 	currencyHeader:SetJustifyH("LEFT")
 	currencyHeader:SetWordWrap(true)
 
+	local scrollHost = midnightScrollChild or frame
+	if midnightScroll then
+		midnightScroll:ClearAllPoints()
+		midnightScroll:SetPoint("TOPLEFT", currencyHeader, "BOTTOMLEFT", 0, -6)
+		midnightScroll:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, FOOTER_RESERVED)
+	end
+
+	local curioAnchor = scrollHost
+	if ns.EnsureDelveCurioPanel then
+		local curioPanel = ns.EnsureDelveCurioPanel(scrollHost)
+		if curioPanel then
+			curioPanel:ClearAllPoints()
+			curioPanel:SetPoint("TOPLEFT", scrollHost, "TOPLEFT", 0, 0)
+			curioPanel:SetPoint("RIGHT", scrollHost, "RIGHT", 0, 0)
+			if ns.RefreshDelveCurioAdvisor then
+				ns.RefreshDelveCurioAdvisor()
+			end
+			curioAnchor = curioPanel
+		end
+	end
+	if leftColumn then
+		leftColumn:ClearAllPoints()
+		leftColumn:SetPoint("TOPLEFT", curioAnchor, "BOTTOMLEFT", 0, -10)
+	end
+	if rightColumn and leftColumn then
+		rightColumn:ClearAllPoints()
+		rightColumn:SetPoint("TOPLEFT", leftColumn, "TOPRIGHT", COL_GAP, 0)
+	end
+
 	local roster = ns.MIDNIGHT_DELVES or MIDNIGHT_DELVES
 	leftColumn.rows = leftColumn.rows or {}
 	rightColumn.rows = rightColumn.rows or {}
@@ -1601,47 +1646,62 @@ local function RefreshDelvesPanel()
 	leftColumn:SetHeight(h)
 	rightColumn:SetHeight(h)
 
-	local accFooter = GetDelvesAccordionSection()
+	if midnightScroll and midnightScrollChild then
+		local curioH = 0
+		if ns.DelveCurioPanel and ns.DelveCurioPanel:IsShown() then
+			curioH = ns.DelveCurioPanel:GetHeight() or 0
+		end
+		local listGap = curioH > 0 and 10 or 0
+		local contentH = math.max(1, curioH + listGap + h + 6)
+		local sw = math.max(200, (midnightScroll:GetWidth() or 0) - 4)
+		if sw < 200 and frame then
+			sw = math.max(200, (frame:GetWidth() or 400) - 40)
+		end
+		midnightScrollChild:SetWidth(sw)
+		midnightScrollChild:SetHeight(contentH)
+		if midnightScroll.UpdateScrollChildRect then
+			midnightScroll:UpdateScrollChildRect()
+		end
+		if midnightScroll.SetVerticalScroll then
+			midnightScroll:SetVerticalScroll(0)
+		end
+	end
+
 	if frame then
 		local fw = math.max(200, frame:GetWidth() or 400)
 		local inset = 12
 		local bw = math.min(340, math.max(160, fw - inset * 2))
-		local function PinFooterBtn(btn, vertAnchor, vertOffset)
+		local function MeasureFooterBtn(btn)
 			if not btn then
-				return
+				return 0
 			end
 			local btnW = bw
 			local fs = btn.GetFontString and btn:GetFontString()
 			if fs and fs.GetStringWidth then
-				btnW = math.min(bw, math.max(160, fs:GetStringWidth() + 28))
+				btnW = math.min(bw, math.max(140, fs:GetStringWidth() + 28))
 			end
-			btn:ClearAllPoints()
-			btn:SetSize(btnW, 26)
-			btn:SetPoint("TOP", vertAnchor, "BOTTOM", 0, vertOffset)
-			btn:SetPoint("LEFT", frame, "LEFT", (fw - btnW) / 2, 0)
+			btn:SetSize(btnW, FOOTER_BTN_H)
+			return btnW
 		end
-		local footerAnchor = frame
-		local footerOffset = 12
-		if accFooter == "midnight" and leftColumn and usedLeft and usedLeft > 0 then
-			footerAnchor = leftColumn
-			footerOffset = -22
-		elseif midnightToggleBar then
-			footerAnchor = midnightToggleBar
-			footerOffset = -18
-		elseif accFooter == "vault" and ns.vaultPanel then
-			footerAnchor = ns.vaultPanel
-			footerOffset = -20
-		elseif vaultToggleBar then
-			footerAnchor = vaultToggleBar
-			footerOffset = -18
-		end
-		if coachBtn then
-			PinFooterBtn(coachBtn, footerAnchor, footerOffset)
-		end
-		if bestBtn then
-			local coachOffset = coachBtn and -30 or footerOffset
-			local bestAnchor = coachBtn or footerAnchor
-			PinFooterBtn(bestBtn, bestAnchor, coachOffset)
+		if coachBtn and bestBtn then
+			local wCoach = MeasureFooterBtn(coachBtn)
+			local wBest = MeasureFooterBtn(bestBtn)
+			local totalW = wCoach + wBest + FOOTER_BTN_H_GAP
+			local left = math.max(inset, (fw - totalW) / 2)
+			coachBtn:ClearAllPoints()
+			coachBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", left, FOOTER_BOTTOM_INSET)
+			bestBtn:ClearAllPoints()
+			bestBtn:SetPoint("BOTTOMLEFT", coachBtn, "BOTTOMRIGHT", FOOTER_BTN_H_GAP, 0)
+		elseif coachBtn then
+			local wCoach = MeasureFooterBtn(coachBtn)
+			coachBtn:ClearAllPoints()
+			coachBtn:SetPoint("BOTTOM", frame, "BOTTOM", 0, FOOTER_BOTTOM_INSET)
+			coachBtn:SetPoint("LEFT", frame, "LEFT", (fw - wCoach) / 2, 0)
+		elseif bestBtn then
+			local wBest = MeasureFooterBtn(bestBtn)
+			bestBtn:ClearAllPoints()
+			bestBtn:SetPoint("BOTTOM", frame, "BOTTOM", 0, FOOTER_BOTTOM_INSET)
+			bestBtn:SetPoint("LEFT", frame, "LEFT", (fw - wBest) / 2, 0)
 		end
 	end
 
@@ -1880,8 +1940,19 @@ local function SetupDelvesModule()
 	currencyHeader:SetJustifyH("LEFT")
 	currencyHeader:SetWordWrap(true)
 
-	leftColumn = CreateFrame("Frame", nil, frame)
-	rightColumn = CreateFrame("Frame", nil, frame)
+	midnightScroll = CreateFrame("ScrollFrame", "MH_MidnightDelvesScroll", frame, "UIPanelScrollFrameTemplate")
+	midnightScrollChild = CreateFrame("Frame", nil, midnightScroll)
+	midnightScroll:SetScrollChild(midnightScrollChild)
+	midnightScroll:EnableMouseWheel(true)
+	midnightScroll:SetPoint("TOPLEFT", currencyHeader, "BOTTOMLEFT", 0, -6)
+	midnightScroll:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, FOOTER_RESERVED)
+
+	if ns.EnsureDelveCurioPanel then
+		ns.EnsureDelveCurioPanel(midnightScrollChild)
+	end
+
+	leftColumn = CreateFrame("Frame", nil, midnightScrollChild)
+	rightColumn = CreateFrame("Frame", nil, midnightScrollChild)
 	leftColumn:EnableMouse(false)
 	rightColumn:EnableMouse(false)
 	leftColumn.rows = {}
@@ -1919,11 +1990,7 @@ local function SetupDelvesModule()
 		frame.journeyBtn = nil
 	end
 
-	leftColumn:SetPoint("TOPLEFT", currencyHeader, "BOTTOMLEFT", 0, -14)
-	rightColumn:SetPoint("TOPLEFT", leftColumn, "TOPRIGHT", COL_GAP, 0)
-
-	-- Footer placement is refreshed after vault chrome; default until first refresh.
-	bestBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 16, 12)
+	-- Footer + scroll layout refreshed in RefreshDelvesPanel.
 
 	frame:SetScript("OnShow", function()
 		RequestTrackedCurrencyData()

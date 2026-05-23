@@ -207,6 +207,10 @@ function ns:OnEvent(event, ...)
 			self:EnsureMainUI()
 		end
 
+		if self.db and self.InitDelveItemBrokers then
+			self:InitDelveItemBrokers()
+		end
+
 		if self.db and self.db.ui and self.db.ui.openOnLogin and self.ShowMainUI then
 			self:ShowMainUI()
 		end
@@ -363,6 +367,10 @@ SLASH_MIDNIGHTHELPER2 = "/midnight"
 
 SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	msg = (msg or ""):gsub("^%s+", ""):gsub("%s+$", "")
+
+	if ns.RunDelveItemsSlashCommand and ns:RunDelveItemsSlashCommand(msg) then
+		return
+	end
 
 	if msg == "lang" then
 		DEFAULT_CHAT_FRAME:AddMessage(

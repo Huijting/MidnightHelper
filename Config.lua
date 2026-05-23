@@ -16,7 +16,13 @@ local Config = {
 	SHARD_OF_DUNDUN_ITEM_ID = 258901,
 	--- Delve consumables (minimap quick-use + Delves tab currency line).
 	DELVE_ITEM_RAID_R_MINI = 244193, -- L00T RAID-R Mini — highlights Mislaid Curiosities
+	--- On-use spell from item tooltip (Scan the environment… for rest of delve).
+	DELVE_ITEM_RAID_R_MINI_USE_SPELL = 1236623,
+	--- Hidden helpful aura after using the mini (+ item on-use spell from GetItemSpell).
+	DELVE_ITEM_RAID_R_MINI_SPELLS = { 1236623, 467033, 473679, 1236625 },
 	DELVE_ITEM_TROVEHUNTER_BOUNTY = 252415, -- Trovehunter's Bounty — Hidden Trove
+	--- Buff after using Trovehunter's Bounty (persists until the trove is earned).
+	DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELL = 1254631,
 	--- Maps Enum.Profession → Artisan's Moxie currency ID for that trade.
 	ARTISANS_MOXIE_CURRENCY_CODES = {},
 }

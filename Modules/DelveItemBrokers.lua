@@ -99,15 +99,10 @@ local function EnsureSecureUseButton(entry)
 	btn:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 	btn:SetAttribute("type", "macro")
 	btn:SetAttribute("macrotext", ("/use item:%d"):format(entry.itemID))
+	btn:SetAttribute("item", nil)
 	btn:RegisterForClicks("AnyUp", "AnyDown")
 	entry.useBtn = btn
 	return btn
-end
-
-local function UseDelveItem(entry)
-	if ns.UseDelveConsumableItem then
-		ns:UseDelveConsumableItem(entry.itemID)
-	end
 end
 
 local function SetMinimapIconTexture(name, texture)
@@ -130,6 +125,9 @@ local function SetMinimapIconTexture(name, texture)
 end
 
 local function IsDelveItemsUiAllowed()
+	if ns.IsDelveInstanceInProgress then
+		return ns:IsDelveInstanceInProgress()
+	end
 	return ns.IsPlayerInActiveDelve and ns.IsPlayerInActiveDelve()
 end
 
@@ -156,10 +154,15 @@ function ns:RefreshDelveItemBrokers()
 	end
 
 	for _, entry in ipairs(BROKERS) do
+		if entry.useBtn and not InCombatLockdown() then
+			entry.useBtn:SetAttribute("type", "macro")
+			entry.useBtn:SetAttribute("macrotext", ("/use item:%d"):format(entry.itemID))
+		end
 		local count = GetItemCount(entry.itemID)
+		local advise = count > 0
 		local tex = GetItemIcon(entry.itemID)
 		SetMinimapIconTexture(entry.name, tex)
-		if count > 0 then
+		if advise then
 			if iconLib:IsRegistered(entry.name) then
 				iconLib:Show(entry.name)
 			end
@@ -202,12 +205,14 @@ function ns:InitDelveItemBrokers()
 			label = self:L(entry.titleKey),
 			icon = GetItemIcon(entry.itemID),
 			OnClick = function(_, btn)
+				if GetItemCount(entry.itemID) < 1 then
+					ns:RefreshDelveItemBrokers()
+					return
+				end
 				if btn == "RightButton" then
-					if GetItemCount(entry.itemID) < 1 then
-						ns:RefreshDelveItemBrokers()
-						return
+					if ns.ShowDelveItemsPopup then
+						ns:ShowDelveItemsPopup()
 					end
-					UseDelveItem(entry)
 					return
 				end
 				if ns.ToggleDelveItemsPopup then
@@ -236,9 +241,6 @@ function ns:InitDelveItemBrokers()
 
 	self._mhDelveItemBrokersInited = true
 	self:RefreshDelveItemBrokers()
-	if self.RefreshDelveItemsPopup then
-		self:RefreshDelveItemsPopup()
-	end
 end
 
 local eventFrame = CreateFrame("Frame")
@@ -270,7 +272,7 @@ eventFrame:SetScript("OnEvent", function(_, event, arg1)
 	if ns.RefreshDelveItemBrokers then
 		ns:RefreshDelveItemBrokers()
 	end
-	if ns.RefreshDelveItemsPopup then
+	if not InCombatLockdown() and ns.RefreshDelveItemsPopup then
 		ns:RefreshDelveItemsPopup()
 	end
 end)

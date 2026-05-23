@@ -5,19 +5,17 @@
 
 local _, ns = ...
 
-local TOAST_W = 328
-local TOAST_H = 72
-local ICON_SIZE = 44
+local Config = ns.Config or {}
+local ITEM_TREASURE = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY or 252415
+
+local TOAST_W = 320
+local TOAST_H = 64
+local ICON_SIZE = 40
+local ICON_PAD_L = 14
 local DISPLAY_SEC = 4.25
 local FADE_IN_SEC = 0.35
 local FADE_OUT_SEC = 0.45
 local GAP_SEC = 0.2
-
-local TEX = {
-	bg = "Interface\\AchievementFrame\\UI-Achievement-Alert-Background",
-	border = "Interface\\AchievementFrame\\UI-Achievement-Alert-Border",
-	glow = "Interface\\AchievementFrame\\UI-Achievement-Icon-Glow",
-}
 
 local toastFrame
 local queue = {}
@@ -50,21 +48,68 @@ local function ResolveText(spec, field)
 	return spec[field] or ""
 end
 
-local function ApplyToastContent(spec)
-	if not toastFrame or not spec then
+local function ResolveItemIcon(spec)
+	if spec.icon then
+		return spec.icon
+	end
+	local itemID = spec.itemID or ITEM_TREASURE
+	if ns.GetDelveItemIcon then
+		return ns:GetDelveItemIcon(itemID)
+	end
+	if C_Item and C_Item.GetItemIconByID then
+		local ok, tex = pcall(C_Item.GetItemIconByID, itemID)
+		if ok and tex then
+			return tex
+		end
+	end
+	return 134414
+end
+
+local function ApplyItemQualityBorder(iconRing, itemID)
+	if not iconRing or not itemID then
 		return
 	end
-	if spec.icon and toastFrame.icon then
-		toastFrame.icon:SetTexture(spec.icon)
-		toastFrame.icon:Show()
-	elseif toastFrame.icon then
-		toastFrame.icon:Hide()
+	local r, g, b = 1, 0.75, 0.15
+	if C_Item and C_Item.GetItemQualityByID and ITEM_QUALITY_COLORS then
+		local ok, quality = pcall(C_Item.GetItemQualityByID, itemID)
+		if ok and quality and ITEM_QUALITY_COLORS[quality] then
+			local c = ITEM_QUALITY_COLORS[quality].color
+			if c then
+				r, g, b = c:GetRGB()
+			end
+		end
 	end
-	if toastFrame.title then
-		toastFrame.title:SetText(ResolveText(spec, "title"))
+	if iconRing.SetVertexColor then
+		iconRing:SetVertexColor(r, g, b, 0.95)
 	end
-	if toastFrame.body then
-		toastFrame.body:SetText(ResolveText(spec, "body"))
+end
+
+local function ApplyToastContent(spec)
+	local root = toastFrame and toastFrame.content
+	if not root or not spec then
+		return
+	end
+	local itemID = spec.itemID or ITEM_TREASURE
+	local iconTex = ResolveItemIcon(spec)
+	if root.icon then
+		root.icon:SetTexture(iconTex)
+		root.icon:Show()
+	end
+	if root.iconSlot then
+		root.iconSlot:Show()
+	end
+	if root.iconRing then
+		ApplyItemQualityBorder(root.iconRing, itemID)
+	end
+	local title = ResolveText(spec, "title")
+	local body = ResolveText(spec, "body")
+	if root.title then
+		root.title:SetText(title ~= "" and title or "Trovehunter Bounty detected!")
+		root.title:Show()
+	end
+	if root.body then
+		root.body:SetText(body ~= "" and body or "Use it for Hidden Treasure.")
+		root.body:Show()
 	end
 end
 
@@ -76,56 +121,84 @@ local function EnsureToastFrame()
 	local f = CreateFrame("Button", "MidnightHelperToast", UIParent, "BackdropTemplate")
 	f:SetSize(TOAST_W, TOAST_H)
 	f:SetPoint("TOP", UIParent, "TOP", 0, -118)
-	f:SetFrameStrata("TOAST")
-	f:SetFrameLevel(5000)
+	f:SetFrameStrata("FULLSCREEN_DIALOG")
+	f:SetFrameLevel(120)
 	f:Hide()
 	f:EnableMouse(true)
 	f:RegisterForClicks("LeftButtonUp")
 
 	if f.SetBackdrop then
 		f:SetBackdrop({
-			bgFile = TEX.bg,
-			edgeFile = TEX.border,
-			tile = false,
-			edgeSize = 28,
-			insets = { left = 8, right = 8, top = 8, bottom = 8 },
+			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+			edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
+			tile = true,
+			tileSize = 32,
+			edgeSize = 32,
+			insets = { left = 11, right = 12, top = 12, bottom = 11 },
 		})
-		f:SetBackdropColor(1, 1, 1, 1)
-		f:SetBackdropBorderColor(1, 0.82, 0, 1)
+		f:SetBackdropColor(0.07, 0.06, 0.1, 0.94)
+		f:SetBackdropBorderColor(1, 0.82, 0.2, 1)
 	end
 
-	local glow = f:CreateTexture(nil, "BACKGROUND")
-	glow:SetTexture(TEX.glow)
-	glow:SetBlendMode("ADD")
-	glow:SetPoint("CENTER", f, "LEFT", 36, 0)
-	glow:SetSize(96, 96)
-	glow:SetAlpha(0.55)
-	f.glow = glow
+	-- Child frame above backdrop paint (BackdropTemplate can cover direct children).
+	local content = CreateFrame("Frame", nil, f)
+	content:SetAllPoints()
+	content:SetFrameLevel(f:GetFrameLevel() + 10)
+	if content.SetPropagateMouseClicks then
+		content:SetPropagateMouseClicks(true)
+	end
+	if content.SetPropagateMouseMotion then
+		content:SetPropagateMouseMotion(true)
+	end
+	f.content = content
 
-	local icon = f:CreateTexture(nil, "ARTWORK")
-	icon:SetSize(ICON_SIZE, ICON_SIZE)
-	icon:SetPoint("LEFT", f, "LEFT", 18, 0)
-	f.icon = icon
+	local iconSlot = CreateFrame("Frame", nil, content)
+	iconSlot:SetSize(ICON_SIZE + 4, ICON_SIZE + 4)
+	iconSlot:SetPoint("LEFT", content, "LEFT", ICON_PAD_L, 0)
+	if iconSlot.SetPropagateMouseClicks then
+		iconSlot:SetPropagateMouseClicks(true)
+	end
+	content.iconSlot = iconSlot
 
-	local iconBorder = f:CreateTexture(nil, "OVERLAY")
-	iconBorder:SetTexture("Interface\\COMMON\\WhiteIconFrame")
-	iconBorder:SetSize(ICON_SIZE + 10, ICON_SIZE + 10)
-	iconBorder:SetPoint("CENTER", icon, "CENTER", 0, 0)
-	iconBorder:SetVertexColor(1, 0.75, 0.15, 0.9)
+	local icon = iconSlot:CreateTexture(nil, "ARTWORK")
+	icon:SetPoint("TOPLEFT", iconSlot, "TOPLEFT", 2, -2)
+	icon:SetPoint("BOTTOMRIGHT", iconSlot, "BOTTOMRIGHT", -2, 2)
+	content.icon = icon
 
-	local title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	title:SetPoint("TOPLEFT", icon, "TOPRIGHT", 14, -4)
-	title:SetPoint("RIGHT", f, "RIGHT", -16, 0)
+	local iconRing = iconSlot:CreateTexture(nil, "OVERLAY")
+	iconRing:SetPoint("TOPLEFT", iconSlot, "TOPLEFT", -3, 3)
+	iconRing:SetPoint("BOTTOMRIGHT", iconSlot, "BOTTOMRIGHT", 3, -3)
+	content.iconRing = iconRing
+	if iconRing.SetAtlas then
+		local ok = pcall(function()
+			iconRing:SetAtlas("loottoast-itemborder", true)
+		end)
+		if not ok then
+			iconRing:SetTexture("Interface\\COMMON\\WhiteIconFrame")
+		end
+	else
+		iconRing:SetTexture("Interface\\COMMON\\WhiteIconFrame")
+	end
+	ApplyItemQualityBorder(iconRing, ITEM_TREASURE)
+
+	local textLeft = ICON_PAD_L + ICON_SIZE + 16
+	local title = content:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	title:SetPoint("TOPLEFT", content, "TOPLEFT", textLeft, -10)
+	title:SetPoint("TOPRIGHT", content, "TOPRIGHT", -12, -10)
+	title:SetHeight(16)
 	title:SetJustifyH("LEFT")
-	title:SetTextColor(1, 0.82, 0)
-	f.title = title
+	title:SetJustifyV("TOP")
+	title:SetTextColor(1, 0.84, 0.2)
+	content.title = title
 
-	local body = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	local body = content:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	body:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -2)
-	body:SetPoint("RIGHT", f, "RIGHT", -16, 0)
+	body:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", -12, 10)
 	body:SetJustifyH("LEFT")
+	body:SetJustifyV("TOP")
 	body:SetWordWrap(true)
-	f.body = body
+	body:SetTextColor(0.95, 0.95, 0.95)
+	content.body = body
 
 	f:SetScript("OnClick", function()
 		if activeSpec and activeSpec.onClick then
@@ -134,13 +207,24 @@ local function EnsureToastFrame()
 	end)
 
 	f:SetScript("OnEnter", function(self)
-		if activeSpec and activeSpec.onClick and GameTooltip then
-			GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
-			GameTooltip:SetText(ns:L("TOAST_CLICK_HINT"), 1, 1, 1)
-			GameTooltip:Show()
+		if activeSpec and activeSpec.onClick then
+			if self.EnableMouse then
+				self:EnableMouse(true)
+			end
+			if SetCursor then
+				SetCursor("Interface\\CURSOR\\Point")
+			end
+			if GameTooltip then
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+				GameTooltip:SetText(ns:L("TOAST_CLICK_HINT"), 1, 1, 1)
+				GameTooltip:Show()
+			end
 		end
 	end)
 	f:SetScript("OnLeave", function()
+		if ResetCursor then
+			ResetCursor()
+		end
 		if GameTooltip then
 			GameTooltip:Hide()
 		end
@@ -212,14 +296,20 @@ function ns.ShowNextMidnightToast()
 	activeSpec = spec
 	local f = EnsureToastFrame()
 	ApplyToastContent(spec)
-	f:SetAlpha(0)
+	f:SetAlpha(1)
 	f:Show()
+	if f.content then
+		f.content:Show()
+	end
 	if f.Raise then
 		f:Raise()
 	end
 	fadeGen = fadeGen + 1
 	if UIFrameFadeIn then
+		f:SetAlpha(0)
 		UIFrameFadeIn(f, FADE_IN_SEC, 0, 1)
+	else
+		f:SetAlpha(1)
 	end
 	StartHideTimer()
 end

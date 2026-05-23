@@ -1188,17 +1188,16 @@ local function EnsurePickerFrame()
 		f:Hide()
 	end)
 
-	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
-	scroll:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -36)
-	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -28, 12)
-	scroll:EnableMouse(true)
-	scroll:EnableMouseWheel(true)
-	f._scroll = scroll
+	-- Plain list host (11 delves fit without scroll; keeps buttons centered in the frame).
+	local listHost = CreateFrame("Frame", nil, f)
+	listHost:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -36)
+	listHost:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -12, 12)
+	listHost:EnableMouse(true)
+	f._listHost = listHost
 
-	local content = CreateFrame("Frame", nil, scroll)
-	content:SetSize(240, 10)
+	local content = CreateFrame("Frame", nil, listHost)
+	content:SetAllPoints(listHost)
 	content:EnableMouse(true)
-	scroll:SetScrollChild(content)
 	f._content = content
 	f._buttons = {}
 
@@ -1210,10 +1209,9 @@ function ns:OpenDelveCoachPicker(anchor)
 	local f = EnsurePickerFrame()
 	f._title:SetText(self:L("DELVE_COACH_PICKER_TITLE"))
 
-	local scroll = f._scroll
 	local content = f._content
-	local scrollW = math.max(200, (scroll and scroll:GetWidth() or 240) - 8)
-	content:SetWidth(scrollW)
+	local listW = math.max(200, (f:GetWidth() or 280) - 24)
+	local btnW = math.min(248, listW - 16)
 
 	local y = -4
 	local entries = ns.DELVE_TIP_ENTRIES or {}
@@ -1226,10 +1224,10 @@ function ns:OpenDelveCoachPicker(anchor)
 		end
 		btn:Show()
 		btn:EnableMouse(true)
-		btn:SetWidth(scrollW - 8)
+		btn:SetWidth(btnW)
 		btn:SetText((ns.GetDelveTipDisplayName and ns:GetDelveTipDisplayName(entry)) or entry.rosterName or entry.id)
 		btn:ClearAllPoints()
-		btn:SetPoint("TOPLEFT", content, "TOPLEFT", 4, y)
+		btn:SetPoint("TOP", content, "TOP", 0, y)
 		y = y - 28
 		local entryId = entry.id
 		btn:SetScript("OnClick", function()
@@ -1247,12 +1245,6 @@ function ns:OpenDelveCoachPicker(anchor)
 		end
 	end
 	content:SetHeight(math.max(40, (#entries * 28) + 8))
-	if scroll and scroll.UpdateScrollChildRect then
-		scroll:UpdateScrollChildRect()
-	end
-	if scroll and scroll.SetVerticalScroll then
-		scroll:SetVerticalScroll(0)
-	end
 
 	f:ClearAllPoints()
 	f:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
@@ -1261,7 +1253,7 @@ function ns:OpenDelveCoachPicker(anchor)
 end
 
 local function OnDelveStateTick()
-	local inDelve = ns.IsPlayerInActiveDelve and ns.IsPlayerInActiveDelve() or IsDelveInProgress()
+	local inDelve = ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress() or IsDelveInProgress()
 	if inDelve and not wasInDelve then
 		if coachFrame then
 			coachFrame._userDismissed = false
