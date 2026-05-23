@@ -132,7 +132,7 @@ def main() -> None:
         "MAIN_TITLE": "Midnight Helper",
         "LOCALE_NAME_NL": "Nederlands (addon)",
         "LOCALE_AUTO_HINT": "Sigue el idioma del cliente WoW si hay traducción; si no, inglés. Nederlands siempre manual.",
-        "LANG_SLASH_HINT": "Usa: /mh lang auto  |  /mh lang en  |  /mh lang es  |  /mh lang fr  |  /mh lang de  |  /mh lang nl",
+        "LANG_SLASH_HINT": "Usa: /mh lang auto  |  /mh lang en  |  /mh lang de  |  /mh lang fr  |  /mh lang es  |  /mh lang nl",
         "UNKNOWN_COMMAND": "Comando desconocido %q. Usa: /mh, /mh coach, /mh debug, /mh guide, /mh settings, /mh lang auto|en|es|fr|de|nl.",
         "LANG_ROW_ES_TOOLTIP": "Español",
         "TAB_DELVES": "Profundidades & Bóveda",

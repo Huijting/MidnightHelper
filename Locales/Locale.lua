@@ -30,6 +30,7 @@ ns.MH_WOW_CLIENT_LOCALES = {
 local WOW_LOCALE_ALIASES = {
 	enGB = "enUS",
 	enAU = "enUS",
+	esMX = "esES",
 }
 
 local LOCALE_NAME_KEYS = {
@@ -70,8 +71,8 @@ local SLASH_ALIASES = {
 	es = "esES",
 	eses = "esES",
 	spanish = "esES",
-	mx = "esMX",
-	esmx = "esMX",
+	mx = "esES",
+	esmx = "esES",
 	it = "itIT",
 	itit = "itIT",
 	italian = "itIT",

@@ -561,7 +561,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	["DELVE_CHAT_THE_DARKWAY_ROUTE"] = "Enfocadores: devolver los enfocadores ley al centro. Leyline: grifo de conductos para 3 cristales. Ogro: mata a 7 aberraciones inestables a mitad de camino.",
 	["DELVE_CHAT_THE_DARKWAY_TRASH"] = "Interrumpe a los Buscadores del Crepúsculo y al Diluvio Arcano. Salga de las esquinas estrechas.",
 	["DELVE_CHAT_THE_DARKWAY_BOSS"] = "Buscadores de patadas. Esquiva {SPELL:@abyssal_burst}. {SPELL:@illusory_deceit}: mantente alejado de las ilusiones explosivas.",
-	["DELVE_CHAT_PARHELION_PLAZA_OVERVIEW"] = "Isla Oeste de Quel'Danas (La Fuente del Sol). Tres variantes: una profundización más difícil. Jefe: Gladius Slaurna.",
+	["DELVE_CHAT_PARHELION_PLAZA_OVERVIEW"] = "Isla Oeste de Quel'Danas (La Fuente del Sol). Tres variantes: una profundidad más difícil. Jefe: Gladius Slaurna.",
 	["DELVE_CHAT_PARHELION_PLAZA_ROUTE"] = "Bombing Run: dispositivo arcano para portales (porta 40). Manteniendo la línea: armas + barricadas. Desfile: centinelas vs pilones.",
 	["DELVE_CHAT_PARHELION_PLAZA_TRASH"] = "Kick Voidcaller Void Bolt. Completa la hueste devoradora saludando al jefe.",
 	["DELVE_CHAT_PARHELION_PLAZA_BOSS"] = "Mata a 3 Voidcallers rápidamente (patea Void Bolt). Si uno sobrevive a {SPELL:@devouring_nova}, Slaurna se beneficia mucho. Esquiva {SPELL:@voidscar_raze}, centro de lucha.",

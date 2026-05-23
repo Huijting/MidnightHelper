@@ -37,7 +37,8 @@ enUS.lua → deDE.lua → frFR.lua → esES.lua → nlNL.lua → GuideTips → G
 | `nlNL` | **nee** | Altijd handmatig (`/mh lang nl` of knop) |
 | `frFR` | ja | UI shell FR; advisor/tips deels EN |
 | `esES` | ja | UI shell ES; advisor/gear deels EN |
-| `esMX`, … | nee (tot pack bestaat) | Auto → EN + status “pack pending” |
+| `esMX` | ja (alias → `esES`) | Zelfde pack als EU-Spaans |
+| `ptBR`, … | nee (tot pack bestaat) | Auto → EN + status “pack pending” |
 
 ### Commando’s
 
