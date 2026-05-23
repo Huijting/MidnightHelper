@@ -191,6 +191,7 @@ function ns:ValidateDelveTipLocales()
 		{ code = "deDE", pack = ns._mhLocales and ns._mhLocales.deDE },
 		{ code = "frFR", pack = ns._mhLocales and ns._mhLocales.frFR },
 		{ code = "esES", pack = ns._mhLocales and ns._mhLocales.esES },
+		{ code = "ptBR", pack = ns._mhLocales and ns._mhLocales.ptBR },
 	}
 	for _, entry in ipairs(ns.DELVE_TIP_ENTRIES or {}) do
 		if entry.nameKey then

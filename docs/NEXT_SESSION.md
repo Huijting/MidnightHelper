@@ -1,7 +1,6 @@
 # Next session — Midnight Helper
 
 **Laatste update:** 2026-05-23  
-**Versie op schijf:** `1.3.1` (TOC)  
 **CurseForge:** **niet pushen** tot CF gate in `I18N_ROADMAP.md` volledig ✅
 
 ---
@@ -10,40 +9,36 @@
 
 | Taal | B | C | Volgende |
 |------|---|---|----------|
-| enUS / nlNL | ✅ | ✅ | polish NL doorlopend |
-| deDE / frFR / esES | ✅ | ✅ | polish + in-game Blizzard |
-| **ptBR** | 🔲 | 🔲 | Phase B (patroon esES) |
-| **ruRU** | 🔲 | 🔲 | Phase B (patroon esES) |
+| enUS / nlNL | ✅ | ✅ | polish NL |
+| deDE / frFR / esES | ✅ | ✅ | polish + in-game |
+| **ptBR** | ✅ | ✅ | polish + in-game ptBR |
+| **ruRU** | 🔲 | 🔲 | Phase B (patroon ptBR) |
 
-**Phase C klaar:** `Locales/GuideAdvisor.lua` — advisor + per-spec gear voor deDE, frFR, esES.  
-**Generator:** `python tools/build_guide_phase_c.py` (~35 min).
+---
+
+## ptBR Phase B (klaar)
+
+- `Locales/ptBR.lua` + TOC
+- `GROUP_PT` / `SHARED_PT`, `ConsumablesNotes` PT
+- `GuideTips` + `DelveTips` merges ptBR
+- Broker-knop **Português**, `/mh lang pt`
+- Blizzard: **Profundidades & Câmara**, **Grande Câmara**, **profundidade opulenta**
 
 ---
 
 ## Volgende stap
 
-1. **ptBR Phase B** — shell, TOC, broker, groups, consumables, tips/delve merges  
-2. **ptBR Phase C** — `build_guide_phase_c.py` uitbreiden met `ptBR`  
-3. **ruRU Phase B → C** — zelfde; Blizzard-termen uit ruRU-client  
-4. **Polish** alle packs (DE Sie→du, FR vous, ES profundidad, advisor-tekst)  
-5. About/changelog bijwerken → **dan pas CF**
+1. **ruRU Phase B** — shell + tips + broker **Русский**
+2. **ruRU Phase C** — `append_pt_phase_c.py` patroon → `append_ru_phase_c.py`
+3. Polish alle packs → CF
 
 ---
 
-## Test checklist (Phase C)
-
-- [ ] `/reload` — `GuideAdvisor.lua` laadt zonder errors
-- [ ] `/mh lang de` — Leveling Guide → Advisor-tab per spec **Duits** (niet EN)
-- [ ] `/mh lang fr` / `es` — idem
-- [ ] Gear-paneel per spec — vertaalde regels, `|cffffcc00` kleuren intact
-
----
-
-## Git
+## Test
 
 ```text
-git pull
-/reload in WoW
+/reload
+/mh lang pt
 ```
 
-**WoW-pad:** `_retail_\Interface\AddOns\MidnightHelper`
+Tab **Profundidades & Câmara**, Delve Coach + leveling tips PT; advisor/gear nog EN tot Phase C.

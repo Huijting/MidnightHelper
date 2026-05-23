@@ -15,6 +15,7 @@ Locales\enUS.lua
 Locales\deDE.lua
 Locales\frFR.lua
 Locales\esES.lua
+Locales\ptBR.lua
 Locales\nlNL.lua
 Locales\ConsumablesNotes.lua
 Locales\GuideTips.lua

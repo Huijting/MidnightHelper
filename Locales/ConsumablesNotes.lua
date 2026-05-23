@@ -87,6 +87,24 @@ local ES = {
 	CONS_NOTE_15 = "Poción tank por defecto con throughput y riesgo controlado.",
 }
 
+local PT = {
+	CONS_NOTE_01 = "Crítico é o frasco DPS padrão; simule seu personagem para atributos secundários.",
+	CONS_NOTE_02 = "Runa de augmento Midnight temporada 1 atual.",
+	CONS_NOTE_03 = "Aceleração é o frasco de curador padrão; simule para atributos secundários.",
+	CONS_NOTE_04 = "Poção de vida Midnight mais alta verificada.",
+	CONS_NOTE_05 = "Maestria é o frasco DPS padrão; simule para atributos secundários.",
+	CONS_NOTE_06 = "Banquete de atributo principal: opção segura de grupo para specs de Intelecto.",
+	CONS_NOTE_07 = "Banquete de atributo principal: opção segura de grupo.",
+	CONS_NOTE_08 = "Comida pessoal com atributo principal se não houver banquete.",
+	CONS_NOTE_09 = "Banquete de atributo secundário forte para tanks; principal como alternativa segura.",
+	CONS_NOTE_10 = "Óleo de fênix thalassiano salvo se Língua de Fogo encaixar melhor na build.",
+	CONS_NOTE_11 = "Óleo de fênix thalassiano salvo se Fúria dos Ventos / Língua de Fogo forem obrigatórios.",
+	CONS_NOTE_12 = "Buff temporário de arma padrão salvo imbue específica da classe/spec.",
+	CONS_NOTE_13 = "Frasco tank listado; troque para Versatilidade para mais defensivo.",
+	CONS_NOTE_14 = "Poção listada como burst/throughput em PvE.",
+	CONS_NOTE_15 = "Poção tank padrão com throughput e risco controlado.",
+}
+
 local FR = {
 	CONS_NOTE_01 = "Le crit est la flasque DPS par défaut ; simule ton personnage pour les stats secondaires.",
 	CONS_NOTE_02 = "Rune d'augmentation Midnight saison 1 actuelle.",
@@ -110,3 +128,4 @@ merge(ns._mhLocales.nlNL or {}, NL)
 merge(ns._mhLocales.deDE or {}, DE)
 merge(ns._mhLocales.frFR or {}, FR)
 merge(ns._mhLocales.esES or {}, ES)
+merge(ns._mhLocales.ptBR or {}, PT)

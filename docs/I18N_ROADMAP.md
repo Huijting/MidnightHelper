@@ -21,7 +21,7 @@ Dit document is de **vaste draad** voor vertalingen. Chatgeschiedenis sync niet 
 | `deDE` | Deutsch | ja | ✅ | ✅ | 🟡 Sie→du | in-game DE |
 | `frFR` | Français | ja | ✅ | ✅ | 🔲 vous-vorm | in-game FR |
 | `esES` | Español | ja (+ `esMX`→`esES`) | ✅ | ✅ | 🟡 profundidad | in-game ES |
-| `ptBR` | Português (BR) | ja (na pack) | 🔲 | 🔲 | 🔲 | in-game ptBR |
+| `ptBR` | Português (BR) | ja | ✅ | ✅ | 🔲 | in-game ptBR |
 | `ruRU` | Русский | ja (na pack) | 🔲 | 🔲 | 🔲 | in-game ruRU |
 
 **Phase B** = UI-shell, `GuideGroups`, `ConsumablesNotes`, `GuideTips` + `DelveTips` merges, broker-knop.  
@@ -48,7 +48,8 @@ Dit document is de **vaste draad** voor vertalingen. Chatgeschiedenis sync niet 
 |------|--------|--------------|
 | **A — Auto-locale** | ✅ Done | `locale = "auto"` volgt `GetLocale()`; `nlNL` nooit auto; fallback `enUS` |
 | **B — deDE / frFR / esES** | ✅ Done | UI-shell + groups + tips + delve bodies |
-| **B — ptBR / ruRU** | 🔲 Open | Zelfde patroon als esES; **verplicht vóór CF** |
+| **B — ptBR** | ✅ Done | Shell + groups + tips/delve + broker **Português** |
+| **B — ruRU** | 🔲 Open | Zelfde patroon als ptBR; **verplicht vóór CF** |
 | **C — deDE / frFR / esES** | ✅ Done | `Locales/GuideAdvisor.lua` (~1288 keys × 3) |
 | **C — ptBR / ruRU** | 🔲 Na B | Zelfde generator als Phase C |
 | **Polish** | 🔲 Doorlopend | Per taal na C |
@@ -56,7 +57,7 @@ Dit document is de **vaste draad** voor vertalingen. Chatgeschiedenis sync niet 
 ### Locale-packs geladen (TOC-volgorde)
 
 ```
-enUS.lua → deDE.lua → frFR.lua → esES.lua → nlNL.lua
+enUS.lua → deDE.lua → frFR.lua → esES.lua → ptBR.lua → nlNL.lua
 → ConsumablesNotes.lua → GuideTips.lua → GuideTipSpellNames.lua → GuideTipText.lua
 → GuideGroups.lua → GuideAdvisor.lua → DelveTips.lua → Locale.lua
 ```
@@ -71,7 +72,7 @@ enUS.lua → deDE.lua → frFR.lua → esES.lua → nlNL.lua
 | `esES` | ja | |
 | `esMX` | ja (alias → `esES`) | Zelfde pack als EU-Spaans |
 | `nlNL` | **nee** | Altijd handmatig |
-| `ptBR` | ja (na pack) | Eigen Blizzard-termen |
+| `ptBR` | ja | Eigen Blizzard-termen (Grande Câmara, profundidade opulenta) |
 | `ruRU` | ja (na pack) | Cyrillisch; termen uit client verifiëren |
 | overige | nee | Auto → EN + “pack pending” |
 
@@ -84,11 +85,11 @@ enUS.lua → deDE.lua → frFR.lua → esES.lua → nlNL.lua
 /mh lang fr     — Français
 /mh lang es     — Español
 /mh lang nl     — Nederlands (addon)
-/mh lang pt     — Português (na ptBR-pack)
+/mh lang pt     — Português (BR)
 /mh lang ru     — Русский (na ruRU-pack)
 ```
 
-Minimap → Instellingen: rij 1 **Auto / EN / DE / FR** — rij 2 **ES / NL** (pt/ru-knoppen komen bij B).
+Minimap → Instellingen: rij 1 **Auto / EN / DE / FR** — rij 2 **ES / PT** — rij 3 **NL** (ru-knop bij ruRU B).
 
 ---
 
@@ -197,8 +198,8 @@ Minimap → Instellingen: rij 1 **Auto / EN / DE / FR** — rij 2 **ES / NL** (p
 
 1. ✅ Roadmap + CF gate (dit document)  
 2. ✅ **Phase C** — `deDE`, `frFR`, `esES` (`build_guide_phase_c.py`)  
-3. **ptBR** Phase B → C  
-4. **ruRU** Phase B → C  
+3. **ruRU** Phase B → C  
+4. **Polish** alle CF-talen  
 5. **Polish** alle CF-talen  
 6. About/changelog + TOC-versie → **CF upload**
 

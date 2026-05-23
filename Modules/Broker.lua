@@ -54,6 +54,9 @@ local function RefreshLanguageButtonTints(host)
 	if host._langEs then
 		TintBtn(host._langEs, pref == "esES")
 	end
+	if host._langPt then
+		TintBtn(host._langPt, pref == "ptBR")
+	end
 	if host._langNl then
 		TintBtn(host._langNl, pref == "nlNL")
 	end
@@ -65,7 +68,7 @@ local function EnsureSettingsFrame()
 	end
 
 	local f = CreateFrame("Frame", "MidnightHelperQuickSettings", UIParent, "BackdropTemplate")
-	f:SetSize(440, 350)
+	f:SetSize(440, 378)
 	f:SetFrameStrata("DIALOG")
 	f:SetFrameLevel(2100)
 	f:SetClampedToScreen(true)
@@ -148,9 +151,17 @@ local function EnsureSettingsFrame()
 	end)
 	f._langEs = langEs
 
+	local langPt = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	langPt:SetSize(72, 24)
+	langPt:SetPoint("LEFT", langEs, "RIGHT", 6, 0)
+	langPt:SetScript("OnClick", function()
+		OnLanguageChosen(f, "ptBR")
+	end)
+	f._langPt = langPt
+
 	local langNl = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	langNl:SetSize(88, 24)
-	langNl:SetPoint("LEFT", langEs, "RIGHT", 6, 0)
+	langNl:SetPoint("TOPLEFT", langAuto, "BOTTOMLEFT", 0, -32)
 	langNl:SetScript("OnClick", function()
 		OnLanguageChosen(f, "nlNL")
 	end)
@@ -253,6 +264,9 @@ local function EnsureSettingsFrame()
 		end
 		if self._langEs then
 			self._langEs:SetText(ns:L("LOCALE_NAME_esES"))
+		end
+		if self._langPt then
+			self._langPt:SetText(ns:L("LOCALE_NAME_ptBR"))
 		end
 		if self._langNl then
 			self._langNl:SetText(ns:L("LOCALE_NAME_NL"))
@@ -511,9 +525,17 @@ local function EnsureSettingsCategoryFrame()
 	end)
 	panel._langEs = langEs
 
+	local langPt = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	langPt:SetSize(88, 24)
+	langPt:SetPoint("LEFT", langEs, "RIGHT", 6, 0)
+	langPt:SetScript("OnClick", function()
+		OnLanguageChosen(panel, "ptBR")
+	end)
+	panel._langPt = langPt
+
 	local langNl = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
 	langNl:SetSize(96, 24)
-	langNl:SetPoint("LEFT", langEs, "RIGHT", 6, 0)
+	langNl:SetPoint("TOPLEFT", langEs, "BOTTOMLEFT", 0, -8)
 	langNl:SetScript("OnClick", function()
 		OnLanguageChosen(panel, "nlNL")
 	end)
@@ -619,6 +641,9 @@ local function EnsureSettingsCategoryFrame()
 		end
 		if self._langEs then
 			self._langEs:SetText(ns:L("LOCALE_NAME_esES"))
+		end
+		if self._langPt then
+			self._langPt:SetText(ns:L("LOCALE_NAME_ptBR"))
 		end
 		self._langNl:SetText(ns:L("LOCALE_NAME_NL"))
 		if self._langHint then
