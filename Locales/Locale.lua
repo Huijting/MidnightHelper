@@ -199,6 +199,7 @@ function ns:MigrateLocalePreference()
 		db.locale = ns.MH_LOCALE_AUTO
 		return
 	end
+	-- Russian pack removed; reset old saved prefs to auto (falls back to enUS on ruRU client).
 	if pref == "ruRU" or pref == "ru" then
 		db.locale = ns.MH_LOCALE_AUTO
 		return

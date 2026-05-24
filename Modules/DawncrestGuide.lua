@@ -117,6 +117,51 @@ local function SetRowIcon(tex, currencyId)
 	end
 end
 
+local function ShowCrestCurrencyTooltip(owner, currencyId)
+	local id = tonumber(currencyId)
+	if not id or not GameTooltip then
+		return
+	end
+	GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
+	if GameTooltip.SetCurrencyByID then
+		GameTooltip:SetCurrencyByID(id)
+	else
+		GameTooltip:ClearLines()
+		if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
+			local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
+			if ok and type(info) == "table" then
+				GameTooltip:AddLine(info.name or "?", 1, 1, 1)
+				if info.description and info.description ~= "" then
+					GameTooltip:AddLine(info.description, 1, 1, 1, true)
+				end
+			end
+		end
+	end
+	GameTooltip:Show()
+end
+
+local function HideCrestCurrencyTooltip()
+	if GameTooltip then
+		GameTooltip:Hide()
+	end
+end
+
+local function BindCrestIconTooltip(iconBtn, currencyId)
+	if not iconBtn then
+		return
+	end
+	iconBtn._mhCurrencyId = tonumber(currencyId)
+	if iconBtn._mhTooltipBound then
+		return
+	end
+	iconBtn._mhTooltipBound = true
+	iconBtn:EnableMouse(true)
+	iconBtn:SetScript("OnEnter", function(self)
+		ShowCrestCurrencyTooltip(self, self._mhCurrencyId)
+	end)
+	iconBtn:SetScript("OnLeave", HideCrestCurrencyTooltip)
+end
+
 local function LayoutButtons()
 	local btnRow = embeddedPanel and embeddedPanel._body and embeddedPanel._body._btnRow
 	if not btnRow or not embeddedPanel then
@@ -235,6 +280,7 @@ function ns.RefreshDawncrestGuide()
 					row.count:SetText(tostring(qty))
 				end
 				SetRowIcon(row.icon, tier.currencyId)
+				BindCrestIconTooltip(row.iconBtn, tier.currencyId)
 				local rowFrame = row.row
 				if row.ach and rowFrame and rowFrame.SetHeight then
 					if IsAchievementComplete(tier.achievementId) then
@@ -335,12 +381,14 @@ function ns.EnsureDawncrestGuidePanel(parent)
 		row:SetPoint("TOPLEFT", crestBlock, "TOPLEFT", 0, -cy)
 		row:SetPoint("RIGHT", crestBlock, "RIGHT", 0, 0)
 
-		local icon = row:CreateTexture(nil, "ARTWORK")
-		icon:SetSize(ICON, ICON)
-		icon:SetPoint("LEFT", row, "LEFT", 0, 0)
+		local iconBtn = CreateFrame("Button", nil, row)
+		iconBtn:SetSize(ICON, ICON)
+		iconBtn:SetPoint("LEFT", row, "LEFT", 0, 0)
+		local icon = iconBtn:CreateTexture(nil, "ARTWORK")
+		icon:SetAllPoints(iconBtn)
 
 		local label = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		label:SetPoint("LEFT", icon, "RIGHT", 4, 0)
+		label:SetPoint("LEFT", iconBtn, "RIGHT", 4, 0)
 		label:SetPoint("RIGHT", row, "RIGHT", -72, 0)
 		label:SetJustifyH("LEFT")
 
@@ -355,7 +403,8 @@ function ns.EnsureDawncrestGuidePanel(parent)
 		achFs:SetTextColor(0.45, 0.95, 0.5)
 		achFs:Hide()
 
-		crestRows[i] = { icon = icon, label = label, count = count, ach = achFs, row = row }
+		crestRows[i] = { icon = icon, iconBtn = iconBtn, label = label, count = count, ach = achFs, row = row }
+		BindCrestIconTooltip(iconBtn, tiers[i] and tiers[i].currencyId)
 		cy = cy + ROW_H + 4
 	end
 	crestBlock:SetHeight(math.max(1, cy))

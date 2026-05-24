@@ -5,32 +5,22 @@
 
 ---
 
-## CF-talen (7) — status
+## CF-talen (6) — status
 
 | Taal | B | C | Volgende |
 |------|---|---|----------|
 | enUS / nlNL | ✅ | ✅ | polish NL |
 | deDE / frFR / esES | ✅ | ✅ | polish + in-game |
 | ptBR | ✅ | ✅ | polish + in-game ptBR |
-| **ruRU** | ✅ | ✅ | polish + in-game ruRU |
 
----
-
-## ruRU Phase B (klaar)
-
-- `Locales/ruRU.lua` + TOC
-- `GROUP_RU` / `SHARED_RU`, `ConsumablesNotes` RU
-- `GuideTips` + `DelveTips` merges ruRU (398 + 99 keys)
-- Broker-knop **Русский**, `/mh lang ru`, slash hints alle packs
-- Blizzard: **Глубины & Хранилище**, **Великое Хранилище**
+**Geen ruRU** — bewust buiten scope; Russische WoW-clients vallen terug op `enUS` via `/mh lang auto`.
 
 ---
 
 ## Volgende stap
 
-1. Wacht op **ruRU Phase C** (`append_ru_phase_c.py`) → commit
-2. **Polish** alle 7 packs (Sie/du, vous, profundidad, `{SPELL:…}`)
-3. About/changelog CF-tekst → upload pas na gate ✅
+1. **In-game test** polish: `/mh lang de|fr|es|pt` → Leveling Guide (Advisor + Gear), Delve Coach, Gids-tab
+2. About/changelog CF-tekst → upload pas na gate ✅ (geen CF tot test ✅)
 
 ---
 
@@ -38,7 +28,10 @@
 
 ```text
 /reload
-/mh lang ru
+/mh lang de
+/mh lang fr
+/mh lang es
+/mh lang pt
 ```
 
-Tab **Глубины & Хранилище**, Delve Coach + leveling tips RU; advisor/gear RU na Phase C.
+Per taal: tab Delves, Leveling Guide (Advisor + Gear), Gids (Dawncrest), Delve Coach share-knoppen.
