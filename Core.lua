@@ -49,6 +49,8 @@ local DEFAULT_DB = {
 			sortDesc = false,
 			filterStaleOnly = false,
 			filterHasKeysOnly = false,
+			filterShardCapOnly = false,
+			filterDundunIncompleteOnly = false,
 		},
 		--- Great Vault reset reminders (chat, minimap tooltip, icon pulse).
 		vaultReminder = {

@@ -155,11 +155,13 @@ end
 
 function ns.SMC_RefreshDynamicChecklist()
 	local panel = ns.panels and ns.panels.smcguide
-	if not panel or not panel._mhSmlBuilt then
-		return
+	if panel and panel._mhSmlBuilt then
+		RefreshChecklistRows(panel)
+		RefreshWaypointButtons(panel)
 	end
-	RefreshChecklistRows(panel)
-	RefreshWaypointButtons(panel)
+	if ns.RefreshAccountWeeklyChecklist then
+		ns.RefreshAccountWeeklyChecklist()
+	end
 end
 
 do

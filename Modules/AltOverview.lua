@@ -409,6 +409,8 @@ local function GetAccountSnapshotSettings()
 			sortDesc = false,
 			filterStaleOnly = false,
 			filterHasKeysOnly = false,
+			filterShardCapOnly = false,
+			filterDundunIncompleteOnly = false,
 		}
 	end
 	if type(uiDb.accountSnapshot) ~= "table" then
@@ -417,15 +419,75 @@ local function GetAccountSnapshotSettings()
 			sortDesc = false,
 			filterStaleOnly = false,
 			filterHasKeysOnly = false,
+			filterShardCapOnly = false,
+			filterDundunIncompleteOnly = false,
 		}
 	end
-	return uiDb.accountSnapshot
+	local s = uiDb.accountSnapshot
+	if s.filterShardCapOnly == nil then
+		s.filterShardCapOnly = false
+	end
+	if s.filterDundunIncompleteOnly == nil then
+		s.filterDundunIncompleteOnly = false
+	end
+	return s
 end
+
+local DUNDUN_WEEKLY_CAP = 8
+
+local WEEKLY_TABLE_FILTER_FIELDS = {
+	stale = "filterStaleOnly",
+	keys = "filterHasKeysOnly",
+	shards = "filterShardCapOnly",
+	dundun = "filterDundunIncompleteOnly",
+}
+
+local EntryHasProfessionSnapshot
+local EntryShardsBelowCap
+local EntryDundunIncomplete
 
 local function SnapshotEntryIsStale(e)
 	local _, shardsWeeklyStale = GetEffectiveShardsWeekly(e.shardsWeekly, e.ts)
 	local staleSinceReset = (tonumber(e.ts) or 0) > 0 and (tonumber(e.ts) or 0) < GetLocalResetAnchorTs()
 	return shardsWeeklyStale or staleSinceReset
+end
+
+EntryHasProfessionSnapshot = function(e)
+	if not e then
+		return false
+	end
+	if type(e.professionsFull) == "string" and e.professionsFull ~= "" then
+		return true
+	end
+	if (tonumber(e.profAbundance) or 0) > 0 then
+		return true
+	end
+	if (tonumber(e.profDundun) or 0) > 0 then
+		return true
+	end
+	if type(e.profMoxie) == "string" and e.profMoxie ~= "" then
+		return true
+	end
+	return false
+end
+
+EntryShardsBelowCap = function(e)
+	if SnapshotEntryIsStale(e) then
+		return false
+	end
+	local weekly = GetEffectiveShardsWeekly(e.shardsWeekly, e.ts)
+	local maxW = math.floor(tonumber(e.shardsWeeklyMax) or 600)
+	if maxW <= 0 then
+		return false
+	end
+	return weekly < maxW
+end
+
+EntryDundunIncomplete = function(e)
+	if not EntryHasProfessionSnapshot(e) or SnapshotEntryIsStale(e) then
+		return false
+	end
+	return (tonumber(e.profDundun) or 0) < DUNDUN_WEEKLY_CAP
 end
 
 local function FilterSnapshotEntries(entries, settings)
@@ -435,6 +497,10 @@ local function FilterSnapshotEntries(entries, settings)
 		if settings.filterStaleOnly and not SnapshotEntryIsStale(e) then
 			-- skip
 		elseif settings.filterHasKeysOnly and (tonumber(e.keys) or 0) <= 0 then
+			-- skip
+		elseif settings.filterShardCapOnly and not EntryShardsBelowCap(e) then
+			-- skip
+		elseif settings.filterDundunIncompleteOnly and not EntryDundunIncomplete(e) then
 			-- skip
 		else
 			out[#out + 1] = e
@@ -543,8 +609,24 @@ local function FitToolbarButton(btn, minWidth)
 	btn:SetWidth(math.max(minWidth or 72, w))
 end
 
+local function ClearAccountSnapshotTableFilters()
+	local s = GetAccountSnapshotSettings()
+	s.filterStaleOnly = false
+	s.filterHasKeysOnly = false
+	s.filterShardCapOnly = false
+	s.filterDundunIncompleteOnly = false
+end
+
+local function AccountSnapshotAnyTableFilterActive()
+	local s = GetAccountSnapshotSettings()
+	return s.filterStaleOnly
+		or s.filterHasKeysOnly
+		or s.filterShardCapOnly
+		or s.filterDundunIncompleteOnly
+end
+
 local function RefreshAccountSnapshotToolbar()
-	if not ui.sortBtn or not ui.staleFilterBtn or not ui.keysFilterBtn then
+	if not ui.sortBtn then
 		return
 	end
 	local settings = GetAccountSnapshotSettings()
@@ -561,15 +643,73 @@ local function RefreshAccountSnapshotToolbar()
 		sortKey = "ALT_SNAPSHOT_SORT_UPDATED"
 	end
 	ui.sortBtn:SetText(ns:L(sortKey))
-	ui.staleFilterBtn:SetText(
-		settings.filterStaleOnly and ns:L("ALT_SNAPSHOT_FILTER_STALE_ON") or ns:L("ALT_SNAPSHOT_FILTER_STALE")
-	)
-	ui.keysFilterBtn:SetText(
-		settings.filterHasKeysOnly and ns:L("ALT_SNAPSHOT_FILTER_KEYS_ON") or ns:L("ALT_SNAPSHOT_FILTER_KEYS")
-	)
 	FitToolbarButton(ui.sortBtn, 108)
-	FitToolbarButton(ui.staleFilterBtn, 88)
-	FitToolbarButton(ui.keysFilterBtn, 72)
+
+	if ui.clearFilterBtn then
+		local filtered = AccountSnapshotAnyTableFilterActive()
+		local total = 0
+		if ns._mhAltOverviewCollectEntries then
+			total = #ns:_mhAltOverviewCollectEntries()
+		end
+		if filtered then
+			ui.clearFilterBtn:Show()
+			ui.clearFilterBtn:Enable()
+			if total > 0 then
+				ui.clearFilterBtn:SetText(ns:L("ALT_SNAPSHOT_SHOW_ALL_FMT"):format(total))
+			else
+				ui.clearFilterBtn:SetText(ns:L("ALT_SNAPSHOT_SHOW_ALL"))
+			end
+			FitToolbarButton(ui.clearFilterBtn, 100)
+		else
+			ui.clearFilterBtn:Hide()
+		end
+	end
+end
+
+function ns.MhAccountSnapshotAnyTableFilterActive()
+	return AccountSnapshotAnyTableFilterActive()
+end
+
+function ns.MhClearAccountSnapshotTableFilters()
+	if not AccountSnapshotAnyTableFilterActive() then
+		return
+	end
+	ClearAccountSnapshotTableFilters()
+	RefreshAccountSnapshotToolbar()
+	if ns._mhAltOverviewRefreshRows then
+		ns:_mhAltOverviewRefreshRows()
+	end
+	if ns.RefreshAccountWeeklyChecklist then
+		ns.RefreshAccountWeeklyChecklist()
+	end
+end
+
+function ns:MhToggleAccountSnapshotWeeklyFilter(kind)
+	local field = kind and WEEKLY_TABLE_FILTER_FIELDS[kind]
+	if not field then
+		return
+	end
+	local s = GetAccountSnapshotSettings()
+	local turningOn = not s[field]
+	ClearAccountSnapshotTableFilters()
+	if turningOn then
+		s[field] = true
+	end
+	RefreshAccountSnapshotToolbar()
+	if ns._mhAltOverviewRefreshRows then
+		ns:_mhAltOverviewRefreshRows()
+	end
+	if ns.RefreshAccountWeeklyChecklist then
+		ns.RefreshAccountWeeklyChecklist()
+	end
+end
+
+function ns:MhIsAccountSnapshotWeeklyFilterActive(kind)
+	local field = kind and WEEKLY_TABLE_FILTER_FIELDS[kind]
+	if not field then
+		return false
+	end
+	return GetAccountSnapshotSettings()[field] == true
 end
 
 --------------------------------------------------------------------------------
@@ -871,7 +1011,11 @@ function ns:_mhAltOverviewRefreshRows()
 			ui.emptyHint:SetPoint("TOPLEFT", content, "TOPLEFT", 4, -HEADER_ROW_H - 2)
 			ui.emptyHint:SetWidth(cw - 8)
 			if #allEntries > 0 then
-				ui.emptyHint:SetText(ns:L("ALT_SNAPSHOT_FILTER_EMPTY"))
+				if AccountSnapshotAnyTableFilterActive() then
+					ui.emptyHint:SetText(ns:L("ALT_SNAPSHOT_FILTER_EMPTY_HINT"))
+				else
+					ui.emptyHint:SetText(ns:L("ALT_SNAPSHOT_FILTER_EMPTY"))
+				end
 			else
 				ui.emptyHint:SetText(ns:L("ALT_OVERVIEW_EMPTY"))
 			end
@@ -1228,6 +1372,9 @@ function ns:_mhAltOverviewRefreshRows()
 	end
 
 	self:_mhAltOverviewSyncExpandState()
+	if ns.RefreshAccountWeeklyChecklist then
+		ns.RefreshAccountWeeklyChecklist()
+	end
 end
 
 function ns:_mhAltOverviewRefreshHeaderTexts()
@@ -1277,9 +1424,28 @@ function ns:_mhAltOverviewRefreshHeaderTexts()
 	end
 end
 
+function ns:MhAccountEntryIsStale(e)
+	return SnapshotEntryIsStale(e)
+end
+
+function ns:MhGetEffectiveShardsWeekly(weekly, snapshotTs)
+	return GetEffectiveShardsWeekly(weekly, snapshotTs)
+end
+
+function ns:MhAccountEntryShardsBelowCap(e)
+	return EntryShardsBelowCap(e)
+end
+
+function ns:MhAccountEntryDundunIncomplete(e)
+	return EntryDundunIncomplete(e)
+end
+
 function ns:_mhAltOverviewRefreshTexts()
 	if ui.hint then
 		ui.hint:SetText(ns:L("ALT_OVERVIEW_HINT"))
+	end
+	if ns.RefreshAccountWeeklyChecklist then
+		ns.RefreshAccountWeeklyChecklist()
 	end
 	RefreshAccountSnapshotToolbar()
 	do
@@ -1303,10 +1469,25 @@ local function BuildAccountSnapshotHost(host)
 	ui.hint:SetPoint("TOPRIGHT", ui.pageTitle, "BOTTOMRIGHT", 0, -6)
 	ui.hint:SetJustifyH("LEFT")
 
+	local function AnchorToolbarBelowWeekly()
+		if ui.toolbar and ui.weeklyBlock then
+			ui.toolbar:ClearAllPoints()
+			ui.toolbar:SetPoint("TOPLEFT", ui.weeklyBlock, "BOTTOMLEFT", 0, -6)
+			ui.toolbar:SetPoint("TOPRIGHT", ui.weeklyBlock, "BOTTOMRIGHT", 0, -6)
+		end
+	end
+
+	if ns.MountAccountWeeklyChecklist then
+		ui.weeklyBlock = ns.MountAccountWeeklyChecklist(host, ui.hint, AnchorToolbarBelowWeekly)
+		AnchorToolbarBelowWeekly()
+	else
+		ui.weeklyBlock = ui.hint
+	end
+
 	ui.toolbar = CreateFrame("Frame", nil, host)
 	ui.toolbar:SetHeight(24)
-	ui.toolbar:SetPoint("TOPLEFT", ui.hint, "BOTTOMLEFT", 0, -6)
-	ui.toolbar:SetPoint("TOPRIGHT", ui.hint, "BOTTOMRIGHT", 0, -6)
+	ui.toolbar:SetPoint("TOPLEFT", ui.weeklyBlock, "BOTTOMLEFT", 0, -6)
+	ui.toolbar:SetPoint("TOPRIGHT", ui.weeklyBlock, "BOTTOMRIGHT", 0, -6)
 
 	ui.sortBtn = CreateFrame("Button", nil, ui.toolbar, "UIPanelButtonTemplate")
 	ui.sortBtn:SetSize(148, 22)
@@ -1319,29 +1500,29 @@ local function BuildAccountSnapshotHost(host)
 		end
 	end)
 
-	ui.staleFilterBtn = CreateFrame("Button", nil, ui.toolbar, "UIPanelButtonTemplate")
-	ui.staleFilterBtn:SetSize(92, 22)
-	ui.staleFilterBtn:SetPoint("LEFT", ui.sortBtn, "RIGHT", 6, 0)
-	ui.staleFilterBtn:SetScript("OnClick", function()
-		local s = GetAccountSnapshotSettings()
-		s.filterStaleOnly = not s.filterStaleOnly
-		RefreshAccountSnapshotToolbar()
-		if ns._mhAltOverviewRefreshRows then
-			ns:_mhAltOverviewRefreshRows()
+	ui.clearFilterBtn = CreateFrame("Button", nil, ui.toolbar, "UIPanelButtonTemplate")
+	ui.clearFilterBtn:SetSize(120, 22)
+	ui.clearFilterBtn:SetPoint("LEFT", ui.sortBtn, "RIGHT", 6, 0)
+	ui.clearFilterBtn:Hide()
+	ui.clearFilterBtn:SetScript("OnClick", function()
+		if ns.MhClearAccountSnapshotTableFilters then
+			ns.MhClearAccountSnapshotTableFilters()
+		end
+	end)
+	ui.clearFilterBtn:SetScript("OnEnter", function(self)
+		if not GameTooltip then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+		GameTooltip:SetText(ns:L("ALT_SNAPSHOT_SHOW_ALL_HINT"), 1, 0.92, 0.55, 1, true)
+		GameTooltip:Show()
+	end)
+	ui.clearFilterBtn:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
 		end
 	end)
 
-	ui.keysFilterBtn = CreateFrame("Button", nil, ui.toolbar, "UIPanelButtonTemplate")
-	ui.keysFilterBtn:SetSize(88, 22)
-	ui.keysFilterBtn:SetPoint("LEFT", ui.staleFilterBtn, "RIGHT", 6, 0)
-	ui.keysFilterBtn:SetScript("OnClick", function()
-		local s = GetAccountSnapshotSettings()
-		s.filterHasKeysOnly = not s.filterHasKeysOnly
-		RefreshAccountSnapshotToolbar()
-		if ns._mhAltOverviewRefreshRows then
-			ns:_mhAltOverviewRefreshRows()
-		end
-	end)
 	RefreshAccountSnapshotToolbar()
 
 	ui.expandPanel = CreateFrame("Frame", nil, host)
@@ -1418,6 +1599,9 @@ local function MountAccountSnapshotPanel()
 
 	host:SetScript("OnShow", function()
 		SaveCurrentSnapshot()
+		if ns.RefreshAccountWeeklyChecklist then
+			ns.RefreshAccountWeeklyChecklist()
+		end
 		if ns._mhAltOverviewRefreshRows then
 			ns:_mhAltOverviewRefreshRows()
 		end
@@ -1484,6 +1668,9 @@ ev:SetScript("OnEvent", function(_, event)
 	end
 	if event == "PLAYER_LOGIN" then
 		SaveCurrentSnapshot()
+		if ns.RefreshAccountWeeklyChecklist then
+			ns.RefreshAccountWeeklyChecklist()
+		end
 		if ns._mhAltOverviewRefreshRows then
 			ns:_mhAltOverviewRefreshRows()
 		end

@@ -57,6 +57,7 @@ Modules\DelveCuriosAdvisor.lua
 Modules\Profession.lua
 Modules\Delves.lua
 Modules\DelveCoach.lua
+Modules\AccountWeeklyChecklist.lua
 Modules\AltOverview.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua
