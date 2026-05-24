@@ -6,28 +6,41 @@ All notable changes to this project are documented in this file.
 
 ## [1.3.2] - 2026-05-23
 
-### Added
+*First CurseForge upload after **1.3.0** — bundles everything that landed on `main` since then (including work that was tagged 1.3.1 in git only).*
 
-- **Leveling Guides — In groups** advisor tab: dungeon/raid interrupt priority, defensive timing, and party tips per role (tank, healer, melee, caster, support) at level brackets 10/30/60/80.
-- Search keywords (`in groups`, `dungeon tips`, `interrupt priority`, …) open Leveling Guides on the In groups tab.
-- Leveling Guides tab: **Layout** sub-tab with the ISO keyboard prototype (Midnight key highlights).
-- SMC City Guide: weekly/hub checklist using `C_QuestLog.IsQuestFlaggedCompleted`; waypoint buttons tint green when done (configure quest IDs in `Modules/SMCChecklistData.lua`).
+### Added — Localization
 
-### Fixed
+- **Six UI languages:** English, **Deutsch**, **Français**, **Español**, **Português (BR)**, and **Nederlands** (NL is addon-only — use `/mh lang nl`).
+- **`/mh lang auto`** follows your WoW client when a pack exists (`de`, `fr`, `es`, `pt`, `en`; `esMX` → Spanish pack).
+- Translated **Delve Coach** tips, **Leveling Guides** advisor + gear notes, consumable notes, and guide groups for DE / FR / ES / PT / NL (not only EN/NL anymore).
+- Minimap broker language picker updated for all packs.
 
-- **Delve consumables popup:** secure item buttons and session tracking without Lua errors; no forbidden combat-log registration on Midnight.
-- Spell-cast detection for consumable “used” state uses safe unit events only.
+### Added — Features
 
-## [1.3.1] - 2026-05-24
-
-### Added
-
-- **Valeera curio advisor** on the Delves tab and at repair / gossip NPCs.
-- Delve consumables popup improvements: per-delve session tracking, active-state hints, `/mh items mark`.
+- **Valeera curio advisor** on the Delves tab and popup at repair / gossip NPCs.
+- **Delve consumables:** per-delve session tracking, “active” state, `/mh items mark` and `/mh items reset`; secure item-click buttons.
+- **Bounty toast** reminder when Trovehunter's Bounty is available in a delve.
+- **Leveling Guides — In groups** tab: interrupt priority, defensives, and party tips by role (level brackets 10 / 30 / 60 / 80).
+- Leveling Guides **Layout** sub-tab: ISO keyboard prototype (Midnight key highlights).
+- **SMC City Guide** weekly/hub checklist; waypoint buttons tint green when quests are done (configure IDs in `Modules/SMCChecklistData.lua`).
 
 ### Changed
 
-- Delve consumable secure clicks use Blizzard `SecureActionButton` item attributes (same pattern as common click-to-use addons).
+- Delve consumable minimap icons and popup behaviour polished for Midnight secure rules.
+- Delves panel layout and localized delve names improved.
+
+### Fixed
+
+- Delve consumables popup: no Lua errors on use or `/mh items mark`; no forbidden `COMBAT_LOG_EVENT_UNFILTERED` registration on Midnight.
+- Delve party chat fallbacks where needed for client font/locale edge cases.
+
+## [1.3.1] - 2026-05-24
+
+*Git-only tag between CF 1.3.0 and 1.3.2 — not published separately on CurseForge.*
+
+### Added
+
+- Valeera curio advisor; delve consumables session tracking; bounty toast (see **1.3.2** notes above).
 
 ## [1.3.0] - 2026-05-19
 
