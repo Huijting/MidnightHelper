@@ -453,6 +453,23 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "framesize" or msg == "size" then
+		if ns.EnsureMainUI then
+			ns:EnsureMainUI()
+		end
+		if ns.SaveMainWindowSize then
+			ns:SaveMainWindowSize()
+		end
+		if ns.PrintMainWindowSize then
+			ns:PrintMainWindowSize()
+		else
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))
+			)
+		end
+		return
+	end
+
 	if msg == "debug" then
 		-- Toggle debug mode
 		if ns.db and ns.db.ui then

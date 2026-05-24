@@ -12,16 +12,80 @@ local addonName, ns = ...
 -- Layout constants (tweak in one place)
 --------------------------------------------------------------------------------
 -- Wider default so Professions tab can show two treasure columns side-by-side.
-local DEFAULT_WIDTH = 820
--- Tall enough for companion + curios + delve grid + vault row + footer button (~500–600px content).
-local DEFAULT_HEIGHT = 560
+-- Default matches a typical user-tuned layout (795×600 at UI scale 1.25 fits Delves + Guide).
+local DEFAULT_WIDTH = 795
+local DEFAULT_HEIGHT = 600
+-- Suggested minimum for first-time installs only; never overrides mainWindowUserSized.
+local MIN_DELVES_WINDOW_H = 800
 local SIDEBAR_WIDTH = 132
 local TITLE_BAR_HEIGHT = 32
 -- Global search bar (full width under title) — not in the narrow sidebar: keeps the field wide on all tabs.
 local SEARCH_BAR_HEIGHT = 30
 local RESIZE_GRIP_SIZE = 16
-local MIN_WIDTH, MIN_HEIGHT = 620, 440
-local MAX_WIDTH, MAX_HEIGHT = 1000, 800
+local MIN_WIDTH, MIN_HEIGHT = 620, 600
+local MAX_WIDTH, MAX_HEIGHT = 1000, 920
+
+local function ClampMainWidth(w)
+	w = tonumber(w) or DEFAULT_WIDTH
+	return math.max(MIN_WIDTH, math.min(MAX_WIDTH, w))
+end
+
+local function ClampMainHeight(h)
+	h = tonumber(h) or DEFAULT_HEIGHT
+	return math.max(MIN_HEIGHT, math.min(MAX_HEIGHT, h))
+end
+
+--- Prefer SavedVariables size; fall back to layout defaults.
+local function GetSavedMainWidth()
+	local ui = ns.db and ns.db.ui
+	local w = ui and tonumber(ui.mainWidth)
+	if w and w >= MIN_WIDTH then
+		return ClampMainWidth(w)
+	end
+	return DEFAULT_WIDTH
+end
+
+local function GetSavedMainHeight()
+	local ui = ns.db and ns.db.ui
+	local h = ui and tonumber(ui.mainHeight)
+	if h and h >= MIN_HEIGHT then
+		return ClampMainHeight(h)
+	end
+	return DEFAULT_HEIGHT
+end
+
+--- One-time bump for pre-v3 saves that are too short for Delves; never shrink a user-resized window.
+local function ResolveMainHeightForOpen()
+	local ui = ns.db and ns.db.ui
+	if not ui then
+		return DEFAULT_HEIGHT
+	end
+	local h = GetSavedMainHeight()
+	local ver = tonumber(ui.layoutVersion) or 0
+	if ui.mainWindowUserSized and h >= MIN_HEIGHT then
+		if ver < 3 then
+			ui.layoutVersion = 3
+		end
+		return h
+	end
+	if ver < 3 and h < MIN_DELVES_WINDOW_H then
+		h = DEFAULT_HEIGHT
+		ui.mainHeight = h
+		ui.layoutVersion = 3
+	elseif ver < 3 then
+		ui.layoutVersion = 3
+	end
+	return h
+end
+
+function ns:ApplySavedMainWindowSize()
+	if not self.mainUI then
+		return
+	end
+	local w = GetSavedMainWidth()
+	local h = ResolveMainHeightForOpen()
+	self.mainUI:SetSize(w, h)
+end
 
 local ABOUT_BTN_WIDTH = 110
 local ABOUT_BTN_HEIGHT = 22
@@ -143,6 +207,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_SMC"
 	elseif tabId == "professions" then
 		return "INFO_DRAWER_BODY_PROFESSIONS"
+	elseif tabId == "reference" then
+		return "INFO_DRAWER_BODY_REFERENCE"
 	elseif tabId == "guide" then
 		return "INFO_DRAWER_BODY_GUIDE"
 	elseif tabId == "macros" then
@@ -523,6 +589,49 @@ local function SetSMCWaypoint(point)
 			ns:L("WAYPOINT_SET"):format(point.label or "SMC", mapID, point.x or 0, point.y or 0)
 		)
 	)
+end
+
+function ns.GetSMCCityPin(pinId)
+	if not pinId then
+		return nil
+	end
+	for _, cat in ipairs(SMC_CATEGORIES) do
+		for _, pt in ipairs(cat.items or {}) do
+			if pt.id == pinId then
+				return pt
+			end
+		end
+	end
+	return nil
+end
+
+function ns.SetSMCCityWaypoint(pinId)
+	local pt = ns.GetSMCCityPin(pinId)
+	if pt then
+		SetSMCWaypoint(pt)
+	end
+end
+
+function ns.OpenSMCCityGuidePin(pinId)
+	if ns.EnsureMainUI then
+		ns:EnsureMainUI()
+	end
+	if ns.SelectTab then
+		ns.SelectTab("smcguide")
+	end
+	local pt = ns.GetSMCCityPin(pinId)
+	if not pt then
+		return
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.08, function()
+			if ns.JumpSMCCityGuideToPoint then
+				ns.JumpSMCCityGuideToPoint(pt)
+			end
+		end)
+	else
+		ns.JumpSMCCityGuideToPoint(pt)
+	end
 end
 
 -- Called from Guide search: open SMC tab and scroll the city list to a matching pin (no Delves.lua edits).
@@ -951,6 +1060,7 @@ end
 local TAB_DEFS = {
 	{ id = "delves", labelKey = "TAB_DELVES" },
 	{ id = "account", labelKey = "TAB_ACCOUNT_SNAPSHOT" },
+	{ id = "reference", labelKey = "TAB_REFERENCE" },
 	{ id = "smcguide", labelKey = "TAB_SMC" },
 	{ id = "professions", labelKey = "TAB_PROFESSIONS" },
 	{ id = "guide", labelKey = "TAB_GUIDE" },
@@ -996,7 +1106,9 @@ function ns:EnsureMainUI()
 	end
 
 	local main = CreateFrame("Frame", "MidnightHelperMainUI", UIParent, "BackdropTemplate")
-	main:SetSize(DEFAULT_WIDTH, DEFAULT_HEIGHT)
+	local initW = GetSavedMainWidth()
+	local initH = ResolveMainHeightForOpen()
+	main:SetSize(initW, initH)
 	main:SetPoint("CENTER")
 	main:SetFrameStrata("MEDIUM")
 	main:SetFrameLevel(100)
@@ -1300,6 +1412,7 @@ function ns:EnsureMainUI()
 			local keyById = {
 				delves = "TAB_DELVES",
 				account = "TAB_ACCOUNT_SNAPSHOT",
+				reference = "TAB_REFERENCE",
 				smcguide = "TAB_SMC",
 				professions = "TAB_PROFESSIONS",
 				guide = "TAB_GUIDE",
@@ -1419,6 +1532,8 @@ function ns:EnsureMainUI()
 				ns.BuildConsumablesPanel(panel)
 			elseif tab.id == "academy" and ns.BuildRoleAcademyPanel then
 				ns.BuildRoleAcademyPanel(panel)
+			elseif tab.id == "reference" and ns.BuildReferenceGuidePanel then
+				ns.BuildReferenceGuidePanel(panel)
 			end
 		end
 	end
@@ -1645,6 +1760,53 @@ function ns:EnsureMainUI()
 		end
 	end)
 
+	local function SaveMainWindowSize()
+		local dbUi = ns.db and ns.db.ui
+		if not dbUi then
+			return
+		end
+		dbUi.mainWidth = ClampMainWidth(math.floor(main:GetWidth() or DEFAULT_WIDTH))
+		dbUi.mainHeight = ClampMainHeight(math.floor(main:GetHeight() or DEFAULT_HEIGHT))
+		dbUi.mainWindowUserSized = true
+		dbUi.layoutVersion = math.max(tonumber(dbUi.layoutVersion) or 0, 3)
+	end
+
+	function ns:SaveMainWindowSize()
+		if not self.mainUI then
+			return
+		end
+		SaveMainWindowSize()
+	end
+
+	function ns:PrintMainWindowSize()
+		local dbUi = ns.db and ns.db.ui
+		local w = self.mainUI and math.floor(self.mainUI:GetWidth() or 0) or 0
+		local h = self.mainUI and math.floor(self.mainUI:GetHeight() or 0) or 0
+		local scale = dbUi and tonumber(dbUi.scale) or 1
+		local savedW = dbUi and tonumber(dbUi.mainWidth)
+		local savedH = dbUi and tonumber(dbUi.mainHeight)
+		local msg = self:L("FRAME_SIZE_REPORT"):format(w, h, scale, savedW or "-", savedH or "-")
+		DEFAULT_CHAT_FRAME:AddMessage(("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), msg))
+	end
+
+	main:SetScript("OnSizeChanged", function()
+		SaveMainWindowSize()
+	end)
+	titleBar:SetScript("OnDragStop", function()
+		main:StopMovingOrSizing()
+		if ns._mhLayoutRefs and ns._mhLayoutRefs.reanchorInfoWindow then
+			ns._mhLayoutRefs.reanchorInfoWindow()
+		end
+		SaveMainWindowSize()
+	end)
+	grip:SetScript("OnDragStop", function()
+		main:StopMovingOrSizing()
+		if ns._mhLayoutRefs and ns._mhLayoutRefs.reanchorInfoWindow then
+			ns._mhLayoutRefs.reanchorInfoWindow()
+		end
+		SaveMainWindowSize()
+	end)
+
 	ns._mhLocaleRefs = {
 		title = title,
 		titleVersion = titleVersion,
@@ -1691,6 +1853,7 @@ function ns:EnsureMainUI()
 
 	-- Default tab on first open
 	SelectTab(ns.uiSelectedTab or "delves")
+	ns:ApplySavedMainWindowSize()
 	ns:_mhRefreshSidePanel(ns.uiSelectedTab or "delves")
 
 	main:SetScript("OnHide", function()
@@ -1718,8 +1881,9 @@ function ns:EnsureMainUI()
 		end
 	end)
 
-	-- Apply the saved scale on load
+	-- Apply the saved scale on load, then restore user window dimensions (tab init must not override).
 	ns:ApplyCompactMode()
+	ns:ApplySavedMainWindowSize()
 
 	return main
 end
@@ -1755,6 +1919,27 @@ SelectTab = function(tabId)
 		local sid = ns.uiSelectedGuideSubTab or "guide"
 		if ns._mhSelectGuideSubTab then
 			ns._mhSelectGuideSubTab(sid)
+		end
+	end
+
+	if tabId == "reference" and ns.RefreshReferenceGuidePanel then
+		ns.RefreshReferenceGuidePanel()
+	end
+
+	if tabId == "delves" and ns.mainUI and ns.mainUI.SetHeight then
+		local dbUi = ns.db and ns.db.ui
+		local userSized = dbUi and dbUi.mainWindowUserSized
+		local mh = ns.mainUI:GetHeight() or 0
+		if not userSized and mh < MIN_DELVES_WINDOW_H then
+			local targetH = ClampMainHeight(math.max(MIN_DELVES_WINDOW_H, DEFAULT_HEIGHT))
+			ns.mainUI:SetHeight(targetH)
+			if dbUi then
+				dbUi.mainHeight = targetH
+				dbUi.layoutVersion = 3
+			end
+			if ns.RefreshDelvesPanel then
+				ns.RefreshDelvesPanel()
+			end
 		end
 	end
 
@@ -1823,6 +2008,7 @@ function ns:ToggleMainWindow()
 		main:Hide()
 	else
 		main:Show()
+		self:ApplySavedMainWindowSize()
 		if self.uiSelectedTab == "guide" and self._mhSelectGuideSubTab then
 			C_Timer.After(0, function()
 				if self._mhSelectGuideSubTab then
@@ -1836,6 +2022,7 @@ end
 function ns:ShowMainUI()
 	local main = self:EnsureMainUI()
 	main:Show()
+	self:ApplySavedMainWindowSize()
 	if self.uiSelectedTab == "guide" and self._mhSelectGuideSubTab then
 		C_Timer.After(0, function()
 			if self._mhSelectGuideSubTab then

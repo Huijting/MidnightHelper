@@ -54,6 +54,9 @@ Modules\DelveItemBrokers.lua
 Modules\DelveItemsPopup.lua
 Modules\DelveCuriosData.lua
 Modules\DelveCuriosAdvisor.lua
+Modules\DawncrestData.lua
+Modules\DawncrestGuide.lua
+Modules\ReferenceGuide.lua
 Modules\Profession.lua
 Modules\Delves.lua
 Modules\DelveCoach.lua

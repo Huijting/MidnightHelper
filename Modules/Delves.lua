@@ -98,7 +98,7 @@ local Config = ns.Config or {}
 local ITEM_TROVEHUNTER_BOUNTY = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY or 252415
 local ITEM_RAID_R_MINI = Config.DELVE_ITEM_RAID_R_MINI or 244193
 
-local TRACKER_ROW_HEIGHT = 26
+local TRACKER_ROW_HEIGHT = 24
 local ICON_SIZE = 22
 local ICON_NAME_GAP = 10
 local COL_GAP = 12
@@ -943,8 +943,8 @@ local midnightScrollChild
 
 local FOOTER_BTN_H = 26
 local FOOTER_BTN_H_GAP = 8
-local FOOTER_BOTTOM_INSET = 12
-local FOOTER_RESERVED = FOOTER_BOTTOM_INSET + FOOTER_BTN_H + 10
+local FOOTER_BOTTOM_INSET = 18
+local FOOTER_RESERVED = FOOTER_BOTTOM_INSET + FOOTER_BTN_H + 18
 
 local function GetDelvesAccordionSection()
 	local u = ns.db and ns.db.ui
