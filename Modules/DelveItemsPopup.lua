@@ -114,6 +114,10 @@ local SavePoint
 local eventFrame
 local GetItemCount
 local PlayerCarriesItem
+local EnsureSpellIdMapForItem
+local RefreshDelveConsumablesUi
+local MarkDelveConsumableActiveFromWorld
+local MarkDelveConsumableActiveFromSpell
 
 local TREASURE_ACTIVE_SPELL = Config.DELVE_ITEM_TROVEHUNTER_BOUNTY_SPELL or 1254631
 local RADAR_USE_SPELL = Config.DELVE_ITEM_RAID_R_MINI_USE_SPELL or 1236623
@@ -326,7 +330,7 @@ local function PlayerCarriesUnusableDelveItem(itemID)
 	return true
 end
 
-local function MarkDelveConsumableActiveFromWorld(itemID, skipUiRefresh)
+MarkDelveConsumableActiveFromWorld = function(itemID, skipUiRefresh)
 	if not itemID then
 		return false
 	end
@@ -345,12 +349,10 @@ local function MarkDelveConsumableActiveFromWorld(itemID, skipUiRefresh)
 	return true
 end
 
-local function MarkDelveConsumableActiveFromSpell(spellID)
+MarkDelveConsumableActiveFromSpell = function(spellID)
 	if not spellID or not IsDelveItemsUiAllowed() then
 		return false
 	end
-	EnsureSpellIdMapForItem(ITEM_RADAR)
-	EnsureSpellIdMapForItem(ITEM_TREASURE)
 	local itemID = SPELL_IDS_TO_ITEM[spellID]
 	if not itemID then
 		return false
@@ -358,22 +360,7 @@ local function MarkDelveConsumableActiveFromSpell(spellID)
 	return MarkDelveConsumableActiveFromWorld(itemID, InCombatLockdown())
 end
 
-local function OnDelveConsumableCombatLog()
-	if not IsDelveItemsUiAllowed() then
-		return
-	end
-	local _, subevent, _, sourceGUID = CombatLogGetCurrentEventInfo()
-	if sourceGUID ~= UnitGUID("player") then
-		return
-	end
-	if subevent ~= "SPELL_CAST_SUCCESS" and subevent ~= "SPELL_CAST_START" then
-		return
-	end
-	local spellID = select(12, CombatLogGetCurrentEventInfo())
-	MarkDelveConsumableActiveFromSpell(spellID)
-end
-
-local function RefreshDelveConsumablesUi()
+RefreshDelveConsumablesUi = function()
 	if InCombatLockdown() then
 		if eventFrame then
 			eventFrame._refreshWhenRegen = true
@@ -603,7 +590,7 @@ PlayerHasDelveConsumablesInBags = function()
 	return false
 end
 
-local function CollectActiveSpellIDsForItem(itemID)
+local function CollectConfigSpellIDsForItem(itemID)
 	local ids = {}
 	local seen = {}
 	local function add(id)
@@ -615,22 +602,33 @@ local function CollectActiveSpellIDsForItem(itemID)
 	end
 	if itemID == ITEM_TREASURE then
 		add(TREASURE_ACTIVE_SPELL)
-		if C_Item and C_Item.GetItemSpell then
-			local ok, _, spellID = pcall(C_Item.GetItemSpell, itemID)
-			if ok then
-				add(spellID)
-			end
-		end
 	elseif itemID == ITEM_RADAR then
 		add(RADAR_USE_SPELL)
 		for i = 1, #RADAR_ACTIVE_SPELLS do
 			add(RADAR_ACTIVE_SPELLS[i])
 		end
-		if C_Item and C_Item.GetItemSpell then
-			local ok, _, spellID = pcall(C_Item.GetItemSpell, itemID)
-			if ok then
-				add(spellID)
-			end
+	end
+	return ids
+end
+
+--- Config spell IDs plus optional GetItemSpell (aura sync only; not used for UNIT_SPELLCAST matching).
+local function CollectActiveSpellIDsForItem(itemID)
+	local ids = CollectConfigSpellIDsForItem(itemID)
+	local seen = {}
+	for i = 1, #ids do
+		seen[ids[i]] = true
+	end
+	local function add(id)
+		id = tonumber(id)
+		if id and not seen[id] then
+			seen[id] = true
+			ids[#ids + 1] = id
+		end
+	end
+	if C_Item and C_Item.GetItemSpell then
+		local ok, _, spellID = pcall(C_Item.GetItemSpell, itemID)
+		if ok then
+			add(spellID)
 		end
 	end
 	return ids
@@ -639,14 +637,14 @@ end
 local function RebuildSpellIdMap()
 	wipe(SPELL_IDS_TO_ITEM)
 	for _, itemID in ipairs({ ITEM_RADAR, ITEM_TREASURE }) do
-		local spellIDs = CollectActiveSpellIDsForItem(itemID)
+		local spellIDs = CollectConfigSpellIDsForItem(itemID)
 		for i = 1, #spellIDs do
 			SPELL_IDS_TO_ITEM[spellIDs[i]] = itemID
 		end
 	end
 end
 
-local function EnsureSpellIdMapForItem(itemID)
+EnsureSpellIdMapForItem = function(itemID)
 	if not itemID then
 		return
 	end
@@ -974,13 +972,6 @@ local function HideAllPopupSecureButtons()
 	if InCombatLockdown() then
 		return
 	end
-	if popupFrame and popupFrame._itemSlots then
-		for _, chrome in pairs(popupFrame._itemSlots) do
-			if chrome and chrome._mhSecureOverlayHost and chrome._mhSecureOverlayHost.Hide then
-				chrome._mhSecureOverlayHost:Hide()
-			end
-		end
-	end
 	for _, row in ipairs(ITEM_ROWS) do
 		local popupBtn = row.secureName and _G[row.secureName]
 		if popupBtn and popupBtn.Hide then
@@ -1005,14 +996,15 @@ end
 local SECURE_OVERLAY_STRATA = "TOOLTIP"
 local SECURE_OVERLAY_LEVEL = 200
 
-local function ApplyPopupSlotMacro(slot, itemID)
+--- SecureActionButton item click (same pattern as MissingClassBuff).
+local function ApplyPopupSlotSecureAction(slot, itemID)
 	if not slot or not itemID or InCombatLockdown() then
 		return
 	end
-	local itemRef = ("item:%d"):format(itemID)
-	slot:SetAttribute("type", "macro")
-	slot:SetAttribute("macrotext", ("/use %s"):format(itemRef))
-	slot:SetAttribute("item", nil)
+	slot:SetAttribute("type", "item")
+	slot:SetAttribute("item", ("item:%d"):format(itemID))
+	slot:SetAttribute("macrotext", nil)
+	slot:SetAttribute("spell", nil)
 end
 
 local function EnsurePopupSecureHitTexture(btn)
@@ -1042,7 +1034,7 @@ local function GetPopupSecureForRow(row)
 		btn:Hide()
 	end
 	btn:RegisterForClicks("AnyUp", "AnyDown")
-	ApplyPopupSlotMacro(btn, row.itemID)
+	ApplyPopupSlotSecureAction(btn, row.itemID)
 	EnsurePopupSecureHitTexture(btn)
 	btn._row = row
 	btn._mhSecureUseSlot = true
@@ -1134,24 +1126,9 @@ local function EndPopupDrag(f)
 	end
 end
 
---- Anonymous UIParent host positioned over chrome; secure child uses SetAllPoints(host) only.
-local function EnsureSecureOverlayHost(chrome)
-	if not chrome then
-		return nil
-	end
-	local host = chrome._mhSecureOverlayHost
-	if not host then
-		host = CreateFrame("Frame", nil, UIParent)
-		host:EnableMouse(false)
-		host:SetFrameStrata(SECURE_OVERLAY_STRATA)
-		host:SetFrameLevel(SECURE_OVERLAY_LEVEL - 1)
-		chrome._mhSecureOverlayHost = host
-	end
-	return host
-end
-
-local function PositionSecureOverlayHost(host, chrome)
-	if InCombatLockdown() or not host or not chrome then
+--- Position a global secure button on UIParent over chrome (MissingClassBuff pattern).
+local function PositionSecureButtonOverChrome(btn, chrome)
+	if InCombatLockdown() or not btn or not chrome then
 		return false
 	end
 	local left, bottom, width, height = GetChromeScreenRect(chrome)
@@ -1159,12 +1136,16 @@ local function PositionSecureOverlayHost(host, chrome)
 		return false
 	end
 	local ok = pcall(function()
-		host:ClearAllPoints()
-		host:SetSize(width, height)
-		host:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", left, bottom)
-		host:SetFrameStrata(SECURE_OVERLAY_STRATA)
-		host:SetFrameLevel(SECURE_OVERLAY_LEVEL - 1)
-		host:Show()
+		if btn:GetParent() ~= UIParent then
+			btn:SetParent(UIParent)
+		end
+		btn:ClearAllPoints()
+		btn:SetSize(width, height)
+		btn:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", left, bottom)
+		btn:SetFrameStrata(SECURE_OVERLAY_STRATA)
+		btn:SetFrameLevel(SECURE_OVERLAY_LEVEL)
+		btn:EnableMouse(true)
+		btn:Show()
 	end)
 	return ok
 end
@@ -1177,23 +1158,10 @@ local function AttachBrokerSecureToChrome(chrome, row)
 	if not btn then
 		return nil
 	end
-	local host = EnsureSecureOverlayHost(chrome)
-	if not host or not PositionSecureOverlayHost(host, chrome) then
-		return nil
+	if PositionSecureButtonOverChrome(btn, chrome) then
+		return btn
 	end
-	local ok = pcall(function()
-		btn:SetParent(host)
-		btn:ClearAllPoints()
-		btn:SetAllPoints(host)
-		btn:SetFrameStrata(SECURE_OVERLAY_STRATA)
-		btn:SetFrameLevel(SECURE_OVERLAY_LEVEL)
-		btn:EnableMouse(true)
-		btn:Show()
-	end)
-	if not ok then
-		return nil
-	end
-	return btn
+	return nil
 end
 
 function ns:RefreshDelvePopupSecurePositions()
@@ -1209,9 +1177,15 @@ function ns:RefreshDelvePopupSecurePositions()
 	end
 	for _, chrome in pairs(slots) do
 		if chrome and chrome._mhPopupChrome and chrome:IsShown() and chrome._row then
-			AttachBrokerSecureToChrome(chrome, chrome._row)
-		elseif chrome and chrome._mhSecureOverlayHost and not InCombatLockdown() then
-			chrome._mhSecureOverlayHost:Hide()
+			if ns.IsDelveConsumableActive and ns:IsDelveConsumableActive(chrome._row.itemID) then
+				local popupName = POPUP_SECURE_BY_ITEM[chrome._row.itemID]
+				local btn = popupName and _G[popupName]
+				if btn and btn.Hide then
+					btn:Hide()
+				end
+			else
+				AttachBrokerSecureToChrome(chrome, chrome._row)
+			end
 		end
 	end
 end
@@ -1338,8 +1312,13 @@ local function UpdatePopupItemSlot(chrome, row, count)
 	end
 	if chrome._row and not chrome._mhConsumableActive then
 		AttachBrokerSecureToChrome(chrome, chrome._row)
-	elseif chrome._mhSecureOverlayHost then
-		chrome._mhSecureOverlayHost:Hide()
+	else
+		local itemID = chrome._itemID or (chrome._row and chrome._row.itemID)
+		local popupName = itemID and POPUP_SECURE_BY_ITEM[itemID]
+		local btn = popupName and _G[popupName]
+		if btn and btn.Hide and not InCombatLockdown() then
+			btn:Hide()
+		end
 	end
 end
 
@@ -1456,8 +1435,10 @@ local function ShowPopupSlot(chrome, row)
 		return
 	end
 	if ns.IsDelveConsumableActive and ns:IsDelveConsumableActive(row.itemID) then
-		if chrome._mhSecureOverlayHost and not InCombatLockdown() then
-			chrome._mhSecureOverlayHost:Hide()
+		local popupName = POPUP_SECURE_BY_ITEM[row.itemID]
+		local btn = popupName and _G[popupName]
+		if btn and btn.Hide and not InCombatLockdown() then
+			btn:Hide()
 		end
 		return
 	end
@@ -1975,9 +1956,9 @@ eventFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
 eventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 eventFrame:RegisterEvent("SCENARIO_UPDATE")
 eventFrame:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
-eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 eventFrame:RegisterUnitEvent("UNIT_AURA", "player")
+eventFrame:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
 eventFrame:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
 eventFrame:SetScript("OnEvent", function(_, event, arg1, arg2, arg3)
 	if event == "ADDON_LOADED" then
@@ -2050,16 +2031,11 @@ eventFrame:SetScript("OnEvent", function(_, event, arg1, arg2, arg3)
 		return
 	end
 
-	if event == "UNIT_SPELLCAST_SUCCEEDED" then
+	if event == "UNIT_SPELLCAST_START" or event == "UNIT_SPELLCAST_SUCCEEDED" then
 		if arg1 ~= "player" or not IsDelveItemsUiAllowed() then
 			return
 		end
 		MarkDelveConsumableActiveFromSpell(arg3)
-		return
-	end
-
-	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-		OnDelveConsumableCombatLog()
 		return
 	end
 

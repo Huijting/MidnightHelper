@@ -4,13 +4,30 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.3.2] - 2026-05-23
+
 ### Added
 
 - **Leveling Guides — In groups** advisor tab: dungeon/raid interrupt priority, defensive timing, and party tips per role (tank, healer, melee, caster, support) at level brackets 10/30/60/80.
 - Search keywords (`in groups`, `dungeon tips`, `interrupt priority`, …) open Leveling Guides on the In groups tab.
+- Leveling Guides tab: **Layout** sub-tab with the ISO keyboard prototype (Midnight key highlights).
+- SMC City Guide: weekly/hub checklist using `C_QuestLog.IsQuestFlaggedCompleted`; waypoint buttons tint green when done (configure quest IDs in `Modules/SMCChecklistData.lua`).
 
-- Leveling Guides tab: **Layout** sub-tab with the ISO keyboard prototype (Midnight key highlights) using `Modules/KeyboardLayoutPrototype.lua` and `Modules/KeybindingData.lua`.
-- SMC City Guide: weekly/hub checklist using `C_QuestLog.IsQuestFlaggedCompleted`; waypoint buttons for linked pins tint green when done. Configure quest IDs in `Modules/SMCChecklistData.lua` (verify after patches). Default ships with **no** quest IDs until confirmed (avoids false “Done” from placeholder IDs).
+### Fixed
+
+- **Delve consumables popup:** secure item buttons and session tracking without Lua errors; no forbidden combat-log registration on Midnight.
+- Spell-cast detection for consumable “used” state uses safe unit events only.
+
+## [1.3.1] - 2026-05-24
+
+### Added
+
+- **Valeera curio advisor** on the Delves tab and at repair / gossip NPCs.
+- Delve consumables popup improvements: per-delve session tracking, active-state hints, `/mh items mark`.
+
+### Changed
+
+- Delve consumable secure clicks use Blizzard `SecureActionButton` item attributes (same pattern as common click-to-use addons).
 
 ## [1.3.0] - 2026-05-19
 

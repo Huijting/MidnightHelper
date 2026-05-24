@@ -97,9 +97,10 @@ local function EnsureSecureUseButton(entry)
 	local btn = CreateFrame("Button", entry.secureName, UIParent, "SecureActionButtonTemplate")
 	btn:SetSize(1, 1)
 	btn:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-	btn:SetAttribute("type", "macro")
-	btn:SetAttribute("macrotext", ("/use item:%d"):format(entry.itemID))
-	btn:SetAttribute("item", nil)
+	btn:SetAttribute("type", "item")
+	btn:SetAttribute("item", ("item:%d"):format(entry.itemID))
+	btn:SetAttribute("macrotext", nil)
+	btn:SetAttribute("spell", nil)
 	btn:RegisterForClicks("AnyUp", "AnyDown")
 	entry.useBtn = btn
 	return btn

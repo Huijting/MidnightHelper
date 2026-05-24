@@ -2,30 +2,31 @@
 
 Midnight Helper is an all-in-one World of Warcraft addon for quick weekly planning and character management.
 
-It combines Delves, Great Vault progress, alt snapshots, professions utilities, and city guide helpers in one compact UI.
+It combines Delves, Great Vault progress, alt snapshots, in-delve coaching, professions utilities, leveling guides, and city guide helpers in one compact UI.
 
 ## Features
 
-- Delves dashboard with current currencies and bountiful tracking.
-- **Delve Coach** — in-delve tips for all 11 Midnight delves (EN/NL), boss 3D preview, scroll-zoom, spell tooltips.
-- Great Vault helper on the Delves tab.
-- Account snapshot with per-character overview:
-  - Keys, Shards, Undercoins
-  - Great Vault compact status for World / Dungeons / Raids
-- Subtle reset-day highlight for characters with claimable vault rewards.
-- Profession helper tools and overview.
-- SMC City Guide with waypoint support.
-- Optional TomTom waypoint integration.
-- English and Dutch UI support (`enUS`, `nlNL`).
+- Delves dashboard with currencies, bountiful tracking, Great Vault helper, and travel assistant.
+- **Delve Coach** — tips for all 11 Midnight delves; boss 3D preview; party share to group chat.
+- **Delve consumables** — RAID-R Mini / Trovehunter's Bounty popup and minimap buttons (in-delve only).
+- **Valeera curio advisor** — Delves tab + repair/gossip popup.
+- Account snapshot with per-character vault status, keys, shards, and profession currency tooltips.
+- Profession tools, Role Academy, Macros, Consumables, Leveling Guides (advisor + In groups + Layout).
+- SMC City Guide with waypoints and optional weekly checklist.
+- Optional TomTom waypoint integration (Blizzard map fallback when absent).
+- **Languages:** English, Deutsch, Français, Español, Português (BR), Nederlands (`/mh lang`).
+
+See `CURSEFORGE_DESCRIPTION.md` for the full feature list.
 
 ## Commands
 
-- `/mh` or `/midnight` - Toggle main window
-- `/mh lang en` - Switch language to English
-- `/mh lang nl` - Switch language to Dutch
-- `/mh settings` - Open quick settings
-- `/mh coach` - Open Delve Coach (picker or active delve)
-- `/mh debug` - Toggle debug mode
+- `/mh` or `/midnight` — toggle main window
+- `/mh coach` — Delve Coach
+- `/mh items` — delve consumables panel
+- `/mh lang auto|en|de|fr|es|pt|nl` — language
+- `/mh settings` — quick settings
+- `/mh changelog` — changelog window
+- `/mh debug` — debug mode
 
 ## Requirements
 
