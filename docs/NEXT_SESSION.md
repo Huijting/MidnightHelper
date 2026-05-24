@@ -19,8 +19,11 @@
 
 ## Volgende stap
 
-1. **In-game test** polish: `/mh lang de|fr|es|pt` → Leveling Guide (Advisor + Gear), Delve Coach, Gids-tab
-2. About/changelog CF-tekst → upload pas na gate ✅ (geen CF tot test ✅)
+1. **Professions-gids** fase 1+2 in game testen (EN/NL) — sub-tab Professions, Alchemy/Enchanting/Herb/Skinning/LW
+2. Meer professions (BS, Tailoring, JC, Cooking, Fishing, …) in `ProfessionsGuideData.lua`
+3. About/changelog CF-tekst → upload pas na gate ✅ (geen CF tot test ✅)
+
+**In-game talen (6 packs):** getest en goed bevonden ✅
 
 ---
 

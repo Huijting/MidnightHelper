@@ -318,7 +318,7 @@ local function AcquireChatRow(panel, parent, index)
 		copyBtn:SetScript("OnEnter", function(self)
 			if _G.GameTooltip then
 				_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-				_G.GameTooltip:SetText(SL("ACADEMY_CHAT_COPY_TIP"), 1, 1, 1, true)
+				_G.GameTooltip:SetText(SL("ACADEMY_CHAT_COPY_TIP"), 1, 1, 1, 1, true)
 				_G.GameTooltip:Show()
 			end
 		end)

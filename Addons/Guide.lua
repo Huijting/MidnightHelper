@@ -274,42 +274,46 @@ local function EnsureConsNameCopyFrame()
 		return consNameCopyFrame
 	end
 	local f = CreateFrame("Frame", "MidnightHelperConsNameCopy", UIParent, "BackdropTemplate")
-	f:SetSize(400, 100)
+	f:SetSize(380, 120)
 	f:SetFrameStrata("DIALOG")
 	f:SetFrameLevel(2000)
-	f:EnableMouse(true)
-	f:SetClampedToScreen(true)
-	if f.SetBackdrop then
-		f:SetBackdrop({
-			bgFile = "Interface\\Buttons\\WHITE8X8",
-			edgeFile = "Interface\\Buttons\\WHITE8X8",
-			tile = true,
-			tileSize = 8,
-			edgeSize = 1,
-			insets = { left = 2, right = 2, top = 2, bottom = 2 },
-		})
-		f:SetBackdropColor(0.08, 0.08, 0.10, 0.98)
-		f:SetBackdropBorderColor(0.4, 0.42, 0.5, 0.95)
+	if ns.ApplyMidnightDialogBackdrop then
+		ns.ApplyMidnightDialogBackdrop(f)
 	end
-	local inst = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-	inst:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -12)
-	inst:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -12)
-	inst:SetJustifyH("LEFT")
-	inst:SetTextColor(0.9, 0.88, 0.8)
-	inst:SetText("Press Ctrl+C to copy the name for the Auction House.")
-	local eb = CreateFrame("EditBox", nil, f)
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f)
+	end
+
+	local titleBar, content = ns.EnsureMidnightDialogTitleBar(f)
+	local titleFs = titleBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	titleFs:SetPoint("CENTER", titleBar, "CENTER", -6, 0)
+	titleFs:SetJustifyH("CENTER")
+	titleFs:SetTextColor(1, 0.9, 0.55)
+	titleFs:SetText(ns:L("GUIDE_CONS_COPY_TITLE"))
+	f._title = titleFs
+
+	local inst = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	inst:SetPoint("TOPLEFT", titleBar, "BOTTOMLEFT", 2, -8)
+	inst:SetPoint("TOPRIGHT", titleBar, "BOTTOMRIGHT", -2, -8)
+	inst:SetJustifyH("CENTER")
+	inst:SetWordWrap(true)
+	inst:SetTextColor(0.82, 0.8, 0.74)
+	inst:SetText(ns:L("GUIDE_CONS_COPY_HINT"))
+	f._hint = inst
+
+	local eb = CreateFrame("EditBox", nil, content)
 	eb:SetAutoFocus(false)
 	eb:SetMultiLine(false)
 	eb:SetMaxLetters(256)
 	eb:SetFontObject("GameFontHighlight")
 	eb:SetTextInsets(8, 8, 6, 6)
-	eb:SetHeight(30)
+	eb:SetHeight(28)
 	eb:SetPoint("TOPLEFT", inst, "BOTTOMLEFT", 0, -10)
-	eb:SetPoint("RIGHT", f, "RIGHT", -12, 0)
-	local ebBg = eb:CreateTexture(nil, "BACKGROUND")
-	ebBg:SetAllPoints()
-	ebBg:SetColorTexture(0.1, 0.1, 0.14, 0.95)
+	eb:SetPoint("RIGHT", content, "RIGHT", -2, 0)
 	eb:SetTextColor(0.92, 0.9, 0.85)
+	if ns.StyleMidnightEditBoxHost then
+		ns.StyleMidnightEditBoxHost(eb, content)
+	end
 	eb:SetScript("OnEscapePressed", function(self)
 		self:ClearFocus()
 		f:Hide()
@@ -323,13 +327,14 @@ local function EnsureConsNameCopyFrame()
 		end
 		self:HighlightText(0, -1)
 	end)
-	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-	close:SetPoint("TOPRIGHT", f, "TOPRIGHT", 2, 2)
-	close:SetScript("OnClick", function()
-		eb:ClearFocus()
-		f:Hide()
-	end)
 	f._edit = eb
+
+	ns.AttachMidnightDialogCloseButton(f, function()
+		if f._edit then
+			f._edit:ClearFocus()
+		end
+	end)
+
 	f:Hide()
 	consNameCopyFrame = f
 	return f
@@ -342,16 +347,11 @@ local function ShowConsumableNameCopyPopup(anchor, itemName, theme)
 	end
 	local f = EnsureConsNameCopyFrame()
 	f:SetParent(UIParent)
-	local th = theme or DEFAULT_THEME
-	if f.SetBackdropBorderColor and th and th.titleColor then
-		local c = th.titleColor
-		f:SetBackdropBorderColor(c[1], c[2], c[3], 0.95)
+	if f._hint then
+		f._hint:SetText(ns:L("GUIDE_CONS_COPY_HINT"))
 	end
-	f:ClearAllPoints()
-	if anchor then
-		f:SetPoint("TOP", anchor, "BOTTOM", 0, -6)
-	else
-		f:SetPoint("CENTER", UIParent, "CENTER", 0, 80)
+	if ns.PositionMidnightPopupAboveCharacter then
+		ns.PositionMidnightPopupAboveCharacter(f, 120)
 	end
 	f:Show()
 	f:Raise()

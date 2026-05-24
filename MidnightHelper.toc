@@ -46,6 +46,7 @@ Modules\RoleAcademy.lua
 Modules\SMCChecklistData.lua
 Modules\SMCChecklist.lua
 UI.lua
+Modules\DialogPopup.lua
 Modules\Changelog.lua
 Modules\VaultReminder.lua
 Modules\MidnightToast.lua
@@ -56,6 +57,8 @@ Modules\DelveCuriosData.lua
 Modules\DelveCuriosAdvisor.lua
 Modules\DawncrestData.lua
 Modules\DawncrestGuide.lua
+Modules\ProfessionsGuideData.lua
+Modules\ProfessionsGuide.lua
 Modules\ReferenceGuide.lua
 Modules\Profession.lua
 Modules\Delves.lua
