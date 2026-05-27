@@ -170,6 +170,40 @@ local function ApplyProfileSuffix(base, profile)
 	return base
 end
 
+local function GetActivityCategoryKey(activityType)
+	local t = tonumber(activityType)
+	if ns.VAULT_ADVISOR_ACTIVITY_TYPES and t then
+		return ns.VAULT_ADVISOR_ACTIVITY_TYPES[t] or "other"
+	end
+	return "other"
+end
+
+local function CollectActivityProfileHints()
+	local hints = { dungeon = false, raid = false, world = false }
+	if not C_WeeklyRewards or not C_WeeklyRewards.GetActivities then
+		return hints
+	end
+	local ok, activities = pcall(C_WeeklyRewards.GetActivities)
+	if not ok or type(activities) ~= "table" then
+		return hints
+	end
+	for a = 1, #activities do
+		local activity = activities[a]
+		local rewards = activity and activity.rewards
+		if type(rewards) == "table" and #rewards > 0 then
+			local cat = GetActivityCategoryKey(activity.type)
+			if cat == "dungeon" then
+				hints.dungeon = true
+			elseif cat == "raid" then
+				hints.raid = true
+			elseif cat == "world" then
+				hints.world = true
+			end
+		end
+	end
+	return hints
+end
+
 local function GetSpecWeightKey(activityHints)
 	local classID = select(3, UnitClass("player"))
 	local specIndex = GetSpecialization and GetSpecialization()
@@ -279,40 +313,6 @@ local function GetActiveHeroTalentLabel()
 		return names[heroID], heroID
 	end
 	return nil, heroID
-end
-
-local function CollectActivityProfileHints()
-	local hints = { dungeon = false, raid = false, world = false }
-	if not C_WeeklyRewards or not C_WeeklyRewards.GetActivities then
-		return hints
-	end
-	local ok, activities = pcall(C_WeeklyRewards.GetActivities)
-	if not ok or type(activities) ~= "table" then
-		return hints
-	end
-	for a = 1, #activities do
-		local activity = activities[a]
-		local rewards = activity and activity.rewards
-		if type(rewards) == "table" and #rewards > 0 then
-			local cat = GetActivityCategoryKey(activity.type)
-			if cat == "dungeon" then
-				hints.dungeon = true
-			elseif cat == "raid" then
-				hints.raid = true
-			elseif cat == "world" then
-				hints.world = true
-			end
-		end
-	end
-	return hints
-end
-
-local function GetActivityCategoryKey(activityType)
-	local t = tonumber(activityType)
-	if ns.VAULT_ADVISOR_ACTIVITY_TYPES and t then
-		return ns.VAULT_ADVISOR_ACTIVITY_TYPES[t] or "other"
-	end
-	return "other"
 end
 
 local function LoadWeeklyRewardsUI()
