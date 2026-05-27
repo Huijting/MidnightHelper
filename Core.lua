@@ -64,6 +64,7 @@ local DEFAULT_DB = {
 		vaultAdvisor = {
 			usePawn = true,
 			profileMode = "auto",
+			showBlizzardPanel = true,
 		},
 		--- Floating Delve Coach panel (position, minimize state).
 		--- Floating RAID-R Mini / Trovehunter's Bounty buttons (beside Delve Coach in delves).

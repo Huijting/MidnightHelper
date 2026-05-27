@@ -73,7 +73,11 @@
       "primary": "Agility",
       "wowheadClass": "druid",
       "wowheadSpec": "feral",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/feral-druid-pve-dps-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/feral-druid-pve-dps-stat-priority",
+      "heroTalents": [
+        { "heroID": 21, "label": "Druid of the Claw", "widgetIndex": 0 },
+        { "heroID": 22, "label": "Wildstalker", "widgetIndex": 1 }
+      ]
     },
     {
       "class": "DRUID",
@@ -83,7 +87,11 @@
       "primary": "Agility",
       "wowheadClass": "druid",
       "wowheadSpec": "guardian",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/guardian-druid-pve-tank-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/guardian-druid-pve-tank-stat-priority",
+      "heroTalents": [
+        { "heroID": 21, "label": "Druid of the Claw", "widgetIndex": 0 },
+        { "heroID": 23, "label": "Keeper of the Grove", "widgetIndex": 1 }
+      ]
     },
     {
       "class": "DRUID",
@@ -94,6 +102,10 @@
       "wowheadClass": "druid",
       "wowheadSpec": "restoration",
       "icyVeinsUrl": "https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority",
+      "heroTalents": [
+        { "heroID": 23, "label": "Keeper of the Grove", "widgetIndex": 0 },
+        { "heroID": 24, "label": "Elune's Chosen", "widgetIndex": 1 }
+      ],
       "profiles": {
         "mplus": {
           "widgetIndex": 2,
@@ -209,7 +221,11 @@
       "primary": "Agility",
       "wowheadClass": "monk",
       "wowheadSpec": "brewmaster",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/brewmaster-monk-pve-tank-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/brewmaster-monk-pve-tank-stat-priority",
+      "heroTalents": [
+        { "heroID": 65, "label": "Shado-Pan", "widgetIndex": 0 },
+        { "heroID": 66, "label": "Master of Harmony", "widgetIndex": 1 }
+      ]
     },
     {
       "class": "MONK",
@@ -230,6 +246,10 @@
       "wowheadClass": "monk",
       "wowheadSpec": "mistweaver",
       "icyVeinsUrl": "https://www.icy-veins.com/wow/mistweaver-monk-pve-healing-stat-priority",
+      "heroTalents": [
+        { "heroID": 64, "label": "Conduit of the Celestials", "widgetIndex": 0 },
+        { "heroID": 66, "label": "Master of Harmony", "widgetIndex": 1 }
+      ],
       "profiles": {
         "mplus": {
           "priority": ["haste", "crit", "vers", "mastery"],
@@ -246,9 +266,13 @@
       "wowheadClass": "paladin",
       "wowheadSpec": "holy",
       "icyVeinsUrl": "https://www.icy-veins.com/wow/holy-paladin-pve-healing-stat-priority",
+      "heroTalents": [
+        { "heroID": 50, "label": "Herald of the Sun", "widgetIndex": 0 },
+        { "heroID": 49, "label": "Lightsmith", "widgetIndex": 1 }
+      ],
       "profiles": {
         "mplus": {
-          "widgetIndex": 1,
+          "widgetIndex": 2,
           "label": "Mythic+",
           "priorityText": "Intellect > Mastery > Crit > Haste > Vers (M+)"
         }
@@ -262,7 +286,11 @@
       "primary": "Strength",
       "wowheadClass": "paladin",
       "wowheadSpec": "protection",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/protection-paladin-pve-tank-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/protection-paladin-pve-tank-stat-priority",
+      "heroTalents": [
+        { "heroID": 48, "label": "Templar", "widgetIndex": 0 },
+        { "heroID": 49, "label": "Lightsmith", "widgetIndex": 1 }
+      ]
     },
     {
       "class": "PALADIN",
@@ -283,6 +311,10 @@
       "wowheadClass": "priest",
       "wowheadSpec": "discipline",
       "icyVeinsUrl": "https://www.icy-veins.com/wow/discipline-priest-pve-healing-stat-priority",
+      "heroTalents": [
+        { "heroID": 19, "label": "Archon", "widgetIndex": 0 },
+        { "heroID": 20, "label": "Oracle", "widgetIndex": 1 }
+      ],
       "profiles": {
         "mplus": {
           "priority": ["haste", "crit", "mastery", "vers"],
@@ -299,10 +331,13 @@
       "wowheadClass": "priest",
       "wowheadSpec": "holy",
       "icyVeinsUrl": "https://www.icy-veins.com/wow/holy-priest-pve-healing-stat-priority",
+      "heroTalents": [
+        { "heroID": 19, "label": "Archon", "widgetIndex": 0 },
+        { "heroID": 20, "label": "Oracle", "widgetIndex": 1 }
+      ],
       "profiles": {
         "mplus": {
-          "widgetIndex": 1,
-          "label": "Mythic+",
+          "priority": ["crit", "vers", "haste", "mastery"],
           "priorityText": "Intellect > Crit > Vers > Haste > Mastery (M+)"
         }
       }
@@ -359,7 +394,11 @@
       "wowheadSpec": "elemental",
       "icyVeinsUrl": "https://www.icy-veins.com/wow/elemental-shaman-pve-dps-stat-priority",
       "ties": [["haste", "crit"]],
-      "priorityText": "Intellect > Mastery > Haste = Crit > Vers"
+      "priorityText": "Intellect > Mastery > Haste = Crit > Vers",
+      "heroTalents": [
+        { "heroID": 55, "label": "Stormbringer", "widgetIndex": 0 },
+        { "heroID": 56, "label": "Farseer", "widgetIndex": 1 }
+      ]
     },
     {
       "class": "SHAMAN",
@@ -456,76 +495,5 @@
       "icyVeinsUrl": "https://www.icy-veins.com/wow/protection-warrior-pve-tank-stat-priority"
     }
   ],
-  "heroEntries": [
-    {
-      "key": "SHAMAN_262_HERO_55",
-      "class": "SHAMAN",
-      "specID": 262,
-      "heroID": 55,
-      "label": "Elemental Shaman (Stormbringer)",
-      "priority": ["mastery", "crit", "haste", "vers"],
-      "ties": [["mastery", "crit"]],
-      "priorityText": "Intellect > Mastery >= Crit > Haste > Vers",
-      "sources": [
-        {
-          "name": "Method",
-          "url": "https://www.method.gg/guides/elemental-shaman/stats-races-and-consumables"
-        }
-      ]
-    },
-    {
-      "key": "SHAMAN_262_HERO_56",
-      "class": "SHAMAN",
-      "specID": 262,
-      "heroID": 56,
-      "label": "Elemental Shaman (Farseer)",
-      "priority": ["mastery", "haste", "vers", "crit"],
-      "priorityText": "Intellect > Mastery > Haste > Vers > Crit",
-      "sources": [
-        {
-          "name": "Method",
-          "url": "https://www.method.gg/guides/elemental-shaman/stats-races-and-consumables"
-        }
-      ]
-    },
-    {
-      "key": "SHAMAN_263_HERO_54",
-      "class": "SHAMAN",
-      "specID": 263,
-      "heroID": 54,
-      "label": "Enhancement Shaman (Totemic)",
-      "priority": ["mastery", "haste", "crit", "vers"],
-      "priorityText": "Agility > Mastery > Haste > Crit > Vers",
-      "sources": [
-        {
-          "name": "Icy Veins",
-          "url": "https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-stat-priority"
-        },
-        {
-          "name": "Wowhead",
-          "url": "https://www.wowhead.com/guide/classes/shaman/enhancement/stat-priority-pve-dps"
-        }
-      ]
-    },
-    {
-      "key": "SHAMAN_263_HERO_55",
-      "class": "SHAMAN",
-      "specID": 263,
-      "heroID": 55,
-      "label": "Enhancement Shaman (Stormbringer)",
-      "priority": ["haste", "mastery", "crit", "vers"],
-      "ties": [["mastery", "crit"]],
-      "priorityText": "Agility > Haste > Mastery = Crit > Vers",
-      "sources": [
-        {
-          "name": "Icy Veins",
-          "url": "https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-stat-priority"
-        },
-        {
-          "name": "Wowhead",
-          "url": "https://www.wowhead.com/guide/classes/shaman/enhancement/stat-priority-pve-dps"
-        }
-      ]
-    }
-  ]
+  "heroEntries": []
 }

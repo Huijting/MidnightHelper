@@ -257,7 +257,14 @@ local function EnsureSettingsFrame()
 		local chk = CreateFrame("CheckButton", nil, parent, "UICheckButtonTemplate")
 		chk:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", -2, offsetY)
 		chk:SetScript("OnClick", function(self)
-			if setter == "pawn" then
+			if setter == "blizzard" then
+				if ns.SetVaultAdvisorOption then
+					ns.SetVaultAdvisorOption("showBlizzardPanel", self:GetChecked())
+				end
+				if ns.RefreshBlizzardVaultBanner then
+					ns.RefreshBlizzardVaultBanner()
+				end
+			elseif setter == "pawn" then
 				if ns.SetVaultAdvisorOption then
 					ns.SetVaultAdvisorOption("usePawn", self:GetChecked())
 				end
@@ -275,7 +282,8 @@ local function EnsureSettingsFrame()
 		return chk
 	end
 
-	f._vaultUsePawn = MakeAdvisorChk(f, vaultAdvisorLabel, -6, "usePawn", "pawn")
+	f._vaultBlizzardPanel = MakeAdvisorChk(f, vaultAdvisorLabel, -6, "showBlizzardPanel", "blizzard")
+	f._vaultUsePawn = MakeAdvisorChk(f, f._vaultBlizzardPanel, -4, "usePawn", "pawn")
 	f._vaultMplusProfile = MakeAdvisorChk(f, f._vaultUsePawn, -4, "mplus", "mplus")
 
 	function f:_refresh()
@@ -334,6 +342,13 @@ local function EnsureSettingsFrame()
 			self._vaultAdvisorLabel:SetText(ns:L("SETTINGS_VAULT_ADVISOR_LABEL"))
 		end
 		local vas = ns.GetVaultAdvisorSettings and ns.GetVaultAdvisorSettings() or {}
+		if self._vaultBlizzardPanel and self._vaultBlizzardPanel._text then
+			self._vaultBlizzardPanel:SetChecked(vas.showBlizzardPanel ~= false)
+			self._vaultBlizzardPanel._text:SetText(ns:L("SETTINGS_VAULT_ADVISOR_SHOW_BLIZZARD"))
+			if self._vaultBlizzardPanel._text.SetTextColor then
+				self._vaultBlizzardPanel._text:SetTextColor(0.95, 0.9, 0.74)
+			end
+		end
 		if self._vaultUsePawn and self._vaultUsePawn._text then
 			self._vaultUsePawn:SetChecked(vas.usePawn ~= false)
 			self._vaultUsePawn._text:SetText(ns:L("SETTINGS_VAULT_ADVISOR_USE_PAWN"))

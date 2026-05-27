@@ -1430,27 +1430,6 @@ local function RefreshDelvesPanel()
 			end
 		end
 
-		local advisorH = 0
-		if ns.RefreshVaultAdvisorPanel then
-			if not ns.vaultAdvisorHost then
-				ns.vaultAdvisorHost = CreateFrame("Frame", nil, ns.vaultPanel)
-			else
-				ns.vaultAdvisorHost:SetParent(ns.vaultPanel)
-			end
-			ns.vaultAdvisorHost:ClearAllPoints()
-			ns.vaultAdvisorHost:SetPoint("TOPLEFT", ns.vaultBoxes[3], "BOTTOMLEFT", 0, -10)
-			ns.vaultAdvisorHost:SetPoint("RIGHT", ns.vaultPanel, "RIGHT", -VAULT_PAD, 0)
-			ns.vaultAdvisorHost:SetWidth(rowInnerW)
-			advisorH = ns.RefreshVaultAdvisorPanel(ns.vaultAdvisorHost, rowInnerW, vaultClaimReady) or 0
-			if advisorH > 0 then
-				ns.vaultAdvisorHost:SetHeight(advisorH)
-				ns.vaultAdvisorHost:Show()
-				vaultPanelH = vaultPanelH + 10 + advisorH
-			else
-				ns.vaultAdvisorHost:Hide()
-			end
-		end
-
 		ns.vaultPanel:SetHeight(vaultPanelH)
 	end
 

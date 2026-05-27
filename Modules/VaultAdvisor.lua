@@ -24,7 +24,10 @@ local function GetVaultAdvisorSettings()
 		return { usePawn = true, profileMode = "auto" }
 	end
 	if type(ui.vaultAdvisor) ~= "table" then
-		ui.vaultAdvisor = { usePawn = true, profileMode = "auto" }
+		ui.vaultAdvisor = { usePawn = true, profileMode = "auto", showBlizzardPanel = true }
+	end
+	if ui.vaultAdvisor.showBlizzardPanel == nil then
+		ui.vaultAdvisor.showBlizzardPanel = true
 	end
 	return ui.vaultAdvisor
 end
@@ -41,11 +44,18 @@ function ns.SetVaultAdvisorOption(key, value)
 		if value == "raid" or value == "mplus" or value == "auto" then
 			s.profileMode = value
 		end
+	elseif key == "showBlizzardPanel" then
+		s.showBlizzardPanel = value and true or false
 	end
 end
 
 local function IsPawnAvailable()
 	return PawnGetItemData ~= nil and PawnGetSingleValueFromItem ~= nil
+end
+
+local function ShouldShowBlizzardVaultPanel()
+	local s = GetVaultAdvisorSettings()
+	return s.showBlizzardPanel ~= false
 end
 
 local function ShouldUsePawn()
@@ -95,8 +105,14 @@ end
 local advisorPanel
 local choiceRows = {}
 local blizzardVaultBanner
+local blizzardVaultRows = {}
 local lastScanKey
 local pendingRescan = false
+
+local BANNER_WIDTH = 320
+local BANNER_GAP = 14
+local BANNER_MAX_ROWS = 12
+local BANNER_FOOTER_RESERVE = 52
 
 local function ScheduleRescan()
 	if pendingRescan then
@@ -361,198 +377,6 @@ local function LoadWeeklyRewardsUI()
 			end)
 		end
 	end)
-end
-
-local function EnsureBlizzardVaultBanner()
-	LoadWeeklyRewardsUI()
-	if not WeeklyRewardsFrame then
-		return nil
-	end
-	if blizzardVaultBanner and blizzardVaultBanner:GetParent() == WeeklyRewardsFrame then
-		return blizzardVaultBanner
-	end
-
-	local f = CreateFrame("Frame", "MidnightHelperVaultAdvisorBanner", WeeklyRewardsFrame, "BackdropTemplate")
-	f:SetFrameStrata("DIALOG")
-	f:SetFrameLevel((WeeklyRewardsFrame:GetFrameLevel() or 0) + 20)
-	if ns.ApplyMidnightDialogBackdrop then
-		ns.ApplyMidnightDialogBackdrop(f)
-	end
-	f:SetPoint("TOPLEFT", WeeklyRewardsFrame, "TOPLEFT", 20, -54)
-	f:SetPoint("TOPRIGHT", WeeklyRewardsFrame, "TOPRIGHT", -20, -54)
-
-	f._title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-	f._title:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -8)
-	f._title:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -8)
-	f._title:SetJustifyH("LEFT")
-	f._title:SetWordWrap(true)
-	f._title:SetTextColor(1, 0.9, 0.55)
-
-	f._hint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	f._hint:SetPoint("TOPLEFT", f._title, "BOTTOMLEFT", 0, -3)
-	f._hint:SetPoint("TOPRIGHT", f._title, "BOTTOMRIGHT", 0, -3)
-	f._hint:SetJustifyH("LEFT")
-	f._hint:SetWordWrap(true)
-	f._hint:SetTextColor(0.78, 0.76, 0.72)
-
-	f._best = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	f._best:SetPoint("TOPLEFT", f._hint, "BOTTOMLEFT", 0, -4)
-	f._best:SetPoint("TOPRIGHT", f._hint, "BOTTOMRIGHT", 0, -4)
-	f._best:SetJustifyH("LEFT")
-	f._best:SetWordWrap(true)
-	f._best:SetTextColor(0.35, 1, 0.45)
-
-	f._alt = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	f._alt:SetPoint("TOPLEFT", f._best, "BOTTOMLEFT", 0, -3)
-	f._alt:SetPoint("TOPRIGHT", f._best, "BOTTOMRIGHT", 0, -3)
-	f._alt:SetJustifyH("LEFT")
-	f._alt:SetWordWrap(true)
-	f._alt:SetTextColor(0.88, 0.86, 0.82)
-
-	f._tier = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-	f._tier:SetPoint("TOPLEFT", f._alt, "BOTTOMLEFT", 0, -3)
-	f._tier:SetPoint("TOPRIGHT", f._alt, "BOTTOMRIGHT", 0, -3)
-	f._tier:SetJustifyH("LEFT")
-	f._tier:SetWordWrap(true)
-	f._tier:SetTextColor(1, 0.85, 0.2)
-
-	f._token = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	f._token:SetPoint("TOPLEFT", f._tier, "BOTTOMLEFT", 0, -3)
-	f._token:SetPoint("TOPRIGHT", f._tier, "BOTTOMRIGHT", 0, -3)
-	f._token:SetJustifyH("LEFT")
-	f._token:SetWordWrap(true)
-	f._token:SetTextColor(0.75, 0.72, 0.65)
-
-	blizzardVaultBanner = f
-	return f
-end
-
-local function LayoutBlizzardVaultBanner(banner)
-	local padTop, padBottom, padX = 8, 8, 10
-	local h = padTop
-		+ (banner._title:GetStringHeight() or 12)
-		+ 3
-		+ (banner._hint:GetStringHeight() or 0)
-		+ 4
-		+ (banner._best:GetStringHeight() or 14)
-	if banner._alt:IsShown() then
-		h = h + 3 + (banner._alt:GetStringHeight() or 0)
-	end
-	if banner._tier:IsShown() then
-		h = h + 3 + (banner._tier:GetStringHeight() or 0)
-	end
-	if banner._token:IsShown() then
-		h = h + 3 + (banner._token:GetStringHeight() or 0)
-	end
-	h = h + padBottom
-	banner:SetHeight(math.max(48, h))
-	return h
-end
-
-function ns.RefreshBlizzardVaultBanner()
-	local banner = EnsureBlizzardVaultBanner()
-	if not banner or not WeeklyRewardsFrame or not WeeklyRewardsFrame:IsShown() then
-		if banner then
-			banner:Hide()
-		end
-		return
-	end
-
-	local weights, weightKey = GetSpecWeights()
-	if not weights then
-		weights, weightKey = GetGenericRoleWeights()
-	end
-	local gear, token, status = ns.ScanVaultAdvisorChoices(weights, weightKey)
-
-	local specIndex = GetSpecialization and GetSpecialization()
-	local _, specName = GetSpecializationInfo(specIndex)
-	local heroLabel = GetActiveHeroTalentLabel()
-	local displaySpec = specName or "?"
-	if heroLabel then
-		displaySpec = ("%s (%s)"):format(displaySpec, heroLabel)
-	end
-	banner._title:SetText(VL("VAULT_ADVISOR_TITLE_FMT", displaySpec))
-
-	if status == "loading" then
-		banner._hint:SetText("")
-		banner._best:SetText(VL("VAULT_ADVISOR_HINT_LOADING"))
-		banner._best:SetTextColor(0.9, 0.85, 0.7)
-		banner._alt:Hide()
-		banner._tier:Hide()
-		banner._token:Hide()
-		banner:Show()
-		LayoutBlizzardVaultBanner(banner)
-		ScheduleRescan()
-		return
-	end
-
-	if status == "empty" or not gear or #gear == 0 then
-		banner:Hide()
-		return
-	end
-
-	local pawnScale = ShouldUsePawn() and GetPawnScaleName() or nil
-	local guideHint = GetGuideStatHint(weightKey, pawnScale)
-	if guideHint then
-		banner._hint:SetText(guideHint)
-		banner._hint:Show()
-	else
-		banner._hint:SetText("")
-		banner._hint:Hide()
-	end
-
-	local best = gear[1]
-	local tags = {}
-	if best.ownedDuplicate then
-		tags[#tags + 1] = VL("VAULT_ADVISOR_TAG_UNIQUE_WARN")
-	end
-	tags[#tags + 1] = MakeDeltaTag(best)
-	if best.ilvlDelta and best.ilvlDelta < 0 then
-		tags[#tags + 1] = VL("VAULT_ADVISOR_TAG_DOWNGRADE")
-	end
-	local tagStr = (#tags > 0) and ("  " .. table.concat(tags, " ")) or ""
-	banner._best:SetText(VL("VAULT_ADVISOR_BEST_FMT", best.name or "?", best.ilvl or 0, tagStr))
-	banner._best:SetTextColor(0.35, 1, 0.45)
-
-	local altLines = {}
-	for i = 2, math.min(#gear, 4) do
-		local c = gear[i]
-		local cat = CategoryLabel(c.categoryKey)
-		local warn = c.ownedDuplicate and (" " .. VL("VAULT_ADVISOR_TAG_UNIQUE_SHORT")) or ""
-		local statBits = FormatStatLine(c.stats)
-		local line = ("%d. %s (%s, ilvl %d)%s%s"):format(i, c.name or "?", cat, c.ilvl or 0, MakeDeltaTag(c), warn)
-		if statBits ~= "" then
-			line = line .. " — " .. statBits
-		end
-		altLines[#altLines + 1] = line
-	end
-	if #altLines > 0 then
-		banner._alt:SetText(table.concat(altLines, "\n"))
-		banner._alt:Show()
-	else
-		banner._alt:SetText("")
-		banner._alt:Hide()
-	end
-
-	local tierAlt = FindTierSetWarningCandidate(gear)
-	if tierAlt then
-		banner._tier:SetText(BuildTierWarningText(tierAlt))
-		banner._tier:Show()
-	else
-		banner._tier:SetText("")
-		banner._tier:Hide()
-	end
-
-	if token then
-		banner._token:SetText(VL("VAULT_ADVISOR_TOKEN_NOTE_FMT", token.name or "?"))
-		banner._token:Show()
-	else
-		banner._token:SetText("")
-		banner._token:Hide()
-	end
-
-	banner:Show()
-	LayoutBlizzardVaultBanner(banner)
 end
 
 local function RequestItemDataForLink(link, itemID)
@@ -1184,6 +1008,336 @@ local function CategoryLabel(key)
 		return VL("VAULT_ADVISOR_CAT_WORLD")
 	end
 	return VL("VAULT_ADVISOR_CAT_OTHER")
+end
+
+local function PositionBlizzardVaultBanner(banner)
+	if not banner or not WeeklyRewardsFrame then
+		return
+	end
+	local vault = WeeklyRewardsFrame
+	banner:ClearAllPoints()
+	banner:SetWidth(BANNER_WIDTH)
+	banner:SetPoint("TOPLEFT", vault, "TOPRIGHT", BANNER_GAP, 0)
+	banner:SetPoint("BOTTOMLEFT", vault, "BOTTOMRIGHT", BANNER_GAP, 0)
+	if banner:GetRight() and UIParent:GetRight() and banner:GetRight() > UIParent:GetRight() then
+		banner:ClearAllPoints()
+		banner:SetWidth(BANNER_WIDTH)
+		banner:SetPoint("TOPRIGHT", vault, "TOPLEFT", -BANNER_GAP, 0)
+		banner:SetPoint("BOTTOMRIGHT", vault, "BOTTOMLEFT", -BANNER_GAP, 0)
+	end
+end
+
+local function ShowVaultChoiceTooltip(owner, c)
+	if not owner or not c or not c.link then
+		return
+	end
+	GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
+	if GameTooltip.SetHyperlink then
+		pcall(GameTooltip.SetHyperlink, GameTooltip, c.link)
+	end
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(VL("VAULT_ADVISOR_TT_SCORE_FMT", math.floor(c.score or 0)), 0.9, 0.9, 0.9)
+	local statLine = FormatStatLine(c.stats)
+	if statLine ~= "" then
+		GameTooltip:AddLine(statLine, 1, 1, 1)
+	end
+	if c.ownedDuplicate then
+		GameTooltip:AddLine(VL("VAULT_ADVISOR_WARN_UNIQUE"), 1, 0.4, 0.4)
+	end
+	if c.equippedName then
+		GameTooltip:AddLine(VL("VAULT_ADVISOR_TT_VS_FMT", c.equippedName), 0.75, 0.75, 0.75)
+	end
+	if c.ilvlDelta and c.ilvlDelta ~= 0 then
+		local col = (c.ilvlDelta > 0) and { 1, 0.82, 0.45 } or { 1, 0.45, 0.45 }
+		GameTooltip:AddLine(VL("VAULT_ADVISOR_TT_ILVL_DELTA_FMT", c.ilvlDelta), col[1], col[2], col[3])
+	end
+	if c.scoreDelta and c.scoreDelta < 0 then
+		GameTooltip:AddLine(VL("VAULT_ADVISOR_TT_DOWNGRADE"), 1, 0.5, 0.5)
+	end
+	if c.isTierSet and c.setName then
+		GameTooltip:AddLine(VL("VAULT_ADVISOR_TT_TIER_FMT", c.setName, c.setEquipped or 0, c.setTotal or 0), 0.6, 0.85, 1)
+	end
+	GameTooltip:Show()
+end
+
+local function AttachBlizzardVaultRowTooltip(row)
+	row:EnableMouse(true)
+	row:SetScript("OnEnter", function(self)
+		ShowVaultChoiceTooltip(self, self._choice)
+	end)
+	row:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+end
+
+local function EnsureBlizzardVaultBanner()
+	LoadWeeklyRewardsUI()
+	if not WeeklyRewardsFrame then
+		return nil
+	end
+	if blizzardVaultBanner and (blizzardVaultBanner:GetParent() ~= UIParent or not blizzardVaultBanner._bestHit or not blizzardVaultBanner._rowsCentered) then
+		blizzardVaultBanner:Hide()
+		blizzardVaultBanner = nil
+		blizzardVaultRows = {}
+	end
+	if blizzardVaultBanner then
+		PositionBlizzardVaultBanner(blizzardVaultBanner)
+		return blizzardVaultBanner
+	end
+
+	local padX, padTop, padBottom = 14, 12, 16
+	local innerW = BANNER_WIDTH - padX * 2
+	local rowTextW = innerW - 24
+
+	local f = CreateFrame("Frame", "MidnightHelperVaultAdvisorBanner", UIParent, "BackdropTemplate")
+	f:SetFrameStrata("FULLSCREEN_DIALOG")
+	f:SetFrameLevel((WeeklyRewardsFrame:GetFrameLevel() or 0) + 20)
+	f:SetClampedToScreen(true)
+	f._innerW = innerW
+	f._rowTextW = rowTextW
+	if ns.ApplyMidnightDialogBackdrop then
+		ns.ApplyMidnightDialogBackdrop(f)
+	end
+
+	f._title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	f._title:SetPoint("TOP", f, "TOP", 0, -padTop)
+	f._title:SetWidth(innerW)
+	f._title:SetJustifyH("CENTER")
+	f._title:SetWordWrap(true)
+	f._title:SetTextColor(1, 0.9, 0.55)
+
+	f._hint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	f._hint:SetPoint("TOP", f._title, "BOTTOM", 0, -6)
+	f._hint:SetWidth(innerW)
+	f._hint:SetJustifyH("CENTER")
+	f._hint:SetWordWrap(true)
+	f._hint:SetTextColor(0.78, 0.76, 0.72)
+
+	f._best = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	f._best:SetPoint("TOP", f._hint, "BOTTOM", 0, -8)
+	f._best:SetWidth(innerW)
+	f._best:SetJustifyH("CENTER")
+	f._best:SetWordWrap(true)
+	f._best:SetTextColor(0.35, 1, 0.45)
+
+	f._bestHit = CreateFrame("Frame", nil, f)
+	f._bestHit:SetPoint("TOPLEFT", f._best, "TOPLEFT", -6, 6)
+	f._bestHit:SetPoint("BOTTOMRIGHT", f._best, "BOTTOMRIGHT", 6, -6)
+	f._bestHit:EnableMouse(true)
+	f._bestHit:SetScript("OnEnter", function(self)
+		ShowVaultChoiceTooltip(self, self._choice)
+	end)
+	f._bestHit:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+
+	f._token = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f._token:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", padX, padBottom)
+	f._token:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -padX, padBottom)
+	f._token:SetWidth(innerW)
+	f._token:SetJustifyH("LEFT")
+	f._token:SetWordWrap(true)
+	f._token:SetTextColor(0.75, 0.72, 0.65)
+
+	f._tier = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f._tier:SetPoint("BOTTOMLEFT", f._token, "TOPLEFT", 0, 6)
+	f._tier:SetPoint("BOTTOMRIGHT", f._token, "TOPRIGHT", 0, 6)
+	f._tier:SetWidth(innerW)
+	f._tier:SetJustifyH("LEFT")
+	f._tier:SetWordWrap(true)
+	f._tier:SetTextColor(1, 0.85, 0.2)
+
+	f._scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+	f._scroll:SetPoint("TOPLEFT", f._best, "BOTTOMLEFT", -4, -10)
+	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -padX - 4, padBottom + BANNER_FOOTER_RESERVE)
+
+	f._rowHost = CreateFrame("Frame", nil, f._scroll)
+	f._rowHost:SetWidth(innerW)
+	f._scroll:SetScrollChild(f._rowHost)
+
+	for i = 1, BANNER_MAX_ROWS do
+		local row = CreateFrame("Frame", nil, f._rowHost)
+		row:SetHeight(20)
+		row._text = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		row._text:SetPoint("TOP", row, "TOP", 0, 0)
+		row._text:SetWidth(innerW)
+		row._text:SetJustifyH("CENTER")
+		row._text:SetWordWrap(true)
+		AttachBlizzardVaultRowTooltip(row)
+		blizzardVaultRows[i] = row
+	end
+
+	f._rowsCentered = true
+
+	blizzardVaultBanner = f
+	PositionBlizzardVaultBanner(f)
+	return f
+end
+
+local function LayoutBlizzardVaultBanner(banner)
+	local rowGap = 4
+	local y = 0
+	for i = 1, #blizzardVaultRows do
+		local row = blizzardVaultRows[i]
+		if row:IsShown() then
+			row:ClearAllPoints()
+			row:SetPoint("TOPLEFT", banner._rowHost, "TOPLEFT", 0, -y)
+			row:SetPoint("RIGHT", banner._rowHost, "RIGHT", 0, 0)
+			y = y + row:GetHeight() + rowGap
+		end
+	end
+	banner._rowHost:SetHeight(math.max(1, y))
+	if banner._scroll.UpdateScrollChildRect then
+		banner._scroll:UpdateScrollChildRect()
+	end
+	if banner._scroll.SetVerticalScroll then
+		banner._scroll:SetVerticalScroll(0)
+	end
+end
+
+function ns.RefreshBlizzardVaultBanner()
+	if not ShouldShowBlizzardVaultPanel() then
+		if blizzardVaultBanner then
+			blizzardVaultBanner:Hide()
+		end
+		return
+	end
+	local banner = EnsureBlizzardVaultBanner()
+	if not banner or not WeeklyRewardsFrame or not WeeklyRewardsFrame:IsShown() then
+		if banner then
+			banner:Hide()
+		end
+		return
+	end
+	PositionBlizzardVaultBanner(banner)
+
+	local weights, weightKey = GetSpecWeights()
+	if not weights then
+		weights, weightKey = GetGenericRoleWeights()
+	end
+	local gear, token, status = ns.ScanVaultAdvisorChoices(weights, weightKey)
+
+	local specIndex = GetSpecialization and GetSpecialization()
+	local _, specName = GetSpecializationInfo(specIndex)
+	local heroLabel = GetActiveHeroTalentLabel()
+	local displaySpec = specName or "?"
+	if heroLabel then
+		displaySpec = ("%s (%s)"):format(displaySpec, heroLabel)
+	end
+	banner._title:SetText(VL("VAULT_ADVISOR_TITLE_FMT", displaySpec))
+
+	if status == "loading" then
+		banner._hint:SetText("")
+		banner._best:SetText(VL("VAULT_ADVISOR_HINT_LOADING"))
+		banner._best:SetTextColor(0.9, 0.85, 0.7)
+		for i = 1, #blizzardVaultRows do
+			blizzardVaultRows[i]:Hide()
+		end
+		if banner._bestHit then
+			banner._bestHit._choice = nil
+		end
+		banner._tier:Hide()
+		banner._token:Hide()
+		banner:Show()
+		LayoutBlizzardVaultBanner(banner)
+		ScheduleRescan()
+		return
+	end
+
+	if status == "empty" or not gear or #gear == 0 then
+		banner:Hide()
+		return
+	end
+
+	local pawnScale = ShouldUsePawn() and GetPawnScaleName() or nil
+	local guideHint = GetGuideStatHint(weightKey, pawnScale)
+	if guideHint then
+		banner._hint:SetText(guideHint)
+		banner._hint:Show()
+	else
+		banner._hint:SetText("")
+		banner._hint:Hide()
+	end
+
+	local best = gear[1]
+	local tags = {}
+	if best.ownedDuplicate then
+		tags[#tags + 1] = VL("VAULT_ADVISOR_TAG_UNIQUE_WARN")
+	end
+	tags[#tags + 1] = MakeDeltaTag(best)
+	if best.ilvlDelta and best.ilvlDelta < 0 then
+		tags[#tags + 1] = VL("VAULT_ADVISOR_TAG_DOWNGRADE")
+	end
+	local tagStr = (#tags > 0) and ("  " .. table.concat(tags, " ")) or ""
+	banner._best:SetText(VL("VAULT_ADVISOR_BEST_FMT", best.name or "?", best.ilvl or 0, tagStr))
+	banner._best:SetTextColor(0.35, 1, 0.45)
+	if banner._bestHit then
+		banner._bestHit._choice = best
+	end
+
+	local textW = banner._innerW or 260
+	local shown = 0
+	local altTotal = math.max(0, #gear - 1)
+	local displayLimit = altTotal
+	if altTotal > BANNER_MAX_ROWS then
+		displayLimit = BANNER_MAX_ROWS - 1
+	end
+	for i = 2, #gear do
+		if shown >= displayLimit then
+			break
+		end
+		local c = gear[i]
+		local row = blizzardVaultRows[shown + 1]
+		local cat = CategoryLabel(c.categoryKey)
+		local warn = c.ownedDuplicate and (" " .. VL("VAULT_ADVISOR_TAG_UNIQUE_SHORT")) or ""
+		local line = ("%d. %s (%s, ilvl %d)%s%s"):format(i, c.name or "?", cat, c.ilvl or 0, MakeDeltaTag(c), warn)
+		row._text:SetWidth(textW)
+		row._text:SetJustifyH("CENTER")
+		row._text:SetText(line)
+		row._text:SetTextColor(0.88, 0.86, 0.82)
+		row._choice = c
+		local textH = math.ceil(row._text:GetStringHeight() or 16)
+		row:SetHeight(math.max(18, textH + 2))
+		row:Show()
+		shown = shown + 1
+	end
+	for i = shown + 1, #blizzardVaultRows do
+		blizzardVaultRows[i]:Hide()
+	end
+	if altTotal > BANNER_MAX_ROWS then
+		local overflow = blizzardVaultRows[shown + 1]
+		if overflow then
+			overflow._text:SetWidth(textW)
+			overflow._text:SetJustifyH("CENTER")
+			overflow._text:SetText(VL("VAULT_ADVISOR_BANNER_MORE_FMT", altTotal - displayLimit))
+			overflow._text:SetTextColor(0.65, 0.63, 0.6)
+			overflow._choice = nil
+			local textH = math.ceil(overflow._text:GetStringHeight() or 16)
+			overflow:SetHeight(math.max(18, textH + 2))
+			overflow:Show()
+			shown = shown + 1
+		end
+	end
+
+	local tierAlt = FindTierSetWarningCandidate(gear)
+	if tierAlt then
+		banner._tier:SetText(BuildTierWarningText(tierAlt))
+		banner._tier:Show()
+	else
+		banner._tier:SetText("")
+		banner._tier:Hide()
+	end
+
+	if token then
+		banner._token:SetText(VL("VAULT_ADVISOR_TOKEN_NOTE_FMT", token.name or "?"))
+		banner._token:Show()
+	else
+		banner._token:SetText("")
+		banner._token:Hide()
+	end
+
+	banner:Show()
+	LayoutBlizzardVaultBanner(banner)
 end
 
 local function ApplyAdvisorPanelLayout(panel)
