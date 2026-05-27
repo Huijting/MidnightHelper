@@ -25,6 +25,7 @@
 - **Guide-stats alle 39 specs** (Icy Veins widget, patch 12.0.5) + Wowhead-links in metadata
 - **Shaman hero overrides**: Totemic / Stormbringer / Farseer (Enhancement + Elemental)
 - **Vault Reminder**: chat, minimap, pulse, login-popup + TomTom waypoint (Silvermoon vault)
+- **Blizzard vault banner** — advies op `WeeklyRewardsFrame` (echte claim-UI), ook als MH dicht is
 - **Data pipeline**: `data/vault_stat_catalog.json` → `tools/fetch_vault_stat_priorities.py` → `tools/generate_vault_stat_weights.py` → `Modules/VaultAdvisorData.lua`
 
 ### ✅ Fase 2 (2026-05-27)
@@ -37,7 +38,6 @@
 ### 🔜 Later
 
 - Meer hero-spec entries waar Icy Veins geen aparte widget heeft (Arms Colossus/Slayer)
-- Vault Advisor hook in Blizzard claim-UI (SHIFT-J blijft overzicht)
 
 ### Test Vault Advisor
 

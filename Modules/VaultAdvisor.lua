@@ -94,6 +94,7 @@ end
 
 local advisorPanel
 local choiceRows = {}
+local blizzardVaultBanner
 local lastScanKey
 local pendingRescan = false
 
@@ -110,6 +111,9 @@ local function ScheduleRescan()
 			end
 			if ns.RefreshReferenceGuidePanel then
 				ns.RefreshReferenceGuidePanel()
+			end
+			if ns.RefreshBlizzardVaultBanner then
+				ns.RefreshBlizzardVaultBanner()
 			end
 		end)
 	else
@@ -315,6 +319,18 @@ local function GetActiveHeroTalentLabel()
 	return nil, heroID
 end
 
+local function MakeDeltaTag(c)
+	if not c or c.ilvlDelta == nil then
+		return ""
+	end
+	if c.ilvlDelta > 0 then
+		return " " .. VL("VAULT_ADVISOR_TAG_ILVL_FMT", c.ilvlDelta)
+	elseif c.ilvlDelta < 0 then
+		return " " .. VL("VAULT_ADVISOR_TAG_ILVL_DOWN_FMT", c.ilvlDelta)
+	end
+	return ""
+end
+
 local function LoadWeeklyRewardsUI()
 	pcall(function()
 		if C_AddOns and C_AddOns.LoadAddOn then
@@ -325,10 +341,218 @@ local function LoadWeeklyRewardsUI()
 		if WeeklyRewardsFrame and not WeeklyRewardsFrame._mhVaultAdvisorHook then
 			WeeklyRewardsFrame._mhVaultAdvisorHook = true
 			WeeklyRewardsFrame:HookScript("OnShow", function()
+				if C_Timer and C_Timer.After then
+					C_Timer.After(0.05, function()
+						if ns.RefreshBlizzardVaultBanner then
+							pcall(ns.RefreshBlizzardVaultBanner)
+						end
+					end)
+				else
+					if ns.RefreshBlizzardVaultBanner then
+						pcall(ns.RefreshBlizzardVaultBanner)
+					end
+				end
 				ScheduleRescan()
+			end)
+			WeeklyRewardsFrame:HookScript("OnHide", function()
+				if blizzardVaultBanner then
+					blizzardVaultBanner:Hide()
+				end
 			end)
 		end
 	end)
+end
+
+local function EnsureBlizzardVaultBanner()
+	LoadWeeklyRewardsUI()
+	if not WeeklyRewardsFrame then
+		return nil
+	end
+	if blizzardVaultBanner and blizzardVaultBanner:GetParent() == WeeklyRewardsFrame then
+		return blizzardVaultBanner
+	end
+
+	local f = CreateFrame("Frame", "MidnightHelperVaultAdvisorBanner", WeeklyRewardsFrame, "BackdropTemplate")
+	f:SetFrameStrata("DIALOG")
+	f:SetFrameLevel((WeeklyRewardsFrame:GetFrameLevel() or 0) + 20)
+	if ns.ApplyMidnightDialogBackdrop then
+		ns.ApplyMidnightDialogBackdrop(f)
+	end
+	f:SetPoint("TOPLEFT", WeeklyRewardsFrame, "TOPLEFT", 20, -54)
+	f:SetPoint("TOPRIGHT", WeeklyRewardsFrame, "TOPRIGHT", -20, -54)
+
+	f._title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	f._title:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -8)
+	f._title:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -8)
+	f._title:SetJustifyH("LEFT")
+	f._title:SetWordWrap(true)
+	f._title:SetTextColor(1, 0.9, 0.55)
+
+	f._hint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f._hint:SetPoint("TOPLEFT", f._title, "BOTTOMLEFT", 0, -3)
+	f._hint:SetPoint("TOPRIGHT", f._title, "BOTTOMRIGHT", 0, -3)
+	f._hint:SetJustifyH("LEFT")
+	f._hint:SetWordWrap(true)
+	f._hint:SetTextColor(0.78, 0.76, 0.72)
+
+	f._best = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f._best:SetPoint("TOPLEFT", f._hint, "BOTTOMLEFT", 0, -4)
+	f._best:SetPoint("TOPRIGHT", f._hint, "BOTTOMRIGHT", 0, -4)
+	f._best:SetJustifyH("LEFT")
+	f._best:SetWordWrap(true)
+	f._best:SetTextColor(0.35, 1, 0.45)
+
+	f._alt = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f._alt:SetPoint("TOPLEFT", f._best, "BOTTOMLEFT", 0, -3)
+	f._alt:SetPoint("TOPRIGHT", f._best, "BOTTOMRIGHT", 0, -3)
+	f._alt:SetJustifyH("LEFT")
+	f._alt:SetWordWrap(true)
+	f._alt:SetTextColor(0.88, 0.86, 0.82)
+
+	f._tier = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	f._tier:SetPoint("TOPLEFT", f._alt, "BOTTOMLEFT", 0, -3)
+	f._tier:SetPoint("TOPRIGHT", f._alt, "BOTTOMRIGHT", 0, -3)
+	f._tier:SetJustifyH("LEFT")
+	f._tier:SetWordWrap(true)
+	f._tier:SetTextColor(1, 0.85, 0.2)
+
+	f._token = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f._token:SetPoint("TOPLEFT", f._tier, "BOTTOMLEFT", 0, -3)
+	f._token:SetPoint("TOPRIGHT", f._tier, "BOTTOMRIGHT", 0, -3)
+	f._token:SetJustifyH("LEFT")
+	f._token:SetWordWrap(true)
+	f._token:SetTextColor(0.75, 0.72, 0.65)
+
+	blizzardVaultBanner = f
+	return f
+end
+
+local function LayoutBlizzardVaultBanner(banner)
+	local padTop, padBottom, padX = 8, 8, 10
+	local h = padTop
+		+ (banner._title:GetStringHeight() or 12)
+		+ 3
+		+ (banner._hint:GetStringHeight() or 0)
+		+ 4
+		+ (banner._best:GetStringHeight() or 14)
+	if banner._alt:IsShown() then
+		h = h + 3 + (banner._alt:GetStringHeight() or 0)
+	end
+	if banner._tier:IsShown() then
+		h = h + 3 + (banner._tier:GetStringHeight() or 0)
+	end
+	if banner._token:IsShown() then
+		h = h + 3 + (banner._token:GetStringHeight() or 0)
+	end
+	h = h + padBottom
+	banner:SetHeight(math.max(48, h))
+	return h
+end
+
+function ns.RefreshBlizzardVaultBanner()
+	local banner = EnsureBlizzardVaultBanner()
+	if not banner or not WeeklyRewardsFrame or not WeeklyRewardsFrame:IsShown() then
+		if banner then
+			banner:Hide()
+		end
+		return
+	end
+
+	local weights, weightKey = GetSpecWeights()
+	if not weights then
+		weights, weightKey = GetGenericRoleWeights()
+	end
+	local gear, token, status = ns.ScanVaultAdvisorChoices(weights, weightKey)
+
+	local specIndex = GetSpecialization and GetSpecialization()
+	local _, specName = GetSpecializationInfo(specIndex)
+	local heroLabel = GetActiveHeroTalentLabel()
+	local displaySpec = specName or "?"
+	if heroLabel then
+		displaySpec = ("%s (%s)"):format(displaySpec, heroLabel)
+	end
+	banner._title:SetText(VL("VAULT_ADVISOR_TITLE_FMT", displaySpec))
+
+	if status == "loading" then
+		banner._hint:SetText("")
+		banner._best:SetText(VL("VAULT_ADVISOR_HINT_LOADING"))
+		banner._best:SetTextColor(0.9, 0.85, 0.7)
+		banner._alt:Hide()
+		banner._tier:Hide()
+		banner._token:Hide()
+		banner:Show()
+		LayoutBlizzardVaultBanner(banner)
+		ScheduleRescan()
+		return
+	end
+
+	if status == "empty" or not gear or #gear == 0 then
+		banner:Hide()
+		return
+	end
+
+	local pawnScale = ShouldUsePawn() and GetPawnScaleName() or nil
+	local guideHint = GetGuideStatHint(weightKey, pawnScale)
+	if guideHint then
+		banner._hint:SetText(guideHint)
+		banner._hint:Show()
+	else
+		banner._hint:SetText("")
+		banner._hint:Hide()
+	end
+
+	local best = gear[1]
+	local tags = {}
+	if best.ownedDuplicate then
+		tags[#tags + 1] = VL("VAULT_ADVISOR_TAG_UNIQUE_WARN")
+	end
+	tags[#tags + 1] = MakeDeltaTag(best)
+	if best.ilvlDelta and best.ilvlDelta < 0 then
+		tags[#tags + 1] = VL("VAULT_ADVISOR_TAG_DOWNGRADE")
+	end
+	local tagStr = (#tags > 0) and ("  " .. table.concat(tags, " ")) or ""
+	banner._best:SetText(VL("VAULT_ADVISOR_BEST_FMT", best.name or "?", best.ilvl or 0, tagStr))
+	banner._best:SetTextColor(0.35, 1, 0.45)
+
+	local altLines = {}
+	for i = 2, math.min(#gear, 4) do
+		local c = gear[i]
+		local cat = CategoryLabel(c.categoryKey)
+		local warn = c.ownedDuplicate and (" " .. VL("VAULT_ADVISOR_TAG_UNIQUE_SHORT")) or ""
+		local statBits = FormatStatLine(c.stats)
+		local line = ("%d. %s (%s, ilvl %d)%s%s"):format(i, c.name or "?", cat, c.ilvl or 0, MakeDeltaTag(c), warn)
+		if statBits ~= "" then
+			line = line .. " — " .. statBits
+		end
+		altLines[#altLines + 1] = line
+	end
+	if #altLines > 0 then
+		banner._alt:SetText(table.concat(altLines, "\n"))
+		banner._alt:Show()
+	else
+		banner._alt:SetText("")
+		banner._alt:Hide()
+	end
+
+	local tierAlt = FindTierSetWarningCandidate(gear)
+	if tierAlt then
+		banner._tier:SetText(BuildTierWarningText(tierAlt))
+		banner._tier:Show()
+	else
+		banner._tier:SetText("")
+		banner._tier:Hide()
+	end
+
+	if token then
+		banner._token:SetText(VL("VAULT_ADVISOR_TOKEN_NOTE_FMT", token.name or "?"))
+		banner._token:Show()
+	else
+		banner._token:SetText("")
+		banner._token:Hide()
+	end
+
+	banner:Show()
+	LayoutBlizzardVaultBanner(banner)
 end
 
 local function RequestItemDataForLink(link, itemID)
@@ -1201,15 +1425,7 @@ function ns.RefreshVaultAdvisorPanel(parent, innerWidth, claimReady)
 	end
 
 	local function DeltaTag(c)
-		if not c or c.ilvlDelta == nil then
-			return ""
-		end
-		if c.ilvlDelta > 0 then
-			return " " .. VL("VAULT_ADVISOR_TAG_ILVL_FMT", c.ilvlDelta)
-		elseif c.ilvlDelta < 0 then
-			return " " .. VL("VAULT_ADVISOR_TAG_ILVL_DOWN_FMT", c.ilvlDelta)
-		end
-		return ""
+		return MakeDeltaTag(c)
 	end
 
 	local best = gear[1]
@@ -1308,6 +1524,9 @@ ev:SetScript("OnEvent", function(_, event)
 	elseif event == "WEEKLY_REWARDS_UPDATE" or event == "PLAYER_SPECIALIZATION_CHANGED" or event == "PLAYER_EQUIPMENT_CHANGED" then
 		lastScanKey = nil
 		ScheduleRescan()
+		if WeeklyRewardsFrame and WeeklyRewardsFrame:IsShown() and ns.RefreshBlizzardVaultBanner then
+			ns.RefreshBlizzardVaultBanner()
+		end
 	end
 end)
 
@@ -1321,6 +1540,9 @@ if not ns._mhVaultAdvisorLocaleHooked then
 		lastScanKey = nil
 		if ns.RefreshDelvesPanel then
 			ns.RefreshDelvesPanel()
+		end
+		if WeeklyRewardsFrame and WeeklyRewardsFrame:IsShown() and ns.RefreshBlizzardVaultBanner then
+			ns.RefreshBlizzardVaultBanner()
 		end
 	end
 end
