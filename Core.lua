@@ -58,6 +58,7 @@ local DEFAULT_DB = {
 			chat = true,
 			minimap = true,
 			ping = true,
+			popup = true,
 		},
 		--- Floating Delve Coach panel (position, minimize state).
 		--- Floating RAID-R Mini / Trovehunter's Bounty buttons (beside Delve Coach in delves).

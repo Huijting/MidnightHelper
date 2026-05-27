@@ -8,6 +8,12 @@ local sessionChatDone = false
 local pulseFrame
 local pulseBtn
 local pulsePhase = 0
+local popupDone = false
+local vaultPopup
+
+local GREAT_VAULT_MAP_ID = 2393
+local GREAT_VAULT_X = 49.93
+local GREAT_VAULT_Y = 64.54
 
 local function GetVaultReminderSettings()
 	local ui = ns.db and ns.db.ui
@@ -20,6 +26,7 @@ local function GetVaultReminderSettings()
 			chat = true,
 			minimap = true,
 			ping = true,
+			popup = true,
 		}
 	end
 	return ui.vaultReminder
@@ -219,7 +226,7 @@ function ns.AppendVaultReminderTooltip(tt)
 	if #state.entries > 6 then
 		tt:AddLine(ns:L("VAULT_REMINDER_TOOLTIP_MORE_FMT"):format(#state.entries - 6), 0.75, 0.75, 0.75)
 	end
-	tt:AddLine(ns:L("VAULT_REMINDER_TOOLTIP_OPEN_HINT"), 0.7, 0.9, 0.7, true)
+	tt:AddLine(ns:SafeL("VAULT_REMINDER_TOOLTIP_OPEN_HINT"), 0.7, 0.9, 0.7, true)
 end
 
 local function PrintVaultReminderChat()
@@ -245,7 +252,89 @@ local function PrintVaultReminderChat()
 			print(prefix .. ns:L(key):format(e.label))
 		end
 	end
-	print(prefix .. ns:L("VAULT_REMINDER_CHAT_OPEN_HINT"))
+	print(prefix .. ns:SafeL("VAULT_REMINDER_CHAT_OPEN_HINT"))
+end
+
+local function EnsureVaultPopup()
+	if vaultPopup then
+		return vaultPopup
+	end
+	local f = CreateFrame("Frame", "MidnightHelperVaultReminderPopup", UIParent, "BackdropTemplate")
+	f:SetSize(420, 180)
+	ns.ApplyMidnightDialogBackdrop(f)
+	ns.RegisterMidnightDialogPopup(f)
+	ns.PositionMidnightPopupAboveCharacter(f, 140)
+	f:Hide()
+
+	local _, content = ns.EnsureMidnightDialogTitleBar(f)
+	f._mhContent = content
+
+	f.title = content:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	f.title:SetPoint("TOPLEFT", content, "TOPLEFT", 2, 2)
+	f.title:SetJustifyH("LEFT")
+
+	f.body = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.body:SetPoint("TOPLEFT", f.title, "BOTTOMLEFT", 0, -6)
+	f.body:SetPoint("RIGHT", content, "RIGHT", 0, 0)
+	f.body:SetJustifyH("LEFT")
+	f.body:SetJustifyV("TOP")
+	f.body:SetWordWrap(true)
+
+	f.hint = content:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	f.hint:SetPoint("BOTTOMLEFT", content, "BOTTOMLEFT", 0, 2)
+	f.hint:SetPoint("RIGHT", content, "RIGHT", -120, 0)
+	f.hint:SetJustifyH("LEFT")
+	f.hint:SetTextColor(0.7, 0.7, 0.7)
+
+	f.wayBtn = CreateFrame("Button", nil, content, "UIPanelButtonTemplate")
+	f.wayBtn:SetSize(110, 22)
+	f.wayBtn:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", 0, -2)
+	f.wayBtn:SetText(ns:L("VAULT_REMINDER_POPUP_WAYPOINT"))
+	f.wayBtn:RegisterForClicks("LeftButtonUp")
+	f.wayBtn:SetScript("OnClick", function()
+		if ns.AddSmartTomTomWay then
+			-- Use TomTom arrow when available; fallback to Blizzard waypoint + SuperTrack.
+			ns.AddSmartTomTomWay(GREAT_VAULT_MAP_ID, GREAT_VAULT_X, GREAT_VAULT_Y, "Great Vault", true)
+		elseif ns.SetBlizzardUserWaypoint then
+			ns.SetBlizzardUserWaypoint(GREAT_VAULT_MAP_ID, GREAT_VAULT_X, GREAT_VAULT_Y)
+		end
+	end)
+
+	ns.AttachMidnightDialogCloseButton(f, function()
+		f:Hide()
+	end)
+
+	vaultPopup = f
+	return f
+end
+
+local function ShowVaultReminderPopup()
+	local state = ns.GetVaultReminderState()
+	if not state.settings.enabled or not state.settings.popup or not state.active then
+		return
+	end
+	if popupDone then
+		return
+	end
+	popupDone = true
+
+	local f = EnsureVaultPopup()
+	f.title:SetText(ns:L("VAULT_REMINDER_POPUP_TITLE"))
+
+	local lines = {}
+	lines[#lines + 1] = ns:L("VAULT_REMINDER_POPUP_SUBTITLE")
+	for i = 1, math.min(#state.entries, 5) do
+		local e = state.entries[i]
+		local key = e.kind == "ready" and "VAULT_REMINDER_POPUP_READY_FMT" or "VAULT_REMINDER_POPUP_LIKELY_FMT"
+		lines[#lines + 1] = ns:L(key):format(tostring(e.label))
+	end
+	if #state.entries > 5 then
+		lines[#lines + 1] = ns:L("VAULT_REMINDER_TOOLTIP_MORE_FMT"):format(#state.entries - 5)
+	end
+	f.body:SetText(table.concat(lines, "|n"))
+	f.hint:SetText(ns:L("VAULT_REMINDER_POPUP_OPEN_HINT"))
+
+	f:Show()
 end
 
 local function ScheduleVaultReminderUpdate(delay)
@@ -253,10 +342,12 @@ local function ScheduleVaultReminderUpdate(delay)
 		C_Timer.After(delay or 1.5, function()
 			ns.UpdateVaultReminderPresentation()
 			PrintVaultReminderChat()
+			ShowVaultReminderPopup()
 		end)
 	else
 		ns.UpdateVaultReminderPresentation()
 		PrintVaultReminderChat()
+		ShowVaultReminderPopup()
 	end
 end
 
@@ -282,6 +373,7 @@ ev:SetScript("OnEvent", function(_, event)
 	end
 	if event == "PLAYER_LOGIN" then
 		sessionChatDone = false
+		popupDone = false
 		ScheduleVaultReminderUpdate(2.5)
 	elseif event == "WEEKLY_REWARDS_UPDATE" then
 		ScheduleVaultReminderUpdate(0.4)

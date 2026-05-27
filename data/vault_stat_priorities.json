@@ -1,0 +1,1021 @@
+{
+  "patch": "12.0.5",
+  "note": "Secondary stat order from Icy Veins stat-priority-widget (Midnight). Regenerate: python tools/fetch_vault_stat_priorities.py && python tools/generate_vault_stat_weights.py",
+  "entries": [
+    {
+      "key": "DEATHKNIGHT_250",
+      "class": "DEATHKNIGHT",
+      "specID": 250,
+      "label": "Blood Death Knight",
+      "priority": [
+        "crit",
+        "vers",
+        "mastery",
+        "haste"
+      ],
+      "priorityText": "Strength > Crit > Vers > Mastery > Haste",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/blood-death-knight-pve-tank-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/death-knight/blood/stat-priority-pve-tank"
+        }
+      ]
+    },
+    {
+      "key": "DEATHKNIGHT_251",
+      "class": "DEATHKNIGHT",
+      "specID": 251,
+      "label": "Frost Death Knight",
+      "priority": [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      "priorityText": "Strength > Mastery > Crit > Haste > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/frost-death-knight-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/death-knight/frost/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "DEATHKNIGHT_252",
+      "class": "DEATHKNIGHT",
+      "specID": 252,
+      "label": "Unholy Death Knight",
+      "priority": [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      "priorityText": "Strength > Mastery > Crit > Haste > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/unholy-death-knight-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/death-knight/unholy/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "DEMONHUNTER_577",
+      "class": "DEMONHUNTER",
+      "specID": 577,
+      "label": "Havoc Demon Hunter",
+      "priority": [
+        "crit",
+        "mastery",
+        "haste",
+        "vers"
+      ],
+      "priorityText": "Agility > Crit > Mastery > Haste > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/havoc-demon-hunter-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/demon-hunter/havoc/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "DEMONHUNTER_581",
+      "class": "DEMONHUNTER",
+      "specID": 581,
+      "label": "Vengeance Demon Hunter",
+      "priority": [
+        "haste",
+        "vers",
+        "crit",
+        "mastery"
+      ],
+      "priorityText": "Agility > Haste > Vers > Crit > Mastery",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/vengeance-demon-hunter-pve-tank-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/demon-hunter/vengeance/stat-priority-pve-tank"
+        }
+      ]
+    },
+    {
+      "key": "DRUID_102",
+      "class": "DRUID",
+      "specID": 102,
+      "label": "Balance Druid",
+      "priority": [
+        "haste",
+        "crit",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/balance-druid-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/druid/balance/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "DRUID_103",
+      "class": "DRUID",
+      "specID": 103,
+      "label": "Feral Druid",
+      "priority": [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ],
+      "priorityText": "Agility > Mastery > Haste > Crit > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/feral-druid-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/druid/feral/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "DRUID_104",
+      "class": "DRUID",
+      "specID": 104,
+      "label": "Guardian Druid",
+      "priority": [
+        "haste",
+        "vers",
+        "mastery",
+        "crit"
+      ],
+      "priorityText": "Agility > Haste > Vers > Mastery > Crit",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/guardian-druid-pve-tank-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/druid/guardian/stat-priority-pve-tank"
+        }
+      ]
+    },
+    {
+      "key": "DRUID_105",
+      "class": "DRUID",
+      "specID": 105,
+      "label": "Restoration Druid",
+      "priority": [
+        "haste",
+        "mastery",
+        "vers",
+        "crit"
+      ],
+      "priorityText": "Intellect > Haste > Mastery > Vers > Crit",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/druid/restoration/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
+      "key": "EVOKER_1467",
+      "class": "EVOKER",
+      "specID": 1467,
+      "label": "Devastation Evoker",
+      "priority": [
+        "haste",
+        "crit",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/devastation-evoker-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/evoker/devastation/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "EVOKER_1468",
+      "class": "EVOKER",
+      "specID": 1468,
+      "label": "Preservation Evoker",
+      "priority": [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      "priorityText": "Intellect > Mastery > Crit > Haste > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/preservation-evoker-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/evoker/preservation/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
+      "key": "EVOKER_1473",
+      "class": "EVOKER",
+      "specID": 1473,
+      "label": "Augmentation Evoker",
+      "priority": [
+        "crit",
+        "haste",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Intellect > Crit > Haste > Mastery > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/augmentation-evoker-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/evoker/augmentation/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "HUNTER_253",
+      "class": "HUNTER",
+      "specID": 253,
+      "label": "Beast Mastery Hunter",
+      "priority": [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      "priorityText": "Agility > Mastery > Crit > Haste > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/hunter/beast-mastery/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "HUNTER_254",
+      "class": "HUNTER",
+      "specID": 254,
+      "label": "Marksmanship Hunter",
+      "priority": [
+        "crit",
+        "mastery",
+        "vers",
+        "haste"
+      ],
+      "priorityText": "Agility > Crit > Mastery > Vers > Haste",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/hunter/marksmanship/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "HUNTER_255",
+      "class": "HUNTER",
+      "specID": 255,
+      "label": "Survival Hunter",
+      "priority": [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      "priorityText": "Agility > Mastery > Crit > Haste > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/survival-hunter-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/hunter/survival/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "MAGE_62",
+      "class": "MAGE",
+      "specID": 62,
+      "label": "Arcane Mage",
+      "priority": [
+        "mastery",
+        "vers",
+        "crit",
+        "haste"
+      ],
+      "priorityText": "Intellect > Mastery > Vers > Crit > Haste",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/arcane-mage-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/mage/arcane/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "MAGE_63",
+      "class": "MAGE",
+      "specID": 63,
+      "label": "Fire Mage",
+      "priority": [
+        "haste",
+        "mastery",
+        "vers",
+        "crit"
+      ],
+      "priorityText": "Intellect > Haste > Mastery > Vers > Crit",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/fire-mage-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/mage/fire/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "MAGE_64",
+      "class": "MAGE",
+      "specID": 64,
+      "label": "Frost Mage",
+      "priority": [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      "priorityText": "Intellect > Mastery = Crit > Haste > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/frost-mage-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/mage/frost/stat-priority-pve-dps"
+        }
+      ],
+      "ties": [
+        [
+          "mastery",
+          "crit"
+        ]
+      ]
+    },
+    {
+      "key": "MONK_268",
+      "class": "MONK",
+      "specID": 268,
+      "label": "Brewmaster Monk",
+      "priority": [
+        "crit",
+        "vers",
+        "mastery",
+        "haste"
+      ],
+      "priorityText": "Agility > Crit > Vers > Mastery > Haste",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/brewmaster-monk-pve-tank-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/monk/brewmaster/stat-priority-pve-tank"
+        }
+      ]
+    },
+    {
+      "key": "MONK_269",
+      "class": "MONK",
+      "specID": 269,
+      "label": "Windwalker Monk",
+      "priority": [
+        "haste",
+        "crit",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Agility > Haste > Crit > Mastery > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/windwalker-monk-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/monk/windwalker/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "MONK_270",
+      "class": "MONK",
+      "specID": 270,
+      "label": "Mistweaver Monk",
+      "priority": [
+        "haste",
+        "crit",
+        "vers",
+        "mastery"
+      ],
+      "priorityText": "Intellect > Haste > Crit > Vers > Mastery",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/mistweaver-monk-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/monk/mistweaver/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
+      "key": "PALADIN_65",
+      "class": "PALADIN",
+      "specID": 65,
+      "label": "Holy Paladin",
+      "priority": [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ],
+      "priorityText": "Intellect > Mastery > Haste > Crit > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/holy-paladin-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/paladin/holy/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
+      "key": "PALADIN_66",
+      "class": "PALADIN",
+      "specID": 66,
+      "label": "Protection Paladin",
+      "priority": [
+        "haste",
+        "vers",
+        "mastery",
+        "crit"
+      ],
+      "priorityText": "Strength > Haste > Vers > Mastery > Crit",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/protection-paladin-pve-tank-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/paladin/protection/stat-priority-pve-tank"
+        }
+      ]
+    },
+    {
+      "key": "PALADIN_70",
+      "class": "PALADIN",
+      "specID": 70,
+      "label": "Retribution Paladin",
+      "priority": [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      "priorityText": "Strength > Mastery > Crit > Haste > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/retribution-paladin-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/paladin/retribution/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "PRIEST_256",
+      "class": "PRIEST",
+      "specID": 256,
+      "label": "Discipline Priest",
+      "priority": [
+        "haste",
+        "crit",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/discipline-priest-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/priest/discipline/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
+      "key": "PRIEST_257",
+      "class": "PRIEST",
+      "specID": 257,
+      "label": "Holy Priest",
+      "priority": [
+        "crit",
+        "vers",
+        "mastery",
+        "haste"
+      ],
+      "priorityText": "Intellect > Crit > Vers > Mastery > Haste",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/holy-priest-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/priest/holy/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
+      "key": "PRIEST_258",
+      "class": "PRIEST",
+      "specID": 258,
+      "label": "Shadow Priest",
+      "priority": [
+        "haste",
+        "mastery",
+        "crit",
+        "vers"
+      ],
+      "priorityText": "Intellect > Haste > Mastery > Crit > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/shadow-priest-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/priest/shadow/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "ROGUE_259",
+      "class": "ROGUE",
+      "specID": 259,
+      "label": "Assassination Rogue",
+      "priority": [
+        "crit",
+        "haste",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Agility > Crit > Haste > Mastery > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/assassination-rogue-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/rogue/assassination/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "ROGUE_260",
+      "class": "ROGUE",
+      "specID": 260,
+      "label": "Outlaw Rogue",
+      "priority": [
+        "crit",
+        "haste",
+        "vers",
+        "mastery"
+      ],
+      "priorityText": "Agility > Crit > Haste > Vers > Mastery",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/outlaw-rogue-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/rogue/outlaw/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "ROGUE_261",
+      "class": "ROGUE",
+      "specID": 261,
+      "label": "Subtlety Rogue",
+      "priority": [
+        "haste",
+        "mastery",
+        "crit",
+        "vers"
+      ],
+      "priorityText": "Agility > Haste > Mastery > Crit > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/subtlety-rogue-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/rogue/subtlety/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "SHAMAN_262",
+      "class": "SHAMAN",
+      "specID": 262,
+      "label": "Elemental Shaman",
+      "priority": [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ],
+      "priorityText": "Intellect > Mastery > Haste = Crit > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/elemental-shaman-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/shaman/elemental/stat-priority-pve-dps"
+        }
+      ],
+      "ties": [
+        [
+          "haste",
+          "crit"
+        ]
+      ]
+    },
+    {
+      "key": "SHAMAN_262_HERO_55",
+      "class": "SHAMAN",
+      "specID": 262,
+      "heroID": 55,
+      "label": "Elemental Shaman (Stormbringer)",
+      "priority": [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      "ties": [
+        [
+          "mastery",
+          "crit"
+        ]
+      ],
+      "priorityText": "Intellect > Mastery >= Crit > Haste > Vers",
+      "sources": [
+        {
+          "name": "Method",
+          "url": "https://www.method.gg/guides/elemental-shaman/stats-races-and-consumables"
+        }
+      ]
+    },
+    {
+      "key": "SHAMAN_262_HERO_56",
+      "class": "SHAMAN",
+      "specID": 262,
+      "heroID": 56,
+      "label": "Elemental Shaman (Farseer)",
+      "priority": [
+        "mastery",
+        "haste",
+        "vers",
+        "crit"
+      ],
+      "priorityText": "Intellect > Mastery > Haste > Vers > Crit",
+      "sources": [
+        {
+          "name": "Method",
+          "url": "https://www.method.gg/guides/elemental-shaman/stats-races-and-consumables"
+        }
+      ]
+    },
+    {
+      "key": "SHAMAN_263",
+      "class": "SHAMAN",
+      "specID": 263,
+      "label": "Enhancement Shaman",
+      "priority": [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ],
+      "priorityText": "Agility > Mastery > Haste > Crit > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/shaman/enhancement/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "SHAMAN_263_HERO_54",
+      "class": "SHAMAN",
+      "specID": 263,
+      "heroID": 54,
+      "label": "Enhancement Shaman (Totemic)",
+      "priority": [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ],
+      "priorityText": "Agility > Mastery > Haste > Crit > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/shaman/enhancement/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "SHAMAN_263_HERO_55",
+      "class": "SHAMAN",
+      "specID": 263,
+      "heroID": 55,
+      "label": "Enhancement Shaman (Stormbringer)",
+      "priority": [
+        "haste",
+        "mastery",
+        "crit",
+        "vers"
+      ],
+      "ties": [
+        [
+          "mastery",
+          "crit"
+        ]
+      ],
+      "priorityText": "Agility > Haste > Mastery = Crit > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/shaman/enhancement/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "SHAMAN_264",
+      "class": "SHAMAN",
+      "specID": 264,
+      "label": "Restoration Shaman",
+      "priority": [
+        "crit",
+        "vers",
+        "mastery",
+        "haste"
+      ],
+      "priorityText": "Intellect > Crit > Vers = Mastery > Haste",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/restoration-shaman-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/shaman/restoration/stat-priority-pve-healing"
+        }
+      ],
+      "ties": [
+        [
+          "vers",
+          "mastery"
+        ]
+      ]
+    },
+    {
+      "key": "WARLOCK_265",
+      "class": "WARLOCK",
+      "specID": 265,
+      "label": "Affliction Warlock",
+      "priority": [
+        "haste",
+        "crit",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/affliction-warlock-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/warlock/affliction/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "WARLOCK_266",
+      "class": "WARLOCK",
+      "specID": 266,
+      "label": "Demonology Warlock",
+      "priority": [
+        "crit",
+        "haste",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Intellect > Crit > Haste > Mastery > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/demonology-warlock-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/warlock/demonology/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "WARLOCK_267",
+      "class": "WARLOCK",
+      "specID": 267,
+      "label": "Destruction Warlock",
+      "priority": [
+        "crit",
+        "haste",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Intellect > Crit > Haste > Mastery > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/destruction-warlock-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/warlock/destruction/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "WARRIOR_71",
+      "class": "WARRIOR",
+      "specID": 71,
+      "label": "Arms Warrior",
+      "priority": [
+        "crit",
+        "haste",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Strength > Crit > Haste > Mastery > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/arms-warrior-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/warrior/arms/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "WARRIOR_72",
+      "class": "WARRIOR",
+      "specID": 72,
+      "label": "Fury Warrior",
+      "priority": [
+        "mastery",
+        "haste",
+        "vers",
+        "crit"
+      ],
+      "priorityText": "Strength > Mastery > Haste > Vers > Crit",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/fury-warrior-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/warrior/fury/stat-priority-pve-dps"
+        }
+      ]
+    },
+    {
+      "key": "WARRIOR_73",
+      "class": "WARRIOR",
+      "specID": 73,
+      "label": "Protection Warrior",
+      "priority": [
+        "haste",
+        "vers",
+        "crit",
+        "mastery"
+      ],
+      "priorityText": "Strength > Haste > Vers > Crit > Mastery",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/protection-warrior-pve-tank-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/warrior/protection/stat-priority-pve-tank"
+        }
+      ]
+    }
+  ]
+}

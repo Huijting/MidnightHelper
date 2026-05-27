@@ -49,6 +49,8 @@ UI.lua
 Modules\DialogPopup.lua
 Modules\Changelog.lua
 Modules\VaultReminder.lua
+Modules\VaultAdvisorData.lua
+Modules\VaultAdvisor.lua
 Modules\MidnightToast.lua
 Modules\Broker.lua
 Modules\DelveItemBrokers.lua

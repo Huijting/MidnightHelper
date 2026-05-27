@@ -1354,7 +1354,7 @@ local function RefreshDelvesPanel()
 		ns.vaultClaimLine:SetWidth(rowInnerW)
 		ns.vaultClaimLine:SetPoint("TOPLEFT", ns.vaultPanel, "TOPLEFT", VAULT_PAD, -VAULT_PAD)
 		if vaultClaimReady then
-			ns.vaultClaimLine:SetText(ns:L("DELVES_VAULT_CLAIM_READY"))
+			ns.vaultClaimLine:SetText(ns:SafeL("DELVES_VAULT_CLAIM_READY"))
 			ns.vaultClaimLine:SetTextColor(1, 0.84, 0.18)
 			ns.vaultClaimLine:Show()
 		else
@@ -1379,7 +1379,6 @@ local function RefreshDelvesPanel()
 			+ VAULT_ROW_GAP
 			+ VAULT_ROW_H
 			+ VAULT_PAD
-		ns.vaultPanel:SetHeight(vaultPanelH)
 
 		local firstRowY = -(VAULT_PAD + claimStripH)
 		ns.vaultBoxes[1]:ClearAllPoints()
@@ -1430,6 +1429,29 @@ local function RefreshDelvesPanel()
 				box:Hide()
 			end
 		end
+
+		local advisorH = 0
+		if ns.RefreshVaultAdvisorPanel then
+			if not ns.vaultAdvisorHost then
+				ns.vaultAdvisorHost = CreateFrame("Frame", nil, ns.vaultPanel)
+			else
+				ns.vaultAdvisorHost:SetParent(ns.vaultPanel)
+			end
+			ns.vaultAdvisorHost:ClearAllPoints()
+			ns.vaultAdvisorHost:SetPoint("TOPLEFT", ns.vaultBoxes[3], "BOTTOMLEFT", 0, -10)
+			ns.vaultAdvisorHost:SetPoint("RIGHT", ns.vaultPanel, "RIGHT", -VAULT_PAD, 0)
+			ns.vaultAdvisorHost:SetWidth(rowInnerW)
+			advisorH = ns.RefreshVaultAdvisorPanel(ns.vaultAdvisorHost, rowInnerW, vaultClaimReady) or 0
+			if advisorH > 0 then
+				ns.vaultAdvisorHost:SetHeight(advisorH)
+				ns.vaultAdvisorHost:Show()
+				vaultPanelH = vaultPanelH + 10 + advisorH
+			else
+				ns.vaultAdvisorHost:Hide()
+			end
+		end
+
+		ns.vaultPanel:SetHeight(vaultPanelH)
 	end
 
 	if midnightToggleBar then
