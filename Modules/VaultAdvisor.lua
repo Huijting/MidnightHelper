@@ -16,6 +16,81 @@ end
 local REWARD_ITEM_TYPE = (Enum and Enum.CachedRewardType and Enum.CachedRewardType.Item) or 1
 local ILVL_WEIGHT = (ns.VAULT_ADVISOR_ILVL_WEIGHT or 8)
 local MIN_GEAR_ILVL = 200
+local PAWN_ILVL_WEIGHT = 2
+
+local function GetVaultAdvisorSettings()
+	local ui = ns.db and ns.db.ui
+	if type(ui) ~= "table" then
+		return { usePawn = true, profileMode = "auto" }
+	end
+	if type(ui.vaultAdvisor) ~= "table" then
+		ui.vaultAdvisor = { usePawn = true, profileMode = "auto" }
+	end
+	return ui.vaultAdvisor
+end
+
+function ns.GetVaultAdvisorSettings()
+	return GetVaultAdvisorSettings()
+end
+
+function ns.SetVaultAdvisorOption(key, value)
+	local s = GetVaultAdvisorSettings()
+	if key == "usePawn" then
+		s.usePawn = value and true or false
+	elseif key == "profileMode" then
+		if value == "raid" or value == "mplus" or value == "auto" then
+			s.profileMode = value
+		end
+	end
+end
+
+local function IsPawnAvailable()
+	return PawnGetItemData ~= nil and PawnGetSingleValueFromItem ~= nil
+end
+
+local function ShouldUsePawn()
+	local s = GetVaultAdvisorSettings()
+	if s.usePawn == false then
+		return false
+	end
+	return IsPawnAvailable()
+end
+
+local function GetPawnScaleName()
+	if PawnUICurrentScale and PawnCommon and PawnCommon.Scales and PawnCommon.Scales[PawnUICurrentScale] then
+		return PawnUICurrentScale
+	end
+	if PawnGetAllScalesEx then
+		for _, scaleData in pairs(PawnGetAllScalesEx()) do
+			if scaleData and scaleData.IsVisible and scaleData.Name then
+				return scaleData.Name
+			end
+		end
+	end
+	return nil
+end
+
+local function GetPawnItemScore(link)
+	if not ShouldUsePawn() or not link then
+		return nil
+	end
+	local scaleName = GetPawnScaleName()
+	if not scaleName then
+		return nil
+	end
+	local item = PawnGetItemData(link)
+	if not item then
+		return nil
+	end
+	if PawnRecalculateItemValuesIfNecessary then
+		PawnRecalculateItemValuesIfNecessary(item, true)
+	end
+	local value = PawnGetSingleValueFromItem(item, scaleName)
+	if value == nil then
+		return nil
+	end
+	return tonumber(value) or 0, scaleName
+end
 
 local advisorPanel
 local choiceRows = {}
@@ -67,7 +142,35 @@ local EQUIP_LOC_SLOTS = {
 	INVTYPE_RANGEDRIGHT = { 16 },
 }
 
-local function GetSpecWeightKey()
+local function ResolveContentProfile(activityHints)
+	local s = GetVaultAdvisorSettings()
+	local mode = s.profileMode or "auto"
+	if mode == "raid" then
+		return "raid"
+	end
+	if mode == "mplus" then
+		return "mplus"
+	end
+	if activityHints and activityHints.dungeon and not activityHints.raid then
+		return "mplus"
+	end
+	if activityHints and activityHints.dungeon then
+		return "mplus"
+	end
+	return "raid"
+end
+
+local function ApplyProfileSuffix(base, profile)
+	if profile == "mplus" then
+		local mplusKey = base .. "_MPLUS"
+		if ns.VAULT_ADVISOR_SPEC_WEIGHTS and ns.VAULT_ADVISOR_SPEC_WEIGHTS[mplusKey] then
+			return mplusKey
+		end
+	end
+	return base
+end
+
+local function GetSpecWeightKey(activityHints)
 	local classID = select(3, UnitClass("player"))
 	local specIndex = GetSpecialization and GetSpecialization()
 	if not classID or not specIndex then
@@ -81,14 +184,20 @@ local function GetSpecWeightKey()
 	if not classFile then
 		return nil
 	end
-	local base = ("%s_%d"):format(classFile, specID)
+	local base = ApplyProfileSuffix(("%s_%d"):format(classFile, specID), ResolveContentProfile(activityHints))
 
 	-- Hero talent overrides when we have a matching entry (e.g. Enhancement Totemic vs Stormbringer).
 	if C_ClassTalents and C_ClassTalents.GetActiveHeroTalentSpec then
 		local ok, heroID = pcall(C_ClassTalents.GetActiveHeroTalentSpec)
 		heroID = ok and tonumber(heroID) or nil
 		if heroID then
-			local heroKey = ("%s_HERO_%d"):format(base, heroID)
+			local heroKey = ("%s_HERO_%d"):format(base:gsub("_MPLUS$", ""), heroID)
+			if ns.VAULT_ADVISOR_SPEC_WEIGHTS and ns.VAULT_ADVISOR_SPEC_WEIGHTS[heroKey] then
+				return heroKey
+			end
+			-- Elemental/Enhancement base keys without profile suffix for hero trees.
+			local plainBase = ("%s_%d"):format(classFile, specID)
+			heroKey = ("%s_HERO_%d"):format(plainBase, heroID)
 			if ns.VAULT_ADVISOR_SPEC_WEIGHTS and ns.VAULT_ADVISOR_SPEC_WEIGHTS[heroKey] then
 				return heroKey
 			end
@@ -98,8 +207,8 @@ local function GetSpecWeightKey()
 	return base
 end
 
-local function GetSpecWeights()
-	local key = GetSpecWeightKey()
+local function GetSpecWeights(activityHints)
+	local key = GetSpecWeightKey(activityHints or CollectActivityProfileHints())
 	if not key then
 		return nil, nil
 	end
@@ -121,17 +230,21 @@ local function GetSpecWeightMeta(weightKey)
 	return ns.VAULT_ADVISOR_SPEC_META[weightKey]
 end
 
-local function GetGuideStatHint(weightKey)
+local function GetGuideStatHint(weightKey, pawnScaleName)
 	local meta = GetSpecWeightMeta(weightKey)
-	if not meta then
-		return nil
-	end
 	local parts = {}
-	if meta.priorityText and meta.priorityText ~= "" then
-		parts[#parts + 1] = meta.priorityText
+	if pawnScaleName and ShouldUsePawn() then
+		parts[#parts + 1] = VL("VAULT_ADVISOR_PAWN_FMT", pawnScaleName)
+	elseif meta then
+		if meta.priorityText and meta.priorityText ~= "" then
+			parts[#parts + 1] = meta.priorityText
+		end
+		if meta.sources and meta.sources ~= "" then
+			parts[#parts + 1] = VL("VAULT_ADVISOR_SOURCE_FMT", meta.sources, meta.patch or "?")
+		end
 	end
-	if meta.sources and meta.sources ~= "" then
-		parts[#parts + 1] = VL("VAULT_ADVISOR_SOURCE_FMT", meta.sources, meta.patch or "?")
+	if weightKey and weightKey:find("_MPLUS$") and #parts > 0 then
+		parts[#parts + 1] = VL("VAULT_ADVISOR_PROFILE_MPLUS")
 	end
 	if #parts == 0 then
 		return nil
@@ -161,15 +274,37 @@ local function GetActiveHeroTalentLabel()
 	if not heroID then
 		return nil, nil
 	end
-	-- Shaman hero trees: 54 Totemic, 55 Stormbringer, 56 Farseer.
-	if heroID == 54 then
-		return "Totemic", heroID
-	elseif heroID == 55 then
-		return "Stormbringer", heroID
-	elseif heroID == 56 then
-		return "Farseer", heroID
+	local names = ns.VAULT_ADVISOR_HERO_NAMES
+	if names and names[heroID] then
+		return names[heroID], heroID
 	end
 	return nil, heroID
+end
+
+local function CollectActivityProfileHints()
+	local hints = { dungeon = false, raid = false, world = false }
+	if not C_WeeklyRewards or not C_WeeklyRewards.GetActivities then
+		return hints
+	end
+	local ok, activities = pcall(C_WeeklyRewards.GetActivities)
+	if not ok or type(activities) ~= "table" then
+		return hints
+	end
+	for a = 1, #activities do
+		local activity = activities[a]
+		local rewards = activity and activity.rewards
+		if type(rewards) == "table" and #rewards > 0 then
+			local cat = GetActivityCategoryKey(activity.type)
+			if cat == "dungeon" then
+				hints.dungeon = true
+			elseif cat == "raid" then
+				hints.raid = true
+			elseif cat == "world" then
+				hints.world = true
+			end
+		end
+	end
+	return hints
 end
 
 local function GetActivityCategoryKey(activityType)
@@ -556,8 +691,13 @@ end
 local function ScoreItem(link, weights)
 	local stats = GetItemStatsFromLink(link)
 	local ilvl = select(1, GetItemLevelFromLink(link))
+	local pawnValue, scaleName = GetPawnItemScore(link)
+	if pawnValue then
+		local score = pawnValue + (ilvl or 0) * PAWN_ILVL_WEIGHT
+		return score, stats, ilvl, scaleName
+	end
 	local score = ilvl * ILVL_WEIGHT + ScoreStats(stats, weights)
-	return score, stats, ilvl
+	return score, stats, ilvl, nil
 end
 
 local function CompareToEquipped(link, weights)
@@ -644,8 +784,8 @@ local function BuildChoiceRecord(activity, reward, link, weights, weightKey)
 		dataReady = false
 		RequestItemDataForLink(link, itemID)
 	end
-	local score, stats = ScoreItem(link, weights)
-	if dataReady and ilvl > 0 then
+	local score, stats, _, pawnScale = ScoreItem(link, weights)
+	if dataReady and ilvl > 0 and not pawnScale then
 		score = ilvl * ILVL_WEIGHT + ScoreStats(stats, weights)
 	end
 	local scoreDelta, ilvlDelta, equippedName = CompareToEquipped(link, weights)
@@ -1049,7 +1189,8 @@ function ns.RefreshVaultAdvisorPanel(parent, innerWidth, claimReady)
 	end
 
 	do
-		local guideHint = GetGuideStatHint(weightKey)
+		local pawnScale = ShouldUsePawn() and GetPawnScaleName() or nil
+		local guideHint = GetGuideStatHint(weightKey, pawnScale)
 		if guideHint then
 			panel._hint:SetText(guideHint .. "\n" .. VL("VAULT_ADVISOR_HINT_PICK_ONE"))
 		elseif weightKey and weightKey:find("^GENERIC_") then

@@ -89,9 +89,16 @@ def wowhead_stat_url(class_slug: str, spec_slug: str, role: str) -> str:
     return f"https://www.wowhead.com/guide/classes/{class_slug}/{spec_slug}/stat-priority-{suffix}"
 
 
-def build_entry(spec: dict, priority: list[str], priority_text: str | None = None) -> dict:
-    key = f"{spec['class']}_{spec['specID']}"
-    label = spec["label"]
+def build_entry(
+    spec: dict,
+    priority: list[str],
+    priority_text: str | None = None,
+    *,
+    key_suffix: str = "",
+    label_suffix: str = "",
+) -> dict:
+    key = f"{spec['class']}_{spec['specID']}{key_suffix}"
+    label = (spec["label"] or key) + label_suffix
     role = spec["role"]
     pt = priority_text or _default_priority_text(spec.get("primary"), priority)
     sources = [
@@ -132,6 +139,7 @@ def main() -> int:
     patch = catalog.get("patch") or "12.0.5"
     specs = catalog["specs"]
     hero_entries: list[dict] = list(catalog.get("heroEntries") or [])
+    hero_keys_seen = {e["key"] for e in hero_entries}
     existing = {}
     if OUT_JSON.is_file():
         old = json.loads(OUT_JSON.read_text(encoding="utf-8"))
@@ -164,9 +172,53 @@ def main() -> int:
                 entry["ties"] = spec["ties"]
             if spec.get("priorityText"):
                 entry["priorityText"] = spec["priorityText"]
-            # Re-apply ties to weights in JSON (generator reads priority + ties).
             entries.append(entry)
             print(f"OK  {key}: {' > '.join(priority)}")
+
+            for ht in spec.get("heroTalents") or []:
+                hero_id = ht["heroID"]
+                hkey = f"{spec['class']}_{spec['specID']}_HERO_{hero_id}"
+                if hkey in hero_keys_seen:
+                    continue
+                hp = parse_icy_veins_widget(html, int(ht.get("widgetIndex") or 0))
+                if not hp:
+                    continue
+                hlabel = ht.get("label") or f"Hero {hero_id}"
+                he = build_entry(
+                    spec,
+                    hp,
+                    spec.get("priorityText"),
+                    key_suffix=f"_HERO_{hero_id}",
+                    label_suffix=f" ({hlabel})",
+                )
+                he["heroID"] = hero_id
+                if ht.get("ties"):
+                    he["ties"] = ht["ties"]
+                hero_entries.append(he)
+                hero_keys_seen.add(hkey)
+                print(f"  HERO {hkey}: {' > '.join(hp)}")
+
+            mplus = (spec.get("profiles") or {}).get("mplus")
+            if mplus:
+                mp_key = f"{key}_MPLUS"
+                if mp_key not in {e["key"] for e in entries}:
+                    mp_priority = mplus.get("priority")
+                    if mp_priority is None and mplus.get("widgetIndex") is not None:
+                        mp_priority = parse_icy_veins_widget(html, int(mplus["widgetIndex"]))
+                    if mp_priority:
+                        mp_entry = build_entry(
+                            spec,
+                            mp_priority,
+                            mplus.get("priorityText"),
+                            key_suffix="_MPLUS",
+                            label_suffix=" (M+)",
+                        )
+                        if mplus.get("ties"):
+                            mp_entry["ties"] = mplus["ties"]
+                        if mplus.get("priorityText"):
+                            mp_entry["priorityText"] = mplus["priorityText"]
+                        entries.append(mp_entry)
+                        print(f"  MPLUS {mp_key}: {' > '.join(mp_priority)}")
         except (urllib.error.URLError, ValueError, TimeoutError) as exc:
             if spec.get("fallbackPriority"):
                 entry = build_entry(spec, spec["fallbackPriority"], spec.get("priorityText"))

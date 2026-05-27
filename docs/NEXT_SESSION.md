@@ -27,12 +27,17 @@
 - **Vault Reminder**: chat, minimap, pulse, login-popup + TomTom waypoint (Silvermoon vault)
 - **Data pipeline**: `data/vault_stat_catalog.json` → `tools/fetch_vault_stat_priorities.py` → `tools/generate_vault_stat_weights.py` → `Modules/VaultAdvisorData.lua`
 
-### 🔜 Volgende verbeteringen (na backup commit)
+### ✅ Fase 2 (2026-05-27)
 
-1. **Pawn-integratie** — optioneel Pawn-scale scores i.p.v. guide-weights als Pawn geladen is
-2. **Instellingen** — popup aan/uit in Broker (code had `popup`, UI-checkbox ontbrak)
-3. **Hero classes** — meer specs met hero-specifieke stat widgets (Arms Colossus/Slayer, etc.)
-4. **Raid vs M+ profielen** — vooral healers (Icy Veins raid ≠ M+ waar van toepassing)
+- **Pawn** — scores via `PawnGetItemData` + actieve scale (instelbaar)
+- **Instellingen** — popup, Pawn, M+ profiel in Broker quick settings
+- **Hero trees** — labels voor alle SubTreeIDs; fetch voor o.a. Blood DK, Enhancement
+- **Raid vs M+** — `_MPLUS` keys voor healers; auto bij dungeon-vault of instelling
+
+### 🔜 Later
+
+- Meer hero-spec entries waar Icy Veins geen aparte widget heeft (Arms Colossus/Slayer)
+- Vault Advisor hook in Blizzard claim-UI (SHIFT-J blijft overzicht)
 
 ### Test Vault Advisor
 

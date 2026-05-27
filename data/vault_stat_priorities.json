@@ -26,6 +26,54 @@
       ]
     },
     {
+      "key": "DEATHKNIGHT_250_HERO_31",
+      "class": "DEATHKNIGHT",
+      "specID": 250,
+      "label": "Blood Death Knight (San'layn)",
+      "priority": [
+        "crit",
+        "vers",
+        "mastery",
+        "haste"
+      ],
+      "priorityText": "Strength > Crit > Vers > Mastery > Haste",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/blood-death-knight-pve-tank-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/death-knight/blood/stat-priority-pve-tank"
+        }
+      ],
+      "heroID": 31
+    },
+    {
+      "key": "DEATHKNIGHT_250_HERO_33",
+      "class": "DEATHKNIGHT",
+      "specID": 250,
+      "label": "Blood Death Knight (Deathbringer)",
+      "priority": [
+        "haste",
+        "crit",
+        "vers",
+        "mastery"
+      ],
+      "priorityText": "Strength > Haste > Crit > Vers > Mastery",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/blood-death-knight-pve-tank-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/death-knight/blood/stat-priority-pve-tank"
+        }
+      ],
+      "heroID": 33
+    },
+    {
       "key": "DEATHKNIGHT_251",
       "class": "DEATHKNIGHT",
       "specID": 251,
@@ -210,6 +258,29 @@
       ]
     },
     {
+      "key": "DRUID_105_MPLUS",
+      "class": "DRUID",
+      "specID": 105,
+      "label": "Restoration Druid (M+)",
+      "priority": [
+        "haste",
+        "vers",
+        "crit",
+        "mastery"
+      ],
+      "priorityText": "Intellect > Haste > Vers > Crit > Mastery (M+)",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/druid/restoration/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
       "key": "EVOKER_1467",
       "class": "EVOKER",
       "specID": 1467,
@@ -244,6 +315,29 @@
         "vers"
       ],
       "priorityText": "Intellect > Mastery > Crit > Haste > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/preservation-evoker-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/evoker/preservation/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
+      "key": "EVOKER_1468_MPLUS",
+      "class": "EVOKER",
+      "specID": 1468,
+      "label": "Preservation Evoker (M+)",
+      "priority": [
+        "haste",
+        "crit",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Intellect > Haste > Crit > Mastery > Vers (M+)",
       "sources": [
         {
           "name": "Icy Veins",
@@ -492,6 +586,29 @@
       ]
     },
     {
+      "key": "MONK_270_MPLUS",
+      "class": "MONK",
+      "specID": 270,
+      "label": "Mistweaver Monk (M+)",
+      "priority": [
+        "haste",
+        "crit",
+        "vers",
+        "mastery"
+      ],
+      "priorityText": "Intellect > Haste > Crit > Vers > Mastery (M+)",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/mistweaver-monk-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/monk/mistweaver/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
       "key": "PALADIN_65",
       "class": "PALADIN",
       "specID": 65,
@@ -503,6 +620,29 @@
         "vers"
       ],
       "priorityText": "Intellect > Mastery > Haste > Crit > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/holy-paladin-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/paladin/holy/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
+      "key": "PALADIN_65_MPLUS",
+      "class": "PALADIN",
+      "specID": 65,
+      "label": "Holy Paladin (M+)",
+      "priority": [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      "priorityText": "Intellect > Mastery > Crit > Haste > Vers (M+)",
       "sources": [
         {
           "name": "Icy Veins",
@@ -584,6 +724,29 @@
       ]
     },
     {
+      "key": "PRIEST_256_MPLUS",
+      "class": "PRIEST",
+      "specID": 256,
+      "label": "Discipline Priest (M+)",
+      "priority": [
+        "haste",
+        "crit",
+        "mastery",
+        "vers"
+      ],
+      "priorityText": "Intellect > Haste > Crit > Mastery > Vers (M+)",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/discipline-priest-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/priest/discipline/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
       "key": "PRIEST_257",
       "class": "PRIEST",
       "specID": 257,
@@ -595,6 +758,29 @@
         "haste"
       ],
       "priorityText": "Intellect > Crit > Vers > Mastery > Haste",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/holy-priest-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/priest/holy/stat-priority-pve-healing"
+        }
+      ]
+    },
+    {
+      "key": "PRIEST_257_MPLUS",
+      "class": "PRIEST",
+      "specID": 257,
+      "label": "Holy Priest (M+)",
+      "priority": [
+        "crit",
+        "vers",
+        "haste",
+        "mastery"
+      ],
+      "priorityText": "Intellect > Crit > Vers > Haste > Mastery (M+)",
       "sources": [
         {
           "name": "Icy Veins",
@@ -876,6 +1062,36 @@
         [
           "vers",
           "mastery"
+        ]
+      ]
+    },
+    {
+      "key": "SHAMAN_264_MPLUS",
+      "class": "SHAMAN",
+      "specID": 264,
+      "label": "Restoration Shaman (M+)",
+      "priority": [
+        "haste",
+        "crit",
+        "vers",
+        "mastery"
+      ],
+      "priorityText": "Intellect > Crit = Vers = Haste > Mastery (M+)",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/restoration-shaman-pve-healing-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/shaman/restoration/stat-priority-pve-healing"
+        }
+      ],
+      "ties": [
+        [
+          "crit",
+          "vers",
+          "haste"
         ]
       ]
     },

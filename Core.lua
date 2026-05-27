@@ -60,6 +60,11 @@ local DEFAULT_DB = {
 			ping = true,
 			popup = true,
 		},
+		--- Great Vault Advisor (guide stats, optional Pawn, raid/M+ profile).
+		vaultAdvisor = {
+			usePawn = true,
+			profileMode = "auto",
+		},
 		--- Floating Delve Coach panel (position, minimize state).
 		--- Floating RAID-R Mini / Trovehunter's Bounty buttons (beside Delve Coach in delves).
 		delveItemsPopup = {

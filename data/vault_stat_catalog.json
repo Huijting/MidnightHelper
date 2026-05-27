@@ -9,7 +9,11 @@
       "primary": "Strength",
       "wowheadClass": "death-knight",
       "wowheadSpec": "blood",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/blood-death-knight-pve-tank-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/blood-death-knight-pve-tank-stat-priority",
+      "heroTalents": [
+        { "heroID": 31, "label": "San'layn", "widgetIndex": 0 },
+        { "heroID": 33, "label": "Deathbringer", "widgetIndex": 1 }
+      ]
     },
     {
       "class": "DEATHKNIGHT",
@@ -89,7 +93,14 @@
       "primary": "Intellect",
       "wowheadClass": "druid",
       "wowheadSpec": "restoration",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority",
+      "profiles": {
+        "mplus": {
+          "widgetIndex": 2,
+          "label": "Mythic+",
+          "priorityText": "Intellect > Haste > Vers > Crit > Mastery (M+)"
+        }
+      }
     },
     {
       "class": "EVOKER",
@@ -109,7 +120,13 @@
       "primary": "Intellect",
       "wowheadClass": "evoker",
       "wowheadSpec": "preservation",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/preservation-evoker-pve-healing-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/preservation-evoker-pve-healing-stat-priority",
+      "profiles": {
+        "mplus": {
+          "priority": ["haste", "crit", "mastery", "vers"],
+          "priorityText": "Intellect > Haste > Crit > Mastery > Vers (M+)"
+        }
+      }
     },
     {
       "class": "EVOKER",
@@ -212,7 +229,13 @@
       "primary": "Intellect",
       "wowheadClass": "monk",
       "wowheadSpec": "mistweaver",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/mistweaver-monk-pve-healing-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/mistweaver-monk-pve-healing-stat-priority",
+      "profiles": {
+        "mplus": {
+          "priority": ["haste", "crit", "vers", "mastery"],
+          "priorityText": "Intellect > Haste > Crit > Vers > Mastery (M+)"
+        }
+      }
     },
     {
       "class": "PALADIN",
@@ -222,7 +245,14 @@
       "primary": "Intellect",
       "wowheadClass": "paladin",
       "wowheadSpec": "holy",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/holy-paladin-pve-healing-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/holy-paladin-pve-healing-stat-priority",
+      "profiles": {
+        "mplus": {
+          "widgetIndex": 1,
+          "label": "Mythic+",
+          "priorityText": "Intellect > Mastery > Crit > Haste > Vers (M+)"
+        }
+      }
     },
     {
       "class": "PALADIN",
@@ -252,7 +282,13 @@
       "primary": "Intellect",
       "wowheadClass": "priest",
       "wowheadSpec": "discipline",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/discipline-priest-pve-healing-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/discipline-priest-pve-healing-stat-priority",
+      "profiles": {
+        "mplus": {
+          "priority": ["haste", "crit", "mastery", "vers"],
+          "priorityText": "Intellect > Haste > Crit > Mastery > Vers (M+)"
+        }
+      }
     },
     {
       "class": "PRIEST",
@@ -262,7 +298,14 @@
       "primary": "Intellect",
       "wowheadClass": "priest",
       "wowheadSpec": "holy",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/holy-priest-pve-healing-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/holy-priest-pve-healing-stat-priority",
+      "profiles": {
+        "mplus": {
+          "widgetIndex": 1,
+          "label": "Mythic+",
+          "priorityText": "Intellect > Crit > Vers > Haste > Mastery (M+)"
+        }
+      }
     },
     {
       "class": "PRIEST",
@@ -327,7 +370,11 @@
       "wowheadClass": "shaman",
       "wowheadSpec": "enhancement",
       "icyVeinsUrl": "https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-stat-priority",
-      "priorityText": "Agility > Mastery > Haste > Crit > Vers"
+      "priorityText": "Agility > Mastery > Haste > Crit > Vers",
+      "heroTalents": [
+        { "heroID": 54, "label": "Totemic", "widgetIndex": 0 },
+        { "heroID": 55, "label": "Stormbringer", "widgetIndex": 1 }
+      ]
     },
     {
       "class": "SHAMAN",
@@ -339,7 +386,14 @@
       "wowheadSpec": "restoration",
       "icyVeinsUrl": "https://www.icy-veins.com/wow/restoration-shaman-pve-healing-stat-priority",
       "ties": [["vers", "mastery"]],
-      "priorityText": "Intellect > Crit > Vers = Mastery > Haste"
+      "priorityText": "Intellect > Crit > Vers = Mastery > Haste",
+      "profiles": {
+        "mplus": {
+          "priority": ["haste", "crit", "vers", "mastery"],
+          "ties": [["crit", "vers", "haste"]],
+          "priorityText": "Intellect > Crit = Vers = Haste > Mastery (M+)"
+        }
+      }
     },
     {
       "class": "WARLOCK",

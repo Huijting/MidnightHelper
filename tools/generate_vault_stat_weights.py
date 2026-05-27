@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+HERO_JSON = ROOT / "data" / "vault_hero_subtrees.json"
 STAT_NAMES = ("mastery", "haste", "crit", "vers")
 TIER_WEIGHTS = (1.0, 0.92, 0.84, 0.55)
 
@@ -108,6 +109,21 @@ def main() -> int:
     lines.append("}")
     meta_lines.append("}")
     lines.extend(meta_lines)
+
+    if HERO_JSON.is_file():
+        heroes = json.loads(HERO_JSON.read_text(encoding="utf-8")).get("heroes") or {}
+        lines.extend(
+            [
+                "",
+                "--- Hero talent SubTreeID labels (C_ClassTalents.GetActiveHeroTalentSpec).",
+                "ns.VAULT_ADVISOR_HERO_NAMES = {",
+            ]
+        )
+        for hid in sorted(heroes, key=lambda x: int(x)):
+            name = lua_escape(str(heroes[hid]))
+            lines.append(f"\t[{hid}] = \"{name}\",")
+        lines.append("}")
+        lines.append("")
     lines.extend(
         [
             "",

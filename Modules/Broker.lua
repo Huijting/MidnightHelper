@@ -246,6 +246,37 @@ local function EnsureSettingsFrame()
 	f._vaultChat = MakeVaultChk(f, f._vaultEnabled, -4, "chat")
 	f._vaultMinimap = MakeVaultChk(f, f._vaultChat, -4, "minimap")
 	f._vaultPing = MakeVaultChk(f, f._vaultMinimap, -4, "ping")
+	f._vaultPopup = MakeVaultChk(f, f._vaultPing, -4, "popup")
+
+	local vaultAdvisorLabel = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	vaultAdvisorLabel:SetPoint("TOPLEFT", f._vaultPopup, "BOTTOMLEFT", 2, -12)
+	vaultAdvisorLabel:SetTextColor(0.95, 0.9, 0.74)
+	f._vaultAdvisorLabel = vaultAdvisorLabel
+
+	local function MakeAdvisorChk(parent, anchor, offsetY, key, setter)
+		local chk = CreateFrame("CheckButton", nil, parent, "UICheckButtonTemplate")
+		chk:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", -2, offsetY)
+		chk:SetScript("OnClick", function(self)
+			if setter == "pawn" then
+				if ns.SetVaultAdvisorOption then
+					ns.SetVaultAdvisorOption("usePawn", self:GetChecked())
+				end
+			elseif setter == "mplus" then
+				if ns.SetVaultAdvisorOption then
+					local on = self:GetChecked()
+					ns.SetVaultAdvisorOption("profileMode", on and "mplus" or "auto")
+				end
+			end
+			if parent._refresh then
+				parent:_refresh()
+			end
+		end)
+		chk._text = chk.text or _G[chk:GetName() .. "Text"]
+		return chk
+	end
+
+	f._vaultUsePawn = MakeAdvisorChk(f, vaultAdvisorLabel, -6, "usePawn", "pawn")
+	f._vaultMplusProfile = MakeAdvisorChk(f, f._vaultUsePawn, -4, "mplus", "mplus")
 
 	function f:_refresh()
 		self._title:SetText(ns:L("SETTINGS_TITLE"))
@@ -285,6 +316,7 @@ local function EnsureSettingsFrame()
 			{ chk = self._vaultChat, key = "chat", loc = "SETTINGS_VAULT_REMINDER_CHAT" },
 			{ chk = self._vaultMinimap, key = "minimap", loc = "SETTINGS_VAULT_REMINDER_MINIMAP" },
 			{ chk = self._vaultPing, key = "ping", loc = "SETTINGS_VAULT_REMINDER_PING" },
+			{ chk = self._vaultPopup, key = "popup", loc = "SETTINGS_VAULT_REMINDER_POPUP" },
 		}
 		local vs = ns.GetVaultReminderSettings and ns.GetVaultReminderSettings() or {}
 		for _, row in ipairs(vaultKeys) do
@@ -296,6 +328,24 @@ local function EnsureSettingsFrame()
 						row.chk._text:SetTextColor(0.95, 0.9, 0.74)
 					end
 				end
+			end
+		end
+		if self._vaultAdvisorLabel then
+			self._vaultAdvisorLabel:SetText(ns:L("SETTINGS_VAULT_ADVISOR_LABEL"))
+		end
+		local vas = ns.GetVaultAdvisorSettings and ns.GetVaultAdvisorSettings() or {}
+		if self._vaultUsePawn and self._vaultUsePawn._text then
+			self._vaultUsePawn:SetChecked(vas.usePawn ~= false)
+			self._vaultUsePawn._text:SetText(ns:L("SETTINGS_VAULT_ADVISOR_USE_PAWN"))
+			if self._vaultUsePawn._text.SetTextColor then
+				self._vaultUsePawn._text:SetTextColor(0.95, 0.9, 0.74)
+			end
+		end
+		if self._vaultMplusProfile and self._vaultMplusProfile._text then
+			self._vaultMplusProfile:SetChecked(vas.profileMode == "mplus")
+			self._vaultMplusProfile._text:SetText(ns:L("SETTINGS_VAULT_ADVISOR_PROFILE_MPLUS"))
+			if self._vaultMplusProfile._text.SetTextColor then
+				self._vaultMplusProfile._text:SetTextColor(0.95, 0.9, 0.74)
 			end
 		end
 
