@@ -6,8 +6,9 @@ Midnight Helper is an all-in-one utility addon for **World of Warcraft Retail** 
 
 **Delves & weekly progress**
 - Delves dashboard: currencies, season progress, and bountiful tracking
-- **Great Vault** helper (World / Dungeons / Raids) on the Delves tab
-- Reset-day reminders and subtle highlights when a character has claimable vault rewards
+- **Great Vault** tracker (World / Dungeons / Raids) on the Delves tab
+- **Great Vault Advisor** on Blizzard’s Great Vault loot screen — ranks choices vs. your gear (ilvl, guide stat weights, tier sets); **Auto / Raid / M+** profiles; optional **Pawn** when installed
+- Reset-day reminders and subtle highlights when a character has claimable vault rewards (chat, minimap ping, login popup — configurable in addon settings)
 - **Travel Assistant** for sensible cross-zone hops toward delve entrances (optional **TomTom** arrows, or Blizzard map waypoints when TomTom is not installed)
 
 **In-delve tools**
@@ -22,14 +23,20 @@ Midnight Helper is an all-in-one utility addon for **World of Warcraft Retail** 
 - **Profession** tools and overview on the Professions tab
 
 **Guides & reference**
-- **Leveling Guides** — advisor text and gear notes per class/spec at level brackets; **In groups** tab (interrupt priority, defensives, party tips by role); **Layout** sub-tab with the ISO keyboard prototype (Midnight key highlights)
-- **Role Academy** — tank and heal learning tracks with links to macros, consumables, and delves
-- **Macros** — interrupt and team macro templates with class context
+- **Beta sidebar block** (between Professions and Consumables) — enable or hide in **Esc → AddOns → Midnight Helper** (master switch + per tab):
+  - **Guide** — compact reference / advisor (Beta)
+  - **Leveling Guides** — class/spec advisor and gear notes by level bracket; **In groups** tab (interrupts, defensives, party tips); **Layout** sub-tab (ISO keyboard prototype)
+  - **Macros** — interrupt and team macro templates with class context (Beta)
+  - **Role Academy** — tank and heal learning tracks (Beta)
 - **Consumables** — per-spec suggestions with Wowhead-backed data and guide search preview
 - **SMC City Guide** — Silvermoon City pins with waypoint buttons; optional weekly/hub checklist (quest IDs configurable in data)
 - **Addons** tab — companion helpers (e.g. Platynator integration)
 - Global **search** routes keywords to the right tab (delves, consumables, academy, macros, city pins, and more)
 - In-game **changelog** window
+
+**Settings (Esc → AddOns → Midnight Helper)**
+- Great Vault Advisor on/off, profile default, and vault reminder options
+- Beta tab visibility (sidebar block)
 
 **Minimap**
 - DataBroker launcher with quick access, locale switcher, and vault reminder lines

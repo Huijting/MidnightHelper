@@ -66,6 +66,14 @@ local DEFAULT_DB = {
 			profileMode = "auto",
 			showBlizzardPanel = true,
 		},
+		--- Sidebar beta tabs (Guide, Leveling Guides, Macros, Role Academy).
+		betaTabs = {
+			enabled = true,
+			reference = true,
+			guide = true,
+			macros = true,
+			academy = true,
+		},
 		--- Floating Delve Coach panel (position, minimize state).
 		--- Floating RAID-R Mini / Trovehunter's Bounty buttons (beside Delve Coach in delves).
 		delveItemsPopup = {
@@ -283,6 +291,59 @@ function ns:IsGuideTabEnabled()
 	end
 	local level = UnitLevel and UnitLevel("player") or 0
 	return (tonumber(level) or 0) < 90
+end
+
+local BETA_TAB_IDS = {
+	reference = true,
+	guide = true,
+	macros = true,
+	academy = true,
+}
+
+function ns.GetBetaTabsSettings()
+	local ui = ns.db and ns.db.ui
+	if type(ui) ~= "table" then
+		return { enabled = true, reference = true, guide = true, macros = true, academy = true }
+	end
+	if type(ui.betaTabs) ~= "table" then
+		ui.betaTabs = { enabled = true, reference = true, guide = true, macros = true, academy = true }
+	end
+	return ui.betaTabs
+end
+
+function ns.IsBetaTabId(tabId)
+	return tabId and BETA_TAB_IDS[tabId] == true
+end
+
+function ns.IsBetaTabEnabled(tabId)
+	if not ns.IsBetaTabId(tabId) then
+		return true
+	end
+	local bt = ns.GetBetaTabsSettings()
+	if bt.enabled == false then
+		return false
+	end
+	if bt[tabId] == false then
+		return false
+	end
+	if tabId == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
+		return false
+	end
+	return true
+end
+
+function ns.SetBetaTabOption(key, value)
+	local bt = ns.GetBetaTabsSettings()
+	if key == "enabled" then
+		bt.enabled = value and true or false
+	elseif BETA_TAB_IDS[key] then
+		bt[key] = value and true or false
+	else
+		return
+	end
+	if ns.RefreshBetaTabVisibility then
+		ns.RefreshBetaTabVisibility()
+	end
 end
 
 function ns:SetGuideVisibilityMode(mode, silent)

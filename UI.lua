@@ -198,6 +198,49 @@ local function FitSidebarTabButton(btn, sidebarWidth)
 	btn:SetWidth(maxW)
 end
 
+local MH_BETA_TAB_IDS = {
+	reference = true,
+	guide = true,
+	macros = true,
+	academy = true,
+}
+
+local SIDEBAR_MAIN_TAB_IDS = { "delves", "account", "smcguide", "professions" }
+local SIDEBAR_BETA_TAB_IDS = { "reference", "guide", "macros", "academy" }
+local BETA_GROUP_GAP = 10
+
+local function SidebarTabVisible(tabId)
+	if tabId == "guide" then
+		return ns.IsBetaTabEnabled and ns.IsBetaTabEnabled("guide")
+	end
+	if MH_BETA_TAB_IDS[tabId] then
+		return ns.IsBetaTabEnabled and ns.IsBetaTabEnabled(tabId)
+	end
+	return true
+end
+
+local function MHAttachTabBetaBadge(btn, tabId)
+	if not btn or not MH_BETA_TAB_IDS[tabId] then
+		return
+	end
+	if not btn._mhBetaBadge then
+		local badge = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		badge:SetPoint("TOPRIGHT", btn, "TOPRIGHT", -3, -1)
+		badge:SetTextColor(1, 0.72, 0.15)
+		btn._mhBetaBadge = badge
+		btn:HookScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:AddLine(ns:L("TAB_BETA_TOOLTIP_TITLE"), 1, 0.82, 0)
+			GameTooltip:AddLine(ns:L("TAB_BETA_TOOLTIP_BODY"), 0.92, 0.92, 0.92, true)
+			GameTooltip:Show()
+		end)
+		btn:HookScript("OnLeave", function()
+			GameTooltip:Hide()
+		end)
+	end
+	btn._mhBetaBadge:SetText(ns:L("TAB_BETA_BADGE"))
+end
+
 local function MHGetInfoBodyKeyForTab(tabId)
 	if tabId == "delves" then
 		return "INFO_DRAWER_BODY_DELVES"
@@ -1070,6 +1113,11 @@ local TAB_DEFS = {
 	{ id = "addons", labelKey = "TAB_ADDONS" },
 }
 
+local TAB_LABEL_BY_ID = {}
+for _, tab in ipairs(TAB_DEFS) do
+	TAB_LABEL_BY_ID[tab.id] = tab.labelKey
+end
+
 --------------------------------------------------------------------------------
 -- Internal Addons sub-tab registry (modules call ns.RegisterAddonSubTab at load)
 --------------------------------------------------------------------------------
@@ -1338,7 +1386,16 @@ function ns:EnsureMainUI()
 	end
 	sidebarBg:SetVertexColor(0.34, 0.32, 0.38, 0.94)
 
-	-- About stays pinned to the bottom; main tabs stack from the top, Addons anchors just above About.
+	local betaSepTop = sidebar:CreateTexture(nil, "ARTWORK")
+	betaSepTop:SetHeight(1)
+	betaSepTop:SetColorTexture(0.45, 0.40, 0.30, 0.55)
+	sidebar._mhBetaSepTop = betaSepTop
+	local betaSepBottom = sidebar:CreateTexture(nil, "ARTWORK")
+	betaSepBottom:SetHeight(1)
+	betaSepBottom:SetColorTexture(0.45, 0.40, 0.30, 0.45)
+	sidebar._mhBetaSepBottom = betaSepBottom
+
+	-- About stays pinned to the bottom
 	local aboutBtn = CreateFrame("Button", "MidnightHelperAboutBtn", sidebar, "UIPanelButtonTemplate")
 	aboutBtn:SetSize(MHGetLayoutMetrics().aboutBtnWidth, MHGetLayoutMetrics().aboutBtnHeight)
 	aboutBtn:SetPoint("BOTTOM", sidebar, "BOTTOM", 0, ABOUT_BTN_BOTTOM_INSET)
@@ -1682,60 +1739,115 @@ function ns:EnsureMainUI()
 		btn:SetScript("OnClick", function()
 			SelectTab(tab.id)
 		end)
+		MHAttachTabBetaBadge(btn, tab.id)
 		ns.tabButtons[tab.id] = btn
 	end
 
 	RelayoutSidebarTabs = function()
 		local lm = MHGetLayoutMetrics()
 		local yy = -8
-		for _, tab in ipairs(TAB_DEFS) do
-			local btn = ns.tabButtons and ns.tabButtons[tab.id]
+
+		local function layoutTab(tabId)
+			local btn = ns.tabButtons and ns.tabButtons[tabId]
 			if not btn then
-				-- skip
-			elseif tab.id == "addons" or tab.id == "macros" or tab.id == "consumables" then
-				btn:SetText(ns:L(tab.labelKey))
-				FitSidebarTabButton(btn, lm.sidebarWidth)
-				btn:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
-				btn:ClearAllPoints()
-				btn:Show()
-			else
-				btn:SetText(ns:L(tab.labelKey))
-				FitSidebarTabButton(btn, lm.sidebarWidth)
-				btn:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
-				btn:ClearAllPoints()
-				local visible = true
-				if tab.id == "guide" and ns.IsGuideTabEnabled then
-					visible = ns:IsGuideTabEnabled()
-				end
-				if visible then
-					btn:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
-					yy = yy - lm.sidebarTabStep
-					btn:Show()
-				else
-					btn:Hide()
-				end
+				return yy
 			end
-		end
-		local addB = ns.tabButtons and ns.tabButtons.addons
-		local conB = ns.tabButtons and ns.tabButtons.consumables
-		local macB = ns.tabButtons and ns.tabButtons.macros
-		if addB then
-			addB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
-		end
-		if conB and addB then
-			conB:SetPoint("BOTTOM", addB, "TOP", 0, 6)
-		elseif conB then
-			conB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
-		end
-		if macB and conB then
-			macB:SetPoint("BOTTOM", conB, "TOP", 0, 6)
-		elseif macB and addB then
-			macB:SetPoint("BOTTOM", addB, "TOP", 0, 6)
-		elseif macB then
-			macB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
+			local labelKey = TAB_LABEL_BY_ID[tabId]
+			if labelKey then
+				btn:SetText(ns:L(labelKey))
+			end
+			FitSidebarTabButton(btn, lm.sidebarWidth)
+			btn:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
+			btn:ClearAllPoints()
+			if not SidebarTabVisible(tabId) then
+				btn:Hide()
+				return yy
+			end
+			btn:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
+			btn:Show()
+			MHAttachTabBetaBadge(btn, tabId)
+			return yy - lm.sidebarTabStep
 		end
 
-		if ns.uiSelectedTab == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
+		for _, tabId in ipairs(SIDEBAR_MAIN_TAB_IDS) do
+			yy = layoutTab(tabId)
+		end
+
+		yy = yy - BETA_GROUP_GAP
+		local anyBeta = false
+		for _, tabId in ipairs(SIDEBAR_BETA_TAB_IDS) do
+			if SidebarTabVisible(tabId) then
+				anyBeta = true
+				break
+			end
+		end
+
+		local sepTop = sidebar._mhBetaSepTop
+		local sepBottom = sidebar._mhBetaSepBottom
+		if sepTop then
+			if anyBeta then
+				sepTop:ClearAllPoints()
+				sepTop:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 10, yy)
+				sepTop:SetPoint("TOPRIGHT", sidebar, "TOPRIGHT", -10, yy)
+				sepTop:Show()
+				yy = yy - 6
+			else
+				sepTop:Hide()
+			end
+		end
+
+		for _, tabId in ipairs(SIDEBAR_BETA_TAB_IDS) do
+			yy = layoutTab(tabId)
+		end
+
+		if sepBottom then
+			if anyBeta then
+				yy = yy - BETA_GROUP_GAP
+				sepBottom:ClearAllPoints()
+				sepBottom:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 10, yy)
+				sepBottom:SetPoint("TOPRIGHT", sidebar, "TOPRIGHT", -10, yy)
+				sepBottom:Show()
+			else
+				sepBottom:Hide()
+			end
+		end
+
+		local addB = ns.tabButtons and ns.tabButtons.addons
+		local conB = ns.tabButtons and ns.tabButtons.consumables
+		if addB then
+			local labelKey = TAB_LABEL_BY_ID.addons
+			if labelKey then
+				addB:SetText(ns:L(labelKey))
+			end
+			FitSidebarTabButton(addB, lm.sidebarWidth)
+			addB:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
+			addB:ClearAllPoints()
+			addB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
+			addB:Show()
+		end
+		if conB then
+			local labelKey = TAB_LABEL_BY_ID.consumables
+			if labelKey then
+				conB:SetText(ns:L(labelKey))
+			end
+			FitSidebarTabButton(conB, lm.sidebarWidth)
+			conB:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
+			conB:ClearAllPoints()
+			if addB then
+				conB:SetPoint("BOTTOM", addB, "TOP", 0, 6)
+			else
+				conB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
+			end
+			conB:Show()
+		end
+		local macB = ns.tabButtons and ns.tabButtons.macros
+		if macB and not SidebarTabVisible("macros") then
+			macB:Hide()
+		end
+
+		if ns.uiSelectedTab and ns.IsBetaTabId and ns.IsBetaTabId(ns.uiSelectedTab) and not SidebarTabVisible(ns.uiSelectedTab) then
+			SelectTab("delves")
+		elseif ns.uiSelectedTab == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
 			SelectTab("delves")
 		end
 	end
@@ -1957,11 +2069,23 @@ end
 ns.SelectTab = SelectTab
 
 function ns:RefreshGuideTabVisibility()
+	if ns.RefreshBetaTabVisibility then
+		ns.RefreshBetaTabVisibility()
+	end
+end
+
+function ns.RefreshBetaTabVisibility()
 	if RelayoutSidebarTabs then
 		RelayoutSidebarTabs()
 	end
-	if self.uiSelectedTab == "guide" and self.IsGuideTabEnabled and not self:IsGuideTabEnabled() and self.SelectTab then
-		self.SelectTab("delves")
+	local t = ns.uiSelectedTab
+	if not t or not ns.SelectTab then
+		return
+	end
+	if ns.IsBetaTabId and ns.IsBetaTabId(t) and ns.IsBetaTabEnabled and not ns.IsBetaTabEnabled(t) then
+		ns.SelectTab("delves")
+	elseif t == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
+		ns.SelectTab("delves")
 	end
 end
 

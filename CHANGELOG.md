@@ -4,6 +4,37 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-05-27
+
+*First CurseForge upload after **1.3.2**.*
+
+### Added — Great Vault Advisor
+
+- **Great Vault Advisor** side panel on Blizzard’s Great Vault loot screen: ranks vault choices vs. your equipped gear (item level, guide stat weights, tier sets).
+- **Auto / Raid / M+** stat profiles (Auto picks raid vs. M+ weights from vault slot type).
+- Optional **Pawn** integration when installed.
+- Advisor strings and settings in **Esc → AddOns → Midnight Helper** (all six UI languages).
+- Hero-talent-specific stat weights for supported specs (Icy Veins–sourced catalog).
+
+### Added — Beta sidebar tabs
+
+- **Beta** tab group in the sidebar (between Professions and Consumables): **Guide** (reference), **Leveling Guides**, **Macros**, **Role Academy** — each with a Beta badge and tooltip.
+- Per-tab and master toggles in addon settings (`Show beta tabs in sidebar`).
+
+### Added — Vault reminders (settings)
+
+- Great Vault reminder options in addon settings: chat summary, minimap ping, login popup (localized).
+
+### Changed
+
+- Sidebar layout: beta block separated; macros no longer duplicated at the bottom of the tab list.
+- Vault Advisor panel layout and Blizzard vault UI hook polish; duplicate advisor on Delves tab removed.
+
+### Fixed
+
+- Beta tab settings checkboxes no longer cause Lua errors (`RefreshBetaTabVisibility` nil `self`).
+- Vault Advisor Blizzard banner / claim UI edge cases from earlier 1.4.0 dev builds.
+
 ## [1.3.2] - 2026-05-23
 
 *First CurseForge upload after **1.3.0** — bundles everything that landed on `main` since then (including work that was tagged 1.3.1 in git only).*

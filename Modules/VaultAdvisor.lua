@@ -113,6 +113,8 @@ local BANNER_WIDTH = 320
 local BANNER_GAP = 14
 local BANNER_MAX_ROWS = 12
 local BANNER_FOOTER_RESERVE = 52
+local BANNER_PROFILE_ROW_H = 22
+local BANNER_MAX_SCROLL_H = 168
 
 local function ScheduleRescan()
 	if pendingRescan then
@@ -298,6 +300,12 @@ local function GetGuideStatHint(weightKey, pawnScaleName)
 		end
 	end
 	if weightKey and weightKey:find("_MPLUS$") and #parts > 0 then
+		parts[#parts + 1] = VL("VAULT_ADVISOR_PROFILE_MPLUS")
+	end
+	local profileMode = GetVaultAdvisorSettings().profileMode or "auto"
+	if profileMode == "raid" and #parts > 0 then
+		parts[#parts + 1] = VL("VAULT_ADVISOR_PROFILE_RAID")
+	elseif profileMode == "mplus" and #parts > 0 and not (weightKey and weightKey:find("_MPLUS$")) then
 		parts[#parts + 1] = VL("VAULT_ADVISOR_PROFILE_MPLUS")
 	end
 	if #parts == 0 then
@@ -1015,15 +1023,17 @@ local function PositionBlizzardVaultBanner(banner)
 		return
 	end
 	local vault = WeeklyRewardsFrame
+	local vaultH = vault:GetHeight() or 400
+	local h = math.max(vaultH, banner._desiredHeight or vaultH)
 	banner:ClearAllPoints()
 	banner:SetWidth(BANNER_WIDTH)
+	banner:SetHeight(h)
 	banner:SetPoint("TOPLEFT", vault, "TOPRIGHT", BANNER_GAP, 0)
-	banner:SetPoint("BOTTOMLEFT", vault, "BOTTOMRIGHT", BANNER_GAP, 0)
 	if banner:GetRight() and UIParent:GetRight() and banner:GetRight() > UIParent:GetRight() then
 		banner:ClearAllPoints()
 		banner:SetWidth(BANNER_WIDTH)
+		banner:SetHeight(h)
 		banner:SetPoint("TOPRIGHT", vault, "TOPLEFT", -BANNER_GAP, 0)
-		banner:SetPoint("BOTTOMRIGHT", vault, "BOTTOMLEFT", -BANNER_GAP, 0)
 	end
 end
 
@@ -1070,12 +1080,33 @@ local function AttachBlizzardVaultRowTooltip(row)
 	end)
 end
 
+local function RefreshVaultProfileButtons(banner)
+	if not banner or not banner._profileAuto then
+		return
+	end
+	local mode = GetVaultAdvisorSettings().profileMode or "auto"
+	if banner._profileAuto.SetText then
+		banner._profileAuto:SetText(VL("SETTINGS_VAULT_ADVISOR_PROFILE_AUTO"))
+	end
+	if banner._profileRaid.SetText then
+		banner._profileRaid:SetText(VL("SETTINGS_VAULT_ADVISOR_PROFILE_RAID"))
+	end
+	if banner._profileMplus.SetText then
+		banner._profileMplus:SetText(VL("SETTINGS_VAULT_ADVISOR_PROFILE_MPLUS_BTN"))
+	end
+	if ns.TintSettingsButton then
+		ns.TintSettingsButton(banner._profileAuto, mode == "auto")
+		ns.TintSettingsButton(banner._profileRaid, mode == "raid")
+		ns.TintSettingsButton(banner._profileMplus, mode == "mplus")
+	end
+end
+
 local function EnsureBlizzardVaultBanner()
 	LoadWeeklyRewardsUI()
 	if not WeeklyRewardsFrame then
 		return nil
 	end
-	if blizzardVaultBanner and (blizzardVaultBanner:GetParent() ~= UIParent or not blizzardVaultBanner._bestHit or not blizzardVaultBanner._rowsCentered) then
+	if blizzardVaultBanner and (blizzardVaultBanner:GetParent() ~= UIParent or not blizzardVaultBanner._bestHit or not blizzardVaultBanner._rowsCentered or not blizzardVaultBanner._profileRow or not blizzardVaultBanner._desiredHeight) then
 		blizzardVaultBanner:Hide()
 		blizzardVaultBanner = nil
 		blizzardVaultRows = {}
@@ -1095,27 +1126,65 @@ local function EnsureBlizzardVaultBanner()
 	f:SetClampedToScreen(true)
 	f._innerW = innerW
 	f._rowTextW = rowTextW
+	f._padX = padX
+	f._padTop = padTop
+	f._padBottom = padBottom
 	if ns.ApplyMidnightDialogBackdrop then
 		ns.ApplyMidnightDialogBackdrop(f)
 	end
 
 	f._title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-	f._title:SetPoint("TOP", f, "TOP", 0, -padTop)
-	f._title:SetWidth(innerW)
+	f._title:SetPoint("TOPLEFT", f, "TOPLEFT", padX, -padTop)
+	f._title:SetPoint("TOPRIGHT", f, "TOPRIGHT", -padX, -padTop)
 	f._title:SetJustifyH("CENTER")
 	f._title:SetWordWrap(true)
 	f._title:SetTextColor(1, 0.9, 0.55)
 
+	f._profileRow = CreateFrame("Frame", nil, f)
+	f._profileRow:SetSize(182, 18)
+	f._profileRow:SetPoint("TOP", f._title, "BOTTOM", 0, -2)
+
+	f._profileAuto = CreateFrame("Button", nil, f._profileRow, "UIPanelButtonTemplate")
+	f._profileAuto:SetSize(58, 18)
+	f._profileAuto:SetPoint("LEFT", f._profileRow, "LEFT", 0, 0)
+	f._profileAuto:SetScript("OnClick", function()
+		ns.SetVaultAdvisorOption("profileMode", "auto")
+		if ns.RefreshBlizzardVaultBanner then
+			ns.RefreshBlizzardVaultBanner()
+		end
+	end)
+
+	f._profileRaid = CreateFrame("Button", nil, f._profileRow, "UIPanelButtonTemplate")
+	f._profileRaid:SetSize(58, 18)
+	f._profileRaid:SetPoint("LEFT", f._profileAuto, "RIGHT", 4, 0)
+	f._profileRaid:SetScript("OnClick", function()
+		ns.SetVaultAdvisorOption("profileMode", "raid")
+		if ns.RefreshBlizzardVaultBanner then
+			ns.RefreshBlizzardVaultBanner()
+		end
+	end)
+
+	f._profileMplus = CreateFrame("Button", nil, f._profileRow, "UIPanelButtonTemplate")
+	f._profileMplus:SetSize(58, 18)
+	f._profileMplus:SetPoint("LEFT", f._profileRaid, "RIGHT", 4, 0)
+	f._profileMplus:SetScript("OnClick", function()
+		ns.SetVaultAdvisorOption("profileMode", "mplus")
+		if ns.RefreshBlizzardVaultBanner then
+			ns.RefreshBlizzardVaultBanner()
+		end
+	end)
+
 	f._hint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-	f._hint:SetPoint("TOP", f._title, "BOTTOM", 0, -6)
-	f._hint:SetWidth(innerW)
+	f._hint:SetPoint("TOP", f._profileRow, "BOTTOM", 0, -4)
+	f._hint:SetPoint("LEFT", f, "LEFT", padX, 0)
+	f._hint:SetPoint("RIGHT", f, "RIGHT", -padX, 0)
 	f._hint:SetJustifyH("CENTER")
 	f._hint:SetWordWrap(true)
 	f._hint:SetTextColor(0.78, 0.76, 0.72)
 
 	f._best = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-	f._best:SetPoint("TOP", f._hint, "BOTTOM", 0, -8)
-	f._best:SetWidth(innerW)
+	f._best:SetPoint("TOPLEFT", f._hint, "BOTTOMLEFT", 0, -8)
+	f._best:SetPoint("TOPRIGHT", f._hint, "BOTTOMRIGHT", 0, -8)
 	f._best:SetJustifyH("CENTER")
 	f._best:SetWordWrap(true)
 	f._best:SetTextColor(0.35, 1, 0.45)
@@ -1148,7 +1217,7 @@ local function EnsureBlizzardVaultBanner()
 	f._tier:SetTextColor(1, 0.85, 0.2)
 
 	f._scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
-	f._scroll:SetPoint("TOPLEFT", f._best, "BOTTOMLEFT", -4, -10)
+	f._scroll:SetPoint("TOPLEFT", f._best, "BOTTOMLEFT", -4, -8)
 	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -padX - 4, padBottom + BANNER_FOOTER_RESERVE)
 
 	f._rowHost = CreateFrame("Frame", nil, f._scroll)
@@ -1195,6 +1264,39 @@ local function LayoutBlizzardVaultBanner(banner)
 	end
 end
 
+local function UpdateBlizzardVaultBannerLayout(banner)
+	if not banner then
+		return
+	end
+	local padX = banner._padX or 14
+	local padBottom = banner._padBottom or 16
+	local padTop = banner._padTop or 12
+
+	local footerReserve = 10
+	if banner._tier and banner._tier:IsShown() then
+		footerReserve = footerReserve + math.ceil(banner._tier:GetStringHeight() or 0) + 8
+	end
+	if banner._token and banner._token:IsShown() then
+		footerReserve = footerReserve + math.ceil(banner._token:GetStringHeight() or 0) + 8
+	end
+
+	if banner._scroll then
+		banner._scroll:ClearAllPoints()
+		banner._scroll:SetPoint("TOPLEFT", banner._best, "BOTTOMLEFT", -4, -8)
+		banner._scroll:SetPoint("BOTTOMRIGHT", banner, "BOTTOMRIGHT", -padX - 4, padBottom + footerReserve)
+	end
+
+	LayoutBlizzardVaultBanner(banner)
+
+	local titleH = math.ceil(banner._title:GetStringHeight() or 18)
+	local hintH = (banner._hint and banner._hint:IsShown()) and (math.ceil(banner._hint:GetStringHeight() or 0) + 4) or 0
+	local bestH = math.ceil(banner._best:GetStringHeight() or 20) + 8
+	local contentScrollH = banner._rowHost and banner._rowHost:GetHeight() or 1
+	local visibleScrollH = math.min(contentScrollH, BANNER_MAX_SCROLL_H)
+	banner._desiredHeight = padTop + titleH + BANNER_PROFILE_ROW_H + hintH + bestH + visibleScrollH + footerReserve + padBottom + 8
+	PositionBlizzardVaultBanner(banner)
+end
+
 function ns.RefreshBlizzardVaultBanner()
 	if not ShouldShowBlizzardVaultPanel() then
 		if blizzardVaultBanner then
@@ -1225,6 +1327,7 @@ function ns.RefreshBlizzardVaultBanner()
 		displaySpec = ("%s (%s)"):format(displaySpec, heroLabel)
 	end
 	banner._title:SetText(VL("VAULT_ADVISOR_TITLE_FMT", displaySpec))
+	RefreshVaultProfileButtons(banner)
 
 	if status == "loading" then
 		banner._hint:SetText("")
@@ -1239,7 +1342,7 @@ function ns.RefreshBlizzardVaultBanner()
 		banner._tier:Hide()
 		banner._token:Hide()
 		banner:Show()
-		LayoutBlizzardVaultBanner(banner)
+		UpdateBlizzardVaultBannerLayout(banner)
 		ScheduleRescan()
 		return
 	end
@@ -1337,7 +1440,7 @@ function ns.RefreshBlizzardVaultBanner()
 	end
 
 	banner:Show()
-	LayoutBlizzardVaultBanner(banner)
+	UpdateBlizzardVaultBannerLayout(banner)
 end
 
 local function ApplyAdvisorPanelLayout(panel)
