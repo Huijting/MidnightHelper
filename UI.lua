@@ -205,7 +205,7 @@ local MH_BETA_TAB_IDS = {
 	academy = true,
 }
 
-local SIDEBAR_MAIN_TAB_IDS = { "delves", "account", "smcguide", "professions" }
+local SIDEBAR_MAIN_TAB_IDS = { "delves", "account", "rares", "smcguide", "professions" }
 local SIDEBAR_BETA_TAB_IDS = { "reference", "guide", "macros", "academy" }
 local BETA_GROUP_GAP = 10
 
@@ -246,6 +246,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_DELVES"
 	elseif tabId == "account" then
 		return "INFO_DRAWER_BODY_ACCOUNT"
+	elseif tabId == "rares" then
+		return "INFO_DRAWER_BODY_RARES"
 	elseif tabId == "smcguide" then
 		return "INFO_DRAWER_BODY_SMC"
 	elseif tabId == "professions" then
@@ -514,6 +516,15 @@ local SMC_CATEGORIES = {
 	{
 		title = "Quest Hubs",
 		items = {
+			{
+				id = "world_boss_week",
+				label = "World boss this week",
+				description = "Open Delves & Vault and route to this week's world boss (TomTom + Travel Assistant when available).",
+				atlas = "groupfinder-icon-flag",
+				action = "worldboss_week",
+				x = 48.95,
+				y = 64.92,
+			},
 			{ id = "prey_hub", label = "Prey Hub", description = "Zet een waypoint naar de Prey-hub (in de inn, Adventure Guide / Prey).", atlas = "ui-delves", x = 56.19, y = 65.33 },
 			{ id = "astalor", label = "Magister Astalor Bloodsworn", description = "Zet een waypoint naar Magister Astalor Bloodsworn (prey quest giver).", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
 			{ id = "weekly_hub", label = "Weekly Quest Givers", description = "Zet een waypoint naar Aethas, Liadrin en Halduron (weekly hub).", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
@@ -598,6 +609,18 @@ end
 
 local function SetSMCWaypoint(point)
 	if type(point) ~= "table" then
+		return
+	end
+
+	-- Non-map actions (pseudo rows in SMC list).
+	if point.action == "worldboss_week" then
+		if ns.ShowMainUI and ns.SelectTab then
+			ns:ShowMainUI()
+			ns.SelectTab("delves")
+		end
+		if ns.RouteToActiveWorldBoss then
+			ns.RouteToActiveWorldBoss()
+		end
 		return
 	end
 
@@ -715,6 +738,44 @@ function ns.JumpSMCCityGuideToPoint(point)
 					btn:UnlockHighlight()
 				end
 			end)
+		end
+	end
+end
+
+-- Update the special \"World boss this week\" SMC shortcut label.
+function ns.MH_RefreshSMCWorldBossShortcut()
+	local sg = ns.panels and ns.panels.smcguide
+	local list = sg and sg._mhSMCWaypointButtons
+	if type(list) ~= "table" then
+		return
+	end
+
+	local boss, fromClient = ns.GetActiveWorldBoss and ns.GetActiveWorldBoss()
+
+	-- If we already know warband completion from SavedVariables, show the boss name even when
+	-- Blizzard task/map APIs haven't loaded on this character yet.
+	if (not fromClient) and ns.db and ns.db.ui and ns.db.ui.worldBossWeek and ns.db.ui.worldBossWeek.bossId and ns.WORLD_BOSSES then
+		local wantId = ns.db.ui.worldBossWeek.bossId
+		for i = 1, #ns.WORLD_BOSSES do
+			local b = ns.WORLD_BOSSES[i]
+			if b and b.id == wantId then
+				boss = b
+				break
+			end
+		end
+	end
+
+	local name = boss and boss.labelKey and ns.L and ns:L(boss.labelKey) or "?"
+	local showName = fromClient or (ns.IsWorldBossKilled and boss and ns.IsWorldBossKilled(boss))
+	local text = showName and ns:L("WB_SMC_BUTTON_FMT"):format(name) or ns:L("WB_SMC_BUTTON_GUESS")
+
+	for i = 1, #list do
+		local row = list[i]
+		local btn = row and row[1]
+		local pt = row and row[2]
+		local label = btn and btn._mhSMCLabel
+		if pt and pt.action == "worldboss_week" and label and label.SetText then
+			label:SetText(text)
 		end
 	end
 end
@@ -1045,7 +1106,13 @@ local function BuildSMCCityGuidePanel(panel)
 			label:SetPoint("LEFT", icon, "RIGHT", 8, 0)
 			label:SetPoint("RIGHT", btn, "RIGHT", -8, 0)
 			label:SetJustifyH("LEFT")
-			label:SetText(point.label)
+			if point.action == "worldboss_week" and ns.GetActiveWorldBoss then
+				local boss, fromClient = ns.GetActiveWorldBoss()
+				local name = boss and boss.labelKey and ns.L and ns:L(boss.labelKey) or "?"
+				label:SetText(fromClient and ns:L("WB_SMC_BUTTON_FMT"):format(name) or ns:L("WB_SMC_BUTTON_GUESS"))
+			else
+				label:SetText(point.label)
+			end
 			label:SetTextColor(1, 0.94, 0.75)
 
 			btn._mhSMCIcon = icon
@@ -1095,6 +1162,12 @@ local function BuildSMCCityGuidePanel(panel)
 	if ns.SMC_RefreshDynamicChecklist then
 		ns.SMC_RefreshDynamicChecklist()
 	end
+	if ns.MH_RefreshWorldBossSMCBlock then
+		ns.MH_RefreshWorldBossSMCBlock()
+	end
+	if ns.MH_RefreshSMCWorldBossShortcut then
+		ns.MH_RefreshSMCWorldBossShortcut()
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -1103,6 +1176,7 @@ end
 local TAB_DEFS = {
 	{ id = "delves", labelKey = "TAB_DELVES" },
 	{ id = "account", labelKey = "TAB_ACCOUNT_SNAPSHOT" },
+	{ id = "rares", labelKey = "TAB_RARES" },
 	{ id = "reference", labelKey = "TAB_REFERENCE" },
 	{ id = "smcguide", labelKey = "TAB_SMC" },
 	{ id = "professions", labelKey = "TAB_PROFESSIONS" },
@@ -1469,6 +1543,7 @@ function ns:EnsureMainUI()
 			local keyById = {
 				delves = "TAB_DELVES",
 				account = "TAB_ACCOUNT_SNAPSHOT",
+				rares = "TAB_RARES",
 				reference = "TAB_REFERENCE",
 				smcguide = "TAB_SMC",
 				professions = "TAB_PROFESSIONS",
@@ -1591,6 +1666,8 @@ function ns:EnsureMainUI()
 				ns.BuildRoleAcademyPanel(panel)
 			elseif tab.id == "reference" and ns.BuildReferenceGuidePanel then
 				ns.BuildReferenceGuidePanel(panel)
+			elseif tab.id == "rares" and ns.BuildRaresPanel then
+				ns.BuildRaresPanel(panel)
 			end
 		end
 	end
@@ -2038,19 +2115,25 @@ SelectTab = function(tabId)
 		ns.RefreshReferenceGuidePanel()
 	end
 
-	if tabId == "delves" and ns.mainUI and ns.mainUI.SetHeight then
-		local dbUi = ns.db and ns.db.ui
-		local userSized = dbUi and dbUi.mainWindowUserSized
-		local mh = ns.mainUI:GetHeight() or 0
-		if not userSized and mh < MIN_DELVES_WINDOW_H then
-			local targetH = ClampMainHeight(math.max(MIN_DELVES_WINDOW_H, DEFAULT_HEIGHT))
-			ns.mainUI:SetHeight(targetH)
-			if dbUi then
-				dbUi.mainHeight = targetH
-				dbUi.layoutVersion = 3
-			end
-			if ns.RefreshDelvesPanel then
-				ns.RefreshDelvesPanel()
+	if tabId == "rares" and ns.RefreshRaresPanel then
+		ns.RefreshRaresPanel()
+	end
+
+	if tabId == "delves" then
+		if ns.RefreshDelvesPanel then
+			ns.RefreshDelvesPanel(true)
+		end
+		if ns.mainUI and ns.mainUI.SetHeight then
+			local dbUi = ns.db and ns.db.ui
+			local userSized = dbUi and dbUi.mainWindowUserSized
+			local mh = ns.mainUI:GetHeight() or 0
+			if not userSized and mh < MIN_DELVES_WINDOW_H then
+				local targetH = ClampMainHeight(math.max(MIN_DELVES_WINDOW_H, DEFAULT_HEIGHT))
+				ns.mainUI:SetHeight(targetH)
+				if dbUi then
+					dbUi.mainHeight = targetH
+					dbUi.layoutVersion = 3
+				end
 			end
 		end
 	end

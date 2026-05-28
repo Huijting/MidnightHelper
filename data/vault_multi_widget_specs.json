@@ -1,0 +1,212 @@
+[
+  {
+    "key": "DEATHKNIGHT_250",
+    "slug": "blood-death-knight-pve-tank-stat-priority",
+    "widgets": [
+      [
+        "crit",
+        "vers",
+        "mastery",
+        "haste"
+      ],
+      [
+        "haste",
+        "crit",
+        "vers",
+        "mastery"
+      ]
+    ]
+  },
+  {
+    "key": "DRUID_103",
+    "slug": "feral-druid-pve-dps-stat-priority",
+    "widgets": [
+      [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ],
+      [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ]
+    ]
+  },
+  {
+    "key": "DRUID_104",
+    "slug": "guardian-druid-pve-tank-stat-priority",
+    "widgets": [
+      [
+        "haste",
+        "vers",
+        "mastery",
+        "crit"
+      ],
+      [
+        "haste",
+        "vers",
+        "crit",
+        "mastery"
+      ]
+    ]
+  },
+  {
+    "key": "DRUID_105",
+    "slug": "restoration-druid-pve-healing-stat-priority",
+    "widgets": [
+      [
+        "haste",
+        "mastery",
+        "vers",
+        "crit"
+      ],
+      [
+        "mastery",
+        "haste",
+        "vers",
+        "crit"
+      ],
+      [
+        "haste",
+        "vers",
+        "crit",
+        "mastery"
+      ]
+    ]
+  },
+  {
+    "key": "MONK_268",
+    "slug": "brewmaster-monk-pve-tank-stat-priority",
+    "widgets": [
+      [
+        "crit",
+        "vers",
+        "mastery",
+        "haste"
+      ],
+      [
+        "crit",
+        "mastery",
+        "vers",
+        "haste"
+      ]
+    ]
+  },
+  {
+    "key": "MONK_270",
+    "slug": "mistweaver-monk-pve-healing-stat-priority",
+    "widgets": [
+      [
+        "haste",
+        "crit",
+        "vers",
+        "mastery"
+      ],
+      [
+        "haste",
+        "crit",
+        "vers",
+        "mastery"
+      ]
+    ]
+  },
+  {
+    "key": "PALADIN_65",
+    "slug": "holy-paladin-pve-healing-stat-priority",
+    "widgets": [
+      [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ],
+      [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ]
+    ]
+  },
+  {
+    "key": "PALADIN_66",
+    "slug": "protection-paladin-pve-tank-stat-priority",
+    "widgets": [
+      [
+        "haste",
+        "vers",
+        "mastery",
+        "crit"
+      ],
+      [
+        "haste",
+        "crit",
+        "vers",
+        "mastery"
+      ]
+    ]
+  },
+  {
+    "key": "PRIEST_256",
+    "slug": "discipline-priest-pve-healing-stat-priority",
+    "widgets": [
+      [
+        "haste",
+        "crit",
+        "mastery",
+        "vers"
+      ],
+      [
+        "haste",
+        "crit",
+        "mastery",
+        "vers"
+      ]
+    ]
+  },
+  {
+    "key": "PRIEST_257",
+    "slug": "holy-priest-pve-healing-stat-priority",
+    "widgets": [
+      [
+        "crit",
+        "vers",
+        "mastery",
+        "haste"
+      ],
+      [
+        "crit",
+        "vers",
+        "haste",
+        "mastery"
+      ]
+    ]
+  },
+  {
+    "key": "SHAMAN_263",
+    "slug": "enhancement-shaman-pve-dps-stat-priority",
+    "widgets": [
+      [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ],
+      [
+        "haste",
+        "mastery",
+        "crit",
+        "vers"
+      ]
+    ]
+  }
+]

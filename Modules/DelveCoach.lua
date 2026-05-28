@@ -1330,6 +1330,19 @@ ev:SetScript("OnEvent", function()
 	OnDelveStateTick()
 end)
 ev:SetScript("OnUpdate", function(self, elapsed)
+	-- Avoid a permanent 1s tick when the coach is disabled/hidden.
+	local u = ns.db and ns.db.ui and ns.db.ui.delveCoach
+	local enabled = u and u.enabled ~= false
+	local autoShow = u and u.autoShow ~= false
+	if (not enabled) or (not autoShow) then
+		return
+	end
+	-- Also skip ticking unless we are in a delve (or the coach is open in preview).
+	local inDelve = ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress() or IsDelveInProgress()
+	local previewOpen = coachFrame and coachFrame._previewMode and coachFrame:IsShown()
+	if (not inDelve) and (not previewOpen) then
+		return
+	end
 	self._elapsed = (self._elapsed or 0) + elapsed
 	if self._elapsed >= 1.0 then
 		self._elapsed = 0

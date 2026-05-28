@@ -4,6 +4,34 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.4.3] - 2026-05-27
+
+### Changed — World boss
+
+- Moved from SMC City Guide to **Delves & Vault** tab (top of panel).
+- Warband kill stored in SavedVariables so alts show done without re-opening the map.
+- Compact single line when warband already finished (~18px, no empty gap).
+
+### Fixed
+
+- TomTom button uses fresh state (no stale “open map” after UI already shows the boss).
+- Alt shows “warband done (CharacterName)” when another character completed the boss.
+
+## [1.4.2] - 2026-05-27
+
+### Fixed — World boss (SMC City Guide)
+
+- TomTom button always re-checks live/cache state (no stale “open map” after UI already shows the boss).
+- Compact one-line row when the warband already completed this week's boss (shows character name).
+- Account-wide week cache: once any character finds the boss, alts use it without opening the map.
+- Background scan on login scans zone map data automatically.
+
+## [1.4.1] - 2026-05-27
+
+### Added
+
+- **SMC City Guide — World boss this week:** shows the active Midnight Season 1 boss (Lu'ashal, Cragpine, Thorm'belan, or Predaxas), warband kill status, and a **TomTom** button with Travel Assistant for cross-zone routing.
+
 ## [1.4.0] - 2026-05-27
 
 *First CurseForge upload after **1.3.2**.*

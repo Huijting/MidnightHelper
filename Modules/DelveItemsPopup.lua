@@ -2082,6 +2082,11 @@ eventFrame:SetScript("OnEvent", function(_, event, arg1, arg2, arg3)
 end)
 
 eventFrame:SetScript("OnUpdate", function(self, elapsed)
+	-- Do nothing when the delve popup is not relevant.
+	local inDelve = IsDelveItemsUiAllowed()
+	if (not inDelve) and (not self._mhWasInDelve) and (not (popupFrame and popupFrame:IsShown())) and (not self._auraDirty) then
+		return
+	end
 	if self._auraDirty then
 		self._auraElapsed = (self._auraElapsed or 0) + elapsed
 		if self._auraElapsed >= 0.25 then
@@ -2097,7 +2102,6 @@ eventFrame:SetScript("OnUpdate", function(self, elapsed)
 		return
 	end
 	self._elapsed = 0
-	local inDelve = IsDelveItemsUiAllowed()
 	if inDelve then
 		self._auraPoll = (self._auraPoll or 0) + 1
 		if self._auraPoll >= 3 then

@@ -1163,7 +1163,41 @@ local function ApplyGuideSearchQuery(raw)
 		return
 	end
 
-	if qHits({ "smc", "silvermoon", "city guide", "harandar", "voidstorm", "bazaar" }) then
+	if qHits({ "rare", "rares", "zulaman", "zul'aman", "eversong", "harandar", "voidstorm" }) then
+		if ns.ShowMainUI and ns.SelectTab then
+			ns:ShowMainUI()
+			ns.SelectTab("rares")
+		end
+		GuideChatMsg("SEARCH_CHAT_TAB_RARES")
+		return
+	end
+
+	if qHits({ "world boss", "luashal", "cragpine", "thormbelan", "predaxas" }) then
+		if ns.ShowMainUI and ns.SelectTab then
+			ns:ShowMainUI()
+			ns.SelectTab("delves")
+		end
+		if ns.RouteToActiveWorldBoss then
+			if C_Timer and C_Timer.After then
+				C_Timer.After(0.1, function()
+					ns.RouteToActiveWorldBoss()
+				end)
+			else
+				ns.RouteToActiveWorldBoss()
+			end
+		end
+		GuideChatMsg("SEARCH_CHAT_WB_ROUTE")
+		return
+	end
+
+	if qHits({
+		"smc",
+		"silvermoon",
+		"city guide",
+		"harandar",
+		"voidstorm",
+		"bazaar",
+	}) then
 		if ns.ShowMainUI and ns.SelectTab then
 			ns:ShowMainUI()
 			ns.SelectTab("smcguide")
@@ -1200,6 +1234,26 @@ local function ApplyGuideSearchQuery(raw)
 			if ns.ShowMainUI and ns.SelectTab then
 				ns:ShowMainUI()
 				ns.SelectTab("smcguide")
+			end
+			if p._mhWorldBossRoute or p._mhDelvesWorldBoss then
+				if p._mhDelvesWorldBoss and ns.ShowMainUI and ns.SelectTab then
+					ns:ShowMainUI()
+					ns.SelectTab("delves")
+				end
+				local _, fromClient = ns.GetActiveWorldBoss and ns.GetActiveWorldBoss()
+				if fromClient and ns.RouteToActiveWorldBoss then
+					if C_Timer and C_Timer.After then
+						C_Timer.After(0.05, function()
+							ns.RouteToActiveWorldBoss()
+						end)
+					else
+						ns.RouteToActiveWorldBoss()
+					end
+					GuideChatMsg("SEARCH_CHAT_WB_ROUTE")
+				else
+					GuideChatMsg("WB_OPEN_MAP_HINT")
+				end
+				return
 			end
 			local function doJump()
 				if ns.JumpSMCCityGuideToPoint then

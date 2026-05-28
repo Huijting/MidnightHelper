@@ -74,6 +74,8 @@ local DEFAULT_DB = {
 			macros = true,
 			academy = true,
 		},
+		--- Active world boss this week (account cache after any char detects it).
+		worldBossWeek = {},
 		--- Floating Delve Coach panel (position, minimize state).
 		--- Floating RAID-R Mini / Trovehunter's Bounty buttons (beside Delve Coach in delves).
 		delveItemsPopup = {

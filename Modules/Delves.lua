@@ -579,8 +579,8 @@ function ns.ShouldSuppressTravelPopup(currentMap, targetMap, targetX, targetY, t
 	return false
 end
 
--- Shared TomTom + Travel Assistant (portals/hearth). Optional skipTravelUI: TomTom only (bulk pins).
-function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
+-- Shared TomTom + Travel Assistant (portals/hearth). Optional skipTravelUI / skipCrazyArrow (bulk pins).
+function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 	if not mapID then
 		return false
 	end
@@ -607,7 +607,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI)
 			cleardistance = 15,
 			crazy = true,
 		})
-		if uid and _G.TomTom.SetCrazyArrow then
+		if uid and _G.TomTom.SetCrazyArrow and not skipCrazyArrow then
 			_G.TomTom:SetCrazyArrow(uid, 15, title)
 		end
 	elseif ns.SetBlizzardUserWaypoint then
@@ -846,6 +846,41 @@ local function GetDelvePoiState(itemName, mapID, poiRefId)
 		end
 	end
 	return isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex
+end
+
+-- POI scans are expensive (GetDelvesForMap per zone); cache per zone until it changes.
+local _poiCache = {}
+local _poiCacheZoneKey = nil
+
+local function ClearDelvePoiCache()
+	wipe(_poiCache)
+	_poiCacheZoneKey = nil
+end
+
+local function GetDelvePoiCacheZoneKey()
+	if C_Map and C_Map.GetBestMapForUnit then
+		local ok, z = pcall(C_Map.GetBestMapForUnit, "player")
+		if ok and z then
+			return z
+		end
+	end
+	return 0
+end
+
+local function GetDelvePoiStateCached(itemName, mapID, poiRefId)
+	local zk = GetDelvePoiCacheZoneKey()
+	if zk ~= _poiCacheZoneKey then
+		ClearDelvePoiCache()
+		_poiCacheZoneKey = zk
+	end
+	local key = tostring(mapID or 0) .. "\31" .. tostring(itemName or "") .. "\31" .. tostring(poiRefId or "")
+	local hit = _poiCache[key]
+	if hit then
+		return hit[1], hit[2], hit[3], hit[4], hit[5], hit[6]
+	end
+	local a, b, c, d, e, f = GetDelvePoiState(itemName, mapID, poiRefId)
+	_poiCache[key] = { a, b, c, d, e, f }
+	return a, b, c, d, e, f
 end
 
 local function GetDelveBountifulState(itemName, mapID)
@@ -1192,7 +1227,11 @@ local function _checkDelvesFrames()
 	return missing
 end
 
-local function RefreshDelvesPanel()
+-- fullRefresh=false: currencies, vault, layout — skip delve POI row rebuild (main stutter source).
+local function PaintDelvesPanel(fullRefresh)
+	if fullRefresh == nil then
+		fullRefresh = true
+	end
 	do
 		local missing = _checkDelvesFrames()
 		if #missing > 0 then
@@ -1227,10 +1266,11 @@ local function RefreshDelvesPanel()
 	local inner = math.max(400, w - 48)
 	local colW = (inner - COL_GAP) / 2
 
-	if vaultToggleBar then
-		vaultToggleBar:ClearAllPoints()
-		vaultToggleBar:SetPoint("TOPLEFT", frame, "TOPLEFT", 6, -3)
-		vaultToggleBar:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -6, -3)
+	if ns.MH_LayoutWorldBossDelves then
+		ns.MH_LayoutWorldBossDelves(frame, vaultToggleBar)
+	end
+	if ns.MH_RefreshRaresDelvesBlock then
+		ns.MH_RefreshRaresDelvesBlock(frame)
 	end
 
 	--------------------------------------------------------------------------------
@@ -1576,16 +1616,21 @@ local function RefreshDelvesPanel()
 		rightColumn:SetPoint("TOPLEFT", leftColumn, "TOPRIGHT", COL_GAP, 0)
 	end
 
+	if leftColumn then
+		leftColumn:SetWidth(colW)
+	end
+	if rightColumn then
+		rightColumn:SetWidth(colW)
+	end
+
+	if fullRefresh then
 	local roster = ns.MIDNIGHT_DELVES or MIDNIGHT_DELVES
 	leftColumn.rows = leftColumn.rows or {}
 	rightColumn.rows = rightColumn.rows or {}
 
-	leftColumn:SetWidth(colW)
-	rightColumn:SetWidth(colW)
-
 	local mapDelveAtlasFallback = {}
 	for _, packed in ipairs(roster) do
-		local _, _, _, da, dtk = GetDelvePoiState(packed[5], packed[2], packed[1])
+		local _, _, _, da, dtk = GetDelvePoiStateCached(packed[5], packed[2], packed[1])
 		if da and not mapDelveAtlasFallback[packed[2]] then
 			mapDelveAtlasFallback[packed[2]] = { atlas = da, kit = dtk }
 		end
@@ -1594,7 +1639,7 @@ local function RefreshDelvesPanel()
 	local usedLeft, usedRight = 0, 0
 	for i, packed in ipairs(roster) do
 		local bountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex =
-			GetDelvePoiState(packed[5], packed[2], packed[1])
+			GetDelvePoiStateCached(packed[5], packed[2], packed[1])
 		if packed[5] == DELVE_NEMESIS_NAME and not delveAtlas then
 			local fb = mapDelveAtlasFallback[packed[2]]
 			if fb then
@@ -1667,6 +1712,7 @@ local function RefreshDelvesPanel()
 			midnightScroll:SetVerticalScroll(0)
 		end
 	end
+	end -- fullRefresh (delve POI rows)
 
 	if frame then
 		local fw = math.max(200, frame:GetWidth() or 400)
@@ -1711,8 +1757,95 @@ local function RefreshDelvesPanel()
 	-- All statusSlots / Grid refresh logic has been removed here.
 end
 
-function ns.RefreshDelvesPanel()
-	RefreshDelvesPanel()
+local function DelvesPanelIsActive()
+	if ns.uiSelectedTab and ns.uiSelectedTab ~= "delves" then
+		return false
+	end
+	return ns.DelvesFrame and ns.DelvesFrame.IsVisible and ns.DelvesFrame:IsVisible()
+end
+
+do
+	-- Coalesce refresh requests: many events (currency/map POIs/quest log) can spam in bursts.
+	local pending = false
+	local lastAt = 0
+	local MIN_INTERVAL = 0.8 -- seconds (Delves UI refresh is heavy; keep it smooth)
+	local dirty = false
+	local wantFull = false
+	local lastMoveAt = 0
+	local IDLE_DELAY = 3.0 -- seconds standing still before full (POI) refresh while moving
+	local moveWatchFrame
+
+	local function EnsureMoveWatch()
+		if moveWatchFrame then
+			return
+		end
+		moveWatchFrame = CreateFrame("Frame")
+		moveWatchFrame:RegisterEvent("PLAYER_STARTED_MOVING")
+		moveWatchFrame:RegisterEvent("PLAYER_STOPPED_MOVING")
+		moveWatchFrame:SetScript("OnEvent", function(_, event)
+			local now = (GetTime and GetTime()) or 0
+			if event == "PLAYER_STARTED_MOVING" then
+				lastMoveAt = now
+			elseif event == "PLAYER_STOPPED_MOVING" and dirty and not pending then
+				ns.RefreshDelvesPanel()
+			end
+		end)
+	end
+
+	function ns.RefreshDelvesPanel(fullRefresh)
+		if fullRefresh ~= false then
+			wantFull = true
+		end
+		dirty = true
+		if pending then
+			return
+		end
+		if not DelvesPanelIsActive() then
+			return
+		end
+		EnsureMoveWatch()
+		local now = (GetTime and GetTime()) or 0
+		local wait = MIN_INTERVAL - (now - (lastAt or 0))
+		if wait < 0 then
+			wait = 0
+		end
+		pending = true
+		local function run()
+			if not DelvesPanelIsActive() then
+				pending = false
+				return
+			end
+			if not dirty then
+				pending = false
+				return
+			end
+			local now2 = (GetTime and GetTime()) or now
+			local doFull = wantFull
+			-- Full POI rebuild: defer while moving or shortly after (avoids hitch + timer spam).
+			if doFull and GetUnitSpeed then
+				if (GetUnitSpeed("player") or 0) > 0 then
+					lastMoveAt = now2
+					pending = false
+					return
+				end
+				if (now2 - (lastMoveAt or 0)) < IDLE_DELAY then
+					pending = false
+					return
+				end
+			end
+			pending = false
+			lastAt = (GetTime and GetTime()) or now
+			local full = wantFull
+			wantFull = false
+			dirty = false
+			PaintDelvesPanel(full)
+		end
+		if C_Timer and C_Timer.After and wait > 0 then
+			C_Timer.After(wait, run)
+		else
+			run()
+		end
+	end
 end
 
 function ns.SyncDelvesAccordion(section)
@@ -1726,7 +1859,9 @@ function ns.SyncDelvesAccordion(section)
 	if ns._mhAltOverviewAccordionSync then
 		ns:_mhAltOverviewAccordionSync()
 	end
-	RefreshDelvesPanel()
+	if ns.RefreshDelvesPanel then
+		ns.RefreshDelvesPanel(true)
+	end
 end
 
 -- Retail does not ship a global ToggleDelvesDashboard(); macros often assume it exists.
@@ -1780,12 +1915,14 @@ local function CreateEventBridge()
 	eventFrame:RegisterEvent("PLAYER_LOGIN")
 	eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	eventFrame:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
-	eventFrame:RegisterEvent("AREA_POIS_UPDATED")
 	eventFrame:RegisterEvent("MAJOR_FACTION_RENOWN_LEVEL_CHANGED")
 	eventFrame:RegisterEvent("TRAIT_CONFIG_UPDATED")
 	eventFrame:RegisterEvent("WEEKLY_REWARDS_UPDATE")
 	eventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	eventFrame:SetScript("OnEvent", function(_, event, ...)
+		if event == "ZONE_CHANGED_NEW_AREA" then
+			ClearDelvePoiCache()
+		end
 		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
 			-- Wait 1 second for the Map API to settle before checking location
 			local function runZoneNavCheck()
@@ -1832,19 +1969,30 @@ local function CreateEventBridge()
 			end
 			RequestTrackedCurrencyData()
 		end
+		local wantsRefresh = (event == "CURRENCY_DISPLAY_UPDATE")
+			or (event == "WEEKLY_REWARDS_UPDATE")
+			or (event == "MAJOR_FACTION_RENOWN_LEVEL_CHANGED")
+			or (event == "TRAIT_CONFIG_UPDATED")
+			or (event == "ZONE_CHANGED_NEW_AREA")
+			or (event == "PLAYER_ENTERING_WORLD")
+		if (not wantsRefresh) or not DelvesPanelIsActive() then
+			return
+		end
+
+		local fullRefresh = event ~= "CURRENCY_DISPLAY_UPDATE"
 		-- Mana / currency: refresh next frame so GetCurrencyInfo sees server-updated quantities.
-		if event == "CURRENCY_DISPLAY_UPDATE" and frame and frame:IsVisible() then
+		if event == "CURRENCY_DISPLAY_UPDATE" then
 			if C_Timer and C_Timer.After then
 				C_Timer.After(0, function()
-					if frame and frame:IsVisible() then
-						RefreshDelvesPanel()
+					if DelvesPanelIsActive() and ns.RefreshDelvesPanel then
+						ns.RefreshDelvesPanel(false)
 					end
 				end)
-			else
-				RefreshDelvesPanel()
+			elseif ns.RefreshDelvesPanel then
+				ns.RefreshDelvesPanel(false)
 			end
-		elseif frame and frame:IsVisible() then
-			RefreshDelvesPanel()
+		elseif ns.RefreshDelvesPanel then
+			ns.RefreshDelvesPanel(fullRefresh)
 		end
 	end)
 end
@@ -1872,8 +2020,12 @@ local function SetupDelvesModule()
 
 	vaultToggleBar = CreateFrame("Button", nil, frame)
 	vaultToggleBar:SetHeight(22)
-	vaultToggleBar:SetPoint("TOPLEFT", frame, "TOPLEFT", 6, -3)
-	vaultToggleBar:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -6, -3)
+	if ns.MH_LayoutWorldBossDelves then
+		ns.MH_LayoutWorldBossDelves(frame, vaultToggleBar)
+	else
+		vaultToggleBar:SetPoint("TOPLEFT", frame, "TOPLEFT", 6, -3)
+		vaultToggleBar:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -6, -3)
+	end
 
 	vaultToggleChevron = vaultToggleBar:CreateTexture(nil, "ARTWORK")
 	vaultToggleChevron:SetSize(16, 16)
@@ -1902,6 +2054,10 @@ local function SetupDelvesModule()
 	midnightToggleBar:SetHeight(22)
 	midnightToggleBar:SetPoint("TOPLEFT", vaultToggleBar, "BOTTOMLEFT", 0, -8)
 	midnightToggleBar:SetPoint("TOPRIGHT", vaultToggleBar, "BOTTOMRIGHT", 0, -8)
+
+	if ns.MH_RefreshRaresDelvesBlock then
+		ns.MH_RefreshRaresDelvesBlock(frame)
+	end
 
 	midnightToggleChevron = midnightToggleBar:CreateTexture(nil, "ARTWORK")
 	midnightToggleChevron:SetSize(16, 16)
@@ -1995,13 +2151,34 @@ local function SetupDelvesModule()
 
 	frame:SetScript("OnShow", function()
 		RequestTrackedCurrencyData()
-		RefreshDelvesPanel()
-		-- Delayed refresh for crystals removed in Phase 61
+		if ns.RefreshDelvesPanel then
+			ns.RefreshDelvesPanel(true)
+		else
+			PaintDelvesPanel(true)
+		end
 	end)
 
+	local sizePending = false
 	frame:SetScript("OnSizeChanged", function()
-		if frame:IsVisible() then
-			RefreshDelvesPanel()
+		if not DelvesPanelIsActive() then
+			return
+		end
+		if sizePending then
+			return
+		end
+		sizePending = true
+		if C_Timer and C_Timer.After then
+			C_Timer.After(0.2, function()
+				sizePending = false
+				if DelvesPanelIsActive() and ns.RefreshDelvesPanel then
+					ns.RefreshDelvesPanel(false)
+				end
+			end)
+		else
+			sizePending = false
+			if ns.RefreshDelvesPanel then
+				ns.RefreshDelvesPanel(false)
+			end
 		end
 	end)
 
@@ -2010,8 +2187,8 @@ local function SetupDelvesModule()
 end
 
 local function RefreshGreatVaultPanel()
-	if frame and frame:IsVisible() then
-		RefreshDelvesPanel()
+	if DelvesPanelIsActive() and ns.RefreshDelvesPanel then
+		ns.RefreshDelvesPanel(false)
 	end
 end
 
@@ -2027,7 +2204,9 @@ local function HookEnsureMainUI()
 	function ns:EnsureMainUI(...)
 		local main = orig(self, ...)
 		SetupDelvesModule()
-		RefreshDelvesPanel()
+		if ns.RefreshDelvesPanel then
+			ns.RefreshDelvesPanel(true)
+		end
 		return main
 	end
 end
@@ -2041,7 +2220,7 @@ do
 			orig(self)
 		end
 		if ns.RefreshDelvesPanel then
-			ns:RefreshDelvesPanel()
+			ns.RefreshDelvesPanel(true)
 		end
 	end
 end

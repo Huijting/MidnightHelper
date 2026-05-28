@@ -125,7 +125,7 @@ local function ScheduleRescan()
 		C_Timer.After(0.35, function()
 			pendingRescan = false
 			if ns.RefreshDelvesPanel then
-				ns.RefreshDelvesPanel()
+				ns.RefreshDelvesPanel(false)
 			end
 			if ns.RefreshReferenceGuidePanel then
 				ns.RefreshReferenceGuidePanel()
@@ -1796,7 +1796,7 @@ if not ns._mhVaultAdvisorLocaleHooked then
 		end
 		lastScanKey = nil
 		if ns.RefreshDelvesPanel then
-			ns.RefreshDelvesPanel()
+			ns.RefreshDelvesPanel(true)
 		end
 		if WeeklyRewardsFrame and WeeklyRewardsFrame:IsShown() and ns.RefreshBlizzardVaultBanner then
 			ns.RefreshBlizzardVaultBanner()

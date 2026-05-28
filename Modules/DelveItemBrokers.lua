@@ -270,6 +270,7 @@ eventFrame:SetScript("OnEvent", function(_, event, arg1)
 		eventFrame._mhWasInDelve = false
 		return
 	end
+	eventFrame._mhWasInDelve = true
 	if ns.RefreshDelveItemBrokers then
 		ns:RefreshDelveItemBrokers()
 	end
@@ -278,22 +279,8 @@ eventFrame:SetScript("OnEvent", function(_, event, arg1)
 	end
 end)
 
-eventFrame:SetScript("OnUpdate", function(self, elapsed)
-	self._elapsed = (self._elapsed or 0) + elapsed
-	if self._elapsed < 0.5 then
-		return
-	end
-	self._elapsed = 0
-	local inDelve = IsDelveItemsUiAllowed()
-	if not inDelve and self._mhWasInDelve then
-		if ns.HideDelveItemsUiLeavingDelve then
-			ns:HideDelveItemsUiLeavingDelve()
-		elseif ns.RefreshDelveItemBrokers then
-			ns:RefreshDelveItemBrokers()
-		end
-	end
-	self._mhWasInDelve = inDelve and true or false
-end)
+-- No OnUpdate loop: zone/enter/leave events already refresh state.
+eventFrame:SetScript("OnUpdate", nil)
 
 do
 	local orig = ns.RefreshLocaleUI
