@@ -1,7 +1,28 @@
 # Next session — Midnight Helper
 
-**Laatste update:** 2026-05-27  
-**CurseForge:** **niet pushen** tot CF gate in `I18N_ROADMAP.md` volledig ✅
+**Laatste update:** 2026-05-29  
+**CurseForge:** klaar voor upload **1.5.0** (zip gebouwd, changelog + beschrijving bijgewerkt)
+
+---
+
+## Release 1.5.0 — status (2026-05-29)
+
+### ✅ Prep af (code gepusht, commit `43aefd9`)
+
+- **Home "This Week"-dashboard** (`Modules/HomeDashboard.lua`): standaard-tab; weekly reset-countdown, account-wide Great Vault, world boss, weekly chores (SMC/keys/shards), Rares-shortcut
+- **Rares-tab** (`Modules/Rares.lua`): per-character weekly tracking; nearest + greedy route op **world-coördinaten (yards)**; TomTom crazy-arrow blijft op dichtstbijzijnde waypoint
+- **Live rare-alerts**: geluid + toast ook met venster dicht (`C_VignetteInfo`), afstandsgated (~500 yds), klik = extra waypoint zonder route te wissen; toggle in settings
+- **Sidebar** in secties; "Reference" → "Basics"; dynamische min-hoogte tegen overlap
+- `.toc` → **1.5.0**, `CHANGELOG.md` 1.5.0-sectie, `CURSEFORGE_DESCRIPTION.md` bijgewerkt
+- Zip: `dist/MidnightHelper-1.5.0.zip` (geverifieerd: root `MidnightHelper/`, geen docs/tools/dev)
+
+### 🔜 Handmatige CF-upload (te doen)
+
+1. In-game smoke test met deze build (`/reload`, geen Lua-fouten, Home default, Rares-route + alert)
+2. Upload `dist/MidnightHelper-1.5.0.zip` op CF-projectpagina
+3. Game-versie passend bij Interface **120005**; release type = Release
+4. 1.5.0-changelog plakken in upload-veld; projectbeschrijving updaten
+5. Verse screenshots (Home, Rares, alert-popup)
 
 ---
 
