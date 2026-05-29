@@ -262,7 +262,8 @@ local function StartHideTimer()
 	if not (C_Timer and C_Timer.After) then
 		return
 	end
-	hideTimer = C_Timer.After(DISPLAY_SEC, function()
+	local dur = (activeSpec and tonumber(activeSpec.displaySec)) or DISPLAY_SEC
+	hideTimer = C_Timer.After(dur, function()
 		hideTimer = nil
 		if not toastFrame or not toastFrame:IsShown() then
 			FinishToast()

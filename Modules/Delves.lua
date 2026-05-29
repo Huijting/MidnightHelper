@@ -599,13 +599,17 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 
 	-- 1. Waypoint: TomTom arrow when available, else Blizzard user waypoint + SuperTrack.
 	if ns.IsTomTomReady() then
+		-- Bulk route pins (skipCrazyArrow) must NOT request the crazy arrow:
+		-- TomTom auto-points the arrow at the most recently added crazy waypoint,
+		-- so leaving crazy=true here would steal the arrow onto the last (farthest)
+		-- pin instead of keeping it on the first (nearest) one.
 		local uid = _G.TomTom:AddWaypoint(targetMap, xPct / 100, yPct / 100, {
 			title = title,
 			persistent = false,
 			minimap = true,
 			world = true,
 			cleardistance = 15,
-			crazy = true,
+			crazy = not skipCrazyArrow,
 		})
 		if uid and _G.TomTom.SetCrazyArrow and not skipCrazyArrow then
 			_G.TomTom:SetCrazyArrow(uid, 15, title)

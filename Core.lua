@@ -540,6 +540,24 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "rarescan" then
+		if ns.DebugRareScan then
+			ns.DebugRareScan()
+		else
+			print("|cffffcc00Midnight Helper:|r rare scan not loaded")
+		end
+		return
+	end
+
+	if msg == "raretest" then
+		if ns.TestRareAlert then
+			ns.TestRareAlert()
+		else
+			print("|cffffcc00Midnight Helper:|r rare alert not loaded")
+		end
+		return
+	end
+
 	if msg == "debug" then
 		-- Toggle debug mode
 		if ns.db and ns.db.ui then

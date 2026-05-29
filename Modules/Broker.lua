@@ -733,9 +733,21 @@ local function EnsureSettingsCategoryFrame()
 	local compactModeText = compactMode.text or _G[compactMode:GetName() .. "Text"]
 	panel._compactModeText = compactModeText
 
+	local rareAlert = CreateFrame("CheckButton", nil, content, "UICheckButtonTemplate")
+	rareAlert:SetPoint("TOPLEFT", compactMode, "BOTTOMLEFT", 0, -4)
+	rareAlert:SetScript("OnClick", function(self)
+		if ns.SetRareAlertEnabled then
+			ns.SetRareAlertEnabled(self:GetChecked())
+		end
+	end)
+	panel._rareAlert = rareAlert
+	local rareAlertText = rareAlert.text or _G[rareAlert:GetName() .. "Text"]
+	panel._rareAlertText = rareAlertText
+	AttachSettingsTooltip(rareAlert, "SETTINGS_RARE_ALERT", "SETTINGS_RARE_ALERT_TT")
+
 	local openMain = CreateFrame("Button", nil, content, "UIPanelButtonTemplate")
 	openMain:SetSize(152, 24)
-	openMain:SetPoint("TOPLEFT", compactMode, "BOTTOMLEFT", 4, -8)
+	openMain:SetPoint("TOPLEFT", rareAlert, "BOTTOMLEFT", 4, -8)
 	openMain:SetScript("OnClick", function()
 		if ns.ShowMainUI then
 			ns:ShowMainUI()
@@ -988,6 +1000,16 @@ local function EnsureSettingsCategoryFrame()
 			self._compactModeText:SetText(ns:L("SETTINGS_COMPACT_MODE"))
 			if self._compactModeText.SetTextColor then
 				self._compactModeText:SetTextColor(0.95, 0.9, 0.74)
+			end
+		end
+		if self._rareAlert then
+			local ra = ns.GetRareAlertSettings and ns.GetRareAlertSettings() or nil
+			self._rareAlert:SetChecked(not ra or ra.enabled ~= false)
+			if self._rareAlertText and self._rareAlertText.SetText then
+				self._rareAlertText:SetText(ns:L("SETTINGS_RARE_ALERT"))
+				if self._rareAlertText.SetTextColor then
+					self._rareAlertText:SetTextColor(0.95, 0.9, 0.74)
+				end
 			end
 		end
 

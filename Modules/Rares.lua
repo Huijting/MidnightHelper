@@ -145,7 +145,9 @@ local vignetteCacheZoneKey = nil
 local vignetteCacheAt = 0
 local vignetteUpLookup = {}
 local VIGNETTE_CACHE_SEC = 2.5
-local VIGNETTE_MATCH_DIST = 0.03
+-- Match radius in continent world yards between a live vignette and a known
+-- rare spawn point (rares roam, so this is generous).
+local VIGNETTE_MATCH_YARDS = 130
 
 local function GetCurrentZoneKey()
 	if not C_Map or not C_Map.GetBestMapForUnit then
@@ -443,48 +445,80 @@ local function VignetteXY(vx, vy)
 	return x, y
 end
 
+-- Read the world position (yards) of a live vignette. GetVignettePosition
+-- returns a single CVector2D (normalized on uiMapID), not two numbers.
+local function VignetteWorldPos(vignetteGUID, mapID)
+	if not (C_VignetteInfo and C_VignetteInfo.GetVignettePosition) then
+		return nil
+	end
+	local okPos, pos = pcall(C_VignetteInfo.GetVignettePosition, vignetteGUID, mapID)
+	if not okPos or type(pos) ~= "table" then
+		return nil
+	end
+	local x, y
+	if type(pos.GetXY) == "function" then
+		local okXY, px, py = pcall(pos.GetXY, pos)
+		if okXY then
+			x, y = px, py
+		end
+	end
+	if x == nil and type(pos.x) == "number" then
+		x, y = pos.x, pos.y
+	end
+	x, y = VignetteXY(x, y)
+	if not x then
+		return nil
+	end
+	return MapPosToWorld(mapID, x, y)
+end
+
+-- Live "is this rare here right now" detection. C_VignetteInfo.GetVignettes()
+-- (no args) returns the vignette GUIDs the client currently sees around the
+-- player — the same source RareScanner uses. We only trust it while the player
+-- is actually in the requested zone, then match each vignette to a rare by
+-- name and/or world-coordinate proximity.
 local function CollectVignettePointsForZone(zoneKey)
 	local points = {}
-	if not zoneKey or not C_Map or not C_Map.GetVignettes then
+	if not zoneKey or not (C_VignetteInfo and C_VignetteInfo.GetVignettes) then
 		return points
 	end
+
+	local playerMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	if not playerMap then
+		return points
+	end
+
 	local mapList = ZONE_MAP_IDS[zoneKey]
-	if not mapList then
+	local inZone = false
+	if mapList then
+		for i = 1, #mapList do
+			if mapList[i] == playerMap then
+				inZone = true
+				break
+			end
+		end
+	end
+	if not inZone then
 		return points
 	end
-	for mi = 1, #mapList do
-		local mapID = mapList[mi]
-		local okList, vignettes = pcall(C_Map.GetVignettes, mapID)
-		if okList and type(vignettes) == "table" then
-			for vi = 1, #vignettes do
-				local vignetteGUID = vignettes[vi]
-				local vx, vy, vname
-				if C_VignetteInfo and C_VignetteInfo.GetVignettePosition then
-					local okPos, posX, posY = pcall(C_VignetteInfo.GetVignettePosition, vignetteGUID, mapID)
-					if okPos then
-						vx, vy = posX, posY
-					end
-				end
-				if C_VignetteInfo and C_VignetteInfo.GetVignetteInfo then
-					local okInfo, info = pcall(C_VignetteInfo.GetVignetteInfo, vignetteGUID)
-					if okInfo and info then
-						vname = info.name or info.vignetteName
-						if not vx and info.position and type(info.position.GetXY) == "function" then
-							local okXY, px, py = pcall(info.position.GetXY, info.position)
-							if okXY then
-								vx, vy = px, py
-							end
-						end
-						if not vx and type(info.x) == "number" and type(info.y) == "number" then
-							vx, vy = info.x, info.y
-						end
-					end
-				end
-				vx, vy = VignetteXY(vx, vy)
-				if vx and vy then
-					points[#points + 1] = { x = vx, y = vy, name = vname or "" }
-				end
+
+	local okList, vignettes = pcall(C_VignetteInfo.GetVignettes)
+	if not okList or type(vignettes) ~= "table" then
+		return points
+	end
+
+	for vi = 1, #vignettes do
+		local vignetteGUID = vignettes[vi]
+		local vname
+		if C_VignetteInfo.GetVignetteInfo then
+			local okInfo, info = pcall(C_VignetteInfo.GetVignetteInfo, vignetteGUID)
+			if okInfo and info then
+				vname = info.name or info.vignetteName
 			end
+		end
+		local wx, wy = VignetteWorldPos(vignetteGUID, playerMap)
+		if wx or (vname and vname ~= "") then
+			points[#points + 1] = { wx = wx, wy = wy, name = vname or "" }
 		end
 	end
 	return points
@@ -504,18 +538,22 @@ local function RefreshVignetteUpCache(zone)
 
 	local points = CollectVignettePointsForZone(zone.key)
 	for _, rare in ipairs(zone.rares) do
-		local rx = (tonumber(rare[3]) or 0) / 100
-		local ry = (tonumber(rare[4]) or 0) / 100
 		local rname = GetRareDisplayName(rare)
+		local rwx, rwy = GetRareWorldPos(rare)
 		local up = false
 		for pi = 1, #points do
 			local p = points[pi]
-			local dx = p.x - rx
-			local dy = p.y - ry
-			local dist = math.sqrt(dx * dx + dy * dy)
-			if dist <= VIGNETTE_MATCH_DIST or (dist <= VIGNETTE_MATCH_DIST * 2.2 and RareNamesRoughMatch(p.name, rname)) then
+			if p.name ~= "" and RareNamesRoughMatch(p.name, rname) then
 				up = true
 				break
+			end
+			if rwx and rwy and p.wx and p.wy then
+				local dx = p.wx - rwx
+				local dy = p.wy - rwy
+				if math.sqrt(dx * dx + dy * dy) <= VIGNETTE_MATCH_YARDS then
+					up = true
+					break
+				end
 			end
 		end
 		vignetteUpLookup[zone.key .. ":" .. tostring(rare[1])] = up
@@ -874,9 +912,218 @@ function ns.MH_RefreshRaresDelvesBlock(delvesFrame)
 	return 0, nil
 end
 
+--------------------------------------------------------------------------------
+-- Live "rare nearby" alert: sound + on-screen toast that works with the main
+-- window closed. Uses the same source as RareScanner (C_VignetteInfo.GetVignettes)
+-- but only for the rares we track, deduped per spawn (objectGUID) so a persistent
+-- vignette only pings once.
+--------------------------------------------------------------------------------
+local rareAlertSeen = {} -- dedupe key -> GetTime() when last alerted
+local RARE_ALERT_TTL = 900 -- don't re-alert the same spawn within 15 min
+local rareAlertScanAt = 0
+local RARE_ALERT_SCAN_THROTTLE = 1.0
+local RARE_ALERT_ICON = "Interface\\Icons\\INV_Misc_Head_Dragon_01"
+local RARE_ALERT_DISPLAY_SEC = 14
+
+local function GetRareAlertSettings()
+	local ui = ns.db and ns.db.ui
+	if type(ui) ~= "table" then
+		return { enabled = true, sound = true }
+	end
+	if type(ui.rareAlert) ~= "table" then
+		ui.rareAlert = { enabled = true, sound = true }
+	end
+	local s = ui.rareAlert
+	if s.enabled == nil then
+		s.enabled = true
+	end
+	if s.sound == nil then
+		s.sound = true
+	end
+	return s
+end
+ns.GetRareAlertSettings = GetRareAlertSettings
+
+function ns.SetRareAlertEnabled(enabled)
+	GetRareAlertSettings().enabled = enabled and true or false
+end
+
+local function MatchRareInZone(zone, vname, vwx, vwy)
+	if not zone or not zone.rares then
+		return nil
+	end
+	for _, rare in ipairs(zone.rares) do
+		if vname and vname ~= "" and RareNamesRoughMatch(vname, GetRareDisplayName(rare)) then
+			return rare
+		end
+		if vwx and vwy then
+			local rwx, rwy = GetRareWorldPos(rare)
+			if rwx and rwy then
+				local dx = vwx - rwx
+				local dy = vwy - rwy
+				if math.sqrt(dx * dx + dy * dy) <= VIGNETTE_MATCH_YARDS then
+					return rare
+				end
+			end
+		end
+	end
+	return nil
+end
+
+local function FireRareAlert(rare)
+	local s = GetRareAlertSettings()
+	local name = GetRareDisplayName(rare)
+	if ns.QueueMidnightToast then
+		ns.QueueMidnightToast({
+			id = "rare:" .. tostring(rare[1]),
+			title = name,
+			body = ns:L("RARE_ALERT_TOAST_BODY"),
+			icon = RARE_ALERT_ICON,
+			displaySec = RARE_ALERT_DISPLAY_SEC,
+			onClick = function()
+				RouteRare(rare, true)
+			end,
+		})
+	end
+	if s.sound ~= false and PlaySound and SOUNDKIT then
+		-- Alarm clock is the most attention-grabbing built-in; fall back through
+		-- ready-check / raid warning if a client lacks the kit. Master channel so
+		-- it is audible even with SFX volume low.
+		local kit = SOUNDKIT.ALARM_CLOCK_WARNING_3
+			or SOUNDKIT.READY_CHECK
+			or SOUNDKIT.RAID_WARNING
+			or SOUNDKIT.UI_WORLDQUEST_START
+		if kit then
+			pcall(PlaySound, kit, "Master")
+			if C_Timer and C_Timer.After then
+				C_Timer.After(0.7, function()
+					pcall(PlaySound, kit, "Master")
+				end)
+			end
+		end
+	end
+end
+
+local function ScanForRareAlerts()
+	if not GetRareAlertSettings().enabled then
+		return
+	end
+	if not (C_VignetteInfo and C_VignetteInfo.GetVignettes) then
+		return
+	end
+	local now = (GetTime and GetTime()) or 0
+	if (now - rareAlertScanAt) < RARE_ALERT_SCAN_THROTTLE then
+		return
+	end
+	rareAlertScanAt = now
+
+	local playerMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	if not playerMap then
+		return
+	end
+	local zoneKey = MAP_TO_ZONE_KEY[playerMap]
+	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
+	if not zone then
+		return
+	end
+
+	local okList, vignettes = pcall(C_VignetteInfo.GetVignettes)
+	if not okList or type(vignettes) ~= "table" then
+		return
+	end
+
+	for guid, t in pairs(rareAlertSeen) do
+		if (now - t) > RARE_ALERT_TTL then
+			rareAlertSeen[guid] = nil
+		end
+	end
+
+	for vi = 1, #vignettes do
+		local vignetteGUID = vignettes[vi]
+		local info
+		local okInfo, vinfo = pcall(C_VignetteInfo.GetVignetteInfo, vignetteGUID)
+		if okInfo then
+			info = vinfo
+		end
+		if info then
+			local dedupeKey = info.objectGUID or vignetteGUID
+			if not rareAlertSeen[dedupeKey] then
+				local vwx, vwy = VignetteWorldPos(vignetteGUID, playerMap)
+				local rare = MatchRareInZone(zone, info.name, vwx, vwy)
+				if rare and not IsRareDoneThisWeek(rare[1]) then
+					rareAlertSeen[dedupeKey] = now
+					FireRareAlert(rare)
+				end
+			end
+		end
+	end
+end
+ns.ScanRareAlerts = ScanForRareAlerts
+
+-- /mh raretest — fire the alert output path (toast + sound) on demand.
+function ns.TestRareAlert()
+	local playerMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	local zoneKey = playerMap and MAP_TO_ZONE_KEY[playerMap]
+	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
+	local rare = (zone and zone.rares and zone.rares[1]) or (ZONES[1] and ZONES[1].rares[1])
+	if rare then
+		FireRareAlert(rare)
+		print("|cffffcc00MH:|r raretest fired for " .. GetRareDisplayName(rare))
+	else
+		print("|cffffcc00MH:|r raretest — no rare available")
+	end
+end
+
+-- /mh rarescan — dump what the live scan currently sees and how it matches.
+function ns.DebugRareScan()
+	local function p(s)
+		print("|cffffcc00MH rarescan:|r " .. s)
+	end
+	local s = GetRareAlertSettings()
+	p(("enabled=%s sound=%s | toast.enabled=%s"):format(
+		tostring(s.enabled),
+		tostring(s.sound),
+		tostring(ns.db and ns.db.ui and ns.db.ui.toast and ns.db.ui.toast.enabled)
+	))
+	if not (C_VignetteInfo and C_VignetteInfo.GetVignettes) then
+		p("C_VignetteInfo.GetVignettes MISSING")
+		return
+	end
+	local playerMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	local zoneKey = playerMap and MAP_TO_ZONE_KEY[playerMap]
+	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
+	p(("playerMap=%s zoneKey=%s zone=%s"):format(tostring(playerMap), tostring(zoneKey), zone and "ok" or "NIL"))
+	local okList, vignettes = pcall(C_VignetteInfo.GetVignettes)
+	if not okList or type(vignettes) ~= "table" then
+		p("GetVignettes failed or returned non-table")
+		return
+	end
+	p(("vignettes nearby = %d"):format(#vignettes))
+	for vi = 1, #vignettes do
+		local guid = vignettes[vi]
+		local okInfo, info = pcall(C_VignetteInfo.GetVignetteInfo, guid)
+		if okInfo and type(info) == "table" then
+			local vwx, vwy = VignetteWorldPos(guid, playerMap)
+			local matched = zone and MatchRareInZone(zone, info.name, vwx, vwy)
+			p(("  [%d] name=%q onMM=%s onWM=%s worldpos=%s -> match=%s done=%s"):format(
+				vi,
+				tostring(info.name),
+				tostring(info.onMinimap),
+				tostring(info.onWorldMap),
+				(vwx and "yes" or "no"),
+				matched and GetRareDisplayName(matched) or "NONE",
+				matched and tostring(IsRareDoneThisWeek(matched[1])) or "-"
+			))
+		else
+			p(("  [%d] GetVignetteInfo returned nothing"):format(vi))
+		end
+	end
+end
+
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("QUEST_LOG_UPDATE")
 ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 if C_EventUtils and C_EventUtils.IsEventValid then
 	if C_EventUtils.IsEventValid("VIGNETTES_UPDATED") then
 		ev:RegisterEvent("VIGNETTES_UPDATED")
@@ -893,6 +1140,14 @@ else
 	end)
 end
 ev:SetScript("OnEvent", function(_, event)
+	if
+		event == "VIGNETTES_UPDATED"
+		or event == "VIGNETTE_MINIMAP_UPDATED"
+		or event == "ZONE_CHANGED_NEW_AREA"
+		or event == "PLAYER_ENTERING_WORLD"
+	then
+		ScanForRareAlerts()
+	end
 	if frame and frame:IsVisible() then
 		if event == "ZONE_CHANGED_NEW_AREA" then
 			local here = GetCurrentZoneKey()
