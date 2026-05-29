@@ -69,6 +69,7 @@ Modules\Rares.lua
 Modules\DelveCoach.lua
 Modules\AccountWeeklyChecklist.lua
 Modules\AltOverview.lua
+Modules\HomeDashboard.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua
 Addons\GuideData.lua

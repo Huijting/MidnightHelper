@@ -250,7 +250,9 @@ local function MHAttachTabBetaBadge(btn, tabId)
 end
 
 local function MHGetInfoBodyKeyForTab(tabId)
-	if tabId == "delves" then
+	if tabId == "home" then
+		return "INFO_DRAWER_BODY_HOME"
+	elseif tabId == "delves" then
 		return "INFO_DRAWER_BODY_DELVES"
 	elseif tabId == "account" then
 		return "INFO_DRAWER_BODY_ACCOUNT"
@@ -1182,6 +1184,7 @@ end
 -- Tab configuration: order = display order in the sidebar
 --------------------------------------------------------------------------------
 local TAB_DEFS = {
+	{ id = "home", labelKey = "TAB_HOME" },
 	{ id = "delves", labelKey = "TAB_DELVES" },
 	{ id = "account", labelKey = "TAB_ACCOUNT_SNAPSHOT" },
 	{ id = "rares", labelKey = "TAB_RARES" },
@@ -1549,6 +1552,7 @@ function ns:EnsureMainUI()
 			infoBody:SetText(self:L("ABOUT_VERSION_FMT"):format(ver) .. "\n\n" .. self:L("ABOUT_WINDOW_BODY"))
 		else
 			local keyById = {
+				home = "TAB_HOME",
 				delves = "TAB_DELVES",
 				account = "TAB_ACCOUNT_SNAPSHOT",
 				rares = "TAB_RARES",
@@ -1676,6 +1680,8 @@ function ns:EnsureMainUI()
 				ns.BuildReferenceGuidePanel(panel)
 			elseif tab.id == "rares" and ns.BuildRaresPanel then
 				ns.BuildRaresPanel(panel)
+			elseif tab.id == "home" and ns.BuildHomePanel then
+				ns.BuildHomePanel(panel)
 			end
 		end
 	end
@@ -1900,10 +1906,31 @@ function ns:EnsureMainUI()
 			end
 		end
 
+		-- Keep the window tall enough for the full sidebar so the bottom-pinned
+		-- About button never overlaps the last tab. Recomputed on every relayout,
+		-- so toggling beta tabs tightens or loosens the minimum automatically.
+		do
+			local tabsHeight = -yy
+			local aboutArea = lm.aboutBtnHeight + ABOUT_BTN_BOTTOM_INSET + 8
+			local overhead = MH_MAIN_EDGE.T + TITLE_BAR_HEIGHT + lm.searchBarHeight + MH_MAIN_EDGE.B
+			local requiredH = math.min(MAX_HEIGHT, math.ceil(tabsHeight + aboutArea + overhead))
+			local minH = math.max(MIN_HEIGHT, requiredH)
+			if main and main.SetResizeBounds then
+				main:SetResizeBounds(MIN_WIDTH, minH, MAX_WIDTH, MAX_HEIGHT)
+			end
+			if main and (main:GetHeight() or 0) < minH then
+				main:SetHeight(minH)
+				local dbUi = ns.db and ns.db.ui
+				if dbUi then
+					dbUi.mainHeight = ClampMainHeight(minH)
+				end
+			end
+		end
+
 		if ns.uiSelectedTab and ns.IsBetaTabId and ns.IsBetaTabId(ns.uiSelectedTab) and not SidebarTabVisible(ns.uiSelectedTab) then
-			SelectTab("delves")
+			SelectTab("home")
 		elseif ns.uiSelectedTab == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
-			SelectTab("delves")
+			SelectTab("home")
 		end
 	end
 
@@ -2019,9 +2046,9 @@ function ns:EnsureMainUI()
 	end
 
 	-- Default tab on first open
-	SelectTab(ns.uiSelectedTab or "delves")
+	SelectTab(ns.uiSelectedTab or "home")
 	ns:ApplySavedMainWindowSize()
-	ns:_mhRefreshSidePanel(ns.uiSelectedTab or "delves")
+	ns:_mhRefreshSidePanel(ns.uiSelectedTab or "home")
 
 	main:SetScript("OnHide", function()
 		if ns._mhInfoWindow and ns._mhInfoWindow.Hide then
@@ -2060,7 +2087,7 @@ end
 --------------------------------------------------------------------------------
 SelectTab = function(tabId)
 	if tabId == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
-		tabId = "delves"
+		tabId = "home"
 	end
 	if not ns.panels or not ns.panels[tabId] then
 		return
@@ -2095,6 +2122,10 @@ SelectTab = function(tabId)
 
 	if tabId == "rares" and ns.RefreshRaresPanel then
 		ns.RefreshRaresPanel()
+	end
+
+	if tabId == "home" and ns.RefreshHomePanel then
+		ns.RefreshHomePanel()
 	end
 
 	if tabId == "delves" then
@@ -2144,9 +2175,9 @@ function ns.RefreshBetaTabVisibility()
 		return
 	end
 	if ns.IsBetaTabId and ns.IsBetaTabId(t) and ns.IsBetaTabEnabled and not ns.IsBetaTabEnabled(t) then
-		ns.SelectTab("delves")
+		ns.SelectTab("home")
 	elseif t == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
-		ns.SelectTab("delves")
+		ns.SelectTab("home")
 	end
 end
 
