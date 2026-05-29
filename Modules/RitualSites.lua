@@ -22,6 +22,8 @@ local RITUAL_WEEKLY_QUEST = 95843
 -- Field Accolade — the Midnight 12.0.5 currency earned from Ritual Sites /
 -- Void Assaults (per character, not warbound).
 local FIELD_ACCOLADE_CURRENCY = 3405
+-- Ritual Sites renown/reputation faction.
+local RITUAL_RENOWN_FACTION = 2792
 -- Void Assaults / Ritual Sites quest hub on the 2nd floor of The Bazaar in
 -- Silvermoon City (Ranger Captain Lilatha, Lady Darkglen, Maren Silverwing).
 local HUB_MAP, HUB_X, HUB_Y = 2393, 48.2, 49.4
@@ -107,6 +109,38 @@ local function GetAccolades()
 		local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, FIELD_ACCOLADE_CURRENCY)
 		if ok and type(info) == "table" and info.quantity then
 			return info.quantity
+		end
+	end
+	return nil
+end
+
+-- Ritual Sites has its own 8-rank renown/reputation (faction 2792). It may be
+-- exposed as a Major Faction (renown) or a classic reputation depending on the
+-- client build, so we try both and fall back to a "not unlocked yet" hint.
+local function GetRitualRenownText()
+	if C_MajorFactions and C_MajorFactions.GetMajorFactionData then
+		local ok, d = pcall(C_MajorFactions.GetMajorFactionData, RITUAL_RENOWN_FACTION)
+		if ok and type(d) == "table" and d.renownLevel and d.renownLevel > 0 then
+			local cur, need = d.renownReputationEarned or 0, d.renownLevelThreshold or 0
+			if need > 0 then
+				return ("%s %d (%d/%d)"):format(ns:L("RITUAL_RENOWN_WORD"), d.renownLevel, cur, need)
+			end
+			return ("%s %d"):format(ns:L("RITUAL_RENOWN_WORD"), d.renownLevel)
+		end
+	end
+	if C_Reputation and C_Reputation.GetFactionDataByID then
+		local ok, d = pcall(C_Reputation.GetFactionDataByID, RITUAL_RENOWN_FACTION)
+		if ok and type(d) == "table" and d.reaction then
+			local standing = _G["FACTION_STANDING_LABEL" .. d.reaction] or ""
+			local base = d.currentReactionThreshold or 0
+			local cur = (d.currentStanding or 0) - base
+			local need = (d.nextReactionThreshold or 0) - base
+			if need > 0 then
+				return ("%s (%d/%d)"):format(standing, cur, need)
+			end
+			if standing ~= "" then
+				return standing
+			end
 		end
 	end
 	return nil
@@ -252,6 +286,17 @@ function ns.RefreshRitualPanel()
 		btn:SetText(SiteRowLabel(site, isActive))
 	end
 
+	if ui.renownFs then
+		local txt = GetRitualRenownText()
+		if txt and txt ~= "" then
+			ui.renownFs:SetText(ns:L("RITUAL_RENOWN_LABEL") .. ": " .. txt)
+			ui.renownFs:SetTextColor(0.7, 0.6, 0.95)
+		else
+			ui.renownFs:SetText(ns:L("RITUAL_RENOWN_LOCKED"))
+			ui.renownFs:SetTextColor(0.6, 0.62, 0.68)
+		end
+	end
+
 	if ui.accoladesFs then
 		local n = GetAccolades()
 		if n then
@@ -299,8 +344,14 @@ function ns.BuildRitualPanel(panel)
 	weeklyFs:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	weeklyFs:SetJustifyH("LEFT")
 
+	local renownFs = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	renownFs:SetPoint("TOPLEFT", weeklyFs, "BOTTOMLEFT", 0, -4)
+	renownFs:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	renownFs:SetJustifyH("LEFT")
+	renownFs:SetTextColor(0.7, 0.6, 0.95)
+
 	local siteButtons = {}
-	local prev = weeklyFs
+	local prev = renownFs
 	for i, site in ipairs(SITES) do
 		local btn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
 		btn:SetHeight(BTN_H)
@@ -382,6 +433,7 @@ function ns.BuildRitualPanel(panel)
 		subtitle = subtitle,
 		activeFs = activeFs,
 		weeklyFs = weeklyFs,
+		renownFs = renownFs,
 		siteButtons = siteButtons,
 		hubBtn = hubBtn,
 		note = note,
@@ -427,6 +479,7 @@ ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("PLAYER_UNGHOST")
 ev:RegisterEvent("PLAYER_ALIVE")
 ev:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
+ev:RegisterEvent("UPDATE_FACTION")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_UNGHOST" or event == "PLAYER_ALIVE" then
 		ReassertRouteAfterRevive()
