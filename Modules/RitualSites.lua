@@ -1,0 +1,342 @@
+--[[
+	Ritual Sites — Midnight (12.0.5) endgame world content. Two sites rotate
+	weekly; only one is active at a time, marked with a special icon on the
+	world map. This module is a small, high-value companion (like the Rares
+	tab): it tells you which site is active this week, gives a TomTom waypoint
+	to the active Curious Obelisk, and tracks the weekly meta-quest.
+
+	Data (verified via Wowhead / guides, May 2026):
+	  - Daggerspine Point — Eversong Woods (map 2395) — 34.9, 65.4
+	  - Broken Throne     — Zul'Aman      (map 2437) — 29.7, 78.2
+	  - Weekly meta-quest "Midnight: Ritual Sites" — quest 95843
+
+	Active-site detection is best-effort: we scan the map POIs for each site
+	and match the one near the known obelisk spot. When the API gives us no
+	signal we fall back to showing both sites with a clear note, so the panel
+	never lies about which one is live.
+]]
+
+local _, ns = ...
+
+local RITUAL_WEEKLY_QUEST = 95843
+-- Normalized map distance within which a map POI counts as "the obelisk".
+local POI_MATCH_RADIUS = 0.06
+
+local SITES = {
+	{ key = "daggerspine", name = "Daggerspine Point", mapID = 2395, x = 34.9, y = 65.4 },
+	{ key = "brokenthrone", name = "Broken Throne", mapID = 2437, x = 29.7, y = 78.2 },
+}
+
+--------------------------------------------------------------------------------
+-- Helpers
+--------------------------------------------------------------------------------
+
+local function ZoneName(mapID)
+	if C_Map and C_Map.GetMapInfo then
+		local info = C_Map.GetMapInfo(mapID)
+		if info and info.name and info.name ~= "" then
+			return info.name
+		end
+	end
+	return "Map " .. tostring(mapID)
+end
+
+local function PosXY(pos)
+	if type(pos) ~= "table" then
+		return nil
+	end
+	if type(pos.GetXY) == "function" then
+		local ok, x, y = pcall(pos.GetXY, pos)
+		if ok and x then
+			return x, y
+		end
+	end
+	if type(pos.x) == "number" then
+		return pos.x, pos.y
+	end
+	return nil
+end
+
+local function NearObelisk(px, py, site)
+	if not px then
+		return false
+	end
+	local dx = px - (site.x / 100)
+	local dy = py - (site.y / 100)
+	return (dx * dx + dy * dy) <= (POI_MATCH_RADIUS * POI_MATCH_RADIUS)
+end
+
+-- Best-effort: scan the area POIs of each site's map and treat a POI sitting on
+-- the known obelisk spot as proof that this is the active site this week.
+local function DetectActiveSite()
+	if not (C_AreaPoiInfo and C_AreaPoiInfo.GetAreaPOIForMap and C_AreaPoiInfo.GetAreaPOIInfo) then
+		return nil
+	end
+	for _, site in ipairs(SITES) do
+		local ok, pois = pcall(C_AreaPoiInfo.GetAreaPOIForMap, site.mapID)
+		if ok and type(pois) == "table" then
+			for i = 1, #pois do
+				local okInfo, info = pcall(C_AreaPoiInfo.GetAreaPOIInfo, site.mapID, pois[i])
+				if okInfo and info then
+					local px, py = PosXY(info.position)
+					if NearObelisk(px, py, site) then
+						return site.key
+					end
+				end
+			end
+		end
+	end
+	return nil
+end
+
+local function IsWeeklyDone()
+	if not (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
+		return false
+	end
+	return C_QuestLog.IsQuestFlaggedCompleted(RITUAL_WEEKLY_QUEST) and true or false
+end
+
+local function GetSiteByKey(key)
+	for _, site in ipairs(SITES) do
+		if site.key == key then
+			return site
+		end
+	end
+	return nil
+end
+
+-- The site the player last asked us to route to. Kept so we can re-assert the
+-- TomTom arrow after a death/loading screen (the crazy arrow is transient and
+-- vanishes on resurrect), without forcing a /reload. Cleared once the weekly is
+-- done so a later death elsewhere does not resurrect a stale arrow.
+local lastRoutedSite
+
+local function RouteSite(site, quiet)
+	if not site or not ns.AddSmartTomTomWay then
+		return false
+	end
+	if ns.IsTomTomReady and ns.IsTomTomReady() then
+		pcall(function()
+			_G.TomTom:ClearAllWaypoints()
+		end)
+	end
+	local label = site.name .. " — " .. ZoneName(site.mapID)
+	-- quiet = skip the cross-zone travel popup (used for silent re-assertion).
+	local ok = ns.AddSmartTomTomWay(site.mapID, site.x, site.y, label, quiet and true or nil) and true or false
+	if ok then
+		lastRoutedSite = site
+	end
+	return ok
+end
+
+-- Re-point the arrow at the last routed site after a revive. Delayed slightly so
+-- the world/map state has settled after the resurrect loading screen.
+local function ReassertRouteAfterRevive()
+	if not lastRoutedSite then
+		return
+	end
+	if IsWeeklyDone() then
+		lastRoutedSite = nil
+		return
+	end
+	if not (ns.IsTomTomReady and ns.IsTomTomReady()) then
+		return
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(1.5, function()
+			if lastRoutedSite then
+				RouteSite(lastRoutedSite, true)
+			end
+		end)
+	else
+		RouteSite(lastRoutedSite, true)
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Public API (used by the Home dashboard)
+--------------------------------------------------------------------------------
+
+-- Returns the active site table (or nil if undetected) for other modules.
+function ns.GetActiveRitualSite()
+	local key = DetectActiveSite()
+	return key and GetSiteByKey(key) or nil
+end
+
+function ns.IsRitualWeeklyDone()
+	return IsWeeklyDone()
+end
+
+function ns.RitualSiteZoneName(site)
+	return site and ZoneName(site.mapID) or nil
+end
+
+--------------------------------------------------------------------------------
+-- Panel
+--------------------------------------------------------------------------------
+
+local SIDE_PAD = 14
+local TOP_PAD = 12
+local BTN_H = 26
+local GAP = 8
+
+local ui
+
+local function SiteRowLabel(site, active)
+	local label = site.name .. " — " .. ZoneName(site.mapID)
+	if active then
+		label = label .. "  |cffffcc00[" .. ns:L("RITUAL_ACTIVE_BADGE") .. "]|r"
+	end
+	return label
+end
+
+function ns.RefreshRitualPanel()
+	if not ui or not ui.panel or not ui.panel:IsVisible() then
+		return
+	end
+
+	local activeSite = ns.GetActiveRitualSite()
+	local weeklyDone = IsWeeklyDone()
+
+	if ui.activeFs then
+		if activeSite then
+			ui.activeFs:SetText(ns:L("RITUAL_ACTIVE_FMT"):format(activeSite.name .. " — " .. ZoneName(activeSite.mapID)))
+			ui.activeFs:SetTextColor(1, 0.84, 0.18)
+		else
+			ui.activeFs:SetText(ns:L("RITUAL_ACTIVE_UNKNOWN"))
+			ui.activeFs:SetTextColor(0.75, 0.78, 0.82)
+		end
+	end
+
+	if ui.weeklyFs then
+		if weeklyDone then
+			ui.weeklyFs:SetText(ns:L("RITUAL_WEEKLY_DONE"))
+			ui.weeklyFs:SetTextColor(0.45, 0.95, 0.5)
+		else
+			ui.weeklyFs:SetText(ns:L("RITUAL_WEEKLY_TODO"))
+			ui.weeklyFs:SetTextColor(0.9, 0.82, 0.45)
+		end
+	end
+
+	for _, btn in ipairs(ui.siteButtons) do
+		local site = btn._mhSite
+		local isActive = activeSite and activeSite.key == site.key
+		btn:SetText(SiteRowLabel(site, isActive))
+	end
+end
+
+function ns.BuildRitualPanel(panel)
+	if not panel or panel._mhRitualBuilt then
+		return
+	end
+	panel._mhRitualBuilt = true
+
+	if panel._body then
+		panel._body:Hide()
+	end
+	if panel._header then
+		panel._header:Hide()
+	end
+
+	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
+	title:SetText(ns:L("RITUAL_TITLE"))
+
+	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
+	subtitle:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	subtitle:SetJustifyH("LEFT")
+	subtitle:SetWordWrap(true)
+	subtitle:SetTextColor(0.75, 0.78, 0.82)
+	subtitle:SetText(ns:L("RITUAL_SUBTITLE"))
+
+	local activeFs = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	activeFs:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -14)
+	activeFs:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	activeFs:SetJustifyH("LEFT")
+	activeFs:SetWordWrap(true)
+
+	local weeklyFs = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	weeklyFs:SetPoint("TOPLEFT", activeFs, "BOTTOMLEFT", 0, -6)
+	weeklyFs:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	weeklyFs:SetJustifyH("LEFT")
+
+	local siteButtons = {}
+	local prev = weeklyFs
+	for i, site in ipairs(SITES) do
+		local btn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+		btn:SetHeight(BTN_H)
+		btn:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, (i == 1) and -GAP - 4 or -GAP)
+		btn:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+		btn:SetText(SiteRowLabel(site, false))
+		local fs = btn.GetFontString and btn:GetFontString()
+		if fs then
+			fs:SetJustifyH("LEFT")
+			fs:ClearAllPoints()
+			fs:SetPoint("LEFT", btn, "LEFT", 8, 0)
+			fs:SetPoint("RIGHT", btn, "RIGHT", -8, 0)
+		end
+		btn._mhSite = site
+		btn:SetScript("OnClick", function(self)
+			RouteSite(self._mhSite)
+		end)
+		siteButtons[i] = btn
+		prev = btn
+	end
+
+	local note = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	note:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -GAP)
+	note:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	note:SetJustifyH("LEFT")
+	note:SetWordWrap(true)
+	note:SetText(ns:L("RITUAL_MAP_NOTE"))
+
+	ui = {
+		panel = panel,
+		title = title,
+		subtitle = subtitle,
+		activeFs = activeFs,
+		weeklyFs = weeklyFs,
+		siteButtons = siteButtons,
+		note = note,
+	}
+
+	panel:SetScript("OnShow", function()
+		ns.RefreshRitualPanel()
+	end)
+
+	ns.RitualPanel = panel
+	ns.RefreshRitualPanel()
+end
+
+do
+	local orig = ns.RefreshLocaleUI
+	function ns:RefreshLocaleUI()
+		if orig then
+			orig(self)
+		end
+		if ui and ui.title then
+			ui.title:SetText(ns:L("RITUAL_TITLE"))
+			ui.subtitle:SetText(ns:L("RITUAL_SUBTITLE"))
+			ui.note:SetText(ns:L("RITUAL_MAP_NOTE"))
+		end
+		if ui and ui.panel and ui.panel:IsShown() then
+			ns.RefreshRitualPanel()
+		end
+	end
+end
+
+local ev = CreateFrame("Frame")
+ev:RegisterEvent("QUEST_LOG_UPDATE")
+ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+ev:RegisterEvent("PLAYER_UNGHOST")
+ev:RegisterEvent("PLAYER_ALIVE")
+ev:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_UNGHOST" or event == "PLAYER_ALIVE" then
+		ReassertRouteAfterRevive()
+	end
+	if ui and ui.panel and ui.panel:IsShown() then
+		ns.RefreshRitualPanel()
+	end
+end)

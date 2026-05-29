@@ -258,6 +258,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_ACCOUNT"
 	elseif tabId == "rares" then
 		return "INFO_DRAWER_BODY_RARES"
+	elseif tabId == "ritual" then
+		return "INFO_DRAWER_BODY_RITUAL"
 	elseif tabId == "smcguide" then
 		return "INFO_DRAWER_BODY_SMC"
 	elseif tabId == "professions" then
@@ -1188,6 +1190,7 @@ local TAB_DEFS = {
 	{ id = "delves", labelKey = "TAB_DELVES" },
 	{ id = "account", labelKey = "TAB_ACCOUNT_SNAPSHOT" },
 	{ id = "rares", labelKey = "TAB_RARES" },
+	{ id = "ritual", labelKey = "TAB_RITUAL" },
 	{ id = "reference", labelKey = "TAB_REFERENCE" },
 	{ id = "smcguide", labelKey = "TAB_SMC" },
 	{ id = "professions", labelKey = "TAB_PROFESSIONS" },
@@ -1682,6 +1685,8 @@ function ns:EnsureMainUI()
 				ns.BuildRaresPanel(panel)
 			elseif tab.id == "home" and ns.BuildHomePanel then
 				ns.BuildHomePanel(panel)
+			elseif tab.id == "ritual" and ns.BuildRitualPanel then
+				ns.BuildRitualPanel(panel)
 			end
 		end
 	end
@@ -2126,6 +2131,9 @@ SelectTab = function(tabId)
 
 	if tabId == "home" and ns.RefreshHomePanel then
 		ns.RefreshHomePanel()
+	end
+	if tabId == "ritual" and ns.RefreshRitualPanel then
+		ns.RefreshRitualPanel()
 	end
 
 	if tabId == "delves" then

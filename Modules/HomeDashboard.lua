@@ -197,6 +197,23 @@ local function BuildRows()
 	line(ns:L("HOME_RARES_HINT"), COLOR_DIM)
 	navLine("rares", "TAB_RARES")
 
+	------------------------------------------------------------------ Ritual Sites
+	header(ns:L("HOME_SECTION_RITUAL"))
+	local activeSite = ns.GetActiveRitualSite and ns.GetActiveRitualSite() or nil
+	if activeSite then
+		local zone = ns.RitualSiteZoneName and ns.RitualSiteZoneName(activeSite) or nil
+		local label = zone and (activeSite.name .. " — " .. zone) or activeSite.name
+		line(ns:L("HOME_RITUAL_ACTIVE_FMT"):format(label), COLOR_SOFT)
+	else
+		line(ns:L("HOME_RITUAL_UNKNOWN"), COLOR_DIM)
+	end
+	if ns.IsRitualWeeklyDone and ns.IsRitualWeeklyDone() then
+		line(ns:L("HOME_RITUAL_WEEKLY_DONE"), COLOR_GOOD)
+	else
+		line(ns:L("HOME_RITUAL_WEEKLY_TODO"), COLOR_WARN)
+	end
+	navLine("ritual", "TAB_RITUAL")
+
 	return rows
 end
 
