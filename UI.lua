@@ -540,6 +540,7 @@ local SMC_CATEGORIES = {
 			{ id = "prey_hub", label = "Prey Hub", description = "Zet een waypoint naar de Prey-hub (in de inn, Adventure Guide / Prey).", atlas = "ui-delves", x = 56.19, y = 65.33 },
 			{ id = "astalor", label = "Magister Astalor Bloodsworn", description = "Zet een waypoint naar Magister Astalor Bloodsworn (prey quest giver).", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
 			{ id = "weekly_hub", label = "Weekly Quest Givers", description = "Zet een waypoint naar Aethas, Liadrin en Halduron (weekly hub).", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
+			{ id = "ritual_hub", label = "Ritual Sites / Void Assaults", description = "Zet een waypoint naar de Void Assaults / Ritual Sites-hub op de 2e verdieping van The Bazaar (Ranger Captain Lilatha, Lady Darkglen, Maren Silverwing).", atlas = "groupfinder-icon-flag", x = 48.2, y = 49.4 },
 			{ id = "delves_hq", label = "Delves HQ", description = "Zet een waypoint naar het Delves-hoofdkwartier.", atlas = "ui-delves", x = 52.10, y = 77.70 },
 			{ id = "valeera_delves", label = "Valeera Sanguinar (Delves)", description = "Zet een waypoint naar Valeera Sanguinar, Delves questgiver.", atlas = "ui-delves", x = 52.40, y = 78.20 },
 			{ id = "training_dummies", label = "Training Dummies", description = "Zet een waypoint naar de training dummies in Silvermoon City.", atlas = "services-icon-dueling", x = 36.0, y = 84.2 },

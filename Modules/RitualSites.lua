@@ -19,6 +19,12 @@
 local _, ns = ...
 
 local RITUAL_WEEKLY_QUEST = 95843
+-- Field Accolade — the Midnight 12.0.5 currency earned from Ritual Sites /
+-- Void Assaults (per character, not warbound).
+local FIELD_ACCOLADE_CURRENCY = 3405
+-- Void Assaults / Ritual Sites quest hub on the 2nd floor of The Bazaar in
+-- Silvermoon City (Ranger Captain Lilatha, Lady Darkglen, Maren Silverwing).
+local HUB_MAP, HUB_X, HUB_Y = 2393, 48.2, 49.4
 -- Normalized map distance within which a map POI counts as "the obelisk".
 local POI_MATCH_RADIUS = 0.06
 
@@ -94,6 +100,28 @@ local function IsWeeklyDone()
 		return false
 	end
 	return C_QuestLog.IsQuestFlaggedCompleted(RITUAL_WEEKLY_QUEST) and true or false
+end
+
+local function GetAccolades()
+	if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
+		local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, FIELD_ACCOLADE_CURRENCY)
+		if ok and type(info) == "table" and info.quantity then
+			return info.quantity
+		end
+	end
+	return nil
+end
+
+local function RouteHub()
+	if not ns.AddSmartTomTomWay then
+		return false
+	end
+	if ns.IsTomTomReady and ns.IsTomTomReady() then
+		pcall(function()
+			_G.TomTom:ClearAllWaypoints()
+		end)
+	end
+	return ns.AddSmartTomTomWay(HUB_MAP, HUB_X, HUB_Y, ns:L("RITUAL_HUB_WAYPOINT")) and true or false
 end
 
 local function GetSiteByKey(key)
@@ -223,6 +251,16 @@ function ns.RefreshRitualPanel()
 		local isActive = activeSite and activeSite.key == site.key
 		btn:SetText(SiteRowLabel(site, isActive))
 	end
+
+	if ui.accoladesFs then
+		local n = GetAccolades()
+		if n then
+			ui.accoladesFs:SetText(ns:L("RITUAL_INFO_ACCOLADES_FMT"):format(n))
+			ui.accoladesFs:Show()
+		else
+			ui.accoladesFs:Hide()
+		end
+	end
 end
 
 function ns.BuildRitualPanel(panel)
@@ -284,12 +322,59 @@ function ns.BuildRitualPanel(panel)
 		prev = btn
 	end
 
+	local hubBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	hubBtn:SetHeight(BTN_H)
+	hubBtn:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -GAP)
+	hubBtn:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	hubBtn:SetText(ns:L("RITUAL_BTN_HUB"))
+	do
+		local hfs = hubBtn.GetFontString and hubBtn:GetFontString()
+		if hfs then
+			hfs:SetJustifyH("LEFT")
+			hfs:ClearAllPoints()
+			hfs:SetPoint("LEFT", hubBtn, "LEFT", 8, 0)
+			hfs:SetPoint("RIGHT", hubBtn, "RIGHT", -8, 0)
+		end
+	end
+	hubBtn:SetScript("OnClick", RouteHub)
+
 	local note = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-	note:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -GAP)
+	note:SetPoint("TOPLEFT", hubBtn, "BOTTOMLEFT", 0, -GAP)
 	note:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	note:SetJustifyH("LEFT")
 	note:SetWordWrap(true)
 	note:SetText(ns:L("RITUAL_MAP_NOTE"))
+
+	-- Info section (fills the empty space below the buttons): what a Ritual Site
+	-- is, where to grab the weekly, and the currency / reward summary.
+	local infoHeader = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	infoHeader:SetPoint("TOPLEFT", note, "BOTTOMLEFT", 0, -GAP - 4)
+	infoHeader:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	infoHeader:SetJustifyH("LEFT")
+	infoHeader:SetTextColor(0.82, 0.68, 0.30)
+	infoHeader:SetText(ns:L("RITUAL_INFO_HEADER"))
+
+	local accoladesFs = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	accoladesFs:SetPoint("TOPLEFT", infoHeader, "BOTTOMLEFT", 0, -6)
+	accoladesFs:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	accoladesFs:SetJustifyH("LEFT")
+	accoladesFs:SetTextColor(0.55, 0.78, 1)
+
+	local infoKeys = { "RITUAL_INFO_PICKUP", "RITUAL_INFO_VAULT", "RITUAL_INFO_VENDOR", "RITUAL_INFO_PARTICLES", "RITUAL_INFO_TIERS" }
+	local infoLines = {}
+	local prevInfo = accoladesFs
+	for i = 1, #infoKeys do
+		local fs = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		fs:SetPoint("TOPLEFT", prevInfo, "BOTTOMLEFT", 0, -5)
+		fs:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+		fs:SetJustifyH("LEFT")
+		fs:SetWordWrap(true)
+		fs:SetTextColor(0.75, 0.78, 0.82)
+		fs:SetText("• " .. ns:L(infoKeys[i]))
+		fs._mhKey = infoKeys[i]
+		infoLines[i] = fs
+		prevInfo = fs
+	end
 
 	ui = {
 		panel = panel,
@@ -298,7 +383,11 @@ function ns.BuildRitualPanel(panel)
 		activeFs = activeFs,
 		weeklyFs = weeklyFs,
 		siteButtons = siteButtons,
+		hubBtn = hubBtn,
 		note = note,
+		infoHeader = infoHeader,
+		accoladesFs = accoladesFs,
+		infoLines = infoLines,
 	}
 
 	panel:SetScript("OnShow", function()
@@ -319,6 +408,11 @@ do
 			ui.title:SetText(ns:L("RITUAL_TITLE"))
 			ui.subtitle:SetText(ns:L("RITUAL_SUBTITLE"))
 			ui.note:SetText(ns:L("RITUAL_MAP_NOTE"))
+			ui.hubBtn:SetText(ns:L("RITUAL_BTN_HUB"))
+			ui.infoHeader:SetText(ns:L("RITUAL_INFO_HEADER"))
+			for _, fs in ipairs(ui.infoLines) do
+				fs:SetText("• " .. ns:L(fs._mhKey))
+			end
 		end
 		if ui and ui.panel and ui.panel:IsShown() then
 			ns.RefreshRitualPanel()
@@ -332,6 +426,7 @@ ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("PLAYER_UNGHOST")
 ev:RegisterEvent("PLAYER_ALIVE")
+ev:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_UNGHOST" or event == "PLAYER_ALIVE" then
 		ReassertRouteAfterRevive()
