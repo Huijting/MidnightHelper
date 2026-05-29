@@ -205,9 +205,17 @@ local MH_BETA_TAB_IDS = {
 	academy = true,
 }
 
-local SIDEBAR_MAIN_TAB_IDS = { "delves", "account", "rares", "smcguide", "professions" }
-local SIDEBAR_BETA_TAB_IDS = { "reference", "guide", "macros", "academy" }
-local BETA_GROUP_GAP = 10
+-- Sidebar is grouped into labelled sections (header + tabs). Tab ids whose
+-- buttons do not exist yet (home, ritual) are skipped during layout, which
+-- reserves their slot for later phases without breaking the current build.
+local SIDEBAR_SECTIONS = {
+	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "delves", "rares", "ritual" } },
+	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "professions", "consumables" } },
+	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "reference", "smcguide", "academy", "macros" } },
+	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
+}
+local SIDEBAR_SECTION_GAP = 10
+local SIDEBAR_HEADER_HEIGHT = 16
 
 local function SidebarTabVisible(tabId)
 	if tabId == "guide" then
@@ -1824,10 +1832,20 @@ function ns:EnsureMainUI()
 		local lm = MHGetLayoutMetrics()
 		local yy = -8
 
+		sidebar._mhSectionHeaders = sidebar._mhSectionHeaders or {}
+
+		-- The old beta band separators are unused in the sectioned layout.
+		if sidebar._mhBetaSepTop then
+			sidebar._mhBetaSepTop:Hide()
+		end
+		if sidebar._mhBetaSepBottom then
+			sidebar._mhBetaSepBottom:Hide()
+		end
+
 		local function layoutTab(tabId)
 			local btn = ns.tabButtons and ns.tabButtons[tabId]
 			if not btn then
-				return yy
+				return
 			end
 			local labelKey = TAB_LABEL_BY_ID[tabId]
 			if labelKey then
@@ -1838,88 +1856,48 @@ function ns:EnsureMainUI()
 			btn:ClearAllPoints()
 			if not SidebarTabVisible(tabId) then
 				btn:Hide()
-				return yy
+				return
 			end
 			btn:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
 			btn:Show()
 			MHAttachTabBetaBadge(btn, tabId)
-			return yy - lm.sidebarTabStep
+			yy = yy - lm.sidebarTabStep
 		end
 
-		for _, tabId in ipairs(SIDEBAR_MAIN_TAB_IDS) do
-			yy = layoutTab(tabId)
-		end
-
-		yy = yy - BETA_GROUP_GAP
-		local anyBeta = false
-		for _, tabId in ipairs(SIDEBAR_BETA_TAB_IDS) do
-			if SidebarTabVisible(tabId) then
-				anyBeta = true
-				break
+		local firstSectionDrawn = false
+		for _, section in ipairs(SIDEBAR_SECTIONS) do
+			local visibleCount = 0
+			for _, tabId in ipairs(section.ids) do
+				local btn = ns.tabButtons and ns.tabButtons[tabId]
+				if btn and SidebarTabVisible(tabId) then
+					visibleCount = visibleCount + 1
+				end
 			end
-		end
 
-		local sepTop = sidebar._mhBetaSepTop
-		local sepBottom = sidebar._mhBetaSepBottom
-		if sepTop then
-			if anyBeta then
-				sepTop:ClearAllPoints()
-				sepTop:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 10, yy)
-				sepTop:SetPoint("TOPRIGHT", sidebar, "TOPRIGHT", -10, yy)
-				sepTop:Show()
-				yy = yy - 6
+			local header = sidebar._mhSectionHeaders[section.key]
+			if not header then
+				header = sidebar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+				header:SetJustifyH("LEFT")
+				header:SetTextColor(0.82, 0.68, 0.30)
+				sidebar._mhSectionHeaders[section.key] = header
+			end
+			header:SetText(ns:L(section.titleKey))
+
+			if visibleCount > 0 then
+				if firstSectionDrawn then
+					yy = yy - SIDEBAR_SECTION_GAP
+				end
+				header:ClearAllPoints()
+				header:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 10, yy)
+				header:Show()
+				yy = yy - SIDEBAR_HEADER_HEIGHT
+				firstSectionDrawn = true
+				for _, tabId in ipairs(section.ids) do
+					layoutTab(tabId)
+				end
 			else
-				sepTop:Hide()
+				header:Hide()
 			end
-		end
-
-		for _, tabId in ipairs(SIDEBAR_BETA_TAB_IDS) do
-			yy = layoutTab(tabId)
-		end
-
-		if sepBottom then
-			if anyBeta then
-				yy = yy - BETA_GROUP_GAP
-				sepBottom:ClearAllPoints()
-				sepBottom:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 10, yy)
-				sepBottom:SetPoint("TOPRIGHT", sidebar, "TOPRIGHT", -10, yy)
-				sepBottom:Show()
-			else
-				sepBottom:Hide()
-			end
-		end
-
-		local addB = ns.tabButtons and ns.tabButtons.addons
-		local conB = ns.tabButtons and ns.tabButtons.consumables
-		if addB then
-			local labelKey = TAB_LABEL_BY_ID.addons
-			if labelKey then
-				addB:SetText(ns:L(labelKey))
-			end
-			FitSidebarTabButton(addB, lm.sidebarWidth)
-			addB:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
-			addB:ClearAllPoints()
-			addB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
-			addB:Show()
-		end
-		if conB then
-			local labelKey = TAB_LABEL_BY_ID.consumables
-			if labelKey then
-				conB:SetText(ns:L(labelKey))
-			end
-			FitSidebarTabButton(conB, lm.sidebarWidth)
-			conB:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
-			conB:ClearAllPoints()
-			if addB then
-				conB:SetPoint("BOTTOM", addB, "TOP", 0, 6)
-			else
-				conB:SetPoint("BOTTOM", aboutBtn, "TOP", 0, 10)
-			end
-			conB:Show()
-		end
-		local macB = ns.tabButtons and ns.tabButtons.macros
-		if macB and not SidebarTabVisible("macros") then
-			macB:Hide()
 		end
 
 		if ns.uiSelectedTab and ns.IsBetaTabId and ns.IsBetaTabId(ns.uiSelectedTab) and not SidebarTabVisible(ns.uiSelectedTab) then
