@@ -209,7 +209,7 @@ local MH_BETA_TAB_IDS = {
 -- buttons do not exist yet (home, ritual) are skipped during layout, which
 -- reserves their slot for later phases without breaking the current build.
 local SIDEBAR_SECTIONS = {
-	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "delves", "rares", "ritual" } },
+	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "delves", "rares", "world" } },
 	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "professions", "consumables" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "reference", "smcguide", "academy", "macros" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
@@ -258,8 +258,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_ACCOUNT"
 	elseif tabId == "rares" then
 		return "INFO_DRAWER_BODY_RARES"
-	elseif tabId == "ritual" then
-		return "INFO_DRAWER_BODY_RITUAL"
+	elseif tabId == "world" then
+		return "INFO_DRAWER_BODY_WORLD"
 	elseif tabId == "smcguide" then
 		return "INFO_DRAWER_BODY_SMC"
 	elseif tabId == "professions" then
@@ -540,7 +540,7 @@ local SMC_CATEGORIES = {
 			{ id = "prey_hub", label = "Prey Hub", description = "Zet een waypoint naar de Prey-hub (in de inn, Adventure Guide / Prey).", atlas = "ui-delves", x = 56.19, y = 65.33 },
 			{ id = "astalor", label = "Magister Astalor Bloodsworn", description = "Zet een waypoint naar Magister Astalor Bloodsworn (prey quest giver).", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
 			{ id = "weekly_hub", label = "Weekly Quest Givers", description = "Zet een waypoint naar Aethas, Liadrin en Halduron (weekly hub).", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
-			{ id = "ritual_hub", label = "Ritual Sites / Void Assaults", description = "Open de Ritueel-tab (actieve site deze week, weekly quest, Field Accolades en renown).", atlas = "groupfinder-icon-flag", action = "ritual_tab", x = 48.2, y = 49.4 },
+			{ id = "ritual_hub", label = "Ritual Sites / Void Assaults", description = "Open de Void & Rituals-tab (actieve site/zone deze week, weekly quests, Field Accolades en renown).", atlas = "groupfinder-icon-flag", action = "world_tab", x = 48.2, y = 49.4 },
 			{ id = "delves_hq", label = "Delves HQ", description = "Zet een waypoint naar het Delves-hoofdkwartier.", atlas = "ui-delves", x = 52.10, y = 77.70 },
 			{ id = "valeera_delves", label = "Valeera Sanguinar (Delves)", description = "Zet een waypoint naar Valeera Sanguinar, Delves questgiver.", atlas = "ui-delves", x = 52.40, y = 78.20 },
 			{ id = "training_dummies", label = "Training Dummies", description = "Zet een waypoint naar de training dummies in Silvermoon City.", atlas = "services-icon-dueling", x = 36.0, y = 84.2 },
@@ -637,10 +637,10 @@ local function SetSMCWaypoint(point)
 		return
 	end
 
-	if point.action == "ritual_tab" then
+	if point.action == "world_tab" then
 		if ns.ShowMainUI and ns.SelectTab then
 			ns:ShowMainUI()
-			ns.SelectTab("ritual")
+			ns.SelectTab("world")
 		end
 		return
 	end
@@ -1199,7 +1199,7 @@ local TAB_DEFS = {
 	{ id = "delves", labelKey = "TAB_DELVES" },
 	{ id = "account", labelKey = "TAB_ACCOUNT_SNAPSHOT" },
 	{ id = "rares", labelKey = "TAB_RARES" },
-	{ id = "ritual", labelKey = "TAB_RITUAL" },
+	{ id = "world", labelKey = "TAB_WORLD" },
 	{ id = "reference", labelKey = "TAB_REFERENCE" },
 	{ id = "smcguide", labelKey = "TAB_SMC" },
 	{ id = "professions", labelKey = "TAB_PROFESSIONS" },
@@ -1694,8 +1694,8 @@ function ns:EnsureMainUI()
 				ns.BuildRaresPanel(panel)
 			elseif tab.id == "home" and ns.BuildHomePanel then
 				ns.BuildHomePanel(panel)
-			elseif tab.id == "ritual" and ns.BuildRitualPanel then
-				ns.BuildRitualPanel(panel)
+			elseif tab.id == "world" and ns.BuildWorldPanel then
+				ns.BuildWorldPanel(panel)
 			end
 		end
 	end
@@ -2104,7 +2104,13 @@ SelectTab = function(tabId)
 		tabId = "home"
 	end
 	if not ns.panels or not ns.panels[tabId] then
-		return
+		-- Saved/stale tab id no longer exists (e.g. merged or removed tab): fall
+		-- back to Home rather than leaving the window blank.
+		if ns.panels and ns.panels["home"] then
+			tabId = "home"
+		else
+			return
+		end
 	end
 
 	ns.uiSelectedTab = tabId
@@ -2141,8 +2147,8 @@ SelectTab = function(tabId)
 	if tabId == "home" and ns.RefreshHomePanel then
 		ns.RefreshHomePanel()
 	end
-	if tabId == "ritual" and ns.RefreshRitualPanel then
-		ns.RefreshRitualPanel()
+	if tabId == "world" and ns.RefreshWorldPanel then
+		ns.RefreshWorldPanel()
 	end
 
 	if tabId == "delves" then

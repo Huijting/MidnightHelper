@@ -67,6 +67,8 @@ Modules\Delves.lua
 Modules\WorldBoss.lua
 Modules\Rares.lua
 Modules\RitualSites.lua
+Modules\VoidAssaults.lua
+Modules\WorldContent.lua
 Modules\DelveCoach.lua
 Modules\AccountWeeklyChecklist.lua
 Modules\AltOverview.lua

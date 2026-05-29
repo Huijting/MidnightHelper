@@ -104,11 +104,26 @@ local function IsWeeklyDone()
 	return C_QuestLog.IsQuestFlaggedCompleted(RITUAL_WEEKLY_QUEST) and true or false
 end
 
-local function GetAccolades()
+-- Returns: total quantity, amount earned this week, weekly cap (last two may be
+-- nil/0 if the currency has no weekly cap).
+local function GetAccoladeInfo()
 	if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
 		local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, FIELD_ACCOLADE_CURRENCY)
 		if ok and type(info) == "table" and info.quantity then
-			return info.quantity
+			return info.quantity, info.quantityEarnedThisWeek, info.maxWeeklyQuantity
+		end
+	end
+	return nil
+end
+
+-- The other site (the one that becomes active next week, since only two rotate).
+local function GetNextWeekSite(activeSite)
+	if not activeSite then
+		return nil
+	end
+	for _, s in ipairs(SITES) do
+		if s.key ~= activeSite.key then
+			return s
 		end
 	end
 	return nil
@@ -229,6 +244,28 @@ function ns.IsRitualWeeklyDone()
 	return IsWeeklyDone()
 end
 
+-- Renown/reputation text for the Ritual Sites faction (used by the Home tab too).
+function ns.GetRitualRenownText()
+	return GetRitualRenownText()
+end
+
+-- Primitives consumed by the combined Void & Rituals panel.
+function ns.GetRitualSites()
+	return SITES
+end
+
+function ns.RouteRitualSite(site)
+	return RouteSite(site)
+end
+
+function ns.RouteRitualHub()
+	return RouteHub()
+end
+
+function ns.GetRitualAccoladeInfo()
+	return GetAccoladeInfo()
+end
+
 function ns.RitualSiteZoneName(site)
 	return site and ZoneName(site.mapID) or nil
 end
@@ -270,6 +307,16 @@ function ns.RefreshRitualPanel()
 		end
 	end
 
+	if ui.nextFs then
+		local nextSite = GetNextWeekSite(activeSite)
+		if nextSite then
+			ui.nextFs:SetText(ns:L("RITUAL_NEXT_FMT"):format(nextSite.name .. " — " .. ZoneName(nextSite.mapID)))
+			ui.nextFs:Show()
+		else
+			ui.nextFs:Hide()
+		end
+	end
+
 	if ui.weeklyFs then
 		if weeklyDone then
 			ui.weeklyFs:SetText(ns:L("RITUAL_WEEKLY_DONE"))
@@ -298,9 +345,13 @@ function ns.RefreshRitualPanel()
 	end
 
 	if ui.accoladesFs then
-		local n = GetAccolades()
+		local n, wkThis, wkMax = GetAccoladeInfo()
 		if n then
-			ui.accoladesFs:SetText(ns:L("RITUAL_INFO_ACCOLADES_FMT"):format(n))
+			if wkMax and wkMax > 0 then
+				ui.accoladesFs:SetText(ns:L("RITUAL_INFO_ACCOLADES_WEEKLY_FMT"):format(n, wkThis or 0, wkMax))
+			else
+				ui.accoladesFs:SetText(ns:L("RITUAL_INFO_ACCOLADES_FMT"):format(n))
+			end
 			ui.accoladesFs:Show()
 		else
 			ui.accoladesFs:Hide()
@@ -339,8 +390,14 @@ function ns.BuildRitualPanel(panel)
 	activeFs:SetJustifyH("LEFT")
 	activeFs:SetWordWrap(true)
 
+	local nextFs = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	nextFs:SetPoint("TOPLEFT", activeFs, "BOTTOMLEFT", 0, -3)
+	nextFs:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	nextFs:SetJustifyH("LEFT")
+	nextFs:SetWordWrap(true)
+
 	local weeklyFs = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	weeklyFs:SetPoint("TOPLEFT", activeFs, "BOTTOMLEFT", 0, -6)
+	weeklyFs:SetPoint("TOPLEFT", nextFs, "BOTTOMLEFT", 0, -6)
 	weeklyFs:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	weeklyFs:SetJustifyH("LEFT")
 
@@ -411,7 +468,7 @@ function ns.BuildRitualPanel(panel)
 	accoladesFs:SetJustifyH("LEFT")
 	accoladesFs:SetTextColor(0.55, 0.78, 1)
 
-	local infoKeys = { "RITUAL_INFO_PICKUP", "RITUAL_INFO_VAULT", "RITUAL_INFO_VENDOR", "RITUAL_INFO_PARTICLES", "RITUAL_INFO_TIERS" }
+	local infoKeys = { "RITUAL_INFO_PICKUP", "RITUAL_INFO_VAULT", "RITUAL_INFO_VENDOR", "RITUAL_INFO_PARTICLES", "RITUAL_INFO_TIERS", "RITUAL_INFO_RENOWN_REWARDS" }
 	local infoLines = {}
 	local prevInfo = accoladesFs
 	for i = 1, #infoKeys do
@@ -432,6 +489,7 @@ function ns.BuildRitualPanel(panel)
 		title = title,
 		subtitle = subtitle,
 		activeFs = activeFs,
+		nextFs = nextFs,
 		weeklyFs = weeklyFs,
 		renownFs = renownFs,
 		siteButtons = siteButtons,

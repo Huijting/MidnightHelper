@@ -1,0 +1,392 @@
+--[[
+	Void & Rituals — combined Midnight (12.0.5) world-content tab. Ritual Sites
+	and Void Assaults are siblings: same two zones (Eversong Woods / Zul'Aman),
+	the same Bazaar hub, the same Field Accolades currency and the same renown
+	faction. This tab shows them together — a shared header (currency, renown,
+	hub) on top, then a focused section for each system.
+
+	The detection / routing / weekly logic lives in RitualSites.lua and
+	VoidAssaults.lua; this module only owns the combined panel and pulls data
+	through the public ns.* helpers those modules expose.
+
+	The panel is scrollable (like Home) because the combined content can get tall
+	on smaller windows. Widgets are created once and re-stacked on refresh so that
+	lines which hide (no active site, no currency yet) don't leave gaps.
+]]
+
+local _, ns = ...
+
+local SIDE_PAD = 14
+local TOP_PAD = 12
+local BTN_H = 26
+
+local COLOR_HEADER = { 0.82, 0.68, 0.30 }
+local COLOR_DIM = { 0.75, 0.78, 0.82 }
+local COLOR_GOOD = { 0.45, 0.95, 0.5 }
+local COLOR_SOFT = { 0.9, 0.82, 0.45 }
+local COLOR_WARN = { 1, 0.84, 0.18 }
+local COLOR_ACCOLADE = { 0.55, 0.78, 1 }
+local COLOR_RENOWN = { 0.7, 0.6, 0.95 }
+
+local ui
+
+--------------------------------------------------------------------------------
+-- Helpers
+--------------------------------------------------------------------------------
+
+local function SiteLabel(site, active)
+	local zone = ns.RitualSiteZoneName and ns.RitualSiteZoneName(site) or nil
+	local label = zone and (site.name .. " — " .. zone) or site.name
+	if active then
+		label = label .. "  |cffffcc00[" .. ns:L("RITUAL_ACTIVE_BADGE") .. "]|r"
+	end
+	return label
+end
+
+local function OtherEntry(list, activeKey)
+	if not list or not activeKey then
+		return nil
+	end
+	for _, e in ipairs(list) do
+		if e.key ~= activeKey then
+			return e
+		end
+	end
+	return nil
+end
+
+--------------------------------------------------------------------------------
+-- Layout
+--------------------------------------------------------------------------------
+
+-- Re-stack every visible element top-to-bottom inside the scroll child. Called
+-- after each refresh and whenever the scroll width changes.
+local function Relayout()
+	if not ui or not ui.child then
+		return
+	end
+	local width = ui.child:GetWidth()
+	if not width or width <= 0 then
+		return
+	end
+	local y = 4
+	for _, el in ipairs(ui.order) do
+		local w = el.w
+		if w:IsShown() then
+			local indent = el.indent or 0
+			y = y + (el.gapTop or 0)
+			w:ClearAllPoints()
+			w:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
+			w:SetWidth(math.max(width - indent, 1))
+			if el.button then
+				y = y + BTN_H
+			else
+				y = y + math.max(w:GetStringHeight() or 0, 1)
+			end
+		end
+	end
+	ui.child:SetHeight(math.max(y + 8, 1))
+end
+
+--------------------------------------------------------------------------------
+-- Refresh
+--------------------------------------------------------------------------------
+
+function ns.RefreshWorldPanel()
+	if not ui or not ui.panel or not ui.panel:IsVisible() then
+		return
+	end
+
+	-- Shared: Field Accolades (live, with weekly cap when present).
+	do
+		local n, wkThis, wkMax
+		if ns.GetRitualAccoladeInfo then
+			n, wkThis, wkMax = ns.GetRitualAccoladeInfo()
+		end
+		if n then
+			if wkMax and wkMax > 0 then
+				ui.accoladesFs:SetText(ns:L("RITUAL_INFO_ACCOLADES_WEEKLY_FMT"):format(n, wkThis or 0, wkMax))
+			else
+				ui.accoladesFs:SetText(ns:L("RITUAL_INFO_ACCOLADES_FMT"):format(n))
+			end
+			ui.accoladesFs:Show()
+		else
+			ui.accoladesFs:Hide()
+		end
+	end
+
+	-- Shared: Ritual Sites renown.
+	do
+		local txt = ns.GetRitualRenownText and ns.GetRitualRenownText()
+		if txt and txt ~= "" then
+			ui.renownFs:SetText(ns:L("RITUAL_RENOWN_LABEL") .. ": " .. txt)
+			ui.renownFs:SetTextColor(COLOR_RENOWN[1], COLOR_RENOWN[2], COLOR_RENOWN[3])
+		else
+			ui.renownFs:SetText(ns:L("RITUAL_RENOWN_LOCKED"))
+			ui.renownFs:SetTextColor(0.6, 0.62, 0.68)
+		end
+	end
+
+	---------------------------------------------------------------- Ritual Sites
+	local activeSite = ns.GetActiveRitualSite and ns.GetActiveRitualSite() or nil
+	if activeSite then
+		ui.ritualActiveFs:SetText(ns:L("RITUAL_ACTIVE_FMT"):format(SiteLabel(activeSite, false)))
+		ui.ritualActiveFs:SetTextColor(1, 0.84, 0.18)
+	else
+		ui.ritualActiveFs:SetText(ns:L("RITUAL_ACTIVE_UNKNOWN"))
+		ui.ritualActiveFs:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+	end
+
+	local nextSite = OtherEntry(ns.GetRitualSites and ns.GetRitualSites(), activeSite and activeSite.key)
+	if nextSite then
+		ui.ritualNextFs:SetText(ns:L("RITUAL_NEXT_FMT"):format(SiteLabel(nextSite, false)))
+		ui.ritualNextFs:Show()
+	else
+		ui.ritualNextFs:Hide()
+	end
+
+	if ns.IsRitualWeeklyDone and ns.IsRitualWeeklyDone() then
+		ui.ritualWeeklyFs:SetText(ns:L("RITUAL_WEEKLY_DONE"))
+		ui.ritualWeeklyFs:SetTextColor(COLOR_GOOD[1], COLOR_GOOD[2], COLOR_GOOD[3])
+	else
+		ui.ritualWeeklyFs:SetText(ns:L("RITUAL_WEEKLY_TODO"))
+		ui.ritualWeeklyFs:SetTextColor(COLOR_SOFT[1], COLOR_SOFT[2], COLOR_SOFT[3])
+	end
+
+	for _, btn in ipairs(ui.siteButtons) do
+		local site = btn._mhSite
+		local isActive = activeSite and activeSite.key == site.key
+		btn:SetText(SiteLabel(site, isActive))
+	end
+
+	--------------------------------------------------------------- Void Assaults
+	local activeZone = ns.GetActiveVoidAssaultZone and ns.GetActiveVoidAssaultZone() or nil
+	if activeZone then
+		ui.voidActiveFs:SetText(ns:L("VOID_ACTIVE_FMT"):format(ns.VoidZoneName(activeZone)))
+		ui.voidActiveFs:SetTextColor(1, 0.84, 0.18)
+	else
+		ui.voidActiveFs:SetText(ns:L("VOID_ACTIVE_UNKNOWN"))
+		ui.voidActiveFs:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+	end
+
+	local nextZone = OtherEntry(ns.GetVoidZones and ns.GetVoidZones(), activeZone and activeZone.key)
+	if nextZone then
+		ui.voidNextFs:SetText(ns:L("VOID_NEXT_FMT"):format(ns.VoidZoneName(nextZone)))
+		ui.voidNextFs:Show()
+	else
+		ui.voidNextFs:Hide()
+	end
+
+	if ns.IsVoidAssaultWeeklyDone and ns.IsVoidAssaultWeeklyDone() then
+		ui.voidWeeklyFs:SetText(ns:L("VOID_WEEKLY_DONE"))
+		ui.voidWeeklyFs:SetTextColor(COLOR_GOOD[1], COLOR_GOOD[2], COLOR_GOOD[3])
+	else
+		ui.voidWeeklyFs:SetText(ns:L("VOID_WEEKLY_TODO"))
+		ui.voidWeeklyFs:SetTextColor(COLOR_SOFT[1], COLOR_SOFT[2], COLOR_SOFT[3])
+	end
+
+	Relayout()
+end
+
+--------------------------------------------------------------------------------
+-- Build
+--------------------------------------------------------------------------------
+
+local function MakeFS(parent, font, color)
+	local fs = parent:CreateFontString(nil, "OVERLAY", font)
+	fs:SetJustifyH("LEFT")
+	fs:SetWordWrap(true)
+	if color then
+		fs:SetTextColor(color[1], color[2], color[3])
+	end
+	return fs
+end
+
+local function MakeButton(parent, onClick)
+	local btn = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	btn:SetHeight(BTN_H)
+	local fs = btn.GetFontString and btn:GetFontString()
+	if fs then
+		fs:SetJustifyH("LEFT")
+		fs:ClearAllPoints()
+		fs:SetPoint("LEFT", btn, "LEFT", 8, 0)
+		fs:SetPoint("RIGHT", btn, "RIGHT", -8, 0)
+	end
+	btn:SetScript("OnClick", onClick)
+	return btn
+end
+
+function ns.BuildWorldPanel(panel)
+	if not panel or panel._mhWorldBuilt then
+		return
+	end
+	panel._mhWorldBuilt = true
+
+	if panel._body then
+		panel._body:Hide()
+	end
+	if panel._header then
+		panel._header:Hide()
+	end
+
+	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
+	title:SetText(ns:L("TAB_WORLD"))
+
+	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
+	subtitle:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	subtitle:SetJustifyH("LEFT")
+	subtitle:SetWordWrap(true)
+	subtitle:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+	subtitle:SetText(ns:L("WORLD_SUBTITLE"))
+
+	local scroll = CreateFrame("ScrollFrame", "MidnightHelperWorldScroll", panel, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -12)
+	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 14)
+
+	local child = CreateFrame("Frame", nil, scroll)
+	child:SetSize(1, 1)
+	scroll:SetScrollChild(child)
+
+	ui = {
+		panel = panel,
+		title = title,
+		subtitle = subtitle,
+		scroll = scroll,
+		child = child,
+		order = {},
+		siteButtons = {},
+		infoLines = {},
+	}
+
+	local function push(w, gapTop, indent, button)
+		ui.order[#ui.order + 1] = { w = w, gapTop = gapTop, indent = indent, button = button }
+	end
+
+	-- Shared header block.
+	ui.accoladesFs = MakeFS(child, "GameFontHighlightSmall", COLOR_ACCOLADE)
+	push(ui.accoladesFs, 0, 0)
+	ui.renownFs = MakeFS(child, "GameFontHighlightSmall", COLOR_RENOWN)
+	push(ui.renownFs, 2, 0)
+	ui.hubBtn = MakeButton(child, function()
+		if ns.RouteRitualHub then
+			ns.RouteRitualHub()
+		end
+	end)
+	ui.hubBtn:SetText(ns:L("RITUAL_BTN_HUB"))
+	push(ui.hubBtn, 8, 0, true)
+
+	-- Ritual Sites section.
+	ui.ritualHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
+	ui.ritualHeader:SetText(ns:L("HOME_SECTION_RITUAL"))
+	push(ui.ritualHeader, 14, 0)
+	ui.ritualActiveFs = MakeFS(child, "GameFontNormal")
+	push(ui.ritualActiveFs, 6, 0)
+	ui.ritualNextFs = MakeFS(child, "GameFontDisableSmall")
+	push(ui.ritualNextFs, 2, 0)
+	ui.ritualWeeklyFs = MakeFS(child, "GameFontHighlightSmall")
+	push(ui.ritualWeeklyFs, 4, 0)
+
+	local sites = ns.GetRitualSites and ns.GetRitualSites() or {}
+	for i = 1, #sites do
+		local site = sites[i]
+		local btn = MakeButton(child, function(self)
+			if ns.RouteRitualSite then
+				ns.RouteRitualSite(self._mhSite)
+			end
+		end)
+		btn._mhSite = site
+		btn:SetText(SiteLabel(site, false))
+		ui.siteButtons[i] = btn
+		push(btn, (i == 1) and 6 or 4, 0, true)
+	end
+
+	local ritualInfoKeys = { "RITUAL_INFO_VENDOR", "RITUAL_INFO_TIERS", "RITUAL_INFO_RENOWN_REWARDS" }
+	for i = 1, #ritualInfoKeys do
+		local fs = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+		fs._mhKey = ritualInfoKeys[i]
+		fs:SetText("• " .. ns:L(ritualInfoKeys[i]))
+		ui.infoLines[#ui.infoLines + 1] = fs
+		push(fs, (i == 1) and 8 or 5, 0)
+	end
+
+	-- Void Assaults section.
+	ui.voidHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
+	ui.voidHeader:SetText(ns:L("HOME_SECTION_VOID"))
+	push(ui.voidHeader, 14, 0)
+	ui.voidActiveFs = MakeFS(child, "GameFontNormal")
+	push(ui.voidActiveFs, 6, 0)
+	ui.voidNextFs = MakeFS(child, "GameFontDisableSmall")
+	push(ui.voidNextFs, 2, 0)
+	ui.voidWeeklyFs = MakeFS(child, "GameFontHighlightSmall")
+	push(ui.voidWeeklyFs, 4, 0)
+
+	local voidInfoKeys = { "VOID_INFO_LOOP", "VOID_INFO_GATHER", "VOID_INFO_VAULT" }
+	for i = 1, #voidInfoKeys do
+		local fs = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+		fs._mhKey = voidInfoKeys[i]
+		fs:SetText("• " .. ns:L(voidInfoKeys[i]))
+		ui.infoLines[#ui.infoLines + 1] = fs
+		push(fs, (i == 1) and 8 or 5, 0)
+	end
+
+	-- Shared currency/particles note.
+	local sharedNote = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	sharedNote._mhKey = "VOID_INFO_SHARED"
+	sharedNote:SetText("• " .. ns:L("VOID_INFO_SHARED"))
+	ui.infoLines[#ui.infoLines + 1] = sharedNote
+	push(sharedNote, 5, 0)
+
+	local function syncWidth()
+		local w = scroll:GetWidth()
+		if w and w > 0 then
+			child:SetWidth(w)
+			Relayout()
+		end
+	end
+	scroll:SetScript("OnSizeChanged", syncWidth)
+	syncWidth()
+
+	panel:SetScript("OnShow", function()
+		syncWidth()
+		ns.RefreshWorldPanel()
+	end)
+
+	ns.WorldPanel = panel
+	ns.RefreshWorldPanel()
+end
+
+do
+	local orig = ns.RefreshLocaleUI
+	function ns:RefreshLocaleUI()
+		if orig then
+			orig(self)
+		end
+		if ui and ui.title then
+			ui.title:SetText(ns:L("TAB_WORLD"))
+			ui.subtitle:SetText(ns:L("WORLD_SUBTITLE"))
+			ui.hubBtn:SetText(ns:L("RITUAL_BTN_HUB"))
+			ui.ritualHeader:SetText(ns:L("HOME_SECTION_RITUAL"))
+			ui.voidHeader:SetText(ns:L("HOME_SECTION_VOID"))
+			for _, fs in ipairs(ui.infoLines) do
+				fs:SetText("• " .. ns:L(fs._mhKey))
+			end
+		end
+		if ui and ui.panel and ui.panel:IsShown() then
+			ns.RefreshWorldPanel()
+		end
+	end
+end
+
+local ev = CreateFrame("Frame")
+ev:RegisterEvent("QUEST_LOG_UPDATE")
+ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+ev:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
+ev:RegisterEvent("UPDATE_FACTION")
+ev:SetScript("OnEvent", function()
+	if ui and ui.panel and ui.panel:IsShown() then
+		ns.RefreshWorldPanel()
+	end
+end)

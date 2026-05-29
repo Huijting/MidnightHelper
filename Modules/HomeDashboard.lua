@@ -212,7 +212,26 @@ local function BuildRows()
 	else
 		line(ns:L("HOME_RITUAL_WEEKLY_TODO"), COLOR_WARN)
 	end
-	navLine("ritual", "TAB_RITUAL")
+	local renownText = ns.GetRitualRenownText and ns.GetRitualRenownText() or nil
+	if renownText and renownText ~= "" then
+		line(ns:L("HOME_RITUAL_RENOWN_FMT"):format(renownText), COLOR_DIM)
+	end
+	navLine("world", "TAB_WORLD")
+
+	------------------------------------------------------------------ Void Assaults
+	header(ns:L("HOME_SECTION_VOID"))
+	local voidZone = ns.GetActiveVoidAssaultZoneName and ns.GetActiveVoidAssaultZoneName() or nil
+	if voidZone then
+		line(ns:L("HOME_VOID_ACTIVE_FMT"):format(voidZone), COLOR_SOFT)
+	else
+		line(ns:L("HOME_VOID_UNKNOWN"), COLOR_DIM)
+	end
+	if ns.IsVoidAssaultWeeklyDone and ns.IsVoidAssaultWeeklyDone() then
+		line(ns:L("HOME_VOID_WEEKLY_DONE"), COLOR_GOOD)
+	else
+		line(ns:L("HOME_VOID_WEEKLY_TODO"), COLOR_WARN)
+	end
+	navLine("world", "TAB_WORLD")
 
 	return rows
 end
