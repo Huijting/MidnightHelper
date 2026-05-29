@@ -924,6 +924,10 @@ local rareAlertScanAt = 0
 local RARE_ALERT_SCAN_THROTTLE = 1.0
 local RARE_ALERT_ICON = "Interface\\Icons\\INV_Misc_Head_Dragon_01"
 local RARE_ALERT_DISPLAY_SEC = 14
+-- Only alert for rares the player is actually close to. C_VignetteInfo can
+-- surface vignettes from across the zone, so without this gate you get pinged
+-- for a rare on the far side of the map. ~500 yds ≈ "in the neighbourhood".
+local RARE_ALERT_MAX_YARDS = 500
 
 local function GetRareAlertSettings()
 	local ui = ns.db and ns.db.ui
@@ -980,8 +984,10 @@ local function FireRareAlert(rare)
 			body = ns:L("RARE_ALERT_TOAST_BODY"),
 			icon = RARE_ALERT_ICON,
 			displaySec = RARE_ALERT_DISPLAY_SEC,
+			-- clearOthers=false: add this rare as an extra waypoint (arrow points
+			-- to it) without wiping a route the player may already be following.
 			onClick = function()
-				RouteRare(rare, true)
+				RouteRare(rare, false)
 			end,
 		})
 	end
@@ -1038,6 +1044,8 @@ local function ScanForRareAlerts()
 		end
 	end
 
+	local pwx, pwy = GetPlayerWorldPos()
+
 	for vi = 1, #vignettes do
 		local vignetteGUID = vignettes[vi]
 		local info
@@ -1051,8 +1059,22 @@ local function ScanForRareAlerts()
 				local vwx, vwy = VignetteWorldPos(vignetteGUID, playerMap)
 				local rare = MatchRareInZone(zone, info.name, vwx, vwy)
 				if rare and not IsRareDoneThisWeek(rare[1]) then
-					rareAlertSeen[dedupeKey] = now
-					FireRareAlert(rare)
+					-- Distance gate: prefer the vignette's own position, fall
+					-- back to the rare's known spot. Skip if we can't tell or
+					-- it's farther than the alert radius.
+					local tx, ty = vwx, vwy
+					if not (tx and ty) then
+						tx, ty = GetRareWorldPos(rare)
+					end
+					local near = true
+					if pwx and pwy and tx and ty then
+						local dx, dy = tx - pwx, ty - pwy
+						near = math.sqrt(dx * dx + dy * dy) <= RARE_ALERT_MAX_YARDS
+					end
+					if near then
+						rareAlertSeen[dedupeKey] = now
+						FireRareAlert(rare)
+					end
 				end
 			end
 		end
