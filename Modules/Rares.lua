@@ -243,25 +243,77 @@ local function GetPlayerPositionOnMap(mapID)
 	return px, py
 end
 
-local function RareDistanceFromRef(rare, idx, refMap, refX, refY)
+-- Convert a map position (0..1) to continent world coordinates (yards). World
+-- coords are isotropic and comparable across maps in the same world, unlike raw
+-- 0..1 map coords whose x/y scales differ on non-square zone maps — which is
+-- why plain normalized distance misranks nearby rares.
+local function MapPosToWorld(mapID, xPct, yPct)
+	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D) then
+		return nil
+	end
+	-- GetWorldPosFromMapPos returns (continentID, worldPosition); through pcall
+	-- that is (ok, continentID, worldPosition).
+	local ok, _, world = pcall(C_Map.GetWorldPosFromMapPos, mapID, CreateVector2D(xPct, yPct))
+	if ok and type(world) == "table" then
+		local wx, wy
+		if world.GetXY then
+			wx, wy = world:GetXY()
+		else
+			wx, wy = world.x, world.y
+		end
+		if type(wx) == "number" and type(wy) == "number" then
+			return wx, wy
+		end
+	end
+	return nil
+end
+
+local function GetRareWorldPos(rare)
+	local m = tonumber(rare[2])
+	if not m then
+		return nil
+	end
+	return MapPosToWorld(m, (tonumber(rare[3]) or 0) / 100, (tonumber(rare[4]) or 0) / 100)
+end
+
+local function GetPlayerWorldPos()
+	if not (C_Map and C_Map.GetBestMapForUnit) then
+		return nil
+	end
+	local pmap = C_Map.GetBestMapForUnit("player")
+	if not pmap then
+		return nil
+	end
+	local px, py = GetPlayerPositionOnMap(pmap)
+	if not px then
+		return nil
+	end
+	return MapPosToWorld(pmap, px, py)
+end
+
+-- Distance (world yards) from a reference world point to a rare. With no
+-- reference, the player's current world position is used. Falls back to
+-- normalized same-map distance only when world coordinates are unavailable.
+local function RareDistanceFromRef(rare, idx, refWX, refWY)
+	local rx, ry = GetRareWorldPos(rare)
+	if rx and ry then
+		local ax, ay = refWX, refWY
+		if not (ax and ay) then
+			ax, ay = GetPlayerWorldPos()
+		end
+		if ax and ay then
+			local dx = rx - ax
+			local dy = ry - ay
+			return math.sqrt(dx * dx + dy * dy)
+		end
+	end
+
 	local tMap = tonumber(rare[2])
-	if not tMap then
-		return FAR_CROSSMAP_SORT + idx
-	end
-	local tx = (tonumber(rare[3]) or 0) / 100
-	local ty = (tonumber(rare[4]) or 0) / 100
-
-	if refMap and refX and refY and tMap == refMap then
-		local dx = tx - refX
-		local dy = ty - refY
-		return math.sqrt(dx * dx + dy * dy)
-	end
-
-	if not refMap then
+	if tMap and not (refWX and refWY) then
 		local px, py = GetPlayerPositionOnMap(tMap)
 		if px then
-			local dx = tx - px
-			local dy = ty - py
+			local dx = (tonumber(rare[3]) or 0) / 100 - px
+			local dy = (tonumber(rare[4]) or 0) / 100 - py
 			return math.sqrt(dx * dx + dy * dy)
 		end
 	end
@@ -269,18 +321,19 @@ local function RareDistanceFromRef(rare, idx, refMap, refX, refY)
 	return FAR_CROSSMAP_SORT + idx
 end
 
-local function RareSortDistance(rare, idx)
-	return RareDistanceFromRef(rare, idx, nil, nil, nil)
+local function RareSortDistance(rare, idx, refWX, refWY)
+	return RareDistanceFromRef(rare, idx, refWX, refWY)
 end
 
 local function FindNearestIncompleteRare(zone)
 	if not zone or not zone.rares then
 		return nil
 	end
+	local pwx, pwy = GetPlayerWorldPos()
 	local bestRare, bestDist
 	for idx, rare in ipairs(zone.rares) do
 		if not IsRareDoneThisWeek(rare[1]) then
-			local dist = RareSortDistance(rare, idx)
+			local dist = RareDistanceFromRef(rare, idx, pwx, pwy)
 			if not bestDist or dist < bestDist then
 				bestDist = dist
 				bestRare = rare
@@ -301,13 +354,15 @@ local function BuildGreedyRareRoute(zone)
 	if #remaining == 0 then
 		return {}, false
 	end
+
+	local pwx, pwy = GetPlayerWorldPos()
 	if #remaining == 1 then
-		return { remaining[1].rare }, RareSortDistance(remaining[1].rare, remaining[1].idx) < FAR_CROSSMAP_SORT
+		return { remaining[1].rare }, RareSortDistance(remaining[1].rare, remaining[1].idx, pwx, pwy) < FAR_CROSSMAP_SORT
 	end
 
 	local ordered = {}
 	local usedDistance = false
-	local refMap, refX, refY
+	local refWX, refWY
 
 	local firstRare = FindNearestIncompleteRare(zone)
 	if firstRare then
@@ -316,10 +371,8 @@ local function BuildGreedyRareRoute(zone)
 				local firstIdx = remaining[i].idx
 				table.remove(remaining, i)
 				ordered[#ordered + 1] = firstRare
-				refMap = tonumber(firstRare[2])
-				refX = (tonumber(firstRare[3]) or 0) / 100
-				refY = (tonumber(firstRare[4]) or 0) / 100
-				if RareSortDistance(firstRare, firstIdx) < FAR_CROSSMAP_SORT then
+				refWX, refWY = GetRareWorldPos(firstRare)
+				if RareSortDistance(firstRare, firstIdx, pwx, pwy) < FAR_CROSSMAP_SORT then
 					usedDistance = true
 				end
 				break
@@ -330,7 +383,7 @@ local function BuildGreedyRareRoute(zone)
 	while #remaining > 0 do
 		local bestI, bestDist, bestIdx
 		for i, entry in ipairs(remaining) do
-			local dist = RareDistanceFromRef(entry.rare, entry.idx, refMap, refX, refY)
+			local dist = RareDistanceFromRef(entry.rare, entry.idx, refWX, refWY)
 			if dist < FAR_CROSSMAP_SORT then
 				usedDistance = true
 			end
@@ -342,9 +395,7 @@ local function BuildGreedyRareRoute(zone)
 		end
 		local pick = table.remove(remaining, bestI)
 		ordered[#ordered + 1] = pick.rare
-		refMap = tonumber(pick.rare[2])
-		refX = (tonumber(pick.rare[3]) or 0) / 100
-		refY = (tonumber(pick.rare[4]) or 0) / 100
+		refWX, refWY = GetRareWorldPos(pick.rare)
 	end
 
 	return ordered, usedDistance
