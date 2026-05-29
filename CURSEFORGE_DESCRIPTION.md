@@ -4,6 +4,14 @@ Midnight Helper is an all-in-one utility addon for **World of Warcraft Retail** 
 
 ### Highlights
 
+**This Week (home)**
+- **Home dashboard** opens by default: weekly reset countdown, account-wide Great Vault status, this week's world boss, weekly chores (SMC, keys, shards), and a shortcut to Rares — your week at a glance
+
+**Rares**
+- **Rares** tab with per-character weekly tracking: pick the nearest incomplete rare or build a full **route** (nearest-neighbour ordering, world-coordinate distances)
+- **TomTom** arrow stays locked on the nearest waypoint
+- **Live rare-nearby alerts** — sound + on-screen toast when a tracked rare is up near you, even with the window closed; distance-gated so you only get pinged for rares actually in the neighbourhood; clicking the toast adds a waypoint without wiping a route you're already following (toggle in settings)
+
 **Delves & weekly progress**
 - Delves dashboard: currencies, season progress, and bountiful tracking
 - **Great Vault** tracker (World / Dungeons / Raids) on the Delves tab

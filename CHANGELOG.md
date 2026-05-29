@@ -4,6 +4,30 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-05-29
+
+### Added — Home "This Week" dashboard
+
+- New **Home** tab that opens by default: weekly reset countdown, account-wide Great Vault status, world boss this week, weekly chores (SMC, keys, shards), and a quick shortcut to Rares.
+
+### Added — Rares tab
+
+- **Rares** tab with per-character weekly tracking. Pick the nearest incomplete rare or build a full **route** (nearest-neighbour ordering).
+- Distances use **world coordinates (yards)** so the route truly starts at the closest rare and works across maps.
+- **TomTom** integration: the "crazy arrow" stays locked on the nearest waypoint instead of jumping to the last one added.
+
+### Added — Live rare-nearby alerts
+
+- Audible alert + on-screen toast when a tracked rare is detected near you, **even with the main window closed** (uses `C_VignetteInfo`).
+- Distance-gated (~500 yds) so you are not pinged for rares across the zone; a far rare still alerts once you get close.
+- Clicking the toast adds the rare as an **extra** TomTom waypoint (arrow points to it) **without clearing** a route you are already following.
+- Toggle in **Esc → AddOns → Midnight Helper**.
+
+### Changed
+
+- Sidebar tabs grouped into labelled sections; **Reference** tab renamed to **Basics**.
+- Main window enforces a dynamic minimum height so the new tabs never overlap the About button.
+
 ## [1.4.3] - 2026-05-27
 
 ### Changed — World boss
