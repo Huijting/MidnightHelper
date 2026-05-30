@@ -210,7 +210,7 @@ local MH_BETA_TAB_IDS = {
 -- reserves their slot for later phases without breaking the current build.
 local SIDEBAR_SECTIONS = {
 	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "delves", "rares", "world" } },
-	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "professions", "consumables" } },
+	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "professions", "consumables" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "reference", "smcguide", "academy", "macros" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
 }
@@ -260,6 +260,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_RARES"
 	elseif tabId == "world" then
 		return "INFO_DRAWER_BODY_WORLD"
+	elseif tabId == "delvelog" then
+		return "INFO_DRAWER_BODY_DELVELOG"
 	elseif tabId == "smcguide" then
 		return "INFO_DRAWER_BODY_SMC"
 	elseif tabId == "professions" then
@@ -1200,6 +1202,7 @@ local TAB_DEFS = {
 	{ id = "account", labelKey = "TAB_ACCOUNT_SNAPSHOT" },
 	{ id = "rares", labelKey = "TAB_RARES" },
 	{ id = "world", labelKey = "TAB_WORLD" },
+	{ id = "delvelog", labelKey = "TAB_DELVE_LOG" },
 	{ id = "reference", labelKey = "TAB_REFERENCE" },
 	{ id = "smcguide", labelKey = "TAB_SMC" },
 	{ id = "professions", labelKey = "TAB_PROFESSIONS" },
@@ -1696,6 +1699,8 @@ function ns:EnsureMainUI()
 				ns.BuildHomePanel(panel)
 			elseif tab.id == "world" and ns.BuildWorldPanel then
 				ns.BuildWorldPanel(panel)
+			elseif tab.id == "delvelog" and ns.BuildDelveLogPanel then
+				ns.BuildDelveLogPanel(panel)
 			end
 		end
 	end
@@ -2149,6 +2154,9 @@ SelectTab = function(tabId)
 	end
 	if tabId == "world" and ns.RefreshWorldPanel then
 		ns.RefreshWorldPanel()
+	end
+	if tabId == "delvelog" and ns.RefreshDelveLogPanel then
+		ns.RefreshDelveLogPanel()
 	end
 
 	if tabId == "delves" then

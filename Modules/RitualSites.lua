@@ -530,6 +530,26 @@ do
 	end
 end
 
+-- Pre-warm the AreaPOI cache for the ritual/void zones at world entry. Active-
+-- site detection reads C_AreaPoiInfo.GetAreaPOIForMap; if the player logs in or
+-- teleports straight into an unrelated zone, that map's POIs may not be loaded
+-- yet and the first detection misses. A cheap pcall primes the cache so the
+-- panel resolves the active site on its first refresh. (Idea borrowed from the
+-- EverythingDelves addon, which pre-warms delve zones the same way.)
+local prewarmed = false
+local function PrewarmPOIMaps()
+	if prewarmed then
+		return
+	end
+	prewarmed = true
+	if not (C_AreaPoiInfo and C_AreaPoiInfo.GetAreaPOIForMap) then
+		return
+	end
+	for _, site in ipairs(SITES) do
+		pcall(C_AreaPoiInfo.GetAreaPOIForMap, site.mapID)
+	end
+end
+
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("QUEST_LOG_UPDATE")
 ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
@@ -539,6 +559,9 @@ ev:RegisterEvent("PLAYER_ALIVE")
 ev:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 ev:RegisterEvent("UPDATE_FACTION")
 ev:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_ENTERING_WORLD" then
+		PrewarmPOIMaps()
+	end
 	if event == "PLAYER_UNGHOST" or event == "PLAYER_ALIVE" then
 		ReassertRouteAfterRevive()
 	end

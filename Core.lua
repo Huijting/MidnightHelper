@@ -501,6 +501,28 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "curiodebug" then
+		if ns.DebugCompanionRole then
+			ns.DebugCompanionRole()
+		else
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))
+			)
+		end
+		return
+	end
+
+	if msg == "curio" or msg == "curios" then
+		if ns.ToggleDelveCuriosPopup then
+			ns:ToggleDelveCuriosPopup()
+		else
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))
+			)
+		end
+		return
+	end
+
 	if msg == "toast" or msg == "toast test" or msg == "toast bounty" then
 		if ns.PreviewDelveBountyToast then
 			ns:PreviewDelveBountyToast()

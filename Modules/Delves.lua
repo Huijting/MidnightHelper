@@ -969,6 +969,7 @@ local currencyHeader
 local leftColumn
 local rightColumn
 local bestBtn
+local nearestBtn
 local coachBtn
 local eventFrame
 local midnightToggleBar
@@ -1254,6 +1255,9 @@ local function PaintDelvesPanel(fullRefresh)
 	end
 	if bestBtn then
 		bestBtn:SetText(ns:L("DELVES_BTN_BOUNTIFUL"))
+	end
+	if nearestBtn then
+		nearestBtn:SetText(ns:L("DELVES_BTN_NEAREST"))
 	end
 	if coachBtn then
 		coachBtn:SetText(ns:L("DELVES_BTN_COACH"))
@@ -1734,7 +1738,19 @@ local function PaintDelvesPanel(fullRefresh)
 			btn:SetSize(btnW, FOOTER_BTN_H)
 			return btnW
 		end
-		if coachBtn and bestBtn then
+		if coachBtn and bestBtn and nearestBtn then
+			local wCoach = MeasureFooterBtn(coachBtn)
+			local wBest = MeasureFooterBtn(bestBtn)
+			local wNear = MeasureFooterBtn(nearestBtn)
+			local totalW = wCoach + wBest + wNear + FOOTER_BTN_H_GAP * 2
+			local left = math.max(inset, (fw - totalW) / 2)
+			coachBtn:ClearAllPoints()
+			coachBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", left, FOOTER_BOTTOM_INSET)
+			bestBtn:ClearAllPoints()
+			bestBtn:SetPoint("BOTTOMLEFT", coachBtn, "BOTTOMRIGHT", FOOTER_BTN_H_GAP, 0)
+			nearestBtn:ClearAllPoints()
+			nearestBtn:SetPoint("BOTTOMLEFT", bestBtn, "BOTTOMRIGHT", FOOTER_BTN_H_GAP, 0)
+		elseif coachBtn and bestBtn then
 			local wCoach = MeasureFooterBtn(coachBtn)
 			local wBest = MeasureFooterBtn(bestBtn)
 			local totalW = wCoach + wBest + FOOTER_BTN_H_GAP
@@ -1907,6 +1923,87 @@ local function OnFindNearestBountifulClick()
 	end
 
 	print("|cffffff78Midnight Helper:|r No bountiful delve found (roster order / GetDelvesForMap).")
+end
+
+-- Convert a map position (0..1) to continent world coords (yards). Returns
+-- continentID + wx,wy so callers can compare distances only between points on
+-- the same continent (cross-continent world coords aren't comparable).
+local function DelveMapPosToWorld(mapID, xPct, yPct)
+	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D) then
+		return nil
+	end
+	-- pcall yields (ok, continentID, worldPosition).
+	local ok, continentID, world = pcall(C_Map.GetWorldPosFromMapPos, mapID, CreateVector2D(xPct, yPct))
+	if ok and type(world) == "table" then
+		local wx, wy
+		if world.GetXY then
+			wx, wy = world:GetXY()
+		else
+			wx, wy = world.x, world.y
+		end
+		if type(wx) == "number" and type(wy) == "number" then
+			return continentID, wx, wy
+		end
+	end
+	return nil
+end
+
+local function GetPlayerContinentWorld()
+	if not (C_Map and C_Map.GetBestMapForUnit and C_Map.GetPlayerMapPosition) then
+		return nil
+	end
+	local pmap = C_Map.GetBestMapForUnit("player")
+	if not pmap then
+		return nil
+	end
+	local okPos, pos = pcall(C_Map.GetPlayerMapPosition, pmap, "player")
+	if not (okPos and type(pos) == "table") then
+		return nil
+	end
+	local px, py
+	if pos.GetXY then
+		px, py = pos:GetXY()
+	else
+		px, py = pos.x, pos.y
+	end
+	if not (px and py) then
+		return nil
+	end
+	return DelveMapPosToWorld(pmap, px, py)
+end
+
+-- Route to the closest Midnight delve regardless of bountiful state — handy on
+-- lower-level / fresh characters that have no bountiful delves yet. Distance is
+-- measured in world yards on the player's continent; if that can't be resolved
+-- we fall back to the first roster delve so the button always does something.
+local function OnFindNearestDelveClick()
+	local pCont, pwx, pwy = GetPlayerContinentWorld()
+	local bestData, bestDist, fallback
+
+	for _, row in ipairs(MIDNIGHT_DELVES) do
+		local mapID, x, yPct, name = row[2], row[3], row[4], row[5]
+		fallback = fallback or { mapID = mapID, x = x, y = yPct, name = name }
+		if pwx and pwy then
+			local cont, wx, wy = DelveMapPosToWorld(mapID, (x or 0) / 100, (yPct or 0) / 100)
+			if wx and wy and (not pCont or not cont or cont == pCont) then
+				local dx, dy = wx - pwx, wy - pwy
+				local dist = dx * dx + dy * dy
+				if not bestDist or dist < bestDist then
+					bestDist = dist
+					bestData = { mapID = mapID, x = x, y = yPct, name = name }
+				end
+			end
+		end
+	end
+
+	local target = bestData or fallback
+	if not target then
+		print("|cffffff78Midnight Helper:|r No delve found.")
+		return
+	end
+	if ns.AddSmartTomTomWay(target.mapID, target.x, target.y, target.name) then
+		print(string.format(ns:L("DELVES_NEAREST_ROUTE"), tostring(target.name)))
+	end
 end
 
 local function CreateEventBridge()
@@ -2134,6 +2231,11 @@ local function SetupDelvesModule()
 	bestBtn:SetSize(340, 26)
 	bestBtn:SetText(ns:L("DELVES_BTN_BOUNTIFUL"))
 	bestBtn:SetScript("OnClick", OnFindNearestBountifulClick)
+
+	nearestBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+	nearestBtn:SetSize(340, 26)
+	nearestBtn:SetText(ns:L("DELVES_BTN_NEAREST"))
+	nearestBtn:SetScript("OnClick", OnFindNearestDelveClick)
 
 	-- Delver's Journey Hint (Phase 57 / 59)
 	if not frame.journeyHint then
