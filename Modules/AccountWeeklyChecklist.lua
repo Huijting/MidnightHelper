@@ -22,6 +22,25 @@ local function ToggleWeeklyFilter(kind)
 	end
 end
 
+--- Level cap for the current expansion. Used to decide which alts count as
+--- "Delver's Call incomplete" (a real chore) versus leveling alts that are
+--- intentionally banking quests for a late XP burst.
+local function GetDelverCapLevel()
+	if GetMaxLevelForPlayerExpansion then
+		local ok, lvl = pcall(GetMaxLevelForPlayerExpansion)
+		if ok and (tonumber(lvl) or 0) > 0 then
+			return tonumber(lvl)
+		end
+	end
+	if GetMaxPlayerLevel then
+		local ok, lvl = pcall(GetMaxPlayerLevel)
+		if ok and (tonumber(lvl) or 0) > 0 then
+			return tonumber(lvl)
+		end
+	end
+	return 80
+end
+
 local function FormatCharLabel(name, realm)
 	local nm = name
 	if type(nm) ~= "string" or nm == "" or nm == "?" then
@@ -87,6 +106,50 @@ function ns.ComputeAccountWeeklyChecklist()
 		end
 	end
 
+	-- Delver's Call weekly rollup. Current character uses the live state;
+	-- other characters use their last saved snapshot (skipped when stale).
+	local delverCurrent
+	if ns.GetDelverCallState then
+		delverCurrent = ns.GetDelverCallState()
+	end
+	local curGuid = UnitGUID and UnitGUID("player") or nil
+	local delverCapLevel = GetDelverCapLevel()
+	local delverIncompleteLabels, delverBankedLabels = {}, {}
+	local delverBankedTotal = 0
+	for i = 1, #entries do
+		local e = entries[i]
+		local total = tonumber(e.delverTotal) or 0
+		local isCurrent = curGuid ~= nil and e.guid == curGuid
+		if isCurrent and delverCurrent then
+			total = delverCurrent.total
+		end
+		if total > 0 then
+			local completed = tonumber(e.delverCompleted) or 0
+			local banked = tonumber(e.delverBanked) or 0
+			local level = tonumber(e.level) or 0
+			local stale = ns.MhAccountEntryIsStale and ns:MhAccountEntryIsStale(e)
+			if isCurrent and delverCurrent then
+				completed = delverCurrent.completed
+				banked = delverCurrent.banked
+				stale = false
+			end
+			-- Rollup lines describe OTHER characters; the current one already
+			-- has its own dedicated line.
+			if not stale and not isCurrent then
+				local label = FormatCharLabel(e.name, e.realm)
+				-- Only max-level alts count as a real chore. Leveling alts that
+				-- hold quests show up under the banked line instead.
+				if completed < total and level >= delverCapLevel then
+					delverIncompleteLabels[#delverIncompleteLabels + 1] = label
+				end
+				if banked > 0 then
+					delverBankedTotal = delverBankedTotal + banked
+					delverBankedLabels[#delverBankedLabels + 1] = ("%s (%d)"):format(label, banked)
+				end
+			end
+		end
+	end
+
 	local smcDone, smcTotal
 	local defs = ns.SMC_CHECKLIST_DEF
 	if type(defs) == "table" and ns.SMC_IsChecklistEntryTracked and ns.SMC_IsChecklistEntryDone then
@@ -117,6 +180,10 @@ function ns.ComputeAccountWeeklyChecklist()
 		dundunLabels = dundunLabels,
 		smcDone = smcDone,
 		smcTotal = smcTotal,
+		delverCurrent = delverCurrent,
+		delverIncompleteLabels = delverIncompleteLabels,
+		delverBankedLabels = delverBankedLabels,
+		delverBankedTotal = delverBankedTotal,
 	}
 end
 
@@ -142,7 +209,7 @@ local function SetCollapsed(collapsed)
 	uiDb.accountSnapshot.weeklyChecklistCollapsed = collapsed and true or false
 end
 
-local function SetLine(line, show, text, r, g, b, onClick)
+local function SetLine(line, show, text, r, g, b, onClick, tooltipFn)
 	if not line or not line.fs then
 		return
 	end
@@ -157,7 +224,22 @@ local function SetLine(line, show, text, r, g, b, onClick)
 	line.fs:SetTextColor(r or 0.9, g or 0.9, b or 0.9)
 	line._mhClick = onClick
 	if line.hit then
-		if onClick then
+		if tooltipFn then
+			line.hit:EnableMouse(true)
+			line.hit:SetScript("OnEnter", function(self)
+				if not GameTooltip then
+					return
+				end
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				tooltipFn(self)
+				GameTooltip:Show()
+			end)
+			line.hit:SetScript("OnLeave", function()
+				if GameTooltip then
+					GameTooltip:Hide()
+				end
+			end)
+		elseif onClick then
 			line.hit:EnableMouse(true)
 			line.hit:SetScript("OnEnter", function(self)
 				if not GameTooltip then
@@ -193,9 +275,47 @@ function ns.RefreshAccountWeeklyChecklist()
 	local lines = panelUi.lines or {}
 	local idx = 0
 
-	local function nextLine(show, text, r, g, b, onClick)
+	local function DelverStateInfo(state)
+		if state == "completed" then
+			return ns:L("DELVER_STATE_COMPLETED"), 0.45, 0.95, 0.5
+		elseif state == "ready" then
+			return ns:L("DELVER_STATE_READY"), 1, 0.84, 0.18
+		elseif state == "inProgress" then
+			return ns:L("DELVER_STATE_INPROGRESS"), 1, 0.55, 0.15
+		end
+		return ns:L("DELVER_STATE_FRESH"), 0.6, 0.6, 0.6
+	end
+
+	local function BuildDelverTooltip()
+		local dc = data.delverCurrent
+		if not dc then
+			return
+		end
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(ns:L("DELVER_TOOLTIP_TITLE"), 1, 0.9, 0.5)
+		GameTooltip:AddLine(
+			ns:L("ACCOUNT_WEEKLY_DELVER_FMT"):format(dc.completed or 0, dc.total or 0),
+			0.85,
+			0.85,
+			0.85
+		)
+		GameTooltip:AddLine(" ")
+		local lastZone
+		for _, q in ipairs(dc.quests or {}) do
+			if q.zone ~= lastZone then
+				lastZone = q.zone
+				GameTooltip:AddLine(q.zone, 1, 0.82, 0.3)
+			end
+			local stateText, sr, sg, sb = DelverStateInfo(q.state)
+			GameTooltip:AddDoubleLine("  " .. tostring(q.delve), stateText, 0.92, 0.92, 0.92, sr, sg, sb)
+		end
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine(ns:L("DELVER_TOOLTIP_HINT"), 0.7, 0.85, 0.7, true)
+	end
+
+	local function nextLine(show, text, r, g, b, onClick, tooltipFn)
 		idx = idx + 1
-		SetLine(lines[idx], show and not collapsed, text, r, g, b, onClick)
+		SetLine(lines[idx], show and not collapsed, text, r, g, b, onClick, tooltipFn)
 	end
 
 	if data.charCount == 0 then
@@ -310,6 +430,52 @@ function ns.RefreshAccountWeeklyChecklist()
 				)
 			end
 		end
+
+		local dc = data.delverCurrent
+		if dc and (tonumber(dc.total) or 0) > 0 then
+			local completed = tonumber(dc.completed) or 0
+			local total = tonumber(dc.total) or 0
+			local banked = tonumber(dc.banked) or 0
+			local text = ns:L("ACCOUNT_WEEKLY_DELVER_FMT"):format(completed, total)
+			if banked > 0 then
+				text = text .. ns:L("ACCOUNT_WEEKLY_DELVER_BANKED_SUFFIX"):format(banked)
+			end
+			local r, g, b
+			if completed >= total then
+				r, g, b = 0.45, 0.95, 0.5
+			elseif banked > 0 then
+				r, g, b = 1, 0.84, 0.18
+			else
+				r, g, b = 0.9, 0.85, 0.55
+			end
+			nextLine(true, text, r, g, b, nil, BuildDelverTooltip)
+
+			if data.delverBankedTotal and data.delverBankedTotal > 0 then
+				nextLine(
+					true,
+					ns:L("ACCOUNT_WEEKLY_DELVER_BANKED_ALTS_FMT"):format(
+						data.delverBankedTotal,
+						FormatNamePreview(data.delverBankedLabels)
+					),
+					1,
+					0.84,
+					0.18
+				)
+			end
+
+			if data.delverIncompleteLabels and #data.delverIncompleteLabels > 0 then
+				nextLine(
+					true,
+					ns:L("ACCOUNT_WEEKLY_DELVER_ALTS_FMT"):format(
+						#data.delverIncompleteLabels,
+						FormatNamePreview(data.delverIncompleteLabels)
+					),
+					0.9,
+					0.82,
+					0.45
+				)
+			end
+		end
 	end
 
 	for i = idx + 1, #(panelUi.lines or {}) do
@@ -383,7 +549,7 @@ function ns.MountAccountWeeklyChecklist(host, anchorBelow, onLayoutChanged)
 	panelUi.titleFs = titleFs
 
 	panelUi.lines = {}
-	for i = 1, 8 do
+	for i = 1, 14 do
 		local line = CreateFrame("Frame", nil, block)
 		line:SetHeight(LINE_H)
 		line:SetPoint("TOPLEFT", block, "TOPLEFT", 4, -(18 + (i - 1) * LINE_H))

@@ -155,6 +155,46 @@ local function BuildRows()
 				line(ns:L("ACCOUNT_WEEKLY_SMC_FMT"):format(done, data.smcTotal), COLOR_SOFT)
 			end
 		end
+		local dc = data.delverCurrent
+		if dc and (tonumber(dc.total) or 0) > 0 then
+			any = true
+			local completed = tonumber(dc.completed) or 0
+			local total = tonumber(dc.total) or 0
+			local banked = tonumber(dc.banked) or 0
+			local text = ns:L("ACCOUNT_WEEKLY_DELVER_FMT"):format(completed, total)
+			if banked > 0 then
+				text = text .. ns:L("ACCOUNT_WEEKLY_DELVER_BANKED_SUFFIX"):format(banked)
+			end
+			local dcColor = COLOR_SOFT
+			if completed >= total then
+				dcColor = COLOR_GOOD
+			elseif banked > 0 then
+				dcColor = COLOR_WARN
+			end
+			line(text, dcColor, function()
+				if ns.SelectTab then
+					ns.SelectTab("account")
+				end
+			end)
+			if data.delverBankedTotal and data.delverBankedTotal > 0 then
+				line(
+					ns:L("ACCOUNT_WEEKLY_DELVER_BANKED_ALTS_FMT"):format(
+						data.delverBankedTotal,
+						FormatNamePreview(data.delverBankedLabels)
+					),
+					COLOR_WARN
+				)
+			end
+			if data.delverIncompleteLabels and #data.delverIncompleteLabels > 0 then
+				line(
+					ns:L("ACCOUNT_WEEKLY_DELVER_ALTS_FMT"):format(
+						#data.delverIncompleteLabels,
+						FormatNamePreview(data.delverIncompleteLabels)
+					),
+					COLOR_SOFT
+				)
+			end
+		end
 		if data.keysTotal and data.keysTotal > 0 then
 			any = true
 			line(ns:L("ACCOUNT_WEEKLY_KEYS_FMT"):format(data.keysTotal, data.altsWithKeys), COLOR_DIM, function()

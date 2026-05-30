@@ -71,6 +71,7 @@ Modules\VoidAssaults.lua
 Modules\WorldContent.lua
 Modules\DelveHistory.lua
 Modules\DelveCoach.lua
+Modules\DelverCallData.lua
 Modules\AccountWeeklyChecklist.lua
 Modules\AltOverview.lua
 Modules\HomeDashboard.lua

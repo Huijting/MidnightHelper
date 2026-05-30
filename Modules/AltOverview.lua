@@ -298,6 +298,10 @@ local function SaveCurrentSnapshot()
 		profAbund, profDundun, profMoxie = ns.GetProfessionWeeklySnapshot()
 	end
 	local shardQty, shardWeekly, shardMax = GetShardQuantityAndMax()
+	local dcCompleted, dcBanked, dcInProgress, dcTotal = 0, 0, 0, 0
+	if ns.GetDelverCallSnapshotCounts then
+		dcCompleted, dcBanked, dcInProgress, dcTotal = ns.GetDelverCallSnapshotCounts()
+	end
 	db.charCurrencies[guid] = {
 		name = nm,
 		realm = realm,
@@ -335,6 +339,10 @@ local function SaveCurrentSnapshot()
 		profAbundance = profAbund,
 		profDundun = profDundun,
 		profMoxie = profMoxie,
+		delverCompleted = dcCompleted,
+		delverBanked = dcBanked,
+		delverInProgress = dcInProgress,
+		delverTotal = dcTotal,
 		ts = time(),
 	}
 	local snap = GetVaultSnapshot()
@@ -953,6 +961,10 @@ function ns:_mhAltOverviewCollectEntries()
 				profAbundance = tonumber(snap.profAbundance) or 0,
 				profDundun = tonumber(snap.profDundun) or 0,
 				profMoxie = type(snap.profMoxie) == "string" and snap.profMoxie or "",
+				delverCompleted = tonumber(snap.delverCompleted) or 0,
+				delverBanked = tonumber(snap.delverBanked) or 0,
+				delverInProgress = tonumber(snap.delverInProgress) or 0,
+				delverTotal = tonumber(snap.delverTotal) or 0,
 				ts = tonumber(snap.ts) or 0,
 			}
 		end
@@ -1662,6 +1674,8 @@ local ev = CreateFrame("Frame", nil, UIParent)
 ev:RegisterEvent("PLAYER_LOGIN")
 ev:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 ev:RegisterEvent("WEEKLY_REWARDS_UPDATE")
+ev:RegisterEvent("QUEST_TURNED_IN")
+ev:RegisterEvent("QUEST_LOG_UPDATE")
 ev:SetScript("OnEvent", function(_, event)
 	if not ns.db then
 		return
@@ -1677,6 +1691,9 @@ ev:SetScript("OnEvent", function(_, event)
 	elseif event == "CURRENCY_DISPLAY_UPDATE" then
 		ScheduleSave()
 	elseif event == "WEEKLY_REWARDS_UPDATE" then
+		ScheduleSave()
+	elseif event == "QUEST_TURNED_IN" or event == "QUEST_LOG_UPDATE" then
+		-- Keeps Delver's Call counts current; ScheduleSave coalesces the churn.
 		ScheduleSave()
 	end
 end)
