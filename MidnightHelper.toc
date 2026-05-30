@@ -73,6 +73,7 @@ Modules\WorldContent.lua
 Modules\DelveHistory.lua
 Modules\DelveCoach.lua
 Modules\DelverCallData.lua
+Modules\DelveWeeklyTrackers.lua
 Modules\AccountWeeklyChecklist.lua
 Modules\AltOverview.lua
 Modules\MidnightCodexData.lua

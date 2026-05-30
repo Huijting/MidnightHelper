@@ -22,21 +22,9 @@ local function ToggleWeeklyFilter(kind)
 	end
 end
 
---- Level cap for the current expansion. Used to decide which alts count as
---- "Delver's Call incomplete" (a real chore) versus leveling alts that are
---- intentionally banking quests for a late XP burst.
 local function GetDelverCapLevel()
-	if GetMaxLevelForPlayerExpansion then
-		local ok, lvl = pcall(GetMaxLevelForPlayerExpansion)
-		if ok and (tonumber(lvl) or 0) > 0 then
-			return tonumber(lvl)
-		end
-	end
-	if GetMaxPlayerLevel then
-		local ok, lvl = pcall(GetMaxPlayerLevel)
-		if ok and (tonumber(lvl) or 0) > 0 then
-			return tonumber(lvl)
-		end
+	if ns.GetDelveCapLevel then
+		return ns.GetDelveCapLevel()
 	end
 	return 80
 end
@@ -150,6 +138,42 @@ function ns.ComputeAccountWeeklyChecklist()
 		end
 	end
 
+	local troveCurrent = ns.GetTrovehunterState and ns.GetTrovehunterState() or nil
+	local gildedCurrent = ns.GetGildedStashState and ns.GetGildedStashState() or nil
+	local saCurrent = ns.GetSpecialAssignmentState and ns.GetSpecialAssignmentState() or nil
+	local troveNeedLabels, troveUnusedLabels = {}, {}
+	local gildedIncompleteLabels = {}
+	local saIncompleteLabels = {}
+	for i = 1, #entries do
+		local e = entries[i]
+		local level = tonumber(e.level) or 0
+		local isCurrent = curGuid ~= nil and e.guid == curGuid
+		local stale = ns.MhAccountEntryIsStale and ns:MhAccountEntryIsStale(e)
+		if isCurrent then
+			stale = false
+		end
+		if not stale and not isCurrent and level >= delverCapLevel then
+			local label = FormatCharLabel(e.name, e.realm)
+			local troveStatus = type(e.troveStatus) == "string" and e.troveStatus or "available"
+			local troveInBag = tonumber(e.troveInBag) or 0
+			if troveStatus == "available" then
+				troveNeedLabels[#troveNeedLabels + 1] = label
+			elseif troveStatus == "looted" or troveInBag > 0 then
+				troveUnusedLabels[#troveUnusedLabels + 1] = label
+			end
+			local gProg = tonumber(e.gildedProgress) or 0
+			local gMax = tonumber(e.gildedMax) or 4
+			if gProg < gMax then
+				gildedIncompleteLabels[#gildedIncompleteLabels + 1] = ("%s (%d/%d)"):format(label, gProg, gMax)
+			end
+			local saDone = tonumber(e.saCompleted) or 0
+			local saMax = tonumber(e.saMax) or 3
+			if saDone < saMax then
+				saIncompleteLabels[#saIncompleteLabels + 1] = label
+			end
+		end
+	end
+
 	local smcDone, smcTotal
 	local defs = ns.SMC_CHECKLIST_DEF
 	if type(defs) == "table" and ns.SMC_IsChecklistEntryTracked and ns.SMC_IsChecklistEntryDone then
@@ -184,6 +208,13 @@ function ns.ComputeAccountWeeklyChecklist()
 		delverIncompleteLabels = delverIncompleteLabels,
 		delverBankedLabels = delverBankedLabels,
 		delverBankedTotal = delverBankedTotal,
+		troveCurrent = troveCurrent,
+		troveNeedLabels = troveNeedLabels,
+		troveUnusedLabels = troveUnusedLabels,
+		gildedCurrent = gildedCurrent,
+		gildedIncompleteLabels = gildedIncompleteLabels,
+		saCurrent = saCurrent,
+		saIncompleteLabels = saIncompleteLabels,
 	}
 end
 
@@ -311,6 +342,76 @@ function ns.RefreshAccountWeeklyChecklist()
 		end
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(ns:L("DELVER_TOOLTIP_HINT"), 0.7, 0.85, 0.7, true)
+	end
+
+	local function BuildUnderlevelTooltip()
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(
+			ns:L("DELVE_WEEKLY_UNDERLEVEL_HINT"):format(GetDelverCapLevel()),
+			0.75,
+			0.78,
+			0.85,
+			true
+		)
+	end
+
+	local function BuildGildedTooltip()
+		local gs = data.gildedCurrent
+		if not gs then
+			return
+		end
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(ns:L("GILDED_TOOLTIP_TITLE"), 1, 0.9, 0.5)
+		if ns.ShouldShowDelveWeeklyUnderlevel and ns.ShouldShowDelveWeeklyUnderlevel("gilded", gs) then
+			GameTooltip:AddLine(
+				ns:L("ACCOUNT_WEEKLY_GILDED_UNDERLEVEL_FMT"):format(GetDelverCapLevel()),
+				0.6,
+				0.6,
+				0.6
+			)
+		else
+			GameTooltip:AddLine(
+				ns:L("ACCOUNT_WEEKLY_GILDED_FMT"):format(gs.progress or 0, gs.max or 4),
+				0.85,
+				0.85,
+				0.85
+			)
+		end
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine(ns:L("GILDED_TOOLTIP_HINT"), 0.7, 0.85, 0.7, true)
+	end
+
+	local function SaStateInfo(state)
+		if state == "completed" then
+			return ns:L("SA_STATE_COMPLETED"), 0.45, 0.95, 0.5
+		elseif state == "active" then
+			return ns:L("SA_STATE_ACTIVE"), 0.45, 0.95, 0.5
+		elseif state == "available" then
+			return ns:L("SA_STATE_AVAILABLE"), 0.9, 0.85, 0.55
+		end
+		return ns:L("SA_STATE_LOCKED"), 0.6, 0.6, 0.6
+	end
+
+	local function BuildSpecialAssignmentTooltip()
+		local sa = data.saCurrent
+		if not sa then
+			return
+		end
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(ns:L("SA_TOOLTIP_TITLE"), 1, 0.9, 0.5)
+		GameTooltip:AddLine(
+			ns:L("ACCOUNT_WEEKLY_SA_FMT"):format(sa.completed or 0, sa.max or 3),
+			0.85,
+			0.85,
+			0.85
+		)
+		GameTooltip:AddLine(" ")
+		for _, a in ipairs(sa.assignments or {}) do
+			local stateText, sr, sg, sb = SaStateInfo(a.state)
+			GameTooltip:AddDoubleLine("  " .. tostring(a.title), stateText, 0.92, 0.92, 0.92, sr, sg, sb)
+		end
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine(ns:L("SA_TOOLTIP_HINT"), 0.7, 0.85, 0.7, true)
 	end
 
 	local function nextLine(show, text, r, g, b, onClick, tooltipFn)
@@ -476,6 +577,122 @@ function ns.RefreshAccountWeeklyChecklist()
 				)
 			end
 		end
+
+		local gs = data.gildedCurrent
+		if gs and (tonumber(gs.max) or 0) > 0 then
+			local progress = tonumber(gs.progress) or 0
+			local max = tonumber(gs.max) or 4
+			local text = ns:L("ACCOUNT_WEEKLY_GILDED_FMT"):format(progress, max)
+			local gr, gg, gb
+			if ns.ShouldShowDelveWeeklyUnderlevel and ns.ShouldShowDelveWeeklyUnderlevel("gilded", gs) then
+				text = ns:L("ACCOUNT_WEEKLY_GILDED_UNDERLEVEL_FMT"):format(GetDelverCapLevel())
+				gr, gg, gb = 0.6, 0.6, 0.6
+				nextLine(true, text, gr, gg, gb, nil, BuildUnderlevelTooltip)
+			else
+				if progress >= max then
+					gr, gg, gb = 0.45, 0.95, 0.5
+				elseif progress > 0 then
+					gr, gg, gb = 0.9, 0.82, 0.45
+				else
+					gr, gg, gb = 0.9, 0.85, 0.55
+				end
+				nextLine(true, text, gr, gg, gb, nil, BuildGildedTooltip)
+			end
+			if data.gildedIncompleteLabels and #data.gildedIncompleteLabels > 0 then
+				nextLine(
+					true,
+					ns:L("ACCOUNT_WEEKLY_GILDED_ALTS_FMT"):format(
+						#data.gildedIncompleteLabels,
+						FormatNamePreview(data.gildedIncompleteLabels)
+					),
+					0.9,
+					0.82,
+					0.45
+				)
+			end
+		end
+
+		local trove = data.troveCurrent
+		if trove then
+			local text = ns:L("ACCOUNT_WEEKLY_TROVE_AVAILABLE")
+			local tr, tg, tb = 0.9, 0.85, 0.55
+			if ns.ShouldShowDelveWeeklyUnderlevel and ns.ShouldShowDelveWeeklyUnderlevel("trove", trove) then
+				text = ns:L("ACCOUNT_WEEKLY_TROVE_UNDERLEVEL_FMT"):format(GetDelverCapLevel())
+				tr, tg, tb = 0.6, 0.6, 0.6
+				nextLine(true, text, tr, tg, tb, nil, BuildUnderlevelTooltip)
+			else
+				if trove.status == "done" or trove.status == "active" then
+					text = trove.status == "active" and ns:L("ACCOUNT_WEEKLY_TROVE_ACTIVE") or ns:L("ACCOUNT_WEEKLY_TROVE_DONE")
+					tr, tg, tb = 0.45, 0.95, 0.5
+				elseif trove.status == "looted" then
+					text = ns:L("ACCOUNT_WEEKLY_TROVE_LOOTED")
+					tr, tg, tb = 1, 0.84, 0.18
+				end
+				nextLine(true, text, tr, tg, tb)
+			end
+			if data.troveUnusedLabels and #data.troveUnusedLabels > 0 then
+				nextLine(
+					true,
+					ns:L("ACCOUNT_WEEKLY_TROVE_UNUSED_ALTS_FMT"):format(
+						#data.troveUnusedLabels,
+						FormatNamePreview(data.troveUnusedLabels)
+					),
+					1,
+					0.84,
+					0.18
+				)
+			end
+			if data.troveNeedLabels and #data.troveNeedLabels > 0 then
+				nextLine(
+					true,
+					ns:L("ACCOUNT_WEEKLY_TROVE_NEED_ALTS_FMT"):format(
+						#data.troveNeedLabels,
+						FormatNamePreview(data.troveNeedLabels)
+					),
+					0.9,
+					0.82,
+					0.45
+				)
+			end
+		end
+
+		local sa = data.saCurrent
+		if sa and (tonumber(sa.max) or 0) > 0 then
+			local completed = tonumber(sa.completed) or 0
+			local max = tonumber(sa.max) or 3
+			local active = tonumber(sa.active) or 0
+			local text = ns:L("ACCOUNT_WEEKLY_SA_FMT"):format(completed, max)
+			if active > 0 then
+				text = text .. ns:L("ACCOUNT_WEEKLY_SA_ACTIVE_SUFFIX"):format(active)
+			end
+			local sr, sg, sb
+			if ns.ShouldShowDelveWeeklyUnderlevel and ns.ShouldShowDelveWeeklyUnderlevel("sa", sa) then
+				text = ns:L("ACCOUNT_WEEKLY_SA_UNDERLEVEL_FMT"):format(GetDelverCapLevel())
+				sr, sg, sb = 0.6, 0.6, 0.6
+				nextLine(true, text, sr, sg, sb, nil, BuildUnderlevelTooltip)
+			else
+				if completed >= max then
+					sr, sg, sb = 0.45, 0.95, 0.5
+				elseif active > 0 then
+					sr, sg, sb = 0.45, 0.95, 0.5
+				else
+					sr, sg, sb = 0.9, 0.85, 0.55
+				end
+				nextLine(true, text, sr, sg, sb, nil, BuildSpecialAssignmentTooltip)
+			end
+			if data.saIncompleteLabels and #data.saIncompleteLabels > 0 then
+				nextLine(
+					true,
+					ns:L("ACCOUNT_WEEKLY_SA_ALTS_FMT"):format(
+						#data.saIncompleteLabels,
+						FormatNamePreview(data.saIncompleteLabels)
+					),
+					0.9,
+					0.82,
+					0.45
+				)
+			end
+		end
 	end
 
 	for i = idx + 1, #(panelUi.lines or {}) do
@@ -549,7 +766,7 @@ function ns.MountAccountWeeklyChecklist(host, anchorBelow, onLayoutChanged)
 	panelUi.titleFs = titleFs
 
 	panelUi.lines = {}
-	for i = 1, 14 do
+	for i = 1, 24 do
 		local line = CreateFrame("Frame", nil, block)
 		line:SetHeight(LINE_H)
 		line:SetPoint("TOPLEFT", block, "TOPLEFT", 4, -(18 + (i - 1) * LINE_H))

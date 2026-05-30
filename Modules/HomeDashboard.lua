@@ -5,6 +5,9 @@
 	one-click navigation into the detailed tabs. No new game data is computed
 	here; every source call is guarded so the panel degrades gracefully when a
 	module is missing.
+
+	Layout: compact sections (Vault, World Boss, Rares, Ritual, Void) render in
+	two columns; Weekly chores stays full-width because of the long alt rollup.
 ]]
 
 local _, ns = ...
@@ -14,6 +17,7 @@ local HEADER_H = 18
 local LINE_H = 15
 local TOP_PAD = 12
 local SIDE_PAD = 14
+local COL_GAP = 14
 local MAX_NAME_PREVIEW = 2
 
 local COLOR_HEADER = { 0.82, 0.68, 0.30 }
@@ -69,211 +73,341 @@ local function GetWeeklyResetText()
 	return nil
 end
 
--- Build the flat list of row descriptors for the current state. Each row is a
--- table: { header=bool, text=string, color={r,g,b}, onClick=fn|nil }.
-local function BuildRows()
-	local rows = {}
+--- Row spec: { header=bool, text=string, color={r,g,b}, onClick=fn|nil }
+--- Layout block: { type="full", rows={...} } or { type="columns", left={...}, right={...} }
+local function BuildLayout()
+	local blocks = {}
 
-	local function header(text)
+	local function header(rows, text)
 		rows[#rows + 1] = { header = true, text = text, color = COLOR_HEADER }
 	end
-	local function line(text, color, onClick)
+	local function line(rows, text, color, onClick)
 		rows[#rows + 1] = { text = text, color = color or COLOR_DIM, onClick = onClick }
 	end
-	local function navLine(tabId, labelKey)
-		line(ns:L("HOME_OPEN_FMT"):format(ns:L(labelKey)), COLOR_LINK, function()
+	local function navLine(rows, tabId, labelKey)
+		line(rows, ns:L("HOME_OPEN_FMT"):format(ns:L(labelKey)), COLOR_LINK, function()
 			if ns.SelectTab then
 				ns.SelectTab(tabId)
 			end
 		end)
 	end
+	local function addFull(buildFn)
+		local rows = {}
+		buildFn(rows)
+		blocks[#blocks + 1] = { type = "full", rows = rows }
+	end
+	local function addColumns(buildLeft, buildRight)
+		local left, right = {}, {}
+		buildLeft(left)
+		buildRight(right)
+		blocks[#blocks + 1] = { type = "columns", left = left, right = right }
+	end
 
 	local data = ns.ComputeAccountWeeklyChecklist and ns.ComputeAccountWeeklyChecklist() or nil
 
-	------------------------------------------------------------------ Great Vault
-	header(ns:L("HOME_SECTION_VAULT"))
-	if data and data.charCount and data.charCount > 0 then
-		if #data.vaultReady > 0 then
-			line(
-				ns:L("ACCOUNT_WEEKLY_VAULT_READY_FMT"):format(#data.vaultReady, FormatNamePreview(data.vaultReady)),
-				COLOR_WARN
-			)
-		else
-			line(ns:L("ACCOUNT_WEEKLY_VAULT_NONE"), COLOR_GOOD)
-		end
-		if #data.vaultLikely > 0 then
-			line(
-				ns:L("ACCOUNT_WEEKLY_VAULT_LIKELY_FMT"):format(#data.vaultLikely, FormatNamePreview(data.vaultLikely)),
-				COLOR_SOFT
-			)
-		end
-	else
-		line(ns:L("ACCOUNT_WEEKLY_NO_SNAPSHOTS"), COLOR_DIM)
-	end
-	navLine("delves", "TAB_DELVES")
-
-	------------------------------------------------------------------ World Boss
-	header(ns:L("HOME_SECTION_WORLDBOSS"))
-	if ns.GetActiveWorldBoss then
-		local boss = ns.GetActiveWorldBoss()
-		if boss then
-			local name = boss.labelKey and ns:L(boss.labelKey) or boss.name or "?"
-			line(ns:L("HOME_WB_ACTIVE_FMT"):format(name), COLOR_DIM)
-			local warbandDone = ns.IsWorldBossKilled and ns.IsWorldBossKilled(boss)
-			if warbandDone then
-				local who = ns.GetWorldBossWarbandCompleter and ns.GetWorldBossWarbandCompleter()
-				if type(who) == "string" and who ~= "" then
-					line(ns:L("HOME_WB_WARBAND_DONE_BY_FMT"):format(who), COLOR_GOOD)
+	------------------------------------------------------------------ Vault | World Boss
+	addColumns(
+		function(rows)
+			header(rows, ns:L("HOME_SECTION_VAULT"))
+			if data and data.charCount and data.charCount > 0 then
+				if #data.vaultReady > 0 then
+					line(
+						rows,
+						ns:L("ACCOUNT_WEEKLY_VAULT_READY_FMT"):format(#data.vaultReady, FormatNamePreview(data.vaultReady)),
+						COLOR_WARN
+					)
 				else
-					line(ns:L("HOME_WB_WARBAND_DONE"), COLOR_GOOD)
+					line(rows, ns:L("ACCOUNT_WEEKLY_VAULT_NONE"), COLOR_GOOD)
+				end
+				if #data.vaultLikely > 0 then
+					line(
+						rows,
+						ns:L("ACCOUNT_WEEKLY_VAULT_LIKELY_FMT"):format(#data.vaultLikely, FormatNamePreview(data.vaultLikely)),
+						COLOR_SOFT
+					)
 				end
 			else
-				line(ns:L("HOME_WB_WARBAND_TODO"), COLOR_WARN)
+				line(rows, ns:L("ACCOUNT_WEEKLY_NO_SNAPSHOTS"), COLOR_DIM)
 			end
-			if ns.IsWorldBossDoneOnThisCharacter and ns.IsWorldBossDoneOnThisCharacter(boss) then
-				line(ns:L("HOME_WB_CHAR_DONE"), COLOR_GOOD)
+			navLine(rows, "delves", "TAB_DELVES")
+		end,
+		function(rows)
+			header(rows, ns:L("HOME_SECTION_WORLDBOSS"))
+			if ns.GetActiveWorldBoss then
+				local boss = ns.GetActiveWorldBoss()
+				if boss then
+					local name = boss.labelKey and ns:L(boss.labelKey) or boss.name or "?"
+					line(rows, ns:L("HOME_WB_ACTIVE_FMT"):format(name), COLOR_DIM)
+					local warbandDone = ns.IsWorldBossKilled and ns.IsWorldBossKilled(boss)
+					if warbandDone then
+						local who = ns.GetWorldBossWarbandCompleter and ns.GetWorldBossWarbandCompleter()
+						if type(who) == "string" and who ~= "" then
+							line(rows, ns:L("HOME_WB_WARBAND_DONE_BY_FMT"):format(who), COLOR_GOOD)
+						else
+							line(rows, ns:L("HOME_WB_WARBAND_DONE"), COLOR_GOOD)
+						end
+					else
+						line(rows, ns:L("HOME_WB_WARBAND_TODO"), COLOR_WARN)
+					end
+					if ns.IsWorldBossDoneOnThisCharacter and ns.IsWorldBossDoneOnThisCharacter(boss) then
+						line(rows, ns:L("HOME_WB_CHAR_DONE"), COLOR_GOOD)
+					else
+						line(rows, ns:L("HOME_WB_CHAR_TODO"), COLOR_SOFT)
+					end
+				else
+					line(rows, ns:L("HOME_WB_UNKNOWN"), COLOR_DIM)
+				end
 			else
-				line(ns:L("HOME_WB_CHAR_TODO"), COLOR_SOFT)
+				line(rows, ns:L("HOME_WB_UNKNOWN"), COLOR_DIM)
 			end
-		else
-			line(ns:L("HOME_WB_UNKNOWN"), COLOR_DIM)
 		end
-	else
-		line(ns:L("HOME_WB_UNKNOWN"), COLOR_DIM)
-	end
+	)
 
-	------------------------------------------------------------------ Weekly chores
-	header(ns:L("HOME_SECTION_CHORES"))
-	if data and data.charCount and data.charCount > 0 then
-		local any = false
-		if data.smcTotal then
-			any = true
-			local done = data.smcDone or 0
-			if done >= data.smcTotal then
-				line(ns:L("ACCOUNT_WEEKLY_SMC_DONE_FMT"):format(done, data.smcTotal), COLOR_GOOD)
-			else
-				line(ns:L("ACCOUNT_WEEKLY_SMC_FMT"):format(done, data.smcTotal), COLOR_SOFT)
-			end
-		end
-		local dc = data.delverCurrent
-		if dc and (tonumber(dc.total) or 0) > 0 then
-			any = true
-			local completed = tonumber(dc.completed) or 0
-			local total = tonumber(dc.total) or 0
-			local banked = tonumber(dc.banked) or 0
-			local text = ns:L("ACCOUNT_WEEKLY_DELVER_FMT"):format(completed, total)
-			if banked > 0 then
-				text = text .. ns:L("ACCOUNT_WEEKLY_DELVER_BANKED_SUFFIX"):format(banked)
-			end
-			local dcColor = COLOR_SOFT
-			if completed >= total then
-				dcColor = COLOR_GOOD
-			elseif banked > 0 then
-				dcColor = COLOR_WARN
-			end
-			line(text, dcColor, function()
-				if ns.SelectTab then
-					ns.SelectTab("account")
+	------------------------------------------------------------------ Weekly chores (full width)
+	addFull(function(rows)
+		header(rows, ns:L("HOME_SECTION_CHORES"))
+		if data and data.charCount and data.charCount > 0 then
+			local any = false
+			if data.smcTotal then
+				any = true
+				local done = data.smcDone or 0
+				if done >= data.smcTotal then
+					line(rows, ns:L("ACCOUNT_WEEKLY_SMC_DONE_FMT"):format(done, data.smcTotal), COLOR_GOOD)
+				else
+					line(rows, ns:L("ACCOUNT_WEEKLY_SMC_FMT"):format(done, data.smcTotal), COLOR_SOFT)
 				end
-			end)
-			if data.delverBankedTotal and data.delverBankedTotal > 0 then
-				line(
-					ns:L("ACCOUNT_WEEKLY_DELVER_BANKED_ALTS_FMT"):format(
-						data.delverBankedTotal,
-						FormatNamePreview(data.delverBankedLabels)
-					),
-					COLOR_WARN
-				)
 			end
-			if data.delverIncompleteLabels and #data.delverIncompleteLabels > 0 then
+			local dc = data.delverCurrent
+			if dc and (tonumber(dc.total) or 0) > 0 then
+				any = true
+				local completed = tonumber(dc.completed) or 0
+				local total = tonumber(dc.total) or 0
+				local banked = tonumber(dc.banked) or 0
+				local text = ns:L("ACCOUNT_WEEKLY_DELVER_FMT"):format(completed, total)
+				if banked > 0 then
+					text = text .. ns:L("ACCOUNT_WEEKLY_DELVER_BANKED_SUFFIX"):format(banked)
+				end
+				local dcColor = COLOR_SOFT
+				if completed >= total then
+					dcColor = COLOR_GOOD
+				elseif banked > 0 then
+					dcColor = COLOR_WARN
+				end
+				line(rows, text, dcColor, function()
+					if ns.SelectTab then
+						ns.SelectTab("account")
+					end
+				end)
+				if data.delverBankedTotal and data.delverBankedTotal > 0 then
+					line(
+						rows,
+						ns:L("ACCOUNT_WEEKLY_DELVER_BANKED_ALTS_FMT"):format(
+							data.delverBankedTotal,
+							FormatNamePreview(data.delverBankedLabels)
+						),
+						COLOR_WARN
+					)
+				end
+				if data.delverIncompleteLabels and #data.delverIncompleteLabels > 0 then
+					line(
+						rows,
+						ns:L("ACCOUNT_WEEKLY_DELVER_ALTS_FMT"):format(
+							#data.delverIncompleteLabels,
+							FormatNamePreview(data.delverIncompleteLabels)
+						),
+						COLOR_SOFT
+					)
+				end
+			end
+			local gs = data.gildedCurrent
+			if gs and (tonumber(gs.max) or 0) > 0 then
+				any = true
+				local progress = tonumber(gs.progress) or 0
+				local max = tonumber(gs.max) or 4
+				local gsColor = COLOR_SOFT
+				local gsText = ns:L("ACCOUNT_WEEKLY_GILDED_FMT"):format(progress, max)
+				if ns.ShouldShowDelveWeeklyUnderlevel and ns.ShouldShowDelveWeeklyUnderlevel("gilded", gs) then
+					gsText = ns:L("ACCOUNT_WEEKLY_GILDED_UNDERLEVEL_FMT"):format(ns.GetDelveCapLevel())
+					gsColor = COLOR_DIM
+				elseif progress >= max then
+					gsColor = COLOR_GOOD
+				end
+				line(rows, gsText, gsColor, function()
+					if ns.SelectTab then
+						ns.SelectTab("account")
+					end
+				end)
+				if data.gildedIncompleteLabels and #data.gildedIncompleteLabels > 0 then
+					line(
+						rows,
+						ns:L("ACCOUNT_WEEKLY_GILDED_ALTS_FMT"):format(
+							#data.gildedIncompleteLabels,
+							FormatNamePreview(data.gildedIncompleteLabels)
+						),
+						COLOR_SOFT
+					)
+				end
+			end
+			local trove = data.troveCurrent
+			if trove then
+				any = true
+				local text = ns:L("ACCOUNT_WEEKLY_TROVE_AVAILABLE")
+				local troveColor = COLOR_SOFT
+				if ns.ShouldShowDelveWeeklyUnderlevel and ns.ShouldShowDelveWeeklyUnderlevel("trove", trove) then
+					text = ns:L("ACCOUNT_WEEKLY_TROVE_UNDERLEVEL_FMT"):format(ns.GetDelveCapLevel())
+					troveColor = COLOR_DIM
+				elseif trove.status == "done" or trove.status == "active" then
+					text = trove.status == "active" and ns:L("ACCOUNT_WEEKLY_TROVE_ACTIVE") or ns:L("ACCOUNT_WEEKLY_TROVE_DONE")
+					troveColor = COLOR_GOOD
+				elseif trove.status == "looted" then
+					text = ns:L("ACCOUNT_WEEKLY_TROVE_LOOTED")
+					troveColor = COLOR_WARN
+				end
+				line(rows, text, troveColor, function()
+					if ns.SelectTab then
+						ns.SelectTab("account")
+					end
+				end)
+				if data.troveUnusedLabels and #data.troveUnusedLabels > 0 then
+					line(
+						rows,
+						ns:L("ACCOUNT_WEEKLY_TROVE_UNUSED_ALTS_FMT"):format(
+							#data.troveUnusedLabels,
+							FormatNamePreview(data.troveUnusedLabels)
+						),
+						COLOR_WARN
+					)
+				end
+				if data.troveNeedLabels and #data.troveNeedLabels > 0 then
+					line(
+						rows,
+						ns:L("ACCOUNT_WEEKLY_TROVE_NEED_ALTS_FMT"):format(
+							#data.troveNeedLabels,
+							FormatNamePreview(data.troveNeedLabels)
+						),
+						COLOR_SOFT
+					)
+				end
+			end
+			local sa = data.saCurrent
+			if sa and (tonumber(sa.max) or 0) > 0 then
+				any = true
+				local completed = tonumber(sa.completed) or 0
+				local max = tonumber(sa.max) or 3
+				local active = tonumber(sa.active) or 0
+				local text = ns:L("ACCOUNT_WEEKLY_SA_FMT"):format(completed, max)
+				if active > 0 then
+					text = text .. ns:L("ACCOUNT_WEEKLY_SA_ACTIVE_SUFFIX"):format(active)
+				end
+				local saColor = COLOR_SOFT
+				if ns.ShouldShowDelveWeeklyUnderlevel and ns.ShouldShowDelveWeeklyUnderlevel("sa", sa) then
+					text = ns:L("ACCOUNT_WEEKLY_SA_UNDERLEVEL_FMT"):format(ns.GetDelveCapLevel())
+					saColor = COLOR_DIM
+				elseif completed >= max or active > 0 then
+					saColor = COLOR_GOOD
+				end
+				line(rows, text, saColor, function()
+					if ns.SelectTab then
+						ns.SelectTab("account")
+					end
+				end)
+				if data.saIncompleteLabels and #data.saIncompleteLabels > 0 then
+					line(
+						rows,
+						ns:L("ACCOUNT_WEEKLY_SA_ALTS_FMT"):format(
+							#data.saIncompleteLabels,
+							FormatNamePreview(data.saIncompleteLabels)
+						),
+						COLOR_SOFT
+					)
+				end
+			end
+			if data.keysTotal and data.keysTotal > 0 then
+				any = true
+				line(rows, ns:L("ACCOUNT_WEEKLY_KEYS_FMT"):format(data.keysTotal, data.altsWithKeys), COLOR_DIM, function()
+					if ns.SelectTab then
+						ns.SelectTab("account")
+					end
+				end)
+			end
+			if #data.shardBelowLabels > 0 then
+				any = true
 				line(
-					ns:L("ACCOUNT_WEEKLY_DELVER_ALTS_FMT"):format(
-						#data.delverIncompleteLabels,
-						FormatNamePreview(data.delverIncompleteLabels)
-					),
+					rows,
+					ns:L("ACCOUNT_WEEKLY_SHARDS_FMT"):format(#data.shardBelowLabels, FormatNamePreview(data.shardBelowLabels)),
 					COLOR_SOFT
 				)
 			end
+			if #data.dundunLabels > 0 then
+				any = true
+				line(
+					rows,
+					ns:L("ACCOUNT_WEEKLY_DUNDUN_FMT"):format(#data.dundunLabels, FormatNamePreview(data.dundunLabels)),
+					COLOR_SOFT
+				)
+			end
+			if #data.staleLabels > 0 then
+				any = true
+				line(
+					rows,
+					ns:L("ACCOUNT_WEEKLY_STALE_FMT"):format(#data.staleLabels, FormatNamePreview(data.staleLabels)),
+					COLOR_SOFT
+				)
+			end
+			if not any then
+				line(rows, ns:L("ACCOUNT_WEEKLY_ALL_CURRENT"), COLOR_GOOD)
+			end
+		else
+			line(rows, ns:L("ACCOUNT_WEEKLY_NO_SNAPSHOTS"), COLOR_DIM)
 		end
-		if data.keysTotal and data.keysTotal > 0 then
-			any = true
-			line(ns:L("ACCOUNT_WEEKLY_KEYS_FMT"):format(data.keysTotal, data.altsWithKeys), COLOR_DIM, function()
-				if ns.SelectTab then
-					ns.SelectTab("account")
-				end
-			end)
-		end
-		if #data.shardBelowLabels > 0 then
-			any = true
-			line(
-				ns:L("ACCOUNT_WEEKLY_SHARDS_FMT"):format(#data.shardBelowLabels, FormatNamePreview(data.shardBelowLabels)),
-				COLOR_SOFT
-			)
-		end
-		if #data.dundunLabels > 0 then
-			any = true
-			line(
-				ns:L("ACCOUNT_WEEKLY_DUNDUN_FMT"):format(#data.dundunLabels, FormatNamePreview(data.dundunLabels)),
-				COLOR_SOFT
-			)
-		end
-		if #data.staleLabels > 0 then
-			any = true
-			line(
-				ns:L("ACCOUNT_WEEKLY_STALE_FMT"):format(#data.staleLabels, FormatNamePreview(data.staleLabels)),
-				COLOR_SOFT
-			)
-		end
-		if not any then
-			line(ns:L("ACCOUNT_WEEKLY_ALL_CURRENT"), COLOR_GOOD)
-		end
-	else
-		line(ns:L("ACCOUNT_WEEKLY_NO_SNAPSHOTS"), COLOR_DIM)
-	end
-	navLine("account", "TAB_ACCOUNT_SNAPSHOT")
+		navLine(rows, "account", "TAB_ACCOUNT_SNAPSHOT")
+	end)
 
-	------------------------------------------------------------------ Rares
-	header(ns:L("HOME_SECTION_RARES"))
-	line(ns:L("HOME_RARES_HINT"), COLOR_DIM)
-	navLine("rares", "TAB_RARES")
+	------------------------------------------------------------------ Rares | Ritual + Void
+	addColumns(
+		function(rows)
+			header(rows, ns:L("HOME_SECTION_RARES"))
+			line(rows, ns:L("HOME_RARES_HINT"), COLOR_DIM)
+			navLine(rows, "rares", "TAB_RARES")
+		end,
+		function(rows)
+			header(rows, ns:L("HOME_SECTION_RITUAL"))
+			local activeSite = ns.GetActiveRitualSite and ns.GetActiveRitualSite() or nil
+			if activeSite then
+				local zone = ns.RitualSiteZoneName and ns.RitualSiteZoneName(activeSite) or nil
+				local label = zone and (activeSite.name .. " — " .. zone) or activeSite.name
+				line(rows, ns:L("HOME_RITUAL_ACTIVE_FMT"):format(label), COLOR_SOFT)
+			else
+				line(rows, ns:L("HOME_RITUAL_UNKNOWN"), COLOR_DIM)
+			end
+			if ns.IsRitualWeeklyDone and ns.IsRitualWeeklyDone() then
+				line(rows, ns:L("HOME_RITUAL_WEEKLY_DONE"), COLOR_GOOD)
+			else
+				line(rows, ns:L("HOME_RITUAL_WEEKLY_TODO"), COLOR_WARN)
+			end
+			local renownText = ns.GetRitualRenownText and ns.GetRitualRenownText() or nil
+			if renownText and renownText ~= "" then
+				line(rows, ns:L("HOME_RITUAL_RENOWN_FMT"):format(renownText), COLOR_DIM)
+			end
+			navLine(rows, "world", "TAB_WORLD")
 
-	------------------------------------------------------------------ Ritual Sites
-	header(ns:L("HOME_SECTION_RITUAL"))
-	local activeSite = ns.GetActiveRitualSite and ns.GetActiveRitualSite() or nil
-	if activeSite then
-		local zone = ns.RitualSiteZoneName and ns.RitualSiteZoneName(activeSite) or nil
-		local label = zone and (activeSite.name .. " — " .. zone) or activeSite.name
-		line(ns:L("HOME_RITUAL_ACTIVE_FMT"):format(label), COLOR_SOFT)
-	else
-		line(ns:L("HOME_RITUAL_UNKNOWN"), COLOR_DIM)
-	end
-	if ns.IsRitualWeeklyDone and ns.IsRitualWeeklyDone() then
-		line(ns:L("HOME_RITUAL_WEEKLY_DONE"), COLOR_GOOD)
-	else
-		line(ns:L("HOME_RITUAL_WEEKLY_TODO"), COLOR_WARN)
-	end
-	local renownText = ns.GetRitualRenownText and ns.GetRitualRenownText() or nil
-	if renownText and renownText ~= "" then
-		line(ns:L("HOME_RITUAL_RENOWN_FMT"):format(renownText), COLOR_DIM)
-	end
-	navLine("world", "TAB_WORLD")
+			header(rows, ns:L("HOME_SECTION_VOID"))
+			local voidZone = ns.GetActiveVoidAssaultZoneName and ns.GetActiveVoidAssaultZoneName() or nil
+			if voidZone then
+				line(rows, ns:L("HOME_VOID_ACTIVE_FMT"):format(voidZone), COLOR_SOFT)
+			else
+				line(rows, ns:L("HOME_VOID_UNKNOWN"), COLOR_DIM)
+			end
+			if ns.IsVoidAssaultWeeklyDone and ns.IsVoidAssaultWeeklyDone() then
+				line(rows, ns:L("HOME_VOID_WEEKLY_DONE"), COLOR_GOOD)
+			else
+				line(rows, ns:L("HOME_VOID_WEEKLY_TODO"), COLOR_WARN)
+			end
+			navLine(rows, "world", "TAB_WORLD")
+		end
+	)
 
-	------------------------------------------------------------------ Void Assaults
-	header(ns:L("HOME_SECTION_VOID"))
-	local voidZone = ns.GetActiveVoidAssaultZoneName and ns.GetActiveVoidAssaultZoneName() or nil
-	if voidZone then
-		line(ns:L("HOME_VOID_ACTIVE_FMT"):format(voidZone), COLOR_SOFT)
-	else
-		line(ns:L("HOME_VOID_UNKNOWN"), COLOR_DIM)
-	end
-	if ns.IsVoidAssaultWeeklyDone and ns.IsVoidAssaultWeeklyDone() then
-		line(ns:L("HOME_VOID_WEEKLY_DONE"), COLOR_GOOD)
-	else
-		line(ns:L("HOME_VOID_WEEKLY_TODO"), COLOR_WARN)
-	end
-	navLine("world", "TAB_WORLD")
-
-	return rows
+	return blocks
 end
 
 local function AcquireRow(index)
@@ -285,22 +419,91 @@ local function AcquireRow(index)
 
 	row = CreateFrame("Button", nil, ui.child)
 	row:SetHeight(LINE_H)
-	if index == 1 then
-		row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, 0)
-		row:SetPoint("TOPRIGHT", ui.child, "TOPRIGHT", 0, 0)
-	else
-		row:SetPoint("TOPLEFT", rows[index - 1], "BOTTOMLEFT", 0, 0)
-		row:SetPoint("TOPRIGHT", rows[index - 1], "BOTTOMRIGHT", 0, 0)
-	end
 
 	local fs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	fs:SetPoint("LEFT", row, "LEFT", 0, 0)
 	fs:SetPoint("RIGHT", row, "RIGHT", 0, 0)
 	fs:SetJustifyH("LEFT")
+	fs:SetWordWrap(true)
 	row.fs = fs
 
 	rows[index] = row
 	return row
+end
+
+local function ApplyRowSpec(row, spec)
+	local c = spec.color or COLOR_DIM
+	if spec.header then
+		row:SetHeight(HEADER_H)
+		row.fs:SetFontObject(GameFontNormal)
+	else
+		row:SetHeight(LINE_H)
+		row.fs:SetFontObject(GameFontHighlightSmall)
+	end
+	row.fs:SetText(spec.text or "")
+	row.fs:SetTextColor(c[1], c[2], c[3])
+
+	row._mhClick = spec.onClick
+	if spec.onClick then
+		row:EnableMouse(true)
+		row:SetScript("OnClick", function(self)
+			if self._mhClick then
+				self._mhClick()
+			end
+		end)
+		row:SetScript("OnEnter", function(self)
+			self.fs:SetTextColor(1, 1, 1)
+		end)
+		row:SetScript("OnLeave", function(self)
+			local cc = self._mhColor or COLOR_DIM
+			self.fs:SetTextColor(cc[1], cc[2], cc[3])
+		end)
+		row._mhColor = c
+	else
+		row:EnableMouse(false)
+		row:SetScript("OnClick", nil)
+		row:SetScript("OnEnter", nil)
+		row:SetScript("OnLeave", nil)
+	end
+end
+
+local function RowStep(spec)
+	return spec.header and HEADER_H or LINE_H
+end
+
+local function LayoutColumnRow(row, spec, blockY, colY, column, colWidth)
+	local xOff = (column == "right") and (colWidth + COL_GAP) or 0
+	local indent = spec.header and 0 or 0
+	row:ClearAllPoints()
+	row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", xOff + indent, -(blockY + colY))
+	row:SetWidth(colWidth - indent)
+	ApplyRowSpec(row, spec)
+end
+
+local function LayoutFullRow(row, spec, y)
+	row:ClearAllPoints()
+	local indent = spec.header and 0 or 0
+	row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
+	row:SetPoint("TOPRIGHT", ui.child, "TOPRIGHT", 0, -y)
+	ApplyRowSpec(row, spec)
+end
+
+local function LayoutColumnSpecs(specs, blockY, column, colWidth)
+	local colY = 0
+	local rowIndex = ui._layoutRowIndex
+	for i = 1, #specs do
+		local spec = specs[i]
+		if spec.header and colY > 0 then
+			colY = colY + SECTION_GAP
+		end
+		local row = AcquireRow(rowIndex)
+		LayoutColumnRow(row, spec, blockY, colY, column, colWidth)
+		row:Show()
+		colY = colY + RowStep(spec)
+		rowIndex = rowIndex + 1
+	end
+	ui._layoutRowIndex = rowIndex
+	return colY
 end
 
 function ns.RefreshHomePanel()
@@ -313,63 +516,40 @@ function ns.RefreshHomePanel()
 		ui.subtitle:SetText(resetText or ns:L("HOME_RESET_UNKNOWN"))
 	end
 
-	local rows = BuildRows()
+	local childW = ui.child:GetWidth() or 400
+	local colWidth = math.max(80, math.floor((childW - COL_GAP) / 2))
+	local blocks = BuildLayout()
 	local y = 0
-	for i = 1, #rows do
-		local spec = rows[i]
-		local row = AcquireRow(i)
+	local rowIndex = 1
 
-		if spec.header then
-			if i > 1 then
-				y = y + SECTION_GAP
-			end
-			row:ClearAllPoints()
-			row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
-			row:SetPoint("TOPRIGHT", ui.child, "TOPRIGHT", 0, -y)
-			row:SetHeight(HEADER_H)
-			row.fs:SetFontObject(GameFontNormal)
-			row.fs:SetText(spec.text)
-			y = y + HEADER_H
-		else
-			row:ClearAllPoints()
-			row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 10, -y)
-			row:SetPoint("TOPRIGHT", ui.child, "TOPRIGHT", 0, -y)
-			row:SetHeight(LINE_H)
-			row.fs:SetFontObject(GameFontHighlightSmall)
-			row.fs:SetText(spec.text)
-			y = y + LINE_H
+	for b = 1, #blocks do
+		local block = blocks[b]
+		if b > 1 then
+			y = y + SECTION_GAP
 		end
 
-		local c = spec.color or COLOR_DIM
-		row.fs:SetTextColor(c[1], c[2], c[3])
-
-		row._mhClick = spec.onClick
-		if spec.onClick then
-			row:EnableMouse(true)
-			row:SetScript("OnClick", function(self)
-				if self._mhClick then
-					self._mhClick()
+		if block.type == "full" then
+			for i = 1, #block.rows do
+				local spec = block.rows[i]
+				if spec.header and i > 1 then
+					y = y + SECTION_GAP
 				end
-			end)
-			row:SetScript("OnEnter", function(self)
-				self.fs:SetTextColor(1, 1, 1)
-			end)
-			row:SetScript("OnLeave", function(self)
-				local cc = self._mhColor or COLOR_DIM
-				self.fs:SetTextColor(cc[1], cc[2], cc[3])
-			end)
-			row._mhColor = c
-		else
-			row:EnableMouse(false)
-			row:SetScript("OnClick", nil)
-			row:SetScript("OnEnter", nil)
-			row:SetScript("OnLeave", nil)
+				local row = AcquireRow(rowIndex)
+				LayoutFullRow(row, spec, y)
+				row:Show()
+				y = y + RowStep(spec)
+				rowIndex = rowIndex + 1
+			end
+		elseif block.type == "columns" then
+			ui._layoutRowIndex = rowIndex
+			local leftH = LayoutColumnSpecs(block.left or {}, y, "left", colWidth)
+			local rightH = LayoutColumnSpecs(block.right or {}, y, "right", colWidth)
+			rowIndex = ui._layoutRowIndex
+			y = y + math.max(leftH, rightH)
 		end
-
-		row:Show()
 	end
 
-	for i = #rows + 1, #ui.rows do
+	for i = rowIndex, #ui.rows do
 		ui.rows[i]:Hide()
 	end
 
@@ -420,6 +600,9 @@ function ns.BuildHomePanel(panel)
 		local w = scroll:GetWidth()
 		if w and w > 0 then
 			child:SetWidth(w)
+		end
+		if panel:IsShown() then
+			ns.RefreshHomePanel()
 		end
 	end
 	scroll:SetScript("OnSizeChanged", syncWidth)

@@ -302,6 +302,18 @@ local function SaveCurrentSnapshot()
 	if ns.GetDelverCallSnapshotCounts then
 		dcCompleted, dcBanked, dcInProgress, dcTotal = ns.GetDelverCallSnapshotCounts()
 	end
+	local troveStatus, troveInBag = "available", 0
+	if ns.GetTrovehunterSnapshotCounts then
+		troveStatus, troveInBag = ns.GetTrovehunterSnapshotCounts()
+	end
+	local gildedProgress, gildedMax = 0, 4
+	if ns.GetGildedStashSnapshotCounts then
+		gildedProgress, gildedMax = ns.GetGildedStashSnapshotCounts()
+	end
+	local saCompleted, saActive, saMax = 0, 0, 3
+	if ns.GetSpecialAssignmentSnapshotCounts then
+		saCompleted, saActive, saMax = ns.GetSpecialAssignmentSnapshotCounts()
+	end
 	db.charCurrencies[guid] = {
 		name = nm,
 		realm = realm,
@@ -343,6 +355,13 @@ local function SaveCurrentSnapshot()
 		delverBanked = dcBanked,
 		delverInProgress = dcInProgress,
 		delverTotal = dcTotal,
+		troveStatus = troveStatus,
+		troveInBag = troveInBag,
+		gildedProgress = gildedProgress,
+		gildedMax = gildedMax,
+		saCompleted = saCompleted,
+		saActive = saActive,
+		saMax = saMax,
 		ts = time(),
 	}
 	local snap = GetVaultSnapshot()
@@ -965,6 +984,13 @@ function ns:_mhAltOverviewCollectEntries()
 				delverBanked = tonumber(snap.delverBanked) or 0,
 				delverInProgress = tonumber(snap.delverInProgress) or 0,
 				delverTotal = tonumber(snap.delverTotal) or 0,
+				troveStatus = type(snap.troveStatus) == "string" and snap.troveStatus or "available",
+				troveInBag = tonumber(snap.troveInBag) or 0,
+				gildedProgress = tonumber(snap.gildedProgress) or 0,
+				gildedMax = tonumber(snap.gildedMax) or 4,
+				saCompleted = tonumber(snap.saCompleted) or 0,
+				saActive = tonumber(snap.saActive) or 0,
+				saMax = tonumber(snap.saMax) or 3,
 				ts = tonumber(snap.ts) or 0,
 			}
 		end
@@ -1676,6 +1702,7 @@ ev:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 ev:RegisterEvent("WEEKLY_REWARDS_UPDATE")
 ev:RegisterEvent("QUEST_TURNED_IN")
 ev:RegisterEvent("QUEST_LOG_UPDATE")
+ev:RegisterEvent("SCENARIO_COMPLETED")
 ev:SetScript("OnEvent", function(_, event)
 	if not ns.db then
 		return
@@ -1694,6 +1721,8 @@ ev:SetScript("OnEvent", function(_, event)
 		ScheduleSave()
 	elseif event == "QUEST_TURNED_IN" or event == "QUEST_LOG_UPDATE" then
 		-- Keeps Delver's Call counts current; ScheduleSave coalesces the churn.
+		ScheduleSave()
+	elseif event == "SCENARIO_COMPLETED" then
 		ScheduleSave()
 	end
 end)

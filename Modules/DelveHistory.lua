@@ -259,7 +259,36 @@ local runState = {
 	startKeyCount = 0,
 	tier = 0,
 	boss = nil,
+	wasBountiful = false,
 }
+
+local function GetDelveMapID(name)
+	if not name or not ns.MIDNIGHT_DELVES then
+		return nil
+	end
+	for _, row in ipairs(ns.MIDNIGHT_DELVES) do
+		if row[5] == name then
+			return row[2]
+		end
+	end
+	return nil
+end
+
+local function RefreshBountifulSnapshot()
+	if runState.wasBountiful or not runState.delveName then
+		return
+	end
+	if ns.IsDelveBountiful then
+		local mapID = GetDelveMapID(runState.delveName)
+		if ns.IsDelveBountiful(runState.delveName, mapID) then
+			runState.wasBountiful = true
+			local store = GetStore()
+			if store and store.activeRun then
+				store.activeRun.wasBountiful = true
+			end
+		end
+	end
+end
 
 local function GetCurrencyQty(id)
 	if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
@@ -293,6 +322,7 @@ local function BeginDelveRun(name)
 	runState.startKeyCount = GetCurrencyQty(COFFER_KEY_CURRENCY)
 	runState.tier = 0
 	runState.boss = nil
+	runState.wasBountiful = false
 	local store = GetStore()
 	if store then
 		store.activeRun = {
@@ -302,8 +332,10 @@ local function BeginDelveRun(name)
 			deaths = 0,
 			startKeyCount = runState.startKeyCount,
 			tier = 0,
+			wasBountiful = false,
 		}
 	end
+	RefreshBountifulSnapshot()
 	TryCaptureTier()
 end
 
@@ -315,13 +347,14 @@ local function EndDelveRun()
 	runState.startKeyCount = 0
 	runState.tier = 0
 	runState.boss = nil
+	runState.wasBountiful = false
 	local store = GetStore()
 	if store then
 		store.activeRun = nil
 	end
 end
 
-local function LogRun(name, tier, duration, deaths, keyUsed, boss)
+local function LogRun(name, tier, duration, deaths, keyUsed, boss, wasBountiful)
 	local store = GetStore()
 	if not (name and store) then
 		return
@@ -362,6 +395,7 @@ local function LogRun(name, tier, duration, deaths, keyUsed, boss)
 		deaths = deaths or 0,
 		keyUsed = keyUsed and true or false,
 		boss = (boss and boss ~= "") and boss or nil,
+		wasBountiful = wasBountiful and true or false,
 		timestamp = time(),
 	})
 	while #entry.recent > MAX_RECENT do
@@ -430,7 +464,9 @@ local function TryBeginFromCurrentZone(source)
 				runState.startKeyCount = saved.startKeyCount or 0
 				runState.tier = saved.tier or 0
 				runState.boss = nil
+				runState.wasBountiful = saved.wasBountiful and true or false
 				TryCaptureTier()
+				RefreshBountifulSnapshot()
 			else
 				if store then
 					store.activeRun = nil
@@ -439,6 +475,7 @@ local function TryBeginFromCurrentZone(source)
 			end
 		else
 			TryCaptureTier()
+			RefreshBountifulSnapshot()
 		end
 	else
 		-- Unknown name: still track timing/deaths provisionally; completion will
@@ -451,8 +488,10 @@ local function TryBeginFromCurrentZone(source)
 			runState.startKeyCount = GetCurrencyQty(COFFER_KEY_CURRENCY)
 			runState.tier = 0
 			runState.boss = nil
+			runState.wasBountiful = false
 		end
 		TryCaptureTier()
+		RefreshBountifulSnapshot()
 	end
 end
 
@@ -471,11 +510,16 @@ tracker:SetScript("OnEvent", function(_, event, ...)
 	elseif event == "ZONE_CHANGED_NEW_AREA" then
 		TryBeginFromCurrentZone(event)
 	elseif event == "SCENARIO_UPDATE" then
-		-- Once we're in and the tier is captured, skip the expensive re-scan.
-		if runState.inDelve and runState.tier and runState.tier > 0 then
-			return
+		if runState.inDelve then
+			RefreshBountifulSnapshot()
+			if not runState.tier or runState.tier <= 0 then
+				TryBeginFromCurrentZone(event)
+			else
+				TryCaptureTier()
+			end
+		else
+			TryBeginFromCurrentZone(event)
 		end
-		TryBeginFromCurrentZone(event)
 	elseif event == "PLAYER_DEAD" then
 		if runState.inDelve then
 			runState.deaths = runState.deaths + 1
@@ -509,7 +553,8 @@ tracker:SetScript("OnEvent", function(_, event, ...)
 		local keyUsed = (runState.startKeyCount > 0) and (keyNow < runState.startKeyCount) or false
 
 		if matched then
-			LogRun(matched, tier, duration, runState.deaths, keyUsed, runState.boss)
+			RefreshBountifulSnapshot()
+			LogRun(matched, tier, duration, runState.deaths, keyUsed, runState.boss, runState.wasBountiful)
 		end
 		EndDelveRun()
 	end
