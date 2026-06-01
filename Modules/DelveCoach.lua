@@ -220,15 +220,65 @@ local function ResolveActiveDelveEntry()
 	return nil
 end
 
-local function BuildCoachBody(entry)
+local MULTI_BOSS_TIP_SECTIONS = {
+	DELVE_COACH_SEC_BOSS = true,
+	DELVE_COACH_SEC_ROUTE = true,
+	DELVE_COACH_SEC_TRASH = true,
+}
+
+local function BuildCoachBody(entry, opts)
 	if not entry or type(entry.sections) ~= "table" then
-		return ns:L("DELVE_COACH_UNKNOWN")
+		return ns:SafeL("DELVE_COACH_UNKNOWN")
 	end
+	opts = opts or {}
 	local blocks = {}
+	local storyName, bossEntry, storyIdx
+	if entry.id and ns.ResolveDelveStoryBoss then
+		storyName, bossEntry, storyIdx = ns.ResolveDelveStoryBoss(entry.id)
+	end
+	local bossIndex = opts.bossIndex
+	if opts.bossManualOverride and bossIndex then
+		-- manual boss cycle wins
+	elseif storyIdx then
+		bossIndex = storyIdx
+	end
+	local function multiBossDelve(entryId)
+		local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId]
+		return type(bosses) == "table" and #bosses > 1
+	end
+	if opts.live and entry.id then
+		if not bossEntry and ns.TryResolveDelveBossFromUnits then
+			bossEntry = select(1, ns.TryResolveDelveBossFromUnits(entry.id))
+		end
+		if bossEntry and bossEntry.label and storyName then
+			blocks[#blocks + 1] = COLOR_SECTION
+				.. ns:SafeL("DELVE_COACH_ACTIVE_STORY_FMT"):format(storyName, bossEntry.label)
+				.. "|r"
+		elseif bossEntry and bossEntry.label then
+			blocks[#blocks + 1] = COLOR_SECTION
+				.. ns:SafeL("DELVE_COACH_ACTIVE_BOSS_FMT"):format(bossEntry.label)
+				.. "|r"
+		elseif storyName and entry.id == "sunkiller_sanctum" then
+			blocks[#blocks + 1] = COLOR_SECTION
+				.. ns:SafeL("DELVE_COACH_ACTIVE_STORY_NO_BOSS_FMT"):format(storyName)
+				.. "|r"
+		elseif multiBossDelve(entry.id) and not bossEntry then
+			if storyName then
+				blocks[#blocks + 1] = COLOR_SECTION
+					.. ns:SafeL("DELVE_COACH_ACTIVE_STORY_UNKNOWN_BOSS_FMT"):format(storyName)
+					.. "|r"
+			else
+				blocks[#blocks + 1] = COLOR_SECTION .. ns:SafeL("DELVE_COACH_BOSS_PENDING") .. "|r"
+			end
+		end
+	end
 	for i = 1, #entry.sections do
 		local sec = entry.sections[i]
-		local title = ns:L(sec.titleKey or "DELVE_COACH_SEC_OVERVIEW")
-		local body = ns:L(sec.bodyKey or "")
+		local title = ns:SafeL(sec.titleKey or "DELVE_COACH_SEC_OVERVIEW")
+		local body = ns:SafeL(sec.bodyKey or "")
+		if bossIndex and ns.FilterDelveTipBodyForBoss and MULTI_BOSS_TIP_SECTIONS[sec.titleKey] then
+			body = ns.FilterDelveTipBodyForBoss(body, entry.id, bossIndex)
+		end
 		if ns.ExpandDelveTipMarkup then
 			body = ns:ExpandDelveTipMarkup(body)
 		end
@@ -269,8 +319,25 @@ local function UpdateBossShowcase(f, entryId)
 		return
 	end
 
+	local preferAuto = not f._previewMode and not f._bossManualOverride
+	local idx
+	if ns.ResolveDelveBossShowcaseIndex then
+		idx = ns:ResolveDelveBossShowcaseIndex(entryId, preferAuto)
+	end
+	if idx == nil and not preferAuto then
+		idx = (ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId)) or 1
+	end
+	if not idx then
+		panel:Hide()
+		if f._bossPrev then
+			f._bossPrev:Hide()
+		end
+		if f._bossNext then
+			f._bossNext:Hide()
+		end
+		return
+	end
 	panel:Show()
-	local idx = ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId) or 1
 	idx = math.max(1, math.min(#bosses, idx))
 	local boss = bosses[idx]
 	if nameFs then
@@ -290,8 +357,11 @@ local function UpdateBossShowcase(f, entryId)
 	if f._bossNext then
 		f._bossNext:SetShown(#bosses > 1)
 	end
-	if entryId ~= f._bossEntryId and model and ns.ClearDelveBossCreatureModel then
-		ns:ClearDelveBossCreatureModel(model)
+	if entryId ~= f._bossEntryId then
+		f._bossManualOverride = false
+		if model and ns.ClearDelveBossCreatureModel then
+			ns:ClearDelveBossCreatureModel(model)
+		end
 	end
 	if f._bossLoading then
 		f._bossLoading:SetText(ns:L("DELVE_COACH_BOSS_LOADING"))
@@ -315,28 +385,6 @@ local function UpdateBossShowcase(f, entryId)
 	end
 	f._bossEntryId = entryId
 	f._bossShowcaseIndex = idx
-end
-
-local function CycleBossShowcase(f, delta)
-	local entryId = f._bossEntryId
-	if not entryId then
-		return
-	end
-	local bosses = ns.GetDelveBossShowcase and ns:GetDelveBossShowcase(entryId)
-	if not bosses or #bosses < 2 then
-		return
-	end
-	local idx = ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId) or 1
-	idx = idx + (delta or 1)
-	if idx > #bosses then
-		idx = 1
-	elseif idx < 1 then
-		idx = #bosses
-	end
-	if ns.SetDelveBossShowcaseIndex then
-		ns:SetDelveBossShowcaseIndex(entryId, idx)
-	end
-	UpdateBossShowcase(f, entryId)
 end
 
 local function ScrollCoachByDelta(scroll, delta)
@@ -389,6 +437,45 @@ local function LayoutCoachScroll(f, resetScroll)
 	end
 	if resetScroll and scroll.SetVerticalScroll then
 		scroll:SetVerticalScroll(0)
+	end
+end
+
+local function RefreshCoachBody(f, entry, live, resetScroll)
+	if not f or not entry then
+		return
+	end
+	f._bodyText = BuildCoachBody(entry, {
+		live = live,
+		bossIndex = f._bossShowcaseIndex,
+		bossManualOverride = f._bossManualOverride,
+	})
+	LayoutCoachScroll(f, resetScroll == true)
+end
+
+local function CycleBossShowcase(f, delta)
+	local entryId = f._bossEntryId
+	if not entryId then
+		return
+	end
+	local bosses = ns.GetDelveBossShowcase and ns:GetDelveBossShowcase(entryId)
+	if not bosses or #bosses < 2 then
+		return
+	end
+	local idx = ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId) or 1
+	idx = idx + (delta or 1)
+	if idx > #bosses then
+		idx = 1
+	elseif idx < 1 then
+		idx = #bosses
+	end
+	if ns.SetDelveBossShowcaseIndex then
+		ns:SetDelveBossShowcaseIndex(entryId, idx)
+	end
+	f._bossManualOverride = true
+	UpdateBossShowcase(f, entryId)
+	local entry = ns.GetDelveTipEntryById and ns.GetDelveTipEntryById(entryId)
+	if entry then
+		RefreshCoachBody(f, entry, not f._previewMode)
 	end
 end
 
@@ -1047,6 +1134,27 @@ local function EnsureCoachFrame()
 	return f
 end
 
+local function RefreshDelveCoachLiveContent()
+	if not coachFrame or not currentEntryId then
+		return
+	end
+	local entry = ns.GetDelveTipEntryById and ns.GetDelveTipEntryById(currentEntryId)
+	if not entry then
+		return
+	end
+	if coachFrame._previewMode then
+		return
+	end
+	if ns.RefreshDelveStorySnapshot then
+		if ns.PrimeDelveStoryPoiCache then
+			ns.PrimeDelveStoryPoiCache(currentEntryId)
+		end
+		ns.RefreshDelveStorySnapshot(currentEntryId)
+	end
+	RefreshCoachBody(coachFrame, entry, true)
+	UpdateBossShowcase(coachFrame, currentEntryId)
+end
+
 function ns:RefreshDelveCoachLocale()
 	if not coachFrame then
 		return
@@ -1089,13 +1197,15 @@ function ns:ShowDelveCoach(entryId, options)
 		f._previewMode = isPreview
 		f._userDismissed = false
 
+		if ns.PrimeDelveStoryPoiCache then
+			ns.PrimeDelveStoryPoiCache(entryId)
+		end
 		local tag = isPreview and (" " .. self:L("DELVE_COACH_PREVIEW_TAG")) or ""
 		local delveLabel = (ns.GetDelveTipDisplayName and ns:GetDelveTipDisplayName(entry)) or entry.rosterName or ""
 		f._title:SetText(self:L("DELVE_COACH_TITLE") .. " — " .. delveLabel .. tag)
-		f._bodyText = BuildCoachBody(entry)
-		ApplyCoachSize(f)
 		UpdateBossShowcase(f, entryId)
-		LayoutCoachScroll(f, true)
+		RefreshCoachBody(f, entry, not isPreview, true)
+		ApplyCoachSize(f)
 
 		ApplySavedPoint(f)
 		if isPreview then
@@ -1266,10 +1376,36 @@ local function OnDelveStateTick()
 		elseif ns.MaybeAutoShowDelveItemsPopup then
 			ns:MaybeAutoShowDelveItemsPopup()
 		end
+		local entry = ResolveActiveDelveEntry()
+		if not entry and ns.GetActiveDelveTipEntryForPlayer then
+			entry = ns:GetActiveDelveTipEntryForPlayer()
+		end
+		if entry and entry.id and ns.RefreshDelveStorySnapshot then
+			if ns.PrimeDelveStoryPoiCache then
+				ns.PrimeDelveStoryPoiCache(entry.id)
+			end
+			ns.RefreshDelveStorySnapshot(entry.id)
+			if C_Timer and C_Timer.After then
+				local entryId = entry.id
+				C_Timer.After(0.5, function()
+					if ns.RefreshDelveStorySnapshot then
+						ns.RefreshDelveStorySnapshot(entryId)
+					end
+				end)
+				C_Timer.After(2, function()
+					if ns.RefreshDelveStorySnapshot then
+						ns.RefreshDelveStorySnapshot(entryId)
+					end
+				end)
+			end
+		end
 	end
 	if not inDelve and wasInDelve then
 		ns:HideDelveCoach(false)
 		currentEntryId = nil
+		if ns.ClearDelveStoryPoiCache then
+			ns.ClearDelveStoryPoiCache()
+		end
 		if coachFrame then
 			coachFrame._previewMode = false
 		end
@@ -1326,8 +1462,31 @@ ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("ZONE_CHANGED")
 ev:RegisterEvent("ZONE_CHANGED_INDOORS")
 ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-ev:SetScript("OnEvent", function()
+ev:RegisterEvent("SCENARIO_UPDATE")
+ev:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
+ev:RegisterEvent("UNIT_TARGET")
+local function PrimeDelveStoriesIfIdle()
+	if ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress() then
+		return
+	end
+	if ns.PrimeAllDelveStoryPoiCaches then
+		ns.PrimeAllDelveStoryPoiCaches()
+	end
+end
+ev:SetScript("OnEvent", function(_, event, unit)
+	if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED" or event == "ZONE_CHANGED_NEW_AREA" then
+		if C_Timer and C_Timer.After then
+			C_Timer.After(1, PrimeDelveStoriesIfIdle)
+		else
+			PrimeDelveStoriesIfIdle()
+		end
+	end
 	OnDelveStateTick()
+	if event == "SCENARIO_UPDATE" or event == "SCENARIO_CRITERIA_UPDATE" then
+		RefreshDelveCoachLiveContent()
+	elseif event == "UNIT_TARGET" and (not unit or unit == "player") then
+		RefreshDelveCoachLiveContent()
+	end
 end)
 ev:SetScript("OnUpdate", function(self, elapsed)
 	-- Avoid a permanent 1s tick when the coach is disabled/hidden.

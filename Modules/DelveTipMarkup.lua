@@ -77,6 +77,10 @@ function ns:ExpandDelveTipMarkup(text)
 		return self:GetItemLinkMarkup(tonumber(id))
 	end)
 
+	if ns.SanitizeUIFontText then
+		text = ns.SanitizeUIFontText(text)
+	end
+
 	return text
 end
 

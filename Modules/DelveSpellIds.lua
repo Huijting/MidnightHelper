@@ -52,9 +52,6 @@ ns.DELVE_SPELL_IDS = {
 	solar_charge = 1265262,
 	bloom_thorn = 1265326,
 	blinding_burst = 1265320,
-	fungalstorm = 415404,
-	fungsplosion = 425315,
-	fungal_charge = 415494,
 	rancid_rain = 1264553,
 	fungis_fist = 1264111,
 	fling_chair = 1264310,
@@ -84,4 +81,7 @@ ns.DELVE_SPELL_FALLBACK = {
 	void_bolt_patram = "Void Bolt",
 	dread_portal = "Dread Portal",
 	twilight_seekers = "Twilight Seekers",
+	fungalstorm = "Fungalstorm",
+	fungsplosion = "Fungsplosion",
+	fungal_charge = "Fungal Charge",
 }

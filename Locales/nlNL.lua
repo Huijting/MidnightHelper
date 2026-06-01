@@ -792,6 +792,11 @@ ns._mhLocales.nlNL = {
 	PROFGUIDE_SEC_LEATHERWORKING_BODY = "|cffffcc00Wat het doet|r|nMaakt van leather |cffffff00leather armor|r voor leather-klassen (Druid, Monk, Rogue, enz.).|n|n|cffffcc00Goede combo|r|n|cffffff00Skinning|r op hetzelfde personage of een farm-alt.|n|n|cffffcc00Week 1 checklist|r|n|n• Leer Leatherworking.|n• Eerste-craft goedkope recepten.|n• Weekly quest + Patron Orders.|n• Kies leather vs mail in specs (wat je draagt of wat verkoopt).|n|n|cffffcc00KP — voor jezelf|r|n|n• Craft upgrades voor |cffffff00je eigen slots|r tijdens levelen.|n|n|cffffcc00KP — voor goud|r|n|n• Endgame |cffffff00leather pieces|r kunnen verkopen aan spelers die gear vervangen.|n• Kijk welke slots op de AH schaars zijn.|n|n|cffffcc00Crafting orders|r|nPublic orders voor populaire leather items in Silvermoon — goed met hoge quality.",
 
 	DELVE_COACH_TITLE = "Delve Coach",
+	DELVE_COACH_ACTIVE_STORY_FMT = "Story vandaag: %s -> Baas: %s",
+	DELVE_COACH_ACTIVE_STORY_NO_BOSS_FMT = "Story vandaag: %s -> Geen eindbaas (maak objectives af)",
+	DELVE_COACH_ACTIVE_STORY_UNKNOWN_BOSS_FMT = "Story vandaag: %s -> Eindbaas: nog onbekend (volg objectives)",
+	DELVE_COACH_BOSS_PENDING = "Eindbaas nog niet herkend — hover het delve-icoon op de wereldkaart voor de story van vandaag.",
+	DELVE_COACH_ACTIVE_BOSS_FMT = "Baas vandaag: %s",
 	DELVE_COACH_SEC_OVERVIEW = "Overzicht",
 	DELVE_COACH_SEC_ROUTE = "Route",
 	DELVE_COACH_SEC_TRASH = "Trash en mechanics",

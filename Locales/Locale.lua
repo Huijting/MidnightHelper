@@ -297,8 +297,7 @@ function ns:PrintChatKey(key, ...)
 end
 
 --- Game fonts often miss Unicode arrows/dashes; use for player-visible strings in UI.
-function ns:SafeL(key)
-	local s = self:L(key)
+function ns.SanitizeUIFontText(s)
 	if type(s) ~= "string" then
 		return s
 	end
@@ -309,6 +308,14 @@ function ns:SafeL(key)
 		:gsub("→", "->")
 		:gsub("—", "-")
 		:gsub("–", "-")
+end
+
+function ns:SafeL(key)
+	local s = self:L(key)
+	if type(s) ~= "string" then
+		return s
+	end
+	return ns.SanitizeUIFontText(s)
 end
 
 function ns:NormalizeLocaleInput(arg)

@@ -794,6 +794,11 @@ ns._mhLocales.enUS = {
 	PROFGUIDE_SEC_LEATHERWORKING_BODY = "|cffffcc00What it does|r|nTurns leather into |cffffff00leather armor|r and gear for leather users (Druids, Monks, Rogues, etc.).|n|n|cffffcc00Good combo|r|n|cffffff00Skinning|r on the same character or a gather-alt.|n|n|cffffcc00Week 1 checklist|r|n|n• Learn Leatherworking.|n• First-craft cheap recipes.|n• Weekly quest + Patron Orders.|n• Choose armor type: |cffffff00leather|r vs |cffffff00mail|r paths in specs (pick what you wear or what sells).|n|n|cffffcc00Where to spend KP — for yourself|r|n|n• Craft gear upgrades for your |cffffff00own slots|r as you level.|n|n|cffffcc00Where to spend KP — for gold|r|n|n• Endgame |cffffff00crafted leather pieces|r can sell to players replacing gear.|n• Check which slots are weak on the AH before you specialize.|n|n|cffffcc00Crafting orders|r|nPublic orders for popular leather items appear in Silvermoon — good once your quality is high enough.",
 
 	DELVE_COACH_TITLE = "Delve Coach",
+	DELVE_COACH_ACTIVE_STORY_FMT = "Today's story: %s -> Boss: %s",
+	DELVE_COACH_ACTIVE_STORY_NO_BOSS_FMT = "Today's story: %s -> No final boss (finish objectives)",
+	DELVE_COACH_ACTIVE_STORY_UNKNOWN_BOSS_FMT = "Today's story: %s -> Final boss: unknown (follow objectives)",
+	DELVE_COACH_BOSS_PENDING = "Final boss not detected yet — hover the delve icon on your world map for today's story.",
+	DELVE_COACH_ACTIVE_BOSS_FMT = "Today's boss: %s",
 	DELVE_COACH_SEC_OVERVIEW = "Overview",
 	DELVE_COACH_SEC_ROUTE = "Route",
 	DELVE_COACH_SEC_TRASH = "Trash & mechanics",

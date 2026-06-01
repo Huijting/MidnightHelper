@@ -831,6 +831,9 @@ local function GetDelvePoiState(itemName, mapID, poiRefId)
 		for _, pID in ipairs(list) do
 			local okInfo, pInfo = pcall(C_AreaPoiInfo.GetAreaPOIInfo, zMap, pID)
 			if okInfo and pInfo and refId and tonumber(pID) == refId then
+				if ns.CacheDelveStoryFromAreaPoi then
+					ns.CacheDelveStoryFromAreaPoi(refId, pInfo)
+				end
 				isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex =
 					absorbPoiInfo(isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex, pInfo)
 				return isBountiful, bountifulAtlas, bountifulTextureKit, delveAtlas, delveTextureKit, delveTextureIndex

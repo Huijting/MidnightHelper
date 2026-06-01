@@ -38,7 +38,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DELVE_TIP_SHADOW_ENCLAVE_BOSS = "• Interrupt {SPELL:@shadow_bolt} whenever you can.|n• Teleports leave a damaging puddle — keep him near the center.|n• {SPELL:@shadowveil_annihilation}: lethal channel — destroy 3 Shadow Orbs (only the unshielded orb takes damage; each kill unshields the next).|n• All orbs dead breaks his shield, stops the channel, and he takes extra damage briefly.|n• Save burst for orbs; Valeera helps break them.",
 
 	-- Collegiate Calamity
-	DELVE_TIP_COLLEGIATE_CALAMITY_OVERVIEW = "• Northwest Silvermoon / Eversong Woods (Thalassian University).|n• Academy Under Siege: void portals.|n• Faculty of Fear: disguised Twilight's Blade.|n• Invasive Glow: Lightbloom + Deweeder.|n• Three different final bosses.",
+	DELVE_TIP_COLLEGIATE_CALAMITY_OVERVIEW = "• Northwest Silvermoon / Eversong Woods (Thalassian University).|n• Academy Under Siege -> Voidscorned Vagrant.|n• Faculty of Fear -> Infiltrator Garand.|n• Invasive Glow -> Hydrangea.",
 	DELVE_TIP_COLLEGIATE_CALAMITY_ROUTE = "• Under Siege: close void portals and kill Devouring Host.|n• Faculty of Fear: Eye of Revelation — suspicious students glow yellow through walls.|n• Invasive Glow: Deweeder kills small Lightbloom and damages large ones.|n• Clear Luminibulb patches on the main level.",
 	DELVE_TIP_COLLEGIATE_CALAMITY_TRASH = "• Under Siege: prioritize portal closers.|n• Faculty: reveal disguised students, then kill before they ambush.|n• Glow: channel Deweeder while moving.|n• Do not skip Luminibulb patches or the run drags.",
 	DELVE_TIP_COLLEGIATE_CALAMITY_BOSS = "• Hydrangea (Glow): kill {SPELL:@wildroot_weave} roots before {SPELL:@lightbloom_salvo}; dodge light zones.|n• Garand (Faculty): dodge {SPELL:@shadow_laceration} or use a defensive; spread for {SPELL:@twilight_crash} jumps.|n• Voidscorned Vagrant (Siege): sidestep {SPELL:@void_eruption}; always interrupt {SPELL:@terrifying_power}.",
@@ -74,10 +74,10 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DELVE_TIP_GULF_OF_MEMORY_BOSS = "• Lumenia: kill {SPELL:@radiant_command} add before it reaches you (explodes).|n• Dodge {SPELL:@searing_light} patches unless using them on the add.|n• Mul'tha'ul: interrupt or dispel {SPELL:@hopeless_curse}.|n• Kite away from {SPELL:@tear_it_down} tentacles.|n• Keep distance during {SPELL:@unanswered_call} (high damage, slow walk).",
 
 	-- The Grudge Pit
-	DELVE_TIP_GRUDGE_PIT_OVERVIEW = "• Southeast Harandar.|n• Arena-themed delve with three variants.|n• Bosses: Brightthorn, Gyrospore, Mycomight.",
+	DELVE_TIP_GRUDGE_PIT_OVERVIEW = "• Southeast Harandar.|n• Lightbloom Invasion -> Brightthorn.|n• Arena Champion -> Gyrospore.|n• Dastardly Rotstalk -> Mycomight.",
 	DELVE_TIP_GRUDGE_PIT_ROUTE = "• Arena Champion: wave arena fights (Sporbits help).|n• Dastardly Rotstalk: heel role — punt fans, taunt crowd (can move while taunting).|n• Lightbloom Invasion: waves, free fighters to blow up spawn points, build defenses.",
 	DELVE_TIP_GRUDGE_PIT_TRASH = "• Arena: use Sporbits for damage.|n• Invasion: clear waves before boss.|n• Rotstalk: keep crowd control — fans hurt if ignored.",
-	DELVE_TIP_GRUDGE_PIT_BOSS = "• Brightthorn: sidestep {SPELL:@solar_charge} and Overbloom zones; interrupt Bloom Thorn; turn away before {SPELL:@blinding_burst}.|n• Gyrospore: dodge {SPELL:@fungalstorm} zones, then burst during 10s dizzy; step back from Fungsplosion; sidestep Fungal Charge.|n• Mycomight: drop Rancid Rain puddles away from fight area; dodge Fungi's Fist shockwaves; sidestep Fling Chair.",
+	DELVE_TIP_GRUDGE_PIT_BOSS = "• Brightthorn: sidestep {SPELL:@solar_charge} (leaves Overbloom zones); interrupt {SPELL:@bloom_thorn}; turn away before {SPELL:@blinding_burst}.|n• Gyrospore: dodge {SPELL:@fungalstorm} zones, then burst during 10s dizzy; step back from {SPELL:@fungsplosion}; sidestep {SPELL:@fungal_charge}.|n• Mycomight: drop {SPELL:@rancid_rain} puddles away from fight area; dodge {SPELL:@fungis_fist} shockwaves; sidestep {SPELL:@fling_chair}.",
 
 	-- Sunkiller Sanctum
 	DELVE_TIP_SUNKILLER_SANCTUM_OVERVIEW = "• East Voidstorm (Voidspire entrance).|n• Three variants; Esuritus is final boss on two.|n• Not What I Expected: no boss — ends after 3 Corrupted Umbraroot kills.",
@@ -174,7 +174,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_TIP_SHADOW_ENCLAVE_BOSS = "• Onderbreek {SPELL:@shadow_bolt} zoveel mogelijk.|n• Bij teleport blijft een schadende plas achter — houd hem bij voorkeur centraal.|n• {SPELL:@shadowveil_annihilation}: dodelijke channel — vernietig 3 Shadow Orbs (alleen de orb zonder schild kan schade krijgen).|n• Alle orbs dood = schild weg, channel stopt, baas neemt kort extra schade.|n• Bewaar burst voor de orbs; Valeera helpt ze sneller te breken.",
 
 	-- Collegiate Calamity
-	DELVE_TIP_COLLEGIATE_CALAMITY_OVERVIEW = "• Noordwest Silvermoon / Eversong Woods (Thalassian University).|n• Academy Under Siege: void-portals.|n• Faculty of Fear: vermomde Twilight's Blade.|n• Invasive Glow: Lightbloom + Deweeder.|n• Drie verschillende eindbazen.",
+	DELVE_TIP_COLLEGIATE_CALAMITY_OVERVIEW = "• Noordwest Silvermoon / Eversong Woods (Thalassian University).|n• Academy Under Siege -> Voidscorned Vagrant.|n• Faculty of Fear -> Infiltrator Garand.|n• Invasive Glow -> Hydrangea.",
 	DELVE_TIP_COLLEGIATE_CALAMITY_ROUTE = "• Under Siege: sluit void-portals en kill Devouring Host.|n• Faculty of Fear: Eye of Revelation — verdachte studenten gloeien geel door muren.|n• Invasive Glow: Deweeder voor kleine Lightbloom, schade aan grote.|n• Verwijder Luminibulb-patches op het hoofdniveau.",
 	DELVE_TIP_COLLEGIATE_CALAMITY_TRASH = "• Under Siege: prioriteit op portals sluiten.|n• Faculty: eerst onthullen, dan studenten killen vóór de ambush.|n• Glow: Deweeder kan je tijdens lopen channelen.|n• Haal Luminibulb-patches niet over.",
 	DELVE_TIP_COLLEGIATE_CALAMITY_BOSS = "• Hydrangea (Glow): kap {SPELL:@wildroot_weave}-roots vóór {SPELL:@lightbloom_salvo}; ontwijk lichtzones.|n• Garand (Faculty): ontwijk {SPELL:@shadow_laceration} of gebruik defensive; spreid voor {SPELL:@twilight_crash}.|n• Voidscorned Vagrant (Siege): ontwijk {SPELL:@void_eruption}; onderbreek {SPELL:@terrifying_power} altijd.",
@@ -210,10 +210,10 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_TIP_GULF_OF_MEMORY_BOSS = "• Lumenia: kill {SPELL:@radiant_command}-add vóór hij je bereikt (explodeert).|n• Ontwijk {SPELL:@searing_light}, tenzij je de add daarmee killt.|n• Mul'tha'ul: onderbreek of dispel {SPELL:@hopeless_curse}.|n• Kit weg van {SPELL:@tear_it_down}-tentakels.|n• Afstand tijdens {SPELL:@unanswered_call}.",
 
 	-- The Grudge Pit
-	DELVE_TIP_GRUDGE_PIT_OVERVIEW = "• Zuidoost Harandar.|n• Arena-delve met drie varianten.|n• Eindbazen: Brightthorn, Gyrospore, Mycomight.",
+	DELVE_TIP_GRUDGE_PIT_OVERVIEW = "• Zuidoost Harandar.|n• Lightbloom Invasion -> Brightthorn.|n• Arena Champion -> Gyrospore.|n• Dastardly Rotstalk -> Mycomight.",
 	DELVE_TIP_GRUDGE_PIT_ROUTE = "• Arena Champion: golven arena (Sporbits helpen).|n• Dastardly Rotstalk: heel-rol — schop fans, taunt crowd (bewegen tijdens taunt kan).|n• Lightbloom Invasion: golven, bevrijd fighters voor spawn-points, bouw verdediging.",
 	DELVE_TIP_GRUDGE_PIT_TRASH = "• Arena: gebruik Sporbits voor damage.|n• Invasion: clear golven vóór de baas.|n• Rotstalk: crowd niet negeren.",
-	DELVE_TIP_GRUDGE_PIT_BOSS = "• Brightthorn: ontwijk {SPELL:@solar_charge} en Overbloom; onderbreek Bloom Thorn; draai weg vóór {SPELL:@blinding_burst}.|n• Gyrospore: ontwijk {SPELL:@fungalstorm}, burst tijdens 10s dizzy; stap terug voor Fungsplosion; ontwijk Fungal Charge.|n• Mycomight: Rancid Rain weg van fight-zone; ontwijk Fungi's Fist; ontwijk Fling Chair.",
+	DELVE_TIP_GRUDGE_PIT_BOSS = "• Brightthorn: ontwijk {SPELL:@solar_charge} (laat Overbloom-zones achter); onderbreek {SPELL:@bloom_thorn}; draai weg vóór {SPELL:@blinding_burst}.|n• Gyrospore: ontwijk {SPELL:@fungalstorm}, burst tijdens 10s dizzy; stap terug voor {SPELL:@fungsplosion}; ontwijk {SPELL:@fungal_charge}.|n• Mycomight: {SPELL:@rancid_rain} weg van fight-zone; ontwijk {SPELL:@fungis_fist}; ontwijk {SPELL:@fling_chair}.",
 
 	-- Sunkiller Sanctum
 	DELVE_TIP_SUNKILLER_SANCTUM_OVERVIEW = "• Oost Voidstorm (Voidspire-ingang).|n• Drie varianten; Esuritus is eindbaas op twee.|n• Not What I Expected: geen baas — eindigt na 3 Corrupted Umbraroot.",

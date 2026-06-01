@@ -106,6 +106,7 @@ local DEFAULT_DB = {
 			height = 480,
 			bossIndex = {},
 			bossCam = {},
+			storyDaily = {},
 			point = "RIGHT",
 			relPoint = "RIGHT",
 			x = -36,
