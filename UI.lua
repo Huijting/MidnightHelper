@@ -209,7 +209,7 @@ local MH_BETA_TAB_IDS = {
 -- buttons do not exist yet (home, ritual) are skipped during layout, which
 -- reserves their slot for later phases without breaking the current build.
 local SIDEBAR_SECTIONS = {
-	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "delves", "rares", "world" } },
+	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "codex", "home", "delves", "rares", "world" } },
 	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "professions", "consumables" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "reference", "smcguide", "academy", "macros" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
@@ -250,7 +250,9 @@ local function MHAttachTabBetaBadge(btn, tabId)
 end
 
 local function MHGetInfoBodyKeyForTab(tabId)
-	if tabId == "home" then
+	if tabId == "codex" then
+		return "INFO_DRAWER_BODY_CODEX"
+	elseif tabId == "home" then
 		return "INFO_DRAWER_BODY_HOME"
 	elseif tabId == "delves" then
 		return "INFO_DRAWER_BODY_DELVES"
@@ -1197,6 +1199,7 @@ end
 -- Tab configuration: order = display order in the sidebar
 --------------------------------------------------------------------------------
 local TAB_DEFS = {
+	{ id = "codex", labelKey = "TAB_CODEX" },
 	{ id = "home", labelKey = "TAB_HOME" },
 	{ id = "delves", labelKey = "TAB_DELVES" },
 	{ id = "account", labelKey = "TAB_ACCOUNT_SNAPSHOT" },
@@ -1567,10 +1570,13 @@ function ns:EnsureMainUI()
 			infoBody:SetText(self:L("ABOUT_VERSION_FMT"):format(ver) .. "\n\n" .. self:L("ABOUT_WINDOW_BODY"))
 		else
 			local keyById = {
+				codex = "TAB_CODEX",
 				home = "TAB_HOME",
 				delves = "TAB_DELVES",
-				account = "TAB_ACCOUNT_SNAPSHOT",
+				world = "TAB_WORLD",
+				delvelog = "TAB_DELVE_LOG",
 				rares = "TAB_RARES",
+				account = "TAB_ACCOUNT_SNAPSHOT",
 				reference = "TAB_REFERENCE",
 				smcguide = "TAB_SMC",
 				professions = "TAB_PROFESSIONS",
@@ -1695,6 +1701,8 @@ function ns:EnsureMainUI()
 				ns.BuildReferenceGuidePanel(panel)
 			elseif tab.id == "rares" and ns.BuildRaresPanel then
 				ns.BuildRaresPanel(panel)
+			elseif tab.id == "codex" and ns.BuildCodexPanel then
+				ns.BuildCodexPanel(panel)
 			elseif tab.id == "home" and ns.BuildHomePanel then
 				ns.BuildHomePanel(panel)
 			elseif tab.id == "world" and ns.BuildWorldPanel then
@@ -2149,6 +2157,9 @@ SelectTab = function(tabId)
 		ns.RefreshRaresPanel()
 	end
 
+	if tabId == "codex" and ns.RefreshCodexPanel then
+		ns.RefreshCodexPanel()
+	end
 	if tabId == "home" and ns.RefreshHomePanel then
 		ns.RefreshHomePanel()
 	end

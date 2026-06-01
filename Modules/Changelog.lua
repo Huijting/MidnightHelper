@@ -4,6 +4,17 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "1.5.0",
+		lines = {
+			"CHANGELOG_150_1",
+			"CHANGELOG_150_2",
+			"CHANGELOG_150_3",
+			"CHANGELOG_150_4",
+			"CHANGELOG_150_5",
+			"CHANGELOG_150_6",
+		},
+	},
+	{
 		version = "1.4.0",
 		lines = {
 			"CHANGELOG_140_1",
@@ -107,7 +118,9 @@ local function BuildChangelogBodyText()
 		local head = COLOR_SECTION .. ns:L("CHANGELOG_VERSION_FMT"):format(e.version) .. ":|r"
 		local lines = { head }
 		for j = 1, #(e.lines or {}) do
-			lines[#lines + 1] = COLOR_BULLET .. "- " .. ns:L(e.lines[j]) .. "|r"
+			local lineKey = e.lines[j]
+			local lineText = (ns.SafeL and ns:SafeL(lineKey)) or ns:L(lineKey)
+			lines[#lines + 1] = COLOR_BULLET .. "- " .. lineText .. "|r"
 		end
 		blocks[#blocks + 1] = table.concat(lines, "\n")
 	end

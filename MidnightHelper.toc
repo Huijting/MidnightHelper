@@ -24,6 +24,7 @@ Modules\GuideTipText.lua
 Locales\GuideGroups.lua
 Locales\GuideAdvisor.lua
 Locales\DelveTips.lua
+Locales\Codex.lua
 Locales\Locale.lua
 Modules\DelveTipsData.lua
 Modules\DelveSpellIds.lua
@@ -74,6 +75,8 @@ Modules\DelveCoach.lua
 Modules\DelverCallData.lua
 Modules\AccountWeeklyChecklist.lua
 Modules\AltOverview.lua
+Modules\MidnightCodexData.lua
+Modules\MidnightCodex.lua
 Modules\HomeDashboard.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua

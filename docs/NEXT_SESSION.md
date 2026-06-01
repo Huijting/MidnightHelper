@@ -1,106 +1,74 @@
 # Next session — Midnight Helper
 
-**Laatste update:** 2026-05-29  
-**CurseForge:** klaar voor upload **1.5.0** (zip gebouwd, changelog + beschrijving bijgewerkt)
+**Laatste update:** 2026-06-01  
+**Branch:** `main` (na pull: Codex + changelog-fixes)
 
 ---
 
-## Release 1.5.0 — status (2026-05-29)
+## Op de PC boven (start hier)
 
-### ✅ Prep af (code gepusht, commit `43aefd9`)
+1. **Repo ophalen** (de WoW-addonmap heeft **geen** `.git` — alleen bestanden):
 
-- **Home "This Week"-dashboard** (`Modules/HomeDashboard.lua`): standaard-tab; weekly reset-countdown, account-wide Great Vault, world boss, weekly chores (SMC/keys/shards), Rares-shortcut
-- **Rares-tab** (`Modules/Rares.lua`): per-character weekly tracking; nearest + greedy route op **world-coördinaten (yards)**; TomTom crazy-arrow blijft op dichtstbijzijnde waypoint
-- **Live rare-alerts**: geluid + toast ook met venster dicht (`C_VignetteInfo`), afstandsgated (~500 yds), klik = extra waypoint zonder route te wissen; toggle in settings
-- **Sidebar** in secties; "Reference" → "Basics"; dynamische min-hoogte tegen overlap
-- `.toc` → **1.5.0**, `CHANGELOG.md` 1.5.0-sectie, `CURSEFORGE_DESCRIPTION.md` bijgewerkt
-- Zip: `dist/MidnightHelper-1.5.0.zip` (geverifieerd: root `MidnightHelper/`, geen docs/tools/dev)
+   ```powershell
+   cd $HOME\MidnightHelper-repo
+   git pull
+   ```
 
-### 🔜 Handmatige CF-upload (te doen)
+   Of clone opnieuw en kopieer naar WoW:
 
-1. In-game smoke test met deze build (`/reload`, geen Lua-fouten, Home default, Rares-route + alert)
-2. Upload `dist/MidnightHelper-1.5.0.zip` op CF-projectpagina
-3. Game-versie passend bij Interface **120005**; release type = Release
-4. 1.5.0-changelog plakken in upload-veld; projectbeschrijving updaten
-5. Verse screenshots (Home, Rares, alert-popup)
+   ```powershell
+   git clone https://github.com/Huijting/MidnightHelper.git $HOME\MidnightHelper-repo
+   robocopy $HOME\MidnightHelper-repo "C:\Program Files (x86)\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper" /E /XD .git
+   ```
 
----
+2. **In-game test** (`/reload`):
 
-## CF-talen (6) — status
+   - **Midnight Codex** — categorieknoppen (geen overlap), tekst zonder □ (`Home -> This Week`).
+   - **Changelog-popup** — bovenaan **Versie 1.5.0** met Home/Rares/alert-bullets (niet meer alleen 1.4.0).
+   - `/mh codex` of zoek `wiki` / `start here`.
 
-| Taal | B | C | Volgende |
-|------|---|---|----------|
-| enUS / nlNL | ✅ | ✅ | polish NL |
-| deDE / frFR / esES | ✅ | ✅ | polish + in-game |
-| ptBR | ✅ | ✅ | polish + in-game ptBR |
-
-**Geen ruRU** — bewust buiten scope; Russische WoW-clients vallen terug op `enUS` via `/mh lang auto`.
+3. **CurseForge** — 1.5.0 staat live; volgende upload kan **1.5.1** zijn met:
+   - in-game changelog 1.5.0-tekst (nu in code),
+   - Midnight Codex (nog niet in CF-release notes tenzij je meeneemt).
 
 ---
 
-## Vault Advisor + Reminder — status (2026-05-27)
+## Deze sessie (2026-06-01) — gedaan
 
-### ✅ Af (fase 1, in-game getest)
+| Onderdeel | Status |
+|-----------|--------|
+| **Midnight Codex** | Nieuw tabblad: Start Here, weekly, currencies, delves, dungeons, raid, world, professions; EN+NL; zoekkeywords |
+| **Codex UI** | Dynamische categorieknoppen + wrap; `SafeL` / `->` i.p.v. □ |
+| **In-game changelog** | `CHANGELOG_150_*` + `Changelog.lua` 1.5.0-blok (CF-website had al goede tekst; popup niet) |
+| **Git** | Gecommit + gepusht naar `main` |
 
-- **Vault Advisor** (`Modules/VaultAdvisor.lua`): `C_WeeklyRewards`, ranking vs **equipped**, ilvl dominant, tier-waarschuwing, unique, token-footnote, Delves-tab host
-- **Guide-stats alle 39 specs** (Icy Veins widget, patch 12.0.5) + Wowhead-links in metadata
-- **Shaman hero overrides**: Totemic / Stormbringer / Farseer (Enhancement + Elemental)
-- **Vault Reminder**: chat, minimap, pulse, login-popup + TomTom waypoint (Silvermoon vault)
-- **Blizzard vault banner** — advies op `WeeklyRewardsFrame` (echte claim-UI), ook als MH dicht is; instelbaar aan/uit
-- **Data pipeline**: `data/vault_stat_catalog.json` → `tools/fetch_vault_stat_priorities.py` → `tools/generate_vault_stat_weights.py` → `Modules/VaultAdvisorData.lua`
+---
 
-### ✅ Fase 2 (2026-05-27)
+## Release 1.5.0 op CF — al live
 
-- **Pawn** — scores via `PawnGetItemData` + actieve scale (instelbaar)
-- **Instellingen** — popup, Pawn, M+ profiel in Broker quick settings
-- **Hero trees** — labels voor alle SubTreeIDs; fetch voor o.a. Blood DK, Enhancement
-- **Raid vs M+** — `_MPLUS` keys voor healers; auto bij dungeon-vault of instelling
+- Home, Rares, live alerts, sidebar — zie `CHANGELOG.md` [1.5.0].
+- CF-upload changelog-veld = website; **in-game popup** was achter tot bovenstaande fix.
 
-### 🔜 Later
+---
 
-- Meer hero-spec entries waar Icy Veins geen aparte widget heeft (Arms Colossus/Slayer — zelfde priority op IV)
+## Backlog (optioneel)
 
-### ✅ Extra (2026-05-27)
+1. Codex: DE/FR/ES/PT body (nu EN fallback) of korte CF-note bij 1.5.1.
+2. Professions-gids fase 1+2 in-game testen (EN/NL).
+3. Zip bouwen: `tools\package.ps1` → `dist\MidnightHelper-1.5.1.zip` vóór CF-upload.
 
-- **Zijpaneel toggle** in quick settings (`showBlizzardPanel`)
-- **Vault Advisor alleen zijpaneel** — Delves-tab ranking verwijderd
-- **Hero stat-gewichten** — 18 extra hero entries (70 totaal) via Icy Veins multi-widget specs
-- **i18n Vault Advisor** — de/fr/es/pt + EN/NL
+---
 
-### Test Vault Advisor
+## Snelle commands
 
 ```text
 /reload
+/mh codex
+/mh changelog
 ```
 
-Delves-tab → **Weekly Great Vault** → open echte claim-UI bij vault in wereld (niet alleen SHIFT-J overzicht). Check: guide-regel, ranking, `+N ilvl vs equipped`, tier-note.
-
-### Data verversen na patch
-
-```bash
-python tools/fetch_vault_stat_priorities.py
-python tools/generate_vault_stat_weights.py
+```powershell
+cd $HOME\MidnightHelper-repo
+git pull
+.\tools\package.ps1
 ```
-
----
-
-## Overig backlog
-
-1. **Professions-gids** fase 1+2 in game testen (EN/NL)
-2. About/changelog CF-tekst → upload pas na gate ✅
-
-**In-game talen (6 packs):** getest en goed bevonden ✅
-
----
-
-## Test i18n
-
-```text
-/reload
-/mh lang de
-/mh lang fr
-/mh lang es
-/mh lang pt
-```
-
-Per taal: tab Delves, Leveling Guide (Advisor + Gear), Gids (Dawncrest), Delve Coach share-knoppen.

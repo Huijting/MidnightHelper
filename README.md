@@ -6,6 +6,7 @@ It combines Delves, Great Vault progress, alt snapshots, in-delve coaching, prof
 
 ## Features
 
+- **Midnight Codex** — handbook (Start Here, currencies with live balances, weekly loop, delves, M+, raid, world, professions) with buttons into each tab.
 - Delves dashboard with currencies, bountiful tracking, Great Vault helper, and travel assistant.
 - **Delve Coach** — tips for all 11 Midnight delves; boss 3D preview; party share to group chat.
 - **Delve consumables** — RAID-R Mini / Trovehunter's Bounty popup and minimap buttons (in-delve only).
@@ -21,6 +22,7 @@ See `CURSEFORGE_DESCRIPTION.md` for the full feature list.
 ## Commands
 
 - `/mh` or `/midnight` — toggle main window
+- `/mh codex` — Midnight Codex (Start Here)
 - `/mh coach` — Delve Coach
 - `/mh items` — delve consumables panel
 - `/mh lang auto|en|de|fr|es|pt|nl` — language

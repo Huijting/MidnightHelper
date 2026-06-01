@@ -67,6 +67,7 @@ local OVERRIDES = {
 	SIDEBAR_SECTION_CHARACTER = "CHARAKTER",
 	SIDEBAR_SECTION_GUIDES = "GUIDES",
 	SIDEBAR_SECTION_TOOLS = "WERKZEUGE",
+	TAB_CODEX = "Midnight Codex",
 	TAB_HOME = "Start",
 	INFO_DRAWER_BODY_HOME = "Deine Wochenübersicht: Status der Großen Schatzkammer über alle Charaktere, der aktive Weltboss, Wochenaufgaben und Seltene Gegner — mit Schnellzugriff auf jeden Detail-Tab.",
 	HOME_TITLE = "Diese Woche",

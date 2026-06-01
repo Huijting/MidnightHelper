@@ -4,6 +4,11 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- **Midnight Codex** tab: handbook with **Start Here**, weekly loop, currencies (live balances + Blizzard tooltips), delves, dungeons, raid, world content, and professions — each article links to the relevant addon tab.
+- Global search keywords (`codex`, `wiki`, `start here`, `currency`, …) open the Codex.
+
 ## [1.5.0] - 2026-05-29
 
 ### Added — Home "This Week" dashboard

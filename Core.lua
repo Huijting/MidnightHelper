@@ -76,6 +76,10 @@ local DEFAULT_DB = {
 		},
 		--- Active world boss this week (account cache after any char detects it).
 		worldBossWeek = {},
+		--- Midnight Codex handbook (last viewed category).
+		codex = {
+			category = "start",
+		},
 		--- Floating Delve Coach panel (position, minimize state).
 		--- Floating RAID-R Mini / Trovehunter's Bounty buttons (beside Delve Coach in delves).
 		delveItemsPopup = {
@@ -478,6 +482,21 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 			ns:OpenSettingsPanel()
 		elseif ns.ToggleQuickSettings then
 			ns:ToggleQuickSettings(ns.mainUI)
+		else
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))
+			)
+		end
+		return
+	end
+
+	if msg == "codex" or msg == "wiki" or msg == "handbook" then
+		if ns.ShowMainUI and ns.SelectTab then
+			ns:ShowMainUI()
+			ns.SelectTab("codex")
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CODEX_SEARCH_OPENED"))
+			)
 		else
 			DEFAULT_CHAT_FRAME:AddMessage(
 				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))
