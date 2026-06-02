@@ -16,7 +16,13 @@ local _, ns = ...
 ---@class MHDelveBossVisual
 ---@field creatureId number
 ---@field label string
----@field storyKeys string[]|nil -- scenario story name fragments (daily variant)
+---@field displayId number|nil -- CreatureDisplayInfo id when SetCreature is unreliable
+---@field storyKeys string[]|nil
+---@field storyHints string[]|nil
+---@field storySpellIds number[]|nil
+---@field storyQuestIds number[]|nil
+---@field storyCriteriaIds number[]|nil
+---@field tipLineMatch string[]|nil
 ---@field cam number|nil
 ---@field x number|nil
 ---@field y number|nil
@@ -117,7 +123,8 @@ local CREATURE_FRAMES = {
 	[254773] = { cam = 1.08 }, -- Voidscorned Vagrant
 	[255108] = { cam = 0.98 },
 	[256683] = { cam = 0.96 },
-	[256817] = { cam = 1.35 }, -- Gulkat: torso close-up
+	[251600] = { cam = 1.35 }, -- Infiltrator Gulkat: torso close-up
+	[256817] = { cam = 1.35 }, -- legacy wrong id; keep cam override if saved
 	[248676] = { cam = 0.88 }, -- Patram: too small
 }
 
@@ -144,7 +151,8 @@ ns.DELVE_BOSS_SHOWCASE = {
 			storyHints = { "deweeder", "luminibulb", "weedling", "glaring glowcap" } },
 	},
 	the_darkway = {
-		{ creatureId = 256817, label = "Infiltrator Gulkat" },
+		-- 256817 = live delve showcase (CF); 251600 = Wowhead NPC fallback.
+		{ creatureId = 256817, label = "Infiltrator Gulkat", creatureIdFallback = { 251600 } },
 	},
 	parhelion_plaza = {
 		{ creatureId = 246621, label = "Gladius Slaurna" },
@@ -1154,9 +1162,6 @@ function ns.ResolveDelveBossShowcaseIndex(entryId, preferAuto)
 		if unitIdx then
 			return unitIdx
 		end
-		if #bosses > 1 then
-			return nil
-		end
 	end
 	return ns.GetDelveBossShowcaseIndex(entryId)
 end
@@ -1220,38 +1225,191 @@ local function CancelBossModelRetries(model)
 	model._mhRetryGeneration = (model._mhRetryGeneration or 0) + 1
 end
 
-local function FinishDelveBossCreatureModel(model, creatureId, frame)
+local function ModelLooksLoaded(model)
+	if not model then
+		return false
+	end
+	if model.GetModelFileID then
+		local ok, fileId = pcall(model.GetModelFileID, model)
+		if ok and fileId and fileId > 0 then
+			return true
+		end
+	end
+	if model.GetCreatureID then
+		local ok, id = pcall(model.GetCreatureID, model)
+		if ok and id and id > 0 then
+			return true
+		end
+	end
+	return false
+end
+
+local function ModelApplyLooksValid(model)
+	return ModelLooksLoaded(model) or not (model and model.GetModelFileID)
+end
+
+local function CollectCreatureIdsToTry(creatureId, bossEntry)
+	local ids = {}
+	local seen = {}
+	local function add(id)
+		id = tonumber(id)
+		if id and id > 0 and not seen[id] then
+			seen[id] = true
+			ids[#ids + 1] = id
+		end
+	end
+	add(creatureId)
+	if bossEntry and type(bossEntry.creatureIdFallback) == "table" then
+		for _, alt in ipairs(bossEntry.creatureIdFallback) do
+			add(alt)
+		end
+	end
+	return ids
+end
+
+local function TryApplyCreatureToModel(model, creatureId, displayId)
+	if not model then
+		return false
+	end
+	creatureId = tonumber(creatureId)
+	displayId = tonumber(displayId)
+
+	local function afterLoad()
+		if model.Show then
+			model:Show()
+		end
+		if model.SetCamera then
+			pcall(model.SetCamera, model, 0)
+		end
+		if model.RefreshCamera then
+			pcall(model.RefreshCamera, model)
+		end
+	end
+
+	local function tryOk(fn)
+		if not fn() then
+			return false
+		end
+		return ModelApplyLooksValid(model)
+	end
+
+	-- SetCreatureData first (matches last CF release; works in live delves).
+	if creatureId and model.SetCreatureData then
+		if tryOk(function()
+			return pcall(model.SetCreatureData, model, creatureId)
+		end) then
+			afterLoad()
+			return true
+		end
+	end
+	if creatureId and model.SetCreature then
+		if displayId and displayId > 0 then
+			if tryOk(function()
+				return pcall(model.SetCreature, model, creatureId, displayId)
+			end) then
+				afterLoad()
+				return true
+			end
+		end
+		if tryOk(function()
+			return pcall(model.SetCreature, model, creatureId, 0)
+		end) then
+			afterLoad()
+			return true
+		end
+		if tryOk(function()
+			return pcall(model.SetCreature, model, creatureId)
+		end) then
+			afterLoad()
+			return true
+		end
+	end
+	if displayId and displayId > 0 and model.SetDisplayInfo then
+		if tryOk(function()
+			return pcall(model.SetDisplayInfo, model, displayId)
+		end) then
+			afterLoad()
+			return true
+		end
+	end
+	return false
+end
+
+local function UnitMatchesBossCreature(creatureId, bossEntry)
+	if not creatureId or not bossEntry then
+		return false
+	end
+	if creatureId == bossEntry.creatureId then
+		return true
+	end
+	if type(bossEntry.creatureIdFallback) == "table" then
+		for _, alt in ipairs(bossEntry.creatureIdFallback) do
+			if creatureId == alt then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+local function TryApplyUnitBossModel(model, bossEntry)
+	if not model or not model.SetUnit or not bossEntry then
+		return false
+	end
+	for _, unit in ipairs({ "boss1", "target", "focus" }) do
+		if UnitExists and UnitExists(unit) then
+			local creatureId = GetUnitCreatureId(unit)
+			if UnitMatchesBossCreature(creatureId, bossEntry) then
+				local ok = pcall(model.SetUnit, model, unit)
+				if ok and ModelApplyLooksValid(model) then
+					return true, creatureId
+				end
+			end
+		end
+	end
+	return false, nil
+end
+
+local function FinishDelveBossCreatureModel(model, creatureId, frame, bossEntry)
 	if not model or model._mhPendingCreatureId ~= creatureId then
 		return false
 	end
 
-	local ok = pcall(function()
-		if model.SetCreatureData then
-			model:SetCreatureData(creatureId)
-		elseif model.SetCreature then
-			model:SetCreature(creatureId)
-		else
-			error("no SetCreature")
+	local displayId = bossEntry and bossEntry.displayId
+	local ok, loadedId = false, nil
+	for _, tryId in ipairs(CollectCreatureIdsToTry(creatureId, bossEntry)) do
+		if TryApplyCreatureToModel(model, tryId, displayId) then
+			ok = true
+			loadedId = tryId
+			break
 		end
-	end)
+	end
+	if not ok and bossEntry then
+		ok, loadedId = TryApplyUnitBossModel(model, bossEntry)
+	end
 
 	if not ok or model._mhPendingCreatureId ~= creatureId then
-		ns:ClearDelveBossCreatureModel(model)
+		if model._mhLoadingFs and model._mhLoadingFs.Show then
+			model._mhLoadingFs:SetText(ns:L("DELVE_COACH_BOSS_LOADING"))
+			model._mhLoadingFs:Show()
+		end
 		return false
 	end
 
-	model._mhLoadedCreatureId = creatureId
+	local resolvedId = loadedId or creatureId
+	model._mhLoadedCreatureId = resolvedId
 	model:Show()
 	if model._mhLoadingFs and model._mhLoadingFs.Hide then
 		model._mhLoadingFs:Hide()
 	end
+	frame = ns:GetDelveBossFrame(resolvedId, model._mhBossEntry)
 	ns:ApplyDelveBossFrameSettings(model, frame)
 
 	local function refit()
-		if not model or model._mhLoadedCreatureId ~= creatureId then
+		if not model or model._mhLoadedCreatureId ~= resolvedId then
 			return
 		end
-		local fresh = ns:GetDelveBossFrame(creatureId, model._mhBossEntry)
+		local fresh = ns:GetDelveBossFrame(resolvedId, model._mhBossEntry)
 		ns:ApplyDelveBossFrameSettings(model, fresh)
 	end
 	if C_Timer and C_Timer.After then
@@ -1281,7 +1439,7 @@ local function ScheduleBossModelRetries(model, creatureId, bossEntry)
 			if model._mhPendingCreatureId ~= creatureId then
 				model._mhPendingCreatureId = creatureId
 			end
-			FinishDelveBossCreatureModel(model, creatureId, frame)
+			FinishDelveBossCreatureModel(model, creatureId, frame, bossEntry)
 		end)
 	end
 end
@@ -1359,18 +1517,52 @@ function ns:ApplyDelveBossCreatureModel(model, creatureId, bossEntry)
 	local frame = self:GetDelveBossFrame(creatureId, bossEntry)
 	model._mhBossEntry = bossEntry
 
-	if model._mhLoadedCreatureId == creatureId and model.IsShown and model:IsShown() then
-		self:ApplyDelveBossFrameSettings(model, frame)
-		return true
+	if model._mhLoadedCreatureId and model.IsShown and model:IsShown() then
+		for _, tryId in ipairs(CollectCreatureIdsToTry(creatureId, bossEntry)) do
+			if model._mhLoadedCreatureId == tryId then
+				self:ApplyDelveBossFrameSettings(model, self:GetDelveBossFrame(tryId, bossEntry))
+				return true
+			end
+		end
 	end
 
 	CancelBossModelRetries(model)
+	model._mhPendingCreatureId = creatureId
 	self:ClearDelveBossCreatureModel(model)
 	model._mhPendingCreatureId = creatureId
+	if model.Show then
+		model:Show()
+	end
 
-	if FinishDelveBossCreatureModel(model, creatureId, frame) then
+	if FinishDelveBossCreatureModel(model, creatureId, frame, bossEntry) then
 		return true
 	end
 	ScheduleBossModelRetries(model, creatureId, bossEntry)
 	return true
+end
+
+function ns.ApplyDelveBossPortraitFallback(portraitTex, bossEntry)
+	if not portraitTex then
+		return false
+	end
+	portraitTex:Hide()
+	if not bossEntry then
+		return false
+	end
+	if SetPortraitTexture then
+		for _, unit in ipairs({ "boss1", "target", "focus" }) do
+			if UnitExists and UnitExists(unit) then
+				local cid = GetUnitCreatureId(unit)
+				if UnitMatchesBossCreature(cid, bossEntry) then
+					local ok = pcall(SetPortraitTexture, portraitTex, unit)
+					if ok then
+						portraitTex:SetAlpha(1)
+						portraitTex:Show()
+						return true
+					end
+				end
+			end
+		end
+	end
+	return false
 end

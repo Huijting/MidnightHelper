@@ -328,14 +328,7 @@ local function UpdateBossShowcase(f, entryId)
 		idx = (ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId)) or 1
 	end
 	if not idx then
-		panel:Hide()
-		if f._bossPrev then
-			f._bossPrev:Hide()
-		end
-		if f._bossNext then
-			f._bossNext:Hide()
-		end
-		return
+		idx = (ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId)) or 1
 	end
 	panel:Show()
 	idx = math.max(1, math.min(#bosses, idx))
@@ -370,18 +363,68 @@ local function UpdateBossShowcase(f, entryId)
 	if model then
 		model._mhLoadingFs = f._bossLoading
 	end
+	if f._bossPortraitTex then
+		f._bossPortraitTex:Hide()
+	end
 	if ns.ApplyDelveBossCreatureModel and model then
 		ns:ApplyDelveBossCreatureModel(model, boss.creatureId, boss)
 	end
 	if model and model._mhLoadedCreatureId == boss.creatureId and f._bossLoading then
 		f._bossLoading:Hide()
-	elseif f._bossLoading and C_Timer and C_Timer.After then
+	elseif model and not model._mhLoadedCreatureId and f._bossLoading then
+		f._bossLoading:SetText(ns:L("DELVE_COACH_BOSS_LOADING"))
+		f._bossLoading:Show()
+	end
+	if C_Timer and C_Timer.After then
 		local creatureId = boss.creatureId
-		C_Timer.After(0.05, function()
-			if model and model._mhLoadedCreatureId == creatureId and f._bossLoading then
-				f._bossLoading:Hide()
+		C_Timer.After(0.4, function()
+			if not f or f._bossEntryId ~= entryId then
+				return
+			end
+			local m = f._bossModel
+			if m and m._mhLoadedCreatureId == creatureId then
+				if f._bossPortraitTex then
+					f._bossPortraitTex:Hide()
+				end
+				return
+			end
+			if ns.ApplyDelveBossPortraitFallback and f._bossPortraitTex then
+				if ns.ApplyDelveBossPortraitFallback(f._bossPortraitTex, boss) and f._bossLoading then
+					f._bossLoading:Hide()
+				end
 			end
 		end)
+		C_Timer.After(2.5, function()
+			if not f or f._bossEntryId ~= entryId then
+				return
+			end
+			local m = f._bossModel
+			if m and m._mhLoadedCreatureId == creatureId then
+				return
+			end
+			if ns.ApplyDelveBossPortraitFallback and f._bossPortraitTex and not f._bossPortraitTex:IsShown() then
+				if ns.ApplyDelveBossPortraitFallback(f._bossPortraitTex, boss) and f._bossLoading then
+					f._bossLoading:Hide()
+				end
+			end
+		end)
+	end
+	if (ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress()) and model and C_Timer and C_Timer.After then
+		local creatureId = boss.creatureId
+		for _, delay in ipairs({ 0.35, 0.75, 1.5, 3.0 }) do
+			C_Timer.After(delay, function()
+				if not f or not f:IsShown() or f._bossEntryId ~= entryId or not f._bossModel then
+					return
+				end
+				local m = f._bossModel
+				if m._mhLoadedCreatureId then
+					return
+				end
+				if ns.ApplyDelveBossCreatureModel then
+					ns:ApplyDelveBossCreatureModel(m, creatureId, boss)
+				end
+			end)
+		end
 	end
 	f._bossEntryId = entryId
 	f._bossShowcaseIndex = idx
@@ -950,12 +993,18 @@ local function EnsureCoachFrame()
 	end
 	f._bossModelHost = modelHost
 
+	local portraitTex = modelHost:CreateTexture(nil, "ARTWORK")
+	portraitTex:SetAllPoints(modelHost)
+	portraitTex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	portraitTex:Hide()
+	f._bossPortraitTex = portraitTex
+
 	local bossModel
-	local modelOk, modelFrame = pcall(CreateFrame, "PlayerModel", nil, modelHost)
-	if modelOk and modelFrame then
-		bossModel = modelFrame
-	elseif CreateFrame then
-		bossModel = CreateFrame("DressUpModel", nil, modelHost)
+	if CreateFrame then
+		local modelOk, modelFrame = pcall(CreateFrame, "PlayerModel", nil, modelHost)
+		if modelOk and modelFrame then
+			bossModel = modelFrame
+		end
 	end
 	if bossModel then
 		bossModel:SetAllPoints(modelHost)
