@@ -173,7 +173,7 @@ ns.DELVE_BOSS_SHOWCASE = {
 		}, tipLineMatch = { "Brightthorn", "Lightbloom Invasion", "Lightbloom" },
 			storyHints = { "lightbloom invasion", "lightbloom attackers", "entangled", "barricade", "thornmaw", "unstoppable thornmaw", "entangled fighter" } },
 		{ creatureId = 247910, label = "Gyrospore", storyKeys = {
-			"Arena Champion", "Arena-Champion", "Champion de l'arène", "Campeón de la arena", "Campeão da Arena",
+			"Arena Champion", "Enter the arena", "Arena-Champion", "Champion de l'arène", "Campeón de la arena", "Campeão da Arena",
 		}, tipLineMatch = { "Gyrospore", "Gyrospor", "Girospor", "Arena Champion", "Champion" },
 			storyHints = { "arena champion", "enter the arena", "gyrospore", "moldrus", "bogdamp", "toxic twins", "sporbit" },
 			storyCriteriaIds = { 106002 } },
