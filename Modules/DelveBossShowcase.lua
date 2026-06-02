@@ -366,8 +366,12 @@ local GENERIC_STORY_NAMES = {
 local lastStoryDebugKey = ""
 local lastStoryDebugAt = 0
 
+local function ShouldDebugDelveStoryAny()
+	return (ns.db and ns.db.ui and ns.db.ui.debug) and true or false
+end
+
 local function ShouldDebugDelveStory(entryId)
-	if not (ns.db and ns.db.ui and ns.db.ui.debug) then
+	if not ShouldDebugDelveStoryAny() then
 		return false
 	end
 	if ns.IsDelveInstanceInProgress and not ns.IsDelveInstanceInProgress() then
@@ -377,7 +381,7 @@ local function ShouldDebugDelveStory(entryId)
 end
 
 local function DebugDelveStoryOnce(entryId, message)
-	if not ShouldDebugDelveStory(entryId) then
+	if not ShouldDebugDelveStoryAny() then
 		return
 	end
 	local key = tostring(entryId or "") .. "\31" .. message
@@ -689,9 +693,7 @@ function ns.HookDelveStoryTooltip()
 			return
 		end
 		SetPersistedDelveStory(entryId, variant)
-		if ShouldDebugDelveStory(entryId) then
-			DebugDelveStoryOnce(entryId, ("Delve story learned (%s): %q"):format(tostring(source or "unknown"), tostring(variant)))
-		end
+		DebugDelveStoryOnce(entryId, ("Delve story learned (%s): %q"):format(tostring(source or "unknown"), tostring(variant)))
 		if ns.RefreshDelveStorySnapshot then
 			ns.RefreshDelveStorySnapshot(entryId)
 		end
@@ -752,6 +754,19 @@ function ns.HookDelveStoryTooltip()
 			local lines = tooltipData.lines
 			if type(lines) ~= "table" then
 				return
+			end
+			if ShouldDebugDelveStoryAny() then
+				local sample = {}
+				for i = 1, math.min(4, #lines) do
+					local line = lines[i]
+					local left = line and (line.leftText or line.left or line.text)
+					if CanAccessText(left) then
+						sample[#sample + 1] = StripColorCodes(left)
+					end
+				end
+				if #sample > 0 then
+					DebugDelveStoryOnce("tooltip", ("TooltipData seen (poiId=%s): %s"):format(tostring(poiId), table.concat(sample, " | ")))
+				end
 			end
 			for _, line in ipairs(lines) do
 				local left = line and (line.leftText or line.left or line.text)
