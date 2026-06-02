@@ -387,7 +387,11 @@ local function DebugDelveStoryOnce(entryId, message)
 	end
 	lastStoryDebugKey = key
 	lastStoryDebugAt = now
-	print(("[MidnightHelper] %s"):format(message))
+	if ns.PrintChat then
+		ns:PrintChat(message)
+	else
+		print(("[MidnightHelper] %s"):format(message))
+	end
 end
 
 local function IsGenericStoryName(name)
@@ -686,6 +690,9 @@ function ns.HookDelveStoryTooltip()
 			return
 		end
 		SetPersistedDelveStory(entryId, variant)
+		if ShouldDebugDelveStory(entryId) then
+			DebugDelveStoryOnce(entryId, ("Delve story learned from map tooltip: %q"):format(tostring(variant)))
+		end
 		if ns.RefreshDelveStorySnapshot then
 			ns.RefreshDelveStorySnapshot(entryId)
 		end
@@ -1184,6 +1191,13 @@ function ns.ResolveDelveStoryBoss(entryId)
 	)
 	if idx then
 		StoreDelveStorySnapshot(entryId, storyName, bossEntry, idx)
+	end
+	if ShouldDebugDelveStory(entryId) then
+		if idx then
+			DebugDelveStoryOnce(entryId, ("Delve boss resolved: story=%q boss=%s (%d/%d)"):format(tostring(storyName), tostring(bossEntry and bossEntry.label), idx, type(bosses) == "table" and #bosses or 0))
+		else
+			DebugDelveStoryOnce(entryId, ("Delve boss unresolved (fallback to saved index). story=%q"):format(tostring(storyName)))
+		end
 	end
 	if idx or bossEntry then
 		return storyName, bossEntry, idx
