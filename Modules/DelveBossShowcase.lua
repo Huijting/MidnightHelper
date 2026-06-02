@@ -714,6 +714,19 @@ function ns.HookDelveStoryTooltip()
 		return false
 	end
 
+	local function IsKnownDelvePoiId(poiId)
+		poiId = tonumber(poiId)
+		if not poiId or type(ns.DELVE_TIP_ENTRIES) ~= "table" then
+			return false
+		end
+		for _, entry in ipairs(ns.DELVE_TIP_ENTRIES) do
+			if entry and entry.poiId == poiId then
+				return true
+			end
+		end
+		return false
+	end
+
 	local function handler(tip)
 		local entryId, variant = ExtractStoryVariantFromTooltip(tip)
 		if not entryId or not variant then
@@ -739,6 +752,26 @@ function ns.HookDelveStoryTooltip()
 	hookTip(GameTooltip)
 	hookTip(_G.WorldMapTooltip)
 
+	-- WorldMapTooltip sometimes updates in-place without re-showing; poll while visible.
+	do
+		local wmt = _G.WorldMapTooltip
+		if wmt and wmt.HookScript and not wmt._mhDelveStoryUpdateHooked then
+			wmt._mhDelveStoryUpdateHooked = true
+			local lastAt = 0
+			wmt:HookScript("OnUpdate", function(self, elapsed)
+				if not self.IsShown or not self:IsShown() then
+					return
+				end
+				local now = (GetTime and GetTime()) or 0
+				if (now - lastAt) < 0.2 then
+					return
+				end
+				lastAt = now
+				handler(self)
+			end)
+		end
+	end
+
 	-- Preferred: modern tooltip data pipeline (works even when FontString lines are not populated).
 	pcall(function()
 		if not (TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType) then
@@ -757,10 +790,14 @@ function ns.HookDelveStoryTooltip()
 			if not poiId then
 				return
 			end
+			if not IsKnownDelvePoiId(poiId) then
+				return
+			end
 			local lines = tooltipData.lines
 			if type(lines) ~= "table" then
 				return
 			end
+			-- (debug) Avoid spamming on unrelated tooltips; only delve POIs reach here.
 			if ShouldDebugDelveStoryAny() then
 				local sample = {}
 				for i = 1, math.min(4, #lines) do
@@ -771,7 +808,7 @@ function ns.HookDelveStoryTooltip()
 					end
 				end
 				if #sample > 0 then
-					DebugDelveStoryOnce("tooltip", ("TooltipData seen (poiId=%s): %s"):format(tostring(poiId), table.concat(sample, " | ")))
+					DebugDelveStoryOnce("tooltip", ("TooltipData (delve poiId=%s): %s"):format(tostring(poiId), table.concat(sample, " | ")))
 				end
 			end
 			for _, line in ipairs(lines) do
