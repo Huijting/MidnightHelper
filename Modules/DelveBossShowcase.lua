@@ -684,18 +684,39 @@ function ns.HookDelveStoryTooltip()
 	end
 	ns._mhDelveStoryTooltipHooked = true
 
-	local function handler(tip)
-		local entryId, variant = ExtractStoryVariantFromTooltip(tip)
+	local function CacheVariant(entryId, variant, source)
 		if not entryId or not variant then
 			return
 		end
 		SetPersistedDelveStory(entryId, variant)
 		if ShouldDebugDelveStory(entryId) then
-			DebugDelveStoryOnce(entryId, ("Delve story learned from map tooltip: %q"):format(tostring(variant)))
+			DebugDelveStoryOnce(entryId, ("Delve story learned (%s): %q"):format(tostring(source or "unknown"), tostring(variant)))
 		end
 		if ns.RefreshDelveStorySnapshot then
 			ns.RefreshDelveStorySnapshot(entryId)
 		end
+	end
+
+	local function CacheVariantForPoiId(poiId, variant, source)
+		poiId = tonumber(poiId)
+		if not poiId or not variant or type(ns.DELVE_TIP_ENTRIES) ~= "table" then
+			return false
+		end
+		for _, entry in ipairs(ns.DELVE_TIP_ENTRIES) do
+			if entry and entry.poiId == poiId and entry.id then
+				CacheVariant(entry.id, variant, source)
+				return true
+			end
+		end
+		return false
+	end
+
+	local function handler(tip)
+		local entryId, variant = ExtractStoryVariantFromTooltip(tip)
+		if not entryId or not variant then
+			return
+		end
+		CacheVariant(entryId, variant, "tooltip-text")
 	end
 
 	local function hookTip(tip)
@@ -714,6 +735,46 @@ function ns.HookDelveStoryTooltip()
 	-- World map POIs often use WorldMapTooltip instead of GameTooltip.
 	hookTip(GameTooltip)
 	hookTip(_G.WorldMapTooltip)
+
+	-- Preferred: modern tooltip data pipeline (works even when FontString lines are not populated).
+	pcall(function()
+		if not (TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType) then
+			return
+		end
+		local function postCall(_, tooltipData)
+			if not tooltipData or type(tooltipData) ~= "table" then
+				return
+			end
+			local poiId = tooltipData.id or tooltipData.poiID or tooltipData.areaPoiID or tooltipData.areaPOIID
+			if not poiId then
+				return
+			end
+			local lines = tooltipData.lines
+			if type(lines) ~= "table" then
+				return
+			end
+			for _, line in ipairs(lines) do
+				local left = line and (line.leftText or line.left or line.text)
+				if CanAccessText(left) then
+					local clean = StripColorCodes(left)
+					local key = clean:lower()
+					if key:find("story", 1, true) and key:find("variant", 1, true) then
+						local variant = clean:match(":%s*(.+)$")
+						if variant and variant ~= "" then
+							CacheVariantForPoiId(poiId, variant, "tooltip-data")
+							return
+						end
+					end
+				end
+			end
+		end
+
+		-- AreaPOI is the main one; MapPOI exists on some builds.
+		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.AreaPOI, postCall)
+		if Enum.TooltipDataType.MapPOI then
+			TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.MapPOI, postCall)
+		end
+	end)
 
 	-- Some clients create tooltips later; try again shortly.
 	if C_Timer and C_Timer.After then
