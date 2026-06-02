@@ -730,6 +730,28 @@ function ns.HookDelveStoryTooltip()
 	local function handler(tip)
 		local entryId, variant = ExtractStoryVariantFromTooltip(tip)
 		if not entryId or not variant then
+			-- Debug: if map hover is visible but we cannot parse it, dump a few lines.
+			if tip and tip == _G.WorldMapTooltip and ShouldDebugDelveStoryAny() then
+				local tipName = tip.GetName and tip:GetName()
+				if tipName and not tip._mhDumpAt then
+					tip._mhDumpAt = 0
+				end
+				local now = GetTime and GetTime() or 0
+				if tipName and (now - (tip._mhDumpAt or 0)) > 1.5 then
+					tip._mhDumpAt = now
+					local lines = {}
+					for i = 1, 8 do
+						local obj = _G[tipName .. "TextLeft" .. i]
+						local t = obj and obj.GetText and obj:GetText()
+						if CanAccessText(t) then
+							lines[#lines + 1] = StripColorCodes(t)
+						end
+					end
+					if #lines > 0 then
+						DebugDelveStoryOnce("worldmap", ("WorldMapTooltip lines: %s"):format(table.concat(lines, " | ")))
+					end
+				end
+			end
 			return
 		end
 		CacheVariant(entryId, variant, "tooltip-text")
