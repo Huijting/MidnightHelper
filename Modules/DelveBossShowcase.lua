@@ -1145,25 +1145,25 @@ end
 function ns.ResolveDelveBossShowcaseIndex(entryId, preferAuto)
 	local bosses = ns.DELVE_BOSS_SHOWCASE[entryId]
 	if type(bosses) ~= "table" or #bosses == 0 then
-		return nil
+		return nil, false
 	end
 	if #bosses == 1 then
-		return 1
+		return 1, true
 	end
 	if preferAuto ~= false then
 		local storyName, bossEntry, idx = ns.ResolveDelveStoryBoss(entryId)
 		if idx then
-			return idx
+			return idx, true
 		end
 		if entryId == "sunkiller_sanctum" and storyName and not bossEntry then
-			return nil
+			return nil, true
 		end
 		local unitBoss, unitIdx = ns.TryResolveDelveBossFromUnits(entryId)
 		if unitIdx then
-			return unitIdx
+			return unitIdx, true
 		end
 	end
-	return ns.GetDelveBossShowcaseIndex(entryId)
+	return ns.GetDelveBossShowcaseIndex(entryId), false
 end
 
 function ns:GetDelveBossShowcaseIndex(entryId)

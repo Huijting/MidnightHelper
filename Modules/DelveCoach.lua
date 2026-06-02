@@ -319,10 +319,19 @@ local function UpdateBossShowcase(f, entryId)
 		return
 	end
 
+	-- If we re-enter a delve run, clear the previous manual carousel choice so
+	-- auto-detection can take over once the active boss is known.
+	local inDelve = (ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress()) and true or false
+	if not f._previewMode and inDelve and not f._bossWasInDelve then
+		f._bossManualOverride = false
+	end
+	f._bossWasInDelve = inDelve
+
 	local preferAuto = not f._previewMode and not f._bossManualOverride
 	local idx
+	local autoResolved = false
 	if ns.ResolveDelveBossShowcaseIndex then
-		idx = ns:ResolveDelveBossShowcaseIndex(entryId, preferAuto)
+		idx, autoResolved = ns:ResolveDelveBossShowcaseIndex(entryId, preferAuto)
 	end
 	if idx == nil and not preferAuto then
 		idx = (ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId)) or 1
@@ -342,6 +351,16 @@ local function UpdateBossShowcase(f, entryId)
 			counter:Show()
 		else
 			counter:Hide()
+		end
+	end
+	if f._bossAutoHint then
+		-- Only show the hint when we *want* auto selection, but do not yet have a
+		-- confirmed active boss (we're showing the saved/last index as fallback).
+		if preferAuto and not autoResolved then
+			f._bossAutoHint:SetText(ns:SafeL("DELVE_COACH_BOSS_PENDING"))
+			f._bossAutoHint:Show()
+		else
+			f._bossAutoHint:Hide()
 		end
 	end
 	if f._bossPrev then
@@ -943,6 +962,14 @@ local function EnsureCoachFrame()
 	local bossCounter = bossPanel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	bossCounter:SetPoint("TOPRIGHT", bossPanel, "TOPRIGHT", -8, -6)
 	f._bossCounter = bossCounter
+
+	local bossAutoHint = bossPanel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	bossAutoHint:SetPoint("TOPLEFT", bossTitle, "BOTTOMLEFT", 0, -2)
+	bossAutoHint:SetPoint("RIGHT", bossPanel, "RIGHT", -10, 0)
+	bossAutoHint:SetJustifyH("LEFT")
+	bossAutoHint:SetTextColor(0.7, 0.72, 0.78)
+	bossAutoHint:Hide()
+	f._bossAutoHint = bossAutoHint
 
 	local bossPrev = CreateFrame("Button", nil, bossPanel, "UIPanelButtonTemplate")
 	bossPrev:SetSize(22, 22)
