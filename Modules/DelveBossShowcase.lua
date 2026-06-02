@@ -639,11 +639,11 @@ local function ResolveDelveEntryIdFromTitle(title)
 	return nil
 end
 
-local function ExtractStoryVariantFromTooltip()
-	if not GameTooltip or not GameTooltip.GetName then
+local function ExtractStoryVariantFromTooltip(tip)
+	if not tip or not tip.GetName then
 		return nil, nil
 	end
-	local tipName = GameTooltip:GetName()
+	local tipName = tip:GetName()
 	if not tipName then
 		return nil, nil
 	end
@@ -679,11 +679,9 @@ function ns.HookDelveStoryTooltip()
 		return
 	end
 	ns._mhDelveStoryTooltipHooked = true
-	if not GameTooltip or not GameTooltip.HookScript then
-		return
-	end
-	GameTooltip:HookScript("OnTooltipSetText", function()
-		local entryId, variant = ExtractStoryVariantFromTooltip()
+
+	local function handler(tip)
+		local entryId, variant = ExtractStoryVariantFromTooltip(tip)
 		if not entryId or not variant then
 			return
 		end
@@ -691,7 +689,32 @@ function ns.HookDelveStoryTooltip()
 		if ns.RefreshDelveStorySnapshot then
 			ns.RefreshDelveStorySnapshot(entryId)
 		end
-	end)
+	end
+
+	local function hookTip(tip)
+		if not tip or not tip.HookScript or tip._mhDelveStoryHooked then
+			return
+		end
+		tip._mhDelveStoryHooked = true
+		tip:HookScript("OnTooltipSetText", function(self)
+			handler(self)
+		end)
+		tip:HookScript("OnShow", function(self)
+			handler(self)
+		end)
+	end
+
+	-- World map POIs often use WorldMapTooltip instead of GameTooltip.
+	hookTip(GameTooltip)
+	hookTip(_G.WorldMapTooltip)
+
+	-- Some clients create tooltips later; try again shortly.
+	if C_Timer and C_Timer.After then
+		C_Timer.After(1.0, function()
+			hookTip(GameTooltip)
+			hookTip(_G.WorldMapTooltip)
+		end)
+	end
 end
 
 function ns.CacheDelveStoryFromAreaPoi(poiId, pInfo)
