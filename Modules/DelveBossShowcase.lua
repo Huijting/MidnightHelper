@@ -607,6 +607,93 @@ local function SetPersistedDelveStory(entryId, text)
 	poiStoryCache[entryId] = text
 end
 
+local function NormalizeDelveTitle(s)
+	if not CanAccessText(s) then
+		return ""
+	end
+	return StripColorCodes(s):lower():gsub("^%s+", ""):gsub("%s+$", "")
+end
+
+local function ResolveDelveEntryIdFromTitle(title)
+	if type(ns.DELVE_TIP_ENTRIES) ~= "table" then
+		return nil
+	end
+	local t = NormalizeDelveTitle(title)
+	if t == "" then
+		return nil
+	end
+	for _, entry in ipairs(ns.DELVE_TIP_ENTRIES) do
+		if entry and entry.id then
+			local roster = NormalizeDelveTitle(entry.rosterName or "")
+			if roster ~= "" and roster == t then
+				return entry.id
+			end
+			if ns.GetDelveTipDisplayName then
+				local ok, disp = pcall(ns.GetDelveTipDisplayName, ns, entry)
+				if ok and NormalizeDelveTitle(disp or "") == t then
+					return entry.id
+				end
+			end
+		end
+	end
+	return nil
+end
+
+local function ExtractStoryVariantFromTooltip()
+	if not GameTooltip or not GameTooltip.GetName then
+		return nil, nil
+	end
+	local tipName = GameTooltip:GetName()
+	if not tipName then
+		return nil, nil
+	end
+	local titleObj = _G[tipName .. "TextLeft1"]
+	local title = titleObj and titleObj.GetText and titleObj:GetText()
+	if not CanAccessText(title) then
+		return nil, nil
+	end
+	local entryId = ResolveDelveEntryIdFromTitle(title)
+	if not entryId then
+		return nil, nil
+	end
+	for i = 2, 12 do
+		local lineObj = _G[tipName .. "TextLeft" .. i]
+		local text = lineObj and lineObj.GetText and lineObj:GetText()
+		if CanAccessText(text) then
+			local clean = StripColorCodes(text)
+			-- We look for "Story Variant: X" (most clients keep this in English).
+			local key = clean:lower()
+			if key:find("story", 1, true) and key:find("variant", 1, true) then
+				local variant = clean:match(":%s*(.+)$")
+				if variant and variant ~= "" then
+					return entryId, variant
+				end
+			end
+		end
+	end
+	return nil, nil
+end
+
+function ns.HookDelveStoryTooltip()
+	if ns._mhDelveStoryTooltipHooked then
+		return
+	end
+	ns._mhDelveStoryTooltipHooked = true
+	if not GameTooltip or not GameTooltip.HookScript then
+		return
+	end
+	GameTooltip:HookScript("OnTooltipSetText", function()
+		local entryId, variant = ExtractStoryVariantFromTooltip()
+		if not entryId or not variant then
+			return
+		end
+		SetPersistedDelveStory(entryId, variant)
+		if ns.RefreshDelveStorySnapshot then
+			ns.RefreshDelveStorySnapshot(entryId)
+		end
+	end)
+end
+
 function ns.CacheDelveStoryFromAreaPoi(poiId, pInfo)
 	if not poiId or not pInfo or type(ns.DELVE_TIP_ENTRIES) ~= "table" then
 		return

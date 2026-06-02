@@ -669,6 +669,13 @@ local function EnsureCoachFrame()
 	local f = CreateFrame("Frame", "MidnightHelperDelveCoach", UIParent, "BackdropTemplate")
 	f:SetSize(COACH_DEFAULT_W, COACH_DEFAULT_H)
 	BringCoachFrameToFront(f)
+
+	-- World map tooltips contain "Story Variant: ..." even when the POI API does
+	-- not expose it. Hook once so hovering the delve icon teaches the coach.
+	if ns.HookDelveStoryTooltip then
+		ns.HookDelveStoryTooltip()
+	end
+
 	f:SetClampedToScreen(true)
 	f:EnableMouse(true)
 	f:SetMovable(true)
