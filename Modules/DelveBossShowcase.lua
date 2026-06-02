@@ -294,6 +294,49 @@ local function CanAccessText(value)
 	return type(value) == "string"
 end
 
+--- 12.x: tooltip/aura IDs from tainted paths may be secret; never tonumber/compare them.
+local function CanAccessNumber(value)
+	if value == nil or IsSecretValue(value) then
+		return false
+	end
+	if canaccessvalue and not canaccessvalue(value) then
+		return false
+	end
+	return type(value) == "number"
+end
+
+local function SafeTonumber(value)
+	if not CanAccessNumber(value) then
+		return nil
+	end
+	return tonumber(value)
+end
+
+local knownDelvePoiToEntryId
+
+local function GetKnownDelvePoiToEntryId()
+	if knownDelvePoiToEntryId then
+		return knownDelvePoiToEntryId
+	end
+	local map = {}
+	if type(ns.DELVE_TIP_ENTRIES) == "table" then
+		for _, entry in ipairs(ns.DELVE_TIP_ENTRIES) do
+			if entry and entry.poiId and entry.id then
+				map[entry.poiId] = entry.id
+			end
+		end
+	end
+	knownDelvePoiToEntryId = map
+	return map
+end
+
+local DELVE_STORY_TOOLTIP_TYPE_NAMES = {
+	"AreaPOI",
+	"Map",
+	"MapPin",
+	"MinimapMouseover",
+}
+
 local function GetUnitCreatureId(unit)
 	if not unit or not UnitGUID then
 		return nil
@@ -719,7 +762,7 @@ local function TryPrimeStoryFromTooltipInfo(entryId, poiId, mapIds)
 	if not entryId or not (C_TooltipInfo and C_TooltipInfo.GetAreaPOIInfo) then
 		return
 	end
-	poiId = tonumber(poiId)
+	poiId = SafeTonumber(poiId) or tonumber(poiId)
 	if not poiId then
 		return
 	end
@@ -773,31 +816,24 @@ function ns.HookDelveStoryTooltip()
 		end
 	end
 
+	local poiToEntryId = GetKnownDelvePoiToEntryId()
+
 	local function CacheVariantForPoiId(poiId, variant, source)
-		poiId = tonumber(poiId)
-		if not poiId or not variant or type(ns.DELVE_TIP_ENTRIES) ~= "table" then
+		poiId = SafeTonumber(poiId)
+		if not poiId or not variant then
 			return false
 		end
-		for _, entry in ipairs(ns.DELVE_TIP_ENTRIES) do
-			if entry and entry.poiId == poiId and entry.id then
-				CacheVariant(entry.id, variant, source)
-				return true
-			end
+		local entryId = poiToEntryId[poiId]
+		if entryId then
+			CacheVariant(entryId, variant, source)
+			return true
 		end
 		return false
 	end
 
 	local function IsKnownDelvePoiId(poiId)
-		poiId = tonumber(poiId)
-		if not poiId or type(ns.DELVE_TIP_ENTRIES) ~= "table" then
-			return false
-		end
-		for _, entry in ipairs(ns.DELVE_TIP_ENTRIES) do
-			if entry and entry.poiId == poiId then
-				return true
-			end
-		end
-		return false
+		poiId = SafeTonumber(poiId)
+		return poiId ~= nil and poiToEntryId[poiId] ~= nil
 	end
 
 	local function handler(tip)
@@ -913,11 +949,11 @@ function ns.HookDelveStoryTooltip()
 			if not tooltipData or type(tooltipData) ~= "table" then
 				return
 			end
-			local poiId = tooltipData.id or tooltipData.poiID or tooltipData.areaPoiID or tooltipData.areaPOIID
+			local poiId = tooltipData.areaPoiID or tooltipData.areaPOIID or tooltipData.poiID or tooltipData.poiId
 			if not poiId then
-				return
+				poiId = tooltipData.id
 			end
-			if not IsKnownDelvePoiId(poiId) then
+			if not poiId or not IsKnownDelvePoiId(poiId) then
 				return
 			end
 			local lines = tooltipData.lines
@@ -954,10 +990,17 @@ function ns.HookDelveStoryTooltip()
 			end
 		end
 
-		-- Different client builds use different tooltip data types for the map POI
-		-- hover. Hook all types defensively and filter inside postCall.
-		for _, dataType in pairs(Enum.TooltipDataType) do
-			pcall(TooltipDataProcessor.AddTooltipPostCall, dataType, postCall)
+		-- Only map/POI tooltip types — hooking UnitAura (nameplates) caused secret-id compare errors.
+		local hookedAny = false
+		for _, typeName in ipairs(DELVE_STORY_TOOLTIP_TYPE_NAMES) do
+			local dataType = Enum.TooltipDataType[typeName]
+			if dataType ~= nil then
+				local ok = pcall(TooltipDataProcessor.AddTooltipPostCall, dataType, postCall)
+				hookedAny = hookedAny or ok
+			end
+		end
+		if not hookedAny and Enum.TooltipDataType.AreaPOI ~= nil then
+			pcall(TooltipDataProcessor.AddTooltipPostCall, Enum.TooltipDataType.AreaPOI, postCall)
 		end
 	end)
 
@@ -974,19 +1017,21 @@ function ns.CacheDelveStoryFromAreaPoi(poiId, pInfo)
 	if not poiId or not pInfo or type(ns.DELVE_TIP_ENTRIES) ~= "table" then
 		return
 	end
-	poiId = tonumber(poiId)
-	for _, entry in ipairs(ns.DELVE_TIP_ENTRIES) do
-		if entry.poiId == poiId and entry.id then
-			for _, field in ipairs({ pInfo.description, pInfo.name }) do
-				if CanAccessText(field) then
-					local clean = StripColorCodes(field)
-					if clean ~= "" and not IsGenericStoryName(clean) then
-						SetPersistedDelveStory(entry.id, clean)
-						return
-					end
-				end
+	poiId = SafeTonumber(poiId)
+	if not poiId then
+		return
+	end
+	local entryId = GetKnownDelvePoiToEntryId()[poiId]
+	if not entryId then
+		return
+	end
+	for _, field in ipairs({ pInfo.description, pInfo.name }) do
+		if CanAccessText(field) then
+			local clean = StripColorCodes(field)
+			if clean ~= "" and not IsGenericStoryName(clean) then
+				SetPersistedDelveStory(entryId, clean)
+				return
 			end
-			return
 		end
 	end
 end
@@ -1099,7 +1144,7 @@ local function CollectMapPoiStoryCandidates(entryId)
 				local okList, pois = pcall(C_AreaPoiInfo.GetDelvesForMap, mapId)
 				if okList and type(pois) == "table" then
 					for _, id in ipairs(pois) do
-						if id == poiId then
+						if SafeTonumber(id) == poiId then
 							local okInfo, info = pcall(C_AreaPoiInfo.GetAreaPOIInfo, mapId, poiId)
 							if okInfo then
 								absorb(info)
