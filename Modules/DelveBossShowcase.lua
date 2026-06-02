@@ -726,11 +726,11 @@ function ns.HookDelveStoryTooltip()
 			return
 		end
 		tip._mhDelveStoryHooked = true
-		tip:HookScript("OnTooltipSetText", function(self)
-			handler(self)
-		end)
-		tip:HookScript("OnShow", function(self)
-			handler(self)
+		-- Not all tooltip frames support OnTooltipSetText; OnShow is safe.
+		pcall(function()
+			tip:HookScript("OnShow", function(self)
+				handler(self)
+			end)
 		end)
 	end
 
