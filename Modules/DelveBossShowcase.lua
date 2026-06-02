@@ -744,6 +744,11 @@ function ns.HookDelveStoryTooltip()
 		if not (TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType) then
 			return
 		end
+		if ns._mhDelveStoryTooltipDataHooked then
+			return
+		end
+		ns._mhDelveStoryTooltipDataHooked = true
+
 		local function postCall(_, tooltipData)
 			if not tooltipData or type(tooltipData) ~= "table" then
 				return
@@ -785,10 +790,10 @@ function ns.HookDelveStoryTooltip()
 			end
 		end
 
-		-- AreaPOI is the main one; MapPOI exists on some builds.
-		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.AreaPOI, postCall)
-		if Enum.TooltipDataType.MapPOI then
-			TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.MapPOI, postCall)
+		-- Different client builds use different tooltip data types for the map POI
+		-- hover. Hook all types defensively and filter inside postCall.
+		for _, dataType in pairs(Enum.TooltipDataType) do
+			pcall(TooltipDataProcessor.AddTooltipPostCall, dataType, postCall)
 		end
 	end)
 
