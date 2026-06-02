@@ -175,7 +175,8 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 247910, label = "Gyrospore", storyKeys = {
 			"Arena Champion", "Arena-Champion", "Champion de l'arène", "Campeón de la arena", "Campeão da Arena",
 		}, tipLineMatch = { "Gyrospore", "Gyrospor", "Girospor", "Arena Champion", "Champion" },
-			storyHints = { "arena champion", "gyrospore", "moldrus", "bogdamp", "toxic twins", "sporbit" } },
+			storyHints = { "arena champion", "enter the arena", "gyrospore", "moldrus", "bogdamp", "toxic twins", "sporbit" },
+			storyCriteriaIds = { 106002 } },
 		{ creatureId = 247526, label = "Mycomight", storyKeys = {
 			"Dastardly Rotstalk", "Räudiger Rotstalk", "Rotstalk ignoble", "Retoño pútrido", "Rotstalk vil",
 		}, tipLineMatch = { "Mycomight", "Rotstalk", "Dastardly" },
