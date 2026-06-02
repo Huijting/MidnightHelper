@@ -113,9 +113,14 @@ function ns.RefreshReferenceGuidePanel()
 	ns.SyncReferenceGuideScroll()
 end
 
-local function SelectReferenceSubTab(id)
+function ns.SetReferenceGuideSubTab(id)
+	if id ~= SUB_DAWNCREST and id ~= SUB_PROFESSIONS then
+		return
+	end
 	SetRefSubTab(id)
-	ns.RefreshReferenceGuidePanel()
+	if ns.RefreshReferenceGuidePanel then
+		ns.RefreshReferenceGuidePanel()
+	end
 end
 
 function ns.BuildReferenceGuidePanel(panel)
@@ -168,7 +173,7 @@ function ns.BuildReferenceGuidePanel(panel)
 	btnDawn:SetPoint("LEFT", subNav, "LEFT", 0, 0)
 	btnDawn:SetText(ns:L("PROFGUIDE_SUB_DAWNCREST"))
 	btnDawn:SetScript("OnClick", function()
-		SelectReferenceSubTab(SUB_DAWNCREST)
+		ns.SetReferenceGuideSubTab(SUB_DAWNCREST)
 	end)
 	subButtons[SUB_DAWNCREST] = btnDawn
 
@@ -177,7 +182,7 @@ function ns.BuildReferenceGuidePanel(panel)
 	btnProf:SetPoint("LEFT", btnDawn, "RIGHT", 6, 0)
 	btnProf:SetText(ns:L("PROFGUIDE_SUB_PROFESSIONS"))
 	btnProf:SetScript("OnClick", function()
-		SelectReferenceSubTab(SUB_PROFESSIONS)
+		ns.SetReferenceGuideSubTab(SUB_PROFESSIONS)
 	end)
 	subButtons[SUB_PROFESSIONS] = btnProf
 

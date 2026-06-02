@@ -66,9 +66,10 @@ local DEFAULT_DB = {
 			profileMode = "auto",
 			showBlizzardPanel = true,
 		},
-		--- Sidebar beta tabs (Guide, Leveling Guides, Macros, Role Academy).
+		--- Sidebar beta tabs (Codex, Basics, Leveling Guides, Macros, Role Academy).
 		betaTabs = {
 			enabled = true,
+			codex = true,
 			reference = true,
 			guide = true,
 			macros = true,
@@ -301,6 +302,7 @@ function ns:IsGuideTabEnabled()
 end
 
 local BETA_TAB_IDS = {
+	codex = true,
 	reference = true,
 	guide = true,
 	macros = true,
@@ -310,10 +312,13 @@ local BETA_TAB_IDS = {
 function ns.GetBetaTabsSettings()
 	local ui = ns.db and ns.db.ui
 	if type(ui) ~= "table" then
-		return { enabled = true, reference = true, guide = true, macros = true, academy = true }
+		return { enabled = true, codex = true, reference = true, guide = true, macros = true, academy = true }
 	end
 	if type(ui.betaTabs) ~= "table" then
-		ui.betaTabs = { enabled = true, reference = true, guide = true, macros = true, academy = true }
+		ui.betaTabs = { enabled = true, codex = true, reference = true, guide = true, macros = true, academy = true }
+	end
+	if ui.betaTabs.codex == nil then
+		ui.betaTabs.codex = true
 	end
 	return ui.betaTabs
 end
@@ -492,7 +497,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	if msg == "codex" or msg == "wiki" or msg == "handbook" then
-		if ns.ShowMainUI and ns.SelectTab then
+		if ns.OpenMidnightCodex then
+			if ns.OpenMidnightCodex() then
+				DEFAULT_CHAT_FRAME:AddMessage(
+					("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CODEX_SEARCH_OPENED"))
+				)
+			end
+		elseif ns.ShowMainUI and ns.SelectTab then
 			ns:ShowMainUI()
 			ns.SelectTab("codex")
 			DEFAULT_CHAT_FRAME:AddMessage(

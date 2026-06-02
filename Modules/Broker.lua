@@ -309,7 +309,8 @@ local function AttachBetaTabsSettings(parent, topAnchor, layer, store)
 	end
 
 	store._betaTabsEnabled = MakeBetaChk(betaLabel, -6, "enabled", "SETTINGS_BETA_TABS_ENABLED")
-	store._betaTabReference = MakeBetaChk(store._betaTabsEnabled, -4, "reference", "SETTINGS_BETA_TAB_REFERENCE")
+	store._betaTabCodex = MakeBetaChk(store._betaTabsEnabled, -4, "codex", "SETTINGS_BETA_TAB_CODEX")
+	store._betaTabReference = MakeBetaChk(store._betaTabCodex, -4, "reference", "SETTINGS_BETA_TAB_REFERENCE")
 	store._betaTabGuide = MakeBetaChk(store._betaTabReference, -4, "guide", "SETTINGS_BETA_TAB_GUIDE")
 	store._betaTabMacros = MakeBetaChk(store._betaTabGuide, -4, "macros", "SETTINGS_BETA_TAB_MACROS")
 	store._betaTabAcademy = MakeBetaChk(store._betaTabMacros, -4, "academy", "SETTINGS_BETA_TAB_ACADEMY")
@@ -325,6 +326,7 @@ local function RefreshBetaTabsSettingsControls(panel)
 	local bt = ns.GetBetaTabsSettings and ns.GetBetaTabsSettings() or {}
 	local rows = {
 		{ chk = panel._betaTabsEnabled, key = "enabled", loc = "SETTINGS_BETA_TABS_ENABLED" },
+		{ chk = panel._betaTabCodex, key = "codex", loc = "SETTINGS_BETA_TAB_CODEX" },
 		{ chk = panel._betaTabReference, key = "reference", loc = "SETTINGS_BETA_TAB_REFERENCE" },
 		{ chk = panel._betaTabGuide, key = "guide", loc = "SETTINGS_BETA_TAB_GUIDE" },
 		{ chk = panel._betaTabMacros, key = "macros", loc = "SETTINGS_BETA_TAB_MACROS" },

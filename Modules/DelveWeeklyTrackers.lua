@@ -98,12 +98,12 @@ function ns.GetTrovehunterState()
 	local status = "available"
 	if auraActive then
 		status = "active"
-	elseif weeklyLooted then
-		if bountyUsed and inBag <= 0 then
-			status = "done"
-		else
-			status = "looted"
-		end
+	elseif inBag > 0 and not bountyUsed then
+		-- Map in bags: still need to use it in a delve.
+		status = "looted"
+	elseif bountyUsed or weeklyLooted then
+		-- Used, or weekly loot flag set with nothing left to use on this character.
+		status = "done"
 	end
 
 	return {
@@ -216,7 +216,7 @@ end
 function ns.GetTrovehunterSnapshotCounts()
 	local s = ns.GetTrovehunterState()
 	local needsBounty = (s.status == "available") and 1 or 0
-	local hasUnused = (s.status == "looted" or (s.inBag or 0) > 0) and 1 or 0
+	local hasUnused = (s.status == "looted") and 1 or 0
 	return s.status, s.inBag or 0, needsBounty, hasUnused
 end
 

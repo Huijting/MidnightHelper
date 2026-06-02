@@ -32,6 +32,7 @@ Midnight Helper is an all-in-one utility addon for **World of Warcraft Retail** 
 
 **Guides & reference**
 - **Beta sidebar block** (between Professions and Consumables) — enable or hide in **Esc → AddOns → Midnight Helper** (master switch + per tab):
+  - **Midnight Codex** — Season 1 handbook (Start Here, weekly loop, currencies with live balances, delves, M+, raid, world content, professions); **Open** links jump to the matching tab (Beta)
   - **Guide** — compact reference / advisor (Beta)
   - **Leveling Guides** — class/spec advisor and gear notes by level bracket; **In groups** tab (interrupts, defensives, party tips); **Layout** sub-tab (ISO keyboard prototype)
   - **Macros** — interrupt and team macro templates with class context (Beta)

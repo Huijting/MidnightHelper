@@ -199,6 +199,7 @@ local function FitSidebarTabButton(btn, sidebarWidth)
 end
 
 local MH_BETA_TAB_IDS = {
+	codex = true,
 	reference = true,
 	guide = true,
 	macros = true,

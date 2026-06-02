@@ -49,6 +49,61 @@ local function GetCodexCategory()
 	return GetCodexSettings().category or "start"
 end
 
+--- Open the tab (and optional sub-section) for a codex article. Use ns.SelectTab, not ns:SelectTab.
+function ns.IsCodexTabEnabled()
+	return not ns.IsBetaTabEnabled or ns.IsBetaTabEnabled("codex")
+end
+
+function ns.OpenMidnightCodex(categoryId)
+	if not ns.IsCodexTabEnabled() then
+		if DEFAULT_CHAT_FRAME then
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CODEX_BETA_DISABLED"))
+			)
+		end
+		return false
+	end
+	if ns.ShowMainUI then
+		ns:ShowMainUI()
+	end
+	if ns.SelectTab then
+		ns.SelectTab("codex")
+	end
+	if categoryId then
+		SetCodexCategory(categoryId)
+	end
+	if ns.RefreshCodexPanel then
+		ns.RefreshCodexPanel()
+	end
+	if categoryId == "currencies" and ui and ui.scheduleCurrencyRefresh then
+		ui.scheduleCurrencyRefresh()
+	end
+	return true
+end
+
+function ns.NavigateFromCodex(article)
+	if type(article) ~= "table" or not article.tabId then
+		return
+	end
+	if ns.ShowMainUI then
+		ns:ShowMainUI()
+	end
+	local tabId = article.tabId
+	if ns.IsBetaTabEnabled and not ns.IsBetaTabEnabled(tabId) then
+		tabId = "home"
+	end
+	if ns.SelectTab then
+		ns.SelectTab(tabId)
+	end
+	if tabId == "reference" and ns.SetReferenceGuideSubTab then
+		local sub = article.referenceSubTab or "dawncrest"
+		ns.SetReferenceGuideSubTab(sub)
+	end
+	if tabId == "delves" and article.delvesSection and ns.SyncDelvesAccordion then
+		ns.SyncDelvesAccordion(article.delvesSection)
+	end
+end
+
 local function GetCurrencyIcon(currencyId)
 	local qty, info = ns.GetCodexCurrencyQuantity and ns.GetCodexCurrencyQuantity(currencyId)
 	if info and info.iconFileID then
@@ -130,13 +185,23 @@ local function CreateArticleBlock(article)
 	local root = CreateFrame("Frame", nil, child)
 	root:SetWidth(child:GetWidth() or 300)
 
-	local titleFs = root:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	titleFs:SetPoint("TOPLEFT", root, "TOPLEFT", 0, 0)
-	titleFs:SetPoint("RIGHT", root, "RIGHT", 0, 0)
+	local titleAnchor = root
+	if article.currencyId then
+		local titleHit = CreateFrame("Frame", nil, root)
+		titleHit:SetPoint("TOPLEFT", root, "TOPLEFT", 0, 0)
+		titleHit:SetPoint("RIGHT", root, "RIGHT", 0, 0)
+		titleHit:SetHeight(20)
+		AttachCurrencyTooltip(titleHit, article.currencyId)
+		titleAnchor = titleHit
+	end
+
+	local titleFs = titleAnchor:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	titleFs:SetPoint("TOPLEFT", titleAnchor, "TOPLEFT", 0, 0)
+	titleFs:SetPoint("RIGHT", titleAnchor, "RIGHT", 0, 0)
 	titleFs:SetJustifyH("LEFT")
 	titleFs:SetText("|cffffcc00" .. CodexL(article.titleKey) .. "|r")
 
-	local anchor = titleFs
+	local anchor = titleAnchor
 
 	if article.currencyId then
 		local curRow = CreateFrame("Frame", nil, root)
@@ -151,6 +216,7 @@ local function CreateArticleBlock(article)
 			icon:SetTexture(iconId)
 		end
 		AttachCurrencyTooltip(icon, article.currencyId)
+		AttachCurrencyTooltip(curRow, article.currencyId)
 
 		local curFs = curRow:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 		curFs:SetPoint("LEFT", icon, "RIGHT", 6, 0)
@@ -176,12 +242,12 @@ local function CreateArticleBlock(article)
 	if article.tabId then
 		navBtn = CreateFrame("Button", nil, root, "UIPanelButtonTemplate")
 		navBtn:SetHeight(22)
-		local labelKey = article.tabLabelKey or "TAB_HOME"
+		local labelKey = article.navLabelKey or article.tabLabelKey or "TAB_HOME"
 		navBtn:SetText(CodexL("CODEX_OPEN_TAB_FMT"):format(CodexL(labelKey)))
 		navBtn:SetPoint("TOPLEFT", bodyFs, "BOTTOMLEFT", 0, -6)
 		navBtn:SetScript("OnClick", function()
-			if ns.SelectTab then
-				ns:SelectTab(article.tabId)
+			if ns.NavigateFromCodex then
+				ns.NavigateFromCodex(article)
 			end
 		end)
 		local tw = navBtn:GetFontString() and navBtn:GetFontString():GetStringWidth() or 120
@@ -189,7 +255,7 @@ local function CreateArticleBlock(article)
 	end
 
 	root._mhMeasure = function()
-		local h = (titleFs:GetStringHeight() or 16) + 6
+		local h = (titleAnchor:GetHeight() or titleFs:GetStringHeight() or 16) + 6
 		if article.currencyId then
 			h = h + 24
 		end
@@ -277,6 +343,9 @@ function ns.RefreshCodexPanel()
 	ClearBlocks()
 
 	local categoryId = GetCodexCategory()
+	if categoryId == "currencies" and ns.RequestCodexCurrencyData then
+		ns:RequestCodexCurrencyData()
+	end
 	local articles = ns.GetCodexArticlesForCategory and ns:GetCodexArticlesForCategory(categoryId) or {}
 	for _, article in ipairs(articles) do
 		ui.blocks[#ui.blocks + 1] = CreateArticleBlock(article)
@@ -294,6 +363,9 @@ local function SelectCodexCategory(categoryId)
 	end
 	SetCodexCategory(categoryId)
 	ns.RefreshCodexPanel()
+	if categoryId == "currencies" and ui and ui.scheduleCurrencyRefresh then
+		ui.scheduleCurrencyRefresh()
+	end
 end
 
 function ns.BuildCodexPanel(panel)
@@ -372,6 +444,9 @@ function ns.BuildCodexPanel(panel)
 	panel:SetScript("OnShow", function()
 		syncWidth()
 		ns.RefreshCodexPanel()
+		if GetCodexCategory() == "currencies" and ui.scheduleCurrencyRefresh then
+			ui.scheduleCurrencyRefresh()
+		end
 	end)
 
 	local ev = CreateFrame("Frame")
@@ -381,12 +456,34 @@ function ns.BuildCodexPanel(panel)
 			ns.RefreshCodexPanel()
 		end
 	end)
+	ui._mhCurrencyRetryToken = 0
+	local function scheduleCurrencyRefresh()
+		if not C_Timer or not C_Timer.After then
+			return
+		end
+		ui._mhCurrencyRetryToken = (ui._mhCurrencyRetryToken or 0) + 1
+		local token = ui._mhCurrencyRetryToken
+		for _, delay in ipairs({ 0.15, 0.5, 1.0 }) do
+			C_Timer.After(delay, function()
+				if ui._mhCurrencyRetryToken ~= token then
+					return
+				end
+				if ui.panel and ui.panel:IsShown() and GetCodexCategory() == "currencies" then
+					ns.RefreshCodexPanel()
+				end
+			end)
+		end
+	end
+	ui.scheduleCurrencyRefresh = scheduleCurrencyRefresh
 
 	ns.CodexPanel = panel
 end
 
 function ns.TryCodexSearch(query)
 	if type(query) ~= "string" or query == "" then
+		return false
+	end
+	if not ns.IsCodexTabEnabled() then
 		return false
 	end
 	local q = query:lower():gsub("^%s+", ""):gsub("%s+$", "")
@@ -418,13 +515,9 @@ function ns.TryCodexSearch(query)
 	for i = 1, #hits do
 		local needle, cat = hits[i][1], hits[i][2]
 		if q:find(needle, 1, true) then
-			if ns.ShowMainUI then
-				ns:ShowMainUI()
+			if not ns.OpenMidnightCodex(cat) then
+				return false
 			end
-			if ns.SelectTab then
-				ns:SelectTab("codex")
-			end
-			SelectCodexCategory(cat)
 			if DEFAULT_CHAT_FRAME then
 				DEFAULT_CHAT_FRAME:AddMessage(
 					("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CODEX_SEARCH_OPENED"))

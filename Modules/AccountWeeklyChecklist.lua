@@ -158,7 +158,7 @@ function ns.ComputeAccountWeeklyChecklist()
 			local troveInBag = tonumber(e.troveInBag) or 0
 			if troveStatus == "available" then
 				troveNeedLabels[#troveNeedLabels + 1] = label
-			elseif troveStatus == "looted" or troveInBag > 0 then
+			elseif troveStatus == "looted" and troveInBag > 0 then
 				troveUnusedLabels[#troveUnusedLabels + 1] = label
 			end
 			local gProg = tonumber(e.gildedProgress) or 0

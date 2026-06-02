@@ -19,9 +19,14 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	CODEX_PANEL_TITLE = "Midnight Codex",
 	CODEX_PANEL_INTRO = "Your Midnight Season 1 handbook — what each system is, what currency does what, and where to click in this addon. Hover currency icons for Blizzard tooltips.",
 	CODEX_OPEN_TAB_FMT = "Open: %s",
+	CODEX_NAV_DELVES_VAULT = "Delves & Vault tab (Great Vault block)",
+	CODEX_NAV_DELVES_MIDNIGHT = "Delves & Vault tab (delve list)",
+	CODEX_NAV_BASICS_DAWN = "Basics tab (Dawncrests)",
+	CODEX_NAV_BASICS_PROF = "Basics tab (Professions guide)",
 	CODEX_BALANCE_FMT = "You have: |cffffffff%d|r",
 	CODEX_BALANCE_UNKNOWN = "Balance updates when you log in on this character.",
 	CODEX_SEARCH_OPENED = "Opened Midnight Codex.",
+	CODEX_BETA_DISABLED = "Midnight Codex is disabled in Settings (beta tabs).",
 
 	CODEX_CAT_START = "Start Here",
 	CODEX_CAT_WEEKLY = "Weekly loop",
@@ -39,7 +44,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	CODEX_WEEKLY_RESET_BODY = "• Most weekly progress resets on your region's maintenance day (EU Wednesday morning, US Tuesday morning).|n• Great Vault choices, world boss loot, many weekly caps, and Delver's Call deliveries reset.|n• |cffffffffHome -> This Week|r shows time until reset when the API provides it.|n• Plan alts: snapshot tab compares who still owes vault, boss, or Delver's Call.",
 
 	CODEX_VAULT_TITLE = "Great Vault",
-	CODEX_VAULT_BODY = "• Three tracks: |cffffffffWorld|r (delves + world content), |cffffffffDungeons|r (M+), |cffffffffRaid|r.|n• Fill activities during the week; after reset you pick one reward per unlocked slot at the vault NPC or via SHIFT-J.|n• |cffffffffVault Advisor|r (on Blizzard's vault UI) ranks options vs your equipped gear.|n• Midnight Helper shows vault status on |cffffffffDelves|r and |cffffffffAccount snapshot|r.",
+	CODEX_VAULT_BODY = "• Three tracks: |cffffffffWorld|r (delves + world content), |cffffffffDungeons|r (M+), |cffffffffRaid|r.|n• Fill activities during the week; after reset you pick one reward per unlocked slot at the vault NPC or via SHIFT-J.|n• |cffffffffVault Advisor|r (on Blizzard's vault UI) ranks options vs your equipped gear.|n• This addon shows all three tracks in the |cffffffffDelves & Vault|r tab — expand |cffffffffWeekly Great Vault (World)|r (not a separate tab yet).|n• Summary also on |cffffffffHome -> This Week|r and |cffffffffAccount snapshot|r.",
 
 	CODEX_WORLDBOSS_TITLE = "World boss (Midnight S1)",
 	CODEX_WORLDBOSS_BODY = "• One rotating world boss per week (Lu'ashal, Cragpine, Thorm'belan, Predaxas).|n• Warband loot: once any character kills it, alts show completed.|n• Tracked at the top of |cffffffffDelves & Vault|r with TomTom route.|n• Also linked from SMC City Guide when in Silvermoon.",
@@ -66,7 +71,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	CODEX_CUR_ACCOLADES_BODY = "• Shared currency for the |cffffffffVoid & Rituals|r systems (Ritual Sites + Void Assaults).|n• Weekly earn cap — after cap you still play for other rewards but stop gaining accolades until reset.|n• Spends on renown rewards at the Bazaar hub (Eversong / Zul'Aman).|n• Live count on |cffffffffVoid & Rituals|r tab.",
 
 	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
-	CODEX_CUR_DAWN_BODY = "• Raid-tier crafting currency (Great Vault raid slots, catalyst-adjacent progression).|n• Not the same as delve keys — see |cffffffffBasics -> Dawncrests|r for where to spend and weekly caps.|n• Gear upgrades often want crests + items from vault or raid.",
+	CODEX_CUR_DAWN_BODY = "• Raid-tier crafting currency (Great Vault raid slots, catalyst-adjacent progression).|n• Live crest counts are on |cffffffffBasics -> Dawncrests|r (not in this list).|n• Not the same as delve keys — see that guide for spend targets and weekly caps.",
 
 	CODEX_DELVES_INTRO_TITLE = "Midnight delves — overview",
 	CODEX_DELVES_INTRO_BODY = "• Solo or small-group scenarios across Eversong, Harandar, Voidstorm, etc.|n• |cffffffffTier 1–11+|r — higher tier = harder enemies and better item level in the vault.|n• Costs a |cffffffffRestored Coffer Key|r per run (see Currencies).|n• |cffffffffBountiful|r delves (rotating) give extra loot — use \"Find Nearest Bountiful Delve\" on the Delves tab.",
@@ -90,7 +95,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	CODEX_RAID_VAULT_BODY = "• Raid bosses progress raid vault slots (difficulty affects item level).|n• Normal / Heroic / Mythic each contribute — check vault UI for which bosses you've killed this week.|n• Crests (Dawncrests) often gate upgrade paths on raid gear.",
 
 	CODEX_VAULT_ADVISOR_TITLE = "Great Vault Advisor",
-	CODEX_VAULT_ADVISOR_BODY = "• Side panel on Blizzard's weekly reward UI: ranks vault pieces vs equipped gear.|n• Uses guide stat priorities (and optional Pawn scores).|n• Toggle in minimap quick settings / Esc -> AddOns -> Midnight Helper.|n• Auto vs Raid vs M+ profile for stat weights.",
+	CODEX_VAULT_ADVISOR_BODY = "• Side panel on Blizzard's weekly reward UI when you claim Great Vault loot (SHIFT-J) — not inside Midnight Helper tabs.|n• Ranks vault pieces vs equipped gear using guide stat priorities (and optional Pawn).|n• Toggle in minimap quick settings / Esc -> AddOns -> Midnight Helper.|n• Auto vs Raid vs M+ profile for stat weights.",
 
 	CODEX_WORLD_HUB_TITLE = "Void & Rituals — one system",
 	CODEX_WORLD_HUB_BODY = "• Midnight 12.0.5 pairs |cffffffffRitual Sites|r (Eversong) and |cffffffffVoid Assaults|r (Zul'Aman) under one currency and renown.|n• Same |cffffffffField Accolades|r and Bazaar hub — do not grind them as unrelated farms.|n• Open the combined tab for live active site, weekly caps, and TomTom buttons.",
@@ -116,9 +121,14 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	CODEX_PANEL_TITLE = "Midnight Codex",
 	CODEX_PANEL_INTRO = "Jouw Midnight Season 1-handboek — wat elk systeem is, welke currency waarvoor dient, en waar je in deze addon moet klikken. Hover currency-iconen voor Blizzard-tooltips.",
 	CODEX_OPEN_TAB_FMT = "Open: %s",
+	CODEX_NAV_DELVES_VAULT = "Tab Delves & Vault (Great Vault-blok)",
+	CODEX_NAV_DELVES_MIDNIGHT = "Tab Delves & Vault (delve-lijst)",
+	CODEX_NAV_BASICS_DAWN = "Tab Basics (Dawncrests)",
+	CODEX_NAV_BASICS_PROF = "Tab Basics (Professions-gids)",
 	CODEX_BALANCE_FMT = "Je hebt: |cffffffff%d|r",
 	CODEX_BALANCE_UNKNOWN = "Saldo werkt bij na inloggen op dit personage.",
 	CODEX_SEARCH_OPENED = "Midnight Codex geopend.",
+	CODEX_BETA_DISABLED = "Midnight Codex staat uit in Instellingen (beta-tabs).",
 
 	CODEX_CAT_START = "Start Here",
 	CODEX_CAT_WEEKLY = "Weeklijkse loop",
@@ -136,7 +146,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	CODEX_WEEKLY_RESET_BODY = "• Het meeste weekly progress reset op onderhoudsdag (EU woensdag ochtend, US dinsdag ochtend).|n• Great Vault, world boss, veel weekly caps en Delver's Call resetten.|n• |cffffffffHome -> This Week|r toont tijd tot reset als de API dat geeft.|n• Plan alts: snapshot-tab vergelijkt wie nog vault, boss of Delver's Call schuldig is.",
 
 	CODEX_VAULT_TITLE = "Great Vault",
-	CODEX_VAULT_BODY = "• Drie sporen: |cffffffffWorld|r (delves + world), |cffffffffDungeons|r (M+), |cffffffffRaid|r.|n• Vul activiteiten in de week; na reset kies je één beloning per slot bij de vault-NPC of SHIFT-J.|n• |cffffffffVault Advisor|r (op Blizzard vault-UI) rangschikt opties vs je gear.|n• Midnight Helper toont vault-status op |cffffffffDelves|r en |cffffffffAccount snapshot|r.",
+	CODEX_VAULT_BODY = "• Drie sporen: |cffffffffWorld|r (delves + world), |cffffffffDungeons|r (M+), |cffffffffRaid|r.|n• Vul activiteiten in de week; na reset kies je één beloning per slot bij de vault-NPC of SHIFT-J.|n• |cffffffffVault Advisor|r (op Blizzard vault-UI) rangschikt opties vs je gear.|n• De addon toont alle drie sporen op tab |cffffffffDelves & Vault|r — klapt |cffffffffWeekly Great Vault (World)|r open (nog geen aparte tab).|n• Samenvatting ook op |cffffffffHome -> This Week|r en |cffffffffAccount snapshot|r.",
 
 	CODEX_WORLDBOSS_TITLE = "World boss (Midnight S1)",
 	CODEX_WORLDBOSS_BODY = "• Eén roterende world boss per week (Lu'ashal, Cragpine, Thorm'belan, Predaxas).|n• Warband-loot: killt één char, alts tonen klaar.|n• Bovenaan |cffffffffDelves & Vault|r met TomTom-route.|n• Ook via SMC City Guide in Silvermoon.",
@@ -163,7 +173,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	CODEX_CUR_ACCOLADES_BODY = "• Gedeelde currency voor |cffffffffVoid & Rituals|r (Ritual Sites + Void Assaults).|n• Weekly cap — daarna nog spelen, geen accolades tot reset.|n• Uitgeven aan renown in Bazaar-hub.|n• Live count op tab Void & Rituals.",
 
 	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
-	CODEX_CUR_DAWN_BODY = "• Raid-tier crafting currency.|n• Niet hetzelfde als delve keys — zie |cffffffffBasics -> Dawncrests|r.|n• Upgrades willen vaak crests + vault/raid-items.",
+	CODEX_CUR_DAWN_BODY = "• Raid-tier crafting currency.|n• Live crest-saldi staan op |cffffffffBasics -> Dawncrests|r (niet in deze lijst).|n• Niet hetzelfde als delve keys — zie die gids voor uitgaven en weekly caps.",
 
 	CODEX_DELVES_INTRO_TITLE = "Midnight delves — overzicht",
 	CODEX_DELVES_INTRO_BODY = "• Solo of kleine groep in Eversong, Harandar, Voidstorm, …|n• |cffffffffTier 1–11+|r — hogere tier = moeilijker en betere ilvl in vault.|n• Kost |cffffffffRestored Coffer Key|r per run.|n• |cffffffffBountiful|r delves geven extra loot — knop op Delves-tab.",
@@ -187,7 +197,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	CODEX_RAID_VAULT_BODY = "• Raid-bazen vullen raid vault-slots (moeilijkheid = ilvl).|n• Normal/Heroic/Mythic tellen mee.|n• Dawncrests gaten vaak upgrades op raid-gear.",
 
 	CODEX_VAULT_ADVISOR_TITLE = "Great Vault Advisor",
-	CODEX_VAULT_ADVISOR_BODY = "• Zijpaneel op Blizzard weekly reward UI.|n• Rangschikt vs equipped gear (optioneel Pawn).|n• Toggle in minimap settings / Esc -> AddOns.|n• Auto / Raid / M+ profiel.",
+	CODEX_VAULT_ADVISOR_BODY = "• Zijpaneel op Blizzard weekly reward UI bij Great Vault claimen (SHIFT-J) — niet in een Midnight Helper-tab.|n• Rangschikt vs equipped gear (optioneel Pawn).|n• Toggle in minimap settings / Esc -> AddOns.|n• Auto / Raid / M+ profiel.",
 
 	CODEX_WORLD_HUB_TITLE = "Void & Rituals — één systeem",
 	CODEX_WORLD_HUB_BODY = "• 12.0.5 koppelt Ritual Sites (Eversong) en Void Assaults (Zul'Aman).|n• Zelfde |cffffffffField Accolades|r en Bazaar-hub.|n• Gecombineerde tab voor actieve site, caps en TomTom.",

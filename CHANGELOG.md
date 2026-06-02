@@ -4,10 +4,24 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-05-30
+
 ### Added
 
-- **Midnight Codex** tab: handbook with **Start Here**, weekly loop, currencies (live balances + Blizzard tooltips), delves, dungeons, raid, world content, and professions — each article links to the relevant addon tab.
+- **Midnight Codex** (beta sidebar tab): handbook with **Start Here**, weekly loop, currencies, delves, dungeons, raid, world content, and professions — each article links to the relevant addon tab. Toggle in **Esc → AddOns → Midnight Helper** (beta tabs).
+- **Live currency balances** in Codex (with snapshot fallback) and **Blizzard tooltips** on currency titles and icons.
 - Global search keywords (`codex`, `wiki`, `start here`, `currency`, …) open the Codex.
+- **Delve weekly trackers** on Home: Trovehunter's Bounty, Gilded Stash (T11+ bountiful), and Special Assignments with account alt rollup.
+
+### Changed
+
+- Codex moved into the **beta** sidebar block (between Professions and Consumables) with its own settings checkbox.
+- Codex **Open** buttons use correct destinations (e.g. Dawncrests → **Basics**, Great Vault → **Delves & Vault** section).
+
+### Fixed
+
+- **Trovehunter's Bounty** on Home / Account: no longer shows “looted — use it!” unless the map is actually in your bags.
+- **Delve Coach**: auto-select active boss in multi-boss delves; session-only carousel browse without sticking preview state; live delve **boss 3D preview** and story-variant detection (map tooltip, Grudge Pit / Arena Champion fallbacks).
 
 ## [1.5.0] - 2026-05-29
 

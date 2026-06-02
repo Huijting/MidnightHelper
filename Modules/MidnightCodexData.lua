@@ -17,6 +17,9 @@ local _, ns = ...
 ---@field bodyKey string
 ---@field tabId string|nil
 ---@field tabLabelKey string|nil
+---@field navLabelKey string|nil -- button text override (clearer than tab name alone)
+---@field delvesSection string|nil -- "vault" | "midnight" when tabId is delves (accordion)
+---@field referenceSubTab string|nil -- "dawncrest" | "professions" when tabId is reference
 ---@field currencyId number|nil
 ---@field sort number
 
@@ -58,6 +61,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_VAULT_BODY",
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_VAULT",
+		delvesSection = "vault",
 		sort = 2,
 	},
 	{
@@ -67,6 +72,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_WORLDBOSS_BODY",
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_MIDNIGHT",
+		delvesSection = "midnight",
 		sort = 3,
 	},
 	{
@@ -97,6 +104,8 @@ ns.CODEX_ARTICLES = {
 		currencyId = 3028,
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_MIDNIGHT",
+		delvesSection = "midnight",
 		sort = 1,
 	},
 	{
@@ -107,6 +116,8 @@ ns.CODEX_ARTICLES = {
 		currencyId = 3310,
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_MIDNIGHT",
+		delvesSection = "midnight",
 		sort = 2,
 	},
 	{
@@ -117,6 +128,8 @@ ns.CODEX_ARTICLES = {
 		currencyId = 2803,
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_MIDNIGHT",
+		delvesSection = "midnight",
 		sort = 3,
 	},
 	{
@@ -127,6 +140,8 @@ ns.CODEX_ARTICLES = {
 		currencyId = 3356,
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_MIDNIGHT",
+		delvesSection = "midnight",
 		sort = 4,
 	},
 	{
@@ -146,6 +161,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_CUR_DAWN_BODY",
 		tabId = "reference",
 		tabLabelKey = "TAB_REFERENCE",
+		navLabelKey = "CODEX_NAV_BASICS_DAWN",
+		referenceSubTab = "dawncrest",
 		sort = 6,
 	},
 
@@ -157,6 +174,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_DELVES_INTRO_BODY",
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_MIDNIGHT",
+		delvesSection = "midnight",
 		sort = 1,
 	},
 	{
@@ -166,6 +185,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_DELVE_COACH_BODY",
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_MIDNIGHT",
+		delvesSection = "midnight",
 		sort = 2,
 	},
 	{
@@ -175,6 +196,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_DELVE_CURIOS_BODY",
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_MIDNIGHT",
+		delvesSection = "midnight",
 		sort = 3,
 	},
 	{
@@ -184,6 +207,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_TORMENTS_BODY",
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_MIDNIGHT",
+		delvesSection = "midnight",
 		sort = 4,
 	},
 	{
@@ -204,6 +229,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_MPLUS_BODY",
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_VAULT",
+		delvesSection = "vault",
 		sort = 1,
 	},
 
@@ -215,6 +242,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_RAID_VAULT_BODY",
 		tabId = "delves",
 		tabLabelKey = "TAB_DELVES",
+		navLabelKey = "CODEX_NAV_DELVES_VAULT",
+		delvesSection = "vault",
 		sort = 1,
 	},
 	{
@@ -222,8 +251,6 @@ ns.CODEX_ARTICLES = {
 		category = "raid",
 		titleKey = "CODEX_VAULT_ADVISOR_TITLE",
 		bodyKey = "CODEX_VAULT_ADVISOR_BODY",
-		tabId = "delves",
-		tabLabelKey = "TAB_DELVES",
 		sort = 2,
 	},
 
@@ -282,6 +309,8 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_PROF_GUIDE_BODY",
 		tabId = "reference",
 		tabLabelKey = "TAB_REFERENCE",
+		navLabelKey = "CODEX_NAV_BASICS_PROF",
+		referenceSubTab = "professions",
 		sort = 2,
 	},
 }
@@ -315,14 +344,67 @@ function ns:GetCodexCategoryById(categoryId)
 	return nil
 end
 
+ns.CODEX_TRACKED_CURRENCY_IDS = { 3028, 3310, 2803, 3356, 3405 }
+
+function ns:RequestCodexCurrencyData()
+	if not C_CurrencyInfo or not C_CurrencyInfo.RequestCurrencyDataFromServer then
+		return
+	end
+	for _, id in ipairs(ns.CODEX_TRACKED_CURRENCY_IDS) do
+		pcall(C_CurrencyInfo.RequestCurrencyDataFromServer, id)
+	end
+end
+
+local function CurrencyQuantityFromInfo(info)
+	if not info or type(info) ~= "table" then
+		return nil
+	end
+	local q = info.quantity
+	if q == nil then
+		return nil
+	end
+	if issecretvalue and issecretvalue(q) then
+		if canaccessvalue and canaccessvalue(q) then
+			return math.floor(tonumber(q) or 0)
+		end
+		return nil
+	end
+	return math.floor(tonumber(q) or 0)
+end
+
+local function CurrencyQuantityFromSnapshot(currencyId)
+	local guid = UnitGUID and UnitGUID("player")
+	if not guid or not ns.db or type(ns.db.charCurrencies) ~= "table" then
+		return nil
+	end
+	local snap = ns.db.charCurrencies[guid]
+	if type(snap) ~= "table" then
+		return nil
+	end
+	if currencyId == 3028 then
+		return tonumber(snap.keys)
+	elseif currencyId == 3310 then
+		return tonumber(snap.shards)
+	elseif currencyId == 2803 then
+		return tonumber(snap.undercoin)
+	elseif currencyId == 3356 then
+		return tonumber(snap.manaCrystals)
+	end
+	return nil
+end
+
 function ns:GetCodexCurrencyQuantity(currencyId)
 	currencyId = tonumber(currencyId)
 	if not currencyId or not C_CurrencyInfo or not C_CurrencyInfo.GetCurrencyInfo then
-		return nil, nil
+		return CurrencyQuantityFromSnapshot(currencyId), nil
 	end
 	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, currencyId)
 	if not ok or type(info) ~= "table" then
-		return nil, nil
+		return CurrencyQuantityFromSnapshot(currencyId), nil
 	end
-	return tonumber(info.quantity), info
+	local qty = CurrencyQuantityFromInfo(info)
+	if qty == nil then
+		qty = CurrencyQuantityFromSnapshot(currencyId)
+	end
+	return qty, info
 end
