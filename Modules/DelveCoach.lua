@@ -1494,6 +1494,21 @@ local function OnDelveStateTick()
 						end
 					end
 				end)
+				-- Some delves only expose story/boss signals after a few objectives.
+				for _, delay in ipairs({ 5, 10 }) do
+					C_Timer.After(delay, function()
+						if ns.RefreshDelveStorySnapshot then
+							ns.RefreshDelveStorySnapshot(entryId)
+						end
+						if coachFrame and coachFrame.IsShown and coachFrame:IsShown() and currentEntryId == entryId and not coachFrame._previewMode and not coachFrame._bossManualOverride then
+							local e = ns.GetDelveTipEntryById and ns.GetDelveTipEntryById(entryId)
+							if e then
+								UpdateBossShowcase(coachFrame, entryId)
+								RefreshCoachBody(coachFrame, e, true)
+							end
+						end
+					end)
+				end
 			end
 		end
 	end
