@@ -324,14 +324,22 @@ local function UpdateBossShowcase(f, entryId)
 	local inDelve = (ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress()) and true or false
 	if not f._previewMode and inDelve and not f._bossWasInDelve then
 		f._bossManualOverride = false
+		f._bossBrowseIndex = nil
 	end
 	f._bossWasInDelve = inDelve
 
-	local preferAuto = not f._previewMode and not f._bossManualOverride
+	local preferAuto = not f._bossManualOverride
+	local prevIdx = f._bossShowcaseIndex
+	local prevEntryId = f._bossEntryId
 	local idx
 	local autoResolved = false
-	if ns.ResolveDelveBossShowcaseIndex then
-		idx, autoResolved = ns:ResolveDelveBossShowcaseIndex(entryId, preferAuto)
+	if f._bossManualOverride then
+		idx = f._bossBrowseIndex or f._bossShowcaseIndex
+			or (ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId))
+			or 1
+		autoResolved = false
+	elseif ns.ResolveDelveBossShowcaseIndex then
+		idx, autoResolved = ns.ResolveDelveBossShowcaseIndex(entryId, preferAuto)
 	end
 	if idx == nil and not preferAuto then
 		idx = (ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId)) or 1
@@ -341,6 +349,12 @@ local function UpdateBossShowcase(f, entryId)
 	end
 	panel:Show()
 	idx = math.max(1, math.min(#bosses, idx))
+	-- Persist auto-pick only until the player uses ◀ ▶ (then _bossManualOverride sticks).
+	if autoResolved and not f._previewMode and not f._bossManualOverride then
+		if ns.SetDelveBossShowcaseIndex then
+			ns:SetDelveBossShowcaseIndex(entryId, idx)
+		end
+	end
 	local boss = bosses[idx]
 	if nameFs then
 		nameFs:SetText(boss.label or "")
@@ -356,7 +370,7 @@ local function UpdateBossShowcase(f, entryId)
 	if f._bossAutoHint then
 		-- Only show the hint when we *want* auto selection, but do not yet have a
 		-- confirmed active boss (we're showing the saved/last index as fallback).
-		if preferAuto and not autoResolved then
+		if preferAuto and not autoResolved and not f._previewMode then
 			f._bossAutoHint:SetText(ns:SafeL("DELVE_COACH_BOSS_PENDING"))
 			f._bossAutoHint:Show()
 		else
@@ -371,9 +385,12 @@ local function UpdateBossShowcase(f, entryId)
 	end
 	if entryId ~= f._bossEntryId then
 		f._bossManualOverride = false
+		f._bossBrowseIndex = nil
 		if model and ns.ClearDelveBossCreatureModel then
 			ns:ClearDelveBossCreatureModel(model)
 		end
+	elseif prevIdx and idx ~= prevIdx and model and ns.ClearDelveBossCreatureModel then
+		ns:ClearDelveBossCreatureModel(model)
 	end
 	if f._bossLoading then
 		f._bossLoading:SetText(ns:L("DELVE_COACH_BOSS_LOADING"))
@@ -523,16 +540,17 @@ local function CycleBossShowcase(f, delta)
 	if not bosses or #bosses < 2 then
 		return
 	end
-	local idx = ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId) or 1
+	local idx = f._bossBrowseIndex or f._bossShowcaseIndex
+		or (ns.GetDelveBossShowcaseIndex and ns:GetDelveBossShowcaseIndex(entryId))
+		or 1
 	idx = idx + (delta or 1)
 	if idx > #bosses then
 		idx = 1
 	elseif idx < 1 then
 		idx = #bosses
 	end
-	if ns.SetDelveBossShowcaseIndex then
-		ns:SetDelveBossShowcaseIndex(entryId, idx)
-	end
+	-- Session-only browse; do not write to SavedVariables (preview uses auto/story).
+	f._bossBrowseIndex = idx
 	f._bossManualOverride = true
 	UpdateBossShowcase(f, entryId)
 	local entry = ns.GetDelveTipEntryById and ns.GetDelveTipEntryById(entryId)
@@ -1234,8 +1252,12 @@ local function RefreshDelveCoachLiveContent()
 		end
 		ns.RefreshDelveStorySnapshot(currentEntryId)
 	end
-	RefreshCoachBody(coachFrame, entry, true)
 	UpdateBossShowcase(coachFrame, currentEntryId)
+	RefreshCoachBody(coachFrame, entry, true)
+end
+
+function ns.RefreshDelveCoachLiveContent()
+	RefreshDelveCoachLiveContent()
 end
 
 function ns:RefreshDelveCoachLocale()
@@ -1276,6 +1298,10 @@ function ns:ShowDelveCoach(entryId, options)
 
 	local ok, err = pcall(function()
 		local f = EnsureCoachFrame()
+		if isPreview or entryId ~= f._bossEntryId then
+			f._bossManualOverride = false
+			f._bossBrowseIndex = nil
+		end
 		currentEntryId = entryId
 		f._previewMode = isPreview
 		f._userDismissed = false

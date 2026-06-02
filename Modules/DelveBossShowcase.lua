@@ -193,6 +193,13 @@ ns.DELVE_BOSS_SHOWCASE = {
 	},
 }
 
+--- Scenario step title (lowercase) -> boss index when Blizzard hides story names (secret strings).
+local DELVE_SCENARIO_STEP_BOSS = {
+	grudge_pit = {
+		["enter the arena"] = 2, -- Arena Champion -> Gyrospore
+	},
+}
+
 function ns:GetDelveBossShowcase(entryId)
 	if not entryId then
 		return nil
@@ -447,11 +454,16 @@ local function StoreDelveStorySnapshot(entryId, storyName, bossEntry, bossIndex)
 	if not entryId or not bossIndex then
 		return
 	end
+	local prev = activeDelveStorySnapshot[entryId]
+	local changed = not prev or prev.bossIndex ~= bossIndex
 	activeDelveStorySnapshot[entryId] = {
 		storyName = storyName,
 		bossIndex = bossIndex,
 		bossLabel = bossEntry and bossEntry.label or nil,
 	}
+	if changed and ns.RefreshDelveCoachLiveContent then
+		pcall(ns.RefreshDelveCoachLiveContent)
+	end
 end
 
 local function MatchBossFromHintText(text, bosses)
@@ -683,6 +695,64 @@ local function ExtractStoryVariantFromTooltip(tip)
 	return nil, nil
 end
 
+local function ExtractStoryVariantFromTooltipLines(lines)
+	if type(lines) ~= "table" then
+		return nil
+	end
+	for _, line in ipairs(lines) do
+		local left = line and (line.leftText or line.left or line.text)
+		if CanAccessText(left) then
+			local clean = StripColorCodes(left)
+			local key = clean:lower()
+			if key:find("story", 1, true) and key:find("variant", 1, true) then
+				local variant = clean:match(":%s*(.+)$")
+				if variant and variant ~= "" then
+					return variant
+				end
+			end
+		end
+	end
+	return nil
+end
+
+local function TryPrimeStoryFromTooltipInfo(entryId, poiId, mapIds)
+	if not entryId or not (C_TooltipInfo and C_TooltipInfo.GetAreaPOIInfo) then
+		return
+	end
+	poiId = tonumber(poiId)
+	if not poiId then
+		return
+	end
+	local seenMap = {}
+	local function scanMap(mapId)
+		mapId = tonumber(mapId)
+		if not mapId or seenMap[mapId] then
+			return false
+		end
+		seenMap[mapId] = true
+		local ok, data = pcall(C_TooltipInfo.GetAreaPOIInfo, mapId, poiId)
+		if ok and data then
+			local variant = ExtractStoryVariantFromTooltipLines(data.lines)
+			if variant then
+				SetPersistedDelveStory(entryId, variant)
+				DebugDelveStoryOnce(entryId, ("Delve story primed (tooltip-info map %s): %q"):format(tostring(mapId), variant))
+				return true
+			end
+		end
+		return false
+	end
+	for _, mapId in ipairs(mapIds or {}) do
+		if scanMap(mapId) then
+			return
+		end
+	end
+	for _, mapId in ipairs(STORY_ZONE_MAPS) do
+		if scanMap(mapId) then
+			return
+		end
+	end
+end
+
 function ns.HookDelveStoryTooltip()
 	if ns._mhDelveStoryTooltipHooked then
 		return
@@ -697,6 +767,9 @@ function ns.HookDelveStoryTooltip()
 		DebugDelveStoryOnce(entryId, ("Delve story learned (%s): %q"):format(tostring(source or "unknown"), tostring(variant)))
 		if ns.RefreshDelveStorySnapshot then
 			ns.RefreshDelveStorySnapshot(entryId)
+		end
+		if ns.RefreshDelveCoachLiveContent then
+			pcall(ns.RefreshDelveCoachLiveContent)
 		end
 	end
 
@@ -729,32 +802,64 @@ function ns.HookDelveStoryTooltip()
 
 	local function handler(tip)
 		local entryId, variant = ExtractStoryVariantFromTooltip(tip)
-		if not entryId or not variant then
-			-- Debug: if map hover is visible but we cannot parse it, dump a few lines.
-			if tip and tip == _G.WorldMapTooltip and ShouldDebugDelveStoryAny() then
-				local tipName = tip.GetName and tip:GetName()
-				if tipName and not tip._mhDumpAt then
-					tip._mhDumpAt = 0
-				end
-				local now = GetTime and GetTime() or 0
-				if tipName and (now - (tip._mhDumpAt or 0)) > 1.5 then
-					tip._mhDumpAt = now
-					local lines = {}
-					for i = 1, 8 do
-						local obj = _G[tipName .. "TextLeft" .. i]
-						local t = obj and obj.GetText and obj:GetText()
-						if CanAccessText(t) then
-							lines[#lines + 1] = StripColorCodes(t)
-						end
-					end
-					if #lines > 0 then
-						DebugDelveStoryOnce("worldmap", ("WorldMapTooltip lines: %s"):format(table.concat(lines, " | ")))
+		if entryId and variant then
+			CacheVariant(entryId, variant, "tooltip-text")
+			return
+		end
+		if not (tip and tip.GetName) then
+			return
+		end
+		local tipName = tip:GetName()
+		if not tipName then
+			return
+		end
+		local titleObj = _G[tipName .. "TextLeft1"]
+		local title = titleObj and titleObj.GetText and titleObj:GetText()
+		local dumpEntryId = entryId or ResolveDelveEntryIdFromTitle(title)
+		if dumpEntryId then
+			local now = GetTime and GetTime() or 0
+			if tip._mhPrimeAt == nil then
+				tip._mhPrimeAt = 0
+			end
+			if (now - tip._mhPrimeAt) > 0.5 then
+				tip._mhPrimeAt = now
+				local entry = ns.GetDelveTipEntryById and ns.GetDelveTipEntryById(dumpEntryId)
+				local poiId = entry and entry.poiId
+				if poiId then
+					local _, mapIds = GetTipEntryPoiContext(dumpEntryId)
+					TryPrimeStoryFromTooltipInfo(dumpEntryId, poiId, mapIds)
+					local cached = GetPersistedDelveStory(dumpEntryId)
+					if cached and not variant then
+						CacheVariant(dumpEntryId, cached, "tooltip-info-hover")
 					end
 				end
 			end
+		end
+		-- Debug: any visible tooltip whose title matches a delve name.
+		if not (ShouldDebugDelveStoryAny() and dumpEntryId) then
 			return
 		end
-		CacheVariant(entryId, variant, "tooltip-text")
+		if not dumpEntryId then
+			return
+		end
+		if tip._mhDumpAt == nil then
+			tip._mhDumpAt = 0
+		end
+		local now = GetTime and GetTime() or 0
+		if (now - tip._mhDumpAt) > 1.5 then
+			tip._mhDumpAt = now
+			local lines = {}
+			for i = 1, 8 do
+				local obj = _G[tipName .. "TextLeft" .. i]
+				local t = obj and obj.GetText and obj:GetText()
+				if CanAccessText(t) then
+					lines[#lines + 1] = StripColorCodes(t)
+				end
+			end
+			if #lines > 0 then
+				DebugDelveStoryOnce(dumpEntryId, ("Map tooltip (%s) lines: %s"):format(tostring(tipName), table.concat(lines, " | ")))
+			end
+		end
 	end
 
 	local function hookTip(tip)
@@ -916,6 +1021,7 @@ function ns.PrimeDelveStoryPoiCache(entryId)
 	for _, mapId in ipairs(STORY_ZONE_MAPS) do
 		scanMap(mapId)
 	end
+	TryPrimeStoryFromTooltipInfo(entryId, poiId, mapIds)
 end
 
 function ns.PrimeAllDelveStoryPoiCaches()
@@ -1125,9 +1231,34 @@ local function CollectScenarioSpellNameCandidates()
 	return out
 end
 
+local function MatchBossFromScenarioStep(entryId, bosses, lists)
+	local stepMap = DELVE_SCENARIO_STEP_BOSS[entryId]
+	if not stepMap or type(bosses) ~= "table" then
+		return nil, nil, nil
+	end
+	for _, list in ipairs(lists) do
+		if type(list) == "table" then
+			for _, text in ipairs(list) do
+				if CanAccessText(text) then
+					local n = NormalizeStoryText(StripColorCodes(text))
+					local idx = stepMap[n]
+					if idx and bosses[idx] then
+						return text, bosses[idx], idx
+					end
+				end
+			end
+		end
+	end
+	return nil, nil, nil
+end
+
 local function TryMatchStoryBoss(entryId, bosses, lists, signals)
 	if type(bosses) ~= "table" then
 		return nil, nil, nil
+	end
+	local sn, be, idx = MatchBossFromScenarioStep(entryId, bosses, lists)
+	if idx then
+		return sn, be, idx
 	end
 	for _, list in ipairs(lists) do
 		if type(list) == "table" then
@@ -1257,10 +1388,12 @@ function ns.RefreshDelveStorySnapshot(entryId)
 	local pri, sec = CollectScenarioStoryCandidates()
 	local spellNames = CollectScenarioSpellNameCandidates()
 	local signals = CollectScenarioNumericSignals()
+	local cached = GetPersistedDelveStory(entryId)
+	local cachedList = cached and { cached } or {}
 	local storyName, bossEntry, idx = TryMatchStoryBoss(
 		entryId,
 		bosses,
-		{ tier, poi, pri, sec, spellNames },
+		{ tier, poi, pri, sec, spellNames, cachedList },
 		signals
 	)
 	if idx then
@@ -1282,15 +1415,13 @@ function ns.ResolveDelveStoryBoss(entryId)
 		return nil, nil, nil
 	end
 	local bosses = ns.DELVE_BOSS_SHOWCASE[entryId]
-	local snap = activeDelveStorySnapshot[entryId]
-	if snap and snap.bossIndex and type(bosses) == "table" and bosses[snap.bossIndex] then
-		return snap.storyName, bosses[snap.bossIndex], snap.bossIndex
-	end
 	local tier = CollectActiveDelveTierStoryCandidates()
 	local poi = CollectMapPoiStoryCandidates(entryId)
 	local pri, sec = CollectScenarioStoryCandidates()
 	local spellNames = CollectScenarioSpellNameCandidates()
 	local signals = CollectScenarioNumericSignals()
+	local cached = GetPersistedDelveStory(entryId)
+	local cachedList = cached and { cached } or {}
 
 	if ShouldDebugDelveStory(entryId) then
 		local bits = {}
@@ -1315,7 +1446,6 @@ function ns.ResolveDelveStoryBoss(entryId)
 		if #signals.criteriaIDs > 0 then
 			bits[#bits + 1] = "[criteriaIDs] " .. table.concat(signals.criteriaIDs, ",")
 		end
-		local cached = GetPersistedDelveStory(entryId)
 		if cached then
 			bits[#bits + 1] = "[cached] " .. cached
 		end
@@ -1327,7 +1457,7 @@ function ns.ResolveDelveStoryBoss(entryId)
 	local storyName, bossEntry, idx = TryMatchStoryBoss(
 		entryId,
 		bosses,
-		{ tier, poi, pri, sec, spellNames },
+		{ tier, poi, pri, sec, spellNames, cachedList },
 		signals
 	)
 	if idx then
@@ -1342,6 +1472,11 @@ function ns.ResolveDelveStoryBoss(entryId)
 	end
 	if idx or bossEntry then
 		return storyName, bossEntry, idx
+	end
+
+	local snap = activeDelveStorySnapshot[entryId]
+	if snap and snap.bossIndex and type(bosses) == "table" and bosses[snap.bossIndex] then
+		return snap.storyName, bosses[snap.bossIndex], snap.bossIndex
 	end
 
 	if entryId == "sunkiller_sanctum" then
@@ -1831,3 +1966,18 @@ function ns.ApplyDelveBossPortraitFallback(portraitTex, bossEntry)
 	end
 	return false
 end
+
+ns.EnsureDelveStoryHooks = ns.HookDelveStoryTooltip
+
+local mhDelveStoryBoot = CreateFrame("Frame")
+mhDelveStoryBoot:RegisterEvent("PLAYER_LOGIN")
+mhDelveStoryBoot:SetScript("OnEvent", function()
+	if ns.HookDelveStoryTooltip then
+		ns.HookDelveStoryTooltip()
+	end
+	if C_Timer and C_Timer.After and ns.PrimeAllDelveStoryPoiCaches then
+		C_Timer.After(2, function()
+			ns.PrimeAllDelveStoryPoiCaches()
+		end)
+	end
+end)
