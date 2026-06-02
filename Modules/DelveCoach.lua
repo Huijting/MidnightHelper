@@ -1498,6 +1498,8 @@ local function OnDelveStateTick()
 		end
 		if coachFrame then
 			coachFrame._previewMode = false
+			-- Allow next delve entry to reset manual boss selection.
+			coachFrame._bossWasInDelve = false
 		end
 		if ns.HideDelveItemsUiLeavingDelve then
 			ns:HideDelveItemsUiLeavingDelve()
