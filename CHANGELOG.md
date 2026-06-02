@@ -4,6 +4,13 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.5.2] - 2026-06-02
+
+### Fixed
+
+- **Delve story tooltip hook** no longer registers on every tooltip type (e.g. **UnitAura** from nameplate addons). Fixes `secret number` compare errors in delves when addons such as **Platynator** show aura tooltips.
+- **POI ID** handling uses `canaccessvalue` / safe tonumber before matching delve map POIs.
+
 ## [1.5.1] - 2026-05-30
 
 ### Added
