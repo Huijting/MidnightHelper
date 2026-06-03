@@ -1,8 +1,8 @@
 # CurseForge release 1.5.2 — copy/paste
 
-**Live on CurseForge today:** 1.5.1 → upload **1.5.2**.
+**Gebruik voor upload na 1.5.0:** volledige changelog **1.5.0 → 1.5.2** staat in **`docs/CURSEFORGE_1.5.2_FROM_1.5.0.md`** (1.5.1 + 1.5.2 gecombineerd).
 
-Upload `dist/MidnightHelper-1.5.2.zip`. **Description** unchanged unless you want edits — same as 1.5.1. **Changelog** below is the only required text update.
+Onderstaand is alleen de **1.5.1 → 1.5.2** hotfix-tekst (niet gebruiken als CF nog op 1.5.0 staat).
 
 ---
 
@@ -16,7 +16,7 @@ Hotfix: fixes Lua errors in delves when nameplate addons show aura tooltips (sec
 
 ### 1.5.2 — 2026-06-02
 
-**Since 1.5.1**
+**Since 1.5.1** *(alleen als 1.5.1 al live was)*
 
 #### Fixes
 
