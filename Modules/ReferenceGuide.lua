@@ -11,7 +11,48 @@ local hostPanel
 local scroll
 local scrollChild
 local subNav
+local contentHost
 local subButtons = {}
+
+local function UpdateContentHostHeight()
+	if not contentHost then
+		return
+	end
+	local h = 1
+	if ns.DawncrestGuidePanel and ns.DawncrestGuidePanel:IsShown() and ns.DawncrestGuidePanel:GetParent() == contentHost then
+		h = math.max(h, ns.DawncrestGuidePanel:GetHeight() or 1)
+	end
+	if ns.ProfessionsGuidePanel and ns.ProfessionsGuidePanel:IsShown() and ns.ProfessionsGuidePanel:GetParent() == contentHost then
+		h = math.max(h, ns.ProfessionsGuidePanel:GetHeight() or 1)
+	end
+	contentHost:SetHeight(h)
+end
+
+local function LayoutEmbeddedGuidePanel(frame)
+	if not contentHost or not frame then
+		return
+	end
+	if frame:GetParent() ~= contentHost then
+		frame:SetParent(contentHost)
+	end
+	frame:ClearAllPoints()
+	frame:SetPoint("TOPLEFT", contentHost, "TOPLEFT", 0, 0)
+	frame:SetPoint("TOPRIGHT", contentHost, "TOPRIGHT", 0, 0)
+end
+
+local function LayoutReferenceEmbeddedPanels()
+	if not contentHost then
+		return
+	end
+	LayoutEmbeddedGuidePanel(ns.DawncrestGuidePanel)
+	LayoutEmbeddedGuidePanel(ns.ProfessionsGuidePanel)
+	UpdateContentHostHeight()
+	if scrollChild and scrollChild._comingSoon then
+		scrollChild._comingSoon:ClearAllPoints()
+		scrollChild._comingSoon:SetPoint("TOPLEFT", contentHost, "BOTTOMLEFT", 4, -14)
+		scrollChild._comingSoon:SetPoint("TOPRIGHT", scrollChild, "TOPRIGHT", -4, 0)
+	end
+end
 
 local function GetRefSettings()
 	local ui = ns.db and ns.db.ui
@@ -49,11 +90,9 @@ function ns.SyncReferenceGuideScroll()
 	if subNav and subNav:IsShown() then
 		h = h + (subNav:GetHeight() or 0) + 6
 	end
-	if ns.DawncrestGuidePanel and ns.DawncrestGuidePanel:IsShown() then
-		h = h + (ns.DawncrestGuidePanel:GetHeight() or 0) + 12
-	end
-	if ns.ProfessionsGuidePanel and ns.ProfessionsGuidePanel:IsShown() then
-		h = h + (ns.ProfessionsGuidePanel:GetHeight() or 0) + 12
+	UpdateContentHostHeight()
+	if contentHost then
+		h = h + (contentHost:GetHeight() or 0) + 12
 	end
 	if scrollChild._comingSoon and scrollChild._comingSoon:IsShown() then
 		scrollChild._comingSoon:SetWidth(sw - 8)
@@ -110,6 +149,7 @@ function ns.RefreshReferenceGuidePanel()
 	if ns.RefreshProfessionsGuide then
 		ns.RefreshProfessionsGuide()
 	end
+	LayoutReferenceEmbeddedPanels()
 	ns.SyncReferenceGuideScroll()
 end
 
@@ -165,7 +205,7 @@ function ns.BuildReferenceGuidePanel(panel)
 
 	subNav = CreateFrame("Frame", nil, scrollChild)
 	subNav:SetPoint("TOPLEFT", intro, "BOTTOMLEFT", -4, -8)
-	subNav:SetPoint("RIGHT", scrollChild, "RIGHT", 0, 0)
+	subNav:SetPoint("TOPRIGHT", intro, "BOTTOMRIGHT", 4, -8)
 	subNav:SetHeight(26)
 
 	local btnDawn = CreateFrame("Button", nil, subNav, "UIPanelButtonTemplate")
@@ -186,29 +226,22 @@ function ns.BuildReferenceGuidePanel(panel)
 	end)
 	subButtons[SUB_PROFESSIONS] = btnProf
 
-	local contentAnchor = subNav
+	contentHost = CreateFrame("Frame", nil, scrollChild)
+	contentHost:SetPoint("TOPLEFT", subNav, "BOTTOMLEFT", 0, -10)
+	contentHost:SetPoint("TOPRIGHT", subNav, "BOTTOMRIGHT", 0, -10)
+	contentHost:SetHeight(1)
 
 	if ns.EnsureDawncrestGuidePanel then
-		local dawncrest = ns.EnsureDawncrestGuidePanel(scrollChild)
-		if dawncrest then
-			dawncrest:ClearAllPoints()
-			dawncrest:SetPoint("TOPLEFT", contentAnchor, "BOTTOMLEFT", 0, -10)
-			dawncrest:SetPoint("RIGHT", scrollChild, "RIGHT", 0, 0)
-		end
+		ns.EnsureDawncrestGuidePanel(contentHost)
 	end
-
 	if ns.EnsureProfessionsGuidePanel then
-		local profGuide = ns.EnsureProfessionsGuidePanel(scrollChild)
-		if profGuide then
-			profGuide:ClearAllPoints()
-			profGuide:SetPoint("TOPLEFT", contentAnchor, "BOTTOMLEFT", 0, -10)
-			profGuide:SetPoint("RIGHT", scrollChild, "RIGHT", 0, 0)
-		end
+		ns.EnsureProfessionsGuidePanel(contentHost)
 	end
+	LayoutReferenceEmbeddedPanels()
 
 	local coming = scrollChild:CreateFontString(nil, "OVERLAY", "GameFontDisable")
-	coming:SetPoint("TOPLEFT", ns.DawncrestGuidePanel or contentAnchor, "BOTTOMLEFT", 4, -14)
-	coming:SetPoint("RIGHT", scrollChild, "RIGHT", -4, 0)
+	coming:SetPoint("TOPLEFT", contentHost, "BOTTOMLEFT", 4, -14)
+	coming:SetPoint("TOPRIGHT", scrollChild, "TOPRIGHT", -4, 0)
 	coming:SetJustifyH("LEFT")
 	coming:SetWordWrap(true)
 	scrollChild._comingSoon = coming
