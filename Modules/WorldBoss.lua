@@ -92,27 +92,6 @@ end
 
 ns.GetWeekResetAnchorTs = GetWeekResetAnchorTs
 
-local function ClearStaleWbWeekCache()
-	local cache = GetWbCacheTable()
-	if not cache then
-		return
-	end
-	local anchor = GetWeekResetAnchorTs()
-	if (tonumber(cache.resetTs) or 0) == anchor then
-		return
-	end
-	cache.resetTs = anchor
-	cache.warbandDone = nil
-	cache.completedBy = nil
-	cache.bossId = nil
-	cache.questId = nil
-	cache.mapID = nil
-	cache.x = nil
-	cache.y = nil
-	cache.source = nil
-	cache.savedAt = nil
-end
-
 local function CopyBoss(boss, x, y, mapID)
 	local out = {}
 	for k, v in pairs(boss) do
@@ -146,6 +125,27 @@ local function GetWbCacheTable()
 	ns.db.ui = ns.db.ui or {}
 	ns.db.ui.worldBossWeek = ns.db.ui.worldBossWeek or {}
 	return ns.db.ui.worldBossWeek
+end
+
+local function ClearStaleWbWeekCache()
+	local cache = GetWbCacheTable()
+	if not cache then
+		return
+	end
+	local anchor = GetWeekResetAnchorTs()
+	if (tonumber(cache.resetTs) or 0) == anchor then
+		return
+	end
+	cache.resetTs = anchor
+	cache.warbandDone = nil
+	cache.completedBy = nil
+	cache.bossId = nil
+	cache.questId = nil
+	cache.mapID = nil
+	cache.x = nil
+	cache.y = nil
+	cache.source = nil
+	cache.savedAt = nil
 end
 
 local function MarkWarbandDone(boss, completedBy)
@@ -202,6 +202,25 @@ local function IsQuestCompletedThisWeek(questId)
 	end
 	local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, questId)
 	return ok and done == true
+end
+
+local function TryTaskQuestActive(questId)
+	if not questId then
+		return false
+	end
+	if C_TaskQuest and C_TaskQuest.IsActive then
+		local ok, active = pcall(C_TaskQuest.IsActive, questId)
+		if ok and active then
+			return true
+		end
+	end
+	if C_TaskQuest and C_TaskQuest.GetQuestTimeLeftMinutes then
+		local ok, mins = pcall(C_TaskQuest.GetQuestTimeLeftMinutes, questId)
+		if ok and mins and mins > 0 then
+			return true
+		end
+	end
+	return false
 end
 
 local function IsWorldBossAvailableThisWeek(boss)
@@ -282,25 +301,6 @@ local function BossFromQuestId(questId, x, y, mapID)
 		return CopyBoss(base, NormalizeMapPct(x), NormalizeMapPct(y), mapID)
 	end
 	return nil
-end
-
-local function TryTaskQuestActive(questId)
-	if not questId then
-		return false
-	end
-	if C_TaskQuest and C_TaskQuest.IsActive then
-		local ok, active = pcall(C_TaskQuest.IsActive, questId)
-		if ok and active then
-			return true
-		end
-	end
-	if C_TaskQuest and C_TaskQuest.GetQuestTimeLeftMinutes then
-		local ok, mins = pcall(C_TaskQuest.GetQuestTimeLeftMinutes, questId)
-		if ok and mins and mins > 0 then
-			return true
-		end
-	end
-	return false
 end
 
 local function ScanTaskQuestMap(mapID)
