@@ -21,7 +21,8 @@ $robolog = Join-Path $stagingRoot "robocopy.log"
 $excludeDirs = @(".git", ".cursor", "tools", "docs", ".github", "dist", "data", "__pycache__")
 $xf = @(
 	".cursorrules", "PHASES.txt", ".gitattributes", ".gitignore",
-	"README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md", "CURSEFORGE_DESCRIPTION.md"
+	"README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md", "CURSEFORGE_DESCRIPTION.md",
+	"Sync-MidnightHelper.bat", "*.bat", "*.cmd", "*.ps1", "*.py", "*.exe"
 )
 $args = @($src, $folder, "/E", "/NFL", "/NDL", "/NJH", "/NJS", "/nc", "/ns", "/np")
 foreach ($d in $excludeDirs) {
@@ -42,6 +43,15 @@ if ($rc -gt 7) {
 $rootPlaty = Join-Path $folder "Platy1.tga"
 if (Test-Path $rootPlaty) {
 	Remove-Item $rootPlaty -Force
+}
+
+# CurseForge rejects non-addon executables/scripts (e.g. Sync-MidnightHelper.bat).
+$blockedExt = @(".bat", ".cmd", ".ps1", ".py", ".exe", ".vbs")
+$blocked = Get-ChildItem -Path $folder -Recurse -File -ErrorAction SilentlyContinue |
+	Where-Object { $blockedExt -contains $_.Extension.ToLowerInvariant() }
+if ($blocked -and $blocked.Count -gt 0) {
+	$names = ($blocked | ForEach-Object { $_.FullName.Substring($folder.Length + 1) }) -join ", "
+	throw ("Package contains blocked files (not allowed on CurseForge): " + $names)
 }
 
 $dist = Join-Path $src "dist"

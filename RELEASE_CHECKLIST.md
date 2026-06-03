@@ -24,9 +24,10 @@ Use this before every release upload.
 
 ## Packaging
 
-- [ ] Build the CurseForge zip: `powershell -ExecutionPolicy Bypass -File tools\package.ps1` → output `dist\MidnightHelper-<Version>.zip` (reads version from `.toc`; excludes `tools/`, `data/`, `docs/`, dev markdown, etc.)
+- [ ] Build the CurseForge zip: `powershell -ExecutionPolicy Bypass -File tools\package.ps1` → output `dist\MidnightHelper-<Version>.zip` (reads version from `.toc`; excludes `tools/`, `data/`, `docs/`, dev markdown, **`Sync-MidnightHelper.bat`**, other `*.bat` / `*.ps1` / `*.py`, etc.)
 - [ ] Zip root contains exactly `MidnightHelper/`
-- [ ] No temporary files included (`.ps1`, local notes, debug dumps)
+- [ ] **No `.bat`, `.cmd`, `.ps1`, `.exe`, or `.py` in the zip** — `package.ps1` fails the build if any slip through (CF moderation rejects them)
+- [ ] No temporary files included (local notes, debug dumps)
 - [ ] No secrets or personal files included
 
 ## CurseForge Project Page
