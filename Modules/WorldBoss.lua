@@ -60,21 +60,30 @@ for i = 1, #WORLD_BOSSES do
 end
 
 local function GetWeekResetAnchorTs()
+	if ns.MhGetWeeklyResetAnchorTs then
+		return ns.MhGetWeeklyResetAnchorTs()
+	end
+	if C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset then
+		local ok, secs = pcall(C_DateAndTime.GetSecondsUntilWeeklyReset)
+		if ok and secs and secs > 0 then
+			local now = (GetServerTime and GetServerTime()) or time()
+			return now + secs - 604800
+		end
+	end
 	local now = time()
 	local t = date("*t", now)
 	if not t then
 		return now
 	end
 	local daysSinceReset = ((tonumber(t.wday) or 1) - 4) % 7
-	local resetDay = {
+	local anchor = time({
 		year = t.year,
 		month = t.month,
 		day = t.day - daysSinceReset,
 		hour = 8,
 		min = 0,
 		sec = 0,
-	}
-	local anchor = time(resetDay)
+	})
 	if anchor and now < anchor then
 		anchor = anchor - 7 * 24 * 60 * 60
 	end
@@ -82,6 +91,27 @@ local function GetWeekResetAnchorTs()
 end
 
 ns.GetWeekResetAnchorTs = GetWeekResetAnchorTs
+
+local function ClearStaleWbWeekCache()
+	local cache = GetWbCacheTable()
+	if not cache then
+		return
+	end
+	local anchor = GetWeekResetAnchorTs()
+	if (tonumber(cache.resetTs) or 0) == anchor then
+		return
+	end
+	cache.resetTs = anchor
+	cache.warbandDone = nil
+	cache.completedBy = nil
+	cache.bossId = nil
+	cache.questId = nil
+	cache.mapID = nil
+	cache.x = nil
+	cache.y = nil
+	cache.source = nil
+	cache.savedAt = nil
+end
 
 local function CopyBoss(boss, x, y, mapID)
 	local out = {}
@@ -165,52 +195,58 @@ local function LoadWbWeekCache()
 	return CopyBoss(base, cache.x, cache.y, cache.mapID), true, "cache"
 end
 
-local function IsQuestCompletedAccountWide(questId)
-	if not questId then
+--- Weekly boss loot: only trust the current week's flagged completion (not lifetime quest history).
+local function IsQuestCompletedThisWeek(questId)
+	if not questId or not C_QuestLog or not C_QuestLog.IsQuestFlaggedCompleted then
 		return false
 	end
-	if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
-		if C_QuestLog.IsQuestFlaggedCompleted(questId) then
-			return true
-		end
-	end
-	if C_QuestLog and C_QuestLog.GetAllCompletedQuestIDs then
-		local ok, ids = pcall(C_QuestLog.GetAllCompletedQuestIDs)
-		if ok and type(ids) == "table" then
-			for i = 1, #ids do
-				if ids[i] == questId then
-					return true
-				end
-			end
-		end
-	end
-	return false
+	local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, questId)
+	return ok and done == true
 end
 
-local function SyncWarbandDoneFromQuestLog()
-	for i = 1, #WORLD_BOSSES do
-		local b = WORLD_BOSSES[i]
-		if IsQuestCompletedAccountWide(b.questId) then
-			local who = UnitName and UnitName("player")
-			MarkWarbandDone(b, who)
-			return b, who
-		end
+local function IsWorldBossAvailableThisWeek(boss)
+	if not boss or not boss.questId then
+		return false
+	end
+	return TryTaskQuestActive(boss.questId)
+end
+
+local function SyncWarbandDoneFromQuestLog(activeBoss)
+	ClearStaleWbWeekCache()
+	if activeBoss and activeBoss.questId and IsWorldBossAvailableThisWeek(activeBoss) then
+		return nil, nil
+	end
+	if activeBoss and activeBoss.questId and IsQuestCompletedThisWeek(activeBoss.questId) then
+		local who = UnitName and UnitName("player")
+		MarkWarbandDone(activeBoss, who)
+		return activeBoss, who
 	end
 	local cache = GetWbCacheTable()
 	if cache and cache.warbandDone and (tonumber(cache.resetTs) or 0) == GetWeekResetAnchorTs() then
 		local base = cache.bossId and BOSS_BY_ID[cache.bossId]
-		return base, cache.completedBy
+		if base and (not activeBoss or base.id == activeBoss.id) then
+			return base, cache.completedBy
+		end
 	end
 	return nil, nil
 end
 
 function ns.IsWorldBossKilled(boss)
-	SyncWarbandDoneFromQuestLog()
+	if not boss or not boss.questId then
+		return false
+	end
+	ClearStaleWbWeekCache()
+	if IsWorldBossAvailableThisWeek(boss) then
+		return false
+	end
+	SyncWarbandDoneFromQuestLog(boss)
 	local cache = GetWbCacheTable()
 	if cache and cache.warbandDone and (tonumber(cache.resetTs) or 0) == GetWeekResetAnchorTs() then
-		return true
+		if not cache.bossId or cache.bossId == boss.id then
+			return true
+		end
 	end
-	if boss and boss.questId and IsQuestCompletedAccountWide(boss.questId) then
+	if IsQuestCompletedThisWeek(boss.questId) then
 		MarkWarbandDone(boss, UnitName and UnitName("player"))
 		return true
 	end
@@ -218,19 +254,26 @@ function ns.IsWorldBossKilled(boss)
 end
 
 function ns.GetWorldBossWarbandCompleter()
-	local _, who = SyncWarbandDoneFromQuestLog()
+	local boss = ns.GetActiveWorldBoss and ns.GetActiveWorldBoss()
+	local _, who = SyncWarbandDoneFromQuestLog(boss)
 	if type(who) == "string" and who ~= "" then
 		return who
 	end
 	local cache = GetWbCacheTable()
-	return cache and cache.completedBy
+	if cache and (tonumber(cache.resetTs) or 0) == GetWeekResetAnchorTs() then
+		return cache.completedBy
+	end
+	return nil
 end
 
 function ns.IsWorldBossDoneOnThisCharacter(boss)
 	if not boss or not boss.questId then
 		return false
 	end
-	return IsQuestCompletedAccountWide(boss.questId)
+	if IsWorldBossAvailableThisWeek(boss) then
+		return false
+	end
+	return IsQuestCompletedThisWeek(boss.questId)
 end
 
 local function BossFromQuestId(questId, x, y, mapID)
@@ -338,8 +381,6 @@ local function GetScheduledWorldBoss()
 end
 
 function ns.GetActiveWorldBoss()
-	SyncWarbandDoneFromQuestLog()
-
 	local boss, fromClient, source = QueryLiveWorldBoss()
 	if fromClient and boss then
 		SaveWbWeekCache(boss, source)
@@ -348,10 +389,17 @@ function ns.GetActiveWorldBoss()
 
 	local cached = LoadWbWeekCache()
 	if cached then
-		return cached, true, "cache"
+		boss = cached
+		fromClient = true
+		source = "cache"
+	else
+		boss = GetScheduledWorldBoss()
+		fromClient = false
+		source = "schedule"
 	end
 
-	return GetScheduledWorldBoss(), false, "schedule"
+	SyncWarbandDoneFromQuestLog(boss)
+	return boss, fromClient, source
 end
 
 function ns.RouteToWorldBoss(boss)

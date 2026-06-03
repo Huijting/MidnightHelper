@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- **World boss weekly status** no longer treats last week's kill as done after reset (removed lifetime `GetAllCompletedQuestIDs` scan; only this week's active boss + `IsQuestFlaggedCompleted`; clears SavedVariables cache on new week; uses Blizzard weekly reset anchor).
+
 ## [1.5.2] - 2026-06-02
 
 ### Fixed
