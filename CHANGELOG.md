@@ -4,11 +4,13 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.5.3] - 2026-06-03
+
 ### Fixed
 
-- **Basics (Reference) tab:** fixed `SetPoint` anchor-family error when embedding Dawncrest / Professions guides (dedicated content host below sub-nav).
-- **World boss:** fixed nil error on login (`ClearStaleWbWeekCache` called before cache helper was defined).
-- **World boss weekly status** no longer treats last week's kill as done after reset (removed lifetime `GetAllCompletedQuestIDs` scan; only this week's active boss + `IsQuestFlaggedCompleted`; clears SavedVariables cache on new week; uses Blizzard weekly reset anchor).
+- **World boss weekly status** no longer shows last week's kill as done after reset (only the active boss this week; clears stale SavedVariables; uses Blizzard weekly reset time).
+- **World boss** login error fixed (`attempt to call a nil value` in cache cleanup).
+- **Packaging:** CurseForge zip excludes dev files (`Sync-MidnightHelper.bat`, scripts); build fails if any slip through.
 
 ## [1.5.2] - 2026-06-02
 
