@@ -1,5 +1,5 @@
 ## Interface: 120005
-## Version: 1.5.4
+## Version: 1.5.5
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.

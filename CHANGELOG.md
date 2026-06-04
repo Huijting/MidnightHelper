@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
+- **Keybindings:** appear under **Midnight Helper** (not Other); binding runs `/mh` via `SlashCmdList` so Alt+Ctrl+M and Stream Deck hotkeys work reliably.
 - **Keybindings:** removed `Bindings.xml` from `.toc` (WoW loads it automatically; listing it caused Unrecognized XML warnings).
 
 ## [1.5.4] - 2026-06-03

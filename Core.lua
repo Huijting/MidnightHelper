@@ -453,6 +453,13 @@ ns.eventFrame:RegisterEvent("ADDON_LOADED")
 SLASH_MIDNIGHTHELPER1 = "/mh"
 SLASH_MIDNIGHTHELPER2 = "/midnight"
 
+--- Esc → Keybindings → Midnight Helper (custom section) → Toggle main window
+function MidnightHelper_KeybindToggleMain()
+	if SlashCmdList and SlashCmdList["MIDNIGHTHELPER"] then
+		SlashCmdList["MIDNIGHTHELPER"]("")
+	end
+end
+
 SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	msg = (msg or ""):gsub("^%s+", ""):gsub("%s+$", "")
 

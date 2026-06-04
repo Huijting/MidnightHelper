@@ -399,6 +399,7 @@ ns._mhLocales.enUS = {
 	CHANGELOG_122_3 = "Guide search and chat messages follow your language choice (/mh lang en or nl).",
 	CHANGELOG_122_4 = "Midnight key layout refresh: interrupt on E, clearer role slots, smarter overflow (Alt, Shift, Ctrl).",
 	CHANGELOG_122_5 = "Still cooking: everything in Midnight Helper is subject to change and steady improvement—patches will keep landing. Feedback welcome!",
+	CHANGELOG_155_1 = "Keybinding fix: find it under Keybindings → Midnight Helper (not Other); default Alt+Ctrl+M; uses same path as /mh.",
 	CHANGELOG_154_1 = "Keybinding: Esc → Keybindings → AddOns → Midnight Helper → Toggle main window (Stream Deck friendly — no macro bar slot needed).",
 	CHANGELOG_153_1 = "World boss: weekly status resets correctly — last week's kill no longer shows as done on reset day.",
 	CHANGELOG_153_2 = "World boss: fixed login Lua error (cache cleanup on startup).",

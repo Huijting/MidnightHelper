@@ -2294,9 +2294,3 @@ function ns:ShowMainUI()
 	end
 end
 
---- WoW keybinding (Esc → Keybindings → AddOns → Midnight Helper). Stream Deck can send the same hotkey.
-function MidnightHelper_KeybindToggleMain()
-	if ns and ns.ToggleMainWindow then
-		ns:ToggleMainWindow()
-	end
-end
