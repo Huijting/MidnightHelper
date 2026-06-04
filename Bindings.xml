@@ -1,6 +1,6 @@
 <Bindings>
 	<!-- category: own row under Keybindings (trailing space = safe custom section name on retail) -->
-	<Binding name="TOGGLEMAIN" category="Midnight Helper " runOnUp="false" default="ALT-CTRL-M">
+	<Binding name="TOGGLEMAIN" category="Midnight Helper " runOnUp="false" default="ALT-M">
 		if SlashCmdList and SlashCmdList["MIDNIGHTHELPER"] then
 			SlashCmdList["MIDNIGHTHELPER"]("")
 		end
