@@ -47,7 +47,6 @@ Modules\RoleAcademy.lua
 Modules\SMCChecklistData.lua
 Modules\SMCChecklist.lua
 UI.lua
-Bindings.xml
 Modules\DialogPopup.lua
 Modules\Changelog.lua
 Modules\VaultReminder.lua

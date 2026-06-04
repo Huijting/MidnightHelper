@@ -1,5 +1,5 @@
 <Bindings>
-	<Binding name="TOGGLEMAIN" header="MIDNIGHTHELPER" category="MIDNIGHTHELPER">
+	<Binding name="TOGGLEMAIN" header="MIDNIGHTHELPER">
 		MidnightHelper_KeybindToggleMain();
 	</Binding>
 </Bindings>
