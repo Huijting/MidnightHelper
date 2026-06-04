@@ -224,6 +224,9 @@ function ns:OnEvent(event, ...)
 		if self.MigrateLocalePreference then
 			self:MigrateLocalePreference()
 		end
+		if self.ApplyBindingLabels then
+			self:ApplyBindingLabels()
+		end
 
 		-- Trigger module setup in a single, predictable call.
 		-- Both Delves and Profession hook EnsureMainUI; calling it once here
@@ -271,6 +274,9 @@ function ns:SetLocale(code, silent)
 				("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), self:L("LANG_SET"):format(label))
 			)
 		end
+	end
+	if self.ApplyBindingLabels then
+		self:ApplyBindingLabels()
 	end
 	if self.RefreshLocaleUI then
 		self:RefreshLocaleUI()

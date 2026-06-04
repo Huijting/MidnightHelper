@@ -12,6 +12,8 @@ local _, ns = ...
 ns._mhLocales = ns._mhLocales or {}
 
 local OVERRIDES = {
+	BINDING_HEADER_MIDNIGHTHELPER = "Midnight Helper",
+	BINDING_NAME_TOGGLEMAIN = "Abrir ou fechar janela principal",
 	PRINT_PREFIX = "Midnight Helper:",
 	GUIDE_MODULE_NOT_LOADED = "Módulo de guia ainda não carregado. Abra a janela uma vez e tente novamente.",
 	DEBUG_MODE = "Modo de depuração %s",

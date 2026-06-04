@@ -10,6 +10,8 @@ local _, ns = ...
 
 ns._mhLocales = ns._mhLocales or {}
 ns._mhLocales.nlNL = {
+	BINDING_HEADER_MIDNIGHTHELPER = "Midnight Helper",
+	BINDING_NAME_TOGGLEMAIN = "Hoofdvenster openen/sluiten",
 	PRINT_PREFIX = "Midnight Helper:",
 	GUIDE_MODULE_NOT_LOADED = "Gids-module nog niet geladen — open eerst het venster en probeer opnieuw.",
 	DEBUG_MODE = "Debug-modus %s",
@@ -395,6 +397,7 @@ ns._mhLocales.nlNL = {
 	CHANGELOG_122_3 = "Guide-zoeken en chatmeldingen volgen je taal (/mh lang en of nl).",
 	CHANGELOG_122_4 = "Midnight-toetsenlayout: interrupt op E, duidelijkere rollen, slimmere overflow (Alt, Shift, Ctrl).",
 	CHANGELOG_122_5 = "Nog in de oven: alles in Midnight Helper kan veranderen en wordt steeds beter—updates blijven komen. Feedback is welkom!",
+	CHANGELOG_154_1 = "Keybind: Esc → Toetsen → AddOns → Midnight Helper → Hoofdvenster openen/sluiten (handig voor Stream Deck, geen macrobalk nodig).",
 	CHANGELOG_153_1 = "World boss: weekstatus klopt weer na reset — kill van vorige week wordt niet meer als deze week getoond.",
 	CHANGELOG_153_2 = "World boss: login Lua-fout opgelost (cache-opruiming bij opstarten).",
 	CHANGELOG_153_3 = "Fix: geen Lua-fouten in delves bij nameplate-tooltips (delve-story-hook; uit 1.5.2).",

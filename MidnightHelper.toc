@@ -1,5 +1,5 @@
 ## Interface: 120005
-## Version: 1.5.3
+## Version: 1.5.4
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.
@@ -47,6 +47,7 @@ Modules\RoleAcademy.lua
 Modules\SMCChecklistData.lua
 Modules\SMCChecklist.lua
 UI.lua
+Bindings.xml
 Modules\DialogPopup.lua
 Modules\Changelog.lua
 Modules\VaultReminder.lua

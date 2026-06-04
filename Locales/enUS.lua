@@ -7,6 +7,10 @@ local _, ns = ...
 
 ns._mhLocales = ns._mhLocales or {}
 ns._mhLocales.enUS = {
+	-- Esc → Keybindings → AddOns → Midnight Helper
+	BINDING_HEADER_MIDNIGHTHELPER = "Midnight Helper",
+	BINDING_NAME_TOGGLEMAIN = "Toggle main window",
+
 	-- Chat / slash
 	PRINT_PREFIX = "Midnight Helper:",
 	GUIDE_MODULE_NOT_LOADED = "Guide module not loaded yet. Open the window once, then try again.",
@@ -395,6 +399,7 @@ ns._mhLocales.enUS = {
 	CHANGELOG_122_3 = "Guide search and chat messages follow your language choice (/mh lang en or nl).",
 	CHANGELOG_122_4 = "Midnight key layout refresh: interrupt on E, clearer role slots, smarter overflow (Alt, Shift, Ctrl).",
 	CHANGELOG_122_5 = "Still cooking: everything in Midnight Helper is subject to change and steady improvement—patches will keep landing. Feedback welcome!",
+	CHANGELOG_154_1 = "Keybinding: Esc → Keybindings → AddOns → Midnight Helper → Toggle main window (Stream Deck friendly — no macro bar slot needed).",
 	CHANGELOG_153_1 = "World boss: weekly status resets correctly — last week's kill no longer shows as done on reset day.",
 	CHANGELOG_153_2 = "World boss: fixed login Lua error (cache cleanup on startup).",
 	CHANGELOG_153_3 = "Fix: no Lua errors in delves when nameplate addons show aura tooltips (delve story hook; from 1.5.2).",

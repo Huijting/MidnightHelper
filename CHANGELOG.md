@@ -4,6 +4,12 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.5.4] - 2026-06-03
+
+### Added
+
+- **Keybinding:** **Esc → Keybindings → AddOns → Midnight Helper → Toggle main window** (no macro on a hidden action bar needed; works with Stream Deck hotkeys).
+
 ## [1.5.3] - 2026-06-03
 
 ### Fixed

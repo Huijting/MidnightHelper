@@ -243,6 +243,12 @@ function ns:L(key)
 	return s
 end
 
+--- Esc → Keybindings → AddOns → Midnight Helper (uses BINDING_* globals).
+function ns:ApplyBindingLabels()
+	_G.BINDING_HEADER_MIDNIGHTHELPER = self:L("BINDING_HEADER_MIDNIGHTHELPER")
+	_G.BINDING_NAME_TOGGLEMAIN = self:L("BINDING_NAME_TOGGLEMAIN")
+end
+
 --- Like L() but uses GetChatLocaleCode (Latin fallback when client cannot render CJK chat).
 function ns:LChat(key)
 	local loc = self:GetChatLocaleCode()

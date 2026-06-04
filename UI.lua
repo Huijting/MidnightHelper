@@ -287,6 +287,9 @@ end
 
 --- Apply ns:L() to the main shell (tabs, search row, SMC headers, side helpers). See Locales/*.lua.
 function ns:RefreshLocaleUI()
+	if self.ApplyBindingLabels then
+		self:ApplyBindingLabels()
+	end
 	local r = self._mhLocaleRefs
 	if not r then
 		return
@@ -2288,5 +2291,12 @@ function ns:ShowMainUI()
 				self._mhSelectGuideSubTab(self.uiSelectedGuideSubTab or "guide")
 			end
 		end)
+	end
+end
+
+--- WoW keybinding (Esc → Keybindings → AddOns → Midnight Helper). Stream Deck can send the same hotkey.
+function MidnightHelper_KeybindToggleMain()
+	if ns and ns.ToggleMainWindow then
+		ns:ToggleMainWindow()
 	end
 end
