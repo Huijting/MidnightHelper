@@ -13,8 +13,6 @@ All notable changes to this project are documented in this file.
 - **Keybindings:** appear under **Midnight Helper** (not Other); binding uses `SlashCmdList` (not Other / broken direct call).
 - **Keybindings:** `Bindings.xml` not listed in `.toc` (avoids Unrecognized XML warnings).
 
-## [1.5.4] - 2026-06-03
-
 ## [1.5.3] - 2026-06-03
 
 ### Fixed
