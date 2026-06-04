@@ -4,16 +4,16 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added (verify on second PC before CurseForge release notes)
+
+- **Keybinding (1.5.5):** **Keybindings → Midnight Helper → Toggle main window** — same as `/mh`; default **Alt+M**; Stream Deck hotkey OK. *Not in CF changelog until confirmed.*
+
 ### Fixed
 
-- **Keybindings:** appear under **Midnight Helper** (not Other); binding runs `/mh` via `SlashCmdList`; default **Alt+M** (Stream Deck can use the same hotkey).
-- **Keybindings:** removed `Bindings.xml` from `.toc` (WoW loads it automatically; listing it caused Unrecognized XML warnings).
+- **Keybindings:** appear under **Midnight Helper** (not Other); binding uses `SlashCmdList` (not Other / broken direct call).
+- **Keybindings:** `Bindings.xml` not listed in `.toc` (avoids Unrecognized XML warnings).
 
 ## [1.5.4] - 2026-06-03
-
-### Added
-
-- **Keybinding:** **Esc → Keybindings → AddOns → Midnight Helper → Toggle main window** (no macro on a hidden action bar needed; works with Stream Deck hotkeys).
 
 ## [1.5.3] - 2026-06-03
 
