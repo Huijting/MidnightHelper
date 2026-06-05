@@ -6,7 +6,7 @@
 	to the active Curious Obelisk, and tracks the weekly meta-quest.
 
 	Data (verified via Wowhead / guides, May 2026):
-	  - Daggerspine Point — Eversong Woods (map 2395) — 34.9, 65.4
+	  - Daggerspine Point — Eversong Woods (map 2395) — 37.59, 65.20 (Curious Obelisk)
 	  - Broken Throne     — Zul'Aman      (map 2437) — 29.7, 78.2
 	  - Weekly meta-quest "Midnight: Ritual Sites" — quest 95843
 
@@ -31,7 +31,7 @@ local HUB_MAP, HUB_X, HUB_Y = 2393, 48.2, 49.4
 local POI_MATCH_RADIUS = 0.06
 
 local SITES = {
-	{ key = "daggerspine", name = "Daggerspine Point", mapID = 2395, x = 34.9, y = 65.4 },
+	{ key = "daggerspine", name = "Daggerspine Point", mapID = 2395, x = 37.59, y = 65.20 },
 	{ key = "brokenthrone", name = "Broken Throne", mapID = 2437, x = 29.7, y = 78.2 },
 }
 
