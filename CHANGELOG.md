@@ -15,6 +15,7 @@ All notable changes to this project are documented in this file.
 - **Weekly reset timing:** Account snapshot and Vault Reminder use `C_DateAndTime.GetSecondsUntilWeeklyReset` via `ns.MhGetWeeklyResetAnchorTs()` (region-correct; US Tuesday / EU Wednesday at server reset) instead of hardcoded local Wednesday 08:00.
 - **Toasts:** hide timer uses `C_Timer.NewTimer` so dismissing one toast early no longer fades out the next queued toast.
 - **Main window:** opening the Delves tab no longer forces height to 800px on every switch; content scrolls in the existing Delves ScrollFrame.
+- **Search bar:** Codex topic search (`vault`, `weekly`, `delve`, `dawncrest`, etc.) runs before Guide/SMC routing — the old `MH_RunSearchQuery` wrap in Midnight Codex was overwritten by Guide.lua at load time and never ran. Typo-tolerant second pass for longer keywords (e.g. `dawncreast` → Dawncrest).
 
 ### Improved
 
@@ -27,6 +28,7 @@ All notable changes to this project are documented in this file.
 
 - **TOC:** `## Interface: 120005, 120007` for live + 12.0.7 PTR; drop `120005` from the TOC once 12.0.7 is live (see `RELEASE_CHECKLIST.md`).
 - **Sidebar (13 tabs):** **Toolbox** merges Macros, Consumables, and Role Academy (sub-tabs under Guides). Legacy tab ids (`macros` / `consumables` / `academy`) still route via `SelectTab` for Guide and Codex navigation. Beta Settings checkboxes gate the Macros and Academy sub-tabs.
+- **Sidebar (12 tabs):** **Reference** is now a **Midnight Codex** category (embedded Reference guide with Dawncrest / Professions sub-tabs). `SelectTab("reference")` still works via alias. Reference beta checkbox gates the category button.
 
 ### Added (verify on second PC before CurseForge release notes)
 

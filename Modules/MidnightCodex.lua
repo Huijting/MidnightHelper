@@ -51,6 +51,16 @@ local function GetCodexCategory()
 	return GetCodexSettings().category or "start"
 end
 
+-- Public accessors: UI.lua uses these for the reference→codex tab alias, the
+-- info drawer, and the beta-visibility bounce.
+function ns.GetActiveCodexCategory()
+	return GetCodexCategory()
+end
+
+function ns.SetActiveCodexCategory(categoryId)
+	SetCodexCategory(categoryId)
+end
+
 --- Open the tab (and optional sub-section) for a codex article. Use ns.SelectTab, not ns:SelectTab.
 function ns.IsCodexTabEnabled()
 	return not ns.IsBetaTabEnabled or ns.IsBetaTabEnabled("codex")
@@ -345,7 +355,10 @@ local function LayoutCategoryNav()
 	local x, rowY = 0, 0
 	for _, cat in ipairs(ns.CODEX_CATEGORIES or {}) do
 		local btn = ui.catButtons[cat.id]
-		if btn then
+		-- Beta-gated categories (reference) hide with their Settings checkbox.
+		if btn and cat.betaKey and ns.IsBetaTabEnabled and not ns.IsBetaTabEnabled(cat.betaKey) then
+			btn:Hide()
+		elseif btn then
 			local label = CodexL(cat.labelKey)
 			if ns.EscapeButtonAmpersand then
 				label = ns:EscapeButtonAmpersand(label)
@@ -375,6 +388,23 @@ local function LayoutCategoryNav()
 	ui.catNav:SetHeight(math.abs(rowY) + CAT_BTN_H + 6)
 end
 
+-- Host frame for the embedded Reference panel (former top-level tab). Sits in
+-- the same slot as the article scroll; RefreshCodexPanel toggles between them.
+local function EnsureReferenceHost()
+	if not ui or not ui.panel then
+		return nil
+	end
+	if ui.referenceHost then
+		return ui.referenceHost
+	end
+	local host = CreateFrame("Frame", "MidnightHelperCodexReferenceHost", ui.panel)
+	host:SetPoint("TOPLEFT", ui.catNav, "BOTTOMLEFT", 0, -8)
+	host:SetPoint("BOTTOMRIGHT", ui.panel, "BOTTOMRIGHT", -8, 8)
+	host:Hide()
+	ui.referenceHost = host
+	return host
+end
+
 function ns.RefreshCodexPanel()
 	if not ui or not ui.panel then
 		return
@@ -390,6 +420,36 @@ function ns.RefreshCodexPanel()
 	ClearBlocks()
 
 	local categoryId = GetCodexCategory()
+	-- Saved category may be beta-gated off (reference): bounce to Start.
+	if categoryId == "reference" and ns.IsBetaTabEnabled and not ns.IsBetaTabEnabled("reference") then
+		SetCodexCategory("start")
+		categoryId = "start"
+		RefreshCategoryNav()
+	end
+
+	-- Reference renders as the embedded ReferenceGuide panel (own scroll plus
+	-- Dawncrest/Professions sub-tabs) instead of article blocks.
+	if categoryId == "reference" then
+		if ui.scroll then
+			ui.scroll:Hide()
+		end
+		local host = EnsureReferenceHost()
+		if host then
+			host:Show()
+			if ns.BuildReferenceGuidePanel then
+				-- Idempotent: builds once, refreshes afterwards.
+				ns.BuildReferenceGuidePanel(host)
+			end
+		end
+		return
+	end
+	if ui.referenceHost then
+		ui.referenceHost:Hide()
+	end
+	if ui.scroll then
+		ui.scroll:Show()
+	end
+
 	if categoryId == "currencies" and ns.RequestCodexCurrencyData then
 		ns:RequestCodexCurrencyData()
 	end
@@ -560,35 +620,75 @@ function ns.TryCodexSearch(query)
 		{ "ritual", "world" },
 		{ "rare", "world" },
 		{ "profession", "professions" },
+		{ "dawncrest", "reference" },
+		{ "reference", "reference" },
 	}
+	local function openHit(cat)
+		if not ns.OpenMidnightCodex(cat) then
+			return false
+		end
+		if DEFAULT_CHAT_FRAME then
+			DEFAULT_CHAT_FRAME:AddMessage(
+				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CODEX_SEARCH_OPENED"))
+			)
+		end
+		return true
+	end
+
+	-- Pass 1: exact substring match (cheap, original behavior).
 	for i = 1, #hits do
-		local needle, cat = hits[i][1], hits[i][2]
-		if q:find(needle, 1, true) then
-			if not ns.OpenMidnightCodex(cat) then
-				return false
+		if q:find(hits[i][1], 1, true) then
+			return openHit(hits[i][2])
+		end
+	end
+
+	-- Pass 2: typo tolerance. Compare each query word against single-word
+	-- needles with a small Levenshtein budget (1 for 5-7 chars, 2 for 8+),
+	-- so "dawncreast" and "danwcrest" still land on "dawncrest". Short
+	-- needles stay exact-only to avoid false positives ("m+", "week").
+	local function editDistance(a, b)
+		local la, lb = #a, #b
+		if math.abs(la - lb) > 2 then
+			return 99
+		end
+		local prev, cur = {}, {}
+		for j = 0, lb do
+			prev[j] = j
+		end
+		for i2 = 1, la do
+			cur[0] = i2
+			local ca = a:byte(i2)
+			for j = 1, lb do
+				local cost = (ca == b:byte(j)) and 0 or 1
+				cur[j] = math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost)
 			end
-			if DEFAULT_CHAT_FRAME then
-				DEFAULT_CHAT_FRAME:AddMessage(
-					("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CODEX_SEARCH_OPENED"))
-				)
+			prev, cur = cur, prev
+		end
+		return prev[lb]
+	end
+
+	for word in q:gmatch("[%a]+") do
+		local wl = #word
+		if wl >= 5 then
+			for i = 1, #hits do
+				local needle = hits[i][1]
+				local nl = #needle
+				if nl >= 5 and not needle:find("%s") then
+					local budget = (nl >= 8 and wl >= 8) and 2 or 1
+					if editDistance(word, needle) <= budget then
+						return openHit(hits[i][2])
+					end
+				end
 			end
-			return true
 		end
 	end
 	return false
 end
 
-do
-	local origSearch = ns.MH_RunSearchQuery
-	function ns.MH_RunSearchQuery(query)
-		if ns.TryCodexSearch and ns.TryCodexSearch(query) then
-			return
-		end
-		if origSearch then
-			return origSearch(query)
-		end
-	end
-end
+-- NOTE: the old wrap of ns.MH_RunSearchQuery here was dead code — Guide.lua
+-- loads after this file (see TOC) and assigns ns.MH_RunSearchQuery wholesale,
+-- discarding the wrapper. Codex search precedence now lives at the search-bar
+-- call site in UI.lua (runSearchFromBar), which calls ns.TryCodexSearch first.
 
 do
 	local origLocale = ns.RefreshLocaleUI

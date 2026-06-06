@@ -227,12 +227,12 @@ local function FitSidebarTabButton(btn, sidebarWidth)
 	btn:SetWidth(maxW)
 end
 
--- Top-level beta-gated tabs. macros/academy are no longer top-level (merged
--- into the Toolbox tab); their beta keys still gate the Toolbox *sub-tabs*
--- via ns.IsBetaTabEnabled, so the Settings checkboxes keep working.
+-- Top-level beta-gated tabs. macros/academy (→ Toolbox sub-tabs) and
+-- reference (→ Codex category) are no longer top-level; their beta keys still
+-- gate the merged locations via ns.IsBetaTabEnabled, so the Settings
+-- checkboxes keep working.
 local MH_BETA_TAB_IDS = {
 	codex = true,
-	reference = true,
 	guide = true,
 }
 
@@ -243,7 +243,7 @@ local SIDEBAR_SECTIONS = {
 	-- Home leads: it is the default/fallback tab (SelectTab), so it sits on top.
 	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "codex", "delves", "rares", "world" } },
 	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "professions" } },
-	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "reference", "smcguide", "toolbox" } },
+	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "toolbox" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
 }
 local SIDEBAR_SECTION_GAP = 10
@@ -283,6 +283,10 @@ end
 
 local function MHGetInfoBodyKeyForTab(tabId)
 	if tabId == "codex" then
+		-- The embedded Reference category keeps its own help text.
+		if ns.GetActiveCodexCategory and ns.GetActiveCodexCategory() == "reference" then
+			return "INFO_DRAWER_BODY_REFERENCE"
+		end
 		return "INFO_DRAWER_BODY_CODEX"
 	elseif tabId == "home" then
 		return "INFO_DRAWER_BODY_HOME"
@@ -300,8 +304,6 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_SMC"
 	elseif tabId == "professions" then
 		return "INFO_DRAWER_BODY_PROFESSIONS"
-	elseif tabId == "reference" then
-		return "INFO_DRAWER_BODY_REFERENCE"
 	elseif tabId == "guide" then
 		return "INFO_DRAWER_BODY_GUIDE"
 	elseif tabId == "toolbox" then
@@ -1305,7 +1307,8 @@ local TAB_DEFS = {
 	{ id = "rares", labelKey = "TAB_RARES" },
 	{ id = "world", labelKey = "TAB_WORLD" },
 	{ id = "delvelog", labelKey = "TAB_DELVE_LOG" },
-	{ id = "reference", labelKey = "TAB_REFERENCE" },
+	-- reference is no longer top-level: it lives in the Codex as a category;
+	-- SelectTab("reference") still works via the alias below.
 	{ id = "smcguide", labelKey = "TAB_SMC" },
 	{ id = "professions", labelKey = "TAB_PROFESSIONS" },
 	{ id = "guide", labelKey = "TAB_GUIDE" },
@@ -1521,8 +1524,16 @@ function ns:EnsureMainUI()
 	searchEdit:SetFrameLevel(searchBar:GetFrameLevel() + 2)
 
 	local function runSearchFromBar()
+		local query = searchEdit:GetText()
+		-- Codex topics route first (handbook: dawncrest/reference/weekly/...).
+		-- Explicitly here at the call site: Guide.lua loads after
+		-- MidnightCodex.lua and assigns ns.MH_RunSearchQuery wholesale, which
+		-- silently disabled the old wrap-based precedence.
+		if ns.TryCodexSearch and ns.TryCodexSearch(query) then
+			return
+		end
 		if ns.MH_RunSearchQuery then
-			ns.MH_RunSearchQuery(searchEdit:GetText())
+			ns.MH_RunSearchQuery(query)
 		else
 			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("SEARCH_NOT_READY")))
 		end
@@ -1791,8 +1802,6 @@ function ns:EnsureMainUI()
 			local panel = CreateModulePanel(tab.id, ns:L(tab.labelKey))
 			if tab.id == "smcguide" then
 				BuildSMCCityGuidePanel(panel)
-			elseif tab.id == "reference" and ns.BuildReferenceGuidePanel then
-				ns.BuildReferenceGuidePanel(panel)
 			elseif tab.id == "rares" and ns.BuildRaresPanel then
 				ns.BuildRaresPanel(panel)
 			elseif tab.id == "codex" and ns.BuildCodexPanel then
@@ -2323,6 +2332,13 @@ SelectTab = function(tabId)
 		ns.uiSelectedToolboxSubTab = tabId
 		tabId = "toolbox"
 	end
+	-- Same for the former Reference tab: now a Codex category.
+	if tabId == "reference" then
+		if ns.SetActiveCodexCategory then
+			ns.SetActiveCodexCategory("reference")
+		end
+		tabId = "codex"
+	end
 	if tabId == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
 		tabId = "home"
 	end
@@ -2357,10 +2373,6 @@ SelectTab = function(tabId)
 		if ns._mhSelectGuideSubTab then
 			ns._mhSelectGuideSubTab(sid)
 		end
-	end
-
-	if tabId == "reference" and ns.RefreshReferenceGuidePanel then
-		ns.RefreshReferenceGuidePanel()
 	end
 
 	if tabId == "rares" and ns.RefreshRaresPanel then
@@ -2424,6 +2436,13 @@ function ns.RefreshBetaTabVisibility()
 	end
 	if ns.uiSelectedTab == "toolbox" and ns.SelectToolboxSubTab then
 		ns.SelectToolboxSubTab(ns.uiSelectedToolboxSubTab or "consumables")
+	end
+	-- Same for the Reference category inside the Codex: bounce to Start and
+	-- re-render the category nav when its checkbox goes off while visible.
+	if ns.uiSelectedTab == "codex" and ns.GetActiveCodexCategory and ns.GetActiveCodexCategory() == "reference"
+		and ns.IsBetaTabEnabled and not ns.IsBetaTabEnabled("reference") and ns.RefreshCodexPanel then
+		-- RefreshCodexPanel self-corrects the saved category (reference → start).
+		ns.RefreshCodexPanel()
 	end
 	local t = ns.uiSelectedTab
 	if not t or not ns.SelectTab then

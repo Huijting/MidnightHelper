@@ -32,6 +32,10 @@ ns.CODEX_CATEGORIES = {
 	{ id = "raid", labelKey = "CODEX_CAT_RAID", sort = 6 },
 	{ id = "world", labelKey = "CODEX_CAT_WORLD", sort = 7 },
 	{ id = "professions", labelKey = "CODEX_CAT_PROFESSIONS", sort = 8 },
+	-- Former top-level Reference tab, embedded as a category (no articles:
+	-- MidnightCodex.lua hosts the full ReferenceGuide panel for this id).
+	-- betaKey: hidden when the Reference beta checkbox is off.
+	{ id = "reference", labelKey = "TAB_REFERENCE", betaKey = "reference", sort = 9 },
 }
 
 ns.CODEX_ARTICLES = {
