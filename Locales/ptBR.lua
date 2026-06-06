@@ -173,6 +173,7 @@ local OVERRIDES = {
 	TAB_MACROS = "Macros",
 	TAB_CONSUMABLES = "Consumíveis",
 	TAB_ACADEMY = "Academia de papéis",
+	TAB_TOOLBOX = "Ferramentas",
 	TAB_BETA_BADGE = "Beta",
 	TAB_BETA_TOOLTIP_TITLE = "Em desenvolvimento",
 	TAB_BETA_TOOLTIP_BODY = "Esta guia está em beta inicial — o conteúdo está incompleto, pode mudar com frequência e ainda não está pronto para uso completo.",

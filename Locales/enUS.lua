@@ -216,6 +216,7 @@ ns._mhLocales.enUS = {
 	TAB_MACROS = "Macros",
 	TAB_CONSUMABLES = "Consumables",
 	TAB_ACADEMY = "Role Academy",
+	TAB_TOOLBOX = "Toolbox",
 	TAB_BETA_BADGE = "Beta",
 	TAB_BETA_TOOLTIP_TITLE = "Work in progress",
 	TAB_BETA_TOOLTIP_BODY = "This tab is early beta — content is incomplete, may change often, and is not ready for full use yet.",

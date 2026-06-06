@@ -26,6 +26,7 @@ All notable changes to this project are documented in this file.
 ### Changed
 
 - **TOC:** `## Interface: 120005, 120007` for live + 12.0.7 PTR; drop `120005` from the TOC once 12.0.7 is live (see `RELEASE_CHECKLIST.md`).
+- **Sidebar (13 tabs):** **Toolbox** merges Macros, Consumables, and Role Academy (sub-tabs under Guides). Legacy tab ids (`macros` / `consumables` / `academy`) still route via `SelectTab` for Guide and Codex navigation. Beta Settings checkboxes gate the Macros and Academy sub-tabs.
 
 ### Added (verify on second PC before CurseForge release notes)
 

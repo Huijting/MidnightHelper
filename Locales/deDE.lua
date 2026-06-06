@@ -173,6 +173,7 @@ local OVERRIDES = {
 	TAB_MACROS = "Makros",
 	TAB_CONSUMABLES = "Verbrauchsmaterial",
 	TAB_ACADEMY = "Rollenakademie",
+	TAB_TOOLBOX = "Werkzeugkiste",
 	TAB_BETA_BADGE = "Beta",
 	TAB_BETA_TOOLTIP_TITLE = "In Entwicklung",
 	TAB_BETA_TOOLTIP_BODY = "Dieser Tab ist frühe Beta — Inhalt ist unvollständig, kann sich oft ändern und ist noch nicht produktionsreif.",

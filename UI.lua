@@ -227,12 +227,13 @@ local function FitSidebarTabButton(btn, sidebarWidth)
 	btn:SetWidth(maxW)
 end
 
+-- Top-level beta-gated tabs. macros/academy are no longer top-level (merged
+-- into the Toolbox tab); their beta keys still gate the Toolbox *sub-tabs*
+-- via ns.IsBetaTabEnabled, so the Settings checkboxes keep working.
 local MH_BETA_TAB_IDS = {
 	codex = true,
 	reference = true,
 	guide = true,
-	macros = true,
-	academy = true,
 }
 
 -- Sidebar is grouped into labelled sections (header + tabs). Tab ids whose
@@ -241,8 +242,8 @@ local MH_BETA_TAB_IDS = {
 local SIDEBAR_SECTIONS = {
 	-- Home leads: it is the default/fallback tab (SelectTab), so it sits on top.
 	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "codex", "delves", "rares", "world" } },
-	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "professions", "consumables" } },
-	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "reference", "smcguide", "academy", "macros" } },
+	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "professions" } },
+	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "reference", "smcguide", "toolbox" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
 }
 local SIDEBAR_SECTION_GAP = 10
@@ -303,12 +304,15 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_REFERENCE"
 	elseif tabId == "guide" then
 		return "INFO_DRAWER_BODY_GUIDE"
-	elseif tabId == "macros" then
-		return "INFO_DRAWER_BODY_MACROS"
-	elseif tabId == "consumables" then
+	elseif tabId == "toolbox" then
+		-- Per-sub-tab help text inside the merged Toolbox tab.
+		local sid = ns.uiSelectedToolboxSubTab or "consumables"
+		if sid == "macros" then
+			return "INFO_DRAWER_BODY_MACROS"
+		elseif sid == "academy" then
+			return "INFO_DRAWER_BODY_ACADEMY"
+		end
 		return "INFO_DRAWER_BODY_CONSUMABLES"
-	elseif tabId == "academy" then
-		return "INFO_DRAWER_BODY_ACADEMY"
 	elseif tabId == "addons" then
 		return "INFO_DRAWER_BODY_ADDONS"
 	end
@@ -396,6 +400,24 @@ function ns:RefreshLocaleUI()
 		end
 		if bl and bl.SetText then
 			bl:SetText(self:L("TAB_GUIDE_SUB_LAYOUT"))
+		end
+	end
+
+	-- Toolbox sub-tab buttons + sub-panel headers (their ids are no longer in
+	-- TAB_DEFS, so the generic tab relabel loop above does not cover them).
+	if ns.toolboxSubTabButtons and ns._mhToolboxSubTabDefs then
+		for _, def in ipairs(ns._mhToolboxSubTabDefs) do
+			local btn = ns.toolboxSubTabButtons[def.id]
+			if btn and btn.SetText then
+				btn:SetText(self:L(def.labelKey))
+			end
+			local panel = self.panels and self.panels[def.id]
+			if panel and panel._header and panel._header.SetText then
+				panel._header:SetText(self:L(def.labelKey))
+			end
+		end
+		if ns.RelayoutToolboxSubNav then
+			ns.RelayoutToolboxSubNav()
 		end
 	end
 
@@ -527,6 +549,49 @@ local function MHRefreshGuideSubTabChrome(activeSubId)
 		else
 			btn:SetAlpha(0.88)
 			MHTintButtonTextures(btn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
+		end
+	end
+end
+
+local function MHRefreshToolboxSubTabChrome(activeSubId)
+	if not ns.toolboxSubTabButtons then
+		return
+	end
+	for id, btn in pairs(ns.toolboxSubTabButtons) do
+		if id == activeSubId then
+			btn:SetAlpha(1)
+			MHTintButtonTextures(btn, MH_CHROME.tabTexActive[1], MH_CHROME.tabTexActive[2], MH_CHROME.tabTexActive[3])
+		else
+			btn:SetAlpha(0.88)
+			MHTintButtonTextures(btn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
+		end
+	end
+end
+
+--- Reposition Toolbox sub-tab buttons, hiding beta-gated ones (macros/academy)
+--- when their Settings checkbox is off. Called at build, on locale switch, and
+--- from RefreshBetaTabVisibility.
+function ns.RelayoutToolboxSubNav()
+	local defs = ns._mhToolboxSubTabDefs
+	local btns = ns.toolboxSubTabButtons
+	local host = ns.panels and ns.panels.toolbox
+	local subNav = host and host._mhSubNav
+	if not defs or not btns or not subNav then
+		return
+	end
+	local x = 0
+	for _, def in ipairs(defs) do
+		local btn = btns[def.id]
+		if btn then
+			local visible = (not def.beta) or (ns.IsBetaTabEnabled and ns.IsBetaTabEnabled(def.id))
+			if visible then
+				btn:ClearAllPoints()
+				btn:SetPoint("TOPLEFT", subNav, "TOPLEFT", x, -6)
+				btn:Show()
+				x = x + (btn:GetWidth() or 120) + 6
+			else
+				btn:Hide()
+			end
 		end
 	end
 end
@@ -1244,9 +1309,9 @@ local TAB_DEFS = {
 	{ id = "smcguide", labelKey = "TAB_SMC" },
 	{ id = "professions", labelKey = "TAB_PROFESSIONS" },
 	{ id = "guide", labelKey = "TAB_GUIDE" },
-	{ id = "macros", labelKey = "TAB_MACROS" },
-	{ id = "consumables", labelKey = "TAB_CONSUMABLES" },
-	{ id = "academy", labelKey = "TAB_ACADEMY" },
+	-- Toolbox bundles the former macros/consumables/academy top-level tabs as
+	-- sub-tabs; legacy tab ids still route there via the alias in SelectTab.
+	{ id = "toolbox", labelKey = "TAB_TOOLBOX" },
 	{ id = "addons", labelKey = "TAB_ADDONS" },
 }
 
@@ -1722,16 +1787,10 @@ function ns:EnsureMainUI()
 	end
 
 	for _, tab in ipairs(TAB_DEFS) do
-		if tab.id ~= "addons" and tab.id ~= "guide" then
+		if tab.id ~= "addons" and tab.id ~= "guide" and tab.id ~= "toolbox" then
 			local panel = CreateModulePanel(tab.id, ns:L(tab.labelKey))
 			if tab.id == "smcguide" then
 				BuildSMCCityGuidePanel(panel)
-			elseif tab.id == "macros" and ns.BuildInterruptMacrosPanel then
-				ns.BuildInterruptMacrosPanel(panel)
-			elseif tab.id == "consumables" and ns.BuildConsumablesPanel then
-				ns.BuildConsumablesPanel(panel)
-			elseif tab.id == "academy" and ns.BuildRoleAcademyPanel then
-				ns.BuildRoleAcademyPanel(panel)
 			elseif tab.id == "reference" and ns.BuildReferenceGuidePanel then
 				ns.BuildReferenceGuidePanel(panel)
 			elseif tab.id == "rares" and ns.BuildRaresPanel then
@@ -1746,6 +1805,106 @@ function ns:EnsureMainUI()
 				ns.BuildDelveLogPanel(panel)
 			end
 		end
+	end
+
+	-- Toolbox: Macros + Consumables + Role Academy merged into one tab with a
+	-- sub-tab row (same pattern as the Addons host below). The three panels
+	-- stay registered in ns.panels under their old ids so existing references
+	-- (RefreshLocaleUI, ConsumablesPanel.lua) keep working; SelectTab's
+	-- hide-all loop hides them, after which SelectToolboxSubTab re-shows the
+	-- active one — same mechanism the Guide host uses for guideBody.
+	do
+		local toolboxHost = CreateFrame("Frame", "MidnightHelperToolboxHost", content)
+		toolboxHost:SetAllPoints()
+		toolboxHost:Hide()
+		ns.panels.toolbox = toolboxHost
+
+		local subNav = CreateFrame("Frame", nil, toolboxHost)
+		subNav:SetHeight(MHGetLayoutMetrics().addonSubNavHeight)
+		subNav:SetPoint("TOPLEFT", toolboxHost, "TOPLEFT", 8, -8)
+		subNav:SetPoint("TOPRIGHT", toolboxHost, "TOPRIGHT", -8, -8)
+		toolboxHost._mhSubNav = subNav
+
+		local line = toolboxHost:CreateTexture(nil, "ARTWORK")
+		line:SetHeight(1)
+		line:SetPoint("TOPLEFT", subNav, "BOTTOMLEFT", 0, -2)
+		line:SetPoint("TOPRIGHT", subNav, "BOTTOMRIGHT", 0, -2)
+		line:SetColorTexture(MH_CHROME.separator[1], MH_CHROME.separator[2], MH_CHROME.separator[3], 0.55)
+
+		local subContent = CreateFrame("Frame", nil, toolboxHost)
+		subContent:SetPoint("TOPLEFT", subNav, "BOTTOMLEFT", 0, MHGetLayoutMetrics().addonSubContentTopGap)
+		subContent:SetPoint("BOTTOMRIGHT", toolboxHost, "BOTTOMRIGHT", -8, 8)
+		toolboxHost._mhSubContent = subContent
+
+		-- Same frame contract as CreateModulePanel (header/body placeholders),
+		-- but parented to the Toolbox sub-content well.
+		local function CreateToolboxSubPanel(id, displayName)
+			local panel = CreateFrame("Frame", nil, subContent)
+			panel:SetAllPoints()
+			panel:Hide()
+
+			local header = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightMedium")
+			header:SetPoint("TOPLEFT", 12, -12)
+			header:SetText(displayName)
+			panel._header = header
+
+			local body = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+			body:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -8)
+			body:SetWidth((subContent:GetWidth() or 600) - 24)
+			body:SetJustifyH("LEFT")
+			body:SetText(ns:L("MODULE_PLACEHOLDER"):format(displayName))
+			panel._body = body
+			panel:SetScript("OnShow", function()
+				body:SetWidth(panel:GetWidth() - 24)
+			end)
+
+			ns.panels[id] = panel
+			return panel
+		end
+
+		-- Consumables first: not beta-gated, so it is the safe default sub-tab.
+		ns._mhToolboxSubTabDefs = {
+			{ id = "consumables", labelKey = "TAB_CONSUMABLES" },
+			{ id = "macros", labelKey = "TAB_MACROS", beta = true },
+			{ id = "academy", labelKey = "TAB_ACADEMY", beta = true },
+		}
+		local TOOLBOX_BUILDERS = {
+			consumables = function(p)
+				if ns.BuildConsumablesPanel then
+					ns.BuildConsumablesPanel(p)
+				end
+			end,
+			macros = function(p)
+				if ns.BuildInterruptMacrosPanel then
+					ns.BuildInterruptMacrosPanel(p)
+				end
+			end,
+			academy = function(p)
+				if ns.BuildRoleAcademyPanel then
+					ns.BuildRoleAcademyPanel(p)
+				end
+			end,
+		}
+
+		ns.toolboxSubTabButtons = {}
+		ns._mhToolboxSubFrames = {}
+		for _, def in ipairs(ns._mhToolboxSubTabDefs) do
+			local btn = CreateFrame("Button", "MidnightHelperToolboxSubTab_" .. def.id, subNav, "UIPanelButtonTemplate")
+			btn:SetSize(120, MHGetLayoutMetrics().addonSubTabHeight)
+			btn:SetText(ns:L(def.labelKey))
+			local subId = def.id
+			btn:SetScript("OnClick", function()
+				if ns.SelectToolboxSubTab then
+					ns.SelectToolboxSubTab(subId)
+				end
+			end)
+			ns.toolboxSubTabButtons[def.id] = btn
+
+			local panel = CreateToolboxSubPanel(def.id, ns:L(def.labelKey))
+			TOOLBOX_BUILDERS[def.id](panel)
+			ns._mhToolboxSubFrames[def.id] = panel
+		end
+		ns.RelayoutToolboxSubNav()
 	end
 
 	-- Leveling Guides: original advisor (Guide.lua) + Layout keyboard prototype sub-tabs.
@@ -2158,6 +2317,12 @@ end
 -- Tab routing: one module frame visible at a time
 --------------------------------------------------------------------------------
 SelectTab = function(tabId)
+	-- Legacy ids from before the Toolbox merge (saved tabs, Guide.lua
+	-- navigation, slash commands) route to the matching Toolbox sub-tab.
+	if tabId == "macros" or tabId == "consumables" or tabId == "academy" then
+		ns.uiSelectedToolboxSubTab = tabId
+		tabId = "toolbox"
+	end
 	if tabId == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
 		tabId = "home"
 	end
@@ -2225,6 +2390,10 @@ SelectTab = function(tabId)
 		-- normalizes pre-v3 saved layouts once on open.
 	end
 
+	if tabId == "toolbox" and ns.SelectToolboxSubTab then
+		ns.SelectToolboxSubTab(ns.uiSelectedToolboxSubTab or "consumables")
+	end
+
 	if tabId == "addons" then
 		local sid = ns.uiSelectedAddonSubTab
 		if not sid or not (ns._mhAddonSubFrames and ns._mhAddonSubFrames[sid]) then
@@ -2248,6 +2417,14 @@ function ns.RefreshBetaTabVisibility()
 	if RelayoutSidebarTabs then
 		RelayoutSidebarTabs()
 	end
+	-- Toolbox sub-tabs are beta-gated too (macros/academy): reposition the
+	-- sub-nav and bounce off a now-disabled sub-tab.
+	if ns.RelayoutToolboxSubNav then
+		ns.RelayoutToolboxSubNav()
+	end
+	if ns.uiSelectedTab == "toolbox" and ns.SelectToolboxSubTab then
+		ns.SelectToolboxSubTab(ns.uiSelectedToolboxSubTab or "consumables")
+	end
 	local t = ns.uiSelectedTab
 	if not t or not ns.SelectTab then
 		return
@@ -2262,6 +2439,46 @@ end
 --------------------------------------------------------------------------------
 -- Addons sub-tab routing (internal modules inside the Addons main tab)
 --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Toolbox sub-tab routing (Macros / Consumables / Role Academy)
+--------------------------------------------------------------------------------
+function ns.SelectToolboxSubTab(subId)
+	local frames = ns._mhToolboxSubFrames
+	if not frames then
+		return
+	end
+	-- Beta-gated sub-tab (macros/academy) switched off, or unknown id: fall
+	-- back to the always-available Consumables sub-tab.
+	if not frames[subId] then
+		subId = "consumables"
+	end
+	for _, def in ipairs(ns._mhToolboxSubTabDefs or {}) do
+		if def.id == subId and def.beta and ns.IsBetaTabEnabled and not ns.IsBetaTabEnabled(subId) then
+			subId = "consumables"
+			break
+		end
+	end
+	if not frames[subId] then
+		return
+	end
+
+	ns.uiSelectedToolboxSubTab = subId
+
+	for id, frame in pairs(frames) do
+		if id == subId then
+			frame:Show()
+		else
+			frame:Hide()
+		end
+	end
+
+	MHRefreshToolboxSubTabChrome(subId)
+	-- Help drawer text follows the active sub-tab.
+	if ns._mhRefreshSidePanel and ns.uiSelectedTab == "toolbox" then
+		ns:_mhRefreshSidePanel("toolbox")
+	end
+end
+
 SelectAddonSubTab = function(subId)
 	if not ns._mhAddonSubFrames or not ns._mhAddonSubFrames[subId] then
 		return

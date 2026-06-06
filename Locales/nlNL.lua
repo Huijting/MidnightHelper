@@ -214,6 +214,7 @@ ns._mhLocales.nlNL = {
 	TAB_MACROS = "Macro's",
 	TAB_CONSUMABLES = "Consumables",
 	TAB_ACADEMY = "Role Academy",
+	TAB_TOOLBOX = "Gereedschap",
 	TAB_BETA_BADGE = "Beta",
 	TAB_BETA_TOOLTIP_TITLE = "Work in progress",
 	TAB_BETA_TOOLTIP_BODY = "Deze tab is vroege beta — inhoud is nog onaf, kan vaak veranderen en is nog niet klaar voor volledig gebruik.",
