@@ -68,6 +68,7 @@ Modules\Delves.lua
 Modules\WorldBoss.lua
 Modules\Rares.lua
 Modules\RitualSites.lua
+Modules\ShowdownsData.lua
 Modules\VoidAssaults.lua
 Modules\WorldContent.lua
 Modules\DelveHistory.lua

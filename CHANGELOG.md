@@ -19,6 +19,8 @@ All notable changes to this project are documented in this file.
 
 ### Improved
 
+- **Midnight Codex:** four **12.0.7** articles (Showdowns, Sporefall, Omnium Folio, Turbulent Timeways) in all six locale packs (`CODEX_127_*`).
+- **12.0.7 prep:** `ShowdownsData.lua` — PTR-verified Naigtal ids (uiMapID 2600, weekly 96717, Riftstalker's Cache 275690); Val placeholders until next rotation. See `docs/PTR_12.0.7_DATA.md`.
 - **Midnight Codex:** article blocks are pooled and reused on refresh (AcquireRow-style pattern), so Currencies live updates no longer create new frames on every `CURRENCY_DISPLAY_UPDATE`.
 - **Sidebar:** Home is listed first in the This Week section (matches the default tab).
 - **Layout:** shared `ns.UI_METRICS` insets for Home and Codex panels (prep for tab consolidation).

@@ -317,6 +317,42 @@ ns.CODEX_ARTICLES = {
 		referenceSubTab = "professions",
 		sort = 2,
 	},
+
+	-- Patch 12.0.7 "Revelations" (verified via Wowhead/Blizzard, June 2026).
+	-- IDs collected so far: Naigtal zone 16943, Val zone 16900, Leth'ir npc
+	-- 263843, Pertinax npc 263670, Rotmire npc 254176, folio week-1 quest
+	-- 96410, Timeways mount item 258884. uiMapIDs/weekly quest IDs: see
+	-- docs/PTR_12.0.7_DATA.md.
+	{
+		id = "showdowns_127",
+		category = "world",
+		titleKey = "CODEX_127_SHOWDOWNS_TITLE",
+		bodyKey = "CODEX_127_SHOWDOWNS_BODY",
+		tabId = "world",
+		tabLabelKey = "TAB_WORLD",
+		sort = 10,
+	},
+	{
+		id = "sporefall_127",
+		category = "raid",
+		titleKey = "CODEX_127_SPOREFALL_TITLE",
+		bodyKey = "CODEX_127_SPOREFALL_BODY",
+		sort = 10,
+	},
+	{
+		id = "folio_127",
+		category = "weekly",
+		titleKey = "CODEX_127_FOLIO_TITLE",
+		bodyKey = "CODEX_127_FOLIO_BODY",
+		sort = 10,
+	},
+	{
+		id = "timeways_127",
+		category = "weekly",
+		titleKey = "CODEX_127_TIMEWAYS_TITLE",
+		bodyKey = "CODEX_127_TIMEWAYS_BODY",
+		sort = 11,
+	},
 }
 
 local articlesByCategory = {}

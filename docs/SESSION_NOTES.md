@@ -43,7 +43,16 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 - Nieuwe publieke accessors: `ns.GetActiveCodexCategory` / `ns.SetActiveCodexCategory`.
 - Zoek-fix: `runSearchFromBar` roept `TryCodexSearch` eerst aan; fuzzy pass 2 voor typos; dode `MH_RunSearchQuery`-wrapper verwijderd/gedocumenteerd.
 
+### Fase 4a — 12.0.7-voorbereiding (commit na `05adf8d`)
+- Vier Codex-artikelen (Showdowns/Sporefall/Folio/Timeways) in `MidnightCodexData.lua` + alle 6 locales (keys `CODEX_127_*`).
+- Zoek-fixes: al in commit `05adf8d` (Codex-voorrang + fuzzy matching).
+- `Modules/ShowdownsData.lua` (nieuw, in TOC): data-only module. PTR-verified: Naigtal uiMapID **2600** (hele zone), weekly **96717**, zijquest 96054, `hasWorldTier=true`, HWT zonder unlock (2 opties bij portaal), WQ's via `C_TaskQuest.GetQuestsOnMap(2600)` (niet hardcoden). Val: nil-TODO's tot volgende rotatie.
+- `docs/PTR_12.0.7_DATA.md`: live checklist met /dump-commando's; punten 1/2/6 (deels) ✅. Open: rares, Riftstalker's Cache-ID, Voidstorm-mapID, Mote-ID (Folio), Val-data, Rotmire-vault-check.
+- Research-feiten: Leth'ir npc 263843/quest 96472, Pertinax 263670, Rotmire 254176 (raid zone 16279, ilvls 259/272/285/298, mythic flex 15-25), Folio week-1 quest 96410, Timeways 30 jun-11 aug (mount item 258884, ach 61463, 4 weken), Darkspear Dash event 1793 (27-28 jun), API: `GetInstanceInfo` ret11 hasWorldTier, `Enum.TieredEntranceType.WorldTier`, geen C_WeeklyRewards-wijzigingen, C_Club breaking (ClubMemberOpaqueId).
+
 ## Open / volgende stappen
+
+0. **Showdowns-UI bouwen** (verse taak aanbevolen): sectie in World-tab of eigen blok — actieve zone via weekly-questflag (patroon VoidAssaults.lua), waypoints (Maella/portalen), weekly-status, world boss, HWT-indicator via `select(11, GetInstanceInfo())`. Data: `ShowdownsData.lua`. Daarna: AccountWeeklyChecklist-entries (Showdown-weekly + Folio-mote zodra IDs compleet).
 
 1. **12.0.7 content** (release ~16 juni, mogelijk 30 juni): Void-zones Naigtal & Val + Escalations (VoidAssaults/WorldContent), world boss Nexus-Captain Leth'ir + Heroic World Tier (WorldBoss), Omnium Folio/Runes weekly (checklist + Codex), Sporefall raid (Codex/vault), Great Vault tooltip-rework verifiëren op PTR. Bij release: `120005` uit TOC.
 2. **Backlog (laag, uit review):** Profession.lua event-debounce (BAG_UPDATE/QUEST_LOG_UPDATE); Bindings.xml → `MIDNIGHTHELPER_TOGGLEMAIN`; `SetVaultReminderOption` popup-backfill voor upgraders; dode branch VaultAdvisor.lua ~176-181; VaultReminder.lua:123 `isCurrent`-conditie; `ts==0` guards AltOverview ~1192/1222; SMC-grid reflow; info-drawer inline; search-UX; compact-mode double-shrink.
