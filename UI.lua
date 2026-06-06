@@ -23,7 +23,18 @@ local TITLE_BAR_HEIGHT = 32
 local SEARCH_BAR_HEIGHT = 30
 local RESIZE_GRIP_SIZE = 16
 local MIN_WIDTH, MIN_HEIGHT = 620, 600
+-- Baseline caps; EnsureMainUI raises them on large displays (see UpdateMaxWindowBounds).
 local MAX_WIDTH, MAX_HEIGHT = 1000, 920
+
+-- Shared content-layout metrics for module panels (HomeDashboard, MidnightCodex,
+-- and future tabs). Single source so insets stay consistent across tabs; modules
+-- read these with local fallbacks so load order can never break them.
+ns.UI_METRICS = {
+	sidePad = 14,
+	topPad = 12,
+	sectionGap = 8,
+	scrollGutter = 30,
+}
 
 local function ClampMainWidth(w)
 	w = tonumber(w) or DEFAULT_WIDTH
@@ -33,6 +44,21 @@ end
 local function ClampMainHeight(h)
 	h = tonumber(h) or DEFAULT_HEIGHT
 	return math.max(MIN_HEIGHT, math.min(MAX_HEIGHT, h))
+end
+
+--- Raise the size caps on large displays (1440p+): the hard 1000x920 cap left
+--- dead space on big screens. UIParent dimensions are in the same (scaled)
+--- units as the main frame, so the comparison is scale-safe. Never lowers the
+--- baseline caps, so small screens keep the original behavior.
+local function UpdateMaxWindowBounds()
+	local sw = UIParent and UIParent.GetWidth and UIParent:GetWidth() or 0
+	local sh = UIParent and UIParent.GetHeight and UIParent:GetHeight() or 0
+	if sw > 0 then
+		MAX_WIDTH = math.max(1000, math.min(1400, math.floor(sw * 0.85)))
+	end
+	if sh > 0 then
+		MAX_HEIGHT = math.max(920, math.min(1200, math.floor(sh * 0.9)))
+	end
 end
 
 --- Prefer SavedVariables size; fall back to layout defaults.
@@ -213,7 +239,8 @@ local MH_BETA_TAB_IDS = {
 -- buttons do not exist yet (home, ritual) are skipped during layout, which
 -- reserves their slot for later phases without breaking the current build.
 local SIDEBAR_SECTIONS = {
-	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "codex", "home", "delves", "rares", "world" } },
+	-- Home leads: it is the default/fallback tab (SelectTab), so it sits on top.
+	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "codex", "delves", "rares", "world" } },
 	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "professions", "consumables" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "reference", "smcguide", "academy", "macros" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
@@ -1264,6 +1291,7 @@ function ns:EnsureMainUI()
 	end
 
 	local main = CreateFrame("Frame", "MidnightHelperMainUI", UIParent, "BackdropTemplate")
+	UpdateMaxWindowBounds()
 	local initW = GetSavedMainWidth()
 	local initH = ResolveMainHeightForOpen()
 	main:SetSize(initW, initH)
@@ -1950,6 +1978,7 @@ function ns:EnsureMainUI()
 			local requiredH = math.min(MAX_HEIGHT, math.ceil(tabsHeight + aboutArea + overhead))
 			local minH = math.max(MIN_HEIGHT, requiredH)
 			if main and main.SetResizeBounds then
+				UpdateMaxWindowBounds()
 				main:SetResizeBounds(MIN_WIDTH, minH, MAX_WIDTH, MAX_HEIGHT)
 			end
 			if main and (main:GetHeight() or 0) < minH then

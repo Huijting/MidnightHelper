@@ -12,11 +12,13 @@
 
 local _, ns = ...
 
-local SECTION_GAP = 8
+-- Shared insets come from ns.UI_METRICS (UI.lua); fallbacks keep the module standalone.
+local M = ns.UI_METRICS or {}
+local SECTION_GAP = M.sectionGap or 8
 local HEADER_H = 18
 local LINE_H = 15
-local TOP_PAD = 12
-local SIDE_PAD = 14
+local TOP_PAD = M.topPad or 12
+local SIDE_PAD = M.sidePad or 14
 local COL_GAP = 14
 local MAX_NAME_PREVIEW = 2
 

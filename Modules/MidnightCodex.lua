@@ -4,8 +4,10 @@
 
 local _, ns = ...
 
-local SIDE_PAD = 14
-local TOP_PAD = 12
+-- Shared insets come from ns.UI_METRICS (UI.lua); fallbacks keep the module standalone.
+local M = ns.UI_METRICS or {}
+local SIDE_PAD = M.sidePad or 14
+local TOP_PAD = M.topPad or 12
 local CAT_BTN_MIN_W = 72
 local CAT_BTN_H = 22
 local CAT_BTN_PAD = 14

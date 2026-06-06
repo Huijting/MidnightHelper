@@ -19,9 +19,17 @@ All notable changes to this project are documented in this file.
 ### Improved
 
 - **Midnight Codex:** article blocks are pooled and reused on refresh (AcquireRow-style pattern), so Currencies live updates no longer create new frames on every `CURRENCY_DISPLAY_UPDATE`.
+- **Sidebar:** Home is listed first in the This Week section (matches the default tab).
+- **Layout:** shared `ns.UI_METRICS` insets for Home and Codex panels (prep for tab consolidation).
+- **Main window:** resize cap scales up on large displays (up to 1400×1200, bounded by screen size); verified at 1400px width on UI scale 1.35.
+
+### Changed
+
+- **TOC:** `## Interface: 120005, 120007` for live + 12.0.7 PTR; drop `120005` from the TOC once 12.0.7 is live (see `RELEASE_CHECKLIST.md`).
 
 ### Added (verify on second PC before CurseForge release notes)
 
+- **PTR sync:** `Sync-MidnightHelper-PTR.bat` copies the working tree to `_ptr_` / `_xptr_` installs (excluded from CurseForge zip).
 - **Keybinding (1.5.5):** **Keybindings → Midnight Helper → Toggle main window** — same as `/mh`; default **Alt+M**; Stream Deck hotkey OK. *Not in CF changelog until confirmed.*
 
 ### Fixed

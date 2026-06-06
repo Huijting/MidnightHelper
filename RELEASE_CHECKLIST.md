@@ -6,7 +6,7 @@ Use this before every release upload.
 
 - [ ] Update version notes in `CHANGELOG.md`
 - [ ] Confirm `.toc` metadata is correct:
-  - [ ] `## Interface`
+  - [ ] `## Interface` — supports multiple comma-separated versions (e.g. `120005, 120007` for live + PTR). **At a patch release: drop the old version** (e.g. remove `120005` once 12.0.7 is live) so the addon isn't flagged compatible with a client it no longer targets
   - [ ] `## Title`
   - [ ] `## Notes`
   - [ ] `## SavedVariables`
