@@ -12,6 +12,8 @@ All notable changes to this project are documented in this file.
 - **Vault Advisor:** no Lua error on low-level / spec-less characters (title falls back to `?`).
 - **Travel Assistant:** Hearthstone secure button uses `/use item:6948` so it works on non-English clients.
 - **Delve bounty toast / Vault Advisor:** forward-declaration fixes for `GetItemIcon` and `GetItemIDFromLink` (avoids nil global calls on 12.x).
+- **Weekly reset timing:** Account snapshot and Vault Reminder use `C_DateAndTime.GetSecondsUntilWeeklyReset` via `ns.MhGetWeeklyResetAnchorTs()` (region-correct; US Tuesday / EU Wednesday at server reset) instead of hardcoded local Wednesday 08:00.
+- **Toasts:** hide timer uses `C_Timer.NewTimer` so dismissing one toast early no longer fades out the next queued toast.
 
 ### Added (verify on second PC before CurseForge release notes)
 

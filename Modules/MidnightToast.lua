@@ -235,8 +235,10 @@ local function EnsureToastFrame()
 end
 
 local function CancelHideTimer()
-	if hideTimer and C_Timer and C_Timer.Cancel then
-		pcall(C_Timer.Cancel, hideTimer)
+	-- hideTimer is a C_Timer.NewTimer handle; Cancel() lives on the handle
+	-- itself (C_Timer.Cancel does not exist, and C_Timer.After returns nothing).
+	if hideTimer and hideTimer.Cancel then
+		pcall(hideTimer.Cancel, hideTimer)
 	end
 	hideTimer = nil
 end
@@ -263,7 +265,12 @@ local function StartHideTimer()
 		return
 	end
 	local dur = (activeSpec and tonumber(activeSpec.displaySec)) or DISPLAY_SEC
-	hideTimer = C_Timer.After(dur, function()
+	if not C_Timer.NewTimer then
+		return
+	end
+	-- NewTimer (not After): returns a cancellable handle so CancelHideTimer can
+	-- stop an orphaned timer from fading out the *next* toast in the queue.
+	hideTimer = C_Timer.NewTimer(dur, function()
 		hideTimer = nil
 		if not toastFrame or not toastFrame:IsShown() then
 			FinishToast()

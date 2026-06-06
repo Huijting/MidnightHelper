@@ -133,11 +133,26 @@ local function GetVaultSnapshot()
 end
 
 local function IsResetDayNow()
+	-- Region-correct: "reset day" = first 24h of the current weekly cycle,
+	-- derived from the live API (US=Tue, EU=Wed, at the actual server reset).
+	if C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset then
+		local ok, secs = pcall(C_DateAndTime.GetSecondsUntilWeeklyReset)
+		if ok and type(secs) == "number" and secs > 0 then
+			return secs > 6 * 86400
+		end
+	end
+	-- Fallback only (API unavailable): EU-style local Wednesday.
 	local now = date("*t")
 	return now and tonumber(now.wday) == 4 -- 1=Sunday, 4=Wednesday
 end
 
 local function GetLocalResetAnchorTs()
+	-- Single source of truth: DelveWeeklyTrackers derives the anchor from
+	-- C_DateAndTime.GetSecondsUntilWeeklyReset (region/timezone-correct).
+	if ns.MhGetWeeklyResetAnchorTs then
+		return ns.MhGetWeeklyResetAnchorTs()
+	end
+	-- Fallback only (module not loaded): EU-style local Wednesday 08:00.
 	local now = time()
 	local t = date("*t", now)
 	if not t then
