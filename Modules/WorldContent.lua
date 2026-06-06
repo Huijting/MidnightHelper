@@ -185,6 +185,82 @@ function ns.RefreshWorldPanel()
 		ui.voidWeeklyFs:SetTextColor(COLOR_SOFT[1], COLOR_SOFT[2], COLOR_SOFT[3])
 	end
 
+	------------------------------------------------------ Showdowns (12.0.7)
+	-- Hidden entirely on pre-12.0.7 clients; data fields for Val are nil until
+	-- the next PTR rotation, so every line nil-checks (never lie).
+	local sdAvailable = ns.IsShowdownsAvailable and ns.IsShowdownsAvailable()
+	for _, w in ipairs(ui.sdWidgets) do
+		w:SetShown(sdAvailable and true or false)
+	end
+	if sdAvailable then
+		local activeWorld = ns.GetActiveShowdownZone and ns.GetActiveShowdownZone() or nil
+		if activeWorld then
+			ui.sdActiveFs:SetText(ns:L("SHOWDOWNS_ACTIVE_FMT"):format(ns.ShowdownZoneName(activeWorld)))
+			ui.sdActiveFs:SetTextColor(COLOR_WARN[1], COLOR_WARN[2], COLOR_WARN[3])
+		else
+			ui.sdActiveFs:SetText(ns:L("SHOWDOWNS_ACTIVE_UNKNOWN"))
+			ui.sdActiveFs:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+		end
+
+		local nextWorld = OtherEntry(ns.GetShowdownZones and ns.GetShowdownZones(), activeWorld and activeWorld.key)
+		if nextWorld then
+			ui.sdNextFs:SetText(ns:L("SHOWDOWNS_NEXT_FMT"):format(ns.ShowdownZoneName(nextWorld)))
+		else
+			ui.sdNextFs:Hide()
+		end
+
+		if ns.IsShowdownWeeklyDone and ns.IsShowdownWeeklyDone() then
+			ui.sdWeeklyFs:SetText(ns:L("SHOWDOWNS_WEEKLY_DONE"))
+			ui.sdWeeklyFs:SetTextColor(COLOR_GOOD[1], COLOR_GOOD[2], COLOR_GOOD[3])
+		else
+			local pct = ns.GetShowdownWeeklyProgress and ns.GetShowdownWeeklyProgress()
+			if pct then
+				ui.sdWeeklyFs:SetText(ns:L("SHOWDOWNS_WEEKLY_PROGRESS_FMT"):format(pct))
+			else
+				ui.sdWeeklyFs:SetText(ns:L("SHOWDOWNS_WEEKLY_TODO"))
+			end
+			ui.sdWeeklyFs:SetTextColor(COLOR_SOFT[1], COLOR_SOFT[2], COLOR_SOFT[3])
+		end
+
+		local bossName, bossDone = nil, nil
+		if ns.GetShowdownWorldBossStatus then
+			bossName, bossDone = ns.GetShowdownWorldBossStatus()
+		end
+		if bossName then
+			if bossDone == true then
+				ui.sdBossFs:SetText(ns:L("SHOWDOWNS_BOSS_DONE_FMT"):format(bossName))
+				ui.sdBossFs:SetTextColor(COLOR_GOOD[1], COLOR_GOOD[2], COLOR_GOOD[3])
+			elseif bossDone == false then
+				ui.sdBossFs:SetText(ns:L("SHOWDOWNS_BOSS_TODO_FMT"):format(bossName))
+				ui.sdBossFs:SetTextColor(COLOR_SOFT[1], COLOR_SOFT[2], COLOR_SOFT[3])
+			else
+				-- Kill-quest id unknown (Val, until verified): show the boss
+				-- without claiming a weekly status.
+				ui.sdBossFs:SetText(ns:L("SHOWDOWNS_BOSS_UNKNOWN_FMT"):format(bossName))
+				ui.sdBossFs:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+			end
+		else
+			ui.sdBossFs:Hide()
+		end
+
+		local inZone, hasWT = false, false
+		if ns.GetShowdownHWTInfo then
+			inZone, hasWT = ns.GetShowdownHWTInfo()
+		end
+		if inZone and hasWT then
+			ui.sdHwtFs:SetText(ns:L("SHOWDOWNS_HWT_AVAILABLE"))
+			ui.sdHwtFs:SetTextColor(COLOR_ACCOLADE[1], COLOR_ACCOLADE[2], COLOR_ACCOLADE[3])
+		else
+			ui.sdHwtFs:Hide()
+		end
+
+		-- Portal waypoint button only once the Voidstorm uiMapID is verified.
+		local portal = ns.SHOWDOWNS and ns.SHOWDOWNS.portalVoidstorm
+		if not (portal and portal.mapID) then
+			ui.sdPortalBtn:Hide()
+		end
+	end
+
 	Relayout()
 end
 
@@ -338,6 +414,58 @@ function ns.BuildWorldPanel(panel)
 	ui.infoLines[#ui.infoLines + 1] = sharedNote
 	push(sharedNote, 5, 0)
 
+	-- Showdowns (12.0.7) section. Built unconditionally, shown/hidden per
+	-- refresh via ns.IsShowdownsAvailable() (client >= 120007).
+	ui.sdHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
+	ui.sdHeader:SetText(ns:L("SHOWDOWNS_HEADER"))
+	push(ui.sdHeader, 14, 0)
+	ui.sdActiveFs = MakeFS(child, "GameFontNormal")
+	push(ui.sdActiveFs, 6, 0)
+	ui.sdNextFs = MakeFS(child, "GameFontDisableSmall")
+	push(ui.sdNextFs, 2, 0)
+	ui.sdWeeklyFs = MakeFS(child, "GameFontHighlightSmall")
+	push(ui.sdWeeklyFs, 4, 0)
+	ui.sdBossFs = MakeFS(child, "GameFontHighlightSmall")
+	push(ui.sdBossFs, 2, 0)
+	ui.sdHwtFs = MakeFS(child, "GameFontHighlightSmall")
+	push(ui.sdHwtFs, 2, 0)
+
+	ui.sdMaellaBtn = MakeButton(child, function()
+		if ns.RouteShowdownIntro then
+			ns.RouteShowdownIntro()
+		end
+	end)
+	ui.sdMaellaBtn:SetText(ns:L("SHOWDOWNS_BTN_MAELLA"))
+	push(ui.sdMaellaBtn, 8, 0, true)
+
+	ui.sdPortalBtn = MakeButton(child, function()
+		if ns.RouteShowdownPortal then
+			ns.RouteShowdownPortal()
+		end
+	end)
+	ui.sdPortalBtn:SetText(ns:L("SHOWDOWNS_BTN_PORTAL"))
+	push(ui.sdPortalBtn, 4, 0, true)
+
+	local sdInfoKeys = { "SHOWDOWNS_PORTAL_NOTE", "SHOWDOWNS_INFO_VAULT", "SHOWDOWNS_INFO_HWT" }
+	ui.sdInfoLines = {}
+	for i = 1, #sdInfoKeys do
+		local fs = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+		fs._mhKey = sdInfoKeys[i]
+		fs:SetText("• " .. ns:L(sdInfoKeys[i]))
+		ui.infoLines[#ui.infoLines + 1] = fs
+		ui.sdInfoLines[i] = fs
+		push(fs, (i == 1) and 8 or 5, 0)
+	end
+
+	-- One handle for show/hide gating in RefreshWorldPanel.
+	ui.sdWidgets = {
+		ui.sdHeader, ui.sdActiveFs, ui.sdNextFs, ui.sdWeeklyFs, ui.sdBossFs,
+		ui.sdHwtFs, ui.sdMaellaBtn, ui.sdPortalBtn,
+	}
+	for _, fs in ipairs(ui.sdInfoLines) do
+		ui.sdWidgets[#ui.sdWidgets + 1] = fs
+	end
+
 	local function syncWidth()
 		local w = scroll:GetWidth()
 		if w and w > 0 then
@@ -369,6 +497,9 @@ do
 			ui.hubBtn:SetText(ns:L("RITUAL_BTN_HUB"))
 			ui.ritualHeader:SetText(ns:L("HOME_SECTION_RITUAL"))
 			ui.voidHeader:SetText(ns:L("HOME_SECTION_VOID"))
+			ui.sdHeader:SetText(ns:L("SHOWDOWNS_HEADER"))
+			ui.sdMaellaBtn:SetText(ns:L("SHOWDOWNS_BTN_MAELLA"))
+			ui.sdPortalBtn:SetText(ns:L("SHOWDOWNS_BTN_PORTAL"))
 			for _, fs in ipairs(ui.infoLines) do
 				fs:SetText("• " .. ns:L(fs._mhKey))
 			end

@@ -50,9 +50,21 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 - `docs/PTR_12.0.7_DATA.md`: live checklist met /dump-commando's; punten 1/2/6 (deels) ✅. Open: rares, Riftstalker's Cache-ID, Voidstorm-mapID, Mote-ID (Folio), Val-data, Rotmire-vault-check.
 - Research-feiten: Leth'ir npc 263843/quest 96472, Pertinax 263670, Rotmire 254176 (raid zone 16279, ilvls 259/272/285/298, mythic flex 15-25), Folio week-1 quest 96410, Timeways 30 jun-11 aug (mount item 258884, ach 61463, 4 weken), Darkspear Dash event 1793 (27-28 jun), API: `GetInstanceInfo` ret11 hasWorldTier, `Enum.TieredEntranceType.WorldTier`, geen C_WeeklyRewards-wijzigingen, C_Club breaking (ClubMemberOpaqueId).
 
+### Fase 4b — Showdowns-UI (commit na `787aaf5`)
+
+Keuzes (Rob, via vraag): sectie in World-tab (derde blok in WorldContent, na Void Assaults); gating via `select(4, GetBuildInfo()) >= 120007` (PTR zichtbaar, live automatisch bij release).
+
+- **`Modules/Showdowns.lua` (nieuw, 199 regels):** logica + `ns.*`-helpers (geen UI): `IsShowdownsAvailable` (build-gate), `GetActiveShowdownZone` (weekly-questflag, patroon VoidAssaults; zones met nil-weekly matchen nooit), `ShowdownZoneName` (C_Map-naam, fallback `zone.name` voor Val), `IsShowdownWeeklyDone`, `GetShowdownWeeklyProgress` (GetQuestProgressBarPercent, pcall-guarded), `GetShowdownWorldBossStatus` (done=nil als killquest-ID onbekend), `GetShowdownHWTInfo` (in-zone check + `select(11, GetInstanceInfo())`), `RouteShowdownIntro` (Maella-waypoint), `RouteShowdownPortal` (no-op zolang Voidstorm-mapID nil — knop verborgen, "never lie").
+- **`Modules/WorldContent.lua`:** Showdowns-sectie (header/actief/volgende rotatie/weekly/boss/HWT + 2 knoppen + 3 infolines) — build regels ~417-467, refresh ~188-262, locale-refresh ~500-502. Alle sd-widgets in `ui.sdWidgets`; refresh SetShown't ze op `IsShowdownsAvailable()` en verbergt daarna conditioneel (nextFs zonder actieve zone, bossFs zonder bossName, hwtFs buiten zone, portalBtn zonder mapID).
+- **`Modules/ShowdownsData.lua`:** `name` + `bossName` per zone toegevoegd (locale-onafhankelijke fallbacks; C_Map-naam wint zodra uiMapID bekend).
+- **TOC:** `Modules\Showdowns.lua` na ShowdownsData, vóór VoidAssaults.
+- **Locales:** 18 nieuwe `SHOWDOWNS_*`-keys in alle 6 talen (na `INFO_DRAWER_BODY_VOID`/`VOID_INFO_SHARED`-blok).
+- Syntax: alle gewijzigde/nieuwe Lua-bestanden gecheckt (loadfile, Lua 5.3-texlua). Let op: Cowork-sandbox-mount sync't host-edits onbetrouwbaar — `git status` aan Cursor-kant is leidend.
+- **In-game test (PTR 12.0.7):** `/mh` → World-tab: Showdowns-sectie zichtbaar onder Void Assaults; met weekly 96717 op char → "Naigtal" actief + %-voortgang; Maella-knop zet TomTom-waypoint (2393, 27.48, 76.51); portaal-knop NIET zichtbaar (mapID nil); in Naigtal → HWT-regel zichtbaar; boss-regel Leth'ir done/todo klopt met quest 96472. **Live 12.0.5:** sectie volledig verborgen, geen layout-gat, geen errors bij locale-wissel.
+
 ## Open / volgende stappen
 
-0. **Showdowns-UI bouwen** (verse taak aanbevolen): sectie in World-tab of eigen blok — actieve zone via weekly-questflag (patroon VoidAssaults.lua), waypoints (Maella/portalen), weekly-status, world boss, HWT-indicator via `select(11, GetInstanceInfo())`. Data: `ShowdownsData.lua`. Daarna: AccountWeeklyChecklist-entries (Showdown-weekly + Folio-mote zodra IDs compleet).
+0. **Showdowns vervolg:** AccountWeeklyChecklist-entries (Showdown-weekly + Folio-mote zodra IDs compleet); Home-dashboard kan `ns.GetActiveShowdownZoneName`/`ns.IsShowdownWeeklyDone` hergebruiken; Val-data + Voidstorm-portaal-mapID invullen na volgende PTR-rotatie (knop verschijnt dan vanzelf).
 
 1. **12.0.7 content** (release ~16 juni, mogelijk 30 juni): Void-zones Naigtal & Val + Escalations (VoidAssaults/WorldContent), world boss Nexus-Captain Leth'ir + Heroic World Tier (WorldBoss), Omnium Folio/Runes weekly (checklist + Codex), Sporefall raid (Codex/vault), Great Vault tooltip-rework verifiëren op PTR. Bij release: `120005` uit TOC.
 2. **Backlog (laag, uit review):** Profession.lua event-debounce (BAG_UPDATE/QUEST_LOG_UPDATE); Bindings.xml → `MIDNIGHTHELPER_TOGGLEMAIN`; `SetVaultReminderOption` popup-backfill voor upgraders; dode branch VaultAdvisor.lua ~176-181; VaultReminder.lua:123 `isCurrent`-conditie; `ts==0` guards AltOverview ~1192/1222; SMC-grid reflow; info-drawer inline; search-UX; compact-mode double-shrink.

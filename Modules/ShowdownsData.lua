@@ -20,17 +20,21 @@ ns.SHOWDOWNS = {
 	zones = {
 		{
 			key = "naigtal",
+			name = "Naigtal", -- fallback-weergavenaam; C_Map-naam wint zodra uiMapID bekend is
 			uiMapID = 2600, -- PTR-verified; hele zone (WQ-dump bevestigde dit). Kaart-pad: EK > Quel'Thalas > Voidstorm > Naigtal
 			weekly = 96717, -- "Showdown on Naigtal" (PTR-verified). Percentage-quest ("Ethereal Operations Disrupted"): voortgang via GetQuestProgressBarPercent. Questlog-categorie: "Void Assaults"
 			worldBossNpcID = 263843, -- Nexus-Captain Leth'ir (Wowhead)
 			worldBossQuest = 96472, -- "The Nexus-Captain" killquest (Wowhead PTR-2)
+			bossName = "Nexus-Captain Leth'ir",
 		},
 		{
 			key = "val",
+			name = "Val",
 			uiMapID = nil, -- TODO: volgende PTR-rotatie (zie docs/PTR_12.0.7_DATA.md)
 			weekly = nil, -- TODO: "Showdown on Val"
 			worldBossNpcID = 263670, -- Imperator Pertinax (Wowhead)
 			worldBossQuest = nil, -- TODO
+			bossName = "Imperator Pertinax",
 		},
 	},
 
