@@ -7,6 +7,11 @@ All notable changes to this project are documented in this file.
 ### Fixed
 
 - **Ritual Sites:** Daggerspine Point Curious Obelisk waypoint **37.59, 65.20** (was 34.9, 65.4).
+- **Main window:** programmatic resize (Delves min-height, saved size apply) no longer sets `mainWindowUserSized`, so auto-sizing still works until you drag the grip.
+- **Account snapshot:** vault progress is not overwritten with zeros on login before `C_WeeklyRewards.GetActivities` loads; previous vault values and `ts` are kept until a real refresh.
+- **Vault Advisor:** no Lua error on low-level / spec-less characters (title falls back to `?`).
+- **Travel Assistant:** Hearthstone secure button uses `/use item:6948` so it works on non-English clients.
+- **Delve bounty toast / Vault Advisor:** forward-declaration fixes for `GetItemIcon` and `GetItemIDFromLink` (avoids nil global calls on 12.x).
 
 ### Added (verify on second PC before CurseForge release notes)
 

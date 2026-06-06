@@ -84,7 +84,10 @@ function ns:ApplySavedMainWindowSize()
 	end
 	local w = GetSavedMainWidth()
 	local h = ResolveMainHeightForOpen()
+	-- Programmatic resize: must not mark the window as user-sized (see OnSizeChanged guard).
+	ns._mhProgrammaticResize = true
 	self.mainUI:SetSize(w, h)
+	ns._mhProgrammaticResize = false
 end
 
 local ABOUT_BTN_WIDTH = 110
@@ -1950,7 +1953,10 @@ function ns:EnsureMainUI()
 				main:SetResizeBounds(MIN_WIDTH, minH, MAX_WIDTH, MAX_HEIGHT)
 			end
 			if main and (main:GetHeight() or 0) < minH then
+				-- Programmatic resize: must not mark the window as user-sized.
+				ns._mhProgrammaticResize = true
 				main:SetHeight(minH)
+				ns._mhProgrammaticResize = false
 				local dbUi = ns.db and ns.db.ui
 				if dbUi then
 					dbUi.mainHeight = ClampMainHeight(minH)
@@ -2015,6 +2021,12 @@ function ns:EnsureMainUI()
 	end
 
 	main:SetScript("OnSizeChanged", function()
+		-- Only persist user-driven resizes; programmatic SetHeight/SetSize calls
+		-- (RelayoutSidebarTabs, Delves min-height, ApplySavedMainWindowSize) set
+		-- this flag so they don't flip mainWindowUserSized and kill auto-sizing.
+		if ns._mhProgrammaticResize then
+			return
+		end
 		SaveMainWindowSize()
 	end)
 	titleBar:SetScript("OnDragStop", function()
@@ -2184,7 +2196,10 @@ SelectTab = function(tabId)
 			local mh = ns.mainUI:GetHeight() or 0
 			if not userSized and mh < MIN_DELVES_WINDOW_H then
 				local targetH = ClampMainHeight(math.max(MIN_DELVES_WINDOW_H, DEFAULT_HEIGHT))
+				-- Programmatic resize: must not mark the window as user-sized.
+				ns._mhProgrammaticResize = true
 				ns.mainUI:SetHeight(targetH)
+				ns._mhProgrammaticResize = false
 				if dbUi then
 					dbUi.mainHeight = targetH
 					dbUi.layoutVersion = 3

@@ -94,6 +94,7 @@ local function GetVaultSnapshot()
 			dungeons = { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false },
 			raids = { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false },
 			anyAvailable = false,
+			dataLoaded = false,
 		}
 	end
 	local ok, acts = pcall(C_WeeklyRewards.GetActivities)
@@ -103,6 +104,7 @@ local function GetVaultSnapshot()
 			dungeons = { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false },
 			raids = { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false },
 			anyAvailable = false,
+			dataLoaded = false,
 		}
 	end
 
@@ -123,6 +125,10 @@ local function GetVaultSnapshot()
 		raids = raids,
 		anyAvailable = anyAvailable,
 		hasAvailableRewards = hasAvailableRewards,
+		-- False while the server hasn't pushed weekly rewards data yet (empty
+		-- GetActivities right after login). Used to avoid clobbering a good
+		-- saved snapshot with zeros.
+		dataLoaded = #acts > 0,
 	}
 end
 
@@ -314,6 +320,10 @@ local function SaveCurrentSnapshot()
 	if ns.GetSpecialAssignmentSnapshotCounts then
 		saCompleted, saActive, saMax = ns.GetSpecialAssignmentSnapshotCounts()
 	end
+	-- Keep a reference to the previous record: if weekly rewards data is not
+	-- loaded yet (right after login) we restore its vault fields below instead
+	-- of persisting the zeroed defaults.
+	local prev = db.charCurrencies[guid]
 	db.charCurrencies[guid] = {
 		name = nm,
 		realm = realm,
@@ -365,6 +375,33 @@ local function SaveCurrentSnapshot()
 		ts = time(),
 	}
 	local snap = GetVaultSnapshot()
+	-- Right after PLAYER_LOGIN the weekly rewards data is often not loaded yet
+	-- (GetActivities returns an empty table). Writing the snapshot then would
+	-- clobber last session's good vault values with zeros. The table above was
+	-- just replaced with zeroed defaults, so restore the vault fields from the
+	-- previous record (prev, captured before the replace) and keep its ts so
+	-- staleness logic doesn't treat the carried-over vault data as fresh.
+	-- WEEKLY_REWARDS_UPDATE -> ScheduleSave() rewrites everything shortly after.
+	local prevHadVaultData = prev and (
+		(tonumber(prev.vaultWorldTotal) or 0) > 0
+		or (tonumber(prev.vaultDungeonTotal) or 0) > 0
+		or (tonumber(prev.vaultRaidTotal) or 0) > 0
+	)
+	if not snap.dataLoaded and prevHadVaultData then
+		local cur = db.charCurrencies[guid]
+		local vaultFields = {
+			"vaultUnlocked", "vaultTotal", "vaultProgress", "vaultNextThreshold", "vaultAvailable",
+			"vaultWorldUnlocked", "vaultWorldTotal", "vaultWorldProgress", "vaultWorldNextThreshold", "vaultWorldAvailable",
+			"vaultDungeonUnlocked", "vaultDungeonTotal", "vaultDungeonProgress", "vaultDungeonNextThreshold", "vaultDungeonAvailable",
+			"vaultRaidUnlocked", "vaultRaidTotal", "vaultRaidProgress", "vaultRaidNextThreshold", "vaultRaidAvailable",
+			"vaultHasAvailableRewards",
+		}
+		for _, k in ipairs(vaultFields) do
+			cur[k] = prev[k]
+		end
+		cur.ts = prev.ts
+		return
+	end
 	db.charCurrencies[guid].vaultWorldUnlocked = snap.world.unlocked
 	db.charCurrencies[guid].vaultWorldTotal = snap.world.total
 	db.charCurrencies[guid].vaultWorldProgress = snap.world.progress

@@ -113,6 +113,7 @@ local PlayerHasDelveConsumablesInBags
 local SavePoint
 local eventFrame
 local GetItemCount
+local GetItemIcon
 local PlayerCarriesItem
 local EnsureSpellIdMapForItem
 local RefreshDelveConsumablesUi
@@ -815,7 +816,10 @@ HasAnyDelveConsumable = function()
 	return false
 end
 
-local function GetItemIcon(itemID)
+-- Assigns the forward-declared local (top of file): callers compiled before this
+-- point (MaybeShowDelveBountyToast/PreviewDelveBountyToast) would otherwise
+-- resolve to the removed global GetItemIcon and crash.
+GetItemIcon = function(itemID)
 	if C_Item and C_Item.GetItemIconByID then
 		local ok, tex = pcall(C_Item.GetItemIconByID, itemID)
 		if ok and tex then

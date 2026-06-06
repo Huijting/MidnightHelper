@@ -387,6 +387,10 @@ local function LoadWeeklyRewardsUI()
 	end)
 end
 
+-- Forward declaration: RequestItemDataForLink (below) is compiled before the
+-- definition; without this it would resolve to a nil global.
+local GetItemIDFromLink
+
 local function RequestItemDataForLink(link, itemID)
 	itemID = itemID or GetItemIDFromLink(link)
 	if not itemID or not C_Item or not C_Item.RequestLoadItemDataByID then
@@ -423,7 +427,8 @@ local function ResolveItemLink(reward)
 	return nil
 end
 
-local function GetItemIDFromLink(link)
+-- Assigns the forward-declared local above RequestItemDataForLink.
+GetItemIDFromLink = function(link)
 	if not link then
 		return nil
 	end
@@ -1320,7 +1325,8 @@ function ns.RefreshBlizzardVaultBanner()
 	local gear, token, status = ns.ScanVaultAdvisorChoices(weights, weightKey)
 
 	local specIndex = GetSpecialization and GetSpecialization()
-	local _, specName = GetSpecializationInfo(specIndex)
+	-- Guard: spec-less characters (fresh/low-level) return nil; GetSpecializationInfo(nil) errors.
+	local specName = specIndex and GetSpecializationInfo and select(2, GetSpecializationInfo(specIndex)) or nil
 	local heroLabel = GetActiveHeroTalentLabel()
 	local displaySpec = specName or "?"
 	if heroLabel then
@@ -1622,7 +1628,8 @@ function ns.RefreshVaultAdvisorPanel(parent, innerWidth, claimReady)
 	end
 
 	local specIndex = GetSpecialization and GetSpecialization()
-	local _, specName = GetSpecializationInfo(specIndex)
+	-- Guard: spec-less characters (fresh/low-level) return nil; GetSpecializationInfo(nil) errors.
+	local specName = specIndex and GetSpecializationInfo and select(2, GetSpecializationInfo(specIndex)) or nil
 	local heroLabel = GetActiveHeroTalentLabel()
 	local displaySpec = specName or "?"
 	if heroLabel then

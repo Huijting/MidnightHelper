@@ -2372,7 +2372,9 @@ hsBtn.icon = icon
 hsBtn:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
 
 hsBtn:SetAttribute("type", "macro")
-hsBtn:SetAttribute("macrotext", "/use Hearthstone")
+-- item:6948 = Hearthstone; item ID works on every client locale, the English
+-- item name only matches on enUS/enGB.
+hsBtn:SetAttribute("macrotext", "/use item:6948")
 hsBtn:RegisterForClicks("AnyUp", "AnyDown")
 
 hsBtn:SetScript("PostClick", function()
