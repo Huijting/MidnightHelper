@@ -112,18 +112,27 @@ local function GetCurrencyIcon(currencyId)
 	return nil, qty, nil
 end
 
+-- Pool-friendly: scripts are attached once and read _mhCurrencyId at hover
+-- time, so a reused block frame only needs the field updated. Pass nil to
+-- detach (disables mouse, tooltip stops showing).
 local function AttachCurrencyTooltip(frame, currencyId)
-	if not frame or not currencyId then
+	if not frame then
 		return
 	end
-	frame:EnableMouse(true)
+	frame._mhCurrencyId = currencyId
+	frame:EnableMouse(currencyId ~= nil)
+	if frame._mhTooltipHooked then
+		return
+	end
+	frame._mhTooltipHooked = true
 	frame:SetScript("OnEnter", function(self)
-		if GameTooltip then
+		local id = self._mhCurrencyId
+		if id and GameTooltip then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			if GameTooltip.SetCurrencyByID then
-				pcall(GameTooltip.SetCurrencyByID, GameTooltip, currencyId, 0)
+				pcall(GameTooltip.SetCurrencyByID, GameTooltip, id, 0)
 			elseif GameTooltip.SetCurrencyToken then
-				local _, _, name = GetCurrencyIcon(currencyId)
+				local _, _, name = GetCurrencyIcon(id)
 				if name then
 					pcall(GameTooltip.SetCurrencyToken, GameTooltip, name)
 				end
@@ -180,95 +189,131 @@ local function ClearBlocks()
 	end
 end
 
-local function CreateArticleBlock(article)
-	local child = ui.child
-	local root = CreateFrame("Frame", nil, child)
-	root:SetWidth(child:GetWidth() or 300)
-
-	local titleAnchor = root
-	if article.currencyId then
-		local titleHit = CreateFrame("Frame", nil, root)
-		titleHit:SetPoint("TOPLEFT", root, "TOPLEFT", 0, 0)
-		titleHit:SetPoint("RIGHT", root, "RIGHT", 0, 0)
-		titleHit:SetHeight(20)
-		AttachCurrencyTooltip(titleHit, article.currencyId)
-		titleAnchor = titleHit
+-- Frame pool (AcquireRow pattern from HomeDashboard ~r.413): article blocks
+-- are created once with every sub-element and reused on each refresh. WoW
+-- frames are never garbage-collected, so the old create-per-refresh approach
+-- accumulated dead frames on every CURRENCY_DISPLAY_UPDATE while the
+-- Currencies category was open.
+local function AcquireArticleBlock(index)
+	local pool = ui.blockPool
+	local block = pool[index]
+	if block then
+		return block
 	end
 
-	local titleFs = titleAnchor:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	titleFs:SetPoint("TOPLEFT", titleAnchor, "TOPLEFT", 0, 0)
-	titleFs:SetPoint("RIGHT", titleAnchor, "RIGHT", 0, 0)
+	local root = CreateFrame("Frame", nil, ui.child)
+	root:SetWidth(ui.child:GetWidth() or 300)
+
+	-- Title hit-rect; doubles as currency tooltip area when the article has one.
+	local titleHit = CreateFrame("Frame", nil, root)
+	titleHit:SetPoint("TOPLEFT", root, "TOPLEFT", 0, 0)
+	titleHit:SetPoint("RIGHT", root, "RIGHT", 0, 0)
+	titleHit:SetHeight(20)
+
+	local titleFs = titleHit:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	titleFs:SetPoint("TOPLEFT", titleHit, "TOPLEFT", 0, 0)
+	titleFs:SetPoint("RIGHT", titleHit, "RIGHT", 0, 0)
 	titleFs:SetJustifyH("LEFT")
-	titleFs:SetText("|cffffcc00" .. CodexL(article.titleKey) .. "|r")
 
-	local anchor = titleAnchor
+	local curRow = CreateFrame("Frame", nil, root)
+	curRow:SetSize(200, 20)
+	curRow:SetPoint("TOPLEFT", titleHit, "BOTTOMLEFT", 0, -4)
 
-	if article.currencyId then
-		local curRow = CreateFrame("Frame", nil, root)
-		curRow:SetSize(200, 20)
-		curRow:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -4)
+	local icon = curRow:CreateTexture(nil, "ARTWORK")
+	icon:SetSize(18, 18)
+	icon:SetPoint("LEFT", curRow, "LEFT", 0, 0)
 
-		local icon = curRow:CreateTexture(nil, "ARTWORK")
-		icon:SetSize(18, 18)
-		icon:SetPoint("LEFT", curRow, "LEFT", 0, 0)
-		local iconId, qty = GetCurrencyIcon(article.currencyId)
-		if iconId then
-			icon:SetTexture(iconId)
-		end
-		AttachCurrencyTooltip(icon, article.currencyId)
-		AttachCurrencyTooltip(curRow, article.currencyId)
-
-		local curFs = curRow:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		curFs:SetPoint("LEFT", icon, "RIGHT", 6, 0)
-		curFs:SetJustifyH("LEFT")
-		if qty ~= nil then
-			curFs:SetText(CodexL("CODEX_BALANCE_FMT"):format(qty))
-		else
-			curFs:SetText(CodexL("CODEX_BALANCE_UNKNOWN"))
-		end
-		curFs:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
-		anchor = curRow
-	end
+	local curFs = curRow:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	curFs:SetPoint("LEFT", icon, "RIGHT", 6, 0)
+	curFs:SetJustifyH("LEFT")
+	curFs:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
 
 	local bodyFs = root:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	bodyFs:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -6)
 	bodyFs:SetPoint("RIGHT", root, "RIGHT", 0, 0)
 	bodyFs:SetJustifyH("LEFT")
 	bodyFs:SetWordWrap(true)
-	bodyFs:SetText(CodexL(article.bodyKey))
 	bodyFs:SetTextColor(COLOR_BODY[1], COLOR_BODY[2], COLOR_BODY[3])
 
-	local navBtn
-	if article.tabId then
-		navBtn = CreateFrame("Button", nil, root, "UIPanelButtonTemplate")
-		navBtn:SetHeight(22)
-		local labelKey = article.navLabelKey or article.tabLabelKey or "TAB_HOME"
-		navBtn:SetText(CodexL("CODEX_OPEN_TAB_FMT"):format(CodexL(labelKey)))
-		navBtn:SetPoint("TOPLEFT", bodyFs, "BOTTOMLEFT", 0, -6)
-		navBtn:SetScript("OnClick", function()
-			if ns.NavigateFromCodex then
-				ns.NavigateFromCodex(article)
-			end
-		end)
-		local tw = navBtn:GetFontString() and navBtn:GetFontString():GetStringWidth() or 120
-		navBtn:SetWidth(math.min(280, math.max(120, tw + 28)))
-	end
+	local navBtn = CreateFrame("Button", nil, root, "UIPanelButtonTemplate")
+	navBtn:SetHeight(22)
+	navBtn:SetPoint("TOPLEFT", bodyFs, "BOTTOMLEFT", 0, -6)
+	navBtn:SetScript("OnClick", function(self)
+		if self._mhArticle and ns.NavigateFromCodex then
+			ns.NavigateFromCodex(self._mhArticle)
+		end
+	end)
 
+	block = {
+		root = root,
+		titleHit = titleHit,
+		titleFs = titleFs,
+		curRow = curRow,
+		icon = icon,
+		curFs = curFs,
+		bodyFs = bodyFs,
+		navBtn = navBtn,
+	}
 	root._mhMeasure = function()
-		local h = (titleAnchor:GetHeight() or titleFs:GetStringHeight() or 16) + 6
-		if article.currencyId then
+		local h = (titleHit:GetHeight() or 20) + 6
+		if curRow:IsShown() then
 			h = h + 24
 		end
 		h = h + 6 + (bodyFs:GetStringHeight() or 40) + 6
-		if navBtn then
+		if navBtn:IsShown() then
 			h = h + 30
 		end
 		return h
 	end
-	root:SetHeight(root._mhMeasure())
-	root:Show()
 
-	return { root = root, article = article }
+	pool[index] = block
+	return block
+end
+
+local function ApplyArticleToBlock(block, article)
+	block.article = article
+	block.titleFs:SetText("|cffffcc00" .. CodexL(article.titleKey) .. "|r")
+	AttachCurrencyTooltip(block.titleHit, article.currencyId)
+
+	if article.currencyId then
+		local iconId, qty = GetCurrencyIcon(article.currencyId)
+		block.icon:SetTexture(iconId)
+		if qty ~= nil then
+			block.curFs:SetText(CodexL("CODEX_BALANCE_FMT"):format(qty))
+		else
+			block.curFs:SetText(CodexL("CODEX_BALANCE_UNKNOWN"))
+		end
+		AttachCurrencyTooltip(block.icon, article.currencyId)
+		AttachCurrencyTooltip(block.curRow, article.currencyId)
+		block.curRow:Show()
+	else
+		AttachCurrencyTooltip(block.icon, nil)
+		AttachCurrencyTooltip(block.curRow, nil)
+		block.curRow:Hide()
+	end
+
+	-- Body sits under the currency row when present, else directly under the title.
+	local anchor = article.currencyId and block.curRow or block.titleHit
+	block.bodyFs:ClearAllPoints()
+	block.bodyFs:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -6)
+	block.bodyFs:SetPoint("RIGHT", block.root, "RIGHT", 0, 0)
+	block.bodyFs:SetText(CodexL(article.bodyKey))
+
+	if article.tabId then
+		block.navBtn._mhArticle = article
+		local labelKey = article.navLabelKey or article.tabLabelKey or "TAB_HOME"
+		block.navBtn:SetText(CodexL("CODEX_OPEN_TAB_FMT"):format(CodexL(labelKey)))
+		local tw = block.navBtn:GetFontString() and block.navBtn:GetFontString():GetStringWidth() or 120
+		block.navBtn:SetWidth(math.min(280, math.max(120, tw + 28)))
+		block.navBtn:Show()
+	else
+		block.navBtn._mhArticle = nil
+		block.navBtn:Hide()
+	end
+
+	block.root:SetWidth(ui.child:GetWidth() or 300)
+	block.root:SetHeight(block.root._mhMeasure())
+	block.root:Show()
+	return block
 end
 
 local function RefreshCategoryNav()
@@ -347,8 +392,8 @@ function ns.RefreshCodexPanel()
 		ns:RequestCodexCurrencyData()
 	end
 	local articles = ns.GetCodexArticlesForCategory and ns:GetCodexArticlesForCategory(categoryId) or {}
-	for _, article in ipairs(articles) do
-		ui.blocks[#ui.blocks + 1] = CreateArticleBlock(article)
+	for i, article in ipairs(articles) do
+		ui.blocks[#ui.blocks + 1] = ApplyArticleToBlock(AcquireArticleBlock(i), article)
 	end
 
 	LayoutContent()
@@ -426,6 +471,8 @@ function ns.BuildCodexPanel(panel)
 		scroll = scroll,
 		child = child,
 		blocks = {},
+		-- Reusable article-block frames, indexed by display position (see AcquireArticleBlock).
+		blockPool = {},
 	}
 
 	local function syncWidth()

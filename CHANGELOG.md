@@ -14,6 +14,11 @@ All notable changes to this project are documented in this file.
 - **Delve bounty toast / Vault Advisor:** forward-declaration fixes for `GetItemIcon` and `GetItemIDFromLink` (avoids nil global calls on 12.x).
 - **Weekly reset timing:** Account snapshot and Vault Reminder use `C_DateAndTime.GetSecondsUntilWeeklyReset` via `ns.MhGetWeeklyResetAnchorTs()` (region-correct; US Tuesday / EU Wednesday at server reset) instead of hardcoded local Wednesday 08:00.
 - **Toasts:** hide timer uses `C_Timer.NewTimer` so dismissing one toast early no longer fades out the next queued toast.
+- **Main window:** opening the Delves tab no longer forces height to 800px on every switch; content scrolls in the existing Delves ScrollFrame.
+
+### Improved
+
+- **Midnight Codex:** article blocks are pooled and reused on refresh (AcquireRow-style pattern), so Currencies live updates no longer create new frames on every `CURRENCY_DISPLAY_UPDATE`.
 
 ### Added (verify on second PC before CurseForge release notes)
 

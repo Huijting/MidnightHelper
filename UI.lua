@@ -2190,22 +2190,10 @@ SelectTab = function(tabId)
 		if ns.RefreshDelvesPanel then
 			ns.RefreshDelvesPanel(true)
 		end
-		if ns.mainUI and ns.mainUI.SetHeight then
-			local dbUi = ns.db and ns.db.ui
-			local userSized = dbUi and dbUi.mainWindowUserSized
-			local mh = ns.mainUI:GetHeight() or 0
-			if not userSized and mh < MIN_DELVES_WINDOW_H then
-				local targetH = ClampMainHeight(math.max(MIN_DELVES_WINDOW_H, DEFAULT_HEIGHT))
-				-- Programmatic resize: must not mark the window as user-sized.
-				ns._mhProgrammaticResize = true
-				ns.mainUI:SetHeight(targetH)
-				ns._mhProgrammaticResize = false
-				if dbUi then
-					dbUi.mainHeight = targetH
-					dbUi.layoutVersion = 3
-				end
-			end
-		end
+		-- No window auto-resize here anymore: the Delves content lives in a
+		-- ScrollFrame (Delves.lua), so the 800px jump on tab switch was only
+		-- jarring without adding reachability. ResolveMainHeightForOpen still
+		-- normalizes pre-v3 saved layouts once on open.
 	end
 
 	if tabId == "addons" then
