@@ -42,6 +42,9 @@ Zoek de Showdown-regels in de chat.
 - ✅ Naigtal: **Voidwarped Sporebat = npc 265698** (PTR 6 juni)
 - ✅ Naigtal: **Indomitable Mk XII = npc 264571** (PTR 6 juni — stond op de research-lijst)
 - ✅ Naigtal: **Lomelith = npc 263955** (PTR 6 juni)
+- ✅ Naigtal: **Slaipaan = npc 264576** (PTR 6 juni)
+- ✅ Naigtal: **Interminable Uarn = npc 263947** (PTR 6 juni — stond op de research-lijst)
+- ✅ Naigtal: **Swalewing Matriarch = npc 263954** (PTR 6 juni)
 Target de rare en run:
 ```
 /run local g=UnitGUID("target") print(g and select(6,strsplit("-",g)), UnitName("target"))

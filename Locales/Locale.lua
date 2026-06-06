@@ -246,7 +246,9 @@ end
 --- Esc → Keybindings → AddOns → Midnight Helper (uses BINDING_* globals).
 function ns:ApplyBindingLabels()
 	_G.BINDING_HEADER_MIDNIGHTHELPER = self:L("BINDING_HEADER_MIDNIGHTHELPER")
-	_G.BINDING_NAME_TOGGLEMAIN = self:L("BINDING_NAME_TOGGLEMAIN")
+	-- Global must match the (namespaced) Binding name in Bindings.xml; the
+	-- locale-table key is unchanged to keep the language packs untouched.
+	_G.BINDING_NAME_MIDNIGHTHELPER_TOGGLEMAIN = self:L("BINDING_NAME_TOGGLEMAIN")
 end
 
 --- Like L() but uses GetChatLocaleCode (Latin fallback when client cannot render CJK chat).

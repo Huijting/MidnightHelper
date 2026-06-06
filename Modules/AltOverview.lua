@@ -1241,7 +1241,7 @@ function ns:_mhAltOverviewRefreshRows()
 		if hasAvailableRewards then
 			row.vaultFs:SetText(ns:L("ALT_VAULT_CLAIM_READY"))
 			row.vaultFs:SetTextColor(1, 0.84, 0.18)
-		elseif (not hasAvailableRewards) and ((tonumber(e.ts) or 0) < GetLocalResetAnchorTs()) and unlockedAny then
+		elseif (not hasAvailableRewards) and ((tonumber(e.ts) or 0) > 0 and (tonumber(e.ts) or 0) < GetLocalResetAnchorTs()) and unlockedAny then
 			row.vaultFs:SetText(ns:L("ALT_VAULT_CLAIM_LIKELY"))
 			row.vaultFs:SetTextColor(1, 0.72, 0.22)
 		elseif not available then
@@ -1271,7 +1271,9 @@ function ns:_mhAltOverviewRefreshRows()
 			unlockedAny = unlockedAny,
 			hasAvailableRewards = hasAvailableRewards,
 			lastUpdated = tonumber(e.ts) or 0,
-			staleSinceReset = (tonumber(e.ts) or 0) < GetLocalResetAnchorTs(),
+			-- ts == 0 means "no snapshot timestamp yet", not "stale" (same
+			-- guard as IsSnapshotStale and the row staleness check above).
+			staleSinceReset = (tonumber(e.ts) or 0) > 0 and (tonumber(e.ts) or 0) < GetLocalResetAnchorTs(),
 			likelyClaim = false,
 			professionsFull = e.professionsFull or "",
 			profAbundance = tonumber(e.profAbundance) or 0,

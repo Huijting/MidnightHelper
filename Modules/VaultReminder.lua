@@ -114,6 +114,11 @@ function ns.GetVaultReminderState()
 	local resetDay = IsResetDayNow()
 	local curGuid = UnitGUID("player")
 	local liveReady = VaultHasClaimableRewardsLive()
+	-- When the live API exists it is authoritative for the logged-in character
+	-- (both ways): the snapshot may be stale, e.g. still "ready" right after
+	-- the player claimed. Snapshot entries for the current char are then
+	-- skipped entirely — the live entry above already covers the ready case.
+	local liveAuthoritative = (C_WeeklyRewards and C_WeeklyRewards.HasAvailableRewards) and true or false
 
 	if settings.enabled and curGuid and liveReady then
 		local nm, realm = UnitFullName("player")
@@ -135,9 +140,10 @@ function ns.GetVaultReminderState()
 					local staleSinceReset = (tonumber(snap.ts) or 0) > 0 and (tonumber(snap.ts) or 0) < resetAnchor
 					local isCurrent = guid == curGuid
 
-					if hasReady and not (isCurrent and liveReady) then
+					local snapshotTrusted = not (isCurrent and liveAuthoritative)
+					if hasReady and snapshotTrusted then
 						AddEntry(entries, seen, guid, nm, snap.realm, "ready", isCurrent)
-					elseif resetDay and staleSinceReset and unlockedAny and not hasReady then
+					elseif resetDay and staleSinceReset and unlockedAny and not hasReady and snapshotTrusted then
 						AddEntry(entries, seen, guid, nm, snap.realm, "likely", isCurrent)
 					end
 				end

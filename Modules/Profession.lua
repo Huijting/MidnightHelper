@@ -907,10 +907,23 @@ local function CreateOrUpdateEventBridge()
 	eventFrame:RegisterEvent("QUEST_WATCH_UPDATE")
 	eventFrame:RegisterEvent("BAG_UPDATE")
 
+	-- BAG_UPDATE and QUEST_LOG_UPDATE fire in bursts (one per bag / per quest
+	-- entry); coalesce into a single refresh per 0.2s window so looting or a
+	-- quest hand-in doesn't trigger a dozen back-to-back panel refreshes.
+	local pendingTimer
 	eventFrame:SetScript("OnEvent", function()
-		if frame and frame:IsVisible() then
-			RefreshProfessionPanel()
+		if not (frame and frame:IsVisible()) then
+			return
 		end
+		if pendingTimer then
+			return
+		end
+		pendingTimer = C_Timer.NewTimer(0.2, function()
+			pendingTimer = nil
+			if frame and frame:IsVisible() then
+				RefreshProfessionPanel()
+			end
+		end)
 	end)
 end
 

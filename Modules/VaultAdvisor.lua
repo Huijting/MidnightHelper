@@ -173,9 +173,8 @@ local function ResolveContentProfile(activityHints)
 	if mode == "mplus" then
 		return "mplus"
 	end
-	if activityHints and activityHints.dungeon and not activityHints.raid then
-		return "mplus"
-	end
+	-- Any dungeon activity (with or without raid) maps to mplus; the earlier
+	-- "dungeon and not raid" pre-check was dead code with the same outcome.
 	if activityHints and activityHints.dungeon then
 		return "mplus"
 	end
