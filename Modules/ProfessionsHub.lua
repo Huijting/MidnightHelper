@@ -81,8 +81,14 @@ local function BuildWeeklyText()
 			local questID = weekly.trainerQuests and weekly.trainerQuests[skillLine]
 			if questID then
 				local okFlag, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, questID)
-				local icon = (okFlag and done) and ICON_DONE or ICON_OPEN
-				lines[#lines + 1] = ("%s %s: %s"):format(icon, name, SL("PROFHUB_WEEKLY_TRAINER"))
+				local isDone = okFlag and done
+				local icon = isDone and ICON_DONE or ICON_OPEN
+				local line = ("%s %s: %s"):format(icon, name, SL("PROFHUB_WEEKLY_TRAINER"))
+				if not isDone then
+					-- Leek-hint: why isn't the trainer offering it yet?
+					line = line .. " |cff8a8f98" .. SL("PROFHUB_WEEKLY_TRAINER_REQ") .. "|r"
+				end
+				lines[#lines + 1] = line
 			end
 			if skillLine == 333 and weekly.enchantingEssences then
 				local parts = {}
@@ -128,6 +134,36 @@ local function RefreshGoalChrome()
 	end
 end
 
+--- Accessory hint: profession gear slots 21/22 (prof 1) and 24/25 (prof 2).
+--- Accessories are optional for starters — the gearup chapter only requires
+--- a tool — so this is a gray tip, never a requirement. Wrong slot numbers
+--- fail harmless (hint shows; equipping one is the live verification).
+local function BuildAccessoryHint()
+	if type(GetProfessions) ~= "function" or type(GetInventoryItemID) ~= "function" then
+		return ""
+	end
+	local p1, p2 = GetProfessions()
+	local empty = 0
+	if p1 then
+		for _, slot in next, { 21, 22 } do
+			if not GetInventoryItemID("player", slot) then
+				empty = empty + 1
+			end
+		end
+	end
+	if p2 then
+		for _, slot in next, { 24, 25 } do
+			if not GetInventoryItemID("player", slot) then
+				empty = empty + 1
+			end
+		end
+	end
+	if empty == 0 then
+		return ""
+	end
+	return "\n\n|cff8a8f98" .. SL("PROFHUB_ACCESSORY_HINT_FMT"):format(empty) .. "|r"
+end
+
 local function RefreshOverview()
 	if not (hub and hub._phOverview and hub._phOverview:IsShown()) then
 		return
@@ -149,7 +185,7 @@ local function RefreshOverview()
 	end
 	if hub._phOverviewText then
 		local text = ns.MH_GetProfessionsOverviewText and ns.MH_GetProfessionsOverviewText() or ""
-		hub._phOverviewText:SetText(text .. BuildWeeklyText())
+		hub._phOverviewText:SetText(text .. BuildWeeklyText() .. BuildAccessoryHint())
 	end
 	if hub._phOverviewHint then
 		hub._phOverviewHint:SetText(SL("PROFHUB_OVERVIEW_HINT"))
@@ -328,6 +364,7 @@ function ns.BuildProfessionsHubPanel(panel)
 	ev:RegisterEvent("TRADE_SKILL_SHOW")
 	ev:RegisterEvent("QUEST_LOG_UPDATE")
 	ev:RegisterEvent("BAG_UPDATE")
+	ev:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 	ev:SetScript("OnEvent", function()
 		if not (hub and hub._phOverview and hub._phOverview:IsShown()) then
 			return

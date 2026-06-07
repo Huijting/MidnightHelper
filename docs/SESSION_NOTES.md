@@ -755,12 +755,79 @@ Scope-bevinding bij de 12.0.7-prep:
   regel met zonenaam, kleur klopt met weekly-status; Folio-mote-regel volgt
   zodra Mote-ID bekend is (PTR-doc punt 5).
 
+## Voor Cursor — review + commit batch 6 (7 juni avond, commits `2f22c3d` / `TBD2`)
+
+Voorgestelde opdeling in 2 commits:
+
+1. **Tree Advisor v2 (iteratie 14):** `ProfessionAcademyData.lua`
+   (advisorGoalRoutes), `ProfessionAcademy.lua` (MH_Get/SetProfAdvisorGoal
+   + doel-route-keuze), `ProfessionsHub.lua` (doel-knoppenrij + tooltips),
+   9 keys ×6 (PROFHUB_GOAL_* incl. TT-varianten).
+2. **Leek-UX (zelfde avond):** trainer-weekly-suffix
+   (PROFHUB_WEEKLY_TRAINER_REQ ×6) + accessoire-tip in Overview
+   (PROFHUB_ACCESSORY_HINT_FMT ×6, slots 21/22/24/25 — fail-safe bij
+   verkeerde slots; PLAYER_EQUIPMENT_CHANGED toegevoegd aan hub-events;
+   gearup-vinkje blijft bewust tools-only, accessoires zijn optioneel).
+
+Luacheck zelf draaien (mount onbetrouwbaar). Release-advies: **nog NIET
+naar CF** — eerst woensdag-reset meemaken (weekly-semantiek), Delve-share
+v2 solo-test, paar dagen daily-driven. CF alleen op expliciete vraag Rob.
+
+**Versie: TOC gebumpt naar 1.6.0 (Rob, 7 juni)** — dit wordt de
+release-versie zodra bovenstaande checks rond zijn. CHANGELOG: Cursor mag
+de 1.6.0-kop alvast opzetten met de hoofdpunten van vandaag: Professions
+Hub (Overview/Treasures/Course), Professions 101-cursus (alle 11 profs,
+detectie, tree-state), Tree Advisor (live advies + doelen),
+interrupt-macro's herbouwd (Focus/Mouseover — opnieuw kopiëren!),
+Delve-share v2 (vertaalde ontvangst), Consumables copy-naar-AH,
+shortest-hop Generate-routes, This week-blok, Showdown-checklist-regel
+(12.0.7), frFR-herstel + vertaal-fixes.
+
+### Fase 5, iteratie 14 (commits `2f22c3d` + `TBD2`) — Tree Advisor v2: doel-picker + leek-UX
+
+- **Doelen:** Allround (= v1-routes) / Goud / Zelfvoorzienend, per
+  character opgeslagen (`ns.db.profAcademy[guid].advisorGoal`).
+  "Goedkoop levelen" bewust geparkeerd (geen bronnen — never invent).
+- **Data (`advisorGoalRoutes`):** alleen onderbouwde overrides — Ench
+  (goud: Elevating eerst — weapon/ring/chest verkopen; self: Shatterer→
+  Delegate), Alch (goud: Flasks→Transmutation; self: Potions eerst),
+  Tailor (goud: Nimble/bolts; self: Fabric Specialist), LW (goud:
+  Flawless Fortes-consumables), Insc (goud: Perfected Products), JC
+  (goud: Glamorous Gems eerst). Ontbrekend doel/prof → fallback
+  advisorRoutes. Routes blijven op TAB-niveau (GetTabInfo-namen).
+- **Logica (`ProfessionAcademy.lua`):** `ns.MH_Get/SetProfAdvisorGoal`
+  (ProgressBag); GetAdviceForProf kiest route per doel. **UI
+  (`ProfessionsHub.lua`):** "Advice goal: [Allround|Gold|Self-sufficient]"
+  knoppenrij in het Overview (actieve knop getint); klik → opslaan +
+  advies overal ververst (Overview, Academy-blok, hoofdstuk 2). 4 keys ×6
+  (PROFHUB_GOAL_*).
+- Stub-tests: Robs echte Ench-state → alle doelen wijzen Shatterer aan
+  (goud-stap-1 Elevating is al vol — correct); verse enchanter → goud:
+  Elevating, allround/self: Shatterer ✓ (doel-divergentie bewezen).
+- **UX-aanvulling (Rob-test):** doel-knoppen hebben nu hover-tooltips
+  (wat kies je en waarom — PROFHUB_GOAL_TT_* ×6); de open trainer-weekly-
+  regel kreeg een grijze leek-suffix met de voorwaarden
+  (PROFHUB_WEEKLY_TRAINER_REQ ×6: Flaresworn-intro + Ench skill 25 —
+  Robs priest kreeg de weekly terecht nog niet op skill 1).
+- Procesnotitie: Cursor committe batch 5 (a77fd44/e410ea5/9dcdf64) tijdens
+  het bouwen en polishte enkele PROFHUB-vertalingen — overgenomen als
+  anker; geen conflicten.
+- **In-game test (Rob):** Hub → Overview: doel-knoppenrij onder de kop;
+  wissel Allround→Gold op je main: Tailoring-advies hoort te verschuiven
+  van Nimble-route naar Nimble→Fiber Arts-route (zelfde eerste stap zolang
+  Nimble niet vol is — verschil zichtbaarder op de verse priest:
+  Ench-advies Allround=Shatterer vs Gold=Elevating); keuze blijft bewaard
+  na /reload en is per character; hoofdstuk 2-advies volgt mee.
+
 ## Open / volgende stappen
 
 0a. **✅ Delve-share v2 (commit `a77fd44`) — klaar voor CF-release.** Nog
     open vóór release: solo-testmodus-check (blauw "(test)"-blok) en echte
     cross-locale-ontvangst zodra twee spelers de nieuwe versie draaien.
-    (Geen CF-release zonder expliciete vraag van Rob.)
+
+0b. **⏳ CF-release — nog NIET.** Eerst woensdag-reset meemaken
+    (weekly-semantiek 93698), Delve-share v2 solo-test, paar dagen
+    daily-driven. CF alleen op expliciete vraag van Rob.
 
 0. **Showdowns vervolg:** Showdown-weekly-regel in AccountWeeklyChecklist ✅
     (`9dcdf64`); nog Folio-mote zodra ID bekend; Home-dashboard kan
