@@ -397,6 +397,7 @@ ns._mhLocales.enUS = {
 	CONS_SPEC_HINT = "< > cycles specs. Search bar: other classes.",
 	CONS_COPY_HINT = "Click an item, then Ctrl+C (clicks cycle alternates):",
 	CONS_COPY_TT = "Click: copy name (for the Auction House)",
+	DELVE_SHARE_XLOC_HEADER_FMT = "%s shared Delve tips — shown in your language:",
 	INFO_DRAWER_BODY_CONSUMABLES = "Midnight Season 1 consumables per spec (Wowhead list). Use My character, < >, or search (e.g. havoc, beast) to preview another spec without relogging.",
 	MACROS_MACRO_NAME_FMT = "%s",
 	MACROS_COPY_SUFFIX = "Copy the text below into Esc > Macros > New. Then drag the macro icon to a spot on your action bar (for example 1, 2, or E).",

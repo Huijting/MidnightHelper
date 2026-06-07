@@ -45,6 +45,10 @@ All notable changes to this project are documented in this file.
 - **Toolbox — Professions:** one hub sub-tab with **Overview**, **Treasures & Books**, and **Course (101)** inner tabs (legacy `professions` / `profacademy` ids still route to the matching inner tab).
 - **Professions panel — Generate Treasures/Books:** TomTom waypoints now follow a shortest-hop route per zone (greedy chain from your position or the first pin), grouped by map.
 
+### Added
+
+- **Delve party share v2:** receivers with a different chat locale get tips re-rendered locally via addon message (`MHDelve` prefix); plain chat text remains the universal fallback. Solo test mode whispers the descriptor to yourself.
+
 ### Added (verify on second PC before CurseForge release notes)
 
 - **PTR sync:** `Sync-MidnightHelper-PTR.bat` copies the working tree to `_ptr_` / `_xptr_` installs (excluded from CurseForge zip).

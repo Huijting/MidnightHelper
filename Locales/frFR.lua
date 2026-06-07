@@ -348,6 +348,7 @@ local OVERRIDES = {
 	CONS_SPEC_HINT = "< > change de spécialisation. Barre de recherche : autres classes.",
 	CONS_COPY_HINT = "Clique un objet, puis Ctrl+C (les clics alternent les variantes) :",
 	CONS_COPY_TT = "Clic : copier le nom (pour l'hôtel des ventes)",
+	DELVE_SHARE_XLOC_HEADER_FMT = "%s a partagé des astuces de gouffre — ici dans ta langue :",
 	INFO_DRAWER_BODY_CONSUMABLES = "Consommables Midnight Saison 1 par spécification (liste Wowhead). Utilise Mon personnage, < > ou recherchez (par exemple Havoc, Beast) pour prévisualiser une autre spécialisation sans tu reconnecter.",
 	MACROS_MACRO_NAME_FMT = "%s",
 	MACROS_COPY_SUFFIX = "Copie le texte ci-dessous dans Esc > Macros > Nouveau. Faites ensuite glisser l'icône de la macro vers un endroit de ton barre d'action (par exemple 1, 2 ou E).",

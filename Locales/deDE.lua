@@ -348,6 +348,7 @@ local OVERRIDES = {
 	CONS_SPEC_HINT = "< > wechselt die Spezialisierung. Suchleiste: andere Klassen.",
 	CONS_COPY_HINT = "Klicke ein Item, dann Strg+C (Klicks wechseln Alternativen):",
 	CONS_COPY_TT = "Klick: Name kopieren (für das Auktionshaus)",
+	DELVE_SHARE_XLOC_HEADER_FMT = "%s hat Tiefen-Tipps geteilt — hier in deiner Sprache:",
 	INFO_DRAWER_BODY_CONSUMABLES = "Verbrauchsmaterialien für Midnight Season 1 pro Spezifikation (Wowhead-Liste). Nutze Mein Charakter, < > oder die Suche (z. B. Chaos, Biest), um eine Vorschau einer anderen Spezifikation anzuzeigen, ohne sich erneut anzumelden.",
 	MACROS_MACRO_NAME_FMT = "%s",
 	MACROS_COPY_SUFFIX = "Kopieren du den Text unten nach Esc > Makros > Neu. Ziehe dann das Makrosymbol an eine Stelle in deiner Aktionsleiste (z. B. 1, 2 oder E).",

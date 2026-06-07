@@ -348,6 +348,7 @@ local OVERRIDES = {
 	CONS_SPEC_HINT = "< > troca a especialização. Barra de pesquisa: outras classes.",
 	CONS_COPY_HINT = "Clique em um item e depois Ctrl+C (cliques alternam variantes):",
 	CONS_COPY_TT = "Clique: copiar nome (para a casa de leilões)",
+	DELVE_SHARE_XLOC_HEADER_FMT = "%s compartilhou dicas de abismo — aqui no seu idioma:",
 	INFO_DRAWER_BODY_CONSUMABLES = "Consumíveis da 1ª temporada da meia-noite por especificação (lista Wowhead). Use Meu personagem, < >, ou pesquise (por exemplo, estragos, besta) para visualizar outra especificação sem relogar.",
 	MACROS_MACRO_NAME_FMT = "%s",
 	MACROS_COPY_SUFFIX = "Copie o texto abaixo em Esc > Macros > Novo. Em seguida, arraste o ícone da macro para um local na barra de ação (por exemplo, 1, 2 ou E).",

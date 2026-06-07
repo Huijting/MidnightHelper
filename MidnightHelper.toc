@@ -31,6 +31,7 @@ Modules\DelveSpellIds.lua
 Modules\DelveTipMarkup.lua
 Modules\DelveBossShowcase.lua
 Modules\DelvePartyShare.lua
+Modules\DelveShareSync.lua
 Config.lua
 Modules\KeybindSchema.lua
 Modules\KeybindingData.lua

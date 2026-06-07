@@ -268,7 +268,7 @@ local function ClearPendingSend()
 	pendingSend = nil
 end
 
-local function DoSendLines(lines)
+local function DoSendLines(lines, entryId, mode)
 	if not lines or #lines == 0 then
 		ChatPrint("DELVE_SHARE_FAILED")
 		return false
@@ -282,6 +282,12 @@ local function DoSendLines(lines)
 	if InCombatLockdown and InCombatLockdown() then
 		ChatPrint("DELVE_SHARE_COMBAT")
 		return false
+	end
+
+	-- v2: hidden descriptor alongside the plain text — receivers with MH and
+	-- a different locale re-render the tips locally (DelveShareSync.lua).
+	if ns.MH_BroadcastDelveShareSync and entryId then
+		ns.MH_BroadcastDelveShareSync(entryId, mode, channel, isTest)
 	end
 
 	for idx = 1, #lines do
@@ -351,7 +357,7 @@ function ns.SendDelvePartyShare(entryId, mode)
 				end
 			end)
 		end
-		if not DoSendLines(lines) then
+		if not DoSendLines(lines, entryId, mode) then
 			ClearPendingSend()
 		end
 	end

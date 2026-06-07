@@ -395,6 +395,7 @@ ns._mhLocales.nlNL = {
 	CONS_SPEC_HINT = "< > wisselt specs. Zoekbalk: andere classes.",
 	CONS_COPY_HINT = "Klik een item, dan Ctrl+C (klikken wisselt alternatieven):",
 	CONS_COPY_TT = "Klik: kopieer naam (voor het veilinghuis)",
+	DELVE_SHARE_XLOC_HEADER_FMT = "%s deelde Delve-tips — hier in jouw taal:",
 	INFO_DRAWER_BODY_CONSUMABLES = "Midnight Season 1 consumables per spec (Wowhead-lijst). Mijn character, < >, of zoeken (bv. havoc, beast) om een andere spec te bekijken zonder relog.",
 	MACROS_MACRO_NAME_FMT = "%s",
 	MACROS_COPY_SUFFIX = "Kopieer de tekst hieronder naar Esc > Macro's > Nieuw. Sleep daarna het macro-icoon naar een plek op je actiebalk (bijvoorbeeld 1, 2 of E).",
