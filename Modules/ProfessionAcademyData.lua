@@ -56,6 +56,24 @@ ns.PROF_ACADEMY = {
 		[773] = 2913, -- Midnight Inscription
 	},
 
+	-- Weekly KP routine (concept B, eerste plak) — ONLY in-game verified IDs.
+	-- trainerQuests: weekly quest at the profession trainer, keyed by base
+	-- skillLine. 93698 = "Splintered Radiance" (Enchanting, Dolothos; Rob
+	-- picked up + turned in live 7 jun — flag-semantiek check: ⬜ /run
+	-- print(C_QuestLog.IsQuestFlaggedCompleted(93698)) hoort true te zijn
+	-- tot woensdag-reset). Andere profs: ID dumpen bij de trainer (questlog-
+	-- dump vóór inleveren) en hier toevoegen — regel verschijnt vanzelf.
+	weekly = {
+		trainerQuests = {
+			[333] = 93698,
+		},
+		-- Enchanting weekly disenchant mats (zie PROFESSION_ACADEMY_PLAN.md).
+		enchantingEssences = {
+			{ itemID = 267654, need = 5, fallbackName = "Swirling Arcane Essence" },
+			{ itemID = 267655, need = 1, fallbackName = "Brimming Mana Shard" },
+		},
+	},
+
 	-- Tree Advisor v1: curated default route per profession (consensus from
 	-- the guides behind the starter chapters; see docs/PROFESSION_ACADEMY_PLAN.md).
 	-- Each step is a tree ROOT to finish; anyOf = either counts (player's

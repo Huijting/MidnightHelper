@@ -57,6 +57,7 @@ All notable changes to this project are documented in this file.
 - **Toolbox — Professions 101:** starter chapters for all eleven Midnight professions with trees (Tailoring through Skinning); only chapters for professions you have are shown.
 - **Toolbox — Professions 101:** Tree Advisor shows live next-root advice per owned profession (purchased ranks, repeated under the choosing-trees chapter).
 - **Toolbox — Professions 101:** new **Gear up** chapter (tools, stations, Midnight tier, first recipes) with auto-detect when profession tools are equipped (slots 20/23).
+- **Toolbox — Professions Hub:** **This week** block on Overview (trainer weekly quest flag per known profession, Enchanting disenchant mat bag counts).
 
 ### Fixed
 

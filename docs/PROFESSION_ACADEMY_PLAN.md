@@ -150,7 +150,10 @@ lijst scrapen bij bouw van B.
 1. Quest-flag-IDs 93528-93543 verifiëren (welke flipt na welke drop, reset
    woensdag?) — `/run for i=93528,93543 do if C_QuestLog.IsQuestFlaggedCompleted(i) then print(i) end end`
    na een drop. **Nulmeting (Rob, main Tailor+Ench, zo 7 juni): alle 16
-   false** — consistent met "nog geen drop deze week". Volgende datapunten:
+   false** — consistent met "nog geen drop deze week". **Extra datapunt
+   (zelfde dag):** trainer-weekly Splintered Radiance ingeleverd + Folio
+   (+3 KP-studie-item) ontvangen → reeks blijft leeg; 935xx is dus écht
+   exclusief voor de open-wereld-treasure-drops. Volgende datapunten:
    (a) direct na een +2 KP-item-drop (noteer itemnaam!), (b) woensdag na
    reset. Voor de checklist-regel volstaat: paar hoort bij prof + reset
    wekelijks. Open: gelden drops ook onder max level (82-alt mag meetesten)?

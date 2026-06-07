@@ -62,6 +62,50 @@ local function RefreshChrome()
 	end
 end
 
+local ICON_DONE = "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12:0:0|t"
+local ICON_OPEN = "|TInterface\\RaidFrame\\ReadyCheck-Waiting:12:12:0:0|t"
+
+--- Weekly KP block (concept B): only rows with in-game verified IDs show —
+--- trainer weeklies via quest flag, Enchanting disenchant mats via bag count.
+local function BuildWeeklyText()
+	local d = ns.PROF_ACADEMY
+	local weekly = d and d.weekly
+	if not weekly or type(GetProfessions) ~= "function" then
+		return ""
+	end
+	local lines = {}
+	local p1, p2 = GetProfessions()
+	for _, prof in next, { p1, p2 } do
+		local name, _, _, _, _, _, skillLine = GetProfessionInfo(prof)
+		if name and skillLine then
+			local questID = weekly.trainerQuests and weekly.trainerQuests[skillLine]
+			if questID then
+				local okFlag, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, questID)
+				local icon = (okFlag and done) and ICON_DONE or ICON_OPEN
+				lines[#lines + 1] = ("%s %s: %s"):format(icon, name, SL("PROFHUB_WEEKLY_TRAINER"))
+			end
+			if skillLine == 333 and weekly.enchantingEssences then
+				local parts = {}
+				for _, e in ipairs(weekly.enchantingEssences) do
+					local count = 0
+					if C_Item and C_Item.GetItemCount then
+						local okC, c = pcall(C_Item.GetItemCount, e.itemID)
+						count = okC and tonumber(c) or 0
+					end
+					local itemName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(e.itemID))
+						or e.fallbackName
+					parts[#parts + 1] = ("%s %d/%d"):format(itemName, count, e.need)
+				end
+				lines[#lines + 1] = ("%s: %s"):format(SL("PROFHUB_WEEKLY_ESSENCES"), table.concat(parts, " · "))
+			end
+		end
+	end
+	if #lines == 0 then
+		return ""
+	end
+	return "\n\n|cffffd966" .. SL("PROFHUB_WEEKLY_HEADER") .. "|r\n" .. table.concat(lines, "\n")
+end
+
 local function RefreshOverview()
 	if not (hub and hub._phOverview and hub._phOverview:IsShown()) then
 		return
@@ -71,7 +115,7 @@ local function RefreshOverview()
 	end
 	if hub._phOverviewText then
 		local text = ns.MH_GetProfessionsOverviewText and ns.MH_GetProfessionsOverviewText() or ""
-		hub._phOverviewText:SetText(text)
+		hub._phOverviewText:SetText(text .. BuildWeeklyText())
 	end
 	if hub._phOverviewHint then
 		hub._phOverviewHint:SetText(SL("PROFHUB_OVERVIEW_HINT"))
@@ -194,13 +238,27 @@ function ns.BuildProfessionsHubPanel(panel)
 		ns.BuildProfessionAcademyPanel(course)
 	end
 
-	-- Live overview refresh (profession learned/dropped, KP committed).
+	-- Live overview refresh (profession learned/dropped, KP committed,
+	-- weekly turned in, essences looted). Quest/bag events fire in bursts —
+	-- coalesce to one refresh per 0.3s (timer-handle pattern).
+	local pendingTimer
 	local ev = CreateFrame("Frame", nil, panel)
 	ev:RegisterEvent("SKILL_LINES_CHANGED")
 	ev:RegisterEvent("TRAIT_CONFIG_UPDATED")
 	ev:RegisterEvent("TRADE_SKILL_SHOW")
+	ev:RegisterEvent("QUEST_LOG_UPDATE")
+	ev:RegisterEvent("BAG_UPDATE")
 	ev:SetScript("OnEvent", function()
-		RefreshOverview()
+		if not (hub and hub._phOverview and hub._phOverview:IsShown()) then
+			return
+		end
+		if pendingTimer then
+			return
+		end
+		pendingTimer = C_Timer.NewTimer(0.3, function()
+			pendingTimer = nil
+			RefreshOverview()
+		end)
 	end)
 
 	panel:SetScript("OnShow", function()
