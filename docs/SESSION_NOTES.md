@@ -14,7 +14,7 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 - Geen CurseForge-release zonder expliciete vraag van Rob.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
 
-## Voor Cursor — review + commit batch 7 juni (commits `605c670` / `19df573` / `TBD3`)
+## Voor Cursor — review + commit batch 7 juni (commits `605c670` / `19df573` / `705306d`)
 
 Alle onderdelen zijn door Rob live in-game getest (✅ per sectie hieronder).
 Voorgestelde opdeling in 3 commits:
