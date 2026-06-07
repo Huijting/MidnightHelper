@@ -356,7 +356,7 @@ sidebar?" en "geven de Generates de kortste route?". Beide aangepakt:
   Brimming Mana Shard 0/1"). Iteratie 6 (alle prof-hoofdstukken): LW/Skin-
   alt toont hoofdstuk 6 LW + 7 Skinning, teller 1/7 ✅.
 
-## Voor Cursor — review + commit batch 2 (7 juni middag, commits `eeafef7` / `b285e08` / `TBD3`)
+## Voor Cursor — review + commit batch 2 (7 juni middag, commits `eeafef7` / `b285e08` / `a8074ed`)
 
 Alle onderdelen live getest door Rob (✅ per iteratie hieronder). Voorgestelde
 opdeling in 3 commits:
@@ -378,7 +378,7 @@ shortest-hop", "Professions 101 dekt alle 11 professies", "essence-teller".
 Backlog ongewijzigd + nieuw: skillLine-mapping dubbel (Profession.lua vs
 ProfessionAcademyData) — ooit centraliseren.
 
-### Fase 5, iteratie 6 (commit `TBD3`) — ALLE professies in de Academy
+### Fase 5, iteratie 6 (commit `a8074ed`) — ALLE professies in de Academy
 
 Op Robs verzoek: starthoofdstukken voor de resterende 8 professies (LW, BS,
 Eng, Inscription, JC, Herbalism, Mining, Skinning) — Professions 101 dekt nu
@@ -413,7 +413,7 @@ voor gathering-specs bestaan niet/CDN-error).
   LW/Skin-alt: LW- en Skinning-hoofdstuk zichtbaar i.p.v. Ench; teksten
   NL/EN steekproef; teller klopt overal.
 
-### Fase 5, iteratie 5 (commit `TBD3`) — Tailoring-starthoofdstuk
+### Fase 5, iteratie 5 (commit `a8074ed`) — Tailoring-starthoofdstuk
 
 - Hoofdstuk 8 in `ns.PROF_ACADEMY.chapters` (key `tailoring`, skillLineID
   197 — alleen zichtbaar mét Tailoring, zoals Ench/Alch). 3 nieuwe keys
