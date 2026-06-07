@@ -602,7 +602,7 @@ gat in de cursus. Nieuw hoofdstuk 2 ("gearup", tussen knowledge en trees):
   "Profession Equipment" — optioneel voor starters (in chat uitgelegd,
   evt. later in hoofdstuktekst).
 
-## Voor Cursor — review + commit batch 4 (7 juni namiddag, commit `TBD`)
+## Voor Cursor — review + commit batch 4 (7 juni namiddag, commit `e660250`)
 
 Klein batchje, 1 commit volstaat: "Consumables: copy-to-AH bar + tooltip
 hint; fix mistranslated spec hints". Bestanden: `GuideConsumables.lua`
@@ -619,7 +619,7 @@ zoals altijd zelf draaien.
 addon-messages) — MOET in de volgende CF-release; zie "Open / volgende
 stappen" punt 0a.
 
-### Fase 5, iteratie 10 (commit `TBD`) — Consumables-check + copy-balk
+### Fase 5, iteratie 10 (commit `e660250`) — Consumables-check + copy-balk
 
 Robs vraag: klopt de Consumables-tab nog, en namen kopieerbaar voor het AH.
 
