@@ -106,12 +106,46 @@ local function BuildWeeklyText()
 	return "\n\n|cffffd966" .. SL("PROFHUB_WEEKLY_HEADER") .. "|r\n" .. table.concat(lines, "\n")
 end
 
+local GOAL_DEFS = {
+	{ id = "allround", labelKey = "PROFHUB_GOAL_ALLROUND", ttKey = "PROFHUB_GOAL_TT_ALLROUND" },
+	{ id = "gold", labelKey = "PROFHUB_GOAL_GOLD", ttKey = "PROFHUB_GOAL_TT_GOLD" },
+	{ id = "self", labelKey = "PROFHUB_GOAL_SELF", ttKey = "PROFHUB_GOAL_TT_SELF" },
+}
+
+local function RefreshGoalChrome()
+	if not (hub and hub._phGoalButtons) then
+		return
+	end
+	local active = (ns.MH_GetProfAdvisorGoal and ns.MH_GetProfAdvisorGoal()) or "allround"
+	for id, btn in pairs(hub._phGoalButtons) do
+		if id == active then
+			btn:SetAlpha(1)
+			TintButtonTextures(btn, TAB_TEX_ACTIVE[1], TAB_TEX_ACTIVE[2], TAB_TEX_ACTIVE[3])
+		else
+			btn:SetAlpha(0.85)
+			TintButtonTextures(btn, TAB_TEX_INACTIVE[1], TAB_TEX_INACTIVE[2], TAB_TEX_INACTIVE[3])
+		end
+	end
+end
+
 local function RefreshOverview()
 	if not (hub and hub._phOverview and hub._phOverview:IsShown()) then
 		return
 	end
 	if hub._phOverviewHeader then
 		hub._phOverviewHeader:SetText(SL("TAB_PROFESSIONS"))
+	end
+	if hub._phGoalLabel then
+		hub._phGoalLabel:SetText(SL("PROFHUB_GOAL_LABEL"))
+	end
+	if hub._phGoalButtons then
+		for _, def in ipairs(GOAL_DEFS) do
+			local btn = hub._phGoalButtons[def.id]
+			if btn then
+				btn:SetText(SL(def.labelKey))
+			end
+		end
+		RefreshGoalChrome()
 	end
 	if hub._phOverviewText then
 		local text = ns.MH_GetProfessionsOverviewText and ns.MH_GetProfessionsOverviewText() or ""
@@ -207,8 +241,54 @@ function ns.BuildProfessionsHubPanel(panel)
 	oh:SetPoint("TOPLEFT", overview, "TOPLEFT", 12, -10)
 	oh:SetJustifyH("LEFT")
 	panel._phOverviewHeader = oh
+
+	-- Tree Advisor goal picker: changes which curated route the advice
+	-- lines follow (per character; Allround = the v1 default routes).
+	local goalLabel = overview:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	goalLabel:SetPoint("TOPLEFT", oh, "BOTTOMLEFT", 0, -8)
+	goalLabel:SetJustifyH("LEFT")
+	goalLabel:SetTextColor(0.78, 0.74, 0.68)
+	panel._phGoalLabel = goalLabel
+
+	panel._phGoalButtons = {}
+	local prevBtn
+	for _, def in ipairs(GOAL_DEFS) do
+		local btn = CreateFrame("Button", "MidnightHelperProfGoal_" .. def.id, overview, "UIPanelButtonTemplate")
+		btn:SetSize(110, 20)
+		if prevBtn then
+			btn:SetPoint("LEFT", prevBtn, "RIGHT", 4, 0)
+		else
+			btn:SetPoint("LEFT", goalLabel, "RIGHT", 8, 0)
+		end
+		local id = def.id
+		btn:SetScript("OnClick", function()
+			if ns.MH_SetProfAdvisorGoal then
+				ns.MH_SetProfAdvisorGoal(id)
+			end
+			RefreshOverview()
+		end)
+		-- What does this goal actually choose, and why?
+		local labelKey, ttKey = def.labelKey, def.ttKey
+		btn:SetScript("OnEnter", function(self)
+			if not GameTooltip then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_TOP")
+			GameTooltip:SetText(SL(labelKey), 1, 0.88, 0.45)
+			GameTooltip:AddLine(SL(ttKey), 0.85, 0.85, 0.85, true)
+			GameTooltip:Show()
+		end)
+		btn:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		panel._phGoalButtons[def.id] = btn
+		prevBtn = btn
+	end
+
 	local ot = overview:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	ot:SetPoint("TOPLEFT", oh, "BOTTOMLEFT", 0, -10)
+	ot:SetPoint("TOPLEFT", goalLabel, "BOTTOMLEFT", 0, -10)
 	ot:SetPoint("RIGHT", overview, "RIGHT", -16, 0)
 	ot:SetJustifyH("LEFT")
 	ot:SetWordWrap(true)
