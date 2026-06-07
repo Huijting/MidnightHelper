@@ -39,6 +39,8 @@ All notable changes to this project are documented in this file.
 - **Sidebar (12 tabs):** **Reference** is now a **Midnight Codex** category (embedded Reference guide with Dawncrest / Professions sub-tabs). `SelectTab("reference")` still works via alias. Reference beta checkbox gates the category button.
 - **Keybinding:** internal binding id is now `MIDNIGHTHELPER_TOGGLEMAIN` (was generic `TOGGLEMAIN`, collision-prone across addons). Default **Alt+M** is unchanged; if you set a **custom** key for Toggle main window, re-bind it once under **Keybindings → Midnight Helper**.
 - **Interrupt macros:** replaced the old focus-swap macro with **Focus** and **Mouseover** variants (one spell table, generated per spec). If you copied the old macro into your action bars, copy the new text from **Toolbox → Macros → Interrupt**.
+- **Professions panel:** moved from the sidebar into **Toolbox** (legacy `SelectTab("professions")` and search still route there).
+- **Professions panel — Generate Treasures/Books:** TomTom waypoints now follow a shortest-hop route per zone (greedy chain from your position or the first pin), grouped by map.
 
 ### Added (verify on second PC before CurseForge release notes)
 

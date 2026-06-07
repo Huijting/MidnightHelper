@@ -242,7 +242,7 @@ local MH_BETA_TAB_IDS = {
 local SIDEBAR_SECTIONS = {
 	-- Home leads: it is the default/fallback tab (SelectTab), so it sits on top.
 	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "codex", "delves", "rares", "world" } },
-	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "professions" } },
+	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "toolbox" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
 }
@@ -315,6 +315,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 			return "INFO_DRAWER_BODY_ACADEMY"
 		elseif sid == "profacademy" then
 			return "INFO_DRAWER_BODY_PROFACADEMY"
+		elseif sid == "professions" then
+			return "INFO_DRAWER_BODY_PROFESSIONS"
 		end
 		return "INFO_DRAWER_BODY_CONSUMABLES"
 	elseif tabId == "addons" then
@@ -1312,7 +1314,8 @@ local TAB_DEFS = {
 	-- reference is no longer top-level: it lives in the Codex as a category;
 	-- SelectTab("reference") still works via the alias below.
 	{ id = "smcguide", labelKey = "TAB_SMC" },
-	{ id = "professions", labelKey = "TAB_PROFESSIONS" },
+	-- professions is no longer top-level: it lives in the Toolbox as a sub-tab;
+	-- SelectTab("professions") still works via the alias below.
 	{ id = "guide", labelKey = "TAB_GUIDE" },
 	-- Toolbox bundles the former macros/consumables/academy top-level tabs as
 	-- sub-tabs; legacy tab ids still route there via the alias in SelectTab.
@@ -1878,6 +1881,7 @@ function ns:EnsureMainUI()
 			{ id = "consumables", labelKey = "TAB_CONSUMABLES" },
 			{ id = "macros", labelKey = "TAB_MACROS", beta = true },
 			{ id = "academy", labelKey = "TAB_ACADEMY", beta = true },
+			{ id = "professions", labelKey = "TAB_PROFESSIONS" },
 			{ id = "profacademy", labelKey = "TAB_PROF_ACADEMY" },
 		}
 		local TOOLBOX_BUILDERS = {
@@ -1901,6 +1905,9 @@ function ns:EnsureMainUI()
 					ns.BuildProfessionAcademyPanel(p)
 				end
 			end,
+			-- Built by Profession.lua via its EnsureMainUI hook (it finds the
+			-- panel under ns.panels.professions, same id as before the move).
+			professions = function() end,
 		}
 
 		ns.toolboxSubTabButtons = {}
@@ -2336,7 +2343,8 @@ end
 SelectTab = function(tabId)
 	-- Legacy ids from before the Toolbox merge (saved tabs, Guide.lua
 	-- navigation, slash commands) route to the matching Toolbox sub-tab.
-	if tabId == "macros" or tabId == "consumables" or tabId == "academy" then
+	-- "professions" moved from the sidebar into the Toolbox the same way.
+	if tabId == "macros" or tabId == "consumables" or tabId == "academy" or tabId == "professions" then
 		ns.uiSelectedToolboxSubTab = tabId
 		tabId = "toolbox"
 	end

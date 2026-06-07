@@ -468,7 +468,6 @@ local function ClearTomTomAndAddSingleWaypoint(row)
 end
 
 -- TomTom bulk generate: sort by distance when player map position is available.
-local FAR_CROSSMAP_SORT = 1e9
 
 local function GetPlayerMapPositionForWaypoints()
 	if not C_Map or not C_Map.GetBestMapForUnit or not C_Map.GetPlayerMapPosition then
@@ -1021,7 +1020,8 @@ local function SetupProfessionModule()
 		local pMap, pX, pY = GetPlayerMapPositionForWaypoints()
 		local nearestFirst = pMap ~= nil and pX ~= nil and pY ~= nil
 
-		local toAdd = {}
+		-- Eligible incomplete pins, grouped per map so zones stay together.
+		local byMap, mapOrder = {}, {}
 		for idx, row in ipairs(MIDNIGHT_DATA) do
 			local questID, mapID, x, yCoord, name, profession = row[1], row[2], row[3], row[4], row[5], row[6]
 			if
@@ -1029,30 +1029,63 @@ local function SetupProfessionModule()
 				and not C_QuestLog.IsQuestFlaggedCompleted(questID)
 				and PrimaryProfessionMatchesDataColumn(profession, primaryProfessions)
 			then
-				local sortDist = idx
-				if nearestFirst then
-					local tMap = tonumber(mapID)
-					if tMap and tMap == pMap then
-						local tx = (tonumber(x) or 0) / 100
-						local ty = (tonumber(yCoord) or 0) / 100
-						local dx = tx - pX
-						local dy = ty - pY
-						sortDist = math.sqrt(dx * dx + dy * dy)
-					else
-						sortDist = FAR_CROSSMAP_SORT + idx
-					end
+				local m = tonumber(mapID) or 0
+				if not byMap[m] then
+					byMap[m] = {}
+					table.insert(mapOrder, m)
 				end
-				table.insert(toAdd, { row = row, sortDist = sortDist, idx = idx })
+				table.insert(byMap[m], {
+					row = row,
+					idx = idx,
+					nx = (tonumber(x) or 0) / 100,
+					ny = (tonumber(yCoord) or 0) / 100,
+				})
 			end
 		end
 
-		if nearestFirst and #toAdd > 1 then
-			table.sort(toAdd, function(a, b)
-				if a.sortDist ~= b.sortDist then
-					return a.sortDist < b.sortDist
+		-- Player's current map first; other maps keep data order.
+		if nearestFirst and byMap[pMap] then
+			for i, m in ipairs(mapOrder) do
+				if m == pMap and i > 1 then
+					table.remove(mapOrder, i)
+					table.insert(mapOrder, 1, m)
+					break
 				end
+			end
+		end
+
+		-- Greedy walking route per map: start from the player (current map) or
+		-- from the first pin in data order (other maps), then always hop to the
+		-- nearest remaining pin from the previous one — a real route instead of
+		-- "distance from start".
+		local toAdd = {}
+		for _, m in ipairs(mapOrder) do
+			local pins = byMap[m]
+			table.sort(pins, function(a, b)
 				return a.idx < b.idx
 			end)
+			local cx, cy
+			if nearestFirst and m == pMap then
+				cx, cy = pX, pY
+			else
+				cx, cy = pins[1].nx, pins[1].ny
+			end
+			while #pins > 0 do
+				local bestI
+				local bestD
+				for i, p in ipairs(pins) do
+					local dx = p.nx - cx
+					local dy = p.ny - cy
+					local dist = dx * dx + dy * dy
+					if not bestD or dist < bestD then
+						bestD = dist
+						bestI = i
+					end
+				end
+				local p = table.remove(pins, bestI)
+				table.insert(toAdd, p)
+				cx, cy = p.nx, p.ny
+			end
 		end
 
 		local added = 0
@@ -1067,7 +1100,8 @@ local function SetupProfessionModule()
 			end
 		end
 
-		local orderHint = nearestFirst and "Order: Nearest First." or "Order: default table order (player position unavailable)."
+		local orderHint = nearestFirst and "Order: shortest-hop route from your position."
+			or "Order: shortest-hop route per zone (player position unavailable)."
 		print(
 			string.format(
 				"|cffffff78Midnight Helper:|r Generate %s: %d waypoint(s) added to TomTom (%d eligible incomplete pins). %s",
