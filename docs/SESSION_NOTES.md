@@ -755,7 +755,7 @@ Scope-bevinding bij de 12.0.7-prep:
   regel met zonenaam, kleur klopt met weekly-status; Folio-mote-regel volgt
   zodra Mote-ID bekend is (PTR-doc punt 5).
 
-## Voor Cursor — review + commit batch 6 (7 juni avond, commits `2f22c3d` / `TBD2`)
+## Voor Cursor — review + commit batch 6 (7 juni avond, commits `2f22c3d` / `1833a08`)
 
 Voorgestelde opdeling in 2 commits:
 
@@ -783,7 +783,7 @@ Delve-share v2 (vertaalde ontvangst), Consumables copy-naar-AH,
 shortest-hop Generate-routes, This week-blok, Showdown-checklist-regel
 (12.0.7), frFR-herstel + vertaal-fixes.
 
-### Fase 5, iteratie 14 (commits `2f22c3d` + `TBD2`) — Tree Advisor v2: doel-picker + leek-UX
+### Fase 5, iteratie 14 (commits `2f22c3d` + `1833a08`) — Tree Advisor v2: doel-picker + leek-UX
 
 - **Doelen:** Allround (= v1-routes) / Goud / Zelfvoorzienend, per
   character opgeslagen (`ns.db.profAcademy[guid].advisorGoal`).
