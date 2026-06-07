@@ -2,7 +2,7 @@
 	Showdowns (12.0.7 "Revelations") — data only, geen UI.
 	Rotating Void worlds: Naigtal & Val. Wekelijkse rotatie via portaal in de
 	Voidstorm (Screaming Ridge ~51.4, 71.3) of het vaste portaal in Silvermoon
-	(onderniveau, onder de Ritual Sites-vendors). Weekly "Showdown on <zone>"
+	(Bazaar, zelfde verdieping als de weekly-quest-hub, iets verderop). Weekly "Showdown on <zone>"
 	beloont een Riftstalker's Cache en telt mee voor de Great Vault World-rij.
 	Heroic World Tier: geen unlock-vereiste, keuze bij het portaal;
 	GetInstanceInfo() ret11 (hasWorldTier) is true binnen de zones.
@@ -49,7 +49,7 @@ ns.SHOWDOWNS = {
 
 	-- Toegang.
 	portalVoidstorm = { mapID = nil, x = 51.4, y = 71.3 }, -- TODO: Voidstorm-uiMapID verifiëren (sta bij portaal, /dump C_Map.GetBestMapForUnit("player"))
-	portalSilvermoonNote = true, -- vast portaal: Silvermoon onderniveau, onder Ritual Sites-vendors
+	portalSilvermoon = { mapID = 2393, x = 47.93, y = 48.09 }, -- vast portaal (exact midden), zelfde verdieping als de weekly-quest-hub in de Bazaar, iets verderop (PTR-verified 7 juni 2026, Rob)
 	introNpc = { name = "Riftblade Maella", mapID = 2393, x = 27.48, y = 76.51 },
 
 	-- Beloningen/currency (gedeeld met Void Assaults).

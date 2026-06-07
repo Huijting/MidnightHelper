@@ -25,6 +25,7 @@ Sta in de zone en run:
 Noteer per zone (en eventueel per verdieping/subzone).
 - ✅ **Naigtal = uiMapID 2600** (gemeten in Umbral Base Camp, PTR 6 juni 2026)
 - ⬜ Val = ? (volgende rotatie, of check of het vaste Silvermoon-portaal een keuze biedt)
+- ✅ Vast Silvermoon-portaal = **2393, 47.93, 48.09** (exact midden; zelfde verdieping als de quest-hub in de Bazaar, iets verderop — PTR 7 juni)
 
 **2. Showdown weekly quest-IDs** ("Showdown on Naigtal" / "Showdown on Val", + evt. Heroic-variant)
 Pak de weekly aan en run:
@@ -45,6 +46,8 @@ Zoek de Showdown-regels in de chat.
 - ✅ Naigtal: **Slaipaan = npc 264576** (PTR 6 juni)
 - ✅ Naigtal: **Interminable Uarn = npc 263947** (PTR 6 juni — stond op de research-lijst)
 - ✅ Naigtal: **Swalewing Matriarch = npc 263954** (PTR 6 juni)
+- ✅ Naigtal: **Warbringer Thal'kuur = npc 267422** (PTR 7 juni)
+- ✅ Naigtal: **Auredar's Chassis = npc 264569** (PTR 7 juni)
 Target de rare en run:
 ```
 /run local g=UnitGUID("target") print(g and select(6,strsplit("-",g)), UnitName("target"))
