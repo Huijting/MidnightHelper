@@ -225,6 +225,7 @@ ns._mhLocales.enUS = {
 	PROFACAD_WHY_CLOTH = "You wear cloth: Tailoring crafts your gear, and Enchanting turns spare drops into materials.",
 	PROFACAD_SPEC_LINE_FMT = "%s: %d KP spent, %d available — trees started: %s",
 	PROFACAD_SPEC_NONE_STARTED = "none yet",
+	PROF_ESSENCE_FMT = "Weekly disenchant mats in bags: %s",
 	PROFACAD_CH_KNOWLEDGE_TITLE = "What is Knowledge?",
 	PROFACAD_CH_KNOWLEDGE_BODY = "Every crafting and gathering profession in Midnight has a specialization tree, and Knowledge Points (KP) are how you fill it. You earn KP from one-time sources (first crafts, hidden treasures, renown books) and from weekly activities — it is designed to build up over weeks, not days.\n\nCooking, Fishing and Archaeology have no trees and need no KP.\n\nDon't stress about being \"behind\": there is a catch-up system, and this course walks you through everything one step at a time.",
 	PROFACAD_CH_KNOWLEDGE_TASK = "Open your profession window (default key: K) and have a look at the Specializations tab.",

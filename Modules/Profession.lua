@@ -589,6 +589,31 @@ local function UpdateKnowledgeSummary()
 		)
 	end
 
+	-- Enchanting weekly disenchant materials: 5x Swirling Arcane Essence
+	-- (+1 KP each), then 1x Brimming Mana Shard (+4). Bag counts only —
+	-- see docs/PROFESSION_ACADEMY_PLAN.md.
+	do
+		local hasEnchanting = false
+		local p1, p2 = GetProfessions()
+		for _, prof in next, { p1, p2 } do
+			local _, _, _, _, _, _, skillLine = GetProfessionInfo(prof)
+			if skillLine == 333 then
+				hasEnchanting = true
+			end
+		end
+		if hasEnchanting then
+			local essQ = GetItemQuantityByID(267654) or 0
+			local shQ = GetItemQuantityByID(267655) or 0
+			local essName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(267654)) or "Swirling Arcane Essence"
+			local shName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(267655)) or "Brimming Mana Shard"
+			local fmt = (ns.SafeL and ns:SafeL("PROF_ESSENCE_FMT")) or "Weekly disenchant mats in bags: %s"
+			table.insert(
+				currencyLines,
+				"|cffccffcc" .. fmt:format(string.format("%s %d/5 · %s %d/1", essName, essQ, shName, shQ)) .. "|r"
+			)
+		end
+	end
+
 	local blocks = {}
 	if #lines > 0 then
 		table.insert(blocks, table.concat(lines, "\n"))

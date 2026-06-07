@@ -182,6 +182,7 @@ local OVERRIDES = {
 	PROFACAD_WHY_CLOTH = "Tu portes du tissu : la couture fabrique ton équipement, l'enchantement transforme les butins superflus en matériaux.",
 	PROFACAD_SPEC_LINE_FMT = "%s : %d PS dépensés, %d disponibles — arbres commencés : %s",
 	PROFACAD_SPEC_NONE_STARTED = "aucun pour l'instant",
+	PROF_ESSENCE_FMT = "Matériaux de désenchantement de la semaine dans tes sacs : %s",
 	PROFACAD_CH_KNOWLEDGE_TITLE = "C'est quoi, le Savoir ?",
 	PROFACAD_CH_KNOWLEDGE_BODY = "Chaque métier d'artisanat et de récolte de Midnight a un arbre de spécialisation, et les points de Savoir (PS) servent à le remplir. Tu gagnes des PS via des sources uniques (premières fabrications, trésors cachés, livres de renommée) et des activités hebdomadaires — le système est conçu pour se construire sur des semaines, pas des jours.\n\nCuisine, Pêche et Archéologie n'ont pas d'arbres et n'ont pas besoin de PS.\n\nPas de stress si tu es \"en retard\" : il existe un système de rattrapage, et ce cours t'accompagne étape par étape.",
 	PROFACAD_CH_KNOWLEDGE_TASK = "Ouvre ta fenêtre de métier (touche par défaut : K) et regarde l'onglet Spécialisations.",

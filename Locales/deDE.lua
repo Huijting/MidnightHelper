@@ -182,6 +182,7 @@ local OVERRIDES = {
 	PROFACAD_WHY_CLOTH = "Du trägst Stoff: Schneiderei stellt deine Ausrüstung her, Verzauberkunst macht aus überflüssigen Drops Materialien.",
 	PROFACAD_SPEC_LINE_FMT = "%s: %d WP ausgegeben, %d verfügbar — begonnene Bäume: %s",
 	PROFACAD_SPEC_NONE_STARTED = "noch keine",
+	PROF_ESSENCE_FMT = "Wöchentliche Entzauberungs-Mats in den Taschen: %s",
 	PROFACAD_CH_KNOWLEDGE_TITLE = "Was ist Wissen?",
 	PROFACAD_CH_KNOWLEDGE_BODY = "Jeder Herstellungs- und Sammelberuf in Mitternacht hat einen Spezialisierungsbaum, und Wissenspunkte (WP) sind der Weg, ihn zu füllen. Du verdienst WP aus einmaligen Quellen (Erstanfertigungen, versteckte Schätze, Ruf-Bücher) und aus wöchentlichen Aktivitäten — das System ist auf Wochen ausgelegt, nicht auf Tage.\n\nKochkunst, Angeln und Archäologie haben keine Bäume und brauchen keine WP.\n\nKein Stress, wenn du \"hinterherhinkst\": Es gibt ein Aufholsystem, und dieser Kurs führt dich Schritt für Schritt durch alles.",
 	PROFACAD_CH_KNOWLEDGE_TASK = "Öffne dein Berufsfenster (Standardtaste: K) und sieh dir den Spezialisierungen-Tab an.",

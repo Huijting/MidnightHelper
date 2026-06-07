@@ -223,6 +223,7 @@ ns._mhLocales.nlNL = {
 	PROFACAD_WHY_CLOTH = "Je draagt cloth: Tailoring maakt je gear, en Enchanting maakt materialen van overbodige drops.",
 	PROFACAD_SPEC_LINE_FMT = "%s: %d KP besteed, %d beschikbaar — gestarte trees: %s",
 	PROFACAD_SPEC_NONE_STARTED = "nog geen",
+	PROF_ESSENCE_FMT = "Wekelijkse disenchant-mats in je tassen: %s",
 	PROFACAD_CH_KNOWLEDGE_TITLE = "Wat is Knowledge?",
 	PROFACAD_CH_KNOWLEDGE_BODY = "Elke crafting- en gathering-professie in Midnight heeft een specialisatie-tree, en Knowledge Points (KP) zijn hoe je die vult. Je verdient KP uit eenmalige bronnen (first crafts, verborgen schatten, renown-boeken) en uit wekelijkse activiteiten — het is ontworpen om over weken op te bouwen, niet in dagen.\n\nCooking, Fishing en Archaeology hebben geen trees en geen KP nodig.\n\nGeen stress als je \"achterloopt\": er is een inhaalsysteem, en deze cursus neemt je stap voor stap mee.",
 	PROFACAD_CH_KNOWLEDGE_TASK = "Open je professievenster (standaardtoets: K) en bekijk de Specializations-tab.",

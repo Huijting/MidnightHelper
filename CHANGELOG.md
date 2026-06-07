@@ -26,6 +26,7 @@ All notable changes to this project are documented in this file.
 - **12.0.7 prep:** PTR-verified Silvermoon Showdown portal (**2393, 47.93, 48.09**); two more Naigtal rare NPC ids in `docs/PTR_12.0.7_DATA.md` (Warbringer Thal'kuur, Auredar's Chassis).
 - **World tab — Showdowns (12.0.7):** new section under Void Assaults (active rotation, weekly progress, world boss, Heroic World Tier in-zone, Maella waypoint). Hidden on clients below interface 120007; portal button stays hidden until Voidstorm map ID is verified.
 - **Professions tab:** BAG_UPDATE / QUEST_LOG_UPDATE refreshes are debounced (max one panel refresh per 0.2s) so looting or quest hand-ins do not trigger a burst of redraws.
+- **Professions tab:** Enchanting characters see weekly disenchant material bag counts (Swirling Arcane Essence 0–5, Brimming Mana Shard 0–1) in the currency summary.
 - **Midnight Codex:** article blocks are pooled and reused on refresh (AcquireRow-style pattern), so Currencies live updates no longer create new frames on every `CURRENCY_DISPLAY_UPDATE`.
 - **Sidebar:** Home is listed first in the This Week section (matches the default tab).
 - **Layout:** shared `ns.UI_METRICS` insets for Home and Codex panels (prep for tab consolidation).

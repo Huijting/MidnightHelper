@@ -182,6 +182,7 @@ local OVERRIDES = {
 	PROFACAD_WHY_CLOTH = "Você usa tecido: Alfaiataria fabrica seu equipamento e Encantamento transforma saques extras em materiais.",
 	PROFACAD_SPEC_LINE_FMT = "%s: %d PC gastos, %d disponíveis — árvores iniciadas: %s",
 	PROFACAD_SPEC_NONE_STARTED = "nenhuma ainda",
+	PROF_ESSENCE_FMT = "Materiais de desencantamento semanais nas bolsas: %s",
 	PROFACAD_CH_KNOWLEDGE_TITLE = "O que é Conhecimento?",
 	PROFACAD_CH_KNOWLEDGE_BODY = "Cada profissão de fabricação e coleta em Midnight tem uma árvore de especialização, e os pontos de Conhecimento (PC) são como você a preenche. Você ganha PC de fontes únicas (primeiras fabricações, tesouros escondidos, livros de renome) e de atividades semanais — o sistema foi feito para crescer ao longo de semanas, não de dias.\n\nCulinária, Pesca e Arqueologia não têm árvores e não precisam de PC.\n\nSem estresse se estiver \"atrasado\": existe um sistema de recuperação, e este curso te guia passo a passo.",
 	PROFACAD_CH_KNOWLEDGE_TASK = "Abra sua janela de profissão (tecla padrão: K) e dê uma olhada na aba de Especializações.",
