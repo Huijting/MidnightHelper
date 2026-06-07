@@ -105,6 +105,68 @@ local function ProfName(skillLineID)
 	return (d and d.profNames and d.profNames[skillLineID]) or tostring(skillLineID)
 end
 
+--- Tree Advisor v1: first unfinished root along the curated route, or false
+--- when the route is complete, or nil when no advice is possible (unknown
+--- route, name mismatch, no tab data) — then nothing is shown.
+--- NB: defined before BuildProfsText, which calls it (local scoping).
+local function GetAdviceForProf(skillLine, summary)
+	local d = ns.PROF_ACADEMY
+	local route = d and d.advisorRoutes and d.advisorRoutes[skillLine]
+	if not (route and summary and summary.tabs and #summary.tabs > 0) then
+		return nil
+	end
+	local classToken = select(2, UnitClass("player"))
+	local byName = {}
+	for _, t in ipairs(summary.tabs) do
+		if t.name then
+			byName[t.name:lower()] = t
+		end
+	end
+	for _, step in ipairs(route) do
+		if not (step.skipIfClass and step.skipIfClass == classToken) then
+			local names = step.anyOf or { step.tree }
+			local display, anyMaxed = nil, false
+			for _, n in ipairs(names) do
+				local t = byName[n:lower()]
+				if t then
+					display = display or t
+					if t.max > 0 and t.active >= t.max then
+						anyMaxed = true
+					elseif t.active > 1 then
+						-- Player already invests here: advise finishing this one.
+						display = t
+					end
+				end
+			end
+			if not display then
+				return nil
+			end
+			if not anyMaxed then
+				return display
+			end
+		end
+	end
+	return false
+end
+
+--- Colored, localized advisor line for one profession, or nil when no advice.
+--- Shows purchased ranks (API rank minus the free base rank), matching the
+--- in-game node tooltip ("Rank 5/30").
+local function BuildAdviceLine(skillLine, summary)
+	local advice = GetAdviceForProf(skillLine, summary)
+	if advice == false then
+		return "|cff8ee6a1" .. SL("PROFACAD_ADVISE_DONE") .. "|r"
+	elseif advice then
+		return "|cff8ee6a1"
+			.. SL("PROFACAD_ADVISE_NEXT_FMT"):format(
+				advice.name,
+				math.max(advice.active - 1, 0),
+				math.max(advice.max - 1, 0))
+			.. "|r"
+	end
+	return nil
+end
+
 --- Header text: detected professions (+ tree state where readable), plus
 --- class advice while a slot is open. summaries: [skillLine] = GetSpecSummary.
 local function BuildProfsText(profs, summaries)
@@ -122,6 +184,10 @@ local function BuildProfsText(profs, summaries)
 				local trees = (#s.started > 0) and table.concat(s.started, ", ")
 					or SL("PROFACAD_SPEC_NONE_STARTED")
 				text = text .. "\n" .. SL("PROFACAD_SPEC_LINE_FMT"):format(p.name, s.spent, s.unspent, trees)
+				local line = BuildAdviceLine(p.skillLine, s)
+				if line then
+					text = text .. "\n" .. line
+				end
 			end
 		end
 	else
@@ -162,6 +228,7 @@ local function GetSpecSummary(baseSkillLine)
 	end
 	local spent, unspent
 	local started = {}
+	local tabsOut = {}
 	for _, tabID in ipairs(tabs) do
 		if spent == nil and C_Traits.GetTreeCurrencyInfo then
 			-- KP pool is profession-wide; identical for every tab (verified live).
@@ -175,11 +242,19 @@ local function GetSpecSummary(baseSkillLine)
 			local okRoot, rootPath = pcall(C_ProfSpecs.GetRootPathForTab, tabID)
 			if okRoot and rootPath then
 				local okNode, node = pcall(C_Traits.GetNodeInfo, cfg, rootPath)
-				-- Root activeRank 1 = unlocked but untouched; > 1 = points spent.
-				if okNode and type(node) == "table" and (tonumber(node.activeRank) or 0) > 1 then
+				if okNode and type(node) == "table" then
 					local okInfo, info = pcall(C_ProfSpecs.GetTabInfo, tabID)
-					started[#started + 1] = (okInfo and type(info) == "table" and info.name)
-						or tostring(tabID)
+					local tabName = (okInfo and type(info) == "table" and info.name) or tostring(tabID)
+					local active = tonumber(node.activeRank) or 0
+					tabsOut[#tabsOut + 1] = {
+						name = tabName,
+						active = active,
+						max = tonumber(node.maxRanks) or 0,
+					}
+					-- Root activeRank 1 = unlocked but untouched; > 1 = points spent.
+					if active > 1 then
+						started[#started + 1] = tabName
+					end
 				end
 			end
 		end
@@ -187,7 +262,7 @@ local function GetSpecSummary(baseSkillLine)
 	if spent == nil then
 		return nil
 	end
-	return { spent = spent, unspent = unspent or 0, started = started }
+	return { spent = spent, unspent = unspent or 0, started = started, tabs = tabsOut }
 end
 
 --- A chapter is shown when it is generic or matches an owned profession.
@@ -307,6 +382,17 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 		panel._profsFs:SetText(BuildProfsText(profs, summaries))
 	end
 
+	-- The "choosing trees" chapter repeats the live advice right where the
+	-- decision is made (Rob: the header block is out of view by then).
+	local treesAdvice = ""
+	for _, p in ipairs(profs) do
+		local s = summaries[p.skillLine]
+		local line = s and BuildAdviceLine(p.skillLine, s)
+		if line then
+			treesAdvice = treesAdvice .. "\n" .. ("|cffffd966%s:|r "):format(p.name) .. line
+		end
+	end
+
 	local shownNum = 0
 	for _, row in ipairs(panel._profAcadRows) do
 		local ch = row.chapter
@@ -330,7 +416,11 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 				row.titleFs:SetTextColor(COLOR_TITLE[1], COLOR_TITLE[2], COLOR_TITLE[3])
 			end
 			row.titleFs:SetText(title)
-			row.bodyFs:SetText(SL(ch.bodyKey))
+			local body = SL(ch.bodyKey)
+			if ch.key == "trees" and treesAdvice ~= "" then
+				body = body .. "\n" .. treesAdvice
+			end
+			row.bodyFs:SetText(body)
 
 			local task = SL(ch.taskKey)
 			if ch.detect then

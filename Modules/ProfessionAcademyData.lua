@@ -56,6 +56,68 @@ ns.PROF_ACADEMY = {
 		[773] = 2913, -- Midnight Inscription
 	},
 
+	-- Tree Advisor v1: curated default route per profession (consensus from
+	-- the guides behind the starter chapters; see docs/PROFESSION_ACADEMY_PLAN.md).
+	-- Each step is a tree ROOT to finish; anyOf = either counts (player's
+	-- choice). Names MUST match C_ProfSpecs.GetTabInfo().name exactly — on a
+	-- mismatch (locale, renamed tree) the advice line simply does not show
+	-- (never lie). Verified live so far: Enchanting (all 4), Tailoring
+	-- (Nimble Needlework, Fiber Arts), LW (Learned Leatherworker), Skinning
+	-- (Thorough Tanning, Talented Tracker). skipIfClass: step skipped for
+	-- that class token (Druids gather while shapeshifted, no Botany needed).
+	advisorRoutes = {
+		[164] = {
+			{ tree = "The Old Ways" },
+			{ anyOf = { "Armorsmithing", "Weaponsmithing" } },
+			{ tree = "Craftsmithing" },
+		},
+		[165] = {
+			{ tree = "Learned Leatherworker" },
+			{ anyOf = { "Lasting Leather", "Safeguarding Scales" } },
+			{ tree = "Flawless Fortes" },
+		},
+		[171] = {
+			{ anyOf = { "Fluent in Flasks", "Potion Prowess" } },
+			{ tree = "Transmutation Authority" },
+		},
+		[182] = {
+			{ tree = "Botany", skipIfClass = "DRUID" },
+			{ tree = "Bountiful Harvests" },
+			{ tree = "Midnight Overload" },
+		},
+		[186] = {
+			{ tree = "Meticulous Mining" },
+			{ tree = "Plentiful Ores" },
+		},
+		[197] = {
+			{ tree = "Nimble Needlework" },
+			{ anyOf = { "Sin'dorei Finery", "Fiber Arts" } },
+			{ tree = "Fabric Specialist" },
+		},
+		[202] = {
+			{ tree = "Recycling" },
+		},
+		[333] = {
+			{ tree = "Spellbound Shatterer" },
+			{ tree = "Elevating Equipment" },
+			{ tree = "Disenchanting Delegate" },
+		},
+		[393] = {
+			{ tree = "Thorough Tanning" },
+			{ tree = "Gainful Gathering" },
+			{ tree = "Talented Tracker" },
+		},
+		[755] = {
+			{ tree = "Thoughtful Throughput" },
+			{ tree = "Glamorous Gems" },
+			{ tree = "Proficient Processor" },
+		},
+		[773] = {
+			{ tree = "Blueprints" },
+			{ tree = "Perfected Products" },
+		},
+	},
+
 	-- Curated "fits your class" advice (armor-type logic; consensus from the
 	-- guides in docs/PROFESSION_ACADEMY_PLAN.md). Shown only when the character
 	-- has an open profession slot. Alchemy+Herbalism is the universal alt.
