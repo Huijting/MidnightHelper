@@ -611,8 +611,8 @@ hint; fix mistranslated spec hints". Bestanden: `GuideConsumables.lua`
 (CONS_COPY_HINT + CONS_COPY_TT nieuw; CONS_SPEC_HINT hersteld in
 deDE/frFR/esES/ptBR — deDE zei "Fahrradspezifikationen"), SESSION_NOTES.
 Data-verificatie consumables: geen wijzigingen nodig (21/21 IDs correct,
-meta actueel — zie iteratie 10 hieronder). Door Rob getest: copy werkt;
-tooltip-hint nog niet in-game gezien (na commit even checken). Luacheck
+meta actueel — zie iteratie 10 hieronder). Door Rob getest: copy + tooltip-
+hint (`CONS_COPY_TT`) ✅ (beide in `e660250`). Luacheck
 zoals altijd zelf draaien.
 
 **Nieuw prioriteits-backlogitem:** Delve-share v2 (vertaalde ontvangst via
@@ -640,7 +640,8 @@ Robs vraag: klopt de Consumables-tab nog, en namen kopieerbaar voor het AH.
   `ns.MH_ConsumablesCopyName`, scroll 28px omhoog), key `CONS_COPY_HINT`
   ×6. **Rob-test: ✅ werkt perfect**; vindbaarheid was matig (balk onderin
   valt niet op) → groene regel "Klik: kopieer naam (voor het veilinghuis)"
-  in de item-tooltip toegevoegd (`CONS_COPY_TT` ×6).
+  in de item-tooltip toegevoegd (`CONS_COPY_TT` ×6). **Tooltip-hint na
+  commit `e660250` ook ✅ bevestigd door Rob.**
 - **Bijvangst:** `CONS_SPEC_HINT` was machinaal verminkt in 4 talen
   (deDE letterlijk "Fahrradspezifikationen" = fietsspecificaties, voor
   "cycles specs"!) — hersteld in deDE/frFR/esES/ptBR. Bevestigt het
@@ -651,18 +652,120 @@ Robs vraag: klopt de Consumables-tab nog, en namen kopieerbaar voor het AH.
   AH-zoek; nogmaals klikken → alternate-naam; spec wisselen werkt
   ongewijzigd; geen overlap tussen lijst en copy-balk.
 
+## Voor Cursor — review + commit batch 5 (7 juni avond, commits `a77fd44` / `e410ea5` / `TBD3`; tussentijdse batch)
+
+Voorgestelde opdeling in 3 commits:
+
+1. **Delve-share v2 (iteratie 11):** `Modules/DelveShareSync.lua` (nieuw),
+   `DelvePartyShare.lua` (DoSendLines-signature + broadcast), TOC, key
+   `DELVE_SHARE_XLOC_HEADER_FMT` ×6. **🎯 Dit was het verplichte punt voor
+   de volgende CF-release.** Verzendpad live getest in een party-delve ✅;
+   solo-testmodus-check staat nog open bij Rob.
+2. **Weekly-blok Professions Hub (iteratie 12):**
+   `ProfessionAcademyData.lua` (weekly-tabel), `ProfessionsHub.lua`
+   (BuildWeeklyText + events debounced), 3 keys ×6 (PROFHUB_WEEKLY_*).
+   Let op data-comment: flag-semantiek 93698 verifieert Rob in-game
+   (✓ hoort er nu te staan, woensdag reset-check).
+3. **Showdown-checklist-regel + PTR-doc (iteratie 13):**
+   `AccountWeeklyChecklist.lua` (regel na SMC-blok, build-gated via
+   Showdowns-helpers), 2 keys ×6 (ACCOUNT_WEEKLY_SHOWDOWN_*),
+   `docs/PTR_12.0.7_DATA.md` §3b (rares-verzamelinstructies).
+
+Mocht de Consumables-tooltip-hint (`CONS_COPY_TT` ×6 +
+GuideConsumables-tooltipregel) niet in e660250 zitten, neem die dan in
+commit 1 of een eigen commitje mee. Luacheck zoals altijd (mount gaf weer
+false positives op Hub/Data/PartyShare — host-tails geverifieerd).
+
+### Fase 5, iteratie 11 (commit `a77fd44`) — Delve-share v2: vertaalde ontvangst
+
+Backlog-punt 0a gebouwd (vereiste voor volgende CF-release).
+
+- **`Modules/DelveShareSync.lua` (nieuw, ~140 regels):** prefix `MHDelve`
+  (RegisterAddonMessagePrefix); zender broadcast compacte descriptor
+  `"1|<chatLocale>|<mode>|<entryId>"` op PARTY/RAID/INSTANCE_CHAT náást de
+  bestaande platte tekst (die blijft de universele fallback). Ontvanger
+  (CHAT_MSG_ADDON): negeert eigen broadcast; **alleen bij taalverschil**
+  met de zender worden de tips lokaal herbouwd via
+  `BuildDelvePartyShareLines` (leest de éigen locale-pack — tekst komt
+  nooit over de lijn, dus tip-IDs blijven release-stabiel) en geprint met
+  header `DELVE_SHARE_XLOC_HEADER_FMT` (nieuw, ×6). Zelfde taal = stil
+  (geen duplicatie). Dedupe per zender+entry+mode (20s).
+- **Solo-testpad:** met share-testmodus aan whispert de zender de
+  descriptor naar zichzelf; de ontvanger accepteert die self-whisper
+  (alleen in testmodus) en rendert ongeacht taal, header krijgt
+  "(test)"-suffix. Hele pijplijn dus zonder tweede speler verifieerbaar.
+- **`DelvePartyShare.lua`:** `DoSendLines(lines, entryId, mode)` +
+  broadcast-aanroep op het bestaande verzendmoment (zelfde channel-keuze,
+  combat-lock en cooldown gelden automatisch). **TOC:** DelveShareSync na
+  DelvePartyShare.
+- Checks: DelveShareSync parsed (texlua); payload-round-trip,
+  taal-filter en pipe-guard stub-getest ✓. DelvePartyShare-eof-fail op de
+  mount = bekende truncatie (host compleet, 532 regels) — Cursor luacheck.
+- **In-game test (live, Rob 7 juni avond): ✅ verzendpad** — share in een
+  echte party-delve (Sunkiller Sanctum): platte tekst kwam normaal aan,
+  geen errors met de broadcast erbij (oude MH bij het maatje negeert de
+  prefix zoals verwacht). Nog open: solo-testmodus-check (blauw
+  "(test)"-blok + dedupe) en echte cross-locale-ontvangst zodra twee
+  spelers de nieuwe versie draaien.
+
+### Fase 5, iteratie 12 (commit `e410ea5`) — "Deze week"-blok (concept B, eerste regels)
+
+Eerste echte weekly-regels, in het Professions Hub Overview (dashboard):
+
+- **Data (`ProfessionAcademyData.weekly`):** `trainerQuests = { [333] =
+  93698 }` ("Splintered Radiance", Dolothos — alleen geverifieerde IDs;
+  andere profs toevoegen zodra gedumpt, regel verschijnt vanzelf) +
+  `enchantingEssences` (267654 ×5 / 267655 ×1) — nu centraal in data
+  (Profession.lua heeft nog z'n eigen kopie; backlog: daarnaartoe
+  verwijzen).
+- **`ProfessionsHub.lua`:** `BuildWeeklyText()` — onder het Overview-blok
+  een sectie "This week": per owned prof met bekend quest-ID een regel
+  "✓/⏳ <prof>: trainer weekly" (IsQuestFlaggedCompleted, pcall) en voor
+  Enchanting de essence-bagcounts. Events QUEST_LOG_UPDATE/BAG_UPDATE
+  toegevoegd, gedebounced 0.3s (timer-handle). 3 keys ×6
+  (PROFHUB_WEEKLY_HEADER/_TRAINER/_ESSENCES).
+- Syntax: mount-eof-fails = bekende truncatie; host-tails geverifieerd
+  (Hub 288 r., Data 279 r.). **Cursor: luacheck.**
+- **In-game test (Rob):** Hub → Overview op de main: blok "This week" met
+  "✓ Enchanting: trainer weekly" (groene check — weekly is vandaag
+  ingeleverd; verifieert meteen de flag-semantiek van 93698!) +
+  essence-regel; op de priest (weekly niet gedaan): ⏳-icoon; Tailoring
+  toont géén trainer-regel (ID onbekend — correct). **Woensdag na reset:**
+  ✓ hoort terug naar ⏳ te springen (reset-bevestiging). Belspa-dump
+  (Tailoring-ID) maakt de tweede regel compleet.
+
+### Fase 5+, iteratie 13 (commit `TBD3`) — 12.0.7-prep: Showdown-checklist-regel
+
+Scope-bevinding bij de 12.0.7-prep:
+- **Rares:** Rares.lua-entries vereisen `{ questId, mapID, x, y, naam }` —
+  we hebben alleen npc-IDs. Niet toe te voegen zonder te liegen →
+  **PTR-instructies** (coords-dump + kill-flag-scan met baseline-trucje
+  MH_T) toegevoegd aan PTR_12.0.7_DATA.md §3b; volgende PTR-sessie van Rob
+  levert alles.
+- **World bosses:** al gedekt door de Showdowns-sectie (Fase 4b, Leth'ir
+  getest); Pertinax wacht op Val-rotatie. Reguliere WORLD_BOSSES-rotatie
+  bewust niet aangeraakt (12.0.7-bosses zijn Showdown-content).
+- **GEBOUWD: Showdown-weekly-regel in AccountWeeklyChecklist** (huidige
+  character, na het SMC-blok): via `ns.IsShowdownsAvailable()` (build-gate
+  ≥120007 zit dáár), `GetActiveShowdownZone/GetActiveShowdownZoneName`,
+  `IsShowdownWeeklyDone`. Zone zonder bekende weekly-ID matcht nooit →
+  geen regel (never lie). Groen "done" / oranje "not done yet". 2 keys ×6
+  (ACCOUNT_WEEKLY_SHOWDOWN_DONE/OPEN_FMT). Line-pool (24) heeft ruimte.
+- **In-game test:** live 12.0.5 → géén Showdown-regel (gate); PTR 12.0.7 →
+  regel met zonenaam, kleur klopt met weekly-status; Folio-mote-regel volgt
+  zodra Mote-ID bekend is (PTR-doc punt 5).
+
 ## Open / volgende stappen
 
-0a. **🎯 VÓÓR VOLGENDE CF-RELEASE (Rob): Delve-share v2 — vertaalde
-    ontvangst.** Huidige share stuurt platte tekst in verzender-taal;
-    v2: addon-message (prefix-registratie) met delve/boss/tip-IDs naast
-    de platte chat-fallback — ontvangers mét MH renderen de tips lokaal
-    in hun eigen taal, rest ziet de tekst zoals nu. Aandachtspunten:
-    C_ChatInfo.RegisterAddonMessagePrefix, versie-handshake, stabiele
-    tip-IDs over releases, throttling. (Geen CF-release zonder expliciete
-    vraag van Rob — maar deze feature moet erin zitten als die vraag komt.)
+0a. **✅ Delve-share v2 (commit `a77fd44`) — klaar voor CF-release.** Nog
+    open vóór release: solo-testmodus-check (blauw "(test)"-blok) en echte
+    cross-locale-ontvangst zodra twee spelers de nieuwe versie draaien.
+    (Geen CF-release zonder expliciete vraag van Rob.)
 
-0. **Showdowns vervolg:** AccountWeeklyChecklist-entries (Showdown-weekly + Folio-mote zodra IDs compleet); Home-dashboard kan `ns.GetActiveShowdownZoneName`/`ns.IsShowdownWeeklyDone` hergebruiken; Val-data + Voidstorm-portaal-mapID invullen na volgende PTR-rotatie (knop verschijnt dan vanzelf).
+0. **Showdowns vervolg:** Showdown-weekly-regel in AccountWeeklyChecklist ✅
+    (`TBD3`); nog Folio-mote zodra ID bekend; Home-dashboard kan
+    `ns.GetActiveShowdownZoneName`/`ns.IsShowdownWeeklyDone` hergebruiken;
+    Val-data + Voidstorm-portaal-mapID invullen na volgende PTR-rotatie.
 
 1. **12.0.7 content** (release ~16 juni, mogelijk 30 juni): Void-zones Naigtal & Val + Escalations (VoidAssaults/WorldContent), world boss Nexus-Captain Leth'ir + Heroic World Tier (WorldBoss), Omnium Folio/Runes weekly (checklist + Codex), Sporefall raid (Codex/vault), Great Vault tooltip-rework verifiëren op PTR. Bij release: `120005` uit TOC.
 2. **Backlog (laag, uit review):** `SetVaultReminderOption` popup-backfill voor upgraders; SMC-grid reflow; info-drawer inline; search-UX; compact-mode double-shrink. (Debounce, keybind-namespace, VaultAdvisor dode branch, VaultReminder isCurrent en ts==0-guards: gedaan in Fase 4c.)

@@ -53,6 +53,19 @@ Target de rare en run:
 /run local g=UnitGUID("target") print(g and select(6,strsplit("-",g)), UnitName("target"))
 ```
 
+**3b. Voor opname in Rares.lua zijn per rare ook nodig (entry-vorm
+`{ questId, mapID, x, y, naam }`):**
+- **Coords:** sta bij de rare en run
+  `/run local m=C_Map.GetBestMapForUnit("player") local p=C_Map.GetPlayerMapPosition(m,"player") print(m, ("%.1f, %.1f"):format(p.x*100, p.y*100))`
+- **Kill-quest-ID (flipt bij kill, reset dagelijks/wekelijks?):** scan vóór
+  en direct ná de kill een blok rond de bekende 12.0.7-quest-reeks:
+  `/run local n=0 for i=96000,97000 do if C_QuestLog.IsQuestFlaggedCompleted(i) then n=n+1 end end print("flags true:", n)` —
+  beter: noteer per kill welke ID erbij komt met
+  `/run MH_T=MH_T or {} for i=96000,97000 do local f=C_QuestLog.IsQuestFlaggedCompleted(i) if f and not MH_T[i] then MH_T[i]=true print("NIEUW:",i) end end`
+  (eerste run = baseline vullen, na de kill nogmaals = print het nieuwe ID).
+- Verzamelde npc-IDs (8) staan hierboven ✅; met coords + questIds erbij
+  gaan ze in Rares.lua (build-gate ≥120007).
+
 **4. Riftstalker's Cache item-ID**
 - ✅ **Riftstalker's Cache = item 275690**; weekly turn-in verhoogde de Great Vault World-rij (type 6) — Blizzard-claim bevestigd (PTR 6 juni) — shift-klik het item in de chat of run met het item in je tas:
 ```

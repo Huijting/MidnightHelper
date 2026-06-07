@@ -532,6 +532,21 @@ function ns.RefreshAccountWeeklyChecklist()
 			end
 		end
 
+		-- 12.0.7 Showdowns: current character's weekly. Build-gated inside
+		-- IsShowdownsAvailable; zones with unknown weekly IDs never match
+		-- (Showdowns.lua, never lie) — then no line shows at all.
+		if ns.IsShowdownsAvailable and ns.IsShowdownsAvailable() and ns.GetActiveShowdownZone then
+			local zone = ns.GetActiveShowdownZone()
+			if zone then
+				local zoneName = (ns.GetActiveShowdownZoneName and ns.GetActiveShowdownZoneName()) or "?"
+				if ns.IsShowdownWeeklyDone and ns.IsShowdownWeeklyDone() then
+					nextLine(true, ns:L("ACCOUNT_WEEKLY_SHOWDOWN_DONE_FMT"):format(zoneName), 0.45, 0.95, 0.5)
+				else
+					nextLine(true, ns:L("ACCOUNT_WEEKLY_SHOWDOWN_OPEN_FMT"):format(zoneName), 1, 0.82, 0.35)
+				end
+			end
+		end
+
 		local dc = data.delverCurrent
 		if dc and (tonumber(dc.total) or 0) > 0 then
 			local completed = tonumber(dc.completed) or 0
