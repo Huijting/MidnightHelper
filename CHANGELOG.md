@@ -41,6 +41,7 @@ All notable changes to this project are documented in this file.
 
 - **PTR sync:** `Sync-MidnightHelper-PTR.bat` copies the working tree to `_ptr_` / `_xptr_` installs (excluded from CurseForge zip).
 - **Keybinding (1.5.5):** **Keybindings → Midnight Helper → Toggle main window** — same as `/mh`; default **Alt+M**; Stream Deck hotkey OK. *Not in CF changelog until confirmed.*
+- **Toolbox — Professions 101:** beginner profession course (seven chapters, per-character progress, class-based profession advice, Enchanting/Alchemy starter chapters when owned, KP tree summary when spec data is available). Work Order station waypoint at Captain Flaresworn.
 
 ### Fixed
 

@@ -313,6 +313,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 			return "INFO_DRAWER_BODY_MACROS"
 		elseif sid == "academy" then
 			return "INFO_DRAWER_BODY_ACADEMY"
+		elseif sid == "profacademy" then
+			return "INFO_DRAWER_BODY_PROFACADEMY"
 		end
 		return "INFO_DRAWER_BODY_CONSUMABLES"
 	elseif tabId == "addons" then
@@ -1876,6 +1878,7 @@ function ns:EnsureMainUI()
 			{ id = "consumables", labelKey = "TAB_CONSUMABLES" },
 			{ id = "macros", labelKey = "TAB_MACROS", beta = true },
 			{ id = "academy", labelKey = "TAB_ACADEMY", beta = true },
+			{ id = "profacademy", labelKey = "TAB_PROF_ACADEMY" },
 		}
 		local TOOLBOX_BUILDERS = {
 			consumables = function(p)
@@ -1891,6 +1894,11 @@ function ns:EnsureMainUI()
 			academy = function(p)
 				if ns.BuildRoleAcademyPanel then
 					ns.BuildRoleAcademyPanel(p)
+				end
+			end,
+			profacademy = function(p)
+				if ns.BuildProfessionAcademyPanel then
+					ns.BuildProfessionAcademyPanel(p)
 				end
 			end,
 		}
