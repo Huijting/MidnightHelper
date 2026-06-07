@@ -652,7 +652,7 @@ Robs vraag: klopt de Consumables-tab nog, en namen kopieerbaar voor het AH.
   AH-zoek; nogmaals klikken → alternate-naam; spec wisselen werkt
   ongewijzigd; geen overlap tussen lijst en copy-balk.
 
-## Voor Cursor — review + commit batch 5 (7 juni avond, commits `a77fd44` / `e410ea5` / `TBD3`; tussentijdse batch)
+## Voor Cursor — review + commit batch 5 (7 juni avond, commits `a77fd44` / `e410ea5` / `9dcdf64`; tussentijdse batch)
 
 Voorgestelde opdeling in 3 commits:
 
@@ -734,7 +734,7 @@ Eerste echte weekly-regels, in het Professions Hub Overview (dashboard):
   ✓ hoort terug naar ⏳ te springen (reset-bevestiging). Belspa-dump
   (Tailoring-ID) maakt de tweede regel compleet.
 
-### Fase 5+, iteratie 13 (commit `TBD3`) — 12.0.7-prep: Showdown-checklist-regel
+### Fase 5+, iteratie 13 (commit `9dcdf64`) — 12.0.7-prep: Showdown-checklist-regel
 
 Scope-bevinding bij de 12.0.7-prep:
 - **Rares:** Rares.lua-entries vereisen `{ questId, mapID, x, y, naam }` —
@@ -763,7 +763,7 @@ Scope-bevinding bij de 12.0.7-prep:
     (Geen CF-release zonder expliciete vraag van Rob.)
 
 0. **Showdowns vervolg:** Showdown-weekly-regel in AccountWeeklyChecklist ✅
-    (`TBD3`); nog Folio-mote zodra ID bekend; Home-dashboard kan
+    (`9dcdf64`); nog Folio-mote zodra ID bekend; Home-dashboard kan
     `ns.GetActiveShowdownZoneName`/`ns.IsShowdownWeeklyDone` hergebruiken;
     Val-data + Voidstorm-portaal-mapID invullen na volgende PTR-rotatie.
 
