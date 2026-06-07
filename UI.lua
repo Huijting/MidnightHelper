@@ -313,10 +313,14 @@ local function MHGetInfoBodyKeyForTab(tabId)
 			return "INFO_DRAWER_BODY_MACROS"
 		elseif sid == "academy" then
 			return "INFO_DRAWER_BODY_ACADEMY"
-		elseif sid == "profacademy" then
-			return "INFO_DRAWER_BODY_PROFACADEMY"
-		elseif sid == "professions" then
-			return "INFO_DRAWER_BODY_PROFESSIONS"
+		elseif sid == "professionsHub" then
+			local inner = ns.uiSelectedProfHubInner or "overview"
+			if inner == "treasures" then
+				return "INFO_DRAWER_BODY_PROFESSIONS"
+			elseif inner == "course" then
+				return "INFO_DRAWER_BODY_PROFACADEMY"
+			end
+			return "INFO_DRAWER_BODY_PROFHUB"
 		end
 		return "INFO_DRAWER_BODY_CONSUMABLES"
 	elseif tabId == "addons" then
@@ -1881,8 +1885,9 @@ function ns:EnsureMainUI()
 			{ id = "consumables", labelKey = "TAB_CONSUMABLES" },
 			{ id = "macros", labelKey = "TAB_MACROS", beta = true },
 			{ id = "academy", labelKey = "TAB_ACADEMY", beta = true },
-			{ id = "professions", labelKey = "TAB_PROFESSIONS" },
-			{ id = "profacademy", labelKey = "TAB_PROF_ACADEMY" },
+			-- All profession tools live in one hub (Overview | Treasures &
+			-- Books | Course); legacy ids route there via the SelectTab alias.
+			{ id = "professionsHub", labelKey = "TAB_PROFESSIONS" },
 		}
 		local TOOLBOX_BUILDERS = {
 			consumables = function(p)
@@ -1900,14 +1905,11 @@ function ns:EnsureMainUI()
 					ns.BuildRoleAcademyPanel(p)
 				end
 			end,
-			profacademy = function(p)
-				if ns.BuildProfessionAcademyPanel then
-					ns.BuildProfessionAcademyPanel(p)
+			professionsHub = function(p)
+				if ns.BuildProfessionsHubPanel then
+					ns.BuildProfessionsHubPanel(p)
 				end
 			end,
-			-- Built by Profession.lua via its EnsureMainUI hook (it finds the
-			-- panel under ns.panels.professions, same id as before the move).
-			professions = function() end,
 		}
 
 		ns.toolboxSubTabButtons = {}
@@ -2343,9 +2345,15 @@ end
 SelectTab = function(tabId)
 	-- Legacy ids from before the Toolbox merge (saved tabs, Guide.lua
 	-- navigation, slash commands) route to the matching Toolbox sub-tab.
-	-- "professions" moved from the sidebar into the Toolbox the same way.
-	if tabId == "macros" or tabId == "consumables" or tabId == "academy" or tabId == "professions" then
+	if tabId == "macros" or tabId == "consumables" or tabId == "academy" then
 		ns.uiSelectedToolboxSubTab = tabId
+		tabId = "toolbox"
+	end
+	-- Profession tools were merged into one hub sub-tab with inner tabs;
+	-- legacy ids land on the matching inner tab.
+	if tabId == "professions" or tabId == "profacademy" then
+		ns.uiSelectedProfHubInner = (tabId == "professions") and "treasures" or "course"
+		ns.uiSelectedToolboxSubTab = "professionsHub"
 		tabId = "toolbox"
 	end
 	-- Same for the former Reference tab: now a Codex category.

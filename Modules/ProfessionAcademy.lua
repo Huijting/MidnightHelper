@@ -341,6 +341,17 @@ local function Relayout(panel)
 	child:SetHeight(math.max(y + 10, 1))
 end
 
+--- Public: the Overview dashboard text for the Professions Hub — detected
+--- professions, KP totals, started trees and live tree advice.
+function ns.MH_GetProfessionsOverviewText()
+	local profs = GetPrimaryProfessions()
+	local summaries = {}
+	for _, p in ipairs(profs) do
+		summaries[p.skillLine] = GetSpecSummary(p.skillLine)
+	end
+	return BuildProfsText(profs, summaries)
+end
+
 function ns.MH_RefreshProfessionAcademyPanel(panel)
 	panel = panel or builtPanel
 	if not panel or not panel._profAcadBuilt then

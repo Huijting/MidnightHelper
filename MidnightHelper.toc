@@ -70,6 +70,7 @@ Modules\Rares.lua
 Modules\RitualSites.lua
 Modules\ProfessionAcademyData.lua
 Modules\ProfessionAcademy.lua
+Modules\ProfessionsHub.lua
 Modules\ShowdownsData.lua
 Modules\Showdowns.lua
 Modules\VoidAssaults.lua
