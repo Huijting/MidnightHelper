@@ -209,10 +209,41 @@ function ns.BuildConsumablesPanel(panel)
 	specLine:SetTextColor(1, 0.88, 0.55)
 	panel._mhConsSpecLine = specLine
 
+	-- Copy bar: clicking an item row drops its name here, pre-selected for
+	-- Ctrl+C (handy for Auction House searches). Clicks cycle best → alts.
+	local copyLabel = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	copyLabel:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 12, 16)
+	copyLabel:SetJustifyH("LEFT")
+	copyLabel:SetText(ns:L("CONS_COPY_HINT"))
+	copyLabel:SetTextColor(0.62, 0.60, 0.55)
+	panel._mhConsCopyLabel = copyLabel
+
+	local copyBox = CreateFrame("EditBox", "MidnightHelperConsumablesCopyBox", panel, "InputBoxTemplate")
+	copyBox:SetHeight(20)
+	copyBox:SetPoint("LEFT", copyLabel, "RIGHT", 12, 0)
+	copyBox:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
+	copyBox:SetAutoFocus(false)
+	copyBox:SetScript("OnEscapePressed", function(self)
+		self:ClearFocus()
+	end)
+	copyBox:SetScript("OnEditFocusGained", function(self)
+		self:HighlightText()
+	end)
+	panel._mhConsCopyBox = copyBox
+
+	function ns.MH_ConsumablesCopyName(name)
+		if not name or name == "" then
+			return
+		end
+		copyBox:SetText(name)
+		copyBox:SetFocus()
+		copyBox:HighlightText()
+	end
+
 	local scroll = CreateFrame("ScrollFrame", "MidnightHelperConsumablesScroll", panel, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", specLine, "BOTTOMLEFT", 0, -8)
-	scroll:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 12, SCROLL_BOTTOM)
-	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -12, SCROLL_BOTTOM)
+	scroll:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 12, SCROLL_BOTTOM + 28)
+	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -12, SCROLL_BOTTOM + 28)
 	panel._mhConsScroll = scroll
 
 	local host = CreateFrame("Frame", nil, scroll)
@@ -235,6 +266,9 @@ function ns.BuildConsumablesPanel(panel)
 		end
 		if hintFs.SetText then
 			hintFs:SetText(ns:L("CONS_SPEC_HINT"))
+		end
+		if copyLabel.SetText then
+			copyLabel:SetText(ns:L("CONS_COPY_HINT"))
 		end
 		ns.MH_RefreshConsumablesPanel()
 	end

@@ -602,7 +602,65 @@ gat in de cursus. Nieuw hoofdstuk 2 ("gearup", tussen knowledge en trees):
   "Profession Equipment" — optioneel voor starters (in chat uitgelegd,
   evt. later in hoofdstuktekst).
 
+## Voor Cursor — review + commit batch 4 (7 juni namiddag, commit `TBD`)
+
+Klein batchje, 1 commit volstaat: "Consumables: copy-to-AH bar + tooltip
+hint; fix mistranslated spec hints". Bestanden: `GuideConsumables.lua`
+(OnClick + tooltip-regel), `ConsumablesPanel.lua` (copy-balk +
+`ns.MH_ConsumablesCopyName`, scroll-anchor 28px), 6 locales
+(CONS_COPY_HINT + CONS_COPY_TT nieuw; CONS_SPEC_HINT hersteld in
+deDE/frFR/esES/ptBR — deDE zei "Fahrradspezifikationen"), SESSION_NOTES.
+Data-verificatie consumables: geen wijzigingen nodig (21/21 IDs correct,
+meta actueel — zie iteratie 10 hieronder). Door Rob getest: copy werkt;
+tooltip-hint nog niet in-game gezien (na commit even checken). Luacheck
+zoals altijd zelf draaien.
+
+**Nieuw prioriteits-backlogitem:** Delve-share v2 (vertaalde ontvangst via
+addon-messages) — MOET in de volgende CF-release; zie "Open / volgende
+stappen" punt 0a.
+
+### Fase 5, iteratie 10 (commit `TBD`) — Consumables-check + copy-balk
+
+Robs vraag: klopt de Consumables-tab nog, en namen kopieerbaar voor het AH.
+
+- **Data-verificatie: ✅ ACTUEEL.** JSON (gegenereerd 18 mei, 12.0.5): 39
+  specs compleet, alle categorieën gevuld, 0 warnings, 21 unieke items.
+  Alle 21 item-IDs op Wowhead geverifieerd (21/21 naam-match, alles
+  "Midnight 12.0.5"); meta-check via Method.gg + Archon.gg: de 4 flasks,
+  potions (Light's Potential/Recklessness), food (Hearty-varianten),
+  Thalassian Phoenix Oil en Void-Touched Augment Rune zijn exact de
+  huidige picks. **Geen wijzigingen nodig.** Niche-kandidaten voor later
+  (bewust niet toegevoegd): utility-potions (invis/mana/absorb),
+  cauldrons, Quel'dorei Medley (secondary-feast), Hunter-ammo,
+  alternatieve oils.
+- **Copy-balk (nieuw):** klik op een item-rij in Consumables → naam in
+  een editbox onderin (auto-focus + selectie, Ctrl+C → AH-zoekbalk);
+  herhaald klikken wisselt best → alternates. `GuideConsumables.lua`
+  (hit-OnClick), `ConsumablesPanel.lua` (copy-balk +
+  `ns.MH_ConsumablesCopyName`, scroll 28px omhoog), key `CONS_COPY_HINT`
+  ×6. **Rob-test: ✅ werkt perfect**; vindbaarheid was matig (balk onderin
+  valt niet op) → groene regel "Klik: kopieer naam (voor het veilinghuis)"
+  in de item-tooltip toegevoegd (`CONS_COPY_TT` ×6).
+- **Bijvangst:** `CONS_SPEC_HINT` was machinaal verminkt in 4 talen
+  (deDE letterlijk "Fahrradspezifikationen" = fietsspecificaties, voor
+  "cycles specs"!) — hersteld in deDE/frFR/esES/ptBR. Bevestigt het
+  backlog-vermoeden dat oude machinevertalingen een review-pass nodig
+  hebben.
+- **In-game test (Rob):** Toolbox → Consumables: copy-balk onderin;
+  klik flask → naam geselecteerd in het vakje → Ctrl+C → plakken in
+  AH-zoek; nogmaals klikken → alternate-naam; spec wisselen werkt
+  ongewijzigd; geen overlap tussen lijst en copy-balk.
+
 ## Open / volgende stappen
+
+0a. **🎯 VÓÓR VOLGENDE CF-RELEASE (Rob): Delve-share v2 — vertaalde
+    ontvangst.** Huidige share stuurt platte tekst in verzender-taal;
+    v2: addon-message (prefix-registratie) met delve/boss/tip-IDs naast
+    de platte chat-fallback — ontvangers mét MH renderen de tips lokaal
+    in hun eigen taal, rest ziet de tekst zoals nu. Aandachtspunten:
+    C_ChatInfo.RegisterAddonMessagePrefix, versie-handshake, stabiele
+    tip-IDs over releases, throttling. (Geen CF-release zonder expliciete
+    vraag van Rob — maar deze feature moet erin zitten als die vraag komt.)
 
 0. **Showdowns vervolg:** AccountWeeklyChecklist-entries (Showdown-weekly + Folio-mote zodra IDs compleet); Home-dashboard kan `ns.GetActiveShowdownZoneName`/`ns.IsShowdownWeeklyDone` hergebruiken; Val-data + Voidstorm-portaal-mapID invullen na volgende PTR-rotatie (knop verschijnt dan vanzelf).
 

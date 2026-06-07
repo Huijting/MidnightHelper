@@ -118,6 +118,10 @@ local function ShowConsumableItemTooltip(owner, itemID, noteText)
 		gt:AddLine(" ")
 		gt:AddLine(noteText, 0.75, 0.82, 0.9, true)
 	end
+	if ok and gt.AddLine then
+		-- Discoverability: the copy bar at the bottom is easy to miss.
+		gt:AddLine(ns:L("CONS_COPY_TT"), 0.55, 0.85, 0.55, true)
+	end
 	if ok then
 		gt:Show()
 	end
@@ -267,6 +271,29 @@ function ns.MH_BuildConsumablesIntoHost(host, classToken, specIdx, fullW)
 			if _G.GameTooltip then
 				_G.GameTooltip:Hide()
 			end
+		end)
+		-- Click: drop the item name into the copy bar (Ctrl+C → AH search).
+		-- Plain click = best item; repeated clicks cycle through alternates.
+		hit:SetScript("OnClick", function(self)
+			if not ns.MH_ConsumablesCopyName then
+				return
+			end
+			local all = {}
+			if bestIds then
+				for i = 1, #bestIds do
+					all[#all + 1] = bestIds[i]
+				end
+			end
+			if altIds then
+				for i = 1, #altIds do
+					all[#all + 1] = altIds[i]
+				end
+			end
+			if #all == 0 then
+				return
+			end
+			self._mhCopyIdx = ((self._mhCopyIdx or 0) % #all) + 1
+			ns.MH_ConsumablesCopyName(ItemDisplayName(all[self._mhCopyIdx]))
 		end)
 
 		contentY = contentY - rowH - 4
