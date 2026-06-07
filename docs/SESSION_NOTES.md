@@ -434,7 +434,7 @@ voor gathering-specs bestaan niet/CDN-error).
   (7 zichtbaar op Tailor+Ench: alle generieke + Ench + Tailoring, geen
   Alchemy); teller klopt; hoofdstuk leesbaar in NL/EN.
 
-## Voor Cursor — review + commit batch 3 (7 juni avond, commits `73f1f36` / `41e4cf1` / `TBD3`)
+## Voor Cursor — review + commit batch 3 (7 juni avond, commits `73f1f36` / `41e4cf1` / `3aa1681`)
 
 Alles live getest door Rob (✅ per iteratie hieronder, incl. volledige
 leek-flow op een verse 82-priest). Voorgestelde opdeling in 3 commits:
@@ -561,7 +561,7 @@ Toolbox-sub-tab "Professions" met interne tabs (patroon: Macros-pick-nav):
   compleet; zoekbalk "kp" → landt op Treasures-tab; punt uitgeven →
   Overview ververst; talen wisselen vertaalt knoppen/hint.
 
-### Fase 5, iteratie 9 (commit `TBD3`) — "Gear up"-hoofdstuk
+### Fase 5, iteratie 9 (commit `3aa1681`) — "Gear up"-hoofdstuk
 
 Robs leek-ervaring op de 82-priest: profs geleerd, maar dan? Tool (rod!)
 nodig, station-vereisten, recepten bij de trainer "kopen" — het eerste-uur-
