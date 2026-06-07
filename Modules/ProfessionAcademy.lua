@@ -265,6 +265,26 @@ local function GetSpecSummary(baseSkillLine)
 	return { spent = spent, unspent = unspent or 0, started = started, tabs = tabsOut }
 end
 
+--- True when every owned primary profession has a tool equipped (profession
+--- gear inventory slots: 20 = profession 1 tool, 23 = profession 2 tool).
+--- Wrong/empty slots simply never auto-complete — the checkbox stays manual.
+local function AllProfToolsEquipped()
+	if type(GetProfessions) ~= "function" or type(GetInventoryItemID) ~= "function" then
+		return false
+	end
+	local p1, p2 = GetProfessions()
+	if not p1 and not p2 then
+		return false
+	end
+	if p1 and not GetInventoryItemID("player", 20) then
+		return false
+	end
+	if p2 and not GetInventoryItemID("player", 23) then
+		return false
+	end
+	return true
+end
+
 --- A chapter is shown when it is generic or matches an owned profession.
 local function IsChapterVisible(ch, profs)
 	if not ch.skillLineID then
@@ -378,9 +398,10 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 			end
 		end
 	end
-	if anySpent then
-		for _, ch in ipairs(ns.PROF_ACADEMY.chapters) do
-			if ch.detect == "kpspent" and not IsChapterDone(ch.key) then
+	local toolsOk = AllProfToolsEquipped()
+	for _, ch in ipairs(ns.PROF_ACADEMY.chapters) do
+		if not IsChapterDone(ch.key) then
+			if (ch.detect == "kpspent" and anySpent) or (ch.detect == "proftool" and toolsOk) then
 				SetChapterDone(ch.key, true)
 			end
 		end
@@ -606,6 +627,7 @@ local ev = CreateFrame("Frame")
 ev:RegisterEvent("TRADE_SKILL_SHOW")
 ev:RegisterEvent("SKILL_LINES_CHANGED")
 ev:RegisterEvent("TRAIT_CONFIG_UPDATED")
+ev:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 ev:SetScript("OnEvent", function(_, event)
 	local d = ns.PROF_ACADEMY
 	if not d then
@@ -621,8 +643,10 @@ ev:SetScript("OnEvent", function(_, event)
 		-- Always refresh: opening a profession window can make spec-tree data
 		-- readable for the first time (config was 0 before).
 		changed = true
-	elseif event == "SKILL_LINES_CHANGED" or event == "TRAIT_CONFIG_UPDATED" then
-		-- Profession learned/dropped, or KP spent — refresh detection block.
+	elseif event == "SKILL_LINES_CHANGED" or event == "TRAIT_CONFIG_UPDATED"
+		or event == "PLAYER_EQUIPMENT_CHANGED" then
+		-- Profession learned/dropped, KP spent, or (profession) gear swapped —
+		-- refresh detection and auto-completion.
 		changed = true
 	end
 	if changed and builtPanel and builtPanel:IsShown() then

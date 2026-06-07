@@ -434,6 +434,174 @@ voor gathering-specs bestaan niet/CDN-error).
   (7 zichtbaar op Tailor+Ench: alle generieke + Ench + Tailoring, geen
   Alchemy); teller klopt; hoofdstuk leesbaar in NL/EN.
 
+## Voor Cursor — review + commit batch 3 (7 juni avond, commits `73f1f36` / `41e4cf1` / `TBD3`)
+
+Alles live getest door Rob (✅ per iteratie hieronder, incl. volledige
+leek-flow op een verse 82-priest). Voorgestelde opdeling in 3 commits:
+
+1. **Tree Advisor v1 (iteratie 7):** `ProfessionAcademyData.lua`
+   (advisorRoutes), `ProfessionAcademy.lua` (GetSpecSummary→tabs,
+   GetAdviceForProf + BuildAdviceLine, advies in header-blok én onder
+   hoofdstuk-2-body, display = gekochte ranks), 2 locale-keys ×6
+   (PROFACAD_ADVISE_*). Bevat de forward-decl-fix (GetAdviceForProf vóór
+   BuildProfsText — nil-call gevangen door Robs test).
+2. **Professions Hub (iteratie 8):** `Modules/ProfessionsHub.lua` (nieuw),
+   UI.lua (defs/builders/alias/info-drawer), TOC, 5 keys ×6 (PROFHUB_*,
+   INFO_DRAWER_BODY_PROFHUB), `ns.MH_GetProfessionsOverviewText` in
+   ProfessionAcademy.lua.
+3. **"Gear up"-hoofdstuk + tekst-fixes (iteratie 9):**
+   `ProfessionAcademyData.lua` (chapter gearup, detect proftool),
+   `ProfessionAcademy.lua` (AllProfToolsEquipped slots 20/23 — in-game
+   geverifieerd, PLAYER_EQUIPMENT_CHANGED, auto-tick-loop), 3 keys ×6
+   (PROFACAD_CH_GEARUP_*, incl. tier-alinea + lectern/rod-flow) en de
+   herschreven PROFACAD_CH_TREES_BODY ×6 (verouderde "Chapters 6 and 7"-
+   verwijzing weg).
+
+Review-punten: luacheck/loadfile alles (mount-truncatie blijft);
+changelog: "Professions Hub: Overview/Treasures/Course in één tab",
+"Tree Advisor: live volgende-punten-advies", "nieuw Gear up-hoofdstuk".
+Let op in ProfessionsHub.lua: `ns.panels.professions` wijst nu naar het
+inner treasures-frame (Profession.lua-hook bouwt daar ongewijzigd in).
+
+Nabrander uit Robs Tailoring-leek-test (zelfde batch, commit 3):
+- Tier-flow werkt (Midnight Tailoring direct actief na leren ✓).
+- Gearup-body ×6: tools/accessoires komen van ÁNDERE professies
+  (BS/LW) → AH "Profession Equipment" of een crafter; supplies-vendor
+  soms basics. (Vraag van Rob "moet je die altijd kopen/laten maken?" —
+  ja, behalve Ench-rods.)
+- Terminologie geüniformeerd ×6: "Beginner route"/"Route"/"Farming
+  route" → overal **"Starter build"** (Rob las er als leek meerdere
+  routes in); Skinning = "Starter build (farming)".
+
+### Fase 5, iteratie 7 (commit `73f1f36`) — Tree Advisor v1 (concept C)
+
+Eerste plak van concept C, als advies-regel in het Professions 101-blok
+(geen aparte tab; doel-picker Goud/Zelfvoorziening/Levelen kan later).
+
+- **Data (`ProfessionAcademyData.lua`):** `advisorRoutes` per skillLine —
+  gecureerde default-route van tree-ROOTS in volgorde (uit dezelfde
+  research als de starthoofdstukken). `anyOf` = spelerkeuze telt voor de
+  stap (LW leather/scales, BS armor/weapons, Tailor Finery/Fiber Arts,
+  Alch Flasks/Potions); `skipIfClass = "DRUID"` op Herbalism-Botany
+  (druïden gatheren al in vorm). **Namen moeten exact matchen met
+  `GetTabInfo().name`** — mismatch = regel verschijnt niet (never lie).
+  Live geverifieerde namen: Ench ×4, Tailor ×2, LW ×1, Skin ×2; rest komt
+  uit de gidsen (Insc "Blueprints"/"Calm Hands"-onzekerheid: Calm Hands is
+  vermoedelijk een node, niet een tab — route start daarom bij Blueprints).
+- **Logica (`ProfessionAcademy.lua`):** `GetSpecSummary` geeft nu ook
+  `tabs = { {name, active, max}, ... }`; `GetAdviceForProf` loopt de route
+  en geeft de eerste niet-volle root terug (voorkeur voor de tree waar al
+  punten in zitten bij anyOf), `false` bij route compleet, `nil` bij
+  mismatch/geen data. BuildProfsText toont groene regel:
+  "Advice: next points into X (root a/b) — the chapter below explains
+  why." of de route-compleet-variant. 2 nieuwe keys ×6
+  (PROFACAD_ADVISE_NEXT_FMT / _ADVISE_DONE).
+- Stub-test (texlua, Robs echte waarden): Ench → Disenchanting Delegate
+  (4/31) ✓; Tailor → Nimble (20/31) ✓; anyOf met Fiber Arts gestart →
+  Fiber Arts ✓; alles vol → "route compleet" ✓; naam-mismatch → geen
+  regel ✓; Druid-Herb → slaat Botany over ✓.
+- **Fix na eerste test:** `GetAdviceForProf` stond ná `BuildProfsText`
+  (local-scoping → nil-call op regel 125); verplaatst naar vóór de caller.
+  Ironisch: zelfde bug-klasse als de Fase 1 forward-decl-fixes.
+- **⚠️ API-bevinding:** de ochtend-dump las Shatterer-root als 31/31 (met
+  spec-venster open); 's avonds las dezelfde node (107817, zelfde config)
+  6/31 in álle velden (active/current/ranksPurchased) — en de in-game
+  tooltip bevestigde **"Rank 5/30"**: de avond/closed-lezing is de juiste.
+  Conclusie: lezingen met het venster open kunnen onbetrouwbaar zijn (de
+  31/31 van 's ochtends voor 1152/1155 was vermoedelijk artefact); de
+  closed-state waar MH op draait klopt. Apply Knowledge zonder Apply
+  Changes is bewust onzichtbaar voor MH (committed-only, never lie);
+  na Apply Changes update het blok live.
+- **Display-fix:** advies toont nu gekochte ranks (API-rank − gratis
+  basisrank) zodat het matcht met de in-game tooltip ("5/30" i.p.v. "6/31").
+- **UX-fix (Rob):** het advies stond alleen bovenin het blok — wie bij
+  hoofdstuk 2 ("kies ÉÉN tree") aankomt ziet het niet meer en kiest blind.
+  Advies-regels (met profnaam-prefix) worden nu óók onder de hoofdstuk-2-
+  body getoond, op de plek van de keuze. Refactor: `BuildAdviceLine()`
+  gedeeld door header-blok en hoofdstuk-injectie.
+- **In-game test (live, Rob 7 juni avond): ✅ grotendeels** — main:
+  Tailoring-advies "Nimble Needlework (22/31→ wordt 21/30)" en Ench-advies
+  Spellbound Shatterer correct (root was echt 5/30 — advisor wees terecht
+  de route-start aan); live mee-veranderen na Apply Changes bevestigd
+  (Rob gaf bewust punten uit als test). Nog open: LW/Skin-alt-check +
+  taal-wissel na de display-fix.
+
+### Fase 5, iteratie 8 (commit `41e4cf1`) — Professions Hub
+
+Robs UX-wens: "alles van de proffs bijeen, maar geen lange lap". Eén
+Toolbox-sub-tab "Professions" met interne tabs (patroon: Macros-pick-nav):
+**Overview | Treasures & Books | Course (101)**.
+
+- **`Modules/ProfessionsHub.lua` (nieuw, ~230 regels):** host met interne
+  nav. Overview = dashboard (profs/KP/tree-advies via nieuwe publieke
+  `ns.MH_GetProfessionsOverviewText()` uit ProfessionAcademy.lua) + hint
+  onderin; Treasures-frame registreert zich als **`ns.panels.professions`**
+  zodat Profession.lua's EnsureMainUI-hook ongewijzigd erin bouwt (hub-build
+  draait binnen EnsureMainUI, vóór de hook — volgorde klopt); Course-frame
+  gaat direct naar `BuildProfessionAcademyPanel` (inner frame heeft eigen
+  `_header`). Events SKILL_LINES_CHANGED/TRAIT_CONFIG_UPDATED/
+  TRADE_SKILL_SHOW verversen het Overview; RefreshLocaleUI-hook voor
+  knoplabels; OnShow herstelt de gekozen inner tab (SelectTab's
+  hide-all-loop verbergt het inner treasures-frame — inner select toont
+  hem weer).
+- **UI.lua:** toolbox-defs: `professions`+`profacademy` → één
+  `professionsHub` (label TAB_PROFESSIONS); SelectTab-alias:
+  professions→hub+treasures, profacademy→hub+course (zoekbalk,
+  ProfessionsGuide-knop, saved tabs blijven werken; onbekende saved sub-tab
+  valt terug op Consumables); info-drawer per inner tab (treasures→
+  PROFESSIONS, course→PROFACADEMY, overview→nieuw PROFHUB).
+- **TOC:** ProfessionsHub.lua na ProfessionAcademy.lua. **Locales:** 5
+  nieuwe keys ×6 (PROFHUB_TAB_OVERVIEW/_TREASURES/_COURSE,
+  PROFHUB_OVERVIEW_HINT, INFO_DRAWER_BODY_PROFHUB).
+- Syntax: ProfessionsHub.lua parsed (mount was vers); rest host-geverifieerd.
+- **In-game test (Rob):** Toolbox toont nu 4 sub-tabs (Consumables,
+  Professions, + 2 beta); Professions opent op Overview met jouw
+  profs/KP/advies; interne tabs wisselen; Treasures & Books werkt als
+  voorheen (incl. essence-regel + Generates); Course = Professions 101
+  compleet; zoekbalk "kp" → landt op Treasures-tab; punt uitgeven →
+  Overview ververst; talen wisselen vertaalt knoppen/hint.
+
+### Fase 5, iteratie 9 (commit `TBD3`) — "Gear up"-hoofdstuk
+
+Robs leek-ervaring op de 82-priest: profs geleerd, maar dan? Tool (rod!)
+nodig, station-vereisten, recepten bij de trainer "kopen" — het eerste-uur-
+gat in de cursus. Nieuw hoofdstuk 2 ("gearup", tussen knowledge en trees):
+
+- **Inhoud (research wow-professions/Wowhead):** 1 tool + 2 accessoires per
+  prof in eigen slots bovenin het professievenster; zonder tool craft je
+  veel recepten niet; starter-tools bij prof-vendors, Ench maakt eigen rods
+  (groen = trainer-recept op skill 1, blauw via Transitories-tree, epic
+  vendor); grijze craft-knop → vereisten-regel lezen (tool of station:
+  aambeeld/lectern/kookvuur, rond de trainerwijk); skill 25 = trees,
+  first craft = +1 KP. 3 keys ×6 (PROFACAD_CH_GEARUP_*). Na Robs tweede
+  leek-test (venster opende op "Classic Enchanting 1/300"!) opent de body
+  nu met de tier-uitleg: dropdown bovenin wisselt uitbreidings-tiers,
+  alles in de cursus = MIDNIGHT-tier, anders leren bij de
+  Silvermoon-trainers.
+- **Auto-detectie `detect = "proftool"`:** vinkje zodra elke owned primary
+  prof een tool in z'n slot heeft (`GetInventoryItemID("player", 20/23)` —
+  prof-gear-slots; **slotnummers 20/23 nog niet in-game geverifieerd**: bij
+  verkeerde slots vinkt hij gewoon nooit automatisch af, checkbox blijft
+  handmatig — never lie). PLAYER_EQUIPMENT_CHANGED ververst; kpspent/
+  proftool-auto-ticks samengevoegd in één loop.
+- **Tekst-fix (Rob, priest zonder profs):** `PROFACAD_CH_TREES_BODY`
+  verwees nog naar "Chapters 6 and 7 ... Enchanting and Alchemy" en
+  "Alchemy at 25/50/60/75" — stamde uit de 2-profs-pilot; nummering is
+  inmiddels dynamisch en op een char zonder profs bestaan die hoofdstukken
+  niet. Herschreven ×6: generiek ("de eerste rond skill 25"), verwijst nu
+  naar "de starthoofdstukken hieronder" + het live advies.
+- **In-game test (live, Rob 7 juni avond): ✅ GESLAAGD** — volledige
+  leek-flow op de 82-priest doorlopen: Midnight-tier los leren bij Dolothos
+  (100g, "Requires: Level 80, Enchanting (1)") — venster opende eerst op
+  Classic Enchanting 1/300 → tier-alinea toegevoegd; basis-rod bij vendor
+  Lyna (10g, materiaal, niet de tool), Runed-versie craften vereist
+  **Enchanter's Lectern** (station, in-game bevestigd), equippen → vinkje
+  hoofdstuk 2 verscheen automatisch = **gear-slots 20/23 geverifieerd**.
+  Body-zin Ench-rod aangescherpt ×6 (vendor-rod → lectern → equip).
+  Accessoire-slots: komen van andere profs (BS Craftsmithing/LW), via AH
+  "Profession Equipment" — optioneel voor starters (in chat uitgelegd,
+  evt. later in hoofdstuktekst).
+
 ## Open / volgende stappen
 
 0. **Showdowns vervolg:** AccountWeeklyChecklist-entries (Showdown-weekly + Folio-mote zodra IDs compleet); Home-dashboard kan `ns.GetActiveShowdownZoneName`/`ns.IsShowdownWeeklyDone` hergebruiken; Val-data + Voidstorm-portaal-mapID invullen na volgende PTR-rotatie (knop verschijnt dan vanzelf).

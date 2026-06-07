@@ -159,7 +159,14 @@ lijst scrapen bij bouw van B.
    vóór openen spec-tab?) nog checken.
 4. Spec-reset uit 12.0.5-datamining: live gekomen of niet? (Bepaalt toon van
    hoofdstuk 2: "permanent!" vs "duur respeccen".)
-5. Trainer-weekly quest-IDs Ench/Alch (questlog-dump zoals bij Showdowns).
+5. Trainer-weekly quest-IDs (questlog-dump zoals bij Showdowns).
+   **Deels ✅ (Rob, live 7 juni): Enchanting = "Splintered Radiance" 93698**
+   (10 Radiant Shards → Dolothos; beloning Thalassian Enchanter's Folio +
+   Fused Vitality + ~34g). Let op: de weekly komt van de PROFESSIE-TRAINER
+   (Dolothos), niet van Flaresworn — Flaresworn is alleen de intro/Work
+   Orders. Flag-check 93698 na inleveren: ⬜ (verwacht true; woensdag-reset
+   ⬜). Tailoring-ID via Belspa: ⬜. Overige profs: zelfde patroon
+   verwachten, per trainer dumpen.
 6. Renown-KP-boeken: exacte vendor + kosten in Moxie (Wowhead-tabel toonde
    0 Marl + 5 Moxie — klopt dat in-game?).
 7. ~~KP-treasures~~ ✅ — coords + flags 89067-89184 gevonden (zie hierboven);

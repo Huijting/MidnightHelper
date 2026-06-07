@@ -147,6 +147,13 @@ ns.PROF_ACADEMY = {
 			detect = "profui",
 		},
 		{
+			key = "gearup",
+			titleKey = "PROFACAD_CH_GEARUP_TITLE",
+			bodyKey = "PROFACAD_CH_GEARUP_BODY",
+			taskKey = "PROFACAD_CH_GEARUP_TASK",
+			detect = "proftool",
+		},
+		{
 			key = "trees",
 			titleKey = "PROFACAD_CH_TREES_TITLE",
 			bodyKey = "PROFACAD_CH_TREES_BODY",
