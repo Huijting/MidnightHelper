@@ -16,6 +16,10 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 
 ## Voor Cursor — review + commit batch 7 juni (commits `605c670` / `19df573` / `705306d`)
 
+**STATUS: ✅ AFGEROND** — Cursor review + commits gepusht: `605c670`
+(Professions 101), `19df573` (interrupt macros), `705306d` (Showdowns-data),
+`95547c4` (notes). Working tree clean. Frans in-game hertest: werkt.
+
 Alle onderdelen zijn door Rob live in-game getest (✅ per sectie hieronder).
 Voorgestelde opdeling in 3 commits:
 
@@ -37,12 +41,9 @@ Voorgestelde opdeling in 3 commits:
    (portalSilvermoon), `docs/PTR_12.0.7_DATA.md` (rares).
 
 Review-punten:
-- **Draai zelf luacheck/parse op alle gewijzigde .lua** — de Cowork-mount gaf
-  false-positive eof-errors (NUL-padding), host-bestanden zijn leidend.
-- **`Locales/frFR.lua` extra aandacht:** was door Claude-script-fout afgekapt
-  en is hersteld uit HEAD + host-edits. Check: bestand eindigt op
-  `ns._mhLocales.frFR = pack`; in de herstelde staart 4× NBSP → spatie en
-  mogelijk LF i.p.v. CRLF (normaliseren mag). Rob hertest Frans in-game nog.
+- ~~Luacheck~~ ✅ Cursor: lua loadfile op alle 12 gewijzigde .lua OK.
+- ~~frFR.lua~~ ✅ eindigt correct (regel 955); **Frans in-game hertest door
+  Rob: ✅ werkt.**
 - deDE/esES/ptBR hebben elders nog `\\n` (toont letterlijk "\n" in-game) in
   oude strings — bestaand euvel, los van deze batch (backlog-item).
 - BS-treasure-flag discrepantie (89182 vs 80416) staat genoteerd in het plan;
@@ -285,6 +286,153 @@ prof-specifiek, Ench-KP via disenchanten, KP permanent) én een lijst open
 PTR-verificaties incl. kandidaat quest-flags 93528-93543 voor weekly
 KP-drops. Cursor: input op het plan welkom bij de volgende review; bouw start
 pas na akkoord Rob op fasering.
+
+### Fase 5, iteratie 3 (commit `eeafef7`) — TERUGGEDRAAID + essence-teller
+
+**Les: codebase doorzoeken vóór bouwen.** Claude bouwde een "KP Treasures"-
+Toolbox-sub-tab (2 nieuwe modules, 85 treasures met flags 89067-89184 van
+Wowhead) — maar **`Modules/Profession.lua` (sidebar Character → Professions)
+had dit al**, completer: treasures + boeken (`MIDNIGHT_DATA`, incl. items die
+in Claudes bron ontbraken: Vial of Eversong Oddities 89111, Enchanted Sunfire
+Silk 89101, Sweeping Harvester's Scythe 89161), Moxie/unspent-KP-regels,
+Generate Treasures/Books-knoppen, én een eigen Midnight-skillLine-mapping
+(2906-2918). Rob ontdekte de duplicatie bij het testen; keuze (Rob via
+vraag): nieuwe tab schrappen.
+
+- **Teruggedraaid:** ProfessionTreasures(.Data).lua verwijderd; TOC-, UI.lua-
+  (sub-tab/builder/drawer) en locale-wijzigingen (PROFTREAS_*) gereverteerd.
+- **Behouden:** Enchanting essence-teller verhuisd naar Profession.lua —
+  na de Shards of Dundun-regel, alleen mét Enchanting: "Weekly disenchant
+  mats in bags: Swirling Arcane Essence x/5 · Brimming Mana Shard x/1"
+  (items 267654/267655, GetItemQuantityByID, namen via GetItemInfo met
+  EN-fallback; locale-key `PROF_ESSENCE_FMT` ×6 — rest van dat panel is
+  hardcoded EN, key alvast klaar voor latere lokalisatie).
+- **Bijvangst geverifieerd:** Robs LW/Skin-alt toonde identieke vinkjes in
+  oude panel en (inmiddels geschrapte) nieuwe tab → flag-IDs 89xxx kloppen.
+  Tree-state werkt ook op gathering-profs ("Thorough Tanning, Talented
+  Tracker" bij Skinning).
+- **Backlog nieuw:** `ProfessionAcademyData.specSkillLines` dupliceert de
+  mapping in Profession.lua (`MIDNIGHT_SKILL_LINE_BY_PROFESSION_ENUM`) — ooit
+  centraliseren (bijv. ns-level tabel).
+- **In-game test:** Professions-panel (sidebar) op Ench-char: essence-regel
+  onderaan currency-blok met juiste bagcounts; disenchanten → telt op (panel
+  open laten); char zonder Ench → geen regel.
+
+### Fase 5, iteratie 4 (commit `b285e08`)
+
+Robs review-vragen na de iteratie-3-revert: "hoort Professions wel in de
+sidebar?" en "geven de Generates de kortste route?". Beide aangepakt:
+
+- **Professions-panel → Toolbox-sub-tab** (patroon Fase 3c/3d): TAB_DEFS-
+  entry weg, sidebar Character-sectie = account+delvelog; sub-tab-def
+  `professions` (vóór profacademy, niet beta-gated) met no-op builder —
+  Profession.lua bouwt ongewijzigd via zijn EnsureMainUI-hook in
+  `ns.panels.professions` (CreateToolboxSubPanel registreert onder zelfde
+  id). `SelectTab("professions")`-alias toegevoegd (callers: Guide.lua:1160,
+  ProfessionsGuide.lua:785 — werken ongewijzigd; ook saved-tab-restore).
+  Info-drawer: toolbox-branch → INFO_DRAWER_BODY_PROFESSIONS (key bestond).
+  Geen locale-wijzigingen (TAB_PROFESSIONS bestond).
+- **Generate Treasures/Books: echte greedy looproute.** Was: sort op afstand
+  vanaf startpositie, alleen huidige map (rest ongesorteerd achteraan). Nu:
+  pins per map gegroepeerd (zones bijeen), huidige map eerst; per map een
+  ketting — start bij speler (huidige map) of eerste pin (andere maps),
+  daarna steeds dichtstbijzijnde vanaf het vórige punt. Filter op
+  open-items/eigen profs ongewijzigd. `FAR_CROSSMAP_SORT` vervallen.
+  Chat-melding: "shortest-hop route". Route-logica getest in texlua
+  (speler→dichtbij→buur→ver; tweede map A→buurman→ver ✓).
+- Eerder in deze batch (zelfde commit-kandidaat): essence-teller in
+  Profession.lua + `PROF_ESSENCE_FMT` ×6 + iteratie-3-revert (zie boven).
+- Syntax: host-bestanden compleet geverifieerd (Profession.lua 1223 r.,
+  UI.lua 2581 r.); mount gaf opnieuw truncatie-false-positives —
+  **Cursor: luacheck/loadfile.**
+- **In-game test (live, Rob 7 juni): ✅ GESLAAGD** — sidebar zonder
+  Professions; Toolbox-sub-tab werkt; zoekbalk ("kp"/"treasure") en
+  Codex-Reference-knop landen op de sub-tab; Generate Treasures: zones
+  netjes gegroepeerd (SMC×2 → Voidstorm → Harandar×2 → Slayer's Rise×2 →
+  Eversong), melding "shortest-hop route per zone (player position
+  unavailable)" = correcte fallback binnen Silvermoon (positie-API geeft
+  daar nil; buiten = "from your position"); essence-regel op Ench-main
+  zichtbaar onder Shards of Dundun ("Swirling Arcane Essence 0/5 ·
+  Brimming Mana Shard 0/1"). Iteratie 6 (alle prof-hoofdstukken): LW/Skin-
+  alt toont hoofdstuk 6 LW + 7 Skinning, teller 1/7 ✅.
+
+## Voor Cursor — review + commit batch 2 (7 juni middag, commits `eeafef7` / `b285e08` / `TBD3`)
+
+Alle onderdelen live getest door Rob (✅ per iteratie hieronder). Voorgestelde
+opdeling in 3 commits:
+
+1. **Essence-teller + iteratie-3-revert:** `Modules/Profession.lua`
+   (essence-regel), 6 locales (`PROF_ESSENCE_FMT`). Let op: de iteratie-3-
+   bestanden (ProfessionTreasures*.lua) zijn aangemaakt én weer verwijderd —
+   als git ze niet kent is er niets te doen.
+2. **Toolbox-verhuizing + greedy route:** `UI.lua` (TAB_DEFS, sub-tab-def,
+   alias, info-drawer), `Modules/Profession.lua` (RunTomTomGenerate
+   herschreven, FAR_CROSSMAP_SORT vervallen).
+3. **Academy compleet (iteratie 5+6):** `Modules/ProfessionAcademyData.lua`
+   (9 nieuwe chapters → 16 totaal), 6 locales (27 nieuwe CH-keys + subtitle
+   ×2 herschreven).
+
+Review-punten: luacheck/loadfile op alles (mount gaf wéér false positives);
+changelog-regels: "Professions verhuisd naar Toolbox", "Generate-routes nu
+shortest-hop", "Professions 101 dekt alle 11 professies", "essence-teller".
+Backlog ongewijzigd + nieuw: skillLine-mapping dubbel (Profession.lua vs
+ProfessionAcademyData) — ooit centraliseren.
+
+### Fase 5, iteratie 6 (commit `TBD3`) — ALLE professies in de Academy
+
+Op Robs verzoek: starthoofdstukken voor de resterende 8 professies (LW, BS,
+Eng, Inscription, JC, Herbalism, Mining, Skinning) — Professions 101 dekt nu
+alle 11 professies met trees. Research via Wowhead-spec-gidsen (12.0.5,
+Penguinr2gt, 21 feb 2026) en wow-professions.com (gathering; Wowhead-slugs
+voor gathering-specs bestaan niet/CDN-error).
+
+- **Data:** 8 nieuwe chapters (keys `leatherworking`/`blacksmithing`/
+  `engineering`/`inscription`/`jewelcrafting`/`herbalism`/`mining`/
+  `skinning`, skillLineIDs 165/164/202/773/755/182/186/393) → totaal 16
+  chapters (5 generiek + 11 prof, gefilterd op owned).
+- **Locales:** 24 nieuwe `PROFACAD_CH_*`-keys ×6 (48 chapter-keys per taal,
+  geverifieerd). Subtitle vereenvoudigd ×6: "elke professie heeft een eigen
+  starthoofdstuk".
+- **Kerninhoud per prof (bron-feiten):** LW: enige bron leather+mail, eerst
+  Learned Leatherworker (verlaagt ook Concentration-kosten), één slot-node
+  tegelijk. BS: enige plate; The Old Ways = fundamentals; Armor-/Weapon-
+  smithing per slot/wapentype; alloys/stones verkopen los. Eng: enige guns;
+  Recycling = fundamentals + mats terug; Bits=reagents/scopes,
+  Bots=gadgets (namen misleiden). Inscription: centrale Calm Hands-node
+  maxen = wekelijkse Treatise +2 KP (uniek!). JC: enige ringen/kettingen;
+  centrale Glamorous Gems-node volstaat voor max-kwaliteit Eversong
+  Diamonds; Proficient Processor goedkoop; geen Concentration op
+  prospect/crush. Herbalism: ~40 Botany-root = mounted gathering (Druid
+  slaat over!), dan ~40 Bountiful Harvests; elk kruid in elke zone. Mining:
+  ~40 Meticulous Mining-root = mounted minen, dan ~50 Plentiful Ores; erts
+  maxen → meer Dazzling Thorium; Over-LODE 30-min-CD. Skinning: Thorough
+  Tanning root→leather/scales-tak; Diffusers (motes), Majestic Lures
+  (dagelijks zone-beest, epische mats); Finesse- vs Perception-tools.
+  Tree-namen LW/Skinning gevalideerd tegen Robs in-game dumps.
+- **In-game test (Rob):** main (Tailor+Ench): 7 hoofdstukken zichtbaar;
+  LW/Skin-alt: LW- en Skinning-hoofdstuk zichtbaar i.p.v. Ench; teksten
+  NL/EN steekproef; teller klopt overal.
+
+### Fase 5, iteratie 5 (commit `TBD3`) — Tailoring-starthoofdstuk
+
+- Hoofdstuk 8 in `ns.PROF_ACADEMY.chapters` (key `tailoring`, skillLineID
+  197 — alleen zichtbaar mét Tailoring, zoals Ench/Alch). 3 nieuwe keys
+  (`PROFACAD_CH_TAILORING_*`) ×6 + subtitle bijgewerkt ("Enchanting, Alchemy
+  & Tailoring").
+- Research (Wowhead tailoring-specializations, 21 feb 2026, Penguinr2gt):
+  4 trees — Fiber Arts (fundamentals, alle crafts), Fabric Specialist
+  (skill/resourcefulness + cloth-gathering; Otherworldly = Haranir/Voidstorm,
+  Eastern Kingdoms = Eversong/Zul'Aman), Sin'dorei Finery (armor per
+  slot-groep, sub-nodes unlocken recepten), Nimble Needlework (armor+bolts;
+  Sunfire Silk Weaving/Arcanoweaving + Expertise = meer bolts, kortere CD).
+  Bolts (Arcanoweave/Sunfire Silk Bolt) achter dagelijkse CD, alleen voor
+  gespecialiseerde tailors; tailors enige bron crafted cloth gear. Advies:
+  eerste ~30 in Nimble Needlework-root, dan armor (één slot-groep maxen) óf
+  bolts (Expertise). Robs main (Nimble Needlework + Fiber Arts) spoort met
+  dit advies.
+- **In-game test (Rob, main):** Professions 101 toont nu 8 hoofdstukken
+  (7 zichtbaar op Tailor+Ench: alle generieke + Ench + Tailoring, geen
+  Alchemy); teller klopt; hoofdstuk leesbaar in NL/EN.
 
 ## Open / volgende stappen
 

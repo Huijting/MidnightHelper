@@ -148,8 +148,12 @@ lijst scrapen bij bouw van B.
 ## Open vragen / PTR-verificatie (Rob)
 
 1. Quest-flag-IDs 93528-93543 verifiëren (welke flipt na welke drop, reset
-   woensdag?) — `/run print(C_QuestLog.IsQuestFlaggedCompleted(93532))` na een
-   Voidstorm Ashes-drop.
+   woensdag?) — `/run for i=93528,93543 do if C_QuestLog.IsQuestFlaggedCompleted(i) then print(i) end end`
+   na een drop. **Nulmeting (Rob, main Tailor+Ench, zo 7 juni): alle 16
+   false** — consistent met "nog geen drop deze week". Volgende datapunten:
+   (a) direct na een +2 KP-item-drop (noteer itemnaam!), (b) woensdag na
+   reset. Voor de checklist-regel volstaat: paar hoort bij prof + reset
+   wekelijks. Open: gelden drops ook onder max level (82-alt mag meetesten)?
 2. Treatise-gebruik detecteerbaar? (quest-flag of alleen item-verbruik.)
 3. ~~`C_ProfSpecs`-API~~ ✅ — zie hierboven; alleen login-gedrag (config 0
    vóór openen spec-tab?) nog checken.
