@@ -17,18 +17,39 @@ ns.MacroPanelTypes = {
 		id = "interrupt",
 		labelKey = "MACROS_TYPE_INTERRUPT",
 		subtitleKey = "MACROS_INTERRUPT_SUBTITLE",
+		getList = function()
+			return ns.MH_GetInterruptMacroList()
+		end,
 		getContext = function(panel)
-			return ns.MH_GetInterruptMacroContext()
+			return ns.MH_GetInterruptMacroContext(panel)
 		end,
 	},
 	{
 		id = "utility",
 		labelKey = "MACROS_TYPE_UTILITY",
+		subtitleKey = "MACROS_UTILITY_SUBTITLE",
+		getList = function()
+			return ns.MH_GetUtilityMacroList()
+		end,
 		getContext = function(panel)
 			return ns.MH_GetUtilityMacroContext(panel)
 		end,
 	},
 }
+
+--- Selected entry index in the pick nav, tracked per macro type.
+local function GetPickIndex(panel, typeId)
+	local m = panel and panel._mhMacrosPickIndex
+	return (m and m[typeId]) or 1
+end
+
+local function SetPickIndex(panel, typeId, idx)
+	if not panel then
+		return
+	end
+	panel._mhMacrosPickIndex = panel._mhMacrosPickIndex or {}
+	panel._mhMacrosPickIndex[typeId] = idx
+end
 
 local function TintButtonTextures(btn, r, g, b)
 	if not btn or not btn.GetRegions then
@@ -51,6 +72,9 @@ end
 local function GetEntryDescription(entry)
 	if not entry then
 		return ""
+	end
+	if entry.desc and entry.desc ~= "" then
+		return entry.desc
 	end
 	if IsNlLocale() then
 		return entry.descNl or entry.descEn or ""
@@ -85,8 +109,8 @@ local function RefreshMacroTypeChrome(panel)
 	end
 end
 
-local function RefreshUtilityPickChrome(panel)
-	local active = panel._mhMacrosUtilityIndex or 1
+local function RefreshPickChrome(panel)
+	local active = GetPickIndex(panel, panel._mhMacrosSelectedType or "interrupt")
 	local buttons = panel._mhMacrosPickButtons
 	if not buttons then
 		return
@@ -131,7 +155,7 @@ function ns.MH_GetUtilityMacroContext(panel)
 		end
 		return nil, "noutility", token, specIdx, specName, nil, nil
 	end
-	local idx = (panel and panel._mhMacrosUtilityIndex) or 1
+	local idx = GetPickIndex(panel, "utility")
 	if idx < 1 or idx > #list then
 		idx = 1
 	end
@@ -150,63 +174,78 @@ function ns.MH_GetMacroContextForType(typeId, panel)
 	return def.getContext(panel)
 end
 
-function ns.MH_GetInterruptMacroContext()
-	local token, specIdx, _preview, _classLocalized, specName = ns.MH_GetMacroClassSpecContext()
+function ns.MH_GetInterruptMacroList()
+	local token, specIdx = ns.MH_GetMacroClassSpecContext()
 	if not token then
-		return nil, "noclass", nil, 0, nil
-	end
-	local t = ns.InterruptMacrosByClassSpec and ns.InterruptMacrosByClassSpec[token]
-	if not t then
-		return nil, "noclassdata", token, specIdx, specName
+		return nil
 	end
 	if specIdx < 1 then
-		return nil, "nospec", token, specIdx, specName
+		return nil, token, specIdx
 	end
-	local body = t[specIdx]
-	if body == nil then
-		return nil, "nospecdata", token, specIdx, specName
+	local list = ns.MH_GetInterruptMacroVariants and ns.MH_GetInterruptMacroVariants(token, specIdx)
+	if not list or #list < 1 then
+		return nil, token, specIdx
 	end
-	body = tostring(body)
-	if body == "" then
-		return nil, "empty", token, specIdx, specName
-	end
-	return body, nil, token, specIdx, specName
+	return list, token, specIdx
 end
 
-local function MaybeResetUtilityIndexForSpec(panel)
+--- body, reason, token, specIdx, specName, entryName, entryDesc
+function ns.MH_GetInterruptMacroContext(panel)
+	local list, token, specIdx = ns.MH_GetInterruptMacroList()
+	local _t, _s, _p, _c, specName = ns.MH_GetMacroClassSpecContext()
+	if not list then
+		if not token then
+			return nil, "noclass", nil, 0, nil, nil, nil
+		end
+		if specIdx < 1 then
+			return nil, "nospec", token, specIdx, specName, nil, nil
+		end
+		return nil, "empty", token, specIdx, specName, nil, nil
+	end
+	local idx = GetPickIndex(panel, "interrupt")
+	if idx < 1 or idx > #list then
+		idx = 1
+	end
+	local entry = list[idx]
+	if not entry or not entry.macro or entry.macro == "" then
+		return nil, "empty", token, specIdx, specName, nil, nil
+	end
+	return entry.macro, nil, token, specIdx, specName, entry.name, GetEntryDescription(entry)
+end
+
+local function MaybeResetPickIndexForSpec(panel)
 	local token, specIdx = ns.MH_GetMacroClassSpecContext()
 	local key = (token or "") .. ":" .. tostring(specIdx or 0)
 	if panel._mhMacrosSpecKey ~= key then
 		panel._mhMacrosSpecKey = key
-		panel._mhMacrosUtilityIndex = 1
+		panel._mhMacrosPickIndex = {}
 	end
 end
 
-local function RebuildUtilityPickNav(panel)
+local function RebuildPickNav(panel)
 	local pickScroll = panel._mhMacrosPickScroll
 	local pickChild = panel._mhMacrosPickChild
 	if not pickScroll or not pickChild then
 		return
 	end
-	MaybeResetUtilityIndexForSpec(panel)
-	if panel._mhMacrosPickButtons then
-		for _, btn in pairs(panel._mhMacrosPickButtons) do
-			if btn and btn.Hide then
-				btn:Hide()
-			end
+	MaybeResetPickIndexForSpec(panel)
+	panel._mhMacrosPickButtons = panel._mhMacrosPickButtons or {}
+	for _, btn in pairs(panel._mhMacrosPickButtons) do
+		if btn and btn.Hide then
+			btn:Hide()
 		end
 	end
-	panel._mhMacrosPickButtons = {}
 
-	local list = ns.MH_GetUtilityMacroList()
+	local typeId = panel._mhMacrosSelectedType or "interrupt"
+	local def = GetMacroTypeDef(typeId)
+	local list = def and def.getList and def.getList(panel)
 	if not list or #list < 1 then
 		pickScroll:Hide()
-		panel._mhMacrosUtilityIndex = 1
 		return
 	end
 
-	if (panel._mhMacrosUtilityIndex or 1) > #list then
-		panel._mhMacrosUtilityIndex = 1
+	if GetPickIndex(panel, typeId) > #list then
+		SetPickIndex(panel, typeId, 1)
 	end
 
 	pickScroll:Show()
@@ -219,8 +258,8 @@ local function RebuildUtilityPickNav(panel)
 			panel._mhMacrosPickButtons[i] = btn
 			btn:SetHeight(PICK_BTN_H)
 			btn:SetScript("OnClick", function()
-				panel._mhMacrosUtilityIndex = i
-				RefreshUtilityPickChrome(panel)
+				SetPickIndex(panel, panel._mhMacrosSelectedType or "interrupt", i)
+				RefreshPickChrome(panel)
 				if panel._mhRefreshMacros then
 					panel._mhRefreshMacros()
 				end
@@ -244,7 +283,7 @@ local function RebuildUtilityPickNav(panel)
 	if pickScroll.SetHorizontalScroll then
 		pickScroll:SetHorizontalScroll(0)
 	end
-	RefreshUtilityPickChrome(panel)
+	RefreshPickChrome(panel)
 end
 
 local function SelectMacroType(panel, typeId)
@@ -255,15 +294,9 @@ local function SelectMacroType(panel, typeId)
 		typeId = (ns.MacroPanelTypes[1] and ns.MacroPanelTypes[1].id) or "interrupt"
 	end
 	panel._mhMacrosSelectedType = typeId
-	if typeId == "utility" then
-		RebuildUtilityPickNav(panel)
-	else
-		if panel._mhMacrosPickScroll then
-			panel._mhMacrosPickScroll:Hide()
-		end
-		if panel._mhMacrosMacroName then
-			panel._mhMacrosMacroName:Hide()
-		end
+	RebuildPickNav(panel)
+	if panel._mhMacrosMacroName then
+		panel._mhMacrosMacroName:Hide()
 	end
 	RefreshMacroTypeChrome(panel)
 	if panel._mhRefreshMacros then
@@ -278,7 +311,7 @@ local function LayoutSubtitleAnchor(panel, typeId)
 	end
 	subtitle:ClearAllPoints()
 	subtitle:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -8)
-	if typeId == "utility" and panel._mhMacrosPickScroll and panel._mhMacrosPickScroll:IsShown() then
+	if panel._mhMacrosPickScroll and panel._mhMacrosPickScroll:IsShown() then
 		if panel._mhMacrosMacroName and panel._mhMacrosMacroName:IsShown() then
 			subtitle:SetPoint("TOPLEFT", panel._mhMacrosMacroName, "BOTTOMLEFT", 0, -6)
 		else
@@ -326,34 +359,26 @@ local function RefreshMacrosPanel(panel)
 	end
 	RefreshMacroTypeChrome(panel)
 
-	if typeId == "utility" then
-		RebuildUtilityPickNav(panel)
-		if macroName then
-			if entryName and entryName ~= "" then
-				macroName:SetText(ns:L("MACROS_MACRO_NAME_FMT"):format(entryName))
-				macroName:Show()
-			else
-				macroName:Hide()
-			end
-		end
-	else
-		if macroName then
+	RebuildPickNav(panel)
+	if macroName then
+		if entryName and entryName ~= "" then
+			macroName:SetText(ns:L("MACROS_MACRO_NAME_FMT"):format(entryName))
+			macroName:Show()
+		else
 			macroName:Hide()
 		end
 	end
 	LayoutSubtitleAnchor(panel, typeId)
 
 	if subtitle then
-		if typeId == "utility" then
-			if entryDesc and entryDesc ~= "" then
-				subtitle:SetText(entryDesc .. "\n\n" .. ns:L("MACROS_COPY_SUFFIX"))
-			elseif reason == "noutility" then
-				subtitle:SetText(ns:L("MACROS_ERR_NO_UTILITY"))
-			else
-				subtitle:SetText(ns:L("MACROS_UTILITY_SUBTITLE"))
-			end
+		if entryDesc and entryDesc ~= "" then
+			subtitle:SetText(entryDesc .. "\n\n" .. ns:L("MACROS_COPY_SUFFIX"))
+		elseif reason == "noutility" then
+			subtitle:SetText(ns:L("MACROS_ERR_NO_UTILITY"))
 		elseif def and def.subtitleKey then
 			subtitle:SetText(ns:L(def.subtitleKey))
+		else
+			subtitle:SetText(ns:L("MACROS_UTILITY_SUBTITLE"))
 		end
 	end
 
@@ -435,7 +460,7 @@ function ns.BuildInterruptMacrosPanel(panel)
 	end
 	panel._mhMacrosBuilt = true
 	panel._mhMacrosSelectedType = "interrupt"
-	panel._mhMacrosUtilityIndex = 1
+	panel._mhMacrosPickIndex = {}
 	if panel._body then
 		panel._body:Hide()
 	end

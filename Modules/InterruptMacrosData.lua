@@ -1,190 +1,65 @@
 --[[
-	Focus-based interrupt macros per class/spec ( Midnight Helper ).
+	Interrupt macros per class/spec ( Midnight Helper ).
 	Keys: WoW class file token (UnitClass select(2)) + specialization index (GetSpecialization()).
 	Spec indices match the client order for each class (same as GetSpecializationInfo index).
+
+	One interrupt spell per spec (false = no interrupt for that spec); macro bodies
+	are generated in two variants:
+	- Focus: kicks focus if it is a living enemy, else current target. Never modifies focus.
+	- Mouseover: kicks mouseover if it is a living enemy, else current target.
 ]]
 
 local addonName, ns = ...
 
-local M = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Mind Freeze
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Mind Freeze
-/target focus
-/clearfocus
-/startattack]]
-
-local D = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Disrupt
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Disrupt
-/target focus
-/clearfocus
-/startattack]]
-
-local SOLAR = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Solar Beam
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Solar Beam
-/target focus
-/clearfocus
-/startattack]]
-
-local SKULL = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Skull Bash
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Skull Bash
-/target focus
-/clearfocus
-/startattack]]
-
-local QUAKE = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Quell
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Quell
-/target focus
-/clearfocus
-/startattack]]
-
-local CS_HUNT = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Counter Shot
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Counter Shot
-/target focus
-/clearfocus
-/startattack]]
-
-local MUZZLE = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Muzzle
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Muzzle
-/target focus
-/clearfocus
-/startattack]]
-
-local CS_MAGE = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Counterspell
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Counterspell
-/target focus
-/clearfocus
-/startattack]]
-
-local SPEAR = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Spear Hand Strike
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Spear Hand Strike
-/target focus
-/clearfocus
-/startattack]]
-
-local REBUKE = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Rebuke
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Rebuke
-/target focus
-/clearfocus
-/startattack]]
-
-local SILENCE = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Silence
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Silence
-/target focus
-/clearfocus
-/startattack]]
-
-local KICK = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Kick
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Kick
-/target focus
-/clearfocus
-/startattack]]
-
-local WIND = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Wind Shear
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Wind Shear
-/target focus
-/clearfocus
-/startattack]]
-
-local COMMAND_DEMON = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Command Demon
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Command Demon
-/target focus
-/clearfocus
-/startattack]]
-
-local PUMMEL = [[#showtooltip
-/cast [@focus,exists,nodead,harm] Pummel
-/stopmacro [@focus,exists,nodead,harm]
-/focus target
-/cleartarget
-/targetenemy
-/cast Pummel
-/target focus
-/clearfocus
-/startattack]]
-
---- [classToken][specIndex] = macro body (empty string = no team macro for that spec).
-ns.InterruptMacrosByClassSpec = {
-	DEATHKNIGHT = { [1] = M, [2] = M, [3] = M },
-	DEMONHUNTER = { [1] = D, [2] = D },
-	DRUID = { [1] = SOLAR, [2] = SKULL, [3] = SKULL, [4] = SKULL },
+local SPELLS = {
+	DEATHKNIGHT = { [1] = "Mind Freeze", [2] = "Mind Freeze", [3] = "Mind Freeze" },
+	DEMONHUNTER = { [1] = "Disrupt", [2] = "Disrupt" },
+	DRUID = { [1] = "Solar Beam", [2] = "Skull Bash", [3] = "Skull Bash", [4] = "Skull Bash" },
 	--- Devastation, Preservation, Augmentation (client spec order).
-	EVOKER = { [1] = QUAKE, [2] = QUAKE, [3] = QUAKE },
-	HUNTER = { [1] = CS_HUNT, [2] = CS_HUNT, [3] = MUZZLE },
-	MAGE = { [1] = CS_MAGE, [2] = CS_MAGE, [3] = CS_MAGE },
-	MONK = { [1] = SPEAR, [2] = SPEAR, [3] = SPEAR },
-	PALADIN = { [1] = REBUKE, [2] = REBUKE, [3] = REBUKE },
-	PRIEST = { [1] = "", [2] = "", [3] = SILENCE },
-	ROGUE = { [1] = KICK, [2] = KICK, [3] = KICK },
-	SHAMAN = { [1] = WIND, [2] = WIND, [3] = WIND },
-	WARLOCK = { [1] = COMMAND_DEMON, [2] = COMMAND_DEMON, [3] = COMMAND_DEMON },
-	WARRIOR = { [1] = PUMMEL, [2] = PUMMEL, [3] = PUMMEL },
+	EVOKER = { [1] = "Quell", [2] = "Quell", [3] = "Quell" },
+	HUNTER = { [1] = "Counter Shot", [2] = "Counter Shot", [3] = "Muzzle" },
+	MAGE = { [1] = "Counterspell", [2] = "Counterspell", [3] = "Counterspell" },
+	MONK = { [1] = "Spear Hand Strike", [2] = "Spear Hand Strike", [3] = "Spear Hand Strike" },
+	PALADIN = { [1] = "Rebuke", [2] = "Rebuke", [3] = "Rebuke" },
+	PRIEST = { [1] = false, [2] = false, [3] = "Silence" },
+	ROGUE = { [1] = "Kick", [2] = "Kick", [3] = "Kick" },
+	SHAMAN = { [1] = "Wind Shear", [2] = "Wind Shear", [3] = "Wind Shear" },
+	WARLOCK = { [1] = "Command Demon", [2] = "Command Demon", [3] = "Command Demon" },
+	WARRIOR = { [1] = "Pummel", [2] = "Pummel", [3] = "Pummel" },
 }
+
+ns.InterruptSpellsByClassSpec = SPELLS
+
+local FOCUS_FMT = "#showtooltip\n/cast [@focus,harm,nodead][] %s"
+local MOUSEOVER_FMT = "#showtooltip\n/cast [@mouseover,harm,nodead][] %s"
+
+--- Returns the interrupt spell name for the spec, or nil if none.
+function ns.MH_GetInterruptSpell(token, specIdx)
+	local t = token and SPELLS[token]
+	local spell = t and t[specIdx]
+	if not spell or spell == "" then
+		return nil
+	end
+	return spell
+end
+
+--- Returns a list of { name, desc, macro } variants, or nil if the spec has no interrupt.
+--- Built per call so names/descriptions follow the active locale.
+function ns.MH_GetInterruptMacroVariants(token, specIdx)
+	local spell = ns.MH_GetInterruptSpell(token, specIdx)
+	if not spell then
+		return nil
+	end
+	return {
+		{
+			name = ns:L("MACROS_INTERRUPT_VARIANT_FOCUS"),
+			desc = ns:L("MACROS_INTERRUPT_DESC_FOCUS"),
+			macro = FOCUS_FMT:format(spell),
+		},
+		{
+			name = ns:L("MACROS_INTERRUPT_VARIANT_MOUSEOVER"),
+			desc = ns:L("MACROS_INTERRUPT_DESC_MOUSEOVER"),
+			macro = MOUSEOVER_FMT:format(spell),
+		},
+	}
+end
