@@ -19,6 +19,7 @@ All notable changes to this project are documented in this file.
 - **Vault Reminder:** after claiming vault rewards, the reminder button clears immediately for the logged-in character (live `C_WeeklyRewards.HasAvailableRewards` is authoritative; stale snapshot no longer keeps "ready").
 - **Alt Overview:** characters without a vault snapshot timestamp (`ts == 0`) no longer show a false "likely claim" status.
 - **Consumables:** fixed mistranslated spec-cycle hint in German, French, Spanish, and Brazilian Portuguese (`CONS_SPEC_HINT`; German had literally "bicycle specifications").
+- **Toolbox — Professions — Generate Treasures/Books:** TomTom arrow now points at the nearest pin on the route (not the farthest) and is re-asserted after loading screens and zone changes (debounced; travel UI suppressed on quiet reruns).
 
 ### Improved
 
