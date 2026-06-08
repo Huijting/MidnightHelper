@@ -240,8 +240,9 @@ local MH_BETA_TAB_IDS = {
 -- buttons do not exist yet (home, ritual) are skipped during layout, which
 -- reserves their slot for later phases without breaking the current build.
 local SIDEBAR_SECTIONS = {
-	-- Home leads: it is the default/fallback tab (SelectTab), so it sits on top.
-	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "codex", "delves", "rares", "world" } },
+	-- Start Here leads for new players; Home remains the default/fallback tab in
+	-- SelectTab (sidebar order is independent of that fallback).
+	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "starthere", "home", "codex", "delves", "rares", "world" } },
 	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "toolbox" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
@@ -1308,6 +1309,7 @@ end
 -- Tab configuration: order = display order in the sidebar
 --------------------------------------------------------------------------------
 local TAB_DEFS = {
+	{ id = "starthere", labelKey = "TAB_START_HERE" },
 	{ id = "codex", labelKey = "TAB_CODEX" },
 	{ id = "home", labelKey = "TAB_HOME" },
 	{ id = "delves", labelKey = "TAB_DELVES" },
@@ -1821,6 +1823,8 @@ function ns:EnsureMainUI()
 				ns.BuildWorldPanel(panel)
 			elseif tab.id == "delvelog" and ns.BuildDelveLogPanel then
 				ns.BuildDelveLogPanel(panel)
+			elseif tab.id == "starthere" and ns.BuildStartHerePanel then
+				ns.BuildStartHerePanel(panel)
 			end
 		end
 	end
@@ -2414,6 +2418,9 @@ SelectTab = function(tabId)
 	end
 	if tabId == "delvelog" and ns.RefreshDelveLogPanel then
 		ns.RefreshDelveLogPanel()
+	end
+	if tabId == "starthere" and ns.RefreshStartHerePanel then
+		ns.RefreshStartHerePanel()
 	end
 
 	if tabId == "delves" then
