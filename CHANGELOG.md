@@ -62,6 +62,7 @@ All notable changes to this project are documented in this file.
 - **Toolbox — Professions Hub:** **This week** block on Overview (trainer weekly quest flag per known profession, Enchanting disenchant mat bag counts).
 - **Toolbox — Professions Hub:** Tree Advisor v2 — per-character advice goal (Allround / Gold / Self-sufficient) with goal-specific routes and hover tooltips on the goal buttons.
 - **Toolbox — Professions Hub:** trainer weekly unlock hint when not yet available; optional accessory-slot tip on Overview (slots 21/22/24/25).
+- **Void & Rituals — Ritual Coach:** scenario tips and challenge picker with live unlock status (sorted by Spoils; `IsPlayerSpell` on obelisk spells).
 
 ### Fixed
 

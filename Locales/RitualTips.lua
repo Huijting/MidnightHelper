@@ -46,6 +46,14 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	RITUAL_CHAL_PATROLS = "Patrols",
 	RITUAL_CHAL_EMBERS = "Embers",
 
+	-- Coach UI labels (fase 2) -----------------------------------------------
+	RITUAL_COACH_HEADER = "Ritual Coach",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — pick at Tier 3+ (highest Spoils first)",
+	RITUAL_COACH_ACTIVE_FMT = "This week's site: %s",
+	RITUAL_COACH_ACTIVE_UNKNOWN = "Active site not detected yet — general tips below.",
+	RITUAL_COACH_STATUS_UNLOCKED = "unlocked",
+	RITUAL_COACH_STATUS_LOCKED = "locked",
+
 	-- Intro / how it works ---------------------------------------------------
 	RITUAL_TIP_INTRO_TIERS = "• Pick Tier 1-5 at the Curious Obelisk; clear each tier to unlock the next.|n• Tier 3 needs 1 challenge active, Tier 4 needs 2, Tier 5 needs 4.|n• Higher tiers give more Spoils and renown (each tier also has a minimum item level — values to confirm in-game).",
 	RITUAL_TIP_INTRO_SCORING = "• Spoils are your score; the Ritual Chest at the end scales with them.|n• Deaths: the first 2 are free, then every death cuts Spoils by 5%, up to a maximum of -50%.|n• Clean clears beat fast pulls — dying costs rewards directly.",
@@ -105,6 +113,14 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	RITUAL_CHAL_REINFORCED = "Reinforced",
 	RITUAL_CHAL_PATROLS = "Patrols",
 	RITUAL_CHAL_EMBERS = "Embers",
+
+	-- Coach UI-labels (fase 2) -----------------------------------------------
+	RITUAL_COACH_HEADER = "Ritual Coach",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — kies vanaf Tier 3 (hoogste Spoils eerst)",
+	RITUAL_COACH_ACTIVE_FMT = "Site van deze week: %s",
+	RITUAL_COACH_ACTIVE_UNKNOWN = "Actieve site nog niet gedetecteerd — algemene tips hieronder.",
+	RITUAL_COACH_STATUS_UNLOCKED = "ontgrendeld",
+	RITUAL_COACH_STATUS_LOCKED = "vergrendeld",
 
 	-- Intro / hoe het werkt --------------------------------------------------
 	RITUAL_TIP_INTRO_TIERS = "• Kies Tier 1-5 bij de Curious Obelisk; elke tier moet gecleard zijn om de volgende te ontgrendelen.|n• Tier 3 vereist 1 actieve challenge, Tier 4 vereist er 2, Tier 5 vereist er 4.|n• Hogere tiers geven meer Spoils en renown (elke tier heeft ook een minimum item level — waarden nog in-game bevestigen).",

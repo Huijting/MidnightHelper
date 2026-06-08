@@ -71,6 +71,7 @@ Modules\WorldBoss.lua
 Modules\Rares.lua
 Modules\RitualSites.lua
 Modules\RitualCoachData.lua
+Modules\RitualCoach.lua
 Modules\ProfessionAcademyData.lua
 Modules\ProfessionAcademy.lua
 Modules\ProfessionsHub.lua

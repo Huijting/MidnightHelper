@@ -261,6 +261,43 @@ function ns.RefreshWorldPanel()
 		end
 	end
 
+	------------------------------------------------------------- Ritual Coach
+	if ui.coachHeader then
+		local entry = ns.GetRitualCoachActiveSiteEntry and ns.GetRitualCoachActiveSiteEntry() or nil
+		if entry then
+			ui.coachActiveFs:SetText(ns:L("RITUAL_COACH_ACTIVE_FMT"):format(ns:L(entry.nameKey)))
+			ui.coachActiveFs:SetTextColor(COLOR_WARN[1], COLOR_WARN[2], COLOR_WARN[3])
+			-- Site sections: [1]=overview (shown in the block above), [2]=phases,
+			-- [3]=notes. Show scenario + site notes here (overview is redundant).
+			local phasesKey = entry.sections and entry.sections[2] and entry.sections[2].bodyKey
+			local notesKey = entry.sections and entry.sections[3] and entry.sections[3].bodyKey
+			if phasesKey then
+				ui.coachPhasesFs:SetText(ns:L(phasesKey))
+				ui.coachPhasesFs:Show()
+			else
+				ui.coachPhasesFs:Hide()
+			end
+			if notesKey then
+				ui.coachNotesFs:SetText(ns:L(notesKey))
+				ui.coachNotesFs:Show()
+			else
+				ui.coachNotesFs:Hide()
+			end
+		else
+			ui.coachActiveFs:SetText(ns:L("RITUAL_COACH_ACTIVE_UNKNOWN"))
+			ui.coachActiveFs:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+			ui.coachPhasesFs:Hide()
+			ui.coachNotesFs:Hide()
+		end
+
+		for _, row in ipairs(ui.coachChalRows) do
+			row.titleFs:SetText(ns.BuildRitualChallengeTitle and ns.BuildRitualChallengeTitle(row.challenge) or "")
+			-- "How to unlock" only matters while it is still locked.
+			local unlocked = ns.IsRitualChallengeUnlocked and ns.IsRitualChallengeUnlocked(row.challenge)
+			row.unlockFs:SetShown(not unlocked)
+		end
+	end
+
 	Relayout()
 end
 
@@ -387,6 +424,60 @@ function ns.BuildWorldPanel(panel)
 		push(fs, (i == 1) and 8 or 5, 0)
 	end
 
+	-- Ritual Coach section (fase 2): active-site scenario/notes, a short "how it
+	-- works", and the challenge picker with live unlock state + Spoils %. Text is
+	-- swapped per active site / unlock state in RefreshWorldPanel.
+	ui.coachHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
+	ui.coachHeader:SetText(ns:L("RITUAL_COACH_HEADER"))
+	push(ui.coachHeader, 16, 0)
+
+	ui.coachActiveFs = MakeFS(child, "GameFontHighlightSmall", COLOR_WARN)
+	push(ui.coachActiveFs, 6, 0)
+	ui.coachPhasesFs = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	push(ui.coachPhasesFs, 4, 8)
+	ui.coachNotesFs = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	push(ui.coachNotesFs, 4, 8)
+
+	ui.coachIntroHeader = MakeFS(child, "GameFontHighlightSmall", COLOR_ACCOLADE)
+	ui.coachIntroHeader:SetText(ns:L("RITUAL_COACH_INTRO_NAME"))
+	push(ui.coachIntroHeader, 8, 0)
+	ui.coachStatic = {}
+	if ns.RITUAL_COACH_INTRO and ns.RITUAL_COACH_INTRO.sections then
+		for _, sec in ipairs(ns.RITUAL_COACH_INTRO.sections) do
+			local fs = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+			fs._mhBodyKey = sec.bodyKey
+			fs:SetText(ns:L(sec.bodyKey))
+			ui.coachStatic[#ui.coachStatic + 1] = fs
+			push(fs, 4, 8)
+		end
+	end
+
+	ui.coachChalHeader = MakeFS(child, "GameFontHighlightSmall", COLOR_ACCOLADE)
+	ui.coachChalHeader:SetText(ns:L("RITUAL_COACH_CHALLENGES_HEADER"))
+	push(ui.coachChalHeader, 10, 0)
+	ui.coachChalRows = {}
+	local chals = ns.GetRitualChallengesForDisplay and ns.GetRitualChallengesForDisplay() or {}
+	for i = 1, #chals do
+		local c = chals[i]
+		local titleFs = MakeFS(child, "GameFontHighlightSmall")
+		push(titleFs, 8, 0)
+		local mechKey = c.sections and c.sections[1] and c.sections[1].bodyKey
+		local mechFs = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+		if mechKey then
+			mechFs._mhBodyKey = mechKey
+			mechFs:SetText(ns:L(mechKey))
+		end
+		push(mechFs, 2, 12)
+		local unlockKey = c.sections and c.sections[2] and c.sections[2].bodyKey
+		local unlockFs = MakeFS(child, "GameFontDisableSmall", COLOR_SOFT)
+		if unlockKey then
+			unlockFs._mhBodyKey = unlockKey
+			unlockFs:SetText(ns:L(unlockKey))
+		end
+		push(unlockFs, 2, 12)
+		ui.coachChalRows[i] = { challenge = c, titleFs = titleFs, mechFs = mechFs, unlockFs = unlockFs }
+	end
+
 	-- Void Assaults section.
 	ui.voidHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
 	ui.voidHeader:SetText(ns:L("HOME_SECTION_VOID"))
@@ -502,6 +593,24 @@ do
 			ui.sdPortalBtn:SetText(ns:L("SHOWDOWNS_BTN_PORTAL"))
 			for _, fs in ipairs(ui.infoLines) do
 				fs:SetText("• " .. ns:L(fs._mhKey))
+			end
+			if ui.coachHeader then
+				ui.coachHeader:SetText(ns:L("RITUAL_COACH_HEADER"))
+				ui.coachIntroHeader:SetText(ns:L("RITUAL_COACH_INTRO_NAME"))
+				ui.coachChalHeader:SetText(ns:L("RITUAL_COACH_CHALLENGES_HEADER"))
+				for _, fs in ipairs(ui.coachStatic) do
+					if fs._mhBodyKey then
+						fs:SetText(ns:L(fs._mhBodyKey))
+					end
+				end
+				for _, row in ipairs(ui.coachChalRows) do
+					if row.mechFs._mhBodyKey then
+						row.mechFs:SetText(ns:L(row.mechFs._mhBodyKey))
+					end
+					if row.unlockFs._mhBodyKey then
+						row.unlockFs:SetText(ns:L(row.unlockFs._mhBodyKey))
+					end
+				end
 			end
 		end
 		if ui and ui.panel and ui.panel:IsShown() then

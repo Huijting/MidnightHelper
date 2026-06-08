@@ -821,6 +821,133 @@ shortest-hop Generate-routes, This week-blok, Showdown-checklist-regel
 
 ## Open / volgende stappen
 
+0b. **💡 Ritual Coach (Rob-idee, 7 juni — nog niet bouwen, eerst denken):**
+    Delve Coach-patroon maar voor Rituals. Ontwerpschets:
+    - **Hergebruik:** `RitualSites.lua` bestaat al (site-tracking);
+      DelveTips/DelveTipMarkup/DelvePartyShare + ShareSync v2 zijn het
+      bewezen patroon — share-infra evt. generaliseren (payload krijgt
+      content-type: "delve"|"ritual", zelfde prefix, zelfde
+      locale-rendering).
+    - **Content is grotendeels online te researchen** (Rob checkte dit):
+      wowhead.com/guide/midnight/ritual-sites-challenges-locations-rewards
+      + Icy Veins. Structuur: Curious Obelisk-entry, Tier 1-5, 8 Challenges
+      (modifiers vanaf Tier 3, elk met eigen mechanic — perfecte
+      tip-eenheden), fases trash → mini-boss → boss, Spoils-multiplier,
+      wekelijkse rotatie Eversong/Zul'Aman. Te bouwen als research-batch
+      (zoals de prof-hoofdstukken); Rob verifieert in-game en levert de
+      praktijk-nuances.
+    - **UI:** sub-tab of sectie in Void & Rituals-tab (waar de
+      Ritual-content al leeft), Coach-balk met share-knoppen zoals de
+      Delve Coach.
+    - **Locale-structuur:** RITUAL_CHAT_<ID>_<SECTIE>-keys zodat de
+      vertaalde ontvangst (v2) gratis meewerkt.
+    Eerst: inventariseren welke rituals er zijn + wat RitualSites al weet.
+    - **8 juni — designplan geschreven: `docs/RITUAL_COACH_PLAN.md`.**
+      Inventaris (RitualSites.lua kent al sites/weekly/currency/renown/TomTom,
+      mist alle content) + research (Blizzard-post + 5 guides): 2 roterende
+      sites, Curious Obelisk, Tier 1-5 (3/4/5 vereisen 1/2/4 challenges),
+      8 challenges als tip-eenheden, deaths −5%/max −50%, weekly tier-decay,
+      renown-track. Datamodel-voorstel (site- + challenge-tabellen, gespiegeld
+      op DELVE_TIP_ENTRIES), share-infra-keuze (parallel `MHRitual` nu vs.
+      generaliseren later), 5-fasen-voorstel. **8 open in-game-verificaties**
+      voor Rob (Spoils-% per challenge — bronnen conflicteren, tier-ilvls,
+      challenge-unlock-quest-IDs, 2e currency-naam/ID, scenario-variatie,
+      coords, Dark-Obelisk-locaties Zul'Aman, bossnamen).
+    - **8 juni — FASE 1 GEBOUWD (data + EN/NL, geen UI).** Nieuw:
+      `Modules/RitualCoachData.lua` (intro + 2 site-entries via `siteKey` →
+      `RitualSites.SITES`, geen dubbele coords; 8 challenge-entries met
+      `spoilsPct`/`spellId`/`iconId`; lookups `ns.GetRitualChallengeById` /
+      `ns.GetRitualSiteEntryByKey`) + `Locales/RitualTips.lua` (enUS+nlNL,
+      26 body-keys ×2, andere 4 talen vallen terug op EN zoals DelveTips) +
+      2 TOC-regels (Locales\RitualTips na DelveTips; Modules\RitualCoachData
+      na RitualSites).
+    - **Robs obelisk-screenshots (Daggerspine) verifiëren live:** Spoils-%
+      = Blizzard-waarden (10/15/13/20/10/15/15/25 voor Tendrils/Manif/
+      AlarmBells/MalBoons/Tainted/Reinforced/Patrols/Embers), Spell+Icon-IDs
+      geoogst, 2e currency = **Voidlight Marl**, scenario "A Strike From the
+      Sea" / antagonist **Selen'vjar**. **Belangrijk voor fase 4:** challenge-
+      unlock-tracking via `IsPlayerSpell(spellId)` (geleerd="Right click to
+      unlearn"), niet via quest-flags — schoner dan de prof-flag-aanpak.
+    - Syntax: v1-validatie draaide vólledig schoon (parse + alle keys resolven
+      EN/NL + siteKeys matchen RitualSites); edits daarna host-Read-geverifieerd.
+      Mount serveerde bij de hervalidatie een stale/afgekapte kopie (140 r. ipv
+      143, byte-count van de eerste write) → bekende truncatie-false-positive.
+      **Cursor: draai zelf luacheck/loadfile op RitualCoachData.lua +
+      RitualTips.lua vóór commit.**
+    - **Open (geen blokker):** tier-ilvls, Selen'vjar-eindboss-kill, 2e
+      Daggerspine-scenario?, Broken-Throne-content (volgende rotatie),
+      Voidlight-Marl-currency-ID. Details in `docs/RITUAL_COACH_PLAN.md`.
+    - **8 juni — FASE 2 GEBOUWD: Coach-blok in Void & Rituals-tab.** Nieuw
+      `Modules/RitualCoach.lua` (pure logica, spiegelt RitualSites↔WorldContent-
+      split): `ns.IsRitualChallengeUnlocked` (IsPlayerSpell→IsSpellKnown,
+      pcall, fail-safe "locked"), `ns.GetRitualChallengesForDisplay` (gesorteerd
+      op spoilsPct desc), `ns.RitualChallengeIconMarkup` (`|T<iconId>:14|t`),
+      `ns.BuildRitualChallengeTitle` (icon+naam+`+X% Spoils`+status, ready-check-
+      texture voor unlocked — géén ✓-blokje), `ns.GetRitualCoachActiveSiteEntry`.
+      `WorldContent.lua`: Coach-sectie ná de ritual-info-regels — actieve-site-
+      regel + scenario(PHASES)+site-notes(NOTES), "How it works" (4 intro-regels),
+      en de challenge-picker (8 regels: titel+mechanic, unlock-regel alleen als
+      vergrendeld). Refresh in RefreshWorldPanel (active-site-tekst + titels +
+      unlock-show), taal-refresh in RefreshLocaleUI. 6 nieuwe coach-UI-keys ×2
+      (RITUAL_COACH_HEADER/_CHALLENGES_HEADER/_ACTIVE_FMT/_ACTIVE_UNKNOWN/
+      _STATUS_UNLOCKED/_STATUS_LOCKED). TOC: `Modules\RitualCoach.lua` na
+      RitualCoachData.
+    - **Validatie:** RitualCoach.lua parse't schoon (mount vers); coach-logica
+      stub-getest (sort Embers25>MalBoons20>Tendrils10 ✓, unlock via IsPlayerSpell
+      true/false + nil-safe ✓, icon-markup ✓, titel-build ✓, active-site-lookup ✓).
+      **Mount blijft bevroren op pre-edit kopieën** van RitualCoachData/RitualTips/
+      WorldContent (stale byte-counts, mid-bestand afgekapt) → texlua-parse daarop
+      = bekende false-positive; host-bestanden via Read compleet geverifieerd
+      (einden + inserts balanced). **Cursor: luacheck/loadfile op RitualCoach.lua,
+      WorldContent.lua, RitualCoachData.lua, RitualTips.lua vóór commit.**
+    - **In-game test (Rob) — kernpunt:** Void & Rituals → nieuw "Ritual Coach"-
+      blok; challenge-lijst gesorteerd op Spoils met de echte icoontjes; **de 4
+      die jij geleerd hebt (Embers/MalBoons/Reinforced/Patrols) tonen "✓
+      unlocked", de andere 4 "(locked)" + unlock-uitleg** — dit bevestigt of
+      `IsPlayerSpell(spellId)` de juiste API is (zo niet: alles toont locked →
+      omschakelen). Verder: actieve-site-regel + scenario/notes kloppen, taal
+      wisselen vertaalt labels, icoontjes renderen (geen vraagtekens).
+    - **Volgende:** fase 3 (share-knoppen, parallel `MHRitual`-sync) op akkoord.
+
+### Losse fix 8 juni — Generate Treasures: geen TomTom-pijl
+
+Rob: na "Generate Treasures" verscheen er geen (bruikbare) TomTom-pijl.
+Oorzaak: `RunTomTomGenerate` in `Profession.lua` gaf de 6e arg `skipCrazyArrow`
+**niet** mee aan `ns.AddSmartTomTomWay` → `crazy=true` + `SetCrazyArrow` op álle
+pins → TomTom verplaatst de pijl steeds naar de laatst-toegevoegde = de vérste
+pin (vaak andere zone), dus geen pijl naar de eerste stop. Daarnaast stond
+`skipTravelUI` omgekeerd (`i < nPins`, laatste pin i.p.v. eerste). **Fix:**
+gespiegeld op het bewezen `Rares.lua`-patroon — `skipTravelUI = i > 1` en
+`skipCrazyArrow = i > 1`, zodat alleen pin 1 (start van de greedy route) de pijl
++ reis-UI krijgt. `nPins`-local verwijderd (was alleen voor de oude regel).
+Bestand: `Modules/Profession.lua` ~1091-1101. Eén-regel-changelog waard.
+
+**Vervolg (Rob: pijl verdween na vlucht naar SWC):** TomTom's crazy-arrow is
+vluchtig en valt weg op een loading-screen. Toegevoegd: **re-assert-na-loading-
+screen** voor de treasure/book-route. `RunTomTomGenerate` kreeg een `quiet`-param
+en onthoudt de laatste route in een SetupProfessionModule-local `activeRoute`
+(eligible>0 → set, anders nil). Nieuwe `ns._mhTreasureReassertFrame`
+(PLAYER_ENTERING_WORLD, 1.5s-delay, guard `activeRoute == route`, alleen als
+TomTom ready) draait de generate stil opnieuw → route + pijl-op-dichtstbijzijnde
+overleeft vluchten. Reset op /reload (module-local), stopt vanzelf als alle pins
+verzameld zijn. Patroon zoals RitualSites ReassertRouteAfterRevive.
+`nPins`-local verwijderd. **Rob test na relog;** Cursor: luacheck (mount gaf
+truncatie-false-positive op Profession.lua; host via Read compleet geverifieerd).
+
+### Fase 2 Ritual Coach — in-game ✅ (Rob, 8 juni)
+
+Void & Rituals toont het Coach-blok perfect: actieve site + scenario (A Strike
+From the Sea/Selen'vjar) + site-notes, "How it works", en de challenge-lijst
+gesorteerd op Spoils met echte icoontjes + live unlock-status. **`IsPlayerSpell`
+werkt**: 5 unlocked (Embers/MalBoons/Manifestations/Patrols/Reinforced), 3 locked
+(Alarm Bells/Tainted/Tendrils) met unlock-uitleg. **Open never-lie-check:**
+Manifestations toont unlocked terwijl de eerdere obelisk-shot 'm op "Rank 0/1
+Click to learn" had — waarschijnlijk sindsdien geleerd; Rob bevestigt of de
+Coach-lijst 1-op-1 matcht met de obelisk (zo niet → IsPlayerSpell false-positive,
+detectie omschakelen). Daarna fase 3 (share, parallel MHRitual-sync).
+
+## Open / volgende stappen (vervolg)
+
 0a. **✅ Delve-share v2 (commit `a77fd44`) — klaar voor CF-release.** Nog
     open vóór release: solo-testmodus-check (blauw "(test)"-blok) en echte
     cross-locale-ontvangst zodra twee spelers de nieuwe versie draaien.
