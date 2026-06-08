@@ -25,6 +25,7 @@ Locales\GuideGroups.lua
 Locales\GuideAdvisor.lua
 Locales\DelveTips.lua
 Locales\RitualTips.lua
+Locales\StartHere.lua
 Locales\Codex.lua
 Locales\Locale.lua
 Modules\DelveTipsData.lua
@@ -72,6 +73,9 @@ Modules\Rares.lua
 Modules\RitualSites.lua
 Modules\RitualCoachData.lua
 Modules\RitualCoach.lua
+Modules\RitualShare.lua
+Modules\RitualShareSync.lua
+Modules\StartHere.lua
 Modules\ProfessionAcademyData.lua
 Modules\ProfessionAcademy.lua
 Modules\ProfessionsHub.lua

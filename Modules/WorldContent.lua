@@ -153,6 +153,18 @@ function ns.RefreshWorldPanel()
 		ui.ritualWeeklyFs:SetTextColor(COLOR_SOFT[1], COLOR_SOFT[2], COLOR_SOFT[3])
 	end
 
+	-- Why isn't the weekly done? (locked / pick-up-at-hub / in-progress). Hidden
+	-- when done or when the state can't be read (never lie).
+	if ui.ritualWeeklyHintFs then
+		local hint = ns.GetRitualWeeklyHint and ns.GetRitualWeeklyHint()
+		if hint and hint ~= "" then
+			ui.ritualWeeklyHintFs:SetText("→ " .. hint)
+			ui.ritualWeeklyHintFs:Show()
+		else
+			ui.ritualWeeklyHintFs:Hide()
+		end
+	end
+
 	for _, btn in ipairs(ui.siteButtons) do
 		local site = btn._mhSite
 		local isActive = activeSite and activeSite.key == site.key
@@ -292,9 +304,9 @@ function ns.RefreshWorldPanel()
 
 		for _, row in ipairs(ui.coachChalRows) do
 			row.titleFs:SetText(ns.BuildRitualChallengeTitle and ns.BuildRitualChallengeTitle(row.challenge) or "")
-			-- "How to unlock" only matters while it is still locked.
-			local unlocked = ns.IsRitualChallengeUnlocked and ns.IsRitualChallengeUnlocked(row.challenge)
-			row.unlockFs:SetShown(not unlocked)
+			-- "How to unlock" is always-true reference; personal unlock state isn't
+			-- readable (the obelisk learn/unlearn is per-run selection, not unlock).
+			row.unlockFs:Show()
 		end
 	end
 
@@ -400,6 +412,8 @@ function ns.BuildWorldPanel(panel)
 	push(ui.ritualNextFs, 2, 0)
 	ui.ritualWeeklyFs = MakeFS(child, "GameFontHighlightSmall")
 	push(ui.ritualWeeklyFs, 4, 0)
+	ui.ritualWeeklyHintFs = MakeFS(child, "GameFontDisableSmall", COLOR_DIM)
+	push(ui.ritualWeeklyHintFs, 2, 8)
 
 	local sites = ns.GetRitualSites and ns.GetRitualSites() or {}
 	for i = 1, #sites do
@@ -477,6 +491,15 @@ function ns.BuildWorldPanel(panel)
 		push(unlockFs, 2, 12)
 		ui.coachChalRows[i] = { challenge = c, titleFs = titleFs, mechFs = mechFs, unlockFs = unlockFs }
 	end
+
+	-- Share challenge tips to party/instance chat (fase 3, RitualShare.lua).
+	ui.coachShareBtn = MakeButton(child, function()
+		if ns.SendRitualShare then
+			ns.SendRitualShare("challenges", "all")
+		end
+	end)
+	ui.coachShareBtn:SetText(ns:L("RITUAL_COACH_SHARE_BTN"))
+	push(ui.coachShareBtn, 8, 0, true)
 
 	-- Void Assaults section.
 	ui.voidHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
@@ -598,6 +621,9 @@ do
 				ui.coachHeader:SetText(ns:L("RITUAL_COACH_HEADER"))
 				ui.coachIntroHeader:SetText(ns:L("RITUAL_COACH_INTRO_NAME"))
 				ui.coachChalHeader:SetText(ns:L("RITUAL_COACH_CHALLENGES_HEADER"))
+				if ui.coachShareBtn then
+					ui.coachShareBtn:SetText(ns:L("RITUAL_COACH_SHARE_BTN"))
+				end
 				for _, fs in ipairs(ui.coachStatic) do
 					if fs._mhBodyKey then
 						fs:SetText(ns:L(fs._mhBodyKey))

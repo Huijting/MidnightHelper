@@ -54,6 +54,25 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	RITUAL_COACH_STATUS_UNLOCKED = "unlocked",
 	RITUAL_COACH_STATUS_LOCKED = "locked",
 
+	-- Share (fase 3)
+	RITUAL_COACH_SHARE_BTN = "Share challenge tips to group",
+	RITUAL_SHARE_CHALLENGES_HEADER = "Ritual challenges by Spoils:",
+	RITUAL_SHARE_XLOC_HEADER_FMT = "%s shared Ritual challenge tips:",
+	RITUAL_SHARE_CONFIRM_FMT = "Post %d lines of Ritual challenge tips to your group?",
+	RITUAL_SHARE_SENT_FMT = "Shared %d line(s) to %s.",
+	RITUAL_SHARE_SENT_TEST_FMT = "Shared %d line(s) (test mode).",
+	RITUAL_SHARE_NO_GROUP = "Join a party or raid to share these tips (or turn on share test mode).",
+	RITUAL_SHARE_COMBAT = "Can't share while in combat.",
+	RITUAL_SHARE_COOLDOWN = "Sharing is on cooldown — try again shortly.",
+	RITUAL_SHARE_BUSY = "A share is already in progress.",
+	RITUAL_SHARE_FAILED = "Couldn't build the challenge tips.",
+
+	-- Weekly hint (why the Ritual weekly isn't done yet)
+	RITUAL_WEEKLY_HINT_LOCKED_FMT = "Locked: %s",
+	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Locked — unlock Ritual Sites via the intro questline in Silvermoon.",
+	RITUAL_WEEKLY_HINT_PICKUP = "Not picked up yet — grab this week's weekly at the Bazaar hub in Silvermoon.",
+	RITUAL_WEEKLY_HINT_INPROGRESS = "It's in your quest log — finish it and turn it in.",
+
 	-- Intro / how it works ---------------------------------------------------
 	RITUAL_TIP_INTRO_TIERS = "• Pick Tier 1-5 at the Curious Obelisk; clear each tier to unlock the next.|n• Tier 3 needs 1 challenge active, Tier 4 needs 2, Tier 5 needs 4.|n• Higher tiers give more Spoils and renown (each tier also has a minimum item level — values to confirm in-game).",
 	RITUAL_TIP_INTRO_SCORING = "• Spoils are your score; the Ritual Chest at the end scales with them.|n• Deaths: the first 2 are free, then every death cuts Spoils by 5%, up to a maximum of -50%.|n• Clean clears beat fast pulls — dying costs rewards directly.",
@@ -121,6 +140,25 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	RITUAL_COACH_ACTIVE_UNKNOWN = "Actieve site nog niet gedetecteerd — algemene tips hieronder.",
 	RITUAL_COACH_STATUS_UNLOCKED = "ontgrendeld",
 	RITUAL_COACH_STATUS_LOCKED = "vergrendeld",
+
+	-- Share (fase 3)
+	RITUAL_COACH_SHARE_BTN = "Deel challenge-tips met groep",
+	RITUAL_SHARE_CHALLENGES_HEADER = "Ritual-challenges op Spoils:",
+	RITUAL_SHARE_XLOC_HEADER_FMT = "%s deelde Ritual-challenge-tips:",
+	RITUAL_SHARE_CONFIRM_FMT = "%d regels Ritual-challenge-tips in je groep posten?",
+	RITUAL_SHARE_SENT_FMT = "%d regel(s) gedeeld naar %s.",
+	RITUAL_SHARE_SENT_TEST_FMT = "%d regel(s) gedeeld (testmodus).",
+	RITUAL_SHARE_NO_GROUP = "Sluit je aan bij een party of raid om te delen (of zet share-testmodus aan).",
+	RITUAL_SHARE_COMBAT = "Kan niet delen tijdens gevecht.",
+	RITUAL_SHARE_COOLDOWN = "Delen heeft cooldown — probeer zo opnieuw.",
+	RITUAL_SHARE_BUSY = "Er loopt al een share.",
+	RITUAL_SHARE_FAILED = "Kon de challenge-tips niet opbouwen.",
+
+	-- Weekly hint (waarom de Ritual-weekly nog niet gedaan is)
+	RITUAL_WEEKLY_HINT_LOCKED_FMT = "Gegrendeld: %s",
+	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Gegrendeld — ontgrendel Ritual Sites via de intro-questlijn in Silvermoon.",
+	RITUAL_WEEKLY_HINT_PICKUP = "Nog niet opgepakt — haal de weekly bij de Bazaar-hub in Silvermoon.",
+	RITUAL_WEEKLY_HINT_INPROGRESS = "Staat in je questlog — afmaken en inleveren.",
 
 	-- Intro / hoe het werkt --------------------------------------------------
 	RITUAL_TIP_INTRO_TIERS = "• Kies Tier 1-5 bij de Curious Obelisk; elke tier moet gecleard zijn om de volgende te ontgrendelen.|n• Tier 3 vereist 1 actieve challenge, Tier 4 vereist er 2, Tier 5 vereist er 4.|n• Hogere tiers geven meer Spoils en renown (elke tier heeft ook een minimum item level — waarden nog in-game bevestigen).",
