@@ -819,9 +819,26 @@ shortest-hop Generate-routes, This week-blok, Showdown-checklist-regel
   Ench-advies Allround=Shatterer vs Gold=Elevating); keuze blijft bewaard
   na /reload en is per character; hoofdstuk 2-advies volgt mee.
 
+## Voor Cursor — review + commit batch 8 juni avond (commits `0f0bb61` / `c0643d1` / `a2eb2a7`)
+
+Voorgestelde opdeling in 3 commits:
+
+1. **Ritual Coach fase 1:** `RitualCoachData.lua`, `Locales/RitualTips.lua`
+   (EN/NL body-content), `docs/RITUAL_COACH_PLAN.md`, 2 TOC-regels.
+2. **Ritual Coach fase 2:** `RitualCoach.lua`, Coach-blok in
+   `WorldContent.lua`, TOC-regel `RitualCoach.lua`, 6 coach-UI-keys ×2 in
+   `RitualTips.lua`.
+3. **Generate Treasures fix:** `Profession.lua` — `skipCrazyArrow`/`skipTravelUI`
+   gespiegeld op Rares; re-assert na `PLAYER_ENTERING_WORLD` én
+   `ZONE_CHANGED_NEW_AREA` (debounce + onderdrukte reis-UI bij quiet rerun).
+
+Luacheck niet beschikbaar (geen mingw-gcc); `loadfile` parse op alle
+gewijzigde `.lua` = OK. CF-release blijft op de plank (0b hieronder).
+
 ## Open / volgende stappen
 
-0b. **💡 Ritual Coach (Rob-idee, 7 juni — nog niet bouwen, eerst denken):**
+0b. **✅ Ritual Coach fase 1+2 (commits `0f0bb61` / `c0643d1`).** Oorspronkelijk
+    idee (7 juni):
     Delve Coach-patroon maar voor Rituals. Ontwerpschets:
     - **Hergebruik:** `RitualSites.lua` bestaat al (site-tracking);
       DelveTips/DelveTipMarkup/DelvePartyShare + ShareSync v2 zijn het
@@ -926,13 +943,19 @@ Bestand: `Modules/Profession.lua` ~1091-1101. Eén-regel-changelog waard.
 vluchtig en valt weg op een loading-screen. Toegevoegd: **re-assert-na-loading-
 screen** voor de treasure/book-route. `RunTomTomGenerate` kreeg een `quiet`-param
 en onthoudt de laatste route in een SetupProfessionModule-local `activeRoute`
-(eligible>0 → set, anders nil). Nieuwe `ns._mhTreasureReassertFrame`
-(PLAYER_ENTERING_WORLD, 1.5s-delay, guard `activeRoute == route`, alleen als
-TomTom ready) draait de generate stil opnieuw → route + pijl-op-dichtstbijzijnde
-overleeft vluchten. Reset op /reload (module-local), stopt vanzelf als alle pins
-verzameld zijn. Patroon zoals RitualSites ReassertRouteAfterRevive.
-`nPins`-local verwijderd. **Rob test na relog;** Cursor: luacheck (mount gaf
-truncatie-false-positive op Profession.lua; host via Read compleet geverifieerd).
+(eligible>0 → set, anders nil). Nieuwe `ns._mhTreasureReassertFrame` draait de
+generate stil opnieuw → route + pijl-op-dichtstbijzijnde overleeft het. Reset op
+/reload (module-local), stopt vanzelf als alle pins verzameld zijn.
+**Update (Rob: pijl verdween óók bij naadloze zone-wissel):** naadloze
+zonegrenzen (Eversong↔City) vuren `ZONE_CHANGED_NEW_AREA`, niet
+PLAYER_ENTERING_WORLD — dus beide events nu geregistreerd, met debounce
+(`reassertTimer:Cancel()` + `C_Timer.NewTimer(1.5)`, guard `activeRoute == route`,
+alleen als TomTom ready) zodat snelle wissels coalesceren. Bij een **stille
+re-assert wordt de reis-UI onderdrukt** (`skipTravelUI = quiet or i > 1`) zodat de
+portal/hearth-popup niet bij elke zonegrens verschijnt — alleen de crazy-arrow
+gaat terug op pin 1 (dichtstbijzijnde). Patroon zoals RitualSites
+ReassertRouteAfterRevive. **Rob test na relog;** Cursor: luacheck (mount gaf
+truncatie-false-positive op Profession.lua; host via Read geverifieerd).
 
 ### Fase 2 Ritual Coach — in-game ✅ (Rob, 8 juni)
 
