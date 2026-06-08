@@ -19,7 +19,8 @@ All notable changes to this project are documented in this file.
 - **Vault Reminder:** after claiming vault rewards, the reminder button clears immediately for the logged-in character (live `C_WeeklyRewards.HasAvailableRewards` is authoritative; stale snapshot no longer keeps "ready").
 - **Alt Overview:** characters without a vault snapshot timestamp (`ts == 0`) no longer show a false "likely claim" status.
 - **Consumables:** fixed mistranslated spec-cycle hint in German, French, Spanish, and Brazilian Portuguese (`CONS_SPEC_HINT`; German had literally "bicycle specifications").
-- **Toolbox — Professions — Generate Treasures/Books:** TomTom arrow now points at the nearest pin on the route (not the farthest) and is re-asserted after loading screens and zone changes (debounced; travel UI suppressed on quiet reruns).
+- **Toolbox — Professions — Generate Treasures/Books:** TomTom arrow now points at the nearest pin on the route (not the farthest); removed route re-assert that fought TomTom's native zone-surviving arrow.
+- **Void & Rituals — Ritual Coach:** removed misleading per-run unlock tags (obelisk learn/unlearn is selection, not permanent unlock).
 
 ### Improved
 
@@ -63,7 +64,8 @@ All notable changes to this project are documented in this file.
 - **Toolbox — Professions Hub:** **This week** block on Overview (trainer weekly quest flag per known profession, Enchanting disenchant mat bag counts).
 - **Toolbox — Professions Hub:** Tree Advisor v2 — per-character advice goal (Allround / Gold / Self-sufficient) with goal-specific routes and hover tooltips on the goal buttons.
 - **Toolbox — Professions Hub:** trainer weekly unlock hint when not yet available; optional accessory-slot tip on Overview (slots 21/22/24/25).
-- **Void & Rituals — Ritual Coach:** scenario tips and challenge picker with live unlock status (sorted by Spoils; `IsPlayerSpell` on obelisk spells).
+- **Void & Rituals — Ritual Coach:** scenario tips and challenge picker (sorted by Spoils) with party share (`MHRitual` cross-locale sync) and ritual weekly hints (locked / pickup / in-progress).
+- **Start Here:** new-player roadmap tab with weekly progress ticks and navigation into existing tabs.
 
 ### Fixed
 

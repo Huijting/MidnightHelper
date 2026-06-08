@@ -939,35 +939,183 @@ gespiegeld op het bewezen `Rares.lua`-patroon — `skipTravelUI = i > 1` en
 + reis-UI krijgt. `nPins`-local verwijderd (was alleen voor de oude regel).
 Bestand: `Modules/Profession.lua` ~1091-1101. Eén-regel-changelog waard.
 
-**Vervolg (Rob: pijl verdween na vlucht naar SWC):** TomTom's crazy-arrow is
-vluchtig en valt weg op een loading-screen. Toegevoegd: **re-assert-na-loading-
-screen** voor de treasure/book-route. `RunTomTomGenerate` kreeg een `quiet`-param
-en onthoudt de laatste route in een SetupProfessionModule-local `activeRoute`
-(eligible>0 → set, anders nil). Nieuwe `ns._mhTreasureReassertFrame` draait de
-generate stil opnieuw → route + pijl-op-dichtstbijzijnde overleeft het. Reset op
-/reload (module-local), stopt vanzelf als alle pins verzameld zijn.
-**Update (Rob: pijl verdween óók bij naadloze zone-wissel):** naadloze
-zonegrenzen (Eversong↔City) vuren `ZONE_CHANGED_NEW_AREA`, niet
-PLAYER_ENTERING_WORLD — dus beide events nu geregistreerd, met debounce
-(`reassertTimer:Cancel()` + `C_Timer.NewTimer(1.5)`, guard `activeRoute == route`,
-alleen als TomTom ready) zodat snelle wissels coalesceren. Bij een **stille
-re-assert wordt de reis-UI onderdrukt** (`skipTravelUI = quiet or i > 1`) zodat de
-portal/hearth-popup niet bij elke zonegrens verschijnt — alleen de crazy-arrow
-gaat terug op pin 1 (dichtstbijzijnde). Patroon zoals RitualSites
-ReassertRouteAfterRevive. **Rob test na relog;** Cursor: luacheck (mount gaf
-truncatie-false-positive op Profession.lua; host via Read geverifieerd).
+**Re-assert-experiment TERUGGEDRAAID (8 juni).** Eerst toegevoegd: een
+re-assert-frame (PLAYER_ENTERING_WORLD + ZONE_CHANGED_NEW_AREA, debounced) dat
+de generate stil opnieuw draaide om de vluchtige crazy-arrow terug te zetten.
+**Bleek averechts.** Robs sleutel-observatie: de **enkele** ritual-waypoint
+(`RouteRitualSite`, één crazy arrow) blijft vanzelf staan vanuit de stad tot bij
+de ritual, óók over zonegrenzen — zónder enige re-assert. Conclusie: een enkele
+crazy arrow overleeft zone-changes native; mijn re-assert deed juist
+`ClearAllWaypoints()` + hergenereren bij elke zonewissel en wíste daarmee de
+werkende pijl (en herzette 'm op een slecht moment, positie nog niet gesetteld).
+Daarom **volledig verwijderd**: `activeRoute`, `quiet`-param, `_mhTreasureReassertFrame`,
+de ZONE_CHANGED/ENTERING_WORLD-handler. Wat blijft = de kern-bugfix
+(`skipCrazyArrow = i > 1` zodat alleen pin 1/dichtstbijzijnde de arrow krijgt,
+`skipTravelUI = i > 1`). Verwachting: de treasure-pijl gedraagt zich nu net als
+de ritual-pijl. **Rob hertest.** Mocht een enkele crazy arrow tóch niet
+overleven bij 15 waypoints (TomTom `setclosest`-gedrag o.i.d.), dan is de nette
+fallback: pin-1-uid bewaren en op zone-change alleen `SetCrazyArrow(uid)`
+opnieuw zetten zónder clear/regenerate (vereist dat `AddSmartTomTomWay` de uid
+teruggeeft — raakt de gedeelde Delves-functie). Cursor: luacheck (mount gaf
+truncatie/binary-false-positive op Profession.lua; host via Read geverifieerd).
 
 ### Fase 2 Ritual Coach — in-game ✅ (Rob, 8 juni)
 
 Void & Rituals toont het Coach-blok perfect: actieve site + scenario (A Strike
 From the Sea/Selen'vjar) + site-notes, "How it works", en de challenge-lijst
-gesorteerd op Spoils met echte icoontjes + live unlock-status. **`IsPlayerSpell`
-werkt**: 5 unlocked (Embers/MalBoons/Manifestations/Patrols/Reinforced), 3 locked
-(Alarm Bells/Tainted/Tendrils) met unlock-uitleg. **Open never-lie-check:**
-Manifestations toont unlocked terwijl de eerdere obelisk-shot 'm op "Rank 0/1
-Click to learn" had — waarschijnlijk sindsdien geleerd; Rob bevestigt of de
-Coach-lijst 1-op-1 matcht met de obelisk (zo niet → IsPlayerSpell false-positive,
-detectie omschakelen). Daarna fase 3 (share, parallel MHRitual-sync).
+gesorteerd op Spoils met echte icoontjes + mechanic + how-to-unlock.
+
+**CORRECTIE 8 juni — unlock-status verwijderd (never-lie).** De aanname dat
+`IsPlayerSpell(spellId)` permanente unlock leest was **fout**. Rob in-game:
+de obelisk-"Click to learn / Right click to unlearn" (Rank 0/1 ↔ 1/1) is de
+**per-run SELECTIE-toggle**, geen permanente unlock — élke challenge klapt terug
+naar "learn" zodra je 'm deselecteert. `IsPlayerSpell` las dus selectie, wat in
+het paneel zou misleiden (en nutteloos is buiten de obelisk). **Verwijderd:**
+`ns.IsRitualChallengeUnlocked` + TICK uit RitualCoach.lua, de "✓ unlocked /
+(locked)"-tag uit `BuildRitualChallengeTitle`; WorldContent toont de
+how-to-unlock-regel nu **altijd** (statische, altijd-ware referentie). De
+RITUAL_COACH_STATUS_*-keys staan ongebruikt in de locale (laten staan). Echte
+"heb ik dit permanent vrijgespeeld"-detectie zou via de unlock-quest-flags
+moeten (fase 4, nog open — quest-IDs nog te dumpen). Coach is nu zuiver
+referentie: per challenge mechanic + Spoils% + hoe te ontgrendelen.
+
+### Nieuw 8 juni — "Start Here"-tab (new-player roadmap)
+
+Robs idee na de "stel je weet niks van Midnight"-brainstorm: een geleide
+eerste-week-route die de bestaande systemen aan elkaar rijgt i.p.v. ze los uit te
+leggen. Keuze Rob (via vraag): **eigen top-tab**, als eerste in de sidebar.
+
+- **`Modules/StartHere.lua` (nieuw):** scroll-paneel (zelfde layout-engine als
+  WorldContent: ui.order + push + Relayout op GetStringHeight). Intro + 6
+  genummerde stappen (item level → character afstellen → Great Vault → Delves →
+  Ritual Sites & Void Assaults → renown/professies/currencies) + reset-dag-blok.
+  Elke stap heeft een **nav-knop** via `ns.SelectTab` (delves/consumables/home/
+  delves/world/profacademy — alle bestaande ids/aliassen). Stap 5 **auto-tickt**
+  twee weeklies via `ns.IsRitualWeeklyDone` + `ns.IsVoidAssaultWeeklyDone`
+  (pcall, ready-check-texture voor done; never-lie: alleen getickt waar een
+  echt signaal bestaat). Events QUEST_LOG_UPDATE/PLAYER_ENTERING_WORLD/
+  WEEKLY_REWARDS_UPDATE + OnShow refreshen de ticks; RefreshLocaleUI-hook.
+- **`Locales/StartHere.lua` (nieuw):** TAB_START_HERE + 28 START_*-keys ×2
+  (enUS+nlNL); andere 4 talen vallen terug op EN.
+- **`UI.lua`:** `{ id="starthere", labelKey="TAB_START_HERE" }` in TAB_DEFS;
+  "starthere" als eerste id in SIDEBAR_SECTIONS-week (vóór home; Home blijft de
+  SelectTab-fallback, los van sidebar-volgorde); build-dispatch
+  `ns.BuildStartHerePanel`; SelectTab-refresh `ns.RefreshStartHerePanel`.
+- **TOC:** `Locales\StartHere.lua` na RitualTips; `Modules\StartHere.lua` na
+  RitualCoach.
+- **Validatie:** beide nieuwe bestanden parsen schoon (mount vers); 28 keys
+  resolven EN/NL; alle 6 navTabs zijn geldige SelectTab-ids (stub-getest).
+  UI.lua-edits host-Read-geverifieerd (mount gaf truncatie-false-positive).
+  **Cursor: luacheck op StartHere.lua + UI.lua.**
+- **In-game test (Rob):** nieuwe eerste tab "Start Here"; stappen + nav-knoppen
+  landen op de juiste tab; op stap 5 staan Ritual/Void-weeklies groen als gedaan,
+  oranje als open; taal wisselen vertaalt alles. Reset-tekst noemt EU=woensdag/
+  US=dinsdag.
+- **Verrijkt 8 juni (zelfde sessie):** subtitel-belofte ("wekelijkse stappen
+  vinken zichzelf af") waargemaakt met meer never-lie-detectie:
+  - **Weekly-teller bovenaan** ("Deze week: X/N doelen gedaan", groen bij vol) —
+    telt alleen binaire weeklies mét helper: Ritual + Void (+ Showdown via
+    `IsShowdownsAvailable`/`IsShowdownWeeklyDone` op 12.0.7). Geen helper = niet
+    geteld.
+  - **Stap 3 (Vault):** claim-nudge via `GetVaultReminderState` — ready-entry
+    voor de huidige char → groen "claim 'm!", anders neutrale hint.
+  - ~~**Stap 4 (Delves):** "Delver's Call: X/Y"~~ **TERUGGEDRAAID** (Rob: 0
+    delves op verse char → toonde 6/10). `GetDelverCallState.completed` =
+    `IsQuestFlaggedCompleted` op de Delver's Call-quests, en die flags zijn
+    **account/warband-breed** → misleidend per-character. Geen schoon per-char
+    "delves deze week"-signaal → regel verwijderd; stap 4 houdt knop + uitleg.
+  - 4 nieuwe keys ×2 (START_WEEKLY_SUMMARY_FMT/_VAULT_READY/_VAULT_NONE/
+    _DELVERCALL_FMT). `statusKind`-veld per stap + `ui.statusRows`. Alles
+    pcall-guarded. Validatie: host-bestanden compleet (mount gaf weer truncatie-
+    false-positive); 6 helpers bestaan; keys resolven EN/NL.
+- **Mogelijke uitbreidingen later:** per-stap "klaar"-vinkje voor stap 1/2/6
+  (geen schoon signaal), of een "verberg na 1e week"-optie.
+
+**Content-accuratesse-pass 8 juni (Rob spotte fouten + research Method/Icy
+Veins/forums):**
+- **"level 80" → "max level"** in subtitel ×2. Midnight-cap is **90** (5 guides +
+  Lilatha-tooltip "Level 90 (Elite)"); "max level" is futureproof en altijd waar.
+- **Stap 1:** "run a few Bountiful Delves" was fout (Bountiful is Tier 8+ en
+  Coffer-Key-gated). Herschreven ×2: makkelijke winst eerst — campaign + world
+  quests + renown-milestone-quests + **gewone** Delves (+ Prey + Heroic dungeons)
+  om ilvl te klimmen; crafted/AH voor baseline.
+- **Stap 4:** Bountiful-nuance toegevoegd ×2: klim eerst gewone tiers; vanaf
+  **Tier 8** Bountiful met **Restored Coffer Key** → Champion + Hero-vault.
+- **Stap 5:** Rituals zijn **unlock-gated** (questlijn "Ritual Interest" in
+  Silvermoon — letterlijk uit Robs renown-dump `unlockDescription`) + lagere
+  prioriteit (random Champion-gear); Void Assaults = de toegang. **"tracks what
+  you've unlocked" geschrapt** (die feature is verwijderd, zie fase-2-correctie).
+- Achtergrond: ritual-weekly 95843 is correct + unlock-gated; op een char zónder
+  de "Ritual Interest"-questlijn verschijnt 'm niet (Robs char had renown 4 =
+  unlocked, dus zijn weekly was simpelweg nog niet opgepakt deze week — geen bug).
+- Host-geverifieerd (mount truncatie-false-positive). **Cursor: luacheck.**
+- **GEBOUWD 8 juni — dynamische ritual-weekly-hint.** `ns.GetRitualWeeklyHint()`
+  in `RitualSites.lua` → (text, kind) of nil; never-lie, alleen echte signalen:
+  - **locked** (renown 2792 niet `isUnlocked`) → toont de game's eigen
+    `unlockDescription` via `RITUAL_WEEKLY_HINT_LOCKED_FMT` ("Complete the quest
+    Ritual Interest in Silvermoon City").
+  - **pickup** (unlocked, quest niet in log) → "haal de weekly bij de hub".
+  - **inprogress** (in log, niet ingeleverd) → "afmaken + inleveren".
+  - weekly done / unlock-staat onbekend → nil (niks tonen).
+  Belangrijk inzicht (Rob): de **renown-unlock is warband-breed, de weekly-quest
+  per-character** — daarom toonde zijn char renown 4 maar geen weekly (gewoon nog
+  niet opgepakt deze week). De hint legt dat nu uit. `WorldContent.lua`:
+  `ui.ritualWeeklyHintFs` onder de weekly-regel in de ritual-sectie, getoond/
+  verborgen op de hint. 4 keys ×2 (`RITUAL_WEEKLY_HINT_*`). Host-geverifieerd
+  (mount truncatie-false-positive). **Cursor: luacheck.** **Open:** evt. dezelfde
+  hint ook op Start Here stap 5.
+
+### Nieuw 8 juni — Ritual Coach fase 3 (share-knoppen)
+
+Plan-Optie 2 gebouwd: **parallelle share-infra met prefix `MHRitual`**, volledig
+los van Delve-share v2 (`MHDelve`) zodat die CF-klare keten ongemoeid blijft.
+
+- **`Modules/RitualShare.lua` (nieuw):** `ns.BuildRitualShareLines(entryId, mode)`
+  — alleen `entryId="challenges"`: kop + 1 regel per challenge (naam + Spoils% +
+  eerste mechanic-bullet), gesorteerd op Spoils via
+  `GetRitualChallengesForDisplay`. **Locale-only / player-state-onafhankelijk**
+  (unlock-status bewust NIET gedeeld) zodat cross-locale-ontvangers exact
+  hetzelfde herbouwen. `ns.SendRitualShare` (kanaalkeuze PARTY/RAID/INSTANCE via
+  zelfde party-category-logica als Delve, combat-lock, 18s-cooldown, pendingSend-
+  guard, 0.35s line-gap, **confirm-popup vanaf 3 regels**). `GetRitualShareCopyText`
+  voor buiten-groep-delen. Test-mode hergebruikt `ns.GetDelvePartyShareTestMode`
+  (één toggle voor beide). Zelfstandig (kleine helpers gedupliceerd — bewust, plan).
+- **`Modules/RitualShareSync.lua` (nieuw):** kopie van het Delve-v2-patroon, prefix
+  `MHRitual`, payload `"1|<chatLocale>|<mode>|<entryId>"`; ontvanger met andere
+  locale herbouwt via `BuildRitualShareLines` (tekst nooit over de lijn). Self-
+  whisper-testpad + dedupe (20s) identiek aan DelveShareSync.
+- **`WorldContent.lua`:** "Share challenge tips"-knop onder de challenge-lijst in
+  het Coach-blok (`ns.SendRitualShare("challenges","all")`), + label in
+  RefreshLocaleUI. **Locales:** 11 nieuwe `RITUAL_SHARE_*`/`RITUAL_COACH_SHARE_BTN`-
+  keys ×2 (enUS+nlNL). **TOC:** RitualShare + RitualShareSync na RitualCoach.
+- **Validatie:** beide nieuwe bestanden parsen schoon; alle share-keys resolven
+  EN/NL; `BuildRitualShareLines("challenges","all")` → 9 nette regels (Embers 25 →
+  … → Tendrils 10) met de mechanic per challenge; bad-entry geweigerd; payload-
+  format ok. WorldContent-knop host-Read-geverifieerd. **Cursor: luacheck.**
+- **In-game test (Rob):** Void & Rituals → "Share challenge tips"-knop; in een
+  party → confirm-popup → 9 regels in party-chat; solo met share-testmodus aan →
+  self-whisper rendert de regels (en cross-locale zodra een 2e MH-speler met
+  andere taal meedoet). Combat/cooldown/no-group-meldingen kloppen.
+- **Open:** echte cross-locale-ontvangst met 2 spelers (zoals Delve-share 0a);
+  evt. een Copy-knop in de UI (helper `GetRitualShareCopyText` ligt klaar).
+
+## Voor Cursor — commit + push 8 juni late avond (commits `bd875cf` / `572fc22` /
+`caa37f7` / `68ec20e` / `71973f9` + docs)
+
+Eerst 5 commits die nog niet op origin stonden (`6ad6370` … `7dbd16f`), daarna
+deze 5. `loadfile` parse op alle gewijzigde `.lua` = OK; luacheck niet
+beschikbaar (geen mingw-gcc).
+
+1. **Ritual Coach share fase 3:** `RitualShare.lua`, `RitualShareSync.lua`
+   (`MHRitual`-prefix, parallel aan Delve v2).
+2. **Ritual weekly-hint + Coach unlock-correctie:** `RitualSites.lua`
+   (`GetRitualWeeklyHint`), `RitualCoach.lua` (geen `IsPlayerSpell`-tags).
+3. **Coach UI-wiring:** `WorldContent.lua`, `RitualTips.lua` (share + hint keys),
+   `MidnightHelper.toc` (RitualShare + StartHere-regels).
+4. **Start Here-tab:** `StartHere.lua`, `Locales/StartHere.lua`, `UI.lua`.
+5. **Generate Treasures-pijl:** `Profession.lua` — re-assert teruggedraaid
+   (enkele crazy-arrow overleeft zones; alleen `skipCrazyArrow`-fix blijft).
+6. **Docs:** `SESSION_NOTES.md`, `TOMORROW.md`, `CHANGELOG.md`.
 
 ## Open / volgende stappen (vervolg)
 
