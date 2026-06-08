@@ -15,30 +15,13 @@
 
 local _, ns = ...
 
--- Ready-check texture for the "unlocked" tick — the plain unicode check renders
--- as a box in the WoW font (same fix as ProfessionAcademy ICON_COMPLETED).
-local TICK = "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12:0:0|t"
-
---- True if the player has learned this challenge's obelisk spell.
-function ns.IsRitualChallengeUnlocked(challenge)
-	if type(challenge) ~= "table" or not challenge.spellId then
-		return false
-	end
-	if type(IsPlayerSpell) == "function" then
-		local ok, known = pcall(IsPlayerSpell, challenge.spellId)
-		if ok and known then
-			return true
-		end
-	end
-	-- Secondary signal on some clients.
-	if type(IsSpellKnown) == "function" then
-		local ok, known = pcall(IsSpellKnown, challenge.spellId)
-		if ok and known then
-			return true
-		end
-	end
-	return false
-end
+-- NOTE: there is deliberately no per-player "unlocked" detection here. The
+-- obelisk's "Click to learn / Right click to unlearn" (Rank 0/1 vs 1/1) is the
+-- per-run SELECTION toggle, not a permanent unlock (Rob verified in-game: any
+-- challenge flips back to "learn" once deselected). So IsPlayerSpell(spellId)
+-- reads selection, which would mislead in the panel — we show only static, always-
+-- true reference (mechanic + how to unlock). A real "have I permanently unlocked
+-- this" signal would come from the unlock-quest flags (fase 4, still open).
 
 --- Inline icon markup for a challenge (FileDataID works in |T...|t).
 function ns.RitualChallengeIconMarkup(challenge, size)
@@ -82,8 +65,8 @@ function ns.GetRitualCoachActiveSiteEntry()
 	return ns.GetRitualSiteEntryByKey(site.key)
 end
 
---- One coloured title line for a challenge: icon, name, +X% Spoils, unlock state.
---- Status words come from the locale pack so they translate.
+--- One coloured title line for a challenge: icon, name, +X% Spoils.
+--- (No per-player status — see the note near the top of this file.)
 function ns.BuildRitualChallengeTitle(challenge)
 	if type(challenge) ~= "table" then
 		return ""
@@ -97,11 +80,6 @@ function ns.BuildRitualChallengeTitle(challenge)
 	parts[#parts + 1] = "|cffffffff" .. name .. "|r"
 	if challenge.spoilsPct then
 		parts[#parts + 1] = ("|cff9ecbff+%d%% Spoils|r"):format(challenge.spoilsPct)
-	end
-	if ns.IsRitualChallengeUnlocked(challenge) then
-		parts[#parts + 1] = TICK .. "|cff74e074 " .. ns:L("RITUAL_COACH_STATUS_UNLOCKED") .. "|r"
-	else
-		parts[#parts + 1] = "|cffd0a040(" .. ns:L("RITUAL_COACH_STATUS_LOCKED") .. ")|r"
 	end
 	return table.concat(parts, "  ")
 end

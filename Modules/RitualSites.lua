@@ -244,6 +244,45 @@ function ns.IsRitualWeeklyDone()
 	return IsWeeklyDone()
 end
 
+-- Is the Ritual Sites renown (and thus the system) unlocked? The unlock is
+-- account/warband-wide, but the weekly quest is per-character. Returns
+-- (isUnlocked|nil, unlockDescription).
+local function RitualRenownUnlocked()
+	if C_MajorFactions and C_MajorFactions.GetMajorFactionData then
+		local ok, d = pcall(C_MajorFactions.GetMajorFactionData, RITUAL_RENOWN_FACTION)
+		if ok and type(d) == "table" then
+			return d.isUnlocked and true or false, d.unlockDescription
+		end
+	end
+	return nil, nil
+end
+
+-- Explains WHY the weekly isn't done yet, using only real signals (never lie):
+--   locked     — renown not unlocked → show the game's own unlockDescription
+--   pickup     — unlocked but the weekly quest isn't in the log yet
+--   inprogress — the quest is in the log but not turned in
+-- Returns (text, kind) or nil when the weekly is done / state is unknowable.
+function ns.GetRitualWeeklyHint()
+	if IsWeeklyDone() then
+		return nil
+	end
+	local inLog = C_QuestLog and C_QuestLog.GetLogIndexForQuestID
+		and C_QuestLog.GetLogIndexForQuestID(RITUAL_WEEKLY_QUEST)
+	if inLog then
+		return ns:L("RITUAL_WEEKLY_HINT_INPROGRESS"), "inprogress"
+	end
+	local unlocked, unlockDesc = RitualRenownUnlocked()
+	if unlocked == false then
+		if type(unlockDesc) == "string" and unlockDesc ~= "" then
+			return ns:L("RITUAL_WEEKLY_HINT_LOCKED_FMT"):format(unlockDesc), "locked"
+		end
+		return ns:L("RITUAL_WEEKLY_HINT_LOCKED_GENERIC"), "locked"
+	elseif unlocked == true then
+		return ns:L("RITUAL_WEEKLY_HINT_PICKUP"), "pickup"
+	end
+	return nil -- unlock state unknown + not in log → don't guess
+end
+
 -- Renown/reputation text for the Ritual Sites faction (used by the Home tab too).
 function ns.GetRitualRenownText()
 	return GetRitualRenownText()
