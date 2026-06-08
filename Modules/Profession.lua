@@ -988,11 +988,6 @@ local function SetupProfessionModule()
 	trackerScroll = CreateFrame("ScrollFrame", "MidnightHelperProfessionTrackerScroll", frame, "UIPanelScrollFrameTemplate")
 	trackerScroll:SetFrameLevel((frame:GetFrameLevel() or 0) + 1)
 
-	-- Active treasure/book route, remembered so it can be re-asserted after a
-	-- loading screen — flights drop TomTom's transient crazy arrow. Reset on
-	-- /reload (this function re-runs) and cleared once every pin is collected.
-	local activeRoute
-
 	local function RowNameIsTreasurePin(nameStr)
 		local n = tostring(nameStr or "")
 		if n:find("Book", 1, true) then
@@ -1009,7 +1004,7 @@ local function SetupProfessionModule()
 		return n:find("Book", 1, true) ~= nil or n:find("Echo of Abundance", 1, true) ~= nil
 	end
 
-	local function RunTomTomGenerate(nameFilter, kindLabel, quiet)
+	local function RunTomTomGenerate(nameFilter, kindLabel)
 		if not ns.AddSmartTomTomWay then
 			print("|cffff5555Midnight Helper:|r Travel Assistant unavailable (Delves module not loaded).")
 			return
@@ -1101,9 +1096,9 @@ local function SetupProfessionModule()
 			-- First pin starts the route: only it gets the crazy arrow + travel UI.
 			-- The rest pass skipCrazyArrow so TomTom doesn't yank the arrow onto the
 			-- last (farthest) pin — same pattern as Rares "Find Nearest" generate.
-			-- On a quiet re-assert (after a zone change) suppress the travel UI for
-			-- every pin so we don't pop the portal/hearth prompt on each border.
-			local skipTravelUI = quiet or i > 1
+			-- A single crazy arrow survives zone changes on its own (proven by the
+			-- single-waypoint ritual route), so we do NOT re-assert/regenerate here.
+			local skipTravelUI = i > 1
 			local skipCrazyArrow = i > 1
 			if ns.AddSmartTomTomWay(mapID, x, yCoord, name, skipTravelUI, skipCrazyArrow) then
 				added = added + 1
@@ -1112,21 +1107,15 @@ local function SetupProfessionModule()
 
 		local orderHint = nearestFirst and "Order: shortest-hop route from your position."
 			or "Order: shortest-hop route per zone (player position unavailable)."
-		if not quiet then
-			print(
-				string.format(
-					"|cffffff78Midnight Helper:|r Generate %s: %d waypoint(s) added to TomTom (%d eligible incomplete pins). %s",
-					kindLabel,
-					added,
-					eligible,
-					orderHint
-				)
+		print(
+			string.format(
+				"|cffffff78Midnight Helper:|r Generate %s: %d waypoint(s) added to TomTom (%d eligible incomplete pins). %s",
+				kindLabel,
+				added,
+				eligible,
+				orderHint
 			)
-		end
-
-		-- Remember the route so a loading screen (flight) can re-assert the arrow;
-		-- clear it once nothing is left to collect.
-		activeRoute = (eligible > 0) and { filter = nameFilter, label = kindLabel } or nil
+		)
 	end
 
 	local WAYPOINT_BTN_HEIGHT = 26
@@ -1167,41 +1156,6 @@ local function SetupProfessionModule()
 
 	booksBtn:SetScript("OnClick", function()
 		RunTomTomGenerate(RowNameIsBookPin, "Books")
-	end)
-
-	-- Re-assert the route after a loading screen OR a seamless zone change — both
-	-- drop TomTom's transient crazy arrow (flights fire PLAYER_ENTERING_WORLD;
-	-- crossing a zone/subzone border fires ZONE_CHANGED_NEW_AREA without a loading
-	-- screen). Silent re-run re-adds the still-incomplete pins with the arrow back
-	-- on the nearest one. Guarded so only one frame exists across rebuilds.
-	if not ns._mhTreasureReassertFrame then
-		ns._mhTreasureReassertFrame = CreateFrame("Frame")
-		ns._mhTreasureReassertFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-		ns._mhTreasureReassertFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-	end
-	local reassertTimer
-	ns._mhTreasureReassertFrame:SetScript("OnEvent", function()
-		if not activeRoute then
-			return
-		end
-		if not (ns.IsTomTomReady and ns.IsTomTomReady()) then
-			return
-		end
-		-- Coalesce rapid zone/subzone changes into a single re-assert.
-		if reassertTimer then
-			reassertTimer:Cancel()
-		end
-		local route = activeRoute
-		if C_Timer and C_Timer.NewTimer then
-			reassertTimer = C_Timer.NewTimer(1.5, function()
-				reassertTimer = nil
-				if activeRoute == route then
-					RunTomTomGenerate(route.filter, route.label, true)
-				end
-			end)
-		else
-			RunTomTomGenerate(route.filter, route.label, true)
-		end
 	end)
 
 	frame:SetScript("OnShow", function()
