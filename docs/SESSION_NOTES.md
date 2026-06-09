@@ -959,6 +959,134 @@ opnieuw zetten zónder clear/regenerate (vereist dat `AddSmartTomTomWay` de uid
 teruggeeft — raakt de gedeelde Delves-functie). Cursor: luacheck (mount gaf
 truncatie/binary-false-positive op Profession.lua; host via Read geverifieerd).
 
+**ROOT-CAUSE GEVONDEN + GEFIXT (9 juni).** De revert was incompleet — de pijl
+verdween nog steeds bij zonegrenzen (Rob: SMC→Eversong→Zul'Aman), terwijl
+delve/ritual-pijlen wél bleven. Oorzaak: **Delves.lua heeft al een gedeelde
+zone-change-re-assert** (`eventFrame` ~regel 2030-2073, ZONE_CHANGED_NEW_AREA/
+PLAYER_ENTERING_WORLD → `restoreDelveArrow()` herstelt de crazy-arrow uit
+`ns.lastTarget`). Dát houdt single delve/ritual-waypoints levend over grenzen.
+Maar `AddSmartTomTomWay` zet `ns.lastTarget` bij **élke** call → na de 15-pin-
+loop wijst die naar de **láátste/verste** pin, terwijl de zichtbare crazy-arrow
+op **pin 1 (dichtstbijzijnde)** staat. Bij een grens herstelt de re-assert dus
+de verkeerde target (verste pin) of `IsMidnightTravelComplete` denkt dat je er
+al bent → wist 'm → pijl weg. **Fix:** in `RunTomTomGenerate` ná de loop
+`ns.lastTarget` terugwijzen naar `toAdd[1]` (pin 1, mét de arrow). Nu herstelt de
+bestaande re-assert de júíste pin → pijl overleeft zonegrenzen, net als
+delve/ritual. Eén regel, hergebruikt de bewezen infra, geen nieuw event-frame.
+Verklaart ook "vroeger bleef 'ie wel": oude generate zette lastTarget
+waarschijnlijk op de juiste pin. Bestand: `Modules/Profession.lua` ~1106-1115.
+Host-geverifieerd. **Open later (nicety):** pijl laten doorschuiven naar de
+volgende pin bij aankomst (nu blijft 'ie op de dichtstbijzijnde tot je 'm pakt).
+
+**HERBOUWD naar dynamische nearest-pijl (9 juni, Rob-wens).** Probleem bij de
+vaste route: in SMC (positie onbekend) startte de route op de eerste pin in de
+datalijst i.p.v. de dichtstbijzijnde → pijl wees verkeerd. Rob wil: **altijd naar
+de dichtstbijzijnde, en bij looten automatisch door naar de volgende.**
+`RunTomTomGenerate` volledig herschreven (vaste greedy route + AddSmartTomTomWay
+eruit): zet alle eligible treasures als TomTom-stippen (crazy=false,
+cleardistance=0 zodat ze blijven tot gelooten), en een manager houdt de
+crazy-arrow op de dichtstbijzijnde pin **op je huidige map**. Een 2s-ticker +
+QUEST_LOG_UPDATE/ZONE_CHANGED/PLAYER_ENTERING_WORLD-events: (a) her-SetCrazyArrow
+elke tick zodat de pijl de zone-drop overleeft, (b) verwijderen gelooten pins
+(quest-flag) en doorschuiven naar de volgende dichtstbijzijnde, (c) stoppen +
+"all collected"-melding als alles op is. Positie onbekend (SMC) → houdt de
+huidige/eerste pin tot je buiten bent en de positie er is. `ns.lastTarget=nil`
+gezet zodat de Delves-zone-re-assert niet meevecht. Geen TomTom → single Blizzard-
+waypoint-fallback. Eigen `treasureEvents`-frame; state in SetupProfessionModule.
+Parse OK; host-geverifieerd. **Cursor: luacheck.** Bestand: `Modules/Profession.lua`
+~1007-1140.
+
+**DIEPSTE ROOT-CAUSE GEVONDEN (9 juni) — positie-helper-bug.** Rob's `/dump` in
+SMC: `C_Map.GetPlayerMapPosition(2393,"player")` → `pos=true`. Maar
+`GetPlayerMapPositionForWaypoints` riep `C_Map.GetPlayerMapPosition(mapID)` aan
+**zónder het `"player"`-unit-argument** → altijd nil → "player position
+unavailable" **overal**, niet alleen in steden. Dít is waarom elke route op de
+eerste data-pin startte i.p.v. de dichtstbijzijnde (de hele saga). **Fix:**
+regel 482, `mapID` → `mapID, "player"`. Nu werkt de positie overal en wijst de
+dynamische pijl naar de écht dichtstbijzijnde. (Bestond al vóór deze sessie.)
+Plus extra vangnet in de manager: zonder positie tóch een pin in je huidige zone
+kiezen via `GetBestMapForUnit` (map=2393 in SMC). Eén-regel-fix, host-geverifieerd.
+
+**Treasure-pijl → HS/portal-advies bij verre zone (9 juni, Rob-wens).** De
+dynamische pijl zet waypoints rechtstreeks in TomTom → kreeg dus niet de reis-
+assistent (HS + beste in-wereld-portal) die delve/ritual-waypoints wél krijgen.
+Opgelost zónder de kritieke `AddSmartTomTomWay` aan te raken: de travel-assist-
+logica geëxtraheerd naar **`ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)`**
+in `Delves.lua` (na AddSmartTomTomWay; gebruikt dezelfde forward-declared
+`travelPopup`/`hsBtn`/`MIDNIGHT_PORTALS`). De treasure-manager roept 'm aan
+**alleen bij een target-wissel** (`changed`) zodat 'ie Esc respecteert en niet
+elke tick re-popt; de functie verbergt zichzelf bij same-region/dichtbij (geen
+nag op je eigen continent). Bewust een parallelle kopie i.p.v. refactor van
+AddSmartTomTomWay (blast-radius: die voedt álle waypoints). Bestanden:
+`Modules/Delves.lua` ~724-816 (nieuw), `Modules/Profession.lua` (assist-call).
+**Vervolg (Rob: na HS naar SMC kwam er geen wegwijzer naar Harandar):** het
+advies toonde alleen bij target-wissel, dus na aankomst in SMC (target = nog
+steeds de Harandar-pin, ongewijzigd) verscheen "Portal to Harandar" niet.
+`TreasureUpdateArrow(forceAssist)` toegevoegd; op **PLAYER_ENTERING_WORLD**
+(loading-screen-aankomst: HS/portal/vlucht) wordt het advies geforceerd
+hertoond voor het verre target → je ziet in SMC nu meteen de Portal-to-Harandar-
+wegwijzer. Seamless ZONE_CHANGED blijft changed-only (geen re-pop-spam).
+**Vervolg 2 (Rob: geen pijl in SMC bij verre target, portal-knop werd gestolen):**
+de ticker SetCrazyArrow'de elke 2s naar de (cross-continent, onzichtbare)
+treasure → een cross-continent-pijl rendert niet én de portal-knop-pijl (klik →
+`SetCrazyArrow` naar portal, regel ~2498 Delves) werd binnen 2s teruggestolen.
+**Fix:** de pijl alleen aansturen als de dichtstbijzijnde treasure op je
+**huidige map** ligt (`onCurrentMap = best.mapID == curMap`). Ver weg → pijl met
+rust laten; de popup + portal-knop leiden je (klik = pijl naar portal, niet meer
+gestolen), en op het nieuwe continent pakt de treasure-pijl het weer op — zoals
+delves.
+**Vervolg 3 (Rob: popup blijft hangen/komt terug na Esc + Lua-error bij
+aankomst):** (1) **Lua-error** `GetMapInfo(nil)` in GetZoneDisplayName via
+ShowTravelAssistFor wanneer `GetBestMapForUnit` nil geeft mid-loading-screen →
+guard toegevoegd (`if not currentMap then return`, Delves.lua ~732). (2) **Popup-
+gedrag:** de assist werd op `changed or forceAssist` getoond → kon re-poppen en
+negeerde Esc. Vervangen door een **target+zone-sleutel** (`best.uid .. "@" ..
+curMap`): toon één keer per nieuw target ÓF bij aankomst in een nieuwe zone
+(zodat "Portal to Harandar" verschijnt als je in SMC landt), maar geen re-pop op
+elke tick en Esc gerespecteerd binnen hetzelfde target+zone. `forceAssist`-param
++ de PLAYER_ENTERING_WORLD-special-case verwijderd (de curMap-sleutel dekt
+aankomst al). `treasureAssistKey` gereset in TreasureClearPins. Host-geverifieerd.
+**Vervolg 4 (Rob: crash bij Generate + knoppen hernoemen):** (1) **Crash**
+`attempt to concatenate field 'uid' (a table value)` — TomTom's waypoint-`uid`
+is een **tabel**, niet een string. assistKey gebruikt nu `tostring(best.questID)`
+i.p.v. `best.uid` (uid blijft fijn voor SetCrazyArrow/vergelijking, alleen niet
+voor string-concat). (2) **Knoppen hernoemd + gelokaliseerd:** "Generate
+Treasures"/"Generate Books" → `ns:L("PROF_GENERATE_TREASURES_BTN")` /
+`PROF_GENERATE_BOOKS_BTN`. Keys in enUS ("Generate Route Treasures"/"...Books") +
+nlNL ("Genereer Treasure-route"/"Genereer Book-route"); andere talen fallback EN.
+Host-geverifieerd. **Cursor: luacheck.**
+**Open (nicety):** pijl automatisch op de portal
+zetten i.p.v. één klik (vereist managed portal-waypoint + ns.GetPortalToward).
+**Cursor: luacheck.** **Open (later):** ooit DRY maken
+(AddSmartTomTomWay óók via ShowTravelAssistFor).
+
+**Mage-teleport-knop in reis-popup (9 juni — GEBOUWD; spell-ID's geverifieerd op
+Robs Mage: mage=true tele=true portal=true).** Research: **Teleport: Silvermoon
+City = 1259190** (lvl 82), **Portal: Silvermoon City = 1259194** (lvl 88) — de
+NIEUWE Midnight-hub-spells (niet de oude BC-"Teleport: Silvermoon"). Secure
+`mageBtn` (MidnightHelperMageTeleBtn) in `travelPopup`, eigen rij boven HS/portal
+(popup-hoogte → 184 indien getoond). In `ns:ShowTravelPopup` (gedeeld door álle
+reisadvies, incl. ShowTravelAssistFor → ook treasures/delves/rituals): toon alleen
+voor **Mage + `IsPlayerSpell(1259190)` + niet in regio 1 (Silvermoon)**; macrotext
+= **gelokaliseerde** spellnaam (`C_Spell.GetSpellName`), gezet buiten combat
+(locale-veilig). Plus tekstregel "Mage: <spell> available". Eén plek, geen
+caller-layout aangeraakt. Bestand: `Modules/Delves.lua` ~2539-2604. Host-
+geverifieerd. In-game ✅ (Rob: teleport-knop werkte, zelfs van Orgrimmar).
+**Portal: Silvermoon City (1259194) toegevoegd (9 juni):** tweede secure
+`magePortalBtn`; ShowTravelPopup toont nu beide (gepaard −25/+25 op de mage-rij,
+of enkel gecentreerd) o.b.v. `IsPlayerSpell` per spell; `MageTeleSpellName` →
+`MageSpellName(id)`; popup-hoogte 200 als een mage-knop toont. **Cursor:
+luacheck.** **Open:** layout fine-tunen indien nodig.
+
+**Tracker per zone gegroepeerd (9 juni, Rob-wens).** De Professions-tracker
+(Treasures/Books-lijst per professie-kolom) toonde naam + coords zonder zone.
+Toegevoegd: **zone-subkopjes** binnen elke Treasures/Books-sectie, gegroepeerd op
+`C_Map.GetMapInfo(mapID).name` (zones alfabetisch, rij-volgorde binnen een zone
+behouden). `MountZoneHeader` (lichtblauw, links, 16px) + `AddRowsGroupedByZone`
+in `PopulateProfessionColumn`; constante `TRACKER_ZONE_HEADER_HEIGHT`. Kolom-
+hoogte groeit vanzelf mee (y-accumulatie → `return y+8`). Bestand:
+`Modules/Profession.lua` ~840-883. Host-geverifieerd. **Cursor: luacheck.**
+
 ### Fase 2 Ritual Coach — in-game ✅ (Rob, 8 juni)
 
 Void & Rituals toont het Coach-blok perfect: actieve site + scenario (A Strike
@@ -1116,6 +1244,19 @@ beschikbaar (geen mingw-gcc).
 5. **Generate Treasures-pijl:** `Profession.lua` — re-assert teruggedraaid
    (enkele crazy-arrow overleeft zones; alleen `skipCrazyArrow`-fix blijft).
 6. **Docs:** `SESSION_NOTES.md`, `TOMORROW.md`, `CHANGELOG.md`.
+
+## Voor Cursor — commit + push 9 juni (treasure-pijl + reis-assistent, `TBD`)
+
+`loadfile` parse op `Profession.lua`, `Delves.lua`, `enUS.lua`, `nlNL.lua` = OK.
+Luacheck niet beschikbaar. Commit alle uncommitted + push `origin/main`.
+
+- **Profession.lua:** dynamische nearest-treasure-pijl (player-map positie-fix,
+  regio-gate, auto-advance, portal/HS-advies via `ShowTravelAssistFor`),
+  questID-crash-fix, tracker per zone, gelokaliseerde route-knoppen.
+- **Delves.lua:** `ns.ShowTravelAssistFor`, currentMap-nil-guard, Mage
+  Teleport/Portal Silvermoon-knoppen.
+- **Locales enUS/nlNL:** `PROF_GENERATE_TREASURES_BTN` / `_BOOKS_BTN`.
+- **Docs:** `SESSION_NOTES.md`, `TOMORROW.md`, `CHANGELOG.md`.
 
 ## Open / volgende stappen (vervolg)
 

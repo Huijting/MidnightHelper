@@ -19,7 +19,7 @@ All notable changes to this project are documented in this file.
 - **Vault Reminder:** after claiming vault rewards, the reminder button clears immediately for the logged-in character (live `C_WeeklyRewards.HasAvailableRewards` is authoritative; stale snapshot no longer keeps "ready").
 - **Alt Overview:** characters without a vault snapshot timestamp (`ts == 0`) no longer show a false "likely claim" status.
 - **Consumables:** fixed mistranslated spec-cycle hint in German, French, Spanish, and Brazilian Portuguese (`CONS_SPEC_HINT`; German had literally "bicycle specifications").
-- **Toolbox — Professions — Generate Treasures/Books:** TomTom arrow now points at the nearest pin on the route (not the farthest); removed route re-assert that fought TomTom's native zone-surviving arrow.
+- **Toolbox — Professions — Generate Route Treasures/Books:** dynamic TomTom arrow to the nearest remaining pin with auto-advance, region gate, and hearthstone/portal travel advice via the shared travel assistant.
 - **Void & Rituals — Ritual Coach:** removed misleading per-run unlock tags (obelisk learn/unlearn is selection, not permanent unlock).
 
 ### Improved
@@ -37,6 +37,8 @@ All notable changes to this project are documented in this file.
 - **Layout:** shared `ns.UI_METRICS` insets for Home and Codex panels (prep for tab consolidation).
 - **Main window:** resize cap scales up on large displays (up to 1400×1200, bounded by screen size); verified at 1400px width on UI scale 1.35.
 - **Toolbox — Consumables:** click an item row to copy its name for the Auction House (repeated clicks cycle alternates); tooltip hint on item hover.
+- **Travel Assistant:** Mage **Teleport: Silvermoon City** and **Portal: Silvermoon City** buttons in the travel popup; `ShowTravelAssistFor` is reusable for treasure routes and other waypoints.
+- **Toolbox — Professions:** treasure/book tracker grouped by zone; generate buttons renamed and localized (`Generate Route Treasures` / `Generate Route Books`).
 
 ### Changed
 

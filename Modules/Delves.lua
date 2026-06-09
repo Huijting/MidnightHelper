@@ -716,6 +716,108 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 	return true
 end
 
+-- Reusable Travel Assistant — the same Hearthstone + best in-world portal advice
+-- AddSmartTomTomWay shows, but callable on its own. The dynamic treasure arrow
+-- (Profession.lua) calls this when it points at a treasure in a far zone, without
+-- re-adding a waypoint. Shows the popup for a far target; hides it when near / in
+-- the same region (never nags when the target is on your continent).
+function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
+	targetMap = tonumber(targetMap)
+	if not targetMap or not (C_Map and C_Map.GetBestMapForUnit) then
+		return
+	end
+	xPct, yPct = tonumber(xPct), tonumber(yPct)
+	title = title or "Waypoint"
+	local currentMap = C_Map.GetBestMapForUnit("player")
+	if not currentMap then
+		return -- mid-loading-screen: map not ready yet (avoids GetMapInfo(nil))
+	end
+	local currentZoneName = GetZoneDisplayName(currentMap) or ""
+	local targetZoneName = GetZoneDisplayName(targetMap) or ""
+
+	if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
+		SafeHideTravelPopup()
+		return
+	end
+
+	local currentHub, px = ns.GetPlayerHubContext(currentMap)
+	local currentRegion = ns.GetEffectiveRegionGroupID(currentMap, currentHub)
+	local targetRegion = ns.GetRegionGroupID(targetMap)
+	if currentMap and currentRegion == targetRegion and currentRegion ~= 0 then
+		SafeHideTravelPopup()
+		return
+	end
+
+	if currentMap and tonumber(currentMap) ~= targetMap and currentZoneName ~= targetZoneName then
+		local playerPos = C_Map.GetPlayerMapPosition(currentMap, "player")
+		if not playerPos then
+			return
+		end
+		if not px then
+			px = select(1, playerPos:GetXY()) * 100
+		end
+		local py = select(2, playerPos:GetXY()) * 100
+
+		travelPopup.portalBtn:Hide()
+		local hsStartTime = GetItemCooldown(6948)
+		local portalAdvice, bestDist = "", 9999
+		local hubMapID = 2393
+		local directPortal, hubPortal = nil, nil
+
+		for _, portal in ipairs(MIDNIGHT_PORTALS) do
+			local mapMatch = (tonumber(portal.mapID) == tonumber(currentMap))
+			local hubMatch = (not portal.zone or (currentHub == portal.zone) or currentZoneName:find(portal.zone))
+			if mapMatch and hubMatch then
+				local dist = math.sqrt((portal.x - px) ^ 2 + (portal.y - py) ^ 2)
+				local distYards = math.floor(dist * 45)
+				if tonumber(portal.toID) == targetMap then
+					if not directPortal or distYards < directPortal.d then
+						directPortal = { p = portal, d = distYards }
+					end
+				elseif tonumber(portal.toID) == hubMapID and targetMap ~= hubMapID then
+					if not hubPortal or distYards < hubPortal.d then
+						hubPortal = { p = portal, d = distYards }
+					end
+				end
+			end
+		end
+
+		local best = directPortal or hubPortal
+		if best then
+			travelPopup.portalBtn.mapID, travelPopup.portalBtn.x, travelPopup.portalBtn.y, travelPopup.portalBtn.name = best.p.mapID, best.p.x, best.p.y, best.p.name
+			travelPopup.portalBtn:Show()
+			portalAdvice, bestDist = string.format("\n|cff00ffffUse: %s (%dyd)|r", best.p.name, best.d), best.d
+		end
+
+		hsBtn:ClearAllPoints()
+		travelPopup.portalBtn:ClearAllPoints()
+		local isNearPortal = (bestDist < 300)
+		local isHub = (tonumber(currentMap) == 2393 or tonumber(currentMap) == 2576)
+		local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal)
+
+		if isHSVisible then
+			hsBtn:Show()
+		else
+			hsBtn:Hide()
+		end
+		if travelPopup.portalBtn:IsShown() and isHSVisible then
+			hsBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", -50, 15)
+			travelPopup.portalBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 50, 15)
+		elseif travelPopup.portalBtn:IsShown() then
+			travelPopup.portalBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 0, 15)
+		elseif isHSVisible then
+			hsBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 0, 15)
+		end
+
+		if travelPopup.portalBtn:IsShown() or isHSVisible then
+			local statusText = (hsStartTime == 0) and "" or "\n|cffff0000HS on Cooldown!|r"
+			ns:ShowTravelPopup(targetZoneName, "\n|cffaaaaaaDistance: Very Far|r" .. statusText .. portalAdvice)
+		else
+			SafeHideTravelPopup()
+		end
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Delve POI state via GetDelvesForMap: bountiful flag + per-delve atlas (character map).
 -- Matches older MH behavior: scan every map/POI, OR results (duplicate POIs may disagree).
@@ -2430,6 +2532,56 @@ end)
 
 travelPopup.portalBtn = portalBtn
 
+-- The Mage Teleport button: cast Teleport: Silvermoon City (Midnight hub spell
+-- 1259190) straight to the Bazaar. Shown only for mages who know it and aren't
+-- already in the Silvermoon region (decided in ShowTravelPopup). macrotext uses
+-- the spell's LOCALIZED name, set out of combat in ShowTravelPopup (locale-safe).
+local MAGE_TELEPORT_SMC = 1259190
+local mageBtn = CreateFrame("Button", "MidnightHelperMageTeleBtn", travelPopup, "SecureActionButtonTemplate")
+mageBtn:SetSize(40, 40)
+mageBtn:Hide()
+local mIcon = mageBtn:CreateTexture(nil, "ARTWORK")
+mIcon:SetAllPoints()
+mIcon:SetTexture((C_Spell and C_Spell.GetSpellTexture and C_Spell.GetSpellTexture(MAGE_TELEPORT_SMC)) or 132369)
+mageBtn.icon = mIcon
+mageBtn:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+mageBtn:SetAttribute("type", "macro")
+mageBtn:RegisterForClicks("AnyUp", "AnyDown")
+mageBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 0, 60) -- own row above HS/portal
+mageBtn:SetScript("PostClick", function()
+	print("|cffffcc00Midnight Helper:|r Teleporting to Silvermoon City...")
+	SafeHideTravelPopup()
+end)
+travelPopup.mageBtn = mageBtn
+
+-- Portal: Silvermoon City (group portal, Midnight spell 1259194, lvl 88).
+local MAGE_PORTAL_SMC = 1259194
+local magePortalBtn = CreateFrame("Button", "MidnightHelperMagePortalBtn", travelPopup, "SecureActionButtonTemplate")
+magePortalBtn:SetSize(40, 40)
+magePortalBtn:Hide()
+local mpIcon = magePortalBtn:CreateTexture(nil, "ARTWORK")
+mpIcon:SetAllPoints()
+mpIcon:SetTexture((C_Spell and C_Spell.GetSpellTexture and C_Spell.GetSpellTexture(MAGE_PORTAL_SMC)) or 132369)
+magePortalBtn.icon = mpIcon
+magePortalBtn:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+magePortalBtn:SetAttribute("type", "macro")
+magePortalBtn:RegisterForClicks("AnyUp", "AnyDown")
+magePortalBtn:SetScript("PostClick", function()
+	print("|cffffcc00Midnight Helper:|r Opening a portal to Silvermoon City...")
+	SafeHideTravelPopup()
+end)
+travelPopup.magePortalBtn = magePortalBtn
+
+local function MageSpellName(spellID)
+	if C_Spell and C_Spell.GetSpellName then
+		return C_Spell.GetSpellName(spellID)
+	end
+	if GetSpellInfo then
+		return (GetSpellInfo(spellID))
+	end
+	return nil
+end
+
 function ns:ShowTravelPopup(targetMapName, extraInfo)
 	if InCombatLockdown() then
 		return
@@ -2438,6 +2590,46 @@ function ns:ShowTravelPopup(targetMapName, extraInfo)
 	if not ns.IsTomTomReady() then
 		extra = extra .. ns:L("TRAVEL_BLIZZARD_WAYPOINT_HINT")
 	end
+
+	-- Mage hub spells to Silvermoon: Teleport (self) and Portal (group). Offer
+	-- whichever you know when you're not already in the hub region.
+	local showTele, showPortal = false, false
+	if select(2, UnitClass("player")) == "MAGE" then
+		local cm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+		local reg = (cm and ns.GetRegionGroupID and ns.GetRegionGroupID(cm)) or 0
+		if reg ~= 1 and type(IsPlayerSpell) == "function" then
+			if IsPlayerSpell(MAGE_TELEPORT_SMC) then
+				local n = MageSpellName(MAGE_TELEPORT_SMC)
+				if n then
+					mageBtn:SetAttribute("macrotext", "/cast " .. n)
+					extra = extra .. ("\n|cff69ccf0Mage: %s|r"):format(n)
+					showTele = true
+				end
+			end
+			if IsPlayerSpell(MAGE_PORTAL_SMC) then
+				local n = MageSpellName(MAGE_PORTAL_SMC)
+				if n then
+					magePortalBtn:SetAttribute("macrotext", "/cast " .. n)
+					extra = extra .. ("\n|cff69ccf0Mage: %s|r"):format(n)
+					showPortal = true
+				end
+			end
+		end
+	end
+	mageBtn:ClearAllPoints()
+	magePortalBtn:ClearAllPoints()
+	if showTele and showPortal then
+		mageBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", -25, 60)
+		magePortalBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 25, 60)
+	elseif showTele then
+		mageBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 0, 60)
+	elseif showPortal then
+		magePortalBtn:SetPoint("BOTTOM", travelPopup, "BOTTOM", 0, 60)
+	end
+	mageBtn:SetShown(showTele)
+	magePortalBtn:SetShown(showPortal)
+	travelPopup:SetHeight((showTele or showPortal) and 200 or 140)
+
 	travelPopup.text:SetText(
 		string.format(
 			"%s\n|cff888888(%s)|r",

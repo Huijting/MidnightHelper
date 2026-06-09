@@ -477,7 +477,9 @@ local function GetPlayerMapPositionForWaypoints()
 	if not okMap or not mapID or mapID == 0 then
 		return nil, nil, nil
 	end
-	local okPos, pos = pcall(C_Map.GetPlayerMapPosition, mapID)
+	-- NB: GetPlayerMapPosition needs the unit ("player"); without it the call
+	-- returns nil, which is why every route reported "player position unavailable".
+	local okPos, pos = pcall(C_Map.GetPlayerMapPosition, mapID, "player")
 	if not okPos or not pos then
 		return nil, nil, nil
 	end
@@ -508,6 +510,7 @@ local rightColumn
 local TRACKER_ROW_HEIGHT = 22
 local TRACKER_HEADER_BLOCK = 24
 local TRACKER_SECTION_HEADER_HEIGHT = 26
+local TRACKER_ZONE_HEADER_HEIGHT = 16
 local TRACKER_INTER_COL_GAP = 12
 local COLOR_HDR_MPT = "|cff00ff00" -- single-line "=== Profession (x/y) ==="
 local COLOR_KP_NAME = "|cffccffcc"
@@ -826,17 +829,57 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 		y = y + TRACKER_ROW_HEIGHT
 	end
 
+	local function ZoneName(mapID)
+		if C_Map and C_Map.GetMapInfo then
+			local info = C_Map.GetMapInfo(tonumber(mapID) or 0)
+			if info and info.name and info.name ~= "" then
+				return info.name
+			end
+		end
+		return "Other"
+	end
+
+	local function MountZoneHeader(zoneText)
+		local hdr = CreateFrame("Frame", nil, host)
+		hdr:SetSize(colW, TRACKER_ZONE_HEADER_HEIGHT)
+		hdr:SetPoint("TOPLEFT", host, "TOPLEFT", 0, -y)
+		local lbl = hdr:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		lbl:SetPoint("LEFT", hdr, "LEFT", 8, 0)
+		lbl:SetWidth(colW - 12)
+		lbl:SetJustifyH("LEFT")
+		lbl:SetWordWrap(false)
+		lbl:SetText(zoneText)
+		lbl:SetTextColor(0.62, 0.80, 1)
+		y = y + TRACKER_ZONE_HEADER_HEIGHT
+	end
+
+	-- Group rows under a zone sub-header (zones alphabetical; row order kept).
+	local function AddRowsGroupedByZone(list)
+		local byZone, order = {}, {}
+		for _, row in ipairs(list) do
+			local z = ZoneName(row[2])
+			if not byZone[z] then
+				byZone[z] = {}
+				order[#order + 1] = z
+			end
+			byZone[z][#byZone[z] + 1] = row
+		end
+		table.sort(order)
+		for _, z in ipairs(order) do
+			MountZoneHeader(z)
+			for _, row in ipairs(byZone[z]) do
+				AddTrackerDataRow(row)
+			end
+		end
+	end
+
 	if #treasureRows > 0 then
 		MountSectionHeader("Treasures")
-		for _, row in ipairs(treasureRows) do
-			AddTrackerDataRow(row)
-		end
+		AddRowsGroupedByZone(treasureRows)
 	end
 	if #bookRows > 0 then
 		MountSectionHeader("Books")
-		for _, row in ipairs(bookRows) do
-			AddTrackerDataRow(row)
-		end
+		AddRowsGroupedByZone(bookRows)
 	end
 
 	return y + 8
@@ -1004,118 +1047,238 @@ local function SetupProfessionModule()
 		return n:find("Book", 1, true) ~= nil or n:find("Echo of Abundance", 1, true) ~= nil
 	end
 
+	--[[
+		Dynamic "nearest treasure" arrow. Instead of a fixed route, we drop every
+		eligible incomplete treasure as a map pin and keep the TomTom crazy arrow on
+		the NEAREST one. A light 2s ticker (plus quest/zone events) re-points it as
+		you move, advances to the next nearest when you loot one, and re-asserts the
+		arrow after the transient drop on a zone change. Pins/arrow are removed once
+		their quest flag completes. (Rob's ask: always nearest, auto-advance.)
+	]]
+	local treasurePins = {} -- { {uid, questID, mapID, nx, ny, name}, ... } nx/ny 0-1
+	local treasureLabel
+	local treasureActive = false
+	local treasureArrowUid
+	local treasureAssistKey -- target+zone the travel popup was last shown for
+	local treasureTicker
+
+	local function TreasureClearPins()
+		if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.RemoveWaypoint then
+			for _, p in ipairs(treasurePins) do
+				if p.uid then
+					pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, p.uid)
+				end
+			end
+		end
+		for k = #treasurePins, 1, -1 do
+			treasurePins[k] = nil
+		end
+		treasureArrowUid = nil
+		treasureAssistKey = nil
+	end
+
+	local function TreasureStop()
+		treasureActive = false
+		if treasureTicker then
+			treasureTicker:Cancel()
+			treasureTicker = nil
+		end
+		TreasureClearPins()
+	end
+
+	-- Re-point the arrow at the nearest still-incomplete pin (dropping collected
+	-- ones). Always re-SetCrazyArrow so it survives the transient drop on a zone
+	-- change. Cheap; runs on the ticker + quest/zone events.
+	local function TreasureUpdateArrow()
+		if not treasureActive then
+			return
+		end
+		if not (ns.IsTomTomReady and ns.IsTomTomReady()) then
+			return
+		end
+		local i = 1
+		while i <= #treasurePins do
+			local p = treasurePins[i]
+			if p.questID and C_QuestLog.IsQuestFlaggedCompleted(p.questID) then
+				if p.uid and _G.TomTom.RemoveWaypoint then
+					pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, p.uid)
+				end
+				table.remove(treasurePins, i)
+			else
+				i = i + 1
+			end
+		end
+		if #treasurePins == 0 then
+			print(("|cffffff78Midnight Helper:|r All %s collected — arrow cleared."):format(treasureLabel or "treasures"))
+			TreasureStop()
+			return
+		end
+		-- Nearest on the player's current map; if the position is unavailable (e.g.
+		-- inside Silvermoon) or no pins are on this map, keep the current arrow / use
+		-- the first remaining pin so it still guides you toward the next zone.
+		local pMap, px, py = GetPlayerMapPositionForWaypoints()
+		local curMap = pMap
+		if not curMap and C_Map and C_Map.GetBestMapForUnit then
+			curMap = C_Map.GetBestMapForUnit("player")
+		end
+		local best, bestD
+		if pMap and px then
+			-- Exact nearest by distance on the current map.
+			for _, p in ipairs(treasurePins) do
+				if p.mapID == pMap then
+					local dx, dy = p.nx - px, p.ny - py
+					local d = dx * dx + dy * dy
+					if not bestD or d < bestD then
+						bestD, best = d, p
+					end
+				end
+			end
+		end
+		if not best and curMap then
+			-- Position unknown (e.g. inside a city) but we know the zone: point at a
+			-- pin in THIS zone instead of a far one in the data order.
+			for _, p in ipairs(treasurePins) do
+				if p.mapID == curMap then
+					best = p
+					break
+				end
+			end
+		end
+		if not best then
+			-- Keep the current arrow if it's still valid, else the first remaining.
+			for _, p in ipairs(treasurePins) do
+				if p.uid == treasureArrowUid then
+					best = p
+					break
+				end
+			end
+			best = best or treasurePins[1]
+		end
+		if best and best.uid then
+			-- Drive the crazy arrow when the nearest treasure is in our current
+			-- REGION/continent (reachable on foot, incl. zone sub-maps). A different
+			-- known region → leave it to the travel popup / portal button (don't steal
+			-- that arrow back every tick). Unknown region → drive it anyway.
+			local pReg = 0
+			if ns.GetRegionGroupID and curMap then
+				local hub = ns.GetPlayerHubContext and ns.GetPlayerHubContext(curMap)
+				pReg = (ns.GetEffectiveRegionGroupID and ns.GetEffectiveRegionGroupID(curMap, hub))
+					or ns.GetRegionGroupID(curMap)
+					or 0
+			end
+			local tReg = (ns.GetRegionGroupID and ns.GetRegionGroupID(best.mapID)) or 0
+			local reachable = (tReg == pReg) or (pReg == 0)
+			if reachable and _G.TomTom.SetCrazyArrow then
+				pcall(_G.TomTom.SetCrazyArrow, _G.TomTom, best.uid, 15, best.name)
+			end
+			treasureArrowUid = best.uid
+			-- Travel advice (HS + portal) for a far target, keyed on target+zone: it
+			-- shows once per new target OR when you reach a new zone (e.g. "Portal to
+			-- Harandar" once you land in Silvermoon), but won't re-pop every tick or
+			-- fight an Esc within the same target+zone.
+			local assistKey = tostring(best.questID) .. "@" .. tostring(curMap)
+			if assistKey ~= treasureAssistKey and ns.ShowTravelAssistFor then
+				treasureAssistKey = assistKey
+				ns.ShowTravelAssistFor(best.mapID, best.nx * 100, best.ny * 100, best.name)
+			end
+		end
+	end
+
+	local treasureEvents = CreateFrame("Frame")
+	treasureEvents:RegisterEvent("QUEST_LOG_UPDATE")
+	treasureEvents:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	treasureEvents:RegisterEvent("PLAYER_ENTERING_WORLD")
+	treasureEvents:SetScript("OnEvent", function(_, event)
+		if not treasureActive then
+			return
+		end
+		if event == "QUEST_LOG_UPDATE" then
+			TreasureUpdateArrow()
+		elseif C_Timer and C_Timer.After then
+			C_Timer.After(1.2, TreasureUpdateArrow) -- zone change / loading: let the Map API settle
+		else
+			TreasureUpdateArrow()
+		end
+	end)
+
 	local function RunTomTomGenerate(nameFilter, kindLabel)
-		if not ns.AddSmartTomTomWay then
+		local tomtom = ns.IsTomTomReady and ns.IsTomTomReady()
+		if not tomtom and not ns.AddSmartTomTomWay then
 			print("|cffff5555Midnight Helper:|r Travel Assistant unavailable (Delves module not loaded).")
 			return
 		end
 
-		if ns.IsTomTomReady and ns.IsTomTomReady() then
+		TreasureStop()
+		if tomtom then
 			pcall(function()
 				_G.TomTom:ClearAllWaypoints()
 			end)
 		end
+		-- Don't let the shared Delves zone-re-assert (ns.lastTarget) fight our arrow.
+		ns.lastTarget = nil
 
 		local primaryProfessions = GetPrimaryProfessionEntries()
-		local pMap, pX, pY = GetPlayerMapPositionForWaypoints()
-		local nearestFirst = pMap ~= nil and pX ~= nil and pY ~= nil
-
-		-- Eligible incomplete pins, grouped per map so zones stay together.
-		local byMap, mapOrder = {}, {}
-		for idx, row in ipairs(MIDNIGHT_DATA) do
+		local eligible = {}
+		for _, row in ipairs(MIDNIGHT_DATA) do
 			local questID, mapID, x, yCoord, name, profession = row[1], row[2], row[3], row[4], row[5], row[6]
 			if
 				nameFilter(name)
 				and not C_QuestLog.IsQuestFlaggedCompleted(questID)
 				and PrimaryProfessionMatchesDataColumn(profession, primaryProfessions)
 			then
-				local m = tonumber(mapID) or 0
-				if not byMap[m] then
-					byMap[m] = {}
-					table.insert(mapOrder, m)
-				end
-				table.insert(byMap[m], {
-					row = row,
-					idx = idx,
-					nx = (tonumber(x) or 0) / 100,
-					ny = (tonumber(yCoord) or 0) / 100,
-				})
+				eligible[#eligible + 1] = {
+					questID = questID,
+					mapID = tonumber(mapID) or 0,
+					x = tonumber(x) or 0,
+					y = tonumber(yCoord) or 0,
+					name = name,
+				}
 			end
 		end
 
-		-- Player's current map first; other maps keep data order.
-		if nearestFirst and byMap[pMap] then
-			for i, m in ipairs(mapOrder) do
-				if m == pMap and i > 1 then
-					table.remove(mapOrder, i)
-					table.insert(mapOrder, 1, m)
-					break
-				end
-			end
+		if #eligible == 0 then
+			print(("|cffffff78Midnight Helper:|r No incomplete %s for your professions."):format(kindLabel))
+			return
 		end
 
-		-- Greedy walking route per map: start from the player (current map) or
-		-- from the first pin in data order (other maps), then always hop to the
-		-- nearest remaining pin from the previous one — a real route instead of
-		-- "distance from start".
-		local toAdd = {}
-		for _, m in ipairs(mapOrder) do
-			local pins = byMap[m]
-			table.sort(pins, function(a, b)
-				return a.idx < b.idx
-			end)
-			local cx, cy
-			if nearestFirst and m == pMap then
-				cx, cy = pX, pY
-			else
-				cx, cy = pins[1].nx, pins[1].ny
-			end
-			while #pins > 0 do
-				local bestI
-				local bestD
-				for i, p in ipairs(pins) do
-					local dx = p.nx - cx
-					local dy = p.ny - cy
-					local dist = dx * dx + dy * dy
-					if not bestD or dist < bestD then
-						bestD = dist
-						bestI = i
-					end
-				end
-				local p = table.remove(pins, bestI)
-				table.insert(toAdd, p)
-				cx, cy = p.nx, p.ny
-			end
+		treasureLabel = kindLabel
+
+		if not tomtom then
+			-- No TomTom: single Blizzard user waypoint at the first eligible pin.
+			local e = eligible[1]
+			ns.AddSmartTomTomWay(e.mapID, e.x, e.y, e.name)
+			print(("|cffffff78Midnight Helper:|r Generate %s: %d eligible (TomTom not loaded — single waypoint only)."):format(kindLabel, #eligible))
+			return
 		end
 
-		local added = 0
-		local eligible = #toAdd
-		for i, entry in ipairs(toAdd) do
-			local row = entry.row
-			local mapID, x, yCoord, name = row[2], row[3], row[4], row[5]
-			-- First pin starts the route: only it gets the crazy arrow + travel UI.
-			-- The rest pass skipCrazyArrow so TomTom doesn't yank the arrow onto the
-			-- last (farthest) pin — same pattern as Rares "Find Nearest" generate.
-			-- A single crazy arrow survives zone changes on its own (proven by the
-			-- single-waypoint ritual route), so we do NOT re-assert/regenerate here.
-			local skipTravelUI = i > 1
-			local skipCrazyArrow = i > 1
-			if ns.AddSmartTomTomWay(mapID, x, yCoord, name, skipTravelUI, skipCrazyArrow) then
-				added = added + 1
-			end
+		-- Drop every eligible treasure as a map pin (no arrow yet); the dynamic
+		-- arrow below points at whichever is nearest.
+		for _, e in ipairs(eligible) do
+			local uid = _G.TomTom:AddWaypoint(e.mapID, e.x / 100, e.y / 100, {
+				title = e.name,
+				persistent = false,
+				minimap = true,
+				world = true,
+				cleardistance = 0, -- keep the pin until the treasure is actually looted
+				crazy = false,
+			})
+			treasurePins[#treasurePins + 1] = {
+				uid = uid,
+				questID = e.questID,
+				mapID = e.mapID,
+				nx = e.x / 100,
+				ny = e.y / 100,
+				name = e.name,
+			}
 		end
 
-		local orderHint = nearestFirst and "Order: shortest-hop route from your position."
-			or "Order: shortest-hop route per zone (player position unavailable)."
-		print(
-			string.format(
-				"|cffffff78Midnight Helper:|r Generate %s: %d waypoint(s) added to TomTom (%d eligible incomplete pins). %s",
-				kindLabel,
-				added,
-				eligible,
-				orderHint
-			)
-		)
+		treasureActive = true
+		TreasureUpdateArrow()
+		if C_Timer and C_Timer.NewTicker then
+			treasureTicker = C_Timer.NewTicker(2, TreasureUpdateArrow)
+		end
+
+		print(("|cffffff78Midnight Helper:|r Generate %s: tracking %d — the arrow follows the nearest and advances as you collect them."):format(kindLabel, #eligible))
 	end
 
 	local WAYPOINT_BTN_HEIGHT = 26
@@ -1125,7 +1288,7 @@ local function SetupProfessionModule()
 	local waypointBtn = CreateFrame("Button", "MidnightHelperProfessionTreasuresWaypointBtn", frame, "UIPanelButtonTemplate")
 	waypointBtn:SetSize(180, WAYPOINT_BTN_HEIGHT)
 	waypointBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 16, WAYPOINT_BTN_BOTTOM_INSET)
-	waypointBtn:SetText("Generate Treasures")
+	waypointBtn:SetText(ns:L("PROF_GENERATE_TREASURES_BTN"))
 	waypointBtn:SetFrameLevel((frame:GetFrameLevel() or 0) + 50)
 	waypointBtn:RegisterForClicks("LeftButtonUp")
 
@@ -1133,7 +1296,7 @@ local function SetupProfessionModule()
 	booksBtn:SetSize(180, WAYPOINT_BTN_HEIGHT)
 	booksBtn:SetPoint("LEFT", waypointBtn, "RIGHT", 8, 0)
 	booksBtn:SetPoint("BOTTOM", frame, "BOTTOM", 0, WAYPOINT_BTN_BOTTOM_INSET)
-	booksBtn:SetText("Generate Books")
+	booksBtn:SetText(ns:L("PROF_GENERATE_BOOKS_BTN"))
 	booksBtn:SetFrameLevel((frame:GetFrameLevel() or 0) + 50)
 	booksBtn:RegisterForClicks("LeftButtonUp")
 

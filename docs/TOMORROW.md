@@ -1,6 +1,23 @@
 # Morgen — test & uitzoek (Midnight Helper)
 
-Stand: 8 juni, avond. Begin met `/reload`, dan onderstaande. Details staan in
+## ⭐ EERSTE TAAK (Rob, 9 juni): lokalisatie naar de overige talen
+
+Alles wat we de laatste tijd gebouwd hebben staat nu alleen in **enUS + nlNL**
+(rest valt terug op EN). Zet die strings ook in **deDE, frFR, esES, ptBR**.
+Het gaat om de keys uit deze nieuwe/gewijzigde locale-bestanden + losse keys:
+- `Locales/RitualTips.lua` — alle `RITUAL_*` (coach-secties, namen, tips,
+  challenges, share, weekly-hint).
+- `Locales/StartHere.lua` — alle `START_*` + `TAB_START_HERE`.
+- `Locales/enUS.lua`/`nlNL.lua` — `PROF_GENERATE_TREASURES_BTN` /
+  `PROF_GENERATE_BOOKS_BTN`.
+Aanpak: per locale-bestand de EN-waarden vertalen (mens-kwaliteit, niet machine —
+zie de oude `\n`-machinevertaal-problemen in de backlog). WoW-eigennamen
+(challenge-namen, "Ritual Sites", "Bountiful Delves", spell-namen) onvertaald
+laten. Daarna luacheck + key-audit (alle keys aanwezig in alle 6 talen).
+
+---
+
+Stand: 9 juni, avond. Begin met `/reload`, dan onderstaande. Details staan in
 `SESSION_NOTES.md` (0b-blok + de losse secties).
 
 ## 1. Testen in-game (na /reload)
