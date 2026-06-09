@@ -1245,7 +1245,7 @@ beschikbaar (geen mingw-gcc).
    (enkele crazy-arrow overleeft zones; alleen `skipCrazyArrow`-fix blijft).
 6. **Docs:** `SESSION_NOTES.md`, `TOMORROW.md`, `CHANGELOG.md`.
 
-## Voor Cursor — commit + push 9 juni (treasure-pijl + reis-assistent, `TBD`)
+## Voor Cursor — commit + push 9 juni (treasure-pijl + reis-assistent, `10dea3c`)
 
 `loadfile` parse op `Profession.lua`, `Delves.lua`, `enUS.lua`, `nlNL.lua` = OK.
 Luacheck niet beschikbaar. Commit alle uncommitted + push `origin/main`.
