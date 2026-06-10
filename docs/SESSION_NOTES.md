@@ -1690,8 +1690,8 @@ EN-fallbacknamen. Daarna dumpen: `/dump EJ_GetInstanceInfo(1315)`-spot-check
 (open de Adventure Guide op die dungeon en `/dump EJ_GetInstanceInfo(EJ_GetInstanceByIndex(i, false))`
 of vraag mij om de scan-macro).
 
-## Voor Cursor — commit + push Dungeon Coach fase 3 batch 1 (`TBD1` / `TBD2` /
-`TBD3`)
+## Voor Cursor — commit + push Dungeon Coach fase 3 batch 1 (`4d72666` /
+`e67dd00` / `0ec7fa1`)
 
 Boss-stappen **nog niet in-game geverifieerd** (follower-runs 11 juni) — commit
 OK, release pas ná Robs verificatie. Geen CF-release.
