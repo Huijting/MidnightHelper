@@ -83,6 +83,19 @@ ns.PROF_ACADEMY = {
 			[393] = { 93710, 93711, 93712, 93713, 93714 }, -- Skinning
 			[197] = { 93696 }, -- Tailoring (service quest)
 		},
+		-- Crafting profs (except Enchanting) pick their weekly up at the WORK
+		-- ORDER STATION (Flaresworn/Mar'nah), not at their trainer — Rob walked
+		-- to the Alchemy trainer and found nothing (10 jun). Ench + gatherers
+		-- use their trainer. Consumers route/word the pickup per this set.
+		serviceProfs = {
+			[171] = true, -- Alchemy
+			[164] = true, -- Blacksmithing
+			[202] = true, -- Engineering
+			[773] = true, -- Inscription
+			[755] = true, -- Jewelcrafting
+			[165] = true, -- Leatherworking
+			[197] = true, -- Tailoring
+		},
 		-- Enchanting weekly disenchant mats (zie PROFESSION_ACADEMY_PLAN.md).
 		enchantingEssences = {
 			{ itemID = 267654, need = 5, fallbackName = "Swirling Arcane Essence" },

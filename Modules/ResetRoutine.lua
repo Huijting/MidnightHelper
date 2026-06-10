@@ -407,15 +407,28 @@ function ns.GetResetRoutineSteps()
 				color = "prog",
 			}
 		else
-			local pin = TRAINER_PINS[prof.skillLine]
-			local px, py = pin and pin[1] or stX, pin and pin[2] or stY
+			-- Crafting profs (service quest) pick up at the Work Order
+			-- station; Enchanting + gatherers at their profession trainer.
+			local serviceProfs = ns.PROF_ACADEMY and ns.PROF_ACADEMY.weekly and ns.PROF_ACADEMY.weekly.serviceProfs
+			local isService = serviceProfs and serviceProfs[prof.skillLine] or false
+			local px, py, textKey, pinKey, pinArg
+			if isService then
+				px, py = stX, stY
+				textKey = "HOME_ROUTINE_SERVICE_PICKUP_FMT"
+				pinKey, pinArg = "HOME_ROUTINE_PIN_STATION", nil
+			else
+				local pin = TRAINER_PINS[prof.skillLine]
+				px, py = pin and pin[1] or stX, pin and pin[2] or stY
+				textKey = "HOME_ROUTINE_TRAINER_PICKUP_FMT"
+				pinKey, pinArg = "HOME_ROUTINE_PIN_TRAINER_FMT", prof.name
+			end
 			steps[#steps + 1] = {
-				text = ns:L("HOME_ROUTINE_TRAINER_PICKUP_FMT"):format(prof.name),
+				text = ns:L(textKey):format(prof.name),
 				color = "warn",
 				open = true,
-				pin = { stMap, px, py, "HOME_ROUTINE_PIN_TRAINER_FMT", prof.name },
+				pin = { stMap, px, py, pinKey, pinArg },
 				onClick = function()
-					RouteSingle(stMap, px, py, "HOME_ROUTINE_PIN_TRAINER_FMT", prof.name)
+					RouteSingle(stMap, px, py, pinKey, pinArg)
 				end,
 			}
 		end
