@@ -1,5 +1,5 @@
 --[[
-	Midnight Helper — "Start Here" new-player roadmap (EN + NL).
+	Midnight Helper — "Start Here" new-player roadmap (all 6 locales).
 	A guided first-week path that ties the existing systems together. Steps link
 	to the relevant tab via ns.SelectTab; the weekly steps auto-tick from the same
 	helpers the Home dashboard uses (never-lie: only ticked where a real signal
@@ -107,4 +107,188 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	START_VAULT_READY = "Er wacht een Great Vault-beloning — claim 'm!",
 	START_VAULT_NONE = "Nog geen vault-beloning klaar — blijf 'm vullen vóór de reset.",
 	START_DELVERCALL_FMT = "Delver's Call: %d/%d gedaan deze week",
+})
+
+merge(ns._mhLocales and ns._mhLocales.deDE, {
+	TAB_START_HERE = "Erste Schritte",
+	START_TITLE = "Erste Schritte — neu in Midnight",
+	START_SUBTITLE = "Gerade Maximalstufe erreicht und unsicher, was jetzt? Das hier ist das ganze Endgame, der Reihe nach. Klick einen Schritt, um direkt zum passenden Tool zu springen; die wöchentlichen Schritte haken sich von selbst ab.",
+
+	START_INTRO_HEADER = "Der Midnight-Loop in Kürze",
+	START_INTRO_BODY = "Endgame ist ein wöchentlicher Rhythmus: Heb deine Gegenstandsstufe an, stimm deinen Charakter ab und füll dann jede Woche deinen Great Vault über Tiefen, Ritual Sites und Void Assaults. Ansehen, Berufe und Währungen kommen obendrauf, sobald dieser Loop Routine ist.",
+
+	START_S1_TITLE = "1. Heb zuerst deine Gegenstandsstufe an",
+	START_S1_BODY = "Fang mit den leichten Erfolgen an: Spiel die Midnight-Kampagne, hol dir Ausrüstung aus Weltquests und den Ansehen-Meilenstein-Quests und lauf normale Tiefen (plus Prey-Jagden und heroische Dungeons), um deine Gegenstandsstufe zu steigern. Ein paar günstige hergestellte/AH-Teile helfen auch. Mit höherer Gegenstandsstufe öffnen sich dann die höheren Stufen mit den echten Belohnungen.",
+	START_S1_NAV = "Tiefen öffnen",
+
+	START_S2_TITLE = "2. Stimm deinen Charakter ab",
+	START_S2_BODY = "Vor härterem Content: Wähl deine Talente, besorg das richtige Fläschchen, Essen, den richtigen Trank und Verzauberungen/Edelsteine für deine Spezialisierung und richte ein Unterbrechungs- und Defensiv-Makro ein. MH hat eine Verbrauchsmaterial-Checkliste, fertige Makros (Werkzeugkiste) und Rotationshilfe (Role Academy).",
+	START_S2_NAV = "Verbrauchsmaterial öffnen",
+
+	START_S3_TITLE = "3. Richte alles auf den Great Vault aus",
+	START_S3_BODY = "Der Great Vault schenkt dir jede Woche eine Belohnung. Seine Welt-Reihe füllt sich über Tiefen, Ritual Sites und Prey; Dungeons und Schlachtzug füllen die anderen Reihen. Schalte vor dem Reset so viele Plätze frei wie möglich.",
+	START_S3_NAV = "Start öffnen",
+
+	START_S4_TITLE = "4. Lauf deine Tiefen",
+	START_S4_BODY = "Tiefen sind Dungeons für solo oder kleine Gruppen mit Brann an deiner Seite — stetige Ausrüstung und der einfachste Welt-Reihen-Fortschritt für den Vault. Klettere zuerst die normalen Stufen hoch; ab Stufe 8 kannst du Bountiful Delves laufen (du brauchst einen Restored Coffer Key) für Champion-Ausrüstung und Hero-Track-Vault-Optionen. Der Tiefen-Coach gibt Tipps pro Tiefe, die du mit deiner Gruppe teilen kannst.",
+	START_S4_NAV = "Tiefen öffnen",
+
+	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
+	START_S5_BODY = "Zwei weitere Welt-Reihen-Aktivitäten, am besten sobald du etwas Ausrüstung hast (sie geben zufällige Champion-Ausrüstung). Schalte Ritual Sites zuerst über die Questreihe \"Ritual Interest\" in Silbermond frei; Void Assaults sind das rotierende Open-World-Event und dein Einstieg. Am Curious Obelisk wählst du Stufe + Challenges — der Ritual Coach erklärt jede einzelne.",
+	START_S5_NAV = "Void & Rituals öffnen",
+
+	START_S6_TITLE = "6. Geh tiefer: Ansehen, Berufe & Währungen",
+	START_S6_BODY = "Ansehen schaltet Vorteile und Kosmetisches frei; Berufe liefern Ausrüstung, Verbrauchsmaterial und Gold (MH hat einen kompletten Einsteigerkurs); und die Basar-Händler in Silbermond machen aus deinen Währungen Upgrades. Nimm das mit, sobald der Wochen-Loop Routine ist.",
+	START_S6_NAV = "Berufe 101 öffnen",
+
+	START_RESET_TITLE = "Reset-Tag: alles noch einmal",
+	START_RESET_BODY = "Wochenquests und der Great Vault setzen sich jede Woche zurück — Mittwoch auf EU-Realms, Dienstag auf US. Hol zuerst die Vault-Belohnung der Vorwoche ab und lauf dann den Loop erneut. Das ist das ganze Spiel — willkommen in Midnight!",
+
+	START_WEEKLY_RITUAL = "Ritual-Sites-Weekly",
+	START_WEEKLY_VOID = "Void-Assaults-Weekly",
+	START_STATUS_DONE = "diese Woche erledigt",
+	START_STATUS_TODO = "diese Woche noch offen",
+
+	START_WEEKLY_SUMMARY_FMT = "Diese Woche: %d/%d Wochenziele erledigt",
+	START_VAULT_READY = "Eine Great-Vault-Belohnung wartet — hol sie ab!",
+	START_VAULT_NONE = "Noch keine Vault-Belohnung bereit — füll ihn weiter vor dem Reset.",
+	START_DELVERCALL_FMT = "Delver's Call: %d/%d diese Woche erledigt",
+})
+
+merge(ns._mhLocales and ns._mhLocales.frFR, {
+	TAB_START_HERE = "Bien démarrer",
+	START_TITLE = "Bien démarrer — nouveau dans Midnight",
+	START_SUBTITLE = "Tout juste niveau max et pas sûr de quoi faire ? Voici tout l'endgame, dans l'ordre. Clique une étape pour aller droit à l'outil correspondant ; les étapes hebdomadaires se cochent toutes seules.",
+
+	START_INTRO_HEADER = "La boucle Midnight en bref",
+	START_INTRO_BODY = "L'endgame est un rythme hebdomadaire : monte ton niveau d'objet, règle ton personnage, puis remplis chaque semaine ton Great Vault avec les Gouffres, les Ritual Sites et les Void Assaults. La renommée, les métiers et les devises viennent par-dessus une fois cette boucle devenue routinière.",
+
+	START_S1_TITLE = "1. Monte d'abord ton niveau d'objet",
+	START_S1_BODY = "Commence par les gains faciles : fais la campagne de Midnight, récupère de l'équipement via les expéditions mondiales et les quêtes de palier de renommée, et enchaîne des Gouffres normaux (plus les chasses Prey et les donjons héroïques) pour grimper en niveau d'objet. Quelques pièces craftées/HV pas chères aident aussi. Un niveau d'objet plus haut ouvre ensuite les paliers supérieurs, là où sont les vraies récompenses.",
+	START_S1_NAV = "Ouvrir Gouffres",
+
+	START_S2_TITLE = "2. Règle ton personnage",
+	START_S2_BODY = "Avant le contenu plus dur : choisis tes talents, prends le bon flacon, la bonne nourriture, la bonne potion et les enchantements/gemmes pour ta spécialisation, et configure une macro d'interruption + une défensive. MH a une checklist de consommables, des macros prêtes à l'emploi (Boîte à outils) et de l'aide à la rotation (Role Academy).",
+	START_S2_NAV = "Ouvrir Consommables",
+
+	START_S3_TITLE = "3. Vise tout sur le Great Vault",
+	START_S3_BODY = "Le Great Vault t'offre une récompense gratuite chaque semaine. Sa ligne Monde se remplit avec les Gouffres, les Ritual Sites et Prey ; les donjons et le raid remplissent les autres lignes. Débloque autant d'emplacements que possible avant le reset.",
+	START_S3_NAV = "Ouvrir Accueil",
+
+	START_S4_TITLE = "4. Fais tes Gouffres",
+	START_S4_BODY = "Les Gouffres sont des donjons en solo ou petit groupe avec Brann à tes côtés — de l'équipement régulier et la progression Monde la plus simple pour le Vault. Grimpe d'abord les paliers normaux ; à partir du Tier 8 tu peux faire des Bountiful Delves (il te faut une Restored Coffer Key) pour de l'équipement Champion et des choix de Vault Hero-track. Le Coach de gouffre donne des astuces par gouffre, à partager avec ton groupe.",
+	START_S4_NAV = "Ouvrir Gouffres",
+
+	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
+	START_S5_BODY = "Deux autres activités de la ligne Monde, idéales une fois un peu équipé (elles donnent de l'équipement Champion aléatoire). Débloque d'abord les Ritual Sites via la chaîne de quêtes \"Ritual Interest\" à Lune-d'argent ; les Void Assaults sont l'événement de zone extérieur en rotation et ta porte d'entrée. Au Curious Obelisk tu choisis un palier + des challenges — le Ritual Coach explique chacun d'eux.",
+	START_S5_NAV = "Ouvrir Void & Rituals",
+
+	START_S6_TITLE = "6. Va plus loin : renommée, métiers & devises",
+	START_S6_BODY = "La renommée débloque des avantages et des cosmétiques ; les métiers fabriquent équipement, consommables et or (MH a un cours complet pour débutants) ; et les marchands du Bazar à Lune-d'argent transforment tes devises en améliorations. Prends tout ça une fois la boucle hebdo devenue routinière.",
+	START_S6_NAV = "Ouvrir Métiers 101",
+
+	START_RESET_TITLE = "Jour de reset : on recommence",
+	START_RESET_BODY = "Les hebdos et le Great Vault se réinitialisent chaque semaine — mercredi sur les royaumes EU, mardi sur les US. Réclame d'abord le Vault de la semaine passée, puis relance la boucle. C'est tout le jeu — bienvenue dans Midnight !",
+
+	START_WEEKLY_RITUAL = "Hebdo Ritual Sites",
+	START_WEEKLY_VOID = "Hebdo Void Assaults",
+	START_STATUS_DONE = "fait cette semaine",
+	START_STATUS_TODO = "encore à faire cette semaine",
+
+	START_WEEKLY_SUMMARY_FMT = "Cette semaine : %d/%d objectifs hebdo faits",
+	START_VAULT_READY = "Une récompense du Great Vault t'attend — réclame-la !",
+	START_VAULT_NONE = "Pas encore de récompense de Vault — continue de le remplir avant le reset.",
+	START_DELVERCALL_FMT = "Delver's Call : %d/%d faits cette semaine",
+})
+
+merge(ns._mhLocales and ns._mhLocales.esES, {
+	TAB_START_HERE = "Primeros pasos",
+	START_TITLE = "Primeros pasos — nuevo en Midnight",
+	START_SUBTITLE = "¿Acabas de llegar al nivel máximo y no sabes qué hacer? Esto es todo el endgame, en orden. Pulsa un paso para saltar directo a su herramienta; los semanales se marcan solos.",
+
+	START_INTRO_HEADER = "El bucle de Midnight en resumen",
+	START_INTRO_BODY = "El endgame es un ritmo semanal: sube tu nivel de objeto, ajusta tu personaje y luego llena cada semana tu Great Vault con Profundidades, Ritual Sites y Void Assaults. El renombre, las profesiones y las monedas vienen encima cuando ese bucle ya sea rutina.",
+
+	START_S1_TITLE = "1. Sube primero tu nivel de objeto",
+	START_S1_BODY = "Empieza por las victorias fáciles: haz la campaña de Midnight, consigue equipo en las misiones de mundo y en las misiones de hito de renombre, y corre Profundidades normales (más cacerías Prey y mazmorras heroicas) para subir tu nivel de objeto. Unas cuantas piezas baratas crafteadas o de la casa de subastas también ayudan. Un nivel de objeto más alto abre luego los tiers superiores, donde están las recompensas de verdad.",
+	START_S1_NAV = "Abrir Profundidades",
+
+	START_S2_TITLE = "2. Ajusta tu personaje",
+	START_S2_BODY = "Antes del contenido más duro: elige tus talentos, hazte con el frasco, la comida, la poción y los encantamientos/gemas adecuados para tu especialización, y prepara una macro de interrupción + una defensiva. MH tiene una lista de consumibles, macros listas para usar (Herramientas) y ayuda con la rotación (Role Academy).",
+	START_S2_NAV = "Abrir Consumibles",
+
+	START_S3_TITLE = "3. Apunta todo al Great Vault",
+	START_S3_BODY = "El Great Vault te da una recompensa gratis cada semana. Su fila de Mundo se llena con Profundidades, Ritual Sites y Prey; las mazmorras y la banda llenan las otras filas. Desbloquea tantas casillas como puedas antes del reinicio.",
+	START_S3_NAV = "Abrir Inicio",
+
+	START_S4_TITLE = "4. Haz tus Profundidades",
+	START_S4_BODY = "Las Profundidades son mazmorras en solitario o en grupo pequeño con Brann a tu lado — equipo constante y el progreso más fácil de la fila de Mundo. Sube primero los tiers normales; al llegar al Tier 8 puedes hacer Bountiful Delves (necesitas una Restored Coffer Key) para equipo Champion y opciones Hero-track en el Vault. El Entrenador de profundidades da consejos por profundidad que puedes compartir con tu grupo.",
+	START_S4_NAV = "Abrir Profundidades",
+
+	START_S5_TITLE = "5. Ritual Sites y Void Assaults",
+	START_S5_BODY = "Dos actividades más de la fila de Mundo, mejores cuando ya tienes algo de equipo (dan equipo Champion aleatorio). Desbloquea primero los Ritual Sites con la cadena de misiones \"Ritual Interest\" en Lunargenta; los Void Assaults son el evento de zona exterior rotativo y tu vía de entrada. En el Curious Obelisk eliges tier + challenges — el Ritual Coach explica cada uno.",
+	START_S5_NAV = "Abrir Void & Rituals",
+
+	START_S6_TITLE = "6. Profundiza: renombre, profesiones y monedas",
+	START_S6_BODY = "El renombre desbloquea ventajas y cosméticos; las profesiones producen equipo, consumibles y oro (MH tiene un curso completo para principiantes); y los vendedores del Bazar en Lunargenta convierten tus monedas en mejoras. Súmalos cuando el bucle semanal sea rutina.",
+	START_S6_NAV = "Abrir Profesiones 101",
+
+	START_RESET_TITLE = "Día de reinicio: vuelta a empezar",
+	START_RESET_BODY = "Las semanales y el Great Vault se reinician cada semana — miércoles en reinos de EU, martes en US. Reclama primero el vault de la semana pasada y vuelve a correr el bucle. Ese es todo el juego — ¡bienvenido a Midnight!",
+
+	START_WEEKLY_RITUAL = "Semanal de Ritual Sites",
+	START_WEEKLY_VOID = "Semanal de Void Assaults",
+	START_STATUS_DONE = "hecho esta semana",
+	START_STATUS_TODO = "pendiente esta semana",
+
+	START_WEEKLY_SUMMARY_FMT = "Esta semana: %d/%d objetivos semanales hechos",
+	START_VAULT_READY = "Hay una recompensa del Great Vault esperando — ¡reclámala!",
+	START_VAULT_NONE = "Aún no hay recompensa del vault — sigue llenándolo antes del reinicio.",
+	START_DELVERCALL_FMT = "Delver's Call: %d/%d hechas esta semana",
+})
+
+merge(ns._mhLocales and ns._mhLocales.ptBR, {
+	TAB_START_HERE = "Comece aqui",
+	START_TITLE = "Comece aqui — novo no Midnight",
+	START_SUBTITLE = "Acabou de chegar ao nível máximo e não sabe o que fazer? Este é todo o endgame, em ordem. Toque em um passo para ir direto à ferramenta certa; os semanais se marcam sozinhos.",
+
+	START_INTRO_HEADER = "O loop do Midnight em resumo",
+	START_INTRO_BODY = "O endgame é um ritmo semanal: suba seu item level, ajuste seu personagem e depois encha o Great Vault toda semana com Profundidades, Ritual Sites e Void Assaults. Renome, profissões e moedas vêm por cima quando esse loop virar rotina.",
+
+	START_S1_TITLE = "1. Suba primeiro o seu item level",
+	START_S1_BODY = "Comece pelas vitórias fáceis: faça a campanha do Midnight, pegue equipamento nas missões de mundo e nas missões de marco de renome, e rode Profundidades normais (mais caçadas Prey e masmorras heroicas) para subir o item level. Algumas peças baratas craftadas ou da casa de leilões também ajudam. Um item level mais alto abre os tiers maiores, onde estão as recompensas de verdade.",
+	START_S1_NAV = "Abrir Profundidades",
+
+	START_S2_TITLE = "2. Ajuste seu personagem",
+	START_S2_BODY = "Antes do conteúdo mais difícil: escolha seus talentos, pegue o frasco, a comida, a poção e os encantamentos/gemas certos para a sua especialização, e monte uma macro de interrupção + uma defensiva. O MH tem uma checklist de consumíveis, macros prontas (Ferramentas) e ajuda de rotação (Role Academy).",
+	START_S2_NAV = "Abrir Consumíveis",
+
+	START_S3_TITLE = "3. Mire tudo no Great Vault",
+	START_S3_BODY = "O Great Vault te dá uma recompensa grátis por semana. A fileira de Mundo enche com Profundidades, Ritual Sites e Prey; masmorras e raide enchem as outras fileiras. Desbloqueie o máximo de espaços que conseguir antes do reset.",
+	START_S3_NAV = "Abrir Início",
+
+	START_S4_TITLE = "4. Rode suas Profundidades",
+	START_S4_BODY = "Profundidades são masmorras solo ou de grupo pequeno com o Brann ao seu lado — equipamento constante e o progresso mais fácil da fileira de Mundo. Suba primeiro os tiers normais; ao chegar ao Tier 8 você pode rodar Bountiful Delves (precisa de uma Restored Coffer Key) para equipamento Champion e opções Hero-track no Vault. O Treinador de profundidades dá dicas por profundidade que você pode compartilhar com o grupo.",
+	START_S4_NAV = "Abrir Profundidades",
+
+	START_S5_TITLE = "5. Ritual Sites e Void Assaults",
+	START_S5_BODY = "Mais duas atividades da fileira de Mundo, melhores quando você já tiver algum equipamento (dão equipamento Champion aleatório). Desbloqueie primeiro os Ritual Sites pela linha de missões \"Ritual Interest\" em Luaprata; os Void Assaults são o evento rotativo de zona aberta e a sua porta de entrada. No Curious Obelisk você escolhe tier + challenges — o Ritual Coach explica cada um.",
+	START_S5_NAV = "Abrir Void & Rituals",
+
+	START_S6_TITLE = "6. Vá mais fundo: renome, profissões e moedas",
+	START_S6_BODY = "Renome desbloqueia vantagens e cosméticos; profissões produzem equipamento, consumíveis e ouro (o MH tem um curso completo para iniciantes); e os vendedores do Bazar em Luaprata transformam suas moedas em melhorias. Pegue isso quando o loop semanal virar rotina.",
+	START_S6_NAV = "Abrir Profissões 101",
+
+	START_RESET_TITLE = "Dia de reset: tudo de novo",
+	START_RESET_BODY = "As semanais e o Great Vault resetam toda semana — quarta nos reinos da EU, terça nos dos EUA. Resgate primeiro o vault da semana passada e rode o loop de novo. Esse é o jogo inteiro — bem-vindo ao Midnight!",
+
+	START_WEEKLY_RITUAL = "Semanal de Ritual Sites",
+	START_WEEKLY_VOID = "Semanal de Void Assaults",
+	START_STATUS_DONE = "feito esta semana",
+	START_STATUS_TODO = "ainda a fazer esta semana",
+
+	START_WEEKLY_SUMMARY_FMT = "Esta semana: %d/%d objetivos semanais feitos",
+	START_VAULT_READY = "Há uma recompensa do Great Vault esperando — resgate-a!",
+	START_VAULT_NONE = "Nenhuma recompensa do vault ainda — continue enchendo antes do reset.",
+	START_DELVERCALL_FMT = "Delver's Call: %d/%d feitas esta semana",
 })

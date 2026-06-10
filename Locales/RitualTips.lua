@@ -1,5 +1,5 @@
 --[[
-	Midnight Helper — Ritual Coach tip bodies (EN + NL).
+	Midnight Helper — Ritual Coach tip bodies (all 6 locales).
 	Sources: Blizzard 12.0.5 news post (14 Apr 2026) + Wowhead/Method/Skycoach/
 	Overgear/wow.gg ritual-sites guides. Line breaks use |n; bullets use •.
 
@@ -7,7 +7,11 @@
 	obelisk tooltip). Boss names / per-scenario routes stay generic until an
 	in-game run confirms them. See docs/RITUAL_COACH_PLAN.md.
 
-	Locale audit: section titles (11) + names (11) + bodies (26) per language.
+	WoW proper names (challenge names, sites, NPCs, items, quest/scenario names)
+	stay in English in every locale; city/zone words follow each locale file's
+	existing convention (Silbermond / Lune-d'argent / Lunargenta / Luaprata).
+
+	Locale audit: 68 RITUAL_* keys per language, ×6 languages.
 ]]
 
 local _, ns = ...
@@ -71,10 +75,11 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	RITUAL_WEEKLY_HINT_LOCKED_FMT = "Locked: %s",
 	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Locked — unlock Ritual Sites via the intro questline in Silvermoon.",
 	RITUAL_WEEKLY_HINT_PICKUP = "Not picked up yet — grab this week's weekly at the Bazaar hub in Silvermoon.",
+	RITUAL_WEEKLY_HINT_INTRO = "This character hasn't finished the intro questline yet — start \"Ranger Captain's Summons\" at Ranger Captain Lilatha in Silvermoon (the Void Strike step happens in the active assault zone).",
 	RITUAL_WEEKLY_HINT_INPROGRESS = "It's in your quest log — finish it and turn it in.",
 
 	-- Intro / how it works ---------------------------------------------------
-	RITUAL_TIP_INTRO_TIERS = "• Pick Tier 1-5 at the Curious Obelisk; clear each tier to unlock the next.|n• Tier 3 needs 1 challenge active, Tier 4 needs 2, Tier 5 needs 4.|n• Higher tiers give more Spoils and renown (each tier also has a minimum item level — values to confirm in-game).",
+	RITUAL_TIP_INTRO_TIERS = "• Pick Tier 1-5 at the Curious Obelisk; clear each tier to unlock the next.|n• Tier 3 needs 1 challenge active, Tier 4 needs 2, Tier 5 needs 4.|n• Higher tiers give more Spoils and renown. Recommended item level: T1 215 · T2 231 · T3 244 · T4 257 · T5 264 (a recommendation, not a hard gate).",
 	RITUAL_TIP_INTRO_SCORING = "• Spoils are your score; the Ritual Chest at the end scales with them.|n• Deaths: the first 2 are free, then every death cuts Spoils by 5%, up to a maximum of -50%.|n• Clean clears beat fast pulls — dying costs rewards directly.",
 	RITUAL_TIP_INTRO_WEEKLY = "• Each week the tier needed to UNLOCK a challenge drops by one, so everyone unlocks them over time.|n• You cannot unlock all 8 challenges in a single week.|n• Counts for the World row of the Great Vault.|n• Renown boosters: Ritual Tablet (first site of the week), Ritual Tablet Fragment (second site), and Ritual Site Reports (scaled by your Spoils).",
 	RITUAL_TIP_INTRO_ORBS = "• In combat, Regeneration Orbs manifest and heal 15% of your health (Renown 1).|n• Orb Potency (Renown 4) increases that healing.|n• Lean on the orbs instead of burning cooldowns on self-healing.",
@@ -82,12 +87,12 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	-- Daggerspine Point (Eversong Woods) -------------------------------------
 	RITUAL_TIP_DAGGERSPINE_OVERVIEW = "• Eversong Woods — Daggerspine Point, on the west coast near Goldenmist Village.|n• Enemies: naga.|n• Active one week at a time; the obelisk shows a purple icon on the map.|n• Enter at the Curious Obelisk and pick your tier + challenges there.",
 	RITUAL_TIP_DAGGERSPINE_PHASES = "• A short instanced scenario: clear objectives and enemy waves, then a final boss, then loot the Ritual Chest.|n• Scenario seen at the obelisk: \"A Strike From the Sea\" — the naga leader Selen'vjar (final-boss kill still to confirm).|n• A site may run more than one scenario layout — to confirm in-game.",
-	RITUAL_TIP_DAGGERSPINE_NOTES = "• Tainted Bone Pile (unlocks the Tainted Corpses challenge): /way 66.09 62.58.|n• Dark Obelisks (Malevolent Boons quest — investigate 5): 66.57/38.78, 64.71/49.79, 63.82/70.92, 39.16/76.15, 35.28/63.18.|n• Small treasures and Regeneration Orbs are scattered around the site.",
+	RITUAL_TIP_DAGGERSPINE_NOTES = "• Tainted Bone Pile (unlocks the Tainted Corpses challenge): /way 66.09 62.58.|n• Dark Obelisks (Malevolent Boons quest — investigate any 5; 9 spawns): 66.6/38.8 · 64.7/49.8 · 63.8/70.9 · 39.2/76.2 · 35.3/63.2 · 50/42 · 42/56 · 62/62 · 44.8/47.3.|n• Small treasures and Regeneration Orbs are scattered around the site.",
 
 	-- Broken Throne (Zul'Aman) -----------------------------------------------
 	RITUAL_TIP_BROKENTHRONE_OVERVIEW = "• Zul'Aman — Broken Throne, in the south of the zone.|n• Enemies: Twilight's Blade cultists.|n• Active one week at a time; the obelisk shows a purple icon on the map.|n• Enter at the Curious Obelisk and pick your tier + challenges there.",
-	RITUAL_TIP_BROKENTHRONE_PHASES = "• A short instanced scenario: clear objectives and enemy waves, then a final boss, then loot the Ritual Chest.|n• A site may run one or two scenario layouts (objectives differ) — to confirm in-game.|n• Final boss name: to confirm in-game.",
-	RITUAL_TIP_BROKENTHRONE_NOTES = "• Tainted Bone Pile (unlocks the Tainted Corpses challenge): /way 47.91 36.52.|n• Dark Obelisk locations (Malevolent Boons quest): to confirm in-game.|n• Small treasures and Regeneration Orbs are scattered around the site.",
+	RITUAL_TIP_BROKENTHRONE_PHASES = "• A short instanced scenario: clear objectives and enemy waves, then a final boss, then loot the Ritual Chest.|n• Scenario seen at the obelisk: \"A Corrupted Path\" — Faithbreaker Ger'lok corrupts everything with the Void (final-boss kill still to confirm).|n• A site may run more than one scenario layout — to confirm in-game.",
+	RITUAL_TIP_BROKENTHRONE_NOTES = "• Tainted Bone Pile (unlocks the Tainted Corpses challenge): /way 47.91 36.52.|n• Dark Obelisks (Malevolent Boons quest — investigate any 5; 6 spawns): 61/50 · 41/50 · 45/59 · 42/68 · 55/58 · 54/54.|n• Small treasures and Regeneration Orbs are scattered around the site.",
 
 	-- Challenges -------------------------------------------------------------
 	RITUAL_TIP_TENDRILS_MECHANIC = "• Grasping tendrils spawn with a swirling green circle — step out or you get rooted and take damage.|n• Raises Spoils while active.",
@@ -158,10 +163,11 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	RITUAL_WEEKLY_HINT_LOCKED_FMT = "Gegrendeld: %s",
 	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Gegrendeld — ontgrendel Ritual Sites via de intro-questlijn in Silvermoon.",
 	RITUAL_WEEKLY_HINT_PICKUP = "Nog niet opgepakt — haal de weekly bij de Bazaar-hub in Silvermoon.",
+	RITUAL_WEEKLY_HINT_INTRO = "Dit personage heeft de intro-questlijn nog niet af — start \"Ranger Captain's Summons\" bij Ranger Captain Lilatha in Silvermoon (de Void Strike-stap doe je in de actieve assault-zone).",
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Staat in je questlog — afmaken en inleveren.",
 
 	-- Intro / hoe het werkt --------------------------------------------------
-	RITUAL_TIP_INTRO_TIERS = "• Kies Tier 1-5 bij de Curious Obelisk; elke tier moet gecleard zijn om de volgende te ontgrendelen.|n• Tier 3 vereist 1 actieve challenge, Tier 4 vereist er 2, Tier 5 vereist er 4.|n• Hogere tiers geven meer Spoils en renown (elke tier heeft ook een minimum item level — waarden nog in-game bevestigen).",
+	RITUAL_TIP_INTRO_TIERS = "• Kies Tier 1-5 bij de Curious Obelisk; elke tier moet gecleard zijn om de volgende te ontgrendelen.|n• Tier 3 vereist 1 actieve challenge, Tier 4 vereist er 2, Tier 5 vereist er 4.|n• Hogere tiers geven meer Spoils en renown. Aanbevolen item level: T1 215 · T2 231 · T3 244 · T4 257 · T5 264 (advies, geen harde eis).",
 	RITUAL_TIP_INTRO_SCORING = "• Spoils zijn je score; de Ritual Chest aan het eind schaalt ermee.|n• Doden: de eerste 2 zijn gratis, daarna kost elke dood 5% Spoils, tot maximaal -50%.|n• Schone clears verslaan snelle pulls — doodgaan kost direct beloning.",
 	RITUAL_TIP_INTRO_WEEKLY = "• Elke week zakt de tier die nodig is om een challenge te ONTGRENDELEN met één, zodat iedereen ze na verloop van tijd vrijspeelt.|n• Je kunt niet alle 8 challenges in één week ontgrendelen.|n• Telt mee voor de World-rij van de Great Vault.|n• Renown-boosters: Ritual Tablet (eerste site van de week), Ritual Tablet Fragment (tweede site), en Ritual Site Reports (schaalt met je Spoils).",
 	RITUAL_TIP_INTRO_ORBS = "• In combat verschijnen Regeneration Orbs die 15% van je health healen (Renown 1).|n• Orb Potency (Renown 4) verhoogt die healing.|n• Leun op de orbs in plaats van cooldowns te verbranden aan zelf-healing.",
@@ -169,12 +175,12 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	-- Daggerspine Point (Eversong Woods) -------------------------------------
 	RITUAL_TIP_DAGGERSPINE_OVERVIEW = "• Eversong Woods — Daggerspine Point, aan de westkust bij Goldenmist Village.|n• Vijanden: naga.|n• Eén week per keer actief; de obelisk heeft een paars icoon op de map.|n• Ga naar de Curious Obelisk en kies daar je tier + challenges.",
 	RITUAL_TIP_DAGGERSPINE_PHASES = "• Een korte instanced scenario: clear objectives en vijandgolven, dan een eindboss, dan loot je de Ritual Chest.|n• Scenario gezien bij de obelisk: \"A Strike From the Sea\" — de naga-leider Selen'vjar (eindboss-kill nog te bevestigen).|n• Een site kan meer dan één scenario-layout draaien — nog in-game bevestigen.",
-	RITUAL_TIP_DAGGERSPINE_NOTES = "• Tainted Bone Pile (ontgrendelt de Tainted Corpses-challenge): /way 66.09 62.58.|n• Dark Obelisks (Malevolent Boons-quest — investigeer er 5): 66.57/38.78, 64.71/49.79, 63.82/70.92, 39.16/76.15, 35.28/63.18.|n• Kleine treasures en Regeneration Orbs liggen verspreid door de site.",
+	RITUAL_TIP_DAGGERSPINE_NOTES = "• Tainted Bone Pile (ontgrendelt de Tainted Corpses-challenge): /way 66.09 62.58.|n• Dark Obelisks (Malevolent Boons-quest — onderzoek er 5 van de 9): 66.6/38.8 · 64.7/49.8 · 63.8/70.9 · 39.2/76.2 · 35.3/63.2 · 50/42 · 42/56 · 62/62 · 44.8/47.3.|n• Kleine treasures en Regeneration Orbs liggen verspreid door de site.",
 
 	-- Broken Throne (Zul'Aman) -----------------------------------------------
 	RITUAL_TIP_BROKENTHRONE_OVERVIEW = "• Zul'Aman — Broken Throne, in het zuiden van de zone.|n• Vijanden: Twilight's Blade-cultisten.|n• Eén week per keer actief; de obelisk heeft een paars icoon op de map.|n• Ga naar de Curious Obelisk en kies daar je tier + challenges.",
-	RITUAL_TIP_BROKENTHRONE_PHASES = "• Een korte instanced scenario: clear objectives en vijandgolven, dan een eindboss, dan loot je de Ritual Chest.|n• Een site kan één of twee scenario-layouts draaien (andere objectives) — nog in-game bevestigen.|n• Naam van de eindboss: nog in-game bevestigen.",
-	RITUAL_TIP_BROKENTHRONE_NOTES = "• Tainted Bone Pile (ontgrendelt de Tainted Corpses-challenge): /way 47.91 36.52.|n• Dark Obelisk-locaties (Malevolent Boons-quest): nog in-game bevestigen.|n• Kleine treasures en Regeneration Orbs liggen verspreid door de site.",
+	RITUAL_TIP_BROKENTHRONE_PHASES = "• Een korte instanced scenario: clear objectives en vijandgolven, dan een eindboss, dan loot je de Ritual Chest.|n• Scenario gezien bij de obelisk: \"A Corrupted Path\" — Faithbreaker Ger'lok corrumpeert alles met de Void (eindboss-kill nog te bevestigen).|n• Een site kan meer dan één scenario-layout draaien — nog in-game bevestigen.",
+	RITUAL_TIP_BROKENTHRONE_NOTES = "• Tainted Bone Pile (ontgrendelt de Tainted Corpses-challenge): /way 47.91 36.52.|n• Dark Obelisks (Malevolent Boons-quest — onderzoek er 5 van de 6): 61/50 · 41/50 · 45/59 · 42/68 · 55/58 · 54/54.|n• Kleine treasures en Regeneration Orbs liggen verspreid door de site.",
 
 	-- Challenges -------------------------------------------------------------
 	RITUAL_TIP_TENDRILS_MECHANIC = "• Grijpende tendrils verschijnen met een draaiende groene cirkel — eruit lopen, anders word je geroot en neem je schade.|n• Verhoogt Spoils zolang actief.",
@@ -193,4 +199,356 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" unieke treasures uit een Tier 3+-site (de vereiste tier zakt elke week).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Random vijanden ÉN de eindboss zijn empowered, gemarkeerd met een zwevende orb erboven.|n• Verhoogt Spoils zolang actief (een van de grotere boosts).",
 	RITUAL_TIP_EMBERS_UNLOCK = "• Loot een Ember of Power in een Tier 4-site om de quest te starten (de vereiste tier zakt elke week).",
+})
+
+merge(ns._mhLocales and ns._mhLocales.deDE, {
+	-- Abschnittstitel ----------------------------------------------------------
+	RITUAL_COACH_SEC_OVERVIEW = "Überblick",
+	RITUAL_COACH_SEC_PHASES = "So läuft ein Run ab",
+	RITUAL_COACH_SEC_NOTES = "Notizen zur Stätte",
+	RITUAL_COACH_SEC_MECHANIC = "Was es bewirkt",
+	RITUAL_COACH_SEC_UNLOCK = "So schaltest du es frei",
+	RITUAL_COACH_SEC_TIERS = "Tiers & Challenges",
+	RITUAL_COACH_SEC_SCORING = "Spoils & Tode",
+	RITUAL_COACH_SEC_WEEKLY = "Wöchentlich & Ansehen",
+	RITUAL_COACH_SEC_ORBS = "Regeneration Orbs",
+
+	-- Anzeigenamen (Eigennamen bleiben Englisch) -------------------------------
+	RITUAL_COACH_INTRO_NAME = "So funktionieren Ritual Sites",
+	RITUAL_COACH_SITE_DAGGERSPINE = "Daggerspine Point",
+	RITUAL_COACH_SITE_BROKENTHRONE = "Broken Throne",
+	RITUAL_CHAL_TENDRILS = "Tendrils",
+	RITUAL_CHAL_MANIFESTATIONS = "Manifestations",
+	RITUAL_CHAL_ALARMBELLS = "Magical Alarm Bells",
+	RITUAL_CHAL_MALEVOLENTBOONS = "Malevolent Boons",
+	RITUAL_CHAL_TAINTEDCORPSES = "Tainted Corpses",
+	RITUAL_CHAL_REINFORCED = "Reinforced",
+	RITUAL_CHAL_PATROLS = "Patrols",
+	RITUAL_CHAL_EMBERS = "Embers",
+
+	-- Coach-UI-Labels (Phase 2) ------------------------------------------------
+	RITUAL_COACH_HEADER = "Ritual Coach",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — wählbar ab Tier 3 (höchste Spoils zuerst)",
+	RITUAL_COACH_ACTIVE_FMT = "Stätte dieser Woche: %s",
+	RITUAL_COACH_ACTIVE_UNKNOWN = "Aktive Stätte noch nicht erkannt — allgemeine Tipps unten.",
+	RITUAL_COACH_STATUS_UNLOCKED = "freigeschaltet",
+	RITUAL_COACH_STATUS_LOCKED = "gesperrt",
+
+	-- Teilen (Phase 3)
+	RITUAL_COACH_SHARE_BTN = "Challenge-Tipps mit der Gruppe teilen",
+	RITUAL_SHARE_CHALLENGES_HEADER = "Ritual-Challenges nach Spoils:",
+	RITUAL_SHARE_XLOC_HEADER_FMT = "%s hat Ritual-Challenge-Tipps geteilt:",
+	RITUAL_SHARE_CONFIRM_FMT = "%d Zeilen Ritual-Challenge-Tipps in deine Gruppe posten?",
+	RITUAL_SHARE_SENT_FMT = "%d Zeile(n) an %s geteilt.",
+	RITUAL_SHARE_SENT_TEST_FMT = "%d Zeile(n) geteilt (Testmodus).",
+	RITUAL_SHARE_NO_GROUP = "Tritt einer Gruppe oder einem Schlachtzug bei, um die Tipps zu teilen (oder aktiviere den Share-Testmodus).",
+	RITUAL_SHARE_COMBAT = "Im Kampf kann nicht geteilt werden.",
+	RITUAL_SHARE_COOLDOWN = "Teilen hat Abklingzeit — versuch es gleich noch einmal.",
+	RITUAL_SHARE_BUSY = "Es läuft bereits ein Share.",
+	RITUAL_SHARE_FAILED = "Die Challenge-Tipps konnten nicht erstellt werden.",
+
+	-- Weekly-Hinweis (warum die Ritual-Weekly noch offen ist)
+	RITUAL_WEEKLY_HINT_LOCKED_FMT = "Gesperrt: %s",
+	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Gesperrt — schalte Ritual Sites über die Einstiegs-Questreihe in Silbermond frei.",
+	RITUAL_WEEKLY_HINT_PICKUP = "Noch nicht angenommen — hol dir die Wochenquest am Basar-Hub in Silbermond.",
+	RITUAL_WEEKLY_HINT_INTRO = "Dieser Charakter hat die Einstiegs-Questreihe noch nicht abgeschlossen — starte \"Ranger Captain's Summons\" bei Ranger Captain Lilatha in Silbermond (der Void-Strike-Schritt passiert in der aktiven Angriffszone).",
+	RITUAL_WEEKLY_HINT_INPROGRESS = "Steht in deinem Questlog — abschließen und abgeben.",
+
+	-- Intro / So funktioniert es -----------------------------------------------
+	RITUAL_TIP_INTRO_TIERS = "• Wähle Tier 1-5 am Curious Obelisk; schließe jede Stufe ab, um die nächste freizuschalten.|n• Tier 3 braucht 1 aktive Challenge, Tier 4 braucht 2, Tier 5 braucht 4.|n• Höhere Stufen geben mehr Spoils und Ansehen. Empfohlene Gegenstandsstufe: T1 215 · T2 231 · T3 244 · T4 257 · T5 264 (Empfehlung, keine harte Sperre).",
+	RITUAL_TIP_INTRO_SCORING = "• Spoils sind deine Punktzahl; die Ritual Chest am Ende skaliert damit.|n• Tode: die ersten 2 sind frei, danach kostet jeder Tod 5% Spoils, bis maximal -50%.|n• Saubere Clears schlagen schnelle Pulls — Sterben kostet direkt Belohnung.",
+	RITUAL_TIP_INTRO_WEEKLY = "• Jede Woche sinkt die Stufe, die zum FREISCHALTEN einer Challenge nötig ist, um eins — mit der Zeit schaltet also jeder alles frei.|n• Du kannst nicht alle 8 Challenges in einer einzigen Woche freischalten.|n• Zählt für die Welt-Reihe des Great Vault.|n• Ansehen-Booster: Ritual Tablet (erste Stätte der Woche), Ritual Tablet Fragment (zweite Stätte) und Ritual Site Reports (skaliert mit deinen Spoils).",
+	RITUAL_TIP_INTRO_ORBS = "• Im Kampf erscheinen Regeneration Orbs, die 15% deiner Gesundheit heilen (Ansehen 1).|n• Orb Potency (Ansehen 4) erhöht diese Heilung.|n• Nutz die Orbs, statt Cooldowns für Selbstheilung zu verbrennen.",
+
+	-- Daggerspine Point (Eversong Woods) ---------------------------------------
+	RITUAL_TIP_DAGGERSPINE_OVERVIEW = "• Eversong Woods — Daggerspine Point, an der Westküste bei Goldenmist Village.|n• Gegner: Naga.|n• Jeweils eine Woche aktiv; der Obelisk zeigt ein violettes Symbol auf der Karte.|n• Betrete die Stätte am Curious Obelisk und wähle dort Stufe + Challenges.",
+	RITUAL_TIP_DAGGERSPINE_PHASES = "• Ein kurzes instanziertes Szenario: Ziele erfüllen und Gegnerwellen besiegen, dann ein Endboss, danach die Ritual Chest looten.|n• Am Obelisken gesehenes Szenario: \"A Strike From the Sea\" — die Naga-Anführerin Selen'vjar (Endboss-Kill noch zu bestätigen).|n• Eine Stätte kann mehr als ein Szenario-Layout haben — noch im Spiel zu bestätigen.",
+	RITUAL_TIP_DAGGERSPINE_NOTES = "• Tainted Bone Pile (schaltet die Tainted-Corpses-Challenge frei): /way 66.09 62.58.|n• Dark Obelisks (Malevolent-Boons-Quest — untersuche 5 von 9): 66.6/38.8 · 64.7/49.8 · 63.8/70.9 · 39.2/76.2 · 35.3/63.2 · 50/42 · 42/56 · 62/62 · 44.8/47.3.|n• Kleine Schätze und Regeneration Orbs sind über die Stätte verteilt.",
+
+	-- Broken Throne (Zul'Aman) --------------------------------------------------
+	RITUAL_TIP_BROKENTHRONE_OVERVIEW = "• Zul'Aman — Broken Throne, im Süden der Zone.|n• Gegner: Kultisten der Twilight's Blade.|n• Jeweils eine Woche aktiv; der Obelisk zeigt ein violettes Symbol auf der Karte.|n• Betrete die Stätte am Curious Obelisk und wähle dort Stufe + Challenges.",
+	RITUAL_TIP_BROKENTHRONE_PHASES = "• Ein kurzes instanziertes Szenario: Ziele erfüllen und Gegnerwellen besiegen, dann ein Endboss, danach die Ritual Chest looten.|n• Am Obelisken gesehenes Szenario: \"A Corrupted Path\" — Faithbreaker Ger'lok korrumpiert alles mit der Leere (Endboss-Kill noch zu bestätigen).|n• Eine Stätte kann mehr als ein Szenario-Layout haben — noch im Spiel zu bestätigen.",
+	RITUAL_TIP_BROKENTHRONE_NOTES = "• Tainted Bone Pile (schaltet die Tainted-Corpses-Challenge frei): /way 47.91 36.52.|n• Dark Obelisks (Malevolent-Boons-Quest — untersuche 5 von 6): 61/50 · 41/50 · 45/59 · 42/68 · 55/58 · 54/54.|n• Kleine Schätze und Regeneration Orbs sind über die Stätte verteilt.",
+
+	-- Challenges -----------------------------------------------------------------
+	RITUAL_TIP_TENDRILS_MECHANIC = "• Greifende Tendrils erscheinen mit einem wirbelnden grünen Kreis — geh raus, sonst wirst du festgewurzelt und nimmst Schaden.|n• Erhöht die Spoils, solange aktiv.",
+	RITUAL_TIP_TENDRILS_UNLOCK = "• Loote am Ende einer Stätte eine Ritual Chest und gib dann die Quest \"Ritual Site Challenge Report: Tendrils\" ab.",
+	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Geister manifestieren sich und wirken Zauber — unterbrich sie, sonst trifft dich zehrende Magie.|n• Erhöht die Spoils, solange aktiv.",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Schließe eine Tier-3-Stätte ab und sprich dann mit Ranger Captain Lilatha in Silbermond (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Kills rufen Verstärkung herbei; je größer und stärker der getötete Pull, desto stärker die Adds.|n• Erhöht die Spoils, solange aktiv.",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Schließe eine Tier-4-Stätte ab und sprich dann mit Lady Darkglen in Silbermond (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• Dark Obelisks stärken Gegner in der Nähe — zerstöre die Obelisken, um die Buffs zu entfernen.|n• Erhöht die Spoils, solange aktiv.",
+	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Schließe eine Tier-2-Stätte ab für eine Quest von Lady Darkglen und untersuche dann 5 Dark Obelisks in einer Stätte (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• Getötete Gegner hinterlassen eine Lache tödlicher Leerenmagie — raus aus der Fläche.|n• Erhöht die Spoils, solange aktiv.",
+	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Loote einen Tainted Bone Pile in einer Stätte ab Tier 2 (Standort: siehe Notizen zur Stätte) und gib die Quest ab.",
+	RITUAL_TIP_REINFORCED_MECHANIC = "• Zusätzliche Gegner in der ganzen Stätte — rechne mit dichteren Packs.|n• Erhöht die Spoils, solange aktiv (einer der größeren Boni).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Schließe eine Tier-2-Stätte ab und sprich dann mit Ranger Captain Lilatha in Silbermond (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_PATROLS_MECHANIC = "• Elitegegner patrouillieren durch die Stätte — weich ihren Routen aus, wo es geht.|n• Erhöht die Spoils, solange aktiv.",
+	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" einzigartige Schätze aus einer Stätte ab Tier 3 (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_EMBERS_MECHANIC = "• Zufällige Gegner UND der Endboss sind verstärkt, markiert durch eine schwebende Kugel über ihnen.|n• Erhöht die Spoils, solange aktiv (einer der größeren Boni).",
+	RITUAL_TIP_EMBERS_UNLOCK = "• Loote ein Ember of Power in einer Tier-4-Stätte, um die Quest zu starten (die nötige Stufe sinkt jede Woche).",
+})
+
+merge(ns._mhLocales and ns._mhLocales.frFR, {
+	-- Titres de section ----------------------------------------------------------
+	RITUAL_COACH_SEC_OVERVIEW = "Aperçu",
+	RITUAL_COACH_SEC_PHASES = "Déroulement d'une run",
+	RITUAL_COACH_SEC_NOTES = "Notes du site",
+	RITUAL_COACH_SEC_MECHANIC = "Ce que ça fait",
+	RITUAL_COACH_SEC_UNLOCK = "Comment le débloquer",
+	RITUAL_COACH_SEC_TIERS = "Tiers & challenges",
+	RITUAL_COACH_SEC_SCORING = "Spoils & morts",
+	RITUAL_COACH_SEC_WEEKLY = "Hebdo & renommée",
+	RITUAL_COACH_SEC_ORBS = "Regeneration Orbs",
+
+	-- Noms affichés (noms propres en anglais) -------------------------------------
+	RITUAL_COACH_INTRO_NAME = "Comment fonctionnent les Ritual Sites",
+	RITUAL_COACH_SITE_DAGGERSPINE = "Daggerspine Point",
+	RITUAL_COACH_SITE_BROKENTHRONE = "Broken Throne",
+	RITUAL_CHAL_TENDRILS = "Tendrils",
+	RITUAL_CHAL_MANIFESTATIONS = "Manifestations",
+	RITUAL_CHAL_ALARMBELLS = "Magical Alarm Bells",
+	RITUAL_CHAL_MALEVOLENTBOONS = "Malevolent Boons",
+	RITUAL_CHAL_TAINTEDCORPSES = "Tainted Corpses",
+	RITUAL_CHAL_REINFORCED = "Reinforced",
+	RITUAL_CHAL_PATROLS = "Patrols",
+	RITUAL_CHAL_EMBERS = "Embers",
+
+	-- Labels UI du Coach (phase 2) ------------------------------------------------
+	RITUAL_COACH_HEADER = "Ritual Coach",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — à choisir à partir du Tier 3 (plus hauts Spoils d'abord)",
+	RITUAL_COACH_ACTIVE_FMT = "Site de la semaine : %s",
+	RITUAL_COACH_ACTIVE_UNKNOWN = "Site actif pas encore détecté — conseils généraux ci-dessous.",
+	RITUAL_COACH_STATUS_UNLOCKED = "débloqué",
+	RITUAL_COACH_STATUS_LOCKED = "verrouillé",
+
+	-- Partage (phase 3)
+	RITUAL_COACH_SHARE_BTN = "Partager les astuces de challenge au groupe",
+	RITUAL_SHARE_CHALLENGES_HEADER = "Challenges rituels triés par Spoils :",
+	RITUAL_SHARE_XLOC_HEADER_FMT = "%s a partagé des astuces de challenges rituels :",
+	RITUAL_SHARE_CONFIRM_FMT = "Poster %d lignes d'astuces de challenges rituels dans ton groupe ?",
+	RITUAL_SHARE_SENT_FMT = "%d ligne(s) partagée(s) sur %s.",
+	RITUAL_SHARE_SENT_TEST_FMT = "%d ligne(s) partagée(s) (mode test).",
+	RITUAL_SHARE_NO_GROUP = "Rejoins un groupe ou un raid pour partager ces astuces (ou active le mode test de partage).",
+	RITUAL_SHARE_COMBAT = "Impossible de partager en combat.",
+	RITUAL_SHARE_COOLDOWN = "Le partage est en recharge — réessaie dans un instant.",
+	RITUAL_SHARE_BUSY = "Un partage est déjà en cours.",
+	RITUAL_SHARE_FAILED = "Impossible de construire les astuces de challenge.",
+
+	-- Indice hebdo (pourquoi l'hebdo rituelle n'est pas faite)
+	RITUAL_WEEKLY_HINT_LOCKED_FMT = "Verrouillé : %s",
+	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Verrouillé — débloque les Ritual Sites via la chaîne de quêtes d'introduction à Lune-d'argent.",
+	RITUAL_WEEKLY_HINT_PICKUP = "Pas encore prise — récupère l'hebdo de la semaine au hub du Bazar à Lune-d'argent.",
+	RITUAL_WEEKLY_HINT_INTRO = "Ce personnage n'a pas encore terminé la chaîne de quêtes d'introduction — commence \"Ranger Captain's Summons\" auprès de Ranger Captain Lilatha à Lune-d'argent (l'étape Void Strike se fait dans la zone d'assaut active).",
+	RITUAL_WEEKLY_HINT_INPROGRESS = "Elle est dans ton journal de quêtes — termine-la et rends-la.",
+
+	-- Intro / comment ça marche -----------------------------------------------------
+	RITUAL_TIP_INTRO_TIERS = "• Choisis le Tier 1-5 au Curious Obelisk ; chaque palier doit être terminé pour débloquer le suivant.|n• Le Tier 3 demande 1 challenge actif, le Tier 4 en demande 2, le Tier 5 en demande 4.|n• Les paliers plus élevés donnent plus de Spoils et de renommée. Niveau d'objet recommandé : T1 215 · T2 231 · T3 244 · T4 257 · T5 264 (recommandation, pas un verrou).",
+	RITUAL_TIP_INTRO_SCORING = "• Les Spoils sont ton score ; la Ritual Chest à la fin s'ajuste dessus.|n• Morts : les 2 premières sont gratuites, ensuite chaque mort retire 5% de Spoils, jusqu'à -50% maximum.|n• Des clears propres valent mieux que des pulls rapides — mourir coûte directement des récompenses.",
+	RITUAL_TIP_INTRO_WEEKLY = "• Chaque semaine, le palier requis pour DÉBLOQUER un challenge baisse d'un cran — tout le monde finit donc par tout débloquer.|n• Impossible de débloquer les 8 challenges en une seule semaine.|n• Compte pour la ligne Monde du Great Vault.|n• Boosters de renommée : Ritual Tablet (premier site de la semaine), Ritual Tablet Fragment (deuxième site) et Ritual Site Reports (selon tes Spoils).",
+	RITUAL_TIP_INTRO_ORBS = "• En combat, des Regeneration Orbs apparaissent et soignent 15% de ta vie (renommée 1).|n• Orb Potency (renommée 4) augmente ce soin.|n• Appuie-toi sur les orbes plutôt que de brûler tes cooldowns en soins personnels.",
+
+	-- Daggerspine Point (Eversong Woods) ----------------------------------------------
+	RITUAL_TIP_DAGGERSPINE_OVERVIEW = "• Eversong Woods — Daggerspine Point, sur la côte ouest près de Goldenmist Village.|n• Ennemis : nagas.|n• Actif une semaine à la fois ; l'obélisque affiche une icône violette sur la carte.|n• Entre au Curious Obelisk et choisis-y ton palier + tes challenges.",
+	RITUAL_TIP_DAGGERSPINE_PHASES = "• Un court scénario instancié : remplis les objectifs et nettoie les vagues d'ennemis, puis un boss final, puis loote la Ritual Chest.|n• Scénario vu à l'obélisque : \"A Strike From the Sea\" — la meneuse naga Selen'vjar (kill du boss final encore à confirmer).|n• Un site peut avoir plusieurs layouts de scénario — à confirmer en jeu.",
+	RITUAL_TIP_DAGGERSPINE_NOTES = "• Tainted Bone Pile (débloque le challenge Tainted Corpses) : /way 66.09 62.58.|n• Dark Obelisks (quête Malevolent Boons — examines-en 5 sur 9) : 66.6/38.8 · 64.7/49.8 · 63.8/70.9 · 39.2/76.2 · 35.3/63.2 · 50/42 · 42/56 · 62/62 · 44.8/47.3.|n• De petits trésors et des Regeneration Orbs sont dispersés sur le site.",
+
+	-- Broken Throne (Zul'Aman) -----------------------------------------------------
+	RITUAL_TIP_BROKENTHRONE_OVERVIEW = "• Zul'Aman — Broken Throne, au sud de la zone.|n• Ennemis : cultistes de la Twilight's Blade.|n• Actif une semaine à la fois ; l'obélisque affiche une icône violette sur la carte.|n• Entre au Curious Obelisk et choisis-y ton palier + tes challenges.",
+	RITUAL_TIP_BROKENTHRONE_PHASES = "• Un court scénario instancié : remplis les objectifs et nettoie les vagues d'ennemis, puis un boss final, puis loote la Ritual Chest.|n• Scénario vu à l'obélisque : \"A Corrupted Path\" — Faithbreaker Ger'lok corrompt tout avec le Vide (kill du boss final encore à confirmer).|n• Un site peut avoir plusieurs layouts de scénario — à confirmer en jeu.",
+	RITUAL_TIP_BROKENTHRONE_NOTES = "• Tainted Bone Pile (débloque le challenge Tainted Corpses) : /way 47.91 36.52.|n• Dark Obelisks (quête Malevolent Boons — examines-en 5 sur 6) : 61/50 · 41/50 · 45/59 · 42/68 · 55/58 · 54/54.|n• De petits trésors et des Regeneration Orbs sont dispersés sur le site.",
+
+	-- Challenges ---------------------------------------------------------------------
+	RITUAL_TIP_TENDRILS_MECHANIC = "• Des tendrils apparaissent avec un cercle vert tourbillonnant — sors-en, sinon tu es immobilisé et tu prends des dégâts.|n• Augmente les Spoils tant qu'actif.",
+	RITUAL_TIP_TENDRILS_UNLOCK = "• Loote une Ritual Chest à la fin d'un site, puis rends la quête \"Ritual Site Challenge Report: Tendrils\".",
+	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Des esprits se manifestent et lancent des sorts — interromps-les ou subis leur magie flétrissante.|n• Augmente les Spoils tant qu'actif.",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Termine un site Tier 3, puis parle à Ranger Captain Lilatha à Lune-d'argent (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Les kills invoquent des renforts ; plus le pull tué est gros et fort, plus les adds sont puissants.|n• Augmente les Spoils tant qu'actif.",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Termine un site Tier 4, puis parle à Lady Darkglen à Lune-d'argent (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• Des Dark Obelisks renforcent les ennemis proches — détruis les obélisques pour retirer les buffs.|n• Augmente les Spoils tant qu'actif.",
+	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Termine un site Tier 2 pour une quête de Lady Darkglen, puis examine 5 Dark Obelisks dans un site (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• Les ennemis tués laissent une flaque de magie du Vide mortelle — sors-en.|n• Augmente les Spoils tant qu'actif.",
+	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Loote un Tainted Bone Pile dans un site Tier 2+ (voir les notes du site pour l'emplacement), puis rends la quête.",
+	RITUAL_TIP_REINFORCED_MECHANIC = "• Des ennemis supplémentaires sont répartis sur tout le site — attends-toi à des packs plus denses.|n• Augmente les Spoils tant qu'actif (un des plus gros bonus).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Termine un site Tier 2, puis parle à Ranger Captain Lilatha à Lune-d'argent (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_PATROLS_MECHANIC = "• Des ennemis d'élite patrouillent sur le site — évite leurs trajets quand c'est possible.|n• Augmente les Spoils tant qu'actif.",
+	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" des trésors uniques dans un site Tier 3+ (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_EMBERS_MECHANIC = "• Des ennemis aléatoires ET le boss final sont renforcés, marqués d'un orbe flottant au-dessus d'eux.|n• Augmente les Spoils tant qu'actif (un des plus gros bonus).",
+	RITUAL_TIP_EMBERS_UNLOCK = "• Loote un Ember of Power dans un site Tier 4 pour lancer la quête (le palier requis baisse chaque semaine).",
+})
+
+merge(ns._mhLocales and ns._mhLocales.esES, {
+	-- Títulos de sección ---------------------------------------------------------
+	RITUAL_COACH_SEC_OVERVIEW = "Resumen",
+	RITUAL_COACH_SEC_PHASES = "Cómo va una run",
+	RITUAL_COACH_SEC_NOTES = "Notas del sitio",
+	RITUAL_COACH_SEC_MECHANIC = "Qué hace",
+	RITUAL_COACH_SEC_UNLOCK = "Cómo desbloquearlo",
+	RITUAL_COACH_SEC_TIERS = "Tiers y challenges",
+	RITUAL_COACH_SEC_SCORING = "Spoils y muertes",
+	RITUAL_COACH_SEC_WEEKLY = "Semanal y renombre",
+	RITUAL_COACH_SEC_ORBS = "Regeneration Orbs",
+
+	-- Nombres mostrados (nombres propios en inglés) --------------------------------
+	RITUAL_COACH_INTRO_NAME = "Cómo funcionan los Ritual Sites",
+	RITUAL_COACH_SITE_DAGGERSPINE = "Daggerspine Point",
+	RITUAL_COACH_SITE_BROKENTHRONE = "Broken Throne",
+	RITUAL_CHAL_TENDRILS = "Tendrils",
+	RITUAL_CHAL_MANIFESTATIONS = "Manifestations",
+	RITUAL_CHAL_ALARMBELLS = "Magical Alarm Bells",
+	RITUAL_CHAL_MALEVOLENTBOONS = "Malevolent Boons",
+	RITUAL_CHAL_TAINTEDCORPSES = "Tainted Corpses",
+	RITUAL_CHAL_REINFORCED = "Reinforced",
+	RITUAL_CHAL_PATROLS = "Patrols",
+	RITUAL_CHAL_EMBERS = "Embers",
+
+	-- Etiquetas de UI del Coach (fase 2) -------------------------------------------
+	RITUAL_COACH_HEADER = "Ritual Coach",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — elige a partir de Tier 3 (mayor Spoils primero)",
+	RITUAL_COACH_ACTIVE_FMT = "Sitio de esta semana: %s",
+	RITUAL_COACH_ACTIVE_UNKNOWN = "Sitio activo aún no detectado — consejos generales abajo.",
+	RITUAL_COACH_STATUS_UNLOCKED = "desbloqueado",
+	RITUAL_COACH_STATUS_LOCKED = "bloqueado",
+
+	-- Compartir (fase 3)
+	RITUAL_COACH_SHARE_BTN = "Compartir consejos de challenges con el grupo",
+	RITUAL_SHARE_CHALLENGES_HEADER = "Challenges de ritual por Spoils:",
+	RITUAL_SHARE_XLOC_HEADER_FMT = "%s compartió consejos de challenges de ritual:",
+	RITUAL_SHARE_CONFIRM_FMT = "¿Publicar %d líneas de consejos de challenges en tu grupo?",
+	RITUAL_SHARE_SENT_FMT = "%d línea(s) compartida(s) en %s.",
+	RITUAL_SHARE_SENT_TEST_FMT = "%d línea(s) compartida(s) (modo de prueba).",
+	RITUAL_SHARE_NO_GROUP = "Únete a un grupo o banda para compartir estos consejos (o activa el modo de prueba de compartir).",
+	RITUAL_SHARE_COMBAT = "No se puede compartir en combate.",
+	RITUAL_SHARE_COOLDOWN = "Compartir está en enfriamiento — inténtalo de nuevo en un momento.",
+	RITUAL_SHARE_BUSY = "Ya hay un envío en curso.",
+	RITUAL_SHARE_FAILED = "No se pudieron generar los consejos de challenges.",
+
+	-- Pista semanal (por qué la semanal de Ritual sigue pendiente)
+	RITUAL_WEEKLY_HINT_LOCKED_FMT = "Bloqueado: %s",
+	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Bloqueado — desbloquea los Ritual Sites con la cadena de misiones de introducción en Lunargenta.",
+	RITUAL_WEEKLY_HINT_PICKUP = "Aún sin recoger — coge la semanal de esta semana en el centro del Bazar en Lunargenta.",
+	RITUAL_WEEKLY_HINT_INTRO = "Este personaje aún no ha terminado la cadena de misiones de introducción — empieza \"Ranger Captain's Summons\" con Ranger Captain Lilatha en Lunargenta (el paso Void Strike se hace en la zona de asalto activa).",
+	RITUAL_WEEKLY_HINT_INPROGRESS = "Está en tu registro de misiones — termínala y entrégala.",
+
+	-- Intro / cómo funciona ----------------------------------------------------------
+	RITUAL_TIP_INTRO_TIERS = "• Elige Tier 1-5 en el Curious Obelisk; cada tier debe completarse para desbloquear el siguiente.|n• Tier 3 requiere 1 challenge activo, Tier 4 requiere 2, Tier 5 requiere 4.|n• Los tiers más altos dan más Spoils y renombre. Nivel de objeto recomendado: T1 215 · T2 231 · T3 244 · T4 257 · T5 264 (recomendación, no un requisito).",
+	RITUAL_TIP_INTRO_SCORING = "• Los Spoils son tu puntuación; el Ritual Chest del final escala con ellos.|n• Muertes: las 2 primeras son gratis, después cada muerte resta un 5% de Spoils, hasta un máximo de -50%.|n• Limpiar con cuidado gana a los pulls rápidos — morir cuesta recompensas directamente.",
+	RITUAL_TIP_INTRO_WEEKLY = "• Cada semana, el tier necesario para DESBLOQUEAR un challenge baja en uno, así que con el tiempo todos lo desbloquean todo.|n• No puedes desbloquear los 8 challenges en una sola semana.|n• Cuenta para la fila de Mundo del Great Vault.|n• Potenciadores de renombre: Ritual Tablet (primer sitio de la semana), Ritual Tablet Fragment (segundo sitio) y Ritual Site Reports (según tus Spoils).",
+	RITUAL_TIP_INTRO_ORBS = "• En combate aparecen Regeneration Orbs que curan el 15% de tu vida (renombre 1).|n• Orb Potency (renombre 4) aumenta esa curación.|n• Apóyate en los orbes en lugar de quemar cooldowns en curarte.",
+
+	-- Daggerspine Point (Eversong Woods) ----------------------------------------------
+	RITUAL_TIP_DAGGERSPINE_OVERVIEW = "• Eversong Woods — Daggerspine Point, en la costa oeste cerca de Goldenmist Village.|n• Enemigos: nagas.|n• Activo una semana cada vez; el obelisco muestra un icono morado en el mapa.|n• Entra por el Curious Obelisk y elige allí tu tier + challenges.",
+	RITUAL_TIP_DAGGERSPINE_PHASES = "• Un escenario corto instanciado: completa objetivos y oleadas de enemigos, luego un jefe final, y al final saquea el Ritual Chest.|n• Escenario visto en el obelisco: \"A Strike From the Sea\" — la líder naga Selen'vjar (muerte del jefe final por confirmar).|n• Un sitio puede tener más de un diseño de escenario — por confirmar en el juego.",
+	RITUAL_TIP_DAGGERSPINE_NOTES = "• Tainted Bone Pile (desbloquea el challenge Tainted Corpses): /way 66.09 62.58.|n• Dark Obelisks (misión Malevolent Boons — investiga 5 de 9): 66.6/38.8 · 64.7/49.8 · 63.8/70.9 · 39.2/76.2 · 35.3/63.2 · 50/42 · 42/56 · 62/62 · 44.8/47.3.|n• Hay pequeños tesoros y Regeneration Orbs repartidos por el sitio.",
+
+	-- Broken Throne (Zul'Aman) ------------------------------------------------------
+	RITUAL_TIP_BROKENTHRONE_OVERVIEW = "• Zul'Aman — Broken Throne, en el sur de la zona.|n• Enemigos: cultistas de Twilight's Blade.|n• Activo una semana cada vez; el obelisco muestra un icono morado en el mapa.|n• Entra por el Curious Obelisk y elige allí tu tier + challenges.",
+	RITUAL_TIP_BROKENTHRONE_PHASES = "• Un escenario corto instanciado: completa objetivos y oleadas de enemigos, luego un jefe final, y al final saquea el Ritual Chest.|n• Escenario visto en el obelisco: \"A Corrupted Path\" — Faithbreaker Ger'lok lo corrompe todo con el Vacío (muerte del jefe final por confirmar).|n• Un sitio puede tener más de un diseño de escenario — por confirmar en el juego.",
+	RITUAL_TIP_BROKENTHRONE_NOTES = "• Tainted Bone Pile (desbloquea el challenge Tainted Corpses): /way 47.91 36.52.|n• Dark Obelisks (misión Malevolent Boons — investiga 5 de 6): 61/50 · 41/50 · 45/59 · 42/68 · 55/58 · 54/54.|n• Hay pequeños tesoros y Regeneration Orbs repartidos por el sitio.",
+
+	-- Challenges ----------------------------------------------------------------------
+	RITUAL_TIP_TENDRILS_MECHANIC = "• Aparecen tendrils que agarran, con un círculo verde giratorio — sal de él o quedarás inmovilizado y recibirás daño.|n• Aumenta los Spoils mientras está activo.",
+	RITUAL_TIP_TENDRILS_UNLOCK = "• Saquea un Ritual Chest al final de cualquier sitio y entrega la misión \"Ritual Site Challenge Report: Tendrils\".",
+	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Espíritus se manifiestan y lanzan hechizos — interrúmpelos o sufre su magia marchitadora.|n• Aumenta los Spoils mientras está activo.",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Completa un sitio de Tier 3 y habla con Ranger Captain Lilatha en Lunargenta (el tier requerido baja cada semana).",
+	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Matar enemigos invoca refuerzos; cuanto más grande y fuerte sea el pull que matas, más fuertes los adds.|n• Aumenta los Spoils mientras está activo.",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Completa un sitio de Tier 4 y habla con Lady Darkglen en Lunargenta (el tier requerido baja cada semana).",
+	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• Los Dark Obelisks potencian a los enemigos cercanos — destruye los obeliscos para quitarles los buffs.|n• Aumenta los Spoils mientras está activo.",
+	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Completa un sitio de Tier 2 para una misión de Lady Darkglen y luego investiga 5 Dark Obelisks dentro de un sitio (el tier requerido baja cada semana).",
+	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• Los enemigos muertos dejan un charco de magia del Vacío letal — sal de él.|n• Aumenta los Spoils mientras está activo.",
+	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Saquea un Tainted Bone Pile dentro de un sitio de Tier 2+ (mira las notas del sitio para la ubicación) y entrega la misión.",
+	RITUAL_TIP_REINFORCED_MECHANIC = "• Hay enemigos extra repartidos por todo el sitio — espera grupos más densos.|n• Aumenta los Spoils mientras está activo (uno de los bonus más grandes).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Completa un sitio de Tier 2 y habla con Ranger Captain Lilatha en Lunargenta (el tier requerido baja cada semana).",
+	RITUAL_TIP_PATROLS_MECHANIC = "• Enemigos de élite patrullan el sitio — evita sus rutas cuando puedas.|n• Aumenta los Spoils mientras está activo.",
+	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" tesoros únicos de un sitio de Tier 3+ (el tier requerido baja cada semana).",
+	RITUAL_TIP_EMBERS_MECHANIC = "• Enemigos aleatorios Y el jefe final están potenciados, marcados con un orbe flotante encima.|n• Aumenta los Spoils mientras está activo (uno de los bonus más grandes).",
+	RITUAL_TIP_EMBERS_UNLOCK = "• Saquea un Ember of Power dentro de un sitio de Tier 4 para iniciar la misión (el tier requerido baja cada semana).",
+})
+
+merge(ns._mhLocales and ns._mhLocales.ptBR, {
+	-- Títulos de seção -------------------------------------------------------------
+	RITUAL_COACH_SEC_OVERVIEW = "Visão geral",
+	RITUAL_COACH_SEC_PHASES = "Como é uma run",
+	RITUAL_COACH_SEC_NOTES = "Notas do local",
+	RITUAL_COACH_SEC_MECHANIC = "O que faz",
+	RITUAL_COACH_SEC_UNLOCK = "Como desbloquear",
+	RITUAL_COACH_SEC_TIERS = "Tiers e challenges",
+	RITUAL_COACH_SEC_SCORING = "Spoils e mortes",
+	RITUAL_COACH_SEC_WEEKLY = "Semanal e renome",
+	RITUAL_COACH_SEC_ORBS = "Regeneration Orbs",
+
+	-- Nomes exibidos (nomes próprios em inglês) --------------------------------------
+	RITUAL_COACH_INTRO_NAME = "Como funcionam os Ritual Sites",
+	RITUAL_COACH_SITE_DAGGERSPINE = "Daggerspine Point",
+	RITUAL_COACH_SITE_BROKENTHRONE = "Broken Throne",
+	RITUAL_CHAL_TENDRILS = "Tendrils",
+	RITUAL_CHAL_MANIFESTATIONS = "Manifestations",
+	RITUAL_CHAL_ALARMBELLS = "Magical Alarm Bells",
+	RITUAL_CHAL_MALEVOLENTBOONS = "Malevolent Boons",
+	RITUAL_CHAL_TAINTEDCORPSES = "Tainted Corpses",
+	RITUAL_CHAL_REINFORCED = "Reinforced",
+	RITUAL_CHAL_PATROLS = "Patrols",
+	RITUAL_CHAL_EMBERS = "Embers",
+
+	-- Rótulos de UI do Coach (fase 2) -------------------------------------------------
+	RITUAL_COACH_HEADER = "Ritual Coach",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — escolha a partir do Tier 3 (maior Spoils primeiro)",
+	RITUAL_COACH_ACTIVE_FMT = "Local desta semana: %s",
+	RITUAL_COACH_ACTIVE_UNKNOWN = "Local ativo ainda não detectado — dicas gerais abaixo.",
+	RITUAL_COACH_STATUS_UNLOCKED = "desbloqueado",
+	RITUAL_COACH_STATUS_LOCKED = "bloqueado",
+
+	-- Compartilhar (fase 3)
+	RITUAL_COACH_SHARE_BTN = "Compartilhar dicas de challenges com o grupo",
+	RITUAL_SHARE_CHALLENGES_HEADER = "Challenges de ritual por Spoils:",
+	RITUAL_SHARE_XLOC_HEADER_FMT = "%s compartilhou dicas de challenges de ritual:",
+	RITUAL_SHARE_CONFIRM_FMT = "Postar %d linhas de dicas de challenges no seu grupo?",
+	RITUAL_SHARE_SENT_FMT = "%d linha(s) compartilhada(s) em %s.",
+	RITUAL_SHARE_SENT_TEST_FMT = "%d linha(s) compartilhada(s) (modo de teste).",
+	RITUAL_SHARE_NO_GROUP = "Entre em um grupo ou raide para compartilhar estas dicas (ou ative o modo de teste de compartilhamento).",
+	RITUAL_SHARE_COMBAT = "Não é possível compartilhar em combate.",
+	RITUAL_SHARE_COOLDOWN = "O compartilhamento está em recarga — tente de novo em instantes.",
+	RITUAL_SHARE_BUSY = "Já há um compartilhamento em andamento.",
+	RITUAL_SHARE_FAILED = "Não foi possível montar as dicas de challenges.",
+
+	-- Dica semanal (por que a semanal de Ritual ainda está pendente)
+	RITUAL_WEEKLY_HINT_LOCKED_FMT = "Bloqueado: %s",
+	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Bloqueado — desbloqueie os Ritual Sites pela linha de missões de introdução em Luaprata.",
+	RITUAL_WEEKLY_HINT_PICKUP = "Ainda não pega — pegue a semanal desta semana no hub do Bazar em Luaprata.",
+	RITUAL_WEEKLY_HINT_INTRO = "Este personagem ainda não terminou a linha de missões de introdução — comece \"Ranger Captain's Summons\" com Ranger Captain Lilatha em Luaprata (a etapa Void Strike acontece na zona de assalto ativa).",
+	RITUAL_WEEKLY_HINT_INPROGRESS = "Está no seu registro de missões — termine e entregue.",
+
+	-- Intro / como funciona --------------------------------------------------------------
+	RITUAL_TIP_INTRO_TIERS = "• Escolha o Tier 1-5 no Curious Obelisk; cada tier precisa ser limpo para desbloquear o próximo.|n• O Tier 3 exige 1 challenge ativo, o Tier 4 exige 2, o Tier 5 exige 4.|n• Tiers mais altos dão mais Spoils e renome. Item level recomendado: T1 215 · T2 231 · T3 244 · T4 257 · T5 264 (recomendação, não uma exigência).",
+	RITUAL_TIP_INTRO_SCORING = "• Spoils são sua pontuação; o Ritual Chest no final escala com eles.|n• Mortes: as 2 primeiras são de graça, depois cada morte corta 5% dos Spoils, até no máximo -50%.|n• Limpar com calma vale mais que pulls rápidos — morrer custa recompensa na hora.",
+	RITUAL_TIP_INTRO_WEEKLY = "• A cada semana, o tier necessário para DESBLOQUEAR um challenge cai em um — com o tempo todo mundo desbloqueia tudo.|n• Não dá para desbloquear os 8 challenges em uma única semana.|n• Conta para a fileira de Mundo do Great Vault.|n• Reforços de renome: Ritual Tablet (primeiro local da semana), Ritual Tablet Fragment (segundo local) e Ritual Site Reports (escala com seus Spoils).",
+	RITUAL_TIP_INTRO_ORBS = "• Em combate, Regeneration Orbs aparecem e curam 15% da sua vida (renome 1).|n• Orb Potency (renome 4) aumenta essa cura.|n• Conte com os orbes em vez de gastar cooldowns com cura própria.",
+
+	-- Daggerspine Point (Eversong Woods) ---------------------------------------------------
+	RITUAL_TIP_DAGGERSPINE_OVERVIEW = "• Eversong Woods — Daggerspine Point, na costa oeste perto de Goldenmist Village.|n• Inimigos: nagas.|n• Ativo uma semana por vez; o obelisco mostra um ícone roxo no mapa.|n• Entre pelo Curious Obelisk e escolha lá seu tier + challenges.",
+	RITUAL_TIP_DAGGERSPINE_PHASES = "• Um cenário curto instanciado: cumpra objetivos e ondas de inimigos, depois um chefe final, e então saqueie o Ritual Chest.|n• Cenário visto no obelisco: \"A Strike From the Sea\" — a líder naga Selen'vjar (morte do chefe final ainda a confirmar).|n• Um local pode ter mais de um layout de cenário — a confirmar no jogo.",
+	RITUAL_TIP_DAGGERSPINE_NOTES = "• Tainted Bone Pile (desbloqueia o challenge Tainted Corpses): /way 66.09 62.58.|n• Dark Obelisks (missão Malevolent Boons — investigue 5 de 9): 66.6/38.8 · 64.7/49.8 · 63.8/70.9 · 39.2/76.2 · 35.3/63.2 · 50/42 · 42/56 · 62/62 · 44.8/47.3.|n• Pequenos tesouros e Regeneration Orbs estão espalhados pelo local.",
+
+	-- Broken Throne (Zul'Aman) ----------------------------------------------------------
+	RITUAL_TIP_BROKENTHRONE_OVERVIEW = "• Zul'Aman — Broken Throne, no sul da zona.|n• Inimigos: cultistas da Twilight's Blade.|n• Ativo uma semana por vez; o obelisco mostra um ícone roxo no mapa.|n• Entre pelo Curious Obelisk e escolha lá seu tier + challenges.",
+	RITUAL_TIP_BROKENTHRONE_PHASES = "• Um cenário curto instanciado: cumpra objetivos e ondas de inimigos, depois um chefe final, e então saqueie o Ritual Chest.|n• Cenário visto no obelisco: \"A Corrupted Path\" — Faithbreaker Ger'lok corrompe tudo com o Vazio (morte do chefe final ainda a confirmar).|n• Um local pode ter mais de um layout de cenário — a confirmar no jogo.",
+	RITUAL_TIP_BROKENTHRONE_NOTES = "• Tainted Bone Pile (desbloqueia o challenge Tainted Corpses): /way 47.91 36.52.|n• Dark Obelisks (missão Malevolent Boons — investigue 5 de 6): 61/50 · 41/50 · 45/59 · 42/68 · 55/58 · 54/54.|n• Pequenos tesouros e Regeneration Orbs estão espalhados pelo local.",
+
+	-- Challenges ------------------------------------------------------------------------
+	RITUAL_TIP_TENDRILS_MECHANIC = "• Tendrils que agarram surgem com um círculo verde girando — saia dele ou você fica enraizado e toma dano.|n• Aumenta os Spoils enquanto ativo.",
+	RITUAL_TIP_TENDRILS_UNLOCK = "• Saqueie um Ritual Chest no final de qualquer local e entregue a missão \"Ritual Site Challenge Report: Tendrils\".",
+	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Espíritos se manifestam e conjuram feitiços — interrompa-os ou sofra magia debilitante.|n• Aumenta os Spoils enquanto ativo.",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Limpe um local de Tier 3 e fale com Ranger Captain Lilatha em Luaprata (o tier exigido cai a cada semana).",
+	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Abates invocam reforços; quanto maior e mais forte o pull que você mata, mais fortes os adds.|n• Aumenta os Spoils enquanto ativo.",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Limpe um local de Tier 4 e fale com Lady Darkglen em Luaprata (o tier exigido cai a cada semana).",
+	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• Dark Obelisks fortalecem inimigos próximos — destrua os obeliscos para remover os buffs.|n• Aumenta os Spoils enquanto ativo.",
+	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Limpe um local de Tier 2 para uma missão de Lady Darkglen e depois investigue 5 Dark Obelisks dentro de um local (o tier exigido cai a cada semana).",
+	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• Inimigos mortos deixam uma poça de magia do Vazio letal — saia dela.|n• Aumenta os Spoils enquanto ativo.",
+	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Saqueie um Tainted Bone Pile dentro de um local de Tier 2+ (veja as notas do local para a localização) e entregue a missão.",
+	RITUAL_TIP_REINFORCED_MECHANIC = "• Inimigos extras espalhados por todo o local — espere packs mais densos.|n• Aumenta os Spoils enquanto ativo (um dos bônus maiores).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Limpe um local de Tier 2 e fale com Ranger Captain Lilatha em Luaprata (o tier exigido cai a cada semana).",
+	RITUAL_TIP_PATROLS_MECHANIC = "• Inimigos de elite patrulham o local — evite as rotas deles quando puder.|n• Aumenta os Spoils enquanto ativo.",
+	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" tesouros únicos de um local de Tier 3+ (o tier exigido cai a cada semana).",
+	RITUAL_TIP_EMBERS_MECHANIC = "• Inimigos aleatórios E o chefe final ficam fortalecidos, marcados por um orbe flutuante acima deles.|n• Aumenta os Spoils enquanto ativo (um dos bônus maiores).",
+	RITUAL_TIP_EMBERS_UNLOCK = "• Saqueie um Ember of Power dentro de um local de Tier 4 para iniciar a missão (o tier exigido cai a cada semana).",
 })
