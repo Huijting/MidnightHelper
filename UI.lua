@@ -242,7 +242,7 @@ local MH_BETA_TAB_IDS = {
 local SIDEBAR_SECTIONS = {
 	-- Start Here leads for new players; Home remains the default/fallback tab in
 	-- SelectTab (sidebar order is independent of that fallback).
-	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "starthere", "home", "codex", "delves", "rares", "world" } },
+	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "starthere", "home", "codex", "delves", "dungeons", "rares", "world" } },
 	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "toolbox" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
@@ -1326,6 +1326,7 @@ end
 --------------------------------------------------------------------------------
 local TAB_DEFS = {
 	{ id = "starthere", labelKey = "TAB_START_HERE" },
+	{ id = "dungeons", labelKey = "TAB_DUNGEONS" },
 	{ id = "codex", labelKey = "TAB_CODEX" },
 	{ id = "home", labelKey = "TAB_HOME" },
 	{ id = "delves", labelKey = "TAB_DELVES" },
@@ -1841,6 +1842,8 @@ function ns:EnsureMainUI()
 				ns.BuildDelveLogPanel(panel)
 			elseif tab.id == "starthere" and ns.BuildStartHerePanel then
 				ns.BuildStartHerePanel(panel)
+			elseif tab.id == "dungeons" and ns.BuildDungeonGuidePanel then
+				ns.BuildDungeonGuidePanel(panel)
 			end
 		end
 	end
@@ -2437,6 +2440,9 @@ SelectTab = function(tabId)
 	end
 	if tabId == "starthere" and ns.RefreshStartHerePanel then
 		ns.RefreshStartHerePanel()
+	end
+	if tabId == "dungeons" and ns.RefreshDungeonGuidePanel then
+		ns.RefreshDungeonGuidePanel()
 	end
 
 	if tabId == "delves" then

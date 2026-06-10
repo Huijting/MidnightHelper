@@ -26,6 +26,7 @@ Locales\GuideAdvisor.lua
 Locales\DelveTips.lua
 Locales\RitualTips.lua
 Locales\StartHere.lua
+Locales\DungeonGuide.lua
 Locales\Codex.lua
 Locales\Locale.lua
 Modules\DelveTipsData.lua
@@ -83,6 +84,9 @@ Modules\ShowdownsData.lua
 Modules\Showdowns.lua
 Modules\VoidAssaults.lua
 Modules\ResetRoutine.lua
+Modules\DungeonRosterData.lua
+Modules\DungeonGuide.lua
+Modules\ShardCapAlert.lua
 Modules\WorldContent.lua
 Modules\DelveHistory.lua
 Modules\DelveCoach.lua
