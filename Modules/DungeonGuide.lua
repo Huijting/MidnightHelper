@@ -214,11 +214,37 @@ function ns.RefreshDungeonGuidePanel()
 			label = label .. "  |cffffcc00[" .. ns:L("DGN_BADGE_S1") .. "]|r"
 		end
 		row.nameFs:SetText(label)
-		local names = {}
+		-- Per boss: name + (when written) the numbered steps and colored role
+		-- lines; dungeons without content yet say so honestly per dungeon.
+		local lines = {}
 		for i, b in ipairs(d.bosses or {}) do
-			names[#names + 1] = "• " .. ns.GetDungeonBossName(b, d, i)
+			local bossName = ns.GetDungeonBossName(b, d, i)
+			local tips = ns.GetDungeonBossTips and ns.GetDungeonBossTips(d.key, b.key)
+			if tips then
+				lines[#lines + 1] = "|cffffd100" .. bossName .. "|r"
+				if tips.steps then
+					lines[#lines + 1] = ns:L(tips.steps)
+				end
+				if tips.tank then
+					lines[#lines + 1] = "|cffaecbfa" .. ns:L(tips.tank) .. "|r"
+				end
+				if tips.healer then
+					lines[#lines + 1] = "|cffa9e8b8" .. ns:L(tips.healer) .. "|r"
+				end
+				if tips.dps then
+					lines[#lines + 1] = "|cfff2c4a0" .. ns:L(tips.dps) .. "|r"
+				end
+				if i < #d.bosses then
+					lines[#lines + 1] = " "
+				end
+			else
+				lines[#lines + 1] = "• " .. bossName
+			end
 		end
-		row.bossFs:SetText(table.concat(names, "|n"))
+		if not (ns.DungeonHasTips and ns.DungeonHasTips(d.key)) then
+			lines[#lines + 1] = "|cff8a8f98" .. ns:L("DGN_TIPS_SOON") .. "|r"
+		end
+		row.bossFs:SetText(table.concat(lines, "|n"))
 	end
 
 	Relayout()
@@ -432,11 +458,6 @@ function ns.BuildDungeonGuidePanel(panel)
 	AddCoachGroup("DGN_GROUP_SEASON", function(d)
 		return d.season1 and not d.native
 	end)
-
-	ui.coachSoonFs = MakeFS(child, "GameFontDisableSmall", COLOR_DIM)
-	ui.coachSoonFs._mhKey = "DGN_TIPS_SOON"
-	ui.coachSoonFs:SetText(ns:L("DGN_TIPS_SOON"))
-	push(ui.coachSoonFs, 14, 0, false, "coach")
 
 	local function syncWidth()
 		local w = scroll:GetWidth()
