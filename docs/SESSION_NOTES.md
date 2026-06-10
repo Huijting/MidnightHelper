@@ -1259,7 +1259,7 @@ Luacheck niet beschikbaar. Commit alle uncommitted + push `origin/main`.
 - **Docs:** `SESSION_NOTES.md`, `TOMORROW.md`, `CHANGELOG.md`.
 
 ## Voor Cursor — review + commit batch 10 juni (commits `d6cf079` / `7bb2386` /
-`948c5ea` / `cc8d2ef` / `af4f9f2` / `13dac4c` / `48d40a3` + docs `TBD`)
+`948c5ea` / `cc8d2ef` / `af4f9f2` / `13dac4c` / `48d40a3` + docs `da7da88`)
 
 **Release 1.6.0** — CF-upload door Rob met `CURSEFORGE_1.6.0.md` +
 `CURSEFORGE_DESCRIPTION.md`.
@@ -1609,9 +1609,11 @@ strings in 6 talen + blokjes-fixes.
     open vóór release: solo-testmodus-check (blauw "(test)"-blok) en echte
     cross-locale-ontvangst zodra twee spelers de nieuwe versie draaien.
 
-0b. **⏳ CF-release — nog NIET.** Eerst woensdag-reset meemaken
-    (weekly-semantiek 93698), Delve-share v2 solo-test, paar dagen
-    daily-driven. CF alleen op expliciete vraag van Rob.
+0b. **✅ CF-release 1.6.0 (10 juni, Robs expliciete vraag).** Zip via
+    `tools/package.ps1`; upload door Rob met `docs/CURSEFORGE_1.6.0.md` +
+    `docs/CURSEFORGE_DESCRIPTION.md`. Woensdag-reset-semantiek ✅;
+    Delve-share v2 solo-test ✅; cross-locale 2-speler-test blijft open
+    (geen blokker).
 
 0. **Showdowns vervolg:** Showdown-weekly-regel in AccountWeeklyChecklist ✅
     (`9dcdf64`); nog Folio-mote zodra ID bekend; Home-dashboard kan
