@@ -1543,6 +1543,12 @@ projectpagina-description (sterke punten bovenaan, wow-factor, EN) met
 screenshot-volgorde-suggesties voor Robs nieuwe set. Robs smoke-test ✅
 (incl. rare-kill zonder errors na de toast-fix).
 
+**🚀 1.6.0 IS LIVE OP CURSEFORGE (10 juni, einde dag) — "live and kicking"
+aldus Rob.** Post-release-checks ✅ (schone-map-smoke + paginarendering OK,
+Rob 10 jun); feedback nog geen — in de gaten houden de komende dagen.
+Volgende sessie: **Delve & Ritual Log** (bovenaan ROADMAP.md) + 12.0.7-prep
+(release ~16/30 juni).
+
 **🎯 CF-RELEASE VANDAAG (Robs expliciete vraag, 10 juni).** Release-checks:
 woensdag-reset-semantiek ✅ (vandaag live bevestigd), Liadrin/Halduron/
 Aethas-tracking ✅, blokjes-sweep ✅, 4-talen-lokalisatie ✅,
@@ -1602,6 +1608,85 @@ strings in 6 talen + blokjes-fixes.
   VoidAssaults.lua, RitualSites.lua, WorldContent.lua, RitualTips.lua,
   ProfessionAcademyData.lua, ProfessionsHub.lua, MidnightToast.lua + de 6
   hoofd-locales.** In-game test: zie TOMORROW.md.
+
+## Voor Cursor — commit + push batch 10 juni avond (commits `9b8dca1` /
+`77581cc` / `1ca4eb5` / `07cbc48` / `TBD5`)
+
+**Geen CF-release** — werk richting 1.7.0; release alleen op expliciete vraag Rob.
+
+## Voor Cursor — review + commit batch 10 juni avond (Dungeon Coach fase 1+2)
+
+Nieuw initiatief ná de 1.6.0-release; design + besluiten in
+**docs/DUNGEON_COACH_PLAN.md** (Rob koos: eigen tab, share-generalisatie
+later in de share-fase, content zelf schrijven met BossHelper (MIT) als
+kruisreferentie, fase 1+2 samen → review). Voorgestelde opdeling in 2 commits:
+
+1. **Plan + roadmap:** `docs/DUNGEON_COACH_PLAN.md` (nieuw),
+   `docs/ROADMAP.md` (Dungeon Coach-blok + trainer-IDs ✅).
+2. **Fase 1+2 — Dungeons-tab:** `Modules/DungeonRosterData.lua` (nieuw:
+   launch-8 + S1-legacy-4, EJ-IDs uit BossHelper/Method — 4 launch-only
+   dungeons hebben journalInstanceID/encounterID nil tot Robs EJ-dump;
+   weekly-hooks spark 93911 / keystone 92600 / Halduron-map 93761),
+   `Modules/DungeonGuide.lua` (nieuw: 3 views Deze week | Dungeons 101 |
+   Coach; push/Relayout-engine met mode-tags; 101 = 6 hoofdstukken met
+   per-char vinkjes in `ns.db.dungeonCourse[guid]`; coach = roster met
+   EJ-namen runtime + eerlijke "tips coming soon"), `Locales/DungeonGuide.lua`
+   (nieuw, 40 keys ×2 EN/NL — audit 80 ✓; rest valt terug op EN zoals
+   StartHere destijds), `UI.lua` (sidebar week-sectie + TAB_DEFS +
+   build-dispatch + SelectTab-refresh, 13→14 tabs), TOC (3 regels).
+
+**Roster EJ-compleet (Robs dumps, zelfde avond):** alle 12 journal-instance-
+IDs binnen — **Magisters' Terrace = 1300** (Midnight-revamp; BossHelpers 249
+was het legacy-TBC-entry, gecorrigeerd), Murder Row 1304, Den of Nalorakk
+1311, The Blinding Vale 1309, Voidscar Arena 1313. De kleine boss-nummers
+uit Robs EJ-overlay (3101-3287) bleken **dungeonEncounterIDs**
+(ENCOUNTER_START/DBM-type; EJ_GetEncounterInfo = nil) → eigen veld
+`dungeonEncounterID` per boss (straks de kill-detectie voor het Dungeon
+Log). Bossnamen lokaliseren nu via journal-ID óf **per index in de
+journal-instance** (`GetDungeonBossName(b, d, index)` — volgorde in onze
+data gelijk aan EJ, geverifieerd op Robs screenshots) → journal-encounter-
+IDs zijn niet meer nodig voor weergave.
+
+**Prof-weekly-fix (zelfde avond, Robs veldwerk):** Robs Herbalism-weekly
+"Traditional Harvests" (Botanist Nathera, item 263462 +3 KP) bevestigt de
+MidnightRoutine-set in-game (itemID matcht Herbalism {93700-93704}; Robs
+flag-dump: 93700-93703 false, **93704 true** — actieve variant deze week,
+flags werken, "any"-semantiek bevestigd). Maar de routine stuurde 'm voor
+Alchemy naar de tráiner terwijl craft-profs hun "service quest" bij het
+**Work Order-station** halen → nieuw `weekly.serviceProfs`-set in
+ProfessionAcademyData (Alch/BS/Eng/Insc/JC/LW/Tailoring) en ResetRoutine
+routeert + verwoordt de pickup per soort: service → station-pin +
+`HOME_ROUTINE_SERVICE_PICKUP_FMT` (×6, noemt ook de Flaresworn-intro +
+skill-eis), trainer-soort (Ench + gatherers) → trainer-pin zoals het was.
+
+**Shard-cap-toast (Rob-wens, zelfde avond):** `Modules/ShardCapAlert.lua`
+(nieuw, in TOC) — éénmalige toast + chatregel per character zodra de
+weekly Coffer Shards-cap (currency 3310, `quantityEarnedThisWeek >=
+maxWeeklyQuantity`) bereikt is, zodat je weet dat verder rares/WQ's farmen
+voor shards zinloos is. Herhaalt pas ná de weekly reset (per char
+opgeslagen in `ns.db.shardCapAlert[guid] = reset-anker`; geen anker
+leesbaar → liever stil dan fout). Checkt op CURRENCY_DISPLAY_UPDATE + 5s
+na PLAYER_ENTERING_WORLD (char die al gecapt inlogt krijgt 'm ook). 3
+keys ×6 (SHARD_CAP_TOAST_TITLE_FMT/_BODY + SHARD_CAP_CHAT_FMT). In-game
+test: cap de 600 op je huidige char (je bent er net mee bezig!) → toast +
+chatregel precies één keer; /reload erna → stil; volgende week na reset →
+kan opnieuw.
+
+**Cursor: luacheck/loadfile op DungeonRosterData.lua, DungeonGuide.lua,
+Locales/DungeonGuide.lua, UI.lua, ResetRoutine.lua,
+ProfessionAcademyData.lua, ShardCapAlert.lua + de 6 locales + TOC-parse.**
+Mount-truncatie blijft — host-bestanden leidend.
+
+**In-game test (Rob):** nieuwe Dungeons-tab onder Delves & Vault; drie
+view-knoppen wisselen zonder gaten; Deze week: Spark-regel klopt met je
+log, "Dungeon van de week: Windrunner Spire" (je hebt 93761 opgepakt),
+Cracked Keystone-status, vault-rij; 101: hoofdstukken lezen + vinkjes
+blijven na /reload en zijn per char; Coach: 12 dungeons in 2 groepen,
+EJ-namen gelokaliseerd (wissel even van taal), launch-only-4 tonen
+EN-fallbacknamen. Daarna dumpen: `/dump EJ_GetInstanceInfo(1315)`-spot-check
++ de EJ-IDs van Murder Row / Den of Nalorakk / Blinding Vale / Voidscar
+(open de Adventure Guide op die dungeon en `/dump EJ_GetInstanceInfo(EJ_GetInstanceByIndex(i, false))`
+of vraag mij om de scan-macro).
 
 ## Open / volgende stappen (vervolg)
 
