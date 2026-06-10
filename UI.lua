@@ -877,14 +877,14 @@ function ns.JumpSMCCityGuideToPoint(point)
 	end
 end
 
--- Update the special \"World boss this week\" SMC shortcut label.
-function ns.MH_RefreshSMCWorldBossShortcut()
-	local sg = ns.panels and ns.panels.smcguide
-	local list = sg and sg._mhSMCWaypointButtons
-	if type(list) ~= "table" then
-		return
-	end
-
+-- Shared label for the SMC "World boss this week" shortcut. Shows the boss
+-- name whenever we know it (live API, week-anchored cache, SavedVariables
+-- kill data) and falls back to the rotation guess WITH the name + an "open
+-- map to confirm" suffix — the Home dashboard already displays the same
+-- schedule guess, so the button no longer hides a name we do show elsewhere
+-- (Rob, 10 Jun). Only when no boss is known at all does the bare
+-- "(open map)" label remain.
+local function SMCWorldBossButtonText()
 	local boss, fromClient = ns.GetActiveWorldBoss and ns.GetActiveWorldBoss()
 
 	-- If we already know warband completion from SavedVariables, show the boss name even when
@@ -895,14 +895,32 @@ function ns.MH_RefreshSMCWorldBossShortcut()
 			local b = ns.WORLD_BOSSES[i]
 			if b and b.id == wantId then
 				boss = b
+				fromClient = true
 				break
 			end
 		end
 	end
 
 	local name = boss and boss.labelKey and ns.L and ns:L(boss.labelKey) or "?"
-	local showName = fromClient or (ns.IsWorldBossKilled and boss and ns.IsWorldBossKilled(boss))
-	local text = showName and ns:L("WB_SMC_BUTTON_FMT"):format(name) or ns:L("WB_SMC_BUTTON_GUESS")
+	local confirmed = fromClient or (ns.IsWorldBossKilled and boss and ns.IsWorldBossKilled(boss))
+	if confirmed and name ~= "?" then
+		return ns:L("WB_SMC_BUTTON_FMT"):format(name)
+	end
+	if boss and name ~= "?" then
+		return ns:L("WB_SMC_BUTTON_UNCONFIRMED_FMT"):format(name)
+	end
+	return ns:L("WB_SMC_BUTTON_GUESS")
+end
+
+-- Update the special \"World boss this week\" SMC shortcut label.
+function ns.MH_RefreshSMCWorldBossShortcut()
+	local sg = ns.panels and ns.panels.smcguide
+	local list = sg and sg._mhSMCWaypointButtons
+	if type(list) ~= "table" then
+		return
+	end
+
+	local text = SMCWorldBossButtonText()
 
 	for i = 1, #list do
 		local row = list[i]
@@ -1242,9 +1260,7 @@ local function BuildSMCCityGuidePanel(panel)
 			label:SetPoint("RIGHT", btn, "RIGHT", -8, 0)
 			label:SetJustifyH("LEFT")
 			if point.action == "worldboss_week" and ns.GetActiveWorldBoss then
-				local boss, fromClient = ns.GetActiveWorldBoss()
-				local name = boss and boss.labelKey and ns.L and ns:L(boss.labelKey) or "?"
-				label:SetText(fromClient and ns:L("WB_SMC_BUTTON_FMT"):format(name) or ns:L("WB_SMC_BUTTON_GUESS"))
+				label:SetText(SMCWorldBossButtonText())
 			else
 				label:SetText(point.label)
 			end

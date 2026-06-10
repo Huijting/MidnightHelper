@@ -144,10 +144,15 @@ local function EnsureToastFrame()
 	local content = CreateFrame("Frame", nil, f)
 	content:SetAllPoints()
 	content:SetFrameLevel(f:GetFrameLevel() + 10)
-	if content.SetPropagateMouseClicks then
+	-- SetPropagateMouseClicks/-Motion are combat-protected. The eager
+	-- creation at the bottom of this file makes in-combat creation
+	-- impossible; the lockdown guard is belt-and-braces (worst case the
+	-- toast misses click-propagation instead of tripping ADDON_ACTION_BLOCKED).
+	local canSetPropagate = not InCombatLockdown()
+	if canSetPropagate and content.SetPropagateMouseClicks then
 		content:SetPropagateMouseClicks(true)
 	end
-	if content.SetPropagateMouseMotion then
+	if canSetPropagate and content.SetPropagateMouseMotion then
 		content:SetPropagateMouseMotion(true)
 	end
 	f.content = content
@@ -155,7 +160,7 @@ local function EnsureToastFrame()
 	local iconSlot = CreateFrame("Frame", nil, content)
 	iconSlot:SetSize(ICON_SIZE + 4, ICON_SIZE + 4)
 	iconSlot:SetPoint("LEFT", content, "LEFT", ICON_PAD_L, 0)
-	if iconSlot.SetPropagateMouseClicks then
+	if canSetPropagate and iconSlot.SetPropagateMouseClicks then
 		iconSlot:SetPropagateMouseClicks(true)
 	end
 	content.iconSlot = iconSlot
@@ -367,3 +372,10 @@ do
 		end
 	end
 end
+
+-- Create the toast frame eagerly at load time. SetPropagateMouseClicks/-Motion
+-- are combat-protected; with lazy creation the first toast could fire mid-
+-- combat (Rob, 10 Jun: logged into a rare fight -> ADDON_ACTION_BLOCKED at
+-- line ~148). Addon files load during the loading screen, where combat
+-- lockdown is impossible, so the protected setters run safely exactly once.
+EnsureToastFrame()
