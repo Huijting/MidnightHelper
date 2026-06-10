@@ -19,6 +19,12 @@
 local _, ns = ...
 
 local RITUAL_WEEKLY_QUEST = 95843
+-- "Ritual Interest" (94383) — final step of the per-character Void Assaults
+-- intro chain (94380 Ranger Captain's Summons → 94381 Outfitting and Allies →
+-- 96080 Void Strike → 94382 Ritual Problems → 94383). The hub only offers the
+-- weekly after this is done on THIS character (renown unlock is warband-wide,
+-- the chain is not — verified via Rob's druid dump, 10 Jun 2026).
+local RITUAL_INTRO_FINAL_QUEST = 94383
 -- Field Accolade — the Midnight 12.0.5 currency earned from Ritual Sites /
 -- Void Assaults (per character, not warbound).
 local FIELD_ACCOLADE_CURRENCY = 3405
@@ -259,7 +265,9 @@ end
 
 -- Explains WHY the weekly isn't done yet, using only real signals (never lie):
 --   locked     — renown not unlocked → show the game's own unlockDescription
---   pickup     — unlocked but the weekly quest isn't in the log yet
+--   intro      — renown unlocked (warband) but THIS character hasn't finished
+--                the intro chain (Ritual Interest 94383) → hub offers nothing
+--   pickup     — unlocked + intro done, but the weekly quest isn't in the log
 --   inprogress — the quest is in the log but not turned in
 -- Returns (text, kind) or nil when the weekly is done / state is unknowable.
 function ns.GetRitualWeeklyHint()
@@ -278,9 +286,34 @@ function ns.GetRitualWeeklyHint()
 		end
 		return ns:L("RITUAL_WEEKLY_HINT_LOCKED_GENERIC"), "locked"
 	elseif unlocked == true then
+		if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
+			local ok, introDone = pcall(C_QuestLog.IsQuestFlaggedCompleted, RITUAL_INTRO_FINAL_QUEST)
+			if ok and not introDone then
+				return ns:L("RITUAL_WEEKLY_HINT_INTRO"), "intro"
+			end
+		end
 		return ns:L("RITUAL_WEEKLY_HINT_PICKUP"), "pickup"
 	end
 	return nil -- unlock state unknown + not in log → don't guess
+end
+
+-- Progress (1-100) of the ritual weekly's progress bar while it is on the
+-- player. Mirrors ns.GetShowdownWeeklyProgress; returns nil when not on the
+-- quest or the bar reads 0 (non-bar quests also read 0 — never claim a
+-- percentage we can't trust).
+function ns.GetRitualWeeklyProgress()
+	if not (C_QuestLog and C_QuestLog.IsOnQuest) or type(GetQuestProgressBarPercent) ~= "function" then
+		return nil
+	end
+	local okOn, onQuest = pcall(C_QuestLog.IsOnQuest, RITUAL_WEEKLY_QUEST)
+	if not okOn or not onQuest then
+		return nil
+	end
+	local ok, pct = pcall(GetQuestProgressBarPercent, RITUAL_WEEKLY_QUEST)
+	if ok and type(pct) == "number" and pct > 0 then
+		return math.floor(pct)
+	end
+	return nil
 end
 
 -- Renown/reputation text for the Ritual Sites faction (used by the Home tab too).
