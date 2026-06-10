@@ -344,7 +344,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	["DELVE_TIP_TORMENTS_RISE_OVERVIEW"] = "• Voidstorm – Staffel 1 Nemesis Delve (Schlussstein).|n• Stufe ? nach jedem T7 mit 1+ Leben; Stufe ?? nach jedem T10 mit 1+ Leben.|n• Boss: Nullaeus.|n• Heilerin Valeera wird auf Stufe ?? dringend empfohlen.",
 	["DELVE_TIP_TORMENTS_RISE_ROUTE"] = "• Spezielles Instanzportal (kein rotierender Welttauchgang).|n• Nutze Adventure Guide (Umschalt-J) oder TomTom.|n• Wöchentliches Kopfgeld: Leuchtfeuer der Hoffnung kann Nullaeus stattdessen mit 50 % in einen normalen Tauchgang ziehen.",
 	["DELVE_TIP_TORMENTS_RISE_TRASH"] = "• Paktgeschworene Mobs leben in regulären Gewölben, nicht in Torment's Rise.|n• Tempo-Abklingzeiten – bewahren du Verteidigungsmaßnahmen und Unterbrechungen für Nullaeus auf.",
-	["DELVE_TIP_TORMENTS_RISE_BOSS"] = "• Unterbrich {SPELL:@devouring_essence} bei jedem Wirken (DoT + füttert {SPELL:@umbral_rage} Stapel).|n• {SPELL:@dread_portal}: ​​100 % Schadensreduzierung, bis alle Adds sterben – voller AoE-Ausstoß beim Spawnen.|n• Die Phase {SPELL:@oblivion_shell} ist eine DPS-Prüfung.|n• {SPELL:@umbral_rage}: +10 % Schaden pro Stapel, wenn Additionen oder DoTs andauern – Tötung addiert schnell.",
+	["DELVE_TIP_TORMENTS_RISE_BOSS"] = "• Unterbrich {SPELL:@devouring_essence} bei jedem Wirken (DoT + füttert {SPELL:@umbral_rage} Stapel).|n• {SPELL:@dread_portal}: 100 % Schadensreduzierung, bis alle Adds sterben – voller AoE-Ausstoß beim Spawnen.|n• Die Phase {SPELL:@oblivion_shell} ist eine DPS-Prüfung.|n• {SPELL:@umbral_rage}: +10 % Schaden pro Stapel, wenn Additionen oder DoTs andauern – Tötung addiert schnell.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SW Eversong (Deathholme). Varianten: Spiegel, Vorräte, Verräter. Endgegner: Lord Antenorian.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Spiegel: Triff Schattennexus, um Licht zu erhalten. Vorräte: Plündere Twilight-Wertgegenstände. Verräter: Schluss mit Ritualen, Verfolgung zum Boss.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Spiegellicht = Geblendet (mehr kritische Treffer). Schattenwerfer unterbrechen. Stapeln du nicht auf schlechtem Untergrund.",
@@ -388,7 +388,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	["DELVE_CHAT_TORMENTS_RISE_OVERVIEW"] = "Nemesis-Delve (Voidstorm). Stufe ? / ?? Regeln. Boss Nullaeus – Heiler Valeera empfohlen am ??.",
 	["DELVE_CHAT_TORMENTS_RISE_ROUTE"] = "Spezielles Portal (Shift-J / TomTom). Kein rotierender Welttauchgang.",
 	["DELVE_CHAT_TORMENTS_RISE_TRASH"] = "Bewahren du CDs für Nullaeus auf – kein Pactsworn-Müll darin.",
-	["DELVE_CHAT_TORMENTS_RISE_BOSS"] = "Tritt jeden {SPELL:@devouring_essence}. {SPELL:@dread_portal}: ​​AoE fügt hinzu, bis es tot ist. {SPELL:@oblivion_shell} = DPS-Prüfung. Stapeln du {SPELL:@umbral_rage} nicht.",
+	["DELVE_CHAT_TORMENTS_RISE_BOSS"] = "Tritt jeden {SPELL:@devouring_essence}. {SPELL:@dread_portal}: AoE fügt hinzu, bis es tot ist. {SPELL:@oblivion_shell} = DPS-Prüfung. Stapeln du {SPELL:@umbral_rage} nicht.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.frFR, {
@@ -548,7 +548,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	["DELVE_TIP_TORMENTS_RISE_OVERVIEW"] = "• Tormenta del Vacío — Temporada 1 Nemesis Delve (piedra final).|n• Nivel ? después de cualquier T7 con 1+ vida; Nivel ?? después de cualquier T10 con 1+ de vida.|n• Jefe: Nullaeus.|n• Se recomienda encarecidamente la sanadora Valeera en el nivel ??.",
 	["DELVE_TIP_TORMENTS_RISE_ROUTE"] = "• Portal de instancia dedicado (no una excavación mundial rotativa).|n• Utilice la Guía de aventuras (Shift-J) o TomTom.|n• Recompensa semanal: Beacon of Hope puede llevar a Nullaeus a una excavación normal al 50%.",
 	["DELVE_TIP_TORMENTS_RISE_TRASH"] = "• Los mobs juramentados por el Pacto viven en excavaciones normales, no dentro de Torment's Rise.|n• Tiempos de reutilización de ritmo: guarda defensas e interrupciones para Nullaeus.",
-	["DELVE_TIP_TORMENTS_RISE_BOSS"] = "• Interrumpe {SPELL:@devouring_essence} cada lanzamiento (DoT + alimenta {SPELL:@umbral_rage} acumulaciones).|n• {SPELL:@dread_portal}: ​​100% de reducción de daño hasta que todos los agregados mueran: explosión completa de AoE al aparecer.|n• La fase {SPELL:@oblivion_shell} es una prueba de DPS.|n• {SPELL:@umbral_rage}: +10 % de daño por acumulación si los agregados o los DoT persisten; elimina los agregados rápidamente.",
+	["DELVE_TIP_TORMENTS_RISE_BOSS"] = "• Interrumpe {SPELL:@devouring_essence} cada lanzamiento (DoT + alimenta {SPELL:@umbral_rage} acumulaciones).|n• {SPELL:@dread_portal}: 100% de reducción de daño hasta que todos los agregados mueran: explosión completa de AoE al aparecer.|n• La fase {SPELL:@oblivion_shell} es una prueba de DPS.|n• {SPELL:@umbral_rage}: +10 % de daño por acumulación si los agregados o los DoT persisten; elimina los agregados rápidamente.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SW Canción eterna (Deathholme). Variantes: espejos, suministros, traidor. Jefe final: Lord Antenorian.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Espejos: pulsa Shadow Nexuses para obtener luz. Suministros: botín de objetos de valor de Crepúsculo. Traidor: detener los rituales, perseguir al jefe.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Luz del espejo = Deslumbrado (más críticos). Interrumpe a los lanzadores de sombras. No apile en terreno malo.",
@@ -592,7 +592,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	["DELVE_CHAT_TORMENTS_RISE_OVERVIEW"] = "Exploración de Némesis (Tormenta del Vacío). Nivel ? / ?? normas. Jefe Nullaeus - sanador Valeera recomendado en ??.",
 	["DELVE_CHAT_TORMENTS_RISE_ROUTE"] = "Portal dedicado (Shift-J/TomTom). No es una excavación en un mundo giratorio.",
 	["DELVE_CHAT_TORMENTS_RISE_TRASH"] = "Guarde los CD para Nullaeus: no hay basura de Pactsworn dentro.",
-	["DELVE_CHAT_TORMENTS_RISE_BOSS"] = "Patea cada {SPELL:@devouring_essence}. {SPELL:@dread_portal}: ​​AoE se agrega hasta que muere. {SPELL:@oblivion_shell} = verificación de DPS. No apile {SPELL:@umbral_rage}.",
+	["DELVE_CHAT_TORMENTS_RISE_BOSS"] = "Patea cada {SPELL:@devouring_essence}. {SPELL:@dread_portal}: AoE se agrega hasta que muere. {SPELL:@oblivion_shell} = verificación de DPS. No apile {SPELL:@umbral_rage}.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.ptBR, {
@@ -650,7 +650,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	["DELVE_TIP_TORMENTS_RISE_OVERVIEW"] = "• Voidstorm — Nemesis Delve da 1ª temporada (capstone).|n• Nível ? após qualquer T7 com 1+ vida; Nível ?? após qualquer T10 com 1+ vida.|n• Chefe: Nullaeus.|n• Healer Valeera fortemente recomendado no Tier ??.",
 	["DELVE_TIP_TORMENTS_RISE_ROUTE"] = "• Portal de instância dedicado (não uma exploração mundial rotativa).|n• Use o Adventure Guide (Shift-J) ou TomTom.|n• Recompensa semanal: Beacon of Hope pode levar Nullaeus a uma investigação normal com 50%.",
 	["DELVE_TIP_TORMENTS_RISE_TRASH"] = "• Criaturas Pactsworn vivem em cavernas regulares, não dentro de Torment's Rise.|n• Recargas de ritmo — salve defesas e interrupções para Nullaeus.",
-	["DELVE_TIP_TORMENTS_RISE_BOSS"] = "• Interromper {SPELL:@devouring_essence} cada lançamento (DoT + alimenta {SPELL:@umbral_rage} stacks).|n• {SPELL:@dread_portal}: ​​100% de redução de dano até que todos os acréscimos morram — explosão total de AoE no spawn.|n• A fase {SPELL:@oblivion_shell} é uma verificação de DPS.|n• {SPELL:@umbral_rage}: +10% de dano por pilha se acréscimos ou DoTs persistirem — mata acréscimos rapidamente.",
+	["DELVE_TIP_TORMENTS_RISE_BOSS"] = "• Interromper {SPELL:@devouring_essence} cada lançamento (DoT + alimenta {SPELL:@umbral_rage} stacks).|n• {SPELL:@dread_portal}: 100% de redução de dano até que todos os acréscimos morram — explosão total de AoE no spawn.|n• A fase {SPELL:@oblivion_shell} é uma verificação de DPS.|n• {SPELL:@umbral_rage}: +10% de dano por pilha se acréscimos ou DoTs persistirem — mata acréscimos rapidamente.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SW Eversong (Deathholme). Variantes: espelhos, suprimentos, traidor. Chefe final: Lorde Antenorian.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Espelhos: acerte Shadow Nexuses para obter luz. Suprimentos: saquear objetos de valor de Twilight. Traidor: pare os rituais, persiga o chefe.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Luz do espelho = Deslumbrado (mais críticos). Interrompa os lançadores de sombras. Não empilhe em terreno ruim.",
@@ -660,7 +660,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	["DELVE_CHAT_COLLEGIATE_CALAMITY_TRASH"] = "Cerco: portais primeiro. Corpo docente: revele e depois mate os alunos. Brilho: canaliza o Deweeder enquanto se move.",
 	["DELVE_CHAT_COLLEGIATE_CALAMITY_BOSS"] = "Hortênsia: mate {SPELL:@wildroot_weave} antes de {SPELL:@lightbloom_salvo}. Garand: desvie de {SPELL:@shadow_laceration}, espalhe {SPELL:@twilight_crash}. Vagabundo: chute {SPELL:@terrifying_power}.",
 	["DELVE_CHAT_THE_DARKWAY_OVERVIEW"] = "Arco Norte de Silvermoon. Focadores, Leyline ou 7 Aberrações. Chefe: Infiltrador Gulkat.",
-	["DELVE_CHAT_THE_DARKWAY_ROUTE"] = "Focalizadores: retornam os focalizadores ley ao centro. Leyline: toque em conduítes para 3 cristais. Ogro: mate 7 Aberrações Instáveis ​​no meio.",
+	["DELVE_CHAT_THE_DARKWAY_ROUTE"] = "Focalizadores: retornam os focalizadores ley ao centro. Leyline: toque em conduítes para 3 cristais. Ogro: mate 7 Aberrações Instáveis no meio.",
 	["DELVE_CHAT_THE_DARKWAY_TRASH"] = "Interrompa os Caçadores do Crepúsculo e o Dilúvio Arcano. Saia de cantos apertados.",
 	["DELVE_CHAT_THE_DARKWAY_BOSS"] = "Caçadores de chutes. Desvie de {SPELL:@abyssal_burst}. {SPELL:@illusory_deceit}: fique longe de explosões de ilusões.",
 	["DELVE_CHAT_PARHELION_PLAZA_OVERVIEW"] = "Ilha Oeste de Quel'Danas (Sunwell). Três variantes – aprofundamento mais difícil. Chefe: Gladius Slaurna.",
@@ -694,5 +694,5 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	["DELVE_CHAT_TORMENTS_RISE_OVERVIEW"] = "Mergulho Nemesis (Tempestade do Vazio). Nível ? / ?? regras. Boss Nullaeus – curandeiro Valeera recomendado em ??.",
 	["DELVE_CHAT_TORMENTS_RISE_ROUTE"] = "Portal dedicado (Shift-J / TomTom). Não é uma investigação mundial rotativa.",
 	["DELVE_CHAT_TORMENTS_RISE_TRASH"] = "Salve CDs para Nullaeus – sem lixo do Pactsworn dentro.",
-	["DELVE_CHAT_TORMENTS_RISE_BOSS"] = "Chute todos os {SPELL:@devouring_essence}. {SPELL:@dread_portal}: ​​AoE adiciona até morrer. {SPELL:@oblivion_shell} = Verificação de DPS. Não acumule {SPELL:@umbral_rage}.",
+	["DELVE_CHAT_TORMENTS_RISE_BOSS"] = "Chute todos os {SPELL:@devouring_essence}. {SPELL:@dread_portal}: AoE adiciona até morrer. {SPELL:@oblivion_shell} = Verificação de DPS. Não acumule {SPELL:@umbral_rage}.",
 })
