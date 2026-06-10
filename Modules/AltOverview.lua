@@ -45,6 +45,28 @@ local function TotalNumericBlockWidth()
 	return PAD_R + COL_W_UNDER + GetColWShards() + COL_W_KEYS + 2 * NUM_GAP
 end
 
+-- Example-reward item level for a vault activity. nil when the slot has no
+-- example reward yet or the item isn't in the client cache — never guessed;
+-- the next snapshot save fills it in once the cache warms up.
+local function GetActivityRewardIlvl(activityId)
+	if not (activityId and C_WeeklyRewards and C_WeeklyRewards.GetExampleRewardItemHyperlinks) then
+		return nil
+	end
+	local ok, link = pcall(C_WeeklyRewards.GetExampleRewardItemHyperlinks, activityId)
+	if not ok or type(link) ~= "string" or link == "" then
+		return nil
+	end
+	-- Same API the Delves-tab vault block uses (C_Item first, legacy fallback).
+	local getIlvl = (C_Item and C_Item.GetDetailedItemLevelInfo) or GetDetailedItemLevelInfo
+	if getIlvl then
+		local okL, ilvl = pcall(getIlvl, link)
+		if okL and tonumber(ilvl) and tonumber(ilvl) > 0 then
+			return math.floor(tonumber(ilvl))
+		end
+	end
+	return nil
+end
+
 local function BuildVaultCategorySnapshot(activities, wantedType)
 	local rows = {}
 	local maxProgress = 0
@@ -59,7 +81,7 @@ local function BuildVaultCategorySnapshot(activities, wantedType)
 	end
 
 	if #rows == 0 then
-		return { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false }
+		return { unlocked = 0, total = 0, progress = 0, nextThreshold = 0, available = false, slots = {} }
 	end
 
 	table.sort(rows, function(a, b)
@@ -78,12 +100,28 @@ local function BuildVaultCategorySnapshot(activities, wantedType)
 		end
 	end
 
+	-- Per-slot detail so alts can see WHAT is locked in, not just how many:
+	-- t = threshold, p = progress, l = registered activity level (delve tier /
+	-- keystone level), i = example-reward ilvl (unlocked slots only).
+	local slots = {}
+	for _, a in ipairs(rows) do
+		local th = tonumber(a.threshold) or 0
+		local p = math.floor(tonumber(a.progress) or 0)
+		slots[#slots + 1] = {
+			t = th,
+			p = p,
+			l = math.floor(tonumber(a.level) or 0),
+			i = (p >= th) and GetActivityRewardIlvl(a.id) or nil,
+		}
+	end
+
 	return {
 		unlocked = unlocked,
 		total = #rows,
 		progress = maxProgress,
 		nextThreshold = nextThreshold,
 		available = true,
+		slots = slots,
 	}
 end
 
@@ -410,6 +448,7 @@ local function SaveCurrentSnapshot()
 			"vaultDungeonUnlocked", "vaultDungeonTotal", "vaultDungeonProgress", "vaultDungeonNextThreshold", "vaultDungeonAvailable",
 			"vaultRaidUnlocked", "vaultRaidTotal", "vaultRaidProgress", "vaultRaidNextThreshold", "vaultRaidAvailable",
 			"vaultHasAvailableRewards",
+			"vaultWorldSlots", "vaultDungeonSlots", "vaultRaidSlots",
 		}
 		for _, k in ipairs(vaultFields) do
 			cur[k] = prev[k]
@@ -433,6 +472,9 @@ local function SaveCurrentSnapshot()
 	db.charCurrencies[guid].vaultRaidNextThreshold = snap.raids.nextThreshold
 	db.charCurrencies[guid].vaultRaidAvailable = snap.raids.available and 1 or 0
 	db.charCurrencies[guid].vaultHasAvailableRewards = snap.hasAvailableRewards and 1 or 0
+	db.charCurrencies[guid].vaultWorldSlots = snap.world.slots
+	db.charCurrencies[guid].vaultDungeonSlots = snap.dungeons.slots
+	db.charCurrencies[guid].vaultRaidSlots = snap.raids.slots
 	db.charCurrencies[guid].vaultUnlocked = snap.world.unlocked
 	db.charCurrencies[guid].vaultTotal = snap.world.total
 	db.charCurrencies[guid].vaultProgress = snap.world.progress
@@ -1026,6 +1068,9 @@ function ns:_mhAltOverviewCollectEntries()
 				vaultRaidNextThreshold = tonumber(snap.vaultRaidNextThreshold) or 0,
 				vaultRaidAvailable = tonumber(snap.vaultRaidAvailable) or 0,
 				vaultHasAvailableRewards = tonumber(snap.vaultHasAvailableRewards) or 0,
+				vaultWorldSlots = type(snap.vaultWorldSlots) == "table" and snap.vaultWorldSlots or nil,
+				vaultDungeonSlots = type(snap.vaultDungeonSlots) == "table" and snap.vaultDungeonSlots or nil,
+				vaultRaidSlots = type(snap.vaultRaidSlots) == "table" and snap.vaultRaidSlots or nil,
 				professions = type(snap.professions) == "string" and snap.professions or "",
 				professionsFull = type(snap.professionsFull) == "string" and snap.professionsFull
 					or (type(snap.professions) == "string" and snap.professions or ""),
@@ -1258,15 +1303,35 @@ function ns:_mhAltOverviewRefreshRows()
 			end
 		end
 		row.vaultTip = {
-			world = { available = worldAvailable, unlocked = worldUnlocked, total = worldTotal, progress = worldProgress, nextThreshold = worldNextT },
+			world = {
+				available = worldAvailable,
+				unlocked = worldUnlocked,
+				total = worldTotal,
+				progress = worldProgress,
+				nextThreshold = worldNextT,
+				slots = e.vaultWorldSlots,
+				showLevel = true,
+			},
 			dungeons = {
 				available = dungeonAvailable,
 				unlocked = dungeonUnlocked,
 				total = dungeonTotal,
 				progress = dungeonProgress,
 				nextThreshold = dungeonNextT,
+				slots = e.vaultDungeonSlots,
+				showLevel = true,
 			},
-			raids = { available = raidAvailable, unlocked = raidUnlocked, total = raidTotal, progress = raidProgress, nextThreshold = raidNextT },
+			-- Raid activity "level" encodes difficulty, not a tier — hide it
+			-- until its semantics are confirmed in-game (ilvl still shows).
+			raids = {
+				available = raidAvailable,
+				unlocked = raidUnlocked,
+				total = raidTotal,
+				progress = raidProgress,
+				nextThreshold = raidNextT,
+				slots = e.vaultRaidSlots,
+				showLevel = false,
+			},
 			availableAny = available,
 			unlockedAny = unlockedAny,
 			hasAvailableRewards = hasAvailableRewards,
@@ -1412,6 +1477,31 @@ function ns:_mhAltOverviewRefreshRows()
 						0.82,
 						1
 					)
+					-- Per-slot detail (last registered values): what gear quality
+					-- is locked in, so on an alt you can see whether higher
+					-- delve/ritual tiers are still worth running this week.
+					-- Only shows fields the snapshot really captured (never lie).
+					if type(cat.slots) == "table" then
+						for i, s in ipairs(cat.slots) do
+							local t = tonumber(s.t) or 0
+							local p = tonumber(s.p) or 0
+							local l = cat.showLevel and (tonumber(s.l) or 0) or 0
+							local iv = tonumber(s.i) or 0
+							if t > 0 and p >= t then
+								if iv > 0 and l > 0 then
+									GameTooltip:AddLine("  " .. ns:L("ALT_VAULT_SLOT_ILVL_LVL_FMT"):format(i, iv, l), 0.38, 0.95, 0.42)
+								elseif iv > 0 then
+									GameTooltip:AddLine("  " .. ns:L("ALT_VAULT_SLOT_ILVL_FMT"):format(i, iv), 0.38, 0.95, 0.42)
+								elseif l > 0 then
+									GameTooltip:AddLine("  " .. ns:L("ALT_VAULT_SLOT_OPEN_LVL_FMT"):format(i, l), 0.55, 0.9, 0.55)
+								else
+									GameTooltip:AddLine("  " .. ns:L("ALT_VAULT_SLOT_OPEN_FMT"):format(i), 0.55, 0.9, 0.55)
+								end
+							else
+								GameTooltip:AddLine("  " .. ns:L("ALT_VAULT_SLOT_LOCKED_FMT"):format(i, p, math.max(1, t)), 0.6, 0.6, 0.6)
+							end
+						end
+					end
 				end
 
 				AddVaultCategory(ns:L("ALT_VAULT_WORLD"), self.vaultTip.world)
