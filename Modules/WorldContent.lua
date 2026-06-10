@@ -61,6 +61,12 @@ end
 
 -- Re-stack every visible element top-to-bottom inside the scroll child. Called
 -- after each refresh and whenever the scroll width changes.
+--
+-- View modes (Rob, 10 Jun — the tab grew too tall): every order entry can
+-- carry `mode` ("status" | "coach"); entries without a mode show in both
+-- views. Wrong-mode widgets are force-hidden here; right-mode widgets are
+-- re-shown unless `dataDriven` (then RefreshWorldPanel owns show/hide and
+-- already ran before Relayout).
 local function Relayout()
 	if not ui or not ui.child then
 		return
@@ -69,9 +75,17 @@ local function Relayout()
 	if not width or width <= 0 then
 		return
 	end
+	local mode = ui.viewMode or "status"
 	local y = 4
 	for _, el in ipairs(ui.order) do
 		local w = el.w
+		if el.mode then
+			if el.mode ~= mode then
+				w:Hide()
+			elseif not el.dataDriven then
+				w:Show()
+			end
+		end
 		if w:IsShown() then
 			local indent = el.indent or 0
 			y = y + (el.gapTop or 0)
@@ -149,7 +163,14 @@ function ns.RefreshWorldPanel()
 		ui.ritualWeeklyFs:SetText(ns:L("RITUAL_WEEKLY_DONE"))
 		ui.ritualWeeklyFs:SetTextColor(COLOR_GOOD[1], COLOR_GOOD[2], COLOR_GOOD[3])
 	else
-		ui.ritualWeeklyFs:SetText(ns:L("RITUAL_WEEKLY_TODO"))
+		-- Live progress-bar percentage while the weekly is on the player
+		-- (same pattern as the Showdowns weekly; nil = no bar/no claim).
+		local ritualText = ns:L("RITUAL_WEEKLY_TODO")
+		local ritualPct = ns.GetRitualWeeklyProgress and ns.GetRitualWeeklyProgress()
+		if ritualPct then
+			ritualText = ritualText .. " " .. ns:L("WEEKLY_PROGRESS_PCT_FMT"):format(ritualPct)
+		end
+		ui.ritualWeeklyFs:SetText(ritualText)
 		ui.ritualWeeklyFs:SetTextColor(COLOR_SOFT[1], COLOR_SOFT[2], COLOR_SOFT[3])
 	end
 
@@ -158,7 +179,7 @@ function ns.RefreshWorldPanel()
 	if ui.ritualWeeklyHintFs then
 		local hint = ns.GetRitualWeeklyHint and ns.GetRitualWeeklyHint()
 		if hint and hint ~= "" then
-			ui.ritualWeeklyHintFs:SetText("→ " .. hint)
+			ui.ritualWeeklyHintFs:SetText(ns.SanitizeUIFontText and ns.SanitizeUIFontText("→ " .. hint) or ("-> " .. hint))
 			ui.ritualWeeklyHintFs:Show()
 		else
 			ui.ritualWeeklyHintFs:Hide()
@@ -193,7 +214,14 @@ function ns.RefreshWorldPanel()
 		ui.voidWeeklyFs:SetText(ns:L("VOID_WEEKLY_DONE"))
 		ui.voidWeeklyFs:SetTextColor(COLOR_GOOD[1], COLOR_GOOD[2], COLOR_GOOD[3])
 	else
-		ui.voidWeeklyFs:SetText(ns:L("VOID_WEEKLY_TODO"))
+		-- Live "Strikes disrupted" bar percentage while the zone weekly is on
+		-- the player (Showdowns pattern; nil = no bar/no claim).
+		local voidText = ns:L("VOID_WEEKLY_TODO")
+		local voidPct = ns.GetVoidAssaultWeeklyProgress and ns.GetVoidAssaultWeeklyProgress()
+		if voidPct then
+			voidText = voidText .. " " .. ns:L("WEEKLY_PROGRESS_PCT_FMT"):format(voidPct)
+		end
+		ui.voidWeeklyFs:SetText(voidText)
 		ui.voidWeeklyFs:SetTextColor(COLOR_SOFT[1], COLOR_SOFT[2], COLOR_SOFT[3])
 	end
 
@@ -310,6 +338,16 @@ function ns.RefreshWorldPanel()
 		end
 	end
 
+	-- Compact challenge list (status view): one line per challenge, highest
+	-- Spoils first — same titles as the Coach view, without the body text.
+	if ui.chalCompactFs and ns.GetRitualChallengesForDisplay and ns.BuildRitualChallengeTitle then
+		local lines = {}
+		for _, c in ipairs(ns.GetRitualChallengesForDisplay()) do
+			lines[#lines + 1] = ns.BuildRitualChallengeTitle(c)
+		end
+		ui.chalCompactFs:SetText(table.concat(lines, "|n"))
+	end
+
 	Relayout()
 end
 
@@ -366,8 +404,17 @@ function ns.BuildWorldPanel(panel)
 	subtitle:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
 	subtitle:SetText(ns:L("WORLD_SUBTITLE"))
 
+	-- View switcher: "This week" (status) | "Ritual Coach" (all the reference
+	-- text). Saved account-wide so the tab reopens in your preferred view.
+	local navStatusBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	navStatusBtn:SetHeight(22)
+	navStatusBtn:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -8)
+	local navCoachBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	navCoachBtn:SetHeight(22)
+	navCoachBtn:SetPoint("LEFT", navStatusBtn, "RIGHT", 6, 0)
+
 	local scroll = CreateFrame("ScrollFrame", "MidnightHelperWorldScroll", panel, "UIPanelScrollFrameTemplate")
-	scroll:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -12)
+	scroll:SetPoint("TOPLEFT", navStatusBtn, "BOTTOMLEFT", 0, -8)
 	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 14)
 
 	local child = CreateFrame("Frame", nil, scroll)
@@ -383,7 +430,37 @@ function ns.BuildWorldPanel(panel)
 		order = {},
 		siteButtons = {},
 		infoLines = {},
+		navStatusBtn = navStatusBtn,
+		navCoachBtn = navCoachBtn,
+		viewMode = (ns.db and ns.db.ui and ns.db.ui.worldViewMode == "coach") and "coach" or "status",
 	}
+
+	local function UpdateNavButtons()
+		navStatusBtn:SetText(ns:L("WORLD_VIEW_STATUS"))
+		navCoachBtn:SetText(ns:L("RITUAL_COACH_HEADER"))
+		navStatusBtn:SetWidth(math.max((navStatusBtn:GetTextWidth() or 0) + 24, 90))
+		navCoachBtn:SetWidth(math.max((navCoachBtn:GetTextWidth() or 0) + 24, 90))
+		navStatusBtn:SetEnabled(ui.viewMode ~= "status")
+		navCoachBtn:SetEnabled(ui.viewMode ~= "coach")
+	end
+	ui.updateNavButtons = UpdateNavButtons
+
+	local function SetViewMode(mode)
+		ui.viewMode = mode
+		if ns.db then
+			ns.db.ui = ns.db.ui or {}
+			ns.db.ui.worldViewMode = mode
+		end
+		UpdateNavButtons()
+		ns.RefreshWorldPanel()
+	end
+	navStatusBtn:SetScript("OnClick", function()
+		SetViewMode("status")
+	end)
+	navCoachBtn:SetScript("OnClick", function()
+		SetViewMode("coach")
+	end)
+	UpdateNavButtons()
 
 	local function push(w, gapTop, indent, button)
 		ui.order[#ui.order + 1] = { w = w, gapTop = gapTop, indent = indent, button = button }
@@ -565,6 +642,7 @@ function ns.BuildWorldPanel(panel)
 	for i = 1, #sdInfoKeys do
 		local fs = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
 		fs._mhKey = sdInfoKeys[i]
+		fs._mhSdLine = true -- keeps the view-mode tag with the Showdowns block
 		fs:SetText("• " .. ns:L(sdInfoKeys[i]))
 		ui.infoLines[#ui.infoLines + 1] = fs
 		ui.sdInfoLines[i] = fs
@@ -579,6 +657,70 @@ function ns.BuildWorldPanel(panel)
 	for _, fs in ipairs(ui.sdInfoLines) do
 		ui.sdWidgets[#ui.sdWidgets + 1] = fs
 	end
+
+	-- Compact challenge list for the status view: names + Spoils% only (the
+	-- mechanics/unlock text lives in the Coach view). Text rebuilt on refresh.
+	ui.chalCompactHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
+	ui.chalCompactHeader:SetText(ns:L("RITUAL_COACH_CHALLENGES_HEADER"))
+	push(ui.chalCompactHeader, 14, 0)
+	ui.chalCompactFs = MakeFS(child, "GameFontHighlightSmall")
+	push(ui.chalCompactFs, 6, 0)
+	ui.chalCompactHintFs = MakeFS(child, "GameFontDisableSmall", COLOR_DIM)
+	ui.chalCompactHintFs:SetText(ns:L("WORLD_VIEW_COACH_HINT"))
+	push(ui.chalCompactHintFs, 4, 0)
+
+	-- View-mode tags (see Relayout). dataDriven = RefreshWorldPanel owns the
+	-- widget's show/hide; Relayout then only force-hides it in the wrong view.
+	local function tag(w, mode, dataDriven)
+		for _, el in ipairs(ui.order) do
+			if el.w == w then
+				el.mode = mode
+				el.dataDriven = dataDriven
+				return
+			end
+		end
+	end
+	-- Status view: live week state + route buttons + compact challenges.
+	tag(ui.ritualHeader, "status")
+	tag(ui.ritualActiveFs, "status")
+	tag(ui.ritualNextFs, "status", true)
+	tag(ui.ritualWeeklyFs, "status")
+	tag(ui.ritualWeeklyHintFs, "status", true)
+	for _, btn in ipairs(ui.siteButtons) do
+		tag(btn, "status")
+	end
+	tag(ui.voidHeader, "status")
+	tag(ui.voidActiveFs, "status")
+	tag(ui.voidNextFs, "status", true)
+	tag(ui.voidWeeklyFs, "status")
+	for _, w in ipairs(ui.sdWidgets) do
+		tag(w, "status", true)
+	end
+	tag(ui.chalCompactHeader, "status")
+	tag(ui.chalCompactFs, "status")
+	tag(ui.chalCompactHintFs, "status")
+	-- Coach view: all reference/explanation text + the full challenge list.
+	for _, fs in ipairs(ui.infoLines) do
+		if not fs._mhSdLine then
+			tag(fs, "coach")
+		end
+	end
+	tag(ui.coachHeader, "coach")
+	tag(ui.coachActiveFs, "coach")
+	tag(ui.coachPhasesFs, "coach", true)
+	tag(ui.coachNotesFs, "coach", true)
+	tag(ui.coachIntroHeader, "coach")
+	for _, fs in ipairs(ui.coachStatic) do
+		tag(fs, "coach")
+	end
+	tag(ui.coachChalHeader, "coach")
+	for _, row in ipairs(ui.coachChalRows) do
+		tag(row.titleFs, "coach")
+		tag(row.mechFs, "coach")
+		tag(row.unlockFs, "coach")
+	end
+	tag(ui.coachShareBtn, "coach")
+	-- (accoladesFs/renownFs/hubBtn stay untagged: useful in both views.)
 
 	local function syncWidth()
 		local w = scroll:GetWidth()
@@ -616,6 +758,13 @@ do
 			ui.sdPortalBtn:SetText(ns:L("SHOWDOWNS_BTN_PORTAL"))
 			for _, fs in ipairs(ui.infoLines) do
 				fs:SetText("• " .. ns:L(fs._mhKey))
+			end
+			if ui.updateNavButtons then
+				ui.updateNavButtons()
+			end
+			if ui.chalCompactHeader then
+				ui.chalCompactHeader:SetText(ns:L("RITUAL_COACH_CHALLENGES_HEADER"))
+				ui.chalCompactHintFs:SetText(ns:L("WORLD_VIEW_COACH_HINT"))
 			end
 			if ui.coachHeader then
 				ui.coachHeader:SetText(ns:L("RITUAL_COACH_HEADER"))

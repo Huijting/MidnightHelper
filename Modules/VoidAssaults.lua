@@ -125,6 +125,27 @@ function ns.IsVoidAssaultWeeklyDone()
 	return IsWeeklyDone()
 end
 
+-- Progress (1-100) of the active zone weekly's progress bar ("Strikes
+-- disrupted") while it is on the player. Mirrors ns.GetShowdownWeeklyProgress.
+-- Returns nil when not on the quest, the API disagrees, or the bar reads 0
+-- (a non-bar quest also reads 0 — never claim a percentage we can't trust).
+function ns.GetVoidAssaultWeeklyProgress()
+	if not (C_QuestLog and C_QuestLog.IsOnQuest) or type(GetQuestProgressBarPercent) ~= "function" then
+		return nil
+	end
+	for _, z in ipairs(ZONES) do
+		local okOn, onQuest = pcall(C_QuestLog.IsOnQuest, z.weekly)
+		if okOn and onQuest then
+			local ok, pct = pcall(GetQuestProgressBarPercent, z.weekly)
+			if ok and type(pct) == "number" and pct > 0 then
+				return math.floor(pct)
+			end
+			return nil
+		end
+	end
+	return nil
+end
+
 -- Primitives consumed by the combined Void & Rituals panel.
 function ns.GetVoidZones()
 	return ZONES
