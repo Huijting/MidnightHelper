@@ -1258,6 +1258,351 @@ Luacheck niet beschikbaar. Commit alle uncommitted + push `origin/main`.
 - **Locales enUS/nlNL:** `PROF_GENERATE_TREASURES_BTN` / `_BOOKS_BTN`.
 - **Docs:** `SESSION_NOTES.md`, `TOMORROW.md`, `CHANGELOG.md`.
 
+## Voor Cursor — review + commit batch 10 juni (commits `d6cf079` / `7bb2386` /
+`948c5ea` / `cc8d2ef` / `af4f9f2` / `13dac4c` / `48d40a3` + docs `TBD`)
+
+**Release 1.6.0** — CF-upload door Rob met `CURSEFORGE_1.6.0.md` +
+`CURSEFORGE_DESCRIPTION.md`.
+
+## Voor Cursor — review + commit batch 10 juni (lokalisatie ⭐ + blokjes-sweep)
+
+Door Claude (Cowork) gebouwd, alle edits via host-tools; **mount bleef bevroren
+op pre-edit kopieën** (RitualTips toonde 197 i.p.v. 561 regels) → alle
+verificatie host-side. **Cursor: luacheck/loadfile op RitualTips.lua,
+StartHere.lua, enUS/nlNL/deDE/frFR/esES/ptBR.lua, DelveTips.lua,
+GuideAdvisor.lua, WorldContent.lua vóór commit.** Appends kunnen LF i.p.v.
+CRLF zijn (cosmetisch; normaliseren mag). Voorgestelde opdeling in 2 commits:
+
+1. **Lokalisatie deDE/frFR/esES/ptBR (de ⭐-taak uit TOMORROW.md):**
+   - `Locales/RitualTips.lua`: 4 nieuwe merge-blokken (67 keys ×4; key-audit
+     host-geverifieerd: 402 = 67×6, identieke key-set/volgorde per blok;
+     header-comment bijgewerkt). WoW-eigennamen EN gehouden (challenge-/site-/
+     NPC-/item-/quest-/scenarionamen, Spoils, Ritual Chest, Curious Obelisk);
+     stadsnamen volgen de bestaande conventie per bestand (Silbermond /
+     Lune-d'argent / Lunargenta / Luaprata).
+   - `Locales/StartHere.lua`: 4 nieuwe merge-blokken (33 keys ×4; 198 = 33×6
+     geverifieerd). Nav-knoplabels matchen de bestaande TAB_*-vertalingen
+     (Tiefen / Gouffres / Profundidades / Profundidades; Verbrauchsmaterial /
+     Consommables / Consumibles / Consumíveis). `TAB_START_HERE`: "Erste
+     Schritte" / "Bien démarrer" / "Primeros pasos" / "Comece aqui".
+   - `deDE/frFR/esES/ptBR.lua`: `PROF_GENERATE_TREASURES_BTN` / `_BOOKS_BTN`
+     toegevoegd (na PROF_ESSENCE_FMT, ~regel 186).
+   - Format-specifiers (%s/%d) per `_FMT`-key geverifieerd identiek ×6.
+2. **Blokjes-sweep (Robs extra check):** alle .lua host-side gescand op tekens
+   buiten ASCII/Latin-1/Latin-Ext-A + veilige typografie (• — – ‘’ “” … „):
+   - **ZWSP (U+200B) verwijderd** — onzichtbaar/blokje, MT-artefact (bijv.
+     "variáveis ​​salvas"): `DelveTips.lua` (7 regels), `GuideAdvisor.lua` (24),
+     `ptBR.lua` (5).
+   - **✓ (U+2713) — bewezen blokje-glyph (zelfde als de ProfessionAcademy-fix
+     7 juni):** `DAWNCREST_ACH_DONE_FMT` ×6 → ReadyCheck-texture. Consumer
+     (DawncrestGuide.lua:287) gebruikt `ns:L`, geen SafeL; regel verschijnt
+     alleen bij completed tier-achievement — daarom nooit eerder gespot.
+   - **→ (U+2192)** — "missing glyph = square" volgens de eigen comments in
+     Locale.lua:307 en ProfessionsGuide.lua:159: vervangen door "->" in
+     deDE/frFR/esES/ptBR (álle voorkomens: VAULT_REMINDER_*, SEARCH_CHAT_SMC_
+     PIN_FMT, LOCALE_STATUS_AUTO_FALLBACK_FMT, DELVES_VAULT_CLAIM_READY) en in
+     enUS/nlNL alléén de twee keys zónder SafeL-pad (`LOCALE_STATUS_AUTO_
+     FALLBACK_FMT`, `SEARCH_CHAT_SMC_PIN_FMT`). CHANGELOG-/PROFGUIDE-pijlen in
+     enUS/nlNL bewust gelaten: Changelog.lua rendert via SafeL, ProfessionsGuide
+     heeft een eigen gsub-normalisatie.
+   - **`Modules/WorldContent.lua` ~161:** de ritual-weekly-hint-prefix "→ "
+     ging als enige rendered literal niet door een sanitizer → nu via
+     `ns.SanitizeUIFontText` (fallback "-> ").
+   - **Bijvangst MT-fixes:** nlNL `DELVE_SHARE_BAR_HINT_TEST` was verminkt
+     ("alleen → deel-knoppen") → herschreven; deDE idem ("Wenn du alleine
+     sind, teilen du die Schaltflächen…") → herschreven; frFR
+     DAWNCREST_ACH_DONE_FMT "ton bataille" → "ton bataillon".
+   - **Bewust gelaten (veilig):** „ (U+201E, CP1252 — deDE-citaten), − (U+2212
+     op collapse-knoppen, al maanden in-game zichtbaar zonder klachten), CJK
+     `LOCALE_NAME_koKR/zhCN/zhTW` (rendert alleen op CJK-clients met eigen
+     font; chat heeft al de Latijnse fallback in Locale.lua), en alle pijlen/
+     symbolen in code-comments.
+
+In-game test (Rob): zie de nieuwe punten in TOMORROW.md §1.
+
+### Nabrander 10 juni — ritual-weekly-hint: "intro"-state (per-character keten)
+
+Robs druid (lvl 90, renown warband-unlocked) kreeg "haal de weekly bij de hub",
+maar de hub bood **niets** aan. Research (Wowhead quest 94383 + storyline 6270):
+de weekly zit achter de per-character intro-keten **Ranger Captain's Summons
+(94380) → Outfitting and Allies (94381) → Void Strike (96080) → Ritual
+Problems (94382, Kul'amara) → Ritual Interest (94383, Darkglen)**. Robs
+druid-dump bevestigt per-character flags: 94381 true, rest false (main heeft
+alles). De oude "pickup"-hint loog dus op chars zonder afgeronde keten.
+
+- **`Modules/RitualSites.lua`:** constante `RITUAL_INTRO_FINAL_QUEST = 94383`
+  (~regel 21, met keten-comment); `GetRitualWeeklyHint()` heeft een nieuwe
+  state **"intro"** tussen unlocked en pickup: renown unlocked maar 94383 niet
+  geflagd op dit personage → intro-hint (pcall-guarded; flag-API onbeschikbaar
+  → valt terug op pickup zoals voorheen). Doc-comment bijgewerkt.
+- **`Locales/RitualTips.lua`:** nieuwe key `RITUAL_WEEKLY_HINT_INTRO` ×6
+  (na _PICKUP per blok; audit nu 68 keys ×6 = 408 ✓, header-comment
+  bijgewerkt). Tekst noemt de startquest + dat de Void Strike-stap in de
+  actieve assault-zone gebeurt.
+- **Te verifiëren (Rob):** (1) druid na /reload → hint toont nu de
+  intro-tekst i.p.v. "haal bij de hub"; (2) zelfde dump op de main → 94383
+  hoort true te zijn en de hint blijft daar pickup/inprogress (bevestigt dat
+  94383 écht per-character is en niet warband); (3) keten afronden op de druid
+  → hint verspringt naar pickup → weekly verschijnt bij de hub.
+- **Cursor: luacheck/loadfile op RitualSites.lua + RitualTips.lua** (zelfde
+  batch als hierboven; mount blijft onbetrouwbaar).
+
+### Nieuw 10 juni — Reset-routine op het Home-dashboard (Rob-wens)
+
+Robs vraag: "een logische volgorde na de reset — eerst vault, dan die en die
+weeklies ophalen op die en die plek, een route-lint zoals delves/treasures."
+Keuzes (Rob via vraag): Home-dashboard + checklist mét route-lint.
+
+- **`Modules/ResetRoutine.lua` (nieuw, ~290 r.):** pure logica.
+  `ns.GetResetRoutineSteps()` → geordende stappen voor het ingelogde
+  personage, elk met tekst/kleur/onClick: (1) Great Vault claimen (live
+  `C_WeeklyRewards.HasAvailableRewards`, los van de reminder-instelling;
+  API weg → stap weggelaten, never lie), (2) Ritual-weekly (hergebruikt
+  `GetRitualWeeklyHint`-states incl. de nieuwe intro-state; klik → hub-route
+  of actieve-site-route), (3) Void-weekly (meta 95842 + zonequests
+  94385/94386: done/in-log/ophalen), (4) trainer-weeklies — alleen owned
+  profs met geverifieerd quest-ID uit `ns.PROF_ACADEMY.weekly.trainerQuests`
+  (nu alleen Enchanting 93698; meer IDs = vanzelf meer regels).
+  `ns.StartResetRoute()` → TomTom-keten langs de nog-open stops (vault →
+  Bazaar-hub → Work Order-station), dubbele hub-pin gededupliceerd, alleen
+  pin 1 krijgt crazy-arrow + travel-UI (Rares-patroon) en `ns.lastTarget`
+  wijst terug naar pin 1 (de 9-juni-treasure-les). Chatmelding met aantal
+  stops / "niets te routeren".
+- **Vault-kist-coördinaat:** Silvermoon-bank, neutrale vleugel, **2393 /
+  50.3 / 65.1** — research-verified (Wowhead Great Vault-guide +
+  conquestcapped, juni 2026), **in-game te bevestigen** (pin ernaast =
+  cosmetisch, bank is onmisbaar).
+- **`Modules/HomeDashboard.lua`:** nieuw full-width blok bovenaan
+  `BuildLayout` (vóór Vault|World Boss): genummerde stappen + route-knop;
+  rendert alleen als de module stappen geeft (pcall-guarded). Bestaande
+  events (WEEKLY_REWARDS_UPDATE/QUEST_LOG_UPDATE) verversen het blok al.
+- **TOC:** `Modules\ResetRoutine.lua` na VoidAssaults.
+- **Locales:** 18 nieuwe `HOME_ROUTINE_*`-keys ×6 (na HOME_VOID_WEEKLY_TODO;
+  audit 108 = 18×6 ✓).
+- **Vervolg (Rob-wens):** de VaultReminder-login-popup bleef staan na klik op
+  de waypoint-knop → `VaultReminder.lua` ~322: `f:Hide()` na het zetten van de
+  waypoint. Bijvangst: VaultReminder had al een in-game-gebruikt
+  vault-coördinaat (**2393/49.93/64.54**) → ResetRoutine daarop uitgelijnd
+  (was research-coords 50.3/65.1); backlog: ooit centraliseren in één
+  ns-constante.
+- **Vervolg 2 (Rob-wens):** (a) stap "Weekly quest givers" (Liadrin /
+  Halduron / Aethas, naast de vault) toegevoegd als stop 2 — zelfde plek als
+  de city-guide-pin `weekly_hub` (2393/48.95/64.92). Hun quest-IDs zijn nog
+  nérgens geverifieerd (SMCChecklistData.questIds = {}; Liadrin is bovendien
+  keuze-uit-4), dus de stap toont eerlijk "oppakken wordt nog niet getrackt"
+  i.p.v. een gegokte status; pin zit wel in het route-lint. IDs dumpen → echte
+  status (TOMORROW.md). (b) De route-regel is nu een echte
+  UIPanelButtonTemplate-knop: HomeDashboard heeft een aparte button-pool
+  (`AcquireButton`, alleen full-width-blokken; tekstbreedte + 28px, cap op
+  child-breedte) naast de tekstrows — templates kunnen niet achteraf op de
+  bestaande rows. 2 nieuwe keys ×6 (HOME_ROUTINE_GIVERS/_PIN_GIVERS; audit
+  120 = 20×6).
+- **Vervolg 3 (Rob-vraag: "mag de char 'm wel, en opgepakt/gedaan-status"):**
+  giver-stap is nu data-gedreven scaffold in ResetRoutine.lua:
+  `GIVER_WEEKLIES` (Liadrin/Halduron/Aethas, elk `quests = {}` +
+  `minLevel = nil` — alléén geverifieerde data invullen) + `GiverState()`:
+  done (een ID geflagd = "deze week gedaan") → inlog ("opgepakt") → locked
+  (level < geverifieerde minLevel = eligibility-check) → pickup. Givers
+  zónder IDs collapsen in de bestaande eerlijke "nog niet getrackt"-regel
+  (route-pin maar één keer). Zodra Robs dumps de IDs leveren: invullen in
+  GIVER_WEEKLIES én SMCChecklistData.weekly_hub.questIds — statussen
+  verschijnen vanzelf. 4 nieuwe keys ×6 (HOME_ROUTINE_GIVER_DONE/_INLOG/
+  _PICKUP/_LOCKED_FMT; audit 144 = 24×6).
+- **Vervolg 4 (Robs review):** (a) trainer-weekly-stap verdween stilletjes op
+  chars zonder Enchanting (enige geverifieerde ID) → owned profs zónder
+  geverifieerd quest-ID tonen nu een grijze "nog niet getrackt — quest-ID
+  onbekend"-regel (klik → Professions Hub); de stap kan niet meer "missen".
+  (b) Trainer-pickup routeert nu naar de tráiner van die professie (per-prof
+  city-guide-pincoords gespiegeld in `TRAINER_PINS`, skillLine-keyed) i.p.v.
+  het Work Order-station; pin-label gelokaliseerd met profnaam
+  (`HOME_ROUTINE_PIN_TRAINER_FMT`; pins ondersteunen nu een format-arg).
+  Trainer kreeg ook een "opgepakt"-state (`_TRAINER_INLOG_FMT`).
+  (c) Kleurverschil opgepakt vs. nog-ophalen was te klein (WARN-geel vs
+  SOFT-geel) → nieuwe `COLOR_PROG` (lichtblauw) voor alle
+  "opgepakt/in-log"-regels (ritual/void/giver/trainer). 3 nieuwe + 1
+  herschreven key ×6 (audit 162 = 27×6).
+- **Vervolg 5 (Robs vraag "staan die IDs niet online?"):** jawel —
+  Wowhead-DB: Liadrins Spark-keuze-uit-4 = **93766 Midnight: World Quests /
+  93909 Midnight: Delves / 93910 Midnight: Prey / 93911 Midnight: Dungeons**
+  (zelfde reeks als Void Assaults 95842 / Ritual Sites 95843). Ingevuld in
+  `GIVER_WEEKLIES.liadrin` én `SMCChecklistData.weekly_hub.questIds`
+  (mode "any" — max 1 Spark-weekly p/w). In-game bevestiging door Rob
+  pending (TOMORROW). minLevel bewust nil gelaten: Wowheads "level 90" is
+  quest-level, niet de vereiste. Halduron (rep-dungeon) en Aethas (weekend)
+  hebben geen publieke IDs → blijven untracked tot Robs dump.
+- **Vervolg 6 (Robs spot): SMC-knop "World boss: (open map)" terwijl Home
+  "Active: Lu'ashal" toont.** Oorzaak: `GetActiveWorldBoss` heeft 3 bronnen
+  (live / week-cache / rotatie-schedule); Home toont ook de schedule-gok als
+  naam, maar de SMC-knop verstopte de naam zodra het geen live/cache-hit was.
+  Fix (`UI.lua`): gedeelde helper `SMCWorldBossButtonText()` (vervangt de 2
+  gedupliceerde label-plekken ~905/~1247; de builder kreeg zo ook de
+  SavedVariables-fallback die alleen de refresher had): naam bekend via
+  live/cache/kill-data → "World boss: %s"; alleen schedule-gok → nieuw
+  "World boss: %s (open map ter bevestiging)"
+  (`WB_SMC_BUTTON_UNCONFIRMED_FMT` ×6); helemaal niets bekend → oude
+  "(open map)". Knop verbergt nu nooit meer een naam die Home wél toont.
+- **Vervolg 7 (Rob-wens): per-slot vault-detail in de Account Snapshot.**
+  Probleem: op een alt weet je niet meer welke gear-waarde al in elk
+  vault-slot staat (moet ik nog tier 8+ delves doen?). Gebouwd in
+  `AltOverview.lua`:
+  - **Capture:** `BuildVaultCategorySnapshot` levert nu ook `slots[]` per rij
+    (t=threshold, p=progress, l=geregistreerd activity-level, i=example-
+    reward-ilvl via `GetExampleRewardItemHyperlinks`+`GetDetailedItemLevelInfo`,
+    alleen voor ontgrendelde slots; nil als item nog niet gecachet — volgende
+    save vult 'm, never lie). Helper `GetActivityRewardIlvl`.
+  - **Opslag:** `vaultWorldSlots/vaultDungeonSlots/vaultRaidSlots` in de
+    char-snapshot + opgenomen in de login-carry-over-lijst (geen clobber met
+    lege data).
+  - **Weergave:** vault-tooltip in Account Snapshot toont per rij nu per
+    slot: "Slot N: ilvl X gear (level Y)" (groen), "ontgrendeld" zonder
+    ilvl als het item nog niet gecachet was, of "vergrendeld — p/t" (grijs).
+    Raid-rij toont bewust géén level (activity-level = difficulty-encoding,
+    semantiek nog niet in-game geverifieerd; ilvl wél). Bestaande
+    staleness-warning dekt ook de slot-data.
+  - Semantiek van de ilvl: dit is Blizzards éigen example-reward van dat slot
+    op snapshot-moment — dus exact "wat krijg ik nu uit dit slot", inclusief
+    het effect van een hogere delve die het slot omhoog duwde. Zelfde bron
+    als het Great Vault-blok op de Delves-tab (GetVaultProgress); de
+    ilvl-API is daarop gelijkgetrokken (C_Item.GetDetailedItemLevelInfo
+    eerst, legacy-global als fallback).
+  - 5 nieuwe `ALT_VAULT_SLOT_*`-keys ×6 (audit 30 = 5×6). Let op frFR:
+    bestaande regels daar bevatten onzichtbare NBSP-varianten — anker voor
+    de insert was daarom ALT_VAULT_RESET_GLOW_HINT.
+  - In-game test: op de main hover over de vault-kolom in Account Snapshot →
+    per rij slot-regels met ilvl; log een alt in → de main-rij behoudt de
+    slot-data; check dat de World-rij delve-tiers toont die kloppen met wat
+    je deze week draaide.
+- **Vervolg 8 (Robs review na reset):** (a) **Liadrin-IDs in-game bevestigd**:
+  routine-regel sprong na het oppakken naar blauw "opgepakt" op Robs alt —
+  de Wowhead-IDs (93766/93909/93910/93911) zijn hiermee geverifieerd. De
+  intro-state toonde tegelijk correct op dezelfde alt zonder ritual-intro.
+  (b) **Rode route-knop bij de World Boss** (Home, This week): button-pool
+  uitgebreid naar kolom-blokken (`ui._layoutBtnIndex` gedeeld tussen full- en
+  kolom-layout; breedte gecapt op kolombreedte); World Boss-sectie krijgt
+  "Route naar %s"-knop via `ns.RouteToWorldBoss` — alleen getoond als de
+  boss-entry échte coords heeft (functie weigert anders toch). Key
+  `HOME_WB_ROUTE_BTN_FMT` ×6. (c) ~~Open check~~ ✅ **OPGELOST**: Rob had de
+  Enchanting-weekly ná de reset opgepakt én gedaan — flag 93698 reset dus
+  netjes wekelijks en de "done"-status klopte. Daarmee is ook de
+  weekly-flag-semantiek-check uit iteratie 12 (7 juni, "woensdag hoort ✓
+  terug naar ⏳ te springen") definitief bevestigd: de cyclus
+  reset → todo → done is nu live gezien.
+- **Vervolg 9 (Rob-wens): live weekly-voortgang op de Void & Rituals-tab.**
+  De zone-weekly's "Strikes disrupted"-balk (en evt. de ritual-weekly-balk)
+  nu als "(NN% gedaan)"-suffix achter de TODO-regels. Spiegelt het bewezen
+  Showdowns-patroon: `ns.GetVoidAssaultWeeklyProgress()` (VoidAssaults.lua,
+  loopt de zone-weeklies af, IsOnQuest → GetQuestProgressBarPercent) en
+  `ns.GetRitualWeeklyProgress()` (RitualSites.lua, quest 95843). Beide
+  pcall-guarded én filteren pct 0 weg: een quest zónder progressbar leest
+  ook 0, dus 0 → nil → geen suffix (never lie; de TODO-tekst dekt
+  "nog niet begonnen" al). WorldContent rendert de suffix; QUEST_LOG_UPDATE
+  stond al in de refresh-events → loopt live mee tijdens strikes. 1 nieuwe
+  gedeelde key ×6 (`WEEKLY_PROGRESS_PCT_FMT`).
+- **Vervolg 10 (Robs review: tab te vol/scrollen): Void & Rituals krijgt twee
+  weergaven.** Keuze Rob (via vraag): interne sub-tabs; status-view houdt
+  week-status + hint, route-knoppen en een kórte challenge-lijst.
+  Implementatie (`WorldContent.lua`), bewust zónder de layout-engine te
+  herbouwen:
+  - Twee panel-knoppen onder de subtitle: **"Deze week" | "Ritual Coach"**
+    (actieve knop disabled); keuze account-breed bewaard in
+    `ns.db.ui.worldViewMode`; scroll-anker verschoven naar onder de knoppen.
+  - `ui.order`-entries hebben nu optioneel `mode` ("status"/"coach") +
+    `dataDriven`; `Relayout()` verbergt wrong-mode widgets en toont
+    right-mode niet-dataDriven widgets (dataDriven = refresh blijft eigenaar
+    van show/hide; refresh draait altijd vóór Relayout). Ongetagd = beide
+    views (accolades/renown/hub-knop).
+  - **Status-view:** ritual-sectie (incl. hint + site-knoppen), void-sectie,
+    Showdowns (12.0.7-gated; sd-infolines via `_mhSdLine`-vlag bij hun blok
+    gehouden), plus nieuw: compacte challenge-lijst (alleen
+    `BuildRitualChallengeTitle` per regel = icoon+naam+Spoils%, hoogste
+    eerst) + verwijs-hint naar de Coach-view.
+  - **Coach-view:** alle referentie (ritual/void-infobullets, site-scenario/
+    notes, "How Ritual Sites work", volledige challenge-lijst met mechanics
+    + unlock, share-knop).
+  - 2 nieuwe keys ×6 (`WORLD_VIEW_STATUS`, `WORLD_VIEW_COACH_HINT`); de
+    Coach-knop hergebruikt RITUAL_COACH_HEADER. RefreshLocaleUI ververst
+    nav-labels + compacte lijst.
+- **Vervolg 11: Halduron + Aethas geïdentificeerd (Rob, gossip-hercheck).**
+  `GIVER_WEEKLIES` compleet: Halduron = **93761 "Windrunner Spire"**
+  (rep-dungeon-weekly, 1000 rep naar keuze — per week een andere dungeon =
+  ander ID, lijst groeit per gedumpte week; weekly-flags resetten dus
+  "any" blijft correct); Aethas = **93600 "The Arena Calls" + 94836 "Late
+  Night Training: Week 1 of 3"** (event-gebonden, kan er meerdere tegelijk
+  aanbieden; "any" = klaar zodra er één is ingeleverd — bewuste keuze).
+  Bijvangst geschrapt: 92600 "Cracked Keystone" bleek géén giver-weekly
+  (item-start uit T11-delve, eens per season). Zelfde 7 IDs nu ook in
+  `SMCChecklistData.weekly_hub.questIds` — de city-guide-checklistregel
+  werkt daarmee voor het eerst.
+
+**Release-docs klaar (10 juni):** `CHANGELOG.md` [Unreleased] aangevuld met
+alle 10-juni-features/fixes (Cursor: hernoemen naar [1.6.0] bij de commit);
+**`docs/CURSEFORGE_1.6.0.md`** = paste-klare release notes + upload-checklist
++ CF-regels (de eerdere afwijzingsreden — scripts in de zip — staat er
+expliciet in); **`docs/CURSEFORGE_DESCRIPTION.md`** = volledig nieuwe
+projectpagina-description (sterke punten bovenaan, wow-factor, EN) met
+screenshot-volgorde-suggesties voor Robs nieuwe set. Robs smoke-test ✅
+(incl. rare-kill zonder errors na de toast-fix).
+
+**🎯 CF-RELEASE VANDAAG (Robs expliciete vraag, 10 juni).** Release-checks:
+woensdag-reset-semantiek ✅ (vandaag live bevestigd), Liadrin/Halduron/
+Aethas-tracking ✅, blokjes-sweep ✅, 4-talen-lokalisatie ✅,
+**Delve-share v2 solo-testmodus ✅ (Rob, 10 jun — laatste 0a-punt; alleen
+de echte 2-speler-cross-locale-test blijft open, geen blokker)**. Nog vóór
+de release: (1) Cursor: luacheck + commits van deze hele batch, (2) Rob:
+korte smoke na /reload (routine-blok, beide Void & Rituals-views, vault-
+tooltip-slots, taal-wissel). CHANGELOG
+1.6.0-punten van vandaag, aanvullend op de eerdere lijst: reset-routine op
+Home (+ route-lint), per-slot vault-detail in Account Snapshot, weekly
+quest givers getrackt (Liadrin/Halduron/Aethas), Void & Rituals in twee
+weergaven (Deze week | Ritual Coach), weekly-voortgang-%, world-boss-
+routeknop, ritual-intro-hint, vault-popup sluit na waypoint, alle nieuwe
+strings in 6 talen + blokjes-fixes.
+
+- **Vervolg 12 — Broken Throne-research-sprint (Rob in-game + bronnen):**
+  RitualTips ×6 bijgewerkt met: (a) scenario "A Corrupted Path" /
+  Faithbreaker Ger'lok in BROKENTHRONE_PHASES (obelisk-verified; in-site
+  banner heette "Void Reversal" — relatie nog verduidelijken, zie plan);
+  (b) tier-ilvls T1 215 / T2 231 / T3 244 / T4 257 / T5 264 in INTRO_TIERS —
+  let op: obelisk-tooltip zegt "Recommended", dus advies, geen harde eis;
+  (c) Dark-Obelisk-coords in béide SITE_NOTES: Daggerspine 9 spawns,
+  Broken Throne 6 ("onderzoek er 5 van de N") — bron: Robs lokale
+  HandyNotes_RitualSites (liuyu, CF 1525494), overlay door Rob in-game
+  tegen de werkelijkheid gecheckt; coords zijn feitelijke game-data,
+  bron hier gedocumenteerd. (d) Tainted Bone Pile Zul'Aman 47.91/36.52
+  in-game bevestigd. Method-gids-bijvangst in RITUAL_COACH_PLAN
+  (NPC-coords, Patrols-questnaam "Misappropriated Treasures").
+- **Vervolg 13 — ALLE 11 trainer-weekly-IDs binnen (Robs addon-truc #2):**
+  Robs lokale **MidnightRoutine**-addon (ProfessionKnowledge.lua) bleek de
+  complete per-prof weekly-tabel te hebben. Drievoudig gekruisvalideerd:
+  ons in-game 93698 zit in z'n Ench-set {93697-99}, z'n trainer-coords
+  matchen onze city-guide-pins, en z'n weekly-drop-flags 93528-93543
+  matchen onze eigen Wowhead-research. `trainerQuests` is nu een LIJST per
+  base-skillLine (sommige profs roteren varianten; "any"-semantiek):
+  Alch 93690 · BS 93691 · Ench {93697-99} · Eng 93692 · Herb {93700-04} ·
+  Insc 93693 · JC 93694 · LW 93695 · Mining {93705-09} · Skin {93710-14} ·
+  Tailoring 93696. Consumers aangepast op lijst-vorm (backward-compat met
+  oude single-ID): `ProfessionsHub.BuildWeeklyText` en
+  `ResetRoutine.OwnedProfTrainerWeeklies`+trainer-stap. Effect: de
+  "This week"-Hub-regel en de routine-stap werken nu voor álle profs; de
+  grijze "niet getrackt"-regel verdwijnt. In-game spot-check (Rob): doe op
+  de main de Tailoring-service-quest (93696) → regel hoort groen te worden.
+- **Vervolg 14 — combat-lockdown-fix MidnightToast (Robs smoke-test!):**
+  login direct in een rare-gevecht gaf `ADDON_ACTION_BLOCKED:
+  SetPropagateMouseClicks` (MidnightToast.lua:148 via Rares→QueueToast).
+  Oorzaak: het toast-frame werd lazy aangemaakt bij de éérste toast — die
+  kan mid-combat vallen, en SetPropagateMouseClicks/-Motion zijn
+  combat-protected. Fix: (a) **eager creation** — `EnsureToastFrame()`
+  onderaan het bestand (addon-load = laadscherm = nooit lockdown, setters
+  draaien precies één keer veilig); (b) belt-and-braces: de drie setters
+  achter `not InCombatLockdown()` (worst case mist de toast
+  click-propagation i.p.v. een blocked-error). Hertest: log in een char
+  die direct aggro heeft / spawn een rare-toast in combat → geen error.
+- **Cursor: luacheck/loadfile op ResetRoutine.lua, HomeDashboard.lua,
+  VaultReminder.lua, SMCChecklistData.lua, UI.lua, AltOverview.lua,
+  VoidAssaults.lua, RitualSites.lua, WorldContent.lua, RitualTips.lua,
+  ProfessionAcademyData.lua, ProfessionsHub.lua, MidnightToast.lua + de 6
+  hoofd-locales.** In-game test: zie TOMORROW.md.
+
 ## Open / volgende stappen (vervolg)
 
 0a. **✅ Delve-share v2 (commit `a77fd44`) — klaar voor CF-release.** Nog

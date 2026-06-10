@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [Unreleased]
+## [1.6.0] - 2026-06-10
 
 ### Fixed
 
@@ -53,6 +53,16 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- **Home — "After the reset" routine:** ordered per-character to-do list at the top of Home (claim the Great Vault, weekly quest givers next to the vault, Ritual/Void weeklies at the Bazaar hub, profession trainer weeklies) with live status colors (to do / picked up / done / locked) and a one-click **TomTom route along the open stops** (vault → quest givers → hub → trainer).
+- **Weekly quest givers tracked:** Lady Liadrin's Spark weekly (choice of four), Halduron Brightwing's dungeon-of-the-week, and Aethas Sunreaver's event weeklies show real per-NPC pickup/done status.
+- **Profession trainer weeklies — all 11 professions:** the Professions Hub "This week" block and the reset routine now track every profession's weekly trainer/service quest (including rotating variants for Enchanting and the gathering professions).
+- **Account snapshot — per-slot vault detail:** hover a character's vault column to see, per World/Dungeon/Raid slot, the **item level of the reward currently locked in** (Blizzard's own example reward) and the registered tier — so on an alt you instantly know whether higher delves or rituals are still worth running this week.
+- **Void & Rituals — two views:** "This week" (currencies, active sites, weekly status with live progress %, route buttons, compact challenge list) and "Ritual Coach" (full reference: scenario notes, how-it-works, challenge mechanics and unlocks, party share). Your choice is remembered.
+- **Void & Rituals — live weekly progress:** the Void Assaults zone weekly shows its "Strikes disrupted" percentage live; same for the Ritual weekly when it exposes a progress bar.
+- **Ritual weekly intro hint:** characters that have not finished the per-character intro questline ("Ranger Captain's Summons" chain) see exactly that, instead of a misleading "pick it up at the hub".
+- **Ritual Coach — site intel completed:** Broken Throne scenario ("A Corrupted Path" — Faithbreaker Ger'lok), Dark Obelisk locations for **both** sites, verified Tainted Bone Pile spots, and recommended item levels per tier (T1 215 → T5 264).
+- **Home — World boss route button:** one click sets a TomTom waypoint to the active world boss.
+- **Localization:** Ritual Coach, Start Here, the route buttons and all new strings above are fully translated in all six languages (English, Nederlands, Deutsch, Français, Español, Português).
 - **Delve party share v2:** receivers with a different chat locale get tips re-rendered locally via addon message (`MHDelve` prefix); plain chat text remains the universal fallback. Solo test mode whispers the descriptor to yourself.
 
 ### Added (verify on second PC before CurseForge release notes)
@@ -71,6 +81,10 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
+- **Combat lockdown:** rare-spotted toast no longer triggers `ADDON_ACTION_BLOCKED` (`SetPropagateMouseClicks`) when your first toast of the session fires mid-combat — the toast frame is now created at load time.
+- **Vault reminder popup:** closes itself after you click the waypoint button (the arrow takes over).
+- **SMC city guide — World boss button:** shows the boss name whenever it is known (live, cache, or kill data); only a pure rotation guess gets an "open map to confirm" suffix.
+- **Font rendering sweep:** characters the game fonts can't render (checkmark in the Dawncrest done-line, unguarded arrow glyphs, invisible zero-width spaces from old machine translations) replaced or removed across all six languages; a handful of garbled machine-translated strings rewritten.
 - **Keybindings:** appear under **Midnight Helper** (not Other); binding uses `SlashCmdList` (not Other / broken direct call).
 - **Keybindings:** `Bindings.xml` not listed in `.toc` (avoids Unrecognized XML warnings).
 

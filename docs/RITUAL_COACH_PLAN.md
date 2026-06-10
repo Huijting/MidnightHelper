@@ -146,14 +146,32 @@ Renown-boosters: **Ritual Site Reports** (extra renown o.b.v. behaalde Spoils),
 
 ### Nog open (geen blokker voor fase 1/2 — komen vanzelf uit runs)
 
-1. **Tier-ilvl-vereisten** (T1-T5) — obelisk-dropdown toonde ze niet; Skycoach had
-   T1 215 / T2 231 / T3 244 / T4? / T5?. Nice-to-have; verifiëren of we ilvl willen tonen.
+1. ~~**Tier-ilvl-vereisten**~~ ✅ **(10 jun, Rob @ obelisk-dropdown-tooltips):
+   "Recommended for adventurers at item level" T1 215 / T2 231 / T3 244 /
+   T4 257 / T5 264 — een AANBEVELING, geen harde eis (Skycoach had T1-T3
+   goed). In RITUAL_TIP_INTRO_TIERS ×6 gezet.**
 2. **Eindboss-kill Daggerspine** — Selen'vjar als scenario-antagonist bevestigd;
    kill bevestigt of zij de eindboss is.
 3. **Scenario-variatie:** kent Daggerspine naast "A Strike From the Sea" nog een
    tweede layout? (Bepaalt of route-tips per scenario of per site moeten.)
-4. **Broken Throne (Zul'Aman)** — scenario/boss + Dark-Obelisk-locaties; pas
-   relevant zodra die site actief is (volgende week-rotatie).
+4. **Broken Throne (Zul'Aman)** — ✅ deels (10 jun, Rob @ obelisk): scenario
+   = **"A Corrupted Path"**, antagonist **Faithbreaker Ger'lok** ("Corrupt
+   everything with the void") — in PHASES-tekst ×6 gezet; eindboss-kill nog
+   bevestigen. **In-site banner toonde "Void Reversal"** (zelfde
+   Ger'lok-flavor) — obelisk-blurb vs. scenario-titel, óf een tweede
+   layout; verduidelijken na Robs run (raakt open vraag 3).
+   ✅ **Tainted Bone Pile 47.91/36.52 in-game bevestigd** (Rob, 10 jun).
+   ✅ **Dark-Obelisk-locaties compleet** via Robs lokale
+   `HandyNotes_RitualSites`-addon (auteur liuyu, CF-project 1525494) —
+   Rob checkte de overlay in-game tegen de echte posities. Blijkt:
+   Daggerspine **9** spawns, Broken Throne **6** (quest vraagt er 5
+   onderzoeken). In SITE_NOTES ×6 gezet ("onderzoek er 5 van de N").
+   Ger'lok in-site gespot als <Twilight Blade Commander> in een void-pool. ⬜ Dark-Obelisk-locaties: staan NIET online (Method heeft
+   alleen de 5 Eversong-coords) → Rob loopt ze met de positie-dump.
+   Bijvangst Method-gids (12 mei): Darkglen /way 2393 47.74 49.76, Lilatha
+   48.23 49.64; Patrols-unlock-quest heet "Misappropriated Treasures";
+   Alarm Bells-unlock = quest-item op spots gebruiken; Manifestations =
+   na T3-quest een site completen.
 5. **Coords obelisk vs. site-marker** (Daggerspine 37.59 vs 34.9 in `RitualSites.lua`).
 6. **Currency-ID Voidlight Marl** — alleen nodig als we 'm in de UI tonen.
 
