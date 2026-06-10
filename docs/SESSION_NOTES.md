@@ -1667,10 +1667,12 @@ voor shards zinloos is. Herhaalt pas ná de weekly reset (per char
 opgeslagen in `ns.db.shardCapAlert[guid] = reset-anker`; geen anker
 leesbaar → liever stil dan fout). Checkt op CURRENCY_DISPLAY_UPDATE + 5s
 na PLAYER_ENTERING_WORLD (char die al gecapt inlogt krijgt 'm ook). 3
-keys ×6 (SHARD_CAP_TOAST_TITLE_FMT/_BODY + SHARD_CAP_CHAT_FMT). In-game
-test: cap de 600 op je huidige char (je bent er net mee bezig!) → toast +
-chatregel precies één keer; /reload erna → stil; volgende week na reset →
-kan opnieuw.
+keys ×6 (SHARD_CAP_TOAST_TITLE_FMT/_BODY + SHARD_CAP_CHAT_FMT).
+**In-game ✅ (Rob, zelfde avond): toast verscheen precies op het
+600-moment.** Body was te lang voor het toast-frame (afgekapt met "…") →
+SHARD_CAP_TOAST_BODY ×6 ingekort tot één kernzin ("Geen shards meer uit
+rares of world quests tot de reset."); de volledige uitleg blijft in de
+chatregel. Hertest bij de volgende cap (alt) of via taalwissel-blik.
 
 **Cursor: luacheck/loadfile op DungeonRosterData.lua, DungeonGuide.lua,
 Locales/DungeonGuide.lua, UI.lua, ResetRoutine.lua,
@@ -1687,6 +1689,40 @@ EN-fallbacknamen. Daarna dumpen: `/dump EJ_GetInstanceInfo(1315)`-spot-check
 + de EJ-IDs van Murder Row / Den of Nalorakk / Blinding Vale / Voidscar
 (open de Adventure Guide op die dungeon en `/dump EJ_GetInstanceInfo(EJ_GetInstanceByIndex(i, false))`
 of vraag mij om de scan-macro).
+
+## Voor Cursor — commit + push Dungeon Coach fase 3 batch 1 (`TBD1` / `TBD2` /
+`TBD3`)
+
+Boss-stappen **nog niet in-game geverifieerd** (follower-runs 11 juni) — commit
+OK, release pas ná Robs verificatie. Geen CF-release.
+
+## Voor Cursor — review + commit Dungeon Coach fase 3, batch 1 (10/11 juni)
+
+Eerste boss-stappen-batch: **Windrunner Spire + Maisara Caverns** (Normal).
+Eigen MH-tekst in beginner-taal, gekruisrefereerd tegen BossHelper (MIT) en
+DungeonHelper op Robs machine — **in-game verificatie door Rob in
+follower-runs staat nog open vóór dit in een release gaat.**
+
+1. **`Modules/DungeonTipsData.lua` (nieuw, in TOC):** `ns.DUNGEON_TIPS`
+   per dungeon-key → boss-key → { steps, tank, healer } locale-keys
+   (`DGN_TIP_<DGN>_<BOSS>_<SECTIE>` — share-sync-klaar voor fase 5) +
+   `GetDungeonBossTips` / `DungeonHasTips`.
+2. **`Locales/DungeonTips.lua` (nieuw, in TOC):** 21 keys ×2 (EN/NL; audit
+   42 ✓) — 7 bosses met genummerde stappen + tank/healer-regels.
+3. **`Modules/DungeonGuide.lua`:** Coach-weergave toont per boss de stappen
+   (bossnaam goud, tank-regel blauw, healer-regel groen); dungeons zónder
+   content tonen per dungeon eerlijk de "volgt nog"-regel (globale
+   soon-note vervallen).
+
+**Cursor: loadfile op DungeonTipsData.lua, Locales/DungeonTips.lua,
+DungeonGuide.lua + TOC-parse (2 nieuwe regels).**
+
+**In-game test (Rob):** Dungeons-tab → Coach: WS + Maisara tonen per boss
+stappen + gekleurde rol-regels; overige dungeons "volgt nog"; taal wisselen
+EN↔NL vertaalt alles. **Verificatie-runs:** follower-run WS en Maisara —
+kloppen de stappen in de praktijk (vooral: Derelict Duo hook-door-de-
+spookdame, Muro'jin ijsval-tegen-duikvlucht, Vordaza fantoom-pops één
+tegelijk)? Correcties direct doorgeven, dan slijp ik de tekst.
 
 ## Open / volgende stappen (vervolg)
 

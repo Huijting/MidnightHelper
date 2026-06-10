@@ -1,5 +1,26 @@
 # Morgen — test & uitzoek (Midnight Helper)
 
+## ⭐ PLAN 11 JUNI
+
+1. **Follower-run Windrunner Spire + Maisara Caverns** — verificatie van de
+   nieuwe Coach-boss-stappen (fase 3 batch 1). Let op de drie spannendste
+   claims: Derelict Duo's hook-dwars-door-de-spookdame, Muro'jins
+   ijsval-tegen-duikvlucht, Vordaza's fantomen-één-voor-één. Correcties
+   doorgeven → tekst bijslijpen. (Bonus: Windrunner Spire = dungeon van de
+   week → Halduron-weekly meteen mee.)
+2. **PTR 12.0.7-sessie** — open punten uit `PTR_12.0.7_DATA.md`: Val-data
+   (uiMapID, weekly-ID, Pertinax-killquest, Voidstorm-portaal-mapID),
+   rare-coords + kill-quest-IDs (§3b, baseline-truc), Folio Mote-ID,
+   vervolg-weekly-keuze-IDs, Sporefall-vault-check. Claude checkt vooraf
+   het web — release nadert (~16/30 jun), er is vast nieuwe datamining.
+3. **Zygor-mine (Robs idee):** ZygorGuidesViewer heeft MID-databestanden
+   (Data-Retail/Dungeons.lua, gidsen, entree-routing via LibRover) —
+   kandidaat-bron voor o.a. dungeon-entrees en 12.0.7-data. ⚠️ Zygor is
+   commercieel/proprietary (géén MIT zoals BossHelper): alleen feitelijke
+   IDs/coords als kruisreferentie gebruiken en door Rob in-game laten
+   bevestigen, nooit tekst overnemen.
+4. Shard-cap-toast: ingekorte tekst checken bij de volgende cap (alt).
+
 ## ⭐ EERSTE TAAK — ✅ GEDAAN (Claude, 10 juni): lokalisatie + blokjes-sweep
 
 RitualTips (67 keys ×4), StartHere (33 keys ×4) en de twee
