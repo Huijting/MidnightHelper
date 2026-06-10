@@ -31,6 +31,17 @@ prioriteit. Details/bronnen staan in de genoemde docs; dit is de overzichtslijst
 - [ ] Voidlight Marl currency-ID (alleen nodig als we 'm tonen).
 - [ ] Cross-locale share-test met 2 spelers (Delve én Ritual; solo ✅).
 
+## 🆕 Dungeon Coach (Rob-wens, 10 juni avond — plan klaar, wacht op review)
+
+- [x] Plan + besluiten ✅; **fase 1+2 GEBOUWD (10 jun avond)**: Dungeons-tab
+      (Deze week | Dungeons 101 | Coach), roster-data, 40 keys EN/NL.
+      Wacht op Robs in-game review + Cursor-luacheck.
+- [ ] **Fase 3**: boss-stappen Normal per dungeon (research-batch, eigen
+      tekst; Rob verifieert in follower-runs). Launch-only EJ-IDs dumpen.
+- [ ] **Fase 4**: Heroic-secties + entree-waypoints + rol-filter.
+- [ ] **Fase 5**: share-generalisatie (MHShareSync proto 2) + dungeon-share.
+- [ ] **Fase 6**: lokalisatie ×4. **Later**: Mythic/M+-fase.
+
 ## Delve & Ritual Log (Rob-wens, 10 juni — ná de 1.6.0-release)
 
 - [ ] **Delve Log uitbreiden naar "Delve & Ritual Log"**: ritual-runs net zo
