@@ -1610,7 +1610,7 @@ strings in 6 talen + blokjes-fixes.
   hoofd-locales.** In-game test: zie TOMORROW.md.
 
 ## Voor Cursor — commit + push batch 10 juni avond (commits `9b8dca1` /
-`77581cc` / `1ca4eb5` / `07cbc48` / `TBD5`)
+`77581cc` / `1ca4eb5` / `07cbc48` / `7a68e00`)
 
 **Geen CF-release** — werk richting 1.7.0; release alleen op expliciete vraag Rob.
 
