@@ -22,12 +22,16 @@ local SIDE_PAD = M.sidePad or 14
 local COL_GAP = 14
 local MAX_NAME_PREVIEW = 2
 
+local BTN_H = 22
+
 local COLOR_HEADER = { 0.82, 0.68, 0.30 }
 local COLOR_DIM = { 0.72, 0.75, 0.82 }
 local COLOR_GOOD = { 0.45, 0.95, 0.5 }
 local COLOR_WARN = { 1, 0.84, 0.18 }
 local COLOR_SOFT = { 0.9, 0.82, 0.45 }
 local COLOR_LINK = { 0.55, 0.78, 1 }
+-- "Picked up / in progress" — clearly distinct from WARN yellow (Rob, 10 Jun).
+local COLOR_PROG = { 0.45, 0.85, 0.95 }
 
 local ui
 
@@ -107,6 +111,29 @@ local function BuildLayout()
 
 	local data = ns.ComputeAccountWeeklyChecklist and ns.ComputeAccountWeeklyChecklist() or nil
 
+	------------------------------------------------------------------ Reset routine (ordered, current character)
+	if ns.GetResetRoutineSteps then
+		local okSteps, steps = pcall(ns.GetResetRoutineSteps)
+		if okSteps and type(steps) == "table" and #steps > 0 then
+			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
+			addFull(function(rows)
+				header(rows, ns:L("HOME_ROUTINE_HEADER"))
+				for i, st in ipairs(steps) do
+					line(rows, ("%d. %s"):format(i, st.text or ""), colorMap[st.color] or COLOR_DIM, st.onClick)
+				end
+				if ns.StartResetRoute then
+					rows[#rows + 1] = {
+						button = true,
+						text = ns:L("HOME_ROUTINE_ROUTE_BTN"),
+						onClick = function()
+							ns.StartResetRoute()
+						end,
+					}
+				end
+			end)
+		end
+	end
+
 	------------------------------------------------------------------ Vault | World Boss
 	addColumns(
 		function(rows)
@@ -155,6 +182,17 @@ local function BuildLayout()
 						line(rows, ns:L("HOME_WB_CHAR_DONE"), COLOR_GOOD)
 					else
 						line(rows, ns:L("HOME_WB_CHAR_TODO"), COLOR_SOFT)
+					end
+					-- Red route button — only when the boss entry has verified
+					-- coordinates (RouteToWorldBoss refuses without them).
+					if ns.RouteToWorldBoss and boss.mapID and boss.x and boss.y then
+						rows[#rows + 1] = {
+							button = true,
+							text = ns:L("HOME_WB_ROUTE_BTN_FMT"):format(name),
+							onClick = function()
+								ns.RouteToWorldBoss(boss)
+							end,
+						}
 					end
 				else
 					line(rows, ns:L("HOME_WB_UNKNOWN"), COLOR_DIM)
@@ -433,6 +471,20 @@ local function AcquireRow(index)
 	return row
 end
 
+-- Real (red) UIPanel buttons get their own pool — the text rows are plain
+-- Buttons without a template, and templates can't be added after creation.
+local function AcquireButton(index)
+	local btns = ui.btns
+	local btn = btns[index]
+	if btn then
+		return btn
+	end
+	btn = CreateFrame("Button", nil, ui.child, "UIPanelButtonTemplate")
+	btn:SetHeight(BTN_H)
+	btns[index] = btn
+	return btn
+end
+
 local function ApplyRowSpec(row, spec)
 	local c = spec.color or COLOR_DIM
 	if spec.header then
@@ -498,11 +550,26 @@ local function LayoutColumnSpecs(specs, blockY, column, colWidth)
 		if spec.header and colY > 0 then
 			colY = colY + SECTION_GAP
 		end
-		local row = AcquireRow(rowIndex)
-		LayoutColumnRow(row, spec, blockY, colY, column, colWidth)
-		row:Show()
-		colY = colY + RowStep(spec)
-		rowIndex = rowIndex + 1
+		if spec.button then
+			local btn = AcquireButton(ui._layoutBtnIndex)
+			ui._layoutBtnIndex = ui._layoutBtnIndex + 1
+			local xOff = (column == "right") and (colWidth + COL_GAP) or 0
+			colY = colY + 4
+			btn:ClearAllPoints()
+			btn:SetPoint("TOPLEFT", ui.child, "TOPLEFT", xOff, -(blockY + colY))
+			btn:SetText(spec.text or "")
+			local tw = (btn.GetTextWidth and btn:GetTextWidth() or 160) + 28
+			btn:SetWidth(math.min(math.max(tw, 110), colWidth))
+			btn:SetScript("OnClick", spec.onClick)
+			btn:Show()
+			colY = colY + BTN_H
+		else
+			local row = AcquireRow(rowIndex)
+			LayoutColumnRow(row, spec, blockY, colY, column, colWidth)
+			row:Show()
+			colY = colY + RowStep(spec)
+			rowIndex = rowIndex + 1
+		end
 	end
 	ui._layoutRowIndex = rowIndex
 	return colY
@@ -523,6 +590,7 @@ function ns.RefreshHomePanel()
 	local blocks = BuildLayout()
 	local y = 0
 	local rowIndex = 1
+	ui._layoutBtnIndex = 1
 
 	for b = 1, #blocks do
 		local block = blocks[b]
@@ -536,11 +604,25 @@ function ns.RefreshHomePanel()
 				if spec.header and i > 1 then
 					y = y + SECTION_GAP
 				end
-				local row = AcquireRow(rowIndex)
-				LayoutFullRow(row, spec, y)
-				row:Show()
-				y = y + RowStep(spec)
-				rowIndex = rowIndex + 1
+				if spec.button then
+					y = y + 4
+					local btn = AcquireButton(ui._layoutBtnIndex)
+					ui._layoutBtnIndex = ui._layoutBtnIndex + 1
+					btn:ClearAllPoints()
+					btn:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
+					btn:SetText(spec.text or "")
+					local tw = (btn.GetTextWidth and btn:GetTextWidth() or 200) + 28
+					btn:SetWidth(math.min(math.max(tw, 120), childW))
+					btn:SetScript("OnClick", spec.onClick)
+					btn:Show()
+					y = y + BTN_H
+				else
+					local row = AcquireRow(rowIndex)
+					LayoutFullRow(row, spec, y)
+					row:Show()
+					y = y + RowStep(spec)
+					rowIndex = rowIndex + 1
+				end
 			end
 		elseif block.type == "columns" then
 			ui._layoutRowIndex = rowIndex
@@ -553,6 +635,9 @@ function ns.RefreshHomePanel()
 
 	for i = rowIndex, #ui.rows do
 		ui.rows[i]:Hide()
+	end
+	for i = ui._layoutBtnIndex, #ui.btns do
+		ui.btns[i]:Hide()
 	end
 
 	ui.child:SetHeight(math.max(y + 8, 1))
@@ -596,6 +681,7 @@ function ns.BuildHomePanel(panel)
 		scroll = scroll,
 		child = child,
 		rows = {},
+		btns = {},
 	}
 
 	local function syncWidth()

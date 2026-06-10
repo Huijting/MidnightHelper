@@ -56,16 +56,32 @@ ns.PROF_ACADEMY = {
 		[773] = 2913, -- Midnight Inscription
 	},
 
-	-- Weekly KP routine (concept B, eerste plak) — ONLY in-game verified IDs.
-	-- trainerQuests: weekly quest at the profession trainer, keyed by base
-	-- skillLine. 93698 = "Splintered Radiance" (Enchanting, Dolothos; Rob
-	-- picked up + turned in live 7 jun — flag-semantiek check: ⬜ /run
-	-- print(C_QuestLog.IsQuestFlaggedCompleted(93698)) hoort true te zijn
-	-- tot woensdag-reset). Andere profs: ID dumpen bij de trainer (questlog-
-	-- dump vóór inleveren) en hier toevoegen — regel verschijnt vanzelf.
+	-- Weekly KP routine (concept B). trainerQuests: weekly trainer/service
+	-- quest IDs per BASE skillLine; value is a LIST — some professions rotate
+	-- between multiple weekly variants ("any" semantics: one flagged = done
+	-- this week; weekly flags reset at the weekly reset, verified 10 jun).
+	--
+	-- Source: complete table mirrored from Rob's local MidnightRoutine addon
+	-- (Modules/ProfessionKnowledge.lua), cross-validated three ways on 10 jun:
+	-- (1) our in-game verified 93698 "Splintered Radiance" sits in its
+	-- Enchanting set, (2) its trainer coordinates match our city-guide pins,
+	-- (3) its weekly-drop flags 93528-93543 match our own Wowhead research
+	-- (PROFESSION_ACADEMY_PLAN.md). Crafting profs (except Ench) have one
+	-- "service quest" at the Work Order station; Ench + gatherers have
+	-- rotating trainer-quest variants at their trainer.
 	weekly = {
 		trainerQuests = {
-			[333] = 93698,
+			[171] = { 93690 }, -- Alchemy (service quest)
+			[164] = { 93691 }, -- Blacksmithing (service quest)
+			[333] = { 93697, 93698, 93699 }, -- Enchanting (93698 in-game verified 7+10 jun)
+			[202] = { 93692 }, -- Engineering (service quest)
+			[182] = { 93700, 93701, 93702, 93703, 93704 }, -- Herbalism
+			[773] = { 93693 }, -- Inscription (service quest)
+			[755] = { 93694 }, -- Jewelcrafting (service quest)
+			[165] = { 93695 }, -- Leatherworking (service quest)
+			[186] = { 93705, 93706, 93707, 93708, 93709 }, -- Mining
+			[393] = { 93710, 93711, 93712, 93713, 93714 }, -- Skinning
+			[197] = { 93696 }, -- Tailoring (service quest)
 		},
 		-- Enchanting weekly disenchant mats (zie PROFESSION_ACADEMY_PLAN.md).
 		enchantingEssences = {

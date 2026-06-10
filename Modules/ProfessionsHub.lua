@@ -78,10 +78,21 @@ local function BuildWeeklyText()
 	for _, prof in next, { p1, p2 } do
 		local name, _, _, _, _, _, skillLine = GetProfessionInfo(prof)
 		if name and skillLine then
-			local questID = weekly.trainerQuests and weekly.trainerQuests[skillLine]
-			if questID then
-				local okFlag, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, questID)
-				local isDone = okFlag and done
+			local questIDs = weekly.trainerQuests and weekly.trainerQuests[skillLine]
+			if type(questIDs) == "number" then
+				questIDs = { questIDs } -- backward compat with the old single-ID form
+			end
+			if questIDs and #questIDs > 0 then
+				-- Some professions rotate between weekly variants — one flagged
+				-- ID means this week's variant is done ("any" semantics).
+				local isDone = false
+				for _, qid in ipairs(questIDs) do
+					local okFlag, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, qid)
+					if okFlag and done then
+						isDone = true
+						break
+					end
+				end
 				local icon = isDone and ICON_DONE or ICON_OPEN
 				local line = ("%s %s: %s"):format(icon, name, SL("PROFHUB_WEEKLY_TRAINER"))
 				if not isDone then

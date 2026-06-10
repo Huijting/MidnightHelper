@@ -82,6 +82,7 @@ Modules\ProfessionsHub.lua
 Modules\ShowdownsData.lua
 Modules\Showdowns.lua
 Modules\VoidAssaults.lua
+Modules\ResetRoutine.lua
 Modules\WorldContent.lua
 Modules\DelveHistory.lua
 Modules\DelveCoach.lua

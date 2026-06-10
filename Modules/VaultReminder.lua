@@ -319,6 +319,8 @@ local function EnsureVaultPopup()
 		elseif ns.SetBlizzardUserWaypoint then
 			ns.SetBlizzardUserWaypoint(GREAT_VAULT_MAP_ID, GREAT_VAULT_X, GREAT_VAULT_Y)
 		end
+		-- The waypoint took over guidance — the popup has done its job (Rob, 10 Jun).
+		f:Hide()
 	end)
 
 	ns.AttachMidnightDialogCloseButton(f, function()
