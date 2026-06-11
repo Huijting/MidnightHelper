@@ -17,7 +17,9 @@ local MAP_TO_ZONE_KEY = {
 	[2444] = "voidstorm",
 }
 
--- { questId, mapID, x, y, displayName }
+-- { questId, mapID, x, y, displayName[, npcId] }
+-- npcId (optioneel, veld 6): exacte vignette-match via objectGUID — vul in
+-- zodra in-game geverifieerd (12.0.7-rares: zie PTR_12.0.7_DATA.md §3).
 local ZONES = {
 	{
 		key = "eversong",
@@ -148,6 +150,34 @@ local VIGNETTE_CACHE_SEC = 2.5
 -- Match radius in continent world yards between a live vignette and a known
 -- rare spawn point (rares roam, so this is generous).
 local VIGNETTE_MATCH_YARDS = 130
+
+-- Geleerd van RareScanner (RSConstants.IsNpcAtlas): alleen vignettes met een
+-- kill-atlas zijn rares. Treasures ("VignetteLoot*"), events ("VignetteEvent*")
+-- en quest-POI's vielen eerder in onze afstandsmatch → false positives.
+local RARE_KILL_ATLAS = {
+	["VignetteKill"] = true,
+	["VignetteKillElite"] = true,
+	["vignettekillboss"] = true, -- RareScanner kent deze lowercase-variant
+}
+
+-- true = zeker een rare-vignette; nil = atlas onbekend (oude client/edge case:
+-- behandel als "misschien", alleen naam-match toestaan); false = zeker géén rare.
+local function VignetteKillClass(info)
+	local atlas = info and info.atlasName
+	if type(atlas) ~= "string" or atlas == "" then
+		return nil
+	end
+	return RARE_KILL_ATLAS[atlas] == true
+end
+
+-- npcID zit in veld 6 van objectGUID ("Creature-0-...-npcID-spawnUID"),
+-- zelfde extractie als RareScanner (RSButtonHandler).
+local function NpcIdFromObjectGUID(guid)
+	if type(guid) ~= "string" then
+		return nil
+	end
+	return tonumber((select(6, strsplit("-", guid))))
+end
 
 local function GetCurrentZoneKey()
 	if not C_Map or not C_Map.GetBestMapForUnit then
@@ -403,10 +433,79 @@ local function BuildGreedyRareRoute(zone)
 	return ordered, usedDistance
 end
 
+-- Geroutete-rares-administratie (Rob 11 jun, iteratie 2): persistent in
+-- ui.rareAlert.routedIds zodat een /reload de rare-hunt niet "vergeet", en
+-- als sét omdat GenerateRaresRoute álle rares van de zone routeert. Week-
+-- anker erbij zodat een set van vorige week niet blijft naspoken. Gebruik:
+-- (a) alert voor een geroutete rare = "je bent er bijna"-tekst i.p.v.
+-- "click to add a waypoint"; (b) instelling "alleen melden tijdens hunt".
+local function RareRouteAnchor()
+	if ns.MhGetWeeklyResetAnchorTs then
+		local ok, ts = pcall(ns.MhGetWeeklyResetAnchorTs)
+		if ok and tonumber(ts) and ts > 0 then
+			return ts
+		end
+	end
+	return 0
+end
+
+local function GetRareRouteStore(create)
+	local ui = ns.db and ns.db.ui
+	if type(ui) ~= "table" then
+		return nil
+	end
+	if type(ui.rareAlert) ~= "table" then
+		if not create then
+			return nil
+		end
+		ui.rareAlert = {}
+	end
+	return ui.rareAlert
+end
+
+local function MarkRareRouted(rare, replace)
+	local ra = rare and GetRareRouteStore(true)
+	if not ra then
+		return
+	end
+	local anchor = RareRouteAnchor()
+	if replace or type(ra.routedIds) ~= "table" or ra.routedAnchor ~= anchor then
+		ra.routedIds = {}
+	end
+	ra.routedAnchor = anchor
+	ra.routedIds[tostring(rare[1])] = true
+end
+
+local function IsRareRouted(rare)
+	local ra = rare and GetRareRouteStore(false)
+	if not ra or type(ra.routedIds) ~= "table" or ra.routedAnchor ~= RareRouteAnchor() then
+		return false
+	end
+	return ra.routedIds[tostring(rare[1])] == true
+end
+
+-- Hunt is actief zolang minstens één geroutete rare nog niet gedaan is —
+-- de hunt dooft dus vanzelf zodra de route is afgewerkt (of bij de reset).
+local function IsRareHuntActive()
+	local ra = GetRareRouteStore(false)
+	if not ra or type(ra.routedIds) ~= "table" or ra.routedAnchor ~= RareRouteAnchor() then
+		return false
+	end
+	for id in pairs(ra.routedIds) do
+		if not IsRareDoneThisWeek(tonumber(id)) then
+			return true
+		end
+	end
+	return false
+end
+
 local function RouteRare(rare, clearOthers)
 	if not rare or not ns.AddSmartTomTomWay then
 		return false
 	end
+	-- clearOthers=true is een nieuwe route → vervang de set; toast-klik
+	-- (false) voegt de rare toe aan de lopende hunt.
+	MarkRareRouted(rare, clearOthers)
 	if clearOthers and ns.IsTomTomReady and ns.IsTomTomReady() then
 		pcall(function()
 			_G.TomTom:ClearAllWaypoints()
@@ -509,16 +608,21 @@ local function CollectVignettePointsForZone(zoneKey)
 
 	for vi = 1, #vignettes do
 		local vignetteGUID = vignettes[vi]
-		local vname
+		local vname, kill, npcID
 		if C_VignetteInfo.GetVignetteInfo then
 			local okInfo, info = pcall(C_VignetteInfo.GetVignetteInfo, vignetteGUID)
 			if okInfo and info then
 				vname = info.name or info.vignetteName
+				kill = VignetteKillClass(info)
+				npcID = NpcIdFromObjectGUID(info.objectGUID)
 			end
 		end
-		local wx, wy = VignetteWorldPos(vignetteGUID, playerMap)
-		if wx or (vname and vname ~= "") then
-			points[#points + 1] = { wx = wx, wy = wy, name = vname or "" }
+		-- kill == false → zeker treasure/event/POI: helemaal overslaan.
+		if kill ~= false then
+			local wx, wy = VignetteWorldPos(vignetteGUID, playerMap)
+			if wx or (vname and vname ~= "") then
+				points[#points + 1] = { wx = wx, wy = wy, name = vname or "", kill = kill, npcID = npcID }
+			end
 		end
 	end
 	return points
@@ -540,14 +644,24 @@ local function RefreshVignetteUpCache(zone)
 	for _, rare in ipairs(zone.rares) do
 		local rname = GetRareDisplayName(rare)
 		local rwx, rwy = GetRareWorldPos(rare)
+		local rnpc = tonumber(rare[6]) -- optioneel 6e veld: npcID
 		local up = false
 		for pi = 1, #points do
 			local p = points[pi]
+			-- 1) Hardste bewijs: npcID-match (als wij die voor deze rare kennen).
+			if rnpc and p.npcID and p.npcID == rnpc then
+				up = true
+				break
+			end
+			-- 2) Naam-match (kill-atlas of atlas onbekend).
 			if p.name ~= "" and RareNamesRoughMatch(p.name, rname) then
 				up = true
 				break
 			end
-			if rwx and rwy and p.wx and p.wy then
+			-- 3) Afstand: alléén voor bevestigde kill-vignettes (anti-false-positive;
+			-- naamloze treasures/events matchen hier niet meer). Blijft nodig als
+			-- vangnet voor gelokaliseerde vignette-namen.
+			if p.kill == true and rwx and rwy and p.wx and p.wy then
 				local dx = p.wx - rwx
 				local dy = p.wy - rwy
 				if math.sqrt(dx * dx + dy * dy) <= VIGNETTE_MATCH_YARDS then
@@ -637,6 +751,9 @@ function ns.GenerateRaresRoute(zoneKey)
 		local skipCrazyArrow = i > 1
 		if ns.AddSmartTomTomWay(rare[2], rare[3], rare[4], GetRareDisplayName(rare), skipTravelUI, skipCrazyArrow) then
 			added = added + 1
+			-- Hele route = hunt: eerste pin vervangt de oude set, rest vult aan
+			-- (alerts voor deze rares krijgen de "je bent er bijna"-variant).
+			MarkRareRouted(rare, added == 1)
 		end
 	end
 
@@ -952,15 +1069,25 @@ function ns.SetRareAlertEnabled(enabled)
 	GetRareAlertSettings().enabled = enabled and true or false
 end
 
-local function MatchRareInZone(zone, vname, vwx, vwy)
+function ns.SetRareAlertOnlyWhileRouting(v)
+	GetRareAlertSettings().onlyWhileRouting = v and true or false
+end
+
+-- vkill: true = kill-atlas, nil = atlas onbekend, false = zeker geen rare
+-- (false wordt door de aanroepers al weggefilterd). Afstandsmatch alleen bij
+-- vkill == true — zie RefreshVignetteUpCache voor de redenatie.
+local function MatchRareInZone(zone, vname, vwx, vwy, vnpc, vkill)
 	if not zone or not zone.rares then
 		return nil
 	end
 	for _, rare in ipairs(zone.rares) do
+		if vnpc and tonumber(rare[6]) == vnpc then
+			return rare
+		end
 		if vname and vname ~= "" and RareNamesRoughMatch(vname, GetRareDisplayName(rare)) then
 			return rare
 		end
-		if vwx and vwy then
+		if vkill == true and vwx and vwy then
 			local rwx, rwy = GetRareWorldPos(rare)
 			if rwx and rwy then
 				local dx = vwx - rwx
@@ -974,22 +1101,36 @@ local function MatchRareInZone(zone, vname, vwx, vwy)
 	return nil
 end
 
-local function FireRareAlert(rare)
+-- npcId (optioneel): toont het 3D-model van de rare in de toast i.p.v. het
+-- drakenkop-icoon. Komt live uit de vignette-objectGUID, of uit rare[6].
+-- onRoute: dit is het actieve route-doel → aankomst-tekst, geen klik-aanbod.
+local function FireRareAlert(rare, npcId, onRoute)
 	local s = GetRareAlertSettings()
+	-- Onthoud het laatste echte npcID zodat /mh raretest het model kan
+	-- hertonen — finetune-loop zonder op een nieuwe spawn te wachten.
+	if npcId then
+		s.lastNpcId = npcId
+	end
 	local name = GetRareDisplayName(rare)
 	if ns.QueueMidnightToast then
-		ns.QueueMidnightToast({
+		local spec = {
 			id = "rare:" .. tostring(rare[1]),
 			title = name,
-			body = ns:L("RARE_ALERT_TOAST_BODY"),
+			body = ns:L(onRoute and "RARE_ALERT_TOAST_ONROUTE_BODY" or "RARE_ALERT_TOAST_BODY"),
 			icon = RARE_ALERT_ICON,
+			npcId = npcId or tonumber(rare[6]),
+			scale = 2, -- Rob 11 jun: rare-toast 2× zo groot (andere toasts 1×)
 			displaySec = RARE_ALERT_DISPLAY_SEC,
+		}
+		if not onRoute then
+			spec.clickHintKey = "RARE_ALERT_CLICK_HINT" -- geen "delve items"-fossiel
 			-- clearOthers=false: add this rare as an extra waypoint (arrow points
 			-- to it) without wiping a route the player may already be following.
-			onClick = function()
+			spec.onClick = function()
 				RouteRare(rare, false)
-			end,
-		})
+			end
+		end
+		ns.QueueMidnightToast(spec)
 	end
 	if s.sound ~= false and PlaySound and SOUNDKIT then
 		-- Alarm clock is the most attention-grabbing built-in; fall back through
@@ -1011,7 +1152,13 @@ local function FireRareAlert(rare)
 end
 
 local function ScanForRareAlerts()
-	if not GetRareAlertSettings().enabled then
+	local s = GetRareAlertSettings()
+	if not s.enabled then
+		return
+	end
+	-- Optioneel: alleen melden tijdens een rare-hunt (route gestart vanuit
+	-- het Rares-paneel of een eerdere toast; persistent per week).
+	if s.onlyWhileRouting and not IsRareHuntActive() then
 		return
 	end
 	if not (C_VignetteInfo and C_VignetteInfo.GetVignettes) then
@@ -1053,11 +1200,13 @@ local function ScanForRareAlerts()
 		if okInfo then
 			info = vinfo
 		end
-		if info then
+		local vkill = VignetteKillClass(info)
+		if info and vkill ~= false then
 			local dedupeKey = info.objectGUID or vignetteGUID
 			if not rareAlertSeen[dedupeKey] then
 				local vwx, vwy = VignetteWorldPos(vignetteGUID, playerMap)
-				local rare = MatchRareInZone(zone, info.name, vwx, vwy)
+				local rare = MatchRareInZone(zone, info.name, vwx, vwy,
+					NpcIdFromObjectGUID(info.objectGUID), vkill)
 				if rare and not IsRareDoneThisWeek(rare[1]) then
 					-- Distance gate: prefer the vignette's own position, fall
 					-- back to the rare's known spot. Skip if we can't tell or
@@ -1073,7 +1222,8 @@ local function ScanForRareAlerts()
 					end
 					if near then
 						rareAlertSeen[dedupeKey] = now
-						FireRareAlert(rare)
+						FireRareAlert(rare, NpcIdFromObjectGUID(info.objectGUID),
+							IsRareRouted(rare))
 					end
 				end
 			end
@@ -1089,7 +1239,8 @@ function ns.TestRareAlert()
 	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
 	local rare = (zone and zone.rares and zone.rares[1]) or (ZONES[1] and ZONES[1].rares[1])
 	if rare then
-		FireRareAlert(rare)
+		-- Model-fallback: het laatst geziene echte rare-npcID (finetune-loop).
+		FireRareAlert(rare, tonumber(rare[6]) or GetRareAlertSettings().lastNpcId)
 		print("|cffffcc00MH:|r raretest fired for " .. GetRareDisplayName(rare))
 	else
 		print("|cffffcc00MH:|r raretest — no rare available")
@@ -1126,10 +1277,16 @@ function ns.DebugRareScan()
 		local okInfo, info = pcall(C_VignetteInfo.GetVignetteInfo, guid)
 		if okInfo and type(info) == "table" then
 			local vwx, vwy = VignetteWorldPos(guid, playerMap)
-			local matched = zone and MatchRareInZone(zone, info.name, vwx, vwy)
-			p(("  [%d] name=%q onMM=%s onWM=%s worldpos=%s -> match=%s done=%s"):format(
+			local vkill = VignetteKillClass(info)
+			local vnpc = NpcIdFromObjectGUID(info.objectGUID)
+			local matched = zone and vkill ~= false
+				and MatchRareInZone(zone, info.name, vwx, vwy, vnpc, vkill)
+			p(("  [%d] name=%q atlas=%s kill=%s npc=%s onMM=%s onWM=%s worldpos=%s -> match=%s done=%s"):format(
 				vi,
 				tostring(info.name),
+				tostring(info.atlasName),
+				tostring(vkill),
+				tostring(vnpc),
 				tostring(info.onMinimap),
 				tostring(info.onWorldMap),
 				(vwx and "yes" or "no"),

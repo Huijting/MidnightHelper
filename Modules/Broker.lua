@@ -747,9 +747,23 @@ local function EnsureSettingsCategoryFrame()
 	panel._rareAlertText = rareAlertText
 	AttachSettingsTooltip(rareAlert, "SETTINGS_RARE_ALERT", "SETTINGS_RARE_ALERT_TT")
 
+	-- Sub-optie (Rob 11 jun): alleen melden tijdens een rare-hunt — d.w.z.
+	-- nadat deze sessie een route naar een rare is gestart.
+	local rareAlertRoute = CreateFrame("CheckButton", nil, content, "UICheckButtonTemplate")
+	rareAlertRoute:SetPoint("TOPLEFT", rareAlert, "BOTTOMLEFT", 18, -2)
+	rareAlertRoute:SetScript("OnClick", function(self)
+		if ns.SetRareAlertOnlyWhileRouting then
+			ns.SetRareAlertOnlyWhileRouting(self:GetChecked())
+		end
+	end)
+	panel._rareAlertRoute = rareAlertRoute
+	local rareAlertRouteText = rareAlertRoute.text or _G[rareAlertRoute:GetName() .. "Text"]
+	panel._rareAlertRouteText = rareAlertRouteText
+	AttachSettingsTooltip(rareAlertRoute, "SETTINGS_RARE_ALERT_ONLYROUTE", "SETTINGS_RARE_ALERT_ONLYROUTE_TT")
+
 	local openMain = CreateFrame("Button", nil, content, "UIPanelButtonTemplate")
 	openMain:SetSize(152, 24)
-	openMain:SetPoint("TOPLEFT", rareAlert, "BOTTOMLEFT", 4, -8)
+	openMain:SetPoint("TOPLEFT", rareAlertRoute, "BOTTOMLEFT", -14, -8)
 	openMain:SetScript("OnClick", function()
 		if ns.ShowMainUI then
 			ns:ShowMainUI()
@@ -1011,6 +1025,15 @@ local function EnsureSettingsCategoryFrame()
 				self._rareAlertText:SetText(ns:L("SETTINGS_RARE_ALERT"))
 				if self._rareAlertText.SetTextColor then
 					self._rareAlertText:SetTextColor(0.95, 0.9, 0.74)
+				end
+			end
+			if self._rareAlertRoute then
+				self._rareAlertRoute:SetChecked(ra and ra.onlyWhileRouting == true or false)
+				if self._rareAlertRouteText and self._rareAlertRouteText.SetText then
+					self._rareAlertRouteText:SetText(ns:L("SETTINGS_RARE_ALERT_ONLYROUTE"))
+					if self._rareAlertRouteText.SetTextColor then
+						self._rareAlertRouteText:SetTextColor(0.95, 0.9, 0.74)
+					end
 				end
 			end
 		end

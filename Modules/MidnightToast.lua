@@ -91,12 +91,40 @@ local function ApplyToastContent(spec)
 	end
 	local itemID = spec.itemID or ITEM_TREASURE
 	local iconTex = ResolveItemIcon(spec)
+	-- spec.npcId → toon het 3D-model van de NPC i.p.v. het icoon. Als het
+	-- model (nog) niet beschikbaar is rendert het slot leeg; bij een
+	-- rare-alert staat de NPC vlakbij, dus het model is dan vrijwel altijd
+	-- al door de client geladen.
+	local showModel = false
+	local npcId = tonumber(spec.npcId)
+	if npcId and root.model then
+		showModel = pcall(function()
+			root.model:ClearModel()
+			root.model:SetCreature(npcId)
+			-- Hogere zoom = model vult het frame i.p.v. klein in een hoek;
+			-- lichte draai voor een 3/4-aanzicht.
+			if root.model.SetPortraitZoom then
+				root.model:SetPortraitZoom(0.85)
+			end
+			if root.model.SetPosition then
+				root.model:SetPosition(0, 0, 0)
+			end
+			if root.model.SetFacing then
+				root.model:SetFacing(0.45)
+			end
+		end) == true
+	end
+	if root.model then
+		root.model:SetShown(showModel)
+	end
 	if root.icon then
 		root.icon:SetTexture(iconTex)
-		root.icon:Show()
+		root.icon:SetShown(not showModel)
 	end
 	if root.iconSlot then
-		root.iconSlot:Show()
+		-- Slot (incl. kwaliteitsring) weg zodra het model toont — het model
+		-- staat los van het slot en een lege ring oogt kapot.
+		root.iconSlot:SetShown(not showModel)
 	end
 	if root.iconRing then
 		ApplyItemQualityBorder(root.iconRing, itemID)
@@ -126,6 +154,29 @@ local function EnsureToastFrame()
 	f:Hide()
 	f:EnableMouse(true)
 	f:RegisterForClicks("LeftButtonUp")
+
+	-- Versleepbaar (Rob 11 jun); positie wordt bewaard in ui.toast.pos als
+	-- offset t.o.v. het midden van UIParent (schaal-onafhankelijk, zodat een
+	-- 2×-rare-toast en een 1×-shard-toast op dezelfde plek verschijnen).
+	-- Klik = waypoint blijft werken: drag start pas na de drag-drempel.
+	f:SetMovable(true)
+	f:SetClampedToScreen(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", function(self)
+		self:StartMoving()
+	end)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		local s = GetToastSettings()
+		local scale = self:GetScale() or 1
+		local cx, cy = self:GetCenter()
+		if cx and cy and UIParent then
+			s.pos = {
+				x = cx * scale - (UIParent:GetWidth() / 2),
+				y = cy * scale - (UIParent:GetHeight() / 2),
+			}
+		end
+	end)
 
 	if f.SetBackdrop then
 		f:SetBackdrop({
@@ -169,6 +220,20 @@ local function EnsureToastFrame()
 	icon:SetPoint("TOPLEFT", iconSlot, "TOPLEFT", 2, -2)
 	icon:SetPoint("BOTTOMRIGHT", iconSlot, "BOTTOMRIGHT", -2, 2)
 	content.icon = icon
+
+	-- 3D-model van de NPC (eigen implementatie met Blizzards PlayerModel-API;
+	-- idee afgekeken van RareScanner, code/data niet — die is All Rights
+	-- Reserved). SetCreature(npcID) laat de client zelf het model resolven
+	-- (zelfde aanpak als DBM-GUI en MDT), dus geen displayID-database nodig.
+	-- Bewust groter dan het icon-slot: bijna de volle toast-hoogte, verticaal
+	-- gecentreerd, zodat de rare goed zichtbaar is (Rob 11 jun: "iets groter
+	-- en passend"). Tekst begint op x=70, model eindigt op 8+56=64.
+	local model = CreateFrame("PlayerModel", nil, content)
+	model:SetSize(56, 56)
+	model:SetPoint("LEFT", content, "LEFT", 8, 0)
+	model:EnableMouse(false)
+	model:Hide()
+	content.model = model
 
 	local iconRing = iconSlot:CreateTexture(nil, "OVERLAY")
 	iconRing:SetPoint("TOPLEFT", iconSlot, "TOPLEFT", -3, 3)
@@ -220,8 +285,11 @@ local function EnsureToastFrame()
 				SetCursor("Interface\\CURSOR\\Point")
 			end
 			if GameTooltip then
+				-- Per-toast hint (spec.clickHintKey); de generieke fallback is
+				-- de oude delve-tekst — alleen nog voor de delve-bounty-toast.
+				local hintKey = activeSpec.clickHintKey or "TOAST_CLICK_HINT"
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
-				GameTooltip:SetText(ns:L("TOAST_CLICK_HINT"), 1, 1, 1)
+				GameTooltip:SetText(ns:L(hintKey), 1, 1, 1)
 				GameTooltip:Show()
 			end
 		end
@@ -307,7 +375,31 @@ function ns.ShowNextMidnightToast()
 
 	local spec = table.remove(queue, 1)
 	activeSpec = spec
+	-- onShow: pas hier weet de afzender zeker dat de toast écht in beeld komt.
+	-- Nodig voor "1× per week"-meldingen (ShardCapAlert): een gequeued-maar-
+	-- nooit-getoonde toast (reload terwijl een rare-toast voorstond — Rob,
+	-- 11 jun) mag de week-dedupe niet verbruiken.
+	if spec.onShow then
+		pcall(spec.onShow, spec)
+	end
+	-- Optioneel geluid bij tonen (spec.soundKit). Master-kanaal zodat het ook
+	-- bij lage SFX-volumes hoorbaar is — zelfde keuze als de rare-alert.
+	if spec.soundKit and PlaySound then
+		pcall(PlaySound, spec.soundKit, "Master")
+	end
 	local f = EnsureToastFrame()
+	-- Schaal per toast (spec.scale, default 1) + bewaarde/standaard positie.
+	-- SetPoint-offsets zijn in frame-lokale (geschaalde) coördinaten → delen
+	-- door de schaal houdt de schermpositie gelijk voor elke toast-grootte.
+	local scale = tonumber(spec.scale) or 1
+	f:SetScale(scale)
+	f:ClearAllPoints()
+	local pos = GetToastSettings().pos
+	if type(pos) == "table" and tonumber(pos.x) and tonumber(pos.y) then
+		f:SetPoint("CENTER", UIParent, "CENTER", pos.x / scale, pos.y / scale)
+	else
+		f:SetPoint("TOP", UIParent, "TOP", 0, -118 / scale)
+	end
 	ApplyToastContent(spec)
 	f:SetAlpha(1)
 	f:Show()
