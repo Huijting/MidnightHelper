@@ -25,6 +25,17 @@ local RITUAL_WEEKLY_QUEST = 95843
 -- weekly after this is done on THIS character (renown unlock is warband-wide,
 -- the chain is not — verified via Rob's druid dump, 10 Jun 2026).
 local RITUAL_INTRO_FINAL_QUEST = 94383
+-- Volledige introketen voor de stap-bewuste hint. Let op: Blizzards volgorde
+-- is buggy — 94381 kan true zijn terwijl 94380 false blijft (Robs lvl-81-test
+-- 11 jun + Wowhead-comments "chain is in the wrong order"). Daarom bepaalt de
+-- HOOGSTE voltooide stap wat de volgende is, niet de eerste onvoltooide.
+local RITUAL_INTRO_CHAIN = {
+	{ quest = 94380, key = "RITUAL_INTRO_STEP_SUMMONS" },
+	{ quest = 94381, key = "RITUAL_INTRO_STEP_ALLIES" },
+	{ quest = 96080, key = "RITUAL_INTRO_STEP_VOIDSTRIKE" },
+	{ quest = 94382, key = "RITUAL_INTRO_STEP_PROBLEMS" },
+	{ quest = 94383, key = "RITUAL_INTRO_STEP_INTEREST" },
+}
 -- Field Accolade — the Midnight 12.0.5 currency earned from Ritual Sites /
 -- Void Assaults (per character, not warbound).
 local FIELD_ACCOLADE_CURRENCY = 3405
@@ -289,6 +300,26 @@ function ns.GetRitualWeeklyHint()
 		if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
 			local ok, introDone = pcall(C_QuestLog.IsQuestFlaggedCompleted, RITUAL_INTRO_FINAL_QUEST)
 			if ok and not introDone then
+				-- Stap-bewust: hoogste voltooide stap + 1 = volgende stap
+				-- (zie RITUAL_INTRO_CHAIN-comment over Blizzards bug-volgorde).
+				local nextIdx = 1
+				for i = #RITUAL_INTRO_CHAIN, 1, -1 do
+					local okF, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, RITUAL_INTRO_CHAIN[i].quest)
+					if okF and done then
+						nextIdx = i + 1
+						break
+					end
+				end
+				local step = RITUAL_INTRO_CHAIN[nextIdx]
+				if step then
+					local txt = ns:L("RITUAL_INTRO_STEP_FMT"):format(nextIdx, #RITUAL_INTRO_CHAIN, ns:L(step.key))
+					if C_QuestLog.GetLogIndexForQuestID
+						and C_QuestLog.GetLogIndexForQuestID(step.quest) then
+						txt = txt .. " " .. ns:L("RITUAL_INTRO_STEP_INLOG")
+					end
+					return txt, "intro"
+				end
+				-- Vangnet (hoort niet voor te komen: laatste stap true ↔ introDone).
 				return ns:L("RITUAL_WEEKLY_HINT_INTRO"), "intro"
 			end
 		end
