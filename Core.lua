@@ -624,6 +624,33 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "shardtest" then
+		if ns.TestShardCapAlert then
+			ns.TestShardCapAlert()
+		else
+			print("|cffffcc00Midnight Helper:|r shard alert not loaded")
+		end
+		return
+	end
+
+	if msg == "bossshare" then
+		if ns.ShareDungeonBossTips then
+			ns.ShareDungeonBossTips()
+		else
+			print("|cffffcc00Midnight Helper:|r live coach not loaded")
+		end
+		return
+	end
+
+	if msg == "livetips" then
+		if ns.ToggleDungeonLiveTips then
+			ns.ToggleDungeonLiveTips()
+		else
+			print("|cffffcc00Midnight Helper:|r live coach not loaded")
+		end
+		return
+	end
+
 	if msg == "debug" then
 		-- Toggle debug mode
 		if ns.db and ns.db.ui then
