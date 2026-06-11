@@ -1724,6 +1724,546 @@ kloppen de stappen in de praktijk (vooral: Derelict Duo hook-door-de-
 spookdame, Muro'jin ijsval-tegen-duikvlucht, Vordaza fantoom-pops één
 tegelijk)? Correcties direct doorgeven, dan slijp ik de tekst.
 
+## Voor Cursor — 11 juni ochtend: Overload-correctie gathering-101 (×6)
+
+Robs vraag "wat is dat extra-loot-ding bij gathering?" legde een **feitfout**
+in onze 101-teksten bloot: Herbalism/Mining-hoofdstukken zeiden "(30-minuten-
+cooldown)" voor Overload — fout. Research (Icy Veins / wow-professions /
+Method, 11 jun): **Overload Infused Herb/Deposit** wordt geleerd bij je
+eerste speciale node; geeft een lading motes; eerste keer per kruid-/ertssoort
++1 KP; **cooldown = 12 uur basis, –±30 min per gegatherde node** (dáár kwam
+de 30 min vandaan); 2e charge bij 40 root-punten; trees "Midnight Overload"
+(Herb) / "Over-LODED" (Mining) buffen verder; infused soorten Lightfused /
+Wild / Primal / Voidbound (Lightfused & Voidbound = meeste motes). De
+Overload-zin in `PROFACAD_CH_HERBALISM_BODY` + `PROFACAD_CH_MINING_BODY` is
+in **alle 6 talen** herschreven met de juiste feiten. (Skinning-tekst was al
+correct: Diffusers/Lures, geen node-overload.) **Cursor: loadfile op de 6
+hoofd-locales; meenemen in de eerstvolgende commit-batch.** Rob: check de
+nieuwe alinea in-game op je Herb/Mining-alt — klopt het verhaal met wat de
+tooltip zegt?
+
+## Voor Cursor — 11 juni: level-eligibility-pass routine (Robs lvl-80-test)
+
+Rob deed de geplande low-level-test met een **verse level-80 warlock**
+(Alch+Herb). Bevindingen + fixes (alles in ResetRoutine.lua + 1 key ×6):
+
+- **Liadrin & Aethas bieden op 80 NIETS** → `minLevel = 90` in
+  GIVER_WEEKLIES (gedocumenteerde aanname: endgame-weeklies; 81-89 niet
+  apart getest). Routine toont sub-90 nu grijs "beschikbaar vanaf level 90"
+  via de bestaande locked-state.
+- **Halduron biedt sub-90 een leveling-variant**: "Hope in the Darkest
+  Corners" = **95468** (XP + Quel'Thalas Adventurer's Cache) → toegevoegd
+  aan zijn quest-lijst ("any") — levelaars krijgen nu ook echte status.
+- **Great Vault bestaat gewoon op 80** (rijen Raids/Dungeons/World
+  zichtbaar) → regel 1 was correct, geen gate. Bijvangst vault-tooltip:
+  World-rij telt Delves T1-11, World Activities T1, Prey T1/5/8, **Ritual
+  Sites T5/6/7/12/13 per difficulty** → genoteerd voor VaultAdvisor-data.
+- **Lilatha biedt de Void-zoneweekly (94385) aan op 80** ✓ — regel 6 klopt;
+  intro-keten-stap "Outfitting and Allies" stond ook klaar.
+- **Trainer-soort weeklies zijn SKILL-gated**: verse skill-1 Herbalism →
+  Nathera biedt niets; Ench vereist aantoonbaar 25; Robs gelevelde
+  Herb-alt kreeg 'm wel. Service-soort is NIET skill-gated (verse skill-1
+  Alchemy kreeg de hele Flaresworn→Camberon-keten + weekly 93690 — itemID
+  263454-notebook bevestigt de MidnightRoutine-data nogmaals). Fix:
+  trainer-soort met skill < 25 toont nu dim "wordt op lage skill nog niet
+  aangeboden" (`HOME_ROUTINE_TRAINER_LOWSKILL_FMT` ×6) i.p.v. een loze
+  ophaal-opdracht; drempel 25 = Ench-verified, aanname voor gatherers
+  (comment in code). GetProfessionInfo-skillLevel (ret3) nu meegelezen.
+
+**Cursor: loadfile op ResetRoutine.lua + de 6 locales; let op de
+geneste if in de trainer-stap (inspringing mag genormaliseerd).** Rob-test:
+op de warlock horen na /reload regels 2/4 grijs "vanaf level 90" te zijn,
+regel 3 (Halduron) blauw "opgepakt" (95468 in log), regel 8 (Herbalism)
+dim "lage skill", regel 7 (Alchemy) blauw/groen na de keten.
+
+## Voor Cursor — 11 juni: Zygor-mine → dungeon-entrees + route-knoppen
+
+Robs Zygor-idee leverde direct op (TOMORROW punt 4 ✅). Bron:
+ZygorGuidesViewer LibRover-portaaldata + Midnight-zonetabel (proprietary →
+alléén feitelijke coords/IDs als kruisreferentie, geen tekst; bron in
+code-comment gedocumenteerd; Rob spot-checkt in-game).
+
+- **Alle 12 `entrance`-velden gevuld** in `DungeonRosterData.lua`:
+  Maisara Zul'Aman 43.74/39.43 · Nalorakk Zul'Aman 29.79/84.51 ·
+  Windrunner Spire Eversong 35.37/78.82 · Murder Row SMC 57.20/61.06 ·
+  Blinding Vale Harandar 26.24/78.09 · Voidscar **Slayer's Rise 2444**
+  53.67/33.08 · Nexus-Point **Voidstorm 2405** 64.93/61.78 · Magisters'
+  **Quel'Danas-Midnight 2424** 63.53/15.48 · Skyreach Spires of Arak (542)
+  35.6/33.7 · Pit of Saron Icecrown (118) 54.78/91.80 · Triumvirate
+  Eredath (882) 22.30/55.89 · Algeth'ar Thaldraszus (2025) 58.27/42.22.
+- **Zygors Midnight-zonetabel als bijvangst genoteerd**: Voidstorm=2405(+2479),
+  Slayer's Rise=2444 (eigen zone!), Harandar=2413(+2480/2576), Quel'Danas
+  M=2424, Atal'Aman=2535/2536 (← het mysterieuze treasure-zone-ID),
+  Zul'Aman=2437(+2580). Let op: Rares.lua mapt 2444→"voidstorm"-key —
+  cosmetisch correct genoeg voor rares, maar wel weten.
+- **`ns.RouteDungeonEntrance(d)`** (RosterData): TomTom-pin + reis-assistent
+  (AddSmartTomTomWay → HS/portal-advies bij verre targets — Icecrown/Argus!).
+- **Coach-view: rode "Route naar <dungeon>"-knop per dungeon** (hergebruikt
+  HOME_WB_ROUTE_BTN_FMT ×6, dus geen nieuwe keys; label ververst met
+  EJ-naam in refresh).
+- 12.0.7-scan in Zygor: **niets bruikbaars** (Naigtal-hits = oude
+  Legion-invasiepunten). Curiositeit: "Imperator Pertinax npc **252308**"
+  in een Eversong-event-guide — ánders dan onze Val-worldboss 263670;
+  mogelijk pre-patch-event-versie, niet verwarren.
+
+**Cursor: loadfile op DungeonRosterData.lua + DungeonGuide.lua.**
+**Rob-test:** Coach → rode route-knop per dungeon; klik Windrunner Spire →
+pijl naar Eversong 35/79 + (van ver) reis-popup; klik een legacy (Pit of
+Saron) → HS/portal-advies. Pin-posities spot-checken waar je toch bent.
+
+## 11 juni: web-research 12.0.7 (stap 3 — alleen docs, geen code)
+
+Bron: Wowhead-news 381787 (Blizzard-blog) + releaseberichten. Alles verwerkt
+in `docs/PTR_12.0.7_DATA.md` (nieuwe kop bovenaan). Hoofdpunten:
+
+- **🔴 Release bevestigd: dinsdag 16 juni** (niet 30 juni) → TOC-actie
+  (`120005` eruit) staat klaar in RELEASE_CHECKLIST; Showdowns-gate ≥120007
+  doet de rest vanzelf.
+- **Rotatie wekelijks bevestigd** (open punt §7 ✅) → VoidAssaults-patroon
+  herbruikbaar.
+- **Portaal zit in Voidstorm/Howling Reach (2405)** — coords nog dumpen.
+- **Folio-weekly is account/warband-breed** → AccountWeeklyChecklist-regel
+  wordt account-niveau, géén per-char (semantiek-waarschuwing in doc).
+- Nieuw: HWT-advies-ilvl 274, Decimus (HWT→Myth-track, ID ⬜), toy
+  Lightveil Recall Beacon, vendors Ventem/Zuronar + valuta "Voidlight Marl"
+  (ID ⬜), achievement "Showdown Success: Val" 62880.
+- **Niet via web vindbaar:** "Showdown on Val"-quest-ID, Val-uiMapID,
+  rare-coords/kill-quests, Mote-ID — blijft Robs PTR/live-lijstje (§1-§5).
+
+**Cursor: alleen docs gewijzigd (PTR_12.0.7_DATA.md, SESSION_NOTES.md,
+TOMORROW.md) — geen luacheck nodig; meenemen met de volgende push.**
+
+## 11 juni: hotfix derden-addons (lvl-80-errorspam — NIET ons addon, geen commit)
+
+Robs lvl 80 kreeg 100+ errors. Oorzaak: Midnights **secrets-systeem** maakt
+aura-velden (canActivePlayerDispel, spellId, dispelName…) geheim voor
+addon-code in combat; vergelijken/indexeren gooit errors.
+
+- **MidnightHealerHelper 1.0.632** (DruxlyeSofty, CF 1091858): nieuwe
+  dispel/HoT-indicator-feature leest die velden direct. **Lokale hotfix in
+  diens `Dispel.lua`**: `MHH_HasSecret(...)`-guard (issecretvalue) bovenin
+  `IsTrackedDispellableAura` + `IsTrackedPlayerHotAura` → secret-aura's
+  worden overgeslagen. Gevolg: geen errors meer; indicator kan in combat
+  voor secret-aura's simpelweg niet tonen (by design). Addon-update
+  overschrijft de hotfix — prima; check CF op >1.0.632.
+- **EllesmereUIQoL 8.1.1**: auto-open-containers roept `UseContainerItem()`
+  aan — nu protected, feature dood. Uit te zetten:
+  `/run EllesmereUIDB.autoOpenContainers = false` + `/reload`.
+- **Les voor MH:** secrets raken aura/combat-lezende code. MH leest vooral
+  quest/currency/vault/EJ-API's → laag risico, maar bij toekomstige
+  combat-features eerst `issecretvalue`-strategie bepalen.
+- Verificatie: host-bestand intact (847 regels); sandbox-parser gaf de
+  bekende mount-truncatie-false-positive (mount stopte op 812 mid-token).
+- **Restpuntje (bewust gelaten):** 4× ADDON_ACTION_FORBIDDEN "UNKNOWN()"
+  bij login uit MHH Dispel.lua-eventregistratie (via pcall-wrapper
+  Compatibility.lua:59) — Blizzard heeft registratie van bepaalde
+  combat-events protected gemaakt; pcall vangt de Lua-fout maar het
+  forbidden-log blijft. Onschuldig (addon draait door), fix = auteur.
+  Robs hotfix-test ✅: secretvalue-spam weg, Ellesmere stil.
+
+## Voor Cursor — 11 juni: rare-detectie false positives (RareScanner-les)
+
+Rob: UP-melding/alert terwijl de rare er niet is. Oorzaak: wij matchten
+**elke** vignette binnen 130 yd van de spawn (ook treasures/events/POI's).
+RareScanner filtert op atlas en matcht op npcID — overgenomen in
+`Modules/Rares.lua` (alleen dit bestand):
+
+- `RARE_KILL_ATLAS` whitelist (VignetteKill/VignetteKillElite/
+  vignettekillboss — RSConstants.IsNpcAtlas) + `VignetteKillClass(info)`
+  (true/nil/false; nil = atlas onbekend → alleen naam-match toegestaan).
+- `NpcIdFromObjectGUID(guid)` — veld 6 van objectGUID, à la RSButtonHandler.
+- Matchprioriteit (UP-cache én alert-pad): 1) npcID exact (nieuw optioneel
+  6e dataveld `npcId`, nog nergens gevuld — 12.0.7-rares krijgen ze als
+  eerste), 2) naam-roughmatch, 3) afstand ≤130 yd **alléén nog bij
+  kill-atlas** (vangnet voor gelokaliseerde vignette-namen).
+- `kill == false`-vignettes worden in beide paden volledig overgeslagen.
+- `/mh rarescan` print nu ook `atlas=`, `kill=`, `npc=` per vignette.
+
+**Bonus (Robs vraag n.a.v. RareScanner-screenshot): 3D-model in de
+rare-toast.** RareScanner is **All Rights Reserved** → code/data niet
+overnemen; het idee wel, via Blizzards publieke API. Eigen implementatie:
+
+- `MidnightToast.lua`: `PlayerModel`-frame in het icon-slot (eager
+  aangemaakt, EnableMouse(false)); nieuw spec-veld **`npcId`** → toast toont
+  het 3D-model van de NPC i.p.v. het icoon (`SetCreature(npcID)` — zelfde
+  route als DBM-GUI/MDT, géén displayID-database nodig; `SetPortraitZoom
+  0.62`). Geen npcId of model → icoon zoals voorheen (drakenkop blijft
+  fallback).
+- `Rares.lua`: `FireRareAlert(rare, npcId)`; live-alert geeft het npcID uit
+  de vignette-objectGUID door (werkt dus óók waar dataveld rare[6] leeg is).
+- Iteratie 2 na Robs Duskburn-screenshot (model te klein, linksonder in
+  slot): model nu 56×56 los van het icon-slot (LEFT+8, verticaal
+  gecentreerd), PortraitZoom 0.85, SetFacing 0.45 (3/4-aanzicht); icon-slot
+  + kwaliteitsring verborgen zodra het model toont (lege ring oogt kapot).
+  `FireRareAlert` bewaart het laatste echte npcID in
+  `ui.rareAlert.lastNpcId` zodat **`/mh raretest` het model hertoont** —
+  finetune-loop zonder nieuwe spawn.
+- Iteratie 3 (Rob, Lady Liminus-screenshot: "2× zo groot, als ie maar
+  verplaatsbaar is"): **toast versleepbaar** (SetMovable + RegisterForDrag;
+  klik=waypoint blijft — drag start pas na de drempel) met positie bewaard
+  in `ui.toast.pos` (offset t.o.v. UIParent-midden, schaal-onafhankelijk).
+  Nieuw spec-veld **`scale`** (default 1); rare-alert geeft `scale = 2`
+  mee. SetPoint-offsets gedeeld door schaal zodat 2×-rare en 1×-shard op
+  dezelfde schermplek verschijnen. Geen nieuwe locale-keys.
+- Iteratie 4 (Robs Warden-screenshot): **tooltip-fossiel** "Click to open
+  delve items" op de rare-toast → nieuw spec-veld `clickHintKey`
+  (MidnightToast OnEnter; fallback blijft TOAST_CLICK_HINT voor de
+  delve-bounty-toast); rare-alert gebruikt RARE_ALERT_CLICK_HINT.
+  Plus **instelling "alleen melden tijdens rare-hunt"** (Robs vraag):
+  sessievlag `rareHuntActive` in Rares.lua, gezet door RouteRare (route-
+  knop paneel/toast-klik); `ui.rareAlert.onlyWhileRouting` (default uit =
+  huidig gedrag); `ns.SetRareAlertOnlyWhileRouting`; sub-checkbox in het
+  Broker-settingspaneel (ingesprongen onder de rare-alert-checkbox,
+  openMain-anker verlegd). 3 nieuwe keys ×6 hoofdlocales (18 regels):
+  RARE_ALERT_CLICK_HINT, SETTINGS_RARE_ALERT_ONLYROUTE(+_TT).
+  Luacheck-lijst hierdoor: **Rares.lua, MidnightToast.lua, Broker.lua** +
+  encoding-sweep 6 hoofdlocales.
+- Iteratie 8 (Rob: shard-cap-toast ✅ na unstick; wil uniek opvallend
+  geluid): nieuw toast-spec-veld **`soundKit`** (MidnightToast, afgespeeld
+  bij tonen, Master-kanaal, pcall). Live-test Rob: UI_LEGENDARY_LOOT_TOAST
+  bleek nauwelijks hoorbaar (ook met speakers hard) → **READY_CHECK**
+  (Robs keuze, bewezen luid). Rare-alert houdt zijn eigen wekker-geluid.
+  Debug-tussenstap: nieuw commando **`/mh shardtest`** (Core.lua-dispatch +
+  `ns.TestShardCapAlert` in ShardCapAlert.lua) — vuurt de toast incl.
+  geluid direct af, zonder dedupe/cap-eis; print het soundkit-ID. ✅ Rob
+  bevestigt: kit én toast-pad klinken (eerdere stilte = stale code vóór de
+  reload). Luacheck-lijst: +**Core.lua**, **ShardCapAlert.lua**.
+- Iteratie 7 (Rob: óók na reload nog "click to add" tijdens de zone-route):
+  twee gaten — sessievars overleefden /reload niet én GenerateRaresRoute
+  (route-alle-rares) zette de hunt-status helemaal niet. Herontwerp:
+  `lastRoutedRareId`/`rareHuntActive` vervangen door **persistente set**
+  `ui.rareAlert.routedIds` + `routedAnchor` (week-anker à la ShardCapAlert).
+  MarkRareRouted (RouteRare vervangt set bij clearOthers, toast-klik vult
+  aan; GenerateRaresRoute markeert de hele route), IsRareRouted (per rare →
+  aankomst-tekst), IsRareHuntActive (**hunt dooft vanzelf zodra alle
+  geroutete rares done zijn**, of bij reset/nieuwe route). Settings-tooltip
+  ONLYROUTE_TT ×6 herschreven naar het nieuwe gedrag (never-lie). De
+  beschrijvingen in iteratie 4/5 hieronder zijn hiermee deels achterhaald.
+- Iteratie 6 (Rob: 600/600 gehaald, géén shard-cap-melding): dedupe werd
+  gezet bij **queuen**; cap viel tijdens de rare-hunt → shard-toast stond
+  achter een rare-toast in de wachtrij → /reload (veel getest vandaag) →
+  wachtrij weg, week tóch afgevinkt. Fix: nieuw toast-spec-veld **`onShow`**
+  (MidnightToast, pcall bij daadwerkelijk tonen); ShardCapAlert zet de
+  week-dedupe + chatregel nu in onShow. Fallback zonder toast-systeem
+  markeert wel direct. Rob-unstick:
+  `/run local g=UnitGUID("player") if MidnightHelperDB.shardCapAlert then MidnightHelperDB.shardCapAlert[g]=nil end` + /reload.
+- Iteratie 5 (Robs Terrinor-screenshot, onderweg náár de geroutete rare):
+  "click to add a waypoint" terwijl je er al heen vliegt is onzinnig →
+  `lastRoutedRareId` (gezet in RouteRare); is de alert-rare het actieve
+  route-doel, dan **aankomst-variant**: body RARE_ALERT_TOAST_ONROUTE_BODY
+  ("Dit is je route-doel — je bent er bijna!"), géén onClick/klik-hint;
+  geluid blijft. Nieuwe key ×6 hoofdlocales.
+
+Luacheck: **Modules/Rares.lua + Modules/MidnightToast.lua**. Sandbox-parser
+gaf op beide wederom de mount-truncatie-false-positive (mid-token EOF);
+host-staarten geverifieerd intact (Rares 1248, Toast 414) — host is leidend.
+
+**Rob-test:** ga naar een plek waar de false positive optrad (treasure/event
+bij een rare-spawn): regel hoort nu grijs/down te zijn. Bij een échte rare:
+UP + alert zoals voorheen. Bij twijfel `/mh rarescan` — de regel met
+`kill=false -> match=NONE` is de oude boosdoener.
+
+Commitvoorstel: `fix(rares): filter vignettes op kill-atlas + npcID-match
+(RareScanner-aanpak) tegen false positives` en
+`feat(toast): 3D-model van de rare in de alert-toast via npcId/SetCreature`
+
+**Rob-test (model):** volgende échte rare-alert hoort het model van de rare
+te tonen i.p.v. de drakenkop. Shard-cap/vault-toasts blijven iconen.
+
+## Voor Cursor — 11 juni: stap-bewuste ritual-intro-hint (Robs lvl-81-test)
+
+Rob (81, na rift-inlever): geen ritual weekly. Flags: alleen 94381 true →
+introlijn halverwege. Lilatha bood níéts aan: de volgende stap (96080 Void
+Strike) start in de actieve assault-zone, niet bij haar — maar onze hint
+zei "start bij Lilatha". Wowhead bevestigt bovendien (comments 94380):
+**de keten is buggy geordend** — 94381 kan true zijn terwijl 94380 false
+blijft, exact Robs geval. Geen bewijs voor een level-gate (Wowhead: geen
+level-eis).
+
+- `RitualSites.lua`: `RITUAL_INTRO_CHAIN` (5 stappen) + stap-bewuste hint in
+  `GetRitualWeeklyHint`: **hoogste voltooide stap + 1** = volgende stap
+  (robuust tegen de bug-volgorde); toont "stap X/5: <waar/wat>" + suffix
+  "(staat al in je questlog)" als de stap in het log zit. Oude generieke
+  INTRO-tekst blijft als vangnet.
+- `Locales/RitualTips.lua`: 7 nieuwe keys ×6 talen (42 regels):
+  RITUAL_INTRO_STEP_FMT/_INLOG/_SUMMONS/_ALLIES/_VOIDSTRIKE/_PROBLEMS/
+  _INTEREST. Stap-teksten geverifieerd via Wowhead-tooltips (94382:
+  "investigate reports, disrupt a Ritual Site"; 94383: "check in with Lady
+  Darkglen").
+
+Luacheck: **Modules/RitualSites.lua** (+ encoding-sweep RitualTips.lua).
+
+**Rob-test (lvl 81):** Void & Rituals hoort nu te tonen: "Introlijn op dit
+personage — stap 3/5: Void Strike — deze stap speelt zich af in de actieve
+assault-zone". Daarna Void Strike doen in Eversong → hint hoort door te
+schuiven naar stap 4/5.
+
+Commitvoorstel: `feat(rituals): stap-bewuste intro-hint (5 stappen, robuust
+tegen Blizzards bug-volgorde) + 7 locale-keys ×6`
+
+## 11 juni: Delves-T3-feit in teksten (terwijl Rob shards farmt)
+
+Robs geverifieerde feit (lvl-80-warlock, 11 jun): **sub-90 zijn Delves
+gecapt op Tier 3** — nu verwerkt op de twee kandidaat-plekken uit
+TOMORROW.md:
+
+- `Locales/StartHere.lua`: START_S4_BODY ×6 — "(onder level 90 is Tier 3
+  het maximum)" ingevoegd vóór de Tier-8/Bountiful-zin.
+- 6 hoofdlocales: DELVE_WEEKLY_UNDERLEVEL_HINT ×6 — zin toegevoegd "Tot
+  die tijd zijn Delves gecapt op Tier 3." (hint via
+  ShouldShowDelveWeeklyUnderlevel/AccountWeeklyChecklist:350).
+
+Alleen locale-strings, geen codewijziging → geen luacheck; wel
+encoding-sweep StartHere.lua + 6 hoofdlocales meenemen.
+
+## 11 juni: Dungeons 101 → 4 talen + SafeL-fix (Robs "nog een stapje")
+
+- `Locales/DungeonGuide.lua`: **deDE/frFR/esES/ptBR-blokken toegevoegd**
+  (40 keys ×4 = 160 regels; alle 6 blokken nu identiek qua keys —
+  6×40=240 geverifieerd). Mens-kwaliteit, game-termen in het Engels per
+  conventie (Group Finder, Follower Dungeon, Heroic, Spark weekly, Vault…);
+  frFR met spatie vóór ;:!? — header-comment bijgewerkt (EN+NL-pilot →
+  alle zes). **Boss-tips (DungeonTips.lua) bewust NIET gelokaliseerd** —
+  wachten op Robs follower-run-verificatie (eerst feiten, dan vertalen).
+- **Blokje-fix onderweg gevonden:** `Modules/DungeonGuide.lua` renderde
+  cursus-bodies met kale `ns:L`, terwijl CH3 "Toolbox → Macros" bevat
+  (pijl = bewezen blokje) — gold ook al voor EN/NL! Beide render-paden
+  (opbouw regel ~419 + locale-refresh ~514) naar `ns:SafeL`.
+
+Luacheck: **Modules/DungeonGuide.lua**; encoding-sweep
+Locales/DungeonGuide.lua. Rob-test: Dungeons-tab → Dungeons 101, hoofdstuk
+3 — pijl hoort nu als "->" (of pijl-vervanging van SafeL) te tonen, geen
+blokje; met `/mh locale dede` (of een DE-client) steekproef hoofdstuktitels.
+
+Commitvoorstel: `feat(l10n): Dungeons 101 in 6 talen + SafeL voor
+cursus-bodies (pijl-blokje CH3)`
+
+## 11 juni: boss-stappen kruisverificatie via DBM-Party-Midnight + Wowhead
+## (Robs idee: "staat dat niet tussen mijn andere addons?")
+
+Bron: DBM-Party-Midnight (lokaal, spell-IDs/voice-cues/comments) + Wowhead
+nether-spelltooltips. Resultaat van de drie spannendste claims:
+
+- **Derelict Duo hook-door-spookdame: ondersteund.** DBM-comment "Heaving
+  Yank happens at same time as Shriek" + voice-cue **"behindboss"** bij de
+  Yank (472793); cast-break-claim zelf blijft BossHelper-bron →
+  follower-run bevestigt definitief.
+- **Muro'jin ijsval-tegen-duikvlucht: BEVESTIGD.** DBM private-aura-cue
+  **"runtotrap"** bij Carrion Swoop (1249478) — letterlijk ons advies.
+  Bonus: Infected Pinions = dispelbare disease (RemoveDisease) → healer-
+  regel ×2 aangevuld met "dispel".
+- **Vordaza fantomen: GECORRIGEERD (was gevaarlijk advies!).** Wowhead
+  Final Pursuit (1251775): fantoom dat doelwit bereikt/ander fantoom raakt
+  **barst voor 254k binnen 3,5 yd** — ons "pop ze door ertegenaan te lopen"
+  eruit. Lingering Dread (1251813): schreeuw **bij doden**, vlakke
+  groepsschade (geen stack-claim). Nieuwe stappen ×2 (EN/NL):
+  dóden vóór bereik, één tegelijk, frontale golf van Unmake ("rotating
+  beam"-claim geschrapt — tooltip 1252130: frontal surge + pushback).
+- Restpunt voor de follower-run: berserk-claim Muro'jin (DBM-comment
+  "Nekraxx can be resurrected" — nuance onbevestigd), orbs/Soulrot-namen
+  Vordaza, hook-cast-break Duo.
+
+Alleen Locales/DungeonTips.lua gewijzigd (EN/NL-teksten) → encoding-sweep;
+geen luacheck nodig.
+
+Commitvoorstel: `fix(dungeon-tips): Vordaza-fantomen gecorrigeerd (Wowhead
+tooltips) + Muro'jin dispel-info; kruisverificatie via DBM`
+
+## Voor Cursor — Dungeon Coach fase 3 batch 2 (11 juni avond): 6 S1-dungeons
+
+Robs vraag "kunnen we niet alles online compleet maken?" → ja: **alle 6
+resterende S1-dungeons hebben nu boss-stappen** (21 bosses ×3 secties,
+EN+NL). Methode (zelfde als de Vordaza-correctie): DBM-Party-Midnight-mods
+(spell-IDs, voice-cues als "runtotrap"/"breaklos"/"catchballs"/"movetobeam",
+comments) + Wowhead-spelltooltips (59 stuks opgehaald) — elke mechanische
+claim herleidbaar tot een van die twee bronnen. Eigen MH-tekst,
+beginnerstaal.
+
+- `Locales/DungeonTips.lua`: +126 regels (63 keys ×2: MR=Murder Row ×4
+  bosses, DN=Nalorakk ×3, BV=Blinding Vale ×4, VA=Voidscar ×3,
+  NX=Nexus-Point ×3, MT=Magisters ×4); header-comment batch 2 toegevoegd.
+- `Modules/DungeonTipsData.lua`: 21 boss-entries onder murderrow/nalorakk/
+  blindingvale/voidscar/nexuspoint/magisters (keys conform RosterData);
+  bron-comment. Consistentie geverifieerd: 63 refs ↔ 126 locale-regels,
+  per-prefix geteld (mount was stale, host-Grep gebruikt).
+- Hoogtepunten qua counterplay (uit DBM-cues): Zaen "Murder in a Row" =
+  zichtlijn breken; Kasreth Reflux Charge = IN de leyline stappen; Gemellus
+  Neural Link = je gelinkte kloon aanraken; Seranel Wave of Silence = IN de
+  Suppression Zone staan; Degentrius Essence = inslagen soaken.
+- **Status: online-geverifieerd, nog niet in-game gedraaid** — zelfde klasse
+  als batch 1; Robs runs blijven de eindcheck. DGN_TIPS_SOON toont nu alleen
+  nog bij de 4 legacy-dungeons (Skyreach/PoS/Triumvirate/Algeth'ar) —
+  batch 3 kan via DBM-Party-WoD/WotLK/Legion/Dragonflight + Wowhead.
+
+Luacheck: **Modules/DungeonTipsData.lua**; encoding-sweep
+Locales/DungeonTips.lua. Rob-test: Coach openen → elke S1-dungeon hoort nu
+stappen te tonen i.p.v. "worden geschreven".
+
+Commitvoorstel: `feat(dungeon-coach): fase 3 batch 2 — boss-steps voor alle
+6 resterende S1-dungeons (DBM+Wowhead-geverifieerd, EN/NL)`
+
+## 🚀 GO-BLOK CURSOR — release 1.7.0, definitieve stand (11 juni, eind van de dag)
+
+**Cursor commits (11 juni push):** `e8020cc` rares/toast · `ef4f416` ritual-hint ·
+`c233ddc` shard/reset · `b49b00b` dungeon coach batch 2+3 · `ad1b25e` live coach ·
+`a87ff93` l10n · `6693fe4` release 1.7.0. Combat-share-wachtrij nog niet live
+gezien door Rob.
+
+
+Rob heeft live getest: Coach klikbaar + eerste-expand-layout ✅, spell-links
+✅, live chat-stappen bij pull (ook in follower dungeons) ✅, shard-toast +
+ready-check ✅, rare-toast (model/2×/sleep/onroute) ✅. Combat-share-wachtrij
+is logisch eenvoudig maar nog niet live gezien — geen blokker.
+
+**Volledige luacheck-lijst van vandaag (alle batches gecombineerd):**
+Core.lua · Modules/Rares.lua · Modules/MidnightToast.lua ·
+Modules/Broker.lua · Modules/RitualSites.lua · Modules/ShardCapAlert.lua ·
+Modules/DungeonGuide.lua · Modules/DungeonTipsData.lua ·
+Modules/DungeonLiveCoach.lua (NIEUW, in TOC) — plus encoding-sweep op:
+Locales/DungeonTips.lua (VOLLEDIGE rewrite!), Locales/DungeonGuide.lua,
+Locales/RitualTips.lua, Locales/StartHere.lua en de 6 hoofdlocales.
+Docs-only mee: PTR_12.0.7_DATA.md, TOMORROW.md, CURSEFORGE_*.md,
+CHANGELOG.md, MidnightHelper.toc (1.7.0).
+
+**Daarna (Rob):** `tools\package.ps1` → dist/MidnightHelper-1.7.0.zip →
+CF-upload met docs/CURSEFORGE_1.7.0.md (one-liner + changelog) en de
+bijgewerkte docs/CURSEFORGE_DESCRIPTION.md (Dungeons-bullet + sectie er al
+in verwerkt) + Robs nieuwe Dungeons-screenshot.
+
+Details per batch in de secties hieronder. ⤵
+
+## Voor Cursor — 🎯 RELEASE 1.7.0 (11 juni, Robs expliciete vraag) + slotbatch
+
+Robs vragenronde ("popup bij de boss? delen met party? inklapbaar? S1
+compleet? wanneer S2? → vandaag CF-update") → alles gebouwd:
+
+**1. Dungeon Coach inklapbaar** (`Modules/DungeonGuide.lua`): push-engine
+kreeg optioneel `hiddenFn`; Relayout verbergt ná de mode-check; per dungeon
+een onzichtbare klik-overlay op de naam (toggle, sessie-gebonden, default
+DICHT) + ASCII-indicator [+]/[-] (pijl-glyphs = blokjes).
+
+**2. Season 1 compleet — batch 3** (4 legacy-dungeons, 15 bosses ×3 ×2):
+bron DBM-Party-WoD/WotLK/Legion/Dragonflight, bewust de
+**IsPostMidnight-tak** (12xxxxx-revamp-spells!) + ~70 Wowhead-tooltips via
+agents. `Locales/DungeonTips.lua` +90 regels (SR/PS/ST/AA),
+`Modules/DungeonTipsData.lua` +15 entries → **totaal 12 dungeons / 43
+bosses**. Counterplay-goud: Garfrost achter erts schuilen, Tyrannus' Rime
+Blast bevriest Bone Piles (stopt adds), L'ura's beam DOOR de noten,
+Vexamus-orbs soaken, Araknath-stralen blokkeren (maar nooit de tank).
+
+**3. Live coach** (NIEUW `Modules/DungeonLiveCoach.lua` + TOC-regel):
+ENCOUNTER_START → boss-stappen in eigen chat (1× per boss per sessie,
+wipes spammen niet; kleuren als Coach-view; SafeL). Encounter-ID-tabel
+(43 stuks) uit de DBM-mods gelezen. **`/mh bossshare`** deelt de stappen
+van de laatst gepullde boss als platte tekst naar INSTANCE_CHAT/PARTY
+(chunks ≤240 tekens, markup gestript); **`/mh livetips`** togglet
+(`ui.dungeonLiveTips`, default aan). Beide commands in Core.lua-dispatch.
+6 nieuwe keys ×6 in Locales/DungeonGuide.lua (DGN_LIVE_*/DGN_SHARE_*).
+Gelokaliseerde ontvangst (à la delve-share v2) blijft fase 5.
+
+**4. Season 2:** NIET in 12.0.7 — komt met 12.1 ("zomer 2026", community
+verwacht ~11 aug na Turbulent Timeways; geen officiële datum). Geen
+addon-actie nodig.
+
+**Release-test-vangst (Rob):** `/mh bossshare` gooide ADDON_ACTION_BLOCKED —
+de oude global `SendChatMessage` loopt op 12.x via Blizzard_Deprecated-
+ChatInfo en is protected vanuit addon-code. Fix: `C_ChatInfo.SendChatMessage`
+met legacy-fallback, exact het bestaande patroon van DelvePartyShare:297 en
+RitualShare:161 (had ik moeten afkijken). LiveCoach regel ~210.
+
+**Klik-fix Coach (Robs screenshot: dungeons niet aanklikbaar — 3 iteraties,
+definitief):** overlay-aanpak op de FontString geheel verlaten (0px-rect-
+hoogte + onbetrouwbare hit-tests in de scroll-child; 3 varianten faalden
+live). Definitief: **de dungeonnaam is zélf een Button** in de push-engine
+(`push(btn, …, true, "coach")`). Iteratie 4: plain Button rendert geen
+tekst → **MakeButton** (widget van de route-knoppen; dungeonnaam = rode
+knop "[+] <naam> [Season 1]"). Iteratie 5, WARE OORZAAK (debug-print):
+de toggle zelf was de klassieke Lua-instinker **`x and false or true` ≡
+altijd true** — elke klik zette opnieuw "dicht"; de klik vuurde (in elk
+geval in de MakeButton-versie) prima. Fix: expliciete if/else. Les voor
+de hele codebase: nooit `and false or` gebruiken (sweep: nergens anders
+aanwezig). Overlay-code en ui.coachToggles/Relayout-blok verwijderd;
+debug-prints verwijderd. Iteratie 6 (Robs screens: eerste expand =
+overlappende layout, dicht+open = perfect): EditBox-tekst wordt gezet
+terwijl de box verborgen is → eerste GetNumLines-meting stale. Fix in
+Relayout: per tipbox `_mhLastH` cachen; bij hoogteverandering één
+nameting via C_Timer.After(0) (`ui._mhRelayoutPending`-guard, convergeert
+in 2-3 frames) — zelfde klasse oplossing als DelveCoach' applyHeights. Tweede bug meegefixt: overlays bleven
+onzichtbaar actief in week/cursus-view → Relayout toont ze alleen in
+coach-mode (`ui.coachToggles`). Plus DGN_COACH_INTRO ×6 geactualiseerd
+("klik op een dungeon-naam…"; oude tekst beloofde stappen "in komende
+updates" terwijl alles er al staat). NB: het "lege venster" op Robs
+screenshot was **BossHelper** (eigen weergave; "Fire = bad"-frasering staat
+ook daar — MIT-kruisreferentie), niet MH.
+
+**Combat-blok op addon-chat (Robs live-test + probes):** /mh bossshare
+werd geblokkeerd vlak na de boss-kill terwijl Robs `/run
+C_ChatInfo.SendChatMessage(...)` buiten combat gewoon aankwam (en
+DungeonHelpers auto-share bij de pull faalde identiek) → **Midnight
+blokkeert addon-spelerchat tijdens combat**, beide API's. Fix in
+DungeonLiveCoach: `InCombatLockdown()` → share in `pendingShare`-wachtrij +
+melding, automatisch versturen op PLAYER_REGEN_ENABLED (mooi voor wipes).
+Nieuwe key DGN_SHARE_QUEUED ×6. ⚠ Geldt vermoedelijk óók voor
+DelvePartyShare/RitualShare wanneer die in combat gebruikt worden —
+backlog: zelfde regen-wachtrij daar (post-1.7.0; buiten combat werken ze).
+
+**Spell-links (Robs DungeonHelper-vergelijk, "nu inbouwen, release
+schuift"):** alle 43 bosses hebben nu klikbare ability-links:
+
+- `Locales/DungeonTips.lua` **volledig herschreven** (host-Write, 412
+  regels): ~218 ability-namen → **{SPELL:id}-tokens** (IDs uit dezelfde
+  DBM-mods als de mechanics; namen zonder zeker ID — Shadow Bolt, Turbulent
+  Arrow, Deathshroud, Soulrot, Sparkburn e.d. — bewust platte tekst).
+  Bonus: spelnamen renderen client-gelokaliseerd → de links zijn in ALLE
+  talen correct, ook waar de zinnen nog EN zijn.
+- `Modules/DungeonGuide.lua`: coach-bossFs is nu een **read-only EditBox**
+  (FontStrings doen geen hyperlinks) met AttachDelveTipHyperlinksToEditBox
+  → hover/klik = echte spell-tooltip; Relayout meet `_mhTipBox`-widgets via
+  GetNumLines×GetLineHeight; render door ns:ExpandDelveTipMarkup.
+- `Modules/DungeonLiveCoach.lua`: chat-print expandeert rich (links zijn
+  klikbaar in chatframes); `/mh bossshare` expandeert naar kale spelnamen
+  (geen markup over de lijn). KeyToLines(key, rich) + ExpandPlain.
+- Verificatie: 258 keys ✓, 218 tokens ✓, host-staart intact (412 regels);
+  sandbox-parser zag een 90-regels-stale-mount (false positive, host-Greps
+  bewijzen volledig bestand). **Luacheck-lijst: + Locales/DungeonTips.lua
+  expliciet draaien** (volledige rewrite!), DungeonGuide.lua,
+  DungeonLiveCoach.lua.
+- Rob-test extra: Coach openklappen → [Spell]-namen lichtblauw, hover =
+  tooltip; boss-pull → links in chat klikbaar; /mh bossshare → kale namen
+  in party-chat. CHANGELOG + CF-notes vermelden de feature.
+
+**Pre-release-review (Robs vraag "missen we nog wat?"):** twee vangsten —
+(a) **never-lie-fix Dungeons 101 CH5 ×6**: beloofde "delen, ieder in z'n
+eigen taal" (= fase 5!) → nu eerlijk: stappen verschijnen bij de pull in je
+chat, delen via /mh bossshare (platte tekst, gelokaliseerd delen volgt);
+(b) CF-notes vermelden expliciet dat boss-steps nu EN/NL zijn (fallback
+EN). Backlog genoteerd: settings-checkbox voor livetips (command volstaat
+voor 1.7.0).
+
+**5. Release-prep:** TOC → **1.7.0**; CHANGELOG [1.7.0]-blok;
+`docs/CURSEFORGE_1.7.0.md` (one-liner, changelog-paste, projectpagina-
+Dungeons-blok, screenshot-suggesties). Zip: `tools\package.ps1` → upload
+Rob.
+
+**Luacheck slotbatch:** DungeonGuide.lua, DungeonTipsData.lua,
+DungeonLiveCoach.lua (NIEUW — parser ✓), Core.lua, MidnightHelper.toc-check;
+encoding-sweep Locales/DungeonTips.lua + Locales/DungeonGuide.lua.
+Sandbox-parser: LiveCoach OK; Guide/TipsData wéér mount-truncatie-false-
+positives (host-staarten geverifieerd intact).
+
+**Rob-test vóór de upload (follower-run = perfecte kans):**
+1. Coach: alles dicht, [+] klikken klapt open, route-knop verschijnt mee.
+2. Pull een boss → stappen in chat (1×; wipe = geen herhaling).
+3. `/mh bossshare` in de groep (Cisca ziet platte tekst).
+4. `/mh livetips` uit/aan.
+5. Daarna: Cursor commit + push → `tools\package.ps1` → CF-upload met
+   docs/CURSEFORGE_1.7.0.md.
+
+Commitvoorstellen: `feat(dungeon-coach): batch 3 — S1 compleet (12/12
+dungeons, 43 bosses)` · `feat(dungeon-coach): inklapbare Coach +
+DungeonLiveCoach (boss-stappen bij pull, /mh bossshare, /mh livetips)` ·
+`chore(release): 1.7.0 — TOC, changelog, CF-notes`
+
 ## Open / volgende stappen (vervolg)
 
 0a. **✅ Delve-share v2 (commit `a77fd44`) — klaar voor CF-release.** Nog
@@ -1741,6 +2281,6 @@ tegelijk)? Correcties direct doorgeven, dan slijp ik de tekst.
     `ns.GetActiveShowdownZoneName`/`ns.IsShowdownWeeklyDone` hergebruiken;
     Val-data + Voidstorm-portaal-mapID invullen na volgende PTR-rotatie.
 
-1. **12.0.7 content** (release ~16 juni, mogelijk 30 juni): Void-zones Naigtal & Val + Escalations (VoidAssaults/WorldContent), world boss Nexus-Captain Leth'ir + Heroic World Tier (WorldBoss), Omnium Folio/Runes weekly (checklist + Codex), Sporefall raid (Codex/vault), Great Vault tooltip-rework verifiëren op PTR. Bij release: `120005` uit TOC.
+1. **12.0.7 content** (🔴 release bevestigd: 16 juni): Void-zones Naigtal & Val + Escalations (VoidAssaults/WorldContent), world boss Nexus-Captain Leth'ir + Heroic World Tier (WorldBoss), Omnium Folio/Runes weekly (checklist + Codex), Sporefall raid (Codex/vault), Great Vault tooltip-rework verifiëren op PTR. Bij release: `120005` uit TOC.
 2. **Backlog (laag, uit review):** `SetVaultReminderOption` popup-backfill voor upgraders; SMC-grid reflow; info-drawer inline; search-UX; compact-mode double-shrink. (Debounce, keybind-namespace, VaultAdvisor dode branch, VaultReminder isCurrent en ts==0-guards: gedaan in Fase 4c.)
 3. **Reviewpunt:** ts vs aparte `vaultTs` bij login-restore (Fase 1-tradeoff, Cursor akkoord met huidige aanpak).

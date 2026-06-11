@@ -1,4 +1,4 @@
-# CurseForge project description — v1.6.0 refresh (copy/paste)
+# CurseForge project description — v1.7.0 refresh (copy/paste)
 
 Paste everything between the START/END markers into the CurseForge
 description editor. Screenshot suggestions per section are at the bottom
@@ -14,6 +14,7 @@ Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quest
 
 ## Why you'll want this
 
+- 🗡️ **NEW in 1.7.0 — the Dungeon Coach.** Boss steps for **all 12 dungeons (43 bosses)** in plain beginner language, with **clickable spell links** (hover for the real tooltip, names in your client's language). And the moment you pull a boss, the steps appear **right in your chat** — share them with your group via `/mh bossshare`. Plus Dungeons 101: a six-chapter course from your first queue to your first Heroic, in six languages.
 - 🗺️ **"After the reset" routine** — an ordered, live to-do list right on the Home tab: claim your vault, grab the weekly quests next to the bank, pick up the Ritual & Void weeklies at the Bazaar, get your profession trainer weekly. One click sets a **TomTom route along everything you still have open**. No more "wait, what did I forget?"
 - 🏦 **Know your vault — on every alt.** The Account Snapshot shows all your characters' Great Vault progress, and hovering a vault now reveals **per slot what item level is locked in**. Instantly see whether that alt still needs a Tier 8+ delve this week — without logging over.
 - 🤝 **Coaches that speak your group's language.** The Delve Coach and Ritual Coach share per-boss and per-challenge tips to your party — and groupmates running Midnight Helper receive them **in their own language**, rebuilt locally. Unique on CurseForge, as far as we know.
@@ -27,6 +28,8 @@ Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quest
 **⛏️ Delves & Vault** — a full Delves command center: every delve with live bountiful detection, Coffer Keys / Shards / Undercoins, Delver's Journey, Great Vault rows with per-slot rewards, and right-click waypoints to any entrance. The **Delve Coach** gives per-delve, per-boss tips you can share with your group.
 
 **📜 Delve Log** — automatic per-character history of every delve you finish: tier, time, deaths, end boss, personal bests.
+
+**🗡️ Dungeons** — your dungeon companion in three views: *This week* (Spark weekly, dungeon of the week, Cracked Keystone, your vault Dungeons row), *Dungeons 101* (a beginners' course from first queue to Heroic, progress saved per character) and the *Dungeon Coach* (collapsible boss steps for all 12 dungeons with clickable spell links and a route button to every entrance). In a dungeon, the current boss's steps print automatically in your chat at the pull — `/mh bossshare` sends them to your group.
 
 **🌀 Void & Rituals** — two clean views: *This week* (active sites, weekly status with live progress %, route buttons, challenge list at a glance) and *Ritual Coach* (every challenge's mechanic, Spoils bonus and unlock path, scenario notes per site, Dark Obelisk and Tainted Bone Pile locations, recommended item level per tier).
 
@@ -46,7 +49,7 @@ Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quest
 
 ## Feedback
 
-Bug reports and ideas are very welcome on the project page. Midnight Helper is updated continuously through the season — 12.0.7 support is already being prepared.
+Bug reports and ideas are very welcome on the project page. Midnight Helper is updated continuously through the season — 12.0.7 support is already on board and activates automatically when the patch lands.
 
 <!-- ==================== END DESCRIPTION ==================== -->
 

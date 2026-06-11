@@ -1,5 +1,43 @@
 # PTR 12.0.7 — data nog te verzamelen (Rob, in-game)
 
+## 🔴 RELEASE BEVESTIGD: 16 JUNI 2026 (Wowhead-news; web-check 11 juni)
+
+→ Bij release: `120005` uit de TOC (zie RELEASE_CHECKLIST); Showdowns-code
+activeert vanzelf via de ≥120007-gate.
+
+## Web-research 11 juni (Wowhead news 381787 + gidsen) — nieuw bevestigd
+
+- **HWT aanbevolen ilvl 274** + extra modifiers (o.a. rondzwervende elites);
+  géén unlock-vereiste (bevestigt PTR-bevinding §6).
+- **Flow:** Riftblade Maella (Silvermoon) start de questlijn → **portaal in
+  Voidstorm, subzone Howling Reach** (Voidstorm uiMapID = **2405**, Zygor-
+  zonetabel; exacte portaal-coords nog dumpen) → moeilijkheidskeuze
+  Normal/Heroic bij het portaal.
+- **Rotatie = wekelijks** ("Each area rotates weekly, available for one week
+  at a time") → open punt §7 beantwoord; VoidAssaults-weekly-patroon
+  herbruikbaar. ✅
+- **Beloningen:** rares droppen "Lost Armaments" → Champion 1/6 (Normal) /
+  Champion 4/6 (Heroic) warband-gear; world boss → Champion (N) / Hero (H)
+  item; Showdown-weekly → Riftstalker's Cache (275690 ✓) + vault World-rij ✓.
+- **Decimus** (nieuwe NPC): quest gekoppeld aan HWT-bosses → **Myth-track
+  gear**. ⬜ Quest-ID dumpen op PTR/live.
+- **Toy "Lightveil Recall Beacon"** — recall naar Umbral Base Camp, 15 min
+  CD, vroeg in de questlijn → mooie Codex/info-tip.
+- **Vendors Umbral Base Camp:** Fieldsmith Ventem (Response Team-transmogset;
+  30/60 Field Accolades + 300/500 **Voidlight Marl** — nieuwe valuta/item,
+  ⬜ ID) en Zuronar <Lightveil Artificer> (wapens + housing decor).
+- **Omnium Folio:** Mote of Omnial Inquiry komt uit weekly "Seeking
+  Knowledge" (week 1 = 96410 ✓); 5 keuze-nodes over 5 weken; **Folio-weekly
+  is warband/account-breed** — 1× per account per week volstaat →
+  checklist-semantiek: account-regel, géén per-char regel!
+- Val-flavor: ijswereld, Pertinax zit in de "Void Acropolis"; Naigtal:
+  Hal'hadar-ethereals met Mana-Forge.
+- Achievement "Showdown Success: Val" = **62880** (PTR-tak); quest-ID van
+  "Showdown on Val" zelf nog steeds niet via web vindbaar (nether-tooltip
+  96718 leeg) → blijft PTR/live-dump (§2).
+- Let op (Zygor-events-guide): "Imperator Pertinax npc 252308" in een
+  Eversong-scenario is een ándere Pertinax dan world boss 263670.
+
 Reeds geverifieerd (Wowhead/Blizzard, juni 2026):
 
 | Wat | ID |
@@ -86,7 +124,7 @@ in een Showdown-zone (verwacht: `hasWorldTier = true`).
 - ✅ **`hasWorldTier = true` bevestigd in Naigtal** (PTR, 6 juni 2026)
 - ✅ Geen unlock-vereiste: portaal bood direct twee opties (Normal / Heroic World Tier) op een verse PTR-kopie
 
-**7. Portaalrotatie** — wisselt Naigtal/Val wekelijks of om de paar dagen? (Bronnen spreken elkaar tegen; bepaalt of we de VoidAssaults-weekly-aanpak kunnen hergebruiken.)
+**7. Portaalrotatie** — ✅ **wekelijks** (Blizzard-blog via Wowhead, 11 juni): "Each area rotates weekly, becoming available for one week at a time" → VoidAssaults-weekly-aanpak herbruikbaar.
 
 **8. Sporefall Great Vault** — telt een Rotmire-kill mee in de bestaande Raids-rij? Na een kill:
 ```
@@ -98,5 +136,5 @@ in een Showdown-zone (verwacht: `hasWorldTier = true`).
 - `VoidAssaults.lua`/`WorldContent.lua`: Showdowns-sectie (actieve zone-detectie via weekly quest-flag, zelfde patroon als 12.0.5 Void Assaults) — nodig: 1, 2, 7
 - `WorldBoss.lua`: Leth'ir/Pertinax-entries — nodig: 1, 2 (kill-quests per boss: 96472 bekend, Pertinax + Heroic-varianten nodig)
 - `Rares.lua`: nieuwe zone-rares — nodig: 1, 3
-- `AccountWeeklyChecklist`: Folio-mote + Showdown-weekly — nodig: 2, 5
+- `AccountWeeklyChecklist`: Folio-mote (⚠ account/warband-breed — 1 regel voor het hele account!) + Showdown-weekly — nodig: 2, 5
 - Codex-artikelen: al geschreven (geen IDs nodig) ✔

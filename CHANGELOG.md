@@ -2,6 +2,29 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.7.0] - 2026-06-11
+
+### Added
+
+- **Dungeons tab** — your new dungeon companion (sidebar → Dungeons):
+  - **This week:** Spark weekly, Halduron's dungeon of the week, Cracked Keystone and your Great Vault Dungeons row, tracked live.
+  - **Dungeons 101:** a six-chapter beginner course from your first queue to your first Heroic, with per-character progress — in all six languages.
+  - **Dungeon Coach:** boss steps for **all 12 dungeons (43 bosses)** — what to dodge, what to kick, what your role does — in plain beginner language. Every ability is a **clickable spell link**: hover for the real tooltip, and the spell names show in your client's language. Collapsible per dungeon, with a route button to every entrance (TomTom + travel advice, including the legacy portals).
+  - **Live coach:** the steps for a boss appear in your chat the moment you pull it (once per boss per session; `/mh livetips` toggles). `/mh bossshare` shares the last boss's steps with your group — used mid-fight, the share is queued and sent automatically the moment combat ends (Blizzard blocks addon chat in combat).
+  - Boss steps are written against DBM data and Wowhead spell tooltips; in-game verification is ongoing — corrections welcome!
+- **Rare alert, supercharged:** the toast now shows the actual **3D model** of the rare at double size, is **draggable** (position saved for all toasts), and knows when you're already flying to your routed target ("you're nearly there!" instead of "click to add a waypoint"). New option: only alert during an active rare hunt (starts when you route a rare, ends when the route is done). False positives from treasures/events are gone (kill-vignette filter + npcID matching).
+- **Weekly shard cap alert:** one clear popup (with its own ready-check sound) the moment a character hits 600/600 Coffer Shards for the week — stop farming, go do something fun. `/mh shardtest` previews it.
+- **"After the reset" routine on Home** now understands low-level characters: quest givers show "available from level 90" instead of sending you to an NPC with nothing to offer, Halduron's leveling weekly is tracked, and profession weeklies respect your skill level.
+
+### Fixed
+
+- **Ritual Sites intro hint is step-aware:** it now shows exactly which of the five intro steps is next (robust against Blizzard's out-of-order quest flags) instead of always pointing at Lilatha.
+- **Vordaza (Maisara Caverns):** corrected dangerous advice — kill the Unstable Phantoms before they reach anyone; do not touch them.
+- **Herbalism/Mining 101:** corrected the Overload mechanic description (12h cooldown reduced by gathering, not a 30-minute cooldown).
+- **Delves guidance:** Start Here and the weekly hints now mention that Delves are capped at Tier 3 below level 90.
+- **Dungeons 101 chapter 3:** arrow glyph no longer renders as a box.
+- **Shard cap alert:** the once-per-week marker is only set when the popup actually shows (a /reload could previously swallow it).
+
 ## [1.6.0] - 2026-06-10
 
 ### Fixed

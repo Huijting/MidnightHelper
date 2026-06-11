@@ -1,18 +1,45 @@
 # Morgen — test & uitzoek (Midnight Helper)
 
+## 📍 STAND 11 JUNI ~10u (koffiepauze)
+
+- Stap 5 (level-test) ✅ · stap 4 (Zygor-mine) ✅ · stap 3 (12.0.7-web) ✅
+  → alles in PTR_12.0.7_DATA.md; **release = di 16 juni!**
+- Extra: hotfix MidnightHealerHelper-secretvalue-spam + EllesmereUIQoL-
+  advies (zie SESSION_NOTES) — Rob: `/reload` + combat-test op de lvl 80,
+  en EllesmereUIDB-regel runnen.
+- **Volgende: stap 1 — follower-run Windrunner Spire + Maisara** (Cisca is
+  wakker ☕). Daarna: Cursor-commit 11-juni-batches; rest = PTR/live-lijst.
+
+## 💡 NIEUW IDEE (Rob, 11 jun): Void Rifts (bijv. "Void Rift: Tranquil Repose")
+
+Lokale rift-events in de assault-zones; wij dekken alleen de zone-weekly.
+Kandidaat-features: (1) "rift actief"-hint + route-knop op Void & Rituals,
+(2) live stage/percentage in ons paneel, (3) weekteller indien flag bestaat.
+**Nodig (Rob, bij het volgende rift):**
+`/dump C_ScenarioInfo.GetScenarioInfo()` ·
+`/dump C_ScenarioInfo.GetScenarioStepInfo()` ·
+`/run local m=C_Map.GetBestMapForUnit("player") for _,id in ipairs(C_AreaPoiInfo.GetAreaPOIForMap(m)) do local i=C_AreaPoiInfo.GetAreaPOIInfo(m,id) print(id, i and i.name) end`
+(scenario-IDs, criteria-vorm, en of rifts als kaart-POI zichtbaar zijn —
+POI = routeerbaar op afstand.)
+
 ## ⭐ PLAN 11 JUNI
 
 1. **Follower-run Windrunner Spire + Maisara Caverns** — verificatie van de
-   nieuwe Coach-boss-stappen (fase 3 batch 1). Let op de drie spannendste
-   claims: Derelict Duo's hook-dwars-door-de-spookdame, Muro'jins
-   ijsval-tegen-duikvlucht, Vordaza's fantomen-één-voor-één. Correcties
-   doorgeven → tekst bijslijpen. (Bonus: Windrunner Spire = dungeon van de
+   nieuwe Coach-boss-stappen (fase 3 batch 1). ✅ Voorwerk 11 jun: DBM +
+   Wowhead-kruisverificatie gedaan — Muro'jin-ijsval BEVESTIGD
+   ("runtotrap"), Vordaza-fantomen GECORRIGEERD (doden i.p.v. aanraken!).
+   Nog live te checken: Duo's hook-breekt-cast, Muro'jin-berserk-claim,
+   Vordaza's orbs/Soulrot. (Bonus: Windrunner Spire = dungeon van de
    week → Halduron-weekly meteen mee.)
 2. **PTR 12.0.7-sessie** — open punten uit `PTR_12.0.7_DATA.md`: Val-data
    (uiMapID, weekly-ID, Pertinax-killquest, Voidstorm-portaal-mapID),
    rare-coords + kill-quest-IDs (§3b, baseline-truc), Folio Mote-ID,
-   vervolg-weekly-keuze-IDs, Sporefall-vault-check. Claude checkt vooraf
-   het web — release nadert (~16/30 jun), er is vast nieuwe datamining.
+   vervolg-weekly-keuze-IDs, Sporefall-vault-check. ✅ Web-check gedaan
+   (11 jun): **release = 16 juni**, rotatie wekelijks ✅, portaal in
+   Voidstorm/Howling Reach (2405), Folio-weekly account-breed, Decimus
+   (HWT→Myth), valuta Voidlight Marl — alles in PTR_12.0.7_DATA.md.
+   Blijft voor PTR/live: Val-uiMapID, Showdown-on-Val-ID, rare-data,
+   Mote-ID, Sporefall-vault.
 3. **Zygor-mine (Robs idee):** ZygorGuidesViewer heeft MID-databestanden
    (Data-Retail/Dungeons.lua, gidsen, entree-routing via LibRover) —
    kandidaat-bron voor o.a. dungeon-entrees en 12.0.7-data. ⚠️ Zygor is
@@ -20,6 +47,18 @@
    IDs/coords als kruisreferentie gebruiken en door Rob in-game laten
    bevestigen, nooit tekst overnemen.
 4. Shard-cap-toast: ingekorte tekst checken bij de volgende cap (alt).
+📌 **Geverifieerd feit (Rob, 11 jun, lvl-80-warlock): Delves zijn sub-90
+gecapt op max Tier 3.** ✅ Verwerkt (11 jun): Start Here stap 4 ×6 +
+DELVE_WEEKLY_UNDERLEVEL_HINT ×6.
+
+5. **Level-eligibility-test (Robs 82-priest):** log in en doorloop de
+   "After the reset"-routine + Dungeons-tab "Deze week". Noteer per regel:
+   wat toont MH vs. wat bieden de NPC's écht aan op 82? (Liadrin-Spark /
+   Halduron / Aethas naast de vault, trainer/service-weeklies, vault-rij,
+   void/ritual-weeklies.) Met die lijst vullen we `minLevel` in
+   GIVER_WEEKLIES + evt. level-gates elders, zodat een low-level char
+   eerlijk "beschikbaar vanaf level X" ziet i.p.v. "ga ophalen" naar een
+   NPC die niets aanbiedt — zelfde never-lie-klasse als de ritual-intro-fix.
 
 ## ⭐ EERSTE TAAK — ✅ GEDAAN (Claude, 10 juni): lokalisatie + blokjes-sweep
 
