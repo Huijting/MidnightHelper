@@ -2106,7 +2106,7 @@ Commitvoorstel: `feat(dungeon-coach): fase 3 batch 2 — boss-steps voor alle
 
 **Cursor commits (11 juni push):** `e8020cc` rares/toast · `ef4f416` ritual-hint ·
 `c233ddc` shard/reset · `b49b00b` dungeon coach batch 2+3 · `ad1b25e` live coach ·
-`a87ff93` l10n · `6693fe4` release 1.7.0. Combat-share-wachtrij nog niet live
+`a87ff93` l10n · `0d77ec2` release 1.7.0. Combat-share-wachtrij nog niet live
 gezien door Rob.
 
 
