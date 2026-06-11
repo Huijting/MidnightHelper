@@ -38,7 +38,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	START_S3_NAV = "Open Home",
 
 	START_S4_TITLE = "4. Run your Delves",
-	START_S4_BODY = "Delves are solo or small-group dungeons with Brann at your side — steady gear and the easiest World-row vault progress. Climb the regular tiers first; once you reach Tier 8 you can run Bountiful Delves (you need a Restored Coffer Key) for Champion gear and Hero-track vault picks. The Delve Coach gives per-delve tips you can share with your group.",
+	START_S4_BODY = "Delves are solo or small-group dungeons with Brann at your side — steady gear and the easiest World-row vault progress. Climb the regular tiers first (below level 90 you're capped at Tier 3); once you reach Tier 8 you can run Bountiful Delves (you need a Restored Coffer Key) for Champion gear and Hero-track vault picks. The Delve Coach gives per-delve tips you can share with your group.",
 	START_S4_NAV = "Open Delves",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
@@ -84,7 +84,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	START_S3_NAV = "Open Home",
 
 	START_S4_TITLE = "4. Doe je Delves",
-	START_S4_BODY = "Delves zijn solo- of kleine-groep-dungeons met Brann aan je zij — stabiele gear en de makkelijkste World-rij-vaultvoortgang. Klim eerst de gewone tiers; vanaf Tier 8 kun je Bountiful Delves doen (je hebt een Restored Coffer Key nodig) voor Champion-gear en Hero-track vault-picks. De Delve Coach geeft tips per delve die je kunt delen.",
+	START_S4_BODY = "Delves zijn solo- of kleine-groep-dungeons met Brann aan je zij — stabiele gear en de makkelijkste World-rij-vaultvoortgang. Klim eerst de gewone tiers (onder level 90 is Tier 3 het maximum); vanaf Tier 8 kun je Bountiful Delves doen (je hebt een Restored Coffer Key nodig) voor Champion-gear en Hero-track vault-picks. De Delve Coach geeft tips per delve die je kunt delen.",
 	START_S4_NAV = "Open Delves",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
@@ -130,7 +130,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	START_S3_NAV = "Start öffnen",
 
 	START_S4_TITLE = "4. Lauf deine Tiefen",
-	START_S4_BODY = "Tiefen sind Dungeons für solo oder kleine Gruppen mit Brann an deiner Seite — stetige Ausrüstung und der einfachste Welt-Reihen-Fortschritt für den Vault. Klettere zuerst die normalen Stufen hoch; ab Stufe 8 kannst du Bountiful Delves laufen (du brauchst einen Restored Coffer Key) für Champion-Ausrüstung und Hero-Track-Vault-Optionen. Der Tiefen-Coach gibt Tipps pro Tiefe, die du mit deiner Gruppe teilen kannst.",
+	START_S4_BODY = "Tiefen sind Dungeons für solo oder kleine Gruppen mit Brann an deiner Seite — stetige Ausrüstung und der einfachste Welt-Reihen-Fortschritt für den Vault. Klettere zuerst die normalen Stufen hoch (unter Stufe 90 ist Tier 3 das Maximum); ab Stufe 8 kannst du Bountiful Delves laufen (du brauchst einen Restored Coffer Key) für Champion-Ausrüstung und Hero-Track-Vault-Optionen. Der Tiefen-Coach gibt Tipps pro Tiefe, die du mit deiner Gruppe teilen kannst.",
 	START_S4_NAV = "Tiefen öffnen",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
@@ -176,7 +176,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	START_S3_NAV = "Ouvrir Accueil",
 
 	START_S4_TITLE = "4. Fais tes Gouffres",
-	START_S4_BODY = "Les Gouffres sont des donjons en solo ou petit groupe avec Brann à tes côtés — de l'équipement régulier et la progression Monde la plus simple pour le Vault. Grimpe d'abord les paliers normaux ; à partir du Tier 8 tu peux faire des Bountiful Delves (il te faut une Restored Coffer Key) pour de l'équipement Champion et des choix de Vault Hero-track. Le Coach de gouffre donne des astuces par gouffre, à partager avec ton groupe.",
+	START_S4_BODY = "Les Gouffres sont des donjons en solo ou petit groupe avec Brann à tes côtés — de l'équipement régulier et la progression Monde la plus simple pour le Vault. Grimpe d'abord les paliers normaux (sous le niveau 90, Tier 3 est le maximum) ; à partir du Tier 8 tu peux faire des Bountiful Delves (il te faut une Restored Coffer Key) pour de l'équipement Champion et des choix de Vault Hero-track. Le Coach de gouffre donne des astuces par gouffre, à partager avec ton groupe.",
 	START_S4_NAV = "Ouvrir Gouffres",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
@@ -222,7 +222,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	START_S3_NAV = "Abrir Inicio",
 
 	START_S4_TITLE = "4. Haz tus Profundidades",
-	START_S4_BODY = "Las Profundidades son mazmorras en solitario o en grupo pequeño con Brann a tu lado — equipo constante y el progreso más fácil de la fila de Mundo. Sube primero los tiers normales; al llegar al Tier 8 puedes hacer Bountiful Delves (necesitas una Restored Coffer Key) para equipo Champion y opciones Hero-track en el Vault. El Entrenador de profundidades da consejos por profundidad que puedes compartir con tu grupo.",
+	START_S4_BODY = "Las Profundidades son mazmorras en solitario o en grupo pequeño con Brann a tu lado — equipo constante y el progreso más fácil de la fila de Mundo. Sube primero los tiers normales (por debajo del nivel 90 el máximo es el Tier 3); al llegar al Tier 8 puedes hacer Bountiful Delves (necesitas una Restored Coffer Key) para equipo Champion y opciones Hero-track en el Vault. El Entrenador de profundidades da consejos por profundidad que puedes compartir con tu grupo.",
 	START_S4_NAV = "Abrir Profundidades",
 
 	START_S5_TITLE = "5. Ritual Sites y Void Assaults",
@@ -268,7 +268,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	START_S3_NAV = "Abrir Início",
 
 	START_S4_TITLE = "4. Rode suas Profundidades",
-	START_S4_BODY = "Profundidades são masmorras solo ou de grupo pequeno com o Brann ao seu lado — equipamento constante e o progresso mais fácil da fileira de Mundo. Suba primeiro os tiers normais; ao chegar ao Tier 8 você pode rodar Bountiful Delves (precisa de uma Restored Coffer Key) para equipamento Champion e opções Hero-track no Vault. O Treinador de profundidades dá dicas por profundidade que você pode compartilhar com o grupo.",
+	START_S4_BODY = "Profundidades são masmorras solo ou de grupo pequeno com o Brann ao seu lado — equipamento constante e o progresso mais fácil da fileira de Mundo. Suba primeiro os tiers normais (abaixo do nível 90 o máximo é o Tier 3); ao chegar ao Tier 8 você pode rodar Bountiful Delves (precisa de uma Restored Coffer Key) para equipamento Champion e opções Hero-track no Vault. O Treinador de profundidades dá dicas por profundidade que você pode compartilhar com o grupo.",
 	START_S4_NAV = "Abrir Profundidades",
 
 	START_S5_TITLE = "5. Ritual Sites e Void Assaults",

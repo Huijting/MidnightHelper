@@ -76,6 +76,13 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Locked — unlock Ritual Sites via the intro questline in Silvermoon.",
 	RITUAL_WEEKLY_HINT_PICKUP = "Not picked up yet — grab this week's weekly at the Bazaar hub in Silvermoon.",
 	RITUAL_WEEKLY_HINT_INTRO = "This character hasn't finished the intro questline yet — start \"Ranger Captain's Summons\" at Ranger Captain Lilatha in Silvermoon (the Void Strike step happens in the active assault zone).",
+	RITUAL_INTRO_STEP_FMT = "Intro questline on this character — step %d/%d: %s",
+	RITUAL_INTRO_STEP_INLOG = "(already in your quest log)",
+	RITUAL_INTRO_STEP_SUMMONS = "start \"Ranger Captain's Summons\" at Ranger Captain Lilatha, staging grounds above the Bazaar.",
+	RITUAL_INTRO_STEP_ALLIES = "do \"Outfitting and Allies\" — meet the allies at Lilatha's staging grounds.",
+	RITUAL_INTRO_STEP_VOIDSTRIKE = "\"Void Strike\" — this step takes place in the active assault zone (see Void Assaults below).",
+	RITUAL_INTRO_STEP_PROBLEMS = "\"Ritual Problems\" — investigate the Ritual Site reports, then disrupt a Ritual Site.",
+	RITUAL_INTRO_STEP_INTEREST = "\"Ritual Interest\" — check in with Lady Darkglen at the hub.",
 	RITUAL_WEEKLY_HINT_INPROGRESS = "It's in your quest log — finish it and turn it in.",
 
 	-- Intro / how it works ---------------------------------------------------
@@ -164,6 +171,13 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Gegrendeld — ontgrendel Ritual Sites via de intro-questlijn in Silvermoon.",
 	RITUAL_WEEKLY_HINT_PICKUP = "Nog niet opgepakt — haal de weekly bij de Bazaar-hub in Silvermoon.",
 	RITUAL_WEEKLY_HINT_INTRO = "Dit personage heeft de intro-questlijn nog niet af — start \"Ranger Captain's Summons\" bij Ranger Captain Lilatha in Silvermoon (de Void Strike-stap doe je in de actieve assault-zone).",
+	RITUAL_INTRO_STEP_FMT = "Introlijn op dit personage — stap %d/%d: %s",
+	RITUAL_INTRO_STEP_INLOG = "(staat al in je questlog)",
+	RITUAL_INTRO_STEP_SUMMONS = "start \"Ranger Captain's Summons\" bij Ranger Captain Lilatha, staging grounds boven de Bazaar.",
+	RITUAL_INTRO_STEP_ALLIES = "doe \"Outfitting and Allies\" — maak kennis met de bondgenoten bij Lilatha's staging grounds.",
+	RITUAL_INTRO_STEP_VOIDSTRIKE = "\"Void Strike\" — deze stap speelt zich af in de actieve assault-zone (zie Void Assaults hieronder).",
+	RITUAL_INTRO_STEP_PROBLEMS = "\"Ritual Problems\" — onderzoek de Ritual Site-rapporten en verstoor daarna een Ritual Site.",
+	RITUAL_INTRO_STEP_INTEREST = "\"Ritual Interest\" — meld je bij Lady Darkglen bij de hub.",
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Staat in je questlog — afmaken en inleveren.",
 
 	-- Intro / hoe het werkt --------------------------------------------------
@@ -252,6 +266,13 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Gesperrt — schalte Ritual Sites über die Einstiegs-Questreihe in Silbermond frei.",
 	RITUAL_WEEKLY_HINT_PICKUP = "Noch nicht angenommen — hol dir die Wochenquest am Basar-Hub in Silbermond.",
 	RITUAL_WEEKLY_HINT_INTRO = "Dieser Charakter hat die Einstiegs-Questreihe noch nicht abgeschlossen — starte \"Ranger Captain's Summons\" bei Ranger Captain Lilatha in Silbermond (der Void-Strike-Schritt passiert in der aktiven Angriffszone).",
+	RITUAL_INTRO_STEP_FMT = "Einstiegs-Questreihe auf diesem Charakter — Schritt %d/%d: %s",
+	RITUAL_INTRO_STEP_INLOG = "(bereits in deinem Questlog)",
+	RITUAL_INTRO_STEP_SUMMONS = "starte \"Ranger Captain's Summons\" bei Ranger Captain Lilatha, Sammelplatz über dem Basar.",
+	RITUAL_INTRO_STEP_ALLIES = "erledige \"Outfitting and Allies\" — triff die Verbündeten an Lilathas Sammelplatz.",
+	RITUAL_INTRO_STEP_VOIDSTRIKE = "\"Void Strike\" — dieser Schritt findet in der aktiven Angriffszone statt (siehe Void Assaults unten).",
+	RITUAL_INTRO_STEP_PROBLEMS = "\"Ritual Problems\" — untersuche die Ritualstätten-Berichte und störe danach eine Ritualstätte.",
+	RITUAL_INTRO_STEP_INTEREST = "\"Ritual Interest\" — melde dich bei Lady Darkglen am Stützpunkt.",
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Steht in deinem Questlog — abschließen und abgeben.",
 
 	-- Intro / So funktioniert es -----------------------------------------------
@@ -340,6 +361,13 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Verrouillé — débloque les Ritual Sites via la chaîne de quêtes d'introduction à Lune-d'argent.",
 	RITUAL_WEEKLY_HINT_PICKUP = "Pas encore prise — récupère l'hebdo de la semaine au hub du Bazar à Lune-d'argent.",
 	RITUAL_WEEKLY_HINT_INTRO = "Ce personnage n'a pas encore terminé la chaîne de quêtes d'introduction — commence \"Ranger Captain's Summons\" auprès de Ranger Captain Lilatha à Lune-d'argent (l'étape Void Strike se fait dans la zone d'assaut active).",
+	RITUAL_INTRO_STEP_FMT = "Chaîne d'introduction sur ce personnage — étape %d/%d : %s",
+	RITUAL_INTRO_STEP_INLOG = "(déjà dans votre journal de quêtes)",
+	RITUAL_INTRO_STEP_SUMMONS = "commencez \"Ranger Captain's Summons\" auprès de Ranger Captain Lilatha, au camp au-dessus du Bazar.",
+	RITUAL_INTRO_STEP_ALLIES = "faites \"Outfitting and Allies\" — rencontrez les alliés au camp de Lilatha.",
+	RITUAL_INTRO_STEP_VOIDSTRIKE = "\"Void Strike\" — cette étape se déroule dans la zone d'assaut active (voir Void Assaults ci-dessous).",
+	RITUAL_INTRO_STEP_PROBLEMS = "\"Ritual Problems\" — examinez les rapports des sites rituels puis perturbez un site rituel.",
+	RITUAL_INTRO_STEP_INTEREST = "\"Ritual Interest\" — faites votre rapport à Lady Darkglen au camp.",
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Elle est dans ton journal de quêtes — termine-la et rends-la.",
 
 	-- Intro / comment ça marche -----------------------------------------------------
@@ -428,6 +456,13 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Bloqueado — desbloquea los Ritual Sites con la cadena de misiones de introducción en Lunargenta.",
 	RITUAL_WEEKLY_HINT_PICKUP = "Aún sin recoger — coge la semanal de esta semana en el centro del Bazar en Lunargenta.",
 	RITUAL_WEEKLY_HINT_INTRO = "Este personaje aún no ha terminado la cadena de misiones de introducción — empieza \"Ranger Captain's Summons\" con Ranger Captain Lilatha en Lunargenta (el paso Void Strike se hace en la zona de asalto activa).",
+	RITUAL_INTRO_STEP_FMT = "Cadena de introducción en este personaje — paso %d/%d: %s",
+	RITUAL_INTRO_STEP_INLOG = "(ya está en tu registro de misiones)",
+	RITUAL_INTRO_STEP_SUMMONS = "empieza \"Ranger Captain's Summons\" con Ranger Captain Lilatha, en el campamento sobre el Bazar.",
+	RITUAL_INTRO_STEP_ALLIES = "haz \"Outfitting and Allies\" — conoce a los aliados en el campamento de Lilatha.",
+	RITUAL_INTRO_STEP_VOIDSTRIKE = "\"Void Strike\" — este paso ocurre en la zona de asalto activa (ver Void Assaults abajo).",
+	RITUAL_INTRO_STEP_PROBLEMS = "\"Ritual Problems\" — investiga los informes de los sitios rituales y luego interrumpe un sitio ritual.",
+	RITUAL_INTRO_STEP_INTEREST = "\"Ritual Interest\" — preséntate ante Lady Darkglen en el campamento.",
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Está en tu registro de misiones — termínala y entrégala.",
 
 	-- Intro / cómo funciona ----------------------------------------------------------
@@ -516,6 +551,13 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Bloqueado — desbloqueie os Ritual Sites pela linha de missões de introdução em Luaprata.",
 	RITUAL_WEEKLY_HINT_PICKUP = "Ainda não pega — pegue a semanal desta semana no hub do Bazar em Luaprata.",
 	RITUAL_WEEKLY_HINT_INTRO = "Este personagem ainda não terminou a linha de missões de introdução — comece \"Ranger Captain's Summons\" com Ranger Captain Lilatha em Luaprata (a etapa Void Strike acontece na zona de assalto ativa).",
+	RITUAL_INTRO_STEP_FMT = "Linha de introdução neste personagem — etapa %d/%d: %s",
+	RITUAL_INTRO_STEP_INLOG = "(já está no seu registro de missões)",
+	RITUAL_INTRO_STEP_SUMMONS = "comece \"Ranger Captain's Summons\" com Ranger Captain Lilatha, no acampamento acima do Bazar.",
+	RITUAL_INTRO_STEP_ALLIES = "faça \"Outfitting and Allies\" — conheça os aliados no acampamento de Lilatha.",
+	RITUAL_INTRO_STEP_VOIDSTRIKE = "\"Void Strike\" — esta etapa acontece na zona de assalto ativa (veja Void Assaults abaixo).",
+	RITUAL_INTRO_STEP_PROBLEMS = "\"Ritual Problems\" — investigue os relatórios dos Sítios Rituais e depois interrompa um Sítio Ritual.",
+	RITUAL_INTRO_STEP_INTEREST = "\"Ritual Interest\" — apresente-se a Lady Darkglen no acampamento.",
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Está no seu registro de missões — termine e entregue.",
 
 	-- Intro / como funciona --------------------------------------------------------------
