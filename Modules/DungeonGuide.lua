@@ -107,6 +107,7 @@ local function Relayout()
 	end
 	local mode = ui.viewMode or "week"
 	local y = 4
+	local tipHeightChanged = false
 	for _, el in ipairs(ui.order) do
 		local w = el.w
 		if el.mode then
@@ -116,6 +117,10 @@ local function Relayout()
 				w:Show()
 			end
 		end
+		-- Inklap-check ná de mode-check (die force-Show't binnen de view).
+		if w:IsShown() and el.hiddenFn and el.hiddenFn() then
+			w:Hide()
+		end
 		if w:IsShown() then
 			local indent = el.indent or 0
 			y = y + (el.gapTop or 0)
@@ -124,12 +129,36 @@ local function Relayout()
 			w:SetWidth(math.max(width - indent, 1))
 			if el.button then
 				y = y + BTN_H
+			elseif w._mhTipBox then
+				-- Read-only EditBox (boss-tips met klikbare spell-links):
+				-- hoogte = regels × regelhoogte, gemeten ná SetWidth. De
+				-- EERSTE meting na zichtbaar worden is stale (tekst werd
+				-- gezet terwijl de box verborgen was — Robs overlap-screen):
+				-- bij een hoogte-verandering volgt één nameting op het
+				-- volgende frame (convergeert, zie onderaan).
+				local lineH = (w.GetLineHeight and w:GetLineHeight()) or 14
+				local numLines = (w.GetNumLines and w:GetNumLines()) or 1
+				local h = math.max(numLines * lineH + 4, 14)
+				if w._mhLastH ~= h then
+					w._mhLastH = h
+					tipHeightChanged = true
+				end
+				y = y + h
 			else
 				y = y + math.max(w:GetStringHeight() or 0, 1)
 			end
 		end
 	end
 	ui.child:SetHeight(math.max(y + 8, 1))
+	-- Nameting: alleen als een tipvak van hoogte veranderde (eerste expand);
+	-- stopt vanzelf zodra twee passes dezelfde hoogte meten.
+	if tipHeightChanged and C_Timer and C_Timer.After and not ui._mhRelayoutPending then
+		ui._mhRelayoutPending = true
+		C_Timer.After(0, function()
+			ui._mhRelayoutPending = false
+			Relayout()
+		end)
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -209,11 +238,17 @@ function ns.RefreshDungeonGuidePanel()
 	-- Coach (names can localize late — EJ data may warm up after login) ------
 	for _, row in ipairs(ui.coachRows) do
 		local d = row.dungeon
-		local label = ns.GetDungeonDisplayName(d)
+		local plainName = ns.GetDungeonDisplayName(d)
+		local collapsed = ui._mhIsDgnCollapsed and ui._mhIsDgnCollapsed(d.key)
+		-- ASCII-indicator ([+]/[-]) — pijl-glyphs zijn blokjes in WoW-fonts.
+		local label = (collapsed and "|cff8a8f98[+]|r " or "|cff8a8f98[-]|r ") .. plainName
 		if d.native and d.season1 then
 			label = label .. "  |cffffcc00[" .. ns:L("DGN_BADGE_S1") .. "]|r"
 		end
 		row.nameFs:SetText(label)
+		if row.routeBtn then
+			row.routeBtn:SetText(ns:L("HOME_WB_ROUTE_BTN_FMT"):format(plainName))
+		end
 		-- Per boss: name + (when written) the numbered steps and colored role
 		-- lines; dungeons without content yet say so honestly per dungeon.
 		local lines = {}
@@ -244,7 +279,11 @@ function ns.RefreshDungeonGuidePanel()
 		if not (ns.DungeonHasTips and ns.DungeonHasTips(d.key)) then
 			lines[#lines + 1] = "|cff8a8f98" .. ns:L("DGN_TIPS_SOON") .. "|r"
 		end
-		row.bossFs:SetText(table.concat(lines, "|n"))
+		local body = table.concat(lines, "|n")
+		if ns.ExpandDelveTipMarkup then
+			body = ns:ExpandDelveTipMarkup(body) -- {SPELL:id} → klikbare links
+		end
+		row.bossFs:SetText(body)
 	end
 
 	Relayout()
@@ -373,8 +412,10 @@ function ns.BuildDungeonGuidePanel(panel)
 	end)
 	UpdateNavButtons()
 
-	local function push(w, gapTop, indent, button, mode)
-		ui.order[#ui.order + 1] = { w = w, gapTop = gapTop, indent = indent, button = button, mode = mode }
+	-- hiddenFn (optioneel): extra zichtbaarheidscheck bovenop de view-mode —
+	-- gebruikt door de inklapbare Coach-dungeons (Rob 11 jun).
+	local function push(w, gapTop, indent, button, mode, hiddenFn)
+		ui.order[#ui.order + 1] = { w = w, gapTop = gapTop, indent = indent, button = button, mode = mode, hiddenFn = hiddenFn }
 	end
 
 	-- This week --------------------------------------------------------------
@@ -412,7 +453,9 @@ function ns.BuildDungeonGuidePanel(panel)
 		push(titleFs, 12, 0, false, "course")
 		local bodyFs = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
 		bodyFs._mhBodyKey = ch.bodyKey
-		bodyFs:SetText(ns:L(ch.bodyKey))
+		-- SafeL: CH3 bevat "Toolbox → Macros" — kale ns:L zou de pijl als
+		-- blokje renderen (zelfde klasse als de 10-juni-sweep).
+		bodyFs:SetText(ns.SafeL and ns:SafeL(ch.bodyKey) or ns:L(ch.bodyKey))
 		push(bodyFs, 4, 8, false, "course")
 		local markBtn = MakeButton(child, function()
 			local bag = CourseBag()
@@ -437,6 +480,14 @@ function ns.BuildDungeonGuidePanel(panel)
 	ui.coachIntroFs:SetText(ns:L("DGN_COACH_INTRO"))
 	push(ui.coachIntroFs, 4, 0, false, "coach")
 
+	-- Inklapbaar per dungeon (Rob 11 jun: "mooier als ze opengeklikt moeten
+	-- worden"): standaard dicht (nil = dicht, false = open; sessie-gebonden).
+	ui.coachCollapsed = ui.coachCollapsed or {}
+	local function IsDgnCollapsed(key)
+		return ui.coachCollapsed[key] ~= false
+	end
+	ui._mhIsDgnCollapsed = IsDgnCollapsed
+
 	local function AddCoachGroup(headerKey, filterFn)
 		local groupFs = MakeFS(child, "GameFontNormal", COLOR_ACCENT)
 		groupFs._mhKey = headerKey
@@ -444,11 +495,50 @@ function ns.BuildDungeonGuidePanel(panel)
 		push(groupFs, 14, 0, false, "coach")
 		for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do
 			if filterFn(d) then
-				local nameFs = MakeFS(child, "GameFontNormal", COLOR_WARN)
-				push(nameFs, 8, 0, false, "coach")
-				local bossFs = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
-				push(bossFs, 2, 10, false, "coach")
-				ui.coachRows[#ui.coachRows + 1] = { dungeon = d, nameFs = nameFs, bossFs = bossFs }
+				-- De dungeonnaam is een MakeButton — exact hetzelfde widget als
+				-- de route-knoppen (bewezen render + klik in dit paneel; drie
+				-- overlay/plain-Button-varianten faalden live bij Rob).
+				local nameFs = MakeButton(child, function()
+					-- Expliciete if — NIET de `x and false or true`-idioom:
+					-- die geeft altijd true (Robs klik-mysterie, 11 jun).
+					if IsDgnCollapsed(d.key) then
+						ui.coachCollapsed[d.key] = false
+					else
+						ui.coachCollapsed[d.key] = true
+					end
+					ns.RefreshDungeonGuidePanel()
+				end)
+				nameFs:RegisterForClicks("AnyUp")
+				push(nameFs, 8, 0, true, "coach")
+				local collapsedFn = function()
+					return IsDgnCollapsed(d.key)
+				end
+				-- Read-only EditBox i.p.v. FontString: nodig voor hover/klik op
+				-- de {SPELL:id}-links (FontStrings doen geen hyperlinks) —
+				-- zelfde patroon als de Delve Coach (DelveTipMarkup).
+				local bossFs = CreateFrame("EditBox", nil, child)
+				bossFs:SetMultiLine(true)
+				bossFs:SetFontObject("GameFontHighlightSmall")
+				bossFs:SetJustifyH("LEFT")
+				bossFs:SetAutoFocus(false)
+				bossFs:EnableMouse(true)
+				if bossFs.SetMaxLetters then
+					bossFs:SetMaxLetters(0)
+				end
+				bossFs:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+				bossFs._mhTipBox = true
+				if ns.AttachDelveTipHyperlinksToEditBox then
+					ns:AttachDelveTipHyperlinksToEditBox(bossFs)
+				end
+				push(bossFs, 2, 10, false, "coach", collapsedFn)
+				local routeBtn
+				if d.entrance and ns.RouteDungeonEntrance then
+					routeBtn = MakeButton(child, function()
+						ns.RouteDungeonEntrance(d)
+					end)
+					push(routeBtn, 4, 10, true, "coach", collapsedFn)
+				end
+				ui.coachRows[#ui.coachRows + 1] = { dungeon = d, nameFs = nameFs, bossFs = bossFs, routeBtn = routeBtn }
 			end
 		end
 	end
@@ -498,7 +588,8 @@ do
 				if el.w._mhKey then
 					el.w:SetText(ns:L(el.w._mhKey))
 				elseif el.w._mhBodyKey then
-					el.w:SetText(ns:L(el.w._mhBodyKey))
+					-- SafeL: zie comment bij de cursus-opbouw (CH3 bevat →).
+					el.w:SetText(ns.SafeL and ns:SafeL(el.w._mhBodyKey) or ns:L(el.w._mhBodyKey))
 				end
 			end
 		end

@@ -54,6 +54,212 @@ ns.DUNGEON_TIPS = {
 			healer = "DGN_TIP_MC_RAKTUL_HEALER",
 		},
 	},
+	-- Batch 2 (11 jun): bron = DBM-Party-Midnight (spell-IDs/voice-cues) +
+	-- Wowhead-spelltooltips; eigen MH-tekst. Nog niet in-game gedraaid —
+	-- zelfde verificatiestatus als batch 1 vóór Robs follower-runs.
+	murderrow = {
+		kystia = {
+			steps = "DGN_TIP_MR_KYSTIA_STEPS",
+			tank = "DGN_TIP_MR_KYSTIA_TANK",
+			healer = "DGN_TIP_MR_KYSTIA_HEALER",
+		},
+		zaen = {
+			steps = "DGN_TIP_MR_ZAEN_STEPS",
+			tank = "DGN_TIP_MR_ZAEN_TANK",
+			healer = "DGN_TIP_MR_ZAEN_HEALER",
+		},
+		xathuux = {
+			steps = "DGN_TIP_MR_XATHUUX_STEPS",
+			tank = "DGN_TIP_MR_XATHUUX_TANK",
+			healer = "DGN_TIP_MR_XATHUUX_HEALER",
+		},
+		lithiel = {
+			steps = "DGN_TIP_MR_LITHIEL_STEPS",
+			tank = "DGN_TIP_MR_LITHIEL_TANK",
+			healer = "DGN_TIP_MR_LITHIEL_HEALER",
+		},
+	},
+	nalorakk = {
+		hoardmonger = {
+			steps = "DGN_TIP_DN_HOARDMONGER_STEPS",
+			tank = "DGN_TIP_DN_HOARDMONGER_TANK",
+			healer = "DGN_TIP_DN_HOARDMONGER_HEALER",
+		},
+		sentinel = {
+			steps = "DGN_TIP_DN_SENTINEL_STEPS",
+			tank = "DGN_TIP_DN_SENTINEL_TANK",
+			healer = "DGN_TIP_DN_SENTINEL_HEALER",
+		},
+		nalorakk = {
+			steps = "DGN_TIP_DN_NALORAKK_STEPS",
+			tank = "DGN_TIP_DN_NALORAKK_TANK",
+			healer = "DGN_TIP_DN_NALORAKK_HEALER",
+		},
+	},
+	blindingvale = {
+		trinity = {
+			steps = "DGN_TIP_BV_TRINITY_STEPS",
+			tank = "DGN_TIP_BV_TRINITY_TANK",
+			healer = "DGN_TIP_BV_TRINITY_HEALER",
+		},
+		ikuzz = {
+			steps = "DGN_TIP_BV_IKUZZ_STEPS",
+			tank = "DGN_TIP_BV_IKUZZ_TANK",
+			healer = "DGN_TIP_BV_IKUZZ_HEALER",
+		},
+		ruia = {
+			steps = "DGN_TIP_BV_RUIA_STEPS",
+			tank = "DGN_TIP_BV_RUIA_TANK",
+			healer = "DGN_TIP_BV_RUIA_HEALER",
+		},
+		ziekket = {
+			steps = "DGN_TIP_BV_ZIEKKET_STEPS",
+			tank = "DGN_TIP_BV_ZIEKKET_TANK",
+			healer = "DGN_TIP_BV_ZIEKKET_HEALER",
+		},
+	},
+	voidscar = {
+		tazrah = {
+			steps = "DGN_TIP_VA_TAZRAH_STEPS",
+			tank = "DGN_TIP_VA_TAZRAH_TANK",
+			healer = "DGN_TIP_VA_TAZRAH_HEALER",
+		},
+		atroxus = {
+			steps = "DGN_TIP_VA_ATROXUS_STEPS",
+			tank = "DGN_TIP_VA_ATROXUS_TANK",
+			healer = "DGN_TIP_VA_ATROXUS_HEALER",
+		},
+		charonus = {
+			steps = "DGN_TIP_VA_CHARONUS_STEPS",
+			tank = "DGN_TIP_VA_CHARONUS_TANK",
+			healer = "DGN_TIP_VA_CHARONUS_HEALER",
+		},
+	},
+	nexuspoint = {
+		kasreth = {
+			steps = "DGN_TIP_NX_KASRETH_STEPS",
+			tank = "DGN_TIP_NX_KASRETH_TANK",
+			healer = "DGN_TIP_NX_KASRETH_HEALER",
+		},
+		nysarra = {
+			steps = "DGN_TIP_NX_NYSARRA_STEPS",
+			tank = "DGN_TIP_NX_NYSARRA_TANK",
+			healer = "DGN_TIP_NX_NYSARRA_HEALER",
+		},
+		lothraxion = {
+			steps = "DGN_TIP_NX_LOTHRAXION_STEPS",
+			tank = "DGN_TIP_NX_LOTHRAXION_TANK",
+			healer = "DGN_TIP_NX_LOTHRAXION_HEALER",
+		},
+	},
+	magisters = {
+		arcanotron = {
+			steps = "DGN_TIP_MT_ARCANOTRON_STEPS",
+			tank = "DGN_TIP_MT_ARCANOTRON_TANK",
+			healer = "DGN_TIP_MT_ARCANOTRON_HEALER",
+		},
+		seranel = {
+			steps = "DGN_TIP_MT_SERANEL_STEPS",
+			tank = "DGN_TIP_MT_SERANEL_TANK",
+			healer = "DGN_TIP_MT_SERANEL_HEALER",
+		},
+		gemellus = {
+			steps = "DGN_TIP_MT_GEMELLUS_STEPS",
+			tank = "DGN_TIP_MT_GEMELLUS_TANK",
+			healer = "DGN_TIP_MT_GEMELLUS_HEALER",
+		},
+		degentrius = {
+			steps = "DGN_TIP_MT_DEGENTRIUS_STEPS",
+			tank = "DGN_TIP_MT_DEGENTRIUS_TANK",
+			healer = "DGN_TIP_MT_DEGENTRIUS_HEALER",
+		},
+	},
+	-- Batch 3 (11 jun): de 4 legacy-S1-dungeons. Bron: DBM-Party-WoD/WotLK/
+	-- Legion/Dragonflight — bewust de IsPostMidnight-tak (Midnight-revamp-
+	-- spells, 12xxxxx-IDs) + Wowhead-tooltips. Zelfde verificatiestatus.
+	skyreach = {
+		ranjit = {
+			steps = "DGN_TIP_SR_RANJIT_STEPS",
+			tank = "DGN_TIP_SR_RANJIT_TANK",
+			healer = "DGN_TIP_SR_RANJIT_HEALER",
+		},
+		araknath = {
+			steps = "DGN_TIP_SR_ARAKNATH_STEPS",
+			tank = "DGN_TIP_SR_ARAKNATH_TANK",
+			healer = "DGN_TIP_SR_ARAKNATH_HEALER",
+		},
+		rukhran = {
+			steps = "DGN_TIP_SR_RUKHRAN_STEPS",
+			tank = "DGN_TIP_SR_RUKHRAN_TANK",
+			healer = "DGN_TIP_SR_RUKHRAN_HEALER",
+		},
+		viryx = {
+			steps = "DGN_TIP_SR_VIRYX_STEPS",
+			tank = "DGN_TIP_SR_VIRYX_TANK",
+			healer = "DGN_TIP_SR_VIRYX_HEALER",
+		},
+	},
+	pitofsaron = {
+		garfrost = {
+			steps = "DGN_TIP_PS_GARFROST_STEPS",
+			tank = "DGN_TIP_PS_GARFROST_TANK",
+			healer = "DGN_TIP_PS_GARFROST_HEALER",
+		},
+		krickick = {
+			steps = "DGN_TIP_PS_KRICKICK_STEPS",
+			tank = "DGN_TIP_PS_KRICKICK_TANK",
+			healer = "DGN_TIP_PS_KRICKICK_HEALER",
+		},
+		tyrannus = {
+			steps = "DGN_TIP_PS_TYRANNUS_STEPS",
+			tank = "DGN_TIP_PS_TYRANNUS_TANK",
+			healer = "DGN_TIP_PS_TYRANNUS_HEALER",
+		},
+	},
+	triumvirate = {
+		zuraal = {
+			steps = "DGN_TIP_ST_ZURAAL_STEPS",
+			tank = "DGN_TIP_ST_ZURAAL_TANK",
+			healer = "DGN_TIP_ST_ZURAAL_HEALER",
+		},
+		saprish = {
+			steps = "DGN_TIP_ST_SAPRISH_STEPS",
+			tank = "DGN_TIP_ST_SAPRISH_TANK",
+			healer = "DGN_TIP_ST_SAPRISH_HEALER",
+		},
+		nezhar = {
+			steps = "DGN_TIP_ST_NEZHAR_STEPS",
+			tank = "DGN_TIP_ST_NEZHAR_TANK",
+			healer = "DGN_TIP_ST_NEZHAR_HEALER",
+		},
+		lura = {
+			steps = "DGN_TIP_ST_LURA_STEPS",
+			tank = "DGN_TIP_ST_LURA_TANK",
+			healer = "DGN_TIP_ST_LURA_HEALER",
+		},
+	},
+	algethar = {
+		vexamus = {
+			steps = "DGN_TIP_AA_VEXAMUS_STEPS",
+			tank = "DGN_TIP_AA_VEXAMUS_TANK",
+			healer = "DGN_TIP_AA_VEXAMUS_HEALER",
+		},
+		ancient = {
+			steps = "DGN_TIP_AA_ANCIENT_STEPS",
+			tank = "DGN_TIP_AA_ANCIENT_TANK",
+			healer = "DGN_TIP_AA_ANCIENT_HEALER",
+		},
+		crawth = {
+			steps = "DGN_TIP_AA_CRAWTH_STEPS",
+			tank = "DGN_TIP_AA_CRAWTH_TANK",
+			healer = "DGN_TIP_AA_CRAWTH_HEALER",
+		},
+		doragosa = {
+			steps = "DGN_TIP_AA_DORAGOSA_STEPS",
+			tank = "DGN_TIP_AA_DORAGOSA_TANK",
+			healer = "DGN_TIP_AA_DORAGOSA_HEALER",
+		},
+	},
 }
 
 function ns.GetDungeonBossTips(dungeonKey, bossKey)
