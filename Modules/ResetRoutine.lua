@@ -59,10 +59,20 @@ local GIVERS_MAP, GIVERS_X, GIVERS_Y = 2393, 48.95, 64.92
 -- = done as soon as one is turned in — good enough for the routine):
 --   93600 "The Arena Calls" + 94836 "Late Night Training: Week 1 of 3"
 --   (Rob in-game, 10 Jun 2026; future events will add IDs here).
+-- minLevel: Robs level-80-test (11 jun, verse warlock) — Liadrin en Aethas
+-- bieden op 80 NIETS aan; hun Spark-/event-weeklies zijn endgame-content,
+-- dus aanname max level 90 (gedocumenteerde aanname: 81-89 niet apart
+-- getest). Halduron biedt op 80 wél een quest aan — een LEVELING-variant
+-- ("Hope in the Darkest Corners", XP + Quel'Thalas Adventurer's Cache) —
+-- dus géén minLevel daar; dat quest-ID toevoegen zodra gedumpt, dan krijgen
+-- levelaars ook echte done/opgepakt-status bij hem.
 local GIVER_WEEKLIES = {
-	{ key = "liadrin", name = "Lady Liadrin", quests = { 93766, 93909, 93910, 93911 }, minLevel = nil },
-	{ key = "halduron", name = "Halduron Brightwing", quests = { 93761 }, minLevel = nil },
-	{ key = "aethas", name = "Aethas Sunreaver", quests = { 93600, 94836 }, minLevel = nil },
+	{ key = "liadrin", name = "Lady Liadrin", quests = { 93766, 93909, 93910, 93911 }, minLevel = 90 },
+	-- 93761 = dungeon-of-the-week (max level); 95468 = "Hope in the Darkest
+	-- Corners", de leveling-variant die Halduron sub-90 aanbiedt (Robs
+	-- level-80-warlock, 11 jun) — "any" dekt beide doelgroepen.
+	{ key = "halduron", name = "Halduron Brightwing", quests = { 93761, 95468 }, minLevel = nil },
+	{ key = "aethas", name = "Aethas Sunreaver", quests = { 93600, 94836 }, minLevel = 90 },
 }
 
 local VOID_META_QUEST = 95842 -- "Midnight: Void Assaults"
@@ -175,14 +185,19 @@ local function OwnedProfTrainerWeeklies()
 		slots[#slots + 1] = p2
 	end
 	for _, slot in ipairs(slots) do
-		local ok, name, _, _, _, _, _, skillLine = pcall(GetProfessionInfo, slot)
+		local ok, name, _, skillLevel, _, _, _, skillLine = pcall(GetProfessionInfo, slot)
 		if ok and skillLine then
 			local q = quests[skillLine]
 			if type(q) == "number" then
 				q = { q } -- backward compat with the old single-ID form
 			end
 			if type(q) == "table" and #q > 0 then
-				tracked[#tracked + 1] = { name = name or "?", quests = q, skillLine = skillLine }
+				tracked[#tracked + 1] = {
+					name = name or "?",
+					quests = q,
+					skillLine = skillLine,
+					skill = math.floor(tonumber(skillLevel) or 0),
+				}
 			else
 				untracked[#untracked + 1] = name or "?"
 			end
@@ -411,6 +426,17 @@ function ns.GetResetRoutineSteps()
 			-- station; Enchanting + gatherers at their profession trainer.
 			local serviceProfs = ns.PROF_ACADEMY and ns.PROF_ACADEMY.weekly and ns.PROF_ACADEMY.weekly.serviceProfs
 			local isService = serviceProfs and serviceProfs[prof.skillLine] or false
+			-- Trainer-type weeklies are skill-gated: Enchanting verifiably
+			-- needs skill 25, and Rob's fresh skill-1 Herbalism got nothing at
+			-- the trainer (11 jun) while his leveled alt did. Below 25 we say
+			-- so honestly instead of sending you to an empty trainer. Service
+			-- quests are NOT skill-gated (fresh skill-1 Alchemy worked).
+			if not isService and (prof.skill or 0) < 25 then
+				steps[#steps + 1] = {
+					text = ns:L("HOME_ROUTINE_TRAINER_LOWSKILL_FMT"):format(prof.name),
+					color = "dim",
+				}
+			else
 			local px, py, textKey, pinKey, pinArg
 			if isService then
 				px, py = stX, stY
@@ -431,6 +457,7 @@ function ns.GetResetRoutineSteps()
 					RouteSingle(stMap, px, py, pinKey, pinArg)
 				end,
 			}
+			end
 		end
 	end
 	if #untracked > 0 then
