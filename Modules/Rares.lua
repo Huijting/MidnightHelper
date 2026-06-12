@@ -179,6 +179,35 @@ local function NpcIdFromObjectGUID(guid)
 	return tonumber((select(6, strsplit("-", guid))))
 end
 
+-- Zelflerende npcIDs (Robs idee, 12 jun): elke keer dat een vignette aan
+-- een rare gekoppeld wordt, leren we het npcID (ns.db.rareNpcIds[questId])
+-- — na één hunt kent de addon de modellen van de zone. Never-lie: alleen
+-- live geziene koppelingen, nooit gegokt. Bron voor het hover-voorbeeld,
+-- de toast-fallback én steeds sterkere npcID-first-matching.
+local function LearnRareNpc(questId, npcID)
+	if not (ns.db and questId and npcID) then
+		return
+	end
+	if type(ns.db.rareNpcIds) ~= "table" then
+		ns.db.rareNpcIds = {}
+	end
+	ns.db.rareNpcIds[questId] = npcID
+end
+
+-- Bekend npcID voor een rare: statisch dataveld (rare[6]) wint, daarna het
+-- geleerde ID uit SavedVariables.
+local function KnownRareNpc(rare)
+	if not rare then
+		return nil
+	end
+	local static = tonumber(rare[6])
+	if static then
+		return static
+	end
+	local m = ns.db and ns.db.rareNpcIds
+	return m and m[rare[1]] or nil
+end
+
 local function GetCurrentZoneKey()
 	if not C_Map or not C_Map.GetBestMapForUnit then
 		return nil
@@ -463,35 +492,63 @@ local function GetRareRouteStore(create)
 	return ui.rareAlert
 end
 
+-- PER CHARACTER (Robs paladin, 12 jun: logde naast een rare in en kreeg de
+-- "je bent er bijna"-tekst door de route van een ándere char — ns.db.ui is
+-- account-breed). Hunts zijn van de char die de route startte.
+local function GetCharRouteStore(create)
+	local ra = GetRareRouteStore(create)
+	local guid = UnitGUID and UnitGUID("player")
+	if not ra or not guid then
+		return nil
+	end
+	-- Legacy account-brede velden opruimen (pre-12-jun).
+	ra.routedIds, ra.routedAnchor = nil, nil
+	if type(ra.routedByChar) ~= "table" then
+		if not create then
+			return nil
+		end
+		ra.routedByChar = {}
+	end
+	local s = ra.routedByChar[guid]
+	if type(s) ~= "table" then
+		if not create then
+			return nil
+		end
+		s = {}
+		ra.routedByChar[guid] = s
+	end
+	return s
+end
+
 local function MarkRareRouted(rare, replace)
-	local ra = rare and GetRareRouteStore(true)
-	if not ra then
+	local s = rare and GetCharRouteStore(true)
+	if not s then
 		return
 	end
 	local anchor = RareRouteAnchor()
-	if replace or type(ra.routedIds) ~= "table" or ra.routedAnchor ~= anchor then
-		ra.routedIds = {}
+	if replace or type(s.ids) ~= "table" or s.anchor ~= anchor then
+		s.ids = {}
 	end
-	ra.routedAnchor = anchor
-	ra.routedIds[tostring(rare[1])] = true
+	s.anchor = anchor
+	s.ids[tostring(rare[1])] = true
 end
 
 local function IsRareRouted(rare)
-	local ra = rare and GetRareRouteStore(false)
-	if not ra or type(ra.routedIds) ~= "table" or ra.routedAnchor ~= RareRouteAnchor() then
+	local s = rare and GetCharRouteStore(false)
+	if not s or type(s.ids) ~= "table" or s.anchor ~= RareRouteAnchor() then
 		return false
 	end
-	return ra.routedIds[tostring(rare[1])] == true
+	return s.ids[tostring(rare[1])] == true
 end
 
 -- Hunt is actief zolang minstens één geroutete rare nog niet gedaan is —
 -- de hunt dooft dus vanzelf zodra de route is afgewerkt (of bij de reset).
 local function IsRareHuntActive()
-	local ra = GetRareRouteStore(false)
-	if not ra or type(ra.routedIds) ~= "table" or ra.routedAnchor ~= RareRouteAnchor() then
+	local s = GetCharRouteStore(false)
+	if not s or type(s.ids) ~= "table" or s.anchor ~= RareRouteAnchor() then
 		return false
 	end
-	for id in pairs(ra.routedIds) do
+	for id in pairs(s.ids) do
 		if not IsRareDoneThisWeek(tonumber(id)) then
 			return true
 		end
@@ -644,17 +701,20 @@ local function RefreshVignetteUpCache(zone)
 	for _, rare in ipairs(zone.rares) do
 		local rname = GetRareDisplayName(rare)
 		local rwx, rwy = GetRareWorldPos(rare)
-		local rnpc = tonumber(rare[6]) -- optioneel 6e veld: npcID
+		local rnpc = KnownRareNpc(rare) -- statisch veld 6 of geleerd ID
 		local up = false
 		for pi = 1, #points do
 			local p = points[pi]
-			-- 1) Hardste bewijs: npcID-match (als wij die voor deze rare kennen).
+			-- 1) Hardste bewijs: npcID-match (statisch of geleerd).
 			if rnpc and p.npcID and p.npcID == rnpc then
 				up = true
 				break
 			end
-			-- 2) Naam-match (kill-atlas of atlas onbekend).
+			-- 2) Naam-match (kill-atlas of atlas onbekend) — en leer het npcID.
 			if p.name ~= "" and RareNamesRoughMatch(p.name, rname) then
+				if p.npcID then
+					LearnRareNpc(rare[1], p.npcID)
+				end
 				up = true
 				break
 			end
@@ -692,6 +752,87 @@ local function FormatRareRowLabel(rare, zoneKey)
 	return "|cff999999" .. ns:L("RARES_TAG_DOWN") .. "|r |cffffe9b3" .. name .. "|r"
 end
 
+-- Model-voorbeeld bij hover (Robs idee, 12 jun): klein zwevend paneel met
+-- de rare in vol ornaat, links van de rij. Toont alleen bij een bekend of
+-- geleerd npcID — geen gok, geen leeg kader. Async-nalaad-tik zoals het
+-- boss-venster.
+local rarePreview
+local rarePreviewGen = 0
+
+local function EnsureRarePreview()
+	if rarePreview then
+		return rarePreview
+	end
+	local f = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
+	f:SetSize(170, 200)
+	f:SetFrameStrata("TOOLTIP")
+	if f.SetBackdrop then
+		f:SetBackdrop({
+			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
+			edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
+			tile = true,
+			tileSize = 32,
+			edgeSize = 20,
+			insets = { left = 6, right = 6, top = 6, bottom = 6 },
+		})
+		f:SetBackdropColor(0.05, 0.05, 0.09, 0.95)
+	end
+	local model = CreateFrame("PlayerModel", nil, f)
+	model:SetPoint("TOPLEFT", f, "TOPLEFT", 9, -9)
+	model:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -9, 9)
+	model:EnableMouse(false)
+	f._model = model
+	f:Hide()
+	rarePreview = f
+	return f
+end
+
+local function ShowRarePreview(row, npcID)
+	if not npcID then
+		if rarePreview then
+			rarePreview:Hide()
+		end
+		return
+	end
+	local f = EnsureRarePreview()
+	f:ClearAllPoints()
+	f:SetPoint("RIGHT", row, "LEFT", -10, 0)
+	rarePreviewGen = rarePreviewGen + 1
+	local gen = rarePreviewGen
+	local function apply()
+		f._model:ClearModel()
+		f._model:SetCreature(npcID)
+		if f._model.SetPortraitZoom then
+			f._model:SetPortraitZoom(0)
+		end
+		if f._model.SetPosition then
+			f._model:SetPosition(0, 0, 0)
+		end
+		if f._model.SetFacing then
+			f._model:SetFacing(0.45)
+		end
+	end
+	local ok = pcall(apply)
+	if not ok then
+		f:Hide()
+		return
+	end
+	f:Show()
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.2, function()
+			if gen == rarePreviewGen and f:IsShown() then
+				pcall(apply)
+			end
+		end)
+	end
+end
+
+local function HideRarePreview()
+	if rarePreview then
+		rarePreview:Hide()
+	end
+end
+
 local function AttachRareRowTooltip(btn)
 	if btn._mhRareTooltipHooked then
 		return
@@ -714,8 +855,10 @@ local function AttachRareRowTooltip(btn)
 		end
 		GameTooltip:AddLine(ns:L("RARES_TIP_VIGNETTE_NOTE"), 0.65, 0.68, 0.72, true)
 		GameTooltip:Show()
+		ShowRarePreview(self, KnownRareNpc(r))
 	end)
 	btn:SetScript("OnLeave", function()
+		HideRarePreview()
 		GameTooltip:Hide()
 	end)
 end
@@ -1081,10 +1224,13 @@ local function MatchRareInZone(zone, vname, vwx, vwy, vnpc, vkill)
 		return nil
 	end
 	for _, rare in ipairs(zone.rares) do
-		if vnpc and tonumber(rare[6]) == vnpc then
+		if vnpc and KnownRareNpc(rare) == vnpc then
 			return rare
 		end
 		if vname and vname ~= "" and RareNamesRoughMatch(vname, GetRareDisplayName(rare)) then
+			if vnpc then
+				LearnRareNpc(rare[1], vnpc) -- naam-match → npcID leren
+			end
 			return rare
 		end
 		if vkill == true and vwx and vwy then
@@ -1118,7 +1264,7 @@ local function FireRareAlert(rare, npcId, onRoute)
 			title = name,
 			body = ns:L(onRoute and "RARE_ALERT_TOAST_ONROUTE_BODY" or "RARE_ALERT_TOAST_BODY"),
 			icon = RARE_ALERT_ICON,
-			npcId = npcId or tonumber(rare[6]),
+			npcId = npcId or KnownRareNpc(rare),
 			scale = 2, -- Rob 11 jun: rare-toast 2× zo groot (andere toasts 1×)
 			displaySec = RARE_ALERT_DISPLAY_SEC,
 		}
@@ -1239,8 +1385,8 @@ function ns.TestRareAlert()
 	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
 	local rare = (zone and zone.rares and zone.rares[1]) or (ZONES[1] and ZONES[1].rares[1])
 	if rare then
-		-- Model-fallback: het laatst geziene echte rare-npcID (finetune-loop).
-		FireRareAlert(rare, tonumber(rare[6]) or GetRareAlertSettings().lastNpcId)
+		-- Model-fallback: bekend/geleerd npcID, anders het laatst geziene.
+		FireRareAlert(rare, KnownRareNpc(rare) or GetRareAlertSettings().lastNpcId)
 		print("|cffffcc00MH:|r raretest fired for " .. GetRareDisplayName(rare))
 	else
 		print("|cffffcc00MH:|r raretest — no rare available")
