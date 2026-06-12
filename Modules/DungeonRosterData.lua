@@ -78,8 +78,11 @@ ns.DUNGEON_ROSTER = {
 		season1 = true,
 		entrance = { mapID = 2395, x = 35.37, y = 78.82 }, -- Eversong Woods
 		bosses = {
-			{ key = "derelictduo", encounterID = 2656, name = "Derelict Duo" },
+			-- Volgorde gecorrigeerd 12 jun: Emberdawn is boss 1 (Robs
+			-- follower-run 11 jun + DBM-modnummers 2655<2656 + encounter-IDs
+			-- 3056<3057 bevestigen het; Duo stond er eerst ten onrechte voor).
 			{ key = "emberdawn", encounterID = 2655, name = "Emberdawn" },
+			{ key = "derelictduo", encounterID = 2656, name = "Derelict Duo" },
 			{ key = "kroluk", encounterID = 2657, name = "Commander Kroluk" },
 			{ key = "restlessheart", encounterID = 2658, name = "The Restless Heart" },
 		},
