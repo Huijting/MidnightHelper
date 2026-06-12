@@ -81,6 +81,9 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_LIVE_TOGGLE_OFF = "Boss steps at pull: OFF (/mh livetips turns them back on)",
 	DGN_SHARE_NONE = "No boss engaged yet — pull first, then share.",
 	DGN_SHARE_QUEUED = "In combat — the steps will be shared automatically the moment the fight ends.",
+	DGN_WIN_CHAT = "Chat",
+	DGN_WIN_SHARE = "Share",
+	DGN_WIN_PANEL_HINT = "Model hidden — click the boss portrait in the window header to bring it back.",
 	DGN_SHARE_SENT_FMT = "Steps for %s shared with the group.",
 })
 
@@ -146,6 +149,9 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_LIVE_TOGGLE_OFF = "Boss-stappen bij de pull: UIT (/mh livetips zet ze weer aan)",
 	DGN_SHARE_NONE = "Nog geen boss aangevallen — pull eerst, deel daarna.",
 	DGN_SHARE_QUEUED = "In gevecht — de stappen worden automatisch gedeeld zodra het gevecht eindigt.",
+	DGN_WIN_CHAT = "Chat",
+	DGN_WIN_SHARE = "Deel",
+	DGN_WIN_PANEL_HINT = "Model verborgen — klik op het boss-portret in de vensterkop om het terug te halen.",
 	DGN_SHARE_SENT_FMT = "Stappen voor %s gedeeld met de groep.",
 })
 
@@ -211,6 +217,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_LIVE_TOGGLE_OFF = "Boss-Schritte beim Pull: AUS (/mh livetips schaltet sie wieder an)",
 	DGN_SHARE_NONE = "Noch kein Boss angegriffen — erst pullen, dann teilen.",
 	DGN_SHARE_QUEUED = "Im Kampf — die Schritte werden automatisch geteilt, sobald der Kampf endet.",
+	DGN_WIN_CHAT = "Chat",
+	DGN_WIN_SHARE = "Teilen",
+	DGN_WIN_PANEL_HINT = "Modell ausgeblendet — klicke auf das Boss-Porträt in der Fensterkopfzeile, um es zurückzuholen.",
 	DGN_SHARE_SENT_FMT = "Schritte für %s mit der Gruppe geteilt.",
 })
 
@@ -276,6 +285,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_LIVE_TOGGLE_OFF = "Étapes du boss au pull : DÉSACTIVÉ (/mh livetips pour réactiver)",
 	DGN_SHARE_NONE = "Aucun boss engagé pour l'instant — pull d'abord, partage ensuite.",
 	DGN_SHARE_QUEUED = "En combat — les étapes seront partagées automatiquement dès la fin du combat.",
+	DGN_WIN_CHAT = "Chat",
+	DGN_WIN_SHARE = "Partager",
+	DGN_WIN_PANEL_HINT = "Modèle masqué — clique sur le portrait du boss dans l'en-tête de la fenêtre pour le réafficher.",
 	DGN_SHARE_SENT_FMT = "Étapes de %s partagées avec le groupe.",
 })
 
@@ -341,6 +353,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_LIVE_TOGGLE_OFF = "Pasos del jefe al pull: DESACTIVADO (/mh livetips los reactiva)",
 	DGN_SHARE_NONE = "Aún no has atacado a ningún jefe — primero el pull, luego comparte.",
 	DGN_SHARE_QUEUED = "En combate — los pasos se compartirán automáticamente en cuanto termine el combate.",
+	DGN_WIN_CHAT = "Chat",
+	DGN_WIN_SHARE = "Compartir",
+	DGN_WIN_PANEL_HINT = "Modelo oculto — haz clic en el retrato del jefe en la cabecera de la ventana para recuperarlo.",
 	DGN_SHARE_SENT_FMT = "Pasos de %s compartidos con el grupo.",
 })
 
@@ -406,5 +421,8 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_LIVE_TOGGLE_OFF = "Passos do chefe no pull: DESLIGADO (/mh livetips liga de novo)",
 	DGN_SHARE_NONE = "Nenhum chefe enfrentado ainda — primeiro o pull, depois compartilhe.",
 	DGN_SHARE_QUEUED = "Em combate — os passos serão compartilhados automaticamente assim que o combate terminar.",
+	DGN_WIN_CHAT = "Chat",
+	DGN_WIN_SHARE = "Enviar",
+	DGN_WIN_PANEL_HINT = "Modelo oculto — clique no retrato do chefe no topo da janela para trazê-lo de volta.",
 	DGN_SHARE_SENT_FMT = "Passos de %s compartilhados com o grupo.",
 })

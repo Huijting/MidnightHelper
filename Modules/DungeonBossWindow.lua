@@ -1,0 +1,648 @@
+--[[
+	Dungeon Boss Window (Rob, 12 jun — 1.8-hoofdfeature, v3 na twee
+	feedbackrondes): compact zwevend venster met de boss-stappen van de
+	huidige dungeon. Pager (< i/N >), klikbare {SPELL:id}-links met
+	hover-tooltip (read-only EditBox, Delve Coach-patroon), versleepbaar,
+	resizable (breedte via grip) én schaalbaar via SHIFT+scroll (Robs idee:
+	resolutie-onafhankelijk groter — tekst, model en venster in één keer).
+
+	Feedbackronde 2 verwerkt:
+	- Kop toont nu de BOSSNAAM (sub = dungeonnaam) — niet 4× "Windrunner
+	  Spire".
+	- Het model-laadprobleem (beeld pas na heen-en-weer bladeren): modellen
+	  laden async; na elke SetCreature volgt een nalaad-tik op +0.2s die de
+	  creature opnieuw zet zolang dezelfde boss nog voorstaat.
+	- Mini-portret in de kop is een KNOP die het vastgeklikte zijpaneel
+	  toggles: boss in vol ornaat, eigen X (keuze bewaard), beweegt mee met
+	  het hoofdvenster en groeit mee met de hoogte.
+	- SHIFT+scroll = schaal 0.7-1.8 (bewaard in ui.bossWin.scale);
+	  positie-opslag is schaal-onafhankelijk (toast-recept).
+
+	Gedrag: auto-open + meebladeren bij ENCOUNTER_START (hook vanuit
+	DungeonLiveCoach); X = stil voor de rest van deze dungeon; /mh bosswin
+	togglet overal (buiten een dungeon: dungeon-van-de-week).
+]]
+
+local _, ns = ...
+
+local DEFAULT_W = 400
+local MIN_W, MAX_W = 340, 720
+local MIN_SCALE, MAX_SCALE = 0.7, 1.8
+local HEADER_H = 78
+local THUMB_SIZE = 58
+local PANEL_W = 190
+local PAD = 12
+
+local win -- frame, lazy
+local curDungeon -- roster-dungeon-table
+local curIdx = 1
+local suppressedFor = nil -- dungeonKey waarvoor Rob het venster sloot
+local modelGen = 0 -- nalaad-generatie (paging tijdens de 0.2s-tik)
+
+local COLOR_TANK = "aecbfa"
+local COLOR_HEAL = "a9e8b8"
+local COLOR_DPS = "f2c4a0"
+local COLOR_DIMTXT = "8a8f98"
+
+-- Creature-IDs per boss voor het 3D-model (bron: DBM-Party-* SetCreatureID,
+-- 12 jun 2026). Ontbreekt een ID (Nalorakk: "too many IDs to guess" in DBM),
+-- dan blijft het model verborgen — never-lie, niet gokken.
+local CREATURES = {
+	["windrunnerspire:derelictduo"] = 231626, -- Kalis (Latch = 231629)
+	["windrunnerspire:emberdawn"] = 231606,
+	["windrunnerspire:kroluk"] = 231631,
+	["windrunnerspire:restlessheart"] = 231636,
+	["maisara:murojin"] = 247570, -- Muro'jin (Nekraxx = 247572)
+	["maisara:vordaza"] = 248595,
+	["maisara:raktul"] = 248605,
+	["murderrow:kystia"] = 252458,
+	["murderrow:zaen"] = 234649,
+	["murderrow:xathuux"] = 234647,
+	["murderrow:lithiel"] = 237415,
+	["nalorakk:hoardmonger"] = 248710,
+	["nalorakk:sentinel"] = 244100,
+	-- nalorakk:nalorakk — geen ID in DBM
+	["blindingvale:trinity"] = 243028,
+	["blindingvale:ikuzz"] = 244887,
+	["blindingvale:ruia"] = 245912,
+	["blindingvale:ziekket"] = 247676,
+	["voidscar:tazrah"] = 238887,
+	["voidscar:atroxus"] = 239008,
+	["voidscar:charonus"] = 248015,
+	["nexuspoint:kasreth"] = 241539,
+	["nexuspoint:nysarra"] = 254227,
+	["nexuspoint:lothraxion"] = 241546,
+	["magisters:arcanotron"] = 231861,
+	["magisters:seranel"] = 231863,
+	["magisters:gemellus"] = 239636,
+	["magisters:degentrius"] = 231865,
+	["skyreach:ranjit"] = 75964,
+	["skyreach:araknath"] = 76141,
+	["skyreach:rukhran"] = 76143,
+	["skyreach:viryx"] = 76266,
+	["pitofsaron:garfrost"] = 36494,
+	["pitofsaron:krickick"] = 36476, -- Ick (Krick rijdt mee)
+	["pitofsaron:tyrannus"] = 36658, -- (Rimefang = 36661)
+	["triumvirate:zuraal"] = 124871,
+	["triumvirate:saprish"] = 124872,
+	["triumvirate:nezhar"] = 124874,
+	["triumvirate:lura"] = 124870,
+	["algethar:vexamus"] = 194181,
+	["algethar:ancient"] = 186951,
+	["algethar:crawth"] = 191736,
+	["algethar:doragosa"] = 190609,
+}
+
+local function GetWinSettings()
+	local uiDb = ns.db and ns.db.ui
+	if type(uiDb) ~= "table" then
+		return {}
+	end
+	if type(uiDb.bossWin) ~= "table" then
+		uiDb.bossWin = {}
+	end
+	return uiDb.bossWin
+end
+
+local function FindDungeonByKey(key)
+	for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do
+		if d.key == key then
+			return d
+		end
+	end
+	return nil
+end
+
+local function FindBossIndex(d, bossKey)
+	for i, b in ipairs(d and d.bosses or {}) do
+		if b.key == bossKey then
+			return i
+		end
+	end
+	return 1
+end
+
+-- Buiten een dungeon: dungeon-van-de-week, anders Windrunner Spire.
+local function DefaultDungeon()
+	if ns.GetDungeonOfTheWeek then
+		local ok, dow = pcall(ns.GetDungeonOfTheWeek)
+		if ok and dow then
+			if type(dow) == "table" and dow.key then
+				return dow
+			end
+			if type(dow) == "string" then
+				local d = FindDungeonByKey(dow)
+				if d then
+					return d
+				end
+			end
+		end
+	end
+	return FindDungeonByKey("windrunnerspire")
+end
+
+local function CurScale()
+	local s = GetWinSettings()
+	local sc = tonumber(s.scale) or 1
+	if sc < MIN_SCALE then
+		sc = MIN_SCALE
+	elseif sc > MAX_SCALE then
+		sc = MAX_SCALE
+	end
+	return sc
+end
+
+-- Positie schaal-onafhankelijk bewaren/toepassen (toast-recept: offset
+-- t.o.v. UIParent-center in UI-coördinaten; SetPoint-offsets zijn in
+-- frame-lokale (geschaalde) coördinaten → delen door de schaal).
+local function ApplySavedPosition(f)
+	local s = GetWinSettings()
+	local scale = f:GetScale() or 1
+	f:ClearAllPoints()
+	if tonumber(s.x) and tonumber(s.y) and UIParent then
+		f:SetPoint("CENTER", UIParent, "CENTER", s.x / scale, s.y / scale)
+	else
+		f:SetPoint("CENTER", UIParent, "CENTER", 320 / scale, 60 / scale)
+	end
+end
+
+local function SavePosition(f)
+	local s = GetWinSettings()
+	local scale = f:GetScale() or 1
+	local cx, cy = f:GetCenter()
+	if cx and cy and UIParent then
+		s.x = cx * scale - (UIParent:GetWidth() / 2)
+		s.y = cy * scale - (UIParent:GetHeight() / 2)
+	end
+end
+
+-- Paneel-verbergen is DUNGEON-gebonden, niet permanent (Rob, ronde 5):
+-- een nieuwe dungeon opent altijd mét model; alleen binnen de dungeon
+-- waar je 'm wegklikte blijft hij weg. Bewust geen SavedVariable.
+local panelHiddenFor = nil -- dungeonKey
+
+local function ModelPanelEnabled()
+	return not (curDungeon and panelHiddenFor == curDungeon.key)
+end
+
+-- Async model-laden: SetCreature direct na frame-creatie rendert vaak leeg
+-- (Robs "plaatje kwam pas na heen-en-weer bladeren"). Daarom na elke set
+-- een nalaad-tik op +0.2s die dezelfde creature opnieuw zet zolang de boss
+-- niet gewisseld is (modelGen-guard).
+local function SetModelCreature(model, creatureID)
+	if not model then
+		return false
+	end
+	if not creatureID then
+		model:Hide()
+		return false
+	end
+	local function apply()
+		model:ClearModel()
+		model:SetCreature(creatureID)
+		if model.SetPortraitZoom then
+			model:SetPortraitZoom(model._mhFullBody and 0 or 0.85)
+		end
+		if model.SetPosition then
+			model:SetPosition(0, 0, 0)
+		end
+		if model.SetFacing then
+			model:SetFacing(0.45)
+		end
+	end
+	local ok = pcall(apply)
+	model:SetShown(ok == true)
+	if ok and C_Timer and C_Timer.After then
+		local gen = modelGen
+		C_Timer.After(0.2, function()
+			if gen == modelGen and model:IsShown() then
+				pcall(apply)
+			end
+		end)
+	end
+	return ok == true
+end
+
+local function EnsureWindow()
+	if win then
+		return win
+	end
+
+	local s = GetWinSettings()
+	local f = CreateFrame("Frame", "MidnightHelperBossWindow", UIParent, "BackdropTemplate")
+	local w = tonumber(s.w)
+	if not w or w < MIN_W or w > MAX_W then
+		w = DEFAULT_W
+	end
+	f:SetSize(w, 220)
+	f:SetFrameStrata("MEDIUM")
+	f:SetClampedToScreen(true)
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	if f.SetResizable then
+		f:SetResizable(true)
+	end
+	if f.SetResizeBounds then
+		f:SetResizeBounds(MIN_W, 140, MAX_W, 900)
+	end
+	f:SetScale(CurScale())
+	f:Hide()
+	if f.SetBackdrop then
+		f:SetBackdrop({
+			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
+			edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
+			tile = true,
+			tileSize = 32,
+			edgeSize = 24,
+			insets = { left = 8, right = 8, top = 8, bottom = 8 },
+		})
+		f:SetBackdropColor(0.05, 0.05, 0.09, 0.95)
+	end
+	ApplySavedPosition(f)
+
+	-- SHIFT+scroll = schalen (Robs idee). Gewone scroll laten we met rust.
+	local function OnWheel(_, delta)
+		if not IsShiftKeyDown() then
+			return
+		end
+		local st = GetWinSettings()
+		local sc = CurScale() + (delta > 0 and 0.1 or -0.1)
+		if sc < MIN_SCALE then
+			sc = MIN_SCALE
+		elseif sc > MAX_SCALE then
+			sc = MAX_SCALE
+		end
+		st.scale = sc
+		SavePosition(f) -- huidige plek vastleggen in UI-coördinaten
+		f:SetScale(sc)
+		ApplySavedPosition(f) -- en terugzetten op dezelfde schermplek
+	end
+	f:EnableMouseWheel(true)
+	f:SetScript("OnMouseWheel", OnWheel)
+
+	-- Mini-portret in de kop = knop die het zijpaneel togglet. AnyUp +
+	-- OnMouseUp als dubbele zekering (pager/Coach-klik-lessen) en een
+	-- highlight zodat zichtbaar is dát het een knop is.
+	local thumb = CreateFrame("Button", nil, f)
+	thumb:SetSize(THUMB_SIZE, THUMB_SIZE)
+	thumb:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -12)
+	thumb:SetFrameLevel(f:GetFrameLevel() + 10)
+	thumb:EnableMouse(true)
+	thumb:RegisterForClicks("AnyUp")
+	thumb:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+	local function ToggleModelPanel()
+		if ModelPanelEnabled() then
+			panelHiddenFor = curDungeon and curDungeon.key or nil
+		else
+			panelHiddenFor = nil
+		end
+		ns.RefreshDungeonBossWindow()
+	end
+	thumb:SetScript("OnMouseUp", ToggleModelPanel)
+	local thumbModel = CreateFrame("PlayerModel", nil, thumb)
+	thumbModel:SetAllPoints(thumb)
+	thumbModel:EnableMouse(false)
+	f._thumbModel = thumbModel
+
+	-- Overal slepen (Robs ronde 3): drag op het frame zelf, de titelstrip,
+	-- de body-EditBox én het zijpaneel — knoppen blijven knoppen (drag
+	-- start pas na de sleep-drempel, klikken blijft werken).
+	local function HookDrag(region)
+		region:RegisterForDrag("LeftButton")
+		region:SetScript("OnDragStart", function()
+			f:StartMoving()
+		end)
+		region:SetScript("OnDragStop", function()
+			f:StopMovingOrSizing()
+			SavePosition(f)
+		end)
+	end
+	HookDrag(f)
+
+	local drag = CreateFrame("Frame", nil, f)
+	drag:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + THUMB_SIZE + 4, -8)
+	drag:SetPoint("TOPRIGHT", f, "TOPRIGHT", -176, -8)
+	drag:SetHeight(HEADER_H - 14)
+	drag:EnableMouse(true)
+	HookDrag(drag)
+
+	-- Kop: BOSSNAAM groot, dungeonnaam eronder (Robs ronde 2).
+	local title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	title:SetPoint("TOPLEFT", thumb, "TOPRIGHT", 10, -6)
+	title:SetPoint("RIGHT", f, "RIGHT", -176, 0)
+	title:SetJustifyH("LEFT")
+	title:SetTextColor(1, 0.82, 0.2)
+	f._title = title
+
+	local sub = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	sub:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -3)
+	sub:SetJustifyH("LEFT")
+	sub:SetTextColor(0.6, 0.63, 0.68)
+	f._sub = sub
+
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -4, -4)
+	close:SetFrameLevel(f:GetFrameLevel() + 5)
+	close:SetScript("OnClick", function()
+		suppressedFor = curDungeon and curDungeon.key or nil
+		f:Hide()
+	end)
+
+	local prev = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	prev:SetSize(26, 20)
+	prev:SetText("<")
+	prev:SetPoint("TOPRIGHT", f, "TOPRIGHT", -104, -16)
+	prev:SetFrameLevel(f:GetFrameLevel() + 5)
+	prev:SetScript("OnClick", function()
+		if curDungeon and #(curDungeon.bosses or {}) > 0 then
+			curIdx = curIdx - 1
+			if curIdx < 1 then
+				curIdx = #curDungeon.bosses
+			end
+			ns.RefreshDungeonBossWindow()
+		end
+	end)
+
+	local pager = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	pager:SetPoint("TOP", prev, "TOP", 37, -4)
+	f._pager = pager
+
+	local nxt = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	nxt:SetSize(26, 20)
+	nxt:SetText(">")
+	nxt:SetPoint("TOPRIGHT", f, "TOPRIGHT", -32, -16)
+	nxt:SetFrameLevel(f:GetFrameLevel() + 5)
+	nxt:SetScript("OnClick", function()
+		if curDungeon and #(curDungeon.bosses or {}) > 0 then
+			curIdx = curIdx + 1
+			if curIdx > #curDungeon.bosses then
+				curIdx = 1
+			end
+			ns.RefreshDungeonBossWindow()
+		end
+	end)
+
+	-- Body: read-only EditBox → klikbare spell-links met tooltips. Breedte
+	-- volgt het venster (LEFT+RIGHT-ankers) zodat resizen meteen herwrapt.
+	local body = CreateFrame("EditBox", nil, f)
+	body:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + 2, -(HEADER_H + 2))
+	body:SetPoint("RIGHT", f, "RIGHT", -(PAD + 2), 0)
+	body:SetMultiLine(true)
+	body:SetFontObject("GameFontHighlightSmall")
+	body:SetJustifyH("LEFT")
+	body:SetAutoFocus(false)
+	body:EnableMouse(true)
+	if body.SetMaxLetters then
+		body:SetMaxLetters(0)
+	end
+	if ns.AttachDelveTipHyperlinksToEditBox then
+		ns:AttachDelveTipHyperlinksToEditBox(body)
+	end
+	body:EnableMouseWheel(true)
+	body:SetScript("OnMouseWheel", OnWheel)
+	HookDrag(body) -- tekstvak meeslepen; spell-link-kliks blijven werken
+	f._body = body
+
+	-- Chat- en Share-knop (Robs idee + maatje): Chat = stappen nogmaals in
+	-- je eigen chat (altijd toegestaan); Share = gétoonde boss naar de
+	-- groep via de bestaande combat-wachtrij.
+	local chatBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	chatBtn:SetSize(58, 18)
+	chatBtn:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 8)
+	chatBtn:SetFrameLevel(f:GetFrameLevel() + 5)
+	chatBtn:SetText(ns:L("DGN_WIN_CHAT"))
+	chatBtn:SetScript("OnClick", function()
+		local b = curDungeon and curDungeon.bosses and curDungeon.bosses[curIdx]
+		if b and ns.PrintDungeonBossTips then
+			ns.PrintDungeonBossTips(curDungeon.key, b.key)
+		end
+	end)
+
+	local shareBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	shareBtn:SetSize(72, 18)
+	shareBtn:SetPoint("RIGHT", chatBtn, "LEFT", -4, 0)
+	shareBtn:SetFrameLevel(f:GetFrameLevel() + 5)
+	shareBtn:SetText(ns:L("DGN_WIN_SHARE"))
+	shareBtn:SetScript("OnClick", function()
+		local b = curDungeon and curDungeon.bosses and curDungeon.bosses[curIdx]
+		if b and ns.ShareDungeonBossTips then
+			ns.ShareDungeonBossTips(curDungeon.key, b.key)
+		end
+	end)
+	f._chatBtn = chatBtn
+	f._shareBtn = shareBtn
+
+	-- Resize-grip rechtsonder: breedte vrij; hoogte snapt na afloop terug
+	-- naar de tekstinhoud.
+	local grip = CreateFrame("Button", nil, f)
+	grip:SetSize(16, 16)
+	grip:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -6, 6)
+	grip:SetFrameLevel(f:GetFrameLevel() + 5)
+	grip:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
+	grip:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down")
+	grip:SetScript("OnMouseDown", function()
+		f:StartSizing("BOTTOMRIGHT")
+	end)
+	grip:SetScript("OnMouseUp", function()
+		f:StopMovingOrSizing()
+		local sw = f:GetWidth()
+		if sw then
+			GetWinSettings().w = math.max(MIN_W, math.min(MAX_W, sw))
+		end
+		SavePosition(f)
+		ns.RefreshDungeonBossWindow()
+	end)
+
+	-- Zijpaneel: boss in vol ornaat, vastgeklikt links naast het venster,
+	-- beweegt en schaalt mee; eigen X (keuze bewaard; mini-portret heropent).
+	local panel = CreateFrame("Frame", nil, f, "BackdropTemplate")
+	panel:SetWidth(PANEL_W)
+	panel:SetPoint("TOPRIGHT", f, "TOPLEFT", -4, 0)
+	panel:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", -4, 0)
+	if panel.SetBackdrop then
+		panel:SetBackdrop({
+			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
+			edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
+			tile = true,
+			tileSize = 32,
+			edgeSize = 24,
+			insets = { left = 8, right = 8, top = 8, bottom = 8 },
+		})
+		panel:SetBackdropColor(0.05, 0.05, 0.09, 0.95)
+	end
+	panel:EnableMouse(true)
+	HookDrag(panel) -- zijpaneel slepen = hoofdvenster meeslepen
+	local panelClose = CreateFrame("Button", nil, panel, "UIPanelCloseButton")
+	panelClose:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -2, -2)
+	panelClose:SetScript("OnClick", function()
+		panelHiddenFor = curDungeon and curDungeon.key or nil
+		ns.RefreshDungeonBossWindow()
+		print("|cffffcc00MH:|r " .. ns:L("DGN_WIN_PANEL_HINT"))
+	end)
+	local panelModel = CreateFrame("PlayerModel", nil, panel)
+	panelModel:SetPoint("TOPLEFT", panel, "TOPLEFT", 10, -12)
+	panelModel:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -10, 12)
+	panelModel:EnableMouse(false)
+	panelModel._mhFullBody = true
+	f._panel = panel
+	f._panelModel = panelModel
+
+	-- ESC sluit het venster (zonder de rest-van-de-dungeon-suppress; die
+	-- is bewust alleen aan de X gekoppeld).
+	if type(UISpecialFrames) == "table" then
+		tinsert(UISpecialFrames, "MidnightHelperBossWindow")
+	end
+
+	win = f
+	return f
+end
+
+local function BuildBossText(d, idx)
+	local b = d and d.bosses and d.bosses[idx]
+	if not b then
+		return ""
+	end
+	local lines = {}
+	local tips = ns.GetDungeonBossTips and ns.GetDungeonBossTips(d.key, b.key)
+	if tips then
+		if tips.steps then
+			lines[#lines + 1] = ns:L(tips.steps)
+		end
+		if tips.tank then
+			lines[#lines + 1] = "|cff" .. COLOR_TANK .. ns:L(tips.tank) .. "|r"
+		end
+		if tips.healer then
+			lines[#lines + 1] = "|cff" .. COLOR_HEAL .. ns:L(tips.healer) .. "|r"
+		end
+		if tips.dps then
+			lines[#lines + 1] = "|cff" .. COLOR_DPS .. ns:L(tips.dps) .. "|r"
+		end
+	else
+		lines[#lines + 1] = "|cff" .. COLOR_DIMTXT .. ns:L("DGN_TIPS_SOON") .. "|r"
+	end
+	local text = table.concat(lines, "|n")
+	if ns.ExpandDelveTipMarkup then
+		text = ns:ExpandDelveTipMarkup(text)
+	end
+	return text
+end
+
+local function ApplyHeight(f)
+	local body = f._body
+	local lineH = (body.GetLineHeight and body:GetLineHeight()) or 14
+	local numLines = (body.GetNumLines and body:GetNumLines()) or 1
+	local bodyH = math.max(numLines * lineH + 6, 20)
+	-- +22 voor de Chat/Share-knoppenrij onderin.
+	f:SetHeight(HEADER_H + bodyH + PAD + 10 + 22)
+end
+
+function ns.RefreshDungeonBossWindow()
+	if not win or not win:IsShown() or not curDungeon then
+		return
+	end
+	local total = #(curDungeon.bosses or {})
+	if curIdx > total then
+		curIdx = 1
+	end
+	local b = curDungeon.bosses and curDungeon.bosses[curIdx]
+	local bossName = b and ns.GetDungeonBossName
+		and ns.GetDungeonBossName(b, curDungeon, curIdx) or "?"
+	win._title:SetText(bossName)
+	win._sub:SetText(ns.GetDungeonDisplayName
+		and ns.GetDungeonDisplayName(curDungeon) or curDungeon.key)
+	win._pager:SetText(total > 0 and (curIdx .. "/" .. total) or "-")
+	win._body:SetText(BuildBossText(curDungeon, curIdx))
+
+	modelGen = modelGen + 1
+	local creatureID = b and CREATURES[curDungeon.key .. ":" .. b.key]
+	SetModelCreature(win._thumbModel, creatureID)
+	local panelOn = ModelPanelEnabled() and creatureID ~= nil
+	win._panel:SetShown(panelOn)
+	if panelOn then
+		SetModelCreature(win._panelModel, creatureID)
+	end
+
+	ApplyHeight(win)
+	-- Eerste meting na tonen/zetten kan stale zijn: nameting volgend frame.
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0, function()
+			if win and win:IsShown() then
+				ApplyHeight(win)
+			end
+		end)
+	end
+end
+
+function ns.ShowDungeonBossWindow(dungeonKey, bossKey)
+	local d = dungeonKey and FindDungeonByKey(dungeonKey) or DefaultDungeon()
+	if not d then
+		return
+	end
+	curDungeon = d
+	curIdx = bossKey and FindBossIndex(d, bossKey) or 1
+	local f = EnsureWindow()
+	f:Show()
+	ns.RefreshDungeonBossWindow()
+end
+
+function ns.ToggleDungeonBossWindow()
+	if win and win:IsShown() then
+		win:Hide()
+		return
+	end
+	suppressedFor = nil -- handmatig openen heft de suppress op
+	ns.ShowDungeonBossWindow(curDungeon and curDungeon.key or nil,
+		curDungeon and curDungeon.bosses and curDungeon.bosses[curIdx]
+			and curDungeon.bosses[curIdx].key or nil)
+end
+
+-- Boss dood (ENCOUNTER_END success, via DungeonLiveCoach): automatisch
+-- doorbladeren naar de volgende boss — geen wrap; bij de eindboss blijft
+-- hij gewoon staan.
+function ns.BossWindowOnEncounterEnd(dungeonKey, bossKey)
+	if not win or not win:IsShown() or not curDungeon then
+		return
+	end
+	if curDungeon.key ~= dungeonKey then
+		return
+	end
+	local killedIdx = FindBossIndex(curDungeon, bossKey)
+	local total = #(curDungeon.bosses or {})
+	if killedIdx == curIdx and curIdx < total then
+		curIdx = curIdx + 1
+		ns.RefreshDungeonBossWindow()
+	end
+end
+
+-- Hook vanuit DungeonLiveCoach bij ENCOUNTER_START: auto-open + meebladeren.
+function ns.BossWindowOnEncounter(dungeonKey, bossKey)
+	if suppressedFor and suppressedFor == dungeonKey then
+		return -- Rob sloot het venster in deze dungeon: respecteren
+	end
+	if suppressedFor and suppressedFor ~= dungeonKey then
+		suppressedFor = nil -- nieuwe dungeon: suppress vervalt
+	end
+	ns.ShowDungeonBossWindow(dungeonKey, bossKey)
+end
+
+-- Taalwissel ververst het open venster direct (Rob 12 jun: tekst bleef in
+-- de oude taal tot je bladerde) — zelfde wrap-patroon als MidnightToast.
+do
+	local orig = ns.RefreshLocaleUI
+	function ns:RefreshLocaleUI()
+		if orig then
+			orig(self)
+		end
+		if win then
+			if win._chatBtn then
+				win._chatBtn:SetText(ns:L("DGN_WIN_CHAT"))
+			end
+			if win._shareBtn then
+				win._shareBtn:SetText(ns:L("DGN_WIN_SHARE"))
+			end
+			if win:IsShown() then
+				ns.RefreshDungeonBossWindow()
+			end
+		end
+	end
+end

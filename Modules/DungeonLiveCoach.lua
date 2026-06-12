@@ -175,6 +175,12 @@ local function PrintTipsLocal(dungeonKey, bossKey)
 	return true
 end
 
+-- Ook aanroepbaar vanuit het boss-venster (Chat-knop, 12 jun). NB: ná de
+-- local-definitie geplaatst — ervóór zou de upvalue nil zijn.
+function ns.PrintDungeonBossTips(dungeonKey, bossKey)
+	return PrintTipsLocal(dungeonKey, bossKey)
+end
+
 -- Platte tekst in stukken ≤240 tekens (SendChatMessage-limiet ~255),
 -- gebroken op woordgrenzen.
 local function ChunkLine(line, out)
@@ -202,22 +208,31 @@ end
 -- automatisch versturen bij PLAYER_REGEN_ENABLED (ideaal voor wipes).
 local pendingShare = nil
 
-function ns.ShareDungeonBossTips()
-	if not lastEngaged then
+-- Optionele args (boss-venster deelt de gétoonde boss); zonder args geldt
+-- de laatst gepullde boss.
+function ns.ShareDungeonBossTips(dungeonKey, bossKey)
+	local target
+	if dungeonKey and bossKey then
+		target = { dungeonKey = dungeonKey, bossKey = bossKey }
+	else
+		target = lastEngaged
+	end
+	if not target then
 		print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_NONE"))
 		return
 	end
 	local tips = ns.GetDungeonBossTips
-		and ns.GetDungeonBossTips(lastEngaged.dungeonKey, lastEngaged.bossKey)
+		and ns.GetDungeonBossTips(target.dungeonKey, target.bossKey)
 	if not tips then
 		print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_NONE"))
 		return
 	end
 	if InCombatLockdown and InCombatLockdown() then
-		pendingShare = { dungeonKey = lastEngaged.dungeonKey, bossKey = lastEngaged.bossKey }
+		pendingShare = { dungeonKey = target.dungeonKey, bossKey = target.bossKey }
 		print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_QUEUED"))
 		return
 	end
+	lastEngaged = target -- de share-body hieronder leest lastEngaged
 	local channel
 	if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
 		channel = "INSTANCE_CHAT"
@@ -254,8 +269,9 @@ end
 
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("ENCOUNTER_START")
+ev:RegisterEvent("ENCOUNTER_END")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
-ev:SetScript("OnEvent", function(_, event, encounterID)
+ev:SetScript("OnEvent", function(_, event, encounterID, _, _, _, success)
 	if event == "PLAYER_REGEN_ENABLED" then
 		if pendingShare then
 			lastEngaged = pendingShare
@@ -264,11 +280,25 @@ ev:SetScript("OnEvent", function(_, event, encounterID)
 		end
 		return
 	end
+	if event == "ENCOUNTER_END" then
+		-- Boss dood → boss-venster bladert vast naar de volgende.
+		if tonumber(success) == 1 then
+			local hit = ENCOUNTERS[tonumber(encounterID) or 0]
+			if hit and ns.BossWindowOnEncounterEnd then
+				pcall(ns.BossWindowOnEncounterEnd, hit[1], hit[2])
+			end
+		end
+		return
+	end
 	local hit = ENCOUNTERS[tonumber(encounterID) or 0]
 	if not hit then
 		return
 	end
 	lastEngaged = { dungeonKey = hit[1], bossKey = hit[2] }
+	-- Zwevend boss-venster: auto-open + meebladeren (los van de chat-tips).
+	if ns.BossWindowOnEncounter then
+		pcall(ns.BossWindowOnEncounter, hit[1], hit[2])
+	end
 	if not LiveTipsEnabled() then
 		return
 	end
