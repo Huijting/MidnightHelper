@@ -2213,7 +2213,7 @@ RitualTips.lua zit al in de batch.
 
 **Cursor commits (12 juni push):** `97cff7c` boss-venster · `b2649e0` l10n
 fase 6 · `7fd4243` WS-volgorde · `cdaa74f` rares-overhaul · `6d3baa0`
-fixes (void/world-boss/toast/Broken Throne) · `130821d` release 1.7.1.
+fixes (void/world-boss/toast/Broken Throne) · `e99dc85` release 1.7.1.
 Combat-share-wachtrij en rares-hover-preview nog niet live gezien door Rob.
 
 Robs besluit: boss-venster + volledige zes-talen-dekking = **1.7.1**
