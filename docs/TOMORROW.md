@@ -10,6 +10,26 @@
 - **Volgende: stap 1 — follower-run Windrunner Spire + Maisara** (Cisca is
   wakker ☕). Daarna: Cursor-commit 11-juni-batches; rest = PTR/live-lijst.
 
+## 💡 NIEUW IDEE (Rob, 12 jun): Ritual Boss Coach — venster à la dungeons
+
+Robs 3 doden op de Corrupted Amani Dragonhawk leverden de eerste twee
+geverifieerde scenario-boss-gidsen op (Dissonant Reflections-kick +
+Binding Nebula-kapotslaan, nu als bullets in BROKENTHRONE_PHASES ×6).
+Volgende stap: **per scenario-boss eigen stappen + het bestaande
+DungeonBossWindow hergebruiken** (auto-open bij engage, model, Chat/Deel).
+✅ Eerste data binnen (Rob, 12 jun, in de run): **scenarioID 3236 "Broken
+Throne", 3 stages; stage 2 = stepID 16393 "Corrupted Beast"** (= de
+Dragonhawk-fase, widgetSetID 2102) → stage/step-gebaseerd triggeren kan
+sowieso, óók zonder ENCOUNTER_START. Nog ophalen: stage 3-step (Ger'lok),
+ENCOUNTER_START ja/nee bij boss-pull, npcIDs (target eerst, dan de
+GUID-oneliner — "nil nil nil" = zonder target gedraaid).
+**Oorspronkelijke vraag:** weten of scenario-bosses
+ENCOUNTER_START afvuren —
+`/run local f=CreateFrame("Frame") f:RegisterEvent("ENCOUNTER_START") f:SetScript("OnEvent",function(_,_,id,n) print("ENC:",id,n) end) print("encounter-spy aan")`
+vóór de boss draaien; printen er ENC-regels → zelfde trigger-route als
+dungeons; zo niet → scenario-API (C_ScenarioInfo-criteria) als trigger.
+Boss-data groeit organisch via Robs runs (death recaps = bronmateriaal).
+
 ## 💡 NIEUW IDEE (Rob, 11 jun): Void Rifts (bijv. "Void Rift: Tranquil Repose")
 
 Lokale rift-events in de assault-zones; wij dekken alleen de zone-weekly.

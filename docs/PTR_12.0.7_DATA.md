@@ -24,8 +24,17 @@ activeert vanzelf via de ≥120007-gate.
 - **Toy "Lightveil Recall Beacon"** — recall naar Umbral Base Camp, 15 min
   CD, vroeg in de questlijn → mooie Codex/info-tip.
 - **Vendors Umbral Base Camp:** Fieldsmith Ventem (Response Team-transmogset;
-  30/60 Field Accolades + 300/500 **Voidlight Marl** — nieuwe valuta/item,
-  ⬜ ID) en Zuronar <Lightveil Artificer> (wapens + housing decor).
+  30/60 Field Accolades + 300/500 **Voidlight Marl**) en Zuronar <Lightveil
+  Artificer> (wapens + housing decor). ✅ CORRECTIE (Rob, 12 jun): Voidlight
+  Marl is GEEN nieuwe valuta — het is de bestaande Midnight-renown-munt
+  (warband-transferable; MH trackt hem al: AltOverview-snapshot +
+  RitualCoachData "2nd currency confirmed"). De 12.0.7-vendors prijzen er
+  alleen óók in. → Codex/hint-kandidaat: "je bestaande Marl-voorraad is
+  vanaf 16 juni te besteden bij de nieuwe Umbral Base Camp-vendors
+  (transmog 300-500 per stuk)".
+- Drop-quest **95069 "Torn Twilight Missive"** (drop bij de actieve ritual
+  site, inleveren Silvermoon; Rob 12 jun) beloont o.a. Voidlight Marl —
+  leuke lore-breadcrumb (Ger'lok/Broken Throne), geen verdere addon-actie.
 - **Omnium Folio:** Mote of Omnial Inquiry komt uit weekly "Seeking
   Knowledge" (week 1 = 96410 ✓); 5 keuze-nodes over 5 weken; **Folio-weekly
   is warband/account-breed** — 1× per account per week volstaat →

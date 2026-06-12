@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.7.1] - 2026-06-12
+
+### Added
+
+- **Floating Boss Window** (`/mh bosswin`): a compact, movable companion window with the current boss's steps — clickable spell links, a full-body **3D model side panel** (close it per dungeon; the portrait button brings it back), boss pager that **auto-advances when a boss dies**, Chat and Share buttons, resize grip, and **Shift+scroll to scale** the whole window (great for high resolutions). Opens automatically at every boss pull; closing it keeps it away for that dungeon only.
+- **Boss steps now in all six languages** — the final localization gap is closed: every dungeon guide reads natively in English, Nederlands, Deutsch, Français, Español and Português (spell names were already client-localized via the links).
+
+### Fixed
+
+- **Windrunner Spire boss order:** Emberdawn is boss 1 (was listed after Derelict Duo) — affects the Coach tab, boss window pager and live coach.
+- Boss window model could render empty on first show (async model loading) — it now reloads itself an instant later.
+
 ## [1.7.0] - 2026-06-11
 
 ### Added

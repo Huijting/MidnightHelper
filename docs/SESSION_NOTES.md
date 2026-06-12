@@ -2102,6 +2102,255 @@ stappen te tonen i.p.v. "worden geschreven".
 Commitvoorstel: `feat(dungeon-coach): fase 3 batch 2 — boss-steps voor alle
 6 resterende S1-dungeons (DBM+Wowhead-geverifieerd, EN/NL)`
 
+## 12 juni: ritual-weekly-mysterie OPGELOST (Robs mage) + void-done-fix
+
+Rob: "mage ziet geen ritual weekly bij de hub, voor altijd uitzoeken."
+Flag-dump mage: **95843 = TRUE** → de weekly was al voltooid deze week;
+de hub is terecht leeg. Niet warband-breed (lvl-81 = false). Verklaring
+(Robs eigen herinnering klopt): de introlijn eindigt bij Lady Darkglen
+die direct de weekly meegeeft — mage deed 'm samen met de intro-quests
+zonder het als "de weekly" te herkennen. Routine toont na reload netjes
+done/done; refresh-pad gecheckt (QUEST_LOG_UPDATE → RefreshHomePanel bij
+zichtbaar paneel) — geen bug; eerder screenshot was verouderd/andere char.
+
+**Wel gevonden+gefixt:** `VoidAssaults.lua IsWeeklyDone()` keek alléén
+naar meta 95842 — telt nu ook de zone-weeklies 94385/94386 als done
+(mage-case suggereerde dat de meta-flag kan achterblijven; weekly-reset-
+flags, dus never-lie-veilig). Raakt routine-regel 6 én de Void-tab-status.
+Luacheck 1.7.1-batch: **+ Modules/VoidAssaults.lua**.
+
+Open verificatie (Robs andere 90, intro niet gedaan): hoort intro-regel
+te tonen + 95843 false — bevestigt de keten definitief.
+
+## 12 juni: rare-route per character (Robs paladin-vangst)
+
+Paladin logde naast Terrinor in en kreeg "dit is je route-doel" door de
+zone-route van een ándere char: `ui.rareAlert.routedIds` was account-breed
+(ns.db.ui). Fix in Rares.lua: **`routedByChar[guid] = {anchor, ids}`** —
+zelfde per-char-patroon als shardCapAlert/dungeonCourse; legacy-velden
+worden opgeruimd. Raakt IsRareRouted (aankomst-tekst), IsRareHuntActive
+("alleen tijdens hunt"-optie) en MarkRareRouted. Luacheck 1.7.1-batch:
+Rares.lua zat er al in.
+
+Boss-venster nice-to-have (Rob): buiten dungeons toont /mh bosswin alleen
+de dungeon-van-de-week — dungeon-keuze (dropdown of < > door dungeons)
+backlog voor 1.8.
+
+## 12 juni: rares-overhaul — zelflerende npcIDs + hover-modelpreview
+
+Robs ochtend-idee gebouwd (Rares.lua, alles in de 1.7.1-batch):
+
+- **`LearnRareNpc`/`KnownRareNpc`**: elke naam- of npc-vignette-match slaat
+  het npcID op in **`ns.db.rareNpcIds[questId]`** (account-breed, bewust:
+  modellen zijn char-onafhankelijk). Statisch rare[6] wint; afstand-only-
+  matches leren bewust NIET (cross-match-risico). Eén hunt door de zone =
+  alle modellen bekend. Gebruikt in: UP-cache-matching (npc-first),
+  MatchRareInZone, FireRareAlert-fallback, /mh raretest.
+- **Hover-modelpreview**: rij-hover in het Rares-paneel toont links een
+  klein goud-omrand paneel met de rare in vol ornaat (PortraitZoom 0,
+  TOOLTIP-strata, async-nalaad-tik à la boss-venster). Alleen bij bekend/
+  geleerd npcID — geen leeg kader, geen gok. Geen nieuwe locale-keys.
+
+Rob-test: zone-route lopen (leert IDs vanzelf) → daarna hoveren in het
+Rares-paneel: gespotte rares tonen hun model; nooit-geziene rares tonen
+alleen de tooltip.
+
+## 12 juni: world-boss "Warband: not defeated"-fix (Robs paladin)
+
+Robs paladin toonde "Warband: not defeated" terwijl hij vrij zeker een
+kill had deze week. Oorzaak in `WorldBoss.lua
+SyncWarbandDoneFromQuestLog`: een **availability-early-return** — als de
+WQ voor de húidige char nog beschikbaar was, werd de account-cache nooit
+gelezen. Maar WQ-beschikbaarheid is per-char; op elke alt die de boss nog
+kon doen werd de warband-status dus gemaskeerd. Guard verwijderd: eigen
+flag eerst (registreert + cachet), dan de account-cache. NB: de cache
+wordt pas gevuld als de killer-char ná de kill één keer met MH ingelogd
+is/refresht — Rob checkt de flag (Lu'ashal = 92560) op de killer-char.
+Tweede verificatie ritual-keten (Robs andere 90): flags exact het
+warlock-patroon (alleen 94381 true) en Home-regel 5 toont correct de
+intro-tekst — keten + weergave kloppen. Luacheck 1.7.1-batch: **+
+Modules/WorldBoss.lua**.
+
+## 12 juni: rare-toast-model clipte niet (stak onder de rand uit)
+
+PlayerModels renderen buiten hun frame-rect én het 56px-vak paste niet in
+de ~42px binnenruimte van de toast. Fix (MidnightToast.lua): model in een
+**clip-container** binnen de backdrop-insets (TOPLEFT/BOTTOMLEFT 11px,
+breedte 52) met `SetClipsChildren(true)`; model SetAllPoints op de
+container. Zelfde behandeling evt. later voor het boss-venster-thumb als
+daar overflow opduikt (nog niet gemeld). Luacheck-batch: MidnightToast.lua
+zat er al in.
+
+## 12 juni: CF-teksten geschoond + Settings-plan (Robs opdracht)
+
+- **Alt+M en alle /mh-commando's uit de publieke teksten** (Robs besluit:
+  slash = intern testgereedschap): CURSEFORGE_DESCRIPTION.md Quick start
+  verwijst nu naar het minimap-icoon; Dungeons-secties en 1.7.1-notes
+  noemen de Share-knop van het boss-venster i.p.v. /mh bossshare; boss-
+  venster "opens automatically" i.p.v. /mh bosswin. Commando's zelf
+  blijven gewoon werken.
+- **`docs/SETTINGS_PAGE_PLAN.md`** (nieuw): "Mission Control"-design voor
+  een Settings-tab in MH — eyecatcher met roterend 3D-model, void-
+  parallax, categorie-cards met LIVE test/voorbeeld-knoppen (hergebruikt
+  TestRareAlert/TestShardCapAlert/ShowDungeonBossWindow), settings-zoek,
+  moderne toggles; 4 fasen, 5 open besluiten voor Rob. Maakt meteen de
+  verstopte instellingen (livetips, bosswin-schaal, geluiden) zichtbaar.
+
+## 12 juni: Broken Throne — Dissonant Reflections-tip (Robs death recap)
+
+Rob stierf 2× op de Corrupted Amani Dragonhawk (voor-laatste Broken
+Throne-boss): death recap toonde **Dissonant Realities -230k** door een
+*Dissonant Reflection*. Wowhead (spell 1284085, 12.0.5): periodieke void-
+spiegelbeelden casten Dissonant Realities = burst op alles binnen 100 yd;
+**interrupt stuurt het spiegelbeeld direct weg** — kick is dus verplicht,
+afstand helpt niet. Verwerkt in RITUAL_TIP_BROKENTHRONE_PHASES ×6 (plain
+text, geen {SPELL:}-token — de Ritual Coach rendert FontStrings en de
+ritual-share verstuurt platte tekst; token zou rauw lekken). Bron: Robs
+recap + Wowhead — geverifieerd genoeg voor never-lie. Encoding-sweep
+RitualTips.lua zit al in de batch.
+
+## 🚀 GO-BLOK CURSOR — release 1.7.1 (12 juni)
+
+**Cursor commits (12 juni push):** `97cff7c` boss-venster · `b2649e0` l10n
+fase 6 · `7fd4243` WS-volgorde · `cdaa74f` rares-overhaul · `6d3baa0`
+fixes (void/world-boss/toast/Broken Throne) · `130821d` release 1.7.1.
+Combat-share-wachtrij en rares-hover-preview nog niet live gezien door Rob.
+
+Robs besluit: boss-venster + volledige zes-talen-dekking = **1.7.1**
+(1.8 gereserveerd voor Mythic/M+). Inhoud van deze release:
+
+1. **DungeonBossWindow** (nieuw, 5 feedbackrondes verwerkt — details in de
+   sectie hieronder): /mh bosswin, model-zijpaneel, auto-advance bij kill,
+   Chat/Deel-knoppen, Shift+scroll-schaling, overal slepen, ESC.
+2. **Fase 6 voltooid:** Locales/DungeonTips.lua nu **129 keys × 6 talen =
+   774 regels** (deDE/frFR/esES/ptBR toegevoegd, mens-kwaliteit;
+   blokken geverifieerd: 6 merges, totaal klopt). Daarmee is ALLES in 6
+   talen.
+3. **WS-bossvolgorde gefixt** (Emberdawn eerst) in DungeonRosterData.
+4. TOC → **1.7.1**; CHANGELOG [1.7.1]; docs/CURSEFORGE_1.7.1.md klaar.
+
+**Luacheck:** Modules/DungeonBossWindow.lua (NIEUW, in TOC),
+Modules/DungeonLiveCoach.lua, Modules/DungeonRosterData.lua, Core.lua;
+**encoding-sweep Locales/DungeonTips.lua (774 regels, 4 nieuwe blokken!) +
+Locales/DungeonGuide.lua** (+3 keys ×6).
+
+**Rob-test vóór upload:** /mh bosswin → alles uit de eerdere rondes + de
+nieuwe vertalingen steekproeven (`/mh locale dede` → boss-venster +
+Coach-tab tonen Duitse stappen met Duitse spell-links).
+
+Commitvoorstellen: `feat(dungeon-coach): zwevend boss-venster (model-
+paneel, auto-advance, chat/share, shift+scroll-schaling)` ·
+`feat(l10n): boss-steps in alle 6 talen (fase 6, 129 keys ×4 nieuw)` ·
+`fix(dungeons): WS-bossvolgorde (Emberdawn eerst)` ·
+`chore(release): 1.7.1`
+
+## Voor Cursor — 12 juni: zwevend Dungeon Boss Window (1.8-feature #1)
+
+1.7.0 is live (57 downloads eerste ochtend). Robs gisteren geparkeerde
+wens gebouwd: **NIEUW `Modules/DungeonBossWindow.lua`** (in TOC, vóór
+DungeonLiveCoach) — compact zwevend venster met de boss-stappen van de
+huidige dungeon:
+
+- Titel = dungeonnaam (EJ), pager **< i/N >** langs de bosses, body =
+  read-only EditBox met {SPELL:id}-links + hover-tooltips (zelfde patroon
+  als Coach-tab/DelveCoach, incl. de nameting-op-volgend-frame tegen stale
+  EditBox-metingen).
+- **Versleepbaar** via de titelstrip; positie in `ui.bossWin` (offset
+  t.o.v. UIParent-center). Hoogte dynamisch op de tekst.
+- **Auto-open + meebladeren bij ENCOUNTER_START** (hook in
+  DungeonLiveCoach, pcall, los van de chat-tips-setting). Sluiten met X =
+  stil voor de rest van déze dungeon (sessie-suppress per dungeonKey);
+  nieuwe dungeon opent weer; handmatig openen heft suppress op.
+- **`/mh bosswin`** (Core.lua) togglet overal; buiten een dungeon valt hij
+  terug op de dungeon-van-de-week (of Windrunner Spire) — Robs test-eis.
+- Geen nieuwe locale-keys (titel/namen uit EJ; subkop hergebruikt
+  DGN_VIEW_COACH; "soon"-fallback hergebruikt DGN_TIPS_SOON).
+
+**Robs feedbackronde 1 verwerkt (module herschreven, nu 440 regels):**
+1. **Resizable**: grip rechtsonder (ChatIM-SizeGrabber), breedte vrij
+   340-720 (bewaard in `ui.bossWin.w`), hoogte snapt na het loslaten terug
+   naar de tekstinhoud; body herwrapt live (LEFT+RIGHT-ankers).
+2. **Pager gefixt**: de sleepstrip lag óver de </> -knoppen (zelfde klasse
+   als de Coach-klik-bug) → strip eindigt nu op -176 van rechts en alle
+   knoppen staan een frame-level hoger.
+3. **3D-model van de boss** linksboven (rare-toast-recept: SetCreature +
+   PortraitZoom 0.85 + Facing 0.45). Nieuwe `CREATURES`-tabel: 42 van 43
+   bosses gemapt uit DBM SetCreatureID (4 ontbrekende vanmorgen alsnog
+   gegrept: Emberdawn 231606, Kroluk 231631, Restless Heart 231636,
+   Raktul 248605); alleen nalorakk:nalorakk heeft geen ID in DBM ("too
+   many IDs to guess") → model blijft daar verborgen (never-lie).
+   Header nu 78px hoog.
+
+**Robs feedbackronde 2 verwerkt (v3, host 547 regels, einde geverifieerd):**
+1. Kop toont nu de **bossnaam** (GameFontNormalLarge), sub = dungeonnaam —
+   was 4× "Windrunner Spire"; gouden naamregel uit de body (dubbel).
+2. **Model-laadprobleem** (beeld pas na heen-en-weer bladeren): async
+   laden → `SetModelCreature` doet een nalaad-tik op +0.2s die dezelfde
+   creature opnieuw zet (modelGen-guard tegen tussentijds bladeren).
+3. **Vastgeklikt zijpaneel** met de boss in vol ornaat (PortraitZoom 0),
+   links naast het venster (TOPRIGHT→TOPLEFT-anker, groeit mee in hoogte,
+   schaalt en sleept mee). Eigen X → `ui.bossWin.modelPanel=false`
+   (bewaard); het **mini-portret in de kop is nu een knop** die het paneel
+   weer opent. Paneel verbergt zichzelf eerlijk als een boss geen
+   creature-ID heeft.
+4. **SHIFT+scroll = schalen** (Robs idee, voor 5120x1440 e.d.): 0.7-1.8 in
+   stappen van 0.1, bewaard in `ui.bossWin.scale`; positie-opslag
+   schaal-onafhankelijk (toast-recept: Save vóór SetScale, Apply erna);
+   wheel-handler op frame én body-EditBox; gewone scroll onaangetast.
+   Resize-grip (breedte) blijft ernaast bestaan.
+
+**Ronde 3 (Robs vraag om ideeën + chat-knop + sleepbaar):**
+1. **Overal slepen**: HookDrag op frame, titelstrip, body-EditBox én
+   zijpaneel (drag start na de drempel; spell-link-kliks blijven werken).
+2. **Chat-knop** (rechtsonder, naast de grip): print de gétoonde boss
+   nogmaals lokaal — `ns.PrintDungeonBossTips` exposed in DungeonLiveCoach
+   (NB: wrapper ná de local-definitie, scoping-valkuil gevangen).
+3. **Share-knop** ernaast: deelt de gétoonde boss;
+   `ns.ShareDungeonBossTips(dungeonKey, bossKey)` accepteert nu optionele
+   args (zonder args = laatst gepullde boss; combat-wachtrij blijft).
+4. **Auto-doorbladeren bij kill** (eigen idee): ENCOUNTER_END success in
+   LiveCoach → `ns.BossWindowOnEncounterEnd` → venster springt naar de
+   volgende boss (geen wrap; eindboss blijft staan).
+5. **ESC sluit** (UISpecialFrames; bewust zónder dungeon-suppress — die
+   blijft exclusief aan de X).
+6. ApplyHeight +22px voor de knoppenrij. 2 nieuwe keys ×6:
+   DGN_WIN_CHAT/DGN_WIN_SHARE (Share-knop 72px breed voor "Partager").
+
+**Ronde 6 (Rob, fase-6-test): taalwissel ververste het open venster niet**
+(pas bij bladeren) → `ns.RefreshLocaleUI`-wrap (MidnightToast-patroon):
+herlabelt Chat/Deel-knoppen en hertekent het venster direct bij een
+taalwissel. f._chatBtn/_shareBtn refs toegevoegd.
+
+**Ronde 5 (Rob): paneel-verbergen dungeon-gebonden** — `panelHiddenFor`
+(dungeonKey, sessievar, géén SavedVariable meer): nieuwe dungeon = model
+altijd open; binnen de dungeon waar je 'm wegklikte blijft hij weg;
+thumb-toggle heft op. `ui.bossWin.modelPanel` vervallen (oude waarde in
+SavedVars is onschadelijk, wordt genegeerd).
+
+**Ronde 4 (Rob):**
+1. Zijpaneel kwam na X niet terug → thumb-toggle verhard: OnMouseUp +
+   RegisterForClicks("AnyUp") + frame-level +10 + highlight-texture
+   (zichtbaar dat het een knop is) + chathint bij het sluiten
+   (DGN_WIN_PANEL_HINT, nieuwe key ×6).
+2. **Boss-volgorde Windrunner Spire gecorrigeerd in DungeonRosterData**:
+   Emberdawn is boss 1 (Robs follower-run + DBM-modnummers 2655<2656 +
+   encounter-IDs 3056<3057) — Duo stond er ten onrechte voor. Overige 11
+   dungeons gecheckt tegen de DBM-encounter-ID-reeksen: volgorde klopt.
+   (Raakt Coach-tab, venster-pager én live-coach — allemaal roster-driven.)
+
+Luacheck: **Modules/DungeonBossWindow.lua**, **Modules/DungeonLiveCoach.lua**,
+**Modules/DungeonRosterData.lua** (host-staarten geverifieerd;
+sandbox-mount stale), Core.lua, TOC-regel; encoding-sweep
+Locales/DungeonGuide.lua (+3 keys ×6).
+
+**Rob-test:** `/reload` → `/mh bosswin` (buiten dungeon: dungeon-van-de-
+week, pager bladert door de bosses, spell-links hoveren, venster slepen →
+positie blijft na reload). In een dungeon: pull → venster springt naar de
+juiste boss; X sluiten → blijft dicht tot een nieuwe dungeon.
+
+Commitvoorstel: `feat(dungeon-coach): zwevend boss-venster met pager en
+spell-links (/mh bosswin, auto-open bij pull)`
+
 ## 🚀 GO-BLOK CURSOR — release 1.7.0, definitieve stand (11 juni, eind van de dag)
 
 **Cursor commits (11 juni push):** `e8020cc` rares/toast · `ef4f416` ritual-hint ·

@@ -1,5 +1,5 @@
 ## Interface: 120005, 120007
-## Version: 1.7.0
+## Version: 1.7.1
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.
@@ -88,6 +88,7 @@ Modules\ResetRoutine.lua
 Modules\DungeonRosterData.lua
 Modules\DungeonTipsData.lua
 Modules\DungeonGuide.lua
+Modules\DungeonBossWindow.lua
 Modules\DungeonLiveCoach.lua
 Modules\ShardCapAlert.lua
 Modules\WorldContent.lua
