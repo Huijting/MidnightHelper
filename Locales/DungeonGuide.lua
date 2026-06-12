@@ -84,6 +84,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_WIN_CHAT = "Chat",
 	DGN_WIN_SHARE = "Share",
 	DGN_WIN_PANEL_HINT = "Model hidden — click the boss portrait in the window header to bring it back.",
+	DGN_WIN_PICK_HINT = "Click to pick a different dungeon (or the ritual).",
 	DGN_SHARE_SENT_FMT = "Steps for %s shared with the group.",
 })
 
@@ -152,6 +153,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_WIN_CHAT = "Chat",
 	DGN_WIN_SHARE = "Deel",
 	DGN_WIN_PANEL_HINT = "Model verborgen — klik op het boss-portret in de vensterkop om het terug te halen.",
+	DGN_WIN_PICK_HINT = "Klik om een andere dungeon (of de ritual) te kiezen.",
 	DGN_SHARE_SENT_FMT = "Stappen voor %s gedeeld met de groep.",
 })
 
@@ -220,6 +222,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_WIN_CHAT = "Chat",
 	DGN_WIN_SHARE = "Teilen",
 	DGN_WIN_PANEL_HINT = "Modell ausgeblendet — klicke auf das Boss-Porträt in der Fensterkopfzeile, um es zurückzuholen.",
+	DGN_WIN_PICK_HINT = "Klicke, um einen anderen Dungeon (oder das Ritual) zu wählen.",
 	DGN_SHARE_SENT_FMT = "Schritte für %s mit der Gruppe geteilt.",
 })
 
@@ -288,6 +291,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_WIN_CHAT = "Chat",
 	DGN_WIN_SHARE = "Partager",
 	DGN_WIN_PANEL_HINT = "Modèle masqué — clique sur le portrait du boss dans l'en-tête de la fenêtre pour le réafficher.",
+	DGN_WIN_PICK_HINT = "Clique pour choisir un autre donjon (ou le rituel).",
 	DGN_SHARE_SENT_FMT = "Étapes de %s partagées avec le groupe.",
 })
 
@@ -356,6 +360,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_WIN_CHAT = "Chat",
 	DGN_WIN_SHARE = "Compartir",
 	DGN_WIN_PANEL_HINT = "Modelo oculto — haz clic en el retrato del jefe en la cabecera de la ventana para recuperarlo.",
+	DGN_WIN_PICK_HINT = "Haz clic para elegir otra mazmorra (o el ritual).",
 	DGN_SHARE_SENT_FMT = "Pasos de %s compartidos con el grupo.",
 })
 
@@ -424,5 +429,6 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_WIN_CHAT = "Chat",
 	DGN_WIN_SHARE = "Enviar",
 	DGN_WIN_PANEL_HINT = "Modelo oculto — clique no retrato do chefe no topo da janela para trazê-lo de volta.",
+	DGN_WIN_PICK_HINT = "Clique para escolher outra masmorra (ou o ritual).",
 	DGN_SHARE_SENT_FMT = "Passos de %s compartilhados com o grupo.",
 })

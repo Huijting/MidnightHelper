@@ -123,6 +123,15 @@ local function BossDisplayName(dungeonKey, bossKey)
 	if d and b and ns.GetDungeonBossName then
 		return ns.GetDungeonBossName(b, d, i)
 	end
+	-- Custom entries (Ritual Boss Coach): naam uit het eigen register.
+	local ce = ns.CUSTOM_BOSS_ENTRIES and ns.CUSTOM_BOSS_ENTRIES[dungeonKey]
+	if ce then
+		for _, cb in ipairs(ce.bosses or {}) do
+			if cb.key == bossKey then
+				return cb.name or bossKey
+			end
+		end
+	end
 	return bossKey
 end
 

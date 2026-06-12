@@ -10,6 +10,34 @@
 - **Volgende: stap 1 — follower-run Windrunner Spire + Maisara** (Cisca is
   wakker ☕). Daarna: Cursor-commit 11-juni-batches; rest = PTR/live-lijst.
 
+## 📋 Ritual Boss Coach — Daggerspine Point voorbereiden (volgende rotatie)
+
+Web-geverifieerd (12 jun): **Lady Selen'vjar = eindboss** van Daggerspine
+Point (haar Ritual Chest = Wowhead object 602746); stage 2 = een door
+void-magie **empowered Mindbreaker**. Gemini noemt stage-namen "Ritual
+Roles" / "Beast From the Deep" / "Summoner's Fall" — plausibel maar nog
+niet hard bevestigd. **Nodig zodra Daggerspine de actieve week is:** Rob
+draait 'm één keer met de spy aan → stepIDs (+ evt. scenarioID, kan
+afwijken van 3236!) via `/mh ritualspy`; daarna bouw ik de twee
+boss-entries (npcIDs dan via Wowhead opzoeken; tips uit Robs run +
+tooltips). Backlog-idee uit Gemini-overzicht (laagdrempelig, later):
+**collectibles-checklist per site** (candle/meat/egg/kelp/bone pile —
+Wowhead heeft alle waypoints) — past mooi bij de bestaande NOTES-keys.
+
+⚠️ **Gemini-deepdive Broken Throne (12 jun) AFGEKEURD na verificatie** —
+niet opnieuw narennen: "Abyssal Wildfire" en "Void-infused Channelers"
+bestaan niet op Wowhead, "Tier 1-11" en "Nemesis Pactsworn" spreken de
+geverifieerde T1-6 tegen, "+15% per vlam" onvindbaar, Eaglet-drop botst
+met Icy Veins. Ger'loks wildfire-spellnaam blijft "nog te bevestigen".
+
+## 💡 Ritual Boss Coach — ✅ GEBOUWD (Claude, 12 jun middag)
+
+Modules/RitualBossCoach.lua: auto-open boss-venster bij stage 2 (stepID
+16393) in scenario 3236, zelflerend npcID (boss1-frame), data-spy naar
+SavedVars (`/mh ritualspy`), `/mh ritualboss` voor tests. De spy verzamelt
+de open vragen hieronder nu AUTOMATISCH tijdens Robs runs: stage 3-step,
+ENCOUNTER_START ja/nee, boss-npcIDs. Origineel idee hieronder bewaard.
+
 ## 💡 NIEUW IDEE (Rob, 12 jun): Ritual Boss Coach — venster à la dungeons
 
 Robs 3 doden op de Corrupted Amani Dragonhawk leverden de eerste twee

@@ -91,6 +91,7 @@ Modules\DungeonTipsData.lua
 Modules\DungeonGuide.lua
 Modules\DungeonBossWindow.lua
 Modules\DungeonLiveCoach.lua
+Modules\RitualBossCoach.lua
 Modules\SettingsPage.lua
 Modules\ShardCapAlert.lua
 Modules\WorldContent.lua

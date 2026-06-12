@@ -226,6 +226,47 @@ local function SetModelCreature(model, creatureID)
 	return ok == true
 end
 
+-- Dropdown-picker: alle roster-dungeons + custom entries (Broken Throne).
+-- Vóór EnsureWindow gedefinieerd (scoping-les: erná zou de OnClick-closure
+-- een nil-global pakken i.p.v. deze local).
+local function PickerEntries()
+	local out = {}
+	for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do
+		out[#out + 1] = {
+			key = d.key,
+			name = ns.GetDungeonDisplayName and ns.GetDungeonDisplayName(d) or d.key,
+		}
+	end
+	for key, e in pairs(ns.CUSTOM_BOSS_ENTRIES or {}) do
+		out[#out + 1] = { key = key, name = e.name or key, entry = e }
+	end
+	return out
+end
+
+local function InitDungeonPickerMenu(_, level)
+	if level ~= 1 or not (UIDropDownMenu_CreateInfo and UIDropDownMenu_AddButton) then
+		return
+	end
+	for _, e in ipairs(PickerEntries()) do
+		local info = UIDropDownMenu_CreateInfo()
+		info.text = e.name
+		info.checked = (curDungeon and curDungeon.key == e.key) or false
+		info.func = function()
+			if CloseDropDownMenus then
+				CloseDropDownMenus()
+			end
+			if e.entry then
+				if ns.ShowBossWindowForEntry then
+					ns.ShowBossWindowForEntry(e.entry, nil)
+				end
+			elseif ns.ShowDungeonBossWindow then
+				ns.ShowDungeonBossWindow(e.key, nil)
+			end
+		end
+		UIDropDownMenu_AddButton(info, level)
+	end
+end
+
 local function EnsureWindow()
 	if win then
 		return win
@@ -337,10 +378,39 @@ local function EnsureWindow()
 	title:SetTextColor(1, 0.82, 0.2)
 	f._title = title
 
-	local sub = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	-- Dungeonnaam = knop met dropdown-picker (Robs wens, 12 jun): buiten
+	-- een dungeon vrij bladeren door alle dungeons + de Broken Throne-
+	-- ritual. Bewust een echte UIPanelButton (Coach-les: kale Buttons en
+	-- FontString-overlays zijn onbetrouwbaar klikbaar).
+	local sub = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	sub:SetHeight(16)
 	sub:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -3)
-	sub:SetJustifyH("LEFT")
-	sub:SetTextColor(0.6, 0.63, 0.68)
+	sub:SetFrameLevel(f:GetFrameLevel() + 6)
+	sub:RegisterForClicks("AnyUp")
+	sub:SetScript("OnEnter", function(self)
+		if GameTooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT")
+			GameTooltip:SetText(ns:L("DGN_WIN_PICK_HINT"), 1, 0.82, 0.2, 1, true)
+			GameTooltip:Show()
+		end
+	end)
+	sub:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+	sub:SetScript("OnClick", function(self)
+		if not (UIDropDownMenu_Initialize and ToggleDropDownMenu) then
+			return
+		end
+		if not f._pickerMenu then
+			f._pickerMenu = CreateFrame("Frame",
+				"MidnightHelperBossWinPickerMenu", UIParent,
+				"UIDropDownMenuTemplate")
+		end
+		UIDropDownMenu_Initialize(f._pickerMenu, InitDungeonPickerMenu, "MENU")
+		ToggleDropDownMenu(1, nil, f._pickerMenu, self, 0, 0)
+	end)
 	f._sub = sub
 
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
@@ -553,11 +623,19 @@ function ns.RefreshDungeonBossWindow()
 	win._title:SetText(bossName)
 	win._sub:SetText(ns.GetDungeonDisplayName
 		and ns.GetDungeonDisplayName(curDungeon) or curDungeon.key)
+	-- Knopbreedte volgt de naam (picker-knop, geen FontString meer).
+	local subFs = win._sub.GetFontString and win._sub:GetFontString()
+	win._sub:SetWidth(((subFs and subFs:GetStringWidth()) or 90) + 20)
 	win._pager:SetText(total > 0 and (curIdx .. "/" .. total) or "-")
 	win._body:SetText(BuildBossText(curDungeon, curIdx))
 
 	modelGen = modelGen + 1
-	local creatureID = b and CREATURES[curDungeon.key .. ":" .. b.key]
+	-- Custom entries (Ritual Boss Coach) leveren hun (zelflerende)
+	-- creatureId op de boss zelf, met seedCreatureId als web-geverifieerde
+	-- fallback; roster-bosses via de CREATURES-map.
+	local creatureID = (b and b.creatureId)
+		or (b and b.seedCreatureId)
+		or (b and CREATURES[curDungeon.key .. ":" .. b.key])
 	SetModelCreature(win._thumbModel, creatureID)
 	local panelOn = ModelPanelEnabled() and creatureID ~= nil
 	win._panel:SetShown(panelOn)
@@ -621,6 +699,38 @@ function ns.ResetBossWindowLayout()
 		if win:IsShown() then
 			ns.RefreshDungeonBossWindow()
 		end
+	end
+end
+
+-- Custom entries (Ritual Boss Coach, 12 jun): toon een synthetische
+-- "dungeon"-tabel zonder roster-lookup. Tips lopen via dezelfde
+-- ns.DUNGEON_TIPS-sleutel (de aanroeper registreert die zelf), namen via
+-- b.name/d.name (eigennamen blijven EN), model via b.creatureId.
+function ns.ShowBossWindowForEntry(d, bossKey)
+	if type(d) ~= "table" or type(d.bosses) ~= "table" or not d.key then
+		return
+	end
+	curDungeon = d
+	curIdx = bossKey and FindBossIndex(d, bossKey) or 1
+	local f = EnsureWindow()
+	f:Show()
+	ns.RefreshDungeonBossWindow()
+end
+
+-- X-suppress per key raadpleegbaar, zodat een auto-open elders Robs
+-- "laat me met rust voor deze run"-klik respecteert.
+function ns.IsBossWindowSuppressedFor(key)
+	return suppressedFor ~= nil and suppressedFor == key
+end
+
+function ns.IsBossWindowShowing(key)
+	return (win and win:IsShown() and curDungeon and curDungeon.key == key) == true
+end
+
+-- Scenario verlaten/afgerond: venster sluiten als het nog deze entry toont.
+function ns.HideBossWindowForEntry(key)
+	if win and win:IsShown() and curDungeon and curDungeon.key == key then
+		win:Hide()
 	end
 end
 

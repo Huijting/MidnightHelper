@@ -5,6 +5,45 @@
 → Bij release: `120005` uit de TOC (zie RELEASE_CHECKLIST); Showdowns-code
 activeert vanzelf via de ≥120007-gate.
 
+## Web-research 12 juni avond — Showdown-zones + Sporefall BEVESTIGD
+
+- **Portaal-coords gevonden** (open punt ✅): instabiel portaal bij
+  **Screaming Ridge, Voidstorm 51.42 71.30** (korte intro-questlijn
+  vereist); **tweede, statisch portaal in Silvermoon, benedenverdieping
+  onder de Ritual Sites-vendors**. Portaal wisselt wekelijks van
+  bestemming: **Val of Naigtal**.
+- **Naigtal** (de tweede zone naast Val): fungal/arcane wereld, bezet
+  door ethereal-factie **Hal'hadar**, aangevoerd door **Nexus-Captain
+  Leth'ir** (world boss-kandidaat). Zelfde structuur als Val: WQ's,
+  rares, events, world boss; HWT-loop = boss op Normal, dan Heroic.
+- ⚠️ Gemini-claim "eigen Ritual Sites in Naigtal/Val + grotere
+  ritual-rotatie" = NIET ondersteund door bronnen (verwart Showdowns met
+  Ritual Sites) — rotatie blijft Eversong/Zul'Aman, afgekeurd.
+- **Sporefall bevestigd compleet**: 1-boss-raid **Rotmire** (fungal
+  giant) in **Harandar**; RF/Normal/Heroic/Mythic alle vier op dag 1;
+  Mythic = eerste **flex 15-25**; loot = "Sporefused"-tag (pre-upgraded,
+  Mythic ilvl 298 = Ascendant Voidcore-plafond). Single-target met
+  add-druk, vaste tank-swap, harde energy-timer (Wowhead cheat sheet
+  beschikbaar voor boss-steps t.z.t.).
+
+## Web-research 12 juni — Ritual Sites Tier 6 (12.0.7) BEVESTIGD
+
+Wowhead-news 381499 + MrGM, onafhankelijk van elkaar:
+
+- **Tier 6 Ritual Sites** nieuw in 12.0.7: **6 challenges vereist**,
+  aanbevolen ~ilvl 270.
+- Beloningen per T6-run: **5 Myth Dawncrests** (geen weekly cap gemeld —
+  anders dan de Delve Gilded Chest!), plus Hero Dawncrests, Field
+  Accolades, Voidlight Marl én Coffer Key Shards.
+- Vault: T6 telt nog steeds als "Tier 13" → **World-rij ilvl 269 (Hero
+  4/6)**, zelfde als T5.
+- **Nieuwe weekly questlijn bij de site-ingang**: 6 weken lang, elke week
+  2× Tier 6 met specifieke challenges. ⬜ Quest-IDs dumpen zodra live.
+- MH-impact: RitualCoach-tierinfo uitbreiden (T6-regel), Codex-tip "Myth
+  Dawncrests soloable via T6 rituals", weekly-questlijn evt. tracken.
+- ⬜ Nog te bevestigen (Gemini/Wowhead-gids, niet hard gecheckt): Field
+  Accolades ≈ 1 per 10 Spoils (330→32, 507→50).
+
 ## Web-research 11 juni (Wowhead news 381787 + gidsen) — nieuw bevestigd
 
 - **HWT aanbevolen ilvl 274** + extra modifiers (o.a. rondzwervende elites);

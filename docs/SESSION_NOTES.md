@@ -2209,6 +2209,135 @@ ritual-share verstuurt platte tekst; token zou rauw lekken). Bron: Robs
 recap + Wowhead — geverifieerd genoeg voor never-lie. Encoding-sweep
 RitualTips.lua zit al in de batch.
 
+## Voor Cursor — 12 juni middag: Ritual Boss Coach (post-1.7.1, na settings)
+
+Robs gekozen volgende feature: het boss-venster hergebruiken in de Broken
+Throne-ritual. Trigger = scenario-stap (scenarioID 3236, in-game bevestigd
+12 jun) — werkt dus óók als scenario-bosses geen ENCOUNTER_START blijken
+af te vuren; de ingebouwde spy beantwoordt die vraag vanzelf.
+
+- **NIEUW `Modules/RitualBossCoach.lua`**: synthetische venster-entry
+  `ritual_brokenthrone` met (vooralsnog alleen) de Corrupted Amani
+  Dragonhawk (stage 2 "Corrupted Beast", stepID 16393). Auto-open bij die
+  stage (1× per bezoek; X = met rust voor de rest van de run — zelfde
+  regel als dungeons); venster sluit bij verlaten/afronden. **Zelflerend
+  model** (rares-recept): npcID alléén geleerd van het boss1-frame
+  tijdens de bijbehorende stage → `ns.db.ritualBossNpcIds`. **Data-spy**:
+  stages/steps, ENCOUNTER_START/END en alle boss-unit-npcIDs automatisch
+  naar `ns.db.ritualBossSpy` (max 80 regels; chat-echo alleen met debug
+  aan) — geen /dump-huiswerk meer voor stage 3/Ger'lok.
+  `/mh ritualboss` (toggle, ook buiten de ritual) + `/mh ritualspy` (dump).
+- **`Modules/DungeonBossWindow.lua`**: custom-entry-route —
+  `ns.ShowBossWindowForEntry(d, bossKey)` (geen roster-lookup),
+  `ns.IsBossWindowSuppressedFor/IsBossWindowShowing/HideBossWindowForEntry`,
+  creatureID-override via `b.creatureId` (vóór de CREATURES-map).
+- **`Modules/DungeonLiveCoach.lua`**: BossDisplayName valt nu terug op
+  `ns.CUSTOM_BOSS_ENTRIES` → Chat/Share-knoppen werken ongewijzigd voor de
+  ritual-boss (tips lopen via dezelfde ns.DUNGEON_TIPS-sleutel).
+- **`Locales/RitualTips.lua`**: RITUAL_BOSS_DRAGONHAWK_STEPS ×6 — 4 bullets
+  uit Robs death recaps + Wowhead-tooltips, mét {SPELL:}-links (1284125
+  Binding Nebula, 1291610 Volatile Plumage, 1284085 Dissonant Realities);
+  mag hier wél: het venster rendert via EditBox. Shadowflame Breath blijft
+  plain (geen geverifieerd ID).
+- **`Core.lua`**: slash-handlers ritualboss/ritualspy (intern, niet in
+  publieke teksten). **TOC**: Modules\RitualBossCoach.lua (na
+  DungeonLiveCoach, vóór SettingsPage).
+- **Web-research (12 jun, na Robs eerste live-trigger):** ritual-structuur
+  is vast 3 stages (objectives → mini-boss → eindboss + chest; Icy Veins);
+  Dragonhawk = stage-2-spawn maar "**can** spawn" (Wowhead) suggereert een
+  mini-boss-POOL — spy bevestigt. **Model-seed npcID 255653** (Wowhead +
+  Petopia onafhankelijk) als `seedCreatureId`; geleerd ID wint. ⚠️ Open:
+  Wowhead-comment claimt dat Volatile Plumage-poelen GESOAKT moeten worden
+  (erin = weinig schade, erbuiten = veel) — haaks op intuïtie, eerst door
+  Rob in-game bevestigen vóór het in de tips gaat.
+- **Robs spy-run #1 (12 jun avond, T1 compleet, score 122):** volledige
+  stage-map binnen — 16391 "Void Reversal" / 16393 "Corrupted Beast" /
+  16394 "Corruptor's End". **GEEN ENCOUNTER_START/END en geen boss-frames
+  gelogd** → stage-triggering is de enige route; modellen via seeds (de
+  boss1-leerroute kan hier niet vuren, seed-fallback was dus essentieel).
+- **Ger'lok-pagina gebouwd:** boss-entry gerlok (stepID 16394, seed npcID
+  257284 — Wowhead + Warcraft Wiki, eindboss bevestigd) +
+  RITUAL_BOSS_GERLOK_STEPS ×6 (adds maken hem vrijwel immuun → direct
+  wegbranden [Wowhead-comment + Robs run]; brandende grond ontwijken
+  [Robs observatie, spellnaam "nog te bevestigen"]; naar lager platform
+  trekken mag, niet te ver — reset-hotfix 1 mei). PHASES-regel ×6
+  bijgewerkt: "eindboss-kill nog te bevestigen" eruit (Rob killde hem,
+  wiki bevestigt eindboss).
+
+- **Dungeon-picker in het boss-venster (Robs backlog-keuze, 12 jun
+  avond):** de dungeonnaam onder de bosstitel is nu een UIPanelButton
+  (Coach-les: kale Buttons/FontString-overlays zijn onbetrouwbaar
+  klikbaar) die een UIDropDownMenu opent (DelveCoach-huispatroon) met
+  alle roster-dungeons + custom entries (Broken Throne) — vinkje op de
+  huidige; knopbreedte volgt de naam; tooltip-hint DGN_WIN_PICK_HINT ×6
+  (Locales/DungeonGuide.lua). PickerEntries/InitDungeonPickerMenu staan
+  VÓÓR EnsureWindow (scoping-les). Refresh-fallback `b.seedCreatureId`
+  toegevoegd vóór de CREATURES-map, zodat de ritual-entry ook via de
+  picker meteen een model heeft.
+
+Luacheck: RitualBossCoach.lua (nieuw), DungeonBossWindow.lua,
+DungeonLiveCoach.lua, Core.lua, Locales/RitualTips.lua,
+Locales/DungeonGuide.lua, TOC.
+**Rob-test:** `/mh ritualboss` buiten de ritual → venster met de
+Dragonhawk-stappen (spell-links hoverbaar; model verschijnt pas nadat de
+npcID één keer geleerd is in een echte run); in de Broken Throne hoort het
+venster vanzelf te openen zodra stage 2 "Corrupted Beast" start, en weg te
+gaan bij verlaten. Na de run: `/mh ritualspy` → stages + eventuele
+ENCOUNTER-regels + boss-npcIDs (die data sluit de open vragen uit
+TOMORROW.md).
+
+Commitvoorstel: `feat(ritual): Ritual Boss Coach — boss-venster in de
+Broken Throne via scenario-stappen, zelflerend model + data-spy`
+
+## Voor Cursor — 12 juni middag: Settings-tab "Mission Control" (post-1.7.1)
+
+Robs go op het settings-plan (besluiten: roulerende eyecatcher · Broker
+blijft mini · slider náást shift+scroll · Geavanceerd als 5e categorie ·
+gelokaliseerde tabnaam). Gebouwd (F1+F2+F3-licht):
+
+- **NIEUW `Modules/SettingsPage.lua`** (~660 regels, parser ✓): push/
+  Relayout-engine met categorieën als view-modes (Algemeen · Meldingen &
+  popups · Dungeon Coach · Delen · Geavanceerd). Eyecatcher-strip met
+  **langzaam roterend 3D-model** (clip-container; pool = alle
+  DUNGEON_BOSS_CREATURES + geleerde rareNpcIds, loting per open-beurt),
+  tagline + live versienummer, **pulserend goud accentlijntje**
+  (AnimationGroup). Actieve categorie/taal/guide-modus kleurt goud.
+- **Instellingen** (alles via bestaande setters): taal ×7 (incl. AUTO),
+  open-bij-login, compact, guide-zichtbaarheid ×3; rare-alert aan/uit +
+  geluid (nieuw zichtbaar) + alleen-tijdens-hunt + **TEST-knop**
+  (TestRareAlert); shard-cap **TEST**; toast-positie **Voorbeeld**
+  (sleepbare voorbeeld-toast) + **Reset**; live boss-tips-toggle (eindelijk
+  zichtbaar); boss-venster **schaal-slider 0.7-1.8** (live) + Open-knop;
+  Geavanceerd: debug, geleerde-rares-wissen, boss-venster-layout-reset.
+- **Robs review-ronde 1 (verwerkt):** Delen-categorie geschrapt tot fase 5
+  ’m echt vult (één regel = te leeg; de uitlegtekst staat nu onderaan
+  Dungeon Coach); keybind-verwijzing verwijderd (eerder besluit: keybind is
+  privé — bovendien renderden de →-pijlen als blokjes in de FontString).
+  SET_ADV_KEYBIND-keys ×6 uit de locale verwijderd. Sidebar-volgorde TOOLS
+  omgedraaid: Addons eerst, Instellingen onderaan vlak boven About
+  (UI.lua: sectie-ids + TAB_DEFS).
+- **NIEUW `Locales/SettingsPage.lua`** (parser ✓): ~25 page-keys ×6
+  (TAB_SETTINGS, SET_*, INFO_DRAWER_BODY_SETTINGS); hergebruikt bestaande
+  SETTINGS_*-keys voor rare/compact/guide/language.
+- **Exposures:** DungeonLiveCoach `Set/IsDungeonLiveTipsEnabled`;
+  DungeonBossWindow `ns.DUNGEON_BOSS_CREATURES` export +
+  `Set/GetBossWindowScale` + `ResetBossWindowLayout` (slider-loop-guard
+  via `_mhSettingValue`).
+- **UI.lua:** TAB_DEFS + sidebar TOOLS (settings vóór addons) +
+  build-dispatch + SelectTab-refresh + info-drawer-mapping.
+- **TOC:** Locales\SettingsPage.lua + Modules\SettingsPage.lua.
+
+Luacheck: SettingsPage (module+locale, beide parser ✓), UI.lua,
+DungeonLiveCoach.lua, DungeonBossWindow.lua, TOC; encoding-sweep
+Locales/SettingsPage.lua. **Rob-test:** sidebar → Instellingen: eyecatcher
+roteert (en wisselt per bezoek), categorieën schakelen, TEST-knoppen
+vuren toast+geluid, voorbeeld-toast slepen → positie blijft, slider
+schaalt het boss-venster live (open hem ernaast), taal wisselen herlabelt
+de hele pagina direct.
+
+Commitvoorstel: `feat(settings): Mission Control-settingstab — eyecatcher,
+live test-knoppen, alle verborgen toggles zichtbaar (plan F1-F3)`
+
 ## 🚀 GO-BLOK CURSOR — release 1.7.1 (12 juni)
 
 **Cursor commits (12 juni push):** `97cff7c` boss-venster · `b2649e0` l10n

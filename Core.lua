@@ -660,6 +660,24 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "ritualboss" then
+		if ns.ToggleRitualBossWindow then
+			ns.ToggleRitualBossWindow()
+		else
+			print("|cffffcc00Midnight Helper:|r ritual boss coach not loaded")
+		end
+		return
+	end
+
+	if msg == "ritualspy" then
+		if ns.DumpRitualBossSpy then
+			ns.DumpRitualBossSpy()
+		else
+			print("|cffffcc00Midnight Helper:|r ritual boss coach not loaded")
+		end
+		return
+	end
+
 	if msg == "debug" then
 		-- Toggle debug mode
 		if ns.db and ns.db.ui then
