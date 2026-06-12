@@ -27,6 +27,7 @@ Locales\DelveTips.lua
 Locales\RitualTips.lua
 Locales\StartHere.lua
 Locales\DungeonGuide.lua
+Locales\SettingsPage.lua
 Locales\DungeonTips.lua
 Locales\Codex.lua
 Locales\Locale.lua
@@ -90,6 +91,7 @@ Modules\DungeonTipsData.lua
 Modules\DungeonGuide.lua
 Modules\DungeonBossWindow.lua
 Modules\DungeonLiveCoach.lua
+Modules\SettingsPage.lua
 Modules\ShardCapAlert.lua
 Modules\WorldContent.lua
 Modules\DelveHistory.lua

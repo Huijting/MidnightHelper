@@ -93,6 +93,9 @@ local CREATURES = {
 	["algethar:doragosa"] = 190609,
 }
 
+-- Export voor de Settings-eyecatcher (rouleren langs bekende modellen).
+ns.DUNGEON_BOSS_CREATURES = CREATURES
+
 local function GetWinSettings()
 	local uiDb = ns.db and ns.db.ui
 	if type(uiDb) ~= "table" then
@@ -583,6 +586,42 @@ function ns.ShowDungeonBossWindow(dungeonKey, bossKey)
 	local f = EnsureWindow()
 	f:Show()
 	ns.RefreshDungeonBossWindow()
+end
+
+-- Settings-pagina: schaal live zetten (slider) en layout resetten.
+function ns.SetBossWindowScale(sc)
+	sc = tonumber(sc)
+	if not sc then
+		return
+	end
+	if sc < MIN_SCALE then
+		sc = MIN_SCALE
+	elseif sc > MAX_SCALE then
+		sc = MAX_SCALE
+	end
+	GetWinSettings().scale = sc
+	if win then
+		SavePosition(win)
+		win:SetScale(sc)
+		ApplySavedPosition(win)
+	end
+end
+
+function ns.GetBossWindowScale()
+	return CurScale()
+end
+
+function ns.ResetBossWindowLayout()
+	local s = GetWinSettings()
+	s.x, s.y, s.w, s.scale = nil, nil, nil, nil
+	if win then
+		win:SetScale(1)
+		win:SetWidth(DEFAULT_W)
+		ApplySavedPosition(win)
+		if win:IsShown() then
+			ns.RefreshDungeonBossWindow()
+		end
+	end
 end
 
 function ns.ToggleDungeonBossWindow()

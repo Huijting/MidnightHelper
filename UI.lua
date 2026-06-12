@@ -245,7 +245,7 @@ local SIDEBAR_SECTIONS = {
 	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "starthere", "home", "codex", "delves", "dungeons", "rares", "world" } },
 	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "toolbox" } },
-	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons" } },
+	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons", "settings" } },
 }
 local SIDEBAR_SECTION_GAP = 10
 local SIDEBAR_HEADER_HEIGHT = 16
@@ -326,6 +326,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_CONSUMABLES"
 	elseif tabId == "addons" then
 		return "INFO_DRAWER_BODY_ADDONS"
+	elseif tabId == "settings" then
+		return "INFO_DRAWER_BODY_SETTINGS"
 	end
 	return "INFO_DRAWER_BODY_DELVES"
 end
@@ -1344,6 +1346,7 @@ local TAB_DEFS = {
 	-- sub-tabs; legacy tab ids still route there via the alias in SelectTab.
 	{ id = "toolbox", labelKey = "TAB_TOOLBOX" },
 	{ id = "addons", labelKey = "TAB_ADDONS" },
+	{ id = "settings", labelKey = "TAB_SETTINGS" },
 }
 
 local TAB_LABEL_BY_ID = {}
@@ -1844,6 +1847,8 @@ function ns:EnsureMainUI()
 				ns.BuildStartHerePanel(panel)
 			elseif tab.id == "dungeons" and ns.BuildDungeonGuidePanel then
 				ns.BuildDungeonGuidePanel(panel)
+			elseif tab.id == "settings" and ns.BuildSettingsPanel then
+				ns.BuildSettingsPanel(panel)
 			end
 		end
 	end
@@ -2443,6 +2448,9 @@ SelectTab = function(tabId)
 	end
 	if tabId == "dungeons" and ns.RefreshDungeonGuidePanel then
 		ns.RefreshDungeonGuidePanel()
+	end
+	if tabId == "settings" and ns.RefreshSettingsPanel then
+		ns.RefreshSettingsPanel()
 	end
 
 	if tabId == "delves" then

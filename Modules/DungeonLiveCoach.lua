@@ -83,6 +83,18 @@ local function LiveTipsEnabled()
 	return uiDb.dungeonLiveTips ~= false -- default aan
 end
 
+-- Directe setter voor de Settings-pagina (12 jun).
+function ns.SetDungeonLiveTipsEnabled(v)
+	local uiDb = ns.db and ns.db.ui
+	if type(uiDb) == "table" then
+		uiDb.dungeonLiveTips = v and true or false
+	end
+end
+
+function ns.IsDungeonLiveTipsEnabled()
+	return LiveTipsEnabled()
+end
+
 function ns.ToggleDungeonLiveTips()
 	local uiDb = ns.db and ns.db.ui
 	if type(uiDb) ~= "table" then
