@@ -87,7 +87,19 @@ local function IsWeeklyDone()
 	if not (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
 		return false
 	end
-	return C_QuestLog.IsQuestFlaggedCompleted(VOID_META_QUEST) and true or false
+	-- Meta-quest ÓF een zone-weekly telt als gedaan: Robs mage (12 jun)
+	-- voltooide de zone-weekly terwijl 95842 false bleef — de routine zette
+	-- "done" daardoor terug op "pick it up". Zone-flags zijn weekly-reset
+	-- flags, dus dit blijft never-lie-veilig.
+	if C_QuestLog.IsQuestFlaggedCompleted(VOID_META_QUEST) then
+		return true
+	end
+	for _, z in ipairs(ZONES) do
+		if C_QuestLog.IsQuestFlaggedCompleted(z.weekly) then
+			return true
+		end
+	end
+	return false
 end
 
 local function GetAccoladeInfo()

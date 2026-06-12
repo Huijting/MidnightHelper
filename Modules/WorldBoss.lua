@@ -232,9 +232,10 @@ end
 
 local function SyncWarbandDoneFromQuestLog(activeBoss)
 	ClearStaleWbWeekCache()
-	if activeBoss and activeBoss.questId and IsWorldBossAvailableThisWeek(activeBoss) then
-		return nil, nil
-	end
+	-- GEEN availability-early-return meer (Robs paladin, 12 jun): de WQ is
+	-- per-char beschikbaar, dus "deze char kan 'm nog doen" zegt niets over
+	-- de warband — de oude guard maskeerde de account-cache op alts en
+	-- toonde "not defeated" terwijl een andere char al geregistreerd had.
 	if activeBoss and activeBoss.questId and IsQuestCompletedThisWeek(activeBoss.questId) then
 		local who = UnitName and UnitName("player")
 		MarkWarbandDone(activeBoss, who)

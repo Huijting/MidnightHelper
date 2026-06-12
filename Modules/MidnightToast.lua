@@ -225,12 +225,19 @@ local function EnsureToastFrame()
 	-- idee afgekeken van RareScanner, code/data niet — die is All Rights
 	-- Reserved). SetCreature(npcID) laat de client zelf het model resolven
 	-- (zelfde aanpak als DBM-GUI en MDT), dus geen displayID-database nodig.
-	-- Bewust groter dan het icon-slot: bijna de volle toast-hoogte, verticaal
-	-- gecentreerd, zodat de rare goed zichtbaar is (Rob 11 jun: "iets groter
-	-- en passend"). Tekst begint op x=70, model eindigt op 8+56=64.
-	local model = CreateFrame("PlayerModel", nil, content)
-	model:SetSize(56, 56)
-	model:SetPoint("LEFT", content, "LEFT", 8, 0)
+	-- Model in een clip-container (Rob 12 jun: het model stak onder de
+	-- gouden rand uit — PlayerModels renderen buiten hun frame-rect en
+	-- 56px paste sowieso niet in de ~42px binnenruimte). De container
+	-- blijft binnen de backdrop-insets en SetClipsChildren kapt de rest af.
+	local modelClip = CreateFrame("Frame", nil, content)
+	modelClip:SetPoint("TOPLEFT", content, "TOPLEFT", 11, -11)
+	modelClip:SetPoint("BOTTOMLEFT", content, "BOTTOMLEFT", 11, 11)
+	modelClip:SetWidth(52)
+	if modelClip.SetClipsChildren then
+		modelClip:SetClipsChildren(true)
+	end
+	local model = CreateFrame("PlayerModel", nil, modelClip)
+	model:SetAllPoints(modelClip)
 	model:EnableMouse(false)
 	model:Hide()
 	content.model = model
