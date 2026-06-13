@@ -16,9 +16,9 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 
 ## Voor Cursor — review + commit batch 13 juni (Events-tab / Broker-absorptie)
 
-**STATUS: ⏳ KLAAR VOOR REVIEW + COMMIT + PUSH** (Rob heeft basis in-game gezien:
-Events-tab toont, klik-route + hover werken, foutmelding gefixt; volledige
-testchecklist in `docs/TOMORROW.md`).
+**STATUS: ✅ AFGEROND** — Cursor commit gepusht: `03fa4ac` (Rob heeft basis
+in-game gezien: Events-tab toont, klik-route + hover werken, foutmelding
+gefixt; volledige testchecklist in `docs/TOMORROW.md`).
 
 Eén cohesieve commit. Voorgesteld bericht:
 
