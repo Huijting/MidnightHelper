@@ -678,6 +678,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "eventspy" then
+		if ns.EventSchedulerSpyDump then
+			ns.EventSchedulerSpyDump()
+		else
+			print("|cffffcc00Midnight Helper:|r event scheduler not loaded")
+		end
+		return
+	end
+
 	if msg == "debug" then
 		-- Toggle debug mode
 		if ns.db and ns.db.ui then

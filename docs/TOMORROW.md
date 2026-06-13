@@ -1,5 +1,83 @@
 # Morgen — test & uitzoek (Midnight Helper)
 
+## 🌅 MORGENOCHTEND (14 juni) — PTR 12.0.7 verder invullen
+
+Hoofdfocus: `docs/PTR_12.0.7_DATA.md` afmaken. Met de nieuwe **`/mh eventspy`**
+gaat dit sneller — op de PTR komen de uiMapIDs er direct uit. Open punten:
+
+1. **Val-uiMapID** — sta in Val (of wacht op de rotatie) en `/mh eventspy`;
+   `GetEventUiMapID` zou Val's map nu moeten teruggeven. (Naigtal = 2600 al ✅.)
+2. **"Showdown on Val" quest-ID** (Naigtal = 96717 ✅).
+3. **Rare NPC-IDs / coords in Val** (Naigtal grotendeels ✅).
+4. **Folio Mote-ID** + Sporefall-vault-check.
+5. **Zone-events identificeren**: zodra Void Assault / Abundance / Saltheril's
+   Soiree / Runestone Defense actief worden, hun areaPoiID + naam noteren →
+   dan krijgen ze in de Events-tab ook een naam + info-entry (EventInfoData).
+
+## ✅ STAND 13 JUNI avond — Events-tab batch (Claude)
+
+Gebouwd vandaag (fase A van het Broker-absorptieplan):
+
+- `Modules/EventScheduler.lua` (NIEUW) — taint-veilige wereld-event-lezer +
+  `/mh eventspy` (in Core.lua). Zone→uiMap- en naam-cache (persistent in
+  SavedVars). Geverifieerde live-IDs: Voidstorm 2405, Harandar 2413,
+  Eversong 2395 (in PTR-doc).
+- `Modules/EventInfoData.lua` (NIEUW) — "wat is dit / wat levert het op" per
+  event (areaPoiID): Stormarion Assault 8419, Legends of the Haranir 8423
+  (web-geverifieerd: Icy Veins / Sportskeeda / Boostmatch).
+- `Modules/EventsPanel.lua` (NIEUW) — eigen **Events-tab**: Nu bezig / Komt
+  eraan, klikbare live-events (route via AddSmartTomTomWay), hover-uitleg,
+  live mee-tikkend. A3-blok uit WorldContent gehaald.
+- Versie → **1.8.0**, CHANGELOG bijgewerkt.
+
+### 💾 Commit-voorstel (Cursor — doen om alles veilig te stellen)
+
+Draai eerst luacheck/loadfile (mount gaf weer truncatie-false-positives;
+host-bestanden zijn syntactisch geverifieerd met een Lua-parser). Commit-bericht:
+
+> feat(events): Events-tab + taint-veilige EventScheduler + /mh eventspy + event-info (1.8.0)
+
+Bestanden:
+
+- **Nieuw:** `Modules/EventScheduler.lua`, `Modules/EventInfoData.lua`,
+  `Modules/EventsPanel.lua`, `docs/BROKER_ABSORPTION_PLAN.md`.
+- **Gewijzigd:** `Core.lua` (/mh eventspy), `UI.lua` (Events-tab registratie),
+  `Modules/WorldContent.lua` (kleine regel-knophoogte in push/Relayout; A3-blok
+  verplaatst), `MidnightHelper.toc` (3 modules + versie 1.8.0),
+  `Locales/enUS.lua` + `Locales/nlNL.lua` (event/tab-strings), `CHANGELOG.md`,
+  `docs/TOMORROW.md`, `docs/PTR_12.0.7_DATA.md`.
+
+CF-release pas ná in-game test (jouw call) — de DE/FR/ES/PT-strings vallen nu
+terug op enUS; vertalen kan later (I18N_ROADMAP).
+
+### 🧪 Nog in-game te checken (na /reload)
+
+- [ ] **Events-tab** verschijnt in de zijbalk; Nu bezig (goud) + Komt eraan.
+- [ ] Klik op een lopend event → waypoint/route gezet.
+- [ ] Hover op Stormarion Assault / Legends of the Haranir → uitleg + beloningen.
+- [ ] Void & Rituals-tab: events-blok is wég (alleen Ritual + Void), niets stuk.
+- [ ] Taalwissel NL/EN: tab-titel + secties vertalen mee.
+
+## 📍 STAND 13 JUNI — Broker_MidnightEvents doorgepluisd (Claude)
+
+Rob installeerde **Broker_MidnightEvents** (artherion77, v1.0.3, GPL-2.0,
+~6.200 regels) zodat we ervan kunnen leren. Volledige analyse +
+absorptie-roadmap: **`docs/BROKER_ABSORPTION_PLAN.md`**. Kernpunten:
+
+- ⚖️ **GPL-2.0 ≠ onze MIT** → aanpak en feitelijke IDs/API's overnemen,
+  géén code (copyleft). Zelfde posture als RitualAlert.
+- ✅ **Audit taint-exposure: wij zijn schoon.** We lezen geen
+  `C_UIWidgetManager` StatusBar-widgets of `C_EventScheduler`-timestamps
+  (de twee secret-bronnen die Broker isoleert). Onze weekly-% gaat via
+  `GetQuestProgressBarPercent` (pcall + `math.floor`, geen secret in 12.x)
+  naar eigen FontStrings, niet naar de gedeelde GameTooltip. De
+  MidnightHealerHelper-spam was een ánder addon, niet wij.
+- 🔧 **Taint-patroon = verplichte ontwerpregel** zodra we wél live
+  event-timers/voortgangsbalken bouwen (zie plan §Taint).
+- 🎯 **Grootste echte gap**: een event-timer-systeem (`C_EventScheduler` +
+  `C_AreaPoiInfo.GetEventsForMap`) — bestaat nog niet bij ons. `GetEventUiMapID`
+  is meteen de route naar de open **Val-uiMapID** in PTR_12.0.7_DATA.md.
+
 ## 📍 STAND 11 JUNI ~10u (koffiepauze)
 
 - Stap 5 (level-test) ✅ · stap 4 (Zygor-mine) ✅ · stap 3 (12.0.7-web) ✅
@@ -29,6 +107,27 @@ niet opnieuw narennen: "Abyssal Wildfire" en "Void-infused Channelers"
 bestaan niet op Wowhead, "Tier 1-11" en "Nemesis Pactsworn" spreken de
 geverifieerde T1-6 tegen, "+15% per vlam" onvindbaar, Eaglet-drop botst
 met Icy Veins. Ger'loks wildfire-spellnaam blijft "nog te bevestigen".
+
+## 💡 IDEE (Rob, 12 jun avond): emote-listener voor de Ritual Boss Coach
+
+Inspiratie uit het addon **RitualAlert** (Xamael; gaat over een ánder
+event — Twilight Ascension in Voidstorm mapID 241, open-world interrupt-
+ritueel, géén overlap met onze Ritual Sites). NB: geen licentie in de map
+→ aanpak overnemen, niet de code.
+
+Bruikbare techniek: ze matchen op **boss-emotes** via CHAT_MSG_MONSTER_-
+EMOTE / RAID_BOSS_EMOTE / MONSTER_YELL / MONSTER_SAY i.p.v. ENCOUNTER_-
+START. Dat is precies wat onze Ritual Boss Coach mist: Robs spy-run
+bevestigde dat Ger'lok/Dragonhawk GEEN ENCOUNTER_START afvuren, maar ze
+**roepen wel** bij hun casts. → **emote-listener toevoegen aan
+RitualBossCoach.lua** die op die teksten een gerichte flash/alert toont op
+het exacte moment ("Binding Nebula! → kill de nebula", "interrupt
+Dissonant Reflections"), bovenop het venster dat al bij stage-start opent.
+Vereist: emote-strings opvangen tijdens Robs volgende run (de spy logt nu
+al stages — uitbreiden met een emote-dump zodat we de exacte triggerzinnen
+×locale weten vóór we matchen; never-lie: pas alerten op bevestigde tekst).
+Tweede bruikbaar detail: hun vignette→waypoint-fallback ("kies niet-
+eclipse, dan dichtstbij") als referentie voor evt. Void Rift-routing.
 
 ## 💡 Ritual Boss Coach — ✅ GEBOUWD (Claude, 12 jun middag)
 

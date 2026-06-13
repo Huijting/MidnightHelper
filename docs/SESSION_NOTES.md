@@ -14,6 +14,48 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 - Geen CurseForge-release zonder expliciete vraag van Rob.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
 
+## Voor Cursor — review + commit batch 13 juni (Events-tab / Broker-absorptie)
+
+**STATUS: ⏳ KLAAR VOOR REVIEW + COMMIT + PUSH** (Rob heeft basis in-game gezien:
+Events-tab toont, klik-route + hover werken, foutmelding gefixt; volledige
+testchecklist in `docs/TOMORROW.md`).
+
+Eén cohesieve commit. Voorgesteld bericht:
+
+> feat(events): Events-tab + taint-veilige EventScheduler + /mh eventspy + event-info (1.8.0)
+
+**Nieuw (4):**
+- `Modules/EventScheduler.lua` — taint-veilige wereld-event-lezer (dedicated
+  ticker → platte tabellen; alle scheduler/widget-reads gelaunderd via pcall),
+  getters + zone→uiMap/naam-cache (persistent in SavedVars).
+- `Modules/EventInfoData.lua` — event-info op areaPoiID (8419 Stormarion, 8423
+  Haranir), web-geverifieerd (Icy Veins / Sportskeeda / Boostmatch).
+- `Modules/EventsPanel.lua` — eigen Events-tab (Nu bezig / Komt eraan, klikbare
+  live-events → AddSmartTomTomWay, hover-tooltips, live mee-tikkend).
+- `docs/BROKER_ABSORPTION_PLAN.md` — analyse Broker_MidnightEvents (GPL-2.0:
+  aanpak/IDs only) + fase-roadmap.
+
+**Gewijzigd (9):**
+- `Core.lua` — `/mh eventspy`-subcommando.
+- `UI.lua` — Events-tab registratie (TAB_DEFS + dispatch + keyById).
+- `Modules/WorldContent.lua` — push/Relayout kleine regel-knophoogte; A3-blok
+  hieruit verplaatst naar de Events-tab (Void & Rituals weer puur Ritual+Void).
+- `MidnightHelper.toc` — 3 modules + **versie 1.8.0**.
+- `Locales/enUS.lua` + `Locales/nlNL.lua` — TAB_EVENTS/EVENTS_*/WORLD_EVENT_*/
+  EVENT_INFO_*-keys. DE/FR/ES/PT vallen terug op enUS (vertalen = backlog).
+- `CHANGELOG.md` — [1.8.0]-blok.
+- `docs/PTR_12.0.7_DATA.md` — live zone-uiMapIDs (Voidstorm 2405, Harandar 2413,
+  Eversong 2395) + `/mh eventspy`-route naar Val-uiMapID.
+- `docs/TOMORROW.md` — batch-samenvatting + morgenochtend PTR-plan.
+
+**Review-punten:**
+- **Luacheck/loadfile draaien** — de Cowork-mount gaf vanavond truncatie-false-
+  positives; alle nieuwe/gewijzigde .lua zijn host-geverifieerd met een
+  Lua-parser (luaparser), maar bevestig graag met `lua loadfile`.
+- Geen taint-exposure toegevoegd: alle secret-reads zitten in de
+  EventScheduler-ticker; render/click-paden lezen alleen platte waarden.
+- Geen CurseForge-release zonder Robs expliciete vraag.
+
 ## Voor Cursor — review + commit batch 7 juni (commits `605c670` / `19df573` / `705306d`)
 
 **STATUS: ✅ AFGEROND** — Cursor review + commits gepusht: `605c670`

@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.0] - 2026-06-13
+
+### Added
+
+- **Events tab** — a new sidebar tab listing all of Midnight's world events in one place: what's firing **now** and what's **coming up** over the next day, with live countdowns. Live events are **clickable to set a route** (TomTom or Blizzard waypoint + travel advice), and **hovering** any event explains what it is and what it rewards. Stormarion Assault and Legends of the Haranir have full descriptions so far — more events will be added as they're verified.
+- **`/mh eventspy`** — a diagnostic that dumps the live world-event scheduler (event names, zones, map IDs and timers) to chat and to SavedVariables. Used to capture new-zone data (e.g. map IDs) on the PTR.
+
+### Notes
+
+- Event reading is fully taint-safe under the 12.x protected-data model (all scheduler/widget reads happen in an isolated ticker; the UI only reads plain values).
+
 ## [1.7.1] - 2026-06-12
 
 ### Added

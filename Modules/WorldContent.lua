@@ -93,7 +93,7 @@ local function Relayout()
 			w:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
 			w:SetWidth(math.max(width - indent, 1))
 			if el.button then
-				y = y + BTN_H
+				y = y + (el.btnH or BTN_H)
 			else
 				y = y + math.max(w:GetStringHeight() or 0, 1)
 			end
@@ -462,8 +462,8 @@ function ns.BuildWorldPanel(panel)
 	end)
 	UpdateNavButtons()
 
-	local function push(w, gapTop, indent, button)
-		ui.order[#ui.order + 1] = { w = w, gapTop = gapTop, indent = indent, button = button }
+	local function push(w, gapTop, indent, button, btnH)
+		ui.order[#ui.order + 1] = { w = w, gapTop = gapTop, indent = indent, button = button, btnH = btnH }
 	end
 
 	-- Shared header block.

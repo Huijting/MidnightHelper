@@ -1,5 +1,5 @@
 ## Interface: 120005, 120007
-## Version: 1.7.1
+## Version: 1.8.0
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.
@@ -85,6 +85,9 @@ Modules\ProfessionsHub.lua
 Modules\ShowdownsData.lua
 Modules\Showdowns.lua
 Modules\VoidAssaults.lua
+Modules\EventScheduler.lua
+Modules\EventInfoData.lua
+Modules\EventsPanel.lua
 Modules\ResetRoutine.lua
 Modules\DungeonRosterData.lua
 Modules\DungeonTipsData.lua

@@ -1335,6 +1335,7 @@ local TAB_DEFS = {
 	{ id = "account", labelKey = "TAB_ACCOUNT_SNAPSHOT" },
 	{ id = "rares", labelKey = "TAB_RARES" },
 	{ id = "world", labelKey = "TAB_WORLD" },
+	{ id = "events", labelKey = "TAB_EVENTS" },
 	{ id = "delvelog", labelKey = "TAB_DELVE_LOG" },
 	-- reference is no longer top-level: it lives in the Codex as a category;
 	-- SelectTab("reference") still works via the alias below.
@@ -1718,6 +1719,7 @@ function ns:EnsureMainUI()
 				world = "TAB_WORLD",
 				delvelog = "TAB_DELVE_LOG",
 				rares = "TAB_RARES",
+				events = "TAB_EVENTS",
 				account = "TAB_ACCOUNT_SNAPSHOT",
 				reference = "TAB_REFERENCE",
 				smcguide = "TAB_SMC",
@@ -1841,6 +1843,8 @@ function ns:EnsureMainUI()
 				ns.BuildHomePanel(panel)
 			elseif tab.id == "world" and ns.BuildWorldPanel then
 				ns.BuildWorldPanel(panel)
+			elseif tab.id == "events" and ns.BuildEventsPanel then
+				ns.BuildEventsPanel(panel)
 			elseif tab.id == "delvelog" and ns.BuildDelveLogPanel then
 				ns.BuildDelveLogPanel(panel)
 			elseif tab.id == "starthere" and ns.BuildStartHerePanel then

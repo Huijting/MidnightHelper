@@ -108,9 +108,18 @@ Sta in de zone en run:
 ```
 /dump C_Map.GetBestMapForUnit("player")
 ```
-Noteer per zone (en eventueel per verdieping/subzone).
+…of (nieuw, 13 jun) gewoon **`/mh eventspy`** — de Event Scheduler-module
+print per actief event naam · zone · **uiMapID** rechtstreeks, dus zodra Val
+in de event-rotatie zit komt z'n uiMapID er vanzelf uit.
 - ✅ **Naigtal = uiMapID 2600** (gemeten in Umbral Base Camp, PTR 6 juni 2026)
 - ⬜ Val = ? (volgende rotatie, of check of het vaste Silvermoon-portaal een keuze biedt)
+- ℹ️ **Live zone-uiMapIDs geverifieerd via `/mh eventspy` (13 jun, 12.0.5):**
+  Voidstorm = **2405** (bevestigt de Zygor-waarde), **Harandar = 2413**
+  (= Legends of the Haranir; matcht ook Brokers Void-Incursion-zone),
+  **Eversong Woods = 2395** (zone-cache vulde de geplande events correct).
+  Speler-map bij meting: 2395 (Eversong) / 2393 (Silvermoon-portaal-area).
+  Zul'Aman uiMapID nog onbekend (pas leerbaar zodra Zul'Aman een actief event
+  is). Val/Naigtal niet zichtbaar op live — oogsten op de PTR met `/mh eventspy`.
 - ✅ Vast Silvermoon-portaal = **2393, 47.93, 48.09** (exact midden; zelfde verdieping als de quest-hub in de Bazaar, iets verderop — PTR 7 juni)
 
 **2. Showdown weekly quest-IDs** ("Showdown on Naigtal" / "Showdown on Val", + evt. Heroic-variant)
