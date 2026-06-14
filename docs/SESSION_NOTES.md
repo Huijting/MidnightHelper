@@ -16,7 +16,7 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 
 ## Voor Cursor — review + commit batch 14 juni #2 (boss-coach-trio)
 
-**STATUS: ✅ AFGEROND** — Cursor commit gepusht: `TBD`.
+**STATUS: ✅ AFGEROND** — Cursor commit gepusht: `43b04cf`.
 
 Voorgesteld bericht:
 
