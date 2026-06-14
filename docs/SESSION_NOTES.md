@@ -14,6 +14,36 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 - Geen CurseForge-release zonder expliciete vraag van Rob.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
 
+## Voor Cursor — review + commit batch 14 juni #2 (boss-coach-trio)
+
+**STATUS: ✅ AFGEROND** — Cursor commit gepusht: `TBD`.
+
+Voorgesteld bericht:
+
+> feat(coach): Sporefall raid-coach (Rotmire) + Daggerspine ritual-scaffold + cast-alerts Broken Throne
+
+**Nieuw (2):** `Modules/SporefallCoach.lua` (Rotmire 254176 als boss-entry +
+tips + ENCOUNTER_START-auto-open, zelflerend encounterID), `Modules/DaggerspineCoach.lua`
+(Lady Selen'vjar 257498 + Mindbreaker-stage als scaffold, picker/model klaar).
+
+**Gewijzigd:** `Modules/RitualBossCoach.lua` (CLEU cast-alerts: flash bij
+Binding Nebula 1284125/1284106 + Dissonant Reflections 1284081/1284085, alleen
+tijdens het scenario, 3s throttle), `MidnightHelper.toc` (2 modules), en **alle 6
+locales**: `Locales/RitualTips.lua` (RAID_BOSS_ROTMIRE_*, RITUAL_BOSS_MINDBREAKER/
+SELENVJAR_STEPS, RITUAL_ALERT_*) + `Locales/{enUS,nlNL,deDE,frFR,esES,ptBR}.lua`.
+
+**Lokalisatie-pass (14 jun #2 incl.):** alle nieuwe features van vandaag —
+Events-tab, world-events, event-info, weekly-status, model-preview én de
+boss/alert-tips — zijn nu **volledig vertaald naar DE/FR/ES/PT** (waren enUS-
+fallback). Key-pariteit 6/6 host-geverifieerd, %s-format-specifiers gelijk, geen
+ZWSP. (Eerdere "ptBR mist GERLOK_STEPS" was vals alarm = mount-lag; ptBR had 'm
+al. Alle boss/alert-keys staan 6/6, host-geverifieerd via Grep.)
+
+**Review-punten:** `lua loadfile` op de gewijzigde .lua. Spell-IDs zijn 12.0.7
+(resolven de spell-links pas live). Commit vanuit Cursor (host), niet Cowork
+(mount gaf weer afgekapte reads — host-geverifieerd met luaparser + Grep-pariteit).
+Geen CF-upload.
+
 ## Voor Cursor — review + commit batch 13 juni (Events-tab / Broker-absorptie)
 
 **STATUS: ✅ AFGEROND** — Cursor commit gepusht: `81976b1` (basis `03fa4ac` +

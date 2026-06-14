@@ -70,6 +70,73 @@ local inScenario = false
 local lastStepID = nil
 local shownForStep = {} -- per scenario-bezoek éénmaal auto-openen per step
 
+-- Cast-alerts (idee uit RitualAlert; spell-IDs uit 14-jun datamining). Terwijl we
+-- in het Broken-Throne-scenario zitten, flasht een waarschuwing zodra de boss/add
+-- een bekende spell cast. De CLEU-listener (clf) draait alléén tijdens het
+-- scenario (in OnScenarioTick aan, in LeaveScenario uit) — geen wereldwijde
+-- combat-log-belasting. Per spell ~3s throttle.
+local ALERT_SPELLS = {
+	[1284125] = "RITUAL_ALERT_BINDING_NEBULA", -- Binding Nebula (live)
+	[1284106] = "RITUAL_ALERT_BINDING_NEBULA", -- Binding Nebula (PTR)
+	[1284081] = "RITUAL_ALERT_DISSONANT", -- Dissonant Reflections (live)
+	[1284085] = "RITUAL_ALERT_DISSONANT", -- Dissonant Reflections (PTR)
+}
+local alertFrame
+local lastAlertAt = {}
+
+local function FlashAlert(msg)
+	if not alertFrame then
+		local a = CreateFrame("Frame", "MidnightHelperRitualAlert", UIParent)
+		a:SetSize(700, 60)
+		a:SetPoint("TOP", UIParent, "TOP", 0, -200)
+		a:SetFrameStrata("HIGH")
+		a:Hide()
+		local fs = a:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
+		fs:SetPoint("CENTER")
+		fs:SetTextColor(1, 0.3, 0.3)
+		a.text = fs
+		a.anim = a:CreateAnimationGroup()
+		local f1 = a.anim:CreateAnimation("Alpha")
+		f1:SetFromAlpha(0); f1:SetToAlpha(1); f1:SetDuration(0.15); f1:SetOrder(1)
+		local f2 = a.anim:CreateAnimation("Alpha")
+		f2:SetFromAlpha(1); f2:SetToAlpha(1); f2:SetDuration(2.2); f2:SetOrder(2)
+		local f3 = a.anim:CreateAnimation("Alpha")
+		f3:SetFromAlpha(1); f3:SetToAlpha(0); f3:SetDuration(0.6); f3:SetOrder(3)
+		a.anim:SetScript("OnFinished", function() a:Hide() end)
+		alertFrame = a
+	end
+	alertFrame.text:SetText(msg)
+	alertFrame:Show()
+	alertFrame.anim:Stop()
+	alertFrame.anim:Play()
+	if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then
+		pcall(PlaySound, SOUNDKIT.RAID_WARNING, "Master")
+	end
+end
+
+local function OnCombatLog()
+	if not inScenario then
+		return
+	end
+	local _, sub, _, _, _, _, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
+	if sub ~= "SPELL_CAST_START" and sub ~= "SPELL_CAST_SUCCESS" then
+		return
+	end
+	local key = spellID and ALERT_SPELLS[spellID]
+	if not key then
+		return
+	end
+	local now = (GetTime and GetTime()) or 0
+	if (lastAlertAt[spellID] or 0) + 3 > now then
+		return
+	end
+	lastAlertAt[spellID] = now
+	FlashAlert(ns:L(key))
+end
+
+local clf = CreateFrame("Frame")
+clf:SetScript("OnEvent", OnCombatLog)
+
 local function Spy()
 	if not ns.db then
 		return nil
@@ -180,6 +247,7 @@ local function LeaveScenario()
 	inScenario = false
 	lastStepID = nil
 	wipe(shownForStep)
+	clf:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	if ns.HideBossWindowForEntry then
 		ns.HideBossWindowForEntry(ENTRY.key)
 	end
@@ -194,6 +262,7 @@ local function OnScenarioTick()
 	end
 	if not inScenario then
 		inScenario = true
+		clf:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 		SpyLog(("scenario start: %s (id %d, %s stages)"):format(
 			tostring(info.name), info.scenarioID, tostring(info.numStages)))
 	end
