@@ -687,6 +687,22 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh model <item-link | itemID | npc <id>> — roteerbare 3D-model-preview.
+	local modelArg = msg:match("^model%s+(.+)$")
+	if msg == "model" or modelArg then
+		local arg = modelArg or ""
+		local npcId = arg:match("^npc%s+(%d+)$")
+		local itemId = arg:match("item:(%d+)") or arg:match("^(%d+)$")
+		if npcId and ns.PreviewCreature then
+			ns.PreviewCreature(tonumber(npcId))
+		elseif itemId and ns.PreviewItem then
+			ns.PreviewItem(tonumber(itemId))
+		else
+			print("|cffffcc00Midnight Helper:|r /mh model [item-link] · /mh model <itemID> · /mh model npc <npcID>  (shift-klik een item in de chatregel)")
+		end
+		return
+	end
+
 	if msg == "debug" then
 		-- Toggle debug mode
 		if ns.db and ns.db.ui then

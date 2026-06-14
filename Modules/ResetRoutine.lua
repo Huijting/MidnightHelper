@@ -374,6 +374,14 @@ function ns.GetResetRoutineSteps()
 			text = ns:L("HOME_ROUTINE_VOID_INLOG"),
 			color = "prog",
 			onClick = function()
+				-- Hybride routing (QoL): volg het live void-weekly-objectief via de
+				-- actieve zone-quest; lukt dat niet, val terug op het wereld-tabblad.
+				local zone = ns.GetActiveVoidAssaultZone and ns.GetActiveVoidAssaultZone()
+				local lbl = (zone and ns.VoidZoneName and ns.VoidZoneName(zone)) or "Void Assault"
+				if zone and zone.weekly and ns.AddSmartQuestRoute
+					and ns.AddSmartQuestRoute(zone.weekly, zone.mapID, nil, nil, lbl) then
+					return
+				end
 				if ns.SelectTab then
 					ns.SelectTab("world")
 				end

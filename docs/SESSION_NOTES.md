@@ -16,13 +16,16 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 
 ## Voor Cursor — review + commit batch 13 juni (Events-tab / Broker-absorptie)
 
-**STATUS: ✅ AFGEROND** — Cursor commit gepusht: `03fa4ac` (Rob heeft basis
-in-game gezien: Events-tab toont, klik-route + hover werken, foutmelding
-gefixt; volledige testchecklist in `docs/TOMORROW.md`).
+**STATUS: ⏳ KLAAR VOOR REVIEW + COMMIT + PUSH** — uitbreiding 14 juni bovenop
+`03fa4ac`; loadfile door Cursor te bevestigen.
 
-Eén cohesieve commit. Voorgesteld bericht:
+Eén cohesieve commit (of splits per logische groep — bestandslijst hieronder).
+Voorgesteld bericht:
 
-> feat(events): Events-tab + taint-veilige EventScheduler + /mh eventspy + event-info (1.8.0)
+> feat(events+ui): Events-tab, EventScheduler + /mh eventspy, event-info + weekly-status, hybride next-waypoint-routing, roteerbare 3D-model-preview (1.8.0)
+
+⚠️ **Commit vanuit Cursor (host), niet vanuit Cowork** — de Cowork-mount gaf
+vanavond afgekapte reads; alleen de host-bestanden zijn compleet. Geen CF-upload.
 
 **Nieuw (4):**
 - `Modules/EventScheduler.lua` — taint-veilige wereld-event-lezer (dedicated
@@ -47,6 +50,39 @@ Eén cohesieve commit. Voorgesteld bericht:
 - `docs/PTR_12.0.7_DATA.md` — live zone-uiMapIDs (Voidstorm 2405, Harandar 2413,
   Eversong 2395) + `/mh eventspy`-route naar Val-uiMapID.
 - `docs/TOMORROW.md` — batch-samenvatting + morgenochtend PTR-plan.
+
+**Uitbreiding 14 juni (zelfde batch):**
+- **Event-info-laag** `Modules/EventInfoData.lua` (NIEUW) + **weekly-status per
+  event** (`ns.GetWeeklyQuestStatus`, Kaliel's-Tracker-techniek) → gekleurde tag
+  in de Events-tab. Quest-koppeling: Stormarion 8419→94581, Haranir 8423→89268.
+- **Hybride next-waypoint-routing** `ns.AddSmartQuestRoute` in `Modules/Delves.lua`
+  (volgt live quest-objectief via GetNextWaypoint, anders fallback-coords);
+  Events-tab-klik gebruikt 'm.
+- **Docs:** `docs/ADDON_LEARNINGS.md` (NIEUW; Kaliel's Tracker-learnings),
+  `docs/PTR_12.0.7_DATA.md` (uitgebreide datamining 14 jun), `docs/TOMORROW.md`,
+  `docs/BROKER_ABSORPTION_PLAN.md`.
+- **Hybride routing toegepast op route-knoppen:** `Modules/RitualSites.lua`
+  (RouteSite volgt bij de actieve site + weekly-in-log het live objectief, anders
+  obelisk-coords; quiet re-assertion ongewijzigd) en `Modules/ResetRoutine.lua`
+  (void-weekly "inlog"-stap zet nu een waypoint naar het objectief i.p.v. alleen
+  het tabblad openen). Hub-knoppen blijven bewust "pickup".
+- **Roteerbare 3D-model-preview** `Modules/ModelPreview.lua` (NIEUW):
+  `ns.ShowModelPreview(spec|lijst)`, `ns.PreviewItem`, `ns.PreviewCreature` —
+  sleep=draaien, scroll=zoom, spin/reset, prev/next, ESC. Hooks: **B** `/mh model
+  [item-link | itemID | npc <id>]` (Core.lua); **A** shift-klik op een event in
+  de Events-tab → reward-gallery (mechaniek klaar; reward-item-IDs per event nog
+  in te vullen in EVENT_INFO.rewards); **C** `/mh model npc <id>` voor bosses.
+- **Model-preview verfijnd + ingebouwd in boss/rare-vensters:** gear/wapens
+  worden nu via DressUpModel op je personage gepast (TryOn) i.p.v. een leeg
+  SetItem-model; mounts → mount-display; decor/toy → SetItem. **Hook C**:
+  shift-klik op het mini-model in het boss-venster (`Modules/DungeonBossWindow.lua`)
+  én op een rare-toast (`Modules/MidnightToast.lua`) opent de grote roteerbare
+  preview via `ns.PreviewCreature`.
+- Extra gewijzigd t.o.v. lijst hierboven: **`Modules/Delves.lua`**,
+  **`Modules/EventInfoData.lua`**, **`Modules/EventsPanel.lua`**,
+  **`Modules/RitualSites.lua`**, **`Modules/ResetRoutine.lua`**,
+  **`Modules/ModelPreview.lua`** (nieuw), **`Modules/DungeonBossWindow.lua`**,
+  **`Modules/MidnightToast.lua`**. `git add -A` pakt alles mee.
 
 **Review-punten:**
 - **Luacheck/loadfile draaien** — de Cowork-mount gaf vanavond truncatie-false-

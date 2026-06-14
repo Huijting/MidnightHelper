@@ -204,13 +204,14 @@ local function SetModelCreature(model, creatureID)
 		model:ClearModel()
 		model:SetCreature(creatureID)
 		if model.SetPortraitZoom then
-			model:SetPortraitZoom(model._mhFullBody and 0 or 0.85)
+			model:SetPortraitZoom(model._mhUserZoom or (model._mhFullBody and 0 or 0.85))
 		end
 		if model.SetPosition then
 			model:SetPosition(0, 0, 0)
 		end
 		if model.SetFacing then
-			model:SetFacing(0.45)
+			-- Respecteer een door de speler ingestelde hoek (in-venster draaien).
+			model:SetFacing(model._mhUserFacing or 0.45)
 		end
 	end
 	local ok = pcall(apply)
@@ -342,7 +343,15 @@ local function EnsureWindow()
 		end
 		ns.RefreshDungeonBossWindow()
 	end
-	thumb:SetScript("OnMouseUp", ToggleModelPanel)
+	thumb:SetScript("OnMouseUp", function()
+		-- Shift-klik op het mini-model → grote roteerbare preview (hook C);
+		-- normale klik blijft het zijpaneel togglen.
+		if IsShiftKeyDown() and ns.PreviewCreature and f._previewCreatureID then
+			ns.PreviewCreature(f._previewCreatureID, f._previewName)
+			return
+		end
+		ToggleModelPanel()
+	end)
 	local thumbModel = CreateFrame("PlayerModel", nil, thumb)
 	thumbModel:SetAllPoints(thumb)
 	thumbModel:EnableMouse(false)
@@ -555,8 +564,37 @@ local function EnsureWindow()
 	local panelModel = CreateFrame("PlayerModel", nil, panel)
 	panelModel:SetPoint("TOPLEFT", panel, "TOPLEFT", 10, -12)
 	panelModel:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -10, 12)
-	panelModel:EnableMouse(false)
 	panelModel._mhFullBody = true
+	-- In-venster draaibaar (Rob 14 jun): sleep = draaien, scroll = zoom. De
+	-- hoek/zoom blijft bewaard over refreshes via _mhUserFacing/_mhUserZoom
+	-- (SetModelCreature respecteert die). Shift-klik op het mini-model opent
+	-- nog steeds de grote roteerbare popup.
+	panelModel:EnableMouse(true)
+	panelModel:EnableMouseWheel(true)
+	panelModel:SetScript("OnMouseDown", function(self)
+		self._mhDrag = true
+		self._mhLastX = GetCursorPosition()
+	end)
+	panelModel:SetScript("OnMouseUp", function(self)
+		self._mhDrag = false
+	end)
+	panelModel:SetScript("OnUpdate", function(self)
+		if self._mhDrag then
+			local x = GetCursorPosition()
+			local dx = x - (self._mhLastX or x)
+			self._mhLastX = x
+			self._mhUserFacing = (self._mhUserFacing or 0.45) + dx * 0.012
+			if self.SetFacing then
+				pcall(self.SetFacing, self, self._mhUserFacing)
+			end
+		end
+	end)
+	panelModel:SetScript("OnMouseWheel", function(self, delta)
+		self._mhUserZoom = math.max(0, math.min(0.9, (self._mhUserZoom or 0) + (delta or 0) * 0.1))
+		if self.SetPortraitZoom then
+			pcall(self.SetPortraitZoom, self, self._mhUserZoom)
+		end
+	end)
 	f._panel = panel
 	f._panelModel = panelModel
 
@@ -636,6 +674,8 @@ function ns.RefreshDungeonBossWindow()
 	local creatureID = (b and b.creatureId)
 		or (b and b.seedCreatureId)
 		or (b and CREATURES[curDungeon.key .. ":" .. b.key])
+	win._previewCreatureID = creatureID -- voor de shift-klik-preview (hook C)
+	win._previewName = bossName
 	SetModelCreature(win._thumbModel, creatureID)
 	local panelOn = ModelPanelEnabled() and creatureID ~= nil
 	win._panel:SetShown(panelOn)

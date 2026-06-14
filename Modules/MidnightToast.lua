@@ -278,6 +278,13 @@ local function EnsureToastFrame()
 	content.body = body
 
 	f:SetScript("OnClick", function()
+		-- Shift-klik op een rare-toast → grote roteerbare preview (hook C);
+		-- normale klik blijft de bestaande actie (waypoint/route) doen.
+		if IsShiftKeyDown() and activeSpec and activeSpec.npcId and ns.PreviewCreature then
+			local nm = ResolveText(activeSpec, "title")
+			ns.PreviewCreature(activeSpec.npcId, nm ~= "" and nm or nil)
+			return
+		end
 		if activeSpec and activeSpec.onClick then
 			activeSpec.onClick(activeSpec)
 		end

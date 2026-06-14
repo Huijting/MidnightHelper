@@ -90,11 +90,11 @@ absorptie-roadmap: **`docs/BROKER_ABSORPTION_PLAN.md`**. Kernpunten:
 
 ## 📋 Ritual Boss Coach — Daggerspine Point voorbereiden (volgende rotatie)
 
-Web-geverifieerd (12 jun): **Lady Selen'vjar = eindboss** van Daggerspine
-Point (haar Ritual Chest = Wowhead object 602746); stage 2 = een door
-void-magie **empowered Mindbreaker**. Gemini noemt stage-namen "Ritual
-Roles" / "Beast From the Deep" / "Summoner's Fall" — plausibel maar nog
-niet hard bevestigd. **Nodig zodra Daggerspine de actieve week is:** Rob
+Web-geverifieerd: **Lady Selen'vjar = eindboss = npc 257498** (Ritual Chest =
+object 602746); Daggerspine = zone 16939; stage 2 = void-**empowered Mindbreaker**
+(npc nog ⬜). Stage-namen **"Ritual Roles" / "Beast From the Deep" /
+"Summoner's Fall"** zijn nu **web-BEVESTIGD** (14 jun datamining, niet langer een
+gok). Alle details in PTR_12.0.7_DATA.md §B. **Nodig zodra Daggerspine de actieve week is:** Rob
 draait 'm één keer met de spy aan → stepIDs (+ evt. scenarioID, kan
 afwijken van 3236!) via `/mh ritualspy`; daarna bouw ik de twee
 boss-entries (npcIDs dan via Wowhead opzoeken; tips uit Robs run +
@@ -126,6 +126,9 @@ Dissonant Reflections"), bovenop het venster dat al bij stage-start opent.
 Vereist: emote-strings opvangen tijdens Robs volgende run (de spy logt nu
 al stages — uitbreiden met een emote-dump zodat we de exacte triggerzinnen
 ×locale weten vóór we matchen; never-lie: pas alerten op bevestigde tekst).
+Spell-IDs nu bekend (14 jun datamining, voor cast-matching naast emotes):
+**Binding Nebula = 1284125** (live)/1284106 (PTR) · **Dissonant Reflections =
+1284081** (live)/1284085 (PTR). Zie PTR_12.0.7_DATA.md §B.
 Tweede bruikbaar detail: hun vignette→waypoint-fallback ("kies niet-
 eclipse, dan dichtstbij") als referentie voor evt. Void Rift-routing.
 

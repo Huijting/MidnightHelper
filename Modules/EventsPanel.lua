@@ -22,6 +22,29 @@ local COLOR_HEADER = { 1, 0.82, 0.0 }
 local COLOR_DIM = { 0.6, 0.62, 0.68 }
 local COLOR_GOLD = { 1, 0.84, 0.18 }
 
+-- Weekly-status → kleur + locale-key (zie ns.GetWeeklyQuestStatus).
+local WEEKLY_STATUS = {
+	done   = { key = "EVENT_WEEKLY_DONE",   hex = "ff40c040", r = 0.25, g = 0.75, b = 0.25 },
+	turnin = { key = "EVENT_WEEKLY_TURNIN", hex = "ffffc000", r = 1.0,  g = 0.75, b = 0.0 },
+	active = { key = "EVENT_WEEKLY_ACTIVE", hex = "ff7fd5ff", r = 0.5,  g = 0.83, b = 1.0 },
+	todo   = { key = "EVENT_WEEKLY_TODO",   hex = "ff909090", r = 0.56, g = 0.56, b = 0.56 },
+}
+
+-- Geeft status, gelokaliseerde tekst en kleurdata voor de weekly van een event
+-- (of nil als het event geen bekende weekly heeft).
+local function WeeklyStatusOf(info)
+	local q = info and info.weeklyQuest
+	if not q or not ns.GetWeeklyQuestStatus then
+		return nil
+	end
+	local st = ns.GetWeeklyQuestStatus(q)
+	local d = st and WEEKLY_STATUS[st]
+	if not d then
+		return nil
+	end
+	return st, ns:L(d.key), d
+end
+
 local ui
 
 --------------------------------------------------------------------- Layout
@@ -94,9 +117,18 @@ local function MakeEventLine(parent)
 			GameTooltip:AddLine(ns:L("EVENT_INFO_REWARD_LABEL"), 1, 0.82, 0)
 			GameTooltip:AddLine(ns:L(info.rewardKey), 0.8, 0.9, 0.8, true)
 		end
+		local _, wkText, wkData = WeeklyStatusOf(info)
+		if wkText and wkData then
+			GameTooltip:AddLine(" ")
+			GameTooltip:AddDoubleLine(ns:L("EVENT_WEEKLY_LABEL"), wkText,
+				0.8, 0.8, 0.8, wkData.r, wkData.g, wkData.b)
+		end
 		if self._mhClickable then
 			GameTooltip:AddLine(" ")
 			GameTooltip:AddLine(ns:L("EVENT_INFO_CLICK_HINT"), 0.5, 0.8, 1)
+		end
+		if self._mhHasRewards then
+			GameTooltip:AddLine(ns:L("MODEL_PREVIEW_REWARDS_HINT"), 0.6, 0.8, 1)
 		end
 		GameTooltip:Show()
 	end)
@@ -132,14 +164,39 @@ local function FillLine(btn, e, isNow)
 		label:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
 	end
 
+	-- Weekly-status-tag (eigen kleur via inline color-code, los van de regelkleur).
+	local _, wkText, wkData = WeeklyStatusOf(info)
+	if wkText and wkData then
+		label:SetText((label:GetText() or "") .. "   |c" .. wkData.hex .. wkText .. "|r")
+	end
+
+	local rewards = info and info.rewards
+	local hasRewards = rewards and #rewards > 0
 	btn._mhEvent = e
 	btn._mhInfo = info
 	btn._mhClickable = clickable
-	if clickable then
+	btn._mhHasRewards = hasRewards
+	if clickable or hasRewards then
 		local mapID, x, y, nm = e.uiMapID, e.posX, e.posY, e.name
+		local wq = info and info.weeklyQuest
 		btn:SetScript("OnClick", function()
-			if ns.AddSmartTomTomWay then
-				ns.AddSmartTomTomWay(mapID, x, y, nm)
+			-- Shift-klik → roteerbare reward-preview (als we beloningen kennen).
+			if IsShiftKeyDown() and hasRewards and ns.ShowModelPreview then
+				local specs = {}
+				for _, rid in ipairs(rewards) do
+					specs[#specs + 1] = { itemID = rid }
+				end
+				ns.ShowModelPreview(specs, nm)
+				return
+			end
+			-- Normale klik → route. Heb je de weekly in je log? volg het live
+			-- objectief; anders → route naar het event-POI zelf.
+			if clickable then
+				if wq and ns.AddSmartQuestRoute then
+					ns.AddSmartQuestRoute(wq, mapID, x, y, nm)
+				elseif ns.AddSmartTomTomWay then
+					ns.AddSmartTomTomWay(mapID, x, y, nm)
+				end
 			end
 		end)
 	else
@@ -153,6 +210,7 @@ local function HideLine(btn)
 	btn._mhEvent = nil
 	btn._mhInfo = nil
 	btn._mhClickable = nil
+	btn._mhHasRewards = nil
 	btn:EnableMouse(false)
 	btn:SetScript("OnClick", nil)
 	btn:Hide()

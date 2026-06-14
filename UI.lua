@@ -242,7 +242,7 @@ local MH_BETA_TAB_IDS = {
 local SIDEBAR_SECTIONS = {
 	-- Start Here leads for new players; Home remains the default/fallback tab in
 	-- SelectTab (sidebar order is independent of that fallback).
-	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "starthere", "home", "codex", "delves", "dungeons", "rares", "world" } },
+	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "starthere", "home", "codex", "delves", "dungeons", "rares", "world", "events" } },
 	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "toolbox" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons", "settings" } },

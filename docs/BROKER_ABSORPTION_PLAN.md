@@ -174,10 +174,14 @@ referentie — we implementeren het zelf.)
 - **Event-info-laag**: korte "wat is dit / wat levert het op" per event
   (geverifieerd via Wowhead/Icy Veins — zie SESSION_NOTES bronnen). Lost ook
   de generieke "Event in <zone>" op door bekende events te benoemen.
-- **Weekly-status per event**: markeer of de weekly van een event al gedaan is
-  (Stormarion "Stand Your Ground", Haranir "Lost Legends", …). De meeste events
-  hebben een herhaalbaar deel (currency/gear, elke keer dat 't actief is) plus
-  één weekly voor de hoofdbeloning (cache/mount/decor).
+- ✅ **GEBOUWD (14 jun) — Weekly-status per event**: de Events-tab toont per
+  event met bekende weekly een gekleurde tag (groen "weekly gedaan" / amber
+  "inleveren!" / blauw "bezig" / grijs "beschikbaar") + een regel in de hover.
+  Techniek uit Kaliel's Tracker: `IsQuestFlaggedCompleted` (gedaan) +
+  `GetLogIndexForQuestID`/`IsComplete` (turn-in vs bezig), pcall-guarded in
+  `ns.GetWeeklyQuestStatus`. Quest-koppeling in EVENT_INFO: Stormarion 8419 →
+  "Stand Your Ground" 94581, Haranir 8423 → "Lost Legends" 89268 (live 12.0.5).
+  Meer events koppelen zodra hun areaPoiID + weekly-quest zeker is.
 
 **Fase B — Live voortgangsbalken.**
 4. Ticker uitbreiden met `C_UIWidgetManager`-StatusBar-reads (Void Incursion

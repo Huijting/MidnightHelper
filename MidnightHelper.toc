@@ -88,6 +88,7 @@ Modules\VoidAssaults.lua
 Modules\EventScheduler.lua
 Modules\EventInfoData.lua
 Modules\EventsPanel.lua
+Modules\ModelPreview.lua
 Modules\ResetRoutine.lua
 Modules\DungeonRosterData.lua
 Modules\DungeonTipsData.lua

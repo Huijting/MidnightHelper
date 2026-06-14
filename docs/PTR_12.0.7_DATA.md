@@ -130,9 +130,9 @@ Pak de weekly aan en run:
 Zoek de Showdown-regels in de chat.
 - ✅ **"Showdown on Naigtal" = quest 96717** (PTR, 6 juni 2026)
 - ✅ Zijquest "Surveying the Mana-Bog" = quest 96054 (Naigtal)
-- ⬜ "Showdown on Val" = ? (volgende rotatie)
-- ⬜ Heroic-variant weekly = ? (bestaat die als aparte quest?)
-- ✅ Na de weekly: Maella biedt "So Much More To Do" → keuzedialoog "Unity against the Void": **Disruptions Continue** (WQ's/events) óf **Dangerous Enemies** (rares/overseers/elites) — vervolg-weekly naar keuze. ⬜ Quest-IDs van beide opties: kies er één en run de questlog-dump.
+- 🌐 **"Showdown on Val" (Normal) = quest 96716** (web-datamined Wowhead PTR — in-game bevestigen; Naigtal = 96717 ✅). Heroic-variant **96714**; thinner varianten 96713/96712.
+- 🌐 Heroic Naigtal = **96718**, variant 96720 (web-datamined).
+- ⚠️ **"Disruptions Continue" / "Dangerous Enemies"**: agent-research (14 jun) vond GEEN aparte quest-IDs hiervoor op Wowhead — waarschijnlijk gids-terminologie; de weekly "Showdown on Val/Naigtal" (96716/96717) bundelt WQ's+rares+events in één quest. In-game checken of het keuzedialoog echt aparte quests geeft.
 
 **3. Rare NPC-IDs Naigtal/Val** (Interminable Uarn, Indomitable Mk. XII, Glacial Broodmother, The Horror Below, + wat je verder tegenkomt)
 - ✅ Naigtal: **Voidwarped Sporebat = npc 265698** (PTR 6 juni)
@@ -143,6 +143,11 @@ Zoek de Showdown-regels in de chat.
 - ✅ Naigtal: **Swalewing Matriarch = npc 263954** (PTR 6 juni)
 - ✅ Naigtal: **Warbringer Thal'kuur = npc 267422** (PTR 7 juni)
 - ✅ Naigtal: **Auredar's Chassis = npc 264569** (PTR 7 juni)
+- 🌐 **Val (web-datamined 14 jun, ConquestCapped — IN-GAME BEVESTIGEN):**
+  **Glacial Broodmother = npc 261716**, **The Horror Below = npc 264870**.
+  Showdown Slugger: Val = 6 rares (ach 62881). Meeste Val-rares spawnen in
+  **Glacial Reservoir**; Blackstar Legion-elites patrouilleren de wastes.
+  Volledige Val-rarelijst nog niet gevonden.
 Target de rare en run:
 ```
 /run local g=UnitGUID("target") print(g and select(6,strsplit("-",g)), UnitName("target"))
@@ -187,6 +192,144 @@ in een Showdown-zone (verwacht: `hasWorldTier = true`).
 ```
 /dump C_WeeklyRewards.GetActivities(3)
 ```
+
+## 📥 Web-research 14 juni (ConquestCapped/Wowhead-datamining — IN-GAME BEVESTIGEN)
+
+PTR offline vanmorgen; daarom vast research. Bron: ConquestCapped "Void Assault
+Escalations Guide" (09 jun) + Wowhead PTR-links. **Never-lie: alles hieronder is
+web-gedataminet, pas hard maken na in-game bevestiging.**
+
+**Zones (Wowhead zone-ID ≠ uiMapID!):** Voidstorm 16648 · Naigtal 16943
+(uiMapID 2600 ✅) · Val 16900 (**uiMapID nog steeds open**). Val-subzones:
+Void Acropolis (capital/world boss), Steam Ravine, Glacial Reservoir (rares).
+
+**World bosses — ⚠️ npc-ID-discrepanties (Robs in-game waarde wint):**
+- Naigtal: Nexus-Captain **Leth'ir** — web npc **260875**, maar Rob mat **263843**
+  in-game. Co-boss **Adjutant Mertei = npc 263620** (nieuw; Arcane Missiles
+  negeren aggro). Kill-quest "The Nexus-Captain" = **96472** ✅ (matcht doc).
+- Val: **Imperator Pertinax** — web npc **261072**, doc had **263670**. Zit in
+  Void Acropolis; dropt trinket **Singularian Cryocore = item 274620**.
+- → npc-discrepanties checken: web-DB-entry vs. gespawnde creature kunnen
+  verschillen; voor Rares.lua hebben we de gespawnde-GUID-npcID nodig (= Robs
+  meting). Beide genoteerd, in-game herbevestigen.
+
+**Achievements (Void Assaults-categorie, 12.0.7):**
+- Prepared for a Showdown **63384** (intro → portaal) · Heroic Tendencies
+  **63323** (world boss → Heroic unlock, account-breed)
+- Showdown Slugger: Naigtal **62883** / Val **62881** (6 rares) · Showdown
+  Success: Naigtal **62882** / Val **62880** (8 WQ's)
+- Climate Strange: Naigtal **62904** / Val **62903** · Heroic-varianten
+  **62919** / **62917** (5 storms) · Heroic Slugger **63348** (15 rares heroic)
+- Ultradon Carnage **63349** · Pain of Command **62905** (beide bosses) ·
+  **meta Heroic Showdowns 63264** → mount Tortured Gorger (item 275664)
+- Movement-unlocks: Bouncy Mushrooms 62944, Naigtal Spores 62949 (Naigtal),
+  Grapple Skiffs 62945 (Val)
+
+**Quests:** The Nexus-Captain **96472** (Naigtal WB) · "Until It Is Done"
+**95395** (Val-WQ, Ultradon Slayer → pet Frosticus Maximus 275662).
+
+**Vendor & currency:** Kifaan = npc **261474** (Voidstorm; cosmetics) ·
+Voidlight Marl = currency **3316**. Beloningen: Tortured Gorger (mount, item
+275664, 100 Marl), Silento (pet 275663), Frosticus Maximus (pet 275662), Cappy
+(pet 270989), Arsenal: Lightforged Armaments (transmog 276364).
+
+**⚠️ Rotatie-cadans tegenstrijdig:** deze gids zegt **"every few days"**
+(few-day cadence), terwijl doc §7 "wekelijks" (Blizzard-blog) noteert. Belangrijk
+voor onze actieve-zone-detectie — **in-game verifiëren** of het echt wekelijks is
+of vaker rouleert.
+
+**Nog steeds open na research (echt PTR-only):** Val **uiMapID** · "Showdown on
+Val" **weekly-quest-ID** (Naigtal = 96717 ✅) · Heroic-weekly-variant-ID ·
+follow-up-weekly-IDs (Disruptions Continue / Dangerous Enemies) · **Mote of
+Omnial Inquiry** item/currency-ID (rol = wekelijkse Omnium-Folio-stap-beloning,
+"Seeking Knowledge" 96410, account-breed, 5 stappen) · Sporefall-vault-gedrag.
+
+## 📥 Web-research 14 juni — diepe datamining (4 agents; ALLES in-game bevestigen)
+
+PTR offline; daarom breed gedataminet via Wowhead (PTR-2) + gidsen. **Never-lie:
+alles hieronder is web-gedataminet, hard maken pas na in-game bevestiging.**
+
+### A. Sporefall-raid + Rotmire (12.0.7)
+- **Sporefall = zone 16279**, in **Harandar**, **1-boss-raid**, min level 90.
+  Difficulties **LFR/Normal/Heroic/Mythic**, dag 1. **Mythic = flex 15-25**
+  (uniek; eerste flex-Mythic-raid). Release week van **16 juni**.
+- **Rotmire = npc 254176.** Kill-achievements: any **63237**, Heroic 63240,
+  Mythic 63241. Energy-bar-fight; bij 100 energy **Fungal Bloom** = wipe-conditie.
+- Abilities (spell-IDs): Awaken Fungi 1221622 · Fungal Bloom 1221637 · Fungal
+  Frenzy 1221644 · Bursting Shroom 1221965 · Putrid Fist 1221781 (tank-swap) ·
+  Bursting→Rotting Pustules 1221787/1222176 (soft enrage) · Festering Vines
+  1222088 → Writhing Vines 1222129 · Mythic: Cross Fertilization 1222684 →
+  Bursting Doom Shroom 1222495. Adds: Shroomling 238696, Fungling 239020,
+  Sporecap 238699 (Poison Burst 1221714, Blightshot 1221717).
+- Loot **"Sporefused"** (geen upgrade-track): LFR 259 / N 272 / H 285 / M 298.
+  Trinket **Sporelord's Mycelial Insignia item 268292**. Mount **Luminous
+  Sporeglider** (spell 1284973) via 4× Delicious Sporesnack (item 269245, 1/kill).
+  Intro-quest **Sporefall: Rotmire = quest 96746** → Void-Twisted Sporbit
+  (269258) → 1 Nebulous Voidcore (bonus-roll-currency).
+- ⚠️ **Great Vault Raid-rij**: NIET datamine-bevestigd dat een Rotmire-kill de
+  Raid-rij vult (standaardgedrag = waarschijnlijk wél, maar in-game checken).
+- Lockout: standaard weekly per char per difficulty.
+
+### B. Ritual Sites-bosses (bevestigt + breidt onze data uit)
+- **Broken Throne = zone 16796.** Stages **Void Reversal / Corrupted Beast /
+  Corruptor's End** (web-bevestigd). **Ger'lok npc 257284** ✅ (matcht ons;
+  chest-object 650051). **Corrupted Amani Dragonhawk npc 255653** ✅.
+  ⬜ Ger'loks/Dragonhawks exacte spell-namen niet in datamined tekst (Wowhead JS).
+- **Daggerspine Point = zone 16939.** Stages **Ritual Roles / Beast From the
+  Deep / Summoner's Fall** — **nu WEB-BEVESTIGD** (waren Gemini-gok). Stage 2 =
+  empowered **Mindbreaker** (npc ⬜). **Eindboss Lady Selen'vjar npc 257498** ✅
+  (chest-object 602746 ✅ matcht ons).
+- **Spell-IDs die Rob in z'n Dragonhawk-run zag** (voor de emote-listener/coach):
+  **Binding Nebula = spell 1284125** (live) / 1284106 (PTR), nebula-npc 260719,
+  debuff 1284102. **Dissonant Reflections = spell 1284081** (live) / 1284085
+  (PTR), missile 1284080. (Wowhead plaatst ze thematisch bij void/Daggerspine,
+  maar Robs in-game death-recaps zagen ze op de Broken-Throne-Dragonhawk → Robs
+  observatie wint voor attributie.)
+- **Derde scenario in Zul'Aman (zone 16796): "Speaker's Rest"** (6 stages),
+  eindboss **Warlord Gurrtack** (npc ⬜). Plus zone "Ritual Site Outskirts" 16748.
+- **Challenges (8, compleet, met Spoils%):** Tendrils +10 · Manifestations +15 ·
+  Magical Alarm Bells +13 · Malevolent Boons +20 · Tainted Corpses +10 ·
+  Reinforced +15 · Patrols +15 · **Embers +25**. Tier-gating: T3=1, T4=2, T5=4.
+- Field Accolades = item 271787; ritual-renown 1e weekly = 750 rep; tier-ilvls
+  1-5 = 215/231/244/257/264.
+
+### C. Showdown / Omnium Folio / Voidforge (IDs)
+- **Showdown-weeklies:** Val N **96716** / H **96714**; Naigtal N **96717** ✅ /
+  H **96718**. Belonen Riftstalker's Cache → Great Vault World-rij.
+- **Omnium Folio "Seeking Knowledge"-keten** (storyline 6307): wk1 **96410**,
+  wk2 **96441**, wk3 **96442**, wk4 **96443**, wk5 **96444**. Meta-achievement
+  **63325**. **Mote of Omnial Inquiry = een ITEM** (geen currency), 1 per weekly;
+  exacte item-ID ⬜ (nog niet geïndexeerd).
+- **Voidlight Marl = currency 3316** ✅.
+- **Voidforge:** "Building the Voidforge" = **quest 94623** (Decimus @ Voidstorm
+  51.20 68.41), 3× Elementary Voidcore Shard (item 265695) → leert Transmute
+  Elemental Voidcore (spell 1276894). 6-weken-keten, warband-breed. Nilhammer/
+  Ascendant-vervolgquest-IDs ⬜.
+
+### D. Wereld-events — weekly-quest-IDs (voor "weekly-status per event")
+- **Stormarion Assault** → weekly **"Stand Your Ground" = quest 94581** (event-
+  quest 90962; meta 93892).
+- **Legends of the Haranir** → weekly **"Lost Legends" = quest 89268** (meta 93891).
+- **Void Assaults:** Zul'Aman = quest 94386; Void Strike = quest 96080
+  (Eversong-variant ⬜).
+- **Saltheril's Soiree / Runestone Defense** → "Fortify the Runestones" per
+  subfactie: Magisters 90573 · Blood Knights 90574 · Farstriders 90575 ·
+  Shades of the Row 90576. Subfacties: Magisters/Blood Knights/Farstriders/
+  Shades of the Row. Currency: Brimming Arcana (charge = Latent Arcana).
+- **The Abundance:** currency **Unalloyed Abundance**; Loa = Dundun; Abundant
+  Harvest rouleert elke 8u; vendor Chel the Chip.
+  - ⚠️ **Naam-discrepantie:** Method-gids noemt de grotten Watha'nan Crypts
+    (Eversong) / Loaknit Den (Zul'Aman) / Floaret Grotto (Harandar) / Abundant
+    Voidburrow (Voidstorm), terwijl Brokers in-game-tooltip "Mining Voidburrow /
+    Herbalism Grotto / Enchanting Crypt / Skinning Den" toont. Voor ÓNS maakt het
+    niet uit: wij tonen de API-naam (clienttaal) live — geen hardcode nodig.
+- **Bountiful-delve story-achievements:** **61724 = "The Grudge Pit Stories"**
+  bevestigd; reeks 61724-61733 plausibel maar niet volledig geënumereerd (JS).
+
+### ⚠️ Open discrepanties (in-game beslissen)
+- World-boss-npc's: Leth'ir web 260875 vs Rob 263843; Pertinax web 261072 vs doc
+  263670 → Robs in-game-meting wint (gespawnde-GUID-npcID voor Rares.lua).
+- Rotatie-cadans: "wekelijks" (Blizzard-blog) vs "few-day cadence" (gids).
 
 ## Wat hiermee gebouwd wordt
 

@@ -716,6 +716,34 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 	return true
 end
 
+-- Hybride route (Kaliel's-Tracker-techniek): volgt de LIVE next-waypoint van een
+-- quest als die in je log staat (Blizzards eigen objectief-coords, zelf-updatend
+-- per stap); valt anders terug op de meegegeven vaste coords. questID mag nil
+-- zijn (dan altijd fallback). GetNextWaypoint geeft 0-1 coords; AddSmartTomTomWay
+-- verwacht 0-100, dus ×100. Alles pcall-guarded — nooit een fout naar buiten.
+function ns.AddSmartQuestRoute(questID, fallbackMapID, fallbackX, fallbackY, name)
+	if questID and C_QuestLog and C_QuestLog.GetLogIndexForQuestID and C_QuestLog.GetNextWaypoint then
+		local okIdx, idx = pcall(C_QuestLog.GetLogIndexForQuestID, questID)
+		if okIdx and idx then
+			local okWp, mapID, x, y = pcall(C_QuestLog.GetNextWaypoint, questID)
+			if okWp and mapID and x and y then
+				local label = name
+				if C_QuestLog.GetNextWaypointText then
+					local okT, t = pcall(C_QuestLog.GetNextWaypointText, questID)
+					if okT and type(t) == "string" and t ~= "" then
+						label = t
+					end
+				end
+				return ns.AddSmartTomTomWay(mapID, x * 100, y * 100, label or name)
+			end
+		end
+	end
+	if fallbackMapID and fallbackX and fallbackY then
+		return ns.AddSmartTomTomWay(fallbackMapID, fallbackX, fallbackY, name)
+	end
+	return false
+end
+
 -- Reusable Travel Assistant — the same Hearthstone + best in-world portal advice
 -- AddSmartTomTomWay shows, but callable on its own. The dynamic treasure arrow
 -- (Profession.lua) calls this when it points at a treasure in a far zone, without

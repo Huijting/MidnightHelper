@@ -18,17 +18,21 @@
 
 local _, ns = ...
 
--- areaPoiID → { descKey, rewardKey } (locale-keys; zie Locales/enUS.lua).
+-- areaPoiID → { descKey, rewardKey, weeklyQuest } (locale-keys; zie enUS.lua).
+-- weeklyQuest = de weekly-quest van dat event (web-gedataminet, live 12.0.5),
+-- gebruikt voor de weekly-status-tag. Alleen invullen waar de koppeling zeker is.
 ns.EVENT_INFO = {
 	-- Stormarion Assault (Voidstorm) — tower defense, elk half uur.
 	[8419] = {
 		descKey = "EVENT_INFO_STORMARION_DESC",
 		rewardKey = "EVENT_INFO_STORMARION_REWARD",
+		weeklyQuest = 94581, -- "Stand Your Ground"
 	},
 	-- Legends of the Haranir (Harandar) — verhaal-/relikwie-weekly.
 	[8423] = {
 		descKey = "EVENT_INFO_HARANIR_DESC",
 		rewardKey = "EVENT_INFO_HARANIR_REWARD",
+		weeklyQuest = 89268, -- "Lost Legends"
 	},
 }
 
@@ -38,4 +42,27 @@ function ns.GetEventInfo(areaPoiID)
 		return nil
 	end
 	return ns.EVENT_INFO[areaPoiID]
+end
+
+-- Weekly-status van een quest (Kaliel's-Tracker-techniek): onderscheidt
+-- "klaar om in te leveren" (IsComplete) van "gedaan" (flagged completed).
+-- Geeft "done" | "turnin" | "active" | "todo" (of nil als de API mist).
+-- Alles pcall-guarded — nooit een fout naar buiten.
+function ns.GetWeeklyQuestStatus(questID)
+	if not (questID and C_QuestLog) then
+		return nil
+	end
+	local okDone, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, questID)
+	if okDone and done then
+		return "done"
+	end
+	local okIdx, idx = pcall(C_QuestLog.GetLogIndexForQuestID, questID)
+	if okIdx and idx then
+		local okC, complete = pcall(C_QuestLog.IsComplete, questID)
+		if okC and complete then
+			return "turnin"
+		end
+		return "active"
+	end
+	return "todo"
 end

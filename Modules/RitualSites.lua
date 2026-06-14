@@ -215,8 +215,20 @@ local function RouteSite(site, quiet)
 		end)
 	end
 	local label = site.name .. " — " .. ZoneName(site.mapID)
-	-- quiet = skip the cross-zone travel popup (used for silent re-assertion).
-	local ok = ns.AddSmartTomTomWay(site.mapID, site.x, site.y, label, quiet and true or nil) and true or false
+	-- Hybride routing (QoL): bij een expliciete klik op de ACTIEVE site volgen we
+	-- het live weekly-objectief als de speler de ritual-weekly in z'n log heeft
+	-- (zelf-updatend per stap); anders/elders de vaste obelisk-coords. Alleen de
+	-- actieve site, want de quest-route wijst altijd naar de actieve site. Bij
+	-- quiet re-assertion (na revive) houden we de simpele coord-route + popup-skip.
+	local active = ns.GetActiveRitualSite and ns.GetActiveRitualSite()
+	local isActive = active and active.key == site.key
+	local ok
+	if isActive and not quiet and ns.AddSmartQuestRoute then
+		ok = ns.AddSmartQuestRoute(RITUAL_WEEKLY_QUEST, site.mapID, site.x, site.y, label) and true or false
+	else
+		-- quiet = skip the cross-zone travel popup (used for silent re-assertion).
+		ok = ns.AddSmartTomTomWay(site.mapID, site.x, site.y, label, quiet and true or nil) and true or false
+	end
 	if ok then
 		lastRoutedSite = site
 	end
