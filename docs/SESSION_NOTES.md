@@ -16,8 +16,8 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 
 ## Voor Cursor — review + commit batch 13 juni (Events-tab / Broker-absorptie)
 
-**STATUS: ⏳ KLAAR VOOR REVIEW + COMMIT + PUSH** — uitbreiding 14 juni bovenop
-`03fa4ac`; loadfile door Cursor te bevestigen.
+**STATUS: ✅ AFGEROND** — Cursor commit gepusht: `81976b1` (basis `03fa4ac` +
+uitbreiding 14 juni: event-info, weekly-status, hybride routing, ModelPreview).
 
 Eén cohesieve commit (of splits per logische groep — bestandslijst hieronder).
 Voorgesteld bericht:
