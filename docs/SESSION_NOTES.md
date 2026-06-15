@@ -14,6 +14,29 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 - Geen CurseForge-release zonder expliciete vraag van Rob.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
 
+## Voor Cursor — review + commit batch 15 juni #2 (weekly-pariteit + progress-bars)
+
+**STATUS: ✅ AFGEROND** — Cursor commit gepusht: `TBD`. Geen CF, versie blijft 1.8.0.
+
+Voorgesteld bericht:
+
+> feat(events+home): live event-voortgangsbalken (taint-veilig) + extra weekly-checklist-pariteit
+
+**Gewijzigd (3 .lua, geen nieuwe locale-keys):**
+- `Modules/EventScheduler.lua` — `probeProgress` leest de StatusBar-widget van een
+  lopend event (Void Incursion 8718→2042 override) in de ticker; barValue/barMax
+  worden via `plainNumber` gelaunderd (taint-veilig), `progressPct` als platte
+  number op de ongoing-entry.
+- `Modules/EventsPanel.lua` — toont "(NN%)" op de Nu-regels.
+- `Modules/ResetRoutine.lua` — extra event-weeklies (Abundant Offerings 89507,
+  A Nightmarish Task 94446, Gnawing Curiosity 93784, Arcantina 93767) met
+  weekly-status (done/turnin/active); alleen getoond als in-log of gedaan
+  (never-lie, geen beschikbaarheids-assertie). Hergebruikt GIVER-fmt-keys (6 talen).
+
+**Review-punten:** `lua loadfile` op de 3 .lua (host-geverifieerd: probeProgress/
+pct-line geïsoleerd, ResetRoutine via HEAD-reconstructie). Taint-ontwerpregel
+gevolgd: alle secret-arithmetic in de EventScheduler-ticker. Commit vanuit Cursor.
+
 ## Voor Cursor — review + commit batch 15 juni (quick wins + datamine)
 
 **STATUS: ✅ AFGEROND** — Cursor commit gepusht: `92377c4`.

@@ -113,6 +113,50 @@ local function zoneMap()
 	return ns._eventZoneMap
 end
 
+-- Bekende voortgangs-widgetsets per event-naam (override als de POI z'n eigen
+-- set niet heeft). Void Incursion 8718→2042 (Broker-bevestigd).
+local PROGRESS_SET_BY_NAME = {
+	["Void Incursion"] = 2042,
+	["Impending Void Incursion"] = 2042,
+}
+
+-- Voortgangs-% van een event (0-100) uit z'n StatusBar-widget. DRAAIT IN DE
+-- TICKER (taint-veilig): de barValue/barMax zijn secret onder 12.x; we launderen
+-- ze met plainNumber binnen deze call en geven een GEWONE number terug die in de
+-- platte tabel landt. Render-/clickpaden rekenen nooit zelf op deze waarden.
+local function probeProgress(info)
+	if not (info and C_UIWidgetManager
+		and C_UIWidgetManager.GetAllWidgetsBySetID
+		and C_UIWidgetManager.GetStatusBarWidgetVisualizationInfo) then
+		return nil
+	end
+	local function probe(setID)
+		if not setID then
+			return nil
+		end
+		local widgets = safe(C_UIWidgetManager.GetAllWidgetsBySetID, setID) or {}
+		for _, w in ipairs(widgets) do
+			if w.widgetType == 2 then -- Enum.UIWidgetVisualizationType.StatusBar
+				local vi = safe(C_UIWidgetManager.GetStatusBarWidgetVisualizationInfo, w.widgetID)
+				if vi then
+					local maxv = plainNumber(vi.barMax)
+					local val = plainNumber(vi.barValue)
+					if maxv and maxv > 0 and val then
+						local pct = math.floor(val / maxv * 100)
+						if pct >= 0 and pct <= 100 then
+							return pct
+						end
+					end
+				end
+			end
+		end
+		return nil
+	end
+	return probe(info.tooltipWidgetSet)
+		or probe(info.iconWidgetSet)
+		or probe(info.name and PROGRESS_SET_BY_NAME[info.name])
+end
+
 -- Naam/zone/uiMapID voor een event-POI (de uiMapID is precies wat we voor de
 -- PTR-data nodig hebben). Volledig via safe(), dus nooit een throw.
 local function resolvePoi(areaPoiID)
@@ -160,7 +204,8 @@ local function resolvePoi(areaPoiID)
 	end
 
 	local px, py = posXY(info)
-	return name, zone, uiMapID, px, py
+	local pct = probeProgress(info)
+	return name, zone, uiMapID, px, py, pct
 end
 
 -- Resterende tijd van een getimede POI als gewone number (of nil).
@@ -186,7 +231,7 @@ local function rescan()
 	for _, ev in ipairs(rawOngoing) do
 		pcall(function()
 			local poiID = plainNumber(ev.areaPoiID) or ev.areaPoiID
-			local name, zone, uiMapID, px, py = resolvePoi(poiID)
+			local name, zone, uiMapID, px, py, pct = resolvePoi(poiID)
 			if name or uiMapID then
 				ongoing[#ongoing + 1] = {
 					name = name,
@@ -196,6 +241,7 @@ local function rescan()
 					secondsLeft = secondsLeftFor(poiID),
 					posX = px,
 					posY = py,
+					progressPct = pct,
 				}
 			end
 		end)
@@ -221,6 +267,7 @@ local function rescan()
 						posY = py,
 					}
 				end
+				-- (geen progress voor geplande events; die komt van het actieve event)
 			end
 		end)
 	end

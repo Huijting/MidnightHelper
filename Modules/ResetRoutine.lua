@@ -401,6 +401,26 @@ function ns.GetResetRoutineSteps()
 		}
 	end
 
+	-- 4b. Extra event-weeklies (datamined quest-IDs). Alleen tonen als relevant:
+	-- in je log of gedaan — we asserten geen beschikbaarheid voor event-gated
+	-- weeklies (never-lie). Hergebruikt de generieke GIVER-fmt-keys (alle 6 talen).
+	local EXTRA_WEEKLIES = {
+		{ q = 89507, name = "Abundant Offerings" },
+		{ q = 94446, name = "A Nightmarish Task" },
+		{ q = 93784, name = "Gnawing Curiosity" },
+		{ q = 93767, name = "Arcantina" },
+	}
+	for _, w in ipairs(EXTRA_WEEKLIES) do
+		local st = ns.GetWeeklyQuestStatus and ns.GetWeeklyQuestStatus(w.q)
+		if st == "done" then
+			steps[#steps + 1] = { text = ns:L("HOME_ROUTINE_GIVER_DONE_FMT"):format(w.name), color = "good" }
+		elseif st == "turnin" then
+			steps[#steps + 1] = { text = ns:L("HOME_ROUTINE_GIVER_INLOG_FMT"):format(w.name), color = "warn" }
+		elseif st == "active" then
+			steps[#steps + 1] = { text = ns:L("HOME_ROUTINE_GIVER_INLOG_FMT"):format(w.name), color = "prog" }
+		end
+	end
+
 	-- 5. Profession trainer weeklies. Tracked = verified quest ID; pickup
 	-- routes to that profession's trainer (city-guide pin), not the station.
 	local stMap, stX, stY = StationCoords()

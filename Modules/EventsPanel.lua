@@ -151,6 +151,9 @@ local function FillLine(btn, e, isNow)
 		if e.zoneName then
 			txt = txt .. " \226\128\148 " .. tostring(e.zoneName) -- em-dash
 		end
+		if type(e.progressPct) == "number" then
+			txt = txt .. ("  (%d%%)"):format(e.progressPct)
+		end
 		if clickable then
 			txt = txt .. "  |TInterface\\Icons\\INV_Misc_Map_01:12:12|t"
 		end
