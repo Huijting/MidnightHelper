@@ -16,7 +16,7 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 
 ## Voor Cursor — review + commit batch 15 juni #2 (weekly-pariteit + progress-bars)
 
-**STATUS: ✅ AFGEROND** — Cursor commit gepusht: `TBD`. Geen CF, versie blijft 1.8.0.
+**STATUS: ✅ AFGEROND** — Cursor commit gepusht: `5c87e90`. Geen CF, versie blijft 1.8.0.
 
 Voorgesteld bericht:
 
