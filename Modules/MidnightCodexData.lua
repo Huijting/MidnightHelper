@@ -39,6 +39,22 @@ ns.CODEX_CATEGORIES = {
 }
 
 ns.CODEX_ARTICLES = {
+	-- 12.0.7 nieuw (datamined; in-game bevestigen bij launch)
+	{
+		id = "omnium_folio",
+		category = "weekly",
+		titleKey = "CODEX_FOLIO_TITLE",
+		bodyKey = "CODEX_FOLIO_BODY",
+		sort = 20,
+	},
+	{
+		id = "turbulent_timeways",
+		category = "world",
+		titleKey = "CODEX_TT_TITLE",
+		bodyKey = "CODEX_TT_BODY",
+		sort = 20,
+	},
+
 	-- Start Here
 	{
 		id = "start_here",

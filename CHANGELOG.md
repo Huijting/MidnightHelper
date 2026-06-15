@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- **Boss coaches for Midnight's new fights:**
+  - **Sporefall raid (Rotmire)** — beginner steps with tank/healer/dps notes and clickable spell links; the boss window opens automatically when you pull him.
+  - **Daggerspine Point ritual** — Lady Selen'vjar and the empowered Mindbreaker are scaffolded in the boss picker (rotatable model + the confirmed stages); the detailed steps fill in from the first live run.
+- **Live cast alerts on the Broken Throne ritual** — a big on-screen flash (with sound) the moment the boss casts **Shadowbolt Volley** (interrupt!), **Binding Nebula** or **Dissonant Reflections**, so you react on time. Only active inside the scenario.
+- **Reward previews** — Shift-click an event in the Events tab to spin its rewards as full 3D models (Stormarion Assault shows its mount and pet).
+- **Sharper Faithbreaker Ger'lok steps** — now name the real abilities to interrupt (Shadowbolt Volley) and line-of-sight (Shadow Blast).
+
+### Changed
+
+- The new Events tab, world-event info, weekly status, model previews and all the new boss steps are now **fully translated** into Deutsch, Français, Español and Português (previously English fallback).
+
 ## [1.8.0] - 2026-06-13
 
 ### Added

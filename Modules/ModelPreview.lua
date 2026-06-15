@@ -241,11 +241,13 @@ function ns.ShowModelPreview(specOrList, title, startIndex)
 	ShowIndex()
 end
 
--- Publiek: preview een item op ID (mount-item → mount-model; anders item-model).
-function ns.PreviewItem(itemID, name)
+-- Publiek: bouw een model-spec voor een item-ID (mount-item → mount-model;
+-- draagbaar → op je personage passen; anders een los wereldmodel). Gebruikt door
+-- PreviewItem én door de reward-gallery (lijst van specs).
+function ns.ResolveItemSpec(itemID, name)
 	itemID = tonumber(itemID)
 	if not itemID then
-		return
+		return nil
 	end
 	local spec = { name = name }
 
@@ -285,7 +287,15 @@ function ns.PreviewItem(itemID, name)
 			spec.name = nm
 		end
 	end
-	ns.ShowModelPreview(spec, spec.name)
+	return spec
+end
+
+-- Publiek: preview één item op ID.
+function ns.PreviewItem(itemID, name)
+	local spec = ns.ResolveItemSpec(itemID, name)
+	if spec then
+		ns.ShowModelPreview(spec, spec.name)
+	end
 end
 
 -- Publiek: preview een creature/boss op npcID.

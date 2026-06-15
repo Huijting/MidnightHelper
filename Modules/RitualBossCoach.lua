@@ -80,6 +80,7 @@ local ALERT_SPELLS = {
 	[1284106] = "RITUAL_ALERT_BINDING_NEBULA", -- Binding Nebula (PTR)
 	[1284081] = "RITUAL_ALERT_DISSONANT", -- Dissonant Reflections (live)
 	[1284085] = "RITUAL_ALERT_DISSONANT", -- Dissonant Reflections (PTR)
+	[1273031] = "RITUAL_ALERT_SHADOWBOLT", -- Ger'lok Shadowbolt Volley (interrupt)
 }
 local alertFrame
 local lastAlertAt = {}

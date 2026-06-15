@@ -181,12 +181,17 @@ local function FillLine(btn, e, isNow)
 		local wq = info and info.weeklyQuest
 		btn:SetScript("OnClick", function()
 			-- Shift-klik → roteerbare reward-preview (als we beloningen kennen).
-			if IsShiftKeyDown() and hasRewards and ns.ShowModelPreview then
+			if IsShiftKeyDown() and hasRewards and ns.ShowModelPreview and ns.ResolveItemSpec then
 				local specs = {}
 				for _, rid in ipairs(rewards) do
-					specs[#specs + 1] = { itemID = rid }
+					local s = ns.ResolveItemSpec(rid)
+					if s then
+						specs[#specs + 1] = s
+					end
 				end
-				ns.ShowModelPreview(specs, nm)
+				if #specs > 0 then
+					ns.ShowModelPreview(specs, nm)
+				end
 				return
 			end
 			-- Normale klik → route. Heb je de weekly in je log? volg het live

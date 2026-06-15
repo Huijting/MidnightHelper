@@ -48,6 +48,10 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 
 	CODEX_WORLDBOSS_TITLE = "World boss (Midnight S1)",
 	CODEX_WORLDBOSS_BODY = "• One rotating world boss per week (Lu'ashal, Cragpine, Thorm'belan, Predaxas).|n• Warband loot: once any character kills it, alts show completed.|n• Tracked at the top of |cffffffffDelves & Vault|r with TomTom route.|n• Also linked from SMC City Guide when in Silvermoon.",
+	CODEX_FOLIO_TITLE = "Omnium Folio (12.0.7)",
+	CODEX_FOLIO_BODY = "• New mid-expansion power system — a minimap book of |cffffffffrunes|r you swap freely out of combat (no slot cost).|n• Power comes from the weekly |cffffffff'Seeking Knowledge'|r chain (5 weeks): The Omnium Folio, Ritualized Arcana, Leyline Assaults, Magical Primessence, Off-World Magic.|n• Each week rewards a |cffffffffMote of Omnial Inquiry|r to choose/empower a rune.|n• Finish all 5 for the meta achievement and the Sunstrider Omnium Simulacrum decor.|n• (Datamined — exact rune effects/IDs confirmed at launch.)",
+	CODEX_TT_TITLE = "Turbulent Timeways (12.0.7)",
+	CODEX_TT_BODY = "• Returning Timewalking event — this time a |cffffffffDragonflight|r dungeon pool: Algeth'ar Academy, Halls of Infusion, Neltharus, Ruby Life Pools, The Azure Vault, Brackenhide Hollow.|n• Weekly: run |cffffffff5 Timewalking dungeons|r for a gear cache; each run stacks |cffffffffKnowledge of Timeways|r (XP buff).|n• Earn |cffffffffMastery of Timeways|r in 4 of 6 weeks for 'Master of the Turbulent Timeways' and the |cffffffffSpawn of Vyranoth|r mount.|n• Spend Timewarped Badges at the event vendor.|n• Runs ~June 30 – Aug 11. (Datamined — confirm at launch.)",
 
 	CODEX_DELVER_CALL_TITLE = "Delver's Call",
 	CODEX_DELVER_CALL_BODY = "• Weekly delve objectives that grant a large XP burst when turned in.|n• You can |cffffffffbank|r completed calls (done objectives, not yet turned in) for a later character level.|n• |cffffffffAccount snapshot|r rolls up banked and pending calls across alts.|n• Hover the Delver's Call line in snapshot for per-character detail.",
@@ -150,6 +154,10 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 
 	CODEX_WORLDBOSS_TITLE = "World boss (Midnight S1)",
 	CODEX_WORLDBOSS_BODY = "• Eén roterende world boss per week (Lu'ashal, Cragpine, Thorm'belan, Predaxas).|n• Warband-loot: killt één char, alts tonen klaar.|n• Bovenaan |cffffffffDelves & Vault|r met TomTom-route.|n• Ook via SMC City Guide in Silvermoon.",
+	CODEX_FOLIO_TITLE = "Omnium Folio (12.0.7)",
+	CODEX_FOLIO_BODY = "• Nieuw power-systeem — een minimap-boek met |cffffffffrunen|r die je vrij wisselt buiten combat (geen slot nodig).|n• Power komt uit de wekelijkse |cffffffff'Seeking Knowledge'|r-keten (5 weken): The Omnium Folio, Ritualized Arcana, Leyline Assaults, Magical Primessence, Off-World Magic.|n• Elke week levert een |cffffffffMote of Omnial Inquiry|r om een rune te kiezen/versterken.|n• Alle 5 af = meta-achievement + de Sunstrider Omnium Simulacrum-decor.|n• (Gedataminet — exacte rune-effecten/IDs bij launch bevestigen.)",
+	CODEX_TT_TITLE = "Turbulent Timeways (12.0.7)",
+	CODEX_TT_BODY = "• Terugkerend Timewalking-event — nu een |cffffffffDragonflight|r-dungeonpool: Algeth'ar Academy, Halls of Infusion, Neltharus, Ruby Life Pools, The Azure Vault, Brackenhide Hollow.|n• Weekly: doe |cffffffff5 Timewalking-dungeons|r voor een gear-kist; elke run stapelt |cffffffffKnowledge of Timeways|r (XP-buff).|n• Verdien |cffffffffMastery of Timeways|r in 4 van 6 weken voor 'Master of the Turbulent Timeways' + het |cffffffffSpawn of Vyranoth|r-mount.|n• Geef Timewarped Badges uit bij de event-vendor.|n• Loopt ~30 juni – 11 aug. (Gedataminet — bij launch bevestigen.)",
 
 	CODEX_DELVER_CALL_TITLE = "Delver's Call",
 	CODEX_DELVER_CALL_BODY = "• Weekly delve-doelen met grote XP-beloning bij inleveren.|n• Je kunt calls |cffffffffbanken|r (klaar maar nog niet ingeleverd) voor een later level.|n• |cffffffffAccount snapshot|r telt banked/pending over alts.|n• Hover Delver's Call in snapshot voor detail per char.",

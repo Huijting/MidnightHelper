@@ -27,6 +27,9 @@ ns.EVENT_INFO = {
 		descKey = "EVENT_INFO_STORMARION_DESC",
 		rewardKey = "EVENT_INFO_STORMARION_REWARD",
 		weeklyQuest = 94581, -- "Stand Your Ground"
+		-- Shift-klik → roteerbare preview: mount Contained Stormarion Defender +
+		-- pet Kai (web-gedataminede item-IDs, 15 jun).
+		rewards = { 257180, 265030 },
 	},
 	-- Legends of the Haranir (Harandar) — verhaal-/relikwie-weekly.
 	[8423] = {

@@ -4,6 +4,30 @@ Samengetrokken uit SESSION_NOTES "Open / volgende stappen", TOMORROW §3 en de
 plan-docs (stand: 10 juni 2026, na de 1.6.0-batch). Volgorde binnen een blok ≈
 prioriteit. Details/bronnen staan in de genoemde docs; dit is de overzichtslijst.
 
+## 💡 Feature-backlog (15 juni — "onthouden", uit de top-lijst)
+
+In aanbouw nu: **Turbulent Timeways-tracker** + **Omnium Folio-companion** (#1+#2).
+De rest, bewaard voor later (≈ prioriteit):
+
+- [ ] **Volledige weekly-checklist-pariteit** (absorbeer de resterende Broker-
+      rijen met de weekly-status-techniek): Abundant Offerings (89507), A
+      Nightmarish Task (94446), Gnawing Curiosity (93784), Arcantina (93767),
+      Beacon of Hope, Prey Hunts, Saltheril's Soiree, Bonus Event, Voidforge
+      (Decimus 94623). Quest-IDs in DATAMINE_HAUL.md / BROKER_ABSORPTION_PLAN.md.
+- [ ] **Live event-voortgangsbalken** (Void Incursion % e.d.) in de Events-tab —
+      taint-veilige `C_UIWidgetManager`-reads via de ticker (zie taint-ontwerpregel).
+- [ ] **Meer raid-coaches** — DBM-data ligt klaar: VoidSpire (6 bosses: Crown of
+      the Cosmos, Fallen-King Shalhadaar, Imperator Averzian, Lightblinded
+      Vanguard, Vaelgor & Ezzorak, Vorasius), The Dreamrift (Chimaerus),
+      Marchon Quel'Danas (Beloren, Midnight Falls). Zelfde patroon als Rotmire.
+- [ ] **Reward-galleries** voor meer events/raids (Sporefall 269240/268292…,
+      Showdowns 275664/275663…); Haranir-decor zodra item-IDs bekend.
+- [ ] **Rares.lua-uitbreiding** met HandyNotes live-zone-coords + kill-quest-IDs
+      (eversong/harandar/voidstorm/zulaman; Val/Naigtal later).
+- [ ] **Emote-listener afmaken** (emote-dump + match) bovenop de cast-alerts.
+- [ ] **Collectibles-checklist per ritual site** (candle/meat/egg/kelp/bone).
+- [ ] **Void Rifts**-feature; **minLevel-vulling** weekly-givers.
+
 ## 🔥 12.0.7-voorbereiding (release ~16 of 30 juni — deadline!)
 
 - [ ] **Val-data** (volgende PTR-rotatie): uiMapID, weekly "Showdown on Val"-ID,

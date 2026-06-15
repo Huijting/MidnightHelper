@@ -14,6 +14,37 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 - Geen CurseForge-release zonder expliciete vraag van Rob.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
 
+## Voor Cursor — review + commit batch 15 juni (quick wins + datamine)
+
+**STATUS: ✅ AFGEROND** — Cursor commit gepusht: `TBD`.
+
+Voorgesteld bericht:
+
+> feat(coach+codex): reward-previews + Ger'lok cast-alert/steps (Shadowbolt Volley 1273031) + Turbulent Timeways & Omnium Folio codex + datamine-oogst
+
+**Gewijzigd:**
+- `Modules/EventInfoData.lua` — Stormarion (8419) `rewards = {257180, 265030}`
+  (mount Contained Stormarion Defender + pet Kai) → shift-klik-reward-gallery werkt.
+- `Modules/ModelPreview.lua` — `ns.ResolveItemSpec` (gedeeld door PreviewItem +
+  de reward-gallery, zodat mount/pet/gear correct renderen).
+- `Modules/EventsPanel.lua` — gallery gebruikt ResolveItemSpec.
+- `Modules/RitualBossCoach.lua` — cast-alert Shadowbolt Volley **1273031**.
+- `Locales/RitualTips.lua` — `RITUAL_ALERT_SHADOWBOLT` ×6 + Ger'lok-steps ×6
+  verrijkt met {SPELL:1273031} (interrupt) en {SPELL:1279186} (LoS).
+- `CHANGELOG.md` — `[Unreleased]`-blok (versie blijft 1.8.0; geen TOC-bump).
+- `docs/DATAMINE_HAUL.md` (NIEUW) — web+addon-oogst 15 jun (reward-IDs, Ger'lok-
+  spells, meer raids ontdekt, Turbulent Timeways, MidnightRoutine/HandyNotes/DBM-
+  kruisreferenties); `docs/SESSION_NOTES.md`.
+- **Codex-artikelen (top-3 #1+#2):** `Modules/MidnightCodexData.lua` (2 articles:
+  omnium_folio in 'weekly', turbulent_timeways in 'world') + `Locales/Codex.lua`
+  (CODEX_FOLIO_*/CODEX_TT_* en+nl; rest fallback). Datamined, marked confirm-at-launch.
+- `docs/ROADMAP.md` — feature-backlog 15 jun ("onthouden": weekly-pariteit, live
+  progress-bars, meer raid-coaches, reward-galleries, Rares.lua, emote-listener, …).
+
+**Review-punten:** `lua loadfile` op de gewijzigde .lua (host-geverifieerd met
+luaparser + Grep-pariteit 6/6). Spell-IDs 1273031/1279186 zijn live (12.0.5) →
+links resolven meteen; Rotmire/Showdown-IDs zijn 12.0.7. Commit vanuit Cursor.
+
 ## Voor Cursor — review + commit batch 14 juni #2 (boss-coach-trio)
 
 **STATUS: ✅ AFGEROND** — Cursor commit gepusht: `43b04cf`.
