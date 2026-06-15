@@ -50,7 +50,7 @@ zaken uit ROADMAP.md.
 
 ## Voor Cursor — review + commit batch 15 juni #9 (Enchant-links/AH-copy + Currency saldo's/QM-waypoints)
 
-**STATUS: ⏳ KLAAR VOOR COMMIT** — 1.8.0, geen CF.
+**STATUS: ✅ GECOMMIT in release 1.8.0 (`58e4edb`).**
 
 Voorgesteld bericht:
 
@@ -96,7 +96,7 @@ blijft in gebruik door `IsWorldBossDoneOnThisCharacter` (per-char "looted"-regel
 
 ## Voor Cursor — review + commit batch 15 juni #8 (Currency cheatsheet-tab + {CURRENCY:} markup)
 
-**STATUS: ⏳ KLAAR VOOR COMMIT** — 1.8.0, geen CF.
+**STATUS: ✅ GECOMMIT in release 1.8.0 (`58e4edb`).**
 
 Voorgesteld bericht:
 
@@ -135,7 +135,7 @@ van de mount (zelfs op ongewijzigde regels) — host-Read is leidend, bestanden 
 
 ## Voor Cursor — review + commit batch 15 juni #7 (SMC gear & currency vendors)
 
-**STATUS: ⏳ KLAAR VOOR COMMIT** — 1.8.0, geen CF.
+**STATUS: ✅ GECOMMIT in release 1.8.0 (`58e4edb`).**
 
 Voorgesteld bericht:
 
@@ -166,7 +166,7 @@ profession-currency) + Renown Quartermasters per zone (Caeris Fairdawn/Magovu/Na
 
 ## Voor Cursor — review + commit batch 15 juni #6 (debuff-alert + Delve & Ritual Log + weekly)
 
-**STATUS: ⏳ KLAAR VOOR COMMIT** — 1.8.0, geen CF.
+**STATUS: ✅ GECOMMIT in release 1.8.0 (`58e4edb`).**
 
 Voorgesteld bericht:
 
@@ -240,7 +240,7 @@ files af = bekend). Locale-pariteit 6× (host-Grep). Taint: alleen eigen-aura-re
 
 ## Voor Cursor — review + commit batch 15 juni #5 (live-test hotfixes)
 
-**STATUS: ⏳ KLAAR VOOR COMMIT** — 1.8.0, geen CF. Fixes na Robs eerste live test.
+**STATUS: ✅ GECOMMIT in release 1.8.0 (`58e4edb`).** Fixes na Robs eerste live test.
 
 Voorgesteld bericht:
 
@@ -316,7 +316,7 @@ herschreven (debuff i.p.v. interrupt) + ALERT_DEBUFF_FMT/DEVOURING_RIFT ×6 tale
 
 ## Voor Cursor — review + commit batch 15 juni #4 (volledige raids + Mythic+-tab)
 
-**STATUS: ⏳ KLAAR VOOR COMMIT** — geen CF, versie blijft 1.8.0. Grote batch; mag
+**STATUS: ✅ GECOMMIT in release 1.8.0 (`58e4edb`).** Grote batch; mag
 samen met #3 of apart.
 
 Voorgesteld bericht:
@@ -384,7 +384,7 @@ geen secret-arithmetic aangeraakt. Commit vanuit Cursor.
 
 ## Voor Cursor — review + commit batch 15 juni #3 (ADDON_ACTION_FORBIDDEN écht gefixt)
 
-**STATUS: ⏳ KLAAR VOOR COMMIT** — geen CF, versie blijft 1.8.0.
+**STATUS: ✅ GECOMMIT in release 1.8.0 (`58e4edb`).**
 
 Voorgesteld bericht:
 
