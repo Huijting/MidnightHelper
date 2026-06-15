@@ -22,7 +22,7 @@ end
 merge(ns._mhLocales and ns._mhLocales.enUS, {
 	TAB_DUNGEONS = "Dungeons",
 	DGN_TITLE = "Dungeons",
-	DGN_SUBTITLE = "Your dungeon companion: what to run this week, a beginner course from first queue to Heroic, and per-boss steps in the Coach. Mythic+ support follows later.",
+	DGN_SUBTITLE = "Your dungeon companion: what to run this week, a beginner course from first queue to Heroic, and per-boss steps in the Coach, plus a Mythic+ tab with the affixes and must-kicks.",
 
 	DGN_VIEW_WEEK = "This week",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -85,13 +85,17 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_WIN_SHARE = "Share",
 	DGN_WIN_PANEL_HINT = "Model hidden — click the boss portrait in the window header to bring it back.",
 	DGN_WIN_PICK_HINT = "Click to pick a different dungeon (or the ritual).",
+	DGN_WIN_PICK_RITUALRAID = "Rituals & Raids",
+	DGN_WIN_PICK_RITUALS = "Rituals",
+	DGN_WIN_PICK_RAIDS = "Raids",
+	DGN_WIN_PICK_DUNGEONS = "Dungeons",
 	DGN_SHARE_SENT_FMT = "Steps for %s shared with the group.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TAB_DUNGEONS = "Dungeons",
 	DGN_TITLE = "Dungeons",
-	DGN_SUBTITLE = "Je dungeon-maatje: wat je deze week draait, een beginnerscursus van eerste queue tot Heroic, en per-boss-stappen in de Coach. Mythic+ volgt later.",
+	DGN_SUBTITLE = "Je dungeon-maatje: wat je deze week draait, een beginnerscursus van eerste queue tot Heroic, en per-boss-stappen in de Coach, plus een Mythic+-tab met de affixen en must-kicks.",
 
 	DGN_VIEW_WEEK = "Deze week",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -154,13 +158,17 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_WIN_SHARE = "Deel",
 	DGN_WIN_PANEL_HINT = "Model verborgen — klik op het boss-portret in de vensterkop om het terug te halen.",
 	DGN_WIN_PICK_HINT = "Klik om een andere dungeon (of de ritual) te kiezen.",
+	DGN_WIN_PICK_RITUALRAID = "Rituals & Raids",
+	DGN_WIN_PICK_RITUALS = "Rituals",
+	DGN_WIN_PICK_RAIDS = "Raids",
+	DGN_WIN_PICK_DUNGEONS = "Dungeons",
 	DGN_SHARE_SENT_FMT = "Stappen voor %s gedeeld met de groep.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.deDE, {
 	TAB_DUNGEONS = "Dungeons",
 	DGN_TITLE = "Dungeons",
-	DGN_SUBTITLE = "Dein Dungeon-Begleiter: was du diese Woche läufst, ein Einsteigerkurs von der ersten Warteschlange bis Heroic, und Boss-Schritte im Coach. Mythic+-Unterstützung folgt später.",
+	DGN_SUBTITLE = "Dein Dungeon-Begleiter: was du diese Woche läufst, ein Einsteigerkurs von der ersten Warteschlange bis Heroic, und Boss-Schritte im Coach, plus ein Mythic+-Reiter mit den Affixen und Pflicht-Unterbrechungen.",
 
 	DGN_VIEW_WEEK = "Diese Woche",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -223,13 +231,17 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_WIN_SHARE = "Teilen",
 	DGN_WIN_PANEL_HINT = "Modell ausgeblendet — klicke auf das Boss-Porträt in der Fensterkopfzeile, um es zurückzuholen.",
 	DGN_WIN_PICK_HINT = "Klicke, um einen anderen Dungeon (oder das Ritual) zu wählen.",
+	DGN_WIN_PICK_RITUALRAID = "Rituale & Raids",
+	DGN_WIN_PICK_RITUALS = "Rituale",
+	DGN_WIN_PICK_RAIDS = "Raids",
+	DGN_WIN_PICK_DUNGEONS = "Dungeons",
 	DGN_SHARE_SENT_FMT = "Schritte für %s mit der Gruppe geteilt.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.frFR, {
 	TAB_DUNGEONS = "Donjons",
 	DGN_TITLE = "Donjons",
-	DGN_SUBTITLE = "Ton compagnon de donjon : quoi faire cette semaine, un cours débutant de la première file jusqu'au Heroic, et les étapes par boss dans le Coach. Le support Mythic+ arrive plus tard.",
+	DGN_SUBTITLE = "Ton compagnon de donjon : quoi faire cette semaine, un cours débutant de la première file jusqu'au Heroic, et les étapes par boss dans le Coach, plus un onglet Mythic+ avec les affixes et les interruptions clés.",
 
 	DGN_VIEW_WEEK = "Cette semaine",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -292,13 +304,17 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_WIN_SHARE = "Partager",
 	DGN_WIN_PANEL_HINT = "Modèle masqué — clique sur le portrait du boss dans l'en-tête de la fenêtre pour le réafficher.",
 	DGN_WIN_PICK_HINT = "Clique pour choisir un autre donjon (ou le rituel).",
+	DGN_WIN_PICK_RITUALRAID = "Rituels et raids",
+	DGN_WIN_PICK_RITUALS = "Rituels",
+	DGN_WIN_PICK_RAIDS = "Raids",
+	DGN_WIN_PICK_DUNGEONS = "Donjons",
 	DGN_SHARE_SENT_FMT = "Étapes de %s partagées avec le groupe.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.esES, {
 	TAB_DUNGEONS = "Mazmorras",
 	DGN_TITLE = "Mazmorras",
-	DGN_SUBTITLE = "Tu compañero de mazmorras: qué hacer esta semana, un curso para principiantes desde la primera cola hasta Heroic, y pasos por jefe en el Coach. El soporte de Mythic+ llegará más adelante.",
+	DGN_SUBTITLE = "Tu compañero de mazmorras: qué hacer esta semana, un curso para principiantes desde la primera cola hasta Heroic, y pasos por jefe en el Coach, además de una pestaña de Mythic+ con los afijos y las interrupciones clave.",
 
 	DGN_VIEW_WEEK = "Esta semana",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -361,13 +377,17 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_WIN_SHARE = "Compartir",
 	DGN_WIN_PANEL_HINT = "Modelo oculto — haz clic en el retrato del jefe en la cabecera de la ventana para recuperarlo.",
 	DGN_WIN_PICK_HINT = "Haz clic para elegir otra mazmorra (o el ritual).",
+	DGN_WIN_PICK_RITUALRAID = "Rituales y raids",
+	DGN_WIN_PICK_RITUALS = "Rituales",
+	DGN_WIN_PICK_RAIDS = "Raids",
+	DGN_WIN_PICK_DUNGEONS = "Mazmorras",
 	DGN_SHARE_SENT_FMT = "Pasos de %s compartidos con el grupo.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	TAB_DUNGEONS = "Masmorras",
 	DGN_TITLE = "Masmorras",
-	DGN_SUBTITLE = "Seu companheiro de masmorras: o que rodar esta semana, um curso para iniciantes da primeira fila até o Heroic, e passos por chefe no Coach. Suporte a Mythic+ vem depois.",
+	DGN_SUBTITLE = "Seu companheiro de masmorras: o que rodar esta semana, um curso para iniciantes da primeira fila até o Heroic, e passos por chefe no Coach, além de uma aba de Mythic+ com os afixos e as interrupções essenciais.",
 
 	DGN_VIEW_WEEK = "Esta semana",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -430,5 +450,9 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_WIN_SHARE = "Enviar",
 	DGN_WIN_PANEL_HINT = "Modelo oculto — clique no retrato do chefe no topo da janela para trazê-lo de volta.",
 	DGN_WIN_PICK_HINT = "Clique para escolher outra masmorra (ou o ritual).",
+	DGN_WIN_PICK_RITUALRAID = "Rituais e raids",
+	DGN_WIN_PICK_RITUALS = "Rituais",
+	DGN_WIN_PICK_RAIDS = "Raids",
+	DGN_WIN_PICK_DUNGEONS = "Masmorras",
 	DGN_SHARE_SENT_FMT = "Passos de %s compartilhados com o grupo.",
 })

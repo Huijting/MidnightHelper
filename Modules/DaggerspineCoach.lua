@@ -24,8 +24,12 @@ local ENTRY = {
 		{
 			key = "mindbreaker",
 			name = "Empowered Mindbreaker",
-			-- Stage 2 "Beast From the Deep"; npcID nog onbekend → model leert
-			-- zich vanzelf van het boss1-frame zodra Rob de stage draait.
+			-- Stage 2 "Beast From the Deep". De exacte boss-npcID is nog niet
+			-- gedataminet; als stand-in tonen we het model van de Void-Infused
+			-- Mindbreaker (npc 260022, een echte void-mindbreaker) zodat het paneel
+			-- niet leeg is. Wordt vervangen zodra we de echte boss bevestigen
+			-- (eerste live run) — een in-game geleerd ID wint altijd van de seed.
+			seedCreatureId = 260022,
 		},
 		{
 			key = "selenvjar",

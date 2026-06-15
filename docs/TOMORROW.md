@@ -1,5 +1,32 @@
 # Morgen — test & uitzoek (Midnight Helper)
 
+## 🎯 16 JUNI — start van 1.8.1 (na de 1.8.0 CF-release van 15 jun)
+
+**Hoofdwens (Rob, 15 jun): Tier set gear-feature — "als we 't doen, goed: allebei de niveaus."**
+
+1. **Niveau 1 — algemene uitleg + roadmap (eigen tab, laag risico):**
+   - Wat tier sets zijn (5 slots: helm/schouders/borst/handen/benen; 2-set & 4-set bonus).
+   - Hoe je ze krijgt: (a) raid-drops per boss/slot, (b) **Great Vault** (sluit aan op de Vault-tab),
+     (c) **Creation Catalyst** (staat al als waypoint in de SMC-gids) om gewone gear om te zetten.
+   - Wat je nodig hebt: 2-set → 4-set compleet; welke slots je vrijlaat voor sterkere losse items.
+2. **Niveau 2 — live per-spec set-bonus + teller:**
+   - Per class/spec de 2-set/4-set-bónus tonen (research Wowhead/Icy-Veins, "confirm in-game" waar
+     12.0.7 nog beweegt — never-lie).
+   - Live teller "tier: x/5 stukken (2-set ✓ / 4-set ✗)" via uitruststukken-scan (taint-veilig,
+     zelfde patroon als de Enchant-scan). Catalyst-cadans (charges/week) deels in-game bevestigen.
+   - Plaatsing: eigen tab óf Character-sectie (met Rob beslissen).
+   - Research-zwaarte: medium (set-bonussen per spec); bouw-zwaarte: laag (uitleg-paneel-stijl).
+
+**Bug (Rob, 15 jun): dubbele cast-namen.** In de boss-steps staat soms `[Shadowbolt Volley]`
+(de blauwe {SPELL:}-link) **én** een letterlijke `(Shadowbolt Volley)` erachter — dubbel. Zie
+Ger'lok / The Broken Throne (`RitualTips.lua`). Eerder 22 van deze parentheticals weggehaald uit
+RaidTips + MythicPlus; **moet nu OVERAL gecheckt worden** (sweep alle boss-step-locales:
+RitualTips, RaidTips, MythicPlus, DungeonTips, DelveTips — grep op `}` direct gevolgd door ` (`).
+
+**Plus: openstaande zaken** (zie ROADMAP.md) — o.a. live event-voortgangsbalken, reward-galleries,
+Rares-coords, en de 12.0.7-data-fills (Val/Naigtal/Folio) zodra de PTR-rotatie het toelaat.
+**Bij echte 12.0.7-launch:** `120005` uit de TOC (`## Interface`-regel) halen.
+
 ## 🌅 MORGENOCHTEND (14 juni) — PTR 12.0.7 verder invullen
 
 Hoofdfocus: `docs/PTR_12.0.7_DATA.md` afmaken. Met de nieuwe **`/mh eventspy`**

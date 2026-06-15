@@ -286,6 +286,10 @@ function ns.RefreshDungeonGuidePanel()
 		row.bossFs:SetText(body)
 	end
 
+	if ui.fillMythic then
+		ui.fillMythic()
+	end
+
 	Relayout()
 end
 
@@ -352,6 +356,9 @@ function ns.BuildDungeonGuidePanel(panel)
 	local navCoach = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
 	navCoach:SetHeight(22)
 	navCoach:SetPoint("LEFT", navCourse, "RIGHT", 6, 0)
+	local navMythic = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	navMythic:SetHeight(22)
+	navMythic:SetPoint("LEFT", navCoach, "RIGHT", 6, 0)
 
 	local scroll = CreateFrame("ScrollFrame", "MidnightHelperDungeonScroll", panel, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", navWeek, "BOTTOMLEFT", 0, -8)
@@ -373,9 +380,11 @@ function ns.BuildDungeonGuidePanel(panel)
 		navWeek = navWeek,
 		navCourse = navCourse,
 		navCoach = navCoach,
+		navMythic = navMythic,
 		viewMode = (ns.db and ns.db.ui and ns.db.ui.dungeonViewMode) or "week",
 	}
-	if ui.viewMode ~= "week" and ui.viewMode ~= "course" and ui.viewMode ~= "coach" then
+	if ui.viewMode ~= "week" and ui.viewMode ~= "course" and ui.viewMode ~= "coach"
+		and ui.viewMode ~= "mythic" then
 		ui.viewMode = "week"
 	end
 
@@ -383,12 +392,15 @@ function ns.BuildDungeonGuidePanel(panel)
 		navWeek:SetText(ns:L("DGN_VIEW_WEEK"))
 		navCourse:SetText(ns:L("DGN_VIEW_COURSE"))
 		navCoach:SetText(ns:L("DGN_VIEW_COACH"))
+		navMythic:SetText(ns:L("MPLUS_VIEW"))
 		navWeek:SetWidth(math.max((navWeek:GetTextWidth() or 0) + 24, 90))
 		navCourse:SetWidth(math.max((navCourse:GetTextWidth() or 0) + 24, 90))
 		navCoach:SetWidth(math.max((navCoach:GetTextWidth() or 0) + 24, 90))
+		navMythic:SetWidth(math.max((navMythic:GetTextWidth() or 0) + 24, 90))
 		navWeek:SetEnabled(ui.viewMode ~= "week")
 		navCourse:SetEnabled(ui.viewMode ~= "course")
 		navCoach:SetEnabled(ui.viewMode ~= "coach")
+		navMythic:SetEnabled(ui.viewMode ~= "mythic")
 	end
 	ui.updateNavButtons = UpdateNavButtons
 
@@ -409,6 +421,9 @@ function ns.BuildDungeonGuidePanel(panel)
 	end)
 	navCoach:SetScript("OnClick", function()
 		SetViewMode("coach")
+	end)
+	navMythic:SetScript("OnClick", function()
+		SetViewMode("mythic")
 	end)
 	UpdateNavButtons()
 
@@ -502,6 +517,12 @@ function ns.BuildDungeonGuidePanel(panel)
 					-- Expliciete if — NIET de `x and false or true`-idioom:
 					-- die geeft altijd true (Robs klik-mysterie, 11 jun).
 					if IsDgnCollapsed(d.key) then
+						-- Accordion (Rob 15 jun: max één dungeon tegelijk open):
+						-- sluit eerst alle andere. Alleen geopende dungeons hebben
+						-- een `false`-entry; de rest is al impliciet dicht.
+						for k in pairs(ui.coachCollapsed) do
+							ui.coachCollapsed[k] = true
+						end
 						ui.coachCollapsed[d.key] = false
 					else
 						ui.coachCollapsed[d.key] = true
@@ -548,6 +569,277 @@ function ns.BuildDungeonGuidePanel(panel)
 	AddCoachGroup("DGN_GROUP_SEASON", function(d)
 		return d.season1 and not d.native
 	end)
+
+	-- Mythic+ -------------------------------------------------------------------
+	-- Twee weergaven binnen de Mythic+-view: Beginnersmodus (rustig, gewone taal,
+	-- weinig op't scherm) en de volledige Expert-info. De toggle staat altijd
+	-- bovenaan; de rest filtert via hiddenFn (Rob 15 jun, voor zijn zus: minder
+	-- tekst, geen jargon, niks dat overweldigt tot ze er klaar voor is).
+	local function beginnerOn()
+		return (ns.db and ns.db.ui and ns.db.ui.mplusBeginner) and true or false
+	end
+	local function beginnerHidden()
+		return not beginnerOn()
+	end
+	local function expertHidden()
+		return beginnerOn()
+	end
+	-- Bonus-regel van het week-kaartje: alleen in beginnersmodus én alleen als we
+	-- de dungeon-of-the-week écht kennen (never-lie — anders niks tonen).
+	local function weekBonusHidden()
+		if not beginnerOn() then
+			return true
+		end
+		if not ns.GetDungeonOfTheWeek then
+			return true
+		end
+		local key = ns.GetDungeonOfTheWeek()
+		return not key
+	end
+
+	local mythicHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
+	mythicHeader._mhKey = "MPLUS_HEADER"
+	mythicHeader:SetText(ns:L("MPLUS_HEADER"))
+	push(mythicHeader, 0, 0, false, "mythic")
+
+	-- Beginner/expert-toggle (altijd zichtbaar; label gezet in FillMythic).
+	local beginnerBtn = MakeButton(child, function()
+		if ns.db then
+			ns.db.ui = ns.db.ui or {}
+			ns.db.ui.mplusBeginner = not beginnerOn()
+		end
+		ns.RefreshDungeonGuidePanel()
+	end)
+	push(beginnerBtn, 6, 0, true, "mythic")
+	ui.mplusBeginnerBtn = beginnerBtn
+
+	-- ===== "Deze week, voor jou"-kaartje (idee 3; beginnersmodus) =====
+	local weekHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
+	weekHeader._mhKey = "MPLUS_WEEK_HEADER"
+	weekHeader:SetText(ns:L("MPLUS_WEEK_HEADER"))
+	push(weekHeader, 10, 0, false, "mythic", beginnerHidden)
+
+	local weekBody = MakeFS(child, "GameFontHighlightSmall", COLOR_ACCENT)
+	weekBody._mhKey = "MPLUS_WEEK_BODY"
+	weekBody:SetText(ns:L("MPLUS_WEEK_BODY"))
+	push(weekBody, 6, 8, false, "mythic", beginnerHidden)
+
+	ui.mplusWeekBonusFs = MakeFS(child, "GameFontHighlightSmall", COLOR_SOFT)
+	push(ui.mplusWeekBonusFs, 4, 8, false, "mythic", weekBonusHidden)
+
+	local weekAvoid = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	weekAvoid._mhKey = "MPLUS_WEEK_AVOID"
+	weekAvoid:SetText(ns:L("MPLUS_WEEK_AVOID"))
+	push(weekAvoid, 4, 8, false, "mythic", beginnerHidden)
+
+	-- ===== Beginnersmodus (rustig) =====
+	local begIntro = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	begIntro._mhKey = "MPLUS_BEGINNER_INTRO"
+	begIntro:SetText(ns:L("MPLUS_BEGINNER_INTRO"))
+	push(begIntro, 8, 0, false, "mythic", beginnerHidden)
+
+	local begStart = MakeFS(child, "GameFontHighlightSmall", COLOR_ACCENT)
+	begStart._mhKey = "MPLUS_BEGINNER_START"
+	begStart:SetText(ns:L("MPLUS_BEGINNER_START"))
+	push(begStart, 8, 0, false, "mythic", beginnerHidden)
+
+	local glossHeader = MakeFS(child, "GameFontNormal", COLOR_ACCENT)
+	glossHeader._mhKey = "MPLUS_GLOSSARY_HEADER"
+	glossHeader:SetText(ns:L("MPLUS_GLOSSARY_HEADER"))
+	push(glossHeader, 12, 0, false, "mythic", beginnerHidden)
+
+	for _, gkey in ipairs(ns.MPLUS_GLOSSARY or {}) do
+		local fs = MakeFS(child, "GameFontHighlightSmall")
+		fs._mhKey = gkey
+		fs:SetText(ns:L(gkey))
+		push(fs, 6, 8, false, "mythic", beginnerHidden)
+	end
+
+	-- Toegankelijke meldingen (debuff-alert, idee 2): aan/uit + testknop. Werkt op
+	-- je EIGEN debuffs (leesbaar) — vijandelijke casts zijn 'secret' (Rob 15 jun).
+	local alertsHdr = MakeFS(child, "GameFontNormal", COLOR_ACCENT)
+	alertsHdr._mhKey = "ALERT_HELP_HEADER"
+	alertsHdr:SetText(ns:L("ALERT_HELP_HEADER"))
+	push(alertsHdr, 12, 0, false, "mythic", beginnerHidden)
+
+	local alertsHelp = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	alertsHelp._mhKey = "ALERT_HELP"
+	alertsHelp:SetText(ns:L("ALERT_HELP"))
+	push(alertsHelp, 4, 8, false, "mythic", beginnerHidden)
+
+	local alertsBtn = MakeButton(child, function()
+		if ns.ToggleAccessibleAlerts then
+			ns.ToggleAccessibleAlerts()
+		end
+		ns.RefreshDungeonGuidePanel()
+	end)
+	push(alertsBtn, 4, 8, true, "mythic", beginnerHidden)
+	ui.mplusAlertsBtn = alertsBtn
+
+	local alertsTestBtn = MakeButton(child, function()
+		if ns.ShowAccessibleAlertTest then
+			ns.ShowAccessibleAlertTest()
+		end
+	end)
+	alertsTestBtn._mhKey = "ALERT_TEST_BTN"
+	alertsTestBtn:SetText(ns:L("ALERT_TEST_BTN"))
+	push(alertsTestBtn, 4, 8, true, "mythic", beginnerHidden)
+
+	-- ===== Expertmodus (volledige info) =====
+	local mythicIntro = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	mythicIntro._mhKey = "MPLUS_INTRO"
+	mythicIntro:SetText(ns:L("MPLUS_INTRO"))
+	push(mythicIntro, 8, 0, false, "mythic", expertHidden)
+
+	-- Affix-ladder (level-nummer + body; herbouwd in FillMythic voor taalwissel).
+	local affixHeader = MakeFS(child, "GameFontNormal", COLOR_ACCENT)
+	affixHeader._mhKey = "MPLUS_AFFIX_HEADER"
+	affixHeader:SetText(ns:L("MPLUS_AFFIX_HEADER"))
+	push(affixHeader, 12, 0, false, "mythic", expertHidden)
+
+	ui.mythicAffixRows = {}
+	for _, a in ipairs(ns.MPLUS_AFFIX_LADDER or {}) do
+		local fs = MakeFS(child, "GameFontHighlightSmall")
+		push(fs, 4, 8, false, "mythic", expertHidden)
+		ui.mythicAffixRows[#ui.mythicAffixRows + 1] = { fs = fs, level = a.level, descKey = a.descKey }
+	end
+
+	-- Xal'atath's Bargain-varianten (klikbare {SPELL:}-links → EditBox).
+	local bargainHeader = MakeFS(child, "GameFontNormal", COLOR_ACCENT)
+	bargainHeader._mhKey = "MPLUS_BARGAIN_HEADER"
+	bargainHeader:SetText(ns:L("MPLUS_BARGAIN_HEADER"))
+	push(bargainHeader, 12, 0, false, "mythic", expertHidden)
+
+	ui.mythicBargainRows = {}
+	for _, b in ipairs(ns.MPLUS_BARGAINS or {}) do
+		local box = CreateFrame("EditBox", nil, child)
+		box:SetMultiLine(true)
+		box:SetFontObject("GameFontHighlightSmall")
+		box:SetJustifyH("LEFT")
+		box:SetAutoFocus(false)
+		box:EnableMouse(true)
+		if box.SetMaxLetters then
+			box:SetMaxLetters(0)
+		end
+		box:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+		box._mhTipBox = true
+		if ns.AttachDelveTipHyperlinksToEditBox then
+			ns:AttachDelveTipHyperlinksToEditBox(box)
+		end
+		push(box, 4, 8, false, "mythic", expertHidden)
+		ui.mythicBargainRows[#ui.mythicBargainRows + 1] = { box = box, descKey = b.descKey }
+	end
+
+	-- Pool (8 dungeons; namen dynamisch + gelokaliseerd in FillMythic).
+	local poolHeader = MakeFS(child, "GameFontNormal", COLOR_ACCENT)
+	poolHeader._mhKey = "MPLUS_POOL_HEADER"
+	poolHeader:SetText(ns:L("MPLUS_POOL_HEADER"))
+	push(poolHeader, 12, 0, false, "mythic", expertHidden)
+
+	ui.mythicPoolFs = MakeFS(child, "GameFontHighlightSmall")
+	push(ui.mythicPoolFs, 4, 8, false, "mythic", expertHidden)
+
+	local poolNote = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	poolNote._mhKey = "MPLUS_POOL_NOTE"
+	poolNote:SetText(ns:L("MPLUS_POOL_NOTE"))
+	push(poolNote, 4, 0, false, "mythic", expertHidden)
+
+	-- Systeem-weetjes.
+	local sysHeader = MakeFS(child, "GameFontNormal", COLOR_ACCENT)
+	sysHeader._mhKey = "MPLUS_SYSTEM_HEADER"
+	sysHeader:SetText(ns:L("MPLUS_SYSTEM_HEADER"))
+	push(sysHeader, 12, 0, false, "mythic", expertHidden)
+
+	local sysBody = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	sysBody._mhKey = "MPLUS_SYSTEM"
+	sysBody:SetText(ns:L("MPLUS_SYSTEM"))
+	push(sysBody, 4, 8, false, "mythic", expertHidden)
+
+	-- Must-kicks per dungeon (alleen dungeons met bron — never-lie).
+	local kickHeader = MakeFS(child, "GameFontNormal", COLOR_ACCENT)
+	kickHeader._mhKey = "MPLUS_KICK_HEADER"
+	kickHeader:SetText(ns:L("MPLUS_KICK_HEADER"))
+	push(kickHeader, 12, 0, false, "mythic", expertHidden)
+
+	local kickNote = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	kickNote._mhKey = "MPLUS_KICK_NOTE"
+	kickNote:SetText(ns:L("MPLUS_KICK_NOTE"))
+	push(kickNote, 4, 0, false, "mythic", expertHidden)
+
+	-- Kick-regels als EditBox (i.p.v. FontString) zodat de {SPELL:}-links
+	-- klikbaar zijn met tooltip (Rob 15 jun). Tekst wordt in FillMythic gezet
+	-- (markup-expansie + taalwissel).
+	ui.mythicKickRows = {}
+	for _, d in ipairs(ns.GetMythicPoolDungeons and ns.GetMythicPoolDungeons() or {}) do
+		local kickKey = ns.GetMythicKicks and ns.GetMythicKicks(d.key)
+		if kickKey then
+			local box = CreateFrame("EditBox", nil, child)
+			box:SetMultiLine(true)
+			box:SetFontObject("GameFontHighlightSmall")
+			box:SetJustifyH("LEFT")
+			box:SetAutoFocus(false)
+			box:EnableMouse(true)
+			if box.SetMaxLetters then
+				box:SetMaxLetters(0)
+			end
+			box:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+			box._mhTipBox = true
+			if ns.AttachDelveTipHyperlinksToEditBox then
+				ns:AttachDelveTipHyperlinksToEditBox(box)
+			end
+			push(box, 6, 8, false, "mythic", expertHidden)
+			ui.mythicKickRows[#ui.mythicKickRows + 1] = { box = box, key = kickKey }
+		end
+	end
+
+	-- Dynamische Mythic+-tekst (toggle-label, level-prefix, markup-links,
+	-- dungeonnamen); opnieuw gevuld bij elke refresh zodat een taalwissel +
+	-- de beginner/expert-stand meekomen.
+	local function FillMythic()
+		if ui.mplusBeginnerBtn then
+			ui.mplusBeginnerBtn:SetText(ns:L(beginnerOn() and "MPLUS_BEGINNER_BTN_ON" or "MPLUS_BEGINNER_BTN_OFF"))
+		end
+		if ui.mplusAlertsBtn then
+			local on = ns.AccessibleAlertsEnabled and ns.AccessibleAlertsEnabled()
+			ui.mplusAlertsBtn:SetText(ns:L(on and "ALERT_BTN_ON" or "ALERT_BTN_OFF"))
+		end
+		if ui.mplusWeekBonusFs then
+			local key = ns.GetDungeonOfTheWeek and ns.GetDungeonOfTheWeek()
+			local d = key and ns.GetDungeonByKey and ns.GetDungeonByKey(key)
+			if d then
+				local nm = (ns.GetDungeonDisplayName and ns.GetDungeonDisplayName(d)) or d.name or key
+				ui.mplusWeekBonusFs:SetText(ns:L("MPLUS_WEEK_BONUS_FMT"):format(nm))
+			else
+				ui.mplusWeekBonusFs:SetText("")
+			end
+		end
+		for _, row in ipairs(ui.mythicAffixRows or {}) do
+			row.fs:SetText(("|cffffd100+%d|r  %s"):format(row.level, ns:L(row.descKey)))
+		end
+		for _, row in ipairs(ui.mythicBargainRows or {}) do
+			local body = ns:L(row.descKey)
+			if ns.ExpandDelveTipMarkup then
+				body = ns:ExpandDelveTipMarkup(body)
+			end
+			row.box:SetText(body)
+		end
+		for _, row in ipairs(ui.mythicKickRows or {}) do
+			local body = ns:L(row.key)
+			if ns.ExpandDelveTipMarkup then
+				body = ns:ExpandDelveTipMarkup(body)
+			end
+			row.box:SetText(body)
+		end
+		if ui.mythicPoolFs then
+			local names = {}
+			for _, d in ipairs(ns.GetMythicPoolDungeons and ns.GetMythicPoolDungeons() or {}) do
+				names[#names + 1] = "• " .. (ns.GetDungeonDisplayName and ns.GetDungeonDisplayName(d) or d.name or d.key)
+			end
+			ui.mythicPoolFs:SetText(table.concat(names, "|n"))
+		end
+	end
+	ui.fillMythic = FillMythic
+	FillMythic()
 
 	local function syncWidth()
 		local w = scroll:GetWidth()

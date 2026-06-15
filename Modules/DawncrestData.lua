@@ -15,7 +15,8 @@ ns.DAWNCREST_TIERS = {
 	},
 	{
 		key = "veteran",
-		currencyId = 3342,
+		currencyId = 3341,
+		alternateCurrencyIds = { 3342 },
 		labelKey = "DAWNCREST_TIER_VETERAN",
 		achievementId = 42767,
 		achLabelKey = "DAWNCREST_ACH_VETERAN",

@@ -76,8 +76,9 @@ local function OnEncounterStart(encounterID, encounterName)
 	local rotmireNpc = ENTRY.bosses[1].seedCreatureId
 	local match = false
 
-	-- 1. Geleerd encounterID (snelste, locale-onafhankelijk).
-	if store and encounterID and store.id == encounterID then
+	-- 1. Bekend/geleerd encounterID (snelste, locale-onafhankelijk). 2711 =
+	-- DBM-Raids-Midnight NewMod-id voor Rotmire (15 jun datamining).
+	if encounterID and (encounterID == 2711 or (store and store.id == encounterID)) then
 		match = true
 	end
 	-- 2. Naam-match (leert dan meteen het encounterID).

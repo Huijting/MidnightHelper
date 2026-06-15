@@ -102,10 +102,23 @@ local function DetectActiveSite()
 		if ok and type(pois) == "table" then
 			for i = 1, #pois do
 				local okInfo, info = pcall(C_AreaPoiInfo.GetAreaPOIInfo, site.mapID, pois[i])
-				if okInfo and info then
-					local px, py = PosXY(info.position)
-					if NearObelisk(px, py, site) then
+				if okInfo and info and type(info.name) == "string" then
+					-- De actieve-ritual-POI noemt de site ("Ritual Site: <naam>").
+					-- Vroeger matchten we puur op positie → een gewone POI bij de
+					-- INACTIEVE obelisk werd ten onrechte als actief gezien (Rob,
+					-- 15 jun: MH zei Daggerspine terwijl Broken Throne actief was).
+					-- Nu eisen we een ritual-naam: site-naam = zeker deze site;
+					-- generieke "Ritual Site" bevestigen we via de obelisk-positie.
+					-- Geen ritual-naam → telt niet (geen false positive meer; bij
+					-- onbekend toont de UI eerlijk "rouleert wekelijks").
+					if info.name:find(site.name, 1, true) then
 						return site.key
+					end
+					if info.name:find("Ritual Site", 1, true) then
+						local px, py = PosXY(info.position)
+						if NearObelisk(px, py, site) then
+							return site.key
+						end
 					end
 				end
 			end

@@ -6,6 +6,7 @@ local _, ns = ...
 
 local SPELL_LINK_COLOR = "71d5ff"
 local ITEM_LINK_COLOR = "1eff00"
+local CURRENCY_LINK_COLOR = "ffd200"
 
 function ns:GetSpellLinkMarkup(spellID, fallbackLabel)
 	spellID = tonumber(spellID)
@@ -51,6 +52,32 @@ function ns:GetItemLinkMarkup(itemID, fallbackLabel)
 	return ("|cff%s|Hitem:%d|h[%s]|h|r"):format(ITEM_LINK_COLOR, itemID, name)
 end
 
+function ns:GetCurrencyLinkMarkup(currencyID, fallbackLabel)
+	currencyID = tonumber(currencyID)
+	if not currencyID then
+		return fallbackLabel or "?"
+	end
+	-- Prefer the game's own (localized) currency link.
+	if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyLink then
+		local ok, link = pcall(C_CurrencyInfo.GetCurrencyLink, currencyID, 0)
+		if ok and type(link) == "string" and link ~= "" then
+			return link
+		end
+	end
+	local name = fallbackLabel
+	if (not name or name == "") and C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
+		local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, currencyID)
+		if ok and info and info.name and info.name ~= "" then
+			name = info.name
+		end
+	end
+	if not name or name == "" then
+		name = "Currency " .. tostring(currencyID)
+	end
+	name = name:gsub("|", "||")
+	return ("|cff%s|Hcurrency:%d|h[%s]|h|r"):format(CURRENCY_LINK_COLOR, currencyID, name)
+end
+
 function ns:ExpandDelveTipMarkup(text)
 	if type(text) ~= "string" or text == "" then
 		return text
@@ -75,6 +102,10 @@ function ns:ExpandDelveTipMarkup(text)
 
 	text = text:gsub("{ITEM:(%d+)}", function(id)
 		return self:GetItemLinkMarkup(tonumber(id))
+	end)
+
+	text = text:gsub("{CURRENCY:(%d+)}", function(id)
+		return self:GetCurrencyLinkMarkup(tonumber(id))
 	end)
 
 	if ns.SanitizeUIFontText then
@@ -106,6 +137,11 @@ local function ShowDelveTipHyperlinkTooltip(owner, linkData)
 			local spellID = tonumber(payload)
 			if spellID and gt.SetSpellByID then
 				gt:SetSpellByID(spellID)
+			end
+		elseif kind == "currency" then
+			local currencyID = tonumber((payload:match("^(%d+)")))
+			if currencyID and gt.SetCurrencyByID then
+				gt:SetCurrencyByID(currencyID)
 			end
 		end
 	end)

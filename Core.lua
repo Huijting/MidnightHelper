@@ -687,6 +687,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "enchants" or msg == "enchant" then
+		if ns.PrintGearEnchantCheck then
+			ns.PrintGearEnchantCheck()
+		end
+		return
+	end
+
 	-- /mh model <item-link | itemID | npc <id>> — roteerbare 3D-model-preview.
 	local modelArg = msg:match("^model%s+(.+)$")
 	if msg == "model" or modelArg then

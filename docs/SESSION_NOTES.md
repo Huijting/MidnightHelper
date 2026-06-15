@@ -14,6 +14,404 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 - Geen CurseForge-release zonder expliciete vraag van Rob.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
 
+## 🎯 Voor Cursor — CF-RELEASE 1.8.0 (15 juni — Rob gaf expliciet groen licht!)
+
+**STATUS: ⏳ KLAAR VOOR RELEASE.** Rob heft de "geen-CF"-regel hiervoor expliciet op:
+*"dan doen we nu een CF update 1.8.0 en dan kunnen we morgen met 1.8.1 aan de slag."*
+Versie blijft **1.8.0** (TOC staat al goed; NIET naar 1.8.1 bumpen — dat is morgen).
+
+**Stappen:**
+1. **Commit eerst alle openstaande batches** #6, #7, #8, #9 (zie blokken hieronder) als ze nog niet
+   binnen zijn — die zitten allemaal in deze 1.8.0-release.
+2. Draai luacheck/loadfile op de gewijzigde bestanden (mount gaf weer truncatie-false-positives;
+   host-bestanden zijn met een Lua-parser/host-Read geverifieerd — zie de batch-blokken).
+3. `CHANGELOG.md`: [Unreleased] + oude [1.8.0]-stub zijn samengevoegd tot één volledige
+   **[1.8.0] - 2026-06-15** (alle batch #4–#9-features + fixes). CF-tekst staat in
+   **`docs/CURSEFORGE_1.8.0.md`** (short summary + changelog + upload-checklist + test-stappen).
+4. Build: `powershell -ExecutionPolicy Bypass -File tools\package.ps1` → `dist/MidnightHelper-1.8.0.zip`.
+   ⚠️ CF-regels: geen scripts in de zip, zip-root = exact `MidnightHelper/`, geen docs/tools.
+5. Upload als **Release**, display version **1.8.0**, game version interface **120005**
+   (120007 mag in de TOC blijven tot 12.0.7 live is). Description + verse screenshots
+   (suggestie: Currencies-tab, Enchants-tab, raid/M+ boss-window, Events-tab).
+6. Tag/commit-bericht: `release: MidnightHelper 1.8.0` (of jouw conventie).
+
+**Aanrader vóór upload:** Rob even de **Currencies-** en **Enchants-tab** in-game laten bevestigen
+(waren de verste/grootste toevoegingen; world-boss-fix is al live bevestigd ✅). Geen blocker, wel netjes.
+
+**Na de release:** morgen 1.8.1 — tier-set-feature (beide niveaus, zie TOMORROW.md) + openstaande
+zaken uit ROADMAP.md.
+
+## Voor Cursor — review + commit batch 15 juni #9 (Enchant-links/AH-copy + Currency saldo's/QM-waypoints)
+
+**STATUS: ⏳ KLAAR VOOR COMMIT** — 1.8.0, geen CF.
+
+Voorgesteld bericht:
+
+> feat(enchants+currency): klikbare enchant-suggesties + AH-copy; live currency-saldo's + QM-waypoints
+
+Robs feedback op de Enchants-screen: de "your pick"-keuzes hadden geen tooltip, en hij wil
+(net als consumables) een kopieerregel voor de AH bij het aanklikken.
+
+**`Modules/GearEnchantCheck.lua` (herschreven).** Elke suggestie is nu een klikbare/hoverbare
+link (tooltip) + klik → naam landt in een kopieerbalk onderaan (InputBox, voorgeselecteerd voor
+Ctrl+C, consumables-patroon via `ui.linkAH` + `OnHyperlinkClick`). **Echte data (Wowhead 12.0.7,
+research 15 jun):**
+- HEAD tertiary-keuze: Blessing of Speed 1236070 / Hex of Leeching 1236055 / Rune of Avoidance 1236083.
+- FEET tertiary-keuze: Farstrider's Hunt 1236085 / Shaladrassil's Roots 1236072 / Lynx's Dexterity 1236057.
+- LEGS: Forest Hunter's Armor Kit (item 244640, Agi/Str) of Arcanoweave Spellthread (item 240154, Int).
+- SHOULDER: **gecorrigeerd** — géén tertiary (dat was fout); nu optionele utility-enchant
+  (item 243962 Akil'zon's Swiftness) met "effect in-game bevestigen", geen rode MISSING-alarm.
+- Bestaande ring/wapen/chest-IDs door research bevestigd (spell-IDs kloppen; item-namen toegevoegd
+  als AH-zoekstring). `/mh enchants` blijft werken (links klikbaar in chat).
+- Nieuwe locale-keys ×6: `ENCHANT_PICK`, `ENCHANT_LEGS_AGISTR`, `ENCHANT_LEGS_INT`,
+  `ENCHANT_SHOULDER_OPT`, `ENCHANT_COPY_LABEL`. (`ENCHANT_NOTE_TERTIARY/_LEGS` nu ongebruikt — gelaten.)
+
+**`Modules/CurrencyGuide.lua` (uitgebreid).** (1) **Live saldo's**: `{CURRENCY:id}` rendert nu
+link + `|cff8fce8f(N)|r` via `C_CurrencyInfo.GetCurrencyInfo().quantity`, ververst op
+`CURRENCY_DISPLAY_UPDATE`. (2) **QM-waypoint-knoppenrij** onderaan (SMC Court / Amani / Hara'ti /
+Singularity) → TomTom-slash indien aanwezig, anders `C_Map.SetUserWaypoint`. Coords (Wowhead):
+Caeris Fairdawn map 2395 43.46/47.42, Magovu 2437 45.95/65.92, Naynar 2413 50.99/50.75, Anomander
+2405 52.57/72.89 — in-game te bevestigen. Locale-keys ×6: `CURRENCY_QM_LABEL` +
+`CURRENCY_QM_COURT/AMANI/HARATI/SINGULARITY`.
+
+Verificatie: host-Read bevestigt beide modules compleet + gebalanceerd (GearEnchantCheck 352 r,
+CurrencyGuide 214 r). ⚠️ De sandbox-mount serveerde een **stale/afgekapte** kopie (stat én read
+gaven 5413 B / 129 r voor een 352-regel-bestand) → lupa/luaparser via de mount onbruikbaar;
+host-Read is leidend.
+
+**Bugfix world-boss warband-line (`Modules/WorldBoss.lua`).** Rob: alt die de boss níet deed toonde
+"Warband: not defeated yet" terwijl Earthshammy 'm al versloeg. Oorzaak: de 12-jun-fix (availability-
+early-return weghalen) was wél in `SyncWarbandDoneFromQuestLog` doorgevoerd maar **niet** in
+`ns.IsWorldBossKilled` — die deed nog `if IsWorldBossAvailableThisWeek(boss) then return false`,
+wat de account-brede warband-cache op alts maskeerde (WQ is per-char 'active'). Early-return
+verwijderd; week-reset blijft door `ClearStaleWbWeekCache` afgevangen. `IsWorldBossAvailableThisWeek`
+blijft in gebruik door `IsWorldBossDoneOnThisCharacter` (per-char "looted"-regel, dáár correct).
+
+## Voor Cursor — review + commit batch 15 juni #8 (Currency cheatsheet-tab + {CURRENCY:} markup)
+
+**STATUS: ⏳ KLAAR VOOR COMMIT** — 1.8.0, geen CF.
+
+Voorgesteld bericht:
+
+> feat(currency): "Valuta"-cheatsheet-tab (waar verdien/geef ik elke currency uit) + {CURRENCY:id} markup
+
+Robs wens: "ik weet van de helft van wat ik krijg niet waar/aan wat ik het kan uitgeven."
+
+**Nieuwe tab "Currencies/Valuta"** (`Modules/CurrencyGuide.lua`, nieuw — kloon van het
+GearEnchantCheck-paneelpatroon: read-only EditBox in een scroll, klikbare links, RefreshLocaleUI-
+hook). Rendert één gelokaliseerde `CURRENCY_GUIDE_BODY` met per currency: waar verdien je 'm +
+bij welke vendor geef je 'm uit. Dekt **Voidlight Marl** ({CURRENCY:3316}), **Field Accolade**
+({CURRENCY:3405}), **Dawncrests** (3383/3341/3343/3345/3347 → Cuzoth/Vaskarn, verwijst naar de
+Dawncrest-tab), **PvP** (Honor/Conquest/Bloody Tokens/Marks → Dawnrunner/Bloodstar/Bloodvalor/
+Soryn) en de **4 Renown Quartermasters** (Caeris Fairdawn/Magovu/Naynar/Anomander per zone).
+
+**Nieuwe markup `{CURRENCY:id}`** in `Modules/DelveTipMarkup.lua`: `ns:GetCurrencyLinkMarkup`
+gebruikt `C_CurrencyInfo.GetCurrencyLink` (game-gelokaliseerde naam, kleur ffd200) met fallback;
+expansie in `ExpandDelveTipMarkup`; tooltip-handler kreeg een `currency`-tak (`SetCurrencyByID`).
+Currency-namen in de cheatsheet zijn dus auto-gelokaliseerd + linken naar je live saldo.
+
+**UI.lua** — tab geregistreerd: `SIDEBAR_SECTIONS` guides-ids (`currency` na `smcguide`),
+`TAB_DEFS`, `keyById`, info-drawer-body (`INFO_DRAWER_BODY_CURRENCY`), build-dispatch
+(`BuildCurrencyGuidePanel`) + refresh-dispatch (`RefreshCurrencyGuidePanel`).
+**.toc**: `Modules\CurrencyGuide.lua` na GearEnchantCheck.
+
+**Locales ×6** (en/nl/de/fr/es/pt): `TAB_CURRENCY`, `CURRENCY_SUBTITLE`, `CURRENCY_GUIDE_BODY`,
+`INFO_DRAWER_BODY_CURRENCY`.
+
+**DawncrestData.lua fix:** Veteran-crest `currencyId` 3342 → **3341** primary + `alternateCurrencyIds = { 3342 }`
+(zelfde patroon als Champion 3343/alt 3344). Rob ziet in-game geen ID, dus alt dekt beide; de
+3341/3343/3345/3347-reeks + Wowhead wijzen op 3341. Rollback-veilig: alt valt terug op 3342.
+
+Verificatie: host-Read bevestigt alle edits well-formed; CurrencyGuide.lua compileert (lupa OK).
+⚠️ luaparser/lupa via de sandbox-mount gaf weer **valse** "near <eof>"-fouten door CRLF-truncatie
+van de mount (zelfs op ongewijzigde regels) — host-Read is leidend, bestanden zijn compleet.
+
+## Voor Cursor — review + commit batch 15 juni #7 (SMC gear & currency vendors)
+
+**STATUS: ⏳ KLAAR VOOR COMMIT** — 1.8.0, geen CF.
+
+Voorgesteld bericht:
+
+> feat(smc): Gear & Currency Vendors-sectie in SMC City Guide (Maren + Triam)
+
+`UI.lua` — nieuwe `SMC_CATEGORIES`-sectie **"Gear & Currency Vendors"** (na Essential Services),
+met twee waypoint-pins bij de Ritual/Void-hub (~48.11, 49.10 — coords in-game te bevestigen):
+- **Maren Silverwing** (Wowhead npc 255473, `<Quartermaster>`): ruilt **Field Accolades** (uit
+  Ritual Sites + Void Assaults) voor Void-Touched **GEAR**-caches — Champion 75 / Hero 500;
+  zet ook Dark Particle → Field Accolade. Atlas `WarWithin-Icon-Crest`.
+- **Triam Dawnsetter** (Wowhead npc 255476, `<Cosmetic Equipment Salvager>`): **ALLEEN
+  cosmetics/transmog, GEEN gear** — Void-Touched looks per slot, 5 Field Accolade + 150 Voidlight
+  Marl elk (wapens 10 + 200), geen duplicates. Atlas `services-icon-transmogrifier`.
+
+Beide pins zijn auto-doorzoekbaar (de `ns._mhSMCGuideSearchRows`-loop pakt label+description).
+Sectie volgt de bestaande hardcoded-NL stijl van `SMC_CATEGORIES` (geen locale-keys nodig).
+luaparser: OK (2646 regels).
+
+**Currency-bron (research, Wowhead-bevestigd):** Voidlight Marl = currency **3316** (Renown
+Quartermasters + zone-vendors, warband-transferable); Field Accolade = **3405** (Maren).
+⚠️ **Mogelijke fix voor Cursor:** `DawncrestData.lua` heeft Veteran `currencyId = 3342`, maar
+Wowhead-research wijst op **3341** voor Veteran Dawncrest. Niet blind gewijzigd — graag in-game
+bevestigen (Currency-tab) vóór aanpassen.
+
+**Open vervolg (optioneel, met Rob bespreken):** volledige "waar geef ik welke currency uit"-
+cheatsheet in de addon (Voidlight Marl, Field Accolade, Dawncrests, Honor/Conquest/Bloody Tokens,
+profession-currency) + Renown Quartermasters per zone (Caeris Fairdawn/Magovu/Naynar/Anomander).
+
+## Voor Cursor — review + commit batch 15 juni #6 (debuff-alert + Delve & Ritual Log + weekly)
+
+**STATUS: ⏳ KLAAR VOOR COMMIT** — 1.8.0, geen CF.
+
+Voorgesteld bericht:
+
+> feat(alerts+log+weekly): debuff-alert (eigen auras) + Delve & Ritual Log + Voidforge-weekly
+
+**Idee 2 herbouwd → debuff-alert (werkt).** `Modules/AccessibleAlerts.lua` van enemy-cast
+(geblokkeerd) naar **eigen-debuff-detectie** (UNIT_AURA "player"; leesbaar). Flasht één rustige
+melding + geluid zodra je een debuff uit `ns.DEBUFF_ALERTS` krijgt; per-debuff message of
+`ALERT_DEBUFF_FMT` met de naam. Opt-in, throttle 4s/6s, gate party/scenario. Geseed met
+**440313 Devouring Rift** (M+ Devour). Module terug in TOC; toggle + testknop terug in
+beginnersmodus; ALERT_HELP/ENABLED_MSG herschreven + ALERT_DEBUFF_FMT/DEVOURING_RIFT ×6 talen.
+CHANGELOG: eerlijke "Helper alerts (opt-in)"-regel. Lijst groeit met de ritual-debuff-logger.
+
+**Delve & Ritual Log.** `Modules/RitualLog.lua` (nieuw) logt ritual-scenario-runs (site, tier
+indien leesbaar, tijd, deaths, voltooid) in EXACT het DelveHistory-run-model. `Modules/
+DelveHistory.lua`: Refresh toont nu een **"Rituals"-sectie** (hergebruikt rij-opmaak +
+totalen), en de **bestaande uitklap-bug gefixt** (`row._mhKey` werd nooit gezet → recent-runs
+klapten niet uit; nu wel, voor delves én rituals). Tab hernoemd naar **"Delve & Ritual Log"**
++ subtitle + `DELVELOG_SEC_RITUALS` ×6 talen. Detectie via scenario-naam (Broken Throne /
+Daggerspine). Heeft een echte run nodig om tier-leesbaarheid te bevestigen (Rob test vanavond).
+
+**Must-kicks compleet (alle 8 M+-dungeons).** Research (Method ability-trackers + Icy-Veins):
+Magisters' Terrace (Polymorph 468966, Pyroblast 1254294, Terror Wave 1264693 — bosses niks
+kickbaar), Nexus-Point Xenas (Kasreth Arcane Zap 1250553, Lothraxion Divine Guile 1257595 =
+kick de hoornloze shade, + Nullify 1258681 / Umbra Bolt 1271094 / Holy Bolt 1263892), Windrunner
+Spire (Chain Lightning / Spirit Bolt / Poison Blades / Fungal Bolt — namen, IDs "not found").
+`MPLUS_KICKS` + `MPLUS_KICK_MAGISTERS/NEXUSPOINT/WINDRUNNER` ×6 talen, klikbare links waar
+bevestigd. Maisara blijft namen-only tot live-capture.
+
+**Raid-bosses verrijkt uit EXBoss (Rob draait EXBoss/EXBossData).** Robs `EXBossData/
+EncounterData.lua` (event_spell_map_v2) heeft per raid-boss een event→spell-map met spellID +
+**`voiceLabelUS`** (Engels actie-label: Heal/Drop/Beam/DODGE/Kick/Intermission…) + severity —
+dekt ál onze raids incl. de gaten Crown (2738), L'ura (2740), Chimaerus (2795). `RaidTips.lua`:
+Crown/L'ura/Chimaerus STEPS kregen een **"Key casts"-regel** met spell-links per actie
+(dodge/interrupt/move/defensive), ×6 talen; de "nog niet gedataminet"-caveats vervangen.
+Cross-check: Chimaerus' interrupt {SPELL:1249017} matcht onze eerdere DBM-ID. Bron-caveat
+"(EXBoss timeline — confirm in-game)" in de tekst. **Vervolg (zelfde batch): de 5 Voidspire-
+bossen (Averzian/Vorasius/Salhadaar/Vaelgor/Vanguard) óók verrijkt** met een "Key casts"-regel
+×6 talen — meerdere IDs cross-checken onze bestaande (Averzian-interrupt 1255702 + wipe 1251583,
+Salhadaar burn-window 1246175, Vanguard-auras, Vaelgor Dread Breath/Gloom/Radiant Barrier).
+Bewust buiten de regel gelaten: Nullbeam 1262623 (EXBoss zegt "frontal", Wowhead "tank-soak" —
+conflict, niet asserten). Nu hebben **alle 9/9 raid-bosses** EXBoss-key-casts (Belo'ren als laatste toegevoegd, ×6 talen
+— bevestigt onze kleur-split 1241162/1241163 + Rebirth 1241313). **EXBossData blijft dé bron**
+voor verder verrijken (de M+ dungeon-bóssen + trash-kicks — al cureert EXBoss daar andere casts
+dan method.gg, dus niet blind mergen).
+Ritual-scenario's staan NIET in EXBoss (debuffs blijven via de logger).
+
+**Gear-enchant-check (Rob-wens, `/mh enchants`).** `Modules/GearEnchantCheck.lua` (nieuw):
+scant de enchantbare 12.0-slots (Weapon, Chest, Helm, Shoulder, 2 Ringen, Boots, Legs),
+vlagt slots zonder enchant, en stelt per slot een Midnight-enchant voor op basis van de
+spec-top-secundaire-stat (eigen resolver op `ns.VAULT_ADVISOR_SPEC_WEIGHTS`). Stat-gematcht
+voor ringen (Silvermoon's Alacrity/Nature's Fury/Zul'jin's Mastery/Silvermoon's Tenacity) +
+proc-wapen; chest = Mark of the Worldsoul (primary); helm/shoulder/boots = tertiair (keuze);
+legs = professie-kit. Enchant-data 15-jun research (Wowhead/Method/wow-professions). Taint-
+veilig (read-only inventory+spec). Slot-namen via Blizzard-globals (auto-gelokaliseerd).
+**Paneel toegevoegd (Rob wilde geen chat-spam):** eigen tab **"Enchants"** onder de
+Character-sectie (UI.lua: TAB_DEFS, SIDEBAR_SECTIONS, build/refresh-dispatch, keyById,
+info-drawer). Read-only EditBox met hoverbare spell-links; ververst op show +
+PLAYER_EQUIPMENT_CHANGED/PLAYER_SPECIALIZATION_CHANGED. `/mh enchants` blijft als bonus.
+14 locale-keys ×6 talen (ENCHANT_* + TAB_ENCHANTS + ENCHANT_SUBTITLE + INFO_DRAWER_BODY_ENCHANTS).
+Tertiaire/legs-keuze bewust generiek (never-lie, geen valse BiS-claim).
+
+**Weekly-pariteit.** `Modules/ResetRoutine.lua` `EXTRA_WEEKLIES` + **Building the Voidforge
+(94623)** (enige met bevestigde ID; hergebruikt GIVER-fmt, geen nieuwe locale-keys). Beacon of
+Hope / Prey Hunts / Saltheril's Soiree / Bonus Event: géén quest-ID bekend → bewust NIET
+toegevoegd (never-lie), capturen we in-game.
+
+**Review:** alle nieuwe/gewijzigde Lua host-geverifieerd (RitualLog/AccessibleAlerts parsen
+schoon; DelveHistory-Refresh + ResetRoutine-blok geïsoleerd geparseerd; bash-mount kapt grote
+files af = bekend). Locale-pariteit 6× (host-Grep). Taint: alleen eigen-aura-reads, in pcall.
+
+## Voor Cursor — review + commit batch 15 juni #5 (live-test hotfixes)
+
+**STATUS: ⏳ KLAAR VOOR COMMIT** — 1.8.0, geen CF. Fixes na Robs eerste live test.
+
+Voorgesteld bericht:
+
+> fix(12.x secret values): interrupt-alerts verwijderd (geblokkeerd) + Rituals/Raids-split + boss-camera + must-kick-links
+
+**Belangrijke 12.0.7-ontdekking:** vijandelijke cast-data is nu een **'secret' waarde**
+(Blizzard blokkeert interrupt-automatisering). Een secret als table-key gebruiken of
+erop een if-test doen gooit een fout. Twee crashes daardoor (Rob live in ritual):
+- 🐛 **`Modules/RitualBossCoach.lua`** (32× `cannot be indexed with secret keys`, r.127):
+  `ALERT_SPELLS[spellID]` met secret spellID. Fix: `LookupAlert()` doet een +0-launder-
+  poging én de lookup in `pcall` → lukt = alert flasht, secret/mislukt = geen alert
+  (nooit spam). Throttle nu via `lastAlertAt.t` (platte key i.p.v. secret spellID).
+- 🗑️ **Idee 2 (cast-/interrupt-alerts) VERWIJDERD — definitief geblokkeerd in 12.x.**
+  Rob's live cast-logger (RitualBossCoach, tijdelijk) bewees het: zowel de spell-**ID**
+  (`CAST met 'secret' spell-ID`) als de cast-**naam** (UnitCastingInfo) van vijandelijke
+  casts is 'secret' en onleesbaar voor een tainted addon. Een eigen interrupt-/cast-alert
+  is dus onmogelijk (DBM heeft daar privileges voor die wij niet hebben). Daarom:
+  - `Modules/AccessibleAlerts.lua` uit de TOC gehaald (file blijft op schijf voor een
+    eventuele debuff-gebaseerde herziening).
+  - "Helper alerts"-toggle + testknop uit de beginnersmodus (DungeonGuide) gehaald +
+    de FillMythic-ref. ALERT_*-locale-keys blijven (ongebruikt, onschadelijk).
+  - CHANGELOG: "Live cast alerts on the Broken Throne ritual"-regel verwijderd (klopte
+    niet meer — never-lie).
+  - RitualBossCoach's FlashAlert/ALERT_SPELLS-pad is nu dode (pcall-veilige) code; de
+    cast-logger blijft als dormante datamine-tool. Beide kunnen later gestript worden.
+  - **Pivot-optie (backlog):** alerts op **eigen speler-debuffs** (UnitAura "player" is
+    NIET secret) — bv. flash als jíj in Binding Nebula zit. Dat mag wél en is de
+    haalbare route voor idee 2.
+
+**Idee 2 HERBOUWD als debuff-alert (15 jun, na Rob's "ja"):** `Modules/AccessibleAlerts.lua`
+herschreven van enemy-cast → **eigen-debuff-detectie** (UNIT_AURA "player"; leesbaar,
+bevestigd via Sated 57724). Flasht één grote, rustige melding + geluid zodra je een debuff
+uit `ns.DEBUFF_ALERTS` krijgt; per-debuff message of generieke `ALERT_DEBUFF_FMT` met de
+naam. Throttle 4s globaal + 6s per debuff; gate op party/scenario; opt-in (default uit).
+Geseed met **440313 Devouring Rift** (M+ Devour-week → "heal/dispel het eraf"); lijst groeit
+zodra de ritual-debuff-logger ID's vangt (Binding Nebula etc.). Module terug in TOC; toggle +
+testknop terug in de beginnersmodus; CHANGELOG bijgewerkt. Locale ALERT_HELP/ENABLED_MSG
+herschreven (debuff i.p.v. interrupt) + ALERT_DEBUFF_FMT/DEVOURING_RIFT ×6 talen.
+
+**UI-tweaks (Robs screenshots):**
+- `Modules/DungeonBossWindow.lua` — picker **gesplitst in "Rituals" en "Raids"** (was één
+  "Rituals & Raids"-groep). Split op `ritual_`-keyprefix. 2 nieuwe locale-keys
+  DGN_WIN_PICK_RITUALS/RAIDS ×6 talen.
+- `Modules/DungeonBossWindow.lua` — model-zoom via **`SetCamDistanceScale`** (camera-
+  afstand, blijft GECENTREERD). Eerdere pogingen faalden: RefreshCamera (klein/top-left)
+  en `SetPosition` depth (model dreef naar de hoek + scroll liep vast op −1.0 met
+  chat-spam). Nu: `MODEL_CAMSCALE`-tabel zet per-boss start-zoom (Belo'ren 240387 = 2.2),
+  reset op creatureID-wissel, blijft staan bij refresh. Scroll past `_mhCamScale` aan
+  (0.5..5.0) en print **alleen bij wijziging** (geen spam). Andere modellen = 1.0.
+  Belo'ren-waarde fine-tunen zodra Rob de scroll-waarde doorgeeft.
+- **Must-kick-tooltips (Robs vraag, screen 3) — grotendeels gedaan.** Web-research (Method
+  ability-trackers → Wowhead spell=) leverde geverifieerde IDs voor de legacy-dungeons:
+  Repel 1255377, Icy Blast 1271074, Shadow Bolt 473657, Death Bolt 1278893, Glacial
+  Overload 1262029 (LoS-cast, géén kick — tekst zegt al "break LoS"), Dread Screech 248831,
+  Healing Touch 396640. Die staan nu als {SPELL:}-link in `MPLUS_KICK_*` (×6 talen) en de
+  kick-regels zijn EditBoxes geworden (`ui.mythicKickRows`) → klikbaar met tooltip.
+  **Maisara's trash (Hex/Reanimation/Shrink): "not found"** — geen betrouwbare bron (WowCarry
+  linkte naar verkeerde speler-spells), dus bewust platte tekst gelaten tot live-capture.
+- **Dubbele spell-namen weg (Robs screen 1/2):** de redundante " (Naam)" achter elke
+  {SPELL:}-link verwijderd in `RaidTips.lua` (17 strings) + `MythicPlus.lua` Bargains (5),
+  ×6 talen. De blauwe link toont de naam al; de witte dubbel-tekst (zonder tooltip) is weg.
+- ✅ **Broken Throne LIVE gevalideerd (Rob, 15 jun, ritual gecleared).** Twee guide-
+  correcties uit de echte run, ×6 talen in `RitualTips.lua`:
+  - **Dragonhawk (Corrupted Beast):** mechanic was fout. KILLER = Volatile Plumage laat
+    kleine RODE PLASSEN vallen die je moet **SOAKEN** (erin staan = kleine tik; lege plas =
+    enorme Shadowflame-explosie = de wipe). Geverifieerd via Wowhead-comments + Robs kill.
+    Oude "ontwijk/dood-de-nebula"-tekst vervangen.
+  - **Ger'lok (Corruptor's End):** notitie aangescherpt — hem van zijn platform/naar
+    beneden pullen **reset het gevecht** (Robs live-bevinding).
+  - Auto-open-per-stage (16391/16393/16394) + scenario 3236 in-game bevestigd; de
+    debuff-logger werkt (ving `57724 Sated`). Player-auras zijn dus leesbaar → debuff-
+    alert blijft een haalbare backlog-optie.
+
+## Voor Cursor — review + commit batch 15 juni #4 (volledige raids + Mythic+-tab)
+
+**STATUS: ⏳ KLAAR VOOR COMMIT** — geen CF, versie blijft 1.8.0. Grote batch; mag
+samen met #3 of apart.
+
+Voorgesteld bericht:
+
+> feat(raids+mplus): alle 3 Season 1-raids in de Boss Coach + Mythic+-subtab (affixes, pool, must-kicks) — 6 talen
+
+**Context:** Rob wilde "volledige raids toevoegen en daarna alle Mythics". Data 15 jun
+gedataminet en gekruist tussen Robs **DBM-Raids-Midnight** (autoritatieve encounter-IDs)
+en Wowhead/Method/Icy-Veins (spell-IDs/NPC-IDs/mechanics). Alles "confirm in-game".
+Volledige ID-tabel in `docs/RAID_MPLUS_DATA.md`.
+
+**Nieuw — raids:**
+- `Modules/RaidCoachData.lua` — de 3 Season 1-raids als CUSTOM_BOSS_ENTRIES (zelfde
+  boss-venster als Sporefall/Ritual): **The Dreamrift** (Chimaerus), **The Voidspire**
+  (6 bosses: Averzian, Vorasius, Salhadaar, Vaelgor & Ezzorak, Lightblinded Vanguard,
+  Crown of the Cosmos), **March on Quel'Danas** (Belo'ren + Midnight Falls/L'ura). Elke
+  raid = 1 picker-regel onder "Rituals & Raids"; binnen het venster blader je de bosses
+  (3D-model + stappen + klikbare {SPELL:}-links). Auto-open op ENCOUNTER_START via de
+  echte DBM-encounter-IDs (2733-2740, 2795), met naam/npc-fallback (zelflerend).
+- `Locales/RaidTips.lua` — 18 keys × 6 talen (steps + tank/healer/dps waar goed
+  onderbouwd). Crown/L'ura/Chimaerus bewust beschrijvend waar spell-IDs niet gedataminet
+  zijn (never-lie, met "confirm in-game"-noot in de tekst).
+- `Modules/SporefallCoach.lua` — Rotmire encounterID **2711** vast geseed (instant
+  auto-open op de eerste pull i.p.v. pas na zelf-leren).
+
+**Nieuw — Mythic+:**
+- `Modules/MythicPlusData.lua` — affix-ladder (+2 Lindormi's Guidance … +12 Xal'atath's
+  Guile), de 4 wekelijkse Xal'atath's Bargain-varianten, per-dungeon must-kicks (alleen
+  dungeons met schone method.gg-bron — Magisters'/Nexus-Point/Windrunner bewust nog niet)
+  + helpers `GetMythicPoolDungeons`/`GetMythicKicks`.
+- `Locales/MythicPlus.lua` — 26 keys × 6 talen.
+- `Modules/DungeonGuide.lua` — nieuwe **"Mythic+"-subtab** naast This week/Dungeons 101/
+  Dungeon Coach. Toont affix-ladder (level-prefix), Bargain-varianten (EditBox met
+  klikbare links), de 8-dungeon-pool (dynamische gelokaliseerde namen), systeem-weetjes
+  (Resilient Keystones, Waystones, crests) en must-kicks. `FillMythic()` herbouwt de
+  dynamische tekst bij elke refresh → taalwissel komt mee.
+- **Beginnersmodus (Rob 15 jun, voor zijn zus — toegankelijkheid).** Toggle bovenaan de
+  Mythic+-view (`ns.db.ui.mplusBeginner`): aan = rustige, jargon-vrije laag (intro "wat is
+  een key", "start hier: Follower/Normal, geen timer, kan niet falen" + woordenboek dat
+  kick/soak/tank/key/affix/CC/dispel/wipe in gewone taal uitlegt); de hele expert-laag
+  verbergt dan via `hiddenFn`. Uit = volledige info. `MythicPlusData.lua` `MPLUS_GLOSSARY`
+  (12 termen) + `Locales/MythicPlus.lua` apart beginner-blok ×6 talen.
+- **"Deze week, voor jou"-kaartje (idee 3).** In de beginnersmodus bovenaan: een rustig
+  plan dat naar Follower/Normal stuurt (geen timer, kan niet falen, mag altijd weg), een
+  "bonus deze week"-regel als de dungeon-of-the-week bekend is (`GetDungeonOfTheWeek`,
+  anders verborgen — never-lie), en een "begin niet met Maisara (zwaarste)"-tip.
+- **Getemde één-taak melding (idee 2) — `Modules/AccessibleAlerts.lua`.** Opt-in (standaard
+  uit). Tijdens een dungeon/scenario flitst ÉÉN grote, rustige melding (met geluid) zodra
+  een vijand vlakbij een ONDERBREEKBARE cast start → "Interrupt!" + spellnaam. Anti-spam:
+  4s globale pauze + 6s per spell. Eerlijk-by-design: triggert op de live
+  `UnitCastingInfo`-interruptvlag, niet op een verzonnen dungeon-spell-lijst. Taint-veilig
+  (UNIT_SPELLCAST_* + frame, zoals RitualBossCoach). Aan/uit + testknop in de
+  beginnersmodus; `ns.db.alerts.enabled/sound`; `ns.ToggleAccessibleAlerts`. Locale ALERT_*
+  ×6 talen. Alle 3 toegankelijkheidsideeën van Rob (voor zijn zus) hiermee klaar.
+- `Locales/DungeonGuide.lua` — DGN_SUBTITLE ×6 bijgewerkt ("Mythic+ volgt later" → "plus
+  een Mythic+-tab met affixen en must-kicks").
+- `MidnightHelper.toc` — RaidTips, MythicPlus (locales) + RaidCoachData, MythicPlusData
+  (modules) toegevoegd op de juiste laadvolgorde.
+
+**Review-punten:** RaidCoachData/MythicPlusData/RaidTips/MythicPlus parsen schoon
+(luaparser, non-ASCII geneutraliseerd). DungeonGuide + SporefallCoach: bash-mount kapt ze
+af (false parse-fail op resp. r.588/r.112) → host-Read bevestigt complete, gebalanceerde
+files. Locale-pariteit: 6 merge-blokken per nieuw locale-bestand (host-Grep). Taint:
+geen secret-arithmetic aangeraakt. Commit vanuit Cursor.
+
+## Voor Cursor — review + commit batch 15 juni #3 (ADDON_ACTION_FORBIDDEN écht gefixt)
+
+**STATUS: ⏳ KLAAR VOOR COMMIT** — geen CF, versie blijft 1.8.0.
+
+Voorgesteld bericht:
+
+> fix(ritualboss+dungeoncoach): CLEU→UNIT_SPELLCAST_START (ADDON_ACTION_FORBIDDEN) + dungeon-coach accordion
+
+**Context:** de fix in batch #2 (`5c87e90`) verplaatste de CLEU-registratie naar
+laadtijd, maar dat was niet genoeg: Rob kreeg de fout **opnieuw bij het inloggen**
+(`RitualBossCoach.lua:144 in main chunk`). Conclusie: in deze 12.x-client is
+`RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")` zélf beschermd — CLEU mag dit addon
+helemaal niet registreren, ongeacht context. MH heeft ook nooit CLEU gebruikt; de
+bestaande pattern is `UNIT_SPELLCAST_*` (zoals DelveItemsPopup).
+
+**Gewijzigd:**
+- 🐛 **`Modules/RitualBossCoach.lua`** — CLEU volledig verwijderd (geen `clf`-frame,
+  geen `COMBAT_LOG_EVENT_UNFILTERED` meer). De cast-alert luistert nu via
+  `UNIT_SPELLCAST_START` + `UNIT_SPELLCAST_SUCCEEDED` op de bestaande `f`-frame
+  (gewone, niet-beschermde RegisterEvent). Nieuwe `OnUnitSpellCast(spellID)` gate't
+  op `inScenario` en houdt de 3s-throttle + `ALERT_SPELLS`-lookup aan. OnEvent-
+  handler vangt nu `arg3` (spellID) op. Comments bijgewerkt (geen clf-verwijzingen
+  meer).
+- ✨ **`Modules/DungeonGuide.lua` — Dungeon Coach accordion** (Rob 15 jun: twee
+  dungeons bleven tegelijk open). Bij het openklikken van een dungeon worden nu
+  eerst alle andere gesloten (loop over `ui.coachCollapsed` → alles `true`, daarna
+  de aangeklikte op `false`). Max één dungeon tegelijk open; nogmaals klikken
+  sluit hem. Sessie-gebonden state, geen nieuwe locale-keys.
+
+**Review-punten:** geen CLEU-registratie meer in het hele addon (host-Grep:
+`COMBAT_LOG_EVENT_UNFILTERED`/`clf` komen alleen nog in geen enkele actieve regel
+voor). `OnUnitSpellCast` gedefinieerd (r.123) vóór de `f`-frame (r.298) die hem
+aanroept. Syntax niet via sandbox-luaparser te checken (mount kapt regel 363 af —
+zelfde mount-truncatie als altijd); wijziging is triviaal-valide Lua, host-Read
+bevestigt structuur. In-game: ritual ingaan + boss laten casten → flash zonder
+forbidden-error; en geen error meer bij login.
+
 ## Voor Cursor — review + commit batch 15 juni #2 (weekly-pariteit + progress-bars)
 
 **STATUS: ✅ AFGEROND** — Cursor commit gepusht: `5c87e90`. Geen CF, versie blijft 1.8.0.
@@ -22,7 +420,27 @@ Voorgesteld bericht:
 
 > feat(events+home): live event-voortgangsbalken (taint-veilig) + extra weekly-checklist-pariteit
 
-**Gewijzigd (3 .lua, geen nieuwe locale-keys):**
+**Gewijzigd:**
+- 🐛 **`Modules/RitualBossCoach.lua` — ADDON_ACTION_FORBIDDEN gefixt.** De cast-
+  listener registreerde `COMBAT_LOG_EVENT_UNFILTERED` dynamisch bij scenario-start
+  → dat gebeurt in een combat/secure-context → "tried to call protected
+  RegisterEvent" (Rob 15 jun, 6×). Nu één keer geregistreerd bij het laden
+  (schone context); `OnCombatLog` gate't zelf op `inScenario` (goedkoop). Geen
+  dynamische (un)register meer.
+- 🐛 **`Modules/RitualSites.lua` — actieve-site-detectie gefixt.** Matchte puur op
+  positie → een gewone POI bij de INACTIEVE obelisk werd als actief gezien (Rob
+  15 jun: MH zei "Daggerspine actief" terwijl de kaart "Ritual Site: Broken
+  Throne" toonde). Nu eist `DetectActiveSite` een ritual-naam (site-naam in de
+  POI-naam, of generieke "Ritual Site" + obelisk-positie). Geen false positive
+  meer; bij onbekend toont de UI eerlijk "rouleert wekelijks".
+- `Modules/DungeonBossWindow.lua` + `Locales/DungeonGuide.lua` — boss-picker
+  gegroepeerd: "Rituals & Raids" (custom-entries, gesorteerd) bovenaan, "Dungeons"
+  eronder. 2 titel-keys (DGN_WIN_PICK_RITUALRAID/DUNGEONS) in alle 6 talen.
+- `Locales/RitualTips.lua` — Daggerspine-scaffold verrijkt (×6 talen): Lady
+  Selen'vjar + Empowered Mindbreaker met bevestigde namen/stages/locatie
+  (Eversong /way 34.9 65.4, naga, 3 stages) + noot "detailed steps in the next MH
+  update" zodat de boss niet leeg oogt in de lijst. Abilities zelf wachten op de
+  eerste live run (never-lie).
 - `Modules/EventScheduler.lua` — `probeProgress` leest de StatusBar-widget van een
   lopend event (Void Incursion 8718→2042 override) in de ticker; barValue/barMax
   worden via `plainNumber` gelaunderd (taint-veilig), `progressPct` als platte

@@ -409,6 +409,9 @@ function ns.GetResetRoutineSteps()
 		{ q = 94446, name = "A Nightmarish Task" },
 		{ q = 93784, name = "Gnawing Curiosity" },
 		{ q = 93767, name = "Arcantina" },
+		{ q = 94623, name = "Building the Voidforge" }, -- Decimus @ Voidstorm (PTR_12.0.7_DATA)
+		-- Nog te bevestigen (geen quest-ID; in-game capturen): Beacon of Hope,
+		-- Prey Hunts, Saltheril's Soiree, Bonus Event. Voeg toe zodra ID bekend.
 	}
 	for _, w in ipairs(EXTRA_WEEKLIES) do
 		local st = ns.GetWeeklyQuestStatus and ns.GetWeeklyQuestStatus(w.q)

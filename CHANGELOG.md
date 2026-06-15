@@ -2,31 +2,35 @@
 
 All notable changes to this project are documented in this file.
 
-## [Unreleased]
+## [1.8.0] - 2026-06-15
 
 ### Added
 
-- **Boss coaches for Midnight's new fights:**
-  - **Sporefall raid (Rotmire)** — beginner steps with tank/healer/dps notes and clickable spell links; the boss window opens automatically when you pull him.
-  - **Daggerspine Point ritual** — Lady Selen'vjar and the empowered Mindbreaker are scaffolded in the boss picker (rotatable model + the confirmed stages); the detailed steps fill in from the first live run.
-- **Live cast alerts on the Broken Throne ritual** — a big on-screen flash (with sound) the moment the boss casts **Shadowbolt Volley** (interrupt!), **Binding Nebula** or **Dissonant Reflections**, so you react on time. Only active inside the scenario.
-- **Reward previews** — Shift-click an event in the Events tab to spin its rewards as full 3D models (Stormarion Assault shows its mount and pet).
-- **Sharper Faithbreaker Ger'lok steps** — now name the real abilities to interrupt (Shadowbolt Volley) and line-of-sight (Shadow Blast).
+- **Events tab** — a new sidebar tab listing all of Midnight's world events in one place: what's firing **now** and what's **coming up** over the next day, with live countdowns. Live events are **clickable to set a route** (TomTom or Blizzard waypoint + travel advice), and **hovering** any event explains what it is and what it rewards. **Shift-click** an event to spin its rewards as full 3D models. `/mh eventspy` dumps the live scheduler for diagnostics.
+- **Full raid coaches** — beginner boss steps for all three Midnight raids: **The Dreamrift** (Chimaerus), **The Voidspire** (6 bosses) and **March on Quel'Danas** (Belo'ren, L'ura, the Crown). Each boss lists its key casts as clickable spell links with the action to take (dodge / interrupt / move / defensive), and the boss window opens automatically when you pull. The **Sporefall raid (Rotmire)** and **Daggerspine Point ritual** are in too.
+- **Mythic+ tab** — affix ladder, Xal'atath's Bargain variants, the full Season 1 dungeon pool, and **must-interrupt lists per dungeon** (clickable spell links where confirmed). Includes a **Beginner mode** with a plain-language glossary so the jargon doesn't bury you.
+- **Helper alerts (opt-in, accessibility)** — turn it on in the Mythic+ tab's Beginner mode and you get one big, calm on-screen warning (with sound) when **you** get a dangerous debuff to react to. Starts with Devouring Rift; more are added as they're confirmed. (Enemy-cast interrupt alerts aren't possible this patch — that data is protected by the game — so this watches your own debuffs instead.)
+- **Enchants tab** — a quick check of your equipped gear: which enchantable slots are missing an enchant, with a stat-matched Midnight suggestion for your spec. Every suggestion is a **clickable, hoverable link** (real tooltip), and clicking one drops its name into a copy box for an **Auction House** search. Head and feet show the Speed / Leech / Avoidance choice; legs show the armor-kit (Agi/Str) and spellthread (Int) options.
+- **Currencies tab** — a "where do I earn it, where do I spend it" map for every Midnight currency (Voidlight Marl, Field Accolade, Dawncrests, PvP), with your **live balance** beside each and a **waypoint button per Renown Quartermaster**. Currency names are clickable.
+- **Gear & Currency Vendors** added to the Silvermoon City guide — Maren Silverwing (Field Accolade gear caches) and Triam Dawnsetter (cosmetic transmog caches), as routable waypoints.
+- **Delve & Ritual Log** — your ritual-scenario runs are now logged alongside delves (site, time, deaths, completion) with totals.
+- **More weekly-checklist coverage** — additional weeklies tracked (e.g. Building the Voidforge).
 
 ### Changed
 
-- The new Events tab, world-event info, weekly status, model previews and all the new boss steps are now **fully translated** into Deutsch, Français, Español and Português (previously English fallback).
+- All of the above is **fully translated** into English, Nederlands, Deutsch, Français, Español and Português.
+- **Faithbreaker Ger'lok** steps now name the real abilities (interrupt Shadowbolt Volley, line-of-sight Shadow Blast); the **Broken Throne dragonhawk** mechanic is corrected (soak the red pools); a note explains that destroying the Dark Obelisks weakens the ritual bosses.
 
-## [1.8.0] - 2026-06-13
+### Fixed
 
-### Added
-
-- **Events tab** — a new sidebar tab listing all of Midnight's world events in one place: what's firing **now** and what's **coming up** over the next day, with live countdowns. Live events are **clickable to set a route** (TomTom or Blizzard waypoint + travel advice), and **hovering** any event explains what it is and what it rewards. Stormarion Assault and Legends of the Haranir have full descriptions so far — more events will be added as they're verified.
-- **`/mh eventspy`** — a diagnostic that dumps the live world-event scheduler (event names, zones, map IDs and timers) to chat and to SavedVariables. Used to capture new-zone data (e.g. map IDs) on the PTR.
+- **World boss "Warband" line** now correctly shows the boss as defeated this week on **every** character once **any** of your characters has killed it (it used to read "not defeated yet" on alts that hadn't personally looted), and names the character who did it first.
+- **Veteran Dawncrest** currency now reads the correct id (with a fallback so the balance shows regardless).
+- Delve Log recent-runs entries now expand correctly.
 
 ### Notes
 
-- Event reading is fully taint-safe under the 12.x protected-data model (all scheduler/widget reads happen in an isolated ticker; the UI only reads plain values).
+- Event and currency reading is fully taint-safe under the 12.x protected-data model (scheduler/widget reads happen in an isolated ticker; the UI only reads plain values).
+- Boss and Mythic+ data is written against DBM / Wowhead and is being verified in-game — corrections welcome.
 
 ## [1.7.1] - 2026-06-12
 

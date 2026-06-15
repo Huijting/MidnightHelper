@@ -243,8 +243,8 @@ local SIDEBAR_SECTIONS = {
 	-- Start Here leads for new players; Home remains the default/fallback tab in
 	-- SelectTab (sidebar order is independent of that fallback).
 	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "starthere", "home", "codex", "delves", "dungeons", "rares", "world", "events" } },
-	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog" } },
-	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "toolbox" } },
+	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants" } },
+	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "currency", "toolbox" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons", "settings" } },
 }
 local SIDEBAR_SECTION_GAP = 10
@@ -301,8 +301,12 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_WORLD"
 	elseif tabId == "delvelog" then
 		return "INFO_DRAWER_BODY_DELVELOG"
+	elseif tabId == "enchants" then
+		return "INFO_DRAWER_BODY_ENCHANTS"
 	elseif tabId == "smcguide" then
 		return "INFO_DRAWER_BODY_SMC"
+	elseif tabId == "currency" then
+		return "INFO_DRAWER_BODY_CURRENCY"
 	elseif tabId == "professions" then
 		return "INFO_DRAWER_BODY_PROFESSIONS"
 	elseif tabId == "guide" then
@@ -629,6 +633,13 @@ local SMC_CATEGORIES = {
 			{ id = "transmog", label = "Transmog", description = "Zet een waypoint naar Transmog en Void Storage.", atlas = "services-icon-transmogrifier", x = 52.87, y = 57.44 },
 			{ id = "crafting_orders", label = "Crafting Orders (Mar'nah)", description = "Zet een waypoint naar crafting orders in de Bazaar (bijv. Mar'nah).", atlas = "services-icon-battlenet", x = 45.0, y = 55.6 },
 			{ id = "creation_catalyst", label = "Creation Catalyst", description = "Zet een waypoint naar de Creation Catalyst in de Bazaar (neutral).", atlas = "creationcatalyst-32x32", x = 40.31, y = 64.85 },
+		},
+	},
+	{
+		title = "Gear & Currency Vendors",
+		items = {
+			{ id = "maren_silverwing", label = "Maren Silverwing — Gear caches", description = "Ruil Field Accolades (verdiend bij Ritual Sites + Void Assaults) voor Void-Touched GEAR-caches: Champion-cache 75, Hero-cache 500 Field Accolade. Kan ook Dark Particle omzetten naar Field Accolades. Staat bij de Ritual/Void-hub. (Wowhead npc 255473 — bevestig coords in-game.)", atlas = "WarWithin-Icon-Crest", x = 48.11, y = 49.10 },
+			{ id = "triam_dawnsetter", label = "Triam Dawnsetter — Transmog (cosmetics)", description = "Let op: ALLEEN cosmetics/transmog, GEEN gear. Void-Touched uiterlijken per slot: 5 Field Accolade + 150 Voidlight Marl elk (wapens 10 + 200). Geen duplicates — kopen stopt zodra je de look al kent. Staat bij de Ritual/Void-hub. (Wowhead npc 255476, 'Cosmetic Equipment Salvager' — bevestig coords in-game.)", atlas = "services-icon-transmogrifier", x = 48.11, y = 49.10 },
 		},
 	},
 	{
@@ -1337,9 +1348,11 @@ local TAB_DEFS = {
 	{ id = "world", labelKey = "TAB_WORLD" },
 	{ id = "events", labelKey = "TAB_EVENTS" },
 	{ id = "delvelog", labelKey = "TAB_DELVE_LOG" },
+	{ id = "enchants", labelKey = "TAB_ENCHANTS" },
 	-- reference is no longer top-level: it lives in the Codex as a category;
 	-- SelectTab("reference") still works via the alias below.
 	{ id = "smcguide", labelKey = "TAB_SMC" },
+	{ id = "currency", labelKey = "TAB_CURRENCY" },
 	-- professions is no longer top-level: it lives in the Toolbox as a sub-tab;
 	-- SelectTab("professions") still works via the alias below.
 	{ id = "guide", labelKey = "TAB_GUIDE" },
@@ -1718,11 +1731,13 @@ function ns:EnsureMainUI()
 				delves = "TAB_DELVES",
 				world = "TAB_WORLD",
 				delvelog = "TAB_DELVE_LOG",
+				enchants = "TAB_ENCHANTS",
 				rares = "TAB_RARES",
 				events = "TAB_EVENTS",
 				account = "TAB_ACCOUNT_SNAPSHOT",
 				reference = "TAB_REFERENCE",
 				smcguide = "TAB_SMC",
+				currency = "TAB_CURRENCY",
 				professions = "TAB_PROFESSIONS",
 				guide = "TAB_GUIDE",
 				macros = "TAB_MACROS",
@@ -1847,6 +1862,10 @@ function ns:EnsureMainUI()
 				ns.BuildEventsPanel(panel)
 			elseif tab.id == "delvelog" and ns.BuildDelveLogPanel then
 				ns.BuildDelveLogPanel(panel)
+			elseif tab.id == "enchants" and ns.BuildGearEnchantPanel then
+				ns.BuildGearEnchantPanel(panel)
+			elseif tab.id == "currency" and ns.BuildCurrencyGuidePanel then
+				ns.BuildCurrencyGuidePanel(panel)
 			elseif tab.id == "starthere" and ns.BuildStartHerePanel then
 				ns.BuildStartHerePanel(panel)
 			elseif tab.id == "dungeons" and ns.BuildDungeonGuidePanel then
@@ -2446,6 +2465,12 @@ SelectTab = function(tabId)
 	end
 	if tabId == "delvelog" and ns.RefreshDelveLogPanel then
 		ns.RefreshDelveLogPanel()
+	end
+	if tabId == "enchants" and ns.RefreshGearEnchantPanel then
+		ns.RefreshGearEnchantPanel()
+	end
+	if tabId == "currency" and ns.RefreshCurrencyGuidePanel then
+		ns.RefreshCurrencyGuidePanel()
 	end
 	if tabId == "starthere" and ns.RefreshStartHerePanel then
 		ns.RefreshStartHerePanel()

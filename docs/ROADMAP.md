@@ -9,17 +9,24 @@ prioriteit. Details/bronnen staan in de genoemde docs; dit is de overzichtslijst
 In aanbouw nu: **Turbulent Timeways-tracker** + **Omnium Folio-companion** (#1+#2).
 De rest, bewaard voor later (≈ prioriteit):
 
-- [ ] **Volledige weekly-checklist-pariteit** (absorbeer de resterende Broker-
-      rijen met de weekly-status-techniek): Abundant Offerings (89507), A
-      Nightmarish Task (94446), Gnawing Curiosity (93784), Arcantina (93767),
-      Beacon of Hope, Prey Hunts, Saltheril's Soiree, Bonus Event, Voidforge
-      (Decimus 94623). Quest-IDs in DATAMINE_HAUL.md / BROKER_ABSORPTION_PLAN.md.
+- [~] **Weekly-checklist-pariteit** — Abundant Offerings (89507), A Nightmarish
+      Task (94446), Gnawing Curiosity (93784), Arcantina (93767) ✅ + **Voidforge
+      94623 toegevoegd (15 jun, batch #6)**. RESTEREND (geen bevestigde quest-ID →
+      in-game capturen): Beacon of Hope, Prey Hunts, Saltheril's Soiree, Bonus Event.
 - [ ] **Live event-voortgangsbalken** (Void Incursion % e.d.) in de Events-tab —
       taint-veilige `C_UIWidgetManager`-reads via de ticker (zie taint-ontwerpregel).
-- [ ] **Meer raid-coaches** — DBM-data ligt klaar: VoidSpire (6 bosses: Crown of
-      the Cosmos, Fallen-King Shalhadaar, Imperator Averzian, Lightblinded
-      Vanguard, Vaelgor & Ezzorak, Vorasius), The Dreamrift (Chimaerus),
-      Marchon Quel'Danas (Beloren, Midnight Falls). Zelfde patroon als Rotmire.
+- [x] **Meer raid-coaches** (15 jun, batch #4) — alle 3 raids gebouwd in
+      `RaidCoachData.lua` + `RaidTips.lua` (6 talen): The Dreamrift (Chimaerus),
+      The Voidspire (6 bosses), March on Quel'Danas (Belo'ren + Midnight Falls).
+      Encounter-IDs uit DBM, auto-open op ENCOUNTER_START. **Crown/L'ura/Chimaerus
+      per-stage "key casts" toegevoegd uit EXBossData (15 jun, batch #6)** — spell-
+      links + actie (dodge/interrupt/move/defensive). Open: Voidspire-bossen nog
+      rijker maken uit EXBoss; boss-volgorde (Salhadaar vs Vaelgor) in-game bevestigen.
+- [x] **Mythic+-tab** (15 jun, batch #4) — `MythicPlusData.lua` + `MythicPlus.lua`
+      (6 talen) + subtab in DungeonGuide: affix-ladder, Xal'atath's Bargain-
+      varianten, 8-dungeon-pool, must-kicks. **Must-kicks compleet voor alle 8**
+      (15 jun, batch #6): Magisters'/Nexus-Point met bevestigde spell-links,
+      Windrunner Spire met namen (IDs nog "not found"), Maisara namen. Klaar.
 - [ ] **Reward-galleries** voor meer events/raids (Sporefall 269240/268292…,
       Showdowns 275664/275663…); Haranir-decor zodra item-IDs bekend.
 - [ ] **Rares.lua-uitbreiding** met HandyNotes live-zone-coords + kill-quest-IDs
@@ -68,12 +75,10 @@ De rest, bewaard voor later (≈ prioriteit):
 
 ## Delve & Ritual Log (Rob-wens, 10 juni — ná de 1.6.0-release)
 
-- [ ] **Delve Log uitbreiden naar "Delve & Ritual Log"**: ritual-runs net zo
-      loggen als delves (site, tier, tijd, doden, voltooid). Detectie via het
-      scenario/instance-pad zoals DelveHistory; eerst in-game verifiëren wat
-      betrouwbaar leesbaar is (tier uit scenario-info? Spoils waarschijnlijk
-      niet). Bewust ná de release: heeft een echte ritual-run nodig om te
-      testen. UI: zelfde paneel, sectie of filter per type.
+- [x] **Delve & Ritual Log** (15 jun, batch #6) — `RitualLog.lua` logt ritual-
+      runs in't DelveHistory-model; paneel toont "Rituals"-sectie; tab hernoemd;
+      uitklap-bug (`row._mhKey`) meteen gefixt. Open: tier-leesbaarheid in-game
+      bevestigen (Rob test vanavond); Spoils bewust niet (waarschijnlijk niet leesbaar).
 
 ## Professions (plan: PROFESSION_ACADEMY_PLAN.md)
 
@@ -103,7 +108,9 @@ De rest, bewaard voor later (≈ prioriteit):
 
 ## Nieuw-spelers / brainstorm (8 juni)
 
-- [ ] **Currency-overzicht** of **gear-roadmap** (volgende grote brok).
+- [x] **Currency-overzicht** ✅ (15 jun, batch #8/#9) — "Valuta"-tab (`CurrencyGuide.lua`)
+      met per-currency verdien/uitgeef-map, live saldo's, QM-waypoints + `{CURRENCY:}`-markup.
+      (gear-roadmap nog open als aparte brok.)
 - [ ] Start Here: per-stap vinkjes voor stap 1/2/6 (geen schoon signaal
       gevonden); optie "verberg na eerste week".
 

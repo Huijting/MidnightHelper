@@ -256,9 +256,12 @@ function ns.IsWorldBossKilled(boss)
 		return false
 	end
 	ClearStaleWbWeekCache()
-	if IsWorldBossAvailableThisWeek(boss) then
-		return false
-	end
+	-- GEEN availability-early-return (Robs warband-bug 15 jun): de WQ is per-char
+	-- beschikbaar, dus "deze char kan 'm nog doen" zegt niets over de warband. De
+	-- oude `if IsWorldBossAvailableThisWeek then return false` maskeerde de account-
+	-- cache op alts → toonde "Warband: not defeated" terwijl een andere char 'm al
+	-- versloeg. Zelfde fix als eerder in SyncWarbandDoneFromQuestLog. Week-reset
+	-- wordt al door ClearStaleWbWeekCache afgevangen, dus de cache is week-vers.
 	SyncWarbandDoneFromQuestLog(boss)
 	local cache = GetWbCacheTable()
 	if cache and cache.warbandDone and (tonumber(cache.resetTs) or 0) == GetWeekResetAnchorTs() then

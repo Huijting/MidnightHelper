@@ -1,4 +1,4 @@
-# CurseForge project description — v1.7.0 refresh (copy/paste)
+# CurseForge project description — v1.8.0 refresh (copy/paste)
 
 Paste everything between the START/END markers into the CurseForge
 description editor. Screenshot suggestions per section are at the bottom
@@ -10,36 +10,47 @@ description editor. Screenshot suggestions per section are at the bottom
 
 **Your complete Midnight companion — log in, open one window, and know exactly what's worth doing this week. On every character.**
 
-Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quests scattered across Silvermoon, professions with permanent choices. Midnight Helper turns all of it into one clear, honest dashboard — and walks you there with an arrow.
+Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quests scattered across Silvermoon, dungeons and raids to learn, professions with permanent choices, and currencies you're not sure where to spend. Midnight Helper turns all of it into one clear, honest dashboard — and walks you there with an arrow.
 
 ## Why you'll want this
 
-- 🗡️ **NEW in 1.7.0 — the Dungeon Coach.** Boss steps for **all 12 dungeons (43 bosses)** in plain beginner language, with **clickable spell links** (hover for the real tooltip, names in your client's language). And the moment you pull a boss, the steps appear **right in your chat** and in a floating boss window — one click on its Share button sends them to your group. Plus Dungeons 101: a six-chapter course from your first queue to your first Heroic, in six languages.
-- 🗺️ **"After the reset" routine** — an ordered, live to-do list right on the Home tab: claim your vault, grab the weekly quests next to the bank, pick up the Ritual & Void weeklies at the Bazaar, get your profession trainer weekly. One click sets a **TomTom route along everything you still have open**. No more "wait, what did I forget?"
-- 🏦 **Know your vault — on every alt.** The Account Snapshot shows all your characters' Great Vault progress, and hovering a vault now reveals **per slot what item level is locked in**. Instantly see whether that alt still needs a Tier 8+ delve this week — without logging over.
-- 🤝 **Coaches that speak your group's language.** The Delve Coach and Ritual Coach share per-boss and per-challenge tips to your party — and groupmates running Midnight Helper receive them **in their own language**, rebuilt locally. Unique on CurseForge, as far as we know.
-- ✅ **The "never lie" promise.** Every checkmark, status and percentage comes from a real game signal, verified in-game. If something can't be known, Midnight Helper says so — it never guesses at your expense.
-- 🌍 **Six languages, properly.** English, Nederlands, Deutsch, Français, Español, Português — including all the new 1.6.0 content.
+- ⚔️ **NEW in 1.8.0 — Raid & Mythic+ coaches.** Beginner boss steps for all three Midnight raids (and the Sporefall raid + Daggerspine ritual), each cast a **clickable spell link** with the action to take — dodge, interrupt, move, defensive. The boss window opens automatically when you pull. The new **Mythic+ tab** adds the affix ladder, Xal'atath's Bargains, the Season 1 dungeon pool and **must-interrupt lists per dungeon**, with a **Beginner mode + glossary** so the jargon doesn't bury you.
+- 💎 **NEW — Currencies & Enchants.** A **Currencies tab** maps every Midnight currency: where you earn it, where you spend it, your **live balance**, and a waypoint button to each Renown Quartermaster. An **Enchants tab** checks your gear, flags slots missing an enchant, suggests a stat-matched one for your spec, and **copies the name for the Auction House** in one click.
+- 🗓️ **NEW — Events tab.** Every world event in one place: what's firing **now** and what's **coming up**, with live countdowns, click-to-route and hover descriptions. Shift-click for a 3D reward preview.
+- 🗺️ **"After the reset" routine** — an ordered, live to-do list on the Home tab: vault, the weekly quests by the bank, the Ritual & Void weeklies at the Bazaar, your profession weekly. One click sets a **TomTom route along everything you still have open**.
+- 🏦 **Know your vault — on every alt.** The Account Snapshot shows all your characters' Great Vault progress; hover a vault to see **per slot what item level is locked in**.
+- 🤝 **Coaches that speak your group's language.** Delve, Ritual, dungeon and raid tips share to your party, and groupmates running Midnight Helper receive them **in their own language**.
+- ♿ **Built with new and overwhelmed players in mind.** Plain-language beginner modes, a glossary, and an **opt-in calm on-screen alert** when *you* pick up a dangerous debuff to react to.
+- ✅ **The "never lie" promise.** Every checkmark, status and percentage comes from a real game signal. If something can't be known, Midnight Helper says so — it never guesses at your expense.
+- 🌍 **Six languages, properly.** English, Nederlands, Deutsch, Français, Español, Português — including all the new 1.8.0 content.
 
 ## What's inside
 
-**📋 This Week** — Home dashboard with the reset routine, vault status across alts, world boss (with route button), weekly chores rollup, and the rotating Ritual/Void zones at a glance.
+**📋 This Week** — Home dashboard with the reset routine, vault status across alts, world boss (with route button — correct across your whole warband), weekly chores rollup, and the rotating Ritual/Void zones at a glance.
 
 **⛏️ Delves & Vault** — a full Delves command center: every delve with live bountiful detection, Coffer Keys / Shards / Undercoins, Delver's Journey, Great Vault rows with per-slot rewards, and right-click waypoints to any entrance. The **Delve Coach** gives per-delve, per-boss tips you can share with your group.
 
-**📜 Delve Log** — automatic per-character history of every delve you finish: tier, time, deaths, end boss, personal bests.
+**📜 Delve & Ritual Log** — automatic per-character history of every delve *and* ritual scenario you finish: tier, time, deaths, end boss, personal bests.
 
-**🗡️ Dungeons** — your dungeon companion in three views: *This week* (Spark weekly, dungeon of the week, Cracked Keystone, your vault Dungeons row), *Dungeons 101* (a beginners' course from first queue to Heroic, progress saved per character) and the *Dungeon Coach* (collapsible boss steps for all 12 dungeons with clickable spell links and a route button to every entrance). In a dungeon, the current boss's steps print automatically in your chat at the pull, and the floating boss window's Share button sends them to your group.
+**🗡️ Dungeons & Mythic+** — your dungeon companion in several views: *This week* (Spark weekly, dungeon of the week, Cracked Keystone, your vault Dungeons row), *Dungeons 101* (a beginners' course from first queue to Heroic), the *Dungeon Coach* (collapsible boss steps for all 12 dungeons with clickable spell links and a route to every entrance), and the *Mythic+* view (affix ladder, Bargains, dungeon pool, must-kicks, Beginner mode + glossary). In a dungeon, the current boss's steps print in your chat at the pull and in a floating, shareable boss window.
 
-**🌀 Void & Rituals** — two clean views: *This week* (active sites, weekly status with live progress %, route buttons, challenge list at a glance) and *Ritual Coach* (every challenge's mechanic, Spoils bonus and unlock path, scenario notes per site, Dark Obelisk and Tainted Bone Pile locations, recommended item level per tier).
+**🐉 Raids** — beginner boss steps for Midnight's raids with clickable casts and the action to take; the boss window opens automatically when you pull.
 
-**🧰 Toolbox** — the **Professions Hub**: live Knowledge Point tracking, weekly KP checklist for **all 11 professions**, treasure & book waypoint routes (shortest-hop, auto-advancing arrow), a Tree Advisor with goal-based advice (Allround / Gold / Self-sufficient), and **Professions 101** — a complete beginner course with per-character progress and auto-detected practice tasks. Plus ready-made interrupt macros per spec and a consumables checklist with one-click Auction House name copy.
+**🌀 Void & Rituals** — two clean views: *This week* (active sites, weekly status with live progress %, route buttons, challenge list) and *Ritual Coach* (every challenge's mechanic, Spoils bonus and unlock path, scenario notes per site, Dark Obelisk and Tainted Bone Pile locations, recommended item level per tier).
 
-**🚀 Start Here** — new to Midnight? A guided first-week roadmap that ties everything together, with weekly steps that tick themselves off.
+**💰 Currencies** — a "where do I earn it / where do I spend it" map for every Midnight currency, with your live balance beside each and a waypoint button per Renown Quartermaster.
 
-**🏙️ SMC City Guide** — every trainer, vendor and weekly NPC in Silvermoon as a clickable waypoint, plus a smart search bar that jumps you to the right tab from anywhere.
+**✨ Enchants** — a quick check of your equipped gear: which enchantable slots are missing an enchant, a stat-matched Midnight suggestion for your spec, and one-click Auction House name copy.
 
-**✈️ Travel assistant** — far from your target? A popup offers your Hearthstone, the best portal, and Mage teleports. Works with TomTom (recommended) or falls back to Blizzard waypoints.
+**🧰 Toolbox** — the **Professions Hub**: live Knowledge Point tracking, weekly KP checklist for **all 11 professions**, treasure & book waypoint routes, a Tree Advisor with goal-based advice, and **Professions 101**. Plus ready-made interrupt macros per spec and a consumables checklist with one-click AH name copy.
+
+**🚀 Start Here** — new to Midnight? A guided first-week roadmap, with weekly steps that tick themselves off.
+
+**🏙️ SMC City Guide** — every trainer, vendor and weekly NPC in Silvermoon as a clickable waypoint (now including the gear & currency vendors), plus a smart search bar that jumps you to the right tab from anywhere.
+
+**🗓️ Events** — all of Midnight's world events with live timers, routing and reward previews.
+
+**✈️ Travel assistant** — far from your target? A popup offers your Hearthstone, the best portal, and Mage teleports. Works with TomTom (recommended) or Blizzard waypoints.
 
 ## Quick start
 
@@ -49,7 +60,7 @@ Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quest
 
 ## Feedback
 
-Bug reports and ideas are very welcome on the project page. Midnight Helper is updated continuously through the season — 12.0.7 support is already on board and activates automatically when the patch lands.
+Bug reports and ideas are very welcome on the project page. Midnight Helper is updated continuously through the season — boss and Mythic+ data is being verified in-game and keeps filling in, and 12.0.7 support is already on board.
 
 <!-- ==================== END DESCRIPTION ==================== -->
 
@@ -59,20 +70,19 @@ Bug reports and ideas are very welcome on the project page. Midnight Helper is u
 
 **Screenshot-volgorde (suggestie, sluit aan op de secties hierboven):**
 
-1. Home-tab met het "After the reset"-routine-blok + route-knop (de eyecatcher)
-2. Account Snapshot met de vault-tooltip open (per-slot ilvl-regels zichtbaar)
-3. Delves & Vault-overzicht
-4. Void & Rituals — "This week"-view (status + % + compacte challenge-lijst)
-5. Void & Rituals — "Ritual Coach"-view (challenge-uitleg)
-6. Professions Hub (Overview met This week-blok + advies) of Professions 101
-7. Delve Log
-8. Start Here-tab
+1. Een raid/M+ boss-window met de stappen + 3D-model (de nieuwe eyecatcher)
+2. Mythic+-tab met de must-kicks / Beginner mode
+3. Currencies-tab (live saldo's + QM-waypoint-knoppen)
+4. Enchants-tab (links + AH-kopieerveld)
+5. Home-tab met het "After the reset"-routine-blok + route-knop
+6. Events-tab (Nu bezig / Komt eraan)
+7. Account Snapshot met de vault-tooltip open
+8. Void & Rituals — Ritual Coach
 
-Minimaal 3 (CF-checklist), maar met Robs nieuwe set: hoe meer secties gedekt,
-hoe beter. Eerste screenshot = wat in de gallery-preview komt → de routine.
+Minimaal 3 (CF-checklist); eerste screenshot = wat in de gallery-preview komt.
 
 **CF-regels (zie ook RELEASE_CHECKLIST.md):** geen .bat/.ps1/.py/.exe in de
 zip (package.ps1 faalt de build anders al), zip-root = exact `MidnightHelper/`,
 geen dev-notities/secrets, description zonder externe download-links, game
 version 12.0.5 / interface 120005 (+120007 PTR mag in de TOC blijven tot
-12.0.7 live is), release type **Release**, display version **1.6.0**.
+12.0.7 live is), release type **Release**, display version **1.8.0**.

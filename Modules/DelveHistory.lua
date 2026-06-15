@@ -742,6 +742,18 @@ function Refresh()
 	end
 	table.sort(keys)
 
+	-- Ritual-runs (RitualLog.lua) tellen mee in de totalen + krijgen een eigen
+	-- sectie onderaan. Zelfde run-shape, dus dezelfde rij-opmaak.
+	local ritEntries = ns.GetRitualLogEntries and ns.GetRitualLogEntries() or {}
+	for _, rit in ipairs(ritEntries) do
+		local life = rit.entry and rit.entry.lifetime
+		if life then
+			totalRuns = totalRuns + (life.totalRuns or 0)
+			totalDeaths = totalDeaths + (life.totalDeaths or 0)
+			totalDur = totalDur + (life.totalDuration or 0)
+		end
+	end
+
 	ui.summary:SetText(
 		string.format(
 			"%s%s %s%d%s    %s%s %s%d%s    %s%s %s%s%s",
@@ -777,7 +789,7 @@ function Refresh()
 
 	local y = 4
 
-	if #keys == 0 then
+	if #keys == 0 and #ritEntries == 0 then
 		ui.empty:Show()
 		ui.empty:ClearAllPoints()
 		ui.empty:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 2, -y)
@@ -795,6 +807,7 @@ function Refresh()
 
 		hUsed = hUsed + 1
 		local row = AcquireHeaderRow(hUsed)
+		row._mhKey = key -- nodig voor uitklappen (werd nooit gezet — bestaande bug)
 		row.arrow:SetText(expanded and (CC_GOLD .. "v" .. CC_CLOSE) or (CC_GOLD .. ">" .. CC_CLOSE))
 		row.nameFS:SetText(CC_BODY .. key .. CC_CLOSE)
 		row.statsFS:SetText(BuildStatsText(life))
@@ -814,6 +827,45 @@ function Refresh()
 				y = y + RUN_ROW_H + 1
 			end
 			y = y + 4
+		end
+	end
+
+	-- Rituals-sectie (zelfde rij-opmaak; eigen "ritual:"-keys voor uitklappen).
+	if #ritEntries > 0 then
+		rUsed = rUsed + 1
+		local secRow = AcquireRunRow(rUsed)
+		secRow.fs:SetText(CC_GOLD .. ns:L("DELVELOG_SEC_RITUALS") .. CC_CLOSE)
+		secRow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -(y + 6))
+		secRow:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
+		secRow:Show()
+		y = y + 6 + RUN_ROW_H + 2
+		for _, rit in ipairs(ritEntries) do
+			local entry = rit.entry
+			local life = entry.lifetime
+			local rkey = "ritual:" .. rit.name
+			local expanded = expandedByKey[rkey] and true or false
+			hUsed = hUsed + 1
+			local row = AcquireHeaderRow(hUsed)
+			row._mhKey = rkey
+			row.arrow:SetText(expanded and (CC_GOLD .. "v" .. CC_CLOSE) or (CC_GOLD .. ">" .. CC_CLOSE))
+			row.nameFS:SetText(CC_BODY .. rit.name .. CC_CLOSE)
+			row.statsFS:SetText(BuildStatsText(life))
+			row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
+			row:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
+			row:Show()
+			y = y + HEADER_ROW_H
+			if expanded and entry.recent then
+				for _, run in ipairs(entry.recent) do
+					rUsed = rUsed + 1
+					local rrow = AcquireRunRow(rUsed)
+					rrow.fs:SetText(BuildRunText(run))
+					rrow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 24, -y)
+					rrow:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
+					rrow:Show()
+					y = y + RUN_ROW_H + 1
+				end
+				y = y + 4
+			end
 		end
 	end
 

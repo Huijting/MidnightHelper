@@ -72,9 +72,9 @@ local shownForStep = {} -- per scenario-bezoek éénmaal auto-openen per step
 
 -- Cast-alerts (idee uit RitualAlert; spell-IDs uit 14-jun datamining). Terwijl we
 -- in het Broken-Throne-scenario zitten, flasht een waarschuwing zodra de boss/add
--- een bekende spell cast. De CLEU-listener (clf) draait alléén tijdens het
--- scenario (in OnScenarioTick aan, in LeaveScenario uit) — geen wereldwijde
--- combat-log-belasting. Per spell ~3s throttle.
+-- een bekende spell cast. We luisteren via UNIT_SPELLCAST_START/_SUCCEEDED op de
+-- gewone f-frame (niet CLEU — dat geeft ADDON_ACTION_FORBIDDEN in 12.x) en gaten
+-- op inScenario zodat het buiten het scenario niets doet. Per spell ~3s throttle.
 local ALERT_SPELLS = {
 	[1284125] = "RITUAL_ALERT_BINDING_NEBULA", -- Binding Nebula (live)
 	[1284106] = "RITUAL_ALERT_BINDING_NEBULA", -- Binding Nebula (PTR)
@@ -115,28 +115,39 @@ local function FlashAlert(msg)
 	end
 end
 
-local function OnCombatLog()
+-- Cast-alert op een boss/add-cast via UNIT_SPELLCAST_START (CLEU is verboden in
+-- 12.x). LET OP (Rob, 15 jun live): de spellID van vijandelijke casts is in 12.x
+-- een 'secret' waarde — die als table-key gebruiken of erop testen gooit een fout
+-- ("cannot be indexed with secret keys"). We proberen 'm te ontklassificeren met
+-- de bekende +0-launder, en doen de lookup sowieso in pcall: lukt het, dan flasht
+-- de alert; lukt het niet, dan gewoon geen alert (nooit error-spam). Globale 3s-
+-- throttle (geen secret als table-key).
+local function LookupAlert(spellID)
+	local ok, key = pcall(function()
+		local id = spellID + 0 -- launder-poging (secret → plat getal)
+		return ALERT_SPELLS[id]
+	end)
+	if ok then
+		return key
+	end
+	return nil
+end
+
+local function OnUnitSpellCast(spellID)
 	if not inScenario then
 		return
 	end
-	local _, sub, _, _, _, _, _, _, _, _, _, spellID = CombatLogGetCurrentEventInfo()
-	if sub ~= "SPELL_CAST_START" and sub ~= "SPELL_CAST_SUCCESS" then
-		return
-	end
-	local key = spellID and ALERT_SPELLS[spellID]
+	local key = LookupAlert(spellID)
 	if not key then
 		return
 	end
 	local now = (GetTime and GetTime()) or 0
-	if (lastAlertAt[spellID] or 0) + 3 > now then
+	if (lastAlertAt.t or 0) + 3 > now then
 		return
 	end
-	lastAlertAt[spellID] = now
+	lastAlertAt.t = now
 	FlashAlert(ns:L(key))
 end
-
-local clf = CreateFrame("Frame")
-clf:SetScript("OnEvent", OnCombatLog)
 
 local function Spy()
 	if not ns.db then
@@ -169,6 +180,92 @@ local function SpyLog(line)
 	end
 	if ns.db and ns.db.ui and ns.db.ui.debug then
 		print("|cffffcc00MH-spy:|r " .. line)
+	end
+end
+
+-- Cast-logger (Rob 15 jun): tijdens het scenario elke UNIEKE vijandelijke cast
+-- loggen, zodat /mh ritualspy de echte spell-ID's toont — om de alert te
+-- bevestigen en de guide met klikbare links te vullen. spellID is in 12.x vaak
+-- 'secret' → +0-launder in pcall; lukt dat niet, dan loggen we dat eenmalig.
+local seenCast = {}
+local function LaunderId(v)
+	local ok, n = pcall(function()
+		return v + 0
+	end)
+	if ok and type(n) == "number" then
+		return n
+	end
+	return nil
+end
+local function SpyLogCast(unit, spellID)
+	if not inScenario then
+		return
+	end
+	-- Alleen vijandelijke casts (boss/adds), niet de speler/party.
+	if not (unit and UnitCanAttack and UnitCanAttack("player", unit)) then
+		return
+	end
+	-- De ID is in 12.x vaak 'secret'. Test of de cast-NAAM via UnitCastingInfo
+	-- wél leesbaar is — dan kunnen we de alert op naam matchen i.p.v. op ID.
+	local castName
+	if UnitCastingInfo then
+		local ok, nm = pcall(UnitCastingInfo, unit)
+		if ok and type(nm) == "string" then
+			castName = nm
+		end
+	end
+	local who = (UnitName and UnitName(unit)) or tostring(unit)
+	local id = LaunderId(spellID)
+	if not id then
+		-- ID onleesbaar: log de NAAM (uniek per naam) zodat we zien of namen
+		-- bruikbaar zijn en welke casts er vallen.
+		local key = "name:" .. tostring(castName or "?")
+		if not seenCast[key] then
+			seenCast[key] = true
+			SpyLog(("CAST (secret ID) %s = naam:%s"):format(tostring(who), tostring(castName)))
+		end
+		return
+	end
+	if seenCast[id] then
+		return
+	end
+	seenCast[id] = true
+	local name = castName
+		or (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id))
+		or (GetSpellInfo and GetSpellInfo(id)) or "?"
+	SpyLog(("CAST %s = %d (%s)"):format(tostring(who), id, tostring(name)))
+end
+
+-- Debuff-logger (Rob 15 jun): jouw EIGEN debuffs zijn NIET secret, dus die
+-- kunnen we wél lezen. Tijdens het scenario loggen we elke nieuwe debuff op de
+-- speler → /mh ritualspy toont de ID's (bv. Binding Nebula), waarmee we daarna
+-- een werkende "je-zit-vast"-flash bouwen.
+local seenDebuff = {}
+local function ScanPlayerDebuffs()
+	if not inScenario then
+		return
+	end
+	for i = 1, 60 do
+		local id, nm
+		if C_UnitAuras and C_UnitAuras.GetDebuffDataByIndex then
+			local a = C_UnitAuras.GetDebuffDataByIndex("player", i)
+			if not a then
+				break
+			end
+			id, nm = a.spellId, a.name
+		elseif UnitDebuff then
+			local n2, _, _, _, _, _, _, _, _, sid = UnitDebuff("player", i)
+			if not n2 then
+				break
+			end
+			id, nm = sid, n2
+		else
+			break
+		end
+		if id and not seenDebuff[id] then
+			seenDebuff[id] = true
+			SpyLog(("DEBUFF op jou: %d (%s)"):format(id, tostring(nm)))
+		end
 	end
 end
 
@@ -248,7 +345,6 @@ local function LeaveScenario()
 	inScenario = false
 	lastStepID = nil
 	wipe(shownForStep)
-	clf:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	if ns.HideBossWindowForEntry then
 		ns.HideBossWindowForEntry(ENTRY.key)
 	end
@@ -263,7 +359,10 @@ local function OnScenarioTick()
 	end
 	if not inScenario then
 		inScenario = true
-		clf:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		if wipe then
+			wipe(seenCast) -- nieuwe run → cast-log opnieuw verzamelen
+			wipe(seenDebuff) -- idem voor de debuff-log
+		end
 		SpyLog(("scenario start: %s (id %d, %s stages)"):format(
 			tostring(info.name), info.scenarioID, tostring(info.numStages)))
 	end
@@ -299,7 +398,23 @@ f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 f:RegisterEvent("ENCOUNTER_START")
 f:RegisterEvent("ENCOUNTER_END")
 f:RegisterEvent("INSTANCE_ENCOUNTER_ENGAGE_UNIT")
-f:SetScript("OnEvent", function(_, event, arg1, arg2)
+f:RegisterEvent("UNIT_SPELLCAST_START")
+f:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+f:RegisterEvent("UNIT_AURA")
+f:SetScript("OnEvent", function(_, event, arg1, arg2, arg3)
+	if event == "UNIT_SPELLCAST_START" or event == "UNIT_SPELLCAST_SUCCEEDED" then
+		OnUnitSpellCast(arg3) -- arg1=unit, arg2=castGUID, arg3=spellID
+		if event == "UNIT_SPELLCAST_START" then
+			pcall(SpyLogCast, arg1, arg3) -- datamine: echte cast-ID's loggen
+		end
+		return
+	end
+	if event == "UNIT_AURA" then
+		if arg1 == "player" then
+			pcall(ScanPlayerDebuffs) -- datamine: je eigen debuff-ID's loggen
+		end
+		return
+	end
 	if event == "ENCOUNTER_START" or event == "ENCOUNTER_END" then
 		-- DE openstaande vraag: vuren scenario-bosses encounters af?
 		if inScenario then

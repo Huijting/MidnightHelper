@@ -188,6 +188,17 @@ local function ModelPanelEnabled()
 	return not (curDungeon and panelHiddenFor == curDungeon.key)
 end
 
+-- Per-creature start-zoom (camera-afstand). Grote/gevleugelde modellen openen
+-- anders veel te dichtbij (Rob 15 jun: Belo'ren). Alleen modellen die dat nodig
+-- hebben staan hier; de rest start op 0 (ongewijzigd). De speler kan altijd
+-- bijscrollen; dit is enkel de start-stand per boss.
+-- Per-creature start-zoom via CAMERA-AFSTAND (SetCamDistanceScale): groter =
+-- verder weg = past beter voor grote modellen, en blijft GECENTREERD (SetPosition
+-- liet het model naar een hoek driften — Rob 15 jun). 1.0 = standaard.
+local MODEL_CAMSCALE = {
+	[240387] = 4.0, -- Belo'ren, Child of Al'ar (grote feniks; Robs fijne stand 15 jun)
+}
+
 -- Async model-laden: SetCreature direct na frame-creatie rendert vaak leeg
 -- (Robs "plaatje kwam pas na heen-en-weer bladeren"). Daarom na elke set
 -- een nalaad-tik op +0.2s die dezelfde creature opnieuw zet zolang de boss
@@ -200,11 +211,22 @@ local function SetModelCreature(model, creatureID)
 		model:Hide()
 		return false
 	end
+	-- Nieuwe boss (ander creatureID) → reset de zoom naar de per-boss start-stand.
+	-- Bij eenzelfde boss (refresh) blijft de door de speler gescrolde zoom staan.
+	if creatureID ~= model._mhLastCreatureID then
+		model._mhLastCreatureID = creatureID
+		model._mhCamScale = MODEL_CAMSCALE[creatureID] or 1.0
+	end
 	local function apply()
 		model:ClearModel()
 		model:SetCreature(creatureID)
 		if model.SetPortraitZoom then
 			model:SetPortraitZoom(model._mhUserZoom or (model._mhFullBody and 0 or 0.85))
+		end
+		-- Zoom via camera-afstand (blijft gecentreerd). Groter = verder weg = past
+		-- beter voor grote/gevleugelde modellen (Belo'ren). De scroll past dit aan.
+		if model.SetCamDistanceScale then
+			model:SetCamDistanceScale(model._mhCamScale or 1.0)
 		end
 		if model.SetPosition then
 			model:SetPosition(0, 0, 0)
@@ -230,25 +252,39 @@ end
 -- Dropdown-picker: alle roster-dungeons + custom entries (Broken Throne).
 -- Vóór EnsureWindow gedefinieerd (scoping-les: erná zou de OnClick-closure
 -- een nil-global pakken i.p.v. deze local).
+-- Gesplitst: custom-entries (rituals + raids) apart van de dungeons, zodat we
+-- ze met een kopje bovenaan kunnen tonen (Robs wens: beter vindbaar).
 local function PickerEntries()
-	local out = {}
+	local customs, dungeons = {}, {}
 	for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do
-		out[#out + 1] = {
+		dungeons[#dungeons + 1] = {
 			key = d.key,
 			name = ns.GetDungeonDisplayName and ns.GetDungeonDisplayName(d) or d.key,
 		}
 	end
 	for key, e in pairs(ns.CUSTOM_BOSS_ENTRIES or {}) do
-		out[#out + 1] = { key = key, name = e.name or key, entry = e }
+		customs[#customs + 1] = { key = key, name = e.name or key, entry = e }
 	end
-	return out
+	table.sort(customs, function(a, b)
+		return (a.name or "") < (b.name or "")
+	end)
+	return customs, dungeons
 end
 
 local function InitDungeonPickerMenu(_, level)
 	if level ~= 1 or not (UIDropDownMenu_CreateInfo and UIDropDownMenu_AddButton) then
 		return
 	end
-	for _, e in ipairs(PickerEntries()) do
+	local customs, dungeons = PickerEntries()
+
+	local function addTitle(textKey)
+		local t = UIDropDownMenu_CreateInfo()
+		t.text = ns:L(textKey)
+		t.isTitle = true
+		t.notCheckable = true
+		UIDropDownMenu_AddButton(t, level)
+	end
+	local function addEntry(e)
 		local info = UIDropDownMenu_CreateInfo()
 		info.text = e.name
 		info.checked = (curDungeon and curDungeon.key == e.key) or false
@@ -265,6 +301,35 @@ local function InitDungeonPickerMenu(_, level)
 			end
 		end
 		UIDropDownMenu_AddButton(info, level)
+	end
+
+	-- Onze eigen entries bovenaan, nu gesplitst in Rituals en Raids (Rob 15 jun),
+	-- daarna de dungeons. Ritual-entries hebben een "ritual_"-key; de rest = raids.
+	local rituals, raids = {}, {}
+	for _, e in ipairs(customs) do
+		if type(e.key) == "string" and e.key:find("^ritual_") then
+			rituals[#rituals + 1] = e
+		else
+			raids[#raids + 1] = e
+		end
+	end
+	if #rituals > 0 then
+		addTitle("DGN_WIN_PICK_RITUALS")
+		for _, e in ipairs(rituals) do
+			addEntry(e)
+		end
+	end
+	if #raids > 0 then
+		addTitle("DGN_WIN_PICK_RAIDS")
+		for _, e in ipairs(raids) do
+			addEntry(e)
+		end
+	end
+	if #dungeons > 0 then
+		addTitle("DGN_WIN_PICK_DUNGEONS")
+		for _, e in ipairs(dungeons) do
+			addEntry(e)
+		end
 	end
 end
 
@@ -590,9 +655,17 @@ local function EnsureWindow()
 		end
 	end)
 	panelModel:SetScript("OnMouseWheel", function(self, delta)
-		self._mhUserZoom = math.max(0, math.min(0.9, (self._mhUserZoom or 0) + (delta or 0) * 0.1))
-		if self.SetPortraitZoom then
-			pcall(self.SetPortraitZoom, self, self._mhUserZoom)
+		-- Zoom via camera-afstand (gecentreerd). Scroll omhoog = dichterbij,
+		-- omlaag = verder weg. Bewaard over refreshes via _mhCamScale.
+		local prev = self._mhCamScale or 1.0
+		self._mhCamScale = math.max(0.5, math.min(5.0, prev - (delta or 0) * 0.2))
+		if self.SetCamDistanceScale then
+			pcall(self.SetCamDistanceScale, self, self._mhCamScale)
+		end
+		-- Print alleen bij een echte wijziging (geen spam aan de eindstand) zodat
+		-- Rob de fijne waarde kan doorgeven → vast in MODEL_CAMSCALE.
+		if print and self._mhCamScale ~= prev then
+			print(("|cffffcc00MH model-zoom:|r %.1f"):format(self._mhCamScale))
 		end
 	end)
 	f._panel = panel
