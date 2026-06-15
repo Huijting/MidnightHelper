@@ -16,7 +16,14 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 
 ## 🎯 Voor Cursor — CF-RELEASE 1.8.0 (15 juni — Rob gaf expliciet groen licht!)
 
-**STATUS: ⏳ KLAAR VOOR RELEASE.** Rob heft de "geen-CF"-regel hiervoor expliciet op:
+**STATUS: ✅ GECOMMIT + GEPUSHT + ZIP GEBOUWD** — release-commit `58e4edb`
+(`release: MidnightHelper 1.8.0`, batches #4–#9 samengevoegd). loadfile OK (109
+files); zip = `dist/MidnightHelper-1.8.0.zip` (root `MidnightHelper/`, TOC 1.8.0,
+geen scripts/docs/tools, 125 entries). **Rob doet de CF-upload zelf** met
+`docs/CURSEFORGE_1.8.0.md` (changelog) + `docs/CURSEFORGE_DESCRIPTION.md`
+(START/END-markers) + verse screenshots.
+
+**STATUS (origineel): ⏳ KLAAR VOOR RELEASE.** Rob heft de "geen-CF"-regel hiervoor expliciet op:
 *"dan doen we nu een CF update 1.8.0 en dan kunnen we morgen met 1.8.1 aan de slag."*
 Versie blijft **1.8.0** (TOC staat al goed; NIET naar 1.8.1 bumpen — dat is morgen).
 
