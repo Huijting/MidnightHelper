@@ -195,7 +195,14 @@ launch; Cursor mag ze achter een ≥120007-gate zetten als gewenst.)
 
 ## 🎯 Voor Cursor — CF-RELEASE 1.8.1 (16 juni — Rob vraagt erom)
 
-**STATUS: ⏳ KLAAR VOOR RELEASE.** TOC staat al op **1.8.1**. Alle release-artefacten klaar
+**STATUS: ✅ GECOMMIT + GEPUSHT + ZIP GEBOUWD** — release-commit `441f470`
+(`release: MidnightHelper 1.8.1`). loadfile OK (111 files); zip =
+`dist/MidnightHelper-1.8.1.zip` (root `MidnightHelper/`, TOC 1.8.1, geen
+scripts/docs/tools, 127 entries; TierSet + CurrencyGuide aanwezig). **Rob doet de
+CF-upload zelf** met `docs/CURSEFORGE_1.8.1.md` (changelog) +
+`docs/CURSEFORGE_DESCRIPTION.md` (START/END) + verse screenshots.
+
+**STATUS (origineel): ⏳ KLAAR VOOR RELEASE.** TOC staat al op **1.8.1**. Alle release-artefacten klaar
 (conform Robs regel "CF-release = ALTIJD in-game changelog"):
 - **In-game changelog**: `Modules/Changelog.lua` heeft een **1.8.1**-blok (`CHANGELOG_181_1..6`) +
   keys in `enUS`/`nlNL` (de/fr/es/pt vallen via SafeL terug op EN = bestaand patroon).
