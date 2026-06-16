@@ -273,7 +273,26 @@ local SIDEBAR_SECTIONS = {
 local SIDEBAR_SECTION_GAP = 10
 local SIDEBAR_HEADER_HEIGHT = 16
 
+-- Simpele modus (Tier 3): standaard tonen we alleen de kerntabs voor nieuwe
+-- spelers; "Toon alles" onthult de rest. Niets verwijderd — puur verbergen.
+local SIMPLE_MODE_TABS = {
+	starthere = true,
+	home = true,
+	delves = true,
+	dungeons = true,
+	world = true,
+}
+-- Simpele modus aan? Standaard UIT (volledige weergave); alleen AAN als de speler
+-- 'm expliciet inschakelt via de toggle (Rob 16 jun: eerste keer = volledig, zodat
+-- Carola/iedereen alles ziet en simpel een bewuste keuze is).
+local function MHSimpleModeOn()
+	return ns.db and ns.db.simpleMode == true
+end
+
 local function SidebarTabVisible(tabId)
+	if MHSimpleModeOn() and not SIMPLE_MODE_TABS[tabId] then
+		return false
+	end
 	if tabId == "guide" then
 		return ns.IsBetaTabEnabled and ns.IsBetaTabEnabled("guide")
 	end
@@ -1016,7 +1035,9 @@ local function BuildSMCCityGuidePanel(panel)
 			insets = { left = 0, right = 0, top = 0, bottom = 0 },
 		})
 		smcRim:SetBackdropColor(0, 0, 0, 0)
-		smcRim:SetBackdropBorderColor(MH_CHROME.separator[1], MH_CHROME.separator[2], MH_CHROME.separator[3], 0.5)
+		-- Tier-2: geen border-box meer rond de SMC-scroll (geen ander paneel heeft
+		-- die → liet de SMC-gids "als een andere addon" ogen). Onzichtbaar gemaakt.
+		smcRim:SetBackdropBorderColor(0, 0, 0, 0)
 	end
 	smcRim:EnableMouse(false)
 
@@ -1029,7 +1050,7 @@ local function BuildSMCCityGuidePanel(panel)
 	scroll:EnableMouseWheel(true)
 	local smcScrollFill = scroll:CreateTexture(nil, "BACKGROUND", nil, -8)
 	smcScrollFill:SetAllPoints()
-	smcScrollFill:SetColorTexture(0.04, 0.042, 0.055, 1)
+	smcScrollFill:SetColorTexture(0.048, 0.05, 0.062, 1) -- = MH_CHROME.contentWell, gelijk aan de andere panelen
 
 	local smcBar = CreateFrame("Slider", "MidnightHelperSMCScrollBar", scrollHost)
 	smcBar:SetPoint("TOPLEFT", scroll, "TOPRIGHT", 2, 0)
@@ -2161,9 +2182,44 @@ function ns:EnsureMainUI()
 		ns.tabButtons[tab.id] = btn
 	end
 
+	-- Simpele-modus-schakelaar (Tier 3): bovenaan de sidebar; toont/verbergt de
+	-- extra tabs. Niets verwijderd — alleen verbergen via SidebarTabVisible.
+	local simpleToggle = CreateFrame("Button", "MidnightHelperSimpleToggle", sidebar, "UIPanelButtonTemplate")
+	simpleToggle:SetScript("OnClick", function()
+		if not ns.db then
+			return
+		end
+		ns.db.simpleMode = not MHSimpleModeOn() -- flip (werkt ongeacht de default)
+		if RelayoutSidebarTabs then
+			RelayoutSidebarTabs()
+		end
+	end)
+	ns._mhSimpleToggle = simpleToggle
+
 	RelayoutSidebarTabs = function()
 		local lm = MHGetLayoutMetrics()
 		local yy = -8
+
+		-- Simpele-modus-schakelaar bovenaan de sidebar.
+		if simpleToggle then
+			simpleToggle:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
+			simpleToggle:SetText(MHSimpleModeOn() and ns:L("SIDEBAR_SHOW_ALL") or ns:L("SIDEBAR_SIMPLE"))
+			simpleToggle:ClearAllPoints()
+			simpleToggle:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
+			simpleToggle:Show()
+			yy = yy - lm.sidebarTabStep - SIDEBAR_SECTION_GAP
+		end
+
+		-- Eerst ÁLLE tab-knoppen verbergen: knoppen in volledig-verborgen secties
+		-- (simpele modus) worden anders nooit aangeraakt en blijven op hun creatie-
+		-- positie staan → overlap (Robs screen 1). Daarna plaatsen we de zichtbare.
+		if ns.tabButtons then
+			for _, b in pairs(ns.tabButtons) do
+				if b and b.Hide then
+					b:Hide()
+				end
+			end
+		end
 
 		sidebar._mhSectionHeaders = sidebar._mhSectionHeaders or {}
 
@@ -2258,7 +2314,9 @@ function ns:EnsureMainUI()
 			end
 		end
 
-		if ns.uiSelectedTab and ns.IsBetaTabId and ns.IsBetaTabId(ns.uiSelectedTab) and not SidebarTabVisible(ns.uiSelectedTab) then
+		-- Staat de geselecteerde tab niet meer in beeld (beta-gate óf simpele modus
+		-- verbergt 'm)? Val terug op Home (altijd zichtbaar).
+		if ns.uiSelectedTab and ns.uiSelectedTab ~= "home" and not SidebarTabVisible(ns.uiSelectedTab) then
 			SelectTab("home")
 		elseif ns.uiSelectedTab == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
 			SelectTab("home")

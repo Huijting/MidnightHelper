@@ -1,4 +1,4 @@
-# CurseForge project description — v1.8.0 refresh (copy/paste)
+# CurseForge project description — v1.8.1 refresh (copy/paste)
 
 Paste everything between the START/END markers into the CurseForge
 description editor. Screenshot suggestions per section are at the bottom
@@ -14,7 +14,8 @@ Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quest
 
 ## Why you'll want this
 
-- ⚔️ **NEW in 1.8.0 — Raid & Mythic+ coaches.** Beginner boss steps for all three Midnight raids (and the Sporefall raid + Daggerspine ritual), each cast a **clickable spell link** with the action to take — dodge, interrupt, move, defensive. The boss window opens automatically when you pull. The new **Mythic+ tab** adds the affix ladder, Xal'atath's Bargains, the Season 1 dungeon pool and **must-interrupt lists per dungeon**, with a **Beginner mode + glossary** so the jargon doesn't bury you.
+- ✨ **NEW in 1.8.1 — Tier Sets, clickable waypoints, a calmer look.** A new **Tier Sets** tab shows your set bonuses and a live equipped counter; a new **Currencies** tab maps where to earn and spend everything with live balances; **vendor names are clickable to set a waypoint**; a **skull marks the rare** you're hunting; and the whole UI got a cohesive polish (one gold, role icons, tooltips at your cursor) with an optional one-click **Simple view** for new players.
+- ⚔️ **Raid & Mythic+ coaches.** Beginner boss steps for all three Midnight raids (and the Sporefall raid + Daggerspine ritual), each cast a **clickable spell link** with the action to take — dodge, interrupt, move, defensive. The boss window opens automatically when you pull. The new **Mythic+ tab** adds the affix ladder, Xal'atath's Bargains, the Season 1 dungeon pool and **must-interrupt lists per dungeon**, with a **Beginner mode + glossary** so the jargon doesn't bury you.
 - 💎 **NEW — Currencies & Enchants.** A **Currencies tab** maps every Midnight currency: where you earn it, where you spend it, your **live balance**, and a waypoint button to each Renown Quartermaster. An **Enchants tab** checks your gear, flags slots missing an enchant, suggests a stat-matched one for your spec, and **copies the name for the Auction House** in one click.
 - 🗓️ **NEW — Events tab.** Every world event in one place: what's firing **now** and what's **coming up**, with live countdowns, click-to-route and hover descriptions. Shift-click for a 3D reward preview.
 - 🗺️ **"After the reset" routine** — an ordered, live to-do list on the Home tab: vault, the weekly quests by the bank, the Ritual & Void weeklies at the Bazaar, your profession weekly. One click sets a **TomTom route along everything you still have open**.
@@ -41,6 +42,8 @@ Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quest
 **💰 Currencies** — a "where do I earn it / where do I spend it" map for every Midnight currency, with your live balance beside each and a waypoint button per Renown Quartermaster.
 
 **✨ Enchants** — a quick check of your equipped gear: which enchantable slots are missing an enchant, a stat-matched Midnight suggestion for your spec, and one-click Auction House name copy.
+
+**🛡️ Tier Sets** — your class set with its 2- and 4-piece bonuses (hover for the live tooltip), a live counter of equipped tier pieces, and a plain-language guide to how you get them (raid tokens, the Great Vault, and the Creation Catalyst).
 
 **🧰 Toolbox** — the **Professions Hub**: live Knowledge Point tracking, weekly KP checklist for **all 11 professions**, treasure & book waypoint routes, a Tree Advisor with goal-based advice, and **Professions 101**. Plus ready-made interrupt macros per spec and a consumables checklist with one-click AH name copy.
 
@@ -85,4 +88,4 @@ Minimaal 3 (CF-checklist); eerste screenshot = wat in de gallery-preview komt.
 zip (package.ps1 faalt de build anders al), zip-root = exact `MidnightHelper/`,
 geen dev-notities/secrets, description zonder externe download-links, game
 version 12.0.5 / interface 120005 (+120007 PTR mag in de TOC blijven tot
-12.0.7 live is), release type **Release**, display version **1.8.0**.
+12.0.7 live is), release type **Release**, display version **1.8.1**.

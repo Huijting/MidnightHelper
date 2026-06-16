@@ -2,6 +2,28 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.1] - 2026-06-16
+
+### Added
+
+- **Tier Sets tab** (Character): your class set, your 2- and 4-piece set bonuses as clickable links (hover for the live, localized tooltip), and a live counter of how many tier pieces you have equipped. Explains what tier sets are and how to get them (raid tokens, Great Vault, the Creation Catalyst — itself a clickable waypoint).
+- **Currencies tab** (Guides): a "where do I earn it, where do I spend it" map for every Midnight currency with your **live balances**, plus a waypoint to each Renown Quartermaster.
+- **Clickable vendor names → waypoints:** known vendor/NPC names anywhere in the addon are now clickable to set a TomTom (or Blizzard) waypoint.
+- **Rare skull:** route to a rare from its alert and a skull marks it on its nameplate as you arrive, so it's easy to spot among other mobs (taint-safe; works solo and in groups).
+- **Simple view:** a toggle at the top of the menu hides everything but the core tabs — calmer for new players. Set once; remembered account-wide. (Full view is the default.)
+- **Val & Naigtal Showdown rares** added to the Rares tab.
+
+### Changed
+
+- **A calmer, more cohesive look:** one unified gold accent across every tab and all six languages; boss role lines now use role **icons** instead of three competing colours; softer link colours and desaturated status colours; the Silvermoon City guide no longer looks "boxed in"; and **tooltips now appear at your cursor** everywhere.
+- The **Enchants** panel now updates the moment you apply an enchant, and each suggestion is clickable to copy its name for the Auction House.
+
+### Fixed
+
+- World-boss "defeated this week" line is now correct across your whole warband (and names who did it first).
+- Veteran Dawncrest balance reads correctly; the in-game changelog popup is no longer stuck on old versions (it was showing up to 1.5.5).
+- Removed duplicate ability names that repeated next to their own clickable spell link in boss steps.
+
 ## [1.8.0] - 2026-06-15
 
 ### Added

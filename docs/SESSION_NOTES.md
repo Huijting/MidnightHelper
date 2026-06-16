@@ -12,6 +12,10 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
   uit git HEAD hersteld). Host-tools (Read/Edit/Write) zijn betrouwbaar; de
   mount alleen voor read-only checks, en ook dan eof-errors wantrouwen.
 - Geen CurseForge-release zonder expliciete vraag van Rob.
+- **⭐ CF-RELEASE = ALTIJD in-game changelog (Rob, 16 jun, expliciet):** zodra Rob om een
+  CurseForge-release vraagt, MOET het in-game changelog-blok voor die versie gemaakt/bijgewerkt
+  worden (`Modules/Changelog.lua` `CHANGELOG_ENTRIES` + `CHANGELOG_<ver>_*`-keys in enUS+nlNL),
+  naast `CHANGELOG.md` + `docs/CURSEFORGE_<ver>.md`. Niet-onderhandelbaar onderdeel van elke release.
 - **In-game changelog meeschrijven (vaste regel, 16 jun):** elke feature-batch werkt
   `Modules/Changelog.lua` (`CHANGELOG_ENTRIES`) + `CHANGELOG_<ver>_*`-keys in enUS+nlNL in
   DEZELFDE commit bij. 1.8.0 stond t/m 1.5.5 stale → nu gevangen door de dev-zelfcheck
@@ -88,10 +92,32 @@ Profession, DelveItemsPopup, VaultAdvisor, KeyboardLayoutPrototype, RoleAcademy,
 (+ eerder DelveTipMarkup link-hovers). Broker/LDB-tooltip bewust gelaten (hoort bij de minimap-knop);
 ANCHOR_TOPRIGHT/BOTTOM/TOP/LEFT/NONE niet geraakt (andere literals).
 
-**Tier-2 nog te doen (volgende increment, voorzichtig):** gedeelde `ns.MakePanelHeader`, één
-scroll-stijl (de custom Slider-scrollbar + donkere fill van `Addons/Guide.lua` eruit — grootste
-"andere addon"-uitschieter, hoogste risico → apart en zorgvuldig), padding via `UI_METRICS`.
-Daarna **Tier 3** (Simpele modus).
+**Tier-2b SMC-gids geharmoniseerd (16 jun, laag risico, géén scroll-logic aangeraakt):** de
+**border-box** rond de SMC-scroll (`smcRim`) onzichtbaar gemaakt — die boxte de gids in en liet 'm
+"als een andere addon" ogen (geen ander paneel heeft 'm). De donkere scroll-fill `0.04/0.042/0.055`
+→ `0.048/0.05/0.062` (= `MH_CHROME.contentWell`, gelijk aan de rest). Titel/subtitel waren al
+geharmoniseerd (Tier 1). De custom Slider zelf is een dunne neutrale scrollbar (niet luid) → gelaten.
+
+**Tier-2 user-zichtbare doelen nu behaald:** tooltips bij cursor, één goud, SMC niet meer geboxt,
+subtitels gelijk. **Optioneel later (code-netheid, lager rendement/hoger risico):** gedeelde
+`ns.MakePanelHeader`, SMC-Slider → `UIPanelScrollFrameTemplate`, padding via `UI_METRICS`.
+**✅ Tier 3 — Simpele modus (16 jun).** `UI.lua`: `SIMPLE_MODE_TABS` = {starthere, home, delves,
+dungeons, world}; `MHSimpleModeOn()` (standaard AAN, nil=aan; expliciet `ns.db.simpleMode=false`
+= volledig). `SidebarTabVisible` verbergt niet-kerntabs in simpele modus. **Toggle-knop bovenaan
+de sidebar** (`MidnightHelperSimpleToggle`) flipt `ns.db.simpleMode` + `RelayoutSidebarTabs()`;
+label "+ Toon alle tabs" / "− Eenvoudige weergave" (`SIDEBAR_SHOW_ALL`/`SIDEBAR_SIMPLE` ×6 talen).
+Geselecteerde-tab-redirect veralgemeniseerd → onzichtbare tab valt terug op Home. **Niets verwijderd,
+volledig reversibel** (toggle + git). **Default = VOLLEDIG (Rob 16 jun):** `MHSimpleModeOn()` = `ns.db.simpleMode == true` (nil = volledig).
+Iedereen start met alle tabs; simpel is opt-in via de toggle (label "− Eenvoudige weergave" in
+volledige modus / "+ Toon alle tabs" in simpele). Flip = `not MHSimpleModeOn()`. Account-breed
+(`MidnightHelperDB`), dus één klik = voorgoed op alle characters.
+⚠️ **Bugfix (Rob screen 1):** RelayoutSidebarTabs raakte tabs in volledig-verborgen secties niet
+aan → die bleven op hun creatie-positie staan (overlap bij eerste view). Nu worden bij elke relayout
+éérst álle `ns.tabButtons` verborgen, daarna de zichtbare opnieuw geplaatst.
+
+Daarmee zijn **Tier 1 + 2 + 3 klaar** — de hele "minder druk / aantrekkelijker"-wens. Optioneel
+later: gedeelde `ns.MakePanelHeader`, SMC-Slider→template, Settings-checkbox als alternatief voor
+de sidebar-toggle, één-malige login-hint bij simpele modus.
 
 ## Voor Cursor — review + commit batch 16 juni #1 (Tier Sets-tab) → 1.8.1
 
@@ -166,6 +192,24 @@ route (coords) + vignette-alert (npcID veld 6) werken. Nieuwe helper **`RareKey(
 questId 0 terug op "npc:<id>" zodat up/found-tracking niet op sleutel "0" botst. ⚠️ Kill-quest-IDs
 later in-game capturen → dan komt de weekly-tint erbij. (Klein: zones tonen ook op 12.0.5 tot
 launch; Cursor mag ze achter een ≥120007-gate zetten als gewenst.)
+
+## 🎯 Voor Cursor — CF-RELEASE 1.8.1 (16 juni — Rob vraagt erom)
+
+**STATUS: ⏳ KLAAR VOOR RELEASE.** TOC staat al op **1.8.1**. Alle release-artefacten klaar
+(conform Robs regel "CF-release = ALTIJD in-game changelog"):
+- **In-game changelog**: `Modules/Changelog.lua` heeft een **1.8.1**-blok (`CHANGELOG_181_1..6`) +
+  keys in `enUS`/`nlNL` (de/fr/es/pt vallen via SafeL terug op EN = bestaand patroon).
+- **`CHANGELOG.md`**: `[1.8.1] - 2026-06-16`.
+- **`docs/CURSEFORGE_1.8.1.md`**: short summary + changelog-paste + upload-checklist + test.
+- **`docs/CURSEFORGE_DESCRIPTION.md`**: bijgewerkt naar **1.8.1-refresh** (+ Tier Sets-sectie,
+  1.8.1-highlight-bullet, display version 1.8.1).
+
+**Stappen voor Cursor:** (1) `git status` + luacheck/loadfile op host-bestanden; (2) `package.ps1`
+→ `dist/MidnightHelper-1.8.1.zip` (geen scripts in zip, root = `MidnightHelper/`); (3) upload als
+**Release**, versie **1.8.1**, interface 120005; plak changelog uit `CURSEFORGE_1.8.1.md` + vervang
+projectpagina-description door `CURSEFORGE_DESCRIPTION.md` (START/END); (4) commit-bericht
+`release: MidnightHelper 1.8.1`. Verse screenshots: Tier Sets, Currencies (klikbare vendors),
+boss-window, Simple-view-toggle.
 
 ## 🎯 Voor Cursor — CF-RELEASE 1.8.0 (15 juni — Rob gaf expliciet groen licht!)
 
