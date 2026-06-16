@@ -297,8 +297,15 @@ local function ApplyLearnedModel(b)
 	b.creatureId = (learned and learned[b.key]) or b.seedCreatureId
 end
 
+-- 12.x: boss-unit GUID's (boss1..5) zijn 'secret' — type() zegt "string",
+-- maar strsplit/tostring erop tainten de execution en crashen. Nooit
+-- string-ops op een secret value (zelfde regel als DelveBossShowcase).
+local function IsSecretValue(value)
+	return issecretvalue ~= nil and value ~= nil and issecretvalue(value) == true
+end
+
 local function NpcIdFromGUID(guid)
-	if type(guid) ~= "string" then
+	if type(guid) ~= "string" or IsSecretValue(guid) then
 		return nil
 	end
 	local kind, _, _, _, _, npcId = strsplit("-", guid)
@@ -321,6 +328,9 @@ local function TryLearnBossUnits()
 		if UnitExists and UnitExists(unit) then
 			local id = NpcIdFromGUID(UnitGUID and UnitGUID(unit))
 			local nm = UnitName and UnitName(unit)
+			if IsSecretValue(nm) then
+				nm = nil -- naam kan ook secret zijn; nooit tostring'en
+			end
 			if id then
 				SpyLog(("boss-unit %s: %s (npc %d)"):format(unit, tostring(nm), id))
 				if b and i == 1 then
@@ -377,9 +387,10 @@ local function OnScenarioTick()
 		local b = FindBossForStep(stepID)
 		if b and not shownForStep[stepID] then
 			shownForStep[stepID] = true
-			-- X tijdens deze run = met rust laten (zelfde regel als dungeons).
+			-- X = alléén die ene boss met rust (per-boss, zelfde regel als
+			-- dungeons): een nieuwe stage/boss geeft weer een vers venster.
 			if not (ns.IsBossWindowSuppressedFor
-				and ns.IsBossWindowSuppressedFor(ENTRY.key)) then
+				and ns.IsBossWindowSuppressedFor(ENTRY.key, b.key)) then
 				ApplyLearnedModel(b)
 				if ns.ShowBossWindowForEntry then
 					ns.ShowBossWindowForEntry(ENTRY, b.key)

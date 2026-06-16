@@ -480,6 +480,13 @@ function ns.BuildSettingsPanel(panel)
 
 	Label("SET_BOSSWIN_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "dungeon")
 	Label("SET_BOSSWIN_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "dungeon")
+	AddToggle("dungeon", "SET_BOSSWIN_AUTO_TITLE", "SET_BOSSWIN_AUTO_DESC", function()
+		return ns.IsBossWindowAutoOpenEnabled and ns.IsBossWindowAutoOpenEnabled()
+	end, function(v)
+		if ns.SetBossWindowAutoOpenEnabled then
+			ns.SetBossWindowAutoOpenEnabled(v)
+		end
+	end)
 	-- Schaal-slider (naast shift+scroll, Robs besluit 3).
 	local sliderRow = CreateFrame("Frame", nil, child)
 	sliderRow:SetHeight(44)

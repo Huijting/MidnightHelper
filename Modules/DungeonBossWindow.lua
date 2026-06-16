@@ -36,8 +36,25 @@ local PAD = 12
 local win -- frame, lazy
 local curDungeon -- roster-dungeon-table
 local curIdx = 1
-local suppressedFor = nil -- dungeonKey waarvoor Rob het venster sloot
+local suppressedFor = nil -- "dungeonKey<sep>bossKey" die Rob met de X sloot
 local modelGen = 0 -- nalaad-generatie (paging tijdens de 0.2s-tik)
+
+-- Suppress is PER BOSS (Rob 16 jun): de X laat alléén die ene boss met rust;
+-- een volgende boss (dungeon-pull, ritual-stage of die boss targeten) geeft
+-- een vers venster. Permanent uit = de Settings-toggle (auto-open).
+local SUPPRESS_SEP = "\031"
+local function SuppressKey(dungeonKey, bossKey)
+	if not dungeonKey then
+		return nil
+	end
+	return dungeonKey .. SUPPRESS_SEP .. (bossKey or "")
+end
+local function CurBossKey()
+	return curDungeon
+		and curDungeon.bosses
+		and curDungeon.bosses[curIdx]
+		and curDungeon.bosses[curIdx].key or nil
+end
 
 local COLOR_TANK = "aecbfa"
 local COLOR_HEAL = "a9e8b8"
@@ -491,7 +508,7 @@ local function EnsureWindow()
 	close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -4, -4)
 	close:SetFrameLevel(f:GetFrameLevel() + 5)
 	close:SetScript("OnClick", function()
-		suppressedFor = curDungeon and curDungeon.key or nil
+		suppressedFor = SuppressKey(curDungeon and curDungeon.key, CurBossKey())
 		f:Hide()
 	end)
 
@@ -779,6 +796,18 @@ function ns.ShowDungeonBossWindow(dungeonKey, bossKey)
 	ns.RefreshDungeonBossWindow()
 end
 
+-- Auto-open aan/uit (Rob 16 jun): de echte opt-out. Uit = het venster opent
+-- nooit vanzelf (geen pull-open en geen target-open); /mh bosswin blijft werken.
+-- Default aan. Vervangt het idee "wie hem niet wil klikt de X" door een
+-- persistente keuze.
+function ns.IsBossWindowAutoOpenEnabled()
+	return GetWinSettings().autoOpen ~= false
+end
+
+function ns.SetBossWindowAutoOpenEnabled(v)
+	GetWinSettings().autoOpen = v and true or false
+end
+
 -- Settings-pagina: schaal live zetten (slider) en layout resetten.
 function ns.SetBossWindowScale(sc)
 	sc = tonumber(sc)
@@ -830,10 +859,10 @@ function ns.ShowBossWindowForEntry(d, bossKey)
 	ns.RefreshDungeonBossWindow()
 end
 
--- X-suppress per key raadpleegbaar, zodat een auto-open elders Robs
--- "laat me met rust voor deze run"-klik respecteert.
-function ns.IsBossWindowSuppressedFor(key)
-	return suppressedFor ~= nil and suppressedFor == key
+-- X-suppress per boss raadpleegbaar, zodat een auto-open elders Robs
+-- "laat deze boss met rust"-klik respecteert. (dungeonKey + bossKey.)
+function ns.IsBossWindowSuppressedFor(dungeonKey, bossKey)
+	return suppressedFor ~= nil and suppressedFor == SuppressKey(dungeonKey, bossKey)
 end
 
 function ns.IsBossWindowShowing(key)
@@ -878,12 +907,13 @@ end
 
 -- Hook vanuit DungeonLiveCoach bij ENCOUNTER_START: auto-open + meebladeren.
 function ns.BossWindowOnEncounter(dungeonKey, bossKey)
-	if suppressedFor and suppressedFor == dungeonKey then
-		return -- Rob sloot het venster in deze dungeon: respecteren
+	if not ns.IsBossWindowAutoOpenEnabled() then
+		return -- in Settings uitgezet: nooit vanzelf openen
 	end
-	if suppressedFor and suppressedFor ~= dungeonKey then
-		suppressedFor = nil -- nieuwe dungeon: suppress vervalt
+	if suppressedFor and suppressedFor == SuppressKey(dungeonKey, bossKey) then
+		return -- exact deze boss is weggeklikt: respecteren
 	end
+	suppressedFor = nil -- andere boss / nieuwe pull: suppress vervalt
 	ns.ShowDungeonBossWindow(dungeonKey, bossKey)
 end
 
@@ -908,3 +938,94 @@ do
 		end
 	end
 end
+
+-- Target-reopen (Rob 16 jun): een dungeon-boss targeten haalt het venster
+-- terug en springt naar die boss — ook na een X (de X onderdrukt alleen de
+-- pull-auto-open). De echte "uit" is de Settings-toggle hierboven.
+-- npcID -> { dungeonKey, bossKey } afgeleid uit CREATURES (model-creature-IDs),
+-- dus locale-onafhankelijk. Bossen zonder ID (bv. Nalorakk) of de tweede unit
+-- van een duo missen we bewust — never-lie, niet gokken.
+local NPC_TO_BOSS
+local function EnsureNpcIndex()
+	if NPC_TO_BOSS then
+		return
+	end
+	NPC_TO_BOSS = {}
+	for key, npcID in pairs(CREATURES) do
+		local dk, bk = key:match("^(.-):(.+)$")
+		if dk and bk then
+			NPC_TO_BOSS[npcID] = { dk, bk }
+		end
+	end
+end
+
+-- 12.x: GUID's van boss-units kunnen 'secret' zijn — type() zegt "string"
+-- maar strsplit erop tainted/crasht. Nooit string-ops op een secret value.
+local function IsSecretValue(value)
+	return issecretvalue ~= nil and value ~= nil and issecretvalue(value) == true
+end
+
+local function TargetNpcID()
+	local guid = UnitGUID("target")
+	if not guid or IsSecretValue(guid) then
+		return nil
+	end
+	local kind, _, _, _, _, npcID = strsplit("-", guid)
+	if kind ~= "Creature" and kind ~= "Vehicle" then
+		return nil -- spelers/pets/objects negeren
+	end
+	return tonumber(npcID)
+end
+
+local targetFrame = CreateFrame("Frame")
+targetFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
+targetFrame:SetScript("OnEvent", function()
+	if not ns.IsBossWindowAutoOpenEnabled() then
+		return
+	end
+	local inInst, instType = IsInInstance()
+	if not inInst or instType ~= "party" then
+		return -- alleen 5-mans (dungeons)
+	end
+	if not UnitExists("target") then
+		return
+	end
+
+	local dungeonKey, bossKey
+	local npcID = TargetNpcID()
+	if npcID then
+		EnsureNpcIndex()
+		local hit = NPC_TO_BOSS[npcID]
+		if hit then
+			dungeonKey, bossKey = hit[1], hit[2] -- exacte boss via npcID
+		end
+	end
+
+	-- Fallback: in instances kan de target-GUID 'secret' zijn (12.x), dan
+	-- geeft TargetNpcID niets. Val terug op classificatie: alleen een echte
+	-- boss heropent het venster, op de boss die nu vooraan staat.
+	if not dungeonKey then
+		if UnitClassification("target") ~= "worldboss" or not curDungeon then
+			return
+		end
+		dungeonKey = curDungeon.key
+		bossKey = curDungeon.bosses
+			and curDungeon.bosses[curIdx]
+			and curDungeon.bosses[curIdx].key
+	end
+
+	-- Staat het venster al op precies deze boss? Niet opnieuw tonen: voorkomt
+	-- geflikker en het stelen van focus bij elke her-target.
+	if
+		ns.IsBossWindowShowing
+		and ns.IsBossWindowShowing(dungeonKey)
+		and curDungeon
+		and curDungeon.bosses
+		and curDungeon.bosses[curIdx]
+		and curDungeon.bosses[curIdx].key == bossKey
+	then
+		return
+	end
+	suppressedFor = nil -- targeten heft de X-suppress op
+	ns.ShowDungeonBossWindow(dungeonKey, bossKey)
+end)

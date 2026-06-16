@@ -22,6 +22,63 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
   (`MidnightHelperDB.changelogDevCheck=true` waarschuwt bij login). Zie `docs/RELEASE_CHECKLIST.md`.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
 
+## Voor Cursor — review + commit batch 16 juni #3 (boss-venster: target-reopen + auto-open-toggle) → 1.8.2
+
+**STATUS: ⏳ UNCOMMITTED (Claude/Cowork).** Aanleiding (Rob, 16 jun): "als je het boss-venster
+wegklikt en daarna een boss target, laat hem dan weer zien — wie hem niet wil zet hem uit in de
+instellingen." Die settings-opt-out bestond nog niet, dus die is meteen toegevoegd. Voorgesteld
+commit-bericht:
+
+> feat(bosswin): target-reopen op npcID + persistente 'auto-open'-toggle (settings)
+
+Wijzigingen:
+- **`Modules/DungeonBossWindow.lua`**: (1) nieuwe `ns.IsBossWindowAutoOpenEnabled` /
+  `ns.SetBossWindowAutoOpenEnabled` (db: `ui.bossWin.autoOpen`, default aan). (2) `BossWindowOnEncounter`
+  returnt vroeg als auto-open uit staat. (3) onderaan een `PLAYER_TARGET_CHANGED`-frame: bouwt
+  `NPC_TO_BOSS` (reverse uit de bestaande `CREATURES`-tabel = model-creature-IDs, dus locale-onafh.),
+  pakt npcID uit `UnitGUID("target")` (veld 6), gate op `IsInInstance()=="party"`, en bij een hit:
+  `suppressedFor=nil` (heft de X-suppress op) + `ShowDungeonBossWindow(dungeonKey, bossKey)`. Throttle:
+  niet opnieuw tonen als 't venster al op precies die boss staat (geen flikker / focus-steal).
+- **`Modules/SettingsPage.lua`**: `AddToggle` "Automatisch openen" in de Dungeon Coach-sectie (onder
+  SET_BOSSWIN_DESC), gekoppeld aan de getter/setter.
+- **`Locales/SettingsPage.lua`**: `SET_BOSSWIN_AUTO_TITLE` + `SET_BOSSWIN_AUTO_DESC` in alle 6 locales;
+  `SET_BOSSWIN_DESC` herschreven (X = stil voor de run; targeten haalt 'm terug).
+- **Secret-value crash-fix (Rob meldde 5× error in een ritual):**
+  `Modules/RitualBossCoach.lua` `NpcIdFromGUID` deed `strsplit` op `UnitGUID("boss1..5")` — in 12.x
+  zijn die GUID's 'secret' (`type()`=="string" maar string-ops tainten/crashen). Toegevoegd: file-locale
+  `IsSecretValue` (= DelveBossShowcase-patroon, `issecretvalue`), guard op de guid én op `UnitName`
+  (ook secret). Datamine-leren faalt nu stil i.p.v. crashen (never-lie: niet gokken).
+- **Zelfde guard in de nieuwe target-trigger** (`DungeonBossWindow.lua`): `TargetNpcID` checkt
+  `IsSecretValue(guid)`. **Plus fallback**: omdat target-GUID's in instances waarschijnlijk óók secret
+  zijn (Rares.lua slaat instances bewust over), heropent een target met `UnitClassification=="worldboss"`
+  (niet-secret) het venster alsnog — op de boss die nu vooraan staat — als de npcID niet leesbaar is.
+- **In-game changelog (Robs vaste regel)**: `Modules/Changelog.lua` nieuw **1.8.2**-blok +
+  `CHANGELOG_182_1/2/3` in enUS+nlNL (de/fr/es/pt via SafeL → EN). ⚠️ TOC staat nog op **1.8.1**;
+  bump naar 1.8.2 pas bij de volgende release (geen CF-release gevraagd).
+
+Verificatie: host-Read = leidend (de sandbox-mount gaf wéér stale/afgekapte reads — pyread==stat maar
+inhoud was een oude, kortere versie; "near <eof>"-valsposities genegeerd). Ingevoegde Lua-blokken +
+locale-entries los gecompileerd (lupa) = OK. **In-game test (Rob):**
+1. Ritual opnieuw in → geen Lua-error meer (boss-units worden stil overgeslagen als hun GUID secret is).
+2. Dungeon in → boss-venster met X sluiten → een boss targeten → venster komt terug (op die boss als de
+   GUID leesbaar is, anders via de worldboss-fallback op de huidige boss).
+3. Settings → Dungeon Coach "Automatisch openen" uit → geen pull-open én geen target-open;
+   `/mh bosswin` opent nog wel.
+⭐ **Te bevestigen door Rob:** is `UnitGUID("target")` op een dungeon-boss secret of niet? Zo niet →
+exacte boss-sprong werkt; zo wel → de worldboss-fallback draagt de feature. Beide paden zijn nu safe.
+
+**Vervolg (Rob 16 jun, na test): suppress nu PER BOSS i.p.v. per run.** Rob meldde: in een ritual het
+venster weggeklikt bij fase 2 → bij de volgende boss(en) kwam geen nieuw venster. Oorzaak: de X zette
+suppress voor de hele entry/dungeon, dus elke volgende boss bleef onderdrukt (rituals lopen via
+RitualBossCoach-stages, niet via mijn `IsInInstance()=="party"`-target-trigger). Fix in
+`DungeonBossWindow.lua`: `suppressedFor` is nu een composiet `"dungeonKey\31bossKey"` (helpers
+`SuppressKey`/`CurBossKey`). De X onderdrukt enkel die ene boss; `BossWindowOnEncounter` en
+`ns.IsBossWindowSuppressedFor(dungeonKey, bossKey)` vergelijken op de composiet en wissen suppress bij
+een andere boss. `RitualBossCoach.lua` geeft nu `b.key` mee aan `IsBossWindowSuppressedFor`. Netto: X =
+"deze boss even weg", de volgende boss (pull, ritual-stage of targeten) komt vanzelf terug; permanent
+uit blijft de settings-toggle. Compile + runtime-asserts (lupa) OK. **In-game test (Rob):** ritual →
+venster wegklikken bij boss 1 → boss 2 geeft weer een vers venster; idem in een dungeon over twee bosses.
+
 ## Voor Cursor — review + commit batch 16 juni #2 (UX Tier-1a: visuele rust) → 1.8.1
 
 **STATUS: ✅ GECOMMIT in checkpoint `e995124` (wip 1.8.1).** (Eerste increment van een gefaseerde
@@ -192,6 +249,33 @@ route (coords) + vignette-alert (npcID veld 6) werken. Nieuwe helper **`RareKey(
 questId 0 terug op "npc:<id>" zodat up/found-tracking niet op sleutel "0" botst. ⚠️ Kill-quest-IDs
 later in-game capturen → dan komt de weekly-tint erbij. (Klein: zones tonen ook op 12.0.5 tot
 launch; Cursor mag ze achter een ≥120007-gate zetten als gewenst.)
+
+## 📌 STAND 16 juni — na 1.8.1-release (overdracht naar volgende sessie)
+
+**1.8.1 is LIVE op CurseForge** (door Cursor geüpload; veel downloads). Versie 1.8.1, interface 120005/120007.
+
+**Wat er in 1.8.1 zit (deze sessie gebouwd):** Tier Sets-tab, Currencies-tab (live saldo's +
+klikbare vendor→TomTom-waypoints, addon-breed), Enchants AH-copy/refresh-fix, rare-skull op
+nameplate (taint-veilige texture), **UX-refresh Tier 1+2+3** (één goud-palet, rol-iconen i.p.v.
+kleur-regenboog, rustige links, ontzadigde status, tooltips bij de cursor, SMC niet meer "geboxt",
+**Simpele modus**-toggle — default VOLLEDIG), dup-cast-sweep, Showdown-rares Val/Naigtal in Rares.lua,
++ fixes (world-boss-warband, Veteran-crest, in-game changelog t/m 1.8.1, SetRaidTarget-forbidden).
+Val/Naigtal-data compleet (uiMap 2599/2600, weekly 96713/96717, intro Screaming Ridge, rosters).
+
+**Open / volgende sessie (geen blockers):**
+- **UX optioneel (lager rendement):** gedeelde `ns.MakePanelHeader`, SMC-Slider→`UIPanelScrollFrameTemplate`,
+  Settings-checkboxes voor Simpele modus + rare-skull (`ns.db.rareSkull`), één-malige login-hint.
+- **In-game te capturen (live):** Showdown-rare **kill-quest-IDs** (dan komt de weekly-tint erbij;
+  niet datamine-baar), **Mote of Omnial Inquiry** item-ID, **Pertinax** echte npcID (261072 vs 263670),
+  Heroic-Showdown-weekly-IDs. Zie `docs/PTR_12.0.7_DATA.md`.
+- **ROADMAP-backlog:** live event-voortgangsbalken, reward-galleries, Rares HandyNotes-coords.
+- **Tier-set-spell-IDs** waren PTR-bevestigd (Elemental live geverifieerd) — bij twijfel andere specs
+  in-game kruischecken.
+
+**Belangrijke werkafspraken (zie boven):** never-lie; Cursor doet git/CF; **CF-release = ALTIJD
+in-game changelog**; host-Read is leidend (sandbox-mount truncatie-false-positives).
+
+---
 
 ## 🎯 Voor Cursor — CF-RELEASE 1.8.1 (16 juni — Rob vraagt erom)
 
