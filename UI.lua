@@ -143,6 +143,29 @@ local MH_CHROME = {
 	tabTexInactive = { 0.78, 0.72, 0.62 },
 }
 
+-- Gedeeld kleur-palet (Tier-1 visuele-rust-pass, 16 jun). Eén accent-goud, één
+-- rustige link-tint, één dim-grijs voor subtitels, en status-kleuren die ALLEEN
+-- voor status zijn (niet voor decoratie). Panelen lezen hieruit i.p.v. elk hun
+-- eigen tint te declareren → minder concurrerende kleuren = rustiger beeld.
+-- RGB-tabellen voor SetTextColor; *_HEX voor |cff-markup (AARRGGBB, AA=ff).
+ns.UI_COLORS = {
+	gold = { 0.91, 0.76, 0.42 },
+	GOLD_HEX = "ffe8c36a", -- koppen/titels/actief
+	dim = { 0.62, 0.64, 0.68 },
+	DIM_HEX = "ff9ea4ad", -- subtitels/secundair
+	body = { 0.86, 0.87, 0.90 },
+	BODY_HEX = "ffdcdde6", -- lopende tekst
+	footer = { 0.45, 0.47, 0.50 },
+	FOOTER_HEX = "ff73787f", -- voetnoten
+	good = { 0.55, 0.85, 0.55 },
+	GOOD_HEX = "ff8cd98c",
+	warn = { 0.92, 0.74, 0.30 },
+	WARN_HEX = "ffeabd4d",
+	bad = { 0.90, 0.42, 0.42 },
+	BAD_HEX = "ffe66b6b",
+	LINK_HEX = "ff8fc9e8", -- rustige link-blauw (1 tint voor alle links)
+}
+
 local function MHUnpack4(t)
 	return t[1], t[2], t[3], t[4]
 end
@@ -243,7 +266,7 @@ local SIDEBAR_SECTIONS = {
 	-- Start Here leads for new players; Home remains the default/fallback tab in
 	-- SelectTab (sidebar order is independent of that fallback).
 	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "starthere", "home", "codex", "delves", "dungeons", "rares", "world", "events" } },
-	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants" } },
+	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "currency", "toolbox" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons", "settings" } },
 }
@@ -270,7 +293,7 @@ local function MHAttachTabBetaBadge(btn, tabId)
 		badge:SetTextColor(1, 0.72, 0.15)
 		btn._mhBetaBadge = badge
 		btn:HookScript("OnEnter", function(self)
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 			GameTooltip:AddLine(ns:L("TAB_BETA_TOOLTIP_TITLE"), 1, 0.82, 0)
 			GameTooltip:AddLine(ns:L("TAB_BETA_TOOLTIP_BODY"), 0.92, 0.92, 0.92, true)
 			GameTooltip:Show()
@@ -303,6 +326,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_DELVELOG"
 	elseif tabId == "enchants" then
 		return "INFO_DRAWER_BODY_ENCHANTS"
+	elseif tabId == "tier" then
+		return "INFO_DRAWER_BODY_TIER"
 	elseif tabId == "smcguide" then
 		return "INFO_DRAWER_BODY_SMC"
 	elseif tabId == "currency" then
@@ -964,7 +989,7 @@ local function BuildSMCCityGuidePanel(panel)
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	subtitle:SetPoint("TOPLEFT", panel, "TOPLEFT", 12, -34)
 	subtitle:SetText(ns:L("SMC_GUIDE_SUBTITLE"))
-	subtitle:SetTextColor(0.92, 0.85, 0.68)
+	subtitle:SetTextColor(0.75, 0.78, 0.82)
 	panel._mhSMCSubtitle = subtitle
 
 	-- Host + guide-style chrome + Custom ScrollBar (mirrors `Addons/Guide.lua`):
@@ -1293,7 +1318,7 @@ local function BuildSMCCityGuidePanel(panel)
 				SetSMCWaypoint(point)
 			end)
 			btn:SetScript("OnEnter", function(self)
-				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 				GameTooltip:SetText(point.label, 1, 0.9, 0.6)
 				GameTooltip:AddLine(point.description, 0.9, 0.9, 0.9, true)
 				GameTooltip:AddLine(("Map 2393 • %.2f, %.2f"):format(point.x, point.y), 0.8, 0.8, 0.8, false)
@@ -1349,6 +1374,7 @@ local TAB_DEFS = {
 	{ id = "events", labelKey = "TAB_EVENTS" },
 	{ id = "delvelog", labelKey = "TAB_DELVE_LOG" },
 	{ id = "enchants", labelKey = "TAB_ENCHANTS" },
+	{ id = "tier", labelKey = "TAB_TIER" },
 	-- reference is no longer top-level: it lives in the Codex as a category;
 	-- SelectTab("reference") still works via the alias below.
 	{ id = "smcguide", labelKey = "TAB_SMC" },
@@ -1732,6 +1758,7 @@ function ns:EnsureMainUI()
 				world = "TAB_WORLD",
 				delvelog = "TAB_DELVE_LOG",
 				enchants = "TAB_ENCHANTS",
+				tier = "TAB_TIER",
 				rares = "TAB_RARES",
 				events = "TAB_EVENTS",
 				account = "TAB_ACCOUNT_SNAPSHOT",
@@ -1864,6 +1891,8 @@ function ns:EnsureMainUI()
 				ns.BuildDelveLogPanel(panel)
 			elseif tab.id == "enchants" and ns.BuildGearEnchantPanel then
 				ns.BuildGearEnchantPanel(panel)
+			elseif tab.id == "tier" and ns.BuildTierSetPanel then
+				ns.BuildTierSetPanel(panel)
 			elseif tab.id == "currency" and ns.BuildCurrencyGuidePanel then
 				ns.BuildCurrencyGuidePanel(panel)
 			elseif tab.id == "starthere" and ns.BuildStartHerePanel then
@@ -2182,7 +2211,7 @@ function ns:EnsureMainUI()
 			if not header then
 				header = sidebar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 				header:SetJustifyH("LEFT")
-				header:SetTextColor(0.82, 0.68, 0.30)
+				header:SetTextColor(0.91, 0.76, 0.42)
 				sidebar._mhSectionHeaders[section.key] = header
 			end
 			header:SetText(ns:L(section.titleKey))
@@ -2468,6 +2497,9 @@ SelectTab = function(tabId)
 	end
 	if tabId == "enchants" and ns.RefreshGearEnchantPanel then
 		ns.RefreshGearEnchantPanel()
+	end
+	if tabId == "tier" and ns.RefreshTierSetPanel then
+		ns.RefreshTierSetPanel()
 	end
 	if tabId == "currency" and ns.RefreshCurrencyGuidePanel then
 		ns.RefreshCurrencyGuidePanel()

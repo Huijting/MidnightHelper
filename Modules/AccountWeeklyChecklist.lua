@@ -261,7 +261,7 @@ local function SetLine(line, show, text, r, g, b, onClick, tooltipFn)
 				if not GameTooltip then
 					return
 				end
-				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 				tooltipFn(self)
 				GameTooltip:Show()
 			end)
@@ -276,7 +276,7 @@ local function SetLine(line, show, text, r, g, b, onClick, tooltipFn)
 				if not GameTooltip then
 					return
 				end
-				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 				GameTooltip:SetText(ns:L("ACCOUNT_WEEKLY_CLICK_FILTER"), 1, 0.92, 0.55, 1, true)
 				GameTooltip:Show()
 			end)

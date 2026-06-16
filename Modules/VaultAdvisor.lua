@@ -1045,7 +1045,7 @@ local function ShowVaultChoiceTooltip(owner, c)
 	if not owner or not c or not c.link then
 		return
 	end
-	GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
+	GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
 	if GameTooltip.SetHyperlink then
 		pcall(GameTooltip.SetHyperlink, GameTooltip, c.link)
 	end
@@ -1531,7 +1531,7 @@ local function EnsureAdvisorPanel(parent)
 			if not c or not c.link then
 				return
 			end
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 			if GameTooltip.SetHyperlink then
 				pcall(GameTooltip.SetHyperlink, GameTooltip, c.link)
 			end

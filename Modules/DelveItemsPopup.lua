@@ -1056,7 +1056,7 @@ local function GetPopupSecureForRow(row)
 			if not r or not GameTooltip then
 				return
 			end
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 			GameTooltip:SetHyperlink(GetItemLink(r.itemID))
 			GameTooltip:AddLine(" ")
 			GameTooltip:AddLine(ns:L(r.hintKey), 0.86, 0.86, 0.82, true)

@@ -18,7 +18,7 @@ local EVENT_LINE_H = 16
 local NOW_POOL = 4   -- zelden meer dan 2-3 lopende events
 local SOON_POOL = 10 -- geplande events (24u)
 
-local COLOR_HEADER = { 1, 0.82, 0.0 }
+local COLOR_HEADER = { 0.91, 0.76, 0.42 }
 local COLOR_DIM = { 0.6, 0.62, 0.68 }
 local COLOR_GOLD = { 1, 0.84, 0.18 }
 
@@ -105,7 +105,7 @@ local function MakeEventLine(parent)
 		if not e then
 			return
 		end
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 		GameTooltip:SetText(tostring(e.name or ""), 1, 0.84, 0.18)
 		if e.zoneName then
 			GameTooltip:AddLine(tostring(e.zoneName), 0.7, 0.7, 0.7)

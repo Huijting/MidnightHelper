@@ -48,6 +48,10 @@ local function BodyText()
 		end
 		return link
 	end)
+	-- Bekende vendor-namen klikbaar maken (Maren, Triam, QM's, Cuzoth/Vaskarn, PvP).
+	if ns.LinkifyVendors then
+		text = ns:LinkifyVendors(text)
+	end
 	if ns.SanitizeUIFontText then
 		text = ns.SanitizeUIFontText(text)
 	end
@@ -150,7 +154,7 @@ function ns.BuildCurrencyGuidePanel(panel)
 	body:SetJustifyH("LEFT")
 	body:SetAutoFocus(false)
 	body:EnableMouse(true)
-	body:SetSpacing(4)
+	body:SetSpacing(6)
 	if body.SetMaxLetters then
 		body:SetMaxLetters(0)
 	end

@@ -21,10 +21,10 @@ local SIDE_PAD = 14
 local TOP_PAD = 12
 local BTN_H = 24
 
-local COLOR_HEADER = { 0.82, 0.68, 0.30 }
+local COLOR_HEADER = { 0.91, 0.76, 0.42 }
 local COLOR_DIM = { 0.75, 0.78, 0.82 }
-local COLOR_GOOD = { 0.45, 0.95, 0.5 }
-local COLOR_WARN = { 1, 0.84, 0.18 }
+local COLOR_GOOD = { 0.55, 0.85, 0.55 }
+local COLOR_WARN = { 0.92, 0.74, 0.30 }
 local COLOR_PROG = { 0.45, 0.85, 0.95 }
 local COLOR_SOFT = { 0.9, 0.82, 0.45 }
 local COLOR_ACCENT = { 0.55, 0.78, 1 }
@@ -256,18 +256,18 @@ function ns.RefreshDungeonGuidePanel()
 			local bossName = ns.GetDungeonBossName(b, d, i)
 			local tips = ns.GetDungeonBossTips and ns.GetDungeonBossTips(d.key, b.key)
 			if tips then
-				lines[#lines + 1] = "|cffffd100" .. bossName .. "|r"
+				lines[#lines + 1] = "|cffe8c36a" .. bossName .. "|r"
 				if tips.steps then
 					lines[#lines + 1] = ns:L(tips.steps)
 				end
 				if tips.tank then
-					lines[#lines + 1] = "|cffaecbfa" .. ns:L(tips.tank) .. "|r"
+					lines[#lines + 1] = (_G.INLINE_TANK_ICON or "") .. " " .. ns:L(tips.tank)
 				end
 				if tips.healer then
-					lines[#lines + 1] = "|cffa9e8b8" .. ns:L(tips.healer) .. "|r"
+					lines[#lines + 1] = (_G.INLINE_HEALER_ICON or "") .. " " .. ns:L(tips.healer)
 				end
 				if tips.dps then
-					lines[#lines + 1] = "|cfff2c4a0" .. ns:L(tips.dps) .. "|r"
+					lines[#lines + 1] = (_G.INLINE_DAMAGER_ICON or "") .. " " .. ns:L(tips.dps)
 				end
 				if i < #d.bosses then
 					lines[#lines + 1] = " "

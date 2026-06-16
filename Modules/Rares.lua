@@ -15,6 +15,8 @@ local MAP_TO_ZONE_KEY = {
 	[2576] = "harandar",
 	[2405] = "voidstorm",
 	[2444] = "voidstorm",
+	[2599] = "val", -- Showdown-zone (12.0.7)
+	[2600] = "naigtal", -- Showdown-zone (12.0.7)
 }
 
 -- { questId, mapID, x, y, displayName[, npcId] }
@@ -108,6 +110,43 @@ local ZONES = {
 			{ 93896, 2405, 53.89, 62.79, "Far'thana the Mad" },
 		},
 	},
+	-- Showdown-zones (12.0.7). questId 0 = nog geen bevestigde kill-quest-ID
+	-- (niet datamine-baar; in-game te capturen) → geen weekly-tint, maar route
+	-- + vignette-alert werken via npcID (veld 6) + coords. Roster = Wowhead
+	-- achievement-criteria (Showdown Slugger Val 62881 / Naigtal 62883), agent
+	-- 16 jun; coords uit de officiële Wowhead-gids, roamers ge-in-game-meten.
+	{
+		key = "val",
+		label = "Val",
+		shortLabel = "Val",
+		rares = {
+			{ 0, 2599, 54.0, 67.0, "Sleet-Rune", 261965 },
+			{ 0, 2599, 66.4, 42.0, "Glacial Broodmother", 261716 }, -- roamt
+			{ 0, 2599, 28.0, 73.0, "Xirah", 264864 },
+			{ 0, 2599, 33.0, 42.0, "Opprimius", 264868 },
+			{ 0, 2599, 23.0, 41.0, "The Horror Below", 264870 },
+			{ 0, 2599, 37.0, 76.0, "Atomus", 262421 },
+			{ 0, 2599, 49.7, 79.9, "Mercilus", 264865 },
+			{ 0, 2599, 45.9, 44.6, "Krilkan", 264866 }, -- roamt
+			{ 0, 2599, 33.0, 57.0, "Nelgothar", 264869 }, -- Forgotten Depths
+			{ 0, 2599, 44.0, 66.0, "Shadowguard Destroyer", 265269 }, -- Blackstar-patrouille, roamt
+		},
+	},
+	{
+		key = "naigtal",
+		label = "Naigtal",
+		shortLabel = "Naigtal",
+		rares = {
+			{ 0, 2600, 38.0, 63.0, "Interminable Uarn", 263947 },
+			{ 0, 2600, 77.0, 38.0, "Swalewing Matriarch", 263954 },
+			{ 0, 2600, 29.0, 63.0, "Auredar's Chassis", 264569 },
+			{ 0, 2600, 53.0, 50.0, "Indomitable Mk XII", 264571 },
+			{ 0, 2600, 45.0, 52.0, "Broxion", 263950 },
+			{ 0, 2600, 65.0, 60.0, "Lomelith", 263955 },
+			{ 0, 2600, 70.0, 76.0, "Warp Agent Xi'grivr", 264574 },
+			{ 0, 2600, 57.0, 63.0, "Slaipaan", 264576 },
+		},
+	},
 }
 
 local ZONE_BY_KEY = {}
@@ -119,6 +158,148 @@ end
 for mapID, zoneKey in pairs(MAP_TO_ZONE_KEY) do
 	local list = ZONE_MAP_IDS[zoneKey]
 	list[#list + 1] = mapID
+end
+
+--------------------------------------------------------------------------------
+-- Rare-doodshoofd (Rob-wens 16 jun): zet een Skull-raidmarker op een bekende
+-- rare zodra z'n nameplate verschijnt → meteen herkenbaar tussen de mobs.
+-- Wereld-only, alleen als 't nog niet gemarkeerd is, opt-out via ns.db.rareSkull.
+-- SetRaidTarget is niet protected (werkt solo/in combat; in groep alleen met
+-- assist → pcall vangt de stille fail). Set groeit mee met geleerde npcID's.
+--------------------------------------------------------------------------------
+local RARE_NPC_SET
+-- npcID's die je actief jaagt (toast-klik/route) → krijgen ook een skull, ook
+-- als we hun npcID nog niet statisch kenden.
+local PENDING_SKULL = {}
+
+local function BuildRareNpcSet()
+	RARE_NPC_SET = {}
+	for _, zone in ipairs(ZONES) do
+		for _, rare in ipairs(zone.rares or {}) do
+			local n = tonumber(rare[6])
+			if n then
+				RARE_NPC_SET[n] = true
+			end
+		end
+	end
+	if ns.db and type(ns.db.rareNpcIds) == "table" then
+		for _, n in pairs(ns.db.rareNpcIds) do
+			n = tonumber(n)
+			if n then
+				RARE_NPC_SET[n] = true
+			end
+		end
+	end
+end
+
+local function NpcIdFromGUID(guid)
+	if type(guid) ~= "string" then
+		return nil
+	end
+	return tonumber((select(6, strsplit("-", guid))))
+end
+
+-- SetRaidTarget is PROTECTED (ADDON_ACTION_FORBIDDEN) → we tekenen onze eigen
+-- skull-texture op de nameplate (taint-veilig, à la RareScanner).
+local SKULL_TEX = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8"
+
+local function IsRareUnit(unit)
+	if not unit then
+		return false
+	end
+	if not RARE_NPC_SET then
+		BuildRareNpcSet()
+	end
+	local npcId = NpcIdFromGUID(UnitGUID and UnitGUID(unit))
+	return (npcId and (RARE_NPC_SET[npcId] or PENDING_SKULL[npcId])) and true or false
+end
+
+local function ShowSkullOnNameplate(np, show)
+	if not np then
+		return
+	end
+	local t = np._mhRareSkull
+	if show then
+		if not t then
+			t = np:CreateTexture(nil, "OVERLAY")
+			t:SetTexture(SKULL_TEX)
+			t:SetSize(26, 26)
+			t:SetPoint("BOTTOM", np, "TOP", 0, 2)
+			np._mhRareSkull = t
+		end
+		t:Show()
+	elseif t then
+		t:Hide()
+	end
+end
+
+-- Toon/verberg de skull op de nameplate van deze unit (NAME_PLATE_UNIT_ADDED;
+-- nameplates worden hergebruikt, dus altijd herevalueren).
+local function RefreshNameplateSkull(unit)
+	if not unit or (ns.db and ns.db.rareSkull == false) then
+		return
+	end
+	if (IsInInstance and IsInInstance()) or not (C_NamePlate and C_NamePlate.GetNamePlateForUnit) then
+		return
+	end
+	local np = C_NamePlate.GetNamePlateForUnit(unit)
+	if np then
+		ShowSkullOnNameplate(np, IsRareUnit(unit))
+	end
+end
+
+local function HideNameplateSkull(unit)
+	if not (unit and C_NamePlate and C_NamePlate.GetNamePlateForUnit) then
+		return
+	end
+	local np = C_NamePlate.GetNamePlateForUnit(unit)
+	if np and np._mhRareSkull then
+		np._mhRareSkull:Hide()
+	end
+end
+
+-- Direct skullen als de rare al op het scherm staat (bijv. meteen na toast-klik).
+local function MarkVisibleRareByNpc(npcId)
+	if not (npcId and C_NamePlate and C_NamePlate.GetNamePlates) then
+		return
+	end
+	if (ns.db and ns.db.rareSkull == false) or (IsInInstance and IsInInstance()) then
+		return
+	end
+	local plates = C_NamePlate.GetNamePlates()
+	if type(plates) ~= "table" then
+		return
+	end
+	for _, np in ipairs(plates) do
+		local unit = np and (np.namePlateUnitToken or (np.UnitFrame and np.UnitFrame.unit))
+		if unit and NpcIdFromGUID(UnitGUID and UnitGUID(unit)) == npcId then
+			ShowSkullOnNameplate(np, true)
+		end
+	end
+end
+
+-- Markeer een gejaagde rare (toast-klik/route): onthoud z'n npcID én skull 'm
+-- meteen als 'ie al zichtbaar is.
+function ns.MH_FlagRareForSkull(npcId)
+	npcId = tonumber(npcId)
+	if not npcId then
+		return
+	end
+	PENDING_SKULL[npcId] = true
+	MarkVisibleRareByNpc(npcId)
+end
+
+do
+	local marker = CreateFrame("Frame")
+	marker:RegisterEvent("NAME_PLATE_UNIT_ADDED")
+	marker:RegisterEvent("NAME_PLATE_UNIT_REMOVED")
+	marker:SetScript("OnEvent", function(_, ev, unit)
+		if ev == "NAME_PLATE_UNIT_ADDED" then
+			RefreshNameplateSkull(unit)
+		else
+			HideNameplateSkull(unit)
+		end
+	end)
 end
 
 local ZONE_RAIL_W = 148
@@ -206,6 +387,22 @@ local function KnownRareNpc(rare)
 	end
 	local m = ns.db and ns.db.rareNpcIds
 	return m and m[rare[1]] or nil
+end
+
+-- Unieke sleutel per rare voor up/found-tracking. Normaal de kill-quest-ID
+-- (veld 1); voor rares zonder bevestigde kill-quest (questId 0, bijv. de
+-- Showdown-rares van Val/Naigtal) valt 'ie terug op het npcID (veld 6) zodat
+-- ze niet allemaal op sleutel "0" botsen.
+local function RareKey(rare)
+	local q = tonumber(rare and rare[1])
+	if q and q ~= 0 then
+		return tostring(q)
+	end
+	local n = tonumber(rare and rare[6])
+	if n then
+		return "npc:" .. n
+	end
+	return tostring(rare and rare[1])
 end
 
 local function GetCurrentZoneKey()
@@ -530,7 +727,7 @@ local function MarkRareRouted(rare, replace)
 		s.ids = {}
 	end
 	s.anchor = anchor
-	s.ids[tostring(rare[1])] = true
+	s.ids[RareKey(rare)] = true
 end
 
 local function IsRareRouted(rare)
@@ -538,7 +735,7 @@ local function IsRareRouted(rare)
 	if not s or type(s.ids) ~= "table" or s.anchor ~= RareRouteAnchor() then
 		return false
 	end
-	return s.ids[tostring(rare[1])] == true
+	return s.ids[RareKey(rare)] == true
 end
 
 -- Hunt is actief zolang minstens één geroutete rare nog niet gedaan is —
@@ -563,6 +760,12 @@ local function RouteRare(rare, clearOthers)
 	-- clearOthers=true is een nieuwe route → vervang de set; toast-klik
 	-- (false) voegt de rare toe aan de lopende hunt.
 	MarkRareRouted(rare, clearOthers)
+	-- Gejaagde rare → skull (nu als 'ie al zichtbaar is, anders zodra z'n
+	-- nameplate verschijnt). KnownRareNpc = veld 6 of geleerd npcID.
+	local rnpc = KnownRareNpc(rare)
+	if rnpc and ns.MH_FlagRareForSkull then
+		ns.MH_FlagRareForSkull(rnpc)
+	end
 	if clearOthers and ns.IsTomTomReady and ns.IsTomTomReady() then
 		pcall(function()
 			_G.TomTom:ClearAllWaypoints()
@@ -730,7 +933,7 @@ local function RefreshVignetteUpCache(zone)
 				end
 			end
 		end
-		vignetteUpLookup[zone.key .. ":" .. tostring(rare[1])] = up
+		vignetteUpLookup[zone.key .. ":" .. RareKey(rare)] = up
 	end
 end
 
@@ -738,7 +941,7 @@ local function IsRareVignetteUp(rare, zoneKey)
 	if not rare or not zoneKey then
 		return false
 	end
-	return vignetteUpLookup[zoneKey .. ":" .. tostring(rare[1])] == true
+	return vignetteUpLookup[zoneKey .. ":" .. RareKey(rare)] == true
 end
 
 local function FormatRareRowLabel(rare, zoneKey)
@@ -843,7 +1046,7 @@ local function AttachRareRowTooltip(btn)
 		if not r then
 			return
 		end
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(GetRareDisplayName(r), 1, 0.9, 0.55)
 		if IsRareDoneThisWeek(r[1]) then
@@ -1260,7 +1463,7 @@ local function FireRareAlert(rare, npcId, onRoute)
 	local name = GetRareDisplayName(rare)
 	if ns.QueueMidnightToast then
 		local spec = {
-			id = "rare:" .. tostring(rare[1]),
+			id = "rare:" .. RareKey(rare),
 			title = name,
 			body = ns:L(onRoute and "RARE_ALERT_TOAST_ONROUTE_BODY" or "RARE_ALERT_TOAST_BODY"),
 			icon = RARE_ALERT_ICON,
@@ -1273,6 +1476,11 @@ local function FireRareAlert(rare, npcId, onRoute)
 			-- clearOthers=false: add this rare as an extra waypoint (arrow points
 			-- to it) without wiping a route the player may already be following.
 			spec.onClick = function()
+				-- Skull de gejaagde rare (live npcID = betrouwbaarst); RouteRare
+				-- vlagt 'm ook nog via KnownRareNpc als vangnet.
+				if (npcId or KnownRareNpc(rare)) and ns.MH_FlagRareForSkull then
+					ns.MH_FlagRareForSkull(npcId or KnownRareNpc(rare))
+				end
 				RouteRare(rare, false)
 			end
 		end

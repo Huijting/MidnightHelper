@@ -13,7 +13,7 @@ local SIDE_PAD = 14
 local TOP_PAD = 12
 local BTN_H = 26
 
-local COLOR_HEADER = { 0.82, 0.68, 0.30 }
+local COLOR_HEADER = { 0.91, 0.76, 0.42 }
 local COLOR_DIM = { 0.75, 0.78, 0.82 }
 local COLOR_GOOD = { 0.45, 0.95, 0.5 }
 local COLOR_SOFT = { 0.9, 0.82, 0.45 }

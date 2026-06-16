@@ -422,7 +422,7 @@ local function BuildRoleRows(host, isPopup)
 				if not itemID or not GameTooltip then
 					return
 				end
-				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 				local link = ns.GetDelveCurioItemLink and ns.GetDelveCurioItemLink(itemID)
 				if link then
 					GameTooltip:SetHyperlink(link)
@@ -586,7 +586,7 @@ local function BuildPopupBody(host)
 			if not itemID or not GameTooltip then
 				return
 			end
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 			local link = ns.GetDelveCurioItemLink and ns.GetDelveCurioItemLink(itemID)
 			if link then
 				GameTooltip:SetHyperlink(link)

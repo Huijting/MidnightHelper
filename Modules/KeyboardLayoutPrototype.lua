@@ -357,7 +357,7 @@ local function ProtoAttachTooltip(btn, text)
 		if not gt or not self then
 			return
 		end
-		gt:SetOwner(self, "ANCHOR_RIGHT")
+		gt:SetOwner(self, "ANCHOR_CURSOR")
 		gt:SetText(text, nil, nil, nil, nil, true)
 		gt:Show()
 	end)

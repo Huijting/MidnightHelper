@@ -1279,7 +1279,7 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 
 	local zoneName = GetZoneDisplayName(item.mapID)
 	row:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(item.name, 1, 1, 1)
 		GameTooltip:AddLine("Zone: " .. zoneName, 1, 1, 1)
@@ -1480,7 +1480,7 @@ local function PaintDelvesPanel(fullRefresh)
 				f.text:SetJustifyH("LEFT")
 
 				f:SetScript("OnEnter", function(self)
-					GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+					GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 					GameTooltip:ClearLines()
 					LoadWeeklyRewardsUI()
 					local aid = self.activityID

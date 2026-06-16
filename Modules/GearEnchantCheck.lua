@@ -193,7 +193,7 @@ local function BuildReportLines(map)
 	local lines = {}
 	local stat = TopStat()
 	local statLabel = stat and ns:L("ENCHANT_STAT_" .. string.upper(stat)) or "?"
-	lines[#lines + 1] = "|cffffd100" .. ns:L("ENCHANT_HEADER_FMT"):format(statLabel) .. "|r"
+	lines[#lines + 1] = "|cffe8c36a" .. ns:L("ENCHANT_HEADER_FMT"):format(statLabel) .. "|r"
 	for _, s in ipairs(SLOTS) do
 		local hasItem, enchanted = SlotState(s.id)
 		if hasItem then
@@ -204,11 +204,11 @@ local function BuildReportLines(map)
 				local rec = LinkOf(map, SHOULDER_OPT)
 				lines[#lines + 1] = ("|cffc8b88a%s — %s %s|r"):format(label, ns:L("ENCHANT_SHOULDER_OPT"), rec)
 			elseif enchanted then
-				lines[#lines + 1] = ("|cff73d873%s — %s|r"):format(label, ns:L("ENCHANT_OK"))
+				lines[#lines + 1] = ("|cff8cd98c%s — %s|r"):format(label, ns:L("ENCHANT_OK"))
 			else
 				local rec = Recommend(s.id, stat, map)
 				local tail = rec and ("  " .. ns:L("ENCHANT_RECOMMEND") .. " " .. rec) or ""
-				lines[#lines + 1] = ("|cffff5555%s — %s|r%s"):format(label, ns:L("ENCHANT_MISSING"), tail)
+				lines[#lines + 1] = ("|cffe66b6b%s — %s|r%s"):format(label, ns:L("ENCHANT_MISSING"), tail)
 			end
 		end
 	end
@@ -290,7 +290,7 @@ function ns.BuildGearEnchantPanel(panel)
 	body:SetJustifyH("LEFT")
 	body:SetAutoFocus(false)
 	body:EnableMouse(true)
-	body:SetSpacing(4)
+	body:SetSpacing(6)
 	if body.SetMaxLetters then
 		body:SetMaxLetters(0)
 	end
@@ -321,9 +321,20 @@ function ns.BuildGearEnchantPanel(panel)
 	local ev = CreateFrame("Frame")
 	ev:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 	ev:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
-	ev:SetScript("OnEvent", function()
+	-- Een enchant op een al-gedragen stuk wisselt het item niet, dus
+	-- PLAYER_EQUIPMENT_CHANGED vuurt niet — UNIT_INVENTORY_CHANGED (speler) wél.
+	ev:RegisterEvent("UNIT_INVENTORY_CHANGED")
+	ev:SetScript("OnEvent", function(_, event, unit)
+		if event == "UNIT_INVENTORY_CHANGED" and unit and unit ~= "player" then
+			return
+		end
 		if ui and ui.panel and ui.panel:IsShown() then
-			ns.RefreshGearEnchantPanel()
+			-- Korte vertraging: de item-link toont de nieuwe enchantID soms pas een frame later.
+			if C_Timer and C_Timer.After then
+				C_Timer.After(0.1, ns.RefreshGearEnchantPanel)
+			else
+				ns.RefreshGearEnchantPanel()
+			end
 		end
 	end)
 

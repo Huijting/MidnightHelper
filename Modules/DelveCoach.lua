@@ -1035,7 +1035,7 @@ local function EnsureCoachFrame()
 	end)
 	if GameTooltip then
 		modelHost:SetScript("OnEnter", function()
-			GameTooltip:SetOwner(modelHost, "ANCHOR_RIGHT")
+			GameTooltip:SetOwner(modelHost, "ANCHOR_CURSOR")
 			GameTooltip:SetText(ns:L("DELVE_COACH_BOSS_ZOOM_HINT"), 1, 1, 1, 1, true)
 			GameTooltip:Show()
 		end)

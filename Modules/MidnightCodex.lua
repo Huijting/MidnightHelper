@@ -15,7 +15,7 @@ local CAT_GAP = 4
 local ARTICLE_GAP = 14
 local LINE_H = 15
 
-local COLOR_HEADER = { 0.82, 0.68, 0.30 }
+local COLOR_HEADER = { 0.91, 0.76, 0.42 }
 local COLOR_DIM = { 0.72, 0.75, 0.82 }
 local COLOR_LINK = { 0.55, 0.78, 1 }
 local COLOR_BODY = { 0.88, 0.86, 0.82 }
@@ -140,7 +140,7 @@ local function AttachCurrencyTooltip(frame, currencyId)
 	frame:SetScript("OnEnter", function(self)
 		local id = self._mhCurrencyId
 		if id and GameTooltip then
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 			if GameTooltip.SetCurrencyByID then
 				pcall(GameTooltip.SetCurrencyByID, GameTooltip, id, 0)
 			elseif GameTooltip.SetCurrencyToken then

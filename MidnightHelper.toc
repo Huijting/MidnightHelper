@@ -1,5 +1,5 @@
 ## Interface: 120005, 120007
-## Version: 1.8.0
+## Version: 1.8.1
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.
@@ -62,6 +62,8 @@ Modules\VaultAdvisorData.lua
 Modules\VaultAdvisor.lua
 Modules\GearEnchantCheck.lua
 Modules\CurrencyGuide.lua
+Modules\TierSetData.lua
+Modules\TierSet.lua
 Modules\MidnightToast.lua
 Modules\Broker.lua
 Modules\DelveItemBrokers.lua

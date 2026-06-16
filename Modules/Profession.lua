@@ -729,7 +729,7 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 			if not rd then
 				return
 			end
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 			GameTooltip:ClearLines()
 			local rowTitle = rd[5] or "Treasure"
 			GameTooltip:AddLine(rowTitle, 1, 0.82, 0, true)

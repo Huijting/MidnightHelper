@@ -1251,7 +1251,7 @@ function ns:_mhAltOverviewRefreshRows()
 				if not GameTooltip then
 					return
 				end
-				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 				if canDelete then
 					GameTooltip:SetText(ns:L("ALT_OVERVIEW_DELETE_HINT"), 1, 0.85, 0.6, 1, true)
 				else
@@ -1383,7 +1383,7 @@ function ns:_mhAltOverviewRefreshRows()
 			if not GameTooltip then
 				return
 			end
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 			GameTooltip:ClearLines()
 			if (tonumber(self.vaultTip.level) or 0) > 0 then
 				GameTooltip:AddLine(

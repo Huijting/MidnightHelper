@@ -587,7 +587,7 @@ function ns.BuildRitualPanel(panel)
 	infoHeader:SetPoint("TOPLEFT", note, "BOTTOMLEFT", 0, -GAP - 4)
 	infoHeader:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	infoHeader:SetJustifyH("LEFT")
-	infoHeader:SetTextColor(0.82, 0.68, 0.30)
+	infoHeader:SetTextColor(0.91, 0.76, 0.42)
 	infoHeader:SetText(ns:L("RITUAL_INFO_HEADER"))
 
 	local accoladesFs = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")

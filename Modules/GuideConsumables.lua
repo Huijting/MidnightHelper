@@ -105,7 +105,7 @@ local function ShowConsumableItemTooltip(owner, itemID, noteText)
 	if not gt or not gt.SetOwner then
 		return
 	end
-	gt:SetOwner(owner, "ANCHOR_RIGHT")
+	gt:SetOwner(owner, "ANCHOR_CURSOR")
 	gt:ClearLines()
 	local ok = pcall(function()
 		if gt.SetItemByID then

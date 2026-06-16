@@ -30,7 +30,7 @@ local MAX_RECENT = 20
 -- so this guard stops a stale cross-session run from logging an absurd duration.
 local MAX_RESUME_AGE = 6 * 3600
 
-local COLOR_HEADER = { 0.82, 0.68, 0.30 }
+local COLOR_HEADER = { 0.91, 0.76, 0.42 }
 local COLOR_DIM = { 0.75, 0.78, 0.82 }
 
 -- Inline colour escapes for the densely formatted stat / run lines.

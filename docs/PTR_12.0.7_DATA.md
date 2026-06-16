@@ -112,7 +112,12 @@ Sta in de zone en run:
 print per actief event naam · zone · **uiMapID** rechtstreeks, dus zodra Val
 in de event-rotatie zit komt z'n uiMapID er vanzelf uit.
 - ✅ **Naigtal = uiMapID 2600** (gemeten in Umbral Base Camp, PTR 6 juni 2026)
-- ⬜ Val = ? (volgende rotatie, of check of het vaste Silvermoon-portaal een keuze biedt)
+- ✅ **Val = uiMapID 2599** (PTR-verified 16 juni 2026, Rob stond in Val; kaart-pad EK >
+  Quel'Thalas > Voidstorm > Val). Naast Naigtal 2600. → `ShowdownsData.lua` val.uiMapID = 2599.
+- ℹ️ **Showdown-intro = Voidstorm Screaming Ridge** (`portalVoidstorm` 2405, 51.42/71.30): de
+  beacon in Silvermoon ("Lightforged Beacon") is inactief tot je daar de expeditie-questlijn doet.
+  De SMC "Riftblade Maella" op 27.48/76.51 = **Decor Duels-NPC** (housing), NIET de Showdown-intro
+  — zelfde naam, andere NPC (Rob, PTR 16 juni). `introNpc` in ShowdownsData hierop gecorrigeerd.
 - ℹ️ **Live zone-uiMapIDs geverifieerd via `/mh eventspy` (13 jun, 12.0.5):**
   Voidstorm = **2405** (bevestigt de Zygor-waarde), **Harandar = 2413**
   (= Legends of the Haranir; matcht ook Brokers Void-Incursion-zone),
@@ -130,7 +135,10 @@ Pak de weekly aan en run:
 Zoek de Showdown-regels in de chat.
 - ✅ **"Showdown on Naigtal" = quest 96717** (PTR, 6 juni 2026)
 - ✅ Zijquest "Surveying the Mana-Bog" = quest 96054 (Naigtal)
-- 🌐 **"Showdown on Val" (Normal) = quest 96716** (web-datamined Wowhead PTR — in-game bevestigen; Naigtal = 96717 ✅). Heroic-variant **96714**; thinner varianten 96713/96712.
+- ✅ **"Showdown on Val" = quest 96713** — IN-GAME BEVESTIGD 16 juni 2026 (Rob accepteerde 'm bij
+  de Val-Outpost-Maella; questlog toonde "96713 Showdown on Val"). ⚠️ Web-datamine zei 96716 (en
+  noemde 96713 een "thinner variant") → **in-game wint: 96713**. `ShowdownsData.lua` val.weekly = 96713.
+  Heroic-variant nog open. Ook bevestigd: "The Nexus-Captain" = 96472 ✅.
 - 🌐 Heroic Naigtal = **96718**, variant 96720 (web-datamined).
 - ⚠️ **"Disruptions Continue" / "Dangerous Enemies"**: agent-research (14 jun) vond GEEN aparte quest-IDs hiervoor op Wowhead — waarschijnlijk gids-terminologie; de weekly "Showdown on Val/Naigtal" (96716/96717) bundelt WQ's+rares+events in één quest. In-game checken of het keuzedialoog echt aparte quests geeft.
 
@@ -148,6 +156,34 @@ Zoek de Showdown-regels in de chat.
   Showdown Slugger: Val = 6 rares (ach 62881). Meeste Val-rares spawnen in
   **Glacial Reservoir**; Blackstar Legion-elites patrouilleren de wastes.
   Volledige Val-rarelijst nog niet gevonden.
+- ✅ **Val IN-GAME (Rob, 16 juni 2026):** rare **Krilkan = npc 264866** (Val 2599, ~45.9/44.6,
+  ROAMT → coords benaderend). Zijquest **"Surveying the Frozen Wastes" = 96053** (tegenhanger van
+  Naigtal 96054 → `ShowdownsData.valSideQuests`). Val-weekly %-objectief = "Domanaar Operations
+  Disrupted" (96713). Sub-zone **Forgotten Depths / "Lower Depths"** (portaal binnen Val) — uiMapID
+  niet gemeten; niet nodig (rares/WQ's draaien op 2599).
+- ✅ **Glacial Broodmother** (web npc 261716) in-game gezien op Val 2599 **~66.4/42.0** (NO van
+  Glacial Reservoir, bij Frost Chitter Grotto). Volledige Val+Naigtal-rarelijst wordt van Wowhead
+  getrokken (agent 16 jun) i.p.v. handmatig jagen — in-game vooral nuttig voor coords + kill-quests.
+
+#### ✅ COMPLETE RARE-ROSTERS (Wowhead achievement-criteria, agent 16 juni — voor Rares.lua)
+
+Bron: Showdown Slugger Val **62881** (10 criteria) / Naigtal **62883** (8 criteria) = de volledige
+pool (de "defeat 6" is gewoon 6-van-de-lijst). Coords = `/way`-waypoints uit de officiële
+Wowhead-gids (CONFIRMED). ⚠️ **Per-rare kill-credit-quest-IDs: ALLE UNCONFIRMED** (JS-rendered,
+niet te scrapen) → in-game capturen óf Rares.lua op vignette/npcID laten werken zonder kill-quest.
+
+**VAL (uiMapID 2599):** Sleet-Rune 261965 (54,67) · Glacial Broodmother 261716 (in-game ~66.4/42.0,
+roamt) · Xirah 264864 (28,73) · Opprimius 264868 (33,42) · The Horror Below 264870 (23,41) · Atomus
+262421 (37,76) · Mercilus 264865 (49,78) · Krilkan 264866 (in-game ~45.9/44.6, roamt) · Nelgothar
+264869 (33,57 — Forgotten Depths, via portaal 42,71) · Shadowguard Destroyer 265269 (Blackstar-
+patrouille, roamt 39,39↔49,93). **World boss: Imperator Pertinax 261072** @ 49,90 Void Acropolis
+Interior (portaal 49,97) — GEEN rare. (Lost de npc-discrepantie op: 261072, niet 263670.)
+
+**NAIGTAL (uiMapID 2600):** Interminable Uarn 263947 (38,63) · Swalewing Matriarch 263954 (77,38) ·
+Auredar's Chassis 264569 (29,63; criteria-naam "Auredar") · Indomitable Mk XII 264571 (53,50) ·
+Broxion 263950 (45,52) · Lomelith 263955 (65,60) · Warp Agent Xi'grivr 264574 (70,76) · Slaipaan
+264576 (57,63). ⚠️ **Niet in de achievement** (extra's, met caveat): Warbringer Thal'kuur 267422
+(29,18) en Voidwarped Sporebat 265698 — niet als Showdown-rare hardcoden zonder check.
 Target de rare en run:
 ```
 /run local g=UnitGUID("target") print(g and select(6,strsplit("-",g)), UnitName("target"))

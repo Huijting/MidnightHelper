@@ -15,6 +15,9 @@ ns.DAWNCREST_TIERS = {
 	},
 	{
 		key = "veteran",
+		-- PTR 16 jun bevestigd: 3341 = "Veteran Dawncrest" (volledige beschrijving,
+		-- useTotalEarnedForMaxQty=true) = primary; 3342 heet óók "Veteran Dawncrest"
+		-- maar is een duplicaat. GetTierCurrencyQty neemt het MAX van beide → veilig.
 		currencyId = 3341,
 		alternateCurrencyIds = { 3342 },
 		labelKey = "DAWNCREST_TIER_VETERAN",

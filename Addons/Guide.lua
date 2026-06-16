@@ -59,7 +59,7 @@ local function ShowSpellTooltipForIcon(owner, spellID)
 	if not gt or not gt.SetOwner then
 		return
 	end
-	gt:SetOwner(owner, "ANCHOR_RIGHT", 4, 0)
+	gt:SetOwner(owner, "ANCHOR_CURSOR", 4, 0)
 	gt:ClearLines()
 	local ok, err = pcall(function()
 		if gt.SetSpellByID then
@@ -80,7 +80,7 @@ local function ShowGuideStatsGlossaryTooltip(owner)
 	if not owner or not gt or not gt.SetOwner then
 		return
 	end
-	gt:SetOwner(owner, "ANCHOR_RIGHT", 4, 0)
+	gt:SetOwner(owner, "ANCHOR_CURSOR", 4, 0)
 	gt:ClearLines()
 	gt:AddLine(ns:L("GUIDE_STATS_GLOSSARY_TITLE"), 1, 0.82, 0, true)
 	gt:AddLine(" ")
@@ -252,7 +252,7 @@ local function ShowItemTooltipForConsumable(owner, itemID)
 	if not gt or not gt.SetOwner then
 		return
 	end
-	gt:SetOwner(owner, "ANCHOR_RIGHT")
+	gt:SetOwner(owner, "ANCHOR_CURSOR")
 	gt:ClearLines()
 	local ok, err = pcall(function()
 		if gt.SetItemByID then

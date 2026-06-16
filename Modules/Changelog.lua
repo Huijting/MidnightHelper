@@ -4,6 +4,38 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "1.8.0",
+		lines = {
+			"CHANGELOG_180_1",
+			"CHANGELOG_180_2",
+			"CHANGELOG_180_3",
+			"CHANGELOG_180_4",
+			"CHANGELOG_180_5",
+		},
+	},
+	{
+		version = "1.7.1",
+		lines = {
+			"CHANGELOG_171_1",
+		},
+	},
+	{
+		version = "1.7.0",
+		lines = {
+			"CHANGELOG_170_1",
+			"CHANGELOG_170_2",
+			"CHANGELOG_170_3",
+		},
+	},
+	{
+		version = "1.6.0",
+		lines = {
+			"CHANGELOG_160_1",
+			"CHANGELOG_160_2",
+			"CHANGELOG_160_3",
+		},
+	},
+	{
 		version = "1.5.5",
 		lines = {
 			"CHANGELOG_155_1",
@@ -362,10 +394,26 @@ function ns:ShowChangelogWindow(force)
 	f:Show()
 end
 
+-- Dev-zelfcheck: waarschuw als de addon-versie nieuwer is dan het bovenste
+-- changelog-blok (= changelog vergeten bij te werken bij een release). STIL voor
+-- spelers; zet `MidnightHelperDB.changelogDevCheck = true` op een dev-install om
+-- 'm te zien. Zo wordt een stale changelog (zoals 1.8.0 t/m 1.5.5) meteen gevangen.
+local function DevChangelogStaleCheck()
+	if not (MidnightHelperDB and MidnightHelperDB.changelogDevCheck) then
+		return
+	end
+	local v = GetAddonVersion()
+	local top = CHANGELOG_ENTRIES[1] and CHANGELOG_ENTRIES[1].version
+	if top and v and v ~= "0.0.0" and top ~= v then
+		print(("|cffff5555[MidnightHelper] Changelog achterloopt: addon %s, nieuwste regel %s — werk Modules/Changelog.lua + CHANGELOG_<ver>_* keys bij.|r"):format(tostring(v), tostring(top)))
+	end
+end
+
 local boot = CreateFrame("Frame")
 boot:RegisterEvent("PLAYER_ENTERING_WORLD")
 boot:SetScript("OnEvent", function(self)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	DevChangelogStaleCheck()
 	if ns and ns.ShowChangelogWindow then
 		ns:ShowChangelogWindow(false)
 	end

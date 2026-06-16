@@ -122,7 +122,7 @@ local function ShowCrestCurrencyTooltip(owner, currencyId)
 	if not id or not GameTooltip then
 		return
 	end
-	GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
+	GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
 	if GameTooltip.SetCurrencyByID then
 		GameTooltip:SetCurrencyByID(id)
 	else

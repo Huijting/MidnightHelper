@@ -12,7 +12,160 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
   uit git HEAD hersteld). Host-tools (Read/Edit/Write) zijn betrouwbaar; de
   mount alleen voor read-only checks, en ook dan eof-errors wantrouwen.
 - Geen CurseForge-release zonder expliciete vraag van Rob.
+- **In-game changelog meeschrijven (vaste regel, 16 jun):** elke feature-batch werkt
+  `Modules/Changelog.lua` (`CHANGELOG_ENTRIES`) + `CHANGELOG_<ver>_*`-keys in enUS+nlNL in
+  DEZELFDE commit bij. 1.8.0 stond t/m 1.5.5 stale → nu gevangen door de dev-zelfcheck
+  (`MidnightHelperDB.changelogDevCheck=true` waarschuwt bij login). Zie `docs/RELEASE_CHECKLIST.md`.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
+
+## Voor Cursor — review + commit batch 16 juni #2 (UX Tier-1a: visuele rust) → 1.8.1
+
+**STATUS: ⏳ KLAAR VOOR COMMIT** (eerste increment van een gefaseerde UX-refresh; Rob koos de
+volle scope maar wil per fase kunnen reviewen/terugrollen). Voorgesteld bericht:
+
+> style(ui): Tier-1a visuele rust — gedeeld palet, rustige links, rol-iconen i.p.v. kleur-regenboog
+
+Aanleiding: 3 review-agenten (IA + visueel + consistentie) — addon voelt "te druk": te veel tabs,
+~13 concurrerende kleuren, een paar oude panelen met afwijkende chrome. Volledige synthese +
+3-tier-plan in dit gesprek. Dit is Tier-1a (laag risico, alleen kleuren/witruimte):
+- **`UI.lua`**: nieuw gedeeld palet `ns.UI_COLORS` (1 goud E8C36A, 1 dim-grijs, body, footer,
+  status good/warn/bad, link-blauw) — RGB + *_HEX. Panelen gaan hier stap voor stap uit lezen.
+- **`DelveTipMarkup.lua`**: rustiger link-tinten — item `1eff00`→`9ccf8a`, currency `ffd200`→`e8c36a`
+  (spell blijft `71d5ff`). Haalt de neon weg.
+- **`DungeonGuide.lua`**: de tank/healer/dps-**kleur-regenboog** vervangen door **rol-ICONEN**
+  (`INLINE_TANK/HEALER/DAMAGER_ICON`) + neutrale tekst; boss-naam naar palet-goud. = de grootste
+  rustgever (en duidelijker voor beginners).
+- **Spacing** `SetSpacing(4)`→`6` in CurrencyGuide/TierSet/GearEnchant; gold-headers in TierSet/
+  GearEnchant-code naar `e8c36a`.
+
+host-Read bevestigt alle edits gebalanceerd; lupa OK voor DelveTipMarkup/GearEnchant/CurrencyGuide
+(DungeonGuide/TierSet gaven weer de mount-truncatie-"near <eof>"-valspositieven — host is leidend).
+
+**Toevoeging (Rob 16 jun): klikbare vendor-namen → TomTom-waypoint, addon-breed.**
+`DelveTipMarkup.lua`: centrale `ns.VENDOR_WAYPOINTS` (naam → uiMapID/x/y: Maren/Triam/Cuzoth/
+Vaskarn/4 QM's/4 PvP-vendors), `ns:SetMapWaypoint`, `ns:GetWayLinkMarkup`, `ns:LinkifyVendors`
+(wikkelt bekende namen in een `|Hmhway:..|h`-link, magic-chars geëscaped), plus een `{WAY:mapID:x:y:Label}`-
+token. `ExpandDelveTipMarkup` draait nu auto-linkify; de EditBox-handler vangt `mhway:` → waypoint
+(hover toont naam + "Klik = waypoint"). `CurrencyGuide.BodyText` roept `LinkifyVendors` aan → de
+namen in de Valuta-tab zijn nu klikbaar. **Herbruikbaar:** elke tekst via de markup linkt deze namen
+vanzelf. (De QM-knoppenrij onderaan Currencies is nu strikt genomen overbodig — kan later weg.)
+
+**✅ Tier 1 afgerond (16 jun, Rob: "leef je uit").** Bovenop de eerste increment:
+- **Goud-unificatie:** `|cffffd100`→`|cffe8c36a` in alle 6 locales (replace_all); panel-header-
+  constants `{0.82,0.68,0.30}`/`{1,0.82,0.0}`→`{0.91,0.76,0.42}` in DungeonGuide/HomeDashboard/
+  DelveHistory/MidnightCodex/StartHere/EventsPanel + UI.lua sidebar-header + RitualSites infoHeader.
+- **Subtitel:** SMC warm-grijs `{0.92,0.85,0.68}`→koel `{0.75,0.78,0.82}` (= de nieuwe-panelen-stijl).
+- **Status ontzadigd:** DungeonGuide GOOD/WARN naar palet; GearEnchant `ff5555`→`e66b6b`,
+  `73d873`→`8cd98c`.
+- **Klikbare vendor-namen** (zie hierboven) live in Currencies.
+Alleen kleur/getal/string-edits → geen syntax-risico. Restje optioneel: header→body-gaps ruimer.
+
+**Twee Rob-wensen (16 jun):**
+- **Tooltips bij de muis.** De link-hover-tooltips (DelveTipMarkup `ShowDelveTipHyperlinkTooltip`)
+  stonden via `ANCHOR_RIGHT` rechtsboven het MH-venster → nu **`ANCHOR_CURSOR`** (volgt de muis).
+  Dekt alle spell/item/currency/vendor-link-hovers in de panelen. ⏳ Rest van de tooltip-ankers
+  (rij/knop-tooltips, ~20 `ANCHOR_RIGHT`-plekken) → meenemen in de Tier-2-consistentiepass.
+- **Rare-doodshoofd.** `Rares.lua`: op `NAME_PLATE_UNIT_ADDED` krijgt een bekende rare (npcID in
+  ZONES veld 6 of geleerd) een **Skull-raidmarker** (`SetRaidTarget(unit,8)`), wereld-only, alleen
+  als nog niet gemarkeerd, opt-out via `ns.db.rareSkull=false`. Werkt solo/in combat (niet protected,
+  pcall-guard voor groep-zonder-assist). Set groeit mee met de npcID-learning. (Settings-toggle later.)
+  **Verfijnd (Rob 16 jun):** de auto-nameplate-match miste rares zonder bekend npcID. Nu vlagt een
+  **toast-klik/route** de gejaagde rare expliciet (`ns.MH_FlagRareForSkull`, live npcID uit
+  `FireRareAlert`): skull meteen als 'ie zichtbaar is (`MarkVisibleRareByNpc` scant nameplates),
+  anders zodra z'n nameplate verschijnt (`PENDING_SKULL`). RouteRare vlagt ook via KnownRareNpc.
+  ⚠️ **BUGFIX (Rob 16 jun): `SetRaidTarget` is PROTECTED** → gaf 3× ADDON_ACTION_FORBIDDEN
+  (Rares.lua:220/261, ook door pcall heen). Vervangen door een **eigen skull-texture op de
+  nameplate** (`UI-RaidTargetingIcon_8`, taint-veilig, à la RareScanner): `ShowSkullOnNameplate`/
+  `RefreshNameplateSkull`/`HideNameplateSkull` op NAME_PLATE_UNIT_ADDED/REMOVED (nameplate-hergebruik
+  afgevangen). Geen protected calls meer.
+
+## Voor Cursor — batch 16 juni #3 (UX Tier-2a: tooltips overal bij de cursor) → 1.8.1
+
+**STATUS: ⏳ KLAAR.** `"ANCHOR_RIGHT"`→`"ANCHOR_CURSOR"` (string-swap, geen syntax-risico) in alle
+paneel-tooltips: UI.lua, Rares, EventsPanel, MidnightCodex, DawncrestGuide, DelveCuriosAdvisor,
+AltOverview, DelveCoach, AccountWeeklyChecklist, Addons/Guide, GuideConsumables, WorldBoss,
+Profession, DelveItemsPopup, VaultAdvisor, KeyboardLayoutPrototype, RoleAcademy, Delves
+(+ eerder DelveTipMarkup link-hovers). Broker/LDB-tooltip bewust gelaten (hoort bij de minimap-knop);
+ANCHOR_TOPRIGHT/BOTTOM/TOP/LEFT/NONE niet geraakt (andere literals).
+
+**Tier-2 nog te doen (volgende increment, voorzichtig):** gedeelde `ns.MakePanelHeader`, één
+scroll-stijl (de custom Slider-scrollbar + donkere fill van `Addons/Guide.lua` eruit — grootste
+"andere addon"-uitschieter, hoogste risico → apart en zorgvuldig), padding via `UI_METRICS`.
+Daarna **Tier 3** (Simpele modus).
+
+## Voor Cursor — review + commit batch 16 juni #1 (Tier Sets-tab) → 1.8.1
+
+**STATUS: ⏳ KLAAR VOOR COMMIT** — eerste **1.8.1**-batch (NÁ de 1.8.0 CF-release). Cursor: bump
+de TOC-versie naar **1.8.1** bij het committen van deze batch (alleen als 1.8.0 al uit is).
+
+Voorgesteld bericht:
+
+> feat(tier): Tier Sets-tab (uitleg + per-spec bonussen + live 2/4-set-teller)
+
+Robs wens: "tier set gear — als we 't doen, goed: allebei de niveaus." Plaatsing (Rob gekozen):
+**Character-sectie** (naast Account/Delve Log/Enchants).
+
+**`Modules/TierSetData.lua` (nieuw)** — `ns.TIER_SLOTS` (1/3/5/10/7), `ns.TIER_SET_BY_CLASS`
+(13 set-namen, Blizzard-blog/Icy-Veins), `ns.TIER_SPEC_BONUS` (2/4-set spell-IDs per **stabiele
+specID**, Wowhead 12.0.7-PTR). DH-spec **Devourer** bewust weggelaten (nieuwe spec, specID nog
+onbevestigd → never-lie).
+
+**`Modules/TierSet.lua` (nieuw)** — paneel (kloon van Enchant/Currency-stijl):
+- **Niveau 1**: gelokaliseerde uitleg (`TIER_GUIDE_BODY`) — wat tier is (5 slots, 2/4-set), hoe je
+  't krijgt (Voidspire-tokens bazen 2–5 + slots, Dreamrift-chest, Vault 2/4/6, **Creation Catalyst**
+  Silvermoon week 1 / +1 per 2 wk / max 8 / Catalyst Unbound na 4-set), en het beginner-pad.
+- **Niveau 2**: jouw class-set-naam + 2/4-set als **klikbare spell-links** (live tooltip = actuele,
+  gelokaliseerde bonus → geen hardcoded bonus-tekst, never-lie-vriendelijk) + **live teller**
+  "tier x/5" met gekleurde 2-set/4-set-labels. Teller leest de set-piece-count uit de item-tooltip
+  ("(n/5)") via `C_TooltipInfo.GetInventoryItem` (taint-veilig, read-only). Ververst op
+  PLAYER_EQUIPMENT_CHANGED / PLAYER_SPECIALIZATION_CHANGED.
+- Voet: "datamined voor 12.0.7 — hover voor live tooltip, bevestig in-game" (IDs zijn PTR-bevestigd).
+
+**UI.lua** — tab geregistreerd in de **Character-sectie** (`SIDEBAR_SECTIONS` ids + `TAB_DEFS` +
+`keyById` + info-drawer `INFO_DRAWER_BODY_TIER` + build/refresh-dispatch). **.toc**: `TierSetData.lua`
+vóór `TierSet.lua` (na CurrencyGuide).
+
+**Locales ×6**: `TAB_TIER`, `TIER_SUBTITLE`, `INFO_DRAWER_BODY_TIER`, `TIER_GUIDE_BODY`,
+`TIER_YOUR_SET`, `TIER_2SET`, `TIER_4SET`, `TIER_COUNT_FMT`, `TIER_COUNT_UNKNOWN`,
+`TIER_SET_UNKNOWN`, `TIER_FOOTER`.
+
+Verificatie: lupa compileert TierSetData + TierSet volledig (read==disk); host-Read bevestigt
+balans. ⚠️ specIDs zijn de stabiele retail-IDs; **set-bonus-spell-IDs zijn PTR-bevestigd** — bij
+12.0.7-live even kruischecken (research flagde dit). Mount gaf weer wisselende truncatie-positives.
+
+**Toevoeging (PTR-validatie 16 jun):** tier-set bevestigd op live 12.0.7 (Elemental 4-set
+1264863 matchte de in-game tooltip; teller las "Mantle of the Primal Core (2/5)" correct). Veteran-
+crest PTR-bevestigd: 3341 = primary (volledige beschrijving), 3342 = duplicaat, code neemt max →
+veilig. **Creation Catalyst nu klikbaar** in TIER_GUIDE_BODY via `{CATALYST}`-token →
+`SetCatalystWaypoint` (TomTom/native, Silvermoon 2393 40.31/64.85, = SMC-guide-locatie); locale-key
+`TIER_CATALYST_NAME` ×6; body OnHyperlinkClick vangt "mhcatalyst" (spell-links houden hover-tooltip).
+
+**Bugfix enchant-paneel ververst niet bij enchanten (Robs zus, 16 jun):** een enchant op een
+al-gedragen stuk wisselt het item niet → `PLAYER_EQUIPMENT_CHANGED` vuurt niet, dus het paneel
+liep pas bij tab-wissel bij. Fix: `GearEnchantCheck.lua` + `TierSet.lua` luisteren nu óók naar
+**UNIT_INVENTORY_CHANGED** (gefilterd op unit "player"), met een `C_Timer.After(0.1)`-refresh
+(item-link toont de nieuwe enchantID soms een frame later). Alleen actief als het paneel open is.
+
+**Val/Naigtal data-compleet (PTR 16 jun):** Val uiMapID 2599, weekly 96713, zijquest 96053,
+intro Screaming Ridge (Voidstorm 2405), Maella-outpost 2599 59.56/19.33. Volledige rare-rosters
+(Val 10 / Naigtal 8) + Pertinax WB 261072 in `docs/PTR_12.0.7_DATA.md` — klaar voor Rares.lua
+(kill-quest-IDs blijven open, niet scrapebaar → vignette/npcID-detectie of live-capture).
+
+**✅ Dup-cast-sweep KLAAR (16 jun).** Alle boss-step-locales gecheckt. Verwijderd (pure naam-
+herhaling ná de blauwe link): RitualTips ×7 (Ger'lok: Shadowbolt Volley/Shadow Blast; Rotmire:
+Fungal Bloom/Bursting Shroom/Festering→Writhing Vines/Bursting Doom Shroom/Putrid Fist) +
+MythicPlus ×1 ("(Divine Guile)" op Lothraxion). **Bewust gelaten** (géén pure dupe): RaidTips
+"(Umbral Collapse, a group soak)", MythicPlus mob-namen "(Blazing Pyromancer)" e.d. (= welke mob
+cast), DungeonTips/DelveTips effect-omschrijvingen "(disease)", "(frontal cone)". Via replace_all
+per Engelse naam → alle 6 talen in één keer.
+
+**✅ Showdown-rares in `Modules/Rares.lua` (16 jun).** Val (10) + Naigtal (8) toegevoegd uit de
+achievement-rosters + coords (roamers in-game gemeten). `MAP_TO_ZONE_KEY` 2599→val / 2600→naigtal.
+questId-veld = **0** (geen bevestigde kill-quest → niet datamine-baar): geen weekly-tint, maar
+route (coords) + vignette-alert (npcID veld 6) werken. Nieuwe helper **`RareKey(rare)`** valt voor
+questId 0 terug op "npc:<id>" zodat up/found-tracking niet op sleutel "0" botst. ⚠️ Kill-quest-IDs
+later in-game capturen → dan komt de weekly-tint erbij. (Klein: zones tonen ook op 12.0.5 tot
+launch; Cursor mag ze achter een ≥120007-gate zetten als gewenst.)
 
 ## 🎯 Voor Cursor — CF-RELEASE 1.8.0 (15 juni — Rob gaf expliciet groen licht!)
 
@@ -44,6 +197,12 @@ Versie blijft **1.8.0** (TOC staat al goed; NIET naar 1.8.1 bumpen — dat is mo
 
 **Aanrader vóór upload:** Rob even de **Currencies-** en **Enchants-tab** in-game laten bevestigen
 (waren de verste/grootste toevoegingen; world-boss-fix is al live bevestigd ✅). Geen blocker, wel netjes.
+
+**In-game changelog-popup bijgewerkt (16 jun):** `Modules/Changelog.lua` `CHANGELOG_ENTRIES` stond
+nog op 1.5.5 (Rob zag dit op de PTR — titel 1.8.0, regels t/m 1.5.5). Toegevoegd: blokken **1.6.0 /
+1.7.0 / 1.7.1 / 1.8.0** met keys `CHANGELOG_160_*` / `170_*` / `171_*` / `180_*` (enUS + nlNL;
+de/fr/es/pt vallen via SafeL terug op EN, = bestaand patroon). Hoort bij de 1.8.0-release.
+➡️ Bij de 1.8.1-bump: voeg een `1.8.1`-blok toe (tier sets) — keys `CHANGELOG_181_*`.
 
 **Na de release:** morgen 1.8.1 — tier-set-feature (beide niveaus, zie TOMORROW.md) + openstaande
 zaken uit ROADMAP.md.
