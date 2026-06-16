@@ -20,8 +20,8 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 
 ## Voor Cursor — review + commit batch 16 juni #2 (UX Tier-1a: visuele rust) → 1.8.1
 
-**STATUS: ⏳ KLAAR VOOR COMMIT** (eerste increment van een gefaseerde UX-refresh; Rob koos de
-volle scope maar wil per fase kunnen reviewen/terugrollen). Voorgesteld bericht:
+**STATUS: ✅ GECOMMIT in checkpoint `e995124` (wip 1.8.1).** (Eerste increment van een gefaseerde
+UX-refresh; Rob koos de volle scope maar wil per fase kunnen reviewen/terugrollen.) Bericht:
 
 > style(ui): Tier-1a visuele rust — gedeeld palet, rustige links, rol-iconen i.p.v. kleur-regenboog
 
@@ -81,7 +81,7 @@ Alleen kleur/getal/string-edits → geen syntax-risico. Restje optioneel: header
 
 ## Voor Cursor — batch 16 juni #3 (UX Tier-2a: tooltips overal bij de cursor) → 1.8.1
 
-**STATUS: ⏳ KLAAR.** `"ANCHOR_RIGHT"`→`"ANCHOR_CURSOR"` (string-swap, geen syntax-risico) in alle
+**STATUS: ✅ GECOMMIT in checkpoint `e995124` (wip 1.8.1).** `"ANCHOR_RIGHT"`→`"ANCHOR_CURSOR"` (string-swap, geen syntax-risico) in alle
 paneel-tooltips: UI.lua, Rares, EventsPanel, MidnightCodex, DawncrestGuide, DelveCuriosAdvisor,
 AltOverview, DelveCoach, AccountWeeklyChecklist, Addons/Guide, GuideConsumables, WorldBoss,
 Profession, DelveItemsPopup, VaultAdvisor, KeyboardLayoutPrototype, RoleAcademy, Delves
@@ -95,8 +95,8 @@ Daarna **Tier 3** (Simpele modus).
 
 ## Voor Cursor — review + commit batch 16 juni #1 (Tier Sets-tab) → 1.8.1
 
-**STATUS: ⏳ KLAAR VOOR COMMIT** — eerste **1.8.1**-batch (NÁ de 1.8.0 CF-release). Cursor: bump
-de TOC-versie naar **1.8.1** bij het committen van deze batch (alleen als 1.8.0 al uit is).
+**STATUS: ✅ GECOMMIT in checkpoint `e995124` (wip 1.8.1).** Eerste **1.8.1**-batch (NÁ de 1.8.0
+CF-release). TOC is bij deze checkpoint naar **1.8.1** gebumpt (1.8.0 staat live op CF).
 
 Voorgesteld bericht:
 
