@@ -24,7 +24,13 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
 
 ## Voor Cursor — review + commit batch 16 juni #3 (boss-venster: target-reopen + auto-open-toggle) → 1.8.2
 
-**STATUS: ⏳ UNCOMMITTED (Claude/Cowork).** Aanleiding (Rob, 16 jun): "als je het boss-venster
+**STATUS: ✅ RELEASED in 1.8.2** — dev-commit `6173a6d`; uitgebracht in release
+`0253170` (`release: MidnightHelper 1.8.2`, TOC 1.8.2 + Interface 120007, zip
+`dist/MidnightHelper-1.8.2.zip`: root `MidnightHelper/`, geen scripts/docs/tools,
+130 entries, OmniumFolio aanwezig). **Rob doet de CF-upload zelf** met
+`docs/CURSEFORGE_1.8.2.md` + `docs/CURSEFORGE_DESCRIPTION.md` (START/END).
+
+**STATUS (origineel): ⏳ UNCOMMITTED (Claude/Cowork).** Aanleiding (Rob, 16 jun): "als je het boss-venster
 wegklikt en daarna een boss target, laat hem dan weer zien — wie hem niet wil zet hem uit in de
 instellingen." Die settings-opt-out bestond nog niet, dus die is meteen toegevoegd. Voorgesteld
 commit-bericht:
