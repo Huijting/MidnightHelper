@@ -336,7 +336,7 @@ ns.CODEX_ARTICLES = {
 
 	-- Patch 12.0.7 "Revelations" (verified via Wowhead/Blizzard, June 2026).
 	-- IDs collected so far: Naigtal zone 16943, Val zone 16900, Leth'ir npc
-	-- 263843, Pertinax npc 263670, Rotmire npc 254176, folio week-1 quest
+	-- 263843, Pertinax npc 261072 (Zygor 9.6, 17 jun; killquest 96473), Rotmire npc 254176, folio week-1 quest
 	-- 96410, Timeways mount item 258884. uiMapIDs/weekly quest IDs: see
 	-- docs/PTR_12.0.7_DATA.md.
 	{

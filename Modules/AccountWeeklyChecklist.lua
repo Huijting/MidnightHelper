@@ -215,6 +215,7 @@ function ns.ComputeAccountWeeklyChecklist()
 		gildedIncompleteLabels = gildedIncompleteLabels,
 		saCurrent = saCurrent,
 		saIncompleteLabels = saIncompleteLabels,
+		folioWeekly = ns.GetOmniumFolioWeeklyStatus and ns.GetOmniumFolioWeeklyStatus() or nil,
 	}
 end
 
@@ -433,6 +434,27 @@ function ns.RefreshAccountWeeklyChecklist()
 					if ns.MhClearAccountSnapshotTableFilters then
 						ns.MhClearAccountSnapshotTableFilters()
 					end
+				end
+			)
+		end
+
+		-- Omnium Folio weekly (account-breed, "doe-dit-eerst"): alleen tonen zolang
+		-- deze week's Mote nog open is en je niet op 5/5 zit.
+		if data.folioWeekly and data.folioWeekly.pending then
+			nextLine(
+				true,
+				ns:L("ACCOUNT_WEEKLY_FOLIO_FMT"):format(data.folioWeekly.unlocked or 0),
+				1,
+				0.82,
+				0.30,
+				nil,
+				function()
+					if not GameTooltip then
+						return
+					end
+					GameTooltip:ClearLines()
+					GameTooltip:AddLine(ns:L("ACCOUNT_WEEKLY_FOLIO_TT_TITLE"), 1, 0.9, 0.5)
+					GameTooltip:AddLine(ns:L("ACCOUNT_WEEKLY_FOLIO_TT_BODY"), 0.82, 0.85, 0.9, true)
 				end
 			)
 		end

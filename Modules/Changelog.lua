@@ -6,8 +6,10 @@ local CHANGELOG_ENTRIES = {
 	{
 		version = "1.8.2",
 		lines = {
+			"CHANGELOG_182_4",
 			"CHANGELOG_182_1",
 			"CHANGELOG_182_2",
+			"CHANGELOG_182_5",
 			"CHANGELOG_182_3",
 		},
 	},

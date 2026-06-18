@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.2] - 2026-06-17
+
+### Added
+
+- **Omnium Folio tab:** the full patch 12.0.7 rune tree — all five rows and thirteen runes as clickable spell links (hover for the live tooltip), each with a short effect note. A **content-type selector (Mythic+ / Raid / PvP / World)** highlights the recommended pick per row, plus the unlock walkthrough with a **clickable waypoint** to where the questline starts, and a live **"x/5 rows unlocked"** counter from your Folio quest progress. Recommendations are general baselines, not per-spec BiS; the tab appears on clients 12.0.7 and later.
+- **Folio weekly reminder:** the Account snapshot weekly checklist now shows an account-wide line to do this week's Omnium Folio Mote, tracked across the weekly reset, and disappears once your Folio is fully unlocked (5/5).
+
+### Changed
+
+- **Floating boss window — closing now only dismisses that one boss.** Pressing the X keeps just that boss away; the next boss brings a fresh window (a new pull, a ritual stage, or simply targeting the boss). A new **"Open automatically" toggle** (Dungeon Coach settings) is the permanent opt-out; the window still opens on `/mh bosswin`.
+- **Targeting a dungeon boss reopens the boss window** and jumps to that boss (uses the boss's creature ID; falls back to a boss-classification check where the target's ID is hidden).
+- **Great Vault advisor — threshold-aware tier note.** Instead of a generic "this is tier" line, the advisor now tells you whether taking a vault tier piece *completes* your 2- or 4-set bonus (take it!) or is just another piece with no new bonus yet (a stat upgrade may win the week).
+
+### Fixed
+
+- Lua error in ritual scenarios on 12.x: boss unit IDs are now "secret" values and could taint and error when read; they are now skipped safely.
+- Showdown world boss data: Imperator Pertinax now uses the correct creature ID (261072) and kill quest (96473), cross-checked against external addon data.
+
 ## [1.8.1] - 2026-06-16
 
 ### Added

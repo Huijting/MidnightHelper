@@ -266,7 +266,7 @@ local SIDEBAR_SECTIONS = {
 	-- Start Here leads for new players; Home remains the default/fallback tab in
 	-- SelectTab (sidebar order is independent of that fallback).
 	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "starthere", "home", "codex", "delves", "dungeons", "rares", "world", "events" } },
-	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier" } },
+	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier", "omnium" } },
 	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "currency", "toolbox" } },
 	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons", "settings" } },
 }
@@ -292,6 +292,9 @@ end
 local function SidebarTabVisible(tabId)
 	if MHSimpleModeOn() and not SIMPLE_MODE_TABS[tabId] then
 		return false
+	end
+	if tabId == "omnium" and not (ns.IsOmniumFolioAvailable and ns.IsOmniumFolioAvailable()) then
+		return false -- 12.0.7-content: alleen op clients >= 120007
 	end
 	if tabId == "guide" then
 		return ns.IsBetaTabEnabled and ns.IsBetaTabEnabled("guide")
@@ -1396,6 +1399,7 @@ local TAB_DEFS = {
 	{ id = "delvelog", labelKey = "TAB_DELVE_LOG" },
 	{ id = "enchants", labelKey = "TAB_ENCHANTS" },
 	{ id = "tier", labelKey = "TAB_TIER" },
+	{ id = "omnium", labelKey = "TAB_OMNIUM" },
 	-- reference is no longer top-level: it lives in the Codex as a category;
 	-- SelectTab("reference") still works via the alias below.
 	{ id = "smcguide", labelKey = "TAB_SMC" },
@@ -1914,6 +1918,8 @@ function ns:EnsureMainUI()
 				ns.BuildGearEnchantPanel(panel)
 			elseif tab.id == "tier" and ns.BuildTierSetPanel then
 				ns.BuildTierSetPanel(panel)
+			elseif tab.id == "omnium" and ns.BuildOmniumFolioPanel then
+				ns.BuildOmniumFolioPanel(panel)
 			elseif tab.id == "currency" and ns.BuildCurrencyGuidePanel then
 				ns.BuildCurrencyGuidePanel(panel)
 			elseif tab.id == "starthere" and ns.BuildStartHerePanel then

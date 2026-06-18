@@ -32,8 +32,8 @@ ns.SHOWDOWNS = {
 			name = "Val",
 			uiMapID = 2599, -- PTR-verified 16 jun 2026 (Rob stond in Val: kaart-pad EK > Quel'Thalas > Voidstorm > Val). Naast Naigtal 2600.
 			weekly = 96713, -- "Showdown on Val" — IN-GAME bevestigd 16 jun 2026 (Rob accepteerde 'm; questlog 96713). Web-datamine zei 96716 → in-game wint (96713).
-			worldBossNpcID = 263670, -- Imperator Pertinax (Wowhead)
-			worldBossQuest = nil, -- TODO
+			worldBossNpcID = 261072, -- Imperator Pertinax (Zygor 9.6 DB, 17 jun: 261072; de eerdere 263670 bestaat NIET in Zygor = was fout)
+			worldBossQuest = 96473, -- "Imperator Pertinax" killquest (Zygor 9.6 Quests_enUS, 17 jun)
 			bossName = "Imperator Pertinax",
 		},
 	},

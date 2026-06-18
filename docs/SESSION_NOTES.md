@@ -79,6 +79,73 @@ een andere boss. `RitualBossCoach.lua` geeft nu `b.key` mee aan `IsBossWindowSup
 uit blijft de settings-toggle. Compile + runtime-asserts (lupa) OK. **In-game test (Rob):** ritual →
 venster wegklikken bij boss 1 → boss 2 geeft weer een vers venster; idem in een dungeon over twee bosses.
 
+**Toevoeging (Rob 17 jun): nieuwe Omnium Folio-tab (12.0.7 rune-advisor).** Eerst web-geverifieerd
+(zie `docs/PATCH_12_0_7_ADVICE.md` — Gemini's rune-tree klopte, unlock-NPC/locatie + Sporefall/Showdown-
+namen gecorrigeerd, account-vs-char blijft open). Nieuw:
+- `Modules/OmniumFolioData.lua` — data-only: 5 rijen + 13 runes (Wowhead spell-IDs), unlock-questketen
+  96410/96441-96444, en per-content-type aanbevelingen (M+/Raid/PvP/World; "spec" = volg spec-stat).
+- `Modules/OmniumFolio.lua` — tab-paneel naar TierSet-sjabloon: scroll + read-only EditBox, {spell}-links
+  via `ns:GetSpellLinkMarkup` + `AttachDelveTipHyperlinksToEditBox` (hover-tooltips), segmented
+  M+/Raid/PvP/World-knoppen (actief = LockHighlight, keuze in `ns.db.omniumMode`), live "x/5 rijen
+  ontgrendeld"-teller uit `C_QuestLog.IsQuestFlaggedCompleted` (pcall, taint-veilig). Gate
+  `ns.IsOmniumFolioAvailable()` = toc ≥ 120007.
+- `Locales/OmniumFolio.lua` — enUS+nlNL (merge-patroon; de/fr/es/pt via SafeL → EN). Rune-namen zijn
+  fallback-labels; live spell-tooltip wint.
+- Bedrading: `MidnightHelper.toc` (Locale + 2 Modules na TierSet), `UI.lua` TAB_DEFS `omnium` na `tier`
+  + panel-build-branch + `SidebarTabVisible`-gate (≥120007). In-game changelog `CHANGELOG_182_4` (en/nl).
+- ⚠️ **FIX (Rob 17 jun, tab kwam niet): `omnium` óók in `SIDEBAR_SECTIONS` zetten.** De gegroepeerde
+  sidebar (UI.lua `SIDEBAR_SECTIONS`, ~regel 269) rendert ALLEEN tabs die in een sectie-`ids`-lijst staan;
+  `TAB_DEFS` maakt enkel het paneel + de knop-frame, niet de plek in de sidebar. `omnium` toegevoegd aan
+  de `character`-sectie (`{ "account", "delvelog", "enchants", "tier", "omnium" }`). Build 120007 bevestigd
+  door Rob, dus de gate was 't niet. `layoutTab` respecteert `SidebarTabVisible`, dus op <120007 blijft-ie
+  verborgen. → Edit aan bestaand UI.lua, dus een gewone `/reload` toont de tab (geen herstart meer nodig;
+  de nieuwe module-bestanden laadden al bij Robs eerdere herstart).
+- Verificatie: 3 nieuwe bestanden los gecompileerd (lupa) = OK, geen truncatie (bytes==stat, staart heel);
+  UI.lua-snippets los gecompileerd = OK. **In-game test (Rob):** tab "Omnium Folio" verschijnt op
+  12.0.7; spell-links hoveren tonen tooltips; M+/Raid/PvP/World wisselt de "<- aanbevolen"-markering;
+  teller toont je voltooide Folio-rijen. ⚠️ Bevestig of de unlock-teller per-char of account-breed telt
+  (open discrepantie) → tekst claimt het niet hard.
+
+**Toevoeging (Rob 17 jun #2): addon-kruischeck + 2 kleine fixes (mee in 1.8.2).**
+- **Pertinax-datacorrectie** (`ShowdownsData.lua`): Val world boss npc **263670 → 261072** + killquest
+  **96473** (Zygor 9.6 DB-kruischeck; 263670 bestond niet = was fout). Codex-comment ook bijgewerkt.
+  Zie de "Addon-kruischeck 17 juni"-sectie in `docs/PTR_12.0.7_DATA.md` (+ Mote of Omnial = spell 1294322
+  via Plumber, in-game bevestigd; Nalorakk-creature-ID blijft open).
+- **Vault-advisor: drempel-bewuste tier-note** (`VaultAdvisor.lua`). Aanleiding: Rob zag de advisor de
+  trinket boven een tier-helm zetten terwijl hij 2 tier-stukken heeft (Pawn telt set-bonussen niet mee).
+  De generieke tier-note is nu drempel-bewust: nieuwe `PlayerHasTierInSlot` (same-slot-swap-check) +
+  herschreven `BuildTierWarningText` → "voltooit je 2-/4-set — pakken" vs "3/5, geen nieuwe bonus tot
+  4-set". Keys `VAULT_ADVISOR_TIER_COMPLETES_FMT`/`_PROGRESS_FMT`/`_MAXED_FMT` (en+nl). Runtime-asserts
+  (lupa) OK voor 1→2/2→3/3→4/4→5/same-slot/geen-telling.
+
+**Toevoeging (Rob 17 jun #3): Folio-weekly in de account-checklist.** Rob: de Folio-weekly werd niet
+gemeld terwijl 't wel een wekelijkse "doe-dit-eerst" is. Gebouwd: `ns.GetOmniumFolioWeeklyStatus`
+(`OmniumFolio.lua`) — account-brede status die de keten-telling + eerstvolgende reset in `ns.db.omniumWeekly`
+bijhoudt; "pending" zolang deze week's Mote niet geclaimd is, vervalt na de reset, verdwijnt bij 5/5.
+`AccountWeeklyChecklist.lua`: `folioWeekly` in de compute-return + een gouden regel vooraan (boven Vault)
+met tooltip, alleen als `pending`. Keys `ACCOUNT_WEEKLY_FOLIO_FMT/_TT_TITLE/_TT_BODY` (en+nl). ⚠️ Eerste
+meting na install kan "pending" tonen ook al deed je 'm al (geen historie) — zelfcorrigeert na de reset.
+Detector runtime-getest (lupa): eerste-run/claim/reset-rollover/5-5 allemaal correct. Ook de Omnium-tab-
+tekst (intro+voet) bijgewerkt naar account-breed + juiste unlock-start (Icy Veins 16 jun), en de
+in-game-changelog `CHANGELOG_182_4` uitgebreid.
+
+**Toevoeging (Rob 17 jun #4): volledige 6-taals-lokalisatie vóór upload.** Alle nieuwe 1.8.2-strings
+nu in de/fr/es/pt naast en/nl: hele Omnium-tab (`Locales/OmniumFolio.lua` kreeg 4 merge-blokken —
+UI + alle 13 effect-omschrijvingen vertaald; rune-NAMEN blijven EN = eigennaam + live spell-tooltip
+toont de gelokaliseerde naam; `{FOLIOSTART}`-token in elke INTRO behouden), de 3 vault-tier-keys
+(`VAULT_ADVISOR_TIER_COMPLETES/PROGRESS/MAXED_FMT`) en de 3 Folio-checklist-keys
+(`ACCOUNT_WEEKLY_FOLIO_FMT/_TT_TITLE/_TT_BODY`) in deDE/frFR/esES/ptBR. SettingsPage-boss-keys waren al
+6-talig. Alles los gecompileerd (lupa) inкl. de Franse apostrofs/accenten = OK. ⚠️ De in-game
+changelog-popup (`CHANGELOG_*`) blijft bewust en+nl met EN-fallback — bestaand patroon voor ÁLLE versies
+(RELEASE_CHECKLIST). Niet veranderd; alleen vertalen als Rob dat expliciet wil (dan ook 1.6-1.8.1 mee).
+
+**Release-status:** 1.8.2 is nu een volwaardige feature-patch (boss-venster-verbeteringen + secret-fix
++ Omnium Folio-tab + Folio-weekly-checklist + vault-advisor-tier-note + Pertinax-datafix), volledig
+6-talig. Release-artefacten staan klaar:
+`CHANGELOG.md` [1.8.2], `docs/CURSEFORGE_1.8.2.md`, `docs/CURSEFORGE_DESCRIPTION.md` (1.8.2-refresh),
+in-game changelog `CHANGELOG_182_1..5`. **Open bij release (Cursor):** TOC `## Version:` → 1.8.2 +
+`120005` uit de Interface-regel, dan build (`package.ps1`) + upload. Nu nog uncommitted/geen release.
+
 ## Voor Cursor — review + commit batch 16 juni #2 (UX Tier-1a: visuele rust) → 1.8.1
 
 **STATUS: ✅ GECOMMIT in checkpoint `e995124` (wip 1.8.1).** (Eerste increment van een gefaseerde

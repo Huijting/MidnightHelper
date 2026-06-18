@@ -1,4 +1,4 @@
-# CurseForge project description — v1.8.1 refresh (copy/paste)
+# CurseForge project description — v1.8.2 refresh (copy/paste)
 
 Paste everything between the START/END markers into the CurseForge
 description editor. Screenshot suggestions per section are at the bottom
@@ -14,6 +14,7 @@ Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quest
 
 ## Why you'll want this
 
+- ✨ **NEW in 1.8.2 — Omnium Folio advisor.** A new **Omnium Folio** tab lays out the whole patch 12.0.7 rune tree — every row and rune as a clickable spell link with the live tooltip — and **highlights the recommended pick per row for Mythic+, Raid, PvP or World**, alongside the unlock walkthrough and a live "rows unlocked" counter. The floating boss window also got smarter: the X now only dismisses that one boss (the next boss returns a fresh window, and targeting a boss brings it back), with a new "Open automatically" toggle.
 - ✨ **NEW in 1.8.1 — Tier Sets, clickable waypoints, a calmer look.** A new **Tier Sets** tab shows your set bonuses and a live equipped counter; a new **Currencies** tab maps where to earn and spend everything with live balances; **vendor names are clickable to set a waypoint**; a **skull marks the rare** you're hunting; and the whole UI got a cohesive polish (one gold, role icons, tooltips at your cursor) with an optional one-click **Simple view** for new players.
 - ⚔️ **Raid & Mythic+ coaches.** Beginner boss steps for all three Midnight raids (and the Sporefall raid + Daggerspine ritual), each cast a **clickable spell link** with the action to take — dodge, interrupt, move, defensive. The boss window opens automatically when you pull. The new **Mythic+ tab** adds the affix ladder, Xal'atath's Bargains, the Season 1 dungeon pool and **must-interrupt lists per dungeon**, with a **Beginner mode + glossary** so the jargon doesn't bury you.
 - 💎 **NEW — Currencies & Enchants.** A **Currencies tab** maps every Midnight currency: where you earn it, where you spend it, your **live balance**, and a waypoint button to each Renown Quartermaster. An **Enchants tab** checks your gear, flags slots missing an enchant, suggests a stat-matched one for your spec, and **copies the name for the Auction House** in one click.
@@ -45,6 +46,8 @@ Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quest
 
 **🛡️ Tier Sets** — your class set with its 2- and 4-piece bonuses (hover for the live tooltip), a live counter of equipped tier pieces, and a plain-language guide to how you get them (raid tokens, the Great Vault, and the Creation Catalyst).
 
+**📖 Omnium Folio** — the patch 12.0.7 rune tree laid out across all five weekly rows, each rune a clickable spell link, with the **recommended pick per row for Mythic+, Raid, PvP or World**, the unlock walkthrough, and a live "rows unlocked" counter. (Appears on 12.0.7+.)
+
 **🧰 Toolbox** — the **Professions Hub**: live Knowledge Point tracking, weekly KP checklist for **all 11 professions**, treasure & book waypoint routes, a Tree Advisor with goal-based advice, and **Professions 101**. Plus ready-made interrupt macros per spec and a consumables checklist with one-click AH name copy.
 
 **🚀 Start Here** — new to Midnight? A guided first-week roadmap, with weekly steps that tick themselves off.
@@ -73,8 +76,9 @@ Bug reports and ideas are very welcome on the project page. Midnight Helper is u
 
 **Screenshot-volgorde (suggestie, sluit aan op de secties hierboven):**
 
-1. Een raid/M+ boss-window met de stappen + 3D-model (de nieuwe eyecatcher)
-2. Mythic+-tab met de must-kicks / Beginner mode
+1. De **Omnium Folio**-tab met de M+/Raid/PvP/World-knoppen + "aanbevolen"-markering (nieuwe eyecatcher 1.8.2)
+2. Een raid/M+ boss-window met de stappen + 3D-model
+3. Mythic+-tab met de must-kicks / Beginner mode
 3. Currencies-tab (live saldo's + QM-waypoint-knoppen)
 4. Enchants-tab (links + AH-kopieerveld)
 5. Home-tab met het "After the reset"-routine-blok + route-knop
@@ -87,5 +91,5 @@ Minimaal 3 (CF-checklist); eerste screenshot = wat in de gallery-preview komt.
 **CF-regels (zie ook RELEASE_CHECKLIST.md):** geen .bat/.ps1/.py/.exe in de
 zip (package.ps1 faalt de build anders al), zip-root = exact `MidnightHelper/`,
 geen dev-notities/secrets, description zonder externe download-links, game
-version 12.0.5 / interface 120005 (+120007 PTR mag in de TOC blijven tot
-12.0.7 live is), release type **Release**, display version **1.8.1**.
+version 12.0.7 / interface 120007 (12.0.7 is live → **120005 uit de TOC
+verwijderd**), release type **Release**, display version **1.8.2**.

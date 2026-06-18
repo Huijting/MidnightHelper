@@ -1,5 +1,5 @@
-## Interface: 120005, 120007
-## Version: 1.8.1
+## Interface: 120007
+## Version: 1.8.2
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.
@@ -32,6 +32,7 @@ Locales\DungeonGuide.lua
 Locales\SettingsPage.lua
 Locales\DungeonTips.lua
 Locales\Codex.lua
+Locales\OmniumFolio.lua
 Locales\Locale.lua
 Modules\DelveTipsData.lua
 Modules\DelveSpellIds.lua
@@ -64,6 +65,8 @@ Modules\GearEnchantCheck.lua
 Modules\CurrencyGuide.lua
 Modules\TierSetData.lua
 Modules\TierSet.lua
+Modules\OmniumFolioData.lua
+Modules\OmniumFolio.lua
 Modules\MidnightToast.lua
 Modules\Broker.lua
 Modules\DelveItemBrokers.lua

@@ -665,19 +665,43 @@ local function FindTierSetWarningCandidate(gear)
 	return nil
 end
 
+-- Forward (gedefinieerd na GetEquippedLinksForEquipLoc): draag je in dit slot
+-- al een stuk van dezelfde set? Dan is dit vault-stuk een same-slot-swap.
+local PlayerHasTierInSlot
+
 local function BuildTierWarningText(tierAlt)
 	if not tierAlt then
 		return ""
 	end
-	local setLabel = tierAlt.setName or "?"
-	if (tierAlt.setTotal or 0) > 0 then
-		setLabel = ("%s, %s"):format(setLabel, VL("VAULT_ADVISOR_TIER_WARN_COUNT_FMT", tierAlt.setEquipped or 0, tierAlt.setTotal))
+	local name = tierAlt.name or "?"
+	local cur = tierAlt.setEquipped or 0
+	local total = tierAlt.setTotal or 0
+
+	-- Geen telling bekend → generieke note (oude tekst, fallback).
+	if total <= 0 then
+		return VL("VAULT_ADVISOR_TIER_WARN_FMT", name, tierAlt.setName or "?")
 	end
-	local msg = VL("VAULT_ADVISOR_TIER_WARN_FMT", tierAlt.name or "?", setLabel)
-	if (tierAlt.setEquipped or 0) < 2 then
-		msg = msg .. " " .. VL("VAULT_ADVISOR_TIER_WARN_NO_BONUS")
+
+	-- Aantal NA dit stuk pakken: +1, tenzij je in dat slot al tier draagt
+	-- (dan verandert de telling niet — same-slot-swap).
+	local sameSlot = PlayerHasTierInSlot and PlayerHasTierInSlot(tierAlt)
+	local newCount = sameSlot and cur or (cur + 1)
+
+	-- Drempel-bewust: voltooit dit stuk een 2- of 4-set-bonus?
+	if cur < 2 and newCount >= 2 then
+		return VL("VAULT_ADVISOR_TIER_COMPLETES_FMT", name, 2)
 	end
-	return msg
+	if cur < 4 and newCount >= 4 then
+		return VL("VAULT_ADVISOR_TIER_COMPLETES_FMT", name, 4)
+	end
+
+	-- Geen drempel overschreden → eerlijk: nog geen nieuwe bonus, volgende drempel.
+	local nextThreshold = (newCount < 2 and 2) or (newCount < 4 and 4) or nil
+	if nextThreshold then
+		return VL("VAULT_ADVISOR_TIER_PROGRESS_FMT", name, newCount, total, nextThreshold)
+	end
+	-- newCount >= 4 en cur al >= 4 → 4-set al actief, dit stuk geeft geen extra bonus.
+	return VL("VAULT_ADVISOR_TIER_MAXED_FMT", name)
 end
 
 local function TooltipMentionsUnique(link)
@@ -737,6 +761,21 @@ local function GetEquippedLinksForEquipLoc(equipLoc)
 		end
 	end
 	return out
+end
+
+-- Assigns the forward-declared local above BuildTierWarningText.
+PlayerHasTierInSlot = function(tierAlt)
+	if not tierAlt or not tierAlt.equipLoc or not tierAlt.setName or tierAlt.setName == "" then
+		return false
+	end
+	local equipped = GetEquippedLinksForEquipLoc(tierAlt.equipLoc)
+	for i = 1, #equipped do
+		local _, setName = GetItemSetMeta(equipped[i])
+		if setName and setName == tierAlt.setName then
+			return true
+		end
+	end
+	return false
 end
 
 local function ScoreStats(stats, weights)
@@ -1212,16 +1251,17 @@ local function EnsureBlizzardVaultBanner()
 	f._token:SetWordWrap(true)
 	f._token:SetTextColor(0.75, 0.72, 0.65)
 
+	-- Tier-note vlak ONDER de "Pick:"-regel (Rob 17 jun: stond eerst onderaan
+	-- onder het model en werd gemist). De alternatieven-scroll hangt eronder.
 	f._tier = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	f._tier:SetPoint("BOTTOMLEFT", f._token, "TOPLEFT", 0, 6)
-	f._tier:SetPoint("BOTTOMRIGHT", f._token, "TOPRIGHT", 0, 6)
-	f._tier:SetWidth(innerW)
-	f._tier:SetJustifyH("LEFT")
+	f._tier:SetPoint("TOPLEFT", f._best, "BOTTOMLEFT", 0, -6)
+	f._tier:SetPoint("TOPRIGHT", f._best, "BOTTOMRIGHT", 0, -6)
+	f._tier:SetJustifyH("CENTER")
 	f._tier:SetWordWrap(true)
 	f._tier:SetTextColor(1, 0.85, 0.2)
 
 	f._scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
-	f._scroll:SetPoint("TOPLEFT", f._best, "BOTTOMLEFT", -4, -8)
+	f._scroll:SetPoint("TOPLEFT", f._tier, "BOTTOMLEFT", -4, -8)
 	f._scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -padX - 4, padBottom + BANNER_FOOTER_RESERVE)
 
 	f._rowHost = CreateFrame("Frame", nil, f._scroll)
@@ -1276,17 +1316,18 @@ local function UpdateBlizzardVaultBannerLayout(banner)
 	local padBottom = banner._padBottom or 16
 	local padTop = banner._padTop or 12
 
+	-- Tier-note staat nu BOVENaan (onder "Pick:"), niet meer in de footer.
 	local footerReserve = 10
-	if banner._tier and banner._tier:IsShown() then
-		footerReserve = footerReserve + math.ceil(banner._tier:GetStringHeight() or 0) + 8
-	end
 	if banner._token and banner._token:IsShown() then
 		footerReserve = footerReserve + math.ceil(banner._token:GetStringHeight() or 0) + 8
 	end
 
+	local tierH = (banner._tier and banner._tier:IsShown())
+		and (math.ceil(banner._tier:GetStringHeight() or 0) + 6) or 0
+
 	if banner._scroll then
 		banner._scroll:ClearAllPoints()
-		banner._scroll:SetPoint("TOPLEFT", banner._best, "BOTTOMLEFT", -4, -8)
+		banner._scroll:SetPoint("TOPLEFT", banner._tier, "BOTTOMLEFT", -4, -8)
 		banner._scroll:SetPoint("BOTTOMRIGHT", banner, "BOTTOMRIGHT", -padX - 4, padBottom + footerReserve)
 	end
 
@@ -1297,7 +1338,7 @@ local function UpdateBlizzardVaultBannerLayout(banner)
 	local bestH = math.ceil(banner._best:GetStringHeight() or 20) + 8
 	local contentScrollH = banner._rowHost and banner._rowHost:GetHeight() or 1
 	local visibleScrollH = math.min(contentScrollH, BANNER_MAX_SCROLL_H)
-	banner._desiredHeight = padTop + titleH + BANNER_PROFILE_ROW_H + hintH + bestH + visibleScrollH + footerReserve + padBottom + 8
+	banner._desiredHeight = padTop + titleH + BANNER_PROFILE_ROW_H + hintH + bestH + tierH + visibleScrollH + footerReserve + padBottom + 8
 	PositionBlizzardVaultBanner(banner)
 end
 

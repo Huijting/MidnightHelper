@@ -367,10 +367,57 @@ alles hieronder is web-gedataminet, hard maken pas na in-game bevestiging.**
   263670 → Robs in-game-meting wint (gespawnde-GUID-npcID voor Rares.lua).
 - Rotatie-cadans: "wekelijks" (Blizzard-blog) vs "few-day cadence" (gids).
 
+## 📥 Addon-kruischeck 17 juni (Zygor 9.6 localisatie-DB — feitelijke ID→naam, geen guide-tekst)
+
+Bron: `ZygorGuidesViewer/Localization-Retail/NPCs_enUS.lua` + `Quests_enUS.lua` (Interface
+120007). Dit zijn pure ID→naam-tabellen (factual), gebruikt als kruisreferentie — never-lie:
+geen Zygor-guide-prose overgenomen.
+
+**Bevestigd / opgelost:**
+- **Pertinax (Val world boss) = npc 261072** ✅ (Zygor: `[261072] = "Imperator Pertinax"`).
+  → **Lost de 261072-vs-263670-discrepantie op: 261072 is correct; 263670 bestaat NIET in
+  Zygor** = was een foute waarde. (Tabel-rij "world boss Val | npc 263670" hierboven is
+  hiermee achterhaald → gebruik 261072.)
+- **Scenario-Pertinax = npc 252308** ✅ (`[252308] = "Imperator Pertinax"`) — bevestigt de
+  caveat dat de Eversong-scenario-Pertinax een ándere npc is dan de world boss.
+- **Pertinax kill-quest = quest 96473** ✅ NIEUW (`[96473] = "Imperator Pertinax"`) — was een
+  open punt ("Pertinax-killquest nodig"). Naast Leth'ir/Nexus-Captain 96472 ✅ (bevestigd).
+- **Leth'ir DB-npc = 260875** (Zygor) — Robs gespawnde-meting 263843 blijft de Rares.lua-waarde
+  (DB-entry ≠ gespawnde creature; geen wijziging nodig).
+- **Omnium Folio:** `[96410] = "Seeking Knowledge Week 1 of 5: The Omnium Folio"` ✅ bevestigt
+  96410 + de "1 van 5"-cadans. Intro-keten ervoor: `96226 Omnium Anomalies`, `96232 Return to
+  the Omnium`, `96233 The Omnium Reawakens` (in The Lycaneum). (96441-96444 staan NIET in Zygor
+  → blijven web-gedataminet.)
+- **Side-quests:** `96053 Surveying the Frozen Wastes` (Val) ✅, `96054 Surveying the Mana-Bog`
+  (Naigtal) ✅ — matchen MH.
+
+**Plumber (12.0.7-current, `Modules/.../Retail/TraitFrame.lua`) — Omnium Folio-UI:**
+- **Mote of Omnial Inquiry = spell 1294322** ✅ **IN-GAME BEVESTIGD (Rob, 17 jun):**
+  `C_Spell.GetSpellName(1294322)` → "Mote of Omnial Inquiry". Bag-scan ("Omnial") + currency-lijst-scan
+  gaven op dat moment NIETS → geen tel-baar tas-item / geen currency-regel; het is een spell-handle
+  (zoals Plumber 'm op de Folio "points"-header gebruikt). ⚠️ Caveat: de bag-scan vindt 'm alleen als je
+  'm net vasthebt (na inleveren weg) — dus "geen item" is niet hard. Voor MH niet nodig: Folio-voortgang
+  loopt via de quest-flags (96410 + keten), niet via de Mote. Geen code-actie.
+- Plumber hardcodet de rune-spell-IDs NIET (haalt de traits live op), dus geen kruischeck van onze
+  13 rune-IDs daar — die blijven op ConquestCapped/Wowhead (sectie OmniumFolioData). Plumber noemt het
+  systeem intern o.a. "The Empowered Folio".
+- **Unlock-start "The Magister's Call" = Silvermoon uiMapID 2393, 47.89/51.73** ✅ IN-GAME GEMETEN
+  (Rob, 17 jun). → klikbare {FOLIOSTART}-waypoint in de Omnium-tab (`OmniumFolio.lua` `FOLIO_START`).
+
+**NIET te bevestigen via de geïnstalleerde addons (blijven PTR/live-dump):**
+- **Heroic Showdown weekly-quest-IDs** (96714/96718/96720 web) — Zygor indexeert de
+  "Showdown on Val/Naigtal"-weeklies niet onder die naam.
+- **Nalorakk (Den of Nalorakk-eindboss) model-creature-ID** — blijft nil (never-lie, niet gokken):
+  MDT dekt de dungeon niet (niet in de M+-pool), Zygor heeft alleen sub-units (Zadu "Fist of Nalorakk"
+  246942/253902, "Voice of Nalorakk" 248350, "Nalorakk's Chosen" 255171, + de oude TBC-Nalorakk 23576),
+  en EXBoss heeft enkel naam-strings. Geen schone "Nalorakk"-boss-npcID → in-game capturen.
+- (Bonus: Zygor's Naigtal/Val-dailies-guide bevat tientallen losse WQ-IDs + coords — bruikbaar als we
+  ooit per-WQ-tracking willen; niet nu nodig.)
+
 ## Wat hiermee gebouwd wordt
 
 - `VoidAssaults.lua`/`WorldContent.lua`: Showdowns-sectie (actieve zone-detectie via weekly quest-flag, zelfde patroon als 12.0.5 Void Assaults) — nodig: 1, 2, 7
-- `WorldBoss.lua`: Leth'ir/Pertinax-entries — nodig: 1, 2 (kill-quests per boss: 96472 bekend, Pertinax + Heroic-varianten nodig)
+- `WorldBoss.lua`: Leth'ir/Pertinax-entries — nodig: 1, 2 (kill-quests: Leth'ir/Nexus-Captain **96472** ✅, Pertinax **96473** ✅ (Zygor 17 jun); Heroic-varianten nog open)
 - `Rares.lua`: nieuwe zone-rares — nodig: 1, 3
 - `AccountWeeklyChecklist`: Folio-mote (⚠ account/warband-breed — 1 regel voor het hele account!) + Showdown-weekly — nodig: 2, 5
 - Codex-artikelen: al geschreven (geen IDs nodig) ✔
