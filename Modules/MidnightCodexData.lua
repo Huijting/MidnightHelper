@@ -369,6 +369,15 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_127_TIMEWAYS_BODY",
 		sort = 11,
 	},
+	{
+		id = "ritual_renown_127",
+		category = "world",
+		titleKey = "CODEX_127_RITUALRENOWN_TITLE",
+		bodyKey = "CODEX_127_RITUALRENOWN_BODY",
+		tabId = "world",
+		tabLabelKey = "TAB_WORLD",
+		sort = 11,
+	},
 }
 
 local articlesByCategory = {}

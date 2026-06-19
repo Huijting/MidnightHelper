@@ -112,10 +112,14 @@ als "BiS" zonder caveat (specs verschillen) — adviseer met de veiligste defaul
 - ❌/⚠️ **Voidlight Marl is GEEN nieuwe valuta** — het is de bestaande Midnight-renown-munt
   (currency **3316**, warband-transferable; MH trackt 'm al). De 12.0.7-vendors prijzen er alleen óók
   in. (Gemini noemde Marl niet, maar let hierop bij eventuele "nieuwe currency"-claims.)
-- ⬜ **"Void Cores"** (Gemini: wekelijkse quest bij de Ritual Sites die een bonus-roll-item geeft voor
-  Tier 6) — **niet terug te vinden in MH-data of de gecheckte bronnen** in deze vorm. MH kent wél
-  **Nebulous Voidcore** (Sporefall-bonusroll, via intro-quest 96746) en **Void-Twisted Sporbit**.
-  Gemini verwart hier mogelijk Sporefall met Ritual Sites → **niet overnemen zonder in-game check.**
+- ✅ **"Void Cores"-weekly bij de Ritual Sites — IN-GAME BEVESTIGD (Rob, 17 jun):** questlijn
+  **"Ritual Site Studies: Week 1 of 3"**, gegeven door **Lady Darkglen** bij de Ritual Sites.
+  Doel wk1: **disrupt 2× Tier 6 Ritual Sites terwijl de "Reinforcements"-challenge actief is**.
+  Beloning aan het eind van de keten: **Nebulous Voidcore** (bonus-roll-item) + **Voidlight Marl ×300**
+  + ~68g 32s. → Gemini had hier dus gelijk; eerder als ⬜ gemarkeerd, nu bevestigd. (Nebulous Voidcore
+  is dus uit meerdere bronnen te halen: Sporefall-intro 96746 én deze 3-weken-Ritual-keten.)
+  **Quest-ID: "Ritual Site Studies: Week 1 of 3" = 96728** ✅ (Rob 17 jun); gerelateerd
+  "Midnight: Ritual Sites" = 95843. Wk2/wk3-IDs volgen bij de resets.
 
 ---
 
@@ -170,7 +174,7 @@ als "BiS" zonder caveat (specs verschillen) — adviseer met de veiligste defaul
 | "Rift Blade Meia" in Silvermoon start Showdown | ❌ | Riftblade Maella; intro = Voidstorm/Screaming Ridge |
 | Raid-boss "Rott Meer", NPC "Sporamir" | ❌ | Rotmire (254176), quest "Sporefall: Rotmire" 96746 |
 | Rotmire-bonusroll kost 2 rolls | ⬜ | niet geverifieerd — in-game checken |
-| "Void Cores" weekly bij Ritual Sites voor T6 | ⬜ | niet gevonden; mogelijk verwarring met Sporefall-Voidcore |
+| "Void Cores" weekly bij Ritual Sites voor T6 | ✅ klopt | "Ritual Site Studies" (Lady Darkglen), 2× T6 met Reinforcements → Nebulous Voidcore + 300 Marl (in-game 17 jun) |
 | T6 upgrade Spark-gear naar 285 | ⬜ | niet geverifieerd (MH: 5 Myth Dawncrests, vault 269) |
 | Turbulent Timeways 30 juni | ✅ | bevestigd (t/m 11 aug) |
 | Story-chapters 7 juli bij "Orwena" | ⬜ | niet bevestigd |

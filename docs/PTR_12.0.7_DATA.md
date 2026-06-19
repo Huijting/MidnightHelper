@@ -39,10 +39,61 @@ Wowhead-news 381499 + MrGM, onafhankelijk van elkaar:
   4/6)**, zelfde als T5.
 - **Nieuwe weekly questlijn bij de site-ingang**: 6 weken lang, elke week
   2× Tier 6 met specifieke challenges. ⬜ Quest-IDs dumpen zodra live.
+  - ✅ **IN-GAME BEVESTIGD (Rob, 17 jun):** questlijn **"Ritual Site Studies"** (titel zei
+    **"Week 1 of 3"**, dus ≥3-weken-keten), gegeven door **Lady Darkglen**. Wk1-doel:
+    **disrupt 2× Tier 6 terwijl de "Reinforcements"-challenge actief is**. Eind-beloning:
+    **Nebulous Voidcore** (bonus-roll) + **Voidlight Marl ×300** + ~68g 32s.
+    → **Quest-IDs (Rob 17 jun, /mh questlog-scan):** wk1 **"Ritual Site Studies: Week 1 of 3" = 96728** ✅;
+    gerelateerd **"Midnight: Ritual Sites" = 95843** (vermoedelijk zone-/intro-quest). Wk2/wk3-IDs volgen
+    bij de volgende resets. Bevestigt ook Gemini's "Void Cores"-weekly (zie PATCH_12_0_7_ADVICE.md).
 - MH-impact: RitualCoach-tierinfo uitbreiden (T6-regel), Codex-tip "Myth
   Dawncrests soloable via T6 rituals", weekly-questlijn evt. tracken.
 - ⬜ Nog te bevestigen (Gemini/Wowhead-gids, niet hard gecheckt): Field
   Accolades ≈ 1 per 10 Spoils (330→32, 507→50).
+
+### Ritual Site challenges — gevers + coords (Method-gids + Rob in-game 17 jun)
+
+Bron: Method "How to Unlock All Ritual Site Challenges" (12 mei) — **8 challenges, namen matchen
+exact onze lijst** (Tendrils, Malevolent Boons, Reinforced, Patrols, Manifestations, Embers, Magical
+Alarm Bells, Tainted Corpses). Op T6 draaien er 6 tegelijk. Unlock-gevers (Silvermoon Bazaar, uiMapID 2393):
+
+- **Lady Darkglen — 2393 47.74/49.76** (Rob zag haar als "Image of Lady Darkglen" bij de ritual + als
+  gever van de **"Ritual Site Studies"-weekly 96728**). Geeft: **Malevolent Boons** (na T2),
+  **Magical Alarm Bells** (na T4), **Patrols** ("Misappropriated Treasures", na T3). ⚠️ De Method-gids
+  noemt haar bij Patrols abusievelijk "Lady Glendark" — zelfde NPC/coords (gids-typo).
+- **Ranger Captain Lilatha — 2393 48.23/49.64.** Geeft: **Reinforced** (na T2), **Manifestations** (na T3).
+- **Tendrils:** geen NPC — loot de eindchest → quest-item "Ritual Site Challenge Report: Tendrils" → inleveren.
+- **Embers:** loot een **Ember of Power** in een T4-site → start-quest (meer Embers looten).
+- **Tainted Corpses:** loot een **Tainted Bone Pile** in T2+ (Eversong 66.09/62.58, Zul'Aman 47.91/36.52) → quest.
+
+In-game on-screen-trackers (Rob 17 jun) bevestigen de actieve-challenge-UI: **"Embers of Power Remaining:
+x/4"** (Embers-loot-objectief) en **"Kills Until Magical Alarm Bells: N"** (aftelteller → bel = alert/
+reinforcements). MH-impact (latere batch): RitualCoach-waypoints naar Darkglen/Lilatha + korte uitleg
+per challenge; "Ritual Site Studies"-weekly (96728) evt. in de account-checklist.
+
+### Ritual Sites RENOWN-track ("Journeys") — 8 ranks, compleet (Rob in-game 17 jun, alle tooltips)
+
+Eigen renown/voortgangstrack (UI "Journeys → Ritual Sites"), max **rank 8**, alle nodes zijn
+**Warband Reward** (account-breed). Volledige lijst (vervangt de eerdere boost-site-gok):
+
+- **Rank 1 — Ritual Magic: Regeneration Orbs:** Regeneration Orbs verschijnen in Ritual Sites, healen je voor **15% HP**.
+- **Rank 2 — Ritual Treasures:** kleine treasures rond Ritual Sites te vinden.
+- **Rank 3 — Ritual Decor:** koop void-themed desk-accessoires bij **Rae'ana** in Silvermoon (housing-decor).
+- **Rank 4 — Outlying Dangers** (rare enemies spawnen → extra ritual spoils) **+ Ritual Magic: Orb Potency** (Regen-Orb-heal **+100%**).
+- **Rank 5 — Shrines of Power** (magische buff-shrines in de sites) **+ Additional Spoils** (extra kleine treasures).
+- **Rank 6 — Corrupted Menagerie** (koop select pets bij **Sergeant Vornin**, Silvermoon) **+ Ritual Magic: Orbs Aplenty** (hogere kans op Regen-Orb uit kills).
+- **Rank 7 — Revered Treasures** (grote treasures → extra spoils) **+ Dark Obelisk** (koopbaar bij **Rae'ana**, Silvermoon) **+ Shrines of Power II** (nieuwe buff-shrines).
+- **Rank 8 — Corrupted Transport** (koop de **Void-Touched Hawkstrider**-mount bij **Sergeant Vornin**, Silvermoon) **+ Elite Dangers** (rare ELITE enemies spawnen → extra spoils).
+
+Patroon: de track maakt de sites geleidelijk rijker (orbs/heal → rares → shrines → treasures → elites)
+en ontgrendelt vendor-spullen (decor rank 3, pets rank 6, mount rank 8). Currency overal = Field
+Accolades/Voidlight Marl (MH trackt die al). Vendors: **Rae'ana** (decor/Dark Obelisk), **Sergeant Vornin**
+(pets/mount) — Silvermoon (coords nog te dumpen).
+
+**MH-impact (latere batch, geen 1.8.2-blocker):** (1) renown-rank + voortgang tonen (HomeDashboard /
+Void & Rituals) — `C_MajorFactions`/Journeys-API uitzoeken; (2) Codex/RitualCoach-tip "wat ontgrendelt
+elke rank + de mount/pets/decor-doelen"; (3) evt. de gameplay-modifiers (rank 8 = elites, rank 4/7 =
+rares/treasures) in de RitualCoach noemen zodat spelers weten waarom een hogere-rank-site meer oplevert.
 
 ## Web-research 11 juni (Wowhead news 381787 + gidsen) — nieuw bevestigd
 
@@ -315,6 +366,11 @@ alles hieronder is web-gedataminet, hard maken pas na in-game bevestiging.**
   Deep / Summoner's Fall** — **nu WEB-BEVESTIGD** (waren Gemini-gok). Stage 2 =
   empowered **Mindbreaker** (npc ⬜). **Eindboss Lady Selen'vjar npc 257498** ✅
   (chest-object 602746 ✅ matcht ons).
+  - ✅ **Scenario-trigger COMPLEET (Rob in-game 17 jun):** **SCENARIO_ID = 3267**;
+    stage 2 "Beast From the Deep" (Empowered Mindbreaker) = **stepID 16532**; stage 3
+    "Summoner's Fall" (Lady Selen'vjar) = **stepID 16533**. → `DaggerspineCoach.lua` heeft nu de
+    auto-open-trigger (zelfde stage-patroon als RitualBossCoach: step→boss-venster + meebladeren,
+    per-boss suppress, npc-leren met secret-guard). Klaar voor 1.8.3.
 - **Spell-IDs die Rob in z'n Dragonhawk-run zag** (voor de emote-listener/coach):
   **Binding Nebula = spell 1284125** (live) / 1284106 (PTR), nebula-npc 260719,
   debuff 1284102. **Dissonant Reflections = spell 1284081** (live) / 1284085

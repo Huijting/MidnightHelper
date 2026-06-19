@@ -22,6 +22,40 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
   (`MidnightHelperDB.changelogDevCheck=true` waarschuwt bij login). Zie `docs/RELEASE_CHECKLIST.md`.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
 
+## Voor Cursor — 1.8.3 WIP (Ritual Sites-uitbreiding) — NOG NIET RELEASEN
+
+**STATUS: ⏳ UNCOMMITTED, gefaseerd.** Bundelt de Ritual-Sites-data die Rob 17 jun in-game ving.
+Nog niet compleet — twee onderdelen wachten op in-game captures. Niet releasen tot Rob "ga" zegt.
+
+**✅ Klaar (data-compleet, gebouwd):**
+- **Ritual Sites Renown Codex-artikel** — `MidnightCodexData.lua` nieuw entry `ritual_renown_127`
+  (category "world") + `CODEX_127_RITUALRENOWN_TITLE/_BODY` in **alle 6 talen**. Beknopte uitleg van de
+  8-rank-track (orbs→rares→shrines→treasures→elites = meer spoils; vendor-unlocks decor/pets/mount).
+  Volledige 8-rank-data staat in `docs/PTR_12.0.7_DATA.md`. Los gecompileerd (lupa) = OK.
+- **Daggerspine Point auto-open ✅ COMPLEET** (Rob ving beide stages 17 jun): `DaggerspineCoach.lua` heeft
+  nu de stage-trigger (SCENARIO_ID 3267; stage 2 Mindbreaker=16532, stage 3 Selen'vjar=16533). Zelfde
+  patroon als RitualBossCoach (step→boss-venster + meebladeren, per-boss suppress, npc-leren met
+  secret-guard). Los gecompileerd (lupa) = OK. In-game testen door Rob in een Daggerspine-run.
+
+**⏳ Wacht op in-game captures (geblokkeerd, niet gokken):**
+- **"Ritual Site Studies"-weekly in de account-checklist** (zoals de Folio-weekly): hebben wk1 `96728`;
+  ⬜ mist wk2/wk3-quest-IDs (3-weken-keten) om de voortgang goed te detecteren. Capturen bij de resets.
+- **Renown-rank-teller** (HomeDashboard / Void & Rituals): ⬜ juiste API/factionID voor de "Journeys"-track
+  nog uit te zoeken (mogelijk niet `C_MajorFactions`). Niet bouwen tot dat zeker is.
+- **Vendor-waypoints** Rae'ana + Sergeant Vornin (Silvermoon): ⬜ coords dumpen.
+
+→ Zodra de captures binnen zijn maak ik 1.8.3 af; pas dan TOC-bump + release-artefacten + de Cursor-
+release-opdracht (zoals bij 1.8.2). Voor nu: alleen committen mag, NIET uploaden.
+
+**Interrupt-announcer ("wie kickte") — ❌ NIET HAALBAAR in 12.x, weer verwijderd (17 jun).** Prototype
+gebouwd (CLEU `SPELL_INTERRUPT`), maar bij login meteen **8× ADDON_ACTION_FORBIDDEN: "tried to call the
+protected function Frame:RegisterEvent()"** op de `COMBAT_LOG_EVENT_UNFILTERED`-registratie. = exact de
+12.x-restrictie die RitualBossCoach al noteerde ("geen CLEU"). Niet met pcall te vangen (forbidden is
+geen Lua-error). → `InterruptAnnounce.lua` uit de TOC gehaald + leeggemaakt (stub-comment), `/mh interrupts`-
+branch uit Core.lua verwijderd. **Conclusie:** zelf CLEU registreren is geblokkeerd voor MH; de enige
+realistische route voor "wie kickte" is de combat-data UITLEZEN bij een al-draaiende meter (Details!-API) —
+apart project, alleen zinvol als die meter geïnstalleerd is. Voor nu gedropt.
+
 ## Voor Cursor — review + commit batch 16 juni #3 (boss-venster: target-reopen + auto-open-toggle) → 1.8.2
 
 **STATUS: ✅ RELEASED in 1.8.2** — dev-commit `6173a6d`; uitgebracht in release
