@@ -694,6 +694,27 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "readycheck" or msg == "ready" or msg == "consready" then
+		if ns.PrintConsumableReadyCheck then
+			ns.PrintConsumableReadyCheck()
+		end
+		return
+	end
+
+	if msg == "readytoggle" then
+		if ns.ToggleConsumableReadyCheck then
+			ns.ToggleConsumableReadyCheck()
+		end
+		return
+	end
+
+	if msg == "auradump" then
+		if ns.PrintPlayerAuraDump then
+			ns.PrintPlayerAuraDump()
+		end
+		return
+	end
+
 	-- /mh model <item-link | itemID | npc <id>> — roteerbare 3D-model-preview.
 	local modelArg = msg:match("^model%s+(.+)$")
 	if msg == "model" or modelArg then

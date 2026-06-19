@@ -21,6 +21,14 @@ ns.OMNIUM_FOLIO = {
 	-- Unlock-keten: voltooien van quest[i] ontgrendelt rij i (rij 1 = intro).
 	unlockQuests = { 96410, 96441, 96442, 96443, 96444 },
 	unlockNpc = "Grand Magister Rommath", -- Magisters' Terrace (Isle of Quel'Danas)
+	-- Folio-unlock-storyline "The Sunstrider Omnium" (Zygor-data, 19 jun):
+	-- 96223 The Magister's Call -> 96225 -> 96226 -> 96227 -> 96228 -> 96229
+	-- -> 96230 Unravelling the Wards -> 96231 The Grand Magister's Key-Cipher
+	-- (Belo'vir's Arcane Vault; item 274261) -> 96232 -> 96233 -> 96410
+	-- (Rommath overhandigt de Folio). Daarna ontgrendelen de weekly
+	-- "Seeking Knowledge"-quests hieronder de rijen. Folio-item: spell 1302265.
+	-- Eenmalige unlock-storyline (voltooien -> Folio-overhandiging bij 96410):
+	unlockStoryQuests = { 96223, 96225, 96226, 96227, 96228, 96229, 96230, 96231, 96232, 96233 },
 
 	rows = {
 		{

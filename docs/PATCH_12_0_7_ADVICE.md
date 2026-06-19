@@ -34,6 +34,15 @@ Borrowed power zónder gear-slot, blijft heel Midnight actief, gratis te wissele
   Omnium Folio" = 96410** (Zygor-bevestigd). ✅ **Gemini had gelijk over de Silvermoon-start** (mijn
   eerdere "correctie" naar puur Rommath/Magisters' Terrace was te streng — ConquestCapped beschreef de
   eind-NPC). Beide kloppen: start in Silvermoon, eind bij Rommath.
+- **Folio-unlock-storyline = "The Sunstrider Omnium"** (✅ volledige keten uit Zygor, 19 jun).
+  Quest-IDs op volgorde: **96223** The Magister's Call (Silvermoon) → 96225 The Magister's
+  Conundrum → 96226 Omnium Anomalies (The Lycaneum) → 96227 Lycaneum Chaos → 96228 The Shadowed
+  Spire → 96229 The Void Reveals → **96230 Unravelling the Wards** → **96231 The Grand Magister's
+  Key-Cipher** (Isle of Quel'Danas: Belo'vir's Arcane Vault; loot *Grand Magister's Key-Cipher*
+  item 274261) → 96232 Return to the Omnium → 96233 The Omnium Reawakens → **96410** "Seeking
+  Knowledge Week 1 of 5: The Omnium Folio" (Rommath overhandigt de Folio). Daarna ontgrendelen de
+  weekly's **96441/96442/96443/96444** (week 2–5) de overige rijen. Folio-item-tooltip: spell
+  **1302265 (CDPulse)**, iconID 1506458.
 
 **Account-wide of per-char? — ✅ OPGELOST (Icy Veins 16 jun, post-release):**
 - **Unlocks = account-breed.** Letterlijk: "Access to the Omnium Folio will be unlocked for your entire

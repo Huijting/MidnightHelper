@@ -55,6 +55,33 @@ local function FormatNamePreview(labels)
 	return table.concat(out, ", ") .. (" (+%d)"):format(#labels - MAX_NAME_PREVIEW)
 end
 
+-- Ritual Site Studies weekly (Lady Darkglen). Wk1 = 96728; wk2/wk3-quest-IDs
+-- aanvullen zodra bekend (zie docs/PTR_12.0.7_DATA.md). Toont de huidige character.
+local RITUAL_WEEKLY_QUESTS = { 96728 }
+
+local function RitualWeeklyState()
+	if not (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
+		return nil
+	end
+	local done, onQuest = false, false
+	for i = 1, #RITUAL_WEEKLY_QUESTS do
+		local q = RITUAL_WEEKLY_QUESTS[i]
+		local okC, c = pcall(C_QuestLog.IsQuestFlaggedCompleted, q)
+		if okC and c then
+			done = true
+		end
+		if C_QuestLog.IsOnQuest then
+			local okO, o = pcall(C_QuestLog.IsOnQuest, q)
+			if okO and o then
+				onQuest = true
+			end
+		end
+	end
+	local level = (UnitLevel and UnitLevel("player")) or 0
+	local available = done or onQuest or level >= GetDelverCapLevel()
+	return { available = available, done = done, onQuest = onQuest }
+end
+
 function ns.ComputeAccountWeeklyChecklist()
 	local entries = ns._mhAltOverviewCollectEntries and ns:_mhAltOverviewCollectEntries() or {}
 	local vaultReady, vaultLikely = {}, {}
@@ -216,6 +243,7 @@ function ns.ComputeAccountWeeklyChecklist()
 		saCurrent = saCurrent,
 		saIncompleteLabels = saIncompleteLabels,
 		folioWeekly = ns.GetOmniumFolioWeeklyStatus and ns.GetOmniumFolioWeeklyStatus() or nil,
+		ritualWeekly = RitualWeeklyState(),
 	}
 end
 
@@ -566,6 +594,15 @@ function ns.RefreshAccountWeeklyChecklist()
 				else
 					nextLine(true, ns:L("ACCOUNT_WEEKLY_SHOWDOWN_OPEN_FMT"):format(zoneName), 1, 0.82, 0.35)
 				end
+			end
+		end
+
+		local rw = data.ritualWeekly
+		if rw and rw.available then
+			if rw.done then
+				nextLine(true, ns:L("ACCOUNT_WEEKLY_RITUAL_DONE"), 0.45, 0.95, 0.5)
+			else
+				nextLine(true, ns:L("ACCOUNT_WEEKLY_RITUAL_OPEN"), 1, 0.82, 0.35)
 			end
 		end
 

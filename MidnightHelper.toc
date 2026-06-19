@@ -62,6 +62,7 @@ Modules\VaultReminder.lua
 Modules\VaultAdvisorData.lua
 Modules\VaultAdvisor.lua
 Modules\GearEnchantCheck.lua
+Modules\ConsumableReadyCheck.lua
 Modules\CurrencyGuide.lua
 Modules\TierSetData.lua
 Modules\TierSet.lua
