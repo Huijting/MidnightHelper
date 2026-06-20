@@ -213,6 +213,58 @@ local function CategoryItemIDs(specData, catName)
 	return ids
 end
 
+-- Food = personalFood + feast samen (beide tellen als "food bij je").
+local function FoodItemIDs(specData)
+	local ids = {}
+	for _, catName in ipairs({ "personalFood", "feast" }) do
+		local sub = CategoryItemIDs(specData, catName)
+		if sub then
+			for i = 1, #sub do
+				ids[#ids + 1] = sub[i]
+			end
+		end
+	end
+	if #ids == 0 then
+		return nil
+	end
+	return ids
+end
+
+-- Tas-tier voor flask/rune, gekoppeld aan de geadviseerde consumable per spec:
+-- "best" = je hebt de aanbevolen best · "alt" = alleen een alternate · false =
+-- geen · nil = onbekend (item-info nog niet gecached → never-lie "?").
+local function BagTier(specData, catName)
+	local cat = specData and specData[catName]
+	if type(cat) ~= "table" then
+		return nil
+	end
+	local hasBest = BagCount(cat.best or {})
+	if hasBest == true then
+		return "best"
+	end
+	local hasAlt = BagCount(cat.alternates or {})
+	if hasAlt == true then
+		return "alt"
+	end
+	if hasBest == nil and hasAlt == nil then
+		return nil
+	end
+	return false
+end
+
+-- Tier → icoon. best/alt tellen beide als "ready" (groene ✓); alt krijgt een
+-- subtiele amber "(alt)"-tag zodat je ziet dat je niet op de top-aanrader zit.
+local function TierMark(tier)
+	if tier == "best" then
+		return ICON_OK
+	elseif tier == "alt" then
+		return ICON_OK .. Col("e8c36a", ns:L("CONSREADY_ALT"))
+	elseif tier == false then
+		return ICON_BAD
+	end
+	return ICON_UNK
+end
+
 local function GroupUnits()
 	if IsInRaid and IsInRaid() then
 		local t = {}
@@ -257,13 +309,16 @@ end
 local function SelfLine()
 	local specData = PlayerSpecData()
 
-	-- Tas-checks (best + alternates samen).
-	local flaskBag = BagCount(CategoryItemIDs(specData, "flask"))
-	local runeBag = BagCount(CategoryItemIDs(specData, "augmentRune"))
+	-- Tas-checks. Flask/rune getrapt t.o.v. de geadviseerde consumable (best vs
+	-- alternate); pots/food/healthstone als simpele aanwezigheid + aantal.
+	local flaskTier = BagTier(specData, "flask")
+	local runeTier = BagTier(specData, "augmentRune")
 	local _, cpotN = BagCount(CategoryItemIDs(specData, "combatPotion"))
 	local cpotBag = cpotN and cpotN > 0 or false
 	local _, hpotN = BagCount(CategoryItemIDs(specData, "healingPotion"))
 	local hpotBag = hpotN and hpotN > 0 or false
+	local _, foodN = BagCount(FoodItemIDs(specData))
+	local foodBag = foodN and foodN > 0 or false
 	local hsBag = BagCount(HEALTHSTONE_IDS)
 
 	-- Buff-checks (eigen auras).
@@ -271,8 +326,8 @@ local function SelfLine()
 	local flaskBuff = UnitHasBuffFromSet("player", flaskBuffSet)
 	local runeBuff = UnitHasBuffFromSet("player", runeBuffSet)
 
-	local function bagBuff(label, bag, buff)
-		return label .. " " .. Mark(bag) .. " " .. Mark(buff) .. BuffWord()
+	local function tierBuff(label, tier, buff)
+		return label .. " " .. TierMark(tier) .. " " .. Mark(buff) .. BuffWord()
 	end
 	local function bagOnly(label, bag, count)
 		local s = label .. " " .. Mark(bag)
@@ -283,10 +338,11 @@ local function SelfLine()
 	end
 
 	local parts = {
-		bagBuff(ns:L("CONSREADY_FLASK"), flaskBag, flaskBuff),
-		bagBuff(ns:L("CONSREADY_RUNE"), runeBag, runeBuff),
+		tierBuff(ns:L("CONSREADY_FLASK"), flaskTier, flaskBuff),
+		tierBuff(ns:L("CONSREADY_RUNE"), runeTier, runeBuff),
 		bagOnly(ns:L("CONSREADY_CPOT"), cpotBag, cpotN),
 		bagOnly(ns:L("CONSREADY_HPOT"), hpotBag, hpotN),
+		bagOnly(ns:L("CONSREADY_FOOD"), foodBag, foodN),
 		bagOnly(ns:L("CONSREADY_HS"), hsBag, nil),
 	}
 	return Col("ffd100", ns:L("CONSREADY_YOU")) .. "  " .. table.concat(parts, "  ·  ")
@@ -296,11 +352,37 @@ local function OtherLine(unit)
 	EnsureBuffSets()
 	local flaskBuff = UnitHasBuffFromSet(unit, flaskBuffSet)
 	local runeBuff = UnitHasBuffFromSet(unit, runeBuffSet)
-	local parts = {
-		ns:L("CONSREADY_FLASK") .. " " .. Mark(flaskBuff) .. BuffWord(),
-		ns:L("CONSREADY_RUNE") .. " " .. Mark(runeBuff) .. BuffWord(),
-		Col(C_UNK, "(" .. ns:L("CONSREADY_BAG_UNKNOWN") .. ")"),
-	}
+	local name = (UnitName and UnitName(unit)) or unit
+	-- Tas-status van anderen kan alleen via comms (Fase 2): aanwezig als dat lid
+	-- óók MidnightHelper draait en zijn counts heeft gebroadcast.
+	local comms = ns.GetConsumableCommsStatus and ns.GetConsumableCommsStatus(name)
+	local parts
+	if comms then
+		local function pres(n)
+			return (n or 0) > 0
+		end
+		local function bagOnly(label, n)
+			local s = label .. " " .. Mark(pres(n))
+			if pres(n) and n > 1 then
+				s = s .. Col(C_UNK, "×" .. n)
+			end
+			return s
+		end
+		parts = {
+			ns:L("CONSREADY_FLASK") .. " " .. Mark(pres(comms.flask)) .. " " .. Mark(flaskBuff) .. BuffWord(),
+			ns:L("CONSREADY_RUNE") .. " " .. Mark(pres(comms.rune)) .. " " .. Mark(runeBuff) .. BuffWord(),
+			bagOnly(ns:L("CONSREADY_CPOT"), comms.cpot),
+			bagOnly(ns:L("CONSREADY_HPOT"), comms.hpot),
+			bagOnly(ns:L("CONSREADY_FOOD"), comms.food),
+			bagOnly(ns:L("CONSREADY_HS"), comms.hs),
+		}
+	else
+		parts = {
+			ns:L("CONSREADY_FLASK") .. " " .. Mark(flaskBuff) .. BuffWord(),
+			ns:L("CONSREADY_RUNE") .. " " .. Mark(runeBuff) .. BuffWord(),
+			Col(C_UNK, "(" .. ns:L("CONSREADY_BAG_UNKNOWN") .. ")"),
+		}
+	end
 	return UnitLabel(unit) .. "  " .. table.concat(parts, "  ·  ")
 end
 
@@ -331,6 +413,103 @@ end
 -- Publieke print-functies (/mh dispatch in Core.lua roept deze aan)
 --------------------------------------------------------------------------------
 
+-- Eigen tas-tellingen per categorie (voor de comms-broadcast, Fase 2).
+function ns.GetOwnConsumableBagCounts()
+	local specData = PlayerSpecData()
+	local function c(ids)
+		local _, n = BagCount(ids)
+		return n or 0
+	end
+	return {
+		flask = c(CategoryItemIDs(specData, "flask")),
+		rune = c(CategoryItemIDs(specData, "augmentRune")),
+		cpot = c(CategoryItemIDs(specData, "combatPotion")),
+		hpot = c(CategoryItemIDs(specData, "healingPotion")),
+		food = c(FoodItemIDs(specData)),
+		hs = c(HEALTHSTONE_IDS),
+	}
+end
+
+-- Gestructureerde status per groepslid (gedeelde bron voor chat + het bord).
+-- @return { dungeon=string|nil, rows = { {unit,name,classToken,isMH,
+--   flask={bag,buff}, rune={bag,buff}, cpot={bag,count}, hpot={...},
+--   food={...}, hs={...} } } }
+-- flask/rune .bag: voor jezelf "best"/"alt"/false/nil (getrapt); voor anderen
+-- true/false (aanwezig via comms) of nil (onbekend). buff: true/false/nil.
+function ns.GetConsumableReadyData()
+	EnsureBuffSets()
+	local dungeon = (GetInstanceInfo and select(1, GetInstanceInfo())) or nil
+	if dungeon == "" then
+		dungeon = nil
+	end
+	local rows = {}
+
+	local function presence(ids)
+		local has, n = BagCount(ids)
+		return has, n
+	end
+
+	-- Eigen rij (volledig).
+	do
+		local specData = PlayerSpecData()
+		local _, cN = presence(CategoryItemIDs(specData, "combatPotion"))
+		local _, hN = presence(CategoryItemIDs(specData, "healingPotion"))
+		local _, fN = presence(FoodItemIDs(specData))
+		local hsHas = presence(HEALTHSTONE_IDS)
+		local _, ctoken = UnitClass("player")
+		rows[#rows + 1] = {
+			unit = "player",
+			name = (UnitName and UnitName("player")) or "You",
+			classToken = ctoken,
+			isMH = true,
+			flask = { bag = BagTier(specData, "flask"), buff = UnitHasBuffFromSet("player", flaskBuffSet) },
+			rune = { bag = BagTier(specData, "augmentRune"), buff = UnitHasBuffFromSet("player", runeBuffSet) },
+			cpot = { bag = (cN and cN > 0) or false, count = cN },
+			hpot = { bag = (hN and hN > 0) or false, count = hN },
+			food = { bag = (fN and fN > 0) or false, count = fN },
+			hs = { bag = hsHas, count = nil },
+		}
+	end
+
+	-- Overige groepsleden.
+	local units = GroupUnits()
+	for i = 1, #units do
+		local unit = units[i]
+		if not UnitIsUnit(unit, "player") then
+			local name = (UnitName and UnitName(unit)) or unit
+			local comms = ns.GetConsumableCommsStatus and ns.GetConsumableCommsStatus(name)
+			local _, ctoken = UnitClass(unit)
+			local function commsBag(key)
+				if not comms then
+					return nil, nil
+				end
+				local n = comms[key] or 0
+				return n > 0, n
+			end
+			local cb, cn = commsBag("cpot")
+			local hb, hn = commsBag("hpot")
+			local fb, fn = commsBag("food")
+			local sb = (commsBag("hs"))
+			local flb = (commsBag("flask"))
+			local rub = (commsBag("rune"))
+			rows[#rows + 1] = {
+				unit = unit,
+				name = name,
+				classToken = ctoken,
+				isMH = comms ~= nil,
+				flask = { bag = flb, buff = UnitHasBuffFromSet(unit, flaskBuffSet) },
+				rune = { bag = rub, buff = UnitHasBuffFromSet(unit, runeBuffSet) },
+				cpot = { bag = cb, count = cn },
+				hpot = { bag = hb, count = hn },
+				food = { bag = fb, count = fn },
+				hs = { bag = sb, count = nil },
+			}
+		end
+	end
+
+	return { dungeon = dungeon, rows = rows }
+end
+
 function ns.PrintConsumableReadyCheck()
 	for _, line in ipairs(BuildReportLines()) do
 		print(line)
@@ -340,28 +519,35 @@ end
 -- Hulpcommando: dump je actieve HELPFUL-auras met spell-ID + resterende tijd.
 -- Handig om de echte flask/rune-buff-ID's te controleren tegen GetItemSpell.
 function ns.PrintPlayerAuraDump()
-	print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("AURADUMP_HEADER")))
 	if not (C_UnitAuras and C_UnitAuras.GetAuraDataByIndex) then
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("AURADUMP_HEADER")))
 		print("  " .. Col(C_BAD, "C_UnitAuras.GetAuraDataByIndex " .. ns:L("CONSREADY_API_MISSING")))
 		return
 	end
 	local now = (GetTime and GetTime()) or 0
-	local i = 1
-	while true do
-		local ok, data = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, "HELPFUL")
-		if not ok or not data then
-			break
+	-- Dump zowel buffs (HELPFUL) als debuffs (HARMFUL); debuffs nodig om bv. de
+	-- ritual "Fragility"-debuff te kunnen vangen.
+	local function dump(filter, headerKey)
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L(headerKey)))
+		local i = 1
+		while true do
+			local ok, data = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, filter)
+			if not ok or not data then
+				break
+			end
+			local remain = ""
+			if data.expirationTime and data.expirationTime > 0 then
+				remain = ("  (%ds)"):format(math.max(0, math.floor(data.expirationTime - now)))
+			end
+			print(("  |cff71d5ff%d|r  %s%s"):format(data.spellId or 0, tostring(data.name or "?"), remain))
+			i = i + 1
 		end
-		local remain = ""
-		if data.expirationTime and data.expirationTime > 0 then
-			remain = ("  (%ds)"):format(math.max(0, math.floor(data.expirationTime - now)))
+		if i == 1 then
+			print("  " .. Col(C_UNK, ns:L("AURADUMP_NONE")))
 		end
-		print(("  |cff71d5ff%d|r  %s%s"):format(data.spellId or 0, tostring(data.name or "?"), remain))
-		i = i + 1
 	end
-	if i == 1 then
-		print("  " .. Col(C_UNK, ns:L("AURADUMP_NONE")))
-	end
+	dump("HELPFUL", "AURADUMP_HEADER")
+	dump("HARMFUL", "AURADUMP_DEBUFF_HEADER")
 end
 
 --------------------------------------------------------------------------------
@@ -430,14 +616,22 @@ local function MaybeAutoRun(force)
 	end
 	lastAutoInstance = id
 	-- Korte vertraging: aura/roster zijn vlak na de zone-load nog niet gevuld.
+	local function run()
+		if not CurrentPartyInstanceID() then
+			return
+		end
+		-- Visueel bord (Fase 3); valt terug op de chat-versie als het bord-
+		-- bestand (nog) niet geladen is.
+		if ns.ShowConsumableBoard then
+			ns.ShowConsumableBoard()
+		else
+			ns.PrintConsumableReadyCheck()
+		end
+	end
 	if C_Timer and C_Timer.After then
-		C_Timer.After(1.5, function()
-			if CurrentPartyInstanceID() then
-				ns.PrintConsumableReadyCheck()
-			end
-		end)
+		C_Timer.After(1.5, run)
 	else
-		ns.PrintConsumableReadyCheck()
+		run()
 	end
 end
 

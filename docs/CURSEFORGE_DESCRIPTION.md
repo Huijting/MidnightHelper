@@ -1,4 +1,4 @@
-# CurseForge project description — v1.8.2 refresh (copy/paste)
+# CurseForge project description — v1.8.3 refresh (copy/paste)
 
 Paste everything between the START/END markers into the CurseForge
 description editor. Screenshot suggestions per section are at the bottom
@@ -14,6 +14,7 @@ Midnight's endgame is a weekly puzzle: vault slots, rotating zones, weekly quest
 
 ## Why you'll want this
 
+- ✨ **NEW in 1.8.3 — Consumable ready board.** Step into a dungeon and a floating board shows **each group member's ready-check icons** — your own **flask, augment rune, combat & healing potions, food and healthstone** from your bags, plus the group's status (groupmates running Midnight Helper **share their bag status**, so no more "bag unknown"). It's draggable, **SHIFT+scroll to zoom**, hides itself when you pull, and opens any time with `/mh readyboard` (mute via the new settings toggle). Your flask/rune even show **green for your spec's recommended best, amber for an alternate**. Plus: the **Daggerspine Point** boss window now auto-opens on pull, a new **Ritual Sites Renown Codex** article, **clickable waypoints for the renown vendors (Rae'ana, Sergeant Vornin)**, and an **"Open rune window"** button in the Omnium Folio tab. Never-lie: a slot that genuinely can't be read shows a **"?"**, never a false "missing".
 - ✨ **NEW in 1.8.2 — Omnium Folio advisor.** A new **Omnium Folio** tab lays out the whole patch 12.0.7 rune tree — every row and rune as a clickable spell link with the live tooltip — and **highlights the recommended pick per row for Mythic+, Raid, PvP or World**, alongside the unlock walkthrough and a live "rows unlocked" counter. The floating boss window also got smarter: the X now only dismisses that one boss (the next boss returns a fresh window, and targeting a boss brings it back), with a new "Open automatically" toggle.
 - ✨ **NEW in 1.8.1 — Tier Sets, clickable waypoints, a calmer look.** A new **Tier Sets** tab shows your set bonuses and a live equipped counter; a new **Currencies** tab maps where to earn and spend everything with live balances; **vendor names are clickable to set a waypoint**; a **skull marks the rare** you're hunting; and the whole UI got a cohesive polish (one gold, role icons, tooltips at your cursor) with an optional one-click **Simple view** for new players.
 - ⚔️ **Raid & Mythic+ coaches.** Beginner boss steps for all three Midnight raids (and the Sporefall raid + Daggerspine ritual), each cast a **clickable spell link** with the action to take — dodge, interrupt, move, defensive. The boss window opens automatically when you pull. The new **Mythic+ tab** adds the affix ladder, Xal'atath's Bargains, the Season 1 dungeon pool and **must-interrupt lists per dungeon**, with a **Beginner mode + glossary** so the jargon doesn't bury you.
@@ -92,4 +93,4 @@ Minimaal 3 (CF-checklist); eerste screenshot = wat in de gallery-preview komt.
 zip (package.ps1 faalt de build anders al), zip-root = exact `MidnightHelper/`,
 geen dev-notities/secrets, description zonder externe download-links, game
 version 12.0.7 / interface 120007 (12.0.7 is live → **120005 uit de TOC
-verwijderd**), release type **Release**, display version **1.8.2**.
+verwijderd**), release type **Release**, display version **1.8.3**.

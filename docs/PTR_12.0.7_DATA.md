@@ -87,6 +87,12 @@ Eigen renown/voortgangstrack (UI "Journeys → Ritual Sites"), max **rank 8**, a
 - **Rank 3 — Ritual Decor:** koop void-themed desk-accessoires bij **Rae'ana** in Silvermoon (housing-decor).
 - **Rank 4 — Outlying Dangers** (rare enemies spawnen → extra ritual spoils) **+ Ritual Magic: Orb Potency** (Regen-Orb-heal **+100%**).
 - **Rank 5 — Shrines of Power** (magische buff-shrines in de sites) **+ Additional Spoils** (extra kleine treasures).
+  - ✅ **IN-GAME BEVESTIGD (Rob, 20 jun):** een "Loa Shrine" aanklikken in een ritual geeft een **60-minuten stat-buff**; verschillende shrines = verschillende stats (alle CDPulse, spell-IDs rond 1285xxx). Gevangen:
+    - **Accuracy** = spell **1285688** (icon 7090841) → **+10% critical strike**.
+    - **Hardiness** = spell **1285637** (icon 7263309) → **+20% maximum health**.
+    - **Expedience** = spell **1285691** (icon 7390435) → **+25% movement speed**.
+    - **Guile** = spell **1285692** → effect **nog te bevestigen** (alleen in auradump gezien; tooltip nog te screenen).
+    - (Reeks ligt rond **1285637–1285692** (Hardiness 637, Accuracy 688, Expedience 691, Guile 692); haste/mastery/vers/leech-varianten waarschijnlijk nog niet gevangen. Wowhead-PTR-probe timede uit, dus in-game `/mh auradump` is de betrouwbaarste bron.)
 - **Rank 6 — Corrupted Menagerie** (koop select pets bij **Sergeant Vornin**, Silvermoon) **+ Ritual Magic: Orbs Aplenty** (hogere kans op Regen-Orb uit kills).
 - **Rank 7 — Revered Treasures** (grote treasures → extra spoils) **+ Dark Obelisk** (koopbaar bij **Rae'ana**, Silvermoon) **+ Shrines of Power II** (nieuwe buff-shrines).
 - **Rank 8 — Corrupted Transport** (koop de **Void-Touched Hawkstrider**-mount bij **Sergeant Vornin**, Silvermoon) **+ Elite Dangers** (rare ELITE enemies spawnen → extra spoils).

@@ -6,13 +6,16 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
-- **Consumable ready-check.** When you enter a dungeon, Midnight Helper checks your own **flask, augment rune, combat & healing potions, food buff and healthstone** (from your bags) and shows the **group's buff status** — all with Blizzard ready-check icons. Run it any time with `/mh readycheck`, mute it with `/mh readytoggle` or the new **settings toggle** (Dungeon Coach). Never-lie: when a slot genuinely can't be read it shows a **"?"** rather than a false "missing". (The API can't read other players' bags, so group members show buff status only.)
+- **Consumable ready-check.** When you enter a dungeon, Midnight Helper checks your own **flask, augment rune, combat & healing potions, food and healthstone** (from your bags) and shows the **group's buff status** — all with Blizzard ready-check icons. Run it any time with `/mh readycheck`, mute it with `/mh readytoggle` or the new **settings toggle** (Dungeon Coach). Never-lie: when a slot genuinely can't be read it shows a **"?"** rather than a false "missing".
+- **Consumable ready board.** A floating board appears automatically on dungeon entry showing each group member's ready-check icons. It's draggable, **SHIFT+scroll to zoom**, and hides itself when you pull (or after 25s). Open it any time with `/mh readyboard`.
+- **Group bag sharing.** Group members running Midnight Helper share their bag status, so you see their **flask/rune/potions/food/healthstone** instead of "bag unknown" (the API can't read other players' bags directly).
 - **Daggerspine Point boss window** now opens automatically at each boss stage (Mindbreaker, Selen'vjar), the same as the other Midnight dungeons.
 - **Ritual Sites Renown Codex article.** A new world Codex entry explains the **8-rank "Journeys" track**: what each rank unlocks (regeneration orbs, treasures, housing decor, shrines, pets, and the Void-Touched Hawkstrider mount) and why a higher-rank site yields more spoils.
 - **Vendor waypoints for the Ritual Sites renown vendors:** **Rae'ana** (housing decor, Dark Obelisk) and **Sergeant Vornin** (pets, Void-Touched Hawkstrider) in Silvermoon are now clickable waypoints anywhere their names appear.
 
 ### Changed
 
+- **Consumable check: food added + spec-matched flask/rune.** Food/feast is now part of the check, and your flask and augment rune show **green for the spec-recommended best** and **amber for an alternate**.
 - **Omnium Folio tab — "Open rune window" button.** Opens the Folio directly via the expansion landing page, so you can reach it even when your UI hides the minimap expansion button (e.g. Ellesmere UI). Falls back to a hint if it can't open (e.g. in combat).
 - **Folio weekly reminder now tells you what this week's Mote needs** — e.g. "collect 8 Ritualized Arcana from Ritual Site elites" — instead of just a generic do-it reminder.
 

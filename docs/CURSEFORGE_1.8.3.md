@@ -8,7 +8,7 @@
 
 ## Short summary (one line)
 
-New consumable ready-check on dungeon entry (your flask/rune/potions/food/healthstone plus the group's buffs, with never-lie "?" handling), Daggerspine Point boss-window auto-open, a Ritual Sites Renown Codex article, clickable waypoints for the renown vendors (Rae'ana, Sergeant Vornin), an "Open rune window" button in the Omnium Folio tab, and a Folio weekly reminder that now names this week's objective. Fully localized.
+New consumable ready-check + floating ready board on dungeon entry (your flask/rune/potions/food/healthstone plus the group's status — with bag sharing between MidnightHelper users and never-lie "?" handling), Daggerspine Point boss-window auto-open, a Ritual Sites Renown Codex article, clickable waypoints for the renown vendors (Rae'ana, Sergeant Vornin), an "Open rune window" button in the Omnium Folio tab, and a Folio weekly reminder that now names this week's objective. Fully localized.
 
 ---
 
@@ -18,13 +18,16 @@ New consumable ready-check on dungeon entry (your flask/rune/potions/food/health
 
 #### New
 
-- **Consumable ready-check.** Entering a dungeon checks your own **flask, augment rune, combat & healing potions, food buff and healthstone** (from your bags) and shows the **group's buff status** — all with Blizzard ready-check icons. Run it any time with `/mh readycheck`, mute it with `/mh readytoggle` or the new **settings toggle** (Dungeon Coach). Never-lie: a slot that genuinely can't be read shows a **"?"** rather than a false "missing". (The API can't read other players' bags, so group members show buff status only.)
+- **Consumable ready-check.** Entering a dungeon checks your own **flask, augment rune, combat & healing potions, food and healthstone** (from your bags) and shows the **group's status** — all with Blizzard ready-check icons. Run it any time with `/mh readycheck`, mute it with `/mh readytoggle` or the new **settings toggle** (Dungeon Coach). Never-lie: a slot that genuinely can't be read shows a **"?"** rather than a false "missing".
+- **Consumable ready board.** A floating board appears automatically on dungeon entry with each group member's ready-check icons — draggable, **SHIFT+scroll to zoom**, and it hides when you pull (or after 25s). Open it any time with `/mh readyboard`.
+- **Group bag sharing.** Group members running Midnight Helper share their bag status, so you see their **flask/rune/potions/food/healthstone** instead of "bag unknown".
 - **Daggerspine Point boss window** opens automatically at each boss stage (Mindbreaker, Selen'vjar), like the other Midnight dungeons.
 - **Ritual Sites Renown Codex article:** a new world Codex entry explaining the **8-rank "Journeys" track** — what each rank unlocks (regeneration orbs, treasures, housing decor, shrines, pets, the Void-Touched Hawkstrider mount) and why a higher-rank site yields more spoils.
 - **Vendor waypoints** for the Ritual Sites renown vendors — **Rae'ana** (housing decor, Dark Obelisk) and **Sergeant Vornin** (pets, Void-Touched Hawkstrider) in Silvermoon — clickable anywhere their names appear.
 
 #### Changed
 
+- **Consumable check: food added + spec-matched flask/rune.** Food/feast is now part of the check, and your flask and augment rune show **green for the spec-recommended best**, **amber for an alternate**.
 - **Omnium Folio tab — "Open rune window" button.** Opens the Folio directly via the expansion landing page, so you can reach it even when your UI hides the minimap expansion button (e.g. Ellesmere UI). Falls back to a hint if it can't open (e.g. in combat).
 - **Folio weekly reminder now names this week's objective** — e.g. "collect 8 Ritualized Arcana from Ritual Site elites" — instead of just a generic do-it reminder.
 
@@ -60,9 +63,10 @@ powershell -ExecutionPolicy Bypass -File tools\package.ps1
 
 - `/reload` — geen Lua-errors bij login, óók direct in combat.
 - In-game changelog-popup toont **1.8.3** bovenaan (niet stale).
-- **Consumable-check:** ga een dungeon binnen → check toont je eigen flask/rune/potions/food/healthstone
-  + de buff-status van de groep; `/mh readytoggle` dempt; Settings → Dungeon Coach-toggle werkt; een
-  onleesbaar slot toont "?" (geen valse "ontbreekt").
+- **Consumable-check:** ga een dungeon binnen → het zwevende bord toont je eigen flask/rune/potions/food/
+  healthstone + de status van de groep (groepsleden met MH delen hun tas); bord is sleepbaar, SHIFT+scroll
+  zoomt, verbergt bij de pull; `/mh readyboard` opent het, `/mh readytoggle` dempt; Settings → Dungeon
+  Coach-toggle werkt; een onleesbaar slot toont "?" (geen valse "ontbreekt").
 - **Daggerspine Point:** boss-venster opent vanzelf bij Mindbreaker en Selen'vjar.
 - **Codex:** het Ritual Sites Renown-artikel staat onder de world-categorie; Rae'ana + Sergeant Vornin
   zijn klikbaar → waypoint in Silvermoon.

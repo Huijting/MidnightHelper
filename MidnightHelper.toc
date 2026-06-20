@@ -63,6 +63,8 @@ Modules\VaultAdvisorData.lua
 Modules\VaultAdvisor.lua
 Modules\GearEnchantCheck.lua
 Modules\ConsumableReadyCheck.lua
+Modules\ConsumableReadyComms.lua
+Modules\ConsumableReadyBoard.lua
 Modules\CurrencyGuide.lua
 Modules\TierSetData.lua
 Modules\TierSet.lua
