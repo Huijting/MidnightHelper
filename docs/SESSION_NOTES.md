@@ -32,6 +32,16 @@ los gecompileerd (lupa) = OK; TOC-versie == bovenste changelog-blok (dev-stalech
 Eén item bewust uitgesteld naar **1.8.4**: Ritual Site Studies-weekly wk2/wk3 quest-IDs (capture bij de
 volgende resets).
 
+**Pending ná 1.8.3 (los committen, → 1.8.4 of hotfix):**
+- **Tier-catalyst naam-fix (20 jun).** MH noemde de catalyst "Creation Catalyst" (oude War Within-naam);
+  in Midnight is het de **Matrix Catalyst**. `TIER_CATALYST_NAME` bijgewerkt in alle 6 talen
+  (en/nl "Matrix Catalyst"; de "Matrix-Katalysator"; fr "Catalyseur Matrix"; es "Catalizador Matrix";
+  pt "Catalisador Matrix") + de letterlijke vermelding in `INFO_DRAWER_BODY_TIER` (en/nl). Geverifieerd
+  tegen de Wowhead Matrix-Catalyst-gids (9 jun). NB: de cadans "+1 charge/2 weken" in `TIER_GUIDE_BODY`
+  is wél correct (Wowhead bevestigt) — niet wijzigen; alleen "(max 8)" is nog onbevestigd. Optionele
+  verrijking later: unlock via Eldara Dawnrunner (npc 243229, quest 93687 "Taste True Power"), currency
+  Dawnlight Manaflux (3378). Los gecompileerd (lupa) = OK.
+
 **✅ Klaar (data-compleet, gebouwd):**
 - **Ritual Sites Renown Codex-artikel** — `MidnightCodexData.lua` nieuw entry `ritual_renown_127`
   (category "world") + `CODEX_127_RITUALRENOWN_TITLE/_BODY` in **alle 6 talen**. Beknopte uitleg van de
