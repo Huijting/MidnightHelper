@@ -175,6 +175,114 @@ lijst scrapen bij bouw van B.
 7. ~~KP-treasures~~ ✅ — coords + flags 89067-89184 gevonden (zie hierboven);
    alleen de BS-discrepantie (89182 vs 80416) in-game checken.
 
+## Concept D — "Nu doen"-kaart (build-spec, 20 juni 2026)
+
+Doel: het Overview-paneel opent met één klein kaartje dat alle losse data
+samenvat tot **max 3 concrete acties voor déze week** — zodat een verwarde
+speler niet hoeft te lezen/puzzelen ("wat moet ik nú doen?"). Geen nieuwe tab
+of module: het kaartje wordt bovenaan de **bestaande** Overview gerenderd
+(`ProfessionsHub.lua` → `RefreshOverview`).
+
+### Waar precies
+
+- Nieuwe FontString `hub._phNowCard`, geankerd **boven** `hub._phOverviewText`
+  (of als eerste regel ín de bestaande `ot`-tekst — voorkeur: aparte FS met
+  eigen kleur/kader zodat 'm visueel opvalt).
+- Gevuld in `RefreshOverview()` vlak vóór `BuildWeeklyText()`/`BuildAccessoryHint()`.
+- Refresh hangt al aan de juiste events (de ev-frame in `BuildProfessionsHubPanel`
+  luistert op SKILL_LINES_CHANGED/TRAIT_CONFIG_UPDATED/QUEST_LOG_UPDATE/BAG_UPDATE).
+
+### Data — alles bestaat al, niets nieuws scrapen
+
+| Actie-bron | Herkomst (bestaand) |
+|------------|---------------------|
+| Trainer-weekly open? | `weekly.trainerQuests[skillLine]` + `C_QuestLog.IsQuestFlaggedCompleted` (zie `BuildWeeklyText`) |
+| Enchanting-essences X/5 → Brimming | `weekly.enchantingEssences` + `C_Item.GetItemCount` (zie `BuildWeeklyText`) |
+| Volgende tree-punt | `BuildAdviceLine` / `GetAdviceForProf` + `GetSpecSummary` (ProfessionAcademy.lua) |
+| KP-treasure dichtbij/open | `MIDNIGHT_DATA`/treasure-flags 89067-89184 (Profession.lua) — alleen als al ontsloten in code |
+| Prof-tool ontbreekt | `AllProfToolsEquipped` (ProfessionAcademy.lua) |
+
+> Niets verzinnen: een actie verschijnt **alleen** als de onderliggende
+> bron 'm hard kan bevestigen (quest-flag false, bagcount < need, tool-slot leeg,
+> advies-node niet maxed). Anders valt de regel weg — net als de rest van MH.
+
+### Prioriteitsregels (max 3 regels)
+
+Vaste volgorde, stop na 3:
+1. **Tool ontbreekt** (blokkeert craften) — hoogste urgentie.
+2. **Trainer-weekly open** (per prof) — grootste KP-bron.
+3. **Enchanting-essences** nog niet op 5/5 (alleen Ench).
+4. **Volgende tree-punt** (alleen tonen als er onbesteed KP is: `summary.unspent > 0`).
+5. **Dichtstbijzijnde open KP-treasure** (alleen als treasure-data al in code zit).
+
+Edge cases:
+- **Geen prof**: kaartje verbergen (Overview toont al de pick-advice).
+- **Alles klaar deze week**: groene regel `PROFNOW_ALL_DONE` ("Je bent bij deze week — kom woensdag terug.").
+- **2 profs**: acties per prof prefixen met profnaam (zoals `BuildWeeklyText` al doet).
+
+### Format (voorstel, met kleur/icoon-conventie van de hub)
+
+```
+|cffffd966Deze week|r
+▸ Enchanting: trainer-weekly open  (/way Silvermoon — Dolothos)
+▸ Enchanting: essences 2/5 → disenchant 3 items
+▸ Alchemy: zet je volgende KP-punt in Fluent in Flasks (12/30)
+```
+
+Iconen: hergebruik `ICON_OPEN`/`ICON_DONE` (al gedefinieerd in ProfessionsHub).
+
+### Nieuwe locale-keys (6 talen, enUS+nlNL echt; de/fr/es/pt via SafeL → EN)
+
+- `PROFNOW_HEADER` = "Deze week" / "This week"
+- `PROFNOW_ALL_DONE` = "Je bent bij deze week — kom woensdag terug."
+- `PROFNOW_TRAINER_FMT` = "%s: trainer-weekly open"
+- `PROFNOW_ESSENCE_FMT` = "%s: essences %d/%d → disenchant"
+- `PROFNOW_TREE_FMT` = "%s: zet je volgende KP-punt in %s (%d/%d)"
+- `PROFNOW_TOOL_FMT` = "%s: rust een tool uit (geen craften zonder tool)"
+- `PROFNOW_TREASURE_FMT` = "%s: KP-treasure open in %s"
+  (laatste alleen als treasure-bron betrouwbaar is — anders key weglaten in v1)
+
+### Build-checklist (klein, veilig, in één commit + in-game test)
+
+1. Locale-keys toevoegen in `enUS.lua` + `nlNL.lua` (rest valt via SafeL terug).
+2. Helper `BuildNowCardText()` in `ProfessionsHub.lua` (leunt op bestaande
+   `weekly`-data + `ns.MH_*`-advies-API; voeg evt. een kleine getter toe in
+   ProfessionAcademy als de advies-node-data nog niet publiek is).
+3. FontString `_phNowCard` aanmaken in `BuildProfessionsHubPanel`, ankers
+   herzien (card boven `ot`; `ot` dan onder de card ankeren — let op de
+   anchor-chain van Overview).
+4. `RefreshOverview` vult de card; verbergen wanneer leeg.
+5. `luac`-syntaxcheck (`tools\lua_syntax_check.py`) + `/reload` + per prof checken.
+6. In-game verifiëren op een char mét en zónder open weekly; daarna commit.
+
+> v1-scope bewust klein: regels 1-4 (tool/trainer/essence/tree). Treasure-regel
+> (5) pas toevoegen als de treasure-"open + dichtbij"-bron hard te lezen is.
+
+### Verificatie tegen de code (Claude, 20 juni) — spec is build-klaar, met 1 randje
+
+Alle genoemde haakjes bestaan en zijn geverifieerd: `RefreshOverview`,
+`_phOverviewText`, `BuildWeeklyText`, `BuildAccessoryHint`,
+`BuildProfessionsHubPanel`, `ICON_OPEN/ICON_DONE` (ProfessionsHub.lua); de
+events SKILL_LINES_CHANGED/TRAIT_CONFIG_UPDATED/QUEST_LOG_UPDATE/BAG_UPDATE zijn
+geregistreerd; `_phNowCard` is terecht nieuw. De advies-API
+(`GetSpecSummary`/`GetAdviceForProf`/`BuildAdviceLine`/`AllProfToolsEquipped`,
+`summary.unspent`) bestaat in ProfessionAcademy.lua.
+
+**Eén concrete bouwstap erbij (anders blokkeert de build):** die vier helpers
+zijn **`local function`** in ProfessionAcademy.lua — de hub kan ze nu níét
+aanroepen. De trainer-weekly + essences komen wél uit de hub-eigen `weekly`-data
+(geen getter nodig). Dus v1 heeft **2 kleine publieke getters** nodig in
+ProfessionAcademy.lua, vóór stap 2 van de checklist:
+
+- `ns.GetProfSpecSummary(baseSkillLine)` → wrappt `GetSpecSummary` (voor de
+  tree-regel: `summary.unspent`, huidige/volgende node + naam).
+- `ns.AreProfToolsEquipped()` → wrappt `AllProfToolsEquipped` (voor de tool-regel).
+
+(De tree-tekst zelf kan via `ns.GetProfSpecSummary` in de hub samengesteld
+worden, of voeg optioneel `ns.GetProfAdviceLine(skillLine)` toe als we exact
+dezelfde zin als de Overview willen.) Read-only wrappers, taint-veilig — geen
+gedragswijziging aan de bestaande Academy-tab.
+
 ## Bronnen
 
 - wowhead.com/guide/midnight/professions/knowledge-points-artisans-moxie
