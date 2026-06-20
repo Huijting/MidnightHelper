@@ -38,9 +38,11 @@ volgende resets).
   (en/nl "Matrix Catalyst"; de "Matrix-Katalysator"; fr "Catalyseur Matrix"; es "Catalizador Matrix";
   pt "Catalisador Matrix") + de letterlijke vermelding in `INFO_DRAWER_BODY_TIER` (en/nl). Geverifieerd
   tegen de Wowhead Matrix-Catalyst-gids (9 jun). NB: de cadans "+1 charge/2 weken" in `TIER_GUIDE_BODY`
-  is wél correct (Wowhead bevestigt) — niet wijzigen; alleen "(max 8)" is nog onbevestigd. Optionele
-  verrijking later: unlock via Eldara Dawnrunner (npc 243229, quest 93687 "Taste True Power"), currency
-  Dawnlight Manaflux (3378). Los gecompileerd (lupa) = OK.
+  is wél correct (Wowhead bevestigt) — niet gewijzigd. De onbevestigde "(max 8)" is verwijderd.
+- **Tier-catalyst verrijking (20 jun, gedaan).** `TIER_GUIDE_BODY` (6 talen) vertelt nu ook hóe je de
+  catalyst ontgrendelt: eenmalig bij **Eldara Dawnrunner** (quest "Taste True Power"), en elke omzetting
+  kost één **Dawnlight Manaflux**. Eldara toegevoegd aan `ns.VENDOR_WAYPOINTS` ({2393, 40.60, 64.60},
+  Wowhead) → auto-klikbaar in de Tier-tekst. Los gecompileerd (lupa) = OK.
 
 **✅ Klaar (data-compleet, gebouwd):**
 - **Ritual Sites Renown Codex-artikel** — `MidnightCodexData.lua` nieuw entry `ritual_renown_127`

@@ -147,6 +147,9 @@ ns.VENDOR_WAYPOINTS = {
 	-- Hawkstrider-mount (rank 8).
 	["Rae'ana"] = { 2393, 47.60, 50.60 },
 	["Sergeant Vornin"] = { 2393, 48.60, 50.60 },
+	-- Matrix Catalyst-steward (ontgrendelt de catalyst via quest 93687 "Taste
+	-- True Power"); Wowhead 9 jun: /way #2393 40.6 64.6 (neutrale catalyst).
+	["Eldara Dawnrunner"] = { 2393, 40.60, 64.60 },
 	["Cuzoth"] = { 2393, 48.23, 61.75 },
 	["Vaskarn"] = { 2393, 48.28, 61.75 },
 	["Caeris Fairdawn"] = { 2395, 43.46, 47.42 },
