@@ -523,6 +523,17 @@ function ns.BuildSettingsPanel(panel)
 		end },
 	}, 0)
 
+	-- Consumable ready check (auto bij dungeon-entry; ook /mh readytoggle).
+	Label("SET_CONSREADY_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "dungeon")
+	Label("SET_CONSREADY_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "dungeon")
+	AddToggle("dungeon", "SET_CONSREADY_TOGGLE_TITLE", "SET_CONSREADY_TOGGLE_DESC", function()
+		return ns.IsConsumableReadyCheckEnabled and ns.IsConsumableReadyCheckEnabled()
+	end, function(v)
+		if ns.SetConsumableReadyCheckEnabled then
+			ns.SetConsumableReadyCheckEnabled(v)
+		end
+	end)
+
 	-- Delen-uitleg onderaan de Dungeon Coach-categorie (eigen categorie
 	-- volgt zodra fase 5 echte share-instellingen brengt).
 	Label("SET_SHARING_BODY", "GameFontHighlightSmall", COLOR_DIM, 18, 0, "dungeon")

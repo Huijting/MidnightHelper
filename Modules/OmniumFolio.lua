@@ -51,17 +51,37 @@ function ns.SetOmniumFolioMode(mode)
 	ns.RefreshOmniumFolioPanel()
 end
 
+-- Account-bewuste quest-check: de Folio-unlocks zijn ACCOUNT-BREED (warband).
+-- Op een alt die de quest niet zélf deed staat IsQuestFlaggedCompleted op false,
+-- terwijl de rij in-game wél open is (Rob bevestigde 20 jun: 96410 per-char=false,
+-- account=true). Daarom de OnAccount-API eerst, met de per-character-vlag als
+-- fallback, ge-OR'd zodat we nooit ondertellen. Read-only, taint-veilig via pcall.
+local function QuestUnlocked(id)
+	if C_QuestLog and C_QuestLog.IsQuestFlaggedCompletedOnAccount then
+		local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompletedOnAccount, id)
+		if ok and done then
+			return true
+		end
+	end
+	if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
+		local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, id)
+		if ok and done then
+			return true
+		end
+	end
+	return false
+end
+
 -- Hoeveel rijen ontgrendeld: voltooien van unlockQuests[i] ontgrendelt rij i
--- (sequentieel; rij 1 = de intro-quest). Read-only, taint-veilig via pcall.
+-- (sequentieel; rij 1 = de intro-quest).
 local function UnlockedRows()
 	local q = ns.OMNIUM_FOLIO.unlockQuests
-	if not (q and C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
+	if not (q and C_QuestLog) then
 		return 0
 	end
 	local n = 0
 	for i = 1, #q do
-		local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, q[i])
-		if ok and done then
+		if QuestUnlocked(q[i]) then
 			n = i
 		else
 			break
@@ -96,9 +116,13 @@ function ns.GetOmniumFolioWeeklyStatus()
 		return { unlocked = unlocked, pending = false, done = true }
 	end
 
+	-- Objective van de eerstvolgende-te-ontgrendelen rij (= deze week's quest).
+	local objKeys = ns.OMNIUM_FOLIO.weeklyObjectiveKeys
+	local objectiveKey = objKeys and objKeys[unlocked + 1] or nil
+
 	local db = ns.db
 	if type(db) ~= "table" then
-		return { unlocked = unlocked, pending = true } -- geen state: informatief
+		return { unlocked = unlocked, pending = true, objectiveKey = objectiveKey } -- geen state
 	end
 	local st = db.omniumWeekly
 	if type(st) ~= "table" then
@@ -118,7 +142,7 @@ function ns.GetOmniumFolioWeeklyStatus()
 	end
 	st.count = unlocked
 
-	return { unlocked = unlocked, pending = not st.claimedThisWeek }
+	return { unlocked = unlocked, pending = not st.claimedThisWeek, objectiveKey = objectiveKey }
 end
 
 local function RuneLink(rune)
@@ -284,6 +308,25 @@ function ns.BuildOmniumFolioPanel(panel)
 		prev = b
 	end
 
+	-- Knop: open het in-game Folio-rune-venster. Handig bij custom UI's
+	-- (Ellesmere) die de minimap-knop verbergen — klikt de Expansion Landing
+	-- Page-knop aan (bekende fix). Alleen buiten combat (in combat = protected).
+	local openBtn = CreateFrame("Button", nil, modeRow, "UIPanelButtonTemplate")
+	openBtn:SetSize(160, 22)
+	openBtn:SetPoint("RIGHT", modeRow, "RIGHT", 0, 0)
+	openBtn:SetText(ns:L("OMNIUM_OPEN_INGAME"))
+	openBtn:SetScript("OnClick", function()
+		if InCombatLockdown and InCombatLockdown() then
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_COMBAT")))
+			return
+		end
+		local lpb = _G.ExpansionLandingPageMinimapButton
+		if lpb and lpb.Click and pcall(lpb.Click, lpb) then
+			return
+		end
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_FALLBACK")))
+	end)
+
 	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", modeRow, "BOTTOMLEFT", 0, -10)
 	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 14)
@@ -324,6 +367,7 @@ function ns.BuildOmniumFolioPanel(panel)
 		subtitle = subtitle,
 		body = body,
 		modeBtns = modeBtns,
+		openBtn = openBtn,
 	}
 
 	panel:SetScript("OnShow", function()
@@ -359,6 +403,9 @@ do
 				for _, info in pairs(ui.modeBtns) do
 					info.btn:SetText(ns:L(info.labelKey))
 				end
+			end
+			if ui.openBtn then
+				ui.openBtn:SetText(ns:L("OMNIUM_OPEN_INGAME"))
 			end
 			if ui.panel and ui.panel:IsShown() then
 				ns.RefreshOmniumFolioPanel()

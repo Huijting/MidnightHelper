@@ -482,6 +482,10 @@ function ns.RefreshAccountWeeklyChecklist()
 					end
 					GameTooltip:ClearLines()
 					GameTooltip:AddLine(ns:L("ACCOUNT_WEEKLY_FOLIO_TT_TITLE"), 1, 0.9, 0.5)
+					-- Wat moet je deze week doen (objective van de huidige rij)?
+					if data.folioWeekly.objectiveKey then
+						GameTooltip:AddLine(ns:L(data.folioWeekly.objectiveKey), 1, 0.82, 0.35, true)
+					end
 					GameTooltip:AddLine(ns:L("ACCOUNT_WEEKLY_FOLIO_TT_BODY"), 0.82, 0.85, 0.9, true)
 				end
 			)

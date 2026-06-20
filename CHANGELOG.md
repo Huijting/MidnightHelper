@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.3] - 2026-06-20
+
+### Added
+
+- **Consumable ready-check.** When you enter a dungeon, Midnight Helper checks your own **flask, augment rune, combat & healing potions, food buff and healthstone** (from your bags) and shows the **group's buff status** — all with Blizzard ready-check icons. Run it any time with `/mh readycheck`, mute it with `/mh readytoggle` or the new **settings toggle** (Dungeon Coach). Never-lie: when a slot genuinely can't be read it shows a **"?"** rather than a false "missing". (The API can't read other players' bags, so group members show buff status only.)
+- **Daggerspine Point boss window** now opens automatically at each boss stage (Mindbreaker, Selen'vjar), the same as the other Midnight dungeons.
+- **Ritual Sites Renown Codex article.** A new world Codex entry explains the **8-rank "Journeys" track**: what each rank unlocks (regeneration orbs, treasures, housing decor, shrines, pets, and the Void-Touched Hawkstrider mount) and why a higher-rank site yields more spoils.
+- **Vendor waypoints for the Ritual Sites renown vendors:** **Rae'ana** (housing decor, Dark Obelisk) and **Sergeant Vornin** (pets, Void-Touched Hawkstrider) in Silvermoon are now clickable waypoints anywhere their names appear.
+
+### Changed
+
+- **Omnium Folio tab — "Open rune window" button.** Opens the Folio directly via the expansion landing page, so you can reach it even when your UI hides the minimap expansion button (e.g. Ellesmere UI). Falls back to a hint if it can't open (e.g. in combat).
+- **Folio weekly reminder now tells you what this week's Mote needs** — e.g. "collect 8 Ritualized Arcana from Ritual Site elites" — instead of just a generic do-it reminder.
+
+### Fixed
+
+- Consumable ready-check derives each item's buff via the item's own spell, so a missing buff is never reported falsely when the item is on cooldown or the aura name differs.
+- **Omnium Folio unlock counter** (and the Folio weekly reminder) now count **account-wide** unlocks. Previously an alt that hadn't personally done the questline showed 0/5 even though the rows were already unlocked on the account; it now reads the account-wide quest state with the per-character flag as a fallback.
+
 ## [1.8.2] - 2026-06-17
 
 ### Added

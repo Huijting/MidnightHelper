@@ -30,6 +30,18 @@ ns.OMNIUM_FOLIO = {
 	-- Eenmalige unlock-storyline (voltooien -> Folio-overhandiging bij 96410):
 	unlockStoryQuests = { 96223, 96225, 96226, 96227, 96228, 96229, 96230, 96231, 96232, 96233 },
 
+	-- Per-week objective van de wekelijkse "Seeking Knowledge"-quest (Wowhead-gids
+	-- 12 jun + in-game). Index = week (1..5). De checklist toont het objective van
+	-- de eerstvolgende-te-ontgrendelen rij. Item-IDs: Ritualized Arcana 274576,
+	-- Dark-Ley Coalescence 274577.
+	weeklyObjectiveKeys = {
+		"OMNIUM_WK_OBJ_1",
+		"OMNIUM_WK_OBJ_2",
+		"OMNIUM_WK_OBJ_3",
+		"OMNIUM_WK_OBJ_4",
+		"OMNIUM_WK_OBJ_5",
+	},
+
 	rows = {
 		{
 			key = "core",

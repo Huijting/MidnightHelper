@@ -141,6 +141,12 @@ local WAY_LINK_COLOR = "8fc9e8"
 ns.VENDOR_WAYPOINTS = {
 	["Maren Silverwing"] = { 2393, 48.11, 49.10 },
 	["Triam Dawnsetter"] = { 2393, 48.11, 49.10 },
+	-- Ritual Sites renown-vendors, 2e verdieping van The Bazaar (web-bronnen
+	-- 20 jun: skycoach/wowcarry; "bevestig in-game"). Rae'ana = decor (rank 3) +
+	-- Dark Obelisk (rank 7); Sergeant Vornin = pets (rank 6) + Void-Touched
+	-- Hawkstrider-mount (rank 8).
+	["Rae'ana"] = { 2393, 47.60, 50.60 },
+	["Sergeant Vornin"] = { 2393, 48.60, 50.60 },
 	["Cuzoth"] = { 2393, 48.23, 61.75 },
 	["Vaskarn"] = { 2393, 48.28, 61.75 },
 	["Caeris Fairdawn"] = { 2395, 43.46, 47.42 },

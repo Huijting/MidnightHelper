@@ -46,6 +46,12 @@ Wowhead-news 381499 + MrGM, onafhankelijk van elkaar:
     → **Quest-IDs (Rob 17 jun, /mh questlog-scan):** wk1 **"Ritual Site Studies: Week 1 of 3" = 96728** ✅;
     gerelateerd **"Midnight: Ritual Sites" = 95843** (vermoedelijk zone-/intro-quest). Wk2/wk3-IDs volgen
     bij de volgende resets. Bevestigt ook Gemini's "Void Cores"-weekly (zie PATCH_12_0_7_ADVICE.md).
+    → ✅ **CORRECTIE (Blizzard-hotfix 18 jun, via ochtend-news-scan):** **Nebulous Voidcore is een
+    CURRENCY**, niet een los bonus-roll-"item" — staat in het currency-window met **Season Maximum 2**
+    (hotfix: spelers met 2 in "Season Maximum 1/2" konden niet veilig verder; nu opgelost). → **MH-impact:**
+    kandidaat om als currency te tracken (zoals Field Accolades/Marl); ⬜ currency-ID nog te dumpen
+    (`/dump` in het currency-window of bagscan "Voidcore"). De "bonus-roll"-omschrijving hierboven blijft
+    de functie, maar de vorm = currency met cap 2/seizoen.
 - MH-impact: RitualCoach-tierinfo uitbreiden (T6-regel), Codex-tip "Myth
   Dawncrests soloable via T6 rituals", weekly-questlijn evt. tracken.
 - ⬜ Nog te bevestigen (Gemini/Wowhead-gids, niet hard gecheckt): Field
@@ -477,3 +483,12 @@ geen Zygor-guide-prose overgenomen.
 - `Rares.lua`: nieuwe zone-rares — nodig: 1, 3
 - `AccountWeeklyChecklist`: Folio-mote (⚠ account/warband-breed — 1 regel voor het hele account!) + Showdown-weekly — nodig: 2, 5
 - Codex-artikelen: al geschreven (geen IDs nodig) ✔
+
+## 🤖 Auto-captured (dagelijkse news-scan)
+
+- [2026-06-18] Great Vault "World"-row toonde foutief ilvl 272 voor Tier 5 Ritual Site; bedoelde/gecorrigeerde waarde = ilvl 269 (Hero 4/6) — bron: https://news.blizzard.com/en-us/article/24276957/hotfixes-june-18-2026 (auto, in-game verifiëren)
+- [2026-06-18] Ritual Site-rares schalen niet langer foutief in een party — bron: https://news.blizzard.com/en-us/article/24276957/hotfixes-june-18-2026 (auto, in-game verifiëren)
+- [2026-06-18] Naigtal-rares zijn ~3 min na spawn in schaduw gehuld en niet aanvalbaar (extra aanlooptijd) — bron: https://news.blizzard.com/en-us/article/24276957/hotfixes-june-18-2026 (auto, in-game verifiëren)
+- [2026-06-17] Naigtal-unlocks "Bouncy Mushrooms", "Aerospores" en "The Grappler" zijn nu account-wide — bron: https://news.blizzard.com/en-us/article/24276957/hotfixes-june-18-2026 (auto, in-game verifiëren)
+- [2026-06-17] Leth'ir/Nexus-Captain Leth'ir liet quest-item voor "Knocking Off the Top (Heroic)" niet droppen; gefixt — bron: https://news.blizzard.com/en-us/article/24276957/hotfixes-june-18-2026 (auto, in-game verifiëren)
+- [2026-06-18] Midnight Keystone Myth – Season One ontgrendeld bij M+ rating ≥ 3400 in S1 — bron: https://news.blizzard.com/en-us/article/24276957/hotfixes-june-18-2026 (auto, in-game verifiëren)

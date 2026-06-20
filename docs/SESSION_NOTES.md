@@ -22,10 +22,15 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
   (`MidnightHelperDB.changelogDevCheck=true` waarschuwt bij login). Zie `docs/RELEASE_CHECKLIST.md`.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
 
-## Voor Cursor — 1.8.3 WIP (Ritual Sites-uitbreiding) — NOG NIET RELEASEN
+## Voor Cursor — 1.8.3 KLAAR VOOR RELEASE (Rob: "ga", 20 jun)
 
-**STATUS: ⏳ UNCOMMITTED, gefaseerd.** Bundelt de Ritual-Sites-data die Rob 17 jun in-game ving.
-Nog niet compleet — twee onderdelen wachten op in-game captures. Niet releasen tot Rob "ga" zegt.
+**STATUS: ✅ RELEASE-KLAAR.** TOC = **1.8.3**, in-game changelog (`CHANGELOG_183_1..6`, en+nl) +
+`Modules/Changelog.lua`-blok bovenaan, `CHANGELOG.md` [1.8.3], `docs/CURSEFORGE_1.8.3.md`. Alle edits
+los gecompileerd (lupa) = OK; TOC-versie == bovenste changelog-blok (dev-stalecheck groen).
+**Cursor-opdracht:** commit + push + CF-release **1.8.3** (zip via `tools\package.ps1`, game version
+120007, release type Release). Changelog/checklist staan in `docs/CURSEFORGE_1.8.3.md`.
+Eén item bewust uitgesteld naar **1.8.4**: Ritual Site Studies-weekly wk2/wk3 quest-IDs (capture bij de
+volgende resets).
 
 **✅ Klaar (data-compleet, gebouwd):**
 - **Ritual Sites Renown Codex-artikel** — `MidnightCodexData.lua` nieuw entry `ritual_renown_127`
@@ -36,13 +41,36 @@ Nog niet compleet — twee onderdelen wachten op in-game captures. Niet releasen
   nu de stage-trigger (SCENARIO_ID 3267; stage 2 Mindbreaker=16532, stage 3 Selen'vjar=16533). Zelfde
   patroon als RitualBossCoach (step→boss-venster + meebladeren, per-boss suppress, npc-leren met
   secret-guard). Los gecompileerd (lupa) = OK. In-game testen door Rob in een Daggerspine-run.
+- **Omnium "Open rune window"-knop ✅** (Ellesmere UI verbergt de minimap-Folio-knop): knop rechts in de
+  Omnium-tab → `ExpansionLandingPageMinimapButton:Click()` (combat-guard + fallback-print). 6-talig.
+- **Folio-weekly: per-week objective ✅ (20 jun).** De checklist-tooltip toont nu wát je deze week moet
+  doen (`weeklyObjectiveKeys` in `OmniumFolioData.lua` → `GetOmniumFolioWeeklyStatus` geeft de
+  `objectiveKey` van de eerstvolgende rij door). Wk1 Folio ophalen · wk2 8 Ritualized Arcana (item 274576)
+  van Ritual-Site-elites · wk3 5 Dark-Ley Coalescence (274577) uit Void Assaults · wk4 eind-boss looten ·
+  wk5 Pertinax/Leth'ir + 3 WQ's. `OMNIUM_WK_OBJ_1..5` in **alle 6 talen**. Los gecompileerd (lupa) = OK.
+  (NB: de Folio-weekly-tracker zélf was al compleet — alle 5 IDs zaten er al in; Wowhead bevestigde ze.)
+- **ConsumableReadyCheck (dispatch-module) afgewerkt ✅ (20 jun):** de 16 `CONSREADY_/AURADUMP_`-keys
+  stonden alleen in en+nl → nu **alle 6 talen** (item-namen Flask/Augment Rune/Healthstone canoniek-EN,
+  UI-tekst vertaald). + **Settings-toggle** toegevoegd (Dungeon-categorie in `SettingsPage.lua`,
+  `SET_CONSREADY_*` 6-talig, wired op `Is/SetConsumableReadyCheckEnabled`) — feature had alleen
+  `/mh readytoggle`, nu ook een checkbox zoals elke andere feature. Los gecompileerd (lupa) = OK.
 
-**⏳ Wacht op in-game captures (geblokkeerd, niet gokken):**
+**✅ Alsnog gedaan 20 jun (waren onterecht als "geblokkeerd" gemarkeerd):**
+- **Renown-rank-teller** — bleek al gebouwd én gewired: `RitualSites.lua` heeft `RITUAL_RENOWN_FACTION
+  = 2792` + `GetRitualRenownText()` met dual-API (`C_MajorFactions.GetMajorFactionData` → fallback
+  `C_Reputation.GetFactionDataByID`), gesurfaced in HomeDashboard + WorldContent + RitualSites. Fail-safe
+  (toont niets als de ID niet matcht, dus nooit een gok-getal). Open: factionID 2792 in-game bevestigen
+  (Rob ziet z'n rank verschijnen, of niets → dan 2792 herzien). Geen bouwwerk meer.
+- **Vendor-waypoints Rae'ana + Sergeant Vornin ✅** — toegevoegd aan `ns.VENDOR_WAYPOINTS`
+  (`DelveTipMarkup.lua`): Rae'ana `{2393, 47.60, 50.60}`, Sergeant Vornin `{2393, 48.60, 50.60}` (2e
+  verd. The Bazaar, Silvermoon). Coords web-bronnen 20 jun (skycoach/wowcarry), zelfde "bevestig
+  in-game"-conventie als de bestaande coords. Auto-linkify maakt ze meteen klikbaar in het renown-Codex-
+  artikel (dat beide namen al noemt). Los gecompileerd + linkify-simulatie (lupa) = OK.
+
+**⏳ Wacht écht op in-game capture (niet gokken):**
 - **"Ritual Site Studies"-weekly in de account-checklist** (zoals de Folio-weekly): hebben wk1 `96728`;
-  ⬜ mist wk2/wk3-quest-IDs (3-weken-keten) om de voortgang goed te detecteren. Capturen bij de resets.
-- **Renown-rank-teller** (HomeDashboard / Void & Rituals): ⬜ juiste API/factionID voor de "Journeys"-track
-  nog uit te zoeken (mogelijk niet `C_MajorFactions`). Niet bouwen tot dat zeker is.
-- **Vendor-waypoints** Rae'ana + Sergeant Vornin (Silvermoon): ⬜ coords dumpen.
+  ⬜ mist wk2/wk3-quest-IDs (3-weken-keten) om de voortgang goed te detecteren. Capturen bij de resets
+  (wk2 = volgende reset, wk3 = de reset daarna). Dit is het enige resterende 1.8.3-item.
 
 → Zodra de captures binnen zijn maak ik 1.8.3 af; pas dan TOC-bump + release-artefacten + de Cursor-
 release-opdracht (zoals bij 1.8.2). Voor nu: alleen committen mag, NIET uploaden.
