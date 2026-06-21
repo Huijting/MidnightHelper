@@ -523,6 +523,13 @@ tracker:SetScript("OnEvent", function(_, event, ...)
 	elseif event == "PLAYER_DEAD" then
 		if runState.inDelve then
 			runState.deaths = runState.deaths + 1
+			-- Ook in de persistente run opslaan: anders gaat de death verloren bij
+			-- een /reload (de resume-logica leest store.activeRun.deaths terug, en
+			-- die werd nooit bijgewerkt → telde terug naar 0).
+			local store = GetStore()
+			if store and store.activeRun then
+				store.activeRun.deaths = runState.deaths
+			end
 		end
 	elseif event == "ENCOUNTER_END" then
 		if runState.inDelve then

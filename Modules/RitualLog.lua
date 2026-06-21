@@ -265,6 +265,12 @@ f:SetScript("OnEvent", function(_, event, arg1, arg2)
 	elseif event == "PLAYER_DEAD" then
 		if runState.inRun then
 			runState.deaths = runState.deaths + 1
+			-- Ook persistent opslaan: anders reset een /reload de death naar 0
+			-- (resume leest store.activeRun.deaths, die nooit werd bijgewerkt).
+			local store = GetStore()
+			if store and store.activeRun then
+				store.activeRun.deaths = runState.deaths
+			end
 		end
 	elseif event == "SCENARIO_COMPLETED" then
 		if runState.inRun then

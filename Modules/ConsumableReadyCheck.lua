@@ -156,6 +156,9 @@ local function EnsureBuffSets()
 	flaskBuffSet, runeBuffSet = {}, {}
 	AddCategorySpells("flask", flaskBuffSet)
 	AddCategorySpells("augmentRune", runeBuffSet)
+	-- (Food-buff/Well-Fed bewust NIET gedetecteerd: in 12.x is de aura secret en de
+	-- food-item-spell is de "eet"-actie, niet de Well-Fed-buff → onbetrouwbaar.
+	-- Food blijft daarom alleen-tas. Rob bevestigde de false-negative 21 jun.)
 	if next(flaskBuffSet) or next(runeBuffSet) then
 		buffSetsReady = true
 	end
@@ -167,19 +170,50 @@ local function UnitHasBuffFromSet(unit, set)
 	if type(set) ~= "table" or not next(set) then
 		return nil
 	end
+	-- 12.x: aura.spellId is een 'secret value' → je mag er GEEN tabel mee indexen
+	-- (set[aura.spellId] crasht: "cannot be indexed with secret keys"). Daarom de
+	-- lookup omdraaien: per BEKENDE spell-ID vragen of de speler die buff heeft.
+	-- GetPlayerAuraBySpellID neemt jouw eigen, niet-secret ID → secret-veilig.
+	if unit == "player" and C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
+		for spellID in pairs(set) do
+			local ok, data = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
+			if ok and data then
+				return true
+			end
+		end
+		return false
+	end
+	-- Andere units: hun aura-spellId's zijn secret en niet te matchen → onbekend
+	-- (MH-gebruikers vullen dit via comms; niet-MH blijft "?").
+	return nil
+end
+
+-- Well-Fed-detectie via ICON-ID i.p.v. spell-ID. Techniek geleend van
+-- ReadyCheckConsumables (en het bevestigt Robs iconID-idee 21 jun): ÁLLE
+-- food-Well-Fed-buffs delen icon 136000, ongeacht welk food. Dus we hoeven geen
+-- per-food spell-ID's te kennen — we scannen de helpful auras en matchen het
+-- icon. Secret-guard op spellID én icon (12.x: een secret als tabel-key/compare
+-- crasht). Omdat dit ALLE foods dekt, is "niet gevonden" = écht niet Well Fed
+-- (gewoon rood, geen "?" meer nodig).
+local WELL_FED_ICON = 136000
+
+-- @return true (Well Fed) / false (niet) / nil (API mist).
+local function PlayerWellFed()
 	if not (C_UnitAuras and C_UnitAuras.GetAuraDataByIndex) then
 		return nil
 	end
-	local i = 1
-	while true do
-		local ok, data = pcall(C_UnitAuras.GetAuraDataByIndex, unit, i, "HELPFUL")
-		if not ok or not data then
+	for i = 1, 40 do
+		local ok, aura = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, "HELPFUL")
+		if not ok or not aura then
 			break
 		end
-		if data.spellId and set[data.spellId] then
-			return true, data.expirationTime
+		local sid = aura.spellId
+		if not (issecretvalue and issecretvalue(sid)) then
+			local icon = aura.icon
+			if icon and not (issecretvalue and issecretvalue(icon)) and icon == WELL_FED_ICON then
+				return true
+			end
 		end
-		i = i + 1
 	end
 	return false
 end
@@ -430,10 +464,275 @@ function ns.GetOwnConsumableBagCounts()
 	}
 end
 
+-- Per categorie het eerste item-ID dat de speler ECHT in z'n tassen heeft (voor
+-- de "klik om te gebruiken"-knoppen op het bord). nil = niets van die categorie.
+function ns.GetOwnConsumableItemIDs()
+	local specData = PlayerSpecData()
+	local count = (C_Item and C_Item.GetItemCount) or GetItemCount
+	local function firstOwned(ids)
+		if type(ids) ~= "table" or not count then
+			return nil
+		end
+		for _, id in ipairs(ids) do
+			local ok, n = pcall(count, id)
+			if ok and n and n > 0 then
+				return id
+			end
+		end
+		return nil
+	end
+	return {
+		flask = firstOwned(CategoryItemIDs(specData, "flask")),
+		rune = firstOwned(CategoryItemIDs(specData, "augmentRune")),
+		weapon = firstOwned(CategoryItemIDs(specData, "weaponOil")),
+		cpot = firstOwned(CategoryItemIDs(specData, "combatPotion")),
+		hpot = firstOwned(CategoryItemIDs(specData, "healingPotion")),
+		food = firstOwned(FoodItemIDs(specData)),
+		hs = firstOwned(HEALTHSTONE_IDS),
+	}
+end
+
+-- Representatief icoon (fileID) per categorie voor de icoon-stijl van het bord.
+-- Het aanbevolen (best[1]) item bepaalt het kolom-icoon; voor jezelf valt het
+-- terug op wat je echt hebt. Zelfde icoon voor alle rijen in een kolom.
+function ns.GetConsumableColumnIcons()
+	local specData = PlayerSpecData()
+	local getIcon = C_Item and C_Item.GetItemIconByID
+	local function repID(cat)
+		local t = specData and specData[cat]
+		if type(t) ~= "table" then
+			return nil
+		end
+		if type(t.best) == "table" and t.best[1] then
+			return t.best[1]
+		end
+		if type(t.alternates) == "table" and t.alternates[1] then
+			return t.alternates[1]
+		end
+		return nil
+	end
+	local function ic(id)
+		if not (id and getIcon) then
+			return nil
+		end
+		local ok, icon = pcall(getIcon, id)
+		return (ok and icon) or nil
+	end
+	return {
+		flask = ic(repID("flask")),
+		rune = ic(repID("augmentRune")),
+		weapon = ic(repID("weaponOil")),
+		cpot = ic(repID("combatPotion")),
+		hpot = ic(repID("healingPotion")),
+		food = ic(repID("personalFood") or repID("feast")),
+		hs = ic(HEALTHSTONE_IDS and HEALTHSTONE_IDS[1]),
+	}
+end
+
+-- Aanbevolen (best[1]) item-ID per categorie — voor de tooltip als je het item
+-- NIET op zak hebt (dan tonen we wat aanbevolen is + "niet in tas").
+function ns.GetConsumableRecommendedItemIDs()
+	local specData = PlayerSpecData()
+	local function repID(cat)
+		local t = specData and specData[cat]
+		if type(t) ~= "table" then
+			return nil
+		end
+		if type(t.best) == "table" and t.best[1] then
+			return t.best[1]
+		end
+		if type(t.alternates) == "table" and t.alternates[1] then
+			return t.alternates[1]
+		end
+		return nil
+	end
+	return {
+		flask = repID("flask"),
+		rune = repID("augmentRune"),
+		weapon = repID("weaponOil"),
+		cpot = repID("combatPotion"),
+		hpot = repID("healingPotion"),
+		food = repID("personalFood") or repID("feast"),
+		hs = HEALTHSTONE_IDS and HEALTHSTONE_IDS[1] or nil,
+	}
+end
+
+--------------------------------------------------------------------------------
+-- Raid/class-buffs (idee uit ReadyCheckConsumables). Vaste, BEKENDE spell-ID's →
+-- veilig te checken. We tonen een buff alleen als de gever-class in de groep zit.
+--------------------------------------------------------------------------------
+
+ns.RAID_BUFF_DEFS = {
+	{ key = "int",     class = "MAGE",    spellID = 1459,   labelKey = "RAIDBUFF_INT" },     -- Arcane Intellect
+	{ key = "stam",    class = "PRIEST",  spellID = 21562,  labelKey = "RAIDBUFF_STAM" },    -- Power Word: Fortitude
+	{ key = "ap",      class = "WARRIOR", spellID = 6673,   labelKey = "RAIDBUFF_AP" },      -- Battle Shout
+	{ key = "vers",    class = "DRUID",   spellID = 1126,   labelKey = "RAIDBUFF_VERS" },    -- Mark of the Wild
+	{ key = "mastery", class = "SHAMAN",  spellID = 462854, labelKey = "RAIDBUFF_MASTERY" }, -- Skyfury
+}
+
+-- Zit er iemand van deze class in de groep (of ben jij het)?
+local function ClassInGroup(classToken)
+	if not classToken then
+		return false
+	end
+	if select(2, UnitClass("player")) == classToken then
+		return true
+	end
+	local units = GroupUnits()
+	for i = 1, #units do
+		if select(2, UnitClass(units[i])) == classToken then
+			return true
+		end
+	end
+	return false
+end
+
+-- De raid-buffs waarvan de gever-class aanwezig is (anders niet tonen). Cachebaar
+-- per render: roep 1× aan en geef door aan RaidBuffStatusForUnit.
+function ns.GetActiveRaidBuffDefs()
+	local out = {}
+	for _, def in ipairs(ns.RAID_BUFF_DEFS) do
+		if ClassInGroup(def.class) then
+			out[#out + 1] = def
+		end
+	end
+	return out
+end
+
+-- Heeft `unit` de aura met spellID? player → GetPlayerAuraBySpellID (secret-safe);
+-- anderen → helpful auras scannen + spellID matchen (raid-buffs zijn niet secret).
+local function UnitHasAuraSpell(unit, spellID)
+	if unit == "player" and C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
+		local ok, data = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
+		return ok and data ~= nil
+	end
+	if C_UnitAuras and C_UnitAuras.GetAuraDataByIndex then
+		for i = 1, 40 do
+			local ok, aura = pcall(C_UnitAuras.GetAuraDataByIndex, unit, i, "HELPFUL")
+			if not ok or not aura then
+				break
+			end
+			local sid = aura.spellId
+			if sid and not (issecretvalue and issecretvalue(sid)) and sid == spellID then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+-- { [def.key] = true/false } voor de actieve raid-buff-defs.
+local function RaidBuffStatusForUnit(unit, activeDefs)
+	local out = {}
+	for _, def in ipairs(activeDefs) do
+		out[def.key] = UnitHasAuraSpell(unit, def.spellID)
+	end
+	return out
+end
+
+-- Wie heeft elke raid-buff (volledige groep, NIET leader-gated → ook een
+-- niet-leader ziet 't via de tooltip). Werkt met meerdere dezelfde specs.
+-- @return { [def.key] = { spellID, has={{name,class}...}, missing={...} } }
+function ns.GetRaidBuffHolders()
+	local defs = ns.GetActiveRaidBuffDefs()
+	local units = { "player" }
+	for _, u in ipairs(GroupUnits()) do
+		if not UnitIsUnit(u, "player") then
+			units[#units + 1] = u
+		end
+	end
+	local out = {}
+	for _, def in ipairs(defs) do
+		local has, missing = {}, {}
+		for _, u in ipairs(units) do
+			local _, ctoken = UnitClass(u)
+			local entry = { name = (UnitName and UnitName(u)) or u, class = ctoken }
+			if UnitHasAuraSpell(u, def.spellID) then
+				has[#has + 1] = entry
+			else
+				missing[#missing + 1] = entry
+			end
+		end
+		out[def.key] = { spellID = def.spellID, has = has, missing = missing }
+	end
+	return out
+end
+
+-- Resterende buff-tijd (in seconden) voor de SPELER per categorie, voor de timer
+-- boven de cellen. Keys: flask/rune/weapon/food + "rb_<key>" per raid-buff. nil =
+-- geen buff of tijd onbekend (12.x: expirationTime kan secret zijn → geguard).
+function ns.GetPlayerBuffRemaining()
+	EnsureBuffSets()
+	local out = {}
+	local now = GetTime and GetTime() or 0
+	local function auraRem(spellID)
+		if not (C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID) then
+			return nil
+		end
+		local ok, aura = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
+		if not ok or not aura then
+			return nil
+		end
+		local exp = aura.expirationTime
+		if not exp or (issecretvalue and issecretvalue(exp)) or exp <= 0 then
+			return nil
+		end
+		local r = exp - now
+		return r > 0 and r or nil
+	end
+	local function setRem(set)
+		if type(set) ~= "table" then
+			return nil
+		end
+		for sid in pairs(set) do
+			local r = auraRem(sid)
+			if r then
+				return r
+			end
+		end
+		return nil
+	end
+	out.flask = setRem(flaskBuffSet)
+	out.rune = setRem(runeBuffSet)
+	-- food: icon-scan voor de Well-Fed-aura → expirationTime
+	if C_UnitAuras and C_UnitAuras.GetAuraDataByIndex then
+		for i = 1, 40 do
+			local ok, aura = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, "HELPFUL")
+			if not ok or not aura then
+				break
+			end
+			local sid = aura.spellId
+			if not (issecretvalue and issecretvalue(sid)) then
+				local icon = aura.icon
+				if icon and not (issecretvalue and issecretvalue(icon)) and icon == WELL_FED_ICON then
+					local exp = aura.expirationTime
+					if exp and not (issecretvalue and issecretvalue(exp)) and exp > 0 then
+						local r = exp - now
+						out.food = r > 0 and r or nil
+					end
+					break
+				end
+			end
+		end
+	end
+	-- weapon: tijdelijke wapen-enchant (mainHandExpiration in ms)
+	if GetWeaponEnchantInfo then
+		local ok, he, ms = pcall(GetWeaponEnchantInfo)
+		if ok and he and ms and ms > 0 then
+			out.weapon = ms / 1000
+		end
+	end
+	-- raid-buffs: per actieve def
+	for _, def in ipairs(ns.GetActiveRaidBuffDefs()) do
+		out["rb_" .. def.key] = auraRem(def.spellID)
+	end
+	return out
+end
+
 -- Gestructureerde status per groepslid (gedeelde bron voor chat + het bord).
--- @return { dungeon=string|nil, rows = { {unit,name,classToken,isMH,
---   flask={bag,buff}, rune={bag,buff}, cpot={bag,count}, hpot={...},
---   food={...}, hs={...} } } }
+-- @return { dungeon=string|nil, raidBuffs={activeDefs}, rows = { {unit,name,
+--   classToken,isMH, flask={bag,buff}, rune={bag,buff}, weapon=..., cpot={bag,
+--   count}, hpot=..., food=..., hs=..., raidbuffs={[key]=bool} } } }
 -- flask/rune .bag: voor jezelf "best"/"alt"/false/nil (getrapt); voor anderen
 -- true/false (aanwezig via comms) of nil (onbekend). buff: true/false/nil.
 function ns.GetConsumableReadyData()
@@ -443,6 +742,22 @@ function ns.GetConsumableReadyData()
 		dungeon = nil
 	end
 	local rows = {}
+	local activeRaidBuffs = ns.GetActiveRaidBuffDefs()
+
+	-- Welke consumable-kolommen tonen we (aaneengesloten, geen gaten)? weapon alleen
+	-- als de spec olie gebruikt; healthstone alleen als er een Warlock in de groep
+	-- zit (anders zinloos — alleen Warlocks maken ze). Rob-wens 21 jun.
+	local pSpec = PlayerSpecData()
+	local consumColumns = { "flask", "rune" }
+	if pSpec and not pSpec.omitWeaponOil then
+		consumColumns[#consumColumns + 1] = "weapon"
+	end
+	consumColumns[#consumColumns + 1] = "cpot"
+	consumColumns[#consumColumns + 1] = "hpot"
+	consumColumns[#consumColumns + 1] = "food"
+	if ClassInGroup("WARLOCK") then
+		consumColumns[#consumColumns + 1] = "hs"
+	end
 
 	local function presence(ids)
 		local has, n = BagCount(ids)
@@ -457,6 +772,17 @@ function ns.GetConsumableReadyData()
 		local _, fN = presence(FoodItemIDs(specData))
 		local hsHas = presence(HEALTHSTONE_IDS)
 		local _, ctoken = UnitClass("player")
+		-- Weapon-olie: alleen specs die 'm gebruiken (Shamans e.d. = omitWeaponOil,
+		-- die hebben eigen weapon-imbues). Buff = de tijdelijke wapen-enchant.
+		local weapon = nil
+		if specData and not specData.omitWeaponOil then
+			local hasEnchant = false
+			if GetWeaponEnchantInfo then
+				local okE, he = pcall(GetWeaponEnchantInfo)
+				hasEnchant = (okE and he) and true or false
+			end
+			weapon = { bag = BagTier(specData, "weaponOil"), buff = hasEnchant }
+		end
 		rows[#rows + 1] = {
 			unit = "player",
 			name = (UnitName and UnitName("player")) or "You",
@@ -464,15 +790,19 @@ function ns.GetConsumableReadyData()
 			isMH = true,
 			flask = { bag = BagTier(specData, "flask"), buff = UnitHasBuffFromSet("player", flaskBuffSet) },
 			rune = { bag = BagTier(specData, "augmentRune"), buff = UnitHasBuffFromSet("player", runeBuffSet) },
+			weapon = weapon,
 			cpot = { bag = (cN and cN > 0) or false, count = cN },
 			hpot = { bag = (hN and hN > 0) or false, count = hN },
-			food = { bag = (fN and fN > 0) or false, count = fN },
+			food = { bag = (fN and fN > 0) or false, count = fN, buff = PlayerWellFed() },
 			hs = { bag = hsHas, count = nil },
+			raidbuffs = RaidBuffStatusForUnit("player", activeRaidBuffs),
 		}
 	end
 
-	-- Overige groepsleden.
-	local units = GroupUnits()
+	-- Overige groepsleden — alleen de LEADER ziet de hele groep; niet-leaders zien
+	-- enkel hun eigen rij (Rob-wens 21 jun). Solo telt als leader (geen groep).
+	local showGroup = not (IsInGroup and IsInGroup() and UnitIsGroupLeader and not UnitIsGroupLeader("player"))
+	local units = showGroup and GroupUnits() or {}
 	for i = 1, #units do
 		local unit = units[i]
 		if not UnitIsUnit(unit, "player") then
@@ -503,11 +833,12 @@ function ns.GetConsumableReadyData()
 				hpot = { bag = hb, count = hn },
 				food = { bag = fb, count = fn },
 				hs = { bag = sb, count = nil },
+				raidbuffs = RaidBuffStatusForUnit(unit, activeRaidBuffs),
 			}
 		end
 	end
 
-	return { dungeon = dungeon, rows = rows }
+	return { dungeon = dungeon, rows = rows, raidBuffs = activeRaidBuffs, consumColumns = consumColumns }
 end
 
 function ns.PrintConsumableReadyCheck()
@@ -587,17 +918,35 @@ end
 -- Auto-check bij dungeon-entry
 --------------------------------------------------------------------------------
 
-local lastAutoInstance = nil
+local lastAutoKey = nil
 
-local function CurrentPartyInstanceID()
-	if not IsInInstance then
-		return nil
+-- Ritual Site-scenario (zelfde scenarioID als RitualBossCoach gebruikt).
+local RITUAL_SCENARIO_ID = 3236
+
+-- Unieke sleutel voor de drie content-types waarin we de check tonen: dungeon
+-- (party-instance), delve (C_PartyInfo) en Ritual Site (scenario). nil = niet in
+-- trackbare content. De sleutel verschilt per type/run, zodat de dedup klopt en
+-- je 'm bij elke nieuwe ritual/delve/dungeon opnieuw krijgt. Read-only/pcall.
+local function CurrentContentKey()
+	-- Dungeon (party-instance)
+	if IsInInstance then
+		local inInstance, instanceType = IsInInstance()
+		if inInstance and instanceType == "party" then
+			return "party:" .. tostring((GetInstanceInfo and select(8, GetInstanceInfo())) or "?")
+		end
 	end
-	local inInstance, instanceType = IsInInstance()
-	if not inInstance or instanceType ~= "party" then
-		return nil
+	-- Delve (actieve run, API)
+	if ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress() then
+		return "delve:" .. tostring((GetInstanceInfo and select(8, GetInstanceInfo())) or "?")
 	end
-	return (GetInstanceInfo and select(8, GetInstanceInfo())) or true
+	-- Ritual Site-scenario (buiten, geen instance)
+	if C_ScenarioInfo and C_ScenarioInfo.GetScenarioInfo then
+		local ok, info = pcall(C_ScenarioInfo.GetScenarioInfo)
+		if ok and type(info) == "table" and info.scenarioID == RITUAL_SCENARIO_ID then
+			return "ritual:" .. tostring(info.scenarioID)
+		end
+	end
+	return nil
 end
 
 local function MaybeAutoRun(force)
@@ -607,17 +956,18 @@ local function MaybeAutoRun(force)
 		end
 		return
 	end
-	local id = CurrentPartyInstanceID()
-	if not id then
+	local key = CurrentContentKey()
+	if not key then
+		lastAutoKey = nil -- content verlaten → volgende ritual/delve/dungeon toont weer
 		return
 	end
-	if not force and id == lastAutoInstance then
+	if not force and key == lastAutoKey then
 		return
 	end
-	lastAutoInstance = id
+	lastAutoKey = key
 	-- Korte vertraging: aura/roster zijn vlak na de zone-load nog niet gevuld.
 	local function run()
-		if not CurrentPartyInstanceID() then
+		if not CurrentContentKey() then
 			return
 		end
 		-- Visueel bord (Fase 3); valt terug op de chat-versie als het bord-
@@ -639,6 +989,7 @@ local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 ev:RegisterEvent("CHALLENGE_MODE_START")
+ev:RegisterEvent("SCENARIO_UPDATE") -- ritual/delve-scenario start/stop (buiten = geen zone-load)
 ev:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "GET_ITEM_INFO_RECEIVED" then

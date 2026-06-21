@@ -523,7 +523,7 @@ function ns.BuildSettingsPanel(panel)
 		end },
 	}, 0)
 
-	-- Consumable ready check (auto bij dungeon-entry; ook /mh readytoggle).
+	-- Consumable ready check (auto bij ritual/delve/dungeon-entry; ook /mh readytoggle).
 	Label("SET_CONSREADY_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "dungeon")
 	Label("SET_CONSREADY_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "dungeon")
 	AddToggle("dungeon", "SET_CONSREADY_TOGGLE_TITLE", "SET_CONSREADY_TOGGLE_DESC", function()
@@ -533,6 +533,14 @@ function ns.BuildSettingsPanel(panel)
 			ns.SetConsumableReadyCheckEnabled(v)
 		end
 	end)
+	-- "Toon nu" — het bord handmatig oproepen (zelfde als /mh board).
+	AddButtons("dungeon", {
+		{ labelKey = "SET_CONSREADY_SHOW", onClick = function()
+			if ns.ShowConsumableBoard then
+				ns.ShowConsumableBoard()
+			end
+		end },
+	}, 0)
 
 	-- Delen-uitleg onderaan de Dungeon Coach-categorie (eigen categorie
 	-- volgt zodra fase 5 echte share-instellingen brengt).

@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.4] - 2026-06-21
+
+### Added
+
+- **Consumable board redesigned to an icon view.** Each cell is now a real item or spell icon with a status badge (green = ready/active, amber = in your bags but not used, red = missing, grey = unknown), stack counts, and buff timers above your own row. Your own consumables are **clickable to use** straight from the board.
+- **Raid & class buffs on the board.** Shows Arcane Intellect (Mage), Battle Shout (Warrior), Power Word: Fortitude (Priest), Mark of the Wild (Druid) and Skyfury (Shaman) — only when a provider class is in the group. **Hover a buff to see exactly who has it and who's missing** (the whole group, read directly so it works cross-faction and with multiple of the same class). Your own class buff is **clickable to cast**.
+- **Smarter, gap-free columns.** Healthstone only appears when a Warlock is in the group; weapon oil only for specs that use it.
+- **Wider trigger + quick access.** The consumable check now also appears when you enter a **ritual or delve** (not just dungeons), and you can reopen the board with a **middle-click on the minimap button** (also `/mh board`).
+- **"Not in your bags" tooltip:** hovering a slot you're missing shows the recommended item.
+
+### Changed
+
+- **Food (Well Fed) detection now covers every food** via its shared buff icon, instead of a fixed spell list.
+
+### Fixed
+
+- **Omnium Folio unlock counter is now account-wide** — alts no longer show 0/5 when the rows are already unlocked on your account (also fixes the Folio weekly reminder).
+- **Delve/Ritual death counter no longer resets to 0 after a `/reload`** (deaths are now stored on the persistent run).
+- **Lua error from 12.x "secret" aura values** when checking buffs is resolved (the lookup is inverted to a secret-safe path).
+- **The Catalyst is now correctly named the Matrix Catalyst** (was "Creation Catalyst"), with how to unlock it (Eldara Dawnrunner) and the Dawnlight Manaflux currency; the renown vendors Rae'ana and Sergeant Vornin are clickable waypoints.
+
 ## [1.8.3] - 2026-06-20
 
 ### Added

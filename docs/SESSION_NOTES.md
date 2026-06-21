@@ -22,6 +22,19 @@ Laatst bijgewerkt: 2026-06-06. Doel: context-overdracht tussen Cowork-taken en C
   (`MidnightHelperDB.changelogDevCheck=true` waarschuwt bij login). Zie `docs/RELEASE_CHECKLIST.md`.
 - Vault-enum mapping (`[1]=dungeon, [3]=raid, [6]=world`) is **correct** (Enum.WeeklyRewardChestThresholdType: None=0, Activities=1, RankedPvP=2, Raid=3, World=6) — niet "fixen".
 
+## Voor Cursor — 1.8.4 KLAAR VOOR RELEASE (Rob: "ga", 21 jun)
+
+**STATUS: ✅ RELEASE-KLAAR.** TOC = **1.8.4**, `CHANGELOG_184_1..7` (en+nl) + Changelog.lua-blok bovenaan,
+`CHANGELOG.md` [1.8.4], `docs/CURSEFORGE_1.8.4.md`. Alles los gecompileerd (lupa) = OK; TOC == bovenste
+changelog-blok (dev-stalecheck groen). Inhoud: consumable-bord-overhaul (icoon-stijl, raid/class-buffs +
+holder-tooltips + klikbare class-buff + timers + not-in-bag, dynamische kolommen), ritual/delve-trigger,
+minimap-middelklik, en fixes (Folio account-breed, death-teller reload-proof, secret-aura-crash, Matrix
+Catalyst + Eldara/vendors). **Cursor-opdracht:** commit + push + CF-release **1.8.4** (zip via
+`tools\package.ps1`, game version 120007, release type Release; zie `docs/CURSEFORGE_1.8.4.md`).
+Uitgesteld → 1.8.5: Ritual Site Studies-weekly wk2/wk3-IDs (capture), `/mh auradump`-secret-guard.
+
+---
+
 ## Voor Cursor — 1.8.3 KLAAR VOOR RELEASE (Rob: "ga", 20 jun)
 
 **STATUS: ✅ RELEASE-KLAAR.** TOC = **1.8.3**, in-game changelog (`CHANGELOG_183_1..6`, en+nl) +
@@ -43,6 +56,142 @@ volgende resets).
   catalyst ontgrendelt: eenmalig bij **Eldara Dawnrunner** (quest "Taste True Power"), en elke omzetting
   kost één **Dawnlight Manaflux**. Eldara toegevoegd aan `ns.VENDOR_WAYPOINTS` ({2393, 40.60, 64.60},
   Wowhead) → auto-klikbaar in de Tier-tekst. Los gecompileerd (lupa) = OK.
+- **Consumable ready-check: auto-trigger verbreed (20 jun, Rob-wens).** Vuurde alleen bij dungeon-entry;
+  nu ook bij **delve** (`ns.IsDelveInstanceInProgress`) en **Ritual Site** (scenario 3236, zelfde ID als
+  RitualBossCoach). In `ConsumableReadyCheck.lua`: `CurrentPartyInstanceID` → `CurrentContentKey` (geeft
+  `party:`/`delve:`/`ritual:`-sleutel; dedup per type zodat elke nieuwe run 'm opnieuw toont) +
+  `SCENARIO_UPDATE`-event erbij (ritual/delve buiten = geen zone-load). Logica los getest (lupa) = OK.
+  ⬜ In-game testen: ritual + delve + dungeon. Als een ritual niet triggert → scenario-ID 3236 uitbreiden.
+- **Consumable ready-check: "Toon bord nu"-knop (20 jun).** In Settings → Dungeon Coach, onder de
+  Consumable-toggle (zelfde plek/patroon als de boss-venster "Open"-knop) → `ns.ShowConsumableBoard()`.
+  `SET_CONSREADY_SHOW` 6-talig. De toggle-/sectie-tekst (`SET_CONSREADY_DESC`/`_TOGGLE_DESC`) is ook
+  bijgewerkt van "dungeon" naar "ritual/delve/dungeon" (6 talen). Bestond al: `/mh board`. Lupa = OK.
+- **Minimap-knop: middel-klik → consumable-bord (20 jun).** In `Broker.lua` de launcher-OnClick: links =
+  hoofdvenster, rechts = Settings (ongewijzigd), **midden = `ns.ShowConsumableBoard()`**. Tooltip-hint
+  `BROKER_TOOLTIP_BOARD` 6-talig toegevoegd. Lupa = OK.
+- **Consumable-bord: "Stone" → "H.Stone" + header-tooltips (20 jun).** `CONSREADY_COL_HS` hernoemd
+  (en+nl). Alle 6 kolom-headers in `ConsumableReadyBoard.lua` kregen een hover-tooltip met de volledige
+  naam (`tip`-key per HEADER → CONSREADY_FLASK/RUNE/CPOT/HPOT/COL_FOOD/HS) — anti-raden. Lupa = OK.
+- **Klik-in-bord-om-te-gebruiken GEBOUWD (20 jun) — ⬜ Rob test in-game.** `ns.GetOwnConsumableItemIDs()`
+  in `ConsumableReadyCheck.lua` (eerste owned item-ID per categorie via C_Item.GetItemCount). In
+  `ConsumableReadyBoard.lua`: 6 `SecureActionButtonTemplate`-knoppen op rij 1 (de speler) over de
+  bag-iconen (flask/rune/cpot/hpot/food/hs), onzichtbaar + highlight + item-tooltip ("Click to use").
+  `UpdateUseButtons` zet `type=macro`/`macrotext=/use item:ID` + Show/Hide **alléén buiten combat**
+  (InCombatLockdown-guard); geen attributen/Show bij creatie. `CONSREADY_USE_HINT` 6-talig. Logica los
+  getest (lupa) = OK; secure-runtime kan alleen Rob in-game bevestigen (klik popt? geen ADDON_ACTION
+  _BLOCKED bij de pull?). Alleen eigen items (andermans tassen zijn niet leesbaar/bruikbaar).
+- **FIX (20 jun, Rob's test): secret-spellId crash in buff-check.** `UnitHasBuffFromSet` deed
+  `set[aura.spellId]` met `GetAuraDataByIndex` → in 12.x is `aura.spellId` secret → "cannot be indexed
+  with secret keys" (13× bij UNIT_AURA/combat), én Render crashte vóór de use-knoppen → geen knoppen.
+  Opgelost: lookup omgedraaid via `C_UnitAuras.GetPlayerAuraBySpellID(knownID)` (speler), andere units →
+  nil (comms vult MH-leden). ⚠️ Latent: `/mh auradump` (regel ~562/570) leest ook secret spellId/name —
+  debug-only, later guarden.
+- **FIX: bord verdween niet bij trash-pull.** Hidet alleen op `ENCOUNTER_START` (bosses). `PLAYER_REGEN
+  _DISABLED` toegevoegd (combat-start, ook trash). Hide op het niet-secure Frame mag in combat.
+- **UX: use-knoppen zichtbaar gemaakt.** Waren onzichtbare click-vlakken ("ik zie geen knoppen"). Nu een
+  vage gouden glow (NormalTexture, ADD, alpha .22) op je eigen bezeten cellen + helderder bij hover.
+- **⚠️ BEVESTIGD probleem (Rob's test, avond 20 jun): bord met secure kinderen kan in combat niet Hide().**
+  `[ADDON_ACTION_BLOCKED] MidnightHelperConsumableBoard:Hide()` bij combat-start. Doordat het bord nu
+  SecureActionButton-kinderen heeft, is het bord zélf protected → `Hide()` in combat geblokkeerd. Mijn
+  eerdere aanname ("niet-secure parent mag wél") was FOUT.
+  - **Interim-guard gezet (geen error meer):** `HideConsumableBoard` stelt de hide uit als `InCombatLockdown`
+    en voert 'm uit op `PLAYER_REGEN_ENABLED`. Gevolg: bord verdwijnt nu pas ná het gevecht i.p.v. bij de
+    pull. De auto-hide-timer loopt ook via deze guard.
+  - ✅ **NIET NODIG (Rob getest 21 jun): bord verdwijnt tóch netjes bij de pull.** Bij PLAYER_REGEN_DISABLED
+    lukt de Hide (lockdown nog niet "hard" actief op dat moment); de InCombatLockdown-guard vangt enkel de
+    randgevallen (bv. 25s-timer die mid-combat afloopt) zonder ADDON_ACTION_BLOCKED. Aparte-overlay-fix dus
+    niet nodig.
+  - **Use-knoppen diagnose (21 jun):** resolver klopt 100% (flask 241322, rune 259086, hpot 241304, food
+    255846 → shown=true). Hover werkt (item-tooltip + highlight verschijnen) → muis bereikt de knop. Maar
+    klik vuurde niet. Oorzaak: secure-actie was `type="macro"`/`macrotext="/use item:ID"` — die macro-vorm
+    werkt niet betrouwbaar. **Omgezet naar `type="item"`/`item="item:ID"` (canoniek).** + glow alpha→0.85,
+    FrameLevel+10, EnableMouse, RegisterForClicks AnyUp/AnyDown. ✅ KLIK WERKT (Rob bevestigd 21 jun).
+- **Bord uitgebreid (21 jun, Rob-wens): Weapon-kolom + Food-buff-icoon.** Bord W 410→480, kolommen
+  herverdeeld + 3 iconen erbij (weaponBag/weaponBuff/foodBuff). Detectie in `ConsumableReadyCheck`:
+  weapon-bag = `BagTier(weaponOil)`, weapon-buff = `GetWeaponEnchantInfo()` (betrouwbaar), weapon ook in
+  `GetOwnConsumableItemIDs` (klikbaar). Specs met `omitWeaponOil=true` (Shamans) → geen weapon-kolom.
+  Food-buff = `foodBuffSet` via ItemUseSpellID(personalFood+feast) → `GetPlayerAuraBySpellID`.
+  `CONSREADY_COL_WEAPON` en+nl (de/fr/es/pt via SafeL→EN). ✅ Weapon werkt (Rob bevestigd 21 jun).
+- **Food-buff OPNIEUW gebouwd via curated Well-Fed-IDs (21 jun, Rob's iconID-idee leidde hierheen).**
+  IconID kan niet (aura.icon is óók secret, geen find-by-icon-API). Maar de Spell ID (1232585, zichtbaar
+  via CDPulse) kan wél: `GetPlayerAuraBySpellID(knownID)` is secret-veilig. Nieuwe `WELL_FED_SPELLS`-set
+  (seed 1232585 = Royal Roast-familie) + `PlayerWellFed()` → **true=groen** bij een bekende Well-Fed,
+  **nil="?"** anders (NOOIT rood = never-lie-safe). foodBuff-icoon terug op het bord (food 341 / buff 355).
+  ⬜ Lijst uitbreiden: Rob hovert z'n foods (CDPulse toont Spell ID) → toevoegen aan `WELL_FED_SPELLS` voor
+  meer groen i.p.v. "?".
+- **Food-buff DEFINITIEF opgelost via ICON-ID (21 jun) — techniek uit ReadyCheckConsumables.** Rob's
+  iconID-idee was correct: álle Well-Fed-foods delen **icon 136000**. `PlayerWellFed()` herschreven: scant
+  helpful auras (GetAuraDataByIndex), secret-guard op spellID én icon, matcht `icon == 136000`. Dekt ÉLKE
+  food zonder spell-ID-lijst → `WELL_FED_SPELLS` weg, food.buff = true(groen)/false(rood), geen "?" meer.
+  Los getest (lupa) = OK. (RCC `Data/Food.lua`: `foodAuraIconTypes[136000]=WELL_FED`; `ForEachHelpfulAura`
+  skipt `issecretvalue(spellID)`.)
+- **💡 Idee uit ReadyCheckConsumables — raid/class-buffs-check (toekomst, Rob-wens "buffs die een mage geeft").**
+  RCC `Data/RaidBuffs.lua` checkt per buff of de provider-class in de groep zit: Arcane Intellect (MAGE
+  1459), Battle Shout (WARRIOR 6673), PW:Fortitude (PRIEST 21562), Mark of the Wild (DRUID 1126), Skyfury
+  (SHAMAN 462854), Blessing of the Bronze (EVOKER) — met scroll-alternatieven. Idee voor een MH "raid-buffs"
+  -rij: toon alleen buffs waarvan de class aanwezig is, groen/rood per lid. Ook leuk: RCC's complete
+  Midnight-fooditem-lijst per stat (Data/12_Midnight/Food.lua) + de gelikte grafische layout.
+- **Bord-redesign (Rob-keuze 21 jun): "alles als icoon-rij" + leader-gating.**
+  - ✅ **Leader-gating gedaan:** in `GetConsumableReadyData` vuurt de groepsleden-loop alleen als
+    `not (IsInGroup() and not UnitIsGroupLeader("player"))` → leader/solo = hele groep, niet-leader =
+    alleen eigen rij. Lupa = OK.
+  - ✅ **Icoon-stijl GEBOUWD (21 jun) — `ConsumableReadyBoard.lua` volledig herschreven.** Cellen zijn nu
+    echte item-/spell-iconen (RCC-look): `NewCell`/`SetCell` (icon + status-badge groen/amber/rood/geel +
+    count + desaturatie). 7 enkele consumable-kolommen (dual bag/buff samengevoegd via `ComboStatus`:
+    buff=groen, wel-op-zak=amber, geen=rood). Kolom-iconen via `ns.GetConsumableColumnIcons()`
+    (`C_Item.GetItemIconByID(best[1])`). ICON 22, ROW_H 26, dynamische breedte. Eigen rij klikbaar
+    (secure use-knoppen herpositioneerd). Infra behouden (slepen, shift+scroll-schaal, positie, combat-
+    veilige hide). Geen text-headers meer (iconen spreken voor zich).
+  - ✅ **Raid/class-buffs GEBOUWD (Rob-wens "buffs die een mage geeft").** `ns.RAID_BUFF_DEFS` (Arcane
+    Intellect 1459/MAGE, PW:Fortitude 21562/PRIEST, Battle Shout 6673/WARRIOR, Mark of the Wild 1126/
+    DRUID, Skyfury 462854/SHAMAN). `GetActiveRaidBuffDefs()` toont alleen buffs waarvan de gever-class in
+    de groep zit. Detectie: speler via `GetPlayerAuraBySpellID`, anderen via helpful-aura-scan +
+    spellID-match (secret-skip) — techniek uit RCC. Dynamische extra kolommen na de consumables.
+  - ✅ Leader-gating + food-via-icon-136000 + weapon-kolom: alle drie meegenomen.
+  - ⬜ **Untestbaar offline (logica wél lupa-geverifieerd) → Rob test in-game:** iconen/posities/maten,
+    raid-buffs groen bij echte buffs, klik-to-use, leader/non-leader, pull-hide. V1 → waarschijnlijk
+    nog wat visuele bijstelling (icon-grootte/spacing).
+  - ✅ **Tooltip-when-missing (21 jun, Rob-wens):** use-knoppen nu ALTIJD getoond (ook onbezeten) → hover
+    toont het aanbevolen item + `CONSREADY_NOT_IN_BAG` ("niet in tas", 6-talig) als je het niet hebt;
+    bezeten = klikbaar + "Click to use". `ns.GetConsumableRecommendedItemIDs()` toegevoegd. (Bonus: altijd-
+    getoond = minder combat-Show/Hide-gedoe.)
+  - ✅ **Request 1 — Arcane/class-buff klikbaar GEBOUWD.** `f._raidBtn` (secure, type="spell"): in
+    UpdateUseButtons zoekt 'ie de eigen-class raid-buff in de actieve defs, positioneert op de juiste slot
+    (RaidX), zet spell=`C_Spell.GetSpellName(spellID)`, toont. Alleen buiten combat (guarded). Tooltip +
+    `CONSREADY_CAST_HINT` (6-talig). Mage → klik Arcane-cel = Arcane Intellect casten.
+  - ✅ **Request 2 — buff-timer boven de cel GEBOUWD.** `ns.GetPlayerBuffRemaining()` (resterende sec per
+    flask/rune/weapon/food + rb_<key>; secret-guard op expirationTime; weapon via GetWeaponEnchantInfo-ms).
+    Board: `.timer`-fontstring boven elke cel, `FmtRemain` (h/m/s), ALLEEN op de eigen rij (rij 1, ruimte
+    erboven). Lupa: flask 14m / food 15m / weapon 600s / raid 5m — OK.
+  - ⬜ Rob test in-game: Arcane klikbaar+cast, timers tonen + kloppen, not-in-bag-tooltip. Als
+    expirationTime tóch secret blijkt voor sommige buffs → timer simpelweg leeg (geen fout).
+  - ✅ **Dynamische kolommen (21 jun, Rob-wens healthstone/warlock).** `GetConsumableReadyData` geeft nu
+    `consumColumns` (aaneengesloten, geen gaten): **healthstone alleen als er een Warlock in de groep zit**
+    (`ClassInGroup("WARLOCK")`), **weapon alleen voor specs met olie** (niet omitWeaponOil). Board plaatst
+    consumable-cellen + use-knoppen + raid-buffs dynamisch o.b.v. de getoonde kolommen (`slotOf`,
+    `RaidXDyn(nConsum,i)`), met dynamische breedte. Lupa: mage+wl=7 kol, mage solo=6 (geen hs), shaman+wl=6
+    (geen weapon) — geen gaten. Fixt meteen het oude weapon-gat.
+  - ✅ **FIX (21 jun): raid-cast-knop uitlijning.** Skyfury/Arcane-castknop stond rechts naast z'n icoon.
+    Oorzaak: knop herberekende positie (kon afwijken van de cel). Nu gebruikt 'ie de OPGESLAGEN cel-x
+    (`f._raidX[def.key]`, gevuld in Render) → exact op de cel. Lupa: cel-x == knop-x.
+  - ✅ **Verklaard (geen bug): "blauw rondje" bij Duckiesan = versie-mismatch.** Zij draait 1.8.3, Rob de
+    1.8.4-dev. Tas-data van groepsleden komt via comms; tussen versies kan een veld net anders/niet
+    meekomen → bord toont "?" (WAITING) = correct never-lie-gedrag. Lost zichzelf op zodra beiden dezelfde
+    build draaien. (Raid-buffs van anderen komen via aura-scan, niet comms → versie-onafhankelijk.)
+    Food-klik → Well-Fed = werkt; eet-animatie kort = geen bug.
+  - ✅ **Raid-buff hover-tooltip "wie heeft 'm" (21 jun, Rob-wens).** `ns.GetRaidBuffHolders()` scant de
+    VOLLEDIGE groep (niet leader-gated, via aura-read → ook cross-faction & versie-onafhankelijk) en geeft
+    per buff `{has={{name,class}}, missing={...}}`. Board: hit-frame per raid-cel (`cell.hit`) + cast-knop
+    → tooltip met spell + "Heeft: <namen>" (groen) / "Mist: <namen>" (rood), class-gekleurd. Werkt met
+    meerdere dezelfde specs (lijst). `AddHolderLines`/`ClassColorName` vóór EnsureBoard gezet (scope).
+    `CONSREADY_HAS`/`CONSREADY_MISSING` 6-talig. Lupa: 2 druids→has beide, missing=speler. Tooltip op alle
+    rijen incl. de bovenste → ook niet-leader ziet wie 'm heeft.
+- **Delve/Ritual death-teller fix (20 jun, Rob ving 'm).** Deaths stonden op 0 terwijl Rob was doodgegaan.
+  Oorzaak: `PLAYER_DEAD` verhoogde alleen `runState.deaths`, niet `store.activeRun.deaths` — en de
+  resume-logica (bij `/reload`) leest die persistente waarde terug (= 0). Rob reloadde vandaag vaak om
+  builds te testen → death weggepoetst. Fix in `DelveHistory.lua` én `RitualLog.lua`: bij `PLAYER_DEAD`
+  ook `store.activeRun.deaths` bijwerken. Lupa-logica getest = OK. (Historische runs blijven 0; vanaf nu
+  klopt het.)
 
 **✅ Klaar (data-compleet, gebouwd):**
 - **Ritual Sites Renown Codex-artikel** — `MidnightCodexData.lua` nieuw entry `ritual_renown_127`
@@ -697,7 +846,14 @@ erop een if-test doen gooit een fout. Twee crashes daardoor (Rob live in ritual)
 - 🗑️ **Idee 2 (cast-/interrupt-alerts) VERWIJDERD — definitief geblokkeerd in 12.x.**
   Rob's live cast-logger (RitualBossCoach, tijdelijk) bewees het: zowel de spell-**ID**
   (`CAST met 'secret' spell-ID`) als de cast-**naam** (UnitCastingInfo) van vijandelijke
-  casts is 'secret' en onleesbaar voor een tainted addon. Een eigen interrupt-/cast-alert
+  casts is 'secret' en onleesbaar voor een tainted addon.
+  - **Extern bevestigd (20 jun, web-research):** in Midnight 12.0+ is COMBAT_LOG_EVENT_UNFILTERED
+    onderdeel van het "secret values"-systeem — addons zien dát er info is, maar niet de inhoud.
+    Géén interrupt-toewijzing/automatisering meer; WeakAuras heeft z'n combat-tools daarom uitgezet,
+    Cell/Plater moesten herschrijven. De "Interrupted by [naam]" die Rob in Plater ziet is een
+    **Blizzard-native nameplate-feature** (het spel toont 'm), niet iets dat een addon uit het
+    combat log kan lezen. "Wie kickte" is dus principieel onmogelijk voor MH — geen bug van ons.
+    Bron: github.com/enderneko/Cell PR #457 (Secret Values/CLEU Removal) + diverse 12.0-addon-overviews. Een eigen interrupt-/cast-alert
   is dus onmogelijk (DBM heeft daar privileges voor die wij niet hebben). Daarom:
   - `Modules/AccessibleAlerts.lua` uit de TOC gehaald (file blijft op schijf voor een
     eventuele debuff-gebaseerde herziening).

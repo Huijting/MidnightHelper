@@ -1150,6 +1150,11 @@ function ns:InitMinimapBroker()
 		OnClick = function(_, btn)
 			if btn == "LeftButton" and ns.ToggleMainWindow then
 				ns:ToggleMainWindow()
+			elseif btn == "MiddleButton" then
+				-- Snelkoppeling: consumable-bord tonen (zelfde als /mh board).
+				if ns.ShowConsumableBoard then
+					ns.ShowConsumableBoard()
+				end
 			elseif btn == "RightButton" then
 				if ns.OpenSettingsPanel then
 					ns:OpenSettingsPanel()
@@ -1163,6 +1168,7 @@ function ns:InitMinimapBroker()
 			local ver = ns.GetAddonVersion and ns.GetAddonVersion() or "?"
 			tt:AddLine(ns:L("BROKER_TOOLTIP_VERSION_FMT"):format(ver), 0.72, 0.82, 0.95)
 			tt:AddLine(ns:L("BROKER_TOOLTIP_HINT"), 0.86, 0.86, 0.82, true)
+			tt:AddLine(ns:L("BROKER_TOOLTIP_BOARD"), 0.86, 0.86, 0.82, true)
 			tt:AddLine(" ")
 			tt:AddLine(ns:L("BROKER_TOOLTIP_CURRENT_SETTINGS"), 1, 0.9, 0.5)
 			local langLabel = ns.GetLanguageStatusLabel and ns:GetLanguageStatusLabel() or ns:L("LOCALE_NAME_EN")
