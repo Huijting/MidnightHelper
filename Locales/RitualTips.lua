@@ -132,6 +132,113 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	RITUAL_TIP_EMBERS_UNLOCK = "• Loot an Ember of Power inside a Tier 4 site to start the quest (the required tier drops each week).",
 })
 
+merge(ns._mhLocales and ns._mhLocales.itIT, {
+	-- Titoli delle sezioni ---------------------------------------------------
+	RITUAL_COACH_SEC_OVERVIEW = "Panoramica",
+	RITUAL_COACH_SEC_PHASES = "Come si svolge una run",
+	RITUAL_COACH_SEC_NOTES = "Note sul sito",
+	RITUAL_COACH_SEC_MECHANIC = "Cosa fa",
+	RITUAL_COACH_SEC_UNLOCK = "Come sbloccarla",
+	RITUAL_COACH_SEC_TIERS = "Tier e challenge",
+	RITUAL_COACH_SEC_SCORING = "Spoils e morti",
+	RITUAL_COACH_SEC_WEEKLY = "Settimanale e renown",
+	RITUAL_COACH_SEC_ORBS = "Regeneration Orb",
+
+	-- Nomi visualizzati ------------------------------------------------------
+	RITUAL_COACH_INTRO_NAME = "Come funzionano i Ritual Site",
+	RITUAL_COACH_SITE_DAGGERSPINE = "Daggerspine Point",
+	RITUAL_COACH_SITE_BROKENTHRONE = "Broken Throne",
+	RITUAL_CHAL_TENDRILS = "Tendrils",
+	RITUAL_CHAL_MANIFESTATIONS = "Manifestations",
+	RITUAL_CHAL_ALARMBELLS = "Magical Alarm Bells",
+	RITUAL_CHAL_MALEVOLENTBOONS = "Malevolent Boons",
+	RITUAL_CHAL_TAINTEDCORPSES = "Tainted Corpses",
+	RITUAL_CHAL_REINFORCED = "Reinforced",
+	RITUAL_CHAL_PATROLS = "Patrols",
+	RITUAL_CHAL_EMBERS = "Embers",
+
+	-- Etichette UI del Coach (fase 2) ----------------------------------------
+	RITUAL_COACH_HEADER = "Ritual Coach",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenge — scegli dal Tier 3+ (prima quelle con più Spoils)",
+	RITUAL_COACH_ACTIVE_FMT = "Sito di questa settimana: %s",
+	RITUAL_COACH_ACTIVE_UNKNOWN = "Sito attivo non ancora rilevato — suggerimenti generali qui sotto.",
+	RITUAL_COACH_STATUS_UNLOCKED = "sbloccata",
+	RITUAL_COACH_STATUS_LOCKED = "bloccata",
+
+	-- Share (fase 3)
+	RITUAL_COACH_SHARE_BTN = "Condividi i tip delle challenge col gruppo",
+	RITUAL_SHARE_CHALLENGES_HEADER = "Challenge Ritual per Spoils:",
+	RITUAL_SHARE_XLOC_HEADER_FMT = "%s ha condiviso i tip delle challenge Ritual:",
+	RITUAL_SHARE_CONFIRM_FMT = "Pubblicare %d righe di tip delle challenge Ritual nel gruppo?",
+	RITUAL_SHARE_SENT_FMT = "Condivise %d riga/righe in %s.",
+	RITUAL_SHARE_SENT_TEST_FMT = "Condivise %d riga/righe (modalità test).",
+	RITUAL_SHARE_NO_GROUP = "Unisciti a un party o a un raid per condividere questi tip (oppure attiva la modalità test della condivisione).",
+	RITUAL_SHARE_COMBAT = "Impossibile condividere durante il combat.",
+	RITUAL_SHARE_COOLDOWN = "La condivisione è in cooldown — riprova tra poco.",
+	RITUAL_SHARE_BUSY = "Una condivisione è già in corso.",
+	RITUAL_SHARE_FAILED = "Impossibile creare i tip delle challenge.",
+
+	-- Weekly hint (perché la weekly Ritual non è ancora fatta)
+	RITUAL_WEEKLY_HINT_LOCKED_FMT = "Bloccata: %s",
+	RITUAL_WEEKLY_HINT_LOCKED_GENERIC = "Bloccata — sblocca i Ritual Site tramite la questline introduttiva a Silvermoon.",
+	RITUAL_WEEKLY_HINT_PICKUP = "Non ancora presa — prendi la weekly di questa settimana all'hub del Bazaar a Silvermoon.",
+	RITUAL_WEEKLY_HINT_INTRO = "Questo personaggio non ha ancora finito la questline introduttiva — inizia \"Ranger Captain's Summons\" da Ranger Captain Lilatha a Silvermoon (lo step Void Strike avviene nella zona di assalto attiva).",
+	RITUAL_INTRO_STEP_FMT = "Questline introduttiva su questo personaggio — step %d/%d: %s",
+	RITUAL_INTRO_STEP_INLOG = "(già nel tuo registro delle quest)",
+	RITUAL_INTRO_STEP_SUMMONS = "inizia \"Ranger Captain's Summons\" da Ranger Captain Lilatha, allo staging ground sopra il Bazaar.",
+	RITUAL_INTRO_STEP_ALLIES = "fai \"Outfitting and Allies\" — incontra gli alleati allo staging ground di Lilatha.",
+	RITUAL_INTRO_STEP_VOIDSTRIKE = "\"Void Strike\" — questo step si svolge nella zona di assalto attiva (vedi Void Assault più sotto).",
+	RITUAL_INTRO_STEP_PROBLEMS = "\"Ritual Problems\" — indaga sui report dei Ritual Site, poi sabota un Ritual Site.",
+	RITUAL_INTRO_STEP_INTEREST = "\"Ritual Interest\" — fai rapporto a Lady Darkglen all'hub.",
+	RITUAL_WEEKLY_HINT_INPROGRESS = "È nel tuo registro delle quest — finiscila e consegnala.",
+
+	-- Intro / come funziona --------------------------------------------------
+	RITUAL_TIP_INTRO_TIERS = "• Scegli il Tier 1-5 alla Curious Obelisk; completa ogni tier per sbloccare il successivo.|n• Il Tier 3 richiede 1 challenge attiva, il Tier 4 ne richiede 2, il Tier 5 ne richiede 4.|n• I tier più alti danno più Spoils e renown. Item level consigliato: T1 215 · T2 231 · T3 244 · T4 257 · T5 264 (un consiglio, non un requisito rigido).",
+	RITUAL_TIP_INTRO_SCORING = "• Gli Spoils sono il tuo punteggio; il Ritual Chest finale scala con essi.|n• Morti: le prime 2 sono gratis, poi ogni morte taglia gli Spoils del 5%, fino a un massimo del -50%.|n• Le run pulite battono i pull veloci — morire costa ricompense in modo diretto.",
+	RITUAL_TIP_INTRO_WEEKLY = "• Ogni settimana il tier necessario per SBLOCCARE una challenge cala di uno, così col tempo tutti le sbloccano.|n• Non puoi sbloccare tutte e 8 le challenge in una sola settimana.|n• Conta per la riga World della Great Vault.|n• Booster del renown: Ritual Tablet (primo sito della settimana), Ritual Tablet Fragment (secondo sito) e Ritual Site Reports (scalati in base ai tuoi Spoils).",
+	RITUAL_TIP_INTRO_ORBS = "• In combat, i Regeneration Orb si manifestano e curano il 15% della tua vita (Renown 1).|n• Orb Potency (Renown 4) aumenta quella cura.|n• Affidati agli orb invece di bruciare cooldown sul self-healing.",
+
+	-- Daggerspine Point (Eversong Woods) -------------------------------------
+	RITUAL_TIP_DAGGERSPINE_OVERVIEW = "• Eversong Woods — Daggerspine Point, sulla costa ovest vicino a Goldenmist Village.|n• Nemici: naga.|n• Attivo una settimana per volta; l'obelisco mostra un'icona viola sulla mappa.|n• Entra alla Curious Obelisk e scegli lì il tuo tier + le challenge.",
+	RITUAL_TIP_DAGGERSPINE_PHASES = "• Un breve scenario istanziato: completa gli obiettivi e le ondate di nemici, poi un boss finale, poi saccheggia il Ritual Chest.|n• Scenario visto all'obelisco: \"A Strike From the Sea\" — la leader naga Selen'vjar (kill del boss finale ancora da confermare).|n• Un sito può avere più di un layout di scenario — da confermare in-game.",
+	RITUAL_TIP_DAGGERSPINE_NOTES = "• Tainted Bone Pile (sblocca la challenge Tainted Corpses): /way 66.09 62.58.|n• Dark Obelisk (quest Malevolent Boons — esamina 5 qualsiasi; 9 spawn): 66.6/38.8 · 64.7/49.8 · 63.8/70.9 · 39.2/76.2 · 35.3/63.2 · 50/42 · 42/56 · 62/62 · 44.8/47.3.|n• Piccoli tesori e Regeneration Orb sono sparsi per il sito.",
+
+	-- Broken Throne (Zul'Aman) -----------------------------------------------
+	RITUAL_TIP_BROKENTHRONE_OVERVIEW = "• Zul'Aman — Broken Throne, nel sud della zona.|n• Nemici: cultisti di Twilight's Blade.|n• Attivo una settimana per volta; l'obelisco mostra un'icona viola sulla mappa.|n• Entra alla Curious Obelisk e scegli lì il tuo tier + le challenge.",
+	RITUAL_TIP_BROKENTHRONE_PHASES = "• Un breve scenario istanziato: completa gli obiettivi e le ondate di nemici, poi un boss finale, poi saccheggia il Ritual Chest.|n• Scenario visto all'obelisco: \"A Corrupted Path\" — Faithbreaker Ger'lok corrompe tutto con il Void ed è il boss finale.|n• MORTALE sui boss successivi (es. il Corrupted Amani Dragonhawk): gli specchi void (Dissonant Reflections) continuano a spawnare e lanciano Dissonant Realities — un enorme burst su tutto entro 100 yard. Non puoi superarne la portata: INTERROMPI il cast e lo specchio sparisce all'istante. Conserva il kick proprio per questo.|n• Corrupted Amani Dragonhawk: una Binding Nebula ti intrappola — NON puoi uscire finché non UCCIDI la nebula stessa, quindi falla fuori a burst nel momento in cui vieni catturato. I giocatori intrappolati muoiono per Volatile Plumage (l'eruzione di piume colpisce per centinaia di migliaia); non stare mai davanti allo Shadowflame Breath.|n• Un sito può avere più di un layout di scenario — da confermare in-game.",
+	RITUAL_TIP_BROKENTHRONE_NOTES = "• Tainted Bone Pile (sblocca la challenge Tainted Corpses): /way 47.91 36.52.|n• Dark Obelisk (quest Malevolent Boons — esamina 5 qualsiasi; 6 spawn): 61/50 · 41/50 · 45/59 · 42/68 · 55/58 · 54/54.|n• Distruggere i Dark Obelisk rimuove i buff che potenziano i nemici del sito — eliminarli rende i boss decisamente più facili (lasciali in piedi solo se punti all'achievement no-obelisk).|n• Piccoli tesori e Regeneration Orb sono sparsi per il sito.",
+	-- Ritual Boss Coach (finestra boss; EditBox -> {SPELL:} qui è permesso).
+	RITUAL_BOSS_DRAGONHAWK_STEPS = "• {SPELL:1291610} lascia piccole POZZE ROSSE — SOAKKALE: stai dentro una pozza per subire solo un colpetto. Una pozza lasciata vuota erutta per danni Shadowflame enormi — QUELLO è il wipe (ha ucciso tutti e tre). Un giocatore per pozza basta.|n• {SPELL:1284125} è una gravity pull; le pozze rosse spawnano al suo interno, quindi soakkale lì.|n• Interrompi {SPELL:1284085} dall'add che spawna al centro — un kick lo rimuove all'istante.|n• Uccidi gli add Unbound Caller (la loro Enervating Volley colpisce duro) e schiva Radiation Wave.|n• Stai DIETRO il dragonhawk — il suo Shadowflame Breath frontale è letale. (Verificato in-game + Wowhead.)",
+	RITUAL_BOSS_GERLOK_STEPS = "• Evoca minion che lo rendono (quasi) immune ai danni — falli fuori ogni add nell'istante in cui spawna; gli add caricano con un channel di fuoco che quasi one-shotta, quindi spostati dalla traiettoria.|n• {SPELL:1273031} è IL cast da interrompere — un grosso nuke AoE; non ogni cast è kickabile, quindi conserva l'interrupt per esso.|n• {SPELL:1279186} viene spammato — spezza la linea di vista dietro i pilastri.|n• Tienilo SULLA sua piattaforma — trascinarlo giù/fuori resetta il fight (Rob, live). Lo spazio è angusto, ma non inseguirlo nella stanza sotto.",
+	RAID_BOSS_ROTMIRE_STEPS = "• Un solo boss, ma tieni d'occhio la sua barra di energia: quando si riempie lancia {SPELL:1221637} — il wipe. Tienila bassa uccidendo gli add e le spore di cui si nutre.|n• Add: falli fuori in fretta gli Shroomling e i Fungling, e interrompi gli Sporecap ({SPELL:1221714} / {SPELL:1221717}).|n• Esci da {SPELL:1221965} e corri fuori da {SPELL:1222088} -> {SPELL:1222129}.|n• Solo Mythic: sparpagliatevi per {SPELL:1222684}, poi gestisci {SPELL:1222495}. (Datamined — conferma in-game al lancio.)",
+	RAID_BOSS_ROTMIRE_TANK = "• {SPELL:1221781} accumula stack — fai swap con l'off-tank, e tieni il boss fuori dal casino di spore/viticci.",
+	RAID_BOSS_ROTMIRE_HEALER = "• Il danno cresce con {SPELL:1221787} -> {SPELL:1222176} (Bursting -> Rotting Pustules, un soft enrage) — smorza i picchi e dissolvi dove puoi.",
+	RAID_BOSS_ROTMIRE_DPS = "• Dai priorità agli add (soprattutto gli Sporecap) così la sua energia non raggiunge mai Fungal Bloom, poi torna sul boss.",
+	RITUAL_BOSS_MINDBREAKER_STEPS = "• Empowered Mindbreaker — stage 2 di Daggerspine Point 'Beast From the Deep': una creatura degli abissi che Lady Selen'vjar sovraccarica con magia void rubata.|n• Per ora: interrompi i suoi cast ed esci dagli effetti a terra evidenti.|n• Gli step dettagliati arrivano nel prossimo aggiornamento di Midnight Helper (le sue abilità esatte non sono ancora datamined — compilate dalla prima run live).",
+	RITUAL_BOSS_SELENVJAR_STEPS = "• Lady Selen'vjar — incantatrice naga, boss finale di Daggerspine Point (Eversong Woods, /way 34.9 65.4). Stage: 1) Ritual Roles (i suoi capitani sorvegliano il rituale, drenando essenza void); 2) Beast From the Deep (potenzia un Mindbreaker); 3) Summoner's Fall (ti affronta di persona).|n• Gli step dettagliati di interrupt/schivata arrivano nel prossimo aggiornamento di Midnight Helper (le sue abilità non sono ancora datamined — compilate dalla prima run live).",
+	RITUAL_ALERT_BINDING_NEBULA = "Binding Nebula! -> uccidi la nebula",
+	RITUAL_ALERT_SHADOWBOLT = "Interrompi Shadowbolt Volley!",
+	RITUAL_ALERT_DISSONANT = "Interrompi Dissonant Reflections!",
+
+	-- Challenge --------------------------------------------------------------
+	RITUAL_TIP_TENDRILS_MECHANIC = "• I tendril afferranti spawnano con un cerchio verde vorticoso — esci o vieni radicato e subisci danni.|n• Aumenta gli Spoils mentre è attiva.",
+	RITUAL_TIP_TENDRILS_UNLOCK = "• Saccheggia un Ritual Chest alla fine di un sito qualsiasi, poi consegna la quest \"Ritual Site Challenge Report: Tendrils\".",
+	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Gli spiriti si manifestano e lanciano incantesimi — interrompili o subisci magia logorante.|n• Aumenta gli Spoils mentre è attiva.",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Completa un sito Tier 3, poi parla con Ranger Captain Lilatha a Silvermoon (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Uccidere i nemici evoca rinforzi; più grande e forte è il pull che uccidi, più forti sono gli add.|n• Aumenta gli Spoils mentre è attiva.",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Completa un sito Tier 4, poi parla con Lady Darkglen a Silvermoon (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• I dark obelisk buffano i nemici vicini — distruggi gli obelisk per rimuovere i buff.|n• Aumenta gli Spoils mentre è attiva.",
+	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Completa un sito Tier 2 per una quest da Lady Darkglen, poi esamina 5 Dark Obelisk dentro un sito (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• I nemici uccisi lasciano una pozza di magia void letale — spostati fuori da essa.|n• Aumenta gli Spoils mentre è attiva.",
+	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Saccheggia un Tainted Bone Pile dentro un sito Tier 2+ (vedi le note sul sito per la posizione), poi consegna la quest.",
+	RITUAL_TIP_REINFORCED_MECHANIC = "• Nemici extra sono distribuiti per tutto il sito — aspettati pack più fitti.|n• Aumenta gli Spoils mentre è attiva (uno dei boost maggiori).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Completa un sito Tier 2, poi parla con Ranger Captain Lilatha a Silvermoon (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_PATROLS_MECHANIC = "• Nemici elite pattugliano il sito — evita i loro percorsi quando puoi.|n• Aumenta gli Spoils mentre è attiva.",
+	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procura\" tesori unici da un sito Tier 3+ (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_EMBERS_MECHANIC = "• Nemici casuali E il boss finale sono potenziati, segnalati da un orb fluttuante sopra di loro.|n• Aumenta gli Spoils mentre è attiva (uno dei boost maggiori).",
+	RITUAL_TIP_EMBERS_UNLOCK = "• Saccheggia un Ember of Power dentro un sito Tier 4 per iniziare la quest (il tier richiesto cala ogni settimana).",
+})
+
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	-- Sectietitels -----------------------------------------------------------
 	RITUAL_COACH_SEC_OVERVIEW = "Overzicht",

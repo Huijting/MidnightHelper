@@ -105,9 +105,28 @@ local PT = {
 	CONS_NOTE_15 = "Poção tank padrão com throughput e risco controlado.",
 }
 
+local IT = {
+	CONS_NOTE_01 = "Colpo Critico è la fiala di throughput predefinita; simula il tuo personaggio per le caratteristiche secondarie più vicine.",
+	CONS_NOTE_02 = "Runa di aumento attuale di Midnight Stagione 1.",
+	CONS_NOTE_03 = "Celerità è la fiala di throughput predefinita per i guaritori; simula il tuo personaggio per le secondarie più vicine.",
+	CONS_NOTE_04 = "Pozione di cura Midnight più alta verificata.",
+	CONS_NOTE_05 = "Maestria è la fiala di throughput predefinita; simula il tuo personaggio per le secondarie più vicine.",
+	CONS_NOTE_06 = "Il banchetto con caratteristica primaria è la scelta di gruppo sicura per le spec con Intelletto.",
+	CONS_NOTE_07 = "Il banchetto con caratteristica primaria è la scelta di gruppo sicura.",
+	CONS_NOTE_08 = "Il cibo personale con caratteristica primaria è la scelta sicura quando non c'è un banchetto.",
+	CONS_NOTE_09 = "Il banchetto con caratteristica secondaria è un'ottima scelta per i tank; quello con primaria è un'alternativa sicura.",
+	CONS_NOTE_10 = "Usa Thalassian Phoenix Oil a meno che la tua build attuale non preferisca Flametongue Weapon.",
+	CONS_NOTE_11 = "Usa Thalassian Phoenix Oil a meno che la tua build non richieda gli imbue Windfury/Flametongue.",
+	CONS_NOTE_12 = "Usa come buff temporaneo all'arma predefinito, a meno che l'imbue specifico della tua classe/spec non lo sostituisca.",
+	CONS_NOTE_13 = "Usa la fiala indicata come scelta tank predefinita; passa a Versatilità quando vuoi un ripiego difensivo più sicuro.",
+	CONS_NOTE_14 = "Usa la pozione indicata come scelta di burst/throughput predefinita per il PvE.",
+	CONS_NOTE_15 = "Usala come pozione tank predefinita quando vuoi throughput con un rischio gestibile.",
+}
+
 merge(ns._mhLocales.enUS or {}, EN)
 merge(ns._mhLocales.nlNL or {}, NL)
 merge(ns._mhLocales.deDE or {}, DE)
 merge(ns._mhLocales.frFR or {}, FR)
 merge(ns._mhLocales.esES or {}, ES)
 merge(ns._mhLocales.ptBR or {}, PT)
+merge(ns._mhLocales.itIT or {}, IT)

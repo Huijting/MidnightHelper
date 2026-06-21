@@ -14,6 +14,16 @@ local _, ns = ...
 
 local COFFER_SHARDS = 3310
 
+-- Aan/uit (Settings; standaard aan). Community-verzoek 21 jun (gadrinonturalyon).
+function ns.IsShardCapAlertEnabled()
+	return not (ns.db and ns.db.ui and ns.db.ui.shardCapAlert == false)
+end
+function ns.SetShardCapAlertEnabled(v)
+	if ns.db and ns.db.ui then
+		ns.db.ui.shardCapAlert = v and true or false
+	end
+end
+
 -- earned-this-week, weekly max, currency icon (nil-safe).
 local function GetWeeklyShards()
 	if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
@@ -42,6 +52,9 @@ local function Check()
 	if not ns.db then
 		return -- SavedVariables not loaded yet; the next event retries
 	end
+	if not ns.IsShardCapAlertEnabled() then
+		return -- door de speler uitgezet (Settings)
+	end
 	local guid = UnitGUID and UnitGUID("player")
 	if not guid then
 		return
@@ -59,6 +72,14 @@ local function Check()
 		return -- already announced this week on this character
 	end
 
+	-- Eén popup per character per week: vink de week NU af, op het beslismoment.
+	-- De oude dedupe-in-onShow vinkte pas af als de toast écht in beeld kwam —
+	-- stond 'ie bij login in de wachtrij achter een andere toast (of zette de
+	-- show-callback niet door), dan bleef de week onafgevinkt en kwam de popup
+	-- élke login terug (Rob 21 jun). Nu deterministisch: 1×/week, daarna pas weer
+	-- na de reset als de cap opnieuw gehaald wordt (nieuwe anchor).
+	ns.db.shardCapAlert[guid] = anchor
+
 	if ns.QueueMidnightToast then
 		ns.QueueMidnightToast({
 			id = "shardcap",
@@ -70,26 +91,14 @@ local function Check()
 			-- jingle bleek in-game nauwelijks hoorbaar, de ready-check knalt
 			-- er wél doorheen en blijft anders dan de rare-alert-wekker.
 			soundKit = SOUNDKIT and SOUNDKIT.READY_CHECK or nil,
-			-- Week-dedupe pas bij daadwerkelijk tonen (niet bij queuen):
-			-- een reload kan de wachtrij wissen vóór de toast in beeld kwam
-			-- (Rob 11 jun: cap gehaald tijdens rare-hunt, melding nooit
-			-- gezien, week tóch afgevinkt). Chatregel verhuist mee, zodat
-			-- beide samen verschijnen.
 			onShow = function()
-				ns.db.shardCapAlert = ns.db.shardCapAlert or {}
-				ns.db.shardCapAlert[guid] = anchor
 				if ns.PrintChatKey then
 					ns:PrintChatKey("SHARD_CAP_CHAT_FMT", earned, maxW)
 				end
 			end,
 		})
-	else
-		-- Geen toast-systeem (hoort niet voor te komen): val terug op chat
-		-- en vink de week dan wél direct af.
-		ns.db.shardCapAlert[guid] = anchor
-		if ns.PrintChatKey then
-			ns:PrintChatKey("SHARD_CAP_CHAT_FMT", earned, maxW)
-		end
+	elseif ns.PrintChatKey then
+		ns:PrintChatKey("SHARD_CAP_CHAT_FMT", earned, maxW)
 	end
 end
 

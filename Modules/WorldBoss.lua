@@ -165,6 +165,30 @@ local function MarkWarbandDone(boss, completedBy)
 	cache.savedAt = time()
 end
 
+-- Robuuste, niet-wisbare completer-naam per boss (account-breed, los van de
+-- weekly cache die door anchor-randgevallen gewist kon worden — daardoor viel de
+-- naam op alts weg: "defeated this week" zónder "by …", Rob 21 jun). Per anchor
+-- gevalideerd zodat 'ie na de reset vanzelf vervalt.
+local function RecordWbCompleter(boss, who)
+	if not ns.db or not boss or not boss.id or type(who) ~= "string" or who == "" then
+		return
+	end
+	ns.db.ui = ns.db.ui or {}
+	ns.db.ui.worldBossCompleter = ns.db.ui.worldBossCompleter or {}
+	ns.db.ui.worldBossCompleter[boss.id] = { who = who, anchor = GetWeekResetAnchorTs() }
+end
+
+local function GetWbCompleter(boss)
+	if not (ns.db and ns.db.ui and ns.db.ui.worldBossCompleter) or not boss or not boss.id then
+		return nil
+	end
+	local rec = ns.db.ui.worldBossCompleter[boss.id]
+	if type(rec) == "table" and (tonumber(rec.anchor) or 0) == GetWeekResetAnchorTs() then
+		return rec.who
+	end
+	return nil
+end
+
 local function SaveWbWeekCache(boss, source)
 	local cache = GetWbCacheTable()
 	if not cache or not boss or not boss.id then
@@ -204,6 +228,20 @@ local function IsQuestCompletedThisWeek(questId)
 	return ok and done == true
 end
 
+-- Account-wide weekly completion: true as soon as ANY warband character looted
+-- the boss this week. Same OnAccount API that fixed the Omnium Folio alt bug
+-- (Rob 21 jun): the per-char flag is false on an alt that didn't loot, but the
+-- account flag is true. The world-boss loot quest resets weekly, so this reads
+-- "did the warband do it this week" — robust even when our own account-cache was
+-- never written/was wiped on this alt. Read-only, taint-safe via pcall.
+local function IsQuestCompletedOnAccountThisWeek(questId)
+	if not questId or not C_QuestLog or not C_QuestLog.IsQuestFlaggedCompletedOnAccount then
+		return false
+	end
+	local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompletedOnAccount, questId)
+	return ok and done == true
+end
+
 local function TryTaskQuestActive(questId)
 	if not questId then
 		return false
@@ -239,7 +277,16 @@ local function SyncWarbandDoneFromQuestLog(activeBoss)
 	if activeBoss and activeBoss.questId and IsQuestCompletedThisWeek(activeBoss.questId) then
 		local who = UnitName and UnitName("player")
 		MarkWarbandDone(activeBoss, who)
+		RecordWbCompleter(activeBoss, who)
 		return activeBoss, who
+	end
+	-- Any warband char looted it this week (account-wide flag). Robust on alts even
+	-- if our own cache was never written/was wiped. We can't get the name from the
+	-- API, so keep any previously stored completedBy (MarkWarbandDone with nil keeps it).
+	if activeBoss and activeBoss.questId and IsQuestCompletedOnAccountThisWeek(activeBoss.questId) then
+		MarkWarbandDone(activeBoss, nil)
+		local accCache = GetWbCacheTable()
+		return activeBoss, accCache and accCache.completedBy or nil
 	end
 	local cache = GetWbCacheTable()
 	if cache and cache.warbandDone and (tonumber(cache.resetTs) or 0) == GetWeekResetAnchorTs() then
@@ -270,7 +317,9 @@ function ns.IsWorldBossKilled(boss)
 		end
 	end
 	if IsQuestCompletedThisWeek(boss.questId) then
-		MarkWarbandDone(boss, UnitName and UnitName("player"))
+		local who = UnitName and UnitName("player")
+		MarkWarbandDone(boss, who)
+		RecordWbCompleter(boss, who)
 		return true
 	end
 	return false
@@ -281,6 +330,11 @@ function ns.GetWorldBossWarbandCompleter()
 	local _, who = SyncWarbandDoneFromQuestLog(boss)
 	if type(who) == "string" and who ~= "" then
 		return who
+	end
+	-- Niet-wisbare account-opslag (overleeft de weekly-cache-wipe op alts).
+	local robust = GetWbCompleter(boss)
+	if type(robust) == "string" and robust ~= "" then
+		return robust
 	end
 	local cache = GetWbCacheTable()
 	if cache and (tonumber(cache.resetTs) or 0) == GetWeekResetAnchorTs() then

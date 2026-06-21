@@ -120,6 +120,112 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	CODEX_PROF_GUIDE_BODY = "• |cffffffffBasics -> Professions|r sub-tab: step-by-step KP plan and combo suggestions.|n• Dawncrests guide covers raid crafting currency (different from delve keys).|n• Re-read after patches — currency IDs and caps can change.",
 })
 
+merge(ns._mhLocales and ns._mhLocales.itIT, {
+	TAB_CODEX = "Midnight Codex",
+	CODEX_PANEL_TITLE = "Midnight Codex",
+	CODEX_PANEL_INTRO = "Il tuo manuale per la Midnight Season 1 — cos'è ogni sistema, a cosa serve ogni currency e dove cliccare in questo addon. Passa il cursore sulle icone delle currency per i tooltip di Blizzard.",
+	CODEX_OPEN_TAB_FMT = "Apri: %s",
+	CODEX_NAV_DELVES_VAULT = "Scheda Delves & Vault (blocco Great Vault)",
+	CODEX_NAV_DELVES_MIDNIGHT = "Scheda Delves & Vault (elenco delve)",
+	CODEX_NAV_BASICS_DAWN = "Scheda Basics (Dawncrests)",
+	CODEX_NAV_BASICS_PROF = "Scheda Basics (guida Professions)",
+	CODEX_BALANCE_FMT = "Hai: |cffffffff%d|r",
+	CODEX_BALANCE_UNKNOWN = "Il saldo si aggiorna quando accedi con questo personaggio.",
+	CODEX_SEARCH_OPENED = "Midnight Codex aperto.",
+	CODEX_BETA_DISABLED = "Midnight Codex è disattivato nelle Impostazioni (schede beta).",
+
+	CODEX_CAT_START = "Inizia qui",
+	CODEX_CAT_WEEKLY = "Ciclo settimanale",
+	CODEX_CAT_CURRENCIES = "Currencies",
+	CODEX_CAT_DELVES = "Delves",
+	CODEX_CAT_DUNGEONS = "Dungeons & M+",
+	CODEX_CAT_RAID = "Raid & crests",
+	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_PROFESSIONS = "Professions",
+
+	CODEX_START_TITLE = "Inizia qui — la tua settimana Midnight",
+	CODEX_START_BODY = "|cffffcc00Ragiona a livelli:|r un weekly reset, diverse tracce di ricompensa. Non ti serve ogni sistema ogni giorno — scegli un obiettivo.|n|n|cffffff781) Account & reset|r|n• Controlla |cffffffffHome -> This Week|r per vault pronta, world boss, key e faccende.|n• |cffffffffAccount snapshot|r mostra tutti gli alt (vault, Delver's Call, weekly delle profession).|n|n|cffffff782) Contenuti di combattimento|r|n• |cffffffffDelves|r — traccia principale di gearing (key, tier, slot della Great Vault). Usa |cffffffffDelve Coach|r per i consigli su ogni delve.|n• |cffffffffMythic+|r e |cffffffffRaid|r riempiono gli altri slot della Great Vault (vedi le categorie Dungeons & Raid).|n|n|cffffff783) Mondo aperto (12.0.5)|r|n• Scheda |cffffffffVoid & Rituals|r — Field Accolades, Ritual Sites, Void Assaults (stessa traccia di renown).|n• Scheda |cffffffffRares|r — loot rare settimanale e percorsi.|n|n|cffffff784) Crafting|r|n• Scheda |cffffffffProfessions|r per KP / mat settimanali; |cffffffffBasics|r per i crest Dawncrest.|n|n|cffffcc00Consiglio:|r apri qui la categoria |cffffffffCurrencies|r quando non ricordi a cosa serve un token. Scorri l'anteprima del boss in Delve Coach per zoomare.",
+
+	CODEX_WEEKLY_RESET_TITLE = "Weekly reset",
+	CODEX_WEEKLY_RESET_BODY = "• La maggior parte dei progressi settimanali si resetta nel giorno di manutenzione della tua regione (EU mercoledì mattina, US martedì mattina).|n• Si resettano le scelte della Great Vault, il loot del world boss, molti cap settimanali e le consegne della Delver's Call.|n• |cffffffffHome -> This Week|r mostra il tempo al reset quando l'API lo fornisce.|n• Pianifica gli alt: la scheda snapshot confronta chi deve ancora vault, boss o Delver's Call.",
+
+	CODEX_VAULT_TITLE = "Great Vault",
+	CODEX_VAULT_BODY = "• Tre tracce: |cffffffffWorld|r (delve + contenuti del mondo), |cffffffffDungeons|r (M+), |cffffffffRaid|r.|n• Riempi le attività durante la settimana; dopo il reset scegli una ricompensa per ogni slot sbloccato dall'NPC della vault o con SHIFT-J.|n• |cffffffffVault Advisor|r (sull'UI vault di Blizzard) classifica le opzioni rispetto al tuo equip.|n• Questo addon mostra tutte e tre le tracce nella scheda |cffffffffDelves & Vault|r — espandi |cffffffffWeekly Great Vault (World)|r (non è ancora una scheda separata).|n• Riepilogo anche in |cffffffffHome -> This Week|r e |cffffffffAccount snapshot|r.",
+
+	CODEX_WORLDBOSS_TITLE = "World boss (Midnight S1)",
+	CODEX_WORLDBOSS_BODY = "• Un world boss a rotazione per settimana (Lu'ashal, Cragpine, Thorm'belan, Predaxas).|n• Loot Warband: una volta che un personaggio lo uccide, gli alt risultano completati.|n• Tracciato in cima a |cffffffffDelves & Vault|r con percorso TomTom.|n• Collegato anche dalla SMC City Guide quando sei a Silvermoon.",
+	CODEX_FOLIO_TITLE = "Omnium Folio (12.0.7)",
+	CODEX_FOLIO_BODY = "• Nuovo sistema di potere di metà espansione — un libro sulla minimappa di |cffffffffrune|r che scambi liberamente fuori dal combattimento (nessun costo di slot).|n• Il potere arriva dalla catena settimanale |cffffffff'Seeking Knowledge'|r (5 settimane): The Omnium Folio, Ritualized Arcana, Leyline Assaults, Magical Primessence, Off-World Magic.|n• Ogni settimana ricompensa un |cffffffffMote of Omnial Inquiry|r per scegliere/potenziare una runa.|n• Completa tutte e 5 per il meta achievement e l'arredo Sunstrider Omnium Simulacrum.|n• (Da datamining — effetti/ID esatti delle rune confermati al lancio.)",
+	CODEX_TT_TITLE = "Turbulent Timeways (12.0.7)",
+	CODEX_TT_BODY = "• Evento Timewalking di ritorno — questa volta un pool di dungeon |cffffffffDragonflight|r: Algeth'ar Academy, Halls of Infusion, Neltharus, Ruby Life Pools, The Azure Vault, Brackenhide Hollow.|n• Settimanale: completa |cffffffff5 dungeon Timewalking|r per un cache di gear; ogni run accumula |cffffffffKnowledge of Timeways|r (buff XP).|n• Ottieni |cffffffffMastery of Timeways|r in 4 settimane su 6 per 'Master of the Turbulent Timeways' e la cavalcatura |cffffffffSpawn of Vyranoth|r.|n• Spendi i Timewarped Badges dal venditore dell'evento.|n• Attivo dal ~30 giugno all'11 ago. (Da datamining — confermare al lancio.)",
+
+	CODEX_DELVER_CALL_TITLE = "Delver's Call",
+	CODEX_DELVER_CALL_BODY = "• Obiettivi settimanali delle delve che concedono un grosso burst di XP alla consegna.|n• Puoi |cffffffffmettere in banca|r le call completate (obiettivi fatti, non ancora consegnati) per un livello successivo del personaggio.|n• |cffffffffAccount snapshot|r riepiloga le call in banca e in sospeso tra gli alt.|n• Passa il cursore sulla riga Delver's Call nello snapshot per il dettaglio per personaggio.",
+
+	CODEX_ACCOUNT_TITLE = "Account snapshot",
+	CODEX_ACCOUNT_BODY = "• Panoramica in sola lettura dei personaggi con cui hai effettuato l'accesso usando Midnight Helper.|n• Ordina/filtra per vault pronta, key, cap di Shards of Dundun, inattivi dal reset, ecc.|n• Usalo per rispondere: \"Quale alt deve ancora vault / boss / Delver's Call?\"|n• Non sostituisce l'accesso a un alt per controllare gear o quest.",
+
+	CODEX_CUR_COFFER_KEY_TITLE = "Restored Coffer Key",
+	CODEX_CUR_COFFER_KEY_BODY = "• Apre le delve Midnight (come le key delle espansioni precedenti).|n• Si ottiene da contenuti del mondo, weekly e venditori; nessun cap settimanale rigido sul numero di key che puoi tenere.|n• Mostrata in |cffffffffDelves & Vault|r con il tuo conteggio attuale.",
+
+	CODEX_CUR_SHARDS_TITLE = "Coffer Key Shards",
+	CODEX_CUR_SHARDS_BODY = "• Si combinano in Restored Coffer Keys (100 shard -> 1 key al tasso standard).|n• C'è un cap settimanale di guadagno sugli shard — controlla \"Weekly: X / Y\" nella scheda Delves.|n• Il cap si riempie più in fretta se fai più delve o completi le fonti di shard.",
+
+	CODEX_CUR_UNDERCOIN_TITLE = "Undercoin",
+	CODEX_CUR_UNDERCOIN_BODY = "• Currency da venditore per beni legati alle delve (curio, upgrade, oggetti di comodità).|n• Si ottiene principalmente facendo delve e dalle ricompense delle delve.|n• Spendili prima di accumularli alla cieca — controlla il venditore delle delve quando hai un pezzo obiettivo.",
+
+	CODEX_CUR_MANA_TITLE = "Untainted Mana-Crystals",
+	CODEX_CUR_MANA_BODY = "• Usati per specifici upgrade di gear Midnight / acquisti da venditore (controlla le patch notes attuali per i venditori esatti).|n• Si ottengono da delve, contenuti del mondo e fonti settimanali.|n• Account snapshot può mostrare i totali per personaggio.",
+
+	CODEX_CUR_ACCOLADES_TITLE = "Field Accolades",
+	CODEX_CUR_ACCOLADES_BODY = "• Currency condivisa per i sistemi |cffffffffVoid & Rituals|r (Ritual Sites + Void Assaults).|n• C'è un cap settimanale di guadagno — dopo il cap continui a giocare per altre ricompense ma smetti di guadagnare accolades fino al reset.|n• Si spendono per le ricompense di renown all'hub Bazaar (Eversong / Zul'Aman).|n• Conteggio in tempo reale nella scheda |cffffffffVoid & Rituals|r.",
+
+	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
+	CODEX_CUR_DAWN_BODY = "• Currency di crafting di raid-tier (slot raid della Great Vault, progressione affine al catalyst).|n• I conteggi dei crest in tempo reale sono in |cffffffffBasics -> Dawncrests|r (non in questo elenco).|n• Non sono come le key delle delve — vedi quella guida per gli obiettivi di spesa e i cap settimanali.",
+
+	CODEX_DELVES_INTRO_TITLE = "Midnight delves — panoramica",
+	CODEX_DELVES_INTRO_BODY = "• Scenari in solitaria o in piccolo gruppo tra Eversong, Harandar, Voidstorm, ecc.|n• |cffffffffTier 1–11+|r — tier più alto = nemici più difficili e item level migliore nella vault.|n• Costa una |cffffffffRestored Coffer Key|r a run (vedi Currencies).|n• Le delve |cffffffffBountiful|r (a rotazione) danno loot extra — usa \"Find Nearest Bountiful Delve\" nella scheda Delves.",
+
+	CODEX_DELVE_COACH_TITLE = "Delve Coach",
+	CODEX_DELVE_COACH_BODY = "• Pannello di consigli fluttuante: percorso, trash e meccaniche dei boss per ogni delve.|n• Si apre automaticamente in una delve (opzionale) o tramite |cffffffffDelve Coach (preview tips)|r / |cffffffff/mh coach|r.|n• Il testo in inglese o olandese segue `/mh lang`.|n• Spotlight sul boss: scorri sul modello per zoomare (salvato per ogni boss).|n• I nomi delle spell in blu rimandano ai tooltip reali delle spell quando gli ID sono noti.",
+
+	CODEX_DELVE_CURIOS_TITLE = "Valeera & delve curios",
+	CODEX_DELVE_CURIOS_BODY = "• I curio modificano la tua prossima run di delve (loot extra, boss più facili, ecc.).|n• Valeera offre consigli presso gli NPC di riparazione/gossip — popup nella scheda Delves quando pertinente.|n• Traccia consumabili e pulsanti della minimappa tramite il popup degli oggetti delve (RAID-R Mini, Trovehunter's Bounty).",
+
+	CODEX_TORMENTS_TITLE = "Torment's Rise (Nemesis delve)",
+	CODEX_TORMENTS_BODY = "• Delve Nemesis capostipite in Voidstorm — portale per un'istanza separata, non una delve del mondo a rotazione.|n• Si sblocca ai tier alti delle delve con vite limitate (vedi i requisiti in-game).|n• Boss Nullaeus — pesante check di interrupt/DPS; vedi Delve Coach per le meccaniche.|n• La bounty settimanale può attirare un Nullaeus indebolito in una delve normale (Beacon of Hope).",
+
+	CODEX_DELVE_LOG_TITLE = "Delve Log",
+	CODEX_DELVE_LOG_BODY = "• Cronologia delle run di delve recenti (tier, tempi, gruppo).|n• Utile per ricordare quale variante hai finito o quale boss era attivo.|n• Il routing verso la delve più vicina può mandarti all'ingresso più vicino alla tua posizione.",
+
+	CODEX_MPLUS_TITLE = "Mythic+ & vault dei dungeon",
+	CODEX_MPLUS_BODY = "• I dungeon M+ riempiono la riga |cffffffffDungeons|r della Great Vault (separata dalle righe delve/world).|n• Key di livello più alto = item level più alto nello slot vault se completi la key nei tempi.|n• Vault Advisor usa i pesi delle stat M+ quando reclami il loot vault dei dungeon.|n• Midnight Helper non sostituisce un addon di route — usa MDT / note per le settimane degli affix.",
+
+	CODEX_RAID_VAULT_TITLE = "Raid Great Vault",
+	CODEX_RAID_VAULT_BODY = "• I boss di raid fanno progredire gli slot raid della vault (la difficoltà influisce sull'item level).|n• Normal / Heroic / Mythic contribuiscono ciascuno — controlla l'UI della vault per vedere quali boss hai ucciso questa settimana.|n• I crest (Dawncrests) spesso limitano i percorsi di upgrade del gear di raid.",
+
+	CODEX_VAULT_ADVISOR_TITLE = "Great Vault Advisor",
+	CODEX_VAULT_ADVISOR_BODY = "• Pannello laterale sull'UI delle ricompense settimanali di Blizzard quando reclami il loot della Great Vault (SHIFT-J) — non dentro le schede di Midnight Helper.|n• Classifica i pezzi della vault rispetto al gear equipaggiato usando le priorità di stat della guida (e Pawn opzionale).|n• Attiva/disattiva nelle impostazioni rapide della minimappa / Esc -> AddOns -> Midnight Helper.|n• Profilo Auto vs Raid vs M+ per i pesi delle stat.",
+
+	CODEX_WORLD_HUB_TITLE = "Void & Rituals — un unico sistema",
+	CODEX_WORLD_HUB_BODY = "• Midnight 12.0.5 abbina |cffffffffRitual Sites|r (Eversong) e |cffffffffVoid Assaults|r (Zul'Aman) sotto un'unica currency e renown.|n• Stesse |cffffffffField Accolades|r e hub Bazaar — non farmarli come attività scollegate.|n• Apri la scheda combinata per il sito attivo, i cap settimanali e i pulsanti TomTom in tempo reale.",
+
+	CODEX_RITUAL_TITLE = "Ritual Sites",
+	CODEX_RITUAL_BODY = "• Rituale settimanale a rotazione in Eversong Woods — completa le fasi per accolades e loot.|n• Solo un sito è \"attivo\" alla volta; l'addon evidenzia quale.|n• Il pin della SMC City Guide può portarti alla scheda Ritual con il contesto.",
+
+	CODEX_VOID_TITLE = "Void Assaults",
+	CODEX_VOID_BODY = "• Ondate di assalto a Zul'Aman — difendi gli obiettivi, guadagna accolades.|n• Condivide il cap settimanale con il progresso dei ritual sulla stessa currency.|n• Controlla il timer dell'assalto / la zona attiva nella scheda Void & Rituals.",
+
+	CODEX_RARES_TITLE = "Midnight rares",
+	CODEX_RARES_BODY = "• Mob rari settimanali con loot per account/personaggio (controlla in-game le regole di ogni rare).|n• Scheda |cffffffffRares|r: traccia le uccisioni, crea il percorso più vicino, la freccia TomTom resta sul pin più vicino.|n• Avviso in tempo reale quando un rare tracciato è vicino (~500 yd) — attiva/disattiva nelle impostazioni.",
+
+	CODEX_PROF_TITLE = "Professions — ciclo settimanale",
+	CODEX_PROF_BODY = "• Knowledge Points (KP), Artisan's Moxie, Unalloyed Abundance e Shards of Dundun sono tracce separate.|n• La scheda |cffffffffProfessions|r mostra i KP non spesi e le currency settimanali per profession.|n• Gli ordini di crafting e i tesori non sono completamente automatizzati qui — usa la guida Basics per spendere i KP.",
+
+	CODEX_PROF_GUIDE_TITLE = "Professions beginner guide",
+	CODEX_PROF_GUIDE_BODY = "• Sotto-scheda |cffffffffBasics -> Professions|r: piano KP passo passo e suggerimenti di combo.|n• La guida Dawncrests copre la currency di crafting di raid (diversa dalle key delle delve).|n• Rileggi dopo le patch — gli ID delle currency e i cap possono cambiare.",
+})
+
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TAB_CODEX = "Midnight Codex",
 	CODEX_PANEL_TITLE = "Midnight Codex",

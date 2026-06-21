@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.5] - 2026-06-21
+
+### Fixed
+
+- **World boss "Warband: defeated this week" now shows on every character** once any one of your characters kills it, using the account-wide quest flag (the same approach that fixed the Omnium Folio alt counter). Previously alts that hadn't looted still showed "not defeated yet". The completing character's name is now remembered account-wide so alts can show "defeated by …" too.
+- **Weekly Coffer Shard cap popup now appears only once per character per week.** Previously it could re-appear on every login because the "seen this week" mark was only set when the toast finished displaying; it's now set the moment the cap is detected. (After updating you may see it one more time, then it stays off until the next reset.)
+
+### Added
+
+- **Setting to hide the weekly Coffer Shard cap popup** (Settings → Dungeon). First community request (gadrinonturalyon on CurseForge) — the shard-cap toast can now be turned off.
+- **Setting to show/hide the 3D boss model** in the floating boss window (Settings → Dungeon). Turning it off hides the model; takes effect immediately while the window is open.
+- **Italian language (itIT).** Full interface and guide translation. Auto-selects on an Italian WoW client (since patch 5.0.4), or choose it manually with `/mh lang it`. Older changelog entries intentionally remain in English (as with the other added languages).
+
 ## [1.8.4] - 2026-06-21
 
 ### Added

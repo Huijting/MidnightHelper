@@ -1,5 +1,5 @@
 ## Interface: 120007
-## Version: 1.8.4
+## Version: 1.8.5
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.
@@ -16,6 +16,7 @@ Locales\deDE.lua
 Locales\frFR.lua
 Locales\esES.lua
 Locales\ptBR.lua
+Locales\itIT.lua
 Locales\nlNL.lua
 Locales\ConsumablesNotes.lua
 Locales\GuideTips.lua

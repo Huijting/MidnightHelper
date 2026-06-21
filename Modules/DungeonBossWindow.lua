@@ -224,6 +224,11 @@ local function SetModelCreature(model, creatureID)
 	if not model then
 		return false
 	end
+	-- Door de speler uitgezet (Settings → 3D-model verbergen).
+	if ns.IsBossWindowModelEnabled and not ns.IsBossWindowModelEnabled() then
+		model:Hide()
+		return false
+	end
 	if not creatureID then
 		model:Hide()
 		return false
@@ -806,6 +811,19 @@ end
 
 function ns.SetBossWindowAutoOpenEnabled(v)
 	GetWinSettings().autoOpen = v and true or false
+end
+
+-- 3D-bossmodel tonen in het boss-venster (standaard aan). Community-verzoek
+-- 21 jun (gadrinonturalyon): checkbox om het model te verbergen.
+function ns.IsBossWindowModelEnabled()
+	return GetWinSettings().showModel ~= false
+end
+
+function ns.SetBossWindowModelEnabled(v)
+	GetWinSettings().showModel = v and true or false
+	if ns.RefreshDungeonBossWindow then
+		ns.RefreshDungeonBossWindow() -- direct effect als het venster open is
+	end
 end
 
 -- Settings-pagina: schaal live zetten (slider) en layout resetten.

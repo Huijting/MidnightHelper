@@ -225,6 +225,192 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_TIP_AA_DORAGOSA_HEALER = "Healer: watch {SPELL:389011} stacks — carriers tick harder per stack.",
 })
 
+merge(ns._mhLocales and ns._mhLocales.itIT, {
+	-- Windrunner Spire ---------------------------------------------------------
+	DGN_TIP_WS_DUO_STEPS = "1. Due boss — danneggiali in modo uniforme così muoiono più o meno insieme.|n2. Interrompi Shadow Bolt; esci dai cerchi di vomito ({SPELL:472745}) — non sprecare spazio sul pavimento.|n3. Cursed ({SPELL:474105})? Falla dispellare in fretta — oppure CC la Dark Entity che genera finché non svanisce.|n4. Agganciato da {SPELL:472793} durante l'urlo? Posizionati in modo da venire tirato ATTRAVERSO la dama spettrale — questo interrompe il suo cast.",
+	DGN_TIP_WS_DUO_TANK = "Tank: difensiva per {SPELL:472888}; sposta i boss quando il pavimento si affolla.",
+	DGN_TIP_WS_DUO_HEALER = "Healer: grandi danni al gruppo durante {SPELL:472736}; dispella {SPELL:474105} in fretta.",
+
+	DGN_TIP_WS_EMBER_STEPS = "1. Fuoco = male. Posiziona le pozze di fuoco ({SPELL:466556}) ai bordi, tieni pulito il centro.|n2. A piena energia corri VERSO il boss per {SPELL:465904}, poi schiva di lato ogni Fire Breath.|n3. Le vecchie pozze generano vortici di fuoco — continua a schivare.",
+	DGN_TIP_WS_EMBER_TANK = "Tank: difensiva per {SPELL:466064}.",
+	DGN_TIP_WS_EMBER_HEALER = "Healer: forti danni al gruppo durante {SPELL:465904}.",
+
+	DGN_TIP_WS_KROLUK_STEPS = "1. Cerchi marroni = male, esci.|n2. Raggruppati con un alleato prima che {SPELL:1253026} finisca (sovrapponi i cerchi viola).|n3. Fissato o bersaglio del balzo ({SPELL:1283247})? Portalo lontano dal gruppo.|n4. Quando spawnano gli add (a circa due terzi e un terzo di health): uccidili in fretta — prima il Phantasmal Mystic, e continua a interromperlo.",
+	DGN_TIP_WS_KROLUK_TANK = "Tank: difensiva per {SPELL:467620}; sii pronto a prendere il secondo {SPELL:1283247}.",
+	DGN_TIP_WS_KROLUK_HEALER = "Healer: danni al gruppo durante {SPELL:472043}.",
+
+	DGN_TIP_WS_HEART_STEPS = "1. Stack di {SPELL:1216042} che ticchettano su di te? Cammina su una freccia di vento (Turbulent Arrow) a 2-3 stack — rimuove il DoT e ti fa saltare oltre l'onda d'urto in espansione.|n2. Tieni una freccia libera per la grande esplosione a piena energia ({SPELL:468429}).|n3. Distanziati un po' per {SPELL:1253979} e usa i cerchi grandi per ripulire il terreno elettrico.|n4. Bersaglio di {SPELL:474528}? Resta fermo e lascia che gli altri si spostino; tutti gli altri: uscite dal frontale.",
+	DGN_TIP_WS_HEART_TANK = "Tank: difensiva per {SPELL:472662}; orienta il knockback lontano dalle pozze.",
+	DGN_TIP_WS_HEART_HEALER = "Healer: cura prima i giocatori con tanti stack di {SPELL:1216042}; cure extra dopo {SPELL:1253979}.",
+
+	-- Maisara Caverns ------------------------------------------------------------
+	DGN_TIP_MC_MUROJIN_STEPS = "1. Due boss (cacciatore e uccello) — uccidili a breve distanza l'uno dall'altro, o il sopravvissuto va in berserk.|n2. Trappole di ghiaccio ({SPELL:1243741}), cerchi verdi ({SPELL:1243900}) e il frontale {SPELL:1260643} = male, stai fuori.|n3. Bersaglio di {SPELL:1249478} (la picchiata dell'uccello)? Corri DENTRO una trappola di ghiaccio — il congelamento ferma la picchiata. Tutti gli altri: allontanatevi da quel giocatore.",
+	DGN_TIP_MC_MUROJIN_TANK = "Tank: difensiva per {SPELL:1266480}.",
+	DGN_TIP_MC_MUROJIN_HEALER = "Healer: dispella {SPELL:1246666} (malattia) — forti danni al gruppo.",
+
+	DGN_TIP_MC_VORDAZA_STEPS = "1. Il boss genera Unstable Phantoms ({SPELL:1251204}) che inseguono i giocatori. UCCIDILI prima che raggiungano qualcuno — un fantasma che raggiunge il suo bersaglio (o tocca un altro fantasma) esplode con forti danni nelle vicinanze.|n2. Ogni fantasma ucciso urla: danni al gruppo inevitabili — quindi uccidili UNO alla volta.|n3. Schiva l'ondata frontale di {SPELL:1252054} (ti spinge via), gli orb fluttuanti e Soulrot.|n4. Qualcuno avvolto in un Deathshroud? Liberalo in fretta; interrompi {SPELL:1250708} e schiva i vortici durante.",
+	DGN_TIP_MC_VORDAZA_TANK = "Tank: difensiva per {SPELL:1251554}.",
+	DGN_TIP_MC_VORDAZA_HEALER = "Healer: ogni fantasma ucciso urla ({SPELL:1251813}) = danni al gruppo — cura tra le uccisioni scaglionate.",
+
+	DGN_TIP_MC_RAKTUL_STEPS = "1. Il boss balza su tre giocatori ({SPELL:1252676}) e lascia Soulbind Totems — distanziatevi così i totem atterrano separati, non farti schiacciare, e uccidi i totem in fretta.|n2. Stai fuori dal terreno di Chill of Death.|n3. Fase dell'anima ({SPELL:1253788}): vieni estratto dal tuo corpo — CC e interrompi i grandi add mentre corri verso il tuo corpo.|n4. Schiva i vortici della Deathgorged Vessel.",
+	DGN_TIP_MC_RAKTUL_TANK = "Tank: difensiva per {SPELL:1251023}; posiziona le pozze lontano dal gruppo.",
+	DGN_TIP_MC_RAKTUL_HEALER = "Healer: forti danni al gruppo durante la Deathgorged Vessel e quando i totem si frantumano.",
+
+	-- Murder Row ----------------------------------------------------------------
+	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia si clona ({SPELL:1264095}) — CC o stunna le copie; tutte canalizzano Felstorm.|n2. {SPELL:474240}: si teletrasporta su un giocatore ed esplode con un knockback — esci dall'esplosione.|n3. Stai fuori dal cono {SPELL:1253813} di Nibbles (fuoco che ticchetta).|n4. Quando Nibbles passa alla sua forma di luce canalizza {SPELL:1230304} su Kystia — cambia bersaglio quando succede.",
+	DGN_TIP_MR_KYSTIA_TANK = "Tank: tieni il cono {SPELL:1253813} di Nibbles puntato lontano dal gruppo.",
+	DGN_TIP_MR_KYSTIA_HEALER = "Healer: picco di danni quando atterra {SPELL:474240}; danni costanti su chi viene colpito dalle copie di Felstorm.",
+
+	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:474545}: spara a tutti quelli nella sua LINEA DI VISTA — spezzala: nasconditi dietro le casse e i pilastri prima del colpo (lascia anche un bleed di 15s).|n2. {SPELL:474765}: il carico piove sui giocatori e ti respinge — esci dai segnalini.|n3. {SPELL:474478}: 3 secondi di forte fuoco su tutto il gruppo — sii al massimo, usa una difensiva.|n4. Schiva le Fire Bomb ({SPELL:1214352}).",
+	DGN_TIP_MR_ZAEN_TANK = "Tank: difensiva per {SPELL:1222795}.",
+	DGN_TIP_MR_ZAEN_HEALER = "Healer: porta il gruppo al massimo prima di {SPELL:474478}; i bleed ticchettano su chi viene colpito da {SPELL:474545}.",
+
+	DGN_TIP_MR_XATHUUX_STEPS = "1. {SPELL:1214637} è puntato su un giocatore — portalo lontano dal gruppo e fuori dall'impatto.|n2. {SPELL:474197}: forti danni a tutti — difensive e continua a muoverti.|n3. Grandi colpi al tank ({SPELL:473898}) — concedi all'healer un momento di calma attorno ad essi.",
+	DGN_TIP_MR_XATHUUX_TANK = "Tank: difensiva per {SPELL:473898}.",
+	DGN_TIP_MR_XATHUUX_HEALER = "Healer: danni al gruppo durante {SPELL:474197}.",
+
+	DGN_TIP_MR_LITHIEL_STEPS = "1. {SPELL:1218203}: distanziatevi (6+ yard) — ogni impatto genera Wild Imps; uccidi gli imp in fretta.|n2. Uccidi il Vilefiend evocato ({SPELL:474408}) prima della prossima ondata di imp.|n3. {SPELL:1224478}: si scuda e manda un'onda di fuoco fel attraverso la stanza — usa il gateway per sfuggirle (il colpo accumula +50% danni da fuoco subiti, e i demoni che tocca vengono potenziati).",
+	DGN_TIP_MR_LITHIEL_TANK = "Tank: prendi il Vilefiend e gli imp in fretta.",
+	DGN_TIP_MR_LITHIEL_HEALER = "Healer: chi viene colpito da {SPELL:1224478} subisce danni da fuoco crescenti — tienilo alto.",
+
+	-- Den of Nalorakk -----------------------------------------------------------
+	DGN_TIP_DN_HOARDMONGER_STEPS = "1. {SPELL:1234233}: cibo marcio piove per 7 secondi e cosparge Rotten Mushrooms — schiva gli impatti e stai lontano dai funghi.|n2. {SPELL:1253268} è un cono frontale — non stare mai davanti.|n3. {SPELL:1235118} colpisce tutti (ignora l'armatura) — resta al massimo.",
+	DGN_TIP_DN_HOARDMONGER_TANK = "Tank: il frontale ti segue — orienta il boss lontano dal gruppo.",
+	DGN_TIP_DN_HOARDMONGER_HEALER = "Healer: cura di gruppo dopo ogni {SPELL:1235118}.",
+
+	DGN_TIP_DN_SENTINEL_STEPS = "1. Le Raging Squalls ({SPELL:1235623}) vagano per l'arena a lungo — continua a serpeggiare attorno ad esse.|n2. I ghiaccioli {SPELL:1235783} cadono e rivelano un Fractured Shivercore — distruggilo.|n3. {SPELL:1235656}: un velo ghiacciato assorbe danni mentre la tempesta respinge tutti e ticchetta sul gruppo — rompi lo scudo IN FRETTA.",
+	DGN_TIP_DN_SENTINEL_TANK = "Tank: tieni il boss lontano dalle raffiche.",
+	DGN_TIP_DN_SENTINEL_HEALER = "Healer: dispella/cura attraverso {SPELL:1235548} (DoT di gelo da 16s); tutti ticchettano durante {SPELL:1235656}.",
+
+	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk butta a terra Zul'jarra e gli orsi spiritici caricano verso di lei — mettiti sul loro percorso per intercettarli (ogni orso che la raggiunge scatena un urlo brutale).|n2. {SPELL:1255385} respinge tutti — attento a dove metti i piedi vicino ai pericoli.|n3. {SPELL:1243569} dilania il tank per 4 secondi — aiuta con esterne se le hai.",
+	DGN_TIP_DN_NALORAKK_TANK = "Tank: {SPELL:1243569} = colpi crescenti, +50% danni subiti per colpo — grande difensiva, ogni volta.",
+	DGN_TIP_DN_NALORAKK_HEALER = "Healer: il tank subisce picchi forti durante {SPELL:1243569}; cura di gruppo dopo ogni ruggito.",
+
+	-- The Blinding Vale ---------------------------------------------------------
+	DGN_TIP_BV_TRINITY_STEPS = "1. Tre boss insieme — segui l'ordine dei bersagli del tuo tank.|n2. Lekshi scatta tra le chiazze di terra ({SPELL:1234850}) e semina Lightblossom lungo il percorso — stai fuori dai percorsi dello scatto.|n3. Kezkitt irradia ogni seme ({SPELL:1235564}): STAI DENTRO il raggio per fermare la crescita del seme (un seme non soakato cresce troppo dopo 10 secondi).|n4. Meittik colpisce duro il tank ({SPELL:1234753}).",
+	DGN_TIP_BV_TRINITY_TANK = "Tank: difensiva per {SPELL:1234753}; attento al {SPELL:1261276} di Lekshi.",
+	DGN_TIP_BV_TRINITY_HEALER = "Healer: chi soaka i raggi subisce danni Holy costanti — tienilo su.",
+
+	DGN_TIP_BV_IKUZZ_STEPS = "1. {SPELL:1236746} respinge tutti e spuntano radici dove stanno i giocatori — lasciale ai bordi.|n2. {SPELL:1237091}: fissa e insegue un giocatore per 10 secondi — corri, non lasciarti raggiungere.|n3. Continua a schivare le eruzioni di spine ({SPELL:1236709}).",
+	DGN_TIP_BV_IKUZZ_TANK = "Tank: riprendilo dopo ogni inseguimento di Gaze.",
+	DGN_TIP_BV_IKUZZ_HEALER = "Healer: tieni in salute il giocatore inseguito — farsi prendere fa male.",
+
+	DGN_TIP_BV_RUIA_STEPS = "1. Il warden cambia forma (orso, moonkin, haranir) — ognuna ha i suoi trucchi.|n2. Schiva i cerchi d'impatto di {SPELL:1240098}.|n3. {SPELL:1241058} lascia un bleed che si ferma solo quando il bersaglio viene curato al MASSIMO — segnalalo.|n4. Fase finale ({SPELL:1241067}): tutto si attiva ogni pochi secondi — risparmia i cooldown e continua a muoverti.",
+	DGN_TIP_BV_RUIA_TANK = "Tank: la forma orso colpisce più duro — difensiva per {SPELL:1240222}.",
+	DGN_TIP_BV_RUIA_HEALER = "Healer: {SPELL:1241058} fa bleed finché il giocatore non è alla salute MASSIMA — curalo subito.",
+
+	DGN_TIP_BV_ZIEKKET_STEPS = "1. Gli orb Lightbloom ({SPELL:1246858}) si dirigono verso Ziekket — toccali per farli scoppiare prima che lo raggiungano.|n2. Le Lightspawn Lashers continuano a spuntare ({SPELL:1246372}, e quelle dormienti si risvegliano) — uccidile per bene.|n3. Attento ai piedi per {SPELL:1246753} e fai attenzione a {SPELL:1253690}.",
+	DGN_TIP_BV_ZIEKKET_TANK = "Tank: difensiva per {SPELL:1247685}; prendi le lasher.",
+	DGN_TIP_BV_ZIEKKET_HEALER = "Healer: danni al gruppo costanti — aspettati un picco quando un orb sfugge.",
+
+	-- Voidscar Arena ------------------------------------------------------------
+	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1222274} trascina tutti verso di sé per 6 secondi — corri contro l'attrazione; il centro fa molto male.|n2. Dopo ogni teletrasporto ({SPELL:1262901}) le Ethereal Shades attaccano — bruciale.|n3. Schiva {SPELL:1225011}.",
+	DGN_TIP_VA_TAZRAH_TANK = "Tank: difensiva per {SPELL:1222085}.",
+	DGN_TIP_VA_TAZRAH_HEALER = "Healer: la frattura ticchetta su tutti mentre corrono — tieni stabile il gruppo.",
+
+	DGN_TIP_VA_ATROXUS_STEPS = "1. I Toxic Creepers ({SPELL:1222371}) strisciano fuori dalle pozze — uccidili in fretta.|n2. Stai fuori dal frontale {SPELL:1263977} e dai cerchi {SPELL:1226120}.|n3. {SPELL:1262497} ti respinge — non stare con una pozza dietro di te.",
+	DGN_TIP_VA_ATROXUS_TANK = "Tank: difensiva per {SPELL:1222642}; orienta il respiro lontano.",
+	DGN_TIP_VA_ATROXUS_HEALER = "Healer: cura in anticipo prima di {SPELL:1262497}; il veleno ticchetta sui piedi distratti.",
+
+	DGN_TIP_VA_CHARONUS_STEPS = "1. Un Gravitic Orb ({SPELL:1263982}) insegue ogni giocatore — kita il tuo verso una Unstable Singularity ({SPELL:1282770}; entro 6 yard viene distrutto).|n2. {SPELL:1227264}: tutti vengono respinti più un DoT di 20 secondi — scegli un terreno sicuro prima che colpisca.|n3. Schiva i proiettili {SPELL:1222758} (contatto = danni + knockback).",
+	DGN_TIP_VA_CHARONUS_TANK = "Tank: posizionamento stabile — dai ai giocatori spazio per kitare i loro orb.",
+	DGN_TIP_VA_CHARONUS_HEALER = "Healer: dopo {SPELL:1227264} tutto il gruppo porta un lungo DoT — grandi cure lì.",
+
+	-- Nexus-Point Xenas ---------------------------------------------------------
+	DGN_TIP_NX_KASRETH_STEPS = "1. Hai {SPELL:1251785}? Cammina DENTRO un raggio di leyline ({SPELL:1251183}) — rimuove il debuff (breve stun, ne vale la pena).|n2. Tutti gli altri: NON attraversate le leyline (danni + rallentamento crescente).|n3. Piena energia = {SPELL:1257509}: grande zona d'impatto, allontanati — le fuoriuscite arcane ({SPELL:1264048}) restano dopo.",
+	DGN_TIP_NX_KASRETH_TANK = "Tank: tieni il boss lontano dalle leyline.",
+	DGN_TIP_NX_KASRETH_HEALER = "Healer: Sparkburn ticchetta su tutti dopo ogni detonazione.",
+
+	DGN_TIP_NX_NYSARRA_STEPS = "1. Distanziatevi — i colpi di {SPELL:1249020} schizzano per 14 yard.|n2. Uccidi gli add Null Vanguard ({SPELL:1252703}) IN FRETTA: tutto ciò che resta vivo viene divorato ({SPELL:1271684}), la cura e fa esplodere il gruppo.|n3. Schiva {SPELL:1264439}.",
+	DGN_TIP_NX_NYSARRA_TANK = "Tank: balza su di te con una combo di fendenti ({SPELL:1247937}) — difensiva, preparati al finisher.",
+	DGN_TIP_NX_NYSARRA_HEALER = "Healer: danni distribuiti dopo {SPELL:1249020}; esplosione di gruppo se gli add sopravvivono al divoramento.",
+
+	DGN_TIP_NX_LOTHRAXION_STEPS = "1. {SPELL:1255503}: distanziatevi — gli impatti schizzano per 8 yard e generano Fractured Images.|n2. {SPELL:1257567}: si nasconde tra le sue immagini e canalizzano tutte — trova il VERO Lothraxion e interrompilo.|n3. Le immagini sfarfallano in giro con knockback ({SPELL:1255531}); stai fuori da {SPELL:1255310} sul pavimento.",
+	DGN_TIP_NX_LOTHRAXION_TANK = "Tank: {SPELL:1255335} è un doppio fendente che incide cicatrici nel terreno — orientalo lontano dal gruppo.",
+	DGN_TIP_NX_LOTHRAXION_HEALER = "Healer: DoT Holy dopo ogni {SPELL:1255503}; danni costanti finché non scatta l'interrupt su Guile.",
+
+	-- Magisters' Terrace --------------------------------------------------------
+	DGN_TIP_MT_ARCANOTRON_STEPS = "1. Quando si rifornisce ({SPELL:474345}), gli Energy Orbs vengono attratti verso di lui — intercettali; nel frattempo subisce +20% danni: finestra di burst!|n2. I giocatori incatenati ({SPELL:1214038}) sono immobilizzati (magic) — dispella o liberali.|n3. {SPELL:1214081} respinge tutti e lascia residui ai suoi piedi — esci da essi.",
+	DGN_TIP_MT_ARCANOTRON_TANK = "Tank: {SPELL:474496} ti lancia — tieni le spalle libere.",
+	DGN_TIP_MT_ARCANOTRON_HEALER = "Healer: dispella {SPELL:1214038} (root magic) in fretta.",
+
+	DGN_TIP_MT_SERANEL_STEPS = "1. {SPELL:1225193} pacifica tutti FUORI dalla Suppression Zone ({SPELL:1224903}) — entra nella zona per l'onda (ma la zona ti silenzia, quindi non indugiare).|n2. Purge/spellsteal il suo {SPELL:1248689} (+100% velocità d'attacco) ogni volta che è attivo.|n3. {SPELL:1225787} rimbalza su un giocatore vicino — distanziatevi.",
+	DGN_TIP_MT_SERANEL_TANK = "Tank: un Ward non rimosso raddoppia la sua velocità d'attacco — difensiva finché non sparisce.",
+	DGN_TIP_MT_SERANEL_HEALER = "Healer: i giocatori marcati ticchettano; ricorda che non puoi lanciare dentro la zona.",
+
+	DGN_TIP_MT_GEMELLUS_STEPS = "1. {SPELL:1223847} (all'inizio e a metà salute): si divide in tre.|n2. {SPELL:1253709}: collegato a uno di loro? CORRI a toccarlo — questo spezza il legame e rimuove il suo scudo di assorbimento.|n3. {SPELL:1224299} ti attira — ricorri fuori.",
+	DGN_TIP_MT_GEMELLUS_TANK = "Tank: raggruppa il trio dopo ogni {SPELL:1223847} così i giocatori collegati possono raggiungere il loro.",
+	DGN_TIP_MT_GEMELLUS_HEALER = "Healer: i giocatori collegati subiscono +20% danni finché non spezzano il legame.",
+
+	DGN_TIP_MT_DEGENTRIUS_STEPS = "1. {SPELL:1215897}: DoT void con durate diverse — quando il tuo scade, gli Entropy Orbs partono dalla TUA posizione, quindi allontanati prima dal gruppo.|n2. {SPELL:1215087} rimbalza su 4 punti — SOAK un impatto (un giocatore ciascuno), o erutta in Void Destruction.|n3. {SPELL:1280113} colpisce il tank e respinge chiunque entro 8 yard — dai spazio al tank.",
+	DGN_TIP_MT_DEGENTRIUS_TANK = "Tank: difensiva per {SPELL:1280113}; tankalo lontano dal gruppo.",
+	DGN_TIP_MT_DEGENTRIUS_HEALER = "Healer: i DoT Entropy ticchettano forte — tieni su i portatori mentre si riposizionano.",
+
+	-- Skyreach ------------------------------------------------------------------
+	DGN_TIP_SR_RANJIT_STEPS = "1. {SPELL:1258148} vola in linea retta davanti a lui — spostati di lato.|n2. {SPELL:156793}: un impatto al centro più vortici di vento vaganti che ti lanciano — continua a serpeggiare.|n3. {SPELL:153757} colpisce tutti con un bleed — sii al massimo.|n4. {SPELL:1252733} scaglia via i suoi bersagli — attento a cosa hai dietro.",
+	DGN_TIP_SR_RANJIT_TANK = "Tank: tienilo lontano dai percorsi dei vortici.",
+	DGN_TIP_SR_RANJIT_HEALER = "Healer: danni al gruppo più bleed dopo ogni {SPELL:153757}.",
+
+	DGN_TIP_SR_ARAKNATH_STEPS = "1. {SPELL:154162}: i costrutti irradiano luce nel boss e lo CURANO — stai in un raggio per bloccarlo.|n2. {SPELL:154115}: una bracciata da un lato — farsi colpire accumula un brutale debuff di danni subiti.|n3. {SPELL:154135} colpisce tutti — sii pronto.",
+	DGN_TIP_SR_ARAKNATH_TANK = "Tank: non soakare mai i raggi tu stesso — il suo smash arriva durante il soak.",
+	DGN_TIP_SR_ARAKNATH_HEALER = "Healer: chi soaka i raggi ticchetta costantemente; cura di gruppo a {SPELL:154135}.",
+
+	DGN_TIP_SR_RUKHRAN_STEPS = "1. {SPELL:1253527}: le piume volano ovunque per 3 secondi — spezza la linea di vista dietro un pilastro.|n2. {SPELL:1253510} colpisce il gruppo ed evoca un Sunwing che fissa qualcuno e pulsa fuoco — uccidilo in fretta; il giocatore fissato mantiene la distanza.|n3. Ripeti — penne dietro la copertura, uccello giù in fretta.",
+	DGN_TIP_SR_RUKHRAN_TANK = "Tank: difensiva per {SPELL:1253519} (grande colpo + DoT da bruciatura).",
+	DGN_TIP_SR_RUKHRAN_HEALER = "Healer: danni al gruppo pulsanti finché vive un Sunwing — chiedi che venga ucciso.",
+
+	DGN_TIP_SR_VIRYX_STEPS = "1. {SPELL:154396}: un cast di 3 secondi che annienta il tank — KICKALO, ogni volta.|n2. {SPELL:1253998}: un Solar Zealot afferra un giocatore per buttarlo giù dal balcone — liberalo in fretta.|n3. {SPELL:1253531} su di te? Portalo lontano e largo — lascia Blazing Ground.",
+	DGN_TIP_SR_VIRYX_TANK = "Tank: ogni {SPELL:154396} che passa fa male — tieni stretto l'ordine dei kick.",
+	DGN_TIP_SR_VIRYX_HEALER = "Healer: {SPELL:1253538} mette DoT di fuoco su più giocatori contemporaneamente.",
+
+	-- Pit of Saron --------------------------------------------------------------
+	DGN_TIP_PS_GARFROST_STEPS = "1. {SPELL:1262029}: la forgia pulsa gelo crescente — NASCONDITI DIETRO un blocco di minerale di saronite, blocca l'esplosione.|n2. {SPELL:1261546} colpisce tutto attorno al bersaglio principale — stai a 5+ yard dal tank; vicino al minerale lo smash rompe il minerale invece di stunnare.|n3. {SPELL:1261847} colpisce tutti e frantuma TUTTO il minerale — nuovo minerale arriva via {SPELL:1261286}.|n4. Stai fuori da {SPELL:1261799}.",
+	DGN_TIP_PS_GARFROST_TANK = "Tank: posizionati accanto a un blocco di minerale — {SPELL:1261546} poi rompe il minerale, non te.",
+	DGN_TIP_PS_GARFROST_HEALER = "Healer: picco di gruppo a {SPELL:1261847}; gelo crescente su chi viene preso senza copertura.",
+
+	DGN_TIP_PS_KRICKICK_STEPS = "1. {SPELL:1264363}: Ick fissa e insegue un giocatore, spargendo Blight e Plague Glob — corri largo; il resto continua a colpire.|n2. {SPELL:1264027}: Krick si teletrasporta a un cerchio rituale ed evoca Shades — cambia e uccidile.|n3. {SPELL:1264336}: schiva l'onda e i glob che rotolano verso di te.|n4. Non stare mai nel Blight ({SPELL:1264299}).",
+	DGN_TIP_PS_KRICKICK_TANK = "Tank: {SPELL:1264287} lascia una pozza su di te — orientala verso il bordo.",
+	DGN_TIP_PS_KRICKICK_HEALER = "Healer: tieni il giocatore inseguito in movimento; danni al gruppo a {SPELL:1264336}.",
+
+	DGN_TIP_PS_TYRANNUS_STEPS = "1. {SPELL:1262772} congela le Bone Piles attorno al suo bersaglio — stai vicino alle pile quando sei marcato: le pile congelate non possono rianimare add.|n2. {SPELL:1263406} rianima le pile rimanenti — uccidi prima i Plaguespreaders.|n3. Continua a schivare {SPELL:1263756} e {SPELL:1276948} di Rimefang.|n4. {SPELL:1276648} = colpo al gruppo + DoT, e le pile infuse generano add più cattivi.",
+	DGN_TIP_PS_TYRANNUS_TANK = "Tank: {SPELL:1262582} ti lancia e accumula +200% shadow subito — difensiva e preparati.",
+	DGN_TIP_PS_TYRANNUS_HEALER = "Healer: DoT di gruppo dopo {SPELL:1276648}; picco sul tank subito dopo Brand.",
+
+	-- Seat of the Triumvirate ---------------------------------------------------
+	DGN_TIP_ST_ZURAAL_STEPS = "1. {SPELL:1268916} colpisce tutto DAVANTI a lui — non stare mai davanti al boss.|n2. {SPELL:1263304} (piena energia): trascina tutti dentro, poi esplode con un knockback — esci in tempo; anche gli add vengono trascinati dentro.|n3. {SPELL:1263399} genera add Coalesced Void — eliminali prima di Crashing Void.|n4. {SPELL:1263282} lascia Void Sludge ({SPELL:244588}) — tieni pulito il pavimento.",
+	DGN_TIP_ST_ZURAAL_TANK = "Tank: difensiva per {SPELL:1263440} (triplo fendente).",
+	DGN_TIP_ST_ZURAAL_HEALER = "Healer: grande colpo al gruppo a {SPELL:1263304}.",
+
+	DGN_TIP_ST_SAPRISH_STEPS = "1. Le Void Bomb ({SPELL:247175}) atterrano sulle posizioni dei giocatori — NON toccarle; lasciale ai bordi.|n2. {SPELL:1280064}: le shade scattano verso ogni giocatore e fanno detonare le bombe che attraversano — angola la linea del tuo scatto lontano dalle bombe.|n3. {SPELL:1263523} accende TUTTE le bombe insieme — meno bombe ci sono, più è leggero.|n4. Kicka {SPELL:248831} di Shadewing (colpo al gruppo + disorientamento).",
+	DGN_TIP_ST_SAPRISH_TANK = "Tank: tieni unito il trio; il balzo di Darkfang ({SPELL:245738}) lascia la sua vittima sanguinante.",
+	DGN_TIP_ST_SAPRISH_HEALER = "Healer: le vittime del balzo sanguinano; esplosione di gruppo a {SPELL:1263523}.",
+
+	DGN_TIP_ST_NEZHAR_STEPS = "1. {SPELL:1263528} respinge tutti — attento a dove metti i piedi vicino alle tempeste.|n2. {SPELL:1263538} e l'add {SPELL:1277358} aggiungono caos — uccidi i tentacoli, schiva le Umbral Wave dal cancello.|n3. Le zone {SPELL:1263532} ticchettano forte, dentro è peggio — fuori, in fretta.|n4. {SPELL:244750} annienta il tank — kickalo quando puoi.",
+	DGN_TIP_ST_NEZHAR_TANK = "Tank: preparati a {SPELL:244750} ogni volta che un kick è in cooldown.",
+	DGN_TIP_ST_NEZHAR_HEALER = "Healer: {SPELL:1263542} = diversi DoT di marcescenza che ticchettano insieme.",
+
+	DGN_TIP_ST_LURA_STEPS = "1. Le Notes of Despair continuano a irradiare ({SPELL:1265421}) finché non vengono silenziate — guida il tuo {SPELL:1265426} ATTRAVERSO le note (colpisce anche gli alleati in linea, quindi angolalo lontano da loro).|n2. {SPELL:1265689}: 20 secondi di dolore attorno a ogni nota attiva — rompi le note in fretta.|n3. {SPELL:1264151}: raggi void rotanti — muoviti con i varchi.|n4. {SPELL:1266003} è una canalizzazione letale di 10 secondi — ogni difensiva che hai, e cura attraverso.",
+	DGN_TIP_ST_LURA_TANK = "Tank: dopo {SPELL:1266001} tutti vengono sbalzati in giro — raggruppatevi in fretta.",
+	DGN_TIP_ST_LURA_HEALER = "Healer: {SPELL:1265421} colpisce il gruppo più le aure delle note — rompere le note È il piano di cura.",
+
+	-- Algeth'ar Academy ---------------------------------------------------------
+	DGN_TIP_AA_VEXAMUS_STEPS = "1. {SPELL:385974} si dirigono verso il boss — soakali, un giocatore ciascuno (piccolo colpo); ogni orb che LUI assorbe fa esplodere tutto il gruppo.|n2. {SPELL:386173}: porta il tuo fuori — diventa una pozza {SPELL:386201}.|n3. Piena energia = {SPELL:388537}: colpo al gruppo più eruzioni ripetute sotto i giocatori — continua a muoverti.",
+	DGN_TIP_AA_VEXAMUS_TANK = "Tank: {SPELL:385958} fa esplodere tutto davanti a lui — difensiva, orientalo lontano.",
+	DGN_TIP_AA_VEXAMUS_HEALER = "Healer: i portatori di bomba ticchettano; danni al gruppo per ogni orb che raggiunge il boss.",
+
+	DGN_TIP_AA_ANCIENT_STEPS = "1. {SPELL:388796}: i semi eruttano sotto tutti per 4 secondi — schiva; i semi mancati lasciano Lasher dormienti.|n2. A piena energia ({SPELL:388923}) TUTTE le Lasher dormienti si svegliano insieme — eliminale prima.|n3. {SPELL:388623} lancia un ramo che diventa un grande add — uccidilo e KICKA il suo {SPELL:396640}.",
+	DGN_TIP_AA_ANCIENT_TANK = "Tank: {SPELL:388544} raddoppia i danni fisici che subisci — difensiva ogni volta.",
+	DGN_TIP_AA_ANCIENT_HEALER = "Healer: cura {SPELL:389033} (veleno) prima che si accumuli troppo.",
+
+	DGN_TIP_AA_CRAWTH_STEPS = "1. {SPELL:377004} erutta sotto ogni giocatore e interrompe i cast — SMETTI di lanciare, poi distanziatevi.|n2. {SPELL:377034}: punta qualcuno e soffia un cono d'ali in quella direzione — esci.|n3. {SPELL:377182}: segna in una porta — la porta del fuoco la stunna e subisce 75% danni extra.",
+	DGN_TIP_AA_CRAWTH_TANK = "Tank: difensiva per {SPELL:376997} (colpo + bleed di 10s).",
+	DGN_TIP_AA_CRAWTH_HEALER = "Healer: forti danni al gruppo dopo lo strillo; il tank sanguina.",
+
+	DGN_TIP_AA_DORAGOSA_STEPS = "1. {SPELL:374341} su di te? Portalo lontano dal gruppo — esplode largo 8 yard.|n2. {SPELL:388820} trascina tutti dentro, poi esplode — CORRI FUORI prima dell'esplosione.|n3. {SPELL:389011} si accumula da ogni meccanica che incassi — a 3 stack esplode in un Arcane Rift; resta pulito.|n4. Stai fuori dal terreno {SPELL:389007}.",
+	DGN_TIP_AA_DORAGOSA_TANK = "Tank: difensiva per {SPELL:1282251}.",
+	DGN_TIP_AA_DORAGOSA_HEALER = "Healer: attento agli stack di {SPELL:389011} — i portatori ticchettano più forte per stack.",
+})
+
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	-- Windrunner Spire ----------------------------------------------------------
 	DGN_TIP_WS_DUO_STEPS = "1. Twee bosses — beschadig ze gelijkmatig zodat ze ongeveer tegelijk doodgaan.|n2. Interrupt Shadow Bolt; stap uit de spuugcirkels ({SPELL:472745}) — verspil geen vloerruimte.|n3. Vervloekt ({SPELL:474105})? Laat 'm snel dispellen — of CC de Dark Entity die eruit spawnt tot 'ie verdwijnt.|n4. Gegrepen door {SPELL:472793} tijdens de schreeuw? Ga zo staan dat je DWARS DOOR de spookdame getrokken wordt — dat breekt haar cast.",

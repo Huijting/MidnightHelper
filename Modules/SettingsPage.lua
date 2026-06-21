@@ -39,6 +39,7 @@ local LOCALES = {
 	{ code = "frFR", label = "FR" },
 	{ code = "esES", label = "ES" },
 	{ code = "ptBR", label = "PT" },
+	{ code = "itIT", label = "IT" },
 }
 
 local ui
@@ -487,6 +488,13 @@ function ns.BuildSettingsPanel(panel)
 			ns.SetBossWindowAutoOpenEnabled(v)
 		end
 	end)
+	AddToggle("dungeon", "SET_BOSSWIN_MODEL_TITLE", "SET_BOSSWIN_MODEL_DESC", function()
+		return ns.IsBossWindowModelEnabled and ns.IsBossWindowModelEnabled()
+	end, function(v)
+		if ns.SetBossWindowModelEnabled then
+			ns.SetBossWindowModelEnabled(v)
+		end
+	end)
 	-- Schaal-slider (naast shift+scroll, Robs besluit 3).
 	local sliderRow = CreateFrame("Frame", nil, child)
 	sliderRow:SetHeight(44)
@@ -522,6 +530,17 @@ function ns.BuildSettingsPanel(panel)
 			end
 		end },
 	}, 0)
+
+	-- Wekelijkse coffer-shard-cap-popup (community-verzoek 21 jun).
+	Label("SET_SHARDCAP_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "dungeon")
+	Label("SET_SHARDCAP_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "dungeon")
+	AddToggle("dungeon", "SET_SHARDCAP_TOGGLE_TITLE", "SET_SHARDCAP_TOGGLE_DESC", function()
+		return ns.IsShardCapAlertEnabled and ns.IsShardCapAlertEnabled()
+	end, function(v)
+		if ns.SetShardCapAlertEnabled then
+			ns.SetShardCapAlertEnabled(v)
+		end
+	end)
 
 	-- Consumable ready check (auto bij ritual/delve/dungeon-entry; ook /mh readytoggle).
 	Label("SET_CONSREADY_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "dungeon")

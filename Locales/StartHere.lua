@@ -63,6 +63,52 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	START_DELVERCALL_FMT = "Delver's Call: %d/%d done this week",
 })
 
+merge(ns._mhLocales and ns._mhLocales.itIT, {
+	TAB_START_HERE = "Inizia qui",
+	START_TITLE = "Inizia qui — nuovo in Midnight",
+	START_SUBTITLE = "Appena arrivato al livello massimo e non sai cosa fare? Questo è tutto l'endgame, in ordine. Tocca un passo per saltare direttamente allo strumento giusto; quelli settimanali si spuntano da soli.",
+
+	START_INTRO_HEADER = "Il loop di Midnight in breve",
+	START_INTRO_BODY = "L'endgame è un ritmo settimanale: alza il tuo item level, metti a punto il personaggio e poi ogni settimana riempi il Great Vault con Delves, Ritual Sites e Void Assaults. Renown, professioni e valute si aggiungono una volta che il loop diventa routine.",
+
+	START_S1_TITLE = "1. Alza prima il tuo item level",
+	START_S1_BODY = "Comincia con le vittorie facili: fai la campagna di Midnight, prendi equipaggiamento dalle world quest e dalle quest di traguardo Renown, e fai Delves normali (più le cacce Prey e i dungeon Heroic) per salire di item level. Anche qualche pezzo craftato/dell'AH economico aiuta. Un item level più alto apre poi i tier superiori, dove ci sono le ricompense vere.",
+	START_S1_NAV = "Apri Delves",
+
+	START_S2_TITLE = "2. Metti a punto il personaggio",
+	START_S2_BODY = "Prima dei contenuti più impegnativi: scegli i talenti, prendi la flask, il cibo, la pozione e gli enchant/gemme giusti per la tua spec, e imposta una macro di interrupt + una difensiva. MH ha una checklist dei consumabili, macro pronte all'uso (Toolbox) e aiuto sulla rotazione (Role Academy).",
+	START_S2_NAV = "Apri Consumables",
+
+	START_S3_TITLE = "3. Punta tutto al Great Vault",
+	START_S3_BODY = "Il Great Vault ti regala una ricompensa gratuita ogni settimana. La sua riga World si riempie con Delves, Ritual Sites e Prey; i dungeon e il raid riempiono le altre righe. Sblocca più slot possibile prima del reset.",
+	START_S3_NAV = "Apri Home",
+
+	START_S4_TITLE = "4. Fai le tue Delves",
+	START_S4_BODY = "Le Delves sono dungeon in solo o in piccolo gruppo con Brann al tuo fianco — equipaggiamento costante e il progresso più facile per la riga World del Vault. Sali prima i tier normali (sotto il livello 90 sei limitato al Tier 3); una volta raggiunto il Tier 8 puoi fare le Bountiful Delves (ti serve una Restored Coffer Key) per equipaggiamento Champion e scelte Vault su Hero-track. Il Delve Coach dà consigli per ogni delve che puoi condividere col gruppo.",
+	START_S4_NAV = "Apri Delves",
+
+	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
+	START_S5_BODY = "Altre due attività della riga World, ideali una volta un po' equipaggiato (danno equipaggiamento Champion casuale). Sblocca prima le Ritual Sites tramite la linea di quest \"Ritual Interest\" a Silvermoon; i Void Assaults sono l'evento esterno a rotazione e la tua via d'accesso. Al Curious Obelisk scegli un tier + le challenge — il Ritual Coach le spiega tutte.",
+	START_S5_NAV = "Apri Void & Rituals",
+
+	START_S6_TITLE = "6. Vai più a fondo: Renown, professioni e valute",
+	START_S6_BODY = "Renown sblocca vantaggi e cosmetici; le professioni producono equipaggiamento, consumabili e oro (MH ha un corso completo per principianti); e i vendor del Bazaar a Silvermoon trasformano le tue valute in upgrade. Dedicati a questi una volta che il loop settimanale è routine.",
+	START_S6_NAV = "Apri Professions 101",
+
+	START_RESET_TITLE = "Giorno del reset: si ricomincia",
+	START_RESET_BODY = "Le settimanali e il Great Vault si resettano ogni settimana — mercoledì sui realm EU, martedì su quelli US. Riscatta prima il vault della settimana scorsa, poi rifai il loop. Questo è tutto il gioco — benvenuto in Midnight!",
+
+	START_WEEKLY_RITUAL = "Settimanale Ritual Sites",
+	START_WEEKLY_VOID = "Settimanale Void Assaults",
+	START_STATUS_DONE = "fatto questa settimana",
+	START_STATUS_TODO = "ancora da fare questa settimana",
+
+	START_WEEKLY_SUMMARY_FMT = "Questa settimana: %d/%d obiettivi settimanali completati",
+	START_VAULT_READY = "C'è una ricompensa del Great Vault che ti aspetta — riscattala!",
+	START_VAULT_NONE = "Nessuna ricompensa del vault ancora — continua a riempirlo prima del reset.",
+	START_DELVERCALL_FMT = "Delver's Call: %d/%d completate questa settimana",
+})
+
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TAB_START_HERE = "Start Here",
 	START_TITLE = "Start Here — nieuw in Midnight",

@@ -64,6 +64,9 @@ local function RefreshLanguageButtonTints(host)
 	if host._langNl then
 		TintBtn(host._langNl, pref == "nlNL")
 	end
+	if host._langIt then
+		TintBtn(host._langIt, pref == "itIT")
+	end
 end
 
 local function AttachSettingsTooltip(widget, titleKey, bodyKey)
@@ -501,6 +504,14 @@ local function EnsureSettingsFrame()
 	end)
 	f._langNl = langNl
 
+	local langIt = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	langIt:SetSize(72, 24)
+	langIt:SetPoint("LEFT", langNl, "RIGHT", 6, 0)
+	langIt:SetScript("OnClick", function()
+		OnLanguageChosen(f, "itIT")
+	end)
+	f._langIt = langIt
+
 	local langHint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	langHint:SetPoint("TOPLEFT", langNl, "BOTTOMLEFT", 0, -6)
 	langHint:SetPoint("RIGHT", f, "RIGHT", -12, 0)
@@ -580,6 +591,9 @@ local function EnsureSettingsFrame()
 		end
 		if self._langNl then
 			self._langNl:SetText(ns:L("LOCALE_NAME_NL"))
+		end
+		if self._langIt then
+			self._langIt:SetText(ns:L("LOCALE_NAME_itIT"))
 		end
 		if self._langHint then
 			self._langHint:SetText(ns:L("LOCALE_AUTO_HINT"))
@@ -883,6 +897,14 @@ local function EnsureSettingsCategoryFrame()
 	end)
 	panel._langNl = langNl
 
+	local langIt = CreateFrame("Button", nil, content, "UIPanelButtonTemplate")
+	langIt:SetSize(88, 24)
+	langIt:SetPoint("LEFT", langNl, "RIGHT", 6, 0)
+	langIt:SetScript("OnClick", function()
+		OnLanguageChosen(panel, "itIT")
+	end)
+	panel._langIt = langIt
+
 	local langHint = content:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
 	langHint:SetPoint("TOPLEFT", langEs, "BOTTOMLEFT", 0, -6)
 	langHint:SetPoint("RIGHT", content, "RIGHT", -16, 0)
@@ -992,6 +1014,9 @@ local function EnsureSettingsCategoryFrame()
 			self._langPt:SetText(ns:L("LOCALE_NAME_ptBR"))
 		end
 		self._langNl:SetText(ns:L("LOCALE_NAME_NL"))
+		if self._langIt then
+			self._langIt:SetText(ns:L("LOCALE_NAME_itIT"))
+		end
 		if self._langHint then
 			self._langHint:SetText(ns:L("LOCALE_AUTO_HINT"))
 		end

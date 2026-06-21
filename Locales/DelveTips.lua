@@ -154,6 +154,142 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DELVE_CHAT_TORMENTS_RISE_BOSS = "Kick every {SPELL:@devouring_essence}. {SPELL:@dread_portal}: AoE adds until dead. {SPELL:@oblivion_shell} = DPS check. Don't stack {SPELL:@umbral_rage}.",
 })
 
+merge(ns._mhLocales and ns._mhLocales.itIT, {
+	DELVE_NAME_SHADOW_ENCLAVE = "The Shadow Enclave",
+	DELVE_NAME_COLLEGIATE_CALAMITY = "Collegiate Calamity",
+	DELVE_NAME_THE_DARKWAY = "The Darkway",
+	DELVE_NAME_PARHELION_PLAZA = "Parhelion Plaza",
+	DELVE_NAME_ATAL_AMAN = "Atal'Aman",
+	DELVE_NAME_TWILIGHT_CRYPTS = "Twilight Crypts",
+	DELVE_NAME_GULF_OF_MEMORY = "The Gulf of Memory",
+	DELVE_NAME_GRUDGE_PIT = "The Grudge Pit",
+	DELVE_NAME_SUNKILLER_SANCTUM = "Sunkiller Sanctum",
+	DELVE_NAME_SHADOWGUARD_POINT = "Shadowguard Point",
+	DELVE_NAME_TORMENTS_RISE = "Torment's Rise",
+
+	-- The Shadow Enclave
+	DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW = "• Eversong Woods sud-ovest (Ruins of Deathholme).|n• Tre varianti: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: ferma i rituali, void orb, cultisti (leveling).|n• Boss finale di ogni run: Lord Antenorian.",
+	DELVE_TIP_SHADOW_ENCLAVE_ROUTE = "• Mirror Shine: porta gli specchi attraverso le sale buie; colpisci gli Shadow Nexus per diffondere la luce (evita i grue).|n• Shadowy Supplies: saccheggia gli oggetti di valore di Twilight's Blade dai mob o da terra.|n• Traitor's Due: insegui Antenorian attraverso il delve fino alla sala del boss.",
+	DELVE_TIP_SHADOW_ENCLAVE_TRASH = "• Nella luce dello specchio, tu e i nemici siete Dazzled (maggiore probabilità di crit).|n• Interrompi i caster shadow.|n• Elimina Twilight's Blade durante Supplies.|n• Non ammassarti su terreno pericoloso; pulla con cura nei corridoi stretti.",
+	DELVE_TIP_SHADOW_ENCLAVE_BOSS = "• Interrompi {SPELL:@shadow_bolt} ogni volta che puoi.|n• I teletrasporti lasciano una pozza dannosa — tienilo vicino al centro.|n• {SPELL:@shadowveil_annihilation}: channel letale — distruggi 3 Shadow Orb (solo l'orb senza scudo subisce danni; ogni kill toglie lo scudo al successivo).|n• Uccisi tutti gli orb si rompe il suo scudo, si ferma il channel e per poco subisce danni extra.|n• Conserva il burst per gli orb; Valeera aiuta a romperli.",
+
+	-- Collegiate Calamity
+	DELVE_TIP_COLLEGIATE_CALAMITY_OVERVIEW = "• Silvermoon / Eversong Woods nord-ovest (Thalassian University).|n• Academy Under Siege -> Voidscorned Vagrant.|n• Faculty of Fear -> Infiltrator Garand.|n• Invasive Glow -> Hydrangea.",
+	DELVE_TIP_COLLEGIATE_CALAMITY_ROUTE = "• Under Siege: chiudi i void portal e uccidi i Devouring Host.|n• Faculty of Fear: Eye of Revelation — gli studenti sospetti brillano di giallo attraverso i muri.|n• Invasive Glow: il Deweeder uccide i piccoli Lightbloom e danneggia quelli grandi.|n• Elimina le zone di Luminibulb sul livello principale.",
+	DELVE_TIP_COLLEGIATE_CALAMITY_TRASH = "• Under Siege: dai priorità a chi chiude i portal.|n• Faculty: rivela gli studenti travestiti, poi uccidili prima che ti tendano l'imboscata.|n• Glow: usa il Deweeder mentre ti muovi.|n• Non saltare le zone di Luminibulb o la run va per le lunghe.",
+	DELVE_TIP_COLLEGIATE_CALAMITY_BOSS = "• Hydrangea (Glow): uccidi le radici di {SPELL:@wildroot_weave} prima di {SPELL:@lightbloom_salvo}; schiva le zone di luce.|n• Garand (Faculty): schiva {SPELL:@shadow_laceration} o usa una difensiva; sparpagliatevi per i salti di {SPELL:@twilight_crash}.|n• Voidscorned Vagrant (Siege): scansa {SPELL:@void_eruption}; interrompi sempre {SPELL:@terrifying_power}.",
+
+	-- The Darkway
+	DELVE_TIP_THE_DARKWAY_OVERVIEW = "• Silvermoon / Eversong Woods nord (l'Arcway).|n• Focusers Under Pressure, Leyline Technician, Ogre Powered (7 Unstable Aberration).|n• Boss finale in tutte le run: Infiltrator Gulkat.",
+	DELVE_TIP_THE_DARKWAY_ROUTE = "• Focusers: trova i ley line focuser e riportali al centro del delve.|n• Leyline: attiva i conduit una volta per linea per potenziare tre focus crystal.|n• Ogre Powered: uccidi 7 Unstable Aberration nella sezione centrale prima di Gulkat.",
+	DELVE_TIP_THE_DARKWAY_TRASH = "• Interrompi i Twilight Seeker e Arcane Deluge sulle aberration.|n• Variante Leyline: uccidi Twilight's Blade mentre instradi il potere.|n• Pulla via dagli angoli nei corridoi stretti dell'Arcway.",
+	DELVE_TIP_THE_DARKWAY_BOSS = "• Interrompi i Twilight Seeker.|n• Schiva {SPELL:@abyssal_burst} (cono frontale).|n• {SPELL:@illusory_deceit}: illusioni esplosive — mantieni la distanza mentre gestisci Gulkat.",
+
+	-- Parhelion Plaza
+	DELVE_TIP_PARHELION_PLAZA_OVERVIEW = "• Isle of Quel'Danas ovest (zona Sunwell).|n• Si sblocca con March on Quel'Danas (fine marzo 2026).|n• Tre varianti; boss tosto in tutte: Gladius Slaurna.|n• Uno dei delve di Midnight più difficili.",
+	DELVE_TIP_PARHELION_PLAZA_ROUTE = "• Bombing Run: Improvised Arcane Device per i void portal (limite di trasporto 40s; lo lasci cadere in combat).|n• Holding the Line: armi di Tempest Keep + ricostruisci le barricate.|n• March of the Arcane Parade: le macchine Sentinel distruggono i void pylon.",
+	DELVE_TIP_PARHELION_PLAZA_TRASH = "• Interrompi il Void Bolt del Sacrificial Voidcaller ogni volta che puoi.|n• Bombing Run: non perdere i portal uscendo nel momento sbagliato.|n• Elimina le ondate di Devouring Host prima di Slaurna.",
+	DELVE_TIP_PARHELION_PLAZA_BOSS = "• Uccidi velocemente tre Sacrificial Voidcaller (interrompi Void Bolt).|n• Se anche uno solo sopravvive a {SPELL:@devouring_nova}, Slaurna ottiene danni inflitti e riduzione danni — rischio wipe ai tier alti.|n• Schiva {SPELL:@voidscar_raze} (linea a terra).|n• Combatti vicino al centro per evitare il knockback fuori dalla piattaforma.",
+
+	-- Atal'Aman
+	DELVE_TIP_ATAL_AMAN_OVERVIEW = "• Zul'Aman ovest (confine con Eversong).|n• Ritual Interrupted, Toadly Unbecoming, Totem Annihilation.|n• Boss finale in tutte: Spiritflayer Jin'Ma.",
+	DELVE_TIP_ATAL_AMAN_ROUTE = "• Ritual: salva i furbolg Spiritpaw rapiti per tutto il delve.|n• Toadly: dissolvi gli Amani stregati con il Vilebranch Hex Stick mentre uccidi gli invasori.|n• Totem: distruggi i totem maledetti per liberare Akil'zon; usa le aquile per approcci alternativi.",
+	DELVE_TIP_ATAL_AMAN_TRASH = "• Interrompi i cast dei Vilebranch.|n• Variante Totem: dai priorità ai totem sul percorso.|n• Allontana le bestie dagli NPC stregati che stai cercando di salvare.",
+	DELVE_TIP_ATAL_AMAN_BOSS = "• {SPELL:@flaying_knife} divide gli spiriti — ogni spirito raccolto dà +10% danni (raccoglili di proposito).|n• Schiva {SPELL:@raging_spirits} a terra.|n• Prima che {SPELL:@claim_spirits} finisca, raccogli i tuoi spiriti o Jin'Ma ne ottiene il buff.",
+
+	-- Twilight Crypts
+	DELVE_TIP_TWILIGHT_CRYPTS_OVERVIEW = "• Zul'Aman sud-ovest (Broken Throne).|n• Loosed Loa (evita Mot'amra), Party Crasher, Trapped!|n• Boss finale in tutte: Blademaster Darza.",
+	DELVE_TIP_TWILIGHT_CRYPTS_ROUTE = "• Loosed Loa: Evasive Elixir per esplorare; uccidi gli Skeleton Charmer e i totem — segui Mot'amra, non attraversare il suo cammino.|n• Party Crasher: scorta l'Explorer, evita le tagliole, apri i livelli con le leve.|n• Trapped: salva gli ostaggi e trova le leve nel labirinto.",
+	DELVE_TIP_TWILIGHT_CRYPTS_TRASH = "• Mot'amra colpisce duro con knockback se gli vai addosso.|n• Party Crasher: attento alle caselle trappola.|n• Interrompi gli evocatori di Twilight's Blade.",
+	DELVE_TIP_TWILIGHT_CRYPTS_BOSS = "• Scansa {SPELL:@shade_cleave} — combattere vicino impedisce il gap-closer {SPELL:@dark_pursuit}.|n• {SPELL:@bask_in_the_twilight} lascia una void zone.|n• Trascina Darza fuori da essa o ottiene +30% danni finché ci sta dentro.",
+
+	-- The Gulf of Memory
+	DELVE_TIP_GULF_OF_MEMORY_OVERVIEW = "• Harandar ovest (Den of Echoes / Har'alnor).|n• Tre varianti.|n• Boss: Lumenia (Munchies / Sporasaur) e Mul'tha'ul (Descent of the Haranir).",
+	DELVE_TIP_GULF_OF_MEMORY_ROUTE = "• Alnmoth Munchies: extra-action Alnmoth Storm mentre ti muovi — divora i cespugli o aiuta contro i Rutaani.|n• Descent: accendi le candele giganti; più danni subiti nelle zone buie.|n• Sporasaur: calcia gli Sporbit con il reticolo verde dentro gli Sporasaur per togliere il loro scudo.",
+	DELVE_TIP_GULF_OF_MEMORY_TRASH = "• Resta nelle zone illuminate durante Descent.|n• Calcia gli Sporbit prima che esplodano.|n• Usa Alnmoth Storm mentre ti muovi — puoi muoverti e castare.",
+	DELVE_TIP_GULF_OF_MEMORY_BOSS = "• Lumenia: uccidi l'add di {SPELL:@radiant_command} prima che ti raggiunga (esplode).|n• Schiva le zone di {SPELL:@searing_light} a meno di non usarle sull'add.|n• Mul'tha'ul: interrompi o dissolvi {SPELL:@hopeless_curse}.|n• Kita via dai tentacoli di {SPELL:@tear_it_down}.|n• Mantieni la distanza durante {SPELL:@unanswered_call} (danni alti, camminata lenta).",
+
+	-- The Grudge Pit
+	DELVE_TIP_GRUDGE_PIT_OVERVIEW = "• Harandar sud-est.|n• Lightbloom Invasion -> Brightthorn.|n• Arena Champion -> Gyrospore.|n• Dastardly Rotstalk -> Mycomight.",
+	DELVE_TIP_GRUDGE_PIT_ROUTE = "• Arena Champion: combattimenti ad arena a ondate (gli Sporbit aiutano).|n• Dastardly Rotstalk: ruolo da cattivo — calcia i fan, provoca la folla (puoi muoverti mentre provochi).|n• Lightbloom Invasion: ondate, libera i combattenti per far saltare gli spawn point, costruisci le difese.",
+	DELVE_TIP_GRUDGE_PIT_TRASH = "• Arena: usa gli Sporbit per i danni.|n• Invasion: elimina le ondate prima del boss.|n• Rotstalk: tieni la folla sotto controllo — i fan fanno male se ignorati.",
+	DELVE_TIP_GRUDGE_PIT_BOSS = "• Brightthorn: scansa {SPELL:@solar_charge} (lascia zone di Overbloom); interrompi {SPELL:@bloom_thorn}; girati prima di {SPELL:@blinding_burst}.|n• Gyrospore: schiva le zone di {SPELL:@fungalstorm}, poi burst durante i 10s di stordimento; arretra da {SPELL:@fungsplosion}; scansa {SPELL:@fungal_charge}.|n• Mycomight: lascia cadere le pozze di {SPELL:@rancid_rain} lontano dall'area di combattimento; schiva le onde d'urto di {SPELL:@fungis_fist}; scansa {SPELL:@fling_chair}.",
+
+	-- Sunkiller Sanctum
+	DELVE_TIP_SUNKILLER_SANCTUM_OVERVIEW = "• Voidstorm est (ingresso Voidspire).|n• Tre varianti; Esuritus è boss finale in due.|n• Not What I Expected: nessun boss — finisce dopo 3 kill di Corrupted Umbraroot.",
+	DELVE_TIP_SUNKILLER_SANCTUM_ROUTE = "• Core of the Problem: portal + impedisci ai Domanaar di rubare gli Energized Orb (buff dell'orb: velocità + riduzione danni).|n• Not What I Expected: uccidi le unità Lightbloom e Domanaar, poi 3 Corrupted Umbraroot.|n• Gravitational Effect: usa le micro-singolarità per muoverti e disattivare gli scudi del boss.",
+	DELVE_TIP_SUNKILLER_SANCTUM_TRASH = "• Uccidi velocemente i Voidcaller in ogni pack — potenziano Esuritus più avanti.|n• Interrompi Arcane Deluge dove appare.|n• Raccogli gli orb nella variante Core per la sopravvivenza.",
+	DELVE_TIP_SUNKILLER_SANCTUM_BOSS = "• Uccidi tutti i Voidcaller prima di {SPELL:@gorge} o ottiene +danni per 30s per ogni divorata.|n• Interrompi {SPELL:@calling_bolt}.|n• Dissolvi {SPELL:@coalescing_malediction} o uccidi l'add che genera.|n• Schiva {SPELL:@crushing_rift} (genera 4 Voidcaller).",
+
+	-- Shadowguard Point
+	DELVE_TIP_SHADOWGUARD_POINT_OVERVIEW = "• Voidstorm ovest (a nord di Abundant Voidburrow).|n• Tre varianti contro gli Shadowguard Ethereal.|n• Boss finale in tutte: Chief-Arcanist Patram.",
+	DELVE_TIP_SHADOWGUARD_POINT_ROUTE = "• Calamitous: sovraccarica i Void Stabilizer con gli Arcane Charge (buff velocità; le esplosioni uccidono i mob — non restarci dentro).|n• Captured Wildlife: libera le void creature (la loro AoE può comunque colpirti).|n• Stolen Mana: il fucile destabilizza i contenitori di mana finché il boss non si apre.",
+	DELVE_TIP_SHADOWGUARD_POINT_TRASH = "• Calamitous: pianifica i sovraccarichi in sicurezza mentre porti gli Arcane Charge.|n• Pack di ethereal: interrompi i cast.|n• Variante Wildlife: dai spazio alle creature liberate.",
+	DELVE_TIP_SHADOWGUARD_POINT_BOSS = "• Interrompi {SPELL:@void_bolt_patram}.|n• Uccidi il Void Emissary prima che {SPELL:@submit_to_the_void} finisca (ottieni Vers + CDR; se fallisci il buff va a Patram).|n• Scansa le void zone di {SPELL:@discordant_hymn} (slow + danni).",
+
+	-- Torment's Rise (Nemesis)
+	DELVE_TIP_TORMENTS_RISE_OVERVIEW = "• Voidstorm — Nemesis Delve della Season 1 (capstone).|n• Tier ? dopo un qualsiasi T7 con 1+ vita; Tier ?? dopo un qualsiasi T10 con 1+ vita.|n• Boss: Nullaeus.|n• Valeera healer fortemente consigliata al Tier ??.",
+	DELVE_TIP_TORMENTS_RISE_ROUTE = "• Portale dell'istanza dedicato (non un world delve a rotazione).|n• Usa l'Adventure Guide (Shift-J) o TomTom.|n• Weekly bounty: Beacon of Hope può portare Nullaeus al 50% in un delve normale.",
+	DELVE_TIP_TORMENTS_RISE_TRASH = "• I mob Pactsworn vivono nei delve normali, non dentro Torment's Rise.|n• Dosa i cooldown — conserva difensive e interrupt per Nullaeus.",
+	DELVE_TIP_TORMENTS_RISE_BOSS = "• Interrompi {SPELL:@devouring_essence} ogni cast (DoT + alimenta gli stack di {SPELL:@umbral_rage}).|n• {SPELL:@dread_portal}: 100% riduzione danni finché tutti gli add non muoiono — burst AoE pieno allo spawn.|n• La fase {SPELL:@oblivion_shell} è un DPS check.|n• {SPELL:@umbral_rage}: +10% danni per stack se add o DoT persistono — uccidi gli add in fretta.",
+
+	-- Party chat
+	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "Eversong SO (Deathholme). Varianti: specchi, supplies, traitor. Boss finale: Lord Antenorian.",
+	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Specchi: colpisci gli Shadow Nexus per la luce. Supplies: saccheggia gli oggetti Twilight. Traitor: ferma i rituali, insegui fino al boss.",
+	DELVE_CHAT_SHADOW_ENCLAVE_TRASH = "Luce dello specchio = Dazzled (più crit). Interrompi i caster shadow. Non ammassarti su terreno pericoloso.",
+	DELVE_CHAT_SHADOW_ENCLAVE_BOSS = "Kicka {SPELL:@shadow_bolt}. Il teletrasporto lascia una pozza — tienilo centrale. {SPELL:@shadowveil_annihilation}: uccidi 3 Orb (solo quello senza scudo). Burst sugli orb.",
+
+	DELVE_CHAT_COLLEGIATE_CALAMITY_OVERVIEW = "Silvermoon / Eversong NO (università). Varianti Siege / Faculty / Glow. Tre boss finali diversi.",
+	DELVE_CHAT_COLLEGIATE_CALAMITY_ROUTE = "Siege: chiudi i void portal. Faculty: Eye of Revelation — studenti gialli attraverso i muri. Glow: Deweeder + elimina i Luminibulb.",
+	DELVE_CHAT_COLLEGIATE_CALAMITY_TRASH = "Siege: prima i portal. Faculty: rivela poi uccidi gli studenti. Glow: usa il Deweeder mentre ti muovi.",
+	DELVE_CHAT_COLLEGIATE_CALAMITY_BOSS = "Hydrangea: uccidi {SPELL:@wildroot_weave} prima di {SPELL:@lightbloom_salvo}. Garand: schiva {SPELL:@shadow_laceration}, sparpagliati per {SPELL:@twilight_crash}. Vagrant: kicka {SPELL:@terrifying_power}.",
+
+	DELVE_CHAT_THE_DARKWAY_OVERVIEW = "Arcway di Silvermoon nord. Focusers, Leyline o 7 Aberration. Boss: Infiltrator Gulkat.",
+	DELVE_CHAT_THE_DARKWAY_ROUTE = "Focusers: riporta i ley focuser al centro. Leyline: attiva i conduit per 3 crystal. Ogre: uccidi 7 Unstable Aberration al centro.",
+	DELVE_CHAT_THE_DARKWAY_TRASH = "Interrompi i Twilight Seeker e Arcane Deluge. Pulla via dagli angoli stretti.",
+	DELVE_CHAT_THE_DARKWAY_BOSS = "Kicka i Seeker. Schiva {SPELL:@abyssal_burst}. {SPELL:@illusory_deceit}: stai lontano dalle illusioni esplosive.",
+
+	DELVE_CHAT_PARHELION_PLAZA_OVERVIEW = "Isle of Quel'Danas ovest (Sunwell). Tre varianti — delve difficile. Boss: Gladius Slaurna.",
+	DELVE_CHAT_PARHELION_PLAZA_ROUTE = "Bombing Run: arcane device per i portal (trasporto 40s). Holding the Line: armi + barricate. Parade: sentinel contro i pylon.",
+	DELVE_CHAT_PARHELION_PLAZA_TRASH = "Kicka il Void Bolt del Voidcaller. Elimina le ondate di Devouring Host prima del boss.",
+	DELVE_CHAT_PARHELION_PLAZA_BOSS = "Uccidi 3 Voidcaller in fretta (kicka Void Bolt). Se uno sopravvive a {SPELL:@devouring_nova}, Slaurna si potenzia tanto. Schiva {SPELL:@voidscar_raze}, combatti al centro.",
+
+	DELVE_CHAT_ATAL_AMAN_OVERVIEW = "Zul'Aman ovest. Varianti Ritual / Toadly / Totem. Boss: Spiritflayer Jin'Ma.",
+	DELVE_CHAT_ATAL_AMAN_ROUTE = "Ritual: salva i furbolg. Toadly: Hex Stick sugli Amani stregati. Totem: distruggi i totem, libera Akil'zon.",
+	DELVE_CHAT_ATAL_AMAN_TRASH = "Interrompi i Vilebranch. Run Totem: prima i totem sul percorso.",
+	DELVE_CHAT_ATAL_AMAN_BOSS = "Spiriti di {SPELL:@flaying_knife} = +10% danni ognuno — raccogli i tuoi. Schiva {SPELL:@raging_spirits}. Prima di {SPELL:@claim_spirits}, raccogli gli spiriti o Jin'Ma si buffa.",
+
+	DELVE_CHAT_TWILIGHT_CRYPTS_OVERVIEW = "Zul'Aman SO (Broken Throne). Loa / Party Crasher / Trapped. Boss: Blademaster Darza.",
+	DELVE_CHAT_TWILIGHT_CRYPTS_ROUTE = "Loa: non attraversare il cammino di Mot'amra. Party Crasher: scorta, trappole, leve. Trapped: ostaggi + leve.",
+	DELVE_CHAT_TWILIGHT_CRYPTS_TRASH = "Mot'amra = grosso knockback sul suo cammino. Interrompi gli evocatori. Attento alle caselle trappola.",
+	DELVE_CHAT_TWILIGHT_CRYPTS_BOSS = "Schiva {SPELL:@shade_cleave} (in mischia blocca {SPELL:@dark_pursuit}). Trascina Darza fuori da {SPELL:@bask_in_the_twilight} (+30% danni dentro).",
+
+	DELVE_CHAT_GULF_OF_MEMORY_OVERVIEW = "Harandar ovest. Munchies / Descent / Sporasaur. Boss: Lumenia o Mul'tha'ul.",
+	DELVE_CHAT_GULF_OF_MEMORY_ROUTE = "Munchies: Alnmoth Storm in movimento. Descent: accendi le candele, evita il buio. Sporasaur: calcia gli Sporbit nei mob con scudo.",
+	DELVE_CHAT_GULF_OF_MEMORY_TRASH = "Resta illuminato in Descent. Calcia presto gli Sporbit. Puoi muoverti mentre usi lo storm.",
+	DELVE_CHAT_GULF_OF_MEMORY_BOSS = "Lumenia: uccidi l'add di {SPELL:@radiant_command} prima che ti raggiunga. Mul'tha'ul: dissolvi {SPELL:@hopeless_curse}, kita {SPELL:@tear_it_down}, rispetta {SPELL:@unanswered_call}.",
+
+	DELVE_CHAT_GRUDGE_PIT_OVERVIEW = "Delve ad arena Harandar SE. Champion / Rotstalk / Invasion. Boss: Brightthorn, Gyrospore o Mycomight.",
+	DELVE_CHAT_GRUDGE_PIT_ROUTE = "Champion: arena a ondate (gli Sporbit aiutano). Rotstalk: calcia i fan, provoca la folla. Invasion: libera i combattenti, fai saltare gli spawn point.",
+	DELVE_CHAT_GRUDGE_PIT_TRASH = "Usa gli Sporbit nell'arena. Elimina le ondate dell'invasion. Non ignorare i fan di Rotstalk.",
+	DELVE_CHAT_GRUDGE_PIT_BOSS = "Brightthorn: schiva {SPELL:@solar_charge}, interrompi Bloom Thorn, girati da {SPELL:@blinding_burst}. Gyrospore: schiva {SPELL:@fungalstorm}, burst quando è stordito. Mycomight: pozze lontano dal combat.",
+
+	DELVE_CHAT_SUNKILLER_SANCTUM_OVERVIEW = "Voidstorm est. Varianti Core / Not Expected / Gravity. Boss: Esuritus (o 3 Umbraroot, nessun boss).",
+	DELVE_CHAT_SUNKILLER_SANCTUM_ROUTE = "Core: impedisci ai Domanaar di rubare gli orb (velocità + buff DR). Not Expected: 3 Corrupted Umbraroot. Gravity: le singolarità abbattono gli scudi.",
+	DELVE_CHAT_SUNKILLER_SANCTUM_TRASH = "Uccidi i Voidcaller in ogni pack — buffano Esuritus. Raccogli gli orb in Core.",
+	DELVE_CHAT_SUNKILLER_SANCTUM_BOSS = "Tutti i Voidcaller morti prima di {SPELL:@gorge} o accumula +danni. Kicka {SPELL:@calling_bolt}. Dissolvi {SPELL:@coalescing_malediction}. Schiva {SPELL:@crushing_rift} (4 caller).",
+
+	DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW = "Voidstorm ovest contro ethereal. Calamitous / Wildlife / Stolen Mana. Boss: Chief-Arcanist Patram.",
+	DELVE_CHAT_SHADOWGUARD_POINT_ROUTE = "Calamitous: sovraccarica gli stabilizer con gli Arcane Charge (non restare nelle esplosioni). Wildlife: libera i mob con cura. Mana: fucile sui contenitori.",
+	DELVE_CHAT_SHADOWGUARD_POINT_TRASH = "Interrompi gli ethereal. Pianifica il trasporto delle charge in sicurezza.",
+	DELVE_CHAT_SHADOWGUARD_POINT_BOSS = "Kicka {SPELL:@void_bolt_patram}. Uccidi il Void Emissary prima di {SPELL:@submit_to_the_void} o il buff va a Patram. Schiva {SPELL:@discordant_hymn}.",
+
+	DELVE_CHAT_TORMENTS_RISE_OVERVIEW = "Nemesis delve (Voidstorm). Regole Tier ? / ??. Boss Nullaeus — Valeera healer consigliata al ??.",
+	DELVE_CHAT_TORMENTS_RISE_ROUTE = "Portale dedicato (Shift-J / TomTom). Non è un world delve a rotazione.",
+	DELVE_CHAT_TORMENTS_RISE_TRASH = "Conserva i CD per Nullaeus — niente trash Pactsworn dentro.",
+	DELVE_CHAT_TORMENTS_RISE_BOSS = "Kicka ogni {SPELL:@devouring_essence}. {SPELL:@dread_portal}: AoE sugli add finché non muoiono. {SPELL:@oblivion_shell} = DPS check. Non accumulare {SPELL:@umbral_rage}.",
+})
+
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_NAME_SHADOW_ENCLAVE = "The Shadow Enclave",
 	DELVE_NAME_COLLEGIATE_CALAMITY = "Collegiate Calamity",

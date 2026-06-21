@@ -92,6 +92,79 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_SHARE_SENT_FMT = "Steps for %s shared with the group.",
 })
 
+merge(ns._mhLocales and ns._mhLocales.itIT, {
+	TAB_DUNGEONS = "Dungeon",
+	DGN_TITLE = "Dungeon",
+	DGN_SUBTITLE = "Il tuo compagno per i dungeon: cosa fare questa settimana, un corso per principianti dalla prima coda fino al Heroic, e i passi per ogni boss nel Coach, più una tab Mythic+ con gli affissi e i kick obbligatori.",
+
+	DGN_VIEW_WEEK = "Questa settimana",
+	DGN_VIEW_COURSE = "Dungeons 101",
+	DGN_VIEW_COACH = "Dungeon Coach",
+
+	-- Questa settimana --------------------------------------------------------
+	DGN_WEEK_HEADER = "Questa settimana",
+	DGN_SPARK_DONE = "Settimanale Spark (Midnight: Dungeons): completata questa settimana.",
+	DGN_SPARK_INLOG = "Settimanale Spark (Midnight: Dungeons): accettata — completa un qualsiasi dungeon stagionale.",
+	DGN_SPARK_TODO = "Settimanale Spark (Midnight: Dungeons): una delle scelte di Lady Liadrin — prendila accanto al vault.",
+	DGN_WEEKDGN_INLOG_FMT = "Dungeon della settimana (Halduron): %s — quest accettata.",
+	DGN_WEEKDGN_DONE_FMT = "Dungeon della settimana (Halduron): %s — completato questa settimana.",
+	DGN_WEEKDGN_UNKNOWN = "Dungeon della settimana (Halduron): prendi la sua quest accanto al vault per vederlo qui.",
+	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mythic+): completato.",
+	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mythic+): cade da una ricompensa Delve di Tier 11 — una volta a season.",
+	DGN_VAULT_FMT = "Great Vault — riga Dungeons: %d/%d slot sbloccati (progresso %d).",
+	DGN_VAULT_UNKNOWN = "Great Vault — riga Dungeons: i dati si caricano dopo il login o aprendo il vault.",
+	DGN_FOLLOWER_HINT = "Nuovo nei dungeon? Avvia un Follower Dungeon (Group Finder): giochi in difficoltà Normal da solo con compagni NPC — nessuna pressione, pratica perfetta. Il corso qui sotto ti guida in ogni cosa.",
+
+	-- Dungeons 101 ------------------------------------------------------------
+	DGN_COURSE_HEADER = "Dungeons 101 — da zero al tuo primo Heroic",
+	DGN_COURSE_PROGRESS_FMT = "Progresso: %d/%d capitoli completati",
+	DGN_CH_MARK = "Clicca qui quando l'hai fatto — salvato per personaggio.",
+	DGN_CH_DONE = "Fatto — clicca per annullare.",
+
+	DGN_CH1_TITLE = "1. Cos'è un dungeon?",
+	DGN_CH1_BODY = "• Un dungeon è un'avventura instanziata per 5 giocatori: 1 tank, 1 healer, 3 damage dealer.|n• Difficoltà, dalla più facile alla più difficile: Follower (da solo con compagni NPC — modalità pratica), Normal (tutti i dungeon di Midnight, sempre disponibili), Heroic (la rotazione di questa season, loot migliore) e Mythic/Mythic+ (trattati più avanti in questo corso).|n• Le run nei dungeon riempiono la riga Dungeons della tua Great Vault — una ricompensa settimanale gratuita.",
+
+	DGN_CH2_TITLE = "2. Come entrare",
+	DGN_CH2_BODY = "• Premi I (Group Finder) e scegli il Dungeon Finder.|n• Spunta il ruolo che vuoi giocare; le code per tank e healer partono più in fretta.|n• Vuoi zero pressione? Scegli prima un Follower Dungeon: difficoltà Normal, compagni NPC che seguono il tuo ritmo, disponibile mentre sali di livello 80-90 (c'è un limite giornaliero di avvii).|n• Quando la coda è pronta, clicca Accetta — vieni teletrasportato dentro, e di nuovo fuori al termine.",
+
+	DGN_CH3_TITLE = "3. Preparati",
+	DGN_CH3_BODY = "• Scegli il tuo ruolo e impara le basi — la Role Academy in questo addon spiega tanking, healing e DPS in parole semplici.|n• Imposta una macro di interrupt e una difensiva (Toolbox → Macros — pronte da copiare per la tua spec).|n• Porta una flask, del cibo e una potion (Toolbox → Consumables ha la lista per la tua spec, con copia del nome per l'Auction House).|n• Ripara il tuo equipaggiamento prima di metterti in coda. Per il Heroic, il Group Finder mostra il requisito di equipaggiamento accanto al pulsante della coda.",
+
+	DGN_CH4_TITLE = "4. Nel gruppo",
+	DGN_CH4_BODY = "• Lascia che sia il tank a pullare — correre davanti al tank è il classico errore da principiante.|n• Di' \"first time here\" all'inizio; la maggior parte dei giocatori è felice di darti indicazioni.|n• Kicka (interrompi) i cast pericolosi quando puoi — la tua macro del capitolo 3 fa il lavoro.|n• Loot: prendi ciò che puoi usare; greed/disenchant il resto.|n• Un wipe? Capita a tutti. Torna indietro, mangia per recuperare, riprova. Un \"ty gg\" alla fine fa la differenza.",
+
+	DGN_CH5_TITLE = "5. Conosci i boss",
+	DGN_CH5_BODY = "• Prima di una run, apri la vista Dungeon Coach e leggi i passi brevi per ogni boss — e nel momento in cui pulli un boss, Midnight Helper stampa quei passi direttamente nella tua chat.|n• Condividili col tuo gruppo: scrivi /mh bossshare dopo il pull (testo semplice; la condivisione localizzata arriverà più avanti).|n• Non memorizzare tutto: conoscere l'unica meccanica letale per ogni boss è sufficiente per iniziare.",
+
+	DGN_CH6_TITLE = "6. Prossimo passo: Heroic",
+	DGN_CH6_BODY = "• Il Heroic usa la rotazione di questa season (otto dungeon — vedi la vista Coach, contrassegnati Season 1) con nemici più forti e loot migliore.|n• Il Group Finder mostra il requisito di equipaggiamento; equipaggiati prima tramite dungeon Normal, Delve e contenuti del mondo.|n• Combinalo con le tue settimanali: il dungeon della settimana di Halduron e la settimanale Spark di Lady Liadrin stanno entrambi accanto al vault — la vista Questa settimana li tiene tracciati.|n• Dopo il Heroic arrivano Mythic e Mythic+ — quel capitolo arriverà con l'aggiornamento Mythic di questo corso.",
+
+	-- Coach -------------------------------------------------------------------
+	DGN_COACH_HEADER = "Dungeon Coach",
+	DGN_COACH_INTRO = "Ogni dungeon e boss di questa espansione — clicca sul nome di un dungeon per aprire i passi dei suoi boss (cosa schivare, cosa kickare, cosa fa il tuo ruolo). I nomi delle spell sono link cliccabili. Scritto sulla base dei dati DBM e dei tooltip di Wowhead; la verifica in-game è in corso.",
+	DGN_GROUP_LAUNCH = "Dungeon di Midnight — Normal & Follower (sempre disponibili)",
+	DGN_GROUP_SEASON = "Rotazione Season 1 — Heroic & Mythic",
+	DGN_BADGE_S1 = "Season 1",
+	DGN_TIPS_SOON = "I passi dei boss per questo dungeon sono in fase di scrittura e verifica — in arrivo in un prossimo aggiornamento.",
+
+	-- Live coach (boss pull + share) ------------------------------------------
+	DGN_LIVE_HEADER_FMT = "%s — passi del boss:",
+	DGN_LIVE_SHARE_HINT = "Condividi col tuo gruppo: /mh bossshare",
+	DGN_LIVE_TOGGLE_ON = "Passi del boss al pull: ON",
+	DGN_LIVE_TOGGLE_OFF = "Passi del boss al pull: OFF (/mh livetips li riattiva)",
+	DGN_SHARE_NONE = "Nessun boss ancora ingaggiato — prima pulla, poi condividi.",
+	DGN_SHARE_QUEUED = "In combattimento — i passi verranno condivisi automaticamente nel momento in cui il combattimento finisce.",
+	DGN_WIN_CHAT = "Chat",
+	DGN_WIN_SHARE = "Condividi",
+	DGN_WIN_PANEL_HINT = "Modello nascosto — clicca sul ritratto del boss nell'intestazione della finestra per riportarlo.",
+	DGN_WIN_PICK_HINT = "Clicca per scegliere un altro dungeon (o il ritual).",
+	DGN_WIN_PICK_RITUALRAID = "Rituals & Raids",
+	DGN_WIN_PICK_RITUALS = "Rituals",
+	DGN_WIN_PICK_RAIDS = "Raids",
+	DGN_WIN_PICK_DUNGEONS = "Dungeons",
+	DGN_SHARE_SENT_FMT = "Passi per %s condivisi col gruppo.",
+})
+
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TAB_DUNGEONS = "Dungeons",
 	DGN_TITLE = "Dungeons",

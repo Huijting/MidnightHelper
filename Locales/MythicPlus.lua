@@ -59,6 +59,43 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	MPLUS_KICK_SKYREACH = "Skyreach: priority kick is {SPELL:1255377} (Driving Gale-Caller).",
 })
 
+merge(ns._mhLocales and ns._mhLocales.itIT, {
+	MPLUS_VIEW = "Mythic+",
+	MPLUS_HEADER = "Mythic+ — Season 1",
+	MPLUS_INTRO = "Come funzionano le key questa stagione: gli affix, il pool di 8 dungeon e i cast che devi interrompere. Scritto sulla base della panoramica Season 1 di Wowhead e method.gg — confermare in-game.",
+
+	MPLUS_AFFIX_HEADER = "Cosa si attiva a ogni livello di key",
+	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — segna e indebolisce certi nemici (Temporal Sands), e rimuove la penalità di morte. Un aiuto mentre impari i dungeon.",
+	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — è attiva una delle quattro varianti settimanali \"bacio-maledizione\" (vedi sotto). Va da +5 a +11.",
+	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance decade — da qui in su niente più clemenza sulla penalità di morte.",
+	MPLUS_AFFIX_TYRFORT = "Tyrannical OPPURE Fortified (si alternano ogni settimana). Tyrannical: i boss hanno più vita e colpiscono più forte. Fortified: il trash ha più vita e colpisce più forte.",
+	MPLUS_AFFIX_BOTH = "Tyrannical E Fortified sono entrambi attivi, ogni settimana, da qui in su.",
+	MPLUS_AFFIX_GUILE = "Xal'atath's Guile sostituisce il Bargain — ogni morte ora sottrae anche 15 secondi dal timer (e quel tempo non torna).",
+
+	MPLUS_BARGAIN_HEADER = "Xal'atath's Bargain — questa settimana è una di queste quattro",
+	MPLUS_BARGAIN_ASCENDANT = "Ascendant — gli orbe lanciano {SPELL:461904}; fermali (interrupt / CC / purge) per un buff di velocità & haste al gruppo, altrimenti vengono potenziati i mob.",
+	MPLUS_BARGAIN_VOIDBOUND = "Voidbound — un Void Emissary potenzia i mob con {SPELL:462508}; uccidilo per più cooldown rate & versatility, altrimenti i mob vicini diventano più forti.",
+	MPLUS_BARGAIN_PULSAR = "Pulsar — soak {SPELL:1216815} prima che scada per un buff di mastery & leech; se fallisci i mob ottengono danni e damage reduction.",
+	MPLUS_BARGAIN_DEVOUR = "Devour — {SPELL:440313} mette uno shield + slow su tutti e cinque; rimuovilo con healing o un qualsiasi dispel per un buff {SPELL:465136}, altrimenti i mob si curano.",
+
+	MPLUS_POOL_HEADER = "Gli 8 dungeon di questa stagione",
+	MPLUS_POOL_NOTE = "Normal & Follower usano tutti i dungeon di lancio; Heroic, Mythic 0 e Mythic+ usano questo pool. Apri un dungeon nella scheda Dungeon Coach per i passaggi boss per boss.",
+
+	MPLUS_SYSTEM_HEADER = "Utile da sapere",
+	MPLUS_SYSTEM = "• Le key partono da +2 (non da +4 come prima).|n• Resilient Keystones: completa nei tempi tutti gli 8 dungeon a +12 e la tua key non scende mai sotto +12 a un depletion (e da lì in poi scala verso l'alto).|n• Le Dungeon Waystones sono checkpoint a metà run — i giocatori morti rinascono all'ultima che hai sbloccato.|n• Loot e crest scalano con il livello di key: crest di tier Champion alle key basse fino a Myth Dawncrest a +10 e oltre, più uno slot dungeon della Great Vault per averne completati otto.",
+
+	MPLUS_KICK_HEADER = "Cast da interrompere obbligatoriamente (per dungeon)",
+	MPLUS_KICK_NOTE = "I grossi da tenere d'occhio — nomi confermati dalle guide, confermare in-game. Aggiungiamo altri dungeon man mano che verifichiamo le loro liste di cast.",
+	MPLUS_KICK_MAISARA = "Maisara Caverns (il più tosto del pool): kicka Hex (Ritual Hexxer), Reanimation (Reanimated Warrior — ogni cast, o è un wipe) e Shrink (Umbral Shadowbinder). Su Rak'tul, interrompi ogni Malignant Soul sul ponte.",
+	MPLUS_KICK_MAGISTERS = "Magisters' Terrace: i boss non hanno nulla da interrompere — è tutto trash. Priorità di kick {SPELL:468966} (Arcane Magister — trasforma un giocatore in pecora) > {SPELL:1254294} (Blazing Pyromancer) > {SPELL:1264693} (Void Terror).",
+	MPLUS_KICK_NEXUSPOINT = "Nexus-Point Xenas: kicka {SPELL:1250553} su Chief Corewright Kasreth, e sul trash {SPELL:1258681} (Grand Nullifier) > {SPELL:1271094} (Nexus Adept) > {SPELL:1263892} (Lightwrought). Sul {SPELL:1257595} di Lothraxion, interrompi l'ombra SENZA corna — kickare quella sbagliata danneggia il gruppo.",
+	MPLUS_KICK_WINDRUNNER = "Windrunner Spire: kicka Chain Lightning (Phantasmal Mystic — ferma anche il suo buff di haste), Spirit Bolt (Restless Steward), Poison Blades (Ardent Cutthroat) e Fungal Bolt (Bloated Lasher). (Spell ID non ancora da datamining — confermare in-game.)",
+	MPLUS_KICK_PITOFSARON = "Pit of Saron: la priorità di kick è {SPELL:1271074} (Dreadpulse Lich) > {SPELL:473657} (Gloombound Shadebringer) > {SPELL:1278893} (Krick). Su Garfrost, spezza la linea di vista verso {SPELL:1262029} dietro un Ore Chunk.",
+	MPLUS_KICK_ALGETHAR = "Algeth'ar Academy: interrompi {SPELL:396640} (Ancient Branch) — ogni cast, o è un wipe.",
+	MPLUS_KICK_TRIUMVIRATE = "Seat of the Triumvirate: il kick prioritario è {SPELL:248831} (Shadewing).",
+	MPLUS_KICK_SKYREACH = "Skyreach: il kick prioritario è {SPELL:1255377} (Driving Gale-Caller).",
+})
+
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Seizoen 1",
@@ -285,6 +322,43 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	ALERT_TEST = "Test — this is what a warning looks like",
 	ALERT_ENABLED_MSG = "Helper alerts on — I'll flash one big warning when you get a dangerous debuff to react to.",
 	ALERT_DISABLED_MSG = "Helper alerts off.",
+})
+
+merge(ns._mhLocales and ns._mhLocales.itIT, {
+	MPLUS_BEGINNER_BTN_ON = "La modalità principiante è ATTIVA — clicca qui per la versione completa",
+	MPLUS_BEGINNER_BTN_OFF = "La modalità principiante è DISATTIVA — clicca qui per la versione semplice",
+	MPLUS_BEGINNER_INTRO = "Una \"key\" (keystone) è semplicemente un dungeon a un'impostazione più difficile con un timer. NON devi per forza iniziare da lì. Non c'è fretta e non c'è nulla di male nel fare con calma — quasi tutti imparano prima un dungeon e fanno push più avanti.",
+	MPLUS_BEGINNER_START = "Inizia da qui: fai prima il dungeon in Follower o Normal. Niente timer, morire non fa fallire nulla, e vai al tuo ritmo. Quando lo senti facile, prova Heroic, poi Mythic 0 (sempre senza timer), e solo dopo una +2 key.",
+	MPLUS_GLOSSARY_HEADER = "Parole che sentirai (in parole semplici)",
+	MPLUS_GLOSS_KEY = "Key / Keystone — un dungeon a un'impostazione più difficile con un timer. Un numero più alto significa più difficile.",
+	MPLUS_GLOSS_AFFIX = "Affix — una regola in più che rende il dungeon più difficile. Ne arrivano di nuove a certi livelli di key.",
+	MPLUS_GLOSS_PULL = "Pull — avvicinarsi ai nemici per iniziare il combattimento. Di solito decide il tank quando.",
+	MPLUS_GLOSS_KICK = "Kick / Interrupt — il tuo pulsante di interrupt ferma un nemico a metà cast. Usalo sui cast segnati come importanti.",
+	MPLUS_GLOSS_SOAK = "Soak — mettersi apposta in un cerchio segnato per assorbire qualcosa, così non fa male al gruppo.",
+	MPLUS_GLOSS_TANK = "Tank — tiene i nemici e li gira lontano da tutti. Stai dietro di lui.",
+	MPLUS_GLOSS_HEALER = "Healer — tiene tutti in vita. Resta abbastanza vicino perché possa raggiungerti.",
+	MPLUS_GLOSS_DPS = "DPS — infligge danni. La maggior parte dei giocatori è DPS; il tuo compito è fare danni e schivare le cose a terra.",
+	MPLUS_GLOSS_AGGRO = "Aggro / Threat — chi sta attaccando un nemico. Se ti insegue, corri dal tank.",
+	MPLUS_GLOSS_CC = "CC (crowd control) — stordire, congelare o addormentare un nemico così non può agire per un momento.",
+	MPLUS_GLOSS_DISPEL = "Dispel — rimuovere un effetto dannoso da un giocatore (o uno benefico da un nemico).",
+	MPLUS_GLOSS_WIPE = "Wipe — tutto il gruppo muore e si riprova. Capita a tutti; basta ripartire e riprovare.",
+
+	MPLUS_WEEK_HEADER = "Questa settimana, solo per te",
+	MPLUS_WEEK_BODY = "• Apri il cerca gruppo e scegli un dungeon in Follower o Normal.|n• Non c'è timer e non puoi \"fallire\" — prenditi tutto il tempo che ti serve.|n• Puoi uscire in qualsiasi momento; non si perde nulla.|n• Morire è normale e qui non costa niente — torna indietro a piedi e continua.|n• Vuoi i passaggi per ogni boss? Apri la scheda Dungeon Coach.",
+	MPLUS_WEEK_AVOID = "Se vuoi la prima run più tranquilla, lascia Maisara Caverns per dopo — è il più tosto degli otto. Qualsiasi altro è più dolce per iniziare.",
+	MPLUS_WEEK_BONUS_FMT = "Bonus di questa settimana: %s è il dungeon della settimana — reputazione extra quando lo fai.",
+
+	ALERT_HELP_HEADER = "Aiuto extra durante i dungeon",
+	ALERT_HELP = "Attiva questo per UN solo avviso grande e tranquillo (con un suono) quando SEI TU a ricevere un effetto pericoloso — una trappola o un debuff pesante — così sai che devi reagire. Uno alla volta, mai un muro di avvisi.",
+	ALERT_DEBUFF_FMT = "%s — reagisci!",
+	ALERT_DEBUFF_DEVOURING_RIFT = "Devouring Rift su di te — curatelo via o fai dispel!",
+	ALERT_BTN_ON = "Gli avvisi Helper sono ATTIVI — clicca per disattivare",
+	ALERT_BTN_OFF = "Gli avvisi Helper sono DISATTIVI — clicca per attivare",
+	ALERT_TEST_BTN = "Mostrami un avviso di prova",
+	ALERT_INTERRUPT_FMT = "Interrupt!|n%s",
+	ALERT_TEST = "Prova — ecco come appare un avviso",
+	ALERT_ENABLED_MSG = "Avvisi Helper attivi — farò lampeggiare un grande avviso quando ricevi un debuff pericoloso a cui reagire.",
+	ALERT_DISABLED_MSG = "Avvisi Helper disattivati.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
