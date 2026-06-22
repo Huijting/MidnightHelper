@@ -729,6 +729,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "boardall" or msg == "readyall" then
+		if ns.BroadcastReopenBoard then
+			ns.BroadcastReopenBoard()
+		end
+		return
+	end
+
 	-- /mh model <item-link | itemID | npc <id>> — roteerbare 3D-model-preview.
 	local modelArg = msg:match("^model%s+(.+)$")
 	if msg == "model" or modelArg then

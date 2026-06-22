@@ -1471,6 +1471,53 @@ function ns:OpenDelveCoachPicker(anchor)
 	f:Show()
 end
 
+--------------------------------------------------------------------------------
+-- "Eindbaas — open coach?" prompt (Rob 21 jun): als je de coach in een delve hebt
+-- weggeklikt en er begint een boss-encounter, een klein knopje tonen om 'm alsnog
+-- voor de baas te openen. Respecteert je close voor de trash; verschijnt alleen
+-- als de coach echt door jou gedismissed is.
+--------------------------------------------------------------------------------
+local bossPrompt
+
+local function HideBossCoachPrompt()
+	if bossPrompt then
+		bossPrompt:Hide()
+	end
+end
+
+local function MaybeShowBossCoachPrompt()
+	local s = GetSettings()
+	if not s or not s.enabled or not s.autoShow then
+		return
+	end
+	local inDelve = (ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress()) or IsDelveInProgress()
+	if not inDelve then
+		return
+	end
+	if not (coachFrame and coachFrame._userDismissed) then
+		return -- coach niet door speler weggeklikt → niets te heropenen
+	end
+	if coachFrame and coachFrame:IsShown() then
+		return
+	end
+	if not bossPrompt then
+		local b = CreateFrame("Button", nil, UIParent, "UIPanelButtonTemplate")
+		b:SetSize(230, 26)
+		b:SetPoint("TOP", UIParent, "TOP", 0, -170)
+		b:SetFrameStrata("HIGH")
+		b:SetScript("OnClick", function()
+			local entry = ResolveActiveDelveEntry()
+			if entry and ns.ShowDelveCoach then
+				ns:ShowDelveCoach(entry.id, { preview = false })
+			end
+			HideBossCoachPrompt()
+		end)
+		bossPrompt = b
+	end
+	bossPrompt:SetText(ns:SafeL("DELVE_COACH_BOSS_PROMPT"))
+	bossPrompt:Show()
+end
+
 local function OnDelveStateTick()
 	local inDelve = ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress() or IsDelveInProgress()
 	if inDelve and not wasInDelve then
@@ -1605,6 +1652,8 @@ ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 ev:RegisterEvent("SCENARIO_UPDATE")
 ev:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
 ev:RegisterEvent("UNIT_TARGET")
+ev:RegisterEvent("ENCOUNTER_START")
+ev:RegisterEvent("ENCOUNTER_END")
 local function PrimeDelveStoriesIfIdle()
 	if ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress() then
 		return
@@ -1614,7 +1663,15 @@ local function PrimeDelveStoriesIfIdle()
 	end
 end
 ev:SetScript("OnEvent", function(_, event, unit)
+	if event == "ENCOUNTER_START" then
+		MaybeShowBossCoachPrompt() -- boss begint → "open coach?" als je 'm wegklikte
+		return
+	elseif event == "ENCOUNTER_END" then
+		HideBossCoachPrompt()
+		return
+	end
 	if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED" or event == "ZONE_CHANGED_NEW_AREA" then
+		HideBossCoachPrompt() -- bij zone-wissel/verlaten weg
 		if C_Timer and C_Timer.After then
 			C_Timer.After(1, PrimeDelveStoriesIfIdle)
 		else

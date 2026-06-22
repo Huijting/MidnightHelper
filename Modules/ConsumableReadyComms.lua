@@ -130,6 +130,37 @@ function ns.ConsumableReadyTest()
 	print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CONSREADY_TEST_SENT")))
 end
 
+-- Leader-commando: vraag groepsleden met MH om hun consumable-bord opnieuw te
+-- tonen (Rob 21 jun). Alleen de leader/assist mag broadcasten; werkt alleen voor
+-- groepsleden die óók MH draaien, en hun bord auto-hide't na 25s zoals altijd.
+function ns.BroadcastReopenBoard()
+	if not (IsInGroup and IsInGroup()) then
+		if ns.PrintChat then
+			ns:PrintChat(ns:L("CONSREADY_BOARDALL_NOGROUP"))
+		end
+		return false
+	end
+	local isLead = (UnitIsGroupLeader and UnitIsGroupLeader("player"))
+		or (UnitIsGroupAssistant and UnitIsGroupAssistant("player"))
+	if not isLead then
+		if ns.PrintChat then
+			ns:PrintChat(ns:L("CONSREADY_BOARDALL_NOTLEAD"))
+		end
+		return false
+	end
+	local ch = GroupChannel()
+	if ch and C_ChatInfo and C_ChatInfo.SendAddonMessage then
+		pcall(C_ChatInfo.SendAddonMessage, PREFIX, PROTO .. "|cmd:show", ch)
+	end
+	if ns.ShowConsumableBoard then
+		ns.ShowConsumableBoard() -- bij jezelf ook tonen
+	end
+	if ns.PrintChat then
+		ns:PrintChat(ns:L("CONSREADY_BOARDALL_SENT"))
+	end
+	return true
+end
+
 --------------------------------------------------------------------------------
 -- Prefix-registratie + ontvangst
 --------------------------------------------------------------------------------
@@ -174,6 +205,15 @@ f:SetScript("OnEvent", function(_, event, prefix, msg, channel, sender)
 			return
 		end
 	else
+		return
+	end
+
+	-- Leader-commando "toon je bord" (apart van de bag-counts-payload). Onschadelijk
+	-- (het bord auto-hide't na 25s); de leader-gating zit aan de zendkant.
+	if msg == PROTO .. "|cmd:show" then
+		if ns.ShowConsumableBoard then
+			ns.ShowConsumableBoard()
+		end
 		return
 	end
 

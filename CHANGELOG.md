@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.8.6] - 2026-06-22
+
+### Added
+
+- **Leader can re-open the consumable board for the whole group.** The party/raid leader (or an assistant) can run `/mh boardall` to pop everyone's consumable board at once, so the whole group can re-check flasks, runes, food and buffs on demand before a pull.
+- **"Final boss — open coach?" prompt in delves.** If you closed the Delve Coach earlier in a run, a small button now reappears when a boss encounter starts, letting you re-open the coach for the final fight with one click.
+
 ## [1.8.5] - 2026-06-21
 
 ### Fixed
