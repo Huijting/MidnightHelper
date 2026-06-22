@@ -452,6 +452,16 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 			if ch.key == "trees" and treesAdvice ~= "" then
 				body = body .. "\n" .. treesAdvice
 			end
+			-- Optioneel skill-leveling-routje onder een professie-hoofdstuk
+			-- (PROFGUIDE_LVL_*). De route gebruikt |n-markup; hier omgezet naar
+			-- echte newlines zodat 'ie als de andere body-tekst rendert.
+			if ch.levelingKey then
+				local lvl = SL(ch.levelingKey)
+				if lvl and lvl ~= "" and lvl ~= ch.levelingKey then
+					local lvlText = lvl:gsub("|n", "\n")
+					body = body .. "\n\n" .. lvlText
+				end
+			end
 			row.bodyFs:SetText(body)
 
 			local task = SL(ch.taskKey)

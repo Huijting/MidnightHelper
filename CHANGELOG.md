@@ -11,6 +11,7 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- **Professions 101 — skill-leveling routes & Work Orders.** Each profession chapter can now show a concise "Skill leveling 1-100" route (Alchemy & Herbalism first, more to follow) with trainer, shopping list and step-by-step skill ranges. Plus a new **"Work Orders explained"** chapter covering all four order types and how to both order items and craft for others.
 - **Setting to hide the weekly Coffer Shard cap popup** (Settings → Dungeon). First community request (gadrinonturalyon on CurseForge) — the shard-cap toast can now be turned off.
 - **Setting to show/hide the 3D boss model** in the floating boss window (Settings → Dungeon). Turning it off hides the model; takes effect immediately while the window is open.
 - **Italian language (itIT).** Full interface and guide translation. Auto-selects on an Italian WoW client (since patch 5.0.4), or choose it manually with `/mh lang it`. Older changelog entries intentionally remain in English (as with the other added languages).

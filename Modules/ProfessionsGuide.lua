@@ -477,7 +477,16 @@ function RefreshDetailSection()
 		detailFrame._title:SetText(ns:L(cfg.titleKey))
 	end
 	if detailFrame._body and detailFrame._body._text then
-		detailFrame._body._text:SetText(NormalizeGuideText(ns:L(cfg.bodyKey)))
+		-- Optioneel skill-leveling-routje onder de body (PROFGUIDE_LVL_*). Opzet
+		-- per professie via cfg.levelingKey; valt per taal terug op Engels.
+		local body = ns:L(cfg.bodyKey)
+		if cfg.levelingKey then
+			local lvl = ns:L(cfg.levelingKey)
+			if type(lvl) == "string" and lvl ~= "" and lvl ~= cfg.levelingKey then
+				body = body .. "|n|n" .. lvl
+			end
+		end
+		detailFrame._body._text:SetText(NormalizeGuideText(body))
 	end
 	local pw = math.max(260, (hostPanel and hostPanel:GetWidth()) or 400)
 	local isCombo = cfg.key == "combo_te"

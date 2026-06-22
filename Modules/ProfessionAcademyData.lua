@@ -227,10 +227,18 @@ ns.PROF_ACADEMY = {
 			taskWaypoint = "workOrderStation",
 		},
 		{
+			key = "workorders",
+			titleKey = "PROFACAD_CH_WORKORDERS_TITLE",
+			bodyKey = "PROFACAD_CH_WORKORDERS_BODY",
+			taskKey = "PROFACAD_CH_WORKORDERS_TASK",
+			taskWaypoint = "workOrderStation",
+		},
+		{
 			key = "enchanting",
 			titleKey = "PROFACAD_CH_ENCHANTING_TITLE",
 			bodyKey = "PROFACAD_CH_ENCHANTING_BODY",
 			taskKey = "PROFACAD_CH_ENCHANTING_TASK",
+			levelingKey = "PROFGUIDE_LVL_ENCHANTING",
 			skillLineID = 333,
 		},
 		{
@@ -238,6 +246,7 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_ALCHEMY_TITLE",
 			bodyKey = "PROFACAD_CH_ALCHEMY_BODY",
 			taskKey = "PROFACAD_CH_ALCHEMY_TASK",
+			levelingKey = "PROFGUIDE_LVL_ALCHEMY",
 			skillLineID = 171,
 		},
 		{
@@ -245,6 +254,7 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_TAILORING_TITLE",
 			bodyKey = "PROFACAD_CH_TAILORING_BODY",
 			taskKey = "PROFACAD_CH_TAILORING_TASK",
+			levelingKey = "PROFGUIDE_LVL_TAILORING",
 			skillLineID = 197,
 		},
 		{
@@ -252,6 +262,7 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_LEATHERWORKING_TITLE",
 			bodyKey = "PROFACAD_CH_LEATHERWORKING_BODY",
 			taskKey = "PROFACAD_CH_LEATHERWORKING_TASK",
+			levelingKey = "PROFGUIDE_LVL_LEATHERWORKING",
 			skillLineID = 165,
 		},
 		{
@@ -259,6 +270,7 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_BLACKSMITHING_TITLE",
 			bodyKey = "PROFACAD_CH_BLACKSMITHING_BODY",
 			taskKey = "PROFACAD_CH_BLACKSMITHING_TASK",
+			levelingKey = "PROFGUIDE_LVL_BLACKSMITHING",
 			skillLineID = 164,
 		},
 		{
@@ -266,6 +278,7 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_ENGINEERING_TITLE",
 			bodyKey = "PROFACAD_CH_ENGINEERING_BODY",
 			taskKey = "PROFACAD_CH_ENGINEERING_TASK",
+			levelingKey = "PROFGUIDE_LVL_ENGINEERING",
 			skillLineID = 202,
 		},
 		{
@@ -273,6 +286,7 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_INSCRIPTION_TITLE",
 			bodyKey = "PROFACAD_CH_INSCRIPTION_BODY",
 			taskKey = "PROFACAD_CH_INSCRIPTION_TASK",
+			levelingKey = "PROFGUIDE_LVL_INSCRIPTION",
 			skillLineID = 773,
 		},
 		{
@@ -280,6 +294,7 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_JEWELCRAFTING_TITLE",
 			bodyKey = "PROFACAD_CH_JEWELCRAFTING_BODY",
 			taskKey = "PROFACAD_CH_JEWELCRAFTING_TASK",
+			levelingKey = "PROFGUIDE_LVL_JEWELCRAFTING",
 			skillLineID = 755,
 		},
 		{
@@ -287,6 +302,7 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_HERBALISM_TITLE",
 			bodyKey = "PROFACAD_CH_HERBALISM_BODY",
 			taskKey = "PROFACAD_CH_HERBALISM_TASK",
+			levelingKey = "PROFGUIDE_LVL_HERBALISM",
 			skillLineID = 182,
 		},
 		{
@@ -294,6 +310,7 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_MINING_TITLE",
 			bodyKey = "PROFACAD_CH_MINING_BODY",
 			taskKey = "PROFACAD_CH_MINING_TASK",
+			levelingKey = "PROFGUIDE_LVL_MINING",
 			skillLineID = 186,
 		},
 		{
@@ -301,6 +318,7 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_SKINNING_TITLE",
 			bodyKey = "PROFACAD_CH_SKINNING_BODY",
 			taskKey = "PROFACAD_CH_SKINNING_TASK",
+			levelingKey = "PROFGUIDE_LVL_SKINNING",
 			skillLineID = 393,
 		},
 	},
