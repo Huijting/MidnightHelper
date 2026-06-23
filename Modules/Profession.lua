@@ -643,6 +643,14 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 		return 0
 	end
 
+	-- Content font scale: cell heights and Y-advances are multiplied by `s` together
+	-- so taller text never overlaps. ×1.0 reproduces the original fixed layout.
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+	local rowH = TRACKER_ROW_HEIGHT * s
+	local headerBlockH = TRACKER_HEADER_BLOCK * s
+	local sectionHeaderH = TRACKER_SECTION_HEADER_HEIGHT * s
+	local zoneHeaderH = TRACKER_ZONE_HEADER_HEIGHT * s
+
 	local rows = {}
 	for _, row in ipairs(MIDNIGHT_DATA) do
 		if NormalizeProfessionLabel(row[6]) == cat.key and PrimaryProfessionMatchesDataColumn(row[6], primary) then
@@ -660,17 +668,18 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 
 	local y = 0
 	local hf = CreateFrame("Frame", nil, host)
-	hf:SetSize(colW, TRACKER_HEADER_BLOCK)
+	hf:SetSize(colW, headerBlockH)
 	hf:SetPoint("TOPLEFT", host, "TOPLEFT", 0, -y)
 
 	local h1 = hf:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	h1:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	h1:SetPoint("TOPLEFT", 2, -2)
 	h1:SetWidth(colW - 4)
 	h1:SetJustifyH("LEFT")
 	h1:SetWordWrap(false)
 	h1:SetText(string.format("%s=== %s (%d/%d) ===|r", COLOR_HDR_MPT, cat.displayName, doneCt, total))
 
-	y = y + TRACKER_HEADER_BLOCK
+	y = y + headerBlockH
 
 	local treasureRows, bookRows = {}, {}
 	for _, row in ipairs(rows) do
@@ -685,9 +694,10 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 
 	local function MountSectionHeader(titleText)
 		local hdr = CreateFrame("Frame", nil, host)
-		hdr:SetSize(colW, TRACKER_SECTION_HEADER_HEIGHT)
+		hdr:SetSize(colW, sectionHeaderH)
 		hdr:SetPoint("TOPLEFT", host, "TOPLEFT", 0, -y)
 		local lbl = hdr:CreateFontString(nil, "OVERLAY", "GameFontHighlightMedium")
+		lbl:SetFontObject(ns.MHScalableFont("GameFontHighlightMedium"))
 		lbl:SetPoint("TOP", hdr, "TOP", 0, -4)
 		lbl:SetWidth(colW - 8)
 		lbl:SetJustifyH("CENTER")
@@ -698,7 +708,7 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 		line:SetPoint("BOTTOMLEFT", hdr, "BOTTOMLEFT", 6, 5)
 		line:SetPoint("BOTTOMRIGHT", hdr, "BOTTOMRIGHT", -6, 5)
 		line:SetColorTexture(0.55, 0.48, 0.28, 0.85)
-		y = y + TRACKER_SECTION_HEADER_HEIGHT
+		y = y + sectionHeaderH
 	end
 
 	local function AddTrackerDataRow(row)
@@ -709,7 +719,7 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 		local coordStr = string.format("%.1f, %.1f", tonumber(px) or 0, tonumber(py) or 0)
 
 		local btn = CreateFrame("Button", nil, host)
-		btn:SetSize(colW, TRACKER_ROW_HEIGHT)
+		btn:SetSize(colW, rowH)
 		btn:SetPoint("TOPLEFT", host, "TOPLEFT", 0, -y)
 		btn:EnableMouse(true)
 		btn:RegisterForClicks("LeftButtonUp", "RightButtonDown")
@@ -805,6 +815,7 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 		end)
 
 		local nameFs = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		nameFs:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 		nameFs:SetPoint("TOPLEFT", 6, -4)
 		nameFs:SetPoint("TOPRIGHT", btn, "TOPRIGHT", -78, -4)
 		nameFs:SetJustifyH("LEFT")
@@ -812,6 +823,7 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 		nameFs:SetText(icon .. (title or "?"))
 
 		local coordFs = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		coordFs:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 		coordFs:SetPoint("TOPRIGHT", btn, "TOPRIGHT", -6, -4)
 		coordFs:SetWidth(72)
 		coordFs:SetJustifyH("RIGHT")
@@ -826,7 +838,7 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 			coordFs:SetTextColor(1, 0.82, 0)
 		end
 
-		y = y + TRACKER_ROW_HEIGHT
+		y = y + rowH
 	end
 
 	local function ZoneName(mapID)
@@ -841,16 +853,17 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 
 	local function MountZoneHeader(zoneText)
 		local hdr = CreateFrame("Frame", nil, host)
-		hdr:SetSize(colW, TRACKER_ZONE_HEADER_HEIGHT)
+		hdr:SetSize(colW, zoneHeaderH)
 		hdr:SetPoint("TOPLEFT", host, "TOPLEFT", 0, -y)
 		local lbl = hdr:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		lbl:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 		lbl:SetPoint("LEFT", hdr, "LEFT", 8, 0)
 		lbl:SetWidth(colW - 12)
 		lbl:SetJustifyH("LEFT")
 		lbl:SetWordWrap(false)
 		lbl:SetText(zoneText)
 		lbl:SetTextColor(0.62, 0.80, 1)
-		y = y + TRACKER_ZONE_HEADER_HEIGHT
+		y = y + zoneHeaderH
 	end
 
 	-- Group rows under a zone sub-header (zones alphabetical; row order kept).
@@ -1017,10 +1030,12 @@ local function SetupProfessionModule()
 	frame:SetAllPoints(panel)
 
 	local title = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", 16, -14)
 	title:SetText("Profession Treasures and Books")
 
 	kpSummary = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	kpSummary:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	kpSummary:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -8)
 	kpSummary:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
 	kpSummary:SetJustifyH("LEFT")

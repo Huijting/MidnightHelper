@@ -509,6 +509,7 @@ function ns.BuildInterruptMacrosPanel(panel)
 	panel._mhMacrosPickButtons = {}
 
 	local macroName = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	macroName:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	macroName:SetPoint("TOPLEFT", pickScroll, "BOTTOMLEFT", 0, -4)
 	macroName:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -4)
 	macroName:SetJustifyH("LEFT")
@@ -517,6 +518,7 @@ function ns.BuildInterruptMacrosPanel(panel)
 	panel._mhMacrosMacroName = macroName
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", sep, "BOTTOMLEFT", 0, -8)
 	subtitle:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -8)
 	subtitle:SetJustifyH("LEFT")
@@ -526,6 +528,7 @@ function ns.BuildInterruptMacrosPanel(panel)
 	panel._mhMacrosSubtitle = subtitle
 
 	local specLine = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	specLine:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	specLine:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -8)
 	specLine:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -8)
 	specLine:SetJustifyH("LEFT")
@@ -552,6 +555,7 @@ function ns.BuildInterruptMacrosPanel(panel)
 	panel._mhMacrosCopyBtn = copyBtn
 
 	local hint = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	hint:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	hint:SetPoint("LEFT", copyBtn, "RIGHT", 10, 0)
 	hint:SetPoint("RIGHT", panel, "RIGHT", -12, 14)
 	hint:SetJustifyH("LEFT")
@@ -566,7 +570,7 @@ function ns.BuildInterruptMacrosPanel(panel)
 
 	local eb = CreateFrame("EditBox", "MidnightHelperMacrosEdit", scroll)
 	eb:SetMultiLine(true)
-	eb:SetFontObject("GameFontHighlightSmall")
+	eb:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	eb:SetAutoFocus(false)
 	eb:EnableMouse(true)
 	eb:SetScript("OnEscapePressed", function(self)

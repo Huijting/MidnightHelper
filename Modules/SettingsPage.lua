@@ -145,6 +145,9 @@ end
 
 local function MakeFS(parent, font, color)
 	local fs = parent:CreateFontString(nil, "OVERLAY", font)
+	if ns.MHScalableFont and type(font) == "string" then
+		fs:SetFontObject(ns.MHScalableFont(font))
+	end
 	fs:SetJustifyH("LEFT")
 	fs:SetWordWrap(true)
 	if color then
@@ -371,6 +374,40 @@ function ns.BuildSettingsPanel(panel)
 			ns:SetCompactModeEnabled(v, true)
 		end
 	end)
+
+	-- Tekstgrootte (los van vensterschaal): A- / A+ stepper i.p.v. slider.
+	Label("SETTINGS_TEXT_SIZE_LABEL", "GameFontNormal", COLOR_ACCENT, 14, 0, "general")
+	Label("SETTINGS_TEXT_SIZE_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "general")
+	local fsRow = CreateFrame("Frame", nil, child)
+	fsRow:SetHeight(BTN_H + 6)
+	local fsMinus = CreateFrame("Button", nil, fsRow, "UIPanelButtonTemplate")
+	fsMinus:SetSize(36, BTN_H)
+	fsMinus:SetText("A-")
+	fsMinus:SetPoint("LEFT", fsRow, "LEFT", 0, 0)
+	local fsValue = MakeFS(fsRow, "GameFontNormal", COLOR_SOFT)
+	fsValue:SetJustifyH("CENTER")
+	fsValue:SetWidth(64)
+	fsValue:SetPoint("LEFT", fsMinus, "RIGHT", 8, 0)
+	local fsPlus = CreateFrame("Button", nil, fsRow, "UIPanelButtonTemplate")
+	fsPlus:SetSize(36, BTN_H)
+	fsPlus:SetText("A+")
+	fsPlus:SetPoint("LEFT", fsValue, "RIGHT", 8, 0)
+	local function ApplyFontStep(v)
+		v = math.max(0.8, math.min(1.6, v))
+		v = math.floor(v * 10 + 0.5) / 10 -- snap naar 0.1
+		if ns.ApplyContentFontScale then
+			ns.ApplyContentFontScale(v)
+		end
+		ns.RefreshSettingsPanel()
+	end
+	fsMinus:SetScript("OnClick", function()
+		ApplyFontStep((ns.GetContentFontScale and ns.GetContentFontScale() or 1) - 0.1)
+	end)
+	fsPlus:SetScript("OnClick", function()
+		ApplyFontStep((ns.GetContentFontScale and ns.GetContentFontScale() or 1) + 0.1)
+	end)
+	ui.fontScaleValueFS = fsValue
+	push(fsRow, 8, 0, { mode = "general", h = BTN_H + 6 })
 
 	Label("SETTINGS_GUIDE_LABEL", "GameFontNormal", COLOR_ACCENT, 14, 0, "general")
 	Label("SETTINGS_HINT", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "general")
@@ -698,6 +735,12 @@ function ns.RefreshSettingsPanel()
 		if label then
 			label:SetText(("%.1f"):format(sc))
 		end
+	end
+
+	-- Tekstgrootte-waarde tonen (A- / A+ stepper).
+	if ui.fontScaleValueFS then
+		local fsc = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+		ui.fontScaleValueFS:SetText(("%d%%"):format(math.floor(fsc * 100 + 0.5)))
 	end
 
 	Relayout()

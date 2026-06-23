@@ -524,34 +524,41 @@ local function EnsureDelvesHost(parent)
 		return parent._mhWorldBossHost
 	end
 
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+
 	local host = CreateFrame("Frame", nil, parent)
 	host:SetHeight(1)
 
 	local line = host:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	line:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	line:SetPoint("TOPLEFT", host, "TOPLEFT", 0, 0)
 	line:SetPoint("TOPRIGHT", host, "TOPRIGHT", 0, 0)
 	line:SetJustifyH("LEFT")
-	line:SetHeight(16)
+	line:SetHeight(16 * s)
 
 	local title = host:CreateFontString(nil, "OVERLAY", "GameFontHighlightMedium")
+	title:SetFontObject(ns.MHScalableFont("GameFontHighlightMedium"))
 	title:SetPoint("TOPLEFT", host, "TOPLEFT", 0, 0)
 	title:SetTextColor(1, 0.82, 0.45)
 
 	local activeFs = host:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	activeFs:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -2)
+	activeFs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
+	activeFs:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -2 * s)
 	activeFs:SetJustifyH("LEFT")
 
 	local zoneFs = host:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	zoneFs:SetPoint("TOPLEFT", activeFs, "BOTTOMLEFT", 0, -2)
+	zoneFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	zoneFs:SetPoint("TOPLEFT", activeFs, "BOTTOMLEFT", 0, -2 * s)
 	zoneFs:SetJustifyH("LEFT")
 
 	local metaFs = host:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	metaFs:SetPoint("TOPLEFT", zoneFs, "BOTTOMLEFT", 0, -2)
+	metaFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	metaFs:SetPoint("TOPLEFT", zoneFs, "BOTTOMLEFT", 0, -2 * s)
 	metaFs:SetJustifyH("LEFT")
 
 	local routeBtn = CreateFrame("Button", nil, host, "UIPanelButtonTemplate")
-	routeBtn:SetHeight(28)
-	routeBtn:SetPoint("TOPLEFT", metaFs, "BOTTOMLEFT", 0, -6)
+	routeBtn:SetHeight(28 * s)
+	routeBtn:SetPoint("TOPLEFT", metaFs, "BOTTOMLEFT", 0, -6 * s)
 	routeBtn:SetPoint("TOPRIGHT", host, "TOPRIGHT", 0, 0)
 	routeBtn:SetScript("OnClick", function()
 		ns.RouteToActiveWorldBoss()
@@ -579,6 +586,7 @@ function ns.MH_RefreshWorldBossDelvesBlock(parent)
 	if not host or not ref then
 		return 0
 	end
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 
 	local boss, fromClient, source = ns.GetActiveWorldBoss()
 	if not boss then
@@ -611,8 +619,10 @@ function ns.MH_RefreshWorldBossDelvesBlock(parent)
 		end
 		ref.line:SetTextColor(0.45, 0.92, 0.55)
 
-		host:SetHeight(18)
-		return 18
+		-- Hoogte volgt de tekstschaal (zelfde stap als de teruggegeven blokhoogte).
+		ref.line:SetHeight(16 * s)
+		host:SetHeight(18 * s)
+		return 18 * s
 	end
 
 	ref.line:Hide()
@@ -670,8 +680,10 @@ function ns.MH_RefreshWorldBossDelvesBlock(parent)
 		ref.routeBtn:SetText(ns:L("WB_ROUTE_BTN_DISABLED"))
 	end
 
-	host:SetHeight(108)
-	return 108
+	-- Blokhoogte schaalt mee met de tekst (zelfde factor als de gestapelde
+	-- font-strings + knop), zodat het volgende blok niet overlapt.
+	host:SetHeight(108 * s)
+	return 108 * s
 end
 
 function ns.MH_LayoutWorldBossDelves(delvesFrame, vaultToggleBar)

@@ -252,10 +252,12 @@ function ns.BuildGearEnchantPanel(panel)
 	end
 
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", 14, -12)
 	title:SetText(ns:L("TAB_ENCHANTS"))
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
 	subtitle:SetPoint("RIGHT", panel, "RIGHT", -14, 0)
 	subtitle:SetJustifyH("LEFT")
@@ -266,6 +268,7 @@ function ns.BuildGearEnchantPanel(panel)
 	-- Kopieerbalk onderaan (consumables-patroon): klik een suggestie → naam hier,
 	-- voorgeselecteerd voor Ctrl+C (AH-zoekopdracht).
 	local copyLabel = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	copyLabel:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	copyLabel:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 14, 16)
 	copyLabel:SetJustifyH("LEFT")
 	copyLabel:SetText(ns:L("ENCHANT_COPY_LABEL"))
@@ -286,7 +289,7 @@ function ns.BuildGearEnchantPanel(panel)
 	-- Read-only EditBox → klikbare/hoverbare enchant-links.
 	local body = CreateFrame("EditBox", nil, panel)
 	body:SetMultiLine(true)
-	body:SetFontObject("GameFontHighlightSmall")
+	body:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	body:SetJustifyH("LEFT")
 	body:SetAutoFocus(false)
 	body:EnableMouse(true)

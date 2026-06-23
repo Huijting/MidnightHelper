@@ -103,10 +103,12 @@ function ns.BuildCurrencyGuidePanel(panel)
 	end
 
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", 14, -12)
 	title:SetText(ns:L("TAB_CURRENCY"))
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
 	subtitle:SetPoint("RIGHT", panel, "RIGHT", -14, 0)
 	subtitle:SetJustifyH("LEFT")
@@ -116,6 +118,7 @@ function ns.BuildCurrencyGuidePanel(panel)
 
 	-- Onderaan: waypoint-knoppen per Renown Quartermaster.
 	local qmLabel = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	qmLabel:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	qmLabel:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 14, 16)
 	qmLabel:SetJustifyH("LEFT")
 	qmLabel:SetText(ns:L("CURRENCY_QM_LABEL"))
@@ -150,7 +153,7 @@ function ns.BuildCurrencyGuidePanel(panel)
 	-- Read-only EditBox → klikbare/hoverbare currency-links.
 	local body = CreateFrame("EditBox", nil, scroll)
 	body:SetMultiLine(true)
-	body:SetFontObject("GameFontHighlightSmall")
+	body:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	body:SetJustifyH("LEFT")
 	body:SetAutoFocus(false)
 	body:EnableMouse(true)

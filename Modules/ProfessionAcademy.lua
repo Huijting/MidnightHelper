@@ -495,6 +495,7 @@ function ns.BuildProfessionAcademyPanel(panel)
 	end
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", panel._header, "BOTTOMLEFT", 0, -6)
 	subtitle:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -SIDE_PAD, -6)
 	subtitle:SetJustifyH("LEFT")
@@ -503,6 +504,7 @@ function ns.BuildProfessionAcademyPanel(panel)
 	panel._subtitle = subtitle
 
 	local progressFs = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	progressFs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	progressFs:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -6)
 	progressFs:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -SIDE_PAD, -6)
 	progressFs:SetJustifyH("LEFT")
@@ -512,6 +514,7 @@ function ns.BuildProfessionAcademyPanel(panel)
 	-- Detected professions + class advice (multi-line; height drives the scroll
 	-- anchor below).
 	local profsFs = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	profsFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	profsFs:SetPoint("TOPLEFT", progressFs, "BOTTOMLEFT", 0, -6)
 	profsFs:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -SIDE_PAD, -6)
 	profsFs:SetJustifyH("LEFT")
@@ -540,12 +543,14 @@ function ns.BuildProfessionAcademyPanel(panel)
 		local row = { chapter = ch }
 
 		local titleFs = child:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+		titleFs:SetFontObject(ns.MHScalableFont("GameFontNormalLarge"))
 		titleFs:SetJustifyH("LEFT")
 		titleFs:SetWordWrap(true)
 		push(titleFs, (i == 1) and 0 or 18, 0)
 		row.titleFs = titleFs
 
 		local bodyFs = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		bodyFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 		bodyFs:SetJustifyH("LEFT")
 		bodyFs:SetWordWrap(true)
 		bodyFs:SetTextColor(COLOR_BODY[1], COLOR_BODY[2], COLOR_BODY[3])
@@ -568,6 +573,7 @@ function ns.BuildProfessionAcademyPanel(panel)
 		row.check = check
 
 		local taskFs = taskRow:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		taskFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 		taskFs:SetPoint("TOPLEFT", check, "TOPRIGHT", 4, -5)
 		taskFs:SetPoint("RIGHT", taskRow, "RIGHT", 0, 0)
 		taskFs:SetJustifyH("LEFT")

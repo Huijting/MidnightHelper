@@ -486,16 +486,20 @@ local function AcquireButton(index)
 end
 
 local function ApplyRowSpec(row, spec)
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local c = spec.color or COLOR_DIM
 	if spec.header then
-		row:SetHeight(HEADER_H)
-		row.fs:SetFontObject(GameFontNormal)
+		row.fs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	else
-		row:SetHeight(LINE_H)
-		row.fs:SetFontObject(GameFontHighlightSmall)
+		row.fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	end
 	row.fs:SetText(spec.text or "")
 	row.fs:SetTextColor(c[1], c[2], c[3])
+	-- Rijhoogte volgt de (geschaalde, mogelijk afgebroken) tekst; de vaste vloer
+	-- houdt de look bij 100% identiek aan voorheen.
+	local base = (spec.header and HEADER_H or LINE_H) * s
+	local textH = (row.fs.GetStringHeight and row.fs:GetStringHeight()) or 0
+	row:SetHeight(math.max(base, textH + 2))
 
 	row._mhClick = spec.onClick
 	if spec.onClick then
@@ -538,7 +542,9 @@ local function LayoutFullRow(row, spec, y)
 	row:ClearAllPoints()
 	local indent = spec.header and 0 or 0
 	row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
-	row:SetPoint("TOPRIGHT", ui.child, "TOPRIGHT", 0, -y)
+	-- Vaste breedte (geen TOPRIGHT-anker) zodat GetStringHeight in ApplyRowSpec
+	-- meteen de afgebroken hoogte kent.
+	row:SetWidth(math.max((ui.child:GetWidth() or 400) - indent, 1))
 	ApplyRowSpec(row, spec)
 end
 
@@ -567,7 +573,7 @@ local function LayoutColumnSpecs(specs, blockY, column, colWidth)
 			local row = AcquireRow(rowIndex)
 			LayoutColumnRow(row, spec, blockY, colY, column, colWidth)
 			row:Show()
-			colY = colY + RowStep(spec)
+			colY = colY + row:GetHeight()
 			rowIndex = rowIndex + 1
 		end
 	end
@@ -620,7 +626,7 @@ function ns.RefreshHomePanel()
 					local row = AcquireRow(rowIndex)
 					LayoutFullRow(row, spec, y)
 					row:Show()
-					y = y + RowStep(spec)
+					y = y + row:GetHeight()
 					rowIndex = rowIndex + 1
 				end
 			end
@@ -657,10 +663,12 @@ function ns.BuildHomePanel(panel)
 	end
 
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
 	title:SetText(ns:L("HOME_TITLE"))
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
 	subtitle:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	subtitle:SetJustifyH("LEFT")

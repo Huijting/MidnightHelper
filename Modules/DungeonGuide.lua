@@ -136,7 +136,17 @@ local function Relayout()
 				-- gezet terwijl de box verborgen was — Robs overlap-screen):
 				-- bij een hoogte-verandering volgt één nameting op het
 				-- volgende frame (convergeert, zie onderaan).
-				local lineH = (w.GetLineHeight and w:GetLineHeight()) or 14
+				-- Regelhoogte uit het ACTUELE font (schaalt mee met tekstgrootte).
+				-- Bij basisgrootte (12px) blijft dit 14 — geen regressie.
+				local lineH = 14
+				if w.GetFont then
+					local _, fontH = w:GetFont()
+					if fontH and fontH > 0 then
+						lineH = fontH + 2
+					end
+				elseif w.GetLineHeight then
+					lineH = w:GetLineHeight() or 14
+				end
 				local numLines = (w.GetNumLines and w:GetNumLines()) or 1
 				local h = math.max(numLines * lineH + 4, 14)
 				if w._mhLastH ~= h then
@@ -299,6 +309,9 @@ end
 
 local function MakeFS(parent, font, color)
 	local fs = parent:CreateFontString(nil, "OVERLAY", font)
+	if ns.MHScalableFont and type(font) == "string" then
+		fs:SetFontObject(ns.MHScalableFont(font))
+	end
 	fs:SetJustifyH("LEFT")
 	fs:SetWordWrap(true)
 	if color then
@@ -335,10 +348,12 @@ function ns.BuildDungeonGuidePanel(panel)
 	end
 
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
 	title:SetText(ns:L("DGN_TITLE"))
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
 	subtitle:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	subtitle:SetJustifyH("LEFT")
@@ -539,7 +554,7 @@ function ns.BuildDungeonGuidePanel(panel)
 				-- zelfde patroon als de Delve Coach (DelveTipMarkup).
 				local bossFs = CreateFrame("EditBox", nil, child)
 				bossFs:SetMultiLine(true)
-				bossFs:SetFontObject("GameFontHighlightSmall")
+				bossFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 				bossFs:SetJustifyH("LEFT")
 				bossFs:SetAutoFocus(false)
 				bossFs:EnableMouse(true)
@@ -714,7 +729,7 @@ function ns.BuildDungeonGuidePanel(panel)
 	for _, b in ipairs(ns.MPLUS_BARGAINS or {}) do
 		local box = CreateFrame("EditBox", nil, child)
 		box:SetMultiLine(true)
-		box:SetFontObject("GameFontHighlightSmall")
+		box:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 		box:SetJustifyH("LEFT")
 		box:SetAutoFocus(false)
 		box:EnableMouse(true)
@@ -775,7 +790,7 @@ function ns.BuildDungeonGuidePanel(panel)
 		if kickKey then
 			local box = CreateFrame("EditBox", nil, child)
 			box:SetMultiLine(true)
-			box:SetFontObject("GameFontHighlightSmall")
+			box:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 			box:SetJustifyH("LEFT")
 			box:SetAutoFocus(false)
 			box:EnableMouse(true)

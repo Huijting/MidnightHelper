@@ -1147,7 +1147,7 @@ local function EnsureRowButton(index)
 	btn:SetHeight(ROW_H)
 	local fs = btn.GetFontString and btn:GetFontString()
 	if fs and fs.SetFontObject then
-		fs:SetFontObject(GameFontHighlightSmall)
+		fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	end
 	btn:SetScript("OnClick", function(self)
 		if self._mhRare then
@@ -1176,6 +1176,11 @@ local function RefreshZoneRail(zoneKey)
 end
 
 local function LayoutRareRows(zone, innerW)
+	-- Content-tekstschaal: rij-hoogte + Y-stap schalen mee zodat grotere tekst
+	-- de twee kolommen niet laat overlappen. Bij schaal 1.0 identiek aan voorheen.
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+	local rowH = ROW_H * s
+	local rowStep = rowH + ROW_GAP
 	local total = zone and #zone.rares or 0
 	local colW = math.max(120, math.floor((innerW - LIST_COL_GAP) / 2))
 	local rowsPerCol = math.ceil(math.max(total, 1) / 2)
@@ -1188,15 +1193,16 @@ local function LayoutRareRows(zone, innerW)
 		btn._mhZoneKey = zone.key
 		btn:SetText(FormatRareRowLabel(rare, zone.key))
 		btn:SetWidth(colW)
+		btn:SetHeight(rowH)
 		btn:ClearAllPoints()
 
 		local col = (i <= rowsPerCol) and 0 or 1
 		local rowInCol = (col == 0) and i or (i - rowsPerCol)
 		local xOff = col * (colW + LIST_COL_GAP)
-		local y = (rowInCol - 1) * (ROW_H + ROW_GAP)
+		local y = (rowInCol - 1) * rowStep
 		btn:SetPoint("TOPLEFT", listHost, "TOPLEFT", xOff, -y)
 		btn:Show()
-		maxY = math.max(maxY, y + ROW_H)
+		maxY = math.max(maxY, y + rowH)
 	end
 
 	for i = total + 1, #rowBtns do
@@ -1271,10 +1277,12 @@ function ns.BuildRaresPanel(panel)
 	frame:SetAllPoints(panel)
 
 	titleFs = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	titleFs:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	titleFs:SetPoint("TOPLEFT", frame, "TOPLEFT", 14, -12)
 	titleFs:SetText(ns:L("RARES_TITLE"))
 
 	subtitleFs = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitleFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitleFs:SetPoint("TOPLEFT", titleFs, "BOTTOMLEFT", 0, -4)
 	subtitleFs:SetPoint("RIGHT", frame, "RIGHT", -16, 0)
 	subtitleFs:SetJustifyH("LEFT")

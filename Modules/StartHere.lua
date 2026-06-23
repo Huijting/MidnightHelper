@@ -162,6 +162,9 @@ end
 
 local function MakeFS(parent, font, color)
 	local fs = parent:CreateFontString(nil, "OVERLAY", font)
+	if ns.MHScalableFont and type(font) == "string" then
+		fs:SetFontObject(ns.MHScalableFont(font))
+	end
 	fs:SetJustifyH("LEFT")
 	fs:SetWordWrap(true)
 	if color then

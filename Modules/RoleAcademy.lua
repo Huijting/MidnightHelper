@@ -153,6 +153,10 @@ local function RefreshClassLine(panel)
 end
 
 local function RebuildPreflightChecks(panel)
+	-- Content font scale: the per-row floor scales so checked rows don't crowd;
+	-- actual row height also follows the (scaled) label's GetStringHeight.
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+	local prefRowMin = PREFLIGHT_ROW_MIN * s
 	local track = GetTrack()
 	local keys = PREFLIGHT_KEYS[track] or {}
 	local labels = PREFLIGHT_LABEL_KEYS[track] or {}
@@ -186,8 +190,11 @@ local function RebuildPreflightChecks(panel)
 		chk:SetChecked(GetPreflightChecked(track, key))
 		local labelKey = labels[key]
 		local txt = chk.text or _G[chk:GetName() .. "Text"]
-		local rowH = PREFLIGHT_ROW_MIN
+		local rowH = prefRowMin
 		if txt and txt.SetText and labelKey then
+			if txt.SetFontObject then
+				txt:SetFontObject(ns.MHScalableFont("GameFontHighlight"))
+			end
 			if txt.SetWidth then
 				txt:SetWidth(labelW)
 			end
@@ -199,7 +206,7 @@ local function RebuildPreflightChecks(panel)
 				txt:SetTextColor(0.95, 0.9, 0.74)
 			end
 			if txt.GetStringHeight then
-				rowH = math.max(PREFLIGHT_ROW_MIN, math.ceil(txt:GetStringHeight() or 14) + 8)
+				rowH = math.max(prefRowMin, math.ceil(txt:GetStringHeight() or 14) + 8)
 			end
 		end
 		y = y - rowH
@@ -256,7 +263,7 @@ local function StyleChatEditBox(eb)
 	end
 	eb._mhChatStyled = true
 	eb:SetAutoFocus(false)
-	eb:SetFontObject("GameFontHighlightSmall")
+	eb:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	eb:SetTextInsets(6, 6, 3, 3)
 	eb:EnableMouse(true)
 	eb:SetTextColor(0.92, 0.9, 0.82)
@@ -357,6 +364,13 @@ local function RebuildScrollContent(panel)
 		end
 	end
 
+	-- Content font scale: chat-line rows are fixed-height cells, so scale the row
+	-- height, edit-box height, copy button AND the Y-advance together. Section
+	-- bodies already grow via GetStringHeight, so they need no constant scaling.
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+	local chatRowH = CHAT_ROW_H * s
+	local chatCopyBtn = CHAT_COPY_BTN * s
+
 	local track = GetTrack()
 	local sections = SECTION_KEYS[track] or SECTION_KEYS.tank
 	local y = -4
@@ -365,6 +379,7 @@ local function RebuildScrollContent(panel)
 	for i = 1, #sections do
 		local titleKey, bodyKey = sections[i][1], sections[i][2]
 		local titleFs = child:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		titleFs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 		titleFs:SetPoint("TOPLEFT", child, "TOPLEFT", 4, y)
 		titleFs:SetWidth(cw)
 		titleFs:SetJustifyH("LEFT")
@@ -379,6 +394,7 @@ local function RebuildScrollContent(panel)
 
 		if IsChatBodyKey(bodyKey) then
 			local hintFs = child:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+			hintFs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 			hintFs:SetPoint("TOPLEFT", child, "TOPLEFT", 4, y)
 			hintFs:SetWidth(cw)
 			hintFs:SetJustifyH("LEFT")
@@ -396,10 +412,14 @@ local function RebuildScrollContent(panel)
 				local row = AcquireChatRow(panel, child, j)
 				row:ClearAllPoints()
 				row:SetPoint("TOPLEFT", child, "TOPLEFT", 4, y)
-				row:SetSize(cw, CHAT_ROW_H)
-				row._eb:SetWidth(cw - CHAT_COPY_BTN - 6)
+				row:SetSize(cw, chatRowH)
+				row._eb:SetHeight(chatRowH)
+				if row._copyBtn then
+					row._copyBtn:SetSize(chatCopyBtn, chatCopyBtn)
+				end
+				row._eb:SetWidth(cw - chatCopyBtn - 6)
 				row._eb:SetText(ChatLineForCopy(lines[j]))
-				y = y - CHAT_ROW_H - CHAT_ROW_GAP
+				y = y - chatRowH - CHAT_ROW_GAP
 			end
 			for j = #lines + 1, #(panel._academyChatRows or {}) do
 				panel._academyChatRows[j]:Hide()
@@ -407,6 +427,7 @@ local function RebuildScrollContent(panel)
 			y = y - 10
 		else
 			local bodyFs = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+			bodyFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 			bodyFs:SetPoint("TOPLEFT", child, "TOPLEFT", 4, y)
 			bodyFs:SetWidth(cw)
 			bodyFs:SetJustifyH("LEFT")
@@ -469,6 +490,7 @@ function ns.BuildRoleAcademyPanel(panel)
 	end
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", panel._header, "BOTTOMLEFT", 0, -6)
 	subtitle:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -6)
 	subtitle:SetJustifyH("LEFT")
@@ -501,6 +523,7 @@ function ns.BuildRoleAcademyPanel(panel)
 	panel._btnHeal = btnHeal
 
 	local classLine = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	classLine:SetFontObject(ns.MHScalableFont("GameFontHighlight"))
 	classLine:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", 0, -4)
 	classLine:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -4)
 	classLine:SetJustifyH("LEFT")
@@ -526,11 +549,13 @@ function ns.BuildRoleAcademyPanel(panel)
 	panel._preflightBox = preflightBox
 
 	local preflightTitle = preflightBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	preflightTitle:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	preflightTitle:SetPoint("TOPLEFT", preflightBox, "TOPLEFT", 8, -6)
 	preflightTitle:SetTextColor(1, 0.88, 0.45)
 	panel._preflightTitle = preflightTitle
 
 	local preflightHint = preflightBox:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	preflightHint:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	preflightHint:SetJustifyH("LEFT")
 	preflightHint:SetWordWrap(true)
 	panel._preflightHint = preflightHint

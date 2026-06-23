@@ -186,6 +186,7 @@ function ns.BuildConsumablesPanel(panel)
 	panel._mhConsSpecPickBtn = specBtn
 
 	local hintFs = toolbar:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	hintFs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	hintFs:SetPoint("LEFT", specBtn, "RIGHT", 8, 0)
 	hintFs:SetPoint("RIGHT", toolbar, "RIGHT", 0, 0)
 	hintFs:SetJustifyH("LEFT")
@@ -193,6 +194,7 @@ function ns.BuildConsumablesPanel(panel)
 	hintFs:SetTextColor(0.62, 0.60, 0.55)
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", toolbar, "BOTTOMLEFT", 0, -6)
 	subtitle:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -6)
 	subtitle:SetJustifyH("LEFT")
@@ -203,6 +205,7 @@ function ns.BuildConsumablesPanel(panel)
 	panel._mhConsSubtitle = subtitle
 
 	local specLine = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	specLine:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	specLine:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -6)
 	specLine:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -6)
 	specLine:SetJustifyH("LEFT")
@@ -212,6 +215,7 @@ function ns.BuildConsumablesPanel(panel)
 	-- Copy bar: clicking an item row drops its name here, pre-selected for
 	-- Ctrl+C (handy for Auction House searches). Clicks cycle best → alts.
 	local copyLabel = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	copyLabel:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	copyLabel:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 12, 16)
 	copyLabel:SetJustifyH("LEFT")
 	copyLabel:SetText(ns:L("CONS_COPY_HINT"))

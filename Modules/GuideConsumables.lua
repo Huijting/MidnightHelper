@@ -173,12 +173,17 @@ function ns.MH_BuildConsumablesIntoHost(host, classToken, specIdx, fullW)
 	ClearFrameChildren(host)
 	host._mhItemRows = {}
 
+	-- Content font scale: row heights and Y-advances scale together so taller
+	-- (scaled) text never overlaps the next row. ×1.0 = original layout.
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+
 	local specData = ns.MH_GetConsumablesWowheadForSpec(classToken, specIdx)
 	local textW = math.max(200, (fullW or 400) - TYPE_COL_W - ICON_SIZE - 24)
 	host:SetWidth(textW + TYPE_COL_W + ICON_SIZE + 16)
 
 	if not specData then
 		local empty = host:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		empty:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 		empty:SetPoint("TOPLEFT", host, "TOPLEFT", 8, -4)
 		empty:SetWidth(textW + TYPE_COL_W)
 		empty:SetJustifyH("LEFT")
@@ -192,12 +197,12 @@ function ns.MH_BuildConsumablesIntoHost(host, classToken, specIdx, fullW)
 	local totalH = 8
 
 	local function addRow(label, bestIds, altIds, note)
-		local rowH = ROW_BASE
+		local rowH = ROW_BASE * s
 		if altIds and #altIds > 0 then
-			rowH = rowH + ROW_ALT_EXTRA
+			rowH = rowH + ROW_ALT_EXTRA * s
 		end
 		if note and note ~= "" then
-			rowH = rowH + ROW_NOTE_EXTRA
+			rowH = rowH + ROW_NOTE_EXTRA * s
 		end
 
 		local row = CreateFrame("Frame", nil, host)
@@ -205,6 +210,7 @@ function ns.MH_BuildConsumablesIntoHost(host, classToken, specIdx, fullW)
 		row:SetPoint("TOPLEFT", host, "TOPLEFT", 4, contentY)
 
 		local typeFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		typeFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 		typeFs:SetPoint("TOPLEFT", row, "TOPLEFT", 0, -4)
 		typeFs:SetWidth(TYPE_COL_W)
 		typeFs:SetJustifyH("LEFT")
@@ -220,6 +226,7 @@ function ns.MH_BuildConsumablesIntoHost(host, classToken, specIdx, fullW)
 		end
 
 		local bestFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		bestFs:SetFontObject(ns.MHScalableFont("GameFontHighlight"))
 		bestFs:SetPoint("TOPLEFT", icon, "TOPRIGHT", ICON_PAD, -2)
 		bestFs:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, 0)
 		bestFs:SetJustifyH("LEFT")
@@ -237,6 +244,7 @@ function ns.MH_BuildConsumablesIntoHost(host, classToken, specIdx, fullW)
 		local anchor = bestFs
 		if altIds and #altIds > 0 then
 			local altFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+			altFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 			altFs:SetPoint("TOPLEFT", bestFs, "BOTTOMLEFT", 0, -2)
 			altFs:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, 0)
 			altFs:SetJustifyH("LEFT")
@@ -251,6 +259,7 @@ function ns.MH_BuildConsumablesIntoHost(host, classToken, specIdx, fullW)
 
 		if note and note ~= "" then
 			local noteFs = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+			noteFs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 			noteFs:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -2)
 			noteFs:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, 0)
 			noteFs:SetJustifyH("LEFT")

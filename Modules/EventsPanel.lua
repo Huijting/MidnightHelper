@@ -56,6 +56,7 @@ local function Relayout()
 	if not width or width <= 0 then
 		return
 	end
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local y = 4
 	for _, el in ipairs(ui.order) do
 		local w = el.w
@@ -66,7 +67,9 @@ local function Relayout()
 			w:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
 			w:SetWidth(math.max(width - indent, 1))
 			if el.line then
-				y = y + EVENT_LINE_H
+				-- Houd hoogte en Y-stap synchroon met de tekstschaal.
+				w:SetHeight(EVENT_LINE_H * s)
+				y = y + EVENT_LINE_H * s
 			else
 				y = y + math.max(w:GetStringHeight() or 0, 1)
 			end
@@ -78,6 +81,9 @@ end
 --------------------------------------------------------------------- Helpers
 local function MakeFS(parent, font, color)
 	local fs = parent:CreateFontString(nil, "OVERLAY", font)
+	if ns.MHScalableFont and type(font) == "string" then
+		fs:SetFontObject(ns.MHScalableFont(font))
+	end
 	fs:SetJustifyH("LEFT")
 	fs:SetWordWrap(true)
 	if color then
@@ -87,9 +93,11 @@ local function MakeFS(parent, font, color)
 end
 
 local function MakeEventLine(parent)
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local btn = CreateFrame("Button", nil, parent)
-	btn:SetHeight(EVENT_LINE_H)
+	btn:SetHeight(EVENT_LINE_H * s)
 	local label = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	label:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	label:SetJustifyH("LEFT")
 	label:SetWordWrap(false)
 	label:SetPoint("LEFT", btn, "LEFT", 0, 0)
@@ -284,10 +292,12 @@ function ns.BuildEventsPanel(panel)
 	end
 
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
 	title:SetText(ns:L("TAB_EVENTS"))
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
 	subtitle:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	subtitle:SetJustifyH("LEFT")

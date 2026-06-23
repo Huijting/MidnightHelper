@@ -32,6 +32,20 @@ local ROW_ACTION_GAP = 4
 local ROW_H = 17
 local HEADER_ROW_H = 17
 
+-- Geschaalde rijhoogtes: groeien mee met de content-tekstschaal zodat grotere
+-- letters niet over elkaar vallen. Bij schaal 1.0 leveren ze exact ROW_H /
+-- HEADER_ROW_H op (×1.0 verandert niets). Rij-hoogte EN Y-stap gebruiken
+-- dezelfde functie, dus ze blijven gesynchroniseerd.
+local function ContentScale()
+	return (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+end
+local function RowH()
+	return ROW_H * ContentScale()
+end
+local function HeaderRowH()
+	return HEADER_ROW_H * ContentScale()
+end
+
 local accountPanelMounted = false
 local ui = {}
 
@@ -868,14 +882,17 @@ end
 
 local function MakeDataRow(parent, idx)
 	local row = CreateFrame("Frame", nil, parent)
-	row:SetHeight(ROW_H)
-	row:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -(HEADER_ROW_H + (idx - 1) * ROW_H))
+	local rowH = RowH()
+	row:SetHeight(rowH)
+	row:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -(HeaderRowH() + (idx - 1) * rowH))
 	row.bg = row:CreateTexture(nil, "BACKGROUND", nil, -3)
 	row.bg:SetAllPoints()
 
 	row.nameFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	row.nameFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	LayoutNameCell(row.nameFs, row)
 	row.vaultFs = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	row.vaultFs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	row.vaultFs:SetWidth(COL_W_VAULT)
 	row.vaultFs:SetJustifyH("RIGHT")
 	row.vaultFs:SetPoint("RIGHT", row, "RIGHT", -(TotalNumericBlockWidth() + 4 + RowActionOffset()), 0)
@@ -917,11 +934,14 @@ local function MakeDataRow(parent, idx)
 	end
 
 	row.keysFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	row.keysFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	row.shardsFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	row.shardsFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	row.underFs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	row.underFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	AnchorThreeNumericCells(row.keysFs, row.shardsFs, row.underFs, row)
 	row.deleteBtn = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
-	row.deleteBtn:SetSize(ROW_ACTION_W, ROW_H - 2)
+	row.deleteBtn:SetSize(ROW_ACTION_W, rowH - 2)
 	row.deleteBtn:SetPoint("RIGHT", row, "RIGHT", -2, 0)
 	row.deleteBtn:SetText("x")
 	row.deleteBtn:SetAlpha(0.9)
@@ -931,32 +951,37 @@ end
 
 local function MakeHeaderRow(parent)
 	local row = CreateFrame("Frame", nil, parent)
-	row:SetHeight(HEADER_ROW_H)
+	local headerH = HeaderRowH()
+	row:SetHeight(headerH)
 	row:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
 
 	row.charH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	row.charH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	LayoutNameCell(row.charH, row)
 	row.charH:SetJustifyH("LEFT")
 
 	row.keysH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	row.keysH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	row.shardsH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	row.shardsH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	row.underH = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	row.underH:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	AnchorThreeNumericCells(row.keysH, row.shardsH, row.underH, row)
 
 	row.shardsHit = CreateFrame("Button", nil, row)
-	row.shardsHit:SetSize(GetColWShards() + 12, HEADER_ROW_H)
+	row.shardsHit:SetSize(GetColWShards() + 12, headerH)
 	row.shardsHit:SetPoint("CENTER", row.shardsH, "CENTER")
 	row.shardsHit:SetAlpha(0.001)
 	row.shardsHit:EnableMouse(true)
 
 	row.keysHit = CreateFrame("Button", nil, row)
-	row.keysHit:SetSize(COL_W_KEYS + 12, HEADER_ROW_H)
+	row.keysHit:SetSize(COL_W_KEYS + 12, headerH)
 	row.keysHit:SetPoint("CENTER", row.keysH, "CENTER")
 	row.keysHit:SetAlpha(0.001)
 	row.keysHit:EnableMouse(true)
 
 	row.underHit = CreateFrame("Button", nil, row)
-	row.underHit:SetSize(COL_W_UNDER + 12, HEADER_ROW_H)
+	row.underHit:SetSize(COL_W_UNDER + 12, headerH)
 	row.underHit:SetPoint("CENTER", row.underH, "CENTER")
 	row.underHit:SetAlpha(0.001)
 	row.underHit:EnableMouse(true)
@@ -1143,7 +1168,7 @@ function ns:_mhAltOverviewRefreshRows()
 	if #entries == 0 then
 		if ui.emptyHint then
 			ui.emptyHint:ClearAllPoints()
-			ui.emptyHint:SetPoint("TOPLEFT", content, "TOPLEFT", 4, -HEADER_ROW_H - 2)
+			ui.emptyHint:SetPoint("TOPLEFT", content, "TOPLEFT", 4, -HeaderRowH() - 2)
 			ui.emptyHint:SetWidth(cw - 8)
 			if #allEntries > 0 then
 				if AccountSnapshotAnyTableFilterActive() then
@@ -1159,7 +1184,7 @@ function ns:_mhAltOverviewRefreshRows()
 		if ui.headerRow then
 			ui.headerRow:Hide()
 		end
-		content:SetHeight(math.max(HEADER_ROW_H + ROW_H, 28))
+		content:SetHeight(math.max(HeaderRowH() + RowH(), 28))
 		if scroll.UpdateScrollChildRect then
 			scroll:UpdateScrollChildRect()
 		end
@@ -1171,6 +1196,9 @@ function ns:_mhAltOverviewRefreshRows()
 		ui.emptyHint:Hide()
 	end
 	if ui.headerRow then
+		-- Header-hoogte mee laten schalen met de tekstgrootte, zodat de eerste
+		-- datarij (die op HeaderRowH() begint) er niet overheen valt.
+		ui.headerRow:SetHeight(HeaderRowH())
 		ui.headerRow:Show()
 	end
 
@@ -1190,7 +1218,10 @@ function ns:_mhAltOverviewRefreshRows()
 			ui.dataRows[i] = row
 		end
 		row:SetWidth(cw)
-		row:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -(HEADER_ROW_H + (i - 1) * ROW_H))
+		-- Hoogte opnieuw zetten zodat een gewijzigde tekstschaal de gecachete rij
+		-- mee laat groeien en in sync blijft met de Y-stap hieronder.
+		row:SetHeight(RowH())
+		row:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -(HeaderRowH() + (i - 1) * RowH()))
 		row:Show()
 		if row.bg and row.bg.SetColorTexture then
 			if (i % 2) == 1 then
@@ -1547,7 +1578,7 @@ function ns:_mhAltOverviewRefreshRows()
 		ui.dataRows[j]:Hide()
 	end
 
-	local bodyH = HEADER_ROW_H + #entries * ROW_H + 6
+	local bodyH = HeaderRowH() + #entries * RowH() + 6
 	content:SetHeight(math.max(bodyH, 24))
 	if scroll.UpdateScrollChildRect then
 		scroll:UpdateScrollChildRect()
@@ -1642,11 +1673,13 @@ local function BuildAccountSnapshotHost(host)
 	ui.host = host
 
 	ui.pageTitle = host:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	ui.pageTitle:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	ui.pageTitle:SetPoint("TOPLEFT", host, "TOPLEFT", 10, -10)
 	ui.pageTitle:SetPoint("TOPRIGHT", host, "TOPRIGHT", -10, -10)
 	ui.pageTitle:SetJustifyH("LEFT")
 
 	ui.hint = host:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	ui.hint:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	ui.hint:SetPoint("TOPLEFT", ui.pageTitle, "BOTTOMLEFT", 0, -6)
 	ui.hint:SetPoint("TOPRIGHT", ui.pageTitle, "BOTTOMRIGHT", 0, -6)
 	ui.hint:SetJustifyH("LEFT")
@@ -1725,6 +1758,7 @@ local function BuildAccountSnapshotHost(host)
 
 	ui.headerRow = MakeHeaderRow(content)
 	ui.emptyHint = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	ui.emptyHint:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	ui.emptyHint:SetJustifyH("LEFT")
 	ui.emptyHint:Hide()
 

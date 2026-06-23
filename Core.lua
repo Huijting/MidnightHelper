@@ -39,6 +39,8 @@ local DEFAULT_DB = {
 		openOnLogin = false,
 		debug = false,
 		scale = 1.0,
+		--- Content text scale (independent of window scale). See ns.ApplyContentFontScale.
+		fontScale = 1.0,
 		--- Legacy (ignored): alt snapshot lived in Delves; now a dedicated `account` tab.
 		altOverviewExpanded = false,
 		--- Delves tab accordion: `"midnight"` | `"vault"`.
@@ -211,6 +213,64 @@ function ns:InitSavedVariables()
 end
 
 --------------------------------------------------------------------------------
+-- Content font scaling (independent of window scale)
+--   Modules render text with Blizzard font objects (GameFontHighlightSmall…).
+--   ns.MHScalableFont(name) returns a per-name MH *copy* of that font object;
+--   ns.ApplyContentFontScale() resizes every copy live, so any panel that routes
+--   its SetFontObject calls through it scales on the fly — no panel rebuild.
+--   Window chrome that keeps the raw Blizzard fonts is untouched: that is the
+--   decoupling Rob asked for (window stays put, text scales).
+--------------------------------------------------------------------------------
+ns._mhFonts = ns._mhFonts or {}        -- blizzName -> CreateFont() object
+ns._mhFontBase = ns._mhFontBase or {}  -- blizzName -> { path, size, flags }
+
+function ns.MHScalableFont(name)
+	if type(name) ~= "string" then
+		return name -- already a font object (or nil): leave as-is
+	end
+	local existing = ns._mhFonts[name]
+	if existing then
+		return existing
+	end
+	local base = _G[name]
+	if type(base) ~= "table" or type(base.GetFont) ~= "function" then
+		return name
+	end
+	local path, size, flags = base:GetFont()
+	if not path or not size then
+		return name -- font not ready yet: fall back to the raw object name
+	end
+	local fo = CreateFont("MidnightHelperSF_" .. name)
+	fo:CopyFontObject(base)
+	ns._mhFonts[name] = fo
+	ns._mhFontBase[name] = { path = path, size = size, flags = flags }
+	local scale = (ns.db and ns.db.ui and ns.db.ui.fontScale) or 1
+	if scale ~= 1 then
+		fo:SetFont(path, math.max(6, size * scale), flags)
+	end
+	return fo
+end
+
+--- Resize every MH scalable font in place. Pass a number to also persist it.
+function ns.ApplyContentFontScale(scale)
+	if type(scale) == "number" and ns.db and ns.db.ui then
+		ns.db.ui.fontScale = scale
+	end
+	local s = (ns.db and ns.db.ui and ns.db.ui.fontScale) or 1
+	for name, fo in pairs(ns._mhFonts) do
+		local b = ns._mhFontBase[name]
+		if b and b.path and b.size then
+			fo:SetFont(b.path, math.max(6, b.size * s), b.flags)
+		end
+	end
+	return s
+end
+
+function ns.GetContentFontScale()
+	return (ns.db and ns.db.ui and ns.db.ui.fontScale) or 1
+end
+
+--------------------------------------------------------------------------------
 -- Central event dispatcher
 --------------------------------------------------------------------------------
 function ns:OnEvent(event, ...)
@@ -221,6 +281,9 @@ function ns:OnEvent(event, ...)
 		end
 
 		self:InitSavedVariables()
+		if ns.ApplyContentFontScale then
+			ns.ApplyContentFontScale()
+		end
 		if self.MigrateLocalePreference then
 			self:MigrateLocalePreference()
 		end

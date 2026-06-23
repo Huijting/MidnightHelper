@@ -357,6 +357,9 @@ end
 
 local function MakeFS(parent, font, color)
 	local fs = parent:CreateFontString(nil, "OVERLAY", font)
+	if ns.MHScalableFont and type(font) == "string" then
+		fs:SetFontObject(ns.MHScalableFont(font))
+	end
 	fs:SetJustifyH("LEFT")
 	fs:SetWordWrap(true)
 	if color then
@@ -393,10 +396,12 @@ function ns.BuildWorldPanel(panel)
 	end
 
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
 	title:SetText(ns:L("TAB_WORLD"))
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
 	subtitle:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	subtitle:SetJustifyH("LEFT")

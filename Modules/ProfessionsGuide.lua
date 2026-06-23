@@ -650,6 +650,7 @@ local function CreateIntroSection(parent)
 
 
 	local text = body:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	text:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	text:SetPoint("TOPLEFT", body, "TOPLEFT", 4, -BODY_PAD)
 	text:SetPoint("RIGHT", body, "RIGHT", -4, 0)
 	text:SetJustifyH("LEFT")
@@ -769,6 +770,7 @@ local function CreateDetailSection(parent)
 	end
 
 	local text = body:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	text:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	text:SetPoint("TOPLEFT", body, "TOPLEFT", 4, -BODY_PAD)
 	text:SetPoint("RIGHT", body, "RIGHT", -4, 0)
 	text:SetJustifyH("LEFT")

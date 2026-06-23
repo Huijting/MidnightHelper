@@ -266,6 +266,7 @@ function ns.RefreshDawncrestGuide()
 		summary:SetText(ns:L("DAWNCREST_GUIDE_SUMMARY"))
 	end
 
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local tiers = ns.DAWNCREST_TIERS
 	if expanded and type(tiers) == "table" then
 		for i = 1, #tiers do
@@ -283,22 +284,29 @@ function ns.RefreshDawncrestGuide()
 				BindCrestIconTooltip(row.iconBtn, tier.currencyId)
 				local rowFrame = row.row
 				if row.ach and rowFrame and rowFrame.SetHeight then
+					-- Rijhoogtes schalen mee met de tekst (matcht build-layout);
+					-- crestBlock-hoogte hieronder leest GetHeight() terug, dus blijft synchroon.
 					if IsAchievementComplete(tier.achievementId) then
 						row.ach:SetText(ns:L("DAWNCREST_ACH_DONE_FMT"):format(ns:L(tier.achLabelKey)))
 						row.ach:Show()
-						rowFrame:SetHeight(ROW_H + 14)
+						rowFrame:SetHeight((ROW_H + 14) * s)
 					else
 						row.ach:Hide()
-						rowFrame:SetHeight(ROW_H)
+						rowFrame:SetHeight(ROW_H * s)
 					end
 				end
 			end
 		end
 		if embeddedPanel._body and embeddedPanel._body._crestBlock then
+			-- Her-anker elke rij op de geschaalde Y zodat een live tekstschaal-wissel
+			-- (geen rebuild) de rijen niet laat overlappen; cy blijft de blokhoogte.
 			local cy = 0
 			for i = 1, #tiers do
 				local rowFrame = crestRows[i] and crestRows[i].row
 				if rowFrame then
+					rowFrame:ClearAllPoints()
+					rowFrame:SetPoint("TOPLEFT", embeddedPanel._body._crestBlock, "TOPLEFT", 0, -cy)
+					rowFrame:SetPoint("RIGHT", embeddedPanel._body._crestBlock, "RIGHT", 0, 0)
 					cy = cy + rowFrame:GetHeight() + 4
 				end
 			end
@@ -348,6 +356,7 @@ function ns.EnsureDawncrestGuidePanel(parent)
 	panel._collapseBtn = collapseBtn
 
 	local titleFs = titleRow:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	titleFs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	titleFs:SetPoint("LEFT", collapseBtn, "RIGHT", 2, 0)
 	titleFs:SetPoint("RIGHT", titleRow, "RIGHT", -2, 0)
 	titleFs:SetJustifyH("LEFT")
@@ -362,6 +371,7 @@ function ns.EnsureDawncrestGuidePanel(parent)
 	panel._body = body
 
 	local summary = body:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	summary:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	summary:SetPoint("TOPLEFT", body, "TOPLEFT", 4, -BODY_PAD)
 	summary:SetPoint("RIGHT", body, "RIGHT", -4, 0)
 	summary:SetJustifyH("LEFT")
@@ -373,31 +383,35 @@ function ns.EnsureDawncrestGuidePanel(parent)
 	crestBlock:SetPoint("RIGHT", body, "RIGHT", 0, 0)
 	body._crestBlock = crestBlock
 
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local tiers = ns.DAWNCREST_TIERS or {}
 	local cy = 0
 	for i = 1, #tiers do
 		local row = CreateFrame("Frame", nil, crestBlock)
-		row:SetHeight(ROW_H)
+		row:SetHeight(ROW_H * s)
 		row:SetPoint("TOPLEFT", crestBlock, "TOPLEFT", 0, -cy)
 		row:SetPoint("RIGHT", crestBlock, "RIGHT", 0, 0)
 
 		local iconBtn = CreateFrame("Button", nil, row)
-		iconBtn:SetSize(ICON, ICON)
+		iconBtn:SetSize(ICON * s, ICON * s)
 		iconBtn:SetPoint("LEFT", row, "LEFT", 0, 0)
 		local icon = iconBtn:CreateTexture(nil, "ARTWORK")
 		icon:SetAllPoints(iconBtn)
 
 		local label = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		label:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 		label:SetPoint("LEFT", iconBtn, "RIGHT", 4, 0)
 		label:SetPoint("RIGHT", row, "RIGHT", -72, 0)
 		label:SetJustifyH("LEFT")
 
 		local count = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		count:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 		count:SetPoint("RIGHT", row, "RIGHT", 0, 0)
 		count:SetJustifyH("RIGHT")
 
 		local achFs = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-		achFs:SetPoint("TOPLEFT", row, "BOTTOMLEFT", ICON + 4, -1)
+		achFs:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
+		achFs:SetPoint("TOPLEFT", row, "BOTTOMLEFT", (ICON * s) + 4, -1)
 		achFs:SetPoint("RIGHT", row, "RIGHT", 0, 0)
 		achFs:SetJustifyH("LEFT")
 		achFs:SetTextColor(0.45, 0.95, 0.5)
@@ -405,7 +419,8 @@ function ns.EnsureDawncrestGuidePanel(parent)
 
 		crestRows[i] = { icon = icon, iconBtn = iconBtn, label = label, count = count, ach = achFs, row = row }
 		BindCrestIconTooltip(iconBtn, tiers[i] and tiers[i].currencyId)
-		cy = cy + ROW_H + 4
+		-- Y-stap = geschaalde rijhoogte + vaste 4px tussenruimte (matcht refresh).
+		cy = cy + ROW_H * s + 4
 	end
 	crestBlock:SetHeight(math.max(1, cy))
 

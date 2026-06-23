@@ -335,6 +335,7 @@ function ns.BuildProfessionsHubPanel(panel)
 	end
 
 	local ot = overview:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	ot:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	ot:SetPoint("TOPLEFT", goalLabel, "BOTTOMLEFT", 0, -10)
 	ot:SetPoint("RIGHT", overview, "RIGHT", -16, 0)
 	ot:SetJustifyH("LEFT")

@@ -787,15 +787,25 @@ function ns.RefreshAccountWeeklyChecklistLayout()
 	if not panelUi or not panelUi.block then
 		return
 	end
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+	local lineH = LINE_H * s
+	local titleH = 18 * s
+	if panelUi.titleRow then
+		panelUi.titleRow:SetHeight(titleH)
+	end
 	local collapsed = GetCollapsed()
 	local visibleLines = 0
-	for _, line in ipairs(panelUi.lines or {}) do
+	for i, line in ipairs(panelUi.lines or {}) do
+		-- Re-anker + hoogte met de huidige tekstschaal (mount zette vaste posities).
+		line:SetHeight(lineH)
+		line:ClearAllPoints()
+		line:SetPoint("TOPLEFT", panelUi.block, "TOPLEFT", 4, -(titleH + (i - 1) * lineH))
+		line:SetPoint("TOPRIGHT", panelUi.block, "TOPRIGHT", -4, -(titleH + (i - 1) * lineH))
 		if line:IsShown() then
 			visibleLines = visibleLines + 1
 		end
 	end
-	local titleH = 18
-	local bodyH = collapsed and 0 or math.max(visibleLines * LINE_H, 0)
+	local bodyH = collapsed and 0 or math.max(visibleLines * lineH, 0)
 	local totalH = titleH + bodyH + 4
 	panelUi.block:SetHeight(totalH)
 	if panelUi._mhOnHeightChanged then
@@ -824,6 +834,7 @@ function ns.MountAccountWeeklyChecklist(host, anchorBelow, onLayoutChanged)
 	titleRow:SetHeight(18)
 	titleRow:SetPoint("TOPLEFT", block, "TOPLEFT", 0, 0)
 	titleRow:SetPoint("TOPRIGHT", block, "TOPRIGHT", 0, 0)
+	panelUi.titleRow = titleRow
 
 	local collapseBtn = CreateFrame("Button", nil, titleRow)
 	collapseBtn:SetSize(18, 18)
@@ -837,6 +848,7 @@ function ns.MountAccountWeeklyChecklist(host, anchorBelow, onLayoutChanged)
 	panelUi.collapseBtn = collapseBtn
 
 	local titleFs = titleRow:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	titleFs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	titleFs:SetPoint("LEFT", collapseBtn, "RIGHT", 2, 0)
 	titleFs:SetPoint("RIGHT", titleRow, "RIGHT", -4, 0)
 	titleFs:SetJustifyH("LEFT")
@@ -857,6 +869,7 @@ function ns.MountAccountWeeklyChecklist(host, anchorBelow, onLayoutChanged)
 			end
 		end)
 		local fs = line:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 		fs:SetPoint("LEFT", line, "LEFT", 0, 0)
 		fs:SetPoint("RIGHT", line, "RIGHT", 0, 0)
 		fs:SetJustifyH("LEFT")

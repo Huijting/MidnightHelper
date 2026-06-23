@@ -1183,10 +1183,11 @@ end
 
 -- Reusable row buttons: Blizzard delve atlases (bountiful vs standard).
 local function EnsureDelveRowButton(columnFrame, rows, index, colW)
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local row = rows[index]
 	if not row then
 		row = CreateFrame("Button", nil, columnFrame)
-		row:SetHeight(TRACKER_ROW_HEIGHT)
+		row:SetHeight(TRACKER_ROW_HEIGHT * s)
 		row:EnableMouse(true)
 		row:SetHighlightTexture("Interface/Buttons/White8x8")
 		local ht = row:GetHighlightTexture()
@@ -1211,6 +1212,7 @@ local function EnsureDelveRowButton(columnFrame, rows, index, colW)
 
 		local slotW = ICON_SIZE
 		local fs = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		fs:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 		fs:SetPoint("LEFT", row, "LEFT", 4 + slotW + ICON_NAME_GAP, 0)
 		fs:SetPoint("RIGHT", row, "RIGHT", -6, 0)
 		fs:SetJustifyH("LEFT")
@@ -1218,6 +1220,7 @@ local function EnsureDelveRowButton(columnFrame, rows, index, colW)
 		row.name = fs
 
 		row.routeMark = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		row.routeMark:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 		row.routeMark:SetPoint("RIGHT", row, "RIGHT", -4, 0)
 		row.routeMark:SetText("|cffffcc00>|r")
 		row.routeMark:Hide()
@@ -1225,7 +1228,9 @@ local function EnsureDelveRowButton(columnFrame, rows, index, colW)
 		rows[index] = row
 	end
 	row:SetWidth(colW)
-	row:SetPoint("TOPLEFT", columnFrame, "TOPLEFT", 0, -(index - 1) * TRACKER_ROW_HEIGHT)
+	-- Rijhoogte en Y-stap blijven synchroon met de tekstschaal (geen overlap).
+	row:SetHeight(TRACKER_ROW_HEIGHT * s)
+	row:SetPoint("TOPLEFT", columnFrame, "TOPLEFT", 0, -(index - 1) * TRACKER_ROW_HEIGHT * s)
 	return row
 end
 
@@ -1419,9 +1424,12 @@ local function PaintDelvesPanel(fullRefresh)
 	--------------------------------------------------------------------------------
 	do
 		local parent = frame
-		local VAULT_ICON = 22
-		local VAULT_ROW_H = 22
-		local VAULT_ROW_GAP = 4
+		-- Schaal rij-/icoonhoogtes mee met de tekst; de afgeleide panelH en
+		-- Y-stappen gebruiken dezelfde (geschaalde) constanten → geen overlap.
+		local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+		local VAULT_ICON = 22 * s
+		local VAULT_ROW_H = 22 * s
+		local VAULT_ROW_GAP = 4 * s
 		local VAULT_PAD = 8
 
 		if ns.vaultSepLine then
@@ -1476,6 +1484,7 @@ local function PaintDelvesPanel(fullRefresh)
 				f.icon:SetPoint("LEFT", f, "LEFT", 0, 0)
 
 				f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+				f.text:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 				f.text:SetPoint("LEFT", f.icon, "RIGHT", 5, 0)
 				f.text:SetJustifyH("LEFT")
 
@@ -1527,6 +1536,7 @@ local function PaintDelvesPanel(fullRefresh)
 		local vaultClaimReady = VaultHasClaimableRewards()
 		if not ns.vaultClaimLine then
 			ns.vaultClaimLine = ns.vaultPanel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+			ns.vaultClaimLine:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 			ns.vaultClaimLine:SetJustifyH("LEFT")
 			ns.vaultClaimLine:SetJustifyV("TOP")
 			ns.vaultClaimLine:SetWordWrap(true)
@@ -1584,21 +1594,21 @@ local function PaintDelvesPanel(fullRefresh)
 				box.threshold = data.threshold
 
 				if data.unlocked then
-					box.icon:SetSize(22, 22)
+					box.icon:SetSize(22 * s, 22 * s)
 					box.icon:SetPoint("LEFT", box, "LEFT", 4, 0)
 					box.icon:SetTexture(133784)
 					box.text:SetPoint("LEFT", box.icon, "RIGHT", 8, 0)
 					box.text:SetText(string.format(ns:L("DELVES_VAULT_TIER"), data.level or 0, data.ilvl or 0))
 					box.text:SetTextColor(1, 0.82, 0)
 				elseif vaultClaimReady then
-					box.icon:SetSize(22, 22)
+					box.icon:SetSize(22 * s, 22 * s)
 					box.icon:SetPoint("LEFT", box, "LEFT", 4, 0)
 					box.icon:SetTexture(133784)
 					box.text:SetPoint("LEFT", box.icon, "RIGHT", 8, 0)
 					box.text:SetText(string.format(ns:L("DELVES_VAULT_LOCKED"), data.progress or 0, data.threshold or 0))
 					box.text:SetTextColor(0.85, 0.85, 0.85)
 				else
-					box.icon:SetSize(22, 22)
+					box.icon:SetSize(22 * s, 22 * s)
 					box.icon:SetPoint("LEFT", box, "LEFT", 4, 0)
 					box.icon:SetTexture(134402)
 					box.text:SetPoint("LEFT", box.icon, "RIGHT", 8, 0)
@@ -1829,7 +1839,9 @@ local function PaintDelvesPanel(fullRefresh)
 		rightColumn.rows[j]:Hide()
 	end
 
-	local h = math.max(usedLeft, usedRight, 1) * TRACKER_ROW_HEIGHT
+	-- Kolomhoogte = #rijen × geschaalde rijhoogte (matcht EnsureDelveRowButton).
+	local rowScale = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+	local h = math.max(usedLeft, usedRight, 1) * TRACKER_ROW_HEIGHT * rowScale
 	leftColumn:SetHeight(h)
 	rightColumn:SetHeight(h)
 
@@ -2266,6 +2278,7 @@ local function SetupDelvesModule()
 	vaultToggleChevron:SetPoint("LEFT", vaultToggleBar, "LEFT", 4, 0)
 
 	vaultToggleLabel = vaultToggleBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	vaultToggleLabel:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	vaultToggleLabel:SetPoint("LEFT", vaultToggleChevron, "RIGHT", 6, 0)
 	vaultToggleLabel:SetPoint("RIGHT", vaultToggleBar, "RIGHT", -8, 0)
 	vaultToggleLabel:SetJustifyH("LEFT")
@@ -2298,6 +2311,7 @@ local function SetupDelvesModule()
 	midnightToggleChevron:SetPoint("LEFT", midnightToggleBar, "LEFT", 4, 0)
 
 	midnightToggleLabel = midnightToggleBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	midnightToggleLabel:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	midnightToggleLabel:SetPoint("LEFT", midnightToggleChevron, "RIGHT", 6, 0)
 	midnightToggleLabel:SetPoint("RIGHT", midnightToggleBar, "RIGHT", -8, 0)
 	midnightToggleLabel:SetJustifyH("LEFT")
@@ -2317,6 +2331,7 @@ local function SetupDelvesModule()
 	end)
 
 	journeyHeader = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	journeyHeader:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 	journeyHeader:SetPoint("TOPLEFT", midnightToggleBar, "BOTTOMLEFT", 10, -6)
 	journeyHeader:SetPoint("RIGHT", frame, "RIGHT", -20, 0)
 	journeyHeader:SetJustifyH("LEFT")
@@ -2324,10 +2339,12 @@ local function SetupDelvesModule()
 	journeyHeader:Hide()
 
 	delvesTitle = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	delvesTitle:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	delvesTitle:SetText(ns:L("DELVES_TITLE"))
 	delvesTitle:Hide()
 
 	currencyHeader = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	currencyHeader:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	currencyHeader:SetJustifyH("LEFT")
 	currencyHeader:SetWordWrap(true)
 
@@ -2373,6 +2390,7 @@ local function SetupDelvesModule()
 	-- Delver's Journey Hint (Phase 57 / 59)
 	if not frame.journeyHint then
 		frame.journeyHint = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		frame.journeyHint:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 		frame.journeyHint:SetJustifyH("LEFT")
 		frame.journeyHint:SetWordWrap(true)
 	end
@@ -2486,6 +2504,7 @@ travelPopup:SetBackdrop({
 travelPopup:SetBackdropColor(0, 0, 0, 0.9)
 
 travelPopup.text = travelPopup:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+travelPopup.text:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 travelPopup.text:SetPoint("TOP", 0, -15)
 travelPopup.text:SetWidth(200)
 travelPopup.text:SetText(ns:L("TRAVEL_WRONG_ZONE"))

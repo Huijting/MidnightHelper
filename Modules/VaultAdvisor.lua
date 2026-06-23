@@ -1159,6 +1159,7 @@ local function EnsureBlizzardVaultBanner()
 		return blizzardVaultBanner
 	end
 
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local padX, padTop, padBottom = 14, 12, 16
 	local innerW = BANNER_WIDTH - padX * 2
 	local rowTextW = innerW - 24
@@ -1177,6 +1178,7 @@ local function EnsureBlizzardVaultBanner()
 	end
 
 	f._title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	f._title:SetFontObject(ns.MHScalableFont("GameFontNormalLarge"))
 	f._title:SetPoint("TOPLEFT", f, "TOPLEFT", padX, -padTop)
 	f._title:SetPoint("TOPRIGHT", f, "TOPRIGHT", -padX, -padTop)
 	f._title:SetJustifyH("CENTER")
@@ -1184,11 +1186,11 @@ local function EnsureBlizzardVaultBanner()
 	f._title:SetTextColor(1, 0.9, 0.55)
 
 	f._profileRow = CreateFrame("Frame", nil, f)
-	f._profileRow:SetSize(182, 18)
+	f._profileRow:SetSize(182, 18 * s)
 	f._profileRow:SetPoint("TOP", f._title, "BOTTOM", 0, -2)
 
 	f._profileAuto = CreateFrame("Button", nil, f._profileRow, "UIPanelButtonTemplate")
-	f._profileAuto:SetSize(58, 18)
+	f._profileAuto:SetSize(58, 18 * s)
 	f._profileAuto:SetPoint("LEFT", f._profileRow, "LEFT", 0, 0)
 	f._profileAuto:SetScript("OnClick", function()
 		ns.SetVaultAdvisorOption("profileMode", "auto")
@@ -1198,7 +1200,7 @@ local function EnsureBlizzardVaultBanner()
 	end)
 
 	f._profileRaid = CreateFrame("Button", nil, f._profileRow, "UIPanelButtonTemplate")
-	f._profileRaid:SetSize(58, 18)
+	f._profileRaid:SetSize(58, 18 * s)
 	f._profileRaid:SetPoint("LEFT", f._profileAuto, "RIGHT", 4, 0)
 	f._profileRaid:SetScript("OnClick", function()
 		ns.SetVaultAdvisorOption("profileMode", "raid")
@@ -1208,7 +1210,7 @@ local function EnsureBlizzardVaultBanner()
 	end)
 
 	f._profileMplus = CreateFrame("Button", nil, f._profileRow, "UIPanelButtonTemplate")
-	f._profileMplus:SetSize(58, 18)
+	f._profileMplus:SetSize(58, 18 * s)
 	f._profileMplus:SetPoint("LEFT", f._profileRaid, "RIGHT", 4, 0)
 	f._profileMplus:SetScript("OnClick", function()
 		ns.SetVaultAdvisorOption("profileMode", "mplus")
@@ -1218,6 +1220,7 @@ local function EnsureBlizzardVaultBanner()
 	end)
 
 	f._hint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	f._hint:SetFontObject(ns.MHScalableFont("GameFontHighlight"))
 	f._hint:SetPoint("TOP", f._profileRow, "BOTTOM", 0, -4)
 	f._hint:SetPoint("LEFT", f, "LEFT", padX, 0)
 	f._hint:SetPoint("RIGHT", f, "RIGHT", -padX, 0)
@@ -1226,6 +1229,7 @@ local function EnsureBlizzardVaultBanner()
 	f._hint:SetTextColor(0.78, 0.76, 0.72)
 
 	f._best = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	f._best:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	f._best:SetPoint("TOPLEFT", f._hint, "BOTTOMLEFT", 0, -8)
 	f._best:SetPoint("TOPRIGHT", f._hint, "BOTTOMRIGHT", 0, -8)
 	f._best:SetJustifyH("CENTER")
@@ -1244,6 +1248,7 @@ local function EnsureBlizzardVaultBanner()
 	end)
 
 	f._token = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f._token:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	f._token:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", padX, padBottom)
 	f._token:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -padX, padBottom)
 	f._token:SetWidth(innerW)
@@ -1254,6 +1259,7 @@ local function EnsureBlizzardVaultBanner()
 	-- Tier-note vlak ONDER de "Pick:"-regel (Rob 17 jun: stond eerst onderaan
 	-- onder het model en werd gemist). De alternatieven-scroll hangt eronder.
 	f._tier = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f._tier:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	f._tier:SetPoint("TOPLEFT", f._best, "BOTTOMLEFT", 0, -6)
 	f._tier:SetPoint("TOPRIGHT", f._best, "BOTTOMRIGHT", 0, -6)
 	f._tier:SetJustifyH("CENTER")
@@ -1272,6 +1278,7 @@ local function EnsureBlizzardVaultBanner()
 		local row = CreateFrame("Frame", nil, f._rowHost)
 		row:SetHeight(20)
 		row._text = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		row._text:SetFontObject(ns.MHScalableFont("GameFontHighlight"))
 		row._text:SetPoint("TOP", row, "TOP", 0, 0)
 		row._text:SetWidth(innerW)
 		row._text:SetJustifyH("CENTER")
@@ -1333,12 +1340,14 @@ local function UpdateBlizzardVaultBannerLayout(banner)
 
 	LayoutBlizzardVaultBanner(banner)
 
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local titleH = math.ceil(banner._title:GetStringHeight() or 18)
 	local hintH = (banner._hint and banner._hint:IsShown()) and (math.ceil(banner._hint:GetStringHeight() or 0) + 4) or 0
 	local bestH = math.ceil(banner._best:GetStringHeight() or 20) + 8
 	local contentScrollH = banner._rowHost and banner._rowHost:GetHeight() or 1
-	local visibleScrollH = math.min(contentScrollH, BANNER_MAX_SCROLL_H)
-	banner._desiredHeight = padTop + titleH + BANNER_PROFILE_ROW_H + hintH + bestH + tierH + visibleScrollH + footerReserve + padBottom + 8
+	local visibleScrollH = math.min(contentScrollH, BANNER_MAX_SCROLL_H * s)
+	-- Profielrij-term schaalt mee met de (geschaalde) knophoogte hierboven.
+	banner._desiredHeight = padTop + titleH + BANNER_PROFILE_ROW_H * s + hintH + bestH + tierH + visibleScrollH + footerReserve + padBottom + 8
 	PositionBlizzardVaultBanner(banner)
 end
 
@@ -1495,6 +1504,7 @@ local function ApplyAdvisorPanelLayout(panel)
 	end
 	if not panel._tierWarn then
 		panel._tierWarn = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		panel._tierWarn:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 		panel._tierWarn:SetJustifyH("LEFT")
 		panel._tierWarn:SetWordWrap(true)
 	end
@@ -1528,11 +1538,13 @@ local function EnsureAdvisorPanel(parent)
 	advisorPanel:SetPoint("RIGHT", parent, "RIGHT", 0, 0)
 
 	advisorPanel._title = advisorPanel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	advisorPanel._title:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 	advisorPanel._title:SetPoint("TOPLEFT", advisorPanel, "TOPLEFT", 0, 0)
 	advisorPanel._title:SetJustifyH("LEFT")
 	advisorPanel._title:SetTextColor(1, 0.9, 0.55)
 
 	advisorPanel._hint = advisorPanel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	advisorPanel._hint:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	advisorPanel._hint:SetPoint("TOPLEFT", advisorPanel._title, "BOTTOMLEFT", 0, -4)
 	advisorPanel._hint:SetPoint("RIGHT", advisorPanel, "RIGHT", 0, 0)
 	advisorPanel._hint:SetJustifyH("LEFT")
@@ -1540,6 +1552,7 @@ local function EnsureAdvisorPanel(parent)
 	advisorPanel._hint:SetTextColor(0.78, 0.76, 0.72)
 
 	advisorPanel._best = advisorPanel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	advisorPanel._best:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	advisorPanel._best:SetPoint("TOPLEFT", advisorPanel._hint, "BOTTOMLEFT", 0, -6)
 	advisorPanel._best:SetPoint("RIGHT", advisorPanel, "RIGHT", 0, 0)
 	advisorPanel._best:SetJustifyH("LEFT")
@@ -1547,10 +1560,12 @@ local function EnsureAdvisorPanel(parent)
 	advisorPanel._best:SetTextColor(0.4, 1, 0.45)
 
 	advisorPanel._tierWarn = advisorPanel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	advisorPanel._tierWarn:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 	advisorPanel._tierWarn:SetJustifyH("LEFT")
 	advisorPanel._tierWarn:SetWordWrap(true)
 
 	advisorPanel._tokenNote = advisorPanel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	advisorPanel._tokenNote:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	advisorPanel._tokenNote:SetJustifyH("LEFT")
 	advisorPanel._tokenNote:SetWordWrap(true)
 	advisorPanel._tokenNote:SetTextColor(0.65, 0.62, 0.58)
@@ -1563,6 +1578,7 @@ local function EnsureAdvisorPanel(parent)
 		local row = CreateFrame("Frame", nil, rowHost)
 		row:SetHeight(16)
 		row._text = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		row._text:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 		row._text:SetPoint("LEFT", row, "LEFT", 0, 0)
 		row._text:SetPoint("RIGHT", row, "RIGHT", 0, 0)
 		row._text:SetJustifyH("LEFT")
@@ -1748,7 +1764,9 @@ function ns.RefreshVaultAdvisorPanel(parent, innerWidth, claimReady)
 		panel._best:SetText("")
 	end
 
-	local rowH = 16
+	-- Geschaalde rijhoogte: hoogte, Y-stap en rowsH gebruiken allemaal rowH → synchroon.
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+	local rowH = 16 * s
 	local rowGap = 2
 	local shown = 0
 	for i = 2, #gear do
@@ -1768,6 +1786,7 @@ function ns.RefreshVaultAdvisorPanel(parent, innerWidth, claimReady)
 		row._text:SetText(line)
 		row._text:SetTextColor(0.88, 0.86, 0.82)
 		row._choice = c
+		row:SetHeight(rowH)
 		row:ClearAllPoints()
 		row:SetPoint("TOPLEFT", panel._rowHost, "TOPLEFT", 0, -(shown * (rowH + rowGap)))
 		row:SetPoint("RIGHT", panel._rowHost, "RIGHT", 0, 0)

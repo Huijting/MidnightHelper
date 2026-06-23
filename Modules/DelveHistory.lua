@@ -620,16 +620,19 @@ local function HeaderRow_OnClick(self)
 end
 
 local function CreateHeaderRow()
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local row = CreateFrame("Button", nil, ui.child)
-	row:SetHeight(HEADER_ROW_H)
+	row:SetHeight(HEADER_ROW_H * s)
 
 	local arrow = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	arrow:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	arrow:SetPoint("LEFT", row, "LEFT", 2, 0)
 	arrow:SetWidth(14)
 	arrow:SetJustifyH("LEFT")
 	row.arrow = arrow
 
 	local nameFS = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	nameFS:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	nameFS:SetPoint("LEFT", arrow, "RIGHT", 4, 0)
 	nameFS:SetWidth(170)
 	nameFS:SetJustifyH("LEFT")
@@ -637,6 +640,7 @@ local function CreateHeaderRow()
 	row.nameFS = nameFS
 
 	local statsFS = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	statsFS:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	statsFS:SetPoint("LEFT", nameFS, "RIGHT", 6, 0)
 	statsFS:SetPoint("RIGHT", row, "RIGHT", -4, 0)
 	statsFS:SetJustifyH("LEFT")
@@ -648,9 +652,11 @@ local function CreateHeaderRow()
 end
 
 local function CreateRunRow()
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local row = CreateFrame("Frame", nil, ui.child)
-	row:SetHeight(RUN_ROW_H)
+	row:SetHeight(RUN_ROW_H * s)
 	local fs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	fs:SetPoint("LEFT", row, "LEFT", 0, 0)
 	fs:SetPoint("RIGHT", row, "RIGHT", -4, 0)
 	fs:SetJustifyH("LEFT")
@@ -731,6 +737,13 @@ function Refresh()
 	if not ui or not ui.child then
 		return
 	end
+
+	-- Content-tekstschaal: rij-hoogtes + Y-stappen schalen mee zodat grotere tekst
+	-- niet overlapt. Bij schaal 1.0 zijn alle stappen identiek aan voorheen.
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+	local headerStep = HEADER_ROW_H * s
+	local runStep = RUN_ROW_H * s
+	local indent = 24 * s
 
 	local store = GetStore()
 	local delves = store and store.delves or {}
@@ -814,6 +827,7 @@ function Refresh()
 
 		hUsed = hUsed + 1
 		local row = AcquireHeaderRow(hUsed)
+		row:SetHeight(headerStep)
 		row._mhKey = key -- nodig voor uitklappen (werd nooit gezet — bestaande bug)
 		row.arrow:SetText(expanded and (CC_GOLD .. "v" .. CC_CLOSE) or (CC_GOLD .. ">" .. CC_CLOSE))
 		row.nameFS:SetText(CC_BODY .. key .. CC_CLOSE)
@@ -821,19 +835,20 @@ function Refresh()
 		row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
 		row:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
 		row:Show()
-		y = y + HEADER_ROW_H
+		y = y + headerStep
 
 		if expanded and entry.recent then
 			for _, run in ipairs(entry.recent) do
 				rUsed = rUsed + 1
 				local rrow = AcquireRunRow(rUsed)
+				rrow:SetHeight(runStep)
 				rrow.fs:SetText(BuildRunText(run))
-				rrow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 24, -y)
+				rrow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
 				rrow:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
 				rrow:Show()
-				y = y + RUN_ROW_H + 1
+				y = y + runStep + 1 * s
 			end
-			y = y + 4
+			y = y + 4 * s
 		end
 	end
 
@@ -841,11 +856,12 @@ function Refresh()
 	if #ritEntries > 0 then
 		rUsed = rUsed + 1
 		local secRow = AcquireRunRow(rUsed)
+		secRow:SetHeight(runStep)
 		secRow.fs:SetText(CC_GOLD .. ns:L("DELVELOG_SEC_RITUALS") .. CC_CLOSE)
-		secRow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -(y + 6))
+		secRow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -(y + 6 * s))
 		secRow:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
 		secRow:Show()
-		y = y + 6 + RUN_ROW_H + 2
+		y = y + 6 * s + runStep + 2 * s
 		for _, rit in ipairs(ritEntries) do
 			local entry = rit.entry
 			local life = entry.lifetime
@@ -853,6 +869,7 @@ function Refresh()
 			local expanded = expandedByKey[rkey] and true or false
 			hUsed = hUsed + 1
 			local row = AcquireHeaderRow(hUsed)
+			row:SetHeight(headerStep)
 			row._mhKey = rkey
 			row.arrow:SetText(expanded and (CC_GOLD .. "v" .. CC_CLOSE) or (CC_GOLD .. ">" .. CC_CLOSE))
 			row.nameFS:SetText(CC_BODY .. rit.name .. CC_CLOSE)
@@ -860,18 +877,19 @@ function Refresh()
 			row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
 			row:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
 			row:Show()
-			y = y + HEADER_ROW_H
+			y = y + headerStep
 			if expanded and entry.recent then
 				for _, run in ipairs(entry.recent) do
 					rUsed = rUsed + 1
 					local rrow = AcquireRunRow(rUsed)
+					rrow:SetHeight(runStep)
 					rrow.fs:SetText(BuildRunText(run))
-					rrow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 24, -y)
+					rrow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
 					rrow:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
 					rrow:Show()
-					y = y + RUN_ROW_H + 1
+					y = y + runStep + 1 * s
 				end
-				y = y + 4
+				y = y + 4 * s
 			end
 		end
 	end
@@ -918,6 +936,7 @@ function ns.BuildDelveLogPanel(panel)
 	end
 
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
 	title:SetText(ns:L("TAB_DELVE_LOG"))
 
@@ -927,11 +946,12 @@ function ns.BuildDelveLogPanel(panel)
 	local clearBtn = CreateFrame("Button", nil, panel)
 	clearBtn:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -SIDE_PAD, -TOP_PAD - 2)
 	local clearText = clearBtn:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	clearText:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
 	clearText:SetPoint("RIGHT", clearBtn, "RIGHT", 0, 0)
 	clearText:SetText(ns:L("DELVELOG_CLEAR"))
 	clearText:SetTextColor(0.5, 0.5, 0.5)
 	clearBtn.text = clearText
-	clearBtn:SetSize(math.max(clearText:GetStringWidth() + 4, 10), 16)
+	clearBtn:SetSize(math.max(clearText:GetStringWidth() + 4, 10), math.max(16, (clearText:GetStringHeight() or 16)))
 	clearBtn:SetScript("OnClick", function()
 		StaticPopup_Show("MIDNIGHTHELPER_CLEAR_DELVELOG", ns:L("DELVELOG_CLEAR_CONFIRM"))
 	end)
@@ -943,6 +963,7 @@ function ns.BuildDelveLogPanel(panel)
 	end)
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
 	subtitle:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	subtitle:SetJustifyH("LEFT")
@@ -951,6 +972,7 @@ function ns.BuildDelveLogPanel(panel)
 	subtitle:SetText(ns:L("DELVELOG_SUBTITLE"))
 
 	local summary = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	summary:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	summary:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -8)
 	summary:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	summary:SetJustifyH("LEFT")
@@ -965,6 +987,7 @@ function ns.BuildDelveLogPanel(panel)
 	scroll:SetScrollChild(child)
 
 	local empty = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	empty:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	empty:SetJustifyH("LEFT")
 	empty:SetWordWrap(true)
 	empty:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
