@@ -1621,6 +1621,11 @@ function ns:EnsureMainUI()
 
 	local function runSearchFromBar()
 		local query = searchEdit:GetText()
+		-- Navigation search (the "front door"): a strong tab-name match jumps
+		-- straight there; weaker/keyword queries fall through to Codex/Guide.
+		if ns.MHNavSearchTryJump and ns.MHNavSearchTryJump(query) then
+			return
+		end
 		-- Codex topics route first (handbook: dawncrest/reference/weekly/...).
 		-- Explicitly here at the call site: Guide.lua loads after
 		-- MidnightCodex.lua and assigns ns.MH_RunSearchQuery wholesale, which

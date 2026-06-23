@@ -127,6 +127,7 @@ Modules\AltOverview.lua
 Modules\MidnightCodexData.lua
 Modules\MidnightCodex.lua
 Modules\HomeDashboard.lua
+Modules\NavSearch.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua
 Addons\GuideData.lua
