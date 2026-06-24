@@ -235,15 +235,23 @@ local function EnsureNavDrop()
 		fs:SetPoint("RIGHT", r, "RIGHT", -6, 0)
 		fs:SetJustifyH("LEFT")
 		r.fs = fs
-		r:SetScript("OnClick", function(self)
-			if self._mhGo then
-				self._mhGo()
+		-- Activatie op OnMouseDown i.p.v. OnClick: de zoek-EditBox heeft focus terwijl
+		-- de dropdown open is, en de eerste klik die die focus wegneemt "eet" de OnClick
+		-- op — hover/highlight werkt wél, navigeren niet (Rob 24 jun). OnMouseDown vuurt
+		-- op de fysieke druk, vóór de focus-wissel, dus altijd.
+		r:SetScript("OnMouseDown", function(self, button)
+			if button and button ~= "LeftButton" then
+				return
 			end
+			local go = self._mhGo
 			if ns.mhSearchEdit then
 				ns.mhSearchEdit:SetText("")
 				ns.mhSearchEdit:ClearFocus()
 			end
 			HideNavDrop()
+			if go then
+				go()
+			end
 		end)
 		navDrop.rows[i] = r
 	end
