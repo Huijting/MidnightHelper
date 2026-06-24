@@ -186,7 +186,10 @@ local function RankedStats()
 end
 
 -- Aantal LEGE sockets op een uitgerust item (0 = geen lege sockets / geen item).
--- GetItemStats levert alleen EMPTY_SOCKET_*-keys voor nog níét gevulde sockets.
+-- LET OP: GetItemStats geeft het TOTAAL aantal sockets van een item (uit de stat-
+-- template, óók al gevuld) via de EMPTY_SOCKET_*-keys — niet alleen de lege. Daarom:
+-- leeg = totaal − reeds gesockete gems (gem-ID's uit de item-link). (Fix Rob 24 jun:
+-- gevulde sockets werden anders toch als EMPTY gevlagd.)
 local function EmptySocketCount(slotId)
 	local link = GetInventoryItemLink and GetInventoryItemLink("player", slotId)
 	if not link then
@@ -199,16 +202,28 @@ local function EmptySocketCount(slotId)
 		stats = {}
 		GetItemStats(link, stats)
 	end
-	if not stats then
-		return 0
-	end
-	local n = 0
-	for k, v in pairs(stats) do
-		if type(k) == "string" and k:find("EMPTY_SOCKET") then
-			n = n + (tonumber(v) or 0)
+	local total = 0
+	if stats then
+		for k, v in pairs(stats) do
+			if type(k) == "string" and k:find("EMPTY_SOCKET") then
+				total = total + (tonumber(v) or 0)
+			end
 		end
 	end
-	return n
+	if total == 0 then
+		return 0
+	end
+	-- Reeds gevulde gems tellen: de gem-velden in de link (gem1..gem4; 0 = leeg).
+	local filled = 0
+	local g1, g2, g3, g4 = link:match("item:%d+:%-?%d*:(%d*):(%d*):(%d*):(%d*)")
+	for _, g in ipairs({ g1, g2, g3, g4 }) do
+		local id = tonumber(g)
+		if id and id ~= 0 then
+			filled = filled + 1
+		end
+	end
+	local empty = total - filled
+	return empty > 0 and empty or 0
 end
 
 -- Heeft de speler al ergens een Thalassian Diamond gesocket? (Gem-ID's uit de item-link:
