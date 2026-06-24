@@ -579,6 +579,37 @@ function ns.ShouldSuppressTravelPopup(currentMap, targetMap, targetX, targetY, t
 	return false
 end
 
+-- Ligt het doel op een ANDER continent (losgekoppelde wereldkaart) dan de speler?
+-- Zo ja, kan TomTom's pijl geen richting tonen tot je daar bent (Rob 24 jun, Rommath
+-- op Isle of Quel'Danas → boss in Harandar). We vergelijken de continent-ID's via
+-- GetWorldPosFromMapPos. Beide bekend én gelijk = zelfde continent (TomTom werkt) →
+-- false. Anders (verschillend, of doel niet op te lossen) → true = backup zetten.
+function ns.IsCrossContinentTarget(currentMap, targetMap, xPct, yPct)
+	currentMap = tonumber(currentMap)
+	targetMap = tonumber(targetMap)
+	if not currentMap or not targetMap or currentMap == targetMap then
+		return false
+	end
+	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D) then
+		return false
+	end
+	local function continentOf(map, fx, fy)
+		local ok, cont = pcall(C_Map.GetWorldPosFromMapPos, map, CreateVector2D(fx, fy))
+		return ok and cont or nil
+	end
+	local pcx, pcy = 0.5, 0.5
+	local pos = C_Map.GetPlayerMapPosition and C_Map.GetPlayerMapPosition(currentMap, "player")
+	if pos then
+		pcx, pcy = pos:GetXY()
+	end
+	local curCont = continentOf(currentMap, pcx, pcy)
+	local tgtCont = continentOf(targetMap, (tonumber(xPct) or 50) / 100, (tonumber(yPct) or 50) / 100)
+	if curCont and tgtCont then
+		return curCont ~= tgtCont
+	end
+	return true
+end
+
 -- Shared TomTom + Travel Assistant (portals/hearth). Optional skipTravelUI / skipCrazyArrow (bulk pins).
 function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 	if not mapID then
@@ -613,6 +644,14 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 		})
 		if uid and _G.TomTom.SetCrazyArrow and not skipCrazyArrow then
 			_G.TomTom:SetCrazyArrow(uid, 15, title)
+		end
+		-- Backup: voor een doel op een ANDER continent kan TomTom's pijl geen richting
+		-- tonen tot je daar bent. Zet er dan óók een Blizzard-waypoint + SuperTrack bij;
+		-- die in-game pijl wérkt wel cross-continent en loodst je naar de portal, waarna
+		-- TomTom het lokaal overneemt. Alleen voor de hoofd-route (niet bulk-pins).
+		if not skipCrazyArrow and ns.SetBlizzardUserWaypoint
+			and ns.IsCrossContinentTarget(currentMap, targetMap, xPct, yPct) then
+			ns.SetBlizzardUserWaypoint(targetMap, xPct, yPct)
 		end
 	elseif ns.SetBlizzardUserWaypoint then
 		ns.SetBlizzardUserWaypoint(targetMap, xPct, yPct)
