@@ -263,6 +263,68 @@ end
 -- Link-rendering + AH-naam-registratie
 --------------------------------------------------------------------------------
 
+-- Gesockete gems van een item als klikbare links (echte item-links via GetItemGem).
+-- Lege tabel = geen gems / geen socket.
+local function SocketedGemLinks(link)
+	local out = {}
+	if not (link and GetItemGem) then
+		return out
+	end
+	for i = 1, 4 do
+		local name, gemLink = GetItemGem(link, i)
+		if gemLink then
+			out[#out + 1] = gemLink
+		elseif name then
+			out[#out + 1] = name
+		end
+	end
+	return out
+end
+
+-- RGB van een tooltip-regel (ColorMixin of losse velden).
+local function LineRGB(line)
+	local c = line and line.leftColor
+	if not c then
+		return nil
+	end
+	if c.GetRGB then
+		return c:GetRGB()
+	end
+	return c.r, c.g, c.b
+end
+
+-- De toegepaste enchant-naam van een slot, gelezen uit de échte item-tooltip
+-- (never-lie: we tonen wat het spel toont, geen ID-gok). Pakt de eerste groene
+-- regel die geen Equip:/Use:/Socket Bonus-effect is. nil = niets gevonden.
+local function SlotEnchantText(slotId)
+	if not (C_TooltipInfo and C_TooltipInfo.GetInventoryItem) then
+		return nil
+	end
+	local data = C_TooltipInfo.GetInventoryItem("player", slotId)
+	if not (data and data.lines) then
+		return nil
+	end
+	local pEquip = ITEM_SPELL_TRIGGER_ONEQUIP or "Equip:"
+	local pUse = ITEM_SPELL_TRIGGER_ONUSE or "Use:"
+	local pSocket = (ITEM_SOCKET_BONUS or "Socket Bonus:"):gsub("%%s.*$", "")
+	for _, line in ipairs(data.lines) do
+		if TooltipUtil and TooltipUtil.SurfaceArgs then
+			TooltipUtil.SurfaceArgs(line)
+		end
+		local t = line.leftText
+		if t and t ~= "" then
+			local r, g, b = LineRGB(line)
+			if r and g and b and g > 0.78 and r < 0.45 and b < 0.45 then
+				if not t:find(pEquip, 1, true) and not t:find(pUse, 1, true)
+					and not (pSocket ~= "" and t:find(pSocket, 1, true)) then
+					return t
+				end
+			end
+		end
+	end
+	return nil
+end
+
 -- Rendert een enchant-entry als klikbare link en registreert de AH-naam onder
 -- de link-key ("spell:ID" / "item:ID") in `map` zodat een klik 'm kan kopiëren.
 local function LinkOf(map, e)
@@ -353,7 +415,9 @@ local function BuildReportLines(map)
 				local rec = LinkOf(map, SHOULDER_OPT)
 				lines[#lines + 1] = ("|cffc8b88a%s — %s %s|r"):format(label, ns:L("ENCHANT_SHOULDER_OPT"), rec)
 			elseif enchanted then
-				lines[#lines + 1] = ("|cff8cd98c%s — %s|r"):format(label, ns:L("ENCHANT_OK"))
+				local ench = SlotEnchantText(s.id)
+				local tail = ench and (": " .. ench) or ""
+				lines[#lines + 1] = ("|cff8cd98c%s — %s%s|r"):format(label, ns:L("ENCHANT_OK"), tail)
 			else
 				local rec = Recommend(s.id, stat, map)
 				local tail = rec and ("  " .. ns:L("ENCHANT_RECOMMEND") .. " " .. rec) or ""
@@ -362,8 +426,12 @@ local function BuildReportLines(map)
 		end
 	end
 
+	-- Witregels tussen de enchant- en gem-sectie voor lucht (Rob 24 jun).
+	lines[#lines + 1] = " "
+	lines[#lines + 1] = " "
+
 	-- Gem-sectie: 1× unieke Eversong Diamond (+32 primary) + secundaire dual-gems in
-	-- de overige sockets. Eigen subkop met je top-2 stats.
+	-- de overige sockets. Toont per slot de gesockete gem(s) én eventuele lege sockets.
 	local ranked = RankedStats()
 	local s1 = ranked and ranked[1]
 	local s2 = ranked and ranked[2]
@@ -376,22 +444,31 @@ local function BuildReportLines(map)
 	if gemRec then
 		lines[#lines + 1] = ("|cffc8b88a%s|r"):format(ns:L("GEM_BEST_FMT"):format(diamondLink, gemRec))
 	end
-	local foundSocket = false
+	local foundEmpty = false
 	for _, gs in ipairs(GEM_SLOTS) do
-		local n = EmptySocketCount(gs.id)
-		if n > 0 then
-			foundSocket = true
+		local link = GetInventoryItemLink and GetInventoryItemLink("player", gs.id)
+		if link then
 			local label = (gs.id == 16 and (_G.WEAPON or "Weapon")) or _G[gs.label] or gs.label
-			local cnt = n > 1 and (" ×" .. n) or ""
-			local tail = gemRec and ("  " .. ns:L("ENCHANT_RECOMMEND") .. " " .. gemRec) or ""
-			lines[#lines + 1] = ("|cffe66b6b%s — %s%s|r%s"):format(label, ns:L("GEM_MISSING"), cnt, tail)
+			-- Gesockete gem(s) tonen (groen, klikbare gem-links).
+			local gems = SocketedGemLinks(link)
+			if #gems > 0 then
+				lines[#lines + 1] = ("|cff8cd98c%s — %s|r"):format(label, table.concat(gems, ", "))
+			end
+			-- Lege sockets vlaggen (rood + aanrader).
+			local n = EmptySocketCount(gs.id)
+			if n > 0 then
+				foundEmpty = true
+				local cnt = n > 1 and (" ×" .. n) or ""
+				local tail = gemRec and ("  " .. ns:L("ENCHANT_RECOMMEND") .. " " .. gemRec) or ""
+				lines[#lines + 1] = ("|cffe66b6b%s — %s%s|r%s"):format(label, ns:L("GEM_MISSING"), cnt, tail)
+			end
 		end
 	end
 	-- Mis je je unieke diamant nog? Eén keer aanstippen (geen tweede; unique-equipped).
 	if not HasDiamondEquipped() then
 		lines[#lines + 1] = ("|cffe6c86b%s|r"):format(ns:L("GEM_NO_DIAMOND"):format(diamondLink))
 	end
-	if not foundSocket then
+	if not foundEmpty then
 		lines[#lines + 1] = ("|cff8cd98c%s|r"):format(ns:L("GEM_OK"))
 	end
 
