@@ -532,6 +532,13 @@ function ns.BuildSettingsPanel(panel)
 			ns.SetBossWindowModelEnabled(v)
 		end
 	end)
+	AddToggle("dungeon", "SET_BOSSWIN_SPOTLIGHT_TITLE", "SET_BOSSWIN_SPOTLIGHT_DESC", function()
+		return ns.IsBossWindowThumbEnabled and ns.IsBossWindowThumbEnabled()
+	end, function(v)
+		if ns.SetBossWindowThumbEnabled then
+			ns.SetBossWindowThumbEnabled(v)
+		end
+	end)
 	-- Schaal-slider (naast shift+scroll, Robs besluit 3).
 	local sliderRow = CreateFrame("Frame", nil, child)
 	sliderRow:SetHeight(44)

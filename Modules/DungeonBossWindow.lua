@@ -224,9 +224,9 @@ local function SetModelCreature(model, creatureID)
 	if not model then
 		return false
 	end
-	-- (De Settings-toggle "3D-model verbergen" gateert vanaf nu alléén het GROTE
-	-- zijpaneel — via `settingOn`/`panelOn` in RefreshDungeonBossWindow. Het kleine
-	-- boss-spotlight-model blijft altijd staan; Rob 24 jun.)
+	-- (Twee losse Settings-toggles bepalen wat zichtbaar is: `showModel` gateert het
+	-- GROTE zijpaneel en `showThumb` de kleine kop-spotlight — beide via
+	-- RefreshDungeonBossWindow, die hier creatureID=nil doorgeeft om te verbergen.)
 	if not creatureID then
 		model:Hide()
 		return false
@@ -769,8 +769,11 @@ function ns.RefreshDungeonBossWindow()
 		or (b and CREATURES[curDungeon.key .. ":" .. b.key])
 	win._previewCreatureID = creatureID -- voor de shift-klik-preview (hook C)
 	win._previewName = bossName
-	SetModelCreature(win._thumbModel, creatureID)
-	-- Settings-toggle gateert nu alleen het grote zijpaneel; de thumb blijft.
+	-- Kleine kop-spotlight: eigen toggle (showThumb). Uit = geen model in de kop;
+	-- de kop-knop blijft het grote paneel togglen.
+	local thumbOn = (not ns.IsBossWindowThumbEnabled) or ns.IsBossWindowThumbEnabled()
+	SetModelCreature(win._thumbModel, thumbOn and creatureID or nil)
+	-- De `showModel`-toggle gateert het grote zijpaneel; `showThumb` de kop-spotlight.
 	local settingOn = (not ns.IsBossWindowModelEnabled) or ns.IsBossWindowModelEnabled()
 	local panelOn = ModelPanelEnabled() and creatureID ~= nil and settingOn
 	win._panel:SetShown(panelOn)
@@ -821,6 +824,20 @@ end
 
 function ns.SetBossWindowModelEnabled(v)
 	GetWinSettings().showModel = v and true or false
+	if ns.RefreshDungeonBossWindow then
+		ns.RefreshDungeonBossWindow() -- direct effect als het venster open is
+	end
+end
+
+-- Klein boss-spotlight-model in de kop tonen (standaard aan; Rob 24 jun). Losse
+-- opt-out naast `showModel` (het grote zijpaneel): uit = een kop zonder model,
+-- de kop-knop blijft het grote paneel togglen.
+function ns.IsBossWindowThumbEnabled()
+	return GetWinSettings().showThumb ~= false
+end
+
+function ns.SetBossWindowThumbEnabled(v)
+	GetWinSettings().showThumb = v and true or false
 	if ns.RefreshDungeonBossWindow then
 		ns.RefreshDungeonBossWindow() -- direct effect als het venster open is
 	end
