@@ -111,6 +111,29 @@ local function BuildLayout()
 
 	local data = ns.ComputeAccountWeeklyChecklist and ns.ComputeAccountWeeklyChecklist() or nil
 
+	------------------------------------------------------------------ Onboarding (Phase 5; new players, dismissable)
+	ns.db = ns.db or {}
+	if not ns.db.onboardingDismissed then
+		addFull(function(rows)
+			header(rows, ns:L("HOME_ONBOARD_HEADER"))
+			line(rows, ns:L("HOME_ONBOARD_TIP1"), COLOR_SOFT)
+			line(rows, ns:L("HOME_ONBOARD_TIP2"), COLOR_SOFT)
+			line(rows, ns:L("HOME_ONBOARD_TIP3"), COLOR_SOFT)
+			line(rows, ns:L("HOME_ONBOARD_TIP4"), COLOR_SOFT)
+			rows[#rows + 1] = {
+				button = true,
+				text = ns:L("HOME_ONBOARD_DISMISS"),
+				onClick = function()
+					ns.db = ns.db or {}
+					ns.db.onboardingDismissed = true
+					if ns.RefreshHomePanel then
+						ns.RefreshHomePanel()
+					end
+				end,
+			}
+		end)
+	end
+
 	------------------------------------------------------------------ Reset routine (ordered, current character)
 	if ns.GetResetRoutineSteps then
 		local okSteps, steps = pcall(ns.GetResetRoutineSteps)
