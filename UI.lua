@@ -564,7 +564,7 @@ function ns:ApplyCompactMode()
 	end
 	if refs.content then
 		refs.content:ClearAllPoints()
-		refs.content:SetPoint("TOPLEFT", refs.searchBar, "BOTTOMLEFT", m.sidebarWidth, 0)
+		refs.content:SetPoint("TOPLEFT", refs.favRow or refs.searchBar, "BOTTOMLEFT", m.sidebarWidth, 0)
 		refs.content:SetPoint("BOTTOMRIGHT", refs.main, "BOTTOMRIGHT", -MH_MAIN_EDGE.R, MH_MAIN_EDGE.B)
 	end
 	if refs.searchResetBtn and refs.searchResetBtn.SetWidth then
@@ -1762,10 +1762,202 @@ function ns:EnsureMainUI()
 
 	ns.mhSearchBar = searchBar
 
-	-- Sidebar column for module tabs (left, below global search).
+	-- Pinned favourites row (1.9.0 Phase 5): a thin strip under the search bar with the
+	-- player's most-used destinations for one-click access. Left-click a chip to jump,
+	-- right-click to unpin, the "+" opens a menu to pin/unpin any tab. Stored in
+	-- ns.db.favourites (tab ids). Sidebar/content anchor to this row (fixed 24px height,
+	-- so pinning/unpinning never re-lays out the window).
+	local FAV_MAX = 5
+	local favRow = CreateFrame("Frame", "MidnightHelperFavRow", main)
+	favRow:SetHeight(24)
+	favRow:SetPoint("TOPLEFT", searchBar, "BOTTOMLEFT", 0, 0)
+	favRow:SetPoint("TOPRIGHT", searchBar, "BOTTOMRIGHT", 0, 0)
+	local favRowBg = favRow:CreateTexture(nil, "BACKGROUND")
+	favRowBg:SetAllPoints()
+	favRowBg:SetColorTexture(0.16, 0.15, 0.18, 0.85)
+	local favRowEdge = favRow:CreateTexture(nil, "BORDER")
+	favRowEdge:SetHeight(1)
+	favRowEdge:SetPoint("BOTTOMLEFT", favRow, "BOTTOMLEFT", 0, 0)
+	favRowEdge:SetPoint("BOTTOMRIGHT", favRow, "BOTTOMRIGHT", 0, 0)
+	favRowEdge:SetColorTexture(MH_CHROME.separator[1], MH_CHROME.separator[2], MH_CHROME.separator[3], 0.5)
+	ns.mhFavRow = favRow
+
+	local MHRenderFavRow -- forward-declared (chip/menu callbacks re-render)
+	local function MHFavList()
+		ns.db = ns.db or {}
+		if type(ns.db.favourites) ~= "table" then
+			ns.db.favourites = { "delves", "enchants", "currency" } -- sensible defaults
+		end
+		return ns.db.favourites
+	end
+	local function MHIsFav(id)
+		for _, v in ipairs(MHFavList()) do
+			if v == id then
+				return true
+			end
+		end
+		return false
+	end
+	local function MHToggleFav(id)
+		local list = MHFavList()
+		for i, v in ipairs(list) do
+			if v == id then
+				table.remove(list, i)
+				return
+			end
+		end
+		if #list < FAV_MAX then
+			list[#list + 1] = id
+		end
+	end
+
+	local function InitFavPinMenu(_, level)
+		if not (UIDropDownMenu_CreateInfo and UIDropDownMenu_AddButton) then
+			return
+		end
+		for _, t in ipairs(TAB_DEFS) do
+			if SidebarTabVisible(t.id) then
+				local info = UIDropDownMenu_CreateInfo()
+				info.text = ns:L(t.labelKey)
+				info.checked = MHIsFav(t.id)
+				info.isNotRadio = true
+				info.keepShownOnClick = true
+				info.func = function()
+					MHToggleFav(t.id)
+					MHRenderFavRow()
+				end
+				UIDropDownMenu_AddButton(info, level)
+			end
+		end
+	end
+
+	local function FavChip(i)
+		favRow._chips = favRow._chips or {}
+		local c = favRow._chips[i]
+		if c then
+			return c
+		end
+		c = CreateFrame("Button", nil, favRow)
+		c:SetHeight(18)
+		local bg = c:CreateTexture(nil, "BACKGROUND")
+		bg:SetAllPoints()
+		bg:SetColorTexture(0.30, 0.28, 0.34, 0.9)
+		local hl = c:CreateTexture(nil, "HIGHLIGHT")
+		hl:SetAllPoints()
+		hl:SetColorTexture(1, 0.82, 0.2, 0.20)
+		local fs = c:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		if ns.MHScalableFont then
+			fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+		end
+		fs:SetPoint("CENTER")
+		c.fs = fs
+		c:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		c:SetScript("OnClick", function(self, button)
+			if button == "RightButton" then
+				if self._mhId then
+					MHToggleFav(self._mhId)
+					MHRenderFavRow()
+				end
+				return
+			end
+			if self._mhId then
+				if ns.ShowMainUI then
+					ns:ShowMainUI()
+				end
+				if ns.SelectTab then
+					ns.SelectTab(self._mhId)
+				end
+			end
+		end)
+		c:SetScript("OnEnter", function(self)
+			if GameTooltip and self._mhId then
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+				GameTooltip:SetText(ns:L("FAV_CHIP_HINT"), 1, 0.82, 0.2, 1, true)
+				GameTooltip:Show()
+			end
+		end)
+		c:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		favRow._chips[i] = c
+		return c
+	end
+
+	MHRenderFavRow = function()
+		local list = MHFavList()
+		local x = 8
+		local n = 0
+		for _, id in ipairs(list) do
+			local labelKey = TAB_LABEL_BY_ID[id]
+			if labelKey and SidebarTabVisible(id) then
+				n = n + 1
+				local c = FavChip(n)
+				c._mhId = id
+				c.fs:SetText(ns:L(labelKey))
+				local w = math.max(46, (c.fs:GetStringWidth() or 40) + 16)
+				c:SetWidth(w)
+				c:ClearAllPoints()
+				c:SetPoint("LEFT", favRow, "LEFT", x, 0)
+				c:Show()
+				x = x + w + 5
+			end
+		end
+		if favRow._chips then
+			for j = n + 1, #favRow._chips do
+				favRow._chips[j]:Hide()
+			end
+		end
+		local plus = favRow._plus
+		if not plus then
+			plus = CreateFrame("Button", nil, favRow)
+			plus:SetSize(20, 18)
+			local pbg = plus:CreateTexture(nil, "BACKGROUND")
+			pbg:SetAllPoints()
+			pbg:SetColorTexture(0.26, 0.24, 0.30, 0.9)
+			local phl = plus:CreateTexture(nil, "HIGHLIGHT")
+			phl:SetAllPoints()
+			phl:SetColorTexture(1, 0.82, 0.2, 0.22)
+			local pfs = plus:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+			pfs:SetPoint("CENTER", 0, -1)
+			pfs:SetText("+")
+			plus:SetScript("OnClick", function(self)
+				if not (UIDropDownMenu_Initialize and ToggleDropDownMenu) then
+					return
+				end
+				if not favRow._pinMenu then
+					favRow._pinMenu = CreateFrame("Frame", "MidnightHelperFavPinMenu", UIParent, "UIDropDownMenuTemplate")
+				end
+				UIDropDownMenu_Initialize(favRow._pinMenu, InitFavPinMenu, "MENU")
+				ToggleDropDownMenu(1, nil, favRow._pinMenu, self, 0, 0)
+			end)
+			plus:SetScript("OnEnter", function(self)
+				if GameTooltip then
+					GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+					GameTooltip:SetText(ns:L("FAV_PLUS_HINT"), 1, 0.82, 0.2, 1, true)
+					GameTooltip:Show()
+				end
+			end)
+			plus:SetScript("OnLeave", function()
+				if GameTooltip then
+					GameTooltip:Hide()
+				end
+			end)
+			favRow._plus = plus
+		end
+		plus:ClearAllPoints()
+		plus:SetPoint("LEFT", favRow, "LEFT", x, 0)
+		plus:Show()
+	end
+
+	ns.MHRenderFavRow = MHRenderFavRow
+	MHRenderFavRow()
+
+	-- Sidebar column for module tabs (left, below the favourites row).
 	local sidebar = CreateFrame("Frame", nil, main)
 	sidebar:SetWidth(MHGetLayoutMetrics().sidebarWidth)
-	sidebar:SetPoint("TOPLEFT", searchBar, "BOTTOMLEFT", 0, 0)
+	sidebar:SetPoint("TOPLEFT", ns.mhFavRow or searchBar, "BOTTOMLEFT", 0, 0)
 	-- Inner shell uses only the gold-border inset; resize grip sits in the corner on top.
 	sidebar:SetPoint("BOTTOMLEFT", main, "BOTTOMLEFT", MH_MAIN_EDGE.L, MH_MAIN_EDGE.B)
 
@@ -1803,7 +1995,7 @@ function ns:EnsureMainUI()
 
 	-- Content region: hosts one visible module panel at a time.
 	local content = CreateFrame("Frame", nil, main)
-	content:SetPoint("TOPLEFT", searchBar, "BOTTOMLEFT", MHGetLayoutMetrics().sidebarWidth, 0)
+	content:SetPoint("TOPLEFT", ns.mhFavRow or searchBar, "BOTTOMLEFT", MHGetLayoutMetrics().sidebarWidth, 0)
 	content:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -MH_MAIN_EDGE.R, MH_MAIN_EDGE.B)
 
 	local contentBg = content:CreateTexture(nil, "BACKGROUND")
@@ -2589,6 +2781,7 @@ function ns:EnsureMainUI()
 		sidebar = sidebar,
 		content = content,
 		searchBar = searchBar,
+		favRow = favRow,
 		searchResetBtn = searchResetBtn,
 		searchGoBtn = searchGoBtn,
 		aboutBtn = aboutBtn,
