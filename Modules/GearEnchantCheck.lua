@@ -417,7 +417,11 @@ local function BuildReportLines(map)
 			elseif enchanted then
 				local ench = SlotEnchantText(s.id)
 				local tail = ench and (": " .. ench) or ""
-				lines[#lines + 1] = ("|cff8cd98c%s — %s%s|r"):format(label, ns:L("ENCHANT_OK"), tail)
+				-- Ook bij een al-geënchant slot de aanbevolen enchant tonen (klikbare
+				-- link), zodat je je huidige enchant kunt vergelijken (Rob 24 jun).
+				local rec = Recommend(s.id, stat, map)
+				local recTail = rec and ("  " .. ns:L("ENCHANT_RECOMMEND") .. " " .. rec) or ""
+				lines[#lines + 1] = ("|cff8cd98c%s — %s%s|r%s"):format(label, ns:L("ENCHANT_OK"), tail, recTail)
 			else
 				local rec = Recommend(s.id, stat, map)
 				local tail = rec and ("  " .. ns:L("ENCHANT_RECOMMEND") .. " " .. rec) or ""
