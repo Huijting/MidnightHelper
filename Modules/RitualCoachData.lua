@@ -27,6 +27,12 @@
 	  the Daggerspine obelisk showed scenario "A Strike From the Sea" (antagonist
 	  Selen'vjar), captured in the PHASES text, but the actual final-boss kill and
 	  whether a second scenario layout exists are still to confirm.
+	  ✅ Model-seed re-verified (24 Jun 2026): Selen'vjar = npc 257498 (Wowhead, Elite,
+	     Midnight, has a 3D model). NB: dit is al GEWIRED — `DaggerspineCoach.lua` heeft
+	     beide bosses met seeds (Selen'vjar 257498 stepID 16533, Empowered Mindbreaker
+	     stand-in 260022 stepID 16532; scenarioID 3267). Broken Throne idem
+	     (RitualBossCoach.lua: 255653 / 257284). Open: de EXACTE empowered-Mindbreaker
+	     npc (260022 = stand-in) en een evt. 3e scenario "Speaker's Rest" (Gurrtack, npc ⬜).
 ]]
 
 local _, ns = ...

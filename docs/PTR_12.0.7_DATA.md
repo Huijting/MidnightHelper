@@ -381,8 +381,9 @@ alles hieronder is web-gedataminet, hard maken pas na in-game bevestiging.**
   ⬜ Ger'loks/Dragonhawks exacte spell-namen niet in datamined tekst (Wowhead JS).
 - **Daggerspine Point = zone 16939.** Stages **Ritual Roles / Beast From the
   Deep / Summoner's Fall** — **nu WEB-BEVESTIGD** (waren Gemini-gok). Stage 2 =
-  empowered **Mindbreaker** (npc ⬜). **Eindboss Lady Selen'vjar npc 257498** ✅
-  (chest-object 602746 ✅ matcht ons).
+  empowered **Mindbreaker = Void-Infused Mindbreaker npc 260022** ✅ (Wowhead 24 jun;
+  al de stage-2 model-seed in DaggerspineCoach). **Eindboss Lady Selen'vjar npc 257498** ✅
+  (chest-object 602746 ✅ matcht ons). → Beide Daggerspine-bosses geseed, idem Broken Throne.
   - ✅ **Scenario-trigger COMPLEET (Rob in-game 17 jun):** **SCENARIO_ID = 3267**;
     stage 2 "Beast From the Deep" (Empowered Mindbreaker) = **stepID 16532**; stage 3
     "Summoner's Fall" (Lady Selen'vjar) = **stepID 16533**. → `DaggerspineCoach.lua` heeft nu de
@@ -395,7 +396,10 @@ alles hieronder is web-gedataminet, hard maken pas na in-game bevestiging.**
   maar Robs in-game death-recaps zagen ze op de Broken-Throne-Dragonhawk → Robs
   observatie wint voor attributie.)
 - **Derde scenario in Zul'Aman (zone 16796): "Speaker's Rest"** (6 stages),
-  eindboss **Warlord Gurrtack** (npc ⬜). Plus zone "Ritual Site Outskirts" 16748.
+  eindboss **Warlord Gurrtack** (npc ⬜ — Wowhead 24 jun doorzocht, nog niet
+  geïndexeerd; lore: leidt Twilight's Blade daar. Géén MH-coach voor dit scenario,
+  en onduidelijk of 't een ritual-rotatie of Void-Assault-locatie is → niet wiren).
+  Plus zone "Ritual Site Outskirts" 16748.
 - **Challenges (8, compleet, met Spoils%):** Tendrils +10 · Manifestations +15 ·
   Magical Alarm Bells +13 · Malevolent Boons +20 · Tainted Corpses +10 ·
   Reinforced +15 · Patrols +15 · **Embers +25**. Tier-gating: T3=1, T4=2, T5=4.
