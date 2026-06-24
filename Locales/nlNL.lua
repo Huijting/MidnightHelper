@@ -672,7 +672,7 @@ ns._mhLocales.nlNL = {
 	INFO_DRAWER_BODY_ADDONS = "Hub voor optionele tools die in Midnight Helper zitten i.p.v. losse downloads.\n\nKies een sub-tab bovenaan — nu Platynator: Wago-link, profile-string import en de MF Platynator visual gallery.\n\nToekomstige partner-panelen verschijnen hier automatisch als ze worden toegevoegd.",
 	ABOUT_WINDOW_TITLE = "Over Midnight Helper",
 	ABOUT_VERSION_FMT = "Geïnstalleerde versie: |cffffcc00%s|r",
-	ABOUT_WINDOW_BODY = "Auteurs: Inchy & Gemma & Cursor\n\nAlles-in-één Midnight naslag: Delves & Vault, Delve Coach & party share, delve-items popup, Account snapshot, SMC City Guide, Professions (KP + treasures), Leveling Guides, geïntegreerde addon-tools — EN / NL / DE / FR / ES / PT / IT.",
+	ABOUT_WINDOW_BODY = "Auteurs: Inchy & Gemma & Cursor\n\nJe alles-in-één Midnight-metgezel, ingedeeld in vier kamers — Me, Codex, Tools en Settings. Pin favorieten onder de zoekbalk en typ om overal heen te springen. Met Deze week, Delves & Vault, Delve- & Ritual-coaches, de Enchants & Gems-advisor, Account snapshot, Codex-guides, Professies en geïntegreerde addon-tools — EN / NL / DE / FR / ES / PT / IT.",
 	MAIN_TITLE_VERSION_FMT = "v%s",
 	BROKER_TOOLTIP_VERSION_FMT = "Versie: %s",
 
