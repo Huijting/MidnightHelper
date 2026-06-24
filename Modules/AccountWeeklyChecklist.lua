@@ -55,9 +55,13 @@ local function FormatNamePreview(labels)
 	return table.concat(out, ", ") .. (" (+%d)"):format(#labels - MAX_NAME_PREVIEW)
 end
 
--- Ritual Site Studies weekly (Lady Darkglen). Wk1 = 96728; wk2/wk3-quest-IDs
--- aanvullen zodra bekend (zie docs/PTR_12.0.7_DATA.md). Toont de huidige character.
-local RITUAL_WEEKLY_QUESTS = { 96728 }
+-- Ritual Site Studies weekly (Lady Darkglen, "Week X of 3"). Wk1 = 96728, wk2 = 96729
+-- — beide in-game bevestigd (Rob /mh questscan, 24 jun; zie docs/PTR_12.0.7_DATA.md).
+-- Wk3 vermoedelijk 96730 (PATROON) maar nog NIET bevestigd → niet toevoegen (never-lie),
+-- bij reset scannen. We checken alle bekende weken; de huidige week matcht op done/onQuest.
+-- (NB: de "Seeking Knowledge"-serie 96441 is iets ánders — die unlockt de Omnium Folio,
+-- zie OmniumFolioData.lua, en hoort niet in deze ritual-weekly.) Toont de huidige character.
+local RITUAL_WEEKLY_QUESTS = { 96728, 96729 }
 
 local function RitualWeeklyState()
 	if not (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
