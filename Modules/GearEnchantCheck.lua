@@ -69,6 +69,55 @@ local LEG_INT = { iid = 240154, ah = "Arcanoweave Spellthread" }
 -- SHOULDER: optionele utility-enchant (effect onbevestigd — geen stat-claim).
 local SHOULDER_OPT = { iid = 243962, ah = "Enchant Shoulder - Akil'zon's Swiftness" }
 
+-- Midnight-gems (12.0.7, geverifieerd — zie docs/GEMS_12.0.7_DATA.md). Blue/rare,
+-- prismatic (passen in elke socket), ilvl 295 "Flawless". Dual-stat: +16 hoofdstat
+-- (mineraal) + 7 bijstat (prefix); mono-gem = +17. We raden de gem aan met +16 van
+-- je top-secundaire-stat en +7 van je tweede-beste (key = "major|minor"). Item-ID's
+-- 1-op-1 van de Wowhead-itempagina's (never-lie).
+local GEM_BY_PAIR = {
+	-- Amethyst = +16 Mastery
+	["mastery|mastery"] = { iid = 240896, ah = "Flawless Masterful Amethyst" },
+	["mastery|crit"]    = { iid = 240898, ah = "Flawless Deadly Amethyst" },
+	["mastery|haste"]   = { iid = 240900, ah = "Flawless Quick Amethyst" },
+	["mastery|vers"]    = { iid = 240902, ah = "Flawless Versatile Amethyst" },
+	-- Garnet = +16 Critical Strike
+	["crit|crit"]       = { iid = 240904, ah = "Flawless Deadly Garnet" },
+	["crit|mastery"]    = { iid = 240908, ah = "Flawless Masterful Garnet" },
+	["crit|haste"]      = { iid = 240906, ah = "Flawless Quick Garnet" },
+	["crit|vers"]       = { iid = 240910, ah = "Flawless Versatile Garnet" },
+	-- Peridot = +16 Haste
+	["haste|haste"]     = { iid = 240888, ah = "Flawless Quick Peridot" },
+	["haste|mastery"]   = { iid = 240892, ah = "Flawless Masterful Peridot" },
+	["haste|crit"]      = { iid = 240890, ah = "Flawless Deadly Peridot" },
+	["haste|vers"]      = { iid = 240894, ah = "Flawless Versatile Peridot" },
+	-- Lapis = +16 Versatility
+	["vers|vers"]       = { iid = 240912, ah = "Flawless Versatile Lapis" },
+	["vers|mastery"]    = { iid = 240918, ah = "Flawless Masterful Lapis" },
+	["vers|crit"]       = { iid = 240914, ah = "Flawless Deadly Lapis" },
+	["vers|haste"]      = { iid = 240916, ah = "Flawless Quick Lapis" },
+}
+
+-- Slots die een socket kunnen hebben (we scannen ze allemaal; de echte check is of er
+-- een LEGE socket in zit). Blizzard-slotnaam-globals zijn al gelokaliseerd.
+local GEM_SLOTS = {
+	{ id = 1, label = "HEADSLOT" },
+	{ id = 2, label = "NECKSLOT" },
+	{ id = 3, label = "SHOULDERSLOT" },
+	{ id = 5, label = "CHESTSLOT" },
+	{ id = 6, label = "WAISTSLOT" },
+	{ id = 7, label = "LEGSSLOT" },
+	{ id = 8, label = "FEETSLOT" },
+	{ id = 9, label = "WRISTSLOT" },
+	{ id = 10, label = "HANDSSLOT" },
+	{ id = 11, label = "FINGER0SLOT" },
+	{ id = 12, label = "FINGER1SLOT" },
+	{ id = 13, label = "TRINKET0SLOT" },
+	{ id = 14, label = "TRINKET1SLOT" },
+	{ id = 15, label = "BACKSLOT" },
+	{ id = 16, label = "WEAPON" },
+	{ id = 17, label = "SECONDARYHANDSLOT" },
+}
+
 --------------------------------------------------------------------------------
 -- Spec top-secundaire-stat (uit de Vault Advisor-weights)
 --------------------------------------------------------------------------------
@@ -104,6 +153,47 @@ local function TopStat()
 		end
 	end
 	return bestStat
+end
+
+-- Volledige stat-rangschikking (top → laag) voor de gem-aanrader: order[1] = beste
+-- secundaire stat, order[2] = tweede-beste. nil = onbekende spec/geen weights.
+local function RankedStats()
+	local key = SpecWeightKey()
+	local w = key and ns.VAULT_ADVISOR_SPEC_WEIGHTS and ns.VAULT_ADVISOR_SPEC_WEIGHTS[key]
+	if not w then
+		return nil
+	end
+	local order = { "haste", "crit", "mastery", "vers" }
+	table.sort(order, function(a, b)
+		return (w[a] or 0) > (w[b] or 0)
+	end)
+	return order
+end
+
+-- Aantal LEGE sockets op een uitgerust item (0 = geen lege sockets / geen item).
+-- GetItemStats levert alleen EMPTY_SOCKET_*-keys voor nog níét gevulde sockets.
+local function EmptySocketCount(slotId)
+	local link = GetInventoryItemLink and GetInventoryItemLink("player", slotId)
+	if not link then
+		return 0
+	end
+	local stats
+	if C_Item and C_Item.GetItemStats then
+		stats = C_Item.GetItemStats(link)
+	elseif GetItemStats then
+		stats = {}
+		GetItemStats(link, stats)
+	end
+	if not stats then
+		return 0
+	end
+	local n = 0
+	for k, v in pairs(stats) do
+		if type(k) == "string" and k:find("EMPTY_SOCKET") then
+			n = n + (tonumber(v) or 0)
+		end
+	end
+	return n
 end
 
 --------------------------------------------------------------------------------
@@ -183,6 +273,17 @@ local function Recommend(slotId, stat, map)
 	return nil
 end
 
+-- Aanbevolen gem: +16 top-stat (mineraal) + 7 tweede-stat (prefix). Gerenderde link
+-- (klikbaar → AH-naam) of nil als de spec/weights onbekend zijn (never-lie: geen gok).
+local function RecommendGem(map)
+	local r = RankedStats()
+	if not r then
+		return nil
+	end
+	local e = GEM_BY_PAIR[r[1] .. "|" .. r[2]]
+	return e and LinkOf(map, e) or nil
+end
+
 --------------------------------------------------------------------------------
 -- Rapport-regels (gedeeld door paneel + /mh enchants)
 --------------------------------------------------------------------------------
@@ -212,6 +313,30 @@ local function BuildReportLines(map)
 			end
 		end
 	end
+
+	-- Gem-sectie: lege sockets vlaggen + stat-gematchte gem-aanrader (eigen subkop).
+	local ranked = RankedStats()
+	local s1 = ranked and ranked[1]
+	local s2 = ranked and ranked[2]
+	local s1L = s1 and ns:L("ENCHANT_STAT_" .. string.upper(s1)) or "?"
+	local s2L = s2 and ns:L("ENCHANT_STAT_" .. string.upper(s2)) or "?"
+	lines[#lines + 1] = "|cffe8c36a" .. ns:L("GEM_HEADER_FMT"):format(s1L, s2L) .. "|r"
+	local gemRec = RecommendGem(map)
+	local foundSocket = false
+	for _, gs in ipairs(GEM_SLOTS) do
+		local n = EmptySocketCount(gs.id)
+		if n > 0 then
+			foundSocket = true
+			local label = (gs.id == 16 and (_G.WEAPON or "Weapon")) or _G[gs.label] or gs.label
+			local cnt = n > 1 and (" ×" .. n) or ""
+			local tail = gemRec and ("  " .. ns:L("ENCHANT_RECOMMEND") .. " " .. gemRec) or ""
+			lines[#lines + 1] = ("|cffe66b6b%s — %s%s|r%s"):format(label, ns:L("GEM_MISSING"), cnt, tail)
+		end
+	end
+	if not foundSocket then
+		lines[#lines + 1] = ("|cff8cd98c%s|r"):format(ns:L("GEM_OK"))
+	end
+
 	lines[#lines + 1] = "|cff9aa0a8" .. ns:L("ENCHANT_FOOTER") .. "|r"
 	return lines
 end

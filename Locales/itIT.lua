@@ -390,6 +390,9 @@ ns._mhLocales.itIT = {
 	ENCHANT_STAT_CRIT = "Crit",
 	ENCHANT_STAT_MASTERY = "Mastery",
 	ENCHANT_STAT_VERS = "Versatility",
+	GEM_HEADER_FMT = "Controllo gemme (le tue stat migliori: %s / %s)",
+	GEM_MISSING = "CASTONE VUOTO",
+	GEM_OK = "Nessun castone vuoto",
 
 	-- Consumable ready check (/mh readycheck, auto on dungeon entry)
 	CONSREADY_HEADER_FMT = "Controllo consumabili — %s",
@@ -429,8 +432,8 @@ ns._mhLocales.itIT = {
 	AURADUMP_HEADER = "I tuoi buff attivi (spellID — nome):",
 	AURADUMP_NONE = "Nessun buff attivo.",
 	AURADUMP_DEBUFF_HEADER = "I tuoi debuff attivi (spellID — nome):",
-	TAB_ENCHANTS = "Enchants",
-	ENCHANT_SUBTITLE = "Un controllo rapido del tuo equipaggiamento: quali slot incantabili sono senza enchant, con un suggerimento Midnight abbinato alla stat per la tua spec. Si aggiorna man mano che cambi gear.",
+	TAB_ENCHANTS = "Enchant & Gemme",
+	ENCHANT_SUBTITLE = "Un controllo rapido del tuo equipaggiamento: slot incantabili senza enchant, oltre a oggetti con castoni vuoti — ciascuno con un suggerimento Midnight abbinato alle stat per la tua spec. Si aggiorna man mano che cambi gear.",
 	INFO_DRAWER_BODY_ENCHANTS = "Scansiona i tuoi slot incantabili (arma, petto, elmo, spalle, anelli, stivali, gambe) e segnala quelli senza enchant. Anelli e arma ricevono un suggerimento in base alla migliore stat secondaria della tua spec (dai pesi del Vault Advisor); petto, gambe e slot terziari sono generici. Per il puro best-in-slot, controlla una guida di classe. Mantello, polsi e cintura non sono incantabili in questa patch.",
 	TAB_CURRENCY = "Currencies",
 	CURRENCY_QM_LABEL = "Waypoint Renown Quartermaster:",

@@ -379,6 +379,9 @@ ns._mhLocales.enUS = {
 	ENCHANT_STAT_CRIT = "Crit",
 	ENCHANT_STAT_MASTERY = "Mastery",
 	ENCHANT_STAT_VERS = "Versatility",
+	GEM_HEADER_FMT = "Gem check (your top stats: %s / %s)",
+	GEM_MISSING = "EMPTY SOCKET",
+	GEM_OK = "No empty gem sockets",
 
 	-- Consumable ready check (/mh readycheck, auto on dungeon entry)
 	CONSREADY_HEADER_FMT = "Consumable check — %s",
@@ -418,8 +421,8 @@ ns._mhLocales.enUS = {
 	AURADUMP_HEADER = "Your active buffs (spellID — name):",
 	AURADUMP_NONE = "No active buffs.",
 	AURADUMP_DEBUFF_HEADER = "Your active debuffs (spellID — name):",
-	TAB_ENCHANTS = "Enchants",
-	ENCHANT_SUBTITLE = "A quick check of your equipped gear: which enchantable slots are missing an enchant, with a stat-matched Midnight suggestion for your spec. Updates as you re-gear.",
+	TAB_ENCHANTS = "Enchants & Gems",
+	ENCHANT_SUBTITLE = "A quick check of your equipped gear: enchantable slots missing an enchant, plus items with empty gem sockets — each with a stat-matched Midnight suggestion for your spec. Updates as you re-gear.",
 	INFO_DRAWER_BODY_ENCHANTS = "Scans your enchantable slots (weapon, chest, helm, shoulders, rings, boots, legs) and flags any without an enchant. Rings and weapon get a suggestion matching your spec's top secondary stat (from the Vault Advisor weights); chest, legs and tertiary slots are generic. For pure best-in-slot, check a class guide. Cloak, wrist and belt aren't enchantable this patch.",
 	TAB_CURRENCY = "Currencies",
 	CURRENCY_QM_LABEL = "Renown Quartermaster waypoint:",

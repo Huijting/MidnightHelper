@@ -377,6 +377,9 @@ ns._mhLocales.nlNL = {
 	ENCHANT_STAT_CRIT = "Crit",
 	ENCHANT_STAT_MASTERY = "Mastery",
 	ENCHANT_STAT_VERS = "Versatility",
+	GEM_HEADER_FMT = "Gem-check (je beste stats: %s / %s)",
+	GEM_MISSING = "LEGE SOCKET",
+	GEM_OK = "Geen lege gem-sockets",
 
 	-- Consumable ready check (/mh readycheck, auto bij dungeon-entry)
 	CONSREADY_HEADER_FMT = "Consumable-check — %s",
@@ -416,8 +419,8 @@ ns._mhLocales.nlNL = {
 	AURADUMP_HEADER = "Je actieve buffs (spellID — naam):",
 	AURADUMP_NONE = "Geen actieve buffs.",
 	AURADUMP_DEBUFF_HEADER = "Je actieve debuffs (spellID — naam):",
-	TAB_ENCHANTS = "Enchants",
-	ENCHANT_SUBTITLE = "Een snelle check van je uitrusting: welke enchantbare slots nog een enchant missen, met een stat-gematchte Midnight-suggestie voor jouw spec. Werkt automatisch bij als je je gear wisselt.",
+	TAB_ENCHANTS = "Enchants & Gems",
+	ENCHANT_SUBTITLE = "Een snelle check van je uitrusting: enchantbare slots zonder enchant, plus items met lege gem-sockets — elk met een stat-gematchte Midnight-suggestie voor jouw spec. Werkt automatisch bij als je je gear wisselt.",
 	INFO_DRAWER_BODY_ENCHANTS = "Scant je enchantbare slots (wapen, chest, helm, shoulders, ringen, boots, legs) en vlagt slots zonder enchant. Ringen en wapen krijgen een suggestie die past bij de top-secundaire-stat van je spec (uit de Vault Advisor-weights); chest, legs en tertiaire slots zijn generiek. Voor pure best-in-slot: zie een class-guide. Cloak, wrist en belt zijn deze patch niet enchantbaar.",
 	TAB_CURRENCY = "Valuta",
 	CURRENCY_QM_LABEL = "Waypoint naar Renown Quartermaster:",
