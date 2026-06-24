@@ -272,7 +272,7 @@ local SIDEBAR_SECTIONS = {
 	{ key = "me_now", room = "me", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "starthere", "delves", "rares", "world", "events" } },
 	{ key = "me_chars", room = "me", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier", "omnium", "currency" } },
 	{ key = "codex", room = "codex", titleKey = "TAB_CODEX", ids = { "codex", "dungeons", "guide", "smcguide" } },
-	{ key = "tools", room = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "toolbox", "addons" } },
+	{ key = "tools", room = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "toolslaunch", "toolbox", "addons" } },
 	{ key = "settings", room = "settings", titleKey = "TAB_SETTINGS", ids = { "settings" } },
 }
 
@@ -284,7 +284,7 @@ local SIDEBAR_SECTIONS = {
 local SIDEBAR_ROOMS = {
 	{ id = "me", labelKey = "SIDEBAR_ROOM_ME", icon = "Interface\\Icons\\Achievement_Character_Human_Male", defaultTab = "home" },
 	{ id = "codex", labelKey = "SIDEBAR_ROOM_CODEX", icon = "Interface\\Icons\\INV_Misc_Book_09", defaultTab = "codex" },
-	{ id = "tools", labelKey = "SIDEBAR_ROOM_TOOLS", icon = "Interface\\Icons\\Trade_Engineering", defaultTab = "toolbox" },
+	{ id = "tools", labelKey = "SIDEBAR_ROOM_TOOLS", icon = "Interface\\Icons\\Trade_Engineering", defaultTab = "toolslaunch" },
 	{ id = "settings", labelKey = "TAB_SETTINGS", icon = "Interface\\Icons\\INV_Misc_Gear_01", defaultTab = "settings" },
 }
 local SIDEBAR_ROOM_BY_ID = {}
@@ -1456,6 +1456,7 @@ local TAB_DEFS = {
 	{ id = "guide", labelKey = "TAB_GUIDE" },
 	-- Toolbox bundles the former macros/consumables/academy top-level tabs as
 	-- sub-tabs; legacy tab ids still route there via the alias in SelectTab.
+	{ id = "toolslaunch", labelKey = "TAB_TOOLSLAUNCH" },
 	{ id = "toolbox", labelKey = "TAB_TOOLBOX" },
 	{ id = "addons", labelKey = "TAB_ADDONS" },
 	{ id = "settings", labelKey = "TAB_SETTINGS" },
@@ -2009,6 +2010,8 @@ function ns:EnsureMainUI()
 				ns.BuildStartHerePanel(panel)
 			elseif tab.id == "dungeons" and ns.BuildDungeonGuidePanel then
 				ns.BuildDungeonGuidePanel(panel)
+			elseif tab.id == "toolslaunch" and ns.BuildToolsLaunchpad then
+				ns.BuildToolsLaunchpad(panel)
 			elseif tab.id == "settings" and ns.BuildSettingsPanel then
 				ns.BuildSettingsPanel(panel)
 			end

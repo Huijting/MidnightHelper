@@ -224,11 +224,9 @@ local function SetModelCreature(model, creatureID)
 	if not model then
 		return false
 	end
-	-- Door de speler uitgezet (Settings → 3D-model verbergen).
-	if ns.IsBossWindowModelEnabled and not ns.IsBossWindowModelEnabled() then
-		model:Hide()
-		return false
-	end
+	-- (De Settings-toggle "3D-model verbergen" gateert vanaf nu alléén het GROTE
+	-- zijpaneel — via `settingOn`/`panelOn` in RefreshDungeonBossWindow. Het kleine
+	-- boss-spotlight-model blijft altijd staan; Rob 24 jun.)
 	if not creatureID then
 		model:Hide()
 		return false
@@ -772,7 +770,9 @@ function ns.RefreshDungeonBossWindow()
 	win._previewCreatureID = creatureID -- voor de shift-klik-preview (hook C)
 	win._previewName = bossName
 	SetModelCreature(win._thumbModel, creatureID)
-	local panelOn = ModelPanelEnabled() and creatureID ~= nil
+	-- Settings-toggle gateert nu alleen het grote zijpaneel; de thumb blijft.
+	local settingOn = (not ns.IsBossWindowModelEnabled) or ns.IsBossWindowModelEnabled()
+	local panelOn = ModelPanelEnabled() and creatureID ~= nil and settingOn
 	win._panel:SetShown(panelOn)
 	if panelOn then
 		SetModelCreature(win._panelModel, creatureID)

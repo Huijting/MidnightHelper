@@ -1359,14 +1359,16 @@ function ns:ToggleDelveCoach()
 		self:HideDelveCoach(true)
 		return false
 	end
-	if currentEntryId then
-		self:ShowDelveCoach(currentEntryId, { preview = f._previewMode })
-		return true
-	end
 	local active = ResolveActiveDelveEntry()
 	if active then
+		-- In een delve: meteen de juiste coach, geen picker nodig.
 		self:ShowDelveCoach(active.id, { preview = false })
 		return true
+	end
+	-- Niet in een delve: toon de laatst-bekeken coach (indien bekend) ÉN de
+	-- picker, zodat je makkelijk een andere delve kunt kiezen (Rob, 24 jun).
+	if currentEntryId then
+		self:ShowDelveCoach(currentEntryId, { preview = true })
 	end
 	self:OpenDelveCoachPicker()
 	return true

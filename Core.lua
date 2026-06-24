@@ -559,6 +559,32 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh questscan [filter] — print questID + title for every quest in the log
+	-- (optioneel gefilterd op titel). Handig om quest-IDs te dumpen bij resets.
+	if msg == "questscan" or msg:match("^questscan%s+") then
+		local filter = msg:match("^questscan%s+(.+)$")
+		filter = filter and filter:lower() or nil
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		if not (C_QuestLog and C_QuestLog.GetNumQuestLogEntries and C_QuestLog.GetInfo) then
+			print(prefix .. " questscan: quest API unavailable.")
+			return
+		end
+		local n = C_QuestLog.GetNumQuestLogEntries() or 0
+		local count = 0
+		for i = 1, n do
+			local q = C_QuestLog.GetInfo(i)
+			if q and not q.isHeader and q.questID then
+				local title = q.title or "?"
+				if not filter or title:lower():find(filter, 1, true) then
+					print(("%s  |cff00ff00%d|r  %s"):format(prefix, q.questID, title))
+					count = count + 1
+				end
+			end
+		end
+		print(("%s questscan: %d quest(s)%s."):format(prefix, count, filter and (" matching '" .. filter .. "'") or ""))
+		return
+	end
+
 	if msg == "settings" then
 		if ns.OpenSettingsPanel then
 			ns:OpenSettingsPanel()

@@ -46,6 +46,11 @@ Wowhead-news 381499 + MrGM, onafhankelijk van elkaar:
     → **Quest-IDs (Rob 17 jun, /mh questlog-scan):** wk1 **"Ritual Site Studies: Week 1 of 3" = 96728** ✅;
     gerelateerd **"Midnight: Ritual Sites" = 95843** (vermoedelijk zone-/intro-quest). Wk2/wk3-IDs volgen
     bij de volgende resets. Bevestigt ook Gemini's "Void Cores"-weekly (zie PATCH_12_0_7_ADVICE.md).
+    → ✅ **WK2 BEVESTIGD (Rob in-game, 24 jun):** "Ritual Site Studies: **Week 2 of 3**" (Lady Darkglen).
+    Doel: **disrupt 2× Tier 6 terwijl de "Malevolent Boons"-challenge actief is** (wk1 = Reinforcements →
+    wk2 = Malevolent Boons; bevestigt de 3-weken-keten + Darkglens challenge-rotatie). Beloning identiek:
+    Nebulous Voidcore + Voidlight Marl ×300 + ~68g 32s. ✅ **Wk2-quest-ID = 96729** (Rob /mh questscan,
+    24 jun) — opeenvolgend op wk1 = 96728. Wk3 vermoedelijk 96730 (PATROON, niet bevestigd → bij reset scannen).
     → ✅ **CORRECTIE (Blizzard-hotfix 18 jun, via ochtend-news-scan):** **Nebulous Voidcore is een
     CURRENCY**, niet een los bonus-roll-"item" — staat in het currency-window met **Season Maximum 2**
     (hotfix: spelers met 2 in "Season Maximum 1/2" konden niet veilig verder; nu opgelost). → **MH-impact:**
