@@ -380,6 +380,8 @@ ns._mhLocales.nlNL = {
 	GEM_HEADER_FMT = "Gem-check (je beste stats: %s / %s)",
 	GEM_MISSING = "LEGE SOCKET",
 	GEM_OK = "Geen lege gem-sockets",
+	GEM_BEST_FMT = "Beste: 1× %s (uniek) + %s in je overige sockets",
+	GEM_NO_DIAMOND = "Nog geen Thalassian Diamond — zet er 1× %s in (uniek, +32 primary)",
 
 	-- Consumable ready check (/mh readycheck, auto bij dungeon-entry)
 	CONSREADY_HEADER_FMT = "Consumable-check — %s",

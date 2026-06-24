@@ -393,6 +393,8 @@ ns._mhLocales.itIT = {
 	GEM_HEADER_FMT = "Controllo gemme (le tue stat migliori: %s / %s)",
 	GEM_MISSING = "CASTONE VUOTO",
 	GEM_OK = "Nessun castone vuoto",
+	GEM_BEST_FMT = "Ottimale: 1× %s (unico) + %s negli altri castoni",
+	GEM_NO_DIAMOND = "Ancora senza Diamante Thalassiano — incastona 1× %s (unico, +32 stat principale)",
 
 	-- Consumable ready check (/mh readycheck, auto on dungeon entry)
 	CONSREADY_HEADER_FMT = "Controllo consumabili — %s",

@@ -118,6 +118,21 @@ local GEM_SLOTS = {
 	{ id = 17, label = "SECONDARYHANDSLOT" },
 }
 
+-- Eversong Diamond = epische "Thalassian Diamond"-socket-gem. UNIQUE-EQUIPPED: je kunt
+-- er maar ÉÉN dragen over al je sockets. We raden de geverifieerde +32 Primary Stat
+-- (Indecipherable, 240983) aan — klasse-agnostisch (jouw hoofdstat) en Class-Codex-pick.
+-- De andere varianten (Powerful/Stoic/Telluric) hadden geen betrouwbare stat-regel op
+-- Wowhead (één staat als bugged), dus die claimen we niet (never-lie).
+local DIAMOND_REC = { iid = 240983, ah = "Indecipherable Eversong Diamond" }
+-- Alle bekende Thalassian-Diamond-ID's (ilvl 295 + 278) — alleen voor "heb ik er al
+-- een?"-detectie, zodat we niet om een tweede vragen (het is unique).
+local DIAMOND_IDS = {
+	[240983] = true, [240982] = true, -- Indecipherable
+	[240967] = true, [240966] = true, -- Powerful
+	[240971] = true, [240970] = true, -- Stoic
+	[240969] = true, [240968] = true, -- Telluric
+}
+
 --------------------------------------------------------------------------------
 -- Spec top-secundaire-stat (uit de Vault Advisor-weights)
 --------------------------------------------------------------------------------
@@ -194,6 +209,24 @@ local function EmptySocketCount(slotId)
 		end
 	end
 	return n
+end
+
+-- Heeft de speler al ergens een Thalassian Diamond gesocket? (Gem-ID's uit de item-link:
+-- item:itemID:enchant:gem1:gem2:gem3:gem4:...). Zo ja: niet om een tweede vragen.
+local function HasDiamondEquipped()
+	for _, gs in ipairs(GEM_SLOTS) do
+		local link = GetInventoryItemLink and GetInventoryItemLink("player", gs.id)
+		if link then
+			local g1, g2, g3, g4 = link:match("item:%d+:%-?%d*:(%d*):(%d*):(%d*):(%d*)")
+			for _, g in ipairs({ g1, g2, g3, g4 }) do
+				local id = tonumber(g)
+				if id and DIAMOND_IDS[id] then
+					return true
+				end
+			end
+		end
+	end
+	return false
 end
 
 --------------------------------------------------------------------------------
@@ -314,7 +347,8 @@ local function BuildReportLines(map)
 		end
 	end
 
-	-- Gem-sectie: lege sockets vlaggen + stat-gematchte gem-aanrader (eigen subkop).
+	-- Gem-sectie: 1× unieke Eversong Diamond (+32 primary) + secundaire dual-gems in
+	-- de overige sockets. Eigen subkop met je top-2 stats.
 	local ranked = RankedStats()
 	local s1 = ranked and ranked[1]
 	local s2 = ranked and ranked[2]
@@ -322,6 +356,11 @@ local function BuildReportLines(map)
 	local s2L = s2 and ns:L("ENCHANT_STAT_" .. string.upper(s2)) or "?"
 	lines[#lines + 1] = "|cffe8c36a" .. ns:L("GEM_HEADER_FMT"):format(s1L, s2L) .. "|r"
 	local gemRec = RecommendGem(map)
+	local diamondLink = LinkOf(map, DIAMOND_REC)
+	-- Best-setup: 1 diamant (uniek) + secundair in de rest.
+	if gemRec then
+		lines[#lines + 1] = ("|cffc8b88a%s|r"):format(ns:L("GEM_BEST_FMT"):format(diamondLink, gemRec))
+	end
 	local foundSocket = false
 	for _, gs in ipairs(GEM_SLOTS) do
 		local n = EmptySocketCount(gs.id)
@@ -332,6 +371,10 @@ local function BuildReportLines(map)
 			local tail = gemRec and ("  " .. ns:L("ENCHANT_RECOMMEND") .. " " .. gemRec) or ""
 			lines[#lines + 1] = ("|cffe66b6b%s — %s%s|r%s"):format(label, ns:L("GEM_MISSING"), cnt, tail)
 		end
+	end
+	-- Mis je je unieke diamant nog? Eén keer aanstippen (geen tweede; unique-equipped).
+	if not HasDiamondEquipped() then
+		lines[#lines + 1] = ("|cffe6c86b%s|r"):format(ns:L("GEM_NO_DIAMOND"):format(diamondLink))
 	end
 	if not foundSocket then
 		lines[#lines + 1] = ("|cff8cd98c%s|r"):format(ns:L("GEM_OK"))

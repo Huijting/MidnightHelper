@@ -63,9 +63,27 @@ De rest volgt deterministisch uit het mineraal+prefix-patroon; ID's uit de Wowhe
 | Mastery | Flawless Masterful Amethyst | 240896 |
 | Vers | Flawless Versatile Lapis | 240912 |
 
+## Eversong Diamond (Thalassian Diamond) — de unieke epic-gem
+- **Epic, prismatic, ilvl 295. UNIQUE-EQUIPPED: "Thalassian Diamond (1)"** → je kunt er
+  maar **ÉÉN** dragen over al je sockets samen (bevestigd op de itempagina + comment).
+- **Indecipherable Eversong Diamond = 240983 = +32 Primary Stat** (klasse-agnostisch: jouw
+  hoofdstat). Direct geverifieerd op de Wowhead-itempagina. Dit is de Class-Codex-pick
+  (Rob, Ele Shaman, 24 jun).
+- Lager-ilvl variant: Indecipherable 240982 (ilvl 278).
+- Andere varianten (allemaal Thalassian Diamond, unique): **Powerful 240967/240966**,
+  **Stoic 240971/240970**, **Telluric 240969/240968**. Hun stat-regel kwam **niet
+  betrouwbaar** door op Wowhead (Stoic staat zelfs als "bugged" in de comments) → die
+  claimen we NIET en raden we niet aan (never-lie). MH raadt alleen de geverifieerde
+  Indecipherable (+32 primary) aan.
+
+### Advies-model (in MH gebouwd, 24 jun)
+- **1× Eversong Diamond (Indecipherable, +32 primary, uniek) + de rest secundaire dual-gems.**
+- MH detecteert of er al een Thalassian Diamond gesocket zit (via de gem-ID's in de
+  item-link, set `DIAMOND_IDS`); zo ja, geen tweede aanraden.
+- Per lege socket: de stat-gematchte dual-gem (16 top + 7 tweede).
+
 ## Open / nog te besluiten
-- Advies-stijl: **mono** (16 = pure top-stat) vs **dual** (16 top + 7 tweede-beste stat).
-- Epic "Eversong Diamond"-prismatics (ilvl 295, o.a. Stoic/Telluric/Powerful/Indecipherable)
-  bestaan ook (vaak 1 speciale/unique socket) — nog niet uitgewerkt; buiten scope eerste versie.
+- Stoic/Telluric/Powerful stats: bij de volgende patch/Wowhead-fix verifiëren — als ze
+  +primary + een secundaire blijken, kan MH per spec de beste variant kiezen.
 - Bevestigen tegen AskMrRobot / Class Codex of het stat-prioriteits-idee klopt per spec
   (MH gebruikt nu `ns.VAULT_ADVISOR_SPEC_WEIGHTS`, zelfde bron als de enchant-advisor).
