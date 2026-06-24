@@ -262,14 +262,61 @@ local MH_BETA_TAB_IDS = {
 -- Sidebar is grouped into labelled sections (header + tabs). Tab ids whose
 -- buttons do not exist yet (home, ritual) are skipped during layout, which
 -- reserves their slot for later phases without breaking the current build.
+-- 1.9.0 Phase 2 (4-kamer-model, stap 1 = hergroeperen): de zijbalk volgt nu de
+-- blueprint-kamers. "Me" is gesplitst in This week / My characters; Codex bundelt
+-- alle kennis (gidsen); Tools en Settings staan apart. Titels hergebruiken
+-- bestaande locale-keys (TAB_CODEX/TAB_SETTINGS), dus geen nieuwe sleutels nodig.
+-- Stap 2 maakt hier klikbare icoon-kamerknoppen van. Home blijft de default/
+-- fallback-tab in SelectTab (sidebar-volgorde staat daar los van).
 local SIDEBAR_SECTIONS = {
-	-- Start Here leads for new players; Home remains the default/fallback tab in
-	-- SelectTab (sidebar order is independent of that fallback).
-	{ key = "week", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "starthere", "home", "codex", "delves", "dungeons", "rares", "world", "events" } },
-	{ key = "character", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier", "omnium" } },
-	{ key = "guides", titleKey = "SIDEBAR_SECTION_GUIDES", ids = { "guide", "smcguide", "currency", "toolbox" } },
-	{ key = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "addons", "settings" } },
+	{ key = "me_now", room = "me", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "starthere", "delves", "rares", "world", "events" } },
+	{ key = "me_chars", room = "me", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier", "omnium", "currency" } },
+	{ key = "codex", room = "codex", titleKey = "TAB_CODEX", ids = { "codex", "dungeons", "guide", "smcguide" } },
+	{ key = "tools", room = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "toolbox", "addons" } },
+	{ key = "settings", room = "settings", titleKey = "TAB_SETTINGS", ids = { "settings" } },
 }
+
+-- 1.9.0 Phase 2 stap 2: klikbare icoon-kamerknoppen bovenaan de zijbalk. Elke
+-- kamer toont alleen z'n eigen secties; de actieve kamer wordt AFGELEID van de
+-- huidige tab (geen aparte staat om te syncen). Klikken op een kamer opent de
+-- eerste zichtbare tab erin. Labels: SIDEBAR_ROOM_ME/_CODEX nieuw; Tools/Settings
+-- hergebruiken bestaande keys.
+local SIDEBAR_ROOMS = {
+	{ id = "me", labelKey = "SIDEBAR_ROOM_ME", icon = "Interface\\Icons\\Achievement_Character_Human_Male", defaultTab = "home" },
+	{ id = "codex", labelKey = "SIDEBAR_ROOM_CODEX", icon = "Interface\\Icons\\INV_Misc_Book_09", defaultTab = "codex" },
+	{ id = "tools", labelKey = "SIDEBAR_ROOM_TOOLS", icon = "Interface\\Icons\\Trade_Engineering", defaultTab = "toolbox" },
+	{ id = "settings", labelKey = "TAB_SETTINGS", icon = "Interface\\Icons\\INV_Misc_Gear_01", defaultTab = "settings" },
+}
+local SIDEBAR_ROOM_BY_ID = {}
+for _, r in ipairs(SIDEBAR_ROOMS) do
+	SIDEBAR_ROOM_BY_ID[r.id] = r
+end
+
+local function MHRoomForTab(tabId)
+	for _, section in ipairs(SIDEBAR_SECTIONS) do
+		for _, id in ipairs(section.ids) do
+			if id == tabId then
+				return section.room
+			end
+		end
+	end
+	return nil
+end
+
+local function MHActiveRoom()
+	return MHRoomForTab(ns.uiSelectedTab) or "me"
+end
+
+-- Phase 3 cross-links: interactieve tabs met een Codex-tegenhanger. De
+-- titelbalk-knop "Read in Codex" springt naar die Codex-categorie.
+local TAB_TO_CODEX = {
+	delves = "delves",
+	dungeons = "dungeons",
+	world = "world",
+	currency = "currencies",
+	omnium = "weekly",
+}
+
 local SIDEBAR_SECTION_GAP = 10
 local SIDEBAR_HEADER_HEIGHT = 16
 
@@ -286,7 +333,7 @@ local SIMPLE_MODE_TABS = {
 -- 'm expliciet inschakelt via de toggle (Rob 16 jun: eerste keer = volledig, zodat
 -- Carola/iedereen alles ziet en simpel een bewuste keuze is).
 local function MHSimpleModeOn()
-	return ns.db and ns.db.simpleMode == true
+	return false -- simple-modus uitgefaseerd in Phase 2 (de kamer-rail vervangt 'm)
 end
 
 local function SidebarTabVisible(tabId)
@@ -1548,6 +1595,37 @@ function ns:EnsureMainUI()
 	infoToggleBtn:SetPoint("RIGHT", closeBtn, "LEFT", -4, 0)
 	MHTintButtonTextures(infoToggleBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
 
+	-- Phase 3 cross-link: "Read in Codex"-knop, verschijnt bij tabs met een
+	-- Codex-tegenhanger (gevuld door SelectTab) en springt naar die categorie.
+	local codexLinkBtn = CreateFrame("Button", "MidnightHelperCodexLink", titleBar, "UIPanelButtonTemplate")
+	codexLinkBtn:SetSize(110, 20)
+	codexLinkBtn:SetPoint("RIGHT", infoToggleBtn, "LEFT", -6, 0)
+	MHTintButtonTextures(codexLinkBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
+	codexLinkBtn:SetText(ns:L("CODEX_LINK_OPEN"))
+	codexLinkBtn:SetScript("OnClick", function(self)
+		if self._mhCat and ns.SetActiveCodexCategory then
+			ns.SetActiveCodexCategory(self._mhCat)
+		end
+		if ns.SelectTab then
+			ns.SelectTab("codex")
+		end
+	end)
+	codexLinkBtn:Hide()
+	ns._mhCodexLinkBtn = codexLinkBtn
+
+	-- Phase 3: breadcrumb in de titelbalk toont 'Kamer > Tab' voor oriëntatie.
+	-- Gevuld door SelectTab; tussen versie en de Codex-knop/Info.
+	local breadcrumb = titleBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	breadcrumb:SetPoint("LEFT", titleVersion, "RIGHT", 14, 0)
+	breadcrumb:SetPoint("RIGHT", codexLinkBtn, "LEFT", -8, 0)
+	breadcrumb:SetJustifyH("LEFT")
+	breadcrumb:SetWordWrap(false)
+	breadcrumb:SetTextColor(0.78, 0.72, 0.55)
+	if ns.MHScalableFont then
+		breadcrumb:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	end
+	ns._mhBreadcrumb = breadcrumb
+
 	-- Global search row: visible on every tab, full width (wider than the ~132px sidebar would allow).
 	local searchBar = CreateFrame("Frame", "MidnightHelperGlobalSearch", main)
 	searchBar:SetHeight(MHGetLayoutMetrics().searchBarHeight)
@@ -2193,6 +2271,56 @@ function ns:EnsureMainUI()
 		ns.tabButtons[tab.id] = btn
 	end
 
+	-- Kamer-rail (Phase 2): 4 icoon+label-knoppen bovenaan de zijbalk. Klikken
+	-- opent de eerste zichtbare tab van die kamer (SelectTab herlayout't de rail).
+	ns._mhRoomButtons = ns._mhRoomButtons or {}
+	local function MHFirstVisibleTabInRoom(roomId)
+		for _, section in ipairs(SIDEBAR_SECTIONS) do
+			if section.room == roomId then
+				for _, id in ipairs(section.ids) do
+					if ns.tabButtons and ns.tabButtons[id] and SidebarTabVisible(id) then
+						return id
+					end
+				end
+			end
+		end
+		return nil
+	end
+	local function MHSelectRoom(roomId)
+		local target = MHFirstVisibleTabInRoom(roomId)
+		if target then
+			SelectTab(target)
+		end
+	end
+	for _, roomDef in ipairs(SIDEBAR_ROOMS) do
+		local rb = CreateFrame("Button", "MidnightHelperRoom_" .. roomDef.id, sidebar)
+		rb:SetHeight(MHGetLayoutMetrics().sidebarTabHeight)
+		local bg = rb:CreateTexture(nil, "BACKGROUND")
+		bg:SetAllPoints()
+		bg:SetColorTexture(0.18, 0.16, 0.20, 0.55)
+		rb._mhBg = bg
+		local icon = rb:CreateTexture(nil, "ARTWORK")
+		icon:SetSize(16, 16)
+		icon:SetPoint("LEFT", rb, "LEFT", 4, 0)
+		icon:SetTexture(roomDef.icon)
+		icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		rb._mhIcon = icon
+		local lbl = rb:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		lbl:SetPoint("LEFT", icon, "RIGHT", 5, 0)
+		lbl:SetPoint("RIGHT", rb, "RIGHT", -4, 0)
+		lbl:SetJustifyH("LEFT")
+		rb._mhLabel = lbl
+		local hl = rb:CreateTexture(nil, "HIGHLIGHT")
+		hl:SetAllPoints()
+		hl:SetColorTexture(1, 0.82, 0.2, 0.15)
+		rb._mhRoomId = roomDef.id
+		rb._mhLabelKey = roomDef.labelKey
+		rb:SetScript("OnClick", function()
+			MHSelectRoom(roomDef.id)
+		end)
+		ns._mhRoomButtons[roomDef.id] = rb
+	end
+
 	-- Simpele-modus-schakelaar (Tier 3): bovenaan de sidebar; toont/verbergt de
 	-- extra tabs. Niets verwijderd — alleen verbergen via SidebarTabVisible.
 	local simpleToggle = CreateFrame("Button", "MidnightHelperSimpleToggle", sidebar, "UIPanelButtonTemplate")
@@ -2208,17 +2336,47 @@ function ns:EnsureMainUI()
 	ns._mhSimpleToggle = simpleToggle
 
 	RelayoutSidebarTabs = function()
+		ns._mhSidebarRelaying = true -- recursion-guard: SelectTab relayout't ook
 		local lm = MHGetLayoutMetrics()
 		local yy = -8
 
-		-- Simpele-modus-schakelaar bovenaan de sidebar.
+		-- Simpele-modus-schakelaar is met de kamer-rail overbodig geworden (Rob,
+		-- Phase 2): verbergen i.p.v. tekenen, zodat de rail bovenaan komt.
 		if simpleToggle then
-			simpleToggle:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
-			simpleToggle:SetText(MHSimpleModeOn() and ns:L("SIDEBAR_SHOW_ALL") or ns:L("SIDEBAR_SIMPLE"))
-			simpleToggle:ClearAllPoints()
-			simpleToggle:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
-			simpleToggle:Show()
-			yy = yy - lm.sidebarTabStep - SIDEBAR_SECTION_GAP
+			simpleToggle:Hide()
+		end
+
+		-- Kamer-rail: 4 knoppen, de actieve gemarkeerd. Daaronder tonen we alleen
+		-- de secties van de actieve kamer (afgeleid van de huidige tab).
+		local activeRoom = MHActiveRoom()
+		if ns._mhRoomButtons then
+			for _, roomDef in ipairs(SIDEBAR_ROOMS) do
+				local rb = ns._mhRoomButtons[roomDef.id]
+				if rb then
+					local isActive = (roomDef.id == activeRoom)
+					rb:SetSize(lm.sidebarWidth - 16, lm.sidebarTabHeight)
+					if rb._mhLabel then
+						rb._mhLabel:SetText(ns:L(roomDef.labelKey))
+						if isActive then
+							rb._mhLabel:SetTextColor(1, 0.95, 0.6)
+						else
+							rb._mhLabel:SetTextColor(0.82, 0.78, 0.68)
+						end
+					end
+					if rb._mhBg then
+						if isActive then
+							rb._mhBg:SetColorTexture(0.85, 0.65, 0.13, 0.55)
+						else
+							rb._mhBg:SetColorTexture(0.18, 0.16, 0.20, 0.55)
+						end
+					end
+					rb:ClearAllPoints()
+					rb:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
+					rb:Show()
+					yy = yy - lm.sidebarTabStep
+				end
+			end
+			yy = yy - SIDEBAR_SECTION_GAP
 		end
 
 		-- Eerst ÁLLE tab-knoppen verbergen: knoppen in volledig-verborgen secties
@@ -2267,10 +2425,12 @@ function ns:EnsureMainUI()
 		local firstSectionDrawn = false
 		for _, section in ipairs(SIDEBAR_SECTIONS) do
 			local visibleCount = 0
-			for _, tabId in ipairs(section.ids) do
-				local btn = ns.tabButtons and ns.tabButtons[tabId]
-				if btn and SidebarTabVisible(tabId) then
-					visibleCount = visibleCount + 1
+			if section.room == activeRoom then
+				for _, tabId in ipairs(section.ids) do
+					local btn = ns.tabButtons and ns.tabButtons[tabId]
+					if btn and SidebarTabVisible(tabId) then
+						visibleCount = visibleCount + 1
+					end
 				end
 			end
 
@@ -2332,6 +2492,7 @@ function ns:EnsureMainUI()
 		elseif ns.uiSelectedTab == "guide" and ns.IsGuideTabEnabled and not ns:IsGuideTabEnabled() then
 			SelectTab("home")
 		end
+		ns._mhSidebarRelaying = false
 	end
 
 	-- Resize grip: bottom-right corner uses StartSizing so the shell stays resizable.
@@ -2527,6 +2688,32 @@ SelectTab = function(tabId)
 
 	ns.uiSelectedTab = tabId
 
+	-- Phase 3: breadcrumb 'Kamer > Tab' bijwerken (oriëntatie in de titelbalk).
+	if ns._mhBreadcrumb then
+		local roomId = MHRoomForTab(tabId)
+		local roomDef = roomId and SIDEBAR_ROOM_BY_ID[roomId]
+		local roomLabel = (roomDef and ns:L(roomDef.labelKey)) or ""
+		local tabKey = TAB_LABEL_BY_ID[tabId]
+		local tabLabel = (tabKey and ns:L(tabKey)) or ""
+		local text = roomLabel
+		if tabLabel ~= "" and tabLabel ~= roomLabel then
+			text = (roomLabel ~= "" and (roomLabel .. "  >  ") or "") .. tabLabel
+		end
+		ns._mhBreadcrumb:SetText(text)
+	end
+
+	-- Phase 3 cross-link: toon "Read in Codex" als deze tab een Codex-categorie heeft.
+	if ns._mhCodexLinkBtn then
+		local cat = (tabId ~= "codex") and TAB_TO_CODEX[tabId] or nil
+		if cat then
+			ns._mhCodexLinkBtn._mhCat = cat
+			ns._mhCodexLinkBtn:Show()
+		else
+			ns._mhCodexLinkBtn._mhCat = nil
+			ns._mhCodexLinkBtn:Hide()
+		end
+	end
+
 	for id, panel in pairs(ns.panels) do
 		if id == tabId then
 			panel:Show()
@@ -2605,6 +2792,12 @@ SelectTab = function(tabId)
 		if sid then
 			SelectAddonSubTab(sid)
 		end
+	end
+
+	-- Herlayout de zijbalk zodat de kamer-rail de kamer van de nieuwe tab toont.
+	-- Guard: de fallback SelectTab("home") in RelayoutSidebarTabs zou anders recursen.
+	if RelayoutSidebarTabs and not ns._mhSidebarRelaying then
+		RelayoutSidebarTabs()
 	end
 end
 
