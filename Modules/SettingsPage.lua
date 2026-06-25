@@ -28,6 +28,8 @@ local CATS = {
 	{ key = "general", labelKey = "SETTINGS_SECTION_GENERAL" },
 	{ key = "alerts", labelKey = "SET_CAT_ALERTS" },
 	{ key = "dungeon", labelKey = "SET_CAT_DUNGEON" },
+	{ key = "vault", labelKey = "SET_CAT_VAULT" },
+	{ key = "tabs", labelKey = "SET_CAT_TABS" },
 	{ key = "advanced", labelKey = "SET_CAT_ADVANCED" },
 }
 
@@ -272,7 +274,7 @@ function ns.BuildSettingsPanel(panel)
 	local prev
 	for _, cat in ipairs(CATS) do
 		local btn = CreateFrame("Button", nil, catRow, "UIPanelButtonTemplate")
-		btn:SetSize(118, BTN_H)
+		btn:SetSize(104, BTN_H)
 		if prev then
 			btn:SetPoint("LEFT", prev, "RIGHT", 4, 0)
 		else
@@ -644,6 +646,8 @@ function ns.BuildSettingsPanel(panel)
 	-- Vault reminders & advisor + Beta tabs — hosted from the shared builders so every
 	-- setting lives in this one tab (the old right-click / Blizzard panel is retired).
 	-- Each builder gets its own left-aligned container; refresh runs in RefreshSettingsPanel.
+	-- Each now lives in its own category (Vault / Tabs) with a short intro for air.
+	Label("SET_CAT_VAULT_DESC", "GameFontHighlightSmall", COLOR_DIM, 14, 0, "vault")
 	local vaultBox = CreateFrame("Frame", nil, child)
 	vaultBox:SetHeight(290)
 	local vAnchor = vaultBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -653,8 +657,9 @@ function ns.BuildSettingsPanel(panel)
 		ns.AttachVaultSettingsControls(vaultBox, vAnchor, "OVERLAY", vaultBox)
 	end
 	ui.vaultBox = vaultBox
-	push(vaultBox, 16, 0, { mode = "advanced", h = 290 })
+	push(vaultBox, 16, 0, { mode = "vault", h = 290 })
 
+	Label("SET_CAT_TABS_DESC", "GameFontHighlightSmall", COLOR_DIM, 14, 0, "tabs")
 	local betaBox = CreateFrame("Frame", nil, child)
 	betaBox:SetHeight(190)
 	local bAnchor = betaBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -664,7 +669,7 @@ function ns.BuildSettingsPanel(panel)
 		ns.AttachBetaTabsSettings(betaBox, bAnchor, "OVERLAY", betaBox)
 	end
 	ui.betaBox = betaBox
-	push(betaBox, 16, 0, { mode = "advanced", h = 190 })
+	push(betaBox, 16, 0, { mode = "tabs", h = 190 })
 
 	-- Reset all MidnightHelper settings to defaults (was only on the old panel).
 	Label("SETTINGS_RESET_DEFAULTS", "GameFontNormal", COLOR_ACCENT, 16, 0, "advanced")
