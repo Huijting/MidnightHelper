@@ -490,7 +490,6 @@ local OVERRIDES = {
 	PROFHUB_GOAL_TT_ALLROUND = "A rota inicial de consenso: uma ordem equilibrada para seus primeiros pontos — boa capacidade de fabricação sem se prender a um nicho.",
 	PROFHUB_GOAL_TT_GOLD = "Prioriza árvores cujos produtos vendem bem (encantamentos, frascos, cooldowns de rolos, gemas lapidadas). Escolha isto se ouro é a sua meta.",
 	PROFHUB_GOAL_TT_SELF = "Prioriza fabricar seus próprios consumíveis e equipamentos, e a autossuficiência de materiais, acima do valor de mercado.",
-	PROFHUB_WEEKLY_TRAINER_REQ = "(desbloqueia com a intro do capitão Flaresworn — estação de encomendas)",
 	PROFHUB_WEEKLY_TRAINER_REQ_ENCH = "(desbloqueia com a intro do capitão Flaresworn — estação de encomendas; também exige perícia 25)",
 	PROFHUB_ACCESSORY_HINT_FMT = "Dica: %d slot(s) de acessório vazio(s) — acessórios dão perícia e stats. Outros artesãos os fabricam (leilão: Equipamento de profissão).",
 	INFO_DRAWER_BODY_CONSUMABLES = "Consumíveis da 1ª temporada da meia-noite por especificação (lista Wowhead). Use Meu personagem, < >, ou pesquise (por exemplo, estragos, besta) para visualizar outra especificação sem relogar.",

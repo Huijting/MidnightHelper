@@ -490,7 +490,6 @@ local OVERRIDES = {
 	PROFHUB_GOAL_TT_ALLROUND = "La ruta inicial de consenso: un orden equilibrado para tus primeros puntos — buena capacidad de fabricación sin atarte a un nicho.",
 	PROFHUB_GOAL_TT_GOLD = "Prioriza árboles cuyos productos se venden bien (encantamientos, frascos, cooldowns de fardos, gemas talladas). Elige esto si tu meta es el oro.",
 	PROFHUB_GOAL_TT_SELF = "Prioriza fabricar tus propios consumibles y equipo, y la autosuficiencia de materiales, por encima del valor de mercado.",
-	PROFHUB_WEEKLY_TRAINER_REQ = "(se desbloquea con la intro del capitán Flaresworn — estación de encargos)",
 	PROFHUB_WEEKLY_TRAINER_REQ_ENCH = "(se desbloquea con la intro del capitán Flaresworn — estación de encargos; además requiere habilidad 25)",
 	PROFHUB_ACCESSORY_HINT_FMT = "Consejo: %d hueco(s) de accesorio vacío(s) — los accesorios dan habilidad y stats. Otros artesanos los fabrican (subasta: Equipo de profesión).",
 	INFO_DRAWER_BODY_CONSUMABLES = "Consumibles de la temporada 1 de Midnight por especificación (lista Wowhead). Utilice Mi personaje, < > o busque (por ejemplo, estragos, bestia) para obtener una vista previa de otra especificación sin volver a iniciar sesión.",

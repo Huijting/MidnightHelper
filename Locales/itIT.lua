@@ -586,7 +586,6 @@ ns._mhLocales.itIT = {
 	PROFHUB_GOAL_TT_ALLROUND = "La route iniziale di consenso: un ordine bilanciato per i primi punti — buon potere di crafting senza impegnarti in una nicchia.",
 	PROFHUB_GOAL_TT_GOLD = "Dà priorità agli alberi i cui prodotti si vendono bene (enchant, flask, cooldown dei bolt, gemme tagliate). Scegli questo se il tuo scopo è fare oro.",
 	PROFHUB_GOAL_TT_SELF = "Dà priorità a crearti consumabili ed equipaggiamento e all'autosufficienza di materiali, più che al valore di mercato.",
-	PROFHUB_WEEKLY_TRAINER_REQ = "(si sblocca tramite l'intro da Captain Flaresworn — stazione Work Order)",
 	PROFHUB_WEEKLY_TRAINER_REQ_ENCH = "(si sblocca tramite l'intro da Captain Flaresworn — stazione Work Order; richiede anche skill 25)",
 	PROFHUB_ACCESSORY_HINT_FMT = "Consiglio: %d slot accessorio vuoto/i — gli accessori aggiungono skill e stat. Li fanno altri crafter (categoria AH: Profession Equipment).",
 	INFO_DRAWER_BODY_CONSUMABLES = "Consumabili Midnight Stagione 1 per spec (lista Wowhead). Usa Il mio personaggio, < >, o la ricerca (es. havoc, beast) per vedere un'altra spec senza rilogarti.",

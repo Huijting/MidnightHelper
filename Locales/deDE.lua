@@ -490,7 +490,6 @@ local OVERRIDES = {
 	PROFHUB_GOAL_TT_ALLROUND = "Die Konsens-Startroute: eine ausgewogene Reihenfolge für deine ersten Punkte — solide Craftkraft ohne Nischen-Festlegung.",
 	PROFHUB_GOAL_TT_GOLD = "Bevorzugt Bäume, deren Produkte sich gut verkaufen (Verzauberungen, Fläschchen, Ballen-Cooldowns, geschliffene Steine). Wähle dies, wenn Gold dein Ziel ist.",
 	PROFHUB_GOAL_TT_SELF = "Bevorzugt eigene Verbrauchsgüter und Ausrüstung sowie Material-Selbstversorgung gegenüber Marktwert.",
-	PROFHUB_WEEKLY_TRAINER_REQ = "(freigeschaltet über die Intro bei Captain Flaresworn — Arbeitsauftrag-Station)",
 	PROFHUB_WEEKLY_TRAINER_REQ_ENCH = "(freigeschaltet über die Intro bei Captain Flaresworn — Arbeitsauftrag-Station; braucht zudem Skill 25)",
 	PROFHUB_ACCESSORY_HINT_FMT = "Tipp: %d Zubehör-Slot(s) leer — Zubehör gibt Skill und Stats. Andere Handwerker stellen es her (AH-Kategorie: Berufsausrüstung).",
 	INFO_DRAWER_BODY_CONSUMABLES = "Verbrauchsmaterialien für Midnight Season 1 pro Spezifikation (Wowhead-Liste). Nutze Mein Charakter, < > oder die Suche (z. B. Chaos, Biest), um eine Vorschau einer anderen Spezifikation anzuzeigen, ohne sich erneut anzumelden.",

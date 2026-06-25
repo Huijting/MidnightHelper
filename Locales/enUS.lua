@@ -590,7 +590,6 @@ ns._mhLocales.enUS = {
 	PROFHUB_GOAL_TT_ALLROUND = "The consensus starter route: a balanced order for your first points — solid crafting power without committing to a niche.",
 	PROFHUB_GOAL_TT_GOLD = "Prioritizes trees whose products sell well (enchants, flasks, bolt cooldowns, cut gems). Pick this if making gold is your aim.",
 	PROFHUB_GOAL_TT_SELF = "Prioritizes making your own consumables and gear, and material self-sufficiency, over market value.",
-	PROFHUB_WEEKLY_TRAINER_REQ = "(unlocks via the intro at Captain Flaresworn — Work Order station)",
 	PROFHUB_WEEKLY_TRAINER_REQ_ENCH = "(unlocks via the intro at Captain Flaresworn — Work Order station; also needs skill 25 first)",
 	PROFHUB_ACCESSORY_HINT_FMT = "Tip: %d accessory slot(s) empty — accessories add skill and stats. Other crafters make them (AH category: Profession Equipment).",
 	INFO_DRAWER_BODY_CONSUMABLES = "Midnight Season 1 consumables per spec (Wowhead list). Use My character, < >, or search (e.g. havoc, beast) to preview another spec without relogging.",

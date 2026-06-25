@@ -490,7 +490,6 @@ local OVERRIDES = {
 	PROFHUB_GOAL_TT_ALLROUND = "La route de départ consensuelle : un ordre équilibré pour tes premiers points — une bonne puissance d'artisanat sans t'enfermer dans une niche.",
 	PROFHUB_GOAL_TT_GOLD = "Priorise les arbres dont les produits se vendent bien (enchantements, flacons, cooldowns de rouleaux, gemmes taillées). Choisis ceci si l'or est ton objectif.",
 	PROFHUB_GOAL_TT_SELF = "Priorise la fabrication de tes propres consommables et équipements, et l'autosuffisance en matériaux, plutôt que la valeur marchande.",
-	PROFHUB_WEEKLY_TRAINER_REQ = "(se débloque via l'intro chez le capitaine Flaresworn — station de commandes)",
 	PROFHUB_WEEKLY_TRAINER_REQ_ENCH = "(se débloque via l'intro chez le capitaine Flaresworn — station de commandes ; demande aussi la compétence 25)",
 	PROFHUB_ACCESSORY_HINT_FMT = "Astuce : %d emplacement(s) d'accessoire vide(s) — les accessoires donnent compétence et stats. D'autres artisans les fabriquent (HV : Équipement de métier).",
 	INFO_DRAWER_BODY_CONSUMABLES = "Consommables Midnight Saison 1 par spécification (liste Wowhead). Utilise Mon personnage, < > ou recherchez (par exemple Havoc, Beast) pour prévisualiser une autre spécialisation sans tu reconnecter.",
