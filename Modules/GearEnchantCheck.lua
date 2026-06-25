@@ -185,6 +185,23 @@ local function RankedStats()
 	return order
 end
 
+-- Hoofdstat van de speler ("int"/"agi"/"str") = de hoogste van Str/Agi/Int. Bepaalt o.a.
+-- de leg-enchant (Int → spellthread, Agi/Str → armor kit). nil = niet te bepalen.
+local function PrimaryStat()
+	if not UnitStat then
+		return nil
+	end
+	local str = UnitStat("player", 1) or 0
+	local agi = UnitStat("player", 2) or 0
+	local int = UnitStat("player", 4) or 0
+	if int >= str and int >= agi then
+		return "int"
+	elseif agi >= str then
+		return "agi"
+	end
+	return "str"
+end
+
 -- Aantal LEGE sockets op een uitgerust item (0 = geen lege sockets / geen item).
 -- LET OP: GetItemStats geeft het TOTAAL aantal sockets van een item (uit de stat-
 -- template, óók al gevuld) via de EMPTY_SOCKET_*-keys — niet alleen de lege. Daarom:
@@ -281,21 +298,12 @@ local function SocketedGemLinks(link)
 	return out
 end
 
--- RGB van een tooltip-regel (ColorMixin of losse velden).
-local function LineRGB(line)
-	local c = line and line.leftColor
-	if not c then
-		return nil
-	end
-	if c.GetRGB then
-		return c:GetRGB()
-	end
-	return c.r, c.g, c.b
-end
-
 -- De toegepaste enchant-naam van een slot, gelezen uit de échte item-tooltip
--- (never-lie: we tonen wat het spel toont, geen ID-gok). Pakt de eerste groene
--- regel die geen Equip:/Use:/Socket Bonus-effect is. nil = niets gevonden.
+-- (never-lie: we tonen wat het spel toont, geen ID-gok). De game zet de enchant op een
+-- regel met het "Enchanted:"-voorvoegsel (ENCHANTED_TOOLTIP, gelokaliseerd) — dat is een
+-- veel betrouwbaarder anker dan op kleur gokken (Midnight kleurt item-stats óók groen,
+-- en tertiaries als "Indestructible" zijn groene namen). We pakken die regel en strippen
+-- het voorvoegsel. nil = niet gevonden (dan tonen we alleen "enchanted").
 local function SlotEnchantText(slotId)
 	if not (C_TooltipInfo and C_TooltipInfo.GetInventoryItem) then
 		return nil
@@ -304,22 +312,18 @@ local function SlotEnchantText(slotId)
 	if not (data and data.lines) then
 		return nil
 	end
-	local pEquip = ITEM_SPELL_TRIGGER_ONEQUIP or "Equip:"
-	local pUse = ITEM_SPELL_TRIGGER_ONUSE or "Use:"
-	local pSocket = (ITEM_SOCKET_BONUS or "Socket Bonus:"):gsub("%%s.*$", "")
+	local prefix = (ENCHANTED_TOOLTIP or "Enchanted: %s"):gsub("%%s.*$", "")
+	if prefix == "" then
+		prefix = "Enchanted:"
+	end
 	for _, line in ipairs(data.lines) do
 		if TooltipUtil and TooltipUtil.SurfaceArgs then
 			TooltipUtil.SurfaceArgs(line)
 		end
 		local t = line.leftText
-		if t and t ~= "" then
-			local r, g, b = LineRGB(line)
-			if r and g and b and g > 0.78 and r < 0.45 and b < 0.45 then
-				if not t:find(pEquip, 1, true) and not t:find(pUse, 1, true)
-					and not (pSocket ~= "" and t:find(pSocket, 1, true)) then
-					return t
-				end
-			end
+		if t and t:find(prefix, 1, true) == 1 then
+			local name = t:sub(#prefix + 1):gsub("^%s+", "")
+			return name ~= "" and name or nil
 		end
 	end
 	return nil
@@ -371,7 +375,14 @@ local function Recommend(slotId, stat, map)
 			parts[#parts + 1] = LinkOf(map, e)
 		end
 		return ns:L("ENCHANT_PICK") .. " " .. table.concat(parts, " / ")
-	elseif slotId == 7 then -- legs: kit (Agi/Str) of spellthread (Int)
+	elseif slotId == 7 then -- legs: kies op hoofdstat (Int → spellthread, Agi/Str → kit)
+		local p = PrimaryStat()
+		if p == "int" then
+			return LinkOf(map, LEG_INT)
+		elseif p == "agi" or p == "str" then
+			return LinkOf(map, LEG_AGISTR)
+		end
+		-- Onbekend: toon beide met labels als veilige fallback.
 		return ns:L("ENCHANT_LEGS_AGISTR")
 			.. " "
 			.. LinkOf(map, LEG_AGISTR)
