@@ -16,8 +16,8 @@ local function SF(name)
 	return (ns.MHScalableFont and ns.MHScalableFont(name)) or name
 end
 
--- nameKey hergebruikt bestaande 7-talen-labels; descKey = en+nl (rest valt terug
--- op enUS via ns:L). Slash-teksten zijn commando's, niet vertaald.
+-- nameKey hergebruikt bestaande 7-talen-labels; descKey staat in Translations2026.
+-- Slash-teksten zijn commando's, niet vertaald.
 local TOOLS = {
 	{
 		nameKey = "DELVE_COACH_TITLE", descKey = "TOOLLP_COACH_DESC",
@@ -32,7 +32,7 @@ local TOOLS = {
 	{
 		nameKey = "NAV_TOOL_BOSSWIN", descKey = "TOOLLP_BOSSWIN_DESC",
 		icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01", slash = "/mh bosswin",
-		open = function() if ns.ToggleDungeonBossWindow then ns.ToggleDungeonBossWindow() end end,
+		open = function() if ns.ToggleDungeonBossWindow then ns:ToggleDungeonBossWindow() end end,
 	},
 	{
 		nameKey = "NAV_TOOL_CURIOS", descKey = "TOOLLP_CURIOS_DESC",
@@ -42,15 +42,43 @@ local TOOLS = {
 	{
 		nameKey = "NAV_TOOL_RITUALBOSS", descKey = "TOOLLP_RITUALBOSS_DESC",
 		icon = "Interface\\Icons\\Spell_Arcane_PortalSilvermoon", slash = "/mh ritualboss",
-		open = function() if ns.ToggleRitualBossWindow then ns.ToggleRitualBossWindow() end end,
+		open = function() if ns.ToggleRitualBossWindow then ns:ToggleRitualBossWindow() end end,
 	},
 }
+
+-- Re-apply localized text to a built launchpad (called on locale change, and
+-- once more after build so a panel built before the locale resolver still ends
+-- up in the right language).
+local function RelocalizeLaunchpad()
+	local panel = ns._mhLaunchpadPanel
+	if not panel or not panel._mhI18n then
+		return
+	end
+	for _, e in ipairs(panel._mhI18n) do
+		if e.fs and e.fs.SetText then
+			e.fs:SetText(L(e.key))
+		end
+	end
+end
+ns.RelocalizeToolsLaunchpad = RelocalizeLaunchpad
 
 function ns.BuildToolsLaunchpad(panel)
 	if not panel or panel._mhLaunchpadBuilt then
 		return
 	end
 	panel._mhLaunchpadBuilt = true
+	ns._mhLaunchpadPanel = panel
+	panel._mhI18n = {}
+
+	-- Record each localizable FontString/Button so RelocalizeLaunchpad can
+	-- refresh it when the language changes (or is applied after build).
+	local function loc(fs, key)
+		if not fs then
+			return
+		end
+		panel._mhI18n[#panel._mhI18n + 1] = { fs = fs, key = key }
+		fs:SetText(L(key))
+	end
 
 	-- Placeholder van CreateModulePanel verbergen.
 	if panel._header then panel._header:Hide() end
@@ -59,7 +87,7 @@ function ns.BuildToolsLaunchpad(panel)
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 	title:SetFontObject(SF("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", 14, -14)
-	title:SetText(L("TAB_TOOLSLAUNCH"))
+	loc(title, "TAB_TOOLSLAUNCH")
 
 	local intro = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	intro:SetFontObject(SF("GameFontHighlightSmall"))
@@ -68,7 +96,7 @@ function ns.BuildToolsLaunchpad(panel)
 	intro:SetJustifyH("LEFT")
 	intro:SetWordWrap(true)
 	intro:SetTextColor(0.78, 0.8, 0.85)
-	intro:SetText(L("TOOLLP_INTRO"))
+	loc(intro, "TOOLLP_INTRO")
 
 	local prev = intro
 	for _, tool in ipairs(TOOLS) do
@@ -93,7 +121,7 @@ function ns.BuildToolsLaunchpad(panel)
 		local openBtn = CreateFrame("Button", nil, card, "UIPanelButtonTemplate")
 		openBtn:SetSize(74, 22)
 		openBtn:SetPoint("RIGHT", card, "RIGHT", -8, 0)
-		openBtn:SetText(L("SET_BTN_OPEN"))
+		loc(openBtn, "SET_BTN_OPEN")
 		openBtn:SetScript("OnClick", tool.open)
 
 		local slash = card:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
@@ -104,7 +132,7 @@ function ns.BuildToolsLaunchpad(panel)
 		local name = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		name:SetFontObject(SF("GameFontNormal"))
 		name:SetPoint("TOPLEFT", icon, "TOPRIGHT", 10, -2)
-		name:SetText(L(tool.nameKey))
+		loc(name, tool.nameKey)
 
 		local desc = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 		desc:SetFontObject(SF("GameFontHighlightSmall"))
@@ -113,8 +141,24 @@ function ns.BuildToolsLaunchpad(panel)
 		desc:SetJustifyH("LEFT")
 		desc:SetWordWrap(false)
 		desc:SetTextColor(0.75, 0.77, 0.82)
-		desc:SetText(L(tool.descKey))
+		loc(desc, tool.descKey)
 
 		prev = card
+	end
+
+	-- Build may have run before the locale resolver set the active pack; re-apply
+	-- so the launchpad lands in the right language immediately.
+	RelocalizeLaunchpad()
+end
+
+-- Refresh on language change (/mh lang ...) and on the post-login locale apply,
+-- like every other module.
+do
+	local orig = ns.RefreshLocaleUI
+	function ns:RefreshLocaleUI()
+		if orig then
+			orig(self)
+		end
+		RelocalizeLaunchpad()
 	end
 end

@@ -2,6 +2,33 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.0.0] - 2026-06-25
+
+A major redesign of how you navigate Midnight Helper, plus full localization.
+
+### Added
+
+- **Four-room navigation.** The sidebar is reorganised into four rooms — Me, Codex, Tools and Settings — that filter the tabs to what fits the room you're in.
+- **Global search bar** at the top of the window: type a tab, tool or Codex topic and jump straight to it, with a favourites row (the **+**) for one-click returns.
+- **Breadcrumb** in the title bar showing your current location, and a **"Read in Codex"** button on tabs that have a matching Codex article.
+- **Tools Launchpad:** a single Tools-room page to open every floating helper window (Delve Coach, consumable board, dungeon boss window, curios advisor, ritual boss coach).
+- **Adjustable content text size** (A- / A+) in Settings.
+- **Gem advisor** alongside the enchant checker: flags empty sockets and suggests stat-matched gems for your spec.
+- **Full localization:** the entire addon is now translated into German, French, Spanish, Portuguese, Italian and Dutch (alongside English), including a first-run onboarding tour for the new layout and a Warband Bank explainer in the Codex.
+
+### Changed
+
+- **One settings home.** Every option now lives in the in-addon Settings tab, with Vault and Tabs as their own categories. Right-click the minimap icon or `/mh settings` opens it; the old Blizzard interface panel and the quick-settings popup are retired.
+- **The "after the reset" route auto-advances:** the TomTom arrow moves to the next open stop as you claim the Great Vault and pick up your weeklies.
+
+### Fixed
+
+- The Info button now reflects the tab that's actually open.
+- More rares show a 3D model preview.
+- The profession trainer-weekly hint no longer mentions Enchanting on every profession (the skill-25 note shows only for Enchanting).
+- The Profession treasure arrow now survives crossing continents.
+- The Tools Launchpad now follows your chosen language (it previously stayed English).
+
 ## [1.8.6] - 2026-06-22
 
 ### Added
