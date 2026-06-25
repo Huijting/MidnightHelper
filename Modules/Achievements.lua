@@ -209,6 +209,17 @@ local function EnsureToast()
 	if ns.db and ns.db.ui and ns.db.ui.treasureToastScale then
 		f:SetScale(ns.db.ui.treasureToastScale)
 	end
+	-- Auto-close once its treasure is completed, independent of any active route
+	-- (so it also works when opened by hand from the tab's Waypoint button).
+	f:RegisterEvent("CRITERIA_UPDATE")
+	f:RegisterEvent("QUEST_LOG_UPDATE")
+	f:RegisterEvent("QUEST_TURNED_IN")
+	f:RegisterEvent("ACHIEVEMENT_EARNED")
+	f:SetScript("OnEvent", function()
+		if ns.MaybeCloseTreasureToast then
+			ns.MaybeCloseTreasureToast()
+		end
+	end)
 	f:Hide()
 	toast = f
 	return f
@@ -217,11 +228,13 @@ end
 function ns.ShowTreasureToast(node)
 	if not node or (not node.note and not (node.prereqs and #node.prereqs > 0)) then
 		if toast then
+			toast._node = nil
 			toast:Hide()
 		end
 		return
 	end
 	local f = EnsureToast()
+	f._node = node -- remember it so we can auto-close once it's completed
 	for _, b in ipairs(f.btns) do
 		b:Hide()
 	end
@@ -261,6 +274,31 @@ function ns.ShowTreasureToast(node)
 	f:Show()
 end
 
+-- Close the toast on its own once the treasure it shows is completed — even if
+-- you opened it by hand (tapping a Waypoint button) rather than via the route.
+function ns.MaybeCloseTreasureToast()
+	if not (toast and toast:IsShown() and toast._node) then
+		return
+	end
+	local node = toast._node
+	local achID
+	for _, entry in ipairs(ns.ACHIEVEMENT_TREASURES or {}) do
+		for _, n in ipairs(entry.nodes or {}) do
+			if n == node then
+				achID = entry.achievementID
+				break
+			end
+		end
+		if achID then
+			break
+		end
+	end
+	if NodeDone(achID, node) then
+		toast._node = nil
+		toast:Hide()
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Active route with auto-advance: as you loot each treasure, the arrow moves to
 -- the next still-missing one (same idea as the reset route). Stands down when
@@ -277,7 +315,9 @@ local function IncompleteSig(nodes)
 	return table.concat(t, ",")
 end
 
-local function IssueRoute(entry, firstTime)
+-- silent = re-assert the arrow/backup on a zone change without spamming chat or
+-- re-popping the toast (used by the zone-change re-assert below).
+local function IssueRoute(entry, firstTime, silent)
 	local done, total, incomplete = ns.GetTreasureProgress(entry)
 	local title = AchievementName(entry)
 	if ns.IsTomTomReady and ns.IsTomTomReady() then
@@ -303,8 +343,16 @@ local function IssueRoute(entry, firstTime)
 		ns.CancelResetRoute()
 	end
 	for i, node in ipairs(incomplete) do
-		-- Only pin 1 gets the crazy arrow + travel UI (Rares pattern).
-		ns.AddSmartTomTomWay(node.mapID, node.x, node.y, node.name, i > 1, i > 1)
+		-- Signature: AddSmartTomTomWay(map, x, y, name, skipTravelUI, skipCrazyArrow).
+		-- Crazy arrow only on pin 1 (the nearest). The travel assistant (portal / HS
+		-- popup) fires only on the FIRST route's pin 1 — advancing to the next treasure
+		-- in-zone, or a silent zone re-assert, must never nag a portal. This also avoids
+		-- a false "go to Harandar" suggestion from sub-maps like The Den (2576), where
+		-- "are you already in the zone?" reads false against the main map (2413).
+		local isLead = (i == 1)
+		local skipCrazyArrow = not isLead
+		local skipTravelUI = (not isLead) or (not firstTime)
+		ns.AddSmartTomTomWay(node.mapID, node.x, node.y, node.name, skipTravelUI, skipCrazyArrow)
 	end
 	local first = incomplete[1]
 	ns.lastTarget = { mapID = first.mapID, x = first.x, y = first.y, name = first.name }
@@ -319,17 +367,19 @@ local function IssueRoute(entry, firstTime)
 			ns.SetBlizzardUserWaypoint(first.mapID, first.x, first.y)
 		end
 	end
-	if firstTime then
-		print(("%s %s — %d/%d done; routing to %d remaining (next: %s)."):format(
-			Prefix(), title, done, total, #incomplete, first.name))
-	else
-		print(("%s Next treasure: %s (%d/%d)."):format(Prefix(), first.name, done, total))
-	end
-	if first.note then
-		print(("%s  |cffaaccff-> %s|r"):format(Prefix(), first.note))
-	end
-	if ns.ShowTreasureToast then
-		ns.ShowTreasureToast(first)
+	if not silent then
+		if firstTime then
+			print(("%s %s — %d/%d done; routing to %d remaining (next: %s)."):format(
+				Prefix(), title, done, total, #incomplete, first.name))
+		else
+			print(("%s Next treasure: %s (%d/%d)."):format(Prefix(), first.name, done, total))
+		end
+		if first.note then
+			print(("%s  |cffaaccff-> %s|r"):format(Prefix(), first.note))
+		end
+		if ns.ShowTreasureToast then
+			ns.ShowTreasureToast(first)
+		end
 	end
 end
 
@@ -363,6 +413,32 @@ local function ScheduleAdvance()
 	end
 end
 
+-- When you change zones, TomTom's crazy arrow drops if the treasure is on a
+-- different map (e.g. passing through Silvermoon City between Eversong and
+-- Harandar). Re-assert the arrow + Blizzard backup on every zone change so the
+-- guidance reappears on its own — no need for a toast button.
+local reassertPending
+local function ScheduleReassert()
+	if not activeEntry or reassertPending then
+		return
+	end
+	if ns._mhRouteOwner and ns._mhRouteOwner ~= "achievement" then
+		return
+	end
+	reassertPending = true
+	local function go()
+		reassertPending = false
+		if activeEntry and ns._mhRouteOwner == "achievement" then
+			IssueRoute(activeEntry, false, true) -- silent re-assert
+		end
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.7, go) -- let the map settle after the load screen
+	else
+		go()
+	end
+end
+
 local function EnsureAdvanceFrame()
 	if advanceFrame then
 		return
@@ -373,8 +449,17 @@ local function EnsureAdvanceFrame()
 	advanceFrame:RegisterEvent("QUEST_REMOVED")
 	advanceFrame:RegisterEvent("CRITERIA_UPDATE")
 	advanceFrame:RegisterEvent("ACHIEVEMENT_EARNED")
-	advanceFrame:SetScript("OnEvent", function()
-		ScheduleAdvance()
+	advanceFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	advanceFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	advanceFrame:SetScript("OnEvent", function(_, event)
+		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
+			ScheduleReassert()
+		else
+			if ns.MaybeCloseTreasureToast then
+				ns.MaybeCloseTreasureToast()
+			end
+			ScheduleAdvance()
+		end
 	end)
 end
 
@@ -620,10 +705,27 @@ function ns.BuildAchievementsPanel(panel)
 	RefreshAchPanel()
 end
 
+-- Pick the treasure achievement for the zone the player is standing in (so
+-- /mh treasures "just works" wherever you are); fall back to the first entry.
+function ns.PickTreasureEntryForZone()
+	local list = ns.ACHIEVEMENT_TREASURES or {}
+	local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	if pm then
+		for _, entry in ipairs(list) do
+			for _, node in ipairs(entry.nodes or {}) do
+				if node.mapID == pm then
+					return entry
+				end
+			end
+		end
+	end
+	return list[1]
+end
+
 -- Slash hook (Core.lua calls this early, like the delve-items handler).
 function ns:RunAchievementSlashCommand(msg)
 	if msg == "treasures" or msg == "treasure" then
-		local entry = ns.ACHIEVEMENT_TREASURES and ns.ACHIEVEMENT_TREASURES[1]
+		local entry = ns.PickTreasureEntryForZone()
 		if not entry then
 			print(("%s no treasure achievement data loaded."):format(Prefix()))
 			return true

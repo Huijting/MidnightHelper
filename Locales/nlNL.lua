@@ -165,6 +165,7 @@ ns._mhLocales.nlNL = {
 	ACH_TAB_EMPTY = "Nog geen gevolgde prestaties.",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Volg Midnight-prestaties en route naar de verzamelobjecten die je nog mist. Elke prestatie toont je voortgang en een checklist; klik op Route om de pijl naar de dichtstbijzijnde ontbrekende te sturen — die schuift automatisch door terwijl je looted.",
 	ACH_TREASURE_EVERSONG = "Schatten van Eversong Woods",
+	ACH_TREASURE_HARANDAR = "Schatten van Harandar",
 	TAB_RITUAL = "Ritueel",
 	HOME_SECTION_RITUAL = "Ritual Sites",
 	HOME_RITUAL_ACTIVE_FMT = "Actief: %s",

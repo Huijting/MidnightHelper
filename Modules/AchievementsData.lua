@@ -44,6 +44,38 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111479, mapID = 2395, x = 48.73, y = 75.44, name = "Burbling Paint Pot", quest = 91358 },
 		},
 	},
-	-- TODO (next slices): Harandar / Zul'Aman / Voidstorm treasures, Midnight
-	-- Lore Hunter (LoreObject nodes), Midnight: The Highest Peaks (Telescope nodes).
+	{
+		achievementID = 61263, -- Treasures of Harandar
+		nameKey = "ACH_TREASURE_HARANDAR",
+		nodes = {
+			{ criteria = 109033, mapID = 2413, x = 71.68, y = 31.00, name = "Failed Shroom Jumper's Satchel", quest = 92424 },
+			{ criteria = 109034, mapID = 2413, x = 47.06, y = 50.25, name = "Burning Branch of the World Tree", quest = 92426 },
+			{ criteria = 109035, mapID = 2413, x = 73.65, y = 65.35, name = "Sporelord's Fight Prize", quest = 92427 },
+			{ criteria = 109036, mapID = 2413, x = 62.90, y = 51.24, name = "Reliquary's Lost Paintbrush", quest = 92431 },
+			{ criteria = 109037, mapID = 2413, x = 55.69, y = 39.43, name = "Kemet's Simmering Cauldron", quest = 92436 },
+			{ criteria = 110255, mapID = 2413, x = 26.73, y = 67.59, name = "Impenetrably Sealed Gourd", quest = 93508,
+				note = "In a small cave (entrance ~27.5, 68.0). Loot Mysterious Red Fluid from the Dangling Jug and Mysterious Purple Fluid from the Hanging Flask, add both to the Durable Vase to make Fizzing Fluid, then open the gourd." },
+			{ criteria = 110256, mapID = 2413, x = 46.65, y = 67.78, name = "Sporespawned Cache", quest = 93650,
+				note = "Interact with the red Fungal Mallet in Fungara Village for a buff, then use it to ring the Mycelium Gong. The treasure appears next to the gong.",
+				prereqs = {
+					{ name = "Fungal Mallet", mapID = 2413, x = 41.30, y = 67.90 },
+				} },
+			{ criteria = 110257, mapID = 2413, x = 40.64, y = 28.02, name = "Peculiar Cauldron", quest = 93587,
+				note = "Needs 150x Crystalized Resin Fragment: loot Flame-Hardened Sap of Teldrassil along the river (~39.7,20.9 down to 49.9,51.2), then open the cauldron." },
+			-- Wowhead-confirmed: the chest spawns in the middle of the Den on the
+			-- main Harandar map (2413) at 51.21/52.93 after all 3 altar rituals.
+			{ criteria = 110254, mapID = 2413, x = 51.21, y = 52.93, name = "Gift of the Cycle", quest = 93144,
+				note = "Spawns in the middle of the Den (fly down to 51.21, 52.93) after all 3 altar rituals. For each: pick up the nearby item, sacrifice it at the altar, then SPEAK to the spirit that appears and pick 'offer item'. Wisdom: Rolled-Up Pillow (51.39, 56.0) -> altar 51.15, 58.56. Vigor: Lost Hunting Knife (45.14, 54.12) -> altar 47.18, 53.14. Innocence: Tattered Ball (51.10, 50.49) -> altar 51.15, 47.55.",
+				prereqs = {
+					{ name = "1. Pick up: A Rolled-Up Pillow", mapID = 2413, x = 51.39, y = 56.00 },
+					{ name = "2. Altar of Wisdom", mapID = 2413, x = 51.15, y = 58.56 },
+					{ name = "3. Pick up: A Lost Hunting Knife", mapID = 2413, x = 45.14, y = 54.12 },
+					{ name = "4. Altar of Vigor", mapID = 2413, x = 47.18, y = 53.14 },
+					{ name = "5. Pick up: A Tattered Ball", mapID = 2413, x = 51.10, y = 50.49 },
+					{ name = "6. Altar of Innocence", mapID = 2413, x = 51.15, y = 47.55 },
+				} },
+		},
+	},
+	-- TODO (next slices): Zul'Aman / Voidstorm treasures, Midnight Lore Hunter
+	-- (LoreObject nodes), Midnight: The Highest Peaks (Telescope nodes).
 }

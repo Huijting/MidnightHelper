@@ -167,6 +167,7 @@ ns._mhLocales.enUS = {
 	ACH_TAB_EMPTY = "No tracked achievements yet.",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Track Midnight achievements and route to the collectibles you still miss. Each achievement shows your progress and a checklist; hit Route to send the arrow to the nearest missing one, and it auto-advances as you loot.",
 	ACH_TREASURE_EVERSONG = "Treasures of Eversong Woods",
+	ACH_TREASURE_HARANDAR = "Treasures of Harandar",
 	TAB_RITUAL = "Ritual Sites",
 	HOME_SECTION_RITUAL = "Ritual Sites",
 	HOME_RITUAL_ACTIVE_FMT = "Active: %s",
