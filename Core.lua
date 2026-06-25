@@ -530,6 +530,10 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if ns.RunAchievementSlashCommand and ns:RunAchievementSlashCommand(msg) then
+		return
+	end
+
 	if msg == "lang" then
 		DEFAULT_CHAT_FRAME:AddMessage(
 			("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("LANG_SLASH_HINT"))
