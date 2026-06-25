@@ -63,6 +63,13 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_START_BODY",
 		sort = 1,
 	},
+	{
+		id = "warband_bank",
+		category = "start",
+		titleKey = "CODEX_WARBAND_TITLE",
+		bodyKey = "CODEX_WARBAND_BODY",
+		sort = 2,
+	},
 
 	-- Weekly loop
 	{
