@@ -40,6 +40,19 @@ local STEPS = {
 	{ titleKey = "START_S6_TITLE", bodyKey = "START_S6_BODY", navTab = "profacademy", navLabelKey = "START_S6_NAV" },
 }
 
+-- "How it works" walkthrough (self-paced; each part links live to its tab via
+-- SelectTab — the "Show me" button). navTab nil = explanatory only (no jump).
+local TOUR = {
+	{ titleKey = "TOUR_ROOMS_TITLE", bodyKey = "TOUR_ROOMS_BODY" },
+	{ titleKey = "TOUR_HOME_TITLE", bodyKey = "TOUR_HOME_BODY", navTab = "home", navLabelKey = "TOUR_HOME_NAV" },
+	{ titleKey = "TOUR_SEARCH_TITLE", bodyKey = "TOUR_SEARCH_BODY" },
+	{ titleKey = "TOUR_CODEX_TITLE", bodyKey = "TOUR_CODEX_BODY", navTab = "codex", navLabelKey = "TOUR_CODEX_NAV" },
+	{ titleKey = "TOUR_DELVES_TITLE", bodyKey = "TOUR_DELVES_BODY", navTab = "delves", navLabelKey = "TOUR_DELVES_NAV" },
+	{ titleKey = "TOUR_ENCHANTS_TITLE", bodyKey = "TOUR_ENCHANTS_BODY", navTab = "enchants", navLabelKey = "TOUR_ENCHANTS_NAV" },
+	{ titleKey = "TOUR_TOOLS_TITLE", bodyKey = "TOUR_TOOLS_BODY", navTab = "toolslaunch", navLabelKey = "TOUR_TOOLS_NAV" },
+	{ titleKey = "TOUR_SETTINGS_TITLE", bodyKey = "TOUR_SETTINGS_BODY", navTab = "settings", navLabelKey = "TOUR_SETTINGS_NAV" },
+}
+
 local ui
 
 --------------------------------------------------------------------------------
@@ -253,6 +266,38 @@ function ns.BuildStartHerePanel(panel)
 	-- Intro.
 	staticLine("GameFontNormal", COLOR_HEADER, "START_INTRO_HEADER", 10, 0)
 	staticLine("GameFontHighlightSmall", COLOR_DIM, "START_INTRO_BODY", 4, 0)
+
+	-- "How it works" walkthrough: a self-paced tour of each part, with a "Show me"
+	-- button that jumps live to that tab (SelectTab). navTab nil = explanatory only.
+	staticLine("GameFontNormalLarge", COLOR_ACCENT, "TOUR_SECTION_HEADER", 18, 0)
+	staticLine("GameFontHighlightSmall", COLOR_DIM, "TOUR_SECTION_BODY", 4, 0)
+	do
+		local tourBtn = MakeButton(child, function()
+			if ns.StartUITour then
+				ns.StartUITour()
+			end
+		end)
+		tourBtn._mhKey = "TOUR_START_BTN"
+		tourBtn:SetText(ns:L("TOUR_START_BTN"))
+		ui.navButtons[#ui.navButtons + 1] = tourBtn
+		push(tourBtn, 6, 0, true)
+	end
+	for _, t in ipairs(TOUR) do
+		staticLine("GameFontNormal", COLOR_HEADER, t.titleKey, 12, 0)
+		staticLine("GameFontHighlightSmall", COLOR_DIM, t.bodyKey, 4, 0)
+		if t.navTab then
+			local target = t.navTab
+			local btn = MakeButton(child, function()
+				if ns.SelectTab then
+					ns.SelectTab(target)
+				end
+			end)
+			btn._mhKey = t.navLabelKey
+			btn:SetText(ns:L(t.navLabelKey))
+			ui.navButtons[#ui.navButtons + 1] = btn
+			push(btn, 6, 0, true)
+		end
+	end
 
 	-- Steps.
 	for _, step in ipairs(STEPS) do
