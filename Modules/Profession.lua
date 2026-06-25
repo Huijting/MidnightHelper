@@ -1074,6 +1074,7 @@ local function SetupProfessionModule()
 	local treasureLabel
 	local treasureActive = false
 	local treasureArrowUid
+	local treasureBlizzUid -- last pin we set a Blizzard SuperTrack backup for (cross-region)
 	local treasureAssistKey -- target+zone the travel popup was last shown for
 	local treasureTicker
 
@@ -1089,6 +1090,7 @@ local function SetupProfessionModule()
 			treasurePins[k] = nil
 		end
 		treasureArrowUid = nil
+		treasureBlizzUid = nil
 		treasureAssistKey = nil
 	end
 
@@ -1170,21 +1172,24 @@ local function SetupProfessionModule()
 			best = best or treasurePins[1]
 		end
 		if best and best.uid then
-			-- Drive the crazy arrow when the nearest treasure is in our current
-			-- REGION/continent (reachable on foot, incl. zone sub-maps). A different
-			-- known region → leave it to the travel popup / portal button (don't steal
-			-- that arrow back every tick). Unknown region → drive it anyway.
-			local pReg = 0
-			if ns.GetRegionGroupID and curMap then
-				local hub = ns.GetPlayerHubContext and ns.GetPlayerHubContext(curMap)
-				pReg = (ns.GetEffectiveRegionGroupID and ns.GetEffectiveRegionGroupID(curMap, hub))
-					or ns.GetRegionGroupID(curMap)
-					or 0
-			end
-			local tReg = (ns.GetRegionGroupID and ns.GetRegionGroupID(best.mapID)) or 0
-			local reachable = (tReg == pReg) or (pReg == 0)
-			if reachable and _G.TomTom.SetCrazyArrow then
-				pcall(_G.TomTom.SetCrazyArrow, _G.TomTom, best.uid, 15, best.name)
+			-- Drive the crazy arrow at the nearest treasure — UNLESS it's on another
+			-- continent, where TomTom's arrow can't point (it would vanish, or steal the
+			-- arrow from the travel popup's portal). Then we set a Blizzard SuperTrack
+			-- waypoint as a backup instead — the SAME shared model the rare routes and the
+			-- world boss use (ns.MHIsCrossContinentFromPlayer + ns.SetBlizzardUserWaypoint).
+			-- Rob 25 jun: one routing logic everywhere, no per-feature divergence.
+			local crossCont = ns.MHIsCrossContinentFromPlayer
+				and ns.MHIsCrossContinentFromPlayer(best.mapID, best.nx * 100, best.ny * 100)
+			if not crossCont then
+				if _G.TomTom.SetCrazyArrow then
+					pcall(_G.TomTom.SetCrazyArrow, _G.TomTom, best.uid, 15, best.name)
+				end
+				treasureBlizzUid = nil -- on this continent: TomTom drives the arrow
+			elseif best.uid ~= treasureBlizzUid and ns.SetBlizzardUserWaypoint then
+				-- Cross-continent: in-game SuperTrack arrow toward the portal. Gated on
+				-- target change so the 2s ticker doesn't re-assert every tick.
+				treasureBlizzUid = best.uid
+				ns.SetBlizzardUserWaypoint(best.mapID, best.nx * 100, best.ny * 100)
 			end
 			treasureArrowUid = best.uid
 			-- Travel advice (HS + portal) for a far target, keyed on target+zone: it

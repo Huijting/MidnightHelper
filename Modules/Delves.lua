@@ -610,6 +610,14 @@ function ns.IsCrossContinentTarget(currentMap, targetMap, xPct, yPct)
 	return true
 end
 
+-- Is the target on another continent than the PLAYER right now? One shared check so
+-- every route (rare routes, world boss, profession treasures) uses the same model for
+-- "TomTom's crazy arrow can't point there → use a Blizzard SuperTrack backup instead".
+function ns.MHIsCrossContinentFromPlayer(targetMapID, x100, y100)
+	local cur = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	return (ns.IsCrossContinentTarget and ns.IsCrossContinentTarget(cur, targetMapID, x100, y100)) or false
+end
+
 -- Shared TomTom + Travel Assistant (portals/hearth). Optional skipTravelUI / skipCrazyArrow (bulk pins).
 function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 	if not mapID then
@@ -650,7 +658,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 		-- die in-game pijl wérkt wel cross-continent en loodst je naar de portal, waarna
 		-- TomTom het lokaal overneemt. Alleen voor de hoofd-route (niet bulk-pins).
 		if not skipCrazyArrow and ns.SetBlizzardUserWaypoint
-			and ns.IsCrossContinentTarget(currentMap, targetMap, xPct, yPct) then
+			and ns.MHIsCrossContinentFromPlayer(targetMap, xPct, yPct) then
 			ns.SetBlizzardUserWaypoint(targetMap, xPct, yPct)
 		end
 	elseif ns.SetBlizzardUserWaypoint then
