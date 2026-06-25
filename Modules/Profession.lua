@@ -1101,6 +1101,9 @@ local function SetupProfessionModule()
 			treasureTicker = nil
 		end
 		TreasureClearPins()
+		if ns._mhRouteOwner == "treasure" then
+			ns._mhRouteOwner = nil -- release the shared arrow
+		end
 	end
 
 	-- Re-point the arrow at the nearest still-incomplete pin (dropping collected
@@ -1109,6 +1112,9 @@ local function SetupProfessionModule()
 	local function TreasureUpdateArrow()
 		if not treasureActive then
 			return
+		end
+		if ns._mhRouteOwner and ns._mhRouteOwner ~= "treasure" then
+			return -- another navigation feature (reset route) owns the arrow
 		end
 		if not (ns.IsTomTomReady and ns.IsTomTomReady()) then
 			return
@@ -1236,6 +1242,10 @@ local function SetupProfessionModule()
 		end
 		-- Don't let the shared Delves zone-re-assert (ns.lastTarget) fight our arrow.
 		ns.lastTarget = nil
+		ns._mhRouteOwner = "treasure" -- claim the shared arrow
+		if ns.CancelResetRoute then
+			ns.CancelResetRoute() -- stop the reset-route auto-advance fighting us
+		end
 
 		local primaryProfessions = GetPrimaryProfessionEntries()
 		local eligible = {}

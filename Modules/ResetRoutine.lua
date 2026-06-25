@@ -506,14 +506,15 @@ function ns.GetResetRoutineSteps()
 	return steps
 end
 
--- TomTom route along the still-open stops, in routine order. Duplicate
--- coordinates (ritual + void share the hub) collapse into one pin.
-function ns.StartResetRoute()
-	if not ns.AddSmartTomTomWay then
-		return
-	end
+-- Open stops, routine order, duplicate coordinates (ritual + void share the
+-- hub; the giver pins sit next to the vault) collapsed into one pin each.
+local function ComputeOpenPins()
 	local pins, seen = {}, {}
-	for _, step in ipairs(ns.GetResetRoutineSteps()) do
+	local okSteps, steps = pcall(ns.GetResetRoutineSteps)
+	if not okSteps or type(steps) ~= "table" then
+		return pins
+	end
+	for _, step in ipairs(steps) do
 		if step.open and step.pin then
 			local key = table.concat({ step.pin[1], step.pin[2], step.pin[3] }, ":")
 			if not seen[key] then
@@ -522,20 +523,127 @@ function ns.StartResetRoute()
 			end
 		end
 	end
+	return pins
+end
+
+local function PinsSignature(pins)
+	local parts = {}
+	for i, p in ipairs(pins) do
+		parts[i] = table.concat({ p[1], p[2], p[3] }, ":")
+	end
+	return table.concat(parts, "|")
+end
+
+-- Active-route state. The reset route, the treasure route and the delve route
+-- all share the single crazy arrow + ns.lastTarget, so a tiny owner token
+-- (ns._mhRouteOwner) arbitrates: whoever issued the live arrow last owns it,
+-- and the others stand down instead of fighting it on every event.
+local routeActive = false
+local routeSig
+local advancePending = false
+local advanceFrame
+
+local function IssueRoute(pins)
+	ClearTomTom()
+	for i, pin in ipairs(pins) do
+		-- Only pin 1 gets the crazy arrow + travel UI (Rares pattern); the rest
+		-- are silent waypoints. AddSmartTomTomWay sets ns.lastTarget to the last
+		-- pin, so we re-point it at pin 1 afterwards (treasure-arrow saga).
+		ns.AddSmartTomTomWay(pin[1], pin[2], pin[3], PinLabel(pin[4], pin[5]), i > 1, i > 1)
+	end
+	local first = pins[1]
+	ns.lastTarget = { mapID = first[1], x = first[2], y = first[3], name = PinLabel(first[4], first[5]) }
+	routeSig = PinsSignature(pins)
+end
+
+-- Let another navigation feature take the arrow (treasure / delve call this).
+function ns.CancelResetRoute()
+	routeActive = false
+	routeSig = nil
+end
+
+-- Re-evaluate the open stops; if the still-open set changed (a stop got claimed
+-- or picked up), move the arrow to the next open stop. Stand down when another
+-- feature owns the arrow, or when every stop is done.
+local function AdvanceResetRoute()
+	if not routeActive then
+		return
+	end
+	if ns._mhRouteOwner and ns._mhRouteOwner ~= "reset" then
+		ns.CancelResetRoute()
+		return
+	end
+	local pins = ComputeOpenPins()
+	if #pins == 0 then
+		ClearTomTom()
+		ns.lastTarget = nil
+		routeActive = false
+		routeSig = nil
+		if ns._mhRouteOwner == "reset" then
+			ns._mhRouteOwner = nil
+		end
+		if ns.PrintChatKey then
+			ns:PrintChatKey("HOME_ROUTINE_ROUTE_DONE")
+		end
+		return
+	end
+	if PinsSignature(pins) ~= routeSig then
+		IssueRoute(pins) -- arrow now points at the next still-open stop
+		if ns.PrintChatKey then
+			ns:PrintChatKey("HOME_ROUTINE_ROUTE_NEXT_FMT", PinLabel(pins[1][4], pins[1][5]))
+		end
+	end
+end
+
+local function ScheduleAdvance()
+	if not routeActive or advancePending then
+		return
+	end
+	advancePending = true
+	if C_Timer and C_Timer.After then
+		C_Timer.After(1.0, function() -- debounce QUEST_LOG_UPDATE bursts
+			advancePending = false
+			AdvanceResetRoute()
+		end)
+	else
+		advancePending = false
+		AdvanceResetRoute()
+	end
+end
+
+local function EnsureAdvanceFrame()
+	if advanceFrame then
+		return
+	end
+	advanceFrame = CreateFrame("Frame")
+	advanceFrame:RegisterEvent("WEEKLY_REWARDS_UPDATE") -- vault claimed
+	advanceFrame:RegisterEvent("QUEST_ACCEPTED") -- weekly picked up
+	advanceFrame:RegisterEvent("QUEST_REMOVED")
+	advanceFrame:RegisterEvent("QUEST_TURNED_IN")
+	advanceFrame:RegisterEvent("QUEST_LOG_UPDATE")
+	advanceFrame:SetScript("OnEvent", function()
+		ScheduleAdvance()
+	end)
+end
+
+-- Set the TomTom route along the still-open stops and keep the arrow advancing
+-- to the next stop as each one gets done.
+function ns.StartResetRoute()
+	if not ns.AddSmartTomTomWay then
+		return
+	end
+	local pins = ComputeOpenPins()
 	if #pins == 0 then
 		if ns.PrintChatKey then
 			ns:PrintChatKey("HOME_ROUTINE_ROUTE_EMPTY")
 		end
+		ns.CancelResetRoute()
 		return
 	end
-	ClearTomTom()
-	for i, pin in ipairs(pins) do
-		ns.AddSmartTomTomWay(pin[1], pin[2], pin[3], PinLabel(pin[4], pin[5]), i > 1, i > 1)
-	end
-	-- Point the shared zone-change re-assert at pin 1 (which owns the arrow),
-	-- not at the last-added pin — see Profession.lua treasure-arrow fix.
-	local first = pins[1]
-	ns.lastTarget = { mapID = first[1], x = first[2], y = first[3], name = PinLabel(first[4], first[5]) }
+	ns._mhRouteOwner = "reset" -- claim the shared arrow (treasure/delve yield)
+	IssueRoute(pins)
+	routeActive = true
+	EnsureAdvanceFrame()
 	if ns.PrintChatKey then
 		ns:PrintChatKey("HOME_ROUTINE_ROUTE_SET_FMT", #pins)
 	end
