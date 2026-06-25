@@ -95,13 +95,11 @@ local function BuildWeeklyText()
 				end
 				local icon = isDone and ICON_DONE or ICON_OPEN
 				local line = ("%s %s: %s"):format(icon, name, SL("PROFHUB_WEEKLY_TRAINER"))
-				if not isDone then
-					-- Leek-hint: why isn't the trainer offering it yet? The skill-25 gate
-					-- is verified for Enchanting (skillLine 333) only, so the "needs skill
-					-- 25" note shows there — not on gatherers/other profs (never-lie).
-					local reqKey = (skillLine == 333) and "PROFHUB_WEEKLY_TRAINER_REQ_ENCH"
-						or "PROFHUB_WEEKLY_TRAINER_REQ"
-					line = line .. " |cff8a8f98" .. SL(reqKey) .. "|r"
+				if not isDone and skillLine == 333 then
+					-- Only Enchanting has a distinct, verified extra gate (needs skill 25
+					-- first). Every other profession is already named on its own line, so
+					-- we keep those clean — no generic unlock hint (Rob, 25 jun).
+					line = line .. " |cff8a8f98" .. SL("PROFHUB_WEEKLY_TRAINER_REQ_ENCH") .. "|r"
 				end
 				lines[#lines + 1] = line
 			end
