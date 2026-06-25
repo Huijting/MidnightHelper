@@ -383,6 +383,16 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_CODEX"
 	elseif tabId == "home" then
 		return "INFO_DRAWER_BODY_HOME"
+	elseif tabId == "starthere" then
+		return "INFO_DRAWER_BODY_STARTHERE"
+	elseif tabId == "dungeons" then
+		return "INFO_DRAWER_BODY_DUNGEONS"
+	elseif tabId == "events" then
+		return "INFO_DRAWER_BODY_EVENTS"
+	elseif tabId == "omnium" then
+		return "INFO_DRAWER_BODY_OMNIUM"
+	elseif tabId == "toolslaunch" then
+		return "INFO_DRAWER_BODY_TOOLSLAUNCH"
 	elseif tabId == "delves" then
 		return "INFO_DRAWER_BODY_DELVES"
 	elseif tabId == "account" then
@@ -427,7 +437,7 @@ local function MHGetInfoBodyKeyForTab(tabId)
 	elseif tabId == "settings" then
 		return "INFO_DRAWER_BODY_SETTINGS"
 	end
-	return "INFO_DRAWER_BODY_DELVES"
+	return "INFO_DRAWER_BODY_HOME"
 end
 
 --- Apply ns:L() to the main shell (tabs, search row, SMC headers, side helpers). See Locales/*.lua.
@@ -2072,7 +2082,7 @@ function ns:EnsureMainUI()
 				academy = "TAB_ACADEMY",
 				addons = "TAB_ADDONS",
 			}
-			local tabName = self:L(keyById[tabId] or "TAB_DELVES")
+			local tabName = self:L(TAB_LABEL_BY_ID[tabId] or keyById[tabId] or "TAB_HOME")
 			infoTitle:SetText(self:L("INFO_DRAWER_TITLE_FMT"):format(tabName))
 			infoBody:SetText(self:L(MHGetInfoBodyKeyForTab(tabId)))
 		end
@@ -2994,6 +3004,14 @@ SelectTab = function(tabId)
 	-- Guard: de fallback SelectTab("home") in RelayoutSidebarTabs zou anders recursen.
 	if RelayoutSidebarTabs and not ns._mhSidebarRelaying then
 		RelayoutSidebarTabs()
+	end
+
+	-- Info-drawer (rechtsboven) live meeverversen, zodat-ie altijd de ÉCHTE open tab
+	-- toont en niet die van het moment dat je 'm opende (Rob 25 jun). _mhRefreshSidePanel
+	-- respecteert de modus zelf (About blijft About; Info volgt de nieuwe tab).
+	if ns._mhInfoWindow and ns._mhInfoWindow.IsShown and ns._mhInfoWindow:IsShown()
+		and ns._mhRefreshSidePanel then
+		ns:_mhRefreshSidePanel(tabId)
 	end
 end
 
