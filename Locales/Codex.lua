@@ -335,3 +335,435 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	CODEX_PROF_GUIDE_TITLE = "Professions beginner guide",
 	CODEX_PROF_GUIDE_BODY = "• |cffffffffBasics -> Professions|r: KP-plan en combos.|n• Dawncrests = raid crafting currency.|n• Herlees na patches — caps/IDs kunnen wijzigen.",
 })
+
+merge(ns._mhLocales and ns._mhLocales.deDE, {
+	TAB_CODEX = "Midnight Codex",
+	CODEX_PANEL_TITLE = "Midnight Codex",
+	CODEX_PANEL_INTRO = "Dein Handbuch für Midnight Season 1 — was jedes System ist, wofür jede Währung dient und wo du in diesem Addon klickst. Bewege den Cursor über Währungssymbole für Blizzard-Tooltips.",
+	CODEX_OPEN_TAB_FMT = "Öffnen: %s",
+	CODEX_NAV_DELVES_VAULT = "Tab Delves & Vault (Große-Schatzkammer-Block)",
+	CODEX_NAV_DELVES_MIDNIGHT = "Tab Delves & Vault (Tiefen-Liste)",
+	CODEX_NAV_BASICS_DAWN = "Tab Basics (Dawncrests)",
+	CODEX_NAV_BASICS_PROF = "Tab Basics (Professions-Guide)",
+	CODEX_BALANCE_FMT = "Du hast: |cffffffff%d|r",
+	CODEX_BALANCE_UNKNOWN = "Der Stand aktualisiert sich, wenn du dich mit diesem Charakter anmeldest.",
+	CODEX_SEARCH_OPENED = "Midnight Codex geöffnet.",
+	CODEX_BETA_DISABLED = "Midnight Codex ist in den Einstellungen deaktiviert (Beta-Tabs).",
+
+	CODEX_CAT_START = "Erste Schritte",
+	CODEX_CAT_WEEKLY = "Wöchentlicher Ablauf",
+	CODEX_CAT_CURRENCIES = "Currencies",
+	CODEX_CAT_DELVES = "Delves",
+	CODEX_CAT_DUNGEONS = "Dungeons & M+",
+	CODEX_CAT_RAID = "Raid & Crests",
+	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_PROFESSIONS = "Professions",
+
+	CODEX_START_TITLE = "Erste Schritte — deine Midnight-Woche",
+	CODEX_START_BODY = "|cffffcc00Denk in Schichten:|r ein Weekly-Reset, mehrere Belohnungspfade. Du brauchst nicht jedes System jeden Tag — wähle ein Ziel.|n|n|cffffff781) Account & Reset|r|n• Prüfe |cffffffffHome -> This Week|r für Vault, Weltboss, Keys und Aufgaben.|n• |cffffffffAccount snapshot|r zeigt all deine Twinks (Vault, Delver's Call, Berufs-Weeklies).|n|n|cffffff782) Kampfinhalte|r|n• |cffffffffDelves|r — Haupt-Gear-Pfad (Keys, Stufen, Schatzkammer-Slots). Nutze |cffffffffDelve Coach|r für Tipps pro Tiefe.|n• |cffffffffMythic+|r und |cffffffffRaid|r füllen weitere Vault-Slots (siehe Kategorien Dungeons & Raid).|n|n|cffffff783) Offene Welt (12.0.5)|r|n• Tab |cffffffffVoid & Rituals|r — Field Accolades, Ritual Sites, Void Assaults (gleicher Renown-Pfad).|n• Tab |cffffffffRares|r — wöchentliche Rare-Beute und Routen.|n|n|cffffff784) Crafting|r|n• Tab |cffffffffProfessions|r für KP / wöchentliche Mats; |cffffffffBasics|r für Dawncrests.|n|n|cffffcc00Tipp:|r Öffne hier die Kategorie |cffffffffCurrencies|r, wenn du vergisst, wofür ein Token ist. Scrolle im Boss-Vorschaubild im Delve Coach zum Zoomen.",
+	CODEX_WARBAND_TITLE = "Kriegsmeute & die Kriegsmeutenbank",
+	CODEX_WARBAND_BODY = "|cffffcc00Deine Kriegsmeute|r sind alle Charaktere deines Accounts, als ein Team behandelt. Vieles ist jetzt |cffffffffkriegsmeutengebunden|r — accountweit geteilt — sodass du viel weniger zwischen Twinks verschickst.|n|n|cffffff78Kriegsmeutengebundene Gegenstände & Währungen|r|n• Die meisten Midnight-Währungen sind accountweit.|n• Ausrüstung ist oft |cffffffffkriegsmeutengebunden bis angelegt|r — schick sie an einen Twink, aber einmal angelegt bleibt sie bei diesem Charakter.|n|n|cffffff78Die Kriegsmeutenbank|r — eine geteilte Bank, die all deine Charaktere nutzen.|n• Öffne sie bei |cffffffffjedem Bankier|r (oder Jeeves) — es ist ein Reiter an deiner normalen Bank, neben deiner Charakterbank.|n• Lagere jeden |cffffffffnicht-seelengebundenen|r Gegenstand und zahle |cffffffffGold|r über Charaktere hinweg ein oder aus (auch fraktionsübergreifend).|n• Crafte direkt daraus — sie zählt als Reagenzienquelle.|n|n|cffffff78Reiter & Kosten|r — 5 Reiter, je 98 Plätze (490 gesamt). Du startest mit keinem; kaufe sie mit Gold:|n• Reiter 1: |cffffffff1.000g|r|n• Reiter 2: |cffffffff25.000g|r|n• Reiter 3: |cffffffff100.000g|r|n• Reiter 4: |cffffffff500.000g|r|n• Reiter 5: |cffffffff2.500.000g|r  (alle fünf = 3.126.000g)|n|n|cffffcc00Tipp:|r 2-3 Reiter reichen den meisten Spielern. Verwechsle sie nicht mit deiner |cffffffffCharakterbank|r (seit Patch 11.2 auch mit Reitern, viel günstiger) — die ist pro Charakter; die Kriegsmeutenbank ist geteilt.",
+
+	CODEX_WEEKLY_RESET_TITLE = "Weekly-Reset",
+	CODEX_WEEKLY_RESET_BODY = "• Der meiste wöchentliche Fortschritt setzt sich am Wartungstag deiner Region zurück (EU Mittwochmorgen, US Dienstagmorgen).|n• Große-Schatzkammer-Auswahl, Weltboss-Beute, viele Wochen-Caps und Delver's-Call-Lieferungen setzen sich zurück.|n• |cffffffffHome -> This Week|r zeigt die Zeit bis zum Reset, wenn die API sie liefert.|n• Plane Twinks: der Snapshot-Tab vergleicht, wer noch Vault, Boss oder Delver's Call offen hat.",
+
+	CODEX_VAULT_TITLE = "Große Schatzkammer",
+	CODEX_VAULT_BODY = "• Drei Pfade: |cffffffffWorld|r (Tiefen + Weltinhalte), |cffffffffDungeons|r (M+), |cffffffffRaid|r.|n• Fülle Aktivitäten während der Woche; nach dem Reset wählst du pro freigeschaltetem Slot eine Belohnung beim Vault-NPC oder per SHIFT-J.|n• |cffffffffVault Advisor|r (auf Blizzards Vault-UI) bewertet Optionen gegen deine angelegte Ausrüstung.|n• Dieses Addon zeigt alle drei Pfade im Tab |cffffffffDelves & Vault|r — klappe |cffffffffWeekly Great Vault (World)|r auf (noch kein eigener Tab).|n• Zusammenfassung auch auf |cffffffffHome -> This Week|r und |cffffffffAccount snapshot|r.",
+
+	CODEX_WORLDBOSS_TITLE = "Weltboss (Midnight S1)",
+	CODEX_WORLDBOSS_BODY = "• Ein rotierender Weltboss pro Woche (Lu'ashal, Cragpine, Thorm'belan, Predaxas).|n• Kriegsmeuten-Beute: tötet ihn ein Charakter, zeigen Twinks ihn als erledigt.|n• Oben im Tab |cffffffffDelves & Vault|r mit TomTom-Route.|n• Auch über den SMC City Guide in Silbermond verlinkt.",
+	CODEX_FOLIO_TITLE = "Omnium Folio (12.0.7)",
+	CODEX_FOLIO_BODY = "• Neues Machtsystem zur Erweiterungsmitte — ein Minimap-Buch mit |cffffffffRunen|r, die du außerhalb des Kampfes frei tauschst (kein Slot-Verbrauch).|n• Macht kommt aus der wöchentlichen Kette |cffffffff'Seeking Knowledge'|r (5 Wochen): The Omnium Folio, Ritualized Arcana, Leyline Assaults, Magical Primessence, Off-World Magic.|n• Jede Woche belohnt ein |cffffffffMote of Omnial Inquiry|r, um eine Rune zu wählen/verstärken.|n• Schließe alle 5 ab für das Meta-Achievement und die Sunstrider-Omnium-Simulacrum-Dekoration.|n• Eine Woche verpasst? Mache die verpassten Quests direkt hintereinander zum Aufholen — kein Warten auf Resets.|n• (Datamined — genaue Runeneffekte/IDs werden beim Launch bestätigt.)",
+	CODEX_TT_TITLE = "Turbulent Timeways (12.0.7)",
+	CODEX_TT_BODY = "• Wiederkehrendes Zeitwanderungs-Event — diesmal ein |cffffffffDragonflight|r-Dungeonpool: Algeth'ar Academy, Halls of Infusion, Neltharus, Ruby Life Pools, The Azure Vault, Brackenhide Hollow.|n• Wöchentlich: laufe |cffffffff5 Zeitwanderungs-Dungeons|r für einen Gear-Cache; jeder Lauf stapelt |cffffffffKnowledge of Timeways|r (XP-Buff).|n• Verdiene |cffffffffMastery of Timeways|r in 4 von 6 Wochen für 'Master of the Turbulent Timeways' und das Reittier |cffffffffSpawn of Vyranoth|r.|n• Gib Zeitverlorene Abzeichen beim Event-Händler aus.|n• Läuft ~30. Juni – 11. Aug. (Datamined — beim Launch bestätigen.)",
+
+	CODEX_DELVER_CALL_TITLE = "Delver's Call",
+	CODEX_DELVER_CALL_BODY = "• Wöchentliche Tiefen-Ziele, die beim Abgeben einen großen XP-Schub geben.|n• Du kannst abgeschlossene Calls |cffffffffbanken|r (erledigte Ziele, noch nicht abgegeben) für ein späteres Charakter-Level.|n• |cffffffffAccount snapshot|r fasst gebankte und ausstehende Calls über Twinks zusammen.|n• Bewege den Cursor über die Delver's-Call-Zeile im Snapshot für Details pro Charakter.",
+
+	CODEX_ACCOUNT_TITLE = "Account snapshot",
+	CODEX_ACCOUNT_BODY = "• Schreibgeschützte Übersicht der Charaktere, mit denen du dich mit Midnight Helper angemeldet hast.|n• Sortiere/filtere nach Vault bereit, Keys, Shards-of-Dundun-Cap, inaktiv seit Reset usw.|n• Beantwortet: \"Welcher Twink braucht noch Vault / Boss / Delver's Call?\"|n• Ersetzt nicht das Anmelden auf einem Twink für Gear- oder Quest-Checks.",
+
+	CODEX_CUR_COFFER_KEY_TITLE = "Restored Coffer Key",
+	CODEX_CUR_COFFER_KEY_BODY = "• Öffnet Midnight-Tiefen (wie die Keys vorheriger Erweiterungen).|n• Verdiene sie aus Weltinhalten, Weeklies und bei Händlern; kein hartes Wochen-Cap auf gehaltene Keys.|n• Im Tab |cffffffffDelves & Vault|r mit deinem aktuellen Bestand angezeigt.",
+
+	CODEX_CUR_SHARDS_TITLE = "Coffer Key Shards",
+	CODEX_CUR_SHARDS_BODY = "• Werden zu Restored Coffer Keys kombiniert (100 Shards -> 1 Key zum Standardkurs).|n• Auf Shards gilt ein wöchentliches Verdienst-Cap — verfolge \"Weekly: X / Y\" im Delves-Tab.|n• Das Cap füllt sich schneller, wenn du mehr Tiefen läufst oder Shard-Quellen abschließt.",
+
+	CODEX_CUR_UNDERCOIN_TITLE = "Undercoin",
+	CODEX_CUR_UNDERCOIN_BODY = "• Händlerwährung für tiefenbezogene Waren (Curios, Upgrades, Komfortgegenstände).|n• Wird vor allem durch das Laufen von Tiefen und Tiefenbelohnungen verdient.|n• Gib sie aus, statt blind zu horten — prüfe den Tiefenhändler, wenn du ein Zielstück hast.",
+
+	CODEX_CUR_MANA_TITLE = "Untainted Mana-Crystals",
+	CODEX_CUR_MANA_BODY = "• Für bestimmte Midnight-Gear-Upgrades / Händlerkäufe (siehe aktuelle Patchnotes für genaue Händler).|n• Verdiene sie aus Tiefen, Weltinhalten und wöchentlichen Quellen.|n• Account snapshot kann Summen pro Charakter zeigen.",
+
+	CODEX_CUR_ACCOLADES_TITLE = "Field Accolades",
+	CODEX_CUR_ACCOLADES_BODY = "• Geteilte Währung für die |cffffffffVoid & Rituals|r-Systeme (Ritual Sites + Void Assaults).|n• Wöchentliches Verdienst-Cap — nach dem Cap spielst du weiter für andere Belohnungen, gewinnst aber bis zum Reset keine Accolades mehr.|n• Wird für Renown-Belohnungen am Bazaar-Hub ausgegeben (Eversong / Zul'Aman).|n• Live-Anzeige im Tab |cffffffffVoid & Rituals|r.",
+
+	CODEX_CUR_DAWN_TITLE = "Dawncrests (Crests)",
+	CODEX_CUR_DAWN_BODY = "• Crafting-Währung der Raid-Stufe (Raid-Slots der Großen Schatzkammer, katalysatornahe Progression).|n• Live-Crest-Stände stehen auf |cffffffffBasics -> Dawncrests|r (nicht in dieser Liste).|n• Nicht dasselbe wie Tiefen-Keys — siehe jenen Guide für Ausgabeziele und Wochen-Caps.",
+
+	CODEX_DELVES_INTRO_TITLE = "Midnight-Tiefen — Übersicht",
+	CODEX_DELVES_INTRO_BODY = "• Solo- oder Kleingruppen-Szenarien über Eversong, Harandar, Voidstorm usw.|n• |cffffffffTier 1–11+|r — höhere Stufe = schwierigere Gegner und besseres Item-Level in der Vault.|n• Kostet pro Lauf einen |cffffffffRestored Coffer Key|r (siehe Currencies).|n• |cffffffffGroßzügige|r Tiefen (rotierend) geben Extra-Beute — nutze \"Find Nearest Bountiful Delve\" im Delves-Tab.",
+
+	CODEX_DELVE_COACH_TITLE = "Delve Coach",
+	CODEX_DELVE_COACH_BODY = "• Schwebendes Tipp-Panel: Route, Trash und Bossmechaniken pro Tiefe.|n• Öffnet sich automatisch in einer Tiefe (optional) oder über |cffffffffDelve Coach (preview tips)|r / |cffffffff/mh coach|r.|n• Englischer oder niederländischer Text folgt `/mh lang`.|n• Boss-Spotlight: scrolle auf dem Modell zum Zoomen (pro Boss gespeichert).|n• Blaue Zaubernamen verlinken echte Zauber-Tooltips, wenn die IDs bekannt sind.",
+
+	CODEX_DELVE_CURIOS_TITLE = "Valeera & Tiefen-Curios",
+	CODEX_DELVE_CURIOS_BODY = "• Curios verändern deinen nächsten Tiefenlauf (Extra-Beute, leichtere Bosse usw.).|n• Valeera gibt Rat bei Reparatur-/Gossip-NPCs — Popup im Delves-Tab, wenn relevant.|n• Verfolge Verbrauchsgüter und Minimap-Buttons über das Tiefen-Item-Popup (RAID-R Mini, Trovehunter's Bounty).",
+
+	CODEX_TORMENTS_TITLE = "Torment's Rise (Nemesis-Tiefe)",
+	CODEX_TORMENTS_BODY = "• Krönende Nemesis-Tiefe in Voidstorm — eigenes Instanzportal, keine rotierende Welt-Tiefe.|n• Schaltet sich auf hohen Tiefenstufen mit begrenzten Leben frei (siehe In-Game-Anforderungen).|n• Boss Nullaeus — harter Unterbrechungs-/DPS-Check; siehe Delve Coach für Mechaniken.|n• Die wöchentliche Bounty kann einen geschwächten Nullaeus in eine normale Tiefe ziehen (Beacon of Hope).",
+
+	CODEX_DELVE_LOG_TITLE = "Delve Log",
+	CODEX_DELVE_LOG_BODY = "• Verlauf der letzten Tiefenläufe (Stufen, Zeiten, Gruppe).|n• Praktisch, um sich zu merken, welche Variante du beendet hast oder welcher Boss aktiv war.|n• Die Nächste-Tiefe-Routenführung schickt dich zum nächstgelegenen Eingang von deiner Position aus.",
+
+	CODEX_MPLUS_TITLE = "Mythic+ & Dungeon-Vault",
+	CODEX_MPLUS_BODY = "• M+-Dungeons füllen die |cffffffffDungeons|r-Reihe der Großen Schatzkammer (getrennt von Tiefen-/Welt-Reihen).|n• Höheres Key-Level = höheres Item-Level im Vault-Slot, wenn du den Key in der Zeit schaffst.|n• Vault Advisor nutzt M+-Stat-Gewichtungen, wenn du Dungeon-Vault-Beute beanspruchst.|n• Midnight Helper ersetzt kein Routen-Addon — nutze MDT / Notizen für Affix-Wochen.",
+
+	CODEX_RAID_VAULT_TITLE = "Raid — Große Schatzkammer",
+	CODEX_RAID_VAULT_BODY = "• Raid-Bosse bringen Raid-Vault-Slots voran (Schwierigkeit beeinflusst das Item-Level).|n• Normal / Heroisch / Mythisch tragen jeweils bei — prüfe die Vault-UI, welche Bosse du diese Woche getötet hast.|n• Crests (Dawncrests) begrenzen oft die Upgrade-Pfade von Raid-Gear.",
+
+	CODEX_VAULT_ADVISOR_TITLE = "Großer-Schatzkammer-Advisor",
+	CODEX_VAULT_ADVISOR_BODY = "• Seitenpanel auf Blizzards wöchentlicher Belohnungs-UI, wenn du Große-Schatzkammer-Beute beanspruchst (SHIFT-J) — nicht in den Midnight-Helper-Tabs.|n• Bewertet Vault-Stücke gegen angelegtes Gear anhand der Guide-Stat-Prioritäten (und optional Pawn).|n• Umschaltbar in den Minimap-Schnelleinstellungen / Esc -> AddOns -> Midnight Helper.|n• Profil Auto vs. Raid vs. M+ für Stat-Gewichtungen.",
+
+	CODEX_WORLD_HUB_TITLE = "Void & Rituals — ein System",
+	CODEX_WORLD_HUB_BODY = "• Midnight 12.0.5 koppelt |cffffffffRitual Sites|r (Eversong) und |cffffffffVoid Assaults|r (Zul'Aman) unter einer Währung und Renown.|n• Gleiche |cffffffffField Accolades|r und Bazaar-Hub — farme sie nicht als zusammenhanglose Aktivitäten.|n• Öffne den kombinierten Tab für aktive Site, Wochen-Caps und TomTom-Buttons.",
+
+	CODEX_RITUAL_TITLE = "Ritual Sites",
+	CODEX_RITUAL_BODY = "• Wöchentlich rotierendes Ritual in Eversong Woods — schließe Phasen für Accolades und Beute ab.|n• Nur eine Site ist gleichzeitig \"aktiv\"; das Addon hebt hervor, welche.|n• Der SMC-City-Guide-Pin kann dich mit Kontext zum Ritual-Tab bringen.",
+
+	CODEX_VOID_TITLE = "Void Assaults",
+	CODEX_VOID_BODY = "• Zul'Aman-Angriffswellen — verteidige Ziele, verdiene Accolades.|n• Teilt sich das Wochen-Cap mit dem Ritual-Fortschritt auf derselben Währung.|n• Prüfe Angriffs-Timer / aktive Zone im Tab Void & Rituals.",
+
+	CODEX_RARES_TITLE = "Midnight-Rares",
+	CODEX_RARES_BODY = "• Wöchentliche Rare-Mobs mit Account-/Charakter-Beute (prüfe die Regeln jedes Rares im Spiel).|n• Tab |cffffffffRares|r: verfolge Kills, baue die nächste Route, der TomTom-Pfeil bleibt auf dem nächstgelegenen Pin.|n• Live-Warnung, wenn ein verfolgtes Rare in der Nähe ist (~500 yd) — umschaltbar in den Einstellungen.",
+
+	CODEX_PROF_TITLE = "Professions — wöchentlicher Ablauf",
+	CODEX_PROF_BODY = "• Knowledge Points (KP), Artisan's Moxie, Unalloyed Abundance und Shards of Dundun sind getrennte Pfade.|n• Der Tab |cffffffffProfessions|r zeigt nicht ausgegebene KP und Wochenwährungen pro Beruf.|n• Crafting-Aufträge und Schätze sind hier nicht voll automatisiert — nutze den Basics-Guide zum KP-Ausgeben.",
+
+	CODEX_PROF_GUIDE_TITLE = "Professions — Einsteiger-Guide",
+	CODEX_PROF_GUIDE_BODY = "• Unter-Tab |cffffffffBasics -> Professions|r: schrittweiser KP-Plan und Combo-Vorschläge.|n• Der Dawncrests-Guide deckt die Raid-Crafting-Währung ab (anders als Tiefen-Keys).|n• Nach Patches erneut lesen — Währungs-IDs und Caps können sich ändern.",
+})
+
+merge(ns._mhLocales and ns._mhLocales.frFR, {
+	TAB_CODEX = "Midnight Codex",
+	CODEX_PANEL_TITLE = "Midnight Codex",
+	CODEX_PANEL_INTRO = "Ton manuel pour Midnight Saison 1 — ce qu'est chaque système, à quoi sert chaque monnaie et où cliquer dans cet addon. Survole les icônes de monnaie pour les infobulles de Blizzard.",
+	CODEX_OPEN_TAB_FMT = "Ouvrir : %s",
+	CODEX_NAV_DELVES_VAULT = "Onglet Delves & Vault (bloc Grande chambre forte)",
+	CODEX_NAV_DELVES_MIDNIGHT = "Onglet Delves & Vault (liste des gouffres)",
+	CODEX_NAV_BASICS_DAWN = "Onglet Basics (Dawncrests)",
+	CODEX_NAV_BASICS_PROF = "Onglet Basics (guide Professions)",
+	CODEX_BALANCE_FMT = "Tu as : |cffffffff%d|r",
+	CODEX_BALANCE_UNKNOWN = "Le solde se met à jour quand tu te connectes sur ce personnage.",
+	CODEX_SEARCH_OPENED = "Midnight Codex ouvert.",
+	CODEX_BETA_DISABLED = "Midnight Codex est désactivé dans les Réglages (onglets bêta).",
+
+	CODEX_CAT_START = "Pour commencer",
+	CODEX_CAT_WEEKLY = "Boucle hebdomadaire",
+	CODEX_CAT_CURRENCIES = "Currencies",
+	CODEX_CAT_DELVES = "Delves",
+	CODEX_CAT_DUNGEONS = "Dungeons & M+",
+	CODEX_CAT_RAID = "Raid & Crests",
+	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_PROFESSIONS = "Professions",
+
+	CODEX_START_TITLE = "Pour commencer — ta semaine Midnight",
+	CODEX_START_BODY = "|cffffcc00Pense en couches :|r un reset hebdo, plusieurs pistes de récompenses. Tu n'as pas besoin de chaque système chaque jour — choisis un objectif.|n|n|cffffff781) Compte & reset|r|n• Vérifie |cffffffffHome -> This Week|r pour la vault, le boss de monde, les keys et les corvées.|n• |cffffffffAccount snapshot|r montre tous tes rerolls (vault, Delver's Call, hebdos de métier).|n|n|cffffff782) Contenu de combat|r|n• |cffffffffDelves|r — piste d'équipement principale (keys, paliers, slots de Grande chambre forte). Utilise |cffffffffDelve Coach|r pour des conseils par gouffre.|n• |cffffffffMythic+|r et |cffffffffRaid|r remplissent les autres slots de vault (voir catégories Dungeons & Raid).|n|n|cffffff783) Monde ouvert (12.0.5)|r|n• Onglet |cffffffffVoid & Rituals|r — Field Accolades, Ritual Sites, Void Assaults (même piste de renom).|n• Onglet |cffffffffRares|r — butin rare hebdo et itinéraires.|n|n|cffffff784) Artisanat|r|n• Onglet |cffffffffProfessions|r pour les KP / mats hebdo ; |cffffffffBasics|r pour les Dawncrests.|n|n|cffffcc00Astuce :|r ouvre la catégorie |cffffffffCurrencies|r ici quand tu oublies à quoi sert un jeton. Fais défiler l'aperçu du boss dans Delve Coach pour zoomer.",
+	CODEX_WARBAND_TITLE = "Bande de guerre & sa banque",
+	CODEX_WARBAND_BODY = "|cffffcc00Ta bande de guerre|r, ce sont tous les personnages de ton compte, traités comme une seule équipe. Beaucoup de choses sont désormais |cffffffffliées à la bande de guerre|r — partagées sur tout le compte — donc tu envoies bien moins de courrier entre rerolls.|n|n|cffffff78Objets & monnaies liés à la bande de guerre|r|n• La plupart des monnaies Midnight sont à l'échelle du compte.|n• L'équipement est souvent |cfffffffflié à la bande de guerre jusqu'à équipé|r — envoie-le à un reroll, mais une fois équipé il reste sur ce personnage.|n|n|cffffff78La banque de bande de guerre|r — une banque partagée par tous tes personnages.|n• Ouvre-la chez |cffffffffn'importe quel banquier|r (ou Jeeves) — c'est un onglet de ta banque normale, à côté de ta banque de personnage.|n• Stocke tout objet |cffffffffnon lié à l'âme|r, et dépose ou retire de l'|cffffffffor|r entre personnages (même inter-factions).|n• Fabrique directement depuis elle — elle compte comme source de composants.|n|n|cffffff78Onglets & coût|r — 5 onglets, 98 emplacements chacun (490 au total). Tu commences sans aucun ; achète-les avec de l'or :|n• Onglet 1 : |cffffffff1 000 po|r|n• Onglet 2 : |cffffffff25 000 po|r|n• Onglet 3 : |cffffffff100 000 po|r|n• Onglet 4 : |cffffffff500 000 po|r|n• Onglet 5 : |cffffffff2 500 000 po|r  (les cinq = 3 126 000 po)|n|n|cffffcc00Astuce :|r 2-3 onglets suffisent à la plupart des joueurs. Ne la confonds pas avec ta |cffffffffbanque de personnage|r (à onglets depuis le patch 11.2, bien moins chère) — celle-là est par personnage ; la banque de bande de guerre est partagée.",
+
+	CODEX_WEEKLY_RESET_TITLE = "Reset hebdomadaire",
+	CODEX_WEEKLY_RESET_BODY = "• La plupart des progrès hebdomadaires se réinitialisent le jour de maintenance de ta région (EU mercredi matin, US mardi matin).|n• Les choix de Grande chambre forte, le butin du boss de monde, de nombreux plafonds hebdo et les livraisons de Delver's Call se réinitialisent.|n• |cffffffffHome -> This Week|r affiche le temps avant le reset quand l'API le fournit.|n• Planifie les rerolls : l'onglet snapshot compare qui doit encore vault, boss ou Delver's Call.",
+
+	CODEX_VAULT_TITLE = "Grande chambre forte",
+	CODEX_VAULT_BODY = "• Trois pistes : |cffffffffWorld|r (gouffres + contenu de monde), |cffffffffDungeons|r (M+), |cffffffffRaid|r.|n• Remplis des activités pendant la semaine ; après le reset tu choisis une récompense par slot débloqué chez le PNJ de la vault ou via SHIFT-J.|n• |cffffffffVault Advisor|r (sur l'UI de vault de Blizzard) classe les options par rapport à ton équipement.|n• Cet addon montre les trois pistes dans l'onglet |cffffffffDelves & Vault|r — déploie |cffffffffWeekly Great Vault (World)|r (pas encore un onglet séparé).|n• Résumé aussi sur |cffffffffHome -> This Week|r et |cffffffffAccount snapshot|r.",
+
+	CODEX_WORLDBOSS_TITLE = "Boss de monde (Midnight S1)",
+	CODEX_WORLDBOSS_BODY = "• Un boss de monde en rotation par semaine (Lu'ashal, Cragpine, Thorm'belan, Predaxas).|n• Butin de bande de guerre : dès qu'un personnage le tue, les rerolls apparaissent comme terminés.|n• Suivi en haut de l'onglet |cffffffffDelves & Vault|r avec itinéraire TomTom.|n• Aussi lié depuis le SMC City Guide quand tu es à Lune-d'argent.",
+	CODEX_FOLIO_TITLE = "Omnium Folio (12.0.7)",
+	CODEX_FOLIO_BODY = "• Nouveau système de puissance de milieu d'extension — un livre de minimap de |cffffffffrunes|r que tu échanges librement hors combat (aucun coût de slot).|n• La puissance vient de la chaîne hebdomadaire |cffffffff'Seeking Knowledge'|r (5 semaines) : The Omnium Folio, Ritualized Arcana, Leyline Assaults, Magical Primessence, Off-World Magic.|n• Chaque semaine récompense un |cffffffffMote of Omnial Inquiry|r pour choisir/renforcer une rune.|n• Termine les 5 pour le haut fait méta et la décoration Sunstrider Omnium Simulacrum.|n• Une semaine manquée ? Fais les quêtes manquées à la suite pour rattraper — sans attendre les resets.|n• (Datamined — effets/ID exacts des runes confirmés au lancement.)",
+	CODEX_TT_TITLE = "Turbulent Timeways (12.0.7)",
+	CODEX_TT_BODY = "• Événement Marche du temps de retour — cette fois un pool de donjons |cffffffffDragonflight|r : Algeth'ar Academy, Halls of Infusion, Neltharus, Ruby Life Pools, The Azure Vault, Brackenhide Hollow.|n• Hebdo : fais |cffffffff5 donjons Marche du temps|r pour un cache d'équipement ; chaque run empile |cffffffffKnowledge of Timeways|r (buff d'XP).|n• Gagne |cffffffffMastery of Timeways|r sur 4 semaines sur 6 pour 'Master of the Turbulent Timeways' et la monture |cffffffffSpawn of Vyranoth|r.|n• Dépense les Insignes temporels chez le marchand de l'événement.|n• Du ~30 juin au 11 août. (Datamined — à confirmer au lancement.)",
+
+	CODEX_DELVER_CALL_TITLE = "Delver's Call",
+	CODEX_DELVER_CALL_BODY = "• Objectifs hebdomadaires de gouffre qui donnent un gros bonus d'XP à la remise.|n• Tu peux |cffffffffmettre en banque|r les calls terminés (objectifs faits, pas encore remis) pour un niveau de personnage ultérieur.|n• |cffffffffAccount snapshot|r cumule les calls en banque et en attente sur tous les rerolls.|n• Survole la ligne Delver's Call dans le snapshot pour le détail par personnage.",
+
+	CODEX_ACCOUNT_TITLE = "Account snapshot",
+	CODEX_ACCOUNT_BODY = "• Vue en lecture seule des personnages avec lesquels tu t'es connecté avec Midnight Helper.|n• Trie/filtre par vault prête, keys, plafond de Shards of Dundun, inactif depuis le reset, etc.|n• Sert à répondre : \"Quel reroll doit encore vault / boss / Delver's Call ?\"|n• Ne remplace pas la connexion sur un reroll pour vérifier l'équipement ou les quêtes.",
+
+	CODEX_CUR_COFFER_KEY_TITLE = "Restored Coffer Key",
+	CODEX_CUR_COFFER_KEY_BODY = "• Ouvre les gouffres Midnight (comme les keys des extensions précédentes).|n• Se gagne via le contenu de monde, les hebdos et les marchands ; pas de plafond hebdo strict sur le nombre de keys en stock.|n• Affichée dans |cffffffffDelves & Vault|r avec ton total actuel.",
+
+	CODEX_CUR_SHARDS_TITLE = "Coffer Key Shards",
+	CODEX_CUR_SHARDS_BODY = "• Se combinent en Restored Coffer Keys (100 shards -> 1 key au taux standard).|n• Un plafond de gain hebdomadaire s'applique aux shards — suis \"Weekly: X / Y\" dans l'onglet Delves.|n• Le plafond se remplit plus vite si tu fais plus de gouffres ou complètes des sources de shards.",
+
+	CODEX_CUR_UNDERCOIN_TITLE = "Undercoin",
+	CODEX_CUR_UNDERCOIN_BODY = "• Monnaie de marchand pour les biens liés aux gouffres (curios, améliorations, objets de confort).|n• Se gagne surtout en faisant des gouffres et via leurs récompenses.|n• Dépense-les avant d'accumuler à l'aveugle — vérifie le marchand de gouffres quand tu as une pièce visée.",
+
+	CODEX_CUR_MANA_TITLE = "Untainted Mana-Crystals",
+	CODEX_CUR_MANA_BODY = "• Utilisés pour certaines améliorations d'équipement Midnight / achats chez les marchands (vois les notes de patch actuelles pour les marchands exacts).|n• Se gagnent via les gouffres, le contenu de monde et les sources hebdomadaires.|n• Account snapshot peut montrer les totaux par personnage.",
+
+	CODEX_CUR_ACCOLADES_TITLE = "Field Accolades",
+	CODEX_CUR_ACCOLADES_BODY = "• Monnaie partagée des systèmes |cffffffffVoid & Rituals|r (Ritual Sites + Void Assaults).|n• Plafond de gain hebdomadaire — après le plafond tu joues encore pour d'autres récompenses mais ne gagnes plus d'accolades jusqu'au reset.|n• Se dépense en récompenses de renom au hub du Bazaar (Eversong / Zul'Aman).|n• Compteur en direct dans l'onglet |cffffffffVoid & Rituals|r.",
+
+	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
+	CODEX_CUR_DAWN_BODY = "• Monnaie d'artisanat de palier raid (slots raid de la Grande chambre forte, progression proche du catalyseur).|n• Les totaux de crests en direct sont sur |cffffffffBasics -> Dawncrests|r (pas dans cette liste).|n• Pas la même chose que les keys de gouffre — vois ce guide pour les objectifs de dépense et les plafonds hebdo.",
+
+	CODEX_DELVES_INTRO_TITLE = "Gouffres Midnight — aperçu",
+	CODEX_DELVES_INTRO_BODY = "• Scénarios en solo ou petit groupe à travers Eversong, Harandar, Voidstorm, etc.|n• |cffffffffTier 1–11+|r — palier plus haut = ennemis plus durs et meilleur niveau d'objet dans la vault.|n• Coûte un |cffffffffRestored Coffer Key|r par run (voir Currencies).|n• Les gouffres |cffffffffgénéreux|r (en rotation) donnent du butin en plus — utilise \"Find Nearest Bountiful Delve\" dans l'onglet Delves.",
+
+	CODEX_DELVE_COACH_TITLE = "Delve Coach",
+	CODEX_DELVE_COACH_BODY = "• Panneau de conseils flottant : itinéraire, trash et mécaniques de boss par gouffre.|n• S'ouvre automatiquement dans un gouffre (optionnel) ou via |cffffffffDelve Coach (preview tips)|r / |cffffffff/mh coach|r.|n• Le texte anglais ou néerlandais suit `/mh lang`.|n• Pleins feux sur le boss : fais défiler sur le modèle pour zoomer (sauvegardé par boss).|n• Les noms de sorts en bleu renvoient aux vraies infobulles de sorts quand les ID sont connus.",
+
+	CODEX_DELVE_CURIOS_TITLE = "Valeera & curios de gouffre",
+	CODEX_DELVE_CURIOS_BODY = "• Les curios modifient ton prochain run de gouffre (butin en plus, boss plus faciles, etc.).|n• Valeera donne des conseils chez les PNJ de réparation/dialogue — popup dans l'onglet Delves quand c'est pertinent.|n• Suis les consommables et boutons de minimap via le popup d'objets de gouffre (RAID-R Mini, Trovehunter's Bounty).",
+
+	CODEX_TORMENTS_TITLE = "Torment's Rise (gouffre Némésis)",
+	CODEX_TORMENTS_BODY = "• Gouffre Némésis ultime à Voidstorm — portail d'instance séparé, pas un gouffre de monde en rotation.|n• Se débloque aux paliers de gouffre élevés avec des vies limitées (voir les prérequis en jeu).|n• Boss Nullaeus — gros check d'interruption/DPS ; vois Delve Coach pour les mécaniques.|n• La prime hebdomadaire peut attirer un Nullaeus affaibli dans un gouffre normal (Beacon of Hope).",
+
+	CODEX_DELVE_LOG_TITLE = "Delve Log",
+	CODEX_DELVE_LOG_BODY = "• Historique des runs de gouffre récents (paliers, temps, groupe).|n• Pratique pour se souvenir de la variante terminée ou du boss actif.|n• Le routage vers le gouffre le plus proche peut t'envoyer à l'entrée la plus proche de ta position.",
+
+	CODEX_MPLUS_TITLE = "Mythic+ & vault des donjons",
+	CODEX_MPLUS_BODY = "• Les donjons M+ remplissent la rangée |cffffffffDungeons|r de la Grande chambre forte (séparée des rangées gouffre/monde).|n• Niveau de key plus haut = niveau d'objet plus haut dans le slot de vault si tu termines la key à temps.|n• Vault Advisor utilise les poids de stats M+ quand tu réclames le butin de vault de donjon.|n• Midnight Helper ne remplace pas un addon d'itinéraire — utilise MDT / des notes pour les semaines d'affixe.",
+
+	CODEX_RAID_VAULT_TITLE = "Raid — Grande chambre forte",
+	CODEX_RAID_VAULT_BODY = "• Les boss de raid font progresser les slots raid de la vault (la difficulté affecte le niveau d'objet).|n• Normal / Héroïque / Mythique contribuent chacun — vérifie l'UI de vault pour voir quels boss tu as tués cette semaine.|n• Les crests (Dawncrests) limitent souvent les chemins d'amélioration de l'équipement de raid.",
+
+	CODEX_VAULT_ADVISOR_TITLE = "Conseiller de Grande chambre forte",
+	CODEX_VAULT_ADVISOR_BODY = "• Panneau latéral sur l'UI de récompense hebdomadaire de Blizzard quand tu réclames le butin de Grande chambre forte (SHIFT-J) — pas dans les onglets de Midnight Helper.|n• Classe les pièces de vault par rapport à l'équipement porté selon les priorités de stats du guide (et Pawn en option).|n• Activable dans les réglages rapides de minimap / Échap -> AddOns -> Midnight Helper.|n• Profil Auto vs Raid vs M+ pour les poids de stats.",
+
+	CODEX_WORLD_HUB_TITLE = "Void & Rituals — un seul système",
+	CODEX_WORLD_HUB_BODY = "• Midnight 12.0.5 associe |cffffffffRitual Sites|r (Eversong) et |cffffffffVoid Assaults|r (Zul'Aman) sous une même monnaie et un même renom.|n• Mêmes |cffffffffField Accolades|r et hub du Bazaar — ne les farme pas comme des activités séparées.|n• Ouvre l'onglet combiné pour le site actif, les plafonds hebdo et les boutons TomTom.",
+
+	CODEX_RITUAL_TITLE = "Ritual Sites",
+	CODEX_RITUAL_BODY = "• Rituel hebdomadaire en rotation à Eversong Woods — complète les phases pour des accolades et du butin.|n• Un seul site est \"actif\" à la fois ; l'addon met en évidence lequel.|n• Le pin du SMC City Guide peut t'amener à l'onglet Ritual avec le contexte.",
+
+	CODEX_VOID_TITLE = "Void Assaults",
+	CODEX_VOID_BODY = "• Vagues d'assaut à Zul'Aman — défends les objectifs, gagne des accolades.|n• Partage le plafond hebdomadaire avec la progression des rituels sur la même monnaie.|n• Vérifie le minuteur d'assaut / la zone active dans l'onglet Void & Rituals.",
+
+	CODEX_RARES_TITLE = "Rares Midnight",
+	CODEX_RARES_BODY = "• Mobs rares hebdomadaires avec butin compte/personnage (vérifie les règles de chaque rare en jeu).|n• Onglet |cffffffffRares|r : suis les kills, construis l'itinéraire le plus proche, la flèche TomTom reste sur le pin le plus proche.|n• Alerte en direct quand un rare suivi est à proximité (~500 yd) — activable dans les réglages.",
+
+	CODEX_PROF_TITLE = "Professions — boucle hebdomadaire",
+	CODEX_PROF_BODY = "• Knowledge Points (KP), Artisan's Moxie, Unalloyed Abundance et Shards of Dundun sont des pistes distinctes.|n• L'onglet |cffffffffProfessions|r montre les KP non dépensés et les monnaies hebdo par métier.|n• Les ordres d'artisanat et les trésors ne sont pas entièrement automatisés ici — utilise le guide Basics pour dépenser les KP.",
+
+	CODEX_PROF_GUIDE_TITLE = "Professions — guide débutant",
+	CODEX_PROF_GUIDE_BODY = "• Sous-onglet |cffffffffBasics -> Professions|r : plan de KP pas à pas et suggestions de combos.|n• Le guide Dawncrests couvre la monnaie d'artisanat de raid (différente des keys de gouffre).|n• Relis après les patchs — les ID de monnaie et les plafonds peuvent changer.",
+})
+
+merge(ns._mhLocales and ns._mhLocales.esES, {
+	TAB_CODEX = "Midnight Codex",
+	CODEX_PANEL_TITLE = "Midnight Codex",
+	CODEX_PANEL_INTRO = "Tu manual para Midnight Temporada 1: qué es cada sistema, para qué sirve cada moneda y dónde hacer clic en este addon. Pasa el cursor sobre los iconos de moneda para ver las descripciones de Blizzard.",
+	CODEX_OPEN_TAB_FMT = "Abrir: %s",
+	CODEX_NAV_DELVES_VAULT = "Pestaña Delves & Vault (bloque de Gran Bóveda)",
+	CODEX_NAV_DELVES_MIDNIGHT = "Pestaña Delves & Vault (lista de profundidades)",
+	CODEX_NAV_BASICS_DAWN = "Pestaña Basics (Dawncrests)",
+	CODEX_NAV_BASICS_PROF = "Pestaña Basics (guía de Professions)",
+	CODEX_BALANCE_FMT = "Tienes: |cffffffff%d|r",
+	CODEX_BALANCE_UNKNOWN = "El saldo se actualiza cuando inicias sesión con este personaje.",
+	CODEX_SEARCH_OPENED = "Midnight Codex abierto.",
+	CODEX_BETA_DISABLED = "Midnight Codex está desactivado en los Ajustes (pestañas beta).",
+
+	CODEX_CAT_START = "Para empezar",
+	CODEX_CAT_WEEKLY = "Ciclo semanal",
+	CODEX_CAT_CURRENCIES = "Currencies",
+	CODEX_CAT_DELVES = "Delves",
+	CODEX_CAT_DUNGEONS = "Dungeons & M+",
+	CODEX_CAT_RAID = "Raid & Crests",
+	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_PROFESSIONS = "Professions",
+
+	CODEX_START_TITLE = "Para empezar — tu semana Midnight",
+	CODEX_START_BODY = "|cffffcc00Piensa por capas:|r un reset semanal, varias vías de recompensa. No necesitas cada sistema cada día: elige un objetivo.|n|n|cffffff781) Cuenta y reset|r|n• Revisa |cffffffffHome -> This Week|r para la bóveda, el jefe de mundo, las keys y las tareas.|n• |cffffffffAccount snapshot|r muestra todos tus alts (bóveda, Delver's Call, semanales de profesión).|n|n|cffffff782) Contenido de combate|r|n• |cffffffffDelves|r — vía principal de equipo (keys, niveles, ranuras de Gran Bóveda). Usa |cffffffffDelve Coach|r para consejos por profundidad.|n• |cffffffffMythic+|r y |cffffffffRaid|r llenan otras ranuras de bóveda (ver categorías Dungeons & Raid).|n|n|cffffff783) Mundo abierto (12.0.5)|r|n• Pestaña |cffffffffVoid & Rituals|r — Field Accolades, Ritual Sites, Void Assaults (misma vía de renombre).|n• Pestaña |cffffffffRares|r — botín raro semanal y rutas.|n|n|cffffff784) Artesanía|r|n• Pestaña |cffffffffProfessions|r para KP / mats semanales; |cffffffffBasics|r para Dawncrests.|n|n|cffffcc00Consejo:|r abre aquí la categoría |cffffffffCurrencies|r cuando olvides para qué sirve un vale. Desplázate por la vista previa del jefe en Delve Coach para hacer zoom.",
+	CODEX_WARBAND_TITLE = "Banda de guerra y su banco",
+	CODEX_WARBAND_BODY = "|cffffcc00Tu banda de guerra|r son todos los personajes de tu cuenta, tratados como un equipo. Muchas cosas ahora están |cffffffffvinculadas a la banda de guerra|r — compartidas en toda la cuenta — así que envías mucho menos correo entre alts.|n|n|cffffff78Objetos y monedas vinculados a la banda de guerra|r|n• La mayoría de las monedas de Midnight son de cuenta.|n• El equipo suele estar |cffffffffvinculado a la banda de guerra hasta equipar|r — envíalo a un alt, pero una vez equipado queda con ese personaje.|n|n|cffffff78El banco de banda de guerra|r — un banco compartido que usan todos tus personajes.|n• Ábrelo con |cffffffffcualquier banquero|r (o Jeeves) — es una pestaña de tu banco normal, junto a tu banco de personaje.|n• Guarda cualquier objeto |cffffffffno ligado al alma|r, y deposita o retira |cfffffffforo|r entre personajes (incluso entre facciones).|n• Fabrica directamente desde él — cuenta como fuente de componentes.|n|n|cffffff78Pestañas y coste|r — 5 pestañas, 98 espacios cada una (490 en total). Empiezas sin ninguna; cómpralas con oro:|n• Pestaña 1: |cffffffff1.000o|r|n• Pestaña 2: |cffffffff25.000o|r|n• Pestaña 3: |cffffffff100.000o|r|n• Pestaña 4: |cffffffff500.000o|r|n• Pestaña 5: |cffffffff2.500.000o|r  (las cinco = 3.126.000o)|n|n|cffffcc00Consejo:|r 2-3 pestañas bastan para la mayoría. No lo confundas con tu |cffffffffbanco de personaje|r (también con pestañas desde el parche 11.2, mucho más barato) — ese es por personaje; el banco de banda de guerra es compartido.",
+
+	CODEX_WEEKLY_RESET_TITLE = "Reset semanal",
+	CODEX_WEEKLY_RESET_BODY = "• La mayoría del progreso semanal se reinicia el día de mantenimiento de tu región (EU miércoles por la mañana, US martes por la mañana).|n• Se reinician las elecciones de Gran Bóveda, el botín del jefe de mundo, muchos límites semanales y las entregas de Delver's Call.|n• |cffffffffHome -> This Week|r muestra el tiempo hasta el reset cuando la API lo da.|n• Planifica los alts: la pestaña snapshot compara quién debe aún bóveda, jefe o Delver's Call.",
+
+	CODEX_VAULT_TITLE = "Gran Bóveda",
+	CODEX_VAULT_BODY = "• Tres vías: |cffffffffWorld|r (profundidades + contenido de mundo), |cffffffffDungeons|r (M+), |cffffffffRaid|r.|n• Rellena actividades durante la semana; tras el reset eliges una recompensa por cada ranura desbloqueada en el PNJ de la bóveda o con SHIFT-J.|n• |cffffffffVault Advisor|r (en la UI de bóveda de Blizzard) clasifica las opciones frente a tu equipo.|n• Este addon muestra las tres vías en la pestaña |cffffffffDelves & Vault|r — despliega |cffffffffWeekly Great Vault (World)|r (aún no es una pestaña aparte).|n• Resumen también en |cffffffffHome -> This Week|r y |cffffffffAccount snapshot|r.",
+
+	CODEX_WORLDBOSS_TITLE = "Jefe de mundo (Midnight S1)",
+	CODEX_WORLDBOSS_BODY = "• Un jefe de mundo rotatorio por semana (Lu'ashal, Cragpine, Thorm'belan, Predaxas).|n• Botín de banda de guerra: en cuanto un personaje lo mata, los alts aparecen como completados.|n• Seguido arriba en |cffffffffDelves & Vault|r con ruta TomTom.|n• También enlazado desde el SMC City Guide cuando estás en Lunargenta.",
+	CODEX_FOLIO_TITLE = "Omnium Folio (12.0.7)",
+	CODEX_FOLIO_BODY = "• Nuevo sistema de poder de media expansión — un libro de minimapa de |cffffffffrunas|r que cambias libremente fuera de combate (sin coste de ranura).|n• El poder viene de la cadena semanal |cffffffff'Seeking Knowledge'|r (5 semanas): The Omnium Folio, Ritualized Arcana, Leyline Assaults, Magical Primessence, Off-World Magic.|n• Cada semana recompensa un |cffffffffMote of Omnial Inquiry|r para elegir/potenciar una runa.|n• Termina las 5 para el logro meta y la decoración Sunstrider Omnium Simulacrum.|n• ¿Te saltaste una semana? Haz las misiones perdidas seguidas para ponerte al día — sin esperar resets.|n• (Datamined — efectos/ID exactos de runas confirmados en el lanzamiento.)",
+	CODEX_TT_TITLE = "Turbulent Timeways (12.0.7)",
+	CODEX_TT_BODY = "• Evento Paseo en el tiempo de vuelta — esta vez un grupo de mazmorras de |cffffffffDragonflight|r: Algeth'ar Academy, Halls of Infusion, Neltharus, Ruby Life Pools, The Azure Vault, Brackenhide Hollow.|n• Semanal: haz |cffffffff5 mazmorras de Paseo en el tiempo|r para un alijo de equipo; cada run acumula |cffffffffKnowledge of Timeways|r (buff de XP).|n• Gana |cffffffffMastery of Timeways|r en 4 de 6 semanas para 'Master of the Turbulent Timeways' y la montura |cffffffffSpawn of Vyranoth|r.|n• Gasta las Insignias temporales en el vendedor del evento.|n• Dura ~30 jun – 11 ago. (Datamined — confirmar en el lanzamiento.)",
+
+	CODEX_DELVER_CALL_TITLE = "Delver's Call",
+	CODEX_DELVER_CALL_BODY = "• Objetivos semanales de profundidad que dan un gran impulso de XP al entregarlos.|n• Puedes |cffffffffguardar|r calls completadas (objetivos hechos, sin entregar aún) para un nivel de personaje posterior.|n• |cffffffffAccount snapshot|r suma las calls guardadas y pendientes de todos los alts.|n• Pasa el cursor por la línea Delver's Call en el snapshot para el detalle por personaje.",
+
+	CODEX_ACCOUNT_TITLE = "Account snapshot",
+	CODEX_ACCOUNT_BODY = "• Vista de solo lectura de los personajes con los que has iniciado sesión con Midnight Helper.|n• Ordena/filtra por bóveda lista, keys, límite de Shards of Dundun, inactivo desde el reset, etc.|n• Sirve para responder: \"¿Qué alt necesita aún bóveda / jefe / Delver's Call?\"|n• No sustituye iniciar sesión en un alt para comprobar equipo o misiones.",
+
+	CODEX_CUR_COFFER_KEY_TITLE = "Restored Coffer Key",
+	CODEX_CUR_COFFER_KEY_BODY = "• Abre las profundidades Midnight (como las keys de expansiones anteriores).|n• Se gana con contenido de mundo, semanales y vendedores; sin límite semanal estricto de keys en posesión.|n• Se muestra en |cffffffffDelves & Vault|r con tu cantidad actual.",
+
+	CODEX_CUR_SHARDS_TITLE = "Coffer Key Shards",
+	CODEX_CUR_SHARDS_BODY = "• Se combinan en Restored Coffer Keys (100 shards -> 1 key al ritmo estándar).|n• Hay un límite semanal de ganancia de shards — sigue \"Weekly: X / Y\" en la pestaña Delves.|n• El límite se llena más rápido si haces más profundidades o completas fuentes de shards.",
+
+	CODEX_CUR_UNDERCOIN_TITLE = "Undercoin",
+	CODEX_CUR_UNDERCOIN_BODY = "• Moneda de vendedor para bienes relacionados con profundidades (curios, mejoras, objetos de comodidad).|n• Se gana sobre todo haciendo profundidades y de sus recompensas.|n• Gástala antes de acumular a ciegas — revisa el vendedor de profundidades cuando tengas una pieza objetivo.",
+
+	CODEX_CUR_MANA_TITLE = "Untainted Mana-Crystals",
+	CODEX_CUR_MANA_BODY = "• Se usan para ciertas mejoras de equipo Midnight / compras a vendedores (revisa las notas del parche actuales para los vendedores exactos).|n• Se ganan en profundidades, contenido de mundo y fuentes semanales.|n• Account snapshot puede mostrar los totales por personaje.",
+
+	CODEX_CUR_ACCOLADES_TITLE = "Field Accolades",
+	CODEX_CUR_ACCOLADES_BODY = "• Moneda compartida de los sistemas |cffffffffVoid & Rituals|r (Ritual Sites + Void Assaults).|n• Límite semanal de ganancia — tras el límite sigues jugando por otras recompensas pero dejas de ganar accolades hasta el reset.|n• Se gasta en recompensas de renombre en el hub del Bazaar (Eversong / Zul'Aman).|n• Recuento en vivo en la pestaña |cffffffffVoid & Rituals|r.",
+
+	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
+	CODEX_CUR_DAWN_BODY = "• Moneda de artesanía de nivel de raid (ranuras de raid de la Gran Bóveda, progresión cercana al catalizador).|n• Los recuentos de crests en vivo están en |cffffffffBasics -> Dawncrests|r (no en esta lista).|n• No es lo mismo que las keys de profundidad — mira esa guía para objetivos de gasto y límites semanales.",
+
+	CODEX_DELVES_INTRO_TITLE = "Profundidades Midnight — resumen",
+	CODEX_DELVES_INTRO_BODY = "• Escenarios en solitario o en grupo pequeño por Eversong, Harandar, Voidstorm, etc.|n• |cffffffffTier 1–11+|r — nivel más alto = enemigos más duros y mejor nivel de objeto en la bóveda.|n• Cuesta una |cffffffffRestored Coffer Key|r por run (ver Currencies).|n• Las profundidades |cffffffffpródigas|r (rotatorias) dan botín extra — usa \"Find Nearest Bountiful Delve\" en la pestaña Delves.",
+
+	CODEX_DELVE_COACH_TITLE = "Delve Coach",
+	CODEX_DELVE_COACH_BODY = "• Panel de consejos flotante: ruta, basura y mecánicas de jefe por profundidad.|n• Se abre automáticamente en una profundidad (opcional) o con |cffffffffDelve Coach (preview tips)|r / |cffffffff/mh coach|r.|n• El texto en inglés o neerlandés sigue `/mh lang`.|n• Foco del jefe: desplázate sobre el modelo para hacer zoom (guardado por jefe).|n• Los nombres de hechizos en azul enlazan a descripciones reales cuando se conocen los ID.",
+
+	CODEX_DELVE_CURIOS_TITLE = "Valeera y curios de profundidad",
+	CODEX_DELVE_CURIOS_BODY = "• Los curios modifican tu próxima run de profundidad (botín extra, jefes más fáciles, etc.).|n• Valeera aconseja en PNJ de reparación/diálogo — popup en la pestaña Delves cuando es relevante.|n• Sigue consumibles y botones de minimapa con el popup de objetos de profundidad (RAID-R Mini, Trovehunter's Bounty).",
+
+	CODEX_TORMENTS_TITLE = "Torment's Rise (profundidad Némesis)",
+	CODEX_TORMENTS_BODY = "• Profundidad Némesis cumbre en Voidstorm — portal de instancia aparte, no una profundidad de mundo rotatoria.|n• Se desbloquea en niveles de profundidad altos con vidas limitadas (ver requisitos en el juego).|n• Jefe Nullaeus — fuerte prueba de interrupción/DPS; mira Delve Coach para las mecánicas.|n• La recompensa semanal puede atraer a un Nullaeus debilitado a una profundidad normal (Beacon of Hope).",
+
+	CODEX_DELVE_LOG_TITLE = "Delve Log",
+	CODEX_DELVE_LOG_BODY = "• Historial de runs de profundidad recientes (niveles, tiempos, grupo).|n• Útil para recordar qué variante terminaste o qué jefe estaba activo.|n• El enrutado a la profundidad más cercana puede llevarte a la entrada más próxima a tu posición.",
+
+	CODEX_MPLUS_TITLE = "Mythic+ y bóveda de mazmorras",
+	CODEX_MPLUS_BODY = "• Las mazmorras M+ llenan la fila |cffffffffDungeons|r de la Gran Bóveda (separada de las filas de profundidad/mundo).|n• Nivel de key más alto = nivel de objeto más alto en la ranura de bóveda si terminas la key a tiempo.|n• Vault Advisor usa los pesos de estadística M+ cuando reclamas el botín de bóveda de mazmorra.|n• Midnight Helper no sustituye un addon de ruta — usa MDT / notas para las semanas de afijo.",
+
+	CODEX_RAID_VAULT_TITLE = "Raid — Gran Bóveda",
+	CODEX_RAID_VAULT_BODY = "• Los jefes de raid avanzan las ranuras de raid de la bóveda (la dificultad afecta el nivel de objeto).|n• Normal / Heroico / Mítico aportan cada uno — revisa la UI de bóveda para ver qué jefes mataste esta semana.|n• Los crests (Dawncrests) suelen limitar las vías de mejora del equipo de raid.",
+
+	CODEX_VAULT_ADVISOR_TITLE = "Consejero de Gran Bóveda",
+	CODEX_VAULT_ADVISOR_BODY = "• Panel lateral en la UI de recompensa semanal de Blizzard cuando reclamas el botín de Gran Bóveda (SHIFT-J) — no dentro de las pestañas de Midnight Helper.|n• Clasifica las piezas de bóveda frente al equipo puesto usando las prioridades de estadística de la guía (y Pawn opcional).|n• Se activa en los ajustes rápidos de minimapa / Esc -> AddOns -> Midnight Helper.|n• Perfil Auto vs Raid vs M+ para los pesos de estadística.",
+
+	CODEX_WORLD_HUB_TITLE = "Void & Rituals — un solo sistema",
+	CODEX_WORLD_HUB_BODY = "• Midnight 12.0.5 une |cffffffffRitual Sites|r (Eversong) y |cffffffffVoid Assaults|r (Zul'Aman) bajo una misma moneda y renombre.|n• Mismas |cffffffffField Accolades|r y hub del Bazaar — no las farmees como actividades separadas.|n• Abre la pestaña combinada para el sitio activo, los límites semanales y los botones TomTom.",
+
+	CODEX_RITUAL_TITLE = "Ritual Sites",
+	CODEX_RITUAL_BODY = "• Ritual semanal rotatorio en Eversong Woods — completa fases para accolades y botín.|n• Solo un sitio está \"activo\" a la vez; el addon resalta cuál.|n• El pin del SMC City Guide puede llevarte a la pestaña Ritual con contexto.",
+
+	CODEX_VOID_TITLE = "Void Assaults",
+	CODEX_VOID_BODY = "• Oleadas de asalto en Zul'Aman — defiende objetivos, gana accolades.|n• Comparte el límite semanal con el progreso de los rituales en la misma moneda.|n• Revisa el temporizador de asalto / la zona activa en la pestaña Void & Rituals.",
+
+	CODEX_RARES_TITLE = "Rares Midnight",
+	CODEX_RARES_BODY = "• Mobs raros semanales con botín de cuenta/personaje (revisa las reglas de cada raro en el juego).|n• Pestaña |cffffffffRares|r: sigue los kills, construye la ruta más cercana, la flecha TomTom se queda en el pin más próximo.|n• Alerta en vivo cuando un raro seguido está cerca (~500 yd) — se activa en los ajustes.",
+
+	CODEX_PROF_TITLE = "Professions — ciclo semanal",
+	CODEX_PROF_BODY = "• Knowledge Points (KP), Artisan's Moxie, Unalloyed Abundance y Shards of Dundun son vías separadas.|n• La pestaña |cffffffffProfessions|r muestra los KP sin gastar y las monedas semanales por profesión.|n• Las órdenes de artesanía y los tesoros no están del todo automatizados aquí — usa la guía Basics para gastar KP.",
+
+	CODEX_PROF_GUIDE_TITLE = "Professions — guía para principiantes",
+	CODEX_PROF_GUIDE_BODY = "• Subpestaña |cffffffffBasics -> Professions|r: plan de KP paso a paso y sugerencias de combos.|n• La guía Dawncrests cubre la moneda de artesanía de raid (distinta de las keys de profundidad).|n• Relee tras los parches — los ID de moneda y los límites pueden cambiar.",
+})
+
+merge(ns._mhLocales and ns._mhLocales.ptBR, {
+	TAB_CODEX = "Midnight Codex",
+	CODEX_PANEL_TITLE = "Midnight Codex",
+	CODEX_PANEL_INTRO = "Seu manual para Midnight Temporada 1 — o que é cada sistema, para que serve cada moeda e onde clicar neste addon. Passe o cursor sobre os ícones de moeda para ver as dicas da Blizzard.",
+	CODEX_OPEN_TAB_FMT = "Abrir: %s",
+	CODEX_NAV_DELVES_VAULT = "Aba Delves & Vault (bloco da Grande Câmara)",
+	CODEX_NAV_DELVES_MIDNIGHT = "Aba Delves & Vault (lista de profundezas)",
+	CODEX_NAV_BASICS_DAWN = "Aba Basics (Dawncrests)",
+	CODEX_NAV_BASICS_PROF = "Aba Basics (guia de Professions)",
+	CODEX_BALANCE_FMT = "Você tem: |cffffffff%d|r",
+	CODEX_BALANCE_UNKNOWN = "O saldo atualiza quando você entra com este personagem.",
+	CODEX_SEARCH_OPENED = "Midnight Codex aberto.",
+	CODEX_BETA_DISABLED = "O Midnight Codex está desativado nas Configurações (abas beta).",
+
+	CODEX_CAT_START = "Comece aqui",
+	CODEX_CAT_WEEKLY = "Ciclo semanal",
+	CODEX_CAT_CURRENCIES = "Currencies",
+	CODEX_CAT_DELVES = "Delves",
+	CODEX_CAT_DUNGEONS = "Dungeons & M+",
+	CODEX_CAT_RAID = "Raid & Crests",
+	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_PROFESSIONS = "Professions",
+
+	CODEX_START_TITLE = "Comece aqui — sua semana Midnight",
+	CODEX_START_BODY = "|cffffcc00Pense em camadas:|r um reset semanal, várias trilhas de recompensa. Você não precisa de cada sistema todo dia — escolha um objetivo.|n|n|cffffff781) Conta & reset|r|n• Confira |cffffffffHome -> This Week|r para a câmara, o chefe de mundo, as keys e as tarefas.|n• |cffffffffAccount snapshot|r mostra todos os seus alts (câmara, Delver's Call, semanais de profissão).|n|n|cffffff782) Conteúdo de combate|r|n• |cffffffffDelves|r — trilha principal de equipamento (keys, níveis, espaços da Grande Câmara). Use |cffffffffDelve Coach|r para dicas por profundeza.|n• |cffffffffMythic+|r e |cffffffffRaid|r preenchem outros espaços da câmara (veja categorias Dungeons & Raid).|n|n|cffffff783) Mundo aberto (12.0.5)|r|n• Aba |cffffffffVoid & Rituals|r — Field Accolades, Ritual Sites, Void Assaults (mesma trilha de renome).|n• Aba |cffffffffRares|r — saque raro semanal e rotas.|n|n|cffffff784) Profissões|r|n• Aba |cffffffffProfessions|r para KP / mats semanais; |cffffffffBasics|r para Dawncrests.|n|n|cffffcc00Dica:|r abra a categoria |cffffffffCurrencies|r aqui quando esquecer para que serve uma ficha. Role a prévia do chefe no Delve Coach para dar zoom.",
+	CODEX_WARBAND_TITLE = "Bando de guerra & seu banco",
+	CODEX_WARBAND_BODY = "|cffffcc00Seu bando de guerra|r são todos os personagens da sua conta, tratados como um time. Muita coisa agora é |cffffffffvinculada ao bando de guerra|r — compartilhada na conta toda — então você envia bem menos correio entre alts.|n|n|cffffff78Itens & moedas vinculados ao bando de guerra|r|n• A maioria das moedas de Midnight é da conta.|n• O equipamento costuma ser |cffffffffvinculado ao bando de guerra até equipar|r — mande para um alt, mas uma vez equipado fica com aquele personagem.|n|n|cffffff78O banco do bando de guerra|r — um banco compartilhado que todos os seus personagens usam.|n• Abra com |cffffffffqualquer banqueiro|r (ou Jeeves) — é uma aba do seu banco normal, ao lado do banco de personagem.|n• Guarde qualquer item |cffffffffnão vinculado à alma|r e deposite ou retire |cffffffffouro|r entre personagens (até entre facções).|n• Fabrique direto dele — conta como fonte de reagentes.|n|n|cffffff78Abas & custo|r — 5 abas, 98 espaços cada (490 no total). Você começa sem nenhuma; compre-as com ouro:|n• Aba 1: |cffffffff1.000o|r|n• Aba 2: |cffffffff25.000o|r|n• Aba 3: |cffffffff100.000o|r|n• Aba 4: |cffffffff500.000o|r|n• Aba 5: |cffffffff2.500.000o|r  (as cinco = 3.126.000o)|n|n|cffffcc00Dica:|r 2-3 abas bastam para a maioria. Não confunda com seu |cffffffffbanco de personagem|r (também com abas desde o patch 11.2, bem mais barato) — esse é por personagem; o banco do bando de guerra é compartilhado.",
+
+	CODEX_WEEKLY_RESET_TITLE = "Reset semanal",
+	CODEX_WEEKLY_RESET_BODY = "• A maior parte do progresso semanal reinicia no dia de manutenção da sua região (EU quarta de manhã, US terça de manhã).|n• As escolhas da Grande Câmara, o saque do chefe de mundo, muitos limites semanais e as entregas da Delver's Call reiniciam.|n• |cffffffffHome -> This Week|r mostra o tempo até o reset quando a API fornece.|n• Planeje os alts: a aba snapshot compara quem ainda deve câmara, chefe ou Delver's Call.",
+
+	CODEX_VAULT_TITLE = "Grande Câmara",
+	CODEX_VAULT_BODY = "• Três trilhas: |cffffffffWorld|r (profundezas + conteúdo de mundo), |cffffffffDungeons|r (M+), |cffffffffRaid|r.|n• Preencha atividades durante a semana; após o reset você escolhe uma recompensa por espaço desbloqueado no NPC da câmara ou via SHIFT-J.|n• |cffffffffVault Advisor|r (na UI de câmara da Blizzard) classifica as opções contra seu equipamento.|n• Este addon mostra as três trilhas na aba |cffffffffDelves & Vault|r — expanda |cffffffffWeekly Great Vault (World)|r (ainda não é uma aba separada).|n• Resumo também em |cffffffffHome -> This Week|r e |cffffffffAccount snapshot|r.",
+
+	CODEX_WORLDBOSS_TITLE = "Chefe de mundo (Midnight S1)",
+	CODEX_WORLDBOSS_BODY = "• Um chefe de mundo rotativo por semana (Lu'ashal, Cragpine, Thorm'belan, Predaxas).|n• Saque de bando de guerra: assim que um personagem o mata, os alts aparecem como concluídos.|n• Acompanhado no topo da aba |cffffffffDelves & Vault|r com rota TomTom.|n• Também vinculado pelo SMC City Guide quando você está em Lunargente.",
+	CODEX_FOLIO_TITLE = "Omnium Folio (12.0.7)",
+	CODEX_FOLIO_BODY = "• Novo sistema de poder de meio de expansão — um livro de minimapa de |cffffffffrunas|r que você troca livremente fora de combate (sem custo de espaço).|n• O poder vem da cadeia semanal |cffffffff'Seeking Knowledge'|r (5 semanas): The Omnium Folio, Ritualized Arcana, Leyline Assaults, Magical Primessence, Off-World Magic.|n• Cada semana recompensa um |cffffffffMote of Omnial Inquiry|r para escolher/fortalecer uma runa.|n• Conclua as 5 para a conquista meta e a decoração Sunstrider Omnium Simulacrum.|n• Perdeu uma semana? Faça as missões perdidas em sequência para recuperar — sem esperar resets.|n• (Datamined — efeitos/IDs exatos das runas confirmados no lançamento.)",
+	CODEX_TT_TITLE = "Turbulent Timeways (12.0.7)",
+	CODEX_TT_BODY = "• Evento Caminhada Temporal de volta — desta vez um grupo de masmorras de |cffffffffDragonflight|r: Algeth'ar Academy, Halls of Infusion, Neltharus, Ruby Life Pools, The Azure Vault, Brackenhide Hollow.|n• Semanal: faça |cffffffff5 masmorras de Caminhada Temporal|r por um cache de equipamento; cada run acumula |cffffffffKnowledge of Timeways|r (buff de XP).|n• Ganhe |cffffffffMastery of Timeways|r em 4 de 6 semanas para 'Master of the Turbulent Timeways' e a montaria |cffffffffSpawn of Vyranoth|r.|n• Gaste os Distintivos Temporais no vendedor do evento.|n• Vai de ~30 jun a 11 ago. (Datamined — confirmar no lançamento.)",
+
+	CODEX_DELVER_CALL_TITLE = "Delver's Call",
+	CODEX_DELVER_CALL_BODY = "• Objetivos semanais de profundeza que dão um grande impulso de XP ao entregar.|n• Você pode |cffffffffguardar no banco|r calls concluídas (objetivos feitos, ainda não entregues) para um nível de personagem posterior.|n• |cffffffffAccount snapshot|r soma as calls guardadas e pendentes entre os alts.|n• Passe o cursor sobre a linha Delver's Call no snapshot para o detalhe por personagem.",
+
+	CODEX_ACCOUNT_TITLE = "Account snapshot",
+	CODEX_ACCOUNT_BODY = "• Visão somente leitura dos personagens com que você entrou usando o Midnight Helper.|n• Ordene/filtre por câmara pronta, keys, limite de Shards of Dundun, inativo desde o reset, etc.|n• Serve para responder: \"Qual alt ainda precisa de câmara / chefe / Delver's Call?\"|n• Não substitui entrar em um alt para conferir equipamento ou missões.",
+
+	CODEX_CUR_COFFER_KEY_TITLE = "Restored Coffer Key",
+	CODEX_CUR_COFFER_KEY_BODY = "• Abre as profundezas Midnight (como as keys de expansões anteriores).|n• Ganhe com conteúdo de mundo, semanais e vendedores; sem limite semanal rígido de keys em posse.|n• Mostrada em |cffffffffDelves & Vault|r com sua contagem atual.",
+
+	CODEX_CUR_SHARDS_TITLE = "Coffer Key Shards",
+	CODEX_CUR_SHARDS_BODY = "• Combinam-se em Restored Coffer Keys (100 shards -> 1 key na taxa padrão).|n• Há um limite semanal de ganho de shards — acompanhe \"Weekly: X / Y\" na aba Delves.|n• O limite enche mais rápido se você fizer mais profundezas ou completar fontes de shards.",
+
+	CODEX_CUR_UNDERCOIN_TITLE = "Undercoin",
+	CODEX_CUR_UNDERCOIN_BODY = "• Moeda de vendedor para itens ligados a profundezas (curios, melhorias, itens de conveniência).|n• Ganha-se principalmente fazendo profundezas e com suas recompensas.|n• Gaste antes de acumular às cegas — confira o vendedor de profundezas quando tiver uma peça-alvo.",
+
+	CODEX_CUR_MANA_TITLE = "Untainted Mana-Crystals",
+	CODEX_CUR_MANA_BODY = "• Usados para certas melhorias de equipamento Midnight / compras com vendedores (veja as notas de patch atuais para os vendedores exatos).|n• Ganhos em profundezas, conteúdo de mundo e fontes semanais.|n• O Account snapshot pode mostrar os totais por personagem.",
+
+	CODEX_CUR_ACCOLADES_TITLE = "Field Accolades",
+	CODEX_CUR_ACCOLADES_BODY = "• Moeda compartilhada dos sistemas |cffffffffVoid & Rituals|r (Ritual Sites + Void Assaults).|n• Limite semanal de ganho — após o limite você continua jogando por outras recompensas mas para de ganhar accolades até o reset.|n• Gasta-se em recompensas de renome no hub do Bazaar (Eversong / Zul'Aman).|n• Contagem ao vivo na aba |cffffffffVoid & Rituals|r.",
+
+	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
+	CODEX_CUR_DAWN_BODY = "• Moeda de fabricação de nível de raid (espaços de raid da Grande Câmara, progressão próxima do catalisador).|n• As contagens de crests ao vivo estão em |cffffffffBasics -> Dawncrests|r (não nesta lista).|n• Não é o mesmo que keys de profundeza — veja aquele guia para metas de gasto e limites semanais.",
+
+	CODEX_DELVES_INTRO_TITLE = "Profundezas Midnight — visão geral",
+	CODEX_DELVES_INTRO_BODY = "• Cenários solo ou em grupo pequeno por Eversong, Harandar, Voidstorm, etc.|n• |cffffffffTier 1–11+|r — nível mais alto = inimigos mais difíceis e melhor nível de item na câmara.|n• Custa uma |cffffffffRestored Coffer Key|r por run (veja Currencies).|n• Profundezas |cfffffffffartas|r (rotativas) dão saque extra — use \"Find Nearest Bountiful Delve\" na aba Delves.",
+
+	CODEX_DELVE_COACH_TITLE = "Delve Coach",
+	CODEX_DELVE_COACH_BODY = "• Painel de dicas flutuante: rota, trash e mecânicas de chefe por profundeza.|n• Abre automaticamente em uma profundeza (opcional) ou via |cffffffffDelve Coach (preview tips)|r / |cffffffff/mh coach|r.|n• O texto em inglês ou neerlandês segue `/mh lang`.|n• Destaque do chefe: role no modelo para dar zoom (salvo por chefe).|n• Nomes de magias em azul levam às dicas reais de magia quando os IDs são conhecidos.",
+
+	CODEX_DELVE_CURIOS_TITLE = "Valeera & curios de profundeza",
+	CODEX_DELVE_CURIOS_BODY = "• Curios modificam sua próxima run de profundeza (saque extra, chefes mais fáceis, etc.).|n• Valeera dá conselhos em NPCs de reparo/diálogo — popup na aba Delves quando relevante.|n• Acompanhe consumíveis e botões de minimapa pelo popup de itens de profundeza (RAID-R Mini, Trovehunter's Bounty).",
+
+	CODEX_TORMENTS_TITLE = "Torment's Rise (profundeza Nêmesis)",
+	CODEX_TORMENTS_BODY = "• Profundeza Nêmesis suprema em Voidstorm — portal de instância separado, não uma profundeza de mundo rotativa.|n• Desbloqueia em níveis de profundeza altos com vidas limitadas (veja os requisitos no jogo).|n• Chefe Nullaeus — forte teste de interrupção/DPS; veja Delve Coach para as mecânicas.|n• A recompensa semanal pode atrair um Nullaeus enfraquecido para uma profundeza normal (Beacon of Hope).",
+
+	CODEX_DELVE_LOG_TITLE = "Delve Log",
+	CODEX_DELVE_LOG_BODY = "• Histórico de runs de profundeza recentes (níveis, tempos, grupo).|n• Útil para lembrar qual variante você terminou ou qual chefe estava ativo.|n• O roteamento para a profundeza mais próxima pode te enviar à entrada mais próxima da sua posição.",
+
+	CODEX_MPLUS_TITLE = "Mythic+ & câmara de masmorras",
+	CODEX_MPLUS_BODY = "• Masmorras M+ preenchem a fileira |cffffffffDungeons|r da Grande Câmara (separada das fileiras de profundeza/mundo).|n• Nível de key mais alto = nível de item mais alto no espaço da câmara se você terminar a key no tempo.|n• O Vault Advisor usa os pesos de atributo M+ quando você reivindica o saque de câmara de masmorra.|n• O Midnight Helper não substitui um addon de rota — use MDT / notas para semanas de afixo.",
+
+	CODEX_RAID_VAULT_TITLE = "Raid — Grande Câmara",
+	CODEX_RAID_VAULT_BODY = "• Chefes de raid avançam os espaços de raid da câmara (a dificuldade afeta o nível de item).|n• Normal / Heroico / Mítico contribuem cada um — confira a UI da câmara para ver quais chefes você matou esta semana.|n• Crests (Dawncrests) costumam limitar os caminhos de melhoria do equipamento de raid.",
+
+	CODEX_VAULT_ADVISOR_TITLE = "Conselheiro da Grande Câmara",
+	CODEX_VAULT_ADVISOR_BODY = "• Painel lateral na UI de recompensa semanal da Blizzard quando você reivindica o saque da Grande Câmara (SHIFT-J) — não dentro das abas do Midnight Helper.|n• Classifica as peças da câmara contra o equipamento usado segundo as prioridades de atributo do guia (e Pawn opcional).|n• Ativável nas configurações rápidas do minimapa / Esc -> AddOns -> Midnight Helper.|n• Perfil Auto vs Raid vs M+ para os pesos de atributo.",
+
+	CODEX_WORLD_HUB_TITLE = "Void & Rituals — um só sistema",
+	CODEX_WORLD_HUB_BODY = "• O Midnight 12.0.5 une |cffffffffRitual Sites|r (Eversong) e |cffffffffVoid Assaults|r (Zul'Aman) sob uma mesma moeda e renome.|n• Mesmas |cffffffffField Accolades|r e hub do Bazaar — não as farme como atividades separadas.|n• Abra a aba combinada para o site ativo, os limites semanais e os botões TomTom.",
+
+	CODEX_RITUAL_TITLE = "Ritual Sites",
+	CODEX_RITUAL_BODY = "• Ritual semanal rotativo em Eversong Woods — complete as fases por accolades e saque.|n• Só um site fica \"ativo\" por vez; o addon destaca qual.|n• O pin do SMC City Guide pode te levar à aba Ritual com contexto.",
+
+	CODEX_VOID_TITLE = "Void Assaults",
+	CODEX_VOID_BODY = "• Ondas de assalto em Zul'Aman — defenda objetivos, ganhe accolades.|n• Compartilha o limite semanal com o progresso dos rituais na mesma moeda.|n• Confira o timer de assalto / a zona ativa na aba Void & Rituals.",
+
+	CODEX_RARES_TITLE = "Rares Midnight",
+	CODEX_RARES_BODY = "• Mobs raros semanais com saque de conta/personagem (confira as regras de cada raro no jogo).|n• Aba |cffffffffRares|r: acompanhe os kills, monte a rota mais próxima, a seta TomTom fica no pin mais próximo.|n• Alerta ao vivo quando um raro acompanhado está por perto (~500 yd) — ativável nas configurações.",
+
+	CODEX_PROF_TITLE = "Professions — ciclo semanal",
+	CODEX_PROF_BODY = "• Knowledge Points (KP), Artisan's Moxie, Unalloyed Abundance e Shards of Dundun são trilhas separadas.|n• A aba |cffffffffProfessions|r mostra os KP não gastos e as moedas semanais por profissão.|n• Ordens de fabricação e tesouros não são totalmente automatizados aqui — use o guia Basics para gastar KP.",
+
+	CODEX_PROF_GUIDE_TITLE = "Professions — guia para iniciantes",
+	CODEX_PROF_GUIDE_BODY = "• Subaba |cffffffffBasics -> Professions|r: plano de KP passo a passo e sugestões de combos.|n• O guia Dawncrests cobre a moeda de fabricação de raid (diferente das keys de profundeza).|n• Releia após patches — IDs de moeda e limites podem mudar.",
+})
