@@ -586,10 +586,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	if msg == "settings" then
-		if ns.OpenSettingsPanel then
-			ns:OpenSettingsPanel()
-		elseif ns.ToggleQuickSettings then
-			ns:ToggleQuickSettings(ns.mainUI)
+		-- One settings home: /mh settings opens the in-addon Settings tab.
+		if ns.ShowMainUI then
+			ns:ShowMainUI()
+		end
+		if ns.SelectTab then
+			ns.SelectTab("settings")
 		else
 			DEFAULT_CHAT_FRAME:AddMessage(
 				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))

@@ -357,6 +357,13 @@ local function RefreshBetaTabsSettingsControls(panel)
 	end
 end
 
+-- Expose the reusable vault + beta-tabs settings builders so the in-addon Settings
+-- tab (SettingsPage.lua) can host them too — one settings home, no Blizzard panel.
+ns.AttachVaultSettingsControls = AttachVaultSettingsControls
+ns.RefreshVaultSettingsControls = RefreshVaultSettingsControls
+ns.AttachBetaTabsSettings = AttachBetaTabsSettings
+ns.RefreshBetaTabsSettingsControls = RefreshBetaTabsSettingsControls
+
 local function UpdateSettingsCategoryScrollHeight(panel)
 	local content = panel and panel._settingsContent
 	local scroll = panel and panel._settingsScroll
@@ -1181,10 +1188,14 @@ function ns:InitMinimapBroker()
 					ns.ShowConsumableBoard()
 				end
 			elseif btn == "RightButton" then
-				if ns.OpenSettingsPanel then
-					ns:OpenSettingsPanel()
-				elseif ns.ToggleQuickSettings then
-					ns:ToggleQuickSettings(ns.mainUI)
+				-- One settings home: right-click opens the in-addon Settings tab. The old
+				-- Blizzard interface panel + quick-settings popup are retired (no longer
+				-- reachable), so all settings live in one place.
+				if ns.ShowMainUI then
+					ns:ShowMainUI()
+				end
+				if ns.SelectTab then
+					ns.SelectTab("settings")
 				end
 			end
 		end,

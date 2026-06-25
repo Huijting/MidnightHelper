@@ -641,6 +641,65 @@ function ns.BuildSettingsPanel(panel)
 		end },
 	}, 0)
 
+	-- Vault reminders & advisor + Beta tabs — hosted from the shared builders so every
+	-- setting lives in this one tab (the old right-click / Blizzard panel is retired).
+	-- Each builder gets its own left-aligned container; refresh runs in RefreshSettingsPanel.
+	local vaultBox = CreateFrame("Frame", nil, child)
+	vaultBox:SetHeight(290)
+	local vAnchor = vaultBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	vAnchor:SetPoint("TOPLEFT", vaultBox, "TOPLEFT", 2, 0)
+	vAnchor:SetText("")
+	if ns.AttachVaultSettingsControls then
+		ns.AttachVaultSettingsControls(vaultBox, vAnchor, "OVERLAY", vaultBox)
+	end
+	ui.vaultBox = vaultBox
+	push(vaultBox, 16, 0, { mode = "advanced", h = 290 })
+
+	local betaBox = CreateFrame("Frame", nil, child)
+	betaBox:SetHeight(190)
+	local bAnchor = betaBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	bAnchor:SetPoint("TOPLEFT", betaBox, "TOPLEFT", 2, 0)
+	bAnchor:SetText("")
+	if ns.AttachBetaTabsSettings then
+		ns.AttachBetaTabsSettings(betaBox, bAnchor, "OVERLAY", betaBox)
+	end
+	ui.betaBox = betaBox
+	push(betaBox, 16, 0, { mode = "advanced", h = 190 })
+
+	-- Reset all MidnightHelper settings to defaults (was only on the old panel).
+	Label("SETTINGS_RESET_DEFAULTS", "GameFontNormal", COLOR_ACCENT, 16, 0, "advanced")
+	AddButtons("advanced", {
+		{ labelKey = "SETTINGS_RESET_DEFAULTS", onClick = function()
+			if ns.SetLocale then
+				ns:SetLocale(ns.MH_LOCALE_AUTO or "auto", true)
+			end
+			if ns.SetGuideVisibilityMode then
+				ns:SetGuideVisibilityMode("auto", true)
+			end
+			if ns.SetCompactModeEnabled then
+				ns:SetCompactModeEnabled(false, true)
+			end
+			if ns.db and ns.db.ui then
+				ns.db.ui.openOnLogin = false
+			end
+			if ns.GetBetaTabsSettings then
+				local bt = ns.GetBetaTabsSettings()
+				bt.enabled = true
+				bt.reference = true
+				bt.guide = true
+				bt.macros = true
+				bt.academy = true
+			end
+			if ns.RefreshBetaTabVisibility then
+				ns.RefreshBetaTabVisibility()
+			end
+			if ns.RefreshGuideTabVisibility then
+				ns:RefreshGuideTabVisibility()
+			end
+			ns.RefreshSettingsPanel()
+		end },
+	}, 0)
+
 	-- Breedte-sync + verversing bij tonen.
 	local function syncWidth()
 		local w = scroll:GetWidth()
@@ -748,6 +807,14 @@ function ns.RefreshSettingsPanel()
 	if ui.fontScaleValueFS then
 		local fsc = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 		ui.fontScaleValueFS:SetText(("%d%%"):format(math.floor(fsc * 100 + 0.5)))
+	end
+
+	-- Vault- en beta-tabs-settings (gehost vanuit de gedeelde bouwers) verversen.
+	if ui.vaultBox and ns.RefreshVaultSettingsControls then
+		ns.RefreshVaultSettingsControls(ui.vaultBox)
+	end
+	if ui.betaBox and ns.RefreshBetaTabsSettingsControls then
+		ns.RefreshBetaTabsSettingsControls(ui.betaBox)
 	end
 
 	Relayout()
