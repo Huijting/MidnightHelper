@@ -72,13 +72,13 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.84,
 		vers = 0.92,
 	},
-	--- Balance Druid: Intellect > Haste > Crit > Mastery > Vers
+	--- Balance Druid: Intellect > Crit > Mastery > Haste > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/balance-druid-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/druid/balance/stat-priority-pve-dps
 	["DRUID_102"] = {
-		mastery = 0.84,
-		haste = 1.00,
-		crit = 0.92,
+		mastery = 0.92,
+		haste = 0.84,
+		crit = 1.00,
 		vers = 0.55,
 	},
 	--- Feral Druid: Agility > Mastery > Haste > Crit > Vers
@@ -572,7 +572,7 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 	--- Wowhead: https://www.wowhead.com/guide/classes/shaman/restoration/stat-priority-pve-healing
 	["SHAMAN_264"] = {
 		mastery = 0.92,
-		haste = 0.55,
+		haste = 0.84,
 		crit = 1.00,
 		vers = 0.92,
 	},
@@ -679,7 +679,7 @@ ns.VAULT_ADVISOR_SPEC_META = {
 		patch = "12.0.5",
 	},
 	["DRUID_102"] = {
-		priorityText = "Intellect > Haste > Crit > Mastery > Vers",
+		priorityText = "Intellect > Crit > Mastery > Haste > Vers",
 		sources = "Icy Veins, Wowhead",
 		patch = "12.0.5",
 	},

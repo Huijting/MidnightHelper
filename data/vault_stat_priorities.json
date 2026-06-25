@@ -171,12 +171,12 @@
       "specID": 102,
       "label": "Balance Druid",
       "priority": [
-        "haste",
         "crit",
         "mastery",
+        "haste",
         "vers"
       ],
-      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
+      "priorityText": "Intellect > Crit > Mastery > Haste > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1484,8 +1484,8 @@
       "priority": [
         "crit",
         "vers",
-        "mastery",
-        "haste"
+        "haste",
+        "mastery"
       ],
       "priorityText": "Intellect > Crit > Vers = Mastery > Haste",
       "sources": [
