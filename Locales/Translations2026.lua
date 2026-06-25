@@ -753,4 +753,60 @@ fill("itIT", {
 	CODEX_WARBAND_BODY = "|cffffcc00La tua Warband|r è ogni personaggio del tuo account, trattati come una squadra. Molte cose ora sono |cffffffffWarbound|r — condivise su tutto l'account — quindi spedisci molta meno posta tra gli alt.|n|n|cffffff78Oggetti e valute Warbound|r|n• La maggior parte delle valute Midnight è a livello account.|n• L'equipaggiamento è spesso |cffffffffWarbound fino all'equipaggiamento|r — mandalo a un alt, ma una volta equipaggiato resta su quel personaggio.|n|n|cffffff78La Banca della Warband|r — una banca condivisa che usano tutti i tuoi personaggi.|n• Aprila da |cffffffffqualsiasi banchiere|r (o Jeeves) — è una scheda della tua banca normale, accanto alla banca del personaggio.|n• Conserva qualsiasi oggetto |cffffffffnon legato all'anima|r e deposita o preleva |cfffffffforo|r tra i personaggi (anche tra fazioni diverse).|n• Crea direttamente da essa — conta come fonte di reagenti.|n|n|cffffff78Schede e costo|r — 5 schede, 98 slot ciascuna (490 in totale). Inizi senza nessuna; comprale con l'oro:|n• Scheda 1: |cffffffff1.000g|r|n• Scheda 2: |cffffffff25.000g|r|n• Scheda 3: |cffffffff100.000g|r|n• Scheda 4: |cffffffff500.000g|r|n• Scheda 5: |cffffffff2.500.000g|r  (tutte e cinque = 3.126.000g)|n|n|cffffcc00Consiglio:|r 2-3 schede bastano alla maggior parte dei giocatori. Non confonderla con la tua |cffffffffbanca del personaggio|r (anch'essa con schede dal patch 11.2, molto più economica) — quella è per personaggio; la Banca della Warband è condivisa.",
 })
 
+--========================================================================
+-- Achievements tab (2.0.x) — tab label, intro, buttons. The achievement
+-- TITLE itself comes from the game's own localized achievement name at
+-- runtime, so we only translate the surrounding UI here.
+--========================================================================
+fill("deDE", {
+	TAB_ACHIEVEMENTS = "Erfolge",
+	ACH_TAB_INTRO = "Verfolge Midnight-Erfolge und route zu den Sammelobjekten, die dir noch fehlen. Klicke auf einen Erfolg, um seine Checkliste aufzuklappen.",
+	ACH_TAB_ROUTE = "Route",
+	ACH_TAB_DONE = "Fertig",
+	ACH_TAB_WAYPOINT = "Wegpunkt",
+	ACH_TAB_EMPTY = "Noch keine verfolgten Erfolge.",
+	ACH_TREASURE_EVERSONG = "Schätze des Immersangwaldes",
+	INFO_DRAWER_BODY_ACHIEVEMENTS = "Verfolge Midnight-Erfolge und route zu den Sammelobjekten, die dir noch fehlen. Jeder Erfolg zeigt deinen Fortschritt und eine Checkliste; klicke auf Route, um den Pfeil zum nächsten fehlenden zu schicken — er springt automatisch weiter, während du plünderst.",
+})
+fill("frFR", {
+	TAB_ACHIEVEMENTS = "Hauts faits",
+	ACH_TAB_INTRO = "Suivez les hauts faits de Midnight et tracez un itinéraire vers les objets à collectionner qu'il vous manque. Cliquez sur un haut fait pour dérouler sa liste.",
+	ACH_TAB_ROUTE = "Itinéraire",
+	ACH_TAB_DONE = "Terminé",
+	ACH_TAB_WAYPOINT = "Point de route",
+	ACH_TAB_EMPTY = "Aucun haut fait suivi pour l'instant.",
+	ACH_TREASURE_EVERSONG = "Trésors du bois des Chants éternels",
+	INFO_DRAWER_BODY_ACHIEVEMENTS = "Suivez les hauts faits de Midnight et tracez un itinéraire vers les objets à collectionner qu'il vous manque. Chaque haut fait affiche votre progression et une liste ; cliquez sur Itinéraire pour envoyer la flèche vers le plus proche manquant — elle avance automatiquement à mesure que vous récupérez les objets.",
+})
+fill("esES", {
+	TAB_ACHIEVEMENTS = "Logros",
+	ACH_TAB_INTRO = "Sigue los logros de Midnight y traza una ruta a los coleccionables que aún te faltan. Haz clic en un logro para desplegar su lista.",
+	ACH_TAB_ROUTE = "Ruta",
+	ACH_TAB_DONE = "Hecho",
+	ACH_TAB_WAYPOINT = "Punto de ruta",
+	ACH_TAB_EMPTY = "Aún no hay logros seguidos.",
+	ACH_TREASURE_EVERSONG = "Tesoros del Bosque Canción Eterna",
+	INFO_DRAWER_BODY_ACHIEVEMENTS = "Sigue los logros de Midnight y traza una ruta a los coleccionables que aún te faltan. Cada logro muestra tu progreso y una lista; pulsa Ruta para enviar la flecha al más cercano que falte — avanza automáticamente a medida que los recoges.",
+})
+fill("ptBR", {
+	TAB_ACHIEVEMENTS = "Conquistas",
+	ACH_TAB_INTRO = "Acompanhe as conquistas de Midnight e trace uma rota até os colecionáveis que ainda faltam. Clique em uma conquista para abrir sua lista.",
+	ACH_TAB_ROUTE = "Rota",
+	ACH_TAB_DONE = "Pronto",
+	ACH_TAB_WAYPOINT = "Ponto de rota",
+	ACH_TAB_EMPTY = "Nenhuma conquista acompanhada ainda.",
+	ACH_TREASURE_EVERSONG = "Tesouros da Floresta de Cantéreno",
+	INFO_DRAWER_BODY_ACHIEVEMENTS = "Acompanhe as conquistas de Midnight e trace uma rota até os colecionáveis que ainda faltam. Cada conquista mostra seu progresso e uma lista; clique em Rota para enviar a seta ao mais próximo que falta — ela avança automaticamente conforme você coleta.",
+})
+fill("itIT", {
+	TAB_ACHIEVEMENTS = "Imprese",
+	ACH_TAB_INTRO = "Tieni traccia delle imprese di Midnight e traccia un percorso verso gli oggetti da collezione che ti mancano ancora. Clicca su un'impresa per espandere la sua lista.",
+	ACH_TAB_ROUTE = "Percorso",
+	ACH_TAB_DONE = "Fatto",
+	ACH_TAB_WAYPOINT = "Punto percorso",
+	ACH_TAB_EMPTY = "Nessuna impresa seguita per ora.",
+	ACH_TREASURE_EVERSONG = "Tesori del Bosco dei Canti",
+	INFO_DRAWER_BODY_ACHIEVEMENTS = "Tieni traccia delle imprese di Midnight e traccia un percorso verso gli oggetti da collezione che ti mancano ancora. Ogni impresa mostra i tuoi progressi e una lista; premi Percorso per inviare la freccia al più vicino mancante — avanza automaticamente mentre raccogli.",
+})
+
 -- @@END@@

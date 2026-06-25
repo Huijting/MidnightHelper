@@ -389,6 +389,237 @@ function ns.RouteAchievementTreasures(entry)
 	IssueRoute(entry, true)
 end
 
+--------------------------------------------------------------------------------
+-- Achievements TAB: a list of tracked achievements, each with live progress, a
+-- Route button (same engine as /mh treasures) and an expandable checklist whose
+-- rows carry a per-treasure waypoint button. Data-driven over
+-- ns.ACHIEVEMENT_TREASURES, so new zones show up automatically.
+--------------------------------------------------------------------------------
+local CHECK_DONE = "Interface\\RaidFrame\\ReadyCheck-Ready"
+local CHECK_TODO = "Interface\\RaidFrame\\ReadyCheck-NotReady"
+
+local function TL(key)
+	return (ns.L and ns:L(key)) or key
+end
+
+local achPanelState -- { panel, scroll, child, intro, empty, cards = {...} }
+
+local function LayoutAchPanel()
+	local st = achPanelState
+	if not st then
+		return
+	end
+	local w = st.scroll and st.scroll:GetWidth() or 0
+	if w and w > 0 then
+		st.child:SetWidth(w)
+	end
+	local headerW = (w > 0 and w - 8) or 360
+	local y = -2
+	for _, card in ipairs(st.cards) do
+		card.header:ClearAllPoints()
+		card.header:SetPoint("TOPLEFT", st.child, "TOPLEFT", 0, y)
+		card.header:SetWidth(headerW)
+		card.arrow:SetText(card.expanded and "-" or "+")
+		y = y - 28
+		if card.expanded then
+			for _, row in ipairs(card.rows) do
+				row.frame:ClearAllPoints()
+				row.frame:SetPoint("TOPLEFT", st.child, "TOPLEFT", 20, y)
+				row.frame:SetWidth((w > 0 and w - 28) or 340)
+				row.frame:Show()
+				y = y - 22
+			end
+			y = y - 8
+		else
+			for _, row in ipairs(card.rows) do
+				row.frame:Hide()
+			end
+			y = y - 4
+		end
+	end
+	st.child:SetHeight(math.max(10, -y + 10))
+end
+
+local function RefreshAchPanel()
+	local st = achPanelState
+	if not st then
+		return
+	end
+	for _, card in ipairs(st.cards) do
+		local done, total = ns.GetTreasureProgress(card.entry)
+		local complete = (total > 0 and done >= total)
+		card.title:SetText(AchievementName(card.entry))
+		local col = complete and "ff66dd66" or "ffffcc00"
+		card.progress:SetText(("|c%s%d/%d|r"):format(col, done, total))
+		card.routeBtn:SetText(complete and TL("ACH_TAB_DONE") or TL("ACH_TAB_ROUTE"))
+		if complete then
+			card.routeBtn:Disable()
+		else
+			card.routeBtn:Enable()
+		end
+		for _, row in ipairs(card.rows) do
+			local nd = NodeDone(card.entry.achievementID, row.node)
+			row.check:SetTexture(nd and CHECK_DONE or CHECK_TODO)
+			if nd then
+				row.name:SetText("|cff808080" .. (row.node.name or "?") .. "|r")
+			else
+				row.name:SetText(row.node.name or "?")
+			end
+			row.wp:SetText(TL("ACH_TAB_WAYPOINT"))
+		end
+	end
+	LayoutAchPanel()
+end
+
+local function RelocalizeAchPanel()
+	local st = achPanelState
+	if not st then
+		return
+	end
+	if st.intro then
+		st.intro:SetText(TL("ACH_TAB_INTRO"))
+	end
+	if st.empty then
+		st.empty:SetText(TL("ACH_TAB_EMPTY"))
+	end
+	RefreshAchPanel()
+end
+
+local function BuildAchCard(st, entry)
+	local card = { entry = entry, rows = {}, expanded = true }
+
+	local header = CreateFrame("Button", nil, st.child)
+	header:SetHeight(24)
+	local hl = header:CreateTexture(nil, "HIGHLIGHT")
+	hl:SetAllPoints()
+	hl:SetColorTexture(1, 1, 1, 0.06)
+	card.header = header
+
+	card.arrow = header:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	card.arrow:SetPoint("LEFT", header, "LEFT", 2, 0)
+	card.arrow:SetWidth(14)
+	card.arrow:SetJustifyH("CENTER")
+
+	card.title = header:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	card.title:SetPoint("LEFT", card.arrow, "RIGHT", 4, 0)
+	card.title:SetJustifyH("LEFT")
+
+	card.progress = header:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	card.progress:SetPoint("LEFT", card.title, "RIGHT", 10, 0)
+
+	local routeBtn = CreateFrame("Button", nil, header, "UIPanelButtonTemplate")
+	routeBtn:SetSize(78, 20)
+	routeBtn:SetPoint("RIGHT", header, "RIGHT", -2, 0)
+	routeBtn:SetScript("OnClick", function()
+		ns.RouteAchievementTreasures(entry)
+	end)
+	card.routeBtn = routeBtn
+
+	header:SetScript("OnClick", function()
+		card.expanded = not card.expanded
+		LayoutAchPanel()
+	end)
+
+	for _, node in ipairs(entry.nodes or {}) do
+		local row = { node = node }
+		local rf = CreateFrame("Frame", nil, st.child)
+		rf:SetHeight(20)
+		row.frame = rf
+
+		row.check = rf:CreateTexture(nil, "ARTWORK")
+		row.check:SetSize(15, 15)
+		row.check:SetPoint("LEFT", rf, "LEFT", 0, 0)
+
+		row.name = rf:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		row.name:SetPoint("LEFT", row.check, "RIGHT", 6, 0)
+		row.name:SetJustifyH("LEFT")
+
+		local wp = CreateFrame("Button", nil, rf, "UIPanelButtonTemplate")
+		wp:SetSize(72, 18)
+		wp:SetPoint("RIGHT", rf, "RIGHT", -2, 0)
+		wp:SetScript("OnClick", function()
+			if ns.AddSmartTomTomWay then
+				ns.AddSmartTomTomWay(node.mapID, node.x, node.y, node.name)
+			end
+			-- Multi-step? also show the hint toast with its prereq buttons.
+			if (node.note or node.prereqs) and ns.ShowTreasureToast then
+				ns.ShowTreasureToast(node)
+			end
+		end)
+		row.name:SetPoint("RIGHT", wp, "LEFT", -6, 0)
+		row.wp = wp
+
+		card.rows[#card.rows + 1] = row
+	end
+
+	st.cards[#st.cards + 1] = card
+end
+
+function ns.BuildAchievementsPanel(panel)
+	-- Drop the generic CreateModulePanel placeholder body (it would overlap our
+	-- own intro line otherwise).
+	if panel._body then
+		panel._body:SetText("")
+		panel._body:Hide()
+	end
+
+	local intro = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	intro:SetPoint("TOPLEFT", panel._header, "BOTTOMLEFT", 0, -6)
+	intro:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
+	intro:SetJustifyH("LEFT")
+	intro:SetText(TL("ACH_TAB_INTRO"))
+
+	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", intro, "BOTTOMLEFT", 0, -10)
+	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -28, 12)
+	local child = CreateFrame("Frame", nil, scroll)
+	child:SetSize(1, 1)
+	scroll:SetScrollChild(child)
+	scroll:SetScript("OnSizeChanged", function()
+		LayoutAchPanel()
+	end)
+
+	achPanelState = { panel = panel, scroll = scroll, child = child, intro = intro, cards = {} }
+
+	local list = ns.ACHIEVEMENT_TREASURES or {}
+	if #list == 0 then
+		local empty = child:CreateFontString(nil, "OVERLAY", "GameFontDisableLarge")
+		empty:SetPoint("TOPLEFT", child, "TOPLEFT", 4, -8)
+		empty:SetText(TL("ACH_TAB_EMPTY"))
+		achPanelState.empty = empty
+	else
+		for _, entry in ipairs(list) do
+			BuildAchCard(achPanelState, entry)
+		end
+	end
+
+	-- Live refresh when shown + on completion/quest events.
+	local ev = CreateFrame("Frame")
+	ev:RegisterEvent("CRITERIA_UPDATE")
+	ev:RegisterEvent("ACHIEVEMENT_EARNED")
+	ev:RegisterEvent("QUEST_LOG_UPDATE")
+	ev:SetScript("OnEvent", function()
+		if panel:IsShown() then
+			RefreshAchPanel()
+		end
+	end)
+	panel:HookScript("OnShow", RefreshAchPanel)
+
+	-- Relabel on language change (titles come from the API and follow the game
+	-- locale automatically; the surrounding chrome we relocalize here).
+	do
+		local orig = ns.RefreshLocaleUI
+		function ns:RefreshLocaleUI(...)
+			if orig then
+				orig(self, ...)
+			end
+			RelocalizeAchPanel()
+		end
+	end
+
+	RefreshAchPanel()
+end
+
 -- Slash hook (Core.lua calls this early, like the delve-items handler).
 function ns:RunAchievementSlashCommand(msg)
 	if msg == "treasures" or msg == "treasure" then

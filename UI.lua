@@ -269,7 +269,7 @@ local MH_BETA_TAB_IDS = {
 -- Stap 2 maakt hier klikbare icoon-kamerknoppen van. Home blijft de default/
 -- fallback-tab in SelectTab (sidebar-volgorde staat daar los van).
 local SIDEBAR_SECTIONS = {
-	{ key = "me_now", room = "me", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "starthere", "delves", "rares", "world", "events" } },
+	{ key = "me_now", room = "me", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "starthere", "delves", "rares", "achievements", "world", "events" } },
 	{ key = "me_chars", room = "me", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier", "omnium", "currency" } },
 	{ key = "codex", room = "codex", titleKey = "TAB_CODEX", ids = { "codex", "dungeons", "guide", "smcguide" } },
 	{ key = "tools", room = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "toolslaunch", "toolbox", "addons" } },
@@ -399,6 +399,8 @@ local function MHGetInfoBodyKeyForTab(tabId)
 		return "INFO_DRAWER_BODY_ACCOUNT"
 	elseif tabId == "rares" then
 		return "INFO_DRAWER_BODY_RARES"
+	elseif tabId == "achievements" then
+		return "INFO_DRAWER_BODY_ACHIEVEMENTS"
 	elseif tabId == "world" then
 		return "INFO_DRAWER_BODY_WORLD"
 	elseif tabId == "delvelog" then
@@ -1451,6 +1453,7 @@ local TAB_DEFS = {
 	{ id = "delves", labelKey = "TAB_DELVES" },
 	{ id = "account", labelKey = "TAB_ACCOUNT_SNAPSHOT" },
 	{ id = "rares", labelKey = "TAB_RARES" },
+	{ id = "achievements", labelKey = "TAB_ACHIEVEMENTS" },
 	{ id = "world", labelKey = "TAB_WORLD" },
 	{ id = "events", labelKey = "TAB_EVENTS" },
 	{ id = "delvelog", labelKey = "TAB_DELVE_LOG" },
@@ -2190,6 +2193,8 @@ function ns:EnsureMainUI()
 				BuildSMCCityGuidePanel(panel)
 			elseif tab.id == "rares" and ns.BuildRaresPanel then
 				ns.BuildRaresPanel(panel)
+			elseif tab.id == "achievements" and ns.BuildAchievementsPanel then
+				ns.BuildAchievementsPanel(panel)
 			elseif tab.id == "codex" and ns.BuildCodexPanel then
 				ns.BuildCodexPanel(panel)
 			elseif tab.id == "home" and ns.BuildHomePanel then
