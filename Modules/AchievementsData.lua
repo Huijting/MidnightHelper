@@ -76,6 +76,74 @@ ns.ACHIEVEMENT_TREASURES = {
 				} },
 		},
 	},
-	-- TODO (next slices): Zul'Aman / Voidstorm treasures, Midnight Lore Hunter
-	-- (LoreObject nodes), Midnight: The Highest Peaks (Telescope nodes).
+	{
+		achievementID = 62125, -- Treasures of Zul'Aman
+		nameKey = "ACH_TREASURE_ZULAMAN",
+		nodes = {
+			{ criteria = 111855, mapID = 2437, x = 46.83, y = 81.86, name = "Honored Warrior's Cache", quest = 90793,
+				note = "Fill the cache by looting the 4 Honored Warrior's Urns around Zul'Aman; each spawns a Chosen miniboss that drops the token, then return to the cache.",
+				prereqs = {
+					{ name = "Urn: Akil'zon's Chosen", mapID = 2437, x = 51.57, y = 84.91 },
+					{ name = "Urn: Nalorakk's Chosen", mapID = 2437, x = 32.69, y = 83.49 },
+					{ name = "Urn: Jan'alai's Chosen", mapID = 2437, x = 54.77, y = 22.40 },
+					{ name = "Urn: Halazzi's Chosen", mapID = 2437, x = 34.54, y = 33.48 },
+				} },
+			{ criteria = 111856, mapID = 2437, x = 21.89, y = 77.38, name = "Sealed Twilight Blade Bounty", quest = 93871,
+				note = "Destroy the 4 Sealing Orbs around the chest to unseal it.",
+				prereqs = {
+					{ name = "Sealing Orb 1", mapID = 2437, x = 24.02, y = 75.66 },
+					{ name = "Sealing Orb 2", mapID = 2437, x = 26.09, y = 74.01 },
+					{ name = "Sealing Orb 3", mapID = 2437, x = 26.09, y = 80.74 },
+					{ name = "Sealing Orb 4", mapID = 2437, x = 23.95, y = 78.95 },
+				} },
+			{ criteria = 111857, mapID = 2437, x = 20.84, y = 66.54, name = "Bait and Tackle", quest = 90795 },
+			{ criteria = 111858, mapID = 2437, x = 41.99, y = 47.79, name = "Burrow Bounty", quest = 90796,
+				note = "In a small cave." },
+			{ criteria = 111859, mapID = 2437, x = 52.32, y = 65.99, name = "Mrruk's Mangy Trove", quest = 90797 },
+			{ criteria = 111860, mapID = 2437, x = 40.48, y = 35.95, name = "Secret Formula", quest = 90798 },
+			{ criteria = 111861, mapID = 2437, x = 42.64, y = 52.43, name = "Abandoned Nest", quest = 90799 },
+		},
+	},
+	{
+		achievementID = 62126, -- Treasures of Voidstorm
+		nameKey = "ACH_TREASURE_VOIDSTORM",
+		-- Note: HandyNotes has no node for criterion 111865 yet, so we route the 13
+		-- treasures we can place; the achievement may list one more.
+		nodes = {
+			{ criteria = 111863, mapID = 2405, x = 49.94, y = 79.36, name = "Final Clutch of Predaxas", quest = 93237,
+				note = "In a small cave (entrance ~48.96, 78.33)." },
+			{ criteria = 111864, mapID = 2405, x = 25.76, y = 67.28, name = "Void-Shielded Tomb", quest = 92414,
+				note = "Requires level 90. Drink the Potion of Dissociation on the nearby table, then run to the opposite building, grab the Key of Fused Darkness and unlock the chest.",
+				prereqs = {
+					{ name = "Potion of Dissociation", mapID = 2405, x = 25.74, y = 67.49 },
+					{ name = "Key of Fused Darkness", mapID = 2405, x = 25.97, y = 68.67 },
+				} },
+			{ criteria = 111866, mapID = 2405, x = 64.53, y = 75.47, name = "Bloody Sack", quest = 93431,
+				note = "Collect Dripping Meat from nearby bone piles to feed the Forgotten Oubliette." },
+			{ criteria = 111867, mapID = 2405, x = 53.36, y = 42.66, name = "Malignant Chest", quest = 93840,
+				note = "Activate the 4 Malignant Nodes in the cave to unlock the chest.",
+				prereqs = {
+					{ name = "Malignant Node 1", mapID = 2405, x = 53.48, y = 43.23 },
+					{ name = "Malignant Node 2", mapID = 2405, x = 52.92, y = 43.32 },
+					{ name = "Malignant Node 3", mapID = 2405, x = 53.53, y = 43.91 },
+					{ name = "Malignant Node 4", mapID = 2405, x = 53.23, y = 42.68 },
+				} },
+			{ criteria = 111868, mapID = 2444, x = 53.13, y = 32.28, name = "Stellar Stash", quest = 93996,
+				note = "In the Slayer's Rise sub-area." },
+			{ criteria = 111869, mapID = 2405, x = 47.93, y = 78.51, name = "Forgotten Researcher's Cache", quest = 94454,
+				note = "Inside a cave (Lair of Predaxas); enter near 47.93, 78.51." },
+			{ criteria = 111870, mapID = 2444, x = 49.05, y = 20.12, name = "Scout's Pack", quest = 94387,
+				note = "In the Slayer's Rise sub-area." },
+			{ criteria = 111871, mapID = 2405, x = 55.37, y = 75.42, name = "Embedded Spear", quest = 93553 },
+			{ criteria = 111872, mapID = 2405, x = 31.50, y = 44.51, name = "Quivering Egg", quest = 93500 },
+			{ criteria = 111873, mapID = 2405, x = 28.33, y = 72.90, name = "Exaliburn", quest = 93498,
+				note = "Drink the nearby Potion of Unquestionable Strength, then pull out the Exaliburn." },
+			{ criteria = 111874, mapID = 2405, x = 35.77, y = 41.41, name = "Discarded Energy Pike", quest = 93496 },
+			{ criteria = 111875, mapID = 2405, x = 43.01, y = 81.94, name = "Faindel's Quiver", quest = 93493 },
+			{ criteria = 111876, mapID = 2405, x = 37.69, y = 69.76, name = "Half-Digested Viscera", quest = 93467,
+				note = "In a small cave (entrance ~38.06, 68.77)." },
+		},
+	},
+	-- TODO (next slices): Midnight Lore Hunter (LoreObject nodes),
+	-- Midnight: The Highest Peaks (Telescope nodes).
 }
