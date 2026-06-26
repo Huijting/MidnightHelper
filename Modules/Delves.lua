@@ -619,7 +619,10 @@ function ns.MHIsCrossContinentFromPlayer(targetMapID, x100, y100)
 end
 
 -- Shared TomTom + Travel Assistant (portals/hearth). Optional skipTravelUI / skipCrazyArrow (bulk pins).
-function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
+-- travelOnly = re-evaluate the travel assistant ONLY (no waypoint side effects),
+-- so a zone-change refresh can update the next-leg portal/HS advice without
+-- touching TomTom's arrow.
+function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, travelOnly)
 	if not mapID then
 		return false
 	end
@@ -637,6 +640,8 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 	ns.lastTarget = { mapID = targetMap, x = xPct, y = yPct, name = title }
 
 	-- 1. Waypoint: TomTom arrow when available, else Blizzard user waypoint + SuperTrack.
+	-- Skipped entirely for travelOnly refreshes, so the existing arrow is untouched.
+	if not travelOnly then
 	if ns.IsTomTomReady() then
 		-- Bulk route pins (skipCrazyArrow) must NOT request the crazy arrow:
 		-- TomTom auto-points the arrow at the most recently added crazy waypoint,
@@ -664,6 +669,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 	elseif ns.SetBlizzardUserWaypoint then
 		ns.SetBlizzardUserWaypoint(targetMap, xPct, yPct)
 	end
+	end -- not travelOnly
 
 	if skipTravelUI then
 		return true
@@ -707,6 +713,24 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 		local hubMapID = 2393
 		local directPortal, hubPortal = nil, nil
 
+		-- A treasure can sit on a sub-area map (e.g. Slayer's Rise 2444) whose
+		-- portal actually lands in the parent zone (Voidstorm 2405). Build the
+		-- target's ancestor chain so a portal into the parent zone still counts as
+		-- "direct" — otherwise sub-area targets get no portal advice at all.
+		local targetChain = { [targetMap] = true }
+		if C_Map and C_Map.GetMapInfo then
+			local m, guard = targetMap, 0
+			while m and guard < 10 do
+				local info = C_Map.GetMapInfo(m)
+				if not info or not info.parentMapID or info.parentMapID == 0 then
+					break
+				end
+				m = info.parentMapID
+				targetChain[m] = true
+				guard = guard + 1
+			end
+		end
+
 		for _, portal in ipairs(MIDNIGHT_PORTALS) do
 			local mapMatch = (tonumber(portal.mapID) == tonumber(currentMap))
 			local hubMatch = (not portal.zone or (currentHub == portal.zone) or currentZoneName:find(portal.zone))
@@ -714,7 +738,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow)
 			if mapMatch and hubMatch then
 				local dist = math.sqrt((portal.x - px) ^ 2 + (portal.y - py) ^ 2)
 				local distYards = math.floor(dist * 45)
-				if tonumber(portal.toID) == targetMap then
+				if targetChain[tonumber(portal.toID)] then
 					if not directPortal or distYards < directPortal.d then
 						directPortal = { p = portal, d = distYards }
 					end

@@ -473,6 +473,57 @@ function ns:SetCompactModeEnabled(enabled, silent)
 	return true
 end
 
+-- Some sub-area maps (Slayer's Rise, The Den, a city Bazaar, cave floors) don't
+-- accept a user waypoint, so SetUserWaypoint silently fails and you get NO arrow.
+-- Walk up to the first ancestor map that DOES accept one, translating the coord
+-- through world position (linear), so a treasure on a sub-map still gets a
+-- trackable waypoint on its parent zone. Returns mapID, x01, y01 (0-1 coords).
+local function MHResolveWaypointMap(mapID, x01, y01)
+	if not (C_Map and C_Map.CanSetUserWaypointOnMap) then
+		return mapID, x01, y01
+	end
+	if C_Map.CanSetUserWaypointOnMap(mapID) then
+		return mapID, x01, y01
+	end
+	if not (C_Map.GetWorldPosFromMapPos and C_Map.GetMapInfo and CreateVector2D) then
+		return mapID, x01, y01
+	end
+	local function worldXY(uiMap, px, py)
+		local ok, _, world = pcall(C_Map.GetWorldPosFromMapPos, uiMap, CreateVector2D(px, py))
+		if not ok or not world then
+			return nil
+		end
+		if world.GetXY then
+			return world:GetXY()
+		end
+		return world.x, world.y
+	end
+	local wx, wy = worldXY(mapID, x01, y01)
+	if not wx then
+		return mapID, x01, y01
+	end
+	local cur = mapID
+	for _ = 1, 10 do -- safety bound on the parent chain
+		local info = C_Map.GetMapInfo(cur)
+		if not info or not info.parentMapID or info.parentMapID == 0 then
+			break
+		end
+		cur = info.parentMapID
+		if C_Map.CanSetUserWaypointOnMap(cur) then
+			local x0, y0 = worldXY(cur, 0, 0)
+			local x1, y1 = worldXY(cur, 1, 1)
+			if x0 and x1 and x0 ~= x1 and y0 ~= y1 then
+				local nx = (wx - x0) / (x1 - x0)
+				local ny = (wy - y0) / (y1 - y0)
+				if nx >= 0 and nx <= 1 and ny >= 0 and ny <= 1 then
+					return cur, nx, ny
+				end
+			end
+		end
+	end
+	return mapID, x01, y01
+end
+
 --- Blizzard map waypoint using 0–100 map coordinates (fallback when TomTom is absent).
 function ns.SetBlizzardUserWaypoint(mapID, xPct, yPct)
 	local targetMap = tonumber(mapID)
@@ -488,6 +539,8 @@ function ns.SetBlizzardUserWaypoint(mapID, xPct, yPct)
 	if not UiMapPoint or not UiMapPoint.CreateFromCoordinates then
 		return false
 	end
+	-- Resolve sub-area maps that can't hold a waypoint up to their parent zone.
+	targetMap, x, y = MHResolveWaypointMap(targetMap, x, y)
 	local ok, mapPoint = pcall(UiMapPoint.CreateFromCoordinates, targetMap, x, y)
 	if not ok or not mapPoint then
 		return false

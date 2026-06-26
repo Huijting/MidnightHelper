@@ -357,16 +357,11 @@ local function IssueRoute(entry, firstTime, silent)
 	local first = incomplete[1]
 	ns.lastTarget = { mapID = first.mapID, x = first.x, y = first.y, name = first.name }
 	routeSig = IncompleteSig(incomplete)
-	-- Backup marker: while you're on a different map than the treasure (e.g. inside
-	-- Silvermoon City with the next treasure out in Eversong Woods), TomTom's crazy
-	-- arrow can't show a direction yet — add a Blizzard SuperTrack waypoint so you
-	-- still get in-world guidance until you reach the treasure's map.
-	if ns.SetBlizzardUserWaypoint and C_Map and C_Map.GetBestMapForUnit then
-		local pm = C_Map.GetBestMapForUnit("player")
-		if pm and pm ~= first.mapID then
-			ns.SetBlizzardUserWaypoint(first.mapID, first.x, first.y)
-		end
-	end
+	-- NOTE: we deliberately do NOT force a Blizzard SuperTrack waypoint here.
+	-- Taking over SuperTracking fights TomTom's crazy arrow and makes it drop at
+	-- zone transitions (the Rares route never does this, which is why its arrow
+	-- survives). AddSmartTomTomWay already adds a Blizzard backup for genuine
+	-- cross-continent targets, and TomTom's own arrow persists across zones.
 	if not silent then
 		if firstTime then
 			print(("%s %s — %d/%d done; routing to %d remaining (next: %s)."):format(
@@ -413,23 +408,25 @@ local function ScheduleAdvance()
 	end
 end
 
--- When you change zones, TomTom's crazy arrow drops if the treasure is on a
--- different map (e.g. passing through Silvermoon City between Eversong and
--- Harandar). Re-assert the arrow + Blizzard backup on every zone change so the
--- guidance reappears on its own — no need for a toast button.
-local reassertPending
-local function ScheduleReassert()
-	if not activeEntry or reassertPending then
+-- On a zone change, refresh ONLY the travel assistant (next-leg portal/HS advice)
+-- via AddSmartTomTomWay's travelOnly mode — this never touches the waypoints, so
+-- TomTom's arrow keeps persisting. Without it you'd have to re-click the route
+-- after each portal/hearth to get the next leg's advice (e.g. arriving in SMC and
+-- needing the Portal to Voidstorm).
+local travelRefreshPending
+local function ScheduleTravelRefresh()
+	if not activeEntry or travelRefreshPending then
 		return
 	end
 	if ns._mhRouteOwner and ns._mhRouteOwner ~= "achievement" then
 		return
 	end
-	reassertPending = true
+	travelRefreshPending = true
 	local function go()
-		reassertPending = false
-		if activeEntry and ns._mhRouteOwner == "achievement" then
-			IssueRoute(activeEntry, false, true) -- silent re-assert
+		travelRefreshPending = false
+		local t = ns.lastTarget
+		if activeEntry and ns._mhRouteOwner == "achievement" and t and ns.AddSmartTomTomWay then
+			ns.AddSmartTomTomWay(t.mapID, t.x, t.y, t.name, false, false, true) -- travelOnly
 		end
 	end
 	if C_Timer and C_Timer.After then
@@ -439,49 +436,14 @@ local function ScheduleReassert()
 	end
 end
 
--- Keepalive: zone-change events don't catch every transition (flying out of a
--- city, taxi hops), and the game can drop the SuperTrack waypoint mid-flight. A
--- light 3s ticker re-applies the Blizzard backup the moment it falls away, while
--- the target is on a different map than you — so the cross-zone arrow stays up
--- the whole trip. It only re-sets when tracking has actually dropped (no flicker).
-local backupTicker
-local function StopBackupTicker()
-	if backupTicker then
-		backupTicker:Cancel()
-		backupTicker = nil
-	end
-end
-local function StartBackupTicker()
-	if backupTicker or not (C_Timer and C_Timer.NewTicker) then
-		return
-	end
-	backupTicker = C_Timer.NewTicker(3, function()
-		if not activeEntry or ns._mhRouteOwner ~= "achievement" then
-			StopBackupTicker()
-			return
-		end
-		local t = ns.lastTarget
-		if not (t and ns.SetBlizzardUserWaypoint and C_Map and C_Map.GetBestMapForUnit) then
-			return
-		end
-		local pm = C_Map.GetBestMapForUnit("player")
-		if not pm or pm == t.mapID then
-			return -- on the treasure's own map; TomTom's arrow handles it
-		end
-		local tracking = C_SuperTrack and C_SuperTrack.IsSuperTrackingUserWaypoint
-			and C_SuperTrack.IsSuperTrackingUserWaypoint()
-		local hasWp = C_Map.HasUserWaypoint and C_Map.HasUserWaypoint()
-		if not tracking or not hasWp then
-			ns.SetBlizzardUserWaypoint(t.mapID, t.x, t.y) -- re-apply the dropped arrow
-		end
-	end)
-end
-
 local function EnsureAdvanceFrame()
 	if advanceFrame then
 		return
 	end
 	advanceFrame = CreateFrame("Frame")
+	-- Loot/criteria events advance the arrow to the next treasure as you collect
+	-- them. Zone-change events only refresh the travel assistant (next-leg portal
+	-- advice) WITHOUT re-issuing waypoints, so TomTom's arrow persists across zones.
 	advanceFrame:RegisterEvent("QUEST_LOG_UPDATE")
 	advanceFrame:RegisterEvent("QUEST_TURNED_IN")
 	advanceFrame:RegisterEvent("QUEST_REMOVED")
@@ -491,7 +453,7 @@ local function EnsureAdvanceFrame()
 	advanceFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	advanceFrame:SetScript("OnEvent", function(_, event)
 		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
-			ScheduleReassert()
+			ScheduleTravelRefresh()
 		else
 			if ns.MaybeCloseTreasureToast then
 				ns.MaybeCloseTreasureToast()
@@ -510,7 +472,6 @@ function ns.RouteAchievementTreasures(entry)
 	activeEntry = entry
 	EnsureAdvanceFrame()
 	IssueRoute(entry, true)
-	StartBackupTicker() -- keep the cross-zone arrow alive on the way there
 end
 
 --------------------------------------------------------------------------------
