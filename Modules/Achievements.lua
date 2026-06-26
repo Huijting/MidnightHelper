@@ -439,6 +439,44 @@ local function ScheduleReassert()
 	end
 end
 
+-- Keepalive: zone-change events don't catch every transition (flying out of a
+-- city, taxi hops), and the game can drop the SuperTrack waypoint mid-flight. A
+-- light 3s ticker re-applies the Blizzard backup the moment it falls away, while
+-- the target is on a different map than you — so the cross-zone arrow stays up
+-- the whole trip. It only re-sets when tracking has actually dropped (no flicker).
+local backupTicker
+local function StopBackupTicker()
+	if backupTicker then
+		backupTicker:Cancel()
+		backupTicker = nil
+	end
+end
+local function StartBackupTicker()
+	if backupTicker or not (C_Timer and C_Timer.NewTicker) then
+		return
+	end
+	backupTicker = C_Timer.NewTicker(3, function()
+		if not activeEntry or ns._mhRouteOwner ~= "achievement" then
+			StopBackupTicker()
+			return
+		end
+		local t = ns.lastTarget
+		if not (t and ns.SetBlizzardUserWaypoint and C_Map and C_Map.GetBestMapForUnit) then
+			return
+		end
+		local pm = C_Map.GetBestMapForUnit("player")
+		if not pm or pm == t.mapID then
+			return -- on the treasure's own map; TomTom's arrow handles it
+		end
+		local tracking = C_SuperTrack and C_SuperTrack.IsSuperTrackingUserWaypoint
+			and C_SuperTrack.IsSuperTrackingUserWaypoint()
+		local hasWp = C_Map.HasUserWaypoint and C_Map.HasUserWaypoint()
+		if not tracking or not hasWp then
+			ns.SetBlizzardUserWaypoint(t.mapID, t.x, t.y) -- re-apply the dropped arrow
+		end
+	end)
+end
+
 local function EnsureAdvanceFrame()
 	if advanceFrame then
 		return
@@ -472,6 +510,7 @@ function ns.RouteAchievementTreasures(entry)
 	activeEntry = entry
 	EnsureAdvanceFrame()
 	IssueRoute(entry, true)
+	StartBackupTicker() -- keep the cross-zone arrow alive on the way there
 end
 
 --------------------------------------------------------------------------------
