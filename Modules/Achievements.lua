@@ -382,9 +382,16 @@ local function Advance()
 	if not activeEntry then
 		return
 	end
-	if ns._mhRouteOwner and ns._mhRouteOwner ~= "achievement" then
-		activeEntry, routeSig = nil, nil -- another route owns the arrow now
+	local owner = ns._mhRouteOwner
+	if owner == nil then
+		-- The shared arrow was freed (e.g. a rare hunt just finished) — reclaim it
+		-- for our still-active treasure route. We keep activeEntry across the detour
+		-- so the route resumes on its own instead of being forgotten.
+		IssueRoute(activeEntry, false)
 		return
+	end
+	if owner ~= "achievement" then
+		return -- another route holds the arrow right now; wait without forgetting ours
 	end
 	local _, _, incomplete = ns.GetTreasureProgress(activeEntry)
 	if IncompleteSig(incomplete) ~= routeSig then

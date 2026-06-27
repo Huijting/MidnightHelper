@@ -760,6 +760,10 @@ local function RouteRare(rare, clearOthers)
 	-- clearOthers=true is een nieuwe route → vervang de set; toast-klik
 	-- (false) voegt de rare toe aan de lopende hunt.
 	MarkRareRouted(rare, clearOthers)
+	-- Claim the shared arrow so an active achievement/treasure route stands down
+	-- and reclaims it once this rare hunt finishes (released in the event handler
+	-- below when IsRareHuntActive() goes false).
+	ns._mhRouteOwner = "rare"
 	-- Gejaagde rare → skull (nu als 'ie al zichtbaar is, anders zodra z'n
 	-- nameplate verschijnt). KnownRareNpc = veld 6 of geleerd npcID.
 	local rnpc = KnownRareNpc(rare)
@@ -1101,6 +1105,10 @@ function ns.GenerateRaresRoute(zoneKey)
 			-- (alerts voor deze rares krijgen de "je bent er bijna"-variant).
 			MarkRareRouted(rare, added == 1)
 		end
+	end
+
+	if added > 0 then
+		ns._mhRouteOwner = "rare" -- claim the shared arrow (see RouteRare note)
 	end
 
 	local orderHint = nearestFirst and ns:L("RARES_ROUTE_ORDER_NEAR") or ns:L("RARES_ROUTE_ORDER_LIST")
@@ -1681,6 +1689,11 @@ else
 	end)
 end
 ev:SetScript("OnEvent", function(_, event)
+	-- Release the shared arrow once the rare hunt is finished, so a paused
+	-- achievement/treasure route can reclaim it (it watches for owner == nil).
+	if ns._mhRouteOwner == "rare" and not IsRareHuntActive() then
+		ns._mhRouteOwner = nil
+	end
 	if
 		event == "VIGNETTES_UPDATED"
 		or event == "VIGNETTE_MINIMAP_UPDATED"
