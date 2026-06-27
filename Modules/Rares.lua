@@ -761,9 +761,11 @@ local function RouteRare(rare, clearOthers)
 	-- (false) voegt de rare toe aan de lopende hunt.
 	MarkRareRouted(rare, clearOthers)
 	-- Claim the shared arrow so an active achievement/treasure route stands down
-	-- and reclaims it once this rare hunt finishes (released in the event handler
-	-- below when IsRareHuntActive() goes false).
+	-- and reclaims it once this rare is done. We remember THIS rare's quest so the
+	-- token releases as soon as it's looted, even if older rares linger in the hunt
+	-- store (released in the event handler below).
 	ns._mhRouteOwner = "rare"
+	ns._mhLastRoutedRareQuest = (rare[1] and rare[1] ~= 0) and rare[1] or nil
 	-- Gejaagde rare → skull (nu als 'ie al zichtbaar is, anders zodra z'n
 	-- nameplate verschijnt). KnownRareNpc = veld 6 of geleerd npcID.
 	local rnpc = KnownRareNpc(rare)
@@ -1109,6 +1111,7 @@ function ns.GenerateRaresRoute(zoneKey)
 
 	if added > 0 then
 		ns._mhRouteOwner = "rare" -- claim the shared arrow (see RouteRare note)
+		ns._mhLastRoutedRareQuest = nil -- a full route: release when the whole hunt is done
 	end
 
 	local orderHint = nearestFirst and ns:L("RARES_ROUTE_ORDER_NEAR") or ns:L("RARES_ROUTE_ORDER_LIST")
@@ -1689,10 +1692,15 @@ else
 	end)
 end
 ev:SetScript("OnEvent", function(_, event)
-	-- Release the shared arrow once the rare hunt is finished, so a paused
-	-- achievement/treasure route can reclaim it (it watches for owner == nil).
-	if ns._mhRouteOwner == "rare" and not IsRareHuntActive() then
-		ns._mhRouteOwner = nil
+	-- Release the shared arrow once the routed rare is done (or the whole hunt is
+	-- finished), so a paused achievement/treasure route can reclaim it (it watches
+	-- for owner == nil).
+	if ns._mhRouteOwner == "rare" then
+		local q = ns._mhLastRoutedRareQuest
+		if (q and IsRareDoneThisWeek(q)) or not IsRareHuntActive() then
+			ns._mhRouteOwner = nil
+			ns._mhLastRoutedRareQuest = nil
+		end
 	end
 	if
 		event == "VIGNETTES_UPDATED"

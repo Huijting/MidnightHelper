@@ -162,7 +162,13 @@ local function EnsureToast()
 	f:SetMovable(true)
 	f:RegisterForDrag("LeftButton")
 	f:SetScript("OnDragStart", f.StartMoving)
-	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		local p, _, rp, x, y = self:GetPoint()
+		if p and ns.db and ns.db.ui then
+			ns.db.ui.treasureToastPos = { p, rp, x, y } -- remembered across reloads
+		end
+	end)
 	-- Shift + mouse wheel scales the toast bigger/smaller (remembered).
 	f:EnableMouseWheel(true)
 	f:SetScript("OnMouseWheel", function(self, delta)
@@ -208,6 +214,12 @@ local function EnsureToast()
 	f.btns = {}
 	if ns.db and ns.db.ui and ns.db.ui.treasureToastScale then
 		f:SetScale(ns.db.ui.treasureToastScale)
+	end
+	-- Restore the last dragged position so it stops re-appearing mid-screen.
+	local pos = ns.db and ns.db.ui and ns.db.ui.treasureToastPos
+	if type(pos) == "table" and pos[1] then
+		f:ClearAllPoints()
+		f:SetPoint(pos[1], UIParent, pos[2] or pos[1], pos[3] or 0, pos[4] or 0)
 	end
 	-- Auto-close once its treasure is completed, independent of any active route
 	-- (so it also works when opened by hand from the tab's Waypoint button).
@@ -299,6 +311,75 @@ function ns.MaybeCloseTreasureToast()
 	end
 end
 
+-- Proximity-gated toast: instead of popping the hint the moment you start the
+-- route (often mid-screen and far from where you need it), arm it and only show
+-- it once you're within ~250 yds of the treasure. Shows immediately if you're
+-- already close or distance can't be measured.
+local TOAST_NEAR_YARDS = 250
+local pendingToastNode, toastProxTicker
+
+local function StopToastProx()
+	if toastProxTicker then
+		toastProxTicker:Cancel()
+		toastProxTicker = nil
+	end
+end
+
+local function ToastNodeNear(node)
+	local pwx, pwy = PlayerWorld()
+	if not pwx then
+		return true -- can't measure: don't keep it hidden forever
+	end
+	-- Pop only when you're actually close to the chest OR one of its steps
+	-- (urns/orbs/altars) — whichever you reach first brings up the full toast.
+	local function within(mapID, x, y)
+		local wx, wy = MapPosToWorld(mapID, (x or 0) / 100, (y or 0) / 100)
+		if not wx then
+			return false
+		end
+		local dx, dy = pwx - wx, pwy - wy
+		return math.sqrt(dx * dx + dy * dy) <= TOAST_NEAR_YARDS
+	end
+	if within(node.mapID, node.x, node.y) then
+		return true
+	end
+	for _, p in ipairs(node.prereqs or {}) do
+		if within(p.mapID, p.x, p.y) then
+			return true
+		end
+	end
+	return false
+end
+
+local function ArmTreasureToast(node)
+	pendingToastNode = nil
+	StopToastProx()
+	if not node or (not node.note and not (node.prereqs and #node.prereqs > 0)) then
+		ns.ShowTreasureToast(nil) -- nothing to hint: make sure any old toast is gone
+		return
+	end
+	if ToastNodeNear(node) then
+		ns.ShowTreasureToast(node)
+		return
+	end
+	-- Not there yet: hide any stale toast and watch our distance.
+	ns.ShowTreasureToast(nil)
+	pendingToastNode = node
+	if C_Timer and C_Timer.NewTicker then
+		toastProxTicker = C_Timer.NewTicker(2, function()
+			if not pendingToastNode then
+				StopToastProx()
+				return
+			end
+			if ToastNodeNear(pendingToastNode) then
+				ns.ShowTreasureToast(pendingToastNode)
+				pendingToastNode = nil
+				StopToastProx()
+			end
+		end)
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Active route with auto-advance: as you loot each treasure, the arrow moves to
 -- the next still-missing one (same idea as the reset route). Stands down when
@@ -331,9 +412,7 @@ local function IssueRoute(entry, firstTime, silent)
 		if ns._mhRouteOwner == "achievement" then
 			ns._mhRouteOwner = nil
 		end
-		if ns.ShowTreasureToast then
-			ns.ShowTreasureToast(nil)
-		end
+		ArmTreasureToast(nil)
 		print(("%s %s — all %d treasures done."):format(Prefix(), title, total))
 		return
 	end
@@ -372,9 +451,7 @@ local function IssueRoute(entry, firstTime, silent)
 		if first.note then
 			print(("%s  |cffaaccff-> %s|r"):format(Prefix(), first.note))
 		end
-		if ns.ShowTreasureToast then
-			ns.ShowTreasureToast(first)
-		end
+		ArmTreasureToast(first)
 	end
 end
 
