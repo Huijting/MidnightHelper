@@ -142,12 +142,61 @@ local function OrderNearest(nodes)
 	return out
 end
 
+-- A prerequisite step counts as "collected" when its quest is flagged complete
+-- or its token item is in your bags. Steps without either (vendors, altars w/o a
+-- quest, etc.) are never auto-tracked. Defined here so both the route and the
+-- live toast checklist can use it.
+local function PrereqDone(p)
+	if p.quest and C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
+		local ok, d = pcall(C_QuestLog.IsQuestFlaggedCompleted, p.quest)
+		if ok and d then
+			return true
+		end
+	end
+	if p.item then
+		local getCount = (C_Item and C_Item.GetItemCount) or _G.GetItemCount
+		if getCount then
+			local ok, c = pcall(getCount, p.item)
+			if ok and type(c) == "number" and c > 0 then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 --------------------------------------------------------------------------------
 -- Hint toast: a small dismissable popup for the treasure you're routed to, with
 -- what to do first and a waypoint button per missing prerequisite. Stays until
 -- you close it (no auto-fade); replaced when the route advances.
 --------------------------------------------------------------------------------
 local toast
+
+-- Live checklist styling: a collected step (urn/orb/node) gets a green check and
+-- is dimmed; everything else keeps the blue "->" route marker.
+local READY_CHECK_ICON = "|TInterface\\RaidFrame\\ReadyCheck-Ready:14:14|t "
+local function StyleToastButton(b)
+	local p = b._mhTarget
+	if not p then
+		return
+	end
+	if b._mhIsStep and (p.quest or p.item) and PrereqDone(p) then
+		b:SetText(READY_CHECK_ICON .. "|cff808080" .. (p.name or "?") .. "|r")
+	else
+		b:SetText("|cffaaccff->|r " .. (p.name or "?"))
+	end
+end
+
+local function RefreshToastSteps()
+	if not (toast and toast:IsShown() and toast.btns) then
+		return
+	end
+	for _, b in ipairs(toast.btns) do
+		if b:IsShown() then
+			StyleToastButton(b)
+		end
+	end
+end
 
 local function EnsureToast()
 	if toast then
@@ -227,7 +276,9 @@ local function EnsureToast()
 	f:RegisterEvent("QUEST_LOG_UPDATE")
 	f:RegisterEvent("QUEST_TURNED_IN")
 	f:RegisterEvent("ACHIEVEMENT_EARNED")
+	f:RegisterEvent("BAG_UPDATE") -- collecting an urn token recolors its checklist row
 	f:SetScript("OnEvent", function()
+		RefreshToastSteps() -- tick off collected steps live
 		if ns.MaybeCloseTreasureToast then
 			ns.MaybeCloseTreasureToast()
 		end
@@ -271,7 +322,9 @@ function ns.ShowTreasureToast(node)
 		b:ClearAllPoints()
 		b:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -6)
 		b:SetPoint("RIGHT", f, "RIGHT", -12, 0)
-		b:SetText("|cffaaccff->|r " .. (p.name or "?"))
+		b._mhTarget = p
+		b._mhIsStep = (i > 1) -- targets[1] is the chest itself, not a trackable step
+		StyleToastButton(b)
 		b:SetScript("OnClick", function()
 			if ns.AddSmartTomTomWay then
 				ns.AddSmartTomTomWay(p.mapID, p.x, p.y, p.name)
@@ -396,6 +449,39 @@ local function IncompleteSig(nodes)
 	return table.concat(t, ",")
 end
 
+-- Trackable, still-missing prerequisite steps of a treasure (nearest first), so
+-- the arrow can guide you step-by-step before pointing at the chest.
+local function PendingTrackedPrereqs(node)
+	local pending = {}
+	for _, p in ipairs(node.prereqs or {}) do
+		if (p.quest or p.item) and not PrereqDone(p) then
+			pending[#pending + 1] = p
+		end
+	end
+	if #pending > 1 then
+		pending = OrderNearest(pending)
+	end
+	return pending
+end
+
+-- Route fingerprint: which treasures are still missing AND which tracked steps
+-- are still uncollected. Position-independent, so it only changes when you
+-- actually loot a treasure or collect a step (not merely by moving around).
+local function RouteFingerprint(entry)
+	local _, _, incomplete = ns.GetTreasureProgress(entry)
+	local t = {}
+	for _, n in ipairs(incomplete) do
+		t[#t + 1] = "c" .. tostring(n.criteria or n.quest or "?")
+		for _, p in ipairs(n.prereqs or {}) do
+			if (p.quest or p.item) and not PrereqDone(p) then
+				t[#t + 1] = "p" .. tostring(p.quest or p.item)
+			end
+		end
+	end
+	table.sort(t)
+	return table.concat(t, ",")
+end
+
 -- silent = re-assert the arrow/backup on a zone change without spamming chat or
 -- re-popping the toast (used by the zone-change re-assert below).
 local function IssueRoute(entry, firstTime, silent)
@@ -421,21 +507,37 @@ local function IssueRoute(entry, firstTime, silent)
 	if ns.CancelResetRoute then
 		ns.CancelResetRoute()
 	end
-	for i, node in ipairs(incomplete) do
+	-- Waypoint order: for the nearest treasure, walk its still-missing steps
+	-- (urns/orbs) first so the arrow guides you step-by-step, then the chest, then
+	-- the other still-missing treasures. The crazy arrow rides pin 1 only.
+	local first = incomplete[1]
+	local pending = PendingTrackedPrereqs(first)
+	local waypoints = {}
+	for _, p in ipairs(pending) do
+		waypoints[#waypoints + 1] = p
+	end
+	waypoints[#waypoints + 1] = first -- the chest itself (always shown)
+	for i = 2, #incomplete do
+		waypoints[#waypoints + 1] = incomplete[i]
+	end
+
+	for i, node in ipairs(waypoints) do
 		-- Signature: AddSmartTomTomWay(map, x, y, name, skipTravelUI, skipCrazyArrow).
-		-- Crazy arrow only on pin 1 (the nearest). The travel assistant (portal / HS
-		-- popup) fires only on the FIRST route's pin 1 — advancing to the next treasure
-		-- in-zone, or a silent zone re-assert, must never nag a portal. This also avoids
-		-- a false "go to Harandar" suggestion from sub-maps like The Den (2576), where
-		-- "are you already in the zone?" reads false against the main map (2413).
+		-- Crazy arrow only on pin 1 (the nearest step/treasure). The travel assistant
+		-- (portal / HS popup) fires only on the FIRST route's pin 1 — advancing, or a
+		-- silent zone re-assert, must never nag a portal. This also avoids a false
+		-- "go to <zone>" suggestion from sub-maps where "are you in the zone?" reads
+		-- false against the main map.
 		local isLead = (i == 1)
 		local skipCrazyArrow = not isLead
 		local skipTravelUI = (not isLead) or (not firstTime)
-		ns.AddSmartTomTomWay(node.mapID, node.x, node.y, node.name, skipTravelUI, skipCrazyArrow)
+		-- clearDist 0: keep the arrow on the step/treasure while you fight & loot it,
+		-- instead of TomTom auto-clearing it the moment you get within 15 yds.
+		ns.AddSmartTomTomWay(node.mapID, node.x, node.y, node.name, skipTravelUI, skipCrazyArrow, false, 0)
 	end
-	local first = incomplete[1]
-	ns.lastTarget = { mapID = first.mapID, x = first.x, y = first.y, name = first.name }
-	routeSig = IncompleteSig(incomplete)
+	local lead = waypoints[1]
+	ns.lastTarget = { mapID = lead.mapID, x = lead.x, y = lead.y, name = lead.name }
+	routeSig = RouteFingerprint(entry)
 	-- NOTE: we deliberately do NOT force a Blizzard SuperTrack waypoint here.
 	-- Taking over SuperTracking fights TomTom's crazy arrow and makes it drop at
 	-- zone transitions (the Rares route never does this, which is why its arrow
@@ -455,6 +557,19 @@ local function IssueRoute(entry, firstTime, silent)
 	end
 end
 
+-- TEMP debug: toggle with /mh achdebug. Prints the arrow-arbiter state so we can
+-- see why a rare detour does/doesn't hand the arrow back.
+local ACH_DBG = false
+local function Dbg(fmt, ...)
+	if ACH_DBG then
+		print("|cffff66ffMH-DBG|r " .. fmt:format(...))
+	end
+end
+ns._mhSetAchDebug = function(on)
+	ACH_DBG = on and true or false
+	print("|cffff66ffMH-DBG|r achievements debug " .. (ACH_DBG and "ON" or "OFF"))
+end
+
 local function Advance()
 	if not activeEntry then
 		return
@@ -464,15 +579,17 @@ local function Advance()
 		-- The shared arrow was freed (e.g. a rare hunt just finished) — reclaim it
 		-- for our still-active treasure route. We keep activeEntry across the detour
 		-- so the route resumes on its own instead of being forgotten.
+		Dbg("advance: owner=nil -> RECLAIM")
 		IssueRoute(activeEntry, false)
 		return
 	end
 	if owner ~= "achievement" then
+		Dbg("advance: owner=%s -> yield", tostring(owner))
 		return -- another route holds the arrow right now; wait without forgetting ours
 	end
-	local _, _, incomplete = ns.GetTreasureProgress(activeEntry)
-	if IncompleteSig(incomplete) ~= routeSig then
-		IssueRoute(activeEntry, false) -- a treasure got looted: advance the arrow
+	if RouteFingerprint(activeEntry) ~= routeSig then
+		Dbg("advance: fingerprint changed -> advance")
+		IssueRoute(activeEntry, false) -- a treasure looted or a step collected: advance
 	end
 end
 
@@ -482,8 +599,8 @@ local function ScheduleAdvance()
 	end
 	advancePending = true
 	if C_Timer and C_Timer.After then
-		C_Timer.After(1.0, function() -- debounce QUEST_LOG_UPDATE bursts
-			advancePending = false
+		C_Timer.After(0.3, function() -- short debounce: coalesce event bursts but
+			advancePending = false -- keep the arrow snappy when a step/treasure is done
 			Advance()
 		end)
 	else
@@ -520,6 +637,32 @@ local function ScheduleTravelRefresh()
 	end
 end
 
+-- True if the live arrow target (ns.lastTarget) is one of this achievement's
+-- still-missing treasures or tracked steps. Lets us tell "arrow is on our route"
+-- from "a rare detour took the arrow" without relying on quest-flag timing.
+local function ArrowIsOnOurRoute(entry, lt)
+	if not (entry and lt) then
+		return false
+	end
+	local function same(a)
+		return a and a.mapID == lt.mapID
+			and math.abs((a.x or 0) - (lt.x or 0)) < 0.05
+			and math.abs((a.y or 0) - (lt.y or 0)) < 0.05
+	end
+	local _, _, incomplete = ns.GetTreasureProgress(entry)
+	for _, n in ipairs(incomplete) do
+		if same(n) then
+			return true
+		end
+		for _, p in ipairs(n.prereqs or {}) do
+			if same(p) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 local function EnsureAdvanceFrame()
 	if advanceFrame then
 		return
@@ -533,12 +676,27 @@ local function EnsureAdvanceFrame()
 	advanceFrame:RegisterEvent("QUEST_REMOVED")
 	advanceFrame:RegisterEvent("CRITERIA_UPDATE")
 	advanceFrame:RegisterEvent("ACHIEVEMENT_EARNED")
+	advanceFrame:RegisterEvent("BAG_UPDATE") -- collecting a token item (urns) advances the step
+	advanceFrame:RegisterEvent("PLAYER_REGEN_ENABLED") -- left combat (e.g. killed a detour rare)
 	advanceFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	advanceFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	advanceFrame:SetScript("OnEvent", function(_, event)
 		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
 			ScheduleTravelRefresh()
 		else
+			if event == "PLAYER_REGEN_ENABLED" and activeEntry then
+				local lt = ns.lastTarget
+				Dbg("regen: owner=%s target=%s onRoute=%s", tostring(ns._mhRouteOwner),
+					tostring(lt and lt.name), tostring(ArrowIsOnOurRoute(activeEntry, lt)))
+			end
+			if event == "PLAYER_REGEN_ENABLED" and activeEntry
+				and ns._mhRouteOwner ~= "reset" and ns._mhRouteOwner ~= "treasure"
+				and not ArrowIsOnOurRoute(activeEntry, ns.lastTarget) then
+				-- Left combat (likely killed a detour rare) and the arrow drifted off
+				-- our route — reclaim it, regardless of quest-flag timing. Only fires
+				-- when the arrow actually isn't ours, so random mob kills don't flicker.
+				ns._mhRouteOwner = nil
+			end
 			if ns.MaybeCloseTreasureToast then
 				ns.MaybeCloseTreasureToast()
 			end
@@ -617,7 +775,14 @@ local function RefreshAchPanel()
 	for _, card in ipairs(st.cards) do
 		local done, total = ns.GetTreasureProgress(card.entry)
 		local complete = (total > 0 and done >= total)
-		card.title:SetText(AchievementName(card.entry))
+		local nm = AchievementName(card.entry)
+		if complete then
+			-- Green check + dimmed title so a finished achievement reads as "done"
+			-- even when the card is collapsed.
+			card.title:SetText("|TInterface\\RaidFrame\\ReadyCheck-Ready:14:14|t |cff9aa0a6" .. nm .. "|r")
+		else
+			card.title:SetText(nm)
+		end
 		local col = complete and "ff66dd66" or "ffffcc00"
 		card.progress:SetText(("|c%s%d/%d|r"):format(col, done, total))
 		card.routeBtn:SetText(complete and TL("ACH_TAB_DONE") or TL("ACH_TAB_ROUTE"))
@@ -655,7 +820,7 @@ local function RelocalizeAchPanel()
 end
 
 local function BuildAchCard(st, entry)
-	local card = { entry = entry, rows = {}, expanded = true }
+	local card = { entry = entry, rows = {}, expanded = false } -- collapsed until clicked
 
 	local header = CreateFrame("Button", nil, st.child)
 	header:SetHeight(24)
@@ -815,6 +980,12 @@ function ns:RunAchievementSlashCommand(msg)
 			return true
 		end
 		ns.RouteAchievementTreasures(entry)
+		return true
+	end
+	if msg == "achdebug" then
+		if ns._mhSetAchDebug then
+			ns._mhSetAchDebug(not ACH_DBG)
+		end
 		return true
 	end
 	return false

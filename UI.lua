@@ -269,8 +269,8 @@ local MH_BETA_TAB_IDS = {
 -- Stap 2 maakt hier klikbare icoon-kamerknoppen van. Home blijft de default/
 -- fallback-tab in SelectTab (sidebar-volgorde staat daar los van).
 local SIDEBAR_SECTIONS = {
-	{ key = "me_now", room = "me", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "starthere", "delves", "rares", "achievements", "world", "events" } },
-	{ key = "me_chars", room = "me", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier", "omnium", "currency" } },
+	{ key = "me_now", room = "me", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "starthere", "delves", "rares", "world", "events" } },
+	{ key = "me_chars", room = "me", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier", "omnium", "currency", "achievements" } },
 	{ key = "codex", room = "codex", titleKey = "TAB_CODEX", ids = { "codex", "dungeons", "guide", "smcguide" } },
 	{ key = "tools", room = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "toolslaunch", "toolbox", "addons" } },
 	{ key = "settings", room = "settings", titleKey = "TAB_SETTINGS", ids = { "settings" } },

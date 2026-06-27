@@ -618,11 +618,47 @@ function ns.MHIsCrossContinentFromPlayer(targetMapID, x100, y100)
 	return (ns.IsCrossContinentTarget and ns.IsCrossContinentTarget(cur, targetMapID, x100, y100)) or false
 end
 
+-- True when two maps are the same zone or one is a sub-area of the other (walks
+-- the parentMapID chain both ways). Lets the travel assistant treat a sub-zone of
+-- the destination as "arrived" instead of suggesting a portal to get there.
+function ns.MHSameZoneOrSub(a, b)
+	a, b = tonumber(a), tonumber(b)
+	if not a or not b then
+		return false
+	end
+	if a == b then
+		return true
+	end
+	if not (C_Map and C_Map.GetMapInfo) then
+		return false
+	end
+	local function isAncestor(child, ancestor)
+		local m, guard = child, 0
+		while m and guard < 12 do
+			local info = C_Map.GetMapInfo(m)
+			if not info or not info.parentMapID or info.parentMapID == 0 then
+				return false
+			end
+			m = info.parentMapID
+			if m == ancestor then
+				return true
+			end
+			guard = guard + 1
+		end
+		return false
+	end
+	return isAncestor(a, b) or isAncestor(b, a)
+end
+
 -- Shared TomTom + Travel Assistant (portals/hearth). Optional skipTravelUI / skipCrazyArrow (bulk pins).
 -- travelOnly = re-evaluate the travel assistant ONLY (no waypoint side effects),
 -- so a zone-change refresh can update the next-leg portal/HS advice without
 -- touching TomTom's arrow.
-function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, travelOnly)
+-- clearDist (optional): yards at which TomTom auto-clears the waypoint on arrival
+-- (default 15). Pass 0 to keep the arrow on the target until something replaces it
+-- — used by the treasure route so the arrow stays on an urn while you fight/loot
+-- it, instead of vanishing the moment you get close.
+function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, travelOnly, clearDist)
 	if not mapID then
 		return false
 	end
@@ -652,7 +688,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 			persistent = false,
 			minimap = true,
 			world = true,
-			cleardistance = 15,
+			cleardistance = clearDist or 15,
 			crazy = not skipCrazyArrow,
 		})
 		if uid and _G.TomTom.SetCrazyArrow and not skipCrazyArrow then
@@ -676,6 +712,14 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	end
 
 	if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
+		SafeHideTravelPopup()
+		return true
+	end
+
+	-- In a sub-area of the target's zone (e.g. flying through a Zul'Aman sub-zone
+	-- like the Altar of Malacrass toward an urn on the main map) you've effectively
+	-- arrived — don't nag a portal/HS just because the sub-map id differs.
+	if ns.MHSameZoneOrSub and ns.MHSameZoneOrSub(currentMap, targetMap) then
 		SafeHideTravelPopup()
 		return true
 	end
@@ -836,6 +880,11 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 
 	if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
 		SafeHideTravelPopup()
+		return
+	end
+
+	if ns.MHSameZoneOrSub and ns.MHSameZoneOrSub(currentMap, targetMap) then
+		SafeHideTravelPopup() -- in a sub-area of the target's zone = arrived
 		return
 	end
 
