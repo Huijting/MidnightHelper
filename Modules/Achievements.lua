@@ -487,7 +487,9 @@ local function PendingTrackedPrereqs(node)
 			pending[#pending + 1] = p
 		end
 	end
-	if #pending > 1 then
+	-- Most treasures: nearest-first. Some (e.g. the Malignant Chest) must be done
+	-- in a fixed sequence, so keep the data order for those.
+	if #pending > 1 and not node.orderedPrereqs then
 		pending = OrderNearest(pending)
 	end
 	return pending

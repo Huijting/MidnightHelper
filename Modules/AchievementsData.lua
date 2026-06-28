@@ -122,8 +122,10 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111866, mapID = 2405, x = 64.53, y = 75.47, name = "Bloody Sack", quest = 93431,
 				note = "Collect Dripping Meat from nearby bone piles to feed the Forgotten Oubliette." },
 			{ criteria = 111867, mapID = 2405, x = 53.36, y = 42.66, name = "Malignant Chest", quest = 93840,
-				note = "Activate the 4 Malignant Nodes in the cave to unlock the chest.",
+				orderedPrereqs = true, -- the nodes MUST be activated 1 -> 2 -> 3 -> 4
+				note = "Enter the cave at 53.21, 44.19, then activate the 4 Malignant Nodes IN ORDER (1 -> 2 -> 3 -> 4) - any other order fails - to make the chest appear.",
 				prereqs = {
+					{ name = "Cave entrance", mapID = 2405, x = 53.21, y = 44.19 },
 					{ name = "Malignant Node 1", mapID = 2405, x = 53.48, y = 43.23, quest = 93812 },
 					{ name = "Malignant Node 2", mapID = 2405, x = 52.92, y = 43.32, quest = 93813 },
 					{ name = "Malignant Node 3", mapID = 2405, x = 53.53, y = 43.91, quest = 93814 },
