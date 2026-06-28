@@ -149,7 +149,7 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111874, mapID = 2405, x = 35.77, y = 41.41, name = "Discarded Energy Pike", quest = 93496 },
 			{ criteria = 111875, mapID = 2405, x = 43.01, y = 81.94, name = "Faindel's Quiver", quest = 93493 },
 			{ criteria = 111876, mapID = 2405, x = 37.69, y = 69.76, name = "Half-Digested Viscera", quest = 93467,
-				note = "In a small cave (entrance ~38.06, 68.77)." },
+				note = "In a small cave (entrance ~38.06, 68.77) - walk around it and head up to the left once inside." },
 		},
 	},
 	-- TODO (next slices): Midnight Lore Hunter (LoreObject nodes),

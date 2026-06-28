@@ -562,9 +562,10 @@ local function IssueRoute(entry, firstTime, silent)
 		local isLead = (i == 1)
 		local skipCrazyArrow = not isLead
 		local skipTravelUI = (not isLead) or (not firstTime)
-		-- clearDist 0: keep the arrow on the step/treasure while you fight & loot it,
-		-- instead of TomTom auto-clearing it the moment you get within 15 yds.
-		ns.AddSmartTomTomWay(node.mapID, node.x, node.y, node.name, skipTravelUI, skipCrazyArrow, false, 0)
+		-- Use TomTom's default cleardistance (like the Rares route): a custom
+		-- cleardistance of 0 suppressed TomTom's big floating Crazy Arrow. TomTom's
+		-- "auto-set to next closest waypoint" advances the arrow as you reach pins.
+		ns.AddSmartTomTomWay(node.mapID, node.x, node.y, node.name, skipTravelUI, skipCrazyArrow)
 	end
 	local lead = waypoints[1]
 	ns.lastTarget = { mapID = lead.mapID, x = lead.x, y = lead.y, name = lead.name }
