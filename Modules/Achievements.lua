@@ -165,6 +165,18 @@ local function PrereqDone(p)
 	return false
 end
 
+-- Have we gathered enough of a counter treasure's item (e.g. 150x Crystalized
+-- Resin Fragment)? Used to switch the route from the sap farm circuit to the
+-- cauldron itself.
+local function CounterMet(node)
+	if not (node and node.counterItem) then
+		return true
+	end
+	local getCount = (C_Item and C_Item.GetItemCount) or _G.GetItemCount
+	local have = (getCount and getCount(node.counterItem)) or 0
+	return have >= (node.counterNeed or 0)
+end
+
 --------------------------------------------------------------------------------
 -- Hint toast: a small dismissable popup for the treasure you're routed to, with
 -- what to do first and a waypoint button per missing prerequisite. Stays until
@@ -187,6 +199,19 @@ local function StyleToastButton(b)
 	end
 end
 
+-- Live progress line for a "collect N of an item" treasure (e.g. 150x Crystalized
+-- Resin Fragment for the Peculiar Cauldron). Returns nil for normal treasures.
+local function CounterLine(node)
+	if not (node and node.counterItem) then
+		return nil
+	end
+	local getCount = (C_Item and C_Item.GetItemCount) or _G.GetItemCount
+	local have = (getCount and getCount(node.counterItem)) or 0
+	local need = node.counterNeed or 0
+	local col = (need > 0 and have >= need) and "ff66dd66" or "ffffcc00"
+	return ("|cffffd200%s:|r |c%s%d/%d|r"):format(node.counterName or "Items", col, have, need)
+end
+
 local function RefreshToastSteps()
 	if not (toast and toast:IsShown() and toast.btns) then
 		return
@@ -195,6 +220,11 @@ local function RefreshToastSteps()
 		if b:IsShown() then
 			StyleToastButton(b)
 		end
+	end
+	local node = toast._node
+	if node and node.counterItem then
+		local cl = CounterLine(node)
+		toast.body:SetText((node.note or "") .. (cl and ("\n\n" .. cl) or ""))
 	end
 end
 
@@ -289,7 +319,7 @@ local function EnsureToast()
 end
 
 function ns.ShowTreasureToast(node)
-	if not node or (not node.note and not (node.prereqs and #node.prereqs > 0)) then
+	if not node or (not node.note and not node.counterItem and not (node.prereqs and #node.prereqs > 0)) then
 		if toast then
 			toast._node = nil
 			toast:Hide()
@@ -302,7 +332,8 @@ function ns.ShowTreasureToast(node)
 		b:Hide()
 	end
 	f.title:SetText(node.name or "Treasure")
-	f.body:SetText(node.note or "")
+	local cl = CounterLine(node)
+	f.body:SetText((node.note or "") .. (cl and ("\n\n" .. cl) or ""))
 
 	-- Button 1 routes back to the treasure itself (so you never lose it when the
 	-- TomTom arrow clears on arrival); the rest are its prerequisites.
@@ -334,7 +365,7 @@ function ns.ShowTreasureToast(node)
 		prev = b
 	end
 
-	local bodyH = (node.note and (f.body:GetStringHeight() or 24)) or 0
+	local bodyH = ((node.note or node.counterItem) and (f.body:GetStringHeight() or 24)) or 0
 	f:SetHeight(28 + bodyH + 10 + n * 26 + 8)
 	f:Show()
 end
@@ -379,6 +410,16 @@ local function StopToastProx()
 end
 
 local function ToastNodeNear(node)
+	-- Farming treasures with a live counter (e.g. the Peculiar Cauldron) show as
+	-- soon as you're in the zone, so the progress tracker stays up while you roam
+	-- the whole river — not just within 250 yds of the cauldron.
+	if node.counterItem then
+		local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+		if pm and node.mapID and (pm == node.mapID
+			or (ns.MHSameZoneOrSub and ns.MHSameZoneOrSub(pm, node.mapID))) then
+			return true
+		end
+	end
 	local pwx, pwy = PlayerWorld()
 	if not pwx then
 		return true -- can't measure: don't keep it hidden forever
@@ -407,7 +448,7 @@ end
 local function ArmTreasureToast(node)
 	pendingToastNode = nil
 	StopToastProx()
-	if not node or (not node.note and not (node.prereqs and #node.prereqs > 0)) then
+	if not node or (not node.note and not node.counterItem and not (node.prereqs and #node.prereqs > 0)) then
 		ns.ShowTreasureToast(nil) -- nothing to hint: make sure any old toast is gone
 		return
 	end
@@ -477,6 +518,11 @@ local function RouteFingerprint(entry)
 				t[#t + 1] = "p" .. tostring(p.quest or p.item)
 			end
 		end
+		-- Counter treasures flip from "farm the saps" to "go to the cauldron" once
+		-- you hit the goal, so the fingerprint must capture that threshold.
+		if n.counterItem then
+			t[#t + 1] = "m" .. (CounterMet(n) and "1" or "0")
+		end
 	end
 	table.sort(t)
 	return table.concat(t, ",")
@@ -511,12 +557,26 @@ local function IssueRoute(entry, firstTime, silent)
 	-- (urns/orbs) first so the arrow guides you step-by-step, then the chest, then
 	-- the other still-missing treasures. The crazy arrow rides pin 1 only.
 	local first = incomplete[1]
-	local pending = PendingTrackedPrereqs(first)
 	local waypoints = {}
-	for _, p in ipairs(pending) do
-		waypoints[#waypoints + 1] = p
+	if first.saps and first.counterItem and not CounterMet(first) then
+		-- Farm circuit: pin every Flame-Hardened Sap spot (nearest first), then the
+		-- cauldron. The arrow rides the nearest sap; the toast counter tracks 0/150.
+		local saps = {}
+		for _, s in ipairs(first.saps) do
+			saps[#saps + 1] = { mapID = first.mapID, x = s.x, y = s.y, name = s.name or "Flame-Hardened Sap" }
+		end
+		saps = OrderNearest(saps)
+		for _, s in ipairs(saps) do
+			waypoints[#waypoints + 1] = s
+		end
+		waypoints[#waypoints + 1] = first -- the cauldron, pinned as the finish
+	else
+		local pending = PendingTrackedPrereqs(first)
+		for _, p in ipairs(pending) do
+			waypoints[#waypoints + 1] = p
+		end
+		waypoints[#waypoints + 1] = first -- the chest itself (always shown)
 	end
-	waypoints[#waypoints + 1] = first -- the chest itself (always shown)
 	for i = 2, #incomplete do
 		waypoints[#waypoints + 1] = incomplete[i]
 	end
