@@ -62,7 +62,7 @@ ns.ACHIEVEMENT_TREASURES = {
 				} },
 			{ criteria = 110257, mapID = 2413, x = 40.65, y = 28.04, name = "Peculiar Cauldron", quest = 93587,
 				counterItem = 260531, counterNeed = 150, counterName = "Crystalized Resin Fragment",
-				note = "Nai'theren Grotto (under a bridge just E of Har'mara). Open it with 150x Crystalized Resin Fragment, looted from Flame-Hardened Sap of Teldrassil. The saps are scattered in and along the whole river that runs through this area (from Nai'theren Grotto down past the Shrine of Ages and Vale of Secrets to the Den) - they are NOT on the minimap and respawn, so sweep the river (2-7 fragments each). Tip: an Inky Black Potion darkens the world so the purple saps stand out. Bug: the saps vanish at exactly 149 fragments - delete 1 to make them reappear." },
+				note = "Nai'theren Grotto (under a bridge just E of Har'mara). Open it with 150x Crystalized Resin Fragment, looted from Flame-Hardened Sap of Teldrassil. The saps are scattered in and along the whole river that runs through this area (from Nai'theren Grotto down past the Shrine of Ages and Vale of Secrets to the Den) - they are NOT on the minimap and respawn, so sweep the river (2-7 fragments each). The fragments are Warbound, so you can farm on any character and pool them via the Warband Bank. Tip: an Inky Black Potion darkens the world so the purple saps stand out. Bug: the saps vanish at exactly 149 fragments - delete 1 to make them reappear." },
 			-- Wowhead-confirmed: the chest spawns in the middle of the Den on the
 			-- main Harandar map (2413) at 51.21/52.93 after all 3 altar rituals.
 			{ criteria = 110254, mapID = 2413, x = 51.21, y = 52.93, name = "Gift of the Cycle", quest = 93144,
