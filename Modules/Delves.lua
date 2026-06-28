@@ -337,6 +337,9 @@ function ns.IsTomTomReady()
 end
 
 local function GetZoneDisplayName(uiMapID)
+	if not uiMapID then
+		return "" -- mid-loading-screen: GetBestMapForUnit returns nil for a moment
+	end
 	local info = C_Map.GetMapInfo(uiMapID)
 	if info and info.name then
 		return info.name
@@ -706,6 +709,10 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		ns.SetBlizzardUserWaypoint(targetMap, xPct, yPct)
 	end
 	end -- not travelOnly
+
+	if not currentMap then
+		return true -- mid-loading-screen (portal): skip the travel assistant this pass
+	end
 
 	if skipTravelUI then
 		return true
