@@ -165,18 +165,6 @@ local function PrereqDone(p)
 	return false
 end
 
--- Have we gathered enough of a counter treasure's item (e.g. 150x Crystalized
--- Resin Fragment)? Used to switch the route from the sap farm circuit to the
--- cauldron itself.
-local function CounterMet(node)
-	if not (node and node.counterItem) then
-		return true
-	end
-	local getCount = (C_Item and C_Item.GetItemCount) or _G.GetItemCount
-	local have = (getCount and getCount(node.counterItem)) or 0
-	return have >= (node.counterNeed or 0)
-end
-
 --------------------------------------------------------------------------------
 -- Hint toast: a small dismissable popup for the treasure you're routed to, with
 -- what to do first and a waypoint button per missing prerequisite. Stays until
@@ -518,11 +506,6 @@ local function RouteFingerprint(entry)
 				t[#t + 1] = "p" .. tostring(p.quest or p.item)
 			end
 		end
-		-- Counter treasures flip from "farm the saps" to "go to the cauldron" once
-		-- you hit the goal, so the fingerprint must capture that threshold.
-		if n.counterItem then
-			t[#t + 1] = "m" .. (CounterMet(n) and "1" or "0")
-		end
 	end
 	table.sort(t)
 	return table.concat(t, ",")
@@ -557,26 +540,12 @@ local function IssueRoute(entry, firstTime, silent)
 	-- (urns/orbs) first so the arrow guides you step-by-step, then the chest, then
 	-- the other still-missing treasures. The crazy arrow rides pin 1 only.
 	local first = incomplete[1]
+	local pending = PendingTrackedPrereqs(first)
 	local waypoints = {}
-	if first.saps and first.counterItem and not CounterMet(first) then
-		-- Farm circuit: pin every Flame-Hardened Sap spot (nearest first), then the
-		-- cauldron. The arrow rides the nearest sap; the toast counter tracks 0/150.
-		local saps = {}
-		for _, s in ipairs(first.saps) do
-			saps[#saps + 1] = { mapID = first.mapID, x = s.x, y = s.y, name = s.name or "Flame-Hardened Sap" }
-		end
-		saps = OrderNearest(saps)
-		for _, s in ipairs(saps) do
-			waypoints[#waypoints + 1] = s
-		end
-		waypoints[#waypoints + 1] = first -- the cauldron, pinned as the finish
-	else
-		local pending = PendingTrackedPrereqs(first)
-		for _, p in ipairs(pending) do
-			waypoints[#waypoints + 1] = p
-		end
-		waypoints[#waypoints + 1] = first -- the chest itself (always shown)
+	for _, p in ipairs(pending) do
+		waypoints[#waypoints + 1] = p
 	end
+	waypoints[#waypoints + 1] = first -- the chest itself (always shown)
 	for i = 2, #incomplete do
 		waypoints[#waypoints + 1] = incomplete[i]
 	end
@@ -716,13 +685,6 @@ local function ArrowIsOnOurRoute(entry, lt)
 		end
 		for _, p in ipairs(n.prereqs or {}) do
 			if same(p) then
-				return true
-			end
-		end
-		-- Farm-circuit spots count as "on our route" too, so a fight mid-farm
-		-- doesn't make the combat-end check think the arrow drifted and re-pin.
-		for _, s in ipairs(n.saps or {}) do
-			if same({ mapID = n.mapID, x = s.x, y = s.y }) then
 				return true
 			end
 		end

@@ -62,18 +62,7 @@ ns.ACHIEVEMENT_TREASURES = {
 				} },
 			{ criteria = 110257, mapID = 2413, x = 40.65, y = 28.04, name = "Peculiar Cauldron", quest = 93587,
 				counterItem = 260531, counterNeed = 150, counterName = "Crystalized Resin Fragment",
-				note = "Nai'theren Grotto (under a bridge just E of Har'mara). Open it with 150x Crystalized Resin Fragment, looted from Flame-Hardened Sap of Teldrassil in the river - the saps are NOT on the minimap, so use the pins below (2-7 fragments each, and they respawn so circle back). Tip: an Inky Black Potion darkens the world so the purple saps stand out. Bug: the saps vanish at exactly 149 fragments - delete 1 to make them reappear.",
-				-- Flame-Hardened Sap of Teldrassil spawn spots along the river (respawn,
-				-- not minimap-tracked) — pinned as a farm circuit while you're under 150.
-				saps = {
-					{ x = 41.75, y = 37.63 }, { x = 43.93, y = 41.61 }, { x = 41.41, y = 28.46 },
-					{ x = 40.35, y = 26.16 }, { x = 38.08, y = 22.61 }, { x = 39.61, y = 22.16 },
-					{ x = 39.35, y = 22.30 }, { x = 43.08, y = 32.96 }, { x = 42.54, y = 34.60 },
-					{ x = 41.71, y = 37.54 }, { x = 42.68, y = 40.58 }, { x = 43.60, y = 43.98 },
-					{ x = 46.97, y = 49.38 }, { x = 40.02, y = 26.64 }, { x = 42.86, y = 34.87 },
-					{ x = 46.99, y = 48.44 }, { x = 42.38, y = 32.10 }, { x = 40.78, y = 27.28 },
-					{ x = 42.42, y = 37.61 },
-				} },
+				note = "Nai'theren Grotto (under a bridge just E of Har'mara). Open it with 150x Crystalized Resin Fragment, looted from Flame-Hardened Sap of Teldrassil. The saps are scattered in and along the whole river that runs through this area (from Nai'theren Grotto down past the Shrine of Ages and Vale of Secrets to the Den) - they are NOT on the minimap and respawn, so sweep the river (2-7 fragments each). Tip: an Inky Black Potion darkens the world so the purple saps stand out. Bug: the saps vanish at exactly 149 fragments - delete 1 to make them reappear." },
 			-- Wowhead-confirmed: the chest spawns in the middle of the Den on the
 			-- main Harandar map (2413) at 51.21/52.93 after all 3 altar rituals.
 			{ criteria = 110254, mapID = 2413, x = 51.21, y = 52.93, name = "Gift of the Cycle", quest = 93144,
