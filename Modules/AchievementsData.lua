@@ -60,9 +60,9 @@ ns.ACHIEVEMENT_TREASURES = {
 				prereqs = {
 					{ name = "Fungal Mallet", mapID = 2413, x = 41.30, y = 67.90 },
 				} },
-			{ criteria = 110257, mapID = 2413, x = 40.75, y = 28.50, name = "Peculiar Cauldron", quest = 93587,
+			{ criteria = 110257, mapID = 2413, x = 40.65, y = 28.04, name = "Peculiar Cauldron", quest = 93587,
 				counterItem = 260531, counterNeed = 150, counterName = "Crystalized Resin Fragment",
-				note = "Nai'theren Grotto (under a bridge just E of Har'mara). Open it with 150x Crystalized Resin Fragment, looted from Flame-Hardened Sap of Teldrassil in the river - the saps are NOT on the minimap, so use the pins below (2-7 fragments each). Tip: an Inky Black Potion darkens the world so the purple saps stand out. Bug: the saps vanish at exactly 149 fragments - delete 1 to make them reappear.",
+				note = "Nai'theren Grotto (under a bridge just E of Har'mara). Open it with 150x Crystalized Resin Fragment, looted from Flame-Hardened Sap of Teldrassil in the river - the saps are NOT on the minimap, so use the pins below (2-7 fragments each, and they respawn so circle back). Tip: an Inky Black Potion darkens the world so the purple saps stand out. Bug: the saps vanish at exactly 149 fragments - delete 1 to make them reappear.",
 				-- Flame-Hardened Sap of Teldrassil spawn spots along the river (respawn,
 				-- not minimap-tracked) — pinned as a farm circuit while you're under 150.
 				saps = {

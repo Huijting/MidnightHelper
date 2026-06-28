@@ -719,6 +719,13 @@ local function ArrowIsOnOurRoute(entry, lt)
 				return true
 			end
 		end
+		-- Farm-circuit spots count as "on our route" too, so a fight mid-farm
+		-- doesn't make the combat-end check think the arrow drifted and re-pin.
+		for _, s in ipairs(n.saps or {}) do
+			if same({ mapID = n.mapID, x = s.x, y = s.y }) then
+				return true
+			end
+		end
 	end
 	return false
 end
