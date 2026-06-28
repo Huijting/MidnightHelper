@@ -586,19 +586,6 @@ local function IssueRoute(entry, firstTime, silent)
 	end
 end
 
--- TEMP debug: toggle with /mh achdebug. Prints the arrow-arbiter state so we can
--- see why a rare detour does/doesn't hand the arrow back.
-local ACH_DBG = false
-local function Dbg(fmt, ...)
-	if ACH_DBG then
-		print("|cffff66ffMH-DBG|r " .. fmt:format(...))
-	end
-end
-ns._mhSetAchDebug = function(on)
-	ACH_DBG = on and true or false
-	print("|cffff66ffMH-DBG|r achievements debug " .. (ACH_DBG and "ON" or "OFF"))
-end
-
 local function Advance()
 	if not activeEntry then
 		return
@@ -608,16 +595,13 @@ local function Advance()
 		-- The shared arrow was freed (e.g. a rare hunt just finished) — reclaim it
 		-- for our still-active treasure route. We keep activeEntry across the detour
 		-- so the route resumes on its own instead of being forgotten.
-		Dbg("advance: owner=nil -> RECLAIM")
 		IssueRoute(activeEntry, false)
 		return
 	end
 	if owner ~= "achievement" then
-		Dbg("advance: owner=%s -> yield", tostring(owner))
 		return -- another route holds the arrow right now; wait without forgetting ours
 	end
 	if RouteFingerprint(activeEntry) ~= routeSig then
-		Dbg("advance: fingerprint changed -> advance")
 		IssueRoute(activeEntry, false) -- a treasure looted or a step collected: advance
 	end
 end
@@ -713,11 +697,6 @@ local function EnsureAdvanceFrame()
 		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
 			ScheduleTravelRefresh()
 		else
-			if event == "PLAYER_REGEN_ENABLED" and activeEntry then
-				local lt = ns.lastTarget
-				Dbg("regen: owner=%s target=%s onRoute=%s", tostring(ns._mhRouteOwner),
-					tostring(lt and lt.name), tostring(ArrowIsOnOurRoute(activeEntry, lt)))
-			end
 			if event == "PLAYER_REGEN_ENABLED" and activeEntry
 				and ns._mhRouteOwner ~= "reset" and ns._mhRouteOwner ~= "treasure"
 				and not ArrowIsOnOurRoute(activeEntry, ns.lastTarget) then
@@ -1009,12 +988,6 @@ function ns:RunAchievementSlashCommand(msg)
 			return true
 		end
 		ns.RouteAchievementTreasures(entry)
-		return true
-	end
-	if msg == "achdebug" then
-		if ns._mhSetAchDebug then
-			ns._mhSetAchDebug(not ACH_DBG)
-		end
 		return true
 	end
 	return false
