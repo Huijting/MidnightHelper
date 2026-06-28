@@ -657,6 +657,18 @@ end
 -- travelOnly = re-evaluate the travel assistant ONLY (no waypoint side effects),
 -- so a zone-change refresh can update the next-leg portal/HS advice without
 -- touching TomTom's arrow.
+-- Re-engage TomTom's floating Crazy Arrow on the last crazy waypoint. When a
+-- route advances while you're standing on the just-looted target, the arrow can
+-- stay stuck in its "arrived" state until you move; this nudges it to re-point.
+function ns.ReassertCrazyArrow()
+	local uid = ns._mhCrazyArrowUid
+	if uid and ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.SetCrazyArrow then
+		pcall(function()
+			_G.TomTom:SetCrazyArrow(uid, 15, ns.lastTarget and ns.lastTarget.name or "Waypoint")
+		end)
+	end
+end
+
 -- clearDist (optional): yards at which TomTom auto-clears the waypoint on arrival
 -- (default 15). Pass 0 to keep the arrow on the target until something replaces it
 -- — used by the treasure route so the arrow stays on an urn while you fight/loot
@@ -696,13 +708,17 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		})
 		if uid and _G.TomTom.SetCrazyArrow and not skipCrazyArrow then
 			_G.TomTom:SetCrazyArrow(uid, 15, title)
+			ns._mhCrazyArrowUid = uid -- remembered so a route advance can re-arm it
 		end
-		-- Backup: voor een doel op een ANDER continent kan TomTom's pijl geen richting
-		-- tonen tot je daar bent. Zet er dan óók een Blizzard-waypoint + SuperTrack bij;
-		-- die in-game pijl wérkt wel cross-continent en loodst je naar de portal, waarna
-		-- TomTom het lokaal overneemt. Alleen voor de hoofd-route (niet bulk-pins).
+		-- Backup: TomTom's crazy arrow can't point at a target it can't resolve - a
+		-- different continent (until you're there) OR a sub-area map that doesn't
+		-- accept a waypoint (e.g. Slayer's Rise 2444). In those cases add a Blizzard
+		-- waypoint + SuperTrack too; SetBlizzardUserWaypoint resolves a sub-area up to
+		-- a waypointable parent. Only for the main route (not bulk pins).
+		local subArea = C_Map and C_Map.CanSetUserWaypointOnMap
+			and not C_Map.CanSetUserWaypointOnMap(targetMap)
 		if not skipCrazyArrow and ns.SetBlizzardUserWaypoint
-			and ns.MHIsCrossContinentFromPlayer(targetMap, xPct, yPct) then
+			and (ns.MHIsCrossContinentFromPlayer(targetMap, xPct, yPct) or subArea) then
 			ns.SetBlizzardUserWaypoint(targetMap, xPct, yPct)
 		end
 	elseif ns.SetBlizzardUserWaypoint then

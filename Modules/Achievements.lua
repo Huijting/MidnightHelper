@@ -587,6 +587,12 @@ local function IssueRoute(entry, firstTime, silent)
 		end
 		ArmTreasureToast(first)
 	end
+	-- On an advance you're usually standing on the treasure you just looted, so
+	-- TomTom's crazy arrow can stay in its "arrived" state; re-arm it shortly after
+	-- on the new target so the big arrow re-points without waiting for you to move.
+	if not firstTime and not silent and C_Timer and C_Timer.After and ns.ReassertCrazyArrow then
+		C_Timer.After(0.35, ns.ReassertCrazyArrow)
+	end
 end
 
 local function Advance()
