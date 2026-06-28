@@ -97,10 +97,12 @@ ns.ACHIEVEMENT_TREASURES = {
 					{ name = "Sealing Orb 3", mapID = 2437, x = 26.09, y = 80.74, quest = 93916 },
 					{ name = "Sealing Orb 4", mapID = 2437, x = 23.95, y = 78.95, quest = 93917 },
 				} },
-			{ criteria = 111857, mapID = 2437, x = 20.84, y = 66.54, name = "Bait and Tackle", quest = 90795 },
+			{ criteria = 111857, mapID = 2437, x = 20.84, y = 66.54, name = "Bait and Tackle", quest = 90795,
+				note = "In the back of a small cave (entrance ~21.1, 67.1)." },
 			{ criteria = 111858, mapID = 2437, x = 41.99, y = 47.79, name = "Burrow Bounty", quest = 90796,
 				note = "In a small cave." },
-			{ criteria = 111859, mapID = 2437, x = 52.32, y = 65.99, name = "Mrruk's Mangy Trove", quest = 90797 },
+			{ criteria = 111859, mapID = 2437, x = 52.32, y = 65.99, name = "Mrruk's Mangy Trove", quest = 90797,
+				note = "Guarded by the miniboss Mrruk the Musclefin - defeat it first, then loot the trove." },
 			{ criteria = 111860, mapID = 2437, x = 40.48, y = 35.95, name = "Secret Formula", quest = 90798 },
 			{ criteria = 111861, mapID = 2437, x = 42.64, y = 52.43, name = "Abandoned Nest", quest = 90799 },
 		},
@@ -112,7 +114,7 @@ ns.ACHIEVEMENT_TREASURES = {
 		-- treasures we can place; the achievement may list one more.
 		nodes = {
 			{ criteria = 111863, mapID = 2405, x = 49.94, y = 79.36, name = "Final Clutch of Predaxas", quest = 93237,
-				note = "In a small cave (entrance ~48.96, 78.33)." },
+				note = "In a small cave (entrance ~48.96, 78.33). Inside you get the Disruptive Ozone debuff (no spells/abilities) - cross the electrified egg clutch without touching the glowing ground circles to reach the chest." },
 			{ criteria = 111864, mapID = 2405, x = 25.76, y = 67.28, name = "Void-Shielded Tomb", quest = 92414,
 				note = "Requires level 90. Drink the Potion of Dissociation on the nearby table, then run to the opposite building, grab the Key of Fused Darkness and unlock the chest.",
 				prereqs = {
@@ -122,8 +124,8 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111866, mapID = 2405, x = 64.53, y = 75.47, name = "Bloody Sack", quest = 93431,
 				note = "Collect Dripping Meat from nearby bone piles to feed the Forgotten Oubliette." },
 			{ criteria = 111867, mapID = 2405, x = 53.36, y = 42.66, name = "Malignant Chest", quest = 93840,
-				orderedPrereqs = true, -- the nodes MUST be activated 1 -> 2 -> 3 -> 4
-				note = "Enter the cave at 53.21, 44.19, then activate the 4 Malignant Nodes IN ORDER (1 -> 2 -> 3 -> 4) - any other order fails - to make the chest appear.",
+				orderedPrereqs = true, -- only one node is active at a time; route them in sequence
+				note = "Enter the cave at 53.21, 44.19. Only one Malignant Node is active at a time - activate them in turn (1 -> 2 -> 3 -> 4) until the chest appears.",
 				prereqs = {
 					{ name = "Cave entrance", mapID = 2405, x = 53.21, y = 44.19 },
 					{ name = "Malignant Node 1", mapID = 2405, x = 53.48, y = 43.23, quest = 93812 },
@@ -131,10 +133,13 @@ ns.ACHIEVEMENT_TREASURES = {
 					{ name = "Malignant Node 3", mapID = 2405, x = 53.53, y = 43.91, quest = 93814 },
 					{ name = "Malignant Node 4", mapID = 2405, x = 53.23, y = 42.68, quest = 93815 },
 				} },
-			{ criteria = 111868, mapID = 2444, x = 53.13, y = 32.28, name = "Stellar Stash", quest = 93996,
-				note = "In the Slayer's Rise sub-area." },
+			{ criteria = 111868, mapID = 2444, x = 53.18, y = 32.21, name = "Stellar Stash", quest = 93996,
+				note = "In Slayer's Rise: click the cave door at 52.21, 31.16 to open it, then head in keeping right to ~53.18, 32.21 and click/pull it 3 times to make the stash appear.",
+				prereqs = {
+					{ name = "Cave door (click to open)", mapID = 2444, x = 52.21, y = 31.16 },
+				} },
 			{ criteria = 111869, mapID = 2405, x = 47.93, y = 78.51, name = "Forgotten Researcher's Cache", quest = 94454,
-				note = "Inside a cave (Lair of Predaxas); enter near 47.93, 78.51." },
+				note = "Inside a cave (Lair of Predaxas, enter near 47.93, 78.51). A Low Gravity debuff lets you jump high - descend the cave avoiding the ground effects, then jump up the rocks to the platform to reach it." },
 			{ criteria = 111870, mapID = 2444, x = 49.05, y = 20.12, name = "Scout's Pack", quest = 94387,
 				note = "In the Slayer's Rise sub-area." },
 			{ criteria = 111871, mapID = 2405, x = 55.37, y = 75.42, name = "Embedded Spear", quest = 93553 },
