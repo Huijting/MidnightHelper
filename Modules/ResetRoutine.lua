@@ -30,7 +30,7 @@ local HUB_MAP, HUB_X, HUB_Y = 2393, 48.2, 49.6
 -- Great Vault chest: Silvermoon bank, neutral wing. Same coordinate as the
 -- VaultReminder popup waypoint (GREAT_VAULT_* in VaultReminder.lua) — keep in
 -- sync; backlog: centralize into one ns-level constant.
-local VAULT_MAP, VAULT_X, VAULT_Y = 2393, 49.93, 64.54
+local VAULT_MAP, VAULT_X, VAULT_Y = 2393, 50.36, 65.19
 -- Work Order station fallback (ns.PROF_ACADEMY.workOrderStation wins).
 local STATION_MAP, STATION_X, STATION_Y = 2393, 45.0, 55.6
 -- Weekly quest givers next to the vault — same spot as the city-guide

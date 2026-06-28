@@ -12,8 +12,8 @@ local popupDone = false
 local vaultPopup
 
 local GREAT_VAULT_MAP_ID = 2393
-local GREAT_VAULT_X = 49.93
-local GREAT_VAULT_Y = 64.54
+local GREAT_VAULT_X = 50.36
+local GREAT_VAULT_Y = 65.19
 
 local function GetVaultReminderSettings()
 	local ui = ns.db and ns.db.ui
