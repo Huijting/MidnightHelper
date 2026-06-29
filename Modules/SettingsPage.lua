@@ -662,7 +662,7 @@ function ns.BuildSettingsPanel(panel)
 
 	Label("SET_CAT_TABS_DESC", "GameFontHighlightSmall", COLOR_DIM, 14, 0, "tabs")
 	local betaBox = CreateFrame("Frame", nil, child)
-	betaBox:SetHeight(190)
+	betaBox:SetHeight(224)
 	local bAnchor = betaBox:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	bAnchor:SetPoint("TOPLEFT", betaBox, "TOPLEFT", 2, 0)
 	bAnchor:SetText("")
@@ -670,7 +670,7 @@ function ns.BuildSettingsPanel(panel)
 		ns.AttachBetaTabsSettings(betaBox, bAnchor, "OVERLAY", betaBox)
 	end
 	ui.betaBox = betaBox
-	push(betaBox, 16, 0, { mode = "tabs", h = 190 })
+	push(betaBox, 16, 0, { mode = "tabs", h = 224 }) -- contains label + 6 checkboxes (was 190, clipped Academy into the next section)
 
 	-- Per-achievement visibility for the Achievements tab. A checkbox per tracked
 	-- achievement (checked = shown). Hidden ones stay tracked/routable — this just
