@@ -219,8 +219,8 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111774, mapID = 2437, x = 55.13, y = 17.62, name = "Tablet of Jan'alai", quest = 94631 },
 			{ criteria = 111775, mapID = 2437, x = 30.17, y = 84.66, name = "Tablet of Nalorakk", quest = 94632,
 				note = "In a cave (entrance ~31.3, 84.0)." },
-			-- criteria inferred from the sequential gap (verify in-game); coord from Method.
-			{ criteria = 111776, mapID = 2437, x = 37.52, y = 26.67, name = "Tablet of the Ruling Family" },
+			-- TODO: "The Rulers of Zul'Aman" (reworked from Tablet of the Ruling Family
+			-- in 12.0.5, ~37.52/26.67) — need its current criteria ID before tracking it.
 			{ criteria = 111777, mapID = 2437, x = 39.26, y = 44.72, name = "Tablet of Kulzi", quest = 94673 },
 			{ criteria = 111778, mapID = 2437, x = 52.92, y = 32.12, name = "Tablet of Filo", quest = 94674 },
 			-- Harandar
@@ -228,8 +228,8 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111824, mapID = 2413, x = 33.33, y = 60.84, name = "Ancient Runestone", quest = 93556 },
 			{ criteria = 111825, mapID = 2413, x = 72.44, y = 38.09, name = "Derelict Mural", quest = 93557 },
 			{ criteria = 111826, mapID = 2413, x = 68.21, y = 23.79, name = "Forgotten Mural", quest = 93558 },
-			-- criteria inferred from the sequential gap (verify in-game); coord from Method.
-			{ criteria = 111827, mapID = 2413, x = 47.61, y = 47.27, name = "A Frayed Scroll" },
+			-- TODO: "A Frayed Scroll" (Method: ~47.61/47.27) — need its current criteria
+			-- ID before tracking it (inferred 111827 was unverified).
 			-- Voidstorm
 			{ criteria = 111834, mapID = 2405, x = 63.42, y = 78.22, name = "Void Armor", quest = 94389 },
 			{ criteria = 111835, mapID = 2405, x = 50.32, y = 87.68, name = "Ancient Tablet", quest = 94394 },
