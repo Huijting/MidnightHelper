@@ -172,6 +172,7 @@ ns._mhLocales.nlNL = {
 	ACH_PEAKS_ZULAMAN = "Zul'Aman: De Hoogste Pieken",
 	ACH_PEAKS_HARANDAR = "Harandar: De Hoogste Pieken",
 	ACH_PEAKS_VOIDSTORM = "Voidstorm: De Hoogste Pieken",
+	ACH_LORE_HUNTER = "Midnight Lore Hunter",
 	TAB_RITUAL = "Ritueel",
 	HOME_SECTION_RITUAL = "Ritual Sites",
 	HOME_RITUAL_ACTIVE_FMT = "Actief: %s",

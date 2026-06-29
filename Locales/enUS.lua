@@ -174,6 +174,7 @@ ns._mhLocales.enUS = {
 	ACH_PEAKS_ZULAMAN = "Zul'Aman: The Highest Peaks",
 	ACH_PEAKS_HARANDAR = "Harandar: The Highest Peaks",
 	ACH_PEAKS_VOIDSTORM = "Voidstorm: The Highest Peaks",
+	ACH_LORE_HUNTER = "Midnight Lore Hunter",
 	TAB_RITUAL = "Ritual Sites",
 	HOME_SECTION_RITUAL = "Ritual Sites",
 	HOME_RITUAL_ACTIVE_FMT = "Active: %s",

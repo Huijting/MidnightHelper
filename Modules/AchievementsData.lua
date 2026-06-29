@@ -200,5 +200,42 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111592, mapID = 2405, x = 37.81, y = 54.97, name = "Telescope 5", quest = 94555 },
 		},
 	},
-	-- TODO (next slice): Midnight Lore Hunter (LoreObject nodes across all zones).
+	-- Midnight Lore Hunter: one account-wide achievement; lore objects scattered
+	-- across all four zones (read each for ~250 renown with that zone's faction).
+	{
+		achievementID = 62104, -- Midnight Lore Hunter
+		nameKey = "ACH_LORE_HUNTER",
+		nodes = {
+			-- Eversong Woods (+ Silvermoon City)
+			{ criteria = 111828, mapID = 2395, x = 47.95, y = 88.20, name = "Memorial Plaque", quest = 91841 },
+			{ criteria = 111829, mapID = 2395, x = 37.60, y = 13.78, name = "Shrine of Dath'remar", quest = 93563 },
+			{ criteria = 111830, mapID = 2395, x = 50.52, y = 43.47, name = "Mirveda's Notes", quest = 93564 },
+			{ criteria = 111831, mapID = 2395, x = 36.05, y = 72.51, name = "Dar'khan's Notes", quest = 93565 },
+			{ criteria = 111832, mapID = 2395, x = 57.81, y = 50.92, name = "Hawkstrider Husbandry Manual", quest = 93562 },
+			{ criteria = 111833, mapID = 2393, x = 38.10, y = 76.99, name = "Unfinished Sheet Music", quest = 93570 },
+			-- Zul'Aman
+			{ criteria = 111772, mapID = 2437, x = 53.10, y = 82.11, name = "Tablet of Akil'zon", quest = 94627 },
+			{ criteria = 111773, mapID = 2437, x = 32.08, y = 31.65, name = "Tablet of Halazzi", quest = 94628 },
+			{ criteria = 111774, mapID = 2437, x = 55.13, y = 17.62, name = "Tablet of Jan'alai", quest = 94631 },
+			{ criteria = 111775, mapID = 2437, x = 30.17, y = 84.66, name = "Tablet of Nalorakk", quest = 94632,
+				note = "In a cave (entrance ~31.3, 84.0)." },
+			-- criteria inferred from the sequential gap (verify in-game); coord from Method.
+			{ criteria = 111776, mapID = 2437, x = 37.52, y = 26.67, name = "Tablet of the Ruling Family" },
+			{ criteria = 111777, mapID = 2437, x = 39.26, y = 44.72, name = "Tablet of Kulzi", quest = 94673 },
+			{ criteria = 111778, mapID = 2437, x = 52.92, y = 32.12, name = "Tablet of Filo", quest = 94674 },
+			-- Harandar
+			{ criteria = 111823, mapID = 2413, x = 55.66, y = 54.02, name = "Tarnished Mural", quest = 93554 },
+			{ criteria = 111824, mapID = 2413, x = 33.33, y = 60.84, name = "Ancient Runestone", quest = 93556 },
+			{ criteria = 111825, mapID = 2413, x = 72.44, y = 38.09, name = "Derelict Mural", quest = 93557 },
+			{ criteria = 111826, mapID = 2413, x = 68.21, y = 23.79, name = "Forgotten Mural", quest = 93558 },
+			-- criteria inferred from the sequential gap (verify in-game); coord from Method.
+			{ criteria = 111827, mapID = 2413, x = 47.61, y = 47.27, name = "A Frayed Scroll" },
+			-- Voidstorm
+			{ criteria = 111834, mapID = 2405, x = 63.42, y = 78.22, name = "Void Armor", quest = 94389 },
+			{ criteria = 111835, mapID = 2405, x = 50.32, y = 87.68, name = "Ancient Tablet", quest = 94394 },
+			{ criteria = 111836, mapID = 2405, x = 40.48, y = 58.63, name = "Abandoned Telescope", quest = 94395 },
+			{ criteria = 111837, mapID = 2405, x = 60.38, y = 45.50, name = "Tainted Page", quest = 94397 },
+			{ criteria = 111838, mapID = 2405, x = 27.83, y = 54.02, name = "Shadowgraft Harness", quest = 94398 },
+		},
+	},
 }
