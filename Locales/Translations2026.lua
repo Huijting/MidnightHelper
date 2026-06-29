@@ -771,6 +771,9 @@ fill("deDE", {
 	ACH_HIDE_PROMPT = "%s ist abgeschlossen! Aus dem Erfolge-Tab ausblenden?",
 	ACH_HIDE_BTN_HIDE = "Ausblenden",
 	ACH_HIDE_BTN_KEEP = "Weiter anzeigen",
+	ACH_RENOWN_FMT = "Ruf: %s (Stufe %d)",
+	ACH_RENOWN_LOCKED_FMT = "Ruf: %s (noch nicht freigeschaltet)",
+	ACH_RENOWN_MULTI = "Ruf: alle vier Zonenfraktionen",
 	ACH_TREASURE_EVERSONG = "Schätze des Immersangwaldes",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Verfolge Midnight-Erfolge und route zu den Sammelobjekten, die dir noch fehlen. Jeder Erfolg zeigt deinen Fortschritt und eine Checkliste; klicke auf Route, um den Pfeil zum nächsten fehlenden zu schicken — er springt automatisch weiter, während du plünderst.",
 })
@@ -787,6 +790,9 @@ fill("frFR", {
 	ACH_HIDE_PROMPT = "%s est terminé ! Le masquer de l'onglet Hauts faits ?",
 	ACH_HIDE_BTN_HIDE = "Masquer",
 	ACH_HIDE_BTN_KEEP = "Continuer d'afficher",
+	ACH_RENOWN_FMT = "Renommée : %s (niveau %d)",
+	ACH_RENOWN_LOCKED_FMT = "Renommée : %s (pas encore débloqué)",
+	ACH_RENOWN_MULTI = "Renommée : les quatre factions de zone",
 	ACH_TREASURE_EVERSONG = "Trésors du bois des Chants éternels",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Suivez les hauts faits de Midnight et tracez un itinéraire vers les objets à collectionner qu'il vous manque. Chaque haut fait affiche votre progression et une liste ; cliquez sur Itinéraire pour envoyer la flèche vers le plus proche manquant — elle avance automatiquement à mesure que vous récupérez les objets.",
 })
@@ -803,6 +809,9 @@ fill("esES", {
 	ACH_HIDE_PROMPT = "¡%s está completo! ¿Ocultarlo de la pestaña de logros?",
 	ACH_HIDE_BTN_HIDE = "Ocultar",
 	ACH_HIDE_BTN_KEEP = "Seguir mostrando",
+	ACH_RENOWN_FMT = "Renombre: %s (nivel %d)",
+	ACH_RENOWN_LOCKED_FMT = "Renombre: %s (aún no desbloqueado)",
+	ACH_RENOWN_MULTI = "Renombre: las cuatro facciones de zona",
 	ACH_TREASURE_EVERSONG = "Tesoros del Bosque Canción Eterna",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Sigue los logros de Midnight y traza una ruta a los coleccionables que aún te faltan. Cada logro muestra tu progreso y una lista; pulsa Ruta para enviar la flecha al más cercano que falte — avanza automáticamente a medida que los recoges.",
 })
@@ -819,6 +828,9 @@ fill("ptBR", {
 	ACH_HIDE_PROMPT = "%s está completa! Ocultar da aba de conquistas?",
 	ACH_HIDE_BTN_HIDE = "Ocultar",
 	ACH_HIDE_BTN_KEEP = "Continuar exibindo",
+	ACH_RENOWN_FMT = "Renome: %s (nível %d)",
+	ACH_RENOWN_LOCKED_FMT = "Renome: %s (ainda não desbloqueado)",
+	ACH_RENOWN_MULTI = "Renome: as quatro facções de zona",
 	ACH_TREASURE_EVERSONG = "Tesouros da Floresta de Cantéreno",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Acompanhe as conquistas de Midnight e trace uma rota até os colecionáveis que ainda faltam. Cada conquista mostra seu progresso e uma lista; clique em Rota para enviar a seta ao mais próximo que falta — ela avança automaticamente conforme você coleta.",
 })
@@ -835,6 +847,9 @@ fill("itIT", {
 	ACH_HIDE_PROMPT = "%s è completata! Nasconderla dalla scheda Imprese?",
 	ACH_HIDE_BTN_HIDE = "Nascondi",
 	ACH_HIDE_BTN_KEEP = "Continua a mostrare",
+	ACH_RENOWN_FMT = "Fama: %s (livello %d)",
+	ACH_RENOWN_LOCKED_FMT = "Fama: %s (non ancora sbloccato)",
+	ACH_RENOWN_MULTI = "Fama: tutte e quattro le fazioni di zona",
 	ACH_TREASURE_EVERSONG = "Tesori del Bosco dei Canti",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Tieni traccia delle imprese di Midnight e traccia un percorso verso gli oggetti da collezione che ti mancano ancora. Ogni impresa mostra i tuoi progressi e una lista; premi Percorso per inviare la freccia al più vicino mancante — avanza automaticamente mentre raccogli.",
 })

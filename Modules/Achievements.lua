@@ -94,6 +94,30 @@ end
 -- live (locale-following) achievement name.
 ns.AchievementDisplayName = AchievementName
 
+-- Renown line for a card: which faction this achievement feeds, plus your live
+-- renown level. Faction NAMES come from the API (locale-safe); we only store the
+-- major-faction ID per entry. entry.factionMulti = spans all four zone factions
+-- (Lore Hunter). Returns nil when there's nothing to show.
+local function RenownLineText(entry)
+	if entry.factionMulti then
+		return ns.L and ns:L("ACH_RENOWN_MULTI") or nil
+	end
+	local fid = entry.faction
+	if not fid or not (C_MajorFactions and C_MajorFactions.GetMajorFactionData) then
+		return nil
+	end
+	local ok, d = pcall(C_MajorFactions.GetMajorFactionData, fid)
+	if not ok or type(d) ~= "table" then
+		return nil
+	end
+	local name = d.name or "?"
+	if d.isUnlocked == false then
+		return ((ns.L and ns:L("ACH_RENOWN_LOCKED_FMT")) or "Renown: %s"):format(name)
+	end
+	local lvl = math.floor(tonumber(d.renownLevel) or 0)
+	return ((ns.L and ns:L("ACH_RENOWN_FMT")) or "Renown: %s (%d)"):format(name, lvl)
+end
+
 -- Map coords -> world (yard) coords: isotropic and comparable ACROSS maps,
 -- unlike raw 0..1 map coords (whose x/y scales differ per zone). Same approach
 -- as the Rares nearest-route, so distances are correct wherever you stand.
@@ -856,6 +880,9 @@ local function LayoutAchPanel()
 		if ns.IsAchievementHidden(card.entry.achievementID) then
 			-- Hidden in Settings: fold the whole card (header + rows) away.
 			card.header:Hide()
+			if card.renown then
+				card.renown:Hide()
+			end
 			for _, row in ipairs(card.rows) do
 				row.frame:Hide()
 			end
@@ -868,6 +895,16 @@ local function LayoutAchPanel()
 			card.arrow:SetText(card.expanded and "-" or "+")
 			y = y - 28
 			if card.expanded then
+				-- Renown line first (faction + level), then the treasure checklist.
+				if card.renown and card.renownText and card.renownText ~= "" then
+					card.renown:ClearAllPoints()
+					card.renown:SetPoint("TOPLEFT", st.child, "TOPLEFT", 20, y)
+					card.renown:SetWidth((w > 0 and w - 28) or 340)
+					card.renown:Show()
+					y = y - 18
+				elseif card.renown then
+					card.renown:Hide()
+				end
 				for _, row in ipairs(card.rows) do
 					row.frame:ClearAllPoints()
 					row.frame:SetPoint("TOPLEFT", st.child, "TOPLEFT", 20, y)
@@ -877,6 +914,9 @@ local function LayoutAchPanel()
 				end
 				y = y - 8
 			else
+				if card.renown then
+					card.renown:Hide()
+				end
 				for _, row in ipairs(card.rows) do
 					row.frame:Hide()
 				end
@@ -916,6 +956,11 @@ local function RefreshAchPanel()
 		end
 		local col = complete and "ff66dd66" or "ffffcc00"
 		card.progress:SetText(("|c%s%d/%d|r"):format(col, done, total))
+		-- Renown line (faction + live level); LayoutAchPanel shows it when expanded.
+		card.renownText = RenownLineText(card.entry)
+		if card.renown then
+			card.renown:SetText(card.renownText or "")
+		end
 		card.routeBtn:SetText(complete and TL("ACH_TAB_DONE") or TL("ACH_TAB_ROUTE"))
 		if complete then
 			card.routeBtn:Disable()
@@ -992,6 +1037,12 @@ local function BuildAchCard(st, entry)
 		card.expanded = not card.expanded
 		LayoutAchPanel()
 	end)
+
+	-- Renown line (faction + your level) shown at the top of the expanded checklist.
+	card.renown = st.child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	card.renown:SetJustifyH("LEFT")
+	card.renown:SetTextColor(0.95, 0.8, 0.35) -- soft gold
+	card.renown:Hide()
 
 	for _, node in ipairs(entry.nodes or {}) do
 		local row = { node = node }

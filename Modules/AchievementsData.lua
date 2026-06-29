@@ -20,6 +20,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	{
 		achievementID = 61960, -- Treasures of Eversong Woods
 		nameKey = "ACH_TREASURE_EVERSONG", -- localized title (falls back to API name)
+		faction = 2710, -- Silvermoon Court (renown), verified via GetMajorFactionIDs dump
 		nodes = {
 			{ criteria = 111471, mapID = 2393, x = 24.38, y = 69.58, name = "Rookery Cache", quest = 93967,
 				note = "On the floating Sunwing Rookery platform (Falconwing Square): buy Tasty Meat from Farstrider Aerieminder (by the balcony), then drop it next to the Mischievous Chick opposite the chest to get the key. Reward: Sunwing Hatchling pet." },
@@ -47,6 +48,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	{
 		achievementID = 61263, -- Treasures of Harandar
 		nameKey = "ACH_TREASURE_HARANDAR",
+		faction = 2704, -- Hara'ti (renown)
 		nodes = {
 			{ criteria = 109033, mapID = 2413, x = 71.68, y = 31.00, name = "Failed Shroom Jumper's Satchel", quest = 92424 },
 			{ criteria = 109034, mapID = 2413, x = 47.06, y = 50.25, name = "Burning Branch of the World Tree", quest = 92426 },
@@ -80,6 +82,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	{
 		achievementID = 62125, -- Treasures of Zul'Aman
 		nameKey = "ACH_TREASURE_ZULAMAN",
+		faction = 2696, -- Amani Tribe (renown)
 		nodes = {
 			{ criteria = 111855, mapID = 2437, x = 46.83, y = 81.86, name = "Honored Warrior's Cache", quest = 90793,
 				note = "Fill the cache by looting the 4 Honored Warrior's Urns around Zul'Aman; each spawns a Chosen miniboss that drops the token, then return to the cache.",
@@ -110,6 +113,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	{
 		achievementID = 62126, -- Treasures of Voidstorm
 		nameKey = "ACH_TREASURE_VOIDSTORM",
+		faction = 2699, -- The Singularity (renown)
 		-- Verified in-game (criteria dump): the achievement has exactly 13 criteria,
 		-- 111863-111864 then 111866-111876. There is no 111865; the list is complete.
 		nodes = {
@@ -162,6 +166,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	{
 		achievementID = 62288, -- Eversong Woods: The Highest Peaks
 		nameKey = "ACH_PEAKS_EVERSONG",
+		faction = 2710, -- Silvermoon Court (renown)
 		nodes = {
 			{ mapID = 2393, x = 20.22, y = 79.61, name = "Telescope 1", quest = 94536 },
 			{ mapID = 2395, x = 40.41, y = 10.10, name = "Telescope 2", quest = 94537 },
@@ -173,6 +178,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	{
 		achievementID = 62289, -- Zul'Aman: The Highest Peaks
 		nameKey = "ACH_PEAKS_ZULAMAN",
+		faction = 2696, -- Amani Tribe (renown)
 		nodes = {
 			{ mapID = 2437, x = 27.79, y = 70.01, name = "Telescope 1", quest = 94541 },
 			{ mapID = 2437, x = 53.01, y = 82.02, name = "Telescope 2", quest = 94542 },
@@ -184,6 +190,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	{
 		achievementID = 62290, -- Harandar: The Highest Peaks
 		nameKey = "ACH_PEAKS_HARANDAR",
+		faction = 2704, -- Hara'ti (renown)
 		nodes = {
 			{ mapID = 2413, x = 69.17, y = 46.38, name = "Telescope 1", quest = 94546 },
 			{ mapID = 2413, x = 68.16, y = 25.97, name = "Telescope 2", quest = 94547 },
@@ -195,6 +202,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	{
 		achievementID = 62291, -- Voidstorm: The Highest Peaks
 		nameKey = "ACH_PEAKS_VOIDSTORM",
+		faction = 2699, -- The Singularity (renown)
 		nodes = {
 			{ mapID = 2405, x = 39.68, y = 61.16, name = "Telescope 1", quest = 94551 },
 			{ mapID = 2405, x = 36.50, y = 44.30, name = "Telescope 2", quest = 94552 },
@@ -208,6 +216,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	{
 		achievementID = 62104, -- Midnight Lore Hunter
 		nameKey = "ACH_LORE_HUNTER",
+		factionMulti = true, -- lore objects span all four zone factions
 		nodes = {
 			-- Eversong Woods (+ Silvermoon City)
 			{ criteria = 111828, mapID = 2395, x = 47.95, y = 88.20, name = "Memorial Plaque", quest = 91841 },
