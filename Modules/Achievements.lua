@@ -118,6 +118,24 @@ local function RenownLineText(entry)
 	return ((ns.L and ns:L("ACH_RENOWN_FMT")) or "Renown: %s (%d)"):format(name, lvl)
 end
 
+-- Open Blizzard's achievement window straight to one achievement (loads the UI
+-- addon on demand). Used by Ctrl-click on a card.
+function ns.OpenAchievementWindow(achievementID)
+	if not achievementID then
+		return
+	end
+	if _G.OpenAchievementFrameToAchievement then
+		_G.OpenAchievementFrameToAchievement(achievementID)
+		return
+	end
+	if _G.UIParentLoadAddOn then
+		_G.UIParentLoadAddOn("Blizzard_AchievementUI")
+	end
+	if _G.AchievementFrame and _G.ShowUIPanel and not _G.AchievementFrame:IsShown() then
+		_G.ShowUIPanel(_G.AchievementFrame)
+	end
+end
+
 -- Map coords -> world (yard) coords: isotropic and comparable ACROSS maps,
 -- unlike raw 0..1 map coords (whose x/y scales differ per zone). Same approach
 -- as the Rares nearest-route, so distances are correct wherever you stand.
@@ -1034,8 +1052,37 @@ local function BuildAchCard(st, entry)
 	card.routeBtn = routeBtn
 
 	header:SetScript("OnClick", function()
+		if IsShiftKeyDown and IsShiftKeyDown() then
+			-- Shift-click: drop the achievement link into chat (standard WoW idiom).
+			local link = GetAchievementLink and GetAchievementLink(entry.achievementID)
+			if link then
+				if not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) and ChatFrame_OpenChat then
+					ChatFrame_OpenChat(link)
+				end
+			end
+			return
+		end
+		if IsControlKeyDown and IsControlKeyDown() then
+			ns.OpenAchievementWindow(entry.achievementID) -- Ctrl-click: open the panel
+			return
+		end
 		card.expanded = not card.expanded
 		LayoutAchPanel()
+	end)
+	header:SetScript("OnEnter", function(self)
+		if not GameTooltip then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetText(AchievementName(entry), 1, 0.82, 0.2)
+		GameTooltip:AddLine(TL("ACH_TAB_HINT_LINK"), 0.8, 0.8, 0.8)
+		GameTooltip:AddLine(TL("ACH_TAB_HINT_OPEN"), 0.8, 0.8, 0.8)
+		GameTooltip:Show()
+	end)
+	header:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
 	end)
 
 	-- Renown line (faction + your level) shown at the top of the expanded checklist.
