@@ -17,6 +17,36 @@ local function Prefix()
 	return ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
 end
 
+-- Per-achievement visibility (account-wide, saved). A hidden achievement stays
+-- fully tracked and routable — it's just dropped from the Achievements-tab list.
+-- achHidePrompted remembers which ones we've already offered to hide, so the
+-- "all done — hide it?" popup never nags twice.
+local function AchVisDB()
+	if not ns.db then
+		return nil
+	end
+	ns.db.ui = ns.db.ui or {}
+	ns.db.ui.achHidden = ns.db.ui.achHidden or {}
+	ns.db.ui.achHidePrompted = ns.db.ui.achHidePrompted or {}
+	return ns.db.ui
+end
+
+function ns.IsAchievementHidden(achievementID)
+	local db = AchVisDB()
+	return (db and db.achHidden[achievementID]) and true or false
+end
+
+function ns.SetAchievementHidden(achievementID, hidden)
+	local db = AchVisDB()
+	if not db then
+		return
+	end
+	db.achHidden[achievementID] = hidden and true or nil
+	if ns.RefreshAchievementsPanel then
+		ns.RefreshAchievementsPanel()
+	end
+end
+
 -- A treasure is "done" per its achievement CRITERION (authoritative — matches
 -- what WoW counts toward the achievement), falling back to the treasure's quest
 -- flag only if the criterion API is unavailable.
@@ -59,6 +89,10 @@ local function AchievementName(entry)
 	end
 	return "Treasures"
 end
+
+-- Public alias so the Settings tab can label its per-achievement toggles with the
+-- live (locale-following) achievement name.
+ns.AchievementDisplayName = AchievementName
 
 -- Map coords -> world (yard) coords: isotropic and comparable ACROSS maps,
 -- unlike raw 0..1 map coords (whose x/y scales differ per zone). Same approach
@@ -817,26 +851,48 @@ local function LayoutAchPanel()
 	end
 	local headerW = (w > 0 and w - 8) or 360
 	local y = -2
+	local shown = 0
 	for _, card in ipairs(st.cards) do
-		card.header:ClearAllPoints()
-		card.header:SetPoint("TOPLEFT", st.child, "TOPLEFT", 0, y)
-		card.header:SetWidth(headerW)
-		card.arrow:SetText(card.expanded and "-" or "+")
-		y = y - 28
-		if card.expanded then
-			for _, row in ipairs(card.rows) do
-				row.frame:ClearAllPoints()
-				row.frame:SetPoint("TOPLEFT", st.child, "TOPLEFT", 20, y)
-				row.frame:SetWidth((w > 0 and w - 28) or 340)
-				row.frame:Show()
-				y = y - 22
-			end
-			y = y - 8
-		else
+		if ns.IsAchievementHidden(card.entry.achievementID) then
+			-- Hidden in Settings: fold the whole card (header + rows) away.
+			card.header:Hide()
 			for _, row in ipairs(card.rows) do
 				row.frame:Hide()
 			end
-			y = y - 4
+		else
+			shown = shown + 1
+			card.header:Show()
+			card.header:ClearAllPoints()
+			card.header:SetPoint("TOPLEFT", st.child, "TOPLEFT", 0, y)
+			card.header:SetWidth(headerW)
+			card.arrow:SetText(card.expanded and "-" or "+")
+			y = y - 28
+			if card.expanded then
+				for _, row in ipairs(card.rows) do
+					row.frame:ClearAllPoints()
+					row.frame:SetPoint("TOPLEFT", st.child, "TOPLEFT", 20, y)
+					row.frame:SetWidth((w > 0 and w - 28) or 340)
+					row.frame:Show()
+					y = y - 22
+				end
+				y = y - 8
+			else
+				for _, row in ipairs(card.rows) do
+					row.frame:Hide()
+				end
+				y = y - 4
+			end
+		end
+	end
+	-- Friendly hint if the user hid everything (so the tab isn't just blank).
+	if st.allHidden then
+		if shown == 0 and #st.cards > 0 then
+			st.allHidden:ClearAllPoints()
+			st.allHidden:SetPoint("TOPLEFT", st.child, "TOPLEFT", 4, -8)
+			st.allHidden:Show()
+			y = y - 28
+		else
+			st.allHidden:Hide()
 		end
 	end
 	st.child:SetHeight(math.max(10, -y + 10))
@@ -880,6 +936,11 @@ local function RefreshAchPanel()
 	LayoutAchPanel()
 end
 
+-- Public refresh so Settings (visibility toggles) can re-render the tab live.
+function ns.RefreshAchievementsPanel()
+	RefreshAchPanel()
+end
+
 local function RelocalizeAchPanel()
 	local st = achPanelState
 	if not st then
@@ -890,6 +951,9 @@ local function RelocalizeAchPanel()
 	end
 	if st.empty then
 		st.empty:SetText(TL("ACH_TAB_EMPTY"))
+	end
+	if st.allHidden then
+		st.allHidden:SetText(TL("ACH_TAB_ALL_HIDDEN"))
 	end
 	RefreshAchPanel()
 end
@@ -1000,6 +1064,12 @@ function ns.BuildAchievementsPanel(panel)
 		for _, entry in ipairs(list) do
 			BuildAchCard(achPanelState, entry)
 		end
+		-- Shown only when every card is hidden via Settings (kept hidden otherwise).
+		local allHidden = child:CreateFontString(nil, "OVERLAY", "GameFontDisableLarge")
+		allHidden:SetJustifyH("LEFT")
+		allHidden:SetText(TL("ACH_TAB_ALL_HIDDEN"))
+		allHidden:Hide()
+		achPanelState.allHidden = allHidden
 	end
 
 	-- Live refresh when shown + on completion/quest events.
@@ -1027,6 +1097,60 @@ function ns.BuildAchievementsPanel(panel)
 	end
 
 	RefreshAchPanel()
+end
+
+--------------------------------------------------------------------------------
+-- "All done — hide it?" prompt. When you finish a tracked achievement we offer
+-- to fold its (now-completed) card away. Always-on (works even if you never
+-- opened the tab) and asked at most once per achievement.
+--------------------------------------------------------------------------------
+StaticPopupDialogs = StaticPopupDialogs or {}
+StaticPopupDialogs["MIDNIGHTHELPER_ACH_HIDE"] = {
+	text = "%s",
+	button1 = "Hide",
+	button2 = "Keep showing",
+	OnAccept = function(_, data)
+		if data and data.id and ns.SetAchievementHidden then
+			ns.SetAchievementHidden(data.id, true)
+		end
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3, -- avoid UI taint on the default popup slots
+}
+
+local function ShowAchHidePrompt(entry)
+	if not (entry and StaticPopup_Show) then
+		return
+	end
+	local db = AchVisDB()
+	local id = entry.achievementID
+	if not db or db.achHidden[id] or db.achHidePrompted[id] then
+		return -- already hidden, or we already asked once
+	end
+	db.achHidePrompted[id] = true
+	local dlg = StaticPopupDialogs["MIDNIGHTHELPER_ACH_HIDE"]
+	dlg.text = (ns.L and ns:L("ACH_HIDE_PROMPT")) or "%s is complete! Hide it?"
+	dlg.button1 = (ns.L and ns:L("ACH_HIDE_BTN_HIDE")) or "Hide"
+	dlg.button2 = (ns.L and ns:L("ACH_HIDE_BTN_KEEP")) or "Keep showing"
+	StaticPopup_Show("MIDNIGHTHELPER_ACH_HIDE", AchievementName(entry), nil, { id = id })
+end
+
+do
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("ACHIEVEMENT_EARNED")
+	f:SetScript("OnEvent", function(_, _, achID)
+		if not achID then
+			return
+		end
+		for _, entry in ipairs(ns.ACHIEVEMENT_TREASURES or {}) do
+			if entry.achievementID == achID then
+				ShowAchHidePrompt(entry)
+				return
+			end
+		end
+	end)
 end
 
 -- Pick the treasure achievement for the zone the player is standing in (so
@@ -1059,3 +1183,4 @@ function ns:RunAchievementSlashCommand(msg)
 	end
 	return false
 end
+-- end of Achievements module

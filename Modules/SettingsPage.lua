@@ -196,6 +196,7 @@ function ns.BuildSettingsPanel(panel)
 		toggles = {},
 		labels = {},
 		catBtns = {},
+		achToggles = {},
 	}
 
 	local function push(w, gapTop, indent, opts)
@@ -671,6 +672,30 @@ function ns.BuildSettingsPanel(panel)
 	ui.betaBox = betaBox
 	push(betaBox, 16, 0, { mode = "tabs", h = 190 })
 
+	-- Per-achievement visibility for the Achievements tab. A checkbox per tracked
+	-- achievement (checked = shown). Hidden ones stay tracked/routable — this just
+	-- folds their card away. Pairs with the "all done — hide it?" popup.
+	Label("SET_ACH_VIS_TITLE", "GameFontNormal", COLOR_ACCENT, 18, 0, "tabs")
+	Label("SET_ACH_VIS_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "tabs")
+	for _, entry in ipairs(ns.ACHIEVEMENT_TREASURES or {}) do
+		local id = entry.achievementID
+		local row = CreateFrame("Frame", nil, child)
+		row:SetHeight(24)
+		local cb = CreateFrame("CheckButton", nil, row, "UICheckButtonTemplate")
+		cb:SetPoint("LEFT", row, "LEFT", 0, 0)
+		cb:SetSize(24, 24)
+		cb:SetScript("OnClick", function(self)
+			if ns.SetAchievementHidden then
+				ns.SetAchievementHidden(id, not self:GetChecked())
+			end
+		end)
+		local lbl = MakeFS(row, "GameFontNormal", COLOR_SOFT)
+		lbl:SetPoint("LEFT", cb, "RIGHT", 4, 0)
+		lbl:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+		ui.achToggles[#ui.achToggles + 1] = { cb = cb, lbl = lbl, entry = entry }
+		push(row, 4, 0, { mode = "tabs", h = 24 })
+	end
+
 	-- Reset all MidnightHelper settings to defaults (was only on the old panel).
 	Label("SETTINGS_RESET_DEFAULTS", "GameFontNormal", COLOR_ACCENT, 16, 0, "advanced")
 	AddButtons("advanced", {
@@ -793,6 +818,16 @@ function ns.RefreshSettingsPanel()
 	-- Toggles syncen.
 	for _, t in ipairs(ui.toggles) do
 		t.cb:SetChecked(t.getFn() and true or false)
+	end
+
+	-- Achievement-zichtbaarheid: vinkje = getoond; label volgt de live (gelokaliseerde)
+	-- prestatienaam.
+	for _, t in ipairs(ui.achToggles or {}) do
+		local id = t.entry.achievementID
+		local hidden = ns.IsAchievementHidden and ns.IsAchievementHidden(id)
+		t.cb:SetChecked(not hidden)
+		local nm = ns.AchievementDisplayName and ns.AchievementDisplayName(t.entry)
+		t.lbl:SetText(nm or t.entry.nameKey or tostring(id))
 	end
 
 	-- Slider syncen (zonder OnValueChanged-feedback).
