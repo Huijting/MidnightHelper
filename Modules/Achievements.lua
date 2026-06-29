@@ -631,6 +631,63 @@ local function ScheduleAdvance()
 	end
 end
 
+-- Rare-detour safety net. The combat-end handler (PLAYER_REGEN_ENABLED) reclaims
+-- the arrow after you KILL a detour rare. But if the rare is already dead when you
+-- arrive (tagged by someone else / despawned), you never enter combat, so that
+-- event never fires and the "rare" owner token would stay stuck forever. This
+-- watcher notices that you've parked at the rare's spot, aren't fighting, and the
+-- arrow still belongs to the rare — then hands it back to our treasure route.
+local rareWatchTicker, rareIdleTicks
+local function StopRareWatch()
+	if rareWatchTicker then
+		rareWatchTicker:Cancel()
+		rareWatchTicker = nil
+	end
+	rareIdleTicks = 0
+end
+local function StartRareWatch()
+	if rareWatchTicker or not (C_Timer and C_Timer.NewTicker) then
+		return
+	end
+	rareIdleTicks = 0
+	rareWatchTicker = C_Timer.NewTicker(2, function()
+		if not activeEntry then
+			StopRareWatch()
+			return
+		end
+		if ns._mhRouteOwner ~= "rare" then
+			rareIdleTicks = 0
+			return -- arrow is ours (or free) — nothing to reclaim
+		end
+		if UnitAffectingCombat and UnitAffectingCombat("player") then
+			rareIdleTicks = 0 -- still fighting the rare: let combat-end reclaim it
+			return
+		end
+		local lt = ns.lastTarget
+		local near = false
+		if lt then
+			local pwx, pwy = PlayerWorld()
+			local rwx, rwy = NodeWorld(lt)
+			if pwx and rwx then
+				local dx, dy = pwx - rwx, pwy - rwy
+				near = (dx * dx + dy * dy) <= (60 * 60) -- within ~60 yd of the rare
+			end
+		end
+		if near then
+			rareIdleTicks = (rareIdleTicks or 0) + 1
+			if rareIdleTicks >= 2 then
+				-- ~4s parked at the rare's location without fighting: the rare is gone.
+				-- Reclaim the arrow for our route (Advance() picks it up on owner==nil).
+				rareIdleTicks = 0
+				ns._mhRouteOwner = nil
+				ScheduleAdvance()
+			end
+		else
+			rareIdleTicks = 0 -- still travelling toward the rare: don't reclaim yet
+		end
+	end)
+end
+
 -- On a zone change, refresh ONLY the travel assistant (next-leg portal/HS advice)
 -- via AddSmartTomTomWay's travelOnly mode — this never touches the waypoints, so
 -- TomTom's arrow keeps persisting. Without it you'd have to re-click the route
@@ -730,6 +787,7 @@ function ns.RouteAchievementTreasures(entry)
 	end
 	activeEntry = entry
 	EnsureAdvanceFrame()
+	StartRareWatch()
 	IssueRoute(entry, true)
 end
 
