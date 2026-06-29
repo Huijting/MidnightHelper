@@ -1237,7 +1237,9 @@ end
 -- to fold its (now-completed) card away. Always-on (works even if you never
 -- opened the tab) and asked at most once per achievement.
 --------------------------------------------------------------------------------
-StaticPopupDialogs = StaticPopupDialogs or {}
+-- Add our dialog by INDEXING the table — never reassign the StaticPopupDialogs
+-- global (StaticPopupDialogs = ...), as that taints the global and can later block
+-- protected calls such as SpellBookFrame:Show() via the AssistedCombat path.
 StaticPopupDialogs["MIDNIGHTHELPER_ACH_HIDE"] = {
 	text = "%s",
 	button1 = "Hide",
