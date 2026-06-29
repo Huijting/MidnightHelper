@@ -152,6 +152,53 @@ ns.ACHIEVEMENT_TREASURES = {
 				note = "In a small cave (entrance ~38.06, 68.77) - walk around it and head up to the left once inside." },
 		},
 	},
-	-- TODO (next slices): Midnight Lore Hunter (LoreObject nodes),
-	-- Midnight: The Highest Peaks (Telescope nodes).
+
+	-- The Highest Peaks: 5 telescopes per zone (grey flag markers on the minimap,
+	-- up on the peaks). Each interact plays a short cutscene and grants ~100 renown
+	-- with the zone's faction. Per-zone achievements, like the treasures.
+	{
+		achievementID = 62288, -- Eversong Woods: The Highest Peaks
+		nameKey = "ACH_PEAKS_EVERSONG",
+		nodes = {
+			{ criteria = 111573, mapID = 2393, x = 20.22, y = 79.61, name = "Telescope 1", quest = 94536 },
+			{ criteria = 111574, mapID = 2395, x = 40.41, y = 10.10, name = "Telescope 2", quest = 94537 },
+			{ criteria = 111575, mapID = 2395, x = 37.41, y = 47.89, name = "Telescope 3", quest = 94538 },
+			{ criteria = 111576, mapID = 2395, x = 54.58, y = 51.01, name = "Telescope 4", quest = 94539 },
+			{ criteria = 111577, mapID = 2395, x = 50.19, y = 85.43, name = "Telescope 5", quest = 94540 },
+		},
+	},
+	{
+		achievementID = 62289, -- Zul'Aman: The Highest Peaks
+		nameKey = "ACH_PEAKS_ZULAMAN",
+		nodes = {
+			{ criteria = 111578, mapID = 2437, x = 27.79, y = 70.01, name = "Telescope 1", quest = 94541 },
+			{ criteria = 111579, mapID = 2437, x = 53.01, y = 82.02, name = "Telescope 2", quest = 94542 },
+			{ criteria = 111580, mapID = 2437, x = 57.69, y = 21.23, name = "Telescope 3", quest = 94543 },
+			{ criteria = 111581, mapID = 2437, x = 24.63, y = 58.30, name = "Telescope 4", quest = 94544 },
+			{ criteria = 111582, mapID = 2437, x = 41.85, y = 41.63, name = "Telescope 5", quest = 94545 },
+		},
+	},
+	{
+		achievementID = 62290, -- Harandar: The Highest Peaks
+		nameKey = "ACH_PEAKS_HARANDAR",
+		nodes = {
+			{ criteria = 111583, mapID = 2413, x = 69.17, y = 46.38, name = "Telescope 1", quest = 94546 },
+			{ criteria = 111584, mapID = 2413, x = 68.16, y = 25.97, name = "Telescope 2", quest = 94547 },
+			{ criteria = 111585, mapID = 2413, x = 49.40, y = 75.92, name = "Telescope 3", quest = 94548 },
+			{ criteria = 111586, mapID = 2413, x = 69.40, y = 63.39, name = "Telescope 4", quest = 94549 },
+			{ criteria = 111587, mapID = 2413, x = 53.49, y = 58.55, name = "Telescope 5", quest = 94550 },
+		},
+	},
+	{
+		achievementID = 62291, -- Voidstorm: The Highest Peaks
+		nameKey = "ACH_PEAKS_VOIDSTORM",
+		nodes = {
+			{ criteria = 111588, mapID = 2405, x = 39.68, y = 61.16, name = "Telescope 1", quest = 94551 },
+			{ criteria = 111589, mapID = 2405, x = 36.50, y = 44.30, name = "Telescope 2", quest = 94552 },
+			{ criteria = 111590, mapID = 2405, x = 55.46, y = 67.17, name = "Telescope 3", quest = 94553 },
+			{ criteria = 111591, mapID = 2405, x = 41.76, y = 70.22, name = "Telescope 4", quest = 94554 },
+			{ criteria = 111592, mapID = 2405, x = 37.81, y = 54.97, name = "Telescope 5", quest = 94555 },
+		},
+	},
+	-- TODO (next slice): Midnight Lore Hunter (LoreObject nodes across all zones).
 }
