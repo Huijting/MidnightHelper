@@ -136,6 +136,69 @@ local function RenownLineText(entry)
 	return ((ns.L and ns:L("ACH_RENOWN_FMT")) or "Renown: %s (%d)"):format(name, lvl)
 end
 
+-- Completion-reward collectible for a card: its name + whether you already own it.
+-- IDs come from data (Wowhead-verified); the NAME and COLLECTED state come from the
+-- live collection APIs (locale-safe). achievementDone is the fallback "owned" signal
+-- for a pet whose battle-pet speciesID we haven't captured in-game yet.
+local function RewardName(reward)
+	if not reward then
+		return nil
+	end
+	if reward.itemID and C_Item and C_Item.GetItemInfo then
+		local nm = C_Item.GetItemInfo(reward.itemID)
+		if nm and nm ~= "" then
+			return nm
+		end
+	end
+	if reward.kind == "pet" and reward.speciesID and C_PetJournal and C_PetJournal.GetPetInfoBySpeciesID then
+		local ok, nm = pcall(C_PetJournal.GetPetInfoBySpeciesID, reward.speciesID)
+		if ok and nm and nm ~= "" then
+			return nm
+		end
+	end
+	return reward.name
+end
+
+local function RewardCollected(reward, achievementDone)
+	if not reward then
+		return nil
+	end
+	if reward.kind == "toy" and reward.itemID and PlayerHasToy then
+		local ok, has = pcall(PlayerHasToy, reward.itemID)
+		if ok then
+			return has and true or false
+		end
+	elseif reward.kind == "mount" and reward.itemID and C_MountJournal and C_MountJournal.GetMountFromItem then
+		local ok, mountID = pcall(C_MountJournal.GetMountFromItem, reward.itemID)
+		if ok and mountID and C_MountJournal.GetMountInfoByID then
+			local info = { C_MountJournal.GetMountInfoByID(mountID) }
+			return info[11] and true or false -- 11th return = isCollected
+		end
+	elseif reward.kind == "pet" and reward.speciesID and C_PetJournal and C_PetJournal.GetNumCollectedInfo then
+		local ok, n = pcall(C_PetJournal.GetNumCollectedInfo, reward.speciesID)
+		if ok then
+			return (tonumber(n) or 0) > 0
+		end
+	end
+	-- No reliable ID yet (e.g. pet without speciesID): the collectible IS the
+	-- achievement's completion reward, so "achievement done" implies "owned".
+	return achievementDone and true or false
+end
+
+local function RewardLineText(entry, achievementDone)
+	local r = entry and entry.reward
+	if not r then
+		return nil
+	end
+	local name = RewardName(r) or "?"
+	local line = ((ns.L and ns:L("ACH_REWARD_FMT")) or "Reward: %s"):format(name)
+	if RewardCollected(r, achievementDone) then
+		local got = (ns.L and ns:L("ACH_REWARD_COLLECTED")) or "collected"
+		return "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12|t " .. line .. " |cff66dd66(" .. got .. ")|r"
+	end
+	return line
+end
+
 -- Open Blizzard's achievement window straight to one achievement (loads the UI
 -- addon on demand). Used by Ctrl-click on a card.
 function ns.OpenAchievementWindow(achievementID)
@@ -935,6 +998,9 @@ local function LayoutAchPanel()
 			if card.renown then
 				card.renown:Hide()
 			end
+			if card.reward then
+				card.reward:Hide()
+			end
 			for _, row in ipairs(card.rows) do
 				row.frame:Hide()
 			end
@@ -957,6 +1023,15 @@ local function LayoutAchPanel()
 				elseif card.renown then
 					card.renown:Hide()
 				end
+				if card.reward and card.rewardText and card.rewardText ~= "" then
+					card.reward:ClearAllPoints()
+					card.reward:SetPoint("TOPLEFT", st.child, "TOPLEFT", 20, y)
+					card.reward:SetWidth((w > 0 and w - 28) or 340)
+					card.reward:Show()
+					y = y - 18
+				elseif card.reward then
+					card.reward:Hide()
+				end
 				for _, row in ipairs(card.rows) do
 					row.frame:ClearAllPoints()
 					row.frame:SetPoint("TOPLEFT", st.child, "TOPLEFT", 20, y)
@@ -968,6 +1043,9 @@ local function LayoutAchPanel()
 			else
 				if card.renown then
 					card.renown:Hide()
+				end
+				if card.reward then
+					card.reward:Hide()
 				end
 				for _, row in ipairs(card.rows) do
 					row.frame:Hide()
@@ -1013,6 +1091,11 @@ local function RefreshAchPanel()
 		card.renownText = RenownLineText(card.entry)
 		if card.renown then
 			card.renown:SetText(card.renownText or "")
+		end
+		-- Reward collectible line (name + collected status); shown when expanded.
+		card.rewardText = RewardLineText(card.entry, complete)
+		if card.reward then
+			card.reward:SetText(card.rewardText or "")
 		end
 		card.routeBtn:SetText(complete and TL("ACH_TAB_DONE") or TL("ACH_TAB_ROUTE"))
 		if complete then
@@ -1125,6 +1208,12 @@ local function BuildAchCard(st, entry)
 	card.renown:SetJustifyH("LEFT")
 	card.renown:SetTextColor(0.95, 0.8, 0.35) -- soft gold
 	card.renown:Hide()
+
+	-- Reward line (completion collectible + collected status), under the renown line.
+	card.reward = st.child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	card.reward:SetJustifyH("LEFT")
+	card.reward:SetTextColor(0.78, 0.86, 1.0) -- soft blue
+	card.reward:Hide()
 
 	for _, node in ipairs(entry.nodes or {}) do
 		local row = { node = node }

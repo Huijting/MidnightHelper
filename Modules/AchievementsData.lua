@@ -21,6 +21,9 @@ ns.ACHIEVEMENT_TREASURES = {
 		achievementID = 61960, -- Treasures of Eversong Woods
 		nameKey = "ACH_TREASURE_EVERSONG", -- localized title (falls back to API name)
 		faction = 2710, -- Silvermoon Court (renown), verified via GetMajorFactionIDs dump
+		-- Completion reward (Wowhead): Sootpaw battle pet. speciesID still to confirm
+		-- in-game (C_PetJournal); until then the collected-check falls back to "achievement done".
+		reward = { kind = "pet", name = "Sootpaw" },
 		nodes = {
 			{ criteria = 111471, mapID = 2393, x = 24.38, y = 69.58, name = "Rookery Cache", quest = 93967,
 				note = "On the floating Sunwing Rookery platform (Falconwing Square): buy Tasty Meat from Farstrider Aerieminder (by the balcony), then drop it next to the Mischievous Chick opposite the chest to get the key. Reward: Sunwing Hatchling pet." },
@@ -49,6 +52,8 @@ ns.ACHIEVEMENT_TREASURES = {
 		achievementID = 61263, -- Treasures of Harandar
 		nameKey = "ACH_TREASURE_HARANDAR",
 		faction = 2704, -- Hara'ti (renown)
+		-- Completion reward: Vivacious Chloroceros mount (item 263579, Wowhead-confirmed).
+		reward = { kind = "mount", itemID = 263579, name = "Vivacious Chloroceros" },
 		nodes = {
 			{ criteria = 109033, mapID = 2413, x = 71.68, y = 31.00, name = "Failed Shroom Jumper's Satchel", quest = 92424 },
 			{ criteria = 109034, mapID = 2413, x = 47.06, y = 50.25, name = "Burning Branch of the World Tree", quest = 92426 },
@@ -83,6 +88,8 @@ ns.ACHIEVEMENT_TREASURES = {
 		achievementID = 62125, -- Treasures of Zul'Aman
 		nameKey = "ACH_TREASURE_ZULAMAN",
 		faction = 2696, -- Amani Tribe (renown)
+		-- Completion reward: Pango Plating toy (item 268717, Wowhead-confirmed).
+		reward = { kind = "toy", itemID = 268717, name = "Pango Plating" },
 		nodes = {
 			{ criteria = 111855, mapID = 2437, x = 46.83, y = 81.86, name = "Honored Warrior's Cache", quest = 90793,
 				note = "Fill the cache by looting the 4 Honored Warrior's Urns around Zul'Aman; each spawns a Chosen miniboss that drops the token, then return to the cache.",
@@ -114,6 +121,8 @@ ns.ACHIEVEMENT_TREASURES = {
 		achievementID = 62126, -- Treasures of Voidstorm
 		nameKey = "ACH_TREASURE_VOIDSTORM",
 		faction = 2699, -- The Singularity (renown)
+		-- Completion reward: Interdimensional Parcel Signal toy (item 264695, Wowhead-confirmed).
+		reward = { kind = "toy", itemID = 264695, name = "Interdimensional Parcel Signal" },
 		-- Verified in-game (criteria dump): the achievement has exactly 13 criteria,
 		-- 111863-111864 then 111866-111876. There is no 111865; the list is complete.
 		nodes = {
