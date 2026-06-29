@@ -21,9 +21,9 @@ ns.ACHIEVEMENT_TREASURES = {
 		achievementID = 61960, -- Treasures of Eversong Woods
 		nameKey = "ACH_TREASURE_EVERSONG", -- localized title (falls back to API name)
 		faction = 2710, -- Silvermoon Court (renown), verified via GetMajorFactionIDs dump
-		-- Completion reward (Wowhead): Sootpaw battle pet. speciesID still to confirm
-		-- in-game (C_PetJournal); until then the collected-check falls back to "achievement done".
-		reward = { kind = "pet", name = "Sootpaw" },
+		-- Completion reward: Sootpaw battle pet (speciesID 5012, confirmed in-game via
+		-- C_PetJournal.FindPetIDByName). Collected-check uses GetNumCollectedInfo.
+		reward = { kind = "pet", speciesID = 5012, name = "Sootpaw" },
 		nodes = {
 			{ criteria = 111471, mapID = 2393, x = 24.38, y = 69.58, name = "Rookery Cache", quest = 93967,
 				note = "On the floating Sunwing Rookery platform (Falconwing Square): buy Tasty Meat from Farstrider Aerieminder (by the balcony), then drop it next to the Mischievous Chick opposite the chest to get the key. Reward: Sunwing Hatchling pet." },
