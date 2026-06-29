@@ -677,6 +677,13 @@ function ns.BuildSettingsPanel(panel)
 	-- folds their card away. Pairs with the "all done — hide it?" popup.
 	Label("SET_ACH_VIS_TITLE", "GameFontNormal", COLOR_ACCENT, 18, 0, "tabs")
 	Label("SET_ACH_VIS_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "tabs")
+	AddToggle("tabs", "SET_ACH_AUTOHIDE_TITLE", "SET_ACH_AUTOHIDE_DESC", function()
+		return ns.IsAchAutoHideDoneEnabled and ns.IsAchAutoHideDoneEnabled()
+	end, function(v)
+		if ns.SetAchAutoHideDoneEnabled then
+			ns.SetAchAutoHideDoneEnabled(v)
+		end
+	end)
 	for _, entry in ipairs(ns.ACHIEVEMENT_TREASURES or {}) do
 		local id = entry.achievementID
 		local row = CreateFrame("Frame", nil, child)

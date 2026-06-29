@@ -47,6 +47,24 @@ function ns.SetAchievementHidden(achievementID, hidden)
 	end
 end
 
+-- Global "auto-hide completed" toggle: when on, any fully-completed achievement is
+-- folded out of the tab automatically (on top of the per-achievement manual hide).
+function ns.IsAchAutoHideDoneEnabled()
+	local db = AchVisDB()
+	return (db and db.achAutoHideDone) and true or false
+end
+
+function ns.SetAchAutoHideDoneEnabled(v)
+	local db = AchVisDB()
+	if not db then
+		return
+	end
+	db.achAutoHideDone = v and true or nil
+	if ns.RefreshAchievementsPanel then
+		ns.RefreshAchievementsPanel()
+	end
+end
+
 -- A treasure is "done" per its achievement CRITERION (authoritative — matches
 -- what WoW counts toward the achievement), falling back to the treasure's quest
 -- flag only if the criterion API is unavailable.
@@ -894,9 +912,25 @@ local function LayoutAchPanel()
 	local headerW = (w > 0 and w - 8) or 360
 	local y = -2
 	local shown = 0
+	-- Display order: open achievements first, completed ones last (stable within
+	-- each group). card.complete is cached by RefreshAchPanel.
+	local order = {}
 	for _, card in ipairs(st.cards) do
-		if ns.IsAchievementHidden(card.entry.achievementID) then
-			-- Hidden in Settings: fold the whole card (header + rows) away.
+		if not card.complete then
+			order[#order + 1] = card
+		end
+	end
+	for _, card in ipairs(st.cards) do
+		if card.complete then
+			order[#order + 1] = card
+		end
+	end
+	local autoHide = ns.IsAchAutoHideDoneEnabled and ns.IsAchAutoHideDoneEnabled()
+	for _, card in ipairs(order) do
+		local hidden = ns.IsAchievementHidden(card.entry.achievementID)
+			or (autoHide and card.complete)
+		if hidden then
+			-- Hidden (manually in Settings, or auto-hidden because completed).
 			card.header:Hide()
 			if card.renown then
 				card.renown:Hide()
@@ -964,6 +998,7 @@ local function RefreshAchPanel()
 	for _, card in ipairs(st.cards) do
 		local done, total = ns.GetTreasureProgress(card.entry)
 		local complete = (total > 0 and done >= total)
+		card.complete = complete -- cached for LayoutAchPanel (sorting + auto-hide)
 		local nm = AchievementName(card.entry)
 		if complete then
 			-- Green check + dimmed title so a finished achievement reads as "done"
