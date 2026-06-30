@@ -2,20 +2,22 @@
 
 All notable changes to this project are documented in this file.
 
-## [2.1.1] - 2026-06-30
+## [2.1.1] - 2026-07-01
 
 Fixes and polish for the Achievements tab.
 
 ### Fixed
 
-- **The route arrow no longer disappears on arrival.** When you reach a stop, Midnight Helper now re-points TomTom's crazy arrow at the next-nearest open treasure/rare itself, so it keeps flowing even if you don't have TomTom's "set closest waypoint" option enabled.
+- **The route arrow no longer disappears** — not on arrival, not when you kill a rare on the way, and not when you cross between sub-zones (e.g. into Slayer's Rise while routing in Voidstorm). Midnight Helper keeps the crazy arrow pinned to your next open treasure/rare itself, translating it onto whatever map you're standing on (via HereBeDragons), so it keeps flowing even without TomTom's "set closest waypoint" option. It also re-points proactively on each map change and on combat-end, and leaves the arrow alone when you're parked on an un-spawned stop (use `/mh skip`).
 - The "you're nearly there" rare alert now fires only when you're actually on a rare route, not when you pass a previously-routed rare while heading to a treasure.
 
 ### Added
 
 - **Skip the current route target** with `/mh skip` (or `/mh next`) or a new keybind (Esc → Key Bindings → Midnight Helper). Useful when a rare isn't spawned — the arrow moves to the next open one and you cycle back to skipped stops later.
 - **Per-card type tags** (Treasure / Telescope / Lore / Rare), an **Elite** flag on the tougher rares (cross-referenced from HandyNotes), and a tooltip hint on the achievements that count toward **Light Up the Night** (Brilliant Petalwing mount).
+- **Live Light Up the Night breakdown** under the tab summary: the four zone metas it requires (Forever Song, Making an Amani Out of You, That's Aln Folks!, Yelling into the Voidstorm), each with its own progress, read live from the achievement criteria. Hover a row for an accurate per-criterion checklist (real done/missing status), Shift-click to link, Ctrl-click to open Blizzard's panel, and click the header to preview the **Brilliant Petalwing** mount.
 - **Full localization** of the route how-to notes, step labels and chat/popup messages into all seven languages. Treasure/rare/item names stay in your game-client language to match the world.
+- **Checklist readability:** zebra striping and a hover highlight make it clear which Waypoint button belongs to which stop. Plus `/mh arrowdebug`, an optional diagnostics log for routing support.
 
 ## [2.1.0] - 2026-06-30
 
