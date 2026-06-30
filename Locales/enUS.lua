@@ -242,6 +242,7 @@ ns._mhLocales.enUS = {
 	ACH_STEP_CAVE_DOOR = "Cave door (click to open)",
 	ACH_TAB_HINT_LINK = "Shift-click: link in chat",
 	ACH_TAB_HINT_OPEN = "Ctrl-click: open in achievements panel",
+	ACH_META_PREVIEW_HINT = "Click: preview the mount",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Track Midnight achievements and route to the collectibles you still miss. Each achievement shows your progress and a checklist; hit Route to send the arrow to the nearest missing one, and it auto-advances as you loot.",
 	ACH_TREASURE_EVERSONG = "Treasures of Eversong Woods",
 	ACH_TREASURE_HARANDAR = "Treasures of Harandar",

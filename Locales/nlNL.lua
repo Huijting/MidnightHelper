@@ -240,6 +240,7 @@ ns._mhLocales.nlNL = {
 	ACH_STEP_CAVE_DOOR = "Grotdeur (klik om te openen)",
 	ACH_TAB_HINT_LINK = "Shift-klik: link in chat",
 	ACH_TAB_HINT_OPEN = "Ctrl-klik: open in prestatievenster",
+	ACH_META_PREVIEW_HINT = "Klik: bekijk de mount",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Volg Midnight-prestaties en route naar de verzamelobjecten die je nog mist. Elke prestatie toont je voortgang en een checklist; klik op Route om de pijl naar de dichtstbijzijnde ontbrekende te sturen — die schuift automatisch door terwijl je looted.",
 	ACH_TREASURE_EVERSONG = "Schatten van Eversong Woods",
 	ACH_TREASURE_HARANDAR = "Schatten van Harandar",

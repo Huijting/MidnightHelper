@@ -1437,11 +1437,72 @@ local function MountOwnedByItem(itemID)
 	return false
 end
 
--- Lay out the per-zone breakdown rows under the summary. Each row is a hoverable,
--- clickable line: hover shows Blizzard's own criteria breakdown (SetAchievementByID),
--- so you see exactly what each zone meta entails and what's still missing; Shift-click
--- links it in chat, Ctrl-click (or plain click) opens the Blizzard panel. Rows are
--- pooled and reused; the whole box is empty once the meta is complete.
+-- Add one tooltip line per criterion of an achievement, coloured by its REAL status
+-- (green = done, red = not). We build this ourselves instead of GameTooltip:Set-
+-- AchievementByID, which renders meta sub-achievements as all-green even when they
+-- aren't done.
+local function AddAchCriteriaLines(tt, achievementID)
+	if not (achievementID and GetAchievementNumCriteria and GetAchievementCriteriaInfo) then
+		return
+	end
+	local n = GetAchievementNumCriteria(achievementID) or 0
+	for i = 1, n do
+		local cs, _, cc, _, _, _, _, ca = GetAchievementCriteriaInfo(achievementID, i)
+		local label = (cs and cs ~= "") and cs or nil
+		if (not label) and ca and ca > 0 and GetAchievementInfo then
+			local an = select(2, GetAchievementInfo(ca))
+			if an and an ~= "" then
+				label = an
+			end
+		end
+		label = label or ("#" .. i)
+		if cc then
+			tt:AddLine("|TInterface\\RaidFrame\\ReadyCheck-Ready:0|t " .. label, 0.45, 0.85, 0.45)
+		else
+			tt:AddLine("|TInterface\\RaidFrame\\ReadyCheck-NotReady:0|t " .. label, 0.95, 0.45, 0.45)
+		end
+	end
+end
+
+-- Shared tooltip for a meta/zone row: name, description, the accurate per-criterion
+-- breakdown, and (for the meta header) the mount reward + a preview hint.
+local function MetaRowTooltip(self)
+	local d = self.data
+	if not (GameTooltip and d) then
+		return
+	end
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+	GameTooltip:SetText(d.name, 1, 0.82, 0.2)
+	if d.achievementID and GetAchievementInfo then
+		local desc = select(8, GetAchievementInfo(d.achievementID))
+		if desc and desc ~= "" then
+			GameTooltip:AddLine(desc, 0.9, 0.9, 0.9, true)
+		end
+	end
+	GameTooltip:AddLine(" ")
+	AddAchCriteriaLines(GameTooltip, d.achievementID)
+	if d.isMeta then
+		GameTooltip:AddLine(" ")
+		local mountName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(PETALWING_ITEM)) or "Brilliant Petalwing"
+		local icon = (C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(PETALWING_ITEM))
+			or "Interface\\Icons\\inv_misc_questionmark"
+		local owned = MountOwnedByItem(PETALWING_ITEM)
+		GameTooltip:AddLine(
+			("|T%s:0|t %s%s"):format(icon, mountName, owned and " |cff66dd66(collected)|r" or ""),
+			0.78, 0.86, 1.0
+		)
+		GameTooltip:AddLine(TL("ACH_META_PREVIEW_HINT"), 0.8, 0.8, 0.8)
+	end
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(TL("ACH_TAB_HINT_LINK"), 0.8, 0.8, 0.8)
+	GameTooltip:AddLine(TL("ACH_TAB_HINT_OPEN"), 0.8, 0.8, 0.8)
+	GameTooltip:Show()
+end
+
+-- Lay out the meta breakdown under the summary: a header row for "Light Up the Night"
+-- (with its mount reward) followed by one row per zone meta. Every row is hoverable
+-- (accurate tooltip), Shift-click links it, Ctrl-click opens the Blizzard panel, and a
+-- plain click on the header previews the Brilliant Petalwing mount. Hidden once done.
 local function RefreshMetaDetail(st, metaComplete)
 	local box = st and st.metaBox
 	if not box then
@@ -1451,13 +1512,27 @@ local function RefreshMetaDetail(st, metaComplete)
 	for _, r in ipairs(st.metaRows) do
 		r:Hide()
 	end
-	local data = (not metaComplete) and MetaDetailData() or nil
-	if not data or #data == 0 then
+	local zones = (not metaComplete) and MetaDetailData() or nil
+	if not zones or #zones == 0 then
 		box:SetHeight(1)
 		return
 	end
-	local y, lineH = 0, 16
-	for i, d in ipairs(data) do
+	local md, mt = MetaProgress(LIGHT_UP_META)
+	local metaName = (GetAchievementInfo and select(2, GetAchievementInfo(LIGHT_UP_META))) or "Light Up the Night"
+	local list = { {
+		name = metaName,
+		achievementID = LIGHT_UP_META,
+		isMeta = true,
+		completed = (md and mt and md >= mt) or false,
+		done = md,
+		total = mt,
+	} }
+	for _, z in ipairs(zones) do
+		list[#list + 1] = z
+	end
+
+	local y = 0
+	for i, d in ipairs(list) do
 		local row = st.metaRows[i]
 		if not row then
 			row = CreateFrame("Button", nil, box)
@@ -1466,58 +1541,56 @@ local function RefreshMetaDetail(st, metaComplete)
 			row.text = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 			row.text:SetPoint("LEFT", row, "LEFT", 0, 0)
 			row.text:SetJustifyH("LEFT")
-			row:SetScript("OnEnter", function(self)
-				if not (GameTooltip and self.data) then
-					return
-				end
-				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-				if self.data.achievementID and GameTooltip.SetAchievementByID then
-					GameTooltip:SetAchievementByID(self.data.achievementID)
-				else
-					GameTooltip:SetText(self.data.name, 1, 0.82, 0.2)
-				end
-				GameTooltip:AddLine(" ")
-				GameTooltip:AddLine(TL("ACH_TAB_HINT_LINK"), 0.8, 0.8, 0.8)
-				GameTooltip:AddLine(TL("ACH_TAB_HINT_OPEN"), 0.8, 0.8, 0.8)
-				GameTooltip:Show()
-			end)
+			row:SetScript("OnEnter", MetaRowTooltip)
 			row:SetScript("OnLeave", function()
 				if GameTooltip then
 					GameTooltip:Hide()
 				end
 			end)
 			row:SetScript("OnClick", function(self)
-				local aid = self.data and self.data.achievementID
+				local d2 = self.data
+				local aid = d2 and d2.achievementID
 				if not aid then
 					return
 				end
 				if IsShiftKeyDown and IsShiftKeyDown() then
 					local link = GetAchievementLink and GetAchievementLink(aid)
-					if link then
-						if not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) and ChatFrame_OpenChat then
-							ChatFrame_OpenChat(link)
-						end
+					if link and not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) and ChatFrame_OpenChat then
+						ChatFrame_OpenChat(link)
 					end
 					return
 				end
-				ns.OpenAchievementWindow(aid) -- Ctrl-click or plain click: open the panel
+				if IsControlKeyDown and IsControlKeyDown() then
+					ns.OpenAchievementWindow(aid)
+					return
+				end
+				if d2.isMeta and ns.PreviewItem then
+					ns.PreviewItem(PETALWING_ITEM, "Brilliant Petalwing") -- plain click on header: preview the mount
+				else
+					ns.OpenAchievementWindow(aid)
+				end
 			end)
 			st.metaRows[i] = row
 		end
 		row:ClearAllPoints()
-		row:SetPoint("TOPLEFT", box, "TOPLEFT", 0, -y)
+		row:SetPoint("TOPLEFT", box, "TOPLEFT", d.isMeta and 0 or 12, -y)
 		row:SetPoint("RIGHT", box, "RIGHT", 0, 0)
 		row.data = d
-		local mark = d.completed and "Interface\\RaidFrame\\ReadyCheck-Ready"
-			or "Interface\\RaidFrame\\ReadyCheck-NotReady"
-		local col = d.completed and "ff9aa0a6" or "ffffffff"
 		local prog = ""
-		if (not d.completed) and d.done and d.total and d.total > 0 then
-			prog = (" |cffffcc00%d/%d|r"):format(d.done, d.total)
+		if d.done and d.total and d.total > 0 then
+			prog = (" |c%s%d/%d|r"):format(d.completed and "ff66dd66" or "ffffcc00", d.done, d.total)
 		end
-		row.text:SetText(("|T%s:12:12|t |c%s%s|r%s"):format(mark, col, d.name, prog))
+		if d.isMeta then
+			row.text:SetText(("|cffffd200%s|r%s |cff8a8a8a(reward: Brilliant Petalwing)|r"):format(d.name, prog))
+			y = y + 18
+		else
+			local mark = d.completed and "Interface\\RaidFrame\\ReadyCheck-Ready"
+				or "Interface\\RaidFrame\\ReadyCheck-NotReady"
+			local col = d.completed and "ff9aa0a6" or "ffffffff"
+			row.text:SetText(("|T%s:12:12|t |c%s%s|r%s"):format(mark, col, d.name, prog))
+			y = y + 16
+		end
 		row:Show()
-		y = y + lineH
 	end
 	box:SetHeight(math.max(1, y))
 end
@@ -1548,21 +1621,21 @@ local function RefreshAchSummary()
 	if colTotal > 0 then
 		parts[#parts + 1] = (TL("ACH_SUMMARY_COLL")):format(colOwned, colTotal)
 	end
+	-- The meta itself ("Light Up the Night") is rendered as the interactive header row
+	-- of the breakdown below (with tooltip + mount preview), so it's only added to this
+	-- one-line summary once it's fully complete (a clean "all done" marker).
 	local md, mt = MetaProgress(LIGHT_UP_META)
 	local metaComplete = false
 	if md and mt then
-		local metaName = (GetAchievementInfo and select(2, GetAchievementInfo(LIGHT_UP_META))) or "Light Up the Night"
-		local mountName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(PETALWING_ITEM)) or "Brilliant Petalwing"
-		local metaStr = (TL("ACH_SUMMARY_META")):format(metaName, md, mt, mountName)
 		metaComplete = (md >= mt) or MountOwnedByItem(PETALWING_ITEM)
 		if metaComplete then
-			metaStr = "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12|t " .. metaStr
+			local metaName = (GetAchievementInfo and select(2, GetAchievementInfo(LIGHT_UP_META))) or "Light Up the Night"
+			parts[#parts + 1] = "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12|t " .. metaName
 		end
-		parts[#parts + 1] = metaStr
 	end
 	st.summary:SetText(table.concat(parts, "  |cff808080-|r  "))
 
-	-- Per-zone breakdown rows under the summary (hoverable/clickable). Hidden when done.
+	-- Meta breakdown rows (header + four zones), hoverable/clickable. Hidden when done.
 	RefreshMetaDetail(st, metaComplete)
 end
 
