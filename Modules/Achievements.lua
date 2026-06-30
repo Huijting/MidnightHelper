@@ -713,6 +713,23 @@ end
 -- Skip support: a node you skip (e.g. a rare that wasn't spawned) is pushed to the
 -- back of the route so the arrow moves on to the next one; you still get back to it
 -- after the rest. currentLead is the node the arrow is on right now (what Skip acts on).
+-- Arrow diagnostics. Toggle in-game with /mh arrowdebug. When on, MH prints a line
+-- at each arrow decision (route issue, keepalive tick, combat-end, re-point) showing
+-- the real state — route owner, whether TomTom still has a crazy-arrow target, which
+-- map you're on, the lead's map, and whether a re-point actually found a waypoint.
+-- This turns "the arrow vanished" into traceable data instead of guesswork.
+local DEBUG_ARROW = false
+local function DBG(fmt, ...)
+	if not DEBUG_ARROW then
+		return
+	end
+	local ok, msg = pcall(string.format, fmt, ...)
+	print("|cffff66aaMH-DBG:|r " .. (ok and msg or tostring(fmt)))
+end
+local function PlayerMapID()
+	return C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+end
+
 local skippedNodes = {}
 local currentLead
 
@@ -797,6 +814,14 @@ local function IssueRoute(entry, firstTime, silent)
 	local lead = waypoints[1]
 	ns.lastTarget = { mapID = lead.mapID, x = lead.x, y = lead.y, name = lead.name }
 	routeSig = RouteFingerprint(entry)
+	DBG(
+		"issue: lead=%s leadMap=%s incomplete=%d firstTime=%s playerMap=%s",
+		lead.name or "?",
+		tostring(lead.mapID),
+		#incomplete,
+		tostring(firstTime),
+		tostring(PlayerMapID())
+	)
 	-- NOTE: we deliberately do NOT force a Blizzard SuperTrack waypoint here.
 	-- Taking over SuperTracking fights TomTom's crazy arrow and makes it drop at
 	-- zone transitions (the Rares route never does this, which is why its arrow
@@ -879,18 +904,81 @@ local function ScheduleAdvance()
 	end
 end
 
--- Rare-detour safety net. The combat-end handler (PLAYER_REGEN_ENABLED) reclaims
--- the arrow after you KILL a detour rare. But if the rare is already dead when you
--- arrive (tagged by someone else / despawned), you never enter combat, so that
--- event never fires and the "rare" owner token would stay stuck forever. This
--- watcher notices that you've parked at the rare's spot, aren't fighting, and the
--- arrow still belongs to the rare — then hands it back to our treasure route.
--- Re-point TomTom's floating crazy arrow at the nearest still-open waypoint on our
--- route, with chat announce muted. Idempotent: if the arrow is already correct it
--- stays put (no flicker); if TomTom cleared it on arrival, or a detour kill dropped
--- it, this brings it back without touching the waypoint set. Used by the keepalive
--- ticker (on arrival) and on combat-end (you just killed something).
+local mhForcedUid
+local mhPrevArrowGone
+local mhForcedLeadKey
+local mhForcedOnMap
+local mhPrevAtLead
+-- Put TomTom's crazy arrow on the route's CURRENT LEAD (ns.lastTarget). If the lead
+-- lives on another map than you're standing on (e.g. a rare on the Slayer's Rise
+-- sub-map while you're on the Voidstorm overworld), TomTom hides the arrow — so we
+-- translate the lead onto YOUR current map via HereBeDragons (the same lib TomTom
+-- uses) and pin the arrow there. We follow the LEAD, not raw nearest, so Skip is
+-- respected; mute announce so TomTom doesn't spam "Added a waypoint"; and use
+-- cleardistance=0 so standing on an un-spawned stop never auto-clears the arrow.
+local function ForceArrowToLead()
+	local tt = _G.TomTom
+	if not (activeEntry and tt and tt.AddWaypoint) then
+		return false
+	end
+	local n = ns.lastTarget
+	if not (n and n.mapID) and ns.GetTreasureProgress then
+		local _, _, incomplete = ns.GetTreasureProgress(activeEntry)
+		n = incomplete and OrderNearest(incomplete)[1]
+	end
+	if not (n and n.mapID) then
+		return false
+	end
+	local mapID, x01, y01 = n.mapID, (n.x or 0) / 100, (n.y or 0) / 100
+	local pmap = PlayerMapID()
+	if pmap and pmap ~= n.mapID and LibStub then
+		local hbd = LibStub("HereBeDragons-2.0", true)
+		if hbd then
+			local wx, wy = hbd:GetWorldCoordinatesFromZone(x01, y01, n.mapID)
+			if wx and wy then
+				local tx, ty = hbd:GetZoneCoordinatesFromWorld(wx, wy, pmap, true)
+				if tx and ty then
+					mapID, x01, y01 = pmap, tx, ty
+				end
+			end
+		end
+	end
+	local gen = tt.profile and tt.profile.general
+	local prevAnnounce = gen and gen.announce
+	if gen then
+		gen.announce = false
+	end
+	if mhForcedUid and tt.ClearWaypoint then
+		pcall(tt.ClearWaypoint, tt, mhForcedUid)
+		mhForcedUid = nil
+	end
+	local okAdd, uid = pcall(tt.AddWaypoint, tt, mapID, x01, y01, {
+		title = n.name or "Route",
+		persistent = false,
+		minimap = true,
+		world = true,
+		crazy = true,
+		cleardistance = 0,
+	})
+	if okAdd and uid and tt.SetCrazyArrow then
+		mhForcedUid = uid
+		pcall(tt.SetCrazyArrow, tt, uid, 15, n.name or "Route")
+	end
+	if gen then
+		gen.announce = prevAnnounce
+	end
+	local good = (okAdd and uid) and true or false
+	DBG("force: arrow on %s via map %s (node map %s) ok=%s", n.name or "?", tostring(mapID), tostring(n.mapID), tostring(good))
+	return good
+end
+
+-- Restore the big arrow when it has dropped. Prefer pinning it to our own lead
+-- (authoritative, Skip-aware, cross-map safe); only if we somehow have no lead at all
+-- do we fall back to TomTom's own closest-waypoint search.
 local function RepointArrowNearest()
+	if ForceArrowToLead() then
+		return
+	end
 	local tt = _G.TomTom
 	if not (tt and tt.SetClosestWaypoint) then
 		return
@@ -932,31 +1020,49 @@ local function StartRareWatch()
 		-- (announce muted to avoid chat spam). MH already adds every open stop as a
 		-- waypoint, so this makes the arrow flow to the next treasure/rare on arrival.
 		if ns._mhRouteOwner == "achievement" then
-			-- Only once you've arrived at (and TomTom has cleared) the current target:
-			-- re-point the crazy arrow at the next-nearest open waypoint. Gating on
-			-- proximity avoids re-setting the arrow while you're still travelling.
 			local lt = ns.lastTarget
-			local arrived = false
+			-- Keep the big arrow on our lead across the constant sub-zone hops here.
+			-- TomTom's crazy arrow only renders when the waypoint sits on the map you're
+			-- standing on, so whenever your map changes we re-pin the lead onto the new map
+			-- (translated via HBD) BEFORE it can drop. We also restore it if it drops on
+			-- the same map, re-pin when the lead changes (Skip), and re-pin when you walk
+			-- off a stop you were parked on. We do NOT re-pin while parked on the lead
+			-- (<25yd: an un-spawned rare you walked up to) nor when nothing changed — so
+			-- there's no waypoint churn or chat spam.
+			local arrowFrame = _G.TomTomCrazyArrow
+			local arrowGone = (arrowFrame and arrowFrame.IsShown and not arrowFrame:IsShown()) or false
+			local pmap = PlayerMapID()
+			local atLead = false
 			if lt then
 				local pwx, pwy = PlayerWorld()
 				local twx, twy = NodeWorld(lt)
 				if pwx and twx then
 					local dx, dy = pwx - twx, pwy - twy
-					arrived = (dx * dx + dy * dy) <= (25 * 25)
+					atLead = (dx * dx + dy * dy) <= (25 * 25)
 				end
 			end
-			-- Orphan detection. TomTom auto-clears the waypoint you walk into
-			-- (cleardistance); if the floating arrow was riding that waypoint it then
-			-- points at nothing and just disappears — exactly what happens when you
-			-- reach a detour rare that isn't the lead (the arrow briefly swings onto it,
-			-- then vanishes as TomTom clears it). If TomTom's crazy-arrow frame is hidden
-			-- while we still own an active route with open stops, the arrow has dropped:
-			-- re-point it at the nearest still-open waypoint so it never stays gone.
-			local arrowFrame = _G.TomTomCrazyArrow
-			local arrowGone = arrowFrame and arrowFrame.IsShown and not arrowFrame:IsShown()
-			if arrived or arrowGone then
+			local leadKey = lt and lt.mapID and (tostring(lt.mapID) .. ":" .. tostring(lt.x) .. ":" .. tostring(lt.y))
+			local mapChanged = (mhForcedOnMap ~= nil and pmap ~= mhForcedOnMap)
+			local leadChanged = (leadKey ~= mhForcedLeadKey)
+			local justDropped = (arrowGone and not mhPrevArrowGone)
+			local walkedOff = (mhPrevAtLead and not atLead) or false
+			if lt and not atLead and (mapChanged or leadChanged or justDropped or walkedOff) then
+				DBG(
+					"tick: re-pin (mapChg=%s leadChg=%s dropped=%s walkedOff=%s) lead=%s leadMap=%s playerMap=%s",
+					tostring(mapChanged),
+					tostring(leadChanged),
+					tostring(justDropped),
+					tostring(walkedOff),
+					lt.name or "nil",
+					tostring(lt.mapID),
+					tostring(pmap)
+				)
 				RepointArrowNearest()
+				mhForcedOnMap = pmap
+				mhForcedLeadKey = leadKey
 			end
+			mhPrevArrowGone = arrowGone
+			mhPrevAtLead = atLead
 		end
 		if ns._mhRouteOwner ~= "rare" then
 			rareIdleTicks = 0
@@ -1066,6 +1172,15 @@ local function EnsureAdvanceFrame()
 		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
 			ScheduleTravelRefresh()
 		else
+			if event == "PLAYER_REGEN_ENABLED" and activeEntry then
+				DBG(
+					"combat-end: owner=%s arrowOnRoute=%s lastTarget=%s playerMap=%s",
+					tostring(ns._mhRouteOwner),
+					tostring(ArrowIsOnOurRoute(activeEntry, ns.lastTarget)),
+					ns.lastTarget and ns.lastTarget.name or "nil",
+					tostring(PlayerMapID())
+				)
+			end
 			if event == "PLAYER_REGEN_ENABLED" and activeEntry
 				and ns._mhRouteOwner ~= "reset" and ns._mhRouteOwner ~= "treasure"
 				and not ArrowIsOnOurRoute(activeEntry, ns.lastTarget) then
@@ -1268,6 +1383,47 @@ local function MetaProgress(achievementID)
 	return done, total
 end
 
+-- Build one line per criterion of the "Light Up the Night" meta — i.e. the four zone
+-- meta-achievements it requires (Forever Song, Making an Amani Out of You, That's Aln
+-- Folks!, Yelling into the Voidstorm). Read entirely from the criteria API: the
+-- criterion text is the zone-meta name, and its assetID is that zone meta's own
+-- achievement, whose sub-progress we show live (e.g. "Forever Song 12/18") until done.
+local function MetaDetailLines()
+	if not (GetAchievementNumCriteria and GetAchievementCriteriaInfo) then
+		return nil
+	end
+	local n = GetAchievementNumCriteria(LIGHT_UP_META) or 0
+	if n == 0 then
+		return nil
+	end
+	local lines = {}
+	for i = 1, n do
+		local str, _, completed, _, _, _, _, assetID = GetAchievementCriteriaInfo(LIGHT_UP_META, i)
+		local name = (str and str ~= "") and str or nil
+		local sub = ""
+		if assetID and assetID > 0 then
+			if GetAchievementInfo then
+				local an = select(2, GetAchievementInfo(assetID))
+				if an and an ~= "" then
+					name = an
+				end
+			end
+			if not completed then
+				local sd, stot = MetaProgress(assetID)
+				if sd and stot and stot > 0 then
+					sub = (" |cffffcc00%d/%d|r"):format(sd, stot)
+				end
+			end
+		end
+		name = name or ("#" .. i)
+		local mark = completed and "Interface\\RaidFrame\\ReadyCheck-Ready"
+			or "Interface\\RaidFrame\\ReadyCheck-NotReady"
+		local col = completed and "ff9aa0a6" or "ffffffff"
+		lines[#lines + 1] = ("|T%s:12:12|t |c%s%s|r%s"):format(mark, col, name, sub)
+	end
+	return lines
+end
+
 local function MountOwnedByItem(itemID)
 	if not (itemID and C_MountJournal and C_MountJournal.GetMountFromItem) then
 		return false
@@ -1307,16 +1463,31 @@ local function RefreshAchSummary()
 		parts[#parts + 1] = (TL("ACH_SUMMARY_COLL")):format(colOwned, colTotal)
 	end
 	local md, mt = MetaProgress(LIGHT_UP_META)
+	local metaComplete = false
 	if md and mt then
 		local metaName = (GetAchievementInfo and select(2, GetAchievementInfo(LIGHT_UP_META))) or "Light Up the Night"
 		local mountName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(PETALWING_ITEM)) or "Brilliant Petalwing"
 		local metaStr = (TL("ACH_SUMMARY_META")):format(metaName, md, mt, mountName)
-		if (md >= mt) or MountOwnedByItem(PETALWING_ITEM) then
+		metaComplete = (md >= mt) or MountOwnedByItem(PETALWING_ITEM)
+		if metaComplete then
 			metaStr = "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12|t " .. metaStr
 		end
 		parts[#parts + 1] = metaStr
 	end
 	st.summary:SetText(table.concat(parts, "  |cff808080-|r  "))
+
+	-- Per-zone breakdown under the summary: which of the four zone metas still block
+	-- the Petalwing, with live sub-progress. Hidden once the whole meta is complete.
+	if st.metaDetail then
+		local lines = (not metaComplete) and MetaDetailLines() or nil
+		if lines and #lines > 0 then
+			st.metaDetail:SetText(table.concat(lines, "\n"))
+			st.metaDetail:Show()
+		else
+			st.metaDetail:SetText("")
+			st.metaDetail:Hide()
+		end
+	end
 end
 
 local function RefreshAchPanel()
@@ -1592,10 +1763,18 @@ function ns.BuildAchievementsPanel(panel)
 	summary:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
 	summary:SetJustifyH("LEFT")
 
+	-- Live breakdown of the four zone metas that feed "Light Up the Night" (read from
+	-- the meta's own criteria). Sits just under the summary; hidden once the meta done.
+	local metaDetail = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	metaDetail:SetPoint("TOPLEFT", summary, "BOTTOMLEFT", 8, -4)
+	metaDetail:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
+	metaDetail:SetJustifyH("LEFT")
+	metaDetail:SetSpacing(2)
+
 	-- One-click route to the nearest still-open node across all achievements.
 	local routeNearestBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
 	routeNearestBtn:SetSize(170, 20)
-	routeNearestBtn:SetPoint("TOPLEFT", summary, "BOTTOMLEFT", 0, -6)
+	routeNearestBtn:SetPoint("TOPLEFT", metaDetail, "BOTTOMLEFT", -8, -6)
 	routeNearestBtn:SetText(TL("ACH_TAB_ROUTE_NEAREST"))
 	routeNearestBtn:SetScript("OnClick", function()
 		if ns.RouteNearestOpenAchievement then
@@ -1613,7 +1792,7 @@ function ns.BuildAchievementsPanel(panel)
 		LayoutAchPanel()
 	end)
 
-	achPanelState = { panel = panel, scroll = scroll, child = child, intro = intro, summary = summary, routeBtn = routeNearestBtn, cards = {} }
+	achPanelState = { panel = panel, scroll = scroll, child = child, intro = intro, summary = summary, metaDetail = metaDetail, routeBtn = routeNearestBtn, cards = {} }
 
 	local list = ns.ACHIEVEMENT_TREASURES or {}
 	if #list == 0 then
@@ -1782,6 +1961,11 @@ function ns:RunAchievementSlashCommand(msg)
 	end
 	if msg == "skip" or msg == "next" then
 		ns.SkipCurrentAchievementNode()
+		return true
+	end
+	if msg == "arrowdebug" or msg == "debug" then
+		DEBUG_ARROW = not DEBUG_ARROW
+		print(("|cffffff78Midnight Helper:|r arrow-debug %s"):format(DEBUG_ARROW and "AAN" or "UIT"))
 		return true
 	end
 	return false
