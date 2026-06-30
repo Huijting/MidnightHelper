@@ -1383,12 +1383,13 @@ local function MetaProgress(achievementID)
 	return done, total
 end
 
--- Build one line per criterion of the "Light Up the Night" meta — i.e. the four zone
+-- One record per criterion of the "Light Up the Night" meta — i.e. the four zone
 -- meta-achievements it requires (Forever Song, Making an Amani Out of You, That's Aln
 -- Folks!, Yelling into the Voidstorm). Read entirely from the criteria API: the
--- criterion text is the zone-meta name, and its assetID is that zone meta's own
--- achievement, whose sub-progress we show live (e.g. "Forever Song 12/18") until done.
-local function MetaDetailLines()
+-- criterion text is the zone-meta name and its assetID is that zone meta's own
+-- achievement, whose sub-progress (done/total) we read live. The UI turns each record
+-- into a hoverable/clickable row (tooltip = Blizzard's full criteria breakdown).
+local function MetaDetailData()
 	if not (GetAchievementNumCriteria and GetAchievementCriteriaInfo) then
 		return nil
 	end
@@ -1396,32 +1397,32 @@ local function MetaDetailLines()
 	if n == 0 then
 		return nil
 	end
-	local lines = {}
+	local out = {}
 	for i = 1, n do
 		local str, _, completed, _, _, _, _, assetID = GetAchievementCriteriaInfo(LIGHT_UP_META, i)
+		local id = (assetID and assetID > 0) and assetID or nil
 		local name = (str and str ~= "") and str or nil
-		local sub = ""
-		if assetID and assetID > 0 then
+		local done, total
+		if id then
 			if GetAchievementInfo then
-				local an = select(2, GetAchievementInfo(assetID))
+				local an = select(2, GetAchievementInfo(id))
 				if an and an ~= "" then
 					name = an
 				end
 			end
 			if not completed then
-				local sd, stot = MetaProgress(assetID)
-				if sd and stot and stot > 0 then
-					sub = (" |cffffcc00%d/%d|r"):format(sd, stot)
-				end
+				done, total = MetaProgress(id)
 			end
 		end
-		name = name or ("#" .. i)
-		local mark = completed and "Interface\\RaidFrame\\ReadyCheck-Ready"
-			or "Interface\\RaidFrame\\ReadyCheck-NotReady"
-		local col = completed and "ff9aa0a6" or "ffffffff"
-		lines[#lines + 1] = ("|T%s:12:12|t |c%s%s|r%s"):format(mark, col, name, sub)
+		out[#out + 1] = {
+			name = name or ("#" .. i),
+			completed = completed and true or false,
+			achievementID = id,
+			done = done,
+			total = total,
+		}
 	end
-	return lines
+	return out
 end
 
 local function MountOwnedByItem(itemID)
@@ -1434,6 +1435,91 @@ local function MountOwnedByItem(itemID)
 		return info[11] and true or false
 	end
 	return false
+end
+
+-- Lay out the per-zone breakdown rows under the summary. Each row is a hoverable,
+-- clickable line: hover shows Blizzard's own criteria breakdown (SetAchievementByID),
+-- so you see exactly what each zone meta entails and what's still missing; Shift-click
+-- links it in chat, Ctrl-click (or plain click) opens the Blizzard panel. Rows are
+-- pooled and reused; the whole box is empty once the meta is complete.
+local function RefreshMetaDetail(st, metaComplete)
+	local box = st and st.metaBox
+	if not box then
+		return
+	end
+	st.metaRows = st.metaRows or {}
+	for _, r in ipairs(st.metaRows) do
+		r:Hide()
+	end
+	local data = (not metaComplete) and MetaDetailData() or nil
+	if not data or #data == 0 then
+		box:SetHeight(1)
+		return
+	end
+	local y, lineH = 0, 16
+	for i, d in ipairs(data) do
+		local row = st.metaRows[i]
+		if not row then
+			row = CreateFrame("Button", nil, box)
+			row:SetHeight(14)
+			row:RegisterForClicks("AnyUp")
+			row.text = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+			row.text:SetPoint("LEFT", row, "LEFT", 0, 0)
+			row.text:SetJustifyH("LEFT")
+			row:SetScript("OnEnter", function(self)
+				if not (GameTooltip and self.data) then
+					return
+				end
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				if self.data.achievementID and GameTooltip.SetAchievementByID then
+					GameTooltip:SetAchievementByID(self.data.achievementID)
+				else
+					GameTooltip:SetText(self.data.name, 1, 0.82, 0.2)
+				end
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddLine(TL("ACH_TAB_HINT_LINK"), 0.8, 0.8, 0.8)
+				GameTooltip:AddLine(TL("ACH_TAB_HINT_OPEN"), 0.8, 0.8, 0.8)
+				GameTooltip:Show()
+			end)
+			row:SetScript("OnLeave", function()
+				if GameTooltip then
+					GameTooltip:Hide()
+				end
+			end)
+			row:SetScript("OnClick", function(self)
+				local aid = self.data and self.data.achievementID
+				if not aid then
+					return
+				end
+				if IsShiftKeyDown and IsShiftKeyDown() then
+					local link = GetAchievementLink and GetAchievementLink(aid)
+					if link then
+						if not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) and ChatFrame_OpenChat then
+							ChatFrame_OpenChat(link)
+						end
+					end
+					return
+				end
+				ns.OpenAchievementWindow(aid) -- Ctrl-click or plain click: open the panel
+			end)
+			st.metaRows[i] = row
+		end
+		row:ClearAllPoints()
+		row:SetPoint("TOPLEFT", box, "TOPLEFT", 0, -y)
+		row:SetPoint("RIGHT", box, "RIGHT", 0, 0)
+		row.data = d
+		local mark = d.completed and "Interface\\RaidFrame\\ReadyCheck-Ready"
+			or "Interface\\RaidFrame\\ReadyCheck-NotReady"
+		local col = d.completed and "ff9aa0a6" or "ffffffff"
+		local prog = ""
+		if (not d.completed) and d.done and d.total and d.total > 0 then
+			prog = (" |cffffcc00%d/%d|r"):format(d.done, d.total)
+		end
+		row.text:SetText(("|T%s:12:12|t |c%s%s|r%s"):format(mark, col, d.name, prog))
+		row:Show()
+		y = y + lineH
+	end
+	box:SetHeight(math.max(1, y))
 end
 
 -- Top-of-tab summary: tracked-achievement count, collectibles owned, and the
@@ -1476,18 +1562,8 @@ local function RefreshAchSummary()
 	end
 	st.summary:SetText(table.concat(parts, "  |cff808080-|r  "))
 
-	-- Per-zone breakdown under the summary: which of the four zone metas still block
-	-- the Petalwing, with live sub-progress. Hidden once the whole meta is complete.
-	if st.metaDetail then
-		local lines = (not metaComplete) and MetaDetailLines() or nil
-		if lines and #lines > 0 then
-			st.metaDetail:SetText(table.concat(lines, "\n"))
-			st.metaDetail:Show()
-		else
-			st.metaDetail:SetText("")
-			st.metaDetail:Hide()
-		end
-	end
+	-- Per-zone breakdown rows under the summary (hoverable/clickable). Hidden when done.
+	RefreshMetaDetail(st, metaComplete)
 end
 
 local function RefreshAchPanel()
@@ -1763,18 +1839,17 @@ function ns.BuildAchievementsPanel(panel)
 	summary:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
 	summary:SetJustifyH("LEFT")
 
-	-- Live breakdown of the four zone metas that feed "Light Up the Night" (read from
-	-- the meta's own criteria). Sits just under the summary; hidden once the meta done.
-	local metaDetail = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	metaDetail:SetPoint("TOPLEFT", summary, "BOTTOMLEFT", 8, -4)
-	metaDetail:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
-	metaDetail:SetJustifyH("LEFT")
-	metaDetail:SetSpacing(2)
+	-- Live breakdown of the four zone metas that feed "Light Up the Night": a column of
+	-- hoverable/clickable rows just under the summary. Hidden once the meta is complete.
+	local metaBox = CreateFrame("Frame", nil, panel)
+	metaBox:SetPoint("TOPLEFT", summary, "BOTTOMLEFT", 8, -4)
+	metaBox:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
+	metaBox:SetHeight(1)
 
 	-- One-click route to the nearest still-open node across all achievements.
 	local routeNearestBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
 	routeNearestBtn:SetSize(170, 20)
-	routeNearestBtn:SetPoint("TOPLEFT", metaDetail, "BOTTOMLEFT", -8, -6)
+	routeNearestBtn:SetPoint("TOPLEFT", metaBox, "BOTTOMLEFT", -8, -6)
 	routeNearestBtn:SetText(TL("ACH_TAB_ROUTE_NEAREST"))
 	routeNearestBtn:SetScript("OnClick", function()
 		if ns.RouteNearestOpenAchievement then
@@ -1792,7 +1867,7 @@ function ns.BuildAchievementsPanel(panel)
 		LayoutAchPanel()
 	end)
 
-	achPanelState = { panel = panel, scroll = scroll, child = child, intro = intro, summary = summary, metaDetail = metaDetail, routeBtn = routeNearestBtn, cards = {} }
+	achPanelState = { panel = panel, scroll = scroll, child = child, intro = intro, summary = summary, metaBox = metaBox, metaRows = {}, routeBtn = routeNearestBtn, cards = {} }
 
 	local list = ns.ACHIEVEMENT_TREASURES or {}
 	if #list == 0 then
