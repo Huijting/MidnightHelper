@@ -255,4 +255,93 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111838, mapID = 2405, x = 27.83, y = 54.02, name = "Shadowgraft Harness", quest = 94398 },
 		},
 	},
+
+	-- Rare hunters: kill every rare in the zone for its rare-meta achievement. Each
+	-- node = a rare (npcID/coords/criteria/quest cross-referenced from
+	-- HandyNotes_Midnight, our facts source; verify criteria counts in-game). These
+	-- feed the zone meta-achievements toward "Light Up the Night". Card titles come
+	-- live from the achievement API (localized), so no nameKey needed.
+	{
+		achievementID = 61507, -- A Bloody Song (Eversong Woods rares)
+		faction = 2710, -- Silvermoon Court
+		nodes = {
+			{ criteria = 110166, mapID = 2395, x = 51.92, y = 73.80, name = "Warden of Weeds", quest = 91280 },
+			{ criteria = 110167, mapID = 2395, x = 45.05, y = 78.25, name = "Harried Hawkstrider", quest = 91315 },
+			{ criteria = 110168, mapID = 2395, x = 54.70, y = 60.18, name = "Overfester Hydra", quest = 92392 },
+			{ criteria = 110169, mapID = 2395, x = 37.70, y = 64.20, name = "Bloated Snapdragon", quest = 92366 },
+			{ criteria = 110170, mapID = 2395, x = 62.74, y = 49.07, name = "Cre'van", quest = 92391 },
+			{ criteria = 110171, mapID = 2395, x = 36.38, y = 36.37, name = "Coralfang", quest = 92389 },
+			{ criteria = 110172, mapID = 2395, x = 36.65, y = 77.18, name = "Lady Liminus", quest = 92393 },
+			{ criteria = 110173, mapID = 2395, x = 40.19, y = 85.39, name = "Terrinor", quest = 92409 },
+			{ criteria = 110174, mapID = 2395, x = 49.05, y = 87.75, name = "Bad Zed", quest = 92404 },
+			{ criteria = 110175, mapID = 2395, x = 34.81, y = 20.98, name = "Waverly", quest = 92395 },
+			{ criteria = 110176, mapID = 2395, x = 56.42, y = 77.60, name = "Banuran", quest = 92403 },
+			{ criteria = 110177, mapID = 2395, x = 59.20, y = 79.20, name = "Lost Guardian", quest = 92399 },
+			{ criteria = 110178, mapID = 2395, x = 42.31, y = 68.91, name = "Duskburn", quest = 93550 },
+			{ criteria = 110179, mapID = 2395, x = 51.68, y = 45.99, name = "Malfunctioning Construct", quest = 93555 },
+			{ criteria = 110180, mapID = 2395, x = 44.99, y = 38.55, name = "Dame Bloodshed", quest = 93561 },
+		},
+	},
+	{
+		achievementID = 62122, -- Tallest Tree in the Forest (Zul'Aman rares)
+		faction = 2696, -- Amani Tribe
+		nodes = {
+			{ criteria = 111839, mapID = 2437, x = 34.41, y = 33.05, name = "Necrohexxer Raz'ka", quest = 89569 },
+			{ criteria = 111840, mapID = 2437, x = 51.80, y = 18.62, name = "The Snapping Scourge", quest = 89570 },
+			{ criteria = 111841, mapID = 2437, x = 51.85, y = 72.91, name = "Skullcrusher Harak", quest = 89571 },
+			{ criteria = 111842, mapID = 2437, x = 28.95, y = 24.44, name = "Lightwood Borer", quest = 89575 },
+			{ criteria = 111843, mapID = 2437, x = 50.87, y = 65.14, name = "Mrrlokk", quest = 91174 },
+			{ criteria = 111844, mapID = 2437, x = 38.99, y = 49.97, name = "Poacher Rav'ik", quest = 91634 },
+			{ criteria = 111845, mapID = 2437, x = 30.48, y = 44.56, name = "Spinefrill", quest = 89578 },
+			{ criteria = 111846, mapID = 2437, x = 46.29, y = 51.13, name = "Oophaga", quest = 89579 },
+			{ criteria = 111847, mapID = 2437, x = 47.77, y = 34.22, name = "Tiny Vermin", quest = 89580 },
+			{ criteria = 111848, mapID = 2437, x = 21.30, y = 70.55, name = "Voidtouched Crustacean", quest = 89581 },
+			{ criteria = 111849, mapID = 2437, x = 39.59, y = 20.97, name = "The Devouring Invader", quest = 89583 },
+			{ criteria = 111850, mapID = 2437, x = 33.71, y = 88.97, name = "Elder Oaktalon", quest = 89572 },
+			{ criteria = 111851, mapID = 2437, x = 47.68, y = 20.56, name = "Depthborn Eelamental", quest = 89573 },
+			{ criteria = 111852, mapID = 2437, x = 46.39, y = 43.39, name = "The Decaying Diamondback", quest = 91072 },
+			{ criteria = 111853, mapID = 2437, x = 45.29, y = 41.70, name = "Asha the Empowered", quest = 91073 },
+		},
+	},
+	{
+		achievementID = 61264, -- Leaf None Behind (Harandar rares)
+		faction = 2704, -- Hara'ti
+		nodes = {
+			{ criteria = 109039, mapID = 2413, x = 51.16, y = 45.35, name = "Rhazul", quest = 91832 },
+			{ criteria = 109040, mapID = 2413, x = 68.71, y = 40.70, name = "Chironex", quest = 92137 },
+			{ criteria = 109041, mapID = 2413, x = 69.17, y = 59.86, name = "Ha'kalawe", quest = 92142 },
+			{ criteria = 109042, mapID = 2413, x = 72.63, y = 69.28, name = "Tallcap the Truthspreader", quest = 92148 },
+			{ criteria = 109043, mapID = 2413, x = 59.93, y = 46.84, name = "Queen Lashtongue", quest = 92154 },
+			{ criteria = 109044, mapID = 2413, x = 64.57, y = 47.94, name = "Chlorokyll", quest = 92161 },
+			{ criteria = 109046, mapID = 2413, x = 56.38, y = 32.99, name = "Serrasa", quest = 92170 },
+			{ criteria = 109047, mapID = 2413, x = 45.93, y = 31.34, name = "Mindrot", quest = 92172 },
+			{ criteria = 109048, mapID = 2413, x = 40.65, y = 42.99, name = "Dracaena", quest = 92176 },
+			{ criteria = 109049, mapID = 2413, x = 36.59, y = 75.16, name = "Treetop", quest = 92183 },
+			{ criteria = 109051, mapID = 2413, x = 27.27, y = 70.32, name = "Pterrock", quest = 92191 },
+			{ criteria = 109052, mapID = 2413, x = 39.69, y = 60.70, name = "Ahl'ua'huhi", quest = 92193 },
+			{ criteria = 109045, mapID = 2413, x = 65.55, y = 32.69, name = "Stumpy", quest = 92168 },
+			{ criteria = 109050, mapID = 2413, x = 28.11, y = 81.81, name = "Oro'ohna", quest = 92190 },
+			{ criteria = 109053, mapID = 2413, x = 44.20, y = 16.58, name = "Annulus the Worldshaker", quest = 92194 },
+		},
+	},
+	{
+		achievementID = 62130, -- The Ultimate Predator (Voidstorm rares)
+		faction = 2699, -- The Singularity
+		nodes = {
+			{ criteria = 111877, mapID = 2405, x = 29.51, y = 50.08, name = "Sundereth the Caller", quest = 90805 },
+			{ criteria = 111878, mapID = 2405, x = 34.05, y = 81.98, name = "Territorial Voidscythe", quest = 91050 },
+			{ criteria = 111879, mapID = 2405, x = 36.16, y = 83.55, name = "Tremora", quest = 91048 },
+			{ criteria = 111880, mapID = 2405, x = 43.66, y = 51.54, name = "Screammaxa the Matriarch", quest = 93966 },
+			{ criteria = 111881, mapID = 2405, x = 47.05, y = 80.63, name = "Bane of the Vilebloods", quest = 93946 },
+			{ criteria = 111882, mapID = 2405, x = 39.23, y = 63.92, name = "Aeonelle Blackstar", quest = 93944 },
+			{ criteria = 111883, mapID = 2405, x = 37.89, y = 71.77, name = "Lotus Darkblossom", quest = 93947 },
+			{ criteria = 111884, mapID = 2405, x = 55.72, y = 79.45, name = "Queen o' War", quest = 93934 },
+			{ criteria = 111886, mapID = 2444, x = 46.33, y = 40.94, name = "Rakshur the Bonegrinder", quest = 93953 },
+			{ criteria = 111887, mapID = 2405, x = 35.49, y = 50.23, name = "Bilemaw the Gluttonous", quest = 93884 },
+			{ criteria = 111888, mapID = 2444, x = 40.88, y = 88.99, name = "Eruundi", quest = 91047 },
+			{ criteria = 111889, mapID = 2405, x = 40.17, y = 41.30, name = "Nightbrood", quest = 91051 },
+			{ criteria = 111885, mapID = 2405, x = 48.81, y = 53.26, name = "Ravengerus", quest = 93895 },
+			{ criteria = 111890, mapID = 2405, x = 53.94, y = 62.72, name = "Far'thana the Mad", quest = 93896 },
+		},
+	},
 }

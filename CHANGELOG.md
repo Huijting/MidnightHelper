@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.1.0] - 2026-06-30
+
+A new Achievements tab for Midnight's collectible hunts.
+
+### Added
+
+- **Achievements tab** (Me room): track the Treasures, The Highest Peaks (telescopes), Midnight Lore Hunter and the zone rare-hunter achievements across Eversong Woods, Zul'Aman, Harandar and Voidstorm, with live per-node progress and one-click TomTom routing to whatever you still miss. The arrow auto-advances as you loot or kill, and survives crossing zones, sub-areas and portals.
+- **Rare hunters:** every zone's rares (A Bloody Song, Tallest Tree in the Forest, Leaf None Behind, The Ultimate Predator) as a routable checklist — cross-referenced from HandyNotes and verified against the in-game achievement criteria.
+- **Per-card renown and collectible.** Each card shows the faction renown the achievement feeds (with your current renown level) and its completion reward — Sootpaw (pet), Pango Plating and the Interdimensional Parcel Signal (toys) and the Vivacious Chloroceros (mount) — with a collected check read live from your journals.
+- **Expandable checklists** with a Waypoint button and a how-to tooltip per treasure, plus a step-by-step hint toast for the multi-step ones (urns, orbs, altars, the Peculiar Cauldron grind, …).
+- **Tab summary** showing achievements done, collectibles owned, and live progress on the **Light Up the Night** meta toward the **Brilliant Petalwing** mount.
+- **Route nearest open** button — sends the arrow to the closest treasure you still need across all tracked achievements.
+- **Sorting and hiding:** open achievements sort to the top, completed ones to the bottom; hide finished or unwanted ones from Settings > Tabs or the "all done — hide it?" prompt.
+- **Shift-click** a card to link the achievement in chat; **Ctrl-click** to open Blizzard's achievement panel.
+
+### Fixed
+
+- Removed a taint vector (reassigning the `StaticPopupDialogs` global) that could block Blizzard's spellbook from opening on lower-level alts.
+
 ## [2.0.0] - 2026-06-25
 
 A major redesign of how you navigate Midnight Helper, plus full localization.

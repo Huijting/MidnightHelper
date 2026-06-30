@@ -9,6 +9,11 @@ prioriteit. Details/bronnen staan in de genoemde docs; dit is de overzichtslijst
 In aanbouw nu: **Turbulent Timeways-tracker** + **Omnium Folio-companion** (#1+#2).
 De rest, bewaard voor later (≈ prioriteit):
 
+- [ ] **Leveling/beta-tab herzien (Rob, 30 jun)** — de leveling-tab hoort er in de
+      huidige vorm niet zo in: te summier en te vrijblijvend. Apart oppakken: scope
+      aanscherpen, concreter/sturender maken (of anders positioneren). Na de
+      Achievements-release.
+
 - [~] **Weekly-checklist-pariteit** — Abundant Offerings (89507), A Nightmarish
       Task (94446), Gnawing Curiosity (93784), Arcantina (93767) ✅ + **Voidforge
       94623 toegevoegd (15 jun, batch #6)**. RESTEREND (geen bevestigde quest-ID →

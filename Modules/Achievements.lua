@@ -1068,11 +1068,87 @@ local function LayoutAchPanel()
 	st.child:SetHeight(math.max(10, -y + 10))
 end
 
+-- "Light Up the Night" meta-achievement (62386) -> Brilliant Petalwing mount (item
+-- 252011). We read the meta's progress LIVE from the criteria API (no hardcoded
+-- sub-list), so it always matches what WoW counts.
+local LIGHT_UP_META = 62386
+local PETALWING_ITEM = 252011
+
+local function MetaProgress(achievementID)
+	if not (GetAchievementNumCriteria and GetAchievementCriteriaInfo) then
+		return nil, nil
+	end
+	local total = GetAchievementNumCriteria(achievementID) or 0
+	if total == 0 then
+		return nil, nil
+	end
+	local done = 0
+	for i = 1, total do
+		local _, _, completed = GetAchievementCriteriaInfo(achievementID, i)
+		if completed then
+			done = done + 1
+		end
+	end
+	return done, total
+end
+
+local function MountOwnedByItem(itemID)
+	if not (itemID and C_MountJournal and C_MountJournal.GetMountFromItem) then
+		return false
+	end
+	local ok, mid = pcall(C_MountJournal.GetMountFromItem, itemID)
+	if ok and mid and C_MountJournal.GetMountInfoByID then
+		local info = { C_MountJournal.GetMountInfoByID(mid) }
+		return info[11] and true or false
+	end
+	return false
+end
+
+-- Top-of-tab summary: tracked-achievement count, collectibles owned, and the
+-- "Light Up the Night" meta progress + its mount reward.
+local function RefreshAchSummary()
+	local st = achPanelState
+	if not st or not st.summary then
+		return
+	end
+	local achDone, achTotal, colOwned, colTotal = 0, 0, 0, 0
+	for _, entry in ipairs(ns.ACHIEVEMENT_TREASURES or {}) do
+		achTotal = achTotal + 1
+		local done, total = ns.GetTreasureProgress(entry)
+		local complete = (total > 0 and done >= total)
+		if complete then
+			achDone = achDone + 1
+		end
+		if entry.reward then
+			colTotal = colTotal + 1
+			if RewardCollected(entry.reward, complete) then
+				colOwned = colOwned + 1
+			end
+		end
+	end
+	local parts = { (TL("ACH_SUMMARY_ACH")):format(achDone, achTotal) }
+	if colTotal > 0 then
+		parts[#parts + 1] = (TL("ACH_SUMMARY_COLL")):format(colOwned, colTotal)
+	end
+	local md, mt = MetaProgress(LIGHT_UP_META)
+	if md and mt then
+		local metaName = (GetAchievementInfo and select(2, GetAchievementInfo(LIGHT_UP_META))) or "Light Up the Night"
+		local mountName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(PETALWING_ITEM)) or "Brilliant Petalwing"
+		local metaStr = (TL("ACH_SUMMARY_META")):format(metaName, md, mt, mountName)
+		if (md >= mt) or MountOwnedByItem(PETALWING_ITEM) then
+			metaStr = "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12|t " .. metaStr
+		end
+		parts[#parts + 1] = metaStr
+	end
+	st.summary:SetText(table.concat(parts, "  |cff808080-|r  "))
+end
+
 local function RefreshAchPanel()
 	local st = achPanelState
 	if not st then
 		return
 	end
+	RefreshAchSummary()
 	for _, card in ipairs(st.cards) do
 		local done, total = ns.GetTreasureProgress(card.entry)
 		local complete = (total > 0 and done >= total)
@@ -1135,6 +1211,9 @@ local function RelocalizeAchPanel()
 	end
 	if st.allHidden then
 		st.allHidden:SetText(TL("ACH_TAB_ALL_HIDDEN"))
+	end
+	if st.routeBtn then
+		st.routeBtn:SetText(TL("ACH_TAB_ROUTE_NEAREST"))
 	end
 	RefreshAchPanel()
 end
@@ -1244,6 +1323,44 @@ local function BuildAchCard(st, entry)
 		row.name:SetPoint("RIGHT", wp, "LEFT", -6, 0)
 		row.wp = wp
 
+		-- Hover tooltip: always the treasure name, plus its how-to note / item counter /
+		-- steps when it has them (reuses the rich note data); a short route hint for the
+		-- plain "walk to the chest" treasures so every row is consistently hoverable.
+		rf:EnableMouse(true)
+		rf:SetScript("OnEnter", function(self)
+			if not GameTooltip then
+				return
+			end
+			local n = row.node
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(n.name or "?", 1, 0.82, 0.2)
+			local hasExtra = false
+			if n.note then
+				local body = (ns.SanitizeUIFontText and ns.SanitizeUIFontText(n.note)) or n.note
+				GameTooltip:AddLine(body, 0.9, 0.9, 0.9, true)
+				hasExtra = true
+			end
+			if n.counterName and n.counterNeed then
+				GameTooltip:AddLine(("%s x%d"):format(n.counterName, n.counterNeed), 0.7, 0.85, 1.0, true)
+				hasExtra = true
+			end
+			if type(n.prereqs) == "table" then
+				for _, p in ipairs(n.prereqs) do
+					GameTooltip:AddLine("- " .. (p.name or "?"), 0.7, 0.85, 1.0, true)
+				end
+				hasExtra = true
+			end
+			if not hasExtra then
+				GameTooltip:AddLine(TL("ACH_TAB_ROW_HINT"), 0.6, 0.6, 0.6, true)
+			end
+			GameTooltip:Show()
+		end)
+		rf:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+
 		card.rows[#card.rows + 1] = row
 	end
 
@@ -1264,8 +1381,25 @@ function ns.BuildAchievementsPanel(panel)
 	intro:SetJustifyH("LEFT")
 	intro:SetText(TL("ACH_TAB_INTRO"))
 
+	-- At-a-glance summary line (achievements done, collectibles owned, meta progress).
+	local summary = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	summary:SetPoint("TOPLEFT", intro, "BOTTOMLEFT", 0, -6)
+	summary:SetPoint("RIGHT", panel, "RIGHT", -16, 0)
+	summary:SetJustifyH("LEFT")
+
+	-- One-click route to the nearest still-open node across all achievements.
+	local routeNearestBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	routeNearestBtn:SetSize(170, 20)
+	routeNearestBtn:SetPoint("TOPLEFT", summary, "BOTTOMLEFT", 0, -6)
+	routeNearestBtn:SetText(TL("ACH_TAB_ROUTE_NEAREST"))
+	routeNearestBtn:SetScript("OnClick", function()
+		if ns.RouteNearestOpenAchievement then
+			ns.RouteNearestOpenAchievement()
+		end
+	end)
+
 	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
-	scroll:SetPoint("TOPLEFT", intro, "BOTTOMLEFT", 0, -10)
+	scroll:SetPoint("TOPLEFT", routeNearestBtn, "BOTTOMLEFT", 0, -8)
 	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -28, 12)
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(1, 1)
@@ -1274,7 +1408,7 @@ function ns.BuildAchievementsPanel(panel)
 		LayoutAchPanel()
 	end)
 
-	achPanelState = { panel = panel, scroll = scroll, child = child, intro = intro, cards = {} }
+	achPanelState = { panel = panel, scroll = scroll, child = child, intro = intro, summary = summary, routeBtn = routeNearestBtn, cards = {} }
 
 	local list = ns.ACHIEVEMENT_TREASURES or {}
 	if #list == 0 then
@@ -1392,6 +1526,42 @@ function ns.PickTreasureEntryForZone()
 		end
 	end
 	return list[1]
+end
+
+-- Route to the achievement whose nearest still-open node is closest to you (across
+-- all tracked, non-hidden achievements). Prefers one with open nodes in your current
+-- zone; otherwise picks by world-distance. Reuses RouteAchievementTreasures, which
+-- itself orders nearest-first from where you stand.
+function ns.RouteNearestOpenAchievement()
+	local list = ns.ACHIEVEMENT_TREASURES or {}
+	local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	local pwx, pwy = PlayerWorld()
+	local bestEntry, bestDist, sameZoneEntry, anyOpen
+	for _, entry in ipairs(list) do
+		if not ns.IsAchievementHidden(entry.achievementID) then
+			local _, _, incomplete = ns.GetTreasureProgress(entry)
+			for _, node in ipairs(incomplete) do
+				anyOpen = anyOpen or entry
+				if pm and node.mapID == pm and not sameZoneEntry then
+					sameZoneEntry = entry
+				end
+				local nwx, nwy = NodeWorld(node)
+				if pwx and nwx then
+					local dx, dy = pwx - nwx, pwy - nwy
+					local d = dx * dx + dy * dy
+					if not bestDist or d < bestDist then
+						bestDist, bestEntry = d, entry
+					end
+				end
+			end
+		end
+	end
+	local target = sameZoneEntry or bestEntry or anyOpen
+	if target then
+		ns.RouteAchievementTreasures(target)
+	else
+		print(("%s %s"):format(Prefix(), TL("ACH_TAB_ALLDONE")))
+	end
 end
 
 -- Slash hook (Core.lua calls this early, like the delve-items handler).
