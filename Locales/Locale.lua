@@ -249,6 +249,7 @@ function ns:ApplyBindingLabels()
 	-- Global must match the (namespaced) Binding name in Bindings.xml; the
 	-- locale-table key is unchanged to keep the language packs untouched.
 	_G.BINDING_NAME_MIDNIGHTHELPER_TOGGLEMAIN = self:L("BINDING_NAME_TOGGLEMAIN")
+	_G.BINDING_NAME_MIDNIGHTHELPER_SKIPNODE = self:L("BINDING_NAME_SKIPNODE")
 end
 
 --- Like L() but uses GetChatLocaleCode (Latin fallback when client cannot render CJK chat).

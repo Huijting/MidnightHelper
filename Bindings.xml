@@ -5,4 +5,7 @@
 	<Binding name="MIDNIGHTHELPER_TOGGLEMAIN" category="Midnight Helper " runOnUp="false" default="ALT-M">
 		MidnightHelper_KeybindToggleMain()
 	</Binding>
+	<Binding name="MIDNIGHTHELPER_SKIPNODE" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindSkipNode()
+	</Binding>
 </Bindings>

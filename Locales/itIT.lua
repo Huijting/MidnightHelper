@@ -18,6 +18,7 @@ ns._mhLocales.itIT = {
 	-- Esc → Keybindings → AddOns → Midnight Helper
 	BINDING_HEADER_MIDNIGHTHELPER = "Midnight Helper",
 	BINDING_NAME_TOGGLEMAIN = "Apri/chiudi la finestra principale",
+	BINDING_NAME_SKIPNODE = "Salta l'obiettivo di percorso attuale",
 
 	-- Chat / slash
 	PRINT_PREFIX = "Midnight Helper:",

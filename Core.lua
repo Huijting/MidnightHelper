@@ -576,6 +576,14 @@ function MidnightHelper_KeybindToggleMain()
 	end
 end
 
+-- Skip the achievement node the route arrow is currently on (e.g. an un-spawned
+-- rare) and re-point at the next-nearest open one. Handy as an in-flight keybind.
+function MidnightHelper_KeybindSkipNode()
+	if ns.SkipCurrentAchievementNode then
+		ns.SkipCurrentAchievementNode()
+	end
+end
+
 SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	msg = (msg or ""):gsub("^%s+", ""):gsub("%s+$", "")
 

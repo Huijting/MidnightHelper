@@ -374,10 +374,11 @@ local function StyleToastButton(b)
 	if not p then
 		return
 	end
+	local label = p.name and ns:L(p.name) or "?"
 	if b._mhIsStep and (p.quest or p.item) and PrereqDone(p) then
-		b:SetText(READY_CHECK_ICON .. "|cff808080" .. (p.name or "?") .. "|r")
+		b:SetText(READY_CHECK_ICON .. "|cff808080" .. label .. "|r")
 	else
-		b:SetText("|cffaaccff->|r " .. (p.name or "?"))
+		b:SetText("|cffaaccff->|r " .. label)
 	end
 end
 
@@ -391,7 +392,7 @@ local function CounterLine(node)
 	local have = (getCount and getCount(node.counterItem)) or 0
 	local need = node.counterNeed or 0
 	local col = (need > 0 and have >= need) and "ff66dd66" or "ffffcc00"
-	return ("|cffffd200%s:|r |c%s%d/%d|r"):format(node.counterName or "Items", col, have, need)
+	return ("|cffffd200%s:|r |c%s%d/%d|r"):format(node.counterName or ns:L("ACH_COUNTER_FALLBACK"), col, have, need)
 end
 
 local function RefreshToastSteps()
@@ -513,13 +514,13 @@ function ns.ShowTreasureToast(node)
 	for _, b in ipairs(f.btns) do
 		b:Hide()
 	end
-	f.title:SetText(node.name or "Treasure")
+	f.title:SetText(node.name or ns:L("ACH_TOAST_FALLBACK"))
 	local cl = CounterLine(node)
-	f.body:SetText((node.note or "") .. (cl and ("\n\n" .. cl) or ""))
+	f.body:SetText((node.note and ns:L(node.note) or "") .. (cl and ("\n\n" .. cl) or ""))
 
 	-- Button 1 routes back to the treasure itself (so you never lose it when the
 	-- TomTom arrow clears on arrival); the rest are its prerequisites.
-	local targets = { { name = (node.name or "Treasure") .. " — the chest", mapID = node.mapID, x = node.x, y = node.y } }
+	local targets = { { name = (ns:L("ACH_TOAST_CHEST_FMT")):format(node.name or ns:L("ACH_TOAST_FALLBACK")), mapID = node.mapID, x = node.x, y = node.y } }
 	for _, p in ipairs(node.prereqs or {}) do
 		targets[#targets + 1] = p
 	end
@@ -540,7 +541,7 @@ function ns.ShowTreasureToast(node)
 		StyleToastButton(b)
 		b:SetScript("OnClick", function()
 			if ns.AddSmartTomTomWay then
-				ns.AddSmartTomTomWay(p.mapID, p.x, p.y, p.name)
+				ns.AddSmartTomTomWay(p.mapID, p.x, p.y, p.name and ns:L(p.name) or p.name)
 			end
 		end)
 		b:Show()
@@ -709,6 +710,16 @@ end
 
 -- silent = re-assert the arrow/backup on a zone change without spamming chat or
 -- re-popping the toast (used by the zone-change re-assert below).
+-- Skip support: a node you skip (e.g. a rare that wasn't spawned) is pushed to the
+-- back of the route so the arrow moves on to the next one; you still get back to it
+-- after the rest. currentLead is the node the arrow is on right now (what Skip acts on).
+local skippedNodes = {}
+local currentLead
+
+local function NodeKey(n)
+	return n and (n.criteria or n.quest or (tostring(n.mapID) .. ":" .. tostring(n.x) .. ":" .. tostring(n.y)))
+end
+
 local function IssueRoute(entry, firstTime, silent)
 	local done, total, incomplete = ns.GetTreasureProgress(entry)
 	local title = AchievementName(entry)
@@ -720,14 +731,35 @@ local function IssueRoute(entry, firstTime, silent)
 	if #incomplete == 0 then
 		ns.lastTarget = nil
 		routeSig, activeEntry = nil, nil
+		skippedNodes, currentLead = {}, nil
 		if ns._mhRouteOwner == "achievement" then
 			ns._mhRouteOwner = nil
 		end
 		ArmTreasureToast(nil)
-		print(("%s %s — all %d treasures done."):format(Prefix(), title, total))
+		print((ns:L("ACH_MSG_ALLDONE")):format(Prefix(), title, total))
 		return
 	end
-	incomplete = OrderNearest(incomplete)
+	-- Order nearest-first, but push any skipped nodes (rares that weren't up) to the
+	-- back so the arrow moves on. If everything left is skipped, reset and cycle over.
+	do
+		local act, skip = {}, {}
+		for _, n in ipairs(incomplete) do
+			if skippedNodes[NodeKey(n)] then
+				skip[#skip + 1] = n
+			else
+				act[#act + 1] = n
+			end
+		end
+		if #act == 0 then
+			skippedNodes = {}
+			incomplete = OrderNearest(incomplete)
+		else
+			incomplete = OrderNearest(act)
+			for _, n in ipairs(OrderNearest(skip)) do
+				incomplete[#incomplete + 1] = n
+			end
+		end
+	end
 	ns._mhRouteOwner = "achievement" -- claim the shared arrow (others stand down)
 	if ns.CancelResetRoute then
 		ns.CancelResetRoute()
@@ -736,6 +768,7 @@ local function IssueRoute(entry, firstTime, silent)
 	-- (urns/orbs) first so the arrow guides you step-by-step, then the chest, then
 	-- the other still-missing treasures. The crazy arrow rides pin 1 only.
 	local first = incomplete[1]
+	currentLead = first -- what Skip will push to the back
 	local pending = PendingTrackedPrereqs(first)
 	local waypoints = {}
 	for _, p in ipairs(pending) do
@@ -771,13 +804,13 @@ local function IssueRoute(entry, firstTime, silent)
 	-- cross-continent targets, and TomTom's own arrow persists across zones.
 	if not silent then
 		if firstTime then
-			print(("%s %s — %d/%d done; routing to %d remaining (next: %s)."):format(
+			print((ns:L("ACH_MSG_ROUTE_START")):format(
 				Prefix(), title, done, total, #incomplete, first.name))
 		else
-			print(("%s Next treasure: %s (%d/%d)."):format(Prefix(), first.name, done, total))
+			print((ns:L("ACH_MSG_ROUTE_NEXT")):format(Prefix(), first.name, done, total))
 		end
 		if first.note then
-			print(("%s  |cffaaccff-> %s|r"):format(Prefix(), first.note))
+			print((ns:L("ACH_MSG_ROUTE_NOTE")):format(Prefix(), ns:L(first.note)))
 		end
 		ArmTreasureToast(first)
 	end
@@ -982,7 +1015,23 @@ function ns.RouteAchievementTreasures(entry)
 	activeEntry = entry
 	EnsureAdvanceFrame()
 	StartRareWatch()
+	skippedNodes, currentLead = {}, nil -- fresh route: forget previous skips
 	IssueRoute(entry, true)
+end
+
+-- Skip the node the arrow is on right now (e.g. a rare that wasn't spawned): push it
+-- to the back of the route and re-point the arrow at the next-nearest open one. You
+-- still come back to skipped nodes after the rest (or once you've cycled them all).
+function ns.SkipCurrentAchievementNode()
+	if not activeEntry then
+		print((ns:L("ACH_MSG_SKIP_NONE")):format(Prefix()))
+		return
+	end
+	if currentLead then
+		skippedNodes[NodeKey(currentLead)] = true
+		print((ns:L("ACH_MSG_SKIP_DONE")):format(Prefix(), currentLead.name or "?"))
+	end
+	IssueRoute(activeEntry, false)
 end
 
 --------------------------------------------------------------------------------
@@ -1385,7 +1434,7 @@ local function BuildAchCard(st, entry)
 				hasExtra = true
 			end
 			if n.note then
-				local body = (ns.SanitizeUIFontText and ns.SanitizeUIFontText(n.note)) or n.note
+				local body = ns:L(n.note); body = (ns.SanitizeUIFontText and ns.SanitizeUIFontText(body)) or body
 				GameTooltip:AddLine(body, 0.9, 0.9, 0.9, true)
 				hasExtra = true
 			end
@@ -1395,7 +1444,7 @@ local function BuildAchCard(st, entry)
 			end
 			if type(n.prereqs) == "table" then
 				for _, p in ipairs(n.prereqs) do
-					GameTooltip:AddLine("- " .. (p.name or "?"), 0.7, 0.85, 1.0, true)
+					GameTooltip:AddLine("- " .. (p.name and ns:L(p.name) or "?"), 0.7, 0.85, 1.0, true)
 				end
 				hasExtra = true
 			end
@@ -1618,10 +1667,14 @@ function ns:RunAchievementSlashCommand(msg)
 	if msg == "treasures" or msg == "treasure" then
 		local entry = ns.PickTreasureEntryForZone()
 		if not entry then
-			print(("%s no treasure achievement data loaded."):format(Prefix()))
+			print((TL("ACH_MSG_NODATA")):format(Prefix()))
 			return true
 		end
 		ns.RouteAchievementTreasures(entry)
+		return true
+	end
+	if msg == "skip" or msg == "next" then
+		ns.SkipCurrentAchievementNode()
 		return true
 	end
 	return false

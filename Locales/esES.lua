@@ -14,6 +14,7 @@ ns._mhLocales = ns._mhLocales or {}
 local OVERRIDES = {
 	BINDING_HEADER_MIDNIGHTHELPER = "Midnight Helper",
 	BINDING_NAME_TOGGLEMAIN = "Mostrar u ocultar ventana principal",
+	BINDING_NAME_SKIPNODE = "Saltar el objetivo de ruta actual",
 	PRINT_PREFIX = "Midnight Helper:",
 	GUIDE_MODULE_NOT_LOADED = "Módulo de guía aún no cargado. Abra la ventana una vez y vuelva a intentarlo.",
 	DEBUG_MODE = "Modo de depuración %s",
