@@ -1595,8 +1595,12 @@ local function ScanForRareAlerts()
 					end
 					if near then
 						rareAlertSeen[dedupeKey] = now
-						FireRareAlert(rare, NpcIdFromObjectGUID(info.objectGUID),
-							IsRareRouted(rare))
+						-- "You're nearly there" only when you're ACTUALLY on a rare route
+						-- right now (owner == "rare"). Being in the weekly hunt store isn't
+						-- enough — otherwise it falsely fires while you're routing a treasure
+						-- (or anything else) and just pass a previously-routed rare.
+						local onRoute = IsRareRouted(rare) and ns._mhRouteOwner == "rare"
+						FireRareAlert(rare, NpcIdFromObjectGUID(info.objectGUID), onRoute)
 					end
 				end
 			end
