@@ -885,6 +885,27 @@ end
 -- event never fires and the "rare" owner token would stay stuck forever. This
 -- watcher notices that you've parked at the rare's spot, aren't fighting, and the
 -- arrow still belongs to the rare — then hands it back to our treasure route.
+-- Re-point TomTom's floating crazy arrow at the nearest still-open waypoint on our
+-- route, with chat announce muted. Idempotent: if the arrow is already correct it
+-- stays put (no flicker); if TomTom cleared it on arrival, or a detour kill dropped
+-- it, this brings it back without touching the waypoint set. Used by the keepalive
+-- ticker (on arrival) and on combat-end (you just killed something).
+local function RepointArrowNearest()
+	local tt = _G.TomTom
+	if not (tt and tt.SetClosestWaypoint) then
+		return
+	end
+	local gen = tt.profile and tt.profile.general
+	local prevAnnounce = gen and gen.announce
+	if gen then
+		gen.announce = false
+	end
+	pcall(tt.SetClosestWaypoint, tt)
+	if gen then
+		gen.announce = prevAnnounce
+	end
+end
+
 local rareWatchTicker, rareIdleTicks
 local function StopRareWatch()
 	if rareWatchTicker then
@@ -925,18 +946,7 @@ local function StartRareWatch()
 				end
 			end
 			if arrived then
-				local tt = _G.TomTom
-				if tt and tt.SetClosestWaypoint then
-					local gen = tt.profile and tt.profile.general
-					local prevAnnounce = gen and gen.announce
-					if gen then
-						gen.announce = false
-					end
-					pcall(tt.SetClosestWaypoint, tt)
-					if gen then
-						gen.announce = prevAnnounce
-					end
-				end
+				RepointArrowNearest()
 			end
 		end
 		if ns._mhRouteOwner ~= "rare" then
@@ -1059,6 +1069,20 @@ local function EnsureAdvanceFrame()
 				ns.MaybeCloseTreasureToast()
 			end
 			ScheduleAdvance()
+			-- Combat-end safety net for the big arrow. ArrowIsOnOurRoute only checks
+			-- whether lastTarget is still an open node, NOT whether TomTom's floating
+			-- arrow is actually showing — so when you kill a detour rare away from the
+			-- lead, the lead is still "open", the reclaim above is skipped, yet TomTom
+			-- may have dropped the arrow (cleardistance on a pin you flew past). Once
+			-- things settle, re-point the arrow at the nearest open waypoint ourselves.
+			-- Idempotent, so if the arrow is already correct nothing visibly changes.
+			if event == "PLAYER_REGEN_ENABLED" and activeEntry and C_Timer and C_Timer.After then
+				C_Timer.After(0.6, function()
+					if activeEntry and ns._mhRouteOwner == "achievement" then
+						RepointArrowNearest()
+					end
+				end)
+			end
 		end
 	end)
 end
