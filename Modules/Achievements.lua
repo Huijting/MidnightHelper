@@ -882,6 +882,42 @@ local function StartRareWatch()
 			StopRareWatch()
 			return
 		end
+		-- Keep the big arrow alive on our route. TomTom clears a waypoint (and its
+		-- crazy arrow) the moment you arrive, and only auto-points at the next one if
+		-- the user enabled arrow.setclosest — which many players have off, so the arrow
+		-- just vanishes on arrival. We don't rely on that setting: while we own the
+		-- arrow, re-point it at the nearest still-open waypoint ourselves every tick
+		-- (announce muted to avoid chat spam). MH already adds every open stop as a
+		-- waypoint, so this makes the arrow flow to the next treasure/rare on arrival.
+		if ns._mhRouteOwner == "achievement" then
+			-- Only once you've arrived at (and TomTom has cleared) the current target:
+			-- re-point the crazy arrow at the next-nearest open waypoint. Gating on
+			-- proximity avoids re-setting the arrow while you're still travelling.
+			local lt = ns.lastTarget
+			local arrived = false
+			if lt then
+				local pwx, pwy = PlayerWorld()
+				local twx, twy = NodeWorld(lt)
+				if pwx and twx then
+					local dx, dy = pwx - twx, pwy - twy
+					arrived = (dx * dx + dy * dy) <= (25 * 25)
+				end
+			end
+			if arrived then
+				local tt = _G.TomTom
+				if tt and tt.SetClosestWaypoint then
+					local gen = tt.profile and tt.profile.general
+					local prevAnnounce = gen and gen.announce
+					if gen then
+						gen.announce = false
+					end
+					pcall(tt.SetClosestWaypoint, tt)
+					if gen then
+						gen.announce = prevAnnounce
+					end
+				end
+			end
+		end
 		if ns._mhRouteOwner ~= "rare" then
 			rareIdleTicks = 0
 			return -- arrow is ours (or free) — nothing to reclaim
