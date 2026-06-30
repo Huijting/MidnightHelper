@@ -112,6 +112,43 @@ end
 -- live (locale-following) achievement name.
 ns.AchievementDisplayName = AchievementName
 
+-- Per-card classification, derived from the data (no extra fields needed):
+--   kind: treasure / peak / lore / rare (rare-hunter entries carry no nameKey).
+--   feeds-meta: treasures and rares roll up into the zone metas -> Light Up the Night
+--   (peaks and lore award renown but are not part of that meta path).
+local KIND_COLOR = { treasure = "ffcc00", peak = "66ccff", lore = "cc88ff", rare = "ff6060" }
+
+local function EntryKind(entry)
+	local nk = entry and entry.nameKey
+	if not nk then
+		return "rare"
+	end
+	if nk:find("^ACH_TREASURE") then
+		return "treasure"
+	elseif nk:find("^ACH_PEAKS") then
+		return "peak"
+	elseif nk:find("^ACH_LORE") then
+		return "lore"
+	end
+	return "treasure"
+end
+
+local function EntryFeedsMeta(entry)
+	local k = EntryKind(entry)
+	return k == "treasure" or k == "rare"
+end
+
+local function NodeIsElite(node)
+	return (node and node.criteria and ns.ELITE_RARE_CRITERIA and ns.ELITE_RARE_CRITERIA[node.criteria]) and true or false
+end
+
+-- Coloured "[Type]" prefix for a card title.
+local function CardTypeTag(entry)
+	local k = EntryKind(entry)
+	local label = (ns.L and ns:L("ACH_KIND_" .. k:upper())) or k
+	return ("|cff%s[%s]|r "):format(KIND_COLOR[k] or "ffffff", label)
+end
+
 -- Renown line for a card: which faction this achievement feeds, plus your live
 -- renown level. Faction NAMES come from the API (locale-safe); we only store the
 -- major-faction ID per entry. entry.factionMulti = spans all four zone factions
@@ -1154,12 +1191,13 @@ local function RefreshAchPanel()
 		local complete = (total > 0 and done >= total)
 		card.complete = complete -- cached for LayoutAchPanel (sorting + auto-hide)
 		local nm = AchievementName(card.entry)
+		local tag = CardTypeTag(card.entry) -- coloured [Treasure]/[Telescope]/[Lore]/[Rare]
 		if complete then
 			-- Green check + dimmed title so a finished achievement reads as "done"
 			-- even when the card is collapsed.
-			card.title:SetText("|TInterface\\RaidFrame\\ReadyCheck-Ready:14:14|t |cff9aa0a6" .. nm .. "|r")
+			card.title:SetText(tag .. "|TInterface\\RaidFrame\\ReadyCheck-Ready:14:14|t |cff9aa0a6" .. nm .. "|r")
 		else
-			card.title:SetText(nm)
+			card.title:SetText(tag .. nm)
 		end
 		local col = complete and "ff66dd66" or "ffffcc00"
 		card.progress:SetText(("|c%s%d/%d|r"):format(col, done, total))
@@ -1182,10 +1220,14 @@ local function RefreshAchPanel()
 		for _, row in ipairs(card.rows) do
 			local nd = NodeDone(card.entry.achievementID, row.node)
 			row.check:SetTexture(nd and CHECK_DONE or CHECK_TODO)
+			local label = row.node.name or "?"
+			if NodeIsElite(row.node) then
+				label = label .. " |cffff8800(" .. TL("ACH_ELITE") .. ")|r" -- elite rare
+			end
 			if nd then
-				row.name:SetText("|cff808080" .. (row.node.name or "?") .. "|r")
+				row.name:SetText("|cff808080" .. label .. "|r")
 			else
-				row.name:SetText(row.node.name or "?")
+				row.name:SetText(label)
 			end
 			row.wp:SetText(TL("ACH_TAB_WAYPOINT"))
 		end
@@ -1272,6 +1314,9 @@ local function BuildAchCard(st, entry)
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		GameTooltip:SetText(AchievementName(entry), 1, 0.82, 0.2)
+		if EntryFeedsMeta(entry) then
+			GameTooltip:AddLine(TL("ACH_META_TIP"), 1, 0.82, 0.2, true)
+		end
 		GameTooltip:AddLine(TL("ACH_TAB_HINT_LINK"), 0.8, 0.8, 0.8)
 		GameTooltip:AddLine(TL("ACH_TAB_HINT_OPEN"), 0.8, 0.8, 0.8)
 		GameTooltip:Show()
@@ -1335,6 +1380,10 @@ local function BuildAchCard(st, entry)
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetText(n.name or "?", 1, 0.82, 0.2)
 			local hasExtra = false
+			if NodeIsElite(n) then
+				GameTooltip:AddLine(TL("ACH_ELITE_TIP"), 1, 0.5, 0, true)
+				hasExtra = true
+			end
 			if n.note then
 				local body = (ns.SanitizeUIFontText and ns.SanitizeUIFontText(n.note)) or n.note
 				GameTooltip:AddLine(body, 0.9, 0.9, 0.9, true)

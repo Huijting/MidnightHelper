@@ -345,3 +345,12 @@ ns.ACHIEVEMENT_TREASURES = {
 		},
 	},
 }
+
+-- Elite rares (RareElite in HandyNotes_Midnight): tougher, may want a group or some
+-- extra levels. Keyed by the rare-hunter achievement criterion so the checklist can
+-- flag them. Everything else in the achievements is solo-friendly.
+ns.ELITE_RARE_CRITERIA = {
+	[111852] = true, [111853] = true,                  -- Zul'Aman
+	[109045] = true, [109050] = true, [109053] = true, -- Harandar
+	[111885] = true, [111890] = true,                  -- Voidstorm
+}
