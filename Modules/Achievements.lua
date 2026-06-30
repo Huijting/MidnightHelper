@@ -820,6 +820,27 @@ local function IssueRoute(entry, firstTime, silent)
 	if not firstTime and not silent and C_Timer and C_Timer.After and ns.ReassertCrazyArrow then
 		C_Timer.After(0.35, ns.ReassertCrazyArrow)
 	end
+	-- Cross-continent advance fix. If you kill a detour rare while still flying to a
+	-- portal (the new lead sits on another continent, e.g. a Voidstorm rare while
+	-- you're in Silvermoon), TomTom's crazy arrow can't resolve an off-continent
+	-- target and goes blank — and this advance already suppressed the travel UI, so
+	-- the portal guidance is gone too. Re-run the travel assistant in travelOnly mode
+	-- (no waypoint side effects) so the arrow re-focuses on the portal/HS instead of
+	-- vanishing. Gated on cross-continent, so same-continent advances stay untouched.
+	if not firstTime and not silent and lead and C_Timer and C_Timer.After then
+		local lmap, lx, ly, lname = lead.mapID, lead.x, lead.y, lead.name
+		C_Timer.After(0.4, function()
+			if
+				activeEntry
+				and ns._mhRouteOwner == "achievement"
+				and ns.AddSmartTomTomWay
+				and ns.MHIsCrossContinentFromPlayer
+				and ns.MHIsCrossContinentFromPlayer(lmap, lx, ly)
+			then
+				ns.AddSmartTomTomWay(lmap, lx, ly, lname, false, false, true) -- travelOnly
+			end
+		end)
+	end
 end
 
 local function Advance()
