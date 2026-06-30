@@ -1424,11 +1424,22 @@ local function BuildAchCard(st, entry)
 	card.reward:SetTextColor(0.78, 0.86, 1.0) -- soft blue
 	card.reward:Hide()
 
-	for _, node in ipairs(entry.nodes or {}) do
+	for i, node in ipairs(entry.nodes or {}) do
 		local row = { node = node }
 		local rf = CreateFrame("Frame", nil, st.child)
 		rf:SetHeight(20)
 		row.frame = rf
+
+		-- Zebra band + hover highlight: the Waypoint button sits far to the right, so a
+		-- striped background (and a gold band when you hover the row) makes it obvious
+		-- which button belongs to which item across the gap.
+		local zebra = rf:CreateTexture(nil, "BACKGROUND", nil, 0)
+		zebra:SetAllPoints()
+		zebra:SetColorTexture(1, 1, 1, (i % 2 == 0) and 0.06 or 0.0)
+		row.hl = rf:CreateTexture(nil, "BACKGROUND", nil, 1)
+		row.hl:SetAllPoints()
+		row.hl:SetColorTexture(1, 0.82, 0.2, 0.18) -- gold band on hover
+		row.hl:Hide()
 
 		row.check = rf:CreateTexture(nil, "ARTWORK")
 		row.check:SetSize(15, 15)
@@ -1458,6 +1469,9 @@ local function BuildAchCard(st, entry)
 		-- plain "walk to the chest" treasures so every row is consistently hoverable.
 		rf:EnableMouse(true)
 		rf:SetScript("OnEnter", function(self)
+			if row.hl then
+				row.hl:Show()
+			end
 			if not GameTooltip then
 				return
 			end
@@ -1490,6 +1504,9 @@ local function BuildAchCard(st, entry)
 			GameTooltip:Show()
 		end)
 		rf:SetScript("OnLeave", function()
+			if row.hl then
+				row.hl:Hide()
+			end
 			if GameTooltip then
 				GameTooltip:Hide()
 			end

@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.1.1] - 2026-06-30
+
+Fixes and polish for the Achievements tab.
+
+### Fixed
+
+- **The route arrow no longer disappears on arrival.** When you reach a stop, Midnight Helper now re-points TomTom's crazy arrow at the next-nearest open treasure/rare itself, so it keeps flowing even if you don't have TomTom's "set closest waypoint" option enabled.
+- The "you're nearly there" rare alert now fires only when you're actually on a rare route, not when you pass a previously-routed rare while heading to a treasure.
+
+### Added
+
+- **Skip the current route target** with `/mh skip` (or `/mh next`) or a new keybind (Esc → Key Bindings → Midnight Helper). Useful when a rare isn't spawned — the arrow moves to the next open one and you cycle back to skipped stops later.
+- **Per-card type tags** (Treasure / Telescope / Lore / Rare), an **Elite** flag on the tougher rares (cross-referenced from HandyNotes), and a tooltip hint on the achievements that count toward **Light Up the Night** (Brilliant Petalwing mount).
+- **Full localization** of the route how-to notes, step labels and chat/popup messages into all seven languages. Treasure/rare/item names stay in your game-client language to match the world.
+
 ## [2.1.0] - 2026-06-30
 
 A new Achievements tab for Midnight's collectible hunts.
