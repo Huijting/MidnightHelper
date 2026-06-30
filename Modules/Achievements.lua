@@ -945,7 +945,16 @@ local function StartRareWatch()
 					arrived = (dx * dx + dy * dy) <= (25 * 25)
 				end
 			end
-			if arrived then
+			-- Orphan detection. TomTom auto-clears the waypoint you walk into
+			-- (cleardistance); if the floating arrow was riding that waypoint it then
+			-- points at nothing and just disappears — exactly what happens when you
+			-- reach a detour rare that isn't the lead (the arrow briefly swings onto it,
+			-- then vanishes as TomTom clears it). If TomTom's crazy-arrow frame is hidden
+			-- while we still own an active route with open stops, the arrow has dropped:
+			-- re-point it at the nearest still-open waypoint so it never stays gone.
+			local arrowFrame = _G.TomTomCrazyArrow
+			local arrowGone = arrowFrame and arrowFrame.IsShown and not arrowFrame:IsShown()
+			if arrived or arrowGone then
 				RepointArrowNearest()
 			end
 		end
