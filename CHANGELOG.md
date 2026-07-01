@@ -2,15 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
-## [2.2.0-beta.1] - 2026-07-01
+## [2.2.0] - 2026-07-01
 
-Standalone route guidance — the arrow no longer depends on TomTom. **Beta** (test with Cisca before a full release).
+Standalone route guidance — the arrow no longer depends on TomTom.
 
 ### Fixed
 
 - **Route arrow works without TomTom.** The whole "arrow survives arrival / advances to the next stop" behaviour was previously TomTom-only; without TomTom you got a single Blizzard waypoint with no keepalive, so it vanished on arrival and never advanced. A new module (`Modules/NativeArrow.lua`) now draws **our own on-screen direction arrow** (rotates toward the target, shows live distance, drag to reposition) and drives Blizzard's native user waypoint + SuperTrack, following the active route lead (`ns.lastTarget`), re-asserting it when the game clears it on arrival, and advancing it to the next open stop — for every route type (Achievements, Rares, Professions/Treasures, Reset routine).
 - **Safety net when TomTom's crazy arrow drops.** If TomTom is installed but its arrow is hidden (e.g. an outdated TomTom/HereBeDragons that can't re-point across zones), the native waypoint takes over so you keep a direction. While TomTom's arrow is actually showing, the native layer stays completely idle (no change for working TomTom setups).
 - **Rare hunts advance automatically on the native path.** During a Generate Route rare hunt without TomTom, the arrow flows to the nearest still-open rare after each kill, and — like TomTom's cleardistance — when you reach a rare that isn't spawned (no vignette) and aren't in combat, it automatically moves on to the next one and returns to that rare later once it spawns. `/mh skip` (or the Skip keybind) is still there as a manual override. Distance on the arrow can be shown in meters (Settings > General).
+- **Weekly/reset route tours every stop instead of sticking.** The route arrow now moves on from any stop (vault, quest givers, ritual/void hub, profession trainers, work-order station) once you accept a quest there or stand on it for a few seconds — so it no longer gets stuck on things it can't auto-verify (Halduron's rotating weekly, a ritual intro you skip, an empty trainer). Every stop is shown honestly in the checklist with its real status; this only affects where the arrow points.
+- **Quest givers now track their rotating weeklies automatically.** Midnight Helper learns which quest each giver (Liadrin, Halduron, Aethas) hands out the moment you accept it, so a rotating dungeon-of-the-week no longer shows as "not picked up" — no manual updates needed, and it self-heals every week for everyone.
+- **No more arrow flicker on arrival.** When TomTom briefly blanks its arrow as you reach a waypoint, Midnight Helper no longer flashes its own arrow for a moment — it only steps in for a sustained drop.
+- **Main window sits above the action bars.** The window now uses a higher frame strata, so your keybind/action-bar buttons no longer bleed through the bottom of it.
 - **Clear the active route/arrow any time.** Right-click the arrow, use `/mh clear` (aliases `clearroute` / `stop`), or bind a key (Esc → Key Bindings → Midnight Helper → Clear active route). Fully stops whichever route is running (achievement, rare, treasure or reset) and removes the arrow, TomTom and native waypoints.
 - **No more borrowed HereBeDragons dependency.** The Achievements cross-zone re-point (`ForceArrowToLead`) now translates coordinates via the game's own `C_Map` world coordinates instead of a `HereBeDragons-2.0` instance lent by TomTom/HandyNotes — so cross-map routing behaves identically whether or not those addons are present, and can't break on an old library version.
 

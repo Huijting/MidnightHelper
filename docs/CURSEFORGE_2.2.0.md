@@ -1,11 +1,9 @@
-# CurseForge release 2.2.0-beta.1 — copy/paste
+# CurseForge release 2.2.0 — copy/paste
 
-**Upload:** `dist/MidnightHelper-2.2.0-beta.1.zip` (build with `tools\package.ps1`).
-**Description:** beta — route arrow now works standalone (no TomTom needed): Midnight Helper drives the game's own waypoint + on-screen navigation, keeps it on your next open stop, and advances it on arrival. Also a safety net when TomTom's arrow drops, and the cross-zone re-point no longer borrows HereBeDragons.
+**Upload:** `dist/MidnightHelper-2.2.0.zip` (build with `tools\package.ps1`).
+**Description:** route arrow now works standalone (no TomTom needed): Midnight Helper drives the game's own waypoint + on-screen navigation, keeps it on your next open stop, and advances it on arrival. Also a safety net when TomTom's arrow drops, the weekly/reset route tours every stop (and auto-learns rotating giver weeklies), and the cross-zone re-point no longer borrows HereBeDragons.
 
-> ⚠️ **Release type = Beta.** Eerst bij Cisca testen (haar geval: TomTom geïnstalleerd maar de pijl verdween tóch) vóór dit een volle Release wordt.
-
-> ⚠️ **Vóór upload:** in-game `/reload`-test met Lua-errors aan — geen fout bij login, changelog-popup toont **2.2.0-beta.1** bovenaan. Test met én zonder TomTom (zie testlijst).
+> ⚠️ **Vóór upload:** in-game `/reload`-test met Lua-errors aan — geen fout bij login, changelog-popup toont **2.2.0** bovenaan. Test met én zonder TomTom (zie testlijst).
 
 ---
 
@@ -17,9 +15,9 @@ Midnight Helper 2.2.0 makes route guidance standalone: the arrow now works witho
 
 ## Changelog — paste below (since 2.1.1)
 
-### 2.2.0-beta.1 — 2026-07-01
+### 2.2.0 — 2026-07-01
 
-Standalone route guidance — the arrow no longer depends on TomTom. **Beta.**
+Standalone route guidance — the arrow no longer depends on TomTom.
 
 #### Fixed
 
@@ -31,7 +29,7 @@ Standalone route guidance — the arrow no longer depends on TomTom. **Beta.**
 
 ## CF page description — suggested additions
 
-> **2.2.0 (beta)** — route guidance now works standalone. No TomTom? Midnight Helper drives the game's own waypoint and keeps it flowing to your next stop. TomTom installed but the arrow keeps vanishing? The built-in waypoint steps in as a safety net.
+> **2.2.0** — route guidance now works standalone. No TomTom? Midnight Helper drives the game's own waypoint and keeps it flowing to your next stop. TomTom installed but the arrow keeps vanishing? The built-in waypoint steps in as a safety net.
 
 ---
 
@@ -39,10 +37,10 @@ Standalone route guidance — the arrow no longer depends on TomTom. **Beta.**
 
 | Field | Value |
 |-------|--------|
-| **File** | `dist/MidnightHelper-2.2.0-beta.1.zip` |
-| **Display version** | **2.2.0-beta.1** |
+| **File** | `dist/MidnightHelper-2.2.0.zip` |
+| **Display version** | **2.2.0** |
 | **Game version** | Retail — interface **120007** (12.0.7) |
-| **Release type** | **Beta** |
+| **Release type** | **Release** |
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tools\package.ps1
@@ -52,7 +50,7 @@ powershell -ExecutionPolicy Bypass -File tools\package.ps1
 
 - Geen `.bat` / `.cmd` / `.ps1` / `.py` / `.exe` in de zip; controleer de zip-inhoud (`tools/` met scripts en `docs/` mogen er NIET in).
 - Zip-root = exact `MidnightHelper/`; geen docs/tools/dev-bestanden of `Locales/i18n_*`-werkbladen.
-- Changelog hierboven plakken; **Release type = Beta**; game version Retail 120007.
+- Changelog hierboven plakken; **Release type = Release**; game version Retail 120007.
 
 ### Test (na upload / na /reload)
 
@@ -75,6 +73,6 @@ powershell -ExecutionPolicy Bypass -File tools\package.ps1
 
 **Beide:**
 
-- In-game changelog-popup toont **2.2.0-beta.1** bovenaan met de nieuwe regels.
+- In-game changelog-popup toont **2.2.0** bovenaan met de nieuwe regels.
 - **Route wissen** werkt: rechts-klik op de pijl, `/mh clear`, of keybind (Esc → Toetsbindingen → Midnight Helper → *Clear active route*) → route + pijl + waypoints weg.
 - Geen dubbele pijl met TomTom aan; geen vastzittende waypoints; na afronden route is alles weg.

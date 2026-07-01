@@ -37,6 +37,18 @@ local STATION_MAP, STATION_X, STATION_Y = 2393, 45.0, 55.6
 -- "weekly_hub" pin (UI.lua SMC_CATEGORIES).
 local GIVERS_MAP, GIVERS_X, GIVERS_Y = 2393, 48.95, 64.92
 
+-- Stops you've already visited this route (coordKey -> true). Once you've been at a
+-- stop for a few seconds (or accepted a quest there), it's excluded from the route so
+-- the arrow tours every stop once and never sticks/ping-pongs on one you don't finish
+-- right now (Halduron's rotating weekly, a ritual intro you skip, an empty trainer…).
+-- The step still shows in the checklist with its real status — this only affects the
+-- arrow, and never claims anything is "done".
+local visited = {}
+local dwellKey, dwellTicks = nil, 0
+local function CoordKey(mapID, x, y)
+	return tostring(mapID) .. ":" .. tostring(x) .. ":" .. tostring(y)
+end
+
 -- Per-giver weekly definitions. Fill ONLY in-game-verified data (dump
 -- instructions in TOMORROW.md). Semantics once filled:
 --   done   — any listed quest flagged completed (weekly flag = "this week")
@@ -68,10 +80,12 @@ local GIVERS_MAP, GIVERS_X, GIVERS_Y = 2393, 48.95, 64.92
 -- levelaars ook echte done/opgepakt-status bij hem.
 local GIVER_WEEKLIES = {
 	{ key = "liadrin", name = "Lady Liadrin", quests = { 93766, 93909, 93910, 93911 }, minLevel = 90 },
-	-- 93761 = dungeon-of-the-week (max level); 95468 = "Hope in the Darkest
-	-- Corners", de leveling-variant die Halduron sub-90 aanbiedt (Robs
-	-- level-80-warlock, 11 jun) — "any" dekt beide doelgroepen.
-	{ key = "halduron", name = "Halduron Brightwing", quests = { 93761, 95468 }, minLevel = nil },
+	-- Dungeon-of-the-week (rotates; add each week's confirmed ID here):
+	--   93761 "Windrunner Spire" (10 jun 2026), 93164 "Maisara Caverns"
+	--   (1 jul 2026, Rob confirmed via /mh questscan — dungeon rep-weekly). 95468 =
+	--   "Hope in the Darkest Corners", the leveling variant Halduron offers sub-90
+	--   (Rob's level-80-warlock, 11 jun). "any" covers all audiences.
+	{ key = "halduron", name = "Halduron Brightwing", quests = { 93761, 93164, 95468 }, minLevel = nil },
 	{ key = "aethas", name = "Aethas Sunreaver", quests = { 93600, 94836 }, minLevel = 90 },
 }
 
@@ -206,17 +220,121 @@ local function OwnedProfTrainerWeeklies()
 	return tracked, untracked
 end
 
--- "done" | "inlog" | "locked" | "pickup" | nil (no verified IDs -> no claim)
-local function GiverState(def)
-	if type(def.quests) ~= "table" or #def.quests == 0 then
+--------------------------------------------------------------------------------
+-- Auto-learn giver weeklies (self-healing; no hand-maintained IDs).
+-- When you accept a quest from a giver NPC we remember it under that giver in
+-- SavedVars, so a rotating weekly (Halduron's dungeon-of-the-week) is tracked from
+-- then on without us ever adding IDs. Per account; the moment you pick it up MH
+-- learns it, so the status is never wrong. The giver is identified from a quest we
+-- already know (static or learned) or from the NPC we've mapped before, with a
+-- locale-name fallback the first time. See the learn frame at the bottom of the file.
+--------------------------------------------------------------------------------
+local pendingNpcID, pendingNpcName
+
+local function LearnStore()
+	MidnightHelperDB = MidnightHelperDB or {}
+	local s = MidnightHelperDB.giverLearn
+	if type(s) ~= "table" then
+		s = {}
+		MidnightHelperDB.giverLearn = s
+	end
+	s.npc = s.npc or {} -- npcID -> giverKey
+	s.quests = s.quests or {} -- giverKey -> { [questID] = true }
+	return s
+end
+
+local function NpcIDFromGUID(guid)
+	if type(guid) ~= "string" then
 		return nil
 	end
+	local id = guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")
+	return id and tonumber(id) or nil
+end
+
+-- The giver that already owns a quest id (static def OR learned), or nil.
+local function GiverKeyForQuest(questID)
+	for _, def in ipairs(GIVER_WEEKLIES) do
+		for _, qid in ipairs(def.quests) do
+			if qid == questID then
+				return def.key
+			end
+		end
+	end
+	for key, set in pairs(LearnStore().quests) do
+		if set[questID] then
+			return key
+		end
+	end
+	return nil
+end
+
+local function GiverKeyByName(name)
+	if not name then
+		return nil
+	end
+	for _, def in ipairs(GIVER_WEEKLIES) do
+		if def.name == name then
+			return def.key
+		end
+	end
+	return nil
+end
+
+-- Called on QUEST_ACCEPTED: attribute the quest to a giver and remember it.
+local function LearnGiverQuest(questID)
+	questID = tonumber(questID)
+	-- Consume the pending NPC (set on the preceding QUEST_DETAIL) so a later
+	-- auto-accepted quest can't reuse a stale giver and mis-attribute.
+	local npcID, npcName = pendingNpcID, pendingNpcName
+	pendingNpcID, pendingNpcName = nil, nil
+	if not questID then
+		return
+	end
+	local s = LearnStore()
+	local key = GiverKeyForQuest(questID)
+	if not key and npcID then
+		key = s.npc[npcID]
+	end
+	if not key then
+		key = GiverKeyByName(npcName)
+	end
+	if not key then
+		return -- can't attribute confidently — never guess (never-lie)
+	end
+	if npcID then
+		s.npc[npcID] = key -- learn NPC -> giver for future rotations
+	end
+	s.quests[key] = s.quests[key] or {}
+	s.quests[key][questID] = true
+end
+
+-- All quest IDs for a giver: static def + anything we've learned.
+local function GiverAllQuestIDs(def)
+	local ids = {}
 	for _, qid in ipairs(def.quests) do
+		ids[#ids + 1] = qid
+	end
+	local learned = LearnStore().quests[def.key]
+	if learned then
+		for qid in pairs(learned) do
+			ids[#ids + 1] = qid
+		end
+	end
+	return ids
+end
+
+-- "done" | "inlog" | "locked" | "pickup" | nil (no known IDs -> no claim)
+local function GiverState(def)
+	local ids = GiverAllQuestIDs(def)
+	if #ids == 0 then
+		return nil
+	end
+	for _, qid in ipairs(ids) do
 		if Flagged(qid) then
 			return "done"
 		end
 	end
-	for _, qid in ipairs(def.quests) do
+	for _, qid in ipairs(ids) do
 		if OnQuest(qid) then
 			return "inlog"
 		end
@@ -315,7 +433,7 @@ function ns.GetResetRoutineSteps()
 			steps[#steps + 1] = {
 				text = ns:L("HOME_ROUTINE_GIVER_PICKUP_FMT"):format(def.name),
 				color = "warn",
-				open = true,
+				open = true, -- routing exclusion after you've visited is handled generically
 				pin = { GIVERS_MAP, GIVERS_X, GIVERS_Y, "HOME_ROUTINE_PIN_GIVERS" },
 				onClick = giversRoute,
 			}
@@ -517,7 +635,9 @@ local function ComputeOpenPins()
 	for _, step in ipairs(steps) do
 		if step.open and step.pin then
 			local key = table.concat({ step.pin[1], step.pin[2], step.pin[3] }, ":")
-			if not seen[key] then
+			-- Skip stops you've already visited this route (dwelled at / accepted there)
+			-- so the arrow tours each stop once and never sticks on an unfinished one.
+			if not seen[key] and not visited[key] then
 				seen[key] = true
 				pins[#pins + 1] = step.pin
 			end
@@ -545,14 +665,16 @@ local advanceFrame
 
 local function IssueRoute(pins)
 	ClearTomTom()
-	for i, pin in ipairs(pins) do
-		-- Only pin 1 gets the crazy arrow + travel UI (Rares pattern); the rest
-		-- are silent waypoints. AddSmartTomTomWay sets ns.lastTarget to the last
-		-- pin, so we re-point it at pin 1 afterwards (treasure-arrow saga).
-		ns.AddSmartTomTomWay(pin[1], pin[2], pin[3], PinLabel(pin[4], pin[5]), i > 1, i > 1)
-	end
+	-- Sequential route: set ONLY the current stop as the waypoint. Adding every stop
+	-- made TomTom's "set closest waypoint" swing the arrow between the several city
+	-- stops as you walked (givers/hub/trainers/station all nearby). One waypoint at a
+	-- time = the arrow stays on the current stop; IssueRoute re-runs to the next stop
+	-- as each one is visited/done. routeSig still tracks the whole open set for advance.
 	local first = pins[1]
-	ns.lastTarget = { mapID = first[1], x = first[2], y = first[3], name = PinLabel(first[4], first[5]) }
+	if first then
+		ns.AddSmartTomTomWay(first[1], first[2], first[3], PinLabel(first[4], first[5]))
+		ns.lastTarget = { mapID = first[1], x = first[2], y = first[3], name = PinLabel(first[4], first[5]) }
+	end
 	routeSig = PinsSignature(pins)
 end
 
@@ -560,6 +682,58 @@ end
 function ns.CancelResetRoute()
 	routeActive = false
 	routeSig = nil
+end
+
+-- Map (0..1) -> world yards (pcall-safe) for a real proximity check.
+local function WorldXY(mapID, x01, y01)
+	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D and mapID) then
+		return nil
+	end
+	local ok, _, w = pcall(C_Map.GetWorldPosFromMapPos, mapID, CreateVector2D(x01, y01))
+	if ok and type(w) == "table" then
+		if w.GetXY then
+			return w:GetXY()
+		end
+		return w.x, w.y
+	end
+	return nil
+end
+
+local function PlayerWorldXY()
+	local pmap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	if not pmap then
+		return nil
+	end
+	local pos = C_Map.GetPlayerMapPosition and C_Map.GetPlayerMapPosition(pmap, "player")
+	if not pos then
+		return nil
+	end
+	local px, py = pos:GetXY()
+	if not (px and py) then
+		return nil
+	end
+	return WorldXY(pmap, px, py)
+end
+
+-- The coord (0-100) the arrow is currently on, or nil.
+local function LeadCoord()
+	local t = ns.lastTarget
+	if not (t and t.mapID and t.x and t.y) then
+		return nil
+	end
+	return t.mapID, t.x, t.y
+end
+
+-- Is the player standing at a route coord (within ~22 yd)? Cross-continent coords
+-- give a huge distance, so this reads false when you're not even there.
+local function PlayerNearCoord(mapID, x, y)
+	local pwx, pwy = PlayerWorldXY()
+	local twx, twy = WorldXY(mapID, (x or 0) / 100, (y or 0) / 100)
+	if not (pwx and twx) then
+		return false
+	end
+	local dx, dy = pwx - twx, pwy - twy
+	return (dx * dx + dy * dy) <= (22 * 22)
 end
 
 -- Re-evaluate the open stops; if the still-open set changed (a stop got claimed
@@ -611,6 +785,43 @@ local function ScheduleAdvance()
 	end
 end
 
+-- Dwell fallback: park at the CURRENT stop (arrow on it) for ~6s and it's marked
+-- visited, so the route moves on instead of the arrow sticking on a stop you didn't
+-- finish right now (Halduron's rotating weekly, a ritual intro you skip, an empty
+-- trainer…). Works for every stop; resets the counter when the lead changes or you
+-- walk away. Never claims a stop is "done" — the checklist keeps its real status.
+local dwellTicker
+local function StartDwellTicker()
+	if dwellTicker or not (C_Timer and C_Timer.NewTicker) then
+		return
+	end
+	dwellTicker = C_Timer.NewTicker(2, function()
+		if not routeActive then
+			dwellKey, dwellTicks = nil, 0
+			return
+		end
+		local lm, lx, ly = LeadCoord()
+		if not lm then
+			dwellKey, dwellTicks = nil, 0
+			return
+		end
+		local key = CoordKey(lm, lx, ly)
+		if visited[key] or not PlayerNearCoord(lm, lx, ly) then
+			dwellKey, dwellTicks = nil, 0
+			return
+		end
+		if dwellKey ~= key then
+			dwellKey, dwellTicks = key, 0
+		end
+		dwellTicks = dwellTicks + 1
+		if dwellTicks >= 3 then -- ~6s parked on this stop
+			visited[key] = true
+			dwellKey, dwellTicks = nil, 0
+			ScheduleAdvance()
+		end
+	end)
+end
+
 local function EnsureAdvanceFrame()
 	if advanceFrame then
 		return
@@ -621,7 +832,15 @@ local function EnsureAdvanceFrame()
 	advanceFrame:RegisterEvent("QUEST_REMOVED")
 	advanceFrame:RegisterEvent("QUEST_TURNED_IN")
 	advanceFrame:RegisterEvent("QUEST_LOG_UPDATE")
-	advanceFrame:SetScript("OnEvent", function()
+	advanceFrame:SetScript("OnEvent", function(_, event)
+		-- Accepting a quest while parked on the current stop = you did what you came for;
+		-- mark it visited so the route moves on (covers givers/hub we can't auto-track).
+		if event == "QUEST_ACCEPTED" and routeActive then
+			local lm, lx, ly = LeadCoord()
+			if lm and PlayerNearCoord(lm, lx, ly) then
+				visited[CoordKey(lm, lx, ly)] = true
+			end
+		end
 		ScheduleAdvance()
 	end)
 end
@@ -641,10 +860,75 @@ function ns.StartResetRoute()
 		return
 	end
 	ns._mhRouteOwner = "reset" -- claim the shared arrow (treasure/delve yield)
+	wipe(visited) -- fresh route: re-arm every stop
+	dwellKey, dwellTicks = nil, 0
 	IssueRoute(pins)
 	routeActive = true
 	EnsureAdvanceFrame()
+	StartDwellTicker()
 	if ns.PrintChatKey then
 		ns:PrintChatKey("HOME_ROUTINE_ROUTE_SET_FMT", #pins)
 	end
+end
+
+-- One-shot diagnostic: /mh resetdebug — prints the full reset-route state so we can
+-- see exactly which stop is open/lead and why the arrow sticks or ping-pongs.
+function ns.ResetRouteDebug()
+	local function p(s)
+		print("|cff88ddff[MH reset]|r " .. s)
+	end
+	local lm, lx, ly = LeadCoord()
+	p(("active=%s owner=%s nearLead=%s dwell=%s/3"):format(
+		tostring(routeActive), tostring(ns._mhRouteOwner),
+		tostring(lm and PlayerNearCoord(lm, lx, ly)), tostring(dwellTicks)))
+	local vkeys = {}
+	for k in pairs(visited) do
+		vkeys[#vkeys + 1] = k
+	end
+	p("visited: " .. (#vkeys > 0 and table.concat(vkeys, "  ") or "(none)"))
+	local lt = ns.lastTarget
+	p("lastTarget = " .. (lt and (tostring(lt.name) .. " @ " .. tostring(lt.mapID) .. " " ..
+		tostring(lt.x) .. "," .. tostring(lt.y)) or "nil"))
+	for _, def in ipairs(GIVER_WEEKLIES) do
+		p(("giver %s -> %s"):format(tostring(def.name), tostring(GiverState(def))))
+	end
+	local okSteps, steps = pcall(ns.GetResetRoutineSteps)
+	if okSteps and type(steps) == "table" then
+		for i, s in ipairs(steps) do
+			local pin = s.pin and ("[%s %s,%s]"):format(tostring(s.pin[1]), tostring(s.pin[2]), tostring(s.pin[3])) or "-"
+			p(("step %d open=%s pin=%s | %s"):format(i, tostring(s.open and true or false), pin, tostring(s.text)))
+		end
+	end
+	local pins = ComputeOpenPins()
+	local labels = {}
+	for _, pin in ipairs(pins) do
+		labels[#labels + 1] = tostring(pin[2]) .. "," .. tostring(pin[3])
+	end
+	p("open pins (route order): " .. (table.concat(labels, "  ") ))
+	local s = LearnStore()
+	for key, set in pairs(s.quests) do
+		local qs = {}
+		for qid in pairs(set) do
+			qs[#qs + 1] = tostring(qid)
+		end
+		p(("learned %s: %s"):format(key, table.concat(qs, ",")))
+	end
+end
+
+-- Always-on learn frame (independent of the route): remember which quest each giver
+-- NPC hands out this week, so rotating weeklies self-heal. See LearnGiverQuest.
+do
+	local learnFrame = CreateFrame("Frame")
+	learnFrame:RegisterEvent("QUEST_DETAIL")
+	learnFrame:RegisterEvent("QUEST_ACCEPTED")
+	learnFrame:SetScript("OnEvent", function(_, event, a1, a2)
+		if event == "QUEST_DETAIL" then
+			local guid = UnitGUID and (UnitGUID("npc") or UnitGUID("questnpc"))
+			pendingNpcID = NpcIDFromGUID(guid)
+			pendingNpcName = (UnitName and (UnitName("npc") or UnitName("questnpc"))) or nil
+		elseif event == "QUEST_ACCEPTED" then
+			-- Retail passes questID (a1); older clients passed (logIndex, questID).
+			LearnGiverQuest(a2 or a1)
+		end
+	end)
 end

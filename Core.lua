@@ -672,6 +672,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh resetdebug — one-shot snapshot of the weekly/reset route state (diagnostics).
+	if msg == "resetdebug" then
+		if ns.ResetRouteDebug then
+			ns.ResetRouteDebug()
+		else
+			print(("|cffffcc00%s|r reset debug unavailable."):format(ns:L("PRINT_PREFIX")))
+		end
+		return
+	end
+
 	if msg == "lang" then
 		DEFAULT_CHAT_FRAME:AddMessage(
 			("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("LANG_SLASH_HINT"))

@@ -1,31 +1,32 @@
 # Next session — Midnight Helper
 
 **Laatste update:** 2026-07-01 (tweede sessie)
-**Huidige versie in de repo:** **2.2.0-beta.1** — code klaar, door Rob te builden/uploaden als **Beta**, dan **testen bij Cisca** → daarna live.
+**Huidige versie in de repo:** **2.2.0** — door Rob getest (2 chars, met TomTom), door Rob te builden/uploaden als **Release** naar CF.
 **Vorige live versie:** 2.1.1 (Release), daarvoor 2.1.0
 
-## ⭐ EERSTE KLUS VOLGENDE SESSIE — ResetRoutine advance bij givers
+## ResetRoutine advance bij givers — GEBOUWD (2e sessie), nog in-game te testen
 
-**Symptoom (Rob, 2e sessie):** in de weekly/reset-route (vault → q givers → hub →
-station) schuift de pijl **niet door bij de quest givers**, ook niet nadat je daar een
-quest aanneemt. Onze native pijl legt dit bloot; mét TomTom bewoog 'ie visueel toch mee
-via "set closest", dus het viel niet eerder op.
+**Symptoom (Rob):** in de weekly/reset-route (vault → q givers → hub → station) schoof de
+pijl **niet door bij de quest givers**, ook niet na een quest aannemen. Onze native pijl
+legde dit bloot; mét TomTom bewoog 'ie visueel toch mee via "set closest".
 
-**Oorzaak (geverifieerd in code):** een giver-stap wordt pas "niet-open" als
-`GiverState(def)` "done"/"inlog" teruggeeft, en dat kan alléén met een geverifieerd
-quest-ID in `GIVER_WEEKLIES` (ResetRoutine.lua ~69). Een **niet-getrackte** giver (geen
-ID) blijft een reminder mét route-pin (`open = not anyGiverOpen`) → `ComputeOpenPins`-
-signatuur verandert niet → `AdvanceResetRoute` verzet `ns.lastTarget` niet → pijl blijft
-plakken. Never-lie: we mogen "opgepakt" niet claimen zonder ID.
+**Oorzaak:** een **niet-getrackte** giver (geen geverifieerd quest-ID in `GIVER_WEEKLIES`)
+bleef een reminder mét route-pin → `ComputeOpenPins`-signatuur veranderde niet → geen
+advance. Never-lie: we mogen "opgepakt" niet claimen zonder ID.
 
-**Fix-richting (met in-game test):** maak de givers-stap **arrival-aware** — zodra je
-binnen ~X yd van de givers-pin bent geweest (en evt. een QUEST_ACCEPTED zag), beschouw de
-stap als "bezocht" en schuif door naar de volgende open stop, óók als de giver niet
-getrackt is. Zet dat achter dezelfde owner/lastTarget-conventie zodat NativeArrow volgt.
-Alternatief/aanvulling: universele `/mh skip` ook op de reset-route (maar Rob wil dit
-liever automatisch, net als bij rares). Raakt: `Modules/ResetRoutine.lua`
-(`ComputeOpenPins`/`AdvanceResetRoute`/nieuwe positie-poll). Test: op een char met een
-niet-getrackte giver + op één met getrackte (Liadrin 93766 e.a.).
+**Oplossing (gebouwd):** `giversVisited`-vlag in `ResetRoutine.lua`. Als je een quest
+**aanneemt terwijl de pijl op de givers staat** (`QUEST_ACCEPTED` + `LeadIsGivers()`),
+wordt de vlag gezet; de niet-getrackte givers-reminder verliest dan z'n route-pin
+(`open = (not anyGiverOpen and not giversVisited)`) → route schuift door naar de volgende
+stop. De regel blijft als **tekst-reminder** staan (geen valse "done"-claim). Vlag reset
+bij een nieuwe route (`StartResetRoute`). Getrackte givers werken zoals voorheen
+(pickup→inlog→done via IDs).
+
+**Nog testen (Rob, zelf):** char met niet-getrackte giver → route lopen, quest aannemen
+bij givers → pijl gaat naar hub. En op char met getrackte giver (Liadrin 93766 e.a.):
+oude gedrag intact. **Optioneel later:** pure-arrival fallback (doorschuiven als je er was
+zonder iets aan te nemen) — nu bewust op de QUEST_ACCEPTED-trigger gehouden om niet te
+vroeg te skippen in de drukke stad (vault/givers liggen naast elkaar).
 
 > Start hier morgen in een nieuwe chat. Dit bestand vat samen waar we staan, hoe we
 > werken, en wat er nog ligt. Lees ook `CHANGELOG.md` [2.2.0-beta.1] voor de details.

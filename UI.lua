@@ -1521,7 +1521,11 @@ function ns:EnsureMainUI()
 	local initH = ResolveMainHeightForOpen()
 	main:SetSize(initW, initH)
 	main:SetPoint("CENTER")
-	main:SetFrameStrata("MEDIUM")
+	-- HIGH strata so the window sits above action bars / keybind buttons (they render
+	-- at MEDIUM and were bleeding through the bottom of the window). Below DIALOG so it
+	-- doesn't cover real popups/tooltips.
+	main:SetFrameStrata("HIGH")
+	main:SetToplevel(true) -- clicking the window raises it above other HIGH frames
 	main:SetFrameLevel(100)
 	main:SetMovable(true)
 	main:SetResizable(true)

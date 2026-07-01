@@ -99,9 +99,16 @@ local function HasNativeWaypoint()
 	return (C_Map and C_Map.HasUserWaypoint and C_Map.HasUserWaypoint()) and true or false
 end
 
+-- Track when TomTom's crazy arrow was last visible, so a brief clear (it blanks for
+-- a moment on each waypoint arrival) doesn't instantly flash our arrow.
+local ttArrowLastSeen = 0
 local function TomTomArrowShowing()
 	local f = _G.TomTomCrazyArrow
-	return (f and f.IsShown and f:IsShown()) and true or false
+	local shown = (f and f.IsShown and f:IsShown()) and true or false
+	if shown then
+		ttArrowLastSeen = (GetTime and GetTime()) or 0
+	end
+	return shown
 end
 
 -- Stable "a route is live" signal: an owner is claimed only during a real route
@@ -110,13 +117,22 @@ local function RouteOwned()
 	return (ns._mhRouteOwner ~= nil) and true or false
 end
 
+-- Grace before we take over from a dropped TomTom arrow: avoids flashing our arrow
+-- during the brief blank on each arrival, while still stepping in for a real drop.
+local TT_GRACE = 4
+
 -- Should THIS module drive guidance right now?
---   * no TomTom          -> yes (only guidance available)
---   * TomTom arrow down  -> yes (safety net)
---   * TomTom arrow shown -> no  (leave the working crazy arrow alone)
+--   * no TomTom             -> yes (only guidance available)
+--   * TomTom arrow down >4s -> yes (safety net for a real drop)
+--   * TomTom arrow shown/    -> no  (leave the working crazy arrow alone; don't flash
+--     recently shown             on the momentary clear at each waypoint arrival)
 local function ShouldDriveNative()
 	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		return not TomTomArrowShowing()
+		if TomTomArrowShowing() then
+			return false
+		end
+		local now = (GetTime and GetTime()) or 0
+		return (now - ttArrowLastSeen) >= TT_GRACE
 	end
 	return true
 end

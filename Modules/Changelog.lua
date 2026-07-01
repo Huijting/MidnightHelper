@@ -4,11 +4,12 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
-		version = "2.2.0-beta.1",
+		version = "2.2.0",
 		lines = {
 			"CHANGELOG_220_1",
 			"CHANGELOG_220_2",
 			"CHANGELOG_220_3",
+			"CHANGELOG_220_4",
 		},
 	},
 	{
