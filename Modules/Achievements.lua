@@ -280,6 +280,30 @@ local function NodeWorld(node)
 	return MapPosToWorld(node.mapID, (node.x or 0) / 100, (node.y or 0) / 100)
 end
 
+-- Translate map (0..1) coords on fromMap onto toMap, WITHOUT any external library.
+-- We go through world (yard) coords via C_Map (isotropic, comparable across maps)
+-- and invert onto toMap by sampling two corners (linear within a zone) — the same
+-- technique Core's MHResolveWaypointMap uses. This replaces a borrowed HereBeDragons
+-- dependency, so the cross-map re-pin no longer breaks when TomTom/HandyNotes ship
+-- an old HBD (or aren't installed at all).
+local function TranslateToMap(fromMap, x01, y01, toMap)
+	local wx, wy = MapPosToWorld(fromMap, x01, y01)
+	if not wx then
+		return nil
+	end
+	local ax, ay = MapPosToWorld(toMap, 0, 0)
+	local bx, by = MapPosToWorld(toMap, 1, 1)
+	if not (ax and bx) or ax == bx or ay == by then
+		return nil
+	end
+	local nx = (wx - ax) / (bx - ax)
+	local ny = (wy - ay) / (by - ay)
+	if nx < 0 or nx > 1 or ny < 0 or ny > 1 then
+		return nil -- world point isn't inside toMap; caller keeps the original node map
+	end
+	return nx, ny
+end
+
 local function PlayerWorld()
 	if not (C_Map and C_Map.GetBestMapForUnit) then
 		return nil
@@ -912,8 +936,8 @@ local mhPrevAtLead
 -- Put TomTom's crazy arrow on the route's CURRENT LEAD (ns.lastTarget). If the lead
 -- lives on another map than you're standing on (e.g. a rare on the Slayer's Rise
 -- sub-map while you're on the Voidstorm overworld), TomTom hides the arrow — so we
--- translate the lead onto YOUR current map via HereBeDragons (the same lib TomTom
--- uses) and pin the arrow there. We follow the LEAD, not raw nearest, so Skip is
+-- translate the lead onto YOUR current map via C_Map world coordinates (no external
+-- library) and pin the arrow there. We follow the LEAD, not raw nearest, so Skip is
 -- respected; mute announce so TomTom doesn't spam "Added a waypoint"; and use
 -- cleardistance=0 so standing on an un-spawned stop never auto-clears the arrow.
 local function ForceArrowToLead()
@@ -931,16 +955,10 @@ local function ForceArrowToLead()
 	end
 	local mapID, x01, y01 = n.mapID, (n.x or 0) / 100, (n.y or 0) / 100
 	local pmap = PlayerMapID()
-	if pmap and pmap ~= n.mapID and LibStub then
-		local hbd = LibStub("HereBeDragons-2.0", true)
-		if hbd then
-			local wx, wy = hbd:GetWorldCoordinatesFromZone(x01, y01, n.mapID)
-			if wx and wy then
-				local tx, ty = hbd:GetZoneCoordinatesFromWorld(wx, wy, pmap, true)
-				if tx and ty then
-					mapID, x01, y01 = pmap, tx, ty
-				end
-			end
+	if pmap and pmap ~= n.mapID then
+		local tx, ty = TranslateToMap(n.mapID, x01, y01, pmap)
+		if tx and ty then
+			mapID, x01, y01 = pmap, tx, ty
 		end
 	end
 	local gen = tt.profile and tt.profile.general
@@ -1024,7 +1042,7 @@ local function StartRareWatch()
 			-- Keep the big arrow on our lead across the constant sub-zone hops here.
 			-- TomTom's crazy arrow only renders when the waypoint sits on the map you're
 			-- standing on, so whenever your map changes we re-pin the lead onto the new map
-			-- (translated via HBD) BEFORE it can drop. We also restore it if it drops on
+			-- (translated via C_Map) BEFORE it can drop. We also restore it if it drops on
 			-- the same map, re-pin when the lead changes (Skip), and re-pin when you walk
 			-- off a stop you were parked on. We do NOT re-pin while parked on the lead
 			-- (<25yd: an un-spawned rare you walked up to) nor when nothing changed — so

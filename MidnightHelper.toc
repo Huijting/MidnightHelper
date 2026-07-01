@@ -1,5 +1,5 @@
 ## Interface: 120007
-## Version: 2.1.1
+## Version: 2.2.0-beta.1
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.
@@ -85,6 +85,7 @@ Modules\ProfessionsGuide.lua
 Modules\ReferenceGuide.lua
 Modules\Profession.lua
 Modules\Delves.lua
+Modules\NativeArrow.lua
 Modules\WorldBoss.lua
 Modules\Rares.lua
 Modules\RitualSites.lua

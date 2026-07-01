@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.2.0-beta.1] - 2026-07-01
+
+Standalone route guidance — the arrow no longer depends on TomTom. **Beta** (test with Cisca before a full release).
+
+### Fixed
+
+- **Route arrow works without TomTom.** The whole "arrow survives arrival / advances to the next stop" behaviour was previously TomTom-only; without TomTom you got a single Blizzard waypoint with no keepalive, so it vanished on arrival and never advanced. A new generic keepalive (`Modules/NativeArrow.lua`) drives Blizzard's native user waypoint + SuperTrack, follows the active route lead (`ns.lastTarget`), re-asserts it when the game clears it on arrival, and advances it to the next open stop — for every route type (Achievements, Rares, Professions/Treasures, Reset routine).
+- **Safety net when TomTom's crazy arrow drops.** If TomTom is installed but its arrow is hidden (e.g. an outdated TomTom/HereBeDragons that can't re-point across zones), the native waypoint takes over so you keep a direction. While TomTom's arrow is actually showing, the native layer stays completely idle (no change for working TomTom setups).
+- **No more borrowed HereBeDragons dependency.** The Achievements cross-zone re-point (`ForceArrowToLead`) now translates coordinates via the game's own `C_Map` world coordinates instead of a `HereBeDragons-2.0` instance lent by TomTom/HandyNotes — so cross-map routing behaves identically whether or not those addons are present, and can't break on an old library version.
+
 ## [2.1.1] - 2026-07-01
 
 Fixes and polish for the Achievements tab.

@@ -1,11 +1,46 @@
 # Next session — Midnight Helper
 
-**Laatste update:** 2026-07-01
-**Huidige versie:** **2.1.1** (gebouwd + door Rob naar CurseForge geüpload als **Release**)
-**Vorige live versie:** 2.1.0
+**Laatste update:** 2026-07-01 (tweede sessie)
+**Huidige versie in de repo:** **2.2.0-beta.1** (code klaar; **nog niet gebouwd/geüpload** — als **Beta** bedoeld)
+**Vorige live versie:** 2.1.1 (Release), daarvoor 2.1.0
 
 > Start hier morgen in een nieuwe chat. Dit bestand vat samen waar we staan, hoe we
-> werken, en wat er nog ligt. Lees ook `CHANGELOG.md` [2.1.1] voor de details.
+> werken, en wat er nog ligt. Lees ook `CHANGELOG.md` [2.2.0-beta.1] voor de details.
+
+---
+
+## Deze sessie (2026-07-01, deel 2) — standalone route-pijl (2.2.0-beta.1)
+
+**Aanleiding:** Rob logde in op **Cisca's PC** — óók met 2.1.1 verdween daar de pijl.
+Cisca **heeft** TomTom (geen "TomTom is not loaded"-melding), dus 2.1.1's fix (puur
+TomTom) hielp haar niet. Root cause: de hele "pijl overleeft aankomst / schuift door"-
+machinerie zat vast aan TomTom; zonder (of met een haperende) TomTom kreeg je één
+Blizzard-waypoint zónder keepalive → verdwijnt bij aankomst. Ook: `HereBeDragons`
+werd geléénd van TomTom/HandyNotes (niet gebundeld) → cross-map re-pin brak op een
+oude/afwezige HBD.
+
+**Gebouwd (code klaar, niet in-game getest):**
+
+| Wat | Bestand |
+|-----|---------|
+| Generieke native keepalive op Blizzard-waypoint + SuperTrack (volgt `ns.lastTarget`, her-zet bij aankomst, schuift door) — werkt zónder TomTom én als vangnet als TomTom's crazy arrow wég is | **NIEUW** `Modules/NativeArrow.lua` |
+| TOC: module geregistreerd (na Delves) + versie → 2.2.0-beta.1 | `MidnightHelper.toc` |
+| `ForceArrowToLead`: HBD-vertaling vervangen door lib-vrije `C_Map`-vertaling (`TranslateToMap`) | `Modules/Achievements.lua` |
+| Changelog (in-game `CHANGELOG_220_*` in enUS, CHANGELOG.md, CF-doc) | `Modules/Changelog.lua`, `Locales/enUS.lua`, `CHANGELOG.md`, `docs/CURSEFORGE_2.2.0.md` |
+
+**Ontwerpkeuze (belangrijk):** NativeArrow staat **volledig stil** zolang TomTom's
+crazy arrow zichtbaar is (`_G.TomTomCrazyArrow:IsShown()`), dus Robs werkende setup
+regresseert niet. Alleen bij **geen TomTom** of **arrow-down** stuurt het de native
+waypoint. Het ruimt alleen de waypoint op die het zélf zette (nooit een handmatige).
+
+**Nog te doen (volgende sessie):**
+
+1. **In-game test** (zie `docs/CURSEFORGE_2.2.0.md` testlijst) — mét én zónder TomTom,
+   en op Cisca's PC.
+2. Bevestigen dat Cisca's geval nu écht opgelost is. Zo niet: `/mh arrowdebug` aan op
+   haar PC en de output bekijken (welke tak faalt) — dán pas verder.
+3. Build + CF-upload (Rob doet dit; **Release type = Beta**).
+4. Daarna pas terug naar taak #65 (Leveling-tab herzien).
 
 ---
 
