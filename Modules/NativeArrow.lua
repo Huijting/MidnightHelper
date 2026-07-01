@@ -1,30 +1,45 @@
 --[[
 	Midnight Helper — NativeArrow (standalone route guidance).
 
-	Keeps Blizzard's native user waypoint + SuperTrack pinned to the ACTIVE route
-	lead (ns.lastTarget), so routing works WITHOUT TomTom and keeps flowing to the
-	next stop on arrival — the same "arrow survives arrival / advances" behaviour we
-	built for TomTom's crazy arrow, but on the built-in navigation everyone has.
+	Draws our own on-screen direction arrow AND drives Blizzard's native user
+	waypoint + SuperTrack toward the active route lead, so routing works WITHOUT
+	TomTom and keeps flowing to the next stop on arrival. Retail has no built-in
+	rotating arrow of its own, so we ship one.
 
-	It runs in two situations only:
-	  1. No TomTom installed  -> native waypoint is the ONLY guidance, so we drive it.
-	  2. TomTom present but its crazy arrow is DOWN (hidden) -> safety net: we point
-	     the native waypoint at the lead so you're never left without direction
-	     (e.g. an outdated TomTom/HereBeDragons that fails to re-pin across maps).
+	Runs in two situations only:
+	  1. No TomTom installed  -> we are the only guidance, so we drive it.
+	  2. TomTom present but its crazy arrow is DOWN (hidden) -> safety net.
+	While TomTom's crazy arrow is actually showing, this module stands down.
 
-	While TomTom's crazy arrow is actually showing, this module stands down entirely
-	(it never sets a native waypoint), so a working TomTom setup is untouched.
-
-	Every route module (Achievements, Rares, Professions/Treasures, Reset routine)
-	already publishes its current lead as ns.lastTarget and claims the shared arrow
-	via ns._mhRouteOwner, so a single generic keepalive covers all of them.
+	IMPORTANT — zone robustness (the bug that kept coming back):
+	The shared lead `ns.lastTarget` is poked/cleared by several modules' zone
+	handlers (e.g. Delves nils it when it thinks travel is complete). If the arrow
+	depended on `ns.lastTarget` staying alive, it would vanish the moment you fly
+	out of a city/zone. So this module leans on the STABLE signal `ns._mhRouteOwner`
+	(only cleared when a route genuinely ends) and keeps its OWN cached copy of the
+	lead. A transient `ns.lastTarget = nil` can no longer kill the arrow — only the
+	owner clearing (route done) does.
 ]]
 
 local _, ns = ...
 
 local C_Map, C_SuperTrack, C_Timer = C_Map, C_SuperTrack, C_Timer
+local atan2 = math.atan2 or function(y, x) return math.atan(y / x) end
+
+-- If the arrow ever points the exact opposite way on your client, set this to
+-- math.pi (the world-coordinate axis sign is the only thing that could differ).
+local ROTATION_OFFSET = 0
+
+local DEFAULT_SIZE, MIN_SIZE, MAX_SIZE = 64, 28, 160
+
+-- Within this many yards of the current rare lead counts as "arrived" — used to
+-- auto-advance past an un-spawned rare (the fly-over behaviour). Sampled in the
+-- frequent OnUpdate so fast flights between 1s ticks are still caught.
+local RARE_ARRIVAL = 40
+local rareReached, rareReachKey = false, nil
 
 -- Map (0..1) coords -> world (yard) coords. pcall-safe; nil when unavailable.
+-- World coords are isotropic and comparable across maps on the same continent.
 local function MapToWorld(mapID, x01, y01)
 	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D and mapID) then
 		return nil
@@ -35,6 +50,21 @@ local function MapToWorld(mapID, x01, y01)
 			return world:GetXY()
 		end
 		return world.x, world.y
+	end
+	return nil
+end
+
+-- Continent/instance id for a map (first return of GetWorldPosFromMapPos). World
+-- coords are only comparable within one continent, so a target on another continent
+-- (e.g. you portaled to Orgrimmar while routing a Midnight rare) must NOT draw a
+-- direction/distance — the numbers would be meaningless.
+local function MapContinent(mapID)
+	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D and mapID) then
+		return nil
+	end
+	local ok, cont = pcall(C_Map.GetWorldPosFromMapPos, mapID, CreateVector2D(0.5, 0.5))
+	if ok then
+		return cont
 	end
 	return nil
 end
@@ -74,12 +104,13 @@ local function TomTomArrowShowing()
 	return (f and f.IsShown and f:IsShown()) and true or false
 end
 
--- A route is live when a module owns the shared arrow and has published a lead.
-local function RouteActive()
-	return (ns.lastTarget and ns.lastTarget.mapID and ns._mhRouteOwner) and true or false
+-- Stable "a route is live" signal: an owner is claimed only during a real route
+-- and cleared only when it genuinely ends (never merely on a zone change).
+local function RouteOwned()
+	return (ns._mhRouteOwner ~= nil) and true or false
 end
 
--- Should THIS module drive the native waypoint right now?
+-- Should THIS module drive guidance right now?
 --   * no TomTom          -> yes (only guidance available)
 --   * TomTom arrow down  -> yes (safety net)
 --   * TomTom arrow shown -> no  (leave the working crazy arrow alone)
@@ -90,13 +121,237 @@ local function ShouldDriveNative()
 	return true
 end
 
+-- Our own cached lead. Survives transient ns.lastTarget = nil from zone handlers.
+local activeLead
+
+--------------------------------------------------------------------------------
+-- On-screen direction arrow (our own; retail has no built-in rotating arrow).
+--------------------------------------------------------------------------------
+
+local arrowFrame
+
+local function ArrowSize()
+	local s = MidnightHelperDB and tonumber(MidnightHelperDB.nativeArrowSize)
+	if not s then
+		return DEFAULT_SIZE
+	end
+	if s < MIN_SIZE then
+		return MIN_SIZE
+	elseif s > MAX_SIZE then
+		return MAX_SIZE
+	end
+	return s
+end
+
+local function UpdateArrow()
+	local f = arrowFrame
+	local t = activeLead
+	if not (f and t and t.mapID) then
+		return
+	end
+	-- Different continent (e.g. you portaled to Orgrimmar mid-hunt): coords aren't
+	-- comparable, so don't draw a bogus direction/distance — just name the target.
+	local pmap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	if pmap and MapContinent(pmap) ~= MapContinent(t.mapID) then
+		f.tex:Hide()
+		local other = ns:L("ARROW_OTHER_CONTINENT")
+		if not other or other == "ARROW_OTHER_CONTINENT" then
+			other = "(other continent)"
+		end
+		f.label:SetText((t.name or "") .. "  " .. other)
+		return
+	end
+	local pwx, pwy = PlayerWorld()
+	local twx, twy = MapToWorld(t.mapID, (t.x or 0) / 100, (t.y or 0) / 100)
+	local facing = GetPlayerFacing and GetPlayerFacing()
+	if not (pwx and twx and facing) then
+		return
+	end
+	local dx, dy = twx - pwx, twy - pwy
+	local dist = math.sqrt(dx * dx + dy * dy)
+	-- Rare hunts: latch "reached the current lead" here (sampled ~30x/s) so a fast
+	-- fly-over is caught between the 1s ticks that decide whether to auto-advance.
+	if ns._mhRouteOwner == "rare" then
+		local k = TargetKey(t)
+		if k ~= rareReachKey then
+			rareReachKey = k
+			rareReached = false
+		end
+		if dist <= RARE_ARRIVAL then
+			rareReached = true
+		end
+	end
+	f.tex:Show()
+	-- North-pointing texture, rotated counter-clockwise for positive radians.
+	f.tex:SetRotation(atan2(dy, dx) - facing + ROTATION_OFFSET)
+	if dist < 12 then
+		f.tex:SetVertexColor(0.35, 1, 0.35) -- basically there
+	else
+		f.tex:SetVertexColor(1, 0.82, 0)
+	end
+	local shown, unit = dist, "yd"
+	if MidnightHelperDB and MidnightHelperDB.nativeArrowMeters then
+		shown, unit = dist * 0.9144, "m" -- 1 yard = 0.9144 m
+	end
+	f.label:SetText(("%s  %d %s"):format(t.name or "", math.floor(shown + 0.5), unit))
+end
+
+local function EnsureArrowFrame()
+	if arrowFrame then
+		return arrowFrame
+	end
+	local f = CreateFrame("Frame", "MidnightHelperNativeArrow", UIParent)
+	local sz = ArrowSize()
+	f:SetSize(sz, sz)
+	f:SetFrameStrata("HIGH")
+	f:SetPoint("CENTER", UIParent, "CENTER", 0, 170)
+	f:SetMovable(true)
+	f:EnableMouse(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		local point, _, relPoint, x, y = self:GetPoint()
+		MidnightHelperDB = MidnightHelperDB or {}
+		MidnightHelperDB.nativeArrowPos = { point, relPoint, x, y }
+	end)
+	-- Right-click the arrow to clear the active route (most intuitive place to do it).
+	f:SetScript("OnMouseUp", function(_, button)
+		if button == "RightButton" and ns.ClearActiveRoute then
+			ns.ClearActiveRoute()
+		end
+	end)
+	f:SetScript("OnEnter", function(self)
+		if not GameTooltip then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
+		GameTooltip:AddLine("Midnight Helper", 1, 0.82, 0)
+		GameTooltip:AddLine("Drag to move · Right-click to clear the route", 0.9, 0.9, 0.9, true)
+		GameTooltip:Show()
+	end)
+	f:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+
+	local tex = f:CreateTexture(nil, "OVERLAY")
+	tex:SetTexture("Interface\\Minimap\\MinimapArrow")
+	tex:SetAllPoints(f)
+	tex:SetVertexColor(1, 0.82, 0)
+	f.tex = tex
+
+	local label = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	label:SetPoint("TOP", f, "BOTTOM", 0, -2)
+	label:SetJustifyH("CENTER")
+	f.label = label
+
+	-- Restore a saved position (SavedVars are loaded by the time we first show).
+	local pos = MidnightHelperDB and MidnightHelperDB.nativeArrowPos
+	if type(pos) == "table" and pos[1] then
+		f:ClearAllPoints()
+		f:SetPoint(pos[1], UIParent, pos[2], pos[3], pos[4])
+	end
+
+	local acc = 0
+	f:SetScript("OnUpdate", function(self, elapsed)
+		acc = acc + elapsed
+		if acc < 0.03 then
+			return
+		end
+		acc = 0
+		UpdateArrow()
+	end)
+
+	f:Hide()
+	arrowFrame = f
+	return f
+end
+
+local function ShowArrow()
+	local f = EnsureArrowFrame()
+	if not f:IsShown() then
+		f:Show()
+	end
+end
+
+local function HideArrow()
+	if arrowFrame and arrowFrame:IsShown() then
+		arrowFrame:Hide()
+	end
+end
+
+-- Public: live resize from the Settings slider (or /mh arrowsize). Persists.
+function ns.SetNativeArrowSize(px)
+	px = tonumber(px)
+	if not px then
+		return ArrowSize()
+	end
+	if px < MIN_SIZE then
+		px = MIN_SIZE
+	elseif px > MAX_SIZE then
+		px = MAX_SIZE
+	end
+	MidnightHelperDB = MidnightHelperDB or {}
+	MidnightHelperDB.nativeArrowSize = px
+	if arrowFrame then
+		arrowFrame:SetSize(px, px)
+	end
+	return px
+end
+
+function ns.GetNativeArrowSize()
+	return ArrowSize()
+end
+
+ns.NativeArrowSizeBounds = { min = MIN_SIZE, max = MAX_SIZE, default = DEFAULT_SIZE }
+
+-- Distance unit for the arrow label: meters (true) or yards (false, default).
+function ns.GetNativeArrowMeters()
+	return (MidnightHelperDB and MidnightHelperDB.nativeArrowMeters) and true or false
+end
+
+function ns.SetNativeArrowMeters(on)
+	MidnightHelperDB = MidnightHelperDB or {}
+	MidnightHelperDB.nativeArrowMeters = on and true or false
+	return MidnightHelperDB.nativeArrowMeters
+end
+
+-- Let players preview/place the arrow even when no route is active.
+function ns.PreviewNativeArrow(seconds)
+	local f = EnsureArrowFrame()
+	f.tex:Show()
+	f.tex:SetRotation(0)
+	f.tex:SetVertexColor(1, 0.82, 0)
+	f.label:SetText("Midnight Helper")
+	f._preview = true
+	f:Show()
+	if C_Timer and C_Timer.After then
+		C_Timer.After(tonumber(seconds) or 5, function()
+			f._preview = false
+			if not (RouteOwned() and ShouldDriveNative()) then
+				f:Hide()
+			end
+		end)
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Keepalive: drive the native user waypoint + show/hide the arrow.
+--------------------------------------------------------------------------------
+
 -- The last lead WE pinned the native waypoint to (nil = we don't own one).
 local mhOwnedKey
 
 local function Tick()
-	if not RouteActive() then
-		-- Route ended: clear the native waypoint only if WE set it (never nuke a
-		-- waypoint the player placed themselves or another feature owns).
+	-- Route ended (owner cleared): tear everything down. This is the ONLY thing
+	-- that stops the arrow — a transient ns.lastTarget = nil does not.
+	if not RouteOwned() then
+		activeLead = nil
+		if not (arrowFrame and arrowFrame._preview) then
+			HideArrow()
+		end
 		if mhOwnedKey then
 			if HasNativeWaypoint() and C_Map and C_Map.ClearUserWaypoint then
 				pcall(C_Map.ClearUserWaypoint)
@@ -106,21 +361,62 @@ local function Tick()
 		return
 	end
 
-	if not ShouldDriveNative() then
-		return -- TomTom's crazy arrow is doing the job; stand down.
+	-- Refresh our cached lead whenever a route publishes one (initial / advance /
+	-- skip). If ns.lastTarget was transiently nil'd, we keep the previous lead.
+	local lt = ns.lastTarget
+	if lt and lt.mapID then
+		activeLead = { mapID = lt.mapID, x = lt.x, y = lt.y, name = lt.name }
 	end
 
-	local t = ns.lastTarget
-	local key = TargetKey(t)
-	if not key then
+	-- Rares FULL route only (Generate Route; _mhLastRoutedRareQuest == nil): TomTom
+	-- auto-advances to the next rare after a kill AND when you fly over an empty
+	-- spawn (cleardistance). The native path does both itself: MHRareTryAutoAdvance
+	-- pushes a reached-but-un-spawned rare to the back, and GetNearestIncompleteRareLead
+	-- pulls the next open rare. A SINGLE rare route (Find Nearest / a specific rare row)
+	-- sets a quest id and is left alone: it stays on that one rare until it's done.
+	if ns._mhRouteOwner == "rare" and not ns._mhLastRoutedRareQuest then
+		-- Only auto-advance while WE are the guidance (TomTom does its own thing).
+		if ShouldDriveNative() and ns.MHRareTryAutoAdvance and ns.MHRareTryAutoAdvance(rareReached) then
+			rareReached = false
+		end
+		if ns.GetNearestIncompleteRareLead then
+			local nr = ns.GetNearestIncompleteRareLead()
+			if nr and nr.mapID then
+				activeLead = nr
+			end
+		end
+	end
+
+	-- Treasures route (owner "treasure"): treasures are always present (no spawn
+	-- timer), so just follow the nearest still-incomplete one; looting completes its
+	-- quest and the lead advances to the next. Its own module nils ns.lastTarget, so
+	-- we pull the lead directly here — same backbone as rares, minus the skip logic.
+	if ns._mhRouteOwner == "treasure" and ns.GetNearestIncompleteTreasureLead then
+		local nt = ns.GetNearestIncompleteTreasureLead()
+		if nt and nt.mapID then
+			activeLead = nt
+		end
+	end
+
+	if not (activeLead and activeLead.mapID) then
+		HideArrow()
 		return
 	end
+
+	if not ShouldDriveNative() then
+		HideArrow() -- TomTom's crazy arrow is doing the job; stand down.
+		return
+	end
+
+	ShowArrow()
+
+	local key = TargetKey(activeLead)
 
 	-- Parked ON the lead (within ~20 yd — e.g. an un-spawned rare you walked up to):
 	-- don't re-assert every tick, or Blizzard's arrive-clear vs our re-set would churn.
 	local atLead = false
 	local pwx, pwy = PlayerWorld()
-	local twx, twy = MapToWorld(t.mapID, (t.x or 0) / 100, (t.y or 0) / 100)
+	local twx, twy = MapToWorld(activeLead.mapID, (activeLead.x or 0) / 100, (activeLead.y or 0) / 100)
 	if pwx and twx then
 		local dx, dy = pwx - twx, pwy - twy
 		atLead = (dx * dx + dy * dy) <= (20 * 20)
@@ -130,14 +426,14 @@ local function Tick()
 	local waypointGone = not HasNativeWaypoint()
 
 	-- Re-pin when the lead advanced (new target) or when the native waypoint got
-	-- cleared on arrival while the route still has an open stop ahead of us.
+	-- cleared (on arrival, OR by a zone handler) while a stop is still ahead of us.
 	if targetChanged or (waypointGone and not atLead) then
-		if ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(t.mapID, t.x, t.y) then
+		if ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(activeLead.mapID, activeLead.x, activeLead.y) then
 			mhOwnedKey = key
 		end
 	end
 end
 
 if C_Timer and C_Timer.NewTicker then
-	C_Timer.NewTicker(1.5, Tick)
+	C_Timer.NewTicker(1.0, Tick)
 end

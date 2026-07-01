@@ -579,8 +579,47 @@ end
 -- Skip the achievement node the route arrow is currently on (e.g. an un-spawned
 -- rare) and re-point at the next-nearest open one. Handy as an in-flight keybind.
 function MidnightHelper_KeybindSkipNode()
-	if ns.SkipCurrentAchievementNode then
+	-- During a rare hunt the shared arrow is a Rares route — skip the current rare;
+	-- otherwise skip the current achievement route node.
+	if ns._mhRouteOwner == "rare" and ns.SkipCurrentRare then
+		ns.SkipCurrentRare()
+	elseif ns.SkipCurrentAchievementNode then
 		ns.SkipCurrentAchievementNode()
+	end
+end
+
+-- Clear whatever route/arrow is currently active (any type). Asks each route module
+-- to fully stop (so its ticker/events don't re-draw), then clears the shared arrow,
+-- TomTom waypoints and the native user waypoint. Safe to call with nothing active.
+function ns.ClearActiveRoute()
+	local hadRoute = (ns._mhRouteOwner ~= nil) or (ns.lastTarget ~= nil)
+	if ns.StopAchievementRoute then
+		ns.StopAchievementRoute()
+	end
+	if ns.StopRareRoute then
+		ns.StopRareRoute()
+	end
+	if ns.StopTreasureRoute then
+		ns.StopTreasureRoute()
+	end
+	if ns.CancelResetRoute then
+		ns.CancelResetRoute()
+	end
+	if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.ClearAllWaypoints then
+		pcall(_G.TomTom.ClearAllWaypoints, _G.TomTom)
+	end
+	if C_Map and C_Map.ClearUserWaypoint then
+		pcall(C_Map.ClearUserWaypoint)
+	end
+	ns._mhRouteOwner = nil
+	ns.lastTarget = nil
+	return hadRoute
+end
+
+-- Esc → Key Bindings → Midnight Helper → Clear active route.
+function MidnightHelper_KeybindClearRoute()
+	if ns.ClearActiveRoute then
+		ns.ClearActiveRoute()
 	end
 end
 
@@ -592,6 +631,44 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	if ns.RunAchievementSlashCommand and ns:RunAchievementSlashCommand(msg) then
+		return
+	end
+
+	-- /mh arrowsize [N] — resize the standalone route arrow (also in Settings > General).
+	if msg == "arrowsize" or msg:match("^arrowsize%s+") then
+		local n = tonumber(msg:match("^arrowsize%s+(%d+)$"))
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		if n and ns.SetNativeArrowSize then
+			local applied = ns.SetNativeArrowSize(n)
+			if ns.PreviewNativeArrow then
+				ns.PreviewNativeArrow(4)
+			end
+			print(("%s route arrow size = %d"):format(prefix, math.floor((tonumber(applied) or n) + 0.5)))
+		else
+			local cur = (ns.GetNativeArrowSize and ns.GetNativeArrowSize()) or "?"
+			local b = ns.NativeArrowSizeBounds or { min = 28, max = 160 }
+			print(("%s /mh arrowsize <%d-%d> (now %s)"):format(prefix, b.min, b.max, tostring(cur)))
+			if ns.PreviewNativeArrow then
+				ns.PreviewNativeArrow(4)
+			end
+		end
+		return
+	end
+
+	-- /mh clear (aliases: clearroute, stop) — wipe the active route + arrow.
+	if msg == "clear" or msg == "clearroute" or msg == "stop" then
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		local had = ns.ClearActiveRoute and ns.ClearActiveRoute()
+		local m = ns:L("ROUTE_CLEARED")
+		if not m or m == "ROUTE_CLEARED" then
+			m = had and "Route cleared." or "No active route to clear."
+		elseif not had then
+			local none = ns:L("ROUTE_CLEAR_NONE")
+			if none and none ~= "ROUTE_CLEAR_NONE" then
+				m = none
+			end
+		end
+		print(("%s %s"):format(prefix, m))
 		return
 	end
 

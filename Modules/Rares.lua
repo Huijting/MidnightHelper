@@ -601,6 +601,113 @@ local function FindNearestIncompleteRare(zone)
 	return bestRare
 end
 
+-- Rares you skipped this hunt (RareKey -> true). A skipped rare is pushed to the
+-- back so the arrow moves on when a rare isn't spawned; you still get it once the
+-- rest are done (or when everything left is skipped, we cycle back over them).
+local skippedRares = {}
+
+-- Nearest still-open rare, honouring skips: a non-skipped rare always wins; only if
+-- every remaining rare is skipped do we clear the skip list and cycle over them.
+local function NearestOpenRareRespectingSkips(zone)
+	if not zone or not zone.rares then
+		return nil
+	end
+	local pwx, pwy = GetPlayerWorldPos()
+	local best, bestDist, skippedBest, skippedDist
+	for idx, rare in ipairs(zone.rares) do
+		if not IsRareDoneThisWeek(rare[1]) then
+			local dist = RareDistanceFromRef(rare, idx, pwx, pwy)
+			if skippedRares[RareKey(rare)] then
+				if not skippedDist or dist < skippedDist then
+					skippedDist, skippedBest = dist, rare
+				end
+			elseif not bestDist or dist < bestDist then
+				bestDist, best = dist, rare
+			end
+		end
+	end
+	if best then
+		return best
+	end
+	if skippedBest then
+		wipe(skippedRares) -- only skipped rares remain: cycle back over them
+		return skippedBest
+	end
+	return nil
+end
+
+local function CurrentHuntZone()
+	local key = GetCurrentZoneKey() or GetSelectedZoneKey()
+	return key and ZONE_BY_KEY[key] or nil
+end
+
+-- Public: the nearest still-open rare as a lead {mapID,x,y,name}, or nil. Used by
+-- NativeArrow (no-TomTom mode) to keep the standalone arrow advancing to the next
+-- rare after you kill one — TomTom does this itself, but the native path needs us
+-- to re-point. Prefers the zone you're standing in, else the selected zone.
+function ns.GetNearestIncompleteRareLead()
+	local zone = CurrentHuntZone()
+	local rare = zone and NearestOpenRareRespectingSkips(zone)
+	if not rare then
+		return nil
+	end
+	return { mapID = rare[2], x = rare[3], y = rare[4], name = GetRareDisplayName(rare) }
+end
+
+-- Public: fully stop the rare hunt (used by ns.ClearActiveRoute / /mh clear). Clears
+-- the shared arrow, skip list and TomTom waypoints so nothing re-draws.
+function ns.StopRareRoute()
+	wipe(skippedRares)
+	if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.ClearAllWaypoints then
+		pcall(_G.TomTom.ClearAllWaypoints, _G.TomTom)
+	end
+	if ns._mhRouteOwner == "rare" then
+		ns._mhRouteOwner = nil
+	end
+	ns._mhLastRoutedRareQuest = nil
+	ns.lastTarget = nil
+end
+
+-- Public: skip the rare the arrow is on right now (e.g. it isn't spawned). Pushes it
+-- to the back so the arrow flows to the next open rare; you return to it later. Only
+-- meaningful during a full rare hunt (Generate Route).
+function ns.SkipCurrentRare()
+	if ns._mhRouteOwner ~= "rare" then
+		return false
+	end
+	-- Skip only advances a FULL hunt (Generate Route). A single Find-Nearest route
+	-- deliberately stays on its one rare, so don't pretend it moved on.
+	if ns._mhLastRoutedRareQuest then
+		local msg = ns:L("RARES_SKIP_SINGLE")
+		if not msg or msg == "RARES_SKIP_SINGLE" then
+			msg = "Skip works during Generate Route. Use it to chain past un-spawned rares."
+		end
+		print("|cffffff78Midnight Helper:|r " .. msg)
+		return true
+	end
+	local zone = CurrentHuntZone()
+	local cur = zone and NearestOpenRareRespectingSkips(zone)
+	if not cur then
+		return false
+	end
+	skippedRares[RareKey(cur)] = true
+	local nextRare = NearestOpenRareRespectingSkips(zone)
+	if nextRare and RareKey(nextRare) ~= RareKey(cur) then
+		local msg = ns:L("RARES_SKIP_DONE_FMT")
+		if not msg or msg == "RARES_SKIP_DONE_FMT" then
+			msg = "Skipped %s — arrow moved to the next rare."
+		end
+		print("|cffffff78Midnight Helper:|r " .. msg:format(GetRareDisplayName(cur)))
+	else
+		local msg = ns:L("RARES_SKIP_LAST")
+		if not msg or msg == "RARES_SKIP_LAST" then
+			msg = "That's the last open rare — nothing to skip to."
+		end
+		print("|cffffff78Midnight Helper:|r " .. msg)
+	end
+	return true
+end
+
 -- Same first stop as Find Nearest Rare, then greedy nearest-neighbor for the rest.
 local function BuildGreedyRareRoute(zone)
 	local remaining = {}
@@ -950,6 +1057,55 @@ local function IsRareVignetteUp(rare, zoneKey)
 	return vignetteUpLookup[zoneKey .. ":" .. RareKey(rare)] == true
 end
 
+-- Auto-advance for the native rare hunt (no-TomTom mode). When you've reached the
+-- current lead rare but it isn't up (no vignette) and you're not in combat, push it
+-- to the back so the arrow flows to the next open rare — the "fly over an empty
+-- spawn, move on" behaviour TomTom gave us via cleardistance, without making users
+-- type /mh skip. A skipped rare returns automatically once its vignette appears
+-- (it spawned) or once everything else is done. `reached` is NativeArrow's
+-- frequently-sampled "within arrival range of the lead" latch (catches fast
+-- fly-overs between ticks). Returns true when it skipped one.
+function ns.MHRareTryAutoAdvance(reached)
+	if ns._mhRouteOwner ~= "rare" or ns._mhLastRoutedRareQuest then
+		return false
+	end
+	local zone = CurrentHuntZone()
+	if not zone or not zone.rares then
+		return false
+	end
+	RefreshVignetteUpCache(zone)
+	-- A previously-skipped rare that is now up (it spawned) becomes eligible again.
+	for _, rare in ipairs(zone.rares) do
+		local k = RareKey(rare)
+		if skippedRares[k] and IsRareVignetteUp(rare, zone.key) then
+			skippedRares[k] = nil
+		end
+	end
+	if not reached then
+		return false
+	end
+	local lead = NearestOpenRareRespectingSkips(zone)
+	if not lead then
+		return false
+	end
+	if IsRareVignetteUp(lead, zone.key) then
+		return false -- it's here — don't skip, you'll kill it
+	end
+	if UnitAffectingCombat and UnitAffectingCombat("player") then
+		return false -- in combat (likely on it) — don't skip
+	end
+	-- Skip it, but only if there's actually somewhere else to go (don't strand you
+	-- on the last open rare — you'll want to wait it out then).
+	local leadKey = RareKey(lead)
+	skippedRares[leadKey] = true
+	local nextRare = NearestOpenRareRespectingSkips(zone)
+	if not nextRare or RareKey(nextRare) == leadKey then
+		skippedRares[leadKey] = nil
+		return false
+	end
+	return true
+end
+
 local function FormatRareRowLabel(rare, zoneKey)
 	local name = GetRareDisplayName(rare)
 	if IsRareDoneThisWeek(rare[1]) then
@@ -1110,8 +1266,16 @@ function ns.GenerateRaresRoute(zoneKey)
 	end
 
 	if added > 0 then
+		wipe(skippedRares) -- fresh hunt: forget previous skips
 		ns._mhRouteOwner = "rare" -- claim the shared arrow (see RouteRare note)
 		ns._mhLastRoutedRareQuest = nil -- a full route: release when the whole hunt is done
+		-- AddSmartTomTomWay set ns.lastTarget to the LAST pin added; for the native
+		-- arrow the lead must be the FIRST (nearest) rare. (NativeArrow then keeps it
+		-- advancing to the nearest still-open rare via ns.GetNearestIncompleteRareLead.)
+		local lead = routeRares[1]
+		if lead then
+			ns.lastTarget = { mapID = lead[2], x = lead[3], y = lead[4], name = GetRareDisplayName(lead) }
+		end
 	end
 
 	local orderHint = nearestFirst and ns:L("RARES_ROUTE_ORDER_NEAR") or ns:L("RARES_ROUTE_ORDER_LIST")

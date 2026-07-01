@@ -8,4 +8,7 @@
 	<Binding name="MIDNIGHTHELPER_SKIPNODE" category="Midnight Helper " runOnUp="false">
 		MidnightHelper_KeybindSkipNode()
 	</Binding>
+	<Binding name="MIDNIGHTHELPER_CLEARROUTE" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindClearRoute()
+	</Binding>
 </Bindings>

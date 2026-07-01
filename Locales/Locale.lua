@@ -250,6 +250,7 @@ function ns:ApplyBindingLabels()
 	-- locale-table key is unchanged to keep the language packs untouched.
 	_G.BINDING_NAME_MIDNIGHTHELPER_TOGGLEMAIN = self:L("BINDING_NAME_TOGGLEMAIN")
 	_G.BINDING_NAME_MIDNIGHTHELPER_SKIPNODE = self:L("BINDING_NAME_SKIPNODE")
+	_G.BINDING_NAME_MIDNIGHTHELPER_CLEARROUTE = self:L("BINDING_NAME_CLEARROUTE")
 end
 
 --- Like L() but uses GetChatLocaleCode (Latin fallback when client cannot render CJK chat).

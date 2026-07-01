@@ -59,8 +59,13 @@ powershell -ExecutionPolicy Bypass -File tools\package.ps1
 **Zonder TomTom (uitschakelen in de AddOns-lijst) — dit is de kernwinst:**
 
 - `/reload` met Lua-errors aan → geen fouten; de gele melding "TomTom is not loaded" mag verschijnen.
-- Start een treasure- of rare-route → er verschijnt een kaart-waypoint + de schermrand-navigatie (pijl/afstand). Loop ernaartoe: bij aankomst **verdwijnt de richting niet** maar springt door naar de volgende open stop.
-- Reset-routine op Home → route-keten geeft ook zonder TomTom richting.
+- Start een **rare** Generate Route → **MH's eigen richtingspijl** verschijnt (draait mee, afstand eronder) + een kaart-waypoint. Kill een rare → pijl schuift door naar de dichtstbijzijnde open rare.
+- **Auto-advance bij niet-gespawnde rare**: vlieg over een lege spawn → de pijl gaat vanzelf naar de volgende (rare komt terug zodra 'ie spawnt). `/mh skip` blijft als handmatige override.
+- **Generate Treasures** → zelfde pijl, volgt de dichtstbijzijnde treasure, schuift door na loot.
+- **Reset-routine** op Home → route-keten geeft ook zonder TomTom richting.
+- Pijl wijst verkeerd/omgekeerd? `ROTATION_OFFSET` bovenin `NativeArrow.lua` = één-regel-fix. Sleep de pijl om 'm te verplaatsen (positie onthouden).
+- **Resize** via Settings → General (slider) of `/mh arrowsize 90`; **meters** via de toggle daaronder.
+- **Ander continent** (portal naar bv. Orgrimmar): pijl verdwijnt + toont "(ander continent — reis terug)", geen nep-richting.
 
 **Met TomTom (Cisca's geval):**
 
@@ -70,5 +75,6 @@ powershell -ExecutionPolicy Bypass -File tools\package.ps1
 
 **Beide:**
 
-- In-game changelog-popup toont **2.2.0-beta.1** bovenaan met de drie nieuwe regels.
-- Geen dubbele/vastzittende waypoints; na afronden route is de waypoint weg.
+- In-game changelog-popup toont **2.2.0-beta.1** bovenaan met de nieuwe regels.
+- **Route wissen** werkt: rechts-klik op de pijl, `/mh clear`, of keybind (Esc → Toetsbindingen → Midnight Helper → *Clear active route*) → route + pijl + waypoints weg.
+- Geen dubbele pijl met TomTom aan; geen vastzittende waypoints; na afronden route is alles weg.

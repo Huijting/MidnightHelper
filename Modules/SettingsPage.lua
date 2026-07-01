@@ -412,6 +412,56 @@ function ns.BuildSettingsPanel(panel)
 	ui.fontScaleValueFS = fsValue
 	push(fsRow, 8, 0, { mode = "general", h = BTN_H + 6 })
 
+	-- Native route-arrow size (our own on-screen arrow, shown when routing without TomTom).
+	Label("SET_ARROWSIZE_TITLE", "GameFontNormal", COLOR_ACCENT, 14, 0, "general")
+	Label("SET_ARROWSIZE_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "general")
+	local arrowRow = CreateFrame("Frame", nil, child)
+	arrowRow:SetHeight(44)
+	local arrowSlider = CreateFrame("Slider", "MidnightHelperArrowSize", arrowRow, "OptionsSliderTemplate")
+	arrowSlider:SetPoint("LEFT", arrowRow, "LEFT", 6, -4)
+	arrowSlider:SetWidth(220)
+	local aBounds = ns.NativeArrowSizeBounds or { min = 28, max = 160, default = 64 }
+	arrowSlider:SetMinMaxValues(aBounds.min, aBounds.max)
+	arrowSlider:SetValueStep(4)
+	arrowSlider:SetObeyStepOnDrag(true)
+	local asName = arrowSlider:GetName()
+	if asName then
+		_G[asName .. "Low"]:SetText(tostring(aBounds.min))
+		_G[asName .. "High"]:SetText(tostring(aBounds.max))
+	end
+	local curArrow = (ns.GetNativeArrowSize and ns.GetNativeArrowSize()) or aBounds.default
+	arrowSlider:SetValue(curArrow)
+	if asName and _G[asName .. "Text"] then
+		_G[asName .. "Text"]:SetText(tostring(math.floor(curArrow + 0.5)))
+	end
+	arrowSlider:SetScript("OnValueChanged", function(self, value)
+		if self._mhSettingValue then
+			return
+		end
+		if ns.SetNativeArrowSize then
+			ns.SetNativeArrowSize(value)
+		end
+		if ns.PreviewNativeArrow then
+			ns.PreviewNativeArrow(3) -- flash the arrow so the new size is visible
+		end
+		if asName and _G[asName .. "Text"] then
+			_G[asName .. "Text"]:SetText(tostring(math.floor(value + 0.5)))
+		end
+	end)
+	ui.arrowSizeSlider = arrowSlider
+	push(arrowRow, 8, 0, { mode = "general", h = 44 })
+
+	AddToggle("general", "SET_ARROWUNIT_TITLE", "SET_ARROWUNIT_DESC", function()
+		return ns.GetNativeArrowMeters and ns.GetNativeArrowMeters()
+	end, function(v)
+		if ns.SetNativeArrowMeters then
+			ns.SetNativeArrowMeters(v)
+		end
+		if ns.PreviewNativeArrow then
+			ns.PreviewNativeArrow(3)
+		end
+	end)
+
 	Label("SETTINGS_GUIDE_LABEL", "GameFontNormal", COLOR_ACCENT, 14, 0, "general")
 	Label("SETTINGS_HINT", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "general")
 	local guideRow = CreateFrame("Frame", nil, child)

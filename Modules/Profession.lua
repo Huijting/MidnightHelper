@@ -1078,6 +1078,55 @@ local function SetupProfessionModule()
 	local treasureAssistKey -- target+zone the travel popup was last shown for
 	local treasureTicker
 
+	-- Public: nearest still-incomplete treasure as a lead {mapID,x,y,name}, or nil.
+	-- Lets NativeArrow (no-TomTom mode) drive the standalone arrow + auto-advance for
+	-- the treasure route too — the same backbone the rares/reset/achievement routes use.
+	-- Treasures are always present (no spawn timer), so this is nearest + advance-on-loot;
+	-- no skip logic like rares. TomTom users are unaffected (NativeArrow stays idle then).
+	function ns.GetNearestIncompleteTreasureLead()
+		if not treasureActive or #treasurePins == 0 then
+			return nil
+		end
+		local function incomplete(p)
+			return not (p.questID and C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted
+				and C_QuestLog.IsQuestFlaggedCompleted(p.questID))
+		end
+		local pMap, px, py = GetPlayerMapPositionForWaypoints()
+		local curMap = pMap or (C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player"))
+		local best, bestD
+		if pMap and px then
+			for _, p in ipairs(treasurePins) do
+				if p.mapID == pMap and incomplete(p) then
+					local dx, dy = p.nx - px, p.ny - py
+					local d = dx * dx + dy * dy
+					if not bestD or d < bestD then
+						bestD, best = d, p
+					end
+				end
+			end
+		end
+		if not best and curMap then
+			for _, p in ipairs(treasurePins) do
+				if p.mapID == curMap and incomplete(p) then
+					best = p
+					break
+				end
+			end
+		end
+		if not best then
+			for _, p in ipairs(treasurePins) do
+				if incomplete(p) then
+					best = p
+					break
+				end
+			end
+		end
+		if not best then
+			return nil
+		end
+		return { mapID = best.mapID, x = best.nx * 100, y = best.ny * 100, name = best.name }
+	end
+
 	local function TreasureClearPins()
 		if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.RemoveWaypoint then
 			for _, p in ipairs(treasurePins) do
@@ -1104,6 +1153,12 @@ local function SetupProfessionModule()
 		if ns._mhRouteOwner == "treasure" then
 			ns._mhRouteOwner = nil -- release the shared arrow
 		end
+	end
+
+	-- Public stopper so the universal "clear route" (ns.ClearActiveRoute / /mh clear)
+	-- can fully cancel a treasure hunt (state + ticker), not just hide the arrow.
+	function ns.StopTreasureRoute()
+		TreasureStop()
 	end
 
 	-- Re-point the arrow at the nearest still-incomplete pin (dropping collected

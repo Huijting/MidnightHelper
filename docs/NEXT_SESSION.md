@@ -24,6 +24,7 @@ oude/afwezige HBD.
 | Wat | Bestand |
 |-----|---------|
 | Generieke native keepalive op Blizzard-waypoint + SuperTrack (volgt `ns.lastTarget`, her-zet bij aankomst, schuift door) — werkt zónder TomTom én als vangnet als TomTom's crazy arrow wég is | **NIEUW** `Modules/NativeArrow.lua` |
+| **Eigen on-screen richtingspijl** (draait naar target, live afstand, versleepbaar, positie in `MidnightHelperDB.nativeArrowPos`) — want retail heeft géén ingebouwde draaipijl. Rob (2e sessie): native pin alleen was niet genoeg. `ROTATION_OFFSET` = één-regel-fix als de pijl omgekeerd wijst | idem `Modules/NativeArrow.lua` |
 | TOC: module geregistreerd (na Delves) + versie → 2.2.0-beta.1 | `MidnightHelper.toc` |
 | `ForceArrowToLead`: HBD-vertaling vervangen door lib-vrije `C_Map`-vertaling (`TranslateToMap`) | `Modules/Achievements.lua` |
 | Changelog (in-game `CHANGELOG_220_*` in enUS, CHANGELOG.md, CF-doc) | `Modules/Changelog.lua`, `Locales/enUS.lua`, `CHANGELOG.md`, `docs/CURSEFORGE_2.2.0.md` |
@@ -32,6 +33,43 @@ oude/afwezige HBD.
 crazy arrow zichtbaar is (`_G.TomTomCrazyArrow:IsShown()`), dus Robs werkende setup
 regresseert niet. Alleen bij **geen TomTom** of **arrow-down** stuurt het de native
 waypoint. Het ruimt alleen de waypoint op die het zélf zette (nooit een handmatige).
+
+**Zone-robuustheid (het terugkerende bug-patroon — NIET meer aan `ns.lastTarget`
+koppelen!):** meerdere modules wissen `ns.lastTarget` in hun zone-handlers (bv.
+`Delves.lua` runZoneNavCheck → `IsMidnightTravelComplete` → `ns.lastTarget = nil`),
+waardoor de pijl verdween bij de stad/zone uitvliegen. NativeArrow leunt daarom op de
+**stabiele** `ns._mhRouteOwner` (die enkel wist als de route écht klaar is) en houdt
+een **eigen gecachete lead** (`activeLead`). Een tijdelijke `ns.lastTarget = nil` kan
+de pijl dus niet meer doden — alleen owner→nil doet dat. Herbouw dit nooit op
+`ns.lastTarget` alleen.
+
+**Resize (Rob's verzoek):** slider in **Settings > General** (`SET_ARROWSIZE_*` in
+en/nl) + `/mh arrowsize <28-160>`; opgeslagen in `MidnightHelperDB.nativeArrowSize`,
+live via `ns.SetNativeArrowSize`. `ns.PreviewNativeArrow(sec)` flitst de pijl bij het
+slepen/schalen. Pijl-textuur = `Interface\MinimapArrow` (basaal; mooiere .tga kan later).
+
+**Auto-advance bij niet-gespawnde rare (Rob: geen /mh skip laten tikken):** in
+`NativeArrow` latcht `UpdateArrow` (~30x/s) of je binnen `RARE_ARRIVAL` (40 yd) van de
+lead kwam (vangt snelle fly-overs). De 1s-tick roept `ns.MHRareTryAutoAdvance(reached)`
+(Rares.lua): is de rare bereikt maar z'n **vignette niet up** (= niet gespawned) en je
+bent **niet in combat** → skip 'm naar achteren; de pijl gaat naar de volgende. Een
+geskipte rare komt vanzelf terug zodra z'n vignette verschijnt (spawn) of als de rest
+klaar is. Nooit de laatste open rare wegskippen. Geverifieerd via web dat vignette-
+detectie de standaard is (RareScanner) mét de kanttekening "niet elke rare heeft een
+vignette" → daarom terug-cyclen.
+
+**UNIVERSALITEIT + CONVENTIE (belangrijk voor toekomstige routes):** NativeArrow werkt
+generiek voor élke route die de gedeelde conventie volgt:
+1. claim de arrow met `ns._mhRouteOwner = "<type>"` (en zet 'm op nil als de route echt
+   klaar is — NOOIT bij zonewissel),
+2. houd de huidige lead in `ns.lastTarget` (of, als je module `ns.lastTarget` nilt zoals
+   Rares/Professions, expose een `ns.GetNearestIncomplete<X>Lead()` en laat NativeArrow
+   die volgen — zie de rare/treasure-blokken in `NativeArrow.lua` Tick).
+Nu gedekt: **Achievements, Rares, Professions/Treasures (deze sessie toegevoegd via
+`ns.GetNearestIncompleteTreasureLead`), Reset-routine.** Een nieuwe route die de
+conventie volgt krijgt pijl + zone-robuustheid + keepalive + doorschuiven gratis mee.
+Rolt 'ie z'n eigen (TomTom-only) systeem zoals Professions ooit deed → dan valt 'ie
+buiten de boot; sluit 'm dan aan op dezelfde backbone.
 
 **Nog te doen (volgende sessie):**
 

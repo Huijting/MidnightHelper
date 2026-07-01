@@ -1245,6 +1245,24 @@ end
 -- Skip the node the arrow is on right now (e.g. a rare that wasn't spawned): push it
 -- to the back of the route and re-point the arrow at the next-nearest open one. You
 -- still come back to skipped nodes after the rest (or once you've cycled them all).
+-- Public: fully stop the achievement/treasure route (used by ns.ClearActiveRoute /
+-- /mh clear). Forgets the route so nothing re-issues, and clears the shared arrow.
+function ns.StopAchievementRoute()
+	activeEntry, routeSig = nil, nil
+	skippedNodes, currentLead = {}, nil
+	StopRareWatch()
+	if ArmTreasureToast then
+		ArmTreasureToast(nil)
+	end
+	if ns._mhRouteOwner == "achievement" then
+		ns._mhRouteOwner = nil
+	end
+	ns.lastTarget = nil
+	if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.ClearAllWaypoints then
+		pcall(_G.TomTom.ClearAllWaypoints, _G.TomTom)
+	end
+end
+
 function ns.SkipCurrentAchievementNode()
 	if not activeEntry then
 		print((ns:L("ACH_MSG_SKIP_NONE")):format(Prefix()))
@@ -2126,7 +2144,12 @@ function ns:RunAchievementSlashCommand(msg)
 		return true
 	end
 	if msg == "skip" or msg == "next" then
-		ns.SkipCurrentAchievementNode()
+		-- During a rare hunt the arrow is a Rares route; skip the current rare instead.
+		if ns._mhRouteOwner == "rare" and ns.SkipCurrentRare then
+			ns.SkipCurrentRare()
+		else
+			ns.SkipCurrentAchievementNode()
+		end
 		return true
 	end
 	if msg == "arrowdebug" or msg == "debug" then
