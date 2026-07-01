@@ -19,11 +19,6 @@ Locales\ptBR.lua
 Locales\itIT.lua
 Locales\nlNL.lua
 Locales\ConsumablesNotes.lua
-Locales\GuideTips.lua
-Modules\GuideTipSpellNames.lua
-Modules\GuideTipText.lua
-Locales\GuideGroups.lua
-Locales\GuideAdvisor.lua
 Locales\DelveTips.lua
 Locales\RitualTips.lua
 Locales\RaidTips.lua
@@ -136,5 +131,4 @@ Modules\ToolsLaunchpad.lua
 Modules\Tour.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua
-Addons\GuideData.lua
 Addons\Guide.lua

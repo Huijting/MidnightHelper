@@ -79,6 +79,10 @@ local function LevelingKeybindSlugForLayout()
 		if lv >= 10 then
 			return "paladin_early"
 		end
+	elseif class == "MAGE" and ref.specsById.frost_mage then
+		if s == 3 then -- Frost
+			return "frost_mage"
+		end
 	end
 	return nil
 end
@@ -86,13 +90,7 @@ end
 --- Name kept for `KeyboardLayoutPrototype.lua` — preview guide wins, else logged-in Hunter/Paladin slug.
 --- Returns **nil** when previewing a class/spec that has no Midnight key table yet (layout shows no spell map).
 function ns.MH_GetHunterKeybindSlugForUi()
-	local db = ns.db
-	if db and type(db.guide) == "table" and db.guide.preview then
-		local slug = KeybindSlugFromGuidePreview()
-		if slug then
-			return slug
-		end
-		return nil
-	end
+	-- Guide preview is gone (leveling tab replaced), and a stale db.guide.preview=true in
+	-- SavedVars would wrongly short-circuit to nil. Always use the logged-in char's spec.
 	return LevelingKeybindSlugForLayout()
 end

@@ -29,10 +29,16 @@ ns.KeybindingReference.columns = {
 	"Paladin_Utility",
 	"Paladin_Defensive",
 	"Paladin_Blessings",
+	"Mage_MainRotation",
+	"Mage_Spender",
+	"Mage_Utility",
+	"Mage_Defensive",
+	"Mage_Cooldown",
 }
 
 local LCAT = "KEYBIND_HUNTER_CAT_"
 local PCAT = "KEYBIND_PALADIN_CAT_"
+local MCAT = "KEYBIND_MAGE_CAT_"
 
 ns.KeybindingReference.slots = {
 	{ ui_key = "1", layout_row_index = 0, maps_to_column = "Hunter_MainRotation", categoryLocaleKey = LCAT .. "MAIN_ROTATION", key_labels = { keyboard_numrow = "1", mmo_mouse = "M1", alt_layer = "1" } },
@@ -69,6 +75,23 @@ ns.KeybindingReference.slotsPaladin = {
 	{ ui_key = "F1", layout_row_index = 13, maps_to_column = "Paladin_Blessings", categoryLocaleKey = PCAT .. "BLESSINGS", key_labels = { keyboard_numrow = "F1", mmo_mouse = "M12", alt_layer = "F1" } },
 }
 
+--- Frost Mage (keybind standard v6). Same key geometry; v6 categories. No G bind.
+ns.KeybindingReference.slotsMage = {
+	{ ui_key = "1", layout_row_index = 0, maps_to_column = "Mage_MainRotation", categoryLocaleKey = MCAT .. "MAIN_ROTATION", key_labels = { keyboard_numrow = "1", mmo_mouse = "M1", alt_layer = "1" } },
+	{ ui_key = "2", layout_row_index = 1, maps_to_column = "Mage_MainRotation", categoryLocaleKey = MCAT .. "MAIN_ROTATION", key_labels = { keyboard_numrow = "2", mmo_mouse = "M2", alt_layer = "2" } },
+	{ ui_key = "3", layout_row_index = 2, maps_to_column = "Mage_MainRotation", categoryLocaleKey = MCAT .. "MAIN_ROTATION", key_labels = { keyboard_numrow = "3", mmo_mouse = "M3", alt_layer = "3" } },
+	{ ui_key = "4", layout_row_index = 3, maps_to_column = "Mage_Spender", categoryLocaleKey = MCAT .. "SPENDER", key_labels = { keyboard_numrow = "4", mmo_mouse = "M4", alt_layer = "4" } },
+	{ ui_key = "Q", layout_row_index = 4, maps_to_column = "Mage_Utility", categoryLocaleKey = MCAT .. "UTILITY", key_labels = { keyboard_numrow = "Q", mmo_mouse = "M5", alt_layer = "Q" } },
+	{ ui_key = "E", layout_row_index = 5, maps_to_column = "Mage_Utility", categoryLocaleKey = MCAT .. "UTILITY", key_labels = { keyboard_numrow = "E", mmo_mouse = "M6", alt_layer = "E" } },
+	{ ui_key = "F", layout_row_index = 6, maps_to_column = "Mage_Utility", categoryLocaleKey = MCAT .. "UTILITY", key_labels = { keyboard_numrow = "F", mmo_mouse = "M7", alt_layer = "F" } },
+	{ ui_key = "Z", layout_row_index = 8, maps_to_column = "Mage_Defensive", categoryLocaleKey = MCAT .. "DEFENSIVES", key_labels = { keyboard_numrow = "Z", mmo_mouse = "M8", alt_layer = "Z" } },
+	{ ui_key = "X", layout_row_index = 9, maps_to_column = "Mage_Defensive", categoryLocaleKey = MCAT .. "DEFENSIVES", key_labels = { keyboard_numrow = "X", mmo_mouse = "M9", alt_layer = "X" } },
+	{ ui_key = "C", layout_row_index = 10, maps_to_column = "Mage_Defensive", categoryLocaleKey = MCAT .. "DEFENSIVES", key_labels = { keyboard_numrow = "C", mmo_mouse = "M10", alt_layer = "C" } },
+	{ ui_key = "V", layout_row_index = 11, maps_to_column = "Mage_Defensive", categoryLocaleKey = MCAT .. "DEFENSIVES", key_labels = { keyboard_numrow = "V", mmo_mouse = "M11", alt_layer = "V" } },
+	{ ui_key = "R", layout_row_index = 12, maps_to_column = "Mage_Cooldown", categoryLocaleKey = MCAT .. "COOLDOWN", key_labels = { keyboard_numrow = "R", mmo_mouse = "M14", alt_layer = "R" } },
+	{ ui_key = "F1", layout_row_index = 13, maps_to_column = "Mage_Cooldown", categoryLocaleKey = MCAT .. "COOLDOWN", key_labels = { keyboard_numrow = "F1", mmo_mouse = "M12", alt_layer = "F1" } },
+}
+
 function ns.Keybinding_GetSlotsForSlug(specSlug)
 	local ref = ns.KeybindingReference
 	if not ref then
@@ -76,6 +99,9 @@ function ns.Keybinding_GetSlotsForSlug(specSlug)
 	end
 	if specSlug == "paladin_early" or specSlug == "paladin_retribution" then
 		return ref.slotsPaladin or ref.slots
+	end
+	if specSlug == "frost_mage" then
+		return ref.slotsMage or ref.slots
 	end
 	return ref.slots
 end
@@ -88,6 +114,27 @@ ns.KeybindingReference.labelPresets = {
 }
 
 ns.KeybindingReference.specsById = {
+	--- Frost Mage — keybind standard v6 (base keys; Shift/Alt layers come with the real
+	--- layout build). IDs in-game confirmed (Rob). No G bind (team rule).
+	frost_mage = {
+		display_name = "Frost Mage",
+		abilities = {},
+		spellByUiKey = {
+			["1"] = { id = 116, minLevel = 1 }, -- Frostbolt
+			["2"] = { id = 44614, minLevel = 1 }, -- Flurry
+			["3"] = { id = 205021, minLevel = 1 }, -- Ray of Frost
+			["4"] = { id = 30455, minLevel = 1 }, -- Ice Lance
+			["Q"] = { id = 1953, minLevel = 1 }, -- Blink (or Shimmer 212653)
+			["E"] = { id = 2139, minLevel = 1 }, -- Counterspell
+			["F"] = { id = 30449, minLevel = 1 }, -- Spellsteal
+			["Z"] = { id = 11426, minLevel = 1 }, -- Ice Barrier
+			["X"] = { id = 235219, minLevel = 1 }, -- Cold Snap
+			["C"] = { id = 45438, minLevel = 1 }, -- Ice Block
+			["V"] = { id = 122, minLevel = 1 }, -- Frost Nova
+			["R"] = { id = 55342, minLevel = 1 }, -- Mirror Image
+			["F1"] = { id = 12472, minLevel = 1 }, -- Icy Veins
+		},
+	},
 	hunter_early = {
 		display_name = "Hunter (level 1–10)",
 		abilities = {},
