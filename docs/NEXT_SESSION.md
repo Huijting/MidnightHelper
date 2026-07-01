@@ -1,8 +1,31 @@
 # Next session — Midnight Helper
 
 **Laatste update:** 2026-07-01 (tweede sessie)
-**Huidige versie in de repo:** **2.2.0-beta.1** (code klaar; **nog niet gebouwd/geüpload** — als **Beta** bedoeld)
+**Huidige versie in de repo:** **2.2.0-beta.1** — code klaar, door Rob te builden/uploaden als **Beta**, dan **testen bij Cisca** → daarna live.
 **Vorige live versie:** 2.1.1 (Release), daarvoor 2.1.0
+
+## ⭐ EERSTE KLUS VOLGENDE SESSIE — ResetRoutine advance bij givers
+
+**Symptoom (Rob, 2e sessie):** in de weekly/reset-route (vault → q givers → hub →
+station) schuift de pijl **niet door bij de quest givers**, ook niet nadat je daar een
+quest aanneemt. Onze native pijl legt dit bloot; mét TomTom bewoog 'ie visueel toch mee
+via "set closest", dus het viel niet eerder op.
+
+**Oorzaak (geverifieerd in code):** een giver-stap wordt pas "niet-open" als
+`GiverState(def)` "done"/"inlog" teruggeeft, en dat kan alléén met een geverifieerd
+quest-ID in `GIVER_WEEKLIES` (ResetRoutine.lua ~69). Een **niet-getrackte** giver (geen
+ID) blijft een reminder mét route-pin (`open = not anyGiverOpen`) → `ComputeOpenPins`-
+signatuur verandert niet → `AdvanceResetRoute` verzet `ns.lastTarget` niet → pijl blijft
+plakken. Never-lie: we mogen "opgepakt" niet claimen zonder ID.
+
+**Fix-richting (met in-game test):** maak de givers-stap **arrival-aware** — zodra je
+binnen ~X yd van de givers-pin bent geweest (en evt. een QUEST_ACCEPTED zag), beschouw de
+stap als "bezocht" en schuif door naar de volgende open stop, óók als de giver niet
+getrackt is. Zet dat achter dezelfde owner/lastTarget-conventie zodat NativeArrow volgt.
+Alternatief/aanvulling: universele `/mh skip` ook op de reset-route (maar Rob wil dit
+liever automatisch, net als bij rares). Raakt: `Modules/ResetRoutine.lua`
+(`ComputeOpenPins`/`AdvanceResetRoute`/nieuwe positie-poll). Test: op een char met een
+niet-getrackte giver + op één met getrackte (Liadrin 93766 e.a.).
 
 > Start hier morgen in een nieuwe chat. Dit bestand vat samen waar we staan, hoe we
 > werken, en wat er nog ligt. Lees ook `CHANGELOG.md` [2.2.0-beta.1] voor de details.
