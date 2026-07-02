@@ -220,20 +220,19 @@ local function ProtoTooltipForKey(uiKey, slot, spec)
 		local layer = layers[i]
 		local entry = layer.entry
 		local cap = ns.Keybind_FormatKeycap and ns.Keybind_FormatKeycap(layer.bindKey) or layer.bindKey
+		--- Toon de SPELL-naam; val alleen terug op het rol-label als de naam niet resolvet
+		--- (auto-map-entries hebben een role, maar we willen "Voidform", niet "cooldown bar").
 		local name = entry and ProtoSpellName(entry.id)
-		if entry and entry.role and ns.Keybind_GetRoleLocaleKey then
+		if not name and entry and entry.role and ns.Keybind_GetRoleLocaleKey then
 			local rk = ns.Keybind_GetRoleLocaleKey(entry.role)
 			if rk and rk ~= "" then
 				local roleLabel = ns:L(rk)
 				if roleLabel ~= "" then
-					lines[#lines + 1] = ns:L("LAYOUT_KEY_BIND_LAYER_FMT"):format(cap, roleLabel)
-				elseif name then
-					lines[#lines + 1] = ns:L("LAYOUT_KEY_BIND_LAYER_FMT"):format(cap, name)
+					name = roleLabel
 				end
-			elseif name then
-				lines[#lines + 1] = ns:L("LAYOUT_KEY_BIND_LAYER_FMT"):format(cap, name)
 			end
-		elseif name then
+		end
+		if name then
 			lines[#lines + 1] = ns:L("LAYOUT_KEY_BIND_LAYER_FMT"):format(cap, name)
 		end
 	end
@@ -375,6 +374,239 @@ end
 
 local KEY_POS, HOST_W, HOST_H = BuildKeyPositions()
 
+-- ===================== Spell-strook (Plan B): categorie-kaarten =====================
+-- Onderrand van het toetsenbord + startpunt van de kaarten (onder de legenda).
+local KB_BOTTOM = 0
+for _, xy in pairs(KEY_POS) do
+	local h = (type(xy[4]) == "number" and xy[4]) or KH
+	KB_BOTTOM = math.max(KB_BOTTOM, xy[2] + h)
+end
+local CARDS_TOP = KB_BOTTOM + 74
+
+--- Kaart-groepen in weergavevolgorde (mockup B).
+local CARD_GROUPS = {
+	{ id = "builder",   labelKey = "LAYOUT_CARD_BUILDER" },
+	{ id = "spender",   labelKey = "LAYOUT_CARD_SPENDER" },
+	{ id = "aoe",       labelKey = "LAYOUT_CARD_AOE" },
+	{ id = "interrupt", labelKey = "LAYOUT_CARD_INTERRUPT" },
+	{ id = "movement",  labelKey = "LAYOUT_CARD_MOVEMENT" },
+	{ id = "utility",   labelKey = "LAYOUT_CARD_UTILITY" },
+	{ id = "defensive", labelKey = "LAYOUT_CARD_DEFENSIVE" },
+	{ id = "cc",        labelKey = "LAYOUT_CARD_CC" },
+	{ id = "cooldowns", labelKey = "LAYOUT_CARD_COOLDOWNS" },
+	{ id = "selfheal",  labelKey = "LAYOUT_CARD_SELFHEAL" },
+}
+
+--- Categorie-token per base-toets: auto-map heeft role/category op de entry; hand-map niet,
+--- daar leiden we het af uit het slot (maps_to_column -> ColumnToCategory).
+local function CategoryTokenForBase(slots, baseKey)
+	if type(slots) == "table" then
+		for i = 1, #slots do
+			local s = slots[i]
+			if s and s.ui_key == baseKey and s.maps_to_column and ns.Keybind_ColumnToCategory then
+				return ns.Keybind_ColumnToCategory(s.maps_to_column)
+			end
+		end
+	end
+	return nil
+end
+
+--- Bind -> kaart-groep-id. Ankers E (interrupt) en Q (movement) altijd vast; AoE = Shift-laag
+--- van een builder/spender.
+local function GroupForBind(entry, baseKey, mod, catToken)
+	if baseKey == "E" then return "interrupt" end
+	if baseKey == "Q" then return "movement" end
+	local role = entry and entry.role
+	if role == "interrupt" then return "interrupt" end
+	if role == "utility_primary" or role == "mobility" then return "movement" end
+	if role == "cooldown_bar" then return "cooldowns" end
+	if role == "heal_quick" or role == "heal_ooc" or role == "heal_sustain" then return "selfheal" end
+	if type(role) == "string" and role:find("^defensive") then return "defensive" end
+	local cat = (entry and entry.category) or catToken
+	if cat == "main_rotation" then return (mod == "shift") and "aoe" or "builder" end
+	if cat == "spender" then return (mod == "shift") and "aoe" or "spender" end
+	if cat == "dispel_cc" then return "cc" end
+	if cat == "cooldown" then return "cooldowns" end
+	if cat == "defensive" then return "defensive" end
+	if cat == "selfheal" then return "selfheal" end
+	return "utility"
+end
+
+local function ProtoReleaseCards(panel)
+	if panel._mhCards then
+		for i = 1, #panel._mhCards do
+			panel._mhCards[i]:Hide()
+		end
+	end
+	panel._mhCardCount = 0
+end
+
+local function ProtoCardRow(card, i)
+	card._rows = card._rows or {}
+	local row = card._rows[i]
+	if not row then
+		row = CreateFrame("Frame", nil, card)
+		row:EnableMouse(true)
+		row:SetScript("OnEnter", function(self)
+			if self._spellId and GameTooltip then
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetSpellByID(self._spellId)
+				GameTooltip:Show()
+			end
+		end)
+		row:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		local icon = row:CreateTexture(nil, "ARTWORK")
+		icon:SetPoint("LEFT", row, "LEFT", 2, 0)
+		icon:SetSize(22, 22)
+		icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+		row._icon = icon
+		local cap = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		cap:SetPoint("RIGHT", row, "RIGHT", -2, 0)
+		cap:SetJustifyH("RIGHT")
+		row._cap = cap
+		local name = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		name:SetPoint("LEFT", icon, "RIGHT", 6, 0)
+		name:SetPoint("RIGHT", cap, "LEFT", -6, 0)
+		name:SetJustifyH("LEFT")
+		name:SetWordWrap(false)
+		row._name = name
+		card._rows[i] = row
+	end
+	return row
+end
+
+local function ProtoAcquireCard(panel)
+	panel._mhCards = panel._mhCards or {}
+	panel._mhCardCount = (panel._mhCardCount or 0) + 1
+	local idx = panel._mhCardCount
+	local card = panel._mhCards[idx]
+	if not card then
+		card = CreateFrame("Frame", nil, panel._mhProtoHost, "BackdropTemplate")
+		if card.SetBackdrop then
+			card:SetBackdrop({
+				bgFile = "Interface\\Buttons\\WHITE8X8",
+				edgeFile = "Interface\\Buttons\\WHITE8X8",
+				edgeSize = 1,
+				insets = { left = 1, right = 1, top = 1, bottom = 1 },
+			})
+			card:SetBackdropColor(0.12, 0.09, 0.06, 0.92)
+			card:SetBackdropBorderColor(0.42, 0.29, 0.11, 1)
+		end
+		local t = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		t:SetPoint("TOP", card, "TOP", 0, -5)
+		t:SetTextColor(1, 0.82, 0.3)
+		card._title = t
+		card._rows = {}
+		panel._mhCards[idx] = card
+	end
+	return card
+end
+
+--- Bouwt de categorie-kaarten onder het toetsenbord uit de huidige map (hand-map of auto-map).
+local function ProtoRefreshCards(panel, spec, slots)
+	ProtoReleaseCards(panel)
+	local host = panel._mhProtoHost
+	if not host then
+		return HOST_H
+	end
+
+	local groups = {}
+	if spec and spec.spellByUiKey then
+		for bindKey, entry in pairs(spec.spellByUiKey) do
+			if type(entry) == "table" and entry.id then
+				local mod, base = ns.Keybind_ParseBindKey(bindKey)
+				local catToken = CategoryTokenForBase(slots, base)
+				local gid = GroupForBind(entry, base, mod, catToken)
+				groups[gid] = groups[gid] or {}
+				table.insert(groups[gid], {
+					bindKey = bindKey,
+					base = base,
+					mod = mod,
+					id = entry.id,
+					name = ProtoSpellName(entry.id) or ("#" .. tostring(entry.id)),
+				})
+			end
+		end
+	end
+	for _, list in pairs(groups) do
+		table.sort(list, function(a, b)
+			if (a.base or "") ~= (b.base or "") then
+				return (a.base or "") < (b.base or "")
+			end
+			return ns.Keybind_ModifierRank(a.bindKey) < ns.Keybind_ModifierRank(b.bindKey)
+		end)
+	end
+
+	local COLS = 3
+	local GAPC = 12
+	local pad = 10
+	local usableW = HOST_W - 2 * pad
+	local cardW = math.floor((usableW - (COLS - 1) * GAPC) / COLS)
+	local titleH, rowH = 24, 30
+	local colY = {}
+	for i = 1, COLS do
+		colY[i] = 0
+	end
+
+	for _, g in ipairs(CARD_GROUPS) do
+		local list = groups[g.id]
+		if list and #list > 0 then
+			local col = 1
+			for i = 2, COLS do
+				if colY[i] < colY[col] then
+					col = i
+				end
+			end
+			local x = pad + (col - 1) * (cardW + GAPC)
+			local y = CARDS_TOP + colY[col]
+			local cardH = titleH + #list * rowH + 10
+			local card = ProtoAcquireCard(panel)
+			card:ClearAllPoints()
+			card:SetPoint("TOPLEFT", host, "TOPLEFT", x, -y)
+			card:SetSize(cardW, cardH)
+			card:Show()
+			card._title:SetText(ns:L(g.labelKey))
+			for i = 1, #list do
+				local sp = list[i]
+				local row = ProtoCardRow(card, i)
+				row._spellId = sp.id
+				row:ClearAllPoints()
+				row:SetPoint("TOPLEFT", card, "TOPLEFT", pad, -(titleH + (i - 1) * rowH))
+				row:SetSize(cardW - pad * 2, rowH - 4)
+				local tex = C_Spell and C_Spell.GetSpellTexture and C_Spell.GetSpellTexture(sp.id)
+				row._icon:SetTexture(tex or "Interface\\Icons\\INV_Misc_QuestionMark")
+				row._name:SetText(sp.name)
+				row._cap:SetText(ns.Keybind_FormatKeycap(sp.bindKey) or sp.bindKey)
+				if sp.mod == "shift" then
+					row._cap:SetTextColor(0.35, 0.85, 1)
+				elseif sp.mod == "ctrl" then
+					row._cap:SetTextColor(0.55, 1, 0.55)
+				elseif sp.mod == "alt" then
+					row._cap:SetTextColor(1, 0.5, 0.5)
+				else
+					row._cap:SetTextColor(1, 0.82, 0.3)
+				end
+				row:Show()
+			end
+			colY[col] = colY[col] + cardH + GAPC
+		end
+	end
+
+	local maxCol = 0
+	for i = 1, COLS do
+		maxCol = math.max(maxCol, colY[i])
+	end
+	if maxCol <= 0 then
+		return HOST_H
+	end
+	return CARDS_TOP + maxCol + 14
+end
+-- =================== einde spell-strook ===================
+
 local function ProtoAttachTooltip(btn, text)
 	if not btn then
 		return
@@ -482,10 +714,20 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 	local slug = ProtoResolveSlug()
 	local spec = slug and ref and ref.specsById and ref.specsById[slug]
 	local slots
+	local usingAuto = false
 	if slug and ref then
 		slots = (ns.Keybinding_GetSlotsForSlug and ns.Keybinding_GetSlotsForSlug(slug)) or ref.slots
 	else
-		slots = {}
+		-- Geen hand-map voor deze class/spec → val terug op de live auto-map (uit de spellbook).
+		if ns.MH_AutoMapSpecAndSlots then
+			local aSpec, aSlots = ns.MH_AutoMapSpecAndSlots()
+			if aSpec and aSlots and next(aSpec.spellByUiKey or {}) then
+				spec = aSpec
+				slots = aSlots
+				usingAuto = true
+			end
+		end
+		slots = slots or {}
 	end
 	local highlightKey = panel._mhProtoHighlightKey or ns._mhLayoutHighlightKey
 	if highlightKey and ns.Keybind_GetBaseUiKey then
@@ -583,7 +825,9 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 	end
 	if panel._mhProtoSubtitle then
 		local subText = ns:L("LAYOUT_PROTOTYPE_SUBTITLE")
-		if not slug then
+		if usingAuto then
+			subText = subText .. "\n|cff66ccff" .. ns:L("LAYOUT_AUTOMAP_NOTE") .. "|r"
+		elseif not slug then
 			subText = subText .. "\n|cffffb347" .. ns:L("LAYOUT_NO_MAP_HINT") .. "|r"
 		end
 		panel._mhProtoSubtitle:SetText(subText)
@@ -592,8 +836,9 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 		panel._mhProtoLegend:SetText(ns:L("LAYOUT_LEGEND"))
 	end
 
+	local cardsH = ProtoRefreshCards(panel, spec, slots)
 	if panel._mhProtoHost then
-		panel._mhProtoHost:SetSize(HOST_W, HOST_H)
+		panel._mhProtoHost:SetSize(HOST_W, math.max(HOST_H, cardsH or HOST_H))
 	end
 end
 
@@ -684,8 +929,8 @@ function ns.BuildKeyboardLayoutPrototypePanel(panel)
 
 	if not panel._mhProtoLegend then
 		local leg = host:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-		leg:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 8, 8)
-		leg:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", -10, 8)
+		leg:SetPoint("TOPLEFT", host, "TOPLEFT", 8, -(KB_BOTTOM + 8))
+		leg:SetPoint("TOPRIGHT", host, "TOPRIGHT", -10, -(KB_BOTTOM + 8))
 		leg:SetJustifyH("LEFT")
 		leg:SetJustifyV("TOP")
 		leg:SetWordWrap(true)
@@ -702,8 +947,15 @@ function ns.BuildKeyboardLayoutPrototypePanel(panel)
 		panel:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 		panel:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 		panel:RegisterEvent("PLAYER_ENTERING_WORLD")
+		panel:RegisterEvent("TRAIT_CONFIG_UPDATED") -- losse talent / loadout-swap (M+ vs raid)
+		panel:RegisterEvent("SPELLS_CHANGED")       -- nieuwe spell geleerd (leveling)
 		panel:SetScript("OnEvent", function(_, event)
-			if
+			if event == "SPELLS_CHANGED" or event == "TRAIT_CONFIG_UPDATED" then
+				-- Kunnen vaak vuren; alleen hertekenen als de tab open is.
+				if panel:IsShown() then
+					ns.KeyboardLayoutPrototype_Refresh(panel)
+				end
+			elseif
 				event == "PLAYER_LEVEL_UP"
 				or event == "PLAYER_SPECIALIZATION_CHANGED"
 				or event == "ACTIVE_TALENT_GROUP_CHANGED"

@@ -61,6 +61,11 @@ local function RolesForClass(class)
 	return CLASS_ROLES[class]
 end
 
+-- Universele spells die ELKE class kent (Midnight). Recuperate (1231411) = OOC food-heal,
+-- 50% HP over 10s -> heal_sustain-anker op F4 voor iedereen. Wordt naast de class-tabel geraadpleegd.
+ns.KeybindRoleClassifierGlobal = ns.KeybindRoleClassifierGlobal or {}
+ns.KeybindRoleClassifierGlobal["Recuperate"] = { role = "heal_sustain", priority = 1 }
+
 --- Enumerate the player's KNOWN, active (non-passive) spells from the live spellbook.
 --- Uses the modern C_SpellBook API (same as JustAC/others on this patch). Returns name -> spellID.
 local function ReadKnownActiveSpells()
@@ -85,18 +90,43 @@ local function ReadKnownActiveSpells()
 	return out
 end
 
+--- Entry geldt als hij geen spec-filter heeft (class-baseline) of de huidige spec bevat.
+local function SpecMatches(specs, specID)
+	if not specs then
+		return true
+	end
+	if not specID then
+		return false
+	end
+	for i = 1, #specs do
+		if specs[i] == specID then
+			return true
+		end
+	end
+	return false
+end
+
 --- @return map table (bindKey -> {id,...}), matchedCount, unmatchedNames table, class string
 function ns.MH_AutoMapBuild()
 	local _, class = UnitClass("player")
 	local roles = RolesForClass(class)
 	local known = ReadKnownActiveSpells()
 
+	local specID
+	if GetSpecialization and GetSpecializationInfo then
+		local s = GetSpecialization()
+		if s and s > 0 then
+			specID = GetSpecializationInfo(s)
+		end
+	end
+
 	local spells = {}
 	local matched = 0
 	local unmatched = {}
+	local globalRoles = ns.KeybindRoleClassifierGlobal
 	for name, sid in pairs(known) do
-		local r = roles and roles[name]
-		if r then
+		local r = (roles and roles[name]) or (globalRoles and globalRoles[name])
+		if r and SpecMatches(r.specs, specID) then
 			spells[#spells + 1] = {
 				id = sid,
 				minLevel = 1,
@@ -125,6 +155,59 @@ function ns.MH_AutoMapBuild()
 	end
 	table.sort(unmatched)
 	return map, matched, unmatched, class
+end
+
+--- Cache: herbouwen kost een spellbook-scan; alleen opnieuw bij spec/talent-wissel.
+local autoCache = {}
+
+local function CurrentSpecKey()
+	local _, class = UnitClass("player")
+	local specID
+	if GetSpecialization and GetSpecializationInfo then
+		local s = GetSpecialization()
+		if s and s > 0 then
+			specID = GetSpecializationInfo(s)
+		end
+	end
+	return (class or "?") .. "-" .. tostring(specID or 0), class
+end
+
+--- Bouwt een synthetische spec (spellByUiKey) + slots-lijst uit de live auto-map, zodat de
+--- Layout-tab 'm net zo tekent als een hand-map. @return spec|nil, slots|nil
+function ns.MH_AutoMapSpecAndSlots()
+	local key, class = CurrentSpecKey()
+	if autoCache.key == key and autoCache.spec then
+		return autoCache.spec, autoCache.slots
+	end
+	local map = ns.MH_AutoMapBuild()
+	if not map or not next(map) then
+		autoCache = { key = key }
+		return nil, nil
+	end
+	local spec = { display_name = class or "", spellByUiKey = map, isAutoMap = true }
+	-- Eén slot per unieke BASE-toets in de map → precies die toetsen lichten op.
+	local seen, slots = {}, {}
+	for bindKey in pairs(map) do
+		local base = (ns.Keybind_GetBaseUiKey and ns.Keybind_GetBaseUiKey(bindKey)) or bindKey
+		if base and not seen[base] then
+			seen[base] = true
+			slots[#slots + 1] = { ui_key = base }
+		end
+	end
+	autoCache = { key = key, spec = spec, slots = slots }
+	return spec, slots
+end
+
+-- Cache leegmaken bij spec-/talent-wissel (SPELLS_CHANGED vangt talent-swaps).
+do
+	local ev = CreateFrame("Frame")
+	ev:RegisterEvent("SPELLS_CHANGED")                -- nieuwe spell geleerd (leveling/talent)
+	ev:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED") -- andere spec
+	ev:RegisterEvent("TRAIT_CONFIG_UPDATED")          -- losse talent gekozen / loadout gewisseld
+	ev:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")   -- talent-group swap
+	ev:SetScript("OnEvent", function()
+		autoCache = {}
+	end)
 end
 
 local function NameForId(id)

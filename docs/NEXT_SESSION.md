@@ -1,6 +1,22 @@
 # Next session — Midnight Helper
 
-**Laatste update:** 2026-07-02 (derde sessie)
+## ⏭️ MORGEN / VOLGENDE SESSIE — direct oppakken (sessie 4 → 5)
+De **auto-map + spell-strook (Plan B)** is het actieve project. Fundament + dataset + Fase 1 staan.
+Openstaand:
+1. **Spell-strook Fase 2 (rest):** hover op een spell-rij → gloed op de fysieke toets + **verbindingslijn**
+   (`host:CreateLine()`) van de rij naar de toets. (WoW-tooltip op de rijen is al gedaan.)
+2. **Spell-strook Fase 3:** filter-chips boven de kaarten — **Alles / Alleen Shift-laag / Alleen ankers**
+   (mockup `docs/mockups/spellstrip_B_spellbook.html`). Toont/verbergt rijen + lege kaarten.
+3. **Validatie op Robs chars:** log op meerdere specs, check auto-maps + heal-ankers (F2/F3/**F4=Recuperate**),
+   meld scheve plaatsingen → dataset (`Modules/KeybindRoles_*.lua`) fijntunen. Bekende restpunten:
+   naam-collisions met één rol; utility-prioriteit per spec (R/T/X-verdeling).
+4. **Pas als Rob "af" zegt:** versie → **2.3.0**, changelog + CF-doc, **Beta eerst** (Cisca-test). NU NOG NIET.
+
+Alle details van sessie 4 staan onder de ⭐-secties (2b/2c) verderop.
+
+---
+
+**Laatste update:** 2026-07-02 (sessie 4 — auto-map, spell-strook Fase 1, heal-ankers)
 **Live op CF:** **2.2.0** (standalone route-pijl + reset-route + clear + self-healing giver-learn).
 **In de repo bovenop 2.2.0 (nog NIET gereleased → wordt 2.3.0):** leveling-tab vervangen + keybind v6 + Frost-layout.
 **Vorige live versies:** 2.1.1, 2.1.0
@@ -175,12 +191,49 @@
      (a) **Rob test `/mhautomap` op meerdere chars/specs** (elke class die hij/Cisca heeft) → check
      of de kern klopt. Namen die niet matchen met de live spellbook verschijnen simpelweg niet
      (geen fout) — dat is de coverage-check.
-     (b) **Twijfelgevallen uit de agent-rapporten reviewen** (naam-collisions waar één rol gekozen is;
-     bv. Priest/Mage F2=niet-heal op heal_quick-slot, Warrior Spell Reflection C vs Shift+C,
-     DH Throw Glaive spender vs utility). Fijn-tunen o.b.v. wat Rob in-game ziet.
+     (b) ✅ **Spec-filter toegevoegd (sessie 4):** de class-wide tabellen mengden specs (bv. Feral-
+     spells op Guardian). Opgelost: `specs = { <specID> }` op elke spec-specifieke entry (~490 entries,
+     4 agents), + spec-filter in `MH_AutoMapBuild` (leest live specID via GetSpecializationInfo;
+     baseline-entries zonder `specs` gelden altijd). Alle 4 KeybindRoles-bestanden host-geverifieerd
+     (compleet, correcte structuur; bash-mount kapt ze af → luaparser onbetrouwbaar hier). Restant-
+     twijfels (single-role bij naam-collisions, bv. Druid Rebirth Feral/Guardian; Hunter Kill Shot
+     alleen {254}) staan in de agent-rapporten — cosmetisch, review o.b.v. wat Rob in-game ziet.
      (c) **Utility-prioriteit-tuning** per spec (R/T/X-verdeling) blijft cosmetisch open.
-     (d) Daarna: de allocator bij load op de live spellbook laten draaien en de Layout-tab de
-     auto-map laten tekenen (i.p.v. de hand-maps), met hand-maps als override waar gewenst.
+     (d) ✅ **Layout-tab tekent nu de auto-map als fallback** (sessie 4). In
+     `KeyboardLayoutPrototype_Refresh`: als er géén hand-map-slug is → `ns.MH_AutoMapSpecAndSlots()`
+     bouwt een synthetische spec+slots uit de live spellbook en de board vult zich (blauwe subtitle-
+     note `LAYOUT_AUTOMAP_NOTE` en/nl). Hand-maps blijven override (Frost/Enh/Ele/Hunter/Paladin
+     tonen hun hand-map). **Live/build-bewust:** de auto-map leest de live spellbook, dus alleen
+     wat je huidige loadout daadwerkelijk kan casten wordt geplaatst (M+- vs raid-build kan
+     verschillen). Cache in KeybindAutoMap leeg + Layout-tab hertekent bij **SPELLS_CHANGED**
+     (leveling), **TRAIT_CONFIG_UPDATED** (losse talent / loadout-swap), **ACTIVE_TALENT_GROUP_CHANGED**,
+     **PLAYER_SPECIALIZATION_CHANGED**, **PLAYER_LEVEL_UP** (SPELLS/TRAIT alleen hertekenen als de tab
+     open is). Dus levelen, talent-picks, loadout-swaps en spec-wissels updaten automatisch.
+     **Test:** log op een char ZONDER hand-map (bv. Warrior, Rogue, niet-Frost Mage) → Layout-tab
+     moet automatisch de map tonen met live tooltips. Elke class/spec is nu gedekt.
+
+2c. **⭐ SPELL-STROOK (Plan B) — IN AANBOUW (sessie 4).** Gekozen concept
+   `docs/mockups/spellstrip_B_spellbook.html`: categorie-kaarten onder het toetsenbord (icoon |
+   naam | keycap), hover → toets-gloed + verbindingslijn + tooltip, filter-chips. Gebouwd in
+   `Modules/KeyboardLayoutPrototype.lua` (geen apart bestand — deelt de host/scroll met het
+   toetsenbord zodat de lijn ertussen kan lopen).
+   - **✅ Fase 1 (kaarten):** `ProtoRefreshCards` bouwt categorie-kaarten (Builder/Spender/AoE/
+     Interrupt/Movement/Utility/Defensive/CC/Cooldowns/Self-heal) uit de huidige map (hand-map
+     én auto-map; categorie afgeleid uit entry.role/category of het slot). Masonry 3 koloms onder
+     de legenda; host groeit mee. Locale `LAYOUT_CARD_*` en/nl. Iconen via C_Spell.GetSpellTexture.
+     **Rob: visuele check + screenshot → layout finetunen.**
+   - **✅ WoW-tooltip op kaart-rijen (Rob-verzoek):** hover een rij → echte in-game spell-tooltip
+     (`GameTooltip:SetSpellByID`).
+   - **✅ Heal-ankers geauditeerd (4 agents, scheme bevestigd door Rob):** F2 = snelle self-heal,
+     F3 = 2e/OOC-heal, F4 = recuperate/HoT. Per class de dedicated self-heals op de juiste F-toets
+     (o.a. Warrior/DK Victory Rush/Death Pact→F2; Rogue Crimson Vial→F4; Evoker Renewing Blaze→F4;
+     Hunter Exhilaration→F2; Paladin Word of Glory→F2; Priest Desperate Prayer→F2 + PW:Life→F3 Holy;
+     Shaman Healing Surge→F2). Conservatief/never-lie: geen rotatie-/defensive-ankers verplaatst,
+     healers' raid-kit blijft mouseover/click-cast. **Bonus:** pre-existing mislabels opgeruimd
+     (niet-heals die op heal-slots stonden: Wrecking Throw, Storm Bolt, Symbol of Hope, Soulstone,
+     Mirror Image → terug naar utility/cooldown).
+   - **⏳ Fase 2 (rest):** hover op een spell-rij → gloed op de fysieke toets + verbindingslijn (CreateLine).
+   - **⏳ Fase 3:** filter-chips (Alles / Alleen Shift-laag / Alleen ankers).
 
 3. ✅ **Brainstorm spell-strook — Rob koos Plan B** (`spellstrip_B_spellbook.html`:
    categorie-kaarten + SVG-lijn naar toets + filter-chips). Dat is de richting; bouwen in Lua
