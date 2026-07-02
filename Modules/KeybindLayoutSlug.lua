@@ -80,8 +80,18 @@ local function LevelingKeybindSlugForLayout()
 			return "paladin_early"
 		end
 	elseif class == "MAGE" and ref.specsById.frost_mage then
-		if s == 3 then -- Frost
+		--- Match on the stable specID, not the index (no ordering doubt): 64 = Frost Mage.
+		local specId = (s and s > 0 and GetSpecializationInfo) and GetSpecializationInfo(s) or nil
+		if specId == 64 then
 			return "frost_mage"
+		end
+	elseif class == "SHAMAN" and (ref.specsById.enh_shaman or ref.specsById.ele_shaman) then
+		--- 263 = Enhancement, 262 = Elemental (264 = Restoration).
+		local specId = (s and s > 0 and GetSpecializationInfo) and GetSpecializationInfo(s) or nil
+		if specId == 263 and ref.specsById.enh_shaman then
+			return "enh_shaman"
+		elseif specId == 262 and ref.specsById.ele_shaman then
+			return "ele_shaman"
 		end
 	end
 	return nil

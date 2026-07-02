@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>MidnightHelper — Layout: Spellbook-kaarten (concept B)</title>
+<style>
+  :root{
+    --gold: #ffcc33;
+    --gold-dim: #a87e1e;
+    --gold-soft: rgba(255,204,51,0.35);
+    --bg-black: #0a0605;
+    --bg-darkred: #1b0806;
+    --bg-parchment: #201410;
+    --bg-parchment2: #171009;
+    --panel-border: #6b4a1c;
+    --text-main: #ead9b8;
+    --text-dim: #9c8a68;
+    --accent-red: #7a1414;
+    --shift-color: #35b0ff;
+    --alt-color: #ff5f5f;
+    --anchor-color: #ff8f2e;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html,body{
+    margin:0; padding:0;
+    background: radial-gradient(ellipse at 50% -10%, #2a0f0c 0%, var(--bg-black) 55%, #050302 100%);
+    color: var(--text-main);
+    font-family: "Palatino Linotype","Book Antiqua", Georgia, "Trebuchet MS", serif;
+    min-height: 100vh;
+  }
+
+  /* subtle ember texture */
+  body::before{
+    content:"";
+    position: fixed; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(255,204,51,0.15) 0%, transparent 60%),
+      radial-gradient(1px 1px at 70% 60%, rgba(255,204,51,0.12) 0%, transparent 60%),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,204,51,0.1) 0%, transparent 60%),
+      radial-gradient(1px 1px at 85% 20%, rgba(255,204,51,0.12) 0%, transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .page{
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 28px 26px 70px;
+  }
+
+  header.top{
+    text-align:center;
+    margin-bottom: 22px;
+  }
+  header.top h1{
+    font-size: 27px;
+    letter-spacing: 2px;
+    margin: 0 0 4px;
+    color: var(--gold);
+    text-shadow: 0 0 14px rgba(255,204,51,0.45), 0 2px 0 #000;
+    font-variant: small-caps;
+  }
+  header.top .sub{
+    color: var(--text-dim);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  header.top .tag{
+    display:inline-block;
+    margin-top:8px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--bg-black);
+    background: linear-gradient(180deg, var(--gold), #c99a1f);
+    padding: 3px 12px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(255,204,51,0.5);
+  }
+
+  /* ============ FILTER CHIPS ============ */
+  .filters{
+    display:flex;
+    justify-content:center;
+    gap: 10px;
+    margin: 18px 0 30px;
+    flex-wrap: wrap;
+  }
+  .chip{
+    position:relative;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--panel-border);
+    background: linear-gradient(180deg, #241611, #150c09);
+    color: var(--text-dim);
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all .25s ease;
+    user-select:none;
+  }
+  .chip:hover{
+    color: var(--gold);
+    border-color: var(--gold-dim);
+    box-shadow: 0 0 10px rgba(255,204,51,0.15);
+  }
+  .chip.active{
+    color: #1a1206;
+    background: linear-gradient(180deg, var(--gold), #b98f22);
+    border-color: var(--gold);
+    box-shadow: 0 0 16px rgba(255,204,51,0.55);
+    font-weight: bold;
+  }
+
+  /* ============ KEYBOARD ============ */
+  .keyboard-wrap{
+    display:flex;
+    justify-content:center;
+    margin-bottom: 8px;
+  }
+  .keyboard{
+    background: linear-gradient(180deg, #150a08, #0c0503);
+    border: 2px solid var(--panel-border);
+    border-radius: 14px;
+    padding: 18px 20px 16px;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.7), 0 10px 30px rgba(0,0,0,0.6);
+    position: relative;
+  }
+  .kb-row{
+    display:flex;
+    gap: 6px;
+    margin-bottom: 6px;
+    justify-content:center;
+  }
+  .key{
+    position: relative;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #241a12, #16100a);
+    border: 1px solid #4a3520;
+    color: #6b5c46;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    transition: all .25s ease;
+    cursor: default;
+  }
+  .key.wide{ min-width: 62px; }
+  .key.wider{ min-width: 78px; }
+  .key .k-mod{
+    position:absolute;
+    top: 2px; left: 4px;
+    font-size: 8px;
+    opacity: 0.7;
+  }
+
+  .key.bound{
+    color: var(--gold);
+    border-color: var(--gold-dim);
+    background: linear-gradient(180deg, #3a2a10, #201607);
+    box-shadow: 0 0 8px rgba(255,204,51,0.25), inset 0 0 6px rgba(255,204,51,0.15);
+    font-weight: 600;
+  }
+  .key.dim{
+    opacity: 0.35;
+  }
+
+  .key.active-glow{
+    color: #1a1206;
+    background: linear-gradient(180deg, var(--gold), #cc9e26);
+    border-color: var(--gold);
+    box-shadow: 0 0 26px 6px rgba(255,204,51,0.85), 0 0 46px 10px rgba(255,204,51,0.35);
+    transform: translateY(-2px) scale(1.06);
+    z-index: 5;
+  }
+
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow: 0 0 26px 6px rgba(255,204,51,0.85), 0 0 46px 10px rgba(255,204,51,0.35); }
+    50%{ box-shadow: 0 0 36px 10px rgba(255,204,51,1), 0 0 60px 18px rgba(255,204,51,0.5); }
+  }
+  .key.active-glow{ animation: pulseGlow 1.4s ease-in-out infinite; }
+
+  /* connection line layer */
+  #connector-layer{
+    position: fixed;
+    top:0; left:0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 999;
+  }
+  #connector-layer path{
+    fill:none;
+    stroke: var(--gold);
+    stroke-width: 2.2;
+    filter: drop-shadow(0 0 6px rgba(255,204,51,0.9));
+    stroke-dasharray: 6 5;
+    animation: dashFlow 0.6s linear infinite;
+    opacity: 0;
+    transition: opacity .18s ease;
+  }
+  #connector-layer path.show{ opacity: 1; }
+  @keyframes dashFlow{
+    to{ stroke-dashoffset: -22; }
+  }
+
+  .legend-row{
+    display:flex;
+    justify-content:center;
+    gap: 22px;
+    margin: 14px 0 34px;
+    flex-wrap: wrap;
+    font-size: 11.5px;
+    color: var(--text-dim);
+  }
+  .legend-row .dot{
+    display:inline-block;
+    width:10px; height:10px;
+    border-radius:2px;
+    margin-right:6px;
+    vertical-align: -1px;
+  }
+  .dot.bound{ background: linear-gradient(180deg, var(--gold), #a87e1e); box-shadow:0 0 6px rgba(255,204,51,0.6);}
+  .dot.dim{ background:#3a3226; }
+  .dot.anchor{ background: var(--anchor-color); box-shadow:0 0 6px rgba(255,143,46,0.6); }
+
+  /* ============ CARDS GRID ============ */
+  .cards-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+  }
+
+  .card{
+    position: relative;
+    background:
+      linear-gradient(180deg, rgba(255,204,51,0.03), transparent 30%),
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0 2px, transparent 2px 4px),
+      linear-gradient(160deg, var(--bg-parchment), var(--bg-parchment2));
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 16px 16px 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.55), inset 0 0 30px rgba(0,0,0,0.35);
+    opacity: 0;
+    transform: translateY(18px);
+    animation: cardIn .6s ease forwards;
+  }
+
+  /* staggered entrance handled via inline style delay */
+
+  @keyframes cardIn{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  /* ornament corners */
+  .card::before, .card::after,
+  .card .c-tl, .card .c-tr, .card .c-bl, .card .c-br{
+    content:"";
+    position:absolute;
+    width: 22px; height:22px;
+    border: 2px solid var(--gold-dim);
+    opacity: 0.8;
+  }
+  .card::before{ top:6px; left:6px; border-right:none; border-bottom:none; border-radius: 6px 0 0 0;}
+  .card::after{ top:6px; right:6px; border-left:none; border-bottom:none; border-radius: 0 6px 0 0;}
+  .card .c-bl{ bottom:6px; left:6px; border-right:none; border-top:none; border-radius: 0 0 0 6px;}
+  .card .c-br{ bottom:6px; right:6px; border-left:none; border-top:none; border-radius: 0 0 6px 0;}
+
+  .card:hover::before, .card:hover::after,
+  .card:hover .c-bl, .card:hover .c-br{
+    border-color: var(--gold);
+    box-shadow: 0 0 8px rgba(255,204,51,0.6);
+  }
+
+  .card-title{
+    text-align:center;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 2px 0 12px;
+    font-variant: small-caps;
+    text-shadow: 0 0 8px rgba(255,204,51,0.35);
+    position: relative;
+  }
+  .card-title small{
+    display:block;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    text-transform: none;
+    margin-top: 2px;
+  }
+
+  .spell-row{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    padding: 7px 8px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all .2s ease;
+    position: relative;
+  }
+  .spell-row:hover, .spell-row.hovered{
+    background: rgba(255,204,51,0.08);
+    border-color: var(--gold-soft);
+    box-shadow: 0 0 12px rgba(255,204,51,0.12);
+    transform: translateX(2px);
+  }
+  .spell-row.anchor-row{
+    outline: 1px dashed rgba(255,143,46,0.4);
+    outline-offset: -1px;
+  }
+
+  .icon{
+    width: 34px; height:34px;
+    border-radius: 5px;
+    border: 1px solid #55401e;
+    box-shadow: 0 0 4px rgba(0,0,0,0.6);
+    flex: 0 0 auto;
+    object-fit: cover;
+    background: #1a1108;
+  }
+  .icon-fallback{
+    width:34px; height:34px;
+    border-radius:5px;
+    border: 1px solid #55401e;
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 11px;
+    font-weight:bold;
+    color: var(--gold);
+    background: linear-gradient(160deg,#3a2a12,#1a1108);
+    letter-spacing: 0.5px;
+  }
+
+  .spell-name{
+    flex: 1 1 auto;
+    font-size: 13.5px;
+    color: var(--text-main);
+    line-height: 1.25;
+  }
+  .spell-name .anchor-tag{
+    display:inline-block;
+    margin-left:6px;
+    font-size: 9px;
+    color: var(--anchor-color);
+    border: 1px solid rgba(255,143,46,0.5);
+    padding: 1px 5px;
+    border-radius: 8px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  .keycap{
+    flex: 0 0 auto;
+    min-width: 38px;
+    padding: 5px 9px;
+    text-align:center;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    background: linear-gradient(180deg, #3a2a10, #1c1206);
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    box-shadow: 0 2px 0 #0c0803, inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .keycap.shift-layer{ border-color: var(--shift-color); color: var(--shift-color); }
+  .keycap.alt-layer{ border-color: var(--alt-color); color: var(--alt-color); }
+
+  /* tooltip */
+  .tooltip{
+    position: fixed;
+    z-index: 1000;
+    min-width: 220px;
+    max-width: 300px;
+    background: linear-gradient(160deg, #1a1006, #0e0904);
+    border: 1px solid var(--gold-dim);
+    border-radius: 6px;
+    padding: 10px 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7), 0 0 18px rgba(255,204,51,0.15);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .tooltip.show{ opacity: 1; transform: translateY(0); }
+  .tooltip .tt-title{
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap: 8px;
+  }
+  .tooltip .tt-key{
+    font-size: 10.5px;
+    color: var(--text-dim);
+    border: 1px solid #4a3520;
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .tooltip .tt-desc{
+    font-size: 12px;
+    color: var(--text-main);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .tooltip .tt-meta{
+    font-size: 10.5px;
+    color: var(--text-dim);
+    border-top: 1px solid #3a2a15;
+    padding-top: 5px;
+    display:flex;
+    justify-content: space-between;
+  }
+  .tooltip .tt-cat{ color: var(--gold-dim); }
+
+  footer.note{
+    text-align:center;
+    margin-top: 40px;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+  }
+  footer.note b{ color: var(--gold-dim); }
+</style>
+</head>
+<body>
+
+<svg id="connector-layer"><path id="connector-path" d=""/></svg>
+<div class="tooltip" id="tooltip"></div>
+
+<div class="page">
+
+  <header class="top">
+    <h1>MidnightHelper</h1>
+    <div class="sub">Layout — Enhancement Shaman v6 · Concept B: Spellbook-kaarten</div>
+    <div class="tag">Brainstorm mockup — niet definitief</div>
+  </header>
+
+  <div class="filters" id="filters">
+    <div class="chip active" data-filter="all">Alles</div>
+    <div class="chip" data-filter="shift">Alleen Shift-laag</div>
+    <div class="chip" data-filter="anchor">Alleen ankers</div>
+  </div>
+
+  <div class="keyboard-wrap">
+    <div class="keyboard" id="keyboard">
+      <!-- Row: F-keys -->
+      <div class="kb-row">
+        <div class="key dim" data-key="Esc">Esc</div>
+        <div class="key dim" data-key="F1" style="visibility:hidden"></div>
+        <div class="key" data-key="F1">F1</div>
+        <div class="key" data-key="F2">F2</div>
+        <div class="key dim" data-key="F3">F3</div>
+        <div class="key dim" data-key="F4">F4</div>
+        <div class="key dim" data-key="F5">F5</div>
+        <div class="key dim" data-key="F6">F6</div>
+        <div class="key dim" data-key="F7">F7</div>
+        <div class="key dim" data-key="F8">F8</div>
+        <div class="key dim" data-key="F9">F9</div>
+        <div class="key dim" data-key="F10">F10</div>
+        <div class="key dim" data-key="F11">F11</div>
+        <div class="key dim" data-key="F12">F12</div>
+      </div>
+
+      <!-- Row 1: number row -->
+      <div class="kb-row">
+        <div class="key dim wide" data-key="`">~</div>
+        <div class="key" data-key="1">1</div>
+        <div class="key" data-key="2">2</div>
+        <div class="key" data-key="3">3</div>
+        <div class="key" data-key="4">4</div>
+        <div class="key" data-key="5">5</div>
+        <div class="key dim" data-key="6">6</div>
+        <div class="key dim" data-key="7">7</div>
+        <div class="key dim" data-key="8">8</div>
+        <div class="key dim" data-key="9">9</div>
+        <div class="key dim" data-key="0">0</div>
+        <div class="key dim" data-key="-">-</div>
+        <div class="key dim wide" data-key="=">=</div>
+        <div class="key dim wider" data-key="Backspace">⌫</div>
+      </div>
+
+      <!-- Row 2: QWERTY -->
+      <div class="kb-row">
+        <div class="key dim wide" data-key="Tab">Tab</div>
+        <div class="key dim" data-key="Q0">Q</div>
+        <div class="key" data-key="Q">Q</div>
+        <div class="key dim" data-key="W">W</div>
+        <div class="key" data-key="E">E</div>
+        <div class="key" data-key="R">R</div>
+        <div class="key" data-key="T">T</div>
+        <div class="key dim" data-key="Y">Y</div>
+        <div class="key dim" data-key="U">U</div>
+        <div class="key dim" data-key="I">I</div>
+        <div class="key dim" data-key="O">O</div>
+        <div class="key dim" data-key="P">P</div>
+        <div class="key dim" data-key="[">[</div>
+        <div class="key dim" data-key="]">]</div>
+      </div>
+
+      <!-- Row 3: ASDF -->
+      <div class="kb-row">
+        <div class="key dim wider" data-key="Caps">Caps</div>
+        <div class="key dim" data-key="A">A</div>
+        <div class="key dim" data-key="S">S</div>
+        <div class="key dim" data-key="D">D</div>
+        <div class="key" data-key="F">F</div>
+        <div class="key dim" data-key="G">G</div>
+        <div class="key dim" data-key="H">H</div>
+        <div class="key dim" data-key="J">J</div>
+        <div class="key dim" data-key="K">K</div>
+        <div class="key dim" data-key="L">L</div>
+        <div class="key dim" data-key=";">;</div>
+        <div class="key dim" data-key="'">'</div>
+        <div class="key dim wide" data-key="Enter">Enter</div>
+      </div>
+
+      <!-- Row 4: ZXCV -->
+      <div class="kb-row">
+        <div class="key dim wider" data-key="LShift">Shift</div>
+        <div class="key dim" data-key="Z">Z</div>
+        <div class="key" data-key="X">X</div>
+        <div class="key" data-key="C">C</div>
+        <div class="key" data-key="V">V</div>
+        <div class="key dim" data-key="B">B</div>
+        <div class="key dim" data-key="N">N</div>
+        <div class="key dim" data-key="M">M</div>
+        <div class="key dim" data-key=",">,</div>
+        <div class="key dim" data-key=".">.</div>
+        <div class="key dim" data-key="/">/</div>
+        <div class="key dim wider" data-key="RShift">Shift</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend-row">
+    <span><span class="dot bound"></span>Gebonden toets</span>
+    <span><span class="dot dim"></span>Ongebruikt</span>
+    <span><span class="dot anchor"></span>Anker-toets (F2 self-heal)</span>
+  </div>
+
+  <div class="cards-grid" id="cardsGrid">
+    <!-- Cards injected by JS -->
+  </div>
+
+  <footer class="note">
+    Hover over een rij voor tooltip + gouden verbindingslijn naar het toetsenbord. Data: <b>Enhancement Shaman v6-map</b>. Iconen via Wowhead / zamimg (large). Onbevestigde iconnamen tonen een gestileerde initialen-tegel.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+
+  // ---------- DATA ----------
+  // icon: verified wowhead icon filename, or null -> fallback tile with initials
+  const CATEGORIES = [
+    {
+      id: "builder", title: "Builder", note: "Maalstroom opbouwen",
+      spells: [
+        { name: "Stormstrike", key: "1", mod: "", icon: "ability_shaman_stormstrike", anchor:false,
+          desc: "Slaat met beide wapens tegelijk toe, omgeven door bliksem. Kernaanval van de builder-cyclus." },
+        { name: "Lava Lash", key: "2", mod: "", icon: "ability_shaman_lavalash", anchor:false,
+          desc: "Zwaai met je off-hand wapen, verhoogde schade als het is verhit door Flame Shock." },
+        { name: "Voltaic Blaze", key: "3", mod: "", icon: null, initials:"VB", anchor:false,
+          desc: "Bliksemschok die Flame Shock plaatst en Maalstroom genereert. Icoonnaam nog niet bevestigd." },
+      ]
+    },
+    {
+      id: "spender", title: "Spender", note: "Maalstroom verbruiken",
+      spells: [
+        { name: "Lightning Bolt", key: "4", mod: "", icon: "spell_nature_lightning", anchor:false,
+          desc: "Slingert een bliksemschicht naar het doel. Verbruikt Maelstrom Weapon-stacks voor instant cast." },
+        { name: "Elemental Blast", key: "5", mod: "", icon: null, initials:"EB", anchor:false,
+          desc: "Ontketent elementaire kracht voor schade en een tijdelijke stat-boost. Icoonnaam nog niet bevestigd." },
+      ]
+    },
+    {
+      id: "aoe", title: "AoE", note: "Shift-laag · area damage",
+      spells: [
+        { name: "Crash Lightning", key: "1", mod: "Shift", icon: "spell_shaman_crashlightning", anchor:false,
+          desc: "Slaat alle vijanden voor je met bliksem en verrijkt je wapens voor 12 sec." },
+        { name: "Sundering", key: "2", mod: "Shift", icon: null, initials:"SU", anchor:false,
+          desc: "Splijt de grond in een lijn voor je open met flinke schade. Icoonnaam nog niet bevestigd." },
+        { name: "Chain Lightning", key: "4", mod: "Shift", icon: "spell_nature_chainlightning", anchor:false,
+          desc: "Bliksemschicht die overspringt naar bijkomende doelen in de buurt." },
+      ]
+    },
+    {
+      id: "interrupt", title: "Interrupt", note: "Onderbreken",
+      spells: [
+        { name: "Wind Shear", key: "E", mod: "", icon: "spell_nature_windshear", anchor:false,
+          desc: "Onderbreekt het huidige spreuk van het doel en blokkeert die school kort." },
+      ]
+    },
+    {
+      id: "movement", title: "Movement", note: "Mobiliteit",
+      spells: [
+        { name: "Spirit Walk", key: "Q", mod: "", icon: null, initials:"SW", anchor:false,
+          desc: "Verwijdert bewegingsbeperkende effecten en verhoogt bewegingssnelheid. Icoonnaam nog niet bevestigd." },
+        { name: "Ghost Wolf", key: "Q", mod: "Shift", icon: "spell_nature_spiritwolf", anchor:false,
+          desc: "Verandert in een geestwolf voor extra bewegingssnelheid over lange afstand." },
+      ]
+    },
+    {
+      id: "utility", title: "Utility", note: "Ondersteuning & totems",
+      spells: [
+        { name: "Frost Shock", key: "F", mod: "", icon: "spell_frost_frostshock", anchor:false,
+          desc: "Vertraagt het doel en breekt eventuele slows af (root-cleanse voor de shaman zelf)." },
+        { name: "Stormkeeper", key: "R", mod: "", icon: "spell_nature_stormreach", anchor:false,
+          desc: "Verrijkt je volgende bliksemspreuken met extra effecten." },
+        { name: "Primordial Wave", key: "R", mod: "Shift", icon: null, initials:"PW", anchor:false,
+          desc: "Genezende/schade-golf gekoppeld aan Flame Shock-doelen. Icoonnaam nog niet bevestigd." },
+        { name: "Capacitor Totem", key: "T", mod: "", icon: null, initials:"CT", anchor:false,
+          desc: "Plaatst een totem die na een korte vertraging vijanden in een straal verdooft. Icoonnaam nog niet bevestigd." },
+        { name: "Wind Rush Totem", key: "T", mod: "Shift", icon: null, initials:"WR", anchor:false,
+          desc: "Groepstotem die passerende bondgenoten een snelheidsboost geeft. Icoonnaam nog niet bevestigd." },
+        { name: "Tremor Totem", key: "X", mod: "", icon: "spell_nature_tremortotem", anchor:false,
+          desc: "Verwijdert Fear/Charm/Sleep-effecten van nabije groepsleden." },
+      ]
+    },
+    {
+      id: "defensive", title: "Defensive", note: "Overleven",
+      spells: [
+        { name: "Astral Shift", key: "C", mod: "", icon: "ability_shaman_astralshift", anchor:false,
+          desc: "Verschuift gedeeltelijk naar het elementaire vlak: 40% minder schade voor 12 sec." },
+      ]
+    },
+    {
+      id: "cc", title: "CC / Dispel", note: "Controle & purge",
+      spells: [
+        { name: "Hex", key: "V", mod: "", icon: "spell_shaman_hex", anchor:false,
+          desc: "Verandert het doel in een kikker: incapacitated en kan niet aanvallen of casten." },
+        { name: "Purge", key: "V", mod: "Shift", icon: "spell_nature_purge", anchor:false,
+          desc: "Verwijdert een gunstig magisch effect van een vijandelijk doel." },
+      ]
+    },
+    {
+      id: "cooldowns", title: "Cooldowns", note: "Grote knoppen",
+      spells: [
+        { name: "Feral Spirit", key: "F1", mod: "", icon: "spell_shaman_feralspirit", anchor:false,
+          desc: "Roept twee geestwolven op die meevechten en physical damage verhogen." },
+        { name: "Doom Winds", key: "F1", mod: "Shift", icon: null, initials:"DW", anchor:false,
+          desc: "Verhoogt Windfury-proccans en schade voor een korte periode. Icoonnaam nog niet bevestigd." },
+        { name: "Ascendance", key: "F1", mod: "Alt", icon: "ability_shaman_ascendance", anchor:false,
+          desc: "Transformeert in een Air Ascendant: verkorte cooldown en kosten van Stormstrike." },
+      ]
+    },
+    {
+      id: "selfheal", title: "Self-heal", note: "Anker-toetsen (F2-blok)",
+      spells: [
+        { name: "Healing Surge", key: "F2", mod: "", icon: null, initials:"HS", anchor:true,
+          desc: "Snelle genezing op jezelf. Anker-toets: reservekeybind buiten de vuurlinie. Icoonnaam nog niet bevestigd." },
+        { name: "Bloodlust", key: "F2", mod: "Shift", icon: "spell_nature_bloodlust", anchor:true,
+          desc: "Verhoogt haste van de hele groep/raid voor 40 sec. Anker-toets naast self-heal." },
+      ]
+    },
+  ];
+
+  const ZAM = "https://wow.zamimg.com/images/wow/icons/large/";
+
+  function initials(name){
+    return name.split(/\s+/).map(w=>w[0]).join("").slice(0,2).toUpperCase();
+  }
+
+  function modClass(mod){
+    if(mod === "Shift") return "shift-layer";
+    if(mod === "Alt") return "alt-layer";
+    return "";
+  }
+
+  function keycapLabel(mod, key){
+    if(!mod) return key;
+    return mod + "+" + key;
+  }
+
+  // ---------- BUILD CARDS ----------
+  const grid = document.getElementById("cardsGrid");
+  let rowIndex = 0;
+
+  CATEGORIES.forEach((cat, ci) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.animationDelay = (ci * 0.09) + "s";
+    card.dataset.cat = cat.id;
+
+    const title = document.createElement("div");
+    title.className = "card-title";
+    title.innerHTML = cat.title + "<small>" + cat.note + "</small>";
+    card.appendChild(title);
+
+    card.insertAdjacentHTML("beforeend", '<span class="c-tl"></span><span class="c-tr"></span><span class="c-bl"></span><span class="c-br"></span>');
+
+    cat.spells.forEach(sp => {
+      const row = document.createElement("div");
+      row.className = "spell-row" + (sp.anchor ? " anchor-row" : "");
+      row.dataset.key = sp.key;
+      row.dataset.mod = sp.mod || "";
+      row.dataset.isShift = sp.mod === "Shift" ? "1" : "0";
+      row.dataset.isAnchor = sp.anchor ? "1" : "0";
+      row.dataset.cat = cat.id;
+      row.dataset.name = sp.name;
+      row.dataset.desc = sp.desc;
+      row.dataset.keycap = keycapLabel(sp.mod, sp.key);
+      row.dataset.rowid = "row-" + (rowIndex++);
+
+      let iconHtml;
+      if(sp.icon){
+        iconHtml = '<img class="icon" src="' + ZAM + sp.icon + '.jpg" alt="' + sp.name + '" onerror="this.outerHTML=\'<div class=&quot;icon-fallback&quot;>' + (sp.initials || initials(sp.name)) + '</div>\'">';
+      } else {
+        iconHtml = '<div class="icon-fallback">' + (sp.initials || initials(sp.name)) + '</div>';
+      }
+
+      row.innerHTML =
+        iconHtml +
+        '<div class="spell-name">' + sp.name + (sp.anchor ? '<span class="anchor-tag">anker</span>' : '') + '</div>' +
+        '<div class="keycap ' + modClass(sp.mod) + '">' + keycapLabel(sp.mod, sp.key) + '</div>';
+
+      card.appendChild(row);
+    });
+
+    grid.appendChild(card);
+  });
+
+  // ---------- KEY BINDING MAP (which physical keys light up "bound") ----------
+  // (already marked via class="key" without "dim" in the HTML above for base-layer binds)
+  // Build lookup: key -> list of rows that target it (for hover glow + connector)
+  const keyEls = {};
+  document.querySelectorAll(".key[data-key]").forEach(k => {
+    const id = k.dataset.key;
+    if(!keyEls[id]) keyEls[id] = [];
+    keyEls[id].push(k);
+  });
+
+  // physical key ids used by spell rows map 1:1 to data-key of .key elements,
+  // except plain "Q" binder vs Shift+Q both point to same physical "Q" key.
+  function resolveKeyEl(baseKey){
+    return keyEls[baseKey] ? keyEls[baseKey][keyEls[baseKey].length-1] : null;
+  }
+
+  // ---------- TOOLTIP + CONNECTOR ----------
+  const tooltip = document.getElementById("tooltip");
+  const svgLayer = document.getElementById("connector-layer");
+  const path = document.getElementById("connector-path");
+
+  function clearActive(){
+    document.querySelectorAll(".key.active-glow").forEach(k => k.classList.remove("active-glow"));
+    path.classList.remove("show");
+    tooltip.classList.remove("show");
+  }
+
+  function showForRow(row, evt){
+    const key = row.dataset.key;
+    const mod = row.dataset.mod;
+    const name = row.dataset.name;
+    const desc = row.dataset.desc;
+    const keycap = row.dataset.keycap;
+    const cat = row.dataset.cat;
+    const isAnchor = row.dataset.isAnchor === "1";
+
+    // tooltip content
+    tooltip.innerHTML =
+      '<div class="tt-title"><span>' + name + '</span><span class="tt-key">' + keycap + '</span></div>' +
+      '<div class="tt-desc">' + desc + '</div>' +
+      '<div class="tt-meta"><span class="tt-cat">' + cat.toUpperCase() + '</span><span>' + (isAnchor ? "Anker-toets" : "Standaard bind") + '</span></div>';
+
+    // position near cursor
+    const tw = 300;
+    let tx = evt.clientX + 18;
+    let ty = evt.clientY - 10;
+    if(tx + tw > window.innerWidth - 10) tx = evt.clientX - tw - 18;
+    if(ty < 10) ty = 10;
+    tooltip.style.left = tx + "px";
+    tooltip.style.top = ty + "px";
+    tooltip.classList.add("show");
+
+    // glow target key
+    document.querySelectorAll(".key.active-glow").forEach(k => k.classList.remove("active-glow"));
+    const keyEl = resolveKeyEl(key);
+    if(keyEl){
+      keyEl.classList.add("active-glow");
+      drawConnector(row, keyEl);
+    } else {
+      path.classList.remove("show");
+    }
+  }
+
+  function drawConnector(row, keyEl){
+    const rowRect = row.getBoundingClientRect();
+    const keyRect = keyEl.getBoundingClientRect();
+
+    const x1 = rowRect.right - 10;
+    const y1 = rowRect.top + rowRect.height/2;
+    const x2 = keyRect.left + keyRect.width/2;
+    const y2 = keyRect.bottom;
+
+    const midY = Math.min(y1, y2) - Math.max(60, Math.abs(y1-y2) * 0.35);
+    const d = `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`;
+    path.setAttribute("d", d);
+    path.classList.add("show");
+  }
+
+  document.querySelectorAll(".spell-row").forEach(row => {
+    row.addEventListener("mouseenter", (e) => {
+      row.classList.add("hovered");
+      showForRow(row, e);
+    });
+    row.addEventListener("mousemove", (e) => {
+      // reposition tooltip smoothly
+      const tw = 300;
+      let tx = e.clientX + 18;
+      let ty = e.clientY - 10;
+      if(tx + tw > window.innerWidth - 10) tx = e.clientX - tw - 18;
+      if(ty < 10) ty = 10;
+      tooltip.style.left = tx + "px";
+      tooltip.style.top = ty + "px";
+    });
+    row.addEventListener("mouseleave", () => {
+      row.classList.remove("hovered");
+      clearActive();
+    });
+  });
+
+  // ---------- FILTERS ----------
+  const chips = document.querySelectorAll(".chip");
+  chips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      chips.forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      const filter = chip.dataset.filter;
+
+      document.querySelectorAll(".spell-row").forEach(row => {
+        let visible = true;
+        if(filter === "shift") visible = row.dataset.isShift === "1";
+        if(filter === "anchor") visible = row.dataset.isAnchor === "1";
+        row.style.display = visible ? "flex" : "none";
+      });
+
+      // hide empty cards
+      document.querySelectorAll(".card").forEach(card => {
+        const anyVisible = Array.from(card.querySelectorAll(".spell-row")).some(r => r.style.display !== "none");
+        card.style.display = anyVisible ? "block" : "none";
+      });
+
+      clearActive();
+    });
+  });
+
+  // reposition connector on scroll/resize while a tooltip could be open (defensive)
+  window.addEventListener("scroll", clearActive, { passive: true });
+  window.addEventListener("resize", clearActive);
+
+})();
+</script>
+
+</body>
+</html>

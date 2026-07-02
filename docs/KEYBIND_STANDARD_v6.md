@@ -21,6 +21,8 @@ tekenen van de "layout"-subtab.
 | AoE | los toegewezen | **AoE = Shift-tweeling** van de ST-knop (1→Shift+1) | ST/AoE-toggle overal identiek. |
 | Interrupt | E (anker) | **E (anker)** — behouden | Bereikbaar, zelfde vinger elke spec. |
 | G | niet gebruiken | **niet gebruiken** — behouden | Te grote reach. |
+| Heals (upd. 2026-07-02) | F2–F4 = utility-overflow | **F2=combat-heal, F3=OOC-heal, F4=recuperate/HoT** | Zelfde heal-reflex op elke alt (Rob). |
+| Utility-volgorde (upd. 2026-07-02) | F R T X | **F R X T** | X ligt bij het Z/C/V-cluster (vinger krullen); T is een stretch rechtsboven → X eerst (Rob). |
 
 ---
 
@@ -50,6 +52,9 @@ tekenen van de "layout"-subtab.
 | **C** | Grote/panic defensive. |
 | **V** | Dispel / CC. |
 | **F1** | Grote offensieve/heal-cooldown (burst). |
+| **F2** | Snelle self-heal **ín combat** (voor specs die er een hebben — bv. Healing Surge, Exhilaration). |
+| **F3** | Heal/regen **out-of-combat**. |
+| **F4** | "Recuperate"-achtig: doorlopende self-heal / HoT (bv. Crimson Vial). |
 | **Shift+E** | Racial. |
 | **Ctrl+F1** | Trinket (of macro op een cooldown). |
 | **Alt+C** | Combat-potion. |
@@ -67,7 +72,7 @@ Volgorde van vullen per categorie; loopt een groep vol → **zelfde toets + volg
 | Builder (ST-rotatie) | `1`, `2`, `3` |
 | Spender | `4`, `5` |
 | AoE | **Shift-tweeling** van de bijbehorende ST-knop (builder 1 → `Shift+1`, spender 4 → `Shift+4`) |
-| Utility | `F`, `R`, `T`, `X`, `F2`, `F3`, `F4` |
+| Utility | `F`, `R`, `X`, `T` (X vóór T — makkelijker reach vanaf WASD; upd. 2026-07-02. F2–F4 = heal-ankers, zie §3) |
 | Major cooldown (extra naast F1) | `Shift+F1`, `Ctrl+F1`… |
 | Defensive (extra naast Z/C) | `Shift+Z`, `Shift+C`… |
 
@@ -82,7 +87,8 @@ Input per spec: een lijst spells, elk met `{ id, category, priority }` (priority
 belangrijk; lager = eerder een betere toets). Dan:
 
 1. **Anker-pass:** interrupt→E, movement→Q, minor-def→Z, major-def→C, dispel/CC→V,
-   grootste CD→F1, racial→Shift+E, trinket→Ctrl+F1, potion→Alt+C.
+   grootste CD→F1, combat-heal→F2, OOC-heal→F3, recuperate/HoT→F4, racial→Shift+E,
+   trinket→Ctrl+F1, potion→Alt+C.
 2. **Categorie-pass:** vul builders/spenders/utility op hun basis-slots (§4) op priority-volgorde.
 3. **AoE-pass:** elke AoE-ability = Shift-tweeling van z'n ST-tegenhanger.
 4. **Overflow:** groep vol → zelfde fysieke toets, volgende modifier (Shift→Ctrl→Alt).

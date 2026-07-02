@@ -1,8 +1,200 @@
 # Next session — Midnight Helper
 
-**Laatste update:** 2026-07-01 (tweede sessie)
-**Huidige versie in de repo:** **2.2.0** — door Rob getest (2 chars, met TomTom), door Rob te builden/uploaden als **Release** naar CF.
-**Vorige live versie:** 2.1.1 (Release), daarvoor 2.1.0
+**Laatste update:** 2026-07-02 (derde sessie)
+**Live op CF:** **2.2.0** (standalone route-pijl + reset-route + clear + self-healing giver-learn).
+**In de repo bovenop 2.2.0 (nog NIET gereleased → wordt 2.3.0):** leveling-tab vervangen + keybind v6 + Frost-layout.
+**Vorige live versies:** 2.1.1, 2.1.0
+
+---
+
+## ▶️ START HIER (sessie 3 samenvatting + wat nu ligt)
+
+### Gedaan sessie 3 (2026-07-02)
+1. **Leveling-tab compleet vervangen.** De oude per-class/spec-gids (~6.900 regels + het 5.152-key
+   `GuideAdvisor`-monster + dubbele consumables) is **weg**; er staat nu een **class-agnostische
+   Midnight 80→90 tips-tab** ("Leveling (80-90)"). Verwijderd: `Addons/GuideData.lua`,
+   `Locales/GuideTips/GuideGroups/GuideAdvisor.lua`, `Modules/GuideTipSpellNames/GuideTipText.lua`
+   (+ uit `.toc`). Nieuw: compacte `Addons/Guide.lua` met `ns.GuideData80to90` (6 secties: pad/XP/
+   unlocks/consumables/gear/handoff) + `LVL8090_*` keys in en/nl. Content = web-geverifieerd +
+   MH-eigen data. Bron-draft: `docs/LEVELING_80_90_TIPS.md`, plan: `docs/LEVELING_TAB_PLAN.md`.
+   ✅ In-game bevestigd door Rob (werkt, layout-subtab intact).
+2. **Keybind-standaard v6** vastgelegd: `docs/KEYBIND_STANDARD_v6.md` (universele role→key; ankers
+   E=interrupt/Q=movement/Z=kleine def/C=grote def/V=dispel-CC/F1=burst; overflow **Shift→Ctrl→Alt**
+   (Alt=self-cast, laatst); AoE=Shift-tweeling van de ST-knop; geen G; deterministisch invul-algoritme).
+3. **Frost Mage-layout LIVE** (Rob's char). Data toegevoegd in `Modules/KeybindingData.lua`
+   (Mage-columns + `slotsMage` + `specsById.frost_mage`, alle spell-ID's in-game bevestigd),
+   MAGE-branch in `Modules/KeybindLayoutSlug.lua` (spec 3=Frost), en de **stale `db.guide.preview`
+   short-circuit** in `MH_GetHunterKeybindSlugForUi` verwijderd (die blokkeerde de spec-detectie).
+   ✅ In-game bevestigd: binds lichten op met tooltips.
+
+### ⏭️ EERSTE KLUSSEN SESSIE 4
+1. ✅ **Enh Shaman keybind-data toegevoegd** (sessie 4, code klaar — nog in-game testen op Cisca's
+   shaman). Frost-patroon gevolgd: Shaman-columns + `slotsShaman` + `specsById.enh_shaman` +
+   SHAMAN-branch + `KEYBIND_SHAMAN_CAT_*` in enUS. Twee beslissingen:
+   - **Spec-index = 2**, niet 1 zoals hier eerder stond (GetSpecialization-volgorde: 1=Elemental,
+     2=Enhancement, 3=Restoration — geverifieerd via warcraft.wiki.gg).
+   - **R = Elemental Blast 117014** (Robs keuze): de map-bind is "5", maar het prototype heeft geen
+     5-toets. T/F2/F3/Alt+F1/Shift-laag wachten op het layout-systeem (klus 2).
+   Bron: `docs/KEYBIND_MAP_frost-mage_enh-shaman.md` (ID's bevestigd: Voltaic Blaze vervangt
+   Flame Shock; Tempest = passieve proc op Lightning Bolt; Ascendance 114050; Cisca = Stormbringer).
+2. ✅ **Layout-systeem gebouwd** (sessie 4, code klaar — nog in-game testen). Bleek: het
+   toetsenbord rendert al álle fysieke toetsen (ook 5/T/F2/F3) en de tooltip toonde al
+   modifier-lagen via `Keybind_GetBindingsOnBase` — het gat zat in schema/data/slots. Gedaan:
+   - **`KeybindSchema.lua` → v6**: overflow **Shift→Ctrl→Alt** (was Alt eerst), sort-volgorde
+     idem, `baseSlotFillOrder` + categorieën met 5/T, nieuwe cats `dispel_cc`/`cooldown`,
+     `columnToCategory` voor Mage/Shaman.
+   - **Data map-exact**: Frost nu vol v6 (5=Glacial Spike, T=Cold Snap **terug van X**,
+     Shift+1..4 AoE, Shift+Z/V) en Enh vol v6 (5=Elemental Blast **terug van R**, R weer vrij,
+     T/X/F2/F3, Shift-laag, Alt+F1=Ascendance, Shift+F2=Bloodlust/Heroism per factie via
+     `UnitFactionGroup` bij load).
+   - **Slots**: Mage/Shaman-slots uitgebreid (5/T, Shaman ook F2/F3+X→Utility); V = nieuwe
+     **CC/Dispel**-kolom (`KEYBIND_*_CAT_CC` in en). Mage X-slot weg (geen bind meer).
+   - **Render**: cyaan **"+N"-badge** op toetsen met N extra modifier-binds
+     (`KeyboardLayoutPrototype.lua`); subtitle + legenda uitgelegd in en/nl.
+   - **Test (Rob):** /reload op Frost én Enh → 5/T (Enh ook X/F2/F3) lichten op; hover 1/4/Z/V/
+     Q/T/F1/F2 toont de lagen; +N-badges zichtbaar; Hunter/Paladin ongewijzigd.
+3. **Bugfix na Robs shaman-screenshot** (alles grijs + "Hunter bind map"-tooltip): twee oorzaken
+   gefixt. (a) `ProtoResolveSlug` had nóg een stale `db.guide.preview`-branch (zelfde bug als
+   eerder in `MH_GetHunterKeybindSlugForUi`) — weg. (b) Spec-detectie Mage/Shaman nu op **stabiel
+   specID** via `GetSpecializationInfo(s)` (64=Frost, 263=Enh) i.p.v. spec-index. Plus: klassen
+   zónder map vallen niet meer stiekem terug op de Hunter-map maar tonen een eerlijke oranje
+   hint (`LAYOUT_NO_MAP_HINT`, en/nl); `LAYOUT_KEY_UNUSED_TOOLTIP` is niet meer Hunter-specifiek.
+   **Let op test:** de map licht alleen op als de shaman óók echt Enhancement-spec is.
+4. **Alle overige specs voorbereid (agents, web-research — NIET in-game bevestigd):** 35 specs
+   v6-concept-maps in `docs/KEYBIND_MAP_DRAFT_warrior_dk_dh_evoker.md`, `_rogue_monk_druid.md`,
+   `_priest_warlock_mage.md`, `_hunter_paladin_shaman.md`. Alle ID's 🟡/⚠️ (never-lie: eerst
+   Rob/Cisca-check per spec vóór encoderen). Opvallend uit de rapporten: Disc/Holy Priest én
+   MW Monk/Resto Druid hebben geen baseline-interrupt (E blijft utility); Warlock-kick loopt via
+   pet; Warrior's 3e major-CD botst met het Ctrl+F1-trinket-anker (herzien bij encoderen);
+   Paladin heeft geen bevestigde Q-movement; SV Hunter-kit is compleet herzien in Midnight.
+5. ✅ **Heal-ankers v6-update (Rob, 2026-07-02):** F2 = snelle self-heal ín combat, F3 = heal
+   out-of-combat, F4 = "Recuperate"-achtig (HoT, bv. Crimson Vial). Doorgevoerd in:
+   `KEYBIND_STANDARD_v6.md` (§1/§3/§4/§5), `KeybindSchema.lua` (utility = F/R/T/X; roles
+   heal_quick/heal_ooc/heal_sustain; categorie `selfheal` F2–F4), Enh-data (Healing Surge
+   Z→F2 — **Z is nu leeg** bij Enh, Astral Shift op C is de def; Stormkeeper F2→R; Primordial
+   Wave F3→Shift+R; Bloodlust blijft Shift+F2), `KEYBIND_SHAMAN_CAT_HEAL`/`KEYBIND_ROLE_HEAL`
+   in en (+ROLE in nl). De 4 draft-docs hebben bovenaan een ⚠️-notitie dat hun F2–F4 herzien
+   moet worden. Frost heeft geen heals → ongewijzigd.
+6. ✅ **3 mockups voor de spell-strook** (brainstorm-input, nog NIET besproken/gekozen) in
+   `docs/mockups/`: `spellstrip_A_actionbar.html` (WoW-actionbar + laag-toggle Basis/Shift/Alt),
+   `spellstrip_B_spellbook.html` (categorie-kaarten + SVG-lijn naar toets + filter-chips),
+   `spellstrip_C_hud.html` (radiaal wiel, ringen per modifier-laag, lightning-arcs). Alle drie
+   met de echte Enh-map; onbevestigde icoonnamen = fallback-tegels. Openen in browser.
+
+### ⏭️ OPENSTAAND (volgende sessie / Opus)
+1. **In-game test door Rob** — Frost ✅ (zag er goed uit). Shaman-test: char stond in
+   **Elemental** (`GetSpecializationInfo(GetSpecialization())` = 262), dus de map bleef terecht
+   leeg (geen bug — map vult alleen bij Enh/263). **Nog te doen:** log in op een char in
+   **Enhancement**-spec + /reload → check 5/X (Cold Snap), F2=Healing Surge, R=Stormkeeper,
+   Z grijs. Blijft grijs op écht-Enh: /console scriptErrors 1 en fout melden.
+
+   **⚠️ Layout-wijziging deze sessie (T↔X-swap, Rob):** utility-volgorde is nu **F R X T**
+   (X vóór T — makkelijker reach vanaf WASD). Doorgevoerd in `KeybindSchema.lua`
+   (`baseSlotFillOrder` + `categories.utility.slots`), `KEYBIND_STANDARD_v6.md` (§1/§4), en
+   **Frost-data**: Cold Snap staat nu op **X** (was T); Mage-utility-kolom toont X i.p.v. T.
+   Enh ongemoeid (gebruikt T én X allebei — Capacitor op T + Shift+T Wind Rush, Tremor op X).
+   Rob's /reload op Frost = finale syntaxcheck.
+
+   **✅ Elemental Shaman-map toegevoegd (sessie 4)** — Rob speelt Elemental, dus nu een eigen
+   testbare map. Aangesloten: spec-detectie **262→ele_shaman** (`KeybindLayoutSlug.lua`),
+   `ele_shaman` in `specsById` (hergebruikt `slotsShaman`-kolommen via
+   `Keybinding_GetSlotsForSlug`), hint-tekst en/nl. Kit v6, **bewust identiek aan Enh** waar de
+   spell gedeeld is (E=Wind Shear, Q=Spirit Walk, C=Astral Shift, V=Hex, Shift+V=Purge, T=Capacitor,
+   X=Tremor, R=Stormkeeper, F2=Healing Surge, Shift+F2=Bloodlust). Eigen: 1=Lava Burst, 2=Voltaic
+   Blaze, 3=Earth Shock, 4=Lightning Bolt, 5=Flame Shock, Shift+1=Chain Lightning, Shift+3=Earthquake,
+   F=Lightning Lasso, F1=Fire Elemental. Z leeg (geen kleine def). IDs grotendeels addon-bevestigd
+   (doc 4).
+
+   **↳ Herbouwd op Robs ECHTE spellbook (in-game afgelezen 2026-07-02, Stormbringer).** De
+   Midnight-Ele-kit bleek géén Earth Shock / Fire Elemental / Hex / Frost Shock / Tremor Totem /
+   Spirit Walk / Lightning Lasso te hebben — die stonden ten onrechte in de eerste (Enh-parity)
+   versie. Nu: 1=Lava Burst, 2=Voltaic Blaze, 3=Lightning Bolt, 4=Elemental Blast, Shift+1=Chain
+   Lightning, Shift+4=Earthquake, Q=Gust of Wind, Shift+Q=Ghost Wolf, E=Wind Shear, F=Spiritwalker's
+   Grace, R=Skyfury, Shift+R=Nature's Swiftness, T=Capacitor, X=Thunderstorm, C=Astral Shift,
+   Shift+C=Earth Elemental, V=Purge, Shift+V=Cleanse Spirit, F1=Stormkeeper, Alt+F1=Ascendance,
+   F2=Healing Surge, Shift+F2=Bloodlust. **6 pure-utility-ID's nog niet addon-bevestigd** (Gust of
+   Wind 192063, Spiritwalker's Grace 79206, Skyfury 462854, Nature's Swiftness 378081, Earth
+   Elemental 198103, Cleanse Spirit 51886) — in code gemarkeerd "tooltip checken"; **Robs /reload =
+   bevestiging** (meld verkeerde tooltips, dan fix ik het ID).
+2. ✅ **ID-verificatie via geïnstalleerde addons GEDAAN (sessie 4, 2026-07-02).** AddOns-map
+   gemount; 4 parallelle agents hebben alle 🟡/⚠️-ID's in de 4 draft-docs gekruist met
+   ClassCodex, JustAC, CooldownCompanion, CDPulse, Interrupt_CCAndCD_Tracker, BliZzi_Interrupts,
+   TargetedSpells, MissingClassBuff. Rijkste bronnen: JustAC (`SpellArchetypes/SpellCategories/
+   InterruptAbilities`), CDPulse `SpellEngine`, BliZzi `Core/Data`, ClassCodex per-class guides.
+   Resultaat: **~310 ID's 🟡→🟢** (addon-bevestigd). ✅ nergens gebruikt (blijft in-game).
+   - **⚠️ Vermoedelijk-foute ID's — nog in-game dumpen vóór encoderen** (addon heeft ander ID):
+     Warrior Wrecking Throw 384110→**394354** (3×), Odyn's Fury 205545→**205546**, Shield Charge
+     385952→**385954**, Champion's Spear 376079→**376080**, Shattering Throw 64382→**372399/394352**;
+     DK Frost Remorseless Winter 196770→**196771**, DK Unholy Dark Transformation 63560→**344955**
+     (mogelijk cast-vs-component); Evoker Upheaval 396286→**396288**; Druid Mighty Bash 166972→
+     **5211** (Bal+Guard), Guardian-Berserk 106951→**50334**; Monk Renewing Mist 115151→**119611**;
+     Warlock Doom 460551→**460555**; Hunter Black Arrow 194599→Midnight-variant **466932**, Volley
+     260247 vs **260243**; Resto Shaman Ascendance 114049 vs **114050**. Patroon: veel web-draft-ID's
+     liggen 1-2 naast het addon-ID → web-research pakte de verkeerde spell-variant.
+   - ✅ **Mislabel in `priest_warlock_mage.md` OPGELOST:** dat doc had ~186× ✅ ("in-game
+     bevestigd") terwijl die 8 specs nooit in-game zijn gecheckt (mislabel tegen never-lie).
+     Alle ✅ zijn als 🟡 herbehandeld en alsnog tegen de addons gekruist → waar bevestigd 🟢,
+     anders 🟡. Legenda gelijkgetrokken met de andere docs. Nu **0 ✅** als statuslabel in het
+     bestand (alleen nog in de legenda-uitleg). Extra mismatch-flags hieruit: Warlock Summon
+     Vilefiend 1251778→**264119**, Malefic Grasp 1261149→**1261153** (naast de al bekende Doom
+     460551→460555).
+   - Nog **~40 🟡 zonder enige addon-data** (niet weerlegd, alleen ongedekt — pure builders/
+     spenders die de interrupt/CD-addons niet tracken). Blijven 🟡 tot in-game.
+   - F2–F4-heal-herziening was hier buiten scope (blijft de ⚠️-notitie bovenaan de 4 docs).
+2b. **⭐ SCHAALBARE KEYBIND-AANPAK (screenshot-vrij) — richting gekozen + prototype gebouwd
+   (sessie 4).** Probleem: ID's per spec handmatig verifiëren (via Rob/Cisca-screenshots) schaalt
+   niet naar 40 specs. Oplossing: de addon leest **in-game de live spellbook** (`C_SpellBook`
+   geeft de ECHTE spell-ID + naam per bekende spell) → classificeert elke spell naar een
+   v6-rol/categorie via een **naam→rol-tabel** (koppelen op NAAM, niet ID → variant-fouten weg) →
+   de bestaande `ns.Keybind_AllocateSpells` bepaalt de toetsen. Zo bouwt de map zich per speler,
+   met correcte ID's, zonder screenshots, en self-correcting (spell niet bekend = niet geplaatst).
+   - **Prototype gebouwd:** `Modules/KeybindAutoMap.lua` (+ in .toc), commando **`/mhautomap`** —
+     leest de live spellbook, classificeert (nu alleen SHAMAN als proof-of-concept), roept de
+     allocator, print het resultaat. Alleen-lezen (raakt binds/SavedVars niet).
+   - **✅ Prototype getest (Rob, /mhautomap op Elemental):** pijplijn werkt — kern staat goed met
+     de ECHTE spellbook-ID's (1=Lava Burst, 4=Elemental Blast, E=Wind Shear, Q=Gust of Wind,
+     Shift+Q=Ghost Wolf, C=Astral Shift, V=Purge, F1=Stormkeeper, F2=Healing Surge, F=Spiritwalker's
+     Grace). **Ving meteen een ID-drift:** live Earthquake = **462620**, terwijl hand-map + addons
+     nog **61882** (oud) hadden → hand-map gefixt naar 462620. Sterk argument voor de live-read.
+   - **✅ Allocator-fix gebouwd + bevestigd (Rob, /mhautomap):** (a) `trySlots` is nu **modifier-major**
+     — vult eerst álle base-toetsen (1,2,3) van een categorie, dán de Shift/Ctrl/Alt-lagen. (b) Nieuwe
+     **`tryPreferredKey`** in `Keybind_AllocateSpells` + `bindKey`-veld op een spell → AoE landt
+     expliciet als Shift-tweeling (Chain Lightning=Shift+1, Earthquake=Shift+4). Resultaat: auto-map
+     landt nu net zo schoon als de handmatige Ele-map (1/2/3 rotatie, AoE op Shift-twins, alle ankers
+     correct, live-ID's). Restje voor de dataset-fase: **utility-prioriteit-tuning per spec** (verdeling
+     Capacitor/Skyfury/Thunderstorm over R/T/X) — cosmetisch, geen structuur.
+   - **✅ Dataset gebouwd (sessie 4, 4 parallelle agents):** de volledige **naam→rol-classifier
+     voor alle 12 classes / 40 specs**, geconverteerd uit de 4 draft-docs (+ KeybindingData
+     hand-maps voor de bevestigde specs). 4 databestanden in `Modules/` + in .toc, geregistreerd in
+     `ns.KeybindRoleClassifier`: `KeybindRoles_WarDkDhEvoker.lua` (WARRIOR 45/DK 37/DH 31/EVOKER 44),
+     `_RogueMonkDruid.lua` (ROGUE 30/MONK 25/DRUID 42), `_PriestWarlockMage.lua` (PRIEST 44/WARLOCK
+     45/MAGE 31), `_HunterPaladinShaman.lua` (HUNTER 35/PALADIN 30/SHAMAN 49). ~490 entries. Alle
+     bestanden syntax-gecheckt (luaparser OK, 0 non-ASCII). `KeybindAutoMap.lua` leest nu de registry
+     (RolesForClass: registry eerst, inline Shaman-seed als fallback).
+   - **Nog te doen / testen:**
+     (a) **Rob test `/mhautomap` op meerdere chars/specs** (elke class die hij/Cisca heeft) → check
+     of de kern klopt. Namen die niet matchen met de live spellbook verschijnen simpelweg niet
+     (geen fout) — dat is de coverage-check.
+     (b) **Twijfelgevallen uit de agent-rapporten reviewen** (naam-collisions waar één rol gekozen is;
+     bv. Priest/Mage F2=niet-heal op heal_quick-slot, Warrior Spell Reflection C vs Shift+C,
+     DH Throw Glaive spender vs utility). Fijn-tunen o.b.v. wat Rob in-game ziet.
+     (c) **Utility-prioriteit-tuning** per spec (R/T/X-verdeling) blijft cosmetisch open.
+     (d) Daarna: de allocator bij load op de live spellbook laten draaien en de Layout-tab de
+     auto-map laten tekenen (i.p.v. de hand-maps), met hand-maps als override waar gewenst.
+
+3. ✅ **Brainstorm spell-strook — Rob koos Plan B** (`spellstrip_B_spellbook.html`:
+   categorie-kaarten + SVG-lijn naar toets + filter-chips). Dat is de richting; bouwen in Lua
+   in de Layout-tab (volgende stap). A (actionbar) en C (HUD-wiel) vervallen.
+4. Daarna: versie → **2.3.0**, changelog + CF-doc; grote wijziging = **Beta eerst** (Cisca-test).
+
+### Werkafspraken (blijven gelden)
+- **NL, kort.** **Never-lie** (ID's/coords verifiëren; Rob/Cisca bevestigen in-game).
+- **Git + CF doet Rob/Cursor**; assistant geeft alleen commando + checklist.
+- **Mount-truncatie:** addonbestanden met host-tools (Read/Edit/Grep) bewerken, **niet** via bash;
+  bash/lupa geeft afgekapte kopieën → syntax niet betrouwbaar te checken. **Rob's `/reload` = finale check.**
+- Grote wijzigingen eerst als **Beta** op CF.
+
+---
 
 ## ResetRoutine advance bij givers — GEBOUWD (2e sessie), nog in-game te testen
 

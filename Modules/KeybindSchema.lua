@@ -1,11 +1,14 @@
 --[[
-	MidnightHelper — Keybind schema v5 (roles, slot order, modifier overflow).
+	MidnightHelper — Keybind schema v6 (roles, slot order, modifier overflow).
+	Standard: docs/KEYBIND_STANDARD_v6.md (universal role→key; anchors never move).
 
 	Team rules (all specs):
-	- Base keys first: 1–4, E (interrupt), Q/F, F2–F4, Z–V, R, F1. No G on the main map.
-	- When a slot group is full: Alt → Shift → Ctrl on the same physical keys (last resort: Ctrl).
-	- Interrupt always targets E (reachable, same finger every spec). If a spec has no interrupt,
-	  E is a normal utility key until an interrupt is added to the map.
+	- Anchors: E=interrupt, Q=movement, Z=small def, C=big def, V=dispel/CC, F1=big cooldown,
+	  F2=quick combat self-heal, F3=out-of-combat heal, F4=recuperate/HoT (upd. 2026-07-02).
+	- Base keys first: 1–5, E, Q/F/R/T/X, Z/C/V, F1. F2–F4 are heal anchors. No G on the main map.
+	- When a slot group is full: **Shift → Ctrl → Alt** on the same physical key
+	  (v6 change — Shift is the best first modifier; Alt = WoW self-cast, so last).
+	- AoE = Shift-twin of the matching single-target key (1 → Shift+1, 4 → Shift+4).
 
 	See `ns.KeybindSchema` for slot/role tables; use `ns.Keybind_AllocateSpells` when filling new specs.
 ]]
@@ -24,17 +27,18 @@ local MOD_DISPLAY = {
 	ctrl = "Ctrl",
 }
 
+--- v6 display/fill order: base, then Shift, Ctrl, Alt (Alt last — self-cast conflict).
 local MOD_RANK = {
-	alt = 1,
-	shift = 2,
-	ctrl = 3,
+	shift = 1,
+	ctrl = 2,
+	alt = 3,
 }
 
 --- @class KeybindSchema
 ns.KeybindSchema = {
-	schema_version = 5,
-	--- Overflow on an occupied base key (same physical key).
-	modifierFillOrder = { "alt", "shift", "ctrl" },
+	schema_version = 6,
+	--- Overflow on an occupied base key (same physical key). v6: Shift → Ctrl → Alt.
+	modifierFillOrder = { "shift", "ctrl", "alt" },
 	--- Not used for Midnight spell binds (grid slot exists but team leaves empty).
 	excludedBaseKeys = { G = true },
 	--- Base keys in priority when auto-assigning within a category (interrupt uses role, not this list).
@@ -43,16 +47,15 @@ ns.KeybindSchema = {
 		"2",
 		"3",
 		"4",
+		"5",
 		"Q",
 		"F",
-		"F2",
-		"F3",
-		"F4",
-		"Z",
+		"R",
 		"X",
+		"T",
+		"Z",
 		"C",
 		"V",
-		"R",
 		"F1",
 	},
 	--- Fixed base key per gameplay role (muscle memory across specs).
@@ -70,14 +73,22 @@ ns.KeybindSchema = {
 		defensive_4 = { ui_key = "V", localeKey = "KEYBIND_ROLE_DEFENSIVE" },
 		mobility = { ui_key = "R", localeKey = "KEYBIND_ROLE_MOBILITY" },
 		cooldown_bar = { ui_key = "F1", localeKey = "KEYBIND_ROLE_COOLDOWN" },
+		--- Heal anchors (2026-07-02): same heal reflex on every alt.
+		heal_quick = { ui_key = "F2", localeKey = "KEYBIND_ROLE_HEAL" },
+		heal_ooc = { ui_key = "F3", localeKey = "KEYBIND_ROLE_HEAL" },
+		heal_sustain = { ui_key = "F4", localeKey = "KEYBIND_ROLE_HEAL" },
 	},
-	--- Spell groups → physical slots (E omitted here; use role `interrupt`).
+	--- Spell groups → physical slots (E omitted here; use role `interrupt`). v6 slot lists;
+	--- `defensive` keeps X/V as overflow so legacy Hunter/Paladin maps stay valid.
 	categories = {
 		main_rotation = { slots = { "1", "2", "3" } },
-		spender = { slots = { "4" } },
-		utility = { slots = { "Q", "F", "F2", "F3", "F4" } },
+		spender = { slots = { "4", "5" } },
+		utility = { slots = { "F", "R", "X", "T" } }, -- v6: X vóór T (makkelijker reach vanaf WASD; Rob 2026-07-02)
 		interrupt = { slots = { "E" } },
-		defensive = { slots = { "Z", "X", "C", "V" } },
+		defensive = { slots = { "Z", "C", "X", "V" } },
+		dispel_cc = { slots = { "V" } },
+		cooldown = { slots = { "F1" } },
+		selfheal = { slots = { "F2", "F3", "F4" } },
 		pet_care = { slots = { "R", "F1" } },
 		blessings = { slots = { "R", "F1" } },
 	},
@@ -92,6 +103,19 @@ ns.KeybindSchema = {
 		Paladin_Utility = "utility",
 		Paladin_Defensive = "defensive",
 		Paladin_Blessings = "blessings",
+		Mage_MainRotation = "main_rotation",
+		Mage_Spender = "spender",
+		Mage_Utility = "utility",
+		Mage_Defensive = "defensive",
+		Mage_CC = "dispel_cc",
+		Mage_Cooldown = "cooldown",
+		Shaman_MainRotation = "main_rotation",
+		Shaman_Spender = "spender",
+		Shaman_Utility = "utility",
+		Shaman_Defensive = "defensive",
+		Shaman_CC = "dispel_cc",
+		Shaman_Cooldown = "cooldown",
+		Shaman_Heal = "selfheal",
 	},
 }
 
@@ -339,16 +363,45 @@ function ns.Keybind_AllocateSpells(spells, opts)
 		}
 	end
 
+	--- v6 §4: vul eerst ALLE base-toetsen van de slot-lijst, dán de Shift-laag van elk,
+	--- dan Ctrl, dan Alt (modifier-major). Zo landen builders op 1/2/3 vóór ze overlopen
+	--- naar Shift+1 — i.p.v. eerst alle modifier-lagen van toets 1 te vullen.
 	local function trySlots(slots, spell)
-		for s = 1, #(slots or {}) do
-			local candidates = ns.Keybind_BindKeysForBaseSlot(slots[s])
-			for c = 1, #candidates do
-				local bk = candidates[c]
-				if bk and not isOccupied(bk) and not (Schema.excludedBaseKeys[bk]) then
-					mark(bk, spell)
-					return true
+		slots = slots or {}
+		local layers = { false } -- false = base-laag (geen modifier)
+		for i = 1, #Schema.modifierFillOrder do
+			layers[#layers + 1] = Schema.modifierFillOrder[i]
+		end
+		for l = 1, #layers do
+			local mod = layers[l]
+			for s = 1, #slots do
+				local base = ns.Keybind_NormalizeBaseKey(slots[s])
+				if base and not Schema.excludedBaseKeys[base] then
+					local bk = mod and ns.Keybind_MakeBindKey(mod, base) or base
+					if bk and not isOccupied(bk) then
+						mark(bk, spell)
+						return true
+					end
 				end
 			end
+		end
+		return false
+	end
+
+	--- Optionele expliciete voorkeurs-toets (v6-regels als AoE = Shift-tweeling, of een vaste
+	--- anker-plek). Wordt vóór de rol/categorie-logica geprobeerd; valt terug als de toets bezet is.
+	local function tryPreferredKey(spell)
+		if not spell.bindKey then
+			return false
+		end
+		local mod, base = ns.Keybind_ParseBindKey(spell.bindKey)
+		if not base or Schema.excludedBaseKeys[base] then
+			return false
+		end
+		local bk = ns.Keybind_MakeBindKey(mod, base)
+		if bk and not isOccupied(bk) then
+			mark(bk, spell)
+			return true
 		end
 		return false
 	end
@@ -383,9 +436,11 @@ function ns.Keybind_AllocateSpells(spells, opts)
 	for i = 1, #sorted do
 		local spell = sorted[i]
 		if spell and spell.id then
-			local slots = SlotListForSpell(spell, opts)
-			if not trySlots(slots, spell) then
-				trySlots(Schema.baseSlotFillOrder, spell)
+			if not tryPreferredKey(spell) then
+				local slots = SlotListForSpell(spell, opts)
+				if not trySlots(slots, spell) then
+					trySlots(Schema.baseSlotFillOrder, spell)
+				end
 			end
 		end
 	end

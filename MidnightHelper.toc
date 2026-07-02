@@ -41,6 +41,11 @@ Config.lua
 Modules\KeybindSchema.lua
 Modules\KeybindingData.lua
 Modules\KeybindLayoutSlug.lua
+Modules\KeybindRoles_WarDkDhEvoker.lua
+Modules\KeybindRoles_RogueMonkDruid.lua
+Modules\KeybindRoles_PriestWarlockMage.lua
+Modules\KeybindRoles_HunterPaladinShaman.lua
+Modules\KeybindAutoMap.lua
 Modules\MacroGuideContext.lua
 Modules\KeyboardLayoutPrototype.lua
 Modules\InterruptMacrosData.lua

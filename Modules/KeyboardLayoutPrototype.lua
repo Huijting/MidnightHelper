@@ -1,9 +1,10 @@
 --[[
-	Experimental Leveling sub-tab: ISO-style keyboard preview (NL/UK-like):
+	Layout sub-tab: ISO-style keyboard preview (NL/UK-like):
 	L-shaped Enter spans Q + Caps only (no stub key on Q row); \| sits on the home row (before Enter),
 	not beside Z. AltGr / RWin / Menu on the bottom; RShift aligns with RCtrl (no arrow island).
 	Midnight-bound keys stay bright; other keys are dimmed.
-	Safe to delete this file + UI wiring + TOC line when the real layout ships.
+	v6 modifier layers: a key with Shift/Ctrl/Alt binds shows a cyan "+N" badge; the tooltip lists
+	every layer (base first, then Shift → Ctrl → Alt — see Modules/KeybindSchema.lua v6).
 ]]
 
 local addonName, ns = ...
@@ -68,6 +69,32 @@ local function ProtoEnsureGlow(btn)
 		btn._mhProtoGlow = g
 	end
 	return btn._mhProtoGlow
+end
+
+--- Small cyan "+N" in the key's top-right corner = N extra Shift/Ctrl/Alt binds on this key.
+local function ProtoEnsureLayerBadge(btn)
+	if not btn or not btn.CreateFontString then
+		return nil
+	end
+	if not btn._mhProtoLayerBadge then
+		local fs = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		fs:SetPoint("TOPRIGHT", btn, "TOPRIGHT", -2, -2)
+		fs:SetTextColor(0.55, 0.85, 1)
+		fs:Hide()
+		btn._mhProtoLayerBadge = fs
+	end
+	return btn._mhProtoLayerBadge
+end
+
+local function ProtoCountModifierLayers(layers)
+	local n = 0
+	for i = 1, #(layers or {}) do
+		local bk = layers[i] and layers[i].bindKey
+		if bk and ns.Keybind_GetModifier and ns.Keybind_GetModifier(bk) then
+			n = n + 1
+		end
+	end
+	return n
 end
 
 function ns.KeyboardLayoutPrototype_SetHighlight(panel, uiKey)
@@ -149,11 +176,11 @@ local function ProtoResolveSlug()
 	if slug then
 		return slug
 	end
-	local db = ns.db
-	if db and type(db.guide) == "table" and db.guide.preview then
-		return nil
-	end
-	return "hunter_early"
+	--- No Midnight map for this class/spec (yet). The old code had two traps here: a stale
+	--- `db.guide.preview` in SavedVars blanked the board, and everything else silently fell
+	--- back to the Hunter starter map (wrong binds on e.g. an Elemental Shaman). Now: nil →
+	--- Refresh shows the board dimmed + an honest "no map yet" hint under the subtitle.
+	return nil
 end
 
 local function ProtoSpellName(spellId)
@@ -524,6 +551,17 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 			btn._mhProtoTipText = plain
 			ProtoAttachTooltip(btn, tip)
 
+			local badge = ProtoEnsureLayerBadge(btn)
+			if badge then
+				local extra = hasSpell and ProtoCountModifierLayers(layers) or 0
+				if extra > 0 then
+					badge:SetText("+" .. extra)
+					badge:Show()
+				else
+					badge:Hide()
+				end
+			end
+
 			local glow = ProtoEnsureGlow(btn)
 			if glow then
 				if highlightKey and uiKey == highlightKey then
@@ -544,7 +582,11 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 		panel._header:SetText(ns:L("TAB_LEVELING_SUB_LAYOUT"))
 	end
 	if panel._mhProtoSubtitle then
-		panel._mhProtoSubtitle:SetText(ns:L("LAYOUT_PROTOTYPE_SUBTITLE"))
+		local subText = ns:L("LAYOUT_PROTOTYPE_SUBTITLE")
+		if not slug then
+			subText = subText .. "\n|cffffb347" .. ns:L("LAYOUT_NO_MAP_HINT") .. "|r"
+		end
+		panel._mhProtoSubtitle:SetText(subText)
 	end
 	if panel._mhProtoLegend then
 		panel._mhProtoLegend:SetText(ns:L("LAYOUT_LEGEND"))
