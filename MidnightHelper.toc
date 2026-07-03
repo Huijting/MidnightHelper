@@ -77,6 +77,8 @@ Modules\ConsumableReadyCheck.lua
 Modules\ConsumableReadyComms.lua
 Modules\ConsumableReadyBoard.lua
 Modules\LayoutExtras.lua
+Modules\MissingBuffData.lua
+Modules\MissingBuff.lua
 Modules\CurrencyGuide.lua
 Modules\TierSetData.lua
 Modules\TierSet.lua

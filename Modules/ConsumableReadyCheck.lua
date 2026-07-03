@@ -920,8 +920,6 @@ end
 
 local lastAutoKey = nil
 
--- Ritual Site-scenario (zelfde scenarioID als RitualBossCoach gebruikt).
-local RITUAL_SCENARIO_ID = 3236
 
 -- Unieke sleutel voor de drie content-types waarin we de check tonen: dungeon
 -- (party-instance), delve (C_PartyInfo) en Ritual Site (scenario). nil = niet in
@@ -939,10 +937,13 @@ local function CurrentContentKey()
 	if ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress() then
 		return "delve:" .. tostring((GetInstanceInfo and select(8, GetInstanceInfo())) or "?")
 	end
-	-- Ritual Site-scenario (buiten, geen instance)
+	-- Ritual Site / outdoor-scenario: elk actief scenario dat niet al als dungeon of
+	-- delve is afgevangen (die returnen hierboven). Zo werken ÁLLE ritual-sites — Broken
+	-- Throne (3236), Daggerspine (3267) én toekomstige — zonder per-site scenario-ID's bij
+	-- te houden. De dedup-sleutel bevat de echte scenarioID, dus per site/run uniek.
 	if C_ScenarioInfo and C_ScenarioInfo.GetScenarioInfo then
 		local ok, info = pcall(C_ScenarioInfo.GetScenarioInfo)
-		if ok and type(info) == "table" and info.scenarioID == RITUAL_SCENARIO_ID then
+		if ok and type(info) == "table" and info.scenarioID then
 			return "ritual:" .. tostring(info.scenarioID)
 		end
 	end

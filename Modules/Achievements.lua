@@ -663,8 +663,13 @@ local function ArmTreasureToast(node)
 		ns.ShowTreasureToast(node)
 		return
 	end
-	-- Not there yet: hide any stale toast and watch our distance.
-	ns.ShowTreasureToast(nil)
+	-- Not there yet: alleen een STALE toast (andere/geen node) opruimen. Een toast die
+	-- al voor DEZE node open staat (bv. handmatig geopend vanuit de SMC-lijst) laten we
+	-- staan — anders knippert hij weg zodra de route zich her-evalueert terwijl je nog
+	-- ver weg bent (Rob 3 jul: toast verdween bij beweging, 3km van de treasure).
+	if not (toast and toast:IsShown() and toast._node == node) then
+		ns.ShowTreasureToast(nil)
+	end
 	pendingToastNode = node
 	if C_Timer and C_Timer.NewTicker then
 		toastProxTicker = C_Timer.NewTicker(2, function()
