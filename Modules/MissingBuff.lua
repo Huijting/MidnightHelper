@@ -397,8 +397,14 @@ local function EnsureSecure()
 	local f = EnsureFrame()
 	local b = CreateFrame("Button", "MidnightHelperMissingBuffCast", UIParent, "SecureActionButtonTemplate")
 	b:SetAllPoints(f) -- volgt het reminder-frame (éénmalige anchor, buiten combat)
+	-- Klik-knop moet BOVENOP het reminder-frame liggen, anders vangt het frame (strata
+	-- HIGH) de klik af en gebeurt er niets. DIALOG-strata ligt boven HIGH.
+	b:SetFrameStrata("DIALOG")
 	b:SetFrameLevel(f:GetFrameLevel() + 5)
-	b:RegisterForClicks("AnyUp")
+	-- Beide (up én down): een secure knop cast op down óf up afhankelijk van de
+	-- ActionButtonUseKeyDown-cvar. Met alleen "AnyUp" gebeurt er niks als de speler
+	-- op "down" staat. Zelfde aanpak als MissingClassBuff.
+	b:RegisterForClicks("AnyUp", "AnyDown")
 	b:RegisterForDrag("LeftButton")
 	b:EnableMouse(true)
 	RegisterStateDriver(b, "visibility", "[combat] hide; nil")
@@ -439,10 +445,11 @@ local function ApplySecureCast(spell)
 	if not b or (InCombatLockdown and InCombatLockdown()) then
 		return
 	end
-	local name = spell and SpellName(spell)
-	if name then
+	-- Spell-ID direct zetten (niet de naam): hernoemde pets/spells geven een naam die
+	-- niet castbaar is (bv. "Call Balou" i.p.v. "Call Pet 1"). Het ID werkt altijd.
+	if spell then
 		b:SetAttribute("type", "spell")
-		b:SetAttribute("spell", name)
+		b:SetAttribute("spell", spell)
 	else
 		b:SetAttribute("type", nil)
 		b:SetAttribute("spell", nil)
