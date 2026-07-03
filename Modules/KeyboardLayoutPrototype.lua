@@ -381,7 +381,32 @@ for _, xy in pairs(KEY_POS) do
 	local h = (type(xy[4]) == "number" and xy[4]) or KH
 	KB_BOTTOM = math.max(KB_BOTTOM, xy[2] + h)
 end
-local CARDS_TOP = KB_BOTTOM + 74
+local CHIPS_Y = KB_BOTTOM + 76     -- filter-chips onder de legenda
+local CARDS_TOP = KB_BOTTOM + 106  -- kaarten onder de chips
+
+--- Filter-chips (mockup B): Alles / Alleen modifier-laag / Alleen ankers.
+local FILTER_CHIPS = {
+	{ id = "all",    labelKey = "LAYOUT_FILTER_ALL" },
+	{ id = "mod",    labelKey = "LAYOUT_FILTER_MOD" },
+	{ id = "anchor", labelKey = "LAYOUT_FILTER_ANCHOR" },
+	{ id = "extras", labelKey = "LAYOUT_FILTER_EXTRAS" },
+}
+
+--- v6-anker-toetsen (vaste rol, muscle-memory): interrupt/movement/defensives/cooldown/heals.
+local ANCHOR_KEYS = { E = true, Q = true, Z = true, C = true, V = true, F1 = true, F2 = true, F3 = true, F4 = true }
+
+local function PassesCardFilter(filter, base, mod)
+	if filter == "extras" then
+		return false
+	end
+	if filter == "mod" then
+		return mod ~= nil
+	end
+	if filter == "anchor" then
+		return (base and ANCHOR_KEYS[base] and not mod) and true or false
+	end
+	return true
+end
 
 --- Kaart-groepen in weergavevolgorde (mockup B).
 local CARD_GROUPS = {
@@ -445,6 +470,33 @@ local function ProtoReleaseCards(panel)
 	panel._mhCardCount = 0
 end
 
+local MOD_TO_KEY = { shift = "LShift", ctrl = "LCtrl", alt = "LAlt" }
+
+--- Trekt verbindingslijn #idx van een toets (btn) naar een spell-rij (row). Herbruikbare Lines op
+--- de host (idx 1 = base-toets, goud; idx 2 = modifier-toets bij Shift/Ctrl/Alt-bind, cyaan).
+local function ProtoDrawConnector(panel, row, btn, idx)
+	local host = panel._mhProtoHost
+	if not host then
+		return
+	end
+	panel._mhConnectors = panel._mhConnectors or {}
+	local line = panel._mhConnectors[idx]
+	if not line then
+		line = host:CreateLine(nil, "OVERLAY")
+		line:SetThickness(2.5)
+		panel._mhConnectors[idx] = line
+	end
+	if idx == 2 then
+		line:SetColorTexture(0.4, 0.8, 1, 0.95)
+	else
+		line:SetColorTexture(1, 0.82, 0.3, 0.95)
+	end
+	line:ClearAllPoints()
+	line:SetStartPoint("BOTTOM", btn, 0, -1)
+	line:SetEndPoint("LEFT", row, -1, 0)
+	line:Show()
+end
+
 local function ProtoCardRow(card, i)
 	card._rows = card._rows or {}
 	local row = card._rows[i]
@@ -452,15 +504,65 @@ local function ProtoCardRow(card, i)
 		row = CreateFrame("Frame", nil, card)
 		row:EnableMouse(true)
 		row:SetScript("OnEnter", function(self)
-			if self._spellId and GameTooltip then
+			if GameTooltip and (self._spellId or self._itemId) then
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-				GameTooltip:SetSpellByID(self._spellId)
+				if self._itemId then
+					GameTooltip:SetItemByID(self._itemId)
+				else
+					GameTooltip:SetSpellByID(self._spellId)
+				end
 				GameTooltip:Show()
 			end
+			-- Hover -> gloed op de fysieke toets + verbindingslijn (single-target-heals via
+			-- mouseover hebben geen toets). Bij een Shift/Ctrl/Alt-bind een 2e lijn naar de modifier.
+			local panel = self._panel
+			if panel and self._targetKey and panel._mhProtoButtons then
+				local btns = panel._mhProtoButtons
+				panel._mhHoverBtns = {}
+				local btn = btns[self._targetKey]
+				if btn then
+					local glow = ProtoEnsureGlow(btn)
+					if glow then
+						glow:SetVertexColor(1, 0.85, 0.3, 1)
+						glow:Show()
+					end
+					btn:SetAlpha(1)
+					panel._mhHoverBtns[#panel._mhHoverBtns + 1] = btn
+					ProtoDrawConnector(panel, self, btn, 1)
+				end
+				local modKey = self._targetMod and MOD_TO_KEY[self._targetMod]
+				local mbtn = modKey and btns[modKey]
+				if mbtn then
+					local glow = ProtoEnsureGlow(mbtn)
+					if glow then
+						glow:SetVertexColor(0.4, 0.8, 1, 1)
+						glow:Show()
+					end
+					mbtn:SetAlpha(1)
+					panel._mhHoverBtns[#panel._mhHoverBtns + 1] = mbtn
+					ProtoDrawConnector(panel, self, mbtn, 2)
+				end
+			end
 		end)
-		row:SetScript("OnLeave", function()
+		row:SetScript("OnLeave", function(self)
 			if GameTooltip then
 				GameTooltip:Hide()
+			end
+			local panel = self._panel
+			if panel then
+				if panel._mhHoverBtns then
+					for _, b in ipairs(panel._mhHoverBtns) do
+						if b._mhProtoGlow then
+							b._mhProtoGlow:Hide()
+						end
+					end
+					panel._mhHoverBtns = nil
+				end
+				if panel._mhConnectors then
+					for _, l in ipairs(panel._mhConnectors) do
+						l:Hide()
+					end
+				end
 			end
 		end)
 		local icon = row:CreateTexture(nil, "ARTWORK")
@@ -518,6 +620,70 @@ local function ProtoAcquireCard(panel)
 end
 
 --- Bouwt de categorie-kaarten onder het toetsenbord uit de huidige map (hand-map of auto-map).
+local function ProtoUpdateChipVisuals(panel)
+	if not panel._mhChips then
+		return
+	end
+	local active = panel._mhCardFilter or "all"
+	for i = 1, #panel._mhChips do
+		local chip = panel._mhChips[i]
+		if chip._id == active then
+			if chip.SetBackdropColor then
+				chip:SetBackdropColor(0.9, 0.7, 0.15, 0.95)
+			end
+			chip._text:SetTextColor(0.1, 0.08, 0.03)
+		else
+			if chip.SetBackdropColor then
+				chip:SetBackdropColor(0.14, 0.1, 0.07, 0.9)
+			end
+			chip._text:SetTextColor(0.72, 0.64, 0.5)
+		end
+	end
+end
+
+--- Filter-chips onder de legenda (Alles / Alleen modifier-laag / Alleen ankers).
+local function ProtoBuildFilterChips(panel)
+	if panel._mhChips or not panel._mhProtoHost then
+		return
+	end
+	local host = panel._mhProtoHost
+	panel._mhChips = {}
+	local x = 10
+	for _, def in ipairs(FILTER_CHIPS) do
+		local chip = CreateFrame("Button", nil, host, "BackdropTemplate")
+		chip:SetHeight(22)
+		if chip.SetBackdrop then
+			chip:SetBackdrop({
+				bgFile = "Interface\\Buttons\\WHITE8X8",
+				edgeFile = "Interface\\Buttons\\WHITE8X8",
+				edgeSize = 1,
+			})
+			chip:SetBackdropBorderColor(0.42, 0.29, 0.11, 1)
+		end
+		local t = chip:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		t:SetPoint("CENTER")
+		t:SetText(ns:L(def.labelKey))
+		chip._text = t
+		chip._id = def.id
+		local w = t:GetStringWidth()
+		if not w or w < 10 then
+			w = 40
+		end
+		chip:SetWidth(w + 22)
+		chip:SetPoint("TOPLEFT", host, "TOPLEFT", x, -CHIPS_Y)
+		chip:SetScript("OnClick", function()
+			panel._mhCardFilter = def.id
+			ProtoUpdateChipVisuals(panel)
+			if ns.KeyboardLayoutPrototype_Refresh then
+				ns.KeyboardLayoutPrototype_Refresh(panel)
+			end
+		end)
+		panel._mhChips[#panel._mhChips + 1] = chip
+		x = x + chip:GetWidth() + 8
+	end
+	ProtoUpdateChipVisuals(panel)
+end
+
 local function ProtoRefreshCards(panel, spec, slots)
 	ProtoReleaseCards(panel)
 	local host = panel._mhProtoHost
@@ -525,21 +691,24 @@ local function ProtoRefreshCards(panel, spec, slots)
 		return HOST_H
 	end
 
+	local filter = panel._mhCardFilter or "all"
 	local groups = {}
 	if spec and spec.spellByUiKey then
 		for bindKey, entry in pairs(spec.spellByUiKey) do
 			if type(entry) == "table" and entry.id then
 				local mod, base = ns.Keybind_ParseBindKey(bindKey)
-				local catToken = CategoryTokenForBase(slots, base)
-				local gid = GroupForBind(entry, base, mod, catToken)
-				groups[gid] = groups[gid] or {}
-				table.insert(groups[gid], {
-					bindKey = bindKey,
-					base = base,
-					mod = mod,
-					id = entry.id,
-					name = ProtoSpellName(entry.id) or ("#" .. tostring(entry.id)),
-				})
+				if PassesCardFilter(filter, base, mod) then
+					local catToken = CategoryTokenForBase(slots, base)
+					local gid = GroupForBind(entry, base, mod, catToken)
+					groups[gid] = groups[gid] or {}
+					table.insert(groups[gid], {
+						bindKey = bindKey,
+						base = base,
+						mod = mod,
+						id = entry.id,
+						name = ProtoSpellName(entry.id) or ("#" .. tostring(entry.id)),
+					})
+				end
 			end
 		end
 	end
@@ -585,6 +754,10 @@ local function ProtoRefreshCards(panel, spec, slots)
 				local sp = list[i]
 				local row = ProtoCardRow(card, i)
 				row._spellId = sp.id
+				row._itemId = nil
+				row._panel = panel
+				row._targetKey = sp.base
+				row._targetMod = sp.mod
 				row:ClearAllPoints()
 				row:SetPoint("TOPLEFT", card, "TOPLEFT", pad, -(titleH + (i - 1) * rowH))
 				row:SetSize(cardW - pad * 2, rowH - 4)
@@ -609,7 +782,7 @@ local function ProtoRefreshCards(panel, spec, slots)
 
 	-- Extra kaart: healer single-target-heals via mouseover/click-cast (geen fysieke toets, v6 §6).
 	local cc = spec and spec.clickCast
-	if type(cc) == "table" and #cc > 0 then
+	if filter == "all" and type(cc) == "table" and #cc > 0 then
 		local col = 1
 		for i = 2, COLS do
 			if colY[i] < colY[col] then
@@ -629,6 +802,9 @@ local function ProtoRefreshCards(panel, spec, slots)
 			local sp = cc[i]
 			local row = ProtoCardRow(card, i)
 			row._spellId = sp.id
+			row._panel = panel
+			row._targetKey = nil
+			row._targetMod = nil
 			row:ClearAllPoints()
 			row:SetPoint("TOPLEFT", card, "TOPLEFT", pad, -(titleH + (i - 1) * rowH))
 			row:SetSize(cardW - pad * 2, rowH - 4)
@@ -637,6 +813,54 @@ local function ProtoRefreshCards(panel, spec, slots)
 			row._name:SetText(sp.name)
 			row._cap:SetText(ns:L("LAYOUT_STHEAL_TAG"))
 			row._cap:SetTextColor(0.5, 0.8, 1)
+			row:Show()
+		end
+		colY[col] = colY[col] + cardH + GAPC
+	end
+
+	-- Extra kaart: niet-keybind essentials (consumables & extras). Geen fysieke toets;
+	-- ✓/✗-status hergebruikt de bestaande consumables-detectie (ConsumableReadyCheck).
+	local extras = (filter == "all" or filter == "extras") and ns.GetLayoutExtras and ns.GetLayoutExtras()
+	if type(extras) == "table" and #extras > 0 then
+		local READY = "|TInterface/RAIDFRAME/ReadyCheck-Ready:0|t"
+		local NOTREADY = "|TInterface/RAIDFRAME/ReadyCheck-NotReady:0|t"
+		local WAITING = "|TInterface/RAIDFRAME/ReadyCheck-Waiting:0|t"
+		local col = 1
+		for i = 2, COLS do
+			if colY[i] < colY[col] then
+				col = i
+			end
+		end
+		local x = pad + (col - 1) * (cardW + GAPC)
+		local y = CARDS_TOP + colY[col]
+		local cardH = titleH + #extras * rowH + 10
+		local card = ProtoAcquireCard(panel)
+		card:ClearAllPoints()
+		card:SetPoint("TOPLEFT", host, "TOPLEFT", x, -y)
+		card:SetSize(cardW, cardH)
+		card:Show()
+		card._title:SetText(ns:L("LAYOUT_CARD_EXTRAS"))
+		for i = 1, #extras do
+			local sp = extras[i]
+			local row = ProtoCardRow(card, i)
+			row._spellId = nil
+			row._itemId = sp.itemID
+			row._panel = panel
+			row._targetKey = nil
+			row._targetMod = nil
+			row:ClearAllPoints()
+			row:SetPoint("TOPLEFT", card, "TOPLEFT", pad, -(titleH + (i - 1) * rowH))
+			row:SetSize(cardW - pad * 2, rowH - 4)
+			row._icon:SetTexture(sp.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+			local mark = WAITING
+			if sp.status == "active" or sp.status == "ready" then
+				mark = READY
+			elseif sp.status == "missing" then
+				mark = NOTREADY
+			end
+			row._name:SetText(mark .. " " .. (sp.name or "?"))
+			row._cap:SetText(ns:L(sp.tagKey))
+			row._cap:SetTextColor(0.72, 0.6, 0.4)
 			row:Show()
 		end
 		colY[col] = colY[col] + cardH + GAPC
@@ -985,6 +1209,7 @@ function ns.BuildKeyboardLayoutPrototypePanel(panel)
 	end
 	panel._mhProtoLegend:SetText(ns:L("LAYOUT_LEGEND"))
 
+	ProtoBuildFilterChips(panel)
 	ns.KeyboardLayoutPrototype_Refresh(panel)
 
 	if not panel._mhProtoEvents then
