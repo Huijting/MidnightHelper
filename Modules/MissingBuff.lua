@@ -376,11 +376,93 @@ local function EnsureFrame()
 	return f
 end
 
+--------------------------------------------------------------------------------
+-- Secure klik-laag (klik = buff casten). De truc (zoals MissingClassBuff): een
+-- aparte SecureActionButton bovenop het reminder-frame, met een secure STATE-DRIVER
+-- die 'm in combat verbergt. Een state-driver mag protected frames in combat
+-- tonen/verbergen — iets wat we zélf niet mogen. Zo werkt klikken buiten combat,
+-- terwijl het (niet-secure) reminder-frame in combat gewoon zichtbaar blijft.
+--------------------------------------------------------------------------------
+
+local secureBtn
+local lastCastSpell
+
+local function EnsureSecure()
+	if secureBtn then
+		return secureBtn
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		return nil -- secure frame + anchor alleen buiten combat opzetten
+	end
+	local f = EnsureFrame()
+	local b = CreateFrame("Button", "MidnightHelperMissingBuffCast", UIParent, "SecureActionButtonTemplate")
+	b:SetAllPoints(f) -- volgt het reminder-frame (éénmalige anchor, buiten combat)
+	b:SetFrameLevel(f:GetFrameLevel() + 5)
+	b:RegisterForClicks("AnyUp")
+	b:RegisterForDrag("LeftButton")
+	b:EnableMouse(true)
+	RegisterStateDriver(b, "visibility", "[combat] hide; nil")
+	b:SetScript("OnDragStart", function()
+		if InCombatLockdown and InCombatLockdown() then
+			return
+		end
+		f:StartMoving()
+	end)
+	b:SetScript("OnDragStop", function()
+		f:StopMovingOrSizing()
+		local p, _, rp, x, y = f:GetPoint()
+		if p and ns.db and ns.db.ui then
+			ns.db.ui.missingBuffPos = { p, rp, x, y }
+		end
+	end)
+	b:SetScript("OnEnter", function(self)
+		if f._spellId and GameTooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetSpellByID(f._spellId)
+			GameTooltip:AddLine(ns:L("MBUFF_TIP_HINT"), 0.7, 0.7, 0.7, true)
+			GameTooltip:Show()
+		end
+	end)
+	b:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+	b:Hide()
+	secureBtn = b
+	return b
+end
+
+-- Zet het cast-attribuut (alleen buiten combat toegestaan op een secure frame).
+local function ApplySecureCast(spell)
+	local b = secureBtn
+	if not b or (InCombatLockdown and InCombatLockdown()) then
+		return
+	end
+	local name = spell and SpellName(spell)
+	if name then
+		b:SetAttribute("type", "spell")
+		b:SetAttribute("spell", name)
+	else
+		b:SetAttribute("type", nil)
+		b:SetAttribute("spell", nil)
+	end
+	lastCastSpell = spell
+end
+
+local function HideSecure()
+	-- Buiten combat verbergen we de klikknop zelf; in combat doet de state-driver dat.
+	if secureBtn and not (InCombatLockdown and InCombatLockdown()) then
+		secureBtn:Hide()
+	end
+end
+
 function ns.UpdateMissingBuff()
 	if not Enabled() then
 		if frame then
 			frame:Hide()
 		end
+		HideSecure()
 		return
 	end
 	local missing = ns.GetMissingBuffs()
@@ -397,6 +479,7 @@ function ns.UpdateMissingBuff()
 		if frame then
 			frame:Hide()
 		end
+		HideSecure()
 		return
 	end
 	local f = EnsureFrame()
@@ -404,6 +487,17 @@ function ns.UpdateMissingBuff()
 	f._spellId = top.spell
 	f._label:SetText(ns:L(top.textKey))
 	f:Show()
+	-- Klikbaar casten: buiten combat de secure knop bijwerken + tonen. In combat laten
+	-- we 'm met rust (state-driver houdt 'm verborgen); de reminder blijft wél zichtbaar.
+	if not inCombat then
+		local b = EnsureSecure()
+		if b then
+			if lastCastSpell ~= top.spell then
+				ApplySecureCast(top.spell)
+			end
+			b:Show()
+		end
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -447,6 +541,12 @@ ev:SetScript("OnEvent", function(_, event, unit)
 		if unit and unit ~= "player" then
 			return
 		end
+	end
+	if event == "PLAYER_LOGIN" or event == "PLAYER_ENTERING_WORLD" then
+		-- Frame + secure klik-laag buiten combat opzetten (anchor/state-driver mogen
+		-- niet in combat). Daarna pas de eerste zichtbaarheids-update.
+		EnsureFrame()
+		EnsureSecure()
 	end
 	ScheduleUpdate()
 end)
