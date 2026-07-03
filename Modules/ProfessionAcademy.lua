@@ -322,11 +322,7 @@ local function RouteWorkOrderStation()
 	if not (wp and wp.mapID and ns.AddSmartTomTomWay) then
 		return false
 	end
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 	return ns.AddSmartTomTomWay(wp.mapID, wp.x, wp.y, SL("PROFACAD_WAYPOINT_WORKORDER")) and true or false
 end
 

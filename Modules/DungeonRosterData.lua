@@ -328,10 +328,6 @@ function ns.RouteDungeonEntrance(d)
 	if not (d and d.entrance and d.entrance.mapID and ns.AddSmartTomTomWay) then
 		return false
 	end
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 	return ns.AddSmartTomTomWay(d.entrance.mapID, d.entrance.x, d.entrance.y, ns.GetDungeonDisplayName(d)) and true or false
 end

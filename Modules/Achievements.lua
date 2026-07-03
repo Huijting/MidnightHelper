@@ -764,11 +764,7 @@ end
 local function IssueRoute(entry, firstTime, silent)
 	local done, total, incomplete = ns.GetTreasureProgress(entry)
 	local title = AchievementName(entry)
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 	if #incomplete == 0 then
 		ns.lastTarget = nil
 		routeSig, activeEntry = nil, nil
@@ -1258,9 +1254,7 @@ function ns.StopAchievementRoute()
 		ns._mhRouteOwner = nil
 	end
 	ns.lastTarget = nil
-	if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.ClearAllWaypoints then
-		pcall(_G.TomTom.ClearAllWaypoints, _G.TomTom)
-	end
+	ns.MH_TomTomClearAll()
 end
 
 function ns.SkipCurrentAchievementNode()

@@ -361,11 +361,7 @@ end
 --------------------------------------------------------------------------------
 
 local function ClearTomTom()
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 end
 
 local function PinLabel(labelKey, labelArg)

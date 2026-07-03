@@ -174,7 +174,9 @@ function ns.GetLayoutExtras()
 		out[#out + 1] = {
 			key = key,
 			itemID = id,
-			name = ItemName(id) or ns:L(labelKey),
+			-- Korte, stabiele categorielabel als hoofdtekst (voorkomt afgekapte
+			-- lange itemnamen); de volledige itemnaam staat in de hover-tooltip.
+			name = ns:L(labelKey),
 			icon = icons[key] or ItemIcon(id) or "Interface\\Icons\\INV_Misc_QuestionMark",
 			tagKey = tagKey,
 			status = statusFn(entry),
@@ -201,7 +203,7 @@ function ns.GetLayoutExtras()
 		out[#out + 1] = {
 			key = "trinket",
 			itemID = trID,
-			name = ItemName(trID) or ns:L("LAYOUT_EXTRA_TRINKET"),
+			name = ns:L("LAYOUT_EXTRA_TRINKET"),
 			icon = ItemIcon(trID) or "Interface\\Icons\\INV_Misc_QuestionMark",
 			tagKey = "LAYOUT_TAG_ONUSE",
 			status = "ready",
@@ -213,7 +215,7 @@ function ns.GetLayoutExtras()
 	out[#out + 1] = {
 		key = "drums",
 		itemID = DRUMS_ID,
-		name = ItemName(DRUMS_ID) or ns:L("LAYOUT_EXTRA_DRUMS"),
+		name = ns:L("LAYOUT_EXTRA_DRUMS"),
 		icon = ItemIcon(DRUMS_ID) or "Interface\\Icons\\INV_Misc_QuestionMark",
 		tagKey = "LAYOUT_TAG_UTILITY",
 		status = (drumN == nil) and "unknown" or (drumN > 0 and "ready" or "missing"),

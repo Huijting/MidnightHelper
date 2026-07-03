@@ -684,6 +684,136 @@ local function ProtoBuildFilterChips(panel)
 	ProtoUpdateChipVisuals(panel)
 end
 
+local EXTRA_READY = "|TInterface/RAIDFRAME/ReadyCheck-Ready:0|t"
+local EXTRA_NOTREADY = "|TInterface/RAIDFRAME/ReadyCheck-NotReady:0|t"
+local EXTRA_WAITING = "|TInterface/RAIDFRAME/ReadyCheck-Waiting:0|t"
+
+--- Eén klikbare cel in de extras-balk (secure "gebruik item"-knop, geen keybind).
+local function ProtoExtraCell(card, i)
+	card._cells = card._cells or {}
+	local cell = card._cells[i]
+	if not cell then
+		cell = CreateFrame("Button", nil, card, "SecureActionButtonTemplate")
+		cell:RegisterForClicks("AnyUp")
+		cell:EnableMouse(true)
+		local hl = cell:CreateTexture(nil, "BACKGROUND")
+		hl:SetAllPoints(cell)
+		hl:SetColorTexture(1, 0.82, 0.3, 0.10)
+		hl:Hide()
+		cell._hl = hl
+		local icon = cell:CreateTexture(nil, "ARTWORK")
+		icon:SetPoint("LEFT", cell, "LEFT", 2, 0)
+		icon:SetSize(22, 22)
+		icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+		cell._icon = icon
+		local tag = cell:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+		tag:SetPoint("RIGHT", cell, "RIGHT", -2, 0)
+		tag:SetJustifyH("RIGHT")
+		cell._tag = tag
+		local nm = cell:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		nm:SetPoint("LEFT", icon, "RIGHT", 6, 0)
+		nm:SetPoint("RIGHT", tag, "LEFT", -6, 0)
+		nm:SetJustifyH("LEFT")
+		nm:SetWordWrap(false)
+		cell._name = nm
+		cell:SetScript("OnEnter", function(self)
+			if self._itemId and GameTooltip then
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetItemByID(self._itemId)
+				GameTooltip:Show()
+			end
+			if self._hl then
+				self._hl:Show()
+			end
+		end)
+		cell:SetScript("OnLeave", function(self)
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+			if self._hl then
+				self._hl:Hide()
+			end
+		end)
+		card._cells[i] = cell
+	end
+	return cell
+end
+
+--- Volle-breedte "Consumables & extras"-balk onderaan de kaarten. Klikbaar om te
+--- gebruiken (secure), ✓/✗-status uit de bestaande consumables-detectie. @return hoogte
+local function ProtoRenderExtrasBar(panel, host, extras, pad, usableW, topOffset, titleH, rowH)
+	local card = panel._mhExtrasCard
+	if not card then
+		card = CreateFrame("Frame", nil, host, "BackdropTemplate")
+		if card.SetBackdrop then
+			card:SetBackdrop({
+				bgFile = "Interface\\Buttons\\WHITE8X8",
+				edgeFile = "Interface\\Buttons\\WHITE8X8",
+				edgeSize = 1,
+				insets = { left = 1, right = 1, top = 1, bottom = 1 },
+			})
+			card:SetBackdropColor(0.12, 0.09, 0.06, 0.92)
+			card:SetBackdropBorderColor(0.42, 0.29, 0.11, 1)
+		end
+		local t = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		t:SetPoint("TOP", card, "TOP", 0, -5)
+		t:SetTextColor(1, 0.82, 0.3)
+		card._title = t
+		panel._mhExtrasCard = card
+	end
+	card._title:SetText(ns:L("LAYOUT_CARD_EXTRAS"))
+
+	local COLS = 3
+	local GAPX = 10
+	local cellW = math.floor((usableW - (COLS - 1) * GAPX) / COLS)
+	local n = #extras
+	local rows = math.ceil(n / COLS)
+	local cardH = titleH + rows * rowH + 10
+	card:ClearAllPoints()
+	card:SetPoint("TOPLEFT", host, "TOPLEFT", pad, -topOffset)
+	card:SetSize(usableW, cardH)
+	card:Show()
+
+	local inCombat = InCombatLockdown and InCombatLockdown()
+	for i = 1, n do
+		local sp = extras[i]
+		local r = math.floor((i - 1) / COLS)
+		local c = (i - 1) % COLS
+		local cell = ProtoExtraCell(card, i)
+		cell:ClearAllPoints()
+		cell:SetPoint("TOPLEFT", card, "TOPLEFT", pad + c * (cellW + GAPX), -(titleH + r * rowH))
+		cell:SetSize(cellW - 4, rowH - 4)
+		cell._icon:SetTexture(sp.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+		local mark = EXTRA_WAITING
+		if sp.status == "active" or sp.status == "ready" then
+			mark = EXTRA_READY
+		elseif sp.status == "missing" then
+			mark = EXTRA_NOTREADY
+		end
+		cell._name:SetText(mark .. " " .. (sp.name or "?"))
+		cell._tag:SetText(ns:L(sp.tagKey))
+		cell._tag:SetTextColor(0.72, 0.6, 0.4)
+		cell._itemId = sp.itemID
+		-- Secure attributen mogen alleen buiten combat (her)gezet worden.
+		if not inCombat then
+			if sp.itemID then
+				cell:SetAttribute("type", "item")
+				cell:SetAttribute("item", "item:" .. sp.itemID)
+			else
+				cell:SetAttribute("type", nil)
+				cell:SetAttribute("item", nil)
+			end
+		end
+		cell:Show()
+	end
+	if card._cells then
+		for i = n + 1, #card._cells do
+			card._cells[i]:Hide()
+		end
+	end
+	return cardH
+end
+
 local function ProtoRefreshCards(panel, spec, slots)
 	ProtoReleaseCards(panel)
 	local host = panel._mhProtoHost
@@ -818,52 +948,20 @@ local function ProtoRefreshCards(panel, spec, slots)
 		colY[col] = colY[col] + cardH + GAPC
 	end
 
-	-- Extra kaart: niet-keybind essentials (consumables & extras). Geen fysieke toets;
-	-- ✓/✗-status hergebruikt de bestaande consumables-detectie (ConsumableReadyCheck).
+	-- Volle-breedte "Consumables & extras"-balk onderaan de kaarten (klikbaar om te
+	-- gebruiken, geen keybind). ✓/✗-status uit de bestaande consumables-detectie.
 	local extras = (filter == "all" or filter == "extras") and ns.GetLayoutExtras and ns.GetLayoutExtras()
 	if type(extras) == "table" and #extras > 0 then
-		local READY = "|TInterface/RAIDFRAME/ReadyCheck-Ready:0|t"
-		local NOTREADY = "|TInterface/RAIDFRAME/ReadyCheck-NotReady:0|t"
-		local WAITING = "|TInterface/RAIDFRAME/ReadyCheck-Waiting:0|t"
-		local col = 1
-		for i = 2, COLS do
-			if colY[i] < colY[col] then
-				col = i
-			end
+		local topY = 0
+		for i = 1, COLS do
+			topY = math.max(topY, colY[i])
 		end
-		local x = pad + (col - 1) * (cardW + GAPC)
-		local y = CARDS_TOP + colY[col]
-		local cardH = titleH + #extras * rowH + 10
-		local card = ProtoAcquireCard(panel)
-		card:ClearAllPoints()
-		card:SetPoint("TOPLEFT", host, "TOPLEFT", x, -y)
-		card:SetSize(cardW, cardH)
-		card:Show()
-		card._title:SetText(ns:L("LAYOUT_CARD_EXTRAS"))
-		for i = 1, #extras do
-			local sp = extras[i]
-			local row = ProtoCardRow(card, i)
-			row._spellId = nil
-			row._itemId = sp.itemID
-			row._panel = panel
-			row._targetKey = nil
-			row._targetMod = nil
-			row:ClearAllPoints()
-			row:SetPoint("TOPLEFT", card, "TOPLEFT", pad, -(titleH + (i - 1) * rowH))
-			row:SetSize(cardW - pad * 2, rowH - 4)
-			row._icon:SetTexture(sp.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
-			local mark = WAITING
-			if sp.status == "active" or sp.status == "ready" then
-				mark = READY
-			elseif sp.status == "missing" then
-				mark = NOTREADY
-			end
-			row._name:SetText(mark .. " " .. (sp.name or "?"))
-			row._cap:SetText(ns:L(sp.tagKey))
-			row._cap:SetTextColor(0.72, 0.6, 0.4)
-			row:Show()
+		local usedH = ProtoRenderExtrasBar(panel, host, extras, pad, usableW, CARDS_TOP + topY, titleH, rowH)
+		for i = 1, COLS do
+			colY[i] = topY + usedH + GAPC
 		end
-		colY[col] = colY[col] + cardH + GAPC
+	elseif panel._mhExtrasCard then
+		panel._mhExtrasCard:Hide()
 	end
 
 	local maxCol = 0

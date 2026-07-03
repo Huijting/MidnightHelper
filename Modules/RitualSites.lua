@@ -195,11 +195,7 @@ local function RouteHub()
 	if not ns.AddSmartTomTomWay then
 		return false
 	end
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 	return ns.AddSmartTomTomWay(HUB_MAP, HUB_X, HUB_Y, ns:L("RITUAL_HUB_WAYPOINT")) and true or false
 end
 
@@ -222,11 +218,7 @@ local function RouteSite(site, quiet)
 	if not site or not ns.AddSmartTomTomWay then
 		return false
 	end
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 	local label = site.name .. " — " .. ZoneName(site.mapID)
 	-- Hybride routing (QoL): bij een expliciete klik op de ACTIEVE site volgen we
 	-- het live weekly-objectief als de speler de ritual-weekly in z'n log heeft

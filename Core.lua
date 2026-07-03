@@ -605,9 +605,7 @@ function ns.ClearActiveRoute()
 	if ns.CancelResetRoute then
 		ns.CancelResetRoute()
 	end
-	if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.ClearAllWaypoints then
-		pcall(_G.TomTom.ClearAllWaypoints, _G.TomTom)
-	end
+	ns.MH_TomTomClearAll()
 	if C_Map and C_Map.ClearUserWaypoint then
 		pcall(C_Map.ClearUserWaypoint)
 	end
@@ -615,6 +613,57 @@ function ns.ClearActiveRoute()
 	ns.lastTarget = nil
 	return hadRoute
 end
+
+-- Guarded TomTom-clear. Onze eigen route-code wist soms bewust alle waypoints om
+-- daarna direct opnieuw te pinnen (clear-then-add bij het starten van een route).
+-- Deze helper markeert dat WÍJ aan het wissen zijn (ns._mhSelfWaypointOp), zodat de
+-- ClearAllWaypoints-hook hieronder dat NIET als "speler annuleert" opvat. Alle
+-- interne clears lopen via deze helper.
+function ns.MH_TomTomClearAll()
+	ns._mhSelfWaypointOp = true
+	if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.ClearAllWaypoints then
+		pcall(_G.TomTom.ClearAllWaypoints, _G.TomTom)
+	end
+	ns._mhSelfWaypointOp = false
+end
+
+-- Detecteer wanneer de SPELER TomTom-waypoints zelf wist (rechtsklik op de crazy
+-- arrow → "alle pijlen wissen"). Zonder dit bleven onze route-states (ns.lastTarget
+-- voor delve-reizen, ns._mhRouteOwner voor rare/achievement/treasure/reset) staan,
+-- waardoor de zone-handlers de pijl bij elke zonewissel opnieuw opbouwden.
+--
+-- De hook kan "wij" en "de speler" uit elkaar houden via ns._mhSelfWaypointOp: onze
+-- eigen clear-then-add zet die vlag (via ns.MH_TomTomClearAll), dus dan doen we niks.
+-- Bij een échte spelersclear stoppen we de route volledig via ns.ClearActiveRoute
+-- (die zelf óók de guarded helper gebruikt → geen recursie).
+local function MH_InstallTomTomClearHook()
+	if ns._mhTomTomClearHooked then
+		return
+	end
+	local tt = _G.TomTom
+	if type(tt) ~= "table" or type(tt.ClearAllWaypoints) ~= "function" then
+		return
+	end
+	ns._mhTomTomClearHooked = true
+	hooksecurefunc(tt, "ClearAllWaypoints", function()
+		if ns._mhSelfWaypointOp then
+			return -- onze eigen clear-then-add: route wordt juist (her)gestart
+		end
+		if ns.ClearActiveRoute then
+			ns.ClearActiveRoute()
+		else
+			ns.lastTarget = nil
+			ns._mhRouteOwner = nil
+		end
+	end)
+end
+
+local mhTomTomHookFrame = CreateFrame("Frame")
+mhTomTomHookFrame:RegisterEvent("PLAYER_LOGIN")
+mhTomTomHookFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+mhTomTomHookFrame:SetScript("OnEvent", function()
+	MH_InstallTomTomClearHook()
+end)
 
 -- Esc → Key Bindings → Midnight Helper → Clear active route.
 function MidnightHelper_KeybindClearRoute()

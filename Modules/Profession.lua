@@ -455,11 +455,7 @@ local function ClearTomTomAndAddSingleWaypoint(row)
 	if not row or C_QuestLog.IsQuestFlaggedCompleted(row[1]) then
 		return
 	end
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 	if not ns.AddSmartTomTomWay then
 		print("|cffff5555Midnight Helper:|r Travel Assistant unavailable (Delves module not loaded).")
 		return
@@ -1291,9 +1287,7 @@ local function SetupProfessionModule()
 
 		TreasureStop()
 		if tomtom then
-			pcall(function()
-				_G.TomTom:ClearAllWaypoints()
-			end)
+			ns.MH_TomTomClearAll()
 		end
 		-- Don't let the shared Delves zone-re-assert (ns.lastTarget) fight our arrow.
 		ns.lastTarget = nil

@@ -254,10 +254,10 @@ end
 -- reference (→ Codex category) are no longer top-level; their beta keys still
 -- gate the merged locations via ns.IsBetaTabEnabled, so the Settings
 -- checkboxes keep working.
-local MH_BETA_TAB_IDS = {
-	codex = true,
-	guide = true,
-}
+-- Beta-badges uitgezet (Rob, 3 jul 2026): geen zichtbare "Beta"-markering meer op de
+-- tabs. De gating-logica (ns.IsBetaTabEnabled / Settings-checkboxes) blijft intact —
+-- dit haalt alleen de badge + beta-tooltip weg. Weer aanzetten? Vul tab-id's aan.
+local MH_BETA_TAB_IDS = {}
 
 -- Sidebar is grouped into labelled sections (header + tabs). Tab ids whose
 -- buttons do not exist yet (home, ritual) are skipped during layout, which

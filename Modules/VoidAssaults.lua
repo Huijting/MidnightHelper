@@ -116,11 +116,7 @@ local function RouteHub()
 	if not ns.AddSmartTomTomWay then
 		return false
 	end
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 	return ns.AddSmartTomTomWay(HUB_MAP, HUB_X, HUB_Y, ns:L("VOID_HUB_WAYPOINT")) and true or false
 end
 

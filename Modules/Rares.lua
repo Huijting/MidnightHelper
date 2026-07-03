@@ -658,9 +658,7 @@ end
 -- the shared arrow, skip list and TomTom waypoints so nothing re-draws.
 function ns.StopRareRoute()
 	wipe(skippedRares)
-	if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.ClearAllWaypoints then
-		pcall(_G.TomTom.ClearAllWaypoints, _G.TomTom)
-	end
+	ns.MH_TomTomClearAll()
 	if ns._mhRouteOwner == "rare" then
 		ns._mhRouteOwner = nil
 	end
@@ -879,10 +877,8 @@ local function RouteRare(rare, clearOthers)
 	if rnpc and ns.MH_FlagRareForSkull then
 		ns.MH_FlagRareForSkull(rnpc)
 	end
-	if clearOthers and ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
+	if clearOthers then
+		ns.MH_TomTomClearAll()
 	end
 	local mapID, x, yPct = rare[2], rare[3], rare[4]
 	local name = GetRareDisplayName(rare)
@@ -1240,11 +1236,7 @@ function ns.GenerateRaresRoute(zoneKey)
 		return false
 	end
 
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 
 	local routeRares, nearestFirst = BuildGreedyRareRoute(zone)
 	if #routeRares == 0 then

@@ -173,11 +173,7 @@ function ns.RouteShowdownIntro()
 	if not (npc and npc.mapID and ns.AddSmartTomTomWay) then
 		return false
 	end
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 	return ns.AddSmartTomTomWay(npc.mapID, npc.x, npc.y, ns:L("SHOWDOWNS_WAYPOINT_MAELLA")) and true or false
 end
 
@@ -190,10 +186,6 @@ function ns.RouteShowdownPortal()
 	if not (p and p.mapID and ns.AddSmartTomTomWay) then
 		return false
 	end
-	if ns.IsTomTomReady and ns.IsTomTomReady() then
-		pcall(function()
-			_G.TomTom:ClearAllWaypoints()
-		end)
-	end
+	ns.MH_TomTomClearAll()
 	return ns.AddSmartTomTomWay(p.mapID, p.x, p.y, ns:L("SHOWDOWNS_WAYPOINT_PORTAL")) and true or false
 end
