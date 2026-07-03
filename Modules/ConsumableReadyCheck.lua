@@ -985,11 +985,29 @@ local function MaybeAutoRun(force)
 	end
 end
 
+-- Bij scenario-events (ritual/delve) is de scenario-info vaak nog niet gevuld op het
+-- moment dat het event vuurt (open wereld = geen zone-load). We pollen daarom een
+-- paar keer, gespreid over de eerste seconden, tot CurrentContentKey een sleutel
+-- geeft. MaybeAutoRun dedupt op lastAutoKey, dus het bord toont hooguit één keer.
+local function ScheduleScenarioRecheck()
+	if not (C_Timer and C_Timer.After) then
+		MaybeAutoRun(false)
+		return
+	end
+	for _, d in ipairs({ 0.3, 1, 2.5, 5, 8 }) do
+		C_Timer.After(d, function()
+			MaybeAutoRun(false)
+		end)
+	end
+end
+
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 ev:RegisterEvent("CHALLENGE_MODE_START")
 ev:RegisterEvent("SCENARIO_UPDATE") -- ritual/delve-scenario start/stop (buiten = geen zone-load)
+ev:RegisterEvent("SCENARIO_CRITERIA_UPDATE") -- ritual: scenario-info is bij SCENARIO_UPDATE vaak nog leeg
+ev:RegisterEvent("SCENARIO_COMPLETED")
 ev:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "GET_ITEM_INFO_RECEIVED" then
@@ -1000,6 +1018,17 @@ ev:SetScript("OnEvent", function(_, event)
 	end
 	if event == "CHALLENGE_MODE_START" then
 		MaybeAutoRun(true)
+		return
+	end
+	-- Scenario-events (ritual/delve): de scenario-info is bij het eerste event vaak
+	-- nog niet gevuld (buiten = geen zone-load). Een paar keer opnieuw pollen zodat
+	-- het bord BIJ BINNENKOMST verschijnt i.p.v. pas bij een latere stage-update.
+	if event == "SCENARIO_UPDATE" or event == "SCENARIO_CRITERIA_UPDATE" then
+		ScheduleScenarioRecheck()
+		return
+	end
+	if event == "SCENARIO_COMPLETED" then
+		lastAutoKey = nil -- scenario klaar → volgende ritual/delve toont weer
 		return
 	end
 	MaybeAutoRun(false)
