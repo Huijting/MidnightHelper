@@ -67,8 +67,15 @@ local function Check()
 	if not anchor then
 		return -- can't anchor the week reliably -> rather silent than wrong
 	end
+	-- Week-sleutel op DAG-resolutie. De rauwe reset-anchor (now + secondsUntilReset) kan per
+	-- login een paar seconden jitteren omdat `now` en `secondsUntilReset` op nét andere momenten
+	-- worden gesampled; een EXACTE == op de seconde faalde dan -> popup elke login (Rob, Mage).
+	-- floor(/86400) verandert alleen bij een echte wekelijkse reset (de reset ligt midden op een
+	-- dag, dus dag-jitter treedt niet op). Migratie: een oude rauwe-anchor-waarde matcht de
+	-- weekKey niet -> hooguit 1x extra, daarna stil.
+	local weekKey = math.floor(anchor / 86400)
 	ns.db.shardCapAlert = ns.db.shardCapAlert or {}
-	if ns.db.shardCapAlert[guid] == anchor then
+	if ns.db.shardCapAlert[guid] == weekKey then
 		return -- already announced this week on this character
 	end
 
@@ -78,7 +85,7 @@ local function Check()
 	-- show-callback niet door), dan bleef de week onafgevinkt en kwam de popup
 	-- élke login terug (Rob 21 jun). Nu deterministisch: 1×/week, daarna pas weer
 	-- na de reset als de cap opnieuw gehaald wordt (nieuwe anchor).
-	ns.db.shardCapAlert[guid] = anchor
+	ns.db.shardCapAlert[guid] = weekKey
 
 	if ns.QueueMidnightToast then
 		ns.QueueMidnightToast({

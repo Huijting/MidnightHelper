@@ -83,6 +83,9 @@ ns.KeybindSchema = {
 	categories = {
 		main_rotation = { slots = { "1", "2", "3" } },
 		spender = { slots = { "4", "5" } },
+		raid_heal = { slots = { "1", "2", "3", "4", "5" } }, -- healer party/raid-heals op de nummertoetsen
+		taunt = { slots = { "F" } }, -- tank-taunt op een vaste toets (essentieel, eigen kaart)
+
 		utility = { slots = { "F", "R", "X", "T" } }, -- v6: X vóór T (makkelijker reach vanaf WASD; Rob 2026-07-02)
 		interrupt = { slots = { "E" } },
 		defensive = { slots = { "Z", "C", "X", "V" } },
@@ -120,6 +123,14 @@ ns.KeybindSchema = {
 }
 
 local Schema = ns.KeybindSchema
+
+--- Toegestane base-toetsen voor een expliciete `bindKey` (de v6-toetsen). Weert stray-keys zoals
+--- "N" (kwam uit een letterlijk overgenomen placeholder "Shift+N" in de dataset) -> die worden
+--- genegeerd en vallen terug op de normale categorie-overflow (AoE -> Shift+1/2/3 enz.).
+local PREF_BASE_OK = { E = true, F1 = true, F2 = true, F3 = true, F4 = true }
+for _, k in ipairs(Schema.baseSlotFillOrder or {}) do
+	PREF_BASE_OK[k] = true
+end
 
 local function Trim(s)
 	return (tostring(s or ""):gsub("^%s*(.-)%s*$", "%1"))
@@ -324,18 +335,9 @@ local function SlotListForSpell(spell, opts)
 		cat = ns.Keybind_ColumnToCategory(spell.maps_to_column)
 	end
 	if cat then
-		local slots = ns.Keybind_GetCategorySlots(cat)
-		if cat == "utility" and opts.hasInterrupt then
-			return slots
-		end
-		if cat == "utility" then
-			local merged = { "E" }
-			for i = 1, #(slots or {}) do
-				merged[#merged + 1] = slots[i]
-			end
-			return merged
-		end
-		return slots
+		-- E is het interrupt-anker; utility landt NIET op E (voorheen werd E vooraan gezet bij
+		-- classes zonder interrupt -> een utility-spell werd dan als "Interrupt" gegroepeerd).
+		return ns.Keybind_GetCategorySlots(cat)
 	end
 	return Schema.baseSlotFillOrder
 end
@@ -395,7 +397,7 @@ function ns.Keybind_AllocateSpells(spells, opts)
 			return false
 		end
 		local mod, base = ns.Keybind_ParseBindKey(spell.bindKey)
-		if not base or Schema.excludedBaseKeys[base] then
+		if not base or Schema.excludedBaseKeys[base] or not PREF_BASE_OK[base] then
 			return false
 		end
 		local bk = ns.Keybind_MakeBindKey(mod, base)

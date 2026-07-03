@@ -388,10 +388,12 @@ local CARD_GROUPS = {
 	{ id = "builder",   labelKey = "LAYOUT_CARD_BUILDER" },
 	{ id = "spender",   labelKey = "LAYOUT_CARD_SPENDER" },
 	{ id = "aoe",       labelKey = "LAYOUT_CARD_AOE" },
+	{ id = "raidheal",  labelKey = "LAYOUT_CARD_RAIDHEAL" },
 	{ id = "interrupt", labelKey = "LAYOUT_CARD_INTERRUPT" },
 	{ id = "movement",  labelKey = "LAYOUT_CARD_MOVEMENT" },
 	{ id = "utility",   labelKey = "LAYOUT_CARD_UTILITY" },
 	{ id = "defensive", labelKey = "LAYOUT_CARD_DEFENSIVE" },
+	{ id = "taunt",     labelKey = "LAYOUT_CARD_TAUNT" },
 	{ id = "cc",        labelKey = "LAYOUT_CARD_CC" },
 	{ id = "cooldowns", labelKey = "LAYOUT_CARD_COOLDOWNS" },
 	{ id = "selfheal",  labelKey = "LAYOUT_CARD_SELFHEAL" },
@@ -423,6 +425,8 @@ local function GroupForBind(entry, baseKey, mod, catToken)
 	if role == "heal_quick" or role == "heal_ooc" or role == "heal_sustain" then return "selfheal" end
 	if type(role) == "string" and role:find("^defensive") then return "defensive" end
 	local cat = (entry and entry.category) or catToken
+	if cat == "taunt" then return "taunt" end
+	if cat == "raid_heal" then return "raidheal" end
 	if cat == "main_rotation" then return (mod == "shift") and "aoe" or "builder" end
 	if cat == "spender" then return (mod == "shift") and "aoe" or "spender" end
 	if cat == "dispel_cc" then return "cc" end
@@ -502,6 +506,13 @@ local function ProtoAcquireCard(panel)
 		card._title = t
 		card._rows = {}
 		panel._mhCards[idx] = card
+	end
+	-- Reset: verberg alle bestaande rijen van een hergebruikte kaart. Anders blijven stale rijen
+	-- van een vorige (grotere) kaart zichtbaar en overlappen ze de volgende kaart.
+	if card._rows then
+		for i = 1, #card._rows do
+			card._rows[i]:Hide()
+		end
 	end
 	return card
 end
@@ -594,6 +605,41 @@ local function ProtoRefreshCards(panel, spec, slots)
 			end
 			colY[col] = colY[col] + cardH + GAPC
 		end
+	end
+
+	-- Extra kaart: healer single-target-heals via mouseover/click-cast (geen fysieke toets, v6 §6).
+	local cc = spec and spec.clickCast
+	if type(cc) == "table" and #cc > 0 then
+		local col = 1
+		for i = 2, COLS do
+			if colY[i] < colY[col] then
+				col = i
+			end
+		end
+		local x = pad + (col - 1) * (cardW + GAPC)
+		local y = CARDS_TOP + colY[col]
+		local cardH = titleH + #cc * rowH + 10
+		local card = ProtoAcquireCard(panel)
+		card:ClearAllPoints()
+		card:SetPoint("TOPLEFT", host, "TOPLEFT", x, -y)
+		card:SetSize(cardW, cardH)
+		card:Show()
+		card._title:SetText(ns:L("LAYOUT_CARD_STHEAL"))
+		for i = 1, #cc do
+			local sp = cc[i]
+			local row = ProtoCardRow(card, i)
+			row._spellId = sp.id
+			row:ClearAllPoints()
+			row:SetPoint("TOPLEFT", card, "TOPLEFT", pad, -(titleH + (i - 1) * rowH))
+			row:SetSize(cardW - pad * 2, rowH - 4)
+			local tex = C_Spell and C_Spell.GetSpellTexture and C_Spell.GetSpellTexture(sp.id)
+			row._icon:SetTexture(tex or "Interface\\Icons\\INV_Misc_QuestionMark")
+			row._name:SetText(sp.name)
+			row._cap:SetText(ns:L("LAYOUT_STHEAL_TAG"))
+			row._cap:SetTextColor(0.5, 0.8, 1)
+			row:Show()
+		end
+		colY[col] = colY[col] + cardH + GAPC
 	end
 
 	local maxCol = 0

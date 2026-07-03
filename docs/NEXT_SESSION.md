@@ -1,6 +1,19 @@
 # Next session — Midnight Helper
 
-## ⏭️ MORGEN / VOLGENDE SESSIE — direct oppakken (sessie 4 → 5)
+## ⏭️ MORGEN / VOLGENDE SESSIE — direct oppakken (sessie 4/5)
+
+**✅ Classifier SERIEUS herbouwd uit addon-data (sessie 5):** de draft-gebaseerde classifier was
+incompleet (miste self-heals, soms interrupts, "lijkt-me-logisch"-keuzes). Nu **13 nieuwe per-class
+bestanden** `Modules/KeybindRoles_<Class>.lua`, elk gebouwd door een agent uit **JustAC**
+(InterruptAbilities/SpellCategories/DefensiveEngine/SpellArchetypes/HealingItems), **ClassCodex**
+(rotaties), BliZzi/CDPulse — volledige dekking per spec (interrupt/movement/defensives/dispel/
+self-heals/cooldowns/rotatie/AoE/utility). Ele/Enh Shaman + Frost Mage uit de in-game-bevestigde
+hand-maps overgenomen. `.toc` laadt nu deze 13; de **oude 4 grouped-bestanden**
+(`KeybindRoles_WarDkDhEvoker/RogueMonkDruid/PriestWarlockMage/HunterPaladinShaman.lua`) staan nog op
+schijf maar zijn **uit de .toc** → mogen verwijderd worden (opruimen). Alle 13 syntax-gecheckt
+(Warlock had 1 null-byte → gestript). **Nog te doen: VALIDATIE op chars (zie 3).**
+
+
 De **auto-map + spell-strook (Plan B)** is het actieve project. Fundament + dataset + Fase 1 staan.
 Openstaand:
 1. **Spell-strook Fase 2 (rest):** hover op een spell-rij → gloed op de fysieke toets + **verbindingslijn**
@@ -13,6 +26,16 @@ Openstaand:
 4. **Pas als Rob "af" zegt:** versie → **2.3.0**, changelog + CF-doc, **Beta eerst** (Cisca-test). NU NOG NIET.
 
 Alle details van sessie 4 staan onder de ⭐-secties (2b/2c) verderop.
+
+**✅ Healer-ondersteuning (click-cast) toegevoegd (sessie 5):** nieuw `role = "click_cast"` in de
+classifier → single-target-heals krijgen GEEN toets maar verschijnen in een aparte kaart
+**"Single-target heals (mouseover)"** (v6 §6: healer ST-heals via mouseover/click-cast). Raid/AoE-heals
+blijven op toetsen (main_rotation/spender), heal-CD's op cooldown/F1, damage/utility/interrupt/defensive
+identiek aan DPS. Code: `MH_AutoMapBuild` verzamelt click_cast apart → `spec.clickCast`; `ProtoRefreshCards`
+tekent de extra kaart (`LAYOUT_CARD_STHEAL`/`LAYOUT_STHEAL_TAG` en/nl). 6 healer-specs geauditeerd
+(Disc/Holy Priest, Holy Paladin, Resto Druid/Shaman, MW Monk, Pres Evoker) — ontbrekende ST-heals
+toegevoegd. Ook: functionele kwaliteits-review over alle 13 classes (mitigation≠spender etc.),
+AoE-Shift+N-bug gefixt (juiste Shift-nummers), shard-cap-popup dedup op dag-resolutie.
 
 ---
 

@@ -50,50 +50,11 @@ local function LevelingKeybindSlugForLayout()
 	if not ref or not ref.specsById then
 		return nil
 	end
-	local _, class = UnitClass("player")
-	local lv = UnitLevel("player") or 0
-	local s = GetSpecialization and GetSpecialization() or 0
-	if class == "HUNTER" and ref.specsById.hunter_early then
-		if lv < 10 then
-			return "hunter_early"
-		end
-		if lv == 10 and (not s or s < 1) then
-			return "hunter_early"
-		end
-		if s == 1 and ref.specsById.hunter_beast_mastery then
-			return "hunter_beast_mastery"
-		end
-		if lv >= 10 then
-			return "hunter_early"
-		end
-	elseif class == "PALADIN" and ref.specsById.paladin_early then
-		if lv < 10 then
-			return "paladin_early"
-		end
-		if lv == 10 and (not s or s < 1) then
-			return "paladin_early"
-		end
-		if s == 3 and ref.specsById.paladin_retribution then
-			return "paladin_retribution"
-		end
-		if lv >= 10 then
-			return "paladin_early"
-		end
-	elseif class == "MAGE" and ref.specsById.frost_mage then
-		--- Match on the stable specID, not the index (no ordering doubt): 64 = Frost Mage.
-		local specId = (s and s > 0 and GetSpecializationInfo) and GetSpecializationInfo(s) or nil
-		if specId == 64 then
-			return "frost_mage"
-		end
-	elseif class == "SHAMAN" and (ref.specsById.enh_shaman or ref.specsById.ele_shaman) then
-		--- 263 = Enhancement, 262 = Elemental (264 = Restoration).
-		local specId = (s and s > 0 and GetSpecializationInfo) and GetSpecializationInfo(s) or nil
-		if specId == 263 and ref.specsById.enh_shaman then
-			return "enh_shaman"
-		elseif specId == 262 and ref.specsById.ele_shaman then
-			return "ele_shaman"
-		end
-	end
+	--- EEN bron van waarheid (Rob, sessie 5): de Layout-tab gebruikt voor ELKE class/spec de
+	--- auto-map uit de live spellbook (addon-classifier). Ook de eerder in-game-bevestigde Frost
+	--- Mage / Ele- / Enh Shaman hand-maps zijn losgekoppeld -- geen dubbel systeem meer. De
+	--- hand-map-data in KeybindingData.lua blijft bestaan maar wordt niet meer voor de Layout
+	--- geresolved (kan later opgeruimd worden).
 	return nil
 end
 

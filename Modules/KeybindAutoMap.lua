@@ -121,20 +121,25 @@ function ns.MH_AutoMapBuild()
 	end
 
 	local spells = {}
+	local clickCast = {} -- healer single-target-heals: geen toets, via mouseover/click-cast (v6 §6)
 	local matched = 0
 	local unmatched = {}
 	local globalRoles = ns.KeybindRoleClassifierGlobal
 	for name, sid in pairs(known) do
 		local r = (roles and roles[name]) or (globalRoles and globalRoles[name])
 		if r and SpecMatches(r.specs, specID) then
-			spells[#spells + 1] = {
-				id = sid,
-				minLevel = 1,
-				role = r.role,
-				category = r.category,
-				priority = r.priority,
-				bindKey = r.bindKey,
-			}
+			if r.role == "click_cast" or r.category == "click_cast" then
+				clickCast[#clickCast + 1] = { id = sid, name = name }
+			else
+				spells[#spells + 1] = {
+					id = sid,
+					minLevel = 1,
+					role = r.role,
+					category = r.category,
+					priority = r.priority,
+					bindKey = r.bindKey,
+				}
+			end
 			matched = matched + 1
 		else
 			unmatched[#unmatched + 1] = name
@@ -154,7 +159,10 @@ function ns.MH_AutoMapBuild()
 		map = ns.Keybind_AllocateSpells(spells, { hasInterrupt = hasInterrupt })
 	end
 	table.sort(unmatched)
-	return map, matched, unmatched, class
+	table.sort(clickCast, function(a, b)
+		return (a.name or "") < (b.name or "")
+	end)
+	return map, matched, unmatched, class, clickCast
 end
 
 --- Cache: herbouwen kost een spellbook-scan; alleen opnieuw bij spec/talent-wissel.
@@ -179,12 +187,12 @@ function ns.MH_AutoMapSpecAndSlots()
 	if autoCache.key == key and autoCache.spec then
 		return autoCache.spec, autoCache.slots
 	end
-	local map = ns.MH_AutoMapBuild()
-	if not map or not next(map) then
+	local map, _, _, _, clickCast = ns.MH_AutoMapBuild()
+	if (not map or not next(map)) and not (clickCast and #clickCast > 0) then
 		autoCache = { key = key }
 		return nil, nil
 	end
-	local spec = { display_name = class or "", spellByUiKey = map, isAutoMap = true }
+	local spec = { display_name = class or "", spellByUiKey = map or {}, isAutoMap = true, clickCast = clickCast }
 	-- Eén slot per unieke BASE-toets in de map → precies die toetsen lichten op.
 	local seen, slots = {}, {}
 	for bindKey in pairs(map) do
