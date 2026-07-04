@@ -680,6 +680,17 @@ function ns.BuildSettingsPanel(panel)
 		end
 	end)
 
+	-- Fast Mark (versleepbare balk: target-markers /tm + world-markers).
+	Label("SET_MARK_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "dungeon")
+	Label("SET_MARK_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "dungeon")
+	AddToggle("dungeon", "SET_MARK_TOGGLE_TITLE", "SET_MARK_TOGGLE_DESC", function()
+		return ns.IsFastMarkEnabled and ns.IsFastMarkEnabled()
+	end, function(v)
+		if ns.SetFastMarkEnabled then
+			ns.SetFastMarkEnabled(v)
+		end
+	end)
+
 	-- Delen-uitleg onderaan de Dungeon Coach-categorie (eigen categorie
 	-- volgt zodra fase 5 echte share-instellingen brengt).
 	Label("SET_SHARING_BODY", "GameFontHighlightSmall", COLOR_DIM, 18, 0, "dungeon")

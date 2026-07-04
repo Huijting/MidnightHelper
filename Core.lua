@@ -712,6 +712,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh mark — toggle the Fast Mark bar (raid target + world markers).
+	if msg == "mark" or msg == "fastmark" then
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		if ns.ToggleFastMark then
+			local on = ns.ToggleFastMark()
+			print(("%s Fast Mark: %s"):format(prefix, on and "on" or "off"))
+		end
+		return
+	end
+
 	-- /mh clear (aliases: clearroute, stop) — wipe the active route + arrow.
 	if msg == "clear" or msg == "clearroute" or msg == "stop" then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
