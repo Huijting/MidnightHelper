@@ -41,18 +41,21 @@ end
 -- Volgorde waarin we de target-icoontjes tonen (zoals FastMarks): Skull eerst.
 local TARGET_ORDER = { 8, 7, 6, 5, 4, 3, 2, 1 }
 
--- World-marker knoppen: { naam, texcoords in UI-RaidTargeting6Icons, markerIndex }.
--- Texcoords + index 1:1 overgenomen van de werkende FastMarks-addon.
-local WORLD_TEX = "Interface\\TargetingFrame\\UI-RaidTargeting6Icons"
+-- World-marker knoppen: { naam, raidIconNum, worldMarkerIndex }.
+--   worldMarkerIndex = /wm-index (1..8), zoals in de werkende FastMarks-addon.
+--   raidIconNum      = het losse UI-RaidTargetingIcon_N-bestand van dàt symbool
+--                      (1 Star · 2 Circle · 3 Diamond · 4 Triangle · 5 Moon · 6 Square
+--                      · 7 Cross · 8 Skull). We gebruiken de losse iconen i.p.v. één
+--                      atlas met texcoords, want die atlas rendert niet betrouwbaar.
 local WORLD_MARKERS = {
-	{ "Square",   { 0.25, 0.5,  0.25, 0.5  }, 1 },
-	{ "Triangle", { 0.75, 1.0,  0.0,  0.25 }, 2 },
-	{ "Diamond",  { 0.5,  0.75, 0.0,  0.25 }, 3 },
-	{ "Cross",    { 0.5,  0.75, 0.25, 0.5  }, 4 },
-	{ "Star",     { 0.0,  0.25, 0.0,  0.25 }, 5 },
-	{ "Circle",   { 0.25, 0.5,  0.0,  0.25 }, 6 },
-	{ "Moon",     { 0.0,  0.25, 0.25, 0.5  }, 7 },
-	{ "Skull",    { 0.75, 1.0,  0.25, 0.5  }, 8 },
+	{ "Square",   6, 1 },
+	{ "Triangle", 4, 2 },
+	{ "Diamond",  3, 3 },
+	{ "Cross",    7, 4 },
+	{ "Star",     1, 5 },
+	{ "Circle",   2, 6 },
+	{ "Moon",     5, 7 },
+	{ "Skull",    8, 8 },
 }
 
 local ICON = 22
@@ -126,13 +129,9 @@ end
 
 -- Eén world-marker knop (links = zetten, rechts = wissen).
 local function AddWorldButton(row, def, prev)
-	local name, coords, num = def[1], def[2], def[3]
+	local name, raidIcon, num = def[1], def[2], def[3]
 	local b = SecureBtn("World" .. name, row)
-	b:SetNormalTexture(WORLD_TEX)
-	local nt = b:GetNormalTexture()
-	if nt then
-		nt:SetTexCoord(coords[1], coords[2], coords[3], coords[4])
-	end
+	b:SetNormalTexture(("Interface\\TargetingFrame\\UI-RaidTargetingIcon_%d"):format(raidIcon))
 	if prev then
 		b:SetPoint("LEFT", prev, "RIGHT", GAP, 0)
 	else
@@ -218,11 +217,22 @@ local function BuildBar()
 		bar:SetBackdrop({
 			bgFile = "Interface\\Buttons\\WHITE8X8",
 			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-			edgeSize = 13,
-			insets = { left = 3, right = 3, top = 3, bottom = 3 },
+			edgeSize = 16,
+			insets = { left = 4, right = 4, top = 4, bottom = 4 },
 		})
-		bar:SetBackdropColor(0.08, 0.07, 0.05, 0.9)
-		bar:SetBackdropBorderColor(1, 0.82, 0.2, 1) -- goud, MH-huisstijl
+		bar:SetBackdropColor(0.06, 0.05, 0.04, 0.92)
+		bar:SetBackdropBorderColor(1, 0.84, 0.30, 1) -- helder goud, MH-huisstijl
+	end
+	-- Extra gouden binnenrand voor de kenmerkende MH-look (zoals Missing Buff / Openables).
+	local goldEdge = CreateFrame("Frame", nil, bar, "BackdropTemplate")
+	goldEdge:SetPoint("TOPLEFT", bar, "TOPLEFT", 2, -2)
+	goldEdge:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", -2, 2)
+	if goldEdge.SetBackdrop then
+		goldEdge:SetBackdrop({
+			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+			edgeSize = 13,
+		})
+		goldEdge:SetBackdropBorderColor(1, 0.82, 0.2, 1)
 	end
 
 	-- Sleep-grip links (alleen buiten combat verplaatsen; balk is protected).
