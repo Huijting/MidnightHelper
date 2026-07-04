@@ -1040,7 +1040,12 @@ targetFrame:SetScript("OnEvent", function()
 	-- geeft TargetNpcID niets. Val terug op classificatie: alleen een echte
 	-- boss heropent het venster, op de boss die nu vooraan staat.
 	if not dungeonKey then
-		if UnitClassification("target") ~= "worldboss" or not curDungeon then
+		-- Secret-GUID (geen npcID): val terug op "is dit een boss?". Naast worldboss-
+		-- classificatie ook ??-level (UnitLevel == -1) accepteren — dungeon-bosses in
+		-- 12.x zijn niet altijd als "worldboss" geclassificeerd, wél altijd ??-level.
+		local isBoss = UnitClassification("target") == "worldboss"
+			or (UnitLevel and UnitLevel("target") == -1)
+		if not isBoss or not curDungeon then
 			return
 		end
 		dungeonKey = curDungeon.key
