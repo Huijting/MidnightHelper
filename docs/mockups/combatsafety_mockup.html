@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Midnight Helper — Combat Safety mockup</title>
+<style>
+  :root{
+    --gold:#ffd24d; --gold-dim:#c9a03a; --red:#ff3b3b; --panel:#161821;
+    --panel2:#1e2130; --ink:#e8e6df; --dim:#8b8fa3; --line:#6b4a1c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#0c0d12;color:var(--ink);
+    font-family:"Segoe UI",system-ui,Arial,sans-serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:22px}
+  h1{font-size:20px;margin:0 0 2px;color:var(--gold)}
+  .sub{color:var(--dim);font-size:13px;margin:0 0 18px}
+  .stage{position:relative;height:520px;border-radius:14px;overflow:hidden;
+    border:1px solid #2a2d3a;
+    background:
+      radial-gradient(120% 80% at 50% 0%, #23324a 0%, #16202f 40%, #0e1420 100%),
+      repeating-linear-gradient(0deg,transparent 0 38px,rgba(255,255,255,.02) 38px 39px);}
+  /* nep "vloer" met een schadelijk grondeffect */
+  .badzone{position:absolute;left:50%;bottom:70px;transform:translateX(-50%);
+    width:280px;height:120px;border-radius:50%;
+    background:radial-gradient(circle,rgba(120,255,90,.42),rgba(120,255,90,.05) 70%);
+    box-shadow:0 0 60px 20px rgba(120,255,90,.18) inset;
+    animation:pulseZone 1.6s ease-in-out infinite;pointer-events:none}
+  @keyframes pulseZone{0%,100%{opacity:.55}50%{opacity:.95}}
+  .player{position:absolute;left:50%;bottom:96px;transform:translateX(-50%);
+    width:34px;height:34px;border-radius:50%;background:#3b6fd4;
+    border:2px solid #cfe0ff;box-shadow:0 0 12px #3b6fd4}
+  .player::after{content:"jij";position:absolute;left:50%;top:38px;
+    transform:translateX(-50%);font-size:11px;color:#cfe0ff}
+
+  /* ---- Cue 1: MOVE!-tekst ---- */
+  .moveText{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%) scale(.6);
+    font-weight:900;font-size:80px;letter-spacing:2px;color:var(--red);
+    text-shadow:0 0 18px rgba(255,50,50,.8),0 3px 0 #5a0000;opacity:0;pointer-events:none}
+  .moveText.show{animation:moveFlash 1.9s ease-out forwards}
+  @keyframes moveFlash{
+    0%{opacity:0;transform:translate(-50%,-50%) scale(.55)}
+    12%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}
+    22%{transform:translate(-50%,-50%) scale(1)}
+    70%{opacity:1}
+    100%{opacity:0;transform:translate(-50%,-50%) scale(1.02)}
+  }
+  .moveSub{display:block;font-size:22px;font-weight:700;letter-spacing:1px;
+    color:#ffd0d0;text-shadow:0 0 8px rgba(255,60,60,.7);margin-top:2px}
+
+  /* ---- Cue 2: icoon + gloed (incoming cast op jou) ---- */
+  .castCue{position:absolute;left:50%;top:58%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:12px;
+    background:rgba(12,14,20,.82);border:1px solid var(--line);
+    border-radius:12px;padding:10px 14px 10px 10px;opacity:0;transition:opacity .2s}
+  .castCue.show{opacity:1;animation:cueIn .25s ease-out}
+  @keyframes cueIn{from{transform:translateX(-50%) translateY(8px)}to{transform:translateX(-50%) translateY(0)}}
+  .iconWrap{position:relative;width:56px;height:56px;flex:0 0 auto}
+  .iconWrap .glow{position:absolute;inset:-6px;border-radius:12px;
+    box-shadow:0 0 0 3px var(--red),0 0 22px 6px rgba(255,60,60,.75);
+    animation:glowPulse .7s ease-in-out infinite}
+  @keyframes glowPulse{0%,100%{opacity:.55}50%{opacity:1}}
+  .iconWrap .art{position:absolute;inset:2px;border-radius:9px;
+    background:linear-gradient(135deg,#5a2020,#7a1010);display:flex;
+    align-items:center;justify-content:center;font-size:26px}
+  .iconWrap .cd{position:absolute;inset:2px;border-radius:9px;
+    background:conic-gradient(rgba(0,0,0,.62) var(--p,0deg),transparent 0)}
+  .iconWrap .num{position:absolute;inset:0;display:flex;align-items:center;
+    justify-content:center;font-weight:800;font-size:22px;color:#fff;
+    text-shadow:0 1px 3px #000}
+  .cueText{display:flex;flex-direction:column;gap:2px;min-width:150px}
+  .cueText .spell{font-weight:700;font-size:15px;color:#ffb3b3}
+  .cueText .who{font-size:12px;color:var(--dim)}
+  .cueText .who b{color:var(--gold)}
+  .tag{align-self:flex-start;margin-top:3px;font-size:10px;font-weight:700;
+    padding:1px 6px;border-radius:4px;background:#7a1010;color:#ffd0d0;
+    letter-spacing:.5px}
+
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 22px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:9px;padding:10px 16px;font-size:14px;cursor:pointer;
+    transition:background .15s,border-color .15s}
+  button:hover{background:#2a2f42;border-color:var(--gold-dim)}
+  button.primary{background:#3a2410;border-color:var(--gold)}
+  button.primary:hover{background:#4a2e14}
+
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid #2a2d3a;border-radius:12px;padding:16px 18px}
+  .card h3{margin:0 0 8px;color:var(--gold);font-size:15px}
+  .card p{margin:0 0 8px;font-size:13.5px;line-height:1.5;color:#cfd2dd}
+  .card ul{margin:6px 0 0;padding-left:18px}
+  .card li{font-size:13px;line-height:1.55;color:#c3c7d4;margin-bottom:3px}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;
+    border-radius:20px;margin-left:6px}
+  .low{background:#173a1e;color:#84e39a}
+  .mid{background:#3a3117;color:#e3cf84}
+  .foot{margin-top:22px;color:var(--dim);font-size:12px;line-height:1.6}
+  code{background:#22252f;padding:1px 5px;border-radius:4px;color:#e6c98a;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Midnight Helper — "Combat Safety" (mockup)</h1>
+  <p class="sub">Concept-weergave. Geen echte in-game beelden — dit toont alleen hóe de waarschuwing eruit zou zien. Klik de knoppen om de cues te zien bewegen.</p>
+
+  <div class="stage" id="stage">
+    <div class="badzone"></div>
+    <div class="player"></div>
+
+    <div class="moveText" id="moveText">MOVE!<span class="moveSub" id="moveSub">stap uit het effect</span></div>
+
+    <div class="castCue" id="castCue">
+      <div class="iconWrap">
+        <div class="glow"></div>
+        <div class="art">🔥</div>
+        <div class="cd" id="cd"></div>
+        <div class="num" id="cdNum">3</div>
+      </div>
+      <div class="cueText">
+        <div class="spell" id="spellName">Cindering Blast</div>
+        <div class="who">gericht op <b>JOU</b> · niet te interrupten</div>
+        <div class="tag">GEVAARLIJK</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="primary" onclick="fireCast()">▶ Simuleer: gevaarlijke cast op jou (icoon + gloed + aftel)</button>
+    <button onclick="fireMove()">▶ Simuleer: 'MOVE!' tekst-cue (je staat in schade)</button>
+    <button onclick="fireBoth()">▶ Allebei tegelijk</button>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Cue A — Gevaarlijke cast op JOU <span class="pill low">laag</span></h3>
+      <p>Een vijand begint een <b>belangrijke</b> spell die <b>jou</b> als doel heeft. Er verschijnt een icoon met rode gloed, de spellnaam, wie het doelwit is, en een aftel-swipe tot inslag.</p>
+      <ul>
+        <li>Blizzard-API's doen het zware werk: <code>C_Spell.IsSpellImportant</code> (is 't gevaarlijk?) + <code>PlayerIsSpellTarget</code> (op mij?).</li>
+        <li>Geen spell-database om te onderhouden.</li>
+        <li>Optioneel: rand groen = wél interruptbaar, rood = niet.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Cue B — Je staat in de stront <span class="pill mid">midden</span></h3>
+      <p>Je neemt herhaald schade uit een grondeffect. Grote <b>"MOVE!"</b>-flits (en/of het icoon) tot je eruit stapt.</p>
+      <ul>
+        <li>Blizzard-native geluid via <code>AddPrivateAuraAppliedSound</code> voor gescripte delve/boss-zones (optioneel, jij koos géén geluid — dus standaard uit).</li>
+        <li>Generieke detector: zelfde spell tikt ≥3× in 2s op mij = "ik blijf erin staan", zónder lijst.</li>
+        <li>HP%-drempel + throttle tegen vals/spam-alarm.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="foot">
+    Alles is aan/uit-baar in Settings (net als de Missing-Buff-reminder), versleepbaar, en context-gated
+    (bv. alleen in Delves/dungeons, niet in de open wereld). Kleuren volgen het Midnight-Helper-goud/rood-thema.
+    <br>Technisch plan: <code>docs/COMBAT_SAFETY_PLAN.md</code>.
+  </p>
+</div>
+
+<script>
+  var moveText=document.getElementById('moveText');
+  var castCue=document.getElementById('castCue');
+  var cd=document.getElementById('cd'), cdNum=document.getElementById('cdNum');
+  var castTimer=null;
+
+  function fireMove(){
+    moveText.classList.remove('show'); void moveText.offsetWidth;
+    moveText.classList.add('show');
+  }
+  function fireCast(){
+    if(castTimer){clearInterval(castTimer);}
+    castCue.classList.remove('show'); void castCue.offsetWidth;
+    castCue.classList.add('show');
+    var total=3.0, left=total;
+    cdNum.textContent=Math.ceil(left);
+    cd.style.setProperty('--p','0deg');
+    var t0=Date.now();
+    castTimer=setInterval(function(){
+      left=total-(Date.now()-t0)/1000;
+      if(left<=0){
+        clearInterval(castTimer);castTimer=null;
+        cdNum.textContent='!';
+        cd.style.setProperty('--p','360deg');
+        fireMove(); // inslag -> MOVE!
+        setTimeout(function(){castCue.classList.remove('show');},900);
+        return;
+      }
+      cdNum.textContent=Math.ceil(left);
+      cd.style.setProperty('--p',((total-left)/total*360)+'deg');
+    },40);
+  }
+  function fireBoth(){fireCast();fireMove();}
+</script>
+</body>
+</html>

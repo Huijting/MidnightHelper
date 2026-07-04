@@ -1,8 +1,144 @@
 # Next session — Midnight Helper
 
-## 🌙 SESSIE 6 (2026-07-03) — af & in-game bevestigd, NOG TE COMMITTEN
+## 🚑 2.3.1 HOTFIX KLAARGEZET (2026-07-04) — Rob doet git/package/CF
 
-**Gedaan deze sessie (alles door Rob in-game getest, staat in de repo, nog niet gecommit):**
+**Waarom:** de MissingBuff-taint (`ADDON_ACTION_BLOCKED: MidnightHelperMissingBuff:Hide()`) zat in de
+**live 2.3.0** → snelle hotfix. **Combat Safety is BEWUST GEPARKEERD** (Rob: targeting-feature komt
+later, niet in deze release).
+
+**In 2.3.1 (klaar in de repo):**
+- MissingBuff taint-fix (SyncSecurePos — zie sessie-7-blok hieronder).
+- `.toc` → `## Version: 2.3.1`, **`Modules\CombatSafety.lua` uit de .toc gehaald**.
+- Combat Safety settings-blok uit `SettingsPage.lua` gehaald.
+- Changelog: `CHANGELOG_231_1` (enUS), `Changelog.lua` (2.3.1 bovenaan), `CHANGELOG.md`,
+  `docs/CURSEFORGE_2.3.1.md`. Release type = **Release** (klein, geen Beta).
+
+**Geparkeerd voor later (NIET in 2.3.1):** `Modules/CombatSafety.lua` is VERPLAATST naar
+`docs/parked/CombatSafety.lua` (docs wordt uitgesloten van de zip → ship't niet; work bewaard).
+`CS_*`/`SET_CS_*` locale-keys blijven staan (onschuldige wezen). **Re-activeren later = 3 dingen:**
+bestand terug naar `Modules/CombatSafety.lua`, `.toc`-regel terug, settings-blok terug in
+`SettingsPage.lua` (categorie "alerts"), en verder testen (secret-API's in-game).
+
+**✅ ZIP AL GEBOUWD & GEVERIFIEERD door de assistent:** `dist/MidnightHelper-2.3.1.zip` (versie 2.3.1,
+Interface 120007, root `MidnightHelper/`, 155 files, GEEN CombatSafety/docs). **Rob hoeft alleen te
+uploaden naar CurseForge** (display version 2.3.1, game Retail 120007, Release type **Release**).
+Changelog-tekst = `docs/CURSEFORGE_2.3.1.md`.
+
+**⚠️ LET OP git-repo:** de assistent werkte in de **LIVE**-map (E:\...\AddOns\MidnightHelper, geen .git);
+de **git-repo staat elders** en heeft 2.3.1 NOG NIET. **Draai NIET `Sync-MidnightHelper.bat`** (repo→live)
+vóór de repo bijgewerkt is — dat overschrijft de live 2.3.1-edits met de oude 2.3.0. Repo bijwerken:
+kopieer de gewijzigde bestanden live→repo en commit dáár (of geef de assistent het repo-pad).
+
+**Vóór upload testen:** `/reload` → changelog-popup toont 2.3.1; ritual/combat in → geen
+ADDON_ACTION_BLOCKED; Missing Buff klik-cast werkt nog.
+
+---
+
+## 🆕 SESSIE 7 (2026-07-04) — Combat Safety Feature A gebouwd (GEPARKEERD in 2.3.1), NOG IN-GAME TE TESTEN
+
+**Nieuw:** module `Modules/CombatSafety.lua` (+ in .toc na MissingBuff). "Gevaarlijke cast op JOU"-
+waarschuwing, geïnspireerd op de geïnspecteerde addons **TargetedSpells** + **GTFO** (inspectie-
+rapporten + `docs/COMBAT_SAFETY_PLAN.md` + mockup `docs/mockups/combatsafety_mockup.html`).
+
+**Wat het doet:** versleepbaar/schaalbaar icoon met rode gloed-puls + cooldown-swipe + aftel-nummer
+zodra een vijand een BELANGRIJKE spell cast die de speler als doelwit heeft. Tag = "OPZIJ!/MOVE!"
+(niet interruptbaar) of "INTERRUPT!" (wel). Rechts spellnaam + "gericht op jou". Verdwijnt bij
+cast-eind/interrupt/nameplate-weg.
+
+**Techniek (never-lie — Blizzard doet de zware data, GEEN eigen spell-lijst):**
+- `C_Spell.IsSpellImportant(spellID)` → gevaarlijk? · `PlayerIsSpellTarget(unit,"player")` → op mij?
+  (fallback: `UnitSpellTargetName` == spelernaam) · `UnitCastingInfo`/`UnitChannelInfo` → naam/icoon/
+  tijd/interruptbaar. Alles pcall-geguard. API's komen uit TargetedSpells-code (retail 12.0.7).
+- Bron-units = nameplates; `UNIT_SPELLCAST_START/CHANNEL_START` met 0.1s-debounce (doelwit-info soms
+  1 frame later), STOP/INTERRUPTED/`NAME_PLATE_UNIT_REMOVED` ruimt op. Meest imminente cast wint.
+- **GEEN zone-gate in v1** (IsSpellImportant+PlayerIsSpellTarget al zeer selectief). **CVar
+  `nameplateShowOffscreen` NIET geforceerd** (minder invasief; off-screen casters worden gemist — bewust).
+- Niet-secure frame → geen combat-restricties (geen secure knop nodig, puur informatief).
+
+**Settings:** categorie "Meldingen & popups" (alerts) → `SET_CS_*` toggle + **Test-knop**
+(`ns.TestCombatSafety` flitst 3s nep-cue). Exports: `ns.IsCombatSafetyEnabled`/`SetCombatSafetyEnabled`/
+`RefreshCombatSafety`/`TestCombatSafety`. Default AAN.
+
+**Locale:** `CS_*` in enUS+nlNL, `SET_CS_*` in `Locales/SettingsPage.lua` (en+nl). de/fr/es/pt/it vallen
+terug op EN → **later toevoegen via `Translations2026.lua`** (Rob-wens: "later ook in onze talen").
+
+**⚠️ CRUCIALE 12.x-LES — "secret values" (eerste versie crashte 66×, herschreven):**
+Cast-info van VIJANDELIJKE units (`UnitCastingInfo`/`UnitChannelInfo`: naam/icoon/tijden/spellId/
+interruptbaar) is in Midnight **SECRET**. Je mag die waarden **TONEN** maar er NIET op **rekenen**
+(`(s)/1000` → "attempt to perform arithmetic on a secret number value") of met **if/vergelijking**
+op **vertakken** (taint). De eerste CombatSafety-versie deed beide → 66× error in een ritual.
+**Correcte aanpak (1-op-1 uit TargetedSpells):**
+- Aftel/tijd: NOOIT zelf rekenen → `UnitCastingDuration(unit)`/`UnitChannelDuration(unit)` geeft een
+  **duration-OBJECT** → direct in `Cooldown:SetCooldownFromDurationObject(obj)`.
+- Zichtbaarheid: NOOIT `if important/targetsPlayer` → voed die secret-booleans aan de engine:
+  `frame:SetAlphaFromBoolean(bool, alphaTrue, alphaFalse)` + `C_CurveUtil.EvaluateColorValueFromBoolean(bool, valFalse, valTrue)`.
+  (AND-en = nesten: `SetAlphaFromBoolean(targetsPlayer, EvaluateColorValueFromBoolean(important,0,1), 0)`.)
+- `SetAlphaFromBoolean`/`secretwrap`/`C_CurveUtil` = **Blizzard 12.x-API's** (niet door TargetedSpells
+  gedefinieerd — geverifieerd via grep). `C_Spell.IsSpellImportant`/`PlayerIsSpellTarget` geven secret
+  booleans terug.
+- **Deze les geldt breder:** elke toekomstige feature die vijandelijke cast/aura-details leest moet
+  dit patroon volgen (zie ook CLAUDE.md §"12.x secret values" + `issecretvalue()`).
+
+**Herschreven CombatSafety.lua** volgt dit patroon; **alles in een pcall-vangnet** → wijkt een API af
+dan toont de feature NIKS (geen spam) i.p.v. te crashen. **v1-beperkingen (bewust, secret-safe):** geen
+spell-naam-tekst, geen MOVE!/INTERRUPT!-onderscheid (vergt vertakken op secret), één icoon tegelijk
+(laatste relevante cast). Statische tekst "DANGEROUS CAST / Targeting you". Icoon = spell-icoon (secret,
+met statische fallback). `luac -p` OK.
+
+**NOG TE DOEN — Rob test in-game:**
+1. `/reload`, Settings → Meldingen → **Test-knop** → cue verschijnt (gloed, cooldown-swipe, sleepbaar,
+   Shift+scroll schaalt). Test gebruikt GEEN secret waarden → moet altijd werken.
+2. Echte test in **Delve/dungeon**: caster richt gevaarlijke spell op je → **rood icoon verschijnt**
+   (met swipe). **GEEN error meer** (66× spam moet weg zijn — pcall vangt alles).
+3. **Als de Test werkt maar er in-game nóóit een echte cue komt:** dan geeft een van de secret-API's
+   iets anders terug dan verwacht (of `SetAlphaFromBoolean` heet anders in 12.0.7). Meld het — dan
+   dump ik de API-namen in-game. Geen haast: het faalt stil, niet luid.
+4. Bij twijfel `/console scriptErrors 1`.
+
+**🐛 Bugfix in dezelfde sessie — MissingBuff taint (uit 2.3.0):** in een ritual (combat) gaf het
+8× `ADDON_ACTION_BLOCKED: MidnightHelperMissingBuff:Hide()` (`MissingBuff.lua:621`). Oorzaak: de
+secure klik-knop was met `b:SetAllPoints(f)` AAN het reminder-frame verankerd → f werd "protected"
+→ `f:Hide()` in combat geblokkeerd. Fix: nieuwe `SyncSecurePos(b)` positioneert de secure knop nu
+ONAFHANKELIJK op UIParent en synct 'm alleen buiten combat met f (op create/show/drag/scale, +
+`ns._mhSyncMissingSecure`). De `SetAllPoints(f)`-anchor is weg → f is niet meer protected. `luac -p`
+OK. **Rob test: geen ADDON_ACTION_BLOCKED meer in combat/ritual; klik-om-te-casten werkt nog
+(Hunter pet / Mage AI buiten combat).** Zit nog NIET in een release (2.3.0 heeft de bug nog).
+
+**Daarna:** Feature B (GTFO-light "je staat in schade") als A bevalt; dan pas versie-bump/CF.
+
+---
+
+## ✅ 2.3.0 IS LIVE op CurseForge (bevestigd door Rob, 2026-07-04)
+
+Sessie 6 is **gecommit én gereleased** — 2.3.0 staat live op CF (`.toc ## Version: 2.3.0`).
+Alles hieronder in de sessie-6-blok zit dus in de release; het commit-commando is uitgevoerd.
+
+**✅ Code-audit 2026-07-04: Missing Buff v2 én spell-strook fase 2/3 zijn AL GEBOUWD en zitten in 2.3.0.**
+De oude "openstaand"-lijst was stale. Concreet aanwezig:
+- **Missing Buff v2** — ally-target-buffs met `/cast [@mouseover][@target][@focus]` (Symbiotic Relationship
+  474750, Source of Magic 369459 needHealer, Earth Shield 974, Beacon of Light 53563 + Faith 156910),
+  Paladin-auras (Devotion 465), Warrior-stances, Rogue-poisons, pets, én settings-toggle (`SET_MBUFF_*`
+  en/nl, `ns.IsMissingBuffEnabled`/`SetMissingBuffEnabled`). Files: `MissingBuffData.lua` + `MissingBuff.lua`.
+- **Spell-strook fase 2** — hover op spell-rij → gloed op fysieke toets (goud) + verbindingslijn; 2e cyaan
+  lijn+gloed naar de modifier-toets. `KeyboardLayoutPrototype.lua:475-567`.
+- **Spell-strook fase 3** — filter-chips Alles/Modifier-laag/Ankers/Extras (`PassesCardFilter`,
+  `LAYOUT_FILTER_*`). `KeyboardLayoutPrototype.lua:645`.
+
+**Nog echt open (klein):**
+- ~~Ebon Might (Aug Evoker)~~ — **DEFINITIEF NEE (Rob, 2026-07-04).** Bewust NIET in de data: het is een
+  ~15s rollende rotatie-buff, geen permanente onderhoudsbuff (zelfde uitsluiting als Bloodlust/Voidform).
+  Niet meer opnieuw opperen.
+- **Breder in-game testen** Missing Buff v2 (Paladin/Evoker/Shaman/Rogue/Warrior) — Rob/Cisca-taak.
+- **Utility-prioriteit-tuning** (R/T/X-verdeling per spec) — cosmetisch.
+- **Omnium Folio** verfijningen — optioneel; data zelf 100% correct.
+
+**Volgende release wordt 2.4.0** (of hoger) — Beta eerst bij Cisca bij grote wijzigingen.
+
+---
+
+## 🌙 SESSIE 6 (2026-07-03) — ✅ GECOMMIT & GERELEASED in 2.3.0
+
+**Gedaan deze sessie (alles door Rob in-game getest, zit in de 2.3.0-release):**
 1. **Layout "Consumables & extras"-balk:** volle breedte onderaan, korte categorielabels (afkap-fix — volle itemnaam in tooltip), ✓/✗-status uit `ConsumableReadyCheck`. Niet-klikbaar (secure botst met de verschuivende masonry-layout; klikbaar-gebruiken zit al op het Consumable Board). 4e filter-chip "Alleen extras". Files: `KeyboardLayoutPrototype.lua`, nieuw `Modules/LayoutExtras.lua`.
 2. **Beta eraf:** `UI.lua` `MH_BETA_TAB_IDS = {}` (badges weg van Codex/Guide); "(concept)" uit `LAYOUT_AUTOMAP_NOTE`; NL-fix "Enkel-doel heals"; "Drums (Bloodlust)".
 3. **Ritual consumable-check** detecteert nu ELK ritual/outdoor-scenario (niet meer alleen hardcoded 3236) → alle sites (Daggerspine 3267 etc.) werken. `ConsumableReadyCheck.lua` CurrentContentKey.
@@ -66,10 +202,9 @@ AoE-Shift+N-bug gefixt (juiste Shift-nummers), shard-cap-popup dedup op dag-reso
 
 ---
 
-**Laatste update:** 2026-07-02 (sessie 4 — auto-map, spell-strook Fase 1, heal-ankers)
-**Live op CF:** **2.2.0** (standalone route-pijl + reset-route + clear + self-healing giver-learn).
-**In de repo bovenop 2.2.0 (nog NIET gereleased → wordt 2.3.0):** leveling-tab vervangen + keybind v6 + Frost-layout.
-**Vorige live versies:** 2.1.1, 2.1.0
+**Laatste update:** 2026-07-04 (2.3.0 live op CF)
+**Live op CF:** **2.3.0** (Extras-balk, Beta eraf, ritual/treasure/TomTom-fixes, Missing Buff-reminder).
+**Vorige live versies:** 2.2.0, 2.1.1, 2.1.0
 
 ---
 
