@@ -38,6 +38,69 @@ local DEFAULT_SIZE, MIN_SIZE, MAX_SIZE = 64, 28, 160
 local RARE_ARRIVAL = 40
 local rareReached, rareReachKey = false, nil
 
+-- Per-content styling for the arrow: which type of route currently owns the shared
+-- arrow (ns._mhRouteOwner) decides the accent colour and the little badge icon that
+-- sits next to the target name. Icon paths are plain Interface\Icons textures (always
+-- present on every client) so there's no atlas-version risk. r/g/b tints the arrow +
+-- label. Any owner not listed falls back to DEFAULT_STYLE (gold, no icon).
+local OWNER_STYLE = {
+	rare        = { icon = "Interface\\Icons\\Ability_Hunter_MarkedForDeath", r = 1.00, g = 0.32, b = 0.32 }, -- rood: rare
+	treasure    = { icon = "Interface\\Icons\\INV_Misc_Coin_01",             r = 1.00, g = 0.82, b = 0.20 }, -- goud: treasure/chest
+	achievement = { icon = "Interface\\Icons\\Achievement_Quests_Completed_08", r = 1.00, g = 0.90, b = 0.42 }, -- geel: achievement
+	reset       = { icon = "Interface\\Icons\\INV_Misc_Map_01",              r = 0.42, g = 0.78, b = 1.00 }, -- blauw: reset-route
+	-- Voorbereid voor toekomstige claimers (schaadt niet als ze nooit gezet worden):
+	delve       = { icon = "Interface\\Icons\\INV_Misc_Cave_01",             r = 0.42, g = 0.78, b = 1.00 }, -- blauw: delve
+	ritual      = { icon = "Interface\\Icons\\Spell_Shadow_DemonicCircleTeleport", r = 0.72, g = 0.45, b = 1.00 }, -- paars: ritual
+}
+local DEFAULT_STYLE = { icon = nil, r = 1.00, g = 0.82, b = 0.00 }
+
+local function OwnerStyle()
+	return OWNER_STYLE[ns._mhRouteOwner] or DEFAULT_STYLE
+end
+
+--------------------------------------------------------------------------------
+-- WaypointUI (optional bonus). If the player has WaypointUI installed we hand our
+-- current lead to its public API so its in-world pinpoint + navigation arrow take
+-- over — prettier than our own 2D arrow. Same "stand down when a nicer guide is
+-- present" idea we already use for TomTom. NO dependency: when WaypointUI is absent
+-- these helpers no-op and our own arrow drives. (When TomTom is ALSO installed it
+-- already forwards its crazy arrow to WaypointUI itself, so we only feed WaypointUI
+-- when TomTom isn't driving — handled by the ShouldDriveNative gate in Tick.)
+function ns.IsWaypointUIReady()
+	return (WaypointUIAPI and WaypointUIAPI.Navigation
+		and type(WaypointUIAPI.Navigation.NewUserNavigation) == "function") and true or false
+end
+
+-- Push a lead to WaypointUI. Coords are 0..1 here (our data is 0..100) — same scale
+-- TomTom feeds it. NewUserNavigation also sets the Blizzard user waypoint itself, so
+-- we do NOT separately pin one when WaypointUI drives. Recolour the default pin to the
+-- content type's accent; suppress the ding since Tick re-pins on every advance.
+local function PushWaypointUI(lead)
+	if not (lead and lead.mapID and ns.IsWaypointUIReady()) then
+		return false
+	end
+	local style = OwnerStyle()
+	return pcall(function()
+		WaypointUIAPI.Navigation.NewUserNavigation({
+			name           = lead.name,
+			mapID          = lead.mapID,
+			x              = (lead.x or 0) / 100,
+			y              = (lead.y or 0) / 100,
+			r              = style.r,
+			g              = style.g,
+			b              = style.b,
+			requestRecolor = true,
+			suppressAudio  = true,
+		})
+	end)
+end
+
+local function ClearWaypointUI()
+	if ns.IsWaypointUIReady() and type(WaypointUIAPI.Navigation.ClearUserNavigation) == "function" then
+		pcall(WaypointUIAPI.Navigation.ClearUserNavigation)
+	end
+end
+
 -- Map (0..1) coords -> world (yard) coords. pcall-safe; nil when unavailable.
 -- World coords are isotropic and comparable across maps on the same continent.
 local function MapToWorld(mapID, x01, y01)
@@ -170,6 +233,7 @@ local function UpdateArrow()
 	local pmap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
 	if pmap and MapContinent(pmap) ~= MapContinent(t.mapID) then
 		f.tex:Hide()
+		if f.icon then f.icon:Hide() end
 		local other = ns:L("ARROW_OTHER_CONTINENT")
 		if not other or other == "ARROW_OTHER_CONTINENT" then
 			other = "(other continent)"
@@ -200,10 +264,25 @@ local function UpdateArrow()
 	f.tex:Show()
 	-- North-pointing texture, rotated counter-clockwise for positive radians.
 	f.tex:SetRotation(atan2(dy, dx) - facing + ROTATION_OFFSET)
+	-- Accent colour follows the content type owning the arrow; the "almost there"
+	-- green still wins when you're right on top of the target.
+	local style = OwnerStyle()
 	if dist < 12 then
 		f.tex:SetVertexColor(0.35, 1, 0.35) -- basically there
 	else
-		f.tex:SetVertexColor(1, 0.82, 0)
+		f.tex:SetVertexColor(style.r, style.g, style.b)
+	end
+	-- Per-type badge next to the name (chest/skull/etc.), or hidden for generic routes.
+	if f.icon then
+		if style.icon then
+			f.icon:SetTexture(style.icon)
+			f.icon:Show()
+		else
+			f.icon:Hide()
+		end
+	end
+	if f.label then
+		f.label:SetTextColor(style.r, style.g, style.b)
 	end
 	local shown, unit = dist, "yd"
 	if MidnightHelperDB and MidnightHelperDB.nativeArrowMeters then
@@ -262,6 +341,14 @@ local function EnsureArrowFrame()
 	label:SetPoint("TOP", f, "BOTTOM", 0, -2)
 	label:SetJustifyH("CENTER")
 	f.label = label
+
+	-- Small per-type badge, pinned just left of the name text.
+	local icon = f:CreateTexture(nil, "OVERLAY")
+	icon:SetSize(16, 16)
+	icon:SetPoint("RIGHT", label, "LEFT", -4, 0)
+	icon:SetTexCoord(0.08, 0.92, 0.08, 0.92) -- trim the built-in icon border
+	icon:Hide()
+	f.icon = icon
 
 	-- Restore a saved position (SavedVars are loaded by the time we first show).
 	local pos = MidnightHelperDB and MidnightHelperDB.nativeArrowPos
@@ -359,6 +446,8 @@ end
 
 -- The last lead WE pinned the native waypoint to (nil = we don't own one).
 local mhOwnedKey
+-- The last lead WE handed to WaypointUI (nil = we don't own one there).
+local wuiOwnedKey
 
 local function Tick()
 	-- Route ended (owner cleared): tear everything down. This is the ONLY thing
@@ -367,6 +456,10 @@ local function Tick()
 		activeLead = nil
 		if not (arrowFrame and arrowFrame._preview) then
 			HideArrow()
+		end
+		if wuiOwnedKey then
+			ClearWaypointUI()
+			wuiOwnedKey = nil
 		end
 		if mhOwnedKey then
 			if HasNativeWaypoint() and C_Map and C_Map.ClearUserWaypoint then
@@ -415,6 +508,18 @@ local function Tick()
 	end
 
 	if not (activeLead and activeLead.mapID) then
+		HideArrow()
+		return
+	end
+
+	-- WaypointUI installed and TomTom not driving: hand the lead to WaypointUI (it
+	-- draws its in-world pinpoint + arrow) and stand our own 2D arrow down. Re-feed
+	-- only when the target advances. Absent -> this whole block is skipped.
+	if ns.IsWaypointUIReady() and ShouldDriveNative() then
+		local wkey = TargetKey(activeLead)
+		if wkey ~= wuiOwnedKey and PushWaypointUI(activeLead) then
+			wuiOwnedKey = wkey
+		end
 		HideArrow()
 		return
 	end
