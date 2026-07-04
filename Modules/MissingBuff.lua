@@ -325,6 +325,47 @@ function ns.GetMissingBuffs()
 	return out
 end
 
+-- Debug: /mh mbuff — toon per buff of hij geleerd/spec-ok/actief is + de missende lijst.
+function ns.PrintMissingBuffDebug()
+	local classToken = select(2, UnitClass("player"))
+	local sid = CurrentSpecID()
+	print(("|cffffcc00MH MissingBuff|r class=%s spec=%s inGroup=%s"):format(
+		tostring(classToken), tostring(sid), tostring(InGroup())))
+	local mh, oh = WeaponEnchant()
+	print(("  wapen-enchant: mainhand=%s offhand=%s"):format(tostring(mh), tostring(oh)))
+	local defs = ns.MISSING_BUFF_DEFS and ns.MISSING_BUFF_DEFS[classToken]
+	if type(defs) == "table" then
+		for _, d in ipairs(defs) do
+			local pass = SpecMatches(d.specs, sid) and IsKnown(d.spell)
+				and ((not d.reqSpell) or IsKnown(d.reqSpell))
+			local active
+			if d.kind == "imbue_mh" then
+				active = (select(1, WeaponEnchant()))
+			elseif d.kind == "imbue_oh" then
+				active = (select(2, WeaponEnchant()))
+			elseif d.kind == "ally" then
+				if not InGroup() then
+					active = true
+				elseif d.needHealer and not HealerInGroup() then
+					active = true
+				else
+					active = GroupHasBuff(d.buff or d.spell)
+				end
+			else
+				active = HasBuff(d.buff or d.spell)
+			end
+			print(("  %s [%s]: pass=%s active=%s → ADD=%s"):format(
+				SpellName(d.spell) or ("#" .. tostring(d.spell)), tostring(d.kind),
+				tostring(pass), tostring(active), tostring(pass and not active)))
+		end
+	end
+	local missing = ns.GetMissingBuffs()
+	print(("  → missende buffs: %d"):format(#missing))
+	for _, m in ipairs(missing) do
+		print("     • " .. (m.name or "?"))
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Aan/uit + saved settings
 --------------------------------------------------------------------------------

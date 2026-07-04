@@ -61,7 +61,7 @@ ns.MISSING_BUFF_DEFS = {
 		{ spell = 462854, buff = 462854, kind = "raid", prio = 10, textKey = "MBUFF_TXT_MISSING" }, -- Skyfury
 		{ spell = 192106, buff = 192106, kind = "self", specs = { 262, 263 }, prio = 20, textKey = "MBUFF_TXT_SHIELD" }, -- Lightning Shield
 		{ spell = 52127, buff = 52127, kind = "self", specs = { 264 }, prio = 20, textKey = "MBUFF_TXT_SHIELD" }, -- Water Shield
-		{ spell = 974, buff = 974, kind = "ally", specs = { 264 }, prio = 25, textKey = "MBUFF_TXT_ALLY" }, -- Earth Shield (op ally/tank, Resto)
+		{ spell = 974, buff = 974, kind = "ally", prio = 25, textKey = "MBUFF_TXT_ALLY" }, -- Earth Shield (op ally/tank; elke spec die 'm talent, niet spec-gated)
 		-- Earth Shield op JEZELF: alleen met de Elemental Orbit-talent (383010); kan náást
 		-- Lightning/Water Shield staan. Gegate op de talent i.p.v. spec (Ele/Enh/Resto).
 		{ spell = 383648, buff = 383648, kind = "self", reqSpell = 383010, prio = 22, textKey = "MBUFF_TXT_SHIELD" }, -- Earth Shield (self, Elemental Orbit)
@@ -77,9 +77,11 @@ ns.MISSING_BUFF_DEFS = {
 		{ spell = 108503, buff = 196099, kind = "self", specs = { 265, 267 }, prio = 20, textKey = "MBUFF_TXT_MISSING" }, -- Grimoire of Sacrifice (talent 108503 → buff 196099)
 	},
 	PALADIN = {
-		-- Rites zijn talent-wapen-imbues (self-buff, 1u): je cast 433568/433583, buff 433550/433584.
-		{ spell = 433568, buff = 433550, kind = "self", prio = 20, textKey = "MBUFF_TXT_MISSING" }, -- Rite of Sanctification
-		{ spell = 433583, buff = 433584, kind = "self", prio = 21, textKey = "MBUFF_TXT_MISSING" }, -- Rite of Adjuration
+		-- Rites zijn wederzijds uitsluitende wapen-imbues (main-hand, 1u). Slot-gebaseerd
+		-- detecteren (elke wapen-imbue actief = oké) i.p.v. per-aura, anders geeft de één
+		-- een valse "andere Rite mist"-melding. Gegate op geleerd (talent).
+		{ spell = 433568, kind = "imbue_mh", prio = 20, textKey = "MBUFF_TXT_IMBUE" }, -- Rite of Sanctification
+		{ spell = 433583, kind = "imbue_mh", prio = 21, textKey = "MBUFF_TXT_IMBUE" }, -- Rite of Adjuration
 		{ spell = 53563, buff = 53563, kind = "ally", specs = { 65 }, prio = 15, textKey = "MBUFF_TXT_ALLY" }, -- Beacon of Light (Holy)
 		{ spell = 156910, buff = 156910, kind = "ally", specs = { 65 }, prio = 16, textKey = "MBUFF_TXT_ALLY" }, -- Beacon of Faith (Holy talent)
 	},

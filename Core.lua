@@ -683,6 +683,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh mbuff — debug: toon Missing-Buff-detectie (geleerd/spec/actief + missende lijst).
+	if msg == "mbuff" then
+		if ns.PrintMissingBuffDebug then
+			ns.PrintMissingBuffDebug()
+		end
+		return
+	end
+
 	-- /mh arrowsize [N] — resize the standalone route arrow (also in Settings > General).
 	if msg == "arrowsize" or msg:match("^arrowsize%s+") then
 		local n = tonumber(msg:match("^arrowsize%s+(%d+)$"))
