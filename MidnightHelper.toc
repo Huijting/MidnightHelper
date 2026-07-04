@@ -79,6 +79,7 @@ Modules\ConsumableReadyBoard.lua
 Modules\LayoutExtras.lua
 Modules\MissingBuffData.lua
 Modules\MissingBuff.lua
+Modules\CombatSafety.lua
 Modules\Openables.lua
 Modules\FastMark.lua
 Modules\CurrencyGuide.lua

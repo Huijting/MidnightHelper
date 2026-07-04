@@ -54,6 +54,23 @@ function ns.SetCombatSafetyEnabled(v)
 	ns.RefreshCombatSafety()
 end
 
+-- Gesproken cast-naam (TTS) — standaard UIT (opt-in).
+local function SpeakEnabled()
+	local uiDb = ns.db and ns.db.ui
+	return type(uiDb) == "table" and uiDb.combatSafetySpeak == true
+end
+
+function ns.IsCombatSafetySpeakEnabled()
+	return SpeakEnabled()
+end
+
+function ns.SetCombatSafetySpeakEnabled(v)
+	local uiDb = ns.db and ns.db.ui
+	if type(uiDb) == "table" then
+		uiDb.combatSafetySpeak = v and true or false
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Frame (versleepbaar, schaalbaar; niet-secure → geen combat-beperkingen)
 --------------------------------------------------------------------------------
@@ -295,26 +312,116 @@ function ns.RefreshCombatSafety()
 end
 
 --------------------------------------------------------------------------------
--- Test (Settings-knop): flits een nep-cue van 3s (geen secret waarden)
+-- Test (Settings-knop): aan/uit-schakelaar voor een blijvende, SLEEPBARE preview
+-- (geen secret waarden). Zo kun je het icoon vooraf op z'n plek zetten.
 --------------------------------------------------------------------------------
 
 function ns.TestCombatSafety()
 	local f = EnsureFrame()
+	-- Toggle: staat de preview al aan → uitzetten.
+	if shownUnit == "_test" and f:IsShown() then
+		shownUnit = nil
+		f:Hide()
+		return
+	end
 	f._icon:SetTexture(STATIC_ICON)
 	if f._cd.SetCooldown then
-		f._cd:SetCooldown(GetTime(), 3)
+		f._cd:SetCooldown(GetTime(), 8) -- lange swipe, puur cosmetisch voor de preview
 	end
 	f:SetAlpha(1)
 	shownUnit = "_test"
 	f:Show()
-	if C_Timer and C_Timer.After then
-		C_Timer.After(3.1, function()
-			if shownUnit == "_test" then
-				shownUnit = nil
-				f:Hide()
+	-- Blijft staan tot je 'm wegklikt of /reload't → rustig verslepen om te positioneren.
+	-- Als TTS aan staat: spreek een voorbeeld-naam zodat je de stem hoort.
+	if SpeakEnabled() and C_VoiceChat and C_VoiceChat.SpeakText then
+		pcall(function()
+			local voiceId = 0
+			if C_TTSSettings and C_TTSSettings.GetVoiceOptionID and Enum and Enum.TtsVoiceType then
+				voiceId = C_TTSSettings.GetVoiceOptionID(Enum.TtsVoiceType.Standard) or 0
 			end
+			local vol = (C_TTSSettings and C_TTSSettings.GetSpeechVolume and C_TTSSettings.GetSpeechVolume()) or 100
+			C_VoiceChat.SpeakText(voiceId, ns:L("CS_TEST_NAME"), 2, vol, true)
 		end)
 	end
+end
+
+--------------------------------------------------------------------------------
+-- Gesproken cast-naam (TTS) — optioneel, secret-safe
+--
+-- ⚠️ De cast-naam is een secret value; C_VoiceChat.SpeakText mag 'm wél UITSPREKEN
+-- (toegestane sink, exact zoals TargetedSpells Driver.lua:861). MAAR "op mij gericht?" en
+-- "belangrijk?" zijn secret booleans → daar mogen we NIET op vertakken. Daarom spreekt dit
+-- (net als TargetedSpells) voor vijandelijke GERICHTE casts (UnitSpellTargetName ~= nil is een
+-- toegestane presence-check) in instances/gevecht, met NPC-filter + anti-spam. In Delves/solo
+-- = in de praktijk "op jou". Alles pcall-geguard (wijkt een API af → geen geluid, geen error).
+--------------------------------------------------------------------------------
+
+local ttsCache = {}
+
+-- Alleen in instances, of in gevecht met een vechtende bron (geen idle stads-casters).
+local function AnnounceContextOK(unit)
+	if IsInInstance and select(1, IsInInstance()) then
+		return true
+	end
+	local inCombat = InCombatLockdown and InCombatLockdown()
+	local unitFighting = UnitAffectingCombat and UnitAffectingCombat(unit)
+	return (inCombat and unitFighting) and true or false
+end
+
+-- Sla triviale mobs/minions over (niet-secret classificatie).
+local function AnnounceNpcOK(unit)
+	if UnitIsMinion and UnitIsMinion(unit) then
+		return false
+	end
+	local c = UnitClassification and UnitClassification(unit)
+	if c == "trivial" or c == "minus" then
+		return false
+	end
+	return true
+end
+
+local function AnnounceCast(unit)
+	if not Enabled() or not SpeakEnabled() then
+		return
+	end
+	if not IsHostileNameplate(unit) then
+		return
+	end
+	if not AnnounceContextOK(unit) or not AnnounceNpcOK(unit) then
+		return
+	end
+	-- Alleen GERICHTE casts (presence-check op de secret doelnaam — toegestaan, geen ==).
+	if not (UnitSpellTargetName and UnitSpellTargetName(unit) ~= nil) then
+		return
+	end
+	local now = GetTime()
+	if ttsCache[unit] and (now - ttsCache[unit]) < 3 then
+		return -- anti-spam: max 1x per unit per 3s
+	end
+	local spellId
+	if UnitCastingInfo then
+		spellId = select(9, UnitCastingInfo(unit))
+	end
+	if spellId == nil and UnitChannelInfo then
+		spellId = select(8, UnitChannelInfo(unit))
+	end
+	if spellId == nil then
+		return
+	end
+	if not (C_VoiceChat and C_VoiceChat.SpeakText and C_Spell and C_Spell.GetSpellName) then
+		return
+	end
+	local name = C_Spell.GetSpellName(spellId) -- secret string; SpeakText mag 'm uitspreken
+	if name == nil then
+		return
+	end
+	ttsCache[unit] = now
+	local voiceId = 0
+	if C_TTSSettings and C_TTSSettings.GetVoiceOptionID and Enum and Enum.TtsVoiceType then
+		voiceId = C_TTSSettings.GetVoiceOptionID(Enum.TtsVoiceType.Standard) or 0
+	end
+	local vol = (C_TTSSettings and C_TTSSettings.GetSpeechVolume and C_TTSSettings.GetSpeechVolume()) or 100
+	C_VoiceChat.SpeakText(voiceId, name, 2, vol, true)
 end
 
 --------------------------------------------------------------------------------
@@ -348,9 +455,11 @@ ev:SetScript("OnEvent", function(_, event, unit)
 		if C_Timer and C_Timer.After then
 			C_Timer.After(0.1, function()
 				EvaluateCast(unit)
+				pcall(AnnounceCast, unit)
 			end)
 		else
 			EvaluateCast(unit)
+			pcall(AnnounceCast, unit)
 		end
 	else
 		-- STOP / CHANNEL_STOP / INTERRUPTED / nameplate weg → cast voorbij.

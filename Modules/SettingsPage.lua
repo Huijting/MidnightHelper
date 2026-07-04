@@ -527,6 +527,31 @@ function ns.BuildSettingsPanel(panel)
 		end },
 	})
 
+	-- Combat Safety — waarschuwing bij een gevaarlijke cast die op JOU gericht is.
+	Label("SET_CS_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "alerts")
+	Label("SET_CS_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "alerts")
+	AddToggle("alerts", "SET_CS_TOGGLE_TITLE", "SET_CS_TOGGLE_DESC", function()
+		return ns.IsCombatSafetyEnabled and ns.IsCombatSafetyEnabled()
+	end, function(v)
+		if ns.SetCombatSafetyEnabled then
+			ns.SetCombatSafetyEnabled(v)
+		end
+	end)
+	AddToggle("alerts", "SET_CS_SPEAK_TITLE", "SET_CS_SPEAK_DESC", function()
+		return ns.IsCombatSafetySpeakEnabled and ns.IsCombatSafetySpeakEnabled()
+	end, function(v)
+		if ns.SetCombatSafetySpeakEnabled then
+			ns.SetCombatSafetySpeakEnabled(v)
+		end
+	end)
+	AddButtons("alerts", {
+		{ labelKey = "SET_CS_PREVIEW", onClick = function()
+			if ns.TestCombatSafety then
+				ns.TestCombatSafety()
+			end
+		end },
+	})
+
 	Label("SET_SHARD_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "alerts")
 	Label("SET_SHARD_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "alerts")
 	AddButtons("alerts", {

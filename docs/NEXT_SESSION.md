@@ -1,5 +1,32 @@
 # Next session — Midnight Helper
 
+## 🌙 MORGEN — HIER VERDER (Rob ging slapen ~00:30, 2026-07-05)
+
+**Combat Safety — Feature A is klaar maar NOG NIET door Rob in-game geverifieerd met TTS:**
+- ✅ Feature A (visueel: rood icoon + gloed + cooldown-swipe bij een cast die JOU target) — Rob zag de
+  **preview** al werken (screenshot). Test-knop is nu een **sleepbare aan/uit-preview** ("Preview / position").
+- ✅ **TTS toegevoegd** ("Speak the cast name", **standaard uit**): spreekt de vijandelijke cast-naam via
+  `C_VoiceChat.SpeakText` (secret-safe sink), gegate op **gerichte** casts in instances/gevecht + NPC-filter
+  + anti-spam 3s. **Nog te testen door Rob** (stem hoorbaar? in Delve?). Let op: WoW moet een TTS-stem
+  actief hebben, anders geen geluid.
+- **Grens van Feature A (Rob's vraag beantwoord):** dekt alléén casts die JOU als unit targeten. Een cast
+  op een teamgenoot → icoon stil, stem kan 'm tóch zeggen (kan "op mij?" niet zien = secret). Een
+  **grond-effect op een locatie** (dingen op de grond waar je uit moet) → **niks** — dat is **Feature B**.
+
+**➡️ EERSTE KLUS MORGEN — onderzoek TargetedSpells' "incoming cast bars":** Rob ziet in TargetedSpells
+één of meer **castbalken** in beeld dat er iets gaat gebeuren, ínclusief stem. Uitzoeken hoe dat werkt
+(party/self castbars — `TargetedSpellsBarMixin.lua`, `Driver.lua` frame-pool + `RepositionFrames`) en of
+we zoiets willen: meerdere gelijktijdige inkomende casts als balkjes tonen. Dit hangt samen met de vraag
+hierboven en met **Feature B** (GTFO-light: "je staat in de stront" MOVE!-flits voor grond-effecten).
+
+**Daarna beslissen:** (a) Feature B bouwen? (b) Combat Safety castbars i.p.v./naast het ene icoon?
+Als Feature A + TTS in-game bevestigd zijn → richting 2.4.0 (Beta eerst, Cisca-test).
+
+**Git-status:** Combat Safety (Feature A + preview-toggle + TTS) is gecommit+gepusht als WIP op `main`
+(nog niet gereleased; CF blijft op 2.3.1). Werkmap = live-map = de git-repo (zie workflow-blok onder).
+
+---
+
 ## 🚑 2.3.1 HOTFIX KLAARGEZET (2026-07-04) — Rob doet git/package/CF
 
 **Waarom:** de MissingBuff-taint (`ADDON_ACTION_BLOCKED: MidnightHelperMissingBuff:Hide()`) zat in de
