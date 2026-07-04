@@ -19,18 +19,18 @@ later, niet in deze release).
 bestand terug naar `Modules/CombatSafety.lua`, `.toc`-regel terug, settings-blok terug in
 `SettingsPage.lua` (categorie "alerts"), en verder testen (secret-API's in-game).
 
-**✅ ZIP AL GEBOUWD & GEVERIFIEERD door de assistent:** `dist/MidnightHelper-2.3.1.zip` (versie 2.3.1,
-Interface 120007, root `MidnightHelper/`, 155 files, GEEN CombatSafety/docs). **Rob hoeft alleen te
-uploaden naar CurseForge** (display version 2.3.1, game Retail 120007, Release type **Release**).
-Changelog-tekst = `docs/CURSEFORGE_2.3.1.md`.
+**✅ 2.3.1 GERELEASED:** zip gebouwd + door Rob geüpload naar CurseForge. Op GitHub gecommit+gepusht
+(commit 6c262f4). CF, GitHub én live staan op 2.3.1.
 
-**⚠️ LET OP git-repo:** de assistent werkte in de **LIVE**-map (E:\...\AddOns\MidnightHelper, geen .git);
-de **git-repo staat elders** en heeft 2.3.1 NOG NIET. **Draai NIET `Sync-MidnightHelper.bat`** (repo→live)
-vóór de repo bijgewerkt is — dat overschrijft de live 2.3.1-edits met de oude 2.3.0. Repo bijwerken:
-kopieer de gewijzigde bestanden live→repo en commit dáár (of geef de assistent het repo-pad).
-
-**Vóór upload testen:** `/reload` → changelog-popup toont 2.3.1; ritual/combat in → geen
-ADDON_ACTION_BLOCKED; Missing Buff klik-cast werkt nog.
+**✅ WORKFLOW GEWIJZIGD (2026-07-04) — GEEN Cursor / GEEN sync-script meer:**
+De **live-map ZELF is de git-repo** (`E:\...\AddOns\MidnightHelper` heeft `.git`, remote =
+github.com/Huijting/MidnightHelper, branch `main`). Rob werkt niet meer in Cursor aan deze addon.
+**Nieuwe manier van werken:** de assistent bewerkt direct in de live-map → Rob doet `/reload` en test
+meteen → assistent doet `git add/commit/push` vanuit de live-map (credentials staan in Git Credential
+Manager via Windows, werken non-interactief). Eén repo, geen divergentie, geen `Sync-MidnightHelper.bat`
+meer nodig. `docs/parked/` + `dist/` shippen niet (docs uitgesloten in package.ps1, dist in .gitignore).
+`CLAUDE.md` is untracked (lokaal; bewust niet in de public repo) → blijft als enige in `git status`.
+**Rob's enige handmatige stap bij een release:** de CF-upload (assistent kan dat niet).
 
 ---
 
