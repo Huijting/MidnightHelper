@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.3.1] - 2026-07-04
+
+Hotfix for a combat error introduced in 2.3.0.
+
+### Fixed
+
+- **Missing Buff reminder no longer throws a blocked-action error in combat.** When a maintainable buff dropped or was reapplied mid-fight (for example on entering a ritual), the reminder tried to hide/show its icon while that icon was treated as "protected" — producing an `ADDON_ACTION_BLOCKED` error (and repeated spam). The click-to-cast button is now positioned independently of the reminder icon instead of being anchored to it, so the icon is never protected and can hide/show freely during combat. Click-to-cast (out of combat) still works exactly as before.
+
 ## [2.3.0] - 2026-07-04
 
 The biggest release yet: a completely rebuilt Leveling/Layout tab, three new on-screen tools (Missing Buff, Openables, Fast Mark), and full localization of it all.

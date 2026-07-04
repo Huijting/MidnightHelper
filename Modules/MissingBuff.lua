@@ -461,6 +461,9 @@ local function EnsureFrame()
 		if p and ns.db and ns.db.ui then
 			ns.db.ui.missingBuffPos = { p, rp, x, y }
 		end
+		if ns._mhSyncMissingSecure then
+			ns._mhSyncMissingSecure()
+		end
 	end)
 	f:EnableMouseWheel(true)
 	f:SetScript("OnMouseWheel", function(self, delta)
@@ -471,6 +474,9 @@ local function EnsureFrame()
 		self:SetScale(s)
 		if ns.db and ns.db.ui then
 			ns.db.ui.missingBuffScale = s
+		end
+		if ns._mhSyncMissingSecure then
+			ns._mhSyncMissingSecure()
 		end
 	end)
 	f:SetScript("OnEnter", function(self)
@@ -508,6 +514,32 @@ end
 local secureBtn
 local lastCastSpell
 
+-- Positioneer de secure klik-knop ONAFHANKELIJK op UIParent en sync 'm (alleen buiten
+-- combat) met het reminder-frame. Cruciaal: we verankeren b NIET met SetAllPoints(f),
+-- want een secure frame dat aan f hangt maakt f "protected" → f:Hide()/Show() wordt in
+-- combat geblokkeerd (ADDON_ACTION_BLOCKED op MidnightHelperMissingBuff:Hide()).
+local function SyncSecurePos(b)
+	b = b or secureBtn
+	if not b or not frame then
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		return
+	end
+	b:ClearAllPoints()
+	local p, _, rp, x, y = frame:GetPoint()
+	if p then
+		b:SetPoint(p, UIParent, rp, x, y)
+	else
+		b:SetPoint("CENTER", UIParent, "CENTER", 0, 160)
+	end
+	b:SetSize(frame:GetWidth() or 56, frame:GetHeight() or 56)
+	b:SetScale(frame:GetScale() or 1)
+end
+ns._mhSyncMissingSecure = function()
+	SyncSecurePos()
+end
+
 local function EnsureSecure()
 	if secureBtn then
 		return secureBtn
@@ -517,7 +549,8 @@ local function EnsureSecure()
 	end
 	local f = EnsureFrame()
 	local b = CreateFrame("Button", "MidnightHelperMissingBuffCast", UIParent, "SecureActionButtonTemplate")
-	b:SetAllPoints(f) -- volgt het reminder-frame (éénmalige anchor, buiten combat)
+	-- Onafhankelijk positioneren (zie SyncSecurePos): NIET aan f verankeren, anders wordt f
+	-- protected en breekt f:Hide()/Show() in combat.
 	-- Klik-knop moet BOVENOP het reminder-frame liggen, anders vangt het frame (strata
 	-- HIGH) de klik af en gebeurt er niets. DIALOG-strata ligt boven HIGH.
 	b:SetFrameStrata("DIALOG")
@@ -541,6 +574,7 @@ local function EnsureSecure()
 		if p and ns.db and ns.db.ui then
 			ns.db.ui.missingBuffPos = { p, rp, x, y }
 		end
+		SyncSecurePos(b)
 	end)
 	b:SetScript("OnEnter", function(self)
 		if f._spellId and GameTooltip then
@@ -555,6 +589,7 @@ local function EnsureSecure()
 			GameTooltip:Hide()
 		end
 	end)
+	SyncSecurePos(b)
 	b:Hide()
 	secureBtn = b
 	return b
@@ -636,6 +671,7 @@ function ns.UpdateMissingBuff()
 			if lastCastSpell ~= top.spell then
 				ApplySecureCast(top)
 			end
+			SyncSecurePos(b)
 			b:Show()
 		end
 	end
