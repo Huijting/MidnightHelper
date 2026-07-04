@@ -157,6 +157,23 @@ local function ShouldDriveNative()
 	return true
 end
 
+-- Is WaypointUI installed? When it is, it renders its own in-world pin from the
+-- Blizzard user waypoint we set, so our own arrow stands down — the user wants a
+-- SINGLE guide. Our arrow is the fallback for players with neither TomTom nor
+-- WaypointUI. (We still set the Blizzard waypoint so WaypointUI has something to show.)
+local function IsWaypointUIPresent()
+	if WaypointUIAPI then
+		return true
+	end
+	if C_AddOns and C_AddOns.IsAddOnLoaded then
+		local ok, loaded = pcall(C_AddOns.IsAddOnLoaded, "WaypointUI")
+		if ok and loaded then
+			return true
+		end
+	end
+	return false
+end
+
 -- Our own cached lead. Survives transient ns.lastTarget = nil from zone handlers.
 local activeLead
 
@@ -468,7 +485,14 @@ local function Tick()
 		return
 	end
 
-	ShowArrow()
+	-- No TomTom driving. If WaypointUI is installed, let ITS pin be the single guide
+	-- (fed by the Blizzard waypoint we still set below) and hide our own arrow. Our
+	-- arrow only appears for players who have neither TomTom nor WaypointUI.
+	if IsWaypointUIPresent() then
+		HideArrow()
+	else
+		ShowArrow()
+	end
 
 	local key = TargetKey(activeLead)
 
