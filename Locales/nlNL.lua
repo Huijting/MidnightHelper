@@ -815,6 +815,7 @@ ns._mhLocales.nlNL = {
 	MBUFF_TXT_ALLY = "BUFF ALLY",
 	MBUFF_TXT_AURA = "GEBRUIK AURA",
 	MBUFF_TIP_HINT = "Klik om te casten (buiten combat) · Shift+scroll voor grootte · sleep om te verplaatsen",
+	OPEN_TIP_HINT = "Links-klik: openen · rechts-slepen: verplaatsen · pijltje: lijst aan/uit · Shift+scroll: grootte",
 	LAYOUT_KEY_MODIFIER_TOOLTIP = "|cff888888Modifier — WoW regelt Shift/Ctrl/Alt-combo's los van deze spell-map.|r",
 	LAYOUT_KEY_NAV_TOOLTIP = "|cff888888Navigatie / bewerk-cluster — geen onderdeel van de Midnight-toetsmap.|r",
 	LAYOUT_KEY_EMPTY_TOOLTIP = "|cffaaaaaaNog geen rol op deze toets in de huidige spec-map.|r",

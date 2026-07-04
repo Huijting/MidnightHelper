@@ -669,6 +669,17 @@ function ns.BuildSettingsPanel(panel)
 		end
 	end)
 
+	-- Openables (openbare tas-items: caches/lockboxes/satchels; klik = openen).
+	Label("SET_OPEN_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "dungeon")
+	Label("SET_OPEN_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "dungeon")
+	AddToggle("dungeon", "SET_OPEN_TOGGLE_TITLE", "SET_OPEN_TOGGLE_DESC", function()
+		return ns.IsOpenablesEnabled and ns.IsOpenablesEnabled()
+	end, function(v)
+		if ns.SetOpenablesEnabled then
+			ns.SetOpenablesEnabled(v)
+		end
+	end)
+
 	-- Delen-uitleg onderaan de Dungeon Coach-categorie (eigen categorie
 	-- volgt zodra fase 5 echte share-instellingen brengt).
 	Label("SET_SHARING_BODY", "GameFontHighlightSmall", COLOR_DIM, 18, 0, "dungeon")

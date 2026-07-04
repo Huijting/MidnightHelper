@@ -830,6 +830,7 @@ ns._mhLocales.enUS = {
 	MBUFF_TXT_ALLY = "BUFF ALLY",
 	MBUFF_TXT_AURA = "USE AURA",
 	MBUFF_TIP_HINT = "Click to cast (out of combat) · Shift+scroll to resize · drag to move",
+	OPEN_TIP_HINT = "Left-click: open · right-drag: move · arrow: toggle list · Shift+scroll: resize",
 	LAYOUT_KEY_MODIFIER_TOOLTIP = "|cff888888Modifier key — WoW handles Shift/Ctrl/Alt combos separately from this spell map.|r",
 	LAYOUT_KEY_NAV_TOOLTIP = "|cff888888Navigation / editing cluster — not part of the Midnight key map.|r",
 	LAYOUT_KEY_EMPTY_TOOLTIP = "|cffaaaaaaNo role on this key in the current spec map yet.|r",
