@@ -58,49 +58,6 @@ local function OwnerStyle()
 	return OWNER_STYLE[ns._mhRouteOwner] or DEFAULT_STYLE
 end
 
---------------------------------------------------------------------------------
--- WaypointUI (optional bonus). If the player has WaypointUI installed we hand our
--- current lead to its public API so its in-world pinpoint + navigation arrow take
--- over — prettier than our own 2D arrow. Same "stand down when a nicer guide is
--- present" idea we already use for TomTom. NO dependency: when WaypointUI is absent
--- these helpers no-op and our own arrow drives. (When TomTom is ALSO installed it
--- already forwards its crazy arrow to WaypointUI itself, so we only feed WaypointUI
--- when TomTom isn't driving — handled by the ShouldDriveNative gate in Tick.)
-function ns.IsWaypointUIReady()
-	return (WaypointUIAPI and WaypointUIAPI.Navigation
-		and type(WaypointUIAPI.Navigation.NewUserNavigation) == "function") and true or false
-end
-
--- Push a lead to WaypointUI. Coords are 0..1 here (our data is 0..100) — same scale
--- TomTom feeds it. NewUserNavigation also sets the Blizzard user waypoint itself, so
--- we do NOT separately pin one when WaypointUI drives. Recolour the default pin to the
--- content type's accent; suppress the ding since Tick re-pins on every advance.
-local function PushWaypointUI(lead)
-	if not (lead and lead.mapID and ns.IsWaypointUIReady()) then
-		return false
-	end
-	local style = OwnerStyle()
-	return pcall(function()
-		WaypointUIAPI.Navigation.NewUserNavigation({
-			name           = lead.name,
-			mapID          = lead.mapID,
-			x              = (lead.x or 0) / 100,
-			y              = (lead.y or 0) / 100,
-			r              = style.r,
-			g              = style.g,
-			b              = style.b,
-			requestRecolor = true,
-			suppressAudio  = true,
-		})
-	end)
-end
-
-local function ClearWaypointUI()
-	if ns.IsWaypointUIReady() and type(WaypointUIAPI.Navigation.ClearUserNavigation) == "function" then
-		pcall(WaypointUIAPI.Navigation.ClearUserNavigation)
-	end
-end
-
 -- Map (0..1) coords -> world (yard) coords. pcall-safe; nil when unavailable.
 -- World coords are isotropic and comparable across maps on the same continent.
 local function MapToWorld(mapID, x01, y01)
@@ -446,8 +403,6 @@ end
 
 -- The last lead WE pinned the native waypoint to (nil = we don't own one).
 local mhOwnedKey
--- The last lead WE handed to WaypointUI (nil = we don't own one there).
-local wuiOwnedKey
 
 local function Tick()
 	-- Route ended (owner cleared): tear everything down. This is the ONLY thing
@@ -456,10 +411,6 @@ local function Tick()
 		activeLead = nil
 		if not (arrowFrame and arrowFrame._preview) then
 			HideArrow()
-		end
-		if wuiOwnedKey then
-			ClearWaypointUI()
-			wuiOwnedKey = nil
 		end
 		if mhOwnedKey then
 			if HasNativeWaypoint() and C_Map and C_Map.ClearUserWaypoint then
@@ -508,18 +459,6 @@ local function Tick()
 	end
 
 	if not (activeLead and activeLead.mapID) then
-		HideArrow()
-		return
-	end
-
-	-- WaypointUI installed and TomTom not driving: hand the lead to WaypointUI (it
-	-- draws its in-world pinpoint + arrow) and stand our own 2D arrow down. Re-feed
-	-- only when the target advances. Absent -> this whole block is skipped.
-	if ns.IsWaypointUIReady() and ShouldDriveNative() then
-		local wkey = TargetKey(activeLead)
-		if wkey ~= wuiOwnedKey and PushWaypointUI(activeLead) then
-			wuiOwnedKey = wkey
-		end
 		HideArrow()
 		return
 	end
