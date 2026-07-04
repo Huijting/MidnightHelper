@@ -688,11 +688,10 @@ local EXTRA_READY = "|TInterface/RAIDFRAME/ReadyCheck-Ready:0|t"
 local EXTRA_NOTREADY = "|TInterface/RAIDFRAME/ReadyCheck-NotReady:0|t"
 local EXTRA_WAITING = "|TInterface/RAIDFRAME/ReadyCheck-Waiting:0|t"
 
---- Eén cel in de extras-balk: icoon + naam + tag + hover-tooltip, met een secure
---- "gebruik item"-knop eroverheen (klik = consumable gebruiken). De truc (zoals de
---- Missing-Buff-reminder): een secure STATE-DRIVER "[combat] hide" verbergt de knop in
---- combat, zodat we 'm daar niet hoeven aan te raken; de niet-secure cel blijft zichtbaar.
---- Aanmaken/ankeren gebeurt alleen buiten combat (ProtoRenderExtrasBar guard't daarop).
+--- Eén cel in de extras-balk: icoon + naam + tag + ✓/✗-status + hover-tooltip. Bewust
+--- NIET klikbaar: een secure knop in dit dynamische in-paneel-grid propageert "protected"
+--- omhoog naar het hele venster (venster niet meer sluitbaar in combat) óf vergt fragiele
+--- absolute-coördinaat-plaatsing. Klikken-om-te-gebruiken zit op het Consumable Board.
 local function ProtoExtraCell(card, i)
 	card._cells = card._cells or {}
 	local cell = card._cells[i]
@@ -739,35 +738,6 @@ local function ProtoExtraCell(card, i)
 			self._hl:Hide()
 		end
 	end)
-	-- Secure "gebruik item"-knop bovenop de cel. Alleen buiten combat aangemaakt (deze
-	-- functie wordt uitsluitend buiten combat aangeroepen). State-driver verbergt 'm in
-	-- combat; het cast-attribuut ("item") wordt buiten combat gezet in de render-loop.
-	local use = CreateFrame("Button", nil, cell, "SecureActionButtonTemplate")
-	use:SetAllPoints(cell)
-	use:SetFrameLevel(cell:GetFrameLevel() + 4)
-	use:RegisterForClicks("AnyUp", "AnyDown")
-	RegisterStateDriver(use, "visibility", "[combat] hide; nil")
-	use:SetScript("OnEnter", function(self)
-		local c = self:GetParent()
-		if c and c._itemId and GameTooltip then
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetItemByID(c._itemId)
-			GameTooltip:Show()
-		end
-		if c and c._hl then
-			c._hl:Show()
-		end
-	end)
-	use:SetScript("OnLeave", function(self)
-		if GameTooltip then
-			GameTooltip:Hide()
-		end
-		local c = self:GetParent()
-		if c and c._hl then
-			c._hl:Hide()
-		end
-	end)
-	cell._use = use
 	card._cells[i] = cell
 	return cell
 end
@@ -775,15 +745,6 @@ end
 --- Volle-breedte "Consumables & extras"-balk onderaan de kaarten: icoon + naam + tag +
 --- ✓/✗-status (uit de bestaande consumables-detectie) + hover-tooltip. @return hoogte
 local function ProtoRenderExtrasBar(panel, host, extras, pad, usableW, topOffset, titleH, rowH)
-	-- In combat niet aan protected frames (de secure klikknoppen + hun ouders) zitten.
-	-- Laat de balk staan en geef de laatst bekende hoogte terug; de state-driver houdt
-	-- de knoppen verborgen, de niet-secure cellen blijven gewoon zichtbaar.
-	if InCombatLockdown and InCombatLockdown() then
-		if panel._mhExtrasCard and panel._mhExtrasCard:IsShown() then
-			return panel._mhExtrasCardH or 0
-		end
-		return 0
-	end
 	local card = panel._mhExtrasCard
 	if not card then
 		card = CreateFrame("Frame", nil, host, "BackdropTemplate")
@@ -837,25 +798,11 @@ local function ProtoRenderExtrasBar(panel, host, extras, pad, usableW, topOffset
 		cell._tag:SetText(ns:L(sp.tagKey))
 		cell._tag:SetTextColor(0.72, 0.6, 0.4)
 		cell._itemId = sp.itemID
-		-- Klik-om-te-gebruiken (buiten combat): item-attribuut op de secure knop.
-		if cell._use then
-			if sp.itemID then
-				cell._use:SetAttribute("type", "item")
-				cell._use:SetAttribute("item", "item:" .. sp.itemID)
-			else
-				cell._use:SetAttribute("type", nil)
-				cell._use:SetAttribute("item", nil)
-			end
-			cell._use:Show()
-		end
 		cell:Show()
 	end
 	if card._cells then
 		for i = n + 1, #card._cells do
 			card._cells[i]:Hide()
-			if card._cells[i]._use then
-				card._cells[i]._use:Hide()
-			end
 		end
 	end
 	panel._mhExtrasCardH = cardH
