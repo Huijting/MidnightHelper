@@ -34,6 +34,7 @@ ns.MISSING_BUFF_DEFS = {
 	DRUID = {
 		{ spell = 1126, buff = 1126, kind = "raid", prio = 10, textKey = "MBUFF_TXT_MISSING" }, -- Mark of the Wild (+3% Vers)
 		{ spell = 24858, buff = 24858, kind = "form", specs = { 102 }, showCombat = true, prio = 5, textKey = "MBUFF_TXT_FORM" }, -- Moonkin Form
+		{ spell = 474750, buff = 474750, kind = "ally", prio = 40, textKey = "MBUFF_TXT_ALLY" }, -- Symbiotic Relationship
 	},
 	MAGE = {
 		{ spell = 1459, buff = 1459, kind = "raid", prio = 10, textKey = "MBUFF_TXT_MISSING" }, -- Arcane Intellect
@@ -51,6 +52,8 @@ ns.MISSING_BUFF_DEFS = {
 	EVOKER = {
 		-- Blessing of the Bronze: je cast 364342, de Evoker-eigen buff-aura is 381748.
 		{ spell = 364342, buff = 381748, kind = "raid", prio = 10, textKey = "MBUFF_TXT_MISSING" },
+		-- Source of Magic: op een healer in de groep (alleen tonen als er een healer is).
+		{ spell = 369459, buff = 369459, kind = "ally", needHealer = true, prio = 30, textKey = "MBUFF_TXT_ALLY" },
 	},
 	SHAMAN = {
 		{ spell = 462854, buff = 462854, kind = "raid", prio = 10, textKey = "MBUFF_TXT_MISSING" }, -- Skyfury
@@ -71,6 +74,8 @@ ns.MISSING_BUFF_DEFS = {
 		-- Rites zijn talent-wapen-imbues (self-buff, 1u): je cast 433568/433583, buff 433550/433584.
 		{ spell = 433568, buff = 433550, kind = "self", prio = 20, textKey = "MBUFF_TXT_MISSING" }, -- Rite of Sanctification
 		{ spell = 433583, buff = 433584, kind = "self", prio = 21, textKey = "MBUFF_TXT_MISSING" }, -- Rite of Adjuration
+		{ spell = 53563, buff = 53563, kind = "ally", specs = { 65 }, prio = 15, textKey = "MBUFF_TXT_ALLY" }, -- Beacon of Light (Holy)
+		{ spell = 156910, buff = 156910, kind = "ally", specs = { 65 }, prio = 16, textKey = "MBUFF_TXT_ALLY" }, -- Beacon of Faith (Holy talent)
 	},
 	-- Rogue: poisons apart (1 lethal + 1 non-lethal), zie ns.MISSING_POISONS.
 	-- Monk / Demon Hunter / Death Knight (non-Unholy): geen trackbare onderhoudsbuff.

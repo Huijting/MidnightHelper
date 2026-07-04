@@ -137,14 +137,71 @@ end
 -- Missende-buff-berekening
 --------------------------------------------------------------------------------
 
-local function AddEntry(out, castSpell, textKey, showCombat)
+local function AddEntry(out, castSpell, textKey, showCombat, macroTarget)
 	out[#out + 1] = {
 		spell = castSpell,
 		name = SpellName(castSpell) or ("#" .. tostring(castSpell)),
 		icon = SpellIcon(castSpell),
 		textKey = textKey,
 		showCombat = showCombat and true or false,
+		macroTarget = macroTarget and true or false,
 	}
+end
+
+-- Groep-helpers voor ally-buffs. Whitelisted buffs (Beacon/Symbiotic/Source of Magic)
+-- zijn op andere units leesbaar; secret-values guarden we weg.
+local function GroupUnits()
+	local t = { "player" }
+	local n = (GetNumGroupMembers and GetNumGroupMembers()) or 0
+	if IsInRaid and IsInRaid() then
+		for i = 1, n do
+			t[#t + 1] = "raid" .. i
+		end
+	else
+		for i = 1, math.max(0, n - 1) do
+			t[#t + 1] = "party" .. i
+		end
+	end
+	return t
+end
+
+local function UnitHasAura(unit, spellID)
+	if not (C_UnitAuras and C_UnitAuras.GetAuraDataByIndex) then
+		return false
+	end
+	for i = 1, 40 do
+		local ok, a = pcall(C_UnitAuras.GetAuraDataByIndex, unit, i, "HELPFUL")
+		if not ok or not a then
+			break
+		end
+		local sidv = a.spellId
+		if sidv and not (issecretvalue and issecretvalue(sidv)) and sidv == spellID then
+			return true
+		end
+	end
+	return false
+end
+
+local function GroupHasBuff(spellID)
+	for _, u in ipairs(GroupUnits()) do
+		if UnitHasAura(u, spellID) then
+			return true
+		end
+	end
+	return false
+end
+
+local function InGroup()
+	return IsInGroup and IsInGroup() and true or false
+end
+
+local function HealerInGroup()
+	for _, u in ipairs(GroupUnits()) do
+		if u ~= "player" and UnitGroupRolesAssigned and UnitGroupRolesAssigned(u) == "HEALER" then
+			return true
+		end
+	end
+	return false
 end
 
 -- @return geordende lijst { {spell, name, icon, textKey, showCombat}, ... }
@@ -161,19 +218,28 @@ function ns.GetMissingBuffs()
 	if type(defs) == "table" then
 		for _, d in ipairs(defs) do
 			if SpecMatches(d.specs, sid) and IsKnown(d.spell) then
-				local active
+				local active, macroTarget
 				if d.kind == "imbue_mh" then
 					active = (select(1, WeaponEnchant()))
 				elseif d.kind == "imbue_oh" then
 					active = (select(2, WeaponEnchant()))
-				elseif d.kind == "form" then
-					-- vorm-buff staat als aura op de speler
-					active = HasBuff(d.buff or d.spell)
+				elseif d.kind == "ally" then
+					-- Ally-buff: alleen relevant in een groep (je buft een ally). Actief =
+					-- iemand in de groep heeft 'm. Source of Magic alleen als er een healer is.
+					macroTarget = true
+					if not InGroup() then
+						active = true
+					elseif d.needHealer and not HealerInGroup() then
+						active = true
+					else
+						active = GroupHasBuff(d.buff or d.spell)
+					end
 				else
+					-- raid / self / form: buff/aura staat op de speler
 					active = HasBuff(d.buff or d.spell)
 				end
 				if not active then
-					AddEntry(out, d.spell, d.textKey, d.showCombat)
+					AddEntry(out, d.spell, d.textKey, d.showCombat, macroTarget)
 				end
 			end
 		end
@@ -250,6 +316,12 @@ function ns.GetMissingBuffs()
 		end
 	end
 
+	-- 5) Paladin-auras: er hoort altijd één aura actief te zijn. Detectie via de
+	-- shapeshift-form-API (aura's zijn "forms" voor Paladins) → nooit vals-positief.
+	if classToken == "PALADIN" and IsKnown(465) and not InAnyForm() then
+		AddEntry(out, 465, "MBUFF_TXT_AURA", true) -- Devotion Aura (default)
+	end
+
 	return out
 end
 
@@ -316,11 +388,17 @@ local function EnsureFrame()
 	icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 	f._icon = icon
 
-	-- Rode knipperrand.
-	local border = f:CreateTexture(nil, "OVERLAY")
-	border:SetPoint("TOPLEFT", f, "TOPLEFT", -3, 3)
-	border:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 3, -3)
-	border:SetColorTexture(1, 0.15, 0.15, 0)
+	-- Gouden rand rond het icoon (beveled edge, goud getint, met zachte gloed-puls).
+	local border = CreateFrame("Frame", nil, f, "BackdropTemplate")
+	border:SetPoint("TOPLEFT", f, "TOPLEFT", -4, 4)
+	border:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 4, -4)
+	if border.SetBackdrop then
+		border:SetBackdrop({
+			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+			edgeSize = 13,
+		})
+		border:SetBackdropBorderColor(1, 0.82, 0.2, 1) -- goud
+	end
 	f._border = border
 
 	local label = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
@@ -368,7 +446,7 @@ local function EnsureFrame()
 	-- Zachte rode puls op de rand via OnUpdate (robuust op alle client-versies).
 	f:SetScript("OnUpdate", function(self, elapsed)
 		self._t = (self._t or 0) + elapsed
-		local aVal = 0.2 + 0.55 * (0.5 + 0.5 * math.sin(self._t * 3))
+		local aVal = 0.55 + 0.45 * (0.5 + 0.5 * math.sin(self._t * 2.5))
 		self._border:SetAlpha(aVal)
 	end)
 	f:Hide()
@@ -440,21 +518,29 @@ local function EnsureSecure()
 end
 
 -- Zet het cast-attribuut (alleen buiten combat toegestaan op een secure frame).
-local function ApplySecureCast(spell)
+local function ApplySecureCast(entry)
 	local b = secureBtn
 	if not b or (InCombatLockdown and InCombatLockdown()) then
 		return
 	end
-	-- Spell-ID direct zetten (niet de naam): hernoemde pets/spells geven een naam die
-	-- niet castbaar is (bv. "Call Balou" i.p.v. "Call Pet 1"). Het ID werkt altijd.
-	if spell then
+	if entry and entry.macroTarget then
+		-- Ally-buff: cast op mouseover → target → focus (helpful, niet dood).
+		b:SetAttribute("type", "macro")
+		b:SetAttribute("macrotext",
+			"/cast [@mouseover,help,nodead][@target,help,nodead][@focus,help,nodead] " .. (entry.name or ""))
+		b:SetAttribute("spell", nil)
+	elseif entry and entry.spell then
+		-- Spell-ID direct (niet de naam): hernoemde pets/spells geven een niet-castbare
+		-- naam (bv. "Call Balou" i.p.v. "Call Pet 1"). Het ID werkt altijd.
 		b:SetAttribute("type", "spell")
-		b:SetAttribute("spell", spell)
+		b:SetAttribute("spell", entry.spell)
+		b:SetAttribute("macrotext", nil)
 	else
 		b:SetAttribute("type", nil)
 		b:SetAttribute("spell", nil)
+		b:SetAttribute("macrotext", nil)
 	end
-	lastCastSpell = spell
+	lastCastSpell = entry and entry.spell or nil
 end
 
 local function HideSecure()
@@ -500,7 +586,7 @@ function ns.UpdateMissingBuff()
 		local b = EnsureSecure()
 		if b then
 			if lastCastSpell ~= top.spell then
-				ApplySecureCast(top.spell)
+				ApplySecureCast(top)
 			end
 			b:Show()
 		end
@@ -526,6 +612,8 @@ ev:RegisterEvent("UNIT_INVENTORY_CHANGED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:RegisterEvent("PLAYER_REGEN_DISABLED")
 ev:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
+ev:RegisterEvent("GROUP_ROSTER_UPDATE") -- ally-buffs: groep verandert
+ev:RegisterEvent("PLAYER_ROLES_ASSIGNED") -- healer-in-groep-detectie
 
 local function ScheduleUpdate()
 	if throttle > 0 then
@@ -544,8 +632,13 @@ local function ScheduleUpdate()
 end
 
 ev:SetScript("OnEvent", function(_, event, unit)
-	if event == "UNIT_AURA" or event == "UNIT_PET" then
+	if event == "UNIT_PET" then
 		if unit and unit ~= "player" then
+			return
+		end
+	elseif event == "UNIT_AURA" then
+		-- speler + groepsleden (ally-buffs); overige units negeren.
+		if unit and unit ~= "player" and not (unit:find("^party") or unit:find("^raid")) then
 			return
 		end
 	end
