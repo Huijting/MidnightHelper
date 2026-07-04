@@ -59,14 +59,21 @@ local function ScanOpenables()
 			if SlotIsOpenable(bag, slot) then
 				local info = C_Container.GetContainerItemInfo(bag, slot)
 				if info then
-					out[#out + 1] = {
-						bag = bag,
-						slot = slot,
-						itemID = info.itemID,
-						name = info.itemName or (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(info.itemID)) or "?",
-						icon = info.iconFileID or "Interface\\Icons\\INV_Misc_Bag_08",
-						count = info.stackCount or 1,
-					}
+					-- Level-vereiste: verberg items die je nog niet kunt openen (bv. een
+					-- level-60-cache op level 23). itemMinLevel = 5e return van GetItemInfo.
+					local minLvl = info.itemID and C_Item and C_Item.GetItemInfo
+						and select(5, C_Item.GetItemInfo(info.itemID))
+					local plvl = (UnitLevel and UnitLevel("player")) or 999
+					if not minLvl or minLvl <= plvl then
+						out[#out + 1] = {
+							bag = bag,
+							slot = slot,
+							itemID = info.itemID,
+							name = info.itemName or (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(info.itemID)) or "?",
+							icon = info.iconFileID or "Interface\\Icons\\INV_Misc_Bag_08",
+							count = info.stackCount or 1,
+						}
+					end
 				end
 			end
 		end
@@ -357,6 +364,8 @@ ev:RegisterEvent("PLAYER_LOGIN")
 ev:RegisterEvent("BAG_UPDATE_DELAYED")
 ev:RegisterEvent("ITEM_LOCK_CHANGED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
+ev:RegisterEvent("PLAYER_LEVEL_UP") -- level-gated cache wordt openbaar bij het juiste level
+ev:RegisterEvent("GET_ITEM_INFO_RECEIVED") -- item-info kwam alsnog binnen (level/naam)
 
 local function Schedule()
 	if throttle > 0 then

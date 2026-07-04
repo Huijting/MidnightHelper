@@ -59,12 +59,12 @@ ns.MISSING_BUFF_DEFS = {
 	},
 	SHAMAN = {
 		{ spell = 462854, buff = 462854, kind = "raid", prio = 10, textKey = "MBUFF_TXT_MISSING" }, -- Skyfury
-		{ spell = 192106, buff = 192106, kind = "self", specs = { 262, 263 }, prio = 20, textKey = "MBUFF_TXT_SHIELD" }, -- Lightning Shield
-		{ spell = 52127, buff = 52127, kind = "self", specs = { 264 }, prio = 20, textKey = "MBUFF_TXT_SHIELD" }, -- Water Shield
+		{ spell = 192106, buff = 192106, kind = "self", specs = { 262, 263 }, showCombat = true, prio = 20, textKey = "MBUFF_TXT_SHIELD" }, -- Lightning Shield
+		{ spell = 52127, buff = 52127, kind = "self", specs = { 264 }, showCombat = true, prio = 20, textKey = "MBUFF_TXT_SHIELD" }, -- Water Shield
 		{ spell = 974, buff = 974, kind = "ally", prio = 25, textKey = "MBUFF_TXT_ALLY" }, -- Earth Shield (op ally/tank; elke spec die 'm talent, niet spec-gated)
 		-- Earth Shield op JEZELF: alleen met de Elemental Orbit-talent (383010); kan náást
 		-- Lightning/Water Shield staan. Gegate op de talent i.p.v. spec (Ele/Enh/Resto).
-		{ spell = 383648, buff = 383648, kind = "self", reqSpell = 383010, prio = 22, textKey = "MBUFF_TXT_SHIELD" }, -- Earth Shield (self, Elemental Orbit)
+		{ spell = 383648, buff = 383648, kind = "self", reqSpell = 383010, showCombat = true, prio = 22, textKey = "MBUFF_TXT_SHIELD" }, -- Earth Shield (self, Elemental Orbit)
 		-- Wapen/schild-imbues (talenten). "learned" bepaalt of de spec 'm heeft; actief
 		-- = tijdelijke wapen-enchant op de betreffende slot.
 		{ spell = 318038, kind = "imbue_mh", specs = { 262, 263 }, prio = 30, textKey = "MBUFF_TXT_IMBUE" }, -- Flametongue Weapon

@@ -226,8 +226,10 @@ function ns.GetMissingBuffs()
 				elseif d.kind == "ally" then
 					-- Ally-buff: alleen relevant in een groep (je buft een ally). Actief =
 					-- iemand in de groep heeft 'm. Source of Magic alleen als er een healer is.
+					-- In combat NIET de groep-aura's scannen: ally-buffs tonen daar toch niet
+					-- (showCombat=false) en de scan kan 12.x-secret-value-fouten geven.
 					macroTarget = true
-					if not InGroup() then
+					if not InGroup() or (InCombatLockdown and InCombatLockdown()) then
 						active = true
 					elseif d.needHealer and not HealerInGroup() then
 						active = true
@@ -599,7 +601,12 @@ function ns.UpdateMissingBuff()
 		HideSecure()
 		return
 	end
-	local missing = ns.GetMissingBuffs()
+	-- Afgeschermd: een fout in de detectie (bv. secret-values op groepsleden) mag de
+	-- reminder nooit laten vastlopen op een oude stand.
+	local ok, missing = pcall(ns.GetMissingBuffs)
+	if not ok or type(missing) ~= "table" then
+		missing = {}
+	end
 	local inCombat = InCombatLockdown and InCombatLockdown()
 	-- Filter op combat: buiten combat alles; in combat alleen showCombat-items.
 	local top

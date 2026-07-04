@@ -4,6 +4,18 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "2.3.0",
+		lines = {
+			"CHANGELOG_230_1",
+			"CHANGELOG_230_2",
+			"CHANGELOG_230_3",
+			"CHANGELOG_230_4",
+			"CHANGELOG_230_5",
+			"CHANGELOG_230_6",
+			"CHANGELOG_230_7",
+		},
+	},
+	{
 		version = "2.2.0",
 		lines = {
 			"CHANGELOG_220_1",

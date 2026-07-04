@@ -1,5 +1,32 @@
 # Next session — Midnight Helper
 
+## 🌙 SESSIE 6 (2026-07-03) — af & in-game bevestigd, NOG TE COMMITTEN
+
+**Gedaan deze sessie (alles door Rob in-game getest, staat in de repo, nog niet gecommit):**
+1. **Layout "Consumables & extras"-balk:** volle breedte onderaan, korte categorielabels (afkap-fix — volle itemnaam in tooltip), ✓/✗-status uit `ConsumableReadyCheck`. Niet-klikbaar (secure botst met de verschuivende masonry-layout; klikbaar-gebruiken zit al op het Consumable Board). 4e filter-chip "Alleen extras". Files: `KeyboardLayoutPrototype.lua`, nieuw `Modules/LayoutExtras.lua`.
+2. **Beta eraf:** `UI.lua` `MH_BETA_TAB_IDS = {}` (badges weg van Codex/Guide); "(concept)" uit `LAYOUT_AUTOMAP_NOTE`; NL-fix "Enkel-doel heals"; "Drums (Bloodlust)".
+3. **Ritual consumable-check** detecteert nu ELK ritual/outdoor-scenario (niet meer alleen hardcoded 3236) → alle sites (Daggerspine 3267 etc.) werken. `ConsumableReadyCheck.lua` CurrentContentKey.
+4. **Treasure-toast (Achievements)** blijft staan bij dezelfde treasure ook als je ver weg bent — `ArmTreasureToast` verbergt geen toast meer die al voor DIE node open staat.
+5. **TomTom-clear route-fix (alle routetypes):** alle 13 interne clears lopen via nieuwe `ns.MH_TomTomClearAll()` (zet guard-flag `ns._mhSelfWaypointOp`); hook op `TomTom.ClearAllWaypoints` stopt de route (`ClearActiveRoute`) alléén bij een ECHTE spelersclear. `Core.lua` + Rares/Profession/ProfessionAcademy/ResetRoutine/DungeonRosterData/Achievements/Showdowns/RitualSites/VoidAssaults.
+6. **⭐ NIEUW: Missing Buff-feature** (bedoeld om losse *MissingClassBuff*-addon te vervangen). Eigen, Wowhead-12.0.7-geverifieerde data — GEEN kopie. Files: `Modules/MissingBuffData.lua` + `Modules/MissingBuff.lua` (+ MBUFF_*-locale-keys en/nl, .toc). Doorlopend versleepbaar/schaalbaar icoon bij een missende onderhoudsbuff (raid-buff/vorm/shield/imbue/poison/stance/pet), zichtbaar óók in combat. **Klikbaar casten buiten combat** via de MCB-truc: apart NIET-secure reminder-frame + secure knop met `RegisterStateDriver(b,"visibility","[combat] hide; nil")`, strata DIALOG (boven het frame), `RegisterForClicks("AnyUp","AnyDown")`, cast op **spell-ID** (pet-naam-onafhankelijk). ✅ getest Hunter (pet) + Mage (Arcane Intellect).
+
+**Data-verificatie (never-lie, Wowhead 12.0.7):** alle buff-IDs + alle Omnium Folio-runes bevestigd. Uitgesloten als "geen onderhoudsbuff": Voidform 194249 (cooldown), Water Elemental 31687 (weg voor Frost), Horn of Winter 57330 (rune-gen), Vengeance/Crusader Aura (passief/reis). Monk/DH/DK(non-Unholy) hebben géén trackbare buff. Naam-fix: 457481 = "Tidecaller's Guard".
+
+**COMMIT-COMMANDO (Rob draait zelf):**
+```
+git add Core.lua UI.lua MidnightHelper.toc Modules/LayoutExtras.lua Modules/KeyboardLayoutPrototype.lua Modules/ConsumableReadyCheck.lua Modules/MissingBuffData.lua Modules/MissingBuff.lua Modules/Achievements.lua Modules/Rares.lua Modules/Profession.lua Modules/ProfessionAcademy.lua Modules/ResetRoutine.lua Modules/DungeonRosterData.lua Modules/Showdowns.lua Modules/RitualSites.lua Modules/VoidAssaults.lua Locales/enUS.lua Locales/nlNL.lua
+git commit -m "Extras-balk, Beta eraf, ritual/treasure/TomTom-fixes, Missing Buff-reminder (klikbaar)"
+git push
+```
+
+**MORGEN / openstaand:**
+- **Missing Buff v2:** ally-target-buffs (Beacon of Light 53563/Faith 156910, Symbiotic Relationship 474750, Source of Magic 369459, + **Ebon Might 395152 apart verifiëren**) + Paladin-auras (Devotion 465 default). Vergt target-cast-logica (`type="macro"` `/cast [@target,help]`). Plus: **settings aan/uit-toggle** (nu alleen `ns.db.ui.missingBuff`). Test breder: Shaman (shields/imbues), Rogue (poisons), Warrior (stances).
+- **Omnium Folio (optioneel, uit onderzoek sessie 6):** baseline klopt grotendeels; mogelijke verfijningen: core Orbs/Fire per archetype (healer/pet-class → Orbs), raid-capstone splitsen Echoes(single-target)/Residual(DoT-specs Affli/Shadow/Balance), stat-rij per spec (of live uit gear/sim i.p.v. statische tabel). Data zelf 100% correct — geen fix nodig.
+- **Nog niet gereleased:** versie → 2.3.0 + changelog + CF (Beta eerst) — PAS als Rob "af" zegt.
+
+---
+
+
 ## ⏭️ MORGEN / VOLGENDE SESSIE — direct oppakken (sessie 4/5)
 
 **✅ Classifier SERIEUS herbouwd uit addon-data (sessie 5):** de draft-gebaseerde classifier was

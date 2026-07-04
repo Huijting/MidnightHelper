@@ -2,6 +2,32 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.3.0] - 2026-07-04
+
+The biggest release yet: a completely rebuilt Leveling/Layout tab, three new on-screen tools (Missing Buff, Openables, Fast Mark), and full localization of it all.
+
+### Added
+
+- **Leveling tab completely rebuilt around a live keyboard layout.** The old per-class/spec guide (~6,900 lines plus a 5,152-key advisor and duplicate consumables data) is gone. In its place: an ISO keyboard that reads your **actual spellbook** (`C_SpellBook`) and lays out every ability by role, following a single universal keybind standard (**v6**: E=interrupt, Q=movement, Z=minor defensive, C=major defensive, V=dispel/CC, F1=burst; overflow Shift→Ctrl→Alt; AoE as the Shift-twin of its single-target key; F2/F3/F4 self-heal anchors). Coverage is **all 13 classes and 39 specs** via a name→role classifier (~490 entries) built and cross-checked against installed rotation/interrupt/defensive addons. Hand-tuned maps ship for a few specs (Frost Mage, Elemental/Enhancement Shaman, Hunter, Paladin) and act as overrides; every other spec is generated live from what you can currently cast — no wrong or missing spell IDs, and it re-draws on level-up, talent/loadout swap and spec change.
+- **Spell-strip category cards** under the keyboard group your abilities (builder, spender, AoE, interrupt, movement, utility, defensive, dispel/CC, cooldowns, self-heals) with real in-game tooltips on each row. Healers get a dedicated **"Single-target heals (mouseover)"** card (click-cast), while raid heals stay on keys.
+- **"Consumables & extras" bar** on the Layout tab: a full-width strip of flasks, food, weapon oils/runes, augment runes and other non-keybind essentials with live ready/missing status, plus an "extras only" filter.
+- **Missing Buff reminder** (replaces the standalone MissingClassBuff addon). A movable, resizable on-screen icon appears when you can cast a maintainable class buff you don't have active — raid buff, form, shield, weapon imbue, poison, stance, pet, ally buff or Paladin aura. **Click it to cast** (out of combat). Own, Wowhead-12.0.7-verified data across all 13 classes; toggle in Settings.
+- **Openables tracker.** A movable button (with count badge and expandable list) for openable bag items — caches, lockboxes, satchels, quest containers. Left-click opens the next one; items you can't open yet at your level are hidden, and a sound plays when a new openable drops. Toggle in Settings.
+- **Fast Mark bar.** Quickly mark your target (the eight raid icons + clear), drop world markers on the ground (left-click set, right-click clear, clear-all) and run a ready check. Secure buttons (post-12.0 `/tm` + `worldmarker`), a draggable gold-bordered bar that appears only while you're in a party/raid. Enable in Settings or with `/mh mark`.
+
+### Changed
+
+- **Route arrow shows per-content icon and colour** — rare (red), treasure (gold), achievement (yellow), reset route (blue) — with the target name and distance in the matching colour. If **WaypointUI** is installed, Midnight Helper hands the route to its in-world pin and stands its own arrow down (single guide); with TomTom it stays out of the way as before; with neither, its own arrow guides you.
+- **Guides are out of Beta.** The Codex, Guide, Leveling, Macros and Role Academy tabs are promoted to full features (Beta badges removed).
+- **Full localization.** All new strings (Missing Buff, Openables, Fast Mark and their settings) are translated into German, French, Spanish, Portuguese, Italian and Dutch.
+
+### Fixed
+
+- **Ritual consumable checks trigger on every ritual site**, not just one hardcoded scenario — so Daggerspine and the other sites now prompt correctly.
+- **Treasure toast no longer vanishes** when you move away from a treasure it's already showing.
+- **Dungeon boss info opens when you target the boss** (instead of on encounter-start).
+- **Route clearing is more reliable across all route types** — internal clears no longer stop a route the player didn't clear themselves.
+
 ## [2.2.0] - 2026-07-01
 
 Standalone route guidance — the arrow no longer depends on TomTom.
