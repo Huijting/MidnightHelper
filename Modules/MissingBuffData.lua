@@ -34,6 +34,8 @@ ns.MISSING_BUFF_DEFS = {
 	DRUID = {
 		{ spell = 1126, buff = 1126, kind = "raid", prio = 10, textKey = "MBUFF_TXT_MISSING" }, -- Mark of the Wild (+3% Vers)
 		{ spell = 24858, buff = 24858, kind = "form", specs = { 102 }, showCombat = true, prio = 5, textKey = "MBUFF_TXT_FORM" }, -- Moonkin Form
+		{ spell = 768, buff = 768, kind = "form", specs = { 103 }, showCombat = true, prio = 5, textKey = "MBUFF_TXT_FORM" }, -- Cat Form (Feral)
+		{ spell = 5487, buff = 5487, kind = "form", specs = { 104 }, showCombat = true, prio = 5, textKey = "MBUFF_TXT_FORM" }, -- Bear Form (Guardian)
 		{ spell = 474750, buff = 474750, kind = "ally", prio = 40, textKey = "MBUFF_TXT_ALLY" }, -- Symbiotic Relationship
 	},
 	MAGE = {
@@ -59,6 +61,10 @@ ns.MISSING_BUFF_DEFS = {
 		{ spell = 462854, buff = 462854, kind = "raid", prio = 10, textKey = "MBUFF_TXT_MISSING" }, -- Skyfury
 		{ spell = 192106, buff = 192106, kind = "self", specs = { 262, 263 }, prio = 20, textKey = "MBUFF_TXT_SHIELD" }, -- Lightning Shield
 		{ spell = 52127, buff = 52127, kind = "self", specs = { 264 }, prio = 20, textKey = "MBUFF_TXT_SHIELD" }, -- Water Shield
+		{ spell = 974, buff = 974, kind = "ally", specs = { 264 }, prio = 25, textKey = "MBUFF_TXT_ALLY" }, -- Earth Shield (op ally/tank, Resto)
+		-- Earth Shield op JEZELF: alleen met de Elemental Orbit-talent (383010); kan náást
+		-- Lightning/Water Shield staan. Gegate op de talent i.p.v. spec (Ele/Enh/Resto).
+		{ spell = 383648, buff = 383648, kind = "self", reqSpell = 383010, prio = 22, textKey = "MBUFF_TXT_SHIELD" }, -- Earth Shield (self, Elemental Orbit)
 		-- Wapen/schild-imbues (talenten). "learned" bepaalt of de spec 'm heeft; actief
 		-- = tijdelijke wapen-enchant op de betreffende slot.
 		{ spell = 318038, kind = "imbue_mh", specs = { 262, 263 }, prio = 30, textKey = "MBUFF_TXT_IMBUE" }, -- Flametongue Weapon

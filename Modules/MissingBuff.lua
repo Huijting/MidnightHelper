@@ -217,7 +217,7 @@ function ns.GetMissingBuffs()
 	local defs = ns.MISSING_BUFF_DEFS and ns.MISSING_BUFF_DEFS[classToken]
 	if type(defs) == "table" then
 		for _, d in ipairs(defs) do
-			if SpecMatches(d.specs, sid) and IsKnown(d.spell) then
+			if SpecMatches(d.specs, sid) and IsKnown(d.spell) and (not d.reqSpell or IsKnown(d.reqSpell)) then
 				local active, macroTarget
 				if d.kind == "imbue_mh" then
 					active = (select(1, WeaponEnchant()))
