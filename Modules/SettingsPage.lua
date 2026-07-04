@@ -658,6 +658,17 @@ function ns.BuildSettingsPanel(panel)
 		end },
 	}, 0)
 
+	-- Missing Buff-reminder (icoon bij een missende onderhoudsbuff; klikbaar buiten combat).
+	Label("SET_MBUFF_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "dungeon")
+	Label("SET_MBUFF_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "dungeon")
+	AddToggle("dungeon", "SET_MBUFF_TOGGLE_TITLE", "SET_MBUFF_TOGGLE_DESC", function()
+		return ns.IsMissingBuffEnabled and ns.IsMissingBuffEnabled()
+	end, function(v)
+		if ns.SetMissingBuffEnabled then
+			ns.SetMissingBuffEnabled(v)
+		end
+	end)
+
 	-- Delen-uitleg onderaan de Dungeon Coach-categorie (eigen categorie
 	-- volgt zodra fase 5 echte share-instellingen brengt).
 	Label("SET_SHARING_BODY", "GameFontHighlightSmall", COLOR_DIM, 18, 0, "dungeon")

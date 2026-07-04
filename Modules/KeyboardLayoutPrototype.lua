@@ -688,60 +688,102 @@ local EXTRA_READY = "|TInterface/RAIDFRAME/ReadyCheck-Ready:0|t"
 local EXTRA_NOTREADY = "|TInterface/RAIDFRAME/ReadyCheck-NotReady:0|t"
 local EXTRA_WAITING = "|TInterface/RAIDFRAME/ReadyCheck-Waiting:0|t"
 
---- Eén klikbare cel in de extras-balk (secure "gebruik item"-knop, geen keybind).
+--- Eén cel in de extras-balk: icoon + naam + tag + hover-tooltip, met een secure
+--- "gebruik item"-knop eroverheen (klik = consumable gebruiken). De truc (zoals de
+--- Missing-Buff-reminder): een secure STATE-DRIVER "[combat] hide" verbergt de knop in
+--- combat, zodat we 'm daar niet hoeven aan te raken; de niet-secure cel blijft zichtbaar.
+--- Aanmaken/ankeren gebeurt alleen buiten combat (ProtoRenderExtrasBar guard't daarop).
 local function ProtoExtraCell(card, i)
 	card._cells = card._cells or {}
 	local cell = card._cells[i]
-	if not cell then
-		cell = CreateFrame("Button", nil, card, "SecureActionButtonTemplate")
-		cell:RegisterForClicks("AnyUp")
-		cell:EnableMouse(true)
-		local hl = cell:CreateTexture(nil, "BACKGROUND")
-		hl:SetAllPoints(cell)
-		hl:SetColorTexture(1, 0.82, 0.3, 0.10)
-		hl:Hide()
-		cell._hl = hl
-		local icon = cell:CreateTexture(nil, "ARTWORK")
-		icon:SetPoint("LEFT", cell, "LEFT", 2, 0)
-		icon:SetSize(22, 22)
-		icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
-		cell._icon = icon
-		local tag = cell:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-		tag:SetPoint("RIGHT", cell, "RIGHT", -2, 0)
-		tag:SetJustifyH("RIGHT")
-		cell._tag = tag
-		local nm = cell:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		nm:SetPoint("LEFT", icon, "RIGHT", 6, 0)
-		nm:SetPoint("RIGHT", tag, "LEFT", -6, 0)
-		nm:SetJustifyH("LEFT")
-		nm:SetWordWrap(false)
-		cell._name = nm
-		cell:SetScript("OnEnter", function(self)
-			if self._itemId and GameTooltip then
-				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-				GameTooltip:SetItemByID(self._itemId)
-				GameTooltip:Show()
-			end
-			if self._hl then
-				self._hl:Show()
-			end
-		end)
-		cell:SetScript("OnLeave", function(self)
-			if GameTooltip then
-				GameTooltip:Hide()
-			end
-			if self._hl then
-				self._hl:Hide()
-			end
-		end)
-		card._cells[i] = cell
+	if cell then
+		return cell
 	end
+	cell = CreateFrame("Frame", nil, card)
+	cell:EnableMouse(true)
+	local hl = cell:CreateTexture(nil, "BACKGROUND")
+	hl:SetAllPoints(cell)
+	hl:SetColorTexture(1, 0.82, 0.3, 0.10)
+	hl:Hide()
+	cell._hl = hl
+	local icon = cell:CreateTexture(nil, "ARTWORK")
+	icon:SetPoint("LEFT", cell, "LEFT", 2, 0)
+	icon:SetSize(22, 22)
+	icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+	cell._icon = icon
+	local tag = cell:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	tag:SetPoint("RIGHT", cell, "RIGHT", -2, 0)
+	tag:SetJustifyH("RIGHT")
+	cell._tag = tag
+	local nm = cell:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	nm:SetPoint("LEFT", icon, "RIGHT", 6, 0)
+	nm:SetPoint("RIGHT", tag, "LEFT", -6, 0)
+	nm:SetJustifyH("LEFT")
+	nm:SetWordWrap(false)
+	cell._name = nm
+	cell:SetScript("OnEnter", function(self)
+		if self._itemId and GameTooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetItemByID(self._itemId)
+			GameTooltip:Show()
+		end
+		if self._hl then
+			self._hl:Show()
+		end
+	end)
+	cell:SetScript("OnLeave", function(self)
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+		if self._hl then
+			self._hl:Hide()
+		end
+	end)
+	-- Secure "gebruik item"-knop bovenop de cel. Alleen buiten combat aangemaakt (deze
+	-- functie wordt uitsluitend buiten combat aangeroepen). State-driver verbergt 'm in
+	-- combat; het cast-attribuut ("item") wordt buiten combat gezet in de render-loop.
+	local use = CreateFrame("Button", nil, cell, "SecureActionButtonTemplate")
+	use:SetAllPoints(cell)
+	use:SetFrameLevel(cell:GetFrameLevel() + 4)
+	use:RegisterForClicks("AnyUp", "AnyDown")
+	RegisterStateDriver(use, "visibility", "[combat] hide; nil")
+	use:SetScript("OnEnter", function(self)
+		local c = self:GetParent()
+		if c and c._itemId and GameTooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetItemByID(c._itemId)
+			GameTooltip:Show()
+		end
+		if c and c._hl then
+			c._hl:Show()
+		end
+	end)
+	use:SetScript("OnLeave", function(self)
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+		local c = self:GetParent()
+		if c and c._hl then
+			c._hl:Hide()
+		end
+	end)
+	cell._use = use
+	card._cells[i] = cell
 	return cell
 end
 
---- Volle-breedte "Consumables & extras"-balk onderaan de kaarten. Klikbaar om te
---- gebruiken (secure), ✓/✗-status uit de bestaande consumables-detectie. @return hoogte
+--- Volle-breedte "Consumables & extras"-balk onderaan de kaarten: icoon + naam + tag +
+--- ✓/✗-status (uit de bestaande consumables-detectie) + hover-tooltip. @return hoogte
 local function ProtoRenderExtrasBar(panel, host, extras, pad, usableW, topOffset, titleH, rowH)
+	-- In combat niet aan protected frames (de secure klikknoppen + hun ouders) zitten.
+	-- Laat de balk staan en geef de laatst bekende hoogte terug; de state-driver houdt
+	-- de knoppen verborgen, de niet-secure cellen blijven gewoon zichtbaar.
+	if InCombatLockdown and InCombatLockdown() then
+		if panel._mhExtrasCard and panel._mhExtrasCard:IsShown() then
+			return panel._mhExtrasCardH or 0
+		end
+		return 0
+	end
 	local card = panel._mhExtrasCard
 	if not card then
 		card = CreateFrame("Frame", nil, host, "BackdropTemplate")
@@ -765,7 +807,9 @@ local function ProtoRenderExtrasBar(panel, host, extras, pad, usableW, topOffset
 
 	local COLS = 3
 	local GAPX = 10
-	local cellW = math.floor((usableW - (COLS - 1) * GAPX) / COLS)
+	-- Binnenmarge (pad) aan beide zijden meerekenen, anders loopt de rechterkolom
+	-- (incl. de tag rechts) buiten het kader.
+	local cellW = math.floor((usableW - 2 * pad - (COLS - 1) * GAPX) / COLS)
 	local n = #extras
 	local rows = math.ceil(n / COLS)
 	local cardH = titleH + rows * rowH + 10
@@ -774,7 +818,6 @@ local function ProtoRenderExtrasBar(panel, host, extras, pad, usableW, topOffset
 	card:SetSize(usableW, cardH)
 	card:Show()
 
-	local inCombat = InCombatLockdown and InCombatLockdown()
 	for i = 1, n do
 		local sp = extras[i]
 		local r = math.floor((i - 1) / COLS)
@@ -782,7 +825,7 @@ local function ProtoRenderExtrasBar(panel, host, extras, pad, usableW, topOffset
 		local cell = ProtoExtraCell(card, i)
 		cell:ClearAllPoints()
 		cell:SetPoint("TOPLEFT", card, "TOPLEFT", pad + c * (cellW + GAPX), -(titleH + r * rowH))
-		cell:SetSize(cellW - 4, rowH - 4)
+		cell:SetSize(cellW, rowH - 4)
 		cell._icon:SetTexture(sp.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
 		local mark = EXTRA_WAITING
 		if sp.status == "active" or sp.status == "ready" then
@@ -794,23 +837,28 @@ local function ProtoRenderExtrasBar(panel, host, extras, pad, usableW, topOffset
 		cell._tag:SetText(ns:L(sp.tagKey))
 		cell._tag:SetTextColor(0.72, 0.6, 0.4)
 		cell._itemId = sp.itemID
-		-- Secure attributen mogen alleen buiten combat (her)gezet worden.
-		if not inCombat then
+		-- Klik-om-te-gebruiken (buiten combat): item-attribuut op de secure knop.
+		if cell._use then
 			if sp.itemID then
-				cell:SetAttribute("type", "item")
-				cell:SetAttribute("item", "item:" .. sp.itemID)
+				cell._use:SetAttribute("type", "item")
+				cell._use:SetAttribute("item", "item:" .. sp.itemID)
 			else
-				cell:SetAttribute("type", nil)
-				cell:SetAttribute("item", nil)
+				cell._use:SetAttribute("type", nil)
+				cell._use:SetAttribute("item", nil)
 			end
+			cell._use:Show()
 		end
 		cell:Show()
 	end
 	if card._cells then
 		for i = n + 1, #card._cells do
 			card._cells[i]:Hide()
+			if card._cells[i]._use then
+				card._cells[i]._use:Hide()
+			end
 		end
 	end
+	panel._mhExtrasCardH = cardH
 	return cardH
 end
 
@@ -950,18 +998,26 @@ local function ProtoRefreshCards(panel, spec, slots)
 
 	-- Volle-breedte "Consumables & extras"-balk onderaan de kaarten (klikbaar om te
 	-- gebruiken, geen keybind). ✓/✗-status uit de bestaande consumables-detectie.
-	local extras = (filter == "all" or filter == "extras") and ns.GetLayoutExtras and ns.GetLayoutExtras()
-	if type(extras) == "table" and #extras > 0 then
-		local topY = 0
-		for i = 1, COLS do
-			topY = math.max(topY, colY[i])
+	-- Afgeschermd met pcall: een fout in de extras-render mag de rest van de Layout
+	-- nooit breken. Bij een fout printen we 'm één keer zodat we 'm kunnen fixen.
+	local okExtras, errExtras = pcall(function()
+		local extras = (filter == "all" or filter == "extras") and ns.GetLayoutExtras and ns.GetLayoutExtras()
+		if type(extras) == "table" and #extras > 0 then
+			local topY = 0
+			for i = 1, COLS do
+				topY = math.max(topY, colY[i])
+			end
+			local usedH = ProtoRenderExtrasBar(panel, host, extras, pad, usableW, CARDS_TOP + topY, titleH, rowH)
+			for i = 1, COLS do
+				colY[i] = topY + usedH + GAPC
+			end
+		elseif panel._mhExtrasCard then
+			panel._mhExtrasCard:Hide()
 		end
-		local usedH = ProtoRenderExtrasBar(panel, host, extras, pad, usableW, CARDS_TOP + topY, titleH, rowH)
-		for i = 1, COLS do
-			colY[i] = topY + usedH + GAPC
-		end
-	elseif panel._mhExtrasCard then
-		panel._mhExtrasCard:Hide()
+	end)
+	if not okExtras and not panel._mhExtrasErrShown then
+		panel._mhExtrasErrShown = true
+		print("|cffff5555MH extras-fout:|r " .. tostring(errExtras))
 	end
 
 	local maxCol = 0
