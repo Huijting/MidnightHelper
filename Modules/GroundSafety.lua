@@ -41,8 +41,7 @@ function ns.SetGroundSafetyEnabled(v)
 		uiDb.groundSafety = v and true or false
 	end
 	if Enabled() then
-		-- CLEU-registratie in een SCHONE context (via C_Timer, NIET vanuit deze klik zelf) —
-		-- dat "dynamisch registreren vanuit een UI-actie" was vermoedelijk de oude forbidden-oorzaak.
+		-- Detector (UNIT_HEALTH, niet-protected) opstarten in een schone context via C_Timer.
 		if C_Timer and C_Timer.After and ns._mhGroundInitCLEU then
 			C_Timer.After(0, ns._mhGroundInitCLEU)
 		end
@@ -182,99 +181,97 @@ function ns.TestGroundSafety()
 end
 
 --------------------------------------------------------------------------------
--- Detectie — CLEU tick-detector (Rob's keuze B, 2026-07-05), 12.x-VOORZICHTIG
---
--- MH kreeg ooit 8× ADDON_ACTION_FORBIDDEN van CLEU (onafvangbaar) → daarom:
---   1. een EIGEN, schoon niet-secure frame puur voor CLEU (nergens secure/secret);
---   2. CLEU alléén registreren als de feature AAN is (opt-in) en dan geregistreerd LATEN
---      (geen dynamisch her-registreren); de eerste registratie loopt via C_Timer (schone context);
---   3. de handler raakt GEEN protected functies en GEEN secret waarden als key/branch aan:
---      alleen niet-secret CLEU-velden, met issecretvalue-guard; GEEN spell-ID als table-key
---      (puur ticks tellen); destGUID==speler is veilig (player-GUID niet secret; secret
---      destGUID = vijand → skip). Bron: onderzoek + DBM (CLEU werkt technisch in 12.x).
+-- Detectie — health-heuristiek (Plan A, 2026-07-05). CLEU (Plan B) bleek definitief
+-- FORBIDDEN voor MH: RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED") geeft onafvangbaar
+-- ADDON_ACTION_FORBIDDEN (protected functie, getainte addon). Daarom CLEU-VRIJ:
+-- luister op UNIT_HEALTH("player") en detecteer snelle, HERHAALDE HP-daling.
+--   • UnitHealth/UnitHealthMax zijn niet-protected, en niet-secret voor de speler; toch
+--     guarden we met issecretvalue (in M+/edge-cases kan health secret zijn → dan niet rekenen).
+--   • ≥N schade-"ticks" (elk ≥HP%) binnen het venster → "je staat in iets" → MOVE!-flits.
+--   • Eerlijk: grover dan CLEU — kan ook afgaan bij melee/sterke DoT (geen manier om
+--     grondeffect te onderscheiden zonder de verboden combat log). Drempels afstelbaar.
 --------------------------------------------------------------------------------
 
-local cleuFrame
-local cleuRegistered = false
+local hpRegistered = false
+local prevHP
 local tickTimes = {}
 local lastTickTime = 0
 local lastFlash = 0
 local dangerOn = false
 
 local WINDOW = 2.0 -- glijdend venster (s)
-local NEED_TICKS = 3 -- ≥ dit aantal ticks in het venster → "je staat ergens in"
+local NEED_TICKS = 3 -- ≥ dit aantal schade-ticks in het venster → alarm
 local FLASH_THROTTLE = 1.2 -- min. tijd tussen nieuwe alarm-triggers (s)
-local CLEAR_AFTER = 1.0 -- geen tick meer voor deze tijd → gevaar voorbij (s)
-local HP_PCT_MIN = 0.02 -- tik telt alleen mee als ≥ 2% van max-HP (indien amount leesbaar)
+local CLEAR_AFTER = 1.2 -- geen schade meer voor deze tijd → gevaar voorbij (s)
+local HP_PCT_MIN = 0.02 -- HP-daling telt alleen als ≥ 2% van max-HP
 
-local function OnCLEU()
+local function OnHealth()
 	if not Enabled() then
 		return
 	end
-	-- 15 velden: 2=subevent, 8=destGUID, 15=amount (voor SPELL_PERIODIC_DAMAGE). Geen spellId gebruikt.
-	local _, sub, _, _, _, _, _, destGUID, _, _, _, _, _, _, amount = CombatLogGetCurrentEventInfo()
-	if sub ~= "SPELL_PERIODIC_DAMAGE" then
+	local cur = UnitHealth and UnitHealth("player")
+	local max = UnitHealthMax and UnitHealthMax("player")
+	if not cur or not max then
 		return
 	end
-	-- destGUID moet de speler zijn. Secret destGUID = een vijand → skip (player-GUID is niet secret).
-	if issecretvalue and issecretvalue(destGUID) then
+	-- 12.x: health kan in sommige contexten secret zijn → niet op rekenen (geen taint).
+	if issecretvalue and (issecretvalue(cur) or issecretvalue(max)) then
+		prevHP = nil
 		return
 	end
-	if destGUID ~= UnitGUID("player") then
+	if max <= 0 then
+		prevHP = cur
 		return
-	end
-	-- HP%-drempel: verwaarloosbare tikjes negeren (alleen als amount leesbaar + niet-secret is).
-	if amount ~= nil and type(amount) == "number" and not (issecretvalue and issecretvalue(amount)) then
-		local maxhp = UnitHealthMax and UnitHealthMax("player") or 0
-		if maxhp > 0 and (amount / maxhp) < HP_PCT_MIN then
-			return
-		end
 	end
 	local now = GetTime()
-	tickTimes[#tickTimes + 1] = now
-	lastTickTime = now
-	-- Venster opschonen + tellen (in-place compacteren).
-	local cutoff = now - WINDOW
-	local n = 0
-	for i = 1, #tickTimes do
-		if tickTimes[i] >= cutoff then
-			n = n + 1
-			tickTimes[n] = tickTimes[i]
+	if prevHP and cur < prevHP and (prevHP - cur) / max >= HP_PCT_MIN then
+		tickTimes[#tickTimes + 1] = now
+		lastTickTime = now
+		-- Venster opschonen + tellen (in-place compacteren).
+		local cutoff = now - WINDOW
+		local n = 0
+		for i = 1, #tickTimes do
+			if tickTimes[i] >= cutoff then
+				n = n + 1
+				tickTimes[n] = tickTimes[i]
+			end
+		end
+		for i = #tickTimes, n + 1, -1 do
+			tickTimes[i] = nil
+		end
+		if n >= NEED_TICKS and not dangerOn and (now - lastFlash) >= FLASH_THROTTLE then
+			dangerOn = true
+			lastFlash = now
+			ns.SetGroundDanger(true)
 		end
 	end
-	for i = #tickTimes, n + 1, -1 do
-		tickTimes[i] = nil
-	end
-	if n >= NEED_TICKS and not dangerOn and (now - lastFlash) >= FLASH_THROTTLE then
-		dangerOn = true
-		lastFlash = now
-		ns.SetGroundDanger(true)
-	end
+	prevHP = cur
 end
 
-local function EnsureCLEU()
-	if cleuRegistered or not Enabled() then
+-- CLEU-VRIJ: UNIT_HEALTH is niet-protected, dus RegisterUnitEvent is toegestaan (i.t.t. CLEU).
+local function EnsureDetector()
+	if hpRegistered or not Enabled() then
 		return
 	end
-	cleuFrame = CreateFrame("Frame") -- schoon, los frame; raakt nooit een secure/secret waarde
-	cleuFrame:SetScript("OnEvent", OnCLEU)
-	cleuFrame:SetScript("OnUpdate", function()
-		-- Geen tick meer → gevaar voorbij → flits uitzetten.
+	local f = CreateFrame("Frame")
+	f:SetScript("OnEvent", OnHealth)
+	f:SetScript("OnUpdate", function()
+		-- Geen schade meer → gevaar voorbij → flits uitzetten.
 		if dangerOn and (GetTime() - lastTickTime) > CLEAR_AFTER then
 			dangerOn = false
 			ns.SetGroundDanger(false)
 		end
 	end)
-	cleuFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	cleuRegistered = true
+	f:RegisterUnitEvent("UNIT_HEALTH", "player")
+	hpRegistered = true
 end
-ns._mhGroundInitCLEU = EnsureCLEU
+ns._mhGroundInitCLEU = EnsureDetector -- (naam behouden voor de enable-hook)
 
--- Bij login: alleen registreren als de feature al AAN stond (schone context, à la DBM).
+-- Bij login: alleen aanzetten als de feature al AAN stond.
 local initFrame = CreateFrame("Frame")
 initFrame:RegisterEvent("PLAYER_LOGIN")
 initFrame:SetScript("OnEvent", function()
 	if Enabled() then
-		EnsureCLEU()
+		EnsureDetector()
 	end
 end)
