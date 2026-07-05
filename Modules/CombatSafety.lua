@@ -77,6 +77,24 @@ function ns.SetCombatSafetySpeakEnabled(v)
 	end
 end
 
+-- "Alleen belangrijke casts" — standaard UIT: toon bij ÁLLE op-jou-gerichte casts (gelijk aan de
+-- stem). Aan = alleen casts die Blizzard als "important" markeert (minder, maar vaak te weinig).
+local function ImportantOnly()
+	local uiDb = ns.db and ns.db.ui
+	return type(uiDb) == "table" and uiDb.combatSafetyImportantOnly == true
+end
+
+function ns.IsCombatSafetyImportantOnly()
+	return ImportantOnly()
+end
+
+function ns.SetCombatSafetyImportantOnly(v)
+	local uiDb = ns.db and ns.db.ui
+	if type(uiDb) == "table" then
+		uiDb.combatSafetyImportantOnly = v and true or false
+	end
+end
+
 -- Debug (/mhcsdebug): print per vijandelijke cast + forceer de cue te tonen (gate genegeerd),
 -- zodat we live kunnen zien of de events afgaan en het frame rendert.
 local function CSDebugOn()
@@ -372,7 +390,7 @@ local function SetupBar(b, unit)
 	end
 	local important = C_Spell and C_Spell.IsSpellImportant and C_Spell.IsSpellImportant(spellId)
 	local targetsPlayer = PlayerIsSpellTarget and PlayerIsSpellTarget(unit, "player")
-	if important == nil or targetsPlayer == nil then
+	if targetsPlayer == nil then -- "belangrijk" is optioneel (zie de gate onderaan)
 		return false
 	end
 	if not pcall(function()
@@ -405,9 +423,13 @@ local function SetupBar(b, unit)
 		b:SetAlpha(1) -- debug: toon voor ELKE cast (gate genegeerd)
 		return true
 	end
-	if b.SetAlphaFromBoolean and C_CurveUtil and C_CurveUtil.EvaluateColorValueFromBoolean then
-		local ta = C_CurveUtil.EvaluateColorValueFromBoolean(important, 0, 1)
-		b:SetAlphaFromBoolean(targetsPlayer, ta, 0)
+	if b.SetAlphaFromBoolean then
+		if ImportantOnly() and important ~= nil and C_CurveUtil and C_CurveUtil.EvaluateColorValueFromBoolean then
+			local ta = C_CurveUtil.EvaluateColorValueFromBoolean(important, 0, 1)
+			b:SetAlphaFromBoolean(targetsPlayer, ta, 0)
+		else
+			b:SetAlphaFromBoolean(targetsPlayer, 1, 0) -- álle op-mij-gerichte casts
+		end
 		return true
 	end
 	return false
@@ -518,7 +540,7 @@ local function ShowCast(unit)
 	-- Secret-booleans (NIET met if op vertakken — alleen aan de engine voeren).
 	local important = C_Spell and C_Spell.IsSpellImportant and C_Spell.IsSpellImportant(spellId)
 	local targetsPlayer = PlayerIsSpellTarget and PlayerIsSpellTarget(unit, "player")
-	if important == nil or targetsPlayer == nil then
+	if targetsPlayer == nil then -- "belangrijk" is optioneel (zie de gate onderaan)
 		HideFor(unit)
 		return
 	end
@@ -556,11 +578,17 @@ local function ShowCast(unit)
 	-- = 0 bij niet-belangrijk, 1 bij belangrijk; SetAlphaFromBoolean gate't dat op targetsPlayer.
 	if CSDebugOn() then
 		f:SetAlpha(1) -- debug: toon voor ELKE cast (gate genegeerd)
-	elseif f.SetAlphaFromBoolean and C_CurveUtil and C_CurveUtil.EvaluateColorValueFromBoolean then
-		local trueAlpha = C_CurveUtil.EvaluateColorValueFromBoolean(important, 0, 1)
-		f:SetAlphaFromBoolean(targetsPlayer, trueAlpha, 0)
+	elseif f.SetAlphaFromBoolean then
+		if ImportantOnly() and important ~= nil and C_CurveUtil and C_CurveUtil.EvaluateColorValueFromBoolean then
+			-- alleen belangrijke: alpha 1 als (op mij EN belangrijk)
+			local trueAlpha = C_CurveUtil.EvaluateColorValueFromBoolean(important, 0, 1)
+			f:SetAlphaFromBoolean(targetsPlayer, trueAlpha, 0)
+		else
+			-- álle op-mij-gerichte casts: alpha 1 als op mij (belangrijk niet vereist)
+			f:SetAlphaFromBoolean(targetsPlayer, 1, 0)
+		end
 	else
-		-- Geen secret-veilige gate beschikbaar → niets tonen (anders elke cast tonen).
+		-- Geen secret-veilige gate beschikbaar → niets tonen.
 		f:Hide()
 		shownUnit = nil
 	end

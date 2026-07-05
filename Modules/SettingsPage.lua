@@ -551,6 +551,13 @@ function ns.BuildSettingsPanel(panel)
 			ns.SetCombatSafetyBarsEnabled(v)
 		end
 	end)
+	AddToggle("alerts", "SET_CS_IMPORTANT_TITLE", "SET_CS_IMPORTANT_DESC", function()
+		return ns.IsCombatSafetyImportantOnly and ns.IsCombatSafetyImportantOnly()
+	end, function(v)
+		if ns.SetCombatSafetyImportantOnly then
+			ns.SetCombatSafetyImportantOnly(v)
+		end
+	end)
 	AddButtons("alerts", {
 		{ labelKey = "SET_CS_PREVIEW", onClick = function()
 			if ns.TestCombatSafety then
