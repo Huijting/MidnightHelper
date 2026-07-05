@@ -1014,7 +1014,20 @@ end
 
 local targetFrame = CreateFrame("Frame")
 targetFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
-targetFrame:SetScript("OnEvent", function()
+targetFrame:RegisterEvent("PLAYER_REGEN_DISABLED") -- combat-start: venster sluiten (Rob-wens)
+targetFrame:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_REGEN_DISABLED" then
+		-- In gevecht is het boss-venster een PRE-PULL-referentie → sluiten zodat het niet
+		-- in beeld blijft tijdens de fight. (De ENCOUNTER_START-auto-open blijft apart.)
+		if win and win:IsShown() then
+			win:Hide()
+		end
+		return
+	end
+	-- PLAYER_TARGET_CHANGED: alleen BUITEN combat (her)openen, anders popt 'ie terug in de fight.
+	if InCombatLockdown() then
+		return
+	end
 	if not ns.IsBossWindowAutoOpenEnabled() then
 		return
 	end

@@ -469,6 +469,25 @@ local function IsHostileNameplate(unit)
 	return true
 end
 
+-- Heeft deze unit NU een actieve cast/channel? Presence-check op de (secret) spell-ID via
+-- nil-vergelijking → toegestaan, geen taint. Gebruikt door de opruim-sweep (self-heal tegen
+-- blijvende iconen/balken als een stop-event gemist wordt).
+local function UnitHasActiveCast(unit)
+	if UnitCastingInfo then
+		local _, _, _, _, _, _, _, _, sid = UnitCastingInfo(unit)
+		if sid ~= nil then
+			return true
+		end
+	end
+	if UnitChannelInfo then
+		local _, _, _, _, _, _, _, sid = UnitChannelInfo(unit)
+		if sid ~= nil then
+			return true
+		end
+	end
+	return false
+end
+
 local function HideFor(unit)
 	if unit and shownUnit and unit ~= shownUnit then
 		return -- een andere unit is getoond; laat staan
@@ -790,6 +809,39 @@ ev:SetScript("OnEvent", function(_, event, unit)
 		-- STOP / CHANNEL_STOP / INTERRUPTED / nameplate weg → cast voorbij (beide weergaves).
 		HideFor(unit)
 		ReleaseBar(unit)
+	end
+end)
+
+-- Opruim-sweep: verbergt/releaset iconen en balken waarvan de unit niet meer cast (vangt
+-- gemiste stop-events op, bv. mob sterft mid-cast of nameplate-token hergebruikt). ~0,4s.
+local _sweepT = 0
+ev:SetScript("OnUpdate", function(_, elapsed)
+	_sweepT = _sweepT + elapsed
+	if _sweepT < 0.4 then
+		return
+	end
+	_sweepT = 0
+	-- Icoon: getoond op een echte unit die niet meer cast → verbergen.
+	if shownUnit and shownUnit ~= "_test" and frame and frame:IsShown() then
+		if not UnitHasActiveCast(shownUnit) then
+			shownUnit = nil
+			frame:Hide()
+		end
+	end
+	-- Balken: elke echte-unit-balk zonder actieve cast → releasen (lijst eerst, dan pas releasen).
+	if next(barsByUnit) then
+		local stale
+		for unit in pairs(barsByUnit) do
+			if type(unit) == "string" and unit:find("^nameplate") and not UnitHasActiveCast(unit) then
+				stale = stale or {}
+				stale[#stale + 1] = unit
+			end
+		end
+		if stale then
+			for i = 1, #stale do
+				ReleaseBar(stale[i])
+			end
+		end
 	end
 end)
 
