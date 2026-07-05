@@ -20,10 +20,11 @@
 
 	Bewust GEEN eigen spell-database (de valkuil van GTFO). Bron: docs/COMBAT_SAFETY_PLAN.md.
 
-	Twee weergaves (stijl-schakelaar in Settings): "Icoon" = één versleepbaar icoon (laatste
-	relevante cast); "Balken" = een verticale stapel castbalken (icoon + spellnaam + aflopende
-	progressbar) uit een frame-pool, meerdere gelijktijdige casts-op-jou tegelijk. Detectie +
-	TTS zijn gedeeld. Optionele TTS spreekt de cast-naam uit (secret-safe sink).
+	Twee weergaves (additief via Settings): het versleepbare ICOON toont altijd de meest
+	imminente relevante cast; "Toon óók balken" zet er een aparte, versleepbare STAPEL castbalken
+	naast (icoon + spellnaam + aflopende progressbar) uit een frame-pool — meerdere gelijktijdige
+	casts-op-jou tegelijk. Detectie + TTS zijn gedeeld. Optionele TTS spreekt de cast-naam uit
+	(secret-safe sink).
 
 	Bewuste beperkingen (secret-value-veilig): geen MOVE!/INTERRUPT!-onderscheid en geen exacte
 	geluid-gating op "op mij" (vergt vertakken op secret waarden). In de balken-modus krijgen
@@ -447,11 +448,7 @@ function ns.SetCombatSafetyBarsEnabled(v)
 	if type(uiDb) == "table" then
 		uiDb.combatSafetyBars = v and true or false
 	end
-	-- Stijl-wissel: verberg beide weergaves; nieuwe casts vullen de gekozen modus.
-	shownUnit = nil
-	if frame then
-		frame:Hide()
-	end
+	-- Balken uit → opruimen; het icoon blijft (verschijnt vanzelf bij de volgende cast).
 	HideAllBars()
 end
 
@@ -555,19 +552,11 @@ local function EvaluateCast(unit)
 		return
 	end
 	if not IsHostileNameplate(unit) then
-		if BarsMode() then
-			ReleaseBar(unit)
-		else
-			HideFor(unit)
-		end
+		HideFor(unit)
+		ReleaseBar(unit)
 		return
 	end
-	if BarsMode() then
-		if not pcall(BarsShowCast, unit) then
-			ReleaseBar(unit) -- secret-taint/API-verschil: veilig verbergen
-		end
-		return
-	end
+	-- Icoon (basis-weergave, altijd): de meest imminente relevante cast.
 	local ok = pcall(ShowCast, unit)
 	if not ok then
 		-- Secret-taint of API-verschil: veilig verbergen, geen error-spam.
@@ -577,6 +566,12 @@ local function EvaluateCast(unit)
 				frame:SetAlpha(1)
 				frame:Hide()
 			end
+		end
+	end
+	-- Balken (additief, náást het icoon): meerdere gelijktijdige casts.
+	if BarsMode() then
+		if not pcall(BarsShowCast, unit) then
+			ReleaseBar(unit)
 		end
 	end
 end
@@ -610,14 +605,28 @@ local function TestSpeakSample()
 end
 
 function ns.TestCombatSafety()
-	-- Balken-modus: toggle een paar SLEEPBARE sample-balkjes (statisch, geen secret waarden).
-	if BarsMode() then
+	local f = EnsureFrame()
+	-- Toggle: staat er iets van de preview aan → alles uit.
+	if (shownUnit == "_test") or barsByUnit["_test1"] then
+		shownUnit = nil
+		f:Hide()
 		if barsByUnit["_test1"] then
 			ReleaseBar("_test1")
 			ReleaseBar("_test2")
 			ReleaseBar("_test3")
-			return
 		end
+		return
+	end
+	-- Icoon-preview (basis-weergave, altijd) — sleepbaar om te positioneren.
+	f._icon:SetTexture(STATIC_ICON)
+	if f._cd.SetCooldown then
+		f._cd:SetCooldown(GetTime(), 8) -- lange swipe, puur cosmetisch voor de preview
+	end
+	f:SetAlpha(1)
+	shownUnit = "_test"
+	f:Show()
+	-- Balken-preview (als "óók balken" aan staat) — aparte sleepbare stapel.
+	if BarsMode() then
 		local samples = { ns:L("CS_TEST_NAME"), ns:L("CS_WARN"), ns:L("CS_ONYOU") }
 		local keys = { "_test1", "_test2", "_test3" }
 		for i = 1, #keys do
@@ -633,25 +642,7 @@ function ns.TestCombatSafety()
 			b:SetAlpha(1)
 		end
 		LayoutBars()
-		TestSpeakSample()
-		return
 	end
-
-	local f = EnsureFrame()
-	-- Toggle: staat de preview al aan → uitzetten.
-	if shownUnit == "_test" and f:IsShown() then
-		shownUnit = nil
-		f:Hide()
-		return
-	end
-	f._icon:SetTexture(STATIC_ICON)
-	if f._cd.SetCooldown then
-		f._cd:SetCooldown(GetTime(), 8) -- lange swipe, puur cosmetisch voor de preview
-	end
-	f:SetAlpha(1)
-	shownUnit = "_test"
-	f:Show()
-	-- Blijft staan tot je 'm wegklikt of /reload't → rustig verslepen om te positioneren.
 	-- Als TTS aan staat: spreek een voorbeeld-naam zodat je de stem hoort.
 	TestSpeakSample()
 end
@@ -796,12 +787,9 @@ ev:SetScript("OnEvent", function(_, event, unit)
 			pcall(AnnounceCast, unit)
 		end
 	else
-		-- STOP / CHANNEL_STOP / INTERRUPTED / nameplate weg → cast voorbij.
-		if BarsMode() then
-			ReleaseBar(unit)
-		else
-			HideFor(unit)
-		end
+		-- STOP / CHANNEL_STOP / INTERRUPTED / nameplate weg → cast voorbij (beide weergaves).
+		HideFor(unit)
+		ReleaseBar(unit)
 	end
 end)
 
