@@ -23,11 +23,20 @@ duration-uitlezing + framepool/RepositionFrames. TTS staat er los van (zelfde tr
 **A** = ons icoon → mini-stack van N iconen (laag-midden), **B** = volledige castbalken (hoog, vooral groep),
 **C** = aparte "grond-schade/MOVE!"-feature (midden, dekt de grond-effecten die A/B NIET dekken).
 
-**Rob's keuze-volgorde: eerst 4 (Feature A + TTS — DONE) → dan B → dan C.**
-- **B = volledige castbalken** (TargetedSpells-stijl): meerdere inkomende casts als balkjes. Hoog qua werk;
-  hergebruik de secret-safe patronen + framepool. Eerst uitwerken hoe het naast/i.p.v. het ene icoon past.
+**Rob's keuze-volgorde: eerst 4 (Feature A + TTS — DONE) → dan B (GEBOUWD, testen) → dan C.**
+- ✅ **B = castbalken GEBOUWD (2026-07-05), NOG TE TESTEN.** Stijl-schakelaar (Rob's keuze): setting
+  **"Toon als balken"** (`combatSafetyBars`, default UIT = icoon-modus onveranderd). Balken-modus = frame-pool
+  van verticaal gestapelde balkjes (icoon + spellnaam via SetText-sink + aflopende progressbar via
+  `SetTimerDuration` duration-object), per nameplate-unit één balk, alpha-gated via `SetAlphaFromBoolean`.
+  Echte balken zijn **display-only** (geen muis → onzichtbare alpha-0 balken eten geen klikken); **Preview**
+  toont 3 sleepbare sample-balken om de stapel te plaatsen. Detectie + TTS gedeeld met icoon-modus. Alles
+  pcall-geguard. **Testen:** zet "Toon als balken" aan → Preview (3 balken, sleepbaar) → in Delve meerdere
+  casters die je targeten = meerdere balken. Bekende beperking: niet-relevante casts = alpha-0 gaten in de
+  stapel; `SetTimerDuration` nog niet 100% zeker (pcall → balk vol/statisch als 't afwijkt). Interrupt-kleur
+  bewust nog niet (onzekere `SetVertexColorFromBoolean`-signatuur).
 - **C = "je staat in de stront / MOVE!"** (GTFO-light) voor grond-effecten (Robs Delve-groepsvoorbeeld).
-- **2.4.0 Beta** kan al zodra Rob "go" zegt (Feature A + TTS zijn af); B/C kunnen erna of mee.
+- **2.4.0 Beta** kan zodra Rob "go" zegt (Feature A + TTS af; B erbij zodra getest). ⚠️ Ook meenemen:
+  **ResetRoutine taint-fix** (live bug, nu op main) — of als losse 2.3.2 hotfix.
 
 **Git-status:** Combat Safety (Feature A + preview-toggle + TTS) is gecommit+gepusht als WIP op `main`
 (nog niet gereleased; CF blijft op 2.3.1). Werkmap = live-map = de git-repo (zie workflow-blok onder).

@@ -20,9 +20,14 @@
 
 	Bewust GEEN eigen spell-database (de valkuil van GTFO). Bron: docs/COMBAT_SAFETY_PLAN.md.
 
-	v1-beperkingen (bewust, secret-value-veilig): geen spell-naam-tekst en geen MOVE!/
-	INTERRUPT!-onderscheid (dat vergt vertakken op secret waarden). Eén icoon tegelijk
-	(laatste relevante cast). Kan later uitgebreid met een frame-pool à la TargetedSpells.
+	Twee weergaves (stijl-schakelaar in Settings): "Icoon" = één versleepbaar icoon (laatste
+	relevante cast); "Balken" = een verticale stapel castbalken (icoon + spellnaam + aflopende
+	progressbar) uit een frame-pool, meerdere gelijktijdige casts-op-jou tegelijk. Detectie +
+	TTS zijn gedeeld. Optionele TTS spreekt de cast-naam uit (secret-safe sink).
+
+	Bewuste beperkingen (secret-value-veilig): geen MOVE!/INTERRUPT!-onderscheid en geen exacte
+	geluid-gating op "op mij" (vergt vertakken op secret waarden). In de balken-modus krijgen
+	niet-relevante casts alpha 0 (engine beslist), wat kleine gaten in de stapel kan geven.
 ]]
 
 local _, ns = ...
@@ -189,6 +194,259 @@ local function EnsureFrame()
 end
 
 --------------------------------------------------------------------------------
+-- Weergave "Balken" (stijl-schakelaar): meerdere inkomende casts-op-jou als een
+-- verticale stapel balkjes (icoon + spellnaam + aflopende progressbar). Zelfde
+-- secret-safe patronen als het icoon: naam via SetText (toegestane sink), aftel via
+-- duration-object (SetTimerDuration), zichtbaarheid via SetAlphaFromBoolean. Elk
+-- balkje = één nameplate-unit; niet-relevante casts krijgen alpha 0 (engine beslist).
+--------------------------------------------------------------------------------
+
+local function BarsMode()
+	local uiDb = ns.db and ns.db.ui
+	return type(uiDb) == "table" and uiDb.combatSafetyBars == true
+end
+
+function ns.IsCombatSafetyBarsEnabled()
+	return BarsMode()
+end
+
+local BAR_W, BAR_H, BAR_GAP = 220, 24, 3
+local barHost, barPool, barsByUnit, barOrder = nil, {}, {}, {}
+
+local function EnsureBarHost()
+	if barHost then
+		return barHost
+	end
+	local h = CreateFrame("Frame", "MidnightHelperCombatSafetyBars", UIParent)
+	h:SetSize(BAR_W, BAR_H)
+	h:SetFrameStrata("HIGH")
+	h:SetClampedToScreen(true)
+	h:SetMovable(true)
+	local pos = ns.db and ns.db.ui and ns.db.ui.combatSafetyBarsPos
+	if type(pos) == "table" and pos[1] then
+		h:SetPoint(pos[1], UIParent, pos[2] or pos[1], pos[3] or 0, pos[4] or 0)
+	else
+		h:SetPoint("CENTER", UIParent, "CENTER", 0, 180)
+	end
+	if ns.db and ns.db.ui and ns.db.ui.combatSafetyBarsScale then
+		h:SetScale(ns.db.ui.combatSafetyBarsScale)
+	end
+	h:Hide()
+	barHost = h
+	return h
+end
+
+local function SaveBarPos()
+	local h = barHost
+	if not h then
+		return
+	end
+	local p, _, rp, x, y = h:GetPoint()
+	if p and ns.db and ns.db.ui then
+		ns.db.ui.combatSafetyBarsPos = { p, rp, x, y }
+	end
+end
+
+local function AcquireBar()
+	for i = 1, #barPool do
+		if not barPool[i]._inUse then
+			barPool[i]._inUse = true
+			return barPool[i]
+		end
+	end
+	local host = EnsureBarHost()
+	local b = CreateFrame("Button", nil, host)
+	b:SetSize(BAR_W, BAR_H)
+	-- Echte balken zijn display-only (geen muis) zodat onzichtbare (alpha 0) balken nooit
+	-- klikken opvangen. Alleen de preview-balken krijgen muis (voor slepen/positioneren).
+	b:EnableMouse(false)
+	b:RegisterForDrag("LeftButton")
+	local bg = b:CreateTexture(nil, "BACKGROUND")
+	bg:SetAllPoints(b)
+	bg:SetColorTexture(0, 0, 0, 0.5)
+	local pb = CreateFrame("StatusBar", nil, b)
+	pb:SetPoint("TOPLEFT", b, "TOPLEFT", BAR_H + 1, -1)
+	pb:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -1, 1)
+	pb:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+	pb:SetStatusBarColor(0.7, 0.15, 0.15)
+	pb:SetMinMaxValues(0, 1)
+	pb:SetValue(1)
+	b._pb = pb
+	local icon = b:CreateTexture(nil, "ARTWORK")
+	icon:SetPoint("LEFT", b, "LEFT", 0, 0)
+	icon:SetSize(BAR_H, BAR_H)
+	icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+	icon:SetTexture(STATIC_ICON)
+	b._icon = icon
+	local nm = pb:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	nm:SetPoint("LEFT", pb, "LEFT", 4, 0)
+	nm:SetPoint("RIGHT", pb, "RIGHT", -4, 0)
+	nm:SetJustifyH("LEFT")
+	nm:SetWordWrap(false)
+	b._name = nm
+	b:SetScript("OnDragStart", function()
+		EnsureBarHost():StartMoving()
+	end)
+	b:SetScript("OnDragStop", function()
+		EnsureBarHost():StopMovingOrSizing()
+		SaveBarPos()
+	end)
+	b:EnableMouseWheel(true)
+	b:SetScript("OnMouseWheel", function(_, delta)
+		if not IsShiftKeyDown() then
+			return
+		end
+		local h = EnsureBarHost()
+		local s = math.max(0.5, math.min(2.5, (h:GetScale() or 1) + (delta > 0 and 0.1 or -0.1)))
+		h:SetScale(s)
+		if ns.db and ns.db.ui then
+			ns.db.ui.combatSafetyBarsScale = s
+		end
+	end)
+	barPool[#barPool + 1] = b
+	b._inUse = true
+	return b
+end
+
+local function LayoutBars()
+	local host = EnsureBarHost()
+	local y, shown = 0, 0
+	for _, unit in ipairs(barOrder) do
+		local b = barsByUnit[unit]
+		if b then
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", host, "TOPLEFT", 0, -y)
+			b:Show()
+			y = y + BAR_H + BAR_GAP
+			shown = shown + 1
+			if shown >= 8 then
+				break
+			end
+		end
+	end
+	host:SetSize(BAR_W, math.max(BAR_H, y - BAR_GAP))
+	if shown > 0 then
+		host:Show()
+	else
+		host:Hide()
+	end
+end
+
+local function ReleaseBar(unit)
+	local b = barsByUnit[unit]
+	if not b then
+		return
+	end
+	barsByUnit[unit] = nil
+	b._inUse = false
+	b:EnableMouse(false) -- reset: preview kan 'm hebben aangezet
+	b:Hide()
+	for i = #barOrder, 1, -1 do
+		if barOrder[i] == unit then
+			table.remove(barOrder, i)
+		end
+	end
+	LayoutBars()
+end
+
+-- Vul een balk uit de live cast van een nameplate-unit. Return false = niet tonen.
+local function SetupBar(b, unit)
+	local icon, spellId, isChannel
+	if UnitCastingInfo then
+		local _, _, tex, _, _, _, _, _, sid = UnitCastingInfo(unit)
+		icon, spellId, isChannel = tex, sid, false
+	end
+	if not spellId and UnitChannelInfo then
+		local _, _, tex, _, _, _, _, sid = UnitChannelInfo(unit)
+		icon, spellId, isChannel = tex, sid, true
+	end
+	if not spellId then
+		return false
+	end
+	local important = C_Spell and C_Spell.IsSpellImportant and C_Spell.IsSpellImportant(spellId)
+	local targetsPlayer = PlayerIsSpellTarget and PlayerIsSpellTarget(unit, "player")
+	if important == nil or targetsPlayer == nil then
+		return false
+	end
+	if not pcall(function()
+		b._icon:SetTexture(icon)
+	end) then
+		b._icon:SetTexture(STATIC_ICON)
+	end
+	-- Spell-naam (secret string; SetText is een toegestane sink — mag getoond worden).
+	if C_Spell and C_Spell.GetSpellName then
+		local nm = C_Spell.GetSpellName(spellId)
+		if nm ~= nil then
+			pcall(function()
+				b._name:SetText(nm)
+			end)
+		else
+			b._name:SetText("")
+		end
+	end
+	-- Aflopende progressbar via duration-OBJECT (nooit zelf de resterende tijd berekenen).
+	local duration = (isChannel and UnitChannelDuration and UnitChannelDuration(unit))
+		or (UnitCastingDuration and UnitCastingDuration(unit))
+		or nil
+	if duration and b._pb.SetTimerDuration then
+		pcall(function()
+			b._pb:SetTimerDuration(duration)
+		end)
+	end
+	-- Zichtbaarheid: alpha 1 alleen als (op mij EN belangrijk), anders 0 — puur engine.
+	if b.SetAlphaFromBoolean and C_CurveUtil and C_CurveUtil.EvaluateColorValueFromBoolean then
+		local ta = C_CurveUtil.EvaluateColorValueFromBoolean(important, 0, 1)
+		b:SetAlphaFromBoolean(targetsPlayer, ta, 0)
+		return true
+	end
+	return false
+end
+
+local function BarsShowCast(unit)
+	-- Pre-filter (presence-check, geen secret-branch): alleen GERICHTE casts → minder lege balken.
+	if not (UnitSpellTargetName and UnitSpellTargetName(unit) ~= nil) then
+		ReleaseBar(unit)
+		return
+	end
+	local b = barsByUnit[unit]
+	if not b then
+		b = AcquireBar()
+		barsByUnit[unit] = b
+		barOrder[#barOrder + 1] = unit
+	end
+	if not SetupBar(b, unit) then
+		ReleaseBar(unit)
+		return
+	end
+	LayoutBars()
+end
+
+local function HideAllBars()
+	wipe(barsByUnit)
+	wipe(barOrder)
+	for i = 1, #barPool do
+		barPool[i]._inUse = false
+		barPool[i]:Hide()
+	end
+	if barHost then
+		barHost:Hide()
+	end
+end
+
+function ns.SetCombatSafetyBarsEnabled(v)
+	local uiDb = ns.db and ns.db.ui
+	if type(uiDb) == "table" then
+		uiDb.combatSafetyBars = v and true or false
+	end
+	-- Stijl-wissel: verberg beide weergaves; nieuwe casts vullen de gekozen modus.
+	shownUnit = nil
+	if frame then
+		frame:Hide()
+	end
+	HideAllBars()
+end
+
+--------------------------------------------------------------------------------
 -- Detectie (12.x secret-safe: geen arithmetic/branch op secret waarden)
 --------------------------------------------------------------------------------
 
@@ -286,7 +544,17 @@ local function EvaluateCast(unit)
 		return
 	end
 	if not IsHostileNameplate(unit) then
-		HideFor(unit)
+		if BarsMode() then
+			ReleaseBar(unit)
+		else
+			HideFor(unit)
+		end
+		return
+	end
+	if BarsMode() then
+		if not pcall(BarsShowCast, unit) then
+			ReleaseBar(unit) -- secret-taint/API-verschil: veilig verbergen
+		end
 		return
 	end
 	local ok = pcall(ShowCast, unit)
@@ -308,6 +576,7 @@ function ns.RefreshCombatSafety()
 		if frame then
 			frame:Hide()
 		end
+		HideAllBars()
 	end
 end
 
@@ -316,7 +585,47 @@ end
 -- (geen secret waarden). Zo kun je het icoon vooraf op z'n plek zetten.
 --------------------------------------------------------------------------------
 
+local function TestSpeakSample()
+	if SpeakEnabled() and C_VoiceChat and C_VoiceChat.SpeakText then
+		pcall(function()
+			local voiceId = 0
+			if C_TTSSettings and C_TTSSettings.GetVoiceOptionID and Enum and Enum.TtsVoiceType then
+				voiceId = C_TTSSettings.GetVoiceOptionID(Enum.TtsVoiceType.Standard) or 0
+			end
+			local vol = (C_TTSSettings and C_TTSSettings.GetSpeechVolume and C_TTSSettings.GetSpeechVolume()) or 100
+			C_VoiceChat.SpeakText(voiceId, ns:L("CS_TEST_NAME"), 2, vol, true)
+		end)
+	end
+end
+
 function ns.TestCombatSafety()
+	-- Balken-modus: toggle een paar SLEEPBARE sample-balkjes (statisch, geen secret waarden).
+	if BarsMode() then
+		if barsByUnit["_test1"] then
+			ReleaseBar("_test1")
+			ReleaseBar("_test2")
+			ReleaseBar("_test3")
+			return
+		end
+		local samples = { ns:L("CS_TEST_NAME"), ns:L("CS_WARN"), ns:L("CS_ONYOU") }
+		local keys = { "_test1", "_test2", "_test3" }
+		for i = 1, #keys do
+			local b = AcquireBar()
+			barsByUnit[keys[i]] = b
+			barOrder[#barOrder + 1] = keys[i]
+			b._icon:SetTexture(STATIC_ICON)
+			b._name:SetText(samples[i])
+			if b._pb.SetValue then
+				b._pb:SetValue(1 - (i - 1) * 0.3)
+			end
+			b:EnableMouse(true) -- preview: sleepbaar om de stapel te plaatsen
+			b:SetAlpha(1)
+		end
+		LayoutBars()
+		TestSpeakSample()
+		return
+	end
+
 	local f = EnsureFrame()
 	-- Toggle: staat de preview al aan → uitzetten.
 	if shownUnit == "_test" and f:IsShown() then
@@ -333,16 +642,7 @@ function ns.TestCombatSafety()
 	f:Show()
 	-- Blijft staan tot je 'm wegklikt of /reload't → rustig verslepen om te positioneren.
 	-- Als TTS aan staat: spreek een voorbeeld-naam zodat je de stem hoort.
-	if SpeakEnabled() and C_VoiceChat and C_VoiceChat.SpeakText then
-		pcall(function()
-			local voiceId = 0
-			if C_TTSSettings and C_TTSSettings.GetVoiceOptionID and Enum and Enum.TtsVoiceType then
-				voiceId = C_TTSSettings.GetVoiceOptionID(Enum.TtsVoiceType.Standard) or 0
-			end
-			local vol = (C_TTSSettings and C_TTSSettings.GetSpeechVolume and C_TTSSettings.GetSpeechVolume()) or 100
-			C_VoiceChat.SpeakText(voiceId, ns:L("CS_TEST_NAME"), 2, vol, true)
-		end)
-	end
+	TestSpeakSample()
 end
 
 --------------------------------------------------------------------------------
@@ -445,6 +745,7 @@ ev:SetScript("OnEvent", function(_, event, unit)
 		if frame then
 			frame:Hide()
 		end
+		HideAllBars()
 		return
 	end
 	if not unit or not unit:find("^nameplate") then
@@ -463,6 +764,10 @@ ev:SetScript("OnEvent", function(_, event, unit)
 		end
 	else
 		-- STOP / CHANNEL_STOP / INTERRUPTED / nameplate weg → cast voorbij.
-		HideFor(unit)
+		if BarsMode() then
+			ReleaseBar(unit)
+		else
+			HideFor(unit)
+		end
 	end
 end)
