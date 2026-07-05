@@ -1,5 +1,5 @@
 ## Interface: 120007
-## Version: 2.4.0
+## Version: 2.4.1
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.
@@ -133,6 +133,7 @@ Modules\SporefallCoach.lua
 Modules\RaidCoachData.lua
 Modules\DaggerspineCoach.lua
 Modules\AccessibleAlerts.lua
+Modules\NativeSettings.lua
 Modules\SettingsPage.lua
 Modules\ShardCapAlert.lua
 Modules\WorldContent.lua

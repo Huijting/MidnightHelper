@@ -805,7 +805,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	if msg == "settings" then
-		-- One settings home: /mh settings opens the in-addon Settings tab.
+		-- Settings live now in the native Blizzard Settings panel (Escape >
+		-- Options > AddOns > Midnight Helper). Open straight to it; fall back to
+		-- the in-addon launcher tab if the native API isn't available.
+		if ns.OpenNativeSettings and ns.OpenNativeSettings() then
+			return
+		end
 		if ns.ShowMainUI then
 			ns:ShowMainUI()
 		end

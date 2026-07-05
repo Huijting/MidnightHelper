@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.4.1] - 2026-07-05
+
+Moves all settings into the native Blizzard Settings window, expands the achievement metas, and fixes two 12.x "secret value" regressions. Released as a Beta.
+
+### Changed
+
+- **Settings now live in the native Blizzard Settings window** (Game Menu → Options → AddOns → Midnight Helper): searchable, a tooltip on every option, sub-categories, and your **language selector right at the top**. The in-addon Settings tab becomes a **launcher** (eyecatcher + "Open settings" + the Test/Preview/Reset quick actions), since native action buttons assert on client 12.0. Blizzard's own **Defaults** button doubles as "recommended". Per-achievement visibility gets its own subsection. `/mh settings` opens the native panel.
+
+### Added
+
+- **Achievement zone-meta drill-down.** The four zone metas that feed *Light Up the Night* (Forever Song, Making an Amani Out of You, That's All Folks!, Yelling into the Voidstorm) are now expandable (+/−) to show their component sub-achievements with live progress — read straight from the game's criteria API.
+
+### Fixed
+
+- **Missing Buff is back in the open world.** It was wrongly hidden across *all* Midnight zones: the reminder used "is player health a secret value?" as a fallback signal for "are auras unreliable", but health reads as secret in open-world Midnight zones while auras are perfectly readable there. It now trusts Blizzard's authoritative `C_Secrets.ShouldAurasBeSecret()` and only uses the health fallback if that API is absent — so it shows in open content again and still stays quiet in delves/rituals. (Regression from 2.4.0.) `/mh mbuff` now also prints the enabled / auras-secret / health-secret signals for diagnosis.
+- **Delve boss-coach prompt no longer over-fires.** It popped when you targeted a neutral quest giver (they're "attackable" too) and re-popped on every random enemy. It now only offers on a genuinely hostile (`UnitIsEnemy`) target, and at most **once per delve**.
+
 ## [2.4.0] - 2026-07-05
 
 Adds the Combat Safety cast warning and a delve boss-coach prompt, plus several patch 12.x "secret value" fixes. Released as a Beta.

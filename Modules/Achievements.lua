@@ -1424,17 +1424,21 @@ end
 -- criterion text is the zone-meta name and its assetID is that zone meta's own
 -- achievement, whose sub-progress (done/total) we read live. The UI turns each record
 -- into a hoverable/clickable row (tooltip = Blizzard's full criteria breakdown).
-local function MetaDetailData()
-	if not (GetAchievementNumCriteria and GetAchievementCriteriaInfo) then
+-- Read one record per criterion of ANY achievement (its criterion text + assetID).
+-- Used for the "Light Up the Night" meta (criteria = the four zone metas) AND, when a
+-- zone meta is expanded, for that zone meta's own criteria (= its component achievements).
+-- Everything comes straight from the criteria API — no hardcoded/guessed data.
+local function CriteriaData(achievementID)
+	if not (achievementID and GetAchievementNumCriteria and GetAchievementCriteriaInfo) then
 		return nil
 	end
-	local n = GetAchievementNumCriteria(LIGHT_UP_META) or 0
+	local n = GetAchievementNumCriteria(achievementID) or 0
 	if n == 0 then
 		return nil
 	end
 	local out = {}
 	for i = 1, n do
-		local str, _, completed, _, _, _, _, assetID = GetAchievementCriteriaInfo(LIGHT_UP_META, i)
+		local str, _, completed, _, _, _, _, assetID = GetAchievementCriteriaInfo(achievementID, i)
 		local id = (assetID and assetID > 0) and assetID or nil
 		local name = (str and str ~= "") and str or nil
 		local done, total
@@ -1458,6 +1462,10 @@ local function MetaDetailData()
 		}
 	end
 	return out
+end
+
+local function MetaDetailData()
+	return CriteriaData(LIGHT_UP_META)
 end
 
 local function MountOwnedByItem(itemID)
@@ -1544,6 +1552,7 @@ local function RefreshMetaDetail(st, metaComplete)
 		return
 	end
 	st.metaRows = st.metaRows or {}
+	st.metaExpanded = st.metaExpanded or {}
 	for _, r in ipairs(st.metaRows) do
 		r:Hide()
 	end
@@ -1558,12 +1567,24 @@ local function RefreshMetaDetail(st, metaComplete)
 		name = metaName,
 		achievementID = LIGHT_UP_META,
 		isMeta = true,
+		level = 0,
 		completed = (md and mt and md >= mt) or false,
 		done = md,
 		total = mt,
 	} }
+	-- Each zone meta (Forever Song, …) is an expandable row: click to fold out its
+	-- component sub-achievements, read live from that meta's own criteria.
 	for _, z in ipairs(zones) do
+		z.level = 1
+		z.expandable = (z.achievementID ~= nil)
 		list[#list + 1] = z
+		if z.achievementID and st.metaExpanded[z.achievementID] then
+			local comps = CriteriaData(z.achievementID)
+			for _, c in ipairs(comps or {}) do
+				c.level = 2
+				list[#list + 1] = c
+			end
+		end
 	end
 
 	local y = 0
@@ -1601,6 +1622,11 @@ local function RefreshMetaDetail(st, metaComplete)
 				end
 				if d2.isMeta and ns.PreviewItem then
 					ns.PreviewItem(PETALWING_ITEM, "Brilliant Petalwing") -- plain click on header: preview the mount
+				elseif d2.expandable then
+					achPanelState.metaExpanded[aid] = not achPanelState.metaExpanded[aid]
+					if ns.RefreshAchievementsPanel then
+						ns.RefreshAchievementsPanel()
+					end
 				else
 					ns.OpenAchievementWindow(aid)
 				end
@@ -1608,22 +1634,33 @@ local function RefreshMetaDetail(st, metaComplete)
 			st.metaRows[i] = row
 		end
 		row:ClearAllPoints()
-		row:SetPoint("TOPLEFT", box, "TOPLEFT", d.isMeta and 0 or 12, -y)
+		local indent = (d.level == 2 and 30) or (d.level == 1 and 12) or 0
+		row:SetPoint("TOPLEFT", box, "TOPLEFT", indent, -y)
 		row:SetPoint("RIGHT", box, "RIGHT", 0, 0)
 		row.data = d
 		local prog = ""
 		if d.done and d.total and d.total > 0 then
 			prog = (" |c%s%d/%d|r"):format(d.completed and "ff66dd66" or "ffffcc00", d.done, d.total)
 		end
-		if d.isMeta then
+		if d.level == 0 then
 			row.text:SetText(("|cffffd200%s|r%s |cff8a8a8a(reward: Brilliant Petalwing)|r"):format(d.name, prog))
 			y = y + 18
-		else
+		elseif d.level == 1 then
 			local mark = d.completed and "Interface\\RaidFrame\\ReadyCheck-Ready"
 				or "Interface\\RaidFrame\\ReadyCheck-NotReady"
 			local col = d.completed and "ff9aa0a6" or "ffffffff"
-			row.text:SetText(("|T%s:12:12|t |c%s%s|r%s"):format(mark, col, d.name, prog))
+			local toggle = ""
+			if d.expandable then
+				toggle = (st.metaExpanded[d.achievementID] and "|cffffd200-|r " or "|cffffd200+|r ")
+			end
+			row.text:SetText(("%s|T%s:12:12|t |c%s%s|r%s"):format(toggle, mark, col, d.name, prog))
 			y = y + 16
+		else
+			local mark = d.completed and "Interface\\RaidFrame\\ReadyCheck-Ready"
+				or "Interface\\RaidFrame\\ReadyCheck-NotReady"
+			local col = d.completed and "ff808080" or "ffc8c8c8"
+			row.text:SetText(("|T%s:11:11|t |c%s%s|r%s"):format(mark, col, d.name, prog))
+			y = y + 15
 		end
 		row:Show()
 	end

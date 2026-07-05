@@ -1532,6 +1532,7 @@ end
 -- een baas?" gefilterd: Delve-bazen hebben een echt level en zijn vaak als "elite" geclassificeerd
 -- (net als trash), en hun GUID/npcID kan in 12.x secret zijn — dus dat is niet betrouwbaar te
 -- bepalen. De coach is toch delve-breed; het prompt-knopje is passief (verschijnt één keer).
+local targetPromptShownThisZone = false -- prompt max. 1x/delve; reset bij zone-entry
 local function MaybeShowBossPromptOnTarget()
 	local s = GetSettings()
 	if not s or not s.enabled or not s.autoShow then
@@ -1547,12 +1548,26 @@ local function MaybeShowBossPromptOnTarget()
 	-- (Bewust GÉÉN _userDismissed-blokkade: heb je de coach weggeklikt en target je de baas
 	--  opnieuw buiten combat, dan mag de prompt terugkomen — vooral aan het begin van de delve.
 	--  Het pre-pull-only + combat-verbergen + critter-filter houden het al netjes tegen naggen.)
-	if UnitCanAttack and not UnitCanAttack("player", "target") then
-		return -- alleen bij een vijandelijk doelwit (geen spelers/vriendelijke NPC's)
+	-- Alleen bij een ACTIEF vijandig (rood) doelwit. UnitCanAttack is te ruim: een
+	-- neutrale (gele) quest-NPC is óók "aanvalbaar", waardoor het aannemen van een
+	-- quest in een delve (bv. Grudge Pit) de baas-prompt onterecht triggerde.
+	if UnitIsEnemy then
+		if not UnitIsEnemy("player", "target") then
+			return -- neutrale/vriendelijke NPC (quest-gever) → geen baas
+		end
+	elseif UnitCanAttack and not UnitCanAttack("player", "target") then
+		return
 	end
 	if UnitIsTrivial and UnitIsTrivial("target") then
 		return -- triviaal (veel lager level: ambient critters/motjes) → geen prompt
 	end
+	-- Een baas is in 12.x niet betrouwbaar van trash te onderscheiden (secret
+	-- GUID/npcID), dus bieden we de coach hooguit ÉÉN keer per delve aan (bij het
+	-- eerste vijandige doelwit) i.p.v. bij elke random vijand die je aanklikt.
+	if targetPromptShownThisZone then
+		return
+	end
+	targetPromptShownThisZone = true
 	ShowBossPromptButton()
 end
 
@@ -1714,6 +1729,9 @@ ev:SetScript("OnEvent", function(_, event, unit)
 		return
 	end
 	if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED" or event == "ZONE_CHANGED_NEW_AREA" then
+		if event ~= "ZONE_CHANGED" then
+			targetPromptShownThisZone = false -- nieuwe zone/delve → coach mag weer 1x aangeboden
+		end
 		HideBossCoachPrompt() -- bij zone-wissel/verlaten weg
 		if C_Timer and C_Timer.After then
 			C_Timer.After(1, PrimeDelveStoriesIfIdle)

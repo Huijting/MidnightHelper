@@ -366,6 +366,31 @@ function ns.PrintMissingBuffDebug()
 	for _, m in ipairs(missing) do
 		print("     • " .. (m.name or "?"))
 	end
+	-- Waaróm het icoon wel/niet toont: de twee poortjes (Enabled + restricted-content).
+	local enabled = ns.IsMissingBuffEnabled and ns.IsMissingBuffEnabled()
+	local secretAuras = "n/a"
+	if C_Secrets and C_Secrets.ShouldAurasBeSecret then
+		local ok, v = pcall(C_Secrets.ShouldAurasBeSecret)
+		secretAuras = ok and tostring(v) or "err"
+	end
+	local secretHP = "n/a"
+	if issecretvalue and UnitHealth then
+		local ok, hp = pcall(UnitHealth, "player")
+		if ok then
+			secretHP = tostring((issecretvalue(hp)) and true or false)
+		end
+	end
+	print(("  → icoon: enabled=%s  ShouldAurasBeSecret=%s  health-secret=%s"):format(
+		tostring(enabled), secretAuras, secretHP))
+	if enabled == false then
+		print("     |cffff6060(UIT → aanzetten in Settings → missende buff)|r")
+	elseif secretAuras == "true" or secretHP == "true" then
+		print("     |cffffcc00(restricted content → icoon bewust verborgen)|r")
+	elseif #missing > 0 then
+		print("     |cff66dd66(zou nu zichtbaar moeten zijn — zo niet: positie buiten beeld?)|r")
+	else
+		print("     (geen missende buff → niets te tonen)")
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -634,12 +659,18 @@ end
 -- Directe check via Blizzards eigen C_Secrets.ShouldAurasBeSecret (zoals JustAC); fallback:
 -- is player-health secret? (zelfde restricted-content-signaal).
 local function AurasUnreliable()
+	-- Blizzards eigen, AURA-specifieke vlag is gezaghebbend: is die beschikbaar,
+	-- dan vertrouwen we 'm volledig (return z'n waarde) en kijken we NIET naar health.
 	if C_Secrets and C_Secrets.ShouldAurasBeSecret then
 		local ok, v = pcall(C_Secrets.ShouldAurasBeSecret)
-		if ok and v then
-			return true
+		if ok then
+			return v and true or false
 		end
 	end
+	-- Fallback ALLEEN als die API ontbreekt (oude client). LET OP: player-health is
+	-- in open-wereld Midnight-zones (bv. Harandar) al "secret" terwijl auras prima
+	-- leesbaar zijn — dus health is géén betrouwbare proxy en mag NOOIT bovenop de
+	-- ShouldAurasBeSecret-check staan (dat onderdrukte de reminder overal onterecht).
 	if issecretvalue and UnitHealth then
 		local ok, hp = pcall(UnitHealth, "player")
 		if ok and hp ~= nil and issecretvalue(hp) then
