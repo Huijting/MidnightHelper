@@ -279,6 +279,12 @@ local function GiverKeyByName(name)
 	if not name then
 		return nil
 	end
+	-- 12.x: UnitName van een quest-NPC kan secret zijn → een secret string vergelijken tainted/crasht
+	-- ("attempt to compare a secret string value"). Guard: secret naam → niet vergelijken (geen naam-
+	-- attributie). Getrackte givers werken nog via questID (GiverKeyForQuest), dus never-lie blijft heel.
+	if issecretvalue and issecretvalue(name) then
+		return nil
+	end
 	for _, def in ipairs(GIVER_WEEKLIES) do
 		if def.name == name then
 			return def.key
