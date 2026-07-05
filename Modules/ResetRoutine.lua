@@ -247,6 +247,13 @@ local function NpcIDFromGUID(guid)
 	if type(guid) ~= "string" then
 		return nil
 	end
+	-- WoW 12.x: NPC-GUID's kunnen "secret" zijn → een secret string indexeren/parsen (guid:match)
+	-- tainted de uitvoering en crasht ("attempt to index local 'guid' (a secret string value)").
+	-- Guard: bij een secret GUID geen ID teruggeven; LearnGiverQuest valt dan terug op de NPC-naam
+	-- (GiverKeyByName). issecretvalue is veilig aan te roepen op elke waarde (ook secret/nil).
+	if issecretvalue and issecretvalue(guid) then
+		return nil
+	end
 	local id = guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")
 	return id and tonumber(id) or nil
 end
