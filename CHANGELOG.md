@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.4.0] - 2026-07-05
+
+Adds the Combat Safety cast warning and a delve boss-coach prompt, plus several patch 12.x "secret value" fixes. Released as a Beta.
+
+### Added
+
+- **Combat Safety — dangerous cast warning.** When an enemy casts a spell that targets **you**, a movable red icon with a countdown appears (so you can move or interrupt). Optional **cast bars** show several incoming casts at once, and an optional **voice** speaks the cast's name. All of it is 12.x "secret value" safe (visibility is driven by Blizzard's own boolean/duration APIs, never by reading protected values). Enable and tune it in **Settings → Notifications**; an "only important casts" toggle narrows it, and a Preview button lets you position the icon/bars. Default on (icon); bars and voice are opt-in.
+- **Delve Coach boss prompt.** Targeting an enemy in a delve (out of combat) now shows a small **"open the Delve Coach?"** button, mirroring the dungeon boss window — so you can pull up boss tips without opening menus. It hides once you're in combat and doesn't fire for trivial critters.
+
+### Fixed
+
+- **No more `ADDON_ACTION_FORBIDDEN`/taint errors on the reset route.** Accepting a quest from a giver no longer throws a Lua error when the NPC's GUID or name is a 12.x "secret value" (the giver-learn falls back safely and never guesses).
+- **Missing Buff no longer spams in delves/rituals.** In content where 12.x hides auras, the reminder could keep telling you to re-apply a buff (e.g. a Shaman shield) it couldn't actually see. It now detects that auras are secret and stays quiet there; it works normally in open content.
+
 ## [2.3.1] - 2026-07-04
 
 Hotfix for a combat error introduced in 2.3.0.

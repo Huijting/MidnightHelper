@@ -1,5 +1,5 @@
 ## Interface: 120007
-## Version: 2.3.1
+## Version: 2.4.0
 ## Title: Midnight Helper
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## Notes: All-in-one reference tool.
@@ -80,7 +80,6 @@ Modules\LayoutExtras.lua
 Modules\MissingBuffData.lua
 Modules\MissingBuff.lua
 Modules\CombatSafety.lua
-Modules\GroundSafety.lua
 Modules\Openables.lua
 Modules\FastMark.lua
 Modules\CurrencyGuide.lua
