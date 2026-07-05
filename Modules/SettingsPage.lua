@@ -559,6 +559,24 @@ function ns.BuildSettingsPanel(panel)
 		end },
 	})
 
+	-- Ground Safety — "MOVE!"-flits als je in een schadelijk grondeffect staat (Feature C, WIP).
+	Label("SET_GS_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "alerts")
+	Label("SET_GS_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "alerts")
+	AddToggle("alerts", "SET_GS_TOGGLE_TITLE", "SET_GS_TOGGLE_DESC", function()
+		return ns.IsGroundSafetyEnabled and ns.IsGroundSafetyEnabled()
+	end, function(v)
+		if ns.SetGroundSafetyEnabled then
+			ns.SetGroundSafetyEnabled(v)
+		end
+	end)
+	AddButtons("alerts", {
+		{ labelKey = "SET_GS_PREVIEW", onClick = function()
+			if ns.TestGroundSafety then
+				ns.TestGroundSafety()
+			end
+		end },
+	})
+
 	Label("SET_SHARD_TITLE", "GameFontNormal", COLOR_ACCENT, 16, 0, "alerts")
 	Label("SET_SHARD_DESC", "GameFontHighlightSmall", COLOR_DIM, 2, 0, "alerts")
 	AddButtons("alerts", {
