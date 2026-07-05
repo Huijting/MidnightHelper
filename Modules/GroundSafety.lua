@@ -205,6 +205,15 @@ local FLASH_THROTTLE = 1.2 -- min. tijd tussen nieuwe alarm-triggers (s)
 local CLEAR_AFTER = 1.5 -- geen schade meer voor deze tijd → gevaar voorbij (s)
 local HP_PCT_MIN = 0.01 -- HP-daling telt alleen als ≥ 1% van max-HP
 
+local function GSDebugOn()
+	return ns.db and ns.db.ui and ns.db.ui.groundSafetyDebug and true or false
+end
+
+local _gsSecretPrinted = false
+local function GSDbg(msg)
+	print("|cff66ff66MH GS|r " .. msg)
+end
+
 local function OnHealth()
 	if not Enabled() then
 		return
@@ -216,6 +225,10 @@ local function OnHealth()
 	end
 	-- 12.x: health kan in sommige contexten secret zijn → niet op rekenen (geen taint).
 	if issecretvalue and (issecretvalue(cur) or issecretvalue(max)) then
+		if GSDebugOn() and not _gsSecretPrinted then
+			_gsSecretPrinted = true
+			GSDbg("player-health is SECRET in deze context → kan niet rekenen, detectie overgeslagen.")
+		end
 		prevHP = nil
 		return
 	end
@@ -224,25 +237,39 @@ local function OnHealth()
 		return
 	end
 	local now = GetTime()
-	if prevHP and cur < prevHP and (prevHP - cur) / max >= HP_PCT_MIN then
-		tickTimes[#tickTimes + 1] = now
-		lastTickTime = now
-		-- Venster opschonen + tellen (in-place compacteren).
-		local cutoff = now - WINDOW
-		local n = 0
-		for i = 1, #tickTimes do
-			if tickTimes[i] >= cutoff then
-				n = n + 1
-				tickTimes[n] = tickTimes[i]
+	if prevHP and cur < prevHP then
+		local pct = (prevHP - cur) / max
+		local counts = pct >= HP_PCT_MIN
+		if GSDebugOn() then
+			GSDbg(("schade %.2f%% van max-HP | telt mee=%s (drempel %.0f%%)"):format(
+				pct * 100, counts and "JA" or "nee", HP_PCT_MIN * 100))
+		end
+		if counts then
+			tickTimes[#tickTimes + 1] = now
+			lastTickTime = now
+			-- Venster opschonen + tellen (in-place compacteren).
+			local cutoff = now - WINDOW
+			local n = 0
+			for i = 1, #tickTimes do
+				if tickTimes[i] >= cutoff then
+					n = n + 1
+					tickTimes[n] = tickTimes[i]
+				end
 			end
-		end
-		for i = #tickTimes, n + 1, -1 do
-			tickTimes[i] = nil
-		end
-		if n >= NEED_TICKS and not dangerOn and (now - lastFlash) >= FLASH_THROTTLE then
-			dangerOn = true
-			lastFlash = now
-			ns.SetGroundDanger(true)
+			for i = #tickTimes, n + 1, -1 do
+				tickTimes[i] = nil
+			end
+			if GSDebugOn() then
+				GSDbg(("  ticks in %.0fs-venster: %d/%d nodig"):format(WINDOW, n, NEED_TICKS))
+			end
+			if n >= NEED_TICKS and not dangerOn and (now - lastFlash) >= FLASH_THROTTLE then
+				dangerOn = true
+				lastFlash = now
+				ns.SetGroundDanger(true)
+				if GSDebugOn() then
+					GSDbg("→ OPZIJ! GETRIGGERD")
+				end
+			end
 		end
 	end
 	prevHP = cur
@@ -275,3 +302,27 @@ initFrame:SetScript("OnEvent", function()
 		EnsureDetector()
 	end
 end)
+
+--------------------------------------------------------------------------------
+-- /mhgsdebug — diagnose: print per schade-tik + rapporteer detector-status/drempels
+--------------------------------------------------------------------------------
+
+SLASH_MHGSDEBUG1 = "/mhgsdebug"
+SlashCmdList["MHGSDEBUG"] = function()
+	local uiDb = ns.db and ns.db.ui
+	if type(uiDb) ~= "table" then
+		print("|cff66ff66MH GS|r db nog niet klaar — log eerst volledig in en probeer opnieuw.")
+		return
+	end
+	uiDb.groundSafetyDebug = not uiDb.groundSafetyDebug and true or false
+	_gsSecretPrinted = false
+	-- Zorg dat de detector draait (feature aan maar detector nog niet geregistreerd).
+	if Enabled() and not hpRegistered then
+		EnsureDetector()
+	end
+	print(("|cff66ff66MH GS|r debug %s. Feature=%s · detector-geregistreerd=%s · drempel: %d ticks / %.0fs, elk ≥%.0f%% max-HP. Ga in een grondeffect staan; je hoort per schade-tik een regel te zien (of 'health is SECRET')."):format(
+		uiDb.groundSafetyDebug and "AAN" or "UIT",
+		Enabled() and "aan" or "UIT (zet 'Toon OPZIJ!' eerst aan!)",
+		hpRegistered and "ja" or "NEE",
+		NEED_TICKS, WINDOW, HP_PCT_MIN * 100))
+end
