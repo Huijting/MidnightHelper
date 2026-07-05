@@ -2,25 +2,32 @@
 
 ## 🌙 MORGEN — HIER VERDER (Rob ging slapen ~00:30, 2026-07-05)
 
-**Combat Safety — Feature A is klaar maar NOG NIET door Rob in-game geverifieerd met TTS:**
-- ✅ Feature A (visueel: rood icoon + gloed + cooldown-swipe bij een cast die JOU target) — Rob zag de
-  **preview** al werken (screenshot). Test-knop is nu een **sleepbare aan/uit-preview** ("Preview / position").
-- ✅ **TTS toegevoegd** ("Speak the cast name", **standaard uit**): spreekt de vijandelijke cast-naam via
+**✅ Combat Safety — Feature A + TTS IN-GAME BEVESTIGD (Rob, Delve-test 2026-07-05):**
+- ✅ Feature A (visueel: rood icoon + gloed + cooldown-swipe bij een cast die JOU target) — werkt in de
+  Delve. Test-knop is een **sleepbare aan/uit-preview** ("Preview / position").
+- ✅ **TTS** ("Speak the cast name", **standaard uit**): spreekt de vijandelijke cast-naam via
   `C_VoiceChat.SpeakText` (secret-safe sink), gegate op **gerichte** casts in instances/gevecht + NPC-filter
-  + anti-spam 3s. **Nog te testen door Rob** (stem hoorbaar? in Delve?). Let op: WoW moet een TTS-stem
-  actief hebben, anders geen geluid.
+  + anti-spam 3s. **Gehoord + werkend in de Delve** (vocal warning + popup zoals bedoeld). WoW moet een
+  TTS-stem actief hebben.
+- **Klus 4 (= afronden Feature A + TTS) is dus KLAAR.** Volgende mijlpaal: **2.4.0 Beta** (Combat Safety
+  live richting Cisca) — **pas als Rob "go" zegt**. Gekozen vervolg-volgorde: **eerst 4 (done) → dan B → dan C.**
 - **Grens van Feature A (Rob's vraag beantwoord):** dekt alléén casts die JOU als unit targeten. Een cast
   op een teamgenoot → icoon stil, stem kan 'm tóch zeggen (kan "op mij?" niet zien = secret). Een
   **grond-effect op een locatie** (dingen op de grond waar je uit moet) → **niks** — dat is **Feature B**.
 
-**➡️ EERSTE KLUS MORGEN — onderzoek TargetedSpells' "incoming cast bars":** Rob ziet in TargetedSpells
-één of meer **castbalken** in beeld dat er iets gaat gebeuren, ínclusief stem. Uitzoeken hoe dat werkt
-(party/self castbars — `TargetedSpellsBarMixin.lua`, `Driver.lua` frame-pool + `RepositionFrames`) en of
-we zoiets willen: meerdere gelijktijdige inkomende casts als balkjes tonen. Dit hangt samen met de vraag
-hierboven en met **Feature B** (GTFO-light: "je staat in de stront" MOVE!-flits voor grond-effecten).
+**✅ TargetedSpells-castbalken ONDERZOCHT (agent, 2026-07-05).** Bevindingen: elke vijandelijke cast =
+eigen frame uit een pool, gestackt/gesorteerd op starttijd (meerdere tegelijk); "Party" = horizontale
+balken (icoon+naam+doelwit+progressbar+interrupt-kleur), "Self" = één icoon (zoals wij). Secret-safe via
+`SetAlphaFromBoolean`/`EvaluateColorValueFromBoolean`/`SetVertexColorFromBoolean` + 0,2s-delay vóór
+duration-uitlezing + framepool/RepositionFrames. TTS staat er los van (zelfde trigger). Opties voor MH:
+**A** = ons icoon → mini-stack van N iconen (laag-midden), **B** = volledige castbalken (hoog, vooral groep),
+**C** = aparte "grond-schade/MOVE!"-feature (midden, dekt de grond-effecten die A/B NIET dekken).
 
-**Daarna beslissen:** (a) Feature B bouwen? (b) Combat Safety castbars i.p.v./naast het ene icoon?
-Als Feature A + TTS in-game bevestigd zijn → richting 2.4.0 (Beta eerst, Cisca-test).
+**Rob's keuze-volgorde: eerst 4 (Feature A + TTS — DONE) → dan B → dan C.**
+- **B = volledige castbalken** (TargetedSpells-stijl): meerdere inkomende casts als balkjes. Hoog qua werk;
+  hergebruik de secret-safe patronen + framepool. Eerst uitwerken hoe het naast/i.p.v. het ene icoon past.
+- **C = "je staat in de stront / MOVE!"** (GTFO-light) voor grond-effecten (Robs Delve-groepsvoorbeeld).
+- **2.4.0 Beta** kan al zodra Rob "go" zegt (Feature A + TTS zijn af); B/C kunnen erna of mee.
 
 **Git-status:** Combat Safety (Feature A + preview-toggle + TTS) is gecommit+gepusht als WIP op `main`
 (nog niet gereleased; CF blijft op 2.3.1). Werkmap = live-map = de git-repo (zie workflow-blok onder).
