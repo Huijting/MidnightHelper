@@ -1550,6 +1550,9 @@ local function MaybeShowBossPromptOnTarget()
 	if UnitCanAttack and not UnitCanAttack("player", "target") then
 		return -- alleen bij een vijandelijk doelwit (geen spelers/vriendelijke NPC's)
 	end
+	if UnitIsTrivial and UnitIsTrivial("target") then
+		return -- triviaal (veel lager level: ambient critters/motjes) → geen prompt
+	end
 	ShowBossPromptButton()
 end
 
