@@ -1527,8 +1527,11 @@ local function MaybeShowBossCoachPrompt()
 	ShowBossPromptButton()
 end
 
--- Target-reopen (Rob 5 jul): een Delve-BAAS targeten toont de "open coach?"-prompt als de
--- coach niet open is — spiegel van het dungeon-boss-venster (werkt ook als 'ie nooit opende).
+-- Target-reopen (Rob 5 jul): in een Delve een VIJANDELIJK doelwit hebben toont de "open coach?"-
+-- prompt (als de coach dicht is) — spiegel van het dungeon-boss-venster. Bewust NIET op "is dit
+-- een baas?" gefilterd: Delve-bazen hebben een echt level en zijn vaak als "elite" geclassificeerd
+-- (net als trash), en hun GUID/npcID kan in 12.x secret zijn — dus dat is niet betrouwbaar te
+-- bepalen. De coach is toch delve-breed; het prompt-knopje is passief (verschijnt één keer).
 local function MaybeShowBossPromptOnTarget()
 	local s = GetSettings()
 	if not s or not s.enabled or not s.autoShow then
@@ -1538,10 +1541,8 @@ local function MaybeShowBossPromptOnTarget()
 	if not inDelve or not UnitExists("target") then
 		return
 	end
-	-- Is het doelwit een baas? Secret-safe classificatie (worldboss of ??-level), net als het
-	-- dungeon-venster — de target-GUID/npcID kan in 12.x secret zijn, dus niet daarop leunen.
-	if not (UnitClassification("target") == "worldboss" or (UnitLevel and UnitLevel("target") == -1)) then
-		return
+	if UnitCanAttack and not UnitCanAttack("player", "target") then
+		return -- alleen bij een vijandelijk doelwit (geen spelers/vriendelijke NPC's)
 	end
 	ShowBossPromptButton()
 end
