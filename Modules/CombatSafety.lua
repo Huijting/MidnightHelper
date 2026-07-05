@@ -76,6 +76,12 @@ function ns.SetCombatSafetySpeakEnabled(v)
 	end
 end
 
+-- Debug (/mhcsdebug): print per vijandelijke cast + forceer de cue te tonen (gate genegeerd),
+-- zodat we live kunnen zien of de events afgaan en het frame rendert.
+local function CSDebugOn()
+	return ns.db and ns.db.ui and ns.db.ui.combatSafetyDebug and true or false
+end
+
 --------------------------------------------------------------------------------
 -- Frame (versleepbaar, schaalbaar; niet-secure → geen combat-beperkingen)
 --------------------------------------------------------------------------------
@@ -394,6 +400,10 @@ local function SetupBar(b, unit)
 		end)
 	end
 	-- Zichtbaarheid: alpha 1 alleen als (op mij EN belangrijk), anders 0 — puur engine.
+	if CSDebugOn() then
+		b:SetAlpha(1) -- debug: toon voor ELKE cast (gate genegeerd)
+		return true
+	end
 	if b.SetAlphaFromBoolean and C_CurveUtil and C_CurveUtil.EvaluateColorValueFromBoolean then
 		local ta = C_CurveUtil.EvaluateColorValueFromBoolean(important, 0, 1)
 		b:SetAlphaFromBoolean(targetsPlayer, ta, 0)
@@ -528,7 +538,9 @@ local function ShowCast(unit)
 	-- Zichtbaarheid: alpha = 1 alleen als (op mij EN belangrijk), anders 0. Puur engine —
 	-- geen enkele Lua-if op een secret waarde. EvaluateColorValueFromBoolean(important,0,1)
 	-- = 0 bij niet-belangrijk, 1 bij belangrijk; SetAlphaFromBoolean gate't dat op targetsPlayer.
-	if f.SetAlphaFromBoolean and C_CurveUtil and C_CurveUtil.EvaluateColorValueFromBoolean then
+	if CSDebugOn() then
+		f:SetAlpha(1) -- debug: toon voor ELKE cast (gate genegeerd)
+	elseif f.SetAlphaFromBoolean and C_CurveUtil and C_CurveUtil.EvaluateColorValueFromBoolean then
 		local trueAlpha = C_CurveUtil.EvaluateColorValueFromBoolean(important, 0, 1)
 		f:SetAlphaFromBoolean(targetsPlayer, trueAlpha, 0)
 	else
@@ -727,6 +739,26 @@ end
 -- Events
 --------------------------------------------------------------------------------
 
+-- Debug-print (alleen bij /mhcsdebug): bewijst dat het cast-event afgaat + welke API's er
+-- zijn. Toont GEEN secret waarden (alleen unit-token + ja/nee-presence). UnitSpellTargetName
+-- ~= nil is een toegestane presence-check.
+local function DebugPrintCast(unit)
+	if not CSDebugOn() or not IsHostileNameplate(unit) then
+		return
+	end
+	local f = EnsureFrame()
+	print(("|cff66ccffMH CS|r cast op %s | castInfo=%s | IsSpellImportant=%s | PlayerIsSpellTarget=%s | SetAlphaFromBoolean=%s | heeftDoel=%s | inInstance=%s | modus=%s"):format(
+		tostring(unit),
+		(UnitCastingInfo and "ja" or "nee"),
+		((C_Spell and C_Spell.IsSpellImportant) and "ja" or "nee"),
+		(PlayerIsSpellTarget and "ja" or "nee"),
+		((f and f.SetAlphaFromBoolean) and "ja" or "nee"),
+		((UnitSpellTargetName and UnitSpellTargetName(unit) ~= nil) and "ja" or "nee"),
+		((IsInInstance and select(1, IsInInstance())) and "ja" or "nee"),
+		(BarsMode() and "balken" or "icoon")
+	))
+end
+
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_LOGIN")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -754,10 +786,12 @@ ev:SetScript("OnEvent", function(_, event, unit)
 		-- Kleine debounce: doelwit-info is soms 1 frame later gevuld (TargetedSpells-truc).
 		if C_Timer and C_Timer.After then
 			C_Timer.After(0.1, function()
+				DebugPrintCast(unit)
 				EvaluateCast(unit)
 				pcall(AnnounceCast, unit)
 			end)
 		else
+			DebugPrintCast(unit)
 			EvaluateCast(unit)
 			pcall(AnnounceCast, unit)
 		end
@@ -770,3 +804,27 @@ ev:SetScript("OnEvent", function(_, event, unit)
 		end
 	end
 end)
+
+--------------------------------------------------------------------------------
+-- /mhcsdebug — diagnose-modus aan/uit
+--------------------------------------------------------------------------------
+
+SLASH_MHCSDEBUG1 = "/mhcsdebug"
+SlashCmdList["MHCSDEBUG"] = function()
+	local uiDb = ns.db and ns.db.ui
+	if type(uiDb) ~= "table" then
+		print("|cff66ccffMH CS|r db nog niet klaar — log eerst volledig in en probeer opnieuw.")
+		return
+	end
+	uiDb.combatSafetyDebug = not uiDb.combatSafetyDebug and true or false
+	if not uiDb.combatSafetyDebug then
+		shownUnit = nil
+		if frame then
+			frame:Hide()
+		end
+		HideAllBars()
+	end
+	print(("|cff66ccffMH CS|r debug %s. Ga nu vechten: je hoort/ziet (1) een chatregel per vijandelijke cast = events gaan af, en (2) de %s zou bij ELKE cast moeten flitsen (gate uit). Nog een keer /mhcsdebug = uit."):format(
+		uiDb.combatSafetyDebug and "AAN" or "UIT",
+		(BarsMode() and "balk" or "cue")))
+end
