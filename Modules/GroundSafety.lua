@@ -218,30 +218,26 @@ local function OnHealth()
 	if not Enabled() then
 		return
 	end
+	-- Alleen CURRENT health nodig (geen UnitHealthMax → die is in delves vaak "secret"). We meten
+	-- de fractie van je HUIDIGE HP die je per tik verliest, dus max is niet nodig.
 	local cur = UnitHealth and UnitHealth("player")
-	local max = UnitHealthMax and UnitHealthMax("player")
-	if not cur or not max then
+	if not cur then
 		return
 	end
-	-- 12.x: health kan in sommige contexten secret zijn → niet op rekenen (geen taint).
-	if issecretvalue and (issecretvalue(cur) or issecretvalue(max)) then
+	if issecretvalue and issecretvalue(cur) then
 		if GSDebugOn() and not _gsSecretPrinted then
 			_gsSecretPrinted = true
-			GSDbg("player-health is SECRET in deze context → kan niet rekenen, detectie overgeslagen.")
+			GSDbg("current player-health is SECRET in deze context → detectie onmogelijk hier.")
 		end
 		prevHP = nil
 		return
 	end
-	if max <= 0 then
-		prevHP = cur
-		return
-	end
 	local now = GetTime()
-	if prevHP and cur < prevHP then
-		local pct = (prevHP - cur) / max
+	if prevHP and prevHP > 0 and cur < prevHP then
+		local pct = (prevHP - cur) / prevHP -- fractie van je HUIDIGE HP verloren (geen max nodig)
 		local counts = pct >= HP_PCT_MIN
 		if GSDebugOn() then
-			GSDbg(("schade %.2f%% van max-HP | telt mee=%s (drempel %.0f%%)"):format(
+			GSDbg(("schade %.2f%% van huidige HP | telt mee=%s (drempel %.0f%%)"):format(
 				pct * 100, counts and "JA" or "nee", HP_PCT_MIN * 100))
 		end
 		if counts then
@@ -320,7 +316,7 @@ SlashCmdList["MHGSDEBUG"] = function()
 	if Enabled() and not hpRegistered then
 		EnsureDetector()
 	end
-	print(("|cff66ff66MH GS|r debug %s. Feature=%s · detector-geregistreerd=%s · drempel: %d ticks / %.0fs, elk ≥%.0f%% max-HP. Ga in een grondeffect staan; je hoort per schade-tik een regel te zien (of 'health is SECRET')."):format(
+	print(("|cff66ff66MH GS|r debug %s. Feature=%s · detector-geregistreerd=%s · drempel: %d ticks / %.0fs, elk ≥%.0f%% huidige HP. Ga in een grondeffect staan; je hoort per schade-tik een regel te zien (of 'health is SECRET')."):format(
 		uiDb.groundSafetyDebug and "AAN" or "UIT",
 		Enabled() and "aan" or "UIT (zet 'Toon OPZIJ!' eerst aan!)",
 		hpRegistered and "ja" or "NEE",
