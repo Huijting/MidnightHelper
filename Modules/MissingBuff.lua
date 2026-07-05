@@ -628,8 +628,29 @@ local function HideSecure()
 	end
 end
 
+-- 12.x restricted content (delves/rituals/M+): auras kunnen "secret" zijn → GetPlayerAuraBySpellID
+-- e.d. leveren dan geen betrouwbaar resultaat, waardoor een aanwezige buff/shield als "mist"
+-- wordt gezien (Cisca's shaman-shield-spam, 5 jul). Verberg de reminder dan volledig.
+-- Directe check via Blizzards eigen C_Secrets.ShouldAurasBeSecret (zoals JustAC); fallback:
+-- is player-health secret? (zelfde restricted-content-signaal).
+local function AurasUnreliable()
+	if C_Secrets and C_Secrets.ShouldAurasBeSecret then
+		local ok, v = pcall(C_Secrets.ShouldAurasBeSecret)
+		if ok and v then
+			return true
+		end
+	end
+	if issecretvalue and UnitHealth then
+		local ok, hp = pcall(UnitHealth, "player")
+		if ok and hp ~= nil and issecretvalue(hp) then
+			return true
+		end
+	end
+	return false
+end
+
 function ns.UpdateMissingBuff()
-	if not Enabled() then
+	if not Enabled() or AurasUnreliable() then
 		if frame then
 			frame:Hide()
 		end
