@@ -199,11 +199,11 @@ local lastTickTime = 0
 local lastFlash = 0
 local dangerOn = false
 
-local WINDOW = 2.0 -- glijdend venster (s)
-local NEED_TICKS = 3 -- ≥ dit aantal schade-ticks in het venster → alarm
+local WINDOW = 3.0 -- glijdend venster (s)
+local NEED_TICKS = 2 -- ≥ dit aantal schade-ticks in het venster → alarm
 local FLASH_THROTTLE = 1.2 -- min. tijd tussen nieuwe alarm-triggers (s)
-local CLEAR_AFTER = 1.2 -- geen schade meer voor deze tijd → gevaar voorbij (s)
-local HP_PCT_MIN = 0.02 -- HP-daling telt alleen als ≥ 2% van max-HP
+local CLEAR_AFTER = 1.5 -- geen schade meer voor deze tijd → gevaar voorbij (s)
+local HP_PCT_MIN = 0.01 -- HP-daling telt alleen als ≥ 1% van max-HP
 
 local function OnHealth()
 	if not Enabled() then

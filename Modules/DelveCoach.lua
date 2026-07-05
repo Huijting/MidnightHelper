@@ -1541,6 +1541,12 @@ local function MaybeShowBossPromptOnTarget()
 	if not inDelve or not UnitExists("target") then
 		return
 	end
+	if InCombatLockdown() then
+		return -- alleen pre-pull; in gevecht niet aanbieden (PLAYER_REGEN_DISABLED verbergt 'm)
+	end
+	if coachFrame and coachFrame._userDismissed then
+		return -- coach zelf weggeklikt → niet blijven naggen bij elke re-target (ENCOUNTER_START herbiedt aan)
+	end
 	if UnitCanAttack and not UnitCanAttack("player", "target") then
 		return -- alleen bij een vijandelijk doelwit (geen spelers/vriendelijke NPC's)
 	end
@@ -1682,6 +1688,7 @@ ev:RegisterEvent("SCENARIO_UPDATE")
 ev:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
 ev:RegisterEvent("UNIT_TARGET")
 ev:RegisterEvent("PLAYER_TARGET_CHANGED") -- Delve-baas targeten → "open coach?"-prompt (Rob 5 jul)
+ev:RegisterEvent("PLAYER_REGEN_DISABLED") -- combat-start → pre-pull-prompt verbergen (Rob 5 jul)
 ev:RegisterEvent("ENCOUNTER_START")
 ev:RegisterEvent("ENCOUNTER_END")
 local function PrimeDelveStoriesIfIdle()
@@ -1693,7 +1700,10 @@ local function PrimeDelveStoriesIfIdle()
 	end
 end
 ev:SetScript("OnEvent", function(_, event, unit)
-	if event == "ENCOUNTER_START" then
+	if event == "PLAYER_REGEN_DISABLED" then
+		HideBossCoachPrompt() -- in gevecht: pre-pull-prompt weg
+		return
+	elseif event == "ENCOUNTER_START" then
 		MaybeShowBossCoachPrompt() -- boss begint → "open coach?" als je 'm wegklikte
 		return
 	elseif event == "ENCOUNTER_END" then
