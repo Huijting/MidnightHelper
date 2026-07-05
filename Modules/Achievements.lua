@@ -1398,6 +1398,13 @@ end
 -- 252011). We read the meta's progress LIVE from the criteria API (no hardcoded
 -- sub-list), so it always matches what WoW counts.
 local LIGHT_UP_META = 62386
+-- Void Showdown zone metas (rotating biweekly): Naigtal "A Trip Through the Stars"
+-- (62874) and Val "A Trip Around the Stars" (62873). Separate top-level metas (no
+-- umbrella above them), shown as extra expandable rows so you can track their live
+-- sub-achievement progress — rares, world quests, storms, questlines — straight from
+-- the criteria API. IDs from Wowhead; GetAchievementInfo reads the real name live, so
+-- a wrong ID shows a wrong/blank name (never fabricated data) and gets caught in-game.
+local SHOWDOWN_METAS = { 62874, 62873 }
 local PETALWING_ITEM = 252011
 
 local function MetaProgress(achievementID)
@@ -1556,35 +1563,65 @@ local function RefreshMetaDetail(st, metaComplete)
 	for _, r in ipairs(st.metaRows) do
 		r:Hide()
 	end
+	local list = {}
+	-- Light Up the Night block (its 4 zone metas, each expandable). Hidden once the
+	-- whole meta is complete (a clean "all done" — the mount is yours).
 	local zones = (not metaComplete) and MetaDetailData() or nil
-	if not zones or #zones == 0 then
-		box:SetHeight(1)
-		return
-	end
-	local md, mt = MetaProgress(LIGHT_UP_META)
-	local metaName = (GetAchievementInfo and select(2, GetAchievementInfo(LIGHT_UP_META))) or "Light Up the Night"
-	local list = { {
-		name = metaName,
-		achievementID = LIGHT_UP_META,
-		isMeta = true,
-		level = 0,
-		completed = (md and mt and md >= mt) or false,
-		done = md,
-		total = mt,
-	} }
-	-- Each zone meta (Forever Song, …) is an expandable row: click to fold out its
-	-- component sub-achievements, read live from that meta's own criteria.
-	for _, z in ipairs(zones) do
-		z.level = 1
-		z.expandable = (z.achievementID ~= nil)
-		list[#list + 1] = z
-		if z.achievementID and st.metaExpanded[z.achievementID] then
-			local comps = CriteriaData(z.achievementID)
-			for _, c in ipairs(comps or {}) do
-				c.level = 2
-				list[#list + 1] = c
+	if zones and #zones > 0 then
+		local md, mt = MetaProgress(LIGHT_UP_META)
+		local metaName = (GetAchievementInfo and select(2, GetAchievementInfo(LIGHT_UP_META))) or "Light Up the Night"
+		list[#list + 1] = {
+			name = metaName,
+			achievementID = LIGHT_UP_META,
+			isMeta = true,
+			level = 0,
+			completed = (md and mt and md >= mt) or false,
+			done = md,
+			total = mt,
+		}
+		-- Each zone meta (Forever Song, …) is an expandable row: click to fold out its
+		-- component sub-achievements, read live from that meta's own criteria.
+		for _, z in ipairs(zones) do
+			z.level = 1
+			z.expandable = (z.achievementID ~= nil)
+			list[#list + 1] = z
+			if z.achievementID and st.metaExpanded[z.achievementID] then
+				for _, c in ipairs(CriteriaData(z.achievementID) or {}) do
+					c.level = 2
+					list[#list + 1] = c
+				end
 			end
 		end
+	end
+	-- Void Showdown zone metas (Naigtal/Val): separate expandable top-level rows,
+	-- shown while not complete. Two live drill-down levels (meta → its sub-achievements
+	-- → their own criteria), all from the criteria API.
+	for _, metaID in ipairs(SHOWDOWN_METAS) do
+		local sdDone, sdTotal = MetaProgress(metaID)
+		if sdDone and sdTotal and sdTotal > 0 and sdDone < sdTotal then
+			local name = (GetAchievementInfo and select(2, GetAchievementInfo(metaID))) or ("#" .. metaID)
+			list[#list + 1] = {
+				name = name, achievementID = metaID, level = 0,
+				expandable = true, showdown = true, done = sdDone, total = sdTotal,
+			}
+			if st.metaExpanded[metaID] then
+				for _, c in ipairs(CriteriaData(metaID) or {}) do
+					c.level = 1
+					c.expandable = (c.achievementID ~= nil)
+					list[#list + 1] = c
+					if c.achievementID and st.metaExpanded[c.achievementID] then
+						for _, cc in ipairs(CriteriaData(c.achievementID) or {}) do
+							cc.level = 2
+							list[#list + 1] = cc
+						end
+					end
+				end
+			end
+		end
+	end
+	if #list == 0 then
+		box:SetHeight(1)
+		return
 	end
 
 	local y = 0
@@ -1643,7 +1680,12 @@ local function RefreshMetaDetail(st, metaComplete)
 			prog = (" |c%s%d/%d|r"):format(d.completed and "ff66dd66" or "ffffcc00", d.done, d.total)
 		end
 		if d.level == 0 then
-			row.text:SetText(("|cffffd200%s|r%s |cff8a8a8a(reward: Brilliant Petalwing)|r"):format(d.name, prog))
+			if d.showdown then
+				local toggle = (st.metaExpanded[d.achievementID] and "|cffffd200-|r " or "|cffffd200+|r ")
+				row.text:SetText(("%s|cff9ec7ff%s|r%s"):format(toggle, d.name, prog))
+			else
+				row.text:SetText(("|cffffd200%s|r%s |cff8a8a8a(reward: Brilliant Petalwing)|r"):format(d.name, prog))
+			end
 			y = y + 18
 		elseif d.level == 1 then
 			local mark = d.completed and "Interface\\RaidFrame\\ReadyCheck-Ready"
