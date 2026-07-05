@@ -403,11 +403,10 @@ local function SetupBar(b, unit)
 end
 
 local function BarsShowCast(unit)
-	-- Pre-filter (presence-check, geen secret-branch): alleen GERICHTE casts → minder lege balken.
-	if not (UnitSpellTargetName and UnitSpellTargetName(unit) ~= nil) then
-		ReleaseBar(unit)
-		return
-	end
+	-- Géén pre-filter: maak (net als de icoon-modus) een balk voor élke vijandelijke cast en
+	-- laat de engine via SetAlphaFromBoolean beslissen of 'ie zichtbaar is (op mij + belangrijk).
+	-- Niet-relevante casts blijven alpha 0 (kunnen kleine gaten geven; display-only dus geen
+	-- klik-onderschepping). Zo verschijnen balken exact wanneer het icoon zou verschijnen.
 	local b = barsByUnit[unit]
 	if not b then
 		b = AcquireBar()
