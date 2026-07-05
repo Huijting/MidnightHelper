@@ -1544,9 +1544,9 @@ local function MaybeShowBossPromptOnTarget()
 	if InCombatLockdown() then
 		return -- alleen pre-pull; in gevecht niet aanbieden (PLAYER_REGEN_DISABLED verbergt 'm)
 	end
-	if coachFrame and coachFrame._userDismissed then
-		return -- coach zelf weggeklikt → niet blijven naggen bij elke re-target (ENCOUNTER_START herbiedt aan)
-	end
+	-- (Bewust GÉÉN _userDismissed-blokkade: heb je de coach weggeklikt en target je de baas
+	--  opnieuw buiten combat, dan mag de prompt terugkomen — vooral aan het begin van de delve.
+	--  Het pre-pull-only + combat-verbergen + critter-filter houden het al netjes tegen naggen.)
 	if UnitCanAttack and not UnitCanAttack("player", "target") then
 		return -- alleen bij een vijandelijk doelwit (geen spelers/vriendelijke NPC's)
 	end
