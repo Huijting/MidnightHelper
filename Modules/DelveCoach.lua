@@ -1487,20 +1487,11 @@ local function HideBossCoachPrompt()
 	end
 end
 
-local function MaybeShowBossCoachPrompt()
-	local s = GetSettings()
-	if not s or not s.enabled or not s.autoShow then
-		return
-	end
-	local inDelve = (ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress()) or IsDelveInProgress()
-	if not inDelve then
-		return
-	end
-	if not (coachFrame and coachFrame._userDismissed) then
-		return -- coach niet door speler weggeklikt → niets te heropenen
-	end
+-- Toon de "open coach?"-prompt-knop (tenzij de coach al open is). Gedeeld door de
+-- ENCOUNTER_START- en de target-trigger.
+local function ShowBossPromptButton()
 	if coachFrame and coachFrame:IsShown() then
-		return
+		return -- coach al open → geen prompt nodig
 	end
 	if not bossPrompt then
 		local b = CreateFrame("Button", nil, UIParent, "UIPanelButtonTemplate")
@@ -1518,6 +1509,41 @@ local function MaybeShowBossCoachPrompt()
 	end
 	bossPrompt:SetText(ns:SafeL("DELVE_COACH_BOSS_PROMPT"))
 	bossPrompt:Show()
+end
+
+-- ENCOUNTER_START: prompt als je de coach zelf had weggeklikt.
+local function MaybeShowBossCoachPrompt()
+	local s = GetSettings()
+	if not s or not s.enabled or not s.autoShow then
+		return
+	end
+	local inDelve = (ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress()) or IsDelveInProgress()
+	if not inDelve then
+		return
+	end
+	if not (coachFrame and coachFrame._userDismissed) then
+		return -- coach niet door speler weggeklikt → niets te heropenen
+	end
+	ShowBossPromptButton()
+end
+
+-- Target-reopen (Rob 5 jul): een Delve-BAAS targeten toont de "open coach?"-prompt als de
+-- coach niet open is — spiegel van het dungeon-boss-venster (werkt ook als 'ie nooit opende).
+local function MaybeShowBossPromptOnTarget()
+	local s = GetSettings()
+	if not s or not s.enabled or not s.autoShow then
+		return
+	end
+	local inDelve = (ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress()) or IsDelveInProgress()
+	if not inDelve or not UnitExists("target") then
+		return
+	end
+	-- Is het doelwit een baas? Secret-safe classificatie (worldboss of ??-level), net als het
+	-- dungeon-venster — de target-GUID/npcID kan in 12.x secret zijn, dus niet daarop leunen.
+	if not (UnitClassification("target") == "worldboss" or (UnitLevel and UnitLevel("target") == -1)) then
+		return
+	end
+	ShowBossPromptButton()
 end
 
 local function OnDelveStateTick()
@@ -1654,6 +1680,7 @@ ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 ev:RegisterEvent("SCENARIO_UPDATE")
 ev:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
 ev:RegisterEvent("UNIT_TARGET")
+ev:RegisterEvent("PLAYER_TARGET_CHANGED") -- Delve-baas targeten → "open coach?"-prompt (Rob 5 jul)
 ev:RegisterEvent("ENCOUNTER_START")
 ev:RegisterEvent("ENCOUNTER_END")
 local function PrimeDelveStoriesIfIdle()
@@ -1685,6 +1712,9 @@ ev:SetScript("OnEvent", function(_, event, unit)
 		RefreshDelveCoachLiveContent()
 	elseif event == "UNIT_TARGET" and (not unit or unit == "player") then
 		RefreshDelveCoachLiveContent()
+	elseif event == "PLAYER_TARGET_CHANGED" then
+		RefreshDelveCoachLiveContent()
+		MaybeShowBossPromptOnTarget() -- baas targeten → "open coach?"-prompt
 	end
 end)
 ev:SetScript("OnUpdate", function(self, elapsed)
