@@ -942,6 +942,12 @@ end
 
 -- Hook vanuit DungeonLiveCoach bij ENCOUNTER_START: auto-open + meebladeren.
 function ns.BossWindowOnEncounter(dungeonKey, bossKey)
+	-- Volledig pre-pull (Rob 2026-07-05): het venster opent alléén buiten combat (door een
+	-- boss te targeten). ENCOUNTER_START valt altijd ín combat → hier dus niet meer auto-openen,
+	-- zodat het venster tijdens de fight uit de weg blijft. (Sluiten gebeurt op PLAYER_REGEN_DISABLED.)
+	if InCombatLockdown() then
+		return
+	end
 	if not ns.IsBossWindowAutoOpenEnabled() then
 		return -- in Settings uitgezet: nooit vanzelf openen
 	end
