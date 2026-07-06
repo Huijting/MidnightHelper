@@ -214,10 +214,12 @@ function ns.BuildStartHerePanel(panel)
 	end
 
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetFontObject(ns.MHScalableFont and ns.MHScalableFont("GameFontHighlightLarge") or "GameFontHighlightLarge") -- volg de tekstschaal (F4.6)
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
 	title:SetText(ns:L("START_TITLE"))
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	subtitle:SetFontObject(ns.MHScalableFont and ns.MHScalableFont("GameFontHighlightSmall") or "GameFontHighlightSmall") -- volg de tekstschaal (F4.6)
 	subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
 	subtitle:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
 	subtitle:SetJustifyH("LEFT")

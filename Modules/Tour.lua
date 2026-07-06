@@ -51,6 +51,24 @@ local function EnsureOverlay()
 	o:EnableMouse(true) -- swallow background clicks during the guided tour
 	o:Hide()
 
+	-- ESC ends the tour instead of closing the main window underneath it (F4.2).
+	-- The overlay captures keyboard while shown; ESCAPE is consumed (not propagated)
+	-- so the game menu / main window don't also react, other keys pass through so
+	-- movement still works. On hide (ESC, Skip, or EndUITour) the step index resets.
+	o:EnableKeyboard(true)
+	o:SetPropagateKeyboardInput(true)
+	o:SetScript("OnKeyDown", function(self, key)
+		if key == "ESCAPE" then
+			self:SetPropagateKeyboardInput(false)
+			ns.EndUITour()
+		else
+			self:SetPropagateKeyboardInput(true)
+		end
+	end)
+	o:SetScript("OnHide", function()
+		idx = 0
+	end)
+
 	-- Gold highlight box: a frame anchored to the target's corners, with 4 edge lines.
 	local hl = CreateFrame("Frame", nil, o)
 	hl:SetFrameLevel(o:GetFrameLevel() + 2)
@@ -92,12 +110,14 @@ local function EnsureOverlay()
 	o.bubble = bubble
 
 	local title = bubble:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	title:SetFontObject(ns.MHScalableFont and ns.MHScalableFont("GameFontHighlightLarge") or "GameFontHighlightLarge") -- volg de tekstschaal (F4.6)
 	title:SetPoint("TOPLEFT", bubble, "TOPLEFT", 12, -10)
 	title:SetPoint("RIGHT", bubble, "RIGHT", -12, 0)
 	title:SetJustifyH("LEFT")
 	bubble.title = title
 
 	local body = bubble:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	body:SetFontObject(ns.MHScalableFont and ns.MHScalableFont("GameFontHighlightSmall") or "GameFontHighlightSmall") -- volg de tekstschaal (F4.6)
 	body:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -6)
 	body:SetPoint("RIGHT", bubble, "RIGHT", -12, 0)
 	body:SetJustifyH("LEFT")
@@ -199,6 +219,16 @@ function ns.StartUITour()
 		ns:ShowMainUI()
 	end
 	EnsureOverlay()
+	-- Safety net: if the main window ever hides while the tour runs (e.g. closed by
+	-- other means), end the tour too so the click-blocking overlay can't outlive it (F4.2).
+	if ns.mainUI and not ns._mhTourHookedMain then
+		ns._mhTourHookedMain = true
+		ns.mainUI:HookScript("OnHide", function()
+			if overlay and overlay:IsShown() then
+				ns.EndUITour()
+			end
+		end)
+	end
 	-- Build the run from steps whose target frame is available right now.
 	wipe(active)
 	for _, s in ipairs(STEPS) do

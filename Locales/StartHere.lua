@@ -20,7 +20,7 @@ end
 merge(ns._mhLocales and ns._mhLocales.enUS, {
 	TAB_START_HERE = "Start Here",
 	START_TITLE = "Start Here — new to Midnight",
-	START_SUBTITLE = "Just hit max level and not sure what to do? This is the whole endgame, in order. Tap a step to jump straight to the tool for it; the weekly ones tick off on their own.",
+	START_SUBTITLE = "Just hit max level and not sure what to do? This is the whole endgame, in order. Click a step to jump straight to the tool for it; the weekly ones tick off on their own.",
 
 	START_INTRO_HEADER = "The Midnight loop in a nutshell",
 	START_INTRO_BODY = "Endgame is a weekly rhythm: lift your item level, tune your character, then each week fill your Great Vault from Delves, Ritual Sites and Void Assaults. Renown, professions and currencies layer on top once that loop feels routine.",
@@ -63,7 +63,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	START_DELVERCALL_FMT = "Delver's Call: %d/%d done this week",
 
 	TOUR_SECTION_HEADER = "How Midnight Helper works",
-	TOUR_SECTION_BODY = "A quick tour of the addon itself. Tap \"Show me\" on any part to jump straight there.",
+	TOUR_SECTION_BODY = "A quick, guided tour of the addon itself — it highlights each part of the window, one step at a time.",
 	TOUR_HOME_NAV = "Open This Week",
 	TOUR_CODEX_NAV = "Open Codex",
 	TOUR_DELVES_NAV = "Open Delves & Vault",
@@ -107,7 +107,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 merge(ns._mhLocales and ns._mhLocales.itIT, {
 	TAB_START_HERE = "Inizia qui",
 	START_TITLE = "Inizia qui — nuovo in Midnight",
-	START_SUBTITLE = "Appena arrivato al livello massimo e non sai cosa fare? Questo è tutto l'endgame, in ordine. Tocca un passo per saltare direttamente allo strumento giusto; quelli settimanali si spuntano da soli.",
+	START_SUBTITLE = "Appena arrivato al livello massimo e non sai cosa fare? Questo è tutto l'endgame, in ordine. Clicca un passo per saltare direttamente allo strumento giusto; quelli settimanali si spuntano da soli.",
 
 	START_INTRO_HEADER = "Il loop di Midnight in breve",
 	START_INTRO_BODY = "L'endgame è un ritmo settimanale: alza il tuo item level, metti a punto il personaggio e poi ogni settimana riempi il Great Vault con Delves, Ritual Sites e Void Assaults. Renown, professioni e valute si aggiungono una volta che il loop diventa routine.",
@@ -196,7 +196,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	START_DELVERCALL_FMT = "Delver's Call: %d/%d gedaan deze week",
 
 	TOUR_SECTION_HEADER = "Zo werkt Midnight Helper",
-	TOUR_SECTION_BODY = "Een korte rondleiding door de addon zelf. Tik op \"Laat zien\" bij een onderdeel om er meteen heen te springen.",
+	TOUR_SECTION_BODY = "Een korte, begeleide rondleiding door de addon zelf — hij licht elk onderdeel van het venster stap voor stap uit.",
 	TOUR_HOME_NAV = "Open Deze week",
 	TOUR_CODEX_NAV = "Open Codex",
 	TOUR_DELVES_NAV = "Open Delves & Vault",
@@ -332,7 +332,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 merge(ns._mhLocales and ns._mhLocales.esES, {
 	TAB_START_HERE = "Primeros pasos",
 	START_TITLE = "Primeros pasos — nuevo en Midnight",
-	START_SUBTITLE = "¿Acabas de llegar al nivel máximo y no sabes qué hacer? Esto es todo el endgame, en orden. Pulsa un paso para saltar directo a su herramienta; los semanales se marcan solos.",
+	START_SUBTITLE = "¿Acabas de llegar al nivel máximo y no sabes qué hacer? Esto es todo el endgame, en orden. Haz clic en un paso para saltar directo a su herramienta; los semanales se marcan solos.",
 
 	START_INTRO_HEADER = "El bucle de Midnight en resumen",
 	START_INTRO_BODY = "El endgame es un ritmo semanal: sube tu nivel de objeto, ajusta tu personaje y luego llena cada semana tu Great Vault con Profundidades, Ritual Sites y Void Assaults. El renombre, las profesiones y las monedas vienen encima cuando ese bucle ya sea rutina.",
@@ -378,7 +378,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	TAB_START_HERE = "Comece aqui",
 	START_TITLE = "Comece aqui — novo no Midnight",
-	START_SUBTITLE = "Acabou de chegar ao nível máximo e não sabe o que fazer? Este é todo o endgame, em ordem. Toque em um passo para ir direto à ferramenta certa; os semanais se marcam sozinhos.",
+	START_SUBTITLE = "Acabou de chegar ao nível máximo e não sabe o que fazer? Este é todo o endgame, em ordem. Clique em um passo para ir direto à ferramenta certa; os semanais se marcam sozinhos.",
 
 	START_INTRO_HEADER = "O loop do Midnight em resumo",
 	START_INTRO_BODY = "O endgame é um ritmo semanal: suba seu item level, ajuste seu personagem e depois encha o Great Vault toda semana com Profundidades, Ritual Sites e Void Assaults. Renome, profissões e moedas vêm por cima quando esse loop virar rotina.",
