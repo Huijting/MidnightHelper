@@ -44,12 +44,12 @@ function ns.MH_BroadcastRitualShareSync(entryId, mode, channel, isTest)
 		local me = UnitName and select(1, UnitName("player"))
 		local realm = GetNormalizedRealmName and GetNormalizedRealmName()
 		if me and realm then
-			pcall(C_ChatInfo.SendAddonMessage, PREFIX, payload, "WHISPER", me .. "-" .. realm)
+			ns.MH_SendAddon(PREFIX, payload, "WHISPER", me .. "-" .. realm)
 		end
 		return
 	end
 	if channel == "PARTY" or channel == "RAID" or channel == "INSTANCE_CHAT" then
-		pcall(C_ChatInfo.SendAddonMessage, PREFIX, payload, channel)
+		ns.MH_SendAddon(PREFIX, payload, channel)
 	end
 end
 

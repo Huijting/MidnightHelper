@@ -294,11 +294,7 @@ local function DoSendLines(lines, entryId, mode)
 		local delay = (idx - 1) * SEND_GAP_SEC
 		local function fire()
 			local msg = lines[idx]
-			if C_ChatInfo and C_ChatInfo.SendChatMessage then
-				pcall(C_ChatInfo.SendChatMessage, msg, channel)
-			else
-				SendChatMessage(msg, channel)
-			end
+			ns.MH_SendChat(msg, channel) -- lockdown-gate + queue (Comms.lua, review F2.2)
 			if idx >= #lines then
 				ClearPendingSend()
 				if isTest then

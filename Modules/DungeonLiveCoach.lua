@@ -276,14 +276,10 @@ function ns.ShareDungeonBossTips(dungeonKey, bossKey)
 		return
 	end
 	for _, m in ipairs(msgs) do
-		-- C_ChatInfo.SendChatMessage — de oude global loopt op 12.x via een
-		-- deprecated-shim die ADDON_ACTION_BLOCKED gooit (Rob, 11 jun);
-		-- zelfde patroon als DelvePartyShare/RitualShare.
-		if C_ChatInfo and C_ChatInfo.SendChatMessage then
-			pcall(C_ChatInfo.SendChatMessage, m, channel)
-		else
-			pcall(SendChatMessage, m, channel)
-		end
+		-- Gedeelde helper: C_ChatInfo.SendChatMessage (de oude global loopt op 12.x
+		-- via een deprecated-shim die ADDON_ACTION_BLOCKED gooit — Rob, 11 jun) +
+		-- chat-messaging-lockdown-gate met queue (Comms.lua, review F2.2).
+		ns.MH_SendChat(m, channel)
 	end
 	print("|cffffcc00MH:|r " .. ns:L("DGN_SHARE_SENT_FMT"):format(name))
 end

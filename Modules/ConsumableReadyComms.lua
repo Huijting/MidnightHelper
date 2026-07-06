@@ -110,7 +110,7 @@ function ns.BroadcastConsumableStatus()
 		return -- simpele throttle tegen spam bij snelle roster-events
 	end
 	lastSend = now
-	pcall(C_ChatInfo.SendAddonMessage, PREFIX, Encode(ns.GetOwnConsumableBagCounts()), ch)
+	ns.MH_SendAddon(PREFIX, Encode(ns.GetOwnConsumableBagCounts()), ch)
 end
 
 -- Solo-test: whisper je eigen status naar jezelf en laat de ontvang-kant 'm
@@ -126,7 +126,7 @@ function ns.ConsumableReadyTest()
 		return
 	end
 	testExpect = true
-	pcall(C_ChatInfo.SendAddonMessage, PREFIX, Encode(ns.GetOwnConsumableBagCounts()), "WHISPER", me .. "-" .. realm)
+	ns.MH_SendAddon(PREFIX, Encode(ns.GetOwnConsumableBagCounts()), "WHISPER", me .. "-" .. realm)
 	print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CONSREADY_TEST_SENT")))
 end
 
@@ -149,8 +149,8 @@ function ns.BroadcastReopenBoard()
 		return false
 	end
 	local ch = GroupChannel()
-	if ch and C_ChatInfo and C_ChatInfo.SendAddonMessage then
-		pcall(C_ChatInfo.SendAddonMessage, PREFIX, PROTO .. "|cmd:show", ch)
+	if ch then
+		ns.MH_SendAddon(PREFIX, PROTO .. "|cmd:show", ch)
 	end
 	if ns.ShowConsumableBoard then
 		ns.ShowConsumableBoard() -- bij jezelf ook tonen
