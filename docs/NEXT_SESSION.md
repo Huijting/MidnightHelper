@@ -1,5 +1,35 @@
 # Next session — Midnight Helper
 
+## ✅ FASE 1 UITGEVOERD (2026-07-06, Opus 4.8 — backlog 2–6 uit `docs/REVIEW_2026-07.md`)
+
+Drie commits op `main` (Rob's WIP — Core/Achievements/AchievementsData/Openables/Rares +
+CLAUDE.md — is NIET meegecommit):
+
+- **`5bfbfbd` — CI-fix (backlog 2, F5.1/F5.5).** `.github/workflows/guide-tips-audit.yml`
+  → hernoemd naar `lua-syntax-check.yml` (dode audit-step die op verwijderde GuideData/
+  GuideTips-bestanden hardcodete is weg; alleen de Lua-syntaxcheck blijft). `tools/audit_guide_spell_tips.py`
+  verwijderd. README-"Maintainer checks" bijgewerkt. **Test:** GitHub Actions wordt bij de volgende push groen.
+- **`c1b4d1a` — Comms-guard (backlog 4, F2.2).** Nieuw `Modules/Comms.lua` met `ns.MH_SendAddon`
+  (leest `Enum.SendAddonMessageResult`, retry bij throttle) en `ns.MH_SendChat`, beide met een
+  queue tijdens `C_ChatInfo.InChatMessagingLockdown()` (staleness-cap 30s). Alle 6 senders
+  (ConsumableReadyComms, DelveShareSync, RitualShareSync, DungeonLiveCoach, DelvePartyShare,
+  RitualShare) lopen er nu langs. **Test:** in een M+-run een share/broadcast proberen → komt aan
+  ná de run i.p.v. stil te verdwijnen. ⚠️ `InChatMessagingLockdown` + throttle-allowance web-geverifieerd
+  (report), maar exact lockdown-/queue-gedrag nog niet in-game bevestigd (§5.10).
+- **`79d1405` — Paladin: Divine Toll-dupe + spellID-pilot (backlog 3+5, F1.1/F1.3).** (a) Dubbele
+  `["Divine Toll"]`-key samengevoegd tot `specs={65,66,70}` (Holy/Prot kregen 'm terug). (b) KeybindAutoMap
+  matcht nu primair op **spellID** (`BuildIdIndex`), naam als fallback; alle Paladin-entries + globale
+  Recuperate kregen een **addon-geverifieerd** `id` (JustAC-data). **Test:** `/mhautomap` op Holy+Prot
+  Paladin (Divine Toll aanwezig); op een **niet-Engelse WoW-client** een Paladin (§5.5) → map vult nu wél.
+
+**Geparkeerd (backlog 6, F1.2):** Eruundi-mapconflict (2405 vs 2444) — wacht op Rob's in-game meting §5.2.
+
+**Fase 1 = klaar op backlog 6 na.** Volgende: **Fase 2** (onboarding-excellentie, backlog 7–10 + 16–17)
+zodra Rob de Fase 1-punten getest heeft. Openstaande in-game-vragen: §5.2 (Eruundi-mapID),
+§5.5 (niet-Engelse client keybind-test), §5.10 (chat-lockdown-gedrag).
+
+---
+
 ## 🌙 MORGEN — HIER VERDER (Rob ging slapen ~00:30, 2026-07-05)
 
 **✅ Combat Safety — Feature A + TTS IN-GAME BEVESTIGD (Rob, Delve-test 2026-07-05):**
