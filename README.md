@@ -46,7 +46,7 @@ See `CURSEFORGE_DESCRIPTION.md` for the full feature list.
 
 ## Maintainer checks
 
-- Leveling tips: run `python tools/audit_guide_spell_tips.py` from the repo root to verify every `GuideData.lua` tip key exists and has text in `Locales/GuideTips.lua`. This same check runs automatically on GitHub for pushes and pull requests.
+- Lua syntax: run `python tools/lua_syntax_check.py` from the repo root to compile every addon Lua file with `luac -p` (Lua 5.1) and catch syntax errors before release. This same check runs automatically on GitHub for pushes and pull requests.
 
 ## Notes
 

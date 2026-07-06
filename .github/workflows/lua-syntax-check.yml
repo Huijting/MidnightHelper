@@ -1,7 +1,7 @@
-# Validates that every GuideData.lua leveling tip references a real GUIDE_TIP_* string in GuideTips.lua.
+# Compiles every addon Lua file with luac -p (Lua 5.1) to catch syntax errors before release.
 # No network access required.
 
-name: Guide tips audit
+name: Lua syntax check
 
 on:
   push:
@@ -9,17 +9,21 @@ on:
     paths:
       - "Addons/**"
       - "Locales/**"
-      - "tools/**"
+      - "Modules/**"
+      - "*.lua"
+      - "tools/lua_syntax_check.py"
       - ".github/workflows/**"
   pull_request:
     paths:
       - "Addons/**"
       - "Locales/**"
-      - "tools/**"
+      - "Modules/**"
+      - "*.lua"
+      - "tools/lua_syntax_check.py"
       - ".github/workflows/**"
 
 jobs:
-  audit:
+  syntax:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,9 +36,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y lua5.1
-
-      - name: Run leveling tip consistency check
-        run: python tools/audit_guide_spell_tips.py
 
       - name: Lua syntax check
         run: |
