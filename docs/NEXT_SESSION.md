@@ -1,5 +1,30 @@
 # Next session — Midnight Helper
 
+## ✅ FASE 2 UITGEVOERD (2026-07-06, Opus 4.8 — backlog 7–10 + 16–17, onboarding-excellentie)
+
+Drie commits op `main` (Rob's WIP niet meegecommit). Rob koos **popup + chathint** voor first-run.
+
+- **`4ce2bce` — Tour/Start Here (backlog 8 + deel 17).** Tour-ESC (F4.2): overlay vangt ESC zelf
+  op (propageert niet → hoofdvenster blijft open) + `EndUITour()` bij OnHide hoofdvenster. Tekstschaal
+  (F4.6): tour-bubbels + Start Here-titel volgen de fontScale-slider (`ns.MHScalableFont`). Copy (F4.6):
+  Tap/Tocca/Pulsa/Toque → klik-taal; "Show me"-verwijzing weg. **Test (§5.9):** start tour, ESC → alleen
+  de tour sluit.
+- **`1d64bb1` — Venster/settings (deel 17).** Vensterpositie onthouden (F4.6, grootte werd al onthouden);
+  expliciete defaults voor mh_openLogin/mh_compact/mh_arrowMeters (Blizzard "Standaard" reset niet meer
+  naar login-waarde); AccessibleAlerts-toggle nu in native settings (nieuwe `ns.SetAccessibleAlertsEnabled`).
+  **Test:** sleep het venster, /reload → blijft op plek; native settings → "Toegankelijke gevaarmelding".
+- **`45828be` — Onboarding + jargon (backlog 7, 9, 10, 16).** First-run (F4.1): `Modules/FirstRun.lua`,
+  chathint + popup bij allereerste login, vlag `ns.db.firstRunSeen`, standalone (raakt Core.lua niet) —
+  **test: `/mhfirstrun`**. Home-blok (F4.4): Start Here-link + rondleiding-knop. Settings-tooltip (F4.3):
+  slider i.p.v. A-/A+-knoppen (7 talen). Jargon (F4.5): kaartkop-tooltips (7 talen) + glossary +ilvl/BiS/
+  proc/uptime/vault-slot (7 talen). NB: keybind-kaartlabels bewust op community-termen gehouden met NL-tooltip.
+
+**Restpunt (niet gedaan, klein):** TOUR_HOME_TITLE-naamconsistentie in de/fr/es/pt/it (F4.6). **Volgende:**
+**Fase 3** (fundament, backlog 11–14 + 18). Openstaande in-game-tests: §5.8 (native settings-paneel), §5.9
+(tour-ESC), + de Fase 1-tests (§5.2/§5.5/§5.10).
+
+---
+
 ## ✅ FASE 1 UITGEVOERD (2026-07-06, Opus 4.8 — backlog 2–6 uit `docs/REVIEW_2026-07.md`)
 
 Drie commits op `main` (Rob's WIP — Core/Achievements/AchievementsData/Openables/Rares +
