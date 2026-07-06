@@ -607,6 +607,26 @@ local function ProtoAcquireCard(panel)
 		t:SetTextColor(1, 0.82, 0.3)
 		card._title = t
 		card._rows = {}
+		-- Hover de kaart (buiten een spell-rij) -> één-regel-uitleg van de categorie-kop
+		-- (F4.5: "Builder/Spender/AoE/..." is dev-jargon voor een nieuweling). De spell-rijen
+		-- houden hun eigen spell-tooltip; die liggen als children bovenop en winnen.
+		card:EnableMouse(true)
+		card:SetScript("OnEnter", function(self)
+			if not self._tipKey then
+				return
+			end
+			local tip = ns:L(self._tipKey)
+			if not tip or tip == "" or tip == self._tipKey then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(self._title and self._title:GetText() or "", 1, 0.82, 0.3, true)
+			GameTooltip:AddLine(tip, 0.9, 0.9, 0.9, true)
+			GameTooltip:Show()
+		end)
+		card:SetScript("OnLeave", function()
+			GameTooltip:Hide()
+		end)
 		panel._mhCards[idx] = card
 	end
 	-- Reset: verberg alle bestaande rijen van een hergebruikte kaart. Anders blijven stale rijen
@@ -616,6 +636,7 @@ local function ProtoAcquireCard(panel)
 			card._rows[i]:Hide()
 		end
 	end
+	card._tipKey = nil -- hergebruikte kaart: geen stale tooltip van een vorige categorie
 	return card
 end
 
@@ -875,6 +896,7 @@ local function ProtoRefreshCards(panel, spec, slots)
 			card:SetSize(cardW, cardH)
 			card:Show()
 			card._title:SetText(ns:L(g.labelKey))
+			card._tipKey = g.labelKey .. "_TIP"
 			for i = 1, #list do
 				local sp = list[i]
 				local row = ProtoCardRow(card, i)

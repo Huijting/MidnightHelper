@@ -116,10 +116,21 @@ local function BuildLayout()
 	if not ns.db.onboardingDismissed then
 		addFull(function(rows)
 			header(rows, ns:L("HOME_ONBOARD_HEADER"))
+			-- First: point new players at the Start Here roadmap and the guided tour (F4.4).
+			navLine(rows, "starthere", "TAB_START_HERE")
 			line(rows, ns:L("HOME_ONBOARD_TIP1"), COLOR_SOFT)
 			line(rows, ns:L("HOME_ONBOARD_TIP2"), COLOR_SOFT)
 			line(rows, ns:L("HOME_ONBOARD_TIP3"), COLOR_SOFT)
 			line(rows, ns:L("HOME_ONBOARD_TIP4"), COLOR_SOFT)
+			if ns.StartUITour then
+				rows[#rows + 1] = {
+					button = true,
+					text = ns:L("HOME_ONBOARD_TOUR_BTN"),
+					onClick = function()
+						ns.StartUITour()
+					end,
+				}
+			end
 			rows[#rows + 1] = {
 				button = true,
 				text = ns:L("HOME_ONBOARD_DISMISS"),

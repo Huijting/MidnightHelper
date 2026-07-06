@@ -49,6 +49,12 @@ ns.MPLUS_GLOSSARY = {
 	"MPLUS_GLOSS_CC",
 	"MPLUS_GLOSS_DISPEL",
 	"MPLUS_GLOSS_WIPE",
+	-- Gearing/rotatie-jargon dat elders in de addon onverklaard voorkwam (F4.5).
+	"MPLUS_GLOSS_ILVL",
+	"MPLUS_GLOSS_BIS",
+	"MPLUS_GLOSS_PROC",
+	"MPLUS_GLOSS_UPTIME",
+	"MPLUS_GLOSS_VAULT",
 }
 
 -- Per-dungeon must-kicks (method.gg). Alleen dungeons met een schone bron;
