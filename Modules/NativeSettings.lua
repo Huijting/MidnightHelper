@@ -212,6 +212,11 @@ function ns.RegisterNativeSettings()
 		-- Meldingen & popups
 		----------------------------------------------------------------
 		AddHeader("SET_CAT_ALERTS")
+		AddToggle("mh_accessAlert", "SET_ACCESSALERT_TITLE", "SET_ACCESSALERT_DESC", function()
+			return ns.AccessibleAlertsEnabled and ns.AccessibleAlertsEnabled()
+		end, function(v)
+			if ns.SetAccessibleAlertsEnabled then ns.SetAccessibleAlertsEnabled(v) end
+		end, false)
 		AddToggle("mh_rareAlert", "SETTINGS_RARE_ALERT", "SETTINGS_RARE_ALERT_TT", function()
 			local s = ns.GetRareAlertSettings and ns.GetRareAlertSettings()
 			return not s or s.enabled ~= false
@@ -307,7 +312,7 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetNativeArrowMeters then ns.SetNativeArrowMeters(v) end
 			if ns.PreviewNativeArrow then ns.PreviewNativeArrow(3) end
-		end)
+		end, false) -- expliciete default (yards); niet de toevallige login-waarde (F4.6)
 
 		----------------------------------------------------------------
 		-- Venster & weergave
@@ -317,12 +322,12 @@ function ns.RegisterNativeSettings()
 			return ns.db and ns.db.ui and ns.db.ui.openOnLogin
 		end, function(v)
 			if ns.db and ns.db.ui then ns.db.ui.openOnLogin = v end
-		end)
+		end, false) -- expliciete default (uit); niet de toevallige login-waarde (F4.6)
 		AddToggle("mh_compact", "SETTINGS_COMPACT_MODE", nil, function()
 			return ns.IsCompactModeEnabled and ns:IsCompactModeEnabled()
 		end, function(v)
 			if ns.SetCompactModeEnabled then ns:SetCompactModeEnabled(v, true) end
-		end)
+		end, false) -- expliciete default (uit); niet de toevallige login-waarde (F4.6)
 		AddSlider("mh_fontScale", "SETTINGS_TEXT_SIZE_LABEL", "SETTINGS_TEXT_SIZE_DESC", 0.8, 1.6, 0.1, function()
 			return ns.GetContentFontScale and ns.GetContentFontScale()
 		end, function(v)

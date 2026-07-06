@@ -188,3 +188,12 @@ function ns.ToggleAccessibleAlerts()
 	end
 	return a.enabled
 end
+
+-- Expliciete setter (voor de native-settings-toggle; getter = AccessibleAlertsEnabled).
+function ns.SetAccessibleAlertsEnabled(v)
+	local a = Settings()
+	if not a then
+		return
+	end
+	a.enabled = v and true or false
+end

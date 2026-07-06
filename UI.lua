@@ -116,6 +116,21 @@ function ns:ApplySavedMainWindowSize()
 	ns._mhProgrammaticResize = false
 end
 
+--- Restore the saved window position (F4.6). No saved point = leave the default CENTER.
+function ns:ApplySavedMainWindowPosition()
+	local main = self.mainUI
+	if not main then
+		return
+	end
+	local ui = ns.db and ns.db.ui
+	local p = ui and ui.mainPoint
+	if type(p) ~= "table" or type(p.point) ~= "string" then
+		return
+	end
+	main:ClearAllPoints()
+	main:SetPoint(p.point, UIParent, p.relativePoint or p.point, tonumber(p.x) or 0, tonumber(p.y) or 0)
+end
+
 local ABOUT_BTN_WIDTH = 110
 local ABOUT_BTN_HEIGHT = 22
 local ABOUT_BTN_BOTTOM_INSET = 10
@@ -2740,6 +2755,24 @@ function ns:EnsureMainUI()
 		dbUi.layoutVersion = math.max(tonumber(dbUi.layoutVersion) or 0, 3)
 	end
 
+	-- Remember where the user dragged the window (F4.6). Stored relative to UIParent.
+	local function SaveMainWindowPosition()
+		local dbUi = ns.db and ns.db.ui
+		if not dbUi then
+			return
+		end
+		local point, _, relativePoint, x, y = main:GetPoint(1)
+		if not point then
+			return
+		end
+		dbUi.mainPoint = {
+			point = point,
+			relativePoint = relativePoint,
+			x = math.floor(x or 0),
+			y = math.floor(y or 0),
+		}
+	end
+
 	function ns:SaveMainWindowSize()
 		if not self.mainUI then
 			return
@@ -2773,6 +2806,7 @@ function ns:EnsureMainUI()
 			ns._mhLayoutRefs.reanchorInfoWindow()
 		end
 		SaveMainWindowSize()
+		SaveMainWindowPosition()
 	end)
 	grip:SetScript("OnDragStop", function()
 		main:StopMovingOrSizing()
@@ -2780,6 +2814,7 @@ function ns:EnsureMainUI()
 			ns._mhLayoutRefs.reanchorInfoWindow()
 		end
 		SaveMainWindowSize()
+		SaveMainWindowPosition()
 	end)
 
 	ns._mhLocaleRefs = {
@@ -3146,6 +3181,7 @@ function ns:ToggleMainWindow()
 	else
 		main:Show()
 		self:ApplySavedMainWindowSize()
+		self:ApplySavedMainWindowPosition()
 		if self.uiSelectedTab == "guide" and self._mhSelectGuideSubTab then
 			C_Timer.After(0, function()
 				if self._mhSelectGuideSubTab then
@@ -3160,6 +3196,7 @@ function ns:ShowMainUI()
 	local main = self:EnsureMainUI()
 	main:Show()
 	self:ApplySavedMainWindowSize()
+	self:ApplySavedMainWindowPosition()
 	if self.uiSelectedTab == "guide" and self._mhSelectGuideSubTab then
 		C_Timer.After(0, function()
 			if self._mhSelectGuideSubTab then
