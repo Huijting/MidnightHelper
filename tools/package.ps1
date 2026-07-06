@@ -21,7 +21,7 @@ $robolog = Join-Path $stagingRoot "robocopy.log"
 $excludeDirs = @(".git", ".cursor", "tools", "docs", ".github", "dist", "data", "__pycache__")
 $xf = @(
 	".cursorrules", "PHASES.txt", ".gitattributes", ".gitignore",
-	"README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md", "CURSEFORGE_DESCRIPTION.md",
+	"CLAUDE.md", "README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md", "CURSEFORGE_DESCRIPTION.md",
 	"Sync-MidnightHelper.bat", "*.bat", "*.cmd", "*.ps1", "*.py", "*.exe"
 )
 $args = @($src, $folder, "/E", "/NFL", "/NDL", "/NJH", "/NJS", "/nc", "/ns", "/np")
