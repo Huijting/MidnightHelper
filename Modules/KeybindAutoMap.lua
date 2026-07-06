@@ -64,7 +64,7 @@ end
 -- Universele spells die ELKE class kent (Midnight). Recuperate (1231411) = OOC food-heal,
 -- 50% HP over 10s -> heal_sustain-anker op F4 voor iedereen. Wordt naast de class-tabel geraadpleegd.
 ns.KeybindRoleClassifierGlobal = ns.KeybindRoleClassifierGlobal or {}
-ns.KeybindRoleClassifierGlobal["Recuperate"] = { role = "heal_sustain", priority = 1 }
+ns.KeybindRoleClassifierGlobal["Recuperate"] = { id = 1231411, role = "heal_sustain", priority = 1 }
 
 --- Enumerate the player's KNOWN, active (non-passive) spells from the live spellbook.
 --- Uses the modern C_SpellBook API (same as JustAC/others on this patch). Returns name -> spellID.
@@ -88,6 +88,30 @@ local function ReadKnownActiveSpells()
 		end
 	end
 	return out
+end
+
+--- Bouwt een spellID -> entry index uit de class-tabel + de globale tabel. Entries
+--- zónder `id` (nog niet gemigreerd) staan er niet in en vallen op naam terug. Dit is
+--- de PRIMAIRE match-sleutel: de live spellbook geeft gelokaliseerde NAMEN, dus op een
+--- niet-Engelse game-client matcht alleen het ID (review F1.3; Paladin is de pilot).
+local function BuildIdIndex(roles)
+	local byId = {}
+	if roles then
+		for _, r in pairs(roles) do
+			if type(r) == "table" and r.id then
+				byId[r.id] = r
+			end
+		end
+	end
+	local g = ns.KeybindRoleClassifierGlobal
+	if g then
+		for _, r in pairs(g) do
+			if type(r) == "table" and r.id then
+				byId[r.id] = r
+			end
+		end
+	end
+	return byId
 end
 
 --- Entry geldt als hij geen spec-filter heeft (class-baseline) of de huidige spec bevat.
@@ -125,8 +149,11 @@ function ns.MH_AutoMapBuild()
 	local matched = 0
 	local unmatched = {}
 	local globalRoles = ns.KeybindRoleClassifierGlobal
+	local byId = BuildIdIndex(roles)
 	for name, sid in pairs(known) do
-		local r = (roles and roles[name]) or (globalRoles and globalRoles[name])
+		-- Primair op spellID (locale-onafhankelijk), naam als fallback voor nog niet
+		-- gemigreerde classifiers.
+		local r = byId[sid] or (roles and roles[name]) or (globalRoles and globalRoles[name])
 		if r and SpecMatches(r.specs, specID) then
 			if r.role == "click_cast" or r.category == "click_cast" then
 				clickCast[#clickCast + 1] = { id = sid, name = name }
