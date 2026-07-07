@@ -78,15 +78,26 @@ end
 -- coords are only comparable within one continent, so a target on another continent
 -- (e.g. you portaled to Orgrimmar while routing a Midnight rare) must NOT draw a
 -- direction/distance — the numbers would be meaningless.
+-- Continent id is stable per mapID, so cache it: the arrow's ~30 Hz loop asked for
+-- it twice per tick (player + target), each allocating a Vector2D (review F3.3).
+local continentCache = {}
 local function MapContinent(mapID)
-	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D and mapID) then
+	if not mapID then
+		return nil
+	end
+	local cached = continentCache[mapID]
+	if cached ~= nil then
+		return cached
+	end
+	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D) then
 		return nil
 	end
 	local ok, cont = pcall(C_Map.GetWorldPosFromMapPos, mapID, CreateVector2D(0.5, 0.5))
-	if ok then
+	if ok and cont ~= nil then
+		continentCache[mapID] = cont
 		return cont
 	end
-	return nil
+	return nil -- transient failure: don't cache, retry next tick
 end
 
 local function PlayerWorld()
@@ -177,6 +188,12 @@ end
 -- Our own cached lead. Survives transient ns.lastTarget = nil from zone handlers.
 local activeLead
 
+-- Per-lead caches so the ~30 Hz arrow loop doesn't recompute a stationary target
+-- every tick (review F3.3). The target's world coords change only when the lead
+-- changes; the label string only when the shown distance/name changes.
+local leadWorldKey, leadWx, leadWy
+local lastLabelName, lastLabelVal, lastLabelUnit
+
 --------------------------------------------------------------------------------
 -- On-screen direction arrow (our own; retail has no built-in rotating arrow).
 --------------------------------------------------------------------------------
@@ -213,10 +230,17 @@ local function UpdateArrow()
 			other = "(other continent)"
 		end
 		f.label:SetText((t.name or "") .. "  " .. other)
+		lastLabelName, lastLabelVal, lastLabelUnit = nil, nil, nil -- invalidate label cache
 		return
 	end
 	local pwx, pwy = PlayerWorld()
-	local twx, twy = MapToWorld(t.mapID, (t.x or 0) / 100, (t.y or 0) / 100)
+	-- Target is stationary: recompute its world coords only when the lead changes.
+	local tkey = TargetKey(t)
+	if tkey ~= leadWorldKey then
+		leadWorldKey = tkey
+		leadWx, leadWy = MapToWorld(t.mapID, (t.x or 0) / 100, (t.y or 0) / 100)
+	end
+	local twx, twy = leadWx, leadWy
 	local facing = GetPlayerFacing and GetPlayerFacing()
 	if not (pwx and twx and facing) then
 		return
@@ -262,7 +286,13 @@ local function UpdateArrow()
 	if MidnightHelperDB and MidnightHelperDB.nativeArrowMeters then
 		shown, unit = dist * 0.9144, "m" -- 1 yard = 0.9144 m
 	end
-	f.label:SetText(("%s  %d %s"):format(t.name or "", math.floor(shown + 0.5), unit))
+	-- Only rebuild the label string when something visible changed (~30 Hz loop): the
+	-- floored distance rarely moves between adjacent ticks, so this skips most allocs.
+	local shownInt = math.floor(shown + 0.5)
+	if t.name ~= lastLabelName or shownInt ~= lastLabelVal or unit ~= lastLabelUnit then
+		lastLabelName, lastLabelVal, lastLabelUnit = t.name, shownInt, unit
+		f.label:SetText(("%s  %d %s"):format(t.name or "", shownInt, unit))
+	end
 end
 
 local function EnsureArrowFrame()
