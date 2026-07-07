@@ -1,5 +1,33 @@
 # Next session — Midnight Helper
 
+## ✅ FASE 3 UITGEVOERD (2026-07-07, Opus 4.8 — backlog 11–14 + 18, fundament)
+
+Rob's Void Showdown-WIP is eerst gecommit (4 commits: `b13f905` rares/meta's, `254537c`
+/mh capture, `1683cdd` Openables knowledge-detectie, `2d2f8b1` PTR-log) zodat Core.lua schoon
+was. Daarna Fase 3:
+
+- **`811b816` — SavedVariables-schema (backlog 11, F3.2).** `db.schemaVersion` + geordende
+  idempotente `MIGRATIONS`-tabel in `InitSavedVariables` (vóór MergeDefaults). Migratie v1 wist
+  spookvelden (`altOverviewExpanded` — werd eeuwig her-seeded, uit DEFAULT_DB gehaald; `simpleMode`)
+  en onderdrukt de first-run-popup voor terugkerende spelers (fresh-install-detectie). Array-velden
+  (favourites) bewust NIET in DEFAULT_DB — MergeDefaults merget lijsten per index.
+- **`d6b9af8` — NativeArrow GC (backlog 12, F3.3).** ~30 Hz-loop: continent per mapID gecachet,
+  doel-wereldcoords per lead, label alleen bij wijziging. Gedrag ongewijzigd.
+- **`5b7f0de` — Events scenario-gated (backlog 13, F3.4).** RitualBossCoach UNIT_SPELLCAST_*/UNIT_AURA
+  register bij scenario-enter, unregister bij leave; UNIT_AURA op "player". AccessibleAlerts UNIT_AURA idem.
+- **`a8409ad` — UI-hygiëne (backlog 18 DEEL, F3.7/F3.8).** Font-krimp-fix (cumulatief deDE/frFR),
+  simple-mode dode code weg, OnDragStop-dedup, dungeons→delves-remap weg.
+
+**Geparkeerd:** backlog 14 (MissingBuff secrets-API) wacht op §5.3 `/dump C_Secrets.ShouldAurasBeSecret`.
+Backlog 18 grotendeels bewust geparkeerd (35-taks slash-dispatch-table = hoog risico/laag user-value;
+ShareSync-factory; ns.SafeCall; SMC-teksten; micro-opts) — zie rapport-item 18 voor de volledige lijst.
+
+**Volgende: Fase 4** (boven de rest uitstijgen — backlog 15, 19–21: TOC-metadata/README, `.pkgmeta`+packager,
+CF/Wago/WoWI-descriptions + screenshots, data-afronding, LuaLS-basis). Openstaande in-game-tests: §5.2
+(Eruundi), §5.3 (secrets-dump), §5.5, §5.8, §5.9, §5.10.
+
+---
+
 ## ✅ FASE 2 UITGEVOERD (2026-07-06, Opus 4.8 — backlog 7–10 + 16–17, onboarding-excellentie)
 
 Drie commits op `main` (Rob's WIP niet meegecommit). Rob koos **popup + chathint** voor first-run.
