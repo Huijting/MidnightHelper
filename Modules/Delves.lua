@@ -2130,8 +2130,12 @@ do
 			local now2 = (GetTime and GetTime()) or now
 			local doFull = wantFull
 			-- Full POI rebuild: defer while moving or shortly after (avoids hitch + timer spam).
-			if doFull and GetUnitSpeed then
-				if (GetUnitSpeed("player") or 0) > 0 then
+			if doFull then
+				-- GetUnitSpeed("player") is a SECRET value in delves; comparing it taints
+				-- (Rob delve-crash 2026-07-07). Guard with issecretvalue; when it is secret
+				-- we skip the move-defer and fall back to the event-driven idle timer below.
+				local spd = GetUnitSpeed and GetUnitSpeed("player")
+				if spd ~= nil and not (issecretvalue and issecretvalue(spd)) and spd > 0 then
 					lastMoveAt = now2
 					pending = false
 					return
