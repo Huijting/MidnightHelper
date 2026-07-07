@@ -41,8 +41,6 @@ local DEFAULT_DB = {
 		scale = 1.0,
 		--- Content text scale (independent of window scale). See ns.ApplyContentFontScale.
 		fontScale = 1.0,
-		--- Legacy (ignored): alt snapshot lived in Delves; now a dedicated `account` tab.
-		altOverviewExpanded = false,
 		--- Delves tab accordion: `"midnight"` | `"vault"`.
 		delvesAccordionSection = "midnight",
 		--- Account snapshot tab: sort + filter (see Modules/AltOverview.lua).
@@ -168,9 +166,63 @@ local function MergeDefaults(target, defaults)
 end
 
 --------------------------------------------------------------------------------
+-- SavedVariables schema versioning + migrations (review F3.2)
+--   `db.schemaVersion` records how far the DB has been migrated. Each entry in
+--   MIGRATIONS[] upgrades from version n-1 to n; keep them ordered and idempotent
+--   and bump CURRENT_SCHEMA_VERSION when you add one. Migrations run BEFORE
+--   MergeDefaults so they transform raw persisted data, then defaults fill gaps.
+--
+--   NB: several user-editable fields are stored on demand rather than in
+--   DEFAULT_DB, on purpose — MergeDefaults merges tables by key, so seeding a
+--   LIST default (e.g. favourites) would re-add entries a user deliberately
+--   removed. On-demand fields: db.favourites (UI.lua), db.firstRunSeen
+--   (Modules/FirstRun.lua), ui.mainWidth/mainHeight/mainPoint (window size+pos).
+--------------------------------------------------------------------------------
+local CURRENT_SCHEMA_VERSION = 1
+
+local MIGRATIONS = {
+	-- v0 -> v1 (2026-07): drop ghost fields (re-seeded or written-never-read) and
+	-- fold in the old ad-hoc InitSavedVariables cleanups.
+	function(db)
+		if type(db.ui) == "table" then
+			db.ui.altOverviewExpanded = nil -- legacy; was re-seeded from DEFAULT_DB forever
+			db.ui.simpleMode = nil          -- phased-out simple-mode ghost
+			if db.ui.delvesAccordionSection == "alt" then
+				db.ui.delvesAccordionSection = "midnight" -- section no longer exists
+			end
+		end
+		db.simpleMode = nil -- ghost could also sit at top level (a UI toggle wrote it here)
+	end,
+}
+
+--- Run migrations the DB hasn't seen, then stamp the version. `fresh` = brand-new
+--- install (no prior data): nothing to migrate, just stamp the current version.
+local function RunSchemaMigrations(db, fresh)
+	local from = tonumber(db.schemaVersion) or 0
+	if not fresh then
+		for v = from + 1, CURRENT_SCHEMA_VERSION do
+			local m = MIGRATIONS[v]
+			if m then
+				pcall(m, db)
+			end
+		end
+		-- A pre-schema DB with real data belongs to a returning player, not a
+		-- newcomer: don't let the first-run popup greet them (Modules/FirstRun.lua).
+		if from == 0 and db.firstRunSeen == nil then
+			db.firstRunSeen = true
+		end
+	end
+	db.schemaVersion = CURRENT_SCHEMA_VERSION
+end
+
+--------------------------------------------------------------------------------
 -- Saved variables: MidnightHelperDB (see MidnightHelper.toc)
 --------------------------------------------------------------------------------
 function ns:InitSavedVariables()
+	-- Capture "brand-new install" BEFORE we touch the table, so migrations can tell
+	-- a first-ever load apart from a returning player's pre-schema DB.
+	local fresh = (type(MidnightHelperDB) ~= "table") or (next(MidnightHelperDB) == nil)
+
 	if type(MidnightHelperDB) ~= "table" then
 		MidnightHelperDB = {}
 	end
@@ -179,18 +231,9 @@ function ns:InitSavedVariables()
 		MidnightHelperDB.charCurrencies = {}
 	end
 
-	MergeDefaults(MidnightHelperDB, DEFAULT_DB)
+	RunSchemaMigrations(MidnightHelperDB, fresh) -- transform raw data first...
+	MergeDefaults(MidnightHelperDB, DEFAULT_DB)  -- ...then fill in any missing defaults
 	self.db = MidnightHelperDB
-
-	--- Legacy flag cleanup (accordion uses `ui.delvesAccordionSection`; do not force `"alt"`).
-	if MidnightHelperDB.ui and MidnightHelperDB.ui.altOverviewExpanded == true then
-		MidnightHelperDB.ui.altOverviewExpanded = false
-	end
-
-	--- Default Delves tab: Midnight Delves expanded, Account snapshot collapsed (drop persisted `"alt"`).
-	if MidnightHelperDB.ui and MidnightHelperDB.ui.delvesAccordionSection == "alt" then
-		MidnightHelperDB.ui.delvesAccordionSection = "midnight"
-	end
 
 	--- Remove invalid / stale alt snapshot entries (bad GUID keys, empty names).
 	do
