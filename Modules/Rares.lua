@@ -17,6 +17,7 @@ local MAP_TO_ZONE_KEY = {
 	[2444] = "voidstorm",
 	[2599] = "val", -- Showdown-zone (12.0.7)
 	[2600] = "naigtal", -- Showdown-zone (12.0.7)
+	[2646] = "naigtal", -- The Vacant Vigilant (Auredar's Chassis-gebouw), in-game bevestigd Rob 2026-07-07
 }
 
 -- { questId, mapID, x, y, displayName[, npcId] }
