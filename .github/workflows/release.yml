@@ -1,0 +1,33 @@
+# Auto-package + upload to CurseForge when a version tag is pushed.
+#
+# One-time setup (Rob):
+#   1. Add `## X-Curse-Project-ID: <id>` to MidnightHelper.toc (the packager reads it).
+#   2. On GitHub: Settings > Secrets and variables > Actions > New repository secret
+#        Name:  CF_API_KEY
+#        Value: your CurseForge API token (legacy.curseforge.com/account/api-tokens)
+#
+# Releasing after that: bump the .toc version, commit, then push a tag, e.g.:
+#   git tag v2.5.0 && git push origin v2.5.0
+# The BigWigs packager builds the zip (per .pkgmeta) and uploads it to CurseForge.
+
+name: Release to CurseForge
+
+on:
+  push:
+    tags:
+      - "v*"
+      - "[0-9]*"
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history so the packager can build the changelog
+
+      - name: Package and release
+        uses: BigWigsMods/packager@v2
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}

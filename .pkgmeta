@@ -1,0 +1,37 @@
+# BigWigs packager config — auto-publishes to CurseForge on a git tag
+# (see .github/workflows/release.yml). Mirrors the exclusions from tools/package.ps1
+# so the auto-built zip matches the manual one; the zip root folder is MidnightHelper/.
+
+package-as: MidnightHelper
+
+# We ship a hand-maintained .toc and use no embedded libraries' nolib stripping.
+enable-toc-creation: no
+enable-nolib-creation: no
+
+# Everything below is kept OUT of the release zip (dev tooling, docs, build scripts,
+# internal notes). .git is excluded automatically. CLAUDE.md stays out — it must never
+# ship (review F5.2 / P0).
+ignore:
+  - .github
+  - tools
+  - docs
+  - data
+  - dist
+  - .cursor
+  - .cursorrules
+  - .gitattributes
+  - .gitignore
+  - .pkgmeta
+  - PHASES.txt
+  - CLAUDE.md
+  - README.md
+  - CHANGELOG.md
+  - RELEASE_CHECKLIST.md
+  - CURSEFORGE_DESCRIPTION.md
+  - Platy1.tga
+  - "*.bat"
+  - "*.cmd"
+  - "*.ps1"
+  - "*.py"
+  - "*.exe"
+  - "*.vbs"
