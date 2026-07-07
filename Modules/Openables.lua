@@ -24,25 +24,35 @@ local function IsSecret(v)
 	return v ~= nil and issecretvalue ~= nil and issecretvalue(v) == true
 end
 
--- @return true als het item in (bag,slot) openbaar is
-local function SlotIsOpenable(bag, slot)
+-- @return "openable" (loot-container met "<Right Click to Open>") | "knowledge"
+-- (profession-studie-item: "Use: Study to increase your X Knowledge by N") | nil.
+-- Beide gebruik je met dezelfde klik (SecureActionButton item); knowledge-items zijn
+-- makkelijk te vergeten te "leren". De knowledge-detectie is tooltip-tekst-gebaseerd
+-- (Engelse client — Rob/testers spelen Engels); later te lokaliseren indien nodig.
+local function SlotKind(bag, slot)
 	if not (C_TooltipInfo and C_TooltipInfo.GetBagItem) then
-		return false
+		return nil
 	end
 	local ok, data = pcall(C_TooltipInfo.GetBagItem, bag, slot)
 	if not ok or type(data) ~= "table" or type(data.lines) ~= "table" then
-		return false
+		return nil
 	end
 	local openLine = ITEM_OPENABLE -- "<Right Click to Open>" (gelokaliseerd)
 	for _, line in ipairs(data.lines) do
 		local text = line and line.leftText
 		if text and not IsSecret(text) then
 			if openLine and (text == openLine or (strfind and strfind(text, openLine, 1, true))) then
-				return true
+				return "openable"
+			end
+			-- "Use: Study/Read ... Knowledge by N" → profession-studie-item.
+			local lower = text:lower()
+			if lower:find("knowledge", 1, true)
+				and (lower:find("study", 1, true) or lower:find("read", 1, true)) then
+				return "knowledge"
 			end
 		end
 	end
-	return false
+	return nil
 end
 
 -- @return geordende lijst { { bag, slot, itemID, name, icon, count }, ... }
@@ -56,7 +66,8 @@ local function ScanOpenables()
 	for bag = 0, 5 do
 		local slots = C_Container.GetContainerNumSlots(bag) or 0
 		for slot = 1, slots do
-			if SlotIsOpenable(bag, slot) then
+			local kind = SlotKind(bag, slot)
+			if kind then
 				local info = C_Container.GetContainerItemInfo(bag, slot)
 				if info then
 					-- Level-vereiste: verberg items die je nog niet kunt openen (bv. een
@@ -72,6 +83,7 @@ local function ScanOpenables()
 							name = info.itemName or (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(info.itemID)) or "?",
 							icon = info.iconFileID or "Interface\\Icons\\INV_Misc_Bag_08",
 							count = info.stackCount or 1,
+							kind = kind, -- "openable" | "knowledge"
 						}
 					end
 				end
