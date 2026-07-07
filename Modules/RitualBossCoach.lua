@@ -69,6 +69,10 @@ end
 local inScenario = false
 local lastStepID = nil
 local shownForStep = {} -- per scenario-bezoek éénmaal auto-openen per step
+-- Combat-events (cast/aura) alleen registreren binnen het ritual-scenario (review F3.4):
+-- buiten het scenario deden ze niets maar vuurden ze in raid-combat tientallen keren/sec.
+-- Assigned zodra het event-frame bestaat; aangeroepen bij scenario-enter/-leave.
+local RegisterCombatEvents, UnregisterCombatEvents
 
 -- Cast-alerts (idee uit RitualAlert; spell-IDs uit 14-jun datamining). Terwijl we
 -- in het Broken-Throne-scenario zitten, flasht een waarschuwing zodra de boss/add
@@ -355,6 +359,9 @@ local function LeaveScenario()
 	inScenario = false
 	lastStepID = nil
 	wipe(shownForStep)
+	if UnregisterCombatEvents then
+		UnregisterCombatEvents()
+	end
 	if ns.HideBossWindowForEntry then
 		ns.HideBossWindowForEntry(ENTRY.key)
 	end
@@ -369,6 +376,9 @@ local function OnScenarioTick()
 	end
 	if not inScenario then
 		inScenario = true
+		if RegisterCombatEvents then
+			RegisterCombatEvents()
+		end
 		if wipe then
 			wipe(seenCast) -- nieuwe run → cast-log opnieuw verzamelen
 			wipe(seenDebuff) -- idem voor de debuff-log
@@ -409,9 +419,23 @@ f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 f:RegisterEvent("ENCOUNTER_START")
 f:RegisterEvent("ENCOUNTER_END")
 f:RegisterEvent("INSTANCE_ENCOUNTER_ENGAGE_UNIT")
-f:RegisterEvent("UNIT_SPELLCAST_START")
-f:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-f:RegisterEvent("UNIT_AURA")
+-- UNIT_SPELLCAST_START/SUCCEEDED + UNIT_AURA worden scenario-gated geregistreerd
+-- (zie RegisterCombatEvents hieronder), niet permanent.
+
+-- Scenario-gated combat-events (F3.4): pas registreren bij scenario-enter, weer weg
+-- bij leave. UNIT_AURA gefilterd op "player" (we lezen alleen eigen debuffs).
+function RegisterCombatEvents()
+	f:RegisterEvent("UNIT_SPELLCAST_START")
+	f:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+	f:RegisterUnitEvent("UNIT_AURA", "player")
+end
+
+function UnregisterCombatEvents()
+	f:UnregisterEvent("UNIT_SPELLCAST_START")
+	f:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+	f:UnregisterEvent("UNIT_AURA")
+end
+
 f:SetScript("OnEvent", function(_, event, arg1, arg2, arg3)
 	if event == "UNIT_SPELLCAST_START" or event == "UNIT_SPELLCAST_SUCCEEDED" then
 		OnUnitSpellCast(arg3) -- arg1=unit, arg2=castGUID, arg3=spellID

@@ -161,7 +161,7 @@ local function ScanDebuffs()
 end
 
 local f = CreateFrame("Frame")
-f:RegisterEvent("UNIT_AURA")
+f:RegisterUnitEvent("UNIT_AURA", "player") -- engine-filter: alleen eigen auras (F3.4)
 f:SetScript("OnEvent", function(_, _, unit)
 	if unit == "player" then
 		ScanDebuffs()
