@@ -620,8 +620,10 @@ local function ProtoAcquireCard(panel)
 				return
 			end
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetText(self._title and self._title:GetText() or "", 1, 0.82, 0.3, true)
-			GameTooltip:AddLine(tip, 0.9, 0.9, 0.9, true)
+			-- NB: GameTooltip:SetText's 5th arg is alpha (a number), NOT a wrap flag —
+			-- passing a boolean errors. The title is short, so no wrap needed anyway.
+			GameTooltip:SetText(self._title and self._title:GetText() or "", 1, 0.82, 0.3)
+			GameTooltip:AddLine(tip, 0.9, 0.9, 0.9, true) -- AddLine's 5th arg IS wrapText
 			GameTooltip:Show()
 		end)
 		card:SetScript("OnLeave", function()
