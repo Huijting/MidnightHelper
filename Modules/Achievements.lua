@@ -134,6 +134,9 @@ local function EntryKind(entry)
 end
 
 local function EntryFeedsMeta(entry)
+	if entry and entry.feedsMeta ~= nil then
+		return entry.feedsMeta -- expliciete override (Showdown-meta's voeden NIET Light Up the Night)
+	end
 	local k = EntryKind(entry)
 	return k == "treasure" or k == "rare"
 end

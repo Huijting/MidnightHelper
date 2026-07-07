@@ -110,26 +110,29 @@ local ZONES = {
 			{ 93896, 2405, 53.89, 62.79, "Far'thana the Mad", 256821 },
 		},
 	},
-	-- Showdown-zones (12.0.7). questId 0 = nog geen bevestigde kill-quest-ID
-	-- (niet datamine-baar; in-game te capturen) → geen weekly-tint, maar route
-	-- + vignette-alert werken via npcID (veld 6) + coords. Roster = Wowhead
-	-- achievement-criteria (Showdown Slugger Val 62881 / Naigtal 62883), agent
-	-- 16 jun; coords uit de officiële Wowhead-gids, roamers ge-in-game-meten.
+	-- Showdown-zones (12.0.7): Naigtal (2600) & Val (2599), roterend via de
+	-- Voidstorm-portal. questId = de weekly kill-credit-quest. npcID's, quests én
+	-- coords geverifieerd via de HandyNotes_Midnight-plugin (zones/naigtal.lua +
+	-- val.lua), gekruist met de Showdown Slugger-achievement-criteria (Val 62881 /
+	-- Naigtal 62883). NB: deze coords wijken af van de eerdere Wowhead-gids-waarden;
+	-- HandyNotes (onderhouden pin-plugin) is leidend, Rob spot-checkt in-game.
+	-- Auredar's Chassis staat in het gebouw The Vacant Vigilant (map 2646); we routen
+	-- naar de ingang op 2600 en de npcID skullt 'm binnen.
 	{
 		key = "val",
 		label = "Val",
 		shortLabel = "Val",
 		rares = {
-			{ 0, 2599, 54.0, 67.0, "Sleet-Rune", 261965 },
-			{ 0, 2599, 66.4, 42.0, "Glacial Broodmother", 261716 }, -- roamt
-			{ 0, 2599, 28.0, 73.0, "Xirah", 264864 },
-			{ 0, 2599, 33.0, 42.0, "Opprimius", 264868 },
-			{ 0, 2599, 23.0, 41.0, "The Horror Below", 264870 },
-			{ 0, 2599, 37.0, 76.0, "Atomus", 262421 },
-			{ 0, 2599, 49.7, 79.9, "Mercilus", 264865 },
-			{ 0, 2599, 45.9, 44.6, "Krilkan", 264866 }, -- roamt
-			{ 0, 2599, 33.0, 57.0, "Nelgothar", 264869 }, -- Forgotten Depths
-			{ 0, 2599, 44.0, 66.0, "Shadowguard Destroyer", 265269 }, -- Blackstar-patrouille, roamt
+			{ 95939, 2599, 66.80, 86.40, "Sleet-Rune", 261965 },
+			{ 95559, 2599, 67.20, 41.80, "Glacial Broodmother", 261716 }, -- elite, roamt
+			{ 96370, 2599, 28.50, 74.50, "Xirah", 264864 },
+			{ 96373, 2599, 33.30, 43.00, "Opprimius", 264868 },
+			{ 96375, 2599, 33.50, 58.20, "The Horror Below", 264870 },
+			{ 95940, 2599, 37.90, 77.25, "Atomus", 262421 },
+			{ 96371, 2599, 49.70, 79.20, "Mercilus", 264865 },
+			{ 96372, 2599, 42.60, 58.30, "Krilkan", 264866 }, -- roamt
+			{ 96374, 2599, 23.20, 41.40, "Nelgothar", 264869 }, -- Forgotten Depths
+			{ 96465, 2599, 35.90, 59.80, "Shadowguard Destroyer", 265269 }, -- roamt
 		},
 	},
 	{
@@ -137,14 +140,16 @@ local ZONES = {
 		label = "Naigtal",
 		shortLabel = "Naigtal",
 		rares = {
-			{ 0, 2600, 38.0, 63.0, "Interminable Uarn", 263947 },
-			{ 0, 2600, 77.0, 38.0, "Swalewing Matriarch", 263954 },
-			{ 0, 2600, 29.0, 63.0, "Auredar's Chassis", 264569 },
-			{ 0, 2600, 53.0, 50.0, "Indomitable Mk XII", 264571 },
-			{ 0, 2600, 45.0, 52.0, "Broxion", 263950 },
-			{ 0, 2600, 65.0, 60.0, "Lomelith", 263955 },
-			{ 0, 2600, 70.0, 76.0, "Warp Agent Xi'grivr", 264574 },
-			{ 0, 2600, 57.0, 63.0, "Slaipaan", 264576 },
+			{ 96205, 2600, 37.60, 61.80, "Interminable Uarn", 263947 },
+			{ 96207, 2600, 77.70, 38.30, "Swalewing Matriarch", 263954 },
+			{ 96316, 2600, 28.00, 50.60, "Auredar's Chassis", 264569 }, -- in gebouw The Vacant Vigilant (map 2646); ingang op 2600
+			{ 96317, 2600, 54.60, 42.30, "Indomitable Mk XII", 264571 }, -- elite
+			{ 96206, 2600, 45.10, 55.40, "Broxion", 263950 },
+			{ 96208, 2600, 68.50, 62.20, "Lomelith", 263955 },
+			{ 96319, 2600, 70.30, 76.40, "Warp Agent Xi'grivr", 264574 },
+			{ 96320, 2600, 55.20, 62.00, "Slaipaan", 264576 },
+			{ 97014, 2600, 29.70, 19.20, "Warbringer Thal'kuur", 267422 }, -- extra rare (niet in Slugger-meta)
+			{ 96566, 2600, 48.80, 47.40, "Voidwarped Sporebat", 265698 }, -- extra rare (niet in Slugger-meta)
 		},
 	},
 }

@@ -344,6 +344,42 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 111890, mapID = 2405, x = 53.94, y = 62.72, name = "Far'thana the Mad", quest = 93896 },
 		},
 	},
+	-- Void Showdown rare-metas (Naigtal 2600 / Val 2599, rotating). Nodes cross-
+	-- referenced from HandyNotes_Midnight (npcID/criteria/quest) + coords. These feed
+	-- the Showdown zone metas (A Trip Through/Around the Stars), NOT Light Up the Night
+	-- (feedsMeta = false). The 2 extra Naigtal rares (Warbringer Thal'kuur, Voidwarped
+	-- Sporebat) aren't part of the meta and live only in the Rares tab. Coords need an
+	-- in-game spot-check (they differ from earlier Wowhead-guide values).
+	{
+		achievementID = 62883, -- Showdown Slugger: Naigtal
+		feedsMeta = false,
+		nodes = {
+			{ criteria = 114005, mapID = 2600, x = 37.60, y = 61.80, name = "Interminable Uarn", quest = 96205 },
+			{ criteria = 114007, mapID = 2600, x = 77.70, y = 38.30, name = "Swalewing Matriarch", quest = 96207 },
+			{ criteria = 114009, mapID = 2600, x = 28.00, y = 50.60, name = "Auredar's Chassis", quest = 96316 },
+			{ criteria = 114011, mapID = 2600, x = 54.60, y = 42.30, name = "Indomitable Mk XII", quest = 96317 },
+			{ criteria = 114006, mapID = 2600, x = 45.10, y = 55.40, name = "Broxion", quest = 96206 },
+			{ criteria = 114008, mapID = 2600, x = 68.50, y = 62.20, name = "Lomelith", quest = 96208 },
+			{ criteria = 114010, mapID = 2600, x = 70.30, y = 76.40, name = "Warp Agent Xi'grivr", quest = 96319 },
+			{ criteria = 114012, mapID = 2600, x = 55.20, y = 62.00, name = "Slaipaan", quest = 96320 },
+		},
+	},
+	{
+		achievementID = 62881, -- Showdown Slugger: Val
+		feedsMeta = false,
+		nodes = {
+			{ criteria = 113995, mapID = 2599, x = 66.80, y = 86.40, name = "Sleet-Rune", quest = 95939 },
+			{ criteria = 113997, mapID = 2599, x = 67.20, y = 41.80, name = "Glacial Broodmother", quest = 95559 },
+			{ criteria = 113999, mapID = 2599, x = 28.50, y = 74.50, name = "Xirah", quest = 96370 },
+			{ criteria = 114001, mapID = 2599, x = 33.30, y = 43.00, name = "Opprimius", quest = 96373 },
+			{ criteria = 114003, mapID = 2599, x = 33.50, y = 58.20, name = "The Horror Below", quest = 96375 },
+			{ criteria = 113996, mapID = 2599, x = 37.90, y = 77.25, name = "Atomus", quest = 95940 },
+			{ criteria = 113998, mapID = 2599, x = 49.70, y = 79.20, name = "Mercilus", quest = 96371 },
+			{ criteria = 114000, mapID = 2599, x = 42.60, y = 58.30, name = "Krilkan", quest = 96372 },
+			{ criteria = 114002, mapID = 2599, x = 23.20, y = 41.40, name = "Nelgothar", quest = 96374 },
+			{ criteria = 114004, mapID = 2599, x = 35.90, y = 59.80, name = "Shadowguard Destroyer", quest = 96465 },
+		},
+	},
 }
 
 -- Elite rares (RareElite in HandyNotes_Midnight): tougher, may want a group or some
@@ -353,4 +389,6 @@ ns.ELITE_RARE_CRITERIA = {
 	[111852] = true, [111853] = true,                  -- Zul'Aman
 	[109045] = true, [109050] = true, [109053] = true, -- Harandar
 	[111885] = true, [111890] = true,                  -- Voidstorm
+	[114011] = true,                                   -- Naigtal (Indomitable Mk XII)
+	[113997] = true,                                   -- Val (Glacial Broodmother)
 }
