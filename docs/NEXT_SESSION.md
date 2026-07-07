@@ -1,5 +1,33 @@
 # Next session — Midnight Helper
 
+## 🔨 FASE 4 IN UITVOERING (2026-07-07 avond, Opus 4.8 — backlog 15, 19–21) — MORGENAVOND AFMAKEN
+
+Rob gaat slapen (~wekker 6u); **morgenavond Fase 4 afmaken, dán pas nieuwe ideeën**.
+
+**Al gedaan + gepusht (deze avond):**
+- **README** geactualiseerd (interface 120007, Italiaans, feature-lijst) — `54ba082`.
+- **Auto-release packager** (backlog 19): nieuw `.pkgmeta` + `.github/workflows/release.yml` (BigWigs packager) — `3ec0ad4`. CLAUDE.md blijft uit de zip.
+- **TOC-metadata compleet** (backlog 15): Author=TwelveInchy, Category, MIT, X-Website, keyword-rijke Notes 6 talen, `X-Curse-Project-ID: 1528577`, + **AddonCompartmentFunc** → `MidnightHelper_OnAddonCompartmentClick` (Broker.lua) — `3dc7153`.
+- **Minimap-icoon aan/uit-toggle** (declutter; MH ook via AddonCompartment/`/mh`/Alt+M) 7 talen — `c9288b0`.
+- **Settings-in-combat-guard** (`OpenSettingsPanel` is protected in combat) 7 talen — `46b569e`.
+- **Delve secret-crash fix** (`GetUnitSpeed` secret in delves) — `7c2111f`.
+- **Eruundi/Asha (§5.2) opgelost via HandyNotes**; **§5.3 secrets-API opgelost via addon-cross-check** — `9a517e5`. Beide items 6+14 klaar, GEEN in-game meting meer nodig.
+- **First-run popup** noemt nu **Alt+M** (+ /mh) 7 talen — `7ff200e`.
+
+**⚠️ Rob's enige openstaande actie voor auto-release:** `CF_API_KEY` GitHub-secret toevoegen
+(token van legacy.curseforge.com/account/api-tokens). Daarna: versie bumpen + `git tag vX.Y.Z && git push origin vX.Y.Z` → auto-upload naar CF.
+
+**NB Rob draait EllesmereUIMinimap** → verbergt/verplaatst de default AddonCompartment-knop; daarom "niets rechtsboven". Alt+M (Bindings.xml default) is voor hem de opener.
+
+**Nog te doen in Fase 4 (morgenavond):**
+- **Item 20 — data-afronding**: Naigtal/Val treasures + lore uit HandyNotes (Rob's data-bestanden zijn schoon gecommit; z'n WIP zit alleen in `docs/PTR_12.0.7_DATA.md`); LVL8090-vertalingen (de/fr/es/pt/it via Translations2026); consumables-check. Zie [[handynotes-rare-coords-trusted]].
+- **Item 21 — LuaLS-basis**: `.luarc.json` + `---@class MidnightHelperNS`/`MHDB`-annotaties (dev-only).
+- **Item 19-rest**: CF-description met doelgroep-hook + "See it in action"-sectie (lever Rob 4–5 screenshot-scènes; schieten doet Rob); RELEASE_CHECKLIST-dedupe; zwerfbestanden (Platy1.tga root-dup, PHASES.txt, Sync-*.bat).
+
+**Nog te bevestigen door Rob in-game (laag-prio):** §5.5 niet-Engelse keybind-client, §5.8 native settings, §5.10 chat-lockdown in M+.
+
+---
+
 ## ✅ FASE 3 UITGEVOERD (2026-07-07, Opus 4.8 — backlog 11–14 + 18, fundament)
 
 Rob's Void Showdown-WIP is eerst gecommit (4 commits: `b13f905` rares/meta's, `254537c`
