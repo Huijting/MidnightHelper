@@ -3156,6 +3156,12 @@ function ns:ToggleMainWindow()
 		main:Show()
 		self:ApplySavedMainWindowSize()
 		self:ApplySavedMainWindowPosition()
+		-- Re-sync the sidebar with the current beta-tab settings on every open, so a
+		-- toggle made in Settings (a different sidebar room) is always reflected without
+		-- needing a /reload (Rob 2026-07-07).
+		if ns.RefreshBetaTabVisibility then
+			ns.RefreshBetaTabVisibility()
+		end
 		if self.uiSelectedTab == "guide" and self._mhSelectGuideSubTab then
 			C_Timer.After(0, function()
 				if self._mhSelectGuideSubTab then
@@ -3171,6 +3177,9 @@ function ns:ShowMainUI()
 	main:Show()
 	self:ApplySavedMainWindowSize()
 	self:ApplySavedMainWindowPosition()
+	if ns.RefreshBetaTabVisibility then
+		ns.RefreshBetaTabVisibility() -- keep the sidebar in sync with beta-tab settings (see ToggleMainWindow)
+	end
 	if self.uiSelectedTab == "guide" and self._mhSelectGuideSubTab then
 		C_Timer.After(0, function()
 			if self._mhSelectGuideSubTab then
