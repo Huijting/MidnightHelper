@@ -658,6 +658,7 @@ local OVERRIDES = {
 	SETTINGS_BETA_TAB_ACADEMY_TT = "Pestaña Academia de roles.",
 	SETTINGS_SECTION_VAULT = "Gran Bóveda",
 	SETTINGS_OPEN_ON_LOGIN = "Abra Midnight Helper al iniciar sesión",
+	SETTINGS_COMBAT_BLOCKED = "No se pueden abrir los ajustes en combate — inténtalo de nuevo cuando salgas del combate.",
 	SETTINGS_COMPACT_MODE = "Modo compacto (diseño más denso)",
 	SETTINGS_TEXT_SIZE_LABEL = "Tamaño del texto",
 	NAV_TOOL_BOARD = "Tablero de consumibles",

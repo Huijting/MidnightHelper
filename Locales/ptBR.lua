@@ -659,6 +659,7 @@ local OVERRIDES = {
 	SETTINGS_BETA_TAB_ACADEMY_TT = "Aba Academia de papéis.",
 	SETTINGS_SECTION_VAULT = "Grande Câmara",
 	SETTINGS_OPEN_ON_LOGIN = "Abra o Midnight Helper no login",
+	SETTINGS_COMBAT_BLOCKED = "Não é possível abrir as configurações em combate — tente novamente ao sair do combate.",
 	SETTINGS_COMPACT_MODE = "Modo compacto (layout mais denso)",
 	SETTINGS_TEXT_SIZE_LABEL = "Tamanho do texto",
 	NAV_TOOL_BOARD = "Painel de consumíveis",

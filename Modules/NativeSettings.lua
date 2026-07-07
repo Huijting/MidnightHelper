@@ -524,6 +524,14 @@ end
 --------------------------------------------------------------------------------
 
 function ns.OpenNativeSettings()
+	-- Opening the Blizzard settings calls the protected OpenSettingsPanel(), which is
+	-- blocked in combat (ADDON_ACTION_BLOCKED). Don't attempt it; tell the player instead.
+	if InCombatLockdown and InCombatLockdown() then
+		if ns.PrintChat then
+			ns:PrintChat(ns:L("SETTINGS_COMBAT_BLOCKED"))
+		end
+		return false
+	end
 	if Settings and Settings.OpenToCategory and ns.settingsCategory then
 		Settings.OpenToCategory(ns.settingsCategory:GetID())
 		return true

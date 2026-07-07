@@ -179,9 +179,13 @@ function ns.BuildSettingsPanel(panel)
 	-- Primaire knoppen: open native paneel + aanbevolen stand.
 	local openBtn = MakeBtn(260, "SET_LAUNCH_OPEN", function()
 		if not (ns.OpenNativeSettings and ns.OpenNativeSettings()) then
-			DEFAULT_CHAT_FRAME:AddMessage(
-				("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("SET_LAUNCH_HINT"))
-			)
+			-- In combat OpenNativeSettings already printed a "can't open in combat" note
+			-- (opening is a protected action); don't also print the API-fallback hint.
+			if not (InCombatLockdown and InCombatLockdown()) then
+				DEFAULT_CHAT_FRAME:AddMessage(
+					("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("SET_LAUNCH_HINT"))
+				)
+			end
 		end
 	end)
 	openBtn:SetHeight(30)

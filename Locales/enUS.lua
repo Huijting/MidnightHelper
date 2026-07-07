@@ -1112,6 +1112,7 @@ ns._mhLocales.enUS = {
 	SETTINGS_BETA_TAB_ACADEMY_TT = "Role Academy tab.",
 	SETTINGS_SECTION_VAULT = "Great Vault",
 	SETTINGS_OPEN_ON_LOGIN = "Open Midnight Helper on login",
+	SETTINGS_COMBAT_BLOCKED = "Can't open settings during combat — try again once you're out of the fight.",
 	SETTINGS_COMPACT_MODE = "Compact mode (denser layout)",
 	SETTINGS_TEXT_SIZE_LABEL = "Text size",
 	SET_ARROWSIZE_TITLE = "Route arrow size (no-TomTom mode)",

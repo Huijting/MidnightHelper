@@ -1053,6 +1053,7 @@ ns._mhLocales.nlNL = {
 	SETTINGS_BETA_TAB_ACADEMY_TT = "Role Academy-tab.",
 	SETTINGS_SECTION_VAULT = "Great Vault",
 	SETTINGS_OPEN_ON_LOGIN = "Open Midnight Helper bij inloggen",
+	SETTINGS_COMBAT_BLOCKED = "Instellingen kunnen niet tijdens gevecht openen — probeer het opnieuw zodra je uit gevecht bent.",
 	SETTINGS_COMPACT_MODE = "Compact mode (compactere layout)",
 	SETTINGS_TEXT_SIZE_LABEL = "Tekstgrootte",
 	SET_ARROWSIZE_TITLE = "Route-pijl grootte (zonder TomTom)",

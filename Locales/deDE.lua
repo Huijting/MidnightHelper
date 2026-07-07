@@ -658,6 +658,7 @@ local OVERRIDES = {
 	SETTINGS_BETA_TAB_ACADEMY_TT = "Rollenakademie-Tab.",
 	SETTINGS_SECTION_VAULT = "Große Schatzkammer",
 	SETTINGS_OPEN_ON_LOGIN = "Öffne Midnight Helper beim Anmelden",
+	SETTINGS_COMBAT_BLOCKED = "Einstellungen können im Kampf nicht geöffnet werden — versuche es erneut, sobald du aus dem Kampf bist.",
 	SETTINGS_COMPACT_MODE = "Kompaktmodus (dichteres Layout)",
 	SETTINGS_TEXT_SIZE_LABEL = "Textgröße",
 	NAV_TOOL_BOARD = "Verbrauchsgüter-Tafel",
