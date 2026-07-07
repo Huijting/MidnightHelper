@@ -58,7 +58,7 @@ local ZONES = {
 			{ 89580, 2437, 47.44, 34.35, "Tiny Vermin", 242033 },
 			{ 89583, 2437, 39.49, 20.32, "The Devouring Invader", 242035 },
 			{ 89573, 2437, 47.73, 20.73, "Depthborn Eelamental", 242027 },
-			{ 91073, 2437, 45.34, 41.79, "Ash'an the Empowered", 245692 },
+			{ 91073, 2437, 45.29, 41.70, "Asha the Empowered", 245692 }, -- naam "Asha" per HandyNotes-node + achievement (het drop-item heet wél "Ash'an's ...")
 			{ 89570, 2437, 51.61, 18.63, "The Snapping Scourge", 242024 },
 			{ 89575, 2437, 28.73, 24.03, "Lightwood Borer", 242028 },
 			{ 91634, 2437, 38.99, 50.01, "Poacher Rav'ik", 247976 },
@@ -107,7 +107,7 @@ local ZONES = {
 			{ 93944, 2405, 39.51, 64.62, "Aeonelle Blackstar", 256924 },
 			{ 93934, 2405, 55.72, 79.45, "Queen o' War", 256926 },
 			{ 93953, 2444, 46.46, 41.03, "Rakshur the Bonegrinder", 257027 },
-			{ 91047, 2405, 39.18, 92.46, "Eruundi", 245182 },
+			{ 91047, 2444, 40.88, 88.99, "Eruundi", 245182 }, -- 2444 = Slayer's Rise (sub-zone van Voidstorm); coords via HandyNotes, matcht AchievementsData
 			{ 93896, 2405, 53.89, 62.79, "Far'thana the Mad", 256821 },
 		},
 	},
