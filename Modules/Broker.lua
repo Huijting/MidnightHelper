@@ -16,6 +16,29 @@ function MidnightHelper_OnAddonCompartmentClick()
 	end
 end
 
+--- Minimap launcher-icon visibility. Hiding it declutters a busy minimap; MH stays
+--- reachable via the AddonCompartment (top-right) and /mh.
+function ns.IsMinimapIconShown()
+	local db = ns.db and ns.db.minimap
+	return not (db and db.hide)
+end
+
+function ns.SetMinimapIconShown(show)
+	local db = ns.db and ns.db.minimap
+	if not db then
+		return
+	end
+	db.hide = not show
+	local iconLib = LibStub and LibStub:GetLibrary("LibDBIcon-1.0", true)
+	if iconLib then
+		if show then
+			iconLib:Show(addonName)
+		else
+			iconLib:Hide(addonName)
+		end
+	end
+end
+
 local function TintBtn(btn, active)
 	if not btn or not btn.GetRegions then
 		return

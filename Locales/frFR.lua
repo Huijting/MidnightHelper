@@ -658,6 +658,8 @@ local OVERRIDES = {
 	SETTINGS_SECTION_VAULT = "Grande chambre forte",
 	SETTINGS_OPEN_ON_LOGIN = "Ouvrir Midnight Helper lors de la connexion",
 	SETTINGS_COMBAT_BLOCKED = "Impossible d'ouvrir les réglages en combat — réessaie une fois le combat terminé.",
+	SETTINGS_MINIMAP_ICON = "Afficher l'icône de minicarte",
+	SETTINGS_MINIMAP_ICON_TT = "Affiche le bouton Midnight Helper sur la minicarte. Désactivé = moins encombré — tu peux toujours l'ouvrir depuis le compartiment d'addons (en haut à droite) ou avec /mh.",
 	SETTINGS_COMPACT_MODE = "Mode compact (mise en page plus dense)",
 	SETTINGS_TEXT_SIZE_LABEL = "Taille du texte",
 	NAV_TOOL_BOARD = "Tableau des consommables",

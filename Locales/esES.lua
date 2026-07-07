@@ -659,6 +659,8 @@ local OVERRIDES = {
 	SETTINGS_SECTION_VAULT = "Gran Bóveda",
 	SETTINGS_OPEN_ON_LOGIN = "Abra Midnight Helper al iniciar sesión",
 	SETTINGS_COMBAT_BLOCKED = "No se pueden abrir los ajustes en combate — inténtalo de nuevo cuando salgas del combate.",
+	SETTINGS_MINIMAP_ICON = "Mostrar icono del minimapa",
+	SETTINGS_MINIMAP_ICON_TT = "Muestra el botón de Midnight Helper en el minimapa. Desactivado = menos saturación — puedes abrirlo desde el compartimento de addons (arriba a la derecha) o con /mh.",
 	SETTINGS_COMPACT_MODE = "Modo compacto (diseño más denso)",
 	SETTINGS_TEXT_SIZE_LABEL = "Tamaño del texto",
 	NAV_TOOL_BOARD = "Tablero de consumibles",

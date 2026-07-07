@@ -659,6 +659,8 @@ local OVERRIDES = {
 	SETTINGS_SECTION_VAULT = "Große Schatzkammer",
 	SETTINGS_OPEN_ON_LOGIN = "Öffne Midnight Helper beim Anmelden",
 	SETTINGS_COMBAT_BLOCKED = "Einstellungen können im Kampf nicht geöffnet werden — versuche es erneut, sobald du aus dem Kampf bist.",
+	SETTINGS_MINIMAP_ICON = "Minimap-Symbol anzeigen",
+	SETTINGS_MINIMAP_ICON_TT = "Zeigt die Midnight-Helper-Schaltfläche auf der Minikarte. Aus = aufgeräumter — du erreichst es weiterhin über das Addon-Kompartiment (oben rechts) oder mit /mh.",
 	SETTINGS_COMPACT_MODE = "Kompaktmodus (dichteres Layout)",
 	SETTINGS_TEXT_SIZE_LABEL = "Textgröße",
 	NAV_TOOL_BOARD = "Verbrauchsgüter-Tafel",

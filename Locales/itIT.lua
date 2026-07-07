@@ -728,6 +728,8 @@ ns._mhLocales.itIT = {
 	SETTINGS_SECTION_VAULT = "Great Vault",
 	SETTINGS_OPEN_ON_LOGIN = "Apri Midnight Helper al login",
 	SETTINGS_COMBAT_BLOCKED = "Impossibile aprire le impostazioni in combattimento — riprova quando sei fuori dal combattimento.",
+	SETTINGS_MINIMAP_ICON = "Mostra icona minimappa",
+	SETTINGS_MINIMAP_ICON_TT = "Mostra il pulsante di Midnight Helper sulla minimappa. Disattivato = meno disordine — puoi comunque aprirlo dal comparto addon (in alto a destra) o con /mh.",
 	SETTINGS_COMPACT_MODE = "Modalità compatta (layout più denso)",
 	SETTINGS_TEXT_SIZE_LABEL = "Dimensione del testo",
 	NAV_TOOL_BOARD = "Tabella consumabili",

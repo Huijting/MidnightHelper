@@ -660,6 +660,8 @@ local OVERRIDES = {
 	SETTINGS_SECTION_VAULT = "Grande Câmara",
 	SETTINGS_OPEN_ON_LOGIN = "Abra o Midnight Helper no login",
 	SETTINGS_COMBAT_BLOCKED = "Não é possível abrir as configurações em combate — tente novamente ao sair do combate.",
+	SETTINGS_MINIMAP_ICON = "Mostrar ícone do minimapa",
+	SETTINGS_MINIMAP_ICON_TT = "Mostra o botão do Midnight Helper no minimapa. Desligado = menos poluição — você ainda pode abri-lo pelo compartimento de addons (canto superior direito) ou com /mh.",
 	SETTINGS_COMPACT_MODE = "Modo compacto (layout mais denso)",
 	SETTINGS_TEXT_SIZE_LABEL = "Tamanho do texto",
 	NAV_TOOL_BOARD = "Painel de consumíveis",

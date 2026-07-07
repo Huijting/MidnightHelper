@@ -1054,6 +1054,8 @@ ns._mhLocales.nlNL = {
 	SETTINGS_SECTION_VAULT = "Great Vault",
 	SETTINGS_OPEN_ON_LOGIN = "Open Midnight Helper bij inloggen",
 	SETTINGS_COMBAT_BLOCKED = "Instellingen kunnen niet tijdens gevecht openen — probeer het opnieuw zodra je uit gevecht bent.",
+	SETTINGS_MINIMAP_ICON = "Toon minimap-icoon",
+	SETTINGS_MINIMAP_ICON_TT = "Toon de Midnight Helper-knop op de minimap. Uit = minder rommel — je opent 'm nog steeds via het addon-compartiment (rechtsboven) of met /mh.",
 	SETTINGS_COMPACT_MODE = "Compact mode (compactere layout)",
 	SETTINGS_TEXT_SIZE_LABEL = "Tekstgrootte",
 	SET_ARROWSIZE_TITLE = "Route-pijl grootte (zonder TomTom)",

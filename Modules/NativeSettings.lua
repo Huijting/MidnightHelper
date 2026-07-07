@@ -328,6 +328,11 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetCompactModeEnabled then ns:SetCompactModeEnabled(v, true) end
 		end, false) -- expliciete default (uit); niet de toevallige login-waarde (F4.6)
+		AddToggle("mh_minimapIcon", "SETTINGS_MINIMAP_ICON", "SETTINGS_MINIMAP_ICON_TT", function()
+			return ns.IsMinimapIconShown and ns.IsMinimapIconShown()
+		end, function(v)
+			if ns.SetMinimapIconShown then ns.SetMinimapIconShown(v) end
+		end, true)
 		AddSlider("mh_fontScale", "SETTINGS_TEXT_SIZE_LABEL", "SETTINGS_TEXT_SIZE_DESC", 0.8, 1.6, 0.1, function()
 			return ns.GetContentFontScale and ns.GetContentFontScale()
 		end, function(v)
