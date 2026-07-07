@@ -8,6 +8,14 @@ local addonName, ns = ...
 
 local MINIMAP_ICON = "Interface\\AddOns\\MidnightHelper\\Media\\Platy1"
 
+-- AddonCompartment entry (the top-right addon button menu; wired via `## AddonCompartmentFunc`
+-- in the .toc). Clicking it toggles the main window, same as a left-click on the minimap icon.
+function MidnightHelper_OnAddonCompartmentClick()
+	if ns.ToggleMainWindow then
+		ns:ToggleMainWindow()
+	end
+end
+
 local function TintBtn(btn, active)
 	if not btn or not btn.GetRegions then
 		return

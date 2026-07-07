@@ -1,9 +1,20 @@
 ## Interface: 120007
-## Version: 2.4.1
 ## Title: Midnight Helper
+## Version: 2.4.1
+## Author: TwelveInchy
+## Category: User Interface
+## Notes: All-in-one Midnight (12.0.7) helper: weekly planning, Delves, Great Vault, achievement hunts, a class keybind coach, combat helpers and route guidance.
+## Notes-deDE: All-in-one-Helfer für Midnight (12.0.7): Wochenplanung, Delves, Great Vault, Erfolgsjagden, Tastenbelegungs-Coach, Kampfhilfen und Routenführung.
+## Notes-frFR: Assistant tout-en-un pour Midnight (12.0.7) : planning hebdomadaire, Delves, Great Vault, hauts faits, coach de raccourcis, aides de combat et guidage d'itinéraire.
+## Notes-esES: Ayudante todo en uno para Midnight (12.0.7): planificación semanal, Delves, Great Vault, logros, coach de atajos, ayudas de combate y guía de rutas.
+## Notes-ptBR: Ajudante tudo-em-um para Midnight (12.0.7): planejamento semanal, Delves, Great Vault, conquistas, coach de atalhos, ajudas de combate e guia de rotas.
+## Notes-itIT: Aiutante tutto-in-uno per Midnight (12.0.7): pianificazione settimanale, Delves, Great Vault, imprese, coach dei tasti, aiuti in combattimento e guida ai percorsi.
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
-## Notes: All-in-one reference tool.
 ## SavedVariables: MidnightHelperDB
+## AddonCompartmentFunc: MidnightHelper_OnAddonCompartmentClick
+## X-Website: https://github.com/Huijting/MidnightHelper
+## X-License: MIT
+## X-Curse-Project-ID: 1528577
 
 Libs\LibStub.lua
 Libs\CallbackHandler-1.0.lua
