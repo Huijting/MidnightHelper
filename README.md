@@ -12,10 +12,12 @@ It combines Delves, Great Vault progress, alt snapshots, in-delve coaching, prof
 - **Delve consumables** — RAID-R Mini / Trovehunter's Bounty popup and minimap buttons (in-delve only).
 - **Valeera curio advisor** — Delves tab + repair/gossip popup.
 - Account snapshot with per-character vault status, keys, shards, and profession currency tooltips.
-- Profession tools, Role Academy, Macros, Consumables, Leveling Guides (advisor + In groups + Layout).
+- Profession tools, Role Academy, Macros, Consumables, and the Midnight 80–90 Leveling Guides tab.
+- **Class-layout keybind coach** — reads your live spellbook and shows a recommended keyboard layout per spec, with spell tooltips.
+- **On-screen route arrow** — a standalone rotating arrow + Blizzard user-waypoint for rares, treasures, achievements and the weekly reset route. Stands down automatically when TomTom or WaypointUI is driving.
 - SMC City Guide with waypoints and optional weekly checklist.
-- Optional TomTom waypoint integration (Blizzard map fallback when absent).
-- **Languages:** English, Deutsch, Français, Español, Português (BR), Nederlands (`/mh lang`).
+- Optional TomTom / WaypointUI integration (Blizzard user-waypoint fallback when neither is present).
+- **Languages:** English, Deutsch, Français, Español, Português (BR), Italiano, Nederlands (`/mh lang`).
 
 See `CURSEFORGE_DESCRIPTION.md` for the full feature list.
 
@@ -25,7 +27,7 @@ See `CURSEFORGE_DESCRIPTION.md` for the full feature list.
 - `/mh codex` — Midnight Codex (Start Here)
 - `/mh coach` — Delve Coach
 - `/mh items` — delve consumables panel
-- `/mh lang auto|en|de|fr|es|pt|nl` — language
+- `/mh lang auto|en|de|fr|es|pt|it|nl` — language
 - `/mh settings` — quick settings
 - `/mh changelog` — changelog window
 - `/mh debug` — debug mode
@@ -33,7 +35,7 @@ See `CURSEFORGE_DESCRIPTION.md` for the full feature list.
 ## Requirements
 
 - WoW Retail
-- Current TOC interface: `120005`
+- Current TOC interface: `120007` (patch 12.0.7 "Midnight")
 - Optional: TomTom (for enhanced waypoint flow)
 
 ## Installation
