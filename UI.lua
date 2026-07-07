@@ -250,17 +250,29 @@ local function FitSidebarTabButton(btn, sidebarWidth)
 		return
 	end
 	local fs = btn:GetFontString()
-	if not fs or not fs.GetStringWidth then
+	if not fs or not fs.GetStringWidth or not fs.SetFont then
 		return
 	end
-	local maxW = (sidebarWidth or MHGetLayoutMetrics().sidebarWidth) - 16
-	local textW = fs:GetStringWidth() or 0
-	if textW + 24 > maxW and fs.SetFont then
+	-- Capture the pristine font size ONCE. Without this, every relayout read the
+	-- already-shrunk size and shrank again, so long labels (deDE/frFR) kept getting
+	-- smaller each time the sidebar re-laid out (F3.8).
+	if not btn._mhBaseFont then
 		local font, size, flags = fs:GetFont()
-		if font and size and size > 9 then
-			fs:SetFont(font, size - 1, flags)
-			textW = fs:GetStringWidth() or textW
+		if not (font and size) then
+			return -- font not ready yet
 		end
+		btn._mhBaseFont = { font = font, size = size, flags = flags }
+	end
+	local base = btn._mhBaseFont
+	local maxW = (sidebarWidth or MHGetLayoutMetrics().sidebarWidth) - 16
+	-- Always start from the base size, then shrink to fit (non-cumulative).
+	fs:SetFont(base.font, base.size, base.flags)
+	local size = base.size
+	local textW = fs:GetStringWidth() or 0
+	while textW + 24 > maxW and size > 9 do
+		size = size - 1
+		fs:SetFont(base.font, size, base.flags)
+		textW = fs:GetStringWidth() or textW
 	end
 	btn:SetWidth(maxW)
 end
@@ -335,26 +347,10 @@ local TAB_TO_CODEX = {
 local SIDEBAR_SECTION_GAP = 10
 local SIDEBAR_HEADER_HEIGHT = 16
 
--- Simpele modus (Tier 3): standaard tonen we alleen de kerntabs voor nieuwe
--- spelers; "Toon alles" onthult de rest. Niets verwijderd — puur verbergen.
-local SIMPLE_MODE_TABS = {
-	starthere = true,
-	home = true,
-	delves = true,
-	dungeons = true,
-	world = true,
-}
--- Simpele modus aan? Standaard UIT (volledige weergave); alleen AAN als de speler
--- 'm expliciet inschakelt via de toggle (Rob 16 jun: eerste keer = volledig, zodat
--- Carola/iedereen alles ziet en simpel een bewuste keuze is).
-local function MHSimpleModeOn()
-	return false -- simple-modus uitgefaseerd in Phase 2 (de kamer-rail vervangt 'm)
-end
+-- (Simpele modus / Tier 3 uitgefaseerd in Phase 2 — de kamer-rail verving 'm; alle
+-- resten opgeruimd in F3.8.)
 
 local function SidebarTabVisible(tabId)
-	if MHSimpleModeOn() and not SIMPLE_MODE_TABS[tabId] then
-		return false
-	end
 	if tabId == "omnium" and not (ns.IsOmniumFolioAvailable and ns.IsOmniumFolioAvailable()) then
 		return false -- 12.0.7-content: alleen op clients >= 120007
 	end
@@ -1575,12 +1571,8 @@ function ns:EnsureMainUI()
 	titleBar:SetScript("OnDragStart", function()
 		main:StartMoving()
 	end)
-	titleBar:SetScript("OnDragStop", function()
-		main:StopMovingOrSizing()
-		if ns._mhLayoutRefs and ns._mhLayoutRefs.reanchorInfoWindow then
-			ns._mhLayoutRefs.reanchorInfoWindow()
-		end
-	end)
+	-- OnDragStop is set later (with the grip handler) so it also persists window
+	-- size + position; the earlier duplicate here was dead code (F3.8).
 
 	local titleHighlight = titleBar:CreateTexture(nil, "BACKGROUND")
 	titleHighlight:SetAllPoints()
@@ -2550,30 +2542,14 @@ function ns:EnsureMainUI()
 		ns._mhRoomButtons[roomDef.id] = rb
 	end
 
-	-- Simpele-modus-schakelaar (Tier 3): bovenaan de sidebar; toont/verbergt de
-	-- extra tabs. Niets verwijderd — alleen verbergen via SidebarTabVisible.
-	local simpleToggle = CreateFrame("Button", "MidnightHelperSimpleToggle", sidebar, "UIPanelButtonTemplate")
-	simpleToggle:SetScript("OnClick", function()
-		if not ns.db then
-			return
-		end
-		ns.db.simpleMode = not MHSimpleModeOn() -- flip (werkt ongeacht de default)
-		if RelayoutSidebarTabs then
-			RelayoutSidebarTabs()
-		end
-	end)
-	ns._mhSimpleToggle = simpleToggle
+	-- (Simpele-modus-schakelaar verwijderd — uitgefaseerd in Phase 2 door de kamer-rail;
+	-- schreef alleen nog het spookveld ns.db.simpleMode en werd altijd verborgen. F3.8.)
 
 	RelayoutSidebarTabs = function()
 		ns._mhSidebarRelaying = true -- recursion-guard: SelectTab relayout't ook
 		local lm = MHGetLayoutMetrics()
 		local yy = -8
 
-		-- Simpele-modus-schakelaar is met de kamer-rail overbodig geworden (Rob,
-		-- Phase 2): verbergen i.p.v. tekenen, zodat de rail bovenaan komt.
-		if simpleToggle then
-			simpleToggle:Hide()
-		end
 
 		-- Kamer-rail: 4 knoppen, de actieve gemarkeerd. Daaronder tonen we alleen
 		-- de secties van de actieve kamer (afgeleid van de huidige tab).
@@ -2854,11 +2830,9 @@ function ns:EnsureMainUI()
 	self.mainUI = main
 	self.mainUIContent = content
 
-	-- Old keys: standalone Great Vault tab merged into Delves dashboard.
-	if ns.uiSelectedTab == "dungeons" or ns.uiSelectedTab == "vault" then
-		ns.uiSelectedTab = "delves"
-	end
-	if ns.uiSelectedTab == "companion" then
+	-- Old keys: the standalone Great Vault ("vault") and Companion tabs merged into the
+	-- Delves dashboard. NB: do NOT remap "dungeons" — that is a real tab again (F3.8).
+	if ns.uiSelectedTab == "vault" or ns.uiSelectedTab == "companion" then
 		ns.uiSelectedTab = "delves"
 	end
 
