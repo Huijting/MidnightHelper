@@ -804,6 +804,44 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "capture" or msg == "coord" or msg == "rarecapture" then
+		-- Dev/verify-hulpje: print een pasteable rare-regel (mapID + coords +
+		-- target-npcID) in het ns.RARE_ZONES-formaat { questId, mapID, x, y, name, npcId }.
+		-- Handig om HandyNotes-coords in-game te spot-checken of roamers vast te leggen.
+		local prefix = ns:L("PRINT_PREFIX")
+		local mapID, x, y
+		pcall(function()
+			mapID = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+			if mapID and C_Map.GetPlayerMapPosition then
+				local pos = C_Map.GetPlayerMapPosition(mapID, "player")
+				if pos and pos.x then
+					x, y = pos.x * 100, pos.y * 100
+				end
+			end
+		end)
+		local name, npcId
+		if UnitExists("target") then
+			name = UnitName("target")
+			local guid = UnitGUID("target")
+			if guid and not (issecretvalue and issecretvalue(guid)) then
+				local unitType, _, _, _, _, id = strsplit("-", guid)
+				if (unitType == "Creature" or unitType == "Vehicle") and id then
+					npcId = tonumber(id)
+				end
+			end
+		end
+		if mapID and x and y then
+			print(("|cffffcc00%s|r capture → { 0, %d, %.2f, %.2f, %q, %d },"):format(
+				prefix, mapID, x, y, name or "?", npcId or 0))
+			if not npcId then
+				print(("|cffffcc00%s|r  (target de rare voor z'n npcID; questId 0 vul ik aan)"):format(prefix))
+			end
+		else
+			print(("|cffffcc00%s|r capture: geen positie beschikbaar (sta je in een zone met kaart?)."):format(prefix))
+		end
+		return
+	end
+
 	if msg == "settings" then
 		-- Settings live now in the native Blizzard Settings panel (Escape >
 		-- Options > AddOns > Midnight Helper). Open straight to it; fall back to
