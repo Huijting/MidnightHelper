@@ -1,13 +1,19 @@
 ## Midnight Helper
 
+**New to Midnight, or juggling a stack of alts?** Midnight Helper is your one window for the whole week — clean enough for a brand-new max-level player, deep enough for a min-maxer. Just hit 90 and not sure what to do? Open it and follow along. Have ten alts to keep straight? See them all at a glance.
+
 Midnight Helper is an all-in-one utility addon for **World of Warcraft Retail** (Midnight Season 1). It brings weekly planning, Delves, Great Vault tracking, achievement hunts, a live class-layout coach, on-screen combat helpers, standalone route guidance, and reference guides into one compact window — with full UI support in **seven languages**.
+
+### See it in action
+
+Take a look at the screenshots for a feel of the addon in play — the **This Week** dashboard (your whole week at a glance), the **class keybind coach** (your live spellbook mapped onto a clean keyboard layout), the on-screen **route arrow**, the **Great Vault Advisor** ranking your loot choices, and the **Delve Coach** with per-boss tips.
 
 ### Highlights
 
 **This Week (home)**
 - **Home dashboard** opens by default: weekly reset countdown, account-wide Great Vault status, this week's world boss, weekly chores (SMC, keys, shards), and a shortcut to Rares — your week at a glance.
 
-**Leveling & Layout — the class coach (rebuilt in 2.3.0)**
+**Leveling & Layout — the class coach**
 - A **live keyboard layout** that reads your **actual spellbook** and shows every ability on the key it belongs on, following one clear, universal keybind standard — so a new alt or a fresh spec is instantly readable.
 - **Covers all 13 classes and 39 specs.** Most specs are built automatically from what you can currently cast (no wrong or missing spell IDs); a few have hand-tuned maps that act as overrides. The layout re-draws itself as you **level, swap talents/loadouts, or change spec**.
 - **Spell-strip cards** under the keyboard group your kit by purpose — builder, spender, AoE, interrupt, movement, defensives, dispel/CC, cooldowns and self-heals — each with a real in-game tooltip. Healers get a dedicated **mouseover single-target heal** card, while raid heals stay on keys.
@@ -15,7 +21,7 @@ Midnight Helper is an all-in-one utility addon for **World of Warcraft Retail** 
 - **In groups** helper: interrupts, defensives and party tips for the content you're running.
 - A **Midnight 80→90 leveling tips** page for the current level push (path, XP, unlocks, consumables, gear, hand-off).
 
-**On-screen helpers (new in 2.3.0)**
+**On-screen helpers**
 - **Missing Buff reminder** — a movable, resizable icon appears when you can cast a maintainable class buff you don't have active (raid buff, form, shield, weapon imbue, poison, stance, pet, ally buff or Paladin aura). **Click it to cast** (out of combat). Own, verified data across every class.
 - **Openables tracker** — a movable button with a count badge and list for openable bag items (caches, lockboxes, satchels, quest containers). Left-click opens the next; items you can't open yet are hidden; a sound plays on a new drop.
 - **Fast Mark bar** — mark your target with the raid icons, drop world markers on the ground (left-click set, right-click clear, clear-all) and run a ready check. Appears only while you're in a party or raid.
