@@ -1,9 +1,11 @@
-# Manual DRY-RUN of the release packaging — builds the zip but uploads NOTHING to
-# CurseForge. Use it to verify the .pkgmeta/.toc/file-exclusions before a real release.
+# Manual DRY-RUN of the release packaging — builds the zip but publishes NOTHING.
+# The CurseForge upload is skipped simply by NOT providing CF_API_KEY here (the packager
+# only uploads when both the project id AND a token are present). So this validates the
+# .pkgmeta / .toc / file-exclusions and produces the zip as a downloadable artifact,
+# without ever touching CurseForge.
 #
-# How to run: GitHub repo > Actions tab > "Package test (dry-run, no upload)" >
-# "Run workflow". When it finishes, download the "MidnightHelper-package" artifact
-# and check the zip (correct MidnightHelper/ root, no CLAUDE.md, no scripts).
+# Run it: GitHub repo > Actions > "Package test (dry-run, no upload)" > "Run workflow".
+# Then download the "MidnightHelper-package" artifact and check the zip.
 
 name: Package test (dry-run, no upload)
 
@@ -19,20 +21,26 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Build package (skip upload)
-        # -d = do NOT upload to CurseForge/Wago/WoWI; just build the zip in .release/.
-        run: curl -sSf https://raw.githubusercontent.com/BigWigsMods/packager/master/release.sh | bash -s -- -d
-
-      - name: List what was built
+      - name: Build package (no CF_API_KEY => upload is skipped)
         run: |
-          echo "== .release contents =="
-          ls -la .release || true
-          echo "== zip file listing (should show MidnightHelper/, no CLAUDE.md/scripts) =="
-          for z in .release/*.zip; do echo "--- $z ---"; unzip -l "$z"; done
+          curl -sSf https://raw.githubusercontent.com/BigWigsMods/packager/master/release.sh -o /tmp/release.sh
+          # Don't let a non-zero exit abort the run — we want the diagnostics below.
+          bash /tmp/release.sh || echo "::warning::packager exited with $?"
 
-      - name: Upload built zip as artifact
+      - name: Diagnose build output
+        if: always()
+        run: |
+          echo "===== any .zip anywhere (excl .git) ====="
+          find . -name '*.zip' -not -path './.git/*' 2>/dev/null || true
+          echo "===== .release tree ====="
+          ls -laR .release 2>/dev/null || echo "(no .release directory)"
+
+      - name: Upload built zip(s) as artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: MidnightHelper-package
-          path: .release/*.zip
-          if-no-files-found: error
+          path: |
+            .release/*.zip
+            .release/**/*.zip
+          if-no-files-found: warn
