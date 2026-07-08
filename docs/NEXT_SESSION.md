@@ -1,8 +1,26 @@
 # Next session — Midnight Helper
 
-## 🔨 FASE 4 IN UITVOERING (2026-07-07 avond, Opus 4.8 — backlog 15, 19–21) — MORGENAVOND AFMAKEN
+## ✅ FASE 4 AFGEROND (2026-07-08, Opus 4.8 — backlog 15, 19–21) → HELE REVIEW-BACKLOG DICHT
 
-Rob gaat slapen (~wekker 6u); **morgenavond Fase 4 afmaken, dán pas nieuwe ideeën**.
+**De volledige 21-item review-backlog (Fase 1 t/m 4) is nu afgewerkt.** Fase 4-hoogtepunten:
+- **TOC-metadata + README** (item 15): Author=TwelveInchy, Category, MIT, X-Website, 6-talige Notes,
+  `X-Curse-Project-ID: 1528577`, AddonCompartmentFunc; README interface 120007/Italiaans/features.
+- **Auto-release packager** (item 19): `.pkgmeta` + `.github/workflows/release.yml` (BigWigs) → versie-tag
+  publiceert naar CF. **Dry-run gevalideerd** (`package-test.yml`): zip + uitsluitingen kloppen, CLAUDE.md eruit.
+  Rob heeft `CF_API_KEY`-secret gezet. CF-omschrijving: hook + "See it in action" + versie-markers weg.
+  Screenshot-scènelijst in `docs/SCREENSHOTS_WANTED.md` (Rob schiet + uploadt in CF-gallery).
+- **Data-afronding** (item 20): LVL8090-tips vertaald naar de/fr/es/pt/it (225 strings → leveling-tab 7-talig);
+  delve-aantal ontkoppeld (§5.6 = 10 uit MH-data); Val/Naigtal treasure/lore geverifieerd (niks toe te voegen).
+- **LuaLS-basis** (item 21): `.luarc.json` + `---@class MHDB`/`MidnightHelperNS`-annotaties.
+
+**Nog open (laag-prio, wacht op Rob in-game):** hero/Apex-keybinds (§5.4, `/mhautomap` op lvl-90 Ret);
+consumables-regeneratie (Wowhead); backlog-18-rest (slash-router e.a., bewust geparkeerd); optionele
+repo-hygiëne (zwerfbestanden Platy1.tga-root/PHASES.txt/Sync-bats, checklist-dedupe).
+
+**Nog NIET gereleased** — geen versie-bump/tag gedaan. Rob bepaalt wanneer (dan: `.toc` versie bumpen +
+changelog + annotated tag pushen → auto-CF). **Hierna: nieuwe ideeën** (Rob's plan).
+
+**Rob's WIP** blijft ongemoeid: `docs/PTR_12.0.7_DATA.md` + `docs/PTR_12.1_WATCH.md` (zijn Void Showdown / PTR-planning).
 
 **Al gedaan + gepusht (deze avond):**
 - **README** geactualiseerd (interface 120007, Italiaans, feature-lijst) — `54ba082`.
