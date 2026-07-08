@@ -9,7 +9,27 @@
 --------------------------------------------------------------------------------
 -- Namespace: addonName + private addon table (ns), provided by the client.
 --------------------------------------------------------------------------------
-local addonName, ns = ...
+
+-- LuaLS type basis (review F3.9). These are annotations only — pure comments, no
+-- runtime effect. `ns` is the shared table every module receives via `...`; `ns.db`
+-- is MidnightHelperDB. Fields grow dynamically, so this documents the stable core.
+
+---@class MHDB  saved variables (MidnightHelperDB); fields mirror DEFAULT_DB
+---@field schemaVersion integer  migration version, see RunSchemaMigrations
+---@field locale string  "auto" or a pack code (enUS/deDE/…/nlNL)
+---@field firstRunSeen boolean  set once the first-run popup has shown
+---@field favourites string[]  pinned tab ids (on-demand; NOT in DEFAULT_DB)
+---@field ui table  window/display + per-feature UI settings
+---@field settings table  guideVisibility, compactMode
+---@field minimap table  LibDBIcon: hide, minimapPos, lock
+---@field changelog table  lastSeenVersion, hideForever
+---@field charCurrencies table  per-alt snapshot bag
+
+---@class MidnightHelperNS  the private addon namespace shared across all files
+---@field db MHDB
+---@field L fun(self:MidnightHelperNS, key:string, ...):string  localized string
+
+local addonName, ns = ... ---@type string, MidnightHelperNS
 
 --- Installed version from MidnightHelper.toc (## Version); used in UI and changelog.
 function ns.GetAddonVersion()

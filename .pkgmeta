@@ -22,6 +22,7 @@ ignore:
   - .gitattributes
   - .gitignore
   - .pkgmeta
+  - .luarc.json
   - PHASES.txt
   - CLAUDE.md
   - README.md

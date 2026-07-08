@@ -20,7 +20,7 @@ New-Item -ItemType Directory -Path $folder | Out-Null
 $robolog = Join-Path $stagingRoot "robocopy.log"
 $excludeDirs = @(".git", ".cursor", "tools", "docs", ".github", "dist", "data", "__pycache__")
 $xf = @(
-	".cursorrules", "PHASES.txt", ".gitattributes", ".gitignore",
+	".cursorrules", "PHASES.txt", ".gitattributes", ".gitignore", ".luarc.json",
 	"CLAUDE.md", "README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md", "CURSEFORGE_DESCRIPTION.md",
 	"Sync-MidnightHelper.bat", "*.bat", "*.cmd", "*.ps1", "*.py", "*.exe"
 )
