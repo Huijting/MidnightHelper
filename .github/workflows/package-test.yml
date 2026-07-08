@@ -1,0 +1,38 @@
+# Manual DRY-RUN of the release packaging — builds the zip but uploads NOTHING to
+# CurseForge. Use it to verify the .pkgmeta/.toc/file-exclusions before a real release.
+#
+# How to run: GitHub repo > Actions tab > "Package test (dry-run, no upload)" >
+# "Run workflow". When it finishes, download the "MidnightHelper-package" artifact
+# and check the zip (correct MidnightHelper/ root, no CLAUDE.md, no scripts).
+
+name: Package test (dry-run, no upload)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build package (skip upload)
+        # -d = do NOT upload to CurseForge/Wago/WoWI; just build the zip in .release/.
+        run: curl -sSf https://raw.githubusercontent.com/BigWigsMods/packager/master/release.sh | bash -s -- -d
+
+      - name: List what was built
+        run: |
+          echo "== .release contents =="
+          ls -la .release || true
+          echo "== zip file listing (should show MidnightHelper/, no CLAUDE.md/scripts) =="
+          for z in .release/*.zip; do echo "--- $z ---"; unzip -l "$z"; done
+
+      - name: Upload built zip as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MidnightHelper-package
+          path: .release/*.zip
+          if-no-files-found: error
