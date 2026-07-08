@@ -11,7 +11,7 @@ t/m 1.5.5 toonde). Er zijn DRIE changelogs — werk ze alle drie bij vóór elke
    het blok hierboven gebruikt. (de/fr/es/pt vallen via `SafeL` terug op EN — bestaand patroon.)
 3. **`CHANGELOG.md`** → het dev/GitHub-changelog (volledige notitie per versie).
 4. **`docs/CURSEFORGE_<ver>.md`** → de tekst om op de CF-projectpagina te plakken
-   (short summary + changelog + upload-checklist). En check of **`docs/CURSEFORGE_DESCRIPTION.md`**
+   (short summary + changelog + upload-checklist). En check of **`CURSEFORGE_DESCRIPTION.md`**
    (evergreen feature-omschrijving) nog klopt met de nieuwe tabs/features.
 
 > Zelfcheck: zet `MidnightHelperDB.changelogDevCheck = true` op je dev-install. Bij
@@ -37,7 +37,7 @@ t/m 1.5.5 toonde). Er zijn DRIE changelogs — werk ze alle drie bij vóór elke
 - Upload als **Release**, juiste display version + game version (interface 120005,
   +120007 mag in de TOC tot 12.0.7 live is).
 - Plak de changelog uit `docs/CURSEFORGE_<ver>.md`; vervang de projectpagina-description
-  door `docs/CURSEFORGE_DESCRIPTION.md` (tussen de START/END-markers) als die is bijgewerkt.
+  door `CURSEFORGE_DESCRIPTION.md` (tussen de START/END-markers) als die is bijgewerkt.
 
 ## Vaste werkafspraak (zo blijft het automatisch goed)
 

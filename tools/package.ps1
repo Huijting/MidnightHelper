@@ -20,9 +20,9 @@ New-Item -ItemType Directory -Path $folder | Out-Null
 $robolog = Join-Path $stagingRoot "robocopy.log"
 $excludeDirs = @(".git", ".cursor", "tools", "docs", ".github", "dist", "data", "__pycache__")
 $xf = @(
-	".cursorrules", "PHASES.txt", ".gitattributes", ".gitignore", ".luarc.json",
+	".cursorrules", ".gitattributes", ".gitignore", ".luarc.json",
 	"CLAUDE.md", "README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md", "CURSEFORGE_DESCRIPTION.md",
-	"Sync-MidnightHelper.bat", "*.bat", "*.cmd", "*.ps1", "*.py", "*.exe"
+	"*.bat", "*.cmd", "*.ps1", "*.py", "*.exe"
 )
 $args = @($src, $folder, "/E", "/NFL", "/NDL", "/NJH", "/NJS", "/nc", "/ns", "/np")
 foreach ($d in $excludeDirs) {
@@ -37,12 +37,6 @@ foreach ($f in $xf) {
 $rc = $LASTEXITCODE
 if ($rc -gt 7) {
 	throw "robocopy failed with exit code $rc"
-}
-
-# Stray duplicate at repo root (real asset lives in Media/).
-$rootPlaty = Join-Path $folder "Platy1.tga"
-if (Test-Path $rootPlaty) {
-	Remove-Item $rootPlaty -Force
 }
 
 # CurseForge rejects non-addon executables/scripts (e.g. Sync-MidnightHelper.bat).
