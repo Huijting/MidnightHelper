@@ -7,9 +7,9 @@
 local addonName, ns = ...
 
 ns.ConsumablesWowheadMeta = {
-	gameVersion = "12.0.5",
+	gameVersion = "12.0.7",
 	contentPhase = "Midnight Season 1",
-	generatedAt = "2026-05-18",
+	generatedAt = "2026-07-08",
 }
 
 ns.ConsumablesWowheadByClassSpec = {}
@@ -190,6 +190,43 @@ ns.ConsumablesWowheadByClassSpec.DEMONHUNTER = {
 			noteKey = "CONS_NOTE_08",
 		},
 	},
+	[3] = {
+		flask = {
+			best = { 241322 },
+			alternates = { 241324, 241326, 241320 },
+			noteKey = "CONS_NOTE_05",
+		},
+		combatPotion = {
+			best = { 241288 },
+			alternates = { 241309, 241292 },
+			noteKey = "CONS_NOTE_14",
+		},
+		healingPotion = {
+			best = { 241304 },
+			alternates = {  },
+			noteKey = "CONS_NOTE_04",
+		},
+		weaponOil = {
+			best = { 243734 },
+			alternates = {  },
+			noteKey = "CONS_NOTE_12",
+		},
+		augmentRune = {
+			best = { 259085 },
+			alternates = {  },
+			noteKey = "CONS_NOTE_02",
+		},
+		feast = {
+			best = { 255845 },
+			alternates = { 266985, 266996 },
+			noteKey = "CONS_NOTE_06",
+		},
+		personalFood = {
+			best = { 242747 },
+			alternates = { 242275, 268679, 255847 },
+			noteKey = "CONS_NOTE_08",
+		},
+	},
 }
 
 ns.ConsumablesWowheadByClassSpec.DRUID = {
@@ -311,7 +348,7 @@ ns.ConsumablesWowheadByClassSpec.DRUID = {
 			noteKey = "CONS_NOTE_03",
 		},
 		combatPotion = {
-			best = { 241309 },
+			best = { 241288 },
 			alternates = { 241288, 241292 },
 			noteKey = "CONS_NOTE_14",
 		},
