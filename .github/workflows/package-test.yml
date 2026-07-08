@@ -1,8 +1,7 @@
 # Manual DRY-RUN of the release packaging — builds the zip but publishes NOTHING.
-# The CurseForge upload is skipped simply by NOT providing CF_API_KEY here (the packager
-# only uploads when both the project id AND a token are present). So this validates the
-# .pkgmeta / .toc / file-exclusions and produces the zip as a downloadable artifact,
-# without ever touching CurseForge.
+# The CurseForge upload is skipped by NOT providing CF_API_KEY here (the packager only
+# uploads when both the project id AND a token are present). Validates .pkgmeta / .toc /
+# exclusions and offers the zip as a downloadable artifact, without touching CurseForge.
 #
 # Run it: GitHub repo > Actions > "Package test (dry-run, no upload)" > "Run workflow".
 # Then download the "MidnightHelper-package" artifact and check the zip.
@@ -24,23 +23,22 @@ jobs:
       - name: Build package (no CF_API_KEY => upload is skipped)
         run: |
           curl -sSf https://raw.githubusercontent.com/BigWigsMods/packager/master/release.sh -o /tmp/release.sh
-          # Don't let a non-zero exit abort the run — we want the diagnostics below.
           bash /tmp/release.sh || echo "::warning::packager exited with $?"
 
-      - name: Diagnose build output
+      - name: Collect built zip (out of the hidden .release dir so upload-artifact sees it)
         if: always()
         run: |
-          echo "===== any .zip anywhere (excl .git) ====="
-          find . -name '*.zip' -not -path './.git/*' 2>/dev/null || true
-          echo "===== .release tree ====="
-          ls -laR .release 2>/dev/null || echo "(no .release directory)"
+          mkdir -p artifact
+          cp .release/*.zip artifact/ 2>/dev/null || true
+          echo "== artifact/ =="
+          ls -la artifact || true
+          echo "== zip listing (expect MidnightHelper/, no CLAUDE.md/scripts) =="
+          for z in artifact/*.zip; do echo "--- $z ---"; unzip -l "$z" || true; done
 
-      - name: Upload built zip(s) as artifact
+      - name: Upload built zip as artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: MidnightHelper-package
-          path: |
-            .release/*.zip
-            .release/**/*.zip
+          path: artifact/*.zip
           if-no-files-found: warn
