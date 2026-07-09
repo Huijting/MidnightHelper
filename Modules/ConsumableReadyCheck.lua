@@ -944,6 +944,14 @@ local function CurrentContentKey()
 	if C_ScenarioInfo and C_ScenarioInfo.GetScenarioInfo then
 		local ok, info = pcall(C_ScenarioInfo.GetScenarioInfo)
 		if ok and type(info) == "table" and info.scenarioID then
+			-- The consumable ready-check is a GROUP prep tool (it shows raid buffs and
+			-- offers "/mh readycheck" chat sharing). Outdoor scenarios like the Void
+			-- Showdown ("void gedeelte") also count as a scenario and popped the board
+			-- SOLO in the open world. Dungeons (party) and delves are handled above; for
+			-- the open-world scenario catch-all, only show it in a group. (Rob 9 jul)
+			if IsInGroup and not IsInGroup() then
+				return nil
+			end
 			return "ritual:" .. tostring(info.scenarioID)
 		end
 	end
