@@ -378,6 +378,9 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 		panel._header:SetText(SL("TAB_PROF_ACADEMY"))
 	end
 	panel._subtitle:SetText(SL("PROFACAD_SUBTITLE"))
+	if panel._guideBtn then
+		panel._guideBtn:SetText(SL("PGUIDE_LAUNCH_BTN"))
+	end
 
 	local profs = GetPrimaryProfessions()
 
@@ -498,6 +501,18 @@ function ns.BuildProfessionAcademyPanel(panel)
 	subtitle:SetWordWrap(true)
 	subtitle:SetTextColor(0.78, 0.76, 0.7)
 	panel._subtitle = subtitle
+
+	-- Guided-mode launcher (prototype: Alchemy) — opens the one-step-at-a-time wizard.
+	local guideBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	guideBtn:SetSize(170, 22)
+	guideBtn:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -SIDE_PAD, -2)
+	guideBtn:SetText(SL("PGUIDE_LAUNCH_BTN"))
+	guideBtn:SetScript("OnClick", function()
+		if ns.MH_OpenProfessionGuide then
+			ns.MH_OpenProfessionGuide()
+		end
+	end)
+	panel._guideBtn = guideBtn
 
 	local progressFs = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	progressFs:SetFontObject(ns.MHScalableFont("GameFontNormal"))
