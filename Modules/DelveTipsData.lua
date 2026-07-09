@@ -334,7 +334,15 @@ end
 function ns.IsDelveInstanceInProgress()
 	if C_PartyInfo and C_PartyInfo.IsDelveInProgress then
 		local ok, active = pcall(C_PartyInfo.IsDelveInProgress)
-		return ok and active == true
+		if ok and active == true then
+			-- A real delve run is always inside an instance. The API can read true in the
+			-- open world (e.g. a group world boss), which wrongly triggered the delve
+			-- consumables popup. Require an actual instance to rule that out. (Rob 9 jul)
+			if IsInInstance and not IsInInstance() then
+				return false
+			end
+			return true
+		end
 	end
 	return false
 end

@@ -399,7 +399,11 @@ end
 function ns:HideDelveItemsUiLeavingDelve()
 	self:CancelDelveItemsAutoShowRetries()
 	bountyToastShownThisDelve = false
-	ResetDelveConsumableSession()
+	-- Do NOT wipe the "already used" state here. C_PartyInfo.IsDelveInProgress() can briefly
+	-- flicker false (e.g. when the final boss dies) while you are still in the same delve;
+	-- wiping made the popup re-advise and pop up again after the last boss. The per-instance
+	-- session persists (SavedVariables) and is only wiped when a genuinely new delve begins
+	-- (BeginDelveConsumableSession, different session key). (Rob 9 jul)
 	self:HideDelveItemsPopup()
 	if self.HideDelveCoach then
 		self:HideDelveCoach(false)

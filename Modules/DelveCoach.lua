@@ -1511,6 +1511,43 @@ local function ShowBossPromptButton()
 	bossPrompt:Show()
 end
 
+-- Boss-prompt trigger (herzien 9 jul, na research). De oude "eerste vijandige target"-gok
+-- vuurde op trash/critters en verbruikte het 1x-budget voor de echte eindbaas. Delve-bazen
+-- zijn niet betrouwbaar van trash te scheiden (elite-classificatie, secret GUID/npcID in 12.x),
+-- dus gebruiken we het SCENARIO: een delve is een scenario en de LAATSTE stage is de baaskamer.
+-- currentStage == numStages (pre-pull) is de betrouwbare trigger; ENCOUNTER_START bevestigt bij
+-- de pull. Bron: warcraft.wiki C_ScenarioInfo.GetScenarioInfo + LittleWigs/RitualBossCoach.
+local finalStagePromptShown = false -- prompt max. 1x/delve; reset bij zone-entry
+local function IsInFinalDelveStage()
+	if not (C_ScenarioInfo and C_ScenarioInfo.GetScenarioInfo) then
+		return false
+	end
+	local ok, info = pcall(C_ScenarioInfo.GetScenarioInfo)
+	if not ok or type(info) ~= "table" then
+		return false
+	end
+	local cur, num = info.currentStage, info.numStages
+	-- numStages > 1 zodat een single-stage-delve niet meteen bij binnenkomst triggert
+	-- (die valt terug op ENCOUNTER_START).
+	return type(cur) == "number" and type(num) == "number" and num > 1 and cur == num
+end
+
+local function MaybeShowBossPromptForFinalStage()
+	local s = GetSettings()
+	if not s or not s.enabled or not s.autoShow then
+		return
+	end
+	local inDelve = (ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress()) or IsDelveInProgress()
+	if not inDelve or finalStagePromptShown then
+		return
+	end
+	if not IsInFinalDelveStage() then
+		return
+	end
+	finalStagePromptShown = true
+	ShowBossPromptButton() -- verbergt zichzelf als de coach al open is
+end
+
 -- ENCOUNTER_START: prompt als je de coach zelf had weggeklikt.
 local function MaybeShowBossCoachPrompt()
 	local s = GetSettings()
@@ -1533,7 +1570,8 @@ end
 -- (net als trash), en hun GUID/npcID kan in 12.x secret zijn — dus dat is niet betrouwbaar te
 -- bepalen. De coach is toch delve-breed; het prompt-knopje is passief (verschijnt één keer).
 local targetPromptShownThisZone = false -- prompt max. 1x/delve; reset bij zone-entry
-local function MaybeShowBossPromptOnTarget()
+local function MaybeShowBossPromptOnTarget() -- DEPRECATED 9 jul: vervangen door MaybeShowBossPromptForFinalStage; niet meer aangeroepen
+	do return end
 	local s = GetSettings()
 	if not s or not s.enabled or not s.autoShow then
 		return
@@ -1672,6 +1710,7 @@ local function OnDelveStateTick()
 	if not inDelve then
 		return
 	end
+	MaybeShowBossPromptForFinalStage() -- pre-pull baaskamer-prompt (safety-net naast SCENARIO_UPDATE)
 	if coachFrame and coachFrame._mhOpenFailUntil then
 		local now = GetTime and GetTime() or 0
 		if now < coachFrame._mhOpenFailUntil then
@@ -1730,7 +1769,8 @@ ev:SetScript("OnEvent", function(_, event, unit)
 	end
 	if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED" or event == "ZONE_CHANGED_NEW_AREA" then
 		if event ~= "ZONE_CHANGED" then
-			targetPromptShownThisZone = false -- nieuwe zone/delve → coach mag weer 1x aangeboden
+			targetPromptShownThisZone = false
+			finalStagePromptShown = false -- nieuwe zone/delve → coach mag weer 1x aangeboden
 		end
 		HideBossCoachPrompt() -- bij zone-wissel/verlaten weg
 		if C_Timer and C_Timer.After then
@@ -1742,11 +1782,11 @@ ev:SetScript("OnEvent", function(_, event, unit)
 	OnDelveStateTick()
 	if event == "SCENARIO_UPDATE" or event == "SCENARIO_CRITERIA_UPDATE" then
 		RefreshDelveCoachLiveContent()
+		MaybeShowBossPromptForFinalStage() -- laatste scenario-stage = baaskamer
 	elseif event == "UNIT_TARGET" and (not unit or unit == "player") then
 		RefreshDelveCoachLiveContent()
 	elseif event == "PLAYER_TARGET_CHANGED" then
 		RefreshDelveCoachLiveContent()
-		MaybeShowBossPromptOnTarget() -- baas targeten → "open coach?"-prompt
 	end
 end)
 ev:SetScript("OnUpdate", function(self, elapsed)
