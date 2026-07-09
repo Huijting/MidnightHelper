@@ -2,6 +2,34 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.5.0] - 2026-07-09
+
+Adds support for the new **Devourer** Demon Hunter specialization, refreshes consumables for 12.0.7, and folds in the July distribution / onboarding / polish batch.
+
+### Added
+
+- **Devourer Demon Hunter support** — the new Midnight 12.0.7 Void DPS spec (specID **1480**, verified via wago.tools `ChrSpecialization` + an in-game dump):
+  - The **keybind coach** maps the Devourer rotation, cooldowns and **Void Metamorphosis** onto your layout. Roles are derived from ClassCodex/JustAC data, keyed by spell ID and scoped to the spec; baseline Demon Hunter abilities apply automatically.
+  - The **consumables bar** recommends the correct flask, potion, oil, augment rune and feast for Devourer.
+- **Minimap-button toggle** — hide Midnight Helper's minimap icon for a clean minimap; the addon stays reachable from the game's **AddOns compartment**. Open the window any time with **Alt+M**.
+- **Auto-release pipeline** — a BigWigs packager (`.pkgmeta` + GitHub Action) builds and publishes the CurseForge zip automatically on a version tag.
+- **LuaLS groundwork** — `.luarc.json` + type annotations for editor diagnostics.
+
+### Changed
+
+- **Consumables refreshed for patch 12.0.7** — flasks, combat/healing potions, weapon oil, augment rune and feasts re-checked against the current guides (cross-verified across ClassCodex, Icy Veins and Wowhead/Method).
+- **Complete addon metadata** in the `.toc` (author, category, website, license, six-language notes) plus an AddonCompartment entry.
+- **Leveling tips (80→90) fully translated** into German, French, Spanish, Portuguese and Italian; the delve-count tip is decoupled from a hard-coded number.
+- **README** refreshed for interface `120007` and the current feature set.
+
+### Fixed
+
+- Opening **Settings while in combat** (e.g. inside a Delve) no longer throws `ADDON_ACTION_BLOCKED` — guarded with `InCombatLockdown()` plus a message.
+- A **Delve crash** from comparing a "secret" `GetUnitSpeed("player")` value on patch 12.x — now guarded with `issecretvalue`.
+- A **keyboard-layout tooltip crash** (a `SetText` alpha-argument misuse) on the spell-strip card headers.
+- **Beta / Leveling tab toggles** now update the open window live, without a `/reload`.
+- Rare/zone data: the Eruundi map-ID conflict and the Asha name were corrected.
+
 ## [2.4.1] - 2026-07-05
 
 Moves all settings into the native Blizzard Settings window, expands the achievement metas, and fixes two 12.x "secret value" regressions. Released as a Beta.

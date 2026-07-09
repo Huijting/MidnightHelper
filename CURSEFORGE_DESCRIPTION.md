@@ -15,7 +15,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 
 **Leveling & Layout — the class coach**
 - A **live keyboard layout** that reads your **actual spellbook** and shows every ability on the key it belongs on, following one clear, universal keybind standard — so a new alt or a fresh spec is instantly readable.
-- **Covers all 13 classes and 39 specs.** Most specs are built automatically from what you can currently cast (no wrong or missing spell IDs); a few have hand-tuned maps that act as overrides. The layout re-draws itself as you **level, swap talents/loadouts, or change spec**.
+- **Covers all 13 classes and 40 specs — including the new Devourer Demon Hunter.** Most specs are built automatically from what you can currently cast (no wrong or missing spell IDs); a few have hand-tuned maps that act as overrides. The layout re-draws itself as you **level, swap talents/loadouts, or change spec**.
 - **Spell-strip cards** under the keyboard group your kit by purpose — builder, spender, AoE, interrupt, movement, defensives, dispel/CC, cooldowns and self-heals — each with a real in-game tooltip. Healers get a dedicated **mouseover single-target heal** card, while raid heals stay on keys.
 - **Consumables & extras bar:** flasks, food, weapon oils/runes, augment runes and other non-keybind essentials with live ready/missing status.
 - **In groups** helper: interrupts, defensives and party tips for the content you're running.
