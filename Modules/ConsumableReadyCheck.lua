@@ -925,6 +925,16 @@ local lastAutoKey = nil
 -- (party-instance), delve (C_PartyInfo) en Ritual Site (scenario). nil = niet in
 -- trackbare content. De sleutel verschilt per type/run, zodat de dedup klopt en
 -- je 'm bij elke nieuwe ritual/delve/dungeon opnieuw krijgt. Read-only/pcall.
+-- Known Ritual Site scenarios that warrant a consumable ready-check (real mini-boss
+-- encounters). ALLOW-LIST, not a catch-all: the old "any active scenario" rule also
+-- matched open-world scenarios like the Void Showdown, which popped the board solo in
+-- the open world (Rob 9 jul). A new ritual site gets a dedicated coach anyway
+-- (RitualBossCoach 3236, DaggerspineCoach 3267) - add its scenarioID here too.
+local RITUAL_SITE_SCENARIOS = {
+	[3236] = true, -- Broken Throne
+	[3267] = true, -- Daggerspine
+}
+
 local function CurrentContentKey()
 	-- Dungeon (party-instance)
 	if IsInInstance then
@@ -937,21 +947,12 @@ local function CurrentContentKey()
 	if ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress() then
 		return "delve:" .. tostring((GetInstanceInfo and select(8, GetInstanceInfo())) or "?")
 	end
-	-- Ritual Site / outdoor-scenario: elk actief scenario dat niet al als dungeon of
-	-- delve is afgevangen (die returnen hierboven). Zo werken ÁLLE ritual-sites — Broken
-	-- Throne (3236), Daggerspine (3267) én toekomstige — zonder per-site scenario-ID's bij
-	-- te houden. De dedup-sleutel bevat de echte scenarioID, dus per site/run uniek.
+	-- Ritual Site (outdoor mini-boss scenario): only KNOWN sites (allow-list above),
+	-- NOT every scenario - a catch-all also matched the Void Showdown and popped the
+	-- board solo. The dedup key holds the real scenarioID, so it's unique per site/run.
 	if C_ScenarioInfo and C_ScenarioInfo.GetScenarioInfo then
 		local ok, info = pcall(C_ScenarioInfo.GetScenarioInfo)
-		if ok and type(info) == "table" and info.scenarioID then
-			-- The consumable ready-check is a GROUP prep tool (it shows raid buffs and
-			-- offers "/mh readycheck" chat sharing). Outdoor scenarios like the Void
-			-- Showdown ("void gedeelte") also count as a scenario and popped the board
-			-- SOLO in the open world. Dungeons (party) and delves are handled above; for
-			-- the open-world scenario catch-all, only show it in a group. (Rob 9 jul)
-			if IsInGroup and not IsInGroup() then
-				return nil
-			end
+		if ok and type(info) == "table" and info.scenarioID and RITUAL_SITE_SCENARIOS[info.scenarioID] then
 			return "ritual:" .. tostring(info.scenarioID)
 		end
 	end
