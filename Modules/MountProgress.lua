@@ -30,6 +30,10 @@ local TRACKED = {
 		need = 4,
 		fallbackName = "Luminous Sporeglider",
 		howToKey = "MOUNTPROG_SPOREGLIDER_HOWTO",
+		-- Sporefall entrance: back of The Grudge Pit, SE Harandar. Web guides say
+		-- ~73.7/66.5; corroborated by our own AchievementsData "Sporelord's Fight
+		-- Prize" treasure at 2413 73.65/65.35 (same spot). Confirm in-game.
+		route = { mapID = 2413, x = 73.7, y = 66.5, nameKey = "MOUNTPROG_SPOREGLIDER_ROUTE_NAME" },
 	},
 	{
 		key = "vyranoth",
@@ -115,6 +119,7 @@ function ns.GetWeeklyMountProgress()
 				have = math.min(have, m.need),
 				need = m.need,
 				howToKey = m.howToKey,
+				route = m.route,
 			}
 		end
 	end

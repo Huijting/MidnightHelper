@@ -250,6 +250,19 @@ local function BuildLayout()
 					if m.howToKey then
 						line(rows, ns:L(m.howToKey), COLOR_DIM)
 					end
+					if m.route and ns.AddSmartTomTomWay then
+						local rname = ns:L(m.route.nameKey or "")
+						rows[#rows + 1] = {
+							button = true,
+							text = ns:L("MOUNTPROG_ROUTE_BTN_FMT"):format(rname),
+							onClick = function()
+								if ns.MH_TomTomClearAll then
+									ns.MH_TomTomClearAll()
+								end
+								ns.AddSmartTomTomWay(m.route.mapID, m.route.x, m.route.y, rname)
+							end,
+						}
+					end
 				end
 			end
 		end
