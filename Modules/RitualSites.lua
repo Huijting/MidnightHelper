@@ -220,20 +220,14 @@ local function RouteSite(site, quiet)
 	end
 	ns.MH_TomTomClearAll()
 	local label = site.name .. " — " .. ZoneName(site.mapID)
-	-- Hybride routing (QoL): bij een expliciete klik op de ACTIEVE site volgen we
-	-- het live weekly-objectief als de speler de ritual-weekly in z'n log heeft
-	-- (zelf-updatend per stap); anders/elders de vaste obelisk-coords. Alleen de
-	-- actieve site, want de quest-route wijst altijd naar de actieve site. Bij
-	-- quiet re-assertion (na revive) houden we de simpele coord-route + popup-skip.
-	local active = ns.GetActiveRitualSite and ns.GetActiveRitualSite()
-	local isActive = active and active.key == site.key
-	local ok
-	if isActive and not quiet and ns.AddSmartQuestRoute then
-		ok = ns.AddSmartQuestRoute(RITUAL_WEEKLY_QUEST, site.mapID, site.x, site.y, label) and true or false
-	else
-		-- quiet = skip the cross-zone travel popup (used for silent re-assertion).
-		ok = ns.AddSmartTomTomWay(site.mapID, site.x, site.y, label, quiet and true or nil) and true or false
-	end
+	-- Route to the known obelisk coords - reliable and cross-continent-safe, like the
+	-- working hub button. Following the live weekly objective (AddSmartQuestRoute) for
+	-- the ACTIVE site produced NO arrow and NO chat when the quest's next waypoint sat
+	-- on a map TomTom can't resolve (the ritual scenario / a sub-area): clicking the
+	-- active site did nothing while the hub worked (Rob 9 jul). The obelisk coords are
+	-- the "go to the site" target anyway.
+	-- quiet = skip the cross-zone travel popup (used for silent re-assertion).
+	local ok = ns.AddSmartTomTomWay(site.mapID, site.x, site.y, label, quiet and true or nil) and true or false
 	if ok then
 		lastRoutedSite = site
 	end
