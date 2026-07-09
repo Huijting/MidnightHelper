@@ -23,6 +23,7 @@ local TRACKED = {
 		itemID = 269245,          -- Delicious Sporesnack (1/week, Rotmire/Sporefall)
 		need = 4,
 		fallbackName = "Luminous Sporeglider",
+		howToKey = "MOUNTPROG_SPOREGLIDER_HOWTO",
 	},
 }
 
@@ -67,6 +68,7 @@ function ns.GetWeeklyMountProgress()
 				name = (type(mountName) == "string" and mountName ~= "" and mountName) or m.fallbackName,
 				have = have,
 				need = m.need,
+				howToKey = m.howToKey,
 			}
 		end
 	end

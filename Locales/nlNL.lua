@@ -199,6 +199,7 @@ ns._mhLocales.nlNL = {
 	HOME_SECTION_CHORES = "Wekelijkse klusjes",
 	HOME_SECTION_COLLECTIBLES = "Verzamel-mounts",
 	HOME_COLLECTIBLE_FMT = "%s — %d/%d",
+	MOUNTPROG_SPOREGLIDER_HOWTO = "Versla Rotmire in de Sporefall-raid (Harandar) voor een Delicious Sporesnack — ongeveer 1 per week, 4 nodig.",
 	HOME_SECTION_RARES = "Rares",
 	HOME_OPEN_FMT = "Open %s",
 	HOME_WB_ACTIVE_FMT = "Actief: %s",

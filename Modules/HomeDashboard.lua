@@ -247,6 +247,9 @@ local function BuildLayout()
 					local done = m.have >= m.need
 					line(rows, ns:L("HOME_COLLECTIBLE_FMT"):format(m.name, m.have, m.need),
 						done and COLOR_GOOD or COLOR_SOFT)
+					if m.howToKey then
+						line(rows, ns:L(m.howToKey), COLOR_DIM)
+					end
 				end
 			end
 		end

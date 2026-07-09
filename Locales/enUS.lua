@@ -201,6 +201,7 @@ ns._mhLocales.enUS = {
 	HOME_SECTION_CHORES = "Weekly chores",
 	HOME_SECTION_COLLECTIBLES = "Collectible mounts",
 	HOME_COLLECTIBLE_FMT = "%s — %d/%d",
+	MOUNTPROG_SPOREGLIDER_HOWTO = "Defeat Rotmire in the Sporefall raid (Harandar) for a Delicious Sporesnack — about 1 per week, 4 needed.",
 	HOME_SECTION_RARES = "Rares",
 	HOME_OPEN_FMT = "Open %s",
 	HOME_WB_ACTIVE_FMT = "Active: %s",
