@@ -120,7 +120,9 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 
 	--==============================================================
 	-- DEVOURER (1480) — nieuwe Midnight 12.0.7 Void Int-caster DPS-spec.
-	-- specID geverifieerd via wago.tools ChrSpecialization (OrderIndex 2 = spec-index 3).
+	-- specID geverifieerd via wago.tools ChrSpecialization (OrderIndex 2 = spec-index 3)
+	-- ÉN in-game bevestigd (Rob's dump): GetSpecializationInfo -> 1480 "Devourer", role DAMAGER.
+	-- lvl-10 dump bevestigde ook Consume (473662) + Reap (1226019); hogere abilities komen bij levelen.
 	-- Rollen AFGELEID (never-lie): ClassCodex Data/DemonHunter/guide.lua "devourer" rotation-
 	-- stapvolgorde + JustAC Data/SpellCooldowns.lua & SpellArchetypes.lua (namen/CD/archetype);
 	-- Wowhead spell-pages voor naamresolutie (473728 Void Ray, 1217607 Void Metamorphosis, ...).
