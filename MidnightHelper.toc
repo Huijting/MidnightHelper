@@ -160,6 +160,7 @@ Modules\AccountWeeklyChecklist.lua
 Modules\AltOverview.lua
 Modules\MidnightCodexData.lua
 Modules\MidnightCodex.lua
+Modules\MountProgress.lua
 Modules\HomeDashboard.lua
 Modules\NavSearch.lua
 Modules\ToolsLaunchpad.lua

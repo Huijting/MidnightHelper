@@ -237,6 +237,21 @@ local function BuildLayout()
 		end
 	)
 
+	------------------------------------------------------------------ Collectible mounts (full width)
+	addFull(function(rows)
+		if ns.GetWeeklyMountProgress then
+			local mounts = ns.GetWeeklyMountProgress()
+			if mounts and #mounts > 0 then
+				header(rows, ns:L("HOME_SECTION_COLLECTIBLES"))
+				for _, m in ipairs(mounts) do
+					local done = m.have >= m.need
+					line(rows, ns:L("HOME_COLLECTIBLE_FMT"):format(m.name, m.have, m.need),
+						done and COLOR_GOOD or COLOR_SOFT)
+				end
+			end
+		end
+	end)
+
 	------------------------------------------------------------------ Weekly chores (full width)
 	addFull(function(rows)
 		header(rows, ns:L("HOME_SECTION_CHORES"))
