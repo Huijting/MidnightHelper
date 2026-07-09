@@ -129,6 +129,15 @@ function ns.GetActiveVoidAssaultZoneName()
 	return zone and ZoneName(zone.mapID) or nil
 end
 
+-- The Void Assault roams its zone and the weekly quest exposes no single waypoint
+-- (in-game the strikes are marked one by one as scouts identify them, so GetNextWaypoint
+-- returns nothing — verified with Rob, 9 jul). There is no honest single point to route
+-- to, so we offer the shared staging hub (Ranger Captain Lilatha in The Bazaar) as the
+-- reliable "get started here" target. Returns true on success.
+function ns.RouteVoidHub()
+	return RouteHub()
+end
+
 function ns.IsVoidAssaultWeeklyDone()
 	return IsWeeklyDone()
 end

@@ -35,6 +35,72 @@ local COLOR_PROG = { 0.45, 0.85, 0.95 }
 
 local ui
 
+-- Per-section collapse state for the This Week dashboard, remembered in the DB.
+-- Sections default to expanded except the two longest / most optional ones, so the
+-- page is short out of the box (Rob's "lange lel") while everything stays one click
+-- away. A section is identified by a stable string key on its header.
+local DEFAULT_COLLAPSED = { chores = true, collectibles = true }
+
+local function IsSectionCollapsed(key)
+	if not key then
+		return false
+	end
+	ns.db = ns.db or {}
+	local map = ns.db.homeCollapsed
+	if map and map[key] ~= nil then
+		return map[key] == true
+	end
+	return DEFAULT_COLLAPSED[key] == true
+end
+
+local function ToggleSectionCollapsed(key)
+	if not key then
+		return
+	end
+	ns.db = ns.db or {}
+	ns.db.homeCollapsed = ns.db.homeCollapsed or {}
+	ns.db.homeCollapsed[key] = not IsSectionCollapsed(key)
+	if ns.RefreshHomePanel then
+		ns.RefreshHomePanel()
+	end
+end
+
+--- Apply collapse state to a flat rows list: prefix each collapsible header with
+--- the +/− glyph and a toggle onClick, and drop the body rows of a collapsed
+--- section. Non-collapsible headers (no sectionKey) pass through unchanged, as do
+--- the body rows of expanded sections. Returns a new list; the input is untouched.
+local function ApplyCollapse(rows)
+	if type(rows) ~= "table" then
+		return rows
+	end
+	local out = {}
+	local hiding = false
+	for i = 1, #rows do
+		local spec = rows[i]
+		if spec.header then
+			if spec.sectionKey then
+				local collapsed = IsSectionCollapsed(spec.sectionKey)
+				hiding = collapsed
+				local key = spec.sectionKey
+				out[#out + 1] = {
+					header = true,
+					text = (collapsed and "+ " or "− ") .. (spec.text or ""),
+					color = spec.color,
+					onClick = function()
+						ToggleSectionCollapsed(key)
+					end,
+				}
+			else
+				hiding = false
+				out[#out + 1] = spec
+			end
+		elseif not hiding then
+			out[#out + 1] = spec
+		end
+	end
+	return out
+end
+
 local function FormatNamePreview(labels)
 	if type(labels) ~= "table" or #labels == 0 then
 		return ""
@@ -84,8 +150,8 @@ end
 local function BuildLayout()
 	local blocks = {}
 
-	local function header(rows, text)
-		rows[#rows + 1] = { header = true, text = text, color = COLOR_HEADER }
+	local function header(rows, text, key)
+		rows[#rows + 1] = { header = true, text = text, color = COLOR_HEADER, sectionKey = key }
 	end
 	local function line(rows, text, color, onClick)
 		rows[#rows + 1] = { text = text, color = color or COLOR_DIM, onClick = onClick }
@@ -171,7 +237,7 @@ local function BuildLayout()
 	------------------------------------------------------------------ Vault | World Boss
 	addColumns(
 		function(rows)
-			header(rows, ns:L("HOME_SECTION_VAULT"))
+			header(rows, ns:L("HOME_SECTION_VAULT"), "vault")
 			if data and data.charCount and data.charCount > 0 then
 				if #data.vaultReady > 0 then
 					line(
@@ -195,7 +261,7 @@ local function BuildLayout()
 			navLine(rows, "delves", "TAB_DELVES")
 		end,
 		function(rows)
-			header(rows, ns:L("HOME_SECTION_WORLDBOSS"))
+			header(rows, ns:L("HOME_SECTION_WORLDBOSS"), "worldboss")
 			if ns.GetActiveWorldBoss then
 				local boss = ns.GetActiveWorldBoss()
 				if boss then
@@ -242,7 +308,7 @@ local function BuildLayout()
 		if ns.GetWeeklyMountProgress then
 			local mounts = ns.GetWeeklyMountProgress()
 			if mounts and #mounts > 0 then
-				header(rows, ns:L("HOME_SECTION_COLLECTIBLES"))
+				header(rows, ns:L("HOME_SECTION_COLLECTIBLES"), "collectibles")
 				for _, m in ipairs(mounts) do
 					local done = m.have >= m.need
 					line(rows, ns:L("HOME_COLLECTIBLE_FMT"):format(m.name, m.have, m.need),
@@ -270,7 +336,7 @@ local function BuildLayout()
 
 	------------------------------------------------------------------ Weekly chores (full width)
 	addFull(function(rows)
-		header(rows, ns:L("HOME_SECTION_CHORES"))
+		header(rows, ns:L("HOME_SECTION_CHORES"), "chores")
 		if data and data.charCount and data.charCount > 0 then
 			local any = false
 			if data.smcTotal then
@@ -471,17 +537,28 @@ local function BuildLayout()
 	------------------------------------------------------------------ Rares | Ritual + Void
 	addColumns(
 		function(rows)
-			header(rows, ns:L("HOME_SECTION_RARES"))
+			header(rows, ns:L("HOME_SECTION_RARES"), "rares")
 			line(rows, ns:L("HOME_RARES_HINT"), COLOR_DIM)
 			navLine(rows, "rares", "TAB_RARES")
 		end,
 		function(rows)
-			header(rows, ns:L("HOME_SECTION_RITUAL"))
+			header(rows, ns:L("HOME_SECTION_RITUAL"), "ritual")
 			local activeSite = ns.GetActiveRitualSite and ns.GetActiveRitualSite() or nil
 			if activeSite then
 				local zone = ns.RitualSiteZoneName and ns.RitualSiteZoneName(activeSite) or nil
 				local label = zone and (activeSite.name .. " — " .. zone) or activeSite.name
 				line(rows, ns:L("HOME_RITUAL_ACTIVE_FMT"):format(label), COLOR_SOFT)
+				-- Route straight to the active site's obelisk (verified coords), so
+				-- the arrow starts without opening the World tab (Rob, 9 jul).
+				if ns.RouteRitualSite and activeSite.mapID and activeSite.x and activeSite.y then
+					rows[#rows + 1] = {
+						button = true,
+						text = ns:L("HOME_RITUAL_ROUTE_BTN_FMT"):format(activeSite.name),
+						onClick = function()
+							ns.RouteRitualSite(activeSite)
+						end,
+					}
+				end
 			else
 				line(rows, ns:L("HOME_RITUAL_UNKNOWN"), COLOR_DIM)
 			end
@@ -496,10 +573,21 @@ local function BuildLayout()
 			end
 			navLine(rows, "world", "TAB_WORLD")
 
-			header(rows, ns:L("HOME_SECTION_VOID"))
+			header(rows, ns:L("HOME_SECTION_VOID"), "void")
 			local voidZone = ns.GetActiveVoidAssaultZoneName and ns.GetActiveVoidAssaultZoneName() or nil
 			if voidZone then
 				line(rows, ns:L("HOME_VOID_ACTIVE_FMT"):format(voidZone), COLOR_SOFT)
+				-- The assault has no single waypoint (strikes are marked one by one),
+				-- so we route to the shared staging hub — honest about the target.
+				if ns.RouteVoidHub then
+					rows[#rows + 1] = {
+						button = true,
+						text = ns:L("HOME_VOID_HUB_BTN"),
+						onClick = function()
+							ns.RouteVoidHub()
+						end,
+					}
+				end
 			else
 				line(rows, ns:L("HOME_VOID_UNKNOWN"), COLOR_DIM)
 			end
@@ -670,8 +758,9 @@ function ns.RefreshHomePanel()
 		end
 
 		if block.type == "full" then
-			for i = 1, #block.rows do
-				local spec = block.rows[i]
+			local rows = ApplyCollapse(block.rows)
+			for i = 1, #rows do
+				local spec = rows[i]
 				if spec.header and i > 1 then
 					y = y + SECTION_GAP
 				end
@@ -697,8 +786,8 @@ function ns.RefreshHomePanel()
 			end
 		elseif block.type == "columns" then
 			ui._layoutRowIndex = rowIndex
-			local leftH = LayoutColumnSpecs(block.left or {}, y, "left", colWidth)
-			local rightH = LayoutColumnSpecs(block.right or {}, y, "right", colWidth)
+			local leftH = LayoutColumnSpecs(ApplyCollapse(block.left or {}), y, "left", colWidth)
+			local rightH = LayoutColumnSpecs(ApplyCollapse(block.right or {}), y, "right", colWidth)
 			rowIndex = ui._layoutRowIndex
 			y = y + math.max(leftH, rightH)
 		end
