@@ -43,6 +43,34 @@ local TRACKED = {
 		fallbackName = "Spawn of Vyranoth",
 		howToKey = "MOUNTPROG_VYRANOTH_HOWTO",
 	},
+	{
+		key = "torturedgorger",
+		mountItemID = 275664,        -- Tortured Gorger (teaches the mount)
+		metaAchievementID = 63264,   -- Heroic Showdowns: 6 heroic feats in Naigtal & Val
+		need = 6,
+		fallbackName = "Tortured Gorger",
+		howToKey = "MOUNTPROG_GORGER_HOWTO",
+		-- Bought from Kifaan (Naigtal / Val Umbral Base Camp) for 15 Voidlight Marl,
+		-- but ONLY after the Heroic Showdowns meta (63264) is done — the ~2-week meta
+		-- is the real gate, so we show progress on it (X of 6 feats). No route button:
+		-- the vendor coords are not verified, and you cannot buy until the meta is done.
+	},
+	{
+		key = "starcarver",
+		mountItemID = 274649,        -- Voidmancer's Starcarver (void-surfboard mount)
+		metaAchievementID = 62873,   -- "A Trip Around the Stars": 6 Val Showdown feats
+		need = 6,
+		fallbackName = "Voidmancer's Starcarver",
+		howToKey = "MOUNTPROG_STARCARVER_HOWTO",
+	},
+	{
+		key = "nullframe",
+		mountItemID = 274650,        -- Netherforged Nullframe (mount)
+		metaAchievementID = 62874,   -- "A Trip Through the Stars": 6 Naigtal Showdown feats
+		need = 6,
+		fallbackName = "Netherforged Nullframe",
+		howToKey = "MOUNTPROG_NULLFRAME_HOWTO",
+	},
 }
 
 --- @return isCollected(bool|nil), localizedName(string|nil)
@@ -98,6 +126,42 @@ local function AchievementQuantity(achID)
 	return 0
 end
 
+--- Progress as the number of COMPLETED criteria of a meta-achievement (e.g. a zone
+--- meta that gates a mount purchase). Counts the sub-achievement criteria that are
+--- done, so "have" reads as X of N feats.
+local function CompletedCriteriaCount(achID)
+	if not (achID and GetAchievementNumCriteria and GetAchievementCriteriaInfo) then
+		return 0
+	end
+	local okN, n = pcall(GetAchievementNumCriteria, achID)
+	if not okN or type(n) ~= "number" or n <= 0 then
+		return 0
+	end
+	local done = 0
+	for i = 1, n do
+		-- 3rd return of GetAchievementCriteriaInfo is `completed` (boolean).
+		local ok, _cs, _ct, completed = pcall(GetAchievementCriteriaInfo, achID, i)
+		if ok and completed == true then
+			done = done + 1
+		end
+	end
+	return done
+end
+
+--- Live total criteria of a meta-achievement, so the "N" in "X of N" tracks the
+--- game rather than a hardcoded guess. Returns nil when unavailable (caller keeps
+--- its static `need`).
+local function MetaCriteriaTotal(achID)
+	if not (achID and GetAchievementNumCriteria) then
+		return nil
+	end
+	local ok, n = pcall(GetAchievementNumCriteria, achID)
+	if ok and type(n) == "number" and n > 0 then
+		return n
+	end
+	return nil
+end
+
 --- Progress for tracked collectible mounts you have NOT collected yet.
 --- @return list of { key, name, have, need, howToKey }
 function ns.GetWeeklyMountProgress()
@@ -106,8 +170,12 @@ function ns.GetWeeklyMountProgress()
 		local collected, mountName = MountStatus(m)
 		if collected ~= true then -- false or nil (data not loaded) -> still show
 			local have
+			local need = m.need
 			if m.itemID then
 				have = ItemCount(m.itemID)
+			elseif m.metaAchievementID then
+				have = CompletedCriteriaCount(m.metaAchievementID)
+				need = MetaCriteriaTotal(m.metaAchievementID) or need
 			elseif m.achievementID then
 				have = AchievementQuantity(m.achievementID)
 			else
@@ -116,8 +184,8 @@ function ns.GetWeeklyMountProgress()
 			out[#out + 1] = {
 				key = m.key,
 				name = (type(mountName) == "string" and mountName ~= "" and mountName) or m.fallbackName,
-				have = math.min(have, m.need),
-				need = m.need,
+				have = math.min(have, need),
+				need = need,
 				howToKey = m.howToKey,
 				route = m.route,
 			}
