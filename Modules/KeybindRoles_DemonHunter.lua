@@ -4,7 +4,8 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 -- v6 keybind role classifier: DEMONHUNTER. Spell NAME -> role/category mapping.
 -- FULL rebuild (replaces the incomplete DH section of KeybindRoles_WarDkDhEvoker.lua).
 -- Keyed on EXACT in-game spell name; the addon matches against the live spellbook.
--- specID's: Havoc 577, Vengeance 581.
+-- specID's: Havoc 577, Vengeance 581, Devourer 1480 (Midnight 12.0.7 Void Int-caster DPS;
+--   verified via wago.tools ChrSpecialization, OrderIndex 2 = spec-index 3).
 --
 -- Roles/categories are DERIVED FROM ADDON DATA (never-lie), not guesswork:
 --   * interrupt / CC  : JustAC Data/InterruptAbilities.lua (Disrupt 183752 kind="interrupt";
@@ -81,7 +82,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Blade Dance"]       = { category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- AoE (SpellArchetypes 188499; guide.lua {188499})
 	["Death Sweep"]       = { category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- Meta-vorm van Blade Dance (SpellArchetypes 210152; guide.lua {210152})
 	-- Kleine def (SpellCategories DEFENSIVE 198589; SpellDB fallback DEMONHUNTER {198589,...})
-	["Blur"]              = { role = "defensive_1", priority = 1, specs = { 577 } },       -- 20% dodge + DR (SpellCategories 198589)
+	["Blur"]              = { role = "defensive_1", priority = 1, specs = { 577, 1480 } }, -- 20% dodge + DR (SpellCategories 198589; JustAC SpellDB DEMONHUNTER {198589,196718} = class-baseline -> ook Devourer, Icy Veins bevestigt)
 	-- Grote def (SpellDB fallback DEMONHUNTER {198589,196718}; Darkness = raid-wall)
 	["Darkness"]          = { role = "defensive_3", priority = 1, specs = { 577 } },       -- AoE avoidance-koepel (SpellDB DEMONHUNTER 196718)
 	["Netherwalk"]        = { category = "defensive", priority = 2, specs = { 577 } },     -- DR + immuniteit (SpellCategories DEFENSIVE 196555; talent-alt van Blur)
@@ -116,4 +117,31 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	-- CC extra (SpellCategories UTILITY/CROWD 202138 Sigil of Chains; 211881 Fel Eruption)
 	["Sigil of Chains"]   = { category = "dispel_cc", priority = 5, specs = { 581 } },     -- pull/knock (SpellCategories 202138)
 	["Fel Eruption"]      = { category = "dispel_cc", priority = 6, specs = { 581 } },     -- single-target stun (InterruptAbilities 211881 kind="cc"; talent)
+
+	--==============================================================
+	-- DEVOURER (1480) — nieuwe Midnight 12.0.7 Void Int-caster DPS-spec.
+	-- specID geverifieerd via wago.tools ChrSpecialization (OrderIndex 2 = spec-index 3).
+	-- Rollen AFGELEID (never-lie): ClassCodex Data/DemonHunter/guide.lua "devourer" rotation-
+	-- stapvolgorde + JustAC Data/SpellCooldowns.lua & SpellArchetypes.lua (namen/CD/archetype);
+	-- Wowhead spell-pages voor naamresolutie (473728 Void Ray, 1217607 Void Metamorphosis, ...).
+	-- Baseline DH-spells (Disrupt/Vengeful Retreat/Felblade/Chaos Nova/The Hunt/Immolation Aura/
+	-- Glide/... zonder specs) gelden AL voor Devourer; hieronder alleen de spec-eigen abilities.
+	-- TODO(id): "Shift" (Devourer-dash 30yd/20s, Icy Veins + Wowhead bevestigen de NAAM) heeft nog
+	--   geen geverifieerd spell-ID -> naam-keyed; vul id aan uit Rob's in-game spellbook-dump.
+	--==============================================================
+	-- Movement / utility_primary (Icy Veins: "Shift" = targeted 30yd dash, 20s CD, Devourer-signatuur)
+	["Shift"]             = { role = "utility_primary", priority = 1, specs = { 1480 } },  -- naam-keyed (id volgt uit dump)
+	-- Builders / kernrotatie (guide.lua devourer; JustAC SpellArchetypes "ranged")
+	["Consume"]           = { id = 473662,  category = "main_rotation", priority = 1, specs = { 1480 } }, -- core builder/filler (SpellArchetypes 473662 "ranged"; guide.lua opener)
+	["Voidblade"]         = { id = 1245412, category = "main_rotation", priority = 2, specs = { 1480 } }, -- rotational (SpellCooldowns 1245412=30000; guide.lua)
+	["Hungering Slash"]   = { id = 1239123, category = "main_rotation", priority = 5, specs = { 1480 } }, -- AoE-builder (guide.lua multitarget)
+	-- Spenders (Fury; guide.lua "at 84 fury" / 100-Fury-channel)
+	["Reap"]              = { id = 1226019, category = "spender", priority = 1, specs = { 1480 } },       -- Fury-spender (SpellCooldowns 1226019=8000; guide.lua "at 84 fury")
+	["Void Ray"]          = { id = 473728,  category = "spender", priority = 2, specs = { 1480 } },       -- 100-Fury-channel (SpellArchetypes 473728; guide.lua {473728})
+	["Devour"]            = { id = 1217610, category = "spender", priority = 3, specs = { 1480 } },       -- Void-Meta-vorm spender (SpellArchetypes 1217610 "ranged"; guide.lua {1217610})
+	["Eradicate"]         = { id = 1226033, category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 1480 } }, -- AoE-spender (guide.lua multitarget)
+	-- Cooldowns
+	["Soul Immolation"]   = { id = 1241937, category = "cooldown", priority = 3, specs = { 1480 } },      -- 60s-CD setup/buff (SpellCooldowns 1241937=60000; SelfAuras 1241937)
+	-- Grootste CD / cooldown_bar F1 (Void Metamorphosis = burst-vorm; soul-driven, geen timer)
+	["Void Metamorphosis"] = { id = 1217607, role = "cooldown_bar", priority = 1, specs = { 1480 } },    -- burst-vorm (Wowhead 1217607; analoog aan Havoc Metamorphosis)
 }
