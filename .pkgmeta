@@ -8,6 +8,13 @@ package-as: MidnightHelper
 enable-toc-creation: no
 enable-nolib-creation: no
 
+# Use the hand-written CHANGELOG.md for the CurseForge release notes instead of an
+# auto-generated dump of every commit. (The first-ever tag v2.5.0 had no previous tag
+# to bound against, so the packager pulled the entire history — this prevents that.)
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown
+
 # Everything below is kept OUT of the release zip (dev tooling, docs, build scripts,
 # internal notes). .git is excluded automatically. CLAUDE.md stays out — it must never
 # ship (review F5.2 / P0).
