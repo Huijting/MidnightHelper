@@ -21,7 +21,7 @@ re-paste it on the project page between the START/END markers.
 
 ## Short summary (one line)
 
-Midnight Helper 2.5.0 adds full support for the new **Devourer** Demon Hunter spec (keybind coach + consumables), refreshes all consumables for patch 12.0.7, lets you hide the minimap button, finishes the leveling-tips translations, and fixes a handful of 12.x combat/settings crashes.
+Midnight Helper 2.5.0 adds a **Guided mode** that walks beginners through every profession one step at a time, full support for the new **Devourer** Demon Hunter spec (keybind coach + consumables), refreshes all consumables for patch 12.0.7, lets you hide the minimap button, finishes the leveling-tips translations, and fixes a batch of Delve / Ritual Site / consumable-check issues.
 
 ---
 
@@ -39,6 +39,9 @@ Adds support for the new **Devourer** Demon Hunter specialization, refreshes con
 - **Minimap-button toggle** — hide Midnight Helper's minimap icon for a clean minimap; the addon
   stays reachable from the game's **AddOns compartment** (top of the minimap). Open the window any
   time with **Alt+M**.
+- **Guided mode for professions** — a "take you by the hand" wizard (Professions 101 → *Guided
+  mode*) that walks you through learning and levelling any of the 11 professions **one step at a
+  time**, ticking steps off automatically as your skill grows, with trainer and Work Order waypoints.
 
 **Changed**
 
@@ -52,6 +55,10 @@ Adds support for the new **Devourer** Demon Hunter specialization, refreshes con
 - A **Delve crash** tied to patch 12.x "secret" values is gone.
 - A **keyboard-layout tooltip crash** on the spell-strip cards is fixed.
 - Toggling the **Leveling / beta tabs** now updates the window live, without a `/reload`.
+- **Delve boss-coach prompt** now offers at the boss room instead of on trash mobs.
+- The **Delve consumables popup** and the group **Consumable Check** no longer re-appear after the
+  last boss, nor pop up solo in the open world.
+- **Ritual Site buttons** always set a waypoint now (the active-site button used to do nothing).
 
 ---
 

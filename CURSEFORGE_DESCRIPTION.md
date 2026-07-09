@@ -54,7 +54,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 
 **Account & professions**
 - **Account snapshot** — per-character overview (keys, shards, undercoins, item level, profession weekly currencies in tooltips), with a sort/filter toolbar, a stale-since-Wednesday badge, and compact vault status per row.
-- **Profession** tools and overview on the Professions tab.
+- **Professions** tools and overview, plus a **Professions 101** beginner course and a new **Guided mode** — a step-by-step, take-you-by-the-hand wizard that walks a total newcomer through learning and levelling any of the 11 professions, ticking steps off as your skill grows.
 
 **Guides & reference**
 - **Midnight Codex** — Season 1 handbook (Start Here, weekly loop, currencies with live balances, delves, M+, raid, world content, professions); **Open** links jump to the matching tab.

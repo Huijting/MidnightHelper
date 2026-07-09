@@ -14,6 +14,7 @@ Adds support for the new **Devourer** Demon Hunter specialization, refreshes con
 - **Minimap-button toggle** — hide Midnight Helper's minimap icon for a clean minimap; the addon stays reachable from the game's **AddOns compartment**. Open the window any time with **Alt+M**.
 - **Auto-release pipeline** — a BigWigs packager (`.pkgmeta` + GitHub Action) builds and publishes the CurseForge zip automatically on a version tag.
 - **LuaLS groundwork** — `.luarc.json` + type annotations for editor diagnostics.
+- **Guided professions mode** — an opt-in "take you by the hand" wizard (Professions 101 → *Guided mode*) that walks a beginner through learning and levelling any of the 11 professions **one step at a time**, with trainer / Work Order waypoints and a profession switcher. Steps auto-tick from live game state (profession learned, window opened, tool equipped, skill-rank milestones); anything we can't read is a manual *Done*. Step data is derived from the verified `PROFGUIDE_LVL_*` routes; text in English + Dutch (other languages fall back to English).
 
 ### Changed
 
@@ -29,6 +30,10 @@ Adds support for the new **Devourer** Demon Hunter specialization, refreshes con
 - A **keyboard-layout tooltip crash** (a `SetText` alpha-argument misuse) on the spell-strip card headers.
 - **Beta / Leveling tab toggles** now update the open window live, without a `/reload`.
 - Rare/zone data: the Eruundi map-ID conflict and the Asha name were corrected.
+- **Delve boss-coach prompt** no longer mis-fires on trash/critters and no longer misses the real boss: it now triggers on the final scenario stage (the boss room) via `C_ScenarioInfo`, with `ENCOUNTER_START` as confirmation.
+- **Delve consumables popup** no longer re-appears after the last boss (kept the "already used" state across the `IsDelveInProgress` flicker) and can't show at an open-world boss (`IsInInstance()` gate).
+- **Consumable Ready-check** board no longer pops solo in open-world scenarios (allow-list of real Ritual Sites) and no longer re-appears at ritual/delve completion.
+- **Ritual Site buttons** always set a waypoint now — an unroutable live quest objective (a scenario/instance map) used to leave the active-site button doing nothing; `AddSmartQuestRoute` now falls back to the target coords, which protects every caller.
 
 ## [2.4.1] - 2026-07-05
 
