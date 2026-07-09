@@ -161,6 +161,7 @@ Modules\AltOverview.lua
 Modules\MidnightCodexData.lua
 Modules\MidnightCodex.lua
 Modules\MountProgress.lua
+Modules\MountsPanel.lua
 Modules\HomeDashboard.lua
 Modules\NavSearch.lua
 Modules\ToolsLaunchpad.lua

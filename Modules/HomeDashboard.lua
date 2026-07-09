@@ -39,7 +39,7 @@ local ui
 -- Sections default to expanded except the two longest / most optional ones, so the
 -- page is short out of the box (Rob's "lange lel") while everything stays one click
 -- away. A section is identified by a stable string key on its header.
-local DEFAULT_COLLAPSED = { chores = true, collectibles = true }
+local DEFAULT_COLLAPSED = { chores = true }
 
 local function IsSectionCollapsed(key)
 	if not key then
@@ -303,33 +303,16 @@ local function BuildLayout()
 		end
 	)
 
-	------------------------------------------------------------------ Collectible mounts (full width)
+	------------------------------------------------------------------ Collectible mounts (summary → own tab)
+	-- The full list lives on its own "Collectible mounts" tab (Modules/MountsPanel.lua);
+	-- Home only shows how many are in progress plus a link, so it never grows long again.
 	addFull(function(rows)
 		if ns.GetWeeklyMountProgress then
 			local mounts = ns.GetWeeklyMountProgress()
 			if mounts and #mounts > 0 then
 				header(rows, ns:L("HOME_SECTION_COLLECTIBLES"), "collectibles")
-				for _, m in ipairs(mounts) do
-					local done = m.have >= m.need
-					line(rows, ns:L("HOME_COLLECTIBLE_FMT"):format(m.name, m.have, m.need),
-						done and COLOR_GOOD or COLOR_SOFT)
-					if m.howToKey then
-						line(rows, ns:L(m.howToKey), COLOR_DIM)
-					end
-					if m.route and ns.AddSmartTomTomWay then
-						local rname = ns:L(m.route.nameKey or "")
-						rows[#rows + 1] = {
-							button = true,
-							text = ns:L("MOUNTPROG_ROUTE_BTN_FMT"):format(rname),
-							onClick = function()
-								if ns.MH_TomTomClearAll then
-									ns.MH_TomTomClearAll()
-								end
-								ns.AddSmartTomTomWay(m.route.mapID, m.route.x, m.route.y, rname)
-							end,
-						}
-					end
-				end
+				line(rows, ns:L("HOME_COLLECTIBLES_SUMMARY_FMT"):format(#mounts), COLOR_SOFT)
+				navLine(rows, "mounts", "TAB_MOUNTS")
 			end
 		end
 	end)

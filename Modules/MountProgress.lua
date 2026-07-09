@@ -22,12 +22,18 @@
 
 local _, ns = ...
 
+-- Nearly every Midnight collectible mount is bought with Voidlight Marl, so the how-to
+-- line hovers that currency's tooltip by default; the few that aren't a purchase set
+-- `noMarl = true` on their entry.
+local VOIDLIGHT_MARL = 3316
+
 local TRACKED = {
 	{
 		key = "sporeglider",
 		mountSpellID = 1284973,   -- Luminous Sporeglider (Wowhead-verified)
 		itemID = 269245,          -- Delicious Sporesnack (1/week, Rotmire/Sporefall)
 		need = 4,
+		noMarl = true, -- earned from items, not a Voidlight Marl purchase
 		fallbackName = "Luminous Sporeglider",
 		howToKey = "MOUNTPROG_SPOREGLIDER_HOWTO",
 		-- Sporefall entrance: back of The Grudge Pit, SE Harandar. Web guides say
@@ -40,6 +46,7 @@ local TRACKED = {
 		mountItemID = 258884,     -- Spawn of Vyranoth (teaches the mount)
 		achievementID = 61463,    -- Master of the Turbulent Timeways V (4 of 5 weeks)
 		need = 4,
+		noMarl = true, -- Timewalking event reward, not a Voidlight Marl purchase
 		fallbackName = "Spawn of Vyranoth",
 		howToKey = "MOUNTPROG_VYRANOTH_HOWTO",
 	},
@@ -71,6 +78,33 @@ local TRACKED = {
 		fallbackName = "Netherforged Nullframe",
 		howToKey = "MOUNTPROG_NULLFRAME_HOWTO",
 	},
+
+	-- Faction-renown mounts: bought from the faction quartermaster once you reach the
+	-- required Renown level (Amani / Hara'ti / Singularity also charge Voidlight Marl).
+	-- Renown levels + Marl costs verified on warcraftmounts.com; faction IDs verified on
+	-- Wowhead faction= pages; teaching-item IDs are search-corroborated (medium confidence
+	-- — if one never hides after you collect it, that item ID is the thing to re-check).
+	-- We only surface a renown mount once you have ANY renown with the faction, so
+	-- un-started factions don't clutter the list with 0/NN goals.
+	{ key = "amanibear",  mountItemID = 257219, renownFactionID = 2696, need = 17, fallbackName = "Amani Blessed Bear",             howToKey = "MOUNTPROG_AMANIBEAR_HOWTO" },
+	{ key = "amaniwind",  mountItemID = 250889, renownFactionID = 2696, need = 19, fallbackName = "Amani Windcaller",              howToKey = "MOUNTPROG_AMANIWIND_HOWTO" },
+	{ key = "grimlynx",   mountItemID = 246734, renownFactionID = 2704, need = 16, fallbackName = "Fierce Grimlynx",              howToKey = "MOUNTPROG_GRIMLYNX_HOWTO" },
+	{ key = "ceruleansg", mountItemID = 252014, renownFactionID = 2704, need = 19, fallbackName = "Cerulean Sporeglider",         howToKey = "MOUNTPROG_CERULEANSG_HOWTO" },
+	{ key = "crimsonhs",  mountItemID = 257154, renownFactionID = 2710, need = 17, fallbackName = "Crimson Silvermoon Hawkstrider", howToKey = "MOUNTPROG_CRIMSONHS_HOWTO" },
+	{ key = "shredclaw",  mountItemID = 257445, renownFactionID = 2699, need = 17, fallbackName = "Ravenous Shredclaw",           howToKey = "MOUNTPROG_SHREDCLAW_HOWTO" },
+	{ key = "stormray",   mountItemID = 260696, renownFactionID = 2699, need = 19, fallbackName = "Voidbound Stormray",           howToKey = "MOUNTPROG_STORMRAY_HOWTO" },
+	-- Umbral Dragonhawk: not a renown purchase — reward for "Life of the Party" (62190),
+	-- max reputation with all four Silvermoon Court sub-factions (item ID plausible-only).
+	{ key = "umbraldh",   mountItemID = 257144, metaAchievementID = 62190, need = 4, noMarl = true, fallbackName = "Umbral Dragonhawk",          howToKey = "MOUNTPROG_UMBRALDH_HOWTO" },
+
+	-- Void-Touched Hawkstrider: Ritual Sites renown mount (its own 8-rank track,
+	-- faction 2792), bought from Sergeant Vornin for 4,500 Voidlight Marl at Renown 8.
+	-- (Verified: NOT gated by any Void Incursion meta-achievement — it's the renown.)
+	{ key = "voidhawk",   mountItemID = 268578, renownFactionID = 2792, need = 8, fallbackName = "Void-Touched Hawkstrider",     howToKey = "MOUNTPROG_VOIDHAWK_HOWTO" },
+	-- Anu'shalla, Shadow's Guidance (purple Anu'relos recolor): reward for the 600-mount
+	-- "Insurmountable Collection". Faction-paired achievement (Horde 62096 / Alliance
+	-- 62103) — we read whichever your character has; progress = mounts obtained toward 600.
+	{ key = "anushalla",  mountItemID = 265656, achievementID = 62096, achievementIDAlt = 62103, need = 600, noMarl = true, fallbackName = "Anu'shalla, Shadow's Guidance", howToKey = "MOUNTPROG_ANUSHALLA_HOWTO" },
 }
 
 --- @return isCollected(bool|nil), localizedName(string|nil)
@@ -87,20 +121,26 @@ local function InfoFromMountID(mid)
 	return v[12] == true, v[2]
 end
 
+--- @return isCollected(bool|nil), localizedName(string|nil), mountID(number|nil)
 local function MountStatus(m)
+	local mid
 	if m.mountSpellID and C_MountJournal and C_MountJournal.GetMountFromSpell then
-		local ok, mid = pcall(C_MountJournal.GetMountFromSpell, m.mountSpellID)
-		if ok and mid then
-			return InfoFromMountID(mid)
+		local ok, x = pcall(C_MountJournal.GetMountFromSpell, m.mountSpellID)
+		if ok and x then
+			mid = x
 		end
 	end
-	if m.mountItemID and C_MountJournal and C_MountJournal.GetMountFromItem then
-		local ok, mid = pcall(C_MountJournal.GetMountFromItem, m.mountItemID)
-		if ok and mid then
-			return InfoFromMountID(mid)
+	if not mid and m.mountItemID and C_MountJournal and C_MountJournal.GetMountFromItem then
+		local ok, x = pcall(C_MountJournal.GetMountFromItem, m.mountItemID)
+		if ok and x then
+			mid = x
 		end
 	end
-	return nil, nil
+	if mid then
+		local collected, name = InfoFromMountID(mid)
+		return collected, name, mid
+	end
+	return nil, nil, nil
 end
 
 local function ItemCount(itemID)
@@ -162,33 +202,84 @@ local function MetaCriteriaTotal(achID)
 	return nil
 end
 
+--- Current Renown level with a Major Faction (0 when not unlocked / not started).
+local function RenownLevel(factionID)
+	if not (factionID and C_MajorFactions) then
+		return 0
+	end
+	if C_MajorFactions.GetCurrentRenownLevel then
+		local ok, lvl = pcall(C_MajorFactions.GetCurrentRenownLevel, factionID)
+		if ok and type(lvl) == "number" then
+			return lvl
+		end
+	end
+	if C_MajorFactions.GetMajorFactionData then
+		local ok, data = pcall(C_MajorFactions.GetMajorFactionData, factionID)
+		if ok and type(data) == "table" and type(data.renownLevel) == "number" then
+			return data.renownLevel
+		end
+	end
+	return 0
+end
+
 --- Progress for tracked collectible mounts you have NOT collected yet.
 --- @return list of { key, name, have, need, howToKey }
-function ns.GetWeeklyMountProgress()
+--- Progress for tracked collectible mounts.
+--- @param includeCollected boolean|nil When true, also return mounts you already own
+---   (each carries `collected=true`) so the panel can show a full ✓/✗ checklist. When
+---   false/nil, returns only the in-progress mounts (used for the Home count).
+--- @return list of { key, name, have, need, collected, howToKey, route, mountID, ... }
+function ns.GetWeeklyMountProgress(includeCollected)
 	local out = {}
 	for _, m in ipairs(TRACKED) do
-		local collected, mountName = MountStatus(m)
-		if collected ~= true then -- false or nil (data not loaded) -> still show
+		local collected, mountName, mountID = MountStatus(m)
+		local isCollected = (collected == true)
+		if includeCollected or not isCollected then -- data-not-loaded (nil) still shows
 			local have
 			local need = m.need
+			local show = true
 			if m.itemID then
 				have = ItemCount(m.itemID)
+			elseif m.renownFactionID then
+				have = RenownLevel(m.renownFactionID)
+				-- Only surface once you actually have renown with the faction, so
+				-- un-started factions don't clutter the in-progress list with 0/NN goals.
+				show = have >= 1
 			elseif m.metaAchievementID then
 				have = CompletedCriteriaCount(m.metaAchievementID)
 				need = MetaCriteriaTotal(m.metaAchievementID) or need
 			elseif m.achievementID then
 				have = AchievementQuantity(m.achievementID)
+				if m.achievementIDAlt then
+					-- Faction-paired achievement: take whichever your character has.
+					have = math.max(have, AchievementQuantity(m.achievementIDAlt))
+				end
 			else
 				have = 0
 			end
-			out[#out + 1] = {
-				key = m.key,
-				name = (type(mountName) == "string" and mountName ~= "" and mountName) or m.fallbackName,
-				have = math.min(have, need),
-				need = need,
-				howToKey = m.howToKey,
-				route = m.route,
-			}
+			-- The `show` filter only trims the in-progress view; the full checklist and
+			-- any already-collected mount always appear.
+			if includeCollected or isCollected then
+				show = true
+			end
+			if show then
+				out[#out + 1] = {
+					key = m.key,
+					name = (type(mountName) == "string" and mountName ~= "" and mountName) or m.fallbackName,
+					have = math.min(have, need),
+					need = need,
+					collected = isCollected,
+					howToKey = m.howToKey,
+					-- Currency the how-to line hovers (nil for non-purchase mounts).
+					currencyID = (not m.noMarl) and VOIDLIGHT_MARL or nil,
+					route = m.route,
+					-- Tooltip / 3D-model sources (best-effort): the resolved mount, plus
+					-- the teaching item / mount spell as fallbacks.
+					mountID = mountID,
+					mountItemID = m.mountItemID,
+					mountSpellID = m.mountSpellID,
+				}
+			end
 		end
 	end
 	return out
