@@ -1038,7 +1038,14 @@ ev:SetScript("OnEvent", function(_, event)
 		return
 	end
 	if event == "SCENARIO_COMPLETED" then
-		lastAutoKey = nil -- scenario klaar → volgende ritual/delve toont weer
+		-- Ritual/delve finished: do NOT reset lastAutoKey here. The scenario is still
+		-- active during the completion screen, so a follow-up SCENARIO_UPDATE would
+		-- re-pop the board (Rob 9 jul: the consumable check reappeared at the END of a
+		-- ritual). The dedup key clears naturally when CurrentContentKey() goes nil on
+		-- leaving. Hide the board here since the check is pointless once you are done.
+		if ns.HideConsumableBoard then
+			ns.HideConsumableBoard()
+		end
 		return
 	end
 	MaybeAutoRun(false)
