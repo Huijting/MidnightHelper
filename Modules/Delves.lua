@@ -864,12 +864,21 @@ function ns.AddSmartQuestRoute(questID, fallbackMapID, fallbackX, fallbackY, nam
 		local okIdx, idx = pcall(C_QuestLog.GetLogIndexForQuestID, questID)
 		if okIdx and idx then
 			local okWp, mapID, x, y = pcall(C_QuestLog.GetNextWaypoint, questID)
-			if okWp and mapID and x and y then
+			-- Only follow the live objective when its map can actually take a waypoint. A quest
+			-- objective can sit inside a scenario/instance (a ritual site, delve, ...) that
+			-- TomTom/Blizzard cannot place a waypoint on -> that gave NO arrow and NO chat at
+			-- all. When the map is not waypointable, fall through to the fallback coords. (Rob 9 jul)
+			local objectiveOk = okWp and mapID and x and y
+			if objectiveOk and C_Map and C_Map.CanSetUserWaypointOnMap then
+				local okC, canPlace = pcall(C_Map.CanSetUserWaypointOnMap, mapID)
+				objectiveOk = okC and canPlace == true
+			end
+			if objectiveOk then
 				local label = name
 				if C_QuestLog.GetNextWaypointText then
-					local okT, t = pcall(C_QuestLog.GetNextWaypointText, questID)
-					if okT and type(t) == "string" and t ~= "" then
-						label = t
+					local okT, t2 = pcall(C_QuestLog.GetNextWaypointText, questID)
+					if okT and type(t2) == "string" and t2 ~= "" then
+						label = t2
 					end
 				end
 				return ns.AddSmartTomTomWay(mapID, x * 100, y * 100, label or name)
