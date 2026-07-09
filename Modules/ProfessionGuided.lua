@@ -182,7 +182,13 @@ local function StepAutoDone(step, guide)
 	if k == "hasprof" then
 		return HasProf(guide.skillLine)
 	elseif k == "window" then
-		return ProfWindowOpened()
+		-- Session flag, OR: a crafter with real skill (>1) has obviously opened
+		-- their window already — don't strand an experienced player on this step.
+		if ProfWindowOpened() then
+			return true
+		end
+		local s = SkillFor(guide.skillLine)
+		return s ~= nil and s > 1
 	elseif k == "tool" then
 		return ToolEquipped()
 	end
@@ -286,6 +292,9 @@ local function Refresh()
 
 	frame._title:SetText(SL("PGUIDE_HEADER_TAG_FMT"):format(T(activeGuide.profName)))
 	frame._counter:SetText(SL("PGUIDE_STEP_FMT"):format(viewIndex, total, DoneCount()))
+	if frame._dropBtn then
+		frame._dropBtn:SetText(T(activeGuide.profName))
+	end
 	frame._stepTitle:SetText(Fill(T(step.title), activeGuide))
 	frame._body:SetText(Fill(T(step.body), activeGuide))
 
@@ -309,13 +318,11 @@ local function Refresh()
 	frame._prev:SetEnabled(viewIndex > 1)
 	frame._next:SetShown(viewIndex < total)
 
+	-- Central action is ONLY the manual "Done" button; navigation uses Back/Next
+	-- (avoids two Next buttons side by side). Auto-detected steps have no Done.
 	if (not done) and (not step.detectKind) and (type(step.gate) ~= "number") and viewIndex < total then
 		frame._action:SetText(SL("PGUIDE_BTN_DONE"))
 		frame._action._mode = "done"
-		frame._action:Show()
-	elseif viewIndex < total then
-		frame._action:SetText(SL("PGUIDE_BTN_NEXT"))
-		frame._action._mode = "next"
 		frame._action:Show()
 	else
 		frame._action:Hide()
@@ -358,7 +365,7 @@ local function EnsureFrame()
 		return frame
 	end
 	local f = CreateFrame("Frame", "MidnightHelperProfGuide", UIParent, "BackdropTemplate")
-	f:SetSize(390, 310)
+	f:SetSize(390, 340)
 	f:SetPoint("CENTER", UIParent, "CENTER", 0, 60)
 	f:SetFrameStrata("DIALOG")
 	f:SetClampedToScreen(true)
@@ -392,16 +399,15 @@ local function EnsureFrame()
 	close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -8, -8)
 	close:SetScript("OnClick", function() f:Hide() end)
 
-	-- Profession switcher
+	-- Profession switcher: a plain button showing the current profession that opens a
+	-- dropdown MENU. The UIDropDownMenuTemplate frame is only the menu host — keep it
+	-- hidden, else its default chrome renders as an empty dropdown box (Rob 9 jul).
 	local drop = CreateFrame("Frame", "MidnightHelperProfGuideDrop", f, "UIDropDownMenuTemplate")
-	drop:SetPoint("TOPLEFT", title, "BOTTOMLEFT", -16, -2)
-	if UIDropDownMenu_SetWidth then
-		UIDropDownMenu_SetWidth(drop, 150)
-	end
+	drop:Hide()
 	f._drop = drop
 	local dropBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-	dropBtn:SetSize(150, 22)
-	dropBtn:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -2)
+	dropBtn:SetSize(170, 22)
+	dropBtn:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
 	dropBtn:SetScript("OnClick", function()
 		if UIDropDownMenu_Initialize and ToggleDropDownMenu then
 			UIDropDownMenu_Initialize(drop, InitProfMenu, "MENU")
@@ -410,21 +416,23 @@ local function EnsureFrame()
 	end)
 	f._dropBtn = dropBtn
 
+	-- Step title (bold) under the switcher, then the body under the title.
+	local stepTitle = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	stepTitle:SetPoint("TOPLEFT", dropBtn, "BOTTOMLEFT", 0, -12)
+	stepTitle:SetWidth(358)
+	stepTitle:SetJustifyH("LEFT")
+	stepTitle:SetWordWrap(true)
+	stepTitle:SetTextColor(1, 0.95, 0.7)
+	f._stepTitle = stepTitle
+
 	local body = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-	body:SetPoint("TOPLEFT", dropBtn, "BOTTOMLEFT", 0, -10)
-	body:SetPoint("TOPRIGHT", f, "TOPRIGHT", -16, -70)
+	body:SetPoint("TOPLEFT", stepTitle, "BOTTOMLEFT", 0, -8)
+	body:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 110)
 	body:SetJustifyH("LEFT")
 	body:SetJustifyV("TOP")
 	body:SetWordWrap(true)
 	body:SetSpacing(3)
-	body:SetHeight(120)
 	f._body = body
-
-	-- The step's own title (bold, above the body). Anchored under the dropdown.
-	local stepTitle = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	stepTitle:SetPoint("BOTTOMLEFT", body, "TOPLEFT", 0, 2)
-	stepTitle:SetTextColor(1, 0.95, 0.7)
-	f._stepTitle = stepTitle
 
 	local status = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	status:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 16, 84)
