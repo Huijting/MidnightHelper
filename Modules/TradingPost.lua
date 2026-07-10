@@ -70,6 +70,22 @@ local function TimeRemaining()
 			return sec
 		end
 	end
+	-- GetTimeRemaining came back empty in-game (Rob 10 jul), and the Post always resets
+	-- on the 1st, so compute it ourselves: seconds until 00:00 on the 1st of next month.
+	if date and time then
+		local ok, now = pcall(date, "*t")
+		if ok and type(now) == "table" and now.year and now.month then
+			local y, m = now.year, now.month + 1
+			if m > 12 then
+				m, y = 1, y + 1
+			end
+			local okE, resetE = pcall(time, { year = y, month = m, day = 1, hour = 0, min = 0, sec = 0 })
+			local okN, nowE = pcall(time)
+			if okE and okN and type(resetE) == "number" and type(nowE) == "number" and resetE > nowE then
+				return resetE - nowE
+			end
+		end
+	end
 	return nil
 end
 
@@ -296,11 +312,15 @@ function ns.RefreshTradingPostPanel()
 		local name = (QualityHex(it.quality)) .. (it.name or ("item " .. tostring(it.itemID))) .. "|r"
 		local price = it.price and (" — " .. it.price .. " " .. tender) or ""
 
+		-- Bought-this-month wins over owned: buying a collectible makes you own it too, so
+		-- owned-first mislabelled things you bought this month as merely "owned" (and only
+		-- transmog, which we can't owned-check, slipped through as "bought"). "already
+		-- owned" then means what it should — you had it from before, don't spend tender.
 		local suffix, color
-		if it._owned then
-			suffix, color = "  |cff9090a0(" .. ns:L("TRADINGPOST_OWNED") .. ")|r", COLOR_DIM
-		elseif it.purchased then
+		if it.purchased then
 			suffix, color = "  " .. ICON_BOUGHT .. ns:L("TRADINGPOST_BOUGHT"), COLOR_GOOD
+		elseif it._owned then
+			suffix, color = "  |cff9090a0(" .. ns:L("TRADINGPOST_OWNED") .. ")|r", COLOR_DIM
 		else
 			suffix, color = "", COLOR_SOFT
 		end
