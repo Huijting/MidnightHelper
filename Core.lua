@@ -763,6 +763,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh campaign — verifieer de Curse-of-Ula'tek-lead-in quest-IDs tegen de live game.
+	if msg == "campaign" then
+		if ns.PrintCampaignLeadInDiagnostics then
+			ns.PrintCampaignLeadInDiagnostics()
+		end
+		return
+	end
+
 	-- /mh arrowsize [N] — resize the standalone route arrow (also in Settings > General).
 	if msg == "arrowsize" or msg:match("^arrowsize%s+") then
 		local n = tonumber(msg:match("^arrowsize%s+(%d+)$"))

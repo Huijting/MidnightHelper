@@ -164,6 +164,7 @@ Modules\MidnightCodexData.lua
 Modules\MidnightCodex.lua
 Modules\MountProgress.lua
 Modules\MountsPanel.lua
+Modules\CampaignLeadIn.lua
 Modules\HomeDashboard.lua
 Modules\NavSearch.lua
 Modules\DevShots.lua

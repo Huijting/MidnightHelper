@@ -409,6 +409,36 @@ local function BuildLayout()
 		end)
 	end
 
+	------------------------------------------------------------------ Curse of Ula'tek lead-in (new this patch)
+	-- Appears only while the live quest API confirms the campaign is real and unfinished
+	-- (Modules/CampaignLeadIn.lua) — a wrong quest ID shows nothing rather than a phantom.
+	addFull(function(rows)
+		if not ns.GetCampaignLeadInState then
+			return
+		end
+		local c = ns.GetCampaignLeadInState()
+		if not c then
+			return
+		end
+		header(rows, ns:L("HOME_SECTION_CAMPAIGN"), "campaign")
+		local msgKey = (c.status == "inprogress") and "HOME_CAMPAIGN_INPROGRESS" or "HOME_CAMPAIGN_AVAILABLE"
+		line(rows, ns:L(msgKey), COLOR_SOFT)
+		for _, r in ipairs(c.rewards or {}) do
+			if r.nameKey then
+				line(rows, ns:L("HOME_CAMPAIGN_REWARD_FMT"):format(ns:L(r.nameKey)), COLOR_DIM)
+			end
+		end
+		if ns.RouteCampaignLeadIn then
+			rows[#rows + 1] = {
+				button = true,
+				text = ns:L("HOME_CAMPAIGN_ROUTE_BTN"),
+				onClick = function()
+					ns.RouteCampaignLeadIn()
+				end,
+			}
+		end
+	end)
+
 	------------------------------------------------------------------ Collectible mounts (summary → own tab)
 	-- The full list lives on its own "Collectible mounts" tab (Modules/MountsPanel.lua);
 	-- Home only shows how many are in progress plus a link, so it never grows long again.
