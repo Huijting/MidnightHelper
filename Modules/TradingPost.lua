@@ -127,29 +127,56 @@ local function ReadLiveItems()
 	return (#out > 0) and out or nil, complete
 end
 
--- Snapshot the live list into the account-wide cache under the current month.
-local function RefreshCache(items)
+-- Category id -> display name, plus the vendor's own category order. GetCategoryInfo's
+-- name is under `displayName` (confirmed in-game: category 2 = "Mounts"). Cached with the
+-- items so a cold character shows the real headers, not bare IDs.
+local function ReadCategories()
+	if not (C_PerksProgram and C_PerksProgram.GetAvailableCategoryIDs and C_PerksProgram.GetCategoryInfo) then
+		return nil, nil
+	end
+	local okIDs, ids = pcall(C_PerksProgram.GetAvailableCategoryIDs)
+	if not okIDs or type(ids) ~= "table" or #ids == 0 then
+		return nil, nil
+	end
+	local names, order = {}, {}
+	for _, id in ipairs(ids) do
+		order[#order + 1] = id
+		local ok, info = pcall(C_PerksProgram.GetCategoryInfo, id)
+		if ok and type(info) == "table" and info.displayName then
+			names[id] = info.displayName
+		end
+	end
+	return names, order
+end
+
+-- Snapshot the fully-loaded list + categories into the account-wide monthly cache.
+local function RefreshCache(items, categories, order)
 	if not items then
 		return
 	end
 	ns.db = ns.db or {}
-	ns.db.tradingPostCache = { month = MonthKey(), items = items }
+	ns.db.tradingPostCache = { month = MonthKey(), items = items, categories = categories, order = order }
 end
 
 --- Everything the panel needs.
---- @return table { items|nil, tender|nil, timeRemaining|nil, isLive, cold }
+--- @return table { items|nil, categories|nil, order|nil, tender|nil, timeRemaining|nil, isLive, cold }
 ---   items = the month's wares (live if loaded, else this month's cache, else nil).
+---   categories = { [categoryID] = displayName }; order = vendor category order.
 ---   cold  = true when we have no list at all and the Post must be opened once.
 function ns.GetTradingPostData()
 	local live, complete = ReadLiveItems()
+	local names, order = ReadCategories()
 	if live and complete then
-		RefreshCache(live) -- only persist a fully-loaded snapshot (see ReadLiveItems)
+		RefreshCache(live, names, order) -- only persist a fully-loaded snapshot
 	end
 	local mk = MonthKey()
 	local cache = ns.db and ns.db.tradingPostCache
-	local items = live or (cache and cache.month == mk and cache.items) or nil
+	local fromCache = cache and cache.month == mk
+	local items = live or (fromCache and cache.items) or nil
 	return {
 		items = items,
+		categories = names or (fromCache and cache.categories) or nil,
+		order = order or (fromCache and cache.order) or nil,
 		tender = TraderTender(),
 		timeRemaining = TimeRemaining(),
 		isLive = live ~= nil,
@@ -229,6 +256,7 @@ local COLOR_DIM = C.dim or { 0.75, 0.78, 0.82 }
 local COLOR_GOOD = C.good or { 0.45, 0.95, 0.5 }
 local COLOR_SOFT = C.soft or { 0.9, 0.82, 0.45 }
 local COLOR_WARN = C.warn or { 1, 0.84, 0.18 }
+local COLOR_HEADER = C.header or { 1, 0.82, 0 }
 
 local ICON_BOUGHT = "|TInterface\\RaidFrame\\ReadyCheck-Ready:0|t "
 
@@ -388,43 +416,22 @@ function ns.RefreshTradingPostPanel()
 		return
 	end
 
-	-- Actionable first (still buyable), then owned/bought at the bottom, dimmed. Within a
-	-- group, cheapest first so you see what your tender reaches.
-	local items = {}
+	local tender = TenderIcon(13)
 	for _, it in ipairs(data.items) do
 		it._owned = ns.TradingPostItemOwned(it)
 		it._done = it.purchased or it._owned
-		items[#items + 1] = it
 	end
-	table.sort(items, function(a, b)
-		if a._done ~= b._done then
-			return not a._done -- actionable first
-		end
-		return (a.price or 0) < (b.price or 0)
-	end)
 
-	local tender = TenderIcon(13)
-	local doneHeaderShown = false
-	for _, it in ipairs(items) do
-		if it._done and not doneHeaderShown then
-			doneHeaderShown = true
-			y = y + GAP
-			y = y + PutRow(ri, ns:L("TRADINGPOST_DONE_HEADER"), COLOR_DIM, y, width)
-			ri = ri + 1
-		end
-
-		-- Name + icon come from the itemID (resolved via the item cache), never from a
-		-- possibly-empty cached perks name — that's why another character showed a
-		-- nameless list. Missing items re-render on GET_ITEM_INFO_RECEIVED.
+	-- One item row. `y`/`ri` are the enclosing function's locals; the closure advances
+	-- them. Name + icon come from the itemID (item cache), never a possibly-empty cached
+	-- perks name — that's why another character showed a nameless list. Bought-this-month
+	-- wins over owned (buying a collectible makes you own it, so owned-first mislabelled
+	-- things bought this month; "already owned" is then reserved for what you had before).
+	local function renderItem(it)
 		local rname, ricon = ns.ResolveTradingPostItem(it)
 		local iconStr = ricon and ("|T%d:%d:%d:0:0|t "):format(ricon, 18, 18) or ""
 		local name = (QualityHex(it.quality)) .. (rname or ("item " .. tostring(it.itemID))) .. "|r"
 		local price = it.price and (" — " .. it.price .. " " .. tender) or ""
-
-		-- Bought-this-month wins over owned: buying a collectible makes you own it too, so
-		-- owned-first mislabelled things you bought this month as merely "owned" (and only
-		-- transmog, which we can't owned-check, slipped through as "bought"). "already
-		-- owned" then means what it should — you had it from before, don't spend tender.
 		local suffix, color
 		if it.purchased then
 			suffix, color = "  " .. ICON_BOUGHT .. ns:L("TRADINGPOST_BOUGHT"), COLOR_GOOD
@@ -433,11 +440,75 @@ function ns.RefreshTradingPostPanel()
 		else
 			suffix, color = "", COLOR_SOFT
 		end
-
 		local row = AcquireRow(ri)
 		row._mhItem = it
 		y = y + PutRow(ri, iconStr .. name .. price .. suffix, color, y, width)
 		ri = ri + 1
+	end
+
+	-- Within any group: actionable first (cheapest first), then bought/owned dimmed.
+	local function byActionThenPrice(a, b)
+		if a._done ~= b._done then
+			return not a._done
+		end
+		return (a.price or 0) < (b.price or 0)
+	end
+
+	local cats = data.categories
+	if cats and next(cats) then
+		-- Grouped by the vendor's own categories (Mounts, Weapons, Appearances, …). 43
+		-- items in one flat list is a lot; the split the player sees at the Post is natural.
+		local buckets, seen = {}, {}
+		for _, it in ipairs(data.items) do
+			local cid = it.categoryID or 0
+			if not buckets[cid] then
+				buckets[cid] = {}
+				seen[#seen + 1] = cid
+			end
+			buckets[cid][#buckets[cid] + 1] = it
+		end
+		-- Vendor's category order first, then any leftover buckets.
+		local orderList, placed = {}, {}
+		for _, cid in ipairs(data.order or {}) do
+			if buckets[cid] then
+				orderList[#orderList + 1] = cid
+				placed[cid] = true
+			end
+		end
+		for _, cid in ipairs(seen) do
+			if not placed[cid] then
+				orderList[#orderList + 1] = cid
+			end
+		end
+		for ci, cid in ipairs(orderList) do
+			table.sort(buckets[cid], byActionThenPrice)
+			if ci > 1 then
+				y = y + GAP
+			end
+			y = y + PutRow(ri, cats[cid] or ns:L("TRADINGPOST_CAT_OTHER"), COLOR_HEADER, y, width)
+			ri = ri + 1
+			for _, it in ipairs(buckets[cid]) do
+				renderItem(it)
+			end
+		end
+	else
+		-- No category names yet (cold cache from before categories were stored): flat list,
+		-- actionable first, a single "already bought / owned" divider.
+		local items = {}
+		for _, it in ipairs(data.items) do
+			items[#items + 1] = it
+		end
+		table.sort(items, byActionThenPrice)
+		local doneShown = false
+		for _, it in ipairs(items) do
+			if it._done and not doneShown then
+				doneShown = true
+				y = y + GAP
+				y = y + PutRow(ri, ns:L("TRADINGPOST_DONE_HEADER"), COLOR_DIM, y, width)
+				ri = ri + 1
+			end
+			renderItem(it)
+		end
 	end
 	ui.child:SetHeight(y + 4)
 end
@@ -512,7 +583,8 @@ ev:SetScript("OnEvent", function(_, event)
 	if event == "PERKS_PROGRAM_DATA_REFRESH" then
 		local items, complete = ReadLiveItems()
 		if items and complete then
-			RefreshCache(items)
+			local names, order = ReadCategories()
+			RefreshCache(items, names, order)
 		end
 	end
 	-- GET_ITEM_INFO_RECEIVED fires constantly game-wide; only re-render when the tab is

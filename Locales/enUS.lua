@@ -356,6 +356,7 @@ ns._mhLocales.enUS = {
 	TRADINGPOST_RESET_FMT = "Resets in %s",
 	TRADINGPOST_COLD = "Open the Trading Post once this month (in Silvermoon) and this list fills in — it's remembered account-wide afterwards.",
 	TRADINGPOST_DONE_HEADER = "Already bought / owned",
+	TRADINGPOST_CAT_OTHER = "Other",
 	TRADINGPOST_BOUGHT = "bought this month",
 	TRADINGPOST_OWNED = "already own",
 	-- Curse of Ula'tek campaign lead-in (This Week block)

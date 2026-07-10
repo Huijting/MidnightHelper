@@ -353,6 +353,7 @@ ns._mhLocales.nlNL = {
 	TRADINGPOST_RESET_FMT = "Reset over %s",
 	TRADINGPOST_COLD = "Open de Trading Post één keer deze maand (in Silvermoon) en deze lijst vult zich — daarna onthouden voor je hele account.",
 	TRADINGPOST_DONE_HEADER = "Al gekocht / in bezit",
+	TRADINGPOST_CAT_OTHER = "Overig",
 	TRADINGPOST_BOUGHT = "deze maand gekocht",
 	TRADINGPOST_OWNED = "al in bezit",
 	HOME_SECTION_CAMPAIGN = "Nieuw: Curse of Ula'tek",
