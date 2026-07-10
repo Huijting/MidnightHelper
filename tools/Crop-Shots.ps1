@@ -94,28 +94,61 @@ foreach ($body in $records) {
         W      = [int](& $get "w")
         H      = [int](& $get "h")
         Bottom = $bottom
+        Stamp  = (& $get "t")   # MMDDYY_HHMMSS, as WoW names its screenshots
     }
 }
 if ($rects.Count -eq 0) { throw "devShotRects was empty." }
 Write-Host "Found $($rects.Count) crop rectangles."
 
-# The rig shoots in order, so the N newest images map 1:1 onto the N rectangles.
-$images = @(Get-ChildItem -LiteralPath $shotDir -File |
+# Match each rectangle to the screenshot the rig stamped for it. WoW names files
+# WoWScrnShot_MMDDYY_HHMMSS.<ext>, and the rig records that same stamp at the shutter.
+#
+# "Take the N newest files" seemed obvious and is wrong: one stray manual screenshot in
+# the folder shifts the whole mapping by one, and the crops still look plausible - the
+# first run cropped the mounts tab and labelled it 01-this-week.
+$candidates = @(Get-ChildItem -LiteralPath $shotDir -File |
     Where-Object { $_.Extension -in ".png", ".jpg", ".jpeg", ".tga" } |
-    Sort-Object LastWriteTime -Descending |
-    Select-Object -First $rects.Count |
-    Sort-Object LastWriteTime)
+    Where-Object { $_.BaseName -match '^WoWScrnShot_(\d{6}_\d{6})$' } |
+    ForEach-Object {
+        $null = $_.BaseName -match '^WoWScrnShot_(\d{6}_\d{6})$'
+        $when = $null
+        [void][datetime]::TryParseExact($Matches[1], 'MMddyy_HHmmss', $null, 'None', [ref]$when)
+        [pscustomobject]@{ File = $_; When = $when }
+    } | Where-Object { $_.When })
 
-if ($images.Count -lt $rects.Count) {
-    throw "Only $($images.Count) recent screenshots for $($rects.Count) rectangles. Re-run /mh shots."
+function Resolve-Shot([string] $stamp) {
+    if (-not $stamp) { return $null }
+    $want = $null
+    if (-not [datetime]::TryParseExact($stamp, 'MMddyy_HHmmss', $null, 'None', [ref]$want)) { return $null }
+    # Exact name first; otherwise the nearest shot within a few seconds, because WoW can
+    # write the file a tick after the call.
+    $hit = $candidates | Where-Object { $_.When -eq $want } | Select-Object -First 1
+    if (-not $hit) {
+        $hit = $candidates |
+            Where-Object { [Math]::Abs(($_.When - $want).TotalSeconds) -le 3 } |
+            Sort-Object { [Math]::Abs(($_.When - $want).TotalSeconds) } |
+            Select-Object -First 1
+    }
+    if ($hit) { return $hit.File }
+    return $null
+}
+
+$legacy = @($rects | Where-Object { -not $_.Stamp })
+if ($legacy.Count -gt 0) {
+    Write-Warning "$($legacy.Count) rectangle(s) carry no timestamp (recorded by an older /mh shots). Re-run it."
 }
 
 $outDir = Join-Path $shotDir "mh-shots"
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 
+$done = 0
 for ($i = 0; $i -lt $rects.Count; $i++) {
     $r = $rects[$i]
-    $src = $images[$i]
+    $src = Resolve-Shot $r.Stamp
+    if (-not $src) {
+        Write-Warning "$($r.Name): no screenshot found for stamp '$($r.Stamp)'. Skipped."
+        continue
+    }
     $bmp = [System.Drawing.Bitmap]::FromFile($src.FullName)
     try {
         # Derive y from the image itself where we can, so a mismatch between the
@@ -136,9 +169,10 @@ for ($i = 0; $i -lt $rects.Count; $i++) {
             $dest = Join-Path $outDir ("{0}.png" -f $r.Name)
             $crop.Save($dest, [System.Drawing.Imaging.ImageFormat]::Png)
             Write-Host ("  {0,-20} {1}x{2}  <- {3}" -f $r.Name, $w, $h, $src.Name)
+            $done++
         } finally { $crop.Dispose() }
     } finally { $bmp.Dispose() }
 }
 
 Write-Host ""
-Write-Host "Done -> $outDir"
+Write-Host "Done -> $outDir  ($done of $($rects.Count) cropped)"

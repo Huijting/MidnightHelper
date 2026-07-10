@@ -35,6 +35,69 @@ local STEP_DELAY = 0.9 -- long enough for the async model / tip re-measure ticks
 
 local savedScale -- the user's window scale, restored when the run ends
 
+--------------------------------------------------------------------------------
+-- Hiding the rest of the UI
+--
+-- Cropping to the window does not help when another addon's frames sit ON TOP of it:
+-- action bars and quest trackers landed inside the crop. Hiding UIParent removes them,
+-- but MH hangs under UIParent and would vanish with it — so reparent MH (and its floating
+-- preview) to WorldFrame first, which survives.
+--
+-- This calls UIParent:Hide() directly, not the Alt+Z binding, which the keybind coach
+-- uses. A safety timer puts the UI back even if the run dies halfway: a player left
+-- staring at an empty screen would rightly never trust this command again.
+--------------------------------------------------------------------------------
+
+local uiHidden = false
+local savedParents = {}
+
+--- Reparent to WorldFrame while KEEPING the frame's on-screen size. WorldFrame's effective
+--- scale is 1, UIParent's is the user's UI scale, so a naive SetParent makes everything
+--- jump. Remember the old parent and scale; put both back afterwards.
+local function ReparentToWorld(frame)
+	if not frame or frame:GetParent() == WorldFrame or savedParents[frame] then
+		return
+	end
+	local oldEff = frame:GetEffectiveScale()
+	savedParents[frame] = { parent = frame:GetParent(), scale = frame:GetScale() }
+	frame:SetParent(WorldFrame)
+	local pe = WorldFrame:GetEffectiveScale()
+	if pe and pe > 0 and frame.SetScale then
+		frame:SetScale(oldEff / pe)
+	end
+end
+
+local function RestoreGameUI()
+	if not uiHidden then
+		return
+	end
+	uiHidden = false
+	for frame, saved in pairs(savedParents) do
+		if frame and saved.parent then
+			pcall(frame.SetParent, frame, saved.parent)
+			if frame.SetScale and saved.scale then
+				pcall(frame.SetScale, frame, saved.scale)
+			end
+		end
+	end
+	savedParents = {}
+	if not UIParent:IsShown() then
+		UIParent:Show()
+	end
+end
+
+local function HideGameUI(main)
+	if uiHidden or not UIParent:IsShown() then
+		return
+	end
+	ReparentToWorld(main)
+	UIParent:Hide()
+	uiHidden = true
+	if C_Timer and C_Timer.After then
+		C_Timer.After(90, RestoreGameUI) -- never strand the player without a UI
+	end
+end
+
 --- Scenes, in gallery order. `pad` grows the crop rectangle for things that render
 --- outside the main window (the floating 3D preview, the search result list).
 local SHOTS = {
@@ -137,15 +200,18 @@ local function ShotScale(main)
 		return nil
 	end
 	local pw, ph = GetPhysicalScreenSize()
-	local uiEff = UIParent:GetEffectiveScale()
-	if not (pw and ph and uiEff and uiEff > 0) then
+	-- Against the ACTUAL parent: once the UI is hidden the window hangs off WorldFrame,
+	-- whose effective scale is 1, not the user's UI scale.
+	local parent = main:GetParent() or UIParent
+	local parentEff = parent:GetEffectiveScale()
+	if not (pw and ph and parentEff and parentEff > 0) then
 		return nil
 	end
 	local ppu = PixelsPerUnit()
 	local byHeight = (ph * FILL_HEIGHT) / (SHOT_H * ppu)
 	local byWidth = (pw * 0.9) / ((SHOT_W + PREVIEW_W) * ppu)
-	local own = math.min(byHeight, byWidth) / uiEff
-	return math.max(0.5, math.min(own, 3))
+	local own = math.min(byHeight, byWidth) / parentEff
+	return math.max(0.3, math.min(own, 3))
 end
 
 --- Centre the window by computing its pixel position, not by trusting a CENTER anchor.
@@ -187,8 +253,9 @@ local function RestoreWindow(main, savedFormat)
 	if savedFormat and SetCVar then
 		pcall(SetCVar, "screenshotFormat", savedFormat)
 	end
+	RestoreGameUI() -- parents and scales first...
 	if savedScale and main and main.SetScale then
-		main:SetScale(savedScale)
+		main:SetScale(savedScale) -- ...then the window scale the user actually had
 		savedScale = nil
 	end
 	if ns.ApplySavedMainWindowSize then
@@ -231,9 +298,14 @@ function ns.RunDevShots()
 	savedScale = (main.GetScale and main:GetScale()) or 1
 
 	local pw, ph = GetPhysicalScreenSize()
-	Say(("screen %dx%d, ui scale %.3f, window scale %.2f -> %.2f — %d shots, stand still (~%ds).")
-		:format(pw, ph, UIParent:GetEffectiveScale(), savedScale, ShotScale(main) or savedScale,
+	Say(("screen %dx%d, ui scale %.3f, %.3f px per unit — %d shots, stand still (~%ds).")
+		:format(pw, ph, UIParent:GetEffectiveScale(), PixelsPerUnit(),
 			#SHOTS, math.ceil(#SHOTS * (STEP_DELAY * 2 + 0.35))))
+	Say("hiding the rest of the UI — it comes back when the run ends (or after 90s, whatever happens).")
+
+	-- Everything below runs with UIParent hidden, so these prints only become visible
+	-- again afterwards. That is fine: they are a record, not a progress bar.
+	HideGameUI(main)
 
 	local i, taken = 0, 0
 	local takeNext -- forward-declared: `next` is a Lua global, never shadow it
@@ -269,9 +341,17 @@ function ns.RunDevShots()
 			C_Timer.After(0.35, function()
 				CenterWindow(main) -- again, right before the shutter: nothing may drift
 				local extra = shot.frames and select(2, pcall(shot.frames)) or nil
+				if uiHidden and extra then
+					ReparentToWorld(extra) -- the floating preview would vanish with UIParent
+				end
 				local rok, rect = pcall(PixelRect, main, extra, shot.pad)
 				if rok and rect then
 					rect.name = shot.name
+					-- WoW names its screenshots WoWScrnShot_MMDDYY_HHMMSS, so stamp the shot
+					-- at the moment of the shutter and let the crop script match by name.
+					-- Picking "the N newest files" instead breaks the moment a stray manual
+					-- screenshot lands in the folder — which is exactly what happened.
+					rect.t = date("%m%d%y_%H%M%S")
 					ns.db.devShotRects[#ns.db.devShotRects + 1] = rect
 					Screenshot()
 					taken = taken + 1
