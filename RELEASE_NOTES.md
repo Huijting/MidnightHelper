@@ -1,10 +1,12 @@
+<!--
+  MAINTAINER NOTE — kept inside an HTML comment so it never renders on the release page.
+  This file holds the notes for the CURRENT release only. The BigWigs packager uploads it
+  verbatim as the CurseForge release notes (.pkgmeta -> manual-changelog), so overwrite it on
+  every version bump. The full history lives in CHANGELOG.md, the per-version archive copies
+  in docs/CURSEFORGE_<version>.md.
+-->
+
 # Midnight Helper 2.6.0
-
-**This file holds the notes for the CURRENT release only.** The BigWigs packager uploads it
-verbatim as the CurseForge release notes (see `.pkgmeta` → `manual-changelog`), so overwrite it
-on every version bump. The full history lives in `CHANGELOG.md`.
-
----
 
 ## Two new pages, and a window a beginner can actually navigate
 
