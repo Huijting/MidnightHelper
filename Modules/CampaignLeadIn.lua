@@ -143,18 +143,38 @@ local function SuperTrackQuest(questID)
 	end
 end
 
---- Route to the campaign. On a chain quest: super-track it so Blizzard's arrow follows
---- the live objective, plus a TomTom waypoint for TomTom users. Before you have picked
---- it up: head to Orweyna in Silvermoon. AddSmartQuestRoute already falls back to coords
---- when an objective sits somewhere unwaypointable.
+--- Route to the campaign.
+---
+--- Before you have picked it up: head to Orweyna in Silvermoon (start coords).
+---
+--- Once you are ON a chain quest: let Blizzard's own quest arrow drive, because the
+--- objective ("Arrive at the meeting" in Harandar) roams and the game knows where it is.
+--- Crucially we must NOT fall back to the campaign start here — that dropped an MH
+--- waypoint on Silvermoon, which stole the super-track and left the arrow pointing at the
+--- pickup you had already left. So: clear any competing waypoint, super-track the quest,
+--- and only add an objective waypoint if the game actually has a placeable one (no start
+--- fallback).
 function ns.RouteCampaignLeadIn()
 	local st = ns.GetCampaignLeadInState()
 	if not st then
 		return false
 	end
+
 	if st.status == "inprogress" then
+		if ns.MH_TomTomClearAll then
+			ns.MH_TomTomClearAll()
+		end
+		if C_Map and C_Map.ClearUserWaypoint then
+			pcall(C_Map.ClearUserWaypoint)
+		end
 		SuperTrackQuest(st.activeQuestID)
+		-- No fallback coords: draw a waypoint only if the objective genuinely has one.
+		if ns.AddSmartQuestRoute then
+			ns.AddSmartQuestRoute(st.activeQuestID, nil, nil, nil, st.name)
+		end
+		return true
 	end
+
 	if ns.AddSmartQuestRoute then
 		return ns.AddSmartQuestRoute(st.activeQuestID, st.startMapID, st.startX, st.startY, st.name)
 	end
@@ -198,6 +218,26 @@ function ns.PrintCampaignLeadInDiagnostics()
 	end
 	local st = ns.GetCampaignLeadInState()
 	print(("  state = %s"):format(st and st.status or "nil (hidden)"))
+
+	-- Ground truth for the arrow: what does Blizzard itself have as the next waypoint for
+	-- the active quest, and can a waypoint be placed on that map? This says whether
+	-- super-track alone can guide, or whether we need explicit objective coords.
+	if st and st.status == "inprogress" and C_QuestLog and C_QuestLog.GetNextWaypoint then
+		local okWp, mapID, x, y = pcall(C_QuestLog.GetNextWaypoint, st.activeQuestID)
+		if okWp and mapID then
+			local canPlace = "?"
+			if C_Map and C_Map.CanSetUserWaypointOnMap then
+				local okC, v = pcall(C_Map.CanSetUserWaypointOnMap, mapID)
+				canPlace = okC and tostring(v) or "err"
+			end
+			print(("  active %d nextWaypoint -> map %s  %.1f/%.1f  canPlaceWaypoint=%s"):format(
+				st.activeQuestID, tostring(mapID), (x or 0) * 100, (y or 0) * 100, canPlace))
+		else
+			print(("  active %d nextWaypoint -> none (game has no waypoint for this objective)"):format(st.activeQuestID))
+		end
+		local superID = C_SuperTrack and C_SuperTrack.GetSuperTrackedQuestID and C_SuperTrack.GetSuperTrackedQuestID() or nil
+		print(("  currently super-tracked quest = %s"):format(tostring(superID)))
+	end
 
 	-- Also list every quest currently in the log with its ID, so an accepted campaign
 	-- quest can be identified by name and its real ID captured — no macro needed.
