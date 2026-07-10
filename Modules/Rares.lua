@@ -669,6 +669,7 @@ function ns.StopRareRoute()
 		ns._mhRouteOwner = nil
 	end
 	ns._mhLastRoutedRareQuest = nil
+	ns._mhRarePrevOwner = nil
 	ns.lastTarget = nil
 end
 
@@ -871,6 +872,16 @@ local function RouteRare(rare, clearOthers)
 	-- clearOthers=true is een nieuwe route → vervang de set; toast-klik
 	-- (false) voegt de rare toe aan de lopende hunt.
 	MarkRareRouted(rare, clearOthers)
+	-- Who should get the arrow back once this rare is looted? A fresh rare route
+	-- (clearOthers) means the rare hunt itself owns it, so a later detour returns to the
+	-- next open rare. A detour (clearOthers=false) records whoever was routing — an
+	-- achievement/treasure route, or nobody. Without this the hunt simply lost its arrow
+	-- (see the release in the event handler below).
+	if clearOthers then
+		ns._mhRarePrevOwner = "rare"
+	elseif ns._mhRouteOwner ~= "rare" then
+		ns._mhRarePrevOwner = ns._mhRouteOwner
+	end
 	-- Claim the shared arrow so an active achievement/treasure route stands down
 	-- and reclaims it once this rare is done. We remember THIS rare's quest so the
 	-- token releases as soon as it's looted, even if older rares linger in the hunt
@@ -1266,6 +1277,7 @@ function ns.GenerateRaresRoute(zoneKey)
 	if added > 0 then
 		wipe(skippedRares) -- fresh hunt: forget previous skips
 		ns._mhRouteOwner = "rare" -- claim the shared arrow (see RouteRare note)
+		ns._mhRarePrevOwner = "rare" -- a detour to another rare returns to this hunt
 		ns._mhLastRoutedRareQuest = nil -- a full route: release when the whole hunt is done
 		-- AddSmartTomTomWay set ns.lastTarget to the LAST pin added; for the native
 		-- arrow the lead must be the FIRST (nearest) rare. (NativeArrow then keeps it
@@ -1908,9 +1920,25 @@ ev:SetScript("OnEvent", function(_, event)
 	-- for owner == nil).
 	if ns._mhRouteOwner == "rare" then
 		local q = ns._mhLastRoutedRareQuest
-		if (q and IsRareDoneThisWeek(q)) or not IsRareHuntActive() then
+		if not IsRareHuntActive() then
 			ns._mhRouteOwner = nil
 			ns._mhLastRoutedRareQuest = nil
+			ns._mhRarePrevOwner = nil
+		elseif q and IsRareDoneThisWeek(q) then
+			if ns._mhRarePrevOwner == "rare" then
+				-- We detoured from a rare route to another rare and looted it, but the
+				-- hunt still has open rares. Keep the arrow and drop the single-rare
+				-- token: NativeArrow then advances to the nearest one still standing.
+				-- Releasing here (as we used to) left the player with a dark arrow and
+				-- a half-finished route.
+				ns._mhLastRoutedRareQuest = nil
+			else
+				-- We detoured from an achievement/treasure route (or from nothing at
+				-- all). Hand the arrow back; that route watches for owner == nil.
+				ns._mhRouteOwner = nil
+				ns._mhLastRoutedRareQuest = nil
+				ns._mhRarePrevOwner = nil
+			end
 		end
 	end
 	if
