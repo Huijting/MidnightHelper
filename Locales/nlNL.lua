@@ -88,6 +88,7 @@ ns._mhLocales.nlNL = {
 
 	MAIN_TITLE = "Midnight Helper",
 	SEARCH_LABEL = "Zoek:",
+	SEARCH_PLACEHOLDER = "Vind een tabblad, een tool of een boss op naam…",
 	SEARCH_MY_CHARACTER = "Mijn character",
 	SEARCH_GO = "Zoeken",
 	FAV_CHIP_HINT = "Links-klik om te openen · rechts-klik om te ontpinnen",

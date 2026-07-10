@@ -13,11 +13,13 @@ local SIDE_PAD = 14
 local TOP_PAD = 12
 local BTN_H = 26
 
-local COLOR_HEADER = { 0.91, 0.76, 0.42 }
-local COLOR_DIM = { 0.75, 0.78, 0.82 }
-local COLOR_GOOD = { 0.45, 0.95, 0.5 }
-local COLOR_SOFT = { 0.9, 0.82, 0.45 }
-local COLOR_ACCENT = { 0.55, 0.78, 1 }
+-- Shared status palette (UI.lua). The fallbacks keep this module standalone.
+local C = ns.UI_COLORS or {}
+local COLOR_HEADER = C.header or { 0.91, 0.76, 0.42 }
+local COLOR_DIM = C.dim or { 0.75, 0.78, 0.82 }
+local COLOR_GOOD = C.good or { 0.45, 0.95, 0.5 }
+local COLOR_SOFT = C.soft or { 0.9, 0.82, 0.45 }
+local COLOR_ACCENT = C.link or { 0.55, 0.78, 1 }
 
 -- Ready-check texture for the "done" tick (plain unicode renders as a box).
 local TICK = "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12:0:0|t"
@@ -142,11 +144,8 @@ function ns.RefreshStartHerePanel()
 			end
 		end
 		ui.summaryFs:SetText(ns:L("START_WEEKLY_SUMMARY_FMT"):format(done, total))
-		if total > 0 and done >= total then
-			ui.summaryFs:SetTextColor(0.45, 0.95, 0.5)
-		else
-			ui.summaryFs:SetTextColor(0.9, 0.82, 0.45)
-		end
+		local c = (total > 0 and done >= total) and COLOR_GOOD or COLOR_SOFT
+		ui.summaryFs:SetTextColor(c[1], c[2], c[3])
 	end
 
 	-- Per-step weekly ticks (step 5: Ritual + Void).

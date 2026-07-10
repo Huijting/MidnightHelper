@@ -20,10 +20,12 @@ local NAME_H = 17
 local BTN_H = 22
 local MOUNT_GAP = 6
 
-local COLOR_DIM = { 0.72, 0.75, 0.82 }
-local COLOR_GOOD = { 0.45, 0.95, 0.5 }
-local COLOR_SOFT = { 0.9, 0.82, 0.45 }
-local COLOR_WARN = { 1, 0.84, 0.18 }
+-- Shared status palette (UI.lua). The fallbacks keep this module standalone.
+local C = ns.UI_COLORS or {}
+local COLOR_DIM = C.dim or { 0.75, 0.78, 0.82 }
+local COLOR_GOOD = C.good or { 0.45, 0.95, 0.5 }
+local COLOR_SOFT = C.soft or { 0.9, 0.82, 0.45 }
+local COLOR_WARN = C.warn or { 1, 0.84, 0.18 }
 
 local ICON_HAVE = "|TInterface\\RaidFrame\\ReadyCheck-Ready:0|t "
 local ICON_MISS = "|TInterface\\RaidFrame\\ReadyCheck-NotReady:0|t "

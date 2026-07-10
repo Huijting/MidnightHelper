@@ -24,14 +24,16 @@ local MAX_NAME_PREVIEW = 2
 
 local BTN_H = 22
 
-local COLOR_HEADER = { 0.91, 0.76, 0.42 }
-local COLOR_DIM = { 0.72, 0.75, 0.82 }
-local COLOR_GOOD = { 0.45, 0.95, 0.5 }
-local COLOR_WARN = { 1, 0.84, 0.18 }
-local COLOR_SOFT = { 0.9, 0.82, 0.45 }
-local COLOR_LINK = { 0.55, 0.78, 1 }
+-- Shared status palette (UI.lua). The fallbacks keep this module standalone.
+local C = ns.UI_COLORS or {}
+local COLOR_HEADER = C.header or { 0.91, 0.76, 0.42 }
+local COLOR_DIM = C.dim or { 0.75, 0.78, 0.82 }
+local COLOR_GOOD = C.good or { 0.45, 0.95, 0.5 }
+local COLOR_WARN = C.warn or { 1, 0.84, 0.18 }
+local COLOR_SOFT = C.soft or { 0.9, 0.82, 0.45 }
+local COLOR_LINK = C.link or { 0.55, 0.78, 1 }
 -- "Picked up / in progress" — clearly distinct from WARN yellow (Rob, 10 Jun).
-local COLOR_PROG = { 0.45, 0.85, 0.95 }
+local COLOR_PROG = C.prog or { 0.45, 0.85, 0.95 }
 
 -- Ready-check tick for finished routine steps (plain unicode renders as a box).
 local ICON_DONE = "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12:0:0|t"

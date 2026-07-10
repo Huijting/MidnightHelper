@@ -90,6 +90,7 @@ ns._mhLocales.enUS = {
 	-- Main shell
 	MAIN_TITLE = "Midnight Helper",
 	SEARCH_LABEL = "Search:",
+	SEARCH_PLACEHOLDER = "Find a tab, a tool, or a boss by name…",
 	SEARCH_MY_CHARACTER = "My character",
 	SEARCH_GO = "Search",
 	FAV_CHIP_HINT = "Left-click to open · right-click to unpin",

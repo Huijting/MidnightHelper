@@ -163,22 +163,37 @@ local MH_CHROME = {
 -- voor status zijn (niet voor decoratie). Panelen lezen hieruit i.p.v. elk hun
 -- eigen tint te declareren → minder concurrerende kleuren = rustiger beeld.
 -- RGB-tabellen voor SetTextColor; *_HEX voor |cff-markup (AARRGGBB, AA=ff).
+-- The single source for panel status colours. Until now this table existed but was
+-- read by nobody, so sixteen modules each declared their own COLOR_* and quietly
+-- drifted apart: two greens, two ambers, two greys, and one link blue living under
+-- three different names. The values below are the ones the panels already agreed on,
+-- so adopting them changes nothing except the two outliers (DungeonGuide's duller
+-- green/amber, WorldContent's duller heading gold), which is the point.
+--
+-- Status only. Category palettes (keybind roles, profession academy) encode meaning
+-- of their own and are deliberately left alone.
 ns.UI_COLORS = {
-	gold = { 0.91, 0.76, 0.42 },
-	GOLD_HEX = "ffe8c36a", -- koppen/titels/actief
-	dim = { 0.62, 0.64, 0.68 },
-	DIM_HEX = "ff9ea4ad", -- subtitels/secundair
-	body = { 0.86, 0.87, 0.90 },
-	BODY_HEX = "ffdcdde6", -- lopende tekst
-	footer = { 0.45, 0.47, 0.50 },
-	FOOTER_HEX = "ff73787f", -- voetnoten
-	good = { 0.55, 0.85, 0.55 },
-	GOOD_HEX = "ff8cd98c",
-	warn = { 0.92, 0.74, 0.30 },
-	WARN_HEX = "ffeabd4d",
+	header = { 0.91, 0.76, 0.42 }, -- section headings / titles
+	gold = { 0.91, 0.76, 0.42 }, -- alias: chrome accents
+	GOLD_HEX = "ffe8c36a",
+	dim = { 0.75, 0.78, 0.82 }, -- secondary / explanatory text
+	DIM_HEX = "ffbfc7d1",
+	body = { 0.86, 0.87, 0.90 }, -- running text
+	BODY_HEX = "ffdcdde6",
+	footer = { 0.45, 0.47, 0.50 }, -- footnotes
+	FOOTER_HEX = "ff73787f",
+	good = { 0.45, 0.95, 0.5 }, -- done / ready
+	GOOD_HEX = "ff73f280",
+	warn = { 1, 0.84, 0.18 }, -- needs doing now
+	WARN_HEX = "ffffd62e",
+	soft = { 0.9, 0.82, 0.45 }, -- in hand, not urgent
+	SOFT_HEX = "ffe6d173",
+	prog = { 0.45, 0.85, 0.95 }, -- picked up / in progress
+	PROG_HEX = "ff73d9f2",
+	link = { 0.55, 0.78, 1 }, -- every clickable jump, one tint
+	LINK_HEX = "ff8cc7ff",
 	bad = { 0.90, 0.42, 0.42 },
 	BAD_HEX = "ffe66b6b",
-	LINK_HEX = "ff8fc9e8", -- rustige link-blauw (1 tint voor alle links)
 }
 
 local function MHUnpack4(t)
@@ -478,6 +493,9 @@ function ns:RefreshLocaleUI()
 	end
 	if r.searchHint and r.searchHint.SetText then
 		r.searchHint:SetText(self:L("SEARCH_LABEL"))
+	end
+	if ns.mhSearchPlaceholder then
+		ns.mhSearchPlaceholder:SetText(self:L("SEARCH_PLACEHOLDER"))
 	end
 	if r.searchResetBtn and r.searchResetBtn.SetText then
 		r.searchResetBtn:SetText(self:L("SEARCH_MY_CHARACTER"))
@@ -1754,6 +1772,25 @@ function ns:EnsureMainUI()
 		runSearchFromBar()
 		self:ClearFocus()
 	end)
+
+	-- Placeholder inside the box. This bar is the addon's front door — it finds tabs,
+	-- tools and every boss we wrote steps for — but a bare "Search:" never tells you
+	-- that. Greyed, and gone the moment you focus the box or type in it. Hooked after
+	-- the scripts above, since a later SetScript would drop a HookScript chain.
+	local searchPlaceholder = searchEdit:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	searchPlaceholder:SetPoint("LEFT", searchEdit, "LEFT", 6, 0)
+	searchPlaceholder:SetPoint("RIGHT", searchEdit, "RIGHT", -6, 0)
+	searchPlaceholder:SetJustifyH("LEFT")
+	searchPlaceholder:SetText(ns:L("SEARCH_PLACEHOLDER"))
+	ns.mhSearchPlaceholder = searchPlaceholder
+
+	local function UpdateSearchPlaceholder()
+		searchPlaceholder:SetShown((searchEdit:GetText() or "") == "" and not searchEdit:HasFocus())
+	end
+	searchEdit:HookScript("OnTextChanged", UpdateSearchPlaceholder)
+	searchEdit:HookScript("OnEditFocusGained", UpdateSearchPlaceholder)
+	searchEdit:HookScript("OnEditFocusLost", UpdateSearchPlaceholder)
+	UpdateSearchPlaceholder()
 	searchGoBtn:SetScript("OnClick", function()
 		runSearchFromBar()
 		searchEdit:ClearFocus()

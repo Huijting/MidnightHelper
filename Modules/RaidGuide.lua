@@ -25,7 +25,9 @@ local BTN_H = 22
 local GAP = 6
 local BODY_INDENT = 10
 
-local COLOR_DIM = { 0.72, 0.75, 0.82 }
+-- Shared status palette (UI.lua). The fallbacks keep this module standalone.
+local C = ns.UI_COLORS or {}
+local COLOR_DIM = C.dim or { 0.75, 0.78, 0.82 }
 
 local ui
 
