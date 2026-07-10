@@ -145,4 +145,22 @@ function ns.PrintCampaignLeadInDiagnostics()
 	end
 	local st = ns.GetCampaignLeadInState()
 	print(("  state = %s"):format(st and st.status or "nil (hidden)"))
+
+	-- Also list every quest currently in the log with its ID, so an accepted campaign
+	-- quest can be identified by name and its real ID captured — no macro needed.
+	if C_QuestLog and C_QuestLog.GetNumQuestLogEntries and C_QuestLog.GetInfo then
+		print(p .. "quests in your log (accept the campaign quest first):")
+		local n = select(1, C_QuestLog.GetNumQuestLogEntries()) or 0
+		local shown = 0
+		for i = 1, n do
+			local ok, info = pcall(C_QuestLog.GetInfo, i)
+			if ok and info and not info.isHeader and info.questID and info.questID > 0 then
+				shown = shown + 1
+				print(("  |cff71d5ff%d|r  %s"):format(info.questID, tostring(info.title or "?")))
+			end
+		end
+		if shown == 0 then
+			print("  (none)")
+		end
+	end
 end
