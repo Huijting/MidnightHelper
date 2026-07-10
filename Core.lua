@@ -1076,6 +1076,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- Undocumented on purpose: the CurseForge gallery rig (Modules/DevShots.lua).
+	if msg == "shots" then
+		if ns.RunDevShots then
+			ns.RunDevShots()
+		else
+			print("|cffffcc00Midnight Helper:|r screenshot rig not loaded")
+		end
+		return
+	end
+
 	if msg == "ritualboss" then
 		if ns.ToggleRitualBossWindow then
 			ns.ToggleRitualBossWindow()

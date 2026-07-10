@@ -60,12 +60,30 @@ git push origin v<ver>
   "Error fetching game version info" en slaat de upload stil over.
 - Run controleren zonder `gh` CLI: `https://api.github.com/repos/Huijting/MidnightHelper/actions/runs?per_page=3`.
 
-## 4. Wat de packager NIET doet
+## 4. Screenshots (als er nieuwe features zijn)
+
+1. Ga in-game op een **donkere, vlakke plek** staan. Dat is het enige wat de rig niet
+   voor je kan doen: de wereld achter het venster is niet weg te poetsen.
+2. Zet de tekstgrootte van MH een stap hoger — leesbaarheid wint van informatiedichtheid
+   in een thumbnail.
+3. `/mh shots` → de rig parkeert het venster op een vaste maat, loopt door zeven scènes,
+   schiet elke scène en onthoudt de bijbehorende bijsnij-rechthoek.
+4. `/reload` (WoW schrijft SavedVariables pas dan weg).
+5. `powershell -ExecutionPolicy Bypass -File tools\Crop-Shots.ps1` → identiek uitgesneden
+   PNG's in `Screenshots\mh-shots\`.
+
+Volgorde in de galerij is de bestandsvolgorde. Shot 1 (This Week, met "Nu doen") is de
+thumbnail en bepaalt of iemand doorklikt; shot 2 (mounts + 3D-preview) is het enige beeld
+met kleur en beweging. De rest is bewijs van diepgang.
+
+Het boss-venster staat níét in de rig — dat is een zwevend venster; schiet dat met de hand.
+
+## 5. Wat de packager NIET doet
 
 De **projectpagina-beschrijving**. Plak `CURSEFORGE_DESCRIPTION.md` daar handmatig als
 die is bijgewerkt.
 
-## Vaste werkafspraak
+## 6. Vaste werkafspraak
 
 **Elke feature-batch werkt de in-game changelog in dezelfde commit bij** (Changelog.lua +
 de enUS-keys). Dan staat het bij release altijd actueel en hoeft het niet als losse stap

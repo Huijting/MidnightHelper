@@ -169,6 +169,20 @@ local function ShowMountPreview(row, mountID)
 	end
 end
 
+--- Screenshot rig (/mh shots): pop the 3D preview for the first mount without a real
+--- mouse. Only the preview — no tooltip, which would cover the very list we want shown.
+function ns.DevHoverFirstMountRow()
+	local row = ui and ui.rows and ui.rows[1]
+	if row and row._mhMountID then
+		ShowMountPreview(row, row._mhMountID)
+	end
+end
+
+--- The floating preview frame, so the rig can include it in the crop rectangle.
+function ns.DevGetMountPreviewFrame()
+	return mountPreview
+end
+
 --------------------------------------------------------------------------------
 -- Tooltip (near the cursor)
 --------------------------------------------------------------------------------

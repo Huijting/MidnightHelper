@@ -325,6 +325,17 @@ end
 
 --- Enter-key path from UI.lua's runSearchFromBar: jump only on a strong
 --- (label-prefix) match so content keywords still reach the deep search.
+--- Screenshot rig (/mh shots): fill the search box and open its result list without a
+--- keystroke. The OnTextChanged hook deliberately ignores a programmatic SetText
+--- (userInput = false), so we drive the renderer directly.
+function ns.DevShowNavResults(query)
+	query = query or ""
+	if ns.mhSearchEdit then
+		ns.mhSearchEdit:SetText(query)
+	end
+	ShowNavResults(query)
+end
+
 function ns.MHNavSearchTryJump(query)
 	query = (query or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
 	if #query < 2 then
