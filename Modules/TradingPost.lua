@@ -245,6 +245,17 @@ end
 
 ns.TradingPostTenderIcon = TenderIcon
 
+-- The Trading Post NPC in Silvermoon City — reusing the exact waypoint the SMC tab
+-- already ships (UI.lua SMC_CATEGORIES "trading_post"), so this stays in one place.
+local TP_MAP, TP_X, TP_Y = 2393, 48.88, 78.15
+
+function ns.RouteToTradingPost()
+	if ns.AddSmartTomTomWay then
+		return ns.AddSmartTomTomWay(TP_MAP, TP_X, TP_Y, ns:L("TAB_TRADINGPOST"))
+	end
+	return false
+end
+
 --------------------------------------------------------------------------------
 -- Panel (mirrors MountsPanel: title, dynamic subtitle, scroll list of item rows)
 --------------------------------------------------------------------------------
@@ -386,16 +397,18 @@ end
 -- fold the big groups away (Transmog is huge), so category headers are clickable.
 --------------------------------------------------------------------------------
 
+-- Stored as EXPANDED flags, so the default (no entry) is collapsed: Rob wanted the
+-- categories folded on first open, and expanding one then sticks.
 local function CatCollapsed(cid)
-	local u = ns.db and ns.db.ui and ns.db.ui.tpCollapsed
-	return u and u[cid] == true
+	local u = ns.db and ns.db.ui and ns.db.ui.tpExpanded
+	return not (u and u[cid])
 end
 
 local function ToggleCat(cid)
 	ns.db = ns.db or {}
 	ns.db.ui = ns.db.ui or {}
-	ns.db.ui.tpCollapsed = ns.db.ui.tpCollapsed or {}
-	local u = ns.db.ui.tpCollapsed
+	ns.db.ui.tpExpanded = ns.db.ui.tpExpanded or {}
+	local u = ns.db.ui.tpExpanded
 	u[cid] = (not u[cid]) or nil
 	ns.RefreshTradingPostPanel()
 end
@@ -568,6 +581,19 @@ function ns.BuildTradingPostPanel(panel)
 	end
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
 	title:SetText(ns:L("TAB_TRADINGPOST"))
+
+	-- Route button beside the title. An addon can't open the Post remotely (it loads only
+	-- at the NPC), so the useful action is a waypoint to it — the same spot the SMC tab uses.
+	local routeBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	routeBtn:SetSize(150, 20)
+	routeBtn:SetPoint("LEFT", title, "RIGHT", 12, 0)
+	if ns.MHScalableFont and routeBtn.GetFontString and routeBtn:GetFontString() then
+		routeBtn:GetFontString():SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	end
+	routeBtn:SetText(ns:L("TRADINGPOST_ROUTE_BTN"))
+	routeBtn:SetScript("OnClick", function()
+		ns.RouteToTradingPost()
+	end)
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	if ns.MHScalableFont then
