@@ -30,18 +30,46 @@ local function OpenTab(id)
 	end
 end
 
--- Rebuilt per query (cheap, ~25 entries) so labels follow the current locale.
+-- Three tiers, so a destination never loses its slot to a mob with a similar name.
+-- Typing "rares" must put the Rares TAB above fifteen rares, and typing "ritual" must
+-- put "take me to the active site" above the tab that merely describes it.
+local TIER_ACTION = 0 -- does the thing (routes you somewhere) rather than showing it
+local TIER_NAV = 1 -- tabs, tools, codex pages
+local TIER_CONTENT = 2 -- mounts, rares, treasures, bosses
+
+-- The active ritual site is found by walking every site's area POIs — far too much work
+-- to repeat on each keystroke of a rebuilt index. It rotates once a week, so a ten
+-- second memo is still absurdly fresh.
+local ritualMemo = { at = -100, site = nil }
+local function ActiveRitualSite()
+	if not ns.GetActiveRitualSite then
+		return nil
+	end
+	local now = (GetTime and GetTime()) or 0
+	if (now - ritualMemo.at) > 10 then
+		ritualMemo.at = now
+		local ok, site = pcall(ns.GetActiveRitualSite)
+		ritualMemo.site = (ok and site) or nil
+	end
+	return ritualMemo.site
+end
+
+-- Rebuilt per query (a few hundred entries of pure string work) so labels follow the
+-- current locale. Nothing here may call an expensive API: this runs on every keystroke.
 local function BuildNavIndex()
 	local idx = {}
-	local function add(label, keys, go)
+	--- @param context string|nil dim text after the label ("Eversong Woods"), also searchable
+	local function add(label, keys, go, tier, context)
 		if type(label) ~= "string" or label == "" then
 			return
 		end
 		idx[#idx + 1] = {
 			label = label,
+			context = context,
 			lower = label:lower(),
-			keys = (keys or ""):lower(),
+			keys = ((keys or "") .. " " .. (context or "")):lower(),
 			go = go,
+			tier = tier or TIER_NAV,
 		}
 	end
 	local function tab(labelKey, id, keys)
@@ -157,11 +185,11 @@ local function BuildNavIndex()
 			if b.key and ns.GetDungeonBossTips and ns.GetDungeonBossTips(entry.key, b.key) then
 				local bossName = (ns.GetDungeonBossName and ns.GetDungeonBossName(b, entry, i)) or b.name
 				local bossKey = b.key
-				add(bossName, entryName, function()
+				add(bossName, "", function()
 					if ns.ShowBossWindowForEntry then
 						ns.ShowBossWindowForEntry(entry, bossKey)
 					end
-				end)
+				end, TIER_CONTENT, entryName)
 			end
 		end
 	end
@@ -171,6 +199,80 @@ local function BuildNavIndex()
 	end
 	for _, e in pairs(ns.CUSTOM_BOSS_ENTRIES or {}) do
 		addBosses(e)
+	end
+
+	-- Actions. Typing "ritual" should start the arrow, not open a page about rituals —
+	-- that is the whole promise of this addon. Both entries mirror the buttons the Home
+	-- dashboard already shows, so there is one truth about where they send you.
+	-- Each label LEADS with the word a player types, because Enter only jumps on a
+	-- label-prefix match: "ritual" must hit "Ritual Site: …", not "Route to …".
+	local ritualSite = ActiveRitualSite()
+	if ritualSite and ns.RouteRitualSite and ritualSite.mapID and ritualSite.x and ritualSite.y then
+		local zone = ns.RitualSiteZoneName and ns.RitualSiteZoneName(ritualSite) or nil
+		local hint = L("NAV_ACTION_TAKE_ME")
+		add(L("NAV_ACTION_RITUAL_FMT"):format(ritualSite.name), "ritual site obelisk active weekly route", function()
+			ns.RouteRitualSite(ritualSite)
+		end, TIER_ACTION, zone and (zone .. " — " .. hint) or hint)
+	end
+	-- The Void assault has no single waypoint (its strikes are marked one at a time), so
+	-- this routes to the shared staging hub — exactly what the Home button does. The
+	-- context line says "hub" out loud, so nobody expects to land on a strike.
+	if ns.RouteVoidHub and ns.GetActiveVoidAssaultZoneName then
+		local voidZone = ns.GetActiveVoidAssaultZoneName()
+		if voidZone then
+			add(L("NAV_ACTION_VOID_FMT"):format(voidZone), "void assault hub staging active weekly route", function()
+				ns.RouteVoidHub()
+			end, TIER_ACTION, L("HOME_VOID_HUB_BTN"))
+		end
+	end
+
+	-- Collectible mounts. The mounts tab is one long checklist, so the hit lands on the
+	-- tab rather than on the row: scrolling a search result into view is a promise this
+	-- panel cannot keep yet.
+	local mountsLabel = L("TAB_MOUNTS")
+	for _, m in ipairs(ns.GetMountNameRoster and ns.GetMountNameRoster() or {}) do
+		add(m.name, "mount", function()
+			OpenTab("mounts")
+		end, TIER_CONTENT, mountsLabel)
+	end
+
+	-- Rares. A hit opens the Rares tab on that rare's zone AND routes to it — the same
+	-- thing clicking its row does, and the reason someone typed the name at all.
+	local rareQuests = {}
+	for _, r in ipairs(ns.GetRareSearchIndex and ns.GetRareSearchIndex() or {}) do
+		rareQuests[r.questId] = true
+		local zoneKey, questId = r.zoneKey, r.questId
+		add(r.name, "rare", function()
+			if ns.GoToRare then
+				ns.GoToRare(zoneKey, questId)
+			end
+		end, TIER_CONTENT, r.zoneLabel)
+	end
+
+	-- Treasures and lore objects. Several achievements in this table are RARE hunts whose
+	-- nodes repeat the rare names above; indexing those would give every rare two rows,
+	-- one of which merely opens a checklist. Skip a node whose quest is a known rare.
+	if type(ns.ACHIEVEMENT_TREASURES) == "table" then
+		for _, entry in ipairs(ns.ACHIEVEMENT_TREASURES) do
+			local title = entry.nameKey and L(entry.nameKey)
+			if not title and entry.achievementID and GetAchievementInfo then
+				local ok, _id, apiName = pcall(GetAchievementInfo, entry.achievementID)
+				if ok and type(apiName) == "string" then
+					title = apiName
+				end
+			end
+			for _, node in ipairs(entry.nodes or {}) do
+				if node.name and node.mapID and not (node.quest and rareQuests[node.quest]) then
+					local n = node
+					add(n.name, "treasure", function()
+						OpenTab("achievements")
+						if ns.AddSmartTomTomWay then
+							ns.AddSmartTomTomWay(n.mapID, n.x, n.y, n.name)
+						end
+					end, TIER_CONTENT, title)
+				end
+			end
+		end
 	end
 
 	return idx
@@ -198,6 +300,11 @@ local function FilterIndex(query)
 	table.sort(scored, function(a, b)
 		if a.rank ~= b.rank then
 			return a.rank < b.rank
+		end
+		-- Destinations before content at equal rank: "rares" must reach the Rares tab,
+		-- not fifteen rares that happen to share the word.
+		if a.e.tier ~= b.e.tier then
+			return a.e.tier < b.e.tier
 		end
 		return a.e.label < b.e.label
 	end)
@@ -311,7 +418,9 @@ local function ShowNavResults(query)
 		local e = res[i]
 		if e then
 			r:SetHeight(rowH)
-			r.fs:SetText(e.label)
+			-- "Bad Zed  Eversong Woods" — without the zone, forty rare names are forty
+			-- riddles. The context is dimmed so the name still reads as the answer.
+			r.fs:SetText(e.context and (e.label .. "  |cff808080" .. e.context .. "|r") or e.label)
 			r._mhGo = e.go
 			r:Show()
 		else

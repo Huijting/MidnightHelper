@@ -90,7 +90,7 @@ ns._mhLocales.enUS = {
 	-- Main shell
 	MAIN_TITLE = "Midnight Helper",
 	SEARCH_LABEL = "Search:",
-	SEARCH_PLACEHOLDER = "Find a tab, a tool, or a boss by name…",
+	SEARCH_PLACEHOLDER = "Find a tab, tool, boss, mount, rare or treasure…",
 	SEARCH_MY_CHARACTER = "My character",
 	SEARCH_GO = "Search",
 	FAV_CHIP_HINT = "Left-click to open · right-click to unpin",
@@ -1200,6 +1200,11 @@ ns._mhLocales.enUS = {
 	NAV_TOOL_BOSSWIN = "Dungeon boss window",
 	NAV_TOOL_CURIOS = "Curios advisor",
 	NAV_TOOL_RITUALBOSS = "Ritual boss coach",
+	-- Search actions. The label must LEAD with the word players type, because Enter
+	-- only jumps on a label-prefix match.
+	NAV_ACTION_RITUAL_FMT = "Ritual Site: %s",
+	NAV_ACTION_VOID_FMT = "Void Assault: %s",
+	NAV_ACTION_TAKE_ME = "take me there",
 	SETTINGS_TEXT_SIZE_DESC = "Scale Midnight Helper's text up or down, independently of the window size. Drag the slider (the window stays the same; tip: Shift + scroll still resizes the whole window).",
 	SETTINGS_RARE_ALERT = "Rare nearby alerts (sound + popup)",
 	SETTINGS_RARE_ALERT_TT = "Play a sound and show a popup when a tracked rare you still need this week appears near you. Works even when the window is closed.",

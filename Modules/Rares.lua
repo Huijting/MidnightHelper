@@ -1288,6 +1288,51 @@ function ns.GenerateRaresRoute(zoneKey)
 	return added > 0
 end
 
+--- Every rare, flattened, for the global search box. Names are the English display
+--- names from the data table — the same ones the panel shows — so a hit reads exactly
+--- like the row it takes you to.
+--- @return list of { name, zoneKey, zoneLabel, questId }
+function ns.GetRareSearchIndex()
+	local out = {}
+	for _, zone in ipairs(ZONES) do
+		for _, rare in ipairs(zone.rares) do
+			out[#out + 1] = {
+				name = GetRareDisplayName(rare),
+				zoneKey = zone.key,
+				zoneLabel = zone.label,
+				questId = rare[1],
+			}
+		end
+	end
+	return out
+end
+
+--- Search-result action for one rare: show its zone in the Rares tab and route to it,
+--- which is exactly what clicking its row does. Anything less would leave the player
+--- on a list of forty names, hunting for the one they just typed.
+function ns.GoToRare(zoneKey, questId)
+	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
+	if not zone then
+		return false
+	end
+	SetSelectedZoneKey(zoneKey)
+	if ns.ShowMainUI then
+		ns:ShowMainUI()
+	end
+	if ns.SelectTab then
+		ns.SelectTab("rares")
+	end
+	if ns.RefreshRaresPanel then
+		ns.RefreshRaresPanel()
+	end
+	for _, rare in ipairs(zone.rares) do
+		if rare[1] == questId then
+			return RouteRare(rare, true) and true or false
+		end
+	end
+	return false
+end
+
 function ns.RouteToNearestRare(zoneKey)
 	if not ns.AddSmartTomTomWay then
 		print("|cffff5555Midnight Helper:|r " .. ns:L("RARES_NEAREST_NO_TRAVEL"))

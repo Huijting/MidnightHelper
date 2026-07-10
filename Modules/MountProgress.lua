@@ -301,3 +301,20 @@ function ns.GetWeeklyMountProgress(includeCollected)
 	end
 	return out
 end
+
+--- Just the names, for the search index — which is rebuilt on every keystroke.
+--- GetWeeklyMountProgress walks achievement criteria and bag counts, which is far more
+--- work than a search box should do per typed character. A Mount Journal lookup is
+--- cheap, and the fallback name means a hit still lands before the journal is warm.
+--- @return list of { key, name }
+function ns.GetMountNameRoster()
+	local out = {}
+	for _, m in ipairs(TRACKED) do
+		local _collected, mountName = MountStatus(m)
+		out[#out + 1] = {
+			key = m.key,
+			name = (type(mountName) == "string" and mountName ~= "" and mountName) or m.fallbackName,
+		}
+	end
+	return out
+end
