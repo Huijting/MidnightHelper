@@ -70,6 +70,22 @@ local function Say(msg)
 	print("|cffffcc00Midnight Helper shots:|r " .. msg)
 end
 
+--- Screen pixels per scale-1 UI unit.
+---
+--- `frame:GetLeft() * frame:GetEffectiveScale()` does NOT give pixels — it gives units in
+--- WoW's scale-1 UI space, which is always 768 tall no matter the resolution. On a 1440p
+--- screen one such unit is 1440/768 = 1.875 pixels. Missing this factor is why the window
+--- was sized to 1944 real pixels on a 1440-pixel screen and hung off the bottom, while
+--- every number in the log looked perfectly consistent with itself.
+local function PixelsPerUnit()
+	local _, ph = GetPhysicalScreenSize()
+	local uiH = UIParent:GetHeight() * UIParent:GetEffectiveScale() -- ~768, always
+	if ph and uiH and uiH > 0 then
+		return ph / uiH
+	end
+	return 1
+end
+
 --- Screen-pixel rectangle (top-left origin) covering `frame`, unioned with `extra`,
 --- grown by `pad`. WoW frame coords are bottom-left origin and scale-relative, so we
 --- multiply by the frame's effective scale and flip against the physical height.
@@ -78,12 +94,13 @@ local function PixelRect(frame, extra, pad)
 		return nil
 	end
 	local _, physH = GetPhysicalScreenSize()
-	local s = frame:GetEffectiveScale()
+	local ppu = PixelsPerUnit()
+	local s = frame:GetEffectiveScale() * ppu
 	local left, right = frame:GetLeft() * s, frame:GetRight() * s
 	local top, bottom = frame:GetTop() * s, frame:GetBottom() * s
 
 	if extra and extra:IsShown() then
-		local es = extra:GetEffectiveScale()
+		local es = extra:GetEffectiveScale() * ppu
 		left = math.min(left, extra:GetLeft() * es)
 		right = math.max(right, extra:GetRight() * es)
 		top = math.max(top, extra:GetTop() * es)
@@ -124,8 +141,9 @@ local function ShotScale(main)
 	if not (pw and ph and uiEff and uiEff > 0) then
 		return nil
 	end
-	local byHeight = (ph * FILL_HEIGHT) / SHOT_H
-	local byWidth = (pw * 0.9) / (SHOT_W + PREVIEW_W)
+	local ppu = PixelsPerUnit()
+	local byHeight = (ph * FILL_HEIGHT) / (SHOT_H * ppu)
+	local byWidth = (pw * 0.9) / ((SHOT_W + PREVIEW_W) * ppu)
 	local own = math.min(byHeight, byWidth) / uiEff
 	return math.max(0.5, math.min(own, 3))
 end
@@ -136,13 +154,15 @@ end
 --- from BOTTOMLEFT with measured offsets leaves nothing to interpretation.
 local function CenterWindow(main)
 	local pw, ph = GetPhysicalScreenSize()
-	local s = main:GetEffectiveScale()
+	local s = main:GetEffectiveScale() * PixelsPerUnit() -- pixels per frame unit
 	if not (pw and ph and s and s > 0) then
 		return
 	end
 	local wpx, hpx = main:GetWidth() * s, main:GetHeight() * s
 	local leftPx = math.max((pw - wpx) / 2, 0)
 	local bottomPx = math.max((ph - hpx) / 2, 0)
+	-- UIParent's bottom-left is the screen's bottom-left (its GetLeft/GetBottom are 0),
+	-- and SetPoint offsets are expressed in the moved frame's own units.
 	main:ClearAllPoints()
 	main:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", leftPx / s, bottomPx / s)
 end
