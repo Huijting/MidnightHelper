@@ -1,0 +1,94 @@
+<!--
+  MAINTAINER NOTE — inside an HTML comment, so it never renders on the release page.
+
+  This file holds the notes for the CURRENT release only. The BigWigs packager uploads it
+  verbatim as the CurseForge release notes (.pkgmeta -> manual-changelog), so overwrite it
+  on every version bump. The full history lives in CHANGELOG.md; a per-version Markdown
+  copy goes in docs/CURSEFORGE_<version>.md.
+
+  Why HTML and not Markdown? CurseForge's changelog field for this project is a WYSIWYG
+  (rich text) box: at v2.6.0 it took our Markdown source literally, printing "##" and "**"
+  and collapsing every newline. HTML is correct either way — a WYSIWYG/HTML field renders
+  it, and a Markdown field passes raw HTML straight through. Markdown is only correct in
+  one of the two.
+-->
+
+<h2>Two new pages, and a window a beginner can actually navigate</h2>
+
+<p>Midnight Helper should answer <strong>&quot;what should I do right now?&quot;</strong> before it
+answers anything else. This release makes it do that &mdash; and adds two pages that were long
+overdue.</p>
+
+<h3>🐎 New tab: Collectible mounts</h3>
+
+<p>A checklist of the <strong>17 new Midnight mounts</strong>. A green tick for the ones you own,
+a red cross for the rest.</p>
+
+<ul>
+  <li>Live progress for each: renown level, meta-achievement steps, or how many items you have banked.</li>
+  <li><strong>How to get it</strong>, in one line, under every mount.</li>
+  <li>A floating <strong>3D preview</strong> beside the window when you hover a mount's name &mdash; drag to spin.</li>
+  <li>Hover a <em>Voidlight Marl</em> line and Blizzard's own currency tooltip shows your balance on every character.</li>
+  <li>Mounts that are pure RNG &mdash; a rare drop, a puzzle, a hidden quest chain &mdash; show
+      <strong>no progress bar at all</strong>, because there is no honest number to show. A red cross
+      and a how-to instead.</li>
+</ul>
+
+<h3>🐉 New page: Raids (Codex &rarr; Raids)</h3>
+
+<p>Boss steps for all three Season 1 raids and their nine bosses: <strong>The Dreamrift</strong>,
+<strong>The Voidspire</strong> and <strong>March on Quel'Danas</strong>.</p>
+
+<ul>
+  <li>Numbered steps, tank/healer/dps lines, and <strong>clickable spell links</strong>.</li>
+  <li>Boss names come from the Encounter Journal, so they are in <em>your</em> game language.</li>
+  <li>The Raid Coach still opens by itself when a boss pull starts. This page is for the preparation beforehand.</li>
+</ul>
+
+<h3>🎯 Home leads with &quot;Next up&quot;</h3>
+
+<p>One concrete action &mdash; the most useful thing you can do right now &mdash; with a
+<strong>Take me there</strong> button that sets the route, and a tally of how far you are through
+the week.</p>
+
+<p>While you are levelling it never proposes endgame content you cannot do yet.</p>
+
+<h3>🔎 Search finds bosses</h3>
+
+<p>Type a boss name and jump straight to its coach steps. <strong>52 bosses</strong>, dungeons and raids.</p>
+
+<p>It also finds the <em>Collectible mounts</em>, <em>Raids</em> and <em>Pop-out windows</em> tabs
+&mdash; which were missing from the search index entirely. Typing &quot;mount&quot; used to find nothing.</p>
+
+<h3>🧭 A calmer window</h3>
+
+<ul>
+  <li>The welcome popup opens the <strong>Start Here</strong> roadmap instead of a tour of the buttons.</li>
+  <li>Start Here leads with its six-step plan; the window walkthrough sits below it, folded away.</li>
+  <li>Home opens with fewer sections unfolded and packs the folded ones into a tidy grid. Everything is
+      one click away, and your choice is remembered.</li>
+  <li>The Character sidebar is grouped into <strong>Collections</strong>, <strong>Gear</strong>,
+      <strong>Resources</strong> and <strong>Alts &amp; history</strong>.</li>
+  <li>Plainer names: Home &rarr; <strong>This Week</strong>, SMC City Guide &rarr;
+      <strong>Silvermoon City</strong>, Launchpad &rarr; <strong>Pop-out windows</strong>.</li>
+  <li>One shared colour palette: &quot;done&quot; is the same green and &quot;do this&quot; the same amber, everywhere.</li>
+</ul>
+
+<h3>🌍 Translated</h3>
+
+<p>Everything above is available in German, French, Spanish, Portuguese and Italian.</p>
+
+<hr />
+
+<h2>Note for existing users</h2>
+
+<p>Home's folded/unfolded choices are <strong>reset once</strong> so the new, calmer defaults apply.
+Fold or unfold whatever you like afterwards &mdash; it will be remembered again.</p>
+
+<h2>Fixed</h2>
+
+<ul>
+  <li>Ritual Sites and Void Assaults offered a &quot;pick it up&quot; step at <em>any</em> level, so a
+      levelling character could have been handed endgame content as the headline action. Those steps are
+      now gated behind max level for that purpose. They still appear in the checklist underneath.</li>
+</ul>

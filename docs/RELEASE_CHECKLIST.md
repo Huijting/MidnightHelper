@@ -15,14 +15,14 @@ de tag.
 3. **`Locales/enUS.lua`** → de `CHANGELOG_<ver>_*`-keys. **Alleen enUS.** De in-game
    changelog is Engels-only sinds 2.4.0; de andere packs vallen terug op de enUS-fallback.
    (nlNL bevat nog oude vertalingen t/m 1.8.6 — niet uitbreiden.)
-4. **`RELEASE_NOTES.md`** (root) → **de CurseForge-releasenotitie.**
+4. **`RELEASE_NOTES.html`** (root) → **de CurseForge-releasenotitie.**
 5. **`CHANGELOG.md`** → de volledige geschiedenis (dev/GitHub).
 
-Plus: archiveer een kopie in **`docs/CURSEFORGE_<ver>.md`**, en check of
-**`CURSEFORGE_DESCRIPTION.md`** (evergreen paginabeschrijving) nog klopt met de nieuwe
-tabs/features.
+Plus: archiveer een Markdown-kopie in **`docs/CURSEFORGE_<ver>.md`** (plak-klaar, mocht je
+de CF-pagina met de hand moeten bijwerken), en check of **`CURSEFORGE_DESCRIPTION.md`**
+(evergreen paginabeschrijving) nog klopt met de nieuwe tabs/features.
 
-### ⚠️ RELEASE_NOTES.md — de valkuil
+### ⚠️ RELEASE_NOTES.html — drie valkuilen
 
 De packager uploadt dit bestand **letterlijk en volledig** (`.pkgmeta` →
 `manual-changelog`). Daarom:
@@ -30,9 +30,14 @@ De packager uploadt dit bestand **letterlijk en volledig** (`.pkgmeta` →
 - Het bevat **alleen de huidige release**. Het ooit op `CHANGELOG.md` richten zou 700+
   regels geschiedenis op elke releasepagina plakken. (Die fout stond klaar en is bij
   v2.6.0 net op tijd gevangen — de `manual-changelog`-regel had tot dan nooit gedraaid.)
-- **Overschrijf het bij elke versie-bump.**
-- Elke notitie-voor-onderhoud moet in een `<!-- HTML-commentaar -->` staan, anders
-  rendert 'ie bovenaan de publieke pagina. (Dat is bij 2.6.0 misgegaan.)
+- **Het is HTML, geen Markdown.** CF's changelog-veld is een WYSIWYG-box: bij v2.6.0 kwam
+  onze markdown er letterlijk in te staan (`##` en `**` zichtbaar, alle regelafbrekingen
+  weg), ondanks `changelogType=markdown` van de packager. HTML klopt in beide gevallen —
+  een WYSIWYG/HTML-veld rendert het, en een Markdown-veld laat ruwe HTML door.
+- Elke notitie-voor-onderhoud staat in een `<!-- HTML-commentaar -->`, anders rendert 'ie
+  bovenaan de publieke pagina. (Dat is bij 2.6.0 misgegaan.)
+
+> Na de upload even kijken: **Files → het bestand → Changelog**. Staat de opmaak goed?
 
 > Zelfcheck: zet `MidnightHelperDB.changelogDevCheck = true` op je dev-install. Bij login
 > waarschuwt de addon als de TOC-versie nieuwer is dan het bovenste changelog-blok.

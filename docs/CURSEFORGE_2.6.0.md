@@ -1,9 +1,10 @@
-# Midnight Helper 2.6.0 — CurseForge release notes
+<!--
+  Archive copy of the notes shipped with v2.6.0, in Markdown. Paste-ready: select all and
+  drop it into the CurseForge file's Changelog box with the format set to Markdown.
+  The packager itself uploads RELEASE_NOTES.html (see .pkgmeta).
+-->
 
-Archive copy of the notes shipped with `v2.6.0`. The packager uploads `RELEASE_NOTES.md`
-(see `.pkgmeta`); this file is the per-version record.
-
----
+# Midnight Helper 2.6.0
 
 ## Two new pages, and a window a beginner can actually navigate
 
