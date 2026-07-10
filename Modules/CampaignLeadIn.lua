@@ -14,29 +14,49 @@
 	arrow follows the live objective through AddSmartQuestRoute, so once you are on the
 	quest the route is Blizzard's own waypoint, not our fallback coords.
 
-	VALUES TO CONFIRM (source: Wowhead live-content guide, 7 Jul 2026 — treat as ~95%,
-	Rob confirms in-game, same tier as HandyNotes coords):
-	  - start quest "Hagar's Invitation" = 92895, in central Silvermoon City
-	    (uiMap 2393) at ~45.45 / 70.26
-	  - reward mount "Dusk Grimlynx" = item 246731 (from an early chapter quest)
-	  - reward pet "Akiki" = npc 260149 (whole Chapter 1 complete)
-	Run `/mh campaign` in-game to see the live state of these IDs.
+	CONFIRMED (start quest cross-checked two ways: Rob's live `/mh campaign` returned
+	title="Hagar's Invitation" for 92895, and Zygor's own "The Curse of Ula'tek Campaign"
+	guide gives the same, plus the chain and coords):
+	  - start quest "Hagar's Invitation" = 92895, from Orweyna (npc 253640) in central
+	    Silvermoon City (uiMap 2393) at 45.38 / 70.07. Lor'themar stands at the same spot
+	    offering the unrelated base-Midnight quest "War of Light and Shadow" — which is
+	    why the first route looked wrong; the giver we want is Orweyna.
+	  - the chain below is Chapter 1 ("Legacy of the Amani", 93011), the Amani spine only
+	    — NOT Zygor's optional Lorewalking side-arcs. Extend to Chapter 2 (the
+	    Voidstorm/Val/Naigtal arc, 96048…) once Rob is there to confirm it in-game.
+	  - reward mount "Dusk Grimlynx" = item 246731; reward pet "Akiki" = npc 260149
+	    (still Wowhead-sourced — confirm via the collection when earned).
+	Run `/mh campaign` in-game to see the live state of every chain ID.
 ]]
 
 local _, ns = ...
 
--- The chain, in order. Only the start is known today; append confirmed quest IDs as
--- they are captured, and the tracker follows the last incomplete one. `chapter` is
--- display-only. Keep this a plain data table — no logic — so extending it is trivial.
+-- The chain, in order (Chapter 1 spine, from Zygor's Ula'tek guide, cross-checked with
+-- the live quest API on Rob's character). The tracker follows the first incomplete one;
+-- the block hides when all are done. Plain data — extend by appending IDs.
 local CAMPAIGN = {
 	key = "ulatek_leadin",
 	nameKey = "CAMPAIGN_ULATEK_NAME",
 	startMapID = 2393, -- Silvermoon City
-	startX = 45.45,
-	startY = 70.26,
-	-- Ordered milestone quests. First entry is the pickup; add the rest as verified.
+	startX = 45.38, -- Orweyna (npc 253640); Zygor coords, matches Rob's screenshot
+	startY = 70.07,
 	chain = {
 		{ questID = 92895, nameKey = "CAMPAIGN_ULATEK_STARTQUEST" }, -- Hagar's Invitation
+		{ questID = 92899 }, -- History Lesson
+		{ questID = 92900 }, -- A Favor for Kinduru
+		{ questID = 92901 }, -- Revisionist History
+		{ questID = 92904 }, -- Return to Zul'Aman
+		{ questID = 92907 }, -- Amani Answers
+		{ questID = 92955 }, -- The Tablets of Numazon
+		{ questID = 92957 }, -- There's the Rub
+		{ questID = 92958 }, -- Brain Drain
+		{ questID = 92951 }, -- Digging Deeper
+		{ questID = 92952 }, -- Mission to Maisara
+		{ questID = 92953 }, -- Memories of Malacrass
+		{ questID = 92954 }, -- Maisara Caverns: Master of Souls
+		{ questID = 93010 }, -- The Serpent Shrine
+		{ questID = 93011 }, -- Legacy of the Amani (Chapter 1 capstone)
+		{ questID = 93012 }, -- Dead End
 	},
 	rewards = {
 		{ kind = "mount", itemID = 246731, nameKey = "CAMPAIGN_ULATEK_REWARD_MOUNT" }, -- Dusk Grimlynx
