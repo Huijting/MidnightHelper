@@ -96,11 +96,16 @@ local function PixelRect(frame, extra, pad)
 	top = top + (pad.top or 0)
 	bottom = bottom - (pad.bottom or 0)
 
+	-- `b` is the distance from the screen BOTTOM, which is what the game actually knows.
+	-- The crop script turns it into a top-left y using the real image height, so a
+	-- GetPhysicalScreenSize() that disagrees with the rendered resolution (a remote
+	-- desktop, a non-native window mode) cannot silently shift every crop downwards.
 	local x = math.floor(left + 0.5)
-	local y = math.floor(physH - top + 0.5) -- flip to a top-left origin
 	local w = math.floor(right - left + 0.5)
 	local h = math.floor(top - bottom + 0.5)
-	return { x = math.max(x, 0), y = math.max(y, 0), w = w, h = h }
+	local b = math.floor(bottom + 0.5)
+	local y = math.floor(physH - top + 0.5) -- kept for eyeballing in the chat log
+	return { x = math.max(x, 0), y = math.max(y, 0), w = w, h = h, b = math.max(b, 0) }
 end
 
 --- Scale the frame so the window fills FILL_HEIGHT of the screen — without letting it,

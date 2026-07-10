@@ -78,12 +78,22 @@ foreach ($body in $records) {
     }
     $name = & $get "name"
     if (-not $name) { continue }
+
+    # `b` is the distance from the screen BOTTOM. Preferred over `y`: we turn it into a
+    # top-left y using the real image height, so the addon's idea of the screen size
+    # cannot shift every crop (it did, over a remote desktop). PS 5.1 has no `if`
+    # expression, hence the separate assignment.
+    $bRaw = & $get "b"
+    $bottom = $null
+    if ($bRaw) { $bottom = [int]$bRaw }
+
     $rects += [pscustomobject]@{
-        Name = $name
-        X    = [int](& $get "x")
-        Y    = [int](& $get "y")
-        W    = [int](& $get "w")
-        H    = [int](& $get "h")
+        Name   = $name
+        X      = [int](& $get "x")
+        Y      = [int](& $get "y")
+        W      = [int](& $get "w")
+        H      = [int](& $get "h")
+        Bottom = $bottom
     }
 }
 if ($rects.Count -eq 0) { throw "devShotRects was empty." }
@@ -108,9 +118,14 @@ for ($i = 0; $i -lt $rects.Count; $i++) {
     $src = $images[$i]
     $bmp = [System.Drawing.Bitmap]::FromFile($src.FullName)
     try {
+        # Derive y from the image itself where we can, so a mismatch between the
+        # rendered resolution and GetPhysicalScreenSize() cannot shift the crop.
+        $yWanted = $r.Y
+        if ($null -ne $r.Bottom) { $yWanted = $bmp.Height - $r.Bottom - $r.H }
+
         # Clamp: a window dragged partly off-screen would otherwise throw.
         $x = [Math]::Max(0, [Math]::Min($r.X, $bmp.Width - 1))
-        $y = [Math]::Max(0, [Math]::Min($r.Y, $bmp.Height - 1))
+        $y = [Math]::Max(0, [Math]::Min($yWanted, $bmp.Height - 1))
         $w = [Math]::Min($r.W, $bmp.Width - $x)
         $h = [Math]::Min($r.H, $bmp.Height - $y)
         if ($w -le 0 -or $h -le 0) { Write-Warning "$($r.Name): rectangle outside the image, skipped."; continue }
