@@ -140,6 +140,39 @@ local function BuildNavIndex()
 		end
 	end)
 
+	-- Bosses, from the dungeon roster and the custom coach entries (raids, ritual
+	-- bosses, Sporefall). Typing a boss name opens the boss window straight on that
+	-- boss, where its numbered steps and the tank / healer / dps lines already live.
+	-- Only bosses we actually wrote steps for are indexed, so a hit never lands on an
+	-- empty page. Names resolve from the Encounter Journal via each boss's encounterID,
+	-- so they follow the player's language — the index is rebuilt per query, by which
+	-- time the EJ data is warm. Keywords are the instance name only: adding "boss" here
+	-- would let the eight result slots crowd out the boss-window tool itself.
+	local function addBosses(entry)
+		if type(entry) ~= "table" or not entry.key or type(entry.bosses) ~= "table" then
+			return
+		end
+		local entryName = (ns.GetDungeonDisplayName and ns.GetDungeonDisplayName(entry)) or entry.name or ""
+		for i, b in ipairs(entry.bosses) do
+			if b.key and ns.GetDungeonBossTips and ns.GetDungeonBossTips(entry.key, b.key) then
+				local bossName = (ns.GetDungeonBossName and ns.GetDungeonBossName(b, entry, i)) or b.name
+				local bossKey = b.key
+				add(bossName, entryName, function()
+					if ns.ShowBossWindowForEntry then
+						ns.ShowBossWindowForEntry(entry, bossKey)
+					end
+				end)
+			end
+		end
+	end
+
+	for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do
+		addBosses(d)
+	end
+	for _, e in pairs(ns.CUSTOM_BOSS_ENTRIES or {}) do
+		addBosses(e)
+	end
+
 	return idx
 end
 

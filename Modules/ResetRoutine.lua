@@ -141,6 +141,30 @@ local function VaultReady()
 	return nil
 end
 
+--- Is the player at this expansion's max level? Ritual Sites and Void Assaults offer a
+--- "pick it up" step at ANY level, so without this gate the Home headline would send a
+--- level-40 character straight at endgame content. Those steps still appear in the full
+--- checklist below the headline — they just never become the headline itself.
+local function AtMaxLevel()
+	local cap
+	if ns.GetDelveCapLevel then
+		local ok, lvl = pcall(ns.GetDelveCapLevel)
+		if ok then
+			cap = tonumber(lvl)
+		end
+	end
+	if (not cap or cap <= 0) and GetMaxLevelForPlayerExpansion then
+		local ok, lvl = pcall(GetMaxLevelForPlayerExpansion)
+		if ok then
+			cap = tonumber(lvl)
+		end
+	end
+	if not cap or cap <= 0 then
+		return true -- cap unknown: never hide a real action on a guess
+	end
+	return ((UnitLevel and UnitLevel("player")) or 0) >= cap
+end
+
 -- "done" | "inlog" | "pickup" | "intro" | nil (unknowable)
 local function RitualState()
 	if ns.IsRitualWeeklyDone and ns.IsRitualWeeklyDone() then
@@ -483,6 +507,7 @@ function ns.GetResetRoutineSteps()
 			text = ns:L(rs == "intro" and "HOME_ROUTINE_RITUAL_INTRO" or "HOME_ROUTINE_RITUAL_PICKUP"),
 			color = rs == "intro" and "soft" or "warn",
 			open = true,
+			heroEligible = AtMaxLevel(), -- endgame content: never the headline while levelling
 			pin = { HUB_MAP, HUB_X, HUB_Y, "HOME_ROUTINE_PIN_HUB" },
 			onClick = function()
 				if ns.RouteRitualHub then
@@ -517,6 +542,7 @@ function ns.GetResetRoutineSteps()
 	else
 		steps[#steps + 1] = {
 			text = ns:L("HOME_ROUTINE_VOID_PICKUP"),
+			heroEligible = AtMaxLevel(), -- endgame content: never the headline while levelling
 			color = "warn",
 			open = true,
 			pin = { HUB_MAP, HUB_X, HUB_Y, "HOME_ROUTINE_PIN_HUB" },
@@ -631,6 +657,34 @@ function ns.GetResetRoutineSteps()
 	end
 
 	return steps
+end
+
+--- The one thing worth doing right now, plus this character's weekly tally — the answer
+--- the Home headline exists to give. The routine already returns a priority-ordered,
+--- live list where every open step carries a route, so the headline is simply its first
+--- entry this character may actually act on.
+---
+--- "dim" steps (level-locked givers, weeklies we cannot track yet) are left out of the
+--- tally: counting them would make "3 of 10" a total you can never reach.
+--- @return step|nil, done(number), total(number)
+function ns.GetNextWeeklyAction()
+	local ok, steps = pcall(ns.GetResetRoutineSteps)
+	if not ok or type(steps) ~= "table" then
+		return nil, 0, 0
+	end
+	local hero, done, total = nil, 0, 0
+	for _, s in ipairs(steps) do
+		if s.color ~= "dim" then
+			total = total + 1
+			if s.color == "good" then
+				done = done + 1
+			end
+		end
+		if not hero and s.open and s.heroEligible ~= false then
+			hero = s
+		end
+	end
+	return hero, done, total
 end
 
 -- Open stops, routine order, duplicate coordinates (ritual + void share the

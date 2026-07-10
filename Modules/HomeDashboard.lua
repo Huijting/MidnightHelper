@@ -33,6 +33,9 @@ local COLOR_LINK = { 0.55, 0.78, 1 }
 -- "Picked up / in progress" — clearly distinct from WARN yellow (Rob, 10 Jun).
 local COLOR_PROG = { 0.45, 0.85, 0.95 }
 
+-- Ready-check tick for finished routine steps (plain unicode renders as a box).
+local ICON_DONE = "|TInterface\\RaidFrame\\ReadyCheck-Ready:12:12:0:0|t"
+
 local ui
 
 -- Per-section collapse state for the This Week dashboard, remembered in the DB.
@@ -230,6 +233,36 @@ local function BuildLayout()
 
 	local data = ns.ComputeAccountWeeklyChecklist and ns.ComputeAccountWeeklyChecklist() or nil
 
+	------------------------------------------------------------------ Next action (headline; never collapsible)
+	-- The single question this addon exists to answer: "what should I do right now?"
+	-- The reset routine already computes a priority-ordered, live, per-character list
+	-- where every open step carries a route, so the headline is just its first entry
+	-- this character may act on. No section key => it can never be collapsed away.
+	if ns.GetNextWeeklyAction then
+		addFull(function(rows)
+			local ok, step, done, total = pcall(ns.GetNextWeeklyAction)
+			if not ok then
+				return
+			end
+			header(rows, ns:L("HOME_HERO_HEADER"))
+			if step then
+				line(rows, step.text or "", COLOR_WARN)
+				if step.onClick then
+					rows[#rows + 1] = {
+						button = true,
+						text = ns:L("HOME_HERO_GO_BTN"),
+						onClick = step.onClick,
+					}
+				end
+			else
+				line(rows, ns:L("HOME_HERO_ALL_DONE"), COLOR_GOOD)
+			end
+			if (total or 0) > 0 then
+				line(rows, ns:L("HOME_HERO_PROGRESS_FMT"):format(done or 0, total), COLOR_DIM)
+			end
+		end)
+	end
+
 	------------------------------------------------------------------ Onboarding (Phase 5; new players, dismissable)
 	ns.db = ns.db or {}
 	if not ns.db.onboardingDismissed then
@@ -270,7 +303,11 @@ local function BuildLayout()
 			addFull(function(rows)
 				header(rows, ns:L("HOME_ROUTINE_HEADER"))
 				for i, st in ipairs(steps) do
-					line(rows, ("%d. %s"):format(i, st.text or ""), colorMap[st.color] or COLOR_DIM, st.onClick)
+					-- A tick for what is finished, the running number for what is not, so
+					-- done-vs-todo is scannable and the list visibly shrinks as the week
+					-- fills up. (Unicode ticks render as boxes in the WoW fonts.)
+					local prefix = (st.color == "good") and (ICON_DONE .. " ") or ("%d. "):format(i)
+					line(rows, prefix .. (st.text or ""), colorMap[st.color] or COLOR_DIM, st.onClick)
 				end
 				if ns.StartResetRoute then
 					rows[#rows + 1] = {

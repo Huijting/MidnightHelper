@@ -297,7 +297,13 @@ local MH_BETA_TAB_IDS = {}
 -- fallback-tab in SelectTab (sidebar-volgorde staat daar los van).
 local SIDEBAR_SECTIONS = {
 	{ key = "me_now", room = "me", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "starthere", "delves", "rares", "world", "events" } },
-	{ key = "me_chars", room = "me", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier", "omnium", "currency", "achievements", "mounts" } },
+	-- The old single "Character" list was an eight-noun wall with no scannable bucket:
+	-- someone hunting a collectible mount had nowhere obvious to look. Four named
+	-- groups; no tab moved out of reach (Rob, 10 jul).
+	{ key = "me_collections", room = "me", titleKey = "SIDEBAR_SECTION_COLLECTIONS", ids = { "mounts", "achievements" } },
+	{ key = "me_gear", room = "me", titleKey = "SIDEBAR_SECTION_GEAR", ids = { "enchants", "tier" } },
+	{ key = "me_resources", room = "me", titleKey = "SIDEBAR_SECTION_RESOURCES", ids = { "currency", "omnium" } },
+	{ key = "me_alts", room = "me", titleKey = "SIDEBAR_SECTION_ALTS", ids = { "account", "delvelog" } },
 	{ key = "codex", room = "codex", titleKey = "TAB_CODEX", ids = { "codex", "dungeons", "raids", "guide", "smcguide" } },
 	{ key = "tools", room = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "toolslaunch", "toolbox", "addons" } },
 	{ key = "settings", room = "settings", titleKey = "TAB_SETTINGS", ids = { "settings" } },
