@@ -300,10 +300,14 @@ function ns.RefreshMountsPanel()
 			if m.collected then
 				nameText = ICON_HAVE .. m.name
 				color = COLOR_GOOD
-			else
+			elseif m.need then
 				nameText = ICON_MISS .. ns:L("HOME_COLLECTIBLE_FMT"):format(m.name, m.have, m.need)
 				-- Green once the requirement is met (ready to grab), yellow while short.
 				color = (m.have >= m.need) and COLOR_GOOD or COLOR_SOFT
+			else
+				-- No honest X-of-N (RNG hunt / puzzle): just the name behind the cross.
+				nameText = ICON_MISS .. m.name
+				color = COLOR_SOFT
 			end
 			y = y + PutRow(ri, nameText, color, true, y, width,
 				{ mountID = m.mountID, itemID = m.mountItemID, spellID = m.mountSpellID, name = m.name })

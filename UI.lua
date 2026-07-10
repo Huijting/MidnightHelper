@@ -298,7 +298,7 @@ local MH_BETA_TAB_IDS = {}
 local SIDEBAR_SECTIONS = {
 	{ key = "me_now", room = "me", titleKey = "SIDEBAR_SECTION_WEEK", ids = { "home", "starthere", "delves", "rares", "world", "events" } },
 	{ key = "me_chars", room = "me", titleKey = "SIDEBAR_SECTION_CHARACTER", ids = { "account", "delvelog", "enchants", "tier", "omnium", "currency", "achievements", "mounts" } },
-	{ key = "codex", room = "codex", titleKey = "TAB_CODEX", ids = { "codex", "dungeons", "guide", "smcguide" } },
+	{ key = "codex", room = "codex", titleKey = "TAB_CODEX", ids = { "codex", "dungeons", "raids", "guide", "smcguide" } },
 	{ key = "tools", room = "tools", titleKey = "SIDEBAR_SECTION_TOOLS", ids = { "toolslaunch", "toolbox", "addons" } },
 	{ key = "settings", room = "settings", titleKey = "TAB_SETTINGS", ids = { "settings" } },
 }
@@ -1466,6 +1466,7 @@ local TAB_DEFS = {
 	{ id = "rares", labelKey = "TAB_RARES" },
 	{ id = "achievements", labelKey = "TAB_ACHIEVEMENTS" },
 	{ id = "mounts", labelKey = "TAB_MOUNTS" },
+	{ id = "raids", labelKey = "TAB_RAIDS" },
 	{ id = "world", labelKey = "TAB_WORLD" },
 	{ id = "events", labelKey = "TAB_EVENTS" },
 	{ id = "delvelog", labelKey = "TAB_DELVE_LOG" },
@@ -2213,6 +2214,8 @@ function ns:EnsureMainUI()
 				ns.BuildHomePanel(panel)
 			elseif tab.id == "mounts" and ns.BuildMountsPanel then
 				ns.BuildMountsPanel(panel)
+			elseif tab.id == "raids" and ns.BuildRaidsPanel then
+				ns.BuildRaidsPanel(panel)
 			elseif tab.id == "world" and ns.BuildWorldPanel then
 				ns.BuildWorldPanel(panel)
 			elseif tab.id == "events" and ns.BuildEventsPanel then

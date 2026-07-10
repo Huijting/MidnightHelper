@@ -41,11 +41,17 @@ local function ShowFirstRun()
 	local d = StaticPopupDialogs[POPUP_KEY]
 	-- Teksten elke keer verversen zodat ze de huidige taal volgen.
 	d.text = ns:L("FIRSTRUN_POPUP_TEXT")
-	d.button1 = ns:L("HOME_ONBOARD_TOUR_BTN")
+	d.button1 = ns:L("FIRSTRUN_SHOW_ME")
 	d.button2 = ns:L("FIRSTRUN_LATER")
+	-- Land on the Start Here roadmap, not on a tour of the window's furniture: a
+	-- newcomer's first click should answer "what do I do?", not "where are the
+	-- buttons?". The window tour is still one click away inside Start Here.
 	d.OnAccept = function()
-		if ns.StartUITour then
-			ns.StartUITour()
+		if ns.ShowMainUI then
+			ns:ShowMainUI()
+		end
+		if ns.SelectTab then
+			ns.SelectTab("starthere")
 		end
 	end
 	d.timeout = 0

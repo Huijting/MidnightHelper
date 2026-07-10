@@ -145,6 +145,7 @@ Modules\DungeonLiveCoach.lua
 Modules\RitualBossCoach.lua
 Modules\SporefallCoach.lua
 Modules\RaidCoachData.lua
+Modules\RaidGuide.lua
 Modules\DaggerspineCoach.lua
 Modules\AccessibleAlerts.lua
 Modules\NativeSettings.lua

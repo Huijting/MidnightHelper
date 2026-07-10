@@ -86,6 +86,25 @@ for _, raid in ipairs(RAIDS) do
 	end
 end
 
+--- De raid-lijst voor de Raids-pagina (Modules/RaidGuide.lua). Zelfde vorm als de
+--- dungeon-roster ({ key, name, bosses = { { key, name, encounterID } } }), zodat de
+--- Dungeon-Coach-helpers (GetDungeonBossName/GetDungeonBossTips) er direct op werken.
+function ns.GetRaidCoachRaids()
+	return RAIDS
+end
+
+--- Raid- en boss-telling voor het Home-blok dat de Raid Coach vindbaar maakt.
+--- Namen zijn eigennamen (niet vertaald). Geeft een kopie terug.
+--- @return names(table), bossCount(number)
+function ns.GetRaidCoachSummary()
+	local names, bosses = {}, 0
+	for _, raid in ipairs(RAIDS) do
+		names[#names + 1] = raid.name
+		bosses = bosses + #raid.bosses
+	end
+	return names, bosses
+end
+
 --------------------------------------------------------------------------------
 -- Auto-open op encounter-start (zelfde patroon als SporefallCoach).
 --------------------------------------------------------------------------------

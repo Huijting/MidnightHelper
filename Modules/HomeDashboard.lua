@@ -39,7 +39,31 @@ local ui
 -- Sections default to expanded except the two longest / most optional ones, so the
 -- page is short out of the box (Rob's "lange lel") while everything stays one click
 -- away. A section is identified by a stable string key on its header.
-local DEFAULT_COLLAPSED = { chores = true }
+-- Only the three "act now" sections that carry data found nowhere else stay open:
+-- the reset routine, the Great Vault and the World Boss. Everything else starts
+-- collapsed so the page opens calm instead of as a nine-section wall; one click
+-- restores any of them, and the choice is remembered.
+local DEFAULT_COLLAPSED = {
+	chores = true,
+	collectibles = true,
+	rares = true,
+	ritual = true,
+	void = true,
+}
+
+-- The default-collapsed set widened (Rob, 10 jul). Anyone who already toggled a Home
+-- section has an explicit choice stored, and an explicit choice beats a default — so
+-- without this, existing installs would silently keep the old nine-section wall and
+-- see no change at all. Clear the stored map exactly once; every toggle after this is
+-- remembered again as before.
+local function MigrateCollapseDefaults()
+	ns.db = ns.db or {}
+	if ns.db.homeCollapsedDefaultsV2 then
+		return
+	end
+	ns.db.homeCollapsedDefaultsV2 = true
+	ns.db.homeCollapsed = nil
+end
 
 local function IsSectionCollapsed(key)
 	if not key then
@@ -148,6 +172,7 @@ end
 --- Row spec: { header=bool, text=string, color={r,g,b}, onClick=fn|nil }
 --- Layout block: { type="full", rows={...} } or { type="columns", left={...}, right={...} }
 local function BuildLayout()
+	MigrateCollapseDefaults() -- runs once; SavedVariables are loaded well before this
 	local blocks = {}
 
 	local function header(rows, text, key)
@@ -175,6 +200,34 @@ local function BuildLayout()
 		blocks[#blocks + 1] = { type = "columns", left = left, right = right }
 	end
 
+	-- Pack sections into two columns, always appending the next one to the shorter
+	-- side. A collapsed section is a single header row, so an even number of them
+	-- lands as a neat grid rather than a ragged L.
+	local function addBalancedSections(sections)
+		local left, right, lh, rh = {}, {}, 0, 0
+		for _, s in ipairs(sections) do
+			local rows = {}
+			s.build(rows)
+			if #rows > 0 then
+				local weight = IsSectionCollapsed(s.key) and 1 or #rows
+				if lh <= rh then
+					for _, r in ipairs(rows) do
+						left[#left + 1] = r
+					end
+					lh = lh + weight
+				else
+					for _, r in ipairs(rows) do
+						right[#right + 1] = r
+					end
+					rh = rh + weight
+				end
+			end
+		end
+		if #left > 0 or #right > 0 then
+			blocks[#blocks + 1] = { type = "columns", left = left, right = right }
+		end
+	end
+
 	local data = ns.ComputeAccountWeeklyChecklist and ns.ComputeAccountWeeklyChecklist() or nil
 
 	------------------------------------------------------------------ Onboarding (Phase 5; new players, dismissable)
@@ -182,12 +235,10 @@ local function BuildLayout()
 	if not ns.db.onboardingDismissed then
 		addFull(function(rows)
 			header(rows, ns:L("HOME_ONBOARD_HEADER"))
-			-- First: point new players at the Start Here roadmap and the guided tour (F4.4).
+			-- Point new players at the Start Here roadmap. The four "how to operate the
+			-- addon" tips used to sit here; a newcomer needs a destination, not a manual,
+			-- so they moved into the window walkthrough inside Start Here (F4.4).
 			navLine(rows, "starthere", "TAB_START_HERE")
-			line(rows, ns:L("HOME_ONBOARD_TIP1"), COLOR_SOFT)
-			line(rows, ns:L("HOME_ONBOARD_TIP2"), COLOR_SOFT)
-			line(rows, ns:L("HOME_ONBOARD_TIP3"), COLOR_SOFT)
-			line(rows, ns:L("HOME_ONBOARD_TIP4"), COLOR_SOFT)
 			if ns.StartUITour then
 				rows[#rows + 1] = {
 					button = true,
@@ -303,6 +354,22 @@ local function BuildLayout()
 		end
 	)
 
+	------------------------------------------------------------------ Raids (Raid Coach discovery)
+	-- The Raid Coach has existed since 15 jun but only lived behind /mh bosswin, the
+	-- Tools launchpad and NavSearch — nobody found it (Rob had forgotten it himself).
+	-- Surface it here, where the weekly content already lives.
+	if ns.GetRaidCoachSummary then
+		addFull(function(rows)
+			local okSummary, names, bossCount = pcall(ns.GetRaidCoachSummary)
+			if okSummary and type(names) == "table" and #names > 0 then
+				header(rows, ns:L("HOME_SECTION_RAIDS"), "raids")
+				line(rows, ns:L("HOME_RAIDS_LIST_FMT"):format(#names, bossCount or 0, table.concat(names, ", ")), COLOR_DIM)
+				line(rows, ns:L("HOME_RAIDS_AUTOOPEN"), COLOR_SOFT)
+				navLine(rows, "raids", "TAB_RAIDS")
+			end
+		end)
+	end
+
 	------------------------------------------------------------------ Collectible mounts (summary → own tab)
 	-- The full list lives on its own "Collectible mounts" tab (Modules/MountsPanel.lua);
 	-- Home only shows how many are in progress plus a link, so it never grows long again.
@@ -318,7 +385,7 @@ local function BuildLayout()
 	end)
 
 	------------------------------------------------------------------ Weekly chores (full width)
-	addFull(function(rows)
+	local function buildChores(rows)
 		header(rows, ns:L("HOME_SECTION_CHORES"), "chores")
 		if data and data.charCount and data.charCount > 0 then
 			local any = false
@@ -515,73 +582,89 @@ local function BuildLayout()
 			line(rows, ns:L("ACCOUNT_WEEKLY_NO_SNAPSHOTS"), COLOR_DIM)
 		end
 		navLine(rows, "account", "TAB_ACCOUNT_SNAPSHOT")
-	end)
+	end
 
-	------------------------------------------------------------------ Rares | Ritual + Void
-	addColumns(
-		function(rows)
-			header(rows, ns:L("HOME_SECTION_RARES"), "rares")
-			line(rows, ns:L("HOME_RARES_HINT"), COLOR_DIM)
-			navLine(rows, "rares", "TAB_RARES")
-		end,
-		function(rows)
-			header(rows, ns:L("HOME_SECTION_RITUAL"), "ritual")
-			local activeSite = ns.GetActiveRitualSite and ns.GetActiveRitualSite() or nil
-			if activeSite then
-				local zone = ns.RitualSiteZoneName and ns.RitualSiteZoneName(activeSite) or nil
-				local label = zone and (activeSite.name .. " — " .. zone) or activeSite.name
-				line(rows, ns:L("HOME_RITUAL_ACTIVE_FMT"):format(label), COLOR_SOFT)
-				-- Route straight to the active site's obelisk (verified coords), so
-				-- the arrow starts without opening the World tab (Rob, 9 jul).
-				if ns.RouteRitualSite and activeSite.mapID and activeSite.x and activeSite.y then
-					rows[#rows + 1] = {
-						button = true,
-						text = ns:L("HOME_RITUAL_ROUTE_BTN_FMT"):format(activeSite.name),
-						onClick = function()
-							ns.RouteRitualSite(activeSite)
-						end,
-					}
-				end
-			else
-				line(rows, ns:L("HOME_RITUAL_UNKNOWN"), COLOR_DIM)
-			end
-			if ns.IsRitualWeeklyDone and ns.IsRitualWeeklyDone() then
-				line(rows, ns:L("HOME_RITUAL_WEEKLY_DONE"), COLOR_GOOD)
-			else
-				line(rows, ns:L("HOME_RITUAL_WEEKLY_TODO"), COLOR_WARN)
-			end
-			local renownText = ns.GetRitualRenownText and ns.GetRitualRenownText() or nil
-			if renownText and renownText ~= "" then
-				line(rows, ns:L("HOME_RITUAL_RENOWN_FMT"):format(renownText), COLOR_DIM)
-			end
-			navLine(rows, "world", "TAB_WORLD")
+	------------------------------------------------------------------ Browse sections (balanced grid)
+	local function buildRares(rows)
+		header(rows, ns:L("HOME_SECTION_RARES"), "rares")
+		line(rows, ns:L("HOME_RARES_HINT"), COLOR_DIM)
+		navLine(rows, "rares", "TAB_RARES")
+	end
 
-			header(rows, ns:L("HOME_SECTION_VOID"), "void")
-			local voidZone = ns.GetActiveVoidAssaultZoneName and ns.GetActiveVoidAssaultZoneName() or nil
-			if voidZone then
-				line(rows, ns:L("HOME_VOID_ACTIVE_FMT"):format(voidZone), COLOR_SOFT)
-				-- The assault has no single waypoint (strikes are marked one by one),
-				-- so we route to the shared staging hub — honest about the target.
-				if ns.RouteVoidHub then
-					rows[#rows + 1] = {
-						button = true,
-						text = ns:L("HOME_VOID_HUB_BTN"),
-						onClick = function()
-							ns.RouteVoidHub()
-						end,
-					}
-				end
-			else
-				line(rows, ns:L("HOME_VOID_UNKNOWN"), COLOR_DIM)
+	local function buildRitual(rows)
+		header(rows, ns:L("HOME_SECTION_RITUAL"), "ritual")
+		local activeSite = ns.GetActiveRitualSite and ns.GetActiveRitualSite() or nil
+		if activeSite then
+			local zone = ns.RitualSiteZoneName and ns.RitualSiteZoneName(activeSite) or nil
+			local label = zone and (activeSite.name .. " — " .. zone) or activeSite.name
+			line(rows, ns:L("HOME_RITUAL_ACTIVE_FMT"):format(label), COLOR_SOFT)
+			-- Route straight to the active site's obelisk (verified coords), so
+			-- the arrow starts without opening the World tab (Rob, 9 jul).
+			if ns.RouteRitualSite and activeSite.mapID and activeSite.x and activeSite.y then
+				rows[#rows + 1] = {
+					button = true,
+					text = ns:L("HOME_RITUAL_ROUTE_BTN_FMT"):format(activeSite.name),
+					onClick = function()
+						ns.RouteRitualSite(activeSite)
+					end,
+				}
 			end
-			if ns.IsVoidAssaultWeeklyDone and ns.IsVoidAssaultWeeklyDone() then
-				line(rows, ns:L("HOME_VOID_WEEKLY_DONE"), COLOR_GOOD)
-			else
-				line(rows, ns:L("HOME_VOID_WEEKLY_TODO"), COLOR_WARN)
-			end
-			navLine(rows, "world", "TAB_WORLD")
+		else
+			line(rows, ns:L("HOME_RITUAL_UNKNOWN"), COLOR_DIM)
 		end
-	)
+		if ns.IsRitualWeeklyDone and ns.IsRitualWeeklyDone() then
+			line(rows, ns:L("HOME_RITUAL_WEEKLY_DONE"), COLOR_GOOD)
+		else
+			line(rows, ns:L("HOME_RITUAL_WEEKLY_TODO"), COLOR_WARN)
+		end
+		local renownText = ns.GetRitualRenownText and ns.GetRitualRenownText() or nil
+		if renownText and renownText ~= "" then
+			line(rows, ns:L("HOME_RITUAL_RENOWN_FMT"):format(renownText), COLOR_DIM)
+		end
+		navLine(rows, "world", "TAB_WORLD")
+	end
+
+	local function buildVoid(rows)
+		header(rows, ns:L("HOME_SECTION_VOID"), "void")
+		local voidZone = ns.GetActiveVoidAssaultZoneName and ns.GetActiveVoidAssaultZoneName() or nil
+		if voidZone then
+			line(rows, ns:L("HOME_VOID_ACTIVE_FMT"):format(voidZone), COLOR_SOFT)
+			-- The assault has no single waypoint (strikes are marked one by one),
+			-- so we route to the shared staging hub — honest about the target.
+			if ns.RouteVoidHub then
+				rows[#rows + 1] = {
+					button = true,
+					text = ns:L("HOME_VOID_HUB_BTN"),
+					onClick = function()
+						ns.RouteVoidHub()
+					end,
+				}
+			end
+		else
+			line(rows, ns:L("HOME_VOID_UNKNOWN"), COLOR_DIM)
+		end
+		if ns.IsVoidAssaultWeeklyDone and ns.IsVoidAssaultWeeklyDone() then
+			line(rows, ns:L("HOME_VOID_WEEKLY_DONE"), COLOR_GOOD)
+		else
+			line(rows, ns:L("HOME_VOID_WEEKLY_TODO"), COLOR_WARN)
+		end
+		navLine(rows, "world", "TAB_WORLD")
+	end
+
+	-- Collapsed, each of these is one header row, so packing them into two balanced
+	-- columns gives a tidy grid instead of a ragged L (Rob, 10 jul). Weekly chores
+	-- keeps a full-width row when EXPANDED: its alt rollup lines are far too long
+	-- for half a panel.
+	local browse = {}
+	if IsSectionCollapsed("chores") then
+		browse[#browse + 1] = { key = "chores", build = buildChores }
+	else
+		addFull(buildChores)
+	end
+	browse[#browse + 1] = { key = "rares", build = buildRares }
+	browse[#browse + 1] = { key = "ritual", build = buildRitual }
+	browse[#browse + 1] = { key = "void", build = buildVoid }
+	addBalancedSections(browse)
 
 	return blocks
 end

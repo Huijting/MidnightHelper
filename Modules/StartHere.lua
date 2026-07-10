@@ -86,6 +86,25 @@ local function Relayout()
 	ui.child:SetHeight(math.max(y + 8, 1))
 end
 
+--- Show or hide the "how it works" walkthrough and relabel its toggle. It starts
+--- collapsed so the six roadmap steps — the reason a newcomer opened this page —
+--- sit above the fold instead of behind eight navigation lessons. Relayout already
+--- skips hidden widgets, so collapsing is just Show/Hide.
+local function ApplyTourState()
+	if not (ui and ui.tourWidgets) then
+		return
+	end
+	ns.db = ns.db or {}
+	local expanded = ns.db.startHereTourExpanded == true
+	for _, w in ipairs(ui.tourWidgets) do
+		w:SetShown(expanded)
+	end
+	if ui.tourToggleBtn then
+		ui.tourToggleBtn:SetText(ns:L(expanded and "START_TOUR_HIDE" or "START_TOUR_SHOW"))
+	end
+	Relayout()
+end
+
 --------------------------------------------------------------------------------
 -- Refresh (weekly ticks)
 --------------------------------------------------------------------------------
@@ -269,39 +288,9 @@ function ns.BuildStartHerePanel(panel)
 	staticLine("GameFontNormal", COLOR_HEADER, "START_INTRO_HEADER", 10, 0)
 	staticLine("GameFontHighlightSmall", COLOR_DIM, "START_INTRO_BODY", 4, 0)
 
-	-- "How it works" walkthrough: a self-paced tour of each part, with a "Show me"
-	-- button that jumps live to that tab (SelectTab). navTab nil = explanatory only.
-	staticLine("GameFontNormalLarge", COLOR_ACCENT, "TOUR_SECTION_HEADER", 18, 0)
-	staticLine("GameFontHighlightSmall", COLOR_DIM, "TOUR_SECTION_BODY", 4, 0)
-	do
-		local tourBtn = MakeButton(child, function()
-			if ns.StartUITour then
-				ns.StartUITour()
-			end
-		end)
-		tourBtn._mhKey = "TOUR_START_BTN"
-		tourBtn:SetText(ns:L("TOUR_START_BTN"))
-		ui.navButtons[#ui.navButtons + 1] = tourBtn
-		push(tourBtn, 6, 0, true)
-	end
-	for _, t in ipairs(TOUR) do
-		staticLine("GameFontNormal", COLOR_HEADER, t.titleKey, 12, 0)
-		staticLine("GameFontHighlightSmall", COLOR_DIM, t.bodyKey, 4, 0)
-		if t.navTab then
-			local target = t.navTab
-			local btn = MakeButton(child, function()
-				if ns.SelectTab then
-					ns.SelectTab(target)
-				end
-			end)
-			btn._mhKey = t.navLabelKey
-			btn:SetText(ns:L(t.navLabelKey))
-			ui.navButtons[#ui.navButtons + 1] = btn
-			push(btn, 6, 0, true)
-		end
-	end
-
-	-- Steps.
+	-- Steps FIRST. The roadmap is what a newcomer came for; it used to sit below the
+	-- eight-part window walkthrough, so the first thing on screen was a tour of the
+	-- furniture rather than the six concrete, auto-ticking things to do this week.
 	for _, step in ipairs(STEPS) do
 		staticLine("GameFontNormal", COLOR_HEADER, step.titleKey, 16, 0)
 		staticLine("GameFontHighlightSmall", COLOR_DIM, step.bodyKey, 4, 0)
@@ -334,6 +323,54 @@ function ns.BuildStartHerePanel(panel)
 		end
 	end
 
+	-- "How it works" walkthrough: a self-paced tour of each part, with a "Show me"
+	-- button that jumps live to that tab (SelectTab). navTab nil = explanatory only.
+	-- Collapsed behind one toggle; every widget of it is tracked in ui.tourWidgets.
+	ui.tourWidgets = {}
+	local function addTourWidget(w)
+		ui.tourWidgets[#ui.tourWidgets + 1] = w
+		return w
+	end
+
+	ui.tourToggleBtn = MakeButton(child, function()
+		ns.db = ns.db or {}
+		ns.db.startHereTourExpanded = not ns.db.startHereTourExpanded
+		ApplyTourState()
+	end)
+	push(ui.tourToggleBtn, 18, 0, true)
+
+	addTourWidget(staticLine("GameFontNormalLarge", COLOR_ACCENT, "TOUR_SECTION_HEADER", 8, 0))
+	addTourWidget(staticLine("GameFontHighlightSmall", COLOR_DIM, "TOUR_SECTION_BODY", 4, 0))
+	do
+		local tourBtn = MakeButton(child, function()
+			if ns.StartUITour then
+				ns.StartUITour()
+			end
+		end)
+		tourBtn._mhKey = "TOUR_START_BTN"
+		tourBtn:SetText(ns:L("TOUR_START_BTN"))
+		ui.navButtons[#ui.navButtons + 1] = tourBtn
+		push(tourBtn, 6, 0, true)
+		addTourWidget(tourBtn)
+	end
+	for _, t in ipairs(TOUR) do
+		addTourWidget(staticLine("GameFontNormal", COLOR_HEADER, t.titleKey, 12, 0))
+		addTourWidget(staticLine("GameFontHighlightSmall", COLOR_DIM, t.bodyKey, 4, 0))
+		if t.navTab then
+			local target = t.navTab
+			local btn = MakeButton(child, function()
+				if ns.SelectTab then
+					ns.SelectTab(target)
+				end
+			end)
+			btn._mhKey = t.navLabelKey
+			btn:SetText(ns:L(t.navLabelKey))
+			ui.navButtons[#ui.navButtons + 1] = btn
+			push(btn, 6, 0, true)
+			addTourWidget(btn)
+		end
+	end
+
 	-- Reset day.
 	staticLine("GameFontNormal", COLOR_ACCENT, "START_RESET_TITLE", 16, 0)
 	staticLine("GameFontHighlightSmall", COLOR_DIM, "START_RESET_BODY", 4, 0)
@@ -355,6 +392,7 @@ function ns.BuildStartHerePanel(panel)
 
 	ns.StartHerePanel = panel
 	ns.RefreshStartHerePanel()
+	ApplyTourState() -- collapse the walkthrough on first build
 end
 
 --------------------------------------------------------------------------------
@@ -376,6 +414,7 @@ do
 			for _, btn in ipairs(ui.navButtons) do
 				btn:SetText(ns:L(btn._mhKey))
 			end
+			ApplyTourState() -- relabel the toggle in the new language
 		end
 		if ui and ui.panel and ui.panel:IsShown() then
 			ns.RefreshStartHerePanel()

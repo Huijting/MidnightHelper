@@ -105,6 +105,16 @@ local TRACKED = {
 	-- "Insurmountable Collection". Faction-paired achievement (Horde 62096 / Alliance
 	-- 62103) — we read whichever your character has; progress = mounts obtained toward 600.
 	{ key = "anushalla",  mountItemID = 265656, achievementID = 62096, achievementIDAlt = 62103, need = 600, noMarl = true, fallbackName = "Anu'shalla, Shadow's Guidance", howToKey = "MOUNTPROG_ANUSHALLA_HOWTO" },
+
+	-- Ritual Sites hunts. These have NO numeric progress the game can give us (RNG drops,
+	-- a one-time puzzle, a hidden quest chain), so `noProgress` renders them as a plain
+	-- ✓/✗ with a how-to instead of a misleading X-of-N bar. The mount SPELL ids are the
+	-- confirmed anchors; the teaching item is only a fallback for the collected-check.
+	{ key = "voidlynx",   mountSpellID = 1287359, mountItemID = 270058, noProgress = true, noMarl = true, fallbackName = "Void-Corrupted Lynx",      howToKey = "MOUNTPROG_VOIDLYNX_HOWTO" },
+	{ key = "snapdragon", mountSpellID = 1287357, mountItemID = 270041, noProgress = true, noMarl = true, fallbackName = "Void-Touched Snapdragon",  howToKey = "MOUNTPROG_SNAPDRAGON_HOWTO" },
+	{ key = "hexeagle",   mountSpellID = 1286606, mountItemID = 269828, noProgress = true, noMarl = true, fallbackName = "Void-Corrupted Hex Eagle", howToKey = "MOUNTPROG_HEXEAGLE_HOWTO" },
+	-- Warbear teaching-item 257225 is single-sourced (plausible); the mount spell is confirmed.
+	{ key = "warbear",    mountSpellID = 1261362, mountItemID = 257225, noProgress = true, noMarl = true, fallbackName = "Witherbark Warbear Mother", howToKey = "MOUNTPROG_WARBEAR_HOWTO" },
 }
 
 --- @return isCollected(bool|nil), localizedName(string|nil)
@@ -238,7 +248,11 @@ function ns.GetWeeklyMountProgress(includeCollected)
 			local have
 			local need = m.need
 			local show = true
-			if m.itemID then
+			if m.noProgress then
+				-- Pure hunt (RNG drop / puzzle / hidden chain): no honest X-of-N exists,
+				-- so we report no numbers and the panel shows just a ✓/✗ with the how-to.
+				have, need = nil, nil
+			elseif m.itemID then
 				have = ItemCount(m.itemID)
 			elseif m.renownFactionID then
 				have = RenownLevel(m.renownFactionID)
@@ -263,10 +277,13 @@ function ns.GetWeeklyMountProgress(includeCollected)
 				show = true
 			end
 			if show then
+				if have and need then
+					have = math.min(have, need)
+				end
 				out[#out + 1] = {
 					key = m.key,
 					name = (type(mountName) == "string" and mountName ~= "" and mountName) or m.fallbackName,
-					have = math.min(have, need),
+					have = have, -- nil for no-progress hunts
 					need = need,
 					collected = isCollected,
 					howToKey = m.howToKey,
