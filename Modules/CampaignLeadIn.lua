@@ -111,20 +111,32 @@ function ns.GetCampaignLeadInState()
 		return nil -- unknown/unconfirmed quest: stay silent rather than guess
 	end
 
-	-- The step to point at: the first chain quest not yet completed.
-	local activeQuestID, allDone = nil, true
+	-- Walk the chain once: which quest are we on, what is the first not-yet-done step, and
+	-- has any of it been finished at all?
+	local onQuestID, firstOpenID, anyDone, allDone = nil, nil, false, true
 	for _, step in ipairs(CAMPAIGN.chain) do
-		if not QuestDone(step.questID) then
-			activeQuestID = step.questID
+		if QuestDone(step.questID) then
+			anyDone = true
+		else
 			allDone = false
-			break
+			if not firstOpenID then
+				firstOpenID = step.questID
+			end
+			if not onQuestID and OnQuest(step.questID) then
+				onQuestID = step.questID
+			end
 		end
 	end
 	if allDone then
 		return nil -- every known milestone finished; the nudge has done its job
 	end
 
-	local status = OnQuest(activeQuestID) and "inprogress" or "available"
+	-- "Have I begun?" is not "am I on the first open step" — the chain branches and can be
+	-- done out of order. You have begun the moment you are on ANY chain quest or have
+	-- finished ANY of them; only a truly untouched chain is still "available". Point the
+	-- route at the quest you are actually on, else the first step you have not done.
+	local status = (onQuestID or anyDone) and "inprogress" or "available"
+	local activeQuestID = onQuestID or firstOpenID
 	return {
 		name = ns:L(CAMPAIGN.nameKey),
 		status = status,
