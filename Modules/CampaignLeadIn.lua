@@ -40,34 +40,31 @@ local CAMPAIGN = {
 	startMapID = 2393, -- Silvermoon City
 	startX = 45.38, -- Orweyna (npc 253640); Zygor coords, matches Rob's screenshot
 	startY = 70.07,
-	-- `route` = a fallback objective coord for steps whose current objective is a
-	-- TRAVEL/"arrive at the meeting" type that the game gives NO native waypoint for
-	-- (confirmed: /mh campaign showed `nextWaypoint -> none` for 92895).
-	--
-	-- TWO Harandar maps are in play, and mixing them cost 478m the first time round:
-	--   * the meeting DEN = uiMap 2576 — Rob's /mh capture at the History Lesson NPCs
-	--     returned {2576, 44.36, 53.47, "Orweyna"}. Zygor's "Harandar/2" coords live here.
-	--   * outdoor Harandar = uiMap 2413 (verified in our Rares data). Zygor's "Harandar/0".
-	-- Later steps sit in Atal'Aman / instanced Zul'Aman, whose uiMapIDs are unconfirmed;
-	-- their kill/collect objectives usually DO get a native waypoint, so super-track
-	-- covers them and we do not guess a map. If a later step gives no arrow, `/mh capture`
-	-- at that spot yields its uiMap and we pin it — same fix as the den.
+	-- Deliberately just the quest IDs — no per-objective coords. MH's job here is
+	-- DISCOVERY (surface the campaign + rewards) and a push to the START; once you are on
+	-- it, the base game guides you (map objective, its own waypoint where it has one, the
+	-- NPCs' gold ! markers) — that is not Zygor-specific, it is WoW itself. Trying to
+	-- route every objective would rebuild Zygor from Zygor's data: a per-patch coord
+	-- maintenance burden for a one-time campaign, redundant with an addon many players
+	-- already run. A static fallback coord also cannot follow objective-to-objective (it
+	-- sat 13m from the moved objective and would not clear — Rob, 10 jul), so it was worse
+	-- than leaving the guidance to the game.
 	chain = {
-		{ questID = 92895, nameKey = "CAMPAIGN_ULATEK_STARTQUEST", route = { mapID = 2576, x = 44.36, y = 53.47 } }, -- Hagar's Invitation → the meeting den (captured)
-		{ questID = 92899, route = { mapID = 2576, x = 44.36, y = 53.47 } }, -- History Lesson → delegates in the den (captured)
-		{ questID = 92900, route = { mapID = 2413, x = 54.43, y = 52.47 } }, -- A Favor for Kinduru → Zul'jan, outdoor Harandar
-		{ questID = 92901, route = { mapID = 2413, x = 37.57, y = 47.70 } }, -- Revisionist History → visionstone, outdoor Harandar
-		{ questID = 92904, route = { mapID = 2413, x = 34.80, y = 43.88 } }, -- Return to Zul'Aman → Rootway, outdoor Harandar
-		{ questID = 92907 }, -- Amani Answers (Atal'Aman — native waypoint)
-		{ questID = 92955 }, -- The Tablets of Numazon (Zul'Aman)
-		{ questID = 92957 }, -- There's the Rub (Zul'Aman)
-		{ questID = 92958 }, -- Brain Drain (Zul'Aman)
-		{ questID = 92951 }, -- Digging Deeper (Zul'Aman)
-		{ questID = 92952 }, -- Mission to Maisara (Zul'Aman)
-		{ questID = 92953 }, -- Memories of Malacrass (Zul'Aman)
-		{ questID = 92954 }, -- Maisara Caverns: Master of Souls (Zul'Aman)
-		{ questID = 93010 }, -- The Serpent Shrine (Atal'Aman)
-		{ questID = 93011 }, -- Legacy of the Amani — Chapter 1 capstone (Atal'Aman)
+		{ questID = 92895, nameKey = "CAMPAIGN_ULATEK_STARTQUEST" }, -- Hagar's Invitation
+		{ questID = 92899 }, -- History Lesson
+		{ questID = 92900 }, -- A Favor for Kinduru
+		{ questID = 92901 }, -- Revisionist History
+		{ questID = 92904 }, -- Return to Zul'Aman
+		{ questID = 92907 }, -- Amani Answers
+		{ questID = 92955 }, -- The Tablets of Numazon
+		{ questID = 92957 }, -- There's the Rub
+		{ questID = 92958 }, -- Brain Drain
+		{ questID = 92951 }, -- Digging Deeper
+		{ questID = 92952 }, -- Mission to Maisara
+		{ questID = 92953 }, -- Memories of Malacrass
+		{ questID = 92954 }, -- Maisara Caverns: Master of Souls
+		{ questID = 93010 }, -- The Serpent Shrine
+		{ questID = 93011 }, -- Legacy of the Amani (Chapter 1 capstone)
 		{ questID = 93012 }, -- Dead End
 	},
 	rewards = {
@@ -115,11 +112,10 @@ function ns.GetCampaignLeadInState()
 	end
 
 	-- The step to point at: the first chain quest not yet completed.
-	local activeQuestID, activeRoute, allDone = nil, nil, true
+	local activeQuestID, allDone = nil, true
 	for _, step in ipairs(CAMPAIGN.chain) do
 		if not QuestDone(step.questID) then
 			activeQuestID = step.questID
-			activeRoute = step.route
 			allDone = false
 			break
 		end
@@ -132,7 +128,6 @@ function ns.GetCampaignLeadInState()
 	return {
 		name = ns:L(CAMPAIGN.nameKey),
 		status = status,
-		activeRoute = activeRoute, -- fallback objective coord when the game has no waypoint
 		startMapID = CAMPAIGN.startMapID,
 		startX = CAMPAIGN.startX,
 		startY = CAMPAIGN.startY,
@@ -175,24 +170,13 @@ function ns.RouteCampaignLeadIn()
 	end
 
 	if st.status == "inprogress" then
-		if ns.MH_TomTomClearAll then
-			ns.MH_TomTomClearAll()
-		end
-		if C_Map and C_Map.ClearUserWaypoint then
-			pcall(C_Map.ClearUserWaypoint)
-		end
+		-- Already on it: hand guidance to the game. Super-track the quest so its objective
+		-- shows on the map (and the native arrow appears wherever the game has a waypoint).
+		-- No fallback coord — a static point can't follow objective-to-objective and just
+		-- lingered "13m away" once the objective moved. The gold ! markers do the last bit.
 		SuperTrackQuest(st.activeQuestID)
-		-- Prefer the game's own objective waypoint. `route` is the fallback coord for the
-		-- steps whose objective has none (the Harandar travel/meeting objectives), so the
-		-- arrow points somewhere instead of dying — never back to the campaign start.
-		local r = st.activeRoute
 		if ns.AddSmartQuestRoute then
-			if ns.AddSmartQuestRoute(st.activeQuestID, r and r.mapID, r and r.x, r and r.y, st.name) then
-				return true
-			end
-		end
-		if r and ns.AddSmartTomTomWay then
-			return ns.AddSmartTomTomWay(r.mapID, r.x, r.y, st.name)
+			ns.AddSmartQuestRoute(st.activeQuestID, nil, nil, nil, st.name)
 		end
 		return true
 	end
