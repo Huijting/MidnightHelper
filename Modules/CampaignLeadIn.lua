@@ -127,23 +127,56 @@ function ns.GetCampaignLeadInState()
 	}
 end
 
---- Route to the campaign: follow the live objective if you are on a chain quest,
---- otherwise head to the pickup in Silvermoon. Reuses the shared quest-route engine,
---- which already falls back to coords when the objective sits somewhere unwaypointable.
+-- Quick membership test for the chain, so the accept-handler only ever touches our own
+-- quests and never hijacks the player's super-track for something unrelated.
+local CHAIN_SET = {}
+for _, step in ipairs(CAMPAIGN.chain) do
+	CHAIN_SET[step.questID] = true
+end
+
+--- Turn on Blizzard's own quest arrow for a quest you are on. This is the reliable way
+--- to point at the LIVE objective ("Arrive at the meeting" in Harandar) — the game knows
+--- where that is, we do not, and its objective moves zone to zone as the quest advances.
+local function SuperTrackQuest(questID)
+	if questID and C_SuperTrack and C_SuperTrack.SetSuperTrackedQuestID then
+		pcall(C_SuperTrack.SetSuperTrackedQuestID, questID)
+	end
+end
+
+--- Route to the campaign. On a chain quest: super-track it so Blizzard's arrow follows
+--- the live objective, plus a TomTom waypoint for TomTom users. Before you have picked
+--- it up: head to Orweyna in Silvermoon. AddSmartQuestRoute already falls back to coords
+--- when an objective sits somewhere unwaypointable.
 function ns.RouteCampaignLeadIn()
 	local st = ns.GetCampaignLeadInState()
 	if not st then
 		return false
 	end
-	local label = st.name
+	if st.status == "inprogress" then
+		SuperTrackQuest(st.activeQuestID)
+	end
 	if ns.AddSmartQuestRoute then
-		return ns.AddSmartQuestRoute(st.activeQuestID, st.startMapID, st.startX, st.startY, label)
+		return ns.AddSmartQuestRoute(st.activeQuestID, st.startMapID, st.startX, st.startY, st.name)
 	end
 	if ns.AddSmartTomTomWay then
-		return ns.AddSmartTomTomWay(st.startMapID, st.startX, st.startY, label)
+		return ns.AddSmartTomTomWay(st.startMapID, st.startX, st.startY, st.name)
 	end
 	return false
 end
+
+-- Auto-continue: when you accept one of our chain quests, super-track it so the arrow
+-- carries on to the next objective without re-opening Midnight Helper. Scoped to the
+-- chain, so it never overrides super-tracking for an unrelated quest you pick up.
+local accepted = CreateFrame("Frame")
+accepted:RegisterEvent("QUEST_ACCEPTED")
+accepted:SetScript("OnEvent", function(_, _, arg1, arg2)
+	-- QUEST_ACCEPTED payload changed across versions: sometimes (questID), sometimes
+	-- (logIndex, questID). Take whichever argument is one of our chain quests.
+	local questID = (arg1 and CHAIN_SET[arg1] and arg1) or (arg2 and CHAIN_SET[arg2] and arg2)
+	if questID then
+		SuperTrackQuest(questID)
+	end
+end)
 
 --------------------------------------------------------------------------------
 -- `/mh campaign` — verify the configured IDs against the live game.
