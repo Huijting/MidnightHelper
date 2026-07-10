@@ -47,9 +47,11 @@ local function SlotKind(bag, slot)
 			end
 			local lower = text:lower()
 			-- "Use: Open to gain some Gold" e.d. → een buidel die je gebruikt i.p.v.
-			-- rechtsklikt (die mist de "<Right Click to Open>"-regel). "use:" + "open"
-			-- op dezelfde regel houdt losse flavertekst als "opens at midnight" buiten.
-			if lower:find("use:", 1, true) and lower:find("open", 1, true) then
+			-- rechtsklikt (die mist de "<Right Click to Open>"-regel). Eis "open to"
+			-- (open TO gain/receive), niet los "open": anders vangt 'ie een cosmetic
+			-- ("Use: Opens your mind to…") of een trinket ("Use: Hold the fissure open…")
+			-- als loot-buidel — dat gebeurde met Entropic Extract / Void Fissure (Rob 10 jul).
+			if lower:find("use:", 1, true) and lower:find("open to", 1, true) then
 				return "openable"
 			end
 			-- "Use: Teaches you …" → een mount/pet/toy/recept dat je nog moet leren.
