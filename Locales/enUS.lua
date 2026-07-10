@@ -349,6 +349,15 @@ ns._mhLocales.enUS = {
 	ACH_PEAKS_VOIDSTORM = "Voidstorm: The Highest Peaks",
 	ACH_LORE_HUNTER = "Midnight Lore Hunter",
 	TAB_RITUAL = "Ritual Sites",
+	-- Trading Post tab
+	TAB_TRADINGPOST = "Trading Post",
+	TRADINGPOST_SUBTITLE = "This month's Trading Post wares, their Trader's Tender price, and whether you've already bought or own them.",
+	TRADINGPOST_TENDER_FMT = "Trader's Tender: %d %s",
+	TRADINGPOST_RESET_FMT = "Resets in %s",
+	TRADINGPOST_COLD = "Open the Trading Post once this month (in Silvermoon) and this list fills in — it's remembered account-wide afterwards.",
+	TRADINGPOST_DONE_HEADER = "Already bought / owned",
+	TRADINGPOST_BOUGHT = "bought this month",
+	TRADINGPOST_OWNED = "already own",
 	-- Curse of Ula'tek campaign lead-in (This Week block)
 	HOME_SECTION_CAMPAIGN = "New: Curse of Ula'tek",
 	HOME_CAMPAIGN_AVAILABLE = "The lead-in campaign has begun — pick it up in Silvermoon.",

@@ -315,7 +315,7 @@ local SIDEBAR_SECTIONS = {
 	-- The old single "Character" list was an eight-noun wall with no scannable bucket:
 	-- someone hunting a collectible mount had nowhere obvious to look. Four named
 	-- groups; no tab moved out of reach (Rob, 10 jul).
-	{ key = "me_collections", room = "me", titleKey = "SIDEBAR_SECTION_COLLECTIONS", ids = { "mounts", "achievements" } },
+	{ key = "me_collections", room = "me", titleKey = "SIDEBAR_SECTION_COLLECTIONS", ids = { "mounts", "tradingpost", "achievements" } },
 	{ key = "me_gear", room = "me", titleKey = "SIDEBAR_SECTION_GEAR", ids = { "enchants", "tier" } },
 	{ key = "me_resources", room = "me", titleKey = "SIDEBAR_SECTION_RESOURCES", ids = { "currency", "omnium" } },
 	{ key = "me_alts", room = "me", titleKey = "SIDEBAR_SECTION_ALTS", ids = { "account", "delvelog" } },
@@ -1490,6 +1490,7 @@ local TAB_DEFS = {
 	{ id = "rares", labelKey = "TAB_RARES" },
 	{ id = "achievements", labelKey = "TAB_ACHIEVEMENTS" },
 	{ id = "mounts", labelKey = "TAB_MOUNTS" },
+	{ id = "tradingpost", labelKey = "TAB_TRADINGPOST" },
 	{ id = "raids", labelKey = "TAB_RAIDS" },
 	{ id = "world", labelKey = "TAB_WORLD" },
 	{ id = "events", labelKey = "TAB_EVENTS" },
@@ -2257,6 +2258,8 @@ function ns:EnsureMainUI()
 				ns.BuildHomePanel(panel)
 			elseif tab.id == "mounts" and ns.BuildMountsPanel then
 				ns.BuildMountsPanel(panel)
+			elseif tab.id == "tradingpost" and ns.BuildTradingPostPanel then
+				ns.BuildTradingPostPanel(panel)
 			elseif tab.id == "raids" and ns.BuildRaidsPanel then
 				ns.BuildRaidsPanel(panel)
 			elseif tab.id == "world" and ns.BuildWorldPanel then
