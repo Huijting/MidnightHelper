@@ -372,12 +372,37 @@ local function AcquireRow(i)
 		end
 	end)
 	row:SetScript("OnLeave", HidePreview)
+	row:SetScript("OnMouseDown", function(self)
+		if self._mhToggle then
+			self._mhToggle()
+		end
+	end)
 	ui.rows[i] = row
 	return row
 end
 
+--------------------------------------------------------------------------------
+-- Per-category collapse (persisted account-wide). The list stays a long wall until you
+-- fold the big groups away (Transmog is huge), so category headers are clickable.
+--------------------------------------------------------------------------------
+
+local function CatCollapsed(cid)
+	local u = ns.db and ns.db.ui and ns.db.ui.tpCollapsed
+	return u and u[cid] == true
+end
+
+local function ToggleCat(cid)
+	ns.db = ns.db or {}
+	ns.db.ui = ns.db.ui or {}
+	ns.db.ui.tpCollapsed = ns.db.ui.tpCollapsed or {}
+	local u = ns.db.ui.tpCollapsed
+	u[cid] = (not u[cid]) or nil
+	ns.RefreshTradingPostPanel()
+end
+
 local function PutRow(i, text, color, y, width)
 	local row = AcquireRow(i)
+	row._mhItem, row._mhToggle = nil, nil -- clear stale hover/click from a pooled row
 	row:ClearAllPoints()
 	row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
 	row:SetWidth(width)
@@ -440,9 +465,20 @@ function ns.RefreshTradingPostPanel()
 		else
 			suffix, color = "", COLOR_SOFT
 		end
-		local row = AcquireRow(ri)
-		row._mhItem = it
 		y = y + PutRow(ri, iconStr .. name .. price .. suffix, color, y, width)
+		ui.rows[ri]._mhItem = it -- set after PutRow, which clears pooled handlers
+		ri = ri + 1
+	end
+
+	-- A clickable category header. `+`/`−` shows the fold state; the count is a hint of
+	-- what is hidden when collapsed.
+	local function renderHeader(cid, label, count)
+		local collapsed = CatCollapsed(cid)
+		local arrow = collapsed and "|cffffcc00+|r " or "|cffffcc00\226\136\146|r " -- U+2212 minus
+		y = y + PutRow(ri, arrow .. label .. "  |cff808080(" .. count .. ")|r", COLOR_HEADER, y, width)
+		ui.rows[ri]._mhToggle = function()
+			ToggleCat(cid)
+		end
 		ri = ri + 1
 	end
 
@@ -485,10 +521,11 @@ function ns.RefreshTradingPostPanel()
 			if ci > 1 then
 				y = y + GAP
 			end
-			y = y + PutRow(ri, cats[cid] or ns:L("TRADINGPOST_CAT_OTHER"), COLOR_HEADER, y, width)
-			ri = ri + 1
-			for _, it in ipairs(buckets[cid]) do
-				renderItem(it)
+			renderHeader(cid, cats[cid] or ns:L("TRADINGPOST_CAT_OTHER"), #buckets[cid])
+			if not CatCollapsed(cid) then
+				for _, it in ipairs(buckets[cid]) do
+					renderItem(it)
+				end
 			end
 		end
 	else
