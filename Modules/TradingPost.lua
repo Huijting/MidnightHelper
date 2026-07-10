@@ -93,6 +93,10 @@ end
 -- Reading the wares (live) and the account-wide monthly cache
 --------------------------------------------------------------------------------
 
+-- @return items|nil, complete(bool). `complete` is false until every ware has its
+-- itemID — the perks data streams in, and GetVendorItemInfo returns price/purchased
+-- before name/itemID load. We must not cache an itemID-less snapshot: another character
+-- reads it cold and has nothing to resolve names from (that left the list nameless).
 local function ReadLiveItems()
 	if not (C_PerksProgram and C_PerksProgram.GetAvailableVendorItemIDs and C_PerksProgram.GetVendorItemInfo) then
 		return nil
@@ -101,25 +105,26 @@ local function ReadLiveItems()
 	if not okIDs or type(ids) ~= "table" or #ids == 0 then
 		return nil -- "cold": the Post has not been opened this session
 	end
-	local out = {}
+	local out, complete = {}, true
 	for _, id in ipairs(ids) do
 		local ok, info = pcall(C_PerksProgram.GetVendorItemInfo, id)
 		if ok and type(info) == "table" then
+			if not info.itemID then
+				complete = false
+			end
 			out[#out + 1] = {
 				vendorItemID = info.perksVendorItemID or id,
-				itemID = info.itemID,
-				name = info.name,
+				itemID = info.itemID, -- the key we resolve name/icon from, char-independently
 				price = info.price,
 				quality = info.quality,
 				purchased = info.purchased and true or false,
 				speciesID = info.speciesID,
 				mountID = info.mountID,
 				categoryID = info.perksVendorCategoryID,
-				icon = info.iconTexture,
 			}
 		end
 	end
-	return (#out > 0) and out or nil
+	return (#out > 0) and out or nil, complete
 end
 
 -- Snapshot the live list into the account-wide cache under the current month.
@@ -136,9 +141,9 @@ end
 ---   items = the month's wares (live if loaded, else this month's cache, else nil).
 ---   cold  = true when we have no list at all and the Post must be opened once.
 function ns.GetTradingPostData()
-	local live = ReadLiveItems()
-	if live then
-		RefreshCache(live)
+	local live, complete = ReadLiveItems()
+	if live and complete then
+		RefreshCache(live) -- only persist a fully-loaded snapshot (see ReadLiveItems)
 	end
 	local mk = MonthKey()
 	local cache = ns.db and ns.db.tradingPostCache
@@ -150,6 +155,30 @@ function ns.GetTradingPostData()
 		isLive = live ~= nil,
 		cold = items == nil,
 	}
+end
+
+--- Name + icon for a ware, resolved from its itemID via the item cache — so any
+--- character shows real names, not whatever the perks data had loaded when it was
+--- cached. Returns nil name until the item streams in; the panel re-renders on
+--- GET_ITEM_INFO_RECEIVED. Requests the load so it actually arrives.
+function ns.ResolveTradingPostItem(it)
+	local id = it and it.itemID
+	if not id then
+		return nil, nil
+	end
+	local name, icon
+	if C_Item then
+		if C_Item.GetItemNameByID then
+			name = C_Item.GetItemNameByID(id)
+		end
+		if C_Item.GetItemIconByID then
+			icon = C_Item.GetItemIconByID(id)
+		end
+		if not name and C_Item.RequestLoadItemDataByID then
+			pcall(C_Item.RequestLoadItemDataByID, id)
+		end
+	end
+	return name, icon
 end
 
 --- Do you already own this collectible (independent of buying it this month)?
@@ -212,6 +241,88 @@ local function QualityHex(q)
 	return "|cffffffff"
 end
 
+--------------------------------------------------------------------------------
+-- Floating preview (replaces the item tooltip). Rob found the game's tooltip — with
+-- its "Equipped" stat comparison on wearable wares — noisy; he asked for an image
+-- instead. A bordered frame beside the window shows a large appearance icon + name +
+-- price + status, and nothing else. Same floating-panel trick as the mounts/rares tabs.
+--------------------------------------------------------------------------------
+
+local preview
+
+local function EnsurePreview()
+	if preview then
+		return preview
+	end
+	local f = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
+	f:SetSize(170, 150)
+	f:SetFrameStrata("TOOLTIP")
+	if f.SetBackdrop then
+		f:SetBackdrop({
+			bgFile = "Interface\\Buttons\\WHITE8X8",
+			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+			tile = true,
+			tileSize = 16,
+			edgeSize = 14,
+			insets = { left = 4, right = 4, top = 4, bottom = 4 },
+		})
+		f:SetBackdropColor(0.05, 0.05, 0.07, 0.96)
+		f:SetBackdropBorderColor(0.55, 0.46, 0.3, 0.9)
+	end
+	local icon = f:CreateTexture(nil, "ARTWORK")
+	icon:SetSize(88, 88)
+	icon:SetPoint("TOP", f, "TOP", 0, -12)
+	icon:SetTexCoord(0.07, 0.93, 0.07, 0.93) -- trim the default icon border
+	f.icon = icon
+	local name = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	name:SetPoint("TOP", icon, "BOTTOM", 0, -8)
+	name:SetPoint("LEFT", f, "LEFT", 8, 0)
+	name:SetPoint("RIGHT", f, "RIGHT", -8, 0)
+	name:SetJustifyH("CENTER")
+	name:SetWordWrap(true)
+	f.name = name
+	local info = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	info:SetPoint("TOP", name, "BOTTOM", 0, -4)
+	info:SetJustifyH("CENTER")
+	f.info = info
+	f:Hide()
+	preview = f
+	return f
+end
+
+local function HidePreview()
+	if preview then
+		preview:Hide()
+	end
+end
+
+local function ShowPreview(row, it)
+	local f = EnsurePreview()
+	local name, icon = ns.ResolveTradingPostItem(it)
+	f.icon:SetTexture(icon or 134400) -- 134400 = question-mark placeholder until it loads
+	f.name:SetText((QualityHex(it.quality)) .. (name or ("item " .. tostring(it.itemID))) .. "|r")
+
+	local bits = {}
+	if it.price then
+		bits[#bits + 1] = it.price .. " " .. TenderIcon(13)
+	end
+	if it.purchased then
+		bits[#bits + 1] = "|cff7dd97d" .. ns:L("TRADINGPOST_BOUGHT") .. "|r"
+	elseif it._owned then
+		bits[#bits + 1] = "|cff9090a0" .. ns:L("TRADINGPOST_OWNED") .. "|r"
+	end
+	f.info:SetText(table.concat(bits, "   "))
+
+	f:ClearAllPoints()
+	local main = ns.mainUI
+	if main then
+		f:SetPoint("TOPLEFT", main, "TOPRIGHT", 8, -2)
+	else
+		f:SetPoint("LEFT", row, "RIGHT", 12, 0)
+	end
+	f:Show()
+end
+
 local function AcquireRow(i)
 	local row = ui.rows[i]
 	if row then
@@ -228,17 +339,11 @@ local function AcquireRow(i)
 	fs:SetJustifyH("LEFT")
 	row.fs = fs
 	row:SetScript("OnEnter", function(self)
-		if self._mhItemID and GameTooltip then
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			pcall(GameTooltip.SetItemByID, GameTooltip, self._mhItemID)
-			GameTooltip:Show()
+		if self._mhItem then
+			ShowPreview(self, self._mhItem)
 		end
 	end)
-	row:SetScript("OnLeave", function()
-		if GameTooltip then
-			GameTooltip:Hide()
-		end
-	end)
+	row:SetScript("OnLeave", HidePreview)
 	ui.rows[i] = row
 	return row
 end
@@ -308,8 +413,12 @@ function ns.RefreshTradingPostPanel()
 			ri = ri + 1
 		end
 
-		local iconStr = it.icon and ("|T%d:%d:%d:0:0|t "):format(it.icon, 18, 18) or ""
-		local name = (QualityHex(it.quality)) .. (it.name or ("item " .. tostring(it.itemID))) .. "|r"
+		-- Name + icon come from the itemID (resolved via the item cache), never from a
+		-- possibly-empty cached perks name — that's why another character showed a
+		-- nameless list. Missing items re-render on GET_ITEM_INFO_RECEIVED.
+		local rname, ricon = ns.ResolveTradingPostItem(it)
+		local iconStr = ricon and ("|T%d:%d:%d:0:0|t "):format(ricon, 18, 18) or ""
+		local name = (QualityHex(it.quality)) .. (rname or ("item " .. tostring(it.itemID))) .. "|r"
 		local price = it.price and (" — " .. it.price .. " " .. tender) or ""
 
 		-- Bought-this-month wins over owned: buying a collectible makes you own it too, so
@@ -326,7 +435,7 @@ function ns.RefreshTradingPostPanel()
 		end
 
 		local row = AcquireRow(ri)
-		row._mhItemID = it.itemID
+		row._mhItem = it
 		y = y + PutRow(ri, iconStr .. name .. price .. suffix, color, y, width)
 		ri = ri + 1
 	end
@@ -388,20 +497,27 @@ function ns.BuildTradingPostPanel(panel)
 		syncWidth()
 		ns.RefreshTradingPostPanel()
 	end)
+	panel:SetScript("OnHide", HidePreview)
 end
 
 --------------------------------------------------------------------------------
--- Cache the list the instant the Perks data loads, and refresh the panel if open.
+-- Keep the panel current: cache the list the instant the (complete) Perks data loads,
+-- and re-render when item names/icons stream in so a cold cache fills in its names.
 --------------------------------------------------------------------------------
 
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PERKS_PROGRAM_DATA_REFRESH")
-ev:SetScript("OnEvent", function()
-	local items = ReadLiveItems()
-	if items then
-		RefreshCache(items)
+ev:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+ev:SetScript("OnEvent", function(_, event)
+	if event == "PERKS_PROGRAM_DATA_REFRESH" then
+		local items, complete = ReadLiveItems()
+		if items and complete then
+			RefreshCache(items)
+		end
 	end
-	if ns.RefreshTradingPostPanel then
+	-- GET_ITEM_INFO_RECEIVED fires constantly game-wide; only re-render when the tab is
+	-- actually on screen (a name/icon just streamed in that we want to show).
+	if ns.RefreshTradingPostPanel and ui and ui.panel and ui.panel:IsShown() then
 		ns.RefreshTradingPostPanel()
 	end
 end)
