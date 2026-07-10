@@ -22,10 +22,18 @@
 
 local _, ns = ...
 
--- A wide, comfortably readable window. Text legibility beats information density in a
--- gallery thumbnail; the window clamps this itself if the display is smaller.
-local SHOT_W, SHOT_H = 1120, 780
+-- The window's own SetResizeBounds caps it at 1000x920 UI units, so asking for more is
+-- pointless: a bigger *picture* comes from scaling the frame, not from sizing it.
+local SHOT_W, SHOT_H = 1000, 780
+local PREVIEW_W = 250 -- the floating 3D preview, which must stay on screen beside it
+
+-- How much of the screen's height the window should fill. Pixels are what a gallery
+-- thumbnail is judged on, and they depend on the UI scale, not on the resolution.
+local FILL_HEIGHT = 0.72
+
 local STEP_DELAY = 0.9 -- long enough for the async model / tip re-measure ticks
+
+local savedScale -- the user's window scale, restored when the run ends
 
 --- Scenes, in gallery order. `pad` grows the crop rectangle for things that render
 --- outside the main window (the floating 3D preview, the search result list).
@@ -95,9 +103,35 @@ local function PixelRect(frame, extra, pad)
 	return { x = math.max(x, 0), y = math.max(y, 0), w = w, h = h }
 end
 
---- Park the window at the shot size, centred. This must run AFTER SelectTab: selecting a
---- tab restores the user's saved size and position, which silently undid an earlier call.
+--- Scale the frame so the window fills FILL_HEIGHT of the screen — without letting it,
+--- or the preview beside it, run off the edge. On a low UI scale the window is only a
+--- few hundred pixels tall, which would make the gallery images smaller than hand-made
+--- ones. Scaling the frame (not the game's UI scale) leaves everything else alone.
+local function ShotScale(main)
+	if not main.SetScale then
+		return nil
+	end
+	local pw, ph = GetPhysicalScreenSize()
+	local uiEff = UIParent:GetEffectiveScale()
+	if not (pw and ph and uiEff and uiEff > 0) then
+		return nil
+	end
+	local byHeight = (ph * FILL_HEIGHT) / SHOT_H
+	local byWidth = (pw * 0.9) / (SHOT_W + PREVIEW_W)
+	local own = math.min(byHeight, byWidth) / uiEff
+	return math.max(0.5, math.min(own, 3))
+end
+
+--- Park the window at the shot size, scale and position. This must run AFTER SelectTab:
+--- selecting a tab restores the user's saved size and position, which silently undid an
+--- earlier call — every shot of the first run came out at the user's own window size.
 local function ParkWindow(main)
+	if savedScale and main.SetScale then
+		local s = ShotScale(main)
+		if s then
+			main:SetScale(s)
+		end
+	end
 	ns._mhProgrammaticResize = true
 	main:SetSize(SHOT_W, SHOT_H)
 	ns._mhProgrammaticResize = false
@@ -105,9 +139,13 @@ local function ParkWindow(main)
 	main:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 end
 
-local function RestoreWindow(savedFormat)
+local function RestoreWindow(main, savedFormat)
 	if savedFormat and SetCVar then
 		pcall(SetCVar, "screenshotFormat", savedFormat)
+	end
+	if savedScale and main and main.SetScale then
+		main:SetScale(savedScale)
+		savedScale = nil
 	end
 	if ns.ApplySavedMainWindowSize then
 		pcall(ns.ApplySavedMainWindowSize, ns)
@@ -146,9 +184,12 @@ function ns.RunDevShots()
 	ns.db = ns.db or {}
 	ns.db.devShotRects = {}
 
+	savedScale = (main.GetScale and main:GetScale()) or 1
+
 	local pw, ph = GetPhysicalScreenSize()
-	Say(("screen %dx%d, ui scale %.3f — taking %d shots, stand still (~%ds).")
-		:format(pw, ph, UIParent:GetEffectiveScale(), #SHOTS, math.ceil(#SHOTS * (STEP_DELAY * 2 + 0.35))))
+	Say(("screen %dx%d, ui scale %.3f, window scale %.2f -> %.2f — %d shots, stand still (~%ds).")
+		:format(pw, ph, UIParent:GetEffectiveScale(), savedScale, ShotScale(main) or savedScale,
+			#SHOTS, math.ceil(#SHOTS * (STEP_DELAY * 2 + 0.35))))
 
 	local i, taken = 0, 0
 	local takeNext -- forward-declared: `next` is a Lua global, never shadow it
@@ -156,8 +197,8 @@ function ns.RunDevShots()
 		i = i + 1
 		local shot = SHOTS[i]
 		if not shot then
-			RestoreWindow(savedFormat)
-			Say(("done — %d/%d shots. /reload, then run tools\\Crop-Shots.ps1."):format(taken, #SHOTS))
+			RestoreWindow(main, savedFormat)
+			Say(("done — %d/%d shots. /reload, then run tools\\Crop-Shots.bat."):format(taken, #SHOTS))
 			return
 		end
 
