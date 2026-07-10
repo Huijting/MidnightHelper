@@ -100,12 +100,15 @@ local function PixelRect(frame, extra, pad)
 	-- The crop script turns it into a top-left y using the real image height, so a
 	-- GetPhysicalScreenSize() that disagrees with the rendered resolution (a remote
 	-- desktop, a non-native window mode) cannot silently shift every crop downwards.
+	-- Nothing is clamped here. Clamping `b` to zero once hid the fact that the window
+	-- hung 269 pixels off the bottom of the screen: the number looked plausible and the
+	-- crops were quietly wrong. A negative value is information, not an error.
 	local x = math.floor(left + 0.5)
 	local w = math.floor(right - left + 0.5)
 	local h = math.floor(top - bottom + 0.5)
 	local b = math.floor(bottom + 0.5)
-	local y = math.floor(physH - top + 0.5) -- kept for eyeballing in the chat log
-	return { x = math.max(x, 0), y = math.max(y, 0), w = w, h = h, b = math.max(b, 0) }
+	local y = math.floor(physH - top + 0.5) -- for eyeballing in the chat log
+	return { x = x, y = y, w = w, h = h, b = b }
 end
 
 --- Scale the frame so the window fills FILL_HEIGHT of the screen — without letting it,
@@ -127,6 +130,23 @@ local function ShotScale(main)
 	return math.max(0.5, math.min(own, 3))
 end
 
+--- Centre the window by computing its pixel position, not by trusting a CENTER anchor.
+--- On the first ultrawide run a CENTER-to-CENTER anchor left the window at x=701 with its
+--- bottom 269 pixels BELOW the screen, so a third of it was never captured. Anchoring
+--- from BOTTOMLEFT with measured offsets leaves nothing to interpretation.
+local function CenterWindow(main)
+	local pw, ph = GetPhysicalScreenSize()
+	local s = main:GetEffectiveScale()
+	if not (pw and ph and s and s > 0) then
+		return
+	end
+	local wpx, hpx = main:GetWidth() * s, main:GetHeight() * s
+	local leftPx = math.max((pw - wpx) / 2, 0)
+	local bottomPx = math.max((ph - hpx) / 2, 0)
+	main:ClearAllPoints()
+	main:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", leftPx / s, bottomPx / s)
+end
+
 --- Park the window at the shot size, scale and position. This must run AFTER SelectTab:
 --- selecting a tab restores the user's saved size and position, which silently undid an
 --- earlier call — every shot of the first run came out at the user's own window size.
@@ -140,8 +160,7 @@ local function ParkWindow(main)
 	ns._mhProgrammaticResize = true
 	main:SetSize(SHOT_W, SHOT_H)
 	ns._mhProgrammaticResize = false
-	main:ClearAllPoints()
-	main:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+	CenterWindow(main)
 end
 
 local function RestoreWindow(main, savedFormat)
@@ -228,6 +247,7 @@ function ns.RunDevShots()
 
 			-- Let the resize re-layout and the model's async re-apply tick land.
 			C_Timer.After(0.35, function()
+				CenterWindow(main) -- again, right before the shutter: nothing may drift
 				local extra = shot.frames and select(2, pcall(shot.frames)) or nil
 				local rok, rect = pcall(PixelRect, main, extra, shot.pad)
 				if rok and rect then
@@ -235,7 +255,14 @@ function ns.RunDevShots()
 					ns.db.devShotRects[#ns.db.devShotRects + 1] = rect
 					Screenshot()
 					taken = taken + 1
-					Say(("%d/%d  %s  (%dx%d at %d,%d)"):format(i, #SHOTS, shot.name, rect.w, rect.h, rect.x, rect.y))
+
+					-- Say it out loud when the window is not entirely on screen: a crop of
+					-- a half-visible window looks plausible and is silently wrong.
+					local pw2, ph2 = GetPhysicalScreenSize()
+					local offscreen = rect.b < 0 or rect.x < 0 or (rect.x + rect.w) > pw2 or (rect.b + rect.h) > ph2
+					Say(("%d/%d  %s  (%dx%d at x=%d, %dpx above the bottom)%s")
+						:format(i, #SHOTS, shot.name, rect.w, rect.h, rect.x, rect.b,
+							offscreen and "  |cffff6060OFF SCREEN|r" or ""))
 				else
 					Say(("|cffff6060no rect|r %s"):format(shot.name))
 				end
