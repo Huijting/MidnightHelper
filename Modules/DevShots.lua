@@ -55,18 +55,34 @@ local savedScale -- the user's window scale, restored when the run ends
 local uiHidden = false
 local savedParents = {}
 
---- Reparent to WorldFrame while KEEPING the frame's on-screen size. WorldFrame's effective
---- scale is 1, UIParent's is the user's UI scale, so a naive SetParent makes everything
---- jump. Remember the old parent and scale; put both back afterwards.
-local function ReparentToWorld(frame)
-	if not frame or frame:GetParent() == WorldFrame or savedParents[frame] then
+--- Reparent while KEEPING the frame's on-screen size. WorldFrame's effective scale is 1,
+--- UIParent's is the user's UI scale, so a naive SetParent makes everything jump. Remember
+--- the old parent and scale; put both back afterwards.
+---
+--- The main window is reparented to WorldFrame; the floating 3D preview is reparented to
+--- the main window instead. Hung straight off WorldFrame its backdrop and its PlayerModel
+--- both refused to draw — you saw the border and the sky through it. As a child of a frame
+--- that draws correctly, it draws correctly.
+---
+--- `matchParent` means "share the parent's scale" rather than "keep your pixel size": the
+--- preview must grow with the window it is pinned to, or it shrinks beside a blown-up
+--- window. Only the main window itself wants its size preserved.
+local function Reparent(frame, newParent, matchParent)
+	if not frame or not newParent or frame:GetParent() == newParent or savedParents[frame] then
 		return
 	end
 	local oldEff = frame:GetEffectiveScale()
 	savedParents[frame] = { parent = frame:GetParent(), scale = frame:GetScale() }
-	frame:SetParent(WorldFrame)
-	local pe = WorldFrame:GetEffectiveScale()
-	if pe and pe > 0 and frame.SetScale then
+	frame:SetParent(newParent)
+	if not frame.SetScale then
+		return
+	end
+	if matchParent then
+		frame:SetScale(1)
+		return
+	end
+	local pe = newParent:GetEffectiveScale()
+	if pe and pe > 0 then
 		frame:SetScale(oldEff / pe)
 	end
 end
@@ -94,7 +110,7 @@ local function HideGameUI(main)
 	if uiHidden or not UIParent:IsShown() then
 		return
 	end
-	ReparentToWorld(main)
+	Reparent(main, WorldFrame)
 	UIParent:Hide()
 	uiHidden = true
 	if C_Timer and C_Timer.After then
@@ -343,34 +359,44 @@ function ns.RunDevShots()
 
 			-- Let the resize re-layout and the model's async re-apply tick land.
 			C_Timer.After(0.35, function()
-				CenterWindow(main) -- again, right before the shutter: nothing may drift
 				local extra = shot.frames and select(2, pcall(shot.frames)) or nil
 				if uiHidden and extra then
-					ReparentToWorld(extra) -- the floating preview would vanish with UIParent
+					-- The floating preview would vanish with UIParent. Hang it under the
+					-- main window (which draws fine on WorldFrame) and run the scene's
+					-- setup a second time: a PlayerModel loads nothing while it is
+					-- invisible, so the first pass left an empty bordered box.
+					Reparent(extra, main, true)
+					if shot.setup then
+						pcall(shot.setup)
+					end
 				end
-				local rok, rect = pcall(PixelRect, main, extra, shot.pad)
-				if rok and rect then
-					rect.name = shot.name
-					-- WoW names its screenshots WoWScrnShot_MMDDYY_HHMMSS, so stamp the shot
-					-- at the moment of the shutter and let the crop script match by name.
-					-- Picking "the N newest files" instead breaks the moment a stray manual
-					-- screenshot lands in the folder — which is exactly what happened.
-					rect.t = date("%m%d%y_%H%M%S")
-					ns.db.devShotRects[#ns.db.devShotRects + 1] = rect
-					Screenshot()
-					taken = taken + 1
+				-- One more tick when a model had to reload after becoming visible.
+				C_Timer.After(extra and 0.5 or 0, function()
+					CenterWindow(main) -- right before the shutter: nothing may drift
+					local rok, rect = pcall(PixelRect, main, extra, shot.pad)
+					if rok and rect then
+						rect.name = shot.name
+						-- WoW names its screenshots WoWScrnShot_MMDDYY_HHMMSS, so stamp the
+						-- shot at the moment of the shutter and let the crop script match by
+						-- name. Picking "the N newest files" instead breaks the moment a stray
+						-- manual screenshot lands in the folder — which is what happened.
+						rect.t = date("%m%d%y_%H%M%S")
+						ns.db.devShotRects[#ns.db.devShotRects + 1] = rect
+						Screenshot()
+						taken = taken + 1
 
-					-- Say it out loud when the window is not entirely on screen: a crop of
-					-- a half-visible window looks plausible and is silently wrong.
-					local pw2, ph2 = GetPhysicalScreenSize()
-					local offscreen = rect.b < 0 or rect.x < 0 or (rect.x + rect.w) > pw2 or (rect.b + rect.h) > ph2
-					Say(("%d/%d  %s  (%dx%d at x=%d, %dpx above the bottom)%s")
-						:format(i, #SHOTS, shot.name, rect.w, rect.h, rect.x, rect.b,
-							offscreen and "  |cffff6060OFF SCREEN|r" or ""))
-				else
-					Say(("|cffff6060no rect|r %s"):format(shot.name))
-				end
-				C_Timer.After(STEP_DELAY, takeNext)
+						-- Say it out loud when the window is not entirely on screen: a crop of
+						-- a half-visible window looks plausible and is silently wrong.
+						local pw2, ph2 = GetPhysicalScreenSize()
+						local offscreen = rect.b < 0 or rect.x < 0 or (rect.x + rect.w) > pw2 or (rect.b + rect.h) > ph2
+						Say(("%d/%d  %s  (%dx%d at x=%d, %dpx above the bottom)%s")
+							:format(i, #SHOTS, shot.name, rect.w, rect.h, rect.x, rect.b,
+								offscreen and "  |cffff6060OFF SCREEN|r" or ""))
+					else
+						Say(("|cffff6060no rect|r %s"):format(shot.name))
+					end
+					C_Timer.After(STEP_DELAY, takeNext)
+				end)
 			end)
 		end)
 	end
