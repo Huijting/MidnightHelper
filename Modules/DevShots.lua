@@ -95,6 +95,16 @@ local function PixelRect(frame, extra, pad)
 	return { x = math.max(x, 0), y = math.max(y, 0), w = w, h = h }
 end
 
+--- Park the window at the shot size, centred. This must run AFTER SelectTab: selecting a
+--- tab restores the user's saved size and position, which silently undid an earlier call.
+local function ParkWindow(main)
+	ns._mhProgrammaticResize = true
+	main:SetSize(SHOT_W, SHOT_H)
+	ns._mhProgrammaticResize = false
+	main:ClearAllPoints()
+	main:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+end
+
 local function RestoreWindow(savedFormat)
 	if savedFormat and SetCVar then
 		pcall(SetCVar, "screenshotFormat", savedFormat)
@@ -133,48 +143,58 @@ function ns.RunDevShots()
 		ns:ShowMainUI()
 	end
 
-	-- Park the window: fixed size, centred. The programmatic-resize guard keeps this
-	-- from being remembered as a size the user chose.
-	ns._mhProgrammaticResize = true
-	main:SetSize(SHOT_W, SHOT_H)
-	ns._mhProgrammaticResize = false
-	main:ClearAllPoints()
-	main:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-
 	ns.db = ns.db or {}
 	ns.db.devShotRects = {}
 
-	Say(("taking %d shots — stand still, this takes about %d seconds.")
-		:format(#SHOTS, math.ceil(#SHOTS * STEP_DELAY * 2)))
+	local pw, ph = GetPhysicalScreenSize()
+	Say(("screen %dx%d, ui scale %.3f — taking %d shots, stand still (~%ds).")
+		:format(pw, ph, UIParent:GetEffectiveScale(), #SHOTS, math.ceil(#SHOTS * (STEP_DELAY * 2 + 0.35))))
 
-	local i = 0
+	local i, taken = 0, 0
 	local takeNext -- forward-declared: `next` is a Lua global, never shadow it
 	takeNext = function()
 		i = i + 1
 		local shot = SHOTS[i]
 		if not shot then
 			RestoreWindow(savedFormat)
-			Say("done. /reload, then run tools\\Crop-Shots.ps1 (it reads the crop rects from SavedVariables).")
+			Say(("done — %d/%d shots. /reload, then run tools\\Crop-Shots.ps1."):format(taken, #SHOTS))
 			return
 		end
 
-		ns.SelectTab(shot.tab)
-		if shot.setup then
-			pcall(shot.setup)
+		-- Every step is guarded: one bad scene must never take the rest of the run with
+		-- it (a hidden tab did exactly that on the first outing).
+		local ok, err = pcall(ns.SelectTab, shot.tab)
+		if not ok then
+			Say(("|cffff6060skipped|r %s — tab '%s': %s"):format(shot.name, tostring(shot.tab), tostring(err)))
+			C_Timer.After(0.1, takeNext)
+			return
 		end
 
-		-- Grace for the tab to lay out (and for the model's async re-apply tick), then
-		-- shoot and record the rectangle that frame actually occupies.
 		C_Timer.After(STEP_DELAY, function()
-			local extra = shot.frames and shot.frames() or nil
-			local rect = PixelRect(main, extra, shot.pad)
-			if rect then
-				rect.name = shot.name
-				ns.db.devShotRects[#ns.db.devShotRects + 1] = rect
+			-- AFTER the tab settles: SelectTab restores the user's saved size/position.
+			ParkWindow(main)
+			if shot.setup then
+				local sok, serr = pcall(shot.setup)
+				if not sok then
+					Say(("|cffff6060setup failed|r %s: %s"):format(shot.name, tostring(serr)))
+				end
 			end
-			Screenshot()
-			Say(("%d/%d  %s"):format(i, #SHOTS, shot.name))
-			C_Timer.After(STEP_DELAY, takeNext)
+
+			-- Let the resize re-layout and the model's async re-apply tick land.
+			C_Timer.After(0.35, function()
+				local extra = shot.frames and select(2, pcall(shot.frames)) or nil
+				local rok, rect = pcall(PixelRect, main, extra, shot.pad)
+				if rok and rect then
+					rect.name = shot.name
+					ns.db.devShotRects[#ns.db.devShotRects + 1] = rect
+					Screenshot()
+					taken = taken + 1
+					Say(("%d/%d  %s  (%dx%d at %d,%d)"):format(i, #SHOTS, shot.name, rect.w, rect.h, rect.x, rect.y))
+				else
+					Say(("|cffff6060no rect|r %s"):format(shot.name))
+				end
+				C_Timer.After(STEP_DELAY, takeNext)
+			end)
 		end)
 	end
 	takeNext()

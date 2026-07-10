@@ -40,13 +40,37 @@ $sv = ($svFiles | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 Write-Host "SavedVariables: $($sv.FullName)"
 $text = Get-Content -Raw -LiteralPath $sv.FullName
 
-# Pull the devShotRects block, then one record per { ... } inside it.
-$block = [regex]::Match($text, '\["devShotRects"\]\s*=\s*\{(.*?)\n\t\},', 'Singleline')
-if (-not $block.Success) { throw 'No devShotRects in SavedVariables. Run /mh shots, then /reload, then this script.' }
+# WoW writes SavedVariables without indentation, so a lazy regex like "up to the next
+# '},'" stops at the first RECORD's brace, not the table's. Count braces instead.
+function Get-BalancedBody([string] $s, [int] $openBraceIndex) {
+    $depth = 0
+    for ($j = $openBraceIndex; $j -lt $s.Length; $j++) {
+        if ($s[$j] -eq '{') { $depth++ }
+        elseif ($s[$j] -eq '}') {
+            $depth--
+            if ($depth -eq 0) { return $s.Substring($openBraceIndex + 1, $j - $openBraceIndex - 1) }
+        }
+    }
+    return $null
+}
+
+$keyIdx = $text.IndexOf('["devShotRects"]')
+if ($keyIdx -lt 0) { throw 'No devShotRects in SavedVariables. Run /mh shots, then /reload, then this script.' }
+$openIdx = $text.IndexOf('{', $keyIdx)
+$tableBody = Get-BalancedBody $text $openIdx
+if (-not $tableBody) { throw "devShotRects table is not closed - SavedVariables truncated?" }
+
+# Top-level { ... } records inside that table.
+$records = @()
+for ($j = 0; $j -lt $tableBody.Length; $j++) {
+    if ($tableBody[$j] -eq '{') {
+        $rec = Get-BalancedBody $tableBody $j
+        if ($rec) { $records += $rec; $j += $rec.Length + 1 }
+    }
+}
 
 $rects = @()
-foreach ($m in [regex]::Matches($block.Groups[1].Value, '\{(.*?)\}', 'Singleline')) {
-    $body = $m.Groups[1].Value
+foreach ($body in $records) {
     $get = {
         param($key)
         $mm = [regex]::Match($body, '\["' + $key + '"\]\s*=\s*"?([^",\r\n]+)"?')
