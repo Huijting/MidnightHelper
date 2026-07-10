@@ -106,20 +106,31 @@ Write-Host "Found $($rects.Count) crop rectangles."
 # "Take the N newest files" seemed obvious and is wrong: one stray manual screenshot in
 # the folder shifts the whole mapping by one, and the crops still look plausible - the
 # first run cropped the mounts tab and labelled it 01-this-week.
+# PS 5.1 will not resolve TryParseExact when the provider is $null and the styles are a
+# bare string: both must be the real types.
+$STAMP_FMT = 'MMddyy_HHmmss'
+$STAMP_CULTURE = [Globalization.CultureInfo]::InvariantCulture
+$STAMP_STYLES = [Globalization.DateTimeStyles]::None
+
+function ConvertFrom-Stamp([string] $stamp) {
+    $when = [datetime]::MinValue
+    if ([datetime]::TryParseExact($stamp, $STAMP_FMT, $STAMP_CULTURE, $STAMP_STYLES, [ref]$when)) { return $when }
+    return $null
+}
+
 $candidates = @(Get-ChildItem -LiteralPath $shotDir -File |
     Where-Object { $_.Extension -in ".png", ".jpg", ".jpeg", ".tga" } |
     Where-Object { $_.BaseName -match '^WoWScrnShot_(\d{6}_\d{6})$' } |
     ForEach-Object {
         $null = $_.BaseName -match '^WoWScrnShot_(\d{6}_\d{6})$'
-        $when = $null
-        [void][datetime]::TryParseExact($Matches[1], 'MMddyy_HHmmss', $null, 'None', [ref]$when)
-        [pscustomobject]@{ File = $_; When = $when }
-    } | Where-Object { $_.When })
+        $when = ConvertFrom-Stamp $Matches[1]
+        if ($when) { [pscustomobject]@{ File = $_; When = $when } }
+    })
 
 function Resolve-Shot([string] $stamp) {
     if (-not $stamp) { return $null }
-    $want = $null
-    if (-not [datetime]::TryParseExact($stamp, 'MMddyy_HHmmss', $null, 'None', [ref]$want)) { return $null }
+    $want = ConvertFrom-Stamp $stamp
+    if (-not $want) { return $null }
     # Exact name first; otherwise the nearest shot within a few seconds, because WoW can
     # write the file a tick after the call.
     $hit = $candidates | Where-Object { $_.When -eq $want } | Select-Object -First 1
