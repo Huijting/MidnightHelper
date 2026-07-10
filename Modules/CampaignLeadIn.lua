@@ -40,19 +40,24 @@ local CAMPAIGN = {
 	startMapID = 2393, -- Silvermoon City
 	startX = 45.38, -- Orweyna (npc 253640); Zygor coords, matches Rob's screenshot
 	startY = 70.07,
-	-- `route` = a fallback objective coord (from Zygor) for steps whose current objective
-	-- is a TRAVEL/"arrive at the meeting" type that the game gives NO native waypoint for
-	-- (confirmed: /mh campaign showed `nextWaypoint -> none` for 92895). Only the Harandar
-	-- steps carry one — Harandar's uiMap (2413) is verified in our own Rares data. The
-	-- later steps sit in Atal'Aman / instanced Zul'Aman, whose uiMapIDs are unconfirmed;
+	-- `route` = a fallback objective coord for steps whose current objective is a
+	-- TRAVEL/"arrive at the meeting" type that the game gives NO native waypoint for
+	-- (confirmed: /mh campaign showed `nextWaypoint -> none` for 92895).
+	--
+	-- TWO Harandar maps are in play, and mixing them cost 478m the first time round:
+	--   * the meeting DEN = uiMap 2576 — Rob's /mh capture at the History Lesson NPCs
+	--     returned {2576, 44.36, 53.47, "Orweyna"}. Zygor's "Harandar/2" coords live here.
+	--   * outdoor Harandar = uiMap 2413 (verified in our Rares data). Zygor's "Harandar/0".
+	-- Later steps sit in Atal'Aman / instanced Zul'Aman, whose uiMapIDs are unconfirmed;
 	-- their kill/collect objectives usually DO get a native waypoint, so super-track
-	-- covers them and we do not guess a map here. Coords are Zygor's, confirm in-game.
+	-- covers them and we do not guess a map. If a later step gives no arrow, `/mh capture`
+	-- at that spot yields its uiMap and we pin it — same fix as the den.
 	chain = {
-		{ questID = 92895, nameKey = "CAMPAIGN_ULATEK_STARTQUEST", route = { mapID = 2413, x = 43.94, y = 53.20 } }, -- Hagar's Invitation → the meeting, Harandar
-		{ questID = 92899, route = { mapID = 2413, x = 43.55, y = 51.16 } }, -- History Lesson → Kinduru hub, Harandar
-		{ questID = 92900, route = { mapID = 2413, x = 54.43, y = 52.47 } }, -- A Favor for Kinduru → Zul'jan, Harandar
-		{ questID = 92901, route = { mapID = 2413, x = 37.57, y = 47.70 } }, -- Revisionist History → visionstone, Harandar
-		{ questID = 92904, route = { mapID = 2413, x = 34.80, y = 43.88 } }, -- Return to Zul'Aman → Rootway, Harandar
+		{ questID = 92895, nameKey = "CAMPAIGN_ULATEK_STARTQUEST", route = { mapID = 2576, x = 44.36, y = 53.47 } }, -- Hagar's Invitation → the meeting den (captured)
+		{ questID = 92899, route = { mapID = 2576, x = 44.36, y = 53.47 } }, -- History Lesson → delegates in the den (captured)
+		{ questID = 92900, route = { mapID = 2413, x = 54.43, y = 52.47 } }, -- A Favor for Kinduru → Zul'jan, outdoor Harandar
+		{ questID = 92901, route = { mapID = 2413, x = 37.57, y = 47.70 } }, -- Revisionist History → visionstone, outdoor Harandar
+		{ questID = 92904, route = { mapID = 2413, x = 34.80, y = 43.88 } }, -- Return to Zul'Aman → Rootway, outdoor Harandar
 		{ questID = 92907 }, -- Amani Answers (Atal'Aman — native waypoint)
 		{ questID = 92955 }, -- The Tablets of Numazon (Zul'Aman)
 		{ questID = 92957 }, -- There's the Rub (Zul'Aman)
