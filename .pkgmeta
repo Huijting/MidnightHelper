@@ -8,11 +8,16 @@ package-as: MidnightHelper
 enable-toc-creation: no
 enable-nolib-creation: no
 
-# Use the hand-written CHANGELOG.md for the CurseForge release notes instead of an
-# auto-generated dump of every commit. (The first-ever tag v2.5.0 had no previous tag
-# to bound against, so the packager pulled the entire history — this prevents that.)
+# Hand-written CurseForge release notes instead of an auto-generated dump of every
+# commit. (The first-ever tag v2.5.0 had no previous tag to bound against, so the
+# packager pulled the entire history.)
+#
+# The packager uploads this file VERBATIM, so it must hold only the CURRENT release.
+# Pointing it at CHANGELOG.md would paste all 700+ lines of history onto every
+# release page. Overwrite RELEASE_NOTES.md on each version bump; the full history
+# stays in CHANGELOG.md.
 manual-changelog:
-  filename: CHANGELOG.md
+  filename: RELEASE_NOTES.md
   markup-type: markdown
 
 # Everything below is kept OUT of the release zip (dev tooling, docs, build scripts,
@@ -33,6 +38,7 @@ ignore:
   - CLAUDE.md
   - README.md
   - CHANGELOG.md
+  - RELEASE_NOTES.md
   - RELEASE_CHECKLIST.md
   - CURSEFORGE_DESCRIPTION.md
   - "*.bat"

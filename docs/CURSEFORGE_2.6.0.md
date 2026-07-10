@@ -1,7 +1,7 @@
 # Midnight Helper 2.6.0 — CurseForge release notes
 
-Paste-ready. Ships as **Beta** first (tag `v2.6.0-beta1`) for Cisca to test, then as
-**Release** (tag `v2.6.0` on the same commit).
+Archive copy of the notes shipped with `v2.6.0`. The packager uploads `RELEASE_NOTES.md`
+(see `.pkgmeta`); this file is the per-version record.
 
 ---
 
