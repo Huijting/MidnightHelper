@@ -24,11 +24,12 @@ local function IsSecret(v)
 	return v ~= nil and issecretvalue ~= nil and issecretvalue(v) == true
 end
 
--- @return "openable" (loot-container met "<Right Click to Open>") | "knowledge"
--- (profession-studie-item: "Use: Study to increase your X Knowledge by N") | nil.
--- Beide gebruik je met dezelfde klik (SecureActionButton item); knowledge-items zijn
--- makkelijk te vergeten te "leren". De knowledge-detectie is tooltip-tekst-gebaseerd
--- (Engelse client — Rob/testers spelen Engels); later te lokaliseren indien nodig.
+-- @return "openable" (loot-container: "<Right Click to Open>" OF een "Use: Open …"-buidel)
+-- | "knowledge" (professie-studie-item: "Use: Study to increase your X Knowledge by N")
+-- | "learn" ("Use: Teaches you …" — mount/pet/toy/recept, makkelijk te vergeten in je tas)
+-- | nil. Alle drie gebruik je met dezelfde klik (SecureActionButton item). De detectie is
+-- tooltip-tekst-gebaseerd (Engelse client — Rob/testers spelen Engels); later te
+-- lokaliseren indien nodig.
 local function SlotKind(bag, slot)
 	if not (C_TooltipInfo and C_TooltipInfo.GetBagItem) then
 		return nil
@@ -44,8 +45,18 @@ local function SlotKind(bag, slot)
 			if openLine and (text == openLine or (strfind and strfind(text, openLine, 1, true))) then
 				return "openable"
 			end
-			-- "Use: Study/Read ... Knowledge by N" → profession-studie-item.
 			local lower = text:lower()
+			-- "Use: Open to gain some Gold" e.d. → een buidel die je gebruikt i.p.v.
+			-- rechtsklikt (die mist de "<Right Click to Open>"-regel). "use:" + "open"
+			-- op dezelfde regel houdt losse flavertekst als "opens at midnight" buiten.
+			if lower:find("use:", 1, true) and lower:find("open", 1, true) then
+				return "openable"
+			end
+			-- "Use: Teaches you …" → een mount/pet/toy/recept dat je nog moet leren.
+			if lower:find("use:", 1, true) and lower:find("teaches you", 1, true) then
+				return "learn"
+			end
+			-- "Use: Study/Read ... Knowledge by N" → professie-studie-item.
 			if lower:find("knowledge", 1, true)
 				and (lower:find("study", 1, true) or lower:find("read", 1, true)) then
 				return "knowledge"
@@ -83,7 +94,7 @@ local function ScanOpenables()
 							name = info.itemName or (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(info.itemID)) or "?",
 							icon = info.iconFileID or "Interface\\Icons\\INV_Misc_Bag_08",
 							count = info.stackCount or 1,
-							kind = kind, -- "openable" | "knowledge"
+							kind = kind, -- "openable" | "knowledge" | "learn"
 						}
 					end
 				end
