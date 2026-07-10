@@ -249,28 +249,15 @@ local function ScanPlayerDebuffs()
 	if not inScenario then
 		return
 	end
-	for i = 1, 60 do
-		local id, nm
-		if C_UnitAuras and C_UnitAuras.GetDebuffDataByIndex then
-			local a = C_UnitAuras.GetDebuffDataByIndex("player", i)
-			if not a then
-				break
-			end
-			id, nm = a.spellId, a.name
-		elseif UnitDebuff then
-			local n2, _, _, _, _, _, _, _, _, sid = UnitDebuff("player", i)
-			if not n2 then
-				break
-			end
-			id, nm = sid, n2
-		else
-			break
-		end
+	-- Via ns.Aura (Modules/Auras.lua): één plek voor guards, secret-values en de
+	-- aanstaande 12.1-aura-API. In restricted content leest 'ie niets en zwijgt de spy.
+	ns.Aura.ForEachPlayerDebuff(function(aura)
+		local id, nm = aura.spellId, aura.name
 		if id and not seenDebuff[id] then
 			seenDebuff[id] = true
 			SpyLog(("DEBUFF op jou: %d (%s)"):format(id, tostring(nm)))
 		end
-	end
+	end)
 end
 
 local function CurrentScenario()

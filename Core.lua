@@ -754,6 +754,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh auras — kunnen we auras lezen, en mogen we ze geloven? Eerste commando om te
+	-- draaien zodra 12.1 op de PTR staat (de aura-API verandert daar).
+	if msg == "auras" then
+		if ns.PrintAuraDiagnostics then
+			ns.PrintAuraDiagnostics()
+		end
+		return
+	end
+
 	-- /mh arrowsize [N] — resize the standalone route arrow (also in Settings > General).
 	if msg == "arrowsize" or msg:match("^arrowsize%s+") then
 		local n = tonumber(msg:match("^arrowsize%s+(%d+)$"))

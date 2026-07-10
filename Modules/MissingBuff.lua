@@ -43,12 +43,11 @@ local function IsKnown(spellID)
 	return false
 end
 
+-- nil (unreadable) counts as "has it": never nag about a buff we cannot see. The
+-- reminder is hidden wholesale by AurasUnreliable() anyway, but this keeps the
+-- fail-quiet behaviour if that gate ever moves.
 local function HasBuff(spellID)
-	if not (spellID and C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID) then
-		return false
-	end
-	local ok, data = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
-	return ok and data ~= nil
+	return ns.Aura.HasPlayerAura(spellID) ~= false
 end
 
 local function CurrentSpecID()
@@ -165,26 +164,12 @@ local function GroupUnits()
 	return t
 end
 
-local function UnitHasAura(unit, spellID)
-	if not (C_UnitAuras and C_UnitAuras.GetAuraDataByIndex) then
-		return false
-	end
-	for i = 1, 40 do
-		local ok, a = pcall(C_UnitAuras.GetAuraDataByIndex, unit, i, "HELPFUL")
-		if not ok or not a then
-			break
-		end
-		local sidv = a.spellId
-		if sidv and not (issecretvalue and issecretvalue(sidv)) and sidv == spellID then
-			return true
-		end
-	end
-	return false
-end
-
+-- Reading a party member's auras is exactly what 12.1 restricts, so this is the first
+-- read expected to go dark. An unreadable unit (nil) counts as "already buffed": the
+-- reminder must never claim the raid is missing a buff it simply cannot see.
 local function GroupHasBuff(spellID)
 	for _, u in ipairs(GroupUnits()) do
-		if UnitHasAura(u, spellID) then
+		if ns.Aura.HasUnitBuff(u, spellID) ~= false then
 			return true
 		end
 	end
@@ -653,31 +638,11 @@ local function HideSecure()
 	end
 end
 
--- 12.x restricted content (delves/rituals/M+): auras kunnen "secret" zijn → GetPlayerAuraBySpellID
--- e.d. leveren dan geen betrouwbaar resultaat, waardoor een aanwezige buff/shield als "mist"
--- wordt gezien (Cisca's shaman-shield-spam, 5 jul). Verberg de reminder dan volledig.
--- Directe check via Blizzards eigen C_Secrets.ShouldAurasBeSecret (zoals JustAC); fallback:
--- is player-health secret? (zelfde restricted-content-signaal).
+-- 12.x restricted content (delves/rituals/M+): auras kunnen "secret" zijn → een aanwezige
+-- buff/shield leest dan als "mist" (Cisca's shaman-shield-spam, 5 jul). Verberg de
+-- reminder dan volledig. De redenering zelf staat in Modules/Auras.lua (ns.Aura.Trusted).
 local function AurasUnreliable()
-	-- Blizzards eigen, AURA-specifieke vlag is gezaghebbend: is die beschikbaar,
-	-- dan vertrouwen we 'm volledig (return z'n waarde) en kijken we NIET naar health.
-	if C_Secrets and C_Secrets.ShouldAurasBeSecret then
-		local ok, v = pcall(C_Secrets.ShouldAurasBeSecret)
-		if ok then
-			return v and true or false
-		end
-	end
-	-- Fallback ALLEEN als die API ontbreekt (oude client). LET OP: player-health is
-	-- in open-wereld Midnight-zones (bv. Harandar) al "secret" terwijl auras prima
-	-- leesbaar zijn — dus health is géén betrouwbare proxy en mag NOOIT bovenop de
-	-- ShouldAurasBeSecret-check staan (dat onderdrukte de reminder overal onterecht).
-	if issecretvalue and UnitHealth then
-		local ok, hp = pcall(UnitHealth, "player")
-		if ok and hp ~= nil and issecretvalue(hp) then
-			return true
-		end
-	end
-	return false
+	return not ns.Aura.Trusted()
 end
 
 function ns.UpdateMissingBuff()

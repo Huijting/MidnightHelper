@@ -23,6 +23,7 @@ Libs\LibDBIcon-1.0.lua
 
 Core.lua
 Modules\Comms.lua
+Modules\Auras.lua
 Locales\enUS.lua
 Locales\deDE.lua
 Locales\frFR.lua

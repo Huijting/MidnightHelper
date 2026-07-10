@@ -174,14 +174,18 @@ local function UnitHasBuffFromSet(unit, set)
 	-- (set[aura.spellId] crasht: "cannot be indexed with secret keys"). Daarom de
 	-- lookup omdraaien: per BEKENDE spell-ID vragen of de speler die buff heeft.
 	-- GetPlayerAuraBySpellID neemt jouw eigen, niet-secret ID → secret-veilig.
-	if unit == "player" and C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
+	if unit == "player" then
+		local anyReadable = false
 		for spellID in pairs(set) do
-			local ok, data = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
-			if ok and data then
+			local has = ns.Aura.HasPlayerAura(spellID)
+			if has == true then
 				return true
+			elseif has == false then
+				anyReadable = true
 			end
 		end
-		return false
+		-- Nothing found. Only call that "no" if at least one lookup actually answered.
+		return anyReadable and false or nil
 	end
 	-- Andere units: hun aura-spellId's zijn secret en niet te matchen → onbekend
 	-- (MH-gebruikers vullen dit via comms; niet-MH blijft "?").
@@ -197,25 +201,23 @@ end
 -- (gewoon rood, geen "?" meer nodig).
 local WELL_FED_ICON = 136000
 
--- @return true (Well Fed) / false (niet) / nil (API mist).
+-- @return true (Well Fed) / false (niet) / nil (kon de auras niet lezen).
 local function PlayerWellFed()
-	if not (C_UnitAuras and C_UnitAuras.GetAuraDataByIndex) then
-		return nil
-	end
-	for i = 1, 40 do
-		local ok, aura = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, "HELPFUL")
-		if not ok or not aura then
-			break
-		end
+	local fed = false
+	local scanned = ns.Aura.ForEachPlayerBuff(function(aura)
 		local sid = aura.spellId
 		if not (issecretvalue and issecretvalue(sid)) then
 			local icon = aura.icon
 			if icon and not (issecretvalue and issecretvalue(icon)) and icon == WELL_FED_ICON then
-				return true
+				fed = true
+				return true -- stop
 			end
 		end
+	end)
+	if not scanned then
+		return nil
 	end
-	return false
+	return fed
 end
 
 --------------------------------------------------------------------------------
@@ -599,26 +601,9 @@ function ns.GetActiveRaidBuffDefs()
 	return out
 end
 
--- Heeft `unit` de aura met spellID? player → GetPlayerAuraBySpellID (secret-safe);
--- anderen → helpful auras scannen + spellID matchen (raid-buffs zijn niet secret).
+-- Heeft `unit` de aura met spellID? Zie Modules/Auras.lua: true / false / nil (onleesbaar).
 local function UnitHasAuraSpell(unit, spellID)
-	if unit == "player" and C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
-		local ok, data = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
-		return ok and data ~= nil
-	end
-	if C_UnitAuras and C_UnitAuras.GetAuraDataByIndex then
-		for i = 1, 40 do
-			local ok, aura = pcall(C_UnitAuras.GetAuraDataByIndex, unit, i, "HELPFUL")
-			if not ok or not aura then
-				break
-			end
-			local sid = aura.spellId
-			if sid and not (issecretvalue and issecretvalue(sid)) and sid == spellID then
-				return true
-			end
-		end
-	end
-	return false
+	return ns.Aura.HasUnitBuff(unit, spellID)
 end
 
 -- { [def.key] = true/false } voor de actieve raid-buff-defs.
@@ -643,17 +628,24 @@ function ns.GetRaidBuffHolders()
 	end
 	local out = {}
 	for _, def in ipairs(defs) do
-		local has, missing = {}, {}
+		-- Three buckets, not two. Patch 12.1 restricts reading other players' auras, and
+		-- a player we cannot read is not a player without the buff: putting them under
+		-- "missing" would accuse half the raid of forgetting a buff they are holding.
+		-- `unknown` is empty on today's client and nothing renders it yet.
+		local has, missing, unknown = {}, {}, {}
 		for _, u in ipairs(units) do
 			local _, ctoken = UnitClass(u)
 			local entry = { name = (UnitName and UnitName(u)) or u, class = ctoken }
-			if UnitHasAuraSpell(u, def.spellID) then
+			local state = UnitHasAuraSpell(u, def.spellID)
+			if state == true then
 				has[#has + 1] = entry
-			else
+			elseif state == false then
 				missing[#missing + 1] = entry
+			else
+				unknown[#unknown + 1] = entry
 			end
 		end
-		out[def.key] = { spellID = def.spellID, has = has, missing = missing }
+		out[def.key] = { spellID = def.spellID, has = has, missing = missing, unknown = unknown }
 	end
 	return out
 end
@@ -666,11 +658,8 @@ function ns.GetPlayerBuffRemaining()
 	local out = {}
 	local now = GetTime and GetTime() or 0
 	local function auraRem(spellID)
-		if not (C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID) then
-			return nil
-		end
-		local ok, aura = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
-		if not ok or not aura then
+		local aura = ns.Aura.GetPlayerAura(spellID)
+		if not aura then
 			return nil
 		end
 		local exp = aura.expirationTime
@@ -695,26 +684,22 @@ function ns.GetPlayerBuffRemaining()
 	out.flask = setRem(flaskBuffSet)
 	out.rune = setRem(runeBuffSet)
 	-- food: icon-scan voor de Well-Fed-aura → expirationTime
-	if C_UnitAuras and C_UnitAuras.GetAuraDataByIndex then
-		for i = 1, 40 do
-			local ok, aura = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, "HELPFUL")
-			if not ok or not aura then
-				break
-			end
-			local sid = aura.spellId
-			if not (issecretvalue and issecretvalue(sid)) then
-				local icon = aura.icon
-				if icon and not (issecretvalue and issecretvalue(icon)) and icon == WELL_FED_ICON then
-					local exp = aura.expirationTime
-					if exp and not (issecretvalue and issecretvalue(exp)) and exp > 0 then
-						local r = exp - now
-						out.food = r > 0 and r or nil
-					end
-					break
-				end
-			end
+	ns.Aura.ForEachPlayerBuff(function(aura)
+		local sid = aura.spellId
+		if issecretvalue and issecretvalue(sid) then
+			return
 		end
-	end
+		local icon = aura.icon
+		if not (icon and not (issecretvalue and issecretvalue(icon)) and icon == WELL_FED_ICON) then
+			return
+		end
+		local exp = aura.expirationTime
+		if exp and not (issecretvalue and issecretvalue(exp)) and exp > 0 then
+			local r = exp - now
+			out.food = r > 0 and r or nil
+		end
+		return true -- stop
+	end)
 	-- weapon: tijdelijke wapen-enchant (mainHandExpiration in ms)
 	if GetWeaponEnchantInfo then
 		local ok, he, ms = pcall(GetWeaponEnchantInfo)
@@ -850,35 +835,28 @@ end
 -- Hulpcommando: dump je actieve HELPFUL-auras met spell-ID + resterende tijd.
 -- Handig om de echte flask/rune-buff-ID's te controleren tegen GetItemSpell.
 function ns.PrintPlayerAuraDump()
-	if not (C_UnitAuras and C_UnitAuras.GetAuraDataByIndex) then
-		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("AURADUMP_HEADER")))
-		print("  " .. Col(C_BAD, "C_UnitAuras.GetAuraDataByIndex " .. ns:L("CONSREADY_API_MISSING")))
-		return
-	end
 	local now = (GetTime and GetTime()) or 0
 	-- Dump zowel buffs (HELPFUL) als debuffs (HARMFUL); debuffs nodig om bv. de
 	-- ritual "Fragility"-debuff te kunnen vangen.
-	local function dump(filter, headerKey)
+	local function dump(each, headerKey)
 		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L(headerKey)))
-		local i = 1
-		while true do
-			local ok, data = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, filter)
-			if not ok or not data then
-				break
-			end
+		local n = 0
+		local scanned = each(function(data)
+			n = n + 1
 			local remain = ""
 			if data.expirationTime and data.expirationTime > 0 then
 				remain = ("  (%ds)"):format(math.max(0, math.floor(data.expirationTime - now)))
 			end
 			print(("  |cff71d5ff%d|r  %s%s"):format(data.spellId or 0, tostring(data.name or "?"), remain))
-			i = i + 1
-		end
-		if i == 1 then
+		end)
+		if not scanned then
+			print("  " .. Col(C_BAD, "C_UnitAuras.GetAuraDataByIndex " .. ns:L("CONSREADY_API_MISSING")))
+		elseif n == 0 then
 			print("  " .. Col(C_UNK, ns:L("AURADUMP_NONE")))
 		end
 	end
-	dump("HELPFUL", "AURADUMP_HEADER")
-	dump("HARMFUL", "AURADUMP_DEBUFF_HEADER")
+	dump(ns.Aura.ForEachPlayerBuff, "AURADUMP_HEADER")
+	dump(ns.Aura.ForEachPlayerDebuff, "AURADUMP_DEBUFF_HEADER")
 end
 
 --------------------------------------------------------------------------------

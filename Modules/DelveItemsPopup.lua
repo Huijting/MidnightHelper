@@ -659,91 +659,55 @@ EnsureSpellIdMapForItem = function(itemID)
 	end
 end
 
+-- Spell-ID lookups only (no addon-side comparison of aura.spellId — secret in combat).
+-- ns.Aura tries both client APIs; nil (unreadable) is not a buff we may claim to see.
 local function PlayerHasBuffSpell(spellID)
-	if not spellID then
-		return false
-	end
-	-- Only spell-ID lookup APIs (no addon-side comparison of aura.spellId — secret in combat).
-	if C_UnitAuras and C_UnitAuras.GetAuraDataBySpellID then
-		local ok, aura = pcall(C_UnitAuras.GetAuraDataBySpellID, "player", spellID)
-		if ok and aura then
-			return true
-		end
-		ok, aura = pcall(C_UnitAuras.GetAuraDataBySpellID, spellID)
-		if ok and aura then
-			return true
-		end
-	end
-	if C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
-		local ok, aura = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
-		if ok and aura then
-			return true
-		end
-	end
-	return false
+	return ns.Aura.HasPlayerAura(spellID) == true
 end
 
-local function PlayerHasLootRadarBuff()
-	if C_UnitAuras and C_UnitAuras.ForEachAura then
-		local found = false
-		local ok = pcall(C_UnitAuras.ForEachAura, "player", "HELPFUL", 60, function(auraData)
-			if found or not auraData then
-				return
-			end
-			local name = auraData.name
-			if not name and auraData.spellId and not IsSecretValue(auraData.spellId) and C_Spell and C_Spell.GetSpellName then
-				local nOk, n = pcall(C_Spell.GetSpellName, auraData.spellId)
-				if nOk then
-					name = n
-				end
-			end
-			if auraData.spellId and not IsSecretValue(auraData.spellId) and SPELL_IDS_TO_ITEM[auraData.spellId] == ITEM_RADAR then
-				found = true
-			elseif type(name) == "string" and not IsSecretValue(name) then
-				local lower = name:lower()
-				if lower:find("raid%-r", 1, true) or lower:find("l00t", 1, true) or lower:find("loot raid", 1, true)
-					or lower:find("mislaid", 1, true) or lower:find("curio", 1, true) then
-					found = true
-				end
-			end
-		end, true)
-		if ok and found then
-			return true
+--- Is one of the player's helpful auras the buff granted by `itemID`?
+---
+--- Two ways in, because neither is reliable alone: the aura's spell ID mapped back to
+--- its item, or the aura's NAME against a few substrings (the buff's spell ID has
+--- changed across builds). Secret values are skipped rather than compared against.
+local function PlayerHasItemBuff(itemID, nameNeedles)
+	local found = false
+	ns.Aura.ForEachPlayerBuff(function(aura)
+		local sid = aura.spellId
+		if sid and not IsSecretValue(sid) and SPELL_IDS_TO_ITEM[sid] == itemID then
+			found = true
+			return true -- stop
 		end
-	end
-	return false
+		local name = aura.name
+		if not name and sid and not IsSecretValue(sid) and C_Spell and C_Spell.GetSpellName then
+			local nOk, n = pcall(C_Spell.GetSpellName, sid)
+			if nOk then
+				name = n
+			end
+		end
+		if type(name) == "string" and not IsSecretValue(name) then
+			local lower = name:lower()
+			for _, needle in ipairs(nameNeedles) do
+				if lower:find(needle, 1, true) then
+					found = true
+					return true -- stop
+				end
+			end
+		end
+	end)
+	return found
+end
+
+-- Needles are matched literally (plain find). Kept verbatim from the original scan.
+local RADAR_NEEDLES = { "raid%-r", "l00t", "loot raid", "mislaid", "curio" }
+local TROVE_NEEDLES = { "trove", "bounty", "trovehunter" }
+
+local function PlayerHasLootRadarBuff()
+	return PlayerHasItemBuff(ITEM_RADAR, RADAR_NEEDLES)
 end
 
 local function PlayerHasTroveBountyBuff()
-	if C_UnitAuras and C_UnitAuras.ForEachAura then
-		local found = false
-		local ok = pcall(C_UnitAuras.ForEachAura, "player", "HELPFUL", 60, function(auraData)
-			if found or not auraData then
-				return
-			end
-			if auraData.spellId and not IsSecretValue(auraData.spellId) and SPELL_IDS_TO_ITEM[auraData.spellId] == ITEM_TREASURE then
-				found = true
-				return
-			end
-			local name = auraData.name
-			if not name and auraData.spellId and not IsSecretValue(auraData.spellId) and C_Spell and C_Spell.GetSpellName then
-				local nOk, n = pcall(C_Spell.GetSpellName, auraData.spellId)
-				if nOk then
-					name = n
-				end
-			end
-			if type(name) == "string" and not IsSecretValue(name) then
-				local lower = name:lower()
-				if lower:find("trove", 1, true) or lower:find("bounty", 1, true) or lower:find("trovehunter", 1, true) then
-					found = true
-				end
-			end
-		end, true)
-		if ok and found then
-			return true
-		end
-	end
-	return false
+	return PlayerHasItemBuff(ITEM_TREASURE, TROVE_NEEDLES)
 end
 
 local function PlayerHasActiveBuffsForItem(itemID)

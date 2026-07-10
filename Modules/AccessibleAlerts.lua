@@ -122,36 +122,20 @@ local function ScanDebuffs()
 	if now - lastAlertAt < MIN_GAP then
 		return
 	end
-	-- Eigen auras zijn leesbaar; tóch alles in pcall voor de zekerheid.
+	-- Alle aura-reads lopen via ns.Aura (zie Modules/Auras.lua): guards, secret-values
+	-- en de 12.1-API-migratie zitten daar op één plek. Kan de scan niet, dan zwijgen we.
 	local fired
-	pcall(function()
-		for i = 1, 60 do
-			local id, nm
-			if C_UnitAuras and C_UnitAuras.GetDebuffDataByIndex then
-				local au = C_UnitAuras.GetDebuffDataByIndex("player", i)
-				if not au then
-					break
-				end
-				id, nm = au.spellId, au.name
-			elseif UnitDebuff then
-				local n2, _, _, _, _, _, _, _, _, sid = UnitDebuff("player", i)
-				if not n2 then
-					break
-				end
-				id, nm = sid, n2
+	ns.Aura.ForEachPlayerDebuff(function(aura)
+		local id, nm = aura.spellId, aura.name
+		local key = id and ns.DEBUFF_ALERTS[id]
+		if key and (lastBySpell[id] or 0) + PER_SPELL_GAP <= now then
+			lastBySpell[id] = now
+			if type(key) == "string" then
+				fired = ns:L(key)
 			else
-				break
+				fired = ns:L("ALERT_DEBUFF_FMT"):format(tostring(nm))
 			end
-			local key = id and ns.DEBUFF_ALERTS[id]
-			if key and (lastBySpell[id] or 0) + PER_SPELL_GAP <= now then
-				lastBySpell[id] = now
-				if type(key) == "string" then
-					fired = ns:L(key)
-				else
-					fired = ns:L("ALERT_DEBUFF_FMT"):format(tostring(nm))
-				end
-				break
-			end
+			return true -- stop scanning
 		end
 	end)
 	if fired then

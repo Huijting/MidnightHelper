@@ -89,11 +89,8 @@ function ns.GetTrovehunterState()
 	local weeklyLooted = IsQuestCompleted(TROVE_QUEST_LOOTED)
 	local bountyUsed = IsQuestCompleted(TROVE_QUEST_USED)
 	local inBag = GetTrovehunterMapCount()
-	local auraActive = false
-	if C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
-		local ok, aura = pcall(C_UnitAuras.GetPlayerAuraBySpellID, TROVE_AURA_SPELL)
-		auraActive = ok and aura ~= nil
-	end
+	-- nil (unreadable) is not "active": only claim the buff is up when we actually saw it.
+	local auraActive = ns.Aura.HasPlayerAura(TROVE_AURA_SPELL) == true
 
 	local status = "available"
 	if auraActive then
