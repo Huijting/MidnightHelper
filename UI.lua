@@ -623,9 +623,6 @@ function ns:ApplyCompactMode()
 	if refs.searchBar and refs.searchBar.SetHeight then
 		refs.searchBar:SetHeight(m.searchBarHeight)
 	end
-	if refs.aboutBtn and refs.aboutBtn.SetSize then
-		refs.aboutBtn:SetSize(m.aboutBtnWidth, m.aboutBtnHeight)
-	end
 	if refs.addonsSubNav and refs.addonsSubNav.SetHeight then
 		refs.addonsSubNav:SetHeight(m.addonSubNavHeight)
 	end
@@ -1647,11 +1644,24 @@ function ns:EnsureMainUI()
 	infoToggleBtn:SetPoint("RIGHT", closeBtn, "LEFT", -4, 0)
 	MHTintButtonTextures(infoToggleBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
 
+	-- About lives here, beside Info — not pinned to the sidebar bottom, where a growing
+	-- tab list (Trading Post pushed it over) collided with the last group (Rob, 10 jul).
+	local aboutBtn = CreateFrame("Button", "MidnightHelperAboutBtn", titleBar, "UIPanelButtonTemplate")
+	aboutBtn:SetSize(56, 22)
+	aboutBtn:SetPoint("RIGHT", infoToggleBtn, "LEFT", -4, 0)
+	MHTintButtonTextures(aboutBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
+	aboutBtn:SetText(ns:L("ABOUT_BUTTON"))
+	aboutBtn:SetScript("OnClick", function()
+		if ns._mhToggleAboutPanel then
+			ns:_mhToggleAboutPanel()
+		end
+	end)
+
 	-- Phase 3 cross-link: "Read in Codex"-knop, verschijnt bij tabs met een
 	-- Codex-tegenhanger (gevuld door SelectTab) en springt naar die categorie.
 	local codexLinkBtn = CreateFrame("Button", "MidnightHelperCodexLink", titleBar, "UIPanelButtonTemplate")
 	codexLinkBtn:SetSize(110, 20)
-	codexLinkBtn:SetPoint("RIGHT", infoToggleBtn, "LEFT", -6, 0)
+	codexLinkBtn:SetPoint("RIGHT", aboutBtn, "LEFT", -6, 0)
 	MHTintButtonTextures(codexLinkBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
 	codexLinkBtn:SetText(ns:L("CODEX_LINK_OPEN"))
 	codexLinkBtn:SetScript("OnClick", function(self)
@@ -2051,17 +2061,7 @@ function ns:EnsureMainUI()
 	betaSepBottom:SetColorTexture(0.45, 0.40, 0.30, 0.45)
 	sidebar._mhBetaSepBottom = betaSepBottom
 
-	-- About stays pinned to the bottom
-	local aboutBtn = CreateFrame("Button", "MidnightHelperAboutBtn", sidebar, "UIPanelButtonTemplate")
-	aboutBtn:SetSize(MHGetLayoutMetrics().aboutBtnWidth, MHGetLayoutMetrics().aboutBtnHeight)
-	aboutBtn:SetPoint("BOTTOM", sidebar, "BOTTOM", 0, ABOUT_BTN_BOTTOM_INSET)
-	MHTintButtonTextures(aboutBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
-	aboutBtn:SetText(ns:L("ABOUT_BUTTON"))
-	aboutBtn:SetScript("OnClick", function()
-		if ns._mhToggleAboutPanel then
-			ns:_mhToggleAboutPanel()
-		end
-	end)
+	-- (About button now lives in the title bar beside Info; see above.)
 
 	-- Content region: hosts one visible module panel at a time.
 	local content = CreateFrame("Frame", nil, main)
@@ -2717,12 +2717,12 @@ function ns:EnsureMainUI()
 			end
 		end
 
-		-- Keep the window tall enough for the full sidebar so the bottom-pinned
-		-- About button never overlaps the last tab. Recomputed on every relayout,
-		-- so toggling beta tabs tightens or loosens the minimum automatically.
+		-- Keep the window tall enough for the full sidebar's tabs. About no longer sits
+		-- at the sidebar bottom (it moved to the title bar), so we only reserve a little
+		-- bottom padding — which is why the last tab used to be crowded by About.
 		do
 			local tabsHeight = -yy
-			local aboutArea = lm.aboutBtnHeight + ABOUT_BTN_BOTTOM_INSET + 8
+			local aboutArea = 8
 			local overhead = MH_MAIN_EDGE.T + TITLE_BAR_HEIGHT + lm.searchBarHeight + MH_MAIN_EDGE.B
 			local requiredH = math.min(MAX_HEIGHT, math.ceil(tabsHeight + aboutArea + overhead))
 			local minH = math.max(MIN_HEIGHT, requiredH)
