@@ -40,22 +40,29 @@ local CAMPAIGN = {
 	startMapID = 2393, -- Silvermoon City
 	startX = 45.38, -- Orweyna (npc 253640); Zygor coords, matches Rob's screenshot
 	startY = 70.07,
+	-- `route` = a fallback objective coord (from Zygor) for steps whose current objective
+	-- is a TRAVEL/"arrive at the meeting" type that the game gives NO native waypoint for
+	-- (confirmed: /mh campaign showed `nextWaypoint -> none` for 92895). Only the Harandar
+	-- steps carry one — Harandar's uiMap (2413) is verified in our own Rares data. The
+	-- later steps sit in Atal'Aman / instanced Zul'Aman, whose uiMapIDs are unconfirmed;
+	-- their kill/collect objectives usually DO get a native waypoint, so super-track
+	-- covers them and we do not guess a map here. Coords are Zygor's, confirm in-game.
 	chain = {
-		{ questID = 92895, nameKey = "CAMPAIGN_ULATEK_STARTQUEST" }, -- Hagar's Invitation
-		{ questID = 92899 }, -- History Lesson
-		{ questID = 92900 }, -- A Favor for Kinduru
-		{ questID = 92901 }, -- Revisionist History
-		{ questID = 92904 }, -- Return to Zul'Aman
-		{ questID = 92907 }, -- Amani Answers
-		{ questID = 92955 }, -- The Tablets of Numazon
-		{ questID = 92957 }, -- There's the Rub
-		{ questID = 92958 }, -- Brain Drain
-		{ questID = 92951 }, -- Digging Deeper
-		{ questID = 92952 }, -- Mission to Maisara
-		{ questID = 92953 }, -- Memories of Malacrass
-		{ questID = 92954 }, -- Maisara Caverns: Master of Souls
-		{ questID = 93010 }, -- The Serpent Shrine
-		{ questID = 93011 }, -- Legacy of the Amani (Chapter 1 capstone)
+		{ questID = 92895, nameKey = "CAMPAIGN_ULATEK_STARTQUEST", route = { mapID = 2413, x = 43.94, y = 53.20 } }, -- Hagar's Invitation → the meeting, Harandar
+		{ questID = 92899, route = { mapID = 2413, x = 43.55, y = 51.16 } }, -- History Lesson → Kinduru hub, Harandar
+		{ questID = 92900, route = { mapID = 2413, x = 54.43, y = 52.47 } }, -- A Favor for Kinduru → Zul'jan, Harandar
+		{ questID = 92901, route = { mapID = 2413, x = 37.57, y = 47.70 } }, -- Revisionist History → visionstone, Harandar
+		{ questID = 92904, route = { mapID = 2413, x = 34.80, y = 43.88 } }, -- Return to Zul'Aman → Rootway, Harandar
+		{ questID = 92907 }, -- Amani Answers (Atal'Aman — native waypoint)
+		{ questID = 92955 }, -- The Tablets of Numazon (Zul'Aman)
+		{ questID = 92957 }, -- There's the Rub (Zul'Aman)
+		{ questID = 92958 }, -- Brain Drain (Zul'Aman)
+		{ questID = 92951 }, -- Digging Deeper (Zul'Aman)
+		{ questID = 92952 }, -- Mission to Maisara (Zul'Aman)
+		{ questID = 92953 }, -- Memories of Malacrass (Zul'Aman)
+		{ questID = 92954 }, -- Maisara Caverns: Master of Souls (Zul'Aman)
+		{ questID = 93010 }, -- The Serpent Shrine (Atal'Aman)
+		{ questID = 93011 }, -- Legacy of the Amani — Chapter 1 capstone (Atal'Aman)
 		{ questID = 93012 }, -- Dead End
 	},
 	rewards = {
@@ -103,10 +110,11 @@ function ns.GetCampaignLeadInState()
 	end
 
 	-- The step to point at: the first chain quest not yet completed.
-	local activeQuestID, allDone = nil, true
+	local activeQuestID, activeRoute, allDone = nil, nil, true
 	for _, step in ipairs(CAMPAIGN.chain) do
 		if not QuestDone(step.questID) then
 			activeQuestID = step.questID
+			activeRoute = step.route
 			allDone = false
 			break
 		end
@@ -119,6 +127,7 @@ function ns.GetCampaignLeadInState()
 	return {
 		name = ns:L(CAMPAIGN.nameKey),
 		status = status,
+		activeRoute = activeRoute, -- fallback objective coord when the game has no waypoint
 		startMapID = CAMPAIGN.startMapID,
 		startX = CAMPAIGN.startX,
 		startY = CAMPAIGN.startY,
@@ -168,9 +177,17 @@ function ns.RouteCampaignLeadIn()
 			pcall(C_Map.ClearUserWaypoint)
 		end
 		SuperTrackQuest(st.activeQuestID)
-		-- No fallback coords: draw a waypoint only if the objective genuinely has one.
+		-- Prefer the game's own objective waypoint. `route` is the fallback coord for the
+		-- steps whose objective has none (the Harandar travel/meeting objectives), so the
+		-- arrow points somewhere instead of dying — never back to the campaign start.
+		local r = st.activeRoute
 		if ns.AddSmartQuestRoute then
-			ns.AddSmartQuestRoute(st.activeQuestID, nil, nil, nil, st.name)
+			if ns.AddSmartQuestRoute(st.activeQuestID, r and r.mapID, r and r.x, r and r.y, st.name) then
+				return true
+			end
+		end
+		if r and ns.AddSmartTomTomWay then
+			return ns.AddSmartTomTomWay(r.mapID, r.x, r.y, st.name)
 		end
 		return true
 	end
