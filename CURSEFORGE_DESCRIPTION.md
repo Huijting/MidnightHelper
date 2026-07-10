@@ -11,7 +11,19 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 ### Highlights
 
 **This Week (home)**
-- **Home dashboard** opens by default: weekly reset countdown, account-wide Great Vault status, this week's world boss, weekly chores (SMC, keys, shards), and a shortcut to Rares — your week at a glance.
+- **"Next up"** leads the page: the single most useful thing you can do right now, with a **Take me there** button that sets the route, and a tally of how far you are through the week. While you're levelling it never proposes endgame content you can't do yet.
+- **Home dashboard**: weekly reset countdown, account-wide Great Vault status, this week's world boss, weekly chores (SMC, keys, shards), Ritual Sites and Void Assaults with one-click routes, and shortcuts to Rares, Raids and your mount hunt. Fold any section away — your choice is remembered.
+
+**Collectible mounts**
+- **Collectible mounts** tab — a checklist of the **17 new Midnight mounts**: a green tick for the ones you own, a red cross for the rest.
+- Live progress per mount (renown level, meta-achievement steps, items banked), **how to get it** in one line, and a floating **3D preview** beside the window when you hover a name — drag to spin.
+- Hover a *Voidlight Marl* line to see your balance on **every character**.
+- Mounts that are pure RNG — a rare drop, a puzzle, a hidden quest chain — show **no progress bar at all**, because there is no honest number to show.
+
+**Raids**
+- **Raids** page — boss steps for all three Season 1 raids and their nine bosses (The Dreamrift, The Voidspire, March on Quel'Danas), with tank/healer/dps lines and **clickable spell links**. Boss names come from the Encounter Journal, so they follow your game language.
+- The **Raid Coach** window still opens by itself the moment a boss pull starts; the page is for preparing beforehand.
+- **Search a boss by name** to jump straight to its steps — 52 bosses across dungeons and raids.
 
 **Leveling & Layout — the class coach**
 - A **live keyboard layout** that reads your **actual spellbook** and shows every ability on the key it belongs on, following one clear, universal keybind standard — so a new alt or a fresh spec is instantly readable.

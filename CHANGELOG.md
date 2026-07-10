@@ -2,6 +2,31 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.6.0] - 2026-07-10
+
+Two new pages — a **Collectible mounts** tab and a **Raids** page — and a beginner-focused pass over the whole window, so Midnight Helper answers *"what should I do right now?"* before it answers anything else.
+
+### Added
+
+- **Collectible mounts tab** (*Me → Collectible mounts*) — a checklist of the 17 new Midnight mounts. A green tick for the ones you own, a red cross for the rest; each shows live progress (renown level, meta-achievement steps, item counts), how to get it, and a floating **3D preview** when you hover its name. Hover a Voidlight Marl line for your balance across every character. Mounts that are pure RNG — a rare drop, a puzzle, a hidden chain — honestly show no progress bar rather than a made-up one.
+- **Raids page** (*Codex → Raids*) — boss steps for all three Season 1 raids and their nine bosses, with tank/healer/dps lines and clickable spell links. Boss names come from the Encounter Journal, so they follow your game language. The Raid Coach still opens by itself on a boss pull; this page is for preparing beforehand.
+- **"Next up" headline on Home** — the single most useful thing to do right now, with a **Take me there** button and a tally of your weekly progress.
+- **Bosses in search** — type a boss name to open its coach steps directly (52 bosses across dungeons and raids).
+
+### Changed
+
+- **Search index** — the *Collectible mounts*, *Raids* and *Pop-out windows* tabs were missing from it entirely; typing "mount" found nothing. Fixed.
+- **First run** now opens the Start Here roadmap instead of a tour of the window's buttons, and Start Here leads with its six-step plan (the walkthrough sits below it, collapsed).
+- **Home** opens with fewer sections unfolded and packs the folded ones into a tidy two-column grid. Everything is one click away and your choice is remembered. Existing choices are reset once so the new defaults apply.
+- **Sidebar** — the Character list is grouped into *Collections*, *Gear*, *Resources* and *Alts & history*.
+- **Names** — Home → **This Week**, SMC City Guide → **Silvermoon City**, Launchpad → **Pop-out windows**.
+- **Colours** — one shared palette: "done" is the same green and "do this" the same amber on every page.
+- **Translations** — everything above is available in German, French, Spanish, Portuguese and Italian.
+
+### Fixed
+
+- Ritual Sites and Void Assaults offered a "pick it up" step at any level, so a levelling character could have been sent at endgame content as the headline action. They are now gated behind max level for that purpose; they still appear in the checklist below it.
+
 ## [2.5.0] - 2026-07-09
 
 Adds support for the new **Devourer** Demon Hunter specialization, refreshes consumables for 12.0.7, and folds in the July distribution / onboarding / polish batch.
