@@ -24,12 +24,16 @@ local _, ns = ...
 
 -- The window's own SetResizeBounds caps it at 1000x920 UI units, so asking for more is
 -- pointless: a bigger *picture* comes from scaling the frame, not from sizing it.
-local SHOT_W, SHOT_H = 1000, 780
+--
+-- 900 tall, not 780: the sidebar has no overflow handling — its tabs stack downwards while
+-- the About button is pinned to the bottom — so a short window slides the last group under
+-- it. At 780 the "Alts & history" group collided with About in the first clean run.
+local SHOT_W, SHOT_H = 1000, 900
 local PREVIEW_W = 250 -- the floating 3D preview, which must stay on screen beside it
 
 -- How much of the screen's height the window should fill. Pixels are what a gallery
 -- thumbnail is judged on, and they depend on the UI scale, not on the resolution.
-local FILL_HEIGHT = 0.72
+local FILL_HEIGHT = 0.78
 
 local STEP_DELAY = 0.9 -- long enough for the async model / tip re-measure ticks
 
