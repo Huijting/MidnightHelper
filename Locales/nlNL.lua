@@ -3041,4 +3041,13 @@ ns._mhLocales.nlNL = {
 	LOOT_UP_ILVL_DOWN_FMT = "-%d ilvl",
 	LOOT_UP_ILVL_SAME = "zelfde ilvl",
 	LOOT_UP_FORSPEC = "voor jouw spec",
+
+	-- Post-run scorecard
+	SCORE_TIER_FMT = "(T%d)",
+	SCORE_RECORD = "je snelste tot nu toe!",
+	SCORE_FASTER = "sneller dan je gemiddelde",
+	SCORE_SLOWER = "iets trager dan normaal",
+	SCORE_NO_DEATHS = "geen deaths",
+	SCORE_DEATHS_ONE = "1 death",
+	SCORE_DEATHS_FMT = "%d deaths",
 }

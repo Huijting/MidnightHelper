@@ -404,6 +404,22 @@ local function LogRun(name, tier, duration, deaths, keyUsed, boss, wasBountiful)
 		table.remove(entry.recent)
 	end
 
+	-- Post-run scorecard hook (Modules/RunScorecard.lua). Passes the run + the
+	-- updated lifetime totals so the card can say "faster than your average" etc.
+	if ns.OnDelveRunLogged then
+		ns.OnDelveRunLogged({
+			name = name,
+			tier = tier or 0,
+			duration = duration or 0,
+			deaths = deaths or 0,
+			boss = (boss and boss ~= "") and boss or nil,
+			wasBountiful = wasBountiful and true or false,
+			runs = life.totalRuns or 1,
+			fastestTime = life.fastestTime or 0,
+			totalDuration = life.totalDuration or 0,
+		})
+	end
+
 	if ns.RefreshDelveLogPanel then
 		ns.RefreshDelveLogPanel()
 	end

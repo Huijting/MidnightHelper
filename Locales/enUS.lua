@@ -3121,4 +3121,13 @@ ns._mhLocales.enUS = {
 	LOOT_UP_ILVL_DOWN_FMT = "-%d ilvl",
 	LOOT_UP_ILVL_SAME = "same ilvl",
 	LOOT_UP_FORSPEC = "for your spec",
+
+	-- Post-run scorecard
+	SCORE_TIER_FMT = "(T%d)",
+	SCORE_RECORD = "fastest yet!",
+	SCORE_FASTER = "faster than your average",
+	SCORE_SLOWER = "a bit slower than usual",
+	SCORE_NO_DEATHS = "no deaths",
+	SCORE_DEATHS_ONE = "1 death",
+	SCORE_DEATHS_FMT = "%d deaths",
 }

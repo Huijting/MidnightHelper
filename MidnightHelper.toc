@@ -156,6 +156,7 @@ Modules\SettingsPage.lua
 Modules\ShardCapAlert.lua
 Modules\WorldContent.lua
 Modules\DelveHistory.lua
+Modules\RunScorecard.lua
 Modules\RitualLog.lua
 Modules\DelveCoach.lua
 Modules\DelverCallData.lua

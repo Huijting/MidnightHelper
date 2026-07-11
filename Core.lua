@@ -790,6 +790,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh scorecard — toggle the post-run delve summary line.
+	if msg == "scorecard" then
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		if ns.ToggleRunScorecard then
+			local on = ns.ToggleRunScorecard()
+			print(("%s post-run scorecard: %s"):format(prefix, on and "on" or "off"))
+		end
+		return
+	end
+
 	-- /mh arrowsize [N] — resize the standalone route arrow (also in Settings > General).
 	if msg == "arrowsize" or msg:match("^arrowsize%s+") then
 		local n = tonumber(msg:match("^arrowsize%s+(%d+)$"))
