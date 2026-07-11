@@ -1,0 +1,37 @@
+# Data-integrity linter (Design Spec 06): guards that what the code *names* exists —
+# missing ns:L/VL keys, unregistered .toc files, duplicate locale keys, search-index
+# coverage. HARD checks fail the build; locale parity is reported softly. No network.
+
+name: Addon lint
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Locales/**"
+      - "Modules/**"
+      - "*.lua"
+      - "*.toc"
+      - "tools/lint_addon.py"
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - "Locales/**"
+      - "Modules/**"
+      - "*.lua"
+      - "*.toc"
+      - "tools/lint_addon.py"
+      - ".github/workflows/**"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Addon lint
+        run: python tools/lint_addon.py
