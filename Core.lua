@@ -771,6 +771,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh season — toon de S1→S2-fase + elk item met opgeloste achievement/quest-naam,
+	-- zodat de IDs (bv. KSM 61256) in-game te verifiëren zijn vóór we ze vertrouwen.
+	if msg == "season" then
+		if ns.PrintSeasonTransitionDiagnostics then
+			ns.PrintSeasonTransitionDiagnostics()
+		end
+		return
+	end
+
 	-- /mh arrowsize [N] — resize the standalone route arrow (also in Settings > General).
 	if msg == "arrowsize" or msg:match("^arrowsize%s+") then
 		local n = tonumber(msg:match("^arrowsize%s+(%d+)$"))

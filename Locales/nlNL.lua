@@ -3019,4 +3019,16 @@ ns._mhLocales.nlNL = {
 	GUIDE_GEAR_WARRIOR_PROT_4 = "Bij vergelijkbaar item level: prioriteer Protection secondaries (|cffffcc00Haste|r, daarna |cffffcc00Versatility|r).",
 
 	GUIDE_PANEL_MISSING = "Guide — ns.panels.guide ontbreekt (UI nog niet klaar?).",
+
+	-- Season transition (Spec 05) — S1→S2 checklist
+	ST_TITLE = "Seizoensovergang",
+	ST_CLOSE_HEADER = "Season 1 sluit binnenkort — maak dit af",
+	ST_PREP_HEADER = "Klaarmaken voor Season 2",
+	ST_SEASON_SOON = "Opent ~1 week na de patch",
+	ST_CLOSE_KSM = "Keystone Master (Season 1-mount)",
+	ST_CLOSE_AOTC = "Ahead of the Curve (huidige raid)",
+	ST_CLOSE_CE = "Cutting Edge (huidige raid)",
+	ST_PREP_LEADIN = "Doe de 12.1 lead-in quest",
+	ST_PREP_ISLE = "Ontgrendel Coiled Isle",
+	ST_PREP_ALTS = "Level & gear je alts",
 }

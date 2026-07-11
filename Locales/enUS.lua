@@ -3099,4 +3099,16 @@ ns._mhLocales.enUS = {
 	GUIDE_GEAR_WARRIOR_PROT_4 = "When item level is close, prioritize Protection secondaries (|cffffcc00Haste|r then |cffffcc00Versatility|r).",
 
 	GUIDE_PANEL_MISSING = "Guide — ns.panels.guide missing (UI not ready yet?).",
+
+	-- Season transition (Spec 05) — S1→S2 checklist
+	ST_TITLE = "Season transition",
+	ST_CLOSE_HEADER = "Season 1 closes soon — finish these",
+	ST_PREP_HEADER = "Get ready for Season 2",
+	ST_SEASON_SOON = "Opens ~1 week after the patch",
+	ST_CLOSE_KSM = "Keystone Master (Season 1 mount)",
+	ST_CLOSE_AOTC = "Ahead of the Curve (current raid)",
+	ST_CLOSE_CE = "Cutting Edge (current raid)",
+	ST_PREP_LEADIN = "Do the 12.1 lead-in quest",
+	ST_PREP_ISLE = "Unlock the Coiled Isle",
+	ST_PREP_ALTS = "Level & gear your alts",
 }

@@ -166,6 +166,8 @@ Modules\MidnightCodex.lua
 Modules\MountProgress.lua
 Modules\MountsPanel.lua
 Modules\TradingPost.lua
+Modules\SeasonTransitionData.lua
+Modules\SeasonTransition.lua
 Modules\CampaignLeadIn.lua
 Modules\HomeDashboard.lua
 Modules\NavSearch.lua
