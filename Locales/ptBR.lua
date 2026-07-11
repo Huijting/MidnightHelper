@@ -75,7 +75,6 @@ local OVERRIDES = {
 	SIDEBAR_SECTION_CHARACTER = "PERSONAGEM",
 	SIDEBAR_SECTION_GUIDES = "GUIAS",
 	SIDEBAR_SECTION_TOOLS = "FERRAMENTAS",
-	TAB_CODEX = "Midnight Codex",
 	TAB_HOME = "Esta semana",
 	INFO_DRAWER_BODY_HOME = "Sua página semanal: status da Grande Câmara em seus personagens, o chefe de mundo ativo, tarefas semanais e raros — com acesso direto a cada aba detalhada.",
 	HOME_TITLE = "Esta semana",

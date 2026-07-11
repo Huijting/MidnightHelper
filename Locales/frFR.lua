@@ -75,7 +75,6 @@ local OVERRIDES = {
 	SIDEBAR_SECTION_CHARACTER = "PERSONNAGE",
 	SIDEBAR_SECTION_GUIDES = "GUIDES",
 	SIDEBAR_SECTION_TOOLS = "OUTILS",
-	TAB_CODEX = "Midnight Codex",
 	TAB_HOME = "Cette semaine",
 	INFO_DRAWER_BODY_HOME = "Ta page d'accueil hebdomadaire : statut de la Grande Chambre forte sur tes personnages, le boss de monde actif, les tâches hebdomadaires et les rares — avec un accès direct à chaque onglet détaillé.",
 	HOME_TITLE = "Cette semaine",

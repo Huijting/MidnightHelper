@@ -75,7 +75,6 @@ local OVERRIDES = {
 	SIDEBAR_SECTION_CHARACTER = "PERSONAJE",
 	SIDEBAR_SECTION_GUIDES = "GUÍAS",
 	SIDEBAR_SECTION_TOOLS = "HERRAMIENTAS",
-	TAB_CODEX = "Midnight Codex",
 	TAB_HOME = "Esta semana",
 	INFO_DRAWER_BODY_HOME = "Tu página semanal: estado de la Cámara Acorazada en tus personajes, el jefe de mundo activo, tareas semanales y raros — con acceso directo a cada pestaña detallada.",
 	HOME_TITLE = "Esta semana",
