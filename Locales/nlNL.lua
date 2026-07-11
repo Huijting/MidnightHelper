@@ -3022,7 +3022,7 @@ ns._mhLocales.nlNL = {
 
 	-- Season transition (Spec 05) — S1→S2 checklist
 	ST_TITLE = "Seizoensovergang",
-	ST_CLOSE_HEADER = "Season 1 sluit binnenkort — maak dit af",
+	ST_CLOSE_HEADER = "Season 1 afronden vóór Season 2 begint",
 	ST_PREP_HEADER = "Klaarmaken voor Season 2",
 	ST_SEASON_SOON = "Opent ~1 week na de patch",
 	ST_CLOSE_KSM = "Keystone Master (Season 1-mount)",

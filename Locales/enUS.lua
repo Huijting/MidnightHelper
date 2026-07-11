@@ -3102,7 +3102,7 @@ ns._mhLocales.enUS = {
 
 	-- Season transition (Spec 05) — S1→S2 checklist
 	ST_TITLE = "Season transition",
-	ST_CLOSE_HEADER = "Season 1 closes soon — finish these",
+	ST_CLOSE_HEADER = "Wrap up Season 1 before Season 2",
 	ST_PREP_HEADER = "Get ready for Season 2",
 	ST_SEASON_SOON = "Opens ~1 week after the patch",
 	ST_CLOSE_KSM = "Keystone Master (Season 1 mount)",
