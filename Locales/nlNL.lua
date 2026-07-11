@@ -3032,4 +3032,13 @@ ns._mhLocales.nlNL = {
 	ST_PREP_ISLE = "Ontgrendel Coiled Isle",
 	ST_PREP_ALTS = "Level & gear je alts",
 	ST_DISMISS = "Begrepen — verbergen",
+
+	-- Loot upgrade tips (tooltip)
+	LOOT_UP_UPGRADE = "Upgrade",
+	LOOT_UP_SIDEGRADE = "Sidegrade",
+	LOOT_UP_LOWER = "Slechter",
+	LOOT_UP_ILVL_UP_FMT = "+%d ilvl",
+	LOOT_UP_ILVL_DOWN_FMT = "-%d ilvl",
+	LOOT_UP_ILVL_SAME = "zelfde ilvl",
+	LOOT_UP_FORSPEC = "voor jouw spec",
 }

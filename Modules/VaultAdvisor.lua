@@ -821,6 +821,38 @@ local function CompareToEquipped(link, weights)
 	return scoreDelta, ilvlDelta, bestName
 end
 
+-- Public: loot-upgrade check for one item link vs. what is equipped in its slot.
+-- Reuses the vault scorer + the current spec's stat weights (Modules/LootUpgrade.lua
+-- surfaces this on item tooltips). Returns nil for non-gear, an empty slot, or when
+-- weights/ilvl are unavailable — never a guessed verdict.
+function ns.GetLootUpgradeInfo(link)
+	if not link then
+		return nil
+	end
+	local equipLoc = GetEquipLoc(link)
+	if not equipLoc or equipLoc == "" then
+		return nil
+	end
+	local ilvl = select(1, GetItemLevelFromLink(link))
+	if not ilvl or ilvl < 1 then
+		return nil
+	end
+	local weights = GetSpecWeights()
+	if not weights then
+		return nil
+	end
+	local scoreDelta, ilvlDelta, equippedName = CompareToEquipped(link, weights)
+	if scoreDelta == nil then
+		return nil -- nothing equipped in that slot to compare against
+	end
+	return {
+		newIlvl = ilvl,
+		ilvlDelta = ilvlDelta,
+		scoreDelta = scoreDelta,
+		equippedName = equippedName,
+	}
+end
+
 local function IsVaultFallbackToken(name, equipLoc, ilvl)
 	if equipLoc and equipLoc ~= "" and (ilvl or 0) >= 200 then
 		return false

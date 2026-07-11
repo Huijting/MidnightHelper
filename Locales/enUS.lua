@@ -3112,4 +3112,13 @@ ns._mhLocales.enUS = {
 	ST_PREP_ISLE = "Unlock the Coiled Isle",
 	ST_PREP_ALTS = "Level & gear your alts",
 	ST_DISMISS = "Got it — hide",
+
+	-- Loot upgrade tips (tooltip)
+	LOOT_UP_UPGRADE = "Upgrade",
+	LOOT_UP_SIDEGRADE = "Sidegrade",
+	LOOT_UP_LOWER = "Lower",
+	LOOT_UP_ILVL_UP_FMT = "+%d ilvl",
+	LOOT_UP_ILVL_DOWN_FMT = "-%d ilvl",
+	LOOT_UP_ILVL_SAME = "same ilvl",
+	LOOT_UP_FORSPEC = "for your spec",
 }

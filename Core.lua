@@ -780,6 +780,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh loot — toggle the loot-upgrade tooltip tips (is this drop better for my spec?).
+	if msg == "loot" then
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		if ns.ToggleLootUpgradeTips then
+			local on = ns.ToggleLootUpgradeTips()
+			print(("%s loot upgrade tips: %s"):format(prefix, on and "on" or "off"))
+		end
+		return
+	end
+
 	-- /mh arrowsize [N] — resize the standalone route arrow (also in Settings > General).
 	if msg == "arrowsize" or msg:match("^arrowsize%s+") then
 		local n = tonumber(msg:match("^arrowsize%s+(%d+)$"))
