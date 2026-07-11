@@ -142,6 +142,23 @@ function ns:GetLocalePreferenceCode()
 	return pref
 end
 
+-- After SavedVariables load: if the player forced a client-locale pack that was
+-- gated out (their WoW client isn't that language, so Spec 11 locale-gating skipped
+-- building it), tell them once. It falls back to English to save memory and loads
+-- automatically when their client matches. enUS/nlNL/auto are never gated.
+function ns:ReconcileGatedLocale()
+	local pref = self:GetLocalePreferenceCode()
+	if pref == ns.MH_LOCALE_AUTO or pref == "enUS" or pref == "nlNL" then
+		return
+	end
+	if self:HasLocalePack(pref) then
+		return
+	end
+	if self.PrintChatKey then
+		self:PrintChatKey("LANG_GATED_NOTICE", self:GetLocaleDisplayName(pref) or pref)
+	end
+end
+
 function ns:GetEffectiveLocaleCode()
 	local pref = self:GetLocalePreferenceCode()
 	if pref == ns.MH_LOCALE_AUTO then

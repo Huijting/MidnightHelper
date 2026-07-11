@@ -11,6 +11,13 @@ local _, ns = ...
 
 ns._mhLocales = ns._mhLocales or {}
 
+-- Locale-gating (Spec 11 3a): only build this pack when the client is frFR.
+-- enUS + nlNL always load, so auto-detect and forced Dutch keep working; forcing
+-- frFR on another client shows a login notice and loads once the client is frFR.
+if GetLocale() ~= "frFR" then
+	return
+end
+
 local OVERRIDES = {
 	BINDING_HEADER_MIDNIGHTHELPER = "Midnight Helper",
 	BINDING_NAME_TOGGLEMAIN = "Afficher / masquer la fenêtre principale",

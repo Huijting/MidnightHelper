@@ -11,6 +11,13 @@ local _, ns = ...
 
 ns._mhLocales = ns._mhLocales or {}
 
+-- Locale-gating (Spec 11 3a): only build this pack when the client is esES.
+-- enUS + nlNL always load, so auto-detect and forced Dutch keep working; forcing
+-- esES on another client shows a login notice and loads once the client is esES.
+if GetLocale() ~= "esES" then
+	return
+end
+
 local OVERRIDES = {
 	BINDING_HEADER_MIDNIGHTHELPER = "Midnight Helper",
 	BINDING_NAME_TOGGLEMAIN = "Mostrar u ocultar ventana principal",

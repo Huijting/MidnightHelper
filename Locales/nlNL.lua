@@ -23,6 +23,7 @@ ns._mhLocales.nlNL = {
 	FRAME_SIZE_REPORT = "Hoofdvenster %d×%d (UI-schaal %.2f). Opgeslagen: %s×%s — pas aan met het sleephoekje; wordt automatisch opgeslagen.",
 	UI_LOADING = "Interface laadt nog.",
 	LANG_SET = "Taal ingesteld op %s.",
+	LANG_GATED_NOTICE = "Je gekozen taal (%s) is niet geladen op deze WoW-client, dus Midnight Helper toont Engels. Dit bespaart geheugen; hij laadt vanzelf als je client op die taal staat.",
 	LANG_SET_CHAT_FALLBACK = "Party/delve-chat tips gebruiken Engels op deze WoW-client (sommige scripts vereisen een passende client). De UI blijft in je gekozen taal.",
 	LANG_UNKNOWN = "Onbekende taal %q. Gebruik: auto, en, nl, de, fr, es, …",
 	LANG_SLASH_HINT = "Gebruik: /mh lang auto  |  /mh lang en  |  /mh lang de  |  /mh lang fr  |  /mh lang es  |  /mh lang pt  |  /mh lang nl  (auto = WoW-clienttaal)",

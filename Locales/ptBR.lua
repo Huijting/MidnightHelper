@@ -11,6 +11,13 @@ local _, ns = ...
 
 ns._mhLocales = ns._mhLocales or {}
 
+-- Locale-gating (Spec 11 3a): only build this pack when the client is ptBR.
+-- enUS + nlNL always load, so auto-detect and forced Dutch keep working; forcing
+-- ptBR on another client shows a login notice and loads once the client is ptBR.
+if GetLocale() ~= "ptBR" then
+	return
+end
+
 local OVERRIDES = {
 	BINDING_HEADER_MIDNIGHTHELPER = "Midnight Helper",
 	BINDING_NAME_TOGGLEMAIN = "Abrir ou fechar janela principal",

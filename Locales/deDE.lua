@@ -11,6 +11,15 @@ local _, ns = ...
 
 ns._mhLocales = ns._mhLocales or {}
 
+-- Locale-gating (Spec 11 3a): only build this ~3700-key pack when the client is
+-- deDE. enUS + nlNL always load (fallback + the manual-only Dutch pack), so
+-- auto-detect and forced Dutch keep working. Forcing deDE on a non-deDE client
+-- shows a notice at login (ns:ReconcileGatedLocale) and loads once the WoW client
+-- is deDE. Skips a full enUS-sized table copy at login for other clients.
+if GetLocale() ~= "deDE" then
+	return
+end
+
 local OVERRIDES = {
 	BINDING_HEADER_MIDNIGHTHELPER = "Midnight Helper",
 	BINDING_NAME_TOGGLEMAIN = "Hauptfenster ein-/ausblenden",

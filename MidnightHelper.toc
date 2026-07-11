@@ -87,6 +87,7 @@ Modules\VaultReminder.lua
 Modules\VaultAdvisorData.lua
 Modules\VaultAdvisor.lua
 Modules\LootUpgrade.lua
+Modules\BagUpgrade.lua
 Modules\GearEnchantCheck.lua
 Modules\ConsumableReadyCheck.lua
 Modules\ConsumableReadyComms.lua

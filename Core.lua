@@ -350,6 +350,9 @@ function ns:OnEvent(event, ...)
 		if self.MigrateLocalePreference then
 			self:MigrateLocalePreference()
 		end
+		if self.ReconcileGatedLocale then
+			self:ReconcileGatedLocale()
+		end
 		if self.ApplyBindingLabels then
 			self:ApplyBindingLabels()
 		end
@@ -381,6 +384,11 @@ function ns:SetLocale(code, silent)
 	end
 	if self.db then
 		self.db.locale = normalized
+	end
+	-- If they picked a language whose pack is gated out on this client, say so now
+	-- (rather than silently staying English).
+	if self.ReconcileGatedLocale then
+		self:ReconcileGatedLocale()
 	end
 	if not silent then
 		local label = self.GetLocaleDisplayNameForChat and self:GetLocaleDisplayNameForChat(normalized)
@@ -795,6 +803,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	if msg == "death" then
 		if ns.PrintDeathRecapDiagnostics then
 			ns.PrintDeathRecapDiagnostics()
+		end
+		return
+	end
+
+	-- /mh bagarrows — toggle the green upgrade arrows on bag items.
+	if msg == "bagarrows" then
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		if ns.ToggleBagUpgradeArrows then
+			local on = ns.ToggleBagUpgradeArrows()
+			print(("%s bag upgrade arrows: %s"):format(prefix, on and "on" or "off"))
 		end
 		return
 	end
