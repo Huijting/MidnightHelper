@@ -3130,4 +3130,9 @@ ns._mhLocales.enUS = {
 	SCORE_NO_DEATHS = "no deaths",
 	SCORE_DEATHS_ONE = "1 death",
 	SCORE_DEATHS_FMT = "%d deaths",
+	SCORE_DETAIL_FMT = "vs avg %s · fastest %s",
+
+	-- Death recap (retrospective)
+	DEATH_RECAP_HEAD = "Almost!",
+	DEATH_RECAP_LESSON_FMT = "You took heavy damage from %s — next time interrupt it or step out of it.",
 }

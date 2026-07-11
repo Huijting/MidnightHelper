@@ -3050,4 +3050,9 @@ ns._mhLocales.nlNL = {
 	SCORE_NO_DEATHS = "geen deaths",
 	SCORE_DEATHS_ONE = "1 death",
 	SCORE_DEATHS_FMT = "%d deaths",
+	SCORE_DETAIL_FMT = "vs gem. %s · snelste %s",
+
+	-- Death recap (retrospective)
+	DEATH_RECAP_HEAD = "Bijna!",
+	DEATH_RECAP_LESSON_FMT = "Je kreeg zware schade van %s — onderbreek 't of loop eruit volgende keer.",
 }

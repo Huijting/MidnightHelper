@@ -790,7 +790,26 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	-- /mh scorecard — toggle the post-run delve summary line.
+	-- /mh death — probe C_DeathInfo + what we can read of the last death recap,
+	-- so the beginner death-recap can be finalised against the real API.
+	if msg == "death" then
+		if ns.PrintDeathRecapDiagnostics then
+			ns.PrintDeathRecapDiagnostics()
+		end
+		return
+	end
+
+	-- /mh scorecard detail — toggle the die-hard detail line (exact seconds delta).
+	if msg == "scorecard detail" then
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		if ns.ToggleScorecardDetail then
+			local on = ns.ToggleScorecardDetail()
+			print(("%s scorecard detail line: %s"):format(prefix, on and "on" or "off"))
+		end
+		return
+	end
+
+	-- /mh scorecard — toggle the post-run delve/ritual summary line.
 	if msg == "scorecard" then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 		if ns.ToggleRunScorecard then

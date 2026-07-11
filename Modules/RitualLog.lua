@@ -167,6 +167,19 @@ local function LogRun(name, tier, duration, deaths)
 	while #entry.recent > MAX_RECENT do
 		table.remove(entry.recent)
 	end
+	-- Post-run scorecard hook (Modules/RunScorecard.lua), same shape as DelveHistory.
+	if ns.OnRitualRunLogged then
+		ns.OnRitualRunLogged({
+			name = name,
+			tier = tier or 0,
+			duration = duration or 0,
+			deaths = deaths or 0,
+			runs = life.totalRuns or 1,
+			fastestTime = life.fastestTime or 0,
+			totalDuration = life.totalDuration or 0,
+			isRitual = true,
+		})
+	end
 	if ns.RefreshDelveLogPanel then
 		ns.RefreshDelveLogPanel()
 	end
