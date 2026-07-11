@@ -3111,4 +3111,5 @@ ns._mhLocales.enUS = {
 	ST_PREP_LEADIN = "Do the 12.1 lead-in quest",
 	ST_PREP_ISLE = "Unlock the Coiled Isle",
 	ST_PREP_ALTS = "Level & gear your alts",
+	ST_DISMISS = "Got it — hide",
 }

@@ -48,6 +48,22 @@ function ns.GetSeasonPhase()
 	return "closing"
 end
 
+-- Newcomer = a character that provably did NOT engage Season 1. never-lie: we only
+-- ever conclude "not a newcomer" from a real signal (an M+ score). A zero score does
+-- NOT prove they skipped S1 (they may have raided), so we return nil (uncertain) and
+-- the UI keeps showing the checklist WITH a dismiss — never a silent hide on a guess.
+-- Returns (isNewcomer, mplusScore): false = engaged S1; nil = uncertain.
+function ns.IsSeasonNewcomer()
+	local score = 0
+	if C_MythicPlus and C_MythicPlus.GetOverallDungeonScore then
+		score = C_MythicPlus.GetOverallDungeonScore() or 0
+	end
+	if score and score > 0 then
+		return false, score
+	end
+	return nil, score
+end
+
 -- ---------------------------------------------------------------- status resolvers
 -- Each returns status ("done"/"todo"/"unknown") and, where it can, a resolved name
 -- so /mh season can prove the id maps to the intended achievement/quest.
@@ -125,6 +141,31 @@ function ns.ToggleSeasonManual(id)
 	return t.manualDone[id] == true
 end
 
+-- Dismiss: the Home card can be hidden, but it comes back on a phase change (a new
+-- phase is new, relevant information the player should see once).
+local function phaseGate()
+	local t = sdb()
+	local phase = ns.GetSeasonPhase()
+	if t.lastPhase ~= phase then
+		t.lastPhase = phase
+		t.dismissedCard = false
+	end
+	return phase, t
+end
+
+function ns.IsSeasonCardDismissed()
+	local _, t = phaseGate()
+	return t.dismissedCard == true
+end
+
+function ns.DismissSeasonCard()
+	local t = sdb()
+	t.dismissedCard = true
+	if ns.RefreshHomePanel then
+		ns.RefreshHomePanel()
+	end
+end
+
 -- ---------------------------------------------------------------- Home-compatible steps
 local function L(key)
 	return (ns.L and ns:L(key)) or key
@@ -172,6 +213,12 @@ function ns.PrintSeasonTransitionDiagnostics()
 		ClientBuild(),
 		tostring(ns.SEASON2 and ns.SEASON2.patchInterface),
 		tostring(ns.SEASON2 and ns.SEASON2.mplusSeasonId)
+	))
+	local newcomer, score = ns.IsSeasonNewcomer()
+	print(("   season newcomer: %s (M+ score %s) · card dismissed: %s"):format(
+		newcomer == false and "no" or (newcomer == nil and "unknown" or "yes"),
+		tostring(score),
+		tostring(ns.IsSeasonCardDismissed and ns.IsSeasonCardDismissed())
 	))
 
 	local function report(label, list)

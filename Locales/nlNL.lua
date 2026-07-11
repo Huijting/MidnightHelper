@@ -3031,4 +3031,5 @@ ns._mhLocales.nlNL = {
 	ST_PREP_LEADIN = "Doe de 12.1 lead-in quest",
 	ST_PREP_ISLE = "Ontgrendel Coiled Isle",
 	ST_PREP_ALTS = "Level & gear je alts",
+	ST_DISMISS = "Begrepen — verbergen",
 }

@@ -298,7 +298,8 @@ local function BuildLayout()
 	end
 
 	------------------------------------------------------------------ Season transition (S1 → S2, leads in Phase A)
-	if ns.GetSeasonTransitionSteps then
+	local seasonDismissed = ns.IsSeasonCardDismissed and ns.IsSeasonCardDismissed()
+	if ns.GetSeasonTransitionSteps and not seasonDismissed then
 		local okS, sSteps = pcall(ns.GetSeasonTransitionSteps)
 		if okS and type(sSteps) == "table" and #sSteps > 0 then
 			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
@@ -309,6 +310,15 @@ local function BuildLayout()
 				for i, st in ipairs(sSteps) do
 					local prefix = (st.color == "good") and (ICON_DONE .. " ") or ("%d. "):format(i)
 					line(rows, prefix .. (st.text or ""), colorMap[st.color] or COLOR_DIM, st.onClick)
+				end
+				if ns.DismissSeasonCard then
+					rows[#rows + 1] = {
+						button = true,
+						text = ns:L("ST_DISMISS"),
+						onClick = function()
+							ns.DismissSeasonCard()
+						end,
+					}
 				end
 			end)
 		end
