@@ -39,6 +39,22 @@ ns.CODEX_CATEGORIES = {
 }
 
 ns.CODEX_ARTICLES = {
+	-- Season 2 / patch 12.1 beginner layer (Spec 09) — framing of confirmed
+	-- systems, no invented IDs/numbers; browsable now, relevant at the S2 flip.
+	{
+		id = "s2_new_season",
+		category = "start",
+		titleKey = "CODEX_S2_TITLE",
+		bodyKey = "CODEX_S2_BODY",
+		sort = 5,
+	},
+	{
+		id = "s2_terms",
+		category = "start",
+		titleKey = "CODEX_S2GLOSS_TITLE",
+		bodyKey = "CODEX_S2GLOSS_BODY",
+		sort = 6,
+	},
 	-- 12.0.7 nieuw (datamined; in-game bevestigen bij launch)
 	{
 		id = "omnium_folio",
