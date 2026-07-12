@@ -727,11 +727,13 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	elseif ns.SetBlizzardUserWaypoint then
 		ns.SetBlizzardUserWaypoint(targetMap, xPct, yPct)
 	end
-	-- Single-destination route with no specific owner (WB/TP/campaign/ritual/…):
-	-- take generic ownership so NativeArrow guides even without TomTom. Specific
-	-- routes (rare/treasure/reset/achievement) set their own owner and win; the
-	-- delve buttons set "delve" right after this call to keep their themed arrow.
-	if ns._mhRouteOwner == nil then
+	-- Single-destination route: take generic ownership so NativeArrow guides even
+	-- without TomTom. Also RESET a stale single-dest owner (a previous delve/waypoint
+	-- route you never arrived at) so a new route shows the right colour instead of the
+	-- old one. Managed routes (rare/treasure/reset/achievement) set their own owner and
+	-- are left untouched; the delve buttons set "delve" right after this call.
+	local o = ns._mhRouteOwner
+	if o == nil or o == "waypoint" or o == "delve" then
 		ns._mhRouteOwner = "waypoint"
 	end
 	end -- not travelOnly

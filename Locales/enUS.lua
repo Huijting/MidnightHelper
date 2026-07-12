@@ -45,7 +45,7 @@ ns._mhLocales.enUS = {
 
 	-- SMC / waypoint
 	WAYPOINT_SET = "Waypoint set: %s (#%d %.1f, %.1f)",
-	SMC_GUIDE_TITLE = "SMC City Guide",
+	SMC_GUIDE_TITLE = "Silvermoon City Guide",
 	SMC_GUIDE_SUBTITLE = "Master guide for Silvermoon City (Map 2393) — click for map pin + TomTom.",
 	SMC_CHECKLIST_TITLE = "Weekly / hub progress",
 	SMC_CHECKLIST_HINT = "Uses quest completion where IDs are configured (verify IDs after patches). Matching waypoint buttons tint green when done.",

@@ -261,7 +261,12 @@ local function UpdateArrow()
 	end
 	f.tex:Show()
 	-- North-pointing texture, rotated counter-clockwise for positive radians.
-	f.tex:SetRotation(atan2(dy, dx) - facing + ROTATION_OFFSET)
+	local rot = atan2(dy, dx) - facing + ROTATION_OFFSET
+	f.tex:SetRotation(rot)
+	if f.texOutline then
+		f.texOutline:Show()
+		f.texOutline:SetRotation(rot)
+	end
 	-- Accent colour follows the content type owning the arrow; the "almost there"
 	-- green still wins when you're right on top of the target.
 	local style = OwnerStyle()
@@ -334,6 +339,16 @@ local function EnsureArrowFrame()
 			GameTooltip:Hide()
 		end
 	end)
+
+	-- Dark halo BEHIND the arrow (one layer down, a few px larger) so the coloured
+	-- arrow reads on any background — bright sky, pale walls. Scales with the frame
+	-- (anchored to its corners with a fixed inset) and rotates with the arrow.
+	local outline = f:CreateTexture(nil, "ARTWORK")
+	outline:SetTexture("Interface\\Minimap\\MinimapArrow")
+	outline:SetPoint("TOPLEFT", f, "TOPLEFT", -3, 3)
+	outline:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 3, -3)
+	outline:SetVertexColor(0, 0, 0, 0.85)
+	f.texOutline = outline
 
 	local tex = f:CreateTexture(nil, "OVERLAY")
 	tex:SetTexture("Interface\\Minimap\\MinimapArrow")
@@ -431,6 +446,10 @@ function ns.PreviewNativeArrow(seconds)
 	f.tex:Show()
 	f.tex:SetRotation(0)
 	f.tex:SetVertexColor(1, 0.82, 0)
+	if f.texOutline then
+		f.texOutline:Show()
+		f.texOutline:SetRotation(0)
+	end
 	f.label:SetText("Midnight Helper")
 	f._preview = true
 	f:Show()

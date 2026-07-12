@@ -44,7 +44,7 @@ ns._mhLocales.nlNL = {
 	LOCALE_AUTO_HINT = "Volgt je WoW-clienttaal als er een vertaling is; anders Engels. Nederlands altijd handmatig kiezen.",
 
 	WAYPOINT_SET = "Waypoint gezet: %s (#%d %.1f, %.1f)",
-	SMC_GUIDE_TITLE = "SMC City Guide",
+	SMC_GUIDE_TITLE = "Silvermoon City Guide",
 	SMC_GUIDE_SUBTITLE = "Master Guide voor Silvermoon City (Map 2393) — klik voor pin + TomTom.",
 	SMC_CHECKLIST_TITLE = "Weekly / hub voortgang",
 	SMC_CHECKLIST_HINT = "Gebruikt quest completion waar IDs zijn ingevuld (IDs na patches verifiëren). Bijbehorende waypoint-knoppen worden groen als af.",

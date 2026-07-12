@@ -934,6 +934,15 @@ local function SetSMCWaypoint(point)
 		end
 	end
 
+	-- Drive MidnightHelper's own on-screen arrow too (SMC sets its waypoint directly,
+	-- so it wasn't engaging NativeArrow). Give it a lead + generic ownership, resetting
+	-- a stale single-dest route so the arrow points here.
+	ns.lastTarget = { mapID = mapID, x = tonumber(point.x) or 0, y = tonumber(point.y) or 0, name = point.label }
+	local o = ns._mhRouteOwner
+	if o == nil or o == "waypoint" or o == "delve" then
+		ns._mhRouteOwner = "waypoint"
+	end
+
 	TriggerTomTomWaySlash(point)
 	print(
 		("|cffffcc00%s|r %s"):format(
