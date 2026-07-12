@@ -318,6 +318,9 @@ local function RouteToDelveRow(rd)
 		return false
 	end
 	local ok = ns.AddSmartTomTomWay(rd.mapID, rd.x, rd.y, rd.name)
+	if ok then
+		ns._mhRouteOwner = "delve" -- claim the shared on-screen arrow (draws without TomTom)
+	end
 	if ok and not ns.IsTomTomReady() then
 		print(
 			("|cffffcc00%s|r %s"):format(
@@ -2217,6 +2220,7 @@ local function OnFindNearestBountifulClick()
 		local _, mapID, x, yPct, name = row[1], row[2], row[3], row[4], row[5]
 		if select(1, GetDelveBountifulState(name, mapID)) then
 			if ns.AddSmartTomTomWay(mapID, x, yPct, name) then
+				ns._mhRouteOwner = "delve" -- claim the shared on-screen arrow
 				print(string.format(ns:L("DELVES_BOUNTIFUL_ROUTE"), tostring(name)))
 			end
 			return
@@ -2303,6 +2307,7 @@ local function OnFindNearestDelveClick()
 		return
 	end
 	if ns.AddSmartTomTomWay(target.mapID, target.x, target.y, target.name) then
+		ns._mhRouteOwner = "delve" -- claim the shared on-screen arrow
 		print(string.format(ns:L("DELVES_NEAREST_ROUTE"), tostring(target.name)))
 	end
 end
