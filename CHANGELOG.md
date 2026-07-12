@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.7.0] - 2026-07-12
+
+Everyday decisions, made easier — *"is this an upgrade?"* and *"how did that run go?"* — plus a calm on-ramp to the next season and a route arrow that finally guides every route.
+
+### Added
+
+- **Loot upgrade tips** — hover any gear and Midnight Helper says whether it's an **Upgrade**, **Sidegrade** or **Lower** for your spec, with the exact item-level change (same stat weights as the Great Vault advisor). Upgrades also get a green arrow on the bag item. Toggle with `/mh loot`.
+- **Season transition checklist** — as a new season approaches, *This Week* shows what to wrap up now and, once the patch is live, how to get ready for the next one. Signal-driven from the client build + M+ season, so it only appears when relevant and never shows a made-up "done". `/mh season`.
+- **Post-run scorecard** — one friendly line after a Midnight delve or ritual: your time (with a nudge vs your own average / a record) and deaths. `/mh scorecard`, plus `/mh scorecard detail` for the exact numbers.
+- **Season 2 in the Codex** — a reassuring "what a new season means" explainer and a Season 2 glossary (crest, upgrade track, tier set, Catalyst, Bountiful, Nemesis, Lair, start-of-season rescale).
+
+### Changed
+
+- **Route arrow** — Midnight Helper's own on-screen arrow now guides delves, world bosses, the Trading Post, Silvermoon City and more (not just rares/treasures) even without TomTom, and releases on arrival. It's **brighter with a dark outline** so it reads on any background.
+- **Find nearest bountiful delve** now measures distance and picks the actually-closest one (it used to return the first in roster order).
+- **Lighter at login** — only your active language pack is built instead of all seven, for lower memory use.
+
+### Fixed
+
+- An error could repeatedly appear inside delves, dungeons and Mythic+ (the game hides some aura details in that content, which the accessibility/ritual debuff scans tripped over — *"cannot be indexed with secret keys"*). Now handled quietly.
+
 ## [2.6.0] - 2026-07-10
 
 Two new pages — a **Collectible mounts** tab and a **Raids** page — and a beginner-focused pass over the whole window, so Midnight Helper answers *"what should I do right now?"* before it answers anything else.
