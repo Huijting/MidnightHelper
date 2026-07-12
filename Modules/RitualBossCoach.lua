@@ -253,9 +253,14 @@ local function ScanPlayerDebuffs()
 	-- aanstaande 12.1-aura-API. In restricted content leest 'ie niets en zwijgt de spy.
 	ns.Aura.ForEachPlayerDebuff(function(aura)
 		local id, nm = aura.spellId, aura.name
-		if id and not seenDebuff[id] then
+		-- 12.1: a secret spellId can't index seenDebuff — skip it (unreadable ≠ absent).
+		if id == nil or (issecretvalue and issecretvalue(id)) then
+			return
+		end
+		if not seenDebuff[id] then
 			seenDebuff[id] = true
-			SpyLog(("DEBUFF op jou: %d (%s)"):format(id, tostring(nm)))
+			local safeNm = (nm ~= nil and not (issecretvalue and issecretvalue(nm))) and tostring(nm) or "?"
+			SpyLog(("DEBUFF op jou: %d (%s)"):format(id, safeNm))
 		end
 	end)
 end

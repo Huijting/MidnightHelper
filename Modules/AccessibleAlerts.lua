@@ -127,13 +127,21 @@ local function ScanDebuffs()
 	local fired
 	ns.Aura.ForEachPlayerDebuff(function(aura)
 		local id, nm = aura.spellId, aura.name
-		local key = id and ns.DEBUFF_ALERTS[id]
+		-- 12.1: an aura's spellId can be a SECRET value (e.g. inside instances). A
+		-- secret can't be used as a table key AND we can't match it against our list,
+		-- so treat it as unreadable and skip (never-lie: unreadable ≠ absent) instead
+		-- of erroring on ns.DEBUFF_ALERTS[id].
+		if id == nil or (issecretvalue and issecretvalue(id)) then
+			return
+		end
+		local key = ns.DEBUFF_ALERTS[id]
 		if key and (lastBySpell[id] or 0) + PER_SPELL_GAP <= now then
 			lastBySpell[id] = now
 			if type(key) == "string" then
 				fired = ns:L(key)
 			else
-				fired = ns:L("ALERT_DEBUFF_FMT"):format(tostring(nm))
+				local safeNm = (nm ~= nil and not (issecretvalue and issecretvalue(nm))) and tostring(nm) or "?"
+				fired = ns:L("ALERT_DEBUFF_FMT"):format(safeNm)
 			end
 			return true -- stop scanning
 		end
