@@ -115,3 +115,18 @@ function ns.ToggleScorecardDetail()
 	ns.db.scorecardDetail = not (ns.db.scorecardDetail == true)
 	return ns.db.scorecardDetail == true
 end
+
+-- /mh scorecard test — fire a sample scorecard so you can see the format (and the
+-- detail line) without finishing a real delve. Sample: run 3, this one faster than
+-- the prior average but not a record.
+function ns.TestRunScorecard()
+	handleRun({
+		name = "Test Delve",
+		tier = 5,
+		duration = 252, -- 4m 12s
+		deaths = 1,
+		runs = 3,
+		fastestTime = 234, -- 3m 54s
+		totalDuration = 800, -- prior avg = (800-252)/2 = 274s -> "faster than average"
+	})
+end

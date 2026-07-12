@@ -835,6 +835,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh scorecard test — print a sample scorecard (see the format without a delve).
+	if msg == "scorecard test" then
+		if ns.TestRunScorecard then
+			ns.TestRunScorecard()
+		end
+		return
+	end
+
 	-- /mh scorecard detail — toggle the die-hard detail line (exact seconds delta).
 	if msg == "scorecard detail" then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
