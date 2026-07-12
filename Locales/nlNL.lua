@@ -3056,4 +3056,6 @@ ns._mhLocales.nlNL = {
 	-- Death recap (retrospective)
 	DEATH_RECAP_HEAD = "Bijna!",
 	DEATH_RECAP_LESSON_FMT = "Je kreeg zware schade van %s — onderbreek 't of loop eruit volgende keer.",
+	DEATH_RECAP_ENV_FMT = "Je kreeg zware %s-schade — volgende keer eerder eruit.",
+	DEATH_RECAP_GENERIC = "Je ging neer. Open de Death Recap (de skull-knop) om te zien wat je precies raakte.",
 }

@@ -3144,4 +3144,6 @@ ns._mhLocales.enUS = {
 	-- Death recap (retrospective)
 	DEATH_RECAP_HEAD = "Almost!",
 	DEATH_RECAP_LESSON_FMT = "You took heavy damage from %s — next time interrupt it or step out of it.",
+	DEATH_RECAP_ENV_FMT = "You took heavy %s damage — next time get out of it sooner.",
+	DEATH_RECAP_GENERIC = "You went down. Open the Death Recap (the skull button) to see exactly what hit you.",
 }
