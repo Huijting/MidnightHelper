@@ -159,6 +159,7 @@ Modules\WorldContent.lua
 Modules\DelveHistory.lua
 Modules\RunScorecard.lua
 Modules\Retrospective.lua
+Modules\EncounterCapture.lua
 Modules\RitualLog.lua
 Modules\DelveCoach.lua
 Modules\DelverCallData.lua

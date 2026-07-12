@@ -798,6 +798,24 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh encounters — toggle logging ENCOUNTER_START/END (encounterID capture, PTR).
+	if msg == "encounters" then
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		if ns.ToggleEncounterCapture then
+			local onNow = ns.ToggleEncounterCapture()
+			print(("%s encounter capture: %s"):format(prefix, onNow and "on — now pull bosses" or "off"))
+		end
+		return
+	end
+
+	-- /mh instance — print the current instance's journalInstanceID + name (PTR capture).
+	if msg == "instance" then
+		if ns.PrintInstanceCapture then
+			ns.PrintInstanceCapture()
+		end
+		return
+	end
+
 	-- /mh death — probe C_DeathInfo + what we can read of the last death recap,
 	-- so the beginner death-recap can be finalised against the real API.
 	if msg == "death" then
