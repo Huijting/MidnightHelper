@@ -536,9 +536,10 @@ local function Tick()
 		atLead = (dx * dx + dy * dy) <= (20 * 20)
 	end
 
-	-- A single-destination delve route has no auto-advance, so release the arrow
-	-- once we arrive (within ~20yd). rare/treasure/reset manage their own lifecycle.
-	if ns._mhRouteOwner == "delve" and atLead then
+	-- A single-destination route (delve / generic waypoint) has no auto-advance, so
+	-- release the arrow once we arrive (within ~20yd). rare/treasure/reset/achievement
+	-- manage their own lifecycle.
+	if (ns._mhRouteOwner == "delve" or ns._mhRouteOwner == "waypoint") and atLead then
 		ns._mhRouteOwner = nil
 		activeLead = nil
 		HideArrow()

@@ -727,6 +727,13 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	elseif ns.SetBlizzardUserWaypoint then
 		ns.SetBlizzardUserWaypoint(targetMap, xPct, yPct)
 	end
+	-- Single-destination route with no specific owner (WB/TP/campaign/ritual/…):
+	-- take generic ownership so NativeArrow guides even without TomTom. Specific
+	-- routes (rare/treasure/reset/achievement) set their own owner and win; the
+	-- delve buttons set "delve" right after this call to keep their themed arrow.
+	if ns._mhRouteOwner == nil then
+		ns._mhRouteOwner = "waypoint"
+	end
 	end -- not travelOnly
 
 	if not currentMap then
@@ -2215,19 +2222,12 @@ if rawget(_G, "ToggleDelvesDashboard") == nil then
 	_G.ToggleDelvesDashboard = ns.ToggleDelvesDashboard
 end
 
-local function OnFindNearestBountifulClick()
-	for _, row in ipairs(MIDNIGHT_DELVES) do
-		local _, mapID, x, yPct, name = row[1], row[2], row[3], row[4], row[5]
-		if select(1, GetDelveBountifulState(name, mapID)) then
-			if ns.AddSmartTomTomWay(mapID, x, yPct, name) then
-				ns._mhRouteOwner = "delve" -- claim the shared on-screen arrow
-				print(string.format(ns:L("DELVES_BOUNTIFUL_ROUTE"), tostring(name)))
-			end
-			return
-		end
-	end
+-- Forward-declared so the bountiful button can share the distance scan defined
+-- below (after the world-coord helpers).
+local RouteNearestDelve
 
-	print("|cffffff78Midnight Helper:|r No bountiful delve found (roster order / GetDelvesForMap).")
+local function OnFindNearestBountifulClick()
+	RouteNearestDelve(true)
 end
 
 -- Convert a map position (0..1) to continent world coords (yards). Returns
@@ -2277,25 +2277,28 @@ local function GetPlayerContinentWorld()
 	return DelveMapPosToWorld(pmap, px, py)
 end
 
--- Route to the closest Midnight delve regardless of bountiful state — handy on
--- lower-level / fresh characters that have no bountiful delves yet. Distance is
--- measured in world yards on the player's continent; if that can't be resolved
--- we fall back to the first roster delve so the button always does something.
-local function OnFindNearestDelveClick()
+-- Route to the closest Midnight delve, measured in world yards on the player's
+-- continent. With bountifulOnly, only bountiful delves are considered (fixes the
+-- old bug where the bountiful button returned the FIRST bountiful in roster order
+-- instead of the nearest). Falls back to the first eligible delve if world coords
+-- can't be resolved, so the button always does something.
+function RouteNearestDelve(bountifulOnly)
 	local pCont, pwx, pwy = GetPlayerContinentWorld()
 	local bestData, bestDist, fallback
 
 	for _, row in ipairs(MIDNIGHT_DELVES) do
 		local mapID, x, yPct, name = row[2], row[3], row[4], row[5]
-		fallback = fallback or { mapID = mapID, x = x, y = yPct, name = name }
-		if pwx and pwy then
-			local cont, wx, wy = DelveMapPosToWorld(mapID, (x or 0) / 100, (yPct or 0) / 100)
-			if wx and wy and (not pCont or not cont or cont == pCont) then
-				local dx, dy = wx - pwx, wy - pwy
-				local dist = dx * dx + dy * dy
-				if not bestDist or dist < bestDist then
-					bestDist = dist
-					bestData = { mapID = mapID, x = x, y = yPct, name = name }
+		if (not bountifulOnly) or select(1, GetDelveBountifulState(name, mapID)) then
+			fallback = fallback or { mapID = mapID, x = x, y = yPct, name = name }
+			if pwx and pwy then
+				local cont, wx, wy = DelveMapPosToWorld(mapID, (x or 0) / 100, (yPct or 0) / 100)
+				if wx and wy and (not pCont or not cont or cont == pCont) then
+					local dx, dy = wx - pwx, wy - pwy
+					local dist = dx * dx + dy * dy
+					if not bestDist or dist < bestDist then
+						bestDist = dist
+						bestData = { mapID = mapID, x = x, y = yPct, name = name }
+					end
 				end
 			end
 		end
@@ -2303,13 +2306,20 @@ local function OnFindNearestDelveClick()
 
 	local target = bestData or fallback
 	if not target then
-		print("|cffffff78Midnight Helper:|r No delve found.")
+		print(
+			bountifulOnly and "|cffffff78Midnight Helper:|r No bountiful delve found right now."
+				or "|cffffff78Midnight Helper:|r No delve found."
+		)
 		return
 	end
 	if ns.AddSmartTomTomWay(target.mapID, target.x, target.y, target.name) then
 		ns._mhRouteOwner = "delve" -- claim the shared on-screen arrow
-		print(string.format(ns:L("DELVES_NEAREST_ROUTE"), tostring(target.name)))
+		print(string.format(ns:L(bountifulOnly and "DELVES_BOUNTIFUL_ROUTE" or "DELVES_NEAREST_ROUTE"), tostring(target.name)))
 	end
+end
+
+local function OnFindNearestDelveClick()
+	RouteNearestDelve(false)
 end
 
 local function CreateEventBridge()
