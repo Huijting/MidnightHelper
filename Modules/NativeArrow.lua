@@ -49,7 +49,7 @@ local OWNER_STYLE = {
 	achievement = { icon = "Interface\\Icons\\Achievement_Quests_Completed_08", r = 1.00, g = 0.90, b = 0.42 }, -- geel: achievement
 	reset       = { icon = "Interface\\Icons\\INV_Misc_Map_01",              r = 0.42, g = 0.78, b = 1.00 }, -- blauw: reset-route
 	-- Voorbereid voor toekomstige claimers (schaadt niet als ze nooit gezet worden):
-	delve       = { icon = "Interface\\Icons\\INV_Misc_Cave_01",             r = 0.42, g = 0.78, b = 1.00 }, -- blauw: delve
+	delve       = { icon = "Interface\\Icons\\INV_Misc_Cave_01",             r = 0.35, g = 0.95, b = 1.00 }, -- fel cyaan: delve (contrast op felle lucht)
 	ritual      = { icon = "Interface\\Icons\\Spell_Shadow_DemonicCircleTeleport", r = 0.72, g = 0.45, b = 1.00 }, -- paars: ritual
 }
 local DEFAULT_STYLE = { icon = nil, r = 1.00, g = 0.82, b = 0.00 }
