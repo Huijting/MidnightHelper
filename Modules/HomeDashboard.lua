@@ -297,6 +297,22 @@ local function BuildLayout()
 		end)
 	end
 
+	------------------------------------------------------------------ Nudges (Spec 15): dismissable cards
+	if ns.GetActiveNudges then
+		for _, def in ipairs(ns.GetActiveNudges()) do
+			addFull(function(rows)
+				header(rows, ns.NudgeTitle(def))
+				line(rows, ns.NudgeBody(def), COLOR_SOFT)
+				if def.action then
+					rows[#rows + 1] = { button = true, text = ns:L(def.actionLabel), onClick = def.action }
+				end
+				rows[#rows + 1] = { button = true, text = ns:L("NUDGE_HIDE"), onClick = function()
+					ns.DismissNudge(def.id)
+				end }
+			end)
+		end
+	end
+
 	------------------------------------------------------------------ Season transition (S1 → S2, leads in Phase A)
 	local seasonDismissed = ns.IsSeasonCardDismissed and ns.IsSeasonCardDismissed()
 	if ns.GetSeasonTransitionSteps and not seasonDismissed then

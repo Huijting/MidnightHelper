@@ -47,6 +47,9 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	SET_LAUNCH_CS = "Position cast warning",
 	SET_LAUNCH_TOAST = "Position popups",
 	SET_LAUNCH_TOAST_RESET = "Reset popup position",
+	-- Spec 15 nudge framework (permanent Settings home for nudges).
+	SET_CAT_NUDGES = "Notifications & tips",
+	SET_NUDGE_RESET = "Show dismissed cards again",
 	SET_LAUNCH_TEST_RARE = "Test rare alert",
 	SET_LAUNCH_TEST_SHARD = "Test shard cap",
 	SET_LAUNCH_BOSSWIN = "Boss window",
@@ -211,6 +214,9 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	SET_LAUNCH_CS = "Cast-waarschuwing plaatsen",
 	SET_LAUNCH_TOAST = "Popup-positie",
 	SET_LAUNCH_TOAST_RESET = "Popup-positie terug",
+	-- Spec 15 nudge-framework (permanente Settings-vindplaats voor nudges).
+	SET_CAT_NUDGES = "Meldingen & tips",
+	SET_NUDGE_RESET = "Verborgen kaartjes weer tonen",
 	SET_LAUNCH_TEST_RARE = "Test rare-melding",
 	SET_LAUNCH_TEST_SHARD = "Test shard-cap",
 	SET_LAUNCH_BOSSWIN = "Boss-venster",

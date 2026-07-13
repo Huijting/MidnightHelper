@@ -54,6 +54,9 @@ end
 local DEFAULT_DB = {
 	--- Display language: "auto" (WoW client), explicit pack (enUS, deDE, …), or nlNL (manual only).
 	locale = "auto",
+	--- Spec 15 nudges the user dismissed: { [nudgeId] = true }. Empty default is safe
+	--- (a set, not a list) — MergeDefaults only ensures the table exists, never re-adds.
+	nudgeDismissed = {},
 	ui = {
 		-- If true, the main window will be shown automatically after login.
 		openOnLogin = false,
@@ -785,6 +788,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		if ns.PrintSeasonTransitionDiagnostics then
 			ns.PrintSeasonTransitionDiagnostics()
 		end
+		return
+	end
+
+	-- /mh translate — open the "help translate Midnight Helper" how-to (Spec 15).
+	if msg == "translate" then
+		if ns.OpenTranslateHelp then ns.OpenTranslateHelp() end
 		return
 	end
 

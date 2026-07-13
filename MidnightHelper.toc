@@ -180,6 +180,8 @@ Modules\DevShots.lua
 Modules\ToolsLaunchpad.lua
 Modules\Tour.lua
 Modules\FirstRun.lua
+Modules\Nudges.lua
+Modules\TranslateNudge.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua
 Addons\Guide.lua

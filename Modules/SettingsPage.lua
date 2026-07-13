@@ -259,6 +259,26 @@ function ns.BuildSettingsPanel(panel)
 	end)
 	toastResetBtn:SetPoint("TOPLEFT", forgetBtn, "BOTTOMLEFT", 0, -6)
 
+	-- Notifications & tips (Spec 15): permanent, findable home for nudges.
+	if ns.GetSettingsNudges then
+		local sNudges = ns.GetSettingsNudges()
+		if #sNudges > 0 then
+			local nudgeH = MakeHeader("SET_CAT_NUDGES", toastResetBtn, -16)
+			local prev = nudgeH
+			for _, def in ipairs(sNudges) do
+				local b = MakeBtn(220, def.actionLabel, function()
+					if def.action then def.action() end
+				end)
+				b:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -6)
+				prev = b
+			end
+			local resetNudgeBtn = MakeBtn(240, "SET_NUDGE_RESET", function()
+				if ns.ResetNudges then ns.ResetNudges() end
+			end)
+			resetNudgeBtn:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -10)
+		end
+	end
+
 	panel:SetScript("OnShow", function()
 		ApplyEyecatcherModel()
 		ns.RefreshSettingsPanel()
