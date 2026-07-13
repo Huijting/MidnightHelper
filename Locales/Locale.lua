@@ -21,6 +21,7 @@ ns.MH_WOW_CLIENT_LOCALES = {
 	"itIT",
 	"koKR",
 	"ptBR",
+	"ruRU",
 	"zhCN",
 	"zhTW",
 }
@@ -216,11 +217,6 @@ function ns:MigrateLocalePreference()
 		db.locale = ns.MH_LOCALE_AUTO
 		return
 	end
-	-- Russian pack removed; reset old saved prefs to auto (falls back to enUS on ruRU client).
-	if pref == "ruRU" or pref == "ru" then
-		db.locale = ns.MH_LOCALE_AUTO
-		return
-	end
 	if self:IsKnownLocalePreference(pref) then
 		return
 	end
@@ -232,6 +228,7 @@ local CHAT_SCRIPT_LOCALES = {
 	koKR = true,
 	zhCN = true,
 	zhTW = true,
+	ruRU = true, -- Cyrillic: same chat-render risk as CJK
 }
 
 --- Locale pack for party/chat strings (falls back when client cannot render the script).
