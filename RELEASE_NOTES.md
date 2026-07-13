@@ -1,6 +1,13 @@
-<!-- Paste-ready Markdown copy of the v2.7.0 CurseForge notes. The packager uploads
-     RELEASE_NOTES.md (Markdown) verbatim; this file is the per-version archive / hand-fix
-     fallback if the CF page needs fixing by hand. Keep in sync with RELEASE_NOTES.md and CHANGELOG.md. -->
+<!-- MAINTAINER NOTE (HTML comment — hidden by the Markdown renderer, does NOT show on the
+     CurseForge page). This file holds the notes for the CURRENT release only. The BigWigs
+     packager uploads it verbatim as the CurseForge changelog (.pkgmeta -> manual-changelog,
+     markup-type: markdown), so overwrite it on every version bump. Full history: CHANGELOG.md;
+     per-version archive: docs/CURSEFORGE_<version>.md (keep this file identical to that archive's body).
+
+     MARKDOWN, not HTML: CurseForge's changelog field renders Markdown. Shipping HTML at 2.7.0
+     made the packager/CF flatten it into raw, run-on "##"/"**" text (regression from f62a445).
+     2.6.0 shipped Markdown and rendered clean. If a release ever still looks wrong, hand-fix it:
+     curseforge.com -> the file -> Changelog -> Markdown mode -> paste this file's body -> Save. -->
 
 ## Everyday decisions, made easier
 

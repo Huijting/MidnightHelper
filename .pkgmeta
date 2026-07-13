@@ -14,17 +14,19 @@ enable-nolib-creation: no
 #
 # The packager uploads this file VERBATIM, so it must hold only the CURRENT release.
 # Pointing it at CHANGELOG.md would paste all 700+ lines of history onto every
-# release page. Overwrite RELEASE_NOTES.html on each version bump; the full history
-# stays in CHANGELOG.md and a Markdown copy in docs/CURSEFORGE_<version>.md.
+# release page. Overwrite RELEASE_NOTES.md on each version bump; the full history
+# stays in CHANGELOG.md and a per-version archive in docs/CURSEFORGE_<version>.md.
 #
-# HTML, not Markdown: CurseForge's changelog field for this project is a WYSIWYG box.
-# At v2.6.0 it took our Markdown source literally — "##" and "**" printed as text and
-# every newline collapsed — even though the packager sent changelogType=markdown. HTML
-# is right either way: a WYSIWYG/HTML field renders it, and a Markdown field passes raw
-# HTML straight through. Markdown is only right in one of the two.
+# MARKDOWN, not HTML: CurseForge's changelog field renders Markdown. 2.6.0 shipped
+# Markdown with this exact config and rendered clean. 2.7.0 briefly shipped HTML
+# (commit f62a445, now reverted) and the packager/CF flattened it into raw run-on
+# "##"/"**" text — that was the regression, NOT a Markdown problem. Keep markup-type
+# markdown + RELEASE_NOTES.md. Any maintainer note in the file must be an <!-- HTML
+# comment --> (hidden by the Markdown renderer). If a release still looks wrong, hand-fix
+# on curseforge.com: open the file's Changelog, Markdown mode, paste this file's body.
 manual-changelog:
-  filename: RELEASE_NOTES.html
-  markup-type: html
+  filename: RELEASE_NOTES.md
+  markup-type: markdown
 
 # Everything below is kept OUT of the release zip (dev tooling, docs, build scripts,
 # internal notes). .git is excluded automatically. CLAUDE.md stays out — it must never
@@ -44,7 +46,7 @@ ignore:
   - CLAUDE.md
   - README.md
   - CHANGELOG.md
-  - RELEASE_NOTES.html
+  - RELEASE_NOTES.md
   - RELEASE_CHECKLIST.md
   - CURSEFORGE_DESCRIPTION.md
   - "*.bat"

@@ -15,14 +15,14 @@ de tag.
 3. **`Locales/enUS.lua`** → de `CHANGELOG_<ver>_*`-keys. **Alleen enUS.** De in-game
    changelog is Engels-only sinds 2.4.0; de andere packs vallen terug op de enUS-fallback.
    (nlNL bevat nog oude vertalingen t/m 1.8.6 — niet uitbreiden.)
-4. **`RELEASE_NOTES.html`** (root) → **de CurseForge-releasenotitie.**
+4. **`RELEASE_NOTES.md`** (root) → **de CurseForge-releasenotitie** (schone Markdown; houd 'm gelijk aan `docs/CURSEFORGE_<ver>.md`).
 5. **`CHANGELOG.md`** → de volledige geschiedenis (dev/GitHub).
 
 Plus: archiveer een Markdown-kopie in **`docs/CURSEFORGE_<ver>.md`** (plak-klaar, mocht je
 de CF-pagina met de hand moeten bijwerken), en check of **`CURSEFORGE_DESCRIPTION.md`**
 (evergreen paginabeschrijving) nog klopt met de nieuwe tabs/features.
 
-### ⚠️ RELEASE_NOTES.html — drie valkuilen
+### ⚠️ RELEASE_NOTES.md — drie valkuilen
 
 De packager uploadt dit bestand **letterlijk en volledig** (`.pkgmeta` →
 `manual-changelog`). Daarom:
@@ -30,10 +30,12 @@ De packager uploadt dit bestand **letterlijk en volledig** (`.pkgmeta` →
 - Het bevat **alleen de huidige release**. Het ooit op `CHANGELOG.md` richten zou 700+
   regels geschiedenis op elke releasepagina plakken. (Die fout stond klaar en is bij
   v2.6.0 net op tijd gevangen — de `manual-changelog`-regel had tot dan nooit gedraaid.)
-- **Het is HTML, geen Markdown.** CF's changelog-veld is een WYSIWYG-box: bij v2.6.0 kwam
-  onze markdown er letterlijk in te staan (`##` en `**` zichtbaar, alle regelafbrekingen
-  weg), ondanks `changelogType=markdown` van de packager. HTML klopt in beide gevallen —
-  een WYSIWYG/HTML-veld rendert het, en een Markdown-veld laat ruwe HTML door.
+- **Het is Markdown, geen HTML.** CF's changelog-veld rendert Markdown. 2.6.0 shipte
+  Markdown (deze config) en rendert netjes; 2.7.0 shipte even HTML (commit `f62a445`, nu
+  teruggedraaid) en toen plette de packager/CF het tot ruwe `##`/`**`-tekst op één regel —
+  dát was de regressie, geen Markdown-probleem. Houd `markup-type: markdown` +
+  `RELEASE_NOTES.md` aan. Faalt een release toch: CF → het bestand → Changelog →
+  Markdown-modus → de body van dit bestand plakken → opslaan.
 - Elke notitie-voor-onderhoud staat in een `<!-- HTML-commentaar -->`, anders rendert 'ie
   bovenaan de publieke pagina. (Dat is bij 2.6.0 misgegaan.)
 
