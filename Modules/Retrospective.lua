@@ -7,10 +7,11 @@
 	How it reads the cause (Spec 12 plan B): 12.x's C_DeathInfo does NOT expose the
 	death cause (only corpse/graveyard/resurrect — confirmed via /mh death), so we keep
 	a TINY ring buffer of the last few damage events that hit YOU. Per Spec 11 the heavy
-	COMBAT_LOG_EVENT_UNFILTERED is registered ONLY while inside an instance (off in the
-	open world / cities) and only records damage where destGUID == the player. In
-	restricted content (delves/follower dungeons) the log fields can be SECRET — then we
-	show an honest "open the Death Recap" pointer instead of a guessed cause.
+	COMBAT_LOG_EVENT_UNFILTERED is registered ONLY in dungeons (party, incl. M+) and raids
+	(off in the open world / cities) and only records damage where destGUID == the player.
+	Restricted content — ritual sites (scenario) and delves — FORBIDS registering CLEU
+	(ADDON_ACTION_FORBIDDEN) and hides the log fields as SECRET, so we stay out there and
+	leave those deaths to Blizzard's own Death Recap. See inTrackedInstance().
 
 	Toggle with ns.db.deathRecap (default on). /mh death is the API/buffer probe.
 ]]
@@ -39,12 +40,24 @@ local function autoEnabled()
 	return not (ns.db and ns.db.deathRecap == false)
 end
 
+-- Death recap only where COMBAT_LOG_EVENT_UNFILTERED may actually be registered:
+-- regular dungeons ("party", incl. M+) and raids ("raid"), where combat meters work.
+-- Restricted content FORBIDS registering CLEU and throws ADDON_ACTION_FORBIDDEN (10x
+-- spam) — ritual sites report as "scenario", and delves (party-flagged but restricted)
+-- are caught via ns.IsDelveInstanceInProgress. 12.x also makes their combat log secret,
+-- so we stay out entirely and leave those deaths to Blizzard's own Death Recap.
 local function inTrackedInstance()
 	if not IsInInstance then
 		return false
 	end
 	local inside, kind = IsInInstance()
-	return inside and (kind == "party" or kind == "scenario" or kind == "raid") or false
+	if not inside or (kind ~= "party" and kind ~= "raid") then
+		return false -- open world, cities, ritual scenarios, etc.
+	end
+	if ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress() then
+		return false -- delves restrict the combat log even when flagged "party"
+	end
+	return true
 end
 
 -- Record only damage that landed on the player. Cheap early-outs first; secret
