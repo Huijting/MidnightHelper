@@ -90,9 +90,13 @@ function ns:HasLocalePack(code)
 	if code == ns.MH_LOCALE_AUTO then
 		return true
 	end
-	return type(code) == "string"
-		and ns._mhLocales
-		and type(ns._mhLocales[code]) == "table"
+	-- An EMPTY pack table counts as NO pack. A CF-localization shim (Spec 16) creates
+	-- ns._mhLocales.<loc> = {} that only fills once the community submits translations;
+	-- until then every key falls back to enUS anyway. Treating the empty shell as a real
+	-- pack would auto-select it AND suppress the "help translate" nudge for exactly the
+	-- users we want to invite. So require at least one key.
+	local pack = ns._mhLocales and ns._mhLocales[code]
+	return type(code) == "string" and type(pack) == "table" and next(pack) ~= nil
 end
 
 function ns:GetWoWClientLocaleCode()

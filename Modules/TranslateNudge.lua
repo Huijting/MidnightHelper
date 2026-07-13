@@ -20,11 +20,14 @@ local function currentEndonym()
 	return ENDONYM[loc] or loc
 end
 
--- Show only when: official client locale in the set AND no pack table exists yet.
+-- Show only when: official client locale in the set AND no NON-EMPTY pack exists yet.
+-- An empty pack (a CF shim before any community translation lands, Spec 16) is not a
+-- real pack — keep inviting until it actually has keys.
 local function shouldNudge()
 	local loc = GetLocale()
 	if not NUDGE_LOCALES[loc] then return false end
-	if ns._mhLocales and type(ns._mhLocales[loc]) == "table" then return false end
+	local pack = ns._mhLocales and ns._mhLocales[loc]
+	if type(pack) == "table" and next(pack) ~= nil then return false end
 	return true
 end
 
