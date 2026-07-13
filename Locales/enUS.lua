@@ -1239,6 +1239,8 @@ ns._mhLocales.enUS = {
 	NAV_TOOL_BOSSWIN = "Dungeon boss window",
 	NAV_TOOL_CURIOS = "Curios advisor",
 	NAV_TOOL_RITUALBOSS = "Ritual boss coach",
+	-- Spec 17: command-palette entries (dim label after "/mh season"). Reach with "@command" or "/".
+	NAV_CAT_COMMAND = "command",
 	-- Search actions. The label must LEAD with the word players type, because Enter
 	-- only jumps on a label-prefix match.
 	NAV_ACTION_RITUAL_FMT = "Ritual Site: %s",

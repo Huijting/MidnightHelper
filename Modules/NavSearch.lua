@@ -8,8 +8,13 @@
 	search in UI.lua (runSearchFromBar), so nothing is lost.
 
 	Builds entirely on existing primitives: ns.SelectTab (with its sub-tab
-	aliases), ns:ToggleDelveCoach, and the search EditBox ns.mhSearchEdit. No new
-	locale keys — labels reuse the existing TAB_* / DELVE_COACH_TITLE strings.
+	aliases), ns:ToggleDelveCoach, and the search EditBox ns.mhSearchEdit. Labels
+	reuse the TAB_* / NAV_* / DELVE_COACH_TITLE strings.
+
+	Spec 17 adds two EasyFind-style patterns without changing MH's role as a coach:
+	an "@category" filter ("@mount venom", "@delve") and a command palette — the
+	user-facing /mh commands, reachable via "@command" or a leading "/". Each entry
+	carries an optional `cat` for the filter; entries without one behave as before.
 ]]
 
 local _, ns = ...
@@ -59,7 +64,8 @@ end
 local function BuildNavIndex()
 	local idx = {}
 	--- @param context string|nil dim text after the label ("Eversong Woods"), also searchable
-	local function add(label, keys, go, tier, context)
+	--- @param cat string|nil category for the "@cat" filter (tab/mount/rare/treasure/boss/tool/codex/command)
+	local function add(label, keys, go, tier, context, cat)
 		if type(label) ~= "string" or label == "" then
 			return
 		end
@@ -70,12 +76,13 @@ local function BuildNavIndex()
 			keys = ((keys or "") .. " " .. (context or "")):lower(),
 			go = go,
 			tier = tier or TIER_NAV,
+			cat = cat,
 		}
 	end
 	local function tab(labelKey, id, keys)
 		add(L(labelKey), keys, function()
 			OpenTab(id)
-		end)
+		end, nil, nil, "tab")
 	end
 
 	-- Top-level tabs.
@@ -121,7 +128,7 @@ local function BuildNavIndex()
 						ns.SetActiveCodexCategory(catId)
 					end
 					OpenTab("codex")
-				end)
+				end, nil, nil, "codex")
 			end
 		end
 	end
@@ -136,7 +143,7 @@ local function BuildNavIndex()
 						ns.SetActiveCodexCategory(cat)
 					end
 					OpenTab("codex")
-				end)
+				end, nil, nil, "codex")
 			end
 		end
 	end
@@ -146,27 +153,27 @@ local function BuildNavIndex()
 		if ns.ToggleDelveCoach then
 			ns:ToggleDelveCoach()
 		end
-	end)
+	end, nil, nil, "tool")
 	add(L("NAV_TOOL_BOARD"), "consumable board flask rune food buffs ready", function()
 		if ns.ShowConsumableBoard then
 			ns.ShowConsumableBoard()
 		end
-	end)
+	end, nil, nil, "tool")
 	add(L("NAV_TOOL_BOSSWIN"), "dungeon boss window tactics floating", function()
 		if ns.ToggleDungeonBossWindow then
 			ns.ToggleDungeonBossWindow()
 		end
-	end)
+	end, nil, nil, "tool")
 	add(L("NAV_TOOL_CURIOS"), "curios advisor delve companion role", function()
 		if ns.ToggleDelveCuriosPopup then
 			ns:ToggleDelveCuriosPopup()
 		end
-	end)
+	end, nil, nil, "tool")
 	add(L("NAV_TOOL_RITUALBOSS"), "ritual boss coach window", function()
 		if ns.ToggleRitualBossWindow then
 			ns.ToggleRitualBossWindow()
 		end
-	end)
+	end, nil, nil, "tool")
 
 	-- Bosses, from the dungeon roster and the custom coach entries (raids, ritual
 	-- bosses, Sporefall). Typing a boss name opens the boss window straight on that
@@ -189,7 +196,7 @@ local function BuildNavIndex()
 					if ns.ShowBossWindowForEntry then
 						ns.ShowBossWindowForEntry(entry, bossKey)
 					end
-				end, TIER_CONTENT, entryName)
+				end, TIER_CONTENT, entryName, "boss")
 			end
 		end
 	end
@@ -233,7 +240,7 @@ local function BuildNavIndex()
 	for _, m in ipairs(ns.GetMountNameRoster and ns.GetMountNameRoster() or {}) do
 		add(m.name, "mount", function()
 			OpenTab("mounts")
-		end, TIER_CONTENT, mountsLabel)
+		end, TIER_CONTENT, mountsLabel, "mount")
 	end
 
 	-- Rares. A hit opens the Rares tab on that rare's zone AND routes to it — the same
@@ -246,7 +253,7 @@ local function BuildNavIndex()
 			if ns.GoToRare then
 				ns.GoToRare(zoneKey, questId)
 			end
-		end, TIER_CONTENT, r.zoneLabel)
+		end, TIER_CONTENT, r.zoneLabel, "rare")
 	end
 
 	-- Treasures and lore objects. Several achievements in this table are RARE hunts whose
@@ -269,10 +276,39 @@ local function BuildNavIndex()
 						if ns.AddSmartTomTomWay then
 							ns.AddSmartTomTomWay(n.mapID, n.x, n.y, n.name)
 						end
-					end, TIER_CONTENT, title)
+					end, TIER_CONTENT, title, "treasure")
 				end
 			end
 		end
+	end
+
+	-- User-facing /mh commands as a command palette (Spec 17). Never-lie: only real,
+	-- non-debug commands, each verified against the SlashCmdList dispatch. Every entry
+	-- just calls the existing slash handler, so there is one truth about what it does.
+	-- Reach them all with "@command" or a leading "/" (see FilterIndex).
+	local MH_COMMANDS = {
+		{ "season", "season transition checklist wrap up" },
+		{ "loot", "loot upgrade tips tooltip toggle" },
+		{ "scorecard", "run scorecard deaths time record" },
+		{ "translate", "help translate localisation language" },
+		{ "lang", "language locale switch" },
+		{ "settings", "options config preferences" },
+		{ "changelog", "whats new version notes" },
+		{ "board", "consumables board flask food rune buffs ready" },
+		{ "bosswin", "dungeon boss window tactics" },
+		{ "curios", "delve curios advisor companion" },
+		{ "ritualboss", "ritual boss coach" },
+		{ "enchant", "gear enchant gems check missing" },
+		{ "mbuff", "missing buff reminder flask" },
+	}
+	local cmdLabel = L("NAV_CAT_COMMAND")
+	for _, c in ipairs(MH_COMMANDS) do
+		local cmd = c[1]
+		add("/mh " .. cmd, "command slash " .. cmd .. " " .. (c[2] or ""), function()
+			if SlashCmdList and SlashCmdList["MIDNIGHTHELPER"] then
+				SlashCmdList["MIDNIGHTHELPER"](cmd)
+			end
+		end, nil, cmdLabel, "command")
 	end
 
 	return idx
@@ -280,21 +316,37 @@ end
 
 local function FilterIndex(query)
 	query = (query or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
-	if query == "" then
+	-- "@cat rest" scopes to a category (prefix-matched: "@co" = codex/command); a leading
+	-- "/" is shorthand for "@command", so "/" lists commands and "/loot" finds "/mh loot".
+	-- An unknown "@xyz" simply matches nothing.
+	local catFilter
+	local at = query:match("^@(%S+)")
+	if at then
+		catFilter = at
+		query = query:gsub("^@%S+%s*", "")
+	elseif query:sub(1, 1) == "/" then
+		catFilter = "command"
+		query = query:gsub("^/%s*", "")
+	end
+	if query == "" and not catFilter then
 		return {}
 	end
 	local scored = {}
 	for _, e in ipairs(BuildNavIndex()) do
-		local rank
-		if e.lower:sub(1, #query) == query then
-			rank = 1 -- label starts with the query
-		elseif e.lower:find(query, 1, true) then
-			rank = 2 -- label contains the query
-		elseif e.keys ~= "" and e.keys:find(query, 1, true) then
-			rank = 3 -- keyword hit only
-		end
-		if rank then
-			scored[#scored + 1] = { e = e, rank = rank }
+		if not catFilter or (e.cat and e.cat:sub(1, #catFilter) == catFilter) then
+			local rank
+			if query == "" then
+				rank = 2 -- "@cat" with no text: show the whole category
+			elseif e.lower:sub(1, #query) == query then
+				rank = 1 -- label starts with the query
+			elseif e.lower:find(query, 1, true) then
+				rank = 2 -- label contains the query
+			elseif e.keys ~= "" and e.keys:find(query, 1, true) then
+				rank = 3 -- keyword hit only
+			end
+			if rank then
+				scored[#scored + 1] = { e = e, rank = rank }
+			end
 		end
 	end
 	table.sort(scored, function(a, b)

@@ -1156,6 +1156,8 @@ ns._mhLocales.nlNL = {
 	NAV_TOOL_BOSSWIN = "Dungeon boss-venster",
 	NAV_TOOL_CURIOS = "Curios-adviseur",
 	NAV_TOOL_RITUALBOSS = "Ritueel-boss-coach",
+	-- Spec 17: command-palette (dim label achter "/mh season"). Bereik met "@command" of "/".
+	NAV_CAT_COMMAND = "commando",
 	NAV_ACTION_RITUAL_FMT = "Ritual Site: %s",
 	NAV_ACTION_VOID_FMT = "Void Assault: %s",
 	NAV_ACTION_TAKE_ME = "breng me erheen",
