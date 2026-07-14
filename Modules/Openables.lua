@@ -71,6 +71,10 @@ local function SlotKind(bag, slot)
 	end
 	local openLine = ITEM_OPENABLE -- "<Right Click to Open>" (gelokaliseerd)
 	local kind
+	-- A cosmetic appearance you collect by USING it ("Use: Add this appearance to your …
+	-- collection") isn't a "teaches you" item, so it needs its own signal — spread across two
+	-- lines (the Use line + the collected/uncollected line), hence flags resolved after the loop.
+	local appearanceUse, alreadyCollected = false, false
 	-- Scan ALL lines: the "Use:" line sits above the "Requires …" line, so we can't return
 	-- on the first match — we must first see whether a red requirement blocks this item.
 	for _, line in ipairs(data.lines) do
@@ -79,29 +83,40 @@ local function SlotKind(bag, slot)
 			if LineIsRedRequirement(line) then
 				return nil -- can't use/learn it (wrong level, missing profession, …)
 			end
+			local lower = text:lower()
 			if not kind then
 				if openLine and (text == openLine or (strfind and strfind(text, openLine, 1, true))) then
 					kind = "openable"
-				else
-					local lower = text:lower()
-					-- "Use: Open to gain some Gold" e.d. → een buidel die je gebruikt i.p.v.
-					-- rechtsklikt (die mist de "<Right Click to Open>"-regel). Eis "open to"
-					-- (open TO gain/receive), niet los "open": anders vangt 'ie een cosmetic
-					-- ("Use: Opens your mind to…") of een trinket ("Use: Hold the fissure open…")
-					-- als loot-buidel — dat gebeurde met Entropic Extract / Void Fissure (Rob 10 jul).
-					if lower:find("use:", 1, true) and lower:find("open to", 1, true) then
-						kind = "openable"
-					-- "Use: Teaches you …" → een mount/pet/toy/recept dat je nog moet leren.
-					elseif lower:find("use:", 1, true) and lower:find("teaches you", 1, true) then
-						kind = "learn"
-					-- "Use: Study/Read ... Knowledge by N" → professie-studie-item.
-					elseif lower:find("knowledge", 1, true)
-						and (lower:find("study", 1, true) or lower:find("read", 1, true)) then
-						kind = "knowledge"
-					end
+				-- "Use: Open to gain some Gold" e.d. → een buidel die je gebruikt i.p.v.
+				-- rechtsklikt (die mist de "<Right Click to Open>"-regel). Eis "open to"
+				-- (open TO gain/receive), niet los "open": anders vangt 'ie een cosmetic
+				-- ("Use: Opens your mind to…") of een trinket ("Use: Hold the fissure open…")
+				-- als loot-buidel — dat gebeurde met Entropic Extract / Void Fissure (Rob 10 jul).
+				elseif lower:find("use:", 1, true) and lower:find("open to", 1, true) then
+					kind = "openable"
+				-- "Use: Teaches you …" → een mount/pet/toy/recept dat je nog moet leren.
+				elseif lower:find("use:", 1, true) and lower:find("teaches you", 1, true) then
+					kind = "learn"
+				-- "Use: Study/Read ... Knowledge by N" → professie-studie-item.
+				elseif lower:find("knowledge", 1, true)
+					and (lower:find("study", 1, true) or lower:find("read", 1, true)) then
+					kind = "knowledge"
 				end
 			end
+			-- Cosmetic transmog appearance (collect-by-use). Track it like a learn item so it
+			-- isn't forgotten — but only while UNcollected (Rob's Void-Touched Winter Belt, 14
+			-- jul). Fail-permissive: show unless the tooltip explicitly says you already have it.
+			if lower:find("use:", 1, true) and lower:find("this appearance", 1, true)
+				and lower:find("collection", 1, true) then
+				appearanceUse = true
+			end
+			if lower:find("have collected this appearance", 1, true) then
+				alreadyCollected = true
+			end
 		end
+	end
+	if not kind and appearanceUse and not alreadyCollected then
+		kind = "learn"
 	end
 	return kind
 end
