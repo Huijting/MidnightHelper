@@ -228,6 +228,7 @@ ns._mhLocales.nlNL = {
 	MOUNTS_PANEL_EMPTY = "Je hebt elke gevolgde Midnight-mount al. Netjes!",
 	MOUNTS_PANEL_COLLECTED_HEADER = "Verzameld",
 	MOUNTS_PANEL_MODEL_HINT = "Beweeg over een mount voor een 3D-preview. Sleep om te draaien.",
+	MOUNTS_MRP_HINT = "Verzamel je verder dan Midnight? De addon Mount Route Planner (op CurseForge) bouwt efficiënte farm-routes door alle expansions.",
 	HOME_COLLECTIBLE_FMT = "%s — %d/%d",
 	MOUNTPROG_SPOREGLIDER_HOWTO = "Versla Rotmire in de Sporefall-raid (Harandar) voor een Delicious Sporesnack — ongeveer 1 per week, 4 nodig.",
 	MOUNTPROG_VYRANOTH_HOWTO = "Turbulent Timeways-event: houd de 'Mastery of the Timeways'-buff actief (via 4 Timewalking-dungeons) in 4 van de 5 event-weken.",

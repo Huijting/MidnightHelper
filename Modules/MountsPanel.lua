@@ -359,6 +359,13 @@ function ns.RefreshMountsPanel()
 		end
 	end
 
+	-- Whole-collection farming across every expansion is a different job than this
+	-- current-season checklist — point serious collectors at the specialist addon
+	-- (honest referral, no overlap, nothing copied from it).
+	y = y + MOUNT_GAP + 4
+	y = y + PutRow(ri, ns:L("MOUNTS_MRP_HINT"), COLOR_DIM, false, y, width)
+	ri = ri + 1
+
 	for i = ri, #ui.rows do
 		ui.rows[i]:Hide()
 	end

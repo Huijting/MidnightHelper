@@ -230,6 +230,7 @@ ns._mhLocales.enUS = {
 	MOUNTS_PANEL_EMPTY = "You've collected every tracked Midnight mount. Nice!",
 	MOUNTS_PANEL_COLLECTED_HEADER = "Collected",
 	MOUNTS_PANEL_MODEL_HINT = "Hover a mount to preview it in 3D. Drag to spin.",
+	MOUNTS_MRP_HINT = "Collecting beyond Midnight? The Mount Route Planner addon (on CurseForge) builds efficient farming routes across every expansion.",
 	HOME_COLLECTIBLE_FMT = "%s — %d/%d",
 	MOUNTPROG_SPOREGLIDER_HOWTO = "Defeat Rotmire in the Sporefall raid (Harandar) for a Delicious Sporesnack — about 1 per week, 4 needed.",
 	MOUNTPROG_VYRANOTH_HOWTO = "Turbulent Timeways event: keep the 'Mastery of the Timeways' buff up (from 4 Timewalking dungeons) in 4 of the event's 5 weeks.",
