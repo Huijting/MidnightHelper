@@ -322,6 +322,16 @@ function ns.BuildOmniumFolioPanel(panel)
 			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_COMBAT")))
 			return
 		end
+		-- The Expansion Landing Page button opens whatever expansion is active for THIS
+		-- character. On a levelling char (Chromie Time) that's the WRONG page — Carola got a
+		-- Shadowlands/Kyrian window (14 jul). The Folio is a max-level Midnight feature, so
+		-- only open it when the char is at max level AND the Folio is actually unlocked;
+		-- otherwise say so instead of popping a confusing covenant window.
+		local maxLvl = GetMaxLevelForPlayerExpansion and GetMaxLevelForPlayerExpansion()
+		if (maxLvl and UnitLevel and UnitLevel("player") < maxLvl) or UnlockedRows() == 0 then
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_LOCKED")))
+			return
+		end
 		local lpb = _G.ExpansionLandingPageMinimapButton
 		if lpb and lpb.Click and pcall(lpb.Click, lpb) then
 			return
