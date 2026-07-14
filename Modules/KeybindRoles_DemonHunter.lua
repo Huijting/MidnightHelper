@@ -57,7 +57,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["The Hunt"]           = { role = "cooldown_bar", priority = 2, bindKey = "Shift+F1" }, -- baseline major CD (beide specs)
 
 	-- CC / dispel_cc (InterruptAbilities 179057/211881; SpellCategories CROWD_CONTROL)
-	["Chaos Nova"]         = { category = "dispel_cc", priority = 1 },                       -- AoE stun (InterruptAbilities kind="cc" mech=12)
+	["Chaos Nova"]         = { category = "dispel_cc", priority = 1, alsoStop = "stun" },                       -- AoE stun (InterruptAbilities kind="cc" mech=12)
 	["Sigil of Misery"]    = { category = "dispel_cc", priority = 2, bindKey = "Shift+V" },  -- AoE fear (SpellCategories 207684; beide specs)
 	["Imprison"]           = { category = "dispel_cc", priority = 3, bindKey = "Ctrl+V" },   -- cage (SpellCategories 217832)
 	["Consume Magic"]      = { category = "dispel_cc", priority = 4 },                       -- offensieve magic-dispel (SpellArchetypes 1277738; beide specs)
@@ -116,7 +116,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Sigil of Spite"]    = { category = "cooldown", priority = 4, specs = { 581 } },      -- souls-burst sigil (SpellArchetypes 389860; guide.lua {390163})
 	-- CC extra (SpellCategories UTILITY/CROWD 202138 Sigil of Chains; 211881 Fel Eruption)
 	["Sigil of Chains"]   = { category = "dispel_cc", priority = 5, specs = { 581 } },     -- pull/knock (SpellCategories 202138)
-	["Fel Eruption"]      = { category = "dispel_cc", priority = 6, specs = { 581 } },     -- single-target stun (InterruptAbilities 211881 kind="cc"; talent)
+	["Fel Eruption"]      = { category = "dispel_cc", priority = 6, specs = { 581 }, alsoStop = "stun" },     -- single-target stun (InterruptAbilities 211881 kind="cc"; talent)
 
 	--==============================================================
 	-- DEVOURER (1480) — nieuwe Midnight 12.0.7 Void Int-caster DPS-spec.

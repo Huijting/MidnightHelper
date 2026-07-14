@@ -116,7 +116,7 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	-- ============================================================
 	-- CC-EXTRA per spec (dispel_cc) - Asphyxiate / Blinding Sleet / Strangulate
 	-- ============================================================
-	["Asphyxiate"] = { category = "dispel_cc", priority = 3, specs = { 250, 252 } }, -- stun (Blood 221562 / Unholy 108194)
+	["Asphyxiate"] = { category = "dispel_cc", priority = 3, specs = { 250, 252 }, alsoStop = "stun" }, -- stun (Blood 221562 / Unholy 108194); JustAC cc mech=12 → Spec 08 alsoStop
 	["Blinding Sleet"] = { category = "dispel_cc", priority = 3, specs = { 251 } },  -- AoE disorient (Frost)
-	["Strangulate"] = { category = "dispel_cc", priority = 4 },                      -- silence (talent, baseline beschikbaar)
+	["Strangulate"] = { category = "dispel_cc", priority = 4, alsoStop = "silence" },                      -- silence (talent, baseline beschikbaar)
 }

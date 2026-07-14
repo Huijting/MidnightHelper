@@ -113,10 +113,10 @@ ns.KeybindRoleClassifier.ROGUE = {
     ["Evasion"]          = { role = "defensive_3", priority = 2 }, -- dodge (grote def)
     -- Dispel / CC
     ["Blind"]            = { category = "dispel_cc", priority = 1 }, -- disorient
-    ["Kidney Shot"]      = { category = "dispel_cc", priority = 2 }, -- finisher-stun
-    ["Cheap Shot"]       = { category = "dispel_cc", priority = 3 }, -- stun vanuit stealth
+    ["Kidney Shot"]      = { category = "dispel_cc", priority = 2, alsoStop = "stun" }, -- finisher-stun (JustAC 408 mech=12)
+    ["Cheap Shot"]       = { category = "dispel_cc", priority = 3, alsoStop = "stun" }, -- stun vanuit stealth (JustAC 1833 mech=12)
     ["Sap"]              = { category = "dispel_cc", priority = 4 }, -- incapacitate (uit combat/stealth)
-    ["Gouge"]            = { category = "dispel_cc", priority = 5 }, -- incapacitate (frontaal)
+    ["Gouge"]            = { category = "dispel_cc", priority = 5, alsoStop = "incap" }, -- incapacitate (frontaal) (JustAC 1776 mech=14)
     -- Utility
     ["Vanish"]           = { category = "cooldown", priority = 1 },                   -- stealth-CD (reset/opener), geen zuivere utility
     ["Stealth"]          = { category = "utility", priority = 2 },                    -- pre-pull/openers

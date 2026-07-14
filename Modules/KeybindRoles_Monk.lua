@@ -151,7 +151,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- GEDEELD (meerdere Monk-specs, geen 3-way-baseline)
     -- =================================================================
     ["Spear Hand Strike"]            = { role = "interrupt", priority = 1, specs = { 268, 269 } },    -- E: interrupt; BM+WW (MW heeft geen kick)
-    ["Leg Sweep"]                    = { category = "dispel_cc", priority = 2 },                      -- Shift+V: AoE-stun (alle 3 specs)
+    ["Leg Sweep"]                    = { category = "dispel_cc", priority = 2, alsoStop = "stun" },                      -- Shift+V: AoE-stun (alle 3 specs); JustAC 119381 mech=12 → Spec 08
 
     -- =================================================================
     -- BASELINE (alle 3 Monk-specs; geen specs=)
@@ -167,7 +167,7 @@ ns.KeybindRoleClassifier.MONK = {
     -- Grote defensive
     ["Fortifying Brew"]              = { role = "defensive_3", priority = 1 }, -- C: grote defensive (115203 basis; 120954 BM / 201318 WW / 243435 MW-varianten, zelfde naam)
     -- CC / dispel
-    ["Paralysis"]                    = { category = "dispel_cc", priority = 1 }, -- V (BM/WW) / F (MW): single-target incapacitate (InterruptAbilities)
+    ["Paralysis"]                    = { category = "dispel_cc", priority = 1, alsoStop = "incap" }, -- V (BM/WW) / F (MW): single-target incapacitate (InterruptAbilities 115078 mech=14)
     -- Utility
     ["Transcendence"]                = { category = "utility", priority = 3 }, -- plaats-anker (Transcendence: Transfer = MW-specifieke terugkeer)
 }

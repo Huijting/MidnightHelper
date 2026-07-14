@@ -72,7 +72,7 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Avatar"]             = { category = "cooldown", priority = 2, bindKey = "Shift+F1", specs = { 71, 73 } }, -- Arms/Prot major CD (guide.lua)
 	-- Utility (SpellArchetypes 394354 anti-shield; 132169 CC-talent)
 	["Wrecking Throw"]     = { category = "utility", priority = 5 },              -- anti-shield/immuniteit (geen heal); baseline throw-utility
-	["Storm Bolt"]         = { category = "dispel_cc", priority = 6, specs = { 71, 72 } }, -- single-target stun/CC (InterruptAbilities 107570 kind="cc"; functioneel CC, geen generieke utility)
+	["Storm Bolt"]         = { category = "dispel_cc", priority = 6, specs = { 71, 72 }, alsoStop = "stun" }, -- single-target stun/CC (InterruptAbilities 107570 kind="cc" mech=12) → Spec 08 alsoStop
 
 	--==============================================================
 	-- FURY (72)
@@ -117,7 +117,7 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	["Ravager"]            = { category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 71, 73 } }, -- SpellArchetypes 228920 (Arms/Prot Colossus-alt)
 	["Demolish"]           = { category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 71, 73 } }, -- guide.lua {436358} (Colossus hero-tree)
 	-- Utility CC (InterruptAbilities 46968 Shockwave kind="cc"; Prot/talent stun)
-	["Shockwave"]          = { category = "dispel_cc", priority = 3, specs = { 73 } }, -- AoE-stun (InterruptAbilities 46968; niet in oude draft)
+	["Shockwave"]          = { category = "dispel_cc", priority = 3, specs = { 73 }, alsoStop = "stun" }, -- AoE-stun (InterruptAbilities 46968 mech=12) → Spec 08 alsoStop
 	-- Utility (SpellArchetypes 394352 Shattering Throw anti-immuniteit)
 	["Shattering Throw"]   = { category = "utility", priority = 5, specs = { 73 } }, -- anti-immuniteit (geen heal)
 	-- Shout-utility talenten (ExwindCore Midnight: Challenging Shout 1161 / Disrupting Shout 386071, specs={73})
