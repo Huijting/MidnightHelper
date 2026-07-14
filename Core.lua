@@ -807,7 +807,7 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh kicks — interrupt scorecard: your landed/wasted this run. "alert" toggles the
 	-- pre-12.1 whiff alert; "reset" clears the tally (Spec 14).
-	if msg == "kicks" or msg == "kicks alert" or msg == "kicks reset" then
+	if msg == "kicks" or msg == "kicks alert" or msg == "kicks party" or msg == "kicks reset" then
 		if ns.HandleInterruptCommand then
 			ns.HandleInterruptCommand(msg:match("^kicks%s+(%S+)"))
 		end

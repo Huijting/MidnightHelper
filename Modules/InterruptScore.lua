@@ -67,27 +67,48 @@ local function Speak(text)
 	if C_TTSSettings and C_TTSSettings.GetVoiceOptionID and Enum and Enum.TtsVoiceType then
 		voiceId = C_TTSSettings.GetVoiceOptionID(Enum.TtsVoiceType.Standard) or 0
 	end
-	local vol = (C_TTSSettings and C_TTSSettings.GetSpeechVolume and C_TTSSettings.GetSpeechVolume()) or 100
-	pcall(C_VoiceChat.SpeakText, voiceId, text, 2, vol, true)
+	-- Max volume — a "you whiffed!" alert should cut through the fight.
+	pcall(C_VoiceChat.SpeakText, voiceId, text, 2, 100, true)
 end
 
--- A wasted kick (nothing was casting). Alert is opt-in AND build-gated (12.1 shows its own
--- visual), with an anti-spam cooldown so a messy pull never spams "miss, miss, miss".
+-- Which chat channel to shout a whiff into (nil when solo).
+local function GroupChannel()
+	if IsInGroup and LE_PARTY_CATEGORY_INSTANCE and IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+		return "INSTANCE_CHAT" -- LFG/instance-formed group
+	elseif IsInRaid and IsInRaid() then
+		return "RAID"
+	elseif IsInGroup and IsInGroup() then
+		return "PARTY"
+	end
+	return nil
+end
+
+-- A wasted kick (nothing was casting). Two INDEPENDENT opt-ins, anti-spammed together:
+--  • local alert (sound + hint) — build-gated to pre-12.1 (12.1 shows its own visual);
+--  • party-chat shout of YOUR OWN whiff — self-reported (your name), works in both builds
+--    (the group never sees your miss otherwise), only in a group. Never announces anyone else.
 local function OnWasted()
-	if not (ns.db and ns.db.interruptMissAlert) then
-		return
-	end
-	if not ns.ShouldShowLocalMissHint() then
-		return
-	end
 	local now = (GetTime and GetTime()) or 0
 	if now - lastAnnounce < ANNOUNCE_CD then
 		return
 	end
-	lastAnnounce = now
-	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
-	print(("%s |cffff7d7d%s|r"):format(prefix, ns:L("INTERRUPT_MISS_HINT")))
-	Speak(ns:L("INTERRUPT_MISS_TTS"))
+	local fired = false
+	if ns.db and ns.db.interruptMissAlert and ns.ShouldShowLocalMissHint() then
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		print(("%s |cffff7d7d%s|r"):format(prefix, ns:L("INTERRUPT_MISS_HINT")))
+		Speak(ns:L("INTERRUPT_MISS_TTS"))
+		fired = true
+	end
+	if ns.db and ns.db.interruptMissParty then
+		local channel = GroupChannel()
+		if channel and SendChatMessage then
+			pcall(SendChatMessage, (ns:L("INTERRUPT_MISS_PARTY_FMT")):format(UnitName("player") or "?"), channel)
+			fired = true
+		end
+	end
+	if fired then
+		lastAnnounce = now
+	end
 end
 
 -- My own interrupt fired: remember it and, if nothing resolves it within the window, it
@@ -151,6 +172,12 @@ function ns.HandleInterruptCommand(arg)
 		ns.db = ns.db or {}
 		ns.db.interruptMissAlert = not ns.db.interruptMissAlert
 		print(("%s %s"):format(prefix, ns:L(ns.db.interruptMissAlert and "INTERRUPT_ALERT_ON" or "INTERRUPT_ALERT_OFF")))
+		return
+	end
+	if arg == "party" then
+		ns.db = ns.db or {}
+		ns.db.interruptMissParty = not ns.db.interruptMissParty
+		print(("%s %s"):format(prefix, ns:L(ns.db.interruptMissParty and "INTERRUPT_PARTY_ON" or "INTERRUPT_PARTY_OFF")))
 		return
 	end
 	if arg == "reset" then
