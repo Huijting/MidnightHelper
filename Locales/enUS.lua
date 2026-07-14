@@ -3179,4 +3179,7 @@ ns._mhLocales.enUS = {
 	DEATH_RECAP_LESSON_FMT = "You took heavy damage from %s — next time interrupt it or step out of it.",
 	DEATH_RECAP_ENV_FMT = "You took heavy %s damage — next time get out of it sooner.",
 	DEATH_RECAP_GENERIC = "You went down. Open the Death Recap (the skull button) to see exactly what hit you.",
+	-- Spec 12 popup: restricted content (the game hides the cause) + the clickable card hint.
+	DEATH_RECAP_RESTRICTED = "Something here got you — and the game hides the details in this content. Open the Death Recap to see what hit you, and watch the red ground next time.",
+	DEATH_RECAP_OPEN_HINT = "Click to open the Death Recap.",
 }

@@ -3091,4 +3091,7 @@ ns._mhLocales.nlNL = {
 	DEATH_RECAP_LESSON_FMT = "Je kreeg zware schade van %s — onderbreek 't of loop eruit volgende keer.",
 	DEATH_RECAP_ENV_FMT = "Je kreeg zware %s-schade — volgende keer eerder eruit.",
 	DEATH_RECAP_GENERIC = "Je ging neer. Open de Death Recap (de skull-knop) om te zien wat je precies raakte.",
+	-- Spec 12 popup: restricted content (het spel verbergt de oorzaak) + de klik-hint.
+	DEATH_RECAP_RESTRICTED = "Iets kreeg je hier te pakken — en het spel verbergt de details in deze content. Open de Death Recap om te zien wat je raakte, en let volgende keer op de rode grond.",
+	DEATH_RECAP_OPEN_HINT = "Klik om de Death Recap te openen.",
 }

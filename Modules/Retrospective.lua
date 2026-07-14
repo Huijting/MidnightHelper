@@ -132,6 +132,36 @@ local function DeathCauseFromLog()
 	return { label = label, environmental = false }
 end
 
+local SKULL_ICON = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8" -- the skull marker
+
+-- Open Blizzard's own Death Recap (its addon is load-on-demand). recapID 1 = most recent,
+-- mirroring how the C_DeathInfo probe reads GetDeathRecapLinks(1). All guarded — if the API
+-- is absent this is a harmless no-op (Rob confirms in-game whether the click opens it).
+local function OpenBlizzardRecap()
+	if UIParentLoadAddOn then
+		pcall(UIParentLoadAddOn, "Blizzard_DeathRecap")
+	end
+	if type(OpenDeathRecap) == "function" then
+		pcall(OpenDeathRecap, 1)
+	end
+end
+
+-- The visible card (reuses the Midnight toast: title + body + skull icon + click-to-open the
+-- Death Recap). Carola died twice in a ritual not knowing why — a card beats a chat line she
+-- scrolls past.
+local function ShowDeathPopup(body)
+	if ns.QueueMidnightToast then
+		ns.QueueMidnightToast({
+			id = "mh_deathrecap",
+			icon = SKULL_ICON,
+			title = ns:L("DEATH_RECAP_HEAD"),
+			body = body,
+			onClick = OpenBlizzardRecap,
+		})
+	end
+end
+
+-- Readable content (dungeons/raids/M+): name the biggest blow + a lesson, in chat AND a popup.
 local function ShowLesson()
 	if GetTime() - lastShown < COOLDOWN then
 		return
@@ -149,7 +179,19 @@ local function ShowLesson()
 		body = (ns:L("DEATH_RECAP_LESSON_FMT")):format(cause.label)
 	end
 	print(("%s %s %s"):format(prefix, head, body))
+	ShowDeathPopup(body .. "\n|cff9d9d9d" .. ns:L("DEATH_RECAP_OPEN_HINT") .. "|r")
 	dmgRing = {} -- fresh for the next life
+end
+
+-- Restricted content (delves / follower dungeons / rituals): we never read the combat log
+-- there (it's forbidden/secret), so we can't name the cause — point at Blizzard's Death
+-- Recap, which is not subject to the addon restriction and CAN show it.
+local function ShowRestrictedDeathLesson()
+	if GetTime() - lastShown < COOLDOWN then
+		return
+	end
+	lastShown = GetTime()
+	ShowDeathPopup(ns:L("DEATH_RECAP_RESTRICTED") .. "\n|cff9d9d9d" .. ns:L("DEATH_RECAP_OPEN_HINT") .. "|r")
 end
 
 -- Register the heavy combat-log event ONLY while inside a tracked instance.
@@ -195,16 +237,22 @@ zone:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 zone:RegisterEvent("PLAYER_DEAD")
 zone:SetScript("OnEvent", function(_, ev)
 	if ev == "PLAYER_DEAD" then
-		if not autoEnabled() or not inTrackedInstance() then
+		if not autoEnabled() then
 			return
 		end
-		-- tiny delay so the final blow's log event is in the buffer.
-		if C_Timer and C_Timer.After then
-			C_Timer.After(0.2, function()
+		if inTrackedInstance() then
+			-- readable content: tiny delay so the final blow's log event is in the buffer.
+			if C_Timer and C_Timer.After then
+				C_Timer.After(0.2, function()
+					pcall(ShowLesson)
+				end)
+			else
 				pcall(ShowLesson)
-			end)
-		else
-			pcall(ShowLesson)
+			end
+		elseif IsInInstance and IsInInstance() then
+			-- restricted instance (delve/follower/ritual): we can't read the cause here, so
+			-- point at Blizzard's Death Recap instead of showing nothing (Carola's rituals).
+			pcall(ShowRestrictedDeathLesson)
 		end
 		return
 	end
