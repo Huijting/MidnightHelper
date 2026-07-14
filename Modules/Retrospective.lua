@@ -40,22 +40,37 @@ local function autoEnabled()
 	return not (ns.db and ns.db.deathRecap == false)
 end
 
--- Death recap only where COMBAT_LOG_EVENT_UNFILTERED may actually be registered:
--- regular dungeons ("party", incl. M+) and raids ("raid"), where combat meters work.
--- Restricted content FORBIDS registering CLEU and throws ADDON_ACTION_FORBIDDEN (10x
--- spam) — ritual sites report as "scenario", and delves (party-flagged but restricted)
--- are caught via ns.IsDelveInstanceInProgress. 12.x also makes their combat log secret,
--- so we stay out entirely and leave those deaths to Blizzard's own Death Recap.
+-- Death recap only where COMBAT_LOG_EVENT_UNFILTERED may actually be registered — a
+-- WHITELIST of combat-log-friendly difficulties (regular/heroic/mythic/keystone dungeons,
+-- timewalking, and raids: where meters work). Restricted content — delves (208), follower
+-- dungeons, ritual scenarios — is NOT in the list, so we never hit the ADDON_ACTION_FORBIDDEN
+-- that RegisterEvent throws there (which "party"/"raid" kind-matching kept missing: rituals
+-- AND follower dungeons both slipped through). Fail-CLOSED: an unknown/new difficulty is just
+-- not tracked (no recap, never a crash). The runtime kill-switch below is the backstop.
+local SAFE_DIFFICULTY = {
+	[1] = true,  -- Dungeon Normal
+	[2] = true,  -- Dungeon Heroic
+	[8] = true,  -- Mythic Keystone (M+)
+	[23] = true, -- Mythic 0
+	[24] = true, -- Timewalking dungeon
+	[14] = true, -- Raid Normal
+	[15] = true, -- Raid Heroic
+	[16] = true, -- Raid Mythic
+	[17] = true, -- Raid LFR
+}
 local function inTrackedInstance()
-	if not IsInInstance then
+	if not (IsInInstance and GetInstanceInfo) then
 		return false
 	end
-	local inside, kind = IsInInstance()
-	if not inside or (kind ~= "party" and kind ~= "raid") then
-		return false -- open world, cities, ritual scenarios, etc.
+	if not IsInInstance() then
+		return false
+	end
+	local diffID = select(3, GetInstanceInfo())
+	if not (diffID and SAFE_DIFFICULTY[diffID]) then
+		return false -- delve / follower dungeon / ritual scenario / unknown → stay out
 	end
 	if ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress() then
-		return false -- delves restrict the combat log even when flagged "party"
+		return false -- extra safety
 	end
 	return true
 end
@@ -140,10 +155,11 @@ end
 -- Register the heavy combat-log event ONLY while inside a tracked instance.
 local clog = CreateFrame("Frame")
 local clogOn = false
+local cleuBlocked = false -- set if a RegisterEvent is ever forbidden (see the backstop)
 clog:SetScript("OnEvent", OnCombatLog)
 
 local function UpdateClogRegistration()
-	local want = autoEnabled() and inTrackedInstance()
+	local want = not cleuBlocked and autoEnabled() and inTrackedInstance()
 	if want and not clogOn then
 		clog:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 		clogOn = true
@@ -154,6 +170,24 @@ local function UpdateClogRegistration()
 	end
 end
 ns.UpdateDeathRecapClog = UpdateClogRegistration -- so the /mh death toggle can re-check
+
+-- Backstop: if the whitelist ever lets us try RegisterEvent in restricted content anyway (a
+-- difficulty we did not know about), ADDON_ACTION_FORBIDDEN fires. It is NOT a catchable Lua
+-- error, so pcall can't suppress it — the only cure is to stop calling RegisterEvent. Catch
+-- the event, stand the capture down for this session, and never retry. Caps any slip at a
+-- single error instead of 10x spam.
+local forbiddenWatch = CreateFrame("Frame")
+forbiddenWatch:RegisterEvent("ADDON_ACTION_FORBIDDEN")
+forbiddenWatch:SetScript("OnEvent", function(_, _, who, func)
+	if who == "MidnightHelper" and type(func) == "string" and func:find("RegisterEvent", 1, true) then
+		cleuBlocked = true
+		if clogOn then
+			clog:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+			clogOn = false
+			dmgRing = {}
+		end
+	end
+end)
 
 local zone = CreateFrame("Frame")
 zone:RegisterEvent("PLAYER_ENTERING_WORLD")
