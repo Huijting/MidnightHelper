@@ -860,6 +860,29 @@ local function ProtoRefreshCards(panel, spec, slots)
 			end
 		end
 	end
+	-- Spec 08 cross-listing: mirror every bound "alsoStop" spell into the interrupt card with
+	-- its REAL key + a stop-type tag, so the scattered stop-toolkit reads as one group. We only
+	-- MIRROR — the spell keeps its own card and key (Avenger's Shield stays a builder on 2).
+	if spec and spec.spellByUiKey then
+		for bindKey, entry in pairs(spec.spellByUiKey) do
+			if type(entry) == "table" and entry.id and entry.alsoStop then
+				local mod, base = ns.Keybind_ParseBindKey(bindKey)
+				if PassesCardFilter(filter, base, mod)
+					and GroupForBind(entry, base, mod, CategoryTokenForBase(slots, base)) ~= "interrupt" then
+					local tag = ns:L("KEYBIND_TAG_" .. tostring(entry.alsoStop):upper())
+					groups["interrupt"] = groups["interrupt"] or {}
+					table.insert(groups["interrupt"], {
+						bindKey = bindKey,
+						base = base,
+						mod = mod,
+						id = entry.id,
+						name = (ProtoSpellName(entry.id) or ("#" .. tostring(entry.id))) .. "  |cff808080(" .. tag .. ")|r",
+					})
+				end
+			end
+		end
+	end
+
 	for _, list in pairs(groups) do
 		table.sort(list, function(a, b)
 			if (a.base or "") ~= (b.base or "") then

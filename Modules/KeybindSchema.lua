@@ -362,6 +362,7 @@ function ns.Keybind_AllocateSpells(spells, opts)
 			minLevel = spell.minLevel,
 			role = spell.role,
 			category = spell.category,
+			alsoStop = spell.alsoStop, -- Spec 08: carried so the coach can cross-list stops
 		}
 	end
 

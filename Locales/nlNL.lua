@@ -895,7 +895,10 @@ ns._mhLocales.nlNL = {
 	LAYOUT_CARD_BUILDER = "Builder",
 	LAYOUT_CARD_SPENDER = "Spender",
 	LAYOUT_CARD_AOE = "AoE",
-	LAYOUT_CARD_INTERRUPT = "Interrupt",
+	LAYOUT_CARD_INTERRUPT = "Interrupts / stops",
+	-- Spec 08: stop-type-tags voor cross-geliste alsoStop-spells in de interrupt-kaart.
+	KEYBIND_TAG_STUN = "stun",
+	KEYBIND_TAG_SILENCE = "silence",
 	LAYOUT_CARD_MOVEMENT = "Movement",
 	LAYOUT_CARD_UTILITY = "Utility",
 	LAYOUT_CARD_DEFENSIVE = "Defensive",

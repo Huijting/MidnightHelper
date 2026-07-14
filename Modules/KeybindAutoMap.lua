@@ -165,6 +165,7 @@ function ns.MH_AutoMapBuild()
 					category = r.category,
 					priority = r.priority,
 					bindKey = r.bindKey,
+					alsoStop = r.alsoStop, -- Spec 08: dual-role stop tag, carried through for cross-listing
 				}
 			end
 			matched = matched + 1
