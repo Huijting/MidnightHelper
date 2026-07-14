@@ -144,7 +144,10 @@ local function OnInterrupted(unit)
 	end
 	local match = true
 	local g = UnitGUID and UnitGUID(unit)
-	if pending.guid and g and not isSecret(g) then
+	-- Compare GUIDs only when BOTH are readable. In restricted content (rituals/delves) the
+	-- stored target GUID captured at kick time is SECRET; comparing it throws. Either side
+	-- secret → fall back to the time-only match (match stays true).
+	if pending.guid and g and not isSecret(g) and not isSecret(pending.guid) then
 		match = (g == pending.guid)
 	end
 	if match then
