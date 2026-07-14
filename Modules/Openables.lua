@@ -69,6 +69,19 @@ local function SlotKind(bag, slot)
 	if not ok or type(data) ~= "table" or type(data.lines) ~= "table" then
 		return nil
 	end
+	-- Equippable gear with a collect-by-use appearance (a belt, etc.) must NOT go in the list:
+	-- clicking it there would try to EQUIP it — bind + "not your armor type" popup, not collect
+	-- (Rob's Void-Touched Winter Belt, 14 jul). You collect gear by equipping it yourself; only
+	-- use-only appearance items (ensembles/tokens) belong in this click-to-use list.
+	local equippable = false
+	if C_Container and C_Container.GetContainerItemID and C_Item and C_Item.GetItemInfoInstant then
+		local iid = C_Container.GetContainerItemID(bag, slot)
+		if iid then
+			local equipLoc = select(4, C_Item.GetItemInfoInstant(iid))
+			equippable = type(equipLoc) == "string" and equipLoc ~= "" and equipLoc ~= "INVTYPE_NON_EQUIP"
+		end
+	end
+
 	local openLine = ITEM_OPENABLE -- "<Right Click to Open>" (gelokaliseerd)
 	local kind
 	-- A cosmetic appearance you collect by USING it ("Use: Add this appearance to your …
@@ -106,7 +119,7 @@ local function SlotKind(bag, slot)
 			-- Cosmetic transmog appearance (collect-by-use). Track it like a learn item so it
 			-- isn't forgotten — but only while UNcollected (Rob's Void-Touched Winter Belt, 14
 			-- jul). Fail-permissive: show unless the tooltip explicitly says you already have it.
-			if lower:find("use:", 1, true) and lower:find("this appearance", 1, true)
+			if not equippable and lower:find("use:", 1, true) and lower:find("this appearance", 1, true)
 				and lower:find("collection", 1, true) then
 				appearanceUse = true
 			end
