@@ -90,6 +90,28 @@ local function UnlockedRows()
 	return n
 end
 
+-- Is the Expansion Landing Page minimap button currently the MIDNIGHT one (the Omnium
+-- Folio)? That button represents whatever expansion landing page THIS character has active;
+-- on a char whose active page is the old Shadowlands covenant, clicking it pops a Kyrian
+-- window (Carola + Cisca, both 90 WITH the Folio, 14 jul). This client exposes no way to
+-- query the type (C_ExpansionLandingPage is nil; no :GetExpansionLandingPageType), and
+-- Enum.ExpansionLandingPageType is only { None=0, Midnight=1 } — so read the button's own
+-- labels, which Blizzard sets from the active landing page (Rob's dump: title "Omnium Folio",
+-- description "…Midnight features and powers"). English-oriented, like MH's other tooltip-text
+-- checks; a mislabel just falls back to the "wrong expansion" hint, never the wrong window.
+local function IsMidnightFolioButton(btn)
+	if not btn then
+		return false
+	end
+	if type(btn.title) == "string" and btn.title == "Omnium Folio" then
+		return true
+	end
+	if type(btn.description) == "string" and btn.description:find("Midnight", 1, true) then
+		return true
+	end
+	return false
+end
+
 -- Eerstvolgende wekelijkse reset als timestamp (zelfde voor de hele week).
 local function NextWeeklyReset()
 	if C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset then
@@ -322,18 +344,25 @@ function ns.BuildOmniumFolioPanel(panel)
 			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_COMBAT")))
 			return
 		end
-		-- The Expansion Landing Page button opens the landing page for your CURRENT expansion
-		-- CONTEXT, not specifically Midnight. During Timewalking (Shadowlands this week) that
-		-- context is another expansion, so clicking it pops the wrong window — Carola (90) got
-		-- a Kyrian window, Cisca (90) a different one, both after TW dungeons (14 jul). If the
-		-- Folio isn't unlocked on this char there's nothing to open either, so say so. (A proper
-		-- "only when the active page is Midnight" gate needs the landing-page-type API — TODO.)
+		-- The Expansion Landing Page button represents whatever expansion landing page THIS
+		-- character has active — not necessarily Midnight. Two guards before we click it:
+		--  1. Folio not unlocked here → nothing to open.
+		--  2. The button is currently another expansion's page (the old Shadowlands covenant →
+		--     a Kyrian window for Carola/Cisca) → don't click it, explain instead.
 		if UnlockedRows() == 0 then
 			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_LOCKED")))
 			return
 		end
 		local lpb = _G.ExpansionLandingPageMinimapButton
-		if lpb and lpb.Click and pcall(lpb.Click, lpb) then
+		if not lpb then
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_FALLBACK")))
+			return
+		end
+		if not IsMidnightFolioButton(lpb) then
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_WRONGEXP")))
+			return
+		end
+		if lpb.Click and pcall(lpb.Click, lpb) then
 			return
 		end
 		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_FALLBACK")))
