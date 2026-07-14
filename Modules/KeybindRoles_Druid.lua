@@ -109,8 +109,8 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Ironfur"]                          = { category = "defensive", priority = 1, specs = { 104 } }, -- actieve mitigation (armor), GEEN damage-spender -> Defensive-kaart
     ["Maul"]                             = { category = "spender", priority = 3, specs = { 104 } }, -- Rage-dump
     -- CC
-    ["Mighty Bash"]                      = { category = "dispel_cc", priority = 1, specs = { 102, 104 } }, -- stun (Guardian V; Balance Shift+V talent)
-    ["Incapacitating Roar"]              = { category = "dispel_cc", priority = 2, specs = { 103, 104 } }, -- AoE-disorient (Guardian Shift+V; Feral talent)
+    ["Mighty Bash"]                      = { category = "dispel_cc", priority = 1, specs = { 102, 104 }, alsoStop = "stun" }, -- JustAC InterruptAbilities [5211] cc mech=12 (stun) → Spec 08 alsoStop
+    ["Incapacitating Roar"]              = { category = "dispel_cc", priority = 2, specs = { 103, 104 }, alsoStop = "incap" }, -- JustAC InterruptAbilities [99] cc mech=14 (incapacitate) → Spec 08 alsoStop
     -- Cooldowns
     ["Incarnation: Guardian of Ursoc"]   = { category = "cooldown", priority = 2, specs = { 104 } }, -- talent-alternatief (F1/Shift+F1)
     ["Rage of the Sleeper"]              = { category = "defensive", priority = 3, specs = { 104 } }, -- Guardian actieve def (dmg-reductie + reflect + heal), GEEN offensieve CD -> Defensive

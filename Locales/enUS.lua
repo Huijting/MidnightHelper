@@ -916,6 +916,7 @@ ns._mhLocales.enUS = {
 	-- Spec 08: stop-type tags for cross-listed alsoStop spells in the interrupt card.
 	KEYBIND_TAG_STUN = "stun",
 	KEYBIND_TAG_SILENCE = "silence",
+	KEYBIND_TAG_INCAP = "incap",
 	LAYOUT_CARD_MOVEMENT = "Movement",
 	LAYOUT_CARD_UTILITY = "Utility",
 	LAYOUT_CARD_DEFENSIVE = "Defensive",

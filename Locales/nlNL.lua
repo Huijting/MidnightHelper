@@ -899,6 +899,7 @@ ns._mhLocales.nlNL = {
 	-- Spec 08: stop-type-tags voor cross-geliste alsoStop-spells in de interrupt-kaart.
 	KEYBIND_TAG_STUN = "stun",
 	KEYBIND_TAG_SILENCE = "silence",
+	KEYBIND_TAG_INCAP = "incap",
 	LAYOUT_CARD_MOVEMENT = "Movement",
 	LAYOUT_CARD_UTILITY = "Utility",
 	LAYOUT_CARD_DEFENSIVE = "Defensive",

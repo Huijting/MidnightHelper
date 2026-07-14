@@ -37,7 +37,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	["Astral Shift"] = { role = "defensive_3", priority = 1 }, -- C (grote def, 40% DR; JustAC DefensiveEngine 108271)
 	["Hex"] = { category = "dispel_cc", priority = 1 }, -- V (CC; JustAC SpellCategories 51514) -- alleen Enh bindt Hex live; baseline utility
 	["Purge"] = { category = "dispel_cc", priority = 1 }, -- Ele V / Enh Shift+V (enemy dispel; JustAC SpellCategories 370)
-	["Capacitor Totem"] = { category = "dispel_cc", priority = 2 }, -- T (AoE stun; JustAC InterruptAbilities/SpellCategories 192058)
+	["Capacitor Totem"] = { category = "dispel_cc", priority = 2, alsoStop = "stun" }, -- T (AoE stun; JustAC InterruptAbilities [192058] cc mech=12) → Spec 08 alsoStop
 	["Healing Surge"] = { role = "heal_quick", priority = 1 }, -- F2 (snelle combat self-heal-anker; JustAC SpellCategories 8004)
 	["Bloodlust"] = { category = "cooldown", priority = 4 }, -- Shift+F2 (raid-haste, Horde; JustAC SpellCategories 2825)
 	["Heroism"] = { category = "cooldown", priority = 4 }, -- Shift+F2 (raid-haste, Alliance; JustAC SpellCategories 32182)

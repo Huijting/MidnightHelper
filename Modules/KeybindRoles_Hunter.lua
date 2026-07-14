@@ -73,7 +73,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	["Tranquilizing Shot"] = { category = "dispel_cc", priority = 1 }, -- enrage/magic dispel (19801), baseline
 	["Freezing Trap"] = { category = "dispel_cc", priority = 2 }, -- incapacitate (187650), baseline
 	["Binding Shot"] = { category = "dispel_cc", priority = 3 }, -- root/stun (117405), baseline (talent)
-	["Intimidation"] = { category = "dispel_cc", priority = 3 }, -- pet-stun (24394), baseline (talent)
+	["Intimidation"] = { category = "dispel_cc", priority = 3, alsoStop = "stun" }, -- pet-stun; JustAC InterruptAbilities [24394] cc mech=12 → Spec 08 alsoStop
 	["Scatter Shot"] = { category = "dispel_cc", priority = 4 }, -- disorient (213691), baseline (talent)
 	["Concussive Shot"] = { category = "dispel_cc", priority = 4 }, -- slow (5116), baseline
 	["Bursting Shot"] = { category = "dispel_cc", priority = 5 }, -- disorient/knockback (186387), MM/baseline
@@ -108,7 +108,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	-- Marksmanship
 	["Aimed Shot"] = { category = "main_rotation", priority = 1, specs = { 254 } }, -- MM builder (19434)
 	["Rapid Fire"] = { category = "main_rotation", priority = 2, specs = { 254 } }, -- MM channel builder (257044)
-	["Wailing Arrow"] = { category = "main_rotation", priority = 3, specs = { 254 } }, -- MM Dark Ranger (silence-hybrid)
+	["Wailing Arrow"] = { category = "main_rotation", priority = 3, specs = { 254 }, alsoStop = "silence" }, -- MM Dark Ranger; JustAC InterruptAbilities [355589/392060] cc mech=9 (silence) → Spec 08 cross-list (stays rotational)
 	["Chimaera Shot"] = { category = "main_rotation", priority = 4, specs = { 254 } }, -- MM builder (talent)
 	-- Survival
 	["Raptor Strike"] = { category = "main_rotation", priority = 2, specs = { 255 } }, -- SV melee builder (186270)
