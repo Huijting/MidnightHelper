@@ -64,7 +64,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 	-- Dispel / CC (V). Cleanse=dispel; Hammer of Justice/Blinding Light/Repentance=CC/stun.
 	["Cleanse"] = { id = 4987, category = "dispel_cc", priority = 1 }, -- SpellCategories HEALING [4987] (poison/disease/magic dispel)
 	["Cleanse Toxins"] = { id = 213644, category = "dispel_cc", priority = 2 }, -- SpellCategories UTILITY [213644] (Prot/Ret dispel-variant)
-	["Hammer of Justice"] = { id = 853, category = "dispel_cc", priority = 3 }, -- CROWD_CONTROL [853] (stun)
+	["Hammer of Justice"] = { id = 853, category = "dispel_cc", priority = 3, alsoStop = true }, -- CROWD_CONTROL [853] (stun); JustAC InterruptAbilities [853] kind=cc/stun-interrupt → Spec 08 off-interrupt tag
 	["Blinding Light"] = { id = 115750, category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [115750] (AoE disorient; castbare id per JustAC SpellCooldowns/SpellCategories, 105421 = effect)
 	["Repentance"] = { id = 20066, category = "dispel_cc", priority = 5 }, -- CROWD_CONTROL [20066] (incapacitate, talent)
 	["Turn Evil"] = { id = 10326, category = "dispel_cc", priority = 6 }, -- CROWD_CONTROL [10326] (fear undead/demon)
@@ -112,7 +112,7 @@ ns.KeybindRoleClassifier.PALADIN = {
 	--==============================================================================
 
 	["Judgment"] = { id = 20271, category = "main_rotation", priority = 1, specs = { 66, 70 } }, -- SpellArchetypes [20271] ranged builder; Prot 1 / Ret builder
-	["Avenger's Shield"] = { id = 31935, category = "main_rotation", priority = 2, specs = { 66 } }, -- InterruptAbilities [31935] (ook interrupt pri2) + Archetypes ranged; ranged builder
+	["Avenger's Shield"] = { id = 31935, category = "main_rotation", priority = 2, specs = { 66 }, alsoStop = true }, -- InterruptAbilities [31935] (ook interrupt pri2) + Archetypes ranged; ranged builder; alsoStop → Spec 08 cross-list (stays on 2, rotational-primary)
 	["Hammer of the Righteous"] = { id = 88263, category = "main_rotation", priority = 3, specs = { 66 } }, -- SpellArchetypes [88263] ranged; AoE-cleave builder
 	["Blessed Hammer"] = { id = 204019, category = "main_rotation", priority = 3, specs = { 66 } }, -- SpellArchetypes [204019]; talent-alternatief voor Hammer of the Righteous
 	["Shield of the Righteous"] = { id = 53600, category = "defensive", priority = 1, specs = { 66 } }, -- SpellArchetypes [53600] melee; verbruikt Holy Power maar is ACTIEVE MITIGATION (block+DR), functioneel defensive, geen damage-spender
