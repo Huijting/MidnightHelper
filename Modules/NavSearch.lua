@@ -290,6 +290,7 @@ local function BuildNavIndex()
 		{ "season", "season transition checklist wrap up" },
 		{ "loot", "loot upgrade tips tooltip toggle" },
 		{ "scorecard", "run scorecard deaths time record" },
+		{ "mplus", "mythic plus vault rating score keys gain great vault" },
 		{ "translate", "help translate localisation language" },
 		{ "lang", "language locale switch" },
 		{ "settings", "options config preferences" },

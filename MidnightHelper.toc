@@ -86,6 +86,7 @@ Modules\Changelog.lua
 Modules\VaultReminder.lua
 Modules\VaultAdvisorData.lua
 Modules\VaultAdvisor.lua
+Modules\MythicGain.lua
 Modules\LootUpgrade.lua
 Modules\BagUpgrade.lua
 Modules\GearEnchantCheck.lua

@@ -367,6 +367,20 @@ local function BuildLayout()
 		end
 	end
 
+	------------------------------------------------------------------ Great Vault — Mythic+ gain (Spec 20)
+	if ns.GetMythicGainSteps then
+		local okM, mSteps = pcall(ns.GetMythicGainSteps)
+		if okM and type(mSteps) == "table" and #mSteps > 0 then
+			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
+			addFull(function(rows)
+				header(rows, ns:L("HOME_MPLUS_HEADER"))
+				for _, st in ipairs(mSteps) do
+					line(rows, st.text or "", colorMap[st.color] or COLOR_DIM, st.onClick)
+				end
+			end)
+		end
+	end
+
 	------------------------------------------------------------------ Vault | World Boss
 	addColumns(
 		function(rows)

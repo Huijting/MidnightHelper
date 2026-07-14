@@ -797,6 +797,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh mplus — Mythic+ gain advisor: this week's Great Vault M+ slots + rating (Spec 20).
+	if msg == "mplus" then
+		if ns.PrintMythicGain then
+			ns.PrintMythicGain()
+		end
+		return
+	end
+
 	-- /mh loot — toggle the loot-upgrade tooltip tips (is this drop better for my spec?).
 	if msg == "loot" then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
