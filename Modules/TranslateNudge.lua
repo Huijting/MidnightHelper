@@ -19,7 +19,7 @@ local ENDONYM = { koKR = "한국어", zhCN = "简体中文", zhTW = "繁體中�
 
 -- Where translators contribute. CF's localization system isn't available for this project,
 -- so we route to the public GitHub repo (open an issue with your language).
-local TRANSLATE_URL = "https://github.com/Huijting/MidnightHelper/issues"
+local TRANSLATE_URL = "https://github.com/Huijting/MidnightHelper/issues/new?template=translation.yml"
 
 local function currentEndonym()
 	local loc = GetLocale()

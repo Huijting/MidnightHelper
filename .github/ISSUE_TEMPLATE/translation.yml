@@ -1,0 +1,45 @@
+name: Translation submission
+description: Help translate Midnight Helper into your language
+title: "[Translation] "
+labels: ["translation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping translate **Midnight Helper**! Your language shows English until a
+        pack exists — even a handful of the first-screen strings already helps a lot. You can
+        submit a few strings or many; there's no need to do everything at once.
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      description: Which language are you translating into?
+      options:
+        - Korean (koKR)
+        - Simplified Chinese (zhCN)
+        - Traditional Chinese (zhTW)
+        - Russian (ruRU)
+        - Other (name it in the notes below)
+    validations:
+      required: true
+  - type: textarea
+    id: translations
+    attributes:
+      label: Translations
+      description: >
+        One per line, as KEY = "your translation". Copy the English keys from Locales/enUS.lua
+        (or just quote the English text you're translating). Keep %s, {SPELL:...} and |c...|r
+        color codes exactly as they are.
+      placeholder: |
+        TAB_HOME = "..."
+        MOUNTS_PANEL_SUBTITLE = "..."
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else? (optional)
+      description: Questions, other language, or how you'd like to be credited.
+    validations:
+      required: false
