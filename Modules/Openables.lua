@@ -30,6 +30,37 @@ end
 -- | nil. Alle drie gebruik je met dezelfde klik (SecureActionButton item). De detectie is
 -- tooltip-tekst-gebaseerd (Engelse client — Rob/testers spelen Engels); later te
 -- lokaliseren indien nodig.
+-- An UNMET requirement (wrong level, missing profession, wrong class, too little rep…)
+-- renders RED in the tooltip — language-independent, unlike matching "Requires …" text.
+-- We can't act on such an item, so it must not clutter the list (a Cooking recipe on a
+-- char without Cooking — Rob, 14 jul). Fails OPEN: if the colour can't be read we return
+-- false and behave exactly as before, so we never hide something by accident.
+local function LineIsRedRequirement(line)
+	if not line then
+		return false
+	end
+	local c = line.leftColor
+	if not c and TooltipUtil and TooltipUtil.SurfaceArgs then
+		pcall(TooltipUtil.SurfaceArgs, line)
+		c = line.leftColor
+	end
+	if type(c) ~= "table" then
+		return false
+	end
+	local r, g, b = c.r, c.g, c.b
+	if r == nil and c.GetRGB then
+		local okc, rr, gg, bb = pcall(c.GetRGB, c)
+		if okc then
+			r, g, b = rr, gg, bb
+		end
+	end
+	if type(r) ~= "number" or type(g) ~= "number" or type(b) ~= "number" then
+		return false
+	end
+	-- Tooltip "error red" ≈ (1.0, 0.125, 0.125); item-quality colours never hit this.
+	return r > 0.8 and g < 0.3 and b < 0.3
+end
+
 local function SlotKind(bag, slot)
 	if not (C_TooltipInfo and C_TooltipInfo.GetBagItem) then
 		return nil
@@ -39,33 +70,40 @@ local function SlotKind(bag, slot)
 		return nil
 	end
 	local openLine = ITEM_OPENABLE -- "<Right Click to Open>" (gelokaliseerd)
+	local kind
+	-- Scan ALL lines: the "Use:" line sits above the "Requires …" line, so we can't return
+	-- on the first match — we must first see whether a red requirement blocks this item.
 	for _, line in ipairs(data.lines) do
 		local text = line and line.leftText
 		if text and not IsSecret(text) then
-			if openLine and (text == openLine or (strfind and strfind(text, openLine, 1, true))) then
-				return "openable"
+			if LineIsRedRequirement(line) then
+				return nil -- can't use/learn it (wrong level, missing profession, …)
 			end
-			local lower = text:lower()
-			-- "Use: Open to gain some Gold" e.d. → een buidel die je gebruikt i.p.v.
-			-- rechtsklikt (die mist de "<Right Click to Open>"-regel). Eis "open to"
-			-- (open TO gain/receive), niet los "open": anders vangt 'ie een cosmetic
-			-- ("Use: Opens your mind to…") of een trinket ("Use: Hold the fissure open…")
-			-- als loot-buidel — dat gebeurde met Entropic Extract / Void Fissure (Rob 10 jul).
-			if lower:find("use:", 1, true) and lower:find("open to", 1, true) then
-				return "openable"
-			end
-			-- "Use: Teaches you …" → een mount/pet/toy/recept dat je nog moet leren.
-			if lower:find("use:", 1, true) and lower:find("teaches you", 1, true) then
-				return "learn"
-			end
-			-- "Use: Study/Read ... Knowledge by N" → professie-studie-item.
-			if lower:find("knowledge", 1, true)
-				and (lower:find("study", 1, true) or lower:find("read", 1, true)) then
-				return "knowledge"
+			if not kind then
+				if openLine and (text == openLine or (strfind and strfind(text, openLine, 1, true))) then
+					kind = "openable"
+				else
+					local lower = text:lower()
+					-- "Use: Open to gain some Gold" e.d. → een buidel die je gebruikt i.p.v.
+					-- rechtsklikt (die mist de "<Right Click to Open>"-regel). Eis "open to"
+					-- (open TO gain/receive), niet los "open": anders vangt 'ie een cosmetic
+					-- ("Use: Opens your mind to…") of een trinket ("Use: Hold the fissure open…")
+					-- als loot-buidel — dat gebeurde met Entropic Extract / Void Fissure (Rob 10 jul).
+					if lower:find("use:", 1, true) and lower:find("open to", 1, true) then
+						kind = "openable"
+					-- "Use: Teaches you …" → een mount/pet/toy/recept dat je nog moet leren.
+					elseif lower:find("use:", 1, true) and lower:find("teaches you", 1, true) then
+						kind = "learn"
+					-- "Use: Study/Read ... Knowledge by N" → professie-studie-item.
+					elseif lower:find("knowledge", 1, true)
+						and (lower:find("study", 1, true) or lower:find("read", 1, true)) then
+						kind = "knowledge"
+					end
+				end
 			end
 		end
 	end
-	return nil
+	return kind
 end
 
 -- @return geordende lijst { { bag, slot, itemID, name, icon, count }, ... }
