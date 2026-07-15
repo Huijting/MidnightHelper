@@ -203,7 +203,7 @@ local clogOn = false
 local cleuBlocked = false -- set if a RegisterEvent is ever forbidden (see the backstop)
 clog:SetScript("OnEvent", OnCombatLog)
 
-local function UpdateClogRegistration()
+local function DoClogRegistration()
 	local want = not cleuBlocked and autoEnabled() and inTrackedInstance()
 	if want and not clogOn then
 		clog:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
@@ -212,6 +212,31 @@ local function UpdateClogRegistration()
 		clog:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 		clogOn = false
 		dmgRing = {}
+	end
+end
+
+-- Coalesce zone-event bursts into ONE deferred check. On a load / reload,
+-- PLAYER_ENTERING_WORLD + ZONE_CHANGED_NEW_AREA can fire several times while
+-- GetInstanceInfo() briefly returns a stale/"safe" difficulty before it settles.
+-- Reacting per event made us register/unregister CLEU repeatedly, and in content
+-- that forbids CLEU registration (a reload inside a delve/ritual) that produced a
+-- BURST of ADDON_ACTION_FORBIDDEN errors before the kill-switch could latch (Rob,
+-- 15 jul: 12x). A short debounce lets the instance info stabilise first, so in
+-- restricted content the difficulty reads correctly (not whitelisted) and we never
+-- call RegisterEvent at all. Guarded so overlapping bursts collapse to one check.
+local clogCheckQueued = false
+local function UpdateClogRegistration()
+	if clogCheckQueued then
+		return
+	end
+	if C_Timer and C_Timer.After then
+		clogCheckQueued = true
+		C_Timer.After(0.1, function()
+			clogCheckQueued = false
+			DoClogRegistration()
+		end)
+	else
+		DoClogRegistration()
 	end
 end
 ns.UpdateDeathRecapClog = UpdateClogRegistration -- so the /mh death toggle can re-check
