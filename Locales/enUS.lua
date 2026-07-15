@@ -3290,6 +3290,15 @@ ns._mhLocales.enUS = {
 	DPSKIT_DEF_HEAD = "Your personal defensives (yes, press these)",
 	DPSKIT_TAG_DEF = "Defensive",
 	DPSKIT_NONE = "This spec has no cooldown data yet — but the lessons below still apply.",
+
+	-- Tank pull-summary (/mh pullsummary)
+	PULLSUM_HEAD = "Pull summary",
+	PULLSUM_NO_MIT = "no active mitigation pressed",
+	PULLSUM_DEF_FMT = "%s used",
+	PULLSUM_NO_DEF = "no defensive cooldown used",
+	PULLSUM_TIP_NODEF = "A big hit is a good moment for a defensive next time.",
+	PULLSUM_ON = "Pull summary on — a line after each pull (tank specs, in instances).",
+	PULLSUM_OFF = "Pull summary off.",
 	HEALCORE_TAG_FAST = "Fast",
 	HEALCORE_TAG_BIG = "Efficient",
 	HEALCORE_TAG_HOT = "HoT",

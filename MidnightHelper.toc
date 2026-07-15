@@ -81,6 +81,7 @@ Modules\RoleAcademy.lua
 Modules\HealerCooldowns.lua
 Modules\TankToolkit.lua
 Modules\DpsToolkit.lua
+Modules\TankPullSummary.lua
 Modules\DispelCapture.lua
 Modules\SMCChecklistData.lua
 Modules\SMCChecklist.lua

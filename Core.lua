@@ -883,6 +883,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh pullsummary — toggle the per-pull tank summary (opt-in).
+	if msg == "pullsummary" then
+		if ns.ToggleTankPullSummary then
+			ns.ToggleTankPullSummary()
+		end
+		return
+	end
+
 	-- /mh bagarrows — toggle the green upgrade arrows on bag items.
 	if msg == "bagarrows" then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))

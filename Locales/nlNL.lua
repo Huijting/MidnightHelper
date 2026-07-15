@@ -3202,6 +3202,15 @@ ns._mhLocales.nlNL = {
 	DPSKIT_DEF_HEAD = "Je personal defensives (ja, druk deze)",
 	DPSKIT_TAG_DEF = "Defensive",
 	DPSKIT_NONE = "Deze spec heeft nog geen cooldown-data — maar de lessen hieronder gelden nog steeds.",
+
+	-- Tank pull-summary (/mh pullsummary)
+	PULLSUM_HEAD = "Pull-samenvatting",
+	PULLSUM_NO_MIT = "geen active mitigation gedrukt",
+	PULLSUM_DEF_FMT = "%s gebruikt",
+	PULLSUM_NO_DEF = "geen defensive cooldown gebruikt",
+	PULLSUM_TIP_NODEF = "Een grote klap is een goed moment voor een defensive de volgende keer.",
+	PULLSUM_ON = "Pull-samenvatting aan — een regel na elke pull (tank-specs, in instances).",
+	PULLSUM_OFF = "Pull-samenvatting uit.",
 	HEALCORE_TAG_FAST = "Snel",
 	HEALCORE_TAG_BIG = "Zuinig",
 	HEALCORE_TAG_HOT = "HoT",
