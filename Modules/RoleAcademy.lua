@@ -349,13 +349,52 @@ local function AcquireChatRow(panel, parent, index)
 end
 
 -- One line in the spec-aware healer toolkit. Headers are gold; spell rows are
--- indented and carry the coloured [label] markup from HealerCooldowns.lua.
-local function AddToolkitLine(panel, child, cw, y, text, header)
+-- indented and carry the coloured [label] markup from HealerCooldowns.lua. When
+-- a spellID is given (spell rows), the row is wrapped in a mouse-enabled frame
+-- that shows the real spell tooltip on hover.
+local function AddToolkitLine(panel, child, cw, y, text, header, spellID)
 	local font = header and "GameFontNormal" or "GameFontHighlightSmall"
+	local indent = header and 4 or 10
+	local width = cw - (header and 0 or 6)
+
+	if spellID and not header then
+		local rowf = CreateFrame("Frame", nil, child)
+		rowf:SetPoint("TOPLEFT", child, "TOPLEFT", indent, y)
+		rowf:SetWidth(width)
+		local fs = rowf:CreateFontString(nil, "OVERLAY", font)
+		fs:SetFontObject(ns.MHScalableFont(font))
+		fs:SetPoint("TOPLEFT", rowf, "TOPLEFT", 0, 0)
+		fs:SetWidth(width)
+		fs:SetJustifyH("LEFT")
+		fs:SetWordWrap(true)
+		fs:SetSpacing(2)
+		fs:SetTextColor(0.86, 0.84, 0.78)
+		fs:SetText(text)
+		local h = fs:GetStringHeight() or 14
+		rowf:SetHeight(h)
+		rowf:EnableMouse(true)
+		rowf:SetScript("OnEnter", function(self)
+			if not (GameTooltip and GameTooltip.SetSpellByID) then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+			GameTooltip:SetSpellByID(spellID)
+			GameTooltip:Show()
+		end)
+		rowf:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		rowf:Show()
+		panel._academySectionFs[#panel._academySectionFs + 1] = rowf
+		return y - h - 5
+	end
+
 	local fs = child:CreateFontString(nil, "OVERLAY", font)
 	fs:SetFontObject(ns.MHScalableFont(font))
-	fs:SetPoint("TOPLEFT", child, "TOPLEFT", header and 4 or 10, y)
-	fs:SetWidth(cw - (header and 0 or 6))
+	fs:SetPoint("TOPLEFT", child, "TOPLEFT", indent, y)
+	fs:SetWidth(width)
 	fs:SetJustifyH("LEFT")
 	fs:SetWordWrap(true)
 	fs:SetSpacing(2)
@@ -410,7 +449,7 @@ local function RenderHealerToolkit(panel, child, y, cw)
 				ns.HealerCooldownSpellName(h.id),
 				SL(ns.GetHealerCoreHealDescKey(h.tag) or "")
 			)
-			y = AddToolkitLine(panel, child, cw, y, line, false)
+			y = AddToolkitLine(panel, child, cw, y, line, false, h.id)
 		end
 	end
 	local cds = ns.GetHealerCooldowns and ns.GetHealerCooldowns(specID)
@@ -424,7 +463,7 @@ local function RenderHealerToolkit(panel, child, y, cw)
 				ns.FormatHealerCooldown(c.cd),
 				SL(ns.GetHealerCooldownWhenKey(c.when) or "")
 			)
-			y = AddToolkitLine(panel, child, cw, y, line, false)
+			y = AddToolkitLine(panel, child, cw, y, line, false, c.id)
 		end
 	end
 	return y - 10
