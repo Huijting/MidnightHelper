@@ -348,6 +348,68 @@ local function AcquireChatRow(panel, parent, index)
 	return row
 end
 
+-- One line in the spec-aware healer toolkit. Headers are gold; spell rows are
+-- indented and carry the coloured [label] markup from HealerCooldowns.lua.
+local function AddToolkitLine(panel, child, cw, y, text, header)
+	local font = header and "GameFontNormal" or "GameFontHighlightSmall"
+	local fs = child:CreateFontString(nil, "OVERLAY", font)
+	fs:SetFontObject(ns.MHScalableFont(font))
+	fs:SetPoint("TOPLEFT", child, "TOPLEFT", header and 4 or 10, y)
+	fs:SetWidth(cw - (header and 0 or 6))
+	fs:SetJustifyH("LEFT")
+	fs:SetWordWrap(true)
+	fs:SetSpacing(2)
+	if header then
+		fs:SetTextColor(1, 0.82, 0.4)
+	else
+		fs:SetTextColor(0.86, 0.84, 0.78)
+	end
+	fs:SetText(text)
+	fs:Show()
+	panel._academySectionFs[#panel._academySectionFs + 1] = fs
+	local h = fs:GetStringHeight() or 14
+	return y - h - (header and 6 or 5)
+end
+
+-- Spec-aware healer toolkit (healer initiative, piece 1): the player's own core
+-- heals + cooldowns, shown at the top of the HEAL track so both green beginners
+-- and veterans see THEIR spells with the coloured labels. Verified data lives in
+-- Modules/HealerCooldowns.lua. Returns the new y cursor.
+local function RenderHealerToolkit(panel, child, y, cw)
+	local specID = ns.GetPlayerHealerSpecID and ns.GetPlayerHealerSpecID()
+	if not specID then
+		y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. SL("HEALTOOLKIT_SWITCH") .. "|r", false)
+		return y - 6
+	end
+	local heals = ns.GetHealerCoreHeals and ns.GetHealerCoreHeals(specID)
+	if heals then
+		y = AddToolkitLine(panel, child, cw, y, SL("HEALTOOLKIT_HEALS_HEAD"), true)
+		for _, h in ipairs(heals) do
+			local line = ("%s |cffffd100%s|r — %s"):format(
+				ns.HealerCoreHealTagLabel(h.tag),
+				ns.HealerCooldownSpellName(h.id),
+				SL(ns.GetHealerCoreHealDescKey(h.tag) or "")
+			)
+			y = AddToolkitLine(panel, child, cw, y, line, false)
+		end
+	end
+	local cds = ns.GetHealerCooldowns and ns.GetHealerCooldowns(specID)
+	if cds then
+		y = y - 4
+		y = AddToolkitLine(panel, child, cw, y, SL("HEALTOOLKIT_CDS_HEAD"), true)
+		for _, c in ipairs(cds) do
+			local line = ("%s |cffffd100%s|r |cff9d9d9d(%s)|r — %s"):format(
+				ns.HealerCooldownKindLabel(c.kind),
+				ns.HealerCooldownSpellName(c.id),
+				ns.FormatHealerCooldown(c.cd),
+				SL(ns.GetHealerCooldownWhenKey(c.when) or "")
+			)
+			y = AddToolkitLine(panel, child, cw, y, line, false)
+		end
+	end
+	return y - 10
+end
+
 local function RebuildScrollContent(panel)
 	local scroll = panel._academyScroll
 	local child = panel._academyScrollChild
@@ -380,6 +442,11 @@ local function RebuildScrollContent(panel)
 	local sections = SECTION_KEYS[track] or SECTION_KEYS.tank
 	local y = -4
 	local cw = math.max(320, (scroll:GetWidth() or 400) - 28)
+
+	-- Spec-aware healer toolkit sits above the reading chapters on the HEAL track.
+	if track == TRACK_HEAL then
+		y = RenderHealerToolkit(panel, child, y, cw)
+	end
 
 	for i = 1, #sections do
 		local titleKey, bodyKey = sections[i][1], sections[i][2]

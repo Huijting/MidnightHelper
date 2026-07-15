@@ -3127,4 +3127,23 @@ ns._mhLocales.nlNL = {
 	HEALCD_WHEN_HASTE = "Combineer met je grootste heal-burst voor extra casts.",
 	HEALCD_WHEN_MANA = "Gebruik als de mana van de groep opraakt in een lang gevecht.",
 	HEALCD_WHEN_FLOW = "Zet in tijdens zware, aanhoudende schade om je healing te boosten.",
+
+	-- Academy healer-toolkit (deel 1 visuele pagina) — headers + basis-heal-tags
+	HEALTOOLKIT_HEALS_HEAD = "Je dagelijkse heals",
+	HEALTOOLKIT_CDS_HEAD = "Je cooldowns (deze bewaren)",
+	HEALTOOLKIT_SWITCH = "Wissel naar je heal-spec om hier je eigen heals en cooldowns te zien.",
+	HEALCORE_TAG_FAST = "Snel",
+	HEALCORE_TAG_BIG = "Zuinig",
+	HEALCORE_TAG_HOT = "HoT",
+	HEALCORE_TAG_AOE = "Groep",
+	HEALCORE_TAG_SHIELD = "Schild",
+	HEALCORE_TAG_CHANNEL = "Channel",
+	HEALCORE_TAG_BOUNCE = "Slim",
+	HEALCORE_DESC_FAST = "Snelle single-target heal — je reactieknop als iemand dipt.",
+	HEALCORE_DESC_BIG = "Grotere, tragere heal — gebruik als je even lucht hebt (zuiniger met mana).",
+	HEALCORE_DESC_HOT = "Heal-over-time — zet 'm vroeg neer en laat 'm tikken terwijl je iets anders doet.",
+	HEALCORE_DESC_AOE = "Groepsheal — gebruik als meerdere mensen tegelijk schade hebben.",
+	HEALCORE_DESC_SHIELD = "Absorptieschild — zet 'm neer net vóór de schade binnenkomt.",
+	HEALCORE_DESC_CHANNEL = "Gechannelde basisheal — voedt vaak je andere spells.",
+	HEALCORE_DESC_BOUNCE = "Slimme heal die naar gewonde allies springt — top om proactief te casten.",
 }

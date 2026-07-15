@@ -60,6 +60,37 @@ local KIND_COLOR = {
 	util = "ffc080ff", -- purple
 }
 
+-- Core "bread-and-butter" heals (piece 1, beginner half): each spec's spammable
+-- everyday heals + a short tag for what it's FOR. Deliberately NOT in the /mh
+-- healcds cooldown sheet; the Academy healer toolkit shows both together.
+local TAG = {
+	fast = "HEALCORE_TAG_FAST",
+	big = "HEALCORE_TAG_BIG",
+	hot = "HEALCORE_TAG_HOT",
+	aoe = "HEALCORE_TAG_AOE",
+	shield = "HEALCORE_TAG_SHIELD",
+	channel = "HEALCORE_TAG_CHANNEL",
+	bounce = "HEALCORE_TAG_BOUNCE",
+}
+local TAG_DESC = {
+	fast = "HEALCORE_DESC_FAST",
+	big = "HEALCORE_DESC_BIG",
+	hot = "HEALCORE_DESC_HOT",
+	aoe = "HEALCORE_DESC_AOE",
+	shield = "HEALCORE_DESC_SHIELD",
+	channel = "HEALCORE_DESC_CHANNEL",
+	bounce = "HEALCORE_DESC_BOUNCE",
+}
+local TAG_COLOR = {
+	fast = "ff5fe0b0",
+	big = "ff70b0ff",
+	hot = "ff70d070",
+	aoe = "ffffd060",
+	shield = "ffe0d040",
+	channel = "ff50d0d0",
+	bounce = "ffb0e060",
+}
+
 ns.HEALER_COOLDOWNS = {
 	-- Holy Paladin (65)
 	[65] = {
@@ -118,9 +149,74 @@ ns.HEALER_COOLDOWNS = {
 	},
 }
 
+-- Core heals per spec. IDs verified from JustAC/Data/SpellCategories.lua HEALING
+-- section (Chain Heal 1064 also cross-checked in KeybindRoles_Shaman) — never
+-- guessed. Names resolve live. `tag` = what the heal is for (see TAG/TAG_DESC).
+ns.HEALER_CORE_HEALS = {
+	-- Holy Paladin (65)
+	[65] = {
+		{ id = 20473, tag = "fast" }, -- Holy Shock
+		{ id = 19750, tag = "fast" }, -- Flash of Light
+		{ id = 82326, tag = "big" }, -- Holy Light
+		{ id = 85673, tag = "fast" }, -- Word of Glory
+		{ id = 85222, tag = "aoe" }, -- Light of Dawn
+	},
+	-- Restoration Druid (105)
+	[105] = {
+		{ id = 774, tag = "hot" }, -- Rejuvenation
+		{ id = 33763, tag = "hot" }, -- Lifebloom
+		{ id = 8936, tag = "fast" }, -- Regrowth
+		{ id = 18562, tag = "fast" }, -- Swiftmend
+		{ id = 48438, tag = "aoe" }, -- Wild Growth
+	},
+	-- Preservation Evoker (1468)
+	[1468] = {
+		{ id = 361469, tag = "fast" }, -- Living Flame
+		{ id = 366155, tag = "hot" }, -- Reversion
+		{ id = 360995, tag = "fast" }, -- Verdant Embrace
+		{ id = 367226, tag = "big" }, -- Spiritbloom
+		{ id = 355913, tag = "aoe" }, -- Emerald Blossom
+	},
+	-- Mistweaver Monk (270)
+	[270] = {
+		{ id = 115175, tag = "channel" }, -- Soothing Mist
+		{ id = 116670, tag = "fast" }, -- Vivify
+		{ id = 119611, tag = "hot" }, -- Renewing Mist
+		{ id = 124682, tag = "big" }, -- Enveloping Mist
+		{ id = 231633, tag = "aoe" }, -- Essence Font
+	},
+	-- Discipline Priest (256)
+	[256] = {
+		{ id = 17, tag = "shield" }, -- Power Word: Shield
+		{ id = 186263, tag = "fast" }, -- Shadow Mend
+		{ id = 194509, tag = "aoe" }, -- Power Word: Radiance
+	},
+	-- Holy Priest (257)
+	[257] = {
+		{ id = 2061, tag = "fast" }, -- Flash Heal
+		{ id = 2060, tag = "big" }, -- Heal
+		{ id = 139, tag = "hot" }, -- Renew
+		{ id = 33076, tag = "bounce" }, -- Prayer of Mending
+		{ id = 596, tag = "aoe" }, -- Prayer of Healing
+	},
+	-- Restoration Shaman (264)
+	[264] = {
+		{ id = 61295, tag = "hot" }, -- Riptide
+		{ id = 77472, tag = "big" }, -- Healing Wave
+		{ id = 8004, tag = "fast" }, -- Healing Surge
+		{ id = 1064, tag = "bounce" }, -- Chain Heal
+		{ id = 73920, tag = "aoe" }, -- Healing Rain
+	},
+}
+
 --- The CD list for a spec, or nil if it isn't a (known) healer spec.
 function ns.GetHealerCooldowns(specID)
 	return specID and ns.HEALER_COOLDOWNS[specID] or nil
+end
+
+--- The core-heal list for a spec, or nil.
+function ns.GetHealerCoreHeals(specID)
+	return specID and ns.HEALER_CORE_HEALS[specID] or nil
 end
 
 --- The player's current spec id IF it is a healer spec we have data for, else nil.
@@ -180,6 +276,21 @@ local function KindLabel(kind)
 	return ("|c%s[%s]|r"):format(KIND_COLOR[kind] or "ffffffff", ns:L(key))
 end
 ns.HealerCooldownKindLabel = KindLabel
+
+-- "[Fast]" style label for a core heal, coloured by tag.
+local function TagLabel(tag)
+	local key = TAG[tag]
+	if not key then
+		return ""
+	end
+	return ("|c%s[%s]|r"):format(TAG_COLOR[tag] or "ffffffff", ns:L(key))
+end
+ns.HealerCoreHealTagLabel = TagLabel
+
+--- The one-line guidance locale key for a core-heal tag (nil-safe).
+function ns.GetHealerCoreHealDescKey(tag)
+	return TAG_DESC[tag]
+end
 
 --- /mh healcds — print the player's cooldown cheat-sheet to chat. A visual
 --- Codex/Academy page can render the same ns.HEALER_COOLDOWNS data later.

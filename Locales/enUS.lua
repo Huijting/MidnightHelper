@@ -3215,4 +3215,23 @@ ns._mhLocales.enUS = {
 	HEALCD_WHEN_HASTE = "Line up with your biggest healing burst for extra casts.",
 	HEALCD_WHEN_MANA = "Use when the group's mana is running low on a long fight.",
 	HEALCD_WHEN_FLOW = "Pop during heavy, sustained damage to boost your healing.",
+
+	-- Academy healer toolkit (piece 1 visual page) — headers + core-heal tags
+	HEALTOOLKIT_HEALS_HEAD = "Your everyday heals",
+	HEALTOOLKIT_CDS_HEAD = "Your cooldowns (save these)",
+	HEALTOOLKIT_SWITCH = "Switch to your healing spec to see your own heals and cooldowns here.",
+	HEALCORE_TAG_FAST = "Fast",
+	HEALCORE_TAG_BIG = "Efficient",
+	HEALCORE_TAG_HOT = "HoT",
+	HEALCORE_TAG_AOE = "Group",
+	HEALCORE_TAG_SHIELD = "Shield",
+	HEALCORE_TAG_CHANNEL = "Channel",
+	HEALCORE_TAG_BOUNCE = "Smart",
+	HEALCORE_DESC_FAST = "Quick single-target heal — your reactive button when someone dips.",
+	HEALCORE_DESC_BIG = "Bigger, slower heal — use when you have a breather (easier on mana).",
+	HEALCORE_DESC_HOT = "Heal-over-time — apply it early and let it tick while you do other things.",
+	HEALCORE_DESC_AOE = "Group heal — use when several people are hurt at once.",
+	HEALCORE_DESC_SHIELD = "Absorb shield — apply it just before the damage lands.",
+	HEALCORE_DESC_CHANNEL = "Channeled base heal — often powers your other spells.",
+	HEALCORE_DESC_BOUNCE = "Smart heal that spreads to hurt allies — great cast proactively.",
 }
