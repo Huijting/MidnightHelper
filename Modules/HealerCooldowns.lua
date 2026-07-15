@@ -219,6 +219,25 @@ function ns.GetHealerCoreHeals(specID)
 	return specID and ns.HEALER_CORE_HEALS[specID] or nil
 end
 
+-- Personal defensives per healer spec (Rob 2026-07-15: healers were missing
+-- their own panic buttons). Distinct from the raid/external cooldowns above —
+-- these keep YOU alive. IDs verified in JustAC SpellCategories DEFENSIVE; cds
+-- from SpellCooldowns (nil where not listed — tooltip shows it). never-lie.
+ns.HEALER_DEFENSIVES = {
+	[65] = { { id = 642, cd = 300 }, { id = 403876 } }, -- Holy Paladin: Divine Shield, Divine Protection
+	[105] = { { id = 22812, cd = 60 }, { id = 108238, cd = 90 } }, -- Resto Druid: Barkskin, Renewal
+	[1468] = { { id = 363916, cd = 90 }, { id = 374348 } }, -- Pres Evoker: Obsidian Scales, Renewing Blaze
+	[270] = { { id = 243435 }, { id = 122278, cd = 120 } }, -- Mistweaver: Fortifying Brew, Dampen Harm
+	[256] = { { id = 19236, cd = 90 } }, -- Disc Priest: Desperate Prayer
+	[257] = { { id = 19236, cd = 90 } }, -- Holy Priest: Desperate Prayer
+	[264] = { { id = 108271, cd = 120 } }, -- Resto Shaman: Astral Shift
+}
+
+--- The personal-defensive list for a healer spec, or nil.
+function ns.GetHealerDefensives(specID)
+	return specID and ns.HEALER_DEFENSIVES[specID] or nil
+end
+
 -- What each healer spec can dispel (piece 3 reference half). `id` = the spec's
 -- friendly dispel spell; `types` = the debuff schools it removes. Spell IDs
 -- verified in JustAC SpellCategories; Purify's Magic+Disease confirmed on

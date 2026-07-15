@@ -3243,6 +3243,7 @@ ns._mhLocales.enUS = {
 	HEALTOOLKIT_HEAD = "Your healing toolkit",
 	HEALTOOLKIT_PREVIEW_FMT = "Preview of your %s toolkit — you're in another spec right now.",
 	HEALTOOLKIT_NONE = "This class has no healing spec, so there's no toolkit — but the lessons below still apply if you're learning to heal on an alt.",
+	HEALTOOLKIT_DEF_HEAD = "Your personal defensives (keep yourself alive)",
 	HEALTOOLKIT_DISPEL_HEAD = "What you can dispel",
 	HEALTOOLKIT_DISPEL_FMT = "removes %s from a friendly target.",
 	DISPEL_TYPE_MAGIC = "Magic",
@@ -3258,7 +3259,7 @@ ns._mhLocales.enUS = {
 	-- Tank toolkit (Role Academy TANK track)
 	TANKKIT_HEAD = "Your tank toolkit",
 	TANKKIT_MIT_HEAD = "Your active mitigation (keep these up)",
-	TANKKIT_CDS_HEAD = "Your defensive cooldowns (save these)",
+	TANKKIT_CDS_HEAD = "Your personal defensives (save these)",
 	TANKKIT_NONE = "This class has no tanking spec, so there's no toolkit — but the lessons below still apply if you're learning to tank on an alt.",
 	TANKKIT_MIT_BLOCK = "Block",
 	TANKKIT_MIT_ABSORB = "Absorb",

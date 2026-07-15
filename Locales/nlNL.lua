@@ -3155,6 +3155,7 @@ ns._mhLocales.nlNL = {
 	HEALTOOLKIT_HEAD = "Je healing-toolkit",
 	HEALTOOLKIT_PREVIEW_FMT = "Voorbeeld van je %s-toolkit — je zit nu in een andere spec.",
 	HEALTOOLKIT_NONE = "Deze klasse heeft geen heal-spec, dus geen toolkit — maar de lessen hieronder gelden nog steeds als je op een alt leert healen.",
+	HEALTOOLKIT_DEF_HEAD = "Je personal defensives (hou jezelf in leven)",
 	HEALTOOLKIT_DISPEL_HEAD = "Wat je kunt dispellen",
 	HEALTOOLKIT_DISPEL_FMT = "verwijdert %s van een teamlid.",
 	DISPEL_TYPE_MAGIC = "Magic",
@@ -3170,7 +3171,7 @@ ns._mhLocales.nlNL = {
 	-- Tank-toolkit (Role Academy TANK-track)
 	TANKKIT_HEAD = "Je tank-toolkit",
 	TANKKIT_MIT_HEAD = "Je active mitigation (hou deze omhoog)",
-	TANKKIT_CDS_HEAD = "Je defensive cooldowns (deze bewaren)",
+	TANKKIT_CDS_HEAD = "Je personal defensives (deze bewaren)",
 	TANKKIT_NONE = "Deze klasse heeft geen tank-spec, dus geen toolkit — maar de lessen hieronder gelden nog steeds als je op een alt leert tanken.",
 	TANKKIT_MIT_BLOCK = "Block",
 	TANKKIT_MIT_ABSORB = "Absorb",

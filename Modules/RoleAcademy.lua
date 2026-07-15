@@ -487,6 +487,18 @@ local function RenderHealerToolkit(panel, child, y, cw)
 			y = AddToolkitLine(panel, child, cw, y, line, false, c.id)
 		end
 	end
+	local defs = ns.GetHealerDefensives and ns.GetHealerDefensives(specID)
+	if defs then
+		y = y - 4
+		y = AddToolkitLine(panel, child, cw, y, SL("HEALTOOLKIT_DEF_HEAD"), true)
+		for _, d in ipairs(defs) do
+			local cdText = d.cd and (" |cff9d9d9d(" .. ns.FormatHealerCooldown(d.cd) .. ")|r") or ""
+			local line = ("|cff40a0ff[%s]|r |cffffd100%s|r%s"):format(
+				SL("DPSKIT_TAG_DEF"), ns.HealerCooldownSpellName(d.id), cdText
+			)
+			y = AddToolkitLine(panel, child, cw, y, line, false, d.id)
+		end
+	end
 	local dispel = ns.GetHealerDispel and ns.GetHealerDispel(specID)
 	if dispel then
 		y = y - 4
