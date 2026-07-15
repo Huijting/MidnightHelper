@@ -868,6 +868,21 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh dispellog [clear] — the heal-lens data collector: dispellable debuffs
+	-- captured on you in instances (spell / school / boss).
+	if msg == "dispellog" then
+		if ns.PrintDispelCaptureLog then
+			ns.PrintDispelCaptureLog()
+		end
+		return
+	end
+	if msg == "dispellog clear" then
+		if ns.ClearDispelCaptureLog then
+			ns.ClearDispelCaptureLog()
+		end
+		return
+	end
+
 	-- /mh bagarrows — toggle the green upgrade arrows on bag items.
 	if msg == "bagarrows" then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
