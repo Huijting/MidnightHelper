@@ -21,32 +21,32 @@
 local _, ns = ...
 
 ns.DPS_COOLDOWNS = {
-	[251] = { { id = 51271, cd = 45 } }, -- Frost DK: Pillar of Frost
+	[251] = { { id = 51271, cd = 45 }, { id = 279302, cd = 90 } }, -- Frost DK: Pillar of Frost, Frostwyrm's Fury
 	[252] = { { id = 42650, cd = 90 }, { id = 391109, cd = 60 } }, -- Unholy DK: Army of the Dead, Dark Ascension
-	[577] = { { id = 191427, cd = 120 } }, -- Havoc DH: Metamorphosis
-	[102] = { { id = 194223, cd = 180 } }, -- Balance Druid: Celestial Alignment
-	[103] = { { id = 106951, cd = 180 } }, -- Feral Druid: Berserk
-	[1467] = { { id = 375087, cd = 120 } }, -- Devastation Evoker: Dragonrage
+	[577] = { { id = 191427, cd = 120 }, { id = 370965, cd = 90 } }, -- Havoc DH: Metamorphosis, The Hunt
+	[102] = { { id = 194223, cd = 180 }, { id = 202770, cd = 60 } }, -- Balance Druid: Celestial Alignment, Fury of Elune
+	[103] = { { id = 106951, cd = 180 }, { id = 102543, cd = 180 } }, -- Feral Druid: Berserk, Incarnation: Avatar of Ashamane
+	[1467] = { { id = 375087, cd = 120 }, { id = 357208, cd = 30 } }, -- Devastation Evoker: Dragonrage, Fire Breath
 	[1473] = { { id = 403631, cd = 120 } }, -- Augmentation Evoker: Breath of Eons
-	[253] = { { id = 19574, cd = 90 } }, -- BM Hunter: Bestial Wrath
+	[253] = { { id = 19574, cd = 90 }, { id = 359844, cd = 120 } }, -- BM Hunter: Bestial Wrath, Call of the Wild
 	[254] = { { id = 288613, cd = 120 } }, -- MM Hunter: Trueshot
-	[255] = { { id = 360952, cd = 120 } }, -- Survival Hunter: Coordinated Assault
-	[62] = { { id = 365350, cd = 90 } }, -- Arcane Mage: Arcane Surge
-	[63] = { { id = 190319, cd = 120 } }, -- Fire Mage: Combustion
+	[255] = { { id = 360952, cd = 120 }, { id = 360966, cd = 90 } }, -- Survival Hunter: Coordinated Assault, Spearhead
+	[62] = { { id = 365350, cd = 90 }, { id = 321507, cd = 45 } }, -- Arcane Mage: Arcane Surge, Touch of the Magi
+	[63] = { { id = 190319, cd = 120 }, { id = 153561, cd = 45 } }, -- Fire Mage: Combustion, Meteor
 	[64] = { { id = 12472, cd = 120 } }, -- Frost Mage: Icy Veins
-	[269] = { { id = 123904, cd = 120 } }, -- Windwalker Monk: Invoke Xuen
+	[269] = { { id = 123904, cd = 120 }, { id = 137639, cd = 90 } }, -- Windwalker Monk: Invoke Xuen, Storm Earth and Fire
 	[70] = { { id = 31884, cd = 120 }, { id = 375576, cd = 60 } }, -- Ret Paladin: Avenging Wrath, Divine Toll
 	[258] = { { id = 228260, cd = 120 }, { id = 10060, cd = 120 } }, -- Shadow Priest: Voidform, Power Infusion
-	[259] = { { id = 360194, cd = 120 } }, -- Assassination Rogue: Deathmark
-	[260] = { { id = 13750, cd = 180 } }, -- Outlaw Rogue: Adrenaline Rush
-	[261] = { { id = 185313, cd = 20 } }, -- Subtlety Rogue: Shadow Dance
+	[259] = { { id = 360194, cd = 120 }, { id = 385627, cd = 60 } }, -- Assassination Rogue: Deathmark, Kingsbane
+	[260] = { { id = 13750, cd = 180 }, { id = 51690, cd = 180 } }, -- Outlaw Rogue: Adrenaline Rush, Killing Spree
+	[261] = { { id = 185313, cd = 20 }, { id = 121471, cd = 90 } }, -- Subtlety Rogue: Shadow Dance, Shadow Blades
 	[262] = { { id = 191634, cd = 60 }, { id = 114050, cd = 180 } }, -- Elemental Shaman: Stormkeeper, Ascendance
 	[263] = { { id = 51533, cd = 90 }, { id = 114050, cd = 180 } }, -- Enhancement Shaman: Feral Spirit, Ascendance
-	[265] = { { id = 205180, cd = 120 } }, -- Affliction Warlock: Summon Darkglare
-	[266] = { { id = 265187, cd = 60 } }, -- Demonology Warlock: Summon Demonic Tyrant
+	[265] = { { id = 205180, cd = 120 }, { id = 325640, cd = 60 } }, -- Affliction Warlock: Summon Darkglare, Soul Rot
+	[266] = { { id = 265187, cd = 60 }, { id = 111898, cd = 120 } }, -- Demonology Warlock: Summon Demonic Tyrant, Grimoire: Felguard
 	[267] = { { id = 1122, cd = 120 } }, -- Destruction Warlock: Summon Infernal
-	[71] = { { id = 167105, cd = 45 } }, -- Arms Warrior: Colossus Smash
-	[72] = { { id = 1719, cd = 90 } }, -- Fury Warrior: Recklessness
+	[71] = { { id = 167105, cd = 45 }, { id = 107574, cd = 90 } }, -- Arms Warrior: Colossus Smash, Avatar
+	[72] = { { id = 1719, cd = 90 }, { id = 385059, cd = 45 } }, -- Fury Warrior: Recklessness, Odyn's Fury
 }
 
 local DPS_SPECS = {
