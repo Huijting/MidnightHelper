@@ -90,6 +90,19 @@ local function UnlockedRows()
 	return n
 end
 
+-- Max level van de huidige expansion (Midnight = 90), rechtstreeks van de game —
+-- geen hardcoded getal (never-lie). nil = onbekend → dan géén level-gate tonen
+-- (verberg nooit een echte actie op een gok), zelfde patroon als ResetRoutine.
+local function MidnightMaxLevel()
+	if GetMaxLevelForPlayerExpansion then
+		local ok, lvl = pcall(GetMaxLevelForPlayerExpansion)
+		if ok and (tonumber(lvl) or 0) > 0 then
+			return tonumber(lvl)
+		end
+	end
+	return nil
+end
+
 -- Is the Expansion Landing Page minimap button currently the MIDNIGHT one (the Omnium
 -- Folio)? That button represents whatever expansion landing page THIS character has active;
 -- on a char whose active page is the old Shadowlands covenant, clicking it pops a Kyrian
@@ -345,10 +358,21 @@ function ns.BuildOmniumFolioPanel(panel)
 			return
 		end
 		-- The Expansion Landing Page button represents whatever expansion landing page THIS
-		-- character has active — not necessarily Midnight. Two guards before we click it:
-		--  1. Folio not unlocked here → nothing to open.
+		-- character has active — not necessarily Midnight. Guards before we click it:
+		--  0. Still levelling → the Folio is a Midnight max-level feature and isn't reachable
+		--     yet on this character. Check this FIRST: unlockQuests are account-wide (warband),
+		--     so UnlockedRows() below is >0 on a low-level alt of an account that already has
+		--     the Folio — which is exactly why a level-83 alt fell through to the "wrong
+		--     expansion" hint instead of a useful message (Rob, 15 jul).
+		--  1. Folio not unlocked on the account → nothing to open.
 		--  2. The button is currently another expansion's page (the old Shadowlands covenant →
 		--     a Kyrian window for Carola/Cisca) → don't click it, explain instead.
+		local maxLvl = MidnightMaxLevel()
+		local myLvl = (UnitLevel and UnitLevel("player")) or 0
+		if maxLvl and myLvl > 0 and myLvl < maxLvl then
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_LEVELING"):format(myLvl, maxLvl, maxLvl)))
+			return
+		end
 		if UnlockedRows() == 0 then
 			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_LOCKED")))
 			return
