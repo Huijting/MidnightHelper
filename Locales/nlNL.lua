@@ -426,6 +426,9 @@ ns._mhLocales.nlNL = {
 	MPLUS_CMD_SLOT_FMT = "Slot %d (%d keys): %d/%d gedaan%s",
 	MPLUS_CMD_BEST_FMT = ", beste +%d",
 	MPLUS_CMD_RATING_NOTE = "Een key getimed boven je beste voor een dungeon verhoogt je rating — de keystone-tooltip toont de exacte projectie.",
+	MPLUS_CMD_PERDUNGEON = "Per dungeon (je seizoensbeste):",
+	MPLUS_CMD_NOTRUN = "nog niet gelopen",
+	MPLUS_CMD_GAIN_NOTE = "Bovenaan de lijst (niet gelopen / laagste) levert een key de meeste rating op.",
 	-- Spec 14: lokale interrupt-scorecard (je eigen kicks) + opt-in pre-12.1-mis-melding.
 	INTERRUPT_MISS_HINT = "Neee — je miste! Er werd niks gecast.",
 	INTERRUPT_MISS_TTS = "Neee je miste",

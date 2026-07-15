@@ -98,7 +98,55 @@ function ns.GetMythicGainSteps()
 	}
 end
 
---- /mh mplus — a full measured breakdown in chat (a panel is Phase 2).
+-- Per-dungeon season best (Phase 2). MEASURED: the current-season map list from
+-- C_ChallengeMode.GetMapTable, names from GetMapUIInfo, and each dungeon's best
+-- from C_MythicPlus.GetSeasonBestForMap (returns affixScores + bestOverallScore).
+-- All reads are pcall-guarded and shape-checked, so an API change just yields an
+-- empty list rather than a wrong number. never-lie: we show the measured level +
+-- score, never a computed rating gain. Return list sorted lowest-score-first
+-- (that's where another key adds the most rating, qualitatively).
+-- ⚠️ Verify the return shape in-game before wiring this into a prominent panel.
+local function ReadPerDungeonBests()
+	if not (C_ChallengeMode and C_ChallengeMode.GetMapTable and C_MythicPlus and C_MythicPlus.GetSeasonBestForMap) then
+		return nil
+	end
+	local ok, maps = pcall(C_ChallengeMode.GetMapTable)
+	if not ok or type(maps) ~= "table" or #maps == 0 then
+		return nil
+	end
+	local out = {}
+	for _, mapID in ipairs(maps) do
+		local name
+		if C_ChallengeMode.GetMapUIInfo then
+			local ok2, n = pcall(C_ChallengeMode.GetMapUIInfo, mapID)
+			if ok2 and type(n) == "string" and n ~= "" then
+				name = n
+			end
+		end
+		local level, score = 0, 0
+		local ok3, affixScores, bestOverall = pcall(C_MythicPlus.GetSeasonBestForMap, mapID)
+		if ok3 then
+			if type(bestOverall) == "number" then
+				score = bestOverall
+			end
+			if type(affixScores) == "table" then
+				for _, a in ipairs(affixScores) do
+					if type(a) == "table" and type(a.level) == "number" and a.level > level then
+						level = a.level
+					end
+				end
+			end
+		end
+		out[#out + 1] = { mapID = mapID, name = name or ("map " .. tostring(mapID)), level = level, score = score }
+	end
+	table.sort(out, function(a, b)
+		return (a.score or 0) < (b.score or 0)
+	end)
+	return out
+end
+
+--- /mh mplus — a full measured breakdown in chat (a panel is Phase 2, after
+--- the per-dungeon API is confirmed in-game).
 function ns.PrintMythicGain()
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	print(("%s |cff8fd3ff%s|r"):format(prefix, ns:L("MPLUS_CMD_HEADER")))
@@ -122,4 +170,18 @@ function ns.PrintMythicGain()
 		print(("   " .. ns:L("MPLUS_CMD_SLOT_FMT")):format(i, s.threshold, s.progress, s.threshold, best))
 	end
 	print("   |cff9d9d9d" .. ns:L("MPLUS_CMD_RATING_NOTE") .. "|r")
+
+	-- Phase 2: per-dungeon season best, lowest first (most rating to gain there).
+	local bests = ReadPerDungeonBests()
+	if bests and #bests > 0 then
+		print(("   |cff8fd3ff%s|r"):format(ns:L("MPLUS_CMD_PERDUNGEON")))
+		for _, d in ipairs(bests) do
+			local lvlStr = (d.level and d.level > 0)
+				and (("|cffffd100+%d|r"):format(d.level))
+				or ("|cffff6060%s|r"):format(ns:L("MPLUS_CMD_NOTRUN"))
+			local scoreStr = (d.score and d.score > 0) and (" |cff9d9d9d(%d)|r"):format(math.floor(d.score + 0.5)) or ""
+			print(("      %s — %s%s"):format(d.name, lvlStr, scoreStr))
+		end
+		print("      |cff9d9d9d" .. ns:L("MPLUS_CMD_GAIN_NOTE") .. "|r")
+	end
 end

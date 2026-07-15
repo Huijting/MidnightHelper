@@ -430,6 +430,9 @@ ns._mhLocales.enUS = {
 	MPLUS_CMD_SLOT_FMT = "Slot %d (%d keys): %d/%d done%s",
 	MPLUS_CMD_BEST_FMT = ", best +%d",
 	MPLUS_CMD_RATING_NOTE = "A key timed above your best for a dungeon raises your rating — the keystone tooltip shows the exact projection.",
+	MPLUS_CMD_PERDUNGEON = "Per dungeon (your season best):",
+	MPLUS_CMD_NOTRUN = "not run yet",
+	MPLUS_CMD_GAIN_NOTE = "Top of the list (not run / lowest) is where another key adds the most rating.",
 	-- Spec 14: local interrupt scorecard (your own kicks) + opt-in pre-12.1 whiff alert.
 	INTERRUPT_MISS_HINT = "Nooo — you missed! Nothing was casting.",
 	INTERRUPT_MISS_TTS = "Noooo you missed",
