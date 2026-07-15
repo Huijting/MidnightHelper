@@ -150,6 +150,7 @@ Modules\DungeonBossWindow.lua
 Modules\DungeonLiveCoach.lua
 Modules\RitualBossCoach.lua
 Modules\SporefallCoach.lua
+Modules\TideboundGrottoCoach.lua
 Modules\RaidCoachData.lua
 Modules\RaidGuide.lua
 Modules\DaggerspineCoach.lua
