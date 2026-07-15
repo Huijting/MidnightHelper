@@ -633,6 +633,10 @@
      "name": "Wild Charge",
      "label": "Movement"
     },
+    "R": {
+     "name": "Travel Form",
+     "label": "Mobility"
+    },
     "Z": {
      "name": "Barkskin",
      "label": "Defensive"
@@ -677,7 +681,7 @@
      "name": "Cyclone",
      "label": "Dispel / CC"
     },
-    "R": {
+    "X": {
      "name": "Prowl",
      "label": "Utility"
     },
@@ -689,15 +693,15 @@
      "name": "Entangling Roots",
      "label": "Dispel / CC"
     },
-    "X": {
+    "T": {
      "name": "Bear Form",
      "label": "Utility"
     },
-    "T": {
+    "Shift+R": {
      "name": "Cat Form",
      "label": "Utility"
     },
-    "Shift+R": {
+    "Shift+X": {
      "name": "Moonkin Form",
      "label": "Utility"
     },
@@ -755,6 +759,10 @@
      "name": "Wild Charge",
      "label": "Movement"
     },
+    "R": {
+     "name": "Travel Form",
+     "label": "Mobility"
+    },
     "Z": {
      "name": "Barkskin",
      "label": "Defensive"
@@ -807,7 +815,7 @@
      "name": "Cyclone",
      "label": "Dispel / CC"
     },
-    "R": {
+    "X": {
      "name": "Prowl",
      "label": "Utility"
     },
@@ -815,7 +823,7 @@
      "name": "Entangling Roots",
      "label": "Dispel / CC"
     },
-    "X": {
+    "T": {
      "name": "Bear Form",
      "label": "Utility"
     },
@@ -823,7 +831,7 @@
      "name": "Cat Form",
      "label": "Utility"
     },
-    "Shift+1": {
+    "Shift+2": {
      "name": "Swipe",
      "label": "Rotation"
     },
@@ -838,12 +846,12 @@
    },
    "situational": [
     {
-     "key": "Shift+2",
+     "key": "Shift+3",
      "name": "Remove Corruption",
      "label": "Dispel / CC"
     },
     {
-     "key": "T",
+     "key": "Shift+1",
      "name": "Soothe",
      "label": "Dispel / CC"
     }
@@ -892,6 +900,10 @@
     "Q": {
      "name": "Wild Charge",
      "label": "Movement"
+    },
+    "R": {
+     "name": "Travel Form",
+     "label": "Mobility"
     },
     "Shift+Z": {
      "name": "Barkskin",
@@ -949,7 +961,7 @@
      "name": "Cyclone",
      "label": "Dispel / CC"
     },
-    "R": {
+    "T": {
      "name": "Prowl",
      "label": "Utility"
     },
@@ -957,11 +969,11 @@
      "name": "Bristling Fur",
      "label": "Defensive"
     },
-    "T": {
+    "Shift+R": {
      "name": "Bear Form",
      "label": "Utility"
     },
-    "Shift+R": {
+    "Shift+X": {
      "name": "Cat Form",
      "label": "Utility"
     },
@@ -969,7 +981,7 @@
      "name": "Swipe",
      "label": "Rotation"
     },
-    "Shift+X": {
+    "Shift+T": {
      "name": "Moonkin Form",
      "label": "Utility"
     }
@@ -1019,6 +1031,10 @@
     "Q": {
      "name": "Wild Charge",
      "label": "Movement"
+    },
+    "R": {
+     "name": "Travel Form",
+     "label": "Mobility"
     },
     "Z": {
      "name": "Barkskin",
@@ -1076,7 +1092,7 @@
      "name": "Cyclone",
      "label": "Dispel / CC"
     },
-    "R": {
+    "X": {
      "name": "Prowl",
      "label": "Utility"
     },
@@ -1088,7 +1104,7 @@
      "name": "Efflorescence",
      "label": "Raid heal"
     },
-    "X": {
+    "T": {
      "name": "Bear Form",
      "label": "Utility"
     },
@@ -1113,7 +1129,7 @@
      "label": "Cooldown"
     },
     {
-     "key": "T",
+     "key": "C",
      "name": "Soothe",
      "label": "Dispel / CC"
     }

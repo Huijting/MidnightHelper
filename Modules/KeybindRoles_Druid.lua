@@ -167,6 +167,7 @@ ns.KeybindRoleClassifier.DRUID = {
     -- Movement
     ["Wild Charge"]                      = { role = "utility_primary", priority = 1 }, -- Q (vorm-afhankelijke gap-closer)
     ["Dash"]                             = { role = "utility_primary", priority = 3 }, -- Cat Form sprint (baseline movement)
+    ["Travel Form"]                      = { role = "mobility", priority = 1 }, -- R (snelle reis-vorm: outdoor speed / zwem / vlieg; alle specs, out-of-combat)
     -- Kleine defensive
     ["Barkskin"]                         = { role = "defensive_1", priority = 1 }, -- -20% dmg, alle vormen (Z)
     -- Self-heal
