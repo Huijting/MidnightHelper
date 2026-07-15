@@ -429,9 +429,7 @@ ns._mhLocales.nlNL = {
 	MPLUS_CMD_PERDUNGEON = "Per dungeon (je seizoensbeste):",
 	MPLUS_CMD_NOTRUN = "nog niet gelopen",
 	MPLUS_CMD_GAIN_NOTE = "Bovenaan de lijst (niet gelopen / laagste) levert een key de meeste rating op.",
-	MPLUS_CMD_GEAR_HEAD = "Gear per key-level (dit seizoen):",
-	MPLUS_CMD_GEAR_FMT = "end-of-run ilvl %d, vault ilvl %d",
-	MPLUS_CMD_GEAR_NOTE = "Hogere keys geven een hoger item level — de beloning stijgt van Champion naar Hero naar Myth track.",
+	MPLUS_CMD_GEAR_HINT = "Gear: hover een keystone voor de exacte item levels die-ie geeft, en check de Great Vault voor de weekly reward — hogere keys gaan van Champion naar Hero naar Myth.",
 	-- Spec 14: lokale interrupt-scorecard (je eigen kicks) + opt-in pre-12.1-mis-melding.
 	INTERRUPT_MISS_HINT = "Neee — je miste! Er werd niks gecast.",
 	INTERRUPT_MISS_TTS = "Neee je miste",

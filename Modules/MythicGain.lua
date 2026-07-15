@@ -145,60 +145,20 @@ local function ReadPerDungeonBests()
 	return out
 end
 
--- Gear per key level: the game's OWN reward API, so the item levels are always
--- this-season-accurate (never-lie: no hardcoded ilvls that go stale). vault ilvl
--- is always >= end-of-run, so if the two returns come back in the other order we
--- swap them by that rule rather than trusting the argument order.
-local GEAR_KEYS = { 2, 4, 6, 8, 10, 12 }
-local function PrintGearRewards()
-	if not (C_MythicPlus and C_MythicPlus.GetRewardLevelForDifficultyLevel) then
-		return
-	end
-	local lines = {}
-	for _, lvl in ipairs(GEAR_KEYS) do
-		local ok, a, b = pcall(C_MythicPlus.GetRewardLevelForDifficultyLevel, lvl)
-		if ok and type(a) == "number" and type(b) == "number" and a > 0 and b > 0 then
-			local vault, endrun = a, b
-			if vault < endrun then
-				vault, endrun = endrun, vault -- vault ilvl is never below end-of-run
-			end
-			lines[#lines + 1] = ("      |cffffd100+%d|r — %s"):format(lvl, (ns:L("MPLUS_CMD_GEAR_FMT")):format(endrun, vault))
-		end
-	end
-	if #lines > 0 then
-		print(("   |cff8fd3ff%s|r"):format(ns:L("MPLUS_CMD_GEAR_HEAD")))
-		for _, l in ipairs(lines) do
-			print(l)
-		end
-		print("      |cff9d9d9d" .. ns:L("MPLUS_CMD_GEAR_NOTE") .. "|r")
-	else
-		-- Diagnostic (temporary): tell us WHY there's no gear data — the function
-		-- missing vs it returning 0 (reward data not populated on this client).
-		local fn = C_MythicPlus and type(C_MythicPlus.GetRewardLevelForDifficultyLevel) == "function"
-		local a, b = "-", "-"
-		if fn then
-			local okp, x, y = pcall(C_MythicPlus.GetRewardLevelForDifficultyLevel, 5)
-			a = okp and tostring(x) or "err"
-			b = okp and tostring(y) or "err"
-		end
-		print(("   |cff9d9d9dgear diag: fn=%s  +5→(%s, %s)|r"):format(tostring(fn), a, b))
-	end
-end
+-- NB: no per-key-level ilvl table. C_MythicPlus.GetRewardLevelForDifficultyLevel
+-- returns garbage on 12.x (Rob's client: +5 → 263 / 0, not a real ~600 ilvl), and
+-- a hardcoded season table would go stale each season — so, never-lie, we point at
+-- the game's own accurate source (keystone tooltip / Great Vault) via a hint line.
 
--- Several M+ APIs (reward levels, map/affix info) return 0/empty until the client
--- has been asked to populate them. Request once on login so /mh mplus has data.
+-- Ensure M+ map/affix data is populated (the per-dungeon reads need it) — request
+-- once on login rather than assuming it's already loaded.
 do
 	local rf = CreateFrame("Frame")
 	rf:RegisterEvent("PLAYER_ENTERING_WORLD")
 	rf:SetScript("OnEvent", function(self)
 		self:UnregisterAllEvents()
-		if C_MythicPlus then
-			if C_MythicPlus.RequestMapInfo then
-				pcall(C_MythicPlus.RequestMapInfo)
-			end
-			if C_MythicPlus.RequestRewards then
-				pcall(C_MythicPlus.RequestRewards)
-			end
+		if C_MythicPlus and C_MythicPlus.RequestMapInfo then
+			pcall(C_MythicPlus.RequestMapInfo)
 		end
 	end)
 end
@@ -246,6 +206,8 @@ function ns.PrintMythicGain()
 		print("      |cff9d9d9d" .. ns:L("MPLUS_CMD_GAIN_NOTE") .. "|r")
 	end
 
-	-- Gear you can get per key level (this-season-accurate via the game's API).
-	PrintGearRewards()
+	-- Gear per key level shifts every season and the game's per-level API is
+	-- unreliable on 12.x, so point at the accurate in-game source instead of a
+	-- number that could be wrong.
+	print("   |cff9d9d9d" .. ns:L("MPLUS_CMD_GEAR_HINT") .. "|r")
 end
