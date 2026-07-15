@@ -719,7 +719,7 @@
      "name": "Entangling Roots",
      "label": "Dispel / CC"
     },
-    "T": {
+    "Shift+T": {
      "name": "Bear Form",
      "label": "Utility"
     },
@@ -738,7 +738,7 @@
    },
    "situational": [
     {
-     "key": "C",
+     "key": "T",
      "name": "Remove Corruption",
      "label": "Dispel / CC"
     },
@@ -853,19 +853,19 @@
      "name": "Entangling Roots",
      "label": "Dispel / CC"
     },
-    "T": {
+    "Shift+T": {
      "name": "Bear Form",
      "label": "Utility"
     },
-    "Shift+F": {
+    "Shift+R": {
      "name": "Cat Form",
      "label": "Utility"
     },
-    "Shift+2": {
+    "Shift+1": {
      "name": "Swipe",
      "label": "Rotation"
     },
-    "Shift+R": {
+    "Shift+X": {
      "name": "Moonkin Form",
      "label": "Utility"
     },
@@ -876,12 +876,12 @@
    },
    "situational": [
     {
-     "key": "Shift+3",
+     "key": "Shift+2",
      "name": "Remove Corruption",
      "label": "Dispel / CC"
     },
     {
-     "key": "Shift+1",
+     "key": "T",
      "name": "Soothe",
      "label": "Dispel / CC"
     }
@@ -999,11 +999,11 @@
      "name": "Bristling Fur",
      "label": "Defensive"
     },
-    "Shift+R": {
+    "Shift+T": {
      "name": "Bear Form",
      "label": "Utility"
     },
-    "Shift+X": {
+    "Shift+R": {
      "name": "Cat Form",
      "label": "Utility"
     },
@@ -1011,7 +1011,7 @@
      "name": "Swipe",
      "label": "Rotation"
     },
-    "Shift+T": {
+    "Shift+X": {
      "name": "Moonkin Form",
      "label": "Utility"
     }
@@ -1134,7 +1134,7 @@
      "name": "Efflorescence",
      "label": "Raid heal"
     },
-    "T": {
+    "Shift+T": {
      "name": "Bear Form",
      "label": "Utility"
     },
@@ -1159,7 +1159,7 @@
      "label": "Cooldown"
     },
     {
-     "key": "C",
+     "key": "T",
      "name": "Soothe",
      "label": "Dispel / CC"
     }

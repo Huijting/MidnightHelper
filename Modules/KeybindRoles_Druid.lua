@@ -181,7 +181,11 @@ ns.KeybindRoleClassifier.DRUID = {
     -- Utility / vormen (class-gedeeld)
     ["Rebirth"]                          = { role = "utility_secondary", priority = 2 }, -- battle-res (F/R)
     ["Prowl"]                            = { category = "utility", priority = 3 }, -- stealth (Cat Form openers)
-    ["Bear Form"]                        = { category = "utility", priority = 4 }, -- tank/def-vorm (nood-mitigation)
-    ["Cat Form"]                         = { category = "utility", priority = 5 }, -- melee-DPS-vorm
-    ["Moonkin Form"]                     = { category = "utility", priority = 6 }, -- caster-vorm (Balance/Resto Affinity)
+    -- Vaste vormen-cluster: in ELKE Druid-spec dezelfde toets, zodat een beginner
+    -- de vormen makkelijk terugvindt ("Shift+R/T/X = kat/beer/uil"). Travel Form
+    -- blijft op R (base, mobility). bindKey forceert de plek (base R/T/X telt mee
+    -- op het keyboard, geen overflow naar de situational-lijst).
+    ["Bear Form"]                        = { category = "utility", priority = 4, bindKey = "Shift+T" }, -- tank/def-vorm (nood-mitigation)
+    ["Cat Form"]                         = { category = "utility", priority = 5, bindKey = "Shift+R" }, -- melee-DPS-vorm
+    ["Moonkin Form"]                     = { category = "utility", priority = 6, bindKey = "Shift+X" }, -- caster-vorm (Balance/Resto Affinity)
 }
