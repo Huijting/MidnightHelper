@@ -71,7 +71,9 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_COACH_INTRO = "Every dungeon and boss this expansion — click a dungeon name to open its boss steps (what to dodge, what to kick, what your role does). Spell names are clickable links. Written against DBM data and Wowhead tooltips; in-game verification is ongoing.",
 	DGN_GROUP_LAUNCH = "Midnight dungeons — Normal & Follower (always available)",
 	DGN_GROUP_SEASON = "Season 1 rotation — Heroic & Mythic",
+	DGN_GROUP_SEASON_S2 = "Season 2 rotation — Heroic & Mythic",
 	DGN_BADGE_S1 = "Season 1",
+	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "Boss steps for this dungeon are being written and verified — coming in an upcoming update.",
 
 	-- Live coach (boss pull + share) -------------------------------------------
@@ -144,7 +146,9 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_COACH_INTRO = "Ogni dungeon e boss di questa espansione — clicca sul nome di un dungeon per aprire i passi dei suoi boss (cosa schivare, cosa kickare, cosa fa il tuo ruolo). I nomi delle spell sono link cliccabili. Scritto sulla base dei dati DBM e dei tooltip di Wowhead; la verifica in-game è in corso.",
 	DGN_GROUP_LAUNCH = "Dungeon di Midnight — Normal & Follower (sempre disponibili)",
 	DGN_GROUP_SEASON = "Rotazione Season 1 — Heroic & Mythic",
+	DGN_GROUP_SEASON_S2 = "Rotazione Season 2 — Heroic & Mythic",
 	DGN_BADGE_S1 = "Season 1",
+	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "I passi dei boss per questo dungeon sono in fase di scrittura e verifica — in arrivo in un prossimo aggiornamento.",
 
 	-- Live coach (boss pull + share) ------------------------------------------
@@ -217,7 +221,9 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_COACH_INTRO = "Elke dungeon en boss van deze expansion — klik op een dungeon-naam om de boss-stappen te openen (wat ontwijk je, wat kick je, wat doet jouw rol). Spelnamen zijn klikbare links. Geschreven op basis van DBM-data en Wowhead-tooltips; in-game verificatie loopt.",
 	DGN_GROUP_LAUNCH = "Midnight-dungeons — Normal & Follower (altijd beschikbaar)",
 	DGN_GROUP_SEASON = "Season 1-rotatie — Heroic & Mythic",
+	DGN_GROUP_SEASON_S2 = "Season 2-rotatie — Heroic & Mythic",
 	DGN_BADGE_S1 = "Season 1",
+	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "De boss-stappen voor deze dungeon worden geschreven en geverifieerd — komen in een volgende update.",
 
 	-- Live coach (boss pull + share) -------------------------------------------
@@ -290,7 +296,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_COACH_INTRO = "Jeder Dungeon und Boss dieser Erweiterung — klicke auf einen Dungeon-Namen, um die Boss-Schritte zu öffnen (was ausweichen, was kicken, was deine Rolle tut). Zaubernamen sind klickbare Links. Geschrieben auf Basis von DBM-Daten und Wowhead-Tooltips; In-Game-Verifizierung läuft.",
 	DGN_GROUP_LAUNCH = "Midnight-Dungeons — Normal & Follower (immer verfügbar)",
 	DGN_GROUP_SEASON = "Season-1-Rotation — Heroic & Mythic",
+	DGN_GROUP_SEASON_S2 = "Season-2-Rotation — Heroic & Mythic",
 	DGN_BADGE_S1 = "Season 1",
+	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "Die Boss-Schritte für diesen Dungeon werden geschrieben und verifiziert — kommen in einem nächsten Update.",
 
 	-- Live coach (boss pull + share) -------------------------------------------
@@ -363,7 +371,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_COACH_INTRO = "Chaque donjon et boss de cette extension — clique sur le nom d'un donjon pour ouvrir les étapes des boss (quoi esquiver, quoi interrompre, ce que fait ton rôle). Les noms de sorts sont des liens cliquables. Écrit à partir des données DBM et des tooltips Wowhead ; la vérification en jeu est en cours.",
 	DGN_GROUP_LAUNCH = "Donjons Midnight — Normal & Follower (toujours disponibles)",
 	DGN_GROUP_SEASON = "Rotation Season 1 — Heroic & Mythic",
+	DGN_GROUP_SEASON_S2 = "Rotation Season 2 — Heroic & Mythic",
 	DGN_BADGE_S1 = "Season 1",
+	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "Les étapes des boss de ce donjon sont en cours d'écriture et de vérification — elles arrivent dans une prochaine mise à jour.",
 
 	-- Live coach (boss pull + share) -------------------------------------------
@@ -436,7 +446,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_COACH_INTRO = "Cada mazmorra y jefe de esta expansión — haz clic en el nombre de una mazmorra para abrir los pasos de sus jefes (qué esquivar, qué interrumpir, qué hace tu rol). Los nombres de hechizos son enlaces clicables. Escrito a partir de datos de DBM y tooltips de Wowhead; la verificación en juego está en curso.",
 	DGN_GROUP_LAUNCH = "Mazmorras de Midnight — Normal & Follower (siempre disponibles)",
 	DGN_GROUP_SEASON = "Rotación Season 1 — Heroic & Mythic",
+	DGN_GROUP_SEASON_S2 = "Rotación Season 2 — Heroic & Mythic",
 	DGN_BADGE_S1 = "Season 1",
+	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "Los pasos de los jefes de esta mazmorra se están escribiendo y verificando — llegarán en una próxima actualización.",
 
 	-- Live coach (boss pull + share) -------------------------------------------
@@ -509,7 +521,9 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_COACH_INTRO = "Cada masmorra e chefe desta expansão — clique no nome de uma masmorra para abrir os passos dos chefes (do que desviar, o que interromper, o que a sua função faz). Nomes de feitiços são links clicáveis. Escrito com base em dados do DBM e tooltips do Wowhead; a verificação no jogo está em andamento.",
 	DGN_GROUP_LAUNCH = "Masmorras de Midnight — Normal & Follower (sempre disponíveis)",
 	DGN_GROUP_SEASON = "Rotação Season 1 — Heroic & Mythic",
+	DGN_GROUP_SEASON_S2 = "Rotação Season 2 — Heroic & Mythic",
 	DGN_BADGE_S1 = "Season 1",
+	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "Os passos dos chefes desta masmorra estão sendo escritos e verificados — chegam em uma próxima atualização.",
 
 	-- Live coach (boss pull + share) -------------------------------------------

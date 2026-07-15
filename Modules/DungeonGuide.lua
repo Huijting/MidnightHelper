@@ -254,8 +254,9 @@ function ns.RefreshDungeonGuidePanel()
 		local collapsed = ui._mhIsDgnCollapsed and ui._mhIsDgnCollapsed(d.key)
 		-- ASCII-indicator ([+]/[-]) — pijl-glyphs zijn blokjes in WoW-fonts.
 		local label = (collapsed and "|cff8a8f98[+]|r " or "|cff8a8f98[-]|r ") .. plainName
-		if d.native and d.season1 then
-			label = label .. "  |cffffcc00[" .. ns:L("DGN_BADGE_S1") .. "]|r"
+		if d.native and ns.IsDungeonInMythicPool and ns.IsDungeonInMythicPool(d) then
+			local badge = (ns.IsMythicSeason2 and ns.IsMythicSeason2()) and "DGN_BADGE_S2" or "DGN_BADGE_S1"
+			label = label .. "  |cffffcc00[" .. ns:L(badge) .. "]|r"
 		end
 		row.nameFs:SetText(label)
 		if row.routeBtn then
@@ -583,8 +584,9 @@ function ns.BuildDungeonGuidePanel(panel)
 	AddCoachGroup("DGN_GROUP_LAUNCH", function(d)
 		return d.native
 	end)
-	AddCoachGroup("DGN_GROUP_SEASON", function(d)
-		return d.season1 and not d.native
+	local seasonHeaderKey = (ns.IsMythicSeason2 and ns.IsMythicSeason2()) and "DGN_GROUP_SEASON_S2" or "DGN_GROUP_SEASON"
+	AddCoachGroup(seasonHeaderKey, function(d)
+		return ns.IsDungeonInMythicPool and ns.IsDungeonInMythicPool(d) and not d.native
 	end)
 
 	-- Mythic+ -------------------------------------------------------------------

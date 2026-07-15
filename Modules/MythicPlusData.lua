@@ -70,12 +70,34 @@ ns.MPLUS_KICKS = {
 	skyreach        = "MPLUS_KICK_SKYREACH",
 }
 
--- De Season 1 M+-pool = roster-entries met season1 == true (4 native + 4 legacy).
--- Levert ze in roster-volgorde; de Coach toont ze met hun gelokaliseerde naam.
+-- Welk M+-seizoen is actief? Season 2 zodra de client op patch 12.1 draait
+-- (interface >= 120100) — dezelfde build-check als de roster-seasongate en
+-- SeasonTransition. Vóór 12.1 blijft het de Season 1-pool. (C_MythicPlus.
+-- GetCurrentSeason zou ook kunnen, maar het nieuwe season-id is nog onbekend;
+-- de build-check is deterministisch en consistent met de rest van MH.)
+function ns.IsMythicSeason2()
+	local _, _, _, iface = GetBuildInfo()
+	return (tonumber(iface) or 0) >= 120100
+end
+
+-- true als dungeon d in de M+-rotatie van het ACTIEVE seizoen zit.
+function ns.IsDungeonInMythicPool(d)
+	if not d then
+		return false
+	end
+	if ns.IsMythicSeason2() then
+		return d.season2 == true
+	end
+	return d.season1 == true
+end
+
+-- De actieve M+-pool = roster-entries in de rotatie van het huidige seizoen
+-- (S1: 4 native + 4 legacy; S2: 5 native + 3 legacy). Levert ze in
+-- roster-volgorde; de Coach toont ze met hun gelokaliseerde naam.
 function ns.GetMythicPoolDungeons()
 	local out = {}
 	for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do
-		if d.season1 then
+		if ns.IsDungeonInMythicPool(d) then
 			out[#out + 1] = d
 		end
 	end

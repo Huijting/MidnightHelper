@@ -95,6 +95,7 @@ ns.DUNGEON_ROSTER = {
 		journalInstanceID = 1304, -- Robs EJ-tier-scan, 10 jun
 		native = true,
 		season1 = false,
+		season2 = true, -- in de S2 M+-rotatie (PTR 14 jul, in-game verifiëren)
 		entrance = { mapID = 2393, x = 57.20, y = 61.06 }, -- Silvermoon City
 		bosses = {
 			-- dungeonEncounterID = the ENCOUNTER_START/DBM id (Rob's EJ
@@ -113,6 +114,7 @@ ns.DUNGEON_ROSTER = {
 		journalInstanceID = 1311, -- Robs EJ-tier-scan, 10 jun
 		native = true,
 		season1 = false,
+		season2 = true, -- in de S2 M+-rotatie (PTR 14 jul, in-game verifiëren)
 		entrance = { mapID = 2437, x = 29.79, y = 84.51 }, -- Zul'Aman
 		bosses = {
 			{ key = "hoardmonger", encounterID = nil, dungeonEncounterID = 3207, name = "The Hoardmonger" },
@@ -126,6 +128,7 @@ ns.DUNGEON_ROSTER = {
 		journalInstanceID = 1309, -- Robs EJ-tier-scan, 10 jun
 		native = true,
 		season1 = false,
+		season2 = true, -- in de S2 M+-rotatie (PTR 14 jul, in-game verifiëren)
 		entrance = { mapID = 2413, x = 26.24, y = 78.09 }, -- Harandar
 		bosses = {
 			{ key = "trinity", encounterID = nil, dungeonEncounterID = 3199, name = "Lightblossom Trinity" },
@@ -140,6 +143,7 @@ ns.DUNGEON_ROSTER = {
 		journalInstanceID = 1313, -- Robs EJ-tier-scan, 10 jun
 		native = true,
 		season1 = false,
+		season2 = true, -- in de S2 M+-rotatie (PTR 14 jul, in-game verifiëren)
 		entrance = { mapID = 2444, x = 53.67, y = 33.08 }, -- Slayer's Rise
 		bosses = {
 			{ key = "tazrah", encounterID = nil, dungeonEncounterID = 3285, name = "Taz'Rah" },
@@ -218,11 +222,66 @@ ns.DUNGEON_ROSTER = {
 		journalInstanceID = 1322,
 		native = true,
 		season1 = false,
+		season2 = true, -- in de S2 M+-rotatie (PTR 14 jul, in-game verifiëren)
 		season = 2,
 		bosses = {
 			{ key = "ravi",         encounterID = 2878, dungeonEncounterID = 3456, name = "Ravi" },
 			{ key = "writhingcoil", encounterID = 2879, dungeonEncounterID = 3457, name = "The Writhing Coil" },
 			{ key = "zuljan",       encounterID = 2880, dungeonEncounterID = 3458, name = "Zul'jan" },
+		},
+	},
+	-- Season 2 legacy-rotatie (patch 12.1): drie teruggehaalde dungeons (naast de
+	-- 5 Midnight-native hierboven). journalInstanceID + per-boss encounterID
+	-- GEVERIFIEERD uit de geïnstalleerde DBM-mods (never-lie): journalInstanceID =
+	-- DBM NewMod 4e-arg, encounterID = NewMod 1e-arg (EJ journal-id, voor de naam)
+	-- — beide gevalideerd tegen de al werkende S1-legacy (Skyreach NewMod-arg 476 =
+	-- MH 476, bossen 965-968; Pit of Saron 278/608-610). season = 2 gate = verborgen
+	-- op live 12.0.7. native = false → verschijnen alleen in de Season-rotatiegroep,
+	-- niet in de Normal/Follower-lijst. Boss-volgorde = Adventure Guide (eindboss
+	-- staat vast als laatste; namen resolven via encounterID, dus een omgewisselde
+	-- midboss is puur cosmetisch). Geen entrance-coords → geen route-knop (eerlijk).
+	{
+		key = "kingsrest",
+		name = "King's Rest",
+		journalInstanceID = 1041, -- DBM-Party-BfA/KingsRest NewMod 4e-arg
+		native = false,
+		season1 = false,
+		season2 = true,
+		season = 2,
+		bosses = {
+			{ key = "goldenserpent",  encounterID = 2165, name = "The Golden Serpent" },
+			{ key = "mchimba",        encounterID = 2171, name = "Mchimba the Wanderer" },
+			{ key = "counciloftribes", encounterID = 2170, name = "The Council of Tribes" },
+			{ key = "dazar",          encounterID = 2172, name = "King Dazar" },
+		},
+	},
+	{
+		key = "sethraliss",
+		name = "Temple of Sethraliss",
+		journalInstanceID = 1030, -- DBM-Party-BfA/TempleofSethraliss NewMod 4e-arg
+		native = false,
+		season1 = false,
+		season2 = true,
+		season = 2,
+		bosses = {
+			{ key = "adderisaspix", encounterID = 2142, name = "Adderis and Aspix" },
+			{ key = "merektha",     encounterID = 2143, name = "Merektha" },
+			{ key = "galvazzt",     encounterID = 2144, name = "Galvazzt" },
+			{ key = "avatar",       encounterID = 2145, name = "Avatar of Sethraliss" },
+		},
+	},
+	{
+		key = "rubylifepools",
+		name = "Ruby Life Pools",
+		journalInstanceID = 1202, -- DBM-Party-Dragonflight/RubyLifePools NewMod 4e-arg
+		native = false,
+		season1 = false,
+		season2 = true,
+		season = 2,
+		bosses = {
+			{ key = "melidrussa", encounterID = 2488, name = "Melidrussa Chillworn" },
+			{ key = "kokia",      encounterID = 2485, name = "Kokia Blazehoof" },
+			{ key = "kyrakka",    encounterID = 2503, name = "Kyrakka and Erkhart Stormvein" },
 		},
 	},
 }
