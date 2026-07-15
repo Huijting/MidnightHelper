@@ -107,6 +107,13 @@ local function SlotKind(bag, slot)
 				-- als loot-buidel — dat gebeurde met Entropic Extract / Void Fissure (Rob 10 jul).
 				elseif lower:find("use:", 1, true) and lower:find("open to", 1, true) then
 					kind = "openable"
+				-- "Use: Collect 10 Hero Dawncrests" → een reward-/currency-pack die je GEBRUIKT
+				-- om de beloning te verzamelen (mist de "<Right Click to Open>"-regel). Eis
+				-- "collect" + een getal (pattern "collect%s+%d"), zodat "…to your collection"
+				-- (cosmetic appearance, hieronder apart) NIET matcht — "collection" heeft geen
+				-- getal na "collect". itemID 246752 (Celebratory Pack of Hero Dawncrests), Rob 14 jul.
+				elseif lower:find("use:", 1, true) and lower:find("collect%s+%d") then
+					kind = "openable"
 				-- "Use: Teaches you …" → een mount/pet/toy/recept dat je nog moet leren.
 				elseif lower:find("use:", 1, true) and lower:find("teaches you", 1, true) then
 					kind = "learn"
