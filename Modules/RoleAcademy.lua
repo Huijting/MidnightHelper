@@ -6,10 +6,12 @@ local addonName, ns = ...
 
 local TRACK_TANK = "tank"
 local TRACK_HEAL = "heal"
+local TRACK_DPS = "dps"
 
 local PREFLIGHT_KEYS = {
 	tank = { "interrupt", "defensive", "consumables", "taunt" },
 	heal = { "macros", "defensive", "consumables", "practice" },
+	dps = { "rotation", "cooldowns", "defensive", "interrupt" },
 }
 
 local PREFLIGHT_LABEL_KEYS = {
@@ -24,6 +26,12 @@ local PREFLIGHT_LABEL_KEYS = {
 		defensive = "ACADEMY_PREF_HEAL_DEFENSIVE",
 		consumables = "ACADEMY_PREF_HEAL_CONSUMABLES",
 		practice = "ACADEMY_PREF_HEAL_PRACTICE",
+	},
+	dps = {
+		rotation = "ACADEMY_PREF_DPS_ROTATION",
+		cooldowns = "ACADEMY_PREF_DPS_COOLDOWNS",
+		defensive = "ACADEMY_PREF_DPS_DEFENSIVE",
+		interrupt = "ACADEMY_PREF_DPS_INTERRUPT",
 	},
 }
 
@@ -53,6 +61,15 @@ local SECTION_KEYS = {
 		{ "ACADEMY_HEAL_LADDER_TITLE", "ACADEMY_HEAL_LADDER_BODY" },
 		{ "ACADEMY_HEAL_BOTH_TITLE", "ACADEMY_HEAL_BOTH_BODY" },
 	},
+	dps = {
+		{ "ACADEMY_DPS_INTRO_TITLE", "ACADEMY_DPS_INTRO_BODY" },
+		{ "ACADEMY_DPS_ROTATION_TITLE", "ACADEMY_DPS_ROTATION_BODY" },
+		{ "ACADEMY_DPS_COOLDOWNS_TITLE", "ACADEMY_DPS_COOLDOWNS_BODY" },
+		{ "ACADEMY_DPS_MECHANICS_TITLE", "ACADEMY_DPS_MECHANICS_BODY" },
+		{ "ACADEMY_DPS_UTILITY_TITLE", "ACADEMY_DPS_UTILITY_BODY" },
+		{ "ACADEMY_DPS_MISTAKES_TITLE", "ACADEMY_DPS_MISTAKES_BODY" },
+		{ "ACADEMY_DPS_PRACTICE_TITLE", "ACADEMY_DPS_PRACTICE_BODY" },
+	},
 }
 
 local SCROLL_BOTTOM = 12
@@ -74,8 +91,8 @@ local function GetTrack()
 	if type(ui) ~= "table" then
 		return TRACK_TANK
 	end
-	if ui.roleAcademyTrack == TRACK_HEAL then
-		return TRACK_HEAL
+	if ui.roleAcademyTrack == TRACK_HEAL or ui.roleAcademyTrack == TRACK_DPS then
+		return ui.roleAcademyTrack
 	end
 	return TRACK_TANK
 end
@@ -87,7 +104,11 @@ local function SetTrack(track)
 	if type(ns.db.ui) ~= "table" then
 		ns.db.ui = {}
 	end
-	ns.db.ui.roleAcademyTrack = (track == TRACK_HEAL) and TRACK_HEAL or TRACK_TANK
+	if track == TRACK_HEAL or track == TRACK_DPS then
+		ns.db.ui.roleAcademyTrack = track
+	else
+		ns.db.ui.roleAcademyTrack = TRACK_TANK
+	end
 end
 
 local function EnsurePreflightBag()
@@ -524,6 +545,35 @@ local function RenderTankToolkit(panel, child, y, cw)
 	return y - 10
 end
 
+-- Spec-aware DPS toolkit (Rob 2026-07-15: the Academy had no DPS role). Your big
+-- damage cooldowns at the top of the DPS track. Verified data lives in
+-- Modules/DpsToolkit.lua. Returns the new y cursor.
+local function RenderDpsToolkit(panel, child, y, cw)
+	local activeID = ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()
+	local specID = activeID or (ns.GetClassDpsSpecID and ns.GetClassDpsSpecID())
+	if not specID then
+		y = AddToolkitLine(panel, child, cw, y, SL("DPSKIT_HEAD"), true)
+		y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. SL("DPSKIT_NONE") .. "|r", false)
+		return y - 8
+	end
+	if not activeID then
+		y = AddToolkitLine(panel, child, cw, y,
+			"|cff9d9d9d" .. (SL("HEALTOOLKIT_PREVIEW_FMT")):format(ToolkitSpecName(specID)) .. "|r", false)
+	end
+	local cds = ns.GetDpsCooldowns and ns.GetDpsCooldowns(specID)
+	if cds then
+		y = AddToolkitLine(panel, child, cw, y, SL("DPSKIT_CDS_HEAD"), true)
+		y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. SL("DPSKIT_GUIDE") .. "|r", false)
+		for _, c in ipairs(cds) do
+			local line = ("|cffff6060[%s]|r |cffffd100%s|r |cff9d9d9d(%s)|r"):format(
+				SL("DPSKIT_TAG_BURST"), ns.HealerCooldownSpellName(c.id), ns.FormatHealerCooldown(c.cd)
+			)
+			y = AddToolkitLine(panel, child, cw, y, line, false, c.id)
+		end
+	end
+	return y - 10
+end
+
 local function RebuildScrollContent(panel)
 	local scroll = panel._academyScroll
 	local child = panel._academyScrollChild
@@ -562,6 +612,8 @@ local function RebuildScrollContent(panel)
 		y = RenderHealerToolkit(panel, child, y, cw)
 	elseif track == TRACK_TANK then
 		y = RenderTankToolkit(panel, child, y, cw)
+	elseif track == TRACK_DPS then
+		y = RenderDpsToolkit(panel, child, y, cw)
 	end
 
 	for i = 1, #sections do
@@ -659,9 +711,13 @@ function ns.MH_RefreshRoleAcademyPanel(panel)
 	if panel._btnHeal and panel._btnHeal.SetText then
 		panel._btnHeal:SetText(SL("ACADEMY_TRACK_HEAL"))
 	end
+	if panel._btnDps and panel._btnDps.SetText then
+		panel._btnDps:SetText(SL("ACADEMY_TRACK_DPS"))
+	end
 	local track = GetTrack()
 	TintTrackBtn(panel._btnTank, track == TRACK_TANK)
 	TintTrackBtn(panel._btnHeal, track == TRACK_HEAL)
+	TintTrackBtn(panel._btnDps, track == TRACK_DPS)
 	RefreshClassLine(panel)
 	RebuildPreflightChecks(panel)
 	RebuildScrollContent(panel)
@@ -709,6 +765,15 @@ function ns.BuildRoleAcademyPanel(panel)
 		ns.MH_RefreshRoleAcademyPanel(panel)
 	end)
 	panel._btnHeal = btnHeal
+
+	local btnDps = CreateFrame("Button", nil, nav, "UIPanelButtonTemplate")
+	btnDps:SetSize(100, 24)
+	btnDps:SetPoint("LEFT", btnHeal, "RIGHT", 8, 0)
+	btnDps:SetScript("OnClick", function()
+		SetTrack(TRACK_DPS)
+		ns.MH_RefreshRoleAcademyPanel(panel)
+	end)
+	panel._btnDps = btnDps
 
 	local classLine = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	classLine:SetFontObject(ns.MHScalableFont("GameFontHighlight"))
