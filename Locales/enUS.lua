@@ -3200,10 +3200,17 @@ ns._mhLocales.enUS = {
 	DEATH_RECAP_OPEN_HINT = "Click to open the Death Recap.",
 
 	-- Healer cooldown cheat-sheet (healer initiative, piece 1)
-	HEALCD_TITLE = "Your healing cooldowns — save them for the right moment:",
+	HEALCD_TITLE = "Your major cooldowns — save them for the right moment:",
 	HEALCD_NOT_HEALER = "The healing-cooldown cheat-sheet is for healer specs. Switch to your healing spec to see it.",
+	-- Kind labels (what the cooldown IS)
+	HEALCD_KIND_HEAL = "Heal",
+	HEALCD_KIND_MITIG = "Damage reduction",
+	HEALCD_KIND_EXT = "External",
+	HEALCD_KIND_UTIL = "Utility",
+	-- When to use it
 	HEALCD_WHEN_RAID = "Save for a big raid-wide hit — not for random chip damage.",
-	HEALCD_WHEN_EXT = "Cast on a tank or ally about to take a big hit — it protects them, not you.",
+	HEALCD_WHEN_EXT = "Cast on the tank or ally who's about to take a big hit.",
+	HEALCD_WHEN_EMERG = "Emergency button — hit it the instant someone (or you) is about to die.",
 	HEALCD_WHEN_SELF = "Your own panic button — use it before you drop, don't sit on it.",
 	HEALCD_WHEN_HASTE = "Line up with your biggest healing burst for extra casts.",
 	HEALCD_WHEN_MANA = "Use when the group's mana is running low on a long fight.",

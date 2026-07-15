@@ -3112,10 +3112,17 @@ ns._mhLocales.nlNL = {
 	DEATH_RECAP_OPEN_HINT = "Klik om de Death Recap te openen.",
 
 	-- Healer cooldown-spiekbriefje (healer-initiatief, deel 1)
-	HEALCD_TITLE = "Jouw heal-cooldowns — bewaar ze voor het juiste moment:",
+	HEALCD_TITLE = "Jouw grote cooldowns — bewaar ze voor het juiste moment:",
 	HEALCD_NOT_HEALER = "Het heal-cooldown-spiekbriefje is voor healer-specs. Wissel naar je heal-spec om het te zien.",
+	-- Type-labels (wat de cooldown ÍS)
+	HEALCD_KIND_HEAL = "Heal",
+	HEALCD_KIND_MITIG = "Schadereductie",
+	HEALCD_KIND_EXT = "Extern",
+	HEALCD_KIND_UTIL = "Utility",
+	-- Wanneer inzetten
 	HEALCD_WHEN_RAID = "Bewaar voor een grote raid-brede klap — niet voor willekeurige schampschade.",
-	HEALCD_WHEN_EXT = "Cast op een tank of ally die zo een grote klap krijgt — het beschermt hén, niet jou.",
+	HEALCD_WHEN_EXT = "Cast op de tank of ally die zo een grote klap krijgt.",
+	HEALCD_WHEN_EMERG = "Noodknop — druk 'm zodra iemand (of jij) bijna doodgaat.",
 	HEALCD_WHEN_SELF = "Je eigen paniekknop — gebruik 'm vóór je omvalt, blijf er niet op zitten.",
 	HEALCD_WHEN_HASTE = "Combineer met je grootste heal-burst voor extra casts.",
 	HEALCD_WHEN_MANA = "Gebruik als de mana van de groep opraakt in een lang gevecht.",

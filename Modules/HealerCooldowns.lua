@@ -1,8 +1,8 @@
 --[[
 	Healer cooldown cheat-sheet (Healer initiative, piece 1). Per healer spec:
-	your major healing cooldowns + a one-line "when to save it". Data-only module
-	+ a /mh healcds printout; this same table also feeds piece 4 (per-boss
-	heal-lens callouts), so it is the single verified source of healer CDs.
+	your major cooldowns + what each one IS (kind) + a one-line "when to use it".
+	Data-only module + a /mh healcds printout; this same table also feeds piece 4
+	(per-boss heal-lens callouts), so it is the single verified source of healer CDs.
 
 	NEVER-LIE — every spellID + base cooldown is taken from Rob's installed JustAC
 	data, generated from client build 12.1.0.68301, not guessed:
@@ -12,11 +12,19 @@
 	Spell NAMES are resolved LIVE via C_Spell.GetSpellName(id), so every game
 	locale shows the client's own name (no hardcoded English). `cd` is in seconds.
 
-	`when` is a GENERIC guidance type (kept generic so the text is always true for
-	the tagged spell, and the localization stays tiny):
+	A "healer cooldown" is not always a heal — the toolkit mixes throughput heals,
+	damage-reduction and externals, so each entry carries a `kind` label:
+	  heal    = heals people / boosts your own healing output
+	  mitig   = reduces damage the group (or you) takes — not a heal
+	  ext     = cast on ONE ally to protect or save them
+	  util    = a buff or resource cooldown (haste, mana)
+
+	`when` is a generic guidance type (kept generic so the text is always true for
+	the tagged spell, and the localization stays small):
 	  raid  = save for a big raid-wide burst
-	  ext   = cast on a tank/ally about to take a big hit (protects them, not you)
-	  self  = personal panic button / channel
+	  ext   = cast on the tank/ally about to take a big hit
+	  emerg = emergency button — hit it the instant someone (or you) may die
+	  self  = your own panic button / channel
 	  haste = line up with your biggest healing burst
 	  mana  = use when the group is low on mana
 	  flow  = pop during heavy sustained damage for extra throughput
@@ -31,67 +39,82 @@ local _, ns = ...
 local WHEN = {
 	raid = "HEALCD_WHEN_RAID",
 	ext = "HEALCD_WHEN_EXT",
+	emerg = "HEALCD_WHEN_EMERG",
 	self = "HEALCD_WHEN_SELF",
 	haste = "HEALCD_WHEN_HASTE",
 	mana = "HEALCD_WHEN_MANA",
 	flow = "HEALCD_WHEN_FLOW",
 }
 
+-- Kind label + a scan colour per kind.
+local KIND = {
+	heal = "HEALCD_KIND_HEAL",
+	mitig = "HEALCD_KIND_MITIG",
+	ext = "HEALCD_KIND_EXT",
+	util = "HEALCD_KIND_UTIL",
+}
+local KIND_COLOR = {
+	heal = "ff40c040", -- green
+	mitig = "ff40a0ff", -- blue
+	ext = "ffff8040", -- orange
+	util = "ffc080ff", -- purple
+}
+
 ns.HEALER_COOLDOWNS = {
 	-- Holy Paladin (65)
 	[65] = {
-		{ id = 31884, cd = 120, when = "flow" }, -- Avenging Wrath
-		{ id = 375576, cd = 60, when = "flow" }, -- Divine Toll
-		{ id = 200652, cd = 90, when = "raid" }, -- Tyr's Deliverance
-		{ id = 31821, cd = 180, when = "raid" }, -- Aura Mastery (raid DR)
-		{ id = 6940, cd = 120, when = "ext" }, -- Blessing of Sacrifice
-		{ id = 633, cd = 600, when = "ext" }, -- Lay on Hands (emergency full heal)
+		{ id = 31884, cd = 120, kind = "heal", when = "flow" }, -- Avenging Wrath (boosts healing)
+		{ id = 375576, cd = 60, kind = "heal", when = "flow" }, -- Divine Toll
+		{ id = 200652, cd = 90, kind = "heal", when = "raid" }, -- Tyr's Deliverance
+		{ id = 31821, cd = 180, kind = "mitig", when = "raid" }, -- Aura Mastery (raid magic DR)
+		{ id = 6940, cd = 120, kind = "ext", when = "ext" }, -- Blessing of Sacrifice
+		{ id = 633, cd = 600, kind = "heal", when = "emerg" }, -- Lay on Hands (full-HP emergency heal, ally OR self)
 	},
 	-- Restoration Druid (105)
 	[105] = {
-		{ id = 740, cd = 180, when = "raid" }, -- Tranquility
-		{ id = 33891, cd = 180, when = "flow" }, -- Incarnation: Tree of Life
-		{ id = 323764, cd = 120, when = "flow" }, -- Convoke the Spirits
-		{ id = 102342, cd = 90, when = "ext" }, -- Ironbark
+		{ id = 740, cd = 180, kind = "heal", when = "raid" }, -- Tranquility
+		{ id = 33891, cd = 180, kind = "heal", when = "flow" }, -- Incarnation: Tree of Life (healing boost)
+		{ id = 323764, cd = 120, kind = "heal", when = "flow" }, -- Convoke the Spirits
+		{ id = 102342, cd = 90, kind = "ext", when = "ext" }, -- Ironbark
 	},
 	-- Preservation Evoker (1468)
 	[1468] = {
-		{ id = 363534, cd = 240, when = "raid" }, -- Rewind
-		{ id = 359816, cd = 120, when = "raid" }, -- Dream Flight
-		{ id = 370960, cd = 180, when = "flow" }, -- Emerald Communion
-		{ id = 370537, cd = 90, when = "flow" }, -- Stasis
-		{ id = 357170, cd = 60, when = "ext" }, -- Time Dilation
+		{ id = 363534, cd = 240, kind = "heal", when = "raid" }, -- Rewind
+		{ id = 359816, cd = 120, kind = "heal", when = "raid" }, -- Dream Flight
+		{ id = 370960, cd = 180, kind = "heal", when = "flow" }, -- Emerald Communion
+		{ id = 370537, cd = 90, kind = "heal", when = "flow" }, -- Stasis (banks heals)
+		{ id = 357170, cd = 60, kind = "ext", when = "ext" }, -- Time Dilation
 	},
 	-- Mistweaver Monk (270)
 	[270] = {
-		{ id = 115310, cd = 180, when = "raid" }, -- Revival
-		{ id = 325197, cd = 120, when = "raid" }, -- Invoke Chi-Ji, the Red Crane
-		{ id = 322118, cd = 120, when = "raid" }, -- Invoke Yu'lon, the Jade Serpent
-		{ id = 116849, cd = 120, when = "ext" }, -- Life Cocoon
-		{ id = 115176, cd = 300, when = "self" }, -- Zen Meditation
+		{ id = 115310, cd = 180, kind = "heal", when = "raid" }, -- Revival
+		{ id = 325197, cd = 120, kind = "heal", when = "raid" }, -- Invoke Chi-Ji, the Red Crane
+		{ id = 322118, cd = 120, kind = "heal", when = "raid" }, -- Invoke Yu'lon, the Jade Serpent
+		{ id = 116849, cd = 120, kind = "ext", when = "ext" }, -- Life Cocoon
+		{ id = 115176, cd = 300, kind = "mitig", when = "self" }, -- Zen Meditation (personal DR channel)
 	},
 	-- Discipline Priest (256)
 	[256] = {
-		{ id = 421453, cd = 240, when = "flow" }, -- Ultimate Penitence
-		{ id = 62618, cd = 180, when = "raid" }, -- Power Word: Barrier
-		{ id = 33206, cd = 180, when = "ext" }, -- Pain Suppression
-		{ id = 472433, cd = 90, when = "flow" }, -- Evangelism
-		{ id = 10060, cd = 120, when = "haste" }, -- Power Infusion
+		{ id = 421453, cd = 240, kind = "heal", when = "flow" }, -- Ultimate Penitence
+		{ id = 62618, cd = 180, kind = "mitig", when = "raid" }, -- Power Word: Barrier (ground DR zone)
+		{ id = 33206, cd = 180, kind = "ext", when = "ext" }, -- Pain Suppression
+		{ id = 472433, cd = 90, kind = "heal", when = "flow" }, -- Evangelism (extends atonement healing)
+		{ id = 10060, cd = 120, kind = "util", when = "haste" }, -- Power Infusion
 	},
 	-- Holy Priest (257)
 	[257] = {
-		{ id = 265202, cd = 720, when = "raid" }, -- Holy Word: Salvation
-		{ id = 64843, cd = 180, when = "raid" }, -- Divine Hymn
-		{ id = 200183, cd = 120, when = "flow" }, -- Apotheosis
-		{ id = 47788, cd = 180, when = "ext" }, -- Guardian Spirit
-		{ id = 10060, cd = 120, when = "haste" }, -- Power Infusion
+		{ id = 265202, cd = 720, kind = "heal", when = "raid" }, -- Holy Word: Salvation
+		{ id = 64843, cd = 180, kind = "heal", when = "raid" }, -- Divine Hymn
+		{ id = 200183, cd = 120, kind = "heal", when = "flow" }, -- Apotheosis (Holy Word boost)
+		{ id = 47788, cd = 180, kind = "ext", when = "ext" }, -- Guardian Spirit
+		{ id = 10060, cd = 120, kind = "util", when = "haste" }, -- Power Infusion
 	},
 	-- Restoration Shaman (264)
 	[264] = {
-		{ id = 108280, cd = 180, when = "raid" }, -- Healing Tide Totem
-		{ id = 98008, cd = 180, when = "raid" }, -- Spirit Link Totem
-		{ id = 114052, cd = 180, when = "raid" }, -- Ascendance (Restoration)
-		{ id = 16191, cd = 180, when = "mana" }, -- Mana Tide Totem
+		{ id = 108280, cd = 180, kind = "heal", when = "raid" }, -- Healing Tide Totem
+		{ id = 98008, cd = 180, kind = "mitig", when = "raid" }, -- Spirit Link Totem (health redistribute + DR)
+		{ id = 114052, cd = 180, kind = "heal", when = "raid" }, -- Ascendance (Restoration)
+		{ id = 16191, cd = 180, kind = "util", when = "mana" }, -- Mana Tide Totem
 	},
 }
 
@@ -116,9 +139,12 @@ function ns.GetPlayerHealerSpecID()
 	return nil
 end
 
---- The guidance locale key for a `when` type (nil-safe).
+--- Locale keys for a CD's guidance / kind label (nil-safe).
 function ns.GetHealerCooldownWhenKey(whenType)
 	return WHEN[whenType]
+end
+function ns.GetHealerCooldownKindKey(kind)
+	return KIND[kind]
 end
 
 -- Seconds → a short "2 min" / "1.5 min" / "45s" label.
@@ -145,7 +171,17 @@ local function SpellName(id)
 end
 ns.HealerCooldownSpellName = SpellName
 
---- /mh healcds — print the player's healing-CD cheat-sheet to chat. A visual
+-- "[Heal]" style label, coloured by kind.
+local function KindLabel(kind)
+	local key = KIND[kind]
+	if not key then
+		return ""
+	end
+	return ("|c%s[%s]|r"):format(KIND_COLOR[kind] or "ffffffff", ns:L(key))
+end
+ns.HealerCooldownKindLabel = KindLabel
+
+--- /mh healcds — print the player's cooldown cheat-sheet to chat. A visual
 --- Codex/Academy page can render the same ns.HEALER_COOLDOWNS data later.
 function ns.PrintHealerCooldownSheet()
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
@@ -156,8 +192,8 @@ function ns.PrintHealerCooldownSheet()
 	end
 	print(("%s |cff8fd3ff%s|r"):format(prefix, ns:L("HEALCD_TITLE")))
 	for _, c in ipairs(ns.HEALER_COOLDOWNS[specID]) do
-		print(("   |cffffd100%s|r |cff9d9d9d(%s)|r — %s"):format(
-			SpellName(c.id), FormatCD(c.cd), ns:L(WHEN[c.when] or "")
+		print(("   %s |cffffd100%s|r |cff9d9d9d(%s)|r — %s"):format(
+			KindLabel(c.kind), SpellName(c.id), FormatCD(c.cd), ns:L(WHEN[c.when] or "")
 		))
 	end
 end
