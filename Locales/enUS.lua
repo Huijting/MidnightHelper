@@ -826,6 +826,18 @@ ns._mhLocales.enUS = {
 	ACADEMY_HEAL_BOTH_TITLE = "Learning tank as well?",
 	ACADEMY_HEAL_BOTH_BODY = "Use the Tank track for dungeon queueing; keep healing in delves until tanking feels familiar.\n\nTwo roles in one week in pugs is a lot - one role as \"main\" reduces fear.",
 
+	-- Deepened beginner heal course (healer initiative, piece 2)
+	ACADEMY_HEAL_MANA_TITLE = "Mana and efficiency",
+	ACADEMY_HEAL_MANA_BODY = "Mana is your real health bar. If you empty it, you can't heal at all.\n\nUse cheap, fast heals for small dips; save your big, expensive heals for real emergencies. Not everyone needs to sit at full - let people ride at 80%.\n\nDrink between every pull. \"Oom, 5 sec\" is a normal, professional thing to say.",
+	ACADEMY_HEAL_POSITION_TITLE = "Where to stand",
+	ACADEMY_HEAL_POSITION_BODY = "Stay in range of the whole group, but not on top of the boss. A back corner where you can see everyone beats hugging the tank.\n\nYou still have to dodge. A dead healer heals nobody - step out of the bad stuff even if it costs half a second of casting.\n\nKeep line of sight: you can't heal someone through a wall or pillar.",
+	ACADEMY_HEAL_COOLDOWNS_TITLE = "Save your big cooldowns",
+	ACADEMY_HEAL_COOLDOWNS_BODY = "Your big healing cooldowns are for big, planned damage - a boss's raid-wide hit - not for random scratches.\n\nHolding a cooldown \"just in case\" for the whole fight wastes it. A cooldown pressed at 90% of the right moment beats one never pressed.\n\nType /mh healcds for your spec's cooldowns and when to save each one.",
+	ACADEMY_HEAL_MISTAKES_TITLE = "Common beginner mistakes",
+	ACADEMY_HEAL_MISTAKES_BODY = "1. Tunnel-visioning one health bar while three others drop\n2. Panic-overhealing to 100% and emptying mana\n3. Standing in the bad stuff while staring at frames\n4. Never pressing your cooldowns\n5. Healing through fixable damage instead of asking for an interrupt\n\nPick one to watch each run - not all five at once.",
+	ACADEMY_HEAL_CONFIDENCE_TITLE = "It's okay to lose someone",
+	ACADEMY_HEAL_CONFIDENCE_BODY = "Someone will die on your watch. Every healer alive has let people die - it's how you learn where the limits are.\n\nOne death is not a wipe, and a wipe is not a verdict on you. Note the one thing you'd do differently, then let it go.\n\nGroups remember a calm healer who communicates far more than a perfect one.",
+
 	INFO_DRAWER_BODY_ACADEMY = "Role Academy: tank/heal tracks, pre-flight checkboxes, dungeon vs raid notes, and party chat lines. Leveling Guides adds an In groups advisor tab per role. Use the sidebar for Macros, Consumables, Guides, and Delves.",
 	TAB_GUIDE_SUB_GUIDE = "Guide",
 	TAB_GUIDE_SUB_LAYOUT = "Layout",

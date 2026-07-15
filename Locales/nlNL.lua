@@ -822,6 +822,18 @@ ns._mhLocales.nlNL = {
 	ACADEMY_HEAL_BOTH_TITLE = "Ook tank leren?",
 	ACADEMY_HEAL_BOTH_BODY = "Gebruik de Tank-track voor dungeon-queue; blijf healen in delves tot tanken bekend voelt.\n\nTwee rollen in één week in pugs is veel - één hoofdrol vermindert angst.",
 
+	-- Verdiepte beginner heal-course (healer-initiatief, deel 2)
+	ACADEMY_HEAL_MANA_TITLE = "Mana en efficiëntie",
+	ACADEMY_HEAL_MANA_BODY = "Mana is je échte health-bar. Raakt-ie leeg, dan kun je helemaal niet meer healen.\n\nGebruik goedkope, snelle heals voor kleine dipjes; bewaar je grote, dure heals voor echte noodgevallen. Niet iedereen hoeft op vol te zitten - laat mensen gerust op 80% lopen.\n\nDrink tussen elke pull. \"Oom, 5 sec\" zeggen is heel normaal en professioneel.",
+	ACADEMY_HEAL_POSITION_TITLE = "Waar je gaat staan",
+	ACADEMY_HEAL_POSITION_BODY = "Blijf binnen bereik van de hele groep, maar niet bovenop de boss. Een hoekje achterin waar je iedereen ziet is beter dan tegen de tank aan plakken.\n\nJij moet óók ontwijken. Een dode healer healt niemand - stap uit de troep, ook al kost het een halve seconde casten.\n\nHou zicht (line of sight): door een muur of pilaar heen healen kan niet.",
+	ACADEMY_HEAL_COOLDOWNS_TITLE = "Bewaar je grote cooldowns",
+	ACADEMY_HEAL_COOLDOWNS_BODY = "Je grote heal-cooldowns zijn voor grote, geplande schade - een raid-brede klap van de boss - niet voor willekeurige schrammetjes.\n\nEen cooldown het hele gevecht \"voor het geval dat\" bewaren is zonde. Een cooldown op 90% van het juiste moment is beter dan eentje die je nooit indrukt.\n\nTyp /mh healcds voor de cooldowns van jouw spec en wanneer je elke bewaart.",
+	ACADEMY_HEAL_MISTAKES_TITLE = "Veelgemaakte beginnersfouten",
+	ACADEMY_HEAL_MISTAKES_BODY = "1. Tunnelvisie op één health-bar terwijl er drie andere zakken\n2. Paniek-overhealen naar 100% en je mana leegtrekken\n3. In de troep blijven staan terwijl je naar de frames staart\n4. Je cooldowns nooit indrukken\n5. Door vermijdbare schade heen healen i.p.v. om een interrupt vragen\n\nKies er per run één om op te letten - niet alle vijf tegelijk.",
+	ACADEMY_HEAL_CONFIDENCE_TITLE = "Iemand verliezen mag",
+	ACADEMY_HEAL_CONFIDENCE_BODY = "Er gaat iemand dood terwijl jij healt. Élke healer die er is heeft mensen laten sterven - zo leer je waar de grenzen liggen.\n\nEén dode is geen wipe, en een wipe is geen oordeel over jou. Onthoud het ene dingetje dat je anders zou doen, en laat het dan los.\n\nGroepen onthouden een kalme healer die communiceert veel beter dan een perfecte.",
+
 	INFO_DRAWER_BODY_ACADEMY = "Role Academy: tank/heal-tracks, pre-flight vinkjes, dungeon vs raid en party chat. Leveling Guides heeft een In groups-advisor per rol. Macro's, Consumables, Guides en Delves staan in de zijbalk.",
 	TAB_GUIDE_SUB_GUIDE = "Gids",
 	TAB_GUIDE_SUB_LAYOUT = "Indeling",
