@@ -479,6 +479,51 @@ local function RenderHealerToolkit(panel, child, y, cw)
 	return y - 10
 end
 
+-- Spec-aware tank toolkit (Rob 2026-07-15): the player's active mitigation +
+-- defensive cooldowns at the top of the TANK track, mirroring the healer one.
+-- Verified data lives in Modules/TankToolkit.lua. Returns the new y cursor.
+local function RenderTankToolkit(panel, child, y, cw)
+	local activeID = ns.GetPlayerTankSpecID and ns.GetPlayerTankSpecID()
+	local specID = activeID or (ns.GetClassTankSpecID and ns.GetClassTankSpecID())
+	if not specID then
+		y = AddToolkitLine(panel, child, cw, y, SL("TANKKIT_HEAD"), true)
+		y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. SL("TANKKIT_NONE") .. "|r", false)
+		return y - 8
+	end
+	if not activeID then
+		y = AddToolkitLine(panel, child, cw, y,
+			"|cff9d9d9d" .. (SL("HEALTOOLKIT_PREVIEW_FMT")):format(ToolkitSpecName(specID)) .. "|r", false)
+	end
+	local mit = ns.GetTankMitigation and ns.GetTankMitigation(specID)
+	if mit then
+		y = AddToolkitLine(panel, child, cw, y, SL("TANKKIT_MIT_HEAD"), true)
+		for _, m in ipairs(mit) do
+			local line = ("%s |cffffd100%s|r — %s"):format(
+				ns.TankMitigationTagLabel(m.tag),
+				ns.HealerCooldownSpellName(m.id),
+				SL(ns.GetTankMitigationDescKey(m.tag) or "")
+			)
+			y = AddToolkitLine(panel, child, cw, y, line, false, m.id)
+		end
+	end
+	local cds = ns.GetTankCooldowns and ns.GetTankCooldowns(specID)
+	if cds then
+		y = y - 4
+		y = AddToolkitLine(panel, child, cw, y, SL("TANKKIT_CDS_HEAD"), true)
+		for _, c in ipairs(cds) do
+			local cdText = c.cd and (" |cff9d9d9d(" .. ns.FormatHealerCooldown(c.cd) .. ")|r") or ""
+			local line = ("%s |cffffd100%s|r%s — %s"):format(
+				ns.TankCooldownKindLabel(c.kind),
+				ns.HealerCooldownSpellName(c.id),
+				cdText,
+				SL(ns.GetTankCooldownDescKey(c.kind) or "")
+			)
+			y = AddToolkitLine(panel, child, cw, y, line, false, c.id)
+		end
+	end
+	return y - 10
+end
+
 local function RebuildScrollContent(panel)
 	local scroll = panel._academyScroll
 	local child = panel._academyScrollChild
@@ -512,9 +557,11 @@ local function RebuildScrollContent(panel)
 	local y = -4
 	local cw = math.max(320, (scroll:GetWidth() or 400) - 28)
 
-	-- Spec-aware healer toolkit sits above the reading chapters on the HEAL track.
+	-- Spec-aware toolkits sit above the reading chapters, per track.
 	if track == TRACK_HEAL then
 		y = RenderHealerToolkit(panel, child, y, cw)
+	elseif track == TRACK_TANK then
+		y = RenderTankToolkit(panel, child, y, cw)
 	end
 
 	for i = 1, #sections do

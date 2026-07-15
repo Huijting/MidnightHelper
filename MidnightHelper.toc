@@ -79,6 +79,7 @@ Modules\ConsumablesPanel.lua
 Modules\InterruptMacros.lua
 Modules\RoleAcademy.lua
 Modules\HealerCooldowns.lua
+Modules\TankToolkit.lua
 Modules\SMCChecklistData.lua
 Modules\SMCChecklist.lua
 UI.lua
