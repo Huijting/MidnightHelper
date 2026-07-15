@@ -128,6 +128,7 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Survival Instincts"]               = { role = "defensive_3", priority = 1, specs = { 103, 104 } }, -- grote def (-50% dmg), C
     ["Frenzied Regeneration"]            = { role = "heal_quick", priority = 2, specs = { 103, 104 } }, -- self-heal (Guardian spender/Feral noodheal), F2/5
     ["Berserk"]                          = { role = "cooldown_bar", priority = 1, specs = { 103, 104 } }, -- Feral 106951 + Guardian 50334, zelfde naam, F1
+    ["Tiger's Fury"]                     = { category = "cooldown", priority = 3, specs = { 103 } }, -- Feral signature 30s energy/dmg-CD (JustAC SpellCooldowns 5217=30s; SimC core)
 
     -- =================================================================
     -- RESTORATION (105) - healer

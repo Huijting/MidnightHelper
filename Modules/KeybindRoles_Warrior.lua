@@ -47,6 +47,8 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	-- Utility (SpellCategories UTILITY_SPELLS + guide.lua)
 	["Battle Shout"]       = { role = "utility_secondary", priority = 1 }, -- raid-buff (Arms/Fury op F, Prot op R)
 	["Rallying Cry"]       = { category = "defensive", priority = 4 },      -- groeps-defensive CD (+15% max HP; DEFENSIVE_SPELLS 97462) -> functioneel defensive
+	["Intervene"]          = { category = "defensive", priority = 5 },      -- baseline gap-closer + damage-intercept op ally (JustAC SpellCooldowns 3411=30s)
+	["Heroic Throw"]       = { category = "utility", priority = 5 },        -- baseline ranged pull/threat (JustAC SpellArchetypes 57755); vooral Prot
 	["Hamstring"]          = { category = "utility", priority = 3 },        -- slow (SpellArchetypes 1715)
 
 	--==============================================================

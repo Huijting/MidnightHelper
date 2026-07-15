@@ -84,7 +84,8 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	-- Kleine def (SpellCategories DEFENSIVE 198589; SpellDB fallback DEMONHUNTER {198589,...})
 	["Blur"]              = { role = "defensive_1", priority = 1, specs = { 577, 1480 } }, -- 20% dodge + DR (SpellCategories 198589; JustAC SpellDB DEMONHUNTER {198589,196718} = class-baseline -> ook Devourer, Icy Veins bevestigt)
 	-- Grote def (SpellDB fallback DEMONHUNTER {198589,196718}; Darkness = raid-wall)
-	["Darkness"]          = { role = "defensive_3", priority = 1, specs = { 577 } },       -- AoE avoidance-koepel (SpellDB DEMONHUNTER 196718)
+	["Darkness"]          = { category = "defensive", priority = 4 },                      -- AoE avoidance-koepel; baseline beide specs (SpellDB DEMONHUNTER class-level 196718). category=defensive i.p.v. defensive_3, zodat de persoonlijke C-def (Blur/Fiery Brand) het anker houdt en Darkness naar een overflow-slot gaat
+	["Sigil of Silence"]  = { category = "dispel_cc", priority = 1, specs = { 581 }, alsoStop = "silence" }, -- Veng AoE-silence sigil (JustAC SpellCategories CROWD_CONTROL 202137) -> Spec 08 alsoStop
 	["Netherwalk"]        = { category = "defensive", priority = 2, specs = { 577 } },     -- DR + immuniteit (SpellCategories DEFENSIVE 196555; talent-alt van Blur)
 	-- Grootste CD / cooldown_bar F1 (SpellDB BURST DEMONHUNTER_1 = {191427})
 	["Metamorphosis"]     = { role = "cooldown_bar", priority = 1, specs = { 577 } },      -- Havoc burst-vorm (SpellDB DEMONHUNTER_1 191427)

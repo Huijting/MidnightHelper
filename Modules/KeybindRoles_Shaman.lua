@@ -53,7 +53,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	["Elemental Blast"] = { category = "spender", priority = 1, specs = { 262, 263 } }, -- Ele 4; Enh 5 (ST-spender; 117014)
 	["Chain Lightning"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 262, 263 } }, -- Ele Shift+1; Enh Shift+4 (AoE builder; 188443)
 	["Earthquake"] = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 262 } }, -- Ele Shift+4 (AoE-spender; live 462620)
-	["Spiritwalker's Grace"] = { role = "utility_secondary", priority = 1, specs = { 262 } }, -- Ele F (cast-while-moving; JustAC GapCloserEngine 79206)
+	["Spiritwalker's Grace"] = { role = "utility_secondary", priority = 1, specs = { 262, 264 } }, -- Ele+Resto F (cast-while-moving; JustAC GapCloserEngine 79206)
 	["Skyfury"] = { category = "utility", priority = 2, specs = { 262 } }, -- Ele R (raid-buff, pre-combat; 462854)
 	["Thunderstorm"] = { category = "utility", priority = 4, specs = { 262 } }, -- Ele X (AoE knockback + slow; JustAC SpellCategories 51490)
 	["Earth Elemental"] = { category = "defensive", priority = 4, specs = { 262 } }, -- Ele Shift+C (extra def/pet; JustAC DefensiveEngine 198103)
@@ -68,7 +68,7 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	["Crash Lightning"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 263 } }, -- Enh Shift+1 (AoE; JustAC SpellArchetypes 187874)
 	["Sundering"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 263 } }, -- Enh Shift+2 (AoE frontal; 197214)
 	["Frost Shock"] = { role = "utility_secondary", priority = 1, specs = { 263 } }, -- Enh F (ranged slow; 196840)
-	["Tremor Totem"] = { category = "utility", priority = 4, specs = { 263 } }, -- Enh X (fear/charm break; 8143)
+	["Tremor Totem"] = { category = "utility", priority = 4 }, -- baseline alle specs (fear/charm break; 8143) — Ele/Resto binden 'm net zo goed
 	["Wind Rush Totem"] = { category = "utility", priority = 3, specs = { 263 } }, -- Enh Shift+T (movement-speed utility; JustAC 192077)
 	["Spirit Walk"] = { role = "utility_primary", priority = 1, specs = { 263 } }, -- Enh Q (snare-break movement; JustAC GapCloserEngine 58875)
 	["Feral Spirit"] = { role = "cooldown_bar", priority = 1, specs = { 263 } }, -- Enh F1 (wolves, grote CD; 51533)

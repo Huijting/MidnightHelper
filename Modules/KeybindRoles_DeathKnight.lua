@@ -55,6 +55,8 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	["Lichborne"] = { role = "defensive_1", priority = 2 },           -- kleine def / CC-immuniteit (baseline)
 	-- Utility (R / F)
 	["Anti-Magic Shell"] = { category = "utility", priority = 1 },    -- R (magische mitigatie, baseline)
+	["Anti-Magic Zone"] = { category = "defensive", priority = 5 },   -- groeps-magie-DR-koepel, baseline (JustAC SpellCategories DEFENSIVE 51052)
+	["Gorefiend's Grasp"] = { category = "dispel_cc", priority = 3, specs = { 250 } }, -- Blood AoE mass-grip (M+ control; JustAC SpellCooldowns 108199=90s)
 	["Dark Command"] = { category = "taunt", priority = 1 },          -- F: taunt (baseline, eigen kaart)
 	["Raise Dead"] = { category = "utility", priority = 3 },          -- T/F (pet, baseline alle 3 specs)
 

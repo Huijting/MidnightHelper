@@ -166,6 +166,7 @@ ns.KeybindRoleClassifier.MONK = {
     ["Vivify"]                       = { role = "heal_ooc", priority = 1 },  -- F3: out-of-combat/direct heal (SpellCategories 116670)
     -- Grote defensive
     ["Fortifying Brew"]              = { role = "defensive_3", priority = 1 }, -- C: grote defensive (115203 basis; 120954 BM / 201318 WW / 243435 MW-varianten, zelfde naam)
+    ["Touch of Death"]               = { category = "cooldown", priority = 4 }, -- iconische baseline execute-CD, alle specs (JustAC SpellCooldowns 322109=180s; SimC WW core)
     -- CC / dispel
     ["Paralysis"]                    = { category = "dispel_cc", priority = 1, alsoStop = "incap" }, -- V (BM/WW) / F (MW): single-target incapacitate (InterruptAbilities 115078 mech=14)
     -- Utility

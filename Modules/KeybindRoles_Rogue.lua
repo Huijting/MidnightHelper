@@ -48,7 +48,7 @@ ns.KeybindRoleClassifier.ROGUE = {
     -- =================================================================
     -- Builders / DoT-onderhoud
     ["Mutilate"]         = { category = "main_rotation", priority = 1, specs = { 259 } },
-    ["Shiv"]             = { category = "dispel_cc", priority = 2, specs = { 259 } }, -- offensive dispel (enrage/magic), geen builder
+    ["Shiv"]             = { category = "dispel_cc", priority = 2 }, -- offensive dispel (enrage/magic); baseline alle 3 specs (JustAC InterruptAbilities 5938 soothe), geen builder
     ["Garrote"]          = { category = "main_rotation", priority = 3, specs = { 259 } },
     -- Spenders (finishers)
     ["Envenom"]          = { category = "spender", priority = 1, specs = { 259 } },

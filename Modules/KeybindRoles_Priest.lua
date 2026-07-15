@@ -59,7 +59,8 @@ ns.KeybindRoleClassifier.PRIEST = {
 	-- BASELINE (alle 3 specs: 256, 257, 258)
 	-- -----------------------------------------------------------------
 	["Fade"] = { role = "utility_primary", priority = 1 },                       -- Q: threat-drop/movement, kleine DR via talent
-	["Power Word: Shield"] = { role = "defensive_1", priority = 1, specs = { 257, 258 } }, -- Z: kleine self-shield (Disc: builder, zie onder)
+	["Angelic Feather"] = { role = "mobility", priority = 1 },                   -- R: canonieke Priest-movement (JustAC SpellCooldowns 121536, 3 charges); baseline alle specs
+	["Power Word: Shield"] = { role = "defensive_1", priority = 1, specs = { 256, 257, 258 } }, -- Z: self-shield, alle 3 specs (Disc perst 'm ook als atonement-builder; één table-key -> op Z voor iedereen)
 	["Desperate Prayer"] = { role = "heal_quick", priority = 1 },                -- F2: persoonlijke noodheal (GEEN defensive -> heal-slot)
 	["Psychic Scream"] = { category = "dispel_cc", priority = 1 },               -- V: AoE-fear (CC)
 	["Mass Dispel"] = { category = "dispel_cc", priority = 3 },                  -- T: enemy-magic dispel / raid-dispel
@@ -129,7 +130,7 @@ ns.KeybindRoleClassifier.PRIEST = {
 	["Void Volley"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 258 } }, -- alternatief (talent)
 	["Silence"] = { role = "interrupt", priority = 1, specs = { 258 } }, -- E: interrupt + silence
 	["Dispersion"] = { role = "defensive_3", priority = 1, specs = { 258 } }, -- C: grote defensive
-	["Voidform"] = { role = "cooldown_bar", priority = 1, specs = { 258 } }, -- F1: burst-CD
+	["Void Eruption"] = { role = "cooldown_bar", priority = 1, specs = { 258 } }, -- F1: burst-CD (castbare knop = Void Eruption 228260; "Voidform" 194249 is de resulterende buff, dus naam-match faalde)
 	["Void Torrent"] = { category = "cooldown", priority = 2, specs = { 258 } }, -- extra burst-CD (channel)
 	["Mindbender"] = { category = "cooldown", priority = 1, specs = { 258 } }, -- pet burst-CD (alt. Shadowfiend)
 

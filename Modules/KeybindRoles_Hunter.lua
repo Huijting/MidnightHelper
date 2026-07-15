@@ -64,6 +64,8 @@ ns.KeybindRoleClassifier.HUNTER = {
 	["Exhilaration"] = { role = "heal_quick", priority = 1 }, -- F2 heal-anker: self+pet quick heal (109304), baseline
 	["Survival of the Fittest"] = { role = "defensive_1", priority = 1 }, -- kleine def, 30% DR (264735), baseline (talent)
 	["Aspect of the Turtle"] = { role = "defensive_3", priority = 1 }, -- grote def, immune (186265), baseline
+	["Primal Rage"] = { category = "cooldown", priority = 5, specs = { 253 } }, -- BM pet-Bloodlust/Heroism-equivalent (JustAC SpellCategories 264667); analoog aan Shaman Bloodlust
+	["Camouflage"] = { category = "utility", priority = 5 }, -- baseline stealth/reset-utility (JustAC SpellCooldowns 199483)
 	["Roar of Sacrifice"] = { category = "defensive", priority = 2 }, -- externe pet-def (53480), baseline (talent)
 	["Feign Death"] = { category = "utility", priority = 4 }, -- baseline threat-drop (5384)
 
