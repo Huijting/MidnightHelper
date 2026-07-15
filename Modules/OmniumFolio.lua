@@ -103,6 +103,26 @@ local function MidnightMaxLevel()
 	return nil
 end
 
+-- Duidelijke popup voor de Folio "waarom-opent-ie-niet"-meldingen; een chatregel
+-- mis je makkelijk (Rob 15 jul). Valt terug op chat als StaticPopup ontbreekt.
+StaticPopupDialogs["MIDNIGHTHELPER_FOLIO_INFO"] = {
+	text = "%s",
+	button1 = OKAY,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3, -- taint-veilig (Blizzard-aanbevolen index)
+}
+
+-- text = de AL geresolvede/geformatteerde string (niet de locale-key).
+local function FolioNotice(text)
+	if StaticPopup_Show and StaticPopupDialogs["MIDNIGHTHELPER_FOLIO_INFO"] then
+		StaticPopup_Show("MIDNIGHTHELPER_FOLIO_INFO", text)
+	else
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), text))
+	end
+end
+
 -- Is the Expansion Landing Page minimap button currently the MIDNIGHT one (the Omnium
 -- Folio)? That button represents whatever expansion landing page THIS character has active;
 -- on a char whose active page is the old Shadowlands covenant, clicking it pops a Kyrian
@@ -354,7 +374,7 @@ function ns.BuildOmniumFolioPanel(panel)
 	openBtn:SetText(ns:L("OMNIUM_OPEN_INGAME"))
 	openBtn:SetScript("OnClick", function()
 		if InCombatLockdown and InCombatLockdown() then
-			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_COMBAT")))
+			FolioNotice(ns:L("OMNIUM_OPEN_COMBAT"))
 			return
 		end
 		-- The Expansion Landing Page button represents whatever expansion landing page THIS
@@ -370,26 +390,26 @@ function ns.BuildOmniumFolioPanel(panel)
 		local maxLvl = MidnightMaxLevel()
 		local myLvl = (UnitLevel and UnitLevel("player")) or 0
 		if maxLvl and myLvl > 0 and myLvl < maxLvl then
-			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_LEVELING"):format(myLvl, maxLvl, maxLvl)))
+			FolioNotice(ns:L("OMNIUM_OPEN_LEVELING"):format(myLvl, maxLvl, maxLvl))
 			return
 		end
 		if UnlockedRows() == 0 then
-			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_LOCKED")))
+			FolioNotice(ns:L("OMNIUM_OPEN_LOCKED"))
 			return
 		end
 		local lpb = _G.ExpansionLandingPageMinimapButton
 		if not lpb then
-			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_FALLBACK")))
+			FolioNotice(ns:L("OMNIUM_OPEN_FALLBACK"))
 			return
 		end
 		if not IsMidnightFolioButton(lpb) then
-			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_WRONGEXP")))
+			FolioNotice(ns:L("OMNIUM_OPEN_WRONGEXP"))
 			return
 		end
 		if lpb.Click and pcall(lpb.Click, lpb) then
 			return
 		end
-		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_FALLBACK")))
+		FolioNotice(ns:L("OMNIUM_OPEN_FALLBACK"))
 	end)
 
 	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
