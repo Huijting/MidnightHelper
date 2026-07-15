@@ -244,7 +244,6 @@ local function AcquireArticleBlock(index)
 
 	local bodyFs = root:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	bodyFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-	bodyFs:SetPoint("RIGHT", root, "RIGHT", 0, 0)
 	bodyFs:SetJustifyH("LEFT")
 	bodyFs:SetWordWrap(true)
 	bodyFs:SetTextColor(COLOR_BODY[1], COLOR_BODY[2], COLOR_BODY[3])
@@ -272,6 +271,15 @@ local function AcquireArticleBlock(index)
 		local h = (titleHit:GetHeight() or 20) + 6
 		if curRow:IsShown() then
 			h = h + 24
+		end
+		-- Geef de body eerst een EXPLICIETE breedte, dán meten. Met alleen
+		-- twee-zijdige anchors is de wrap-hoogte in dezelfde frame nog niet
+		-- doorgerekend → GetStringHeight() gaf een te lage (single-line) waarde
+		-- en de volgende Codex-entry ging overlappen (Rob 15 jul). root-breedte
+		-- staat hier al: beide call-sites zetten die vóór het meten.
+		local bw = root:GetWidth()
+		if bw and bw > 0 then
+			bodyFs:SetWidth(bw)
 		end
 		h = h + 6 + (bodyFs:GetStringHeight() or 40) + 6
 		if navBtn:IsShown() then
@@ -307,10 +315,11 @@ local function ApplyArticleToBlock(block, article)
 	end
 
 	-- Body sits under the currency row when present, else directly under the title.
+	-- Only a TOPLEFT anchor + an explicit SetWidth (applied in _mhMeasure) — a
+	-- second RIGHT anchor would over-constrain the FontString and fight SetWidth.
 	local anchor = article.currencyId and block.curRow or block.titleHit
 	block.bodyFs:ClearAllPoints()
 	block.bodyFs:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -6)
-	block.bodyFs:SetPoint("RIGHT", block.root, "RIGHT", 0, 0)
 	block.bodyFs:SetText(CodexL(article.bodyKey))
 
 	if article.tabId then
