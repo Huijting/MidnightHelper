@@ -322,6 +322,14 @@ function ns.PrintDeathRecapDiagnostics()
 	print(("   in tracked instance: %s   combat-log capture: %s"):format(
 		tostring(inTrackedInstance()), clogOn and "on" or "off"
 	))
+	-- Instance/difficulty context — so a slip (e.g. a follower dungeon reporting a
+	-- whitelisted difficulty) can be diagnosed exactly and excluded (never guessed).
+	if IsInInstance and IsInInstance() and GetInstanceInfo then
+		local name, itype, diffID, diffName = GetInstanceInfo()
+		print(("   instance: %s  type: %s  difficultyID: %s (%s)"):format(
+			tostring(name), tostring(itype), tostring(diffID), tostring(diffName)
+		))
+	end
 	print(("   damage-buffer entries: %d"):format(#dmgRing))
 	for i = 1, #dmgRing do
 		local r = dmgRing[i]
