@@ -22,6 +22,7 @@ local MIN_PULL = 12 -- seconds; skip trivial trash so it isn't spammy
 local inCombat, pullStart, specID, tracked
 local castCount = {}
 local mitId, upTime, sampleAccum
+local sawEncounter
 
 local function enabled()
 	return ns.db and ns.db.tankPullSummary == true
@@ -99,8 +100,9 @@ local function IsMitUp(id)
 	return false
 end
 
+local SHIELD_ICON = "Interface\\Icons\\Ability_Warrior_ShieldWall"
+
 local function ShowSummary(dur)
-	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	-- Active-mitigation presses (sum across the spec's mitigation buttons).
 	local mitParts, cdParts = {}, {}
 	for id, kind in pairs(tracked or {}) do
@@ -122,11 +124,24 @@ local function ShowSummary(dur)
 		end
 		mitStr = mitStr .. (" |cff9d9d9d(%s)|r"):format((ns:L("PULLSUM_UPTIME_FMT")):format(pct))
 	end
-	local cdStr = (#cdParts > 0) and (ns:L("PULLSUM_DEF_FMT")):format(table.concat(cdParts, ", ")) or ns:L("PULLSUM_NO_DEF")
-	print(("%s |cff8fd3ff%s|r (%s): %s · %s"):format(prefix, ns:L("PULLSUM_HEAD"), fmtDur(dur), mitStr, cdStr))
+	local hasCd = #cdParts > 0
+	local cdStr = hasCd and (ns:L("PULLSUM_DEF_FMT")):format(table.concat(cdParts, ", ")) or ns:L("PULLSUM_NO_DEF")
+	local head = ("%s (%s)"):format(ns:L("PULLSUM_HEAD"), fmtDur(dur))
 	-- Soft tip only when no defensive cooldown was pressed — never an absolute judgment.
-	if #cdParts == 0 then
-		print(("   |cff9d9d9d%s|r"):format(ns:L("PULLSUM_TIP_NODEF")))
+	local tip = (not hasCd) and ns:L("PULLSUM_TIP_NODEF") or nil
+
+	if ns.db and ns.db.tankPullSummaryPopup and ns.QueueMidnightToast then
+		local body = mitStr .. "\n" .. cdStr
+		if tip then
+			body = body .. "\n|cff9d9d9d" .. tip .. "|r"
+		end
+		ns.QueueMidnightToast({ id = "mh_pullsummary", icon = SHIELD_ICON, title = head, body = body })
+	else
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		print(("%s |cff8fd3ff%s|r: %s · %s"):format(prefix, head, mitStr, cdStr))
+		if tip then
+			print(("   |cff9d9d9d%s|r"):format(tip))
+		end
 	end
 end
 
@@ -149,6 +164,7 @@ end
 
 f:RegisterEvent("PLAYER_REGEN_DISABLED")
 f:RegisterEvent("PLAYER_REGEN_ENABLED")
+f:RegisterEvent("ENCOUNTER_START")
 f:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
 f:SetScript("OnEvent", function(_, event, unit, _, spellID)
 	if event == "PLAYER_REGEN_DISABLED" then
@@ -160,14 +176,19 @@ f:SetScript("OnEvent", function(_, event, unit, _, spellID)
 			wipe(castCount)
 			mitId = MITIGATION_UPTIME[specID]
 			upTime, sampleAccum = 0, 0
+			sawEncounter = false
 			f:SetScript("OnUpdate", Sampler)
 		end
+	elseif event == "ENCOUNTER_START" then
+		-- Marks the current pull as a boss fight (for the boss-only mode).
+		sawEncounter = true
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		if inCombat then
 			inCombat = false
 			f:SetScript("OnUpdate", nil)
 			local dur = (GetTime and GetTime() or 0) - (pullStart or 0)
-			if dur >= MIN_PULL then
+			local bossOnly = ns.db and ns.db.tankPullSummaryBossOnly
+			if dur >= MIN_PULL and (not bossOnly or sawEncounter) then
 				pcall(ShowSummary, dur)
 			end
 		end
@@ -179,11 +200,31 @@ f:SetScript("OnEvent", function(_, event, unit, _, spellID)
 	end
 end)
 
+local function say(key)
+	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+	print(("%s %s"):format(prefix, ns:L(key)))
+end
+
 --- /mh pullsummary — toggle the per-pull tank summary.
 function ns.ToggleTankPullSummary()
 	ns.db = ns.db or {}
 	ns.db.tankPullSummary = not (ns.db.tankPullSummary == true)
-	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
-	print(("%s %s"):format(prefix, ns:L(ns.db.tankPullSummary and "PULLSUM_ON" or "PULLSUM_OFF")))
+	say(ns.db.tankPullSummary and "PULLSUM_ON" or "PULLSUM_OFF")
 	return ns.db.tankPullSummary == true
+end
+
+--- /mh pullsummary boss — only summarise boss pulls (skip trash).
+function ns.ToggleTankPullSummaryBossOnly()
+	ns.db = ns.db or {}
+	ns.db.tankPullSummaryBossOnly = not (ns.db.tankPullSummaryBossOnly == true)
+	say(ns.db.tankPullSummaryBossOnly and "PULLSUM_BOSS_ON" or "PULLSUM_BOSS_OFF")
+	return ns.db.tankPullSummaryBossOnly == true
+end
+
+--- /mh pullsummary popup — show the summary as a popup instead of chat.
+function ns.ToggleTankPullSummaryPopup()
+	ns.db = ns.db or {}
+	ns.db.tankPullSummaryPopup = not (ns.db.tankPullSummaryPopup == true)
+	say(ns.db.tankPullSummaryPopup and "PULLSUM_POPUP_ON" or "PULLSUM_POPUP_OFF")
+	return ns.db.tankPullSummaryPopup == true
 end
