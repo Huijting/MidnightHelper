@@ -3294,6 +3294,7 @@ ns._mhLocales.enUS = {
 	-- Tank pull-summary (/mh pullsummary)
 	PULLSUM_HEAD = "Pull summary",
 	PULLSUM_NO_MIT = "no active mitigation pressed",
+	PULLSUM_UPTIME_FMT = "uptime %d%%",
 	PULLSUM_DEF_FMT = "%s used",
 	PULLSUM_NO_DEF = "no defensive cooldown used",
 	PULLSUM_TIP_NODEF = "A big hit is a good moment for a defensive next time.",

@@ -3206,6 +3206,7 @@ ns._mhLocales.nlNL = {
 	-- Tank pull-summary (/mh pullsummary)
 	PULLSUM_HEAD = "Pull-samenvatting",
 	PULLSUM_NO_MIT = "geen active mitigation gedrukt",
+	PULLSUM_UPTIME_FMT = "uptime %d%%",
 	PULLSUM_DEF_FMT = "%s gebruikt",
 	PULLSUM_NO_DEF = "geen defensive cooldown gebruikt",
 	PULLSUM_TIP_NODEF = "Een grote klap is een goed moment voor een defensive de volgende keer.",

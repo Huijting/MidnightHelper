@@ -21,6 +21,7 @@ local MIN_PULL = 12 -- seconds; skip trivial trash so it isn't spammy
 
 local inCombat, pullStart, specID, tracked
 local castCount = {}
+local mitId, upTime, sampleAccum
 
 local function enabled()
 	return ns.db and ns.db.tankPullSummary == true
@@ -61,6 +62,43 @@ local function SpellName(id)
 	return "spell " .. tostring(id)
 end
 
+-- Active-mitigation BUFF to measure uptime on, per tank spec. IDs verified from
+-- the installed TankTraining (which measures exactly this): cast==buff for most
+-- (Shield Block 2565, Ironfur 192081, Demon Spikes 203720); Bone Shield is the
+-- BUFF 195181 (cast is Marrowrend 195182). Shield of the Righteous has internal
+-- talent variants (the buff id 132403 ≠ cast 53600), so it's matched by NAME
+-- below (robust, no unverified id). Brewmaster is Stagger-based (no simple buff
+-- uptime) → omitted. never-lie: we only report the measured %, no invented ideal.
+local MITIGATION_UPTIME = {
+	[66] = 53600, -- Prot Paladin: Shield of the Righteous (name-matched)
+	[73] = 2565, -- Prot Warrior: Shield Block
+	[104] = 192081, -- Guardian Druid: Ironfur
+	[250] = 195181, -- Blood DK: Bone Shield (buff)
+	[581] = 203720, -- Vengeance DH: Demon Spikes
+}
+
+-- Is the mitigation buff `id` up right now? id-match first (cast==buff for most),
+-- then a NAME fallback (Shield of the Righteous: buff id differs from the cast
+-- but shares the name). Secret aura fields are skipped.
+local function IsMitUp(id)
+	if ns.Aura and ns.Aura.HasPlayerAura and ns.Aura.HasPlayerAura(id) then
+		return true
+	end
+	local nm = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id)
+	if nm and nm ~= "" and ns.Aura and ns.Aura.ForEachPlayerBuff then
+		local found = false
+		ns.Aura.ForEachPlayerBuff(function(aura)
+			local an = aura.name
+			if an ~= nil and not (issecretvalue and issecretvalue(an)) and an == nm then
+				found = true
+				return true
+			end
+		end)
+		return found
+	end
+	return false
+end
+
 local function ShowSummary(dur)
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	-- Active-mitigation presses (sum across the spec's mitigation buttons).
@@ -76,6 +114,14 @@ local function ShowSummary(dur)
 		end
 	end
 	local mitStr = (#mitParts > 0) and table.concat(mitParts, ", ") or ns:L("PULLSUM_NO_MIT")
+	-- Measured active-mitigation uptime % (factual — no ideal-benchmark comparison).
+	if mitId and dur > 0 then
+		local pct = math.floor(((upTime or 0) / dur) * 100 + 0.5)
+		if pct > 100 then
+			pct = 100
+		end
+		mitStr = mitStr .. (" |cff9d9d9d(%s)|r"):format((ns:L("PULLSUM_UPTIME_FMT")):format(pct))
+	end
 	local cdStr = (#cdParts > 0) and (ns:L("PULLSUM_DEF_FMT")):format(table.concat(cdParts, ", ")) or ns:L("PULLSUM_NO_DEF")
 	print(("%s |cff8fd3ff%s|r (%s): %s · %s"):format(prefix, ns:L("PULLSUM_HEAD"), fmtDur(dur), mitStr, cdStr))
 	-- Soft tip only when no defensive cooldown was pressed — never an absolute judgment.
@@ -85,6 +131,22 @@ local function ShowSummary(dur)
 end
 
 local f = CreateFrame("Frame")
+
+-- Sample the mitigation buff ~5×/sec during combat and accumulate its up-time.
+local function Sampler(_, elapsed)
+	if not (inCombat and mitId) then
+		return
+	end
+	sampleAccum = (sampleAccum or 0) + elapsed
+	if sampleAccum < 0.2 then
+		return
+	end
+	if IsMitUp(mitId) then
+		upTime = (upTime or 0) + sampleAccum
+	end
+	sampleAccum = 0
+end
+
 f:RegisterEvent("PLAYER_REGEN_DISABLED")
 f:RegisterEvent("PLAYER_REGEN_ENABLED")
 f:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
@@ -96,10 +158,14 @@ f:SetScript("OnEvent", function(_, event, unit, _, spellID)
 			pullStart = GetTime and GetTime() or 0
 			tracked = BuildTracked(specID)
 			wipe(castCount)
+			mitId = MITIGATION_UPTIME[specID]
+			upTime, sampleAccum = 0, 0
+			f:SetScript("OnUpdate", Sampler)
 		end
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		if inCombat then
 			inCombat = false
+			f:SetScript("OnUpdate", nil)
 			local dur = (GetTime and GetTime() or 0) - (pullStart or 0)
 			if dur >= MIN_PULL then
 				pcall(ShowSummary, dur)
