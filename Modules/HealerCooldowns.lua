@@ -268,6 +268,80 @@ function ns.FormatDispelTypes(types)
 	return table.concat(out, ", ")
 end
 
+--------------------------------------------------------------------------------
+-- Heal-lens (piece 4): per-boss "dispel this / save a CD here" callouts that
+-- personalise to the player's own spec (reuses HEALER_DISPELS + HEALER_COOLDOWNS
+-- above). The per-boss tags are the ONLY new data and are verified from the
+-- installed DBM-Party-Midnight mods (the "helpdispel" markers + explicit
+-- Remove<Type> sound keys) / Wowhead — never guessed. This is a seed; it grows
+-- as more bosses are verified, and S2 bosses are added when 12.1 lands.
+--   dispel = "<school>"  the boss puts a dispellable friendly debuff of this type
+--   raidcd = true        the boss has a big raid-wide burst → save a raid CD
+--------------------------------------------------------------------------------
+ns.BOSS_HEAL_LENS = {
+	maisara = {
+		murojin = { dispel = "disease" }, -- Infected Pinions (1246666); DBM "RemoveDisease"
+	},
+}
+
+--- The player's top raid-window cooldown for a spec (first `when=="raid"`, else
+--- the first CD), or nil.
+function ns.GetTopRaidCooldown(specID)
+	local list = specID and ns.HEALER_COOLDOWNS[specID]
+	if not list then
+		return nil
+	end
+	for _, c in ipairs(list) do
+		if c.when == "raid" then
+			return c
+		end
+	end
+	return list[1]
+end
+
+--- A ready-to-render heal-lens line for a boss, personalised to the player's
+--- (or their class's) healer spec — or nil when there's no lens / no healer spec.
+function ns.GetBossHealLensLine(entryKey, bossKey)
+	local specID = ns.GetPlayerHealerSpecID() or ns.GetClassHealerSpecID()
+	if not specID then
+		return nil
+	end
+	local byBoss = entryKey and ns.BOSS_HEAL_LENS[entryKey]
+	local lens = byBoss and bossKey and byBoss[bossKey]
+	if not lens then
+		return nil
+	end
+	local parts = {}
+	if lens.dispel then
+		local typeName = ns.FormatDispelTypes({ lens.dispel })
+		local dispel = ns.GetHealerDispel(specID)
+		local can = false
+		if dispel then
+			for _, t in ipairs(dispel.types) do
+				if t == lens.dispel then
+					can = true
+					break
+				end
+			end
+		end
+		if can then
+			parts[#parts + 1] = (ns:L("HEALLENS_DISPEL_YOU_FMT")):format(typeName, ns.HealerCooldownSpellName(dispel.id))
+		else
+			parts[#parts + 1] = (ns:L("HEALLENS_DISPEL_OTHER_FMT")):format(typeName)
+		end
+	end
+	if lens.raidcd then
+		local cd = ns.GetTopRaidCooldown(specID)
+		if cd then
+			parts[#parts + 1] = (ns:L("HEALLENS_RAIDCD_FMT")):format(ns.HealerCooldownSpellName(cd.id))
+		end
+	end
+	if #parts == 0 then
+		return nil
+	end
+	return ("|cff8fd3ff%s:|r %s"):format(ns:L("HEALLENS_PREFIX"), table.concat(parts, " "))
+end
+
 --- The player's current spec id IF it is a healer spec we have data for, else nil.
 function ns.GetPlayerHealerSpecID()
 	if not (GetSpecialization and GetSpecializationInfo) then

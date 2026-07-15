@@ -724,6 +724,12 @@ local function BuildBossText(d, idx)
 	else
 		lines[#lines + 1] = "|cff" .. COLOR_DIMTXT .. ns:L("DGN_TIPS_SOON") .. "|r"
 	end
+	-- Heal-lens: a spec-aware "dispel this / save a CD here" line for healers,
+	-- shown even when there are no prose tips yet (e.g. S2 bosses).
+	local lens = ns.GetBossHealLensLine and ns.GetBossHealLensLine(d.key, b.key)
+	if lens then
+		lines[#lines + 1] = lens
+	end
 	local text = table.concat(lines, "|n")
 	if ns.ExpandDelveTipMarkup then
 		text = ns:ExpandDelveTipMarkup(text)
