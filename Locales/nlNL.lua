@@ -3207,6 +3207,7 @@ ns._mhLocales.nlNL = {
 	PULLSUM_HEAD = "Pull-samenvatting",
 	PULLSUM_NO_MIT = "geen active mitigation gedrukt",
 	PULLSUM_UPTIME_FMT = "uptime %d%%",
+	PULLSUM_STAGGER_FMT = "gem. Stagger %d%% HP, lager is beter",
 	PULLSUM_DEF_FMT = "%s gebruikt",
 	PULLSUM_NO_DEF = "geen defensive cooldown gebruikt",
 	PULLSUM_TIP_NODEF = "Een grote klap is een goed moment voor een defensive de volgende keer.",

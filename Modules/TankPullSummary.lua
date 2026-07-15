@@ -23,6 +23,7 @@ local inCombat, pullStart, specID, tracked
 local castCount = {}
 local mitId, upTime, sampleAccum
 local sawEncounter
+local staggerAccum, staggerValidTime -- Brewmaster: time-weighted avg Stagger pool / max HP
 
 local function enabled()
 	return ns.db and ns.db.tankPullSummary == true
@@ -116,13 +117,17 @@ local function ShowSummary(dur)
 		end
 	end
 	local mitStr = (#mitParts > 0) and table.concat(mitParts, ", ") or ns:L("PULLSUM_NO_MIT")
-	-- Measured active-mitigation uptime % (factual — no ideal-benchmark comparison).
+	-- Measured metric (factual — no ideal-benchmark comparison): active-mitigation
+	-- uptime % for most tanks, or (Brewmaster) the average Stagger pool as % of HP.
 	if mitId and dur > 0 then
 		local pct = math.floor(((upTime or 0) / dur) * 100 + 0.5)
 		if pct > 100 then
 			pct = 100
 		end
 		mitStr = mitStr .. (" |cff9d9d9d(%s)|r"):format((ns:L("PULLSUM_UPTIME_FMT")):format(pct))
+	elseif specID == 268 and (staggerValidTime or 0) > 0 then
+		local pct = math.floor(((staggerAccum or 0) / staggerValidTime) * 100 + 0.5)
+		mitStr = mitStr .. (" |cff9d9d9d(%s)|r"):format((ns:L("PULLSUM_STAGGER_FMT")):format(pct))
 	end
 	local hasCd = #cdParts > 0
 	local cdStr = hasCd and (ns:L("PULLSUM_DEF_FMT")):format(table.concat(cdParts, ", ")) or ns:L("PULLSUM_NO_DEF")
@@ -147,19 +152,33 @@ end
 
 local f = CreateFrame("Frame")
 
--- Sample the mitigation buff ~5×/sec during combat and accumulate its up-time.
+-- Sample ~5×/sec during combat: the mitigation-buff up-time for most tanks, or
+-- (Brewmaster) the Stagger pool as a fraction of max HP. Own auras/stagger/health
+-- are readable, but guard secret values (unreadable ≠ absent) and skip them.
 local function Sampler(_, elapsed)
-	if not (inCombat and mitId) then
+	if not inCombat then
 		return
 	end
 	sampleAccum = (sampleAccum or 0) + elapsed
 	if sampleAccum < 0.2 then
 		return
 	end
-	if IsMitUp(mitId) then
-		upTime = (upTime or 0) + sampleAccum
-	end
+	local dt = sampleAccum
 	sampleAccum = 0
+	if mitId then
+		if IsMitUp(mitId) then
+			upTime = (upTime or 0) + dt
+		end
+	elseif specID == 268 and UnitStagger and UnitHealthMax then
+		-- Brewmaster: no simple buff — measure how low you kept the Stagger pool.
+		local ok1, stag = pcall(UnitStagger, "player")
+		local ok2, mhp = pcall(UnitHealthMax, "player")
+		local secret = issecretvalue and (issecretvalue(stag) or issecretvalue(mhp))
+		if ok1 and ok2 and not secret and tonumber(mhp) and tonumber(mhp) > 0 then
+			staggerAccum = (staggerAccum or 0) + ((tonumber(stag) or 0) / tonumber(mhp)) * dt
+			staggerValidTime = (staggerValidTime or 0) + dt
+		end
+	end
 end
 
 f:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -176,6 +195,7 @@ f:SetScript("OnEvent", function(_, event, unit, _, spellID)
 			wipe(castCount)
 			mitId = MITIGATION_UPTIME[specID]
 			upTime, sampleAccum = 0, 0
+			staggerAccum, staggerValidTime = 0, 0
 			sawEncounter = false
 			f:SetScript("OnUpdate", Sampler)
 		end
