@@ -145,6 +145,35 @@ local function ReadPerDungeonBests()
 	return out
 end
 
+-- Gear per key level: the game's OWN reward API, so the item levels are always
+-- this-season-accurate (never-lie: no hardcoded ilvls that go stale). vault ilvl
+-- is always >= end-of-run, so if the two returns come back in the other order we
+-- swap them by that rule rather than trusting the argument order.
+local GEAR_KEYS = { 2, 4, 6, 8, 10, 12 }
+local function PrintGearRewards()
+	if not (C_MythicPlus and C_MythicPlus.GetRewardLevelForDifficultyLevel) then
+		return
+	end
+	local lines = {}
+	for _, lvl in ipairs(GEAR_KEYS) do
+		local ok, a, b = pcall(C_MythicPlus.GetRewardLevelForDifficultyLevel, lvl)
+		if ok and type(a) == "number" and type(b) == "number" and a > 0 and b > 0 then
+			local vault, endrun = a, b
+			if vault < endrun then
+				vault, endrun = endrun, vault -- vault ilvl is never below end-of-run
+			end
+			lines[#lines + 1] = ("      |cffffd100+%d|r — %s"):format(lvl, (ns:L("MPLUS_CMD_GEAR_FMT")):format(endrun, vault))
+		end
+	end
+	if #lines > 0 then
+		print(("   |cff8fd3ff%s|r"):format(ns:L("MPLUS_CMD_GEAR_HEAD")))
+		for _, l in ipairs(lines) do
+			print(l)
+		end
+		print("      |cff9d9d9d" .. ns:L("MPLUS_CMD_GEAR_NOTE") .. "|r")
+	end
+end
+
 --- /mh mplus — a full measured breakdown in chat (a panel is Phase 2, after
 --- the per-dungeon API is confirmed in-game).
 function ns.PrintMythicGain()
@@ -158,18 +187,21 @@ function ns.PrintMythicGain()
 		end
 	end
 
+	-- This week's vault slots — or a gentle "none yet" that still falls through to
+	-- the season-wide per-dungeon + gear sections below (they don't need a run
+	-- this week; a player who's done nothing this week still wants those).
 	local slots = ReadMythicVaultSlots()
-	if not slots or TotalRuns(slots) == 0 then
+	if slots and TotalRuns(slots) > 0 then
+		for i, s in ipairs(slots) do
+			local best = (s.progress > 0 and s.level and s.level > 0)
+				and ((ns:L("MPLUS_CMD_BEST_FMT")):format(s.level))
+				or ""
+			print(("   " .. ns:L("MPLUS_CMD_SLOT_FMT")):format(i, s.threshold, s.progress, s.threshold, best))
+		end
+		print("   |cff9d9d9d" .. ns:L("MPLUS_CMD_RATING_NOTE") .. "|r")
+	else
 		print("   " .. ns:L("MPLUS_CMD_NONE"))
-		return
 	end
-	for i, s in ipairs(slots) do
-		local best = (s.progress > 0 and s.level and s.level > 0)
-			and ((ns:L("MPLUS_CMD_BEST_FMT")):format(s.level))
-			or ""
-		print(("   " .. ns:L("MPLUS_CMD_SLOT_FMT")):format(i, s.threshold, s.progress, s.threshold, best))
-	end
-	print("   |cff9d9d9d" .. ns:L("MPLUS_CMD_RATING_NOTE") .. "|r")
 
 	-- Phase 2: per-dungeon season best, lowest first (most rating to gain there).
 	local bests = ReadPerDungeonBests()
@@ -184,4 +216,7 @@ function ns.PrintMythicGain()
 		end
 		print("      |cff9d9d9d" .. ns:L("MPLUS_CMD_GAIN_NOTE") .. "|r")
 	end
+
+	-- Gear you can get per key level (this-season-accurate via the game's API).
+	PrintGearRewards()
 end
