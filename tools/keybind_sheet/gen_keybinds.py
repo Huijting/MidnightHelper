@@ -166,9 +166,29 @@ for sid,(token,cls,spec,role) in sorted(SPECS.items(), key=lambda kv:(kv[1][1],k
             clickcast.append(e["name"]); continue
         picked.append(e)
     alloc = allocate(picked)
-    keys = {bk: {"name": sp["name"], "label": label_for(sp)} for bk, sp in alloc.items()}
+    # Keep on the KEYBOARD only abilities that land on their own role/category key;
+    # true overflow (a spec has more CC/dispels than the V slot holds, so the extra
+    # steals a free rotation key) goes to a "situational" list instead. Cleaner sheet,
+    # matches the v6 intent (V = your main dispel/CC; the rest you bind where you like).
+    def home_bases(sp):
+        if sp.get("role") == "interrupt": return {"E"}
+        r = sp.get("role")
+        if r and r in ROLES: return {ROLES[r]}
+        c = sp.get("category")
+        if c and c in CATEGORIES: return set(CATEGORIES[c])
+        return None  # no expectation -> wherever it landed is fine
+    keys, situational = {}, []
+    for bk, sp in alloc.items():
+        base = bk.split("+")[-1]
+        hb = home_bases(sp)
+        entry = {"name": sp["name"], "label": label_for(sp)}
+        if hb is None or base in hb:
+            keys[bk] = entry
+        else:
+            situational.append({"key": bk, "name": sp["name"], "label": label_for(sp)})
+    situational.sort(key=lambda x: x["name"])
     out_specs.append({"id": sid, "class": cls, "classToken": token, "spec": spec, "role": role,
-                      "keys": keys, "clickcast": sorted(set(clickcast))})
+                      "keys": keys, "situational": situational, "clickcast": sorted(set(clickcast))})
 
 data = {"specs": out_specs}
 outpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "keybinds.json")

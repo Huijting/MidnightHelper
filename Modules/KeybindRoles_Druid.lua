@@ -175,7 +175,7 @@ ns.KeybindRoleClassifier.DRUID = {
     ["Cyclone"]                          = { category = "dispel_cc", priority = 3 }, -- banish-CC (1 doel)
     ["Entangling Roots"]                 = { category = "dispel_cc", priority = 4 }, -- single-target root
     ["Soothe"]                           = { category = "dispel_cc", priority = 5 }, -- enrage-dispel
-    ["Remove Corruption"]                = { category = "dispel_cc", priority = 6 }, -- curse/poison-dispel (non-Resto)
+    ["Remove Corruption"]                = { category = "dispel_cc", priority = 6, specs = { 102, 103, 104 } }, -- curse/poison-dispel; non-Resto only (Resto uses Nature's Cure -> anders dubbel + overflow op C)
     -- Utility / vormen (class-gedeeld)
     ["Rebirth"]                          = { role = "utility_secondary", priority = 2 }, -- battle-res (F/R)
     ["Prowl"]                            = { category = "utility", priority = 3 }, -- stealth (Cat Form openers)

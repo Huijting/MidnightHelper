@@ -127,6 +127,9 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0;text-wrap:balance;font-weight:7
 .cc{font-size:12px;color:var(--muted)}
 .cc b{color:var(--ink)}
 .foot{margin-top:26px;font-size:11.5px;color:var(--faint);text-align:center;line-height:1.6}
+.situ{margin-top:12px;font-size:12.5px;color:var(--muted);background:var(--panel2);
+  border:1px solid var(--line);border-radius:12px;padding:11px 14px;line-height:1.6}
+.situ b{color:var(--ink)}
 </style>
 
 <div class="wrap">
@@ -151,6 +154,7 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0;text-wrap:balance;font-weight:7
       <span class="cc">Button 4/5 → movement + trinket · single-target heals go on <b>mouseover / click-cast</b> over the raid frames (Midnight-native), not on keys.</span>
     </div>
   </section>
+  <div class="situ" id="situ"></div>
 
   <div class="info">
     <div class="card">
@@ -260,6 +264,10 @@ function renderInfo(){
   const cc = curSpec.clickcast||[];
   document.getElementById('ccNote').textContent = cc.length
      ? ('Click-cast / mouseover (not on keys): '+cc.join(', ')+'.') : '';
+  const situ=document.getElementById('situ'); const sl=curSpec.situational||[];
+  if(sl.length){ situ.style.display='';
+    situ.innerHTML='<b>Situational</b> — extra CC / dispels with no fixed home key; bind these where you like: '+sl.map(x=>x.name).join(', ')+'.';
+  } else { situ.style.display='none'; }
 }
 function render(){ renderTabs(); renderSpecs(); renderLayers(); renderLegend(); renderBoard(); renderInfo(); }
 render();
@@ -320,6 +328,10 @@ def build_xlsx():
             rc=ws.cell(row=rown,column=3,value=info["label"]); rc.font=Font(color=GRP_HEX.get(g,"75748C"),bold=True)
             for cc in range(1,4): ws.cell(row=rown,column=cc).border=border
             rown+=1
+        if s.get("situational"):
+            ws.cell(row=rown+1,column=1,value="Situational (no fixed key — bind where you like):").font=Font(italic=True)
+            ws.cell(row=rown+1,column=2,value=", ".join(x["name"] for x in s["situational"]))
+            rown+=2
         if s.get("clickcast"):
             ws.cell(row=rown+1,column=1,value="Click-cast / mouseover (raid frames, not keys):").font=Font(italic=True)
             ws.cell(row=rown+1,column=2,value=", ".join(s["clickcast"]))
