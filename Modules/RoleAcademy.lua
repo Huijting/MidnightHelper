@@ -466,6 +466,16 @@ local function RenderHealerToolkit(panel, child, y, cw)
 			y = AddToolkitLine(panel, child, cw, y, line, false, c.id)
 		end
 	end
+	local dispel = ns.GetHealerDispel and ns.GetHealerDispel(specID)
+	if dispel then
+		y = y - 4
+		y = AddToolkitLine(panel, child, cw, y, SL("HEALTOOLKIT_DISPEL_HEAD"), true)
+		local line = ("|cffffd100%s|r — %s"):format(
+			ns.HealerCooldownSpellName(dispel.id),
+			(SL("HEALTOOLKIT_DISPEL_FMT")):format(ns.FormatDispelTypes(dispel.types))
+		)
+		y = AddToolkitLine(panel, child, cw, y, line, false, dispel.id)
+	end
 	return y - 10
 end
 

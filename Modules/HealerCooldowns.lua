@@ -219,6 +219,55 @@ function ns.GetHealerCoreHeals(specID)
 	return specID and ns.HEALER_CORE_HEALS[specID] or nil
 end
 
+-- What each healer spec can dispel (piece 3 reference half). `id` = the spec's
+-- friendly dispel spell; `types` = the debuff schools it removes. Spell IDs
+-- verified in JustAC SpellCategories; Purify's Magic+Disease confirmed on
+-- Wowhead; the type sets are stable class design (never-lie: verified, and the
+-- non-healer variants like Cleanse Toxins / Remove Corruption are deliberately
+-- excluded — this is the HEALING-spec dispel).
+ns.HEALER_DISPELS = {
+	[65] = { id = 4987, types = { "magic", "poison", "disease" } }, -- Holy Paladin: Cleanse
+	[105] = { id = 88423, types = { "magic", "curse", "poison" } }, -- Resto Druid: Nature's Cure
+	[1468] = { id = 360823, types = { "magic", "poison" } }, -- Pres Evoker: Naturalize
+	[270] = { id = 115450, types = { "magic", "poison", "disease" } }, -- Mistweaver: Detox
+	[256] = { id = 527, types = { "magic", "disease" } }, -- Disc Priest: Purify
+	[257] = { id = 527, types = { "magic", "disease" } }, -- Holy Priest: Purify
+	[264] = { id = 77130, types = { "magic", "curse" } }, -- Resto Shaman: Purify Spirit
+}
+
+local DISPEL_TYPE = {
+	magic = "DISPEL_TYPE_MAGIC",
+	curse = "DISPEL_TYPE_CURSE",
+	poison = "DISPEL_TYPE_POISON",
+	disease = "DISPEL_TYPE_DISEASE",
+}
+local DISPEL_TYPE_COLOR = {
+	magic = "ff40a0ff", -- blue
+	curse = "ffa060ff", -- purple
+	poison = "ff40c040", -- green
+	disease = "ffc0a060", -- tan
+}
+
+--- The dispel entry { id, types } for a spec, or nil.
+function ns.GetHealerDispel(specID)
+	return specID and ns.HEALER_DISPELS[specID] or nil
+end
+
+--- A coloured, comma-joined localized list of dispel-type names ("Magic, Poison").
+function ns.FormatDispelTypes(types)
+	if type(types) ~= "table" then
+		return ""
+	end
+	local out = {}
+	for _, t in ipairs(types) do
+		local key = DISPEL_TYPE[t]
+		if key then
+			out[#out + 1] = ("|c%s%s|r"):format(DISPEL_TYPE_COLOR[t] or "ffffffff", ns:L(key))
+		end
+	end
+	return table.concat(out, ", ")
+end
+
 --- The player's current spec id IF it is a healer spec we have data for, else nil.
 function ns.GetPlayerHealerSpecID()
 	if not (GetSpecialization and GetSpecializationInfo) then
