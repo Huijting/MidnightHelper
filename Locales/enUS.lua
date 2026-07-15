@@ -3229,7 +3229,7 @@ ns._mhLocales.enUS = {
 	DISPEL_TYPE_POISON = "Poison",
 	DISPEL_TYPE_DISEASE = "Disease",
 	-- Heal-lens (piece 4): per-boss spec-aware callouts in the boss window
-	HEALLENS_PREFIX = "Heal-lens",
+	HEALLENS_PREFIX = "Healer tip",
 	HEALLENS_DISPEL_YOU_FMT = "Dispel the %s debuff here with your %s.",
 	HEALLENS_DISPEL_OTHER_FMT = "A %s debuff lands here — you can't dispel that type yourself.",
 	HEALLENS_RAIDCD_FMT = "Big raid-wide damage here — save your %s for it.",

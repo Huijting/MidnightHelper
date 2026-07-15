@@ -3141,7 +3141,7 @@ ns._mhLocales.nlNL = {
 	DISPEL_TYPE_POISON = "Poison",
 	DISPEL_TYPE_DISEASE = "Disease",
 	-- Heal-lens (deel 4): per-boss spec-bewuste callouts in de boss-window
-	HEALLENS_PREFIX = "Heal-lens",
+	HEALLENS_PREFIX = "Healer-tip",
 	HEALLENS_DISPEL_YOU_FMT = "Dispel de %s-debuff hier met je %s.",
 	HEALLENS_DISPEL_OTHER_FMT = "Een %s-debuff landt hier — dat type kun jij niet dispellen.",
 	HEALLENS_RAIDCD_FMT = "Grote raid-brede klap hier — bewaar je %s ervoor.",
