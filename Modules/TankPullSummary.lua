@@ -140,7 +140,10 @@ local function ShowSummary(dur)
 		if tip then
 			body = body .. "\n|cff9d9d9d" .. tip .. "|r"
 		end
-		ns.QueueMidnightToast({ id = "mh_pullsummary", icon = SHIELD_ICON, title = head, body = body })
+		-- Geen vaste id: de toast-queue dedupet op id, dus een constante id zou de
+		-- tweede pull-summary binnen het toast-venster laten vallen (elke pull hoort
+		-- z'n eigen samenvatting te tonen — Rob 15 jul).
+		ns.QueueMidnightToast({ icon = SHIELD_ICON, title = head, body = body })
 	else
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 		print(("%s |cff8fd3ff%s|r: %s · %s"):format(prefix, head, mitStr, cdStr))
