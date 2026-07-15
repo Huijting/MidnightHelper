@@ -57,8 +57,45 @@ local DPS_SPECS = {
 	[263] = true, [265] = true, [266] = true, [267] = true, [71] = true, [72] = true,
 }
 
+-- Personal defensives per DPS spec (Rob 2026-07-15: "voeg de personal
+-- defensives toe voor dps"). Beginners forget DPS have these. IDs verified in
+-- JustAC SpellCategories DEFENSIVE; cds from SpellCooldowns (nil where the CD
+-- isn't in the data — the tooltip shows it, and FormatCD omits nil). never-lie.
+ns.DPS_DEFENSIVES = {
+	[251] = { { id = 48792, cd = 120 }, { id = 48707, cd = 60 } }, -- Frost DK: Icebound Fortitude, Anti-Magic Shell
+	[252] = { { id = 48792, cd = 120 }, { id = 48707, cd = 60 } }, -- Unholy DK: Icebound Fortitude, Anti-Magic Shell
+	[577] = { { id = 198589 }, { id = 196718, cd = 300 } }, -- Havoc DH: Blur, Darkness
+	[102] = { { id = 22812, cd = 60 }, { id = 108238, cd = 90 } }, -- Balance Druid: Barkskin, Renewal
+	[103] = { { id = 22812, cd = 60 }, { id = 61336, cd = 180 } }, -- Feral Druid: Barkskin, Survival Instincts
+	[1467] = { { id = 363916, cd = 90 }, { id = 374348 } }, -- Devastation Evoker: Obsidian Scales, Renewing Blaze
+	[1473] = { { id = 363916, cd = 90 }, { id = 374227, cd = 120 } }, -- Augmentation Evoker: Obsidian Scales, Zephyr
+	[253] = { { id = 186265, cd = 180 }, { id = 109304, cd = 120 } }, -- BM Hunter: Aspect of the Turtle, Exhilaration
+	[254] = { { id = 186265, cd = 180 }, { id = 109304, cd = 120 } }, -- MM Hunter: Aspect of the Turtle, Exhilaration
+	[255] = { { id = 186265, cd = 180 }, { id = 109304, cd = 120 } }, -- Survival Hunter: Aspect of the Turtle, Exhilaration
+	[62] = { { id = 45438, cd = 240 }, { id = 110959, cd = 120 } }, -- Arcane Mage: Ice Block, Greater Invisibility
+	[63] = { { id = 45438, cd = 240 }, { id = 342245, cd = 60 } }, -- Fire Mage: Ice Block, Alter Time
+	[64] = { { id = 45438, cd = 240 }, { id = 342245, cd = 60 } }, -- Frost Mage: Ice Block, Alter Time
+	[269] = { { id = 122470, cd = 90 }, { id = 122278, cd = 120 } }, -- Windwalker Monk: Touch of Karma, Dampen Harm
+	[70] = { { id = 184662 }, { id = 642, cd = 300 } }, -- Ret Paladin: Shield of Vengeance, Divine Shield
+	[258] = { { id = 47585 }, { id = 19236, cd = 90 } }, -- Shadow Priest: Dispersion, Desperate Prayer
+	[259] = { { id = 31224, cd = 120 }, { id = 5277, cd = 120 } }, -- Assassination Rogue: Cloak of Shadows, Evasion
+	[260] = { { id = 31224, cd = 120 }, { id = 5277, cd = 120 } }, -- Outlaw Rogue: Cloak of Shadows, Evasion
+	[261] = { { id = 31224, cd = 120 }, { id = 5277, cd = 120 } }, -- Subtlety Rogue: Cloak of Shadows, Evasion
+	[262] = { { id = 108271, cd = 120 }, { id = 108281, cd = 120 } }, -- Elemental Shaman: Astral Shift, Ancestral Guidance
+	[263] = { { id = 108271, cd = 120 }, { id = 108281, cd = 120 } }, -- Enhancement Shaman: Astral Shift, Ancestral Guidance
+	[265] = { { id = 104773, cd = 180 }, { id = 108416, cd = 60 } }, -- Affliction Warlock: Unending Resolve, Dark Pact
+	[266] = { { id = 104773, cd = 180 }, { id = 108416, cd = 60 } }, -- Demonology Warlock: Unending Resolve, Dark Pact
+	[267] = { { id = 104773, cd = 180 }, { id = 108416, cd = 60 } }, -- Destruction Warlock: Unending Resolve, Dark Pact
+	[71] = { { id = 118038, cd = 120 }, { id = 97462, cd = 180 } }, -- Arms Warrior: Die by the Sword, Rallying Cry
+	[72] = { { id = 184364, cd = 120 }, { id = 97462, cd = 180 } }, -- Fury Warrior: Enraged Regeneration, Rallying Cry
+}
+
 function ns.GetDpsCooldowns(specID)
 	return specID and ns.DPS_COOLDOWNS[specID] or nil
+end
+
+function ns.GetDpsDefensives(specID)
+	return specID and ns.DPS_DEFENSIVES[specID] or nil
 end
 
 --- The player's current spec id IF it is a DPS spec we have data for, else nil.
