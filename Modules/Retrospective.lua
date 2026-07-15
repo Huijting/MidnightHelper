@@ -157,6 +157,9 @@ local function ShowDeathPopup(body)
 			title = ns:L("DEATH_RECAP_HEAD"),
 			body = body,
 			onClick = OpenBlizzardRecap,
+			-- Own hover hint; without it the toast falls back to the delve-bounty
+			-- text ("set a waypoint"), which is wrong on a death card.
+			clickHintKey = "DEATH_RECAP_OPEN_HINT",
 		})
 	end
 end
@@ -308,4 +311,13 @@ function ns.PrintDeathRecapDiagnostics()
 		print(("   C_DeathInfo: %s"):format(#fns > 0 and table.concat(fns, ", ") or "none"))
 		print(("   C_DeathInfo recap: %s"):format(ReadRecapAPICause() or "nil (no recap API on this client)"))
 	end
+	-- Open-path probe (plan item 2: can we point/auto-open Blizzard's Death Recap?).
+	-- Just reports what exists — never calls it here. Die once, then check these:
+	-- if OpenDeathRecap is a function and/or DeathRecapFrame exists, the skull-click
+	-- open-path works and auto-opening is on the table for restricted content.
+	print(("   open-path: OpenDeathRecap=%s  DeathRecapFrame=%s  Blizzard_DeathRecap loaded=%s"):format(
+		type(OpenDeathRecap) == "function" and "function" or "nil",
+		type(DeathRecapFrame) == "table" and "yes" or "nil",
+		(C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Blizzard_DeathRecap")) and "yes" or "no"
+	))
 end
