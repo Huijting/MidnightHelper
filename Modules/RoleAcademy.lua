@@ -375,11 +375,31 @@ end
 -- heals + cooldowns, shown at the top of the HEAL track so both green beginners
 -- and veterans see THEIR spells with the coloured labels. Verified data lives in
 -- Modules/HealerCooldowns.lua. Returns the new y cursor.
+local function ToolkitSpecName(specID)
+	if GetSpecializationInfoByID then
+		local ok, _, name = pcall(GetSpecializationInfoByID, specID)
+		if ok and name and name ~= "" then
+			return name
+		end
+	end
+	return ""
+end
+
 local function RenderHealerToolkit(panel, child, y, cw)
-	local specID = ns.GetPlayerHealerSpecID and ns.GetPlayerHealerSpecID()
+	local activeID = ns.GetPlayerHealerSpecID and ns.GetPlayerHealerSpecID()
+	-- On a non-heal spec, preview the class's healer spec (a Prot Paladin sees the
+	-- Holy toolkit) instead of showing nothing. Classes with no healer spec fall
+	-- through to a short note.
+	local specID = activeID or (ns.GetClassHealerSpecID and ns.GetClassHealerSpecID())
 	if not specID then
-		y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. SL("HEALTOOLKIT_SWITCH") .. "|r", false)
-		return y - 6
+		y = AddToolkitLine(panel, child, cw, y, SL("HEALTOOLKIT_HEAD"), true)
+		y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. SL("HEALTOOLKIT_NONE") .. "|r", false)
+		return y - 8
+	end
+	if not activeID then
+		-- Preview banner: this is the class's healer spec, not the active one.
+		y = AddToolkitLine(panel, child, cw, y,
+			"|cff9d9d9d" .. (SL("HEALTOOLKIT_PREVIEW_FMT")):format(ToolkitSpecName(specID)) .. "|r", false)
 	end
 	local heals = ns.GetHealerCoreHeals and ns.GetHealerCoreHeals(specID)
 	if heals then

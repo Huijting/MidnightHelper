@@ -235,6 +235,23 @@ function ns.GetPlayerHealerSpecID()
 	return nil
 end
 
+--- The player's CLASS's healer spec id (even if not the active spec), or nil if
+--- the class has no healing spec. Lets the Academy preview e.g. a Prot Paladin's
+--- Holy toolkit instead of showing nothing.
+function ns.GetClassHealerSpecID()
+	if not (GetNumSpecializations and GetSpecializationInfo) then
+		return nil
+	end
+	local n = GetNumSpecializations() or 0
+	for i = 1, n do
+		local id = GetSpecializationInfo(i)
+		if id and ns.HEALER_COOLDOWNS[id] then
+			return id
+		end
+	end
+	return nil
+end
+
 --- Locale keys for a CD's guidance / kind label (nil-safe).
 function ns.GetHealerCooldownWhenKey(whenType)
 	return WHEN[whenType]

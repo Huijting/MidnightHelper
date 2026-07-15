@@ -3219,7 +3219,9 @@ ns._mhLocales.enUS = {
 	-- Academy healer toolkit (piece 1 visual page) — headers + core-heal tags
 	HEALTOOLKIT_HEALS_HEAD = "Your everyday heals",
 	HEALTOOLKIT_CDS_HEAD = "Your cooldowns (save these)",
-	HEALTOOLKIT_SWITCH = "Switch to your healing spec to see your own heals and cooldowns here.",
+	HEALTOOLKIT_HEAD = "Your healing toolkit",
+	HEALTOOLKIT_PREVIEW_FMT = "Preview of your %s toolkit — you're in another spec right now.",
+	HEALTOOLKIT_NONE = "This class has no healing spec, so there's no toolkit — but the lessons below still apply if you're learning to heal on an alt.",
 	HEALCORE_TAG_FAST = "Fast",
 	HEALCORE_TAG_BIG = "Efficient",
 	HEALCORE_TAG_HOT = "HoT",

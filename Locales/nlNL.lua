@@ -3131,7 +3131,9 @@ ns._mhLocales.nlNL = {
 	-- Academy healer-toolkit (deel 1 visuele pagina) — headers + basis-heal-tags
 	HEALTOOLKIT_HEALS_HEAD = "Je dagelijkse heals",
 	HEALTOOLKIT_CDS_HEAD = "Je cooldowns (deze bewaren)",
-	HEALTOOLKIT_SWITCH = "Wissel naar je heal-spec om hier je eigen heals en cooldowns te zien.",
+	HEALTOOLKIT_HEAD = "Je healing-toolkit",
+	HEALTOOLKIT_PREVIEW_FMT = "Voorbeeld van je %s-toolkit — je zit nu in een andere spec.",
+	HEALTOOLKIT_NONE = "Deze klasse heeft geen heal-spec, dus geen toolkit — maar de lessen hieronder gelden nog steeds als je op een alt leert healen.",
 	HEALCORE_TAG_FAST = "Snel",
 	HEALCORE_TAG_BIG = "Zuinig",
 	HEALCORE_TAG_HOT = "HoT",
