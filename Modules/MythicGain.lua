@@ -171,7 +171,36 @@ local function PrintGearRewards()
 			print(l)
 		end
 		print("      |cff9d9d9d" .. ns:L("MPLUS_CMD_GEAR_NOTE") .. "|r")
+	else
+		-- Diagnostic (temporary): tell us WHY there's no gear data — the function
+		-- missing vs it returning 0 (reward data not populated on this client).
+		local fn = C_MythicPlus and type(C_MythicPlus.GetRewardLevelForDifficultyLevel) == "function"
+		local a, b = "-", "-"
+		if fn then
+			local okp, x, y = pcall(C_MythicPlus.GetRewardLevelForDifficultyLevel, 5)
+			a = okp and tostring(x) or "err"
+			b = okp and tostring(y) or "err"
+		end
+		print(("   |cff9d9d9dgear diag: fn=%s  +5→(%s, %s)|r"):format(tostring(fn), a, b))
 	end
+end
+
+-- Several M+ APIs (reward levels, map/affix info) return 0/empty until the client
+-- has been asked to populate them. Request once on login so /mh mplus has data.
+do
+	local rf = CreateFrame("Frame")
+	rf:RegisterEvent("PLAYER_ENTERING_WORLD")
+	rf:SetScript("OnEvent", function(self)
+		self:UnregisterAllEvents()
+		if C_MythicPlus then
+			if C_MythicPlus.RequestMapInfo then
+				pcall(C_MythicPlus.RequestMapInfo)
+			end
+			if C_MythicPlus.RequestRewards then
+				pcall(C_MythicPlus.RequestRewards)
+			end
+		end
+	end)
 end
 
 --- /mh mplus — a full measured breakdown in chat (a panel is Phase 2, after
