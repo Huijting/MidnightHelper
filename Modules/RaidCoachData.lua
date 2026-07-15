@@ -51,6 +51,26 @@ local RAIDS = {
 			{ key = "lura",    name = "Midnight Falls",           seedCreatureId = 240391, encounterID = 2740 },
 		},
 	},
+	-- Season 2 (patch 12.1 "Curse of Ula'tek"): The Venomous Abyss. EncounterIDs are verified
+	-- from the installed DBM-Raids-Midnight NewMod/SetEncounterID (journalInstanceID 1320) —
+	-- not guessed. Season-gated below so it stays hidden until 12.1 is live. Boss order is the
+	-- encounterID order (confirm the pull order + model NPC IDs in-game). Beginner step texts
+	-- land as S2 approaches — never-lie: no invented mechanics, so no TIPS entries yet.
+	{
+		key = "raid_venomousabyss",
+		name = "The Venomous Abyss",
+		season = 2,
+		bosses = {
+			{ key = "sszorak",       name = "Sszorak",                encounterID = 3420 },
+			{ key = "twinfangs",     name = "The Twin Fangs",         encounterID = 3421 },
+			{ key = "coiledaltar",   name = "The Coiled Altar",       encounterID = 3429 },
+			{ key = "entombedsent",  name = "Entombed Sentinels",     encounterID = 3445 },
+			{ key = "vashnik",       name = "Vashnik the Malignant",  encounterID = 3455 },
+			{ key = "nekzali",       name = "Nekzali the Soulcoiler", encounterID = 3470 },
+			{ key = "ulatek",        name = "Ula'tek",                encounterID = 3492 },
+			{ key = "lostexplorers", name = "The Lost Explorers",     encounterID = 3497 },
+		},
+	},
 }
 
 -- Stap-locale-keys per boss. Alleen velden die we ook echt schrijven (de UI
@@ -67,11 +87,32 @@ local TIPS = {
 	lura      = { steps = "RAID_BOSS_LURA_STEPS",      tank = "RAID_BOSS_LURA_TANK" },
 }
 
+-- Season gate: S1 raids are always active; a season-2 raid stays hidden until the client is on
+-- patch 12.1 (interface >= 120100), the same build check SeasonTransition uses — so live 12.0.7
+-- players never see the not-yet-released Venomous Abyss, and it lights up automatically at S2.
+local function SeasonActive(season)
+	if not season or season <= 1 then
+		return true
+	end
+	if season == 2 then
+		local _, _, _, iface = GetBuildInfo()
+		return (tonumber(iface) or 0) >= 120100
+	end
+	return false
+end
+
+local ACTIVE_RAIDS = {}
+for _, raid in ipairs(RAIDS) do
+	if SeasonActive(raid.season) then
+		ACTIVE_RAIDS[#ACTIVE_RAIDS + 1] = raid
+	end
+end
+
 -- encounterID → { entry, bossKey } voor auto-open op ENCOUNTER_START.
 local BY_ENCOUNTER = {}
 
 ns.CUSTOM_BOSS_ENTRIES = ns.CUSTOM_BOSS_ENTRIES or {}
-for _, raid in ipairs(RAIDS) do
+for _, raid in ipairs(ACTIVE_RAIDS) do
 	ns.CUSTOM_BOSS_ENTRIES[raid.key] = raid
 	if type(ns.DUNGEON_TIPS) == "table" then
 		ns.DUNGEON_TIPS[raid.key] = ns.DUNGEON_TIPS[raid.key] or {}
@@ -90,7 +131,7 @@ end
 --- dungeon-roster ({ key, name, bosses = { { key, name, encounterID } } }), zodat de
 --- Dungeon-Coach-helpers (GetDungeonBossName/GetDungeonBossTips) er direct op werken.
 function ns.GetRaidCoachRaids()
-	return RAIDS
+	return ACTIVE_RAIDS
 end
 
 --- Raid- en boss-telling voor het Home-blok dat de Raid Coach vindbaar maakt.
@@ -98,7 +139,7 @@ end
 --- @return names(table), bossCount(number)
 function ns.GetRaidCoachSummary()
 	local names, bosses = {}, 0
-	for _, raid in ipairs(RAIDS) do
+	for _, raid in ipairs(ACTIVE_RAIDS) do
 		names[#names + 1] = raid.name
 		bosses = bosses + #raid.bosses
 	end
@@ -129,7 +170,7 @@ local function FindBossByName(name)
 		return nil, nil
 	end
 	local lower = name:lower()
-	for _, raid in ipairs(RAIDS) do
+	for _, raid in ipairs(ACTIVE_RAIDS) do
 		for _, b in ipairs(raid.bosses) do
 			if b.name and b.name:lower() == lower then
 				return raid, b.key
@@ -143,7 +184,7 @@ local function FindBossByNpc(npcId)
 	if not npcId then
 		return nil, nil
 	end
-	for _, raid in ipairs(RAIDS) do
+	for _, raid in ipairs(ACTIVE_RAIDS) do
 		for _, b in ipairs(raid.bosses) do
 			if b.seedCreatureId == npcId then
 				return raid, b.key
