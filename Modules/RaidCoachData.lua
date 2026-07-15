@@ -51,24 +51,27 @@ local RAIDS = {
 			{ key = "lura",    name = "Midnight Falls",           seedCreatureId = 240391, encounterID = 2740 },
 		},
 	},
-	-- Season 2 (patch 12.1 "Curse of Ula'tek"): The Venomous Abyss. EncounterIDs are verified
-	-- from the installed DBM-Raids-Midnight NewMod/SetEncounterID (journalInstanceID 1320) —
-	-- not guessed. Season-gated below so it stays hidden until 12.1 is live. Boss order is the
-	-- encounterID order (confirm the pull order + model NPC IDs in-game). Beginner step texts
-	-- land as S2 approaches — never-lie: no invented mechanics, so no TIPS entries yet.
+	-- Season 2 (patch 12.1 "Curse of Ula'tek"): The Venomous Abyss. encounterID = the DBM
+	-- NewMod first-arg (the journal/EJ encounter id, used for name resolution) — the SAME
+	-- convention as the S1 raids above, verified from the installed DBM-Raids-Midnight
+	-- (journalInstanceID 1320). The differing ENCOUNTER_START ids (SetEncounterID 3420/3421/
+	-- 3429/3445/3455/3470/3492/3497) aren't needed here: auto-open falls back to the boss name
+	-- like the S1 raids. Season-gated below so it stays hidden until 12.1 is live. Boss order =
+	-- SetEncounterID order (confirm the pull order + model NPC IDs in-game). Beginner step
+	-- texts land as S2 approaches — never-lie: no invented mechanics, so no TIPS entries yet.
 	{
 		key = "raid_venomousabyss",
 		name = "The Venomous Abyss",
 		season = 2,
 		bosses = {
-			{ key = "sszorak",       name = "Sszorak",                encounterID = 3420 },
-			{ key = "twinfangs",     name = "The Twin Fangs",         encounterID = 3421 },
-			{ key = "coiledaltar",   name = "The Coiled Altar",       encounterID = 3429 },
-			{ key = "entombedsent",  name = "Entombed Sentinels",     encounterID = 3445 },
-			{ key = "vashnik",       name = "Vashnik the Malignant",  encounterID = 3455 },
-			{ key = "nekzali",       name = "Nekzali the Soulcoiler", encounterID = 3470 },
-			{ key = "ulatek",        name = "Ula'tek",                encounterID = 3492 },
-			{ key = "lostexplorers", name = "The Lost Explorers",     encounterID = 3497 },
+			{ key = "sszorak",       name = "Sszorak",                encounterID = 2871 },
+			{ key = "twinfangs",     name = "The Twin Fangs",         encounterID = 2887 },
+			{ key = "coiledaltar",   name = "The Coiled Altar",       encounterID = 2883 },
+			{ key = "entombedsent",  name = "Entombed Sentinels",     encounterID = 2874 },
+			{ key = "vashnik",       name = "Vashnik the Malignant",  encounterID = 2882 },
+			{ key = "nekzali",       name = "Nekzali the Soulcoiler", encounterID = 2888 },
+			{ key = "ulatek",        name = "Ula'tek",                encounterID = 2895 },
+			{ key = "lostexplorers", name = "The Lost Explorers",     encounterID = 2894 },
 		},
 	},
 }

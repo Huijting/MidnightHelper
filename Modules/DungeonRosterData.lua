@@ -204,7 +204,55 @@ ns.DUNGEON_ROSTER = {
 			{ key = "doragosa", encounterID = 2514, name = "Echo of Doragosa" },
 		},
 	},
+	-- Season 2 (patch 12.1 "Curse of Ula'tek") — the new Midnight dungeon Altar
+	-- of Fangs. journalInstanceID + ids verified from the installed
+	-- DBM-Party-Midnight (never guessed): encounterID = NewMod first-arg (journal
+	-- id, for the EJ name), dungeonEncounterID = SetEncounterID (the
+	-- ENCOUNTER_START id, mirrored into DungeonLiveCoach's ENCOUNTERS map).
+	-- season = 2 gates it out until 12.1 is live (filter below), so 12.0.7 never
+	-- shows it. No entrance coords yet (nil = no route button, honest); the S2
+	-- M+-rotation flag lands once the pool is confirmed. Beginner steps follow.
+	{
+		key = "altaroffangs",
+		name = "Altar of Fangs",
+		journalInstanceID = 1322,
+		native = true,
+		season1 = false,
+		season = 2,
+		bosses = {
+			{ key = "ravi",         encounterID = 2878, dungeonEncounterID = 3456, name = "Ravi" },
+			{ key = "writhingcoil", encounterID = 2879, dungeonEncounterID = 3457, name = "The Writhing Coil" },
+			{ key = "zuljan",       encounterID = 2880, dungeonEncounterID = 3458, name = "Zul'jan" },
+		},
+	},
 }
+
+-- Season gate: entries without a season (or season <= 1) are always present; a
+-- season-2 dungeon stays hidden until the client is on patch 12.1 (interface
+-- >= 120100), the same build check RaidCoachData / SeasonTransition use — so
+-- live 12.0.7 players never see the not-yet-released Altar of Fangs in the boss
+-- window, search or roster, and it lights up automatically at S2. Filtering the
+-- roster in place keeps every consumer (boss window, live coach, search, M+
+-- pool) consistent without per-call season checks.
+do
+	local function SeasonActive(season)
+		if not season or season <= 1 then
+			return true
+		end
+		if season == 2 then
+			local _, _, _, iface = GetBuildInfo()
+			return (tonumber(iface) or 0) >= 120100
+		end
+		return false
+	end
+	local active = {}
+	for _, d in ipairs(ns.DUNGEON_ROSTER) do
+		if SeasonActive(d.season) then
+			active[#active + 1] = d
+		end
+	end
+	ns.DUNGEON_ROSTER = active
+end
 
 -- Weekly hooks (ids already verified elsewhere in MH on 10 Jun):
 --   spark    = Liadrin's "Midnight: Dungeons" Spark weekly (any seasonal dungeon)

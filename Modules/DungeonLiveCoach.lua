@@ -70,6 +70,11 @@ local ENCOUNTERS = {
 	[2563] = { "algethar", "ancient" },
 	[2564] = { "algethar", "crawth" },
 	[2565] = { "algethar", "doragosa" },
+	-- Altar of Fangs (Season 2 — patch 12.1; harmless on live, the event can't
+	-- fire until the dungeon exists). Keys = SetEncounterID (DBM-Party-Midnight).
+	[3456] = { "altaroffangs", "ravi" },
+	[3457] = { "altaroffangs", "writhingcoil" },
+	[3458] = { "altaroffangs", "zuljan" },
 }
 
 local shownThisSession = {} -- encounterID -> true
