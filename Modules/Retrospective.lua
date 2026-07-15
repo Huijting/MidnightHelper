@@ -252,10 +252,16 @@ zone:SetScript("OnEvent", function(_, ev)
 			else
 				pcall(ShowLesson)
 			end
-		elseif IsInInstance and IsInInstance() then
-			-- restricted instance (delve/follower/ritual): we can't read the cause here, so
+		elseif IsInInstance then
+			-- restricted PvE instance (delve/follower/ritual): we can't read the cause here, so
 			-- point at Blizzard's Death Recap instead of showing nothing (Carola's rituals).
-			pcall(ShowRestrictedDeathLesson)
+			-- Gate on the instanceType: ONLY PvE ("party"/"scenario"/"raid"). Battlegrounds and
+			-- arenas are also IsInInstance()==true but their combat log is NOT restricted and
+			-- this is a PvE feature — without this, every PvP death popped the restricted lesson.
+			local inInst, instType = IsInInstance()
+			if inInst and (instType == "party" or instType == "scenario" or instType == "raid") then
+				pcall(ShowRestrictedDeathLesson)
+			end
 		end
 		return
 	end
