@@ -103,23 +103,25 @@ local function MidnightMaxLevel()
 	return nil
 end
 
--- Duidelijke popup voor de Folio "waarom-opent-ie-niet"-meldingen; een chatregel
--- mis je makkelijk (Rob 15 jul). Valt terug op chat als StaticPopup ontbreekt.
-StaticPopupDialogs["MIDNIGHTHELPER_FOLIO_INFO"] = {
-	text = "%s",
-	button1 = OKAY,
-	timeout = 0,
-	whileDead = true,
-	hideOnEscape = true,
-	preferredIndex = 3, -- taint-veilig (Blizzard-aanbevolen index)
-}
-
--- text = de AL geresolvede/geformatteerde string (niet de locale-key).
-local function FolioNotice(text)
-	if StaticPopup_Show and StaticPopupDialogs["MIDNIGHTHELPER_FOLIO_INFO"] then
-		StaticPopup_Show("MIDNIGHTHELPER_FOLIO_INFO", text)
+-- Toon een Folio "waarom-opent-ie-niet"-melding via ONZE eigen toast-layout
+-- (Rob 15 jul: de kale Blizzard-popup miste onze stijl; een chatregel mis je
+-- makkelijk). Valt terug op chat als toasts uitstaan of de toast-API ontbreekt,
+-- zodat een klik altijd feedback geeft. bodyText = de al geformatteerde string.
+local function FolioNotice(bodyText)
+	local toastOff = false
+	local ui = ns.db and ns.db.ui
+	if type(ui) == "table" and type(ui.toast) == "table" and ui.toast.enabled == false then
+		toastOff = true
+	end
+	if not toastOff and ns.QueueMidnightToast then
+		ns.QueueMidnightToast({
+			id = "omnium_open_notice",
+			titleKey = "OMNIUM_TOAST_TITLE",
+			body = bodyText,
+			icon = "Interface\\ICONS\\inv_misc_book_11",
+		})
 	else
-		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), text))
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), bodyText))
 	end
 end
 
@@ -390,7 +392,7 @@ function ns.BuildOmniumFolioPanel(panel)
 		local maxLvl = MidnightMaxLevel()
 		local myLvl = (UnitLevel and UnitLevel("player")) or 0
 		if maxLvl and myLvl > 0 and myLvl < maxLvl then
-			FolioNotice(ns:L("OMNIUM_OPEN_LEVELING"):format(myLvl, maxLvl, maxLvl))
+			FolioNotice(ns:L("OMNIUM_OPEN_LEVELING"):format(maxLvl, myLvl))
 			return
 		end
 		if UnlockedRows() == 0 then
@@ -399,7 +401,8 @@ function ns.BuildOmniumFolioPanel(panel)
 		end
 		local lpb = _G.ExpansionLandingPageMinimapButton
 		if not lpb then
-			FolioNotice(ns:L("OMNIUM_OPEN_FALLBACK"))
+			-- Zeldzaam pad met een /run-hint → chat (past niet in een toast).
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_FALLBACK")))
 			return
 		end
 		if not IsMidnightFolioButton(lpb) then
@@ -409,7 +412,7 @@ function ns.BuildOmniumFolioPanel(panel)
 		if lpb.Click and pcall(lpb.Click, lpb) then
 			return
 		end
-		FolioNotice(ns:L("OMNIUM_OPEN_FALLBACK"))
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_FALLBACK")))
 	end)
 
 	local scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
