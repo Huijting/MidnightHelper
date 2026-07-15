@@ -859,6 +859,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh dispelprobe — check whether party/raid debuffs are readable (vs secret)
+	-- on this client, to decide if a live dispel heads-up is feasible.
+	if msg == "dispelprobe" then
+		if ns.PrintDispelProbe then
+			ns.PrintDispelProbe()
+		end
+		return
+	end
+
 	-- /mh bagarrows — toggle the green upgrade arrows on bag items.
 	if msg == "bagarrows" then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))

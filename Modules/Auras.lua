@@ -194,6 +194,16 @@ function Aura.ForEachPlayerDebuff(fn)
 	return Scan("player", "HARMFUL", fn)
 end
 
+--- Walk any unit's harmful auras (party/raid members included). This is exactly
+--- the read 12.1 restricts for other players — the scan still runs, but fields
+--- may come back SECRET; callers must guard with issecretvalue and never compare
+--- a possibly-secret field. Used by the dispel-readability probe (and, if that
+--- probe shows fields are readable, a future live dispel heads-up).
+--- @return boolean scan happened
+function Aura.ForEachUnitDebuff(unit, fn)
+	return Scan(unit, "HARMFUL", fn)
+end
+
 --------------------------------------------------------------------------------
 -- Diagnostics: `/mh auras` — the first thing to run when 12.1 hits the PTR.
 --------------------------------------------------------------------------------
@@ -219,4 +229,86 @@ function ns.PrintAuraDiagnostics()
 	end)
 	print(("  helpful auras on you   = %s"):format(okBuff and tostring(buffs) or "could not scan"))
 	print(("  harmful auras on you   = %s"):format(okDebuff and tostring(debuffs) or "could not scan"))
+end
+
+-- /mh dispelprobe — decides whether a LIVE "dispellable debuff on ally X" alert
+-- is even possible on this client. It scans party/raid members' harmful auras
+-- and reports whether the fields a dispel alert needs (dispelName = the school,
+-- spellId, name) come back readable or SECRET. Run it inside a dungeon while
+-- allies are debuffed. never-lie: it never compares a secret, only checks
+-- issecretvalue and tostring's the readable ones.
+function ns.PrintDispelProbe()
+	local p = "|cffffff78Midnight Helper:|r "
+	local function isSecret(v)
+		return issecretvalue and v ~= nil and issecretvalue(v) == true
+	end
+
+	local inInst, kind = false, "none"
+	if IsInInstance then
+		inInst, kind = IsInInstance()
+	end
+	local diff = (inInst and GetInstanceInfo) and select(3, GetInstanceInfo()) or 0
+	print(p .. "dispel readability probe")
+	print(("  in instance: %s (%s, diff %s)   auras trusted: %s"):format(
+		tostring(inInst), tostring(kind), tostring(diff), tostring(Aura.Trusted())))
+
+	-- Group unit list (skip yourself).
+	local units = {}
+	if IsInRaid and IsInRaid() then
+		for i = 1, 40 do
+			local u = "raid" .. i
+			if UnitExists(u) and not UnitIsUnit(u, "player") then
+				units[#units + 1] = u
+			end
+		end
+	elseif IsInGroup and IsInGroup() then
+		for i = 1, 4 do
+			local u = "party" .. i
+			if UnitExists(u) then
+				units[#units + 1] = u
+			end
+		end
+	end
+	if #units == 0 then
+		print("  no party/raid members found — join a group in a dungeon and rerun.")
+		return
+	end
+
+	local nUnits, nDebuffs, idOK, typeOK, nameOK = 0, 0, 0, 0, 0
+	local sample
+	for _, u in ipairs(units) do
+		nUnits = nUnits + 1
+		Aura.ForEachUnitDebuff(u, function(aura)
+			nDebuffs = nDebuffs + 1
+			local idR = aura.spellId ~= nil and not isSecret(aura.spellId)
+			local typeR = aura.dispelName ~= nil and not isSecret(aura.dispelName)
+			local nameR = aura.name ~= nil and not isSecret(aura.name)
+			if idR then idOK = idOK + 1 end
+			if typeR then typeOK = typeOK + 1 end
+			if nameR then nameOK = nameOK + 1 end
+			if not sample then
+				sample = ("%s spellId=%s dispelName=%s name=%s"):format(
+					u,
+					idR and tostring(aura.spellId) or (isSecret(aura.spellId) and "<secret>" or "nil"),
+					typeR and tostring(aura.dispelName) or (isSecret(aura.dispelName) and "<secret>" or "nil"),
+					nameR and ('"' .. tostring(aura.name) .. '"') or (isSecret(aura.name) and "<secret>" or "nil")
+				)
+			end
+		end)
+	end
+	print(("  units checked: %d   debuffs seen: %d"):format(nUnits, nDebuffs))
+	print(("  spellId readable: %d/%d   dispelName readable: %d/%d   name readable: %d/%d"):format(
+		idOK, nDebuffs, typeOK, nDebuffs, nameOK, nDebuffs))
+	if sample then
+		print("  sample: " .. sample)
+	end
+	local verdict
+	if nDebuffs == 0 then
+		verdict = "no debuffs to sample — rerun while allies are actually debuffed."
+	elseif typeOK > 0 then
+		verdict = "|cff40c040FEASIBLE|r — the debuff school reads through, a live alert can identify dispels."
+	else
+		verdict = "|cffff5040NOT possible here|r — the debuff school is secret, so a live alert can't tell what to dispel."
+	end
+	print("  => live dispel alert: " .. verdict)
 end
