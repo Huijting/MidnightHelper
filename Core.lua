@@ -851,6 +851,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh healcds — print your spec's healing-cooldown cheat-sheet (healer specs).
+	if msg == "healcds" then
+		if ns.PrintHealerCooldownSheet then
+			ns.PrintHealerCooldownSheet()
+		end
+		return
+	end
+
 	-- /mh bagarrows — toggle the green upgrade arrows on bag items.
 	if msg == "bagarrows" then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
