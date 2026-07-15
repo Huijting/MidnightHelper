@@ -67,8 +67,10 @@ local function Speak(text)
 	if C_TTSSettings and C_TTSSettings.GetVoiceOptionID and Enum and Enum.TtsVoiceType then
 		voiceId = C_TTSSettings.GetVoiceOptionID(Enum.TtsVoiceType.Standard) or 0
 	end
-	-- Max volume — a "you whiffed!" alert should cut through the fight.
-	pcall(C_VoiceChat.SpeakText, voiceId, text, 2, 100, true)
+	-- SpeakText(voiceID, text, destination, rate, volume): rate 0 = normal, volume 0-100.
+	-- Was (…, 2, 100, true) — rate out of range + a boolean volume → the call errored and
+	-- pcall swallowed it, so the alert was silently mute (Rob 15 jul).
+	pcall(C_VoiceChat.SpeakText, voiceId, text, 2, 0, 100)
 end
 
 -- Which chat channel to shout a whiff into (nil when solo).
@@ -116,9 +118,24 @@ end
 local function OnMyInterrupt()
 	gen = gen + 1
 	local myGen = gen
+	-- Capture EVERY unit our kick could have hit. MH's own interrupt macros cast
+	-- @focus / @mouseover with a target-fallback ([@focus,harm,nodead][]), so the
+	-- landed unit is target OR focus OR mouseover — not just the current target.
+	-- Storing only the target made a successful focus/mouseover kick look like a
+	-- whiff (false "you missed!" + false party shout — Rob 15 jul).
+	local guids
+	if UnitGUID then
+		for _, u in ipairs({ "target", "focus", "mouseover" }) do
+			local gg = UnitGUID(u)
+			if gg then
+				guids = guids or {}
+				guids[#guids + 1] = gg
+			end
+		end
+	end
 	pending = {
 		t = (GetTime and GetTime()) or 0,
-		guid = (UnitGUID and UnitGUID("target")) or nil,
+		guids = guids, -- nil in restricted content / no readable unit → time-only match
 		gen = myGen,
 	}
 	if C_Timer and C_Timer.After then
@@ -144,11 +161,26 @@ local function OnInterrupted(unit)
 	end
 	local match = true
 	local g = UnitGUID and UnitGUID(unit)
-	-- Compare GUIDs only when BOTH are readable. In restricted content (rituals/delves) the
-	-- stored target GUID captured at kick time is SECRET; comparing it throws. Either side
-	-- secret → fall back to the time-only match (match stays true).
-	if pending.guid and g and not isSecret(g) and not isSecret(pending.guid) then
-		match = (g == pending.guid)
+	-- Compare GUIDs only when readable. In restricted content (rituals/delves) the stored
+	-- GUIDs captured at kick time are SECRET; comparing throws. If the interrupted unit is
+	-- readable AND we have at least one readable candidate, it landed only when it matches one
+	-- of them; otherwise (anything secret / no readable candidate) → time-only match.
+	if g and not isSecret(g) and pending.guids then
+		local haveReadable = false
+		match = false
+		for i = 1, #pending.guids do
+			local pg = pending.guids[i]
+			if not isSecret(pg) then
+				haveReadable = true
+				if pg == g then
+					match = true
+					break
+				end
+			end
+		end
+		if not haveReadable then
+			match = true -- all candidates secret → fall back to time-only
+		end
 	end
 	if match then
 		tally.landed = tally.landed + 1
