@@ -832,8 +832,8 @@ ns._mhLocales.enUS = {
 	ACADEMY_HEAL_CHAT_BODY = "\"Learning healer - I'll call low mana.\"\n\"Tank is priority - shout if you need a breather.\"\n\"Big heal on you - watch your health.\"\n\"Oom 5 sec between pulls.\"\n\"That was on me - I'll save more for the tank next pull.\"",
 	ACADEMY_HEAL_LADDER_TITLE = "Anxiety ladder (recommended order)",
 	ACADEMY_HEAL_LADDER_BODY = "1. Heal a friend in open world\n2. Delves with a small group\n3. Normal dungeon with patient friends\n4. Raid LFR / heroic when ready\n\nDelves are the softest step into instanced content.",
-	ACADEMY_HEAL_BOTH_TITLE = "Learning tank as well?",
-	ACADEMY_HEAL_BOTH_BODY = "Use the Tank track for dungeon queueing; keep healing in delves until tanking feels familiar.\n\nTwo roles in one week in pugs is a lot - one role as \"main\" reduces fear.",
+	ACADEMY_HEAL_BOTH_TITLE = "Learning tank or DPS too?",
+	ACADEMY_HEAL_BOTH_BODY = "The DPS track is the gentlest second role - just your rotation, kicks and positioning, no pressure on the group. The Tank track gives the fastest dungeon queues once tanking feels less scary.\n\nTwo roles in one week in pugs is a lot - pick one as your \"main\" to reduce fear.",
 
 	-- Deepened beginner heal course (healer initiative, piece 2)
 	ACADEMY_HEAL_MANA_TITLE = "Mana and efficiency",

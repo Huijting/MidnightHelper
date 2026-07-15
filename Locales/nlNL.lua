@@ -828,8 +828,8 @@ ns._mhLocales.nlNL = {
 	ACADEMY_HEAL_CHAT_BODY = "\"Heal leren - ik roep bij lage mana.\"\n\"Tank is prio - roep als je pauze wilt.\"\n\"Grote heal op jou - let op HP.\"\n\"Oom 5 sec tussen pulls.\"\n\"Dat was aan mij - volgende pull meer op tank.\"",
 	ACADEMY_HEAL_LADDER_TITLE = "Angst-ladder (aanbevolen volgorde)",
 	ACADEMY_HEAL_LADDER_BODY = "1. Heal een vriend in open world\n2. Delves met een kleine group\n3. Normal dungeon met geduldige vrienden\n4. Raid LFR / heroic als je er klaar voor bent\n\nDelves zijn de zachtste stap naar instances.",
-	ACADEMY_HEAL_BOTH_TITLE = "Ook tank leren?",
-	ACADEMY_HEAL_BOTH_BODY = "Gebruik de Tank-track voor dungeon-queue; blijf healen in delves tot tanken bekend voelt.\n\nTwee rollen in één week in pugs is veel - één hoofdrol vermindert angst.",
+	ACADEMY_HEAL_BOTH_TITLE = "Ook tank of DPS leren?",
+	ACADEMY_HEAL_BOTH_BODY = "De DPS-track is de zachtste tweede rol - alleen je rotatie, kicks en positie, geen druk richting de groep. De Tank-track geeft de snelste dungeon-queue zodra tanken minder eng voelt.\n\nTwee rollen in één week in pugs is veel - kies er één als \"hoofdrol\" om angst te verminderen.",
 
 	-- Verdiepte beginner heal-course (healer-initiatief, deel 2)
 	ACADEMY_HEAL_MANA_TITLE = "Mana en efficiëntie",
