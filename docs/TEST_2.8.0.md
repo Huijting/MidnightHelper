@@ -73,8 +73,8 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 
 - [ ] Interrupt-kaart toont de **off-interrupt cluster** (Spec 08 cross-listing) —
       Blinding Light hoort er NIET bij.
-- [ ] De keyboard-layout klopt met de nieuwe `alsoStop`/agent-audit-fixes.
-- [ ] (Druid, indien beschikbaar: vormen op **Shift+R/T/X** in élke spec, Travel op R.)
+- [x] De keyboard-layout klopt met de nieuwe `alsoStop`/agent-audit-fixes. *(Feral geverifieerd)*
+- [x] (Druid, indien beschikbaar: vormen op **Shift+R/T/X** in élke spec, Travel op R.)
 
 ## 🟡 9. Omnium Folio
 
@@ -87,9 +87,9 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 
 *(alles season-gated; op live 12.0.7 hoort het VERBORGEN te zijn.)*
 
-- [ ] Dungeon Coach: **geen** Altar of Fangs, King's Rest, Sethraliss, Ruby Life Pools zichtbaar.
-- [ ] Boss-lijst / zoek: **geen** The Venomous Abyss / Tidebound Grotto.
-- [ ] M+-pool = nog de **Season 1**-pool (8 dungeons), geen `[S2]`-badges.
+- [x] Dungeon Coach: **geen** Altar of Fangs, King's Rest, Sethraliss, Ruby Life Pools zichtbaar.
+- [x] Boss-lijst / zoek: **geen** The Venomous Abyss / Tidebound Grotto.
+- [x] M+-pool = nog de **Season 1**-pool (8 dungeons), geen `[S2]`-badges.
 - [ ] (Optioneel op **PTR** (12.1) via `copy_to_ptr.bat`: dán verschijnen ze wél,
       met gelokaliseerde bossnamen = bewijs dat de IDs kloppen.)
 
