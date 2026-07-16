@@ -54,8 +54,8 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 ## 🟡 5. Tank- & DPS-toolkit  *(per rol)*
 
 - [x] Academy → **Tank-toolkit**: active mitigation + "personal defensives" (hernoemd).
-- [ ] Academy → **DPS-toolkit**: nieuw; personal defensives + secundaire damage-cooldown.
-- [ ] Klopt de spec-info met wat je op je balk hebt? (never-lie-check).
+- [x] Academy → **DPS-toolkit**: nieuw; personal defensives + secundaire damage-cooldown. *(Feral: Tiger's Fury + Feral Frenzy toegevoegd)*
+- [x] Klopt de spec-info met wat je op je balk hebt? (never-lie-check). *(nu gefilterd op bekende spells: Berserk óf Incarnation)*
 
 ## 🟡 6. Mythic+ advisor  *(al deels getest)*
 
