@@ -3224,6 +3224,11 @@ ns._mhLocales.enUS = {
 	DEATH_RECAP_RESTRICTED = "Something here got you — and the game hides the details in this content. Open the Death Recap to see what hit you, and watch the red ground next time.",
 	DEATH_RECAP_OPEN_HINT = "Click to open the Death Recap.",
 	DEATH_AUTOOPEN_ON = "Death Recap opens automatically where the game hides the cause (delves, rituals, follower dungeons).",
+	DEATH_AUTOOPEN_ASK = "Midnight Helper opened Blizzard's Death Recap for you, because the game hides the cause of death in this content.\n\nShould it keep doing that?",
+	DEATH_AUTOOPEN_KEEP = "Yes, keep it",
+	DEATH_AUTOOPEN_STOP = "No thanks",
+	SET_DEATH_AUTOOPEN_TITLE = "Open the Death Recap automatically",
+	SET_DEATH_AUTOOPEN_DESC = "In delves, ritual sites and follower dungeons the game hides what killed you, so addons cannot tell you. Blizzard's own Death Recap can — this opens it for you when you die there. In normal dungeons Midnight Helper names the cause itself and never opens a window.",
 	DEATH_AUTOOPEN_OFF = "Death Recap no longer opens automatically — click the death popup to open it yourself.",
 	DEATH_RECAP_OPEN_FAILED = "Couldn't open the Death Recap — this client doesn't expose it. Use the skull icon on your release screen instead.",
 

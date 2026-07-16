@@ -202,6 +202,13 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetCombatSafetyImportantOnly then ns.SetCombatSafetyImportantOnly(v) end
 		end, false)
+		-- Death Recap auto-open (restricted content only). Recommended ON: it exists for
+		-- beginners who die in a delve/ritual and have no other way to learn the cause.
+		AddToggle("mh_deathAutoOpen", "SET_DEATH_AUTOOPEN_TITLE", "SET_DEATH_AUTOOPEN_DESC", function()
+			return ns.IsDeathRecapAutoOpenEnabled and ns.IsDeathRecapAutoOpenEnabled()
+		end, function(v)
+			if ns.SetDeathRecapAutoOpenEnabled then ns.SetDeathRecapAutoOpenEnabled(v) end
+		end, true)
 		AddToggle("mh_missingBuff", "SET_MBUFF_TOGGLE_TITLE", "SET_MBUFF_TOGGLE_DESC", function()
 			return ns.IsMissingBuffEnabled and ns.IsMissingBuffEnabled()
 		end, function(v)

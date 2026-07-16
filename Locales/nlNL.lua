@@ -3136,6 +3136,11 @@ ns._mhLocales.nlNL = {
 	DEATH_RECAP_RESTRICTED = "Iets kreeg je hier te pakken — en het spel verbergt de details in deze content. Open de Death Recap om te zien wat je raakte, en let volgende keer op de rode grond.",
 	DEATH_RECAP_OPEN_HINT = "Klik om de Death Recap te openen.",
 	DEATH_AUTOOPEN_ON = "Death Recap opent automatisch waar het spel de oorzaak verbergt (delves, rituals, follower dungeons).",
+	DEATH_AUTOOPEN_ASK = "Midnight Helper heeft Blizzard's Death Recap voor je geopend, omdat het spel in deze content verbergt waar je aan doodging.\n\nZal ik dat blijven doen?",
+	DEATH_AUTOOPEN_KEEP = "Ja, laat maar staan",
+	DEATH_AUTOOPEN_STOP = "Nee, hoeft niet",
+	SET_DEATH_AUTOOPEN_TITLE = "Death Recap automatisch openen",
+	SET_DEATH_AUTOOPEN_DESC = "In delves, ritual sites en follower dungeons verbergt het spel waar je aan doodging, dus addons kunnen het je niet vertellen. Blizzard's eigen Death Recap wél — deze optie opent 'm voor je als je daar sterft. In gewone dungeons noemt Midnight Helper de oorzaak zelf en opent er nooit een venster.",
 	DEATH_AUTOOPEN_OFF = "Death Recap opent niet meer automatisch — klik de dood-popup om 'm zelf te openen.",
 	DEATH_RECAP_OPEN_FAILED = "Kon de Death Recap niet openen — deze client biedt 'm niet aan. Gebruik het skull-icoontje op je release-scherm.",
 

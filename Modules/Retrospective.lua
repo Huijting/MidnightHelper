@@ -221,6 +221,55 @@ local function autoOpenEnabled()
 	return not (ns.db and ns.db.deathRecapAutoOpen == false)
 end
 
+-- Ask ONCE, the first time we actually auto-open something. Default-on would be pushy
+-- without an escape, and default-off means the beginner this exists for never finds it
+-- (Rob 16 jul). So: help by default, then hand them the off-switch the moment they see
+-- what it does. Re-enabling later lives in the native Settings panel.
+StaticPopupDialogs["MIDNIGHTHELPER_DEATH_AUTOOPEN"] = {
+	text = "%s",
+	button1 = OKAY, -- replaced with the localized labels at show time
+	button2 = CANCEL,
+	OnAccept = function()
+		ns.db = ns.db or {}
+		ns.db.deathRecapAutoOpen = true
+	end,
+	OnCancel = function()
+		ns.db = ns.db or {}
+		ns.db.deathRecapAutoOpen = false
+	end,
+	timeout = 0,
+	whileDead = true, -- you are, definitionally, dead when this fires
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
+local function MaybeAskAboutAutoOpen()
+	if ns.db and ns.db.deathRecapAutoOpenAsked then
+		return
+	end
+	ns.db = ns.db or {}
+	ns.db.deathRecapAutoOpenAsked = true
+	local d = StaticPopupDialogs["MIDNIGHTHELPER_DEATH_AUTOOPEN"]
+	if not (d and StaticPopup_Show) then
+		return
+	end
+	d.button1 = ns:L("DEATH_AUTOOPEN_KEEP")
+	d.button2 = ns:L("DEATH_AUTOOPEN_STOP")
+	StaticPopup_Show("MIDNIGHTHELPER_DEATH_AUTOOPEN", ns:L("DEATH_AUTOOPEN_ASK"))
+end
+
+--- Is the Death Recap auto-opened in restricted content? (native Settings bridge)
+function ns.IsDeathRecapAutoOpenEnabled()
+	return autoOpenEnabled()
+end
+
+--- Set it from the Settings panel. An explicit choice means we never ask again.
+function ns.SetDeathRecapAutoOpenEnabled(v)
+	ns.db = ns.db or {}
+	ns.db.deathRecapAutoOpen = v and true or false
+	ns.db.deathRecapAutoOpenAsked = true
+end
+
 local function ShowRestrictedDeathLesson()
 	if GetTime() - lastShown < COOLDOWN then
 		return
@@ -231,7 +280,14 @@ local function ShowRestrictedDeathLesson()
 		-- Small delay: at PLAYER_DEAD the recap is not populated yet, so opening
 		-- immediately would risk an empty window.
 		C_Timer.After(1, function()
-			pcall(OpenBlizzardRecap)
+			local opened = false
+			pcall(function()
+				opened = OpenBlizzardRecap()
+			end)
+			-- Only ask about a behaviour the player actually just saw happen.
+			if opened then
+				MaybeAskAboutAutoOpen()
+			end
 		end)
 	end
 end
