@@ -242,7 +242,8 @@ ns.DUNGEON_ROSTER = {
 	-- midboss is puur cosmetisch). Geen entrance-coords → geen route-knop (eerlijk).
 	{
 		key = "kingsrest",
-		name = "King's Rest",
+		name = "Kings' Rest", -- exact EJ name (confirmed on the 12.1 PTR: the journal
+		-- resolved "Kings' Rest" over this fallback, which also proves JII 1041 is right)
 		journalInstanceID = 1041, -- DBM-Party-BfA/KingsRest NewMod 4e-arg
 		native = false,
 		season1 = false,
