@@ -37,7 +37,7 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 ## 🔴 3. Interrupt-scorecard  *(Spec 14)*
 
 - [x] `/mh scorecard test` → toont een **voorbeeld-scorecard** (zonder delve nodig).
-- [ ] `/mh scorecard` → aan. Na een run een **post-run samenvatting** (na een echte delve/ritual).
+- [x] `/mh scorecard` → aan. Na een run een **post-run samenvatting**. *(The Darkway 16m06s "fastest yet!" · 1 death · vs avg −544s)*
 - [x] `/mh scorecard detail` → extra regel met exacte seconden. *(zichtbaar in de test: "vs avg −22s · fastest 3m 54s")*
 - [x] Whiff-nudge (`/mh kicks alert`, opt-in, **lokaal**): eerlijk herwoord, **party-chat-shout verwijderd**.
 
