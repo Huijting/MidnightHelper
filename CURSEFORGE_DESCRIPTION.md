@@ -72,7 +72,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - **Midnight Codex** — Season 1 handbook (Start Here, weekly loop, currencies with live balances, delves, M+, raid, world content, professions); **Open** links jump to the matching tab.
 - **Guide** — compact reference / advisor.
 - **Macros** — interrupt and team macro templates with class context.
-- **Role Academy** — tank and heal learning tracks.
+- **Role Academy** — tank, heal and DPS learning tracks, each with a **spec-aware toolkit**: the cooldowns and personal defensives *your* spec actually has, with tooltips on hover. Healers also get their cooldowns labelled by purpose and a "what can I dispel?" reference.
 - **Consumables** — per-spec suggestions with Wowhead-backed data and guide search preview.
 - **SMC City Guide** — Silvermoon City pins with waypoint buttons; optional weekly/hub checklist.
 - **Addons** tab — companion helpers (e.g. Platynator integration).

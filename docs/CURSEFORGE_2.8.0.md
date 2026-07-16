@@ -1,14 +1,3 @@
-<!-- MAINTAINER NOTE (HTML comment — hidden by the Markdown renderer, does NOT show on the
-     CurseForge page). This file holds the notes for the CURRENT release only. The BigWigs
-     packager uploads it verbatim as the CurseForge changelog (.pkgmeta -> manual-changelog,
-     markup-type: markdown), so overwrite it on every version bump. Full history: CHANGELOG.md;
-     per-version archive: docs/CURSEFORGE_<version>.md (keep this file identical to that archive's body).
-
-     MARKDOWN, not HTML: CurseForge's changelog field renders Markdown. Shipping HTML at 2.7.0
-     made the packager/CF flatten it into raw, run-on "##"/"**" text (regression from f62a445).
-     2.6.0 shipped Markdown and rendered clean. If a release ever still looks wrong, hand-fix it:
-     curseforge.com -> the file -> Changelog -> Markdown mode -> paste this file's body -> Save. -->
-
 ## Know your role — and see how it went
 
 This release is about **doing your job in a group**: what to press, when to press it, and an honest look at how the run actually went. Plus everything for Season 2, quietly waiting until the patch lands.

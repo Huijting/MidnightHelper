@@ -2,6 +2,36 @@
 
 All notable changes to this project are documented in this file.
 
+## [2.8.0] - 2026-07-16
+
+Know your role — and see how it went. What to press, when to press it, and an honest look at how the run actually went. Plus everything for Season 2, dormant until 12.1.
+
+### Added
+
+- **A toolkit for every role** — the Role Academy now has a spec-aware toolkit for **healer, tank and DPS**, showing the buttons *your* spec has. Healers: healing cooldowns labelled with what each is *for*, a deepened beginner course, and a "what can I dispel?" reference. Tanks: active mitigation + personal defensives. DPS: damage cooldowns + personal defensives. Spell tooltips on hover; the list is filtered to what you actually have (Berserk *or* Incarnation, never both).
+- **Death recap** (`Modules/Retrospective.lua`) — in dungeons/raids it names the killing blow plus a lesson, on a readable card. In delves/rituals/follower dungeons — where 12.x forbids addons from reading the combat log — it opens **Blizzard's own Death Recap** (`DeathRecapFrame:OpenRecap`, which does work there), asks once, and is toggleable in Settings or via `/mh death auto`.
+- **Tank pull summary** (`Modules/TankPullSummary.lua`) — active-mitigation uptime %, defensive cooldowns used, a nudge when none were, Brewmaster Stagger. `/mh pullsummary` + `boss` / `popup` / `status`. Pulls under 12s are skipped; where auras are secret it says "hidden" instead of a false 0%.
+- **Interrupt scorecard** (`Modules/InterruptScore.lua`) — landed vs wasted kicks, with an optional local-only nudge on a wasted kick. `/mh kicks`.
+- **Mythic+ gain advisor** — per-dungeon season best and where another key adds the most rating, plus an honest gear pointer (keystone tooltip / Great Vault). `/mh mplus`.
+- **Openables** — recognises "Use: Collect N …" reward/currency packs and uncollected cosmetic appearances; hides items whose requirement you don't meet.
+- **Keybind coach: stop-toolkit cross-listing** — the interrupt card also lists abilities that stop a cast (stun/silence), tagged with why, while they keep their own key. Blinding Light deliberately excluded (won't reliably stop a cast). Druid forms pinned to the same keys in every spec: Travel `R`, Cat/Bear/Moonkin `Shift+R/T/X`.
+- **Season 2 / patch 12.1 content**, season-gated (invisible until interface >= 120100): the raid *The Venomous Abyss*, the lair *The Tidebound Grotto*, the dungeon *Altar of Fangs*, and the full S2 Mythic+ rotation (5 Midnight-native + Kings' Rest / Temple of Sethraliss / Ruby Life Pools). All ids verified against the installed DBM mods and confirmed on the 12.1 PTR.
+- **NavSearch `@category` filters + a `/mh` command palette**; translations now route to a GitHub issue form.
+
+### Fixed
+
+- The main window's auto-grow didn't reserve the favourites row, so the sidebar's last tab hung off the bottom edge.
+- Codex entries overlapped the next entry's title (block height was measured before the text wrapped).
+- **Omnium Folio**: the open button could open another expansion's landing page; it now verifies it's the Midnight Folio, level-gates levelling alts (the unlock quests are account-wide, so an alt looked "unlocked"), and reports through the addon's own toast.
+- **Death recap**: no more `ADDON_ACTION_FORBIDDEN` spam in delves/rituals (zone-event bursts are debounced so the instance info settles first), and the restricted card no longer fires on PvP deaths.
+- **Interrupt scorecard**: focus/mouseover kicks counted as whiffs (only the target's GUID was stored); the whiff TTS was silently mute (bad argument order). The party-chat shout was dropped — a kick pressed with nothing casting is a wasted global, not a missed interrupt.
+- **Keybind coach**: ~13 verified core abilities were missing (JustAC cross-check), and the DPS toolkit listed *Dark Ascension* under Unholy Death Knight — it is a Shadow Priest talent.
+- Tank pull-summary popups could swallow a back-to-back second summary (toast id dedupe).
+
+### Changed
+
+- **Lighter, honest data throughout**: every DPS spec's damage cooldowns re-verified against the installed JustAC data (build 12.1.0.68301); ambiguous spell ids (Warbreaker, Convoke, Wake of Ashes, …) are left out rather than guessed.
+
 ## [2.7.0] - 2026-07-12
 
 Everyday decisions, made easier — *"is this an upgrade?"* and *"how did that run go?"* — plus a calm on-ramp to the next season and a route arrow that finally guides every route.
