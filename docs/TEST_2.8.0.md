@@ -30,8 +30,8 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 
 - [x] `/mh pullsummary` → aan. Doe een pull → na afloop een **samenvatting**
       (active-mitigation uptime %). Op Paladin: Shield of the Righteous-uptime. *(Druid-tank = Ironfur, werkt.)*
-- [ ] `/mh pullsummary boss` → alleen bij **bosses** een samenvatting, niet elke trash-pull.
-- [ ] `/mh pullsummary popup` → toont 'm als **popup** i.p.v. chatregel.
+- [x] `/mh pullsummary boss` → alleen bij **bosses** een samenvatting, niet elke trash-pull. *(status via `/mh pullsummary status`)*
+- [x] `/mh pullsummary popup` → toont 'm als **popup** i.p.v. chatregel.
 - [ ] (Brewmaster Monk indien beschikbaar: Stagger-metric i.p.v. mitigation-uptime.)
 
 ## 🔴 3. Interrupt-scorecard  *(Spec 14)*
@@ -39,7 +39,7 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 - [ ] `/mh scorecard test` → toont een **voorbeeld-scorecard** (zonder delve nodig).
 - [ ] `/mh scorecard` → aan. Na een run een **post-run samenvatting** (interrupts).
 - [ ] `/mh scorecard detail` → extra regel met exacte seconden.
-- [ ] Optionele "you missed"-whiff-alert in party-chat: alleen als je 'm **zelf aanzet**.
+- [x] Whiff-nudge (`/mh kicks alert`, opt-in, **lokaal**): eerlijk herwoord, **party-chat-shout verwijderd**.
 
 ---
 
@@ -49,7 +49,7 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 - [ ] Academy → **Healer-toolkit**: spec-aware, **tooltips bij hover** over de spells.
 - [ ] Academy → **heal-course** (beginner) is uitgebreid/leest goed.
 - [ ] "Wat kun jij dispellen"-referentie klopt voor je spec.
-- [ ] `/mh dispelprobe` → meldt of party/raid-debuffs **leesbaar** of **secret** zijn.
+- [x] `/mh dispelprobe` (+ `watch`) → meldt of party/raid-debuffs **leesbaar** of **secret** zijn. *(secret bevestigd: live dispel niet mogelijk)*
 
 ## 🟡 5. Tank- & DPS-toolkit  *(per rol)*
 
