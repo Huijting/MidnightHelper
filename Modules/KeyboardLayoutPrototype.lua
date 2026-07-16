@@ -574,9 +574,19 @@ local function ProtoCardRow(card, i)
 		cap:SetPoint("RIGHT", row, "RIGHT", -2, 0)
 		cap:SetJustifyH("RIGHT")
 		row._cap = cap
+		-- Spec 08 stop-tag ("(silence)"/"(stun)") gets its OWN FontString between the name
+		-- and the key. Appending it to the name made a long name eat it: "Hammer of
+		-- Justice (stun)" truncated to "Hammer of Justice…" and the reason — the whole point
+		-- of the cross-listing — vanished (Rob 16 jul). Now the name truncates on its own
+		-- and the tag always reads. Empty string = zero width, so untagged rows look the same.
+		local stopTag = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+		stopTag:SetPoint("RIGHT", cap, "LEFT", -6, 0)
+		stopTag:SetJustifyH("RIGHT")
+		stopTag:SetWordWrap(false)
+		row._stopTag = stopTag
 		local name = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 		name:SetPoint("LEFT", icon, "RIGHT", 6, 0)
-		name:SetPoint("RIGHT", cap, "LEFT", -6, 0)
+		name:SetPoint("RIGHT", stopTag, "LEFT", -4, 0)
 		name:SetJustifyH("LEFT")
 		name:SetWordWrap(false)
 		row._name = name
@@ -876,7 +886,8 @@ local function ProtoRefreshCards(panel, spec, slots)
 						base = base,
 						mod = mod,
 						id = entry.id,
-						name = (ProtoSpellName(entry.id) or ("#" .. tostring(entry.id))) .. "  |cff808080(" .. tag .. ")|r",
+						name = ProtoSpellName(entry.id) or ("#" .. tostring(entry.id)),
+						stopTag = tag, -- rendered in its own FontString so a long name can't eat it
 					})
 				end
 			end
@@ -936,6 +947,7 @@ local function ProtoRefreshCards(panel, spec, slots)
 				local tex = C_Spell and C_Spell.GetSpellTexture and C_Spell.GetSpellTexture(sp.id)
 				row._icon:SetTexture(tex or "Interface\\Icons\\INV_Misc_QuestionMark")
 				row._name:SetText(sp.name)
+				row._stopTag:SetText(sp.stopTag and ("(" .. sp.stopTag .. ")") or "")
 				row._cap:SetText(ns.Keybind_FormatKeycap(sp.bindKey) or sp.bindKey)
 				if sp.mod == "shift" then
 					row._cap:SetTextColor(0.35, 0.85, 1)
@@ -983,6 +995,7 @@ local function ProtoRefreshCards(panel, spec, slots)
 			local tex = C_Spell and C_Spell.GetSpellTexture and C_Spell.GetSpellTexture(sp.id)
 			row._icon:SetTexture(tex or "Interface\\Icons\\INV_Misc_QuestionMark")
 			row._name:SetText(sp.name)
+			row._stopTag:SetText("") -- self-heal rows never carry a stop-tag
 			row._cap:SetText(ns:L("LAYOUT_STHEAL_TAG"))
 			row._cap:SetTextColor(0.5, 0.8, 1)
 			row:Show()
