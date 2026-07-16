@@ -892,6 +892,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh pullsummary [boss|popup] — toggle the per-pull tank summary (opt-in) or
 	-- its boss-only / popup options.
+	if msg == "pullsummary status" then
+		if ns.PrintTankPullSummaryStatus then
+			ns.PrintTankPullSummaryStatus()
+		end
+		return
+	end
 	if msg == "pullsummary" then
 		if ns.ToggleTankPullSummary then
 			ns.ToggleTankPullSummary()

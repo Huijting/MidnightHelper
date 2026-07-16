@@ -252,3 +252,20 @@ function ns.ToggleTankPullSummaryPopup()
 	say(ns.db.tankPullSummaryPopup and "PULLSUM_POPUP_ON" or "PULLSUM_POPUP_OFF")
 	return ns.db.tankPullSummaryPopup == true
 end
+
+-- /mh pullsummary status — show all three flags at once WITHOUT flipping them
+-- (the toggles are stateful, so this is the safe way to see what's on). Also
+-- spells out why a summary may not have shown (boss-only on, pull too short).
+function ns.PrintTankPullSummaryStatus()
+	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+	local function onoff(v)
+		return v and "|cff40c040on|r" or "|cffff5040off|r"
+	end
+	ns.db = ns.db or {}
+	local boss = ns.db.tankPullSummaryBossOnly == true
+	print(("%s pull-summary status:"):format(prefix))
+	print(("   feature: %s   boss-only: %s   popup: %s"):format(
+		onoff(ns.db.tankPullSummary == true), onoff(boss), onoff(ns.db.tankPullSummaryPopup == true)))
+	print(("   shows only: tank spec + in an instance + pull >= %ds%s"):format(
+		MIN_PULL, boss and " + a boss pull (ENCOUNTER_START — trash is skipped)" or ""))
+end
