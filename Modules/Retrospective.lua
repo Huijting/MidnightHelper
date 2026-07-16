@@ -152,9 +152,16 @@ local function OpenBlizzardRecap()
 	if type(DeathRecapFrame_OpenRecap) == "function" and pcall(DeathRecapFrame_OpenRecap, 1) then
 		return true
 	end
-	if type(DeathRecapFrame) == "table" and type(DeathRecapFrame.Show) == "function"
-		and pcall(DeathRecapFrame.Show, DeathRecapFrame) then
-		return true
+	if type(DeathRecapFrame) == "table" then
+		-- 12.0.7: the frame EXISTS but neither global opener does (Rob's /mh death probe),
+		-- so the entry point is a method on the frame. Try the populating one first —
+		-- a bare :Show() would risk an empty/stale window.
+		if type(DeathRecapFrame.OpenRecap) == "function" and pcall(DeathRecapFrame.OpenRecap, DeathRecapFrame, 1) then
+			return true
+		end
+		if type(DeathRecapFrame.Show) == "function" and pcall(DeathRecapFrame.Show, DeathRecapFrame) then
+			return true
+		end
 	end
 	-- Nothing worked: say so instead of failing silently under the player's click.
 	print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("DEATH_RECAP_OPEN_FAILED")))
@@ -382,4 +389,20 @@ function ns.PrintDeathRecapDiagnostics()
 		type(DeathRecapFrame) == "table" and "|cff40c040table|r" or "|cffff5040nil|r",
 		(C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Blizzard_DeathRecap")) and "yes" or "no"
 	))
+	-- The frame exists but the global openers don't, so the real entry point is a method
+	-- ON it. List its own (non-inherited) functions rather than guessing a name.
+	if type(DeathRecapFrame) == "table" then
+		local own = {}
+		local ok = pcall(function()
+			for k, v in pairs(DeathRecapFrame) do
+				if type(v) == "function" then
+					own[#own + 1] = tostring(k)
+				end
+			end
+		end)
+		table.sort(own)
+		print(("   DeathRecapFrame methods: %s"):format(
+			(ok and #own > 0) and table.concat(own, ", ") or "none readable"
+		))
+	end
 end
