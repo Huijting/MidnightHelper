@@ -137,13 +137,28 @@ local SKULL_ICON = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8" -- the sk
 -- Open Blizzard's own Death Recap (its addon is load-on-demand). recapID 1 = most recent,
 -- mirroring how the C_DeathInfo probe reads GetDeathRecapLinks(1). All guarded — if the API
 -- is absent this is a harmless no-op (Rob confirms in-game whether the click opens it).
+-- Open Blizzard's Death Recap. The addon loads on demand, so pull it in first, then try
+-- the known entry points — each type-guarded, so we only ever call what actually exists
+-- on this client (no guessing). Returns true only when something really fired.
+-- Rob 16 jul: the old version called OpenDeathRecap() only, which does NOT exist on
+-- 12.0.7 — clicking the death toast silently did nothing.
 local function OpenBlizzardRecap()
 	if UIParentLoadAddOn then
 		pcall(UIParentLoadAddOn, "Blizzard_DeathRecap")
 	end
-	if type(OpenDeathRecap) == "function" then
-		pcall(OpenDeathRecap, 1)
+	if type(OpenDeathRecap) == "function" and pcall(OpenDeathRecap, 1) then
+		return true
 	end
+	if type(DeathRecapFrame_OpenRecap) == "function" and pcall(DeathRecapFrame_OpenRecap, 1) then
+		return true
+	end
+	if type(DeathRecapFrame) == "table" and type(DeathRecapFrame.Show) == "function"
+		and pcall(DeathRecapFrame.Show, DeathRecapFrame) then
+		return true
+	end
+	-- Nothing worked: say so instead of failing silently under the player's click.
+	print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("DEATH_RECAP_OPEN_FAILED")))
+	return false
 end
 
 -- The visible card (reuses the Midnight toast: title + body + skull icon + click-to-open the
@@ -355,9 +370,16 @@ function ns.PrintDeathRecapDiagnostics()
 	-- Just reports what exists — never calls it here. Die once, then check these:
 	-- if OpenDeathRecap is a function and/or DeathRecapFrame exists, the skull-click
 	-- open-path works and auto-opening is on the table for restricted content.
-	print(("   open-path: OpenDeathRecap=%s  DeathRecapFrame=%s  Blizzard_DeathRecap loaded=%s"):format(
-		type(OpenDeathRecap) == "function" and "function" or "nil",
-		type(DeathRecapFrame) == "table" and "yes" or "nil",
+	-- LOAD the on-demand addon first, else we only measure "not loaded yet" and learn
+	-- nothing about which entry point actually exists (Rob 16 jul: clicking the toast
+	-- did nothing, and the un-loaded probe had hidden why).
+	if UIParentLoadAddOn then
+		pcall(UIParentLoadAddOn, "Blizzard_DeathRecap")
+	end
+	print(("   open-path (after loading the addon): OpenDeathRecap=%s  DeathRecapFrame_OpenRecap=%s  DeathRecapFrame=%s  loaded=%s"):format(
+		type(OpenDeathRecap) == "function" and "|cff40c040function|r" or "|cffff5040nil|r",
+		type(DeathRecapFrame_OpenRecap) == "function" and "|cff40c040function|r" or "|cffff5040nil|r",
+		type(DeathRecapFrame) == "table" and "|cff40c040table|r" or "|cffff5040nil|r",
 		(C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Blizzard_DeathRecap")) and "yes" or "no"
 	))
 end

@@ -3223,6 +3223,7 @@ ns._mhLocales.enUS = {
 	-- Spec 12 popup: restricted content (the game hides the cause) + the clickable card hint.
 	DEATH_RECAP_RESTRICTED = "Something here got you — and the game hides the details in this content. Open the Death Recap to see what hit you, and watch the red ground next time.",
 	DEATH_RECAP_OPEN_HINT = "Click to open the Death Recap.",
+	DEATH_RECAP_OPEN_FAILED = "Couldn't open the Death Recap — this client doesn't expose it. Use the skull icon on your release screen instead.",
 
 	-- Healer cooldown cheat-sheet (healer initiative, piece 1)
 	HEALCD_TITLE = "Your major cooldowns — save them for the right moment:",
