@@ -2732,7 +2732,12 @@ function ns:EnsureMainUI()
 		do
 			local tabsHeight = -yy
 			local aboutArea = 8
-			local overhead = MH_MAIN_EDGE.T + TITLE_BAR_HEIGHT + lm.searchBarHeight + MH_MAIN_EDGE.B
+			-- The sidebar is anchored BELOW the favourites row, so its height must be
+			-- reserved too — leaving it out made the auto-grow ~24px short, which pushed
+			-- the last tab (Delve & Ritual Log in the tall "Me" room) off the bottom edge
+			-- (Rob 16 jul). Read the row's real height so compact mode stays correct.
+			local favH = (ns.mhFavRow and ns.mhFavRow.GetHeight and ns.mhFavRow:GetHeight()) or 0
+			local overhead = MH_MAIN_EDGE.T + TITLE_BAR_HEIGHT + lm.searchBarHeight + favH + MH_MAIN_EDGE.B
 			local requiredH = math.min(MAX_HEIGHT, math.ceil(tabsHeight + aboutArea + overhead))
 			local minH = math.max(MIN_HEIGHT, requiredH)
 			if main and main.SetResizeBounds then
