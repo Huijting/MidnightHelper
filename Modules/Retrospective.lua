@@ -156,6 +156,7 @@ local function ShowDeathPopup(body)
 			icon = SKULL_ICON,
 			title = ns:L("DEATH_RECAP_HEAD"),
 			body = body,
+			displaySec = 10, -- a death lesson needs reading (+ time to click through to Blizzard's recap); the default 4.25s was too quick (Rob 16 jul)
 			onClick = OpenBlizzardRecap,
 			-- Own hover hint; without it the toast falls back to the delve-bounty
 			-- text ("set a waypoint"), which is wrong on a death card.

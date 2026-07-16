@@ -142,8 +142,9 @@ local function ShowSummary(dur)
 		end
 		-- Geen vaste id: de toast-queue dedupet op id, dus een constante id zou de
 		-- tweede pull-summary binnen het toast-venster laten vallen (elke pull hoort
-		-- z'n eigen samenvatting te tonen — Rob 15 jul).
-		ns.QueueMidnightToast({ icon = SHIELD_ICON, title = head, body = body })
+		-- z'n eigen samenvatting te tonen — Rob 15 jul). displaySec: een paar regels
+		-- mitigation-info wil je even kunnen lezen (default 4.25s was te snel weg).
+		ns.QueueMidnightToast({ icon = SHIELD_ICON, title = head, body = body, displaySec = 8 })
 	else
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 		print(("%s |cff8fd3ff%s|r: %s · %s"):format(prefix, head, mitStr, cdStr))
