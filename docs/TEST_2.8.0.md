@@ -13,23 +13,23 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 
 ## 🟢 0. Smoke-test (altijd eerst)
 
-- [ ] `/reload` → **geen Lua-fouten** (rood in chat). Hoofdvenster opent.
-- [ ] Alle tabbladen openen zonder error (Home, Delves, Dungeon Coach, Codex, Academy, Settings).
+- [x] `/reload` → **geen Lua-fouten** (rood in chat). Hoofdvenster opent.
+- [x] Alle tabbladen openen zonder error (Home, Delves, Dungeon Coach, Codex, Academy, Settings).
 
 ---
 
 ## 🔴 1. Death-recap popup  *(belangrijkste — was nog ongetest)*
 
 - [ ] **Dungeon/raid:** ga dood → popup met **oorzaak + tip** (niet alleen een chatregel).
-- [ ] **Ritual site / delve:** ga dood → popup met **"open Blizzard's Death Recap" + tip**
+- [x] **Ritual site / delve:** ga dood → popup met **"open Blizzard's Death Recap" + tip**
       (12.x sluit daar het combat log af — daarom de doorverwijzing).
-- [ ] **Geen spam:** in ritual sites/delves **geen** `ADDON_ACTION_FORBIDDEN`-foutregels.
-- [ ] Diagnose zonder te sterven: `/mh death` → print de death-recap status.
+- [x] **Geen spam:** in ritual sites/delves **geen** `ADDON_ACTION_FORBIDDEN`-foutregels.
+- [x] Diagnose zonder te sterven: `/mh death` → print de death-recap status.
 
 ## 🔴 2. Tank pull-summary  *(als tank)*
 
-- [ ] `/mh pullsummary` → aan. Doe een pull → na afloop een **samenvatting**
-      (active-mitigation uptime %). Op Paladin: Shield of the Righteous-uptime.
+- [x] `/mh pullsummary` → aan. Doe een pull → na afloop een **samenvatting**
+      (active-mitigation uptime %). Op Paladin: Shield of the Righteous-uptime. *(Druid-tank = Ironfur, werkt.)*
 - [ ] `/mh pullsummary boss` → alleen bij **bosses** een samenvatting, niet elke trash-pull.
 - [ ] `/mh pullsummary popup` → toont 'm als **popup** i.p.v. chatregel.
 - [ ] (Brewmaster Monk indien beschikbaar: Stagger-metric i.p.v. mitigation-uptime.)
@@ -45,7 +45,7 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 
 ## 🟡 4. Healer-toolkit + Academy  *(healer-spec nodig — Cisca?)*
 
-- [ ] `/mh healcds` → **cheat-sheet van healing-cooldowns** voor je spec, met soort-labels.
+- [x] `/mh healcds` → **cheat-sheet van healing-cooldowns** voor je spec, met soort-labels.
 - [ ] Academy → **Healer-toolkit**: spec-aware, **tooltips bij hover** over de spells.
 - [ ] Academy → **heal-course** (beginner) is uitgebreid/leest goed.
 - [ ] "Wat kun jij dispellen"-referentie klopt voor je spec.
@@ -53,7 +53,7 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 
 ## 🟡 5. Tank- & DPS-toolkit  *(per rol)*
 
-- [ ] Academy → **Tank-toolkit**: active mitigation + "personal defensives" (hernoemd).
+- [x] Academy → **Tank-toolkit**: active mitigation + "personal defensives" (hernoemd).
 - [ ] Academy → **DPS-toolkit**: nieuw; personal defensives + secundaire damage-cooldown.
 - [ ] Klopt de spec-info met wat je op je balk hebt? (never-lie-check).
 
@@ -79,7 +79,7 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 ## 🟡 9. Omnium Folio
 
 - [ ] Char **mét** Folio (Midnight): de "open rune window"-knop opent het **Folio**-venster.
-- [ ] Levelling-char / char zonder Folio: knop opent **niet** het verkeerde landing-page.
+- [x] Levelling-char / char zonder Folio: knop opent **niet** het verkeerde landing-page. *(level-gate + toast, "het werkt")*
 
 ---
 
