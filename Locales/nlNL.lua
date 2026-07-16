@@ -3211,6 +3211,7 @@ ns._mhLocales.nlNL = {
 	PULLSUM_HEAD = "Pull-samenvatting",
 	PULLSUM_NO_MIT = "geen active mitigation gedrukt",
 	PULLSUM_UPTIME_FMT = "uptime %d%%",
+	PULLSUM_UPTIME_HIDDEN = "uptime hier verborgen — buffs zijn secret in deze content",
 	PULLSUM_STAGGER_FMT = "gem. Stagger %d%% HP, lager is beter",
 	PULLSUM_DEF_FMT = "%s gebruikt",
 	PULLSUM_NO_DEF = "geen defensive cooldown gebruikt",

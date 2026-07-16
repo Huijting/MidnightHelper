@@ -21,7 +21,7 @@ local MIN_PULL = 12 -- seconds; skip trivial trash so it isn't spammy
 
 local inCombat, pullStart, specID, tracked
 local castCount = {}
-local mitId, upTime, sampleAccum
+local mitId, upTime, sampleAccum, mitReadableTime
 local sawEncounter
 local staggerAccum, staggerValidTime -- Brewmaster: time-weighted avg Stagger pool / max HP
 
@@ -119,12 +119,18 @@ local function ShowSummary(dur)
 	local mitStr = (#mitParts > 0) and table.concat(mitParts, ", ") or ns:L("PULLSUM_NO_MIT")
 	-- Measured metric (factual — no ideal-benchmark comparison): active-mitigation
 	-- uptime % for most tanks, or (Brewmaster) the average Stagger pool as % of HP.
-	if mitId and dur > 0 then
-		local pct = math.floor(((upTime or 0) / dur) * 100 + 0.5)
+	if mitId and (mitReadableTime or 0) >= 1 then
+		-- Uptime over the time we could actually READ the buff (auras readable). In
+		-- normal dungeons that's the whole pull; it excludes any secret stretch.
+		local pct = math.floor(((upTime or 0) / mitReadableTime) * 100 + 0.5)
 		if pct > 100 then
 			pct = 100
 		end
 		mitStr = mitStr .. (" |cff9d9d9d(%s)|r"):format((ns:L("PULLSUM_UPTIME_FMT")):format(pct))
+	elseif mitId then
+		-- Auras were secret the whole pull (restricted content) → can't measure uptime.
+		-- Never show a false 0%; say it's hidden here (never-lie).
+		mitStr = mitStr .. (" |cff9d9d9d(%s)|r"):format(ns:L("PULLSUM_UPTIME_HIDDEN"))
 	elseif specID == 268 and (staggerValidTime or 0) > 0 then
 		local pct = math.floor(((staggerAccum or 0) / staggerValidTime) * 100 + 0.5)
 		mitStr = mitStr .. (" |cff9d9d9d(%s)|r"):format((ns:L("PULLSUM_STAGGER_FMT")):format(pct))
@@ -170,8 +176,16 @@ local function Sampler(_, elapsed)
 	local dt = sampleAccum
 	sampleAccum = 0
 	if mitId then
-		if IsMitUp(mitId) then
-			upTime = (upTime or 0) + dt
+		-- Only measurable while auras are readable. In restricted content (follower
+		-- dungeons / delves / rituals) the player's OWN buffs are secret, so we can't
+		-- tell if Ironfur/Shield Block/etc is up. Accumulate readable time separately
+		-- so ShowSummary reports "hidden here" instead of a false 0% (Rob 16 jul: hit
+		-- this on a Druid tank in a follower dungeon — Ironfur x4 but uptime 0%).
+		if ns.Aura and ns.Aura.Trusted and ns.Aura.Trusted() then
+			mitReadableTime = (mitReadableTime or 0) + dt
+			if IsMitUp(mitId) then
+				upTime = (upTime or 0) + dt
+			end
 		end
 	elseif specID == 268 and UnitStagger and UnitHealthMax then
 		-- Brewmaster: no simple buff — measure how low you kept the Stagger pool.
@@ -198,7 +212,7 @@ f:SetScript("OnEvent", function(_, event, unit, _, spellID)
 			tracked = BuildTracked(specID)
 			wipe(castCount)
 			mitId = MITIGATION_UPTIME[specID]
-			upTime, sampleAccum = 0, 0
+			upTime, sampleAccum, mitReadableTime = 0, 0, 0
 			staggerAccum, staggerValidTime = 0, 0
 			sawEncounter = false
 			f:SetScript("OnUpdate", Sampler)

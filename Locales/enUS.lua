@@ -3299,6 +3299,7 @@ ns._mhLocales.enUS = {
 	PULLSUM_HEAD = "Pull summary",
 	PULLSUM_NO_MIT = "no active mitigation pressed",
 	PULLSUM_UPTIME_FMT = "uptime %d%%",
+	PULLSUM_UPTIME_HIDDEN = "uptime hidden here — buffs are secret in this content",
 	PULLSUM_STAGGER_FMT = "avg Stagger %d%% HP, lower is better",
 	PULLSUM_DEF_FMT = "%s used",
 	PULLSUM_NO_DEF = "no defensive cooldown used",
