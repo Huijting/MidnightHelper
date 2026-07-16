@@ -46,9 +46,9 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 ## 🟡 4. Healer-toolkit + Academy  *(healer-spec nodig — Cisca?)*
 
 - [x] `/mh healcds` → **cheat-sheet van healing-cooldowns** voor je spec, met soort-labels.
-- [ ] Academy → **Healer-toolkit**: spec-aware, **tooltips bij hover** over de spells.
-- [ ] Academy → **heal-course** (beginner) is uitgebreid/leest goed.
-- [ ] "Wat kun jij dispellen"-referentie klopt voor je spec.
+- [x] Academy → **Healer-toolkit**: spec-aware, **tooltips bij hover** over de spells.
+- [x] Academy → **heal-course** (beginner) is uitgebreid/leest goed.
+- [x] "Wat kun jij dispellen"-referentie klopt voor je spec.
 - [x] `/mh dispelprobe` (+ `watch`) → meldt of party/raid-debuffs **leesbaar** of **secret** zijn. *(secret bevestigd: live dispel niet mogelijk)*
 
 ## 🟡 5. Tank- & DPS-toolkit  *(per rol)*
