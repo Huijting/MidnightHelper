@@ -364,8 +364,8 @@ function ns.ArmDispelProbe()
 		return
 	end
 	probeArmed = true
-	print(p .. "dispel probe |cff40c040ARMED|r — pull now; it fires the moment a GROUP MEMBER (not you) is debuffed. Times out in 30s.")
-	local ticks = 60 -- 60 x 0.5s = 30s
+	print(p .. "dispel probe |cff40c040ARMED|r — pull now; it fires the moment a GROUP MEMBER (not you) is debuffed. Times out in 90s.")
+	local ticks = 180 -- 180 x 0.5s = 90s
 	local function tick()
 		if not probeArmed then
 			return
@@ -378,7 +378,7 @@ function ns.ArmDispelProbe()
 		ticks = ticks - 1
 		if ticks <= 0 then
 			probeArmed = false
-			print(p .. "dispel probe watch timed out — no ally debuff in 30s. Re-arm and pull a caster pack (they apply the debuffs).")
+			print(p .. "dispel probe watch timed out — no ally debuff in 90s. Re-arm and pull a caster pack (they apply the debuffs).")
 			return
 		end
 		C_Timer.After(0.5, tick)
