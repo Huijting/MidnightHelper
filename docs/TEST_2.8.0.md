@@ -59,9 +59,9 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 
 ## 🟡 6. Mythic+ advisor  *(al deels getest)*
 
-- [ ] `/mh mplus` → advisor toont per keystone-level de **gear-hint** (verwijst naar
+- [x] `/mh mplus` → advisor toont per keystone-level de **gear-hint** (verwijst naar
       keystone-tooltip / Great Vault — **geen** rare ilvl-tabel meer).
-- [ ] Per-dungeon **season-best** verschijnt ook zonder runs deze week (geen lege lijst).
+- [x] Per-dungeon **season-best** verschijnt ook zonder runs deze week (geen lege lijst).
 
 ## 🟡 7. Openables
 
