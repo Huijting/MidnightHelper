@@ -90,8 +90,11 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 - [x] Dungeon Coach: **geen** Altar of Fangs, King's Rest, Sethraliss, Ruby Life Pools zichtbaar.
 - [x] Boss-lijst / zoek: **geen** The Venomous Abyss / Tidebound Grotto.
 - [x] M+-pool = nog de **Season 1**-pool (8 dungeons), geen `[S2]`-badges.
-- [ ] (Optioneel op **PTR** (12.1) via `copy_to_ptr.bat`: dán verschijnen ze wél,
+- [x] (Optioneel op **PTR** (12.1) via `copy_to_ptr.bat`: dán verschijnen ze wél,
       met gelokaliseerde bossnamen = bewijs dat de IDs kloppen.)
+      **GEDAAN 16 jul:** PTR toont Venomous Abyss, Tidebound Grotto, Altar of Fangs,
+      Kings' Rest, Sethraliss, Ruby Life Pools. De EJ-naam "Kings' Rest" won van onze
+      fallback "King's Rest" → **journalInstanceID 1041 resolvet bewezen** (idem 1030/1202).
 
 ---
 
