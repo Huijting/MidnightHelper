@@ -73,42 +73,21 @@ local function Speak(text)
 	pcall(C_VoiceChat.SpeakText, voiceId, text, 2, 0, 100)
 end
 
--- Which chat channel to shout a whiff into (nil when solo).
-local function GroupChannel()
-	if IsInGroup and LE_PARTY_CATEGORY_INSTANCE and IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
-		return "INSTANCE_CHAT" -- LFG/instance-formed group
-	elseif IsInRaid and IsInRaid() then
-		return "RAID"
-	elseif IsInGroup and IsInGroup() then
-		return "PARTY"
-	end
-	return nil
-end
-
--- A wasted kick (nothing was casting). Two INDEPENDENT opt-ins, anti-spammed together:
---  • local alert (sound + hint) — build-gated to pre-12.1 (12.1 shows its own visual);
---  • party-chat shout of YOUR OWN whiff — self-reported (your name), works in both builds
---    (the group never sees your miss otherwise), only in a group. Never announces anyone else.
+-- A wasted kick: you pressed your interrupt but nothing got interrupted (usually
+-- nothing was casting — a proactive/early kick). This is a PERSONAL training nudge,
+-- local-only and opt-in (/mh kicks alert), build-gated to pre-12.1 (12.1 has its own
+-- visual), throttled by ANNOUNCE_CD. NO party-chat shout: a wasted kick is not a
+-- "missed interrupt", and broadcasting every proactive kick to the group is spammy
+-- and reads as an accusation — dropped (Rob 16 jul).
 local function OnWasted()
 	local now = (GetTime and GetTime()) or 0
 	if now - lastAnnounce < ANNOUNCE_CD then
 		return
 	end
-	local fired = false
 	if ns.db and ns.db.interruptMissAlert and ns.ShouldShowLocalMissHint() then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
-		print(("%s |cffff7d7d%s|r"):format(prefix, ns:L("INTERRUPT_MISS_HINT")))
+		print(("%s |cffffcf7d%s|r"):format(prefix, ns:L("INTERRUPT_MISS_HINT")))
 		Speak(ns:L("INTERRUPT_MISS_TTS"))
-		fired = true
-	end
-	if ns.db and ns.db.interruptMissParty then
-		local channel = GroupChannel()
-		if channel and SendChatMessage then
-			pcall(SendChatMessage, (ns:L("INTERRUPT_MISS_PARTY_FMT")):format(UnitName("player") or "?"), channel)
-			fired = true
-		end
-	end
-	if fired then
 		lastAnnounce = now
 	end
 end
@@ -207,12 +186,6 @@ function ns.HandleInterruptCommand(arg)
 		ns.db = ns.db or {}
 		ns.db.interruptMissAlert = not ns.db.interruptMissAlert
 		print(("%s %s"):format(prefix, ns:L(ns.db.interruptMissAlert and "INTERRUPT_ALERT_ON" or "INTERRUPT_ALERT_OFF")))
-		return
-	end
-	if arg == "party" then
-		ns.db = ns.db or {}
-		ns.db.interruptMissParty = not ns.db.interruptMissParty
-		print(("%s %s"):format(prefix, ns:L(ns.db.interruptMissParty and "INTERRUPT_PARTY_ON" or "INTERRUPT_PARTY_OFF")))
 		return
 	end
 	if arg == "reset" then

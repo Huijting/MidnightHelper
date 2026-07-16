@@ -435,8 +435,8 @@ ns._mhLocales.enUS = {
 	MPLUS_CMD_GAIN_NOTE = "Top of the list (not run / lowest) is where another key adds the most rating.",
 	MPLUS_CMD_GEAR_HINT = "Gear: hover a keystone for the exact item levels it awards, and check the Great Vault for the weekly reward — higher keys go from Champion to Hero to Myth.",
 	-- Spec 14: local interrupt scorecard (your own kicks) + opt-in pre-12.1 whiff alert.
-	INTERRUPT_MISS_HINT = "Nooo — you missed! Nothing was casting.",
-	INTERRUPT_MISS_TTS = "Noooo you missed",
+	INTERRUPT_MISS_HINT = "Kick used with nothing casting — save it for an interruptible cast.",
+	INTERRUPT_MISS_TTS = "Save your kick",
 	INTERRUPT_MISS_PARTY_FMT = "Nooo — %s missed that interrupt!",
 	INTERRUPT_KICKS_FMT = "Interrupts this run: %d landed, %d wasted.",
 	INTERRUPT_KICKS_NONE = "No interrupts tracked yet this run.",
