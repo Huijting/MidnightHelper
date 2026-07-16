@@ -861,6 +861,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh dispelprobe — check whether party/raid debuffs are readable (vs secret)
 	-- on this client, to decide if a live dispel heads-up is feasible.
+	-- /mh dispelprobe watch — auto-fire the probe on the first ally debuff (no manual timing).
+	if msg == "dispelprobe watch" then
+		if ns.ArmDispelProbe then
+			ns.ArmDispelProbe()
+		end
+		return
+	end
 	if msg == "dispelprobe" then
 		if ns.PrintDispelProbe then
 			ns.PrintDispelProbe()

@@ -304,11 +304,84 @@ function ns.PrintDispelProbe()
 	end
 	local verdict
 	if nDebuffs == 0 then
-		verdict = "no debuffs to sample — rerun while allies are actually debuffed."
+		verdict = "no debuffs to sample — rerun while allies are actually debuffed (try /mh dispelprobe watch)."
 	elseif typeOK > 0 then
 		verdict = "|cff40c040FEASIBLE|r — the debuff school reads through, a live alert can identify dispels."
 	else
 		verdict = "|cffff5040NOT possible here|r — the debuff school is secret, so a live alert can't tell what to dispel."
 	end
 	print("  => live dispel alert: " .. verdict)
+end
+
+-- Does any group member (NOT you) currently carry at least one debuff? Drives the
+-- auto-watch below so you don't have to time /mh dispelprobe by hand — the probe
+-- reads OTHER units' auras, so the debuff must land on an ally, not yourself.
+local function AnyAllyDebuffed()
+	local units = {}
+	if IsInRaid and IsInRaid() then
+		for i = 1, 40 do
+			local u = "raid" .. i
+			if UnitExists(u) and not UnitIsUnit(u, "player") then
+				units[#units + 1] = u
+			end
+		end
+	elseif IsInGroup and IsInGroup() then
+		for i = 1, 4 do
+			local u = "party" .. i
+			if UnitExists(u) then
+				units[#units + 1] = u
+			end
+		end
+	end
+	for _, u in ipairs(units) do
+		local found = false
+		Aura.ForEachUnitDebuff(u, function()
+			found = true
+		end)
+		if found then
+			return true
+		end
+	end
+	return false
+end
+
+-- /mh dispelprobe watch — arm the probe so it fires AUTOMATICALLY the moment an
+-- ally is debuffed, instead of you having to catch the split-second by hand.
+-- Polls twice a second for up to 30s, then stands down.
+local probeArmed = false
+function ns.ArmDispelProbe()
+	local p = "|cffffff78Midnight Helper:|r "
+	if probeArmed then
+		print(p .. "dispel probe watch is already armed — pull and it fires on the first ally debuff.")
+		return
+	end
+	if not (C_Timer and C_Timer.After) then
+		ns.PrintDispelProbe() -- no timer support → just snapshot now
+		return
+	end
+	if AnyAllyDebuffed() then
+		ns.PrintDispelProbe() -- already a debuff up → probe immediately
+		return
+	end
+	probeArmed = true
+	print(p .. "dispel probe |cff40c040ARMED|r — pull now; it fires the moment a GROUP MEMBER (not you) is debuffed. Times out in 30s.")
+	local ticks = 60 -- 60 x 0.5s = 30s
+	local function tick()
+		if not probeArmed then
+			return
+		end
+		if AnyAllyDebuffed() then
+			probeArmed = false
+			ns.PrintDispelProbe()
+			return
+		end
+		ticks = ticks - 1
+		if ticks <= 0 then
+			probeArmed = false
+			print(p .. "dispel probe watch timed out — no ally debuff in 30s. Re-arm and pull a caster pack (they apply the debuffs).")
+			return
+		end
+		C_Timer.After(0.5, tick)
+	end
+	C_Timer.After(0.5, tick)
 end
