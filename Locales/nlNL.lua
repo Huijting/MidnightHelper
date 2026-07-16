@@ -3135,6 +3135,8 @@ ns._mhLocales.nlNL = {
 	-- Spec 12 popup: restricted content (het spel verbergt de oorzaak) + de klik-hint.
 	DEATH_RECAP_RESTRICTED = "Iets kreeg je hier te pakken — en het spel verbergt de details in deze content. Open de Death Recap om te zien wat je raakte, en let volgende keer op de rode grond.",
 	DEATH_RECAP_OPEN_HINT = "Klik om de Death Recap te openen.",
+	DEATH_AUTOOPEN_ON = "Death Recap opent automatisch waar het spel de oorzaak verbergt (delves, rituals, follower dungeons).",
+	DEATH_AUTOOPEN_OFF = "Death Recap opent niet meer automatisch — klik de dood-popup om 'm zelf te openen.",
 	DEATH_RECAP_OPEN_FAILED = "Kon de Death Recap niet openen — deze client biedt 'm niet aan. Gebruik het skull-icoontje op je release-scherm.",
 
 	-- Healer cooldown-spiekbriefje (healer-initiatief, deel 1)

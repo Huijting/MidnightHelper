@@ -844,6 +844,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh death — probe C_DeathInfo + what we can read of the last death recap,
 	-- so the beginner death-recap can be finalised against the real API.
+	-- /mh death auto — toggle auto-opening Blizzard's recap on a restricted-content death.
+	if msg == "death auto" then
+		if ns.ToggleDeathRecapAutoOpen then
+			ns.ToggleDeathRecapAutoOpen()
+		end
+		return
+	end
 	if msg == "death" then
 		if ns.PrintDeathRecapDiagnostics then
 			ns.PrintDeathRecapDiagnostics()

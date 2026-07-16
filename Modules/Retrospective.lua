@@ -212,12 +212,38 @@ end
 -- Restricted content (delves / follower dungeons / rituals): we never read the combat log
 -- there (it's forbidden/secret), so we can't name the cause — point at Blizzard's Death
 -- Recap, which is not subject to the addon restriction and CAN show it.
+-- Auto-open Blizzard's recap in restricted content? Default ON: there we cannot name the
+-- cause ourselves, so the recap is the ONLY explanation — and a true beginner (the whole
+-- reason this exists: Carola died twice in a ritual not knowing why) will not think to
+-- click a popup. In readable dungeons we already print the cause, so we never auto-open
+-- there. /mh death auto toggles it off for anyone who just wants to release and move on.
+local function autoOpenEnabled()
+	return not (ns.db and ns.db.deathRecapAutoOpen == false)
+end
+
 local function ShowRestrictedDeathLesson()
 	if GetTime() - lastShown < COOLDOWN then
 		return
 	end
 	lastShown = GetTime()
 	ShowDeathPopup(ns:L("DEATH_RECAP_RESTRICTED") .. "\n|cff9d9d9d" .. ns:L("DEATH_RECAP_OPEN_HINT") .. "|r")
+	if autoOpenEnabled() and C_Timer and C_Timer.After then
+		-- Small delay: at PLAYER_DEAD the recap is not populated yet, so opening
+		-- immediately would risk an empty window.
+		C_Timer.After(1, function()
+			pcall(OpenBlizzardRecap)
+		end)
+	end
+end
+
+-- /mh death auto — toggle the auto-open above (the popup itself always stays).
+function ns.ToggleDeathRecapAutoOpen()
+	ns.db = ns.db or {}
+	ns.db.deathRecapAutoOpen = not autoOpenEnabled()
+	print(("|cffffcc00%s|r %s"):format(
+		ns:L("PRINT_PREFIX"), ns:L(autoOpenEnabled() and "DEATH_AUTOOPEN_ON" or "DEATH_AUTOOPEN_OFF")
+	))
+	return autoOpenEnabled()
 end
 
 -- Register the heavy combat-log event ONLY while inside a tracked instance.
