@@ -572,8 +572,32 @@ local function RenderDpsToolkit(panel, child, y, cw)
 		y = AddToolkitLine(panel, child, cw, y,
 			"|cff9d9d9d" .. (SL("HEALTOOLKIT_PREVIEW_FMT")):format(ToolkitSpecName(specID)) .. "|r", false)
 	end
-	local cds = ns.GetDpsCooldowns and ns.GetDpsCooldowns(specID)
-	if cds then
+	-- On your OWN active spec, hide abilities you don't have — e.g. Berserk vs its
+	-- talent replacement Incarnation, or an untalented Feral Frenzy — so the list
+	-- shows what's actually on your bars. When previewing another spec (no activeID)
+	-- we can't know their talents, so show everything. Fail open on any API hiccup.
+	local function toolkitHas(id)
+		if not (activeID and IsPlayerSpell) then
+			return true
+		end
+		local ok, known = pcall(IsPlayerSpell, id)
+		if not ok then
+			return true
+		end
+		return known
+	end
+	local function shownEntries(list)
+		local out = {}
+		for _, e in ipairs(list or {}) do
+			if toolkitHas(e.id) then
+				out[#out + 1] = e
+			end
+		end
+		return out
+	end
+
+	local cds = shownEntries(ns.GetDpsCooldowns and ns.GetDpsCooldowns(specID))
+	if #cds > 0 then
 		y = AddToolkitLine(panel, child, cw, y, SL("DPSKIT_CDS_HEAD"), true)
 		y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. SL("DPSKIT_GUIDE") .. "|r", false)
 		for _, c in ipairs(cds) do
@@ -583,8 +607,8 @@ local function RenderDpsToolkit(panel, child, y, cw)
 			y = AddToolkitLine(panel, child, cw, y, line, false, c.id)
 		end
 	end
-	local defs = ns.GetDpsDefensives and ns.GetDpsDefensives(specID)
-	if defs then
+	local defs = shownEntries(ns.GetDpsDefensives and ns.GetDpsDefensives(specID))
+	if #defs > 0 then
 		y = y - 4
 		y = AddToolkitLine(panel, child, cw, y, SL("DPSKIT_DEF_HEAD"), true)
 		for _, d in ipairs(defs) do

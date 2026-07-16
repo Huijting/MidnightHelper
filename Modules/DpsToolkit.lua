@@ -25,7 +25,7 @@ ns.DPS_COOLDOWNS = {
 	[252] = { { id = 42650, cd = 90 }, { id = 391109, cd = 60 } }, -- Unholy DK: Army of the Dead, Dark Ascension
 	[577] = { { id = 191427, cd = 120 }, { id = 370965, cd = 90 } }, -- Havoc DH: Metamorphosis, The Hunt
 	[102] = { { id = 194223, cd = 180 }, { id = 202770, cd = 60 } }, -- Balance Druid: Celestial Alignment, Fury of Elune
-	[103] = { { id = 106951, cd = 180 }, { id = 102543, cd = 180 } }, -- Feral Druid: Berserk, Incarnation: Avatar of Ashamane
+	[103] = { { id = 5217, cd = 30 }, { id = 106951, cd = 180 }, { id = 102543, cd = 180 }, { id = 274837, cd = 45 } }, -- Feral Druid: Tiger's Fury (30s core CD), Berserk / Incarnation: Avatar of Ashamane (talent alt — render filters to the one you have), Feral Frenzy (talent)
 	[1467] = { { id = 375087, cd = 120 }, { id = 357208, cd = 30 } }, -- Devastation Evoker: Dragonrage, Fire Breath
 	[1473] = { { id = 403631, cd = 120 } }, -- Augmentation Evoker: Breath of Eons
 	[253] = { { id = 19574, cd = 90 }, { id = 359844, cd = 120 } }, -- BM Hunter: Bestial Wrath, Call of the Wild
