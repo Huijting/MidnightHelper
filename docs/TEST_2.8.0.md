@@ -71,7 +71,7 @@ Rob = **Prot Paladin** (tank). Waar een andere rol/spec nodig is, staat het erbi
 
 ## 🟡 8. Keybind-coach  *(als Prot Paladin)*
 
-- [ ] Interrupt-kaart toont de **off-interrupt cluster** (Spec 08 cross-listing) —
+- [x] Interrupt-kaart toont de **off-interrupt cluster** (Spec 08 cross-listing) —
       Blinding Light hoort er NIET bij.
 - [x] De keyboard-layout klopt met de nieuwe `alsoStop`/agent-audit-fixes. *(Feral geverifieerd)*
 - [x] (Druid, indien beschikbaar: vormen op **Shift+R/T/X** in élke spec, Travel op R.)
