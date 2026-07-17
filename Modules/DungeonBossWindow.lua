@@ -1086,6 +1086,10 @@ function ns.PrintBossWindowDiag()
 		print(P .. " " .. s)
 	end
 
+	-- Build stamp: if this line is missing after /reload, the game is loading an
+	-- OLDER copy of MidnightHelper than the folder we edit (a second install?).
+	line("|cff66ccff[build: apostrophe-fold + name-bytes, 18 jul]|r")
+
 	local autoOn = ns.IsBossWindowAutoOpenEnabled()
 	local inCombat = InCombatLockdown() and true or false
 	local inInst, instType = IsInInstance()
