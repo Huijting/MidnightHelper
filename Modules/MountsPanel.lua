@@ -48,6 +48,11 @@ local function AcquireRow(i)
 	end
 	row = CreateFrame("Button", nil, ui.child)
 	row:SetHeight(LINE_H)
+	-- Subtle hover/focus highlight; also LockHighlight'd briefly when a wishlist
+	-- click jumps here, so the eye lands on the right row.
+	row:SetHighlightTexture("Interface\\Buttons\\UI-Listbox-Highlight2", "ADD")
+	local hl = row:GetHighlightTexture()
+	if hl then hl:SetAlpha(0.35) end
 	local fs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	fs:SetPoint("LEFT", row, "LEFT", 0, 0)
 	fs:SetPoint("RIGHT", row, "RIGHT", 0, 0)
@@ -105,6 +110,12 @@ end
 
 local mountPreview
 local mountPreviewGen = 0
+
+-- Set by a wishlist click (FocusMountInPanel). For a brief window the row that
+-- happens to sit under the stationary cursor after a tab switch must not steal
+-- the preview from the mount we jumped to; real hovers after that work normally.
+local focusMountID
+local focusGuardUntil = 0
 
 local function EnsureMountPreview()
 	if mountPreview then
@@ -250,6 +261,16 @@ function ns.FocusMountInPanel(mountID)
 			local want = math.max(0, math.min(-yOff - 8, range))
 			pcall(ui.scroll.SetVerticalScroll, ui.scroll, want)
 		end
+		-- Guard the preview against the cursor-under-list steal, and flash the row.
+		focusMountID = mountID
+		focusGuardUntil = GetTime() + 0.6
+		target:LockHighlight()
+		local flashed = target
+		if C_Timer and C_Timer.After then
+			C_Timer.After(1.2, function()
+				if flashed then flashed:UnlockHighlight() end
+			end)
+		end
 		ShowMountPreview(target, mountID)
 	end
 	if C_Timer and C_Timer.After then
@@ -288,6 +309,13 @@ end
 
 -- Row hover: tooltip near the cursor + the floating 3D preview beside the window.
 local function OnMountRowEnter(self)
+	-- Don't let the row under a stationary cursor hijack a just-clicked wishlist
+	-- mount. Once the guard expires (or the cursor reaches the focused row itself),
+	-- hovering behaves normally again.
+	if focusMountID and self._mhMountID ~= focusMountID and GetTime() < focusGuardUntil then
+		return
+	end
+	focusMountID = nil
 	ShowMountTooltip(self)
 	ShowMountPreview(self, self._mhMountID)
 end
