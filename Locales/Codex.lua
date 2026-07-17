@@ -82,6 +82,9 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 
 	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
 	CODEX_CUR_DAWN_BODY = "• Raid-tier crafting currency (Great Vault raid slots, catalyst-adjacent progression).|n• Live crest counts are on |cffffffffBasics -> Dawncrests|r (not in this list).|n• Not the same as delve keys — see that guide for spend targets and weekly caps.",
+	CODEX_NAV_BASICS_TRACKS = "Gear tracks",
+	CODEX_TRACKS_TITLE = "Gear upgrade tracks",
+	CODEX_TRACKS_BODY = "• Gear doesn't just have an item level — it sits on a |cfffffffftrack|r. Low to high: |cffffffffAdventurer|r (green), |cffffffffVeteran|r, |cffffffffChampion|r, |cffffffffHero|r, |cffffffffMyth|r.|n• Each track has its own crest colour. Harder content drops gear on a higher track — that's how you climb.|n• Outgrown a track? Trade lower crests up at |cffffffffVaskarn|r. Upgrade at |cffffffffCuzoth|r in Silvermoon.|n• Each track has an «…of the Dawn» achievement: earn it and your whole |cffffffffWarband|r gets a 50% upgrade discount on that track.|n• Live counts, weekly caps (~100 per colour) and waypoints: |cffffffffBasics -> Dawncrests|r.",
 
 	CODEX_DELVES_INTRO_TITLE = "Midnight delves — overview",
 	CODEX_DELVES_INTRO_BODY = "• Solo or small-group scenarios across Eversong, Harandar, Voidstorm, etc.|n• |cffffffffTier 1–11+|r — higher tier = harder enemies and better item level in the vault.|n• Costs a |cffffffffRestored Coffer Key|r per run (see Currencies).|n• |cffffffffBountiful|r delves (rotating) give extra loot — use \"Find Nearest Bountiful Delve\" on the Delves tab.",
@@ -188,6 +191,9 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 
 	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
 	CODEX_CUR_DAWN_BODY = "• Currency di crafting di raid-tier (slot raid della Great Vault, progressione affine al catalyst).|n• I conteggi dei crest in tempo reale sono in |cffffffffBasics -> Dawncrests|r (non in questo elenco).|n• Non sono come le key delle delve — vedi quella guida per gli obiettivi di spesa e i cap settimanali.",
+	CODEX_NAV_BASICS_TRACKS = "Gear tracks",
+	CODEX_TRACKS_TITLE = "Gear upgrade tracks",
+	CODEX_TRACKS_BODY = "• L'equipaggiamento non ha solo un item level — sta su una |cfffffffftrack|r. Dal basso all'alto: |cffffffffAdventurer|r (verde), |cffffffffVeteran|r, |cffffffffChampion|r, |cffffffffHero|r, |cffffffffMyth|r.|n• Ogni track ha il suo colore di crest. I contenuti più difficili fanno cadere equip su una track più alta — è così che sali.|n• Track superata? Scambia i crest inferiori da |cffffffffVaskarn|r. Potenzia da |cffffffffCuzoth|r a Silvermoon.|n• Ogni track ha un achievement «…of the Dawn»: ottienilo e tutta la tua |cffffffffWarband|r riceve il 50% di sconto sui potenziamenti di quella track.|n• Conteggi live, cap settimanali (~100 per colore) e waypoint: |cffffffffBasics -> Dawncrests|r.",
 
 	CODEX_DELVES_INTRO_TITLE = "Midnight delves — panoramica",
 	CODEX_DELVES_INTRO_BODY = "• Scenari in solitaria o in piccolo gruppo tra Eversong, Harandar, Voidstorm, ecc.|n• |cffffffffTier 1–11+|r — tier più alto = nemici più difficili e item level migliore nella vault.|n• Costa una |cffffffffRestored Coffer Key|r a run (vedi Currencies).|n• Le delve |cffffffffBountiful|r (a rotazione) danno loot extra — usa \"Find Nearest Bountiful Delve\" nella scheda Delves.",
@@ -300,6 +306,9 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 
 	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
 	CODEX_CUR_DAWN_BODY = "• Raid-tier crafting currency.|n• Live crest-saldi staan op |cffffffffBasics -> Dawncrests|r (niet in deze lijst).|n• Niet hetzelfde als delve keys — zie die gids voor uitgaven en weekly caps.",
+	CODEX_NAV_BASICS_TRACKS = "Gear tracks",
+	CODEX_TRACKS_TITLE = "Gear upgrade tracks",
+	CODEX_TRACKS_BODY = "• Gear heeft niet alleen een item level — het zit op een |cfffffffftrack|r. Laag naar hoog: |cffffffffAdventurer|r (groen), |cffffffffVeteran|r, |cffffffffChampion|r, |cffffffffHero|r, |cffffffffMyth|r.|n• Elke track heeft z'n eigen crest-kleur. Zwaardere content dropt gear op een hogere track — zo klim je.|n• Track ontgroeid? Ruil lagere crests om bij |cffffffffVaskarn|r. Upgraden doe je bij |cffffffffCuzoth|r in Silvermoon.|n• Elke track heeft een «…of the Dawn» achievement: haal 'm en je hele |cffffffffWarband|r krijgt 50% upgradekorting op die track.|n• Live saldi, weekly caps (~100 per kleur) en waypoints: |cffffffffBasics -> Dawncrests|r.",
 
 	CODEX_DELVES_INTRO_TITLE = "Midnight delves — overzicht",
 	CODEX_DELVES_INTRO_BODY = "• Solo of kleine groep in Eversong, Harandar, Voidstorm, …|n• |cffffffffTier 1–11+|r — hogere tier = moeilijker en betere ilvl in vault.|n• Kost |cffffffffRestored Coffer Key|r per run.|n• |cffffffffBountiful|r delves geven extra loot — knop op Delves-tab.",
@@ -408,6 +417,9 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 
 	CODEX_CUR_DAWN_TITLE = "Dawncrests (Crests)",
 	CODEX_CUR_DAWN_BODY = "• Crafting-Währung der Raid-Stufe (Raid-Slots der Großen Schatzkammer, katalysatornahe Progression).|n• Live-Crest-Stände stehen auf |cffffffffBasics -> Dawncrests|r (nicht in dieser Liste).|n• Nicht dasselbe wie Tiefen-Keys — siehe jenen Guide für Ausgabeziele und Wochen-Caps.",
+	CODEX_NAV_BASICS_TRACKS = "Gear tracks",
+	CODEX_TRACKS_TITLE = "Gear upgrade tracks",
+	CODEX_TRACKS_BODY = "• Ausrüstung hat nicht nur eine Gegenstandsstufe — sie liegt auf einer |cfffffffftrack|r. Von niedrig nach hoch: |cffffffffAdventurer|r (grün), |cffffffffVeteran|r, |cffffffffChampion|r, |cffffffffHero|r, |cffffffffMyth|r.|n• Jede Track hat ihre eigene Crest-Farbe. Schwerere Inhalte lassen Ausrüstung auf einer höheren Track fallen — so steigst du auf.|n• Track entwachsen? Tausche niedrigere Crests bei |cffffffffVaskarn|r. Aufwerten bei |cffffffffCuzoth|r in Silbermond.|n• Jede Track hat einen «…of the Dawn»-Erfolg: Hol ihn dir und deine ganze |cffffffffWarband|r bekommt 50% Aufwertungsrabatt auf dieser Track.|n• Live-Stände, wöchentliche Obergrenzen (~100 pro Farbe) und Wegpunkte: |cffffffffBasics -> Dawncrests|r.",
 
 	CODEX_DELVES_INTRO_TITLE = "Midnight-Tiefen — Übersicht",
 	CODEX_DELVES_INTRO_BODY = "• Solo- oder Kleingruppen-Szenarien über Eversong, Harandar, Voidstorm usw.|n• |cffffffffTier 1–11+|r — höhere Stufe = schwierigere Gegner und besseres Item-Level in der Vault.|n• Kostet pro Lauf einen |cffffffffRestored Coffer Key|r (siehe Currencies).|n• |cffffffffGroßzügige|r Tiefen (rotierend) geben Extra-Beute — nutze \"Find Nearest Bountiful Delve\" im Delves-Tab.",
@@ -516,6 +528,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 
 	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
 	CODEX_CUR_DAWN_BODY = "• Monnaie d'artisanat de palier raid (slots raid de la Grande chambre forte, progression proche du catalyseur).|n• Les totaux de crests en direct sont sur |cffffffffBasics -> Dawncrests|r (pas dans cette liste).|n• Pas la même chose que les keys de gouffre — vois ce guide pour les objectifs de dépense et les plafonds hebdo.",
+	CODEX_NAV_BASICS_TRACKS = "Gear tracks",
+	CODEX_TRACKS_TITLE = "Gear upgrade tracks",
+	CODEX_TRACKS_BODY = "• L'équipement n'a pas qu'un niveau d'objet — il se trouve sur une |cfffffffftrack|r. Du bas vers le haut : |cffffffffAdventurer|r (vert), |cffffffffVeteran|r, |cffffffffChampion|r, |cffffffffHero|r, |cffffffffMyth|r.|n• Chaque track a sa propre couleur de crest. Le contenu plus difficile fait tomber de l'équipement sur une track supérieure — c'est ainsi que vous progressez.|n• Track dépassée ? Échangez les crests inférieurs chez |cffffffffVaskarn|r. Améliorez chez |cffffffffCuzoth|r à Lune-d'Argent.|n• Chaque track a un haut fait «…of the Dawn» : obtenez-le et toute votre |cffffffffWarband|r reçoit 50% de réduction sur les améliorations de cette track.|n• Comptes en direct, plafonds hebdomadaires (~100 par couleur) et points de passage : |cffffffffBasics -> Dawncrests|r.",
 
 	CODEX_DELVES_INTRO_TITLE = "Gouffres Midnight — aperçu",
 	CODEX_DELVES_INTRO_BODY = "• Scénarios en solo ou petit groupe à travers Eversong, Harandar, Voidstorm, etc.|n• |cffffffffTier 1–11+|r — palier plus haut = ennemis plus durs et meilleur niveau d'objet dans la vault.|n• Coûte un |cffffffffRestored Coffer Key|r par run (voir Currencies).|n• Les gouffres |cffffffffgénéreux|r (en rotation) donnent du butin en plus — utilise \"Find Nearest Bountiful Delve\" dans l'onglet Delves.",
@@ -624,6 +639,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 
 	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
 	CODEX_CUR_DAWN_BODY = "• Moneda de artesanía de nivel de raid (ranuras de raid de la Gran Bóveda, progresión cercana al catalizador).|n• Los recuentos de crests en vivo están en |cffffffffBasics -> Dawncrests|r (no en esta lista).|n• No es lo mismo que las keys de profundidad — mira esa guía para objetivos de gasto y límites semanales.",
+	CODEX_NAV_BASICS_TRACKS = "Gear tracks",
+	CODEX_TRACKS_TITLE = "Gear upgrade tracks",
+	CODEX_TRACKS_BODY = "• El equipo no solo tiene un nivel de objeto — está en una |cfffffffftrack|r. De menor a mayor: |cffffffffAdventurer|r (verde), |cffffffffVeteran|r, |cffffffffChampion|r, |cffffffffHero|r, |cffffffffMyth|r.|n• Cada track tiene su propio color de crest. El contenido más difícil suelta equipo en una track superior — así es como subes.|n• ¿Track superada? Cambia los crests inferiores con |cffffffffVaskarn|r. Mejora con |cffffffffCuzoth|r en Ciudad de Lunargenta.|n• Cada track tiene un logro «…of the Dawn»: consiéguelo y toda tu |cffffffffWarband|r obtiene un 50% de descuento en las mejoras de esa track.|n• Recuentos en vivo, límites semanales (~100 por color) y puntos de ruta: |cffffffffBasics -> Dawncrests|r.",
 
 	CODEX_DELVES_INTRO_TITLE = "Profundidades Midnight — resumen",
 	CODEX_DELVES_INTRO_BODY = "• Escenarios en solitario o en grupo pequeño por Eversong, Harandar, Voidstorm, etc.|n• |cffffffffTier 1–11+|r — nivel más alto = enemigos más duros y mejor nivel de objeto en la bóveda.|n• Cuesta una |cffffffffRestored Coffer Key|r por run (ver Currencies).|n• Las profundidades |cffffffffpródigas|r (rotatorias) dan botín extra — usa \"Find Nearest Bountiful Delve\" en la pestaña Delves.",
@@ -732,6 +750,9 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 
 	CODEX_CUR_DAWN_TITLE = "Dawncrests (crests)",
 	CODEX_CUR_DAWN_BODY = "• Moeda de fabricação de nível de raid (espaços de raid da Grande Câmara, progressão próxima do catalisador).|n• As contagens de crests ao vivo estão em |cffffffffBasics -> Dawncrests|r (não nesta lista).|n• Não é o mesmo que keys de profundeza — veja aquele guia para metas de gasto e limites semanais.",
+	CODEX_NAV_BASICS_TRACKS = "Gear tracks",
+	CODEX_TRACKS_TITLE = "Gear upgrade tracks",
+	CODEX_TRACKS_BODY = "• O equipamento não tem apenas um nível de item — ele está em uma |cfffffffftrack|r. De baixo para cima: |cffffffffAdventurer|r (verde), |cffffffffVeteran|r, |cffffffffChampion|r, |cffffffffHero|r, |cffffffffMyth|r.|n• Cada track tem sua própria cor de crest. Conteúdo mais difícil solta equipamento em uma track superior — é assim que você sobe.|n• Superou a track? Troque crests inferiores com |cffffffffVaskarn|r. Melhore com |cffffffffCuzoth|r em Luaprata.|n• Cada track tem uma conquista «…of the Dawn»: obtenha-a e toda a sua |cffffffffWarband|r ganha 50% de desconto nas melhorias dessa track.|n• Contagens ao vivo, limites semanais (~100 por cor) e pontos de rota: |cffffffffBasics -> Dawncrests|r.",
 
 	CODEX_DELVES_INTRO_TITLE = "Profundezas Midnight — visão geral",
 	CODEX_DELVES_INTRO_BODY = "• Cenários solo ou em grupo pequeno por Eversong, Harandar, Voidstorm, etc.|n• |cffffffffTier 1–11+|r — nível mais alto = inimigos mais difíceis e melhor nível de item na câmara.|n• Custa uma |cffffffffRestored Coffer Key|r por run (veja Currencies).|n• Profundezas |cfffffffffartas|r (rotativas) dão saque extra — use \"Find Nearest Bountiful Delve\" na aba Delves.",

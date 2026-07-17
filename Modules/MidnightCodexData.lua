@@ -208,6 +208,20 @@ ns.CODEX_ARTICLES = {
 		referenceSubTab = "dawncrest",
 		sort = 6,
 	},
+	{
+		-- The Dawncrest guide explains the *currency* (sources, vendors, caps). This
+		-- explains the *ladder* those crests upgrade along — the piece a beginner is
+		-- missing when a tooltip says "Champion" and means nothing to them.
+		id = "gear_tracks",
+		category = "currencies",
+		titleKey = "CODEX_TRACKS_TITLE",
+		bodyKey = "CODEX_TRACKS_BODY",
+		tabId = "reference",
+		tabLabelKey = "TAB_REFERENCE",
+		navLabelKey = "CODEX_NAV_BASICS_TRACKS",
+		referenceSubTab = "dawncrest",
+		sort = 7,
+	},
 
 	-- Delves
 	{
