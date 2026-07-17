@@ -133,6 +133,29 @@ local function FindDungeonByKey(key)
 	return nil
 end
 
+-- The roster dungeon we're standing in, via the Encounter Journal instance id.
+-- Reliable in restricted content (follower dungeons) where the boss GUID is
+-- secret but the instance itself is not — journalInstanceID matches the roster.
+local function DungeonForCurrentInstance()
+	if not (EJ_GetInstanceForMap and C_Map and C_Map.GetBestMapForUnit) then
+		return nil
+	end
+	local mapID = C_Map.GetBestMapForUnit("player")
+	if not mapID then
+		return nil
+	end
+	local ok, jid = pcall(EJ_GetInstanceForMap, mapID)
+	if not ok or not jid or jid == 0 then
+		return nil
+	end
+	for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do
+		if d.journalInstanceID == jid then
+			return d
+		end
+	end
+	return nil
+end
+
 local function FindBossIndex(d, bossKey)
 	for i, b in ipairs(d and d.bosses or {}) do
 		if b.key == bossKey then
@@ -142,8 +165,13 @@ local function FindBossIndex(d, bossKey)
 	return 1
 end
 
--- Buiten een dungeon: dungeon-van-de-week, anders Windrunner Spire.
+-- Binnen een dungeon: die dungeon (werkt óók in follower dungeons). Daarbuiten:
+-- dungeon-van-de-week, anders Windrunner Spire.
 local function DefaultDungeon()
+	local here = DungeonForCurrentInstance()
+	if here then
+		return here
+	end
 	if ns.GetDungeonOfTheWeek then
 		local ok, dow = pcall(ns.GetDungeonOfTheWeek)
 		if ok and dow then
@@ -948,6 +976,17 @@ end
 
 -- Hook vanuit DungeonLiveCoach bij ENCOUNTER_START: auto-open + meebladeren.
 function ns.BossWindowOnEncounter(dungeonKey, bossKey)
+	-- Onthoud waar we zijn, óók als we niet auto-openen: een latere /mh bosswin
+	-- landt dan op precies deze boss. Van belang in follower dungeons, waar de
+	-- NPC-tank kan pullen vóór je kunt pre-targeten. Alleen als het venster dicht
+	-- is, zodat we een handmatig geopend venster niet stil desyncen.
+	if not (win and win:IsShown()) then
+		local d = FindDungeonByKey(dungeonKey)
+		if d then
+			curDungeon = d
+			curIdx = FindBossIndex(d, bossKey)
+		end
+	end
 	-- Volledig pre-pull (Rob 2026-07-05): het venster opent alléén buiten combat (door een
 	-- boss te targeten). ENCOUNTER_START valt altijd ín combat → hier dus niet meer auto-openen,
 	-- zodat het venster tijdens de fight uit de weg blijft. (Sluiten gebeurt op PLAYER_REGEN_DISABLED.)
@@ -1052,6 +1091,23 @@ function ns.PrintBossWindowDiag()
 		end
 	end
 
+	-- Name-match fallback (secret GUID): dungeon-from-instance + readable name.
+	local nameDK, nameBK
+	local here = DungeonForCurrentInstance()
+	local hereKey = here and here.key or nil
+	if not matchDK and here and hasTarget then
+		local nm = UnitName("target")
+		if nm and not IsSecretValue(nm) then
+			for i, b in ipairs(here.bosses or {}) do
+				local ejName = ns.GetDungeonBossName and ns.GetDungeonBossName(b, here, i)
+				if ejName == nm or b.name == nm then
+					nameDK, nameBK = here.key, b.key
+					break
+				end
+			end
+		end
+	end
+
 	local classif = hasTarget and (UnitClassification("target") or "?") or "-"
 	local lvl = hasTarget and UnitLevel("target") or nil
 	local isBossFallback = hasTarget and (classif == "worldboss" or lvl == -1) and true or false
@@ -1066,9 +1122,12 @@ function ns.PrintBossWindowDiag()
 		line("npcID: " .. (npcID and tostring(npcID)
 			or (guidSecret and "hidden (secret GUID)" or "none (not a creature?)")))
 		line("boss-map match: " .. (matchDK and (matchDK .. ":" .. matchBK) or "no match in my ID map"))
+		line("name-match: " .. (nameDK and (nameDK .. ":" .. nameBK)
+			or (hereKey and ("no (in " .. hereKey .. ", name didn't match a boss)") or "no (instance not in roster)")))
 		line(("classification=%s level=%s -> boss-fallback: %s"):format(
 			classif, tostring(lvl), isBossFallback and "yes" or "no"))
 	end
+	line("instance dungeon: " .. (hereKey or "not a roster dungeon"))
 	line("current dungeon: " .. (curKey or "none set yet"))
 
 	local why
@@ -1082,10 +1141,14 @@ function ns.PrintBossWindowDiag()
 		why = "no target"
 	elseif matchDK then
 		why = nil -- opens via npcID
+	elseif nameDK then
+		why = nil -- opens via name-match in the current dungeon
 	elseif isBossFallback and curKey then
 		why = nil -- opens via boss-classification fallback
+	elseif hereKey then
+		why = "in " .. hereKey .. ", but the target's name matched no boss there (and its ID/level don't identify it)"
 	elseif not isBossFallback then
-		why = "target isn't recognised as a boss — its npcID isn't in my map, and it's neither worldboss- nor ??-level"
+		why = "target isn't recognised as a boss — no npcID, name didn't match, and it's neither worldboss- nor ??-level"
 	elseif not curKey then
 		why = "no current dungeon set yet — open once via /mh bosswin, or target a boss whose ID I know"
 	else
@@ -1093,7 +1156,9 @@ function ns.PrintBossWindowDiag()
 	end
 
 	if why == nil then
-		local dest = matchDK and (matchDK .. ":" .. matchBK) or (curKey or "?")
+		local dest = (matchDK and (matchDK .. ":" .. matchBK))
+			or (nameDK and (nameDK .. ":" .. nameBK))
+			or (curKey or "?")
 		line("|cff88ff88VERDICT: would open|r -> " .. dest)
 	else
 		line("|cffff8888VERDICT: would NOT open|r — " .. why)
@@ -1137,7 +1202,26 @@ targetFrame:SetScript("OnEvent", function(_, event)
 		end
 	end
 
-	-- Fallback: in instances kan de target-GUID 'secret' zijn (12.x), dan
+	-- Fallback A (follower dungeons/delves): de target-GUID is 'secret', dus geen
+	-- npcID — maar de NAAM en de instance zijn wél leesbaar. Bepaal de dungeon uit
+	-- de Encounter Journal en match de targetnaam op een boss ervan. Locale-veilig:
+	-- vergelijkt tegen de EJ-naam én de roster-naam. Draait alléén als npcID faalde,
+	-- dus normale dungeons (leesbare GUID) veranderen niet.
+	if not dungeonKey then
+		local here = DungeonForCurrentInstance()
+		local tname = UnitExists("target") and UnitName("target") or nil
+		if here and tname and not IsSecretValue(tname) then
+			for i, b in ipairs(here.bosses or {}) do
+				local ejName = ns.GetDungeonBossName and ns.GetDungeonBossName(b, here, i)
+				if ejName == tname or b.name == tname then
+					dungeonKey, bossKey = here.key, b.key
+					break
+				end
+			end
+		end
+	end
+
+	-- Fallback B: in instances kan de target-GUID 'secret' zijn (12.x), dan
 	-- geeft TargetNpcID niets. Val terug op classificatie: alleen een echte
 	-- boss heropent het venster, op de boss die nu vooraan staat.
 	if not dungeonKey then
