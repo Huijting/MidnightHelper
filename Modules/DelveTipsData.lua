@@ -335,11 +335,16 @@ function ns.IsDelveInstanceInProgress()
 	if C_PartyInfo and C_PartyInfo.IsDelveInProgress then
 		local ok, active = pcall(C_PartyInfo.IsDelveInProgress)
 		if ok and active == true then
-			-- A real delve run is always inside an instance. The API can read true in the
-			-- open world (e.g. a group world boss), which wrongly triggered the delve
-			-- consumables popup. Require an actual instance to rule that out. (Rob 9 jul)
-			if IsInInstance and not IsInInstance() then
-				return false
+			-- A real delve run is a SCENARIO instance. C_PartyInfo.IsDelveInProgress
+			-- reads true in places that are not delves: the open world with a group
+			-- world boss (Rob 9 jul) and inside FOLLOWER DUNGEONS, which are type
+			-- "party" (Rob 18 jul — the delve treasure toast wrongly popped in Voidscar
+			-- Arena). Requiring the instance to actually be a scenario rules out both.
+			if IsInInstance then
+				local inInst, instType = IsInInstance()
+				if not inInst or instType ~= "scenario" then
+					return false
+				end
 			end
 			return true
 		end
