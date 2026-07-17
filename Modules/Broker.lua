@@ -6,7 +6,10 @@
 
 local addonName, ns = ...
 
-local MINIMAP_ICON = "Interface\\AddOns\\MidnightHelper\\Media\\Platy1"
+-- The addon logo, same art as the .toc IconTexture and the main window's title bar.
+-- (This used to point at Platy1 — a 1258x684 screenshot of Platynator's nameplate
+-- legend, squashed into a square minimap button.)
+local MINIMAP_ICON = "Interface\\AddOns\\MidnightHelper\\Media\\Addon_Icon"
 
 -- AddonCompartment entry (the top-right addon button menu; wired via `## AddonCompartmentFunc`
 -- in the .toc). Clicking it toggles the main window, same as a left-click on the minimap icon.
