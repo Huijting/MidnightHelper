@@ -140,7 +140,10 @@ local function ensureFrame()
 	eb:SetScript("OnEscapePressed", function()
 		f:Hide()
 	end)
-	eb:SetScript("OnEditFocusGained", eb.HighlightText)
+	-- Wrap in a closure: WoW hands script handlers extra args, and passing the raw
+	-- eb.HighlightText method lets them land in HighlightText's start/stop params
+	-- ("bad argument #2 outside of expected range"). The closure passes only self.
+	eb:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
 	-- Read-only: keep the tag intact no matter what gets typed over it.
 	eb:SetScript("OnTextChanged", function(self, user)
 		if user then
@@ -174,7 +177,15 @@ function ns.ShowPawnExport()
 	f.hint:SetText(ns:L("PAWN_COPY_HINT"))
 	f.eb._mhText = tag
 	f.eb:SetText(tag)
+	f.eb:SetCursorPosition(0) -- show the start of the tag, not its tail
 	f:Show()
-	f.eb:SetFocus()
-	f.eb:HighlightText()
+	-- Defer focus + highlight off the current call stack: /mh pawn runs this inside
+	-- the chat editbox's ParseText, and grabbing focus mid-parse is what surfaced the
+	-- HighlightText error. pcall-guarded so a cosmetic highlight can never break copy.
+	C_Timer.After(0, function()
+		if f:IsShown() then
+			pcall(f.eb.SetFocus, f.eb)
+			pcall(f.eb.HighlightText, f.eb)
+		end
+	end)
 end

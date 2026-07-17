@@ -86,10 +86,18 @@ local function showCopyBox(text, title)
 	copyFrame.title:SetText(title or "")
 	copyFrame.eb._t = text or ""
 	copyFrame.eb:SetText(text or "")
+	copyFrame.eb:SetCursorPosition(0)
 	copyFrame.hint:SetText(ns:L("DISCORD_COPY_HINT"))
 	copyFrame:Show()
-	copyFrame.eb:SetFocus()
-	copyFrame.eb:HighlightText()
+	-- Defer off the current stack: the /mh discord path runs this inside the chat
+	-- editbox's ParseText, where grabbing focus mid-parse errors. The nudge-card
+	-- button doesn't hit that, but this covers both. pcall so it can never break.
+	C_Timer.After(0, function()
+		if copyFrame:IsShown() then
+			pcall(copyFrame.eb.SetFocus, copyFrame.eb)
+			pcall(copyFrame.eb.HighlightText, copyFrame.eb)
+		end
+	end)
 end
 
 --------------------------------------------------------------------------------
