@@ -91,6 +91,7 @@ Modules\Changelog.lua
 Modules\VaultReminder.lua
 Modules\VaultAdvisorData.lua
 Modules\VaultAdvisor.lua
+Modules\PawnExport.lua
 Modules\MythicGain.lua
 Modules\LootUpgrade.lua
 Modules\BagUpgrade.lua

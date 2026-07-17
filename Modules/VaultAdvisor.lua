@@ -278,6 +278,16 @@ local function GetSpecWeights(activityHints)
 	return weights, key
 end
 
+--- The stat weights this advisor is scoring with right now, and the key they came from.
+--- Public so the Pawn export hands Pawn EXACTLY what the Vault advisor and the loot
+--- tips use — hero talent and content profile resolved by the one function that knows
+--- how, instead of a caller rebuilding the key and quietly drifting.
+--- @return table|nil weights  { crit=, haste=, mastery=, vers= }
+--- @return string|nil key     e.g. "DRUID_102" / "SHAMAN_263_HERO_35" / "..._MPLUS"
+function ns.GetCurrentSpecWeights(activityHints)
+	return GetSpecWeights(activityHints)
+end
+
 local function GetSpecWeightMeta(weightKey)
 	if not weightKey or not ns.VAULT_ADVISOR_SPEC_META then
 		return nil

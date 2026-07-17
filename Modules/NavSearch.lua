@@ -164,6 +164,11 @@ local function BuildNavIndex()
 			ns.PrintGroupBuffs()
 		end
 	end, nil, nil, "tool")
+	add(L("PAWN_TITLE"), "pawn stat weights export scale secondary", function()
+		if ns.ShowPawnExport then
+			ns.ShowPawnExport()
+		end
+	end, nil, nil, "tool")
 	add(L("NAV_TOOL_BOSSWIN"), "dungeon boss window tactics floating", function()
 		if ns.ToggleDungeonBossWindow then
 			ns.ToggleDungeonBossWindow()

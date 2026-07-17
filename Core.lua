@@ -773,6 +773,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh pawn — export this spec's stat weights as a Pawn scale string.
+	if msg == "pawn" then
+		if ns.ShowPawnExport then
+			ns.ShowPawnExport()
+		end
+		return
+	end
+
 	-- /mh auras — kunnen we auras lezen, en mogen we ze geloven? Eerste commando om te
 	-- draaien zodra 12.1 op de PTR staat (de aura-API verandert daar).
 	if msg == "auras" then
