@@ -765,6 +765,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh groupbuffs — which raid-wide class buffs is the group missing?
+	if msg == "groupbuffs" or msg == "gbuffs" then
+		if ns.PrintGroupBuffs then
+			ns.PrintGroupBuffs()
+		end
+		return
+	end
+
 	-- /mh auras — kunnen we auras lezen, en mogen we ze geloven? Eerste commando om te
 	-- draaien zodra 12.1 op de PTR staat (de aura-API verandert daar).
 	if msg == "auras" then

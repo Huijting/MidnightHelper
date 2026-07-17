@@ -159,6 +159,11 @@ local function BuildNavIndex()
 			ns.ShowConsumableBoard()
 		end
 	end, nil, nil, "tool")
+	add(L("GROUPBUFF_HEADER"), "group buffs raid missing intellect stamina fortitude battle shout", function()
+		if ns.PrintGroupBuffs then
+			ns.PrintGroupBuffs()
+		end
+	end, nil, nil, "tool")
 	add(L("NAV_TOOL_BOSSWIN"), "dungeon boss window tactics floating", function()
 		if ns.ToggleDungeonBossWindow then
 			ns.ToggleDungeonBossWindow()

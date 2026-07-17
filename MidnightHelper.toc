@@ -101,6 +101,7 @@ Modules\ConsumableReadyBoard.lua
 Modules\LayoutExtras.lua
 Modules\MissingBuffData.lua
 Modules\MissingBuff.lua
+Modules\GroupBuffs.lua
 Modules\CombatSafety.lua
 Modules\InterruptScore.lua
 Modules\Openables.lua

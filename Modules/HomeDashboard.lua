@@ -340,6 +340,23 @@ local function BuildLayout()
 		end
 	end
 
+	------------------------------------------------------------------ Group buffs (only when there's a real gap)
+	-- Silent when solo, when the group is fully buffed, and when the game hides other
+	-- players' auras (inside instances) — GetGroupBuffSteps returns nothing in all three,
+	-- so this block simply doesn't draw rather than claiming anything.
+	if ns.GetGroupBuffSteps then
+		local okG, gSteps = pcall(ns.GetGroupBuffSteps)
+		if okG and type(gSteps) == "table" and #gSteps > 0 then
+			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
+			addFull(function(rows)
+				header(rows, ns:L("GROUPBUFF_HEADER"))
+				for _, st in ipairs(gSteps) do
+					line(rows, st.text or "", colorMap[st.color] or COLOR_WARN)
+				end
+			end)
+		end
+	end
+
 	------------------------------------------------------------------ Reset routine (ordered, current character)
 	if ns.GetResetRoutineSteps then
 		local okSteps, steps = pcall(ns.GetResetRoutineSteps)
