@@ -18,11 +18,13 @@ local TOP_PAD = 12
 local LINE_H = 15
 local NAME_H = 17
 local BTN_H = 22
--- Wishlist star (Spec 13). Filled = wished. Rendered as text, not an atlas, so it
--- follows the row's font scaling for free.
-local STAR_W = 16
-local STAR_ON = "|cfff2cf6b*|r"
-local STAR_OFF = "|cff5a5468*|r"
+-- Wishlist star (Spec 13). The gold favourite-star atlas WoW uses in the mount/pet
+-- journals, so it reads instantly: bright gold = wished, dim grey = not. Bigger
+-- than the old asterisk, which was easy to miss. Atlas name verified against four
+-- installed addons (RaiderIO, WorldQuestTab, …) — a texture path would risk a
+-- green square.
+local STAR_W = 22
+local STAR_ATLAS = "PetJournal-FavoritesIcon"
 local MOUNT_GAP = 6
 
 -- Shared status palette (UI.lua). The fallbacks keep this module standalone.
@@ -48,8 +50,7 @@ local function AcquireRow(i)
 	end
 	row = CreateFrame("Button", nil, ui.child)
 	row:SetHeight(LINE_H)
-	-- Subtle hover/focus highlight; also LockHighlight'd briefly when a wishlist
-	-- click jumps here, so the eye lands on the right row.
+	-- Subtle hover highlight so rows read as interactive (and the star as clickable).
 	row:SetHighlightTexture("Interface\\Buttons\\UI-Listbox-Highlight2", "ADD")
 	local hl = row:GetHighlightTexture()
 	if hl then hl:SetAlpha(0.35) end
@@ -65,8 +66,9 @@ local function AcquireRow(i)
 	star:SetSize(STAR_W, STAR_W)
 	star:SetPoint("RIGHT", row, "RIGHT", 0, 0)
 	star:Hide()
-	star.fs = star:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-	star.fs:SetAllPoints(star)
+	star.tex = star:CreateTexture(nil, "OVERLAY")
+	star.tex:SetAtlas(STAR_ATLAS)
+	star.tex:SetAllPoints(star)
 	star:SetScript("OnClick", function(self)
 		local mid = self:GetParent()._mhMountID
 		if mid and ns.ToggleMountWish then
@@ -110,12 +112,6 @@ end
 
 local mountPreview
 local mountPreviewGen = 0
-
--- Set by a wishlist click (FocusMountInPanel). For a brief window the row that
--- happens to sit under the stationary cursor after a tab switch must not steal
--- the preview from the mount we jumped to; real hovers after that work normally.
-local focusMountID
-local focusGuardUntil = 0
 
 local function EnsureMountPreview()
 	if mountPreview then
@@ -229,54 +225,15 @@ function ns.DevGetMountPreviewFrame()
 	return mountPreview
 end
 
---- Wishlist click target: open MH's own Mounts tab, scroll to this mount and pop
---- its 3D preview — rather than dumping the user in Blizzard's generic journal.
---- Every wishlisted mount is a row here (the star only renders on panel rows), but
---- guard anyway and fall back to simply showing the tab.
-function ns.FocusMountInPanel(mountID)
+--- Wishlist click target: just open MH's own Mounts tab and show the list.
+--- Deliberately no scroll-to / select: where the list lands doesn't matter, and
+--- chasing the exact row fought the hover preview for no real gain.
+function ns.FocusMountInPanel()
 	if ns.SelectTab then
 		ns.SelectTab("mounts")
 	end
 	if ns.RefreshMountsPanel then
 		ns.RefreshMountsPanel()
-	end
-	if not (mountID and ui and ui.rows) then
-		return
-	end
-	-- Defer a frame: SelectTab's layout and the scroll range settle after this call.
-	local function jump()
-		local target
-		for _, row in ipairs(ui.rows) do
-			if row._mhMountID == mountID and row:IsShown() then
-				target = row
-				break
-			end
-		end
-		if not target then
-			return -- not a curated row (shouldn't happen); the tab is open, good enough
-		end
-		if ui.scroll then
-			local yOff = select(5, target:GetPoint(1)) or 0 -- rows sit at (0, -y)
-			local range = ui.scroll:GetVerticalScrollRange() or 0
-			local want = math.max(0, math.min(-yOff - 8, range))
-			pcall(ui.scroll.SetVerticalScroll, ui.scroll, want)
-		end
-		-- Guard the preview against the cursor-under-list steal, and flash the row.
-		focusMountID = mountID
-		focusGuardUntil = GetTime() + 0.6
-		target:LockHighlight()
-		local flashed = target
-		if C_Timer and C_Timer.After then
-			C_Timer.After(1.2, function()
-				if flashed then flashed:UnlockHighlight() end
-			end)
-		end
-		ShowMountPreview(target, mountID)
-	end
-	if C_Timer and C_Timer.After then
-		C_Timer.After(0, jump)
-	else
-		jump()
 	end
 end
 
@@ -309,13 +266,6 @@ end
 
 -- Row hover: tooltip near the cursor + the floating 3D preview beside the window.
 local function OnMountRowEnter(self)
-	-- Don't let the row under a stationary cursor hijack a just-clicked wishlist
-	-- mount. Once the guard expires (or the cursor reaches the focused row itself),
-	-- hovering behaves normally again.
-	if focusMountID and self._mhMountID ~= focusMountID and GetTime() < focusGuardUntil then
-		return
-	end
-	focusMountID = nil
 	ShowMountTooltip(self)
 	ShowMountPreview(self, self._mhMountID)
 end
@@ -369,7 +319,9 @@ local function PutRow(i, text, color, bold, y, width, tip, currencyID)
 		-- Star only where there is a mount to star (mountID); the tab also lists
 		-- rows that are only an item/spell hint.
 		if tip.mountID and ns.IsMountWished then
-			row.wishStar.fs:SetText(ns.IsMountWished(tip.mountID) and STAR_ON or STAR_OFF)
+			local wished = ns.IsMountWished(tip.mountID)
+			row.wishStar.tex:SetDesaturated(not wished)
+			row.wishStar.tex:SetAlpha(wished and 1 or 0.4)
 			row.wishStar:Show()
 			row.fs:SetPoint("RIGHT", row, "RIGHT", -(STAR_W + 4), 0)
 		else

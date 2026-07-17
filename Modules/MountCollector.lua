@@ -36,12 +36,11 @@ local function mountInfo(mountID)
 	return v[2], v[12] == true
 end
 
--- A wishlist row leads to MH's own Mounts tab, scrolled to that mount with its
--- 3D preview (ns.FocusMountInPanel, in MountsPanel.lua) — not Blizzard's journal,
--- which would land the user on a generic list with nothing selected.
-local function openMount(mountID)
+-- A wishlist row opens MH's own Mounts tab (ns.FocusMountInPanel) — the full
+-- checklist with the stars and hover previews, not Blizzard's generic journal.
+local function openMount()
 	if ns.FocusMountInPanel then
-		ns.FocusMountInPanel(mountID)
+		ns.FocusMountInPanel()
 	elseif ns.SelectTab then
 		ns.SelectTab("mounts")
 	end
@@ -116,11 +115,10 @@ function ns.GetMountWishlistSteps()
 		-- A mount we can't read yet (journal still warming up) is skipped, not
 		-- reported as "not collected" — that would be a guess.
 		if name and collected == false and #steps < MAX_SHOWN then
-			local mid = id -- capture per-iteration for the click closure
 			steps[#steps + 1] = {
 				text = (ns:L("MOUNTWISH_CHASE_FMT")):format(name),
 				color = "soft",
-				onClick = function() openMount(mid) end,
+				onClick = openMount,
 			}
 		end
 	end
