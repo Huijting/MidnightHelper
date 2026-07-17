@@ -57,6 +57,8 @@ local DEFAULT_DB = {
 	--- Spec 15 nudges the user dismissed: { [nudgeId] = true }. Empty default is safe
 	--- (a set, not a list) — MergeDefaults only ensures the table exists, never re-adds.
 	nudgeDismissed = {},
+	--- Spec 13 mount wishlist: { [mountID] = true }. Account-wide, like collecting is.
+	mountWishlist = {},
 	ui = {
 		-- If true, the main window will be shown automatically after login.
 		openOnLogin = false,
@@ -777,6 +779,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	if msg == "pawn" then
 		if ns.ShowPawnExport then
 			ns.ShowPawnExport()
+		end
+		return
+	end
+
+	-- /mh wishlist — your mount wishlist progress; opens the Mounts tab.
+	if msg == "wishlist" then
+		if ns.PrintMountWishlist then
+			ns.PrintMountWishlist()
 		end
 		return
 	end

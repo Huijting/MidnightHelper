@@ -180,6 +180,7 @@ Modules\MidnightCodexData.lua
 Modules\MidnightCodex.lua
 Modules\MountProgress.lua
 Modules\MountsPanel.lua
+Modules\MountCollector.lua
 Modules\TradingPost.lua
 Modules\SeasonTransitionData.lua
 Modules\SeasonTransition.lua

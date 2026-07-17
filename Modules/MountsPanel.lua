@@ -18,6 +18,11 @@ local TOP_PAD = 12
 local LINE_H = 15
 local NAME_H = 17
 local BTN_H = 22
+-- Wishlist star (Spec 13). Filled = wished. Rendered as text, not an atlas, so it
+-- follows the row's font scaling for free.
+local STAR_W = 16
+local STAR_ON = "|cfff2cf6b*|r"
+local STAR_OFF = "|cff5a5468*|r"
 local MOUNT_GAP = 6
 
 -- Shared status palette (UI.lua). The fallbacks keep this module standalone.
@@ -49,6 +54,36 @@ local function AcquireRow(i)
 	fs:SetJustifyH("LEFT")
 	fs:SetWordWrap(true)
 	row.fs = fs
+	-- Wishlist star (Spec 13). Only mount rows get one; PutRow shows/hides it and
+	-- pulls the text's right edge in to make room, so non-mount rows are unchanged.
+	local star = CreateFrame("Button", nil, row)
+	star:SetSize(STAR_W, STAR_W)
+	star:SetPoint("RIGHT", row, "RIGHT", 0, 0)
+	star:Hide()
+	star.fs = star:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	star.fs:SetAllPoints(star)
+	star:SetScript("OnClick", function(self)
+		local mid = self:GetParent()._mhMountID
+		if mid and ns.ToggleMountWish then
+			ns.ToggleMountWish(mid)
+			if ns.RefreshMountsPanel then
+				ns.RefreshMountsPanel()
+			end
+		end
+	end)
+	star:SetScript("OnEnter", function(self)
+		if GameTooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(ns:L("MOUNTWISH_STAR_TIP"), 1, 1, 1, 1, true)
+			GameTooltip:Show()
+		end
+	end)
+	star:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+	row.wishStar = star
 	ui.rows[i] = row
 	return row
 end
@@ -262,16 +297,31 @@ local function PutRow(i, text, color, bold, y, width, tip, currencyID)
 		row:EnableMouse(true)
 		row:SetScript("OnEnter", OnMountRowEnter)
 		row:SetScript("OnLeave", OnMountRowLeave)
+		-- Star only where there is a mount to star (mountID); the tab also lists
+		-- rows that are only an item/spell hint.
+		if tip.mountID and ns.IsMountWished then
+			row.wishStar.fs:SetText(ns.IsMountWished(tip.mountID) and STAR_ON or STAR_OFF)
+			row.wishStar:Show()
+			row.fs:SetPoint("RIGHT", row, "RIGHT", -(STAR_W + 4), 0)
+		else
+			row.wishStar:Hide()
+			row.fs:SetPoint("RIGHT", row, "RIGHT", 0, 0)
+		end
 	elseif currencyID then
 		row._mhCurrency = currencyID
 		row._mhMountID, row._mhItemID, row._mhSpellID = nil, nil, nil
 		row:EnableMouse(true)
 		row:SetScript("OnEnter", OnCurrencyRowEnter)
 		row:SetScript("OnLeave", OnMountRowLeave)
+		row.wishStar:Hide()
+		row.fs:SetPoint("RIGHT", row, "RIGHT", 0, 0)
 	else
+		row._mhMountID = nil
 		row:EnableMouse(false)
 		row:SetScript("OnEnter", nil)
 		row:SetScript("OnLeave", nil)
+		row.wishStar:Hide()
+		row.fs:SetPoint("RIGHT", row, "RIGHT", 0, 0)
 	end
 	row:Show()
 	return row:GetHeight()

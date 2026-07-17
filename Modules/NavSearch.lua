@@ -169,6 +169,11 @@ local function BuildNavIndex()
 			ns.ShowPawnExport()
 		end
 	end, nil, nil, "tool")
+	add(L("MOUNTWISH_HEADER"), "mount wishlist star collect chase favourite", function()
+		if ns.PrintMountWishlist then
+			ns.PrintMountWishlist()
+		end
+	end, nil, nil, "mount")
 	add(L("NAV_TOOL_BOSSWIN"), "dungeon boss window tactics floating", function()
 		if ns.ToggleDungeonBossWindow then
 			ns.ToggleDungeonBossWindow()

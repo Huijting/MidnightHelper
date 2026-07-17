@@ -340,6 +340,20 @@ local function BuildLayout()
 		end
 	end
 
+	------------------------------------------------------------------ Mount wishlist (only what you starred)
+	if ns.GetMountWishlistSteps then
+		local okW, wSteps = pcall(ns.GetMountWishlistSteps)
+		if okW and type(wSteps) == "table" and #wSteps > 0 then
+			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
+			addFull(function(rows)
+				header(rows, ns:L("MOUNTWISH_HEADER"))
+				for _, st in ipairs(wSteps) do
+					line(rows, st.text or "", colorMap[st.color] or COLOR_DIM, st.onClick)
+				end
+			end)
+		end
+	end
+
 	------------------------------------------------------------------ Group buffs (only when there's a real gap)
 	-- Silent when solo, when the group is fully buffed, and when the game hides other
 	-- players' auras (inside instances) — GetGroupBuffSteps returns nothing in all three,
