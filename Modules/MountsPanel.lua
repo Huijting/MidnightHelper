@@ -218,6 +218,47 @@ function ns.DevGetMountPreviewFrame()
 	return mountPreview
 end
 
+--- Wishlist click target: open MH's own Mounts tab, scroll to this mount and pop
+--- its 3D preview — rather than dumping the user in Blizzard's generic journal.
+--- Every wishlisted mount is a row here (the star only renders on panel rows), but
+--- guard anyway and fall back to simply showing the tab.
+function ns.FocusMountInPanel(mountID)
+	if ns.SelectTab then
+		ns.SelectTab("mounts")
+	end
+	if ns.RefreshMountsPanel then
+		ns.RefreshMountsPanel()
+	end
+	if not (mountID and ui and ui.rows) then
+		return
+	end
+	-- Defer a frame: SelectTab's layout and the scroll range settle after this call.
+	local function jump()
+		local target
+		for _, row in ipairs(ui.rows) do
+			if row._mhMountID == mountID and row:IsShown() then
+				target = row
+				break
+			end
+		end
+		if not target then
+			return -- not a curated row (shouldn't happen); the tab is open, good enough
+		end
+		if ui.scroll then
+			local yOff = select(5, target:GetPoint(1)) or 0 -- rows sit at (0, -y)
+			local range = ui.scroll:GetVerticalScrollRange() or 0
+			local want = math.max(0, math.min(-yOff - 8, range))
+			pcall(ui.scroll.SetVerticalScroll, ui.scroll, want)
+		end
+		ShowMountPreview(target, mountID)
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0, jump)
+	else
+		jump()
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Tooltip (near the cursor)
 --------------------------------------------------------------------------------
