@@ -191,9 +191,19 @@ local function PrimaryStat()
 	if not UnitStat then
 		return nil
 	end
-	local str = UnitStat("player", 1) or 0
-	local agi = UnitStat("player", 2) or 0
-	local int = UnitStat("player", 4) or 0
+	local str = UnitStat("player", 1)
+	local agi = UnitStat("player", 2)
+	local int = UnitStat("player", 4)
+	-- 12.x: in restricted content (follower dungeons, delves, rituals) player stats
+	-- come back as SECRET values — comparing them taints execution and errors. Bail
+	-- to "unknown"; callers already fall back to showing both leg enchants.
+	local function secret(v)
+		return issecretvalue ~= nil and v ~= nil and issecretvalue(v) == true
+	end
+	if secret(str) or secret(agi) or secret(int) then
+		return nil
+	end
+	str, agi, int = str or 0, agi or 0, int or 0
 	if int >= str and int >= agi then
 		return "int"
 	elseif agi >= str then
