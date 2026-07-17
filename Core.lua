@@ -823,6 +823,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh discord — print the community Discord invite + a copy box (Spec 15).
+	if msg == "discord" then
+		if ns.ShowDiscordInvite then ns.ShowDiscordInvite() end
+		return
+	end
+
 	-- /mh mplus — Mythic+ gain advisor: this week's Great Vault M+ slots + rating (Spec 20).
 	if msg == "mplus" then
 		if ns.PrintMythicGain then

@@ -199,6 +199,12 @@ ns._mhLocales.enUS = {
 	HOME_ONBOARD_DISMISS = "Got it — hide this",
 	-- Spec 15 nudge framework + "help translate" nudge.
 	NUDGE_HIDE = "Don't show again",
+	DISCORD_NUDGE_TITLE = "Join the Midnight Helper Discord",
+	DISCORD_NUDGE_BODY = "Questions, ideas, or want to help translate? Come say hi — the addon stays free either way.",
+	DISCORD_NUDGE_BTN = "Show invite link",
+	DISCORD_TITLE = "Midnight Helper Discord",
+	DISCORD_CHAT = "Join the Discord:",
+	DISCORD_COPY_HINT = "Ctrl+C to copy the link, then Esc.",
 	TRANSLATE_NUDGE_TITLE = "Midnight Helper in your language?",
 	TRANSLATE_NUDGE_BODY = "There's no %s pack yet — want to help translate it? It stays in English until then.",
 	TRANSLATE_NUDGE_BTN = "Help translate",

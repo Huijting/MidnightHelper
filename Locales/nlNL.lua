@@ -197,6 +197,12 @@ ns._mhLocales.nlNL = {
 	HOME_ONBOARD_DISMISS = "Begrepen — verberg dit",
 	-- Spec 15 nudge-framework + "help vertalen"-nudge.
 	NUDGE_HIDE = "Niet meer tonen",
+	DISCORD_NUDGE_TITLE = "Kom op de Midnight Helper Discord",
+	DISCORD_NUDGE_BODY = "Vragen, ideeën, of wil je helpen vertalen? Zeg hallo — de addon blijft sowieso gratis.",
+	DISCORD_NUDGE_BTN = "Toon invite-link",
+	DISCORD_TITLE = "Midnight Helper Discord",
+	DISCORD_CHAT = "Kom op de Discord:",
+	DISCORD_COPY_HINT = "Ctrl+C om de link te kopiëren, dan Esc.",
 	TRANSLATE_NUDGE_TITLE = "Midnight Helper in jouw taal?",
 	TRANSLATE_NUDGE_BODY = "Er is nog geen %s-pakket — wil je helpen vertalen? Tot die tijd blijft het Engels.",
 	TRANSLATE_NUDGE_BTN = "Help vertalen",
