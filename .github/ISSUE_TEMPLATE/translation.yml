@@ -9,6 +9,10 @@ body:
         Thanks for helping translate **Midnight Helper**! Your language shows English until a
         pack exists — even a handful of the first-screen strings already helps a lot. You can
         submit a few strings or many; there's no need to do everything at once.
+
+        👉 **Start here:** the 248 strings a new user meets first — the tab bar, main window,
+        Home dashboard and Settings — are listed ready to copy in
+        [docs/TRANSLATE_START_HERE.md](https://github.com/Huijting/MidnightHelper/blob/main/docs/TRANSLATE_START_HERE.md).
   - type: dropdown
     id: language
     attributes:
