@@ -218,7 +218,11 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_TRACKS_BODY",
 		tabId = "reference",
 		tabLabelKey = "TAB_REFERENCE",
-		navLabelKey = "CODEX_NAV_BASICS_TRACKS",
+		-- The article IS the gear-tracks content; there is no separate "Gear tracks"
+		-- page. Its Open button leads to the Dawncrests page (live crest counts +
+		-- Cuzoth/Vaskarn waypoints), so it must be labelled for THAT destination —
+		-- reusing the same nav label the currency_dawncrest article uses.
+		navLabelKey = "CODEX_NAV_BASICS_DAWN",
 		referenceSubTab = "dawncrest",
 		sort = 7,
 	},
