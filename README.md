@@ -1,5 +1,8 @@
 # Midnight Helper
 
+[![Discord](https://img.shields.io/badge/Discord-join%20the%20community-5865F2?logo=discord&logoColor=white)](https://discord.gg/kBHaHcsASQ)
+[![CurseForge](https://img.shields.io/badge/CurseForge-download-F16436?logo=curseforge&logoColor=white)](https://www.curseforge.com/wow/addons/midnight-helper)
+
 Midnight Helper is an all-in-one World of Warcraft addon for quick weekly planning and character management.
 
 It combines Delves, Great Vault progress, alt snapshots, in-delve coaching, professions utilities, leveling guides, and city guide helpers in one compact UI.
