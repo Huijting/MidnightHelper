@@ -156,6 +156,19 @@ local function DungeonForCurrentInstance()
 	return nil
 end
 
+-- Fold apostrophe variants to ASCII before comparing a game name to a roster name.
+-- Blizzard's NPC names often use U+2019 (’) where our roster uses ASCII ' (U+0027);
+-- Taz'Rah matched no boss purely because of that (Rob's /mh bosswin why, 17 jul).
+local function NormalizeName(s)
+	if type(s) ~= "string" then
+		return s
+	end
+	s = s:gsub("\226\128\152", "'") -- U+2018 ‘
+	s = s:gsub("\226\128\153", "'") -- U+2019 ’
+	s = s:gsub("\202\188", "'") -- U+02BC ʼ
+	return s
+end
+
 local function FindBossIndex(d, bossKey)
 	for i, b in ipairs(d and d.bosses or {}) do
 		if b.key == bossKey then
@@ -1098,9 +1111,10 @@ function ns.PrintBossWindowDiag()
 	if not matchDK and here and hasTarget then
 		local nm = UnitName("target")
 		if nm and not IsSecretValue(nm) then
+			nm = NormalizeName(nm)
 			for i, b in ipairs(here.bosses or {}) do
 				local ejName = ns.GetDungeonBossName and ns.GetDungeonBossName(b, here, i)
-				if ejName == nm or b.name == nm then
+				if NormalizeName(ejName) == nm or NormalizeName(b.name) == nm then
 					nameDK, nameBK = here.key, b.key
 					break
 				end
@@ -1124,6 +1138,18 @@ function ns.PrintBossWindowDiag()
 		line("boss-map match: " .. (matchDK and (matchDK .. ":" .. matchBK) or "no match in my ID map"))
 		line("name-match: " .. (nameDK and (nameDK .. ":" .. nameBK)
 			or (hereKey and ("no (in " .. hereKey .. ", name didn't match a boss)") or "no (instance not in roster)")))
+		-- If it still didn't match, dump the raw name bytes so an unexpected
+		-- character (beyond the apostrophe we already fold) is visible, not guessed.
+		if hereKey and not nameDK then
+			local nm = UnitName("target")
+			if type(nm) == "string" and not IsSecretValue(nm) then
+				local bytes = {}
+				for i = 1, #nm do
+					bytes[i] = string.byte(nm, i)
+				end
+				line("target name bytes: " .. table.concat(bytes, " "))
+			end
+		end
 		line(("classification=%s level=%s -> boss-fallback: %s"):format(
 			classif, tostring(lvl), isBossFallback and "yes" or "no"))
 	end
@@ -1211,9 +1237,10 @@ targetFrame:SetScript("OnEvent", function(_, event)
 		local here = DungeonForCurrentInstance()
 		local tname = UnitExists("target") and UnitName("target") or nil
 		if here and tname and not IsSecretValue(tname) then
+			tname = NormalizeName(tname)
 			for i, b in ipairs(here.bosses or {}) do
 				local ejName = ns.GetDungeonBossName and ns.GetDungeonBossName(b, here, i)
-				if ejName == tname or b.name == tname then
+				if NormalizeName(ejName) == tname or NormalizeName(b.name) == tname then
 					dungeonKey, bossKey = here.key, b.key
 					break
 				end
