@@ -1142,11 +1142,14 @@ function ns.PrintBossWindowDiag()
 		line("boss-map match: " .. (matchDK and (matchDK .. ":" .. matchBK) or "no match in my ID map"))
 		line("name-match: " .. (nameDK and (nameDK .. ":" .. nameBK)
 			or (hereKey and ("no (in " .. hereKey .. ", name didn't match a boss)") or "no (instance not in roster)")))
-		-- If it still didn't match, dump the raw name bytes so an unexpected
-		-- character (beyond the apostrophe we already fold) is visible, not guessed.
+		-- Why did the name not match? Either the name is itself a secret value
+		-- (can't be compared at all — restricted content hides it), or it's a plain
+		-- string with an unexpected character (dump the bytes so it's seen, not guessed).
 		if hereKey and not nameDK then
 			local nm = UnitName("target")
-			if type(nm) == "string" and not IsSecretValue(nm) then
+			if IsSecretValue(nm) then
+				line("name-match blocked: the target NAME is SECRET here — 12.x forbids comparing it")
+			elseif type(nm) == "string" then
 				local bytes = {}
 				for i = 1, #nm do
 					bytes[i] = string.byte(nm, i)
