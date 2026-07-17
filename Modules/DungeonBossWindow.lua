@@ -1024,6 +1024,82 @@ local function TargetNpcID()
 	return tonumber(npcID)
 end
 
+-- /mh bosswin why — diagnose why the window did (not) auto-open on the current
+-- target. Read-only; mirrors the exact gates in the PLAYER_TARGET_CHANGED handler
+-- below, in order, and reports the first one that blocks. Built for the
+-- follower-dungeon case where targeting a boss did nothing (Rob, 2026-07-17).
+function ns.PrintBossWindowDiag()
+	local P = "|cffffcc00MH bosswin|r"
+	local function line(s)
+		print(P .. " " .. s)
+	end
+
+	local autoOn = ns.IsBossWindowAutoOpenEnabled()
+	local inCombat = InCombatLockdown() and true or false
+	local inInst, instType = IsInInstance()
+	local hasTarget = UnitExists("target") and true or false
+	local tname = hasTarget and (UnitName("target") or "?") or "-"
+	local guid = hasTarget and UnitGUID("target") or nil
+	local guidSecret = IsSecretValue(guid)
+	local npcID = hasTarget and TargetNpcID() or nil
+
+	local matchDK, matchBK
+	if npcID then
+		EnsureNpcIndex()
+		local hit = NPC_TO_BOSS[npcID]
+		if hit then
+			matchDK, matchBK = hit[1], hit[2]
+		end
+	end
+
+	local classif = hasTarget and (UnitClassification("target") or "?") or "-"
+	local lvl = hasTarget and UnitLevel("target") or nil
+	local isBossFallback = hasTarget and (classif == "worldboss" or lvl == -1) and true or false
+	local curKey = curDungeon and curDungeon.key or nil
+
+	line("auto-open: " .. (autoOn and "ON" or "OFF (turn on in Settings)"))
+	line("in combat: " .. (inCombat and "YES — window only opens pre-pull" or "no"))
+	line(("instance: inInst=%s type=%s (need type=party)"):format(tostring(inInst), tostring(instType)))
+	line("target: " .. (hasTarget and tname or "NONE — target the boss first"))
+	if hasTarget then
+		line("target GUID: " .. (guidSecret and "SECRET (12.x hides it)" or "readable"))
+		line("npcID: " .. (npcID and tostring(npcID)
+			or (guidSecret and "hidden (secret GUID)" or "none (not a creature?)")))
+		line("boss-map match: " .. (matchDK and (matchDK .. ":" .. matchBK) or "no match in my ID map"))
+		line(("classification=%s level=%s -> boss-fallback: %s"):format(
+			classif, tostring(lvl), isBossFallback and "yes" or "no"))
+	end
+	line("current dungeon: " .. (curKey or "none set yet"))
+
+	local why
+	if not autoOn then
+		why = "auto-open is OFF in Settings"
+	elseif inCombat then
+		why = "you are in combat (it opens only before the pull)"
+	elseif not inInst or instType ~= "party" then
+		why = "not in a 5-man party instance (type=" .. tostring(instType) .. ")"
+	elseif not hasTarget then
+		why = "no target"
+	elseif matchDK then
+		why = nil -- opens via npcID
+	elseif isBossFallback and curKey then
+		why = nil -- opens via boss-classification fallback
+	elseif not isBossFallback then
+		why = "target isn't recognised as a boss — its npcID isn't in my map, and it's neither worldboss- nor ??-level"
+	elseif not curKey then
+		why = "no current dungeon set yet — open once via /mh bosswin, or target a boss whose ID I know"
+	else
+		why = "unknown"
+	end
+
+	if why == nil then
+		local dest = matchDK and (matchDK .. ":" .. matchBK) or (curKey or "?")
+		line("|cff88ff88VERDICT: would open|r -> " .. dest)
+	else
+		line("|cffff8888VERDICT: would NOT open|r — " .. why)
+	end
+end
+
 local targetFrame = CreateFrame("Frame")
 targetFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 targetFrame:RegisterEvent("PLAYER_REGEN_DISABLED") -- combat-start: venster sluiten (Rob-wens)

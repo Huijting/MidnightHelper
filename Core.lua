@@ -1307,6 +1307,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	if msg == "bosswin why" or msg == "bosswin diag" then
+		if ns.PrintBossWindowDiag then
+			ns.PrintBossWindowDiag()
+		else
+			print("|cffffcc00Midnight Helper:|r boss window not loaded")
+		end
+		return
+	end
+
 	if msg == "bosswin" then
 		if ns.ToggleDungeonBossWindow then
 			ns.ToggleDungeonBossWindow()
