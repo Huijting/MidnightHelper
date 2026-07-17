@@ -1086,10 +1086,6 @@ function ns.PrintBossWindowDiag()
 		print(P .. " " .. s)
 	end
 
-	-- Build stamp: if this line is missing after /reload, the game is loading an
-	-- OLDER copy of MidnightHelper than the folder we edit (a second install?).
-	line("|cff66ccff[build: apostrophe-fold + name-bytes, 18 jul]|r")
-
 	local autoOn = ns.IsBossWindowAutoOpenEnabled()
 	local inCombat = InCombatLockdown() and true or false
 	local inInst, instType = IsInInstance()
@@ -1287,4 +1283,57 @@ targetFrame:SetScript("OnEvent", function(_, event)
 	end
 	suppressedFor = nil -- targeten heft de X-suppress op
 	ns.ShowDungeonBossWindow(dungeonKey, bossKey)
+end)
+
+-- Follower-dungeon hint. In een follower dungeon zijn ALLE boss-signalen secret
+-- (GUID én naam) — bewezen met /mh bosswin why — dus de pre-pull auto-open kan
+-- daar niet werken. In plaats daarvan één klikbare tip bij binnenkomst: klik =
+-- boss-venster open, of typ /mh bosswin. Eén keer per bezoek; respecteert de
+-- auto-open-opt-out (uit = geen boss-vensterprompts).
+local function InFollowerDungeon()
+	if C_LFGInfo and C_LFGInfo.IsInLFGFollowerDungeon then
+		local ok, res = pcall(C_LFGInfo.IsInLFGFollowerDungeon)
+		if ok and res then
+			return true
+		end
+	end
+	local _, _, diffID = GetInstanceInfo()
+	return diffID == 205 -- Follower (difficultyID geverifieerd via DBM Difficulties)
+end
+
+local followerHintDoneFor = nil -- instanceMapID die deze keer al een tip kreeg
+local hintFrame = CreateFrame("Frame")
+hintFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+hintFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+hintFrame:SetScript("OnEvent", function()
+	local inInst, instType = IsInInstance()
+	if not (inInst and instType == "party" and InFollowerDungeon()) then
+		followerHintDoneFor = nil -- buiten een follower dungeon: opnieuw scherp
+		return
+	end
+	local _, _, _, _, _, _, _, mapID = GetInstanceInfo()
+	if followerHintDoneFor == mapID then
+		return -- deze keer al getipt
+	end
+	if not ns.IsBossWindowAutoOpenEnabled() then
+		return -- boss-vensterprompts staan uit
+	end
+	if InCombatLockdown() or not ns.QueueMidnightToast then
+		return
+	end
+	followerHintDoneFor = mapID
+	local d = DungeonForCurrentInstance()
+	ns:QueueMidnightToast({
+		id = "follower_bosshint",
+		icon = "Interface\\ICONS\\INV_Misc_Book_09",
+		titleKey = "FOLLOWER_BOSSHINT_TITLE",
+		bodyKey = "FOLLOWER_BOSSHINT_BODY",
+		clickHintKey = "FOLLOWER_BOSSHINT_CLICK",
+		displaySec = 9,
+		onClick = function()
+			if ns.ShowDungeonBossWindow then
+				ns.ShowDungeonBossWindow(d and d.key or nil, nil)
+			end
+		end,
+	})
 end)
