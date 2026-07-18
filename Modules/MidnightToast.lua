@@ -389,6 +389,10 @@ function ns.ShowNextMidnightToast()
 
 	local spec = table.remove(queue, 1)
 	activeSpec = spec
+	-- Log elke getoonde toast (id + tijd). Op queue-niveau loggen bleek te weinig:
+	-- de bounty-toast verscheen in een follower dungeon terwijl geen enkele bekende
+	-- afzender 'm had gequeued. Hier zie je WAT er in beeld kwam, wie het ook stuurde.
+	ns._mhLastToastShown = { id = tostring(spec.id or "?"), t = GetTime() }
 	-- onShow: pas hier weet de afzender zeker dat de toast écht in beeld komt.
 	-- Nodig voor "1× per week"-meldingen (ShardCapAlert): een gequeued-maar-
 	-- nooit-getoonde toast (reload terwijl een rare-toast voorstond — Rob,
