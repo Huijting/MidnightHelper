@@ -175,31 +175,8 @@ local function FindDungeonByKey(key)
 	return nil
 end
 
--- The roster dungeon we're standing in, via the Encounter Journal instance id.
--- Reliable in restricted content (follower dungeons) where the boss GUID is
--- secret but the instance itself is not — journalInstanceID matches the roster.
-local function DungeonForCurrentInstance()
-	if not (EJ_GetInstanceForMap and C_Map and C_Map.GetBestMapForUnit) then
-		return nil
-	end
-	local mapID = C_Map.GetBestMapForUnit("player")
-	if not mapID then
-		return nil
-	end
-	local ok, jid = pcall(EJ_GetInstanceForMap, mapID)
-	if not ok or not jid or jid == 0 then
-		return nil
-	end
-	for _, d in ipairs(ns.GetDungeonRoster and ns.GetDungeonRoster() or {}) do
-		if d.journalInstanceID == jid then
-			return d
-		end
-	end
-	return nil
-end
-
 -- Fold apostrophe variants to ASCII before comparing a game name to a roster name.
--- Blizzard's NPC names often use U+2019 (’) where our roster uses ASCII ' (U+0027);
+-- Blizzard's names often use U+2019 (’) where our roster uses ASCII ' (U+0027);
 -- Taz'Rah matched no boss purely because of that (Rob's /mh bosswin why, 17 jul).
 local function NormalizeName(s)
 	if type(s) ~= "string" then
@@ -209,6 +186,62 @@ local function NormalizeName(s)
 	s = s:gsub("\226\128\153", "'") -- U+2019 ’
 	s = s:gsub("\202\188", "'") -- U+02BC ʼ
 	return s
+end
+
+-- The roster dungeon we're standing in.
+-- LES (Rob 19 jul): dit hing eerst alleen aan EJ_GetInstanceForMap(uiMapID), en die
+-- uiMapID VERANDERT per verdieping/subzone binnen dezelfde dungeon — in Voidscar
+-- Arena gaf map 2572 keurig journalInstanceID 1313, maar map 2574 gaf 0, waardoor
+-- MH z'n eigen dungeon opeens "not a roster dungeon" noemde. Daarom nu: EJ waar het
+-- werkt, anders matchen op de instance-NAAM, en het resultaat cachen zolang je in
+-- dezelfde instance bent — zodat rondlopen de herkenning niet meer kan slopen.
+local instanceDungeonCache -- { mapID = instanceMapID, d = <roster dungeon> }
+
+local function DungeonForCurrentInstance()
+	local inInst = IsInInstance()
+	if not inInst then
+		instanceDungeonCache = nil
+		return nil
+	end
+	local iName, _, _, _, _, _, _, instMapID = GetInstanceInfo()
+	if instanceDungeonCache and instanceDungeonCache.mapID == instMapID then
+		return instanceDungeonCache.d
+	end
+
+	local roster = (ns.GetDungeonRoster and ns.GetDungeonRoster()) or {}
+	local found
+
+	-- 1. Encounter Journal id van de huidige (sub)kaart.
+	if EJ_GetInstanceForMap and C_Map and C_Map.GetBestMapForUnit then
+		local uiMap = C_Map.GetBestMapForUnit("player")
+		if uiMap then
+			local ok, jid = pcall(EJ_GetInstanceForMap, uiMap)
+			if ok and jid and jid ~= 0 then
+				for _, d in ipairs(roster) do
+					if d.journalInstanceID == jid then
+						found = d
+						break
+					end
+				end
+			end
+		end
+	end
+
+	-- 2. Anders op naam: GetInstanceInfo geeft 'Voidscar Arena' ongeacht de subzone.
+	if not found and type(iName) == "string" then
+		local want = NormalizeName(iName)
+		for _, d in ipairs(roster) do
+			if NormalizeName(d.name) == want then
+				found = d
+				break
+			end
+		end
+	end
+
+	if found and instMapID then
+		instanceDungeonCache = { mapID = instMapID, d = found }
+	end
+	return found
 end
 
 local function FindBossIndex(d, bossKey)
