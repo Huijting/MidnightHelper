@@ -401,12 +401,22 @@ function ns.ShowNextMidnightToast()
 		label = spec.titleKey or spec.title
 		label = type(label) == "string" and ("(no id) " .. label:sub(1, 32)) or "(no id)"
 	end
-	ns._mhToastHistory = ns._mhToastHistory or {}
-	table.insert(ns._mhToastHistory, 1, { id = tostring(label), t = GetTime() })
-	while #ns._mhToastHistory > 8 do
-		table.remove(ns._mhToastHistory)
+	-- In SavedVariables, NIET in een sessie-tabel: elke /reload wiste het logboek,
+	-- en juist de reload om een nieuwe build te laden gooide het bewijs weg dat we
+	-- probeerden te vangen (Rob, 19 jul — drie testrondes hieraan verloren).
+	if ns.db then
+		ns.db.toastLog = ns.db.toastLog or {}
+		local _, _, _, _, _, _, _, imap = GetInstanceInfo()
+		table.insert(ns.db.toastLog, 1, {
+			id = tostring(label),
+			zone = tostring(GetInstanceInfo() or GetZoneText() or "?"),
+			imap = imap,
+			stamp = date and date("%H:%M:%S") or "?",
+		})
+		while #ns.db.toastLog > 12 do
+			table.remove(ns.db.toastLog)
+		end
 	end
-	ns._mhLastToastShown = ns._mhToastHistory[1]
 	-- onShow: pas hier weet de afzender zeker dat de toast écht in beeld komt.
 	-- Nodig voor "1× per week"-meldingen (ShardCapAlert): een gequeued-maar-
 	-- nooit-getoonde toast (reload terwijl een rare-toast voorstond — Rob,
