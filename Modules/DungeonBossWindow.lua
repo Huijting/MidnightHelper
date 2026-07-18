@@ -1207,6 +1207,7 @@ function ns.PrintBossWindowDiag()
 	end
 	line("instance dungeon: " .. (hereKey or "not a roster dungeon"))
 	line("current dungeon: " .. (curKey or "none set yet"))
+	line("follower-dungeon entry hint: " .. tostring(ns._mhFollowerHintReason or "not evaluated yet"))
 
 	local why
 	if not autoOn then
@@ -1342,10 +1343,10 @@ targetFrame:SetScript("OnEvent", function(_, event)
 end)
 
 -- Follower-dungeon hint. In een follower dungeon zijn ALLE boss-signalen secret
--- (GUID én naam) — bewezen met /mh bosswin why — dus de pre-pull auto-open kan
--- daar niet werken. In plaats daarvan één klikbare tip bij binnenkomst: klik =
--- boss-venster open, of typ /mh bosswin. Eén keer per bezoek; respecteert de
--- auto-open-opt-out (uit = geen boss-vensterprompts).
+-- pre-pull niet identificeerbaar (elite + echt level, GUID/naam secret). Het venster
+-- opent wél vanzelf bij de pull via ENCOUNTER_START; deze tip bij binnenkomst is de
+-- extra ingang ("klik = venster open, of /mh bosswin"). Eén keer per bezoek;
+-- respecteert de auto-open-opt-out.
 local function InFollowerDungeon()
 	if C_LFGInfo and C_LFGInfo.IsInLFGFollowerDungeon then
 		local ok, res = pcall(C_LFGInfo.IsInLFGFollowerDungeon)
@@ -1358,24 +1359,37 @@ local function InFollowerDungeon()
 end
 
 local followerHintDoneFor = nil -- instanceMapID die deze keer al een tip kreeg
-local hintFrame = CreateFrame("Frame")
-hintFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-hintFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-hintFrame:SetScript("OnEvent", function()
+
+--- Probeer de tip te tonen. Geeft nil terug als 'ie getoond is, anders de REDEN
+--- waarom niet — die is op te vragen via /mh bosswin why, zodat "hij komt niet"
+--- meetbaar is in plaats van een raadsel.
+--- @return string|nil reason
+local function TryFollowerHint()
 	local inInst, instType = IsInInstance()
-	if not (inInst and instType == "party" and InFollowerDungeon()) then
-		followerHintDoneFor = nil -- buiten een follower dungeon: opnieuw scherp
-		return
+	if not inInst then
+		followerHintDoneFor = nil
+		return "not in an instance (info may not be ready yet)"
+	end
+	if instType ~= "party" then
+		followerHintDoneFor = nil
+		return "instance type is " .. tostring(instType) .. ", not party"
+	end
+	if not InFollowerDungeon() then
+		followerHintDoneFor = nil
+		return "not a follower dungeon (difficulty is not Follower/205)"
 	end
 	local _, _, _, _, _, _, _, mapID = GetInstanceInfo()
 	if followerHintDoneFor == mapID then
-		return -- deze keer al getipt
+		return "already hinted this visit"
 	end
-	if not ns.IsBossWindowAutoOpenEnabled() then
-		return -- boss-vensterprompts staan uit
+	if ns.IsBossWindowAutoOpenEnabled and not ns.IsBossWindowAutoOpenEnabled() then
+		return "boss-window auto-open is OFF in Settings"
 	end
-	if InCombatLockdown() or not ns.QueueMidnightToast then
-		return
+	if InCombatLockdown() then
+		return "in combat"
+	end
+	if not ns.QueueMidnightToast then
+		return "toast system not loaded"
 	end
 	followerHintDoneFor = mapID
 	local d = DungeonForCurrentInstance()
@@ -1392,4 +1406,23 @@ hintFrame:SetScript("OnEvent", function()
 			end
 		end,
 	})
+	return nil
+end
+
+local hintFrame = CreateFrame("Frame")
+hintFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+hintFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+hintFrame:SetScript("OnEvent", function()
+	-- Op PLAYER_ENTERING_WORLD is de instance-info vaak NOG NIET gevuld (bekend
+	-- WoW-gedrag): IsInInstance/GetInstanceInfo geven dan niets bruikbaars en de
+	-- tip zou eenmalig afketsen. Daarom nog een paar keer opnieuw proberen; zodra
+	-- de tip getoond is blokkeert followerHintDoneFor herhaling.
+	local function attempt()
+		ns._mhFollowerHintReason = TryFollowerHint() or "shown"
+	end
+	attempt()
+	if C_Timer and C_Timer.After then
+		C_Timer.After(2, attempt)
+		C_Timer.After(6, attempt)
+	end
 end)
