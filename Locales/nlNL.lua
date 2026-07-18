@@ -3196,6 +3196,7 @@ ns._mhLocales.nlNL = {
 	DISPEL_TYPE_CURSE = "Curse",
 	DISPEL_TYPE_POISON = "Poison",
 	DISPEL_TYPE_DISEASE = "Disease",
+	DISPEL_TYPE_BLEED = "Bleed",
 	-- Heal-lens (deel 4): per-boss spec-bewuste callouts in de boss-window
 	HEALLENS_PREFIX = "Healer-tip",
 	HEALLENS_DISPEL_YOU_FMT = "Dispel de %s-debuff hier met je %s.",

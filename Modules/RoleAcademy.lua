@@ -512,6 +512,28 @@ local function RenderHealerToolkit(panel, child, y, cw)
 	return y - 10
 end
 
+-- "What you can dispel" for NON-healing specs — Rob's point (2026-07-15) that
+-- non-healers dispel too, so a Prot Paladin or a Mage should see it as well.
+-- Shared by the tank and DPS toolkits; the healer track has its own richer line.
+-- Shows nothing at all when this character knows no dispel: an empty section is
+-- less honest than no section.
+local function AddDispelSection(panel, child, y, cw)
+	local dispels = ns.GetKnownClassDispels and ns.GetKnownClassDispels()
+	if not dispels or #dispels == 0 then
+		return y
+	end
+	y = y - 4
+	y = AddToolkitLine(panel, child, cw, y, SL("HEALTOOLKIT_DISPEL_HEAD"), true)
+	for _, d in ipairs(dispels) do
+		local line = ("|cffffd100%s|r — %s"):format(
+			ns.HealerCooldownSpellName(d.id),
+			(SL("HEALTOOLKIT_DISPEL_FMT")):format(ns.FormatDispelTypes(d.types))
+		)
+		y = AddToolkitLine(panel, child, cw, y, line, false, d.id)
+	end
+	return y
+end
+
 -- Spec-aware tank toolkit (Rob 2026-07-15): the player's active mitigation +
 -- defensive cooldowns at the top of the TANK track, mirroring the healer one.
 -- Verified data lives in Modules/TankToolkit.lua. Returns the new y cursor.
@@ -554,6 +576,7 @@ local function RenderTankToolkit(panel, child, y, cw)
 			y = AddToolkitLine(panel, child, cw, y, line, false, c.id)
 		end
 	end
+	y = AddDispelSection(panel, child, y, cw)
 	return y - 10
 end
 
@@ -619,6 +642,7 @@ local function RenderDpsToolkit(panel, child, y, cw)
 			y = AddToolkitLine(panel, child, cw, y, line, false, d.id)
 		end
 	end
+	y = AddDispelSection(panel, child, y, cw)
 	return y - 10
 end
 

@@ -254,17 +254,74 @@ ns.HEALER_DISPELS = {
 	[264] = { id = 77130, types = { "magic", "curse" } }, -- Resto Shaman: Purify Spirit
 }
 
+-- Dispels for NON-healing specs (Rob 2026-07-15: "non-healers dispel too", built
+-- 19 jul). Types verified against DBM-Core's dispel typeCheck table
+-- (DBM-Core/modules/objects/BossMod.lua ~700-739), which lists every dispel spell
+-- with its schools in a comment — a current, maintained source.
+--
+-- Keyed by CLASS, not spec, and filtered at render time by IsPlayerSpell: whether
+-- a given dispel is baseline, talented or spec-locked differs per class and
+-- changes between patches, so we show only what this character actually knows
+-- instead of asserting who "should" have what.
+--
+-- Deliberately NOT included: Cleanse Toxins (213644). JustAC lists it as a Paladin
+-- dispel, but DBM's current table does not have it at all and instead says
+-- Cleanse (4987) is "Dps/Healer: Magic. Healer Only: Poison, Disease". Two trusted
+-- sources disagree, so it stays out until verified in-game on a Prot/Ret Paladin.
+ns.NONHEALER_DISPELS = {
+	DRUID = { { id = 2782, types = { "curse", "poison" } } }, -- Remove Corruption
+	SHAMAN = { { id = 51886, types = { "curse" } } }, -- Cleanse Spirit
+	MAGE = { { id = 475, types = { "curse" } } }, -- Remove Curse
+	MONK = { { id = 218164, types = { "poison", "disease" } } }, -- Detox (non-healer)
+	PALADIN = { { id = 4987, types = { "magic" } } }, -- Cleanse (non-Holy: Magic only)
+	PRIEST = { { id = 213634, types = { "disease" } } }, -- Purify Disease
+	WARLOCK = { { id = 89808, types = { "magic" } } }, -- Singe Magic (Imp)
+	EVOKER = {
+		{ id = 374251, types = { "bleed", "poison", "curse", "disease" } }, -- Cauterizing Flame
+		{ id = 365585, types = { "poison" } }, -- Expunge
+	},
+}
+
+--- The dispels THIS character actually knows, for a non-healing spec.
+--- Filtering on IsPlayerSpell is what keeps this honest: no claim about talents,
+--- no stale spec assumptions — if you don't have it, it isn't shown.
+--- @return table list  { { id, types }, ... } (empty when the spec can't dispel)
+function ns.GetKnownClassDispels()
+	local out = {}
+	if not UnitClass then
+		return out
+	end
+	local _, classFile = UnitClass("player")
+	local list = classFile and ns.NONHEALER_DISPELS[classFile]
+	if not list then
+		return out
+	end
+	for _, d in ipairs(list) do
+		local known = true
+		if IsPlayerSpell then
+			local ok, res = pcall(IsPlayerSpell, d.id)
+			known = (not ok) or res == true
+		end
+		if known then
+			out[#out + 1] = d
+		end
+	end
+	return out
+end
+
 local DISPEL_TYPE = {
 	magic = "DISPEL_TYPE_MAGIC",
 	curse = "DISPEL_TYPE_CURSE",
 	poison = "DISPEL_TYPE_POISON",
 	disease = "DISPEL_TYPE_DISEASE",
+	bleed = "DISPEL_TYPE_BLEED",
 }
 local DISPEL_TYPE_COLOR = {
 	magic = "ff40a0ff", -- blue
 	curse = "ffa060ff", -- purple
 	poison = "ff40c040", -- green
 	disease = "ffc0a060", -- tan
+	bleed = "ffd06060", -- red
 }
 
 --- The dispel entry { id, types } for a spec, or nil.
