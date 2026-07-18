@@ -1,5 +1,7 @@
 ## Midnight Helper
 
+> 💬 **Join the community** — need help, found a bug, or want to help translate? Come say hi on [Discord](https://discord.gg/kBHaHcsASQ). Beginners very welcome, and the addon is always free. 🌙
+
 **New to Midnight, or juggling a stack of alts?** Midnight Helper is your one window for the whole week — clean enough for a brand-new max-level player, deep enough for a min-maxer. Just hit 90 and not sure what to do? Open it and follow along. Have ten alts to keep straight? See them all at a glance.
 
 Midnight Helper is an all-in-one utility addon for **World of Warcraft Retail** (Midnight Season 1). It brings weekly planning, Delves, Great Vault tracking, achievement hunts, a live class-layout coach, on-screen combat helpers, standalone route guidance, and reference guides into one compact window — with full UI support in **seven languages**.
@@ -15,7 +17,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - **Home dashboard**: weekly reset countdown, account-wide Great Vault status, this week's world boss, weekly chores (SMC, keys, shards), Ritual Sites and Void Assaults with one-click routes, and shortcuts to Rares, Raids and your mount hunt. Fold any section away — your choice is remembered.
 
 **Collectible mounts**
-- **Collectible mounts** tab — a checklist of the **17 new Midnight mounts**: a green tick for the ones you own, a red cross for the rest.
+- **Collectible mounts** tab — a checklist of the **19 new Midnight mounts**: a green tick for the ones you own, a red cross for the rest.
 - Live progress per mount (renown level, meta-achievement steps, items banked), **how to get it** in one line, and a floating **3D preview** beside the window when you hover a name — drag to spin.
 - Hover a *Voidlight Marl* line to see your balance on **every character**.
 - Mounts that are pure RNG — a rare drop, a puzzle, a hidden quest chain — show **no progress bar at all**, because there is no honest number to show.
@@ -135,6 +137,10 @@ Other WoW client locales (e.g. Korean, Chinese) fall back to **English** until a
 - [Wowhead](https://www.wowhead.com/) for public game-reference validation and lookup support.
 - [Icy Veins](https://www.icy-veins.com/wow/) for external leveling and talent reference links.
 - [TomTom](https://www.curseforge.com/wow/addons/tomtom) and [WaypointUI](https://www.curseforge.com/wow/addons/waypointui) for optional waypoint integration.
+
+---
+
+Made by one person, in their spare time. Questions or ideas? [Join the Discord](https://discord.gg/kBHaHcsASQ) — always happy to help. 🌙
 
 ### Disclaimer
 
