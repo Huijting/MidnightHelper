@@ -60,6 +60,9 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 
 	-- Share (fase 3)
 	RITUAL_COACH_SHARE_BTN = "Share challenge tips to group",
+	RITUAL_COACH_COPY_BTN = "Copy as text",
+	RITUAL_SHARE_COPY_TITLE = "Copy ritual tips",
+	RITUAL_SHARE_COPY_HINT = "Ctrl+C, then paste in party chat or Discord.",
 	RITUAL_SHARE_CHALLENGES_HEADER = "Ritual challenges by Spoils:",
 	RITUAL_SHARE_XLOC_HEADER_FMT = "%s shared Ritual challenge tips:",
 	RITUAL_SHARE_CONFIRM_FMT = "Post %d lines of Ritual challenge tips to your group?",
@@ -274,6 +277,9 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 
 	-- Share (fase 3)
 	RITUAL_COACH_SHARE_BTN = "Deel challenge-tips met groep",
+	RITUAL_COACH_COPY_BTN = "Kopieer als tekst",
+	RITUAL_SHARE_COPY_TITLE = "Ritual-tips kopiëren",
+	RITUAL_SHARE_COPY_HINT = "Ctrl+C, plak daarna in groepschat of Discord.",
 	RITUAL_SHARE_CHALLENGES_HEADER = "Ritual-challenges op Spoils:",
 	RITUAL_SHARE_XLOC_HEADER_FMT = "%s deelde Ritual-challenge-tips:",
 	RITUAL_SHARE_CONFIRM_FMT = "%d regels Ritual-challenge-tips in je groep posten?",

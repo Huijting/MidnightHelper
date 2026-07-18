@@ -585,6 +585,28 @@ function ns.BuildWorldPanel(panel)
 	ui.coachShareBtn:SetText(ns:L("RITUAL_COACH_SHARE_BTN"))
 	push(ui.coachShareBtn, 8, 0, true)
 
+	-- Copy the same tips as plain text, for Discord or a group without the addon.
+	-- GetRitualShareCopyText had been finished for ages but was never wired to a
+	-- button (Rob, 19 jul); the dialog is the delve one, now shared.
+	ui.coachCopyBtn = MakeButton(child, function()
+		if not (ns.GetRitualShareCopyText and ns.ShowShareCopyDialog) then
+			return
+		end
+		local text = ns.GetRitualShareCopyText("challenges", "all")
+		if not text or text == "" then
+			return
+		end
+		ns.ShowShareCopyDialog({
+			id = "ritual:challenges",
+			text = text,
+			titleKey = "RITUAL_SHARE_COPY_TITLE",
+			hintKey = "RITUAL_SHARE_COPY_HINT",
+			closeKey = "DELVE_SHARE_COPY_CLOSE",
+		})
+	end)
+	ui.coachCopyBtn:SetText(ns:L("RITUAL_COACH_COPY_BTN"))
+	push(ui.coachCopyBtn, 4, 0, true)
+
 	-- Void Assaults section.
 	ui.voidHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
 	ui.voidHeader:SetText(ns:L("HOME_SECTION_VOID"))

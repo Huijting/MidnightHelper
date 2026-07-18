@@ -406,15 +406,17 @@ end
 
 local copyDialog
 
-function ns.ToggleDelvePartyShareCopy(entryId, mode)
-	mode = mode or "brief"
-	local text = ns.GetDelvePartyShareCopyText(entryId, mode)
-	if text == "" then
-		ChatPrint("DELVE_SHARE_MISSING")
+--- Shared multi-line copy dialog for the share features.
+--- It was born here for delve tips; the ritual share now reuses it instead of
+--- cloning ~90 lines of identical frame code (Rob, 19 jul). Toggling with the
+--- same `id` closes it again.
+--- @param opts table { id=string, text=string, titleKey, hintKey, closeKey }
+function ns.ShowShareCopyDialog(opts)
+	if type(opts) ~= "table" or not opts.text or opts.text == "" then
 		return
 	end
 
-	if copyDialog and copyDialog:IsShown() and copyDialog._mhEntryId == entryId then
+	if copyDialog and copyDialog:IsShown() and copyDialog._mhEntryId == opts.id then
 		copyDialog:Hide()
 		return
 	end
@@ -481,15 +483,41 @@ function ns.ToggleDelvePartyShareCopy(entryId, mode)
 		copyDialog = f
 	end
 
-	copyDialog._mhEntryId = entryId
-	copyDialog._title:SetText(ns:L("DELVE_SHARE_COPY_TITLE"))
-	copyDialog._hint:SetText(ns:L("DELVE_SHARE_COPY_HINT"))
-	copyDialog._close:SetText(ns:L("DELVE_SHARE_COPY_CLOSE"))
-	copyDialog._eb:SetText(text)
+	copyDialog._mhEntryId = opts.id
+	copyDialog._title:SetText(ns:L(opts.titleKey or "DELVE_SHARE_COPY_TITLE"))
+	copyDialog._hint:SetText(ns:L(opts.hintKey or "DELVE_SHARE_COPY_HINT"))
+	copyDialog._close:SetText(ns:L(opts.closeKey or "DELVE_SHARE_COPY_CLOSE"))
+	copyDialog._eb:SetText(opts.text)
 	copyDialog._eb:SetCursorPosition(0)
 	copyDialog:Show()
-	copyDialog._eb:SetFocus()
-	copyDialog._eb:HighlightText()
+	-- Focus + highlight deferred and pcall-guarded: doing this inline is what made
+	-- /mh pawn throw "bad argument #2 to HighlightText" when opened from chat
+	-- (Rob, 17 jul). Cosmetic, so it must never break the dialog.
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0, function()
+			if copyDialog and copyDialog:IsShown() then
+				pcall(copyDialog._eb.SetFocus, copyDialog._eb)
+				pcall(copyDialog._eb.HighlightText, copyDialog._eb)
+			end
+		end)
+	end
+end
+
+--- Delve tips → the shared copy dialog.
+function ns.ToggleDelvePartyShareCopy(entryId, mode)
+	mode = mode or "brief"
+	local text = ns.GetDelvePartyShareCopyText(entryId, mode)
+	if text == "" then
+		ChatPrint("DELVE_SHARE_MISSING")
+		return
+	end
+	ns.ShowShareCopyDialog({
+		id = "delve:" .. tostring(entryId),
+		text = text,
+		titleKey = "DELVE_SHARE_COPY_TITLE",
+		hintKey = "DELVE_SHARE_COPY_HINT",
+		closeKey = "DELVE_SHARE_COPY_CLOSE",
+	})
 end
 
 function ns:UpdateDelveShareBarUI()
