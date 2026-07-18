@@ -131,13 +131,18 @@ local function ApplyToastContent(spec)
 	end
 	local title = ResolveText(spec, "title")
 	local body = ResolveText(spec, "body")
+	-- GEEN hardcoded fallback-tekst meer. Hier stond "Trovehunter Bounty detected!"
+	-- / "Use it for Hidden Treasure." als default — een restant van toen dit systeem
+	-- alleen voor die ene toast bestond. Gevolg: ELKE toast zonder titel toonde de
+	-- bountytekst, ook in een follower dungeon waar geen bounty bestaat. Dat is de
+	-- "spook-bounty" waar Rob 19 jul twee dagen achteraan heeft gezeten. Leeg = leeg.
 	if root.title then
-		root.title:SetText(title ~= "" and title or "Trovehunter Bounty detected!")
-		root.title:Show()
+		root.title:SetText(title)
+		root.title:SetShown(title ~= "")
 	end
 	if root.body then
-		root.body:SetText(body ~= "" and body or "Use it for Hidden Treasure.")
-		root.body:Show()
+		root.body:SetText(body)
+		root.body:SetShown(body ~= "")
 	end
 end
 
@@ -389,38 +394,12 @@ function ns.ShowNextMidnightToast()
 
 	local spec = table.remove(queue, 1)
 
-	-- Vangnet op het TOON-moment. /fstack bewees dat de Trovehunter-toast onze eigen
-	-- MidnightHelperToast is, maar geen enkele bekende queue-route logde 'm — de
-	-- afzender is dus niet gevonden. Daarom valideren we hier, waar het altijd langs
-	-- moet: alleen tonen als het NU nog klopt (in een delve én het item echt in je
-	-- tas). Rob 19 jul: "zet maar uit buiten een delve, als ie daar maar wel komt als
-	-- ik hem ook werkelijk heb, want in mijn tas zie ik hem niet".
-	local function bountyStillValid()
-		local inDelve = ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress()
-		if not inDelve then
-			return false
-		end
-		local itemID = (ns.Config and ns.Config.DELVE_ITEM_TROVEHUNTER_BOUNTY) or 252415
-		local have = GetItemCount and GetItemCount(itemID) or 0
-		return (have or 0) >= 1
-	end
-	while spec do
-		-- Herken de bounty-toast aan de GERENDERDE TITEL, niet aan losse velden. De
-		-- vorige poging keek naar spec.id/spec.titleKey en greep niet — de toast
-		-- verscheen na een reload gewoon weer in een follower dungeon (Rob 19 jul).
-		-- Wat er ook als veld gebruikt wordt, hier komt dezelfde tekst uit.
-		-- De preview (/mh toast) mag altijd door; die vraag je zelf aan.
-		local shownTitle = ResolveText(spec, "title")
-		local bountyTitle = ns.L and ns:L("TOAST_BOUNTY_TITLE") or nil
-		local isBounty = spec.id ~= "delve_bounty_preview"
-			and (spec.id == "delve_bounty"
-				or spec.titleKey == "TOAST_BOUNTY_TITLE"
-				or (bountyTitle and shownTitle ~= "" and shownTitle == bountyTitle))
-		if isBounty and not bountyStillValid() then
-			spec = table.remove(queue, 1) -- laten vallen, volgende proberen
-		else
-			break
-		end
+	-- Een toast zonder titel én zonder tekst heeft niets te melden: laten vallen in
+	-- plaats van een leeg venster tonen. (Zolang ApplyToastContent hier hardcoded
+	-- bountytekst invulde, wérd zo'n lege toast een valse "Trovehunter Bounty
+	-- detected!" — Rob 19 jul. De fallback is weg; dit houdt het venster ook leeg-vrij.)
+	while spec and ResolveText(spec, "title") == "" and ResolveText(spec, "body") == "" do
+		spec = table.remove(queue, 1)
 	end
 	if not spec then
 		return
