@@ -464,6 +464,36 @@ function ns:MaybeShowDelveBountyToast()
 	})
 end
 
+-- /mh delveprobe — waarom denkt MH dat je (niet) in een delve zit? Read-only.
+-- Gebouwd omdat de Trovehunter-toast in een FOLLOWER DUNGEON bleef verschijnen
+-- terwijl de scenario-gate dat hoort te blokkeren (Rob 18 jul). Meten i.p.v. gokken.
+function ns:PrintDelveGateProbe()
+	local P = "|cffffcc00MH delve|r"
+	local function line(s)
+		print(P .. " " .. s)
+	end
+
+	local apiSaysDelve = "n/a"
+	if C_PartyInfo and C_PartyInfo.IsDelveInProgress then
+		local ok, active = pcall(C_PartyInfo.IsDelveInProgress)
+		apiSaysDelve = ok and tostring(active) or "error"
+	end
+	local inInst, instType = IsInInstance()
+	local iName, _, diffID, diffName = GetInstanceInfo()
+	local gate = IsDelveItemsUiAllowed()
+	local have = GetItemCount(ITEM_TREASURE) or 0
+
+	line("C_PartyInfo.IsDelveInProgress: " .. apiSaysDelve)
+	line(("IsInInstance: %s  type=%s  (delve needs type=scenario)"):format(tostring(inInst), tostring(instType)))
+	line(("instance: '%s'  diff=%s (%s)"):format(tostring(iName), tostring(diffName), tostring(diffID)))
+	line("=> GATE IsDelveItemsUiAllowed: " .. (gate and "|cffff8888TRUE — MH thinks this IS a delve|r"
+		or "|cff88ff88false — delve UI stays off|r"))
+	line(("bounty item in bags: %d   toast already shown this run: %s"):format(have, tostring(bountyToastShownThisDelve)))
+	if gate and instType ~= "scenario" then
+		line("|cffff8888MISMATCH: gate is TRUE while this is not a scenario — the scenario check did not apply.|r")
+	end
+end
+
 function ns:PreviewDelveBountyToast()
 	if not ns.QueueMidnightToast then
 		return

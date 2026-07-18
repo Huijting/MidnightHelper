@@ -1307,6 +1307,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh delveprobe — print why MH thinks you are (not) in a delve, so a delve
+	-- popup/toast firing in the wrong content can be pinned instead of guessed at.
+	if msg == "delveprobe" then
+		if ns.PrintDelveGateProbe then
+			ns:PrintDelveGateProbe()
+		end
+		return
+	end
+
 	if msg == "bosswin why" or msg == "bosswin diag" then
 		if ns.PrintBossWindowDiag then
 			ns.PrintBossWindowDiag()
