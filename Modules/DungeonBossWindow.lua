@@ -56,6 +56,48 @@ local function CurBossKey()
 		and curDungeon.bosses[curIdx].key or nil
 end
 
+-- "Open boss window?"-prompt tijdens het gevecht. Gespiegeld van de Delve Coach
+-- (ShowBossPromptButton): het venster gaat in combat dicht — Robs keuze, het moet
+-- niet in de weg staan — maar zonder knopje was er geen weg terug, en dat was
+-- precies wat je in een follower dungeon als "flits en weg" zag.
+-- Staat bewust HIER bovenaan: ShowDungeonBossWindow en BossWindowOnEncounterEnd
+-- roepen het aan en staan lager in het bestand; een local die later wordt
+-- gedeclareerd is daar nog niet zichtbaar (nil-call, die luac niet ziet).
+local bossPrompt
+
+local function HideBossWindowPrompt()
+	if bossPrompt then
+		bossPrompt:Hide()
+	end
+end
+
+local function ShowBossWindowPrompt()
+	if win and win:IsShown() then
+		return -- venster al open → geen prompt nodig
+	end
+	if ns.IsBossWindowAutoOpenEnabled and not ns.IsBossWindowAutoOpenEnabled() then
+		return -- auto-open uit = geen prompts
+	end
+	if suppressedFor and suppressedFor == SuppressKey(curDungeon and curDungeon.key, CurBossKey()) then
+		return -- deze boss bewust weggeklikt
+	end
+	if not bossPrompt then
+		local b = CreateFrame("Button", nil, UIParent, "UIPanelButtonTemplate")
+		b:SetSize(230, 26)
+		b:SetPoint("TOP", UIParent, "TOP", 0, -170)
+		b:SetFrameStrata("HIGH")
+		b:SetScript("OnClick", function()
+			HideBossWindowPrompt()
+			if ns.ShowDungeonBossWindow then
+				ns.ShowDungeonBossWindow(curDungeon and curDungeon.key or nil, CurBossKey())
+			end
+		end)
+		bossPrompt = b
+	end
+	bossPrompt:SetText(ns:SafeL("DGN_WIN_BOSS_PROMPT"))
+	bossPrompt:Show()
+end
+
 local COLOR_TANK = "aecbfa"
 local COLOR_HEAL = "a9e8b8"
 local COLOR_DPS = "f2c4a0"
@@ -848,6 +890,7 @@ function ns.ShowDungeonBossWindow(dungeonKey, bossKey)
 	curIdx = bossKey and FindBossIndex(d, bossKey) or 1
 	local f = EnsureWindow()
 	f:Show()
+	HideBossWindowPrompt() -- venster staat open → knopje overbodig
 	ns.RefreshDungeonBossWindow()
 end
 
@@ -973,6 +1016,7 @@ end
 -- doorbladeren naar de volgende boss — geen wrap; bij de eindboss blijft
 -- hij gewoon staan.
 function ns.BossWindowOnEncounterEnd(dungeonKey, bossKey)
+	HideBossWindowPrompt() -- boss klaar → geen "open venster?"-knopje meer
 	if not win or not win:IsShown() or not curDungeon then
 		return
 	end
@@ -1000,10 +1044,15 @@ function ns.BossWindowOnEncounter(dungeonKey, bossKey)
 			curIdx = FindBossIndex(d, bossKey)
 		end
 	end
-	-- Volledig pre-pull (Rob 2026-07-05): het venster opent alléén buiten combat (door een
-	-- boss te targeten). ENCOUNTER_START valt altijd ín combat → hier dus niet meer auto-openen,
-	-- zodat het venster tijdens de fight uit de weg blijft. (Sluiten gebeurt op PLAYER_REGEN_DISABLED.)
+	-- Pre-pull-principe (Rob 2026-07-05): tijdens de fight blijft het venster uit de weg.
+	-- LET OP — de oude comment hier beweerde "ENCOUNTER_START valt altijd ín combat". Dat is
+	-- NIET waar: pult iemand anders (de NPC-tank in een follower dungeon), dan vuurt
+	-- ENCOUNTER_START terwijl JIJ nog buiten combat bent. Het venster opende dan keurig op de
+	-- juiste boss (via encounterID) en werd een tel later door PLAYER_REGEN_DISABLED weer
+	-- verborgen — Robs "flits en weg". Ben je al wél in gevecht, dan openen we niet, maar
+	-- bieden we het knopje aan zodat er een weg terug is.
 	if InCombatLockdown() then
+		ShowBossWindowPrompt()
 		return
 	end
 	if not ns.IsBossWindowAutoOpenEnabled() then
@@ -1197,12 +1246,19 @@ end
 local targetFrame = CreateFrame("Frame")
 targetFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 targetFrame:RegisterEvent("PLAYER_REGEN_DISABLED") -- combat-start: venster sluiten (Rob-wens)
+targetFrame:RegisterEvent("PLAYER_REGEN_ENABLED") -- combat klaar: prompt weer opruimen
 targetFrame:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_REGEN_ENABLED" then
+		HideBossWindowPrompt() -- buiten combat kan het venster gewoon weer open
+		return
+	end
 	if event == "PLAYER_REGEN_DISABLED" then
 		-- In gevecht is het boss-venster een PRE-PULL-referentie → sluiten zodat het niet
-		-- in beeld blijft tijdens de fight. (De ENCOUNTER_START-auto-open blijft apart.)
+		-- in beeld blijft tijdens de fight. Maar niet zonder weg terug: in plaats van het
+		-- venster verschijnt een klein knopje waarmee je het terughaalt (Delve Coach-recept).
 		if win and win:IsShown() then
 			win:Hide()
+			ShowBossWindowPrompt()
 		end
 		return
 	end
