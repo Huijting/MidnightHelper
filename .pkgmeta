@@ -17,13 +17,16 @@ enable-nolib-creation: no
 # release page. Overwrite RELEASE_NOTES.md on each version bump; the full history
 # stays in CHANGELOG.md and a per-version archive in docs/CURSEFORGE_<version>.md.
 #
-# MARKDOWN, not HTML: CurseForge's changelog field renders Markdown. 2.6.0 shipped
-# Markdown with this exact config and rendered clean. 2.7.0 briefly shipped HTML
-# (commit f62a445, now reverted) and the packager/CF flattened it into raw run-on
-# "##"/"**" text — that was the regression, NOT a Markdown problem. Keep markup-type
-# markdown + RELEASE_NOTES.md. Any maintainer note in the file must be an <!-- HTML
-# comment --> (hidden by the Markdown renderer). If a release still looks wrong, hand-fix
-# on curseforge.com: open the file's Changelog, Markdown mode, paste this file's body.
+# MARKDOWN, not HTML — and NO HTML AT ALL, not even a comment.
+# RELEASE_NOTES.md must start with a plain Markdown heading and contain no HTML.
+# History: 2.6.0 rendered clean (file began with "# Midnight Helper 2.6.0"). 2.7.0
+# shipped real HTML and CF flattened it. The "fix" then added a maintainer note as an
+# <!-- HTML comment --> at the top of the file, believing the renderer would hide it —
+# and 2.8.0 came out escaped again ("\\## Know your role", "\\*\\*doing your job"), with
+# the newlines collapsed. The leading HTML comment is what trips it. Keep this file pure
+# Markdown; maintainer instructions live here and in CLAUDE.md, never in the uploaded file.
+# If a release still looks wrong, hand-fix on curseforge.com: open the file's Changelog,
+# Markdown mode, paste RELEASE_NOTES.md's body, Save.
 manual-changelog:
   filename: RELEASE_NOTES.md
   markup-type: markdown

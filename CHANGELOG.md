@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.8.1
+
+- Boss guide opens on the boss you are fighting at the pull, and a button brings it back when combat hides it.
+- New: mount wishlist (star mounts in the Mounts tab; "This Week" tracks your picks).
+- New: `/mh groupbuffs` (missing raid-wide buffs, honest when auras are hidden) and `/mh pawn` (stat weights as a Pawn scale).
+- New: Codex entry explaining gear upgrade tracks; Discord invite in Settings and on "This Week".
+- Fixed: phantom "Trovehunter Bounty detected!" popup outside delves; addon icon and minimap button were never drawn; crash when opening the window in delves/follower dungeons; crash in `/mh pawn`; "50%%" in the Dawncrest guide; dungeon lost when changing floors; delve popups in follower dungeons.
+
 ## [2.8.0] - 2026-07-16
 
 Know your role — and see how it went. What to press, when to press it, and an honest look at how the run actually went. Plus everything for Season 2, dormant until 12.1.
