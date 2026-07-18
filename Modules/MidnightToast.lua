@@ -405,9 +405,17 @@ function ns.ShowNextMidnightToast()
 		return (have or 0) >= 1
 	end
 	while spec do
+		-- Herken de bounty-toast aan de GERENDERDE TITEL, niet aan losse velden. De
+		-- vorige poging keek naar spec.id/spec.titleKey en greep niet — de toast
+		-- verscheen na een reload gewoon weer in een follower dungeon (Rob 19 jul).
+		-- Wat er ook als veld gebruikt wordt, hier komt dezelfde tekst uit.
 		-- De preview (/mh toast) mag altijd door; die vraag je zelf aan.
+		local shownTitle = ResolveText(spec, "title")
+		local bountyTitle = ns.L and ns:L("TOAST_BOUNTY_TITLE") or nil
 		local isBounty = spec.id ~= "delve_bounty_preview"
-			and ((spec.id == "delve_bounty") or (spec.titleKey == "TOAST_BOUNTY_TITLE"))
+			and (spec.id == "delve_bounty"
+				or spec.titleKey == "TOAST_BOUNTY_TITLE"
+				or (bountyTitle and shownTitle ~= "" and shownTitle == bountyTitle))
 		if isBounty and not bountyStillValid() then
 			spec = table.remove(queue, 1) -- laten vallen, volgende proberen
 		else
@@ -442,6 +450,13 @@ function ns.ShowNextMidnightToast()
 			zone = tostring(GetInstanceInfo() or GetZoneText() or "?"),
 			imap = imap,
 			stamp = date and date("%H:%M:%S") or "?",
+			-- Volledig profiel: welke velden droeg deze toast? Zonder dit bleven we
+			-- gissen welk veld de tekst leverde (Rob 19 jul, meerdere rondes kwijt).
+			fields = ("id=%s titleKey=%s title=%s bodyKey=%s"):format(
+				tostring(spec.id), tostring(spec.titleKey),
+				tostring(spec.title and tostring(spec.title):sub(1, 40)),
+				tostring(spec.bodyKey)),
+			shownTitle = tostring(ResolveText(spec, "title")):sub(1, 40),
 		})
 		while #ns.db.toastLog > 12 do
 			table.remove(ns.db.toastLog)

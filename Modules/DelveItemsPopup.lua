@@ -521,6 +521,10 @@ function ns:PrintDelveGateProbe()
 			local e = hist[i]
 			line(("   %d. [%s] '%s'  in '%s'"):format(i, tostring(e.stamp),
 				tostring(e.id), tostring(e.zone)))
+			if e.fields then
+				line(("       %s"):format(tostring(e.fields)))
+				line(("       shown title: '%s'"):format(tostring(e.shownTitle)))
+			end
 		end
 	else
 		line("toasts shown: none logged yet")
