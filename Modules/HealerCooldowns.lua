@@ -264,16 +264,20 @@ ns.HEALER_DISPELS = {
 -- changes between patches, so we show only what this character actually knows
 -- instead of asserting who "should" have what.
 --
--- Deliberately NOT included: Cleanse Toxins (213644). JustAC lists it as a Paladin
--- dispel, but DBM's current table does not have it at all and instead says
--- Cleanse (4987) is "Dps/Healer: Magic. Healer Only: Poison, Disease". Two trusted
--- sources disagree, so it stays out until verified in-game on a Prot/Ret Paladin.
+-- Cleanse Toxins (213644): DBM's table omits it entirely, which nearly cost us the
+-- entry — but Rob read the tooltip on his own Prot Paladin (2026-07-19): "Cleanses
+-- a friendly target, removing all Poison and Disease effects", 8s cooldown. An
+-- in-game tooltip outranks any addon's data file, so it is in, and DBM is simply
+-- incomplete here.
 ns.NONHEALER_DISPELS = {
 	DRUID = { { id = 2782, types = { "curse", "poison" } } }, -- Remove Corruption
 	SHAMAN = { { id = 51886, types = { "curse" } } }, -- Cleanse Spirit
 	MAGE = { { id = 475, types = { "curse" } } }, -- Remove Curse
 	MONK = { { id = 218164, types = { "poison", "disease" } } }, -- Detox (non-healer)
-	PALADIN = { { id = 4987, types = { "magic" } } }, -- Cleanse (non-Holy: Magic only)
+	PALADIN = {
+		{ id = 213644, types = { "poison", "disease" } }, -- Cleanse Toxins (in-game verified)
+		{ id = 4987, types = { "magic" } }, -- Cleanse (DBM: Magic for non-Holy)
+	},
 	PRIEST = { { id = 213634, types = { "disease" } } }, -- Purify Disease
 	WARLOCK = { { id = 89808, types = { "magic" } } }, -- Singe Magic (Imp)
 	EVOKER = {
