@@ -388,6 +388,36 @@ function ns.ShowNextMidnightToast()
 	end
 
 	local spec = table.remove(queue, 1)
+
+	-- Vangnet op het TOON-moment. /fstack bewees dat de Trovehunter-toast onze eigen
+	-- MidnightHelperToast is, maar geen enkele bekende queue-route logde 'm — de
+	-- afzender is dus niet gevonden. Daarom valideren we hier, waar het altijd langs
+	-- moet: alleen tonen als het NU nog klopt (in een delve én het item echt in je
+	-- tas). Rob 19 jul: "zet maar uit buiten een delve, als ie daar maar wel komt als
+	-- ik hem ook werkelijk heb, want in mijn tas zie ik hem niet".
+	local function bountyStillValid()
+		local inDelve = ns.IsDelveInstanceInProgress and ns.IsDelveInstanceInProgress()
+		if not inDelve then
+			return false
+		end
+		local itemID = (ns.Config and ns.Config.DELVE_ITEM_TROVEHUNTER_BOUNTY) or 252415
+		local have = GetItemCount and GetItemCount(itemID) or 0
+		return (have or 0) >= 1
+	end
+	while spec do
+		-- De preview (/mh toast) mag altijd door; die vraag je zelf aan.
+		local isBounty = spec.id ~= "delve_bounty_preview"
+			and ((spec.id == "delve_bounty") or (spec.titleKey == "TOAST_BOUNTY_TITLE"))
+		if isBounty and not bountyStillValid() then
+			spec = table.remove(queue, 1) -- laten vallen, volgende proberen
+		else
+			break
+		end
+	end
+	if not spec then
+		return
+	end
+
 	activeSpec = spec
 	-- Log elke getoonde toast (id + tijd). Op queue-niveau loggen bleek te weinig:
 	-- de bounty-toast verscheen in een follower dungeon terwijl geen enkele bekende
