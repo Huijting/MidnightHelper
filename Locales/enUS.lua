@@ -821,8 +821,8 @@ ns._mhLocales.enUS = {
 	ACADEMY_TANK_CHAT_BODY = "\"Still learning tank - go slow please.\"\n\"Pulling in 3...\"\n\"Need a breather for mana.\"\n\"Interrupt on [spell name] - I have it next.\"\n\"One more try - I know that pull now.\"",
 	ACADEMY_TANK_LADDER_TITLE = "Anxiety ladder (recommended order)",
 	ACADEMY_TANK_LADDER_BODY = "1. Open world elites with a friend\n2. Delves (smaller instance - Delves tab)\n3. Normal dungeon with people you trust\n4. Heroic / LFR when comfortable\n\nSkip a step until it feels boring, not terrifying.",
-	ACADEMY_TANK_BOTH_TITLE = "Learning heal as well?",
-	ACADEMY_TANK_BOTH_BODY = "Great - but pick one main role in dungeons for a while. Practice the other in delves or open world.\n\nSwitching tank and heal in the same M+ pug doubles stress; mastery in one role first builds confidence for the second.",
+	ACADEMY_TANK_BOTH_TITLE = "Learning heal or DPS too?",
+	ACADEMY_TANK_BOTH_BODY = "The DPS track is the gentlest second role - your rotation, kicks and positioning, with no group depending on you. Healing is the bigger jump, but you already read pulls, and that is half of it.\n\nPick one main role in dungeons for a while and practise the other in delves or open world. Switching roles in the same M+ pug doubles the stress; mastery in one first builds confidence for the second.",
 
 	ACADEMY_HEAL_INTRO_TITLE = "Heal mindset",
 	ACADEMY_HEAL_INTRO_BODY = "You are not responsible for everyone at 100% health all the time.\n\nYour job is triage: keep the tank alive, save the person about to die, then the rest. Some damage is normal - panic overhealing empties mana.",
@@ -840,6 +840,8 @@ ns._mhLocales.enUS = {
 	ACADEMY_HEAL_LADDER_BODY = "1. Heal a friend in open world\n2. Delves with a small group\n3. Normal dungeon with patient friends\n4. Raid LFR / heroic when ready\n\nDelves are the softest step into instanced content.",
 	ACADEMY_HEAL_BOTH_TITLE = "Learning tank or DPS too?",
 	ACADEMY_HEAL_BOTH_BODY = "The DPS track is the gentlest second role - just your rotation, kicks and positioning, no pressure on the group. The Tank track gives the fastest dungeon queues once tanking feels less scary.\n\nTwo roles in one week in pugs is a lot - pick one as your \"main\" to reduce fear.",
+	ACADEMY_DPS_BOTH_TITLE = "Thinking about tank or heal?",
+	ACADEMY_DPS_BOTH_BODY = "You already know the fights from the DPS seat, and that is most of the work. Tanking gives you instant dungeon queues; healing asks the most nerve but is the most wanted.\n\nTry the new role in a delve or a follower dungeon first, where nobody is waiting on you. Then keep one role as your main for a while instead of swapping every pug.",
 
 	-- Deepened beginner heal course (healer initiative, piece 2)
 	ACADEMY_HEAL_MANA_TITLE = "Mana and efficiency",

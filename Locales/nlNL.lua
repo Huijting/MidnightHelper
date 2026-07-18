@@ -817,7 +817,7 @@ ns._mhLocales.nlNL = {
 	ACADEMY_TANK_CHAT_BODY = "\"Nog tank leren - rustig aan graag.\"\n\"Pull over 3...\"\n\"Even pauze voor mana.\"\n\"Interrupt op [spell] - ik pak volgende.\"\n\"Nog één try - die pull ken ik nu.\"",
 	ACADEMY_TANK_LADDER_TITLE = "Angst-ladder (aanbevolen volgorde)",
 	ACADEMY_TANK_LADDER_BODY = "1. Open world elites met een vriend\n2. Delves (kleinere instance - Delves-tab)\n3. Normal dungeon met mensen die je vertrouwt\n4. Heroic / LFR als het comfortabel voelt\n\nSla een stap over tot het saai wordt, niet eng.",
-	ACADEMY_TANK_BOTH_TITLE = "Ook heal leren?",
+	ACADEMY_TANK_BOTH_TITLE = "Ook heal of DPS leren?",
 	ACADEMY_TANK_BOTH_BODY = "Top - maar kies één hoofdrol in dungeons voorlopig. Oefen de andere rol in delves of open world.\n\nTank én heal in dezelfde M+ pug verdubbelt stress; één rol eerst geeft vertrouwen voor de tweede.",
 
 	ACADEMY_HEAL_INTRO_TITLE = "Heal-mindset",
@@ -836,6 +836,8 @@ ns._mhLocales.nlNL = {
 	ACADEMY_HEAL_LADDER_BODY = "1. Heal een vriend in open world\n2. Delves met een kleine group\n3. Normal dungeon met geduldige vrienden\n4. Raid LFR / heroic als je er klaar voor bent\n\nDelves zijn de zachtste stap naar instances.",
 	ACADEMY_HEAL_BOTH_TITLE = "Ook tank of DPS leren?",
 	ACADEMY_HEAL_BOTH_BODY = "De DPS-track is de zachtste tweede rol - alleen je rotatie, kicks en positie, geen druk richting de groep. De Tank-track geeft de snelste dungeon-queue zodra tanken minder eng voelt.\n\nTwee rollen in één week in pugs is veel - kies er één als \"hoofdrol\" om angst te verminderen.",
+	ACADEMY_DPS_BOTH_TITLE = "Denk je aan tank of heal?",
+	ACADEMY_DPS_BOTH_BODY = "Je kent de fights al vanuit de DPS-stoel, en dat is het meeste werk. Tanken geeft je meteen een dungeon-queue; healen vraagt de meeste zenuwen maar is het meest gezocht.\n\nProbeer de nieuwe rol eerst in een delve of follower dungeon, waar niemand op je wacht. Houd daarna een tijdje één rol aan als hoofdrol in plaats van elke pug te wisselen.",
 
 	-- Verdiepte beginner heal-course (healer-initiatief, deel 2)
 	ACADEMY_HEAL_MANA_TITLE = "Mana en efficiëntie",

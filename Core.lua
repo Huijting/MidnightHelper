@@ -143,6 +143,7 @@ local DEFAULT_DB = {
 		roleAcademyPreflight = {
 			tank = {},
 			heal = {},
+			dps = {},
 		},
 	},
 	-- Leveling Guides: optional preview of another class/spec (see Addons/Guide.lua search bar).

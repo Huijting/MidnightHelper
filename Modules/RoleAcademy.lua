@@ -69,6 +69,7 @@ local SECTION_KEYS = {
 		{ "ACADEMY_DPS_UTILITY_TITLE", "ACADEMY_DPS_UTILITY_BODY" },
 		{ "ACADEMY_DPS_MISTAKES_TITLE", "ACADEMY_DPS_MISTAKES_BODY" },
 		{ "ACADEMY_DPS_PRACTICE_TITLE", "ACADEMY_DPS_PRACTICE_BODY" },
+		{ "ACADEMY_DPS_BOTH_TITLE", "ACADEMY_DPS_BOTH_BODY" },
 	},
 }
 
@@ -119,14 +120,17 @@ local function EnsurePreflightBag()
 		ns.db.ui = {}
 	end
 	if type(ns.db.ui.roleAcademyPreflight) ~= "table" then
-		ns.db.ui.roleAcademyPreflight = { tank = {}, heal = {} }
+		ns.db.ui.roleAcademyPreflight = { tank = {}, heal = {}, dps = {} }
 	end
 	local bag = ns.db.ui.roleAcademyPreflight
-	if type(bag.tank) ~= "table" then
-		bag.tank = {}
-	end
-	if type(bag.heal) ~= "table" then
-		bag.heal = {}
+	-- Elke bestaande track MOET hier een tabel hebben: SetPreflightChecked schrijft
+	-- rechtstreeks in bag[track][key], dus een ontbrekende track is een nil-index-
+	-- crash zodra iemand een vinkje zet. `dps` ontbrak sinds die track erbij kwam
+	-- (Rob 19 jul) — vandaar een lus over PREFLIGHT_KEYS in plaats van met de hand.
+	for track in pairs(PREFLIGHT_KEYS) do
+		if type(bag[track]) ~= "table" then
+			bag[track] = {}
+		end
 	end
 	return bag
 end
