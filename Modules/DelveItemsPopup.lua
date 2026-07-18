@@ -512,13 +512,16 @@ function ns:PrintDelveGateProbe()
 		line("|cffff8888MISMATCH: gate is TRUE while this is not a scenario — the scenario check did not apply.|r")
 	end
 
-	-- Welke toast kwam er als LAATSTE in beeld? (toon-niveau, vangt elke afzender)
-	local shown = ns._mhLastToastShown
-	if shown then
-		line(("last toast shown on screen: '%s'  (%.1fs ago)"):format(
-			tostring(shown.id), (GetTime() or 0) - (shown.t or 0)))
+	-- Welke toasts kwamen er in beeld? (toon-niveau: vangt elke afzender, nieuwste eerst)
+	local hist = ns._mhToastHistory
+	if hist and #hist > 0 then
+		line("toasts shown this session (newest first):")
+		for i = 1, #hist do
+			line(("   %d. '%s'  %.0fs ago"):format(i, tostring(hist[i].id),
+				(GetTime() or 0) - (hist[i].t or 0)))
+		end
 	else
-		line("last toast shown on screen: none this session")
+		line("toasts shown this session: none")
 	end
 
 	-- Wie heeft de toast als laatste gequeued, en onder welke omstandigheden?

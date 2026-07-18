@@ -392,7 +392,21 @@ function ns.ShowNextMidnightToast()
 	-- Log elke getoonde toast (id + tijd). Op queue-niveau loggen bleek te weinig:
 	-- de bounty-toast verscheen in een follower dungeon terwijl geen enkele bekende
 	-- afzender 'm had gequeued. Hier zie je WAT er in beeld kwam, wie het ook stuurde.
-	ns._mhLastToastShown = { id = tostring(spec.id or "?"), t = GetTime() }
+	-- HISTORIE, niet alleen de laatste: één regel werd meteen overschreven door de
+	-- volgende toast (de tank-pull-samenvatting), waardoor de bounty onzichtbaar bleef.
+	-- Zonder id (de tank-pull-samenvatting laat 'm bewust weg, zodat elke pull een
+	-- eigen toast krijgt) loggen we de titel-key/-tekst, anders zegt "(no id)" niets.
+	local label = spec.id
+	if not label then
+		label = spec.titleKey or spec.title
+		label = type(label) == "string" and ("(no id) " .. label:sub(1, 32)) or "(no id)"
+	end
+	ns._mhToastHistory = ns._mhToastHistory or {}
+	table.insert(ns._mhToastHistory, 1, { id = tostring(label), t = GetTime() })
+	while #ns._mhToastHistory > 8 do
+		table.remove(ns._mhToastHistory)
+	end
+	ns._mhLastToastShown = ns._mhToastHistory[1]
 	-- onShow: pas hier weet de afzender zeker dat de toast écht in beeld komt.
 	-- Nodig voor "1× per week"-meldingen (ShardCapAlert): een gequeued-maar-
 	-- nooit-getoonde toast (reload terwijl een rare-toast voorstond — Rob,
