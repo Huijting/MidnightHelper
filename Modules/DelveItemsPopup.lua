@@ -450,6 +450,25 @@ function ns:MaybeShowDelveBountyToast()
 		return
 	end
 	bountyToastShownThisDelve = true
+	-- Leg vast ONDER WELKE OMSTANDIGHEDEN we queuen. Een probe achteraf is een
+	-- momentopname; de toast bleek in een follower dungeon te verschijnen terwijl
+	-- de gate op dat moment dicht stond, dus het queue-moment is wat telt.
+	do
+		local _, itype = IsInInstance()
+		local api = "n/a"
+		if C_PartyInfo and C_PartyInfo.IsDelveInProgress then
+			local okA, act = pcall(C_PartyInfo.IsDelveInProgress)
+			api = okA and tostring(act) or "error"
+		end
+		local iName = GetInstanceInfo()
+		ns._mhBountyToastLog = {
+			source = "MaybeShowDelveBountyToast",
+			t = GetTime(),
+			instType = tostring(itype),
+			instName = tostring(iName),
+			api = api,
+		}
+	end
 	ns:QueueMidnightToast({
 		id = "delve_bounty",
 		itemID = ITEM_TREASURE,
@@ -492,12 +511,27 @@ function ns:PrintDelveGateProbe()
 	if gate and instType ~= "scenario" then
 		line("|cffff8888MISMATCH: gate is TRUE while this is not a scenario — the scenario check did not apply.|r")
 	end
+
+	-- Wie heeft de toast als laatste gequeued, en onder welke omstandigheden?
+	local log = ns._mhBountyToastLog
+	if not log then
+		line("|cffff8888last bounty toast: NEVER queued by MH this session|r — so a toast on")
+		line("   screen did not come from our delve code. Look elsewhere.")
+	else
+		line(("last bounty toast queued: %.1fs ago by %s"):format(
+			(GetTime() or 0) - (log.t or 0), tostring(log.source)))
+		if log.instType then
+			line(("   at that moment: instance='%s' type=%s  IsDelveInProgress=%s"):format(
+				tostring(log.instName), tostring(log.instType), tostring(log.api)))
+		end
+	end
 end
 
 function ns:PreviewDelveBountyToast()
 	if not ns.QueueMidnightToast then
 		return
 	end
+	ns._mhBountyToastLog = { source = "PreviewDelveBountyToast (/mh toast)", t = GetTime() }
 	ns:QueueMidnightToast({
 		id = "delve_bounty_preview",
 		itemID = ITEM_TREASURE,
