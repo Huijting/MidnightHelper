@@ -384,6 +384,12 @@ ns.BOSS_HEAL_LENS = {
 		-- MAGIC_ICON. A magic buff on the boss -- purge, not cleanse.
 		seranel = { purge = "magic" },
 	},
+	blindingvale = {
+		-- Grievous Thrash (1241058): DBM alert sound "healfull" and a Healer custom
+		-- alert. A grievous-style debuff that keeps hurting until the target is topped
+		-- off -- the fix is a big heal on one player, not a dispel and not a raid CD.
+		ruia = { healfull = true },
+	},
 }
 
 --- The player's top raid-window cooldown for a spec (first `when=="raid"`, else
@@ -439,6 +445,9 @@ function ns.GetBossHealLensLine(entryKey, bossKey)
 		-- the line states the mechanic and lets the player judge. Verify the ids
 		-- in-game first if this should ever say "with your X".
 		parts[#parts + 1] = (ns:L("HEALLENS_PURGE_FMT")):format(ns.FormatDispelTypes({ lens.purge }))
+	end
+	if lens.healfull then
+		parts[#parts + 1] = ns:L("HEALLENS_HEALFULL_FMT")
 	end
 	if lens.raidcd then
 		local cd = ns.GetTopRaidCooldown(specID)
