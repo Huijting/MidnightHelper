@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.8.2
+
+- Fixed: profession panel showed wrong currency balances — every unverified Artisan's Moxie / Unalloyed Abundance id removed (three resolved to other professions' currencies, one to a hidden delve tracker).
+- Fixed: crash when opening the profession panel; burst of ADDON_ACTION_FORBIDDEN errors from the death recap in dungeons.
+- Fixed: Omnium Folio "Open rune window" recognised the page by its English name, breaking every non-English client; no longer reports success when no window opened.
+- New: dispel reference for tank and DPS specs; Role Academy DPS content (was absent, and hid a crash).
+- New: healer boss tips in Magisters' Terrace and The Blinding Vale, distinguishing cleanse / purge-the-boss / heal-to-full.
+- New: copy button for sharing ritual routes.
+- Season 2 content gates on the season opening, not the patch landing; M+ interrupt notes name dungeons with no data; consumable ready board reports what it cannot see.
+
 ## 2.8.1
 
 - Boss guide opens on the boss you are fighting at the pull, and a button brings it back when combat hides it.
