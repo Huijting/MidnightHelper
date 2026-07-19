@@ -27,22 +27,13 @@ local function IsPatchLive()
 	return b ~= nil and ClientBuild() >= b
 end
 
-local function IsSeasonLive()
-	local id = ns.SEASON2 and ns.SEASON2.mplusSeasonId
-	if not id then
-		return false -- never claim the season without a verified id
-	end
-	if C_MythicPlus and C_MythicPlus.GetCurrentSeason then
-		return C_MythicPlus.GetCurrentSeason() == id
-	end
-	return false
-end
-
+-- Phase names kept for the existing checklist UI; the shared truth now lives in
+-- SeasonTransitionData (ns.GetSeason2State), so every gate agrees.
 function ns.GetSeasonPhase()
-	if IsSeasonLive() then
+	local state = ns.GetSeason2State and ns.GetSeason2State() or "hidden"
+	if state == "live" then
 		return "season"
-	end
-	if IsPatchLive() then
+	elseif state == "preview" then
 		return "prep"
 	end
 	return "closing"
@@ -213,6 +204,18 @@ function ns.PrintSeasonTransitionDiagnostics()
 		ClientBuild(),
 		tostring(ns.SEASON2 and ns.SEASON2.patchInterface),
 		tostring(ns.SEASON2 and ns.SEASON2.mplusSeasonId)
+	))
+	-- The live season number, straight from the game. Capture this on Season 1 so
+	-- the gate can be self-learning ("a season higher than S1 means S2 is live")
+	-- instead of needing someone present at the flip to read the new id.
+	local liveSeason = "n/a"
+	if C_MythicPlus and C_MythicPlus.GetCurrentSeason then
+		local ok, cur = pcall(C_MythicPlus.GetCurrentSeason)
+		liveSeason = ok and tostring(cur) or "error"
+	end
+	print(("   |cff40c040LIVE M+ season id (from the game): %s|r · S1 recorded as %s"):format(
+		liveSeason,
+		tostring(ns.SEASON2 and ns.SEASON2.s1MplusSeasonId)
 	))
 	local newcomer, score = ns.IsSeasonNewcomer()
 	print(("   season newcomer: %s (M+ score %s) · card dismissed: %s"):format(

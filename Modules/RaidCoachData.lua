@@ -98,8 +98,8 @@ local function SeasonActive(season)
 		return true
 	end
 	if season == 2 then
-		local _, _, _, iface = GetBuildInfo()
-		return (tonumber(iface) or 0) >= 120100
+		-- Zie DungeonRosterData: zichtbaar vanaf de patch, gelabeld tot het seizoen loopt.
+		return ns.IsSeason2Visible and ns.IsSeason2Visible() or false
 	end
 	return false
 end

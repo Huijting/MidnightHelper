@@ -149,6 +149,7 @@ Modules\ModelPreview.lua
 Modules\ResetRoutine.lua
 Modules\AchievementsData.lua
 Modules\Achievements.lua
+Modules\SeasonTransitionData.lua
 Modules\DungeonRosterData.lua
 Modules\DungeonTipsData.lua
 Modules\MythicPlusData.lua
@@ -182,7 +183,6 @@ Modules\MountProgress.lua
 Modules\MountsPanel.lua
 Modules\MountCollector.lua
 Modules\TradingPost.lua
-Modules\SeasonTransitionData.lua
 Modules\SeasonTransition.lua
 Modules\CampaignLeadIn.lua
 Modules\HomeDashboard.lua

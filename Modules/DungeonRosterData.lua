@@ -300,8 +300,9 @@ do
 			return true
 		end
 		if season == 2 then
-			local _, _, _, iface = GetBuildInfo()
-			return (tonumber(iface) or 0) >= 120100
+			-- Zichtbaar vanaf de PATCH; de UI labelt het tot het seizoen echt open is.
+			-- Gedeelde bron: ns.GetSeason2State in SeasonTransitionData (laadt hiervóór).
+			return ns.IsSeason2Visible and ns.IsSeason2Visible() or false
 		end
 		return false
 	end

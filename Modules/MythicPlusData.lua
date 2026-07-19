@@ -75,9 +75,11 @@ ns.MPLUS_KICKS = {
 -- SeasonTransition. Vóór 12.1 blijft het de Season 1-pool. (C_MythicPlus.
 -- GetCurrentSeason zou ook kunnen, maar het nieuwe season-id is nog onbekend;
 -- de build-check is deterministisch en consistent met de rest van MH.)
+--- Draait de S2 M+-rotatie ECHT? Anders dan roster-zichtbaarheid mag dit pas true
+--- zijn als het seizoen open is: tijdens de patchweek is de S1-pool nog de pool
+--- die je daadwerkelijk kunt lopen.
 function ns.IsMythicSeason2()
-	local _, _, _, iface = GetBuildInfo()
-	return (tonumber(iface) or 0) >= 120100
+	return ns.IsSeason2Live and ns.IsSeason2Live() or false
 end
 
 -- true als dungeon d in de M+-rotatie van het ACTIEVE seizoen zit.

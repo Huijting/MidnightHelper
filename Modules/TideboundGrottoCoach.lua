@@ -25,8 +25,9 @@ local _, ns = ...
 -- Season gate — same build check as RaidCoachData / DungeonRosterData /
 -- SeasonTransition. Bail before registering anything on live 12.0.7.
 do
-	local _, _, _, iface = GetBuildInfo()
-	if (tonumber(iface) or 0) < 120100 then
+	-- Zichtbaar vanaf de patch (preview); de coach zelf claimt niet dat de lair al
+	-- te lopen is — dat hangt aan ns.IsSeason2Live.
+	if not (ns.IsSeason2Visible and ns.IsSeason2Visible()) then
 		return
 	end
 end
