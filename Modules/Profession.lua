@@ -330,6 +330,8 @@ function ns.PrintMoxieProbe()
 			local nm = GetCurrencyDisplayName(o[2])
 			print(("   %-30s %5d  ->  %s"):format(o[1], o[2],
 				nm and ("|cffffffff" .. nm .. "|r") or "|cffff5040does not resolve|r"))
+		else
+			print(("   %-30s %5s  ->  |cff909090cleared - 3401 was a hidden delve tracker|r"):format(o[1], "-"))
 		end
 	end
 	print("   A name that is not what the label says means the id is wrong.")
@@ -811,16 +813,22 @@ local function PopulateProfessionColumn(host, cat, primary, colW)
 				local abundID = Config.UNALLOYED_ABUNDANCE_CURRENCY_CODE
 				local profEnum = ProfessionLabelToEnum(rd[6])
 				local moxieID = profEnum and Config.ARTISANS_MOXIE_CURRENCY_CODES and Config.ARTISANS_MOXIE_CURRENCY_CODES[profEnum]
-				local haveA = GetCurrencyQuantity(abundID)
-				local nameA = GetCurrencyDisplayName(abundID) or "Unalloyed Abundance"
-				local okA = haveA >= needA
-				GameTooltip:AddLine(
-					string.format("%s: %d / %d", nameA, haveA, needA),
-					okA and 0 or 1,
-					okA and 1 or 0.12,
-					okA and 0 or 0.12,
-					false
-				)
+				if abundID then
+					local haveA = GetCurrencyQuantity(abundID)
+					local nameA = GetCurrencyDisplayName(abundID) or "Unalloyed Abundance"
+					local okA = haveA >= needA
+					GameTooltip:AddLine(
+						string.format("%s: %d / %d", nameA, haveA, needA),
+						okA and 0 or 1,
+						okA and 1 or 0.12,
+						okA and 0 or 0.12,
+						false
+					)
+				else
+					-- Unknown id: saying "0 / 5" would claim you cannot afford this, which we
+					-- do not know. Say nothing about the balance instead of guessing zero.
+					GameTooltip:AddLine("Unalloyed Abundance: currency id not verified.", 0.53, 0.53, 0.53, true)
+				end
 				if moxieID then
 					local haveM = GetCurrencyQuantity(moxieID)
 					local nameM = GetCurrencyDisplayName(moxieID) or "Artisan's Moxie"

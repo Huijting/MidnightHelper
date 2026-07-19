@@ -13,9 +13,14 @@ local E = Enum and Enum.Profession
 
 local Config = {
 	--- World event / profession books (Unalloyed Abundance).
-	--- ⚠️ UNVERIFIED placeholder, same batch as the Moxie ids that all turned out
-	--- wrong. Check with /mh moxie before trusting what the panel shows.
-	UNALLOYED_ABUNDANCE_CURRENCY_CODE = 3401,
+	--- DELIBERATELY nil. 3401 was the last survivor of the guessed batch, and /mh moxie
+	--- (Rob, 19 jul) showed the game calls it "12.0 Delves - Personal Tracker - S1 Weekly
+	--- Turn-In (Hidden)" -- a hidden internal counter, not a player currency. Worse than a
+	--- dead id: it resolves, so the panel happily showed that counter's balance under the
+	--- Unalloyed Abundance label and compared it against recipe costs.
+	--- Do NOT fill this in from a wiki or a plausible-looking number. Confirm in-game first:
+	--- the name GetCurrencyInfo returns must actually read "Unalloyed Abundance".
+	UNALLOYED_ABUNDANCE_CURRENCY_CODE = nil,
 	--- Weekly tracker: Shards of Dundun (bags / weekly progress display).
 	SHARD_OF_DUNDUN_ITEM_ID = 258901,
 	--- Delve consumables (minimap quick-use + Delves tab currency line).
