@@ -234,8 +234,15 @@ local function ClassColorName(name, classToken)
 	return name or "?"
 end
 
--- Voegt "Heeft: <namen>" (groen) en "Mist: <namen>" (rood) toe aan de tooltip,
--- class-gekleurd. info = { spellID, has={{name,class}...}, missing={...} }.
+-- Voegt "Heeft: <namen>" (groen), "Mist: <namen>" (rood) en "Kan ik niet zien:
+-- <namen>" (grijs) toe aan de tooltip, class-gekleurd.
+-- info = { spellID, has={{name,class}...}, missing={...}, unknown={...} }
+--
+-- Die derde regel is niet cosmetisch. ConsumableReadyCheck vult al drie bakjes,
+-- maar hier werden er maar twee getekend — dus zodra 12.1 andermans auras secret
+-- maakt, belandt IEDEREEN in `unknown` en bleef de tooltip volledig leeg. Een lege
+-- tooltip leest als "er mist niets", en dat is precies de zelfverzekerde leugen
+-- die MH nooit mag vertellen. Nu zegt hij wat hij niet kan zien.
 local function AddHolderLines(info)
 	if not (info and GameTooltip) then
 		return
@@ -253,6 +260,18 @@ local function AddHolderLines(info)
 			t[#t + 1] = ClassColorName(e.name, e.class)
 		end
 		GameTooltip:AddLine(ns:L("CONSREADY_MISSING") .. " " .. table.concat(t, ", "), 1, 0.45, 0.45, true)
+	end
+	if info.unknown and #info.unknown > 0 then
+		local t = {}
+		for _, e in ipairs(info.unknown) do
+			t[#t + 1] = ClassColorName(e.name, e.class)
+		end
+		GameTooltip:AddLine(ns:L("CONSREADY_UNKNOWN") .. " " .. table.concat(t, ", "), 0.62, 0.62, 0.62, true)
+		-- Alleen onleesbaar? Zeg dan expliciet dat dit géén "alles in orde" is.
+		local anyRead = (info.has and #info.has > 0) or (info.missing and #info.missing > 0)
+		if not anyRead then
+			GameTooltip:AddLine(ns:L("CONSREADY_UNKNOWN_HINT"), 0.62, 0.62, 0.62, true)
+		end
 	end
 end
 
@@ -588,8 +607,14 @@ local function Render()
 				local def = raidDefs[r]
 				if def and r <= nRaid then
 					PlaceCell(cell, RaidXDyn(nConsum, r), row._y)
+					-- `has` is DRIE standen: true / false / nil (= niet te lezen).
+					-- Het stond hier als `has and true or false`, waardoor nil naar
+					-- false werd geplet en een onleesbare speler een rood "mist"-kruis
+					-- kreeg. SetCell kent de derde stand allang (nil → WAITING-badge),
+					-- dus geef 'm gewoon door. Zonder dit beschuldigt MH vanaf 12.1 de
+					-- halve groep van buffs die het simpelweg niet kán zien.
 					local has = entry.raidbuffs and entry.raidbuffs[def.key]
-					SetCell(cell, SpellIcon(def.spellID), has and true or false, nil)
+					SetCell(cell, SpellIcon(def.spellID), has, nil)
 					if cell.hit then
 						cell.hit._buffKey = def.key
 						cell.hit:Show()
