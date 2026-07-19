@@ -65,7 +65,21 @@ local function inTrackedInstance()
 	if not IsInInstance() then
 		return false
 	end
+	-- Ask the group system directly BEFORE trusting the difficulty. On a /reload inside an
+	-- instance GetInstanceInfo() briefly reports stale info, so difficulty 205 can read as a
+	-- plain dungeon for a moment; this API describes the LFG session and is right immediately.
+	if C_LFGInfo and C_LFGInfo.IsInLFGFollowerDungeon then
+		local ok, isFollower = pcall(C_LFGInfo.IsInLFGFollowerDungeon)
+		if ok and isFollower then
+			return false
+		end
+	end
 	local diffID = select(3, GetInstanceInfo())
+	-- Difficulties where RegisterEvent was actually forbidden once. Persisted, so the lesson
+	-- survives a /reload instead of being relearned (at the cost of one error) every time.
+	if diffID and ns.db and ns.db.deathRecapBlockedDiff and ns.db.deathRecapBlockedDiff[diffID] then
+		return false
+	end
 	if not (diffID and SAFE_DIFFICULTY[diffID]) then
 		return false -- delve / follower dungeon / ritual scenario / unknown → stay out
 	end
@@ -336,7 +350,11 @@ local function UpdateClogRegistration()
 	end
 	if C_Timer and C_Timer.After then
 		clogCheckQueued = true
-		C_Timer.After(0.1, function()
+		-- 0.1s was NOT enough: on a /reload inside an instance GetInstanceInfo() had not
+		-- settled yet, so a follower dungeon still read as a plain dungeon and we registered
+		-- anyway (Rob, 19 jul: 13x, one per reload). Waiting longer costs nothing -- combat
+		-- start re-checks below, and nobody pulls within 1.5s of the loading screen.
+		C_Timer.After(1.5, function()
 			clogCheckQueued = false
 			DoClogRegistration()
 		end)
@@ -356,6 +374,17 @@ forbiddenWatch:RegisterEvent("ADDON_ACTION_FORBIDDEN")
 forbiddenWatch:SetScript("OnEvent", function(_, _, who, func)
 	if who == "MidnightHelper" and type(func) == "string" and func:find("RegisterEvent", 1, true) then
 		cleuBlocked = true
+		-- Remember WHICH difficulty refused us, so the next reload here never even tries.
+		-- Self-learning and narrow: only the difficulty that actually failed is blacklisted,
+		-- so one slip can't disable the recap in content where it works fine.
+		if GetInstanceInfo then
+			local okInfo, diffID = pcall(function() return select(3, GetInstanceInfo()) end)
+			if okInfo and diffID then
+				ns.db = ns.db or {}
+				ns.db.deathRecapBlockedDiff = ns.db.deathRecapBlockedDiff or {}
+				ns.db.deathRecapBlockedDiff[diffID] = true
+			end
+		end
 		if clogOn then
 			clog:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 			clogOn = false
@@ -367,6 +396,7 @@ end)
 local zone = CreateFrame("Frame")
 zone:RegisterEvent("PLAYER_ENTERING_WORLD")
 zone:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+zone:RegisterEvent("PLAYER_REGEN_DISABLED") -- combat start: instance info is settled by now
 zone:RegisterEvent("PLAYER_DEAD")
 zone:SetScript("OnEvent", function(_, ev)
 	if ev == "PLAYER_DEAD" then
