@@ -134,9 +134,33 @@ end
 -- labels, which Blizzard sets from the active landing page (Rob's dump: title "Omnium Folio",
 -- description "…Midnight features and powers"). English-oriented, like MH's other tooltip-text
 -- checks; a mislabel just falls back to the "wrong expansion" hint, never the wrong window.
+--- True when the landing page button will open MIDNIGHT's page (the Folio).
+---
+--- Asks the game first. `/mh folio` (Rob, 19 jul) turned up the real API:
+--- Enum.ExpansionLandingPageType.Midnight, ExpansionLandingPage:GetLandingPageType(),
+--- and the button's own IsExpansionOverlayMode() / IsInGarrisonMode().
+---
+--- The old check compared btn.title to the literal English "Omnium Folio", which cannot
+--- work on a German or French client -- it would send every non-English player down the
+--- wrong-expansion path. The string checks stay as a last resort for a client where the
+--- methods are missing, but they are no longer what decides.
 local function IsMidnightFolioButton(btn)
 	if not btn then
 		return false
+	end
+	local midnightType = Enum and Enum.ExpansionLandingPageType and Enum.ExpansionLandingPageType.Midnight
+	local lp = _G.ExpansionLandingPage
+	if midnightType and type(lp) == "table" and type(lp.GetLandingPageType) == "function" then
+		local ok, t = pcall(lp.GetLandingPageType, lp)
+		if ok and t ~= nil then
+			return t == midnightType
+		end
+	end
+	if type(btn.IsExpansionOverlayMode) == "function" then
+		local ok, isExpansion = pcall(btn.IsExpansionOverlayMode, btn)
+		if ok and isExpansion ~= nil then
+			return isExpansion and true or false
+		end
 	end
 	if type(btn.title) == "string" and btn.title == "Omnium Folio" then
 		return true
@@ -145,6 +169,16 @@ local function IsMidnightFolioButton(btn)
 		return true
 	end
 	return false
+end
+
+--- True when the button is showing a garrison/covenant page instead (Shadowlands Kyrian
+--- for Carola and Cisca). Lets the refusal message say what is actually wrong.
+local function IsGarrisonModeButton(btn)
+	if not btn or type(btn.IsInGarrisonMode) ~= "function" then
+		return false
+	end
+	local ok, inGarrison = pcall(btn.IsInGarrisonMode, btn)
+	return ok and inGarrison and true or false
 end
 
 -- Eerstvolgende wekelijkse reset als timestamp (zelfde voor de hele week).
@@ -406,7 +440,9 @@ function ns.BuildOmniumFolioPanel(panel)
 			return
 		end
 		if not IsMidnightFolioButton(lpb) then
-			FolioNotice(ns:L("OMNIUM_OPEN_WRONGEXP"))
+			-- Name the actual situation. "Wrong expansion" is true but useless; if the
+			-- button is parked in garrison/covenant mode there is something concrete to say.
+			FolioNotice(ns:L(IsGarrisonModeButton(lpb) and "OMNIUM_OPEN_GARRISON" or "OMNIUM_OPEN_WRONGEXP"))
 			return
 		end
 		if lpb.Click and pcall(lpb.Click, lpb) then
@@ -551,6 +587,26 @@ function ns.PrintOmniumFolioProbe()
 	end
 	print(("   button.title:       %s"):format(tostring(rawget(lpb, "title"))))
 	print(("   button.description: %s"):format(tostring(rawget(lpb, "description"))))
+	-- The authoritative signals, so a report from another player settles it in one command.
+	do
+		local lpFrame = _G.ExpansionLandingPage
+		local pageType
+		if type(lpFrame) == "table" and type(lpFrame.GetLandingPageType) == "function" then
+			local ok, t = pcall(lpFrame.GetLandingPageType, lpFrame)
+			pageType = ok and t or nil
+		end
+		local midnightType = Enum and Enum.ExpansionLandingPageType and Enum.ExpansionLandingPageType.Midnight
+		print(("   GetLandingPageType: %s   (Midnight = %s)  ->  %s"):format(
+			tostring(pageType), tostring(midnightType),
+			(pageType ~= nil and pageType == midnightType) and "|cff40c040Midnight|r" or "|cffff5040not Midnight|r"
+		))
+		print(("   button mode: expansion-overlay=%s  garrison=%s"):format(
+			tostring(select(2, pcall(function()
+				return type(lpb.IsExpansionOverlayMode) == "function" and lpb:IsExpansionOverlayMode() or nil
+			end))),
+			IsGarrisonModeButton(lpb) and "|cffff5040yes|r" or "no"
+		))
+	end
 	print(("   recognised as Midnight/Folio: %s"):format(
 		IsMidnightFolioButton(lpb) and "|cff40c040yes|r" or "|cffff5040no -> shows the wrong-expansion hint|r"
 	))
