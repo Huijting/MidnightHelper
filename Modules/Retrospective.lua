@@ -58,6 +58,17 @@ local SAFE_DIFFICULTY = {
 	[16] = true, -- Raid Mythic
 	[17] = true, -- Raid LFR
 }
+-- Difficulties that refused us THIS SESSION. Deliberately not saved.
+--
+-- It used to be persisted, and that made things worse: one transient refusal in a
+-- Timewalking dungeon disabled the death recap there forever. Proof it was transient --
+-- DBM registers COMBAT_LOG_EVENT_UNFILTERED (DBM-Core.lua:2499) and was announcing bosses
+-- in that very dungeon, so the combat log is plainly usable at difficulty 24. Persisting a
+-- one-off failure turned "we were refused once, probably mid-loading-screen" into "this
+-- content is banned", and the symptom was silence: no error, no recap, nothing to notice.
+-- The attempt cap below is what stops spam; this only avoids retrying within a session.
+local blockedDiff = {}
+
 local function inTrackedInstance()
 	if not (IsInInstance and GetInstanceInfo) then
 		return false
@@ -75,9 +86,7 @@ local function inTrackedInstance()
 		end
 	end
 	local diffID = select(3, GetInstanceInfo())
-	-- Difficulties where RegisterEvent was actually forbidden once. Persisted, so the lesson
-	-- survives a /reload instead of being relearned (at the cost of one error) every time.
-	if diffID and ns.db and ns.db.deathRecapBlockedDiff and ns.db.deathRecapBlockedDiff[diffID] then
+	if diffID and blockedDiff[diffID] then
 		return false
 	end
 	if not (diffID and SAFE_DIFFICULTY[diffID]) then
@@ -341,9 +350,7 @@ local function StandDownCLEU(reason)
 		end
 	end
 	if diffID then
-		ns.db = ns.db or {}
-		ns.db.deathRecapBlockedDiff = ns.db.deathRecapBlockedDiff or {}
-		ns.db.deathRecapBlockedDiff[diffID] = true
+		blockedDiff[diffID] = true
 	end
 	print(("|cffffcc00%s|r combat log refused here (%s) — %s (%s), difficultyID %s (%s). Death recap off here; tell Rob."):format(
 		ns:L("PRINT_PREFIX"), tostring(reason),
@@ -465,6 +472,13 @@ zone:SetScript("OnEvent", function(_, ev)
 		return
 	end
 	playerGUID = UnitGUID("player")
+	-- Housekeeping: drop the persisted blacklist the previous build wrote. Nothing reads it
+	-- any more, so this changes no behaviour -- it just stops a retracted idea's data from
+	-- sitting in everyone's SavedVariables forever. Done here because ns.db does not exist
+	-- yet while this file is being loaded.
+	if ns.db and ns.db.deathRecapBlockedDiff ~= nil then
+		ns.db.deathRecapBlockedDiff = nil
+	end
 	UpdateClogRegistration()
 end)
 
@@ -504,17 +518,15 @@ function ns.PrintDeathRecapDiagnostics()
 			tostring(name), tostring(itype), tostring(diffID), tostring(diffName)
 		))
 	end
-	-- Difficulties that actually refused RegisterEvent, learned at runtime and kept in
-	-- SavedVariables. This is the honest record of where the whitelist was wrong.
-	local blocked = ns.db and ns.db.deathRecapBlockedDiff
-	if type(blocked) == "table" then
+	-- Difficulties that refused us this session (cleared on reload — see blockedDiff).
+	do
 		local ids = {}
-		for id in pairs(blocked) do
+		for id in pairs(blockedDiff) do
 			ids[#ids + 1] = id
 		end
 		table.sort(ids)
-		print(("   refused difficulties (learned): %s"):format(
-			#ids > 0 and table.concat(ids, ", ") or "none so far"
+		print(("   refused this session: %s"):format(
+			#ids > 0 and table.concat(ids, ", ") or "none"
 		))
 	end
 	print(("   damage-buffer entries: %d"):format(#dmgRing))
