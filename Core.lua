@@ -32,6 +32,25 @@
 local addonName, ns = ... ---@type string, MidnightHelperNS
 
 --- Installed version from MidnightHelper.toc (## Version); used in UI and changelog.
+--- Load an on-demand Blizzard addon (e.g. "Blizzard_AchievementUI").
+--- 12.1 renames `UIParentLoadAddOn` to `LoadAddOnWithErrorHandling` (Warcraft Wiki,
+--- Patch 12.1.0 API changes, datamined build 68675). Every call site guarded the
+--- old name with `if UIParentLoadAddOn then`, so on 12.1 they would not error —
+--- they would silently do nothing, and the Achievement window and Death Recap
+--- would just stop opening with no clue why. Try the new name first, fall back to
+--- the old one, so this works on 12.0.7 and 12.1 without a version gate.
+--- @return boolean loaded
+function ns.LoadBlizzardAddOn(name)
+	if type(name) ~= "string" then
+		return false
+	end
+	local fn = _G.LoadAddOnWithErrorHandling or _G.UIParentLoadAddOn
+	if not fn then
+		return false
+	end
+	return pcall(fn, name) == true
+end
+
 function ns.GetAddonVersion()
 	if C_AddOns and C_AddOns.GetAddOnMetadata then
 		local ok, v = pcall(C_AddOns.GetAddOnMetadata, addonName, "Version")

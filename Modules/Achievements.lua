@@ -249,8 +249,8 @@ function ns.OpenAchievementWindow(achievementID)
 		_G.OpenAchievementFrameToAchievement(achievementID)
 		return
 	end
-	if _G.UIParentLoadAddOn then
-		_G.UIParentLoadAddOn("Blizzard_AchievementUI")
+	if ns.LoadBlizzardAddOn then
+		ns.LoadBlizzardAddOn("Blizzard_AchievementUI")
 	end
 	if _G.AchievementFrame and _G.ShowUIPanel and not _G.AchievementFrame:IsShown() then
 		_G.ShowUIPanel(_G.AchievementFrame)

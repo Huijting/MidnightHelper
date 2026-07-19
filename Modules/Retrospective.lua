@@ -143,8 +143,8 @@ local SKULL_ICON = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8" -- the sk
 -- Rob 16 jul: the old version called OpenDeathRecap() only, which does NOT exist on
 -- 12.0.7 — clicking the death toast silently did nothing.
 local function OpenBlizzardRecap()
-	if UIParentLoadAddOn then
-		pcall(UIParentLoadAddOn, "Blizzard_DeathRecap")
+	if ns.LoadBlizzardAddOn then
+		ns.LoadBlizzardAddOn("Blizzard_DeathRecap")
 	end
 	if type(OpenDeathRecap) == "function" and pcall(OpenDeathRecap, 1) then
 		return true
@@ -462,8 +462,8 @@ function ns.PrintDeathRecapDiagnostics()
 	-- LOAD the on-demand addon first, else we only measure "not loaded yet" and learn
 	-- nothing about which entry point actually exists (Rob 16 jul: clicking the toast
 	-- did nothing, and the un-loaded probe had hidden why).
-	if UIParentLoadAddOn then
-		pcall(UIParentLoadAddOn, "Blizzard_DeathRecap")
+	if ns.LoadBlizzardAddOn then
+		ns.LoadBlizzardAddOn("Blizzard_DeathRecap")
 	end
 	print(("   open-path (after loading the addon): OpenDeathRecap=%s  DeathRecapFrame_OpenRecap=%s  DeathRecapFrame=%s  loaded=%s"):format(
 		type(OpenDeathRecap) == "function" and "|cff40c040function|r" or "|cffff5040nil|r",
