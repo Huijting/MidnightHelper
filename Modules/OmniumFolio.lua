@@ -569,4 +569,22 @@ function ns.PrintOmniumFolioProbe()
 		(type(lp) == "table" and lp.IsShown and lp:IsShown()) and "yes" or "no",
 		(C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Blizzard_ExpansionLandingPage")) and "yes" or "no"
 	))
+
+	-- WHICH frame actually holds the rune tree. Rune/trait trees have historically used
+	-- Blizzard's shared GenericTraitFrame rather than the landing page itself. If the Folio
+	-- does, there may be a way in that does not depend on the minimap button showing
+	-- Midnight's page at all -- which is exactly what blocks Carola and Cisca, whose button
+	-- still shows a Shadowlands covenant page.
+	--
+	-- Measured, not assumed: open the rune window first, THEN run /mh folio, and see which
+	-- of these reads "shown: yes".
+	if ns.LoadBlizzardAddOn then
+		ns.LoadBlizzardAddOn("Blizzard_GenericTraitUI")
+	end
+	local gt = _G.GenericTraitFrame
+	print(("   GenericTraitFrame: %s   shown: %s"):format(
+		type(gt) == "table" and "|cff40c040exists|r" or "|cffff5040nil|r",
+		(type(gt) == "table" and gt.IsShown and gt:IsShown()) and "|cff40c040yes|r" or "no"
+	))
+	print("   (open the rune window first, then run this again — whichever says shown: yes is the real frame)")
 end
