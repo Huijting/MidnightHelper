@@ -927,6 +927,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh folio — why the "Open rune window" button did not open a window.
+	if msg == "folio" then
+		if ns.PrintOmniumFolioProbe then
+			ns.PrintOmniumFolioProbe()
+		end
+		return
+	end
 	if msg == "dispelprobe" then
 		if ns.PrintDispelProbe then
 			ns.PrintDispelProbe()

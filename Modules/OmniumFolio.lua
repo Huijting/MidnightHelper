@@ -501,3 +501,59 @@ do
 		end
 	end
 end
+
+--------------------------------------------------------------------------------
+-- /mh folio — what the "Open rune window" button actually sees.
+--
+-- Rob, 19 jul: two max-level characters in Midnight press the button, get a
+-- message, and no rune window appears. Which message decides everything -- each
+-- one comes from a different guard -- and that could not be established from the
+-- outside. This prints every input those guards read, plus the click target.
+--
+-- Note the pcall trap this mirrors: pcall(lpb.Click, lpb) returns true when the
+-- call merely did not error. It is NOT evidence that a window opened, the same
+-- way a forbidden RegisterEvent silently does nothing. So this also reports
+-- whether a landing-page frame exists and is shown, rather than assuming.
+--------------------------------------------------------------------------------
+function ns.PrintOmniumFolioProbe()
+	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+	print(("%s Omnium Folio probe"):format(prefix))
+
+	local maxLvl = MidnightMaxLevel()
+	local myLvl = (UnitLevel and UnitLevel("player")) or 0
+	print(("   level: %s / max %s   ->  %s"):format(
+		tostring(myLvl), tostring(maxLvl),
+		(maxLvl and myLvl > 0 and myLvl < maxLvl) and "|cffff5040blocked: still levelling|r" or "|cff40c040ok|r"
+	))
+
+	local rows = UnlockedRows()
+	print(("   unlocked rows: %s  ->  %s"):format(
+		tostring(rows), (rows == 0) and "|cffff5040blocked: reads as not unlocked|r" or "|cff40c040ok|r"
+	))
+
+	local lpb = _G.ExpansionLandingPageMinimapButton
+	if not lpb then
+		print("   ExpansionLandingPageMinimapButton: |cffff5040missing|r (button cannot be clicked at all)")
+		return
+	end
+	print(("   button.title:       %s"):format(tostring(rawget(lpb, "title"))))
+	print(("   button.description: %s"):format(tostring(rawget(lpb, "description"))))
+	print(("   recognised as Midnight/Folio: %s"):format(
+		IsMidnightFolioButton(lpb) and "|cff40c040yes|r" or "|cffff5040no -> shows the wrong-expansion hint|r"
+	))
+	print(("   button shown: %s   has Click: %s"):format(
+		(lpb.IsShown and lpb:IsShown()) and "yes" or "no",
+		type(lpb.Click) == "function" and "yes" or "|cffff5040no|r"
+	))
+
+	-- What would actually have to appear. Reported, never assumed.
+	if ns.LoadBlizzardAddOn then
+		ns.LoadBlizzardAddOn("Blizzard_ExpansionLandingPage")
+	end
+	local lp = _G.ExpansionLandingPage
+	print(("   ExpansionLandingPage frame: %s   shown: %s   addon loaded: %s"):format(
+		type(lp) == "table" and "|cff40c040exists|r" or "|cffff5040nil|r",
+		(type(lp) == "table" and lp.IsShown and lp:IsShown()) and "yes" or "no",
+		(C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Blizzard_ExpansionLandingPage")) and "yes" or "no"
+	))
+end
