@@ -197,6 +197,68 @@ def collect_selecttab_ids(root: str) -> dict:
     return ids
 
 
+def find_use_before_local(root: str, toc_files: set[str]) -> list[tuple]:
+    """Calls to a `local function` BEFORE it is declared.
+
+    Lua resolves an undeclared name as a GLOBAL, so calling a local function that
+    is defined further down the same file is not a syntax error -- it is a nil
+    call at runtime, and `luac -p` passes it happily. This bit us three times in
+    one day (boss-window prompt, dispel section, Moxie probe); the last reached
+    Rob as a live crash. HARD, because it always throws once that path runs.
+
+    Forward declarations (`local foo` earlier, assigned later) are legitimate and
+    are NOT flagged -- the name is already in scope by then.
+    """
+    hits = []
+    def_re = re.compile(r"^[ \t]*local[ \t]+function[ \t]+([A-Za-z_]\w*)[ \t]*\(", re.M)
+    fwd_re = re.compile(r"^[ \t]*local[ \t]+([A-Za-z_][\w, \t]*?)[ \t]*$", re.M)
+    block_re = re.compile(r"--\[(=*)\[.*?\]\1\]", re.S)
+
+    def strip_block_comments(src: str) -> str:
+        """Blank out --[[ ]] blocks, keeping line count so numbers stay right.
+
+        Without this, prose mentioning a helper ("See inTrackedInstance().") in a
+        file header reads as a call and reports a false positive.
+        """
+        def blank(m):
+            return re.sub(r"[^\n]", " ", m.group(0))
+
+        return block_re.sub(blank, src)
+    for rel in sorted(toc_files):
+        path = os.path.join(root, rel.replace("\\", os.sep))
+        if not path.endswith(".lua") or not os.path.isfile(path):
+            continue
+        try:
+            with open(path, encoding="utf-8", errors="replace") as fh:
+                text = fh.read()
+        except OSError:
+            continue
+        text = strip_block_comments(text)
+        lines = text.splitlines()
+        declared = {}  # name -> earliest line on which it is in scope
+        for m in def_re.finditer(text):
+            name = m.group(1)
+            ln = text.count(chr(10), 0, m.start()) + 1
+            if name not in declared or ln < declared[name]:
+                declared[name] = ln
+        for m in fwd_re.finditer(text):  # forward decls legitimise earlier use
+            ln = text.count(chr(10), 0, m.start()) + 1
+            for nm in m.group(1).replace(" ", "").replace(chr(9), "").split(","):
+                if nm and (nm not in declared or ln < declared[nm]):
+                    declared[nm] = ln
+        for name, decl_ln in declared.items():
+            call_re = re.compile(r"(?<![\w.:])" + re.escape(name) + r"[ \t]*\(")
+            for cm in call_re.finditer(text):
+                ln = text.count(chr(10), 0, cm.start()) + 1
+                if ln >= decl_ln:
+                    continue
+                src = lines[ln - 1] if ln - 1 < len(lines) else ""
+                if src.lstrip().startswith("--"):
+                    continue
+                hits.append((rel, ln, name, decl_ln))
+    return hits
+
+
 def main() -> int:
     root = repo_root()
     args = sys.argv[1:]
@@ -285,6 +347,17 @@ def main() -> int:
                 print(f"      {k}")
 
     print("\n" + "=" * 70)
+
+    # 6. Local function called before it is declared (HARD -- runtime nil call)
+    ubl = find_use_before_local(root, toc_files)
+    print(f"\n[6] Local function called before its declaration: {len(ubl)}")
+    for rel, ln, name, decl in ubl[:40]:
+        print(f"    HARD  {rel}:{ln}  calls {name}()  declared line {decl}")
+    if len(ubl) > 40:
+        print(f"    ... and {len(ubl) - 40} more")
+    hard += len(ubl)
+
+    print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)
     return 1 if hard else 0

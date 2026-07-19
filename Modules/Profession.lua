@@ -272,6 +272,18 @@ local function GetCurrencyQuantity(currencyID)
 	return 0
 end
 
+
+local function GetCurrencyDisplayName(currencyID)
+	if not currencyID or not C_CurrencyInfo or not C_CurrencyInfo.GetCurrencyInfo then
+		return nil
+	end
+	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, currencyID)
+	if ok and info and type(info.name) == "string" then
+		return info.name
+	end
+	return nil
+end
+
 --- /mh moxie — print what the game calls each Artisan's Moxie currency id.
 --- The ids in Config are PLACEHOLDERS: only Herbalism (3402) came from a spec, the
 --- rest were counted up alphabetically from it. A wrong id is not harmless here —
@@ -309,16 +321,6 @@ function ns.PrintMoxieProbe()
 	print("   A name that is not that profession's Moxie means the id is wrong.")
 end
 
-local function GetCurrencyDisplayName(currencyID)
-	if not currencyID or not C_CurrencyInfo or not C_CurrencyInfo.GetCurrencyInfo then
-		return nil
-	end
-	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, currencyID)
-	if ok and info and type(info.name) == "string" then
-		return info.name
-	end
-	return nil
-end
 
 local function GetItemQuantityByID(itemID)
 	local id = tonumber(itemID)
