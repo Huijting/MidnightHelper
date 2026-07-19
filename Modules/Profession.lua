@@ -318,7 +318,21 @@ function ns.PrintMoxieProbe()
 			r.prof, r.id,
 			nm and ("|cffffffff" .. nm .. "|r") or "|cffff5040does not resolve|r"))
 	end
-	print("   A name that is not that profession's Moxie means the id is wrong.")
+	if #rows == 0 then
+		print("   (table is empty on purpose - every guessed id proved wrong on 19 jul)")
+	end
+	-- Same batch of placeholders, still in use elsewhere in the profession UI.
+	local other = {
+		{ "Unalloyed Abundance (currency)", ns.Config and ns.Config.UNALLOYED_ABUNDANCE_CURRENCY_CODE },
+	}
+	for _, o in ipairs(other) do
+		if o[2] then
+			local nm = GetCurrencyDisplayName(o[2])
+			print(("   %-30s %5d  ->  %s"):format(o[1], o[2],
+				nm and ("|cffffffff" .. nm .. "|r") or "|cffff5040does not resolve|r"))
+		end
+	end
+	print("   A name that is not what the label says means the id is wrong.")
 end
 
 

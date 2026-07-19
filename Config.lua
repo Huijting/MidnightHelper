@@ -1,7 +1,9 @@
 --[[
 	MidnightHelper — Config.lua
 
-	Currency IDs for profession UI (placeholders until official IDs are confirmed in-game).
+	Currency IDs for the profession UI. Anything unverified stays OUT: a wrong
+	currency id does not show nothing, it shows another currency's real balance
+	under your profession's name (proved with /mh moxie, 19 jul).
 	Load order: after Core.lua, before modules that read ns.Config.
 ]]
 
@@ -11,6 +13,8 @@ local E = Enum and Enum.Profession
 
 local Config = {
 	--- World event / profession books (Unalloyed Abundance).
+	--- ⚠️ UNVERIFIED placeholder, same batch as the Moxie ids that all turned out
+	--- wrong. Check with /mh moxie before trusting what the panel shows.
 	UNALLOYED_ABUNDANCE_CURRENCY_CODE = 3401,
 	--- Weekly tracker: Shards of Dundun (bags / weekly progress display).
 	SHARD_OF_DUNDUN_ITEM_ID = 258901,
@@ -27,21 +31,21 @@ local Config = {
 	ARTISANS_MOXIE_CURRENCY_CODES = {},
 }
 
-if E then
-	-- Placeholder sequential IDs (Herbalism = 3402 per Phase 72 spec); adjust when official IDs ship.
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Alchemy] = 3403
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Blacksmithing] = 3404
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Cooking] = 3405
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Enchanting] = 3406
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Engineering] = 3407
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Fishing] = 3408
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Herbalism] = 3402
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Inscription] = 3409
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Jewelcrafting] = 3410
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Leatherworking] = 3411
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Mining] = 3412
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Skinning] = 3413
-	Config.ARTISANS_MOXIE_CURRENCY_CODES[E.Tailoring] = 3414
-end
+-- Artisan's Moxie currency ids — DELIBERATELY EMPTY.
+--
+-- This table held 13 guessed ids (3402-3414): only Herbalism 3402 came from a
+-- spec and the rest were counted up alphabetically from it. Rob ran `/mh moxie`
+-- in-game on 2026-07-19 and the game answered: TEN of the thirteen do not exist
+-- at all, and the three that do are unrelated currencies —
+--   3405 = Field Accolade          (was labelled Cooking)
+--   3409 = [DNT] 12.0 Midseason - Voidforge Unlock - Turn-In Tracker (Inscription)
+--   3410 = Slayer's Duellum        (Jewelcrafting)
+-- Even 3402 does not resolve. So every id was wrong, and three of them made the
+-- profession panel print another currency's real balance as your Moxie, with the
+-- recipe tooltip comparing that balance against a cost. Showing nothing is right.
+--
+-- Every consumer guards on the lookup (Profession.lua:610, :810, :1481), so an
+-- empty table simply omits the Moxie line. Fill it ONLY with ids confirmed by
+-- `/mh moxie` naming the actual Artisan's Moxie for that profession.
 
 ns.Config = Config
