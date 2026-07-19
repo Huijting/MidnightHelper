@@ -410,6 +410,19 @@ function ns.BuildOmniumFolioPanel(panel)
 			return
 		end
 		if lpb.Click and pcall(lpb.Click, lpb) then
+			-- A click that did not error is NOT a window that opened -- the same trap as a
+			-- forbidden RegisterEvent, which silently does nothing while pcall reports
+			-- success. Carola and Cisca both got a message and no rune window, so verify
+			-- against the actual frame and speak up if nothing appeared, instead of
+			-- returning as though it worked. Small delay: the panel opens a frame later.
+			if C_Timer and C_Timer.After then
+				C_Timer.After(0.3, function()
+					local lp = _G.ExpansionLandingPage
+					if not (type(lp) == "table" and lp.IsShown and lp:IsShown()) then
+						print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_FALLBACK")))
+					end
+				end)
+			end
 			return
 		end
 		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("OMNIUM_OPEN_FALLBACK")))
