@@ -587,4 +587,47 @@ function ns.PrintOmniumFolioProbe()
 		(type(gt) == "table" and gt.IsShown and gt:IsShown()) and "|cff40c040yes|r" or "no"
 	))
 	print("   (open the rune window first, then run this again — whichever says shown: yes is the real frame)")
+
+	-- Answered by Rob's run: the Folio lives in ExpansionLandingPage, GenericTraitFrame is
+	-- not involved. So there is no bypass, and the only remaining hope for Carola and Cisca
+	-- -- whose button shows a Shadowlands page -- is a method that selects WHICH page.
+	-- List what actually exists rather than guessing a name; the enum is reported too,
+	-- because a type concept without a setter means the answer is "you cannot".
+	local et = _G.Enum and _G.Enum.ExpansionLandingPageType
+	if type(et) == "table" then
+		local keys = {}
+		for k, v in pairs(et) do
+			keys[#keys + 1] = ("%s=%s"):format(tostring(k), tostring(v))
+		end
+		table.sort(keys)
+		print(("   Enum.ExpansionLandingPageType: %s"):format(table.concat(keys, ", ")))
+	else
+		print("   Enum.ExpansionLandingPageType: |cffff5040nil|r")
+	end
+	print(("   C_ExpansionLandingPage: %s"):format(
+		type(_G.C_ExpansionLandingPage) == "table" and "|cff40c040table|r" or "|cffff5040nil|r"
+	))
+	for _, pair in ipairs({ { "ExpansionLandingPage", lp }, { "minimap button", lpb } }) do
+		local label, frame = pair[1], pair[2]
+		if type(frame) == "table" then
+			-- Lua patterns have no alternation, so match each needle separately (plain find).
+			local NEEDLES = { "anding", "verlay", "oggle", "etPage", "ode" }
+			local own = {}
+			pcall(function()
+				for k, v in pairs(frame) do
+					if type(v) == "function" then
+						local name = tostring(k)
+						for _, needle in ipairs(NEEDLES) do
+							if name:find(needle, 1, true) then
+								own[#own + 1] = name
+								break
+							end
+						end
+					end
+				end
+			end)
+			table.sort(own)
+			print(("   %s page-related methods: %s"):format(label, #own > 0 and table.concat(own, ", ") or "none"))
+		end
+	end
 end
