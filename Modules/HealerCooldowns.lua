@@ -358,9 +358,31 @@ end
 --   dispel = "<school>"  the boss puts a dispellable friendly debuff of this type
 --   raidcd = true        the boss has a big raid-wide burst → save a raid CD
 --------------------------------------------------------------------------------
+--- Per-boss healer callouts, mined from the DBM encounter mods that ship with the
+--- game data (DBM-Party-Midnight). Every entry cites the spell id and the DBM marker
+--- it came from, so a future reader can re-check it rather than trust this table.
+---
+--- `dispel` = a debuff ON PLAYERS you remove with your normal dispel.
+--- `purge`  = a buff ON THE BOSS. Deliberately a separate field: routing it through
+---            `dispel` would tell a Paladin to Cleanse it, and Cleanse cannot touch a
+---            boss buff. Different action, different spells, so different field.
+---
+--- NOT listed on purpose: Glacial Torment (1235548, Den of Nalorakk / Sentinel of
+--- Winter). DBM flags it "helpdispel" and Healer-relevant, so it IS dispellable, but
+--- nowhere does it state the TYPE -- no icon constant, nothing in DBM-Core's typeCheck.
+--- Guessing "magic" because it sounds frosty is exactly the mistake the Moxie ids were.
+--- Capture it in-game with /mh dispellog instead, then add it with real evidence.
 ns.BOSS_HEAL_LENS = {
 	maisara = {
 		murojin = { dispel = "disease" }, -- Infected Pinions (1246666); DBM "RemoveDisease"
+	},
+	magisters = {
+		-- Ethereal Shackles (1214038): DBM tags the timer MAGIC_ICON and the aura
+		-- "debuffyou", and registers its alt name as DISPELS. Magic, on players.
+		arcanotron = { dispel = "magic" },
+		-- Hastening Ward (1248689): DBM "MagicDispeller" + sound "dispelboss" +
+		-- MAGIC_ICON. A magic buff on the boss -- purge, not cleanse.
+		seranel = { purge = "magic" },
 	},
 }
 
@@ -409,6 +431,14 @@ function ns.GetBossHealLensLine(entryKey, bossKey)
 		else
 			parts[#parts + 1] = (ns:L("HEALLENS_DISPEL_OTHER_FMT")):format(typeName)
 		end
+	end
+	if lens.purge then
+		-- A buff on the BOSS. Not personalised on purpose: offensive dispel uses a
+		-- different spell than your cleanse (Priest Dispel Magic, Shaman Purge, ...),
+		-- and those ids are not verified here. Naming your spell would be a guess, so
+		-- the line states the mechanic and lets the player judge. Verify the ids
+		-- in-game first if this should ever say "with your X".
+		parts[#parts + 1] = (ns:L("HEALLENS_PURGE_FMT")):format(ns.FormatDispelTypes({ lens.purge }))
 	end
 	if lens.raidcd then
 		local cd = ns.GetTopRaidCooldown(specID)

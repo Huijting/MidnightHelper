@@ -3308,6 +3308,7 @@ ns._mhLocales.enUS = {
 	HEALLENS_PREFIX = "Healer tip",
 	HEALLENS_DISPEL_YOU_FMT = "Dispel the %s debuff here with your %s.",
 	HEALLENS_DISPEL_OTHER_FMT = "A %s debuff lands here — you can't dispel that type yourself.",
+	HEALLENS_PURGE_FMT = "The boss gains a %s buff here — purge it off the boss (not a cleanse).",
 	HEALLENS_RAIDCD_FMT = "Big raid-wide damage here — save your %s for it.",
 
 	-- Tank toolkit (Role Academy TANK track)

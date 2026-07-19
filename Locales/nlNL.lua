@@ -3205,6 +3205,7 @@ ns._mhLocales.nlNL = {
 	HEALLENS_PREFIX = "Healer-tip",
 	HEALLENS_DISPEL_YOU_FMT = "Dispel de %s-debuff hier met je %s.",
 	HEALLENS_DISPEL_OTHER_FMT = "Een %s-debuff landt hier — dat type kun jij niet dispellen.",
+	HEALLENS_PURGE_FMT = "De boss krijgt hier een %s-buff — purge die van de boss af (geen cleanse).",
 	HEALLENS_RAIDCD_FMT = "Grote raid-brede klap hier — bewaar je %s ervoor.",
 
 	-- Tank-toolkit (Role Academy TANK-track)
