@@ -57,6 +57,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	MPLUS_KICK_ALGETHAR = "Algeth'ar Academy: interrupt {SPELL:396640} (Ancient Branch) — every cast, or it's a wipe.",
 	MPLUS_KICK_TRIUMVIRATE = "Seat of the Triumvirate: priority kick is {SPELL:248831} (Shadewing).",
 	MPLUS_KICK_SKYREACH = "Skyreach: priority kick is {SPELL:1255377} (Driving Gale-Caller).",
+	MPLUS_KICK_NONE = "%s: no verified must-kick notes yet - watch what the group interrupts.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.itIT, {
@@ -131,6 +132,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	MPLUS_KICK_ALGETHAR = "Algeth'ar Academy: interrupt {SPELL:396640} (Ancient Branch) — elke cast, anders is het een wipe.",
 	MPLUS_KICK_TRIUMVIRATE = "Seat of the Triumvirate: prioriteitskick is {SPELL:248831} (Shadewing).",
 	MPLUS_KICK_SKYREACH = "Skyreach: prioriteitskick is {SPELL:1255377} (Driving Gale-Caller).",
+	MPLUS_KICK_NONE = "%s: nog geen geverifieerde kick-notities - let op wat de groep interrupt.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.deDE, {

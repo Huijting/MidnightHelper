@@ -790,8 +790,12 @@ function ns.BuildDungeonGuidePanel(panel)
 	-- (markup-expansie + taalwissel).
 	ui.mythicKickRows = {}
 	for _, d in ipairs(ns.GetMythicPoolDungeons and ns.GetMythicPoolDungeons() or {}) do
+		-- Ook een rij MAKEN als er (nog) geen kick-notities zijn. Sloegen we de
+		-- dungeon over, dan verdween 'ie stilzwijgend uit de lijst — wat leest als
+		-- "hier hoef je niets te kicken". Alle 8 S2-dungeons hebben nu nog geen
+		-- data, dus zonder dit is de hele sectie bij de seizoenswissel leeg.
 		local kickKey = ns.GetMythicKicks and ns.GetMythicKicks(d.key)
-		if kickKey then
+		do
 			local box = CreateFrame("EditBox", nil, child)
 			box:SetMultiLine(true)
 			box:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
@@ -807,7 +811,7 @@ function ns.BuildDungeonGuidePanel(panel)
 				ns:AttachDelveTipHyperlinksToEditBox(box)
 			end
 			push(box, 6, 8, false, "mythic", expertHidden)
-			ui.mythicKickRows[#ui.mythicKickRows + 1] = { box = box, key = kickKey }
+			ui.mythicKickRows[#ui.mythicKickRows + 1] = { box = box, key = kickKey, dungeon = d }
 		end
 	end
 
@@ -843,7 +847,18 @@ function ns.BuildDungeonGuidePanel(panel)
 			row.box:SetText(body)
 		end
 		for _, row in ipairs(ui.mythicKickRows or {}) do
-			local body = ns:L(row.key)
+			local body
+			if row.key then
+				body = ns:L(row.key)
+			else
+				-- Geen geverifieerde bron voor deze dungeon: zeg dat, in plaats van
+				-- de regel weg te laten (never-lie: niets tonen leest als "niets te
+				-- kicken"). Dungeonnaam erbij, anders staan er straks 8 identieke regels.
+				local dn = (ns.GetDungeonDisplayName and row.dungeon and ns.GetDungeonDisplayName(row.dungeon))
+					or (row.dungeon and (row.dungeon.name or row.dungeon.key))
+					or "?"
+				body = (ns:L("MPLUS_KICK_NONE")):format(dn)
+			end
 			if ns.ExpandDelveTipMarkup then
 				body = ns:ExpandDelveTipMarkup(body)
 			end
