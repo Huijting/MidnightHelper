@@ -272,6 +272,43 @@ local function GetCurrencyQuantity(currencyID)
 	return 0
 end
 
+--- /mh moxie — print what the game calls each Artisan's Moxie currency id.
+--- The ids in Config are PLACEHOLDERS: only Herbalism (3402) came from a spec, the
+--- rest were counted up alphabetically from it. A wrong id is not harmless here —
+--- the profession panel shows that currency's real name and amount as if it were
+--- your Moxie, and the recipe tooltip compares its balance against a cost. So let
+--- the game name them instead of trusting the guess (Rob, 19 jul).
+function ns.PrintMoxieProbe()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	local cfg = ns.Config and ns.Config.ARTISANS_MOXIE_CURRENCY_CODES
+	if not cfg or not C_CurrencyInfo then
+		print(prefix .. " no Moxie config / currency API")
+		return
+	end
+	local E = Enum and Enum.Profession
+	local names = {}
+	if E then
+		for label, value in pairs(E) do
+			names[value] = label
+		end
+	end
+	print(prefix .. " Artisan's Moxie currency ids — what the game actually calls them:")
+	local rows = {}
+	for profEnum, id in pairs(cfg) do
+		rows[#rows + 1] = { prof = names[profEnum] or ("enum " .. tostring(profEnum)), id = id }
+	end
+	table.sort(rows, function(a, b)
+		return a.prof < b.prof
+	end)
+	for _, r in ipairs(rows) do
+		local nm = GetCurrencyDisplayName(r.id)
+		print(("   %-16s %5d  ->  %s"):format(
+			r.prof, r.id,
+			nm and ("|cffffffff" .. nm .. "|r") or "|cffff5040does not resolve|r"))
+	end
+	print("   A name that is not that profession's Moxie means the id is wrong.")
+end
+
 local function GetCurrencyDisplayName(currencyID)
 	if not currencyID or not C_CurrencyInfo or not C_CurrencyInfo.GetCurrencyInfo then
 		return nil

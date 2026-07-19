@@ -76,13 +76,16 @@ function ns.GetDelvesSeasonNumber()
 	return 1
 end
 
+--- Curio advice for a season, or nil when we have none for it.
+--- NO fallback to season 1. This used to `return ns.DELVE_CURIOS_BY_SEASON[1]`
+--- for any unknown season, which reads as harmless but is the worst case in
+--- practice: on the normal Season 2 path the API correctly reports season 2, we
+--- have no pack for it, and the advisor would then confidently recommend Season 1
+--- curios — items that may not even exist any more. Every consumer already guards
+--- for nil (they hide the line), so nothing is better than something wrong.
 function ns.GetDelveCurioSeasonTable(season)
 	season = tonumber(season) or ns.GetDelvesSeasonNumber()
-	local pack = ns.DELVE_CURIOS_BY_SEASON[season]
-	if pack then
-		return pack
-	end
-	return ns.DELVE_CURIOS_BY_SEASON[1]
+	return ns.DELVE_CURIOS_BY_SEASON[season]
 end
 
 --- Recommendations for one role; variant is "default" or "nemesis".

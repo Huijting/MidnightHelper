@@ -31,7 +31,6 @@
 
 local addonName, ns = ... ---@type string, MidnightHelperNS
 
---- Installed version from MidnightHelper.toc (## Version); used in UI and changelog.
 --- Load an on-demand Blizzard addon (e.g. "Blizzard_AchievementUI").
 --- 12.1 renames `UIParentLoadAddOn` to `LoadAddOnWithErrorHandling` (Warcraft Wiki,
 --- Patch 12.1.0 API changes, datamined build 68675). Every call site guarded the
@@ -51,6 +50,7 @@ function ns.LoadBlizzardAddOn(name)
 	return pcall(fn, name) == true
 end
 
+--- Installed version from MidnightHelper.toc (## Version); used in UI and changelog.
 function ns.GetAddonVersion()
 	if C_AddOns and C_AddOns.GetAddOnMetadata then
 		local ok, v = pcall(C_AddOns.GetAddOnMetadata, addonName, "Version")
@@ -1323,6 +1323,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 			ns.ToggleDungeonLiveTips()
 		else
 			print("|cffffcc00Midnight Helper:|r live coach not loaded")
+		end
+		return
+	end
+
+	-- /mh moxie — have the game name each Artisan's Moxie currency id, so the
+	-- placeholder ids in Config can be confirmed or corrected instead of trusted.
+	if msg == "moxie" then
+		if ns.PrintMoxieProbe then
+			ns.PrintMoxieProbe()
 		end
 		return
 	end
