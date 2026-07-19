@@ -27,7 +27,9 @@ ns.SEASON2 = {
 	-- Season 2 is genuinely open — no need for anyone to be present at the flip to
 	-- read the new number. nil = we have not captured it yet, and the gate then
 	-- falls back to "patch is live, season is not" rather than guessing.
-	s1MplusSeasonId = nil,
+	-- CAPTURED IN-GAME 2026-07-19 (Rob, live 12.0.7, `/mh season`):
+	-- C_MythicPlus.GetCurrentSeason() = 17 while Midnight Season 1 is running.
+	s1MplusSeasonId = 17,
 }
 
 -- Each item: id (stable key for manual ticks), textKey (locale), and ONE source:
