@@ -378,11 +378,19 @@ forbiddenWatch:SetScript("OnEvent", function(_, _, who, func)
 		-- Self-learning and narrow: only the difficulty that actually failed is blacklisted,
 		-- so one slip can't disable the recap in content where it works fine.
 		if GetInstanceInfo then
-			local okInfo, diffID = pcall(function() return select(3, GetInstanceInfo()) end)
+			local okInfo, iname, itype, diffID, diffName = pcall(GetInstanceInfo)
 			if okInfo and diffID then
 				ns.db = ns.db or {}
 				ns.db.deathRecapBlockedDiff = ns.db.deathRecapBlockedDiff or {}
 				ns.db.deathRecapBlockedDiff[diffID] = true
+				-- Say it out loud, once. The whitelist was built from difficulty IDs that
+				-- were ASSUMED to allow the combat log; Rob's Timewalking run (difficulty 24,
+				-- whitelisted) proved that assumption wrong and the silent kill-switch hid
+				-- which content it was. Printing the exact context turns the next occurrence
+				-- into evidence instead of another guess.
+				print(("|cffffcc00%s|r combat log refused here — %s (%s), difficultyID %s (%s). Death recap off for this difficulty; tell Rob."):format(
+					ns:L("PRINT_PREFIX"), tostring(iname), tostring(itype), tostring(diffID), tostring(diffName)
+				))
 			end
 		end
 		if clogOn then
@@ -463,6 +471,19 @@ function ns.PrintDeathRecapDiagnostics()
 		local name, itype, diffID, diffName = GetInstanceInfo()
 		print(("   instance: %s  type: %s  difficultyID: %s (%s)"):format(
 			tostring(name), tostring(itype), tostring(diffID), tostring(diffName)
+		))
+	end
+	-- Difficulties that actually refused RegisterEvent, learned at runtime and kept in
+	-- SavedVariables. This is the honest record of where the whitelist was wrong.
+	local blocked = ns.db and ns.db.deathRecapBlockedDiff
+	if type(blocked) == "table" then
+		local ids = {}
+		for id in pairs(blocked) do
+			ids[#ids + 1] = id
+		end
+		table.sort(ids)
+		print(("   refused difficulties (learned): %s"):format(
+			#ids > 0 and table.concat(ids, ", ") or "none so far"
 		))
 	end
 	print(("   damage-buffer entries: %d"):format(#dmgRing))
