@@ -322,11 +322,60 @@ local clogOn = false
 local cleuBlocked = false -- set if a RegisterEvent is ever forbidden (see the backstop)
 clog:SetScript("OnEvent", OnCombatLog)
 
+-- Hard cap on RegisterEvent attempts per session. The kill-switch below is smarter, but
+-- it is also the part that has now failed twice in a row (13x, then 14x with the "fixed"
+-- version). A dumb counter cannot fail: whatever else is wrong, MidnightHelper can never
+-- again produce more than this many of these errors in one session.
+local MAX_CLOG_ATTEMPTS = 3
+local clogAttempts = 0
+
+--- Record that this content refuses us, and say so once. Called straight from the
+--- registration path, so it does NOT depend on ADDON_ACTION_FORBIDDEN being delivered.
+local function StandDownCLEU(reason)
+	cleuBlocked = true
+	local iname, itype, diffID, diffName
+	if GetInstanceInfo then
+		local ok, a, b, c, d = pcall(GetInstanceInfo)
+		if ok then
+			iname, itype, diffID, diffName = a, b, c, d
+		end
+	end
+	if diffID then
+		ns.db = ns.db or {}
+		ns.db.deathRecapBlockedDiff = ns.db.deathRecapBlockedDiff or {}
+		ns.db.deathRecapBlockedDiff[diffID] = true
+	end
+	print(("|cffffcc00%s|r combat log refused here (%s) — %s (%s), difficultyID %s (%s). Death recap off here; tell Rob."):format(
+		ns:L("PRINT_PREFIX"), tostring(reason),
+		tostring(iname), tostring(itype), tostring(diffID), tostring(diffName)
+	))
+	if clogOn then
+		clog:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		clogOn = false
+		dmgRing = {}
+	end
+end
+
 local function DoClogRegistration()
 	local want = not cleuBlocked and autoEnabled() and inTrackedInstance()
 	if want and not clogOn then
+		if clogAttempts >= MAX_CLOG_ATTEMPTS then
+			StandDownCLEU("attempt cap reached")
+			return
+		end
+		clogAttempts = clogAttempts + 1
 		clog:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-		clogOn = true
+		-- Ask whether it actually took. A forbidden RegisterEvent is not a Lua error, so the
+		-- old code happily set clogOn = true and believed itself, then relied on the
+		-- ADDON_ACTION_FORBIDDEN event to undo that. Reading the state back is synchronous
+		-- and needs nothing to be delivered -- if the event is not registered, we were
+		-- refused, full stop.
+		if clog:IsEventRegistered("COMBAT_LOG_EVENT_UNFILTERED") then
+			clogOn = true
+		else
+			StandDownCLEU("RegisterEvent did not take")
+			return
+		end
 	elseif not want and clogOn then
 		clog:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 		clogOn = false
@@ -372,31 +421,13 @@ ns.UpdateDeathRecapClog = UpdateClogRegistration -- so the /mh death toggle can 
 local forbiddenWatch = CreateFrame("Frame")
 forbiddenWatch:RegisterEvent("ADDON_ACTION_FORBIDDEN")
 forbiddenWatch:SetScript("OnEvent", function(_, _, who, func)
+	-- Secondary net only. The registration path now detects refusal by reading the state
+	-- back, so this no longer has to be delivered for us to stop -- which matters, because
+	-- whether it was being delivered at all is exactly what could not be established while
+	-- the spam was happening.
 	if who == "MidnightHelper" and type(func) == "string" and func:find("RegisterEvent", 1, true) then
-		cleuBlocked = true
-		-- Remember WHICH difficulty refused us, so the next reload here never even tries.
-		-- Self-learning and narrow: only the difficulty that actually failed is blacklisted,
-		-- so one slip can't disable the recap in content where it works fine.
-		if GetInstanceInfo then
-			local okInfo, iname, itype, diffID, diffName = pcall(GetInstanceInfo)
-			if okInfo and diffID then
-				ns.db = ns.db or {}
-				ns.db.deathRecapBlockedDiff = ns.db.deathRecapBlockedDiff or {}
-				ns.db.deathRecapBlockedDiff[diffID] = true
-				-- Say it out loud, once. The whitelist was built from difficulty IDs that
-				-- were ASSUMED to allow the combat log; Rob's Timewalking run (difficulty 24,
-				-- whitelisted) proved that assumption wrong and the silent kill-switch hid
-				-- which content it was. Printing the exact context turns the next occurrence
-				-- into evidence instead of another guess.
-				print(("|cffffcc00%s|r combat log refused here — %s (%s), difficultyID %s (%s). Death recap off for this difficulty; tell Rob."):format(
-					ns:L("PRINT_PREFIX"), tostring(iname), tostring(itype), tostring(diffID), tostring(diffName)
-				))
-			end
-		end
-		if clogOn then
-			clog:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-			clogOn = false
-			dmgRing = {}
+		if not cleuBlocked then
+			StandDownCLEU("ADDON_ACTION_FORBIDDEN")
 		end
 	end
 end)
