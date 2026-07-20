@@ -462,10 +462,23 @@ function ns.BuildOmniumFolioPanel(panel)
 			return
 		end
 		if not IsMidnightFolioButton(lpb) then
-			-- Name the actual situation. "Wrong expansion" is true but useless; if the
-			-- button is parked in garrison/covenant mode there is something concrete to say.
-			FolioNotice(ns:L(IsGarrisonModeButton(lpb) and "OMNIUM_OPEN_GARRISON" or "OMNIUM_OPEN_WRONGEXP"))
-			return
+			-- Try the game's own repair before giving up. Cisca's button was stuck in
+			-- garrison mode after pet hunting in an old zone and had not switched back in
+			-- Silvermoon; SetBestLandingPageMode() flipped it (garrison true->false,
+			-- expansion false->true, verified via macro 2026-07-20). It is Blizzard's own
+			-- "pick the correct mode" call, so this restores the state the game intended
+			-- rather than forcing one we prefer.
+			--
+			-- Only on an explicit button press, never in the background: it changes what her
+			-- minimap button does, and that should follow from her asking for the Folio.
+			if IsGarrisonModeButton(lpb) and type(lpb.SetBestLandingPageMode) == "function" then
+				pcall(lpb.SetBestLandingPageMode, lpb)
+			end
+			-- Re-ask. Assuming the repair worked is the mistake this whole day was made of.
+			if not IsMidnightFolioButton(lpb) then
+				FolioNotice(ns:L(IsGarrisonModeButton(lpb) and "OMNIUM_OPEN_GARRISON" or "OMNIUM_OPEN_WRONGEXP"))
+				return
+			end
 		end
 		if lpb.Click and pcall(lpb.Click, lpb) then
 			-- A click that did not error is NOT a window that opened -- the same trap as a
