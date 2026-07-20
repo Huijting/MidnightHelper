@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.8.4
+
+- Fixed: Omnium Folio button opened a Covenant Sanctum when the minimap button was stuck on an old expansion (SetBestLandingPageMode repair on press); and it identified the rune page by its English name, breaking every non-English client.
+- Fixed: profession panel showed wrong currency balances and compared them against recipe costs - all fourteen unverified Artisan's Moxie / Unalloyed Abundance ids removed.
+- Fixed: crash when opening the profession panel; ADDON_ACTION_FORBIDDEN burst from the death recap in dungeons.
+- New: dispel reference for tank and DPS specs; Role Academy DPS content (was absent, and hid a crash); copy button for ritual routes.
+- Ritual Sites read as tiers 1-6; Season 2 gates on the season opening, not the patch; M+ interrupt notes name dungeons with no data; consumable board reports what it cannot see.
+- Translations: heal-lens, dispel reference, consumable board and Mythic+ commands now in de/fr/es/pt/it.
+
 ## 2.8.3
 
 - Fixed: Omnium Folio button could open a Covenant Sanctum instead of the rune window (it read the landing-page frame, which reports Midnight even when the minimap button is on another expansion; now asks the button itself).

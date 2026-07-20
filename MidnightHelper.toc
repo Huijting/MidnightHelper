@@ -1,6 +1,6 @@
 ## Interface: 120007
 ## Title: Midnight Helper
-## Version: 2.8.3
+## Version: 2.8.4
 ## Author: TwelveInchy
 ## Category: User Interface
 ## Notes: All-in-one Midnight (12.0.7) helper: weekly planning, Delves, Great Vault, achievement hunts, a class keybind coach, combat helpers and route guidance.
