@@ -840,11 +840,20 @@ local function BuildBossText(d, idx)
 	else
 		lines[#lines + 1] = "|cff" .. COLOR_DIMTXT .. ns:L("DGN_TIPS_SOON") .. "|r"
 	end
-	-- Heal-lens: a spec-aware "dispel this / save a CD here" line for healers,
-	-- shown even when there are no prose tips yet (e.g. S2 bosses).
-	local lens = ns.GetBossHealLensLine and ns.GetBossHealLensLine(d.key, b.key)
-	if lens then
-		lines[#lines + 1] = lens
+	-- Heal-lens: a spec-aware "dispel this / purge that / heal them up" line, and a FALLBACK
+	-- only. Rob's Magisters' Terrace test (2026-07-20) showed why: Seranel's written tips
+	-- already say "Purge/spellsteal his Hastening Ward", so the lens repeated it two lines
+	-- later. Hand-written prose is better than our generated line wherever it exists.
+	--
+	-- The gate is `tips.healer`, not `tips` -- slightly wider than "no tips at all". A boss
+	-- with steps and a tank note but no healer note gets nothing for healers today, and
+	-- there the lens genuinely adds something instead of echoing. It stays silent exactly
+	-- where a healer line was already written.
+	if not (tips and tips.healer) then
+		local lens = ns.GetBossHealLensLine and ns.GetBossHealLensLine(d.key, b.key)
+		if lens then
+			lines[#lines + 1] = lens
+		end
 	end
 	local text = table.concat(lines, "|n")
 	if ns.ExpandDelveTipMarkup then
