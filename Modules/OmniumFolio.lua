@@ -148,6 +148,28 @@ local function IsMidnightFolioButton(btn)
 	if not btn then
 		return false
 	end
+	-- Garrison mode decides, and it decides FIRST. Cisca's probe (2026-07-20) showed why:
+	-- her GetLandingPageType() reads 1 = Midnight while the button is in garrison mode, is
+	-- not even shown, and opens her Night Fae Covenant Sanctum. GetLandingPageType
+	-- describes the landing-page FRAME's configured type, not what this button will open --
+	-- so gating on it let the click through and handed her the covenant window. The button's
+	-- own mode is the only thing that answers "what happens when I press this".
+	if type(btn.IsInGarrisonMode) == "function" then
+		local ok, inGarrison = pcall(btn.IsInGarrisonMode, btn)
+		if ok and inGarrison then
+			return false
+		end
+	end
+	if type(btn.IsExpansionOverlayMode) == "function" then
+		local ok, isExpansion = pcall(btn.IsExpansionOverlayMode, btn)
+		-- Positive signal only. An explicit true means the button is on the expansion page.
+		-- false/nil is NOT treated as a no: Rob's working character has never run this line,
+		-- so what it returns there is unknown, and turning an unknown into a refusal would
+		-- break the one setup we know works. Garrison mode above already catches Cisca.
+		if ok and isExpansion == true then
+			return true
+		end
+	end
 	local midnightType = Enum and Enum.ExpansionLandingPageType and Enum.ExpansionLandingPageType.Midnight
 	local lp = _G.ExpansionLandingPage
 	if midnightType and type(lp) == "table" and type(lp.GetLandingPageType) == "function" then
