@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.8.3
+
+- Fixed: Omnium Folio button could open a Covenant Sanctum instead of the rune window (it read the landing-page frame, which reports Midnight even when the minimap button is on another expansion; now asks the button itself).
+- Fixed: Ritual Sites text said tiers 1-5; Tier 6 has been live for a while.
+- Translations: heal-lens, dispel toolkit, consumable ready board and Mythic+ commands now in de/fr/es/pt/it instead of falling back to English.
+
 ## 2.8.2
 
 - Fixed: profession panel showed wrong currency balances — every unverified Artisan's Moxie / Unalloyed Abundance id removed (three resolved to other professions' currencies, one to a hidden delve tracker).
