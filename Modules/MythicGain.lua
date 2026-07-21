@@ -165,6 +165,42 @@ end
 
 --- /mh mplus — a full measured breakdown in chat (a panel is Phase 2, after
 --- the per-dungeon API is confirmed in-game).
+--- The Great Vault's DUNGEON row, one entry per slot: { text=, color= }.
+--- Shared by /mh keys and the side panel so the two can never drift apart.
+---
+--- Note what this is NOT: the vault has three rows (Raids / Dungeons / World) and
+--- this reads only the dungeon one. Anything showing these lines must say so —
+--- Rob's vault had World at 3/4 and Raids at 0/2 while the panel, labelled just
+--- "Vault progress", implied it was reporting the lot.
+function ns.GetMythicVaultSlotLines()
+	local out = {}
+	local slots = ReadMythicVaultSlots()
+	if not slots then
+		return out
+	end
+	for i, s in ipairs(slots) do
+		local best = (s.progress > 0 and s.level and s.level > 0)
+			and ((ns:L("MPLUS_CMD_BEST_FMT")):format(s.level))
+			or ""
+		-- s.progress is the TOTAL runs done, not progress toward this one slot, so
+		-- printing progress/threshold produced "5/1 done" for Rob — you cannot do 5 of
+		-- 1, and it reads like a bug because it is one. Once a slot is filled the
+		-- fraction says nothing anyway; only an unfilled slot has a meaningful count.
+		if s.unlocked then
+			out[#out + 1] = {
+				text = (ns:L("MPLUS_CMD_SLOT_FILLED_FMT")):format(i, best),
+				color = "good",
+			}
+		else
+			out[#out + 1] = {
+				text = (ns:L("MPLUS_CMD_SLOT_OPEN_FMT")):format(i, s.progress, s.threshold, best),
+				color = "prog",
+			}
+		end
+	end
+	return out
+end
+
 function ns.PrintMythicGain()
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	print(("%s |cff8fd3ff%s|r"):format(prefix, ns:L("MPLUS_CMD_HEADER")))
@@ -181,19 +217,8 @@ function ns.PrintMythicGain()
 	-- this week; a player who's done nothing this week still wants those).
 	local slots = ReadMythicVaultSlots()
 	if slots and TotalRuns(slots) > 0 then
-		for i, s in ipairs(slots) do
-			local best = (s.progress > 0 and s.level and s.level > 0)
-				and ((ns:L("MPLUS_CMD_BEST_FMT")):format(s.level))
-				or ""
-			-- s.progress is the TOTAL runs done, not progress toward this one slot, so
-			-- printing progress/threshold produced "5/1 done" for Rob -- you cannot do 5
-			-- of 1, and it reads like a bug. Once a slot is filled the fraction says
-			-- nothing anyway; only an unfilled slot has a meaningful count.
-			if s.unlocked then
-				print(("   " .. ns:L("MPLUS_CMD_SLOT_FILLED_FMT")):format(i, best))
-			else
-				print(("   " .. ns:L("MPLUS_CMD_SLOT_OPEN_FMT")):format(i, s.progress, s.threshold, best))
-			end
+		for _, line in ipairs(ns.GetMythicVaultSlotLines()) do
+			print("   " .. line.text)
 		end
 		print("   |cff9d9d9d" .. ns:L("MPLUS_CMD_RATING_NOTE") .. "|r")
 	else

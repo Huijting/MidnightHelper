@@ -47,6 +47,18 @@ local function BuildLines()
 		return {}
 	end
 	local out = {}
+
+	-- The three dungeon-row slots, straight from the shared formatter. Rob asked for
+	-- these in the panel so the answer is on screen without a click into chat.
+	if ns.GetMythicVaultSlotLines then
+		local okS, slotLines = pcall(ns.GetMythicVaultSlotLines)
+		if okS and type(slotLines) == "table" then
+			for _, l in ipairs(slotLines) do
+				out[#out + 1] = { text = l.text, color = l.color }
+			end
+		end
+	end
+
 	for _, st in ipairs(steps) do
 		if st and st.text then
 			out[#out + 1] = { text = st.text, color = st.color or "soft" }
