@@ -160,6 +160,20 @@ function ns.AttachSidePanel(cfg)
 	local hooked = false
 	local ticker, lastToken
 
+	--- IsVisible(), NOT IsShown(). IsShown() reports only the frame's own flag: when Rob
+	--- closed the Group Finder, PVEFrame hid but ChallengesFrame kept its flag set, so the
+	--- next refresh event saw "window open", anchored to a hidden frame, and left the panel
+	--- floating in the middle of the screen with no way to dismiss it. IsVisible() walks the
+	--- parent chain, which is the actual question. The panel is parented to UIParent (that
+	--- is what keeps it taint-safe), so nothing else would ever have hidden it for us.
+	local function Live(frame)
+		if not frame or type(frame.IsVisible) ~= "function" then
+			return false
+		end
+		local ok, vis = pcall(frame.IsVisible, frame)
+		return ok and vis and true or false
+	end
+
 	local function stopWatch()
 		if ticker then
 			pcall(function() ticker:Cancel() end)
@@ -170,7 +184,7 @@ function ns.AttachSidePanel(cfg)
 
 	local function refresh()
 		local okF, frame = pcall(cfg.getFrame)
-		if not okF or not frame or not frame:IsShown() then
+		if not okF or not Live(frame) then
 			stopWatch()
 			cfg.panel:Hide()
 			return
@@ -206,7 +220,7 @@ function ns.AttachSidePanel(cfg)
 		lastToken = okT and tok or nil
 		ticker = C_Timer.NewTicker(cfg.watchInterval or 0.3, function()
 			local okF, frame = pcall(cfg.getFrame)
-			if not okF or not frame or not frame:IsShown() then
+			if not okF or not Live(frame) then
 				stopWatch()
 				cfg.panel:Hide()
 				return
@@ -245,7 +259,7 @@ function ns.AttachSidePanel(cfg)
 			stopWatch()
 			cfg.panel:Hide()
 		end)
-		if frame:IsShown() then
+		if Live(frame) then
 			onShow()
 		end
 	end
