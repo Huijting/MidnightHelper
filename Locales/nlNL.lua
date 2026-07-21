@@ -1016,6 +1016,7 @@ ns._mhLocales.nlNL = {
 	TRACKCEIL_ROUTE_CRAFT = "Crafting: sparks plus top-crests maken een stuk op de hoogste track zonder drop-geluk - en crafted gear is de enige soort met een embellishment.",
 	TRACKCEIL_ROUTE_SOLO = "Je hebt geen raidgroep nodig: hoge Bountiful Delves en Tier 6 Ritual Sites geven top-crests solo, en Ritual Sites zijn herhaalbaar.",
 	TRACKCEIL_NOT_CRESTS = "Crests brengen een stuk nooit naar een hogere track - ze verhogen het binnen de track die het al heeft.",
+	TRACKCEIL_SEE_CODEX = "Codex > Beroepen > "%s" loopt een crafting order stap voor stap door.",
 	SIDEPANEL_RESET_DONE = "Zijpanelen staan weer naast hun venster. Heropen het venster om het te zien.",
 	CHARPANEL_ENCH_FMT = "%d slots zonder enchant",
 	CHARPANEL_SOCKET_FMT = "%d lege sockets",

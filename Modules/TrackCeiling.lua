@@ -152,6 +152,9 @@ function ns.PrintTrackCeiling()
 		print("      " .. ns:L("TRACKCEIL_ROUTE_VAULT"))
 		print("      " .. ns:L("TRACKCEIL_ROUTE_CRAFT"))
 		print("      " .. ns:L("TRACKCEIL_ROUTE_SOLO"))
+		-- The crafting route above tells you to craft; this says where the how-to is.
+		-- Without it the advice stops exactly where the questions start.
+		print("      |cff9d9d9d" .. (ns:L("TRACKCEIL_SEE_CODEX")):format(ns:L("CODEX_CRAFTGEAR_TITLE")) .. "|r")
 		print("      |cff9d9d9d" .. ns:L("TRACKCEIL_NOT_CRESTS") .. "|r")
 	end
 end

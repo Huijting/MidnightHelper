@@ -355,6 +355,15 @@ ns.CODEX_ARTICLES = {
 
 	-- Professions
 	{
+		id = "craft_gear",
+		category = "professions",
+		titleKey = "CODEX_CRAFTGEAR_TITLE",
+		bodyKey = "CODEX_CRAFTGEAR_BODY",
+		tabId = "professions",
+		tabLabelKey = "TAB_PROFESSIONS",
+		sort = 2,
+	},
+	{
 		id = "professions_weekly",
 		category = "professions",
 		titleKey = "CODEX_PROF_TITLE",

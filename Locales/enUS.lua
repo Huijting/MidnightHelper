@@ -1033,6 +1033,7 @@ ns._mhLocales.enUS = {
 	TRACKCEIL_ROUTE_CRAFT = "Crafting: sparks plus top-tier crests make a piece at the highest track with no drop luck - and crafted gear is the only kind that can carry an embellishment.",
 	TRACKCEIL_ROUTE_SOLO = "You do not need a raid group: high Bountiful Delves and Tier 6 Ritual Sites award top-tier crests solo, and Ritual Sites are repeatable.",
 	TRACKCEIL_NOT_CRESTS = "Crests never move a piece to a higher track - they raise it within the track it already has.",
+	TRACKCEIL_SEE_CODEX = "Codex > Professions > "%s" walks through a crafting order step by step.",
 	SIDEPANEL_RESET_DONE = "Side panels are back beside their windows. Reopen the window to see it.",
 	CHARPANEL_ENCH_FMT = "%d slots without an enchant",
 	CHARPANEL_SOCKET_FMT = "%d empty sockets",
