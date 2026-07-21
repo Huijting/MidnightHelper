@@ -39,6 +39,7 @@ local function ReadMythicVaultSlots()
 	for _, a in ipairs(activities) do
 		if a and IsMythicActivity(a.type) then
 			slots[#slots + 1] = {
+				id = a.id, -- needed to ask the game for that slot's example reward
 				threshold = tonumber(a.threshold) or 0,
 				progress = tonumber(a.progress) or 0,
 				level = tonumber(a.level) or 0,
@@ -165,6 +166,42 @@ end
 
 --- /mh mplus — a full measured breakdown in chat (a panel is Phase 2, after
 --- the per-dungeon API is confirmed in-game).
+--- The example reward's item level for one vault slot, or nil.
+---
+--- ⚠️ UNVERIFIED — the two installed addons that touch this disagree:
+---   • EllesmereUIBlizzardSkin uses it live (GreatVault.lua:750) and prepends the
+---     number to Blizzard's own difficulty text — that is where the "243 (Heroic)"
+---     on Rob's vault comes from. The "(Heroic)" part is Blizzard's, not theirs.
+---   • Plumber has it COMMENTED OUT with "This default method is unreliable since
+---     11.2.0, so we hardcode itemlevel" (API.lua:4526) — though in a delve/world
+---     context, which may not be the same as the dungeon row.
+---
+--- So this is read from the game, never computed or hardcoded, and it simply does
+--- not render when the API gives nothing. But until Rob has compared the number
+--- against his own vault tooltip, treat it as unconfirmed: an item level that is
+--- quietly wrong is exactly the kind of confident falsehood we keep digging out.
+local function ExampleRewardItemLevel(slot)
+	if not (slot and slot.id) then
+		return nil
+	end
+	if not (C_WeeklyRewards and C_WeeklyRewards.GetExampleRewardItemHyperlinks) then
+		return nil
+	end
+	local ok, link = pcall(C_WeeklyRewards.GetExampleRewardItemHyperlinks, slot.id)
+	if not ok or type(link) ~= "string" or link == "" then
+		return nil
+	end
+	local getIlvl = (C_Item and C_Item.GetDetailedItemLevelInfo) or GetDetailedItemLevelInfo
+	if not getIlvl then
+		return nil
+	end
+	local okI, ilvl = pcall(getIlvl, link)
+	if okI and type(ilvl) == "number" and ilvl > 0 then
+		return ilvl
+	end
+	return nil
+end
+
 --- The Great Vault's DUNGEON row, one entry per slot: { text=, color= }.
 --- Shared by /mh keys and the side panel so the two can never drift apart.
 ---
@@ -178,25 +215,23 @@ function ns.GetMythicVaultSlotLines()
 	if not slots then
 		return out
 	end
-	for i, s in ipairs(slots) do
+	for _, s in ipairs(slots) do
 		local best = (s.progress > 0 and s.level and s.level > 0)
 			and ((ns:L("MPLUS_CMD_BEST_FMT")):format(s.level))
 			or ""
-		-- s.progress is the TOTAL runs done, not progress toward this one slot, so
-		-- printing progress/threshold produced "5/1 done" for Rob — you cannot do 5 of
-		-- 1, and it reads like a bug because it is one. Once a slot is filled the
-		-- fraction says nothing anyway; only an unfilled slot has a meaningful count.
-		if s.unlocked then
-			out[#out + 1] = {
-				text = (ns:L("MPLUS_CMD_SLOT_FILLED_FMT")):format(i, best),
-				color = "good",
-			}
+		-- Show the threshold, the way Blizzard's own cards do ("5/8"), instead of a
+		-- slot number. s.progress is the TOTAL runs done, so it has to be capped at the
+		-- threshold: uncapped it printed "5/1 done" for Rob, which reads like a bug
+		-- because it is one — you cannot do 5 of 1.
+		local shown = math.min(s.progress or 0, s.threshold or 0)
+		local ilvl = ExampleRewardItemLevel(s)
+		local text
+		if ilvl then
+			text = (ns:L("MPLUS_VAULT_SLOT_ILVL_FMT")):format(shown, s.threshold, ilvl, best)
 		else
-			out[#out + 1] = {
-				text = (ns:L("MPLUS_CMD_SLOT_OPEN_FMT")):format(i, s.progress, s.threshold, best),
-				color = "prog",
-			}
+			text = (ns:L("MPLUS_VAULT_SLOT_FMT")):format(shown, s.threshold, best)
 		end
+		out[#out + 1] = { text = text, color = s.unlocked and "good" or "prog" }
 	end
 	return out
 end

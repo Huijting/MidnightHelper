@@ -59,6 +59,15 @@ local function BuildLines()
 		end
 	end
 
+	-- Rob, reading this panel on the Mythic+ tab: "ik kijk nu naar Mythic en denk dat ik
+	-- nu mythic gear ga krijgen". That is the trap — the tab says Mythic+, but this vault
+	-- row is fed by heroic and timewalking runs too, and his reward reads Heroic. The
+	-- wording is Blizzard's own from the vault card ("Complete 8 Heroic, Mythic, or
+	-- Timewalking Dungeons"), so it states no more than the game already does.
+	if #out > 0 then
+		out[#out + 1] = { text = ns:SafeL("MPLUS_VAULT_COUNTS_NOTE") or "", color = "dim" }
+	end
+
 	for _, st in ipairs(steps) do
 		if st and st.text then
 			out[#out + 1] = { text = st.text, color = st.color or "soft" }
