@@ -35,8 +35,11 @@ BlizzMove treats `CollectionsJournal` as the top-level movable frame and does no
 `MountJournal` at all (BlizzMove/Frames.lua:830). Anchoring `TOPRIGHT` of an inner
 frame puts the panel inside the collections window rather than beside it.
 
-Anchor to `CollectionsJournal`, keep `MountJournal` only as the "is the mount tab
-actually showing?" test. Confirm in-game — three seconds with the window open.
+The helper now supports this directly: `getFrame` decides WHEN to show, `getAnchor`
+decides WHERE. So use `getFrame = MountJournal`, `getAnchor = CollectionsJournal`.
+
+This was not theoretical — the keystone panel hit the identical bug on 2026-07-21
+(ChallengesFrame is a tab inside PVEFrame) and that is why the option exists.
 
 ## 3. Two functions the handoff calls do not exist
 

@@ -11,17 +11,31 @@ local _, ns = ...
 	fact. It never takes part in slotting the keystone (that path is secure); it is
 	display-only.
 
-	Frame names are NOT guessed. Both were confirmed against other installed addons
-	rather than assumed:
-	  • ChallengesKeystoneFrame — BlizzMove/Frames.lua:782, and EllesmereUIQoL
-	    hooks its OnShow the same way we do (EllesmereUIQoL.lua:914).
-	  • Blizzard_ChallengesUI — BlizzMove/Frames.lua:780, BossHelper/UI/MythicTeleport.lua:220.
-	If a future patch renames either, the panel simply never appears; it never calls
-	into a guessed name.
+	WHICH WINDOW (corrected after Rob tested it, 2026-07-21): the first version
+	attached to ChallengesKeystoneFrame. That is the small dialog that only appears
+	while you are physically slotting a key — a moment most players barely see. The
+	window people actually read is the "Mythic+ Dungeons" tab, ChallengesFrame, which
+	is where Rob was looking when nothing showed up.
+
+	ChallengesFrame is a tab INSIDE PVEFrame, so it decides WHEN to show and PVEFrame
+	decides WHERE: anchoring to the inner tab would place the panel inside the window.
+
+	Frame names are NOT guessed — all three were confirmed against other installed
+	addons rather than assumed:
+	  • ChallengesFrame — BossHelper/UI/MythicTeleport.lua:197,221 (it hooks
+	    ChallengesFrame.Update).
+	  • PVEFrame — BlizzMove/Frames.lua:379, listed as a top-level movable window.
+	  • Blizzard_ChallengesUI — BlizzMove/Frames.lua:780, BossHelper:220.
+	If a future patch renames any of them, the panel simply never appears; it never
+	calls into a guessed name.
 ]]
 
-local function GetKeystoneFrame()
-	return ChallengesKeystoneFrame
+local function GetChallengesTab()
+	return ChallengesFrame
+end
+
+local function GetOuterWindow()
+	return PVEFrame
 end
 
 local function BuildLines()
@@ -38,8 +52,15 @@ local function BuildLines()
 			out[#out + 1] = { text = st.text, color = st.color or "soft" }
 		end
 	end
-	-- Only offer the full breakdown when there is something to break down.
-	if #out > 0 and ns.PrintMythicGain then
+	-- GetMythicGainSteps returns nothing when no key has been run this week, which
+	-- is exactly the player standing in this window wondering where to start (Rob
+	-- has never run one). Saying "no runs counted yet" is a fact we can read, not a
+	-- guess, and /mh keys still has per-dungeon and gear guidance for them. An empty
+	-- panel here would hide help from the person who needs it most.
+	if #out == 0 then
+		out[#out + 1] = { text = ns:SafeL("MPLUS_CMD_NONE") or "", color = "dim" }
+	end
+	if ns.PrintMythicGain then
 		out[#out + 1] = {
 			text = ns:SafeL("KEYPANEL_MORE") or "",
 			color = "dim",
@@ -57,7 +78,8 @@ local panel = ns.CreateSidePanel({
 
 ns.AttachSidePanel({
 	panel = panel,
-	getFrame = GetKeystoneFrame,
+	getFrame = GetChallengesTab,   -- when: the M+ tab is open
+	getAnchor = GetOuterWindow,    -- where: beside the whole Group Finder window
 	addon = "Blizzard_ChallengesUI",
 	buildLines = BuildLines,
 	events = { "CHALLENGE_MODE_MAPS_UPDATE", "WEEKLY_REWARDS_UPDATE" },

@@ -19,6 +19,13 @@ local _, ns = ...
 	    ns.AttachSidePanel({
 	        panel      = panel,
 	        getFrame   = function() return SomeBlizzardFrame end,
+	        getAnchor  = function() return SomeOuterWindow end,
+	                     -- optional. Blizzard windows are often a tab INSIDE a bigger
+	                     -- frame: the M+ tab lives in PVEFrame, the mount tab lives in
+	                     -- CollectionsJournal. Anchoring to the inner frame's TOPRIGHT
+	                     -- puts the panel inside the window instead of beside it. So
+	                     -- getFrame decides WHEN to show (the tab), getAnchor decides
+	                     -- WHERE (the window). Defaults to getFrame when omitted.
 	        addon      = "Blizzard_SomeUI",        -- optional, for load-on-demand UIs
 	        buildLines = function() return { { text = "...", color = "warn" } } end,
 	        events     = { "PLAYER_EQUIPMENT_CHANGED" },  -- optional refresh triggers
@@ -168,8 +175,15 @@ function ns.AttachSidePanel(cfg)
 			cfg.panel:Hide() -- no data → no panel, never an empty box
 			return
 		end
+		local anchor = frame
+		if type(cfg.getAnchor) == "function" then
+			local okA, outer = pcall(cfg.getAnchor)
+			if okA and outer then
+				anchor = outer
+			end
+		end
 		cfg.panel:SetLines(lines)
-		cfg.panel:AnchorTo(frame, cfg.xOff, cfg.yOff)
+		cfg.panel:AnchorTo(anchor, cfg.xOff, cfg.yOff)
 		cfg.panel:Show()
 	end
 	cfg.refresh = refresh
