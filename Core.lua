@@ -928,6 +928,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 	-- /mh folio — why the "Open rune window" button did not open a window.
+	-- /mh tracks — which equipped slots are at their upgrade ceiling, and what
+	-- actually raises them from there (Spec 21).
+	if msg == "tracks" then
+		if ns.PrintTrackCeiling then
+			ns.PrintTrackCeiling()
+		end
+		return
+	end
 	-- /mh panelreset — put every side panel back beside its window. Cheap insurance:
 	-- the panels are draggable, and a panel dragged off-screen has no other way back.
 	if msg == "panelreset" then

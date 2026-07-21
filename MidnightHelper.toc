@@ -196,6 +196,7 @@ Modules\TranslateNudge.lua
 Modules\DiscordNudge.lua
 Modules\SidePanel.lua
 Modules\KeystoneSidePanel.lua
+Modules\TrackCeiling.lua
 Modules\CharacterSidePanel.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua

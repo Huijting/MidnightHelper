@@ -78,6 +78,22 @@ local function BuildLines()
 		end
 	end
 
+	-- Track ceiling (Spec 21): the "I'm on Hero 6/6, now what?" moment. Last, because
+	-- it is the least urgent of the three — an enchant you can fix today, a ceiling
+	-- takes a drop or a craft.
+	if ns.GetTrackCeilingSteps then
+		local ok, steps = pcall(ns.GetTrackCeilingSteps)
+		if ok and type(steps) == "table" then
+			for _, st in ipairs(steps) do
+				out[#out + 1] = {
+					text = st.text,
+					color = st.color or "warn",
+					onClick = function() pcall(ns.PrintTrackCeiling) end,
+				}
+			end
+		end
+	end
+
 	-- Everything readable and nothing outstanding earns one quiet line. Note the
 	-- difference from "we could not read anything", which produces no lines at all
 	-- and therefore no panel — saying "gear looks complete" when the API went quiet
