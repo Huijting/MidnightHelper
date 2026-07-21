@@ -113,12 +113,24 @@ local function RoleTipKey(tips)
 	if not tips then
 		return nil
 	end
+	-- Same two-step detection DelveCuriosAdvisor already uses (GetPlayerRoleKey,
+	-- DelveCuriosAdvisor.lua:40): the assigned group role first, falling back to the
+	-- spec's own role when solo or unassigned. Reusing the proven order rather than
+	-- inventing a second one.
 	local role
-	if GetSpecialization and GetSpecializationRole then
-		local ok, spec = pcall(GetSpecialization)
-		if ok and spec then
+	if UnitGroupRolesAssigned then
+		local ok, r = pcall(UnitGroupRolesAssigned, "player")
+		if ok then
+			role = r
+		end
+	end
+	if (not role or role == "NONE") and GetSpecialization and GetSpecializationRole then
+		local spec = GetSpecialization()
+		if spec then
 			local okR, r = pcall(GetSpecializationRole, spec)
-			role = okR and r or nil
+			if okR then
+				role = r
+			end
 		end
 	end
 	if role == "TANK" then
