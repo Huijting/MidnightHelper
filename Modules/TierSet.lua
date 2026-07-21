@@ -149,6 +149,18 @@ end
 -- Paneel (tab "tier", Character-sectie)
 --------------------------------------------------------------------------------
 
+--- Tier pieces worn, and the set size. Returns nil when the count is unreadable —
+--- TierPiecesEquipped already distinguishes "0 pieces" from "could not read", and
+--- that distinction must survive: reporting 0/5 to someone wearing 4 would be worse
+--- than saying nothing.
+function ns.GetTierSetSummary()
+	local worn = TierPiecesEquipped()
+	if worn == nil then
+		return nil, nil
+	end
+	return worn, 5
+end
+
 function ns.RefreshTierSetPanel()
 	if not (ui and ui.body) then
 		return

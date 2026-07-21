@@ -502,6 +502,40 @@ local function BuildReportLines(map)
 end
 
 -- /mh enchants (blijft als handig commando; standaard-route is het paneel).
+--- Compact counts for the character side panel: missing enchants, empty sockets.
+--- Returns nil, nil when nothing could be read, so a caller can stay silent rather
+--- than announce a confident "0 problems" it has no basis for.
+---
+--- Counts only slots that actually HAVE an item: an empty slot has no missing
+--- enchant, it has no item. Reuses SlotState/EmptySocketCount so the panel and the
+--- full report can never disagree — one source of truth per fact.
+function ns.GetGearEnchantSummary()
+	if not GetInventoryItemLink then
+		return nil, nil
+	end
+	local sawItem = false
+	local missing, sockets = 0, 0
+	for _, s in ipairs(SLOTS) do
+		local has, enchanted = SlotState(s.id)
+		if has then
+			sawItem = true
+			if not enchanted then
+				missing = missing + 1
+			end
+		end
+	end
+	for _, gs in ipairs(GEM_SLOTS) do
+		local n = EmptySocketCount(gs.id)
+		if n and n > 0 then
+			sockets = sockets + n
+		end
+	end
+	if not sawItem then
+		return nil, nil -- nothing readable; say nothing
+	end
+	return missing, sockets
+end
+
 function ns.PrintGearEnchantCheck()
 	print(("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX")))
 	for _, line in ipairs(BuildReportLines(nil)) do
