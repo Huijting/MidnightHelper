@@ -23,8 +23,24 @@ local _, ns = ...
 	lists CharacterFrame as a top-level movable window (Frames.lua).
 ]]
 
-local function GetCharacterFrame()
-	return CharacterFrame
+--- WHEN to show: the equipment tab, not merely the window. PaperDollFrame is only
+--- visible while the character sheet is open AND the Character tab is selected, so
+--- one check covers both — gear advice beside the Reputation list is noise (Rob,
+--- 2026-07-21). EllesmereUIBlizzardSkin calls PaperDollFrame:IsShown() "the
+--- truth-source for whether user is sitting on Rep" (CharacterSheet.lua:4536), so
+--- this is their verified approach rather than a guess of mine.
+local function GetPaperDoll()
+	return PaperDollFrame
+end
+
+--- WHERE to sit: to the right of Blizzard's own stats pane. CharacterFrame's right
+--- edge is the model window, and the stats column ("Item Level 271.1", Attributes,
+--- Enhancements) extends past it — so anchoring to the frame dropped the panel on
+--- top of Blizzard's own numbers. CharacterStatsPane is the real right-hand edge
+--- (confirmed in MyCharacterPanel/Onglets/PaperDollFrame.lua:247), with the frame
+--- as a fallback if a future patch drops the name.
+local function GetCharacterAnchor()
+	return CharacterStatsPane or CharacterFrame
 end
 
 local function BuildLines()
@@ -83,7 +99,8 @@ local panel = ns.CreateSidePanel({
 
 ns.AttachSidePanel({
 	panel = panel,
-	getFrame = GetCharacterFrame,
+	getFrame = GetPaperDoll,
+	getAnchor = GetCharacterAnchor,
 	buildLines = BuildLines,
 	-- Re-read after a gear change or a socket, so the panel is right the moment you
 	-- swap a piece while the sheet is open.

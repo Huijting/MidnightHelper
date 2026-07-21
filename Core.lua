@@ -928,6 +928,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 	-- /mh folio — why the "Open rune window" button did not open a window.
+	-- /mh panelreset — put every side panel back beside its window. Cheap insurance:
+	-- the panels are draggable, and a panel dragged off-screen has no other way back.
+	if msg == "panelreset" then
+		if ns.db then
+			ns.db.sidePanelOffsets = nil
+		end
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("SIDEPANEL_RESET_DONE")))
+		return
+	end
 	if msg == "folio" then
 		if ns.PrintOmniumFolioProbe then
 			ns.PrintOmniumFolioProbe()

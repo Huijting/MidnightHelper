@@ -1019,6 +1019,7 @@ ns._mhLocales.enUS = {
 	PAWN_NO_DATA = "No stat weights for this spec yet.",
 	KEYPANEL_TITLE = "Great Vault - Dungeons",
 	CHARPANEL_TITLE = "Gear check",
+	SIDEPANEL_RESET_DONE = "Side panels are back beside their windows. Reopen the window to see it.",
 	CHARPANEL_ENCH_FMT = "%d slots without an enchant",
 	CHARPANEL_SOCKET_FMT = "%d empty sockets",
 	CHARPANEL_TIER_FMT = "Tier set: %d/%d",

@@ -71,6 +71,46 @@ function ns.CreateSidePanel(opts)
 
 	f._padX, f._padTop, f._padBottom = 14, 12, 14
 	f._lines = {}
+	f._panelKey = opts.name or opts.titleKey or "panel"
+
+	-- Draggable. The right-hand side of a Blizzard window is contested space: on the
+	-- character sheet it holds Blizzard's own stats column, and Rob also runs Class
+	-- Codex there, while the Group Finder has Raider.IO. No default can be right for
+	-- everyone, so let the player move it and remember where they put it.
+	--
+	-- Drag with the panel body itself: it has no title bar of its own, and rows only
+	-- take clicks where they have an onClick, so dragging cannot swallow a click.
+	f:SetMovable(true)
+	f:EnableMouse(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", function(self)
+		self:StartMoving()
+	end)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		-- Convert where it ended up back into an offset from its anchor, so the panel
+		-- keeps following the window. Saving raw screen coordinates would strand it
+		-- the moment the player moved the Blizzard frame.
+		local args = self._anchorArgs
+		if not (args and args[1] and ns.db) then
+			return
+		end
+		local blizzFrame, xOff, yOff, point, relPoint = args[1], args[2], args[3], args[4], args[5]
+		local okNow, nowX, nowY = pcall(function() return self:GetLeft(), self:GetBottom() end)
+		if not okNow or not nowX then
+			return
+		end
+		-- Re-anchor to the reference position, measure, then apply the difference.
+		self:ClearAllPoints()
+		self:SetPoint(point, blizzFrame, relPoint, xOff, yOff)
+		local okRef, refX, refY = pcall(function() return self:GetLeft(), self:GetBottom() end)
+		if not okRef or not refX then
+			return
+		end
+		ns.db.sidePanelOffsets = ns.db.sidePanelOffsets or {}
+		ns.db.sidePanelOffsets[self._panelKey] = { x = nowX - refX, y = nowY - refY }
+		self:AnchorTo(blizzFrame, xOff, yOff, point, relPoint)
+	end)
 
 	f._title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 	if ns.MHScalableFont then
@@ -137,8 +177,18 @@ function ns.CreateSidePanel(opts)
 		if not blizzFrame then
 			return
 		end
+		-- A nudge the player dragged in, kept per panel. It is stored as an OFFSET on
+		-- top of the anchor, not an absolute screen position, so a moved panel still
+		-- travels with its Blizzard window instead of being left behind.
+		local dx, dy = 0, 0
+		local saved = ns.db and ns.db.sidePanelOffsets and ns.db.sidePanelOffsets[self._panelKey or ""]
+		if type(saved) == "table" then
+			dx, dy = tonumber(saved.x) or 0, tonumber(saved.y) or 0
+		end
 		self:ClearAllPoints()
-		self:SetPoint(point or "TOPLEFT", blizzFrame, relPoint or "TOPRIGHT", xOff or 4, yOff or 0)
+		self:SetPoint(point or "TOPLEFT", blizzFrame, relPoint or "TOPRIGHT",
+			(xOff or 4) + dx, (yOff or 0) + dy)
+		self._anchorArgs = { blizzFrame, xOff or 4, yOff or 0, point or "TOPLEFT", relPoint or "TOPRIGHT" }
 		local ok, lvl = pcall(blizzFrame.GetFrameLevel, blizzFrame)
 		if ok and lvl then
 			self:SetFrameLevel(lvl + 20)

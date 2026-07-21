@@ -1002,6 +1002,7 @@ ns._mhLocales.nlNL = {
 	PAWN_NO_DATA = "Nog geen stat-weights voor deze spec.",
 	KEYPANEL_TITLE = "Great Vault - Dungeons",
 	CHARPANEL_TITLE = "Gear-check",
+	SIDEPANEL_RESET_DONE = "Zijpanelen staan weer naast hun venster. Heropen het venster om het te zien.",
 	CHARPANEL_ENCH_FMT = "%d slots zonder enchant",
 	CHARPANEL_SOCKET_FMT = "%d lege sockets",
 	CHARPANEL_TIER_FMT = "Tier set: %d/%d",
