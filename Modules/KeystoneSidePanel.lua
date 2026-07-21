@@ -80,6 +80,13 @@ ns.AttachSidePanel({
 	panel = panel,
 	getFrame = GetChallengesTab,   -- when: the M+ tab is open
 	getAnchor = GetOuterWindow,    -- where: beside the whole Group Finder window
+	-- Bottom-right, not top-right. Raider.IO puts its score panel in the top-right
+	-- corner and ours covered it (Rob, 2026-07-21) -- unacceptable for anyone who
+	-- actually reads those scores. Anchoring to the bottom is deterministic: it
+	-- avoids that corner without guessing another addon's height, which changes with
+	-- the number of dungeons it lists.
+	point = "BOTTOMLEFT",
+	relPoint = "BOTTOMRIGHT",
 	addon = "Blizzard_ChallengesUI",
 	buildLines = BuildLines,
 	events = { "CHALLENGE_MODE_MAPS_UPDATE", "WEEKLY_REWARDS_UPDATE" },

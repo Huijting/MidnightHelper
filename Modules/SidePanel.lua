@@ -130,12 +130,15 @@ function ns.CreateSidePanel(opts)
 	end
 
 	--- Position beside a Blizzard frame. We never reparent it.
-	function f:AnchorTo(blizzFrame, xOff, yOff)
+	--- point/relPoint default to TOPLEFT→TOPRIGHT (level with the window's top).
+	--- Pass BOTTOMLEFT→BOTTOMRIGHT to sit at the bottom instead, which is how you
+	--- stay out of the top-right corner that score addons like Raider.IO claim.
+	function f:AnchorTo(blizzFrame, xOff, yOff, point, relPoint)
 		if not blizzFrame then
 			return
 		end
 		self:ClearAllPoints()
-		self:SetPoint("TOPLEFT", blizzFrame, "TOPRIGHT", xOff or 4, yOff or 0)
+		self:SetPoint(point or "TOPLEFT", blizzFrame, relPoint or "TOPRIGHT", xOff or 4, yOff or 0)
 		local ok, lvl = pcall(blizzFrame.GetFrameLevel, blizzFrame)
 		if ok and lvl then
 			self:SetFrameLevel(lvl + 20)
@@ -185,7 +188,7 @@ function ns.AttachSidePanel(cfg)
 			end
 		end
 		cfg.panel:SetLines(lines)
-		cfg.panel:AnchorTo(anchor, cfg.xOff, cfg.yOff)
+		cfg.panel:AnchorTo(anchor, cfg.xOff, cfg.yOff, cfg.point, cfg.relPoint)
 		cfg.panel:Show()
 	end
 	cfg.refresh = refresh
