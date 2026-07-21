@@ -248,20 +248,6 @@ function ns.PrintMythicGain()
 		end
 	end
 
-	-- This week's vault slots — or a gentle "none yet" that still falls through to
-	-- the season-wide per-dungeon + gear sections below (they don't need a run
-	-- this week; a player who's done nothing this week still wants those).
-	local slots = ReadMythicVaultSlots()
-	if slots and TotalRuns(slots) > 0 then
-		for _, line in ipairs(ns.GetMythicVaultSlotLines()) do
-			print("   " .. line.text)
-		end
-		print("   |cff9d9d9d" .. ns:L("MPLUS_CMD_RATING_NOTE") .. "|r")
-	else
-		print("   " .. ns:L("MPLUS_CMD_NONE"))
-	end
-
-	-- Phase 2: per-dungeon season best, lowest first (most rating to gain there).
 	local bests = ReadPerDungeonBests()
 	local anyRun = false
 	for _, d in ipairs(bests or {}) do
@@ -270,12 +256,39 @@ function ns.PrintMythicGain()
 			break
 		end
 	end
+
+	-- Say "you have run no keys" FIRST, before any run counts. Rob read the old order
+	-- as claiming he had done five Mythic+ runs: the header says "Mythic+ this week",
+	-- three lines of run counts followed, and the correction sat six lines further
+	-- down where it looked like a contradiction rather than the explanation.
 	if bests and #bests > 0 and not anyRun then
-		-- Nothing run all season: the list would be eight identical "not run yet" lines
-		-- followed by a hint about which one to pick that cannot mean anything yet.
-		-- Say the one true thing instead (Rob, who has never run a key, got the wall).
 		print("   " .. ns:L("MPLUS_CMD_NORUNS_SEASON"))
-	elseif bests and #bests > 0 then
+	end
+
+	-- This week's vault slots — or a gentle "none yet" that still falls through to
+	-- the season-wide per-dungeon + gear sections below (they don't need a run
+	-- this week; a player who's done nothing this week still wants those).
+	local slots = ReadMythicVaultSlots()
+	if slots and TotalRuns(slots) > 0 then
+		-- Labelled with the same string the side panel uses, so the counts below can
+		-- never again be mistaken for keystone runs.
+		print(("   |cff8fd3ff%s|r"):format(ns:L("KEYPANEL_TITLE")))
+		for _, line in ipairs(ns.GetMythicVaultSlotLines()) do
+			print("      " .. line.text)
+		end
+		print("      |cff9d9d9d" .. ns:L("MPLUS_VAULT_COUNTS_NOTE") .. "|r")
+		if anyRun then
+			print("   |cff9d9d9d" .. ns:L("MPLUS_CMD_RATING_NOTE") .. "|r")
+		end
+	else
+		print("   " .. ns:L("MPLUS_CMD_NONE"))
+	end
+
+	-- Phase 2: per-dungeon season best, lowest first (most rating to gain there).
+	-- Skipped entirely when nothing has been run: that case is already stated at the
+	-- top, and the list would be eight identical "not run yet" lines followed by a
+	-- hint about which to pick first that cannot mean anything yet.
+	if bests and #bests > 0 and anyRun then
 		print(("   |cff8fd3ff%s|r"):format(ns:L("MPLUS_CMD_PERDUNGEON")))
 		for _, d in ipairs(bests) do
 			local lvlStr = (d.level and d.level > 0)
