@@ -60,7 +60,9 @@ function ns.CreateSidePanel(opts)
 	local f = CreateFrame("Frame", opts.name, UIParent, "BackdropTemplate")
 	f:SetWidth(width)
 	f:SetHeight(60)
-	f:SetFrameStrata("HIGH")
+	-- FULLSCREEN_DIALOG, matching the vault banner (VaultAdvisor.lua:1210). HIGH is not
+	-- enough: Rob's Raider.IO panel drew straight through ours where they overlapped.
+	f:SetFrameStrata("FULLSCREEN_DIALOG")
 	f:SetClampedToScreen(true)
 	f:Hide()
 	if ns.ApplyMidnightDialogBackdrop then

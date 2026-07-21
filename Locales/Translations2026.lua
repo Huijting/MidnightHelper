@@ -2173,7 +2173,7 @@ fill("deDE", {
 	MPLUS_CMD_PERDUNGEON = "Pro Dungeon (deine Saisonbestleistung):",
 	MPLUS_CMD_RATING_FMT = "Wertung: %d",
 	MPLUS_CMD_RATING_NOTE = "Ein Schlüsselstein, der über deiner Bestzeit für einen Dungeon liegt, erhöht deine Wertung — der Tooltip des Schlüsselsteins zeigt die genaue Prognose.",
-	MPLUS_CMD_SLOT_FMT = "Platz %d (%d Schlüssel): %d/%d erledigt%s",
+	MPLUS_CMD_SLOT_FMT = "Platz %d (%d Läufe): %d/%d erledigt%s",
 	MPLUS_GAIN_FULL_FMT = "Alle 3 Plätze gefüllt (beste Schlüssel %s). Laufe höhere Schlüssel, um sie zu verbessern.",
 	MPLUS_GAIN_NEXT_FMT = "Nächster Schatzkammer-Platz: noch %d Lauf/Läufe.",
 })
@@ -2198,7 +2198,7 @@ fill("frFR", {
 	MPLUS_CMD_PERDUNGEON = "Par donjon (votre meilleur de la saison) :",
 	MPLUS_CMD_RATING_FMT = "Cote : %d",
 	MPLUS_CMD_RATING_NOTE = "Une clé réussie dans les temps au-dessus de votre meilleur score pour un donjon augmente votre cote — l'infobulle de la clé affiche la projection exacte.",
-	MPLUS_CMD_SLOT_FMT = "Emplacement %d (%d clés) : %d/%d fait%s",
+	MPLUS_CMD_SLOT_FMT = "Emplacement %d (%d courses) : %d/%d fait%s",
 	MPLUS_GAIN_FULL_FMT = "Les 3 emplacements sont remplis (meilleures clés %s). Faites des clés plus élevées pour les améliorer.",
 	MPLUS_GAIN_NEXT_FMT = "Prochain emplacement de chambre forte : encore %d course(s).",
 })
@@ -2223,7 +2223,7 @@ fill("esES", {
 	MPLUS_CMD_PERDUNGEON = "Por mazmorra (tu mejor de la temporada):",
 	MPLUS_CMD_RATING_FMT = "Puntuación: %d",
 	MPLUS_CMD_RATING_NOTE = "Una llave completada a tiempo por encima de tu mejor marca en una mazmorra sube tu puntuación — la descripción de la piedra angular muestra la proyección exacta.",
-	MPLUS_CMD_SLOT_FMT = "Ranura %d (%d llaves): %d/%d hecho%s",
+	MPLUS_CMD_SLOT_FMT = "Ranura %d (%d carreras): %d/%d hecho%s",
 	MPLUS_GAIN_FULL_FMT = "Las 3 ranuras están llenas (mejores llaves %s). Haz llaves más altas para subirlas.",
 	MPLUS_GAIN_NEXT_FMT = "Siguiente ranura de la cámara: %d carrera(s) más.",
 })
@@ -2248,7 +2248,7 @@ fill("ptBR", {
 	MPLUS_CMD_PERDUNGEON = "Por masmorra (seu melhor da temporada):",
 	MPLUS_CMD_RATING_FMT = "Pontuação: %d",
 	MPLUS_CMD_RATING_NOTE = "Uma chave concluída no tempo acima do seu melhor resultado numa masmorra aumenta sua pontuação — a dica da pedra angular mostra a projeção exata.",
-	MPLUS_CMD_SLOT_FMT = "Espaço %d (%d chaves): %d/%d feito%s",
+	MPLUS_CMD_SLOT_FMT = "Espaço %d (%d corridas): %d/%d feito%s",
 	MPLUS_GAIN_FULL_FMT = "Os 3 espaços estão cheios (melhores chaves %s). Faça chaves mais altas para melhorá-los.",
 	MPLUS_GAIN_NEXT_FMT = "Próximo espaço do cofre: mais %d corrida(s).",
 })
@@ -2273,7 +2273,7 @@ fill("itIT", {
 	MPLUS_CMD_PERDUNGEON = "Per dungeon (il tuo migliore della stagione):",
 	MPLUS_CMD_RATING_FMT = "Punteggio: %d",
 	MPLUS_CMD_RATING_NOTE = "Una chiave completata in tempo sopra il tuo record in un dungeon alza il punteggio — il tooltip della chiave mostra la proiezione esatta.",
-	MPLUS_CMD_SLOT_FMT = "Slot %d (%d chiavi): %d/%d fatto%s",
+	MPLUS_CMD_SLOT_FMT = "Slot %d (%d run): %d/%d fatto%s",
 	MPLUS_GAIN_FULL_FMT = "Tutti e 3 gli slot sono pieni (chiavi migliori %s). Fai chiavi più alte per migliorarli.",
 	MPLUS_GAIN_NEXT_FMT = "Prossimo slot della cripta: ancora %d run.",
 })
