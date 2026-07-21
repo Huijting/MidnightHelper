@@ -185,7 +185,15 @@ function ns.PrintMythicGain()
 			local best = (s.progress > 0 and s.level and s.level > 0)
 				and ((ns:L("MPLUS_CMD_BEST_FMT")):format(s.level))
 				or ""
-			print(("   " .. ns:L("MPLUS_CMD_SLOT_FMT")):format(i, s.threshold, s.progress, s.threshold, best))
+			-- s.progress is the TOTAL runs done, not progress toward this one slot, so
+			-- printing progress/threshold produced "5/1 done" for Rob -- you cannot do 5
+			-- of 1, and it reads like a bug. Once a slot is filled the fraction says
+			-- nothing anyway; only an unfilled slot has a meaningful count.
+			if s.unlocked then
+				print(("   " .. ns:L("MPLUS_CMD_SLOT_FILLED_FMT")):format(i, best))
+			else
+				print(("   " .. ns:L("MPLUS_CMD_SLOT_OPEN_FMT")):format(i, s.progress, s.threshold, best))
+			end
 		end
 		print("   |cff9d9d9d" .. ns:L("MPLUS_CMD_RATING_NOTE") .. "|r")
 	else
@@ -194,7 +202,19 @@ function ns.PrintMythicGain()
 
 	-- Phase 2: per-dungeon season best, lowest first (most rating to gain there).
 	local bests = ReadPerDungeonBests()
-	if bests and #bests > 0 then
+	local anyRun = false
+	for _, d in ipairs(bests or {}) do
+		if d.level and d.level > 0 then
+			anyRun = true
+			break
+		end
+	end
+	if bests and #bests > 0 and not anyRun then
+		-- Nothing run all season: the list would be eight identical "not run yet" lines
+		-- followed by a hint about which one to pick that cannot mean anything yet.
+		-- Say the one true thing instead (Rob, who has never run a key, got the wall).
+		print("   " .. ns:L("MPLUS_CMD_NORUNS_SEASON"))
+	elseif bests and #bests > 0 then
 		print(("   |cff8fd3ff%s|r"):format(ns:L("MPLUS_CMD_PERDUNGEON")))
 		for _, d in ipairs(bests) do
 			local lvlStr = (d.level and d.level > 0)
