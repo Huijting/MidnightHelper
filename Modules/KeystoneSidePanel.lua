@@ -68,9 +68,17 @@ local function BuildLines()
 		out[#out + 1] = { text = ns:SafeL("MPLUS_VAULT_COUNTS_NOTE") or "", color = "dim" }
 	end
 
-	for _, st in ipairs(steps) do
-		if st and st.text then
-			out[#out + 1] = { text = st.text, color = st.color or "soft" }
+	-- GetMythicGainSteps is deliberately NOT rendered here. Its line reads "Next vault
+	-- slot: 3 more run(s)", which the "5/8 runs" above already says — and the panel grew
+	-- tall enough to overlap Raider.IO (Rob, 2026-07-21). Height is real estate on a
+	-- screen someone else's addon is also using; a redundant line is not worth it. Its
+	-- other variant ("all 3 slots filled") is likewise visible as three green rows.
+	-- The chat breakdown still prints it.
+	if #out == 0 then
+		for _, st in ipairs(steps) do
+			if st and st.text then
+				out[#out + 1] = { text = st.text, color = st.color or "soft" }
+			end
 		end
 	end
 	-- GetMythicGainSteps returns nothing when no key has been run this week, which

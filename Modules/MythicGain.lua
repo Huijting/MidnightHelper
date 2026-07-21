@@ -168,18 +168,19 @@ end
 --- the per-dungeon API is confirmed in-game).
 --- The example reward's item level for one vault slot, or nil.
 ---
---- ⚠️ UNVERIFIED — the two installed addons that touch this disagree:
----   • EllesmereUIBlizzardSkin uses it live (GreatVault.lua:750) and prepends the
----     number to Blizzard's own difficulty text — that is where the "243 (Heroic)"
----     on Rob's vault comes from. The "(Heroic)" part is Blizzard's, not theirs.
----   • Plumber has it COMMENTED OUT with "This default method is unreliable since
----     11.2.0, so we hardcode itemlevel" (API.lua:4526) — though in a delve/world
----     context, which may not be the same as the dungeon row.
+--- ✅ VERIFIED for the dungeon row (Rob, 2026-07-21): the panel read 243 on both
+--- filled slots and his Great Vault showed "243 (Heroic)" on exactly those two.
 ---
---- So this is read from the game, never computed or hardcoded, and it simply does
---- not render when the API gives nothing. But until Rob has compared the number
---- against his own vault tooltip, treat it as unconfirmed: an item level that is
---- quietly wrong is exactly the kind of confident falsehood we keep digging out.
+--- The two installed addons disagreed about this API, so it was worth checking:
+---   • EllesmereUIBlizzardSkin uses it live (GreatVault.lua:750), prepending the
+---     number to Blizzard's own difficulty text — the "(Heroic)" is Blizzard's.
+---   • Plumber has it COMMENTED OUT: "This default method is unreliable since
+---     11.2.0, so we hardcode itemlevel" (API.lua:4526). That is in a DELVE/world
+---     context, and the match above says the dungeon row is fine — so read their
+---     warning as row-specific, and re-verify before using this for delves.
+---
+--- Always read from the game, never computed or hardcoded, and it simply does not
+--- render when the API returns nothing.
 local function ExampleRewardItemLevel(slot)
 	if not (slot and slot.id) then
 		return nil
