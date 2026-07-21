@@ -194,6 +194,8 @@ Modules\FirstRun.lua
 Modules\Nudges.lua
 Modules\TranslateNudge.lua
 Modules\DiscordNudge.lua
+Modules\SidePanel.lua
+Modules\KeystoneSidePanel.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua
 Addons\Guide.lua
