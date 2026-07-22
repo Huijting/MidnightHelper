@@ -336,14 +336,18 @@ local function CountProgress(profs)
 	return done, total
 end
 
-local function RouteWorkOrderStation()
+--- Route to a chapter's waypoint, looked up by name in ns.PROF_ACADEMY.
+--- Used to be hardcoded to the Work Order station, so a second destination was
+--- impossible without a second function. Unknown name = no button, never a
+--- waypoint to a guessed spot.
+local function RouteChapterWaypoint(key)
 	local d = ns.PROF_ACADEMY
-	local wp = d and d.workOrderStation
+	local wp = d and key and d[key]
 	if not (wp and wp.mapID and ns.AddSmartTomTomWay) then
 		return false
 	end
 	ns.MH_TomTomClearAll()
-	return ns.AddSmartTomTomWay(wp.mapID, wp.x, wp.y, SL("PROFACAD_WAYPOINT_WORKORDER")) and true or false
+	return ns.AddSmartTomTomWay(wp.mapID, wp.x, wp.y, SL(wp.wpKey or "PROFACAD_WAYPOINT_WORKORDER")) and true or false
 end
 
 -- Re-stack all chapter widgets top-to-bottom (heights depend on word wrap).
@@ -516,7 +520,8 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 			row.check:SetChecked(isDone)
 
 			if row.wpBtn then
-				row.wpBtn:SetText(SL("PROFACAD_BTN_WORKORDER"))
+				local wp = ns.PROF_ACADEMY and ch.taskWaypoint and ns.PROF_ACADEMY[ch.taskWaypoint]
+				row.wpBtn:SetText(SL((wp and wp.btnKey) or "PROFACAD_BTN_WORKORDER"))
 			end
 		end
 	end
@@ -641,7 +646,10 @@ function ns.BuildProfessionAcademyPanel(panel)
 		if ch.taskWaypoint then
 			local wpBtn = CreateFrame("Button", nil, child, "UIPanelButtonTemplate")
 			wpBtn:SetHeight(BTN_H)
-			wpBtn:SetScript("OnClick", RouteWorkOrderStation)
+			local wpKey = ch.taskWaypoint
+			wpBtn:SetScript("OnClick", function()
+				RouteChapterWaypoint(wpKey)
+			end)
 			local fs = wpBtn.GetFontString and wpBtn:GetFontString()
 			if fs then
 				fs:SetJustifyH("LEFT")

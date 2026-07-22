@@ -18,7 +18,17 @@ local _, ns = ...
 ns.PROF_ACADEMY = {
 	-- Work Order-station in de Bazaar (Captain Flaresworn / Mar'nah) — zelfde
 	-- coördinaten als SMC City Guide "crafting_orders".
-	workOrderStation = { mapID = 2393, x = 45.0, y = 55.6 },
+	-- Chapter waypoints, looked up by name from a chapter's taskWaypoint field.
+	-- btnKey = button label, wpKey = the name the arrow/waypoint carries.
+	workOrderStation = { mapID = 2393, x = 45.0, y = 55.6,
+		btnKey = "PROFACAD_BTN_WORKORDER", wpKey = "PROFACAD_WAYPOINT_WORKORDER" },
+	-- Jennara Sunglow (npc 254051), the Gleeful Glamours teacher worth +24 Knowledge.
+	-- Coordinates from Rob's own Zygor install (ZygorProfessionsCommonMID.lua:817),
+	-- which also notes she is on the TOP FLOOR of the building. Our own chapter text
+	-- used to say "tower behind the trainer" -- wrong, the Enchanting trainer stands
+	-- at 47.97/53.63, the other side of the city (Rob asked, 2026-07-22).
+	glamourTeacher = { mapID = 2393, x = 39.54, y = 51.0,
+		btnKey = "PROFACAD_BTN_GLAMOUR", wpKey = "PROFACAD_WAYPOINT_GLAMOUR" },
 
 	-- English fallback names per profession skillLineID; the localized name from
 	-- C_TradeSkillUI.GetProfessionInfoBySkillLineID wins when available.
@@ -247,6 +257,7 @@ ns.PROF_ACADEMY = {
 			bodyKey = "PROFACAD_CH_ENCHANTING_BODY",
 			introKey = "PROFACAD_CH_ENCHANTING_INTRO",
 			advancedKey = "PROFACAD_CH_ENCHANTING_ADVANCED",
+			taskWaypoint = "glamourTeacher",
 			taskKey = "PROFACAD_CH_ENCHANTING_TASK",
 			levelingKey = "PROFGUIDE_LVL_ENCHANTING",
 			skillLineID = 333,
