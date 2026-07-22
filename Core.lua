@@ -941,7 +941,9 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- /mh panelreset — put every side panel back beside its window. Cheap insurance:
 	-- the panels are draggable, and a panel dragged off-screen has no other way back.
 	if msg == "panelreset" then
-		if ns.db then
+		if ns.ResetSidePanels then
+			ns.ResetSidePanels()
+		elseif ns.db then
 			ns.db.sidePanelOffsets = nil
 		end
 		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("SIDEPANEL_RESET_DONE")))

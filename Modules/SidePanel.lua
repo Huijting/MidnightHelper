@@ -41,6 +41,10 @@ local _, ns = ...
 
 local DEFAULT_WIDTH = 300
 
+--- Every attached panel, so a reset can reposition them where they stand instead of
+--- waiting for the player to close and reopen the window (Rob, 2026-07-22).
+local attached = {}
+
 local COLORS = {
 	good = { 0.35, 1.00, 0.45 },
 	warn = { 1.00, 0.82, 0.35 },
@@ -347,5 +351,21 @@ function ns.AttachSidePanel(cfg)
 	end)
 
 	hook() -- in case the frame already exists at load
+	attached[#attached + 1] = cfg
 	return cfg
+end
+
+--- Clear every saved nudge and reposition the panels immediately.
+--- Used by /mh panelreset. Repositioning on the spot matters: a panel dragged off
+--- screen is exactly the case you need this for, and telling someone to close and
+--- reopen the window first is a poor answer when the panel is right there.
+function ns.ResetSidePanels()
+	if ns.db then
+		ns.db.sidePanelOffsets = nil
+	end
+	for _, cfg in ipairs(attached) do
+		if type(cfg.refresh) == "function" then
+			pcall(cfg.refresh)
+		end
+	end
 end
