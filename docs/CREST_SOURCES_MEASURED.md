@@ -87,3 +87,36 @@ game, several were simply untrue:
 Two lessons, both already ours: the game often knows the answer better than we do,
 and a fact written from memory on a phone is a guess no matter how confident it
 reads. `/mh crests` is the way to re-check after any patch.
+
+## Caps: there are none (measured 2026-07-22)
+
+`/mh crests` reported for **every** tier:
+
+```
+maxQuantity=0   maxWeeklyQuantity=0   earnedThisWeek=0
+```
+
+Two independent signals agree: Blizzard's Currencies tab renders genuinely capped
+currencies as a fraction (Dawnlight Manaflux 4/8, Nebulous Voidcore 25/28, Radiant
+Spark Dust 21/21, Untainted Mana-Crystals 475/1000) and shows all five Dawncrests as
+a bare number.
+
+`DAWNCREST_GUIDE_SUMMARY` claimed "Each color has a weekly cap (~100)". That sentence
+has been removed from enUS and nlNL. The tilde was the tell: it was an estimate that
+had been shipping as a fact, in the one panel a player uses to plan a week of
+upgrades. Nothing replaced it — "there is no cap" would be a fresh claim about game
+behaviour, and the absence of a cap field is not proof that no cap exists anywhere.
+
+`earnedThisWeek=0` is NOT evidence of anything: the weekly reset had just happened
+(This Week showed "Resets in 6d 15h"), so zero is the expected reading either way.
+
+## Which Veteran id is real — settled
+
+`totalEarned` decided it: **3341 = 30**, matching the "Season Total Earned: 30" line
+in the game's own Veteran tooltip. **3342 reported a balance of 220 with
+totalEarned=0**, which is not how a currency the player has actually earned behaves.
+3341 is the real one; the MAX rule that preferred 3342 has been removed.
+
+Other totals captured, for reference: Adventurer totalEarned=64 (have 54), Champion
+3343 totalEarned=301 (have 31), Hero totalEarned=900 (have 20), Myth totalEarned=240
+(have 240).
