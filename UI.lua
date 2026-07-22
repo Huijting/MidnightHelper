@@ -2951,8 +2951,18 @@ SelectTab = function(tabId)
 	end
 	-- Profession tools were merged into one hub sub-tab with inner tabs;
 	-- legacy ids land on the matching inner tab.
-	if tabId == "professions" or tabId == "profacademy" then
-		ns.uiSelectedProfHubInner = (tabId == "professions") and "treasures" or "course"
+	if tabId == "professions" or tabId == "profacademy" or tabId == "profoverview" then
+		-- "professions" has always landed on Treasures & Books, which is fine for the
+		-- legacy id but wrong for anyone sent here to SPEND Knowledge -- the advice
+		-- lives on Overview. Hence a third id rather than changing what the old one
+		-- does (Rob clicked a KP line and got a treasure list, 2026-07-22).
+		local inner = "treasures"
+		if tabId == "profacademy" then
+			inner = "course"
+		elseif tabId == "profoverview" then
+			inner = "overview"
+		end
+		ns.uiSelectedProfHubInner = inner
 		ns.uiSelectedToolboxSubTab = "professionsHub"
 		tabId = "toolbox"
 	end

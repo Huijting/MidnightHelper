@@ -95,7 +95,7 @@ local function OpenProfession()
 		pcall(ns.ShowMainUI, ns)
 	end
 	if ns.SelectTab then
-		pcall(ns.SelectTab, "professions")
+		pcall(ns.SelectTab, "profoverview")
 	end
 end
 
