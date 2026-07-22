@@ -113,7 +113,17 @@ local function BuildWeeklyText()
 					end
 					local itemName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(e.itemID))
 						or e.fallbackName
-					parts[#parts + 1] = ("%s %d/%d"):format(itemName, count, e.need)
+					-- NO FRACTION HERE. This used to render "Swirling Arcane Essence 3/5"
+					-- under a "This week" header, which reads as "3 of 5 done this week".
+					-- It is not: GetItemCount counts what is in your BAGS, and MH cannot
+					-- see what you already handed in (see /mh kp — no API exposes weekly
+					-- KP progress). Turn in five and loot one more and the old line said
+					-- 1/5, as if you had not started. A plain count cannot be misread,
+					-- and the target survives as a note rather than a denominator.
+					parts[#parts + 1] = ("%s |cff8a8f98%s|r"):format(
+						(SL("PROFHUB_WEEKLY_ESSENCE_COUNT_FMT")):format(itemName, count),
+						(SL("PROFHUB_WEEKLY_ESSENCE_NOTE_FMT")):format(e.need)
+					)
 				end
 				lines[#lines + 1] = ("%s: %s"):format(SL("PROFHUB_WEEKLY_ESSENCES"), table.concat(parts, " · "))
 			end
