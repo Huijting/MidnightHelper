@@ -202,17 +202,28 @@ def find_orphans(root: str, toc_files: set[str]) -> list[str]:
 
 
 def collect_indexed_tabs(root: str) -> set[str]:
+    """Tab ids the search index can actually reach.
+
+    The `tab()` helper is the common form, but entries needing a context hint call
+    `add()` with a bare `OpenTab("id")` instead -- so count that too, or the check
+    reports a tab as unreachable at the very moment it was made reachable."""
     p = os.path.join(root, "Modules", "NavSearch.lua")
     ids = set()
     if os.path.isfile(p):
         for line in read_lines(p):
-            for m in re.finditer(r'\btab\(\s*"[^"]+"\s*,\s*"([^"]+)"', line):
-                ids.add(m.group(1))
+            for m in re.finditer(r'\btab\(\s*"[^"]+"\s*,\s*"([^"]+)"'
+                                 r'|\bOpenTab\(\s*"([a-z][a-z0-9_]*)"', line):
+                ids.add(m.group(1) or m.group(2))
     return ids
 
 
 def collect_selecttab_ids(root: str) -> dict:
-    """Best-effort: tab ids passed to ns.SelectTab("id") across modules/UI."""
+    """Best-effort: tab ids the addon can navigate to.
+
+    Originally only `SelectTab("id")`. That missed `profacademy`, which is reached
+    through a `navTab` data field -- the profession course sat in the UI with no
+    way to search for it until Rob went looking on 2026-07-22. Destinations are
+    declared in data as often as they are called, so read both."""
     ids = {}
     targets = [os.path.join(root, n) for n in ("UI.lua", "Core.lua")]
     moddir = os.path.join(root, "Modules")
@@ -223,8 +234,9 @@ def collect_selecttab_ids(root: str) -> dict:
             continue
         rel = os.path.relpath(p, root).replace("\\", "/")
         for i, line in enumerate(read_lines(p), 1):
-            for m in re.finditer(r'SelectTab\(\s*"([a-z][a-z0-9_]*)"', line):
-                ids.setdefault(m.group(1), (rel, i))
+            for m in re.finditer(r'(?:SelectTab|OpenTab)\(\s*"([a-z][a-z0-9_]*)"'
+                                 r'|navTab\s*=\s*"([a-z][a-z0-9_]*)"', line):
+                ids.setdefault(m.group(1) or m.group(2), (rel, i))
     return ids
 
 
