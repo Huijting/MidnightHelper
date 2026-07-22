@@ -180,12 +180,18 @@ local function GetNodeAdviceForProf(baseSkillLine, midnightLine)
 			return n, "route"
 		end
 	end
-	-- Route exhausted (Rob finished Silvermoon's Spellpower and had 10 points left,
-	-- 2026-07-22). Rather than going vague again, fall back to the rule this file
-	-- already applies at tree level: "player already invests here, advise finishing
-	-- this one". That is not a new claim about what is good -- it only observes
-	-- where their own points already went. Most-invested first, so it names the one
-	-- nearest completion instead of an arbitrary half-filled node.
+	-- Route exhausted (Rob finished Silvermoon's Spellpower and had 10 points
+	-- left, 2026-07-22). We do NOT invent a next pick here. What we can honestly
+	-- surface is where the player's own points already sit -- reported as an
+	-- observation, not as a recommendation.
+	--
+	-- Rob challenged the first version of this, rightly: "is dat wel een eerlijk
+	-- advies, want als ik eerst niet wist wat ik moest doen en maar wat heb
+	-- gekozen?" Telling someone to finish what they started assumes the start was
+	-- deliberate, and MH exists precisely because it often is not. His own node
+	-- tooltips also weaken the sunk-cost case: every rank grants +1 Skill on its
+	-- own, so a half-filled node is not wasted -- only the rank breakpoints
+	-- ("Next major bonus at Rank 5") reward finishing.
 	local best
 	for _, n in ipairs(nodes) do
 		local got, max = n.purchased or 0, n.max or 0
@@ -220,7 +226,12 @@ local function BuildAdviceLine(skillLine, summary, withPointer, midnightLine)
 		if node then
 			local key = (why == "finish") and "PROFACAD_ADVISE_NODE_FINISH_FMT" or "PROFACAD_ADVISE_NODE_FMT"
 			text = SL(key):format(node.name, node.purchased or 0, node.max or 0)
-			withPointer = false -- the answer is right here; no need to send them away
+			-- A route hit answers the question outright, so the pointer is noise. The
+			-- fallback does NOT answer it -- it only reports where their points are --
+			-- so there the chapter with the real options stays one click away.
+			if why == "route" then
+				withPointer = false
+			end
 		else
 			text = SL("PROFACAD_ADVISE_DONE")
 		end
