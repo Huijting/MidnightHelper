@@ -1452,9 +1452,15 @@ local function TryFollowerHint()
 		end,
 		icon = "Interface\\ICONS\\INV_Misc_Book_09",
 		titleKey = "FOLLOWER_BOSSHINT_TITLE",
-		bodyKey = "FOLLOWER_BOSSHINT_BODY",
+		-- The "click me" line goes ON the card, not only in the hover tooltip. This
+		-- card exists to tell the player what to do here; hiding that behind a
+		-- mouse-over meant it only said what is NOT possible. Rob asked for the card
+		-- and still could not tell it was clickable.
+		body = ns:L("FOLLOWER_BOSSHINT_BODY") .. "\n|cff8a8f98" .. ns:L("FOLLOWER_BOSSHINT_CLICK") .. "|r",
 		clickHintKey = "FOLLOWER_BOSSHINT_CLICK",
-		displaySec = 9,
+		-- Long enough to read three lines and then act on them. The old 9s was set
+		-- when the card only had to be noticed, not obeyed.
+		displaySec = 16,
 		onClick = function()
 			if ns.ShowDungeonBossWindow then
 				ns.ShowDungeonBossWindow(d and d.key or nil, nil)

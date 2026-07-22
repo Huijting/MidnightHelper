@@ -144,6 +144,20 @@ local function ApplyToastContent(spec)
 		root.body:SetText(body)
 		root.body:SetShown(body ~= "")
 	end
+
+	-- Grow the card to fit its text. The frame was a fixed 320x64, which is exactly
+	-- two body lines; a third one was silently clipped, so any toast that wanted to
+	-- tell the player what to DO could not say it on the card. Only ever grows --
+	-- every existing toast that already fitted keeps the height it has always had.
+	if toastFrame and root.body then
+		local needed = TOAST_H
+		local okH, textH = pcall(root.body.GetStringHeight, root.body)
+		if okH and type(textH) == "number" and textH > 0 then
+			-- 10 top pad + title + 2 gap + text + 10 bottom pad
+			needed = math.max(TOAST_H, 10 + 16 + 2 + math.ceil(textH) + 10)
+		end
+		pcall(toastFrame.SetHeight, toastFrame, needed)
+	end
 end
 
 local function EnsureToastFrame()
