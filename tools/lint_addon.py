@@ -43,6 +43,15 @@ CTX_DOTTED_LOCAL_RE = re.compile(r'local\s+(\w+)\s*=\s*ns\._mhLocales\.(\w+)\s+o
 REF_RE = re.compile(r'(?:ns:L|[^A-Za-z0-9_]VL)\(\s*(["\'])([A-Z][A-Z0-9_]+)\1')
 # Dynamic reference we cannot statically resolve, e.g. ns:L("PRE_"..x).
 REF_DYNAMIC_RE = re.compile(r'(?:ns:L|[^A-Za-z0-9_]VL)\(\s*["\'][A-Z0-9_]*["\']?\s*\.\.')
+# Several files alias the resolver to a bare local -- `local function L(key)` in
+# NavSearch, `local L = ...` elsewhere -- then call L("SOME_KEY"). Those calls never
+# matched REF_RE, leaving 39 key references across six files unchecked. Found on
+# 2026-07-22 while adding the side panels to the search index: four brand-new
+# undefined keys went in and this check still reported zero missing. Nothing was
+# broken at the time, but an undefined key renders as a raw key name on screen,
+# which is the exact failure check [1] exists to catch.
+LOCAL_L_DEF_RE = re.compile(r'^\s*local (?:function )?L\b', re.M)
+LOCAL_L_REF_RE = re.compile(r'(?<![\w.:])L\(\s*(["\'])([A-Z][A-Z0-9_]+)\1')
 
 
 def repo_root() -> str:
@@ -136,13 +145,23 @@ def collect_references(root: str):
                 targets.append(os.path.join(moddir, f))
     for p in targets:
         rel = os.path.relpath(p, root).replace("\\", "/")
-        for i, line in enumerate(read_lines(p), 1):
+        lines = read_lines(p)
+        # Only trust a bare L(...) in a file that actually defines one locally, so an
+        # unrelated single-letter function elsewhere cannot invent references.
+        aliases_l = bool(LOCAL_L_DEF_RE.search("\n".join(lines)))
+        for i, line in enumerate(lines, 1):
             for m in REF_RE.finditer(line):
                 # a literal followed by `..` is a dynamic key prefix, not a key
                 if line[m.end():].lstrip().startswith(".."):
                     dynamic += 1
                     continue
                 static.setdefault(m.group(2), []).append((rel, i))
+            if aliases_l:
+                for m in LOCAL_L_REF_RE.finditer(line):
+                    if line[m.end():].lstrip().startswith(".."):
+                        dynamic += 1
+                        continue
+                    static.setdefault(m.group(2), []).append((rel, i))
     return static, dynamic
 
 

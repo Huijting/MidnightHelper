@@ -149,6 +149,32 @@ local function BuildNavIndex()
 	end
 
 	-- Tools (floating helper windows; existing toggles).
+	-- Side panels. These are PASSIVE: they appear beside a Blizzard window and are
+	-- never opened from here, so each entry carries a context line saying WHERE it
+	-- shows up. Without that the feature is unfindable -- you only meet it by
+	-- happening to open the right Blizzard window. Clicking runs the closest related
+	-- MH report rather than pretending to summon the panel.
+	add(L("NAV_PANEL_CHARACTER"), "side panel character sheet paperdoll gear enchant socket tier upgrade ceiling", function()
+		if ns.PrintGearEnchantCheck then
+			ns.PrintGearEnchantCheck()
+		end
+	end, nil, L("NAV_PANEL_WHERE_CHARACTER"), "tool")
+	add(L("NAV_PANEL_KEYSTONE"), "side panel keystone mythic plus great vault dungeon row item level", function()
+		if ns.PrintMythicGain then
+			ns.PrintMythicGain()
+		end
+	end, nil, L("NAV_PANEL_WHERE_KEYSTONE"), "tool")
+	add(L("NAV_PANEL_JOURNAL"), "side panel adventure guide encounter journal boss tips role", function()
+		if ns.ShowDungeonBossWindow then
+			ns.ShowDungeonBossWindow()
+		end
+	end, nil, L("NAV_PANEL_WHERE_JOURNAL"), "tool")
+	add(L("NAV_PANEL_MOUNTS"), "side panel mount journal collection wishlist starred", function()
+		if ns.SelectTab then
+			ns.SelectTab("mounts")
+		end
+	end, nil, L("NAV_PANEL_WHERE_MOUNTS"), "tool")
+
 	add(L("DELVE_COACH_TITLE"), "delve coach tactics boss", function()
 		if ns.ToggleDelveCoach then
 			ns:ToggleDelveCoach()
@@ -317,6 +343,24 @@ local function BuildNavIndex()
 		{ "ritualboss", "ritual boss coach" },
 		{ "enchant", "gear enchant gems check missing" },
 		{ "mbuff", "missing buff reminder flask" },
+		{ "tracks", "gear upgrade track ceiling hero myth maxed slot crest craft" },
+		{ "panelreset", "side panel reset position move back beside window" },
+		{ "wishlist", "mount wishlist starred favourite collect chase" },
+		{ "pawn", "stat weights export scale pawn addon gear" },
+		{ "groupbuffs", "raid buffs missing party intellect stamina group" },
+		{ "healcds", "healer cooldowns raid healing cheat sheet" },
+		{ "pullsummary", "tank pull mitigation defensives summary" },
+		{ "readyboard", "consumable ready board panel flask food group" },
+		{ "consready", "consumable ready check flask food rune chat" },
+		{ "death", "death recap killing blow what killed me lesson" },
+		{ "folio", "omnium folio rune window tree" },
+		{ "discord", "community help support invite chat server" },
+		{ "codex", "handbook glossary encyclopedia terms explained" },
+		{ "coach", "delve coach tips boss tactics" },
+		{ "mark", "raid target markers world marker fast mark skull" },
+		{ "clear", "clear route arrow stop waypoint" },
+		{ "arrowsize", "route arrow size bigger smaller resize" },
+		{ "bagarrows", "bag upgrade arrows green item better" },
 	}
 	local cmdLabel = L("NAV_CAT_COMMAND")
 	for _, c in ipairs(MH_COMMANDS) do

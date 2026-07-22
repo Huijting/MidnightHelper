@@ -1398,6 +1398,14 @@ ns._mhLocales.enUS = {
 	NAV_TOOL_RITUALBOSS = "Ritual boss coach",
 	-- Spec 17: command-palette entries (dim label after "/mh season"). Reach with "@command" or "/".
 	NAV_CAT_COMMAND = "command",
+	NAV_PANEL_CHARACTER = "Gear check panel",
+	NAV_PANEL_WHERE_CHARACTER = "appears beside your character sheet",
+	NAV_PANEL_KEYSTONE = "Great Vault panel",
+	NAV_PANEL_WHERE_KEYSTONE = "appears beside the Mythic+ window",
+	NAV_PANEL_JOURNAL = "Boss tips panel",
+	NAV_PANEL_WHERE_JOURNAL = "appears beside the Adventure Guide",
+	NAV_PANEL_MOUNTS = "Mount wishlist panel",
+	NAV_PANEL_WHERE_MOUNTS = "appears beside the mount collection",
 	-- Search actions. The label must LEAD with the word players type, because Enter
 	-- only jumps on a label-prefix match.
 	NAV_ACTION_RITUAL_FMT = "Ritual Site: %s",
