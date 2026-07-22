@@ -79,7 +79,29 @@ end
 -- dus géén minLevel daar; dat quest-ID toevoegen zodra gedumpt, dan krijgen
 -- levelaars ook echte done/opgepakt-status bij hem.
 local GIVER_WEEKLIES = {
-	{ key = "liadrin", name = "Lady Liadrin", quests = { 93766, 93909, 93910, 93911 }, minLevel = 90 },
+	-- Liadrin offers FOUR of a twelve-quest pool per character per week, so a list of
+	-- four could only ever recognise a third of what she hands out. Rob picked
+	-- "Midnight: World Boss" (93913) and the routine kept telling him to go and get a
+	-- quest that was already in his log.
+	--
+	-- All eleven below were confirmed on 2026-07-22 via /mh weeklies, which asks the
+	-- game for each id's own title and compares it with the label. The twelfth,
+	-- 93891 "Legends of the Haranir", returned NO TITLE AT ALL and is therefore left
+	-- out — the source that supplied these ids (Broker_MidnightEvents) had already
+	-- flagged it as possibly obsolete, and the game agrees.
+	{ key = "liadrin", name = "Lady Liadrin", minLevel = 90, quests = {
+		93766, -- World Quests
+		93769, -- Housing
+		93889, -- Saltheril's Soiree
+		93890, -- Abundance
+		93892, -- Stormarion Assault
+		93909, -- Delves
+		93910, -- Prey
+		93911, -- Dungeons
+		93913, -- World Boss
+		94457, -- Battlegrounds
+		95842, -- Void Assaults (also the Void meta quest below)
+	} },
 	-- Dungeon-of-the-week (rotates; add each week's confirmed ID here):
 	--   93761 "Windrunner Spire" (10 jun 2026), 93164 "Maisara Caverns"
 	--   (1 jul 2026, Rob confirmed via /mh questscan — dungeon rep-weekly). 95468 =
