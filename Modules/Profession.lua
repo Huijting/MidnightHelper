@@ -1553,10 +1553,24 @@ function ns.GetProfessionKnowledgeStatus()
 			local skillLineID, midnightLine, name = MapProfessionSlotToSkillLine(prof)
 			if name and name ~= "" then
 				local unspent, readable = GetMidnightUnspentKnowledge(midnightLine)
+				-- TWO DIFFERENT SKILL LINE NUMBERS, and mixing them up looks like
+				-- missing data rather than a bug. skillLineID is the EXPANSION line
+				-- ("Midnight Tailoring" = 2918) -- that is what C_TradeSkillUI wants.
+				-- baseSkillLine is the profession itself (Tailoring = 197), and that
+				-- is the key for PROF_ACADEMY.weekly.trainerQuests and every other
+				-- per-profession table in this addon. /mh kp reported "no verified
+				-- quest id" for both of Rob's professions on 2026-07-22 purely
+				-- because it looked up 2918 instead of 197.
+				local baseSkillLine
+				local okI, _, _, _, _, _, _, sl = pcall(GetProfessionInfo, prof)
+				if okI then
+					baseSkillLine = sl
+				end
 				out[#out + 1] = {
 					name = name,
 					skillLineID = skillLineID,
 					midnightLine = midnightLine,
+					baseSkillLine = baseSkillLine,
 					unspent = unspent or 0,
 					readable = readable and true or false,
 				}
@@ -1592,10 +1606,13 @@ function ns.PrintKnowledgeProbe()
 	local weekly = ns.PROF_ACADEMY and ns.PROF_ACADEMY.weekly
 	local trainerQuests = (weekly and weekly.trainerQuests) or {}
 	for _, p in ipairs(list) do
-		print(("   |cff40c040%s|r  skillLine %s  unspent KP: %s"):format(
-			tostring(p.name), tostring(p.skillLineID),
+		print(("   |cff40c040%s|r  expansion line %s / base line %s  unspent KP: %s"):format(
+			tostring(p.name), tostring(p.skillLineID), tostring(p.baseSkillLine),
 			p.readable and tostring(p.unspent) or "|cffff8080UNREADABLE|r"))
-		local qs = trainerQuests[p.skillLineID]
+		-- Keyed on the BASE line, like ResetRoutine does. See the note in
+		-- GetProfessionKnowledgeStatus: using the expansion line here reported both
+		-- of Rob's professions as untracked while This Week listed them correctly.
+		local qs = p.baseSkillLine and trainerQuests[p.baseSkillLine]
 		if type(qs) == "table" then
 			local state = "not picked up"
 			for _, qid in ipairs(qs) do
