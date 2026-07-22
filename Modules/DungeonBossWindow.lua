@@ -1250,6 +1250,10 @@ function ns.PrintBossWindowDiag()
 	line("instance dungeon: " .. (hereKey or "not a roster dungeon"))
 	line("current dungeon: " .. (curKey or "none set yet"))
 	line("follower-dungeon entry hint: " .. tostring(ns._mhFollowerHintReason or "not evaluated yet"))
+	-- Queued and shown are different answers to "why didn't I see it".
+	if ns._mhFollowerHintShown ~= nil then
+		line("   card actually on screen: " .. (ns._mhFollowerHintShown and "YES" or "NO — queued but never displayed"))
+	end
 
 	local why
 	if not autoOn then
@@ -1434,9 +1438,18 @@ local function TryFollowerHint()
 		return "toast system not loaded"
 	end
 	followerHintDoneFor = mapID
+	-- QUEUED IS NOT SHOWN. Marking the visit done here stops repeat-spam, but it used
+	-- to be the ONLY record -- so /mh bosswin why answered "already hinted this visit"
+	-- whether the player saw a card or nothing at all. That is the same trap as the
+	-- July toast hunt: we logged the intent and not the outcome. onShow fires only
+	-- when the toast is really on screen, so the two states stay distinguishable.
+	ns._mhFollowerHintShown = false
 	local d = DungeonForCurrentInstance()
 	ns.QueueMidnightToast({
 		id = "follower_bosshint",
+		onShow = function()
+			ns._mhFollowerHintShown = true
+		end,
 		icon = "Interface\\ICONS\\INV_Misc_Book_09",
 		titleKey = "FOLLOWER_BOSSHINT_TITLE",
 		bodyKey = "FOLLOWER_BOSSHINT_BODY",
