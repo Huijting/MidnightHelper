@@ -147,6 +147,19 @@ lijst scrapen bij bouw van B.
 
 ## Open vragen / PTR-verificatie (Rob)
 
+**METING 22 juli 2026 (Rob, live, via `/mh kp`) — DISENCHANT-BRON SLUIT NIETS AAN.**
+Brimming Mana Shard (item 267655, "Use: Study to increase your Midnight Enchanting
+Knowledge by 4") uit disenchanten. Gemeten **vóór** gebruik: alle 16 vlaggen false.
+**Ná** gebruik: alle 16 nog steeds false, terwijl de onbestede KP wél opliep van
+10 naar 14 — dus het studeren werkte aantoonbaar. Conclusie: noch het oprapen,
+noch het studeren van een KP-item uit disenchanten raakt deze reeks.
+
+Wat daarmee NIET is uitgesloten: de reeks heet in de bron "weekly treasure-drops",
+en een echte open-wereld-schat is nog steeds niet getest. Dat blijft de enige
+openstaande meting. Levert die ook niets op, dan is deze reeks niet wat we dachten
+en vervalt het idee van een leesbare wekelijkse KP-voortgang — zie
+`Modules/ProfessionNextStep.lua`, dat daar bewust al niets over beweert.
+
 1. Quest-flag-IDs 93528-93543 verifiëren (welke flipt na welke drop, reset
    woensdag?) — `/run for i=93528,93543 do if C_QuestLog.IsQuestFlaggedCompleted(i) then print(i) end end`
    na een drop. **Nulmeting (Rob, main Tailor+Ench, zo 7 juni): alle 16
