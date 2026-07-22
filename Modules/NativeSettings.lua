@@ -308,6 +308,16 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetSidePanelsEnabled then ns.SetSidePanelsEnabled(v) end
 		end, true)
+		-- Without this the daily tip can only be waved away one day at a time, which
+		-- is a nag rather than a choice.
+		AddToggle("mh_dailyTip", "SET_DAILYTIP_TITLE", "SET_DAILYTIP_DESC", function()
+			return not (ns.db and ns.db.dailyTip and ns.db.dailyTip.enabled == false)
+		end, function(v)
+			ns.db = ns.db or {}
+			ns.db.dailyTip = ns.db.dailyTip or {}
+			ns.db.dailyTip.enabled = v and true or false
+			if ns.RefreshHomePanel then pcall(ns.RefreshHomePanel) end
+		end, true)
 
 		----------------------------------------------------------------
 		-- Route-pijl

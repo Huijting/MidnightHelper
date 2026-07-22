@@ -78,6 +78,13 @@ local DEFAULT_DB = {
 	nudgeDismissed = {},
 	--- Spec 13 mount wishlist: { [mountID] = true }. Account-wide, like collecting is.
 	mountWishlist = {},
+	--- Personal milestones already awarded: { [id] = unixTime }. Never re-fires.
+	--- Keys starting with "_" are bookkeeping (highest track seen), not awards.
+	milestones = {},
+	--- Season counters, groundwork for a retrospective: { startedAt=, seasonId=, counts={} }.
+	seasonStats = {},
+	--- One Codex entry per day on This Week: { dismissedDay=, enabled= }.
+	dailyTip = {},
 	ui = {
 		-- If true, the main window will be shown automatically after login.
 		openOnLogin = false,
@@ -836,6 +843,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh season — toon de S1→S2-fase + elk item met opgeloste achievement/quest-naam,
 	-- zodat de IDs (bv. KSM 61256) in-game te verifiëren zijn vóór we ze vertrouwen.
+	-- /mh milestones — de persoonlijke mijlpalen die al zijn uitgereikt.
+	if msg == "milestones" then
+		if ns.PrintMilestones then ns.PrintMilestones() end
+		return
+	end
+
+	-- /mh season stats — de seizoenstellers (zelfde patroon als "scorecard detail").
+	if msg == "season stats" then
+		if ns.PrintSeasonStats then ns.PrintSeasonStats() end
+		return
+	end
+
 	if msg == "season" then
 		if ns.PrintSeasonTransitionDiagnostics then
 			ns.PrintSeasonTransitionDiagnostics()

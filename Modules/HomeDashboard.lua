@@ -398,6 +398,21 @@ local function BuildLayout()
 		end
 	end
 
+	------------------------------------------------------------------ Codex tip of the day
+	-- Deliberately headerless and last-but-one: it is a nudge toward reading, not a
+	-- chore, and it must never push the actual week's work down the page.
+	if ns.GetDailyTipSteps then
+		local okT, tSteps = pcall(ns.GetDailyTipSteps)
+		if okT and type(tSteps) == "table" and #tSteps > 0 then
+			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
+			addFull(function(rows)
+				for _, st in ipairs(tSteps) do
+					line(rows, st.text or "", colorMap[st.color] or COLOR_DIM, st.onClick)
+				end
+			end)
+		end
+	end
+
 	------------------------------------------------------------------ Great Vault — Mythic+ gain (Spec 20)
 	if ns.GetMythicGainSteps then
 		local okM, mSteps = pcall(ns.GetMythicGainSteps)

@@ -63,6 +63,31 @@ local function ScanEquippedTracks()
 	return out, sawAnyItem
 end
 
+--- The highest upgrade track currently equipped, as a NUMBER.
+--- @return number|nil trackID  nil when nothing could be read
+---
+--- Exists for the personal-milestone check, which celebrates reaching a higher
+--- track than ever before. It must compare numerically: trackString is localised
+--- (see the header), so remembering a NAME would make the milestone fire again in
+--- another language and never fire for a player who switches clients.
+---
+--- nil and 0 mean different things here. nil is "the scan told us nothing" and the
+--- caller must not record it as a new best -- otherwise a login that reads no gear
+--- would reset the record and re-congratulate the player later.
+function ns.GetHighestEquippedTrackID()
+	local entries, sawAnyItem = ScanEquippedTracks()
+	if not sawAnyItem or #entries == 0 then
+		return nil
+	end
+	local best
+	for _, e in ipairs(entries) do
+		if type(e.trackID) == "number" and e.trackID > 0 and (not best or e.trackID > best) then
+			best = e.trackID
+		end
+	end
+	return best
+end
+
 --- How many equipped slots sit at their track ceiling, and which track that is.
 --- @return number|nil maxedCount, string|nil trackName, number|nil readableCount
 --- Returns nil when nothing could be read — an unreadable scan must not be reported
