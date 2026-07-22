@@ -278,6 +278,20 @@ local function BuildProfsText(profs, summaries, withPointer)
 				if line then
 					text = text .. "\n" .. line
 				end
+				-- Only while there is something to spend: with nothing in hand this list is
+				-- trivia, and the page is long enough already.
+				if (s.unspent or 0) > 0 and ns.GetProfessionNodeChoices then
+					local okC, choices = pcall(ns.GetProfessionNodeChoices, s.midnightLine, 4)
+					if okC and type(choices) == "table" and #choices > 0 then
+						text = text .. "\n|cff8a8f98" .. SL("PROFACAD_CHOICES_HEADER") .. "|r"
+						for _, c in ipairs(choices) do
+							local desc = c.desc and (" - " .. c.desc) or ""
+							text = text .. "\n   |cffd8c89a"
+								.. (SL("PROFACAD_CHOICE_FMT")):format(c.name, c.purchased or 0, c.max or 0)
+								.. "|r|cff8a8f98" .. desc .. "|r"
+						end
+					end
+				end
 			end
 		end
 	else
