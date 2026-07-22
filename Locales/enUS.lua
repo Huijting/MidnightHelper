@@ -916,6 +916,7 @@ ns._mhLocales.enUS = {
 	PROFHUB_WEEKLY_HEADER = "This week",
 	PROFHUB_WEEKLY_TRAINER = "trainer weekly",
 	PROFHUB_WEEKLY_ESSENCE_COUNT_FMT = "%s x%d",
+	PROFHUB_WEEKLY_ESSENCE_NOTE_ONE = "(the first one each week gives KP)",
 	PROFHUB_WEEKLY_ESSENCE_NOTE_FMT = "(first %d each week give KP)",
 	PROFHUB_WEEKLY_ESSENCES = "Disenchant mats in bags",
 	PROFHUB_GOAL_LABEL = "Advice goal:",

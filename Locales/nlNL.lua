@@ -912,6 +912,7 @@ ns._mhLocales.nlNL = {
 	PROFHUB_WEEKLY_HEADER = "Deze week",
 	PROFHUB_WEEKLY_TRAINER = "trainer-weekly",
 	PROFHUB_WEEKLY_ESSENCE_COUNT_FMT = "%s x%d",
+	PROFHUB_WEEKLY_ESSENCE_NOTE_ONE = "(de eerste per week geeft KP)",
 	PROFHUB_WEEKLY_ESSENCE_NOTE_FMT = "(de eerste %d per week geven KP)",
 	PROFHUB_WEEKLY_ESSENCES = "Disenchant-mats in je tassen",
 	PROFHUB_GOAL_LABEL = "Adviesdoel:",

@@ -120,9 +120,18 @@ local function BuildWeeklyText()
 					-- KP progress). Turn in five and loot one more and the old line said
 					-- 1/5, as if you had not started. A plain count cannot be misread,
 					-- and the target survives as a note rather than a denominator.
+					-- Brimming Mana Shard has need = 1, and "first 1 each week give KP"
+					-- is not a sentence. Separate singular key rather than a plural
+					-- hack: languages do not all pluralise on the same boundary.
+					local note
+					if tonumber(e.need) == 1 then
+						note = SL("PROFHUB_WEEKLY_ESSENCE_NOTE_ONE")
+					else
+						note = (SL("PROFHUB_WEEKLY_ESSENCE_NOTE_FMT")):format(e.need)
+					end
 					parts[#parts + 1] = ("%s |cff8a8f98%s|r"):format(
 						(SL("PROFHUB_WEEKLY_ESSENCE_COUNT_FMT")):format(itemName, count),
-						(SL("PROFHUB_WEEKLY_ESSENCE_NOTE_FMT")):format(e.need)
+						note
 					)
 				end
 				lines[#lines + 1] = ("%s: %s"):format(SL("PROFHUB_WEEKLY_ESSENCES"), table.concat(parts, " · "))
