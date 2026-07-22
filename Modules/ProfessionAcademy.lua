@@ -181,7 +181,14 @@ end
 
 --- Header text: detected professions (+ tree state where readable), plus
 --- class advice while a slot is open. summaries: [skillLine] = GetSpecSummary.
-local function BuildProfsText(profs, summaries)
+--- @param withPointer boolean|nil pass true ONLY from the Overview page
+---
+--- This same text renders in two places: the hub Overview and the header of the
+--- Course page. The "open Course (101)" pointer therefore cannot live inside the
+--- advice itself -- Rob was reading it while already sitting in the Course
+--- (2026-07-22). Whoever renders the text knows where the reader is; this
+--- function does not, so it takes the answer as an argument.
+local function BuildProfsText(profs, summaries, withPointer)
 	local d = ns.PROF_ACADEMY
 	local text
 	if #profs > 0 then
@@ -196,8 +203,8 @@ local function BuildProfsText(profs, summaries)
 				local trees = (#s.started > 0) and table.concat(s.started, ", ")
 					or SL("PROFACAD_SPEC_NONE_STARTED")
 				text = text .. "\n" .. SL("PROFACAD_SPEC_LINE_FMT"):format(p.name, s.spent, s.unspent, trees)
-				-- Overview: name where the build order lives, because it is not here.
-				local line = BuildAdviceLine(p.skillLine, s, true)
+				-- The caller decides; see the note on BuildProfsText.
+				local line = BuildAdviceLine(p.skillLine, s, withPointer)
 				if line then
 					text = text .. "\n" .. line
 				end
@@ -378,7 +385,8 @@ function ns.MH_GetProfessionsOverviewText()
 	for _, p in ipairs(profs) do
 		summaries[p.skillLine] = GetSpecSummary(p.skillLine)
 	end
-	return BuildProfsText(profs, summaries)
+	-- Overview: the chapters are one tab away, so say so.
+	return BuildProfsText(profs, summaries, true)
 end
 
 function ns.MH_RefreshProfessionAcademyPanel(panel)
@@ -423,7 +431,8 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 	panel._progressFs:SetText(SL("PROFACAD_PROGRESS_FMT"):format(done, total))
 
 	if panel._profsFs then
-		panel._profsFs:SetText(BuildProfsText(profs, summaries))
+		-- Course page: the reader is already here, so no pointer to here.
+		panel._profsFs:SetText(BuildProfsText(profs, summaries, false))
 	end
 
 	-- The "choosing trees" chapter repeats the live advice right where the
