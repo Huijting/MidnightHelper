@@ -22,7 +22,20 @@ The maintainer (**Rob**) is a non-developer but tests every change in-game. A se
 - **Syntax check Lua** before handing off. If `luacheck` or `luac` is available, use it; otherwise a Lua parser. Rob's `/reload` is the final word.
 - **Package for CurseForge:** `powershell -ExecutionPolicy Bypass -File tools\package.ps1` → `dist\MidnightHelper-<version>.zip` (reads version from the `.toc`). The script **fails the build** if any `.bat`/`.cmd`/`.ps1`/`.py`/`.exe` slips into the zip. Zip root must be exactly `MidnightHelper/`; `tools/`, `data/`, `docs/` and dev markdown are excluded.
 - See `RELEASE_CHECKLIST.md` for the full release flow.
-- Note: the live WoW AddOns folder and the git repo are **separate**, synced by a script. In Claude Code, work in the git repo.
+- ⚠️ **The repo IS the live AddOns folder.** There is no sync script and no staging copy — every
+  edit lands in Rob's running game immediately. (This file used to claim they were separate; that
+  was wrong, and the mistake below is what it cost.)
+- ⚠️ **Write files ATOMICALLY.** A plain `open(path, "w")` truncates first and writes after, so
+  there is a window where the file on disk is empty or half-finished. On 2026-07-22 Rob logged in
+  during exactly that window while `Locales/enUS.lua` was being rewritten: the locale table broke
+  off mid-file and his Great Vault popup rendered raw keys (`VAULT_REMINDER_POPUP_TITLE`). Nothing
+  was wrong with the addon. Always write to a temp file and rename — `os.replace` is atomic, so the
+  game sees either the old file or the new one, never something in between:
+  ```python
+  io.open(p + ".tmp", "w", encoding="utf-8", newline="").write(t)
+  os.replace(p + ".tmp", p)
+  ```
+  The Write/Edit tools are fine; this applies to scripted rewrites.
 
 ## Layout
 
