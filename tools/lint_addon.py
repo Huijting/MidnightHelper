@@ -259,6 +259,57 @@ def find_use_before_local(root: str, toc_files: set[str]) -> list[tuple]:
     return hits
 
 
+def find_broken_locale_strings(root: str) -> list[tuple]:
+    """Locale entries whose quotes make Lua read something other than a string.
+
+    HARD, and the most expensive bug this linter has ever missed. On 2026-07-21
+    one line went in unescaped:
+
+        TRACKCEIL_SEE_CODEX = "Codex > Professions > "%s" walks through ...",
+
+    Lua reads that as a string, then `%` (modulo), then `s "..."` -- a CALL of the
+    nil global `s`. Loading enUS.lua aborts on that line, so every key below it
+    never registers and ns:L returns key names. Rob's entire interface rendered as
+    MAIN_TITLE, TAB_SETTINGS and so on, and the addon was unusable for a day.
+
+    Nothing caught it: it is valid Lua syntax, so `luac -p` passes, and the key
+    itself exists so the missing-key check is happy too.
+
+    Method: walk each table line the way Lua's parser would, consuming KEY = "value"
+    pairs left to right. A line that stops matching before its end has a quote in
+    the wrong place. Several pairs on one line are fine -- TranslationsS2.lua packs
+    four language labels per line, and a naive quote count flags all of them.
+    """
+    # \x22 is the double quote; written as an escape so the pattern needs no juggling.
+    pair_re = re.compile(r'\s*[A-Za-z_][A-Za-z0-9_]*\s*=\s*\x22(?:[^\x22\\]|\\.)*\x22\s*,?')
+    entry_re = re.compile(r'^\s*[A-Za-z_][A-Za-z0-9_]*\s*=\s*\x22')
+    block_re = re.compile(r"--\[\[.*?\]\]", re.S)
+
+    hits = []
+    for path in locale_files(root):
+        try:
+            with open(path, encoding="utf-8", errors="replace") as fh:
+                text = fh.read()
+        except OSError:
+            continue
+        # Blank block comments but keep line numbering intact.
+        text = block_re.sub(lambda m: re.sub(r"[^\n]", " ", m.group(0)), text)
+        rel = os.path.relpath(path, root)
+        for lineno, raw in enumerate(text.split("\n"), 1):
+            line = raw.rstrip()
+            if not entry_re.match(line):
+                continue  # not a table entry: code, comment or continuation
+            pos = 0
+            while pos < len(line):
+                m = pair_re.match(line, pos)
+                if not m or m.end() == pos:
+                    break
+                pos = m.end()
+            if pos < len(line):
+                hits.append((rel, lineno, line[pos:pos + 50]))
+    return hits
+
+
 def main() -> int:
     root = repo_root()
     args = sys.argv[1:]
@@ -356,6 +407,15 @@ def main() -> int:
     if len(ubl) > 40:
         print(f"    ... and {len(ubl) - 40} more")
     hard += len(ubl)
+
+    # 7. Locale strings whose quoting changes what Lua reads (HARD -- kills the file)
+    broken = find_broken_locale_strings(root)
+    print(f"\n[7] Locale strings Lua would not read as intended: {len(broken)}")
+    for rel, ln, rest in broken[:20]:
+        print(f"    HARD  {rel}:{ln}  parsing stops at: {rest}")
+    if len(broken) > 20:
+        print(f"    ... and {len(broken) - 20} more")
+    hard += len(broken)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
