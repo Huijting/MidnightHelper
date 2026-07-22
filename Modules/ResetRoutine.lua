@@ -141,11 +141,12 @@ local GIVER_WEEKLIES = {
 	{
 		key = "maella",
 		name = "Riftblade Maella",
-		-- 96713 Val + 96717 Naigtal (the normal weeklies) and 96674 "Showdown on Val
-		-- (Heroic)", captured from Rob's own log with /mh questscan on 2026-07-22. The
-		-- heroic Naigtal id is not known and is not guessed -- it will be learned the
-		-- first time anyone accepts it from her.
-		quests = { 96713, 96717, 96674 },
+		-- 96713 Val + 96717 Naigtal, both confirmed by /mh weeklies: the game returns
+		-- their real titles. The HEROIC variant's id is still unknown -- 96674 was
+		-- entered on 2026-07-22 from a misread screenshot and the game answered "no
+		-- title", so it was removed the same day. Capture it from the log, do not
+		-- transcribe it by eye.
+		quests = { 96713, 96717 },
 		minLevel = 90,
 		noNameMatch = true,
 		pickupKey = "HOME_ROUTINE_GIVER_PICKUP_SHOWDOWN_FMT",

@@ -50,7 +50,6 @@ local VOID_ZONES = {
 local SHOWDOWN = {
 	{ 96713, "Showdown on Val" },
 	{ 96717, "Showdown on Naigtal" },
-	{ 96674, "Showdown on Val (Heroic)" },
 	{ 96053, "Surveying the Frozen Wastes" },
 	{ 96054, "Surveying the Mana-Bog" },
 }
