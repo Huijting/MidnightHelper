@@ -1388,6 +1388,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh moxie — have the game name each Artisan's Moxie currency id, so the
 	-- placeholder ids in Config can be confirmed or corrected instead of trusted.
+	-- /mh crests — laat het spel elke crest-tier beschrijven, zodat bron-teksten
+	-- gemeten worden in plaats van verzonnen (zelfde idee als /mh moxie).
+	if msg == "crests" then
+		if ns.PrintCrestProbe then ns.PrintCrestProbe() end
+		return
+	end
+
 	if msg == "moxie" then
 		if ns.PrintMoxieProbe then
 			ns.PrintMoxieProbe()

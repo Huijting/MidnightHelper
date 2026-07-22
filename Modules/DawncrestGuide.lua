@@ -499,3 +499,48 @@ ev:SetScript("OnEvent", function()
 		ns.RefreshReferenceGuidePanel()
 	end
 end)
+
+--------------------------------------------------------------------------------
+-- /mh crests — let the GAME describe each crest tier
+--------------------------------------------------------------------------------
+
+--- Prints, per tier: the id, the name the game uses, and the currency's own
+--- description field.
+---
+--- WHY THIS EXISTS. The handoff proposed hardcoding English source lines
+--- ("From: high bountiful delves, ritual sites, high keys and mythic raid"). Those
+--- are game facts nobody in this repo has verified, they would be wrong for every
+--- non-English player, and they rot the moment Blizzard moves a source. If
+--- C_CurrencyInfo hands us a description, that text is authoritative, already
+--- translated, and updates itself -- so we show that instead of our own claim.
+--- Run this before writing a single source string.
+function ns.PrintCrestProbe()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
+		print(prefix .. " no currency API")
+		return
+	end
+	print(prefix .. " Dawncrest tiers — what the game says about each one:")
+	for _, tier in ipairs(ns.DAWNCREST_TIERS or {}) do
+		local ids = { tier.currencyId }
+		for _, alt in ipairs(tier.alternateCurrencyIds or {}) do
+			ids[#ids + 1] = alt
+		end
+		for _, id in ipairs(ids) do
+			local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
+			if ok and type(info) == "table" then
+				print(("   |cff40c040%s|r  id %d  =  %s   (have %s)"):format(
+					tostring(tier.key), id, tostring(info.name), tostring(info.quantity)))
+				local desc = info.description
+				if type(desc) == "string" and desc ~= "" then
+					print("      description: " .. desc)
+				else
+					print("      |cffff8080description: EMPTY|r — the game offers no source text")
+				end
+			else
+				print(("   |cffff8080%s  id %s -> no currency info|r"):format(tostring(tier.key), tostring(id)))
+			end
+		end
+	end
+	print("   " .. prefix .. " if every description is EMPTY we must source the text elsewhere, not invent it.")
+end
