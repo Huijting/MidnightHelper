@@ -448,6 +448,15 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 			end
 			row.titleFs:SetText(title)
 			local body = SL(ch.bodyKey)
+			-- Instap-alinea vóór de body (PROFACAD_CH_*_INTRO). Zelfde vertaal-
+			-- fallback als levelingKey hieronder: staat de key er in deze taal
+			-- niet, dan valt 'ie weg en rendert het hoofdstuk als voorheen.
+			if ch.introKey then
+				local intro = SL(ch.introKey)
+				if intro and intro ~= "" and intro ~= ch.introKey then
+					body = intro:gsub("|n", "\n") .. "\n\n" .. body
+				end
+			end
 			if ch.key == "trees" and treesAdvice ~= "" then
 				body = body .. "\n" .. treesAdvice
 			end

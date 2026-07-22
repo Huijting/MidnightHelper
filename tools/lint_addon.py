@@ -50,8 +50,20 @@ REF_DYNAMIC_RE = re.compile(r'(?:ns:L|[^A-Za-z0-9_]VL)\(\s*["\'][A-Z0-9_]*["\']?
 # undefined keys went in and this check still reported zero missing. Nothing was
 # broken at the time, but an undefined key renders as a raw key name on screen,
 # which is the exact failure check [1] exists to catch.
-LOCAL_L_DEF_RE = re.compile(r'^\s*local (?:function )?L\b', re.M)
-LOCAL_L_REF_RE = re.compile(r'(?<![\w.:])L\(\s*(["\'])([A-Z][A-Z0-9_]+)\1')
+"""Aliases the resolver is wrapped in, per file.
+
+`L` and `SL` are locally-defined shorthands for ns:L / ns:SafeL. Neither matched
+REF_RE, so their key references were never validated: 39 behind L(), 68 behind
+SL(). Found on 2026-07-22 -- four brand-new undefined keys were added to
+NavSearch and this check still reported zero missing. Nothing was broken at the
+time, but an undefined key renders as a raw key name on screen, which is the
+exact failure check [1] exists to catch.
+
+Only trusted in a file that defines the alias itself, so an unrelated function
+of the same name elsewhere cannot invent references.
+"""
+ALIAS_DEF_RE = re.compile(r'^\s*local (?:function )?(S?L)\b', re.M)
+ALIAS_REF_RE = re.compile(r'(?<![\w.:])(S?L)\(\s*(["\'])([A-Z][A-Z0-9_]+)\2')
 
 
 def repo_root() -> str:
@@ -146,9 +158,7 @@ def collect_references(root: str):
     for p in targets:
         rel = os.path.relpath(p, root).replace("\\", "/")
         lines = read_lines(p)
-        # Only trust a bare L(...) in a file that actually defines one locally, so an
-        # unrelated single-letter function elsewhere cannot invent references.
-        aliases_l = bool(LOCAL_L_DEF_RE.search("\n".join(lines)))
+        aliases = set(ALIAS_DEF_RE.findall("\n".join(lines)))
         for i, line in enumerate(lines, 1):
             for m in REF_RE.finditer(line):
                 # a literal followed by `..` is a dynamic key prefix, not a key
@@ -156,12 +166,14 @@ def collect_references(root: str):
                     dynamic += 1
                     continue
                 static.setdefault(m.group(2), []).append((rel, i))
-            if aliases_l:
-                for m in LOCAL_L_REF_RE.finditer(line):
+            if aliases:
+                for m in ALIAS_REF_RE.finditer(line):
+                    if m.group(1) not in aliases:
+                        continue  # this file does not define that alias
                     if line[m.end():].lstrip().startswith(".."):
                         dynamic += 1
                         continue
-                    static.setdefault(m.group(2), []).append((rel, i))
+                    static.setdefault(m.group(3), []).append((rel, i))
     return static, dynamic
 
 

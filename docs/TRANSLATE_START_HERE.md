@@ -4,7 +4,7 @@ These are the strings a new user meets first: the tab bar, the main window, the 
 dashboard, and Settings. Translating just this list already makes Midnight Helper feel
 native — the long reference guides can wait.
 
-**248 strings.** You don't have to do them all. A single section is a real contribution.
+**266 strings.** You don't have to do them all. A single section is a real contribution.
 
 ## How to use this
 
@@ -297,4 +297,31 @@ SETTINGS_VAULT_ADVISOR_PROFILE_RAID_TT = "Always use raid/guide stat priorities 
 SETTINGS_VAULT_ADVISOR_PROFILE_MPLUS_TT = "Always use Mythic+ stat priorities where available; otherwise falls back to raid weights.",
 SETTINGS_RARE_ALERT_ONLYROUTE = "Rare alerts only while rare-hunting",
 SETTINGS_RARE_ALERT_ONLYROUTE_TT = "Only show 'rare nearby' popups during an active rare hunt: routing a rare (or the full zone route) starts the hunt; it ends once all routed rares are done, when you start a new route, or at the weekly reset. Survives /reload.",
+```
+
+## Profession Academy — chapter intros (18)
+
+Short, self-contained opening paragraphs, one per chapter. They stand alone, so this is a
+good first block to pick up. Keep them plain-spoken — they exist for players who bounced off
+the build-order text that follows.
+
+```lua
+PROFACAD_CH_KNOWLEDGE_INTRO = "Before anything else: a profession has two numbers. Skill rises just by crafting. Knowledge is the one that matters — it is limited, mostly weekly, and it decides what you can make. This chapter is about the second one.",
+PROFACAD_CH_GEARUP_INTRO = "Professions are split per expansion, so the window can look empty when it is really just showing the wrong era. Step one is making sure you are looking at Midnight.",
+PROFACAD_CH_TREES_INTRO = "Your specialization tree is where Knowledge goes. Think of it as a talent tree for your craft: what you put in decides what you can make, and how well.",
+PROFACAD_CH_RECIPES_INTRO = "Not knowing where recipes come from is the most common reason a profession feels stuck. There are five sources, and only one of them is your trainer.",
+PROFACAD_CH_MOXIE_INTRO = "Each profession has its own currency, and it only buys things for that profession. Worth knowing before you go shopping with the wrong one.",
+PROFACAD_CH_WEEKLY_INTRO = "Most Knowledge comes back every week, which means a missed week is gone for good. This is the routine worth building a habit around.",
+PROFACAD_CH_WORKORDERS_INTRO = "You do not need a profession yourself to get something crafted — another player can make it for you. This is how that works.",
+PROFACAD_CH_ENCHANTING_INTRO = "Enchanting adds permanent stats to your gear, and it is the only profession that turns unwanted loot into progress. Disenchanting simply means destroying a green or blue item for materials — and that is also where your weekly Knowledge comes from. Your first step: disenchant the junk in your bags. The build order below is for when you are comfortable.",
+PROFACAD_CH_ALCHEMY_INTRO = "Alchemy makes the potions and flasks people drink before every boss, so there is always demand. Your first step is simply to keep brewing while your skill climbs.",
+PROFACAD_CH_TAILORING_INTRO = "If you wear cloth, tailoring makes your gear — and the cloth every other crafter needs. Your first step is picking up the cloth you already walk past.",
+PROFACAD_CH_LEATHERWORKING_INTRO = "Leatherworking covers two armour types at once, which is why it has two trees. Decide early which one you actually wear, so your Knowledge goes to the right side.",
+PROFACAD_CH_BLACKSMITHING_INTRO = "Plate wearers get their gear here, and everyone else comes for stones and tools. Your first step: skill up on the cheap items before you spend any Knowledge.",
+PROFACAD_CH_ENGINEERING_INTRO = "Engineering is the odd, fun one: gadgets, guns and goggles only you can wear. Expect utility and novelty more than raw power.",
+PROFACAD_CH_INSCRIPTION_INTRO = "Scribes make the missives that decide the stats on crafted gear — which quietly makes this profession matter to everyone who crafts anything.",
+PROFACAD_CH_JEWELCRAFTING_INTRO = "Rings and necklaces are two slots nobody else can craft, so jewelcrafters never run out of customers.",
+PROFACAD_CH_HERBALISM_INTRO = "Gathering is the calmest way into professions: no recipes to hunt, no tree to plan first, just pick things up. The upgrade everyone wants is gathering without dismounting.",
+PROFACAD_CH_MINING_INTRO = "Mining feeds blacksmithing, jewelcrafting and engineering, so it earns even if you never craft anything yourself. First goal: gathering without dismounting.",
+PROFACAD_CH_SKINNING_INTRO = "Skinning turns things you were killing anyway into materials. It pairs naturally with leatherworking, but it earns perfectly well on its own.",
 ```
