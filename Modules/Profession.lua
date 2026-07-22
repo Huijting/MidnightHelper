@@ -1748,6 +1748,43 @@ function ns.ResolveTraitNodeName(configID, node)
 		return nil
 	end
 
+--- What a trait node DOES, in one sentence, or nil.
+---
+--- Same chain as the name, one field further: definitionInfo.overrideDescription,
+--- else the spell description. Both are already in the player's language, which is
+--- the whole point -- this is the text that lets someone choose for themselves
+--- instead of hovering twelve icons (Rob, 2026-07-22).
+---
+--- Only the FIRST sentence is kept. The full text repeats "gaining +1 Skill per
+--- point in this Specialization" on every node, which buries the one clause that
+--- differs. Truncation only: nothing is reworded, so nothing can be misworded.
+function ns.ResolveTraitNodeDescription(configID, node)
+	if type(node) ~= "table" or type(node.entryIDs) ~= "table" then
+		return nil
+	end
+	for _, entryID in ipairs(node.entryIDs) do
+		local okE, entry = pcall(C_Traits.GetEntryInfo, configID, entryID)
+		if okE and type(entry) == "table" and entry.definitionID then
+			local okD, defn = pcall(C_Traits.GetDefinitionInfo, entry.definitionID)
+			if okD and type(defn) == "table" then
+				local text = defn.overrideDescription
+				if (type(text) ~= "string" or text == "") and defn.spellID
+					and C_Spell and C_Spell.GetSpellDescription then
+					local okS, s = pcall(C_Spell.GetSpellDescription, defn.spellID)
+					text = okS and s or nil
+				end
+				if type(text) == "string" and text ~= "" then
+					text = text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+					text = text:gsub("%s+", " ")
+					local first = text:match("^(.-[%.!?])%s") or text
+					return (first:gsub("^%s+", ""):gsub("%s+$", ""))
+				end
+			end
+		end
+	end
+	return nil
+end
+
 --- Every named, multi-rank node in a profession's spec trees.
 --- @return table { { name=, purchased=, max= }, ... } — empty when unreadable
 ---
@@ -1777,12 +1814,59 @@ function ns.GetProfessionSpecNodes(midnightLine)
 					if name then
 						out[#out + 1] = {
 							name = name,
+							desc = ns.ResolveTraitNodeDescription(configID, node),
 							purchased = math.max((node.ranksPurchased or 0) - 1, 0),
 							max = (node.maxRanks or 0) - 1,
 						}
 					end
 				end
 			end
+		end
+	end
+	return out
+end
+
+--- Unfinished nodes with what each one does — the "explain my options" list.
+--- @return table { { name=, purchased=, max=, desc= }, ... }
+---
+--- MH cannot honestly rank these for every profession: which node is best is an
+--- opinion, and we only have a verified source for Enchanting. What MH CAN do is
+--- put the choice on one screen in the player's own language, so they decide
+--- knowing what each option means instead of hovering twelve icons in silence.
+--- Explaining the choice is always truthful; making it for them would not be.
+---
+--- Ordering: nodes already carrying points first (that is a fact about them, not a
+--- recommendation), then the rest in tree order. Capped, because a wall of options
+--- helps nobody.
+function ns.GetProfessionNodeChoices(midnightLine, maxCount)
+	local out = {}
+	if type(ns.GetProfessionSpecNodes) ~= "function" then
+		return out
+	end
+	local ok, nodes = pcall(ns.GetProfessionSpecNodes, midnightLine)
+	if not ok or type(nodes) ~= "table" then
+		return out
+	end
+	local started, fresh = {}, {}
+	for _, n in ipairs(nodes) do
+		if (n.purchased or 0) < (n.max or 0) then
+			if (n.purchased or 0) > 0 then
+				started[#started + 1] = n
+			else
+				fresh[#fresh + 1] = n
+			end
+		end
+	end
+	table.sort(started, function(a, b)
+		return (a.purchased or 0) > (b.purchased or 0)
+	end)
+	local limit = tonumber(maxCount) or 4
+	for _, list in ipairs({ started, fresh }) do
+		for _, n in ipairs(list) do
+			if #out >= limit then
+				return out
+			end
+			out[#out + 1] = n
 		end
 	end
 	return out
