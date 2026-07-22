@@ -184,6 +184,13 @@ in de event-rotatie zit komt z'n uiMapID er vanzelf uit.
   Quel'Thalas > Voidstorm > Val). Naast Naigtal 2600. → `ShowdownsData.lua` val.uiMapID = 2599.
 - ℹ️ **Showdown-intro = Voidstorm Screaming Ridge** (`portalVoidstorm` 2405, 51.42/71.30): de
   beacon in Silvermoon ("Lightforged Beacon") is inactief tot je daar de expeditie-questlijn doet.
+  ⚠️ **TEGENGESPROKEN — niet als feit gebruiken.** Rob kon de beacon medio juli 2026 op LIVE
+  gewoon gebruiken. Deze regel komt van de PTR (16 juni) en is nooit op live bevestigd; het
+  "inactief tot de questlijn" is dus een PTR-aanname, geen vastgesteld gedrag. Web-check
+  22 juli 2026: geen enkele hotfix noemt de Lightforged Beacon, en Wowhead vermeldt geen
+  vereisten of bugmeldingen — dus ook geen aanwijzing voor een tijdelijke storing. De
+  speler-tekst (`HOME_ROUTINE_GIVER_PICKUP_SHOWDOWN_FMT`) hedget dit correct met "Portal
+  inactive? …" en beweert niets — laat dat zo tot iemand het op live meet.
   De SMC "Riftblade Maella" op 27.48/76.51 = **Decor Duels-NPC** (housing), NIET de Showdown-intro
   — zelfde naam, andere NPC (Rob, PTR 16 juni). `introNpc` in ShowdownsData hierop gecorrigeerd.
 - ℹ️ **Live zone-uiMapIDs geverifieerd via `/mh eventspy` (13 jun, 12.0.5):**
