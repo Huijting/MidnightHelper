@@ -20,6 +20,11 @@
 local _, ns = ...
 
 local MAX_RESULTS = 8
+--- How many matches we keep behind those eight rows. The dropdown used to throw
+--- everything past the eighth away, which was invisible while the palette held 15
+--- commands and became a real loss at 33: typing "/" showed the first eight
+--- alphabetically and there was no way to reach the rest (Rob, 2026-07-22).
+local MAX_MATCHES = 60
 local ROW_H = 20
 
 local function L(key)
@@ -422,7 +427,7 @@ local function FilterIndex(query)
 		return a.e.label < b.e.label
 	end)
 	local out = {}
-	for i = 1, math.min(#scored, MAX_RESULTS) do
+	for i = 1, math.min(#scored, MAX_MATCHES) do
 		out[i] = scored[i].e
 	end
 	return out
@@ -456,6 +461,30 @@ local function EnsureNavDrop()
 	navDrop:SetPoint("TOPLEFT", edit, "BOTTOMLEFT", -4, -2)
 	navDrop:SetPoint("TOPRIGHT", edit, "BOTTOMRIGHT", 4, -2)
 	navDrop:SetClampedToScreen(true)
+	-- Wheel-scroll through matches that do not fit in the eight rows. The offset is
+	-- held on the frame so ShowNavResults can reset it whenever the query changes;
+	-- keeping your place across a different search would be worse than useless.
+	navDrop._mhOffset = 0
+	navDrop:EnableMouseWheel(true)
+	navDrop:SetScript("OnMouseWheel", function(self, delta)
+		local total = self._mhTotal or 0
+		if total <= MAX_RESULTS then
+			return
+		end
+		local maxOff = total - MAX_RESULTS
+		local off = (self._mhOffset or 0) - delta -- wheel up (+1) moves the list up
+		if off < 0 then
+			off = 0
+		elseif off > maxOff then
+			off = maxOff
+		end
+		if off ~= self._mhOffset then
+			self._mhOffset = off
+			if self._mhRender then
+				self._mhRender()
+			end
+		end
+	end)
 	if navDrop.SetBackdrop then
 		navDrop:SetBackdrop({
 			bgFile = "Interface\\Buttons\\WHITE8X8",
@@ -512,6 +541,14 @@ local function EnsureNavDrop()
 		end)
 		navDrop.rows[i] = r
 	end
+
+	-- "9 of 33 — scroll for more", under the last row. Hidden when everything fits.
+	navDrop.more = navDrop:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	navDrop.more:SetPoint("BOTTOMLEFT", navDrop, "BOTTOMLEFT", 8, 4)
+	navDrop.more:SetPoint("BOTTOMRIGHT", navDrop, "BOTTOMRIGHT", -8, 4)
+	navDrop.more:SetJustifyH("RIGHT")
+	navDrop.more:Hide()
+
 	return navDrop
 end
 
@@ -525,23 +562,47 @@ local function ShowNavResults(query)
 		drop:Hide()
 		return
 	end
-	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
-	local rowH = ROW_H * s
-	for i, r in ipairs(drop.rows) do
-		local e = res[i]
-		if e then
-			r:SetHeight(rowH)
-			-- "Bad Zed  Eversong Woods" — without the zone, forty rare names are forty
-			-- riddles. The context is dimmed so the name still reads as the answer.
-			r.fs:SetText(e.context and (e.label .. "  |cff808080" .. e.context .. "|r") or e.label)
-			r._mhGo = e.go
-			r:Show()
+	-- A new query always starts at the top. Keeping the old offset would silently
+	-- hide the best match for the thing you just typed.
+	if drop._mhQuery ~= query then
+		drop._mhQuery = query
+		drop._mhOffset = 0
+	end
+	drop._mhTotal = #res
+
+	local function render()
+		local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+		local rowH = ROW_H * s
+		local off = drop._mhOffset or 0
+		local shown = 0
+		for i, r in ipairs(drop.rows) do
+			local e = res[off + i]
+			if e then
+				shown = shown + 1
+				r:SetHeight(rowH)
+				-- "Bad Zed  Eversong Woods" — without the zone, forty rare names are forty
+				-- riddles. The context is dimmed so the name still reads as the answer.
+				r.fs:SetText(e.context and (e.label .. "  |cff808080" .. e.context .. "|r") or e.label)
+				r._mhGo = e.go
+				r:Show()
+			else
+				r:Hide()
+				r._mhGo = nil
+			end
+		end
+		-- Say how much is hidden. Without this the list just stops and looks complete,
+		-- which is how twenty-five commands can sit one wheel-click away unnoticed.
+		if #res > MAX_RESULTS then
+			drop.more:SetText((ns:L("NAV_MORE_FMT")):format(off + shown, #res))
+			drop.more:Show()
+			drop:SetHeight(shown * rowH + 6 + (12 * s))
 		else
-			r:Hide()
-			r._mhGo = nil
+			drop.more:Hide()
+			drop:SetHeight(shown * rowH + 6)
 		end
 	end
-	drop:SetHeight(#res * rowH + 6)
+	drop._mhRender = render
+	render()
 	drop:Show()
 end
 
