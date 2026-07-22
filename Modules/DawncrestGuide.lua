@@ -543,6 +543,14 @@ function ns.PrintCrestProbe()
 			if ok and type(info) == "table" then
 				print(("   |cff40c040%s|r  id %d  =  %s   (have %s)"):format(
 					tostring(tier.key), id, tostring(info.name), tostring(info.quantity)))
+				-- Does this tier actually have a cap? Our summary text claims "a weekly
+				-- cap (~100)" per colour, but Blizzard's currency tab shows the crests
+				-- as a bare number while genuinely capped currencies render as "x / y".
+				-- The tilde says that number was always an estimate. Print the real
+				-- fields so the claim can be kept, corrected, or dropped.
+				print(("      maxQuantity=%s  maxWeeklyQuantity=%s  earnedThisWeek=%s  totalEarned=%s"):format(
+					tostring(info.maxQuantity), tostring(info.maxWeeklyQuantity),
+					tostring(info.quantityEarnedThisWeek), tostring(info.totalEarned)))
 				local desc = info.description
 				if type(desc) == "string" and desc ~= "" then
 					print("      description: " .. desc)
