@@ -1721,8 +1721,16 @@ function ns.PrintProfessionNodeProbe()
 						local okI, node = pcall(C_Traits.GetNodeInfo, configID, nodeID)
 						if okI and type(node) == "table" and (node.maxRanks or 0) > 0 then
 							local name = NodeName(configID, node) or ("node " .. tostring(nodeID))
-							print(("      %-40s %s/%s"):format(
-								name, tostring(node.ranksPurchased or 0), tostring(node.maxRanks)))
+							-- The game counts the FREE base rank in both numbers, so a node the
+							-- tooltip calls "Rank 0/20" reads as 0/21 here (Rob spotted it,
+							-- 2026-07-22). Subtract it, or the probe disagrees with the screen the
+							-- player is looking at. Only for real multi-rank nodes: the many 0/1
+							-- unlock nodes would become a meaningless 0/0.
+							local shown, maxShown = node.ranksPurchased or 0, node.maxRanks or 0
+							if maxShown > 1 then
+								shown, maxShown = math.max(shown - 1, 0), maxShown - 1
+							end
+							print(("      %-40s %s/%s"):format(name, tostring(shown), tostring(maxShown)))
 						end
 					end
 				end
