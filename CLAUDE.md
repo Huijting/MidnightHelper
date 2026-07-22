@@ -74,7 +74,19 @@ The maintainer (**Rob**) is a non-developer but tests every change in-game. A se
 ### Release artifacts (keep in sync on a version bump)
 - `MidnightHelper.toc` `## Version`
 - `Modules/Changelog.lua` + `CHANGELOG_<ver>_*` in `enUS.lua` (**enUS only** — the in-game changelog has been English-only since 2.4.0)
-- `RELEASE_NOTES.md` (repo root) — **the CurseForge release notes**. The packager uploads it *verbatim* (`.pkgmeta` → `manual-changelog`, `markup-type: markdown`), so it must hold **only the current release**. **Pure Markdown, no HTML anywhere — not even a comment.** Start the file with a plain `# heading`. Proven: 2.6.0 began with `# Midnight Helper 2.6.0` and rendered clean; 2.7.0 shipped real HTML and CF flattened it; the 2.7.0 "fix" then put the maintainer note in an `<!-- HTML comment -->` at the top, and **2.8.0 came out backslash-escaped with the newlines collapsed** (`\\## Know your role`, `\\*\\*doing your job`). A leading HTML comment trips it. Keep maintainer instructions in `.pkgmeta`/this file, never in the uploaded file. Keep it identical to `docs/CURSEFORGE_<ver>.md`. If a release still looks wrong, hand-fix on curseforge.com: the file's Changelog → Markdown mode → paste the body.
+- `RELEASE_NOTES.md` (repo root) — **the CurseForge release notes**. The packager uploads it *verbatim* (`.pkgmeta` → `manual-changelog`, `markup-type: markdown`), so it must hold **only the current release**, pure Markdown starting with a plain `# heading`, and stay identical to `docs/CURSEFORGE_<ver>.md`.
+  - ⭐ **KEEP IT SHORT — under ~40 lines and without bullet lists.** For months the auto-upload arrived backslash-escaped with its newlines collapsed (`\## Know your role`) and Rob had to paste it by hand every release. Four releases settled it:
+
+    | Release | Lines | Chars | Bullets | Auto-upload |
+    |---|---|---|---|---|
+    | 2.8.2 | 65 | 3164 | 9 | ❌ mangled |
+    | 2.8.3 | 30 | 1433 | 1 | ✅ clean |
+    | 2.8.4 | 55 | 2775 | 6 | ❌ mangled |
+    | 2.9.0 | 38 | 1785 | 0 | ✅ clean |
+
+    Short and plain uploads clean; long and bullet-heavy does not. Length, bullet count and heading count all move together across these four, so *which* of them matters is unknown — this is a working rule, not a diagnosis. Put the long prose in `docs/CURSEFORGE_<ver>.md` if you want it.
+  - **Earlier theories, all DISPROVEN — do not revive them.** HTML in the file (2.7.0), then a leading `<!-- HTML comment -->` (2.8.0), then "pure Markdown fixes it" (2.8.1, still mangled at 60+ lines). Rob also pasted the *identical* source into CF's own editor and it rendered perfectly, which puts the fault in the upload path, not the file's contents.
+  - If a release still arrives wrong: CF page → the file → Changelog → Markdown mode → paste `docs/CURSEFORGE_<ver>.md`. And if a SHORT file ever arrives mangled, this rule is dead — the next lead is the floating `BigWigsMods/packager@v2` tag in `.github/workflows/release.yml`, since 2.6.0 rendered clean and something may have changed underneath us.
 - `CHANGELOG.md` (full history)
 - `docs/CURSEFORGE_<ver>.md` (per-version Markdown archive, paste-ready if the CF page needs fixing by hand)
 - `CURSEFORGE_DESCRIPTION.md` (repo root — the **canonical** CF page description; there is only this one). The packager does **not** upload this; Rob pastes it.
