@@ -33,12 +33,16 @@ local function GetCurrencyQty(currencyId)
 	end
 	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
 	if not ok or type(info) ~= "table" then
-		return 0, 0, 0
+		return 0, 0, 0, false
 	end
 	local qty = math.floor(tonumber(info.quantity) or 0)
 	local earned = math.floor(tonumber(info.quantityEarnedThisWeek) or 0)
 	local maxQ = tonumber(info.maxQuantity) or tonumber(info.maxWeeklyQuantity) or 0
-	return qty, earned, math.floor(maxQ)
+	-- 4th return: does this id exist at all? A real currency with a balance of 0 and
+	-- an id the game does not know both read as "0", and the caller has to tell them
+	-- apart to pick the right id.
+	local exists = type(info.name) == "string" and info.name ~= ""
+	return qty, earned, math.floor(maxQ), exists
 end
 
 local function GetTierCurrencyQty(tier)
@@ -51,16 +55,24 @@ local function GetTierCurrencyQty(tier)
 			ids[#ids + 1] = tier.alternateCurrencyIds[i]
 		end
 	end
-	local bestQty, bestEarned, bestMax = 0, 0, 0
+	-- THE PRIMARY ID WINS. This used to take the MAX across primary and alternates,
+	-- from back when it was unclear which id was the real one. Measured on Rob's live
+	-- client 2026-07-22: Blizzard's own currency tab showed Veteran Dawncrest = 120,
+	-- which is id 3341. The "duplicate" 3342 read 220 — so the MAX rule displayed 100
+	-- crests the player does not have, in the one panel meant to help them plan
+	-- upgrades. Every primary id matched the game exactly (3383=54, 3341=120,
+	-- 3343=31, 3347=240); no alternate did.
+	--
+	-- Alternates stay as a fallback for a future patch that renumbers a currency:
+	-- they are used only when the primary id is not a currency the game knows, never
+	-- to beat a real balance.
 	for i = 1, #ids do
-		local q, earned, maxQ = GetCurrencyQty(ids[i])
-		if q > bestQty then
-			bestQty = q
-			bestEarned = earned
-			bestMax = maxQ
+		local q, earned, maxQ, exists = GetCurrencyQty(ids[i])
+		if exists then
+			return q, earned, maxQ
 		end
 	end
-	return bestQty, bestEarned, bestMax
+	return 0, 0, 0
 end
 
 local function RequestDawncrestCurrencyData()

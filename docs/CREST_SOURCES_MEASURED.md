@@ -31,12 +31,15 @@ measurement contradicts — see "Where the draft was wrong" at the bottom.
 > - Trovehunter's Bounty (Tiers 4 to 5)
 > - Prey Hunts (Hard)
 
-⚠️ **Both ids are real and they disagree on the balance.** 3342 read **220**, 3341
-read **120**, and *both* returned the full description — so `DawncrestData.lua`'s
-comment ("3342 is a duplicate, 3341 is primary") does not match what the game
-returned today. `GetTierCurrencyQty` takes the MAX, so MH currently shows 220.
-Unresolved: which number the player's own currency tab shows. Worth one look before
-anyone trusts the Veteran count.
+✅ **RESOLVED the same day.** Blizzard's own Currencies tab showed **Veteran
+Dawncrest = 120**, i.e. id **3341**. 3342's 220 is something else and must not be
+displayed as a balance. `GetTierCurrencyQty` used to take the MAX across primary and
+alternates, so MH showed 220 — a hundred crests the player does not have, in the
+panel meant for planning upgrades. Fixed: the primary id wins, alternates are only
+consulted when the primary is not a currency the game knows.
+
+Every primary id matched the game exactly: 3383=54, 3341=120, 3343=31, 3347=240,
+and the tab read Hero=20. No alternate matched.
 
 ## Champion — currency 3343 (3344 read 0)
 
