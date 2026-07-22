@@ -24,6 +24,14 @@ need a raid group. A new Codex entry walks through placing the crafting order it
 All 43 bosses with tips had tank and healer notes and nothing for damage specs, which is
 most players. They all have one now.
 
+## Your weekly list knows what you picked up
+
+Lady Liadrin hands out four quests from a pool of twelve, and Midnight Helper only
+recognised four of them — so most weeks it kept telling you to go and fetch a quest that
+was already in your log. All of them are recognised now. The Showdown weekly from Riftblade
+Maella was never listed at all, and now is, with directions that admit the portal has to be
+unlocked first.
+
 ## Also fixed
 
 The Mythic+ vault breakdown called your dungeon runs "keys" and could print nonsense like

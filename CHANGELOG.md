@@ -8,6 +8,7 @@ All notable changes to this project are documented in this file.
 - New: /mh tracks - which slots are at their upgrade-track ceiling, and the two routes onward (Great Vault, crafting), including that top crests are earnable solo via high Bountiful Delves and Tier 6 Ritual Sites.
 - New Codex entry 'Getting gear crafted' - sparks, crests, missives, placing an order, and the trap that the crafter cannot supply your sparks or crests.
 - New: DPS tips for all 43 bosses that have tips (previously tank and healer only).
+- Fixed: weekly list now recognises all of Lady Liadrin's twelve pool quests (knew four); Showdown weekly from Riftblade Maella added; single "take me there" arrows clear on arrival.
 - Fixed: Mythic+ vault breakdown called runs 'keys' and could print 'Slot 1: 5/1 done'; the dungeon row counts heroic and timewalking runs too.
 
 ## 2.8.4
