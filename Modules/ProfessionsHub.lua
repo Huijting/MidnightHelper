@@ -113,7 +113,15 @@ local function BuildWeeklyText()
 					end
 					local itemName = (C_Item and C_Item.GetItemInfo and C_Item.GetItemInfo(e.itemID))
 						or e.fallbackName
-					-- NO FRACTION HERE. This used to render "Swirling Arcane Essence 3/5"
+					-- Nothing in bags = nothing to say. "Swirling Arcane Essence x0" is
+					-- noise on a page that is supposed to tell you what to DO, and with
+					-- both entries at zero the whole line was a row of zeroes (Rob,
+					-- 2026-07-22). The line reappears the moment something drops.
+					if count <= 0 then
+						itemName = nil
+					end
+					if itemName then
+						-- NO FRACTION HERE. This used to render "Swirling Arcane Essence 3/5"
 					-- under a "This week" header, which reads as "3 of 5 done this week".
 					-- It is not: GetItemCount counts what is in your BAGS, and MH cannot
 					-- see what you already handed in (see /mh kp — no API exposes weekly
@@ -123,18 +131,22 @@ local function BuildWeeklyText()
 					-- Brimming Mana Shard has need = 1, and "first 1 each week give KP"
 					-- is not a sentence. Separate singular key rather than a plural
 					-- hack: languages do not all pluralise on the same boundary.
-					local note
-					if tonumber(e.need) == 1 then
-						note = SL("PROFHUB_WEEKLY_ESSENCE_NOTE_ONE")
-					else
-						note = (SL("PROFHUB_WEEKLY_ESSENCE_NOTE_FMT")):format(e.need)
+						local note
+						if tonumber(e.need) == 1 then
+							note = SL("PROFHUB_WEEKLY_ESSENCE_NOTE_ONE")
+						else
+							note = (SL("PROFHUB_WEEKLY_ESSENCE_NOTE_FMT")):format(e.need)
+						end
+						parts[#parts + 1] = ("%s |cff8a8f98%s|r"):format(
+							(SL("PROFHUB_WEEKLY_ESSENCE_COUNT_FMT")):format(itemName, count),
+							note
+						)
 					end
-					parts[#parts + 1] = ("%s |cff8a8f98%s|r"):format(
-						(SL("PROFHUB_WEEKLY_ESSENCE_COUNT_FMT")):format(itemName, count),
-						note
-					)
 				end
-				lines[#lines + 1] = ("%s: %s"):format(SL("PROFHUB_WEEKLY_ESSENCES"), table.concat(parts, " · "))
+				-- Nothing in bags at all means no line, header included.
+				if #parts > 0 then
+					lines[#lines + 1] = ("%s: %s"):format(SL("PROFHUB_WEEKLY_ESSENCES"), table.concat(parts, " · "))
+				end
 			end
 		end
 	end
