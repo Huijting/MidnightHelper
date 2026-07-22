@@ -1395,6 +1395,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- /mh crests — laat het spel elke crest-tier beschrijven, zodat bron-teksten
 	-- gemeten worden in plaats van verzonnen (zelfde idee als /mh moxie).
 	-- /mh kp — scheidt leesbare wekelijkse Knowledge van niet-leesbare.
+	-- /mh nodes — laat het spel elke node in je professiebomen benoemen.
+	if msg == "nodes" then
+		if ns.PrintProfessionNodeProbe then ns.PrintProfessionNodeProbe() end
+		return
+	end
+
 	if msg == "kp" then
 		if ns.PrintKnowledgeProbe then ns.PrintKnowledgeProbe() end
 		return

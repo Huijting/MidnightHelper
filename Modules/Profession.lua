@@ -1652,3 +1652,82 @@ function ns.PrintKnowledgeProbe()
 	end
 	print("   |cffffd966Run this again right after a Knowledge item drops: a flag flipping identifies the range.|r")
 end
+
+--- /mh nodes — let the GAME name every node in your profession trees.
+---
+--- Rob hovered three nodes by hand on 2026-07-22 to find out which one the chapter
+--- meant by "the Weapon/Ring/Chest branch". It turned out to be "Silvermoon's
+--- Spellpower". No installed addon carries those names and hardcoding them would
+--- mean eleven professions of English-only data that rots every patch.
+---
+--- The game has them. Chain verified in AskMrRobot (Core.lua:652-660, 726-730),
+--- a shipped addon doing exactly this for class talents:
+---   C_Traits.GetTreeNodes(treeID) -> GetNodeInfo(configID, nodeID)
+---   -> node.entryIDs -> GetEntryInfo -> entry.definitionID
+---   -> GetDefinitionInfo -> spellID -> C_Spell.GetSpellName
+--- MH already holds configID (C_ProfSpecs.GetConfigIDForSkillLine) and the tree ids.
+---
+--- This only PRINTS. Confirm the names match what the tooltips say before anything
+--- is built on top of it -- a node-level advisor is only worth having if it names
+--- the same node the player is looking at.
+function ns.PrintProfessionNodeProbe()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	if not (C_ProfSpecs and C_Traits and C_Traits.GetTreeNodes) then
+		print(prefix .. " C_Traits / C_ProfSpecs not available")
+		return
+	end
+	local list = ns.GetProfessionKnowledgeStatus and ns.GetProfessionKnowledgeStatus() or {}
+	if #list == 0 then
+		print(prefix .. " no primary professions found")
+		return
+	end
+
+	local function NodeName(configID, node)
+		if type(node) ~= "table" or type(node.entryIDs) ~= "table" then
+			return nil
+		end
+		for _, entryID in ipairs(node.entryIDs) do
+			local okE, entry = pcall(C_Traits.GetEntryInfo, configID, entryID)
+			if okE and type(entry) == "table" and entry.definitionID then
+				local okD, defn = pcall(C_Traits.GetDefinitionInfo, entry.definitionID)
+				if okD and type(defn) == "table" then
+					if type(defn.overrideName) == "string" and defn.overrideName ~= "" then
+						return defn.overrideName
+					end
+					if defn.spellID and C_Spell and C_Spell.GetSpellName then
+						local okN, nm = pcall(C_Spell.GetSpellName, defn.spellID)
+						if okN and type(nm) == "string" and nm ~= "" then
+							return nm
+						end
+					end
+				end
+			end
+		end
+		return nil
+	end
+
+	for _, p in ipairs(list) do
+		print(("%s |cff40c040%s|r — nodes the game reports:"):format(prefix, tostring(p.baseName or p.name)))
+		local okC, configID = pcall(C_ProfSpecs.GetConfigIDForSkillLine, p.midnightLine)
+		local okT, treeIDs = pcall(C_ProfSpecs.GetSpecTabIDsForSkillLine, p.midnightLine)
+		if not (okC and configID and okT and type(treeIDs) == "table") then
+			print("   |cffff8080no config/tree ids for this profession|r")
+		else
+			for _, treeID in ipairs(treeIDs) do
+				local okN, nodes = pcall(C_Traits.GetTreeNodes, treeID)
+				if okN and type(nodes) == "table" then
+					print(("   tree %s — %d node(s)"):format(tostring(treeID), #nodes))
+					for _, nodeID in ipairs(nodes) do
+						local okI, node = pcall(C_Traits.GetNodeInfo, configID, nodeID)
+						if okI and type(node) == "table" and (node.maxRanks or 0) > 0 then
+							local name = NodeName(configID, node) or ("node " .. tostring(nodeID))
+							print(("      %-40s %s/%s"):format(
+								name, tostring(node.ranksPurchased or 0), tostring(node.maxRanks)))
+						end
+					end
+				end
+			end
+		end
+	end
+	print("   " .. prefix .. " do these names match the tooltips in your Specializations tab?")
+end
