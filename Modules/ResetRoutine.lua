@@ -45,6 +45,15 @@ local GIVERS_MAP, GIVERS_X, GIVERS_Y = 2393, 48.95, 64.92
 -- arrow, and never claims anything is "done".
 local visited = {}
 local dwellKey, dwellTicks = nil, 0
+--- A single "take me there" pin (one step's button, not the whole route).
+--- Tracked so the arrow can clear itself once you are standing on it: the dwell
+--- ticker below only ran while a FULL route was active, so a single pin stayed on
+--- screen forever — Rob had one spinning at 0m for ten minutes (2026-07-22).
+local singleTarget
+--- Forward declaration: RouteSingle needs to start the ticker, and the ticker is
+--- defined much further down. Declaring the local here keeps it in scope without
+--- the call resolving to a global nil.
+local StartDwellTicker
 local function CoordKey(mapID, x, y)
 	return tostring(mapID) .. ":" .. tostring(x) .. ":" .. tostring(y)
 end
@@ -473,6 +482,12 @@ local function RouteSingle(mapID, x, y, labelKey, labelArg)
 	end
 	ClearTomTom()
 	ns.AddSmartTomTomWay(mapID, x, y, PinLabel(labelKey, labelArg))
+	-- Remember where we sent them, so the arrow can retire once they arrive.
+	singleTarget = { mapID, x, y }
+	dwellKey, dwellTicks = nil, 0
+	if StartDwellTicker then
+		StartDwellTicker()
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -919,13 +934,36 @@ end
 -- trainer…). Works for every stop; resets the counter when the lead changes or you
 -- walk away. Never claims a stop is "done" — the checklist keeps its real status.
 local dwellTicker
-local function StartDwellTicker()
+--- Assigns the forward-declared local from the top of the file (see StartDwellTicker
+--- there); NOT a new local, or RouteSingle would still see nil.
+function StartDwellTicker()
 	if dwellTicker or not (C_Timer and C_Timer.NewTicker) then
 		return
 	end
 	dwellTicker = C_Timer.NewTicker(2, function()
 		if not routeActive then
+			-- A single "take me there" pin earns the same courtesy as a full route:
+			-- you asked to be taken somewhere, you are standing on it, so the arrow
+			-- has done its job. Previously this branch just returned and the pin
+			-- stayed up indefinitely.
+			if singleTarget then
+				if PlayerNearCoord(singleTarget[1], singleTarget[2], singleTarget[3]) then
+					dwellTicks = dwellTicks + 1
+					if dwellTicks >= 3 then -- ~6s parked on it, same as the route dwell
+						ClearTomTom()
+						singleTarget, dwellKey, dwellTicks = nil, nil, 0
+					end
+				else
+					dwellTicks = 0
+				end
+				return
+			end
+			-- Nothing to watch: stop rather than tick on forever.
 			dwellKey, dwellTicks = nil, 0
+			if dwellTicker then
+				pcall(function() dwellTicker:Cancel() end)
+				dwellTicker = nil
+			end
 			return
 		end
 		local lm, lx, ly = LeadCoord()
@@ -990,6 +1028,7 @@ function ns.StartResetRoute()
 	ns._mhRouteOwner = "reset" -- claim the shared arrow (treasure/delve yield)
 	wipe(visited) -- fresh route: re-arm every stop
 	dwellKey, dwellTicks = nil, 0
+	singleTarget = nil -- the full route supersedes any single "take me there" pin
 	IssueRoute(pins)
 	routeActive = true
 	EnsureAdvanceFrame()
