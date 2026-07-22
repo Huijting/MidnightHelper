@@ -79,12 +79,21 @@ end
 ---      so "open the profession window" was a no-op by definition. The player is
 ---      already looking at it.
 ---
+---   3. And then SelectTab alone still looked dead, because SelectTab only PICKS a
+---      tab -- it does not open anything. From This Week that is invisible (the
+---      window is already up), but the side panel lives OUTSIDE the main window, so
+---      the click was selecting a tab in a window nobody could see. NavSearch has
+---      always done both (OpenTab: ShowMainUI then SelectTab); this now matches it.
+---
 --- Jumping Blizzard's window to its Specializations tab would be the ideal target,
 --- but no installed addon references such a page by name (CraftingPage and
 --- OrdersPage are confirmed via Auctionator; a spec page is not), so that stays
 --- unguessed. Our own tab is the better destination anyway: it carries the advice
 --- line that says WHICH node to put the points in, which a bare spec tree does not.
 local function OpenProfession()
+	if ns.ShowMainUI then
+		pcall(ns.ShowMainUI, ns)
+	end
 	if ns.SelectTab then
 		pcall(ns.SelectTab, "professions")
 	end
@@ -131,11 +140,7 @@ function ns.GetProfessionNextSteps()
 				steps[#steps + 1] = {
 					text = (ns:L(key)):format(p.baseName or p.name),
 					color = colour,
-					onClick = function()
-						if ns.SelectTab then
-							pcall(ns.SelectTab, "professions")
-						end
-					end,
+					onClick = OpenProfession,
 				}
 			end
 		end
