@@ -1528,3 +1528,104 @@ local function HookEnsureMainUI()
 end
 
 HookEnsureMainUI()
+
+--------------------------------------------------------------------------------
+-- Knowledge status (public) + /mh kp — what of weekly KP is actually readable
+--------------------------------------------------------------------------------
+
+--- Knowledge status per primary profession, so panels do not re-derive it.
+--- @return table  { { name=, skillLineID=, midnightLine=, unspent=, readable= }, ... }
+---
+--- `readable = false` means the API gave us nothing. A caller must then show the
+--- profession as unknown or not at all -- never as "0 KP", which would be a
+--- confident claim about someone's character built on an empty return.
+function ns.GetProfessionKnowledgeStatus()
+	local out = {}
+	if not GetProfessions then
+		return out
+	end
+	local okP, p1, p2 = pcall(GetProfessions)
+	if not okP then
+		return out
+	end
+	for _, prof in ipairs({ p1, p2 }) do
+		if prof then
+			local skillLineID, midnightLine, name = MapProfessionSlotToSkillLine(prof)
+			if name and name ~= "" then
+				local unspent, readable = GetMidnightUnspentKnowledge(midnightLine)
+				out[#out + 1] = {
+					name = name,
+					skillLineID = skillLineID,
+					midnightLine = midnightLine,
+					unspent = unspent or 0,
+					readable = readable and true or false,
+				}
+			end
+		end
+	end
+	return out
+end
+
+--- /mh kp — separates weekly Knowledge we CAN read from what we cannot.
+---
+--- Three layers, and they are not equally knowable:
+---   1. Unspent Knowledge — readable (C_Traits.GetTreeCurrencyInfo). Solid.
+---   2. Trainer weekly — readable per profession via verified quest IDs
+---      (PROF_ACADEMY.weekly.trainerQuests): flagged = turned in, in log = picked up.
+---   3. Weekly KP drops — the open question. docs/PROFESSION_ACADEMY_PLAN.md records
+---      quest flags 93528-93543 as per-profession treasure-drop markers. Rob measured
+---      all 16 false on 7 June, and they stayed false after turning in a trainer
+---      weekly, so the range is exclusive to open-world drops. What is still missing
+---      is a reading straight after such a drop. This prints them so that reading
+---      takes one command instead of a macro.
+---
+--- Bag counts are NOT progress. ProfessionsHub shows "Swirling Arcane Essence 3/5",
+--- which is how many are in your bags -- it cannot see what you already handed in.
+function ns.PrintKnowledgeProbe()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	print(prefix .. " Knowledge probe — what is readable, and what is not")
+
+	local list = ns.GetProfessionKnowledgeStatus()
+	if #list == 0 then
+		print("   no primary professions found")
+	end
+	local weekly = ns.PROF_ACADEMY and ns.PROF_ACADEMY.weekly
+	local trainerQuests = (weekly and weekly.trainerQuests) or {}
+	for _, p in ipairs(list) do
+		print(("   |cff40c040%s|r  skillLine %s  unspent KP: %s"):format(
+			tostring(p.name), tostring(p.skillLineID),
+			p.readable and tostring(p.unspent) or "|cffff8080UNREADABLE|r"))
+		local qs = trainerQuests[p.skillLineID]
+		if type(qs) == "table" then
+			local state = "not picked up"
+			for _, qid in ipairs(qs) do
+				local okD, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, qid)
+				local okO, on = pcall(C_QuestLog.IsOnQuest, qid)
+				if okD and done then
+					state = "DONE this week (quest " .. qid .. ")"
+					break
+				elseif okO and on then
+					state = "picked up, not turned in (quest " .. qid .. ")"
+				end
+			end
+			print("      trainer weekly: " .. state)
+		else
+			print("      trainer weekly: |cffff8080no verified quest id for this skill line|r")
+		end
+	end
+
+	-- Layer 3: the unresolved range.
+	print("   weekly treasure-drop flags 93528-93543 currently TRUE:")
+	local any = false
+	for qid = 93528, 93543 do
+		local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, qid)
+		if ok and done then
+			any = true
+			print("      |cff40c040" .. qid .. "|r")
+		end
+	end
+	if not any then
+		print("      none — either no drop yet this week, or these ids are not the markers")
+	end
+	print("   |cffffd966Run this again right after a Knowledge item drops: a flag flipping identifies the range.|r")
+end

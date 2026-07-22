@@ -1394,6 +1394,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- placeholder ids in Config can be confirmed or corrected instead of trusted.
 	-- /mh crests — laat het spel elke crest-tier beschrijven, zodat bron-teksten
 	-- gemeten worden in plaats van verzonnen (zelfde idee als /mh moxie).
+	-- /mh kp — scheidt leesbare wekelijkse Knowledge van niet-leesbare.
+	if msg == "kp" then
+		if ns.PrintKnowledgeProbe then ns.PrintKnowledgeProbe() end
+		return
+	end
+
 	if msg == "crests" then
 		if ns.PrintCrestProbe then ns.PrintCrestProbe() end
 		return
