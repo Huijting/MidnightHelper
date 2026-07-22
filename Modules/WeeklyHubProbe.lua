@@ -43,6 +43,18 @@ local VOID_ZONES = {
 	{ 94386, "Zul'Aman" },
 }
 
+--- Riftblade Maella's Showdown weeklies. Added because the reset routine kept
+--- showing "pick it up" while /mh questscan proved 96674 was sitting in Rob's log
+--- (2026-07-22). The routine reads C_QuestLog.IsOnQuest; questscan walks the log
+--- with GetInfo. If those two disagree about the same quest, this is where it shows.
+local SHOWDOWN = {
+	{ 96713, "Showdown on Val" },
+	{ 96717, "Showdown on Naigtal" },
+	{ 96674, "Showdown on Val (Heroic)" },
+	{ 96053, "Surveying the Frozen Wastes" },
+	{ 96054, "Surveying the Mana-Bog" },
+}
+
 local function QuestState(id)
 	local done, onQuest
 	if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
@@ -92,5 +104,28 @@ function ns.PrintWeeklyHubProbe()
 	print(("%s Weekly hub probe — quest ids are UNVERIFIED, compare with your quest log"):format(prefix))
 	PrintPool("Lady Liadrin's weekly pool", LIADRIN)
 	PrintPool("Void Assault zone rotation", VOID_ZONES)
+	PrintPool("Showdown (Riftblade Maella)", SHOWDOWN)
+
+	-- Cross-check: walk the quest log the way /mh questscan does and report anything
+	-- whose IsOnQuest answer contradicts its presence in the log. That contradiction
+	-- is the open question right now, so let the game settle it rather than reasoning
+	-- about it from the outside.
+	if C_QuestLog and C_QuestLog.GetNumQuestLogEntries and C_QuestLog.GetInfo then
+		local mismatches = 0
+		local n = C_QuestLog.GetNumQuestLogEntries() or 0
+		for i = 1, n do
+			local q = C_QuestLog.GetInfo(i)
+			if q and not q.isHeader and q.questID then
+				local okOn, onQuest = pcall(C_QuestLog.IsOnQuest, q.questID)
+				if okOn and not onQuest then
+					mismatches = mismatches + 1
+					print(("   |cffff5040in the log but IsOnQuest says no:|r %d  %s"):format(q.questID, q.title or "?"))
+				end
+			end
+		end
+		if mismatches == 0 then
+			print("   |cff9d9d9dEvery quest in your log also answers yes to IsOnQuest.|r")
+		end
+	end
 	print("   |cff9d9d9dA title that does not match the label means the id is wrong.|r")
 end
