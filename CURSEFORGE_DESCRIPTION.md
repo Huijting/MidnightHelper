@@ -12,6 +12,11 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 
 ### Highlights
 
+**Beside Blizzard's own windows**
+- Open your **character sheet** and a small panel appears next to it: missing enchants, empty sockets, your tier set, and which slots have hit their **upgrade-track ceiling**.
+- The **Mythic+** window shows your Great Vault dungeon row with the item level each filled slot is offering. The **Adventure Guide** shows the tips for whichever boss you selected, for your role. The **mount collection** shows your wishlist.
+- Panels follow the window when you move it, and you can drag them wherever you like — they remember. `/mh panelreset` puts them all back.
+
 **This Week (home)**
 - **"Next up"** leads the page: the single most useful thing you can do right now, with a **Take me there** button that sets the route, and a tally of how far you are through the week. While you're levelling it never proposes endgame content you can't do yet.
 - **Home dashboard**: weekly reset countdown, account-wide Great Vault status, this week's world boss, weekly chores (SMC, keys, shards), Ritual Sites and Void Assaults with one-click routes, and shortcuts to Rares, Raids and your mount hunt. Fold any section away — your choice is remembered.
@@ -70,6 +75,11 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - **Account snapshot** — per-character overview (keys, shards, undercoins, item level, profession weekly currencies in tooltips), with a sort/filter toolbar, a stale-since-Wednesday badge, and compact vault status per row.
 - **Professions** tools and overview, plus a **Professions 101** beginner course and a new **Guided mode** — a step-by-step, take-you-by-the-hand wizard that walks a total newcomer through learning and levelling any of the 11 professions, ticking steps off as your skill grows.
 
+**Gear: what to do when a slot is maxed**
+- `/mh tracks` lists which equipped slots are at their upgrade-track ceiling and names the two ways onward: the **Great Vault**, and **crafting**.
+- Including the part that is easy to miss — top-tier crests are earnable **solo**, through high Bountiful Delves and repeatable Tier 6 Ritual Sites. You do not need a raid group.
+- A Codex entry walks through placing a **crafting order**: sparks, crests, missives, and the trap that sinks most first attempts (the crafter cannot supply your sparks or crests).
+
 **Guides & reference**
 - **Midnight Codex** — Season 1 handbook (Start Here, weekly loop, currencies with live balances, delves, M+, raid, world content, professions); **Open** links jump to the matching tab.
 - **Guide** — compact reference / advisor.
@@ -117,6 +127,9 @@ Other WoW client locales (e.g. Korean, Chinese) fall back to **English** until a
 | `/mh skip` (`next`) | Skip the current route target |
 | `/mh arrowsize <28-160>` | Resize the route arrow |
 | `/mh lang auto` · `en` · `de` · `fr` · `es` · `pt` · `it` · `nl` | Set language |
+| `/mh tracks` | Which slots are at their upgrade ceiling, and what raises them |
+| `/mh panelreset` | Put the side panels back beside their windows |
+| `/mh weeklies` | Check the weekly quest ids against your own quest log |
 | `/mh settings` | Quick settings |
 | `/mh changelog` | Changelog window |
 
