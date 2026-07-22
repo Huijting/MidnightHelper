@@ -1475,9 +1475,18 @@ hintFrame:SetScript("OnEvent", function()
 	local function attempt()
 		ns._mhFollowerHintReason = TryFollowerHint() or "shown"
 	end
-	attempt()
+	-- NOT immediately. The card used to fire the instant the loading screen cleared,
+	-- which is the one moment the player is not reading the screen -- Rob had it
+	-- confirmed on screen (card actually on screen: YES) and still never saw it,
+	-- because other addons announce themselves in the same second. A notification
+	-- nobody reads is worse than none: it looks like the feature is broken.
+	-- Five seconds in, the player is standing still and looking at the room.
 	if C_Timer and C_Timer.After then
-		C_Timer.After(2, attempt)
-		C_Timer.After(6, attempt)
+		C_Timer.After(5, attempt)
+		-- Retries only for the case where instance info is still empty at 5s; once
+		-- the card has been queued, followerHintDoneFor blocks a second one.
+		C_Timer.After(9, attempt)
+	else
+		attempt() -- no timer API: better early than never
 	end
 end)
