@@ -1561,13 +1561,19 @@ function ns.GetProfessionKnowledgeStatus()
 				-- per-profession table in this addon. /mh kp reported "no verified
 				-- quest id" for both of Rob's professions on 2026-07-22 purely
 				-- because it looked up 2918 instead of 197.
-				local baseSkillLine
-				local okI, _, _, _, _, _, _, sl = pcall(GetProfessionInfo, prof)
+				local baseSkillLine, baseName
+				local okI, pname, _, _, _, _, _, sl = pcall(GetProfessionInfo, prof)
 				if okI then
 					baseSkillLine = sl
+					-- "Tailoring", not "Midnight Tailoring". The expansion-qualified
+					-- name is what MapProfessionSlotToSkillLine matches on, but it is
+					-- not what a player calls their profession, and beside the Midnight
+					-- Enchanting window the prefix is pure noise that wraps every line.
+					baseName = pname
 				end
 				out[#out + 1] = {
 					name = name,
+					baseName = baseName,
 					skillLineID = skillLineID,
 					midnightLine = midnightLine,
 					baseSkillLine = baseSkillLine,

@@ -99,7 +99,7 @@ function ns.GetProfessionNextSteps()
 		if p.readable and (p.unspent or 0) > 0 and #steps < MAX_LINES then
 			local line = p.skillLineID
 			steps[#steps + 1] = {
-				text = (ns:L("PROFNEXT_UNSPENT_FMT")):format(p.name, p.unspent),
+				text = (ns:L("PROFNEXT_UNSPENT_FMT")):format(p.baseName or p.name, p.unspent),
 				color = "warn",
 				onClick = function()
 					OpenProfession(line)
@@ -123,7 +123,7 @@ function ns.GetProfessionNextSteps()
 			end
 			if key then
 				steps[#steps + 1] = {
-					text = (ns:L(key)):format(p.name),
+					text = (ns:L(key)):format(p.baseName or p.name),
 					color = colour,
 					onClick = function()
 						if ns.SelectTab then
