@@ -195,6 +195,8 @@ Modules\Nudges.lua
 Modules\TranslateNudge.lua
 Modules\DiscordNudge.lua
 Modules\SidePanel.lua
+Modules\ProfessionNextStep.lua
+Modules\ProfessionSidePanel.lua
 Modules\KeystoneSidePanel.lua
 Modules\TrackCeiling.lua
 Modules\Milestones.lua

@@ -398,6 +398,20 @@ local function BuildLayout()
 		end
 	end
 
+	------------------------------------------------------------------ Professions — what is waiting
+	if ns.GetProfessionNextSteps then
+		local okPr, prSteps = pcall(ns.GetProfessionNextSteps)
+		if okPr and type(prSteps) == "table" and #prSteps > 0 then
+			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
+			addFull(function(rows)
+				header(rows, ns:L("PROFNEXT_PANEL_TITLE"))
+				for _, st in ipairs(prSteps) do
+					line(rows, st.text or "", colorMap[st.color] or COLOR_DIM, st.onClick)
+				end
+			end)
+		end
+	end
+
 	------------------------------------------------------------------ Codex tip of the day
 	-- Deliberately headerless and last-but-one: it is a nudge toward reading, not a
 	-- chore, and it must never push the actual week's work down the page.
