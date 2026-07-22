@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.9.0
+
+- New: side panels beside Blizzard's own windows - character sheet (enchants, sockets, tier set, upgrade ceiling), Mythic+ (Great Vault dungeon row), Adventure Guide (tips for the selected boss) and mount collection (wishlist). Draggable, position remembered, /mh panelreset restores them.
+- New: /mh tracks - which slots are at their upgrade-track ceiling, and the two routes onward (Great Vault, crafting), including that top crests are earnable solo via high Bountiful Delves and Tier 6 Ritual Sites.
+- New Codex entry 'Getting gear crafted' - sparks, crests, missives, placing an order, and the trap that the crafter cannot supply your sparks or crests.
+- New: DPS tips for all 43 bosses that have tips (previously tank and healer only).
+- Fixed: Mythic+ vault breakdown called runs 'keys' and could print 'Slot 1: 5/1 done'; the dungeon row counts heroic and timewalking runs too.
+
 ## 2.8.4
 
 - Fixed: Omnium Folio button opened a Covenant Sanctum when the minimap button was stuck on an old expansion (SetBestLandingPageMode repair on press); and it identified the rune page by its English name, breaking every non-English client.
