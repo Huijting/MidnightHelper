@@ -118,10 +118,8 @@ local GIVER_WEEKLIES = {
 	-- Only one zone is active per week, and listing both is harmless: the routine
 	-- asks whether ANY of a giver's quests is on the player or done.
 	--
-	-- Maella also offers a HEROIC variant ("Showdown on Val (Heroic)") whose id we do
-	-- not have. It is deliberately not guessed: once Rob accepts any quest from her,
-	-- LearnGiverQuest ties her NPC id to this giver and every later quest of hers --
-	-- including the heroic one and next week's zone -- is learned automatically.
+	-- Maella also offers a HEROIC variant. Rob captured its id from his own log with
+	-- /mh questscan rather than letting it be guessed, and it is listed below.
 	--
 	-- minLevel 90 is an ASSUMPTION, same as Liadrin's and Aethas's: this is endgame
 	-- Void-world content and sub-90 access was never tested. Correct it if a levelling
@@ -134,7 +132,11 @@ local GIVER_WEEKLIES = {
 	{
 		key = "maella",
 		name = "Riftblade Maella",
-		quests = { 96713, 96717 },
+		-- 96713 Val + 96717 Naigtal (the normal weeklies) and 96674 "Showdown on Val
+		-- (Heroic)", captured from Rob's own log with /mh questscan on 2026-07-22. The
+		-- heroic Naigtal id is not known and is not guessed -- it will be learned the
+		-- first time anyone accepts it from her.
+		quests = { 96713, 96717, 96674 },
 		minLevel = 90,
 		noNameMatch = true,
 		pickupKey = "HOME_ROUTINE_GIVER_PICKUP_SHOWDOWN_FMT",
