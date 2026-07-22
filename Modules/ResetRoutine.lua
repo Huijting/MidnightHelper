@@ -109,6 +109,37 @@ local GIVER_WEEKLIES = {
 	--   (Rob's level-80-warlock, 11 jun). "any" covers all audiences.
 	{ key = "halduron", name = "Halduron Brightwing", quests = { 93761, 93164, 95468 }, minLevel = nil },
 	{ key = "aethas", name = "Aethas Sunreaver", quests = { 93600, 94836 }, minLevel = 90 },
+	-- Showdown weekly, from Riftblade Maella in the active Void world. MH already
+	-- had both zone ids (ShowdownsData.lua, Rob verified 96713 in-game on 16 jun)
+	-- but only used them in the Void & Rituals tab and the account snapshot -- never
+	-- in the reset routine, so the weekly people actually read never mentioned it
+	-- (Rob, 2026-07-22).
+	--
+	-- Only one zone is active per week, and listing both is harmless: the routine
+	-- asks whether ANY of a giver's quests is on the player or done.
+	--
+	-- Maella also offers a HEROIC variant ("Showdown on Val (Heroic)") whose id we do
+	-- not have. It is deliberately not guessed: once Rob accepts any quest from her,
+	-- LearnGiverQuest ties her NPC id to this giver and every later quest of hers --
+	-- including the heroic one and next week's zone -- is learned automatically.
+	--
+	-- minLevel 90 is an ASSUMPTION, same as Liadrin's and Aethas's: this is endgame
+	-- Void-world content and sub-90 access was never tested. Correct it if a levelling
+	-- character is offered one.
+	-- ⚠️ noNameMatch: a SECOND NPC called "Riftblade Maella" stands in Silvermoon at
+	-- 27.48/76.51 and runs the Decor Duels housing minigame -- same name, different
+	-- NPC (ShowdownsData.lua, Rob on the PTR 16 jun). Name matching would file her
+	-- housing quests as Showdown weeklies, so this giver is matched by quest id and
+	-- learned NPC id only. Both are exact; the name is the one that lies here.
+	{
+		key = "maella",
+		name = "Riftblade Maella",
+		quests = { 96713, 96717 },
+		minLevel = 90,
+		noNameMatch = true,
+		pickupKey = "HOME_ROUTINE_GIVER_PICKUP_SHOWDOWN_FMT",
+		pin = { 2393, 47.93, 48.09, "HOME_ROUTINE_PIN_SHOWDOWN" },
+	},
 }
 
 local VOID_META_QUEST = 95842 -- "Midnight: Void Assaults"
@@ -332,7 +363,10 @@ local function GiverKeyByName(name)
 		return nil
 	end
 	for _, def in ipairs(GIVER_WEEKLIES) do
-		if def.name == name then
+		-- Skip givers whose name is shared with an unrelated NPC (see noNameMatch).
+		-- Matching those on name would attribute the wrong quests, and a confidently
+		-- wrong attribution is worse than no attribution at all.
+		if def.name == name and not def.noNameMatch then
 			return def.key
 		end
 	end
@@ -485,12 +519,19 @@ function ns.GetResetRoutineSteps()
 			}
 		elseif gs == "pickup" then
 			anyGiverOpen = true
+			-- Most givers share the Silvermoon hub next to the vault, so that wording
+			-- and pin are the default. A giver who stands somewhere else carries its
+			-- own -- sending someone to the vault for a quest in the Void world would
+			-- be a confident wrong answer.
+			local pin = def.pin or { GIVERS_MAP, GIVERS_X, GIVERS_Y, "HOME_ROUTINE_PIN_GIVERS" }
 			steps[#steps + 1] = {
-				text = ns:L("HOME_ROUTINE_GIVER_PICKUP_FMT"):format(def.name),
+				text = ns:L(def.pickupKey or "HOME_ROUTINE_GIVER_PICKUP_FMT"):format(def.name),
 				color = "warn",
 				open = true, -- routing exclusion after you've visited is handled generically
-				pin = { GIVERS_MAP, GIVERS_X, GIVERS_Y, "HOME_ROUTINE_PIN_GIVERS" },
-				onClick = giversRoute,
+				pin = pin,
+				onClick = def.pin and function()
+					RouteSingle(pin[1], pin[2], pin[3], pin[4])
+				end or giversRoute,
 			}
 		else
 			untrackedGivers = true
