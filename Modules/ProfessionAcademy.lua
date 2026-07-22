@@ -177,8 +177,24 @@ local function GetNodeAdviceForProf(baseSkillLine, midnightLine)
 	for _, step in ipairs(route) do
 		local n = step.node and byName[step.node:lower()]
 		if n and (n.purchased or 0) < (n.max or 0) then
-			return n
+			return n, "route"
 		end
+	end
+	-- Route exhausted (Rob finished Silvermoon's Spellpower and had 10 points left,
+	-- 2026-07-22). Rather than going vague again, fall back to the rule this file
+	-- already applies at tree level: "player already invests here, advise finishing
+	-- this one". That is not a new claim about what is good -- it only observes
+	-- where their own points already went. Most-invested first, so it names the one
+	-- nearest completion instead of an arbitrary half-filled node.
+	local best
+	for _, n in ipairs(nodes) do
+		local got, max = n.purchased or 0, n.max or 0
+		if got > 0 and got < max and (not best or got > best.purchased) then
+			best = n
+		end
+	end
+	if best then
+		return best, "finish"
 	end
 	return nil
 end
@@ -200,9 +216,10 @@ local function BuildAdviceLine(skillLine, summary, withPointer, midnightLine)
 	if advice == false then
 		-- Roots done: name the actual node when we have a verified one for this
 		-- profession. Otherwise fall back to the general line.
-		local node = GetNodeAdviceForProf(skillLine, midnightLine)
+		local node, why = GetNodeAdviceForProf(skillLine, midnightLine)
 		if node then
-			text = SL("PROFACAD_ADVISE_NODE_FMT"):format(node.name, node.purchased or 0, node.max or 0)
+			local key = (why == "finish") and "PROFACAD_ADVISE_NODE_FINISH_FMT" or "PROFACAD_ADVISE_NODE_FMT"
+			text = SL(key):format(node.name, node.purchased or 0, node.max or 0)
 			withPointer = false -- the answer is right here; no need to send them away
 		else
 			text = SL("PROFACAD_ADVISE_DONE")

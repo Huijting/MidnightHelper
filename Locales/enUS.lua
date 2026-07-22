@@ -594,6 +594,7 @@ ns._mhLocales.enUS = {
 	PROF_GENERATE_BOOKS_BTN = "Generate Route Books",
 	PROFACAD_ADVISE_NEXT_FMT = "Advice: next points into %s (root %d/%d).",
 	PROFACAD_ADVISE_SEE_COURSE = "Open Course (101) above: it names the branch and explains why.",
+	PROFACAD_ADVISE_NODE_FINISH_FMT = "Advice: finish %s (%d/%d) - your points are already in there.",
 	PROFACAD_ADVISE_NODE_FMT = "Advice: put your next points into %s (%d/%d).",
 	PROFACAD_ADVISE_DONE = "Advice: the recommended roots are done.",
 	PROFHUB_TAB_OVERVIEW = "Overview",
