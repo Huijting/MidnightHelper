@@ -410,28 +410,30 @@ function ns:SetLocale(code, silent)
 	if self.db then
 		self.db.locale = normalized
 	end
-	-- If they picked a language whose pack is gated out on this client, say so now
-	-- (rather than silently staying English).
-	if self.ReconcileGatedLocale then
-		self:ReconcileGatedLocale()
-	end
 	if not silent then
 		local label = self.GetLocaleDisplayNameForChat and self:GetLocaleDisplayNameForChat(normalized)
 			or self:GetLanguageStatusLabel()
 			or self:GetLocaleDisplayName(normalized)
 		if self.PrintChatKey then
 			self:PrintChatKey("LANG_SET", label)
-			if self.GetChatLocaleCode and self.GetEffectiveLocaleCode then
-				local eff = self:GetEffectiveLocaleCode()
-				local chat = self:GetChatLocaleCode()
-				if chat ~= eff then
-					self:PrintChatKey("LANG_SET_CHAT_FALLBACK")
-				end
-			end
 		else
 			DEFAULT_CHAT_FRAME:AddMessage(
 				("|cffffcc00%s|r %s"):format(self:L("PRINT_PREFIX"), self:L("LANG_SET"):format(label))
 			)
+		end
+		-- The caveats come AFTER the confirmation, never before it. Printed first, the
+		-- gated-pack notice answered a question the player had not been told the result
+		-- of yet, and then "Language set to French" seemed to contradict it (Rob,
+		-- 2026-07-22). Order matters: what happened, then what it means.
+		if self.ReconcileGatedLocale then
+			self:ReconcileGatedLocale()
+		end
+		if self.PrintChatKey and self.GetChatLocaleCode and self.GetEffectiveLocaleCode then
+			local eff = self:GetEffectiveLocaleCode()
+			local chat = self:GetChatLocaleCode()
+			if chat ~= eff then
+				self:PrintChatKey("LANG_SET_CHAT_FALLBACK")
+			end
 		end
 	end
 	if self.ApplyBindingLabels then
