@@ -45,6 +45,29 @@ local DEFAULT_WIDTH = 300
 --- waiting for the player to close and reopen the window (Rob, 2026-07-22).
 local attached = {}
 
+--- Side panels are pushier than a tab: they appear beside Blizzard's own windows
+--- without being asked. Some players will not want that, and "off" has to mean off
+--- rather than "less often". Default on; stored in ns.db.ui so it survives a reload.
+function ns.AreSidePanelsEnabled()
+	if ns.db and ns.db.ui and ns.db.ui.sidePanels == false then
+		return false
+	end
+	return true
+end
+
+function ns.SetSidePanelsEnabled(on)
+	ns.db = ns.db or {}
+	ns.db.ui = ns.db.ui or {}
+	ns.db.ui.sidePanels = on and true or false
+	-- Apply immediately. Waiting for the window to be reopened would make the switch
+	-- feel broken -- the same complaint /mh panelreset already earned.
+	for _, cfg in ipairs(attached) do
+		if type(cfg.refresh) == "function" then
+			pcall(cfg.refresh)
+		end
+	end
+end
+
 local COLORS = {
 	good = { 0.35, 1.00, 0.45 },
 	warn = { 1.00, 0.82, 0.35 },
@@ -237,6 +260,11 @@ function ns.AttachSidePanel(cfg)
 	end
 
 	local function refresh()
+		if not ns.AreSidePanelsEnabled() then
+			stopWatch()
+			cfg.panel:Hide()
+			return
+		end
 		local okF, frame = pcall(cfg.getFrame)
 		if not okF or not Live(frame) then
 			stopWatch()

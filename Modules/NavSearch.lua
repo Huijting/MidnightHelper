@@ -593,7 +593,7 @@ local function ShowNavResults(query)
 		-- Say how much is hidden. Without this the list just stops and looks complete,
 		-- which is how twenty-five commands can sit one wheel-click away unnoticed.
 		if #res > MAX_RESULTS then
-			drop.more:SetText((ns:L("NAV_MORE_FMT")):format(off + shown, #res))
+			drop.more:SetText((ns:L("NAV_MORE_FMT")):format(off + 1, off + shown, #res))
 			drop.more:Show()
 			drop:SetHeight(shown * rowH + 6 + (12 * s))
 		else

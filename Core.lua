@@ -157,6 +157,10 @@ local DEFAULT_DB = {
 			x = -36,
 			y = 0,
 		},
+		--- Side panels beside Blizzard's own windows (character sheet, Mythic+,
+		--- Adventure Guide, mount collection). Default on; ns.SetSidePanelsEnabled
+		--- hides them immediately when switched off.
+		sidePanels = true,
 		--- Role Academy tab: "tank" | "heal" (see Modules/RoleAcademy.lua).
 		roleAcademyTrack = "tank",
 		roleAcademyPreflight = {

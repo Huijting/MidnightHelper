@@ -300,6 +300,14 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetFastMarkEnabled then ns.SetFastMarkEnabled(v) end
 		end, true)
+		-- Side panels appear beside Blizzard's own windows uninvited, which is pushier
+		-- than a tab the player chose to open. Off means off: the setter hides them on
+		-- the spot rather than waiting for the next window.
+		AddToggle("mh_sidePanels", "SET_SIDEPANELS_TITLE", "SET_SIDEPANELS_DESC", function()
+			return ns.AreSidePanelsEnabled and ns.AreSidePanelsEnabled()
+		end, function(v)
+			if ns.SetSidePanelsEnabled then ns.SetSidePanelsEnabled(v) end
+		end, true)
 
 		----------------------------------------------------------------
 		-- Route-pijl

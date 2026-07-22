@@ -1279,7 +1279,7 @@ ns._mhLocales.nlNL = {
 	-- Spec 17: command-palette (dim label achter "/mh season"). Bereik met "@command" of "/".
 	NAV_CAT_COMMAND = "commando",
 	NAV_PANEL_CHARACTER = "Gear-check-paneel",
-	NAV_MORE_FMT = "%d van %d - scroll voor meer",
+	NAV_MORE_FMT = "%d-%d van %d - scroll voor meer",
 	NAV_PANEL_WHERE_CHARACTER = "verschijnt naast je karakterscherm",
 	NAV_PANEL_KEYSTONE = "Great Vault-paneel",
 	NAV_PANEL_WHERE_KEYSTONE = "verschijnt naast het Mythic+-venster",
