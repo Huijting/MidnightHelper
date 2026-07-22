@@ -932,6 +932,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- /mh folio — why the "Open rune window" button did not open a window.
 	-- /mh tracks — which equipped slots are at their upgrade ceiling, and what
 	-- actually raises them from there (Spec 21).
+	-- /mh weeklies — probe for the weekly quest-giver ids MH has never been able to
+	-- track (Liadrin / Void Assault rotation). Unverified on purpose; see the module.
+	if msg == "weeklies" then
+		if ns.PrintWeeklyHubProbe then
+			ns.PrintWeeklyHubProbe()
+		end
+		return
+	end
 	if msg == "tracks" then
 		if ns.PrintTrackCeiling then
 			ns.PrintTrackCeiling()

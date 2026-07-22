@@ -1,0 +1,96 @@
+local _, ns = ...
+
+--[[
+	Midnight Helper — weekly hub probe (/mh weeklies).
+
+	MH has admitted for a long time that it cannot see these: "Weekly hub (Liadrin /
+	Halduron / Aethas — add quest IDs)" and "pick-up isn't tracked yet". Rob hit it
+	from the other side — he accepted Lady Liadrin's weekly and MH still told him to
+	go and get it.
+
+	The ids below come from Broker_MidnightEvents/Data.lua, an addon installed on
+	this machine. That is a decent source, not a proven one: it is datamined, and its
+	own comments flag 93891 as "Wowhead: obsolete — verify". So this file does NOT
+	wire them into This Week. It only asks the game what it knows about each one, so
+	Rob can hold the answer against his own quest log before we trust any of it.
+
+	Reads only. C_QuestLog.IsQuestFlaggedCompleted and IsOnQuest are both plain
+	queries — nothing here accepts, abandons or turns in anything.
+]]
+
+--- Lady Liadrin's "Unity against the Void" choice pool. She offers four of these
+--- per character per week; completing one flags them ALL until the weekly reset.
+--- Meta quest 93744 "Unity Against the Void".
+local LIADRIN = {
+	{ 93766, "World Quests" },
+	{ 93769, "Housing" },
+	{ 93889, "Saltheril's Soiree" },
+	{ 93890, "Abundance" },
+	{ 93891, "Legends of the Haranir" }, -- source flags this one as possibly obsolete
+	{ 93892, "Stormarion Assault" },
+	{ 93909, "Delves" },
+	{ 93910, "Prey" },
+	{ 93911, "Dungeons" },
+	{ 93913, "World Boss" },
+	{ 94457, "Battlegrounds" },
+	{ 95842, "Void Assaults" }, -- the only one MH already knew (VoidAssaults.lua)
+}
+
+--- The Void Assault zone rotation: one zone is active per week, each with its own
+--- quest. This is the pair Rob asked about — the two areas that alternate.
+local VOID_ZONES = {
+	{ 94385, "Eversong Woods" },
+	{ 94386, "Zul'Aman" },
+}
+
+local function QuestState(id)
+	local done, onQuest
+	if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
+		local ok, v = pcall(C_QuestLog.IsQuestFlaggedCompleted, id)
+		done = ok and v or false
+	end
+	if C_QuestLog and C_QuestLog.IsOnQuest then
+		local ok, v = pcall(C_QuestLog.IsOnQuest, id)
+		onQuest = ok and v or false
+	end
+	local title
+	if C_QuestLog and C_QuestLog.GetTitleForQuestID then
+		local ok, v = pcall(C_QuestLog.GetTitleForQuestID, id)
+		title = ok and v or nil
+	end
+	return done, onQuest, title
+end
+
+local function PrintPool(label, list)
+	print(("   |cff8fd3ff%s|r"):format(label))
+	local anyDone, anyOn = false, false
+	for _, row in ipairs(list) do
+		local id, name = row[1], row[2]
+		local done, onQuest, title = QuestState(id)
+		local state
+		if onQuest then
+			state = "|cffffd100in your log|r"
+			anyOn = true
+		elseif done then
+			state = "|cff40c040completed|r"
+			anyDone = true
+		else
+			state = "|cff9d9d9d-|r"
+		end
+		-- The game's own title is the check that matters: if it does not match the
+		-- name we carry, the id belongs to something else and must not be used.
+		local shown = title and title ~= "" and title or "|cffff5040no title from the game|r"
+		print(("      %d  %-24s %-16s %s"):format(id, name, state, shown))
+	end
+	if not anyDone and not anyOn then
+		print("      |cff9d9d9d(nothing in this pool is active or completed right now)|r")
+	end
+end
+
+function ns.PrintWeeklyHubProbe()
+	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+	print(("%s Weekly hub probe — quest ids are UNVERIFIED, compare with your quest log"):format(prefix))
+	PrintPool("Lady Liadrin's weekly pool", LIADRIN)
+	PrintPool("Void Assault zone rotation", VOID_ZONES)
+	print("   |cff9d9d9dA title that does not match the label means the id is wrong.|r")
+end

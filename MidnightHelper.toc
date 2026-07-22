@@ -197,6 +197,7 @@ Modules\DiscordNudge.lua
 Modules\SidePanel.lua
 Modules\KeystoneSidePanel.lua
 Modules\TrackCeiling.lua
+Modules\WeeklyHubProbe.lua
 Modules\CharacterSidePanel.lua
 Modules\MountJournalSidePanel.lua
 Modules\EncounterJournalSidePanel.lua
