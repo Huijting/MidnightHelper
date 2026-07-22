@@ -117,6 +117,15 @@ local function BuildNavIndex()
 
 	-- Sub-tabs (resolved through SelectTab's legacy aliases).
 	tab("TAB_PROFESSIONS", "professions", "profession alchemy herbalism work orders crafting knowledge points")
+	-- The profession course is labelled "Course (101)" and sits inside Professions, so
+	-- searching "academy" only ever found the Role Academy. Indexed under its own name
+	-- plus every profession, since a beginner searches for "enchanting", not "course".
+	add(L("PROFHUB_TAB_COURSE"),
+		"academy profession course 101 basics learn teach knowledge enchanting alchemy tailoring "
+			.. "leatherworking blacksmithing engineering inscription jewelcrafting herbalism mining skinning",
+		function()
+			OpenTab("profacademy")
+		end, nil, L("NAV_WHERE_PROFACADEMY"), "tab")
 	tab("TAB_MACROS", "macros", "interrupt macro kick")
 	tab("TAB_CONSUMABLES", "consumables", "flask rune food buff oil")
 	tab("TAB_ACADEMY", "academy", "role tank heal academy")

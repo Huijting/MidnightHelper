@@ -1418,6 +1418,7 @@ ns._mhLocales.enUS = {
 	NAV_CAT_COMMAND = "command",
 	NAV_PANEL_CHARACTER = "Gear check panel",
 	NAV_MORE_FMT = "showing %d-%d of %d - scroll for more",
+	NAV_WHERE_PROFACADEMY = "inside Professions",
 	NAV_PANEL_WHERE_CHARACTER = "appears beside your character sheet",
 	NAV_PANEL_KEYSTONE = "Great Vault panel",
 	NAV_PANEL_WHERE_KEYSTONE = "appears beside the Mythic+ window",
