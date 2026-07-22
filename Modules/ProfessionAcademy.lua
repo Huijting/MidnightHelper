@@ -152,19 +152,31 @@ end
 --- Colored, localized advisor line for one profession, or nil when no advice.
 --- Shows purchased ranks (API rank minus the free base rank), matching the
 --- in-game node tooltip ("Rank 5/30").
-local function BuildAdviceLine(skillLine, summary)
+--- @param withPointer boolean|nil append the "where the build order lives" pointer
+---
+--- The advice used to end in "the chapter below", which was wrong in BOTH places it
+--- renders: on Overview there is no chapter below (the chapters live on the Course
+--- sub-tab), and inside the trees chapter it IS the chapter. Rob clicked a Knowledge
+--- line, landed on Overview and still could not tell where his 30 points should go
+--- (2026-07-22). So the location left the sentence and became a pointer the caller
+--- adds only where it is actually true.
+local function BuildAdviceLine(skillLine, summary, withPointer)
 	local advice = GetAdviceForProf(skillLine, summary)
+	local text
 	if advice == false then
-		return "|cff8ee6a1" .. SL("PROFACAD_ADVISE_DONE") .. "|r"
+		text = SL("PROFACAD_ADVISE_DONE")
 	elseif advice then
-		return "|cff8ee6a1"
-			.. SL("PROFACAD_ADVISE_NEXT_FMT"):format(
-				advice.name,
-				math.max(advice.active - 1, 0),
-				math.max(advice.max - 1, 0))
-			.. "|r"
+		text = SL("PROFACAD_ADVISE_NEXT_FMT"):format(
+			advice.name,
+			math.max(advice.active - 1, 0),
+			math.max(advice.max - 1, 0))
+	else
+		return nil
 	end
-	return nil
+	if withPointer then
+		text = text .. " " .. SL("PROFACAD_ADVISE_SEE_COURSE")
+	end
+	return "|cff8ee6a1" .. text .. "|r"
 end
 
 --- Header text: detected professions (+ tree state where readable), plus
@@ -184,7 +196,8 @@ local function BuildProfsText(profs, summaries)
 				local trees = (#s.started > 0) and table.concat(s.started, ", ")
 					or SL("PROFACAD_SPEC_NONE_STARTED")
 				text = text .. "\n" .. SL("PROFACAD_SPEC_LINE_FMT"):format(p.name, s.spent, s.unspent, trees)
-				local line = BuildAdviceLine(p.skillLine, s)
+				-- Overview: name where the build order lives, because it is not here.
+				local line = BuildAdviceLine(p.skillLine, s, true)
 				if line then
 					text = text .. "\n" .. line
 				end
