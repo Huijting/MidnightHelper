@@ -1776,8 +1776,34 @@ function ns.ResolveTraitNodeDescription(configID, node)
 				if type(text) == "string" and text ~= "" then
 					text = text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
 					text = text:gsub("%s+", " ")
+					-- Unresolved spell variables. C_Spell.GetSpellDescription hands these
+					-- profession spells back with raw placeholders ($ev1, $en1) instead of
+					-- numbers, so the list showed "granting you +$ev1 $en1 per point" (Rob,
+					-- 2026-07-22). Cut the sentence off at the last clause break BEFORE the
+					-- placeholder: the part that identifies the node comes first, and the
+					-- part that got mangled is always the trailing "+N per point" clause.
+					-- Still only truncation -- nothing is reworded.
+					local dollar = text:find("%$")
+					if dollar then
+						-- Cut at the placeholder, then drop a DANGLING single word after a comma
+						-- ("..., gaining"). Cutting at the last comma instead would have eaten a
+						-- list item: "Weapon, Chest, and Ring enchantments" became "Weapon, Chest".
+						text = text:sub(1, dollar - 1):gsub("[%s%+,;]+$", "")
+						-- A trailing clause of one or two words is left-over connective tissue
+						-- ("..., gaining", "..., granting you"). Three or more is content: the list
+						-- "Weapon, Chest, and Ring enchantments" must survive intact.
+						text = text:match("^(.*),%s*%a+%s*$") or text
+						text = text:match("^(.*),%s*%a+%s+%a+%s*$") or text
+					end
 					local first = text:match("^(.-[%.!?])%s") or text
-					return (first:gsub("^%s+", ""):gsub("%s+$", ""))
+					first = first:gsub("[%s,;%+]+$", "")
+					if first == "" then
+						return nil
+					end
+					if not first:match("[%.!?]$") then
+						first = first .. "."
+					end
+					return (first:gsub("^%s+", ""))
 				end
 			end
 		end
