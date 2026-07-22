@@ -127,10 +127,10 @@ local GIVER_WEEKLIES = {
 	-- Only one zone is active per week, and listing both is harmless: the routine
 	-- asks whether ANY of a giver's quests is on the player or done.
 	--
-	-- Maella also offers a HEROIC variant whose id is still UNKNOWN. 96674 was tried
-	-- on 2026-07-22, transcribed from a screenshot by eye; /mh weeklies asked the game
-	-- and got "no title", so it was removed. Capture it from the log, never read it
-	-- off a picture.
+	-- 96714 is the HEROIC variant, sitting right beside the normal 96713 as you would
+	-- expect. Read once as 96674 from a screenshot and rejected by the game ("no
+	-- title"), so it is also listed in the probe: if /mh weeklies ever reports no
+	-- title for it, it is wrong again and must come straight back out.
 	--
 	-- minLevel 90 is an ASSUMPTION, same as Liadrin's and Aethas's: this is endgame
 	-- Void-world content and sub-90 access was never tested. Correct it if a levelling
@@ -148,7 +148,7 @@ local GIVER_WEEKLIES = {
 		-- entered on 2026-07-22 from a misread screenshot and the game answered "no
 		-- title", so it was removed the same day. Capture it from the log, do not
 		-- transcribe it by eye.
-		quests = { 96713, 96717 },
+		quests = { 96713, 96717, 96714 },
 		minLevel = 90,
 		noNameMatch = true,
 		pickupKey = "HOME_ROUTINE_GIVER_PICKUP_SHOWDOWN_FMT",
