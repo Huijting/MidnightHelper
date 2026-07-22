@@ -81,6 +81,10 @@ local DEFAULT_DB = {
 	--- Personal milestones already awarded: { [id] = unixTime }. Never re-fires.
 	--- Keys starting with "_" are bookkeeping (highest track seen), not awards.
 	milestones = {},
+	--- Waar de combat log ons weigerde + waar hij wel mocht (bewijs voor de
+	--- ADDON_ACTION_FORBIDDEN-jacht; moet reloads overleven, zie Retrospective).
+	cleuRefusals = {},
+	cleuAllowed = {},
 	--- Season counters, groundwork for a retrospective: { startedAt=, seasonId=, counts={} }.
 	seasonStats = {},
 	--- One Codex entry per day on This Week: { dismissedDay=, enabled= }.

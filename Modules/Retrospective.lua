@@ -352,6 +352,44 @@ local function StandDownCLEU(reason)
 	if diffID then
 		blockedDiff[diffID] = true
 	end
+
+	-- MEASURE, do not guess. Three fixes have now failed here (13x, 14x, 17x), each
+	-- one a theory about WHICH content refuses us. C_Secrets.HasSecretRestrictions()
+	-- is the obvious candidate gate -- DBM and JustAC both read C_Secrets to decide
+	-- what they may touch -- but Platynator reads it ONCE at load, which would mean
+	-- it is a client-wide flag and useless for "am I in restricted content now".
+	-- Gating on it before knowing which it is would repeat the difficulty-blacklist
+	-- mistake: the recap silently dead everywhere.
+	--
+	-- So: record the candidate signals at the exact moment we are refused, in
+	-- SavedVariables (a session table would be wiped by the reload Rob does to pick
+	-- up the next build -- that cost three test rounds in July). If the flag is TRUE
+	-- here and FALSE in content where the recap works, it is the gate. If it is TRUE
+	-- everywhere, it is not, and we stop considering it.
+	local function readFlag(fn)
+		if type(fn) ~= "function" then
+			return "n/a"
+		end
+		local ok, v = pcall(fn)
+		return ok and tostring(v) or "error"
+	end
+	ns.db = ns.db or {}
+	ns.db.cleuRefusals = ns.db.cleuRefusals or {}
+	local log = ns.db.cleuRefusals
+	log[#log + 1] = {
+		at = (time and time()) or 0,
+		reason = tostring(reason),
+		instance = tostring(iname),
+		itype = tostring(itype),
+		diffID = diffID,
+		diffName = tostring(diffName),
+		hasSecretRestrictions = readFlag(C_Secrets and C_Secrets.HasSecretRestrictions),
+		aurasSecret = readFlag(C_Secrets and C_Secrets.ShouldAurasBeSecret),
+	}
+	-- Keep the last 10; this is evidence, not a growing file.
+	while #log > 10 do
+		table.remove(log, 1)
+	end
 	print(("|cffffcc00%s|r combat log refused here (%s) — %s (%s), difficultyID %s (%s). Death recap off here; tell Rob."):format(
 		ns:L("PRINT_PREFIX"), tostring(reason),
 		tostring(iname), tostring(itype), tostring(diffID), tostring(diffName)
@@ -379,6 +417,22 @@ local function DoClogRegistration()
 		-- refused, full stop.
 		if clog:IsEventRegistered("COMBAT_LOG_EVENT_UNFILTERED") then
 			clogOn = true
+			-- The other half of the comparison. A refusal log alone cannot tell us
+			-- whether HasSecretRestrictions() distinguishes anything -- we need its
+			-- value where registration SUCCEEDS too. One row per instance is enough.
+			if ns.db then
+				local okI, iname, itype, diffID = pcall(GetInstanceInfo)
+				local okFlag, flag = pcall(function()
+					return C_Secrets and C_Secrets.HasSecretRestrictions and C_Secrets.HasSecretRestrictions()
+				end)
+				ns.db.cleuAllowed = ns.db.cleuAllowed or {}
+				ns.db.cleuAllowed[tostring(okI and diffID or "?")] = {
+					instance = tostring(okI and iname or "?"),
+					itype = tostring(okI and itype or "?"),
+					hasSecretRestrictions = okFlag and tostring(flag) or "error",
+					at = (time and time()) or 0,
+				}
+			end
 		else
 			StandDownCLEU("RegisterEvent did not take")
 			return
@@ -510,6 +564,37 @@ function ns.PrintDeathRecapDiagnostics()
 	print(("   in tracked instance: %s   combat-log capture: %s"):format(
 		tostring(inTrackedInstance()), clogOn and "on" or "off"
 	))
+	-- Live value of the candidate gate, next to the two histories below. The whole
+	-- question is whether this flag differs between content that allows the combat
+	-- log and content that refuses it.
+	if C_Secrets and C_Secrets.HasSecretRestrictions then
+		local ok, v = pcall(C_Secrets.HasSecretRestrictions)
+		print(("   C_Secrets.HasSecretRestrictions() right here: %s"):format(ok and tostring(v) or "error"))
+	else
+		print("   C_Secrets.HasSecretRestrictions: not available on this client")
+	end
+	local refusals = ns.db and ns.db.cleuRefusals
+	if type(refusals) == "table" and #refusals > 0 then
+		print("   |cffff8080REFUSED here (survives reloads):|r")
+		for _, r in ipairs(refusals) do
+			print(("      %s (%s) diff %s (%s)  secretRestrictions=%s  auras=%s  [%s]"):format(
+				tostring(r.instance), tostring(r.itype), tostring(r.diffID), tostring(r.diffName),
+				tostring(r.hasSecretRestrictions), tostring(r.aurasSecret), tostring(r.reason)
+			))
+		end
+	end
+	local allowed = ns.db and ns.db.cleuAllowed
+	if type(allowed) == "table" and next(allowed) then
+		print("   |cff40c040ALLOWED here:|r")
+		for diff, a in pairs(allowed) do
+			print(("      %s (%s) diff %s  secretRestrictions=%s"):format(
+				tostring(a.instance), tostring(a.itype), tostring(diff), tostring(a.hasSecretRestrictions)
+			))
+		end
+	end
+	if type(refusals) == "table" and #refusals > 0 and type(allowed) == "table" and next(allowed) then
+		print("   |cffffd966Compare the two secretRestrictions columns: differ = that is the gate; same = it is not.|r")
+	end
 	-- Instance/difficulty context — so a slip (e.g. a follower dungeon reporting a
 	-- whitelisted difficulty) can be diagnosed exactly and excluded (never guessed).
 	if IsInInstance and IsInInstance() and GetInstanceInfo then
