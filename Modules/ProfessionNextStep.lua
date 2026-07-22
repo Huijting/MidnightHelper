@@ -69,13 +69,26 @@ end
 --- C_TradeSkillUI.OpenTradeSkill is not used anywhere else in this addon, so it is
 --- treated as unverified: guarded, and if it is missing or errors the click still
 --- lands somewhere useful instead of doing nothing.
-local function OpenProfession(expansionSkillLineID)
-	if C_TradeSkillUI and C_TradeSkillUI.OpenTradeSkill and expansionSkillLineID then
-		local ok = pcall(C_TradeSkillUI.OpenTradeSkill, expansionSkillLineID)
-		if ok then
-			return
-		end
-	end
+--- Where a Knowledge line sends you: MH's own Professions tab.
+---
+--- It used to call C_TradeSkillUI.OpenTradeSkill first and only fall back if that
+--- errored. Two things were wrong with that, and together they made the click look
+--- dead (Rob, 2026-07-22):
+---
+---   1. pcall returns true the moment a call does not ERROR, including when it
+---      quietly does nothing. Taking that as proof of success skipped the fallback.
+---      Same mistake the death recap made with RegisterEvent, where a refused
+---      registration raised no error and the code believed itself.
+---   2. More basic: the side panel only exists WHILE the profession window is open,
+---      so "open the profession window" was a no-op by definition. The player is
+---      already looking at it.
+---
+--- Jumping Blizzard's window to its Specializations tab would be the ideal target,
+--- but no installed addon references such a page by name (CraftingPage and
+--- OrdersPage are confirmed via Auctionator; a spec page is not), so that stays
+--- unguessed. Our own tab is the better destination anyway: it carries the advice
+--- line that says WHICH node to put the points in, which a bare spec tree does not.
+local function OpenProfession()
 	if ns.SelectTab then
 		pcall(ns.SelectTab, "professions")
 	end
@@ -97,13 +110,10 @@ function ns.GetProfessionNextSteps()
 	--    right now, and it is fixed in one click.
 	for _, p in ipairs(list) do
 		if p.readable and (p.unspent or 0) > 0 and #steps < MAX_LINES then
-			local line = p.skillLineID
 			steps[#steps + 1] = {
 				text = (ns:L("PROFNEXT_UNSPENT_FMT")):format(p.baseName or p.name, p.unspent),
 				color = "warn",
-				onClick = function()
-					OpenProfession(line)
-				end,
+				onClick = OpenProfession,
 			}
 		end
 	end
