@@ -65,10 +65,6 @@ local function TrainerWeeklyState(baseSkillLine)
 	return picked and "picked" or "todo"
 end
 
---- Open the profession window on this skill line, or fall back to our own tab.
---- C_TradeSkillUI.OpenTradeSkill is not used anywhere else in this addon, so it is
---- treated as unverified: guarded, and if it is missing or errors the click still
---- lands somewhere useful instead of doing nothing.
 --- Where a Knowledge line sends you: MH's own Professions tab.
 ---
 --- It used to call C_TradeSkillUI.OpenTradeSkill first and only fall back if that
