@@ -240,6 +240,55 @@ def collect_selecttab_ids(root: str) -> dict:
     return ids
 
 
+def find_colon_call_on_dot_function(root: str, toc_files: set[str]) -> list[tuple]:
+    """`ns:Foo(x)` where Foo is declared `function ns.Foo(param)`.
+
+    Lua turns `ns:Foo(x)` into `ns.Foo(ns, x)`, so the FIRST parameter silently
+    becomes the namespace table and every real argument shifts one place right.
+    Valid syntax, no error, wrong values -- `luac -p` is happy.
+
+    THIS COST TWO DAYS IN JULY 2026. `ns:QueueMidnightToast({...})` made spec = ns,
+    so three different toasts queued an empty notification. While ApplyToastContent
+    still had a hardcoded fallback title, that empty spec rendered as "Trovehunter
+    Bounty detected!" -- in a follower dungeon, where no bounty exists. The hunt for
+    the phantom sender never found it, because the sender looked correct at every
+    call site. Found 2026-07-22 by reading the definition next to the call.
+
+    Only definitions WITH parameters are reported. A zero-parameter function simply
+    ignores the extra argument, so `ns:Foo()` on `function ns.Foo()` is harmless and
+    there are 22 of those here -- flagging them would bury the six that matter.
+    A name declared anywhere as `function ns:Foo` is exempt: it wants self.
+    """
+    dot: dict[str, tuple] = {}
+    colon_defs: set[str] = set()
+    files = []
+    for rel in sorted(toc_files):
+        path = os.path.join(root, rel.replace("\\", os.sep))
+        if path.endswith(".lua") and os.path.isfile(path):
+            files.append(path)
+    for p in files:
+        text = "\n".join(read_lines(p))
+        for m in re.finditer(r'^\s*function ns\.(\w+)\s*\(([^)]*)\)', text, re.M):
+            params = [x.strip() for x in m.group(2).split(",") if x.strip()]
+            dot[m.group(1)] = (os.path.relpath(p, root).replace("\\", "/"), params)
+        for m in re.finditer(r'^\s*function ns:(\w+)\s*\(', text, re.M):
+            colon_defs.add(m.group(1))
+
+    out = []
+    for p in files:
+        rel = os.path.relpath(p, root).replace("\\", "/")
+        for i, line in enumerate(read_lines(p), 1):
+            for m in re.finditer(r'(?<![\w.:])ns:(\w+)\s*\(', line):
+                name = m.group(1)
+                if name in colon_defs or name not in dot:
+                    continue
+                decl_file, params = dot[name]
+                if not params:
+                    continue  # extra arg is ignored; not a defect
+                out.append((rel, i, name, params[0], decl_file))
+    return out
+
+
 def find_use_before_local(root: str, toc_files: set[str]) -> list[tuple]:
     """Calls to a `local function` BEFORE it is declared.
 
@@ -459,6 +508,15 @@ def main() -> int:
     if len(broken) > 20:
         print(f"    ... and {len(broken) - 20} more")
     hard += len(broken)
+
+    # 8. ns:Foo() on a dot-declared function (HARD -- silently shifts every argument)
+    shifted = find_colon_call_on_dot_function(root, toc_files)
+    print(f"\n[8] Colon call on a dot-declared ns function: {len(shifted)}")
+    for rel, ln, name, first, decl in shifted[:20]:
+        print(f"    HARD  {rel}:{ln}  ns:{name}(...) -> {first} becomes ns   ({decl})")
+    if len(shifted) > 20:
+        print(f"    ... and {len(shifted) - 20} more")
+    hard += len(shifted)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")

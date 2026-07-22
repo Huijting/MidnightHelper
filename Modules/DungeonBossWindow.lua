@@ -1435,7 +1435,7 @@ local function TryFollowerHint()
 	end
 	followerHintDoneFor = mapID
 	local d = DungeonForCurrentInstance()
-	ns:QueueMidnightToast({
+	ns.QueueMidnightToast({
 		id = "follower_bosshint",
 		icon = "Interface\\ICONS\\INV_Misc_Book_09",
 		titleKey = "FOLLOWER_BOSSHINT_TITLE",

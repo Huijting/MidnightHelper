@@ -492,7 +492,7 @@ local function RefreshRoleRows(host, season, variant)
 end
 
 local function NemesisFootnoteHeight(season)
-	local pack = ns.GetDelveCurioSeasonTable and ns:GetDelveCurioSeasonTable(season)
+	local pack = ns.GetDelveCurioSeasonTable and ns.GetDelveCurioSeasonTable(season)
 	if pack and pack.nemesis and pack.nemesis.dps and pack.nemesis.dps.utility then
 		return 30
 	end
@@ -509,7 +509,7 @@ local function RefreshNemesisFootnote(panel, season)
 	if not foot or not body then
 		return
 	end
-	local pack = ns.GetDelveCurioSeasonTable and ns:GetDelveCurioSeasonTable(season)
+	local pack = ns.GetDelveCurioSeasonTable and ns.GetDelveCurioSeasonTable(season)
 	local nem = pack and pack.nemesis and pack.nemesis.dps
 	if nem and nem.utility then
 		local utilName = ns.GetDelveCurioItemName(nem.utility)
@@ -957,7 +957,7 @@ local function EnsureEventBridge()
 	eventFrame:RegisterEvent("TRAIT_CONFIG_UPDATED")
 	eventFrame:SetScript("OnEvent", function(_, event, arg1)
 		if event == "ITEM_DATA_LOAD_RESULT" then
-			if arg1 and ns.IsDelveCurioItemID and ns:IsDelveCurioItemID(arg1) and ShouldLoadCurioItemData() then
+			if arg1 and ns.IsDelveCurioItemID and ns.IsDelveCurioItemID(arg1) and ShouldLoadCurioItemData() then
 				ScheduleCurioAdvisorRefresh()
 			end
 			return

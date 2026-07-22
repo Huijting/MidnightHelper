@@ -450,7 +450,7 @@ function ns:MaybeShowDelveBountyToast()
 		return
 	end
 	bountyToastShownThisDelve = true
-	ns:QueueMidnightToast({
+	ns.QueueMidnightToast({
 		id = "delve_bounty",
 		itemID = ITEM_TREASURE,
 		icon = GetItemIcon(ITEM_TREASURE),
@@ -468,7 +468,7 @@ function ns:PreviewDelveBountyToast()
 	if not ns.QueueMidnightToast then
 		return
 	end
-	ns:QueueMidnightToast({
+	ns.QueueMidnightToast({
 		id = "delve_bounty_preview",
 		itemID = ITEM_TREASURE,
 		icon = GetItemIcon(ITEM_TREASURE),
