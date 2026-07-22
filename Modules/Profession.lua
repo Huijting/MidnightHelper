@@ -1682,29 +1682,9 @@ function ns.PrintProfessionNodeProbe()
 		return
 	end
 
-	local function NodeName(configID, node)
-		if type(node) ~= "table" or type(node.entryIDs) ~= "table" then
-			return nil
-		end
-		for _, entryID in ipairs(node.entryIDs) do
-			local okE, entry = pcall(C_Traits.GetEntryInfo, configID, entryID)
-			if okE and type(entry) == "table" and entry.definitionID then
-				local okD, defn = pcall(C_Traits.GetDefinitionInfo, entry.definitionID)
-				if okD and type(defn) == "table" then
-					if type(defn.overrideName) == "string" and defn.overrideName ~= "" then
-						return defn.overrideName
-					end
-					if defn.spellID and C_Spell and C_Spell.GetSpellName then
-						local okN, nm = pcall(C_Spell.GetSpellName, defn.spellID)
-						if okN and type(nm) == "string" and nm ~= "" then
-							return nm
-						end
-					end
-				end
-			end
-		end
-		return nil
-	end
+	-- Gedeeld met ns.GetProfessionSpecNodes: probe en advies gebruiken
+	-- gegarandeerd dezelfde naam voor dezelfde node.
+	local NodeName = ns.ResolveTraitNodeName
 
 	for _, p in ipairs(list) do
 		print(("%s |cff40c040%s|r — nodes the game reports:"):format(prefix, tostring(p.baseName or p.name)))
@@ -1738,4 +1718,72 @@ function ns.PrintProfessionNodeProbe()
 		end
 	end
 	print("   " .. prefix .. " do these names match the tooltips in your Specializations tab?")
+end
+
+--- The display name of a trait node, or nil when the game will not give one.
+--- Chain verified in AskMrRobot (Core.lua:726-730): node.entryIDs -> GetEntryInfo
+--- -> entry.definitionID -> GetDefinitionInfo -> spellID -> spell name. Every step
+--- is pcall'd; a node we cannot name is skipped rather than shown as a number.
+function ns.ResolveTraitNodeName(configID, node)
+		if type(node) ~= "table" or type(node.entryIDs) ~= "table" then
+			return nil
+		end
+		for _, entryID in ipairs(node.entryIDs) do
+			local okE, entry = pcall(C_Traits.GetEntryInfo, configID, entryID)
+			if okE and type(entry) == "table" and entry.definitionID then
+				local okD, defn = pcall(C_Traits.GetDefinitionInfo, entry.definitionID)
+				if okD and type(defn) == "table" then
+					if type(defn.overrideName) == "string" and defn.overrideName ~= "" then
+						return defn.overrideName
+					end
+					if defn.spellID and C_Spell and C_Spell.GetSpellName then
+						local okN, nm = pcall(C_Spell.GetSpellName, defn.spellID)
+						if okN and type(nm) == "string" and nm ~= "" then
+							return nm
+						end
+					end
+				end
+			end
+		end
+		return nil
+	end
+
+--- Every named, multi-rank node in a profession's spec trees.
+--- @return table { { name=, purchased=, max= }, ... } — empty when unreadable
+---
+--- Ranks come out the way the TOOLTIP shows them: the game counts a free base rank
+--- in both numbers, so a node the game calls "Rank 0/20" arrives here as 0/20.
+--- Single-rank unlock nodes are left out: they have no name and nothing is ever
+--- advised about them.
+---
+--- Reading only. This names what exists; it does not judge what is good.
+function ns.GetProfessionSpecNodes(midnightLine)
+	local out = {}
+	if not (midnightLine and C_ProfSpecs and C_Traits and C_Traits.GetTreeNodes) then
+		return out
+	end
+	local okC, configID = pcall(C_ProfSpecs.GetConfigIDForSkillLine, midnightLine)
+	local okT, treeIDs = pcall(C_ProfSpecs.GetSpecTabIDsForSkillLine, midnightLine)
+	if not (okC and configID and okT and type(treeIDs) == "table") then
+		return out
+	end
+	for _, treeID in ipairs(treeIDs) do
+		local okN, nodes = pcall(C_Traits.GetTreeNodes, treeID)
+		if okN and type(nodes) == "table" then
+			for _, nodeID in ipairs(nodes) do
+				local okI, node = pcall(C_Traits.GetNodeInfo, configID, nodeID)
+				if okI and type(node) == "table" and (node.maxRanks or 0) > 1 then
+					local name = ns.ResolveTraitNodeName(configID, node)
+					if name then
+						out[#out + 1] = {
+							name = name,
+							purchased = math.max((node.ranksPurchased or 0) - 1, 0),
+							max = (node.maxRanks or 0) - 1,
+						}
+					end
+				end
+			end
+		end
+	end
+	return out
 end

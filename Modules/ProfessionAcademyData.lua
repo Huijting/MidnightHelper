@@ -122,6 +122,22 @@ ns.PROF_ACADEMY = {
 	-- (Nimble Needlework, Fiber Arts), LW (Learned Leatherworker), Skinning
 	-- (Thorough Tanning, Talented Tracker). skipIfClass: step skipped for
 	-- that class token (Druids gather while shapeshifted, no Botany needed).
+	-- NODE-level advice, used once the tree route above is complete. Only added
+	-- where a source names the node; a profession without an entry simply keeps
+	-- the tree-level advice. Names are matched against what the GAME reports, so a
+	-- rename or a non-English client yields no advice instead of a wrong one.
+	--
+	-- Enchanting: our own chapter says "then the Weapon/Ring/Chest branch (the most
+	-- wanted enchants)". Rob hovered it in game on 2026-07-22: the node called
+	-- "Silvermoon's Spellpower" reads "Learn the secrets of Thalassian Weapon, Ring,
+	-- and Chest Armor enchantments" -- an exact match, confirmed by /mh nodes
+	-- reporting it as 0/20. That is the only node route verified so far.
+	advisorNodeRoutes = {
+		[333] = { -- Enchanting
+			{ node = "Silvermoon's Spellpower" },
+		},
+	},
+
 	advisorRoutes = {
 		[164] = {
 			{ tree = "The Old Ways" },

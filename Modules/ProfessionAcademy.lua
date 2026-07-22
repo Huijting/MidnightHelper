@@ -149,6 +149,40 @@ local function GetAdviceForProf(skillLine, summary)
 	return false
 end
 
+--- First unfinished node along a curated NODE route, or nil.
+---
+--- Runs only when the tree-level route is complete -- that is exactly the moment
+--- the old advice went vague ("push sub-nodes or spread into the remaining trees")
+--- and Rob, with 30 Knowledge spare, had no idea where to put it (2026-07-22).
+---
+--- The route stores an English node name; the game reports a localised one. They
+--- are matched, never assumed: no match means no advice, so a rename or a German
+--- client loses the line instead of pointing at the wrong node.
+local function GetNodeAdviceForProf(baseSkillLine, midnightLine)
+	local d = ns.PROF_ACADEMY
+	local route = d and d.advisorNodeRoutes and d.advisorNodeRoutes[baseSkillLine]
+	if not (route and midnightLine and ns.GetProfessionSpecNodes) then
+		return nil
+	end
+	local okN, nodes = pcall(ns.GetProfessionSpecNodes, midnightLine)
+	if not okN or type(nodes) ~= "table" or #nodes == 0 then
+		return nil
+	end
+	local byName = {}
+	for _, n in ipairs(nodes) do
+		if n.name then
+			byName[n.name:lower()] = n
+		end
+	end
+	for _, step in ipairs(route) do
+		local n = step.node and byName[step.node:lower()]
+		if n and (n.purchased or 0) < (n.max or 0) then
+			return n
+		end
+	end
+	return nil
+end
+
 --- Colored, localized advisor line for one profession, or nil when no advice.
 --- Shows purchased ranks (API rank minus the free base rank), matching the
 --- in-game node tooltip ("Rank 5/30").
@@ -160,11 +194,19 @@ end
 --- line, landed on Overview and still could not tell where his 30 points should go
 --- (2026-07-22). So the location left the sentence and became a pointer the caller
 --- adds only where it is actually true.
-local function BuildAdviceLine(skillLine, summary, withPointer)
+local function BuildAdviceLine(skillLine, summary, withPointer, midnightLine)
 	local advice = GetAdviceForProf(skillLine, summary)
 	local text
 	if advice == false then
-		text = SL("PROFACAD_ADVISE_DONE")
+		-- Roots done: name the actual node when we have a verified one for this
+		-- profession. Otherwise fall back to the general line.
+		local node = GetNodeAdviceForProf(skillLine, midnightLine)
+		if node then
+			text = SL("PROFACAD_ADVISE_NODE_FMT"):format(node.name, node.purchased or 0, node.max or 0)
+			withPointer = false -- the answer is right here; no need to send them away
+		else
+			text = SL("PROFACAD_ADVISE_DONE")
+		end
 	elseif advice then
 		text = SL("PROFACAD_ADVISE_NEXT_FMT"):format(
 			advice.name,
@@ -204,7 +246,7 @@ local function BuildProfsText(profs, summaries, withPointer)
 					or SL("PROFACAD_SPEC_NONE_STARTED")
 				text = text .. "\n" .. SL("PROFACAD_SPEC_LINE_FMT"):format(p.name, s.spent, s.unspent, trees)
 				-- The caller decides; see the note on BuildProfsText.
-				local line = BuildAdviceLine(p.skillLine, s, withPointer)
+				local line = BuildAdviceLine(p.skillLine, s, withPointer, s.midnightLine)
 				if line then
 					text = text .. "\n" .. line
 				end
@@ -282,7 +324,10 @@ local function GetSpecSummary(baseSkillLine)
 	if spent == nil then
 		return nil
 	end
-	return { spent = spent, unspent = unspent or 0, started = started, tabs = tabsOut }
+	-- midnightLine travels with the summary so the node advisor does not have to
+	-- look the expansion skill line up a second time (and get it wrong).
+	return { spent = spent, unspent = unspent or 0, started = started, tabs = tabsOut,
+		midnightLine = child }
 end
 
 --- True when every owned primary profession has a tool equipped (profession
@@ -444,7 +489,7 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 	local treesAdvice = ""
 	for _, p in ipairs(profs) do
 		local s = summaries[p.skillLine]
-		local line = s and BuildAdviceLine(p.skillLine, s)
+		local line = s and BuildAdviceLine(p.skillLine, s, false, s.midnightLine)
 		if line then
 			treesAdvice = treesAdvice .. "\n" .. ("|cffffd966%s:|r "):format(p.name) .. line
 		end
