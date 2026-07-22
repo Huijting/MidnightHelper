@@ -186,6 +186,33 @@ function ns.CreateSidePanel(opts)
 					row:SetPoint("TOPLEFT", self, "TOPLEFT", self._padX, y)
 					row:SetScript("OnClick", def.onClick)
 					row:EnableMouse(def.onClick ~= nil)
+					-- A clickable row used to look exactly like a dead one. Rob had the
+					-- profession panel open on 2026-07-22 and asked where he was
+					-- supposed to click -- the action was there, with nothing saying so.
+					-- Brighten on hover and show the pointing cursor, so "this does
+					-- something" is visible before the click instead of after it.
+					if def.onClick then
+						local base = c
+						row:SetScript("OnEnter", function(self)
+							self.fs:SetTextColor(
+								base[1] + (1 - base[1]) * 0.5,
+								base[2] + (1 - base[2]) * 0.5,
+								base[3] + (1 - base[3]) * 0.5
+							)
+							if SetCursor then
+								SetCursor("Interface\\CURSOR\\Point")
+							end
+						end)
+						row:SetScript("OnLeave", function(self)
+							self.fs:SetTextColor(base[1], base[2], base[3])
+							if ResetCursor then
+								ResetCursor()
+							end
+						end)
+					else
+						row:SetScript("OnEnter", nil)
+						row:SetScript("OnLeave", nil)
+					end
 					row:Show()
 					y = y - row:GetHeight() - 6
 				else
