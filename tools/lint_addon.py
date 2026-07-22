@@ -240,6 +240,56 @@ def collect_selecttab_ids(root: str) -> dict:
     return ids
 
 
+def find_undefined_ns_calls(root: str, toc_files: set[str]) -> list[tuple]:
+    """`ns.Foo(...)` where ns.Foo is never defined anywhere.
+
+    Every call site guards with `if ns.Foo then`, which is good practice and also
+    the perfect hiding place: a function that was never written simply never runs,
+    and the guard makes that look deliberate.
+
+    FOUND 2026-07-22: the "Advice goal: Allround / Gold / Self-sufficient" buttons
+    on the Professions overview called ns.MH_SetProfAdvisorGoal and
+    ns.MH_GetProfAdvisorGoal. Neither exists. Three buttons with tooltips explaining
+    what each one picks, and clicking them did nothing -- shipped that way, in front
+    of the user, with no error anywhere.
+
+    Definitions counted: `function ns.Foo`, `function ns:Foo`, and `ns.Foo = ...`.
+    Calls inside comments are skipped, or the very comment explaining that a
+    function does not exist would report it.
+    """
+    defined: set[str] = set()
+    called: dict[str, tuple] = {}
+    files = []
+    for rel in sorted(toc_files):
+        path = os.path.join(root, rel.replace("\\", os.sep))
+        if path.endswith(".lua") and os.path.isfile(path):
+            files.append(path)
+
+    for p in files:
+        text = "\n".join(read_lines(p))
+        for m in re.finditer(r'function ns[.:](\w+)', text):
+            defined.add(m.group(1))
+        for m in re.finditer(r'^\s*ns\.(\w+)\s*=', text, re.M):
+            defined.add(m.group(1))
+
+    # --[[ ]] blocks must go too, keeping the line count intact so numbers stay
+    # right. Without this the file-header comment explaining that a function does
+    # NOT exist reports that very function -- which is exactly what happened on the
+    # first run of this check.
+    block_re = re.compile(r"--\[(=*)\[.*?\]\1\]", re.S)
+    for p in files:
+        rel = os.path.relpath(p, root).replace("\\", "/")
+        text = "\n".join(read_lines(p))
+        text = block_re.sub(lambda m: re.sub(r"[^\n]", " ", m.group(0)), text)
+        for i, line in enumerate(text.split("\n"), 1):
+            code = line.split("--", 1)[0] if not line.lstrip().startswith("--") else ""
+            for m in re.finditer(r'(?<![\w.])ns[.:](\w+)\s*\(', code):
+                called.setdefault(m.group(1), (rel, i))
+
+    return [(name, where[0], where[1]) for name, where in sorted(called.items())
+            if name not in defined]
+
+
 def find_colon_call_on_dot_function(root: str, toc_files: set[str]) -> list[tuple]:
     """`ns:Foo(x)` where Foo is declared `function ns.Foo(param)`.
 
@@ -517,6 +567,15 @@ def main() -> int:
     if len(shifted) > 20:
         print(f"    ... and {len(shifted) - 20} more")
     hard += len(shifted)
+
+    # 9. ns.Foo() called but never defined (HARD -- a dead control the user can click)
+    undef = find_undefined_ns_calls(root, toc_files)
+    print(f"\n[9] ns functions called but never defined: {len(undef)}")
+    for name, rel, ln in undef[:20]:
+        print(f"    HARD  ns.{name}()   {rel}:{ln}")
+    if len(undef) > 20:
+        print(f"    ... and {len(undef) - 20} more")
+    hard += len(undef)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")

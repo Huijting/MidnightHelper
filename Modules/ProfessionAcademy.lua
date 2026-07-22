@@ -470,6 +470,20 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 					body = intro:gsub("|n", "\n") .. "\n\n" .. body
 				end
 			end
+			-- "You are past the starter build" paragraph, after the body and before
+			-- the levelling route. Same optional-key pattern as introKey: a chapter
+			-- without it renders exactly as before, and a language that has not
+			-- translated it yet simply does not show it.
+			--
+			-- Rob hit the gap this answers: his three recommended Enchanting roots
+			-- were done, he had 30 Knowledge spare, and every line in the addon was
+			-- written for someone still building UP to that point (2026-07-22).
+			if ch.advancedKey then
+				local adv = SL(ch.advancedKey)
+				if adv and adv ~= "" and adv ~= ch.advancedKey then
+					body = body .. "\n\n" .. adv:gsub("|n", "\n")
+				end
+			end
 			if ch.key == "trees" and treesAdvice ~= "" then
 				body = body .. "\n" .. treesAdvice
 			end

@@ -162,21 +162,18 @@ local GOAL_DEFS = {
 	{ id = "self", labelKey = "PROFHUB_GOAL_SELF", ttKey = "PROFHUB_GOAL_TT_SELF" },
 }
 
-local function RefreshGoalChrome()
-	if not (hub and hub._phGoalButtons) then
-		return
-	end
-	local active = (ns.MH_GetProfAdvisorGoal and ns.MH_GetProfAdvisorGoal()) or "allround"
-	for id, btn in pairs(hub._phGoalButtons) do
-		if id == active then
-			btn:SetAlpha(1)
-			TintButtonTextures(btn, TAB_TEX_ACTIVE[1], TAB_TEX_ACTIVE[2], TAB_TEX_ACTIVE[3])
-		else
-			btn:SetAlpha(0.85)
-			TintButtonTextures(btn, TAB_TEX_INACTIVE[1], TAB_TEX_INACTIVE[2], TAB_TEX_INACTIVE[3])
-		end
-	end
-end
+--- The "Advice goal" picker (Allround / Gold / Self-sufficient) was REMOVED on
+--- 2026-07-22. Its three buttons called ns.MH_SetProfAdvisorGoal and
+--- ns.MH_GetProfAdvisorGoal, neither of which was ever written -- so clicking did
+--- nothing, while tooltips explained in detail what each goal would pick. Rob was
+--- looking straight at it and had no way to know.
+---
+--- Making it work is not a UI job: it needs a curated advisor route PER GOAL per
+--- profession, and there is exactly one route per profession in
+--- ProfessionAcademyData.advisorRoutes. Inventing gold-vs-self-sufficient build
+--- orders for eleven professions is precisely the kind of guess this addon does
+--- not make. GOAL_DEFS and the PROFHUB_GOAL_* locale keys are kept so the picker
+--- can come back the day those routes exist and are verified.
 
 --- Accessory hint: profession gear slots 21/22 (prof 1) and 24/25 (prof 2).
 --- Accessories are optional for starters — the gearup chapter only requires
@@ -214,18 +211,6 @@ local function RefreshOverview()
 	end
 	if hub._phOverviewHeader then
 		hub._phOverviewHeader:SetText(SL("TAB_PROFESSIONS"))
-	end
-	if hub._phGoalLabel then
-		hub._phGoalLabel:SetText(SL("PROFHUB_GOAL_LABEL"))
-	end
-	if hub._phGoalButtons then
-		for _, def in ipairs(GOAL_DEFS) do
-			local btn = hub._phGoalButtons[def.id]
-			if btn then
-				btn:SetText(SL(def.labelKey))
-			end
-		end
-		RefreshGoalChrome()
 	end
 	if hub._phOverviewText then
 		local text = ns.MH_GetProfessionsOverviewText and ns.MH_GetProfessionsOverviewText() or ""
@@ -322,54 +307,11 @@ function ns.BuildProfessionsHubPanel(panel)
 	oh:SetJustifyH("LEFT")
 	panel._phOverviewHeader = oh
 
-	-- Tree Advisor goal picker: changes which curated route the advice
-	-- lines follow (per character; Allround = the v1 default routes).
-	local goalLabel = overview:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	goalLabel:SetPoint("TOPLEFT", oh, "BOTTOMLEFT", 0, -8)
-	goalLabel:SetJustifyH("LEFT")
-	goalLabel:SetTextColor(0.78, 0.74, 0.68)
-	panel._phGoalLabel = goalLabel
-
-	panel._phGoalButtons = {}
-	local prevBtn
-	for _, def in ipairs(GOAL_DEFS) do
-		local btn = CreateFrame("Button", "MidnightHelperProfGoal_" .. def.id, overview, "UIPanelButtonTemplate")
-		btn:SetSize(110, 20)
-		if prevBtn then
-			btn:SetPoint("LEFT", prevBtn, "RIGHT", 4, 0)
-		else
-			btn:SetPoint("LEFT", goalLabel, "RIGHT", 8, 0)
-		end
-		local id = def.id
-		btn:SetScript("OnClick", function()
-			if ns.MH_SetProfAdvisorGoal then
-				ns.MH_SetProfAdvisorGoal(id)
-			end
-			RefreshOverview()
-		end)
-		-- What does this goal actually choose, and why?
-		local labelKey, ttKey = def.labelKey, def.ttKey
-		btn:SetScript("OnEnter", function(self)
-			if not GameTooltip then
-				return
-			end
-			GameTooltip:SetOwner(self, "ANCHOR_TOP")
-			GameTooltip:SetText(SL(labelKey), 1, 0.88, 0.45)
-			GameTooltip:AddLine(SL(ttKey), 0.85, 0.85, 0.85, true)
-			GameTooltip:Show()
-		end)
-		btn:SetScript("OnLeave", function()
-			if GameTooltip then
-				GameTooltip:Hide()
-			end
-		end)
-		panel._phGoalButtons[def.id] = btn
-		prevBtn = btn
-	end
+	-- (goal picker removed -- see the note above RefreshGoalChrome)
 
 	local ot = overview:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	ot:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-	ot:SetPoint("TOPLEFT", goalLabel, "BOTTOMLEFT", 0, -10)
+	ot:SetPoint("TOPLEFT", oh, "BOTTOMLEFT", 0, -10)
 	ot:SetPoint("RIGHT", overview, "RIGHT", -16, 0)
 	ot:SetJustifyH("LEFT")
 	ot:SetWordWrap(true)
