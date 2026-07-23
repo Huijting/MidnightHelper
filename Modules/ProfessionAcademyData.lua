@@ -139,14 +139,25 @@ ns.PROF_ACADEMY = {
 	},
 
 	advisorRoutes = {
+		-- Blacksmithing: RECIPE tree first, then the efficiency trees. Corrected
+		-- 2026-07-24 (Rob) — it used to lead with "The Old Ways" (a Multicraft/
+		-- Resourcefulness efficiency tree) with no documented reason. wow-professions'
+		-- Midnight Blacksmithing build for beginners is explicit: 1) Armorsmithing OR
+		-- Weaponsmithing, 2) The Old Ways, 3) Craftsmithing. A beginner wants to be able
+		-- to MAKE gear first (self-sufficient); the stat boosts help what you can craft,
+		-- so they come after. (Enchanting deliberately leads with efficiency instead —
+		-- there its chapter/consensus says Spellbound Shatterer first. Per profession.)
 		[164] = {
-			{ tree = "The Old Ways" },
 			{ anyOf = { "Armorsmithing", "Weaponsmithing" } },
+			{ tree = "The Old Ways" },
 			{ tree = "Craftsmithing" },
 		},
+		-- Leatherworking: same correction. Guide order = armour recipe tree(s) first,
+		-- then Learned Leatherworker (efficiency) for optimization. It used to lead
+		-- with Learned Leatherworker.
 		[165] = {
-			{ tree = "Learned Leatherworker" },
 			{ anyOf = { "Lasting Leather", "Safeguarding Scales" } },
+			{ tree = "Learned Leatherworker" },
 			{ tree = "Flawless Fortes" },
 		},
 		[171] = {
@@ -167,7 +178,13 @@ ns.PROF_ACADEMY = {
 			{ anyOf = { "Sin'dorei Finery", "Fiber Arts" } },
 			{ tree = "Fabric Specialist" },
 		},
+		-- Engineering: was ONLY "Recycling" (an efficiency tree) with no recipe tree
+		-- at all — the one clearly broken route. Corrected 2026-07-24 against
+		-- wow-professions: a beginner builds a recipe tree they enjoy (gadgets, goggles
+		-- or tools), then Recycling for the big skill/yield bonus. anyOf so the advice
+		-- follows whichever recipe tree the player already started.
 		[202] = {
+			{ anyOf = { "Market Mobility", "Combat Analytics", "Bits and Bots" } },
 			{ tree = "Recycling" },
 		},
 		[333] = {
@@ -185,9 +202,17 @@ ns.PROF_ACADEMY = {
 			{ tree = "Glamorous Gems" },
 			{ tree = "Proficient Processor" },
 		},
+		-- Inscription: the guide's popular build LEADS with Calm Hands (an efficiency
+		-- tree — Multicraft/Resourcefulness for all Inscription), then Perfected
+		-- Products (reagents/inks everyone needs). Our route omitted Calm Hands and led
+		-- with Blueprints (niche weapon/tool recipes). Corrected 2026-07-24 against
+		-- wow-professions. (Efficiency-first here, unlike Blacksmithing — it genuinely
+		-- differs per profession; JC leads with efficiency too, BS/LW/Alch/Eng with
+		-- recipes.)
 		[773] = {
-			{ tree = "Blueprints" },
+			{ tree = "Calm Hands" },
 			{ tree = "Perfected Products" },
+			{ tree = "Blueprints" },
 		},
 	},
 
@@ -232,7 +257,7 @@ ns.PROF_ACADEMY = {
 			key = "trees",
 			titleKey = "PROFACAD_CH_TREES_TITLE",
 			bodyKey = "PROFACAD_CH_TREES_BODY",
-			introKey = "PROFACAD_CH_TREES_INTRO",
+			introKey = "PROFACAD_CH_TREES_INTRO",
 			advancedKey = "PROFACAD_CH_TREES_ADVANCED",
 			taskKey = "PROFACAD_CH_TREES_TASK",
 			detect = "kpspent",
@@ -271,7 +296,7 @@ ns.PROF_ACADEMY = {
 			key = "enchanting",
 			titleKey = "PROFACAD_CH_ENCHANTING_TITLE",
 			bodyKey = "PROFACAD_CH_ENCHANTING_BODY",
-			introKey = "PROFACAD_CH_ENCHANTING_INTRO",
+			introKey = "PROFACAD_CH_ENCHANTING_INTRO",
 			advancedKey = "PROFACAD_CH_ENCHANTING_ADVANCED",
 			taskWaypoint = "glamourTeacher",
 			taskKey = "PROFACAD_CH_ENCHANTING_TASK",
