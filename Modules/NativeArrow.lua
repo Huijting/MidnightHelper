@@ -586,7 +586,13 @@ local function Tick()
 			local dx, dy = pwx - twx, pwy - twy
 			parkedOnRare = (dx * dx + dy * dy) <= (RARE_ARRIVAL * RARE_ARRIVAL)
 		end
-		if parkedOnRare and not (InCombatLockdown and InCombatLockdown()) then
+		-- Only count down when the rare is genuinely NOT here: parked on the spot,
+		-- out of combat, AND no killable vignette nearby. Without the vignette check
+		-- the timer bailed off a rare that was still alive while the player stood
+		-- next to it before engaging (Cisca, 2026-07-24).
+		local rareStillHere = ns.IsRareVignetteNearWorld
+			and ns.IsRareVignetteNearWorld(pwx, pwy, RARE_ARRIVAL)
+		if parkedOnRare and not rareStillHere and not (InCombatLockdown and InCombatLockdown()) then
 			lostRareTicks = lostRareTicks + 1
 			if lostRareTicks >= LOST_RARE_SECONDS then
 				lostRareTicks = 0

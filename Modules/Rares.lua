@@ -967,6 +967,47 @@ local function VignetteWorldPos(vignetteGUID, mapID)
 	return MapPosToWorld(mapID, x, y)
 end
 
+-- Is a killable rare vignette on the current map within `yards` of (wx, wy)?
+--
+-- The arrow's lost-rare timer uses this so it does NOT bail off a rare that is
+-- simply still there. Cisca's test, 2026-07-24: flew to a ritual, detoured to a
+-- rare, arrived while it was ALIVE, stood next to it a moment before engaging —
+-- and the arrow gave up and returned to the ritual after 10s. Its vignette was
+-- right there the whole time; we just were not checking. A present vignette means
+-- "the rare is here, keep pointing at it".
+--
+-- Err on the side of NOT abandoning: VignetteKillClass nil (unknown) counts as
+-- possibly-rare, so only a vignette we are SURE is a treasure/POI is ignored.
+function ns.IsRareVignetteNearWorld(wx, wy, yards)
+	if not (wx and wy and C_VignetteInfo and C_VignetteInfo.GetVignettes) then
+		return false
+	end
+	local mapID = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	if not mapID then
+		return false
+	end
+	local okList, vignettes = pcall(C_VignetteInfo.GetVignettes)
+	if not okList or type(vignettes) ~= "table" then
+		return false
+	end
+	local r = tonumber(yards) or 60
+	local r2 = r * r
+	for vi = 1, #vignettes do
+		local guid = vignettes[vi]
+		local okInfo, info = pcall(C_VignetteInfo.GetVignetteInfo, guid)
+		if okInfo and info and VignetteKillClass(info) ~= false then
+			local vx, vy = VignetteWorldPos(guid, mapID)
+			if vx and vy then
+				local dx, dy = vx - wx, vy - wy
+				if (dx * dx + dy * dy) <= r2 then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
 -- Live "is this rare here right now" detection. C_VignetteInfo.GetVignettes()
 -- (no args) returns the vignette GUIDs the client currently sees around the
 -- player — the same source RareScanner uses. We only trust it while the player
