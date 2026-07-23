@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.10.0
+
+- New: profession advice on This Week and beside the Blizzard profession window - names the tree to fill, then the exact node once the recommended trees are done, with every open choice listed and what it does (read live from the game, all eleven professions, localized). Build order verified against current guides per profession; corrected Blacksmithing, Leatherworking, Engineering (had no recipe tree) and Inscription.
+- New: /mh kp (what weekly Knowledge is readable), /mh nodes (dumps the spec-tree nodes to SavedVariables), /mh crests (crest sources straight from the game).
+- New: the Professions course opens each chapter with a plain-language intro and tells you where to click to spend points (Specializations tab); "academy" now finds the course in search.
+- New: personal milestones, a Codex tip of the day on This Week, and season counters (groundwork for a look-back).
+- New: findability - search results scroll, side panels and the profession course are searchable, and clickable rows in side panels highlight on hover.
+- Fixed: the route arrow returns to the route you interrupted after a rare detour - on kill, on someone else's kill, or when the rare is already gone on arrival; it stays on a rare that is still alive.
+- Fixed: Veteran crest count was a hundred too high (took the wrong currency id); the weekly essence line no longer poses as progress it cannot read; a non-existent weekly cap claim was removed; three dead "Advice goal" buttons were removed; Jennara Sunglow's location was wrong in seven languages.
+
 ## 2.9.0
 
 - New: side panels beside Blizzard's own windows - character sheet (enchants, sockets, tier set, upgrade ceiling), Mythic+ (Great Vault dungeon row), Adventure Guide (tips for the selected boss) and mount collection (wishlist). Draggable, position remembered, /mh panelreset restores them.
