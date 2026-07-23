@@ -209,9 +209,14 @@ ns.PROF_ACADEMY = {
 		-- wow-professions. (Efficiency-first here, unlike Blacksmithing — it genuinely
 		-- differs per profession; JC leads with efficiency too, BS/LW/Alch/Eng with
 		-- recipes.)
+		-- Two sources disagree on the middle tree's name: wow-professions writes
+		-- "Perfected Products", method.gg writes "Perfect Products". Rob has no
+		-- Inscription character to settle it, so list BOTH spellings — anyOf matches
+		-- whichever one the game actually uses and the other simply never resolves.
+		-- Calm Hands and Blueprints are confirmed identically by both sources.
 		[773] = {
 			{ tree = "Calm Hands" },
-			{ tree = "Perfected Products" },
+			{ anyOf = { "Perfected Products", "Perfect Products" } },
 			{ tree = "Blueprints" },
 		},
 	},
