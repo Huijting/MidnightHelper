@@ -879,8 +879,18 @@ local function RouteRare(rare, clearOthers)
 	-- (see the release in the event handler below).
 	if clearOthers then
 		ns._mhRarePrevOwner = "rare"
+		ns._mhRarePrevLead = nil
 	elseif ns._mhRouteOwner ~= "rare" then
 		ns._mhRarePrevOwner = ns._mhRouteOwner
+		-- Also remember WHERE that route was pointing. The owner label alone was not
+		-- enough: for a ritual/worldboss/campaign route (owner "waypoint") nothing
+		-- watches for the arrow to come free, so the label was saved and then thrown
+		-- away, and "keeps your route" quietly broke (Rob flew to a ritual, tagged a
+		-- rare, and never got the ritual arrow back — 2026-07-22). We snapshot the
+		-- destination now, while it is still the interrupted route's, and re-point the
+		-- arrow at it once the rare is done. Captured from the CACHE (activeLead), not
+		-- ns.lastTarget, so a zone handler nil'ing lastTarget can't lose it.
+		ns._mhRarePrevLead = ns.GetActiveArrowLead and ns.GetActiveArrowLead() or nil
 	end
 	-- Claim the shared arrow so an active achievement/treasure route stands down
 	-- and reclaims it once this rare is done. We remember THIS rare's quest so the
@@ -1895,6 +1905,38 @@ function ns.DebugRareScan()
 	end
 end
 
+-- The routed rare is done: give the arrow back to whatever it interrupted.
+--
+-- Two kinds of interrupted route, handled differently on purpose:
+--   • achievement / treasure — these run their own reclaim watcher that grabs the
+--     arrow the moment it is free (owner == nil). Leave them to it, exactly as
+--     before; re-pointing here as well would fight that watcher.
+--   • everything else with a saved destination (ritual / worldboss / campaign /
+--     reset — all route as "waypoint") has NO watcher. THIS is what broke "keeps
+--     your route": the arrow went dark and nobody picked it up. Re-point it at the
+--     saved lead ourselves, restoring the original owner so the arrow keeps its
+--     own colour/lifecycle.
+local function ResumePrevRouteOrRelease()
+	local prevOwner, prevLead = ns._mhRarePrevOwner, ns._mhRarePrevLead
+	ns._mhLastRoutedRareQuest = nil
+	ns._mhRarePrevOwner = nil
+	ns._mhRarePrevLead = nil
+
+	if prevOwner == "achievement" or prevOwner == "treasure" then
+		ns._mhRouteOwner = nil -- their watcher reclaims on owner == nil
+		return
+	end
+	if prevLead and prevLead.mapID and ns.AddSmartTomTomWay then
+		-- Set the owner first: AddSmartTomTomWay respects an already-set managed owner
+		-- (e.g. "reset") and re-affirms "waypoint", so the resumed route keeps its
+		-- identity instead of always becoming a generic waypoint.
+		ns._mhRouteOwner = prevOwner
+		ns.AddSmartTomTomWay(prevLead.mapID, prevLead.x, prevLead.y, prevLead.name)
+		return
+	end
+	ns._mhRouteOwner = nil -- nothing was routing before the rare
+end
+
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("QUEST_LOG_UPDATE")
 ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
@@ -1921,9 +1963,8 @@ ev:SetScript("OnEvent", function(_, event)
 	if ns._mhRouteOwner == "rare" then
 		local q = ns._mhLastRoutedRareQuest
 		if not IsRareHuntActive() then
-			ns._mhRouteOwner = nil
-			ns._mhLastRoutedRareQuest = nil
-			ns._mhRarePrevOwner = nil
+			-- Whole hunt finished: resume whatever it interrupted (or release).
+			ResumePrevRouteOrRelease()
 		elseif q and IsRareDoneThisWeek(q) then
 			if ns._mhRarePrevOwner == "rare" then
 				-- We detoured from a rare route to another rare and looted it, but the
@@ -1933,11 +1974,10 @@ ev:SetScript("OnEvent", function(_, event)
 				-- a half-finished route.
 				ns._mhLastRoutedRareQuest = nil
 			else
-				-- We detoured from an achievement/treasure route (or from nothing at
-				-- all). Hand the arrow back; that route watches for owner == nil.
-				ns._mhRouteOwner = nil
-				ns._mhLastRoutedRareQuest = nil
-				ns._mhRarePrevOwner = nil
+				-- Detoured from a ritual/achievement/treasure route (or nothing) and
+				-- looted the rare while others still stand: resume the interrupted
+				-- route now — the rest of the hunt is not this token's job.
+				ResumePrevRouteOrRelease()
 			end
 		end
 	end

@@ -188,6 +188,16 @@ end
 -- Our own cached lead. Survives transient ns.lastTarget = nil from zone handlers.
 local activeLead
 
+-- A snapshot of where the arrow points right now, for a route that wants to hand
+-- control to a detour and get it back later. Reads the CACHE, not ns.lastTarget,
+-- because zone handlers nil the latter mid-hunt (that is why activeLead exists).
+function ns.GetActiveArrowLead()
+	if activeLead and activeLead.mapID then
+		return { mapID = activeLead.mapID, x = activeLead.x, y = activeLead.y, name = activeLead.name }
+	end
+	return nil
+end
+
 -- Per-lead caches so the ~30 Hz arrow loop doesn't recompute a stationary target
 -- every tick (review F3.3). The target's world coords change only when the lead
 -- changes; the label string only when the shown distance/name changes.
