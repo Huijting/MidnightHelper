@@ -1725,27 +1725,27 @@ end
 --- -> entry.definitionID -> GetDefinitionInfo -> spellID -> spell name. Every step
 --- is pcall'd; a node we cannot name is skipped rather than shown as a number.
 function ns.ResolveTraitNodeName(configID, node)
-		if type(node) ~= "table" or type(node.entryIDs) ~= "table" then
-			return nil
-		end
-		for _, entryID in ipairs(node.entryIDs) do
-			local okE, entry = pcall(C_Traits.GetEntryInfo, configID, entryID)
-			if okE and type(entry) == "table" and entry.definitionID then
-				local okD, defn = pcall(C_Traits.GetDefinitionInfo, entry.definitionID)
-				if okD and type(defn) == "table" then
-					if type(defn.overrideName) == "string" and defn.overrideName ~= "" then
-						return defn.overrideName
-					end
-					if defn.spellID and C_Spell and C_Spell.GetSpellName then
-						local okN, nm = pcall(C_Spell.GetSpellName, defn.spellID)
-						if okN and type(nm) == "string" and nm ~= "" then
-							return nm
-						end
-					end
-				end
-			end
-		end
-		return nil
+		if type(node) ~= "table" or type(node.entryIDs) ~= "table" then
+			return nil
+		end
+		for _, entryID in ipairs(node.entryIDs) do
+			local okE, entry = pcall(C_Traits.GetEntryInfo, configID, entryID)
+			if okE and type(entry) == "table" and entry.definitionID then
+				local okD, defn = pcall(C_Traits.GetDefinitionInfo, entry.definitionID)
+				if okD and type(defn) == "table" then
+					if type(defn.overrideName) == "string" and defn.overrideName ~= "" then
+						return defn.overrideName
+					end
+					if defn.spellID and C_Spell and C_Spell.GetSpellName then
+						local okN, nm = pcall(C_Spell.GetSpellName, defn.spellID)
+						if okN and type(nm) == "string" and nm ~= "" then
+							return nm
+						end
+					end
+				end
+			end
+		end
+		return nil
 	end
 
 --- What a trait node DOES, in one sentence, or nil.
@@ -1776,34 +1776,37 @@ function ns.ResolveTraitNodeDescription(configID, node)
 				if type(text) == "string" and text ~= "" then
 					text = text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
 					text = text:gsub("%s+", " ")
-					-- Unresolved spell variables. C_Spell.GetSpellDescription hands these
-					-- profession spells back with raw placeholders ($ev1, $en1) instead of
-					-- numbers, so the list showed "granting you +$ev1 $en1 per point" (Rob,
-					-- 2026-07-22). Cut the sentence off at the last clause break BEFORE the
-					-- placeholder: the part that identifies the node comes first, and the
-					-- part that got mangled is always the trailing "+N per point" clause.
-					-- Still only truncation -- nothing is reworded.
-					local dollar = text:find("%$")
-					if dollar then
-						-- Cut at the placeholder, then drop a DANGLING single word after a comma
-						-- ("..., gaining"). Cutting at the last comma instead would have eaten a
-						-- list item: "Weapon, Chest, and Ring enchantments" became "Weapon, Chest".
-						text = text:sub(1, dollar - 1):gsub("[%s%+,;]+$", "")
-						-- A trailing clause of one or two words is left-over connective tissue
-						-- ("..., gaining", "..., granting you"). Three or more is content: the list
-						-- "Weapon, Chest, and Ring enchantments" must survive intact.
-						text = text:match("^(.*),%s*%a+%s*$") or text
-						text = text:match("^(.*),%s*%a+%s+%a+%s*$") or text
-					end
+					-- FIRST SENTENCE FIRST, then clean up a placeholder inside it.
+					-- The old order (cut at $ first, then take the sentence) left a bare
+					-- "Gain." for a node whose description STARTS with "Gain +$ev1 ..."
+					-- (Rob, 2026-07-23): the $-cut produced "Gain", which then had no
+					-- sentence end and became "Gain." on its own line.
 					local first = text:match("^(.-[%.!?])%s") or text
-					first = first:gsub("[%s,;%+]+$", "")
-					if first == "" then
+					-- Unresolved spell variables ($ev1/$en1): C_Spell.GetSpellDescription
+					-- hands these profession spells back with raw placeholders instead of
+					-- numbers. If one survived into the sentence, cut there. The node's
+					-- identifying words come first; the mangled part is always the trailing
+					-- "+N per point" clause. Truncation only -- nothing is reworded.
+					local dollar = first:find("%$")
+					if dollar then
+						first = first:sub(1, dollar - 1):gsub("[%s%+,;]+$", "")
+						-- Drop a dangling one/two-word connective ("..., gaining",
+						-- "..., granting you"). Three+ words is content: the list
+						-- "Weapon, Chest, and Ring enchantments" must survive intact.
+						first = first:match("^(.*),%s*%a+%s*$") or first
+						first = first:match("^(.*),%s*%a+%s+%a+%s*$") or first
+					end
+					first = first:gsub("^%s+", ""):gsub("[%s,;%+]+$", "")
+					-- A one-word remnant ("Gain", "Learn") is a fragment, not a
+					-- description: show nothing rather than a stray word.
+					local _, words = first:gsub("%S+", "")
+					if words < 2 then
 						return nil
 					end
 					if not first:match("[%.!?]$") then
 						first = first .. "."
 					end
-					return (first:gsub("^%s+", ""))
+					return first
 				end
 			end
 		end
