@@ -1686,8 +1686,20 @@ function ns.PrintProfessionNodeProbe()
 	-- gegarandeerd dezelfde naam voor dezelfde node.
 	local NodeName = ns.ResolveTraitNodeName
 
+	-- Also SAVE the whole thing, so it doesn't have to be screenshotted or copied
+	-- out of chat (Rob, 2026-07-24: the output is a wall of text). After running this
+	-- and /reload, MidnightHelperDB.probeNodes holds the structured result and the
+	-- maintainer reads it straight from the SavedVariables file — zero copying.
+	local dump = {}
+	if ns.db then
+		ns.db.probeNodes = dump
+	end
+
 	for _, p in ipairs(list) do
-		print(("%s |cff40c040%s|r — nodes the game reports:"):format(prefix, tostring(p.baseName or p.name)))
+		local profName = tostring(p.baseName or p.name)
+		print(("%s |cff40c040%s|r — nodes the game reports:"):format(prefix, profName))
+		local profDump = { profession = profName, nodes = {} }
+		dump[#dump + 1] = profDump
 		local okC, configID = pcall(C_ProfSpecs.GetConfigIDForSkillLine, p.midnightLine)
 		local okT, treeIDs = pcall(C_ProfSpecs.GetSpecTabIDsForSkillLine, p.midnightLine)
 		if not (okC and configID and okT and type(treeIDs) == "table") then
@@ -1711,6 +1723,18 @@ function ns.PrintProfessionNodeProbe()
 								shown, maxShown = math.max(shown - 1, 0), maxShown - 1
 							end
 							print(("      %-40s %s/%s"):format(name, tostring(shown), tostring(maxShown)))
+							-- Only the real, named, multi-rank choices are worth saving; the
+							-- 0/1 unlock nodes are noise for building advice from.
+							if maxShown > 1 and ns.ResolveTraitNodeName and NodeName(configID, node) then
+								profDump.nodes[#profDump.nodes + 1] = {
+									tree = tostring(treeID),
+									name = name,
+									purchased = shown,
+									max = maxShown,
+									desc = ns.ResolveTraitNodeDescription
+										and ns.ResolveTraitNodeDescription(configID, node) or nil,
+								}
+							end
 						end
 					end
 				end
@@ -1718,6 +1742,7 @@ function ns.PrintProfessionNodeProbe()
 		end
 	end
 	print("   " .. prefix .. " do these names match the tooltips in your Specializations tab?")
+	print("   " .. prefix .. " |cff8a8f98saved to SavedVariables — /reload and it can be read from the file, no copying.|r")
 end
 
 --- The display name of a trait node, or nil when the game will not give one.
