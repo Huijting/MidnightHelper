@@ -14,12 +14,13 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 
 **Beside Blizzard's own windows**
 - Open your **character sheet** and a small panel appears next to it: missing enchants, empty sockets, your tier set, and which slots have hit their **upgrade-track ceiling**.
-- The **Mythic+** window shows your Great Vault dungeon row with the item level each filled slot is offering. The **Adventure Guide** shows the tips for whichever boss you selected, for your role. The **mount collection** shows your wishlist.
+- The **Mythic+** window shows your Great Vault dungeon row with the item level each filled slot is offering. The **Adventure Guide** shows the tips for whichever boss you selected, for your role. The **mount collection** shows your wishlist. The **profession window** shows what's waiting on that profession — Knowledge left to spend, and your trainer weekly.
 - Panels follow the window when you move it, and you can drag them wherever you like — they remember. `/mh panelreset` puts them all back.
 
 **This Week (home)**
 - **"Next up"** leads the page: the single most useful thing you can do right now, with a **Take me there** button that sets the route, and a tally of how far you are through the week. While you're levelling it never proposes endgame content you can't do yet.
 - **Home dashboard**: weekly reset countdown, account-wide Great Vault status, this week's world boss, weekly chores (SMC, keys, shards), Ritual Sites and Void Assaults with one-click routes, and shortcuts to Rares, Raids and your mount hunt. Fold any section away — your choice is remembered.
+- Quiet touches that look **back**, not just ahead: a **Codex tip of the day**, and **milestones** that mark your genuine firsts once and never nag again.
 
 **Collectible mounts**
 - **Collectible mounts** tab — a checklist of the **19 new Midnight mounts**: a green tick for the ones you own, a red cross for the rest.
@@ -56,7 +57,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 
 **Rares**
 - **Rares** tab with per-character weekly tracking: pick the nearest incomplete rare or build a full **route** (nearest-neighbour ordering, world-coordinate distances).
-- **Live rare-nearby alerts** — sound + on-screen toast when a tracked rare is up near you, even with the window closed; distance-gated; clicking the toast adds a waypoint without wiping a route you're already following.
+- **Live rare-nearby alerts** — sound + on-screen toast when a tracked rare is up near you, even with the window closed; distance-gated; clicking the toast steers you to the rare and then **returns you to the route you were on** — whether you kill it, someone else does, or it's already gone when you arrive.
 
 **Delves & weekly progress**
 - Delves dashboard: currencies, season progress, and bountiful tracking.
@@ -73,7 +74,8 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 
 **Account & professions**
 - **Account snapshot** — per-character overview (keys, shards, undercoins, item level, profession weekly currencies in tooltips), with a sort/filter toolbar, a stale-since-Wednesday badge, and compact vault status per row.
-- **Professions** tools and overview, plus a **Professions 101** beginner course and a new **Guided mode** — a step-by-step, take-you-by-the-hand wizard that walks a total newcomer through learning and levelling any of the 11 professions, ticking steps off as your skill grows.
+- **"Where do my Knowledge Points go?"** — the Professions overview names the tree to fill, then the exact node to spend on once the recommended trees are done, and lists every open choice with **what it actually does** — read live from the game, so it works for all **11 professions** and in your own language. The recommended build order is checked against the current guides per profession. Where the best pick is genuinely your call, it explains the options instead of pretending there's one right answer.
+- **Professions 101** beginner course — each chapter opens with a plain-language intro before the build text and tells you where to actually click to spend points (the Specializations tab). A **Guided mode** wizard walks a total newcomer through learning and levelling any of the 11 professions, ticking steps off as your skill grows.
 
 **Gear: what to do when a slot is maxed**
 - `/mh tracks` lists which equipped slots are at their upgrade-track ceiling and names the two ways onward: the **Great Vault**, and **crafting**.
