@@ -11,3 +11,4 @@ Modules/Broker.lua.bak
 
 # Release artifacts (build locally with tools/package.ps1)
 dist/
+docs/*.tmp
