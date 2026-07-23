@@ -38,6 +38,14 @@ local DEFAULT_SIZE, MIN_SIZE, MAX_SIZE = 64, 28, 160
 local RARE_ARRIVAL = 40
 local rareReached, rareReachKey = false, nil
 
+-- Seconds parked on a detour rare's spot, out of combat, with the rare not there,
+-- before we give the arrow back to the route it interrupted. Someone else may have
+-- killed it just before you arrived (no quest credit → the normal resume never
+-- fires), or it despawned. The 1s Tick counts these; combat resets them, so a real
+-- fight is never abandoned mid-swing.
+local LOST_RARE_SECONDS = 10
+local lostRareTicks = 0
+
 -- Per-content styling for the arrow: which type of route currently owns the shared
 -- arrow (ns._mhRouteOwner) decides the accent colour and the little badge icon that
 -- sits next to the target name. Icon paths are plain Interface\Icons textures (always
@@ -563,6 +571,33 @@ local function Tick()
 	if pwx and twx then
 		local dx, dy = pwx - twx, pwy - twy
 		atLead = (dx * dx + dy * dy) <= (20 * 20)
+	end
+
+	-- Lost detour rare: parked on the spot, out of combat, and it is simply not here.
+	-- Only for a SINGLE detour (a quest token is set — a full hunt auto-advances) that
+	-- has a route to go back to (_mhRarePrevLead). We do not care WHY the rare is gone
+	-- (someone else killed it, or it despawned); after LOST_RARE_SECONDS on an empty
+	-- spot we hand the arrow back to the interrupted route instead of leaving it stuck.
+	-- Combat resets the count, so a rare you are actually fighting is never abandoned.
+	if ns._mhRouteOwner == "rare" and ns._mhLastRoutedRareQuest and ns._mhRarePrevLead
+		and ns.ResumeInterruptedRareRoute then
+		local parkedOnRare = false
+		if pwx and twx then
+			local dx, dy = pwx - twx, pwy - twy
+			parkedOnRare = (dx * dx + dy * dy) <= (RARE_ARRIVAL * RARE_ARRIVAL)
+		end
+		if parkedOnRare and not (InCombatLockdown and InCombatLockdown()) then
+			lostRareTicks = lostRareTicks + 1
+			if lostRareTicks >= LOST_RARE_SECONDS then
+				lostRareTicks = 0
+				ns.ResumeInterruptedRareRoute()
+				return
+			end
+		else
+			lostRareTicks = 0
+		end
+	else
+		lostRareTicks = 0
 	end
 
 	-- A single-destination route (delve / generic waypoint) has no auto-advance, so

@@ -1937,6 +1937,12 @@ local function ResumePrevRouteOrRelease()
 	ns._mhRouteOwner = nil -- nothing was routing before the rare
 end
 
+-- Exposed for NativeArrow: it fires this when you have been parked on a detour
+-- rare's spot, out of combat, and the rare is not there — the "someone else killed
+-- it before I arrived" case, where the quest never flags and the normal resume
+-- above never runs. Same restore logic either way.
+ns.ResumeInterruptedRareRoute = ResumePrevRouteOrRelease
+
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("QUEST_LOG_UPDATE")
 ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
