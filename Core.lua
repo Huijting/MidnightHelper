@@ -1190,6 +1190,51 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh finditem <tekst> — zoek items in je tassen op naamfragment en print hun
+	-- itemID. Dev/verify-hulpje voor captures: anders dan currencies zijn item-ids
+	-- NIET blind te sweepen (GetItemInfo geeft nil voor alles wat niet in je cache
+	-- zit), dus het item moet je echt bezitten. Bedoeld voor o.a. de S2-curios.
+	if msg == "finditem" or msg:match("^finditem ") then
+		local needle = msg:match("^finditem%s+(.+)$")
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		if not (C_Container and C_Container.GetContainerNumSlots and C_Container.GetContainerItemInfo) then
+			print(prefix .. " container API not available")
+			return
+		end
+		if needle then
+			needle = needle:lower()
+		end
+		print(("%s Bag scan%s:"):format(prefix, needle and (" for \"" .. needle .. "\"") or " (everything)"))
+		local hits, shown = 0, 0
+		for bag = 0, 5 do
+			local okSlots, numSlots = pcall(C_Container.GetContainerNumSlots, bag)
+			if okSlots and type(numSlots) == "number" and numSlots > 0 then
+				for slot = 1, numSlots do
+					local okInfo, info = pcall(C_Container.GetContainerItemInfo, bag, slot)
+					if okInfo and type(info) == "table" and info.itemID then
+						-- Naam uit de hyperlink: die is geladen zodra het item in je tas ligt,
+						-- dus geen wachten op een async GetItemInfo.
+						local link = info.hyperlink
+						local name = link and link:match("%[(.-)%]") or "?"
+						if (not needle) or name:lower():find(needle, 1, true) then
+							hits = hits + 1
+							if shown < 40 then
+								shown = shown + 1
+								print(("   |cff40c040%-34s|r id %-7s %s"):format(name, tostring(info.itemID), link or ""))
+							end
+						end
+					end
+				end
+			end
+		end
+		if hits == 0 then
+			print("   |cffff8080nothing in your bags matched|r — you have to own the item; item ids cannot be scanned blind.")
+		elseif hits > shown then
+			print(("   ... and %d more (narrow the search)"):format(hits - shown))
+		end
+		return
+	end
+
 	if msg == "capture" or msg == "coord" or msg == "rarecapture" then
 		-- Dev/verify-hulpje: print een pasteable rare-regel (mapID + coords +
 		-- target-npcID) in het ns.RARE_ZONES-formaat { questId, mapID, x, y, name, npcId }.
