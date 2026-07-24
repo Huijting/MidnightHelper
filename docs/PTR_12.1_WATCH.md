@@ -142,3 +142,44 @@ raken MH's data niet, tenzij een housing-vendor/currency in onze hub valt (zoals
 - [2026-07-22] ℹ️ **Build 68629 weekly-recap (Wowhead, 21 jul) — verder niets nieuws bovenop het reeds gelogde.** Gecheckt: **Corrosive Powers** (world-tier-only bracer/belt-enhancements — al gelogd als Corrosive Power), **friends list/social pane-overhaul** (al gelogd 15 jul, out-of-scope), **native M+ enemy-forces-count in tooltips** (native, MH toont dit niet → out-of-scope), **epilogue-cinematic-tekst** (lore/spoiler → out-of-scope), **Simon-Says-memory-mechanic voor Delve-Nemesis Azta'rec** (mechaniek — DelveCoach-tip-kandidaat, geen data-capture), **Ral'kala 50× verslaan = extra Prey-achievement** (achievementID nog niet gedataminet → capturen voor Achievements-module), en **nieuwe combat-potions/consumables voor S2** (licht MH-raakvlak: als MissingBuff/consumable-checks ooit flask/pot-IDs hardcoden, later de nieuwe consumable-IDs meenemen — nu enkel noteren). Class-editorials/tier-set-reviews per spec = out-of-scope tuning. **Geen nieuwe build sinds 68675**; de dev notes van 21 jul noemen geen nieuw buildnummer. ⏰ Status ongewijzigd: **Chapter 1 live sinds 7 jul**; **Chapter 2 ("Ghosts of the Past", quest 95528)** nog niet bevestigd live → volgend live-capture-venster; geprojecteerde 12.1-live-datum ~11 aug (onbevestigd). — bron: https://www.wowhead.com/news/patch-12-1-ptr-news-and-datamining-recap-for-last-week-build-68629-382220 (PTR, in-game verifiëren)
 - [2026-07-23] 🔁 **Dagelijkse scanpas 23 jul (scheduled run) — geen nieuwe MH-relevante feiten.** Gecontroleerd: Wowhead /ptr + news, Icy Veins news, Blizzard-forums (Curse of Ula'tek dev-notes-thread), MMO-Champion builds. **Nog steeds geen build ná 68675** en **geen dev notes ná 21 jul**; het nieuwste materiaal (map-coords/`/mappin` shift-click-share, Vaults-corrosive-questgate, Coffer Key Shard-tuning, S2-dungeon-testvenster 21–27 jul + Tidebound-Grotto-Lair, Build 68629 weekly-recap) staat al gelogd op 21–22 jul. Losse nieuwe artikelen blijven out-of-scope: grote class-/tier-set-tuning (Blood-DK +20% melee, Havoc, Hunter's Mark → 1 target, Scalecommander-Evoker CDR-rework) en lore/spoiler-cinematic-tekst. ⏰ Status ongewijzigd: Chapter 1 live sinds 7 jul; Chapter 2 (quest 95528) nog niet bevestigd live; 12.1-live-window ~aug (onbevestigd, ~11 aug geprojecteerd). — bron: https://www.wowhead.com/ptr · https://www.icy-veins.com/wow/news/coordinated-added-to-map-big-class-tuning-midnight-12-1-ptr-development-notes-july-21st/ (PTR, in-game verifiëren)
 - [2026-07-23] 🔁 Tweede scheduled scanpas 23 jul — bevestigt: niets nieuws. Gecheckt Wowhead /ptr + news, Icy Veins, Blizzard-forums, MMO-Champion. Nieuwste materiaal blijft de 21-jul dev notes (382229: map-coords/`/mappin`-shift-click-share, Blade's Edge Arena terug, Hunter's Mark → 1 target, Vaults-corrosive-questgate, Coffer Key Shard-tuning, S2-dungeon-testvenster 21–27 jul + Tidebound-Grotto-Lair HC/Mythic) en de build 68629 weekly-recap — beide al gelogd op 21–22 jul. **Geen nieuwe build ná 68675, geen dev notes ná 21 jul.** Losse nieuwe artikelen = out-of-scope class-/tier-set-tuning + lore/spoiler-cinematic. ⏰ Status ongewijzigd: Chapter 1 live sinds 7 jul; Chapter 2 (quest 95528) nog niet bevestigd live; 12.1-live ~aug (onbevestigd). — bron: https://www.wowhead.com/ptr · https://www.wowhead.com/news/patch-12-1-ptr-development-notes-class-tuning-blades-edge-map-coordinates-382229 (PTR, in-game verifiëren)
+- [2026-07-24] 🚀 **12.1 PTR is nu een RELEASE CANDIDATE-build (Wowhead, 23 jul) — launch aanstaande, MH-planning-trigger.** Blizzard pushte een RC-build; volgens Wowhead verschijnen RC's doorgaans **~2-3 weken vóór live** (de 12.0.7-RC was 27 mei, live 16 jun). Ion Hazzikostas: de meeste grote wijzigingen zouden nu klaar moeten zijn om last-minute breuk te vermijden. → MH: dit is het **startsein om de 12.1-scaffold release-klaar te maken** — `## Interface 120100`-bump voorbereiden, alle gelogde API-audits (aura-API/`MissingBuff`, `SetScript`/`HookScript` op Blizzard-frames, `GetInventorySlotInfo`→`C_PaperDollInfo`, `UIParentLoadAddOn`→`LoadAddOnWithErrorHandling`, Roleset/`GetHiddenGroupBuffs`) afronden, en de Great-Vault-World-rij (Ritual Sites Tier 1-6 + concession-drempel) + S2-crest-matrix in de weekly-planner zetten. Data/IDs (currency, encounter, quest, achievement) blijven **in-game capturen** zodra live/testbaar. — bron: https://www.wowhead.com/news/patch-12-1-ptr-now-a-release-candidate-patch-soon-382250 (PTR, in-game verifiëren)
+- [2026-07-24] 🗓️ **Concrete releasedatum-marker: Tidebound Grotto (raid-Lair, Nymrissa Wavecaller) staat op de PTR gepland voor 18 aug (Wowhead, 23 jul) → sterkt de projectie Patch 12.1 = 11 aug, Season 2 = 18 aug.** De in-game PTR-datum (18 aug voor de Lair) + Turbulent Timeways die op 11 aug eindigt + de 8-weken-cadans na 12.0.7 wijzen alle naar **11 aug patch / 18 aug S2** (de RC-build past hierbij: ~2-3 weken vóór live). **Nog niet officieel door Blizzard bevestigd.** → MH: de eerder gelogde ~11-aug-projectie wordt hiermee de **werkdatum voor de release-planning**; mik erop dat het 12.1-scaffold + toc-bump vóór 11 aug staat, met een live-capture-venster vanaf patch-dag en S2-content (raid/M+/Nemesis/Bountiful Delves) vanaf 18 aug. — bron: https://www.wowhead.com/news/tidebound-grotto-noted-to-release-on-august-18th-on-the-12-1-ptr-382240 (PTR, in-game verifiëren)
+- [2026-07-24] ℹ️ Verder geen níeuwe MH-relevante 12.1-content/data in het 23-24 jul-venster. Scan Wowhead /ptr + news, Icy Veins, Blizzard-forums, MMO-Champion: nieuwe **dev notes 'Class Bug Fixes'** (382249: Druid/Evoker/Hunter/Monk-fixes + Holy-Pala Venomous-Abyss-4set krijgt +60% Holy-Light-manakost) = **out-of-scope class-tuning**; geen nieuwe zone-/quest-/currency-/achievement-IDs, geen nieuwe API-diff bovenop het reeds gelogde. Het RC-buildnummer is in de gescande bronnen nog niet apart gedataminet. ⏰ Status: Chapter 1 live sinds 7 jul; Chapter 2 (quest 95528) nog niet bevestigd live → volgend live-capture-venster; **live-window nu geconcretiseerd op 11 aug / S2 18 aug (onbevestigd).** — bron: https://www.wowhead.com/news/patch-12-1-ptr-development-notes-class-bug-fixes-382249 · https://www.wowhead.com/ptr (PTR, in-game verifiëren)
+
+## 🐞 EERSTE ECHTE 12.1-BUG IN MH — gevonden 2026-07-24 (Rob, delve-gevecht op de PTR)
+
+**9x tijdens een gevecht in een delve:**
+```
+Blizzard_SharedXML/Backdrop.lua:226: attempt to perform arithmetic on local 'width'
+(a secret number value, while execution tainted by 'MidnightHelper')
+  Backdrop.lua:226 SetupTextureCoordinates
+  [C]: in function 'Show'
+  MidnightHelper/Modules/CombatSafety.lua:574
+```
+
+**Wat er gebeurt.** `CombatSafety.lua:140` maakt een glow-frame met een BackdropTemplate
+(`edgeFile` + `edgeSize = 14`) dat via TOPLEFT/BOTTOMRIGHT aan het icoon hangt. Op regel
+**574** roept MH `f:Show()` aan. Blizzards backdrop-code leest dan de breedte van dat
+frame — en in restricted content (delve) is die breedte in 12.1 een **secret number**.
+Rekenen op een secret waarde terwijl de uitvoering "tainted by MidnightHelper" is =
+fout. In de locals staat het letterlijk: `width=<secret number>`, `height=<secret
+number>`, terwijl `effectiveScale` en `edgeSize` wél leesbaar zijn.
+
+**Waarom dit nieuw is.** Dit is de 12.1-uitbreiding van het secret-value-systeem
+waarvoor de watchlijst waarschuwde. Op 12.0.7 gebeurt het niet.
+
+**Nog NIET gefixt — niet blind aan sleutelen.** Kandidaat-richtingen, geen van beide
+geverifieerd:
+1. Het glow-frame **geen backdrop** geven maar losse texture-randen, zodat Blizzards
+   backdrop-rekenwerk niet draait. Raakt alleen het uiterlijk.
+2. Het frame een **expliciete SetSize** geven in plaats van twee ankerpunten, zodat de
+   breedte niet uit een (secret) anker volgt. Goedkoopst als het werkt.
+3. In restricted content de backdrop overslaan (`C_Secrets.HasSecretRestrictions()`).
+
+Eerst uitzoeken **waaróm** de breedte secret is: die volgt uit het icoon-frame, dus de
+vraag is welke schakel daar de secret-eigenschap binnenbrengt. Meten voor het bouwen —
+dit is precies zo'n bug waar drie plausibele fixes in het niets kunnen slaan.
+
+**Overige stand van deze PTR-sessie:** MH laadt schoon op 12.1 (geen laadfouten), de
+zelflerende seizoensgate flipte zelfstandig naar S2, en alle Mistcrest-ids zijn
+gecaptured — zie `CREST_SOURCES_MEASURED.md`.

@@ -1041,8 +1041,11 @@ function ns.PrintCompanionTreeProbe()
 		return
 	end
 	local okTree, treeID = pcall(C_DelvesUI.GetTraitTreeForCompanion, companionID)
-	if not okTree or not treeID then
-		print(prefix .. " no trait tree for companion " .. tostring(companionID))
+	-- 0 is TRUTHY in Lua, so "not treeID" let a missing tree through and the probe
+	-- went on to ask for a config id for tree 0 (Rob, PTR 2026-07-24). Treat 0 as
+	-- "no tree" and say what to do about it.
+	if not okTree or not treeID or treeID == 0 then
+		print(prefix .. " no trait tree for companion " .. tostring(companionID) .. " - open Valeera's window (the delve companion panel) and run this again")
 		return
 	end
 	local okCfg, configID = pcall(C_Traits.GetConfigIDByTreeID, treeID)
