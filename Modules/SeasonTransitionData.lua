@@ -48,6 +48,17 @@ ns.SEASON_TRANSITION = {
 		-- confirmed in-game. Never a guessed id.
 		{ id = "aotc", textKey = "ST_CLOSE_AOTC", manual = true },
 		{ id = "ce", textKey = "ST_CLOSE_CE", manual = true },
+		-- Delver's Journey. Not an achievement but a track you are part-way along, so
+		-- it gets its own status type (see SeasonTransition's `journey` branch) and
+		-- shows the live rank instead of a tick.
+		--
+		-- ⚠️ IT DOES NOT WARN ABOUT LOSING ANYTHING. Several guide sites claim
+		-- unclaimed rewards are lost forever at the season flip. Warcraft Wiki says
+		-- otherwise: afterwards they are sold by Telemancer Astrandis with no unlock
+		-- requirement, at a much higher Voidlight Marl price. So the honest line is
+		-- "finishing now is cheaper than buying later" — a nudge, not an alarm.
+		-- Do not let anyone sharpen this wording later.
+		{ id = "delver_journey", textKey = "ST_CLOSE_JOURNEY", journey = true },
 	},
 	-- Phase B — the run-up to S2. Shown once the client is on 12.1.
 	prep = {

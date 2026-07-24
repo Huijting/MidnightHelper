@@ -113,6 +113,16 @@ local function itemStatus(item)
 		return questStatus(item.quest)
 	elseif item.mount then
 		return mountStatus(item.mount)
+	elseif item.journey then
+		-- A track, not a goal: it is never "done" while the season is still running,
+		-- so the best honest answer is "there is still something to gain here".
+		-- Unreadable stays "unknown" — we never claim a rank we could not read, and
+		-- never call it finished.
+		local st = ns.GetDelverJourneyStatus and ns.GetDelverJourneyStatus()
+		if not st or not st.readable then
+			return "unknown"
+		end
+		return "todo"
 	end
 	-- manual: only ever "done" (hand-ticked) or "unknown" (awaiting a tick) — never
 	-- an auto "todo" we can't back up.
@@ -170,13 +180,23 @@ function ns.GetSeasonTransitionSteps()
 	local function push(item, todoColor)
 		local status = itemStatus(item)
 		local color = (status == "done") and "good" or (status == "todo" and todoColor or "dim")
+		local text = L(item.textKey)
+		-- A journey item names the rank you are actually on, so the line is about YOUR
+		-- progress rather than a generic reminder. Only when it could be read: the
+		-- generic text stands in otherwise, never "rank 0".
+		if item.journey then
+			local st = ns.GetDelverJourneyStatus and ns.GetDelverJourneyStatus()
+			if st and st.readable then
+				text = (L("ST_CLOSE_JOURNEY_AT")):format(st.rank)
+			end
+		end
 		local onClick
 		if item.manual then
 			onClick = function()
 				ns.ToggleSeasonManual(item.id)
 			end
 		end
-		steps[#steps + 1] = { text = L(item.textKey), color = color, status = status, onClick = onClick }
+		steps[#steps + 1] = { text = text, color = color, status = status, onClick = onClick }
 	end
 
 	if phase == "closing" then

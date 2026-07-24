@@ -1534,6 +1534,47 @@ local function _checkDelvesFrames()
 	return missing
 end
 
+--- Delver's Journey standing, read live from the game.
+--- @return table|nil { rank=, earned=, needed=, readable= } — nil when unreadable
+---
+--- No faction id is hardcoded: C_DelvesUI hands us the faction for the CURRENT
+--- delve season, so this keeps working in Season 2 without an edit. The season
+--- number itself is asked for the same way, defaulting to 1 only when the game
+--- will not say.
+---
+--- nil means "we could not read it", never "you have nothing". A caller that
+--- turns nil into rank 0 would be inventing a standing — the season-end checklist
+--- shows its generic line instead (see SeasonTransition's "unknown" status).
+function ns.GetDelverJourneyStatus()
+	if not (C_DelvesUI and C_DelvesUI.GetDelvesFactionForSeason) then
+		return nil
+	end
+	local season = 1
+	if C_DelvesUI.GetCurrentDelvesSeasonNumber then
+		local okS, sn = pcall(C_DelvesUI.GetCurrentDelvesSeasonNumber)
+		if okS and sn ~= nil then
+			season = math.floor(tonumber(sn) or 1)
+		end
+	end
+	local okF, factionID = pcall(C_DelvesUI.GetDelvesFactionForSeason, season)
+	if not okF or not factionID then
+		return nil
+	end
+	if not (C_MajorFactions and C_MajorFactions.GetMajorFactionData) then
+		return nil
+	end
+	local okD, data = pcall(C_MajorFactions.GetMajorFactionData, factionID)
+	if not okD or type(data) ~= "table" or data.renownLevel == nil then
+		return nil
+	end
+	return {
+		rank = math.floor(tonumber(data.renownLevel) or 0),
+		earned = math.floor(tonumber(data.renownReputationEarned or data.renownReputationYielded) or 0),
+		needed = math.floor(tonumber(data.renownLevelThreshold or data.renownRequirement) or 0),
+		readable = true,
+	}
+end
+
 -- fullRefresh=false: currencies, vault, layout — skip delve POI row rebuild (main stutter source).
 local function PaintDelvesPanel(fullRefresh)
 	if fullRefresh == nil then
@@ -1803,34 +1844,14 @@ local function PaintDelvesPanel(fullRefresh)
 	--------------------------------------------------------------------------------
 	-- Phase 17: Companion / portrait / XP bar / curios removed — Delver's Journey only at top.
 	--------------------------------------------------------------------------------
-	local season = 1
-	if C_DelvesUI and C_DelvesUI.GetCurrentDelvesSeasonNumber then
-		local okS, sn = pcall(C_DelvesUI.GetCurrentDelvesSeasonNumber)
-		if okS and sn ~= nil then
-			season = math.floor(tonumber(sn) or 1)
-		end
-	end
-
-	local factionID
-	if C_DelvesUI and C_DelvesUI.GetDelvesFactionForSeason then
-		local okF, fid = pcall(C_DelvesUI.GetDelvesFactionForSeason, season)
-		if okF and fid then
-			factionID = fid
-		end
-	end
-
-	if factionID and C_MajorFactions and C_MajorFactions.GetMajorFactionData then
-		local okD, data = pcall(C_MajorFactions.GetMajorFactionData, factionID)
-		if okD and data and type(data) == "table" and data.renownLevel ~= nil then
-			local rank = math.floor(tonumber(data.renownLevel) or 0)
-			local repAmount = math.floor(tonumber(data.renownReputationEarned or data.renownReputationYielded) or 0)
-			local repMax = math.floor(tonumber(data.renownLevelThreshold or data.renownRequirement) or 0)
-			journeyHeader:SetText(string.format(ns:L("DELVES_JOURNEY_RANK"), rank, repAmount, repMax))
-			journeyHeader:SetTextColor(1, 0.95, 0.88)
-			journeyHeader:Show()
-		else
-			journeyHeader:Hide()
-		end
+	-- Reads through ns.GetDelverJourneyStatus (defined above) so this panel and the
+	-- season-end checklist can never disagree about the same rank.
+	local journey = ns.GetDelverJourneyStatus()
+	if journey and journey.readable then
+		journeyHeader:SetText(string.format(ns:L("DELVES_JOURNEY_RANK"),
+			journey.rank, journey.earned, journey.needed))
+		journeyHeader:SetTextColor(1, 0.95, 0.88)
+		journeyHeader:Show()
 	else
 		journeyHeader:Hide()
 	end
