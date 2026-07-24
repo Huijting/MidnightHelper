@@ -1329,6 +1329,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh valeera — benoem elke node in de trait-tree van je delve-companion.
+	if msg == "valeera" or msg == "companion" then
+		if ns.PrintCompanionTreeProbe then ns.PrintCompanionTreeProbe() end
+		return
+	end
+
 	if msg == "curiodebug" then
 		if ns.DebugCompanionRole then
 			ns.DebugCompanionRole()

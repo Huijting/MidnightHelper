@@ -556,3 +556,33 @@ geen Zygor-guide-prose overgenomen.
 - [2026-07-22] Hotfix 21 jul: **Nexus-Captain Leth'ir** liet het questitem voor **"Knocking Off the Top (Heroic)"** niet droppen; gefixt → raakt de tracked world boss Leth'ir in Naigtal (WorldBoss.lua); Leth'ir dropt naast Fragment of Alien Magic (Folio wk5) nu weer betrouwbaar het Heroic-showdown-questitem — bron: https://www.wowhead.com/blue-tracker/topic/us/world-of-warcraft-midnight-hotfixes-july-21-2296045 (auto, in-game verifiëren)
 - [2026-07-22] Hotfix 21 jul: de unlocks **"Bouncy Mushrooms", "Aerospores" en "The Grappler" in Naigtal zijn nu account-wide** (waren per-char) → raakt Naigtal-Showdown-zone (tracked); alts hoeven deze traversal-unlocks niet opnieuw te doen — relevant voor MH route/zone-tracking in Naigtal — bron: https://www.wowhead.com/blue-tracker/topic/us/world-of-warcraft-midnight-hotfixes-july-21-2296045 (auto, in-game verifiëren)
 - [2026-07-22] ⚠️ **Correctie bij de twee [2026-07-22]-regels hierboven**: die twee items (Leth'ir "Knocking Off the Top"-questitem-fix + de Naigtal-unlocks "Bouncy Mushrooms/Aerospores/The Grappler" account-wide) staan bij navlooien van de volledige hotfix-lijst onder **"June 17, 2026"**, niet onder 21 jul — dus prior-run-mis-attributie. De **échte 21-jul-hotfix** bevat qua MH-tracked data enkel: **quest-fix** — Dawnwell-questgivers staan nu correct om "From Darkness, Light" in te leveren en blijven staan tot de speler **"Hagar's Invitation"** heeft opgepakt → raakt de 12.1-lead-in chapter-1-route (Hagar's Invitation = questID 92895, zie [2026-07-12]-regel). De rest van 21 jul = Decor Duel + PvP-tuning (niet MH-relevant) — bron: https://www.wowhead.com/blue-tracker/topic/us/world-of-warcraft-midnight-hotfixes-july-21-2296045 (auto, in-game verifiëren)
+
+## 12.1 PTR, 2026-07-24 — Valeera: de poison-keuze is BEVESTIGD
+
+Rob's companion-venster op de PTR (screenshot), Valeera Sanguinar level 60:
+
+- **Combat Role:** Damage Dealer
+- **Poisons: Poison of the Forgotten Master** — met een keuzemenu van drie:
+  **Bloodcrypt Toxin** · **Poison of the Forgotten Master** · **Soulthirst Venom**
+- Combat Curio: *Empty* · Utility Curio: *Empty*
+
+Daarmee is de voorspelling uit `MH_HANDOFF_2026-07-24.md` (blok 4) bevestigd: in
+Season 1 hing de poison vast aan haar rol, in Season 2 kies je hem zelf uit hetzelfde
+menu als de curios. **Dat is een gat in de curio-advisor, geen breuk** — MH adviseert
+nu niets over poisons.
+
+⚠️ **Nog GEEN ids.** De drie namen komen van een screenshot, niet uit een capture.
+Voor de advisor zijn spell-/entry-ids nodig, en die moeten uit de client komen.
+Daarvoor is `/mh valeera` gebouwd: die loopt de trait-tree van de companion af
+(`GetTraitTreeForCompanion` → `GetConfigIDByTreeID` → `GetTreeNodes`) en benoemt elke
+entry via dezelfde keten als de professie-nodes. Werkt óók als je niets bezit —
+anders dan `/mh finditem`, dat alleen vindt wat in je tas ligt.
+
+**Curio-item-ids blijven open.** Rob's beide curio-slots waren leeg, dus er viel niets
+te lezen. Item-ids zijn niet blind te sweepen zoals currency-ids (GetItemInfo geeft
+nil voor alles wat niet gecachet is), dus dit wacht op curios in bezit — of op wat
+`/mh valeera` uit de tree oplevert.
+
+Level cap: Valeera stond op **60**. De handoff noemt 60→80 voor S2; dat is op deze
+build dus (nog) niet zichtbaar. Niet als weerlegging noteren — Rob heeft haar simpelweg
+niet verder geleveld.

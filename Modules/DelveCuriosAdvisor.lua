@@ -1006,3 +1006,93 @@ do
 		end
 	end
 end
+
+--- /mh valeera — name every node in the delve companion's trait tree.
+---
+--- Curio item ids cannot be swept the way currency ids can (GetItemInfo returns nil
+--- for anything not cached), and `/mh finditem` only finds what you already own —
+--- Rob's Season 2 curio slots were empty on the PTR, so there was nothing to read.
+--- But the companion's POISONS and CURIOS are offered from her trait tree, and a
+--- tree can be enumerated whether or not you own anything.
+---
+--- Reuses ns.ResolveTraitNodeName (built for the profession advisor): the same
+--- entryIDs -> GetEntryInfo -> definitionID -> GetDefinitionInfo -> spell-name chain,
+--- verified against AskMrRobot. Names therefore come from the client, already
+--- localised, and cannot be a guess.
+---
+--- Confirmed in game 2026-07-24 (12.1 PTR): the poison IS a player choice in
+--- Season 2 — Valeera's panel showed "Poisons: Poison of the Forgotten Master" with
+--- Bloodcrypt Toxin and Soulthirst Venom alongside it, where Season 1 tied the
+--- poison to her role. This probe is how we get the ids behind those names.
+function ns.PrintCompanionTreeProbe()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	if not (C_DelvesUI and C_Traits and C_Traits.GetTreeNodes) then
+		print(prefix .. " C_DelvesUI / C_Traits not available")
+		return
+	end
+	local companionID = DelvesCompanionConfigurationFrame
+		and DelvesCompanionConfigurationFrame.playerCompanionID
+	if not companionID and C_DelvesUI.GetPlayerCompanionPDEID then
+		local okP, pde = pcall(C_DelvesUI.GetPlayerCompanionPDEID)
+		companionID = okP and pde or nil
+	end
+	if not companionID then
+		print(prefix .. " no companion id — open Valeera's window once, then retry")
+		return
+	end
+	local okTree, treeID = pcall(C_DelvesUI.GetTraitTreeForCompanion, companionID)
+	if not okTree or not treeID then
+		print(prefix .. " no trait tree for companion " .. tostring(companionID))
+		return
+	end
+	local okCfg, configID = pcall(C_Traits.GetConfigIDByTreeID, treeID)
+	if not okCfg or not configID then
+		print(prefix .. " no config id for tree " .. tostring(treeID))
+		return
+	end
+	local okNodes, nodes = pcall(C_Traits.GetTreeNodes, treeID)
+	if not okNodes or type(nodes) ~= "table" then
+		print(prefix .. " could not read the tree's nodes")
+		return
+	end
+	print(("%s Companion %s — tree %s, config %s, %d node(s):"):format(
+		prefix, tostring(companionID), tostring(treeID), tostring(configID), #nodes))
+	local named = 0
+	for _, nodeID in ipairs(nodes) do
+		local okI, node = pcall(C_Traits.GetNodeInfo, configID, nodeID)
+		if okI and type(node) == "table" then
+			-- A choice node offers several entries; print each so poisons and curios
+			-- show up individually instead of only the one currently selected.
+			local shown = false
+			if type(node.entryIDs) == "table" and #node.entryIDs > 0 then
+				for _, entryID in ipairs(node.entryIDs) do
+					local okE, entry = pcall(C_Traits.GetEntryInfo, configID, entryID)
+					if okE and type(entry) == "table" and entry.definitionID then
+						local okD, defn = pcall(C_Traits.GetDefinitionInfo, entry.definitionID)
+						if okD and type(defn) == "table" then
+							local nm = defn.overrideName
+							if (type(nm) ~= "string" or nm == "") and defn.spellID and C_Spell and C_Spell.GetSpellName then
+								local okN, sn = pcall(C_Spell.GetSpellName, defn.spellID)
+								nm = okN and sn or nil
+							end
+							if type(nm) == "string" and nm ~= "" then
+								named = named + 1
+								shown = true
+								print(("   |cff40c040%-34s|r node %-7s entry %-7s spell %s"):format(
+									nm, tostring(nodeID), tostring(entryID), tostring(defn.spellID)))
+							end
+						end
+					end
+				end
+			end
+			if not shown and (node.maxRanks or 0) > 0 then
+				print(("   |cff888888(unnamed)|r node %-7s ranks %s/%s"):format(
+					tostring(nodeID), tostring(node.ranksPurchased or 0), tostring(node.maxRanks)))
+			end
+		end
+	end
+	if named == 0 then
+		print("   |cffff8080nothing could be named — open Valeera's window and retry|r")
+	end
+	print("   " .. prefix .. " |cff8a8f98names come from your client. Match them to the poisons/curios on her panel.|r")
+end
