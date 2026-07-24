@@ -564,3 +564,50 @@ function ns.PrintCrestProbe()
 	end
 	print("   " .. prefix .. " if every description is EMPTY we must source the text elsewhere, not invent it.")
 end
+
+--- /mh crestscan — walk the player's whole currency list and show every "crest".
+---
+--- WHY THIS EXISTS. `/mh crests` only iterates the ids we already know
+--- (ns.DAWNCREST_TIERS), so it is blind to any currency Blizzard ADDS. On the 12.1
+--- PTR with M+ season 18 live, that probe still reported six "Dawncrest" entries
+--- describing "Midnight Season 1" — which proves the old ids did not change, but
+--- says nothing about whether new Season 2 crests exist under different ids.
+--- Datamined sources call them "Mistcrest"; this answers whether the game agrees,
+--- before anyone renames 300+ strings on the strength of a guide.
+---
+--- Walks C_CurrencyInfo.GetCurrencyListSize/GetCurrencyListInfo — the same pair
+--- Baganator uses for the currency panel (CurrencyPanel.lua:498), so this is the
+--- list the player's own Currencies tab shows.
+---
+--- Honest limit: a currency the character has never seen may not be listed at all.
+--- "Not found" therefore means "not in your list", not "does not exist".
+function ns.PrintCrestScan()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListSize and C_CurrencyInfo.GetCurrencyListInfo) then
+		print(prefix .. " currency list API not available")
+		return
+	end
+	local okSize, size = pcall(C_CurrencyInfo.GetCurrencyListSize)
+	if not okSize or not size or size == 0 then
+		print(prefix .. " currency list is empty (open the Currencies tab once, then retry)")
+		return
+	end
+	print(("%s Currency list — every entry with \"crest\" in the name (%d rows):"):format(prefix, size))
+	local header, hits = "?", 0
+	for i = 1, size do
+		local okI, info = pcall(C_CurrencyInfo.GetCurrencyListInfo, i)
+		if okI and type(info) == "table" and info.name then
+			if info.isHeader then
+				header = info.name
+			elseif info.name:lower():find("crest") then
+				hits = hits + 1
+				print(("   |cff40c040%-26s|r id %-6s qty %-6s  [%s]"):format(
+					info.name, tostring(info.currencyID), tostring(info.quantity), header))
+			end
+		end
+	end
+	if hits == 0 then
+		print("   |cffff8080no currency with \"crest\" in the name is in your list|r")
+	end
+	print("   " .. prefix .. " |cff8a8f98a currency you have never seen may not be listed at all - absence is not proof.|r")
+end

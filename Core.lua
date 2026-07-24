@@ -1406,6 +1406,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh crestscan — loop de hele currency-lijst af en toon elke "crest".
+	if msg == "crestscan" then
+		if ns.PrintCrestScan then ns.PrintCrestScan() end
+		return
+	end
+
 	if msg == "crests" then
 		if ns.PrintCrestProbe then ns.PrintCrestProbe() end
 		return
