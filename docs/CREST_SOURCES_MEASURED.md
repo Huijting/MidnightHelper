@@ -153,3 +153,57 @@ where 3341 was the real one. Both showed `totalEarned=0` there, so that tiebreak
 does not work on a copied character. MH picks the primary id, so it would show 0
 where the tab may show 290. Check the PTR currency tab on the character that has
 them before treating this as a bug.
+
+## ✅ SETTLED — Season 2 crests ARE "Mistcrest" (12.1 PTR, `/mh crestfind`, 2026-07-24)
+
+The client named them. The handoff was right and the Dawn→Venom hypothesis on this
+page (written one message earlier, from the Venomblight Manaflux sighting) was
+**wrong** — Venomblight is the manaflux family only; the crests are Mistcrest.
+
+### Season 2 — Mistcrest ids, captured
+
+| Tier | id (set A) | id (set B) |
+|---|---|---|
+| Adventurer | 3437 | 3442 |
+| Veteran | 3438 | 3443 |
+| Champion | 3439 | 3444 |
+| Hero | 3440 | 3445 |
+| Myth | 3441 | 3446 |
+
+All read `qty 0` and `Season 2` on that character. **Two full sets of five**, grouped
+(3437-3441, then 3442-3446) — not paired consecutively the way Season 1 is.
+
+Also captured: **Venomblight Manaflux id 3465** (Season 2), the counterpart of
+**Dawnlight Manaflux id 3378** (Season 1).
+
+### Season 1 — the duplicate pairs, now fully visible
+
+| Tier | id A (qty) | id B (qty) |
+|---|---|---|
+| Adventurer | 3383 (0) | **3391 (180)** |
+| Veteran | 3341 (0) | **3342 (290)** |
+| Champion | 3343 (0) | **3344 (30)** |
+| Hero | 3345 (0) | **3346 (30)** |
+| Myth | 3347 (0) | 3348 (0) |
+
+⚠️ **This reopens the "which id is real" question, and the answer is not simply
+"the primary".** On LIVE (2026-07-22) the tab showed Veteran = 120 = id **3341**, and
+3342's 220 was rejected because `totalEarned` was 0. On this PTR character the
+reverse holds: 3341 = 0 while **3342 = 290**. So MH (which takes the primary id since
+2.10.0) would report 0 Veteran crests here.
+
+Note the S1 layout is also inconsistent: Adventurer pairs 3383↔**3391**, not 3384.
+Any rule of the form "second id wins" or "primary id wins" is therefore a guess.
+**Do not change `GetTierCurrencyQty` on the strength of this PTR reading** — a copied
+character is not a clean sample. Settle it on a character whose currency tab actually
+lists the crests, using the tab as the arbiter, exactly as live was settled.
+
+Related oddity: on that PTR character the currency tab showed **no crests at all**
+(only a Season 1 header with Untainted Mana-Crystals, and a Season 2 header with
+Venomblight Manaflux), while `GetCurrencyInfo` happily returned 290 for 3342. So the
+UI hides what the API still answers. Worth knowing before trusting either alone.
+
+### Do not pick this up
+
+`Test Myth Dawncrest` **id 3543** (Season 1) is a developer test currency that the
+sweep found. It is not player-facing; keep it out of the data.
