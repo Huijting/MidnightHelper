@@ -120,3 +120,36 @@ totalEarned=0**, which is not how a currency the player has actually earned beha
 Other totals captured, for reference: Adventurer totalEarned=64 (have 54), Champion
 3343 totalEarned=301 (have 31), Hero totalEarned=900 (have 20), Myth totalEarned=240
 (have 240).
+
+## 12.1 PTR, 2026-07-24 — the Mistcrest claim is NOT confirmed by the game
+
+Measured on the 12.1 PTR while **Season 2 was already live** (`/mh season`: live M+
+season id **18**, recorded S1 = 17, so the self-learning gate flipped correctly on
+its own).
+
+`/mh crests` there still reported all six known ids as **"* Dawncrest"**, each
+described as *"Midnight **Season 1**"* — 3383, 3341, 3342, 3343, 3344, 3347. So the
+old ids are untouched.
+
+⚠️ **That probe is blind to new ids** — it only iterates `ns.DAWNCREST_TIERS`. So it
+cannot answer whether Season 2 crests exist under different ids. `/mh crestscan`
+(walks the player's own currency list) was added for that and returned **"no
+currency with 'crest' in the name is in your list"** — but on a character
+(*Theexodus*) that owns zero crests, so they are simply not listed. Absence is not
+proof.
+
+**What the currency tab DID show, and it matters:** a **"Season 2"** header holding
+**Venomblight Manaflux 3**, where Season 1 uses **Dawnlight Manaflux**. Combined with
+Dawn**crest**, that reads as a Dawn→Venom family rename, not Dawn→Mist. The raid
+(*The Venomous Abyss*) and a new delve (*Venomfall Deeps*) point the same way.
+
+**So: do NOT run the 307-occurrence rename to "Mistcrest" on the strength of the
+handoff.** `MH_HANDOFF_2026-07-24.md` block 4 calls it confirmed, sourced from guide
+sites; the client does not agree so far. `/mh crestfind` (numeric id sweep, works on
+currencies the character never earned) was added to settle it from the client.
+
+Unresolved on the PTR: id **3341 read 0 while 3342 read 290** — the reverse of live,
+where 3341 was the real one. Both showed `totalEarned=0` there, so that tiebreaker
+does not work on a copied character. MH picks the primary id, so it would show 0
+where the tab may show 290. Check the PTR currency tab on the character that has
+them before treating this as a bug.

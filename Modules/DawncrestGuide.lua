@@ -611,3 +611,58 @@ function ns.PrintCrestScan()
 	end
 	print("   " .. prefix .. " |cff8a8f98a currency you have never seen may not be listed at all - absence is not proof.|r")
 end
+
+--- /mh crestfind — scan a range of currency ids and name every crest the GAME knows.
+---
+--- The last resort when a currency is not in your list. `/mh crestscan` walks the
+--- player's own currency list, so a currency this character never earned is simply
+--- absent (Rob, PTR 2026-07-24: zero crests on that character, so nothing to see).
+--- GetCurrencyInfo works on ANY id though, so a numeric sweep finds currencies the
+--- character has never touched.
+---
+--- Why it matters: the handoff calls "Mistcrest" confirmed on the strength of
+--- datamining sites, but the PTR's own Season 2 header showed "Venomblight
+--- Manaflux" while Season 1 uses "Dawnlight Manaflux" and "Dawncrest" — a Dawn→Venom
+--- family rename, not Dawn→Mist. Rather than swap one guess for another, this asks
+--- the client and prints whatever it answers.
+---
+--- Matches on "crest" and "manaflux" so the season-currency family shows up too.
+--- Range is deliberate, not magic: Midnight currencies observed so far sit in
+--- 3300-3400 (Dawncrests 3341-3347/3383, Voidlight Marl 3316, Moxie 3402), so a
+--- sweep to 3700 covers those plus room for Season 2 additions.
+function ns.PrintCrestFind(fromID, toID)
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
+		print(prefix .. " currency API not available")
+		return
+	end
+	local a = math.floor(tonumber(fromID) or 3300)
+	local b = math.floor(tonumber(toID) or 3700)
+	if b < a then
+		a, b = b, a
+	end
+	print(("%s Scanning currency ids %d-%d for \"crest\" / \"manaflux\":"):format(prefix, a, b))
+	local hits = 0
+	for id = a, b do
+		local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
+		if ok and type(info) == "table" and type(info.name) == "string" and info.name ~= "" then
+			local lower = info.name:lower()
+			if lower:find("crest") or lower:find("manaflux") then
+				hits = hits + 1
+				local desc = info.description
+				local season = ""
+				if type(desc) == "string" and desc ~= "" then
+					-- The description names the season it belongs to; that single line is
+					-- what tells S1 apart from S2 without us assuming anything.
+					season = desc:match("(Season %d)") or ""
+				end
+				print(("   |cff40c040%-28s|r id %-6s qty %-6s %s"):format(
+					info.name, tostring(id), tostring(info.quantity), season))
+			end
+		end
+	end
+	if hits == 0 then
+		print("   |cffff8080nothing matched in that range|r — try a wider one: /mh crestfind 3000 4200")
+	end
+	print("   " .. prefix .. " |cff8a8f98names come from your client, not from a guide.|r")
+end

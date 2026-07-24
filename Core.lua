@@ -1407,6 +1407,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh crestscan — loop de hele currency-lijst af en toon elke "crest".
+	-- /mh crestfind [van] [tot] — scan currency-ids en laat het spel elke crest benoemen.
+	if msg == "crestfind" or msg:match("^crestfind ") then
+		local f, to = msg:match("^crestfind (%d+) (%d+)$")
+		if ns.PrintCrestFind then ns.PrintCrestFind(tonumber(f), tonumber(to)) end
+		return
+	end
+
 	if msg == "crestscan" then
 		if ns.PrintCrestScan then ns.PrintCrestScan() end
 		return
