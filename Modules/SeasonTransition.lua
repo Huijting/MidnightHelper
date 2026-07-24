@@ -251,12 +251,24 @@ function ns.PrintSeasonTransitionDiagnostics()
 			local src = item.achiev and ("ach " .. item.achiev)
 				or item.quest and ("quest " .. item.quest)
 				or item.mount and ("mount " .. item.mount)
+				or item.journey and "journey"
 				or "manual"
 			local mark = (status == "done") and "|cff44ff44done|r"
 				or (status == "todo") and "|cffffcc00todo|r"
 				or "|cff888888unknown|r"
+			-- Show the line the PLAYER gets, not the raw key: a journey item renders
+			-- its live rank via ST_CLOSE_JOURNEY_AT, so printing L(textKey) here made
+			-- the diagnostic disagree with This Week (Rob, PTR 2026-07-24). This is the
+			-- tool used to verify — it must match what is on screen.
+			local text = L(item.textKey)
+			if item.journey then
+				local st = ns.GetDelverJourneyStatus and ns.GetDelverJourneyStatus()
+				if st and st.readable then
+					text = (L("ST_CLOSE_JOURNEY_AT")):format(st.rank)
+				end
+			end
 			print(("     • %-8s %-12s %s  → %s%s"):format(
-				item.id, src, mark, L(item.textKey),
+				item.id, src, mark, text,
 				name and ("  |cff888888[" .. name .. "]|r") or ""
 			))
 		end
