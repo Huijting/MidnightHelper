@@ -45,7 +45,8 @@ end
 
 --- Fire a milestone once.
 --- @return boolean awarded true only when this call is what earned it
-function ns.AwardMilestone(id, titleKey, bodyKey)
+--- @param icon number|string|nil texture the caller READ from the game, never a guess
+function ns.AwardMilestone(id, titleKey, bodyKey, icon)
 	local s = Store()
 	if not s or type(id) ~= "string" or s[id] then
 		return false
@@ -53,11 +54,35 @@ function ns.AwardMilestone(id, titleKey, bodyKey)
 	s[id] = (time and time()) or 0
 	local title = titleKey and ns:L(titleKey) or ""
 	local body = bodyKey and ns:L(bodyKey) or ""
-	-- Reuse a card if one is ever registered; otherwise chat, so the moment is never
-	-- silently lost. Both paths are pcall'd: a milestone must never break the event
-	-- that produced it.
-	if ns.ShowMilestoneToast then
-		pcall(ns.ShowMilestoneToast, title, body)
+	-- Show it on the addon's own achievement-style card. MidnightToast is a queue with
+	-- exactly that look, already used for the delve bounty, so this is wiring rather
+	-- than a new system. Until now a milestone was a grey chat line — the wrong shape
+	-- for the one feature in here that celebrates something.
+	--
+	-- Keys, not resolved strings: QueueMidnightToast resolves them itself (same as
+	-- DelveItemsPopup), so translations stay in one place.
+	--
+	-- The player's toast setting wins. QueueMidnightToast does nothing when toasts are
+	-- off, and there is deliberately NO chat fallback for that case — routing around
+	-- someone's setting is not a fix. The milestone is still recorded and still shows
+	-- in /mh milestones. Chat remains only for the case where MidnightToast is not
+	-- loaded at all, so the moment is never silently lost.
+	--
+	-- No icon is invented here. Callers pass one only when they could read it from the
+	-- game (the mount's own icon, an achievement's icon); otherwise the toast uses its
+	-- own default rather than a texture id nobody has seen.
+	if ns.QueueMidnightToast then
+		pcall(ns.QueueMidnightToast, {
+			id = "milestone_" .. id, -- the queue de-dupes on id, on top of the store above
+			icon = icon,
+			titleKey = titleKey,
+			bodyKey = bodyKey,
+			onClick = function()
+				if ns.PrintMilestones then
+					ns.PrintMilestones()
+				end
+			end,
+		})
 	else
 		pcall(print, ("|cffe8c36aMidnight Helper|r — %s  %s"):format(title, body))
 	end
@@ -110,7 +135,15 @@ local function CheckTimedKey()
 	end
 	local ok, info = pcall(C_ChallengeMode.GetChallengeCompletionInfo)
 	if ok and type(info) == "table" and info.onTime == true then
-		ns.AwardMilestone("first_timed_key", "MILE_KEY_TITLE", "MILE_KEY_BODY")
+		-- Borrow the Keystone Master achievement's own icon (10th return): real game
+		-- art for a keystone moment, and read rather than guessed. Nil if the id ever
+		-- stops resolving, which just means the toast uses its default.
+		local keyIcon
+		if GetAchievementInfo then
+			local okA, _, _, _, _, _, _, _, _, _, achIcon = pcall(GetAchievementInfo, 61256)
+			keyIcon = okA and achIcon or nil
+		end
+		ns.AwardMilestone("first_timed_key", "MILE_KEY_TITLE", "MILE_KEY_BODY", keyIcon)
 	end
 end
 
@@ -130,11 +163,19 @@ local function CheckWishlistMount()
 		return
 	end
 	for _, mountID in ipairs(wished) do
-		-- isCollected is the 11th return of GetMountInfoByID -- verified against
-		-- MountProgress, which reads the same field. Do not re-count these blanks.
-		local ok, _, _, _, _, _, _, _, _, _, _, collected = pcall(C_MountJournal.GetMountInfoByID, mountID)
+		-- GetMountInfoByID returns, in order: name, spellID, icon, isActive, isUsable,
+		-- sourceType, isFavorite, isFactionSpecific, faction, shouldHideOnChar,
+		-- isCollected, mountID. So icon is the 3rd and isCollected the ELEVENTH —
+		-- MountProgress reads it as v[12] of a pcall table, which is the same thing.
+		--
+		-- ⚠️ This line was off by one from 2026-07-22 until 2026-07-25: it had nine
+		-- blanks, so `collected` was reading shouldHideOnChar. Count the blanks against
+		-- the list above before touching it; a wrong slot here silently celebrates the
+		-- wrong thing, and the failure is invisible.
+		local ok, _, _, mountIcon, _, _, _, _, _, _, _, collected =
+			pcall(C_MountJournal.GetMountInfoByID, mountID)
 		if ok and collected then
-			ns.AwardMilestone("first_wishlist_mount", "MILE_MOUNT_TITLE", "MILE_MOUNT_BODY")
+			ns.AwardMilestone("first_wishlist_mount", "MILE_MOUNT_TITLE", "MILE_MOUNT_BODY", mountIcon)
 			return
 		end
 	end
