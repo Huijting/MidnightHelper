@@ -137,16 +137,47 @@ local function EnsureFrame()
 	f._icon = icon
 
 	-- Rode gloed-rand (pulseert; kind-alpha, dus onzichtbaar als het frame alpha 0 is).
-	local glow = CreateFrame("Frame", nil, f, "BackdropTemplate")
+	--
+	-- ⚠️ GEEN BackdropTemplate HIER — dat gaf op 12.1 een fout in elke delve.
+	-- Deze waarschuwing wordt zichtbaar gemaakt met f:SetAlphaFromBoolean(secret, ...):
+	-- de engine beslist de alpha, zodat Lua nooit op een secret vertakt. Correct, maar
+	-- in 12.1 heeft het een gevolg: een frame waarvan de alpha van een secret afhangt
+	-- krijgt óók een SECRET GEOMETRIE (anders zou je de secret aan de layout kunnen
+	-- aflezen). Blizzards eigen Backdrop.lua rekent bij Show() met die breedte, en dat
+	-- is precies wat klapt:
+	--
+	--   Backdrop.lua:226: attempt to perform arithmetic on local 'width'
+	--   (a secret number value, while execution tainted by 'MidnightHelper')
+	--
+	-- Rob kreeg dat 9x tijdens één delve-gevecht (2026-07-24, 12.1 PTR). In de locals
+	-- stond het bewijs: width en height secret, terwijl effectiveScale en edgeSize
+	-- gewoon leesbaar waren — dus de geometrie, niet het hele frame.
+	--
+	-- Vier losse texturen doen hetzelfde werk zonder één berekening: ze worden puur
+	-- door ankers geplaatst. Alle maten hier zijn vaste constanten (icoon 46x46), dus
+	-- er valt niets te berekenen. De rand is daardoor strak in plaats van de zachte
+	-- tooltip-rand van hiervoor — dat is het zichtbare verschil.
+	local glow = CreateFrame("Frame", nil, f)
 	glow:SetPoint("TOPLEFT", icon, "TOPLEFT", -4, 4)
 	glow:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 4, -4)
-	if glow.SetBackdrop then
-		glow:SetBackdrop({
-			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-			edgeSize = 14,
-		})
-		glow:SetBackdropBorderColor(1, 0.18, 0.18, 1)
+	local GLOW_R, GLOW_G, GLOW_B, GLOW_THICK = 1, 0.18, 0.18, 2
+	local function GlowEdge(point1, rel1, point2, rel2, w, h)
+		local tex = glow:CreateTexture(nil, "OVERLAY")
+		tex:SetColorTexture(GLOW_R, GLOW_G, GLOW_B, 1)
+		tex:SetPoint(point1, glow, rel1, 0, 0)
+		tex:SetPoint(point2, glow, rel2, 0, 0)
+		if w then
+			tex:SetWidth(w)
+		end
+		if h then
+			tex:SetHeight(h)
+		end
+		return tex
 	end
+	GlowEdge("TOPLEFT", "TOPLEFT", "TOPRIGHT", "TOPRIGHT", nil, GLOW_THICK)
+	GlowEdge("BOTTOMLEFT", "BOTTOMLEFT", "BOTTOMRIGHT", "BOTTOMRIGHT", nil, GLOW_THICK)
+	GlowEdge("TOPLEFT", "TOPLEFT", "BOTTOMLEFT", "BOTTOMLEFT", GLOW_THICK, nil)
+	GlowEdge("TOPRIGHT", "TOPRIGHT", "BOTTOMRIGHT", "BOTTOMRIGHT", GLOW_THICK, nil)
 	f._glow = glow
 
 	-- Cooldown-swipe over het icoon (gevuld via duration-object; secret-safe).

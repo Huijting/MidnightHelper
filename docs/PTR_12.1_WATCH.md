@@ -146,6 +146,9 @@ raken MH's data niet, tenzij een housing-vendor/currency in onze hub valt (zoals
 - [2026-07-24] 🗓️ **Concrete releasedatum-marker: Tidebound Grotto (raid-Lair, Nymrissa Wavecaller) staat op de PTR gepland voor 18 aug (Wowhead, 23 jul) → sterkt de projectie Patch 12.1 = 11 aug, Season 2 = 18 aug.** De in-game PTR-datum (18 aug voor de Lair) + Turbulent Timeways die op 11 aug eindigt + de 8-weken-cadans na 12.0.7 wijzen alle naar **11 aug patch / 18 aug S2** (de RC-build past hierbij: ~2-3 weken vóór live). **Nog niet officieel door Blizzard bevestigd.** → MH: de eerder gelogde ~11-aug-projectie wordt hiermee de **werkdatum voor de release-planning**; mik erop dat het 12.1-scaffold + toc-bump vóór 11 aug staat, met een live-capture-venster vanaf patch-dag en S2-content (raid/M+/Nemesis/Bountiful Delves) vanaf 18 aug. — bron: https://www.wowhead.com/news/tidebound-grotto-noted-to-release-on-august-18th-on-the-12-1-ptr-382240 (PTR, in-game verifiëren)
 - [2026-07-24] ℹ️ Verder geen níeuwe MH-relevante 12.1-content/data in het 23-24 jul-venster. Scan Wowhead /ptr + news, Icy Veins, Blizzard-forums, MMO-Champion: nieuwe **dev notes 'Class Bug Fixes'** (382249: Druid/Evoker/Hunter/Monk-fixes + Holy-Pala Venomous-Abyss-4set krijgt +60% Holy-Light-manakost) = **out-of-scope class-tuning**; geen nieuwe zone-/quest-/currency-/achievement-IDs, geen nieuwe API-diff bovenop het reeds gelogde. Het RC-buildnummer is in de gescande bronnen nog niet apart gedataminet. ⏰ Status: Chapter 1 live sinds 7 jul; Chapter 2 (quest 95528) nog niet bevestigd live → volgend live-capture-venster; **live-window nu geconcretiseerd op 11 aug / S2 18 aug (onbevestigd).** — bron: https://www.wowhead.com/news/patch-12-1-ptr-development-notes-class-bug-fixes-382249 · https://www.wowhead.com/ptr (PTR, in-game verifiëren)
 
+- [2026-07-25] 🚀 **Patch 12.1 PTR = RELEASE CANDIDATE (Wowhead, ~45 min oud).** Blizzard pushte een RC-build — doorgaans de laatste (of één van de laatste) volledige PTR-builds vóór live; RC's verschijnen meestal **2-3 weken vóór release** (bij 12.0.7: RC op 27 mei → live 16 juni). Dit **bevestigt hard** de eerder gelogde projectie **11 aug patch / 18 aug Season 2** (nog steeds geen officiële Blizzard-datum). Ion Hazzikostas: de grote wijzigingen zouden nu grotendeels klaar moeten zijn. → MH: **dit is het startschot voor de release-prep.** Zet het 12.1-scaffold + `.toc`-bump op scherp, plan het live-capture-venster (IDs/coords) vanaf patch-dag ~11 aug, en houd rekening met de nog-niet-gefixte CombatSafety secret-value-bug hieronder als release-blocker. Data verandert nu weinig meer, dus captures worden betrouwbaarder. — bron: https://www.wowhead.com/news/patch-12-1-ptr-now-a-release-candidate-patch-soon-382250 (PTR, in-game verifiëren)
+- [2026-07-25] 🗺️ **QoL-wijzigingen voor de S2-M+-legacy-dungeons Ruby Life Pools & Temple of Sethraliss** (beide in de Season 2-rotatie). Blizzard voert quality-of-life-aanpassingen door op beide dungeons (naast de eerder gelogde grotere reworks). → MH: bij het bijwerken van `DungeonRosterData`/`DungeonTipsData` voor de S2-rotatie ook de gewijzigde routes/mechanics van deze twee legacy-dungeons meenemen; details pas hard maken na in-game test. — bron: https://www.wowhead.com/news/quality-of-life-changes-for-ruby-life-pools-and-temple-of-sethraliss-in-midnight-382252 (PTR, in-game verifiëren)
+
 ## 🐞 EERSTE ECHTE 12.1-BUG IN MH — gevonden 2026-07-24 (Rob, delve-gevecht op de PTR)
 
 **9x tijdens een gevecht in een delve:**
@@ -168,6 +171,31 @@ number>`, terwijl `effectiveScale` en `edgeSize` wél leesbaar zijn.
 **Waarom dit nieuw is.** Dit is de 12.1-uitbreiding van het secret-value-systeem
 waarvoor de watchlijst waarschuwde. Op 12.0.7 gebeurt het niet.
 
+✅ **GEFIXT 2026-07-25 — wacht op Robs test in een delve op de PTR.**
+
+De diagnose bleek scherper te stellen dan gisteravond: `effectiveScale` en `edgeSize`
+stonden gewoon leesbaar in de locals, alleen `width` en `height` waren secret. Het is
+dus niet het hele frame maar de **geometrie**. Oorzaak: de waarschuwing wordt getoond
+via `f:SetAlphaFromBoolean(secret, ...)` — de engine beslist de alpha zodat Lua nooit
+op een secret vertakt, precies zoals het hoort. In 12.1 krijgt zo'n frame daardoor óók
+een secret geometrie, anders zou je de secret aan de layout kunnen aflezen.
+
+Fix: de glow-rand gebruikt geen `BackdropTemplate` meer maar vier gekleurde texturen,
+puur door ankers geplaatst. Blizzards `Backdrop.lua` draait daar niet meer, dus er
+valt niets meer te rekenen op een secret. Alle maten waren al vaste constanten
+(icoon 46×46), dus er gaat geen functionaliteit verloren; de rand is nu strak in
+plaats van de zachte tooltip-rand — dat is het enige zichtbare verschil.
+
+Sweep gedaan: `CombatSafety.lua` is het **enige** bestand in de addon dat
+secret-gestuurde zichtbaarheid gebruikt, en de backdrop daar is weg. Geen tweede plek
+met dezelfde combinatie.
+
+⚠️ Dit is een beredeneerde fix, geen bewezen root cause: ik heb niet gemeten dát het
+verwijderen van de backdrop de fout wegneemt. Wat wél zeker is: de code die klapte
+draait niet meer. Rob test het in een delve op de PTR.
+
+<details><summary>Oorspronkelijke analyse (2026-07-24) — kandidaat-richtingen</summary>
+
 **Nog NIET gefixt — niet blind aan sleutelen.** Kandidaat-richtingen, geen van beide
 geverifieerd:
 1. Het glow-frame **geen backdrop** geven maar losse texture-randen, zodat Blizzards
@@ -183,3 +211,4 @@ dit is precies zo'n bug waar drie plausibele fixes in het niets kunnen slaan.
 **Overige stand van deze PTR-sessie:** MH laadt schoon op 12.1 (geen laadfouten), de
 zelflerende seizoensgate flipte zelfstandig naar S2, en alle Mistcrest-ids zijn
 gecaptured — zie `CREST_SOURCES_MEASURED.md`.
+</details>
