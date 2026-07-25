@@ -123,6 +123,15 @@ local function itemStatus(item)
 			return "unknown"
 		end
 		return "todo"
+	elseif item.dawn then
+		-- Unlike the journey, this one CAN be finished: all five earned is genuinely
+		-- done. nil means the achievement API said nothing, which is "unknown" —
+		-- never "you have them all".
+		local d = ns.GetNextDawnAchievement and ns.GetNextDawnAchievement()
+		if not d then
+			return "unknown"
+		end
+		return d.allDone and "done" or "todo"
 	end
 	-- manual: only ever "done" (hand-ticked) or "unknown" (awaiting a tick) — never
 	-- an auto "todo" we can't back up.
@@ -190,6 +199,14 @@ function ns.GetSeasonTransitionSteps()
 				text = (L("ST_CLOSE_JOURNEY_AT")):format(st.rank)
 			end
 		end
+		-- Name the next tier still open, in the game's own wording. With none left the
+		-- generic line stands and the status already reads "done".
+		if item.dawn then
+			local d = ns.GetNextDawnAchievement and ns.GetNextDawnAchievement()
+			if d and d.name then
+				text = (L("ST_CLOSE_DAWN_AT")):format(d.name, d.remaining)
+			end
+		end
 		local onClick
 		if item.manual then
 			onClick = function()
@@ -252,6 +269,7 @@ function ns.PrintSeasonTransitionDiagnostics()
 				or item.quest and ("quest " .. item.quest)
 				or item.mount and ("mount " .. item.mount)
 				or item.journey and "journey"
+				or item.dawn and "dawn"
 				or "manual"
 			local mark = (status == "done") and "|cff44ff44done|r"
 				or (status == "todo") and "|cffffcc00todo|r"
@@ -265,6 +283,12 @@ function ns.PrintSeasonTransitionDiagnostics()
 				local st = ns.GetDelverJourneyStatus and ns.GetDelverJourneyStatus()
 				if st and st.readable then
 					text = (L("ST_CLOSE_JOURNEY_AT")):format(st.rank)
+				end
+			end
+			if item.dawn then
+				local d = ns.GetNextDawnAchievement and ns.GetNextDawnAchievement()
+				if d and d.name then
+					text = (L("ST_CLOSE_DAWN_AT")):format(d.name, d.remaining)
 				end
 			end
 			print(("     • %-8s %-12s %s  → %s%s"):format(

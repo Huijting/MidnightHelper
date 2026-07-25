@@ -680,3 +680,51 @@ function ns.PrintCrestFind(fromID, toID)
 	end
 	print("   " .. prefix .. " |cff8a8f98names come from your client, not from a guide.|r")
 end
+
+--- The next "of the Dawn" achievement still to earn, for the season-end checklist.
+--- @return table|nil { name=, id=, allDone=, remaining= } — nil when unreadable
+---
+--- The five tiers are item-level milestones (Adventurer → Myth) that grant a 50%
+--- upgrade discount across the whole Warband, and Blizzard announced on 2026-07-25
+--- that they become unobtainable when Season 1 ends. Rob had three of five on live.
+---
+--- Reports only the FIRST one still open: the list is progressive, so naming the
+--- next reachable tier is actionable where five separate lines would just be noise.
+---
+--- The NAME comes from GetAchievementInfo, not from our own DAWNCREST_ACH_* labels —
+--- it is already in the player's language and cannot drift from the game. All five
+--- ids were verified in-game 2026-07-25 (see DawncrestData's header).
+---
+--- nil means the achievement API told us nothing. The caller must not read that as
+--- "you have them all".
+function ns.GetNextDawnAchievement()
+	local tiers = ns.DAWNCREST_TIERS
+	if type(tiers) ~= "table" or not GetAchievementInfo then
+		return nil
+	end
+	local firstOpen, remaining, sawAny = nil, 0, false
+	for i = 1, #tiers do
+		local id = tiers[i] and tiers[i].achievementId
+		if id then
+			local ok, _, achName, _, completed = pcall(GetAchievementInfo, id)
+			if ok and achName then
+				sawAny = true
+				if not completed then
+					remaining = remaining + 1
+					if not firstOpen then
+						firstOpen = { id = id, name = achName }
+					end
+				end
+			end
+		end
+	end
+	if not sawAny then
+		return nil -- nothing resolved: say nothing rather than claim completion
+	end
+	return {
+		id = firstOpen and firstOpen.id or nil,
+		name = firstOpen and firstOpen.name or nil,
+		remaining = remaining,
+		allDone = (remaining == 0),
+	}
+end

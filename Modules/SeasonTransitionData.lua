@@ -59,6 +59,15 @@ ns.SEASON_TRANSITION = {
 		-- "finishing now is cheaper than buying later" — a nudge, not an alarm.
 		-- Do not let anyone sharpen this wording later.
 		{ id = "delver_journey", textKey = "ST_CLOSE_JOURNEY", journey = true },
+		-- The five "of the Dawn" item-level achievements (Adventurer → Myth). Blizzard
+		-- announced 2026-07-25 that they go away with Season 1, and they are worth more
+		-- than a tick: each grants a 50% upgrade discount across the whole Warband.
+		--
+		-- One line, not five: the tiers are progressive, so the checklist names the next
+		-- one still open and stays out of the way once they are all earned. All five
+		-- achievement ids were verified in-game — see DawncrestData's header before
+		-- doubting the odd-looking 42767-42770.
+		{ id = "dawn_achievements", textKey = "ST_CLOSE_DAWN", dawn = true },
 	},
 	-- Phase B — the run-up to S2. Shown once the client is on 12.1.
 	prep = {
