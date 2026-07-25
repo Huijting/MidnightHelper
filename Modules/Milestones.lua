@@ -227,3 +227,42 @@ function ns.PrintMilestones()
 		print(("%s — %s"):format(prefix, ns:L("MILE_NONE_YET")))
 	end
 end
+
+--- /mh milestones preview — show what a milestone card looks like, on demand.
+---
+--- A milestone fires once and never again, which is the point — but it means anyone
+--- who already earned theirs can never see the card. Rob hit exactly that: all three
+--- of his were awarded before the card existed (2026-07-25).
+---
+--- Touches nothing real: it does not write to the store, does not award anything, and
+--- uses its own toast id so it can never collide with or de-dupe against a genuine
+--- milestone. Same texts as the real thing, so what you see is what you would get.
+function ns.PreviewMilestoneToast()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	if not ns.QueueMidnightToast then
+		print(prefix .. " toast system not loaded")
+		return
+	end
+	-- Borrow the mount milestone's wording and, if a wished mount can be read, its
+	-- icon — so the preview shows the real arrangement rather than a mock-up.
+	local icon
+	if ns.GetWishedMountIDs and C_MountJournal and C_MountJournal.GetMountInfoByID then
+		local okList, wished = pcall(ns.GetWishedMountIDs)
+		if okList and type(wished) == "table" and wished[1] then
+			local ok, _, _, mountIcon = pcall(C_MountJournal.GetMountInfoByID, wished[1])
+			icon = ok and mountIcon or nil
+		end
+	end
+	pcall(ns.QueueMidnightToast, {
+		id = "milestone_preview",
+		icon = icon,
+		titleKey = "MILE_MOUNT_TITLE",
+		bodyKey = "MILE_MOUNT_BODY",
+		onClick = function()
+			if ns.PrintMilestones then
+				ns.PrintMilestones()
+			end
+		end,
+	})
+	print(prefix .. " milestone card preview queued (nothing was awarded or stored).")
+end

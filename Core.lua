@@ -848,6 +848,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- /mh season — toon de S1→S2-fase + elk item met opgeloste achievement/quest-naam,
 	-- zodat de IDs (bv. KSM 61256) in-game te verifiëren zijn vóór we ze vertrouwen.
 	-- /mh milestones — de persoonlijke mijlpalen die al zijn uitgereikt.
+	-- /mh milestones preview — laat het kaartje zien zonder iets uit te reiken.
+	if msg == "milestones preview" then
+		if ns.PreviewMilestoneToast then ns.PreviewMilestoneToast() end
+		return
+	end
+
 	if msg == "milestones" then
 		if ns.PrintMilestones then ns.PrintMilestones() end
 		return
