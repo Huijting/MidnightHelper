@@ -551,6 +551,20 @@ function ns.PrintCrestProbe()
 				print(("      maxQuantity=%s  maxWeeklyQuantity=%s  earnedThisWeek=%s  totalEarned=%s"):format(
 					tostring(info.maxQuantity), tostring(info.maxWeeklyQuantity),
 					tostring(info.quantityEarnedThisWeek), tostring(info.totalEarned)))
+				-- Resolve the tier's "of the Dawn" achievement by NAME. Four of the five
+				-- stored ids (42767-42770) sit far below every verified Midnight
+				-- achievement in this addon (61xxx-63xxx), so they are very likely wrong
+				-- -- and a wrong id fails in the worst way: if it happens to name an old
+				-- achievement the player did earn, MH would claim a Season 1 reward they
+				-- never got. Season 1 is ending, so this matters now. Print what the game
+				-- calls each id and compare it with the label on the row.
+				if tier.achievementId and GetAchievementInfo then
+					local okA, _, achName, _, achDone = pcall(GetAchievementInfo, tier.achievementId)
+					print(("      achievement %s -> %s%s"):format(
+						tostring(tier.achievementId),
+						(okA and achName) and ("|cffffffff" .. achName .. "|r") or "|cffff8080NO SUCH ACHIEVEMENT|r",
+						(okA and achDone) and "  |cff44ff44(earned)|r" or ""))
+				end
 				local desc = info.description
 				if type(desc) == "string" and desc ~= "" then
 					print("      description: " .. desc)
