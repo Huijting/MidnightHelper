@@ -74,6 +74,10 @@ function ns.AwardMilestone(id, titleKey, bodyKey, icon)
 	if ns.QueueMidnightToast then
 		pcall(ns.QueueMidnightToast, {
 			id = "milestone_" .. id, -- the queue de-dupes on id, on top of the store above
+			clickHintKey = "MILE_CLICK_HINT",
+			-- A celebration you cannot read is not a celebration: the 4.25s default
+			-- was gone before Rob could click it (2026-07-25).
+			displaySec = 12,
 			icon = icon,
 			titleKey = titleKey,
 			bodyKey = bodyKey,
@@ -255,6 +259,10 @@ function ns.PreviewMilestoneToast()
 	end
 	pcall(ns.QueueMidnightToast, {
 		id = "milestone_preview",
+			clickHintKey = "MILE_CLICK_HINT",
+			-- A celebration you cannot read is not a celebration: the 4.25s default
+			-- was gone before Rob could click it (2026-07-25).
+			displaySec = 12,
 		icon = icon,
 		titleKey = "MILE_MOUNT_TITLE",
 		bodyKey = "MILE_MOUNT_BODY",

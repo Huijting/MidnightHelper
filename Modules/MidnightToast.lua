@@ -320,7 +320,13 @@ local function EnsureToastFrame()
 			if GameTooltip then
 				-- Per-toast hint (spec.clickHintKey); de generieke fallback is
 				-- de oude delve-tekst — alleen nog voor de delve-bounty-toast.
-				local hintKey = activeSpec.clickHintKey or "TOAST_CLICK_HINT"
+				-- Neutral default. It used to fall back to TOAST_CLICK_HINT, which reads
+				-- "Click to open delve items" -- a fossil from when this queue served
+				-- exactly one toast. Every new toast silently inherited it: Rob's
+				-- milestone card offered to open delve items (2026-07-25). Rares had
+				-- already worked around it locally; this fixes it at the source, and
+				-- the delve toasts now name that key themselves.
+				local hintKey = activeSpec.clickHintKey or "TOAST_CLICK_GENERIC"
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 				GameTooltip:SetText(ns:L(hintKey), 1, 1, 1)
 				GameTooltip:Show()

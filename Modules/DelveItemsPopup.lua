@@ -452,6 +452,7 @@ function ns:MaybeShowDelveBountyToast()
 	bountyToastShownThisDelve = true
 	ns.QueueMidnightToast({
 		id = "delve_bounty",
+		clickHintKey = "TOAST_CLICK_HINT", -- this one really does open delve items
 		itemID = ITEM_TREASURE,
 		icon = GetItemIcon(ITEM_TREASURE),
 		titleKey = "TOAST_BOUNTY_TITLE",
@@ -470,6 +471,7 @@ function ns:PreviewDelveBountyToast()
 	end
 	ns.QueueMidnightToast({
 		id = "delve_bounty_preview",
+		clickHintKey = "TOAST_CLICK_HINT", -- this one really does open delve items
 		itemID = ITEM_TREASURE,
 		icon = GetItemIcon(ITEM_TREASURE),
 		titleKey = "TOAST_BOUNTY_TITLE",
