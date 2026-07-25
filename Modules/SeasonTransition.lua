@@ -122,7 +122,10 @@ local function itemStatus(item)
 		if not st or not st.readable then
 			return "unknown"
 		end
-		return "todo"
+		-- A finished track IS done. The first version returned "todo" unconditionally
+		-- on the assumption that a track never completes while the season runs; Rob was
+		-- sitting on rank 10 / 4200-4200 and still being told to go finish it.
+		return st.maxed and "done" or "todo"
 	elseif item.dawn then
 		-- Unlike the journey, this one CAN be finished: all five earned is genuinely
 		-- done. nil means the achievement API said nothing, which is "unknown" —
@@ -160,6 +163,32 @@ local function phaseGate()
 		t.lastPhase = phase
 		t.dismissedCard = false
 	end
+	-- ALSO un-hide when the checklist itself grew. Rob dismissed this card weeks ago
+	-- when it held three items he did not care about; two more were added since
+	-- (Delver's Journey, "of the Dawn") and Blizzard has now announced the season is
+	-- ending — yet the card stayed hidden, because only a PHASE change brought it
+	-- back and that does not happen until patch day, which is too late to act on.
+	--
+	-- So: a new item is new information, exactly like a new phase. Items the player
+	-- already dismissed stay dismissed; the count only ever grows the card back once.
+	local list = ns.SEASON_TRANSITION and ns.SEASON_TRANSITION[phase == "closing" and "closing" or "prep"]
+	local count = (type(list) == "table") and #list or 0
+	if count > 0 then
+		if type(t.lastItemCount) ~= "number" then
+			-- No baseline yet, which means this build introduced the counter. Anyone
+			-- who dismissed the card did so against a SHORTER list than they have now
+			-- (the closing checklist went from three items to five), so recording the
+			-- current count silently would help exactly nobody. Show it once instead;
+			-- the dismiss button is right there and from here on the count decides.
+			t.lastItemCount = count
+			t.dismissedCard = false
+		elseif count > t.lastItemCount then
+			t.lastItemCount = count
+			t.dismissedCard = false
+		elseif count < t.lastItemCount then
+			t.lastItemCount = count -- shrank (phase switch): just track it
+		end
+	end
 	return phase, t
 end
 
@@ -196,7 +225,9 @@ function ns.GetSeasonTransitionSteps()
 		if item.journey then
 			local st = ns.GetDelverJourneyStatus and ns.GetDelverJourneyStatus()
 			if st and st.readable then
-				text = (L("ST_CLOSE_JOURNEY_AT")):format(st.rank)
+				-- Finished: say so, instead of urging them to finish it.
+				local key = st.maxed and "ST_CLOSE_JOURNEY_DONE" or "ST_CLOSE_JOURNEY_AT"
+				text = (L(key)):format(st.rank)
 			end
 		end
 		-- Name the next tier still open, in the game's own wording. With none left the
@@ -282,7 +313,7 @@ function ns.PrintSeasonTransitionDiagnostics()
 			if item.journey then
 				local st = ns.GetDelverJourneyStatus and ns.GetDelverJourneyStatus()
 				if st and st.readable then
-					text = (L("ST_CLOSE_JOURNEY_AT")):format(st.rank)
+					text = (L(st.maxed and "ST_CLOSE_JOURNEY_DONE" or "ST_CLOSE_JOURNEY_AT")):format(st.rank)
 				end
 			end
 			if item.dawn then

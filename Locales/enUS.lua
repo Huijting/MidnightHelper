@@ -3352,6 +3352,7 @@ ns._mhLocales.enUS = {
 	ST_CLOSE_CE = "Cutting Edge (current raid)",
 	ST_CLOSE_JOURNEY = "Delver’s Journey - finishing ranks now is cheaper than buying them later",
 	ST_CLOSE_JOURNEY_AT = "Delver’s Journey: rank %d - finishing now is cheaper than buying later",
+	ST_CLOSE_JOURNEY_DONE = "Delver’s Journey: rank %d - complete, nothing left to unlock",
 	ST_CLOSE_DAWN = "“of the Dawn” achievements - 50% upgrade discount for your whole Warband",
 	ST_CLOSE_DAWN_AT = "%s - still earnable now (%d left, 50%% Warband upgrade discount)",
 	ST_PREP_LEADIN = "Do the 12.1 lead-in quest",

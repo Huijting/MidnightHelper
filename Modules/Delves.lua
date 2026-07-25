@@ -1567,10 +1567,26 @@ function ns.GetDelverJourneyStatus()
 	if not okD or type(data) ~= "table" or data.renownLevel == nil then
 		return nil
 	end
+	-- Is the track finished? Rob hit rank 10 / 4200-4200 on live while the season-end
+	-- checklist still nagged him to go and finish it (2026-07-25). The first version
+	-- assumed "a track is never done while the season runs" — it can be, and telling
+	-- someone to finish what they already finished is exactly the kind of wrong this
+	-- addon must not be.
+	--
+	-- HasMaximumRenown is the game's own answer, used the same way by EllesmereUI and
+	-- three HandyNotes modules. Deliberately no fallback of the form
+	-- "earned >= needed": at the cap those two are equal, but mid-track they can
+	-- momentarily match too, and guessing "done" is worse than not knowing.
+	local maxed = false
+	if C_MajorFactions.HasMaximumRenown then
+		local okM, hasMax = pcall(C_MajorFactions.HasMaximumRenown, factionID)
+		maxed = (okM and hasMax) and true or false
+	end
 	return {
 		rank = math.floor(tonumber(data.renownLevel) or 0),
 		earned = math.floor(tonumber(data.renownReputationEarned or data.renownReputationYielded) or 0),
 		needed = math.floor(tonumber(data.renownLevelThreshold or data.renownRequirement) or 0),
+		maxed = maxed,
 		readable = true,
 	}
 end

@@ -3221,6 +3221,7 @@ ns._mhLocales.nlNL = {
 	ST_CLOSE_CE = "Cutting Edge (huidige raid)",
 	ST_CLOSE_JOURNEY = "Delver’s Journey - nu rangen afmaken is goedkoper dan later kopen",
 	ST_CLOSE_JOURNEY_AT = "Delver’s Journey: rang %d - nu afmaken is goedkoper dan later kopen",
+	ST_CLOSE_JOURNEY_DONE = "Delver’s Journey: rang %d - compleet, niets meer te unlocken",
 	ST_CLOSE_DAWN = "“of the Dawn”-achievements - 50% upgradekorting voor je hele Warband",
 	ST_CLOSE_DAWN_AT = "%s - nu nog te halen (%d te gaan, 50%% Warband-upgradekorting)",
 	ST_PREP_LEADIN = "Doe de 12.1 lead-in quest",
