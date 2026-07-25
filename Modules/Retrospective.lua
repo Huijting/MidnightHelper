@@ -335,6 +335,22 @@ clog:SetScript("OnEvent", OnCombatLog)
 -- it is also the part that has now failed twice in a row (13x, then 14x with the "fixed"
 -- version). A dumb counter cannot fail: whatever else is wrong, MidnightHelper can never
 -- again produce more than this many of these errors in one session.
+-- ⚠️ SPOOR (2026-07-25, Rob's /mh death na een Timewalking-run) — nog niet gefixt.
+-- De meting: "in tracked instance: false" en toch "HasSecretRestrictions() right here:
+-- true". Die vlag staat dus ook BUITEN een instance aan, precies zoals gevreesd toen
+-- hij als kandidaat-poort werd opgeschreven (Platynator leest hem eenmalig bij het
+-- laden). Als poort is hij daarmee vrijwel afgeschreven: hij onderscheidt niets.
+--
+-- Het echte spoor staat in de foutmelding zelf: "while execution tainted by
+-- 'MidnightHelper'". Onze eigen notities houden vast dat DBM WEL CLEU registreert op
+-- difficulty 24. Kan DBM het daar en wij niet, dan weigert de CONTENT het niet — dan
+-- is het onze eigen taint. En MH is nu juist de addon die secret values leest
+-- (CombatSafety). Volgende vraag is dus niet "welke content blokkeert" maar "wat
+-- taint ons, en gebeurt dat vóór de registratie".
+--
+-- Wat nog ontbreekt om dit rond te maken: een cleuAllowed-monster uit content waar de
+-- registratie WEL lukt (normale dungeon/raid). Zonder die helft is er niets te
+-- vergelijken.
 local MAX_CLOG_ATTEMPTS = 3
 local clogAttempts = 0
 
