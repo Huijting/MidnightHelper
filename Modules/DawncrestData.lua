@@ -1,6 +1,13 @@
 --[[
 	Midnight Helper — Dawncrest currency + achievement IDs (Midnight Season 1).
 	Verify currency IDs after major patches via Wowhead if quantities show 0.
+
+	✅ ACHIEVEMENT IDS VERIFIED IN-GAME 2026-07-25 (Rob, live, /mh crests). Do not
+	"correct" them on the strength of their numeric range: 42767-42770 sit far below
+	every other Midnight achievement in this addon (61xxx-63xxx), which looked wrong
+	enough that they were nearly changed — but the client resolves them to exactly
+	Veteran / Champion / Hero / Myth of the Dawn. Achievement ids are not handed out
+	in expansion order. Adventurer is 61809.
 ]]
 
 local _, ns = ...
