@@ -633,7 +633,12 @@ function ns.PrintDeathRecapDiagnostics()
 	if type(refusals) == "table" and #refusals > 0 then
 		print("   |cffff8080REFUSED here (survives reloads):|r")
 		for _, r in ipairs(refusals) do
-			print(("      %s (%s) diff %s (%s)  secretRestrictions=%s  auras=%s  [%s]"):format(
+			-- Timestamp included: without it you cannot tell a refusal from an hour ago
+			-- from one that just happened, and this log deliberately survives reloads.
+			-- Rob hit exactly that on 2026-07-25 -- four entries, two of them stale.
+			local when = (date and type(r.at) == "number" and r.at > 0) and date("%H:%M", r.at) or "??:??"
+			print(("      [%s] %s (%s) diff %s (%s)  secretRestrictions=%s  auras=%s  [%s]"):format(
+				when,
 				tostring(r.instance), tostring(r.itype), tostring(r.diffID), tostring(r.diffName),
 				tostring(r.hasSecretRestrictions), tostring(r.aurasSecret), tostring(r.reason)
 			))
