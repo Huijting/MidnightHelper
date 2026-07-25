@@ -69,6 +69,45 @@ local SAFE_DIFFICULTY = {
 -- The attempt cap below is what stops spam; this only avoids retrying within a session.
 local blockedDiff = {}
 
+-- ...and the same knowledge kept ACROSS sessions, scoped to the client build.
+--
+-- Session-only was the right call in July on the evidence then: one refusal looked
+-- transient, DBM registers CLEU at difficulty 24, so banning the content forever was
+-- wrong. Rob's BugGrabber has since counted EIGHTEEN SESSIONS of the identical refusal
+-- in Timewalking. That is not transient. DBM can register there and MH cannot, and the
+-- error says why: "while execution tainted by MidnightHelper". So the refusal is a
+-- property of us, not a fluke, and re-testing it every single session buys nothing but
+-- one more error in the player's log.
+--
+-- Keyed on the interface build so it is remembered but never permanent: a patch clears
+-- the memory and we measure again. That answers the objection that sank the first
+-- attempt — "banned forever" — while ending the per-session spam.
+local function PersistedBlocked()
+	if not ns.db then
+		return nil
+	end
+	local build = (GetBuildInfo and select(4, GetBuildInfo())) or 0
+	local t = ns.db.cleuBlockedDiff
+	if type(t) ~= "table" or t.build ~= build then
+		t = { build = build, diffs = {} }
+		ns.db.cleuBlockedDiff = t
+	end
+	t.diffs = t.diffs or {}
+	return t
+end
+
+local function IsPersistedBlocked(diffID)
+	local t = PersistedBlocked()
+	return (t and diffID and t.diffs[diffID]) and true or false
+end
+
+local function RememberBlocked(diffID)
+	local t = PersistedBlocked()
+	if t and diffID then
+		t.diffs[diffID] = true
+	end
+end
+
 local function inTrackedInstance()
 	if not (IsInInstance and GetInstanceInfo) then
 		return false
@@ -86,7 +125,7 @@ local function inTrackedInstance()
 		end
 	end
 	local diffID = select(3, GetInstanceInfo())
-	if diffID and blockedDiff[diffID] then
+	if diffID and (blockedDiff[diffID] or IsPersistedBlocked(diffID)) then
 		return false
 	end
 	if not (diffID and SAFE_DIFFICULTY[diffID]) then
@@ -367,6 +406,7 @@ local function StandDownCLEU(reason)
 	end
 	if diffID then
 		blockedDiff[diffID] = true
+		RememberBlocked(diffID) -- survives the reload, cleared by the next patch
 	end
 
 	-- MEASURE, do not guess. Three fixes have now failed here (13x, 14x, 17x), each
@@ -630,6 +670,23 @@ function ns.PrintDeathRecapDiagnostics()
 			#ids > 0 and table.concat(ids, ", ") or "none"
 		))
 	end
+	-- What we remember across sessions, and until when. Shown as difficulty IDs, the
+	-- same units as the line above.
+	do
+		local t = ns.db and ns.db.cleuBlockedDiff
+		local kept = {}
+		if type(t) == "table" and type(t.diffs) == "table" then
+			for id in pairs(t.diffs) do
+				kept[#kept + 1] = tostring(id)
+			end
+			table.sort(kept)
+		end
+		print(("   remembered as refused (build %s): %s%s"):format(
+			tostring(t and t.build or "?"),
+			#kept > 0 and table.concat(kept, ", ") or "none",
+			#kept > 0 and "  |cff8a8f98(cleared by the next patch, or /mh death reset)|r" or ""
+		))
+	end
 	print(("   damage-buffer entries: %d"):format(#dmgRing))
 	for i = 1, #dmgRing do
 		local r = dmgRing[i]
@@ -682,4 +739,18 @@ function ns.PrintDeathRecapDiagnostics()
 			(ok and #own > 0) and table.concat(own, ", ") or "none readable"
 		))
 	end
+end
+
+--- /mh death reset — forget which difficulties refused us, and try them again.
+--- Needed once the taint that causes the refusal is actually fixed: without this the
+--- build-scoped memory would keep us out until the next patch, long after the reason
+--- disappeared.
+function ns.ResetDeathRecapBlocks()
+	if ns.db then
+		ns.db.cleuBlockedDiff = nil
+	end
+	wipe(blockedDiff)
+	cleuBlocked = false
+	clogAttempts = 0
+	print(("|cffffcc00%s|r death recap: forgot every refusal; it will try again."):format(ns:L("PRINT_PREFIX")))
 end

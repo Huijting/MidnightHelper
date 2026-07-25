@@ -932,6 +932,11 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	if msg == "death reset" then
+		if ns.ResetDeathRecapBlocks then ns.ResetDeathRecapBlocks() end
+		return
+	end
+
 	if msg == "death" then
 		if ns.PrintDeathRecapDiagnostics then
 			ns.PrintDeathRecapDiagnostics()
