@@ -58,7 +58,24 @@ local function EnsureFlash()
 	local f = CreateFrame("Frame", "MidnightHelperAlert", UIParent)
 	f:SetSize(600, 110)
 	f:SetPoint("TOP", UIParent, "TOP", 0, -200)
-	f:SetFrameStrata("HIGH")
+	-- This alert must outrank the toast. MidnightHelperToast sits at
+	-- FULLSCREEN_DIALOG level 120, and FULLSCREEN_DIALOG draws over HIGH — so this
+	-- frame used to lose, silently, to a rare-alert or a tank-pull summary. Those
+	-- queue in and around combat: exactly when a dangerous debuff fires. Same strata,
+	-- higher level, so this now wins.
+	--
+	-- Geometry alone could not fix it: the toast is draggable and its position is
+	-- saved per player (ui.toast.pos), so no fixed offset here can promise they never
+	-- meet. Ordering can, and that is the part that matters — this frame exists for
+	-- players who need one calm, readable warning.
+	--
+	-- Four MH frames still sit at TOOLTIP, which outranks FULLSCREEN_DIALOG: the rare,
+	-- mount and Trading Post previews, and the delve travel popup. Left alone on
+	-- purpose — all four only appear because the player opened or hovered something in
+	-- our own UI, never unbidden mid-fight. Raising this frame to TOOLTIP would put a
+	-- 600x110 panel over the game's real tooltips, which is a worse trade.
+	f:SetFrameStrata("FULLSCREEN_DIALOG")
+	f:SetFrameLevel(200)
 	-- Contrast-achtergrond (toegankelijkheid: leesbaar boven elk decor).
 	local bg = f:CreateTexture(nil, "BACKGROUND")
 	bg:SetAllPoints()
