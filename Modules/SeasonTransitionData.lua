@@ -68,6 +68,38 @@ ns.SEASON_TRANSITION = {
 		-- achievement ids were verified in-game — see DawncrestData's header before
 		-- doubting the odd-looking 42767-42770.
 		{ id = "dawn_achievements", textKey = "ST_CLOSE_DAWN", dawn = true },
+
+		-- ---- Announced 2026-07-25, Blizzard's own "Season 1 ending soon" post ----
+		-- Four more things that stop being obtainable at the season flip. Two of them
+		-- are a mount and a title, which is the kind of thing people are genuinely
+		-- upset to miss, so they belong on this list rather than in a guide page.
+		--
+		-- ⚠️ ALL FOUR ARE MANUAL TICKS ON PURPOSE. We have the achievement NAMES from
+		-- the announcement and no ids, and an achievement cannot be tracked by name
+		-- (names are localised -- the Omnium Folio trap). Guessing an id would put a
+		-- wrong "done" in front of someone on a deadline, which is the worst possible
+		-- place to be wrong.
+		--
+		-- TO UPGRADE THESE TO AUTO-TRACKED: run `/mh ach nemesis`, `/mh ach solo`,
+		-- `/mh ach lighting`, `/mh ach prey` in-game, then replace `manual = true`
+		-- with `achiev = <the id it printed>`. Nothing else needs to change --
+		-- achievStatus() takes over and the tick becomes automatic. Verify the name it
+		-- resolves to via `/mh season` before trusting it, as with every other id here.
+		--
+		-- The nemesis's name is deliberately absent from the shown text: the source
+		-- spells it both "Nulleaus" and "Nullaeus" in the same article, and we do not
+		-- put a coin-flip in front of the player. The finder will settle it.
+		--
+		-- Rewards named in the announcement, UNVERIFIED against the client (item ids
+		-- cannot be swept the way currencies can, so these wait for someone to see
+		-- them drop): My Shady Nemesis -> item 263413 "Nullaeus Domaneye";
+		-- Let Me Solo Him -> mount item 263222 "Arcanovoid Construct";
+		-- Lighting the Dark -> title "the Ominous". None of these ids are used below;
+		-- they are recorded here so the next session does not have to re-find them.
+		{ id = "s1_nemesis", textKey = "ST_CLOSE_NEMESIS", manual = true },
+		{ id = "s1_solo", textKey = "ST_CLOSE_SOLO", manual = true },
+		{ id = "s1_dark", textKey = "ST_CLOSE_DARK", manual = true },
+		{ id = "s1_prey", textKey = "ST_CLOSE_PREY", manual = true },
 	},
 	-- Phase B — the run-up to S2. Shown once the client is on 12.1.
 	prep = {

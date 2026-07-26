@@ -2277,3 +2277,46 @@ fill("itIT", {
 	MPLUS_GAIN_FULL_FMT = "Tutti e 3 gli slot sono pieni (chiavi migliori %s). Fai chiavi più alte per migliorarli.",
 	MPLUS_GAIN_NEXT_FMT = "Prossimo slot della cripta: ancora %d run.",
 })
+
+--------------------------------------------------------------------------------
+-- Season 1 closing list, additions of 2026-07-26 (Blizzard's "S1 ending soon"
+-- announcement). The achievement names themselves stay ENGLISH in every language:
+-- they are what the player reads in their own Achievements pane only if that pane
+-- is English, but translating them here would invent names Blizzard did not use.
+-- The explanatory half of each line is translated.
+--------------------------------------------------------------------------------
+
+fill("deDE", {
+	ST_CLOSE_NEMESIS = "My Shady Nemesis - besiege den Delve-Nemesis vor dem Saisonende",
+	ST_CLOSE_SOLO = "Let Me Solo Him - töte den Nemesis ohne Gruppe (Reittier als Belohnung)",
+	ST_CLOSE_DARK = "Lighting the Dark - bringt den Titel “the Ominous”",
+	ST_CLOSE_PREY = "Big Prey Hunter - schließe die Prey Journey vor dem Saisonende ab",
+})
+
+fill("frFR", {
+	ST_CLOSE_NEMESIS = "My Shady Nemesis - battez le némésis des delves avant la fin de la saison",
+	ST_CLOSE_SOLO = "Let Me Solo Him - tuez le némésis sans groupe (monture à la clé)",
+	ST_CLOSE_DARK = "Lighting the Dark - donne le titre “the Ominous”",
+	ST_CLOSE_PREY = "Big Prey Hunter - terminez la Prey Journey avant la fin de la saison",
+})
+
+fill("esES", {
+	ST_CLOSE_NEMESIS = "My Shady Nemesis - vence al némesis de las delves antes de que acabe la temporada",
+	ST_CLOSE_SOLO = "Let Me Solo Him - mata al némesis sin grupo (montura de recompensa)",
+	ST_CLOSE_DARK = "Lighting the Dark - otorga el título “the Ominous”",
+	ST_CLOSE_PREY = "Big Prey Hunter - completa la Prey Journey antes de que acabe la temporada",
+})
+
+fill("ptBR", {
+	ST_CLOSE_NEMESIS = "My Shady Nemesis - derrote o nêmesis das delves antes do fim da temporada",
+	ST_CLOSE_SOLO = "Let Me Solo Him - mate o nêmesis sem grupo (montaria como recompensa)",
+	ST_CLOSE_DARK = "Lighting the Dark - concede o título “the Ominous”",
+	ST_CLOSE_PREY = "Big Prey Hunter - conclua a Prey Journey antes do fim da temporada",
+})
+
+fill("itIT", {
+	ST_CLOSE_NEMESIS = "My Shady Nemesis - sconfiggi la nemesi delle delve prima della fine della stagione",
+	ST_CLOSE_SOLO = "Let Me Solo Him - uccidi la nemesi senza gruppo (cavalcatura in premio)",
+	ST_CLOSE_DARK = "Lighting the Dark - assegna il titolo “the Ominous”",
+	ST_CLOSE_PREY = "Big Prey Hunter - completa la Prey Journey prima della fine della stagione",
+})

@@ -837,6 +837,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh ach <tekst> — zoek een achievement-ID op naam. Alleen een opzoekgereedschap:
+	-- de addon zelf mag nooit op naam matchen (namen zijn gelokaliseerd).
+	if msg:match("^ach%s+") or msg == "ach" then
+		if ns.PrintAchievementFind then
+			ns.PrintAchievementFind(msg:match("^ach%s+(.+)$") or "")
+		end
+		return
+	end
+
 	-- /mh trail — meet wat FarstriderLib (indien geïnstalleerd) als reisroute teruggeeft
 	-- naar het huidige pijl-doel. Puur diagnose: verandert niets aan de travel assist.
 	if msg == "trail" then

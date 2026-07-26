@@ -203,6 +203,7 @@ Modules\Milestones.lua
 Modules\SeasonStats.lua
 Modules\DailyTip.lua
 Modules\WeeklyHubProbe.lua
+Modules\AchievementFind.lua
 Modules\CharacterSidePanel.lua
 Modules\MountJournalSidePanel.lua
 Modules\EncounterJournalSidePanel.lua
