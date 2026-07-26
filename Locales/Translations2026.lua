@@ -2287,36 +2287,36 @@ fill("itIT", {
 --------------------------------------------------------------------------------
 
 fill("deDE", {
-	ST_CLOSE_NEMESIS = "My Shady Nemesis - besiege den Delve-Nemesis vor dem Saisonende",
-	ST_CLOSE_SOLO = "Let Me Solo Him - töte den Nemesis ohne Gruppe (Reittier als Belohnung)",
-	ST_CLOSE_DARK = "Lighting the Dark - bringt den Titel “the Ominous”",
-	ST_CLOSE_PREY = "Big Prey Hunter - schließe die Prey Journey vor dem Saisonende ab",
+	ST_CLOSE_NEMESIS = "Besiege den Delve-Nemesis der Saison 1 - die Trophäe geht mit der Saison",
+	ST_CLOSE_SOLO = "Solo den Nemesis ohne Gruppe - ein Reittier, das mit der Saison geht",
+	ST_CLOSE_DARK = "Verdiene den Titel “the Ominous” vor dem Saisonende",
+	ST_CLOSE_PREY = "Schließe die Prey Journey vor dem Saisonende ab",
 })
 
 fill("frFR", {
-	ST_CLOSE_NEMESIS = "My Shady Nemesis - battez le némésis des delves avant la fin de la saison",
-	ST_CLOSE_SOLO = "Let Me Solo Him - tuez le némésis sans groupe (monture à la clé)",
-	ST_CLOSE_DARK = "Lighting the Dark - donne le titre “the Ominous”",
-	ST_CLOSE_PREY = "Big Prey Hunter - terminez la Prey Journey avant la fin de la saison",
+	ST_CLOSE_NEMESIS = "Battez le némésis des delves de la saison 1 - le trophée part avec la saison",
+	ST_CLOSE_SOLO = "Tuez le némésis sans groupe - une monture qui part avec la saison",
+	ST_CLOSE_DARK = "Obtenez le titre “the Ominous” avant la fin de la saison",
+	ST_CLOSE_PREY = "Terminez la Prey Journey avant la fin de la saison",
 })
 
 fill("esES", {
-	ST_CLOSE_NEMESIS = "My Shady Nemesis - vence al némesis de las delves antes de que acabe la temporada",
-	ST_CLOSE_SOLO = "Let Me Solo Him - mata al némesis sin grupo (montura de recompensa)",
-	ST_CLOSE_DARK = "Lighting the Dark - otorga el título “the Ominous”",
-	ST_CLOSE_PREY = "Big Prey Hunter - completa la Prey Journey antes de que acabe la temporada",
+	ST_CLOSE_NEMESIS = "Vence al némesis de las delves de la temporada 1 - el trofeo se va con ella",
+	ST_CLOSE_SOLO = "Mata al némesis sin grupo - una montura que se va con la temporada",
+	ST_CLOSE_DARK = "Consigue el título “the Ominous” antes de que acabe la temporada",
+	ST_CLOSE_PREY = "Completa la Prey Journey antes de que acabe la temporada",
 })
 
 fill("ptBR", {
-	ST_CLOSE_NEMESIS = "My Shady Nemesis - derrote o nêmesis das delves antes do fim da temporada",
-	ST_CLOSE_SOLO = "Let Me Solo Him - mate o nêmesis sem grupo (montaria como recompensa)",
-	ST_CLOSE_DARK = "Lighting the Dark - concede o título “the Ominous”",
-	ST_CLOSE_PREY = "Big Prey Hunter - conclua a Prey Journey antes do fim da temporada",
+	ST_CLOSE_NEMESIS = "Derrote o nêmesis das delves da temporada 1 - o troféu vai embora com ela",
+	ST_CLOSE_SOLO = "Mate o nêmesis sem grupo - uma montaria que vai embora com a temporada",
+	ST_CLOSE_DARK = "Conquiste o título “the Ominous” antes do fim da temporada",
+	ST_CLOSE_PREY = "Conclua a Prey Journey antes do fim da temporada",
 })
 
 fill("itIT", {
-	ST_CLOSE_NEMESIS = "My Shady Nemesis - sconfiggi la nemesi delle delve prima della fine della stagione",
-	ST_CLOSE_SOLO = "Let Me Solo Him - uccidi la nemesi senza gruppo (cavalcatura in premio)",
-	ST_CLOSE_DARK = "Lighting the Dark - assegna il titolo “the Ominous”",
-	ST_CLOSE_PREY = "Big Prey Hunter - completa la Prey Journey prima della fine della stagione",
+	ST_CLOSE_NEMESIS = "Sconfiggi la nemesi delle delve della stagione 1 - il trofeo se ne va con lei",
+	ST_CLOSE_SOLO = "Uccidi la nemesi senza gruppo - una cavalcatura che se ne va con la stagione",
+	ST_CLOSE_DARK = "Ottieni il titolo “the Ominous” prima della fine della stagione",
+	ST_CLOSE_PREY = "Completa la Prey Journey prima della fine della stagione",
 })

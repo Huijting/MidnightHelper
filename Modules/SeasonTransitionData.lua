@@ -86,20 +86,28 @@ ns.SEASON_TRANSITION = {
 		-- nothing; "Big Prey Hunter" is absent from a 40-hit Prey listing. The article
 		-- paraphrased. Do not go looking for those names again -- they are not there.
 		--
-		-- What IS there: `Let Me Solo It` = id 61420, todo. It sits between Keystone
-		-- Master (61256) and the Prey set (61386+), i.e. squarely in Midnight Season 1,
-		-- and reads as the same Elden Ring joke the article rendered as "Let Me Solo
-		-- Him". STRONG CANDIDATE, NOT YET CONFIRMED: a name that looks right is not
-		-- evidence. Run `/mh ach id 61420` and read its criteria and reward first.
+		-- ❌ REFUTED, SAME DAY: `Let Me Solo It` (61420) looked like the article's "Let
+		-- Me Solo Him" -- right era (between Keystone Master 61256 and Prey 61386+),
+		-- right joke. Its description is "Dazzle the crowd! Win without a scratch."
+		-- That is a Showdown, not a nemesis solo kill. The name matched and the thing
+		-- did not, which is exactly why `/mh ach id` exists. Do not re-adopt 61420.
+		--
+		-- `/mh ach ominous` and `/mh ach shady` also returned nothing across 5163
+		-- achievements. Best current explanation: these are 12.1/PTR-datamined and are
+		-- not on the live client yet. The finder now also sweeps ids outside the
+		-- visible tree, so re-running it after 12.1 goes live is the next real test.
 		--
 		-- TO UPGRADE ONE OF THESE TO AUTO-TRACKED: confirm with `/mh ach id <n>` that
-		-- the criteria describe the thing we claim, then replace `manual = true` with
-		-- `achiev = <id>`. Nothing else changes -- achievStatus() takes over.
+		-- the CRITERIA describe the thing we claim -- never the name alone -- then
+		-- replace `manual = true` with `achiev = <id>`. achievStatus() takes over.
 		--
-		-- Still to find (try the reward or the flavour, not the article's wording):
-		-- `/mh ach ominous` for the title, `/mh ach shady`, and the Prey capstone --
-		-- candidates seen but unconfirmed are `The Deadliest of Prey` (62134),
-		-- `Preying For Midnight` (62351) and `Gotta Hunt Them All` (62383).
+		-- Prey capstone candidates, seen but unconfirmed: `The Deadliest of Prey`
+		-- (62134), `Preying For Midnight` (62351), `Gotta Hunt Them All` (62383).
+		--
+		-- The shown texts name no achievement, on purpose: three of the four names do
+		-- not exist here, and putting a name in front of a player that their own
+		-- Achievements pane cannot find is the kind of small lie this addon does not
+		-- tell. Each line states the ACTION, which Blizzard's post does support.
 		--
 		-- The nemesis's name is deliberately absent from the shown text: the source
 		-- spells it both "Nulleaus" and "Nullaeus" in the same article, and we do not

@@ -122,20 +122,29 @@ function ns.PrintAchievementFind(query)
 	print(("%s achievements matching \"%s\":"):format(PREFIX, query))
 	local hits, scanned = 0, 0
 	local capped = false
+	-- Ids the category walk already covered, so the id sweep below never repeats one.
+	local seen = {}
 
 	for _, categoryID in ipairs(categories) do
 		local okNum, num = pcall(GetCategoryNumAchievements, categoryID)
 		if okNum and type(num) == "number" then
 			for i = 1, num do
 				-- id, name, points, completed, month, day, year, description, ...
-				local ok, id, name, _, completed, _, _, _, description =
+				local ok, id, name, _, completed, _, _, _, description, _, _, rewardText =
 					pcall(GetAchievementInfo, categoryID, i)
 				if ok and id and type(name) == "string" then
 					scanned = scanned + 1
+					seen[id] = true
 					local hay = name:lower()
 					local inDesc = false
-					if not hay:find(needle, 1, true) and type(description) == "string" then
-						inDesc = description:lower():find(needle, 1, true) ~= nil
+					if not hay:find(needle, 1, true) then
+						-- Also the reward text: a title is named THERE, not in the name or
+						-- the description. Searching only name+description is why
+						-- `/mh ach ominous` found nothing on 2026-07-26 even though the
+						-- announcement said an achievement grants the title "the Ominous".
+						local extra = (type(description) == "string" and description or "")
+							.. " " .. (type(rewardText) == "string" and rewardText or "")
+						inDesc = extra:lower():find(needle, 1, true) ~= nil
 					end
 					if hay:find(needle, 1, true) or inDesc then
 						if hits >= MAX_HITS then
@@ -152,9 +161,46 @@ function ns.PrintAchievementFind(query)
 		end
 	end
 
+	-- ---- Fallback: achievements the category tree does not list ----
+	-- GetCategoryList() only walks what the Achievements pane shows. An achievement
+	-- that is hidden, not yet activated, or datamined-but-unreleased is absent from
+	-- it while GetAchievementInfo(<id>) still resolves it. That gap matters: on
+	-- 2026-07-26 all four names from Blizzard's Season 1 post were missing from a
+	-- 5163-achievement walk, and "not in the visible tree" is a different answer from
+	-- "does not exist" -- worth telling apart before concluding anything.
+	--
+	-- The range covers Midnight's own ids with room to spare (Keystone Master 61256,
+	-- Prey 61386-62403, and the "of the Dawn" set down at 42767-42770). It is a few
+	-- thousand C calls, so it costs a blink, not a freeze.
 	if hits == 0 then
-		print(("   no match in %d achievements. Try a shorter word."):format(scanned))
-	elseif capped then
+		local SWEEP_FROM, SWEEP_TO = 40000, 70000
+		print(("   not in the visible tree (%d achievements). Sweeping ids %d-%d..."):format(
+			scanned, SWEEP_FROM, SWEEP_TO))
+		local swept = 0
+		for id = SWEEP_FROM, SWEEP_TO do
+			if not seen[id] then
+				local ok, aid, name, _, completed, _, _, _, description, _, _, rewardText =
+					pcall(GetAchievementInfo, id)
+				if ok and aid and type(name) == "string" and name ~= "" then
+					swept = swept + 1
+					local blob = (name .. " " .. (type(description) == "string" and description or "")
+						.. " " .. (type(rewardText) == "string" and rewardText or "")):lower()
+					if blob:find(needle, 1, true) and hits < MAX_HITS then
+						hits = hits + 1
+						print(("   |cffe8c36ahidden|r id %-7s %-40s %s"):format(
+							tostring(aid), name, completed and "|cff40c040done|r" or "|cffb0b0b0todo|r"))
+					end
+				end
+			end
+		end
+		if hits == 0 then
+			print(("   still nothing, across %d further ids outside the tree."):format(swept))
+			print("   That is evidence it is not on this client at all -- not that we missed it.")
+		end
+		return
+	end
+
+	if capped then
 		-- Never a silent cut: a truncated list that looks complete is a lie by omission.
 		print(("   showing the first %d matches only -- narrow the search to see the rest."):format(MAX_HITS))
 	end
