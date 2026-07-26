@@ -123,7 +123,19 @@ ns.SEASON_TRANSITION = {
 		{ id = "s1_nemesis", textKey = "ST_CLOSE_NEMESIS", manual = true },
 		{ id = "s1_solo", textKey = "ST_CLOSE_SOLO", manual = true },
 		{ id = "s1_dark", textKey = "ST_CLOSE_DARK", manual = true },
-		{ id = "s1_prey", textKey = "ST_CLOSE_PREY", manual = true },
+		-- ✅ CONFIRMED 2026-07-26 via `/mh ach id 62351`: "Preying For Midnight",
+		-- description "Complete the achievements listed below", reward "Title:
+		-- Preyseeker", 7 criteria (Gotta Hunt Them All, Look I'm Just Trying To Fish
+		-- Here, Trapped In The Middle With You, I Didn't Hear No Bell, Kitchen
+		-- Nightmare, Midnight Hunter, You're Trapped In Here With Me). The only one of
+		-- the four announced items that survived contact with the client.
+		--
+		-- ⚠️ WHAT IS VERIFIED IS THE ACHIEVEMENT, NOT THE DEADLINE. Blizzard's post
+		-- says Prey progress closes with Season 1; the achievement's own name carries
+		-- no "(Season 1)" marker. Given that the same post's naming was wrong three
+		-- times over, the shown text promises only the title -- the surrounding card
+		-- already carries the "wrap up before Season 2" framing.
+		{ id = "s1_prey", textKey = "ST_CLOSE_PREY", achiev = 62351 },
 	},
 	-- Phase B — the run-up to S2. Shown once the client is on 12.1.
 	prep = {

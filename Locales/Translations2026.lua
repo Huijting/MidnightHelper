@@ -2290,33 +2290,33 @@ fill("deDE", {
 	ST_CLOSE_NEMESIS = "Besiege den Delve-Nemesis der Saison 1 - die Trophäe geht mit der Saison",
 	ST_CLOSE_SOLO = "Solo den Nemesis ohne Gruppe - ein Reittier, das mit der Saison geht",
 	ST_CLOSE_DARK = "Verdiene den Titel “the Ominous” vor dem Saisonende",
-	ST_CLOSE_PREY = "Schließe die Prey Journey vor dem Saisonende ab",
+	ST_CLOSE_PREY = "Preying For Midnight - der Titel Preyseeker, ein Meta aus 7 Prey-Erfolgen",
 })
 
 fill("frFR", {
 	ST_CLOSE_NEMESIS = "Battez le némésis des delves de la saison 1 - le trophée part avec la saison",
 	ST_CLOSE_SOLO = "Tuez le némésis sans groupe - une monture qui part avec la saison",
 	ST_CLOSE_DARK = "Obtenez le titre “the Ominous” avant la fin de la saison",
-	ST_CLOSE_PREY = "Terminez la Prey Journey avant la fin de la saison",
+	ST_CLOSE_PREY = "Preying For Midnight - le titre Preyseeker, un méta de 7 hauts faits Prey",
 })
 
 fill("esES", {
 	ST_CLOSE_NEMESIS = "Vence al némesis de las delves de la temporada 1 - el trofeo se va con ella",
 	ST_CLOSE_SOLO = "Mata al némesis sin grupo - una montura que se va con la temporada",
 	ST_CLOSE_DARK = "Consigue el título “the Ominous” antes de que acabe la temporada",
-	ST_CLOSE_PREY = "Completa la Prey Journey antes de que acabe la temporada",
+	ST_CLOSE_PREY = "Preying For Midnight - el título Preyseeker, un meta de 7 logros Prey",
 })
 
 fill("ptBR", {
 	ST_CLOSE_NEMESIS = "Derrote o nêmesis das delves da temporada 1 - o troféu vai embora com ela",
 	ST_CLOSE_SOLO = "Mate o nêmesis sem grupo - uma montaria que vai embora com a temporada",
 	ST_CLOSE_DARK = "Conquiste o título “the Ominous” antes do fim da temporada",
-	ST_CLOSE_PREY = "Conclua a Prey Journey antes do fim da temporada",
+	ST_CLOSE_PREY = "Preying For Midnight - o título Preyseeker, um meta de 7 conquistas Prey",
 })
 
 fill("itIT", {
 	ST_CLOSE_NEMESIS = "Sconfiggi la nemesi delle delve della stagione 1 - il trofeo se ne va con lei",
 	ST_CLOSE_SOLO = "Uccidi la nemesi senza gruppo - una cavalcatura che se ne va con la stagione",
 	ST_CLOSE_DARK = "Ottieni il titolo “the Ominous” prima della fine della stagione",
-	ST_CLOSE_PREY = "Completa la Prey Journey prima della fine della stagione",
+	ST_CLOSE_PREY = "Preying For Midnight - il titolo Preyseeker, un meta di 7 imprese Prey",
 })
