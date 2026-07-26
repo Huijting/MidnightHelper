@@ -837,6 +837,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh trail — meet wat FarstriderLib (indien geïnstalleerd) als reisroute teruggeeft
+	-- naar het huidige pijl-doel. Puur diagnose: verandert niets aan de travel assist.
+	if msg == "trail" then
+		if ns.PrintFarstriderProbe then
+			ns.PrintFarstriderProbe()
+		end
+		return
+	end
+
 	-- /mh campaign — verifieer de Curse-of-Ula'tek-lead-in quest-IDs tegen de live game.
 	if msg == "campaign" then
 		if ns.PrintCampaignLeadInDiagnostics then

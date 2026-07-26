@@ -209,3 +209,4 @@ Modules\EncounterJournalSidePanel.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua
 Addons\Guide.lua
+Addons\Farstrider.lua
