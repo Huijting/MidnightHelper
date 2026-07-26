@@ -27,6 +27,75 @@ local PREFIX = "|cffffcc00Midnight Helper|r"
 -- Enough to see what you searched for without flooding chat when someone types "a".
 local MAX_HITS = 40
 
+--- /mh ach id <n> — everything the client knows about one achievement.
+---
+--- The finder gets us a candidate; this proves what it actually asks for. Needed
+--- because a news article's wording is not the game's: the 2026-07-25 Season 1 post
+--- called an achievement "Let Me Solo Him" while the client calls it "Let Me Solo
+--- It" (61420), and three other names from that post do not exist here at all. A
+--- name that merely looks right is not evidence -- the criteria are.
+---
+--- Returns nothing; prints name, description, reward, completion and every criterion.
+--- @param id number
+function ns.PrintAchievementDetail(id)
+	id = tonumber(id)
+	if not id then
+		print(PREFIX .. " usage: /mh ach id 61420")
+		return
+	end
+	if not GetAchievementInfo then
+		print(PREFIX .. " achievement API not available on this client.")
+		return
+	end
+	-- id, name, points, completed, month, day, year, description, flags, icon, rewardText
+	local ok, aid, name, points, completed, month, day, year, description, _, _, rewardText =
+		pcall(GetAchievementInfo, id)
+	if not ok or not aid or type(name) ~= "string" then
+		print(("%s no achievement with id %d on this client."):format(PREFIX, id))
+		return
+	end
+
+	print(("%s achievement %d"):format(PREFIX, id))
+	print(("   name        = %s"):format(name))
+	if type(description) == "string" and description ~= "" then
+		print(("   description = %s"):format(description))
+	end
+	if type(rewardText) == "string" and rewardText ~= "" then
+		-- This is where a title or an item is named, which is exactly what we are
+		-- trying to confirm against the announcement.
+		print(("   reward      = %s"):format(rewardText))
+	end
+	print(("   points      = %s"):format(tostring(points)))
+	if completed and year then
+		print(("   completed   = yes, on %s-%s-%s"):format(tostring(day), tostring(month), tostring(year)))
+	else
+		print(("   completed   = %s"):format(completed and "yes" or "no"))
+	end
+
+	if not GetAchievementNumCriteria then
+		return
+	end
+	local okN, num = pcall(GetAchievementNumCriteria, id)
+	if not okN or type(num) ~= "number" or num == 0 then
+		print("   criteria    = none listed")
+		return
+	end
+	print(("   criteria    = %d"):format(num))
+	for i = 1, num do
+		-- criteriaString, criteriaType, criteriaCompleted, quantity, totalQuantity, ...
+		local okC, criteriaString, _, cDone, qty, total = pcall(GetAchievementCriteriaInfo, id, i)
+		if okC and criteriaString ~= nil then
+			local label = (type(criteriaString) == "string" and criteriaString ~= "")
+				and criteriaString or ("(criterion %d)"):format(i)
+			local prog = ""
+			if type(total) == "number" and total > 1 then
+				prog = ("  %s/%s"):format(tostring(qty), tostring(total))
+			end
+			print(("     %s %s%s"):format(cDone and "|cff40c040x|r" or "|cffb0b0b0-|r", label, prog))
+		end
+	end
+end
+
 --- /mh ach <text> — find achievements whose name or description contains <text>.
 --- @param query string case-insensitive substring
 function ns.PrintAchievementFind(query)

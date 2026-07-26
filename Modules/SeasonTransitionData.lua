@@ -80,15 +80,30 @@ ns.SEASON_TRANSITION = {
 		-- wrong "done" in front of someone on a deadline, which is the worst possible
 		-- place to be wrong.
 		--
-		-- TO UPGRADE THESE TO AUTO-TRACKED: run `/mh ach nemesis`, `/mh ach solo`,
-		-- `/mh ach lighting`, `/mh ach prey` in-game, then replace `manual = true`
-		-- with `achiev = <the id it printed>`. Nothing else needs to change --
-		-- achievStatus() takes over and the tick becomes automatic. Verify the name it
-		-- resolves to via `/mh season` before trusting it, as with every other id here.
+		-- ⚠️ MEASURED 2026-07-26 (Rob, live client, `/mh ach`): THREE OF THE FOUR NAMES
+		-- IN THE ANNOUNCEMENT DO NOT EXIST IN THE CLIENT. "My Shady Nemesis" returns
+		-- only Warlord-of-Draenor achievements (9508-9515); "Lighting the Dark" returns
+		-- nothing; "Big Prey Hunter" is absent from a 40-hit Prey listing. The article
+		-- paraphrased. Do not go looking for those names again -- they are not there.
+		--
+		-- What IS there: `Let Me Solo It` = id 61420, todo. It sits between Keystone
+		-- Master (61256) and the Prey set (61386+), i.e. squarely in Midnight Season 1,
+		-- and reads as the same Elden Ring joke the article rendered as "Let Me Solo
+		-- Him". STRONG CANDIDATE, NOT YET CONFIRMED: a name that looks right is not
+		-- evidence. Run `/mh ach id 61420` and read its criteria and reward first.
+		--
+		-- TO UPGRADE ONE OF THESE TO AUTO-TRACKED: confirm with `/mh ach id <n>` that
+		-- the criteria describe the thing we claim, then replace `manual = true` with
+		-- `achiev = <id>`. Nothing else changes -- achievStatus() takes over.
+		--
+		-- Still to find (try the reward or the flavour, not the article's wording):
+		-- `/mh ach ominous` for the title, `/mh ach shady`, and the Prey capstone --
+		-- candidates seen but unconfirmed are `The Deadliest of Prey` (62134),
+		-- `Preying For Midnight` (62351) and `Gotta Hunt Them All` (62383).
 		--
 		-- The nemesis's name is deliberately absent from the shown text: the source
 		-- spells it both "Nulleaus" and "Nullaeus" in the same article, and we do not
-		-- put a coin-flip in front of the player. The finder will settle it.
+		-- put a coin-flip in front of the player.
 		--
 		-- Rewards named in the announcement, UNVERIFIED against the client (item ids
 		-- cannot be swept the way currencies can, so these wait for someone to see
