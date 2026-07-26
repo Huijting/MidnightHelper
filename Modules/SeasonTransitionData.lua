@@ -92,10 +92,23 @@ ns.SEASON_TRANSITION = {
 		-- That is a Showdown, not a nemesis solo kill. The name matched and the thing
 		-- did not, which is exactly why `/mh ach id` exists. Do not re-adopt 61420.
 		--
-		-- `/mh ach ominous` and `/mh ach shady` also returned nothing across 5163
-		-- achievements. Best current explanation: these are 12.1/PTR-datamined and are
-		-- not on the live client yet. The finder now also sweeps ids outside the
-		-- visible tree, so re-running it after 12.1 goes live is the next real test.
+		-- ✅ THE SWEEP PAID OFF, 2026-07-26 (late): `/mh ach ominous` re-run with the
+		-- reward-text search AND the id sweep found `Lighting the Dark` = id 61798,
+		-- HIDDEN (absent from the 5163-achievement visible tree), todo. It matched on
+		-- "ominous", a word that is not in its name -- so the hit came from its
+		-- description or reward text, consistent with the announced title "the
+		-- Ominous". Sits in Midnight's own id band (KSM 61256, Prey 61386+).
+		--
+		-- ⚠️ NOT WIRED YET. Run `/mh ach id 61798` and read the criteria first. 61420
+		-- looked at least this convincing and turned out to be a Showdown.
+		--
+		-- ❌ THIS KILLS THE "12.1-datamined, not on live" THEORY. These achievements
+		-- ARE on this client; they are hidden, which the category walk cannot see. So
+		-- the nemesis pair is probably hidden too rather than absent, and the way to
+		-- find it is the sweep with a word from its REWARD or flavour -- not its name.
+		-- Untried angles: `/mh ach nullaeus`, `/mh ach nulleaus`, `/mh ach domaneye`,
+		-- `/mh ach arcanovoid`. Those last two are the announced reward item names
+		-- (263413, 263222) and would settle the nemesis's spelling at the same time.
 		--
 		-- TO UPGRADE ONE OF THESE TO AUTO-TRACKED: confirm with `/mh ach id <n>` that
 		-- the CRITERIA describe the thing we claim -- never the name alone -- then
