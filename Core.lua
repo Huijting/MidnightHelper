@@ -840,11 +840,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- /mh ach <tekst> — zoek een achievement-ID op naam. Alleen een opzoekgereedschap:
 	-- de addon zelf mag nooit op naam matchen (namen zijn gelokaliseerd).
 	if msg:match("^ach%s+") or msg == "ach" then
-		-- /mh ach id <n> bewijst wat een gevonden achievement écht vraagt.
-		local detailID = msg:match("^ach%s+id%s+(%d+)$")
-		if detailID then
+		-- /mh ach id <n> [n ...] bewijst wat gevonden achievements écht vragen.
+		-- Meerdere tegelijk, want kandidaten komen per groepje: op 26 juli moesten er
+		-- drie Prey-achievements uitgeplozen worden en dat is één commando waard.
+		local detailIDs = msg:match("^ach%s+id%s+([%d%s]+)$")
+		if detailIDs then
 			if ns.PrintAchievementDetail then
-				ns.PrintAchievementDetail(tonumber(detailID))
+				for one in detailIDs:gmatch("%d+") do
+					ns.PrintAchievementDetail(tonumber(one))
+				end
 			end
 			return
 		end

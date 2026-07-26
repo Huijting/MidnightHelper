@@ -101,8 +101,9 @@ ns.SEASON_TRANSITION = {
 		-- the CRITERIA describe the thing we claim -- never the name alone -- then
 		-- replace `manual = true` with `achiev = <id>`. achievStatus() takes over.
 		--
-		-- Prey capstone candidates, seen but unconfirmed: `The Deadliest of Prey`
-		-- (62134), `Preying For Midnight` (62351), `Gotta Hunt Them All` (62383).
+		-- Prey capstone: `The Deadliest of Prey` (62134) is ❌ REFUTED -- "Complete 5
+		-- Prey Hunts in War Mode", i.e. PvP, not the Journey. Still unchecked:
+		-- `Preying For Midnight` (62351) and `Gotta Hunt Them All` (62383).
 		--
 		-- The shown texts name no achievement, on purpose: three of the four names do
 		-- not exist here, and putting a name in front of a player that their own
