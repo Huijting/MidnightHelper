@@ -64,11 +64,17 @@ implemented nowhere.
 
 ## Unresolved
 
-**Roleset.** 12.1 introduces a system where "frames in an inactive roleset will never be
-shown, regardless of their shown state". The addon creates frames on UIParent in 33
-files and contains no code that knows about rolesets. Nothing has been measured. This is
-the largest unexamined risk for patch day, because it can hide every on-screen helper at
-once without producing an error.
+**Roleset — measured 2026-07-27, and it is not a blocker.** The system is already live on
+build 120100. Every frame belongs to a roleset named `roleless` by default, and every
+frame carries `IsRolesetFiltered()`, so this is checkable rather than a matter of hope.
+Right now `GetActiveAllowedRolesets()` and `GetActiveBlockedRolesets()` both return empty
+lists and nothing of ours is filtered.
+
+The residual risk is one specific shape: an **active allowlist that does not include
+`roleless`**. That is what "frames in an inactive roleset will never be shown" would mean
+in practice, and it would take out every default frame at once -- ours and most other
+addons'. Unknown: which content activates a list, and which roleset names exist. Both are
+measurable with `/mh roleset` inside whatever content does it.
 
 **Party and raid auras.** MissingBuff reads other units' auras. Only the player's own
 auras have been tested on 12.1.

@@ -45,7 +45,7 @@ schuift door naar 2.12.0. Deze tabel is historie -- gebruik hem niet meer als ta
 
 | Blok | Wat | Stand |
 |---|---|---|
-| -- | **Roleset uitzoeken** | **OPEN, hoogste prioriteit.** Zie "Onopgelost" hieronder |
+| -- | Roleset | **GEMETEN 27 jul, GEEN blocker.** Systeem draait al; alles `roleless`, niets gefilterd. Restrisico = een actieve allowlist zonder `roleless`; te detecteren met `Frame:IsRolesetFiltered()` |
 | -- | `.toc` naar `## Interface: 120100` | OPEN, hoort bij deze release |
 | 12 | Coiled Isle-scaffold + lege-zone-guard | deels (3 bestanden noemen het) |
 | 11 | Crest-teksten ontnamen (115 strings) | OPEN -- vóór de flip doen |

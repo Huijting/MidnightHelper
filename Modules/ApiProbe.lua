@@ -190,8 +190,14 @@ local function CollectLiveState()
 		local f = _G[name]
 		local row = { name = name, exists = f ~= nil }
 		if f then
+			-- ⚠️ NOT `okS and (s and true or false) or nil`. That is the classic Lua
+			-- trap: the moment `s` is false the whole expression falls through to nil,
+			-- so "hidden" and "unreadable" render identically. The first run reported
+			-- shown=nil for three frames that were simply not shown (2026-07-27).
 			local okS, s = pcall(f.IsShown, f)
-			row.isShown = okS and (s and true or false) or nil
+			if okS then
+				row.isShown = s and true or false
+			end
 			if type(f.IsRolesetFiltered) == "function" then
 				local okF, filtered = pcall(f.IsRolesetFiltered, f)
 				row.filtered = okF and tostring(filtered) or "error"
