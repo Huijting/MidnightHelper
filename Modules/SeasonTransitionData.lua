@@ -133,8 +133,20 @@ ns.SEASON_TRANSITION = {
 		-- Let Me Solo Him -> mount item 263222 "Arcanovoid Construct";
 		-- Lighting the Dark -> title "the Ominous". None of these ids are used below;
 		-- they are recorded here so the next session does not have to re-find them.
-		{ id = "s1_nemesis", textKey = "ST_CLOSE_NEMESIS", manual = true },
-		{ id = "s1_solo", textKey = "ST_CLOSE_SOLO", manual = true },
+		-- ✅ FOUND 2026-07-27 by `/mh ach nullaeus` once the spelling was known. All
+		-- four are hidden Feats of Strength, invisible to the category walk and only
+		-- reachable by the id sweep. Yesterday's conclusion that "My Shady Nemesis"
+		-- does not exist was WRONG -- it was hidden, not absent. Note the ids run
+		-- 61797/61798/61799 consecutively, with 61808 "Fabled Let Me Solo Him:
+		-- Nullaeus" as a fifth we did not know about.
+		--
+		-- ⚠️ CRITERIA NOT YET READ for these two. Wired anyway because the evidence is
+		-- far stronger than the 61420 case that burned us: 61799 names Nullaeus in its
+		-- own title, both sit adjacent to the confirmed 61798, and both match the
+		-- announcement wording. Still worth one `/mh ach id 61797 61799 61808` -- if a
+		-- criterion says something else, unwire rather than reword.
+		{ id = "s1_nemesis", textKey = "ST_CLOSE_NEMESIS", achiev = 61797 },
+		{ id = "s1_solo", textKey = "ST_CLOSE_SOLO", achiev = 61799 },
 		-- ✅ CONFIRMED 2026-07-27 via `/mh ach id 61798`, and it answered three open
 		-- questions at once:
 		--   name        "Lighting the Dark"
