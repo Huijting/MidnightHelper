@@ -173,7 +173,9 @@ number>`, terwijl `effectiveScale` en `edgeSize` wél leesbaar zijn.
 **Waarom dit nieuw is.** Dit is de 12.1-uitbreiding van het secret-value-systeem
 waarvoor de watchlijst waarschuwde. Op 12.0.7 gebeurt het niet.
 
-✅ **GEFIXT 2026-07-25 — wacht op Robs test in een delve op de PTR.**
+✅ **GEFIXT 2026-07-25 — EN BEVESTIGD 2026-07-27.** Rob draaide meerdere gevechten in
+een delve op de PTR (build 120100, RC 68914) en BugGrabber bleef groen. Nul fouten,
+niet één. Daarmee is dit géén release-blocker meer voor 12.1.
 
 De diagnose bleek scherper te stellen dan gisteravond: `effectiveScale` en `edgeSize`
 stonden gewoon leesbaar in de locals, alleen `width` en `height` waren secret. Het is
@@ -192,9 +194,12 @@ Sweep gedaan: `CombatSafety.lua` is het **enige** bestand in de addon dat
 secret-gestuurde zichtbaarheid gebruikt, en de backdrop daar is weg. Geen tweede plek
 met dezelfde combinatie.
 
-⚠️ Dit is een beredeneerde fix, geen bewezen root cause: ik heb niet gemeten dát het
-verwijderen van de backdrop de fout wegneemt. Wat wél zeker is: de code die klapte
-draait niet meer. Rob test het in een delve op de PTR.
+⚠️ Dit was een beredeneerde fix, geen bewezen root cause: er is nooit gemeten dát juist
+het verwijderen van de backdrop de fout wegneemt — alleen dat de code die klapte niet
+meer draait. Robs test van 27 juli laat zien dat het symptoom weg is, wat voor de
+release genoeg is. Het onderliggende mechanisme (secret geometrie op frames die
+`SetAlphaFromBoolean` gebruiken) blijft dus een aanname; komt er ooit een tweede plek
+in MH met secret-gestuurde zichtbaarheid, ga daar niet vanuit maar meet opnieuw.
 
 <details><summary>Oorspronkelijke analyse (2026-07-24) — kandidaat-richtingen</summary>
 
