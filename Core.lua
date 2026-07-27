@@ -1409,6 +1409,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh valeera — benoem elke node in de trait-tree van je delve-companion.
+	-- /mh valeera save — lange lijst hoort in SavedVariables, niet in de chat.
+	if msg == "valeera save" or msg == "companion save" then
+		if ns.SaveCompanionTreeProbe then ns.SaveCompanionTreeProbe() end
+		return
+	end
+
 	if msg == "valeera" or msg == "companion" then
 		if ns.PrintCompanionTreeProbe then ns.PrintCompanionTreeProbe() end
 		return

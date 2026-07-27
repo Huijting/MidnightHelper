@@ -1099,3 +1099,93 @@ function ns.PrintCompanionTreeProbe()
 	end
 	print("   " .. prefix .. " |cff8a8f98names come from your client. Match them to the poisons/curios on her panel.|r")
 end
+
+--- /mh valeera save — same walk, into SavedVariables instead of chat.
+---
+--- Added 2026-07-27 the moment Rob pointed out the obvious: the companion tree is a
+--- long listing, and the day before we agreed long listings go to SavedVariables so
+--- nobody has to screenshot or retype them. Chat output stays for the short probes.
+---
+--- Structure mirrors what PrintCompanionTreeProbe prints, so anything readable there
+--- is readable here: per node the ranks, per entry the resolved name and spellID.
+--- ⚠️ SavedVariables reach disk only on /reload or logout.
+function ns.SaveCompanionTreeProbe()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	if not (C_DelvesUI and C_Traits and C_Traits.GetTreeNodes) then
+		print(prefix .. " C_DelvesUI / C_Traits not available")
+		return
+	end
+	local companionID = DelvesCompanionConfigurationFrame
+		and DelvesCompanionConfigurationFrame.playerCompanionID
+	if not companionID and C_DelvesUI.GetPlayerCompanionPDEID then
+		local okP, pde = pcall(C_DelvesUI.GetPlayerCompanionPDEID)
+		companionID = okP and pde or nil
+	end
+	if not companionID then
+		print(prefix .. " no companion id — open Valeera's window once, then retry")
+		return
+	end
+	local okTree, treeID = pcall(C_DelvesUI.GetTraitTreeForCompanion, companionID)
+	-- 0 is truthy in Lua; treat it as "no tree" (the bug that bit us 2026-07-24).
+	if not okTree or not treeID or treeID == 0 then
+		print(prefix .. " no trait tree for companion " .. tostring(companionID)
+			.. " — open Valeera's window and retry")
+		return
+	end
+	local okCfg, configID = pcall(C_Traits.GetConfigIDByTreeID, treeID)
+	local okNodes, nodes = pcall(C_Traits.GetTreeNodes, treeID)
+	if not okCfg or not configID or not okNodes or type(nodes) ~= "table" then
+		print(prefix .. " could not read the tree (config or nodes missing)")
+		return
+	end
+
+	local cap = {
+		captured = (time and time()) or 0,
+		build = select(4, GetBuildInfo()),
+		companionID = companionID,
+		treeID = treeID,
+		configID = configID,
+		nodes = {},
+	}
+	local named = 0
+	for _, nodeID in ipairs(nodes) do
+		local okI, node = pcall(C_Traits.GetNodeInfo, configID, nodeID)
+		if okI and type(node) == "table" then
+			local row = {
+				nodeID = nodeID,
+				ranksPurchased = node.ranksPurchased,
+				maxRanks = node.maxRanks,
+				entries = {},
+			}
+			for _, entryID in ipairs(type(node.entryIDs) == "table" and node.entryIDs or {}) do
+				local okE, entry = pcall(C_Traits.GetEntryInfo, configID, entryID)
+				if okE and type(entry) == "table" and entry.definitionID then
+					local okD, defn = pcall(C_Traits.GetDefinitionInfo, entry.definitionID)
+					if okD and type(defn) == "table" then
+						local nm = defn.overrideName
+						if (type(nm) ~= "string" or nm == "") and defn.spellID
+							and C_Spell and C_Spell.GetSpellName then
+							local okN, sn = pcall(C_Spell.GetSpellName, defn.spellID)
+							nm = okN and sn or nil
+						end
+						if type(nm) == "string" and nm ~= "" then
+							named = named + 1
+						end
+						row.entries[#row.entries + 1] = {
+							entryID = entryID,
+							name = nm,
+							spellID = defn.spellID,
+						}
+					end
+				end
+			end
+			cap.nodes[#cap.nodes + 1] = row
+		end
+	end
+
+	ns.db = ns.db or {}
+	ns.db.companionProbe = cap
+	print(("%s captured companion %s: tree %s, %d nodes, %d named entries."):format(
+		prefix, tostring(companionID), tostring(treeID), #cap.nodes, named))
+	print("   |cffffff78Now type /reload|r — SavedVariables only reach disk on reload or logout.")
+end
