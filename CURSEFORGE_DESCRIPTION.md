@@ -82,6 +82,10 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - Including the part that is easy to miss — top-tier crests are earnable **solo**, through high Bountiful Delves and repeatable Tier 6 Ritual Sites. You do not need a raid group.
 - A Codex entry walks through placing a **crafting order**: sparks, crests, missives, and the trap that sinks most first attempts (the crafter cannot supply your sparks or crests).
 
+**Before the season ends**
+- **Season checklist** — the things that genuinely stop being obtainable at the flip: the Delver's Journey, the "of the Dawn" upgrade-discount achievements, the delve nemesis kills and the Prey capstone. Each one ticks itself off from your own client, so nothing on it is a guess.
+- A Codex entry explains what a season rollover actually does to your gear, your currencies and your progress tracks — including the difference between a season change and a stat squish.
+
 **Guides & reference**
 - **Midnight Codex** — Season 1 handbook (Start Here, weekly loop, currencies with live balances, delves, M+, raid, world content, professions); **Open** links jump to the matching tab.
 - **Guide** — compact reference / advisor.
