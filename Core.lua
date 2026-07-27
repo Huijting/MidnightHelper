@@ -856,6 +856,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh dispel — wat kun je nú van jezelf wegnemen? Eigen debuffs alleen:
 	-- die van anderen kunnen in 12.x secret zijn en zijn nog niet gemeten.
+	if msg == "dispel alert" then
+		if ns.ToggleDispelAlert then
+			local on = ns.ToggleDispelAlert()
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"),
+				ns:L(on and "DISPEL_ALERT_ON" or "DISPEL_ALERT_OFF")))
+		end
+		return
+	end
+
 	if msg == "dispel" then
 		if ns.PrintDispelStatus then
 			ns.PrintDispelStatus()

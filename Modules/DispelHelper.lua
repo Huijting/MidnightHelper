@@ -168,3 +168,86 @@ function ns.PrintDispelStatus()
 			d.spellID and ("  spell " .. tostring(d.spellID)) or ""))
 	end
 end
+
+--------------------------------------------------------------------------------
+-- The live alert.
+--
+-- This deliberately does NOT register its own UNIT_AURA handler. AccessibleAlerts
+-- already runs one, engine-filtered to the player, with a global cooldown and a
+-- per-spell cooldown, reading through ns.Aura and skipping secret values. A second
+-- handler on the same event would double the work every time an aura changes on
+-- you, and would need its own copy of every one of those guards.
+--
+-- So this exposes a hook that the existing scan calls, and owns only two things:
+-- its own on/off setting, and the decision of what counts as worth saying.
+--
+-- Separate setting on purpose. AccessibleAlerts is a beginner accessibility aid;
+-- wanting "tell me when I can cleanse myself" is a different wish, and a raider
+-- who wants the second should not have to switch on the first.
+--------------------------------------------------------------------------------
+
+local function AlertSettings()
+	if not ns.db then
+		return nil
+	end
+	ns.db.dispelAlert = ns.db.dispelAlert or {}
+	local d = ns.db.dispelAlert
+	if d.enabled == nil then
+		d.enabled = false -- opt-in, like every other on-screen helper here
+	end
+	return d
+end
+
+--- @return boolean
+function ns.DispelAlertEnabled()
+	local d = AlertSettings()
+	return (d and d.enabled) and true or false
+end
+
+--- @return boolean now
+function ns.ToggleDispelAlert()
+	local d = AlertSettings()
+	if not d then
+		return false
+	end
+	d.enabled = not d.enabled
+	return d.enabled
+end
+
+--- Called by AccessibleAlerts for each readable debuff it scans.
+---
+--- Returns the line to show, or nil to stay quiet. Kept to a pure decision with no
+--- side effects: the caller owns the cooldowns, the sound and the frame, so this
+--- cannot accidentally alert twice or bypass a gap.
+---
+--- @param aura table  a debuff already checked for a readable spellId
+--- @return string|nil message
+function ns.GetDispelAlertFor(aura)
+	if not ns.DispelAlertEnabled() then
+		return nil
+	end
+	if type(aura) ~= "table" then
+		return nil
+	end
+	local dn = aura.dispelName
+	if dn == nil or isSecret(dn) then
+		return nil -- unreadable: not "no school", just unknown
+	end
+	local school = SCHOOL[dn]
+	if not school then
+		return nil
+	end
+	local schools = ns.GetDispellableSchools()
+	if not schools[school] then
+		return nil -- something else's job, or nobody's
+	end
+	local name = aura.name
+	if name == nil or isSecret(name) then
+		name = nil
+	end
+	if name then
+		return (ns:L("DISPEL_ALERT_FMT")):format(name)
+	end
+	-- The school alone is still actionable, and is better than inventing a name.
+	return (ns:L("DISPEL_ALERT_SCHOOL_FMT")):format(ns:L("DISPEL_SCHOOL_" .. school:upper()))
+end

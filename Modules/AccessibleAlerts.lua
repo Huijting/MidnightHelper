@@ -129,7 +129,13 @@ end
 
 local function ScanDebuffs()
 	local a = Settings()
-	if not (a and a.enabled) then
+	-- Two independent features share this scan, so the gate is "either is on", not
+	-- "the accessibility one is on". Getting this wrong would have made the dispel
+	-- alert's separate setting a lie: switching it on while accessibility alerts
+	-- were off would have produced silence with no way to tell why.
+	local wantAccessible = (a and a.enabled) and true or false
+	local wantDispel = ns.DispelAlertEnabled and ns.DispelAlertEnabled() or false
+	if not (wantAccessible or wantDispel) then
 		return
 	end
 	if not InInstanceForAlerts() then
@@ -151,7 +157,20 @@ local function ScanDebuffs()
 		if id == nil or (issecretvalue and issecretvalue(id)) then
 			return
 		end
-		local key = ns.DEBUFF_ALERTS[id]
+		-- Second reason to speak up, added 2026-07-27: this debuff is one YOU can
+		-- remove. DispelHelper owns that decision and its own opt-in; it is hooked
+		-- in here rather than given its own UNIT_AURA handler, so both features
+		-- share this scan, this global cooldown and this per-spell cooldown instead
+		-- of doubling the work on every aura change.
+		if ns.GetDispelAlertFor and (lastBySpell[id] or 0) + PER_SPELL_GAP <= now then
+			local msg = ns.GetDispelAlertFor(aura)
+			if msg then
+				lastBySpell[id] = now
+				fired = msg
+				return true
+			end
+		end
+		local key = wantAccessible and ns.DEBUFF_ALERTS[id] or nil
 		if key and (lastBySpell[id] or 0) + PER_SPELL_GAP <= now then
 			lastBySpell[id] = now
 			if type(key) == "string" then
