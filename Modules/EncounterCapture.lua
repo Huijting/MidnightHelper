@@ -92,9 +92,13 @@ local function ejPrefix()
 	return ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 end
 
--- 14 = Normal, the same default DBM's dev dump uses. Mythic (23) can list extra
--- bosses, so /mh ej takes a difficulty argument for a second pass.
-local EJ_DEFAULT_DIFF = 14
+-- DIFFICULTY IS PER INSTANCE TYPE, which the first fix missed. 14 is Normal RAID:
+-- with it the raids listed correctly (Tidebound Grotto 1 boss, Venomous Abyss 8)
+-- and every dungeon still read 0. Dungeons need a dungeon difficulty -- 23, Mythic,
+-- lists the most. Measured on the PTR 2026-07-27: `/mh ej 1322 23` returned Altar
+-- of Fangs' three bosses, matching the 3 the patch notes describe.
+local EJ_DIFF_RAID = 14
+local EJ_DIFF_DUNGEON = 23
 
 --- Borrow the journal's difficulty for the length of one read.
 --- @return number|nil previous  what to hand back, or nil if we changed nothing
@@ -135,13 +139,18 @@ local function DumpInstance(instanceID, label, diff)
 		end
 		found = found + 1
 		print(("   %d. |cffffffff%s|r  encounterID=|cff40c040%s|r"):format(i, tostring(name), tostring(encounterID)))
+		-- ⚠️ The first return is the JOURNAL's own creature entry id, not the NPC id.
+		-- Altar of Fangs came back as 6210/6230/6218 -- far too low for Midnight NPCs,
+		-- which sit in the hundreds of thousands. This was labelled "creatureID" for
+		-- one run on 2026-07-27; do not relabel it back. For a real NPC id, pull the
+		-- boss with /mh encounters on, or read it from the combat log.
 		if EJ_GetCreatureInfo and encounterID then
 			for c = 1, 10 do
-				local okC, creatureID, creatureName = pcall(EJ_GetCreatureInfo, c, encounterID)
-				if not okC or not creatureID then
+				local okC, ejCreature, creatureName = pcall(EJ_GetCreatureInfo, c, encounterID)
+				if not okC or not ejCreature then
 					break
 				end
-				print(("        creatureID=%-8s %s"):format(tostring(creatureID), tostring(creatureName)))
+				print(("        ejCreature=%-8s %s"):format(tostring(ejCreature), tostring(creatureName)))
 			end
 		end
 	end
@@ -159,13 +168,32 @@ function ns.PrintEncounterJournalDump(arg, diffArg)
 		return
 	end
 
-	local diff = tonumber(diffArg) or EJ_DEFAULT_DIFF
-	local restore = BorrowDifficulty(diff)
-
 	local one = tonumber(arg)
 	if one then
+		local diff = tonumber(diffArg) or EJ_DIFF_DUNGEON
+		local restore = BorrowDifficulty(diff)
 		DumpInstance(one, "instance", diff)
 		ReturnDifficulty(restore)
+		return
+	end
+
+	-- /mh ej all [difficulty] — every instance of this tier, in full, in one go.
+	-- Built for a PTR test window that closes the same day: seven dungeons is seven
+	-- commands and seven screenshots otherwise.
+	if type(arg) == "string" and arg:lower() == "all" then
+		local askedDiff = tonumber(diffArg)
+		for _, isRaid in ipairs({ false, true }) do
+			local diff = askedDiff or (isRaid and EJ_DIFF_RAID or EJ_DIFF_DUNGEON)
+			local restore = BorrowDifficulty(diff)
+			for i = 1, 40 do
+				local ok, instanceID, name = pcall(EJ_GetInstanceByIndex, i, isRaid)
+				if not ok or not instanceID then
+					break
+				end
+				DumpInstance(instanceID, tostring(name), diff)
+			end
+			ReturnDifficulty(restore)
+		end
 		return
 	end
 
@@ -179,14 +207,15 @@ function ns.PrintEncounterJournalDump(arg, diffArg)
 		local okT, n = pcall(EJ_GetTierInfo, tier)
 		tierName = okT and n or nil
 	end
-	print(("%s Encounter Journal, tier %s (%s), read at difficulty %s"):format(
-		prefix, tostring(tier), tostring(tierName or "?"), tostring(diff)))
-	if restore == nil then
-		print("   |cffff8080Could not set the difficulty|r -- boss counts may read 0.")
-	end
+	print(("%s Encounter Journal, tier %s (%s)"):format(
+		prefix, tostring(tier), tostring(tierName or "?")))
 
 	for _, isRaid in ipairs({ false, true }) do
-		print(("   -- %s --"):format(isRaid and "raids" or "dungeons"))
+		-- Count at the difficulty that type actually uses, or the count is a lie:
+		-- at raid difficulty 14 every dungeon reported 0 bosses (PTR, 2026-07-27).
+		local diff = tonumber(diffArg) or (isRaid and EJ_DIFF_RAID or EJ_DIFF_DUNGEON)
+		local restore = BorrowDifficulty(diff)
+		print(("   -- %s (difficulty %d) --"):format(isRaid and "raids" or "dungeons", diff))
 		local n = 0
 		for i = 1, 40 do
 			local ok, instanceID, name = pcall(EJ_GetInstanceByIndex, i, isRaid)
@@ -208,8 +237,7 @@ function ns.PrintEncounterJournalDump(arg, diffArg)
 		if n == 0 then
 			print("     none listed for this tier.")
 		end
+		ReturnDifficulty(restore)
 	end
-	print("   Then: /mh ej <id> for every encounterID + creatureID of one instance.")
-	print("   Mythic-only bosses: add a difficulty, e.g. /mh ej 1322 23")
-	ReturnDifficulty(restore)
+	print("   Then: /mh ej <id> for one instance, or /mh ej all for every one of them.")
 end

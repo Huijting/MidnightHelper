@@ -839,10 +839,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh ej [instanceID] — lees de hele bossenlijst uit de Encounter Journal, zonder
 	-- te pullen. Voor krappe PTR-testvensters waarin /mh encounters te traag is.
-	if msg == "ej" or msg:match("^ej%s+%d+") then
+	if msg == "ej" or msg:match("^ej%s+%d+") or msg:match("^ej%s+all") then
 		local ejID, ejDiff = msg:match("^ej%s+(%d+)%s+(%d+)$")
 		if not ejID then
-			ejID = msg:match("^ej%s+(%d+)$")
+			ejID, ejDiff = msg:match("^ej%s+(all)%s+(%d+)$")
+		end
+		if not ejID then
+			ejID = msg:match("^ej%s+(%d+)$") or msg:match("^ej%s+(all)$")
 		end
 		if ns.PrintEncounterJournalDump then
 			ns.PrintEncounterJournalDump(ejID, ejDiff)
