@@ -1,3 +1,115 @@
+# Midnight Helper — waar we staan
+
+**Bijgewerkt 2026-07-27.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
+"Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+
+Op 27 juli stuurde de verouderde versie van dit bestand een sessie de verkeerde kant op
+(hij wees nog naar de Achievements-tab en beweerde dat de WoW-map geen git-repo is).
+Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
+
+---
+
+## De klok
+
+Patch **12.1 "Curse of Ula'tek"** is een release candidate (build 68914). Projectie:
+**live 11 aug (EU 12 aug)**, **Season 2 18 aug (EU 19 aug)**. Geen officiele
+Blizzard-datum, dus MH mag die datum nergens tonen.
+
+---
+
+## Twee aparte lijsten. Verwar ze niet.
+
+Op 27 juli beantwoordde ik "wat staat er nog open?" met alleen lijst B, terwijl Rob
+lijst A bedoelde. Beide zijn echt; ze horen bij verschillende dingen.
+
+### A. Het RELEASEPLAN -- uit `MH_HANDOFF_2026-07-24.md` (Robs zip, niet in de repo)
+
+Tijdgebonden blokken rond de patch. **Dit is de lijst die telt voor 2.11.0.**
+
+**2.11.0 -- "voor de patch"**
+
+| Blok | Wat | Stand |
+|---|---|---|
+| 1 | Delver's Journey op de closing-checklist | gebouwd |
+| 5 | Mijlpaal-kaartje | gebouwd |
+| 10 | Alert-overlap-fix | gebouwd |
+| 2 | Codex "Als een seizoen afloopt" | **OPEN** |
+| 16 | Bossmodel standaard uit | **OPEN** -- `DungeonBossWindow.lua:954`, `showModel ~= false` staat nu default aan |
+| 6 | Carola-test v2 | Robs werk; wat eruit komt hoort in deze release |
+
+Na blok 2 en 16 kan **2.11.0 uit**. Beide zijn klein.
+
+**2.12.0 -- "klaar voor Season 2"**
+
+| Blok | Wat | Stand |
+|---|---|---|
+| 12 | Coiled Isle-scaffold + lege-zone-guard | deels (3 bestanden noemen het) |
+| 11 | Crest-teksten ontnamen (115 strings) | OPEN |
+| 7 | Nieuwkomer-detectie aansluiten | OPEN -- `ns.IsSeasonNewcomer` bestaat, wordt nergens gebruikt |
+| 9 | Prey: Codex-entry + probe | OPEN |
+
+**Los van releases:** blok 13+14 vertaalstatus + werkpakket 2 naar Discord (doe dit
+vroeg -- iemand anders werkt in zijn eigen tempo). Blok 3, de PTR-capture-checklist, is
+op 27 juli grotendeels afgerond.
+
+Nooit geland uit de handoff van 20 juli: **crest-bronnen per tier** en **spark-doel**.
+
+### B. De FEATURE-BACKLOG -- door Rob goedgekeurd over tijd, niet tijdgebonden
+
+- **Dispel-helper** -- sterkste volgende bouwwerk (Rob-goedgekeurd, luidste klacht,
+  WeakAuras heeft niets voor Midnight, 12.1 levert `DISPELLABLE`-filters).
+  `DispelCapture.lua` is alleen de dataverzamelaar; de helper zelf bestaat niet.
+- Rest van het healer-initiatief: per-spec cooldown-cheatsheet, Academy-healcursus
+  verdiepen, heal-lens bossmechanieken.
+- **Spec 08** -- cross-listing in de interrupt-kaart. `alsoStop`-data klaar voor Paladin
+  en JustAC-geverifieerd; de UI ontbreekt.
+- **Openables** mist "Use: Collect X"-pakketten (bv. itemID 246752 -- komt nergens voor).
+- Tank/DPS-toolkit bestaan al. Route-pijl hervat weer.
+- Open onderzoek: CLEU-taint -- waarom MH geen combat log mag registreren waar DBM wel mag.
+
+---
+
+## Wat 27 juli opleverde
+
+- **12.1-blocker weg**: de CombatSafety secret-geometry-fix is bewezen in een PTR-delve
+  (meerdere gevechten, BugGrabber bleef groen).
+- **Aura-migratie is geen blocker**: `ShouldAurasBeSecret = false` binnen en buiten een
+  delve op de RC-build. Let op: dat meet je EIGEN auras; groepsleden zijn nog ongetest.
+- **S2-data compleet en machinaal geverifieerd** tegen de client: 14 ontbrekende
+  encounterIDs ingevuld, raidvolgorde gecorrigeerd (stond in DBM-nummering, niet
+  gevechtsvolgorde).
+- **Vier Season 1-achievements automatisch**: 61797/61798/61799 + Prey-capstone 62351.
+  Alle vier waren verborgen Feats of Strength.
+- Nieuw gereedschap: `/mh ej`, `/mh ach`, `/mh delvescan`, `/mh valeera save`,
+  `/mh poisons`, `/mh trail`.
+- Metingen vastgelegd in `docs/PTR_S2_ENCOUNTERS.md`, `PTR_DELVE_SCAN.md`,
+  `PTR_VALEERA_TREE.md`.
+
+---
+
+## Werkafspraken
+
+- **Lange diagnose-uitvoer gaat naar SavedVariables**, niet naar de chat: het commando
+  krijgt een `save`-variant, Rob doet `/reload`, ik lees het bestand met `lua`.
+- `tools/copy_to_ptr.bat` krijgt een **eigen** aanroep, nooit geketend achter git.
+- De repo **is** de live AddOns-map -- elke edit landt meteen in Robs spel. Scripts
+  atomisch schrijven (`.tmp` + `os.replace`).
+- Voor afronden: `luac -p` en `python tools/lint_addon.py` (HARD moet 0 zijn).
+
+```text
+/reload
+/mh ej            (bossenlijst uit de Encounter Journal; `save` schrijft naar SV)
+/mh ach <tekst>   (achievement-ID zoeken; `id <n>` toont criteria en beloning)
+/mh delvescan     (welke delves biedt de client aan)
+```
+
+---
+---
+
+# Historie
+
+Alles hieronder is oud logboek, bewaard maar niet bijgehouden.
+
 # Next session — Midnight Helper
 
 ## ✅ FASE 4 AFGEROND (2026-07-08, Opus 4.8 — backlog 15, 19–21) → HELE REVIEW-BACKLOG DICHT
