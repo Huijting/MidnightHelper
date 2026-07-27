@@ -164,3 +164,38 @@ not after.
 self-contained, deliberately free of numbers and dates, already exists in all
 seven languages, and has `searchKeys` — so the round trip exercises every field
 that matters without touching anything patch-sensitive.
+
+---
+
+## The boundary, and the falsifier
+
+Agreed with ChatGPT 2026-07-27, at the close of the RFC-001 discussion. Written
+down here because it decides what a knowledge object may contain, and a decision
+that lives only in a chat log is a decision that gets re-litigated.
+
+**The split in this repo is by rate of change and by owner, not by file type.**
+Prose changes often and belongs to translators, so it lives in `Locales/` — and
+that is enforced, not stylistic: `tools/lint_addon.py:79` collects key definitions
+from `Locales/` only, so a key defined in a module makes every reference to it a
+HARD failure. Structure changes rarely and belongs to code, so it lives in the
+registry, identically for all seven languages. Presentation changes independently
+of both, so the renderer knows neither ids nor text.
+
+**A knowledge object carries intent, never implementation.** `tabId = "reference"`,
+`delvesSection`, `currencyId` and `sort` are facts about *this addon's user
+interface*. Put them in a knowledge object and every future output inherits one
+addon's topology. What belongs there is "this explains crests"; a small per-output
+map then says "in MH, crest articles link to the reference tab". That map is the
+only thing that changes when the tabs are reorganised.
+
+**The falsifier for the whole model.** If a knowledge object cannot be written
+without already encoding `sort = 7` and `category = "start"`, then knowledge is
+not upstream of the article — it is the article in a different file format, and
+the architecture has not earned its keep. That is a real possible outcome and it
+costs one file to discover.
+
+**The proof of concept is a diff, not a write.** Express `season_end` as a
+knowledge object, generate what the enUS registry row and locale entries *should*
+be, and compare against what is in the repo. Nothing is written, so it cannot
+break the addon, and because the article already exists there is a ground truth to
+be wrong against. Success is an empty diff apart from differences you can explain.
