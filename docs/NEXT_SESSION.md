@@ -47,7 +47,7 @@ schuift door naar 2.12.0. Deze tabel is historie -- gebruik hem niet meer als ta
 |---|---|---|
 | -- | Roleset | **GEMETEN 27 jul, GEEN blocker.** Systeem draait al; alles `roleless`, niets gefilterd. Restrisico = een actieve allowlist zonder `roleless`; te detecteren met `Frame:IsRolesetFiltered()` |
 | -- | `.toc` | **AF 27 jul.** `## Interface: 120007, 120100` — beide versies, dus geen out-of-date-melding op live én op 12.1, en geen bump nodig op patchdag |
-| 12 | Coiled Isle-scaffold + lege-zone-guard | deels (3 bestanden noemen het) |
+| 12 | Coiled Isle-scaffold + lege-zone-guard | **guard AF 27 jul** (`ns.IsZoneCovered`, `/mh zone`). Het scaffold zelf KAN NIET: de mapID van Coiled Isle is nergens gedataminet. Op patchdag `/mh zone` draaien in de zone, dan is hij gemeten |
 | 11 | Crest-teksten ontnamen (115 strings) | OPEN -- vóór de flip doen |
 | 7 | Nieuwkomer-detectie aansluiten | OPEN -- `ns.IsSeasonNewcomer` bestaat, wordt nergens gebruikt |
 | 9 | Prey: Codex-entry + probe | OPEN |

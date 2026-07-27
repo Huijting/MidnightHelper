@@ -429,3 +429,96 @@ function ns.SaveDelveScan()
 	print(("%s captured %d delves into SavedVariables."):format(prefix, total))
 	print("   |cffffff78Now type /reload|r -- SavedVariables only reach disk on reload or logout.")
 end
+
+--------------------------------------------------------------------------------
+-- /mh zone — what does Midnight Helper know about where you are standing?
+--
+-- Written 2026-07-27 as the honest half of "block 12: Coiled Isle scaffold".
+--
+-- The scaffold itself cannot be built. Patch 12.1 adds the Coiled Isle, and its
+-- map id has not been datamined -- only that the zone exists, with a raid entrance
+-- and gathering nodes. Inventing a map id to scaffold against is exactly the kind
+-- of guess this addon does not ship, and a scaffold pinned to a wrong id is worse
+-- than none: it would look finished.
+--
+-- So this is the precondition instead. Walk into a new zone on patch day, run one
+-- command, and every number needed to build the scaffold is measured rather than
+-- datamined -- the same move that turned the Season 2 roster from a guess into
+-- data on 27 July.
+--
+-- It also answers the question the empty-zone guard is really about: "is there
+-- nothing here, or do we simply not know?" Those are different statements and
+-- only one of them is ours to make.
+--------------------------------------------------------------------------------
+
+--- /mh zone — report the current zone and MH's coverage of it.
+function ns.PrintZoneReport()
+	local prefix = ejPrefix()
+	if not (C_Map and C_Map.GetBestMapForUnit) then
+		print(prefix .. " C_Map not available.")
+		return
+	end
+	local okMap, mapID = pcall(C_Map.GetBestMapForUnit, "player")
+	mapID = okMap and mapID or nil
+	if not mapID then
+		print(prefix .. " no map for the player right now (loading screen?).")
+		return
+	end
+
+	local info
+	if C_Map.GetMapInfo then
+		local ok, mi = pcall(C_Map.GetMapInfo, mapID)
+		info = ok and mi or nil
+	end
+
+	print(("%s Zone report"):format(prefix))
+	print(("   uiMapID     = |cffffffff%s|r"):format(tostring(mapID)))
+	if type(info) == "table" then
+		print(("   name        = %s"):format(tostring(info.name)))
+		print(("   mapType     = %s   parent = %s"):format(
+			tostring(info.mapType), tostring(info.parentMapID)))
+	end
+
+	-- Player position, in the form our data tables use.
+	if C_Map.GetPlayerMapPosition then
+		local okPos, pos = pcall(C_Map.GetPlayerMapPosition, mapID, "player")
+		if okPos and pos and pos.GetXY then
+			local okXY, x, y = pcall(pos.GetXY, pos)
+			if okXY and x then
+				print(("   you are at  = %.2f, %.2f"):format(x * 100, (y or 0) * 100))
+			end
+		end
+	end
+
+	-- Coverage. The whole point: an empty list and an unknown zone must not look
+	-- the same.
+	local covered, zoneKey = false, nil
+	if ns.IsZoneCovered then
+		covered, zoneKey = ns.IsZoneCovered(mapID)
+	end
+	if covered then
+		local n = ns.GetZoneRareCount and ns.GetZoneRareCount(zoneKey)
+		print(("   coverage    = |cff40c040known|r as '%s'%s"):format(
+			tostring(zoneKey), n and (", %d rares listed"):format(n) or ""))
+	else
+		print("   coverage    = |cffe8c36aNOT KNOWN to Midnight Helper|r")
+		print("      Nothing is broken. Zone features will say they have no list for")
+		print("      here, which is true, rather than showing an empty one.")
+	end
+
+	-- Anything the client itself offers here, whether or not we cover the zone.
+	if C_AreaPoiInfo and C_AreaPoiInfo.GetDelvesForMap then
+		local okD, ids = pcall(C_AreaPoiInfo.GetDelvesForMap, mapID)
+		local n = (okD and type(ids) == "table") and #ids or 0
+		print(("   delves here = %d (from the client, not from our data)"):format(n))
+	end
+	if EJ_GetInstanceForMap then
+		local okE, instanceID, instanceName = pcall(EJ_GetInstanceForMap, mapID)
+		if okE and instanceID and instanceID ~= 0 then
+			print(("   journal     = instance %s '%s'"):format(
+				tostring(instanceID), tostring(instanceName)))
+		end
+	end
+
+	print("   To add a rare from where you stand: /mh capture")
+end

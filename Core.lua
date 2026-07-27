@@ -854,6 +854,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh zone — wat weet MH van de zone waar je staat? Op patchdag is dit de
+	-- eerste stap in een nieuwe zone: mapID meten in plaats van dataminen.
+	if msg == "zone" then
+		if ns.PrintZoneReport then
+			ns.PrintZoneReport()
+		end
+		return
+	end
+
 	-- /mh delvescan [save] — welke delves biedt de client vandaag echt aan?
 	if msg == "delvescan save" then
 		if ns.SaveDelveScan then

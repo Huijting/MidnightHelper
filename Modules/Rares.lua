@@ -166,6 +166,40 @@ for mapID, zoneKey in pairs(MAP_TO_ZONE_KEY) do
 	list[#list + 1] = mapID
 end
 
+--- Does Midnight Helper have zone data for this map?
+---
+--- Exists so that "there is nothing here" can be told apart from "we know nothing
+--- about here". Those are different statements and only one of them is ours to
+--- make. RARES_EMPTY_ZONE already words the visible case correctly ("No rare list
+--- for this zone", not "no rares here"); this makes the same distinction available
+--- to anything else that wants it, and to /mh zone.
+---
+--- Patch 12.1 adds the Coiled Isle. Until someone stands in it, its map id is
+--- unknown to us -- it has not been datamined and inventing one is not on the
+--- table -- so on the day it opens every zone feature will correctly report no
+--- coverage rather than an empty list that reads as an answer.
+--- @param mapID number|nil defaults to the player's current map
+--- @return boolean covered, string|nil zoneKey
+function ns.IsZoneCovered(mapID)
+	mapID = tonumber(mapID)
+	if not mapID and C_Map and C_Map.GetBestMapForUnit then
+		local ok, cur = pcall(C_Map.GetBestMapForUnit, "player")
+		mapID = ok and cur or nil
+	end
+	if not mapID then
+		return false, nil
+	end
+	local key = MAP_TO_ZONE_KEY[mapID]
+	return key ~= nil, key
+end
+
+--- How many rares MH lists for a zone key. nil when the key is unknown.
+--- @return number|nil
+function ns.GetZoneRareCount(zoneKey)
+	local zone = zoneKey and ZONE_BY_KEY[zoneKey]
+	return zone and zone.rares and #zone.rares or nil
+end
+
 --------------------------------------------------------------------------------
 -- Rare-doodshoofd (Rob-wens 16 jun): zet een Skull-raidmarker op een bekende
 -- rare zodra z'n nameplate verschijnt → meteen herkenbaar tussen de mobs.
