@@ -21,6 +21,8 @@ local _, ns = ...
 ---@field delvesSection string|nil -- "vault" | "midnight" when tabId is delves (accordion)
 ---@field referenceSubTab string|nil -- "crest" | "professions" when tabId is reference
 ---@field currencyId number|nil
+---@field searchKeys string|nil -- extra words NavSearch matches on. Without it an article
+---                             -- is findable only by words already in its own title.
 ---@field sort number
 
 ns.CODEX_CATEGORIES = {

@@ -1,6 +1,14 @@
 --[[
 	Midnight Helper — Midnight Codex (handbook) strings.
-	enUS + nlNL; other UI packs fall back to enUS via ns:L().
+
+	SEVEN packs are merged here, in this order: enUS, itIT, nlNL, deDE, frFR, esES,
+	ptBR. The header used to say "enUS + nlNL; the rest falls back" — that was true
+	once and stopped being true without anyone updating it. Anything missing from a
+	pack does still fall back to enUS via ns:L(), so a gap shows English, never a
+	raw key.
+
+	Article structure and ids live in Modules/MidnightCodexData.lua.
+	Read docs/CODEX_ARCHITECTURE.md before writing anything that generates these.
 ]]
 
 local _, ns = ...
