@@ -160,12 +160,48 @@ Newest at the top. Move a section under a version heading once it ships.
 - **Action required:** optional. The chapter is safe as written; it could now say ten
   regular delves plus a seasonal Nemesis Delve, and cite the interface for the list.
 
+### Pattern, not incidents: three chapters cite Dragonflight-era sources
+
+- **Summary:** chapters 3, 7 and 10 all source their upgrade and gear explanations from
+  2023 Dragonflight material — *Embers of Neltharion Upgrade System Overview*,
+  *Developer Insights: New Upgrade System in Embers of Neltharion*, *Dragonflight
+  Preview: An Eye on Professions*, *Rev up Your Adventures with Turbo Boost*.
+- **Why it matters:** the upgrade system is the part that has changed most since. It is
+  almost certainly where the Explorer track in chapter 10 comes from.
+- **Action required:** treat this as one editorial pass rather than three fixes. Anything
+  about tracks, ranks, crests or upgrade currency that traces back to those articles
+  needs re-checking against the current game or against our measured files.
+
+### Verified TRUE: chapter 8's claim about the addon
+
+- Chapter 8 states that Midnight Helper shows the source and patch version when it makes
+  a specific recommendation. **It does.** `VAULT_ADVISOR_SOURCE_FMT` renders
+  "Guide stats (%s, patch %s)". No change needed — recorded so this is not re-checked.
+
+### Verified TRUE: chapter 14's boss count
+
+- "Three raid zones with nine bosses in Season 1" matches the addon's own roster exactly:
+  The Dreamrift 1, The Voidspire 6, March on Quel'Danas 2. IN_GAME_VERIFIED via DBM
+  cross-check. No change needed.
+
 ### Checked and clear
 
 - **Chapter 13's Valeera guidance** matches the addon exactly: it declines to fix a talent
   route without current patch verification, which is the same reason the addon shows the
   poisons without recommending one. No change needed.
 - **Chapter 7** does not claim gear is reset at a season change.
+- **Chapters 2, 4, 5, 11 and 12** were read and no factual problem was found. Chapter 5's
+  armour split across all thirteen classes is correct; chapter 4's sixteen-slot list is
+  correct and says openly what it leaves out.
+- **Chapter 6, page 4** contains a softer version of the chapter 9 problem — "daarom wordt
+  een onbekende trinket niet automatisch verkocht" implies addon behaviour that does not
+  exist. Lower priority than chapter 9, same fix.
+
+### Review scope
+
+All fourteen chapters plus the Boekmaster were read on 2026-07-27 against the addon's code
+and measured data. Two claims about the addon were checked: one true (chapter 8), one
+false (chapter 9). Chapters not re-read since then may have changed.
 
 - The earlier warning in the 2.11.0 section predicted the book might say gear is reset or
   scaled down when a season ends. Chapter 7 does **not** say this. Recorded so nobody
