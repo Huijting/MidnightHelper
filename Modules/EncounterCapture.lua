@@ -330,3 +330,102 @@ function ns.PrintEncounterJournalDump(arg, diffArg)
 	end
 	print("   Then: /mh ej <id> for one instance, or /mh ej all for every one of them.")
 end
+
+--------------------------------------------------------------------------------
+-- /mh delvescan [save] — which delves does the client actually offer today?
+--
+-- Written 2026-07-27 to answer "are there new delves in 12.1" with a measurement
+-- instead of a datamine. Wowhead named three (The Ring of Glory, Gnarldor Isle,
+-- Venomfall Deeps) back in June; that is the same class of source that produced
+-- three wrong achievement names in a row the day before.
+--
+-- ⚠️ READ THE RESULT CORRECTLY. C_AreaPoiInfo.GetDelvesForMap returns the delves
+-- the map is OFFERING, not a catalogue. A name that shows up is proof it exists;
+-- a name that does not show up proves nothing at all -- it may simply not be in
+-- today's rotation. Never write "delve X does not exist in 12.1" off this.
+--
+-- The zone list is MH's own (DelveBossShowcase's STORY_ZONE_MAPS). Broker_Midnight-
+-- Events scans the same API, but it is GPL v2 and MH is MIT, so nothing is copied
+-- from it -- calling the same Blizzard function is not borrowing.
+--------------------------------------------------------------------------------
+
+local DELVE_SCAN_MAPS = { 2393, 2437, 2395, 2424, 2444, 2413, 2405, 2576 }
+
+--- Walk every Midnight zone and collect whatever delves it lists.
+--- @return table rows, number total
+local function CollectDelves()
+	local rows, total = {}, 0
+	if not (C_AreaPoiInfo and C_AreaPoiInfo.GetDelvesForMap and C_AreaPoiInfo.GetAreaPOIInfo) then
+		return rows, 0
+	end
+	for _, mapID in ipairs(DELVE_SCAN_MAPS) do
+		local zoneName
+		if C_Map and C_Map.GetMapInfo then
+			local okM, mi = pcall(C_Map.GetMapInfo, mapID)
+			zoneName = (okM and type(mi) == "table") and mi.name or nil
+		end
+		local okList, poiIDs = pcall(C_AreaPoiInfo.GetDelvesForMap, mapID)
+		if okList and type(poiIDs) == "table" then
+			for _, poiID in ipairs(poiIDs) do
+				local okInfo, info = pcall(C_AreaPoiInfo.GetAreaPOIInfo, mapID, poiID)
+				if okInfo and type(info) == "table" then
+					local x, y
+					if info.position and info.position.GetXY then
+						local okXY, px, py = pcall(info.position.GetXY, info.position)
+						if okXY and px then
+							x, y = px * 100, (py or 0) * 100
+						end
+					end
+					total = total + 1
+					rows[#rows + 1] = {
+						mapID = mapID,
+						zone = zoneName,
+						poiID = poiID,
+						name = info.name,
+						description = info.description,
+						atlas = info.atlasName,
+						textureKit = info.uiTextureKit,
+						x = x,
+						y = y,
+					}
+				end
+			end
+		end
+	end
+	return rows, total
+end
+
+--- /mh delvescan — print what is on offer right now.
+function ns.PrintDelveScan()
+	local prefix = ejPrefix()
+	local rows, total = CollectDelves()
+	if total == 0 then
+		print(prefix .. " no delves listed by C_AreaPoiInfo in any Midnight zone.")
+		print("   Either the API is unavailable, or nothing is on offer on this map right now.")
+		return
+	end
+	print(("%s %d delves on offer (this is today's rotation, not a catalogue):"):format(prefix, total))
+	local lastMap
+	for _, r in ipairs(rows) do
+		if r.mapID ~= lastMap then
+			print(("   -- %s (map %s) --"):format(tostring(r.zone or "?"), tostring(r.mapID)))
+			lastMap = r.mapID
+		end
+		print(("     |cffffffff%s|r  poi=%s  at %.1f, %.1f"):format(
+			tostring(r.name), tostring(r.poiID), r.x or 0, r.y or 0))
+	end
+end
+
+--- /mh delvescan save — park it in SavedVariables (then /reload).
+function ns.SaveDelveScan()
+	local prefix = ejPrefix()
+	ns.db = ns.db or {}
+	local rows, total = CollectDelves()
+	ns.db.delveScan = {
+		captured = (time and time()) or 0,
+		build = select(4, GetBuildInfo()),
+		rows = rows,
+	}
+	print(("%s captured %d delves into SavedVariables."):format(prefix, total))
+	print("   |cffffff78Now type /reload|r -- SavedVariables only reach disk on reload or logout.")
+end

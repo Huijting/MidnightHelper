@@ -135,7 +135,18 @@ ns.SEASON_TRANSITION = {
 		-- they are recorded here so the next session does not have to re-find them.
 		{ id = "s1_nemesis", textKey = "ST_CLOSE_NEMESIS", manual = true },
 		{ id = "s1_solo", textKey = "ST_CLOSE_SOLO", manual = true },
-		{ id = "s1_dark", textKey = "ST_CLOSE_DARK", manual = true },
+		-- ✅ CONFIRMED 2026-07-27 via `/mh ach id 61798`, and it answered three open
+		-- questions at once:
+		--   name        "Lighting the Dark"
+		--   description "Defeat Nullaeus in his lair on Tier ?? before the release of
+		--                the next season of delves."
+		--   reward      "Title: the Ominous"
+		--   points      0  -> a Feat of Strength, which is exactly why the category
+		--                     walk could not see it and the id sweep could.
+		-- So: the spelling is NULLAEUS, the deadline is real and in Blizzard's own
+		-- words, and the title matches the announcement. The "Tier ??" is verbatim
+		-- from the client -- do not repeat it to the player as if it were a number.
+		{ id = "s1_dark", textKey = "ST_CLOSE_DARK", achiev = 61798 },
 		-- ✅ CONFIRMED 2026-07-26 via `/mh ach id 62351`: "Preying For Midnight",
 		-- description "Complete the achievements listed below", reward "Title:
 		-- Preyseeker", 7 criteria (Gotta Hunt Them All, Look I'm Just Trying To Fish

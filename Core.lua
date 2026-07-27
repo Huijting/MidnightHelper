@@ -839,6 +839,20 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh ej [instanceID] — lees de hele bossenlijst uit de Encounter Journal, zonder
 	-- te pullen. Voor krappe PTR-testvensters waarin /mh encounters te traag is.
+	-- /mh delvescan [save] — welke delves biedt de client vandaag echt aan?
+	if msg == "delvescan save" then
+		if ns.SaveDelveScan then
+			ns.SaveDelveScan()
+		end
+		return
+	end
+	if msg == "delvescan" then
+		if ns.PrintDelveScan then
+			ns.PrintDelveScan()
+		end
+		return
+	end
+
 	-- /mh ej save — parkeer de hele vangst in SavedVariables i.p.v. in de chat.
 	if msg == "ej save" or msg == "ej all save" then
 		if ns.SaveEncounterJournalCapture then

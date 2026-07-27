@@ -2287,36 +2287,36 @@ fill("itIT", {
 --------------------------------------------------------------------------------
 
 fill("deDE", {
-	ST_CLOSE_NEMESIS = "Besiege den Delve-Nemesis der Saison 1 - die Trophäe geht mit der Saison",
-	ST_CLOSE_SOLO = "Solo den Nemesis ohne Gruppe - ein Reittier, das mit der Saison geht",
-	ST_CLOSE_DARK = "Verdiene den Titel “the Ominous” vor dem Saisonende",
+	ST_CLOSE_NEMESIS = "Besiege Nullaeus in seinem Lair - seine Trophäe geht mit der Saison",
+	ST_CLOSE_SOLO = "Solo Nullaeus ohne Gruppe - ein Reittier, das mit der Saison geht",
+	ST_CLOSE_DARK = "Lighting the Dark - besiege Nullaeus für den Titel “the Ominous”",
 	ST_CLOSE_PREY = "Preying For Midnight - der Titel Preyseeker, ein Meta aus 7 Prey-Erfolgen",
 })
 
 fill("frFR", {
-	ST_CLOSE_NEMESIS = "Battez le némésis des delves de la saison 1 - le trophée part avec la saison",
-	ST_CLOSE_SOLO = "Tuez le némésis sans groupe - une monture qui part avec la saison",
-	ST_CLOSE_DARK = "Obtenez le titre “the Ominous” avant la fin de la saison",
+	ST_CLOSE_NEMESIS = "Battez Nullaeus dans son repaire - son trophée part avec la saison",
+	ST_CLOSE_SOLO = "Tuez Nullaeus sans groupe - une monture qui part avec la saison",
+	ST_CLOSE_DARK = "Lighting the Dark - battez Nullaeus pour le titre “the Ominous”",
 	ST_CLOSE_PREY = "Preying For Midnight - le titre Preyseeker, un méta de 7 hauts faits Prey",
 })
 
 fill("esES", {
-	ST_CLOSE_NEMESIS = "Vence al némesis de las delves de la temporada 1 - el trofeo se va con ella",
-	ST_CLOSE_SOLO = "Mata al némesis sin grupo - una montura que se va con la temporada",
-	ST_CLOSE_DARK = "Consigue el título “the Ominous” antes de que acabe la temporada",
+	ST_CLOSE_NEMESIS = "Vence a Nullaeus en su guarida - su trofeo se va con la temporada",
+	ST_CLOSE_SOLO = "Mata a Nullaeus sin grupo - una montura que se va con la temporada",
+	ST_CLOSE_DARK = "Lighting the Dark - vence a Nullaeus por el título “the Ominous”",
 	ST_CLOSE_PREY = "Preying For Midnight - el título Preyseeker, un meta de 7 logros Prey",
 })
 
 fill("ptBR", {
-	ST_CLOSE_NEMESIS = "Derrote o nêmesis das delves da temporada 1 - o troféu vai embora com ela",
-	ST_CLOSE_SOLO = "Mate o nêmesis sem grupo - uma montaria que vai embora com a temporada",
-	ST_CLOSE_DARK = "Conquiste o título “the Ominous” antes do fim da temporada",
+	ST_CLOSE_NEMESIS = "Derrote Nullaeus em seu covil - o troféu vai embora com a temporada",
+	ST_CLOSE_SOLO = "Mate Nullaeus sem grupo - uma montaria que vai embora com a temporada",
+	ST_CLOSE_DARK = "Lighting the Dark - derrote Nullaeus pelo título “the Ominous”",
 	ST_CLOSE_PREY = "Preying For Midnight - o título Preyseeker, um meta de 7 conquistas Prey",
 })
 
 fill("itIT", {
-	ST_CLOSE_NEMESIS = "Sconfiggi la nemesi delle delve della stagione 1 - il trofeo se ne va con lei",
-	ST_CLOSE_SOLO = "Uccidi la nemesi senza gruppo - una cavalcatura che se ne va con la stagione",
-	ST_CLOSE_DARK = "Ottieni il titolo “the Ominous” prima della fine della stagione",
+	ST_CLOSE_NEMESIS = "Sconfiggi Nullaeus nella sua tana - il trofeo se ne va con la stagione",
+	ST_CLOSE_SOLO = "Uccidi Nullaeus senza gruppo - una cavalcatura che se ne va con la stagione",
+	ST_CLOSE_DARK = "Lighting the Dark - sconfiggi Nullaeus per il titolo “the Ominous”",
 	ST_CLOSE_PREY = "Preying For Midnight - il titolo Preyseeker, un meta di 7 imprese Prey",
 })
