@@ -55,6 +55,35 @@ function ns.IsSeasonNewcomer()
 	return nil, score
 end
 
+--- Has this account ever provably engaged with endgame?
+---
+--- IsSeasonNewcomer above can only ever prove the NEGATIVE: a Mythic+ score means
+--- you played, no score means nothing at all. So this is the only direction the
+--- signal supports, and it is the one worth acting on -- we never claim someone is
+--- new, we only stop pushing a beginner roadmap at someone we can prove is not.
+---
+--- ⚠️ THE OBSERVATION IS REMEMBERED, and it has to be. `GetOverallDungeonScore`
+--- is per SEASON: it resets to 0 the moment Season 2 opens. Reading it live would
+--- hand the "new player" block back to every veteran on exactly the day the new
+--- season starts. Having once had a score is a fact about the player that does not
+--- become false, so it is recorded once and kept.
+---
+--- Account-wide on purpose (MidnightHelperDB has no per-character split): a fresh
+--- alt belongs to a player who already knows the game.
+--- @return boolean
+function ns.HasProvenSeasonExperience()
+	ns.db = ns.db or {}
+	if ns.db.provenSeasonExperience then
+		return true
+	end
+	local engaged = ns.IsSeasonNewcomer()
+	if engaged == false then -- false means "provably played"; nil means "unknown"
+		ns.db.provenSeasonExperience = true
+		return true
+	end
+	return false
+end
+
 -- ---------------------------------------------------------------- status resolvers
 -- Each returns status ("done"/"todo"/"unknown") and, where it can, a resolved name
 -- so /mh season can prove the id maps to the intended achievement/quest.
@@ -268,6 +297,18 @@ function ns.PrintSeasonTransitionDiagnostics()
 	local prefix = ("|cffffcc00%s|r"):format(L("PRINT_PREFIX"))
 	local phase = ns.GetSeasonPhase()
 	print(("%s Season transition — phase |cffffffff%s|r"):format(prefix, phase))
+	-- Without this line the newcomer wiring is unobservable: a player who dismissed
+	-- the onboarding block months ago sees no difference either way, and a change
+	-- nobody can observe is a change nobody can verify.
+	local engaged, score = ns.IsSeasonNewcomer()
+	local verdict = (engaged == false) and "provably played endgame"
+		or "unknown (a zero score proves nothing)"
+	print(("   endgame experience: %s · M+ score %s · remembered %s"):format(
+		verdict, tostring(score),
+		tostring(ns.db and ns.db.provenSeasonExperience or false)))
+	print(("   -> new-player block on This Week: %s"):format(
+		(ns.HasProvenSeasonExperience and ns.HasProvenSeasonExperience()) and "hidden"
+			or ((ns.db and ns.db.onboardingDismissed) and "dismissed by you" or "shown")))
 	print(("   client build %d · 12.1 gate %s · S2 M+ season id %s"):format(
 		ClientBuild(),
 		tostring(ns.SEASON2 and ns.SEASON2.patchInterface),

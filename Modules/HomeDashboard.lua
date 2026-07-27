@@ -267,7 +267,14 @@ local function BuildLayout()
 
 	------------------------------------------------------------------ Onboarding (Phase 5; new players, dismissable)
 	ns.db = ns.db or {}
-	if not ns.db.onboardingDismissed then
+	-- Two ways this block goes away: the player dismissed it, or we can PROVE they
+	-- do not need it. The second is the whole of what ns.IsSeasonNewcomer supports
+	-- -- it can establish "played endgame", never "is new" -- so a beginner roadmap
+	-- stops being pushed at someone with a real Mythic+ score, and nobody is ever
+	-- labelled a newcomer on a guess. See HasProvenSeasonExperience for why the
+	-- observation is remembered rather than re-read each season.
+	local proven = ns.HasProvenSeasonExperience and ns.HasProvenSeasonExperience()
+	if not ns.db.onboardingDismissed and not proven then
 		addFull(function(rows)
 			header(rows, ns:L("HOME_ONBOARD_HEADER"))
 			-- Point new players at the Start Here roadmap. The four "how to operate the
