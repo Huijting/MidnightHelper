@@ -125,7 +125,8 @@ local function TestPlainFrame()
 			local name = tostring(k)
 			if name:lower():find("roleset", 1, true) and name:sub(1, 3) == "Get" then
 				local okR, r = pcall(f[k], f)
-				state.rolesetCall = ("%s() -> %s"):format(name, okR and tostring(r) or "error")
+				-- Round one printed a table ADDRESS, which says nothing. Unpack it.
+				state.rolesetCall = ("%s() -> %s"):format(name, okR and ns._mhDescribe(r) or "error")
 				break
 			end
 		end
@@ -133,9 +134,82 @@ local function TestPlainFrame()
 	return state
 end
 
+--- Render a value readably. A table's address is not evidence; its contents are.
+function ns._mhDescribe(v)
+	if type(v) ~= "table" then
+		return tostring(v)
+	end
+	local parts = {}
+	for i, item in ipairs(v) do
+		parts[#parts + 1] = tostring(item)
+		if i >= 20 then
+			parts[#parts + 1] = "..."
+			break
+		end
+	end
+	if #parts == 0 then
+		-- Distinguish "empty list" from "map with keys" -- they mean different things.
+		for k, item in pairs(v) do
+			parts[#parts + 1] = ("%s=%s"):format(tostring(k), tostring(item))
+			if #parts >= 20 then
+				break
+			end
+		end
+	end
+	return ("{%s}"):format(table.concat(parts, ", "))
+end
+
+-- MH frames that are actually drawn on screen. If a roleset ever filters one of
+-- these, the player loses a helper silently -- so these are the ones to watch.
+local WATCHED_FRAMES = {
+	"MidnightHelperCombatSafety",
+	"MidnightHelperCombatSafetyBars",
+	"MidnightHelperAlert",
+	"MidnightHelperToast",
+	"MidnightHelperBossWindow",
+	"MH_TravelPopup",
+	"MidnightHelperConsumableBoard",
+}
+
+--- What the client says about rolesets right now, and about our own frames.
+local function CollectLiveState()
+	local out = { active = {}, frames = {} }
+	if type(C_Roleset) == "table" then
+		for _, fn in ipairs({ "GetActiveAllowedRolesets", "GetActiveBlockedRolesets" }) do
+			if type(C_Roleset[fn]) == "function" then
+				local ok, res = pcall(C_Roleset[fn])
+				out.active[#out.active + 1] = {
+					name = fn,
+					value = ok and ns._mhDescribe(res) or "error",
+				}
+			end
+		end
+	end
+
+	for _, name in ipairs(WATCHED_FRAMES) do
+		local f = _G[name]
+		local row = { name = name, exists = f ~= nil }
+		if f then
+			local okS, s = pcall(f.IsShown, f)
+			row.isShown = okS and (s and true or false) or nil
+			if type(f.IsRolesetFiltered) == "function" then
+				local okF, filtered = pcall(f.IsRolesetFiltered, f)
+				row.filtered = okF and tostring(filtered) or "error"
+			end
+			if type(f.GetRolesetNames) == "function" then
+				local okN, names = pcall(f.GetRolesetNames, f)
+				row.rolesets = okN and ns._mhDescribe(names) or "error"
+			end
+		end
+		out.frames[#out.frames + 1] = row
+	end
+	return out
+end
+
 local function Gather()
 	local api = CollectRolesetApi()
 	api.frame = TestPlainFrame()
+	api.live = CollectLiveState()
 	api.build = select(4, GetBuildInfo())
 	api.captured = (time and time()) or 0
 	return api
@@ -176,6 +250,21 @@ function ns.PrintRolesetProbe()
 	end
 	print("   |cffffff78Do you SEE a red box near the top of the screen?|r That is the answer")
 	print("   that matters: IsVisible can be true while a roleset still hides it.")
+
+	local live = d.live or {}
+	print("   active rolesets right now:")
+	for _, a in ipairs(live.active or {}) do
+		print(("     %-28s %s"):format(a.name, a.value))
+	end
+	print("   Midnight Helper's own on-screen frames:")
+	for _, r in ipairs(live.frames or {}) do
+		if not r.exists then
+			print(("     %-34s not created yet"):format(r.name))
+		else
+			print(("     %-34s shown=%-5s filtered=%-6s rolesets=%s"):format(
+				r.name, tostring(r.isShown), tostring(r.filtered), tostring(r.rolesets)))
+		end
+	end
 end
 
 --- /mh roleset save — same, into SavedVariables (then /reload).
