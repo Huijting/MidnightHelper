@@ -948,10 +948,20 @@ function ns.SetBossWindowAutoOpenEnabled(v)
 	GetWinSettings().autoOpen = v and true or false
 end
 
--- 3D-bossmodel tonen in het boss-venster (standaard aan). Community-verzoek
--- 21 jun (gadrinonturalyon): checkbox om het model te verbergen.
+-- 3D-bossmodel tonen in het boss-venster. Community-verzoek 21 jun
+-- (gadrinonturalyon): checkbox om het model te verbergen.
+--
+-- ⚠️ STANDAARD **UIT** sinds 2026-07-27 (Rob, blok 16). Het grote zijpaneel maakt
+-- het venster onrustig en de meeste mensen zetten het toch uit. Wie hem ooit
+-- expliciet aanzette houdt hem: `== true` respecteert een opgeslagen `true`, en
+-- alleen wie nooit iets koos schuift mee naar uit. Een opgeslagen `false` blijft
+-- ook gewoon false. Zet dit niet terug naar `~= false` zonder Rob te vragen.
+--
+-- Dit gateert ALLEEN dit venster. De delve-popup tekent zijn eigen modellen via
+-- Modules/DelveBossShowcase.lua en kijkt hier niet naar; wil je die ook stiller,
+-- dan is dat een aparte ingreep.
 function ns.IsBossWindowModelEnabled()
-	return GetWinSettings().showModel ~= false
+	return GetWinSettings().showModel == true
 end
 
 function ns.SetBossWindowModelEnabled(v)

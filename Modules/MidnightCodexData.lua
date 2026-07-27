@@ -55,6 +55,21 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_S2GLOSS_BODY",
 		sort = 6,
 	},
+	-- Deliberately season-proof: no season number, no item levels, no crest names,
+	-- no dates. It describes how a season rollover WORKS, so it stays true at the
+	-- Season 3 and 4 flips without anyone editing it — the same choice the crafting
+	-- entry makes. Two things are left out on purpose: the claim that unclaimed
+	-- track rewards are lost (they come back at a vendor, dearer — saying "lost"
+	-- would be the scare one guide site prints), and any hard advice on crest
+	-- conversion (sources contradict each other and the behaviour can still change,
+	-- so the entry points at the currency tab instead).
+	{
+		id = "season_end",
+		category = "start",
+		titleKey = "CODEX_SEASONEND_TITLE",
+		bodyKey = "CODEX_SEASONEND_BODY",
+		sort = 7,
+	},
 	-- 12.0.7 nieuw (datamined; in-game bevestigen bij launch)
 	{
 		id = "omnium_folio",
