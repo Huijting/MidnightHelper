@@ -101,7 +101,71 @@ Newest at the top. Move a section under a version heading once it ships.
   elsewhere in the book came from that article. Those are season-specific — the addon
   deliberately states the mechanic with no numbers so it cannot rot at a season flip.
 
-### Checked and clear: chapter 7 does not claim gear is reset at a season change
+### ⚠️ Chapter 9 describes an addon feature that does not exist
+
+- **Summary:** "Hoofdstuk 9", page 5, states that Midnight Helper never issues an
+  automatic sell instruction for six categories of item, and quotes what the addon
+  supposedly says: *"Bewaar voorlopig — controle nodig."*
+- **What the addon actually does:** **nothing of the sort.** Midnight Helper has no sell
+  advisor, no junk list and no vendor recommendation of any kind. The quoted string
+  appears nowhere in the codebase, in any language. The closest real feature is
+  `Modules/BagUpgrade.lua`, which puts a small green arrow on bag items that are a clear
+  upgrade — and it deliberately says nothing about anything else, including selling.
+- **Evidence:** IN_GAME_VERIFIED / code-verified, 2026-07-27 (grep across all modules and
+  locale files).
+- **Book chapters affected:** 9. Possibly others that describe addon behaviour.
+- **Confidence:** certain. This is a claim about our own code.
+- **Action required:** rewrite page 5. The *advice* is good and worth keeping — read the
+  binding before you sell — but it must not be presented as something the addon does or
+  says. Either drop the addon framing, or we build the feature and then the chapter
+  becomes true. Rob's call; it is not currently on any roadmap.
+
+### Chapter 10 lists an "Explorer" gear track that Midnight does not appear to have
+
+- **Summary:** chapter 10 is titled "van Explorer tot Myth" and lists six tracks:
+  Explorer, Adventurer, Veteran, Champion, Hero, Myth.
+- **What we measured:** five tiers — Adventurer, Veteran, Champion, Hero, Myth. Explorer
+  appears zero times in `docs/CREST_SOURCES_MEASURED.md` (read from `C_CurrencyInfo`,
+  2026-07-22) and zero times in the Dawncrest code. Rob's own upgrade panel shows those
+  same five. A second, independent source describes Season 2 as having five tracks.
+- **Evidence:** IN_GAME_VERIFIED for the five; the sixth is COMMUNITY_REPORTED at best.
+  Note the honest limit: we measured **crest tiers**, and a track without its own crest
+  would not show up that way. So this is strong evidence, not proof.
+- **Source of the error, probably:** the chapter cites the same *Embers of Neltharion*
+  article as chapter 7. Explorer was a track in that era.
+- **Action required:** verify at the upgrade NPC, then drop Explorer if confirmed. The
+  chapter title changes with it.
+
+### Chapter 10 generalises "6/6" to every track
+
+- **Summary:** the chapter says appearances change when an item is fully upgraded to 6/6.
+- **What we measured** (2026-07-17, at Cuzoth's upgrade window): Hero reads `3/6` and
+  Champion reads `4/6`, so /6 is right **for those two**. Adventurer, Veteran and Myth
+  rank counts have never been seen. The War Within used 8 for lower tracks, so the
+  generalisation is not safe.
+- **Confidence:** medium. The claim may well be right; it is simply not verified.
+- **Action required:** either soften to the two tracks we have seen, or verify the rest.
+
+### Chapter 13: the delve count conflict can now be resolved
+
+- **Summary:** the chapter deliberately refuses to state a delve count, because Blizzard's
+  announcement says ten new Delves plus one seasonal Nemesis Delve while beta material
+  says eleven. It treats these as conflicting and points at the interface. That was the
+  right call at the time.
+- **What we measured:** `C_AreaPoiInfo.GetDelvesForMap` across all Midnight zones returns
+  **ten** unique delves (`docs/PTR_DELVE_SCAN.md`, 2026-07-27). Nullaeus sits in a
+  separate lair, not in that list.
+- **So the two sources agree:** 10 regular + 1 nemesis = 11 total. Neither was wrong.
+- **Confidence:** high, with the standing caveat that the API returns what is on offer.
+- **Action required:** optional. The chapter is safe as written; it could now say ten
+  regular delves plus a seasonal Nemesis Delve, and cite the interface for the list.
+
+### Checked and clear
+
+- **Chapter 13's Valeera guidance** matches the addon exactly: it declines to fix a talent
+  route without current patch verification, which is the same reason the addon shows the
+  poisons without recommending one. No change needed.
+- **Chapter 7** does not claim gear is reset at a season change.
 
 - The earlier warning in the 2.11.0 section predicted the book might say gear is reset or
   scaled down when a season ends. Chapter 7 does **not** say this. Recorded so nobody

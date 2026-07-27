@@ -9,11 +9,24 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 
 ---
 
+## Waar we staan
+
+| | |
+|---|---|
+| Uitgebracht | **v2.11.0**, getagd en live op CurseForge 2026-07-27 (upload bevestigd geslaagd) |
+| Volgend doel | **v2.12.0** -- de compatibiliteitsrelease voor patch 12.1 |
+| Daarna | **v3.0.0** -- de Season 2-release |
+| Branch | alleen `main` |
+
 ## De klok
 
-Patch **12.1 "Curse of Ula'tek"** is een release candidate (build 68914). Projectie:
-**live 11 aug (EU 12 aug)**, **Season 2 18 aug (EU 19 aug)**. Geen officiele
-Blizzard-datum, dus MH mag die datum nergens tonen.
+Patch **12.1 "Curse of Ula'tek"** is een release candidate (build 68914). Community-
+projectie: **11/12 aug** voor de patch, **18 aug** voor Season 2. **Blizzard heeft geen
+datum aangekondigd** -- status `COMMUNITY_REPORTED`, mag nergens speler-zichtbaar staan.
+
+Voorgestelde volgorde (Rob akkoord 2026-07-27): 2.12.0 een paar dagen **voor** patchdag,
+patchdag zelf vrijhouden voor hotfixes, en 3.0.0 bij de seizoensstart -- want op patchdag
+is alle S2-content nog seizoen-gated en dus onzichtbaar.
 
 ---
 
@@ -24,33 +37,25 @@ lijst A bedoelde. Beide zijn echt; ze horen bij verschillende dingen.
 
 ### A. Het RELEASEPLAN -- uit `MH_HANDOFF_2026-07-24.md` (Robs zip, niet in de repo)
 
-Tijdgebonden blokken rond de patch. **Dit is de lijst die telt voor 2.11.0.**
+**2.11.0 -- AFGEROND EN UITGEBRACHT.** Blok 1, 5, 10, 2 en 16 zijn allemaal gebouwd en
+zitten in de release. Blok 6 (Carola-test v2) is **niet** gedaan en was Robs werk; dat
+schuift door naar 2.12.0. Deze tabel is historie -- gebruik hem niet meer als takenlijst.
 
-**2.11.0 -- "voor de patch"**
-
-| Blok | Wat | Stand |
-|---|---|---|
-| 1 | Delver's Journey op de closing-checklist | gebouwd |
-| 5 | Mijlpaal-kaartje | gebouwd |
-| 10 | Alert-overlap-fix | gebouwd |
-| 2 | Codex "Als een seizoen afloopt" | **OPEN** |
-| 16 | Bossmodel standaard uit | **OPEN** -- `DungeonBossWindow.lua:954`, `showModel ~= false` staat nu default aan |
-| 6 | Carola-test v2 | Robs werk; wat eruit komt hoort in deze release |
-
-Na blok 2 en 16 kan **2.11.0 uit**. Beide zijn klein.
-
-**2.12.0 -- "klaar voor Season 2"**
+**2.12.0 -- "klaar voor de patch"**
 
 | Blok | Wat | Stand |
 |---|---|---|
+| -- | **Roleset uitzoeken** | **OPEN, hoogste prioriteit.** Zie "Onopgelost" hieronder |
+| -- | `.toc` naar `## Interface: 120100` | OPEN, hoort bij deze release |
 | 12 | Coiled Isle-scaffold + lege-zone-guard | deels (3 bestanden noemen het) |
-| 11 | Crest-teksten ontnamen (115 strings) | OPEN |
+| 11 | Crest-teksten ontnamen (115 strings) | OPEN -- vóór de flip doen |
 | 7 | Nieuwkomer-detectie aansluiten | OPEN -- `ns.IsSeasonNewcomer` bestaat, wordt nergens gebruikt |
 | 9 | Prey: Codex-entry + probe | OPEN |
+| 6 | Carola-test v2 | OPEN, Robs werk (doorgeschoven uit 2.11.0) |
 
-**Los van releases:** blok 13+14 vertaalstatus + werkpakket 2 naar Discord (doe dit
-vroeg -- iemand anders werkt in zijn eigen tempo). Blok 3, de PTR-capture-checklist, is
-op 27 juli grotendeels afgerond.
+**Los van releases:** blok 13+14 vertaalstatus + werkpakket 2 naar Discord -- doe dit
+vroeg, iemand anders werkt in zijn eigen tempo. Blok 3 (PTR-capture-checklist) is op
+27 juli grotendeels afgerond.
 
 Nooit geland uit de handoff van 20 juli: **crest-bronnen per tier** en **spark-doel**.
 
@@ -69,7 +74,7 @@ Nooit geland uit de handoff van 20 juli: **crest-bronnen per tier** en **spark-d
 
 ---
 
-## Wat 27 juli opleverde
+## Wat 27 juli opleverde (zit allemaal in 2.11.0)
 
 - **12.1-blocker weg**: de CombatSafety secret-geometry-fix is bewezen in een PTR-delve
   (meerdere gevechten, BugGrabber bleef groen).
