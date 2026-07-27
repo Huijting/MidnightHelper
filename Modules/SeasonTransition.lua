@@ -76,11 +76,32 @@ function ns.HasProvenSeasonExperience()
 	if ns.db.provenSeasonExperience then
 		return true
 	end
+	-- Signal 1: a Mythic+ score. Proves group endgame.
 	local engaged = ns.IsSeasonNewcomer()
 	if engaged == false then -- false means "provably played"; nil means "unknown"
 		ns.db.provenSeasonExperience = true
 		return true
 	end
+
+	-- Signal 2: a finished Delver's Journey. Added 2026-07-27 after the first
+	-- version reported "unknown" for Rob -- an expert player, months into Midnight,
+	-- with the Journey complete and three "of the Dawn" achievements. He simply had
+	-- not run keys this season. One narrow signal is not experience; it is one kind
+	-- of experience, and choosing it made the feature not fire for the person it was
+	-- built for.
+	--
+	-- `maxed` comes from the game's own HasMaximumRenown, so there is no invented
+	-- threshold. A rank cut-off like "rank >= 4 means experienced" would be exactly
+	-- the kind of made-up number this addon does not ship: nobody could say why 4.
+	-- Unreadable stays unproven -- nil is not a zero.
+	if ns.GetDelverJourneyStatus then
+		local st = ns.GetDelverJourneyStatus()
+		if st and st.readable and st.maxed then
+			ns.db.provenSeasonExperience = true
+			return true
+		end
+	end
+
 	return false
 end
 
@@ -301,11 +322,17 @@ function ns.PrintSeasonTransitionDiagnostics()
 	-- the onboarding block months ago sees no difference either way, and a change
 	-- nobody can observe is a change nobody can verify.
 	local engaged, score = ns.IsSeasonNewcomer()
-	local verdict = (engaged == false) and "provably played endgame"
-		or "unknown (a zero score proves nothing)"
-	print(("   endgame experience: %s · M+ score %s · remembered %s"):format(
-		verdict, tostring(score),
-		tostring(ns.db and ns.db.provenSeasonExperience or false)))
+	local journey = ns.GetDelverJourneyStatus and ns.GetDelverJourneyStatus()
+	local journeyProof = (journey and journey.readable and journey.maxed) and true or false
+	local verdict = (engaged == false or journeyProof) and "provably played"
+		or "unknown (neither signal proves anything)"
+	print(("   endgame experience: %s · remembered %s"):format(
+		verdict, tostring(ns.db and ns.db.provenSeasonExperience or false)))
+	print(("      M+ score %s%s · Delver's Journey %s"):format(
+		tostring(score), (engaged == false) and " (proof)" or "",
+		journey and journey.readable
+			and (("rank %d%s"):format(journey.rank, journey.maxed and " complete (proof)" or ""))
+			or "unreadable"))
 	print(("   -> new-player block on This Week: %s"):format(
 		(ns.HasProvenSeasonExperience and ns.HasProvenSeasonExperience()) and "hidden"
 			or ((ns.db and ns.db.onboardingDismissed) and "dismissed by you" or "shown")))
