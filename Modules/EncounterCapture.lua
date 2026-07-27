@@ -160,6 +160,95 @@ local function DumpInstance(instanceID, label, diff)
 	end
 end
 
+--- Collect one instance into a plain table instead of printing it.
+--- Same reads as DumpInstance; kept separate so the printing path stays readable.
+local function CollectInstance(instanceID, name, isRaid, diff)
+	local entry = {
+		id = instanceID,
+		name = name,
+		isRaid = isRaid and true or false,
+		difficulty = diff,
+		bosses = {},
+	}
+	for i = 1, 25 do
+		local ok, bossName, _, encounterID = pcall(EJ_GetEncounterInfoByIndex, i, instanceID)
+		if not ok or not bossName then
+			break
+		end
+		local boss = { index = i, name = bossName, encounterID = encounterID, creatures = {} }
+		if EJ_GetCreatureInfo and encounterID then
+			for c = 1, 10 do
+				local okC, ejCreature, creatureName = pcall(EJ_GetCreatureInfo, c, encounterID)
+				if not okC or not ejCreature then
+					break
+				end
+				-- ejCreature is the JOURNAL's creature entry id, not the NPC id.
+				boss.creatures[#boss.creatures + 1] = { ejCreature = ejCreature, name = creatureName }
+			end
+		end
+		entry.bosses[#entry.bosses + 1] = boss
+	end
+	return entry
+end
+
+--- /mh ej save — write the whole tier into SavedVariables instead of chat.
+---
+--- A full listing is eleven instances of scrollback, which is unreadable in chat
+--- and worse in a screenshot. An addon cannot write files, but SavedVariables IS a
+--- file, so this parks the capture in ns.db.ejCapture and the .lua on disk can be
+--- read directly. Same trick as ns.db.probeNodes.
+---
+--- ⚠️ SavedVariables are only flushed on /reload or logout. Without that step the
+--- file on disk still holds the previous session and looks like the capture failed.
+function ns.SaveEncounterJournalCapture()
+	local prefix = ejPrefix()
+	if not (EJ_GetInstanceByIndex and EJ_GetEncounterInfoByIndex) then
+		print(prefix .. " Encounter Journal API not available.")
+		return
+	end
+	ns.db = ns.db or {}
+
+	local tier
+	if EJ_GetCurrentTier then
+		local okC, t = pcall(EJ_GetCurrentTier)
+		tier = okC and t or nil
+	end
+	local tierName
+	if EJ_GetTierInfo and tier then
+		local okT, n = pcall(EJ_GetTierInfo, tier)
+		tierName = okT and n or nil
+	end
+
+	local cap = {
+		captured = (time and time()) or 0,
+		build = select(4, GetBuildInfo()),
+		tier = tier,
+		tierName = tierName,
+		instances = {},
+	}
+
+	local totalBosses = 0
+	for _, isRaid in ipairs({ false, true }) do
+		local diff = isRaid and EJ_DIFF_RAID or EJ_DIFF_DUNGEON
+		local restore = BorrowDifficulty(diff)
+		for i = 1, 40 do
+			local ok, instanceID, name = pcall(EJ_GetInstanceByIndex, i, isRaid)
+			if not ok or not instanceID then
+				break
+			end
+			local entry = CollectInstance(instanceID, name, isRaid, diff)
+			totalBosses = totalBosses + #entry.bosses
+			cap.instances[#cap.instances + 1] = entry
+		end
+		ReturnDifficulty(restore)
+	end
+
+	ns.db.ejCapture = cap
+	print(("%s captured %d instances, %d bosses, tier %s (%s)."):format(
+		prefix, #cap.instances, totalBosses, tostring(tier), tostring(tierName or "?")))
+	print("   |cffffff78Now type /reload|r -- SavedVariables only reach disk on reload or logout.")
+end
+
 --- /mh ej [instanceID] [difficulty] — list this tier's instances, or dump one.
 function ns.PrintEncounterJournalDump(arg, diffArg)
 	local prefix = ejPrefix()

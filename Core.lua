@@ -839,6 +839,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh ej [instanceID] — lees de hele bossenlijst uit de Encounter Journal, zonder
 	-- te pullen. Voor krappe PTR-testvensters waarin /mh encounters te traag is.
+	-- /mh ej save — parkeer de hele vangst in SavedVariables i.p.v. in de chat.
+	if msg == "ej save" or msg == "ej all save" then
+		if ns.SaveEncounterJournalCapture then
+			ns.SaveEncounterJournalCapture()
+		end
+		return
+	end
+
 	if msg == "ej" or msg:match("^ej%s+%d+") or msg:match("^ej%s+all") then
 		local ejID, ejDiff = msg:match("^ej%s+(%d+)%s+(%d+)$")
 		if not ejID then
