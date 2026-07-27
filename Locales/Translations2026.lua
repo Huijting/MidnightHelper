@@ -2320,3 +2320,33 @@ fill("itIT", {
 	ST_CLOSE_DARK = "Lighting the Dark - sconfiggi Nullaeus per il titolo “the Ominous”",
 	ST_CLOSE_PREY = "Preying For Midnight - il titolo Preyseeker, un meta di 7 imprese Prey",
 })
+
+--------------------------------------------------------------------------------
+-- Valeera's poison choice (12.1). The poison NAMES and effects are never
+-- translated here: both come straight from the client at runtime.
+--------------------------------------------------------------------------------
+
+fill("deDE", {
+	POISON_HEADER = "Valeeras Gifte - was das Spiel dazu sagt:",
+	POISON_NONE = "Keine Giftauswahl auf diesem Client - Gifte kommen mit Saison 2.",
+})
+
+fill("frFR", {
+	POISON_HEADER = "Les poisons de Valeera - ce que le jeu en dit :",
+	POISON_NONE = "Pas de choix de poison sur ce client - ils arrivent avec la saison 2.",
+})
+
+fill("esES", {
+	POISON_HEADER = "Los venenos de Valeera - lo que dice el juego:",
+	POISON_NONE = "No hay venenos en este cliente - llegan con la temporada 2.",
+})
+
+fill("ptBR", {
+	POISON_HEADER = "Os venenos de Valeera - o que o jogo diz:",
+	POISON_NONE = "Sem venenos neste cliente - eles chegam com a temporada 2.",
+})
+
+fill("itIT", {
+	POISON_HEADER = "I veleni di Valeera - cosa dice il gioco:",
+	POISON_NONE = "Nessun veleno su questo client - arrivano con la stagione 2.",
+})

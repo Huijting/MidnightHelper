@@ -194,3 +194,57 @@ function ns.IsPlayerInNemesisDelve()
 	end
 	return false
 end
+
+--------------------------------------------------------------------------------
+-- Valeera's Poisons choice node — patch 12.1 / Season 2.
+--
+-- MEASURED, not datamined. Captured 2026-07-27 from PTR build 120100 via
+-- `/mh valeera save`: tree 1223, node 110784, three entries. See
+-- docs/PTR_VALEERA_TREE.md for the full tree.
+--
+-- ⚠️ THE EARLIER IDS ON FILE WERE WRONG. Notes from 12 July carried
+-- 1248517 / 1251113 / 1251862 from Wowhead; not one matches the client. Had this
+-- shipped on those, the advisor would have named three spells that do not exist,
+-- in a feature whose whole job is telling people what to pick.
+--
+-- ⚠️ NO RECOMMENDATION HERE, DELIBERATELY. Wowhead's effect descriptions came
+-- paired with those wrong ids, so the name-to-effect mapping is unproven too. The
+-- advisor therefore shows each poison's own description straight from the client
+-- and lets the player choose. To add a recommendation later, read the three
+-- descriptions in-game and write down what they actually do -- never restore the
+-- Wowhead text from memory.
+--
+-- Poisons are SPELLS, not items: names resolve via C_Spell.GetSpellName, so no
+-- name is stored here either.
+--------------------------------------------------------------------------------
+
+local POISON_SOULTHIRST_VENOM = 1250826
+local POISON_FORGOTTEN_MASTER = 1249934
+local POISON_BLOODCRYPT_TOXIN = 1251120
+
+ns.DELVE_POISONS_BY_SEASON = {
+	[2] = {
+		-- The trait node the choice lives on, kept so the advisor can read which
+		-- one is currently slotted rather than asking the player.
+		nodeID = 110784,
+		-- Listed in the order the client returned them.
+		choices = {
+			{ spellID = POISON_SOULTHIRST_VENOM, entryID = 137812 },
+			{ spellID = POISON_FORGOTTEN_MASTER, entryID = 137801 },
+			{ spellID = POISON_BLOODCRYPT_TOXIN, entryID = 137790 },
+		},
+	},
+}
+
+--- Poisons for a season, or nil.
+--- Same rule as the curios above: NO fallback to another season. Poisons do not
+--- exist on 12.0.7, and offering season 2's data to a season 1 client would be
+--- advising on something the player cannot see.
+--- @param season number|nil
+function ns.GetDelvePoisonsForSeason(season)
+	season = tonumber(season)
+	if not season then
+		return nil
+	end
+	return ns.DELVE_POISONS_BY_SEASON[season]
+end

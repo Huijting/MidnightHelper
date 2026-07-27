@@ -1213,3 +1213,129 @@ function ns.SaveCompanionTreeProbe()
 		prefix, tostring(companionID), tostring(treeID), #cap.nodes, named))
 	print("   |cffffff78Now type /reload|r — SavedVariables only reach disk on reload or logout.")
 end
+
+--------------------------------------------------------------------------------
+-- Valeera's Poisons (12.1 / Season 2).
+--
+-- The advisor recommends a Combat and a Utility curio but says nothing about the
+-- Poisons slot, which is the one 12.1 added. Rob's screenshot of 27 July showed
+-- the result: a panel headed "Recommended curios for Valeera this Delve season"
+-- with almost nothing under it.
+--
+-- What this adds is information rather than a verdict: the three poisons the
+-- client offers, each with the game's own description, and a mark on the one that
+-- is currently slotted. No "best" is claimed -- see DelveCuriosData for why.
+--------------------------------------------------------------------------------
+
+--- Name and description for one poison, read from the client.
+--- @return string|nil name, string|nil description
+function ns.GetDelvePoisonInfo(spellID)
+	spellID = tonumber(spellID)
+	if not spellID or not C_Spell then
+		return nil, nil
+	end
+	local name, desc
+	if C_Spell.GetSpellName then
+		local ok, n = pcall(C_Spell.GetSpellName, spellID)
+		name = ok and n or nil
+	end
+	if C_Spell.GetSpellDescription then
+		local ok, d = pcall(C_Spell.GetSpellDescription, spellID)
+		-- An empty string is not a description. Blizzard returns "" while spell
+		-- data is still loading, and showing that reads as "this does nothing".
+		if ok and type(d) == "string" and d ~= "" then
+			desc = d
+		end
+	end
+	return name, desc
+end
+
+--- Which poison is currently slotted, as a spellID.
+--- @return number|nil spellID  nil when it cannot be read -- never a guess
+function ns.GetEquippedDelvePoison()
+	local pack = ns.GetDelvePoisonsForSeason(
+		ns.GetDelvesSeasonNumber and ns.GetDelvesSeasonNumber() or nil)
+	if not pack or not pack.nodeID or not (C_DelvesUI and C_Traits) then
+		return nil
+	end
+	local companionID = DelvesCompanionConfigurationFrame
+		and DelvesCompanionConfigurationFrame.playerCompanionID
+	if not companionID and C_DelvesUI.GetPlayerCompanionPDEID then
+		local okP, pde = pcall(C_DelvesUI.GetPlayerCompanionPDEID)
+		companionID = okP and pde or nil
+	end
+	if not companionID then
+		return nil
+	end
+	local okTree, treeID = pcall(C_DelvesUI.GetTraitTreeForCompanion, companionID)
+	-- 0 is truthy in Lua, and a 0 tree means "not readable yet" (2026-07-24).
+	if not okTree or not treeID or treeID == 0 then
+		return nil
+	end
+	local okCfg, configID = pcall(C_Traits.GetConfigIDByTreeID, treeID)
+	if not okCfg or not configID then
+		return nil
+	end
+	local okNode, node = pcall(C_Traits.GetNodeInfo, configID, pack.nodeID)
+	if not okNode or type(node) ~= "table" then
+		return nil
+	end
+	-- node.activeEntry.entryID is how a choice node reports its pick
+	-- (AskMrRobot/Core.lua:660 reads it the same way).
+	local activeID = type(node.activeEntry) == "table" and node.activeEntry.entryID or nil
+	if not activeID then
+		return nil
+	end
+	for _, choice in ipairs(pack.choices) do
+		if choice.entryID == activeID then
+			return choice.spellID
+		end
+	end
+	return nil
+end
+
+--- The poison lines for the current season, ready to render.
+--- @return table|nil rows  { { spellID, name, description, equipped } }, nil if none
+function ns.GetDelvePoisonRows()
+	local pack = ns.GetDelvePoisonsForSeason(
+		ns.GetDelvesSeasonNumber and ns.GetDelvesSeasonNumber() or nil)
+	if not pack or type(pack.choices) ~= "table" then
+		return nil
+	end
+	local equipped = ns.GetEquippedDelvePoison()
+	local rows = {}
+	for _, choice in ipairs(pack.choices) do
+		local name, desc = ns.GetDelvePoisonInfo(choice.spellID)
+		-- No name means the client has not loaded this spell. Skip it rather than
+		-- print a bare id at someone.
+		if name then
+			rows[#rows + 1] = {
+				spellID = choice.spellID,
+				name = name,
+				description = desc,
+				equipped = (equipped ~= nil and equipped == choice.spellID),
+			}
+		end
+	end
+	if #rows == 0 then
+		return nil
+	end
+	return rows
+end
+
+--- /mh poisons — list them in chat, with whatever the client says they do.
+function ns.PrintDelvePoisons()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	local rows = ns.GetDelvePoisonRows()
+	if not rows then
+		print(prefix .. " " .. ns:L("POISON_NONE"))
+		return
+	end
+	print(prefix .. " " .. ns:L("POISON_HEADER"))
+	for _, r in ipairs(rows) do
+		print(("   %s|cffffffff%s|r"):format(r.equipped and "|cff40c040> |r" or "  ", r.name))
+		if r.description then
+			print("      |cff8a8f98" .. r.description .. "|r")
+		end
+	end
+end
