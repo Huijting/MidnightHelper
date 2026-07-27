@@ -353,10 +353,11 @@ function ns.PrintSeasonTransitionDiagnostics()
 		liveSeason,
 		tostring(ns.SEASON2 and ns.SEASON2.s1MplusSeasonId)
 	))
-	local newcomer, score = ns.IsSeasonNewcomer()
-	print(("   season newcomer: %s (M+ score %s) · card dismissed: %s"):format(
-		newcomer == false and "no" or (newcomer == nil and "unknown" or "yes"),
-		tostring(score),
+	-- The experience verdict is printed once, at the top. This line used to repeat it
+	-- from ns.IsSeasonNewcomer alone and so reported "unknown" three lines under a
+	-- "provably played" that had been carried by a different signal (Rob, 2026-07-27).
+	-- One question, one answer: this line now only reports the card.
+	print(("   season card dismissed: %s"):format(
 		tostring(ns.IsSeasonCardDismissed and ns.IsSeasonCardDismissed())
 	))
 
