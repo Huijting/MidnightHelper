@@ -4,7 +4,7 @@
 
 local _, ns = ...
 
-local SUB_DAWNCREST = "dawncrest"
+local SUB_DAWNCREST = "crest"
 local SUB_PROFESSIONS = "professions"
 
 local hostPanel

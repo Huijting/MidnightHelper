@@ -761,8 +761,8 @@ local SMC_CATEGORIES = {
 		title = "Essential Services",
 		items = {
 			{ id = "bank", label = "Bank & Vault", description = "Zet een waypoint naar de bank en Great Vault locatie in Silvermoon City.", atlas = "services-icon-bank", x = 50.36, y = 65.19 },
-			{ id = "item_upgrades", label = "Cuzoth — Item Upgrades", description = "Zet een waypoint naar Cuzoth (item upgrades met Dawncrests). Bazaar, naast Vaskarn.", atlas = "ItemUpgrade-FX-UpgradeArrow", x = 48.23, y = 61.75 },
-			{ id = "crest_exchange", label = "Vaskarn — Crest Exchange", description = "Zet een waypoint naar Vaskarn (Dawncrest exchange). Bazaar, naast Cuzoth.", atlas = "WarWithin-Icon-Crest", x = 48.28, y = 61.75 },
+			{ id = "item_upgrades", label = "Cuzoth — Item Upgrades", description = "Zet een waypoint naar Cuzoth (item upgrades met Crests). Bazaar, naast Vaskarn.", atlas = "ItemUpgrade-FX-UpgradeArrow", x = 48.23, y = 61.75 },
+			{ id = "crest_exchange", label = "Vaskarn — Crest Exchange", description = "Zet een waypoint naar Vaskarn (Crest exchange). Bazaar, naast Cuzoth.", atlas = "WarWithin-Icon-Crest", x = 48.28, y = 61.75 },
 			{ id = "ah", label = "Auction House", description = "Zet een waypoint naar het Auction House.", atlas = "services-icon-auctioneer", x = 51.50, y = 74.68 },
 			{ id = "mailbox", label = "Mailbox", description = "Zet een waypoint naar de mailbox in Silvermoon City.", atlas = "services-icon-mailroom", x = 49.41, y = 65.92 },
 			{ id = "inn_cooking", label = "Inn & Cooking", description = "Zet een waypoint naar de inn en cooking voorzieningen.", atlas = "services-icon-innkeeper", x = 56.28, y = 70.33 },

@@ -129,7 +129,12 @@ local function BuildNavIndex()
 	tab("TAB_MACROS", "macros", "interrupt macro kick")
 	tab("TAB_CONSUMABLES", "consumables", "flask rune food buff oil")
 	tab("TAB_ACADEMY", "academy", "role tank heal academy")
-	tab("TAB_REFERENCE", "reference", "basics dawncrest")
+	-- Search keywords are ADDITIVE, never renamed. The visible text dropped the season
+	-- name so it survives a flip, but "dawncrest" is the word a Season 1 player reads
+	-- in their own currency tab, and "mistcrest" is what a Season 2 player will read.
+	-- Both must find this page; a rename here would have made it unfindable by the
+	-- only name the player actually knows.
+	tab("TAB_REFERENCE", "reference", "basics crest crests dawncrest mistcrest upgrade")
 
 	-- Codex categories (open the Codex on that category page).
 	if type(ns.CODEX_CATEGORIES) == "table" then

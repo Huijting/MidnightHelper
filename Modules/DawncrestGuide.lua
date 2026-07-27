@@ -532,7 +532,7 @@ function ns.PrintCrestProbe()
 		print(prefix .. " no currency API")
 		return
 	end
-	print(prefix .. " Dawncrest tiers — what the game says about each one:")
+	print(prefix .. " Crest tiers — what the game says about each one:")
 	for _, tier in ipairs(ns.DAWNCREST_TIERS or {}) do
 		local ids = { tier.currencyId }
 		for _, alt in ipairs(tier.alternateCurrencyIds or {}) do

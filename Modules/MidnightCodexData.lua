@@ -19,7 +19,7 @@ local _, ns = ...
 ---@field tabLabelKey string|nil
 ---@field navLabelKey string|nil -- button text override (clearer than tab name alone)
 ---@field delvesSection string|nil -- "vault" | "midnight" when tabId is delves (accordion)
----@field referenceSubTab string|nil -- "dawncrest" | "professions" when tabId is reference
+---@field referenceSubTab string|nil -- "crest" | "professions" when tabId is reference
 ---@field currencyId number|nil
 ---@field sort number
 
@@ -218,14 +218,14 @@ ns.CODEX_ARTICLES = {
 		sort = 5,
 	},
 	{
-		id = "currency_dawncrest",
+		id = "currency_crest",
 		category = "currencies",
 		titleKey = "CODEX_CUR_DAWN_TITLE",
 		bodyKey = "CODEX_CUR_DAWN_BODY",
 		tabId = "reference",
 		tabLabelKey = "TAB_REFERENCE",
 		navLabelKey = "CODEX_NAV_BASICS_DAWN",
-		referenceSubTab = "dawncrest",
+		referenceSubTab = "crest",
 		sort = 6,
 	},
 	{
@@ -243,7 +243,7 @@ ns.CODEX_ARTICLES = {
 		-- Cuzoth/Vaskarn waypoints), so it must be labelled for THAT destination —
 		-- reusing the same nav label the currency_dawncrest article uses.
 		navLabelKey = "CODEX_NAV_BASICS_DAWN",
-		referenceSubTab = "dawncrest",
+		referenceSubTab = "crest",
 		sort = 7,
 	},
 

@@ -108,7 +108,7 @@ function ns.NavigateFromCodex(article)
 		ns.SelectTab(tabId)
 	end
 	if tabId == "reference" and ns.SetReferenceGuideSubTab then
-		local sub = article.referenceSubTab or "dawncrest"
+		local sub = article.referenceSubTab or "crest"
 		ns.SetReferenceGuideSubTab(sub)
 	end
 	if tabId == "delves" and article.delvesSection and ns.SyncDelvesAccordion then
@@ -634,7 +634,7 @@ function ns.TryCodexSearch(query)
 		{ "ritual", "world" },
 		{ "rare", "world" },
 		{ "profession", "professions" },
-		{ "dawncrest", "reference" },
+		{ "crest", "reference" },
 		{ "reference", "reference" },
 	}
 	local function openHit(cat)
