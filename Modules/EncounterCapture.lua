@@ -75,21 +75,58 @@ end
 --   EJ_GetCreatureInfo(index, encounterID)    -> id, name, ... (2nd is the name,
 --       DBM-Core/modules/objects/BossMod.lua:120; 5th is the icon, BossHelper:375)
 --
--- ⚠️ Reads only. It never calls EJ_SelectTier or EJ_SetDifficulty, because both
--- change what the player's own Encounter Journal is showing. It reports the tier
--- and difficulty it read under instead, so a capture says what it is. DBM notes
--- that difficulty filters the creature list, so if a boss looks absent, switch
--- difficulty in the journal yourself and run it again.
+-- ⚠️ DIFFICULTY IS NOT OPTIONAL. The first version refused to call EJ_SetDifficulty
+-- on the grounds that it changes what the player's own journal is showing. Correct
+-- in principle and useless in practice: Rob's journal sat at difficulty 0 and every
+-- single instance reported "0 bosses" (2026-07-27). DBM says why, at
+-- DBM-Core/modules/DevTools.lua:542 -- "Make sure it's set to right difficulty or
+-- it'll ignore mobs" -- and defaults to 14 (Normal).
+--
+-- So it now sets a difficulty, reads, and puts the previous one back. Borrowing a
+-- setting and returning it is a different thing from silently repointing someone's
+-- UI. EJ_SelectTier is still never called: the tier is the one thing you can see at
+-- a glance in the journal, and it is reported in the header.
 --------------------------------------------------------------------------------
 
 local function ejPrefix()
 	return ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 end
 
+-- 14 = Normal, the same default DBM's dev dump uses. Mythic (23) can list extra
+-- bosses, so /mh ej takes a difficulty argument for a second pass.
+local EJ_DEFAULT_DIFF = 14
+
+--- Borrow the journal's difficulty for the length of one read.
+--- @return number|nil previous  what to hand back, or nil if we changed nothing
+local function BorrowDifficulty(diff)
+	if not (EJ_SetDifficulty and EJ_GetDifficulty) then
+		return nil
+	end
+	local okGet, prev = pcall(EJ_GetDifficulty)
+	if not okGet then
+		return nil
+	end
+	local okSet = pcall(EJ_SetDifficulty, diff)
+	if not okSet then
+		return nil
+	end
+	return prev
+end
+
+local function ReturnDifficulty(prev)
+	-- Only ever hand back a real difficulty. Rob's journal was sitting at 0, which
+	-- is what caused the empty listing in the first place; restoring that would put
+	-- the broken state back and make the next run fail the same way.
+	if type(prev) == "number" and prev > 0 and EJ_SetDifficulty then
+		pcall(EJ_SetDifficulty, prev)
+	end
+end
+
 --- Every boss of one instance: encounterID + the creature ids behind it.
-local function DumpInstance(instanceID, label)
+local function DumpInstance(instanceID, label, diff)
 	local prefix = ejPrefix()
-	print(("%s %s  journalInstanceID=|cffffffff%s|r"):format(prefix, label or "instance", tostring(instanceID)))
+	print(("%s %s  journalInstanceID=|cffffffff%s|r  (difficulty %s)"):format(
+		prefix, label or "instance", tostring(instanceID), tostring(diff)))
 	local found = 0
 	for i = 1, 25 do
 		local ok, name, _, encounterID = pcall(EJ_GetEncounterInfoByIndex, i, instanceID)
@@ -109,21 +146,26 @@ local function DumpInstance(instanceID, label)
 		end
 	end
 	if found == 0 then
-		print("   no encounters listed. Wrong id, or the journal has no data for it yet.")
+		print("   no encounters listed. Wrong id, or nothing at this difficulty --")
+		print("   try mythic:  /mh ej " .. tostring(instanceID) .. " 23")
 	end
 end
 
---- /mh ej [instanceID] — list this tier's dungeons, or dump one in full.
-function ns.PrintEncounterJournalDump(arg)
+--- /mh ej [instanceID] [difficulty] — list this tier's instances, or dump one.
+function ns.PrintEncounterJournalDump(arg, diffArg)
 	local prefix = ejPrefix()
 	if not (EJ_GetEncounterInfoByIndex and EJ_GetInstanceByIndex) then
 		print(prefix .. " Encounter Journal API not available.")
 		return
 	end
 
+	local diff = tonumber(diffArg) or EJ_DEFAULT_DIFF
+	local restore = BorrowDifficulty(diff)
+
 	local one = tonumber(arg)
 	if one then
-		DumpInstance(one, "instance")
+		DumpInstance(one, "instance", diff)
+		ReturnDifficulty(restore)
 		return
 	end
 
@@ -137,14 +179,11 @@ function ns.PrintEncounterJournalDump(arg)
 		local okT, n = pcall(EJ_GetTierInfo, tier)
 		tierName = okT and n or nil
 	end
-	local diff
-	if EJ_GetDifficulty then
-		local okD, d = pcall(EJ_GetDifficulty)
-		diff = okD and d or nil
+	print(("%s Encounter Journal, tier %s (%s), read at difficulty %s"):format(
+		prefix, tostring(tier), tostring(tierName or "?"), tostring(diff)))
+	if restore == nil then
+		print("   |cffff8080Could not set the difficulty|r -- boss counts may read 0.")
 	end
-	print(("%s Encounter Journal, tier %s (%s), journal difficulty %s"):format(
-		prefix, tostring(tier), tostring(tierName or "?"), tostring(diff or "?")))
-	print("   Switch tier/difficulty in the journal itself if something is missing.")
 
 	for _, isRaid in ipairs({ false, true }) do
 		print(("   -- %s --"):format(isRaid and "raids" or "dungeons"))
@@ -171,4 +210,6 @@ function ns.PrintEncounterJournalDump(arg)
 		end
 	end
 	print("   Then: /mh ej <id> for every encounterID + creatureID of one instance.")
+	print("   Mythic-only bosses: add a difficulty, e.g. /mh ej 1322 23")
+	ReturnDifficulty(restore)
 end
