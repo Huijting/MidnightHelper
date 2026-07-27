@@ -87,6 +87,28 @@ Nooit geland uit de handoff van 20 juli: **crest-bronnen per tier** en **spark-d
 
 ---
 
+## Documentatie (werkafspraak met ChatGPT, 2026-07-27)
+
+Dit bestand is het **enige** AI-handoffbestand. Maak geen `AI_HANDOFF.md` ernaast; twee
+bestanden met dezelfde taak lopen uit elkaar, en dat kostte op 27 juli al een ronde.
+
+| Bestand | Waarvoor |
+|---|---|
+| `docs/EVIDENCE_REGISTER.md` | Bewijsstatus per betekenisvolle claim of waarde |
+| `docs/DOCUMENTATION_IMPACT.md` | Uitgaande voer voor boek/Notion — alleen speler-zichtbare kennis |
+| `docs/RESEARCH_12_1.md` | Gecureerde samenvatting; de watch-docs blijven de bron |
+
+Statussen: `OFFICIAL_CONFIRMED` / `IN_GAME_VERIFIED` / `ADDON_RESEARCH` /
+`PTR_PROVISIONAL` / `COMMUNITY_REPORTED` / `UNKNOWN`. Bij seizoensdata hoort een
+`source = { status, patch, checked, reference, notes }`-blok naast de waarde.
+
+**TwelveInchy is een boekpersonage**, geen addon-systeem. In de repo staat die naam op
+precies één plek: `## Author:` in de `.toc`. Geen dialoog of stem in de addon bouwen
+tenzij Rob daar expliciet om vraagt.
+
+**Datums zijn nooit bevestigd.** 11/12 aug en 18 aug zijn community-projecties. Ze mogen
+niet als vaststaand verschijnen in de addon, release notes, CurseForge, Notion of Discord.
+
 ## Werkafspraken
 
 - **Lange diagnose-uitvoer gaat naar SavedVariables**, niet naar de chat: het commando
@@ -101,6 +123,13 @@ Nooit geland uit de handoff van 20 juli: **crest-bronnen per tier** en **spark-d
 /mh ej            (bossenlijst uit de Encounter Journal; `save` schrijft naar SV)
 /mh ach <tekst>   (achievement-ID zoeken; `id <n>` toont criteria en beloning)
 /mh delvescan     (welke delves biedt de client aan)
+```
+
+GitHub Actions nakijken zonder `gh` (dat staat hier niet geinstalleerd; de repo is
+publiek, dus de web-API is zonder inloggen leesbaar):
+
+```bash
+curl -s "https://api.github.com/repos/Huijting/MidnightHelper/actions/runs?per_page=3"
 ```
 
 ---

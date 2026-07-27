@@ -1,0 +1,90 @@
+# Patch 12.1 research — curated summary
+
+> This file is a curated summary. The automatically generated PTR watch files and
+> measured research documents are the underlying source material.
+
+**Sources, in order of authority:**
+
+| File | What it is | Maintained by |
+|---|---|---|
+| `docs/PTR_S2_ENCOUNTERS.md` | Season 2 dungeon/raid/lair ids, read from the Encounter Journal | measured, 2026-07-27 |
+| `docs/PTR_DELVE_SCAN.md` | Delves the client offers, with poi ids and coordinates | measured, 2026-07-27 |
+| `docs/PTR_VALEERA_TREE.md` | Valeera's full companion trait tree | measured, 2026-07-27 |
+| `docs/CREST_SOURCES_MEASURED.md` | Crest sources and ilvl ranges per tier | measured, 2026-07-22 |
+| `docs/PTR_12.1_WATCH.md` | Daily 12.1 news scan | written automatically |
+| `docs/PTR_12.0.7_DATA.md` | Daily live-patch data scan | written automatically |
+
+Do not copy datasets in here. Update this file only when a **conclusion**, a
+**confidence level**, a **conflict** or an **implementation decision** changes.
+
+Per-value evidence status lives in `docs/EVIDENCE_REGISTER.md`.
+
+---
+
+## Officially confirmed
+
+Nothing about dates. **Blizzard has announced no release date for patch 12.1 or for
+Season 2.** Blizzard has announced that Season 1 ends "soon", without a date.
+
+## Live verified (12.0.7)
+
+The Season 1 achievements that expire are all real and all readable: 61797, 61798,
+61799 and 62351, plus 61808 which nobody announced. All are hidden Feats of Strength —
+invisible to a walk of the achievement categories, findable only by sweeping ids. The
+nemesis is spelled **Nullaeus**, per the client's own text.
+
+The weekly crest cap that several guides describe **does not exist**; every tier reports
+a maximum of 0.
+
+## PTR / provisional (build 120100, release candidate 68914)
+
+Season 2's eight dungeons, its raid and the Tidebound Grotto lair are measured and
+implemented, all season-gated. Three counts cross-check against the patch notes, which
+is the main reason to trust the rest.
+
+Valeera gains a Poisons choice node. The three spell ids are measured; **what they do is
+not known to us**, because the effect descriptions in circulation were attached to ids
+the client does not have.
+
+Auras have **not** gone secret on the release candidate: `ShouldAurasBeSecret` reads
+false both in the open world and inside a delve. This is the player's own auras only.
+
+The one real 12.1 bug in the addon — combat warnings erroring during delve fights — is
+fixed and confirmed silent across multiple fights.
+
+## Datamined only
+
+Three new delves (The Ring of Glory, Gnarldor Isle, Venomfall Deeps) and a new nemesis
+(Azta'rec). None appeared in a scan of what the client currently offers, which is
+expected: Season 2 opens after the patch, so a pre-season scan cannot see them either
+way. Re-scan once the season is live before concluding anything.
+
+Season 2 item levels are reported as +46 over Season 1. Used only to answer a question;
+implemented nowhere.
+
+## Unresolved
+
+**Roleset.** 12.1 introduces a system where "frames in an inactive roleset will never be
+shown, regardless of their shown state". The addon creates frames on UIParent in 33
+files and contains no code that knows about rolesets. Nothing has been measured. This is
+the largest unexamined risk for patch day, because it can hide every on-screen helper at
+once without producing an error.
+
+**Party and raid auras.** MissingBuff reads other units' auras. Only the player's own
+auras have been tested on 12.1.
+
+**Dates.** The community projects 11/12 August for the patch and 18 August for Season 2,
+derived from the release-candidate build. These are projections. They must not appear as
+confirmed in the addon, the release notes, the CurseForge page, Notion, the book or
+Discord.
+
+## Conflicts retained
+
+The Season 1 ending announcement named four rewards. Three of those names could not be
+found in the client at first, which looked like the announcement being wrong. It was not:
+the achievements exist as hidden Feats of Strength. **Both observations are kept** — the
+names were right, and a category walk cannot see them.
+
+Wowhead's Valeera poison spell ids and the client's disagree completely. Implementation
+follows the client. The published effect descriptions are treated as unproven rather than
+discarded, since only the ids were shown to be wrong.
