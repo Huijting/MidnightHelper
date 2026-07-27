@@ -854,6 +854,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh dispel — wat kun je nú van jezelf wegnemen? Eigen debuffs alleen:
+	-- die van anderen kunnen in 12.x secret zijn en zijn nog niet gemeten.
+	if msg == "dispel" then
+		if ns.PrintDispelStatus then
+			ns.PrintDispelStatus()
+		end
+		return
+	end
+
 	-- /mh prey — voortgang in de Prey-hunts, live uit de achievements gelezen.
 	if msg == "prey" then
 		if ns.PrintPreyProgress then
