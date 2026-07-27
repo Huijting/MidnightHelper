@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.11.0
+
+- New: the Season 1 closing checklist tracks what actually expires and ticks itself off - Delver's Journey, the five "of the Dawn" achievements, the three Nullaeus nemesis achievements (61797/61798/61799) and the Prey capstone Preying For Midnight (62351). All four nemesis entries turned out to be hidden Feats of Strength, invisible to a normal achievement walk.
+- New: Codex article "When a season ends" under Start Here - gear, currencies and progress tracks at a rollover, written free of item levels and dates so it survives the next flip. It also separates a season change from a stat squish, which belongs to an expansion pre-patch.
+- New: measurement tools - /mh ej (boss roster from the Encounter Journal), /mh ach (find an achievement id, including hidden ones, and read its criteria), /mh delvescan, /mh poisons, /mh valeera save, /mh trail.
+- New: Valeera's Poisons slot is shown with each poison's own description read from the client. No recommendation yet, because the effect data available to us was tied to spell ids the client does not have.
+- Changed: the big 3D boss model in the boss window defaults to off; an explicit opt-in is preserved.
+- Changed: Codex articles can carry search keywords, so an article is findable by topic and not only by the words in its title.
+- Changed: long diagnostics write to SavedVariables instead of flooding chat.
+- Fixed: patch 12.1 no longer errors during delve fights - the combat warning's glow border used a Backdrop whose geometry is a secret value on 12.1. Confirmed on the test realm.
+- Fixed: Season 2 data corrected against the client - 14 missing journal encounterIDs filled in, and The Venomous Abyss was listed in DBM numbering rather than fight order.
+- Fixed: the death recap remembers a refusal per client build instead of reporting it every session; an accessibility alert could be covered by a toast; the Delver's Journey claimed a finished track was unfinished; a milestone card vanished before it could be read.
+
 ## 2.10.0
 
 - New: profession advice on This Week and beside the Blizzard profession window - names the tree to fill, then the exact node once the recommended trees are done, with every open choice listed and what it does (read live from the game, all eleven professions, localized). Build order verified against current guides per profession; corrected Blacksmithing, Leatherworking, Engineering (had no recipe tree) and Inscription.
