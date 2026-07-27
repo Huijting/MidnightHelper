@@ -837,6 +837,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh ej [instanceID] — lees de hele bossenlijst uit de Encounter Journal, zonder
+	-- te pullen. Voor krappe PTR-testvensters waarin /mh encounters te traag is.
+	if msg == "ej" or msg:match("^ej%s+%d+$") then
+		if ns.PrintEncounterJournalDump then
+			ns.PrintEncounterJournalDump(msg:match("^ej%s+(%d+)$"))
+		end
+		return
+	end
+
 	-- /mh ach <tekst> — zoek een achievement-ID op naam. Alleen een opzoekgereedschap:
 	-- de addon zelf mag nooit op naam matchen (namen zijn gelokaliseerd).
 	if msg:match("^ach%s+") or msg == "ach" then
