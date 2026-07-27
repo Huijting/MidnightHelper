@@ -63,15 +63,22 @@ local RAIDS = {
 		key = "raid_venomousabyss",
 		name = "The Venomous Abyss",
 		season = 2,
+		-- ⚠️ ORDER CORRECTED 2026-07-27 from the client itself (`/mh ej save` on PTR
+		-- build 120100). The list used to be in SetEncounterID order, which is DBM's
+		-- numbering and NOT the order you fight them -- the comment above asked for
+		-- exactly this confirmation. Sorting encounterIDs gives the wrong answer too:
+		-- the journal order is 2888, 2874, 2894, 2882, 2871, 2887, 2883, 2895, which
+		-- is neither ascending nor DBM's. Only the journal's own index is the order.
+		-- Nek'zali also gained the apostrophe the client spells him with.
 		bosses = {
-			{ key = "sszorak",       name = "Sszorak",                encounterID = 2871 },
-			{ key = "twinfangs",     name = "The Twin Fangs",         encounterID = 2887 },
-			{ key = "coiledaltar",   name = "The Coiled Altar",       encounterID = 2883 },
-			{ key = "entombedsent",  name = "Entombed Sentinels",     encounterID = 2874 },
-			{ key = "vashnik",       name = "Vashnik the Malignant",  encounterID = 2882 },
-			{ key = "nekzali",       name = "Nekzali the Soulcoiler", encounterID = 2888 },
-			{ key = "ulatek",        name = "Ula'tek",                encounterID = 2895 },
-			{ key = "lostexplorers", name = "The Lost Explorers",     encounterID = 2894 },
+			{ key = "nekzali",       name = "Nek'zali the Soulcoiler", encounterID = 2888 },
+			{ key = "entombedsent",  name = "Entombed Sentinels",      encounterID = 2874 },
+			{ key = "lostexplorers", name = "The Lost Explorers",      encounterID = 2894 },
+			{ key = "vashnik",       name = "Vashnik the Malignant",   encounterID = 2882 },
+			{ key = "sszorak",       name = "Sszorak",                 encounterID = 2871 },
+			{ key = "twinfangs",     name = "The Twin Fangs",          encounterID = 2887 },
+			{ key = "coiledaltar",   name = "The Coiled Altar",        encounterID = 2883 },
+			{ key = "ulatek",        name = "Ula'tek",                 encounterID = 2895 },
 		},
 	},
 }

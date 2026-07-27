@@ -102,10 +102,10 @@ ns.DUNGEON_ROSTER = {
 			-- overlay, 10 jun — EJ_GetEncounterInfo returns nil for these, so
 			-- they are NOT journal ids); journal encounterID follows from the
 			-- per-instance EJ dump. 3104 ontbreekt (gat in de reeks).
-			{ key = "kystia", encounterID = nil, dungeonEncounterID = 3101, name = "Kystia Manaheart" },
-			{ key = "zaen", encounterID = nil, dungeonEncounterID = 3102, name = "Zaen Bladesorrow" },
-			{ key = "xathuux", encounterID = nil, dungeonEncounterID = 3103, name = "Xathuux the Annihilator" },
-			{ key = "lithiel", encounterID = nil, dungeonEncounterID = 3105, name = "Lithiel Cinderfury" },
+			{ key = "kystia", encounterID = 2679, dungeonEncounterID = 3101, name = "Kystia Manaheart" },
+			{ key = "zaen", encounterID = 2680, dungeonEncounterID = 3102, name = "Zaen Bladesorrow" },
+			{ key = "xathuux", encounterID = 2681, dungeonEncounterID = 3103, name = "Xathuux the Annihilator" },
+			{ key = "lithiel", encounterID = 2682, dungeonEncounterID = 3105, name = "Lithiel Cinderfury" },
 		},
 	},
 	{
@@ -117,9 +117,9 @@ ns.DUNGEON_ROSTER = {
 		season2 = true, -- in de S2 M+-rotatie (PTR 14 jul, in-game verifiëren)
 		entrance = { mapID = 2437, x = 29.79, y = 84.51 }, -- Zul'Aman
 		bosses = {
-			{ key = "hoardmonger", encounterID = nil, dungeonEncounterID = 3207, name = "The Hoardmonger" },
-			{ key = "sentinel", encounterID = nil, dungeonEncounterID = 3208, name = "Sentinel of Winter" },
-			{ key = "nalorakk", encounterID = nil, dungeonEncounterID = 3209, name = "Nalorakk" },
+			{ key = "hoardmonger", encounterID = 2776, dungeonEncounterID = 3207, name = "The Hoardmonger" },
+			{ key = "sentinel", encounterID = 2777, dungeonEncounterID = 3208, name = "Sentinel of Winter" },
+			{ key = "nalorakk", encounterID = 2778, dungeonEncounterID = 3209, name = "Nalorakk" },
 		},
 	},
 	{
@@ -131,10 +131,10 @@ ns.DUNGEON_ROSTER = {
 		season2 = true, -- in de S2 M+-rotatie (PTR 14 jul, in-game verifiëren)
 		entrance = { mapID = 2413, x = 26.24, y = 78.09 }, -- Harandar
 		bosses = {
-			{ key = "trinity", encounterID = nil, dungeonEncounterID = 3199, name = "Lightblossom Trinity" },
-			{ key = "ikuzz", encounterID = nil, dungeonEncounterID = 3200, name = "Ikuzz the Light Hunter" },
-			{ key = "ruia", encounterID = nil, dungeonEncounterID = 3201, name = "Lightwarden Ruia" },
-			{ key = "ziekket", encounterID = nil, dungeonEncounterID = 3202, name = "Ziekket" },
+			{ key = "trinity", encounterID = 2769, dungeonEncounterID = 3199, name = "Lightblossom Trinity" },
+			{ key = "ikuzz", encounterID = 2770, dungeonEncounterID = 3200, name = "Ikuzz the Light Hunter" },
+			{ key = "ruia", encounterID = 2771, dungeonEncounterID = 3201, name = "Lightwarden Ruia" },
+			{ key = "ziekket", encounterID = 2772, dungeonEncounterID = 3202, name = "Ziekket" },
 		},
 	},
 	{
@@ -146,9 +146,9 @@ ns.DUNGEON_ROSTER = {
 		season2 = true, -- in de S2 M+-rotatie (PTR 14 jul, in-game verifiëren)
 		entrance = { mapID = 2444, x = 53.67, y = 33.08 }, -- Slayer's Rise
 		bosses = {
-			{ key = "tazrah", encounterID = nil, dungeonEncounterID = 3285, name = "Taz'Rah" },
-			{ key = "atroxus", encounterID = nil, dungeonEncounterID = 3286, name = "Atroxus" },
-			{ key = "charonus", encounterID = nil, dungeonEncounterID = 3287, name = "Charonus" },
+			{ key = "tazrah", encounterID = 2791, dungeonEncounterID = 3285, name = "Taz'Rah" },
+			{ key = "atroxus", encounterID = 2792, dungeonEncounterID = 3286, name = "Atroxus" },
+			{ key = "charonus", encounterID = 2793, dungeonEncounterID = 3287, name = "Charonus" },
 		},
 	},
 	-- Legacy dungeons in the Season 1 Heroic/M+ rotation (not in the
