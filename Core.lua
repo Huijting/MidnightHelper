@@ -839,6 +839,21 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh ej [instanceID] — lees de hele bossenlijst uit de Encounter Journal, zonder
 	-- te pullen. Voor krappe PTR-testvensters waarin /mh encounters te traag is.
+	-- /mh roleset [save|hide] — 12.1 Roleset-verkenning. Vraagt wat de client HEEFT;
+	-- gokt geen API-namen, want dan is "niets gevonden" dubbelzinnig.
+	if msg == "roleset save" then
+		if ns.SaveRolesetProbe then ns.SaveRolesetProbe() end
+		return
+	end
+	if msg == "roleset hide" then
+		if ns.HideRolesetTestFrame then ns.HideRolesetTestFrame() end
+		return
+	end
+	if msg == "roleset" then
+		if ns.PrintRolesetProbe then ns.PrintRolesetProbe() end
+		return
+	end
+
 	-- /mh delvescan [save] — welke delves biedt de client vandaag echt aan?
 	if msg == "delvescan save" then
 		if ns.SaveDelveScan then
