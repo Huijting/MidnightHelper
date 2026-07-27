@@ -152,7 +152,11 @@ local function BuildNavIndex()
 		for _, art in ipairs(ns.CODEX_ARTICLES) do
 			if type(art) == "table" and art.titleKey then
 				local cat = art.category
-				add(L(art.titleKey), "codex article " .. (art.id or ""), function()
+				-- searchKeys matters more than it looks. Without it an article is
+				-- findable only by words already in its own title, which is exactly
+				-- the words someone who has not read it will not type. "When a season
+				-- ends" was invisible to a search for "reset" (Rob, 2026-07-27).
+				add(L(art.titleKey), "codex article " .. (art.id or "") .. " " .. (art.searchKeys or ""), function()
 					if cat and ns.SetActiveCodexCategory then
 						ns.SetActiveCodexCategory(cat)
 					end

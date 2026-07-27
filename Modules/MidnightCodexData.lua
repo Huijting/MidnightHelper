@@ -69,6 +69,11 @@ ns.CODEX_ARTICLES = {
 		titleKey = "CODEX_SEASONEND_TITLE",
 		bodyKey = "CODEX_SEASONEND_BODY",
 		sort = 7,
+		-- English on purpose: the search box matches raw text, and these are the
+		-- words someone types when they do not yet know the article exists.
+		searchKeys = "season end ends ending reset rollover roll over new season "
+			.. "carry over carryover currency deadline expire expires last week "
+			.. "seizoen einde afloopt reset overgang",
 	},
 	-- 12.0.7 nieuw (datamined; in-game bevestigen bij launch)
 	{
