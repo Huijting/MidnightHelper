@@ -1,4 +1,4 @@
-## Interface: 120007
+## Interface: 120007, 120100
 ## Title: Midnight Helper
 ## Version: 2.11.0
 ## Author: TwelveInchy
