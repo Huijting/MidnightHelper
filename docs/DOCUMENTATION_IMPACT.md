@@ -81,4 +81,28 @@ Newest at the top. Move a section under a version heading once it ships.
 
 ## Unreleased
 
-*(nothing yet)*
+### Book chapter 7 cites a Dragonflight-era source for the upgrade system
+
+- **Summary:** "Hoofdstuk 7 – Item level" (Notion) sources its upgrade explanation from
+  Blizzard's *Embers of Neltharion Upgrade System Overview*. That is patch 10.1, 2023 —
+  three expansions back. The chapter's own content is sound and the "meestal" rule is
+  good; it is the **source** that is stale for tracks, crests and ranks.
+- **Better sources we already hold:** `docs/CREST_SOURCES_MEASURED.md` (per-tier crest
+  sources and item level ranges, read from `C_CurrencyInfo`, 2026-07-22,
+  IN_GAME_VERIFIED) and the gear-track measurements from 2026-07-17 taken at Cuzoth's
+  upgrade window (rank counters read as `Hero 3/6` and `Champion 4/6`; cost is crests
+  plus a little gold; the track name is followed by its ilvl range, so the track is the
+  ceiling).
+- **Evidence:** IN_GAME_VERIFIED for the replacements.
+- **Book chapters affected:** 7, and anything else citing the same article.
+- **Confidence:** high that the citation is outdated; the chapter text itself was not
+  found to state anything false.
+- **Action required:** swap the citation, and check whether any rank or track numbers
+  elsewhere in the book came from that article. Those are season-specific — the addon
+  deliberately states the mechanic with no numbers so it cannot rot at a season flip.
+
+### Checked and clear: chapter 7 does not claim gear is reset at a season change
+
+- The earlier warning in the 2.11.0 section predicted the book might say gear is reset or
+  scaled down when a season ends. Chapter 7 does **not** say this. Recorded so nobody
+  goes looking for a problem that is not there. Other chapters not yet reviewed.
