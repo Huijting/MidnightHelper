@@ -2350,3 +2350,30 @@ fill("itIT", {
 	POISON_HEADER = "I veleni di Valeera - cosa dice il gioco:",
 	POISON_NONE = "Nessun veleno su questo client - arrivano con la stagione 2.",
 })
+
+------------------------------------------------------------------------------
+-- Prey hunts (block 9). Only the TITLE is translated here; the body falls back to
+-- enUS on purpose. A five-bullet explanation written by someone who does not speak
+-- the language is worse than the English the fallback already gives -- and the
+-- Codex fallback shows English, never a raw key. These go to the translators.
+------------------------------------------------------------------------------
+
+fill("deDE", {
+	CODEX_PREY_TITLE = "Prey-Jagden",
+})
+
+fill("frFR", {
+	CODEX_PREY_TITLE = "Chasses Prey",
+})
+
+fill("esES", {
+	CODEX_PREY_TITLE = "Cacerías Prey",
+})
+
+fill("ptBR", {
+	CODEX_PREY_TITLE = "Caçadas Prey",
+})
+
+fill("itIT", {
+	CODEX_PREY_TITLE = "Cacce Prey",
+})

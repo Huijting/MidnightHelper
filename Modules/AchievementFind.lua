@@ -205,3 +205,115 @@ function ns.PrintAchievementFind(query)
 		print(("   showing the first %d matches only -- narrow the search to see the rest."):format(MAX_HITS))
 	end
 end
+
+--------------------------------------------------------------------------------
+-- /mh prey — where you stand in the Prey hunts.
+--
+-- Block 9's probe. Every id below was found by sweeping this client on
+-- 2026-07-27 (`/mh ach prey`), and 62351 had its criteria and reward read with
+-- `/mh ach id`. The NAMES are deliberately not stored: each is resolved live, so
+-- a wrong id shows a wrong name in the output instead of quietly reporting the
+-- wrong thing. That is the same rule the season checklist follows.
+--
+-- Counts are read from the achievement's own criteria rather than written down.
+-- "30 targets" is something the client can tell us every time it is asked; a
+-- hardcoded 30 would be a number that silently rots when Blizzard adds one.
+--------------------------------------------------------------------------------
+
+-- The meta and the two that carry real counts. Everything else is reachable
+-- through the meta's criteria, so listing more would be duplication.
+local PREY_META = 62351        -- "Preying For Midnight" -> Title: Preyseeker
+local PREY_ALL_TARGETS = 62383 -- "Gotta Hunt Them All"
+
+-- Mode progression. Two steps per difficulty; the sweep found no third.
+local PREY_MODES = {
+	{ id = 61387, label = "Normal I" },
+	{ id = 61386, label = "Normal II" },
+	{ id = 61389, label = "Hard I" },
+	{ id = 61388, label = "Hard II" },
+	{ id = 61392, label = "Nightmare I" },
+	{ id = 61391, label = "Nightmare II" },
+}
+
+--- name, completed, rewardText for an achievement, or nil.
+local function AchInfo(id)
+	if not GetAchievementInfo then
+		return nil
+	end
+	local ok, _, name, _, completed, _, _, _, _, _, _, rewardText = pcall(GetAchievementInfo, id)
+	if not ok or type(name) ~= "string" then
+		return nil
+	end
+	return name, completed and true or false, rewardText
+end
+
+--- How many criteria are done, out of how many. nil when unreadable.
+local function CriteriaProgress(id)
+	if not (GetAchievementNumCriteria and GetAchievementCriteriaInfo) then
+		return nil
+	end
+	local okN, num = pcall(GetAchievementNumCriteria, id)
+	if not okN or type(num) ~= "number" or num == 0 then
+		return nil
+	end
+	local done = 0
+	for i = 1, num do
+		local okC, _, _, cDone = pcall(GetAchievementCriteriaInfo, id, i)
+		if okC and cDone then
+			done = done + 1
+		end
+	end
+	return done, num
+end
+
+--- /mh prey — progress across the Prey hunts, read live.
+function ns.PrintPreyProgress()
+	if not GetAchievementInfo then
+		print(PREFIX .. " achievement API not available on this client.")
+		return
+	end
+	print(PREFIX .. " " .. ns:L("PREY_PROBE_HEADER"))
+
+	-- The meta, and each of its parts.
+	local metaName, metaDone, metaReward = AchInfo(PREY_META)
+	if metaName then
+		print(("   |cffffffff%s|r  %s%s"):format(
+			metaName, metaDone and "|cff40c040done|r" or "|cffb0b0b0todo|r",
+			(type(metaReward) == "string" and metaReward ~= "") and ("  ->  " .. metaReward) or ""))
+		local okN, num = pcall(GetAchievementNumCriteria, PREY_META)
+		if okN and type(num) == "number" then
+			for i = 1, num do
+				local okC, label, _, cDone = pcall(GetAchievementCriteriaInfo, PREY_META, i)
+				if okC and label ~= nil then
+					local text = (type(label) == "string" and label ~= "") and label
+						or ("(criterion %d)"):format(i)
+					print(("     %s %s"):format(cDone and "|cff40c040x|r" or "|cffb0b0b0-|r", text))
+				end
+			end
+		end
+	else
+		print(("   achievement %d did not resolve on this client."):format(PREY_META))
+	end
+
+	-- The target list, counted by the game.
+	local allName = AchInfo(PREY_ALL_TARGETS)
+	local done, total = CriteriaProgress(PREY_ALL_TARGETS)
+	if allName and total then
+		print(("   |cffffffff%s|r  %d/%d targets"):format(allName, done, total))
+	elseif allName then
+		print(("   |cffffffff%s|r  (criteria unreadable)"):format(allName))
+	end
+
+	-- Difficulty progression.
+	local line = {}
+	for _, m in ipairs(PREY_MODES) do
+		local name, ok = AchInfo(m.id)
+		if name then
+			line[#line + 1] = ("%s%s|r"):format(ok and "|cff40c040" or "|cffb0b0b0", m.label)
+		end
+	end
+	if #line > 0 then
+		print("   modes: " .. table.concat(line, "  "))
+	end
+	print("   " .. ns:L("PREY_PROBE_FOOT"))
+end

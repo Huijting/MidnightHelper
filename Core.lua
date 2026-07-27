@@ -854,6 +854,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh prey — voortgang in de Prey-hunts, live uit de achievements gelezen.
+	if msg == "prey" then
+		if ns.PrintPreyProgress then
+			ns.PrintPreyProgress()
+		end
+		return
+	end
+
 	-- /mh zone — wat weet MH van de zone waar je staat? Op patchdag is dit de
 	-- eerste stap in een nieuwe zone: mapID meten in plaats van dataminen.
 	if msg == "zone" then

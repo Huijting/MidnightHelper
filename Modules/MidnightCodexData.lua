@@ -366,6 +366,20 @@ ns.CODEX_ARTICLES = {
 		sort = 3,
 	},
 	{
+		-- Season-proof like season_end: no counts, no item levels, no tier numbers.
+		-- The three difficulty modes, the separate War Mode track and the title at
+		-- the end were read from this client's achievements on 2026-07-27, not from
+		-- a guide. The number of targets is deliberately absent -- /mh prey reads it
+		-- from the achievement's own criteria, so it cannot rot when one is added.
+		id = "prey_hunts",
+		category = "world",
+		titleKey = "CODEX_PREY_TITLE",
+		bodyKey = "CODEX_PREY_BODY",
+		sort = 4,
+		searchKeys = "prey hunt hunts astalor bloodsworn murder row nightmare hard mode "
+			.. "preyseeker title war mode great vault world row jacht",
+	},
+	{
 		id = "rares",
 		category = "world",
 		titleKey = "CODEX_RARES_TITLE",

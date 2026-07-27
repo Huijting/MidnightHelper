@@ -50,7 +50,7 @@ schuift door naar 2.12.0. Deze tabel is historie -- gebruik hem niet meer als ta
 | 12 | Coiled Isle-scaffold + lege-zone-guard | **guard AF 27 jul** (`ns.IsZoneCovered`, `/mh zone`). Het scaffold zelf KAN NIET: de mapID van Coiled Isle is nergens gedataminet. Op patchdag `/mh zone` draaien in de zone, dan is hij gemeten |
 | 11 | Crest-teksten ontnamen (115 strings) | OPEN -- vóór de flip doen |
 | 7 | Nieuwkomer-detectie aansluiten | OPEN -- `ns.IsSeasonNewcomer` bestaat, wordt nergens gebruikt |
-| 9 | Prey: Codex-entry + probe | OPEN |
+| 9 | Prey: Codex-entry + probe | **AF 27 jul.** Codex-artikel `prey_hunts` (world, zonder getallen) + `/mh prey` dat je voortgang uit de achievement-criteria leest. Bodies alleen en/nl; de vijf andere talen krijgen alleen de titel en vallen voor de tekst terug op enUS — bewust, dat is werk voor vertalers |
 | 6 | Carola-test v2 | OPEN, Robs werk (doorgeschoven uit 2.11.0) |
 
 **Los van releases:** blok 13+14 vertaalstatus + werkpakket 2 naar Discord -- doe dit
