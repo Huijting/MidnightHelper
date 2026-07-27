@@ -1111,8 +1111,31 @@ end
 --- ⚠️ SavedVariables reach disk only on /reload or logout.
 function ns.SaveCompanionTreeProbe()
 	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+
+	-- A probe that gives up quietly is worse than no probe: twice on 2026-07-27 this
+	-- wrote nothing at all and there was no way to tell from the saved file WHY. So
+	-- every exit now records itself. An empty capture and a failed capture look
+	-- identical from outside; they must not look identical from inside.
+	ns.db = ns.db or {}
+	local function bail(why, extra)
+		ns.db.companionProbe = {
+			captured = (time and time()) or 0,
+			build = select(4, GetBuildInfo()),
+			failed = why,
+			detail = extra,
+			hasFrame = DelvesCompanionConfigurationFrame ~= nil,
+			frameShown = (DelvesCompanionConfigurationFrame
+				and DelvesCompanionConfigurationFrame.IsShown
+				and DelvesCompanionConfigurationFrame:IsShown()) or false,
+			hasDelvesUI = C_DelvesUI ~= nil,
+			hasTraits = C_Traits ~= nil,
+		}
+		print(("%s probe stopped: %s"):format(prefix, tostring(why)))
+		print("   |cffffff78Reload anyway|r -- the reason is saved and can be read from disk.")
+	end
+
 	if not (C_DelvesUI and C_Traits and C_Traits.GetTreeNodes) then
-		print(prefix .. " C_DelvesUI / C_Traits not available")
+		bail("C_DelvesUI / C_Traits not available")
 		return
 	end
 	local companionID = DelvesCompanionConfigurationFrame
@@ -1122,20 +1145,21 @@ function ns.SaveCompanionTreeProbe()
 		companionID = okP and pde or nil
 	end
 	if not companionID then
-		print(prefix .. " no companion id — open Valeera's window once, then retry")
+		bail("no companion id", "open Valeera's window once, then retry")
 		return
 	end
 	local okTree, treeID = pcall(C_DelvesUI.GetTraitTreeForCompanion, companionID)
 	-- 0 is truthy in Lua; treat it as "no tree" (the bug that bit us 2026-07-24).
 	if not okTree or not treeID or treeID == 0 then
-		print(prefix .. " no trait tree for companion " .. tostring(companionID)
-			.. " — open Valeera's window and retry")
+		bail("no trait tree", ("companion=%s treeID=%s"):format(
+			tostring(companionID), tostring(treeID)))
 		return
 	end
 	local okCfg, configID = pcall(C_Traits.GetConfigIDByTreeID, treeID)
 	local okNodes, nodes = pcall(C_Traits.GetTreeNodes, treeID)
 	if not okCfg or not configID or not okNodes or type(nodes) ~= "table" then
-		print(prefix .. " could not read the tree (config or nodes missing)")
+		bail("config or nodes missing", ("tree=%s config=%s nodes=%s"):format(
+			tostring(treeID), tostring(configID), type(nodes)))
 		return
 	end
 
