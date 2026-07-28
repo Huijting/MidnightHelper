@@ -1048,6 +1048,57 @@ function ns.ScanVaultAdvisorChoices(weightsOverride, weightKeyOverride)
 	return gear, token, status
 end
 
+--------------------------------------------------------------------------------
+-- Season 2 bonus roll ("Nebulous Voidcore") readiness.
+--
+-- S2 adds a button to Blizzard's Great Vault UI that buys a bonus roll directly,
+-- instead of going to the vendor with coins. It only appears once you have
+-- unlocked enough reward slots that week -- and they may be spread across the
+-- Raid, Dungeon and World rows in any combination.
+--
+-- Why this is worth showing: it quietly changes the cheapest weekly routine.
+-- Two tier-1 delves used to be a complete week; that fills one row and no longer
+-- reaches the button. A player who does not notice simply stops getting bonus
+-- rolls without ever being told why.
+--
+-- ⚠ The THRESHOLD below is the one unverified part. It comes from the 12.1 PTR
+-- (Wowhead, 28 Jul 2026) and has not been confirmed on a live realm. It is a
+-- named constant precisely so that a single edit corrects everything if Blizzard
+-- ships a different number. The slot COUNT is read live from the player's own
+-- vault and is not a guess. Gated behind IsSeason2Live so nothing is claimed
+-- before the mechanic exists at all.
+--------------------------------------------------------------------------------
+
+local VOIDCORE_SLOTS_REQUIRED = 3
+
+--- @return table|nil { filled, required, missing, unlocked } — nil when it does
+--- not apply yet or the vault data has not arrived.
+function ns.GetVoidcoreBonusRollStatus()
+	if not (ns.IsSeason2Live and ns.IsSeason2Live()) then
+		return nil
+	end
+	if not ns.GetVaultSnapshot then
+		return nil
+	end
+	local ok, snap = pcall(ns.GetVaultSnapshot)
+	if not ok or type(snap) ~= "table" or not snap.dataLoaded then
+		return nil -- right after login the server has not sent the rows yet
+	end
+	local filled = 0
+	for _, key in ipairs({ "raids", "dungeons", "world" }) do
+		local cat = snap[key]
+		if type(cat) == "table" then
+			filled = filled + (tonumber(cat.unlocked) or 0)
+		end
+	end
+	return {
+		filled = filled,
+		required = VOIDCORE_SLOTS_REQUIRED,
+		missing = math.max(0, VOIDCORE_SLOTS_REQUIRED - filled),
+		unlocked = filled >= VOIDCORE_SLOTS_REQUIRED,
+	}
+end
+
 function ns.GetVaultAdvisorRecommendation()
 	local weights, weightKey = GetSpecWeights()
 	if not weights then
@@ -1298,6 +1349,17 @@ local function EnsureBlizzardVaultBanner()
 	f._token:SetWordWrap(true)
 	f._token:SetTextColor(0.75, 0.72, 0.65)
 
+	-- Bonus-roll-regel zit boven de token-note: hij gaat over wat je deze week
+	-- nog kunt halen, niet over de keuze die je nu maakt.
+	f._voidcore = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f._voidcore:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	f._voidcore:SetPoint("BOTTOMLEFT", f._token, "TOPLEFT", 0, 6)
+	f._voidcore:SetPoint("BOTTOMRIGHT", f._token, "TOPRIGHT", 0, 6)
+	f._voidcore:SetWidth(innerW)
+	f._voidcore:SetJustifyH("LEFT")
+	f._voidcore:SetWordWrap(true)
+	f._voidcore:Hide()
+
 	-- Tier-note vlak ONDER de "Pick:"-regel (Rob 17 jun: stond eerst onderaan
 	-- onder het model en werd gemist). De alternatieven-scroll hangt eronder.
 	f._tier = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -1370,6 +1432,9 @@ local function UpdateBlizzardVaultBannerLayout(banner)
 	if banner._token and banner._token:IsShown() then
 		footerReserve = footerReserve + math.ceil(banner._token:GetStringHeight() or 0) + 8
 	end
+	if banner._voidcore and banner._voidcore:IsShown() then
+		footerReserve = footerReserve + math.ceil(banner._voidcore:GetStringHeight() or 0) + 6
+	end
 
 	local tierH = (banner._tier and banner._tier:IsShown())
 		and (math.ceil(banner._tier:GetStringHeight() or 0) + 6) or 0
@@ -1391,6 +1456,27 @@ local function UpdateBlizzardVaultBannerLayout(banner)
 	-- Profielrij-term schaalt mee met de (geschaalde) knophoogte hierboven.
 	banner._desiredHeight = padTop + titleH + BANNER_PROFILE_ROW_H * s + hintH + bestH + tierH + visibleScrollH + footerReserve + padBottom + 8
 	PositionBlizzardVaultBanner(banner)
+end
+
+local function ApplyVoidcoreLine(banner)
+	local line = banner and banner._voidcore
+	if not line then
+		return
+	end
+	local st = ns.GetVoidcoreBonusRollStatus and ns.GetVoidcoreBonusRollStatus()
+	if not st then
+		line:SetText("")
+		line:Hide()
+		return
+	end
+	if st.unlocked then
+		line:SetText(VL("VAULT_VOIDCORE_READY_FMT", st.filled, st.required))
+		line:SetTextColor(0.35, 1, 0.45)
+	else
+		line:SetText(VL("VAULT_VOIDCORE_LOCKED_FMT", st.filled, st.required, st.missing))
+		line:SetTextColor(1, 0.85, 0.2)
+	end
+	line:Show()
 end
 
 function ns.RefreshBlizzardVaultBanner()
@@ -1438,6 +1524,7 @@ function ns.RefreshBlizzardVaultBanner()
 		end
 		banner._tier:Hide()
 		banner._token:Hide()
+		ApplyVoidcoreLine(banner)
 		banner:Show()
 		UpdateBlizzardVaultBannerLayout(banner)
 		ScheduleRescan()
@@ -1535,6 +1622,8 @@ function ns.RefreshBlizzardVaultBanner()
 		banner._token:SetText("")
 		banner._token:Hide()
 	end
+
+	ApplyVoidcoreLine(banner)
 
 	banner:Show()
 	UpdateBlizzardVaultBannerLayout(banner)

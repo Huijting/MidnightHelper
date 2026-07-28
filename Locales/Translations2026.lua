@@ -2377,3 +2377,35 @@ fill("ptBR", {
 fill("itIT", {
 	CODEX_PREY_TITLE = "Cacce Prey",
 })
+
+-- Season 2 bonus roll readiness on the Great Vault banner.
+--
+-- These deliberately do NOT name the item. Blizzard ships its own localized name
+-- for it and we do not know what it is; translating "Nebulous Voidcore" ourselves
+-- would put a word in the addon that appears nowhere in the player's game, and
+-- someone searching for it would come up empty. The button is on the same screen,
+-- so "bonus roll" is all the sentence needs to do its job.
+fill("deDE", {
+	VAULT_VOIDCORE_READY_FMT = "Bonuswurf freigeschaltet: %d von %d Plätzen gefüllt — du kannst diese Woche hier einen Bonuswurf kaufen.",
+	VAULT_VOIDCORE_LOCKED_FMT = "Bonuswurf gesperrt: %d von %d Plätzen gefüllt. Schalte %d weitere frei — Schlachtzug, Dungeon oder Welt gemischt zählen mit.",
+})
+
+fill("frFR", {
+	VAULT_VOIDCORE_READY_FMT = "Jet bonus débloqué : %d emplacements sur %d remplis — tu peux acheter un jet bonus ici cette semaine.",
+	VAULT_VOIDCORE_LOCKED_FMT = "Jet bonus verrouillé : %d emplacements sur %d remplis. Débloques-en %d de plus — raid, donjon ou monde comptent tous.",
+})
+
+fill("esES", {
+	VAULT_VOIDCORE_READY_FMT = "Tirada extra desbloqueada: %d de %d espacios llenos — puedes comprar una tirada extra aquí esta semana.",
+	VAULT_VOIDCORE_LOCKED_FMT = "Tirada extra bloqueada: %d de %d espacios llenos. Desbloquea %d más — banda, mazmorra o mundo cuentan por igual.",
+})
+
+fill("ptBR", {
+	VAULT_VOIDCORE_READY_FMT = "Rolagem bônus liberada: %d de %d espaços preenchidos — você pode comprar uma rolagem bônus aqui esta semana.",
+	VAULT_VOIDCORE_LOCKED_FMT = "Rolagem bônus bloqueada: %d de %d espaços preenchidos. Libere mais %d — raide, masmorra ou mundo contam igualmente.",
+})
+
+fill("itIT", {
+	VAULT_VOIDCORE_READY_FMT = "Tiro bonus sbloccato: %d slot su %d riempiti — puoi comprare un tiro bonus qui questa settimana.",
+	VAULT_VOIDCORE_LOCKED_FMT = "Tiro bonus bloccato: %d slot su %d riempiti. Sbloccane altri %d — incursione, spedizione o mondo contano allo stesso modo.",
+})

@@ -184,6 +184,11 @@ local function GetVaultSnapshot()
 	}
 end
 
+-- Shared so the vault banner counts filled slots with exactly this logic rather
+-- than a second copy of it. Runtime call only: this file loads after
+-- VaultAdvisor.lua.
+ns.GetVaultSnapshot = GetVaultSnapshot
+
 local function IsResetDayNow()
 	-- Region-correct: "reset day" = first 24h of the current weekly cycle,
 	-- derived from the live API (US=Tue, EU=Wed, at the actual server reset).
