@@ -267,6 +267,37 @@ function ns.PrintDispelProbe()
 	print(("  in instance: %s (%s, diff %s)   auras trusted: %s"):format(
 		tostring(inInst), tostring(kind), tostring(diff), tostring(Aura.Trusted())))
 
+	-- YOURSELF FIRST. This used to start at party members, so running it solo in a
+	-- delve reported "no party/raid members found" and measured nothing -- which is
+	-- exactly where Rob was on 2026-07-28 when we needed an answer.
+	--
+	-- The per-field breakdown is the whole point. If spellId comes back readable
+	-- while dispelName is secret, the helper does not need the school from the game
+	-- at all: it can enumerate for ids and look the school up in what DispelCapture
+	-- has already recorded. That would turn a blocked feature into a working one, so
+	-- it is worth knowing field by field rather than as one yes/no.
+	print(("  in combat: %s"):format(tostring(InCombatLockdown and InCombatLockdown() or false)))
+	print("  YOUR OWN debuffs:")
+	local mine = 0
+	local okSelf = Aura.ForEachPlayerDebuff(function(aura)
+		mine = mine + 1
+		local function fieldState(v)
+			if v == nil then
+				return "nil"
+			elseif isSecret(v) then
+				return "|cffff8080SECRET|r"
+			end
+			return "|cff40c040" .. tostring(v) .. "|r"
+		end
+		print(("    %d. spellId=%s  name=%s  dispelName=%s"):format(
+			mine, fieldState(aura.spellId), fieldState(aura.name), fieldState(aura.dispelName)))
+	end)
+	if not okSelf then
+		print("    (the scan itself failed)")
+	elseif mine == 0 then
+		print("    none on you right now")
+	end
+
 	-- Group unit list (skip yourself).
 	local units = {}
 	if IsInRaid and IsInRaid() then
