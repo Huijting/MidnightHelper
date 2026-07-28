@@ -2885,8 +2885,16 @@ function ns:ShowTravelPopup(targetMapName, extraInfo)
 	end
 	mageBtn:SetShown(showTele)
 	magePortalBtn:SetShown(showPortal)
-	travelPopup:SetHeight((showTele or showPortal) and 200 or 140)
 
+	-- ⚠️ TEXT FIRST, THEN HEIGHT. The height used to be set here, before the text
+	-- existed, from a fixed 140 (or 200 with mage buttons). The text hangs from the
+	-- TOP and the buttons from the BOTTOM, so a line too many walks straight into
+	-- the portal icon -- which is what Rob saw on 2026-07-28: "(ESC to cancel)" with
+	-- a button sitting on top of it, at five lines of text.
+	--
+	-- Same fault and same fix as MidnightToast on 2026-07-25. A panel whose content
+	-- can grow cannot have a constant height; measure what the font string actually
+	-- rendered (GetStringHeight is post-wrap) and grow to fit.
 	travelPopup.text:SetText(
 		string.format(
 			"%s\n|cff888888(%s)|r",
@@ -2894,5 +2902,19 @@ function ns:ShowTravelPopup(targetMapName, extraInfo)
 			ns:L("TRAVEL_POPUP_ESC")
 		)
 	)
+
+	-- The button rows are anchored to the bottom: one row occupies 15..55, and the
+	-- mage row above it 60..100. Reserve that, plus a gap, plus the top padding.
+	local TOP_PAD, GAP = 15, 12
+	local buttonZone = (showTele or showPortal) and 105 or 60
+	local base = (showTele or showPortal) and 200 or 140
+	-- Dot to TEST for the method, colon to CALL it. `obj:Method and ...` is a syntax
+	-- error, not a nil-check, and luac catches it -- which it just did.
+	local textH = 0
+	if travelPopup.text.GetStringHeight then
+		textH = travelPopup.text:GetStringHeight() or 0
+	end
+	travelPopup:SetHeight(math.max(base, TOP_PAD + math.ceil(textH) + GAP + buttonZone))
+
 	travelPopup:Show()
 end
