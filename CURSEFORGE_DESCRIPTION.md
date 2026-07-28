@@ -2,9 +2,11 @@
 
 > 💬 **Join the community** — need help, found a bug, or want to help translate? Come say hi on [Discord](https://discord.gg/kBHaHcsASQ). Beginners very welcome, and the addon is always free. 🌙
 
-**New to Midnight, or juggling a stack of alts?** Midnight Helper is your one window for the whole week — clean enough for a brand-new max-level player, deep enough for a min-maxer. Just hit 90 and not sure what to do? Open it and follow along. Have ten alts to keep straight? See them all at a glance.
+**Just hit 90 and nobody explained any of this?**
 
-Midnight Helper is an all-in-one utility addon for **World of Warcraft Retail** (Midnight Season 1). It brings weekly planning, Delves, Great Vault tracking, achievement hunts, a live class-layout coach, on-screen combat helpers, standalone route guidance, and reference guides into one compact window — with full UI support in **seven languages**.
+Midnight Helper is the addon that tells you *why*, not just *what*. Your gear says "Champion 4/6" and the game never says what that means. Your vault has three empty slots and nothing says how to fill them. Midnight Helper answers those questions in plain language, in your own language — and then takes you there.
+
+One window for the whole week. Clean enough for a brand-new max-level player, deep enough for a min-maxer. **Seven languages, no dependencies, always free.**
 
 ### See it in action
 
