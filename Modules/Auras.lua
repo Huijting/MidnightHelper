@@ -215,7 +215,22 @@ function ns.PrintAuraDiagnostics()
 		local ok, v = pcall(C_Secrets.ShouldAurasBeSecret)
 		secret = ok and tostring(v) or "error"
 	end
+	-- ⚠️ COMBAT STATE IS PART OF THE MEASUREMENT, and leaving it out cost us a wrong
+	-- conclusion. On 2026-07-27 this reported ShouldAurasBeSecret = false on the 12.1
+	-- release candidate, outside and inside a delve, and that was written down as
+	-- "the aura migration is not a blocker". Both readings were taken standing still,
+	-- OUT OF COMBAT. JustAC 4.55.0 (BlizzardAPI.lua:82) models the flag as flipping
+	-- exactly at combat edges and falls back to `IS_MIDNIGHT_OR_LATER and
+	-- InCombatLockdown()` when the API is absent -- i.e. secret IN combat.
+	--
+	-- So the old output could not distinguish "auras are readable" from "we happened
+	-- to ask at the only moment the answer is always false". A diagnostic that does
+	-- not record the condition it measured under is not a measurement.
+	local inCombat = InCombatLockdown and InCombatLockdown() or false
 	print(p .. "aura readability")
+	print(("  |cffffff78in combat|r             = %s%s"):format(
+		tostring(inCombat),
+		inCombat and "" or "   <- run this again DURING a fight"))
 	print(("  Trusted()              = %s"):format(tostring(Aura.Trusted())))
 	print(("  ShouldAurasBeSecret    = %s"):format(secret))
 	print(("  GetPlayerAuraBySpellID = %s"):format(tostring(C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID ~= nil)))

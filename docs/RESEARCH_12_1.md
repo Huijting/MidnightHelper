@@ -46,8 +46,13 @@ Valeera gains a Poisons choice node. The three spell ids are measured; **what th
 not known to us**, because the effect descriptions in circulation were attached to ids
 the client does not have.
 
-Auras have **not** gone secret on the release candidate: `ShouldAurasBeSecret` reads
-false both in the open world and inside a delve. This is the player's own auras only.
+~~Auras have not gone secret on the release candidate.~~ **RETRACTED 2026-07-28.**
+`ShouldAurasBeSecret` did read false in the open world and inside a delve, but both
+readings were taken standing still, OUT OF COMBAT -- and that is the one state where
+the answer is always false. JustAC 4.55.0 models the flag as flipping at combat
+edges, and falls back to `IS_MIDNIGHT_OR_LATER and InCombatLockdown()` when the API
+is missing, i.e. secret IN combat, validated in-game on 12.0.7 per its own comment.
+Moved to Unresolved below.
 
 The one real 12.1 bug in the addon — combat warnings erroring during delve fights — is
 fixed and confirmed silent across multiple fights.
@@ -76,8 +81,15 @@ in practice, and it would take out every default frame at once -- ours and most 
 addons'. Unknown: which content activates a list, and which roleset names exist. Both are
 measurable with `/mh roleset` inside whatever content does it.
 
-**Party and raid auras.** MissingBuff reads other units' auras. Only the player's own
-auras have been tested on 12.1.
+**Auras in combat.** The 27 July measurement was taken out of combat and therefore
+says nothing about the state that matters. If auras are secret during a fight, three
+things are affected and none of them have been checked: MissingBuff reading party
+auras, the new dispel alert reading your own debuffs mid-fight, and CombatSafety.
+`/mh auras` now prints the combat state so a reading can no longer be filed without
+its condition.
+
+**Party and raid auras.** Separately from the above, only the player's own auras have
+been read at all. `/mh dispelprobe` exists for the ally side and has not been run.
 
 **Dates.** The community projects 11/12 August for the patch and 18 August for Season 2,
 derived from the release-candidate build. These are projections. They must not appear as
