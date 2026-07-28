@@ -805,7 +805,14 @@ local SMC_CATEGORIES = {
 			{ id = "prey_hub", label = "Prey Hub", description = "Zet een waypoint naar de Prey-hub (in de inn, Adventure Guide / Prey).", atlas = "ui-delves", x = 56.19, y = 65.33 },
 			{ id = "astalor", label = "Magister Astalor Bloodsworn", description = "Zet een waypoint naar Magister Astalor Bloodsworn (prey quest giver).", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
 			{ id = "weekly_hub", label = "Weekly Quest Givers", description = "Zet een waypoint naar Aethas, Liadrin en Halduron (weekly hub).", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
-			{ id = "ritual_hub", label = "Ritual Sites / Void Assaults", description = "Open de Void & Rituals-tab (actieve site/zone deze week, weekly quests, Field Accolades en renown).", atlas = "groupfinder-icon-flag", action = "world_tab", x = 48.2, y = 49.4 },
+			-- Eén knop voor twee systemen kon maar één ding doen, en werd dus de
+			-- enige in dit raster die je niet ergens heen stuurde (Rob, 28 jul).
+			-- Gesplitst, want de bestemmingen verschillen echt van aard: de
+			-- ritual site is één obelisk met exacte coords die weekelijks
+			-- rouleert, de void assault heeft géén enkel punt (strikes worden
+			-- los gemarkeerd) en kan alleen naar de staging-hub wijzen.
+			{ id = "ritual_hub", label = "Ritual Site (active)", description = "Route naar de obelisk van de ritual site die deze week actief is.", atlas = "groupfinder-icon-flag", action = "ritual_site", x = 48.2, y = 49.4 },
+			{ id = "void_hub", label = "Void Assault hub", description = "Route naar de staging-hub van de actieve void assault (de strikes zelf hebben geen vast punt).", atlas = "groupfinder-icon-flag", action = "void_hub", x = 48.2, y = 49.4 },
 			{ id = "delves_hq", label = "Delves HQ", description = "Zet een waypoint naar het Delves-hoofdkwartier.", atlas = "ui-delves", x = 52.10, y = 77.70 },
 			{ id = "valeera_delves", label = "Valeera Sanguinar (Delves)", description = "Zet een waypoint naar Valeera Sanguinar, Delves questgiver.", atlas = "ui-delves", x = 52.40, y = 78.20 },
 			{ id = "training_dummies", label = "Training Dummies", description = "Zet een waypoint naar de training dummies in Silvermoon City.", atlas = "services-icon-dueling", x = 36.0, y = 84.2 },
@@ -906,6 +913,35 @@ local function SetSMCWaypoint(point)
 		if ns.ShowMainUI and ns.SelectTab then
 			ns:ShowMainUI()
 			ns.SelectTab("world")
+		end
+		return
+	end
+
+	-- Route without opening the World tab: Rob asked for that on 9 jul, so the
+	-- arrow starts pointing immediately instead of burying you in a screen. The
+	-- tab is still a click away when the destination is not known.
+	local function OpenWorldTab()
+		if ns.ShowMainUI and ns.SelectTab then
+			ns:ShowMainUI()
+			ns.SelectTab("world")
+		end
+	end
+
+	if point.action == "ritual_site" then
+		local site = ns.GetActiveRitualSite and ns.GetActiveRitualSite() or nil
+		if site and ns.RouteRitualSite and site.mapID and site.x and site.y then
+			ns.RouteRitualSite(site)
+		else
+			OpenWorldTab() -- no active site known; do not invent a destination
+		end
+		return
+	end
+
+	if point.action == "void_hub" then
+		if ns.RouteVoidHub then
+			ns.RouteVoidHub()
+		else
+			OpenWorldTab()
 		end
 		return
 	end
