@@ -71,15 +71,25 @@ end
 -- secret. That is exactly why DispelHelper counts hidden auras separately: the
 -- scan succeeding says nothing about whether it told you anything.
 --
--- OPEN: dispelName came back nil 109 times where the other fields were secret.
--- If the game were blanket-hiding the aura, nil would not appear at all — which
--- suggests nil is a real answer ("no dispel school") and secret means "there is
--- one, but not for you". Then MH could still say *something* dispellable is on
--- you. The rival reading is that secrecy is per-aura, not per-field, and those
--- 109 are simply debuffs whose dispelName is nil everywhere. To separate them
--- the examples below record dispelName's VALUE out of combat: if debuffs with
--- dispelName = <nil> show up there, the first reading holds; if every readable
--- debuff carries a school, it is refuted. Nothing gets built on it until then.
+-- SETTLED, same evening. dispelName came back nil in combat on auras whose
+-- spellId and name were BOTH secret. If secrecy replaced whole auras, a hidden
+-- aura could not still hand back a plain nil -- so secrecy replaces VALUES, and
+-- nil survives it untouched. Confirmed from the other side out of combat, where
+-- Well-Honed Instincts (382912) reads with dispelName = <nil>: debuffs carrying
+-- no dispel school genuinely exist and read as nil.
+--
+-- Therefore, in combat:
+--   dispelName = secret  ->  this debuff HAS a dispel school, hidden from you
+--   dispelName = nil     ->  this debuff has none
+--
+-- So MH can tell "something dispellable is on you" from "nothing is", without
+-- the spell, the name or the school. Weaker than naming the debuff, but it is
+-- the difference between a cleanse press and a wasted global.
+--
+-- This is inference from consistent measurement, not a documented guarantee.
+-- If Blizzard ever secretizes nil as well, both cases collapse into one and the
+-- feature must go quiet rather than guess: treat a nil that used to be reliable
+-- as unreadable, never as "nothing there".
 --------------------------------------------------------------------------------
 
 local FIELD_LOG_CAP = 40
@@ -201,6 +211,61 @@ end
 --------------------------------------------------------------------------------
 
 local lastProbe = 0
+local lastHarvest = 0
+local RECENT_CAP = 30
+
+--- Ids seen on the player while enumeration still worked (out of combat), kept so
+--- the probe has something to ask about once it stops working. Without this the
+--- probe can only ask about debuffs collected in OTHER instances, which is how it
+--- managed 41 runs and 0 hits: nothing it knew about was ever on him.
+local function RecentIds()
+	if not ns.db then
+		return nil
+	end
+	if type(ns.db.dispelRecentIds) ~= "table" then
+		ns.db.dispelRecentIds = {}
+	end
+	return ns.db.dispelRecentIds
+end
+
+local function HarvestRecentIds()
+	if (InCombatLockdown and InCombatLockdown()) or not ns.Aura then
+		return -- out of combat only: this is where reading still works
+	end
+	local now = (GetTime and GetTime()) or 0
+	if now - lastHarvest < 1 then
+		return
+	end
+	lastHarvest = now
+	local recent = RecentIds()
+	if not recent then
+		return
+	end
+	local n = 0
+	for _ in pairs(recent) do
+		n = n + 1
+	end
+	local function take(aura)
+		local id = aura.spellId
+		if id == nil or isSecret(id) then
+			return
+		end
+		id = tonumber(id)
+		if not id or recent[id] then
+			return
+		end
+		if n >= RECENT_CAP then
+			return
+		end
+		n = n + 1
+		recent[id] = (aura.name ~= nil and not isSecret(aura.name)) and tostring(aura.name) or "?"
+	end
+	-- Buffs as well as debuffs. A long class buff survives the combat edge, which
+	-- is exactly the aura you want to ask about: we know it is still on him, so a
+	-- lookup that comes back empty is a real answer rather than an absent debuff.
+	pcall(ns.Aura.ForEachPlayerBuff, take)
+	pcall(ns.Aura.ForEachPlayerDebuff, take)
+end
 
 local function LookupLog()
 	if not ns.db then
@@ -208,6 +273,7 @@ local function LookupLog()
 	end
 	if type(ns.db.dispelLookupLog) ~= "table" then
 		ns.db.dispelLookupLog = {}
+		ns.db.dispelRecentIds = {}
 	end
 	return ns.db.dispelLookupLog
 end
@@ -231,13 +297,40 @@ local function ProbeKnownIDs()
 	local suffix = inCombat and "combat" or "idle"
 	local checked, hits, blocked = 0, 0, 0
 
+	-- Ask about every id we have any reason to think could be on him: the dispel
+	-- schools collected across instances, plus whatever was actually on him a
+	-- moment ago, before combat closed the door.
+	local targets = {}
 	for _, e in pairs(known) do
+		if type(e.spellId) == "number" and e.spellId > 0 then
+			targets[e.spellId] = e
+		end
+	end
+	for id, nm in pairs(RecentIds() or {}) do
+		if type(id) == "number" and not targets[id] then
+			targets[id] = { spellId = id, name = nm, school = "?", recent = true }
+		end
+	end
+
+	for _, e in pairs(targets) do
 		local id = e.spellId
 		if type(id) == "number" and id > 0 then
 			checked = checked + 1
 			local data, readable = ns.Aura.GetPlayerAura(id)
 			if not readable then
 				blocked = blocked + 1
+			elseif data == nil and e.recent and inCombat then
+				-- The decisive negative. This aura was on him seconds ago, out of
+				-- combat, and the lookup now says nothing. That is the lookup
+				-- refusing to answer, not the aura being gone -- which a plain
+				-- miss on some other instance's debuff could never tell us apart.
+				local key = ("miss/%d"):format(id)
+				local row = log[key]
+				if not row then
+					row = { miss = true, spellId = id, name = e.name, seen = 0 }
+					log[key] = row
+				end
+				row.seen = row.seen + 1
 			elseif data ~= nil then
 				hits = hits + 1
 				local key = ("%d/%s"):format(id, suffix)
@@ -286,6 +379,8 @@ local function Capture()
 	-- play instead of only inside dungeons; it stays cheap because rows are
 	-- deduped by pattern and capped.
 	local store = InInstanceForCapture() and Store() or nil
+	pcall(HarvestRecentIds)
+
 	local seen, unreadable = 0, false
 	local scanned = ns.Aura.ForEachPlayerDebuff(function(aura)
 		seen = seen + 1
@@ -429,7 +524,10 @@ function ns.PrintDispelCaptureLog()
 	if type(lookup) == "table" and next(lookup) then
 		print(("%s Lookup by known spell ID (does asking by id still answer?):"):format(prefix))
 		for _, r in pairs(lookup) do
-			if r.probe then
+			if r.miss then
+				print(("   |cffff8080MISS|r %s (%d) — was on you seconds ago, lookup says nothing in combat |cff9d9d9d(%dx)|r"):format(
+					r.name or "?", r.spellId or 0, r.seen or 0))
+			elseif r.probe then
 				print(("   probe %s — %d run(s), %d id(s) checked, best %d hit(s)%s"):format(
 					r.inCombat and "IN COMBAT" or "out of combat",
 					r.runs or 0, r.checked or 0, r.maxHits or 0,
@@ -450,6 +548,7 @@ function ns.ClearDispelCaptureLog()
 		ns.db.dispelCapture = {}
 		ns.db.dispelFieldLog = {}
 		ns.db.dispelLookupLog = {}
+		ns.db.dispelRecentIds = {}
 	end
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	print(("%s Dispel capture log cleared."):format(prefix))
