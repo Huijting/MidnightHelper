@@ -260,28 +260,30 @@ local function BuildBar()
 	grip:SetScript("OnLeave", TipHide)
 	bar:SetMovable(true)
 
-	-- Rij 1: target-markers.
-	local row1 = CreateFrame("Frame", nil, bar)
-	row1:SetSize(rowW, ICON)
-	row1:SetPoint("TOPLEFT", bar, "TOPLEFT", GRIP + PAD, -PAD)
+	-- Bovenste rij: world-markers (de vlaggen op de grond). Rob 28 jul: die stonden
+	-- eronder en dat las verkeerd om — je zet eerst de plek waar de groep heen moet
+	-- en pas daarna een icoon op wat daar staat.
+	local worldRow = CreateFrame("Frame", nil, bar)
+	worldRow:SetSize(rowW, ICON)
+	worldRow:SetPoint("TOPLEFT", bar, "TOPLEFT", GRIP + PAD, -PAD)
 	local prev
-	for _, idx in ipairs(TARGET_ORDER) do
-		prev = AddTargetButton(row1, idx, prev)
-	end
-	prev = AddClearButton(row1, "TargetClear", "/tm 0", L("MARK_CLEAR_TARGET", "Clear target marker"), prev)
-	AddReadyCheck(row1, prev)
-
-	-- Rij 2: world-markers.
-	local row2 = CreateFrame("Frame", nil, bar)
-	row2:SetSize(rowW, ICON)
-	row2:SetPoint("TOPLEFT", row1, "BOTTOMLEFT", 0, -ROWGAP)
-	prev = nil
 	for _, def in ipairs(WORLD_MARKERS) do
-		prev = AddWorldButton(row2, def, prev)
+		prev = AddWorldButton(worldRow, def, prev)
 	end
 	-- /cwm 9 = alle world-markers wissen (overgenomen van FastMarks; rechtsklik op een
 	-- losse knop wist die ene marker).
-	AddClearButton(row2, "WorldClear", "/cwm 9", L("MARK_CLEAR_WORLD", "Clear all world markers"), prev)
+	AddClearButton(worldRow, "WorldClear", "/cwm 9", L("MARK_CLEAR_WORLD", "Clear all world markers"), prev)
+
+	-- Onderste rij: target-markers (skull/cross op een vijand).
+	local targetRow = CreateFrame("Frame", nil, bar)
+	targetRow:SetSize(rowW, ICON)
+	targetRow:SetPoint("TOPLEFT", worldRow, "BOTTOMLEFT", 0, -ROWGAP)
+	prev = nil
+	for _, idx in ipairs(TARGET_ORDER) do
+		prev = AddTargetButton(targetRow, idx, prev)
+	end
+	prev = AddClearButton(targetRow, "TargetClear", "/tm 0", L("MARK_CLEAR_TARGET", "Clear target marker"), prev)
+	AddReadyCheck(targetRow, prev)
 
 	bar:Hide()
 	return bar
