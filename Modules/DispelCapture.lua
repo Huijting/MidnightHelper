@@ -60,14 +60,30 @@ end
 -- states + combat state. Ten trash packs of the same debuff collapse into one
 -- row with a count, so the log stays a handful of lines however long the run is.
 --
--- Why the fields are split: "auras are secret in combat" may not be all or
--- nothing. If spellId reads while dispelName does not, the dispel helper never
--- needs the school from the game — it can look the id up in dispelCapture above,
--- which is already full of real schools from real play. That is a working
--- feature instead of a dead one, and a single yes/no could not tell them apart.
+-- MEASURED 2026-07-28, The Gulf of Memory, Rob's Prot Paladin, own debuffs:
+--   out of combat  spellId=read   name=read   dispelName=read    (Gore 474201)
+--   in combat      spellId=secret name=secret dispelName=secret  x331
+--   in combat      spellId=secret name=secret dispelName=nil     x109
+-- So spellId is secret in combat too: there is no "read the id, look the school
+-- up in dispelCapture" path. That hypothesis is dead.
+--
+-- Note the 1091 in-combat scans that all reported OK while every field was
+-- secret. That is exactly why DispelHelper counts hidden auras separately: the
+-- scan succeeding says nothing about whether it told you anything.
+--
+-- OPEN: dispelName came back nil 109 times where the other fields were secret.
+-- If the game were blanket-hiding the aura, nil would not appear at all — which
+-- suggests nil is a real answer ("no dispel school") and secret means "there is
+-- one, but not for you". Then MH could still say *something* dispellable is on
+-- you. The rival reading is that secrecy is per-aura, not per-field, and those
+-- 109 are simply debuffs whose dispelName is nil everywhere. To separate them
+-- the examples below record dispelName's VALUE out of combat: if debuffs with
+-- dispelName = <nil> show up there, the first reading holds; if every readable
+-- debuff carries a school, it is refuted. Nothing gets built on it until then.
 --------------------------------------------------------------------------------
 
 local FIELD_LOG_CAP = 40
+local EXAMPLE_CAP = 12
 
 local function FieldState(v)
 	if v == nil then
@@ -127,37 +143,57 @@ local function RecordReadability(aura)
 	end
 	row.seen = row.seen + 1
 
-	-- Keep a few real ids/names where they were readable: that is the raw
-	-- material the helper would run on if this pattern turns out to be the
-	-- common one.
-	if #row.examples < 5 and (sId == "read" or sName == "read") then
+	-- Keep real examples where the fields were readable. `dispel` records the
+	-- VALUE, not just that it was readable, because that is what separates the
+	-- two readings of the in-combat data (see the header): if debuffs with no
+	-- dispel school exist and read as nil out of combat, then a nil in combat is
+	-- a real answer rather than a differently-shaped blank.
+	if sId == "read" or sName == "read" then
 		local id = (sId == "read") and tonumber(aura.spellId) or nil
 		local nm = (sName == "read") and tostring(aura.name) or nil
-		local dup = false
+		local dsp
+		if sDispel == "read" then
+			dsp = tostring(aura.dispelName)
+		elseif sDispel == "nil" then
+			dsp = "<nil>"
+		end
+		local known
 		for _, e in ipairs(row.examples) do
 			if e.spellId == id and e.name == nm then
-				dup = true
+				known = e
 				break
 			end
 		end
-		if not dup then
-			row.examples[#row.examples + 1] = { spellId = id, name = nm }
+		if known then
+			-- Examples recorded before this measurement existed have no value.
+			-- Backfill rather than make Rob wipe the log, which would take the
+			-- real dispel schools collected from months of play down with it.
+			if known.dispel == nil then
+				known.dispel = dsp
+			end
+		elseif #row.examples < EXAMPLE_CAP then
+			row.examples[#row.examples + 1] = { spellId = id, name = nm, dispel = dsp }
 		end
 	end
 end
 
 local function Capture()
-	if not (InInstanceForCapture() and ns.Aura and ns.Aura.ForEachPlayerDebuff) then
+	if not (ns.Aura and ns.Aura.ForEachPlayerDebuff) then
 		return
 	end
-	local store = Store()
-	if not store then
-		return
-	end
+	-- The school capture below is instance-only (that is where heal-lens data
+	-- lives), but the readability question is about the API, not about where you
+	-- are standing. Logging it everywhere answers it out of a normal evening's
+	-- play instead of only inside dungeons; it stays cheap because rows are
+	-- deduped by pattern and capped.
+	local store = InInstanceForCapture() and Store() or nil
 	local seen = 0
 	local scanned = ns.Aura.ForEachPlayerDebuff(function(aura)
 		seen = seen + 1
 		pcall(RecordReadability, aura)
+		if not store then
+			return
+		end
 
 		local dn = aura.dispelName
 		if dn == nil or isSecret(dn) then
@@ -268,7 +304,8 @@ function ns.PrintDispelCaptureLog()
 				if r.examples and #r.examples > 0 then
 					local bits = {}
 					for _, e in ipairs(r.examples) do
-						bits[#bits + 1] = ("%s(%s)"):format(e.name or "?", tostring(e.spellId or "?"))
+						bits[#bits + 1] = ("%s(%s)=%s"):format(
+							e.name or "?", tostring(e.spellId or "?"), e.dispel or "?")
 					end
 					ex = "  |cff9d9d9d" .. table.concat(bits, ", ") .. "|r"
 				end
