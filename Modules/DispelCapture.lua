@@ -369,6 +369,85 @@ local function ProbeKnownIDs()
 	end
 end
 
+--------------------------------------------------------------------------------
+-- Coverage check, out of combat.
+--
+-- The combat probe found Power Word: Fortitude by id, 155 times, with spellId,
+-- name AND dispelName all readable -- while enumeration at the same moment
+-- returned nothing but secrets. Asking by id therefore answers in combat, and
+-- answers in full. That is the dispel helper's road back.
+--
+-- But the same run missed a dozen other harvested ids, and a miss is ambiguous:
+-- the aura may simply have expired (Dark Pact lasts 20s; Diabolic Ritual is a
+-- proc), or the lookup may not cover it. Those two cannot be told apart in
+-- combat, because there is no second opinion to check against.
+--
+-- Out of combat there is. Enumeration works there, so it can say which auras are
+-- REALLY on the player, and the lookup can be asked about exactly those. Any id
+-- enumeration sees but the lookup denies is a coverage gap with no secrecy
+-- involved -- which would mean the combat misses were never about secrecy either.
+--------------------------------------------------------------------------------
+
+local lastVerify = 0
+
+local function VerifyLookupCoverage()
+	if (InCombatLockdown and InCombatLockdown()) or not (ns.Aura and ns.Aura.GetPlayerAura) then
+		return
+	end
+	local now = (GetTime and GetTime()) or 0
+	if now - lastVerify < 2 then
+		return
+	end
+	lastVerify = now
+	local log = LookupLog()
+	if not log then
+		return
+	end
+
+	local present = {}
+	local function collect(aura)
+		local id = aura.spellId
+		if id ~= nil and not isSecret(id) then
+			id = tonumber(id)
+			if id then
+				present[id] = (aura.name ~= nil and not isSecret(aura.name)) and tostring(aura.name) or "?"
+			end
+		end
+	end
+	pcall(ns.Aura.ForEachPlayerBuff, collect)
+	pcall(ns.Aura.ForEachPlayerDebuff, collect)
+
+	local agree, gap = 0, 0
+	for id, nm in pairs(present) do
+		local data, readable = ns.Aura.GetPlayerAura(id)
+		if readable and data ~= nil then
+			agree = agree + 1
+		elseif readable then
+			gap = gap + 1
+			local key = ("gap/%d"):format(id)
+			local row = log[key]
+			if not row then
+				row = { gap = true, spellId = id, name = nm, seen = 0 }
+				log[key] = row
+			end
+			row.seen = row.seen + 1
+		end
+	end
+
+	local m = log["coverage/idle"]
+	if not m then
+		m = { coverage = true, runs = 0 }
+		log["coverage/idle"] = m
+	end
+	m.runs = m.runs + 1
+	m.lastPresent = agree + gap
+	m.lastAgree = agree
+	m.lastGap = gap
+	if (m.worstGap or 0) < gap then
+		m.worstGap = gap
+	end
+end
+
 local function Capture()
 	if not (ns.Aura and ns.Aura.ForEachPlayerDebuff) then
 		return
@@ -380,6 +459,7 @@ local function Capture()
 	-- deduped by pattern and capped.
 	local store = InInstanceForCapture() and Store() or nil
 	pcall(HarvestRecentIds)
+	pcall(VerifyLookupCoverage)
 
 	local seen, unreadable = 0, false
 	local scanned = ns.Aura.ForEachPlayerDebuff(function(aura)
@@ -524,7 +604,13 @@ function ns.PrintDispelCaptureLog()
 	if type(lookup) == "table" and next(lookup) then
 		print(("%s Lookup by known spell ID (does asking by id still answer?):"):format(prefix))
 		for _, r in pairs(lookup) do
-			if r.miss then
+			if r.coverage then
+				print(("   coverage out of combat — %d run(s), last: %d aura(s) present, %d found by id, |cffff8080%d not found|r (worst %d)"):format(
+					r.runs or 0, r.lastPresent or 0, r.lastAgree or 0, r.lastGap or 0, r.worstGap or 0))
+			elseif r.gap then
+				print(("   |cffff8080GAP|r %s (%d) — enumeration sees it, lookup denies it |cff9d9d9d(%dx)|r"):format(
+					r.name or "?", r.spellId or 0, r.seen or 0))
+			elseif r.miss then
 				print(("   |cffff8080MISS|r %s (%d) — was on you seconds ago, lookup says nothing in combat |cff9d9d9d(%dx)|r"):format(
 					r.name or "?", r.spellId or 0, r.seen or 0))
 			elseif r.probe then
