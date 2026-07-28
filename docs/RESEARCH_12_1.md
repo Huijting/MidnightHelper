@@ -106,3 +106,41 @@ names were right, and a category walk cannot see them.
 Wowhead's Valeera poison spell ids and the client's disagree completely. Implementation
 follows the client. The published effect descriptions are treated as unproven rather than
 discarded, since only the ids were shown to be wrong.
+
+## Aura reads in 12.1 — the index/lookup split (2026-07-28)
+
+Measured on live 12.0.7, own debuffs, The Gulf of Memory, Prot Paladin:
+
+| | spellId | name | dispelName |
+|---|---|---|---|
+| out of combat | read | read | read |
+| in combat (331x) | secret | secret | secret |
+| in combat (109x) | secret | secret | nil |
+
+1091 in-combat scans all reported **OK** while every field was secret. A successful
+scan says nothing about whether it told you anything; this is why `DispelHelper`
+counts hidden auras separately from absent ones.
+
+The published 12.1 API notes then split the picture in a way the measurement above
+could not see. Reads by **index, slot or instance id Lua error** for addons while
+auras are secret; APIs reached by **spell id or name keep working**, with non-secret
+spells returning non-secrets. `UNIT_AURA` delivers a fully secret payload, and
+AuraData structs are documented as fully secret. New `DISPELLABLE` filter;
+`SecureAuraHeaderTemplate` removed; new AuraContainer / AuraButton /
+ManagedAuraContainer display types that render auras without exposing them.
+
+Consequences for MH:
+
+- `Aura.Scan` already behaves correctly under the change. Every index call is in
+  `pcall`; an error returns false, which the facade already defines as "could not
+  read" rather than "absent". No code change needed for the error path.
+- Enumeration dying does **not** by itself kill the dispel helper. It can ask about
+  the ids `dispelCapture` has collected from real play instead of discovering them.
+- Unverified: whether id lookup answers on **today's** 12.0.7, and whether a hit
+  returns readable fields or a table of secrets. `dispelLookupLog` records exactly
+  this. Three outcomes are possible and only measurement separates them: full data,
+  presence-only ("something dispellable is on you", no school), or nothing.
+- Untouched: party and raid auras. Everything above is the player's own.
+
+Sources: warcraft.wiki.gg Patch 12.1.0/API changes; Icy Veins aura-API summary. Both
+describe the PTR — verify in game.
