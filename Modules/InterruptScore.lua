@@ -37,15 +37,22 @@ end
 --------------------------------------------------------------------------------
 
 local myInterrupt -- lowercased spell name, or nil if this spec has none
+-- Same spell, display casing. Rob, 2026-07-28: the miss hint said "Kick" to a
+-- Paladin whose interrupt is Rebuke -- it named a spell he does not have.
+local myInterruptName
 
 local function RefreshMyInterrupt()
 	myInterrupt = nil
+	myInterruptName = nil
 	local token = select(2, UnitClass("player"))
 	local specIdx = GetSpecialization and GetSpecialization()
 	if token and specIdx and ns.MH_GetInterruptSpell then
 		local name = ns.MH_GetInterruptSpell(token, specIdx)
 		if type(name) == "string" and name ~= "" then
 			myInterrupt = name:lower()
+			-- Keep the display casing too. The lowercased copy is for comparing
+			-- against a cast; the messages need the name as a player reads it.
+			myInterruptName = name
 		end
 	end
 end
@@ -86,8 +93,12 @@ local function OnWasted()
 	end
 	if ns.db and ns.db.interruptMissAlert and ns.ShouldShowLocalMissHint() then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
-		print(("%s |cffffcf7d%s|r"):format(prefix, ns:L("INTERRUPT_MISS_HINT")))
-		Speak(ns:L("INTERRUPT_MISS_TTS"))
+		-- Name the spell the player actually pressed. Falls back to the generic
+		-- word when the spec's interrupt cannot be resolved -- never to another
+		-- class's ability.
+		local spell = myInterruptName or ns:L("INTERRUPT_GENERIC_WORD")
+		print(("%s |cffffcf7d%s|r"):format(prefix, (ns:L("INTERRUPT_MISS_HINT")):format(spell)))
+		Speak((ns:L("INTERRUPT_MISS_TTS")):format(spell))
 		lastAnnounce = now
 	end
 end

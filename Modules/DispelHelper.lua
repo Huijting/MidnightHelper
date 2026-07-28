@@ -15,12 +15,19 @@ local _, ns = ...
 	What was missing is the one sentence that matters in the moment: **you have
 	something on you right now that you can remove yourself.**
 
-	⚠️ YOUR OWN DEBUFFS ONLY, and that is a deliberate limit rather than a first
-	step half-done. In 12.x another unit's auras can be secret, and on the 12.1
-	release candidate only the PLAYER's own auras have been measured as readable
-	(2026-07-27). A party-wide dispel helper would be built on something nobody has
-	confirmed can be read. Your own debuffs are fully readable, in every kind of
-	content, including the delves where the rest of 12.1 turns opaque.
+	⚠️ YOUR OWN DEBUFFS ONLY. Another unit's auras can be secret in 12.x, so a
+	party-wide helper would rest on something nobody has confirmed can be read.
+
+	⚠️ AND YOUR OWN ARE NOT ALWAYS READABLE EITHER. This file was written on
+	2026-07-27 claiming they were "fully readable, in every kind of content". That
+	was wrong, and the measurement behind it was taken standing still. Measured on
+	live 12.0.7 on 2026-07-28: `ShouldAurasBeSecret` is false out of combat and
+	**true in combat**, with `Aura.Trusted()` flipping to false with it -- exactly
+	the moment this feature is meant to speak.
+
+	So the question is not "can we read auras" but "can we read them right now", and
+	the answer is reported rather than assumed. Hidden debuffs are counted, and an
+	unreadable scan says so instead of saying "clear".
 
 	Never-lie throughout:
 	  • A secret dispelName is skipped. Unreadable is not the same as absent, and
@@ -95,21 +102,35 @@ end
 ---
 --- @return table found  { { name, school, spellID }, ... } — empty is "none seen",
 ---                      which is not the same as "none there"; see `readable`.
---- @return boolean readable  false when the aura scan itself could not be trusted
+--- @return boolean readable  false when the answer cannot be trusted
+--- @return number hidden  debuffs seen whose school could not be read
 function ns.GetDispellableSelfDebuffs()
-	local found = {}
+	local found, hidden = {}, 0
 	local schools = ns.GetDispellableSchools()
 	if not next(schools) then
-		return found, true -- nothing this character can dispel: honestly empty
+		return found, true, 0 -- nothing this character can dispel: honestly empty
 	end
 	if not (ns.Aura and ns.Aura.ForEachPlayerDebuff) then
-		return found, false
+		return found, false, 0
 	end
 
 	local ok = ns.Aura.ForEachPlayerDebuff(function(aura)
 		local dn = aura and aura.dispelName
 		if dn == nil or isSecret(dn) then
-			return -- unreadable: say nothing about it either way
+			-- ⚠️ COUNT THESE. The first version just skipped them, and `readable`
+			-- only reported whether the SCAN crashed -- Aura.Scan returns true even
+			-- when every field it handed back was secret. So in combat this would
+			-- have printed "nothing on you that you can dispel" while something was
+			-- sitting on you: unreadable dressed up as absent, which is the one
+			-- thing this file's own header forbids.
+			--
+			-- Measured on live 12.0.7, 2026-07-28: ShouldAurasBeSecret is false out
+			-- of combat and TRUE in combat, so this is the normal case in a fight,
+			-- not an edge case.
+			if dn ~= nil then
+				hidden = hidden + 1
+			end
+			return
 		end
 		local school = SCHOOL[dn]
 		if not school or not schools[school] then
@@ -126,7 +147,14 @@ function ns.GetDispellableSelfDebuffs()
 		}
 	end)
 
-	return found, ok and true or false
+	-- Untrusted auras mean the answer is unknowable, not empty. Trusted() reads
+	-- C_Secrets.ShouldAurasBeSecret, which flips at combat edges.
+	local trusted = true
+	if ns.Aura and ns.Aura.Trusted then
+		trusted = ns.Aura.Trusted() and true or false
+	end
+	local readable = (ok and true or false) and trusted and hidden == 0
+	return found, readable, hidden
 end
 
 --- /mh dispel — what can you remove from yourself right now?
@@ -152,21 +180,25 @@ function ns.PrintDispelStatus()
 	print(("%s %s"):format(prefix, ns:L("DISPEL_HEADER")))
 	print(("   %s: %s"):format(table.concat(names, ", "), table.concat(schoolList, ", ")))
 
-	local found, readable = ns.GetDispellableSelfDebuffs()
-	if not readable then
-		-- The one thing this must never do is turn an unreadable scan into "clear".
-		print("   " .. ns:L("DISPEL_UNREADABLE"))
-		return
-	end
-	if #found == 0 then
-		print("   " .. ns:L("DISPEL_CLEAR"))
-		return
-	end
+	local found, readable, hidden = ns.GetDispellableSelfDebuffs()
+	-- Anything readable is still worth showing, even when the rest is hidden.
 	for _, d in ipairs(found) do
 		print(("   |cffff8080%s|r  (%s)%s"):format(
 			tostring(d.name or "?"), d.school,
 			d.spellID and ("  spell " .. tostring(d.spellID)) or ""))
 	end
+	if not readable then
+		-- The one thing this must never do is turn an unreadable scan into "clear".
+		print("   " .. ns:L("DISPEL_UNREADABLE"))
+		if hidden > 0 then
+			print(("      %d debuff(s) hidden by combat secrecy"):format(hidden))
+		end
+		return
+	end
+	if #found == 0 then
+		print("   " .. ns:L("DISPEL_CLEAR"))
+	end
+	return
 end
 
 --------------------------------------------------------------------------------

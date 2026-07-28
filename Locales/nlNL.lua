@@ -443,8 +443,9 @@ ns._mhLocales.nlNL = {
 	MPLUS_CMD_GAIN_NOTE = "Bovenaan de lijst (niet gelopen / laagste) levert een key de meeste rating op.",
 	MPLUS_CMD_GEAR_HINT = "Gear: hover een keystone voor de exacte item levels die-ie geeft, en check de Great Vault voor de weekly reward — hogere keys gaan van Champion naar Hero naar Myth.",
 	-- Spec 14: lokale interrupt-scorecard (je eigen kicks) + opt-in pre-12.1-mis-melding.
-	INTERRUPT_MISS_HINT = "Kick gebruikt terwijl er niks castte — bewaar 'm voor een echte cast.",
-	INTERRUPT_MISS_TTS = "Bewaar je kick",
+	INTERRUPT_GENERIC_WORD = "Je interrupt",
+	INTERRUPT_MISS_HINT = "%s gebruikt terwijl er niks castte — bewaar 'm voor een echte cast.",
+	INTERRUPT_MISS_TTS = "Bewaar je %s",
 	INTERRUPT_MISS_PARTY_FMT = "Neee — %s miste die interrupt!",
 	INTERRUPT_KICKS_FMT = "Interrupts deze run: %d geland, %d verspild.",
 	INTERRUPT_KICKS_NONE = "Nog geen interrupts gevolgd deze run.",
