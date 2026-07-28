@@ -177,6 +177,105 @@ local function RecordReadability(aura)
 	end
 end
 
+--------------------------------------------------------------------------------
+-- Known-id lookup probe.
+--
+-- The 12.1 API notes (warcraft.wiki.gg, Patch 12.1.0/API changes) draw a line the
+-- enumeration measurement above could not see: APIs reached by INDEX, slot or
+-- instance id Lua error for addons while auras are secret, but "APIs accessing
+-- via spell ID/name continue working (non-secret spells return non-secrets)".
+--
+-- Walking the list asks "what is on me", which leaks. Asking "is 1270859 on me"
+-- names the spell up front and leaks nothing new. If that distinction holds, the
+-- dispel helper does not need enumeration at all: it can ask about the debuff ids
+-- dispelCapture has already collected from real play, per instance.
+--
+-- Whether it holds on TODAY's 12.0.7 is unmeasured, and the wiki describes 12.1
+-- rather than live. Note too that AuraData structs are documented as fully secret
+-- even when returned, so a lookup may hand back a table whose fields are all
+-- secret -- which would still answer "is it on me" while refusing "which school".
+-- So this records the outcome per id: found or not, fields readable or secret.
+--
+-- Runs only in the moment that matters (a debuff was seen but could not be read)
+-- and no more than once a second, so it never turns into a per-event loop.
+--------------------------------------------------------------------------------
+
+local lastProbe = 0
+
+local function LookupLog()
+	if not ns.db then
+		return nil
+	end
+	if type(ns.db.dispelLookupLog) ~= "table" then
+		ns.db.dispelLookupLog = {}
+	end
+	return ns.db.dispelLookupLog
+end
+
+local function ProbeKnownIDs()
+	if not (ns.Aura and ns.Aura.GetPlayerAura and ns.db) then
+		return
+	end
+	local now = (GetTime and GetTime()) or 0
+	if now - lastProbe < 1 then
+		return
+	end
+	lastProbe = now
+
+	local known = ns.db.dispelCapture
+	local log = LookupLog()
+	if type(known) ~= "table" or not log then
+		return
+	end
+	local inCombat = (InCombatLockdown and InCombatLockdown()) and true or false
+	local suffix = inCombat and "combat" or "idle"
+	local checked, hits, blocked = 0, 0, 0
+
+	for _, e in pairs(known) do
+		local id = e.spellId
+		if type(id) == "number" and id > 0 then
+			checked = checked + 1
+			local data, readable = ns.Aura.GetPlayerAura(id)
+			if not readable then
+				blocked = blocked + 1
+			elseif data ~= nil then
+				hits = hits + 1
+				local key = ("%d/%s"):format(id, suffix)
+				local row = log[key]
+				if not row then
+					row = { spellId = id, name = e.name, school = e.school,
+						inCombat = inCombat, seen = 0 }
+					log[key] = row
+				end
+				row.seen = row.seen + 1
+				-- The point of the whole probe: a hit proves the lookup answered
+				-- "yes, it is on you". These say whether it also told us anything
+				-- about the aura, or handed back a table of secrets.
+				row.nameState = FieldState(data.name)
+				row.dispelState = FieldState(data.dispelName)
+				row.spellIdState = FieldState(data.spellId)
+			end
+		end
+	end
+
+	local mkey = ("probe/%s"):format(suffix)
+	local m = log[mkey]
+	if not m then
+		m = { probe = true, inCombat = inCombat, runs = 0 }
+		log[mkey] = m
+	end
+	m.runs = m.runs + 1
+	m.checked = checked
+	m.lastHits = hits
+	m.lastBlocked = blocked
+	if (m.maxHits or 0) < hits then
+		m.maxHits = hits
+	end
+	if blocked > 0 then
+		m.everBlocked = true
+	end
+end
+
 local function Capture()
 	if not (ns.Aura and ns.Aura.ForEachPlayerDebuff) then
 		return
@@ -187,10 +286,13 @@ local function Capture()
 	-- play instead of only inside dungeons; it stays cheap because rows are
 	-- deduped by pattern and capped.
 	local store = InInstanceForCapture() and Store() or nil
-	local seen = 0
+	local seen, unreadable = 0, false
 	local scanned = ns.Aura.ForEachPlayerDebuff(function(aura)
 		seen = seen + 1
 		pcall(RecordReadability, aura)
+		if isSecret(aura.spellId) or isSecret(aura.dispelName) then
+			unreadable = true
+		end
 		if not store then
 			return
 		end
@@ -230,6 +332,12 @@ local function Capture()
 			instanceID = instID,
 		}
 	end)
+
+	-- Enumeration just failed to tell us something. That is exactly the moment
+	-- worth asking the other way round, by id.
+	if unreadable or not scanned then
+		pcall(ProbeKnownIDs)
+	end
 
 	-- A blocked scan and a clean player look identical in the rows above: both
 	-- record nothing. Log the scan itself so the difference survives.
@@ -316,6 +424,24 @@ function ns.PrintDispelCaptureLog()
 			end
 		end
 	end
+
+	local lookup = ns.db and ns.db.dispelLookupLog
+	if type(lookup) == "table" and next(lookup) then
+		print(("%s Lookup by known spell ID (does asking by id still answer?):"):format(prefix))
+		for _, r in pairs(lookup) do
+			if r.probe then
+				print(("   probe %s — %d run(s), %d id(s) checked, best %d hit(s)%s"):format(
+					r.inCombat and "IN COMBAT" or "out of combat",
+					r.runs or 0, r.checked or 0, r.maxHits or 0,
+					r.everBlocked and " |cffff8080(refused at least once)|r" or ""))
+			else
+				print(("   |cff40c040HIT|r %s (%d) %s — %s — fields: spellId=%s name=%s dispelName=%s |cff9d9d9d(%dx)|r"):format(
+					r.name or "?", r.spellId or 0, r.school or "?",
+					r.inCombat and "IN COMBAT" or "out of combat",
+					r.spellIdState or "?", r.nameState or "?", r.dispelState or "?", r.seen or 0))
+			end
+		end
+	end
 end
 
 --- /mh dispellog clear — wipe the capture log.
@@ -323,6 +449,7 @@ function ns.ClearDispelCaptureLog()
 	if ns.db then
 		ns.db.dispelCapture = {}
 		ns.db.dispelFieldLog = {}
+		ns.db.dispelLookupLog = {}
 	end
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	print(("%s Dispel capture log cleared."):format(prefix))
