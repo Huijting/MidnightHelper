@@ -18,6 +18,31 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 | Daarna | **v3.0.0** -- de Season 2-release |
 | Branch | alleen `main` |
 
+## Laatste sessie (28 juli) -- wat er nu open ligt
+
+**Aura-onderzoek: doorbraak.** Enumeratie sterft in gevecht, maar **vragen op spell-ID
+niet** -- `ns.Aura.GetPlayerAura(id)` antwoordde 155x in gevecht met spellId, name en
+dispelName allemaal leesbaar. De dispel-helper is daarmee weer haalbaar; de 12.1-migratie
+is "stop met enumereren, ga vragen op id". Ook gemeten: `dispelName = nil` overleeft
+geheimhouding, dus **secret = heeft een school, nil = heeft er geen** -- genoeg voor "er
+staat iets dispelbaars op je" zonder spell of school. Volledig in `docs/RESEARCH_12_1.md`
+en in de header van `Modules/DispelCapture.lua`.
+
+**Openstaand, meet zichzelf:** de *dekking* van de lookup. De probe miste ook ~12 id's;
+meeste waren korte procs, maar Warband Mentored Leveling (430191) hoort permanent te zijn.
+Er draait nu automatisch een dekkingscheck buiten gevecht (enumeratie als ijkpunt tegen de
+lookup). **Lees `ns.db.dispelLookupLog` uit de SavedVariables aan het begin van de sessie**
+-- rijen `gap/<id>` en `coverage/idle` zijn het antwoord. Nog helemaal onaangeroerd:
+**party/raid**-auras; alles hierboven gaat over je eigen auras.
+
+**Gebouwd op 28 juli:** Great Vault-indicator voor de S2-bonusrol (3 gevulde slots,
+drempel is PTR-bron en staat als een enkele constante in `VaultAdvisor.lua`); Quest
+Hubs-knop gesplitst in Ritual Site + Void Assault hub (routeren nu allebei); FastMark-balk
+omgedraaid (world markers boven, target icons onder). Alles gepusht, niets uitgebracht.
+
+**Werkwijze die zich bewees:** lange diagnose niet in chat maar opnemen tijdens het spelen
+-> SavedVariables -> ik lees het bestand. Rob hoeft midden in een gevecht niets te typen.
+
 ## De klok
 
 Patch **12.1 "Curse of Ula'tek"** is een release candidate (build 68914). Community-
