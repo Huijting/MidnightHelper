@@ -865,6 +865,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh dispel probe — werkt de opzoek-route wél in gevecht waar opsommen faalt?
+	if msg == "dispel probe" then
+		if ns.PrintDispelProbeSelf then
+			ns.PrintDispelProbeSelf()
+		end
+		return
+	end
+
 	if msg == "dispel" then
 		if ns.PrintDispelStatus then
 			ns.PrintDispelStatus()

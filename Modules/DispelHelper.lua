@@ -283,3 +283,67 @@ function ns.GetDispelAlertFor(aura)
 	-- The school alone is still actionable, and is better than inventing a name.
 	return (ns:L("DISPEL_ALERT_SCHOOL_FMT")):format(ns:L("DISPEL_SCHOOL_" .. school:upper()))
 end
+
+--------------------------------------------------------------------------------
+-- /mh dispel probe — is there a way around combat secrecy?
+--
+-- Measured 2026-07-28 in The Gulf of Memory: enumerating your own debuffs during
+-- combat hands back a secret dispelName, so the helper above is blind in exactly
+-- the moment it exists for.
+--
+-- But enumeration and lookup are different questions. Walking the list tells you
+-- WHAT is on someone, which is the information the secrecy is there to withhold.
+-- Asking "do I have spell 1270859" reveals nothing you did not already know to
+-- ask, and Aura.GetPlayerAura takes that second path -- GetAuraDataBySpellID /
+-- GetPlayerAuraBySpellID rather than the by-index scan.
+--
+-- Whether Blizzard actually allows it is not something to reason about. This
+-- probe asks, using the spell ids DispelCapture has already recorded from real
+-- play, and reports what came back. Run it in combat with a debuff on you.
+--------------------------------------------------------------------------------
+
+--- /mh dispel probe — try the lookup path against every recorded debuff id.
+function ns.PrintDispelProbeSelf()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	local store = ns.db and ns.db.dispelCapture
+	if type(store) ~= "table" or not next(store) then
+		print(prefix .. " no captured debuffs yet -- run some content with DispelCapture on.")
+		return
+	end
+	if not (ns.Aura and ns.Aura.GetPlayerAura) then
+		print(prefix .. " aura facade not available.")
+		return
+	end
+
+	local inCombat = InCombatLockdown and InCombatLockdown() or false
+	local trusted = ns.Aura.Trusted and ns.Aura.Trusted() or false
+	print(("%s dispel lookup probe -- in combat = %s, Trusted() = %s"):format(
+		prefix, tostring(inCombat), tostring(trusted)))
+	if not inCombat then
+		print("   |cffe8c36aRun this DURING a fight|r -- out of combat proves nothing.")
+	end
+
+	local present, readable, blind = 0, 0, 0
+	for _, entry in pairs(store) do
+		local id = type(entry) == "table" and tonumber(entry.spellId) or nil
+		if id then
+			local data, ok = ns.Aura.GetPlayerAura(id)
+			if not ok then
+				blind = blind + 1
+			else
+				readable = readable + 1
+				if data then
+					present = present + 1
+					local dn = data.dispelName
+					print(("   |cff40c040FOUND|r %-8s %-28s school=%s"):format(
+						tostring(id), tostring(entry.name or "?"),
+						(dn ~= nil and not isSecret(dn)) and tostring(dn) or "SECRET"))
+				end
+			end
+		end
+	end
+	print(("   looked up %d ids: %d answered, %d refused, %d currently on you"):format(
+		readable + blind, readable, blind, present))
+	print("   If something is on you and this found it, the lookup path works in combat")
+	print("   and the helper can be rebuilt on it. If it found nothing, it cannot.")
+end
