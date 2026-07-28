@@ -50,6 +50,102 @@ local function Store()
 	return ns.db.dispelCapture
 end
 
+--------------------------------------------------------------------------------
+-- Readability recorder (Rob 2026-07-28). Typing a probe mid-fight and copying
+-- the output is not something anyone can do while tanking, so this records
+-- instead: which FIELDS of your own debuffs come back readable, and in or out
+-- of combat. Read it back afterwards, in the quiet, from SavedVariables.
+--
+-- Deduped by PATTERN, not by debuff: one row per distinct combination of field
+-- states + combat state. Ten trash packs of the same debuff collapse into one
+-- row with a count, so the log stays a handful of lines however long the run is.
+--
+-- Why the fields are split: "auras are secret in combat" may not be all or
+-- nothing. If spellId reads while dispelName does not, the dispel helper never
+-- needs the school from the game — it can look the id up in dispelCapture above,
+-- which is already full of real schools from real play. That is a working
+-- feature instead of a dead one, and a single yes/no could not tell them apart.
+--------------------------------------------------------------------------------
+
+local FIELD_LOG_CAP = 40
+
+local function FieldState(v)
+	if v == nil then
+		return "nil"
+	elseif isSecret(v) then
+		return "secret"
+	end
+	return "read"
+end
+
+local function FieldLog()
+	if not ns.db then
+		return nil
+	end
+	if type(ns.db.dispelFieldLog) ~= "table" then
+		ns.db.dispelFieldLog = {}
+	end
+	return ns.db.dispelFieldLog
+end
+
+local function RecordReadability(aura)
+	local log = FieldLog()
+	if not log then
+		return
+	end
+	local sId, sName, sDispel = FieldState(aura.spellId), FieldState(aura.name), FieldState(aura.dispelName)
+	local inCombat = (InCombatLockdown and InCombatLockdown()) and true or false
+	local key = ("%s/%s/%s/%s"):format(sId, sName, sDispel, inCombat and "combat" or "idle")
+
+	local row = log[key]
+	if not row then
+		local count = 0
+		for _ in pairs(log) do
+			count = count + 1
+		end
+		if count >= FIELD_LOG_CAP then
+			return
+		end
+		local instName = "?"
+		if GetInstanceInfo then
+			local ok, n1 = pcall(GetInstanceInfo)
+			if ok then
+				instName = n1 or "?"
+			end
+		end
+		row = {
+			spellId = sId,
+			name = sName,
+			dispelName = sDispel,
+			inCombat = inCombat,
+			instance = instName,
+			encounter = curEncName,
+			seen = 0,
+			examples = {},
+		}
+		log[key] = row
+	end
+	row.seen = row.seen + 1
+
+	-- Keep a few real ids/names where they were readable: that is the raw
+	-- material the helper would run on if this pattern turns out to be the
+	-- common one.
+	if #row.examples < 5 and (sId == "read" or sName == "read") then
+		local id = (sId == "read") and tonumber(aura.spellId) or nil
+		local nm = (sName == "read") and tostring(aura.name) or nil
+		local dup = false
+		for _, e in ipairs(row.examples) do
+			if e.spellId == id and e.name == nm then
+				dup = true
+				break
+			end
+		end
+		if not dup then
+			row.examples[#row.examples + 1] = { spellId = id, name = nm }
+		end
+	end
+end
+
 local function Capture()
 	if not (InInstanceForCapture() and ns.Aura and ns.Aura.ForEachPlayerDebuff) then
 		return
@@ -58,7 +154,11 @@ local function Capture()
 	if not store then
 		return
 	end
-	ns.Aura.ForEachPlayerDebuff(function(aura)
+	local seen = 0
+	local scanned = ns.Aura.ForEachPlayerDebuff(function(aura)
+		seen = seen + 1
+		pcall(RecordReadability, aura)
+
 		local dn = aura.dispelName
 		if dn == nil or isSecret(dn) then
 			return
@@ -93,6 +193,31 @@ local function Capture()
 			instance = instName,
 			instanceID = instID,
 		}
+	end)
+
+	-- A blocked scan and a clean player look identical in the rows above: both
+	-- record nothing. Log the scan itself so the difference survives.
+	pcall(function()
+		local log = FieldLog()
+		if not log then
+			return
+		end
+		local inCombat = (InCombatLockdown and InCombatLockdown()) and true or false
+		local trusted = (ns.Aura.Trusted and ns.Aura.Trusted()) and true or false
+		local key = ("scan/%s/%s/%s"):format(
+			scanned and "ok" or "blocked",
+			inCombat and "combat" or "idle",
+			trusted and "trusted" or "untrusted")
+		local row = log[key]
+		if not row then
+			row = { scan = scanned and "ok" or "blocked", inCombat = inCombat,
+				trusted = trusted, seen = 0, maxDebuffs = 0 }
+			log[key] = row
+		end
+		row.seen = row.seen + 1
+		if seen > (row.maxDebuffs or 0) then
+			row.maxDebuffs = seen
+		end
 	end)
 end
 
@@ -129,12 +254,38 @@ function ns.PrintDispelCaptureLog()
 	else
 		print(("   %d entries. |cff9d9d9d/mh dispellog clear|r to reset."):format(n))
 	end
+
+	local log = ns.db and ns.db.dispelFieldLog
+	if type(log) == "table" and next(log) then
+		print(("%s Field readability (which parts of your own debuffs you could read):"):format(prefix))
+		for _, r in pairs(log) do
+			if r.scan then
+				print(("   scan |cff8fd3ff%s|r — %s — Trusted()=%s — up to %d debuff(s) |cff9d9d9d(%dx)|r"):format(
+					r.scan, r.inCombat and "IN COMBAT" or "out of combat",
+					tostring(r.trusted), r.maxDebuffs or 0, r.seen or 0))
+			else
+				local ex = ""
+				if r.examples and #r.examples > 0 then
+					local bits = {}
+					for _, e in ipairs(r.examples) do
+						bits[#bits + 1] = ("%s(%s)"):format(e.name or "?", tostring(e.spellId or "?"))
+					end
+					ex = "  |cff9d9d9d" .. table.concat(bits, ", ") .. "|r"
+				end
+				print(("   spellId=%s name=%s dispelName=%s — %s |cff9d9d9d(%dx, %s)|r%s"):format(
+					r.spellId, r.name, r.dispelName,
+					r.inCombat and "IN COMBAT" or "out of combat",
+					r.seen or 0, r.instance or "?", ex))
+			end
+		end
+	end
 end
 
 --- /mh dispellog clear — wipe the capture log.
 function ns.ClearDispelCaptureLog()
 	if ns.db then
 		ns.db.dispelCapture = {}
+		ns.db.dispelFieldLog = {}
 	end
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	print(("%s Dispel capture log cleared."):format(prefix))
