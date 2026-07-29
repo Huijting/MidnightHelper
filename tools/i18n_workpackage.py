@@ -43,10 +43,19 @@ WORKSHEETS = [
 
 
 def code_text():
-    """Every .lua in the addon except the locale packs, as one blob."""
+    """Every .lua that can REFERENCE a key, i.e. everything but the string packs.
+
+    Locales/Locale.lua counts as code: it is the resolver and the only file under
+    Locales/ that calls ns:L. Excluding the whole directory made its keys look
+    unreferenced, which in the sibling script deleted two live ones. Here the cost
+    is the mirror image and just as bad -- a live key judged dead is dropped from
+    the package, so it never reaches a translator and ships as English forever.
+    """
     parts = []
     for path in ROOT.rglob("*.lua"):
-        if LOCALES in path.parents or path.parent.name == "tools":
+        if path.parent.name == "tools":
+            continue
+        if LOCALES in path.parents and path.name != "Locale.lua":
             continue
         try:
             parts.append(path.read_text(encoding="utf-8", errors="replace"))

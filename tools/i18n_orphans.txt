@@ -1,6 +1,4 @@
-=== de/fr/es/pt: 1 dead keys ===
-LANG_GATED               1
+=== de/fr/es/pt: 0 dead keys ===
 
-=== itIT: 1 dead keys ===
-LANG_GATED               1
+=== itIT: 0 dead keys ===
 
