@@ -425,6 +425,12 @@ function ns:SetLocale(code, silent)
 	if self.db then
 		self.db.locale = normalized
 	end
+	-- The translate nudge caches how complete the active pack is; that answer is
+	-- about a different pack now. The settings page says the addon adapts straight
+	-- away, so the card has to as well rather than waiting for a reload.
+	if ns.ResetTranslateCoverage then
+		ns.ResetTranslateCoverage()
+	end
 	if not silent then
 		local label = self.GetLocaleDisplayNameForChat and self:GetLocaleDisplayNameForChat(normalized)
 			or self:GetLanguageStatusLabel()
