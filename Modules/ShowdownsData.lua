@@ -23,6 +23,7 @@ ns.SHOWDOWNS = {
 			name = "Naigtal", -- fallback-weergavenaam; C_Map-naam wint zodra uiMapID bekend is
 			uiMapID = 2600, -- PTR-verified; hele zone (WQ-dump bevestigde dit). Kaart-pad: EK > Quel'Thalas > Voidstorm > Naigtal
 			weekly = 96717, -- "Showdown on Naigtal" (PTR-verified). Percentage-quest ("Ethereal Operations Disrupted"): voortgang via GetQuestProgressBarPercent. Questlog-categorie: "Void Assaults"
+			weeklyHeroic = 96718, -- "Showdown on Naigtal (Heroic)" — IN-GAME gemeten 29 jul 2026 via /mh showdown (Rob had 'm aangenomen; beloning "Riftstalker's Overflowing Cache", niet de gewone Cache). Heroic is een vrije keuze bij het portaal, dus dit is geen randgeval.
 			worldBossNpcID = 263843, -- Nexus-Captain Leth'ir (Wowhead)
 			worldBossQuest = 96472, -- "The Nexus-Captain" killquest (Wowhead PTR-2)
 			bossName = "Nexus-Captain Leth'ir",
@@ -32,6 +33,10 @@ ns.SHOWDOWNS = {
 			name = "Val",
 			uiMapID = 2599, -- PTR-verified 16 jun 2026 (Rob stond in Val: kaart-pad EK > Quel'Thalas > Voidstorm > Val). Naast Naigtal 2600.
 			weekly = 96713, -- "Showdown on Val" — IN-GAME bevestigd 16 jun 2026 (Rob accepteerde 'm; questlog 96713). Web-datamine zei 96716 → in-game wint (96713).
+			-- weeklyHeroic voor Val is NIET bekend. Naigtal bleek 96717 → 96718, dus 96714
+			-- ligt voor de hand — maar bij Val zat de datamine er al eens naast (96716 vs
+			-- 96713), dus dit wordt gemeten en niet geraden. Draai `/mh showdown` zodra Val
+			-- weer aan de beurt is en de Heroic-weekly is aangenomen.
 			worldBossNpcID = 261072, -- Imperator Pertinax (Zygor 9.6 DB, 17 jun: 261072; de eerdere 263670 bestaat NIET in Zygor = was fout)
 			worldBossQuest = 96473, -- "Imperator Pertinax" killquest (Zygor 9.6 Quests_enUS, 17 jun)
 			bossName = "Imperator Pertinax",

@@ -59,6 +59,24 @@ local function IsQuestActiveOrDone(qid)
 	return false
 end
 
+-- Every weekly id a zone can present. Heroic World Tier is a free choice at the
+-- portal and it is a DIFFERENT quest: Naigtal is 96717 normal, 96718 heroic
+-- (measured 29 jul 2026). Checking only the normal id meant that whoever picked
+-- Heroic finished the weekly and got told all week that it was still open.
+local function WeeklyIDs(z)
+	if type(z) ~= "table" then
+		return {}
+	end
+	local ids = {}
+	if z.weekly then
+		ids[#ids + 1] = z.weekly
+	end
+	if z.weeklyHeroic then
+		ids[#ids + 1] = z.weeklyHeroic
+	end
+	return ids
+end
+
 -- Best-effort: the active world is the one whose Showdown weekly is on the
 -- player or already completed this week (only the active world's weekly is
 -- offered). Zones with a nil weekly (Val, until verified) can never match —
@@ -69,8 +87,10 @@ local function DetectActiveZone()
 		return nil
 	end
 	for _, z in ipairs(d.zones) do
-		if z.weekly and IsQuestActiveOrDone(z.weekly) then
-			return z
+		for _, id in ipairs(WeeklyIDs(z)) do
+			if IsQuestActiveOrDone(id) then
+				return z
+			end
 		end
 	end
 	return nil
@@ -103,8 +123,10 @@ function ns.IsShowdownWeeklyDone()
 		return false
 	end
 	for _, z in ipairs(d.zones) do
-		if z.weekly and C_QuestLog.IsQuestFlaggedCompleted(z.weekly) then
-			return true
+		for _, id in ipairs(WeeklyIDs(z)) do
+			if C_QuestLog.IsQuestFlaggedCompleted(id) then
+				return true
+			end
 		end
 	end
 	return false
@@ -115,16 +137,17 @@ end
 -- Returns nil when not on the quest or the API disagrees.
 function ns.GetShowdownWeeklyProgress()
 	local zone = DetectActiveZone()
-	if not (zone and zone.weekly and C_QuestLog and C_QuestLog.IsOnQuest) then
+	if not (zone and C_QuestLog and C_QuestLog.IsOnQuest) then
 		return nil
 	end
-	if not C_QuestLog.IsOnQuest(zone.weekly) then
-		return nil
-	end
-	if type(GetQuestProgressBarPercent) == "function" then
-		local ok, pct = pcall(GetQuestProgressBarPercent, zone.weekly)
-		if ok and type(pct) == "number" then
-			return pct
+	-- Report on whichever variant is actually on the player, normal or heroic.
+	for _, id in ipairs(WeeklyIDs(zone)) do
+		local okOn, onQuest = pcall(C_QuestLog.IsOnQuest, id)
+		if okOn and onQuest and type(GetQuestProgressBarPercent) == "function" then
+			local ok, pct = pcall(GetQuestProgressBarPercent, id)
+			if ok and type(pct) == "number" then
+				return pct
+			end
 		end
 	end
 	return nil
@@ -212,8 +235,8 @@ function ns.PrintShowdownDiagnostics()
 
 	local known = {}
 	for _, z in ipairs((ns.SHOWDOWNS and ns.SHOWDOWNS.zones) or {}) do
-		if z.weekly then
-			known[z.weekly] = z.name or "?"
+		for _, id in ipairs(WeeklyIDs(z)) do
+			known[id] = z.name or "?"
 		end
 	end
 	for id, zone in pairs(known) do
