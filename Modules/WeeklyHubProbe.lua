@@ -126,6 +126,38 @@ function ns.PrintWeeklyHubProbe()
 		if mismatches == 0 then
 			print("   |cff9d9d9dEvery quest in your log also answers yes to IsOnQuest.|r")
 		end
+
+		-- The pools above can only ever report on ids we already hold, so a weekly
+		-- we have never seen is invisible to them -- it just shows up as "nothing
+		-- active", which reads exactly like "you have not picked one up". That is
+		-- what kept telling Rob to go and get a quest already in his log, and it is
+		-- how the Naigtal Heroic weekly (96718) hid from us until 29 jul.
+		--
+		-- So: name every "Midnight:" quest in the log and say whether we know it.
+		-- An unknown id here is the answer, not a puzzle.
+		local known = {}
+		for _, pool in ipairs({ LIADRIN, VOID_ZONES, SHOWDOWN }) do
+			for _, row in ipairs(pool) do
+				known[row[1]] = true
+			end
+		end
+		print("   |cff8fd3ffWeekly-hub quests in your log|r")
+		local seen = 0
+		for i = 1, n do
+			local q = C_QuestLog.GetInfo(i)
+			if q and not q.isHeader and q.questID and q.title then
+				local title = tostring(q.title)
+				if title:lower():find("midnight:", 1, true) == 1 or known[q.questID] then
+					seen = seen + 1
+					print(("      %d  %s  %s"):format(
+						q.questID, title,
+						known[q.questID] and "|cff40c040known|r" or "|cffff8080NOT IN OUR DATA|r"))
+				end
+			end
+		end
+		if seen == 0 then
+			print("      |cff9d9d9d(none right now -- pick one up first)|r")
+		end
 	end
 	print("   |cff9d9d9dA title that does not match the label means the id is wrong.|r")
 end
