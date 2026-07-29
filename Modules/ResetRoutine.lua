@@ -94,15 +94,29 @@ local GIVER_WEEKLIES = {
 	-- quest that was already in his log.
 	--
 	-- All eleven below were confirmed on 2026-07-22 via /mh weeklies, which asks the
-	-- game for each id's own title and compares it with the label. The twelfth,
-	-- 93891 "Legends of the Haranir", returned NO TITLE AT ALL and is therefore left
-	-- out — the source that supplied these ids (Broker_MidnightEvents) had already
-	-- flagged it as possibly obsolete, and the game agrees.
+	-- game for each id's own title and compares it with the label.
+	--
+	-- 93891 "Legends of the Haranir" was left out because it returned NO TITLE, which
+	-- we read as the game agreeing it was obsolete. That reasoning is WRONG and the
+	-- id is back in. On 29 jul the same probe returned no title for 96713 "Showdown on
+	-- Val" — an id Rob confirmed himself in June by accepting the quest. A missing
+	-- title means the client has not cached that quest, not that it does not exist.
+	--
+	-- The costs are not symmetric either. A dead id in this list matches nothing and
+	-- does nothing; a missing one produces exactly the bug this list exists to stop,
+	-- where MH tells you to go and pick up a quest already in your log. So when in
+	-- doubt, keep it.
+	--
+	-- 95843 "Midnight: Ritual Sites" was measured on 29 jul: Rob picked it, the probe
+	-- reported NOT IN OUR DATA, and the game gave its title. The pool is therefore
+	-- bigger than the twelve we were told about, so expect more of these — /mh
+	-- weeklies now names any unknown one instead of quietly showing an empty pool.
 	{ key = "liadrin", name = "Lady Liadrin", minLevel = 90, quests = {
 		93766, -- World Quests
 		93769, -- Housing
 		93889, -- Saltheril's Soiree
 		93890, -- Abundance
+		93891, -- Legends of the Haranir (no title from the client; see above)
 		93892, -- Stormarion Assault
 		93909, -- Delves
 		93910, -- Prey
@@ -110,6 +124,7 @@ local GIVER_WEEKLIES = {
 		93913, -- World Boss
 		94457, -- Battlegrounds
 		95842, -- Void Assaults (also the Void meta quest below)
+		95843, -- Ritual Sites (Rob's pick, measured 29 jul 2026)
 	} },
 	-- Dungeon-of-the-week (rotates; add each week's confirmed ID here):
 	--   93761 "Windrunner Spire" (10 jun 2026), 93164 "Maisara Caverns"

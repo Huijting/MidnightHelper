@@ -27,6 +27,7 @@ local LIADRIN = {
 	{ 93889, "Saltheril's Soiree" },
 	{ 93890, "Abundance" },
 	{ 93891, "Legends of the Haranir" }, -- source flags this one as possibly obsolete
+	{ 95843, "Ritual Sites" }, -- IN-GAME gemeten 29 jul 2026: Rob koos deze en de probe gaf "NOT IN OUR DATA". Game-titel "Midnight: Ritual Sites" bevestigt het id. Ligt naast 95842 (Void Assaults) — beide de 12.0.5-wereldsystemen.
 	{ 93892, "Stormarion Assault" },
 	{ 93909, "Delves" },
 	{ 93910, "Prey" },
