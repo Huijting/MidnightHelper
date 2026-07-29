@@ -52,10 +52,21 @@ WAAR MIDNIGHT HELPER OP DRAAIT — meld het als hier iets aan verandert
 - Elke verwijderde, hernoemde of protected-geworden globale functie.
 
 HARDE REGELS
-1. DATUM. Noem bij elk punt de publicatiedatum van de bron. Neem NIETS mee dat ouder
-   is dan 7 dagen. Is er in die 7 dagen niets gebeurd, dan schrijf je dat op — "geen
-   API-wijzigingen deze week" is een geldig en nuttig antwoord. Vul nooit aan met
-   oudere items om het document voller te maken.
+1. DATUM — EN LET OP BIJ WIKI-PAGINA'S. Noem bij elk punt de publicatiedatum van de
+   bron. Neem NIETS mee dat ouder is dan 7 dagen. Is er in die 7 dagen niets gebeurd,
+   dan schrijf je dat op — "geen API-wijzigingen deze week" is een geldig en nuttig
+   antwoord. Vul nooit aan met oudere items om het document voller te maken.
+
+   MAAR: een wiki-pagina zoals "Patch 12.1.0/API changes" heeft GEEN publicatiedatum.
+   Hij groeit aan per PTR-build, met kopjes als "PTR 5", "PTR 6", "PTR 7 (build 68914,
+   2026-07-23)". Beoordeel zo'n pagina dus NOOIT op één datum. Zoek de build-secties
+   op, noem in je verslag de NIEUWSTE build-sectie die je hebt gevonden met zijn
+   nummer en datum, en beoordeel per sectie of die binnen de 7 dagen valt.
+
+   Fout die dit voorkomt (29 jul 2026): de wachter schreef "inhoud dateert van 15–18
+   juni, ruim buiten het venster" en concludeerde "geen wijzigingen". De pagina had op
+   dat moment een sectie PTR 7 / build 68914 van 23 juli — binnen het venster, en met
+   een wijziging (UnitClass wordt secret) die de addon liet crashen.
 2. CORRECTIES. Wijkt iets af van wat eerder is gemeld (een hernoemde functie, een
    teruggedraaide wijziging, een andere naam), zeg dat er expliciet bij:
    "CORRECTIE op [datum]: heette eerst X, is nu Y." Dit is het belangrijkste dat je
@@ -89,7 +100,9 @@ Gebruik deze indeling:
     bron: [URL] — gepubliceerd [datum]
 
   GEEN WIJZIGING
-  Welke bronnen je hebt gecheckt en waar niets nieuws stond.
+  Welke bronnen je hebt gecheckt en waar niets nieuws stond. Noem bij de
+  wiki-pagina's expliciet de nieuwste build-sectie die je zag (nummer + datum),
+  zodat te controleren is dat je niet naar een oude versie hebt gekeken.
 
 Schrijf in het Nederlands, zakelijk en kort. Geen inleidingen, geen aanmoedigingen.
 Als er niets te melden is mag het document tien regels lang zijn.
