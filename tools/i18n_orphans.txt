@@ -1,12 +1,4 @@
-=== de/fr/es/pt: 1291 dead keys ===
-GUIDE_ADVISOR            1128
-GUIDE_GEAR               160
-INTERRUPT_PARTY          2
-LANG_GATED               1
+=== de/fr/es/pt: 0 dead keys ===
 
-=== itIT: 6 dead keys ===
-CS_TAG                   2
-INTERRUPT_PARTY          2
-LANG_GATED               1
-LAYOUT_CARDS             1
+=== itIT: 0 dead keys ===
 

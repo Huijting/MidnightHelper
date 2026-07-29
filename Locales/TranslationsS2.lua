@@ -19,8 +19,6 @@ end
 
 fill("deDE", {
 	ARROW_OTHER_CONTINENT = "(anderer Kontinent — reise zurück)",
-	CS_TAG_INTERRUPT = "UNTERBRECHEN!",
-	CS_TAG_MOVE = "BEWEGEN!",
 	CS_WARN = "GEFÄHRLICHER ZAUBER",
 	GS_MOVE = "BEWEGEN!",
 	HOME_COLLECTIBLE_FMT = "%s — %d/%d",
@@ -41,7 +39,6 @@ fill("deDE", {
 	KEYBIND_SHAMAN_CAT_UTILITY = "Nützliches",
 	LANG_LABEL_FR = "Français", LANG_LABEL_ES = "Español", LANG_LABEL_PT = "Português", LANG_LABEL_IT = "Italiano",
 	LAYOUT_AUTOMAP_NOTE = "Auto-Map aus deinem Zauberbuch erzeugt — für diese Spec gibt es noch keine handgetunte Map.",
-	LAYOUT_CARDS_EMPTY = "Für diese Spec sind noch keine Zauber zugeordnet.",
 	LAYOUT_CARD_AOE = "AoE",
 	LAYOUT_CARD_BUILDER = "Erzeuger",
 	LAYOUT_CARD_CC = "CC / Bannen",
@@ -106,8 +103,6 @@ fill("deDE", {
 
 fill("frFR", {
 	ARROW_OTHER_CONTINENT = "(autre continent — revenez)",
-	CS_TAG_INTERRUPT = "INTERROMPS !",
-	CS_TAG_MOVE = "BOUGE !",
 	CS_WARN = "SORT DANGEREUX",
 	GS_MOVE = "BOUGE !",
 	HOME_COLLECTIBLE_FMT = "%s — %d/%d",
@@ -128,7 +123,6 @@ fill("frFR", {
 	KEYBIND_SHAMAN_CAT_UTILITY = "Utilitaire",
 	LANG_LABEL_FR = "Français", LANG_LABEL_ES = "Español", LANG_LABEL_PT = "Português", LANG_LABEL_IT = "Italiano",
 	LAYOUT_AUTOMAP_NOTE = "Auto-map générée depuis votre grimoire — pas encore de map réglée à la main pour cette spé.",
-	LAYOUT_CARDS_EMPTY = "Aucun sort mappé pour cette spé pour l’instant.",
 	LAYOUT_CARD_AOE = "AoE",
 	LAYOUT_CARD_BUILDER = "Générateur",
 	LAYOUT_CARD_CC = "CC / Dissip.",
@@ -193,8 +187,6 @@ fill("frFR", {
 
 fill("esES", {
 	ARROW_OTHER_CONTINENT = "(otro continente — regresa)",
-	CS_TAG_INTERRUPT = "¡INTERRUMPE!",
-	CS_TAG_MOVE = "¡MUÉVETE!",
 	CS_WARN = "LANZAMIENTO PELIGROSO",
 	GS_MOVE = "¡MUÉVETE!",
 	HOME_COLLECTIBLE_FMT = "%s — %d/%d",
@@ -215,7 +207,6 @@ fill("esES", {
 	KEYBIND_SHAMAN_CAT_UTILITY = "Utilidad",
 	LANG_LABEL_FR = "Français", LANG_LABEL_ES = "Español", LANG_LABEL_PT = "Português", LANG_LABEL_IT = "Italiano",
 	LAYOUT_AUTOMAP_NOTE = "Auto-mapa generado desde tu grimorio — aún no hay mapa ajustado a mano para esta especialización.",
-	LAYOUT_CARDS_EMPTY = "Aún no hay hechizos asignados para esta especialización.",
 	LAYOUT_CARD_AOE = "AoE",
 	LAYOUT_CARD_BUILDER = "Generador",
 	LAYOUT_CARD_CC = "CC / Disipar",
@@ -280,8 +271,6 @@ fill("esES", {
 
 fill("ptBR", {
 	ARROW_OTHER_CONTINENT = "(outro continente — volte)",
-	CS_TAG_INTERRUPT = "INTERROMPA!",
-	CS_TAG_MOVE = "MOVA-SE!",
 	CS_WARN = "CONJURAÇÃO PERIGOSA",
 	GS_MOVE = "MOVA-SE!",
 	HOME_COLLECTIBLE_FMT = "%s — %d/%d",
@@ -302,7 +291,6 @@ fill("ptBR", {
 	KEYBIND_SHAMAN_CAT_UTILITY = "Utilidade",
 	LANG_LABEL_FR = "Français", LANG_LABEL_ES = "Español", LANG_LABEL_PT = "Português", LANG_LABEL_IT = "Italiano",
 	LAYOUT_AUTOMAP_NOTE = "Auto-mapa gerado do seu grimório — ainda não há mapa ajustado à mão para esta especialização.",
-	LAYOUT_CARDS_EMPTY = "Ainda não há magias mapeadas para esta especialização.",
 	LAYOUT_CARD_AOE = "AoE",
 	LAYOUT_CARD_BUILDER = "Gerador",
 	LAYOUT_CARD_CC = "CC / Dissipar",
