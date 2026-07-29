@@ -1130,3 +1130,74 @@ do
 		end
 	end)
 end
+
+--------------------------------------------------------------------------------
+-- `/mh profweekly` — why the routine did or did not send you to a profession
+-- weekly (Rob, 29 jul 2026: "ik werd niet naar de professions quest gestuurd").
+--
+-- Step 5 has five different outcomes -- done, in your log, skill-gated, pick up at
+-- the Work Order station, pick up at the trainer -- and a sixth silent one where
+-- the profession is not tracked at all. From the outside they are impossible to
+-- tell apart: four of them simply do not produce a route, so "no route" is the
+-- symptom of half the branches.
+--
+-- Rather than reason about which one fired, this prints the inputs the step reads
+-- and names the branch. Read-only: professions, quest flags and the same tables
+-- the step itself uses.
+--------------------------------------------------------------------------------
+function ns.PrintProfWeeklyDiagnostics()
+	local p = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+	print(("%s Profession weeklies — what step 5 sees:"):format(p))
+
+	if not (GetProfessions and GetProfessionInfo) then
+		print("   |cffff8080the profession API is unavailable on this client|r")
+		return
+	end
+	local okP, p1, p2 = pcall(GetProfessions)
+	if not okP then
+		print("   |cffff8080GetProfessions failed|r")
+		return
+	end
+	if not p1 and not p2 then
+		print("   |cffff8080this character has NO primary professions|r — step 5 has nothing to show.")
+		return
+	end
+
+	local serviceProfs = (ns.PROF_ACADEMY and ns.PROF_ACADEMY.weekly and ns.PROF_ACADEMY.weekly.serviceProfs) or {}
+	local tracked, untracked = OwnedProfTrainerWeeklies()
+
+	for _, prof in ipairs(tracked) do
+		local isService = serviceProfs[prof.skillLine] and true or false
+		print(("   |cff8fd3ff%s|r  skillLine %d, skill %d, %s"):format(
+			prof.name, prof.skillLine, prof.skill or 0,
+			isService and "Work Order station" or "trainer"))
+		local done, inlog = false, false
+		for _, qid in ipairs(prof.quests) do
+			local f, o = Flagged(qid), OnQuest(qid)
+			done = done or f
+			inlog = inlog or o
+			print(("      quest %d — completed: %s, in your log: %s"):format(qid, tostring(f), tostring(o)))
+		end
+		local branch
+		if done then
+			branch = "|cff40c040DONE this week|r — no route, correctly"
+		elseif inlog then
+			branch = "|cffffd100already in your log|r — no route, correctly"
+		elseif not isService and (prof.skill or 0) < 25 then
+			branch = "|cff9d9d9dskill-gated|r — trainer weeklies need skill 25, so no route"
+		elseif isService then
+			branch = "|cff40c040PICKUP at the Work Order station|r — should route"
+		else
+			branch = "|cff40c040PICKUP at the trainer|r — should route"
+		end
+		print(("      -> %s"):format(branch))
+	end
+
+	for _, name in ipairs(untracked) do
+		print(("   |cffff8080%s|r — owned, but we hold no weekly quest id for it, so step 5 stays silent."):format(name))
+	end
+
+	if #tracked == 0 and #untracked == 0 then
+		print("   |cffff8080GetProfessions returned slots but none resolved|r — GetProfessionInfo gave no skillLine.")
+	end
+end

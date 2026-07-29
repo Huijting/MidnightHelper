@@ -1158,6 +1158,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh profweekly — why step 5 of the reset routine did or did not route you
+	-- to a profession weekly. Four of its branches produce no route at all.
+	if msg == "profweekly" then
+		if ns.PrintProfWeeklyDiagnostics then
+			ns.PrintProfWeeklyDiagnostics()
+		end
+		return
+	end
+
 	-- /mh pullsummary [boss|popup] — toggle the per-pull tank summary (opt-in) or
 	-- its boss-only / popup options.
 	if msg == "pullsummary status" then
