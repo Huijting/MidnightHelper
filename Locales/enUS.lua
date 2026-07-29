@@ -23,6 +23,7 @@ ns._mhLocales.enUS = {
 	FRAME_SIZE_REPORT = "Main window %d×%d (UI scale %.2f). Saved: %s×%s — resize with the grip to save automatically.",
 	UI_LOADING = "UI is still loading.",
 	LANG_SET = "Language set to %s.",
+	LANG_GATED_NOTICE = "Your chosen language (%s) isn't loaded on this WoW client, so Midnight Helper shows English. This saves memory; it loads automatically when your client is set to that language.",
 	LANG_SET_CHAT_FALLBACK = "Party/delve chat tips use English on this WoW client (some scripts need a matching client). UI stays in your chosen language.",
 	LANG_UNKNOWN = "Unknown language %q. Use: auto, en, nl, de, fr, es, …",
 	LANG_SLASH_HINT = "Usage: /mh lang auto  |  /mh lang en  |  /mh lang de  |  /mh lang fr  |  /mh lang es  |  /mh lang pt  |  /mh lang nl  (auto = WoW client language)",
@@ -38,6 +39,8 @@ ns._mhLocales.enUS = {
 	LOCALE_NAME_koKR = "한국어",
 	LOCALE_NAME_zhCN = "简体中文",
 	LOCALE_NAME_zhTW = "繁體中文",
+	LOCALE_STATUS_AUTO_FMT = "Automatic (%s)",
+	LOCALE_STATUS_AUTO_FALLBACK_FMT = "Automatic (%s -> %s, pack pending)",
 
 	-- SMC / waypoint
 	WAYPOINT_SET = "Waypoint set: %s (#%d %.1f, %.1f)",

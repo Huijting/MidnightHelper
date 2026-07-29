@@ -40,21 +40,32 @@ TOP_KEY_RE = re.compile(r'^\t([A-Z][A-Z0-9_]+)\s*=')
 COMPLETE_RE = re.compile(r'^\t[A-Z][A-Z0-9_]+\s*=\s*.*,\s*$')
 
 
-# Never delete these, however dead they look to a grep of our own Lua.
+# Nothing needs protecting by name any more.
 #
-# BINDING_HEADER_* / BINDING_NAME_* are read by WoW itself, from globals, to label
-# the Keybindings panel -- no addon code calls them, so the liveness test cannot
-# see them. They are in fact unwired right now (Bindings.xml declares
-# MIDNIGHTHELPER_TOGGLEMAIN, while the locale carries BINDING_NAME_TOGGLEMAIN, so
-# the globals are never set and the panel shows raw names). That is a small bug
-# with the fix already written; deleting the strings would throw away the fix.
-KEEP_PREFIXES = ("BINDING_HEADER", "BINDING_NAME")
+# The first version kept BINDING_HEADER_* and BINDING_NAME_* here, on the theory
+# that WoW reads them from globals and no addon code would ever mention them. That
+# was wrong on the facts: Locale.lua sets all four globals itself, and including it
+# as code (see code_text) makes them test live on their own. The keep-list was
+# papering over the real bug -- a code file being treated as a string pack -- and a
+# hand-maintained exception list would have hidden the next one just as well.
+KEEP_PREFIXES = ()
 
 
 def code_text():
+    """Every .lua that can REFERENCE a key, i.e. everything but the string packs.
+
+    Locales/Locale.lua is included even though it lives in Locales/: it is the
+    resolver, not a pack, and it is the only file in there that calls ns:L. The
+    first run of this script excluded the whole directory and therefore deleted
+    LOCALE_STATUS_AUTO_FMT and LOCALE_STATUS_AUTO_FALLBACK_FMT, which Locale.lua
+    uses to label the language dropdown. Checked afterwards: it is the only file
+    under Locales/ containing any L() call at all.
+    """
     parts = []
     for path in ROOT.rglob("*.lua"):
-        if LOCALES in path.parents or path.parent.name == "tools":
+        if path.parent.name == "tools":
+            continue
+        if LOCALES in path.parents and path.name != "Locale.lua":
             continue
         try:
             parts.append(path.read_text(encoding="utf-8", errors="replace"))

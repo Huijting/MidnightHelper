@@ -53,6 +53,8 @@ ns._mhLocales.itIT = {
 	LOCALE_NAME_koKR = "한국어",
 	LOCALE_NAME_zhCN = "简体中文",
 	LOCALE_NAME_zhTW = "繁體中文",
+	LOCALE_STATUS_AUTO_FMT = "Automatica (%s)",
+	LOCALE_STATUS_AUTO_FALLBACK_FMT = "Automatica (%s -> %s, pacchetto in arrivo)",
 
 	-- SMC / waypoint
 	WAYPOINT_SET = "Waypoint impostato: %s (#%d %.1f, %.1f)",
