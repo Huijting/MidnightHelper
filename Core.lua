@@ -1149,6 +1149,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh showdown — which Showdown weekly is really in your log, and do we know
+	-- its id? The Heroic variant may be a separate quest we do not track.
+	if msg == "showdown" then
+		if ns.PrintShowdownDiagnostics then
+			ns.PrintShowdownDiagnostics()
+		end
+		return
+	end
+
 	-- /mh pullsummary [boss|popup] — toggle the per-pull tank summary (opt-in) or
 	-- its boss-only / popup options.
 	if msg == "pullsummary status" then

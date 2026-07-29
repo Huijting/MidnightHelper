@@ -189,3 +189,69 @@ function ns.RouteShowdownPortal()
 	ns.MH_TomTomClearAll()
 	return ns.AddSmartTomTomWay(p.mapID, p.x, p.y, ns:L("SHOWDOWNS_WAYPOINT_PORTAL")) and true or false
 end
+
+--------------------------------------------------------------------------------
+-- `/mh showdown` — which Showdown weekly is actually in your log?
+--
+-- Rob accepted "Showdown on Naigtal (HEROIC)" after the reset (29 jul 2026), and
+-- its reward is a "Riftstalker's OVERFLOWING Cache" — a different item from the
+-- plain Riftstalker's Cache this file records. Two different reward items usually
+-- means two different quests, and ns.SHOWDOWNS knows exactly one id per zone.
+--
+-- If Heroic carries its own id, IsShowdownWeeklyDone would never see it: you would
+-- finish the weekly and MH would keep telling you it is open, every week, for
+-- anyone who picks Heroic at the portal.
+--
+-- So this does not guess. It walks the real quest log, prints every entry whose
+-- title mentions Showdown with its id, and says whether that id is one we know.
+-- Whatever comes back is measured, and the fix follows from it.
+--------------------------------------------------------------------------------
+function ns.PrintShowdownDiagnostics()
+	local p = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+	print(("%s Showdown weekly — what the quest log actually says:"):format(p))
+
+	local known = {}
+	for _, z in ipairs((ns.SHOWDOWNS and ns.SHOWDOWNS.zones) or {}) do
+		if z.weekly then
+			known[z.weekly] = z.name or "?"
+		end
+	end
+	for id, zone in pairs(known) do
+		local onQuest, done = "?", "?"
+		if C_QuestLog and C_QuestLog.IsOnQuest then
+			local ok, v = pcall(C_QuestLog.IsOnQuest, id)
+			onQuest = ok and tostring(v) or "error"
+		end
+		if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
+			local ok, v = pcall(C_QuestLog.IsQuestFlaggedCompleted, id)
+			done = ok and tostring(v) or "error"
+		end
+		print(("   known id %d (%s) — on quest: %s, completed: %s"):format(id, zone, onQuest, done))
+	end
+
+	if not (C_QuestLog and C_QuestLog.GetNumQuestLogEntries and C_QuestLog.GetInfo) then
+		print("   (cannot walk the quest log on this client)")
+		return
+	end
+	local okN, n = pcall(C_QuestLog.GetNumQuestLogEntries)
+	if not okN or not n then
+		print("   (quest log unreadable)")
+		return
+	end
+	local found = 0
+	for i = 1, n do
+		local okI, info = pcall(C_QuestLog.GetInfo, i)
+		if okI and type(info) == "table" and not info.isHeader and info.title then
+			local title = tostring(info.title)
+			if title:lower():find("showdown", 1, true) then
+				found = found + 1
+				local id = info.questID
+				local tag = known[id] and "|cff40c040known|r" or "|cffff8080NOT IN OUR DATA|r"
+				print(("   log: \"%s\" — questID %s — %s"):format(title, tostring(id), tag))
+			end
+		end
+	end
+	if found == 0 then
+		print("   no Showdown quest in your log right now (accept it at the portal first)")
+	end
+end
