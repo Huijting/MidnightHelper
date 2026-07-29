@@ -142,14 +142,28 @@ local GIVER_WEEKLIES = {
 	-- Only one zone is active per week, and listing both is harmless: the routine
 	-- asks whether ANY of a giver's quests is on the player or done.
 	--
-	-- 96714 is the HEROIC variant, sitting right beside the normal 96713 as you would
-	-- expect. Read once as 96674 from a screenshot and rejected by the game ("no
-	-- title"), so it is also listed in the probe: if /mh weeklies ever reports no
-	-- title for it, it is wrong again and must come straight back out.
+	-- The HEROIC variants are SEPARATE quests, and missing them was a real bug: Rob
+	-- accepted "Showdown on Naigtal (Heroic)" and this step went on telling him to go
+	-- and get it. Naigtal heroic = 96718, measured from his log on 29 jul via
+	-- /mh showdown. Val heroic 96714 comes from Broker_MidnightEvents and is NOT
+	-- verified -- 96713 -> 96714 mirrors Naigtal's 96717 -> 96718, but Val is exactly
+	-- where a datamined guess already failed once (96716 vs the real 96713).
+	--
+	-- An earlier note here said 96714 must be removed if /mh weeklies reports no title
+	-- for it. Do NOT follow that rule: it is disproven. On 29 jul the probe returned
+	-- no title for 96713 as well, and Rob accepted that quest himself in June. No
+	-- title means the client has not cached the quest, not that it does not exist.
 	--
 	-- minLevel 90 is an ASSUMPTION, same as Liadrin's and Aethas's: this is endgame
 	-- Void-world content and sub-90 access was never tested. Correct it if a levelling
 	-- character is offered one.
+	-- ⚠️ Maella is NOT in Silvermoon. Rob went looking for her there on 29 jul and
+	-- found nothing, because the step is named after her while the pin points at the
+	-- portal. She stands on the outpost inside the active Void world -- verified on
+	-- Val (2599, 59.56/19.33, ShowdownsData.valOutpostNpc). Her Naigtal position has
+	-- never been captured, so the text says "through the portal" rather than naming a
+	-- spot we cannot point to.
+	--
 	-- ⚠️ noNameMatch: a SECOND NPC called "Riftblade Maella" stands in Silvermoon at
 	-- 27.48/76.51 and runs the Decor Duels housing minigame -- same name, different
 	-- NPC (ShowdownsData.lua, Rob on the PTR 16 jun). Name matching would file her
@@ -158,12 +172,11 @@ local GIVER_WEEKLIES = {
 	{
 		key = "maella",
 		name = "Riftblade Maella",
-		-- 96713 Val + 96717 Naigtal, both confirmed by /mh weeklies: the game returns
-		-- their real titles. The HEROIC variant's id is still unknown -- 96674 was
-		-- entered on 2026-07-22 from a misread screenshot and the game answered "no
-		-- title", so it was removed the same day. Capture it from the log, do not
-		-- transcribe it by eye.
-		quests = { 96713, 96717, 96714 },
+		-- Val 96713 + Naigtal 96717 (normal), Naigtal 96718 (heroic, measured from
+		-- Rob's log), Val 96714 (heroic, datamined and still unverified). Listing all
+		-- four is safe: the routine asks whether ANY of them is on the player or done,
+		-- and only one world is active per week.
+		quests = { 96713, 96717, 96718, 96714 },
 		minLevel = 90,
 		noNameMatch = true,
 		pickupKey = "HOME_ROUTINE_GIVER_PICKUP_SHOWDOWN_FMT",
