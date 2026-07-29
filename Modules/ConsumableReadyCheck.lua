@@ -224,8 +224,29 @@ end
 -- Spelercontext + groepslijst
 --------------------------------------------------------------------------------
 
+--- A unit's class token, or nil when the client will not say.
+---
+--- 12.1 (PTR 7, build 68914, 23 jul 2026) makes UnitClass return a SECRET when the
+--- unit's identity is secret, alongside UnitSex, UnitRace and UnitIsPVP. A secret
+--- cannot be compared and cannot be used as a table key -- `RAID_CLASS_COLORS[token]`
+--- throws outright, which is exactly the crash that hit Cisca 23x in July (8356c9d).
+--- Every caller in this file already copes with nil, so hand back nil.
+local function ClassToken(unit)
+	if not UnitClass then
+		return nil
+	end
+	local ok, _, token = pcall(UnitClass, unit)
+	if not ok or token == nil then
+		return nil
+	end
+	if issecretvalue and issecretvalue(token) then
+		return nil
+	end
+	return token
+end
+
 local function PlayerSpecData()
-	local classToken = select(2, UnitClass("player"))
+	local classToken = ClassToken("player")
 	local specIndex = GetSpecialization and GetSpecialization()
 	if not classToken or not specIndex then
 		return nil
@@ -320,7 +341,7 @@ end
 
 local function UnitLabel(unit)
 	local name = (UnitName and UnitName(unit)) or unit
-	local _, classToken = UnitClass(unit)
+	local classToken = ClassToken(unit)
 	local color = classToken and RAID_CLASS_COLORS and RAID_CLASS_COLORS[classToken]
 	if color and color.GenerateHexColor then
 		local ok, hex = pcall(color.GenerateHexColor, color)
@@ -577,12 +598,21 @@ local function ClassInGroup(classToken)
 	if not classToken then
 		return false
 	end
-	if select(2, UnitClass("player")) == classToken then
+	if ClassToken("player") == classToken then
 		return true
 	end
 	local units = GroupUnits()
 	for i = 1, #units do
-		if select(2, UnitClass(units[i])) == classToken then
+		local token = ClassToken(units[i])
+		if token == classToken then
+			return true
+		end
+		-- Unreadable is not absent. If the client hides who this is, we cannot
+		-- conclude the group has no Warrior and quietly drop the Battle Shout row
+		-- -- that hides real advice, which is the same mistake that told Cisca she
+		-- was missing a buff she was holding. Showing a row for a class that is not
+		-- there is only noise; hiding one that is costs you the buff.
+		if token == nil then
 			return true
 		end
 	end
@@ -634,7 +664,7 @@ function ns.GetRaidBuffHolders()
 		-- `unknown` is empty on today's client and nothing renders it yet.
 		local has, missing, unknown = {}, {}, {}
 		for _, u in ipairs(units) do
-			local _, ctoken = UnitClass(u)
+			local ctoken = ClassToken(u)
 			local entry = { name = (UnitName and UnitName(u)) or u, class = ctoken }
 			local state = UnitHasAuraSpell(u, def.spellID)
 			if state == true then
@@ -756,7 +786,7 @@ function ns.GetConsumableReadyData()
 		local _, hN = presence(CategoryItemIDs(specData, "healingPotion"))
 		local _, fN = presence(FoodItemIDs(specData))
 		local hsHas = presence(HEALTHSTONE_IDS)
-		local _, ctoken = UnitClass("player")
+		local ctoken = ClassToken("player")
 		-- Weapon-olie: alleen specs die 'm gebruiken (Shamans e.d. = omitWeaponOil,
 		-- die hebben eigen weapon-imbues). Buff = de tijdelijke wapen-enchant.
 		local weapon = nil
@@ -793,7 +823,7 @@ function ns.GetConsumableReadyData()
 		if not UnitIsUnit(unit, "player") then
 			local name = (UnitName and UnitName(unit)) or unit
 			local comms = ns.GetConsumableCommsStatus and ns.GetConsumableCommsStatus(name)
-			local _, ctoken = UnitClass(unit)
+			local ctoken = ClassToken(unit)
 			local function commsBag(key)
 				if not comms then
 					return nil, nil
