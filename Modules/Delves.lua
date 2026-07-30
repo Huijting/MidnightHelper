@@ -84,6 +84,17 @@ local MIDNIGHT_PORTALS = {
 	{ name = "Portal to Harandar",   mapID = 2405, toID = 2413, x = 51.72, y = 70.33 },
 	{ name = "Portal to Silvermoon", mapID = 2576, toID = 2393, x = 51.61, y = 70.22, zone = "Voidstorm" },
 	{ name = "Portal to Harandar",   mapID = 2576, toID = 2413, x = 51.72, y = 70.33, zone = "Voidstorm" },
+
+	-- SHOWDOWN VOID WORLDS
+	-- Naigtal had no entry at all, so the travel assistant found no portal there and
+	-- told Rob to hearth home while he was standing on one (30 jul). Coordinates read
+	-- off the map with him standing ON it, and he confirmed where it lands: the same
+	-- Bazaar portal in Silvermoon he came through.
+	{ name = "Portal to Silvermoon", mapID = 2600, toID = 2393, x = 48.67, y = 82.74 },
+	-- Val (2599) almost certainly has the same portal, and Val alternates with Naigtal
+	-- week by week -- so half the weeks still get the hearth advice until someone
+	-- stands on it and reads the coordinate. Not guessed from Naigtal's: these are two
+	-- different maps and a wrong waypoint sends you across a zone for nothing.
 }
 
 ns.MIDNIGHT_DELVES = MIDNIGHT_DELVES
