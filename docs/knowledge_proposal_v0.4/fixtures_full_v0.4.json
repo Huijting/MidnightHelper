@@ -1,0 +1,554 @@
+{
+  "schema_version": "0.4.1",
+  "status": "proposal",
+  "supersedes": [
+    "fixtures_full_request_response_v0.1.json",
+    "fixture_replacements_v0.3.json"
+  ],
+  "notes": [
+    "Definitive standalone set. This file replaces the v0.2 fixtures plus the v0.3 replacement patches; there are no patches to merge any more.",
+    "Every request carries the contract v0.2 required field assumed_inputs.",
+    "Fixture 08 carries the approved attribution correction.",
+    "Fixture 09 carries the approved correction: BOTH versioned Season 1 objects are stale on a 12.1 client with season 18. The player-visible stale output stays owned solely by MH-KO-SYSTEM-STALE-000.",
+    "Fixture 10 is new and proves TIMEBOX shorter_step, the last output that had no coverage.",
+    "WEEKLY-POWER world_fallback was withdrawn; that rule now hands off with pass_through, so there is no fixture for it and none is needed.",
+    "activity_states entries carry setup_minutes where the timebox buffer model needs it. Absent means the schema default 0."
+  ],
+  "fixtures": [
+    {
+      "id": "01_great_vault_ready",
+      "request": {
+        "request_id": "f01",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": true
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "recommend",
+        "title_key": "MH_KO_VAULT_READY_TITLE",
+        "why_key": "MH_KO_VAULT_READY_WHY",
+        "first_action_key": "MH_KO_VAULT_READY_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_VAULT_READY_NOT_NOW_1"
+        ],
+        "confidence": "high",
+        "knowledge_object_ids": [
+          "MH-KO-WEEKLY-POWER-1207-001"
+        ]
+      }
+    },
+    {
+      "id": "02_ritual_t5_vault_only",
+      "request": {
+        "request_id": "f02",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "vault_only",
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "available_tiers": [
+              5,
+              6
+            ],
+            "live_recommended_item_level": null,
+            "weekly_extra_value_available": false,
+            "editorial": {
+              "interruptibility": "low"
+            }
+          }
+        ],
+        "recent_activity_history": [
+          {
+            "activity_id": "ritual_site",
+            "tier": 5,
+            "completed": true,
+            "duration_seconds": 1080,
+            "deaths": 1
+          }
+        ],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_RITUAL_T5_TITLE",
+        "why_key": "MH_KO_RITUAL_T5_WHY",
+        "first_action_key": "MH_KO_RITUAL_T5_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_RITUAL_T5_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "live_recommended_item_level"
+        ]
+      }
+    },
+    {
+      "id": "03_ritual_t6_extra_value",
+      "request": {
+        "request_id": "f03",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "available_tiers": [
+              5,
+              6
+            ],
+            "live_recommended_item_level": null,
+            "weekly_extra_value_available": true,
+            "editorial": {
+              "interruptibility": "low"
+            }
+          }
+        ],
+        "recent_activity_history": [
+          {
+            "activity_id": "ritual_site",
+            "tier": 6,
+            "completed": true,
+            "duration_seconds": 1320,
+            "deaths": 2
+          }
+        ],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_RITUAL_T6_TITLE",
+        "why_key": "MH_KO_RITUAL_T6_WHY",
+        "first_action_key": "MH_KO_RITUAL_T6_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_RITUAL_T6_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "live_recommended_item_level"
+        ]
+      }
+    },
+    {
+      "id": "04_session_time_unknown",
+      "request": {
+        "request_id": "f04",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "delve",
+            "available": true,
+            "prerequisites_met": true,
+            "estimated_minutes": {
+              "min": 15,
+              "max": 30,
+              "source": "observed"
+            },
+            "setup_minutes": 2,
+            "editorial": {
+              "interruptibility": "low"
+            }
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": [
+          "player_goal"
+        ]
+      },
+      "expected_response": {
+        "status": "ask",
+        "title_key": "MH_KO_TIME_ASK_TITLE",
+        "why_key": "MH_KO_TIME_ASK_WHY",
+        "first_action_key": "MH_KO_TIME_ASK_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_TIME_ASK_NOT_NOW_1"
+        ],
+        "confidence": "low",
+        "knowledge_object_ids": [
+          "MH-KO-TIMEBOX-1207-003"
+        ],
+        "assumed_inputs": [
+          "player_goal"
+        ]
+      }
+    },
+    {
+      "id": "05_unknown_duration_low_interruptibility",
+      "request": {
+        "request_id": "f05",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "available_session_minutes": 30,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "estimated_minutes": {
+              "min": null,
+              "max": null,
+              "source": "unknown"
+            },
+            "editorial": {
+              "interruptibility": "low"
+            }
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_UNKNOWN_TITLE",
+        "why_key": "MH_KO_UNKNOWN_WHY",
+        "first_action_key": "MH_KO_UNKNOWN_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_UNKNOWN_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-TIMEBOX-1207-003",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "estimated_minutes.max"
+        ]
+      }
+    },
+    {
+      "id": "06_locked_one_prerequisite",
+      "request": {
+        "request_id": "f06",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": false,
+            "prerequisites_met": false,
+            "prerequisite_state_known": true,
+            "missing_prerequisites": [
+              {
+                "id": "unlock_ritual_sites",
+                "actionable": true
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "blocked",
+        "title_key": "MH_KO_PREREQ_TITLE",
+        "why_key": "MH_KO_PREREQ_WHY",
+        "first_action_key": "MH_KO_PREREQ_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_PREREQ_NOT_NOW_1"
+        ],
+        "confidence": "high",
+        "knowledge_object_ids": [
+          "MH-KO-PREREQUISITE-1207-005"
+        ],
+        "prerequisite_id": "unlock_ritual_sites"
+      }
+    },
+    {
+      "id": "07_locked_unknown_prerequisite",
+      "request": {
+        "request_id": "f07",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": false,
+            "prerequisites_met": null,
+            "prerequisite_state_known": false
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "ask",
+        "title_key": "MH_KO_UNKNOWN_TITLE",
+        "why_key": "MH_KO_UNKNOWN_WHY",
+        "first_action_key": "MH_KO_UNKNOWN_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_UNKNOWN_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-PREREQUISITE-1207-005",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "prerequisite_state"
+        ]
+      }
+    },
+    {
+      "id": "08_material_input_missing",
+      "request": {
+        "request_id": "f08",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "available_tiers": [
+              5,
+              6
+            ],
+            "live_recommended_item_level": null,
+            "weekly_extra_value_available": null
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "unknown",
+        "title_key": "MH_KO_UNKNOWN_TITLE",
+        "why_key": "MH_KO_UNKNOWN_WHY",
+        "first_action_key": "MH_KO_UNKNOWN_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_UNKNOWN_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "live_recommended_item_level",
+          "weekly_extra_value_available",
+          "recent_activity_history"
+        ]
+      }
+    },
+    {
+      "id": "09_stale_after_season_change",
+      "request": {
+        "request_id": "f09",
+        "interface": 120100,
+        "mythic_plus_season_id": 18,
+        "player_goal": "progress",
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "defer",
+        "title_key": "MH_KO_STALE_TITLE",
+        "why_key": "MH_KO_STALE_WHY",
+        "first_action_key": "MH_KO_STALE_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_STALE_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-SYSTEM-STALE-000"
+        ],
+        "stale_object_ids": [
+          "MH-KO-WEEKLY-POWER-1207-001",
+          "MH-KO-RITUAL-TIER-1207-002"
+        ],
+        "stale_reason": [
+          "interface >= 120100",
+          "mythic_plus_season_id > 17"
+        ]
+      }
+    },
+    {
+      "id": "10_route_does_not_fit_choose_shorter",
+      "request": {
+        "request_id": "f10",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "vault_only",
+        "available_session_minutes": 20,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "available_tiers": [
+              5,
+              6
+            ],
+            "live_recommended_item_level": null,
+            "weekly_extra_value_available": false,
+            "estimated_minutes": {
+              "min": 18,
+              "max": 25,
+              "source": "observed"
+            },
+            "setup_minutes": 3,
+            "editorial": {
+              "interruptibility": "low"
+            }
+          },
+          {
+            "activity_id": "delve",
+            "available": true,
+            "prerequisites_met": true,
+            "estimated_minutes": {
+              "min": 6,
+              "max": 8,
+              "source": "observed"
+            },
+            "setup_minutes": 1,
+            "editorial": {
+              "interruptibility": "low"
+            }
+          }
+        ],
+        "recent_activity_history": [
+          {
+            "activity_id": "ritual_site",
+            "tier": 5,
+            "completed": true,
+            "duration_seconds": 1140,
+            "deaths": 0
+          }
+        ],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_TIME_SHORT_TITLE",
+        "why_key": "MH_KO_TIME_SHORT_WHY",
+        "first_action_key": "MH_KO_TIME_SHORT_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_TIME_SHORT_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-TIMEBOX-1207-003"
+        ],
+        "missing_inputs": []
+      },
+      "trace_note": "Ritual selector chooses Tier 5 (goal vault_only + a completed tier-5 run). Timebox then gates that route: 3 setup + 25 max + 5 buffer = 33 > 20 available, so priority 2 fires in gate mode and replaces the route with shorter_step. The delve at 1 + 8 + 5 = 14 is the shorter relevant route the advice points at."
+    }
+  ]
+}

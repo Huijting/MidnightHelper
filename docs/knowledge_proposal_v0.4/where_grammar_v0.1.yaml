@@ -1,0 +1,83 @@
+grammar_id: mh.knowledge.where
+version: 0.1.0
+status: proposal
+purpose: >-
+  A where clause filters a collection inside a derived predicate. It must compile
+  deterministically, so the set of allowed forms is closed. Anything not listed here is a
+  build error, never a best-effort interpretation.
+
+shape:
+  type: map
+  key: field_predicate
+  value: literal
+
+field_predicate:
+  short_form: <path><suffix?>
+  suffixes:
+    '':          equality        # plain path, no suffix
+    _ne:         not equal
+    _gt:         greater than            # numeric only
+    _gte:        greater than or equal   # numeric only
+    _lt:         less than               # numeric only
+    _lte:        less than or equal      # numeric only
+    .count_gte:  collection size >=      # path must resolve to an array
+    .count_lte:  collection size <=      # path must resolve to an array
+  long_form:
+    shape: { field: string, op: enum, value: literal }
+    ops: [eq, ne, gt, gte, lt, lte, count_gte, count_lte]
+    when_required: >-
+      Use the long form when the real field name itself ends in one of the suffixes above,
+      or when the field name contains a dot that is part of the name rather than a path
+      separator. The long form is always legal; the short form is sugar.
+
+path:
+  separator: '.'
+  rules:
+  - A path is resolved against the current element for collection predicates (any, all,
+    count_*) and against the request root for scalar predicates (exists, equals).
+  - A path segment that does not exist yields unknown, not false.
+  - Array indexing is not supported. Use a collection predicate with a where clause.
+
+semantics:
+  three_valued: >-
+    Every comparison is three-valued. If either operand is null or unresolvable the
+    predicate is unknown. Unknown is not true and not false; a rule requiring true does
+    not fire on unknown.
+  conjunction: >-
+    Multiple keys in one where map are a conjunction. The conjunction is true only when
+    every predicate is true, false when at least one is false and none is unknown, and
+    unknown otherwise.
+  disjunction: >-
+    A where clause cannot express OR. Use two derived predicates combined with the `or`
+    operator. This is deliberate: an inline OR makes the compiled form ambiguous about
+    unknown-handling.
+  type_mismatch: >-
+    A numeric suffix applied to a non-numeric value is a BUILD error, not a runtime
+    unknown. Types come from inputs[].type and are checked at transpile time.
+
+examples:
+- description: at least one completed ritual run at tier 5 or higher
+  predicate:
+    operator: any
+    source: recent_activity_history
+    where:
+      activity_id: ritual_site
+      completed: true
+      tier_gte: 5
+- description: at least one stale object was recorded
+  predicate:
+    operator: count_gte
+    source: stale_object_ids
+    value: 1
+- description: a field whose real name ends in _gte
+  predicate:
+    operator: any
+    source: some_collection
+    where:
+    - field: threshold_gte
+      op: eq
+      value: 12
+- description: session minutes are known
+  predicate:
+    operator: exists
+    source: available_session_minutes

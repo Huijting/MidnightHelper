@@ -1,0 +1,657 @@
+schema_version: 0.4.0
+status: proposal
+catalog_version: 0.4.0
+object_count: 6
+note: >-
+  All six objects, complete, in schema v0.4 shape. The v0.2 bodies of WEEKLY-POWER,
+  CONFIDENCE and PREREQUISITE were not reused; they are re-authored here. Every object
+  still carries status: review, so nothing is player-visible.
+
+objects:
+
+# ---------------------------------------------------------------------------- 000 system
+- id: MH-KO-SYSTEM-STALE-000
+  version: 0.2.0
+  status: review
+  kind: system_policy
+  game_scope:
+    interface_min: 120000
+    interface_max: null
+  source_status: EDITORIAL_REVIEWED
+  staleness:
+    stale_when: []
+    on_stale: warn_only
+  inputs:
+  - name: stale_object_ids
+    type: array<string>
+    required: true
+    materiality: material
+    origin: engine
+  derived: {}
+  rules:
+  - priority: 1
+    mode: both
+    when:
+      stale_object_ids.count_gte: 1
+    result:
+      output_ref: stale_knowledge
+      reports_missing: []
+  outputs:
+    stale_knowledge:
+      status: defer
+      title_key: MH_KO_STALE_TITLE
+      why_key: MH_KO_STALE_WHY
+      first_action_key: MH_KO_STALE_FIRST_ACTION
+      not_now_keys: [MH_KO_STALE_NOT_NOW_1]
+      confidence: unknown
+  copy_keys:
+  - MH_KO_STALE_TITLE
+  - MH_KO_STALE_WHY
+  - MH_KO_STALE_FIRST_ACTION
+  - MH_KO_STALE_NOT_NOW_1
+
+# ------------------------------------------------------------------------ 001 weekly power
+- id: MH-KO-WEEKLY-POWER-1207-001
+  version: 0.4.0
+  status: review
+  kind: recommendation_policy
+  game_scope:
+    interface_min: 120000
+    # interface_max is null on purpose. The season boundary is owned by staleness so the
+    # object degrades visibly instead of vanishing. See PROPOSAL_NOTES §1.
+    interface_max: null
+    season_ids: [17]
+  source_status: IN_GAME_VERIFIED
+  staleness:
+    stale_when:
+    - signal: interface
+      operator: '>='
+      value: 120100
+    - signal: mythic_plus_season_id
+      operator: '>'
+      value: 17
+    fallback_date: '2026-08-18'
+    on_stale: degrade_to_unknown
+  inputs:
+  - name: weekly_reward.great_vault_reward_ready
+    type: boolean|null
+    required: true
+    materiality: material
+    origin: request
+    mapping_key: vault_ready
+  - name: player_goal
+    type: enum
+    enum: [progress, vault_only, learn, relax]
+    required: false
+    default: progress
+    materiality: contextual
+    origin: request
+    mapping_key: player_goal
+  - name: ritual.available
+    type: boolean|null
+    required: false
+    materiality: contextual
+    origin: request
+    mapping_key: ritual_available
+  - name: activity_states
+    type: array
+    required: false
+    materiality: contextual
+    origin: request
+    mapping_key: activity_states
+  - name: available_session_minutes
+    type: int|null
+    required: false
+    materiality: contextual
+    origin: request
+    mapping_key: session_minutes
+  derived:
+    ritual_candidate_available:
+      operator: equals
+      source: ritual.available
+      value: true
+    session_minutes_known:
+      operator: exists
+      source: available_session_minutes
+    has_selectable_world_activity:
+      operator: any
+      source: activity_states
+      where:
+        available: true
+        prerequisites_met: true
+    has_high_interruptibility_activity:
+      operator: any
+      source: activity_states
+      where:
+        available: true
+        prerequisites_met: true
+        editorial.interruptibility: high
+    # A world activity may only be offered when it can be RESPONSIBLY continued: either we
+    # know the time budget, or the activity can be put down at any moment.
+    world_vault_activity_selectable:
+      operator: or
+      of:
+      - operator: and
+        of:
+        - session_minutes_known
+        - has_selectable_world_activity
+      - has_high_interruptibility_activity
+  rules:
+  - priority: 1
+    mode: both
+    when:
+      weekly_reward.great_vault_reward_ready: true
+    result:
+      output_ref: vault_ready
+      reports_missing: []
+  - priority: 2
+    mode: both
+    when:
+      ritual_candidate_available: true
+    result:
+      pass_through: true   # the ritual selector decides the tier
+  - priority: 3
+    mode: standalone
+    when:
+      world_vault_activity_selectable: true
+    result:
+      # Deliberately a hand-off, not an answer. GetNextWeeklyAction() owns the primary
+      # headline AND the existing live world fallback; Knowledge must not duplicate that
+      # selection. The rule is kept rather than deleted so the intent is on the record:
+      # this object SAW a selectable world activity and chose not to speak.
+      pass_through: true
+  outputs:
+    vault_ready:
+      status: recommend
+      title_key: MH_KO_VAULT_READY_TITLE
+      why_key: MH_KO_VAULT_READY_WHY
+      first_action_key: MH_KO_VAULT_READY_FIRST_ACTION
+      not_now_keys: [MH_KO_VAULT_READY_NOT_NOW_1]
+      confidence: high
+  copy_keys:
+  - MH_KO_VAULT_READY_TITLE
+  - MH_KO_VAULT_READY_WHY
+  - MH_KO_VAULT_READY_FIRST_ACTION
+  - MH_KO_VAULT_READY_NOT_NOW_1
+
+# ------------------------------------------------------------------------- 002 ritual tier
+- id: MH-KO-RITUAL-TIER-1207-002
+  version: 0.4.0
+  status: review
+  kind: activity_selector
+  game_scope:
+    interface_min: 120000
+    interface_max: null   # see PROPOSAL_NOTES §1 — forced by fixture 09
+    season_ids: [17]
+  source_status: OFFICIAL_CONFIRMED
+  staleness:
+    stale_when:
+    - signal: interface
+      operator: '>='
+      value: 120100
+    - signal: mythic_plus_season_id
+      operator: '>'
+      value: 17
+    fallback_date: '2026-08-18'
+    on_stale: degrade_to_unknown
+  inputs:
+  - name: ritual.available
+    type: boolean|null
+    required: true
+    materiality: material
+    origin: request
+    mapping_key: ritual_available
+  - name: ritual.available_tiers
+    type: array<int>
+    required: true
+    materiality: material
+    origin: request
+    mapping_key: ritual_tiers
+  - name: ritual.live_recommended_item_level
+    type: int|null
+    required: false
+    materiality: contextual
+    origin: request
+    mapping_key: ritual_recommended_ilvl
+    missing_input_label: live_recommended_item_level
+  - name: ritual.weekly_extra_value_available
+    type: boolean|null
+    required: false
+    materiality: contextual
+    origin: request
+    mapping_key: ritual_extra_value
+    missing_input_label: weekly_extra_value_available
+  - name: recent_activity_history
+    type: array
+    required: false
+    materiality: contextual
+    origin: request
+    mapping_key: recent_history
+  - name: player_goal
+    type: enum
+    enum: [progress, vault_only]
+    required: true
+    materiality: material
+    origin: request
+    mapping_key: player_goal
+  derived:
+    recent_success_tier_5:
+      operator: any
+      source: recent_activity_history
+      where:
+        activity_id: ritual_site
+        completed: true
+        tier_gte: 5
+    recent_success_tier_6:
+      operator: any
+      source: recent_activity_history
+      where:
+        activity_id: ritual_site
+        completed: true
+        tier_gte: 6
+  rules:
+  - priority: 1
+    mode: both
+    when:
+      player_goal: vault_only
+      recent_success_tier_5: true
+    result:
+      output_ref: ritual_t5
+      reports_missing: [ritual.live_recommended_item_level]
+      missing_input_effect:
+        ritual.live_recommended_item_level: secondary
+  - priority: 2
+    mode: both
+    when:
+      ritual.weekly_extra_value_available: true
+      recent_success_tier_6: true
+    result:
+      output_ref: ritual_t6
+      reports_missing: [ritual.live_recommended_item_level]
+      missing_input_effect:
+        ritual.live_recommended_item_level: secondary
+  - priority: 3
+    mode: both
+    fallback: true    # applicable, but no tier can be chosen responsibly
+    result:
+      external_output_ref:
+        object_id: MH-KO-CONFIDENCE-1207-004
+        output_ref: unknown_final
+      reports_missing:
+      - ritual.live_recommended_item_level
+      - ritual.weekly_extra_value_available
+      - recent_activity_history
+  outputs:
+    ritual_t5:
+      status: conditional
+      title_key: MH_KO_RITUAL_T5_TITLE
+      why_key: MH_KO_RITUAL_T5_WHY
+      first_action_key: MH_KO_RITUAL_T5_FIRST_ACTION
+      not_now_keys: [MH_KO_RITUAL_T5_NOT_NOW_1]
+      confidence: medium
+    ritual_t6:
+      status: conditional
+      title_key: MH_KO_RITUAL_T6_TITLE
+      why_key: MH_KO_RITUAL_T6_WHY
+      first_action_key: MH_KO_RITUAL_T6_FIRST_ACTION
+      not_now_keys: [MH_KO_RITUAL_T6_NOT_NOW_1]
+      confidence: medium
+  copy_keys:
+  - MH_KO_RITUAL_T5_TITLE
+  - MH_KO_RITUAL_T5_WHY
+  - MH_KO_RITUAL_T5_FIRST_ACTION
+  - MH_KO_RITUAL_T5_NOT_NOW_1
+  - MH_KO_RITUAL_T6_TITLE
+  - MH_KO_RITUAL_T6_WHY
+  - MH_KO_RITUAL_T6_FIRST_ACTION
+  - MH_KO_RITUAL_T6_NOT_NOW_1
+
+# ---------------------------------------------------------------------------- 003 timebox
+- id: MH-KO-TIMEBOX-1207-003
+  version: 0.4.0
+  status: review
+  kind: runtime_gate
+  game_scope:
+    interface_min: 120000
+    interface_max: null
+    # no season_ids — version-independent policy (C3)
+  source_status: EDITORIAL_REVIEWED
+  staleness:
+    stale_when:
+    - signal: manual_disable_flag
+      operator: '=='
+      value: true
+    fallback_date: null
+    on_stale: disable
+  inputs:
+  - name: available_session_minutes
+    type: int|null
+    required: false
+    materiality: contextual
+    origin: request
+    mapping_key: session_minutes
+  - name: activity.estimated_minutes.max
+    type: int|null
+    required: false
+    materiality: contextual
+    origin: request
+    mapping_key: activity_estimate_max
+    missing_input_label: estimated_minutes.max
+  - name: activity.setup_minutes
+    type: int|null
+    required: false
+    default: 0
+    materiality: contextual
+    origin: request
+    mapping_key: activity_setup_minutes
+  - name: activity.interruptibility
+    type: enum
+    enum: [high, medium, low, unknown]
+    required: false
+    materiality: contextual
+    origin: request
+    mapping_key: activity_interruptibility
+  - name: manual_disable_flag
+    type: boolean
+    required: false
+    materiality: secondary
+    origin: engine
+  buffer_model:
+    components:
+    - activity.setup_minutes
+    - activity.estimated_minutes.max
+    - recovery_buffer_minutes
+    recovery_buffer_minutes: 5
+    rule: recommended_total_minutes <= available_session_minutes
+    note: >-
+      A product rule, not a claim about how long anything actually takes. The buffer exists
+      so a recommendation does not push the player into finishing under time pressure.
+  derived:
+    session_minutes_known:
+      operator: exists
+      source: available_session_minutes
+    estimated_minutes_max_known:
+      operator: exists
+      source: activity.estimated_minutes.max
+    recommended_total_minutes:
+      operator: sum
+      of:
+      - activity.setup_minutes
+      - activity.estimated_minutes.max
+      - 5
+    estimated_total_exceeds_available_time:
+      operator: and
+      of:
+      - session_minutes_known
+      - estimated_minutes_max_known
+      - operator: gt
+        of: [recommended_total_minutes, available_session_minutes]
+    activity_fits_with_buffer:
+      operator: and
+      of:
+      - session_minutes_known
+      - estimated_minutes_max_known
+      - operator: lte
+        of: [recommended_total_minutes, available_session_minutes]
+  rules:
+  - priority: 1
+    mode: standalone     # never overrides a chosen route
+    when:
+      session_minutes_known: false
+    result:
+      output_ref: ask_time
+      # Empty on purpose: the card itself asks for the session length, so reporting it as a
+      # missing input would say the same thing twice. Contrast priority 3.
+      reports_missing: []
+  - priority: 2
+    mode: both           # a proven overrun rejects a route too
+    when:
+      estimated_total_exceeds_available_time: true
+    result:
+      output_ref: shorter_step
+      reports_missing: []
+  - priority: 3
+    mode: standalone     # unknown duration + hard to interrupt, and no route to protect
+    when:
+      estimated_minutes_max_known: false
+      activity.interruptibility: low
+    result:
+      external_output_ref:
+        object_id: MH-KO-CONFIDENCE-1207-004
+        output_ref: unknown_conditional
+      reports_missing: [activity.estimated_minutes.max]
+  - priority: 4
+    mode: gate
+    when:
+      activity_fits_with_buffer: true
+    result:
+      pass_through: true
+  outputs:
+    ask_time:
+      status: ask
+      title_key: MH_KO_TIME_ASK_TITLE
+      why_key: MH_KO_TIME_ASK_WHY
+      first_action_key: MH_KO_TIME_ASK_FIRST_ACTION
+      not_now_keys: [MH_KO_TIME_ASK_NOT_NOW_1]
+      confidence: low
+    shorter_step:
+      status: conditional
+      title_key: MH_KO_TIME_SHORT_TITLE
+      why_key: MH_KO_TIME_SHORT_WHY
+      first_action_key: MH_KO_TIME_SHORT_FIRST_ACTION
+      not_now_keys: [MH_KO_TIME_SHORT_NOT_NOW_1]
+      confidence: medium
+  copy_keys:
+  - MH_KO_TIME_ASK_TITLE
+  - MH_KO_TIME_ASK_WHY
+  - MH_KO_TIME_ASK_FIRST_ACTION
+  - MH_KO_TIME_ASK_NOT_NOW_1
+  - MH_KO_TIME_SHORT_TITLE
+  - MH_KO_TIME_SHORT_WHY
+  - MH_KO_TIME_SHORT_FIRST_ACTION
+  - MH_KO_TIME_SHORT_NOT_NOW_1
+
+# ------------------------------------------------------------------------- 004 confidence
+- id: MH-KO-CONFIDENCE-1207-004
+  version: 0.4.0
+  status: review
+  kind: confidence_policy
+  game_scope:
+    interface_min: 120000
+    interface_max: null
+    # no season_ids (C3)
+  source_status: EDITORIAL_REVIEWED
+  staleness:
+    stale_when:
+    - signal: manual_disable_flag
+      operator: '=='
+      value: true
+    fallback_date: null
+    on_stale: disable
+  inputs:
+  - name: known_inputs
+    type: array<string>
+    required: true
+    materiality: material
+    origin: engine
+  - name: missing_inputs
+    type: array<string>
+    required: true
+    materiality: material
+    origin: engine
+  - name: stale_inputs
+    type: array<string>
+    required: true
+    materiality: material
+    origin: engine
+  - name: assumed_inputs
+    type: array<string>
+    required: true
+    materiality: material
+    origin: engine
+  - name: manual_disable_flag
+    type: boolean
+    required: false
+    materiality: secondary
+    origin: engine
+  derived:
+    material_input_missing:
+      operator: evaluator_result
+    secondary_input_missing:
+      operator: evaluator_result
+    all_required_known:
+      operator: evaluator_result
+    # An assumption only limits confidence when the assumed field appears in the WHEN of
+    # the rule that actually fired, or in a derived predicate that rule uses. That is why
+    # fixture 01 stays high even though player_goal is assumed in live v1.
+    material_assumption_used:
+      operator: evaluator_result
+  rules:
+  - priority: 1
+    mode: both
+    when:
+      material_input_missing: true
+    result:
+      confidence: unknown
+  - priority: 2
+    mode: both
+    when:
+      material_assumption_used: true
+    result:
+      confidence: medium
+  - priority: 3
+    mode: both
+    when:
+      secondary_input_missing: true
+    result:
+      confidence: medium
+  - priority: 4
+    mode: both
+    when:
+      all_required_known: true
+    result:
+      confidence: high
+  outputs:
+    # Three variants because the same "we cannot determine this" body has to be able to
+    # arrive as a conditional, as a question, or as a final unknown. Forced by fixtures
+    # 05, 07 and 08 respectively.
+    unknown_conditional:
+      status: conditional
+      title_key: MH_KO_UNKNOWN_TITLE
+      why_key: MH_KO_UNKNOWN_WHY
+      first_action_key: MH_KO_UNKNOWN_FIRST_ACTION
+      not_now_keys: [MH_KO_UNKNOWN_NOT_NOW_1]
+      confidence: unknown
+    unknown_ask:
+      status: ask
+      title_key: MH_KO_UNKNOWN_TITLE
+      why_key: MH_KO_UNKNOWN_WHY
+      first_action_key: MH_KO_UNKNOWN_FIRST_ACTION
+      not_now_keys: [MH_KO_UNKNOWN_NOT_NOW_1]
+      confidence: unknown
+    unknown_final:
+      status: unknown
+      title_key: MH_KO_UNKNOWN_TITLE
+      why_key: MH_KO_UNKNOWN_WHY
+      first_action_key: MH_KO_UNKNOWN_FIRST_ACTION
+      not_now_keys: [MH_KO_UNKNOWN_NOT_NOW_1]
+      confidence: unknown
+  copy_keys:
+  - MH_KO_UNKNOWN_TITLE
+  - MH_KO_UNKNOWN_WHY
+  - MH_KO_UNKNOWN_FIRST_ACTION
+  - MH_KO_UNKNOWN_NOT_NOW_1
+  - MH_CONFIDENCE_HIGH
+  - MH_CONFIDENCE_MEDIUM
+  - MH_CONFIDENCE_LOW
+  - MH_CONFIDENCE_UNKNOWN
+
+# ----------------------------------------------------------------------- 005 prerequisite
+- id: MH-KO-PREREQUISITE-1207-005
+  version: 0.4.0
+  status: review
+  kind: prerequisite_policy
+  game_scope:
+    interface_min: 120000
+    interface_max: null
+    # no season_ids (C3)
+  source_status: IN_GAME_VERIFIED
+  staleness:
+    stale_when:
+    - signal: manual_disable_flag
+      operator: '=='
+      value: true
+    fallback_date: null
+    on_stale: disable
+  inputs:
+  - name: activity.available
+    type: boolean|null
+    required: true
+    materiality: material
+    origin: request
+    mapping_key: activity_available
+  - name: activity.prerequisite_state_known
+    type: boolean
+    required: true
+    materiality: material
+    origin: request
+    mapping_key: activity_prerequisite_state_known
+    missing_input_label: prerequisite_state
+  - name: activity.missing_prerequisites
+    type: array
+    required: false
+    materiality: contextual
+    origin: request
+    mapping_key: activity_missing_prerequisites
+  - name: manual_disable_flag
+    type: boolean
+    required: false
+    materiality: secondary
+    origin: engine
+  derived:
+    first_actionable_prerequisite_exists:
+      operator: any
+      source: activity.missing_prerequisites
+      where:
+        actionable: true
+  rules:
+  - priority: 1
+    mode: both
+    when:
+      activity.available: true
+    result:
+      pass_through: true
+  - priority: 2
+    mode: both
+    when:
+      activity.prerequisite_state_known: false
+    result:
+      external_output_ref:
+        object_id: MH-KO-CONFIDENCE-1207-004
+        output_ref: unknown_ask
+      reports_missing: [activity.prerequisite_state_known]
+  - priority: 3
+    mode: both
+    when:
+      first_actionable_prerequisite_exists: true
+    result:
+      output_ref: prerequisite
+      reports_missing: []
+  outputs:
+    prerequisite:
+      status: blocked
+      title_key: MH_KO_PREREQ_TITLE
+      why_key: MH_KO_PREREQ_WHY
+      first_action_key: MH_KO_PREREQ_FIRST_ACTION
+      not_now_keys: [MH_KO_PREREQ_NOT_NOW_1]
+      confidence: high
+  response_extras:
+    prerequisite_id: >-
+      The id of the FIRST prerequisite with actionable == true, in the order the request
+      supplied them. Never the whole chain — that is the never-lie rule "nooit een
+      volledige unlockketen als één taak presenteren".
+  copy_keys:
+  - MH_KO_PREREQ_TITLE
+  - MH_KO_PREREQ_WHY
+  - MH_KO_PREREQ_FIRST_ACTION
+  - MH_KO_PREREQ_NOT_NOW_1

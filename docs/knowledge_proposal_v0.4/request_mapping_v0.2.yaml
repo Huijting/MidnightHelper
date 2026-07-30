@@ -1,0 +1,171 @@
+version: 0.2.0
+status: proposal
+supersedes: 0.1.0
+rule: >-
+  Every KO input with origin == request must carry a mapping_key that exists below.
+  Every KO input with origin == engine must NOT carry one. The transpiler fails the build
+  on either violation, so an input can never be silently read from the wrong place.
+
+selector_note: >-
+  A request_selector picks one element out of a collection. If no element matches, the
+  resolved value is unknown (null) — not false, not absent. See ko_schema null_semantics.
+
+mappings:
+
+# --- weekly reward ---------------------------------------------------------------
+- mapping_key: vault_ready
+  ko_path: weekly_reward.great_vault_reward_ready
+  request_path: weekly_reward_state.great_vault_reward_ready
+  type: boolean|null
+
+# --- player context --------------------------------------------------------------
+- mapping_key: player_goal
+  ko_path: player_goal
+  request_path: player_goal
+  type: enum
+- mapping_key: session_minutes
+  ko_path: available_session_minutes
+  request_path: available_session_minutes
+  type: int|null
+- mapping_key: player_item_level
+  ko_path: player.item_level
+  request_path: player_state.item_level
+  type: int|null
+- mapping_key: player_role
+  ko_path: player.role
+  request_path: player_state.role
+  type: string|null
+- mapping_key: player_specialization
+  ko_path: player.specialization
+  request_path: player_state.specialization
+  type: string|null
+
+# --- client / season -------------------------------------------------------------
+- mapping_key: client_interface
+  ko_path: client.interface
+  request_path: interface
+  type: integer
+- mapping_key: client_season_id
+  ko_path: client.mythic_plus_season_id
+  request_path: mythic_plus_season_id
+  type: integer|null
+- mapping_key: client_today
+  ko_path: client.today
+  request_path: today
+  type: date|null
+  note: >-
+    Optional. Present only when the caller chooses to supply it. Without it, staleness
+    fallback_date is unknown and expires nothing — the evaluator never reads a clock.
+
+# --- history ---------------------------------------------------------------------
+- mapping_key: recent_history
+  ko_path: recent_activity_history
+  request_path: recent_activity_history
+  type: array
+  note: >-
+    Window is exactly what the addon supplies: at most 20 completed runs
+    (MAX_RECENT in Modules/DelveHistory.lua and Modules/RitualLog.lua). No time window.
+
+# --- whole activity collection ---------------------------------------------------
+- mapping_key: activity_states
+  ko_path: activity_states
+  request_path: activity_states
+  type: array
+
+# --- ritual-specific activity fields --------------------------------------------
+- mapping_key: ritual_available
+  ko_path: ritual.available
+  request_selector:
+    collection: activity_states
+    where: { activity_id: ritual_site }
+    field: available
+  type: boolean|null
+- mapping_key: ritual_tiers
+  ko_path: ritual.available_tiers
+  request_selector:
+    collection: activity_states
+    where: { activity_id: ritual_site }
+    field: available_tiers
+  type: array<int>
+- mapping_key: ritual_recommended_ilvl
+  ko_path: ritual.live_recommended_item_level
+  request_selector:
+    collection: activity_states
+    where: { activity_id: ritual_site }
+    field: live_recommended_item_level
+  type: int|null
+  note: No known WoW API supplies this today. Always null until measured in-game.
+- mapping_key: ritual_extra_value
+  ko_path: ritual.weekly_extra_value_available
+  request_selector:
+    collection: activity_states
+    where: { activity_id: ritual_site }
+    field: weekly_extra_value_available
+  type: boolean|null
+- mapping_key: ritual_interruptibility
+  ko_path: ritual.interruptibility
+  request_selector:
+    collection: activity_states
+    where: { activity_id: ritual_site }
+    field: editorial.interruptibility
+  type: enum
+
+# --- generic "the activity under consideration" ----------------------------------
+# These resolve against the activity the pipeline is currently evaluating (the chosen
+# route in gate mode, or the single candidate in standalone mode). They are not tied to
+# one activity_id, which is why they use `subject` instead of a selector.
+- mapping_key: activity_available
+  ko_path: activity.available
+  request_subject: activity_states
+  field: available
+  type: boolean|null
+- mapping_key: activity_prerequisites_met
+  ko_path: activity.prerequisites_met
+  request_subject: activity_states
+  field: prerequisites_met
+  type: boolean|null
+- mapping_key: activity_prerequisite_state_known
+  ko_path: activity.prerequisite_state_known
+  request_subject: activity_states
+  field: prerequisite_state_known
+  type: boolean
+- mapping_key: activity_missing_prerequisites
+  ko_path: activity.missing_prerequisites
+  request_subject: activity_states
+  field: missing_prerequisites
+  type: array
+- mapping_key: activity_estimate_max
+  ko_path: activity.estimated_minutes.max
+  request_subject: activity_states
+  field: estimated_minutes.max
+  type: int|null
+- mapping_key: activity_estimate_min
+  ko_path: activity.estimated_minutes.min
+  request_subject: activity_states
+  field: estimated_minutes.min
+  type: int|null
+- mapping_key: activity_estimate_source
+  ko_path: activity.estimated_minutes.source
+  request_subject: activity_states
+  field: estimated_minutes.source
+  type: enum
+  values: [observed, maintained, unknown]
+- mapping_key: activity_setup_minutes
+  ko_path: activity.setup_minutes
+  request_subject: activity_states
+  field: setup_minutes
+  type: int|null
+  default: 0
+- mapping_key: activity_interruptibility
+  ko_path: activity.interruptibility
+  request_subject: activity_states
+  field: editorial.interruptibility
+  type: enum
+
+engine_owned_never_mapped:
+- stale_object_ids
+- manual_disable_flag
+- known_inputs
+- missing_inputs
+- stale_inputs
+- assumed_inputs

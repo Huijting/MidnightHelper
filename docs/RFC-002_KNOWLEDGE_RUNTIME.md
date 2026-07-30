@@ -539,6 +539,28 @@ dus beide worden genoemd. Fixture 05 was al conform deze regel.
 opnemen van die ene regel in `ko_schema`, zodat de transpiler er tegen kan valideren in
 plaats van dat de evaluator het als conventie draagt.
 
+**Toepasselijkheid en attributie — VERDUIDELIJKING, bevestigd 2026-07-30.** Twee regels
+die volgen uit §5.2 en O3 en die de tien fixtures nodig hebben. Geen nieuw
+architectuurbesluit; alleen preciezer opschrijven wat er al gold.
+
+*Toepasselijkheid.* Een object waarvan een `required` input met `materiality: material`
+ontbreekt is **niet toepasselijk** en wordt in zijn geheel overgeslagen — geen enkele rule
+vuurt, ook zijn `fallback` niet, en het object verschijnt niet in
+`knowledge_object_ids`. Het overslaan is nooit stil richting de speler: het ontbrekende
+veld wordt gemeld via het normale `missing_inputs`-pad van het object dat wél antwoordt.
+Dit is precies het verschil tussen fixture 05 (de ritual-selector mist `available_tiers`
+en zwijgt volledig, waarna de timebox antwoordt) en fixture 08 (de selector heeft alles
+wat hij nodig heeft, is dus toepasselijk, en meldt via zijn fallback dat geen route
+betrouwbaar te kiezen is).
+
+*Attributie.* `knowledge_object_ids` noemt elk object dat een rule liet vuren **die de
+response daadwerkelijk verandert** — een output, een externe ref, of een confidence die
+lager uitkomt dan de gekozen output declareert — in pipeline-orde. Een rule die alleen
+bevestigt wat de output al zei draagt niets bij en wordt niet genoemd. Voor
+`MH-KO-CONFIDENCE-1207-004` betekent dat concreet: genoemd zodra de response
+`missing_inputs` rapporteert, of zodra de resolved confidence afwijkt van wat de output
+declareert. Dit is de enige lezing waaronder alle tien de fixtures tegelijk kloppen.
+
 ### 11b. Nog open — blokkeren de transpiler, niet deze RFC
 
 Elk punt heeft een voorgestelde resolutie. Een "ja" per punt is genoeg.
