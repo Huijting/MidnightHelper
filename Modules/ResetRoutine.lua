@@ -1019,6 +1019,25 @@ function StartDwellTicker()
 	end)
 end
 
+--- Re-place the pin for the stop we are already on, without saying anything.
+---
+--- Silent on purpose. Nothing changed for the player -- same stop, same route -- so
+--- announcing "Next stop" again would be noise, and Rob already had that line three
+--- times in one run. This only repairs a pin that quietly went missing.
+local function ReassertRoute()
+	if not routeActive then
+		return
+	end
+	if ns._mhRouteOwner and ns._mhRouteOwner ~= "reset" then
+		return -- someone else is guiding now; leave their arrow alone
+	end
+	local pins = ComputeOpenPins()
+	if #pins == 0 then
+		return -- nothing open: AdvanceResetRoute handles finishing, not this
+	end
+	IssueRoute(pins)
+end
+
 local function EnsureAdvanceFrame()
 	if advanceFrame then
 		return
@@ -1029,7 +1048,34 @@ local function EnsureAdvanceFrame()
 	advanceFrame:RegisterEvent("QUEST_REMOVED")
 	advanceFrame:RegisterEvent("QUEST_TURNED_IN")
 	advanceFrame:RegisterEvent("QUEST_LOG_UPDATE")
+	-- Zone changes, because a waypoint can go missing without anything here failing
+	-- visibly. Rob walked the route on an alt, stepped through the Voidstorm portal
+	-- into Naigtal, and the arrow never came back -- not on returning to Silvermoon,
+	-- not on re-running the route. Only /reload fixed it (30 jul).
+	--
+	-- IssueRoute records routeSig whether or not the waypoint actually landed, and
+	-- TomTom will not place a Silvermoon pin while you are standing in an instanced
+	-- Void world. So the pin was dropped, the signature was updated anyway, and back
+	-- in Silvermoon the open set was unchanged -- meaning `signature ~= routeSig` was
+	-- false and IssueRoute was never called again. The route believed it was already
+	-- pointing somewhere it had failed to point.
+	--
+	-- Rather than teach IssueRoute which map hosts which waypoint, re-assert on the
+	-- event that caused it. Cheap, and it covers every other way a pin can vanish:
+	-- a loading screen, the player clearing TomTom, another addon.
+	advanceFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	advanceFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	advanceFrame:SetScript("OnEvent", function(_, event)
+		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
+			-- Forget the signature so the next advance re-issues instead of deciding
+			-- it is already showing the right stop. Delayed: right after a portal the
+			-- map APIs are still mid-loading-screen, which is the state that lost the
+			-- pin in the first place.
+			if routeActive and C_Timer and C_Timer.After then
+				C_Timer.After(2, ReassertRoute)
+			end
+			return
+		end
 		-- Accepting a quest while parked on the current stop = you did what you came for;
 		-- mark it visited so the route moves on (covers givers/hub we can't auto-track).
 		if event == "QUEST_ACCEPTED" and routeActive then
