@@ -1,6 +1,6 @@
 # Midnight Helper — waar we staan
 
-**Bijgewerkt 2026-07-27.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
+**Bijgewerkt 2026-07-30.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
 "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
 Op 27 juli stuurde de verouderde versie van dit bestand een sessie de verkeerde kant op
@@ -17,6 +17,36 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 | Volgend doel | **v2.12.0** -- de compatibiliteitsrelease voor patch 12.1 |
 | Daarna | **v3.0.0** -- de Season 2-release |
 | Branch | alleen `main` |
+
+## Laatste sessie (30 juli) -- Knowledge Runtime, RFC-002
+
+**RFC-002 is geschreven maar NOG NIET GOEDGEKEURD.** Het document staat in
+`docs/RFC-002_KNOWLEDGE_RUNTIME.md`. Het legt de grens vast tussen de upstream Knowledge
+Objects (ChatGPT-eigendom) en de addon: YAML upstream -> build-time transpiler ->
+gegenereerde Lua, een **pure** evaluator zonder WoW-API-calls, een request-builder als
+enige clientlaag, en een debug-sink (`/mh know`) zonder frames. Er is **geen code**
+geschreven: geen Lua, geen `.toc`, geen transpiler, geen fixture-runner.
+
+Vijf deelbesluiten zijn op 30 juli bevestigd: de pipeline-orde (eerst een geldige route,
+dan Timebox als gate), drie-waardige logica (`null` = onbekend, vuurt nooit automatisch),
+de verplichte `copy_keys`-lintcheck (enUS **en** nlNL), O1 als blokkade, en de
+fixture-08-attributiecorrectie.
+
+**EERSTVOLGENDE BLOKKADE = O1.** De geleverde catalogus (`normalized_ko_catalog_v0.3`)
+bevat drie van de zes objecten. `MH-KO-WEEKLY-POWER-1207-001`,
+`MH-KO-CONFIDENCE-1207-004` en `MH-KO-PREREQUISITE-1207-005` ontbreken, terwijl twee
+aanwezige objecten er via `external_output_ref` naar verwijzen -- de eigen approval-gate
+"all output refs resolve" faalt dus. **Bouw geen transpiler tegen die catalogus**, en
+gebruik de v0.2-versies niet als tijdelijke vervanging (schema-v0.2-vorm: geen `derived`,
+geen `materiality`, `output:` i.p.v. `outputs:`). Wachten op zes v0.3-objecten van
+ChatGPT. Daarna nog open: O4-O6 en O8 (zie RFC §11b).
+
+Twee dingen die de repo-analyse hard maakte en die je niet opnieuw hoeft uit te zoeken:
+een runtime YAML-loader **kan niet** (WoW-Lua heeft geen file-I/O), en de **live
+aanbevolen itemlevel is nergens uit de client leesbaar** -- `DELVE_LOOT_TABLE`
+(`Modules/Delves.lua:233`) is hardcoded en expliciet "UI hint only". Dat veld blijft
+`null` tot een ApiProbe-achtige meting het tegendeel bewijst.
+`ns.GetNextWeeklyAction()` blijft eigenaar van de This Week-headline.
 
 ## Laatste sessie (28 juli) -- wat er nu open ligt
 
