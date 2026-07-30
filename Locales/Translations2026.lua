@@ -13,13 +13,31 @@
 
 local _, ns = ...
 
+-- A copied English string is not a translation.
+--
+-- deDE/frFR/esES/ptBR build their pack by walking enUS and copying EVERY key,
+-- using the English text wherever they have no override. That runs at .toc line
+-- 28; this file runs at line 45. So by the time we get here nothing is nil any
+-- more, and a plain `if t[k] == nil` fill could only ever reach keys that enUS did
+-- not have yet at line 28 -- i.e. ones added by a later Locales/ file.
+--
+-- Measured 30 jul with tools/i18n_fill_shadow.py: 346 of 438 fills per language in
+-- this file, and 61 of 81 in TranslationsS2, were silently doing nothing. Around
+-- 400 finished translations per language have been in the repo, counted as done by
+-- every audit, and never once shown to a player.
+--
+-- So the test is no longer "is it missing" but "is it still English". A real
+-- translation is never touched: only a value identical to enUS is replaced, which
+-- by construction is a copy rather than someone's work.
 local function fill(code, patch)
 	local t = ns._mhLocales and ns._mhLocales[code]
 	if type(t) ~= "table" or type(patch) ~= "table" then
 		return
 	end
+	local en = ns._mhLocales and ns._mhLocales.enUS
 	for k, v in pairs(patch) do
-		if t[k] == nil then
+		local cur = t[k]
+		if cur == nil or (type(en) == "table" and cur == en[k]) then
 			t[k] = v
 		end
 	end
@@ -2430,3 +2448,11 @@ fill("itIT", {
 	TRANSLATE_PARTIAL_TITLE = "Completare Midnight Helper nella tua lingua?",
 	TRANSLATE_PARTIAL_BODY = "Parti di Midnight Helper sono ancora in inglese invece che in %s. Vuoi aiutare a completarlo? Ogni contributo è utile.",
 })
+
+-- "Show invite link" said nothing about WHERE, sitting in a column of buttons
+-- (Rob, 30 jul). Naming Discord is the whole point of the button.
+fill("deDE", { DISCORD_NUDGE_BTN = "Discord-Einladungslink anzeigen" })
+fill("frFR", { DISCORD_NUDGE_BTN = "Afficher le lien d'invitation Discord" })
+fill("esES", { DISCORD_NUDGE_BTN = "Mostrar enlace de invitación de Discord" })
+fill("ptBR", { DISCORD_NUDGE_BTN = "Mostrar link de convite do Discord" })
+fill("itIT", { DISCORD_NUDGE_BTN = "Mostra il link d'invito Discord" })

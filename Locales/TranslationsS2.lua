@@ -9,11 +9,18 @@
 local _, ns = ...
 ns._mhLocales = ns._mhLocales or {}
 
+-- Same rule as Translations2026.lua, and for the same measured reason: the packs
+-- copy enUS wholesale before this file runs, so "is it missing" could never be
+-- true for most keys and 61 of the 81 fills here were doing nothing. A value
+-- identical to enUS is a copy, not a translation, and may be replaced; anything
+-- else is someone's work and is left alone.
 local function fill(code, patch)
 	local t = ns._mhLocales and ns._mhLocales[code]
 	if type(t) ~= "table" or type(patch) ~= "table" then return end
+	local en = ns._mhLocales and ns._mhLocales.enUS
 	for k, v in pairs(patch) do
-		if t[k] == nil then t[k] = v end
+		local cur = t[k]
+		if cur == nil or (type(en) == "table" and cur == en[k]) then t[k] = v end
 	end
 end
 

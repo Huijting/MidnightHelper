@@ -150,7 +150,12 @@ ns.RegisterNudge({
 	bodyArg = partialArg,
 	actionLabel = "TRANSLATE_NUDGE_BTN",
 	action = function() ns.OpenTranslateHelp() end,
-	settings = true,
+	-- No Settings button. `settings` only decides whether a nudge gets a button in
+	-- Notifications & tips, and this one runs the very same OpenTranslateHelp as the
+	-- nudge below -- so it produced a second "Help translate" that did nothing
+	-- different (Rob spotted the duplicate, 30 jul). The card itself is unaffected:
+	-- that is driven by `when`.
+	settings = false,
 })
 
 ns.RegisterNudge({
