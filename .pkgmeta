@@ -56,5 +56,10 @@ ignore:
   - "*.cmd"
   - "*.ps1"
   - "*.py"
+  # Knowledge sources are YAML/JSON under docs/, which is already ignored above. These two
+  # lines are a backstop for the day someone drops a knowledge object outside docs/ — the
+  # upstream source must never ship, only the transpiled Lua does.
+  - "*.yaml"
+  - "*.yml"
   - "*.exe"
   - "*.vbs"

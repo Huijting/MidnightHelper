@@ -187,8 +187,29 @@ def parse_toc(root: str) -> set[str]:
     return files
 
 
-def find_orphans(root: str, toc_files: set[str]) -> list[str]:
-    orphans = []
+# Generated knowledge data (RFC-002) is written to Modules/ but is deliberately NOT in the
+# .toc during implementation phases 1-2: it is built and tested, and nothing reaches a
+# player yet. Skipping the .toc check needs BOTH signals below, so a hand-written file can
+# never drift out of the .toc unnoticed by leaning on this exemption.
+PENDING_TOC_PREFIX = "Modules/KnowledgeData_"
+GENERATED_MARKER = "GENERATED FILE"
+
+
+def _is_pending_generated(root: str, rel: str) -> bool:
+    if not rel.startswith(PENDING_TOC_PREFIX):
+        return False
+    try:
+        with open(os.path.join(root, rel), encoding="utf-8") as fh:
+            head = fh.read(2000)
+    except OSError:
+        return False
+    return GENERATED_MARKER in head
+
+
+def find_orphans(root: str, toc_files: set[str]):
+    """Returns (orphans, pending). Orphans are HARD. Pending files are reported as a SOFT
+    note, so a deliberately unregistered file stays visible instead of silently exempt."""
+    orphans, pending = [], []
     for sub in ("Modules", "Locales"):
         d = os.path.join(root, sub)
         if not os.path.isdir(d):
@@ -197,8 +218,11 @@ def find_orphans(root: str, toc_files: set[str]) -> list[str]:
             if f.endswith(".lua"):
                 rel = f"{sub}/{f}"
                 if rel not in toc_files:
-                    orphans.append(rel)
-    return orphans
+                    if _is_pending_generated(root, rel):
+                        pending.append(rel)
+                    else:
+                        orphans.append(rel)
+    return orphans, pending
 
 
 def collect_indexed_tabs(root: str) -> set[str]:
@@ -459,7 +483,7 @@ def main() -> int:
     defined = collect_locale_keys(lf)
     static_refs, dynamic = collect_references(root)
     toc_files = parse_toc(root)
-    orphans = find_orphans(root, toc_files)
+    orphans, pending_toc = find_orphans(root, toc_files)
 
     if "--dump-keys" in args:
         loc = args[args.index("--dump-keys") + 1]
@@ -491,6 +515,9 @@ def main() -> int:
     for o in orphans:
         print(f"    HARD  {o}")
     hard += len(orphans)
+    for p in pending_toc:
+        print(f"    SOFT  {p}   generated, not registered yet — deliberate (RFC-002 phase 1/2)")
+    soft += len(pending_toc)
 
     # 3. Duplicate keys within a locale (HARD)
     dup_total = 0
