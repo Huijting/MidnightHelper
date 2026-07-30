@@ -68,18 +68,25 @@ end
 -- direction that makes us look like we ignored it.
 --------------------------------------------------------------------------------
 
--- Above this, stop asking. At 95% a player meets an English string rarely enough
--- that a recurring card is nagging rather than informing, and the tail is usually
--- long strings nobody volunteers for anyway.
-local PARTIAL_CEILING = 0.95
--- Below this, the pack is a stub rather than an unfinished translation, and the
+-- Measured shares, from the audit's per-pack counts (29 jul): deDE 78%, itIT 75%,
+-- nlNL 95%. The ceiling sits above the first two and below nlNL, which is
+-- effectively finished and must never show this card.
+local PARTIAL_CEILING = 0.90
+-- Below this the pack is a stub rather than an unfinished translation, and the
 -- no-pack nudge above already covers that case with better wording.
 local PARTIAL_FLOOR = 0.05
 
 local coverageCache
 
---- Share of enUS keys the effective pack answers for, 0-1, or nil when unknown.
---- Cached: NudgeActive runs this on every Home render, and it walks ~2800 keys.
+--- Share of the active pack that is actually IN that language, 0-1, or nil.
+---
+--- Presence cannot be the test. deDE.lua (and its siblings) copy every enUS key
+--- into the pack and overwrite only the translated ones, so `pack[k] ~= nil` is
+--- true for everything and the first version of this measured a flat 100% -- the
+--- card could never appear. What separates translated from untranslated at runtime
+--- is that an untranslated key still holds the English STRING.
+---
+--- Cached: NudgeActive runs on every Home render and this walks ~2800 keys.
 local function packCoverage()
 	if coverageCache ~= nil then
 		return coverageCache or nil
@@ -91,18 +98,21 @@ local function packCoverage()
 		coverageCache = false
 		return nil
 	end
-	local total, have = 0, 0
-	for k in pairs(en) do
-		total = total + 1
-		if pack[k] ~= nil then
-			have = have + 1
+	local total, translated = 0, 0
+	for k, v in pairs(en) do
+		if type(v) == "string" then
+			total = total + 1
+			local mine = pack[k]
+			if type(mine) == "string" and mine ~= v then
+				translated = translated + 1
+			end
 		end
 	end
 	if total == 0 then
 		coverageCache = false
 		return nil
 	end
-	coverageCache = have / total
+	coverageCache = translated / total
 	return coverageCache
 end
 
@@ -117,13 +127,19 @@ local function shouldNudgePartial()
 	return c ~= nil and c > PARTIAL_FLOOR and c < PARTIAL_CEILING
 end
 
---- "Deutsch is 84% translated" — the language in its own name, from the pack we
---- already ship, so nothing here invents a word in a language I cannot check.
+--- The language in its own name, taken from the pack we already ship, so nothing
+--- here invents a word in a language I cannot check.
+---
+--- Deliberately no percentage. The share measured above and the one in the
+--- translator work package count different things: this one has no way to know a
+--- string is English ON PURPOSE (proper nouns, game terms, the changelog), so it
+--- reads about 78% for German where the work package says 85%. Both are honest and
+--- they disagree, and a card quoting a number lower than the list people are
+--- working from would read as their work not landing. The card says what is
+--- certainly true; the exact figure lives in one place.
 local function partialArg()
-	local c = packCoverage() or 0
 	local code = ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode() or "?"
-	local name = (ns.GetLocaleDisplayName and ns:GetLocaleDisplayName(code)) or code
-	return string.format(ns:L("TRANSLATE_PARTIAL_ARG_FMT"), name, math.floor(c * 100))
+	return (ns.GetLocaleDisplayName and ns:GetLocaleDisplayName(code)) or code
 end
 
 ns.RegisterNudge({

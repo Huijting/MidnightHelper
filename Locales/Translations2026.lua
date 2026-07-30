@@ -2404,34 +2404,29 @@ fill("itIT", {
 fill("deDE", {
 	TRANSLATE_HELP_DISCORD = "Sieh dir an, was noch übersetzt werden muss (angepinnt in #translations)",
 	TRANSLATE_PARTIAL_TITLE = "Midnight Helper in deiner Sprache fertigstellen?",
-	TRANSLATE_PARTIAL_ARG_FMT = "%s ist zu %d%% übersetzt",
-	TRANSLATE_PARTIAL_BODY = "%s — der Rest fällt auf Englisch zurück. Möchtest du beim Fertigstellen helfen? Jeder Beitrag zählt.",
+	TRANSLATE_PARTIAL_BODY = "Teile von Midnight Helper erscheinen noch auf Englisch statt auf %s. Möchtest du beim Fertigstellen helfen? Jeder Beitrag zählt.",
 })
 
 fill("frFR", {
 	TRANSLATE_HELP_DISCORD = "Vois ce qu'il reste à traduire (épinglé dans #translations)",
 	TRANSLATE_PARTIAL_TITLE = "Terminer Midnight Helper dans ta langue ?",
-	TRANSLATE_PARTIAL_ARG_FMT = "%s est traduit à %d%%",
-	TRANSLATE_PARTIAL_BODY = "%s — le reste repasse en anglais. Envie d'aider à le terminer ? Chaque contribution compte.",
+	TRANSLATE_PARTIAL_BODY = "Des parties de Midnight Helper sont encore en anglais au lieu du %s. Envie d'aider à le terminer ? Chaque contribution compte.",
 })
 
 fill("esES", {
 	TRANSLATE_HELP_DISCORD = "Mira lo que falta por traducir (fijado en #translations)",
 	TRANSLATE_PARTIAL_TITLE = "¿Terminar Midnight Helper en tu idioma?",
-	TRANSLATE_PARTIAL_ARG_FMT = "%s está traducido al %d%%",
-	TRANSLATE_PARTIAL_BODY = "%s — el resto vuelve al inglés. ¿Quieres ayudar a terminarlo? Cualquier aporte ayuda.",
+	TRANSLATE_PARTIAL_BODY = "Partes de Midnight Helper siguen en inglés en lugar de %s. ¿Quieres ayudar a terminarlo? Cualquier aporte ayuda.",
 })
 
 fill("ptBR", {
 	TRANSLATE_HELP_DISCORD = "Veja o que ainda falta traduzir (fixado em #translations)",
 	TRANSLATE_PARTIAL_TITLE = "Terminar o Midnight Helper no seu idioma?",
-	TRANSLATE_PARTIAL_ARG_FMT = "%s está %d%% traduzido",
-	TRANSLATE_PARTIAL_BODY = "%s — o resto volta para o inglês. Quer ajudar a terminar? Qualquer contribuição ajuda.",
+	TRANSLATE_PARTIAL_BODY = "Partes do Midnight Helper ainda aparecem em inglês em vez de %s. Quer ajudar a terminar? Qualquer contribuição ajuda.",
 })
 
 fill("itIT", {
 	TRANSLATE_HELP_DISCORD = "Guarda cosa manca ancora da tradurre (in evidenza in #translations)",
 	TRANSLATE_PARTIAL_TITLE = "Completare Midnight Helper nella tua lingua?",
-	TRANSLATE_PARTIAL_ARG_FMT = "%s è tradotto al %d%%",
-	TRANSLATE_PARTIAL_BODY = "%s — il resto torna in inglese. Vuoi aiutare a completarlo? Ogni contributo è utile.",
+	TRANSLATE_PARTIAL_BODY = "Parti di Midnight Helper sono ancora in inglese invece che in %s. Vuoi aiutare a completarlo? Ogni contributo è utile.",
 })
