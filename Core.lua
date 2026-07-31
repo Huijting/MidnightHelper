@@ -1155,18 +1155,19 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	-- /mh partytargets — toggle the four-line panel showing what your group is on.
-	-- Off by default. Note the plural: the singular below is the measurement probe.
+	-- /mh partytargets [probe] — the panel, or the readability measurement behind it.
+	--
+	-- These were `partytargets` and `partytarget`, one letter apart, doing entirely
+	-- different things. Rob asked which was which within the hour, which is the only
+	-- evidence such a pair ever needs. One command with a subcommand instead; the old
+	-- singular still works so anything written down tonight keeps working.
 	if msg == "partytargets" then
 		if ns.TogglePartyTargets then
 			ns.TogglePartyTargets()
 		end
 		return
 	end
-
-	-- /mh partytarget — can we still read who your group is attacking? Measurement
-	-- only; decides whether a standalone party-target panel is worth building.
-	if msg == "partytarget" then
+	if msg == "partytargets probe" or msg == "partytarget" then
 		if ns.PrintPartyTargetProbe then
 			ns.PrintPartyTargetProbe()
 		end
