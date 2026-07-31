@@ -1155,6 +1155,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh partytarget — can we still read who your group is attacking? Measurement
+	-- only; decides whether a standalone party-target panel is worth building.
+	if msg == "partytarget" then
+		if ns.PrintPartyTargetProbe then
+			ns.PrintPartyTargetProbe()
+		end
+		return
+	end
+
 	-- /mh showdown — which Showdown weekly is really in your log, and do we know
 	-- its id? The Heroic variant may be a separate quest we do not track.
 	if msg == "showdown" then
