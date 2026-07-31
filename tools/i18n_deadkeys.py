@@ -33,10 +33,18 @@ ROOT = Path(__file__).resolve().parent.parent
 LOCALES = ROOT / "Locales"
 EN = LOCALES / "enUS.lua"
 
-# One tab, a SHOUTY key, an equals. The single tab is what keeps nested sub-keys
-# (which sit deeper) out of the deletion set.
-TOP_KEY_RE = re.compile(r'^\t([A-Z][A-Z0-9_]+)\s*=')
+# At most ONE tab, a SHOUTY key, an equals.
+#
+# Optional, because a key can end up at column 0 -- a generator did exactly that to
+# DAWNCREST_GUEST_DAWN_DISCOUNT in all seven locales on 31 July. At most one,
+# because deeper indentation means a nested sub-key, and those must never enter the
+# deletion set.
+TOP_KEY_RE = re.compile(r'^\t?([A-Z][A-Z0-9_]+)\s*=')
 # A complete entry on one line: ends with a comma, and quotes balance out.
+#
+# Deliberately still demands the tab, so a column-0 key is DETECTED above but never
+# deleted here -- it lands in `skipped` and gets printed for a human instead. Odd
+# indentation is exactly when you want the script to hesitate rather than rewrite.
 COMPLETE_RE = re.compile(r'^\t[A-Z][A-Z0-9_]+\s*=\s*.*,\s*$')
 
 

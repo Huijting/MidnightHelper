@@ -66,7 +66,11 @@ IGNORE_PREFIXES = (
 #   bare:     \tKEY = "..."
 #   bracket:  \t["KEY"] = "..."   (used by the generated Phase C / group tables)
 # Sub-keys of nested table VALUES are indented deeper / lowercase and skipped.
-KEY_RE = re.compile(r'^\t+(?:([A-Z][A-Z0-9_]+)|\["([A-Z][A-Z0-9_]+)"\])\s*=')
+# Keys whose indentation is not the usual leading tab. Collected while parsing and
+# printed at the end -- see the note at the match site for why this is not silent.
+ODD_INDENT = []
+
+KEY_RE = re.compile(r'^[ \t]*(?:([A-Z][A-Z0-9_]+)|\["([A-Z][A-Z0-9_]+)"\])\s*=')
 # Inline block openers that directly carry the pack code:
 #   ns._mhLocales.deDE = {                            (main file)
 #   merge(ns._mhLocales and ns._mhLocales.deDE, {     (inline merge block)
@@ -139,6 +143,18 @@ def parse_file(path, keys, en_values=None):
             if km:
                 k = km.group(1) or km.group(2)
                 keys[current].add(k)
+                # Odd indentation is now COUNTED but also REPORTED. It used to be
+                # neither: the pattern anchored on ^\t+, so a key at column 0 fell
+                # out of the audit silently while the audit went on saying the pack
+                # was complete. That happened for real -- a generator wrote seven
+                # locales' DAWNCREST_GUIDE_DAWN_DISCOUNT at column 0 on 31 July.
+                #
+                # Counting it fixes the undercount; naming it stops the same class
+                # of mistake from being invisible next time. A check that quietly
+                # skips what it does not recognise, and reassures you meanwhile, is
+                # worse than one that does not exist.
+                if not line.startswith("\t") and ODD_INDENT is not None:
+                    ODD_INDENT.append((current, k))
                 if current == "enUS" and en_values is not None:
                     en_values.setdefault(k, _value(line))
 
@@ -232,6 +248,13 @@ def main():
 
     # Console summary (and per-lang detail if requested)
     print("\n".join(lines[: 4 + len(TARGETS) + 1]))
+    if ODD_INDENT:
+        print("\n%d key(s) not indented with a tab — counted, but worth tidying:" % len(ODD_INDENT))
+        for lang, key in ODD_INDENT[:12]:
+            print("    %-6s %s" % (lang, key))
+        if len(ODD_INDENT) > 12:
+            print("    ... and %d more" % (len(ODD_INDENT) - 12))
+
     print(f"\nfull report written to: {report_path}")
     print(f"de/fr/es/pt worksheet:  {ws4}  ({len(group4)} keys)")
     print(f"itIT worksheet:         {wsit}")

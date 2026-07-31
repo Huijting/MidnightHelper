@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 LOCALES = ROOT / "Locales"
 TOC = ROOT / "MidnightHelper.toc"
 
-KEY_RE = re.compile(r'^\t+(?:([A-Z][A-Z0-9_]+)|\["([A-Z][A-Z0-9_]+)"\])\s*=')
+KEY_RE = re.compile(r'^[ \t]*(?:([A-Z][A-Z0-9_]+)|\["([A-Z][A-Z0-9_]+)"\])\s*=')
 FILL_RE = re.compile(r'fill\(\s*"(\w+)"')
 # The packs that build themselves by copying enUS.
 COPY_RE = re.compile(r"ns\._mhLocales\.enUS")
