@@ -77,8 +77,10 @@ omgedraaid (world markers boven, target icons onder). Alles gepusht, niets uitge
 
 Patch **12.1 "Curse of Ula'tek"** is een release candidate (build 68914).
 
-**Season 2 is OFFICIEEL: 18 augustus.** Blizzard publiceerde op 30 juli "The Shadows
-Deepen: Midnight Season 2 Begins August 18" met de volledige unlock-planning. Status
+**Season 2 is OFFICIEEL: 18 augustus.** Blizzard-artikel "The Shadows Deepen: Midnight
+Season 2 Begins August 18" (24294369) met de volledige unlock-planning. Onze wachter
+logde het op 30 juli; de publicatiedatum zelf is niet nagetrokken en staat er daarom
+niet meer als feit -- Massively OP schreef er al op 29 juli over. Status
 gaat daarmee van `COMMUNITY_REPORTED` naar `OFFICIAL_CONFIRMED`, en de datum **mag**
 speler-zichtbaar worden getoond -- dat was de enige reden dat we zwegen.
 
@@ -207,7 +209,7 @@ precies één plek: `## Author:` in de `.toc`. Geen dialoog of stem in de addon 
 tenzij Rob daar expliciet om vraagt.
 
 **Datums per stuk beoordelen, niet als groep.** Dit stond hier als "datums zijn nooit
-bevestigd" en dat is sinds 30 juli onwaar: **18 augustus voor Season 2 is officieel**
+bevestigd" en dat is niet meer waar: **18 augustus voor Season 2 is officieel**
 (Blizzard-artikel, zie De klok) en mag overal getoond worden. De **patchdatum 11/12 aug**
 is dat niet -- het artikel noemt resetweken, geen patchdag -- en blijft dus buiten de
 addon, release notes, CurseForge, Notion en Discord.
