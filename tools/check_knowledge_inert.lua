@@ -163,18 +163,23 @@ if type(handler) ~= "function" then
 	print("  FAIL  /mhknow did not register")
 	failures = failures + 1
 else
-	-- Call it against a bare ns: no db, no ritual helpers, no client. This is the worst
-	-- case an early login can produce, and it must print rather than error.
-	local printed = 0
-	local realPrint = print
-	_G.print = function() printed = printed + 1 end
-	local ok, err = pcall(handler, "")
-	_G.print = realPrint
-	if ok then
-		print(("  ok    /mhknow survives a bare namespace (%d lines printed, no error)"):format(printed))
-	else
-		print("  FAIL  /mhknow errored on a bare namespace: " .. tostring(err))
-		failures = failures + 1
+	-- Call every sub-command against a bare ns: no db, no ritual helpers, no client. That
+	-- is the worst case an early login can produce, and each one must print rather than
+	-- error. Every branch gets exercised, because a guard that only covers the default
+	-- argument is blind to exactly the code most likely to be new.
+	for _, sub in ipairs({ "", "save", "probe", "probe save" }) do
+		local printed = 0
+		local realPrint = print
+		_G.print = function() printed = printed + 1 end
+		local ok, err = pcall(handler, sub)
+		_G.print = realPrint
+		local label = sub == "" and "/mhknow" or ("/mhknow " .. sub)
+		if ok then
+			print(("  ok    %-18s survives a bare namespace (%d lines, no error)"):format(label, printed))
+		else
+			print(("  FAIL  %s errored on a bare namespace: %s"):format(label, tostring(err)))
+			failures = failures + 1
+		end
 	end
 end
 

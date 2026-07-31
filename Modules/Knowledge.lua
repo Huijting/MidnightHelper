@@ -193,6 +193,170 @@ function ns.PrintKnowledge(arg)
 end
 
 --------------------------------------------------------------------------------
+-- /mhknow probe — does a readable ritual tier exist at all? (RFC-002 §5 step 5)
+--------------------------------------------------------------------------------
+
+--[[
+	The request builder reports one blocker above all others: ritual.available_tiers.
+	Nothing in this addon reads which Ritual Site tiers a character has unlocked, so the
+	tier selector is never applicable and says nothing. Rob's saved probe then showed a
+	second, independent one: across 27 logged ritual runs the tier was 0 every single
+	time, so even the reliability signals could never become true.
+
+	Before anyone designs around that, the question has to be asked properly: does the
+	client expose a tier at all, under ANY name?
+
+	This probe ENUMERATES rather than guesses, the same discipline as /mh roleset in
+	ApiProbe.lua. A probe built on invented names reports "not found" for two different
+	reasons — the name is wrong, or the thing does not exist — and you cannot tell them
+	apart afterwards. So part one walks what the client actually has, and part two calls
+	only functions this repo has already verified in use elsewhere.
+
+	    /mhknow probe        summary to chat
+	    /mhknow probe save   everything into ns.db.knowledgeProbeApi, then /reload
+
+	Run it TWICE to be worth anything: once anywhere, and once while standing inside a
+	Ritual Site scenario. Part two is empty outside a scenario, and "nothing found" out
+	in the world proves nothing at all.
+]]
+
+local PROBE_WORDS = { "ritual", "scenario", "difficulty", "recommend", "itemlevel", "tier" }
+
+local function nameLooksRelevant(name)
+	local lower = tostring(name):lower()
+	for i = 1, #PROBE_WORDS do
+		if lower:find(PROBE_WORDS[i], 1, true) then
+			return true
+		end
+	end
+	return false
+end
+
+--- Every global, and every field of every C_ namespace, whose NAME mentions one of the
+--- words above. This says what exists; it does not call anything.
+local function SweepApiSurface()
+	local hits = { globals = {}, namespaces = {} }
+
+	for key, value in pairs(_G) do
+		if type(key) == "string" then
+			if nameLooksRelevant(key) then
+				hits.globals[#hits.globals + 1] = key .. "  (" .. type(value) .. ")"
+			end
+			-- Walk C_ tables even when their own name says nothing: C_Scenario holds the
+			-- step and criteria calls, and its name does not contain "tier".
+			if key:sub(1, 2) == "C_" and type(value) == "table" then
+				local fields = {}
+				local ok = pcall(function()
+					for fieldName in pairs(value) do
+						if type(fieldName) == "string" and nameLooksRelevant(fieldName) then
+							fields[#fields + 1] = fieldName
+						end
+					end
+				end)
+				if ok and #fields > 0 then
+					table.sort(fields)
+					hits.namespaces[#hits.namespaces + 1] = { name = key, fields = fields }
+				end
+			end
+		end
+	end
+
+	table.sort(hits.globals)
+	table.sort(hits.namespaces, function(a, b) return a.name < b.name end)
+	return hits
+end
+
+--- Call only what this repo already uses somewhere, so nothing here is a guessed name.
+--- Each source names the file that verified it.
+local function ReadLiveScenario()
+	local out = {}
+
+	local function capture(label, source, fn, ...)
+		if type(fn) ~= "function" then
+			out[#out + 1] = { label = label, source = source, value = "API ABSENT" }
+			return
+		end
+		local packed = { pcall(fn, ...) }
+		if not packed[1] then
+			out[#out + 1] = { label = label, source = source, value = "ERROR: " .. tostring(packed[2]) }
+			return
+		end
+		local parts = {}
+		for i = 2, #packed do
+			parts[#parts + 1] = ("[%d] %s"):format(i - 1, tostring(packed[i]))
+		end
+		out[#out + 1] = {
+			label = label,
+			source = source,
+			value = #parts > 0 and table.concat(parts, "  ") or "(no returns)",
+		}
+	end
+
+	capture("IsInInstance", "used across the addon", IsInInstance)
+	capture("GetInstanceInfo", "Modules/DelveHistory.lua", GetInstanceInfo)
+	capture("C_Scenario.GetInfo", "Modules/DelveHistory.lua",
+		C_Scenario and C_Scenario.GetInfo)
+	capture("C_Scenario.GetStepInfo", "Modules/DelveHistory.lua",
+		C_Scenario and C_Scenario.GetStepInfo)
+	capture("C_DelvesUI.GetActiveDelveTier", "Modules/DelveBossShowcase.lua",
+		C_DelvesUI and C_DelvesUI.GetActiveDelveTier)
+
+	-- Criteria carry per-objective text and sometimes a number; if a tier is readable
+	-- anywhere in a scenario, this is the likeliest place it hides.
+	if C_ScenarioInfo and C_ScenarioInfo.GetCriteriaInfo then
+		for i = 1, 12 do
+			local ok, info = pcall(C_ScenarioInfo.GetCriteriaInfo, i)
+			if ok and type(info) == "table" then
+				out[#out + 1] = {
+					label = ("criteria[%d]"):format(i),
+					source = "C_ScenarioInfo.GetCriteriaInfo",
+					value = ("description=%s quantity=%s total=%s completed=%s"):format(
+						tostring(info.description), tostring(info.quantity),
+						tostring(info.totalQuantity), tostring(info.completed)),
+				}
+			end
+		end
+	end
+
+	return out
+end
+
+function ns.PrintKnowledgeApiProbe(arg)
+	local out = prefix()
+	local surface = SweepApiSurface()
+	local live = ReadLiveScenario()
+
+	print(("%s Knowledge API probe — what the client actually exposes"):format(out))
+	print(("   matching globals: %d   ·   C_ namespaces with matching fields: %d"):format(
+		#surface.globals, #surface.namespaces))
+
+	for i = 1, #surface.namespaces do
+		local entry = surface.namespaces[i]
+		print(("   |cff40c040%s|r: %s"):format(entry.name, table.concat(entry.fields, ", ")))
+	end
+
+	print("   |cffffcc00live scenario state:|r")
+	for i = 1, #live do
+		print(("      %-32s %s"):format(live[i].label, live[i].value))
+	end
+	print("   |cff8a8f98run this again INSIDE a Ritual Site — outside one, \"nothing found\" proves nothing.|r")
+
+	if arg == "save" then
+		if type(ns.db) ~= "table" then
+			print(out .. " |cffff8080cannot save: saved variables are not ready|r")
+			return
+		end
+		ns.db.knowledgeProbeApi = {
+			at = time(),
+			globals = surface.globals,
+			namespaces = surface.namespaces,
+			live = live,
+		}
+		print(out .. " saved to ns.db.knowledgeProbeApi — now |cffffffff/reload|r.")
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Slash command
 --------------------------------------------------------------------------------
 
@@ -216,6 +380,10 @@ if type(SlashCmdList) == "table" then
 	SLASH_MHKNOW1 = "/mhknow"
 	SlashCmdList["MHKNOW"] = function(msg)
 		msg = (msg or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
+		if msg == "probe" or msg == "probe save" then
+			ns.PrintKnowledgeApiProbe(msg == "probe save" and "save" or nil)
+			return
+		end
 		ns.PrintKnowledge(msg == "save" and "save" or nil)
 	end
 end
