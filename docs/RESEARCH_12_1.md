@@ -144,3 +144,48 @@ Consequences for MH:
 
 Sources: warcraft.wiki.gg Patch 12.1.0/API changes; Icy Veins aura-API summary. Both
 describe the PTR — verify in game.
+
+## Party targets — you may DISPLAY a secret you may not READ (31 jul 2026)
+
+Measured with `/mh partytarget` in a follower dungeon, in combat, four members.
+
+| read on the target | enemy target | party-member target |
+|---|---|---|
+| `UnitExists` | read | read |
+| `UnitName` | **SECRET** | read |
+| `UnitFullName` | **SECRET** | read |
+| `GetUnitName` | **SECRET** | read |
+| `UnitGUID` | **SECRET** | read |
+| `UnitIsUnit(x,"target")` | **SECRET** | read |
+| `UnitIsPlayer` | read | read |
+
+The line is not "targets are hidden". It is **who you are attacking is hidden**:
+everything about a friendly target reads, everything about a hostile one does not.
+
+Three consequences, all measured rather than reasoned:
+
+- **No alternative name API helps.** SimplePartyTargets tries UnitFullName, then
+  GetUnitName, then UnitName. All three are secret here.
+- **A GUID cache cannot work.** SimplePartyTargets remembers a name per GUID and
+  replays it once the live read goes secret. The GUID is secret too.
+- **Comparisons are shut as well.** `UnitIsUnit(party1target, "target")` returns a
+  secret BOOLEAN, so an addon cannot even ask "is this the same thing I am on" and
+  branch on the answer. Testing that value throws — see below.
+
+### But the display path is open, and that is proven
+
+Rob runs Danders Frames with SimplePartyTargets and **sees the real enemy names on
+screen** — the same names this probe reports as SECRET. So a secret can be handed
+to a display widget and rendered; what an addon may not do is look at it.
+
+That makes a party-target panel possible, with a precise limit: it can SHOW the
+name and can do nothing WITH it. No sorting by target, no "three of four are on
+your target", no colouring a row by whether it matches yours. Every one of those
+needs a read, and every read is refused.
+
+### A trap worth knowing
+
+`x = ok and v or nil` throws on a secret boolean: `and`/`or` evaluate truthiness,
+and for a boolean the truthiness *is* the protected answer. A secret STRING passes
+through the same expression without complaint. Move suspect values with a plain
+assignment; never let an expression ask what they are.
