@@ -111,8 +111,27 @@ function ns.PrintPartyTargetProbe()
 		-- which is a different and worse failure than a missing name.
 		print(("     target: exists=%s  name=%s%s  isPlayer=%s"):format(
 			State(exists), State(targetName), Shown(targetName), State(targetIsPlayer)))
+
+		-- Measured 31 jul in a follower dungeon: target NAMES come back SECRET for
+		-- enemies and readable for a party member. That kills a panel listing who is
+		-- attacking what -- the enemy name is the whole point of it.
+		--
+		-- So ask the question a tank actually has instead: is this person on the SAME
+		-- thing as me? UnitIsUnit answers yes or no and never reveals which unit, so
+		-- it is not the kind of read 12.x is restricting -- but that is reasoning, and
+		-- reasoning is what this file exists to replace. If these read, a panel can say
+		-- "three of four are on your target" without naming anything.
+		local sameAsMine, onMe
+		if UnitIsUnit then
+			local ok, v = pcall(UnitIsUnit, unit .. "target", "target")
+			sameAsMine = ok and v or nil
+			local ok2, v2 = pcall(UnitIsUnit, unit .. "target", "player")
+			onMe = ok2 and v2 or nil
+		end
+		print(("     same as my target=%s%s   targeting me=%s%s"):format(
+			State(sameAsMine), Shown(sameAsMine), State(onMe), Shown(onMe)))
 	end
 
-	print("  |cff9d9d9dSECRET on a target name means a standalone party-target panel cannot work here.|r")
-	print("  |cff9d9d9dRun it in a dungeon, in combat — that is where it has to hold up.|r")
+	print("  |cff9d9d9dEnemy target names are SECRET here; a party member's name is not.|r")
+	print("  |cff9d9d9dSo the question is whether the two comparison lines above read.|r")
 end
