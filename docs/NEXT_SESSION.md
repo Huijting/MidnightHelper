@@ -129,10 +129,28 @@ schuift door naar 2.12.0. Deze tabel is historie -- gebruik hem niet meer als ta
 | -- | Roleset | **GEMETEN 27 jul, GEEN blocker.** Systeem draait al; alles `roleless`, niets gefilterd. Restrisico = een actieve allowlist zonder `roleless`; te detecteren met `Frame:IsRolesetFiltered()` |
 | -- | `.toc` | **AF 27 jul.** `## Interface: 120007, 120100` — beide versies, dus geen out-of-date-melding op live én op 12.1, en geen bump nodig op patchdag |
 | 12 | Coiled Isle-scaffold + lege-zone-guard | **guard AF 27 jul** (`ns.IsZoneCovered`, `/mh zone`). Het scaffold zelf KAN NIET: de mapID van Coiled Isle is nergens gedataminet. Op patchdag `/mh zone` draaien in de zone, dan is hij gemeten |
-| 11 | Crest-teksten ontnamen (115 strings) | OPEN -- vóór de flip doen |
+| 11 | Crest-teksten ontnamen (115 strings) | **AF 31 jul** (`907171f`). De naamgeving bleek al gedaan: geen enkele locale-string bevat "Dawncrest", namen komen live uit `C_CurrencyInfo`, zoektermen waren al additief. Het echte gat was de DATA -- `DAWNCREST_TIERS` was S1-only, dus na de flip zouden beide crest-panelen bevroren Dawncrests tonen. S2-ids (Mistcrest, PTR-gemeten) staan er nu naast, `IsSeason2Live` kiest. De currency-gids somde de vijf ids op in 7 talen; dat is nu één `{CRESTS}`-token uit dezelfde data |
 | 7 | Nieuwkomer-detectie aansluiten | OPEN -- `ns.IsSeasonNewcomer` bestaat, wordt nergens gebruikt |
 | 9 | Prey: Codex-entry + probe | **AF 27 jul.** Codex-artikel `prey_hunts` (world, zonder getallen) + `/mh prey` dat je voortgang uit de achievement-criteria leest. Bodies alleen en/nl; de vijf andere talen krijgen alleen de titel en vallen voor de tekst terug op enUS — bewust, dat is werk voor vertalers |
-| 6 | Carola-test v2 | OPEN, Robs werk (doorgeschoven uit 2.11.0) |
+| 6 | Carola-test v2 | **GESLAAGD 31 jul, zonder geënsceneerde test.** Carola speelt sinds 2.11.0 onafgebroken en hoeft niets te vragen. Dat is beter bewijs dan een testronde: het is gemeten onder echte omstandigheden, zonder dat er iemand meekeek. Zie de observatie hieronder voor wat het NIET aantoont |
+
+**Losse observatie bij blok 6 — het eerste-keer-pad is nog door niemand getest.**
+Carola's weken spelen bewijzen dat de addon haar dagelijkse spel niet in de weg zit.
+Twee dingen bewijst het niet. Stilte is geen succes: mensen stoppen ook met vragen
+als ze een omweg gevonden hebben of hebben besloten dat een onderdeel niet voor hen
+is. En het first-run-pad (review F4.1) is principieel buiten haar bereik -- ze is er
+allang voorbij, en haar vlag stond op "gezien" vóórdat de reparatie bestond.
+
+Dat is precies het onderdeel dat je per persoon maar één keer kunt meten, en het
+bepaalt of iemand die MH vers van CurseForge haalt blijft of na twee minuten
+afhaakt. Het hoeft niet geënsceneerd: iedereen die de addon voor het eerst
+installeert doet die test vanzelf, zolang niemand hem vooraf vertelt waar hij op
+moet letten. Cisca, of de eerstvolgende die zich in Discord meldt.
+
+`/mhfirstrun reset` wist de vlag en toont niets, zodat de volgende login het vanzelf
+doet. `/mhfirstrun` zonder argument toont de popup meteen -- dat meet of het venster
+werkt, niet of iemand het vindt. Instructie + de reden om niet te verklappen wat er
+veranderd is: `docs/CAROLA_TEST_V2.md`.
 
 **Los van releases:** blok 13+14 vertaalstatus + werkpakket 2 naar Discord -- doe dit
 vroeg, iemand anders werkt in zijn eigen tempo. Blok 3 (PTR-capture-checklist) is op
