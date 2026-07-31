@@ -130,8 +130,38 @@ function ns.PrintPartyTargetProbe()
 		end
 		print(("     same as my target=%s%s   targeting me=%s%s"):format(
 			State(sameAsMine), Shown(sameAsMine), State(onMe), Shown(onMe)))
+
+		-- Rob asked the right question: how does SimplePartyTargets manage it? Reading
+		-- its source, it does not beat the secrecy -- it routes around it three ways,
+		-- and all three are worth measuring rather than assuming.
+		--
+		--  1. Three different name APIs, tried in order. Its own comment says
+		--     UnitFullName "returns better data in instances". We only tested
+		--     UnitName, so a restriction on that one proves nothing about the others.
+		--  2. It passes a secret name straight to the display. In 12.x you may SHOW a
+		--     secret without being able to inspect it, so a panel can render the real
+		--     name while the addon stays blind to it.
+		--  3. A GUID cache: remember the name whenever it IS readable, and reuse it
+		--     for that GUID once it goes secret. That only works if the GUID itself
+		--     reads, which is what the last field here checks.
+		local full, getun, guid
+		if UnitFullName then
+			local ok, v = pcall(UnitFullName, unit .. "target")
+			full = ok and v or nil
+		end
+		if GetUnitName then
+			local ok, v = pcall(GetUnitName, unit .. "target", true)
+			getun = ok and v or nil
+		end
+		if UnitGUID then
+			local ok, v = pcall(UnitGUID, unit .. "target")
+			guid = ok and v or nil
+		end
+		print(("     UnitFullName=%s%s  GetUnitName=%s%s  GUID=%s"):format(
+			State(full), Shown(full), State(getun), Shown(getun), State(guid)))
 	end
 
 	print("  |cff9d9d9dEnemy target names are SECRET here; a party member's name is not.|r")
-	print("  |cff9d9d9dSo the question is whether the two comparison lines above read.|r")
+	print("  |cff9d9d9dWhat matters now: do the comparisons read, does any OTHER name API read,|r")
+	print("  |cff9d9d9dand does the GUID read (that is what a name cache would key on).|r")
 end
