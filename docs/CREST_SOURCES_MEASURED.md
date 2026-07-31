@@ -207,3 +207,40 @@ UI hides what the API still answers. Worth knowing before trusting either alone.
 
 `Test Myth Dawncrest` **id 3543** (Season 1) is a developer test currency that the
 sweep found. It is not player-facing; keep it out of the data.
+
+## 12.1 PTR, 2026-07-31 — the game names them, and the season gate is OPEN
+
+`/mh crests save` on Rob's PTR character, read back from SavedVariables.
+
+**`seasonTwoLive = true`** — `IsSeason2Live()` returns true on this PTR build, so
+every season-gated path in the addon is live there. That makes the PTR the only
+place the Season 2 crest handling can be tested before 18 August.
+
+The client resolved our captured ids to real names, which settles that they are the
+right ids:
+
+| Tier | id | name | qty |
+|---|---|---|---|
+| Adventurer | 3437 (S2) / 3442 (S2-alt) | **Adventurer Mistcrest** | 0 / 0 |
+| Veteran | 3438 / 3443 | **Veteran Mistcrest** | 0 / 0 |
+| Champion | 3439 / 3444 | **Champion Mistcrest** | 0 / 0 |
+
+Season 1 on the same character: 3341 Veteran Dawncrest **0** while its "duplicate"
+3342 reads **290**, and 3343 Champion **0** against 3344 at **30**. That is the
+inverse of the 22 July measurement on live, where the primary held the real balance.
+Do not read anything into it yet — this character earned its crests before the
+season flipped, and which id a balance lands on across a season boundary is exactly
+what nobody has measured.
+
+**Still open: which Season 2 set is primary.** Both read 0 and both resolve to the
+same name, so nothing here separates them. It needs a character that has actually
+earned a Mistcrest — patch day at the earliest.
+
+### What it caught in our own code
+
+The row's NUMBER was season-aware but its icon and tooltip were still bound to the
+Season 1 id, so the panel showed a Mistcrest balance under a tooltip reading "Myth
+Dawncrest — Midnight Season 1". Fixed by giving the season choice one definition
+(`TierCurrencyIds`) instead of three call sites. The server request had the same
+gap: it only ever asked for the Season 1 ids, and a currency the server never
+pushed reads as zero — indistinguishable from having none.

@@ -45,26 +45,40 @@ local function GetCurrencyQty(currencyId)
 	return qty, earned, math.floor(maxQ), exists
 end
 
-local function GetTierCurrencyQty(tier)
+--- The currency ids this tier uses THIS season, primary first.
+---
+--- Season 2 renames the crests (Dawncrest -> Mistcrest) and renumbers them, so the
+--- Season 1 ids stop being the ones you earn. Ids measured on the 12.1 PTR and
+--- confirmed by the game itself on 31 July -- it named 3437/3442 "Adventurer
+--- Mistcrest" -- see DawncrestData's header for what about them is still unverified.
+---
+--- One function because the choice was briefly made in three places and two of them
+--- were missed: the row's NUMBER came from the right season while its icon and
+--- tooltip stayed bound to the Season 1 id, so the PTR showed a Mistcrest balance
+--- under a tooltip reading "Myth Dawncrest ... Midnight Season 1" (Rob, 31 jul).
+--- @return table ids, number|nil primary
+local function TierCurrencyIds(tier)
 	if type(tier) ~= "table" then
-		return 0, 0, 0
+		return {}, nil
 	end
-	-- Season 2 renames the crests (Dawncrest -> Mistcrest) and renumbers them, so the
-	-- Season 1 ids stop being the ones you earn. Without this the panel would keep
-	-- showing frozen Dawncrest balances all season and never mention a Mistcrest.
-	-- Ids measured on the 12.1 PTR; see DawncrestData's header for what about them is
-	-- still unverified.
 	local primary, alternates = tier.currencyId, tier.alternateCurrencyIds
 	if ns.IsSeason2Live and ns.IsSeason2Live() and tier.season2CurrencyId then
 		primary, alternates = tier.season2CurrencyId, tier.season2AlternateCurrencyIds
 	end
-
 	local ids = { primary }
 	if type(alternates) == "table" then
 		for i = 1, #alternates do
 			ids[#ids + 1] = alternates[i]
 		end
 	end
+	return ids, primary
+end
+
+local function GetTierCurrencyQty(tier)
+	if type(tier) ~= "table" then
+		return 0, 0, 0
+	end
+	local ids = TierCurrencyIds(tier)
 	-- THE PRIMARY ID WINS. This used to take the MAX across primary and alternates,
 	-- from back when it was unclear which id was the real one. Measured on Rob's live
 	-- client 2026-07-22: Blizzard's own currency tab showed Veteran Dawncrest = 120,
@@ -96,10 +110,23 @@ local function RequestDawncrestCurrencyData()
 	local seen = {}
 	for i = 1, #tiers do
 		local tier = tiers[i]
-		local ids = { tier and tier.currencyId }
-		if tier and type(tier.alternateCurrencyIds) == "table" then
-			for j = 1, #tier.alternateCurrencyIds do
-				ids[#ids + 1] = tier.alternateCurrencyIds[j]
+		-- Ask the server for BOTH seasons. This used to request the Season 1 ids only,
+		-- so in Season 2 the panel could read a balance the client had never been sent
+		-- -- and a currency the server has not pushed reads as zero, which is
+		-- indistinguishable from having none.
+		local ids = {}
+		for _, id in ipairs({
+			tier and tier.currencyId,
+			tier and tier.season2CurrencyId,
+		}) do
+			ids[#ids + 1] = id
+		end
+		for _, list in ipairs({
+			(tier and tier.alternateCurrencyIds) or {},
+			(tier and tier.season2AlternateCurrencyIds) or {},
+		}) do
+			for j = 1, #list do
+				ids[#ids + 1] = list[j]
 			end
 		end
 		for j = 1, #ids do
@@ -302,8 +329,11 @@ function ns.RefreshDawncrestGuide()
 				else
 					row.count:SetText(tostring(qty))
 				end
-				SetRowIcon(row.icon, tier.currencyId)
-				BindCrestIconTooltip(row.iconBtn, tier.currencyId)
+				-- Season-aware, or the icon and its tooltip describe a currency the
+				-- row is not counting.
+				local _, activeId = TierCurrencyIds(tier)
+				SetRowIcon(row.icon, activeId)
+				BindCrestIconTooltip(row.iconBtn, activeId)
 				local rowFrame = row.row
 				if row.ach and rowFrame and rowFrame.SetHeight then
 					-- Rijhoogtes schalen mee met de tekst (matcht build-layout);
