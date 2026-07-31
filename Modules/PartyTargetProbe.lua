@@ -163,6 +163,18 @@ function ns.PrintPartyTargetProbe()
 		local guid = Ask(UnitGUID, unit .. "target")
 		print(("     UnitFullName=%s%s  GetUnitName=%s%s  GUID=%s"):format(
 			State(full), Shown(full), State(getun), Shown(getun), State(guid)))
+
+		-- Rob asked whether we can show the skull when the target carries one.
+		-- Genuinely unknown: a raid marker is drawn above the mob for everyone to
+		-- see, so hiding the index would protect nothing — but exactly the same is
+		-- true of the mob's NAME, and that is secret. Assumption is not available.
+		--
+		-- If the index reads, an icon is easy. If it is secret, there may still be a
+		-- way: SetRaidTargetIconTexture takes the index and sets the texture itself,
+		-- so it could accept a secret the way SetText does. That would be the next
+		-- measurement, not this one.
+		local mark = Ask(GetRaidTargetIndex, unit .. "target")
+		print(("     raid marker index=%s%s"):format(State(mark), Shown(mark)))
 	end
 
 	print("  |cff9d9d9dEnemy target names are SECRET here; a party member's name is not.|r")
