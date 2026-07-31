@@ -2456,3 +2456,13 @@ fill("frFR", { DISCORD_NUDGE_BTN = "Afficher le lien d'invitation Discord" })
 fill("esES", { DISCORD_NUDGE_BTN = "Mostrar enlace de invitación de Discord" })
 fill("ptBR", { DISCORD_NUDGE_BTN = "Mostrar link de convite do Discord" })
 fill("itIT", { DISCORD_NUDGE_BTN = "Mostra il link d'invito Discord" })
+
+-- Season 2's date became official on 30 jul (Blizzard, "Midnight Season 2 Begins
+-- August 18"), so this line may finally name it. Blizzard's own wording is "week
+-- of", and that is kept on purpose: the US reset falls on Tuesday and the European
+-- one a day later, so a bare date would be wrong for half the players.
+fill("deDE", { ST_SEASON_SOON = "Season 2 startet in der Woche des 18. August" })
+fill("frFR", { ST_SEASON_SOON = "La saison 2 débute la semaine du 18 août" })
+fill("esES", { ST_SEASON_SOON = "La temporada 2 comienza la semana del 18 de agosto" })
+fill("ptBR", { ST_SEASON_SOON = "A temporada 2 começa na semana de 18 de agosto" })
+fill("itIT", { ST_SEASON_SOON = "La stagione 2 inizia la settimana del 18 agosto" })

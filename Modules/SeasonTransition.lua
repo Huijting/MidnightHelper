@@ -306,6 +306,11 @@ function ns.GetSeasonTransitionSteps()
 			push(item, "soft")
 		end
 		if phase == "prep" then
+			-- ST_SEASON_SOON carries a hardcoded Season 2 date, which it may do
+			-- because Blizzard published it on 30 jul. It is only ever shown in the
+			-- "prep" phase -- the window between the patch and the season opening --
+			-- so it retires itself the moment the season goes live. It DOES have to
+			-- be rewritten for Season 3; there is no mechanism that will notice.
 			steps[#steps + 1] = { text = L("ST_SEASON_SOON"), color = "soft" }
 		end
 	end

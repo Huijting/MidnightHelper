@@ -75,9 +75,22 @@ omgedraaid (world markers boven, target icons onder). Alles gepusht, niets uitge
 
 ## De klok
 
-Patch **12.1 "Curse of Ula'tek"** is een release candidate (build 68914). Community-
-projectie: **11/12 aug** voor de patch, **18 aug** voor Season 2. **Blizzard heeft geen
-datum aangekondigd** -- status `COMMUNITY_REPORTED`, mag nergens speler-zichtbaar staan.
+Patch **12.1 "Curse of Ula'tek"** is een release candidate (build 68914).
+
+**Season 2 is OFFICIEEL: 18 augustus.** Blizzard publiceerde op 30 juli "The Shadows
+Deepen: Midnight Season 2 Begins August 18" met de volledige unlock-planning. Status
+gaat daarmee van `COMMUNITY_REPORTED` naar `OFFICIAL_CONFIRMED`, en de datum **mag**
+speler-zichtbaar worden getoond -- dat was de enige reden dat we zwegen.
+
+Wat het artikel bevestigt: week van **11 aug** Heroic + Mythic 0 + de S2-dungeonrotatie
+(8) + Lair op World Difficulty; week van **18 aug** M+, Great Vault S2-gear, raid The
+Venomous Abyss (eindbaas Ula'tek), Bountiful delves + keys. RF-wings volgen 25 aug,
+1 sep en 8 sep. Bron:
+https://news.blizzard.com/en-us/article/24294369/the-shadows-deepen-midnight-season-2-begins-august-18
+
+De **patchdatum zelf (11/12 aug) blijft een projectie** -- het artikel noemt weken, geen
+patchdag. Die blijft `COMMUNITY_REPORTED` en dus niet speler-zichtbaar. Let op het
+EU-verschil: een Amerikaanse resetweek begint bij ons een dag later.
 
 Voorgestelde volgorde (Rob akkoord 2026-07-27): 2.12.0 een paar dagen **voor** patchdag,
 patchdag zelf vrijhouden voor hotfixes, en 3.0.0 bij de seizoensstart -- want op patchdag
@@ -166,8 +179,14 @@ Statussen: `OFFICIAL_CONFIRMED` / `IN_GAME_VERIFIED` / `ADDON_RESEARCH` /
 precies één plek: `## Author:` in de `.toc`. Geen dialoog of stem in de addon bouwen
 tenzij Rob daar expliciet om vraagt.
 
-**Datums zijn nooit bevestigd.** 11/12 aug en 18 aug zijn community-projecties. Ze mogen
-niet als vaststaand verschijnen in de addon, release notes, CurseForge, Notion of Discord.
+**Datums per stuk beoordelen, niet als groep.** Dit stond hier als "datums zijn nooit
+bevestigd" en dat is sinds 30 juli onwaar: **18 augustus voor Season 2 is officieel**
+(Blizzard-artikel, zie De klok) en mag overal getoond worden. De **patchdatum 11/12 aug**
+is dat niet -- het artikel noemt resetweken, geen patchdag -- en blijft dus buiten de
+addon, release notes, CurseForge, Notion en Discord.
+
+Een blanket-regel las prettig maar hield een bevestigd feit tegen. Toets de status van
+de losse datum, niet de categorie.
 
 ## Werkafspraken
 
