@@ -30,7 +30,10 @@ local _, ns = ...
 	that crashed the probe on 31 jul. Everything goes through Ask() and Secret().
 ]]
 
-local PANEL_W, ROW_H, PAD = 210, 16, 8
+-- Wider than it first was: "Daggerspine Myrmidon" is an ordinary trash mob and it
+-- did not fit. Since the text cannot be measured — it is a secret — the only lever
+-- is giving it room.
+local PANEL_W, ROW_H, PAD = 260, 16, 8
 local MAX_ROWS = 4
 
 local panel, rows
@@ -135,6 +138,22 @@ local function EnsurePanel()
 		row.target:SetPoint("TOPLEFT", row.member, "TOPRIGHT", 6, 0)
 		row.target:SetPoint("RIGHT", panel, "RIGHT", -PAD, 0)
 		row.target:SetJustifyH("LEFT")
+		-- One line per member, always. "Daggerspine Myrmidon" wrapped onto a second
+		-- line and spilled past the panel, because the rows are a fixed height (Rob,
+		-- 31 jul). Growing the row instead would make the panel jump about as targets
+		-- change mid-fight, which is worse in a thing you glance at.
+		--
+		-- It clips rather than truncating with an ellipsis, and that is on purpose:
+		-- adding "..." means measuring the string, and the string is a secret we are
+		-- not allowed to look at.
+		row.target:SetWordWrap(false)
+		if row.target.SetMaxLines then
+			row.target:SetMaxLines(1)
+		end
+		row.member:SetWordWrap(false)
+		if row.member.SetMaxLines then
+			row.member:SetMaxLines(1)
+		end
 		rows[i] = row
 	end
 	panel:Hide()
