@@ -32,7 +32,11 @@ local function loadModule(relative)
 end
 
 local KB = loadModule("Modules/KnowledgeData_S1.lua")
-local Evaluator = loadModule("tools/knowledge_evaluator.lua")
+-- The evaluator lives beside the request builder in one file, so the code the fixtures
+-- prove is the same code that will ship — there is no second copy to drift. It sits in
+-- tools/ until phase 3 is finished and it can be registered in the .toc deliberately.
+-- BuildRequest is never called here, so no WoW API is touched.
+local Evaluator = loadModule("tools/knowledge_runtime.lua")
 local Corpus = loadModule("tools/knowledge_fixtures_generated.lua")(KB.NULL)
 
 --------------------------------------------------------------------------------

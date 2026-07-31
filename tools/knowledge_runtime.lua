@@ -1,22 +1,35 @@
 --[[
-	Midnight Helper — Knowledge evaluator (RFC-002, implementation phase 2).
+	Midnight Helper — Knowledge runtime (RFC-002, implementation phase 3).
 
-	A PURE function: Evaluate(request, kb) -> response. It calls no WoW API, reads no
-	clock, and touches no global state. That is not a style preference — it is what lets
-	the ten fixtures run outside the game with plain `lua`, in CI and locally. Every bit
-	of client access belongs in the request builder, which does not exist yet.
+	Two halves with a hard line between them:
 
-	NOT IN MidnightHelper.toc. Phase 2 is build-and-test only. This file moves to
-	Modules/KnowledgeRuntime.lua when phase 3 adds the request builder.
+	  Evaluate(request, kb, engine)  PURE. No WoW API, no clock, no globals. This is the
+	                                 same code the ten fixtures run against outside the
+	                                 game, moved here unchanged from tools/.
+	  BuildRequest()                 The ONLY place that touches the client. Anything it
+	                                 cannot read honestly becomes nil — never false, and
+	                                 never a plausible-looking default.
 
-	Written for Lua 5.1 (the game's dialect) even though it is tested on 5.4: no goto,
-	no integer division, no bitwise operators.
+	That line is what lets a wrong answer be reproduced without logging in: dump the
+	request with /mh know save and replay it as a fixture.
 
-	Three-valued logic throughout. nil and the NULL sentinel both mean UNKNOWN, and
-	unknown is neither true nor false — a rule requiring `true` does not fire on unknown.
-	Same contract as ns.Aura in Modules/Auras.lua, for the same reason: "empty" and
-	"unreadable" are different claims and only one of them is honest.
+	LIVES IN tools/ ON PURPOSE, WHILE PHASE 3 IS UNFINISHED. It is not player-visible and
+	not in the .toc, and a Lua file that sits in Modules/ without a .toc entry is a HARD
+	lint failure for everyone sharing this checkout — rightly so. tools/ is excluded from
+	the release zip and needs no .toc entry, so this is the honest place for it until the
+	feature is ready to be registered deliberately.
+
+	Destination when phase 3 lands: Modules/KnowledgeRuntime.lua, registered in the .toc.
+
+	Lua 5.1 dialect (the game's): no goto, no integer division, no bitwise operators.
 ]]
+
+
+-- The client passes (addonName, ns) to every .toc-loaded file; the fixture runner passes
+-- the same two by hand. Only BuildRequest uses ns — the evaluator below never touches it,
+-- which is what keeps it pure.
+local _, ns = ...
+ns = ns or {}
 
 local M = {}
 
@@ -407,7 +420,10 @@ local function staleSignals(ctx, obj)
 		local rule = st.stale_when[i]
 		local actual
 		if rule.signal == "manual_disable_flag" then
-			actual = ctx.engine.manual_disable_flag
+			-- Per object, not one global switch: ns.db.knowledge.disabled[id] (RFC-002 C4).
+			-- Absent stays nil, i.e. unknown, so an unset flag never reads as "not disabled".
+			local disabled = ctx.engine.disabled
+			actual = (type(disabled) == "table") and disabled[obj.id] or ctx.engine.manual_disable_flag
 		else
 			actual = ctx.request[rule.signal]
 		end
@@ -609,11 +625,20 @@ local function buildResponse(ctx, owner, output, missing, declaredConfidence, ex
 	return response
 end
 
-function M.Evaluate(request, kb)
+--- @param engine table|nil  engine-owned inputs (disable flags). Copied, never mutated,
+---   so the caller's table cannot be changed by evaluating — purity runs both ways.
+function M.Evaluate(request, kb, engine)
+	local engineInputs = {}
+	if type(engine) == "table" then
+		for k, v in pairs(engine) do
+			engineInputs[k] = v
+		end
+	end
+
 	local ctx = {
 		request = request,
 		kb = kb,
-		engine = {},
+		engine = engineInputs,
 		contributors = {},
 		assumptionUsed = {},
 		subject = nil,
@@ -789,6 +814,229 @@ function M.Evaluate(request, kb)
 		confidence = "unknown",
 		not_now_keys = {},
 	}
+end
+
+--------------------------------------------------------------------------------
+-- Request builder — the only client-facing layer
+--------------------------------------------------------------------------------
+
+--- Every read is pcall-guarded and every failure yields nil. nil means "we could not
+--- read this", which the evaluator treats as unknown. It never becomes false, and it
+--- never becomes a default that looks like knowledge.
+local function safe(fn, ...)
+	if type(fn) ~= "function" then
+		return nil
+	end
+	local ok, a, b, c, d, e = pcall(fn, ...)
+	if not ok then
+		return nil
+	end
+	return a, b, c, d, e
+end
+
+--- Interface build number, e.g. 120007. Same call SeasonTransition.lua uses.
+local function ClientInterface()
+	local _, _, _, iface = safe(GetBuildInfo)
+	return tonumber(iface)
+end
+
+local function MythicPlusSeasonId()
+	if not (C_MythicPlus and C_MythicPlus.GetCurrentSeason) then
+		return nil
+	end
+	return tonumber(safe(C_MythicPlus.GetCurrentSeason))
+end
+
+local function GreatVaultReady()
+	if not (C_WeeklyRewards and C_WeeklyRewards.HasAvailableRewards) then
+		return nil -- API absent: unknown, not "no reward waiting"
+	end
+	local ready = safe(C_WeeklyRewards.HasAvailableRewards)
+	if type(ready) ~= "boolean" then
+		return nil
+	end
+	return ready
+end
+
+local function PlayerState()
+	local state = { item_level = nil, role = nil, specialization = nil }
+
+	local overall, equipped = safe(GetAverageItemLevel)
+	local ilvl = tonumber(equipped) or tonumber(overall)
+	if ilvl and ilvl > 0 then
+		state.item_level = math.floor(ilvl + 0.5)
+	end
+
+	if GetSpecialization and GetSpecializationInfo then
+		local idx = safe(GetSpecialization)
+		if idx and idx > 0 then
+			local _, name, _, _, role = safe(GetSpecializationInfo, idx)
+			if type(name) == "string" and name ~= "" then
+				state.specialization = name
+			end
+			if type(role) == "string" and role ~= "" then
+				state.role = role
+			end
+		end
+	end
+
+	return state
+end
+
+--- Ritual Sites as an activity_state.
+---
+--- Availability comes from ns.GetRitualWeeklyHint's `kind`, which RitualSites.lua
+--- documents as: locked (renown not unlocked) / intro (this character has not finished
+--- the intro chain) / pickup / inprogress, or nil when the weekly is DONE **or** the
+--- state is unknowable. Those last two are not the same claim, so we disambiguate with
+--- ns.IsRitualWeeklyDone instead of guessing. An unknowable state stays unknown, which
+--- is exactly the case fixture 07 covers.
+---
+--- available_tiers is deliberately absent: nothing in this addon can read which ritual
+--- tiers a character has unlocked. That makes MH-KO-RITUAL-TIER-1207-002 inapplicable,
+--- so it stays silent rather than choose a tier it cannot see.
+local function RitualActivityState()
+	if not ns.GetRitualWeeklyHint then
+		return nil
+	end
+
+	local _, kind = safe(ns.GetRitualWeeklyHint)
+	local done = ns.IsRitualWeeklyDone and safe(ns.IsRitualWeeklyDone)
+
+	local state = {
+		activity_id = "ritual_site",
+		available = nil,
+		prerequisites_met = nil,
+		prerequisite_state_known = false,
+		live_recommended_item_level = nil,   -- no known API; see RFC-002 section 9
+		weekly_extra_value_available = nil,  -- Tier 6 weekly quest not readable
+	}
+
+	if kind == "locked" then
+		state.available, state.prerequisites_met, state.prerequisite_state_known = false, false, true
+		state.missing_prerequisites = { { id = "unlock_ritual_renown", actionable = true } }
+	elseif kind == "intro" then
+		state.available, state.prerequisites_met, state.prerequisite_state_known = false, false, true
+		state.missing_prerequisites = { { id = "finish_ritual_intro_chain", actionable = true } }
+	elseif kind == "pickup" or kind == "inprogress" then
+		state.available, state.prerequisites_met, state.prerequisite_state_known = true, true, true
+	elseif done == true then
+		state.available, state.prerequisites_met, state.prerequisite_state_known = true, true, true
+	end
+	-- Anything else leaves every field unknown, which is the honest answer.
+
+	return state
+end
+
+--- Completed runs from the delve log and the ritual log, newest first, capped at the
+--- 20 the knowledge objects declare as their window. Both stores only ever record
+--- completed runs, so `completed` is true for all of them.
+local RUN_WINDOW = 20
+
+local function RecentActivityHistory()
+	local runs = {}
+
+	local guid = safe(UnitGUID, "player")
+	if guid and ns.db and type(ns.db.delveLog) == "table" then
+		local store = ns.db.delveLog[guid]
+		if type(store) == "table" and type(store.delves) == "table" then
+			for _, entry in pairs(store.delves) do
+				for _, run in ipairs((type(entry) == "table" and entry.recent) or {}) do
+					runs[#runs + 1] = {
+						activity_id = "delve",
+						tier = tonumber(run.tier) or 0,
+						completed = true,
+						duration_seconds = tonumber(run.duration) or 0,
+						deaths = tonumber(run.deaths) or 0,
+						_ts = tonumber(run.timestamp) or 0,
+					}
+				end
+			end
+		end
+	end
+
+	if ns.GetRitualLogEntries then
+		for _, row in ipairs(safe(ns.GetRitualLogEntries) or {}) do
+			for _, run in ipairs((type(row.entry) == "table" and row.entry.recent) or {}) do
+				runs[#runs + 1] = {
+					activity_id = "ritual_site",
+					tier = tonumber(run.tier) or 0,
+					completed = true,
+					duration_seconds = tonumber(run.duration) or 0,
+					deaths = tonumber(run.deaths) or 0,
+					_ts = tonumber(run.timestamp) or 0,
+				}
+			end
+		end
+	end
+
+	table.sort(runs, function(a, b) return a._ts > b._ts end)
+	while #runs > RUN_WINDOW do
+		table.remove(runs)
+	end
+	for i = 1, #runs do
+		runs[i]._ts = nil
+	end
+	return runs
+end
+
+--- Build a runtime request from live client state.
+--- @return table request, table notes   notes lists what could not be read, for /mh know
+function M.BuildRequest()
+	local notes = {}
+	local function note(what)
+		notes[#notes + 1] = what
+	end
+
+	local request = {
+		request_id = "live",
+		interface = ClientInterface(),
+		mythic_plus_season_id = MythicPlusSeasonId(),
+		-- v1 assumes the goal. Declaring it in assumed_inputs is what stops the confidence
+		-- policy from ever reporting `high` on an answer the goal decided.
+		player_goal = "progress",
+		assumed_inputs = { "player_goal" },
+		-- Not observable. No default would be honest, so it stays unknown and the timebox
+		-- asks instead of guessing.
+		available_session_minutes = nil,
+		weekly_reward_state = { great_vault_reward_ready = GreatVaultReady() },
+		player_state = PlayerState(),
+		activity_states = {},
+		recent_activity_history = RecentActivityHistory(),
+	}
+
+	local ritual = RitualActivityState()
+	if ritual then
+		request.activity_states[#request.activity_states + 1] = ritual
+		note("ritual.available_tiers - no API reads unlocked ritual tiers, so the tier selector cannot apply")
+		if ritual.prerequisite_state_known == false then
+			note("ritual prerequisite state - GetRitualWeeklyHint returned no usable kind")
+		end
+	else
+		note("ritual_site - RitualSites.lua exposed no hint function")
+	end
+
+	if request.interface == nil then
+		note("interface - GetBuildInfo unreadable")
+	end
+	if request.mythic_plus_season_id == nil then
+		note("mythic_plus_season_id - C_MythicPlus.GetCurrentSeason unreadable")
+	end
+	if request.weekly_reward_state.great_vault_reward_ready == nil then
+		note("great_vault_reward_ready - C_WeeklyRewards unreadable")
+	end
+	if request.player_state.item_level == nil then
+		note("player item level - GetAverageItemLevel unreadable")
+	end
+	if #request.recent_activity_history == 0 then
+		note("recent_activity_history - no completed runs logged on this character yet")
+	end
+
+	return request, notes
+end
+
+if type(ns) == "table" then
+	ns.KnowledgeRuntime = M
 end
 
 return M

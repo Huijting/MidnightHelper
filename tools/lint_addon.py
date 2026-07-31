@@ -188,9 +188,15 @@ def parse_toc(root: str) -> set[str]:
 
 
 # Generated knowledge data (RFC-002) is written to Modules/ but is deliberately NOT in the
-# .toc during implementation phases 1-2: it is built and tested, and nothing reaches a
+# .toc while the feature is being built: it is compiled and tested, and nothing reaches a
 # player yet. Skipping the .toc check needs BOTH signals below, so a hand-written file can
 # never drift out of the .toc unnoticed by leaning on this exemption.
+#
+# GENERATED DATA ONLY. This was briefly widened to cover hand-written runtime modules as
+# well, which weakened the check and blocked the addon session with two HARD orphans. The
+# right home for unfinished, unregistered runtime code is tools/, not an exemption here —
+# tools/ is excluded from the release zip and needs no .toc entry at all. Do not widen this
+# again: if a Lua file belongs in Modules/, it belongs in the .toc.
 PENDING_TOC_PREFIX = "Modules/KnowledgeData_"
 GENERATED_MARKER = "GENERATED FILE"
 
@@ -516,7 +522,7 @@ def main() -> int:
         print(f"    HARD  {o}")
     hard += len(orphans)
     for p in pending_toc:
-        print(f"    SOFT  {p}   generated, not registered yet — deliberate (RFC-002 phase 1/2)")
+        print(f"    SOFT  {p}   generated, not registered yet — deliberate (RFC-002)")
     soft += len(pending_toc)
 
     # 3. Duplicate keys within a locale (HARD)
