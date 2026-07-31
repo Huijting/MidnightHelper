@@ -244,3 +244,30 @@ Dawncrest — Midnight Season 1". Fixed by giving the season choice one definiti
 (`TierCurrencyIds`) instead of three call sites. The server request had the same
 gap: it only ever asked for the Season 1 ids, and a currency the server never
 pushed reads as zero — indistinguishable from having none.
+
+## The game supplies the source text itself (31 jul 2026)
+
+The open question in DawncrestGuide — "if every description is EMPTY we must source
+the text elsewhere, not invent it" — is answered. They are populated, and richer
+than anything we would have written:
+
+    Used to upgrade Adventurer equipment in Midnight Season 1 up to item levels
+    224-237.
+
+    When used for crafting, sets the item level of the resulting item to 220-233
+    based on Quality.
+
+    Earned from the following activities:
+    - Repeatable Outdoor Events
+    - Tier 4 Delves
+    - Prey Hunts (Normal)
+
+Straight from `C_CurrencyInfo.GetCurrencyInfo(id).description`, already in the
+player's language, and it updates itself when Blizzard changes a source. **Crest
+sources must never be hand-maintained in this addon.** The icon tooltips already
+show it via `SetCurrencyByID`, which is what the guide's summary means by "hover
+any crest icon".
+
+**Unused so far: the item level range per tier.** "Adventurer 224-237", "Hero
+263-276" — that is the answer to "which crest do I actually need for this piece",
+and nothing in MH shows it. It is one field away.

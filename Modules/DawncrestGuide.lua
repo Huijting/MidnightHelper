@@ -722,7 +722,15 @@ function ns.PrintCrestProbe(save)
 			prefix, #rows))
 		return
 	end
-	print("   " .. prefix .. " if every description is EMPTY we must source the text elsewhere, not invent it.")
+	-- ANSWERED 31 jul: they are NOT empty. The game returns item level ranges, the
+	-- crafting range, and a full source list per tier -- "Earned from: Repeatable
+	-- Outdoor Events, Tier 4 Delves, Prey Hunts (Normal)" -- already in the player's
+	-- language. So the source text never has to be hand-maintained or guessed, and
+	-- the tooltip on each crest icon (SetCurrencyByID) already shows it.
+	--
+	-- Still unused anywhere: the ITEM LEVEL RANGE per tier. That is the answer to
+	-- "which crest do I actually need", and it is sitting in this field.
+	print("   " .. prefix .. " descriptions are populated (verified 31 jul) — never hand-write crest sources.")
 end
 
 --- /mh crestscan — walk the player's whole currency list and show every "crest".
