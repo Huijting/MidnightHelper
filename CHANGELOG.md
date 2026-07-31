@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.11.1
+
+- Fixed: the crest pages claimed a weekly cap of roughly 100 per colour. There is no such cap - the game reports no weekly limit on any tier, measured 22 July - and the claim had already been removed from the English and Dutch guide text that day. It was still present in the Codex in all seven languages and in the crest guide in deDE, frFR, esES, ptBR and itIT. Removed everywhere.
+
 ## 2.11.0
 
 - New: the Season 1 closing checklist tracks what actually expires and ticks itself off - Delver's Journey, the five "of the Dawn" achievements, the three Nullaeus nemesis achievements (61797/61798/61799) and the Prey capstone Preying For Midnight (62351). All four nemesis entries turned out to be hidden Feats of Strength, invisible to a normal achievement walk.
