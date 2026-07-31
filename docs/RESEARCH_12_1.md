@@ -189,3 +189,25 @@ needs a read, and every read is refused.
 and for a boolean the truthiness *is* the protected answer. A secret STRING passes
 through the same expression without complaint. Move suspect values with a plain
 assignment; never let an expression ask what they are.
+
+### The gate is COMBAT, not the content (measured 31 jul, ritual scenario)
+
+The table above came from a follower dungeon, which left two ways to explain it:
+the content, or the fact that everything there is an NPC follower. A ritual
+scenario with a real player settles it, because the same character was measured
+twice minutes apart.
+
+    in combat: false     target name=nil  same-as-my-target=read false  GUID=nil
+    in combat: true      target name=SECRET  same-as-my-target=SECRET   GUID=SECRET
+
+Out of combat every route reads. In combat every route closes — the three name
+APIs, the GUID, and the UnitIsUnit comparison alike. `UnitExists` and `UnitIsPlayer`
+keep reading in both.
+
+So it is the same combat edge the aura work found in July, where
+`ShouldAurasBeSecret` flips on entering and leaving combat. One rule, two features.
+
+Which is the worst possible shape for a helper: out of combat you may ask anything
+and have no reason to, and the moment you need it the door shuts. It is also why
+the party-targets panel can only DISPLAY — every question worth asking about a
+target is a combat question.
