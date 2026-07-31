@@ -11,15 +11,15 @@
 	                                 never a plausible-looking default.
 
 	That line is what lets a wrong answer be reproduced without logging in: dump the
-	request with /mh know save and replay it as a fixture.
+	request with /mhknow save and replay it as a fixture.
 
-	LIVES IN tools/ ON PURPOSE, WHILE PHASE 3 IS UNFINISHED. It is not player-visible and
-	not in the .toc, and a Lua file that sits in Modules/ without a .toc entry is a HARD
-	lint failure for everyone sharing this checkout — rightly so. tools/ is excluded from
-	the release zip and needs no .toc entry, so this is the honest place for it until the
-	feature is ready to be registered deliberately.
+	Registered in MidnightHelper.toc since 2026-08-01, so this file runs at login. It
+	writes no globals and touches no API while loading; tools/check_knowledge_inert.lua
+	proves that on every run rather than asserting it.
 
-	Destination when phase 3 lands: Modules/KnowledgeRuntime.lua, registered in the .toc.
+	tools/run_knowledge_fixtures.lua loads THIS file, so the code the ten fixtures prove is
+	the code that ships. Keep it that way: a second copy would drift, and the fixtures
+	would go on passing against something the player never runs.
 
 	Lua 5.1 dialect (the game's): no goto, no integer division, no bitwise operators.
 ]]

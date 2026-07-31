@@ -3,11 +3,11 @@
 
 	    lua tools/check_knowledge_inert.lua
 
-	Answers one question with evidence instead of assurance: is it safe to put these
-	files in the .toc? An addon file runs its whole chunk the moment the client loads it,
-	so "it only does something when you call it" is a claim that has to be proved, not
-	asserted. The repo IS Rob's running game; a file that creates a frame or registers an
-	event at load changes his session the second it appears in the .toc.
+	These files ARE in the .toc now, so this is no longer a pre-flight question but a
+	standing guard: the client runs their whole chunk at every login, in Rob's live
+	session. "It only does something when you call it" is a claim that has to be proved on
+	every change, not asserted once. A file that starts creating a frame or registering an
+	event at load would alter his session silently — this is what notices.
 
 	How: _G gets a metatable that records every global READ and every global WRITE while
 	each file loads. Afterwards the recorded sets are compared against what each file is
@@ -81,12 +81,12 @@ local FILES = {
 		note = "generated data table",
 	},
 	{
-		path = "tools/knowledge_runtime.lua",
+		path = "Modules/KnowledgeRuntime.lua",
 		writes = {},
 		note = "pure evaluator + request builder",
 	},
 	{
-		path = "tools/knowledge_registry.lua",
+		path = "Modules/Knowledge.lua",
 		-- The only deliberate load-time side effect in the whole feature, and it matches
 		-- what CombatSafety, FirstRun and KeybindAutoMap already do.
 		writes = { SLASH_MHKNOW1 = true },
@@ -180,8 +180,8 @@ end
 
 print("")
 if failures > 0 then
-	print(("  %d problem(s) — NOT safe to register in the .toc"):format(failures))
+	print(("  %d problem(s) — these files load at login; fix before /reload"):format(failures))
 	os.exit(1)
 end
-print("  inert at load, safe to register in the .toc")
+print("  inert at load — registering these in the .toc stays safe")
 os.exit(0)

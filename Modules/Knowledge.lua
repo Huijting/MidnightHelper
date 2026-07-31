@@ -15,15 +15,13 @@
 	from 22 July, arrived at from a different direction.
 
 	Long output goes to SavedVariables, not to chat:
-	    /mh know          one-screen summary
-	    /mh know save     full request + response into ns.db.knowledgeProbe, then /reload
+	    /mhknow           one-screen summary
+	    /mhknow save      full request + response into ns.db.knowledgeProbe, then /reload
 
-	LIVES IN tools/ ON PURPOSE, WHILE PHASE 3 IS UNFINISHED. Not player-visible, not in the
-	.toc, and a Lua file sitting in Modules/ without a .toc entry is a HARD lint failure for
-	everyone sharing this checkout. tools/ is excluded from the release zip and needs no
-	.toc entry, so this is where unfinished runtime code belongs.
-
-	Destination when phase 3 lands: Modules/Knowledge.lua, registered in the .toc.
+	Registered in MidnightHelper.toc since 2026-08-01, so this file now runs at login.
+	tools/check_knowledge_inert.lua guards what that is allowed to mean: it records every
+	global read and written while the file loads, and fails on CreateFrame, RegisterEvent,
+	hooksecurefunc and friends. One global is written on purpose, SLASH_MHKNOW1.
 ]]
 
 local _, ns = ...
