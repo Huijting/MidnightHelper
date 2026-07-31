@@ -83,8 +83,27 @@ f:SetScript("OnEvent", function()
 end)
 
 -- Test/preview: forceer de first-run-ervaring opnieuw (reset de sessie-guard).
+--
+-- `/mhfirstrun reset` doet iets anders en is bedoeld voor de nieuwelingentest
+-- (blok 6): het WIST de vlag en toont niets. De volgende keer dat de tester
+-- inlogt gebeurt het dus vanzelf, vier seconden na het laadscherm, precies zoals
+-- bij een echte eerste installatie.
+--
+-- Dat onderscheid is de hele test waard. `/mhfirstrun` zonder argument laat de
+-- popup zien omdat jij erom vroeg -- dat meet of het venster werkt. De vraag is
+-- of een nieuwe speler het vindt zonder dat iemand het aanwijst, en die kun je
+-- per persoon maar één keer stellen.
 SLASH_MHFIRSTRUN1 = "/mhfirstrun"
-SlashCmdList["MHFIRSTRUN"] = function()
+SlashCmdList["MHFIRSTRUN"] = function(msg)
+	if type(msg) == "string" and msg:lower():match("^%s*reset%s*$") then
+		if ns.db then
+			ns.db.firstRunSeen = nil
+		end
+		shownThisSession = false
+		local p = (ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:"
+		print(("|cffffcc00%s|r first-run reset — log uit en weer in; na het laadscherm hoort het vanzelf te komen."):format(p))
+		return
+	end
 	shownThisSession = false
 	ShowFirstRun()
 end
