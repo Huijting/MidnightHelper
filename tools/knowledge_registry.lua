@@ -194,6 +194,34 @@ function ns.PrintKnowledge(arg)
 	end
 end
 
+--------------------------------------------------------------------------------
+-- Slash command
+--------------------------------------------------------------------------------
+
+-- Registered here rather than routed from Core.lua's /mh chain, for one practical
+-- reason: Core.lua belongs to the addon session, and a dev diagnostic is not worth a
+-- cross-owner edit. The addon already does this for its own dev commands —
+-- /mhcsdebug (CombatSafety), /mhfirstrun (FirstRun), /mhautomap (KeybindAutoMap) — so
+-- this follows the house pattern instead of inventing one.
+--
+-- When phase 3 is approved and /mh know joins the main router, this block can go; the
+-- work it does is one call to ns.PrintKnowledge either way.
+--
+-- Guarded because the fixture runner and the offline smoke test load this same file
+-- outside the game, where SlashCmdList does not exist.
+--
+-- Plain global assignment, not rawset, and that is deliberate: tools/check_knowledge_inert.lua
+-- detects load-time side effects through a __newindex hook on _G, and rawset walks
+-- straight past it. Writing the global the ordinary way keeps this file honest to its own
+-- inspector — a side effect that cannot be observed is worse than one that can.
+if type(SlashCmdList) == "table" then
+	SLASH_MHKNOW1 = "/mhknow"
+	SlashCmdList["MHKNOW"] = function(msg)
+		msg = (msg or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
+		ns.PrintKnowledge(msg == "save" and "save" or nil)
+	end
+end
+
 ns.Knowledge = M
 
 return M
