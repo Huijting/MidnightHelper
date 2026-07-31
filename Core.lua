@@ -1645,8 +1645,11 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	if msg == "crests" then
-		if ns.PrintCrestProbe then ns.PrintCrestProbe() end
+	-- /mh crests [save] — per tier what the game says. `save` writes it to
+	-- ns.db.crestProbe instead of chat: with the Season 2 ids in there this runs to
+	-- roughly eighty lines, which is not something to read off a screenshot.
+	if msg == "crests" or msg == "crests save" then
+		if ns.PrintCrestProbe then ns.PrintCrestProbe(msg == "crests save") end
 		return
 	end
 

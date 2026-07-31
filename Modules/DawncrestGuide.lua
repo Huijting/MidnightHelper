@@ -556,29 +556,82 @@ end)
 --- C_CurrencyInfo hands us a description, that text is authoritative, already
 --- translated, and updates itself -- so we show that instead of our own claim.
 --- Run this before writing a single source string.
-function ns.PrintCrestProbe()
+--- `/mh crests` prints; `/mh crests save` writes the same rows to
+--- ns.db.crestProbe and asks for a /reload so they reach the file.
+---
+--- The saved form exists because this probe is now long: five tiers times up to
+--- four ids each, four lines apiece. Rob does not screenshot eighty chat lines,
+--- and the standing agreement since 27 July is that long diagnostics go to
+--- SavedVariables and get read from disk.
+---
+--- @param save boolean|nil  true = collect into ns.db.crestProbe instead of chat
+function ns.PrintCrestProbe(save)
 	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
 	if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
 		print(prefix .. " no currency API")
 		return
 	end
-	print(prefix .. " Crest tiers — what the game says about each one:")
-	for _, tier in ipairs(ns.DAWNCREST_TIERS or {}) do
-		local ids = { tier.currencyId }
-		for _, alt in ipairs(tier.alternateCurrencyIds or {}) do
-			ids[#ids + 1] = alt
+	local rows = {}
+	local function emit(line, row)
+		if save then
+			if row then
+				rows[#rows + 1] = row
+			end
+		else
+			print(line)
 		end
+	end
+
+	if not save then
+		print(prefix .. " Crest tiers — what the game says about each one:")
+	end
+	for _, tier in ipairs(ns.DAWNCREST_TIERS or {}) do
+		-- Season 2 ids included, or this probe cannot answer the question it is
+		-- being run for. They were added to the data on 31 July but not here, so on
+		-- the PTR it would have walked five Season 1 tiers and never mentioned a
+		-- Mistcrest -- and which of Season 2's two id sets is the real one is
+		-- precisely what still needs measuring (DawncrestData header).
+		local ids, season = {}, {}
+		local function add(id, tag)
+			if id then
+				ids[#ids + 1] = id
+				season[id] = tag
+			end
+		end
+		add(tier.currencyId, "S1")
+		for _, alt in ipairs(tier.alternateCurrencyIds or {}) do
+			add(alt, "S1-alt")
+		end
+		add(tier.season2CurrencyId, "S2")
+		for _, alt in ipairs(tier.season2AlternateCurrencyIds or {}) do
+			add(alt, "S2-alt")
+		end
+
 		for _, id in ipairs(ids) do
 			local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
 			if ok and type(info) == "table" then
-				print(("   |cff40c040%s|r  id %d  =  %s   (have %s)"):format(
-					tostring(tier.key), id, tostring(info.name), tostring(info.quantity)))
+				local row = {
+					tier = tier.key,
+					season = season[id],
+					id = id,
+					name = tostring(info.name),
+					quantity = info.quantity,
+					maxQuantity = info.maxQuantity,
+					maxWeeklyQuantity = info.maxWeeklyQuantity,
+					earnedThisWeek = info.quantityEarnedThisWeek,
+					totalEarned = info.totalEarned,
+					description = (type(info.description) == "string" and info.description ~= "")
+						and info.description or nil,
+					achievementId = tier.achievementId,
+				}
+				emit(("   |cff40c040%s|r  %s id %d  =  %s   (have %s)"):format(
+					tostring(tier.key), season[id], id, tostring(info.name), tostring(info.quantity)), row)
 				-- Does this tier actually have a cap? Our summary text claims "a weekly
 				-- cap (~100)" per colour, but Blizzard's currency tab shows the crests
 				-- as a bare number while genuinely capped currencies render as "x / y".
 				-- The tilde says that number was always an estimate. Print the real
 				-- fields so the claim can be kept, corrected, or dropped.
-				print(("      maxQuantity=%s  maxWeeklyQuantity=%s  earnedThisWeek=%s  totalEarned=%s"):format(
+				emit(("      maxQuantity=%s  maxWeeklyQuantity=%s  earnedThisWeek=%s  totalEarned=%s"):format(
 					tostring(info.maxQuantity), tostring(info.maxWeeklyQuantity),
 					tostring(info.quantityEarnedThisWeek), tostring(info.totalEarned)))
 				-- Resolve the tier's "of the Dawn" achievement by NAME. Four of the five
@@ -590,21 +643,39 @@ function ns.PrintCrestProbe()
 				-- calls each id and compare it with the label on the row.
 				if tier.achievementId and GetAchievementInfo then
 					local okA, _, achName, _, achDone = pcall(GetAchievementInfo, tier.achievementId)
-					print(("      achievement %s -> %s%s"):format(
+					row.achievementName = (okA and achName) or nil
+					row.achievementEarned = (okA and achDone) or nil
+					emit(("      achievement %s -> %s%s"):format(
 						tostring(tier.achievementId),
 						(okA and achName) and ("|cffffffff" .. achName .. "|r") or "|cffff8080NO SUCH ACHIEVEMENT|r",
 						(okA and achDone) and "  |cff44ff44(earned)|r" or ""))
 				end
 				local desc = info.description
 				if type(desc) == "string" and desc ~= "" then
-					print("      description: " .. desc)
+					emit("      description: " .. desc)
 				else
-					print("      |cffff8080description: EMPTY|r — the game offers no source text")
+					emit("      |cffff8080description: EMPTY|r — the game offers no source text")
 				end
 			else
-				print(("   |cffff8080%s  id %s -> no currency info|r"):format(tostring(tier.key), tostring(id)))
+				emit(("   |cffff8080%s  id %s -> no currency info|r"):format(tostring(tier.key), tostring(id)))
 			end
 		end
+	end
+	if save then
+		if not ns.db then
+			print(prefix .. " |cffff8080cannot save: saved variables are not ready|r")
+			return
+		end
+		ns.db.crestProbe = {
+			rows = rows,
+			seasonTwoLive = (ns.IsSeason2Live and ns.IsSeason2Live()) or false,
+			-- The season state belongs in the file. Reading "Mistcrest, have 0" without
+			-- it cannot tell an id that does not exist yet from a season that has not
+			-- flipped, and those call for opposite conclusions.
+		}
+		print(("%s crest probe saved: %d rows -> ns.db.crestProbe. Now |cffffffff/reload|r so it reaches the file."):format(
+			prefix, #rows))
+		return
 	end
 	print("   " .. prefix .. " if every description is EMPTY we must source the text elsewhere, not invent it.")
 end
