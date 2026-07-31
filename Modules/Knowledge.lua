@@ -281,9 +281,45 @@ local function ReadLiveScenario()
 			out[#out + 1] = { label = label, source = source, value = "ERROR: " .. tostring(packed[2]) }
 			return
 		end
+		-- A bare "table: 0000022864..." answers nothing, and a table is exactly what the
+		-- interesting calls return. One level deep is enough to see whether a tier number
+		-- or an item level is in there.
+		local function describe(value)
+			if type(value) ~= "table" then
+				return tostring(value)
+			end
+			local fields, count = {}, 0
+			for k, v in pairs(value) do
+				count = count + 1
+				if count > 24 then
+					fields[#fields + 1] = "..."
+					break
+				end
+				if type(v) == "table" then
+					local inner = {}
+					for k2, v2 in pairs(v) do
+						inner[#inner + 1] = tostring(k2) .. "=" .. tostring(v2)
+						if #inner >= 8 then
+							inner[#inner + 1] = "..."
+							break
+						end
+					end
+					table.sort(inner)
+					fields[#fields + 1] = tostring(k) .. "={" .. table.concat(inner, " ") .. "}"
+				else
+					fields[#fields + 1] = tostring(k) .. "=" .. tostring(v)
+				end
+			end
+			table.sort(fields)
+			if count == 0 then
+				return "{} (empty table)"
+			end
+			return "{ " .. table.concat(fields, ", ") .. " }"
+		end
+
 		local parts = {}
 		for i = 2, #packed do
-			parts[#parts + 1] = ("[%d] %s"):format(i - 1, tostring(packed[i]))
+			parts[#parts + 1] = ("[%d] %s"):format(i - 1, describe(packed[i]))
 		end
 		out[#out + 1] = {
 			label = label,
@@ -298,8 +334,44 @@ local function ReadLiveScenario()
 		C_Scenario and C_Scenario.GetInfo)
 	capture("C_Scenario.GetStepInfo", "Modules/DelveHistory.lua",
 		C_Scenario and C_Scenario.GetStepInfo)
+	capture("C_Scenario.IsInScenario", "discovered by the sweep, 2026-08-01",
+		C_Scenario and C_Scenario.IsInScenario)
+
+	-- DISCOVERED BY THE SWEEP on Rob's own client, 2026-08-01 — not guessed names.
+	--
+	-- The first sweep explains why "no API reads ritual tiers" looked true: Blizzard
+	-- does not call this ritual anything. It calls it a TIERED ENTRANCE, and files the
+	-- calls under C_DelvesUI even though the function names say TieredEntrance rather
+	-- than Delve. If Ritual Sites run on that same system, this is where a tier and a
+	-- suggested item level would live.
+	--
+	-- Several of these may want arguments. Calling them bare is deliberate: an error
+	-- saying "needs an argument" is itself an answer, and far better than inventing a
+	-- parameter and reporting whatever comes back.
+	capture("C_ScenarioInfo.IsTieredEntranceScenario", "sweep",
+		C_ScenarioInfo and C_ScenarioInfo.IsTieredEntranceScenario)
+	capture("C_ScenarioInfo.GetScenarioInfo", "sweep",
+		C_ScenarioInfo and C_ScenarioInfo.GetScenarioInfo)
+	capture("C_ScenarioInfo.GetScenarioStepInfo", "sweep",
+		C_ScenarioInfo and C_ScenarioInfo.GetScenarioStepInfo)
 	capture("C_DelvesUI.GetActiveDelveTier", "Modules/DelveBossShowcase.lua",
 		C_DelvesUI and C_DelvesUI.GetActiveDelveTier)
+	capture("C_DelvesUI.GetDelveEntranceTiers", "sweep",
+		C_DelvesUI and C_DelvesUI.GetDelveEntranceTiers)
+	capture("C_DelvesUI.GetTieredEntranceType", "sweep",
+		C_DelvesUI and C_DelvesUI.GetTieredEntranceType)
+	capture("C_DelvesUI.GetTieredEntrancePDEID", "sweep",
+		C_DelvesUI and C_DelvesUI.GetTieredEntrancePDEID)
+	capture("C_DelvesUI.GetWorldTierDifficultyForActivePlayer", "sweep",
+		C_DelvesUI and C_DelvesUI.GetWorldTierDifficultyForActivePlayer)
+
+	-- A format string, not a value: printing it shows the placeholder shape, which tells
+	-- us what the game expects to fill in and therefore what it can already compute.
+	out[#out + 1] = {
+		label = "TIERED_ENTRANCE_ILVL_SUGGESTION",
+		source = "global string, sweep",
+		value = tostring(_G.TIERED_ENTRANCE_ILVL_SUGGESTION),
+	}
 
 	-- Criteria carry per-objective text and sometimes a number; if a tier is readable
 	-- anywhere in a scenario, this is the likeliest place it hides.
