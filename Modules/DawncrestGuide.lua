@@ -664,11 +664,23 @@ end
 --- GetCurrencyInfo works on ANY id though, so a numeric sweep finds currencies the
 --- character has never touched.
 ---
---- Why it matters: the handoff calls "Mistcrest" confirmed on the strength of
---- datamining sites, but the PTR's own Season 2 header showed "Venomblight
---- Manaflux" while Season 1 uses "Dawnlight Manaflux" and "Dawncrest" — a Dawn→Venom
---- family rename, not Dawn→Mist. Rather than swap one guess for another, this asks
---- the client and prints whatever it answers.
+--- Why it was written (2026-07-24, BEFORE this function had been run): the handoff
+--- called "Mistcrest" confirmed on the strength of datamining sites, but the PTR's
+--- own Season 2 header showed "Venomblight Manaflux" while Season 1 uses "Dawnlight
+--- Manaflux" and "Dawncrest" — suggesting a Dawn→Venom family rename, not Dawn→Mist.
+--- Rather than swap one guess for another, this asks the client and prints whatever
+--- it answers.
+---
+--- ⚠ AND THEN IT ANSWERED, and the Dawn→Venom reading above was WRONG. The crests
+--- are Mistcrest; Venomblight is the manaflux family only. The handoff was right all
+--- along. See docs/CREST_SOURCES_MEASURED.md §SETTLED for the captured ids, which
+--- DawncrestData now ships.
+---
+--- The reasoning stays because it is honest history and shows what the function is
+--- for. This warning exists because without it that history reads as current: a
+--- second session took it at face value on 30 jul and reported NavSearch's
+--- "mistcrest" keyword as a guess dressed up as fact. NavSearch was right. A
+--- superseded hypothesis in the present tense is not a neutral leftover — it argues.
 ---
 --- Matches on "crest" and "manaflux" so the season-currency family shows up too.
 --- Range is deliberate, not magic: Midnight currencies observed so far sit in
