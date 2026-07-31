@@ -54,6 +54,31 @@ local function Shown(v)
 	return "  |cffffffff" .. tostring(v) .. "|r"
 end
 
+--- Call an API and hand back whatever it returned, without ever testing the value.
+---
+--- This exists because of a crash that reads as harmless Lua. The obvious form is
+--- `x = ok and v or nil` — and `and`/`or` evaluate v's TRUTHINESS. UnitIsUnit came
+--- back as a secret BOOLEAN, testing it threw, and the probe died mid-run (Rob,
+--- 31 jul). It was written seven times in this file; six of them survived only
+--- because those calls happened to return a string or a plain boolean that day.
+---
+--- Interesting in itself: a secret STRING passed through `and`/`or` without
+--- complaint, a secret BOOLEAN did not. That fits — for a boolean the truthiness IS
+--- the secret, so testing it leaks the answer, while a string's mere existence is
+--- not what is being protected.
+---
+--- `return v` moves the value. It never asks what it is.
+local function Ask(fn, ...)
+	if type(fn) ~= "function" then
+		return nil
+	end
+	local ok, v = pcall(fn, ...)
+	if ok then
+		return v
+	end
+	return nil
+end
+
 --- Party units only. Raid is deliberately out of scope: the display this measures
 --- for is a five-person frame, and asking about forty units would bury the answer.
 local function PartyUnits()
@@ -87,23 +112,10 @@ function ns.PrintPartyTargetProbe()
 	end
 
 	for _, unit in ipairs(units) do
-		local name, exists, targetName, targetIsPlayer
-		if UnitName then
-			local ok, v = pcall(UnitName, unit)
-			name = ok and v or nil
-		end
-		if UnitExists then
-			local ok, v = pcall(UnitExists, unit .. "target")
-			exists = ok and v or nil
-		end
-		if UnitName then
-			local ok, v = pcall(UnitName, unit .. "target")
-			targetName = ok and v or nil
-		end
-		if UnitIsPlayer then
-			local ok, v = pcall(UnitIsPlayer, unit .. "target")
-			targetIsPlayer = ok and v or nil
-		end
+		local name = Ask(UnitName, unit)
+		local exists = Ask(UnitExists, unit .. "target")
+		local targetName = Ask(UnitName, unit .. "target")
+		local targetIsPlayer = Ask(UnitIsPlayer, unit .. "target")
 
 		print(("  |cff8fd3ff%s|r  name=%s%s"):format(unit, State(name), Shown(name)))
 		-- UnitExists is the one that decides whether a panel can even show a row.
@@ -121,13 +133,15 @@ function ns.PrintPartyTargetProbe()
 		-- it is not the kind of read 12.x is restricting -- but that is reasoning, and
 		-- reasoning is what this file exists to replace. If these read, a panel can say
 		-- "three of four are on your target" without naming anything.
-		local sameAsMine, onMe
-		if UnitIsUnit then
-			local ok, v = pcall(UnitIsUnit, unit .. "target", "target")
-			sameAsMine = ok and v or nil
-			local ok2, v2 = pcall(UnitIsUnit, unit .. "target", "player")
-			onMe = ok2 and v2 or nil
-		end
+		-- `x = ok and v or nil` LOOKS harmless and is not: `and`/`or` test the
+		-- truthiness of v, and testing a secret throws. UnitIsUnit returned a secret
+		-- BOOLEAN here and this line crashed the probe (Rob, 31 jul). Assign under a
+		-- plain `if` so the secret is moved, never inspected.
+		--
+		-- The crash is also the answer. A secret boolean means the comparison route
+		-- is shut too: we cannot ask "is this the same as my target" and branch on it.
+		local sameAsMine = Ask(UnitIsUnit, unit .. "target", "target")
+		local onMe = Ask(UnitIsUnit, unit .. "target", "player")
 		print(("     same as my target=%s%s   targeting me=%s%s"):format(
 			State(sameAsMine), Shown(sameAsMine), State(onMe), Shown(onMe)))
 
@@ -144,19 +158,9 @@ function ns.PrintPartyTargetProbe()
 		--  3. A GUID cache: remember the name whenever it IS readable, and reuse it
 		--     for that GUID once it goes secret. That only works if the GUID itself
 		--     reads, which is what the last field here checks.
-		local full, getun, guid
-		if UnitFullName then
-			local ok, v = pcall(UnitFullName, unit .. "target")
-			full = ok and v or nil
-		end
-		if GetUnitName then
-			local ok, v = pcall(GetUnitName, unit .. "target", true)
-			getun = ok and v or nil
-		end
-		if UnitGUID then
-			local ok, v = pcall(UnitGUID, unit .. "target")
-			guid = ok and v or nil
-		end
+		local full = Ask(UnitFullName, unit .. "target")
+		local getun = Ask(GetUnitName, unit .. "target", true)
+		local guid = Ask(UnitGUID, unit .. "target")
 		print(("     UnitFullName=%s%s  GetUnitName=%s%s  GUID=%s"):format(
 			State(full), Shown(full), State(getun), Shown(getun), State(guid)))
 	end
