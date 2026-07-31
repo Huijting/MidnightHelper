@@ -1155,6 +1155,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh partytargets — toggle the four-line panel showing what your group is on.
+	-- Off by default. Note the plural: the singular below is the measurement probe.
+	if msg == "partytargets" then
+		if ns.TogglePartyTargets then
+			ns.TogglePartyTargets()
+		end
+		return
+	end
+
 	-- /mh partytarget — can we still read who your group is attacking? Measurement
 	-- only; decides whether a standalone party-target panel is worth building.
 	if msg == "partytarget" then

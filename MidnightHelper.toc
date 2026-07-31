@@ -207,6 +207,7 @@ Modules\WeeklyHubProbe.lua
 Modules\AchievementFind.lua
 Modules\ApiProbe.lua
 Modules\PartyTargetProbe.lua
+Modules\PartyTargets.lua
 Modules\KnowledgeData_S1.lua
 Modules\KnowledgeRuntime.lua
 Modules\Knowledge.lua
