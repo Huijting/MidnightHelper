@@ -187,6 +187,14 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetCombatSafetyEnabled then ns.SetCombatSafetyEnabled(v) end
 		end, true)
+		-- Party targets sits under Combat because that is when it earns its place --
+		-- and because the same combat edge is what limits it. Recommended OFF: it is
+		-- another frame on screen, and MH does not decide that for you.
+		AddToggle("mh_partyTargets", "SET_PARTYTARGETS_TITLE", "SET_PARTYTARGETS_DESC", function()
+			return ns.IsPartyTargetsEnabled and ns.IsPartyTargetsEnabled()
+		end, function(v)
+			if ns.SetPartyTargetsEnabled then ns.SetPartyTargetsEnabled(v) end
+		end, false)
 		AddToggle("mh_csSpeak", "SET_CS_SPEAK_TITLE", "SET_CS_SPEAK_DESC", function()
 			return ns.IsCombatSafetySpeakEnabled and ns.IsCombatSafetySpeakEnabled()
 		end, function(v)

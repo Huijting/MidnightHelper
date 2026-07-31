@@ -127,6 +127,9 @@ local function BuildNavIndex()
 			OpenTab("profacademy")
 		end, nil, L("NAV_WHERE_PROFACADEMY"), "tab")
 	tab("TAB_MACROS", "macros", "interrupt macro kick")
+	-- "party targets" is what a player calls it; "focus" and "assist" are what they
+	-- search for when they do not know the name. Additive, like every keyword here.
+	tab("TAB_SETTINGS", "settings", "party target targets focus assist who is attacking")
 	tab("TAB_CONSUMABLES", "consumables", "flask rune food buff oil")
 	tab("TAB_ACADEMY", "academy", "role tank heal academy")
 	-- Search keywords are ADDITIVE, never renamed. The visible text dropped the season

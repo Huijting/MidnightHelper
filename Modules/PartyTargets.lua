@@ -227,6 +227,19 @@ local f2 = CreateFrame("Frame")
 f2:RegisterUnitEvent("UNIT_TARGET", "party3", "party4")
 f2:SetScript("OnEvent", ScheduleRefresh)
 
+--- Read/write pair for the settings panel. A slash command alone is not a feature
+--- anyone finds: MH's own July review called that out as its heaviest UX fault, and
+--- shipping this behind `/mh partytargets` only would have repeated it.
+function ns.IsPartyTargetsEnabled()
+	return (ns.db and ns.db.partyTargets) and true or false
+end
+
+function ns.SetPartyTargetsEnabled(v)
+	ns.db = ns.db or {}
+	ns.db.partyTargets = v and true or false
+	Refresh()
+end
+
 --- `/mh partytargets` — toggle. Off by default: MH does not put frames on someone's
 --- screen uninvited.
 function ns.TogglePartyTargets()

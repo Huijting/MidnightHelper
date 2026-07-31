@@ -2499,3 +2499,29 @@ fill("itIT", {
 	PARTYTARGETS_ON = "Bersagli del gruppo ATTIVI — trascina il pannello dove preferisci. Appare solo in gruppo.",
 	PARTYTARGETS_OFF = "Bersagli del gruppo DISATTIVATI.",
 })
+
+-- Party-targets toggle in the native settings panel.
+fill("deDE", {
+	SET_PARTYTARGETS_TITLE = "Gruppenziele anzeigen",
+	SET_PARTYTARGETS_DESC = "Ein kleines Fenster mit dem, was jedes Gruppenmitglied angreift. Zieh es hin, wo du willst. Erscheint nur in einer Gruppe, und kann die Namen zwar anzeigen, aber nicht lesen — Sortieren, Hervorheben oder Vergleichen ist deshalb nicht möglich.",
+})
+
+fill("frFR", {
+	SET_PARTYTARGETS_TITLE = "Afficher les cibles du groupe",
+	SET_PARTYTARGETS_DESC = "Un petit panneau listant ce que chaque membre attaque. Déplace-le où tu veux. Ne s'affiche qu'en groupe, et peut montrer les noms sans pouvoir les lire — impossible donc de trier, surligner ou comparer.",
+})
+
+fill("esES", {
+	SET_PARTYTARGETS_TITLE = "Mostrar objetivos del grupo",
+	SET_PARTYTARGETS_DESC = "Un panel pequeño con lo que ataca cada miembro. Arrástralo donde quieras. Solo aparece en grupo, y puede mostrar los nombres sin poder leerlos, así que no puede ordenarlos, resaltarlos ni compararlos.",
+})
+
+fill("ptBR", {
+	SET_PARTYTARGETS_TITLE = "Mostrar alvos do grupo",
+	SET_PARTYTARGETS_DESC = "Um painel pequeno com o que cada membro está atacando. Arraste para onde quiser. Só aparece em grupo, e consegue mostrar os nomes sem conseguir lê-los — por isso não ordena, destaca nem compara.",
+})
+
+fill("itIT", {
+	SET_PARTYTARGETS_TITLE = "Mostra i bersagli del gruppo",
+	SET_PARTYTARGETS_DESC = "Un piccolo pannello con ciò che ogni membro sta attaccando. Trascinalo dove preferisci. Appare solo in gruppo e può mostrare i nomi senza poterli leggere, quindi non può ordinarli, evidenziarli o confrontarli.",
+})
