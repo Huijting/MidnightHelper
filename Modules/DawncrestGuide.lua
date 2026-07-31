@@ -49,10 +49,20 @@ local function GetTierCurrencyQty(tier)
 	if type(tier) ~= "table" then
 		return 0, 0, 0
 	end
-	local ids = { tier.currencyId }
-	if type(tier.alternateCurrencyIds) == "table" then
-		for i = 1, #tier.alternateCurrencyIds do
-			ids[#ids + 1] = tier.alternateCurrencyIds[i]
+	-- Season 2 renames the crests (Dawncrest -> Mistcrest) and renumbers them, so the
+	-- Season 1 ids stop being the ones you earn. Without this the panel would keep
+	-- showing frozen Dawncrest balances all season and never mention a Mistcrest.
+	-- Ids measured on the 12.1 PTR; see DawncrestData's header for what about them is
+	-- still unverified.
+	local primary, alternates = tier.currencyId, tier.alternateCurrencyIds
+	if ns.IsSeason2Live and ns.IsSeason2Live() and tier.season2CurrencyId then
+		primary, alternates = tier.season2CurrencyId, tier.season2AlternateCurrencyIds
+	end
+
+	local ids = { primary }
+	if type(alternates) == "table" then
+		for i = 1, #alternates do
+			ids[#ids + 1] = alternates[i]
 		end
 	end
 	-- THE PRIMARY ID WINS. This used to take the MAX across primary and alternates,
@@ -298,8 +308,28 @@ function ns.RefreshDawncrestGuide()
 				if row.ach and rowFrame and rowFrame.SetHeight then
 					-- Rijhoogtes schalen mee met de tekst (matcht build-layout);
 					-- crestBlock-hoogte hieronder leest GetHeight() terug, dus blijft synchroon.
-					if IsAchievementComplete(tier.achievementId) then
-						row.ach:SetText(ns:L("DAWNCREST_ACH_DONE_FMT"):format(ns:L(tier.achLabelKey)))
+					-- The achievement ids are Season 1 only. In Season 2 they still
+					-- resolve -- you keep the achievement -- but naming "Veteran of
+					-- the Dawn" as this season's discount would point at a reward
+					-- that is no longer the one being earned. Silence until the
+					-- Season 2 ids are captured (DawncrestData header).
+					local achId = tier.achievementId
+					if ns.IsSeason2Live and ns.IsSeason2Live() then
+						achId = tier.season2AchievementId
+					end
+					if IsAchievementComplete(achId) then
+						-- Prefer the game's own name: it is already in the player's
+						-- language and cannot drift from the client, which is why
+						-- GetNextDawnAchievement does the same. Our label is the
+						-- fallback for when the achievement API says nothing.
+						local shown = ns:L(tier.achLabelKey)
+						if GetAchievementInfo then
+							local okA, _, achName = pcall(GetAchievementInfo, achId)
+							if okA and type(achName) == "string" and achName ~= "" then
+								shown = achName
+							end
+						end
+						row.ach:SetText(ns:L("DAWNCREST_ACH_DONE_FMT"):format(shown))
 						row.ach:Show()
 						rowFrame:SetHeight((ROW_H + 14) * s)
 					else
@@ -700,6 +730,15 @@ end
 function ns.GetNextDawnAchievement()
 	local tiers = ns.DAWNCREST_TIERS
 	if type(tiers) ~= "table" or not GetAchievementInfo then
+		return nil
+	end
+	-- Once Season 2 opens these stop being reachable -- Blizzard said so on
+	-- 2026-07-25, and it is written three paragraphs up. The ids keep resolving,
+	-- because you keep an achievement you earned, so without this the panel would go
+	-- on nominating "the next one to chase" for a reward nobody can earn any more.
+	-- nil is the existing "we cannot say" answer and callers already treat it as
+	-- such; the Season 2 ids are not captured yet (DawncrestData header).
+	if ns.IsSeason2Live and ns.IsSeason2Live() then
 		return nil
 	end
 	local firstOpen, remaining, sawAny = nil, 0, false

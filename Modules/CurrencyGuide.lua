@@ -37,8 +37,39 @@ local function CurrencyQty(id)
 end
 
 -- {CURRENCY:id} → game-link + |cff..(saldo)|r. (Het body bevat geen {SPELL}/{ITEM}.)
+--- {CRESTS} → the five crest currencies of the CURRENT season, in tier order.
+---
+--- The body used to list the five Season 1 ids literally, in all seven languages.
+--- Season 2 renames and renumbers them (Dawncrest -> Mistcrest), so after the flip
+--- that paragraph would have shown five frozen balances for a currency nobody earns
+--- any more -- in the panel whose entire job is telling you what to spend.
+---
+--- One token instead of five ids means the season logic lives here, and the seven
+--- translations never have to be touched again when a season turns. The ids come
+--- from DAWNCREST_TIERS, which is also what the Crests tab reads, so the two panels
+--- cannot disagree.
+local function CrestTokens()
+	local tiers = ns.DAWNCREST_TIERS
+	if type(tiers) ~= "table" then
+		return ""
+	end
+	local s2 = ns.IsSeason2Live and ns.IsSeason2Live()
+	local out = {}
+	for i = 1, #tiers do
+		local t = tiers[i]
+		local id = t and ((s2 and t.season2CurrencyId) or t.currencyId)
+		if id then
+			out[#out + 1] = ("{CURRENCY:%d}"):format(id)
+		end
+	end
+	return table.concat(out, " ")
+end
+
 local function BodyText()
 	local raw = ns:L("CURRENCY_GUIDE_BODY")
+	-- Expanded BEFORE the currency pass below, so the ids it produces get the same
+	-- link-and-balance treatment as any hand-written one.
+	raw = raw:gsub("{CRESTS}", CrestTokens)
 	local text = raw:gsub("{CURRENCY:(%d+)}", function(id)
 		local nid = tonumber(id)
 		local link = (ns.GetCurrencyLinkMarkup and ns:GetCurrencyLinkMarkup(nid)) or ("currency " .. id)
