@@ -88,9 +88,20 @@ Venomous Abyss (eindbaas Ula'tek), Bountiful delves + keys. RF-wings volgen 25 a
 1 sep en 8 sep. Bron:
 https://news.blizzard.com/en-us/article/24294369/the-shadows-deepen-midnight-season-2-begins-august-18
 
-De **patchdatum zelf (11/12 aug) blijft een projectie** -- het artikel noemt weken, geen
-patchdag. Die blijft `COMMUNITY_REPORTED` en dus niet speler-zichtbaar. Let op het
-EU-verschil: een Amerikaanse resetweek begint bij ons een dag later.
+**De patchdatum is OOK officieel: 11 augustus.** Ik schreef hier eerst dat die een
+projectie bleef "omdat het artikel weken noemt, geen patchdag". Dat kwam doordat ik
+alleen het Season 2-artikel had gelezen. Blizzard publiceerde er drie, en het tweede
+heet letterlijk **"Curse of Ula'tek Goes Live August 11! Journey to the Coiled Isle"**
+(article 24294370), met in de tekst "One week after the content update goes live the
+new season will begin". Beide datums staan dus op `OFFICIAL_CONFIRMED`.
+
+Let op het EU-verschil: 11 aug is een Amerikaanse dinsdagreset, dus hier woensdag
+**12 aug**. Vandaar dat de speler-zichtbare tekst in *weken* praat en niet in dagen --
+voor een addon in zeven talen met spelers in beide regio's is dat het enige eerlijke.
+
+Praktisch gevolg: **2.12.0 moet vóór 11 augustus klaar zijn**, patchdag vrij voor
+hotfixes. En blok 12 (`/mh zone` draaien in Coiled Isle om de mapID te meten) is nu
+inplanbaar op 11/12 augustus in plaats van "ooit".
 
 Voorgestelde volgorde (Rob akkoord 2026-07-27): 2.12.0 een paar dagen **voor** patchdag,
 patchdag zelf vrijhouden voor hotfixes, en 3.0.0 bij de seizoensstart -- want op patchdag

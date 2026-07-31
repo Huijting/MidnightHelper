@@ -50,8 +50,8 @@ things measured on the PTR: the measurement is real, but the PTR is not live.
 | Roleset risk that remains | an ACTIVE ALLOWLIST that omits `roleless` would hide every default frame | UNKNOWN | 12.1.0 | reasoning from the measured shape | 2026-07-27 | — | Both lists are empty today. Unknown which content activates one, or which roleset names exist. `IsRolesetFiltered()` lets us detect it rather than guess |
 | S2 item levels | +46 over Season 1; tracks Adventurer 259-276 … ~337 | COMMUNITY_REPORTED | 12.1.0 | Wowhead / Icy Veins | 2026-07-27 | not implemented | Used only to answer a question, not shown anywhere |
 | Gear at a rollover | existing gear keeps its item level | ADDON_RESEARCH | 12.1.0 | S2 item levels increase rather than decrease; a stat squish is an expansion pre-patch event | 2026-07-27 | `Locales/Codex.lua` | Codex states the mechanic without numbers |
-| 12.1 patch date | 11/12 August | COMMUNITY_REPORTED | 12.1.0 | community projection from RC build 68914 | 2026-07-27 | nowhere | **Blizzard has announced no date.** Must not appear player-facing |
-| Season 2 start | 18 August | COMMUNITY_REPORTED | 12.1.0 | community projection | 2026-07-27 | nowhere | Same |
+| 12.1 patch date | 11 August (US) / 12 August (EU) | OFFICIAL_CONFIRMED | 12.1.0 | Blizzard, "Curse of Ula'tek Goes Live August 11!" — news.blizzard.com article 24294370 | 2026-07-31 | nowhere yet | Announced in the article's own headline and on the launcher front page. The 11/12 split is our EU convention: 11 Aug is a US Tuesday reset, so Europe lands a day later |
+| Season 2 start | week of 18 August | OFFICIAL_CONFIRMED | 12.1.0 | Blizzard, "The Shadows Deepen: Midnight Season 2 Begins August 18" — article 24294369; the patch article adds "One week after the content update goes live the new season will begin" | 2026-07-31 | `Locales/*.lua` `ST_SEASON_SOON`, shown by `Modules/SeasonTransition.lua` in the prep phase | Player-facing wording says **week of**, not a bare date, because the US and EU resets fall on different days |
 
 ## Method notes
 
