@@ -190,7 +190,7 @@ and for a boolean the truthiness *is* the protected answer. A secret STRING pass
 through the same expression without complaint. Move suspect values with a plain
 assignment; never let an expression ask what they are.
 
-### The gate is COMBAT, not the content (measured 31 jul, ritual scenario)
+### WRONG — I read "combat is the gate" off a case with no data (31 jul)
 
 The table above came from a follower dungeon, which left two ways to explain it:
 the content, or the fact that everything there is an NPC follower. A ritual
@@ -211,3 +211,30 @@ Which is the worst possible shape for a helper: out of combat you may ask anythi
 and have no reason to, and the moment you need it the door shuts. It is also why
 the party-targets panel can only DISPLAY — every question worth asking about a
 target is a combat question.
+
+### RETRACTED — the gate is the TARGET being hostile, not combat (31 jul, later)
+
+The section above is wrong and is kept only so nobody re-derives it. A third
+measurement, same scenario, same character:
+
+    in combat: FALSE     target exists=read  name=SECRET
+                         same-as-my-target=SECRET   GUID=SECRET
+
+Out of combat, and secret anyway. What actually differed in the "everything reads"
+run was not combat — it was that the party member **had no target at all**
+(`name=nil`). The comparisons returned a plain `false` because there was nothing to
+compare against, and I read that as permission. It was an absence of data, not an
+answer.
+
+So the rule is simpler and stricter than either earlier version: **anything about a
+HOSTILE target is secret, in or out of combat.** A friendly target reads normally,
+and `UnitExists` and `UnitIsPlayer` read in every case measured so far.
+
+Nothing changes for the party-targets panel — it never depended on reading, only on
+displaying, and that still works. What changes is the story we tell about why, and
+a wrong story is what the next person builds on.
+
+The lesson is not about auras or targets. Two of tonight's three conclusions came
+from a sample where the interesting value was missing, and "readable" and "nothing
+there" look identical from the outside. Check that the case you are measuring
+actually contains the thing you are measuring.
