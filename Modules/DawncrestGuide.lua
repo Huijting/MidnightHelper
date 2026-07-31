@@ -312,7 +312,22 @@ function ns.RefreshDawncrestGuide()
 	end
 	local summary = embeddedPanel._body and embeddedPanel._body._summary
 	if summary then
-		summary:SetText(ns:L("DAWNCREST_GUIDE_SUMMARY"))
+		-- The "«…of the Dawn» achievements give 50% discount" line is Season 1 only:
+		-- those achievements stop being obtainable when the season ends, so in Season 2
+		-- it promises a discount nobody can still earn. Same silence as the per-tier
+		-- row and GetNextDawnAchievement -- and it was still on screen on the PTR with
+		-- the season flipped, which is how Rob found it (31 jul).
+		--
+		-- Its own key rather than a sentence buried mid-paragraph, because it had to
+		-- disappear in seven languages without disturbing the two sentences around it.
+		local text = ns:L("DAWNCREST_GUIDE_SUMMARY")
+		if not (ns.IsSeason2Live and ns.IsSeason2Live()) then
+			local dawn = ns:L("DAWNCREST_GUIDE_DAWN_DISCOUNT")
+			if dawn and dawn ~= "" and dawn ~= "DAWNCREST_GUIDE_DAWN_DISCOUNT" then
+				text = text .. "|n|n" .. dawn
+			end
+		end
+		summary:SetText(text)
 	end
 
 	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
