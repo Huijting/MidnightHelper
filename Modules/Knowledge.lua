@@ -373,6 +373,85 @@ local function ReadLiveScenario()
 		value = tostring(_G.TIERED_ENTRANCE_ILVL_SUGGESTION),
 	}
 
+	-- Rob confirmed the shape of the thing: you click the obelisk, pick a tier, and then
+	-- pick six challenges that raise both the reward and the difficulty. That is the
+	-- tiered-entrance picker. He is standing in a Tier 6 while GetActiveDelveTier reports
+	-- tier = 0, so that accessor does not cover rituals -- yet the game plainly knows the
+	-- number, because it is on his screen. These three are where it could still be.
+	capture("C_ScenarioInfo.GetTieredEntranceActiveSpells", "sweep — the six chosen challenges",
+		C_ScenarioInfo and C_ScenarioInfo.GetTieredEntranceActiveSpells)
+	capture("C_DelvesUI.GetTieredEntranceOptionalAffixTraitTreeID", "sweep",
+		C_DelvesUI and C_DelvesUI.GetTieredEntranceOptionalAffixTraitTreeID)
+	capture("C_DelvesUI.IsDelveEntranceTierEnabled", "sweep",
+		C_DelvesUI and C_DelvesUI.IsDelveEntranceTierEnabled)
+
+	-- NOT called, deliberately: SelectDelveEntranceTier would change Rob's difficulty,
+	-- and RequestPartyEligibilityForDelveTiers sends a server request. A probe reads.
+
+	-- The scenario header widget is the likeliest home for a displayed tier: GetStepInfo
+	-- handed back widgetSetID 2102, and there is a GetScenarioHeaderDelvesWidgetVisualizationInfo.
+	-- Only called when the client actually has the function — discovered, not assumed.
+	local widgetSetID
+	if C_Scenario and C_Scenario.GetStepInfo then
+		local okStep, _, _, _, _, _, _, _, _, _, _, _, setID = pcall(C_Scenario.GetStepInfo)
+		if okStep then
+			widgetSetID = tonumber(setID)
+		end
+	end
+	if widgetSetID and C_UIWidgetManager and C_UIWidgetManager.GetAllWidgetsBySetID then
+		local okW, widgets = pcall(C_UIWidgetManager.GetAllWidgetsBySetID, widgetSetID)
+		if okW and type(widgets) == "table" then
+			out[#out + 1] = {
+				label = ("widget set %d"):format(widgetSetID),
+				source = "C_UIWidgetManager.GetAllWidgetsBySetID",
+				value = ("%d widgets"):format(#widgets),
+			}
+			for i = 1, #widgets do
+				local w = widgets[i]
+				local id, wtype = w.widgetID, w.widgetType
+				local detail = ("widgetID=%s widgetType=%s"):format(tostring(id), tostring(wtype))
+				-- The delve header carries the tier; ask it directly when this is that type.
+				if C_UIWidgetManager.GetScenarioHeaderDelvesWidgetVisualizationInfo then
+					local okV, vis = pcall(C_UIWidgetManager.GetScenarioHeaderDelvesWidgetVisualizationInfo, id)
+					if okV and type(vis) == "table" then
+						local bits = {}
+						for k, v in pairs(vis) do
+							if type(v) ~= "table" then
+								bits[#bits + 1] = tostring(k) .. "=" .. tostring(v)
+							end
+						end
+						table.sort(bits)
+						if #bits > 0 then
+							detail = detail .. "  ->  " .. table.concat(bits, " ")
+						end
+					end
+				end
+				out[#out + 1] = { label = ("  widget[%d]"):format(i), source = "widget set", value = detail }
+			end
+		end
+	end
+
+	-- Full surface of the three namespaces that matter, unfiltered by keyword. The first
+	-- sweep only showed fields whose NAME matched a word we chose, and the whole lesson of
+	-- this probe is that Blizzard does not use our words.
+	for _, nsName in ipairs({ "C_DelvesUI", "C_ScenarioInfo", "C_UIWidgetManager" }) do
+		local tbl = _G[nsName]
+		if type(tbl) == "table" then
+			local names = {}
+			for k in pairs(tbl) do
+				if type(k) == "string" then
+					names[#names + 1] = k
+				end
+			end
+			table.sort(names)
+			out[#out + 1] = {
+				label = ("%s (all %d fields)"):format(nsName, #names),
+				source = "full enumeration",
+				value = table.concat(names, ", "),
+			}
+		end
+	end
+
 	-- Criteria carry per-objective text and sometimes a number; if a tier is readable
 	-- anywhere in a scenario, this is the likeliest place it hides.
 	if C_ScenarioInfo and C_ScenarioInfo.GetCriteriaInfo then
