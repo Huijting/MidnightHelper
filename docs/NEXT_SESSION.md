@@ -139,6 +139,22 @@ Nooit geland uit de handoff van 20 juli: **crest-bronnen per tier** en **spark-d
 - **Openables** mist "Use: Collect X"-pakketten (bv. itemID 246752 -- komt nergens voor).
 - Tank/DPS-toolkit bestaan al. Route-pijl hervat weer.
 - Open onderzoek: CLEU-taint -- waarom MH geen combat log mag registreren waar DBM wel mag.
+- **Edit Mode-detectie** (Rob-goedgekeurd 31 jul, NA 2.12.0). Wanneer de speler
+  Blizzards Edit Mode opent, ook onze versleepbare balken hun grepen laten tonen --
+  FastMark en MissingBuff. Winst is vindbaarheid: nu moet je wéten dat die balken
+  te verslepen zijn.
+
+  Let op wat dit NIET is. Blizzard heeft **geen registratie-API** waarmee een addon
+  een frame in Edit Mode kan hangen; gecontroleerd in Plumber en SimplePartyTargets,
+  beide geïnstalleerd. Die detecteren alleen `EditModeManagerFrame:IsEditModeActive()`
+  en tonen dan hun eigen grepen. Onze sleepcode wordt dus niet vervangen -- er komt
+  iets overheen. Het lost ook het combat-verbod niet op: die balken parenten secure
+  buttons en blijven in gevecht onbeweeglijk, wat van Blizzards beveiliging komt en
+  niet van ons.
+
+  Na 2.12.0 omdat het precies de frames raakt waar de secure-regels het strengst
+  zijn en die in juli met moeite goed kwamen. Plumber is het werkende voorbeeld om
+  naast te leggen.
 
 ---
 
