@@ -1155,6 +1155,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh tier — every tier-related call, wherever you are standing. Built to settle
+	-- why 27 ritual runs all logged tier 0.
+	if msg == "tier" then
+		if ns.PrintTierProbe then
+			ns.PrintTierProbe()
+		end
+		return
+	end
+
 	-- /mh partytargets [probe] — the panel, or the readability measurement behind it.
 	--
 	-- These were `partytargets` and `partytarget`, one letter apart, doing entirely
