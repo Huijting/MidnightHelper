@@ -353,6 +353,53 @@ is standing there deciding which tier to take — a better use of it than backfi
 a log, and useful whether or not the widget route pans out. See
 `docs/PROPOSAL_TIER_ADVISOR.md`.
 
+### MEASURED, with a control that passed (1 Aug 2026)
+
+Two runs, highest tier selected in both, swept over set IDs 1–4200 and widget IDs
+1–9000.
+
+| | delve (The Darkway, 208/Delves) | ritual (Daggerspine Point, 12/Normal Scenario) |
+|---|---|---|
+| non-empty sets | 265 | 268 |
+| widgets | 831 | 856 |
+| `ScenarioHeaderDelves` widgets | **1** — id 6183, set 842 | **0** |
+| `tierText` | **11** | — |
+| header widget present | 6731 Timer, `headerText = "The Darkway"` | 6731 Timer, `headerText = "Ritual Roles"` |
+
+**The control passed.** The earlier sweep found nothing in a delve that was showing
+Tier 11 on screen; this one finds 6183 by itself, in set 842, without DBM's
+constant. So the method demonstrably finds a tier when a tier is there.
+
+**And the ritual has none.** Not a differently-named field, not a different widget
+type, not somewhere else in the widget space — nothing. The flagged noise is
+identical in both runs (`"Next Tier Reward:"`, `"Earthcrawl Mines (Tier 0)"`,
+`"Tier lowered from 5 to 4"`): delve UI that is registered everywhere and says
+nothing about the current run. The entire difference between a delve and a ritual
+is the single widget 842/6183.
+
+**So the original conclusion stands, now earned rather than assumed:** a ritual
+run's tier is not recordable. Tier 0 in RitualLog means unknown and must keep
+meaning that. The difference from the retracted version is that this was measured
+inside the content, across the whole widget space, with a positive control.
+
+**Remaining hole, stated honestly.** Sets above 4200 and widget IDs above 9000 were
+not examined. 6183/set 842 sits low in both ranges, which is weak evidence that
+scenario widgets live low, not proof. If a ritual tier ever turns up, that is where
+it will be.
+
+### The prize was on the other side: delve tiers are now readable
+
+`Modules/DelveHistory.lua` records a tier for roughly 10 of 30 delve runs, because
+it mines digits out of `difficultyName`. This measurement shows why that fails:
+inside a delve, `GetInstanceInfo` returns difficultyID **208** with difficultyName
+**"Delves"** — no digits at all. The number is only ever on the widget.
+
+`C_UIWidgetManager.GetScenarioHeaderDelvesWidgetVisualizationInfo(6183).tierText`
+returned `"11"` for a Tier 11 run, in Rob's own client, twice. That is a reliable
+replacement for the string-mining, and it is how DBM has always done it.
+
+Note `tierTooltipSpellID = 1260975` alongside it, and `shownState = 1`.
+
 **Online, for completeness.** No API documentation for a ritual's selected tier was
 found. Public guide sites describe ritual tiers as 1–5; Rob's own measurement shows
 six, with `suggestedILvl` up to 274, so those pages are wrong or pre-12.0.7 — the
