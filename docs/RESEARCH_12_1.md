@@ -302,12 +302,60 @@ field nobody had named could not slip past, and there was none.
 `entranceType` does flip 0 → 2 on arriving, so the client will tell you a tiered
 entrance is present. It will not tell you which tier you chose.
 
-**Conclusion: a ritual run's tier cannot be recorded.** Not from inside the
-scenario, not from the entrance. Tier 0 in RitualLog means unknown and must keep
-meaning that — the offered list must never be mined for a plausible number, and
-"highest available" would be exactly that.
+**Conclusion, narrow version: the entrance does not mark your choice.** The offered
+list must never be mined for a plausible number, and "highest available" would be
+exactly that. Tier 0 in RitualLog still means unknown today.
 
-**Worth salvaging.** The list does carry `suggestedILvl` per tier (215 / 231 / 244
-/ 257 / 264 / 274) and a `tierDescription` ("Tier 3 - 1 Challenges"). That is real,
-live, per-tier data available exactly when a player is standing there deciding
-which tier to take — which is a better use of it than backfilling a log.
+### RETRACTED: "a ritual run's tier cannot be recorded" (1 Aug 2026)
+
+This section previously ended with that sentence, and it was a leap. What was
+measured is one API family (`C_DelvesUI` / `C_ScenarioInfo`), at one place (the
+obelisk), before entering. "Cannot be recorded" is a claim about every route, and
+the measurement covered one.
+
+Rob's reaction is what caught it — he did not believe Blizzard had said nothing
+anywhere, so the installed addons were searched instead of reasoned about. Of ~90
+addons in the folder, exactly one reads a tier, and it does not use the delve API
+at all. `DBM-Core/modules/objects/Difficulties.lua:565`:
+
+```lua
+local delveInfo = C_UIWidgetManager.GetScenarioHeaderDelvesWidgetVisualizationInfo(6183)
+...
+delveTier = tonumber(usedDelveInfo.tierText)
+```
+
+The tier travels as **display text on a UI widget** — the "Tier 8" caption above
+the objective tracker — not as an API value. The client sends the number down; it
+just never offers it as a number. Nothing in the obelisk experiment could have
+found this, because widgets were never read.
+
+Two supporting facts, both verified in this folder rather than assumed:
+`C_UIWidgetManager.GetAllWidgetsBySetID` is used 39 times across installed addons,
+and `Broker_MidnightEvents/Core.lua:2153` records that empty set IDs return nil
+cheaply, so sweeping is a normal technique and not a hack.
+
+**Still open, and now measurable.** DBM's 6183/6184/6185 are *delve* widget IDs; a
+ritual's would be different numbers, so probing those three constants inside a
+ritual would report "nothing" whether or not the feature exists. `/mh tier` was
+therefore extended to sweep every live widget set (named getters plus container
+frames' `GetRegisteredWidgetSetID`) and run every `Get*VisualizationInfo` reader
+over every widget, flagging any field named like a tier or holding a bare number.
+
+**The control run matters more than the ritual run.** Measure a delve too. A delve
+*must* show a tier through this probe; if it does not, the probe is broken and the
+ritual's silence says nothing. This is the same trap as the party-target retraction
+above — a null reading from a sample where the value was absent anyway.
+
+**Worth salvaging regardless of how that lands.** The list carries `suggestedILvl`
+per tier (215 / 231 / 244 / 257 / 264 / 274) and a `tierDescription` ("Tier 3 -
+1 Challenges"). That is real, live, per-tier data available exactly when a player
+is standing there deciding which tier to take — a better use of it than backfilling
+a log, and useful whether or not the widget route pans out. See
+`docs/PROPOSAL_TIER_ADVISOR.md`.
+
+**Online, for completeness.** No API documentation for a ritual's selected tier was
+found. Public guide sites describe ritual tiers as 1–5; Rob's own measurement shows
+six, with `suggestedILvl` up to 274, so those pages are wrong or pre-12.0.7 — the
+measurement wins. Several delve addons (Just Delve, Delve Companion) automate tier
+selection, which means the *delve* side is solved in the wild; none of them is
+installed here and none documents the ritual case.

@@ -100,6 +100,205 @@ local function Snapshot(t, depth)
 	return out
 end
 
+--[[
+	WIDGET SWEEP — the lead that the obelisk measurement missed entirely.
+
+	Rob's seven obelisk snapshots proved one thing: the tier LIST offered at the
+	entrance is byte-identical whichever tier you highlight, so nothing there marks
+	the choice. I turned that into "a ritual's tier cannot be recorded", which was a
+	leap — I had measured one API family, in one place, before entering.
+
+	DBM does not use that API family at all. `DBM-Core/modules/objects/Difficulties.lua`
+	line 565 reads a delve's tier off a UI WIDGET:
+
+	    C_UIWidgetManager.GetScenarioHeaderDelvesWidgetVisualizationInfo(6183).tierText
+
+	That is the "Tier 8" caption drawn above the objective tracker — the client sends
+	the number down as display text even though no API returns it. If a ritual site
+	sends its own header widget, the tier is readable after all, at completion, with
+	no entrance capture needed.
+
+	So this sweeps rather than testing DBM's three hardcoded IDs. Those IDs are for
+	delves; a ritual's would be different numbers, and a probe aimed at a wrong
+	constant reports "nothing there" in exactly the same words as a probe aimed at a
+	feature that does not exist.
+]]
+
+--- Every `C_UIWidgetManager` reader that turns a widget ID into a table.
+---
+--- Discovered at load where the namespace allows it, because the field carrying a
+--- ritual's tier is by definition one nobody has named. The fallback list is not
+--- invented: each name below was taken from a `C_UIWidgetManager.` call that exists
+--- in an addon installed in this folder.
+local function VisualizationReaders()
+	local out = {}
+	if type(C_UIWidgetManager) == "table" then
+		local ok = pcall(function()
+			for k, v in pairs(C_UIWidgetManager) do
+				if type(k) == "string" and type(v) == "function" and k:find("VisualizationInfo", 1, true) then
+					out[#out + 1] = k
+				end
+			end
+		end)
+		if ok and #out > 0 then
+			table.sort(out)
+			return out
+		end
+	end
+	return {
+		"GetBulletTextListWidgetVisualizationInfo",
+		"GetCaptureBarWidgetVisualizationInfo",
+		"GetDoubleIconAndTextWidgetVisualizationInfo",
+		"GetDoubleStateIconRowVisualizationInfo",
+		"GetDoubleStatusBarWidgetVisualizationInfo",
+		"GetHorizontalCurrenciesWidgetVisualizationInfo",
+		"GetIconAndTextWidgetVisualizationInfo",
+		"GetIconTextAndBackgroundWidgetVisualizationInfo",
+		"GetIconTextAndCurrenciesWidgetVisualizationInfo",
+		"GetItemDisplayVisualizationInfo",
+		"GetScenarioHeaderDelvesWidgetVisualizationInfo",
+		"GetScenarioHeaderTimerWidgetVisualizationInfo",
+		"GetSpacerVisualizationInfo",
+		"GetSpellDisplayVisualizationInfo",
+		"GetStackedResourceTrackerWidgetVisualizationInfo",
+		"GetStatusBarWidgetVisualizationInfo",
+		"GetTextColumnRowVisualizationInfo",
+		"GetTextWithStateWidgetVisualizationInfo",
+		"GetTextWithSubtextWidgetVisualizationInfo",
+		"GetTextureWithAnimationVisualizationInfo",
+	}
+end
+
+--- Which widget sets are live right now.
+---
+--- Two routes, because neither is complete on its own: the four named getters cover
+--- the fixed screen regions, and the container frames answer `GetRegisteredWidgetSetID`
+--- for whatever the current content registered on them.
+local function ActiveWidgetSets()
+	local sets, order = {}, {}
+	local function note(id, source)
+		id = tonumber(id)
+		if not id or sets[id] then
+			return
+		end
+		sets[id] = source
+		order[#order + 1] = id
+	end
+
+	if type(C_UIWidgetManager) == "table" then
+		for _, name in ipairs({
+			"GetTopCenterWidgetSetID",
+			"GetObjectiveTrackerWidgetSetID",
+			"GetBelowMinimapWidgetSetID",
+			"GetPowerBarWidgetSetID",
+		}) do
+			note(Ask(C_UIWidgetManager[name]), name)
+		end
+	end
+
+	for _, name in ipairs({
+		"UIWidgetTopCenterContainerFrame",
+		"UIWidgetBelowMinimapContainerFrame",
+		"UIWidgetPowerBarContainerFrame",
+		"UIWidgetTopRightCornerContainer",
+		"UIWidgetBottomLeftContainerFrame",
+		"ScenarioObjectiveTracker",
+	}) do
+		local f = _G[name]
+		if type(f) == "table" then
+			local id = rawget(f, "widgetSetID")
+			if not id and type(f.GetRegisteredWidgetSetID) == "function" then
+				id = Ask(f.GetRegisteredWidgetSetID, f)
+			end
+			note(id, name)
+		end
+	end
+
+	return sets, order
+end
+
+--- Does this value look like it names a tier? Field name OR content.
+---
+--- Both halves are needed. DBM's field is `tierText` (the name gives it away) but a
+--- ritual might label the same number `difficultyText`, and a lone "3" in a field
+--- called `text` is still the answer. Flagging is only a reading aid — the full
+--- snapshot goes into the file regardless, so a miss here costs nothing.
+local function LooksLikeTier(key, value)
+	if type(key) == "string" and key:lower():find("tier", 1, true) then
+		return true
+	end
+	if type(value) == "string" then
+		if value:lower():find("tier", 1, true) then
+			return true
+		end
+		if value:match("^%s*%d+%s*$") then
+			return true
+		end
+	end
+	return false
+end
+
+--- Read every widget of every live set, through every reader that answers.
+---
+--- Calling all ~20 readers on each widget is deliberate brute force: the type field
+--- tells you which reader is "correct", but a wrong reader simply returns nil, and
+--- trusting the type means trusting that the ritual header is the widget type I
+--- expect. Cheap, and it cannot miss.
+local function WidgetSweep()
+	local out = { sets = {}, flagged = {} }
+	if type(C_UIWidgetManager) ~= "table" or type(C_UIWidgetManager.GetAllWidgetsBySetID) ~= "function" then
+		out.unavailable = true
+		return out
+	end
+
+	local readers = VisualizationReaders()
+	local sources, order = ActiveWidgetSets()
+
+	for _, setID in ipairs(order) do
+		local widgets = Ask(C_UIWidgetManager.GetAllWidgetsBySetID, setID)
+		local block = { setID = setID, source = sources[setID], widgets = {} }
+		if type(widgets) == "table" then
+			for _, w in ipairs(widgets) do
+				local id = type(w) == "table" and w.widgetID or nil
+				local entry = { widgetID = id, widgetType = type(w) == "table" and w.widgetType or nil, info = {} }
+				if id then
+					for _, reader in ipairs(readers) do
+						local fn = C_UIWidgetManager[reader]
+						local info = type(fn) == "function" and Ask(fn, id) or nil
+						if type(info) == "table" then
+							entry.info[reader] = Snapshot(info)
+							for k, v in pairs(info) do
+								if LooksLikeTier(k, v) and not Secret(v) then
+									out.flagged[#out.flagged + 1] = {
+										setID = setID, widgetID = id, reader = reader,
+										field = tostring(k), value = tostring(v),
+									}
+								end
+							end
+						end
+					end
+				end
+				block.widgets[#block.widgets + 1] = entry
+			end
+		end
+		out.sets[#out.sets + 1] = block
+	end
+
+	-- DBM's three constants, read directly. They are delve IDs, so inside a ritual
+	-- they are expected to be empty — which is the point. If they answer in a delve
+	-- and the sweep above finds nothing in a ritual, that is a real difference
+	-- between the two, not a broken probe.
+	out.dbmDelveIds = {}
+	local reader = C_UIWidgetManager.GetScenarioHeaderDelvesWidgetVisualizationInfo
+	if type(reader) == "function" then
+		for _, id in ipairs({ 6183, 6184, 6185 }) do
+			out.dbmDelveIds[id] = Snapshot(Ask(reader, id))
+		end
+	end
+
+	return out
+end
+
 --- `/mh tier save [label]` — append a full snapshot instead of printing.
 ---
 --- Rob's idea, and a better measurement than one reading: stand at the obelisk,
@@ -130,6 +329,7 @@ function ns.SaveTierProbe(label)
 		isTieredEntrance = Snapshot(C_ScenarioInfo and Ask(C_ScenarioInfo.IsTieredEntranceScenario)),
 		scenarioName = Snapshot(C_Scenario and Ask(C_Scenario.GetInfo)),
 		scenarioStep = Snapshot(C_Scenario and Ask(C_Scenario.GetStepInfo)),
+		widgets = WidgetSweep(),
 	}
 	ns.db.tierProbe[#ns.db.tierProbe + 1] = rec
 	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
@@ -199,6 +399,41 @@ function ns.PrintTierProbe()
 	print(("    C_Scenario.GetInfo() = %s"):format(Show(C_Scenario and Ask(C_Scenario.GetInfo))))
 	print(("    C_Scenario.GetStepInfo() = %s"):format(Show(C_Scenario and Ask(C_Scenario.GetStepInfo))))
 
-	print("  |cff9d9d9dRun this INSIDE a ritual site. If GetActiveDelveTier answers there,|r")
-	print("  |cff9d9d9dthe tier can be read at completion and no entrance capture is needed.|r")
+	print("  |cff8fd3ffUI widgets|r |cff9d9d9d(how DBM reads a delve's tier)|r")
+	local sweep = WidgetSweep()
+	if sweep.unavailable then
+		print("    |cffff8080C_UIWidgetManager.GetAllWidgetsBySetID is missing on this client|r")
+	else
+		local total = 0
+		for _, block in ipairs(sweep.sets) do
+			total = total + #block.widgets
+			print(("    set %d (%s): %d widget(s)"):format(block.setID, tostring(block.source), #block.widgets))
+		end
+		if #sweep.sets == 0 then
+			print("    |cff9d9d9dno widget set is live here|r")
+		end
+		print(("    %d widget(s) total, %d field(s) look like a tier:"):format(total, #sweep.flagged))
+		for i, f in ipairs(sweep.flagged) do
+			if i > 10 then
+				print("      |cff9d9d9d... more, see the saved snapshot|r")
+				break
+			end
+			print(("      set %d widget %d  %s.%s = |cff40c040%s|r"):format(
+				f.setID, f.widgetID, f.reader:gsub("^Get", ""):gsub("VisualizationInfo$", ""), f.field, f.value))
+		end
+		local dbmHit = false
+		for id, v in pairs(sweep.dbmDelveIds) do
+			if type(v) == "table" then
+				dbmHit = true
+				print(("    DBM's delve widget %d answers: tierText=%s"):format(id, Show(v.tierText)))
+			end
+		end
+		if not dbmHit then
+			print("    |cff9d9d9dDBM's delve widget IDs (6183/6184/6185) are empty here|r")
+		end
+	end
+
+	print("  |cff9d9d9dRun this INSIDE a ritual site, then INSIDE a delve as a control.|r")
+	print("  |cff9d9d9dA delve must show a tier here; if it does not, the probe is wrong,|r")
+	print("  |cff9d9d9dnot the ritual. Use |cffffffff/mh tier save <label>|r|cff9d9d9d for both.|r")
 end
