@@ -238,3 +238,46 @@ The lesson is not about auras or targets. Two of tonight's three conclusions cam
 from a sample where the interesting value was missing, and "readable" and "nothing
 there" look identical from the outside. Check that the case you are measuring
 actually contains the thing you are measuring.
+
+## Ritual tier: the client does not know it once you are inside (1 aug 2026)
+
+`/mh tier` in a live Ritual Site, Daggerspine Point:
+
+    GetInstanceInfo   name=Daggerspine Point  type=scenario
+                      difficultyID=12  difficultyName="Normal Scenario"
+
+    C_DelvesUI.GetActiveDelveTier()   = table, but every field empty:
+                                        tier=0  suggestedILvl=0  unlocked=false
+                                        tierDescription=""  modifierUIWidgetSetID=0
+    C_DelvesUI.GetTieredEntranceType()= 0
+    C_DelvesUI.GetDelveEntranceTiers()= empty table
+
+    C_ScenarioInfo.IsTieredEntranceScenario() = TRUE
+    C_Scenario.GetInfo()     = "Daggerspine Point"
+    C_Scenario.GetStepInfo() = "Ritual Roles"
+
+This kills the hypothesis that `GetActiveDelveTier` — untried by anyone, and the
+one call MH already uses for delves — would answer here. It answers, and it answers
+zero.
+
+Note the shape of that: the game says `IsTieredEntranceScenario() = true`, so it
+knows the entrance was tiered, while every call that would name the tier reads
+empty. And `difficultyID` is a constant 12 regardless, so the tier is not part of
+the instance's identity the way a delve's is.
+
+**Why the 27 zeroes happen:** RitualLog and DelveHistory both derive the tier with
+`difficultyName:match("(%d+)")`. A delve is "Tier 8"; a ritual is "Normal Scenario".
+Every fallback repeats the trick on another string — scenario name, step name, the
+objective tracker — and in a ritual none of them carry a digit either. It is
+mechanism, not a run of bad luck.
+
+**What is still unmeasured, and it is the only route left.** The tier list reads at
+the OBELISK, before entry. But `GetDelveEntranceTiers()` returns the tiers on offer
+— six, all unlocked — not the one selected. Capturing that at the entrance would
+record "six were available" and leave the run at zero.
+
+So the open question is not "can we read the tier inside" (answered: no) but
+**"does anything report the SELECTED tier at the entrance"**. That needs someone at
+the obelisk picking a tier and re-running `/mh tier` to see which value changes.
+Until then, tier 0 on a ritual run means unknown, and it should keep saying so
+rather than inheriting a guess from the offered list.
