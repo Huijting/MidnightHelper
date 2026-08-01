@@ -217,6 +217,20 @@ local function ActiveWidgetSets()
 	return sets, order
 end
 
+--- How far to sweep set IDs when the named getters come up short.
+---
+--- Measured need, not a guess at a bound: the delve control run proved widget 6183
+--- — the one carrying `tierText` — sits in NONE of the four sets the named getters
+--- return. Only DBM's hardcoded constant found it. So the four getters are not a
+--- census of live widgets, and a probe built on them reports "nothing here" for a
+--- ritual for the same reason it reported "nothing here" for a delve that was
+--- visibly showing Tier 11 on screen.
+---
+--- `Broker_MidnightEvents/Core.lua:2153` sweeps 1000–3500 and records that empty
+--- IDs return nil cheaply. This range starts at 1 because set 1 and set 2 are both
+--- real here, and ends past 3500 for Midnight-era additions.
+local SWEEP_MIN, SWEEP_MAX = 1, 4200
+
 --- Does this value look like it names a tier? Field name OR content.
 ---
 --- Both halves are needed. DBM's field is `tierText` (the name gives it away) but a
@@ -245,54 +259,113 @@ end
 --- trusting the type means trusting that the ritual header is the widget type I
 --- expect. Cheap, and it cannot miss.
 local function WidgetSweep()
-	local out = { sets = {}, flagged = {} }
+	local out = { sets = {}, flagged = {}, keepers = {} }
 	if type(C_UIWidgetManager) ~= "table" or type(C_UIWidgetManager.GetAllWidgetsBySetID) ~= "function" then
 		out.unavailable = true
 		return out
 	end
 
 	local readers = VisualizationReaders()
-	local sources, order = ActiveWidgetSets()
+	local sources = ActiveWidgetSets()
 
-	for _, setID in ipairs(order) do
+	--- Read one widget through every reader; return its info and whether it matters.
+	---
+	--- "Matters" is deliberately loose — a tier-shaped field, or a texture kit
+	--- mentioning a scenario, or a header caption. The delve's answer had all three
+	--- (`tierText`, `frameTextureKit = "delves-scenario"`, `headerText`), and a
+	--- ritual that names its tier differently should still trip one of them.
+	local function ReadWidget(setID, id)
+		local info, interesting = {}, false
+		for _, reader in ipairs(readers) do
+			local fn = C_UIWidgetManager[reader]
+			local got = type(fn) == "function" and Ask(fn, id) or nil
+			if type(got) == "table" then
+				info[reader] = Snapshot(got)
+				for k, v in pairs(got) do
+					if not Secret(v) then
+						if LooksLikeTier(k, v) then
+							interesting = true
+							out.flagged[#out.flagged + 1] = {
+								setID = setID, widgetID = id, reader = reader,
+								field = tostring(k), value = tostring(v),
+							}
+						elseif type(v) == "string" and (v:lower():find("scenario", 1, true)
+							or k == "headerText") then
+							interesting = true
+						end
+					end
+				end
+			end
+		end
+		return info, interesting
+	end
+
+	-- Full sweep of the set ID space. Storing all ~20 reader outputs for every
+	-- widget found would bloat SavedVariables badly, so only interesting widgets
+	-- keep their readings; the rest are recorded as id + type so the census stays
+	-- honest about what was looked at.
+	local scanned, found = 0, 0
+	for setID = SWEEP_MIN, SWEEP_MAX do
 		local widgets = Ask(C_UIWidgetManager.GetAllWidgetsBySetID, setID)
-		local block = { setID = setID, source = sources[setID], widgets = {} }
-		if type(widgets) == "table" then
+		if type(widgets) == "table" and #widgets > 0 then
+			scanned = scanned + 1
+			local block = { setID = setID, source = sources[setID], widgets = {} }
 			for _, w in ipairs(widgets) do
 				local id = type(w) == "table" and w.widgetID or nil
-				local entry = { widgetID = id, widgetType = type(w) == "table" and w.widgetType or nil, info = {} }
+				local wtype = type(w) == "table" and w.widgetType or nil
+				found = found + 1
+				local entry = { widgetID = id, widgetType = wtype }
 				if id then
-					for _, reader in ipairs(readers) do
-						local fn = C_UIWidgetManager[reader]
-						local info = type(fn) == "function" and Ask(fn, id) or nil
-						if type(info) == "table" then
-							entry.info[reader] = Snapshot(info)
-							for k, v in pairs(info) do
-								if LooksLikeTier(k, v) and not Secret(v) then
-									out.flagged[#out.flagged + 1] = {
-										setID = setID, widgetID = id, reader = reader,
-										field = tostring(k), value = tostring(v),
-									}
-								end
-							end
-						end
+					local info, interesting = ReadWidget(setID, id)
+					if interesting then
+						entry.info = info
+						out.keepers[#out.keepers + 1] = { setID = setID, widgetID = id }
 					end
 				end
 				block.widgets[#block.widgets + 1] = entry
 			end
+			out.sets[#out.sets + 1] = block
 		end
-		out.sets[#out.sets + 1] = block
+	end
+	out.setsScanned, out.widgetsFound = scanned, found
+	out.sweepRange = ("%d-%d"):format(SWEEP_MIN, SWEEP_MAX)
+
+	-- DBM's three constants, read directly. Kept because they are the known-good
+	-- control: in a delve, 6183 must come back with tierText.
+	out.dbmDelveIds = {}
+	local delveReader = C_UIWidgetManager.GetScenarioHeaderDelvesWidgetVisualizationInfo
+	if type(delveReader) == "function" then
+		for _, id in ipairs({ 6183, 6184, 6185 }) do
+			out.dbmDelveIds[id] = Snapshot(Ask(delveReader, id))
+		end
 	end
 
-	-- DBM's three constants, read directly. They are delve IDs, so inside a ritual
-	-- they are expected to be empty — which is the point. If they answer in a delve
-	-- and the sweep above finds nothing in a ritual, that is a real difference
-	-- between the two, not a broken probe.
-	out.dbmDelveIds = {}
-	local reader = C_UIWidgetManager.GetScenarioHeaderDelvesWidgetVisualizationInfo
-	if type(reader) == "function" then
-		for _, id in ipairs({ 6183, 6184, 6185 }) do
-			out.dbmDelveIds[id] = Snapshot(Ask(reader, id))
+	-- Direct sweep of the widget ID space, scenario-header readers only.
+	--
+	-- The delve control forced this. Widget 6183 answers, carries `tierText = 11`,
+	-- and appears in NO set the sweep above walks — DBM found it by knowing the
+	-- number, and nothing else would have. So a ritual's header widget may likewise
+	-- be unreachable through sets, and asking by ID is the only way to meet it.
+	--
+	-- Restricted to the two ScenarioHeader readers on purpose. Running all twenty
+	-- across nine thousand IDs is 180k calls in one frame; these two are the readers
+	-- for the screen region that actually draws "Tier 8", and the delve proves the
+	-- tier lives there.
+	out.headerIds = {}
+	for _, readerName in ipairs({
+		"GetScenarioHeaderDelvesWidgetVisualizationInfo",
+		"GetScenarioHeaderTimerWidgetVisualizationInfo",
+	}) do
+		local fn = C_UIWidgetManager[readerName]
+		if type(fn) == "function" then
+			for id = 1, 9000 do
+				local info = Ask(fn, id)
+				if type(info) == "table" and next(info) ~= nil then
+					out.headerIds[#out.headerIds + 1] = {
+						widgetID = id, reader = readerName, info = Snapshot(info),
+					}
+				end
+			end
 		end
 	end
 
@@ -404,15 +477,21 @@ function ns.PrintTierProbe()
 	if sweep.unavailable then
 		print("    |cffff8080C_UIWidgetManager.GetAllWidgetsBySetID is missing on this client|r")
 	else
-		local total = 0
-		for _, block in ipairs(sweep.sets) do
-			total = total + #block.widgets
-			print(("    set %d (%s): %d widget(s)"):format(block.setID, tostring(block.source), #block.widgets))
+		print(("    swept set IDs %s: %d non-empty set(s), %d widget(s)"):format(
+			tostring(sweep.sweepRange), sweep.setsScanned or 0, sweep.widgetsFound or 0))
+		print(("    scenario-header widgets by ID: %d"):format(#(sweep.headerIds or {})))
+		for i, h in ipairs(sweep.headerIds or {}) do
+			if i > 6 then
+				print("      |cff9d9d9d... more, see the saved snapshot|r")
+				break
+			end
+			local info = h.info
+			print(("      widget %d  header=%s  tierText=%s  kit=%s"):format(
+				h.widgetID, Show(type(info) == "table" and info.headerText),
+				Show(type(info) == "table" and info.tierText),
+				Show(type(info) == "table" and info.frameTextureKit)))
 		end
-		if #sweep.sets == 0 then
-			print("    |cff9d9d9dno widget set is live here|r")
-		end
-		print(("    %d widget(s) total, %d field(s) look like a tier:"):format(total, #sweep.flagged))
+		print(("    %d field(s) look like a tier:"):format(#sweep.flagged))
 		for i, f in ipairs(sweep.flagged) do
 			if i > 10 then
 				print("      |cff9d9d9d... more, see the saved snapshot|r")
