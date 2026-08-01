@@ -271,3 +271,29 @@ any crest icon".
 **Unused so far: the item level range per tier.** "Adventurer 224-237", "Hero
 263-276" — that is the answer to "which crest do I actually need for this piece",
 and nothing in MH shows it. It is one field away.
+
+## If a source tells you the cap is 100/week — it has come up before (1 aug 2026)
+
+The daily watcher logged, as a backfill, that "the weekly crest cap remains
+100/week", citing Wowhead article 381980. That contradicts 2.11.1, which shipped
+the day before specifically to remove that claim, so it was checked rather than
+waved away.
+
+**The article is dated 23 June 2026** — a month before the in-game measurement, and
+it is about upgrade costs no longer scaling, not about caps. (Its body could not be
+retrieved, so whether the sentence is even in it is unconfirmed; the watcher may
+have carried it in from elsewhere.)
+
+Against that stand two independent in-game signals from 22 July:
+
+- `maxQuantity` and `maxWeeklyQuantity` read **0** on all five tiers.
+- Blizzard's own Currencies tab renders genuinely capped currencies as a fraction
+  — Dawnlight Manaflux 4/8, Nebulous Voidcore 25/28, Radiant Spark Dust 21/21 —
+  and shows all five crests as a bare number.
+
+A direct read of the live client beats month-old datamining, and the second signal
+does not depend on the first being interpreted correctly. **The claim stays out.**
+
+Do not re-add it because a guide, a recap or a watcher entry repeats it. If it ever
+becomes true the currency tab will start drawing a fraction, and `/mh crests` will
+report a non-zero maxWeeklyQuantity. Until one of those happens, this is settled.
