@@ -152,10 +152,55 @@ end
 -- Tier auto-detection (ported from EverythingDelves, debug stripped)
 --------------------------------------------------------------------------------
 
+--- The scenario header widget, which is where the tier actually lives.
+---
+--- Everything below this function mines digits out of a string, and that is why
+--- this file records a tier for roughly a third of runs. Measured in Rob's client
+--- on 1 Aug 2026, inside The Darkway at Tier 11: `GetInstanceInfo()` returns
+--- difficultyID 208 with difficultyName **"Delves"**. No digits. The scenario name
+--- is "Delves" and the step name is the delve's own name. None of the three
+--- fallbacks can succeed, and the tracker scrape only works while the header
+--- happens to be drawn.
+---
+--- The number is only ever display text on a UI widget — the "Tier 11" caption
+--- above the tracker. A sweep of set IDs 1-4200 and widget IDs 1-9000 found
+--- exactly one widget carrying it, id 6183 in set 842, `tierText = "11"`. DBM has
+--- read it this way since delves shipped (`DBM-Core/modules/objects/Difficulties.lua:565`).
+---
+--- The three IDs are DBM's. 6184 and 6185 are the non-tiered normal/mythic
+--- variants, so `tierText` on those is not expected; they are tried anyway because
+--- asking costs nothing and assuming which one is live costs a run.
+---
+--- No upper bound on the value. The string-mining below clamps to 1-11 to reject
+--- digits that happened to sit in a name, but a field literally called `tierText`
+--- needs no such defence — and clamping would silently drop a Tier 12 the moment
+--- Blizzard adds one.
+local function WidgetDelveTier()
+	local reader = C_UIWidgetManager and C_UIWidgetManager.GetScenarioHeaderDelvesWidgetVisualizationInfo
+	if type(reader) ~= "function" then
+		return nil
+	end
+	for _, id in ipairs({ 6183, 6184, 6185 }) do
+		local ok, info = pcall(reader, id)
+		if ok and type(info) == "table" and info.shownState == 1 then
+			local n = tonumber(info.tierText)
+			if n and n >= 1 then
+				return n
+			end
+		end
+	end
+	return nil
+end
+
 --- Return the current delve tier (1-11) or nil. Strategy, most authoritative
---- first: instance difficulty name -> scenario / step name -> a scrape of the
---- objective tracker for "Tier N".
+--- first: the scenario header widget -> instance difficulty name -> scenario /
+--- step name -> a scrape of the objective tracker for "Tier N".
 local function AutoDetectDelveTier()
+	local widgetTier = WidgetDelveTier()
+	if widgetTier then
+		return widgetTier
+	end
+
 	local _, _, _, difficultyName = GetInstanceInfo()
 	if difficultyName and difficultyName ~= "" then
 		local m = difficultyName:match("(%d+)")
