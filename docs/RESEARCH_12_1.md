@@ -281,3 +281,33 @@ So the open question is not "can we read the tier inside" (answered: no) but
 the obelisk picking a tier and re-running `/mh tier` to see which value changes.
 Until then, tier 0 on a ritual run means unknown, and it should keep saying so
 rather than inheriting a guess from the offered list.
+
+### And not at the entrance either — the selection is invisible (1 aug 2026)
+
+Rob's experiment, and a better one than mine: stand at the obelisk, select each of
+the six tiers in turn, save a labelled snapshot per selection, without entering.
+Seven records including a baseline taken before arriving.
+
+| snapshot | activeTier.tier | entranceType | #tiers | tier list |
+|---|---|---|---|---|
+| geen (away from obelisk) | 0 | 0 | 0 | empty |
+| tier1 … tier6 | **0** | 2 | 6 | **byte-identical** |
+
+`GetActiveDelveTier().tier` stays 0 through every selection, and the six-entry list
+from `GetDelveEntranceTiers()` serialises to exactly the same 876 characters
+whichever tier is highlighted. Nothing in it moves: no `isSelected`, no changed
+`unlocked`, nothing. The snapshot kept every key two levels deep precisely so a
+field nobody had named could not slip past, and there was none.
+
+`entranceType` does flip 0 → 2 on arriving, so the client will tell you a tiered
+entrance is present. It will not tell you which tier you chose.
+
+**Conclusion: a ritual run's tier cannot be recorded.** Not from inside the
+scenario, not from the entrance. Tier 0 in RitualLog means unknown and must keep
+meaning that — the offered list must never be mined for a plausible number, and
+"highest available" would be exactly that.
+
+**Worth salvaging.** The list does carry `suggestedILvl` per tier (215 / 231 / 244
+/ 257 / 264 / 274) and a `tierDescription` ("Tier 3 - 1 Challenges"). That is real,
+live, per-tier data available exactly when a player is standing there deciding
+which tier to take — which is a better use of it than backfilling a log.
