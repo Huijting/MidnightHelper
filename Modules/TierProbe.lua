@@ -79,6 +79,72 @@ local function Dump(indent, t)
 	end
 end
 
+--- Copy a table one level deep, keeping every key. Guessed field names are the
+--- enemy here: the value that marks the SELECTED tier is by definition one nobody
+--- has named yet, so nothing may be filtered on the way into the file.
+local function Snapshot(t, depth)
+	if type(t) ~= "table" then
+		if Secret(t) then
+			return "<secret>"
+		end
+		return t
+	end
+	if (depth or 0) > 2 then
+		return "<deeper>"
+	end
+	local out = {}
+	for k, v in pairs(t) do
+		local key = (type(k) == "number" or type(k) == "string") and k or tostring(k)
+		out[key] = Snapshot(v, (depth or 0) + 1)
+	end
+	return out
+end
+
+--- `/mh tier save [label]` — append a full snapshot instead of printing.
+---
+--- Rob's idea, and a better measurement than one reading: stand at the obelisk,
+--- select each of the six tiers in turn and save one snapshot per selection. Six
+--- labelled records make the field that moves obvious, where a single record can
+--- only show what a tier looks like — not which part of it means "this one".
+---
+--- Appends rather than overwrites, so a run does not destroy the previous one.
+function ns.SaveTierProbe(label)
+	if not ns.db then
+		print("|cffff8080Midnight Helper:|r saved variables are not ready.")
+		return
+	end
+	if type(ns.db.tierProbe) ~= "table" then
+		ns.db.tierProbe = {}
+	end
+	local iOk, iName, iKind, iDiffID, iDiffName = pcall(GetInstanceInfo)
+	local rec = {
+		label = (label and label ~= "") and label or ("snapshot " .. (#ns.db.tierProbe + 1)),
+		zone = GetRealZoneText and GetRealZoneText() or nil,
+		instanceName = iOk and iName or nil,
+		instanceType = iOk and iKind or nil,
+		difficultyID = iOk and iDiffID or nil,
+		difficultyName = iOk and iDiffName or nil,
+		activeTier = Snapshot(Ask(C_DelvesUI and C_DelvesUI.GetActiveDelveTier)),
+		entranceType = Snapshot(Ask(C_DelvesUI and C_DelvesUI.GetTieredEntranceType)),
+		entranceTiers = Snapshot(Ask(C_DelvesUI and C_DelvesUI.GetDelveEntranceTiers)),
+		isTieredEntrance = Snapshot(C_ScenarioInfo and Ask(C_ScenarioInfo.IsTieredEntranceScenario)),
+		scenarioName = Snapshot(C_Scenario and Ask(C_Scenario.GetInfo)),
+		scenarioStep = Snapshot(C_Scenario and Ask(C_Scenario.GetStepInfo)),
+	}
+	ns.db.tierProbe[#ns.db.tierProbe + 1] = rec
+	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+	print(("%s tier snapshot %d saved as \"%s\". |cffffffff/reload|r when you have them all."):format(
+		p, #ns.db.tierProbe, rec.label))
+end
+
+--- `/mh tier clear` — start a fresh set.
+function ns.ClearTierProbe()
+	if ns.db then
+		ns.db.tierProbe = {}
+	end
+	print(("|cffffcc00%s|r tier snapshots cleared."):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:"))
+end
+
 function ns.PrintTierProbe()
 	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
 	print(("%s Tier probe — every tier call this client has, where you are now:"):format(p))

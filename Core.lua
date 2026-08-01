@@ -1157,9 +1157,24 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh tier — every tier-related call, wherever you are standing. Built to settle
 	-- why 27 ritual runs all logged tier 0.
+	-- `save [label]` appends a full snapshot: stand at the obelisk, pick each tier
+	-- in turn and save one per selection, then /reload and the whole set is readable
+	-- from the file. Six labelled records show which field means "this one".
 	if msg == "tier" then
 		if ns.PrintTierProbe then
 			ns.PrintTierProbe()
+		end
+		return
+	end
+	if msg == "tier clear" then
+		if ns.ClearTierProbe then
+			ns.ClearTierProbe()
+		end
+		return
+	end
+	if msg == "tier save" or msg:match("^tier save ") then
+		if ns.SaveTierProbe then
+			ns.SaveTierProbe(msg:match("^tier save%s+(.+)$"))
 		end
 		return
 	end
