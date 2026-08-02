@@ -297,12 +297,15 @@ function PositionClicks()
 	if not (left and top) then
 		return
 	end
-	local w = math.max(1, panel:GetWidth() - PAD * 2)
+	-- Start after the role icon: that column stays bare panel, and it is the only
+	-- thing left to grab once the buttons cover the rest of every row.
+	local inset = PAD + ROLE_W + 4
+	local w = math.max(1, panel:GetWidth() - inset - PAD)
 	for i = 1, MAX_ROWS do
 		local b = clicks[i]
 		if b then
 			b:ClearAllPoints()
-			b:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left + PAD, top - PAD - (i - 1) * ROW_H)
+			b:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left + inset, top - PAD - (i - 1) * ROW_H)
 			b:SetSize(w, ROW_H)
 		end
 	end
@@ -328,30 +331,22 @@ local function EnsureClickButtons()
 			b:RegisterForClicks("AnyUp", "AnyDown")
 			b:SetAttribute("*type1", "target")
 			b:SetAttribute("unit", "party" .. i .. "target")
-			-- Drag on the RIGHT button, not the left.
+			-- NO SCRIPTS ON THIS BUTTON. Not OnDragStart, not OnClick, nothing.
 			--
-			-- Rob could not click a single row on the first build. Registering a
-			-- frame for LeftButton drag makes it wait to see whether the press
-			-- becomes a drag, and a mouse that shifts a pixel between down and up
-			-- turns the click into a drag that goes nowhere. Left is now purely
-			-- targeting; right-drag moves the panel.
-			b:RegisterForDrag("RightButton")
-			b:SetScript("OnDragStart", function()
-				if panel and panel.StartMoving then
-					panel:StartMoving()
-				end
-			end)
-			b:SetScript("OnDragStop", function()
-				if panel then
-					panel:StopMovingOrSizing()
-					SavePos()
-				end
-				PositionClicks()
-			end)
+			-- The first two builds hung drag handlers here so the rows would stay
+			-- draggable, and Rob got:
+			--   ADDON_ACTION_FORBIDDEN — MidnightHelper tried to call TargetUnit()
+			-- Our own code running in a secure button's context taints it, and a
+			-- tainted button may no longer perform a protected action. The drag
+			-- convenience destroyed the targeting it was wrapped around.
+			--
+			-- Dragging goes back to the panel, which is not secure and may carry
+			-- whatever scripts it likes. The buttons leave the role-icon column
+			-- uncovered so there is always a strip of panel left to grab.
 			-- A default size, because SetSize only happens in PositionClicks and that
 			-- refuses to run in combat. A button created mid-fight would otherwise
 			-- sit at zero by zero: shown, bound correctly, and impossible to hit.
-			b:SetSize(PANEL_W - PAD * 2, ROW_H)
+			b:SetSize(PANEL_W - PAD * 2 - ROLE_W - 4, ROW_H)
 			b:Hide()
 			clicks[i] = b
 		end
