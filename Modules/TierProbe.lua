@@ -410,10 +410,16 @@ local function ResolveRewardItems(tiers)
 						pcall(C_Item.RequestLoadItemDataByID, id)
 					end
 					local rec = { itemID = id, tier = tierInfo.tier, context = reward.context }
-					local name, _, quality, baseItemLevel = Ask(C_Item.GetItemInfo, id)
-					rec.name = name
-					rec.quality = quality
-					rec.baseItemLevel = baseItemLevel
+					-- Ask() returns only the FIRST value, so destructuring it gave nil
+					-- for quality and item level on the delve reading of 2 Aug — nils
+					-- that looked exactly like "this item has no level". They were a
+					-- bug in this probe. GetItemInfo needs all of its returns.
+					local ok, name, _, quality, baseItemLevel = pcall(C_Item.GetItemInfo, id)
+					if ok then
+						rec.name = name
+						rec.quality = quality
+						rec.baseItemLevel = baseItemLevel
+					end
 					rec.detailedItemLevel = Ask(C_Item.GetDetailedItemLevelInfo, id)
 					out[#out + 1] = rec
 				end
