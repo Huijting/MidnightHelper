@@ -379,6 +379,50 @@ local function WidgetSweep()
 	return out
 end
 
+--- Resolve every reward item ID a tier list carries into name + item level.
+---
+--- Measured 2 Aug 2026: `rewards` holds item IDs, not item levels. A delve
+--- entrance offers one entry per tier and it is the SAME id (257386) on all
+--- eleven; a ritual obelisk offers three, of which only the first varies per tier
+--- (271785 → 271977). So the list on its own cannot be the "recommended item
+--- level" that `DELVE_LOOT_TABLE` hardcodes.
+---
+--- Whether it can BECOME that is the open question, and it is one call away. If
+--- those ids resolve to items whose level climbs with the tier, the number exists
+--- live after all. If they resolve to one currency or a token, they do not.
+---
+--- `C_Item.RequestLoadItemDataByID` first because an item the client has never
+--- seen returns nils from `GetItemInfo` on the first ask — and a nil there reads
+--- exactly like "no such data", which is the mistake this whole investigation kept
+--- making. A second snapshot after the cache fills is the check.
+local function ResolveRewardItems(tiers)
+	if type(tiers) ~= "table" or type(C_Item) ~= "table" then
+		return nil
+	end
+	local seen, out = {}, {}
+	for _, tierInfo in pairs(tiers) do
+		if type(tierInfo) == "table" and type(tierInfo.rewards) == "table" then
+			for _, reward in pairs(tierInfo.rewards) do
+				local id = type(reward) == "table" and tonumber(reward.id) or nil
+				if id and not seen[id] then
+					seen[id] = true
+					if type(C_Item.RequestLoadItemDataByID) == "function" then
+						pcall(C_Item.RequestLoadItemDataByID, id)
+					end
+					local rec = { itemID = id, tier = tierInfo.tier, context = reward.context }
+					local name, _, quality, baseItemLevel = Ask(C_Item.GetItemInfo, id)
+					rec.name = name
+					rec.quality = quality
+					rec.baseItemLevel = baseItemLevel
+					rec.detailedItemLevel = Ask(C_Item.GetDetailedItemLevelInfo, id)
+					out[#out + 1] = rec
+				end
+			end
+		end
+	end
+	return out
+end
+
 --- `/mh tier save [label]` — append a full snapshot instead of printing.
 ---
 --- Rob's idea, and a better measurement than one reading: stand at the obelisk,
@@ -410,6 +454,7 @@ function ns.SaveTierProbe(label)
 		-- offered so far, and DELVE_LOOT_TABLE in Modules/Delves.lua is hardcoded
 		-- precisely because nobody had found it.
 		entranceTiers = Snapshot(Ask(C_DelvesUI and C_DelvesUI.GetDelveEntranceTiers), 0, 6),
+		rewardItems = ResolveRewardItems(Ask(C_DelvesUI and C_DelvesUI.GetDelveEntranceTiers)),
 		isTieredEntrance = Snapshot(C_ScenarioInfo and Ask(C_ScenarioInfo.IsTieredEntranceScenario)),
 		scenarioName = Snapshot(C_Scenario and Ask(C_Scenario.GetInfo)),
 		scenarioStep = Snapshot(C_Scenario and Ask(C_Scenario.GetStepInfo)),
