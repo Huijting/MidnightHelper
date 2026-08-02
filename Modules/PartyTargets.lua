@@ -325,10 +325,17 @@ local function EnsureClickButtons()
 			local b = CreateFrame("Button", "MidnightHelperPartyTargetClick" .. i, UIParent,
 				"SecureActionButtonTemplate")
 			b:SetFrameStrata("DIALOG")
-			b:RegisterForClicks("AnyUp")
+			b:RegisterForClicks("AnyUp", "AnyDown")
 			b:SetAttribute("*type1", "target")
 			b:SetAttribute("unit", "party" .. i .. "target")
-			b:RegisterForDrag("LeftButton")
+			-- Drag on the RIGHT button, not the left.
+			--
+			-- Rob could not click a single row on the first build. Registering a
+			-- frame for LeftButton drag makes it wait to see whether the press
+			-- becomes a drag, and a mouse that shifts a pixel between down and up
+			-- turns the click into a drag that goes nowhere. Left is now purely
+			-- targeting; right-drag moves the panel.
+			b:RegisterForDrag("RightButton")
 			b:SetScript("OnDragStart", function()
 				if panel and panel.StartMoving then
 					panel:StartMoving()
@@ -341,6 +348,10 @@ local function EnsureClickButtons()
 				end
 				PositionClicks()
 			end)
+			-- A default size, because SetSize only happens in PositionClicks and that
+			-- refuses to run in combat. A button created mid-fight would otherwise
+			-- sit at zero by zero: shown, bound correctly, and impossible to hit.
+			b:SetSize(PANEL_W - PAD * 2, ROW_H)
 			b:Hide()
 			clicks[i] = b
 		end
