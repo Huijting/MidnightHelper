@@ -51,9 +51,13 @@ Two things worth saying that came out of the same measurement:
   suggests 215; delve Tier 1 suggests 170. Someone who has cleared Tier 5 delves and
   walks up to a Tier 5 ritual is not looking at the same thing, and nothing on screen
   says so.
-- **In a bountiful delve, Tier 4 is where Trovehunter's Bounty starts.** Tiers 1–3 give
-  Bountiful Coffer + Bountiful Heavy Trunk; from Tier 4 the Bounty is added. Read live
-  from the rewards list, so it never needs maintaining.
+- **In a bountiful delve, Tier 4 appears to be where Trovehunter's Bounty starts.**
+  Tiers 1–3 give Bountiful Coffer + Bountiful Heavy Trunk; from Tier 4 the Bounty is
+  added. Read live from the rewards list, so it never needs maintaining — but it was
+  measured in **one** bountiful delve, and the comparison delve was a different delve
+  (it had to be). Do not state the threshold as a rule until a second bountiful delve
+  confirms it. Reading the list live sidesteps this entirely: show what *this* entrance
+  offers per tier, and no general claim is needed.
 
 The rewards themselves are containers with item level 1 — they say *what* you get, not
 how good it is. Do not present them as a gear-level comparison.

@@ -446,6 +446,40 @@ Trovehunter's Bounty starts**. That is exactly the kind of thing a player is try
 to work out while standing at the entrance, and it can be read rather than
 maintained. See `docs/PROPOSAL_TIER_ADVISOR.md`.
 
+⚠️ **Confound, raised by Rob: the two delves were different delves.** They had to
+be — a delve either is bountiful this week or it is not, so the comparison cannot
+be run on one entrance. That means "bountiful" and "which delve" moved together,
+and only part of the result is safely attributed:
+
+- **Safe.** Heavy Trunk becomes *Bountiful* Heavy Trunk and a *Bountiful* Coffer
+  appears. The names track the state, not the location.
+- **Not established.** That Tier 4 is where Trovehunter's Bounty starts may be a
+  bountiful rule or may be that delve's rule. It was measured in one bountiful
+  delve. A second bountiful delve settles it; until then do not ship the threshold
+  as a general statement.
+
+### The obelisk closes it: ritual rewards are containers too (2 Aug 2026)
+
+Saved twice so the item cache was warm, and the two readings show why that
+mattered:
+
+```
+1st save:  id=271785  ilvl=nil  q=nil  name=nil            <- cold
+2nd save:  id=271785  ilvl=1    q=4    name=Ritual Spoils  <- warm
+```
+
+A single cold reading would have reported no name, no quality and no item level —
+indistinguishable from an item that has none.
+
+Warm, all six per-tier ids (271785, 271973, 271974, 271975, 271976, 271977) resolve
+to **"Ritual Spoils"**: six distinct items sharing one name, quality 4, item level
+1. Alongside them, constant across every tier, **Field Accolades** (quality 4) and
+**Ritual Site Reports** (quality 2).
+
+So both entrance types are now measured and both give containers. **There is no
+live recommended item level anywhere in this API**, and the field in the Knowledge
+Object stays `null` on measured grounds rather than on absence of evidence.
+
 **Online, for completeness.** No API documentation for a ritual's selected tier was
 found. Public guide sites describe ritual tiers as 1–5; Rob's own measurement shows
 six, with `suggestedILvl` up to 274, so those pages are wrong or pre-12.0.7 — the
