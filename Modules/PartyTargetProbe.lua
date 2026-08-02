@@ -105,9 +105,51 @@ function ns.PrintPartyTargetProbe()
 		tostring(inInst), tostring(kind),
 		tostring((InCombatLockdown and InCombatLockdown()) or false)))
 
+	-- Everything printed below is also written to SavedVariables, because the one
+	-- reading that matters must be taken while a mob is marked and in combat --
+	-- exactly when nobody wants to copy chat output. `/reload` afterwards and the
+	-- file can be read at leisure.
+	local rec = {
+		inInstance = inInst, instanceKind = kind,
+		inCombat = (InCombatLockdown and InCombatLockdown()) or false,
+		zone = GetRealZoneText and GetRealZoneText() or nil,
+		units = {},
+	}
+
+	--- Reduce a value to what a snapshot may honestly keep.
+	---
+	--- A secret must never be stored: writing it would either error or, worse,
+	--- silently record something that is not the value. "secret" and "nil" are
+	--- different answers and the whole question here is which one we get.
+	local function Keep(v)
+		if v == nil then
+			return "nil"
+		elseif Secret(v) then
+			return "secret"
+		end
+		return v
+	end
+
+	-- My OWN target, measured first. Rob marks the skull himself, so if the index
+	-- reads on `target` but not on `party1target`, the restriction is about other
+	-- people's units rather than about markers -- and that difference decides
+	-- whether the panel can show a skull at all.
+	rec.ownTarget = {
+		exists = Keep(Ask(UnitExists, "target")),
+		marker = Keep(Ask(GetRaidTargetIndex, "target")),
+		name = Keep(Ask(UnitName, "target")),
+	}
+	print(("  |cff8fd3ffyour own target|r  exists=%s  raid marker index=%s%s"):format(
+		State(Ask(UnitExists, "target")),
+		State(Ask(GetRaidTargetIndex, "target")), Shown(Ask(GetRaidTargetIndex, "target"))))
+
 	local units = PartyUnits()
 	if #units == 0 then
 		print("  |cffff8080you are not in a party|r — this needs a real group to say anything.")
+		if ns.db then
+			ns.db.partyTargetProbe = ns.db.partyTargetProbe or {}
+			ns.db.partyTargetProbe[#ns.db.partyTargetProbe + 1] = rec
+		end
 		return
 	end
 
@@ -175,9 +217,31 @@ function ns.PrintPartyTargetProbe()
 		-- measurement, not this one.
 		local mark = Ask(GetRaidTargetIndex, unit .. "target")
 		print(("     raid marker index=%s%s"):format(State(mark), Shown(mark)))
+
+		rec.units[#rec.units + 1] = {
+			unit = unit,
+			memberName = Keep(name),
+			targetExists = Keep(exists),
+			targetName = Keep(targetName),
+			targetIsPlayer = Keep(targetIsPlayer),
+			sameAsMine = Keep(sameAsMine),
+			targetingMe = Keep(onMe),
+			fullName = Keep(full),
+			getUnitName = Keep(getun),
+			guid = Keep(guid),
+			marker = Keep(mark),
+		}
+	end
+
+	if ns.db then
+		ns.db.partyTargetProbe = ns.db.partyTargetProbe or {}
+		ns.db.partyTargetProbe[#ns.db.partyTargetProbe + 1] = rec
+		print(("  |cffffcc00saved as reading %d|r — |cffffffff/reload|r when you are done."):format(
+			#ns.db.partyTargetProbe))
 	end
 
 	print("  |cff9d9d9dEnemy target names are SECRET here; a party member's name is not.|r")
-	print("  |cff9d9d9dWhat matters now: do the comparisons read, does any OTHER name API read,|r")
-	print("  |cff9d9d9dand does the GUID read (that is what a name cache would key on).|r")
+	print("  |cff9d9d9dFor the skull: mark a mob, then run this IN COMBAT. A marker index that|r")
+	print("  |cff9d9d9dreads on your own target but not on theirs is a different answer than|r")
+	print("  |cff9d9d9dsecret on both, and only one of them kills the feature.|r")
 end
