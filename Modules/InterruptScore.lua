@@ -237,47 +237,28 @@ f:RegisterEvent("PLAYER_LOGIN")
 --- which walks straight around the CLEU-taint blocker that has stalled this for
 --- weeks (see docs, "CLEU-taint onderzoek").
 ---
---- Both of those sources are comments, not measurements, so nothing is built on
---- them yet. This records what the argument actually is, per interrupt: absent,
---- secret, or a GUID — and if a GUID, whether it matches a party member, whose
---- name reads because they are friendly.
-local IB_MAX = 40
-local function CaptureInterruptedBy(unit, interruptedBy)
-	if not ns.db then
-		return
-	end
-	local log = ns.db.interruptedByProbe
-	if type(log) ~= "table" then
-		log = {}
-		ns.db.interruptedByProbe = log
-	end
-	if #log >= IB_MAX then
-		return
-	end
-
-	local rec = { castingUnit = unit }
-	if interruptedBy == nil then
-		rec.interruptedBy = "nil"
-	elseif issecretvalue and issecretvalue(interruptedBy) then
-		rec.interruptedBy = "secret"
-	else
-		rec.interruptedBy = tostring(interruptedBy)
-		-- Match against the group rather than asking the GUID to name itself.
-		-- A party member is friendly, so their GUID and name both read; that is
-		-- the same asymmetry the party-targets panel is built on.
-		local units = { "player", "party1", "party2", "party3", "party4" }
-		for _, u in ipairs(units) do
-			local ok, g = pcall(UnitGUID, u)
-			if ok and g == interruptedBy then
-				rec.matchedUnit = u
-				local nOk, n = pcall(UnitName, u)
-				rec.matchedName = (nOk and type(n) == "string") and n or "unreadable"
-				break
-			end
-		end
-	end
-	log[#log + 1] = rec
-end
+--- MEASURED AND CLOSED. 40 interrupts captured in Rob's client, 2 Aug 2026:
+---
+---   28x nil, 12x secret, never once a readable GUID
+---
+--- and the split is not random. Where the interrupted caster was HOSTILE
+--- (nameplate3, target, softenemy) the value came back SECRET. Where it was
+--- FRIENDLY (party2, party4, player) it came back nil. So the one case the feature
+--- needs — an enemy getting kicked — is exactly the case that is withheld. The
+--- cheap route is shut.
+---
+--- Nor is it rescued by the marker trick. A secret can be handed to a Blizzard
+--- helper that draws it (that is how the raid icon on the party-targets panel
+--- works), but there is no helper that turns a GUID into a displayed name.
+---
+--- The route that DOES work is one this addon already owns.
+--- `Modules/Retrospective.lua` registers COMBAT_LOG_EVENT_UNFILTERED behind a
+--- whitelist of difficulties — dungeons normal/heroic, M+, Mythic 0, Timewalking
+--- (24) and raids — and stays out of delves, ritual scenarios and follower
+--- dungeons, where registering it is refused outright. In the whitelisted content
+--- SPELL_INTERRUPT carries sourceName, which is the attribution, and Timewalking
+--- is where Rob asked for it. Reuse that gate rather than inventing a second one:
+--- it is fail-closed, and it already knows which content bites.
 
 f:SetScript("OnEvent", function(_, event, unit, _, spellID, interruptedBy)
 	if event == "UNIT_SPELLCAST_SUCCEEDED" then
@@ -292,7 +273,6 @@ f:SetScript("OnEvent", function(_, event, unit, _, spellID, interruptedBy)
 			OnMyInterrupt()
 		end
 	elseif event == "UNIT_SPELLCAST_INTERRUPTED" then
-		pcall(CaptureInterruptedBy, unit, interruptedBy)
 		OnInterrupted(unit)
 	elseif event == "PLAYER_ENTERING_WORLD" then
 		-- Fresh tally per run: reset when we (re)enter an instance.
