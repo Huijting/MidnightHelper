@@ -33,9 +33,15 @@ local _, ns = ...
 -- Wider than it first was: "Daggerspine Myrmidon" is an ordinary trash mob and it
 -- did not fit. Since the text cannot be measured — it is a secret — the only lever
 -- is giving it room.
-local PANEL_W, ROW_H, PAD = 260, 16, 8
+-- Widened from 260 on 2 Aug: with the role icon in front of it, an 84px name
+-- column cut "Captain Garrick" down to "Captain Gar...". Both columns gain here
+-- rather than one being robbed for the other — the target column was made
+-- deliberately roomy in July after "Daggerspine Myrmidon" ran past the edge, and
+-- narrowing it again to pay for the names would walk straight back into that.
+local PANEL_W, ROW_H, PAD = 320, 16, 8
 local MAX_ROWS = 4
 local ROLE_W = 14
+local MEMBER_W = 112
 
 local panel, rows
 local clicks = {}
@@ -156,7 +162,7 @@ local function EnsurePanel()
 			row.member:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 		end
 		row.member:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD + ROLE_W + 4, -PAD - (i - 1) * ROW_H)
-		row.member:SetWidth(84)
+		row.member:SetWidth(MEMBER_W)
 		row.member:SetJustifyH("LEFT")
 		row.member:SetTextColor(1, 0.82, 0.2)
 
