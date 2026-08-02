@@ -170,7 +170,25 @@ local function EnsurePanel()
 		if ns.MHScalableFont then
 			row.target:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 		end
-		row.target:SetPoint("TOPLEFT", row.member, "TOPRIGHT", 6, 0)
+		-- Raid marker on the member's target.
+		--
+		-- The index is SECRET for a hostile unit — measured 2 Aug, on our own
+		-- target as much as on theirs — so it can never be read, compared or
+		-- branched on. It can be handed straight to Blizzard's own drawing helper,
+		-- which resolves it internally, exactly as the enemy name is handed to
+		-- SetText without being looked at.
+		--
+		-- Not invented: SimplePartyTargets (installed here) ships this route, and
+		-- its own comment says the helper "can handle secrets internally"
+		-- (SimplePartyTargets.lua:3861-3875). The base texture is set once here;
+		-- SetRaidTargetIconTexture only moves the coordinates within it.
+		row.marker = panel:CreateTexture(nil, "OVERLAY")
+		row.marker:SetSize(ROLE_W, ROLE_W)
+		row.marker:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcons")
+		row.marker:SetPoint("TOPLEFT", row.member, "TOPRIGHT", 4, 1)
+		row.marker:Hide()
+
+		row.target:SetPoint("TOPLEFT", row.marker, "TOPRIGHT", 4, -1)
 		row.target:SetPoint("RIGHT", panel, "RIGHT", -PAD, 0)
 		row.target:SetJustifyH("LEFT")
 		-- One line per member, always. "Daggerspine Myrmidon" wrapped onto a second
@@ -234,6 +252,29 @@ local function SetRole(row, role)
 		row.roleLetter:Show()
 	else
 		row.roleLetter:Hide()
+	end
+end
+
+--- Draw the raid marker on a unit's target, without ever reading it.
+---
+--- `idx == nil` is safe on a secret: the probe compared secret values to nil
+--- across four units without erroring on 2 Aug. Anything more — a range check, a
+--- table lookup, arithmetic — is not, and none is done here.
+---
+--- Failure hides the icon rather than falling back to hand-written texcoords.
+--- Those need the index as a plain number, which is exactly what we do not have,
+--- and a fallback that can only run when the value is readable would be dead code
+--- dressed up as robustness.
+local function SetMarker(row, tUnit)
+	local idx = Ask(GetRaidTargetIndex, tUnit)
+	if idx == nil or type(SetRaidTargetIconTexture) ~= "function" then
+		row.marker:Hide()
+		return
+	end
+	if select(1, pcall(SetRaidTargetIconTexture, row.marker, idx)) then
+		row.marker:Show()
+	else
+		row.marker:Hide()
 	end
 end
 
@@ -347,8 +388,10 @@ local function Refresh()
 				-- UnitExists is the gate BECAUSE it reads where the name does not.
 				-- Branching on the name itself would mean inspecting a secret.
 				row.target:SetText(Ask(UnitName, tUnit))
+				SetMarker(row, tUnit)
 			else
 				row.target:SetText(L("PARTYTARGETS_NONE", "|cff9d9d9d— no target —|r"))
+				row.marker:Hide()
 			end
 			row.member:Show()
 			row.target:Show()
@@ -357,6 +400,7 @@ local function Refresh()
 			row.target:Hide()
 			row.role:Hide()
 			row.roleLetter:Hide()
+			row.marker:Hide()
 		end
 	end
 
@@ -403,6 +447,9 @@ f:RegisterEvent("GROUP_ROSTER_UPDATE")
 f:RegisterEvent("PLAYER_ROLES_ASSIGNED")
 -- Leaving combat is when the secure buttons can finally be shown and repositioned.
 f:RegisterEvent("PLAYER_REGEN_ENABLED")
+-- Placing a skull on the mob everyone is already fighting changes no target, so
+-- UNIT_TARGET stays silent and the icon would only appear on the next swap.
+f:RegisterEvent("RAID_TARGET_UPDATE")
 f:RegisterUnitEvent("UNIT_TARGET", "party1", "party2")
 f:SetScript("OnEvent", ScheduleRefresh)
 -- UNIT_TARGET only takes two units per registration, so party3/4 need their own.
