@@ -32,6 +32,10 @@ local _, ns = ...
 	read / nil / SECRET.
 ]]
 
+--- Scratch texture for the display test below. Created once, on UIParent, never
+--- shown — it exists only to be written to.
+local probeTex
+
 local function Secret(v)
 	return issecretvalue and v ~= nil and issecretvalue(v) == true
 end
@@ -218,6 +222,32 @@ function ns.PrintPartyTargetProbe()
 		local mark = Ask(GetRaidTargetIndex, unit .. "target")
 		print(("     raid marker index=%s%s"):format(State(mark), Shown(mark)))
 
+		-- Measured 2 Aug: the index comes back SECRET for a hostile target, on your
+		-- own target as much as on theirs. Reading it is therefore out, and so is
+		-- any "if there is a marker then" branch.
+		--
+		-- That is not automatically the end. A secret may be DISPLAYED — the panel
+		-- already shows enemy names it is not allowed to inspect — and
+		-- SetRaidTargetIconTexture(texture, index) takes the index and sets the
+		-- texture coordinates itself, which is the same shape as SetText. Whether
+		-- it accepts a secret is unknown, so it is tried here rather than built on.
+		--
+		-- Two outcomes are recorded separately because they mean different things:
+		-- the call not erroring, and the texture actually ending up with something
+		-- in it. A call that swallows a secret and draws nothing is a failure that
+		-- looks like a success.
+		local paint = { called = false, ok = false, texture = "nil" }
+		if type(SetRaidTargetIconTexture) == "function" then
+			probeTex = probeTex or UIParent:CreateTexture(nil, "OVERLAY")
+			probeTex:SetTexture(nil)
+			paint.called = true
+			paint.ok = select(1, pcall(SetRaidTargetIconTexture, probeTex, mark))
+			local tid = probeTex.GetTexture and probeTex:GetTexture()
+			paint.texture = (tid == nil) and "nil" or tostring(tid)
+		end
+		print(("     SetRaidTargetIconTexture(secret): called=%s ok=%s texture=%s"):format(
+			tostring(paint.called), tostring(paint.ok), paint.texture))
+
 		rec.units[#rec.units + 1] = {
 			unit = unit,
 			memberName = Keep(name),
@@ -230,6 +260,9 @@ function ns.PrintPartyTargetProbe()
 			getUnitName = Keep(getun),
 			guid = Keep(guid),
 			marker = Keep(mark),
+			paintCalled = paint.called,
+			paintOk = paint.ok,
+			paintTexture = paint.texture,
 		}
 	end
 
