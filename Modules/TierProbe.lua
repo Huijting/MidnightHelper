@@ -82,20 +82,27 @@ end
 --- Copy a table one level deep, keeping every key. Guessed field names are the
 --- enemy here: the value that marks the SELECTED tier is by definition one nobody
 --- has named yet, so nothing may be filtered on the way into the file.
-local function Snapshot(t, depth)
+--- `maxDepth` defaults to 2, which is what every caller wanted until it wasn't.
+---
+--- The obelisk snapshots recorded `rewards = { <deeper>, <deeper>, <deeper> }` for
+--- all six tiers: three reward entries per tier, cut off by this limit at exactly
+--- the level that would have said what they are. The cap was there to stop widget
+--- readings from bloating SavedVariables, which is still a real concern, so it is
+--- raised per call rather than globally.
+local function Snapshot(t, depth, maxDepth)
 	if type(t) ~= "table" then
 		if Secret(t) then
 			return "<secret>"
 		end
 		return t
 	end
-	if (depth or 0) > 2 then
+	if (depth or 0) > (maxDepth or 2) then
 		return "<deeper>"
 	end
 	local out = {}
 	for k, v in pairs(t) do
 		local key = (type(k) == "number" or type(k) == "string") and k or tostring(k)
-		out[key] = Snapshot(v, (depth or 0) + 1)
+		out[key] = Snapshot(v, (depth or 0) + 1, maxDepth)
 	end
 	return out
 end
@@ -398,7 +405,11 @@ function ns.SaveTierProbe(label)
 		difficultyName = iOk and iDiffName or nil,
 		activeTier = Snapshot(Ask(C_DelvesUI and C_DelvesUI.GetActiveDelveTier)),
 		entranceType = Snapshot(Ask(C_DelvesUI and C_DelvesUI.GetTieredEntranceType)),
-		entranceTiers = Snapshot(Ask(C_DelvesUI and C_DelvesUI.GetDelveEntranceTiers)),
+		-- Depth 6: each tier carries a `rewards` list whose entries were being cut
+		-- off. Whatever is in there is the only live reward data the client has
+		-- offered so far, and DELVE_LOOT_TABLE in Modules/Delves.lua is hardcoded
+		-- precisely because nobody had found it.
+		entranceTiers = Snapshot(Ask(C_DelvesUI and C_DelvesUI.GetDelveEntranceTiers), 0, 6),
 		isTieredEntrance = Snapshot(C_ScenarioInfo and Ask(C_ScenarioInfo.IsTieredEntranceScenario)),
 		scenarioName = Snapshot(C_Scenario and Ask(C_Scenario.GetInfo)),
 		scenarioStep = Snapshot(C_Scenario and Ask(C_Scenario.GetStepInfo)),
