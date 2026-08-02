@@ -400,6 +400,52 @@ replacement for the string-mining, and it is how DBM has always done it.
 
 Note `tierTooltipSpellID = 1260975` alongside it, and `shownState = 1`.
 
+### Entrance tiers at a DELVE, and what the rewards list really holds (2 Aug 2026)
+
+`C_DelvesUI.GetDelveEntranceTiers()` answers at a **delve** entrance too, which
+nothing had established — every earlier reading came from the ritual obelisk.
+
+| | delve entrance | ritual obelisk |
+|---|---|---|
+| `entranceType` | **1** | 2 |
+| tiers | **11**, `suggestedILvl` 170 → 264 | 6, `suggestedILvl` 215 → 274 |
+
+Note that a ritual asks for more gear than a delve at the same tier number: ritual
+Tier 1 suggests 215, delve Tier 1 suggests 170.
+
+**The rewards list holds item ids, not item levels.** Resolved live:
+
+| tier | normal delve | bountiful delve |
+|---|---|---|
+| 1–3 | Heavy Trunk | Bountiful Coffer + Bountiful Heavy Trunk |
+| 4–11 | Heavy Trunk | **+ Trovehunter's Bounty** |
+
+Every one of them reports item level 1 through both `GetItemInfo` and
+`GetDetailedItemLevelInfo` — they are containers (quality 2/3/4), not gear. So the
+claim in `NEXT_SESSION.md` that the live recommended item level is not readable
+**stands**, and `DELVE_LOOT_TABLE` (`Modules/Delves.lua:233`) stays hardcoded.
+
+**But the argument I first reached it with was wrong, and Rob caught it.** The
+first delve reading showed one item id on all eleven tiers, and I concluded that a
+constant cannot encode a per-tier value. Rob pointed out that bountiful was an
+uncontrolled variable. It was: a bountiful entrance offers three items instead of
+one, and the list changes at Tier 4. The conclusion survives for a different
+reason than the one I gave — containers have no item level — which is not the same
+as having been right.
+
+Two probe bugs surfaced on the way, both of the same family as the rest of this
+document. `Ask()` returns only pcall's first value, so destructuring four returns
+out of `GetItemInfo` yielded nil quality and nil item level that read exactly like
+"this item has no level" (fixed, `e42b955`). And `ResolveRewardItems` dedupes by
+item id while iterating `pairs()`, so the tier it records is the first one hash
+order happened to visit — never read a threshold off that field; the per-tier
+table above comes from `entranceTiers`, which stores every tier in full.
+
+**Usable finding, live and unhardcoded:** in a bountiful delve, **Tier 4 is where
+Trovehunter's Bounty starts**. That is exactly the kind of thing a player is trying
+to work out while standing at the entrance, and it can be read rather than
+maintained. See `docs/PROPOSAL_TIER_ADVISOR.md`.
+
 **Online, for completeness.** No API documentation for a ritual's selected tier was
 found. Public guide sites describe ritual tiers as 1–5; Rob's own measurement shows
 six, with `suggestedILvl` up to 274, so those pages are wrong or pre-12.0.7 — the

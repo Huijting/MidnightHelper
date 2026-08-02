@@ -38,6 +38,26 @@ At the obelisk, one line, in the panel or as a toast:
 The useful part is naming the **highest tier you clear comfortably**, because that
 is the number the player is trying to work out by squinting at six rows.
 
+## It is bigger than rituals (measured 2 Aug 2026)
+
+The proposal below was written from ritual-obelisk data only. `GetDelveEntranceTiers()`
+also answers at a **delve** entrance — `entranceType` 1, eleven tiers, `suggestedILvl`
+170 → 264. Delves are run far more often than rituals, so most of this feature's value
+is there.
+
+Two things worth saying that came out of the same measurement:
+
+- **A ritual asks for more gear than a delve at the same tier number.** Ritual Tier 1
+  suggests 215; delve Tier 1 suggests 170. Someone who has cleared Tier 5 delves and
+  walks up to a Tier 5 ritual is not looking at the same thing, and nothing on screen
+  says so.
+- **In a bountiful delve, Tier 4 is where Trovehunter's Bounty starts.** Tiers 1–3 give
+  Bountiful Coffer + Bountiful Heavy Trunk; from Tier 4 the Bounty is added. Read live
+  from the rewards list, so it never needs maintaining.
+
+The rewards themselves are containers with item level 1 — they say *what* you get, not
+how good it is. Do not present them as a gear-level comparison.
+
 ## Ingredients, all verified present
 
 - `C_DelvesUI.GetDelveEntranceTiers()` — measured, returns the six-entry list.
