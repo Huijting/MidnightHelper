@@ -1,6 +1,6 @@
 # Midnight Helper — waar we staan
 
-**Bijgewerkt 2026-07-30.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
+**Bijgewerkt 2026-08-02.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
 "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
 Op 27 juli stuurde de verouderde versie van dit bestand een sessie de verkeerde kant op
@@ -13,10 +13,53 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 
 | | |
 |---|---|
-| Uitgebracht | **v2.11.0**, getagd en live op CurseForge 2026-07-27 (upload bevestigd geslaagd) |
-| Volgend doel | **v2.12.0** -- de compatibiliteitsrelease voor patch 12.1 |
+| Uitgebracht | **v2.11.1**, getagd en live op CurseForge 2026-07-31 (changelog rendert schoon, 5 van 5) |
+| Volgend doel | **v2.12.0** -- de compatibiliteitsrelease voor patch 12.1. **Geen open werk meer** (zie lijst A); wacht op patchdag |
 | Daarna | **v3.0.0** -- de Season 2-release |
 | Branch | alleen `main` |
+| Deadline | **12.1 live 11 aug (NA) / 12 aug (EU), Season 2 18 aug.** Officieel bevestigd, niet langer een projectie |
+
+## Laatste sessies (31 juli - 1 augustus)
+
+**2.11.1 uitgebracht als correctierelease.** Een wekelijkse crest-cap van 100 die niet
+bestaat stond in zeven talen uitgeleverd. Rob: "eerlijkheid boven alles". De claim is
+eruit, en de reden dat er niets voor in de plaats komt staat met falsifiers in
+`docs/CREST_SOURCES_MEASURED.md:275` -- want de watcher heeft die 100/week daarna
+alweer een keer herhaald. Voeg hem niet terug omdat een gids of een watcher hem noemt.
+
+**Vertalingen: ~400 afgemaakte strings per taal bereikten spelers nooit.** `fill()` in
+`Translations2026.lua` zette een sleutel alleen als de pack hem miste, maar de/fr/es/pt
+kopiëren eerst de hele enUS-pack -- dus miste er nooit een. Duits ging van 58,3% naar
+72,0% na de fix (`d84722b`). Drie van mijn eigen i18n-tools hadden bovendien een
+blinde vlek voor sleutels op kolom 0 (`1e37354`); de linter niet.
+
+**Party-targets-paneel gebouwd** (`5df63ed`). In 12.x is de naam van een vijandig
+doelwit secret: je mag hem **tonen** maar niet **lezen**. `UnitExists` leest wel, en
+dat is de rijgate. Onderweg twee keer een conclusie ingetrokken die op een steekproef
+zonder doelwit berustte -- "combat is de gate" was fout (`b9b7ad7`).
+
+**Ritual-tier: afgesloten, met controle.** Een ritual publiceert zijn tier nergens:
+gemeten binnen de content over 856 widgets in 268 sets, mét een positieve controle die
+in een delve wél een tier vindt. Tier 0 in RitualLog betekent onbekend en moet dat
+blijven. Volledig verhaal in `docs/RESEARCH_12_1.md`; de eerste, te stellige versie is
+daar zichtbaar ingetrokken.
+
+**De winst zat aan de delve-kant** (`f2f4061`). `DelveHistory` noteerde bij ~10 van 30
+runs een tier omdat het cijfers uit `difficultyName` viste -- en in een delve is die
+string "Delves", difficultyID 208, zonder cijfer. Het getal bestaat alleen als
+displaytekst op widget 6183 (`tierText`), precies waar DBM het altijd al las. De fix
+staat live en is bewezen tot in `activeRun` (tier 0 -> 11); **wacht nog op één
+afgeronde run als eindbewijs.**
+
+**Knowledge Runtime is gemerged en laadt** (`e9bf7f8`) -- `Modules/Knowledge*.lua`
+staan in de `.toc`. Dat is het werk van de tweede sessie; werkafspraken in
+`docs/TWEE_SESSIES_WERKAFSPRAKEN.md`, bestandseigendom inbegrepen. De RFC-status
+hieronder is van 30 juli en beschrijft die sessie, niet deze -- vraag het daar na
+in plaats van het hier te lezen als actueel.
+
+**Voorstel klaar, niet gebouwd:** tier-advies bij de obelisk uit `suggestedILvl`
+(215/231/244/257/264/274), tegen je eigen ilvl. Zie `docs/PROPOSAL_TIER_ADVISOR.md`,
+inclusief de openstaande vraag of `suggestedILvl` een slot is of alleen advies.
 
 ## Laatste sessie (30 juli) -- Knowledge Runtime, RFC-002
 
@@ -130,7 +173,7 @@ schuift door naar 2.12.0. Deze tabel is historie -- gebruik hem niet meer als ta
 | -- | `.toc` | **AF 27 jul.** `## Interface: 120007, 120100` — beide versies, dus geen out-of-date-melding op live én op 12.1, en geen bump nodig op patchdag |
 | 12 | Coiled Isle-scaffold + lege-zone-guard | **guard AF 27 jul** (`ns.IsZoneCovered`, `/mh zone`). Het scaffold zelf KAN NIET: de mapID van Coiled Isle is nergens gedataminet. Op patchdag `/mh zone` draaien in de zone, dan is hij gemeten |
 | 11 | Crest-teksten ontnamen (115 strings) | **AF 31 jul** (`907171f`). De naamgeving bleek al gedaan: geen enkele locale-string bevat "Dawncrest", namen komen live uit `C_CurrencyInfo`, zoektermen waren al additief. Het echte gat was de DATA -- `DAWNCREST_TIERS` was S1-only, dus na de flip zouden beide crest-panelen bevroren Dawncrests tonen. S2-ids (Mistcrest, PTR-gemeten) staan er nu naast, `IsSeason2Live` kiest. De currency-gids somde de vijf ids op in 7 talen; dat is nu één `{CRESTS}`-token uit dezelfde data |
-| 7 | Nieuwkomer-detectie aansluiten | OPEN -- `ns.IsSeasonNewcomer` bestaat, wordt nergens gebruikt |
+| 7 | Nieuwkomer-detectie aansluiten | **AF.** Deze rij zei tot 2 aug "wordt nergens gebruikt"; dat was achterhaald. `ns.IsSeasonNewcomer` (`Modules/SeasonTransition.lua:47`) wordt gebruikt op regel 80 (zet `provenSeasonExperience` zodra M+-score bewijst dat iemand gespeeld heeft) en op 329 (`/mh seasontransition` maakt het oordeel zichtbaar -- zonder die regel is de bedrading niet waarneembaar). Let op de drie-waardigheid: `false` = aantoonbaar gespeeld, `nil` = onbekend |
 | 9 | Prey: Codex-entry + probe | **AF 27 jul.** Codex-artikel `prey_hunts` (world, zonder getallen) + `/mh prey` dat je voortgang uit de achievement-criteria leest. Bodies alleen en/nl; de vijf andere talen krijgen alleen de titel en vallen voor de tekst terug op enUS — bewust, dat is werk voor vertalers |
 | 6 | Carola-test v2 | **GESLAAGD 31 jul, zonder geënsceneerde test.** Carola speelt sinds 2.11.0 onafgebroken en hoeft niets te vragen. Dat is beter bewijs dan een testronde: het is gemeten onder echte omstandigheden, zonder dat er iemand meekeek. Zie de observatie hieronder voor wat het NIET aantoont |
 
