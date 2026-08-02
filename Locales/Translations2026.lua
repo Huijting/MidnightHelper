@@ -2525,3 +2525,36 @@ fill("itIT", {
 	SET_PARTYTARGETS_TITLE = "Mostra i bersagli del gruppo",
 	SET_PARTYTARGETS_DESC = "Un piccolo pannello con ciò che ogni membro sta attaccando. Trascinalo dove preferisci. Appare solo in gruppo e può mostrare i nomi senza poterli leggere, quindi non può ordinarli, evidenziarli o confrontarli.",
 })
+
+-- Interrupt credit (2 Aug 2026). Dungeons and raids only: the combat log this
+-- reads is refused in delves and ritual scenarios.
+fill("deDE", {
+	INTERRUPT_WHO_ON = "Unterbrecher AN — nennt, wer unterbrochen hat, nur in Dungeons und Schlachtzügen.",
+	INTERRUPT_WHO_OFF = "Unterbrecher AUS.",
+	INTERRUPT_WHO_FMT = "Unterbrochen von |cff40c040%s|r: %s",
+	INTERRUPT_WHO_FMT_PLAIN = "Unterbrochen von |cff40c040%s|r.",
+})
+fill("frFR", {
+	INTERRUPT_WHO_ON = "Crédit d'interruption ACTIVÉ — indique qui a interrompu, en donjon et en raid uniquement.",
+	INTERRUPT_WHO_OFF = "Crédit d'interruption DÉSACTIVÉ.",
+	INTERRUPT_WHO_FMT = "Interrompu par |cff40c040%s|r : %s",
+	INTERRUPT_WHO_FMT_PLAIN = "Interrompu par |cff40c040%s|r.",
+})
+fill("esES", {
+	INTERRUPT_WHO_ON = "Crédito de interrupción ACTIVADO — indica quién interrumpió, solo en mazmorras y bandas.",
+	INTERRUPT_WHO_OFF = "Crédito de interrupción DESACTIVADO.",
+	INTERRUPT_WHO_FMT = "Interrumpido por |cff40c040%s|r: %s",
+	INTERRUPT_WHO_FMT_PLAIN = "Interrumpido por |cff40c040%s|r.",
+})
+fill("ptBR", {
+	INTERRUPT_WHO_ON = "Crédito de interrupção LIGADO — mostra quem interrompeu, apenas em masmorras e raides.",
+	INTERRUPT_WHO_OFF = "Crédito de interrupção DESLIGADO.",
+	INTERRUPT_WHO_FMT = "Interrompido por |cff40c040%s|r: %s",
+	INTERRUPT_WHO_FMT_PLAIN = "Interrompido por |cff40c040%s|r.",
+})
+fill("itIT", {
+	INTERRUPT_WHO_ON = "Merito interruzioni ATTIVO — indica chi ha interrotto, solo in spedizioni e incursioni.",
+	INTERRUPT_WHO_OFF = "Merito interruzioni DISATTIVO.",
+	INTERRUPT_WHO_FMT = "Interrotto da |cff40c040%s|r: %s",
+	INTERRUPT_WHO_FMT_PLAIN = "Interrotto da |cff40c040%s|r.",
+})

@@ -36,7 +36,16 @@ local function isSecret(v)
 	return issecretvalue and issecretvalue(v) == true
 end
 
+--- Should the combat log be registered at all?
+---
+--- Two consumers now, not one. Turning the death recap off used to switch off the
+--- registration, which would silently take interrupt attribution with it — a
+--- setting quietly disabling an unrelated feature is the kind of fault nobody
+--- reports because nobody connects the two.
 local function autoEnabled()
+	if ns.IsInterruptAnnounceEnabled and ns.IsInterruptAnnounceEnabled() then
+		return true
+	end
 	return not (ns.db and ns.db.deathRecap == false)
 end
 
@@ -142,6 +151,32 @@ end
 local function OnCombatLog()
 	local t = { CombatLogGetCurrentEventInfo() }
 	local sub = t[2]
+
+	-- Interrupt attribution rides along on the registration this file already owns.
+	--
+	-- Rob asked why EllesmereUI can name the interrupter when we cannot. The cheap
+	-- route is measured and shut: UNIT_SPELLCAST_INTERRUPTED's `interruptedBy` comes
+	-- back SECRET whenever the interrupted caster is hostile (see the note in
+	-- Modules/InterruptScore.lua). SPELL_INTERRUPT names it outright — in exactly the
+	-- content this file is already allowed to listen in.
+	--
+	-- Deliberately NOT a second RegisterEvent. The whitelist here took two rounds to
+	-- get right, knows which difficulties refuse us, and fails closed; a parallel
+	-- registration elsewhere would be a second chance to get that wrong.
+	--
+	-- Positions: 5 sourceName, 9 destName, 16 extraSpellName (the spell that was
+	-- stopped; 13 is the kick itself).
+	if sub == "SPELL_INTERRUPT" then
+		if ns.OnInterruptAttributed then
+			local src, dst, stopped = t[5], t[9], t[16]
+			ns.OnInterruptAttributed(
+				(not isSecret(src)) and src or nil,
+				(not isSecret(dst)) and dst or nil,
+				(not isSecret(stopped)) and stopped or nil)
+		end
+		return
+	end
+
 	if not DMG_SUB[sub] then
 		return
 	end

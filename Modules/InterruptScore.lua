@@ -191,12 +191,67 @@ end
 -- Slash: /mh kicks  (inspect the run tally; /mh kicks alert toggles the whiff alert)
 --------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+-- Who interrupted (`/mh kicks who`)
+--------------------------------------------------------------------------------
+
+--- Default OFF. It adds chat lines for everyone who updates, and a new default
+--- that talks is the kind of change people experience as the addon breaking
+--- rather than gaining something. One command turns it on.
+function ns.IsInterruptAnnounceEnabled()
+	return (ns.db and ns.db.interruptAnnounce) and true or false
+end
+
+--- Called by Retrospective's combat-log handler, which owns the registration and
+--- the whitelist of content where it is permitted. Arguments arrive already
+--- stripped of secrets: anything unreadable comes through as nil.
+---
+--- Names are never compared against the group. Rob pointed out he sees Valeera
+--- interrupt in dungeons, and a companion is not in your party — filtering to
+--- party members would have dropped exactly the case he named. The combat log
+--- reports whoever did it, and so do we.
+local lastAnnounce, lastKey = 0, nil
+function ns.OnInterruptAttributed(source, dest, stoppedSpell)
+	if not ns.IsInterruptAnnounceEnabled() or not source then
+		return
+	end
+
+	-- A double SPELL_INTERRUPT on one cast (two kicks landing together) would
+	-- otherwise print twice for what the player saw as one event.
+	local key = tostring(source) .. "|" .. tostring(stoppedSpell)
+	local now = GetTime and GetTime() or 0
+	if key == lastKey and (now - lastAnnounce) < 0.5 then
+		return
+	end
+	lastKey, lastAnnounce = key, now
+
+	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+	if stoppedSpell then
+		print(("%s " .. ns:L("INTERRUPT_WHO_FMT")):format(prefix, source, stoppedSpell))
+	else
+		print(("%s " .. ns:L("INTERRUPT_WHO_FMT_PLAIN")):format(prefix, source))
+	end
+end
+
 function ns.HandleInterruptCommand(arg)
 	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 	if arg == "alert" then
 		ns.db = ns.db or {}
 		ns.db.interruptMissAlert = not ns.db.interruptMissAlert
 		print(("%s %s"):format(prefix, ns:L(ns.db.interruptMissAlert and "INTERRUPT_ALERT_ON" or "INTERRUPT_ALERT_OFF")))
+		return
+	end
+	if arg == "who" then
+		ns.db = ns.db or {}
+		ns.db.interruptAnnounce = not ns.db.interruptAnnounce
+		print(("%s %s"):format(prefix,
+			ns:L(ns.db.interruptAnnounce and "INTERRUPT_WHO_ON" or "INTERRUPT_WHO_OFF")))
+		-- The combat log is registered on entering tracked content, so switching
+		-- this on mid-dungeon has to ask for that registration now rather than at
+		-- the next zone change.
+		if ns.UpdateDeathRecapClog then
+			ns.UpdateDeathRecapClog()
+		end
 		return
 	end
 	if arg == "reset" then
