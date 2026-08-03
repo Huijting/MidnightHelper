@@ -345,6 +345,72 @@ function ns.AllyHasRemovableAura(unit)
 	return firstSlot ~= nil
 end
 
+--------------------------------------------------------------------------------
+-- Offensive purge — a DIFFERENT thing from everything above
+--------------------------------------------------------------------------------
+
+--- Taking a buff off an ENEMY, not a debuff off a friend.
+---
+--- Rob's action prompt showed nothing for a Shadow Priest and the reason was a
+--- category error of mine: `NONHEALER_DISPELS.PRIEST` is Purify Disease, which is
+--- a friendly dispel a Shadow Priest does not even have. What he was asking about
+--- is Dispel Magic, the offensive purge — and this addon had no notion of that
+--- concept anywhere.
+---
+--- ⚠️ PRIEST ONLY, deliberately. 528 is corroborated by SpellPilot's own class
+--- table (`Classes/Removals.lua:28`, "Dispel Magic", Magic), and Rob can confirm
+--- it in one pull because the icon either appears or does not. Every other class
+--- with a purge — shaman, mage, hunter, evoker and the soothe/enrage cases — is
+--- left out rather than guessed at. An invented spell ID shows the wrong icon and
+--- teaches someone the wrong button, which is worse than showing nothing.
+ns.OFFENSIVE_PURGES = {
+	PRIEST = { id = 528, types = { "magic" } },
+}
+
+local cachedPurgeIcon, cachedPurgeSpell, purgeResolved
+
+--- @return string|nil texture, number|nil spellID
+function ns.GetPlayerPurgeIcon()
+	if purgeResolved then
+		return cachedPurgeIcon, cachedPurgeSpell
+	end
+	purgeResolved = true
+	if not UnitClass then
+		return nil
+	end
+	local _, token = UnitClass("player")
+	local entry = token and ns.OFFENSIVE_PURGES[token]
+	if not entry then
+		return nil
+	end
+	-- Same IsPlayerSpell gate the friendly dispels use: never claim a spell for a
+	-- spec that does not have it.
+	if IsPlayerSpell then
+		local ok, has = pcall(IsPlayerSpell, entry.id)
+		if ok and has ~= true then
+			return nil
+		end
+	end
+	if not (C_Spell and C_Spell.GetSpellTexture) then
+		return nil
+	end
+	local ok, tex = pcall(C_Spell.GetSpellTexture, entry.id)
+	if not ok or not tex then
+		return nil
+	end
+	cachedPurgeIcon, cachedPurgeSpell = tex, entry.id
+	return cachedPurgeIcon, cachedPurgeSpell
+end
+
+--- Spec changes can add or remove the purge, so the cache must not outlive one.
+local purgeEv = CreateFrame("Frame")
+purgeEv:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+purgeEv:RegisterEvent("PLAYER_ENTERING_WORLD")
+purgeEv:SetScript("OnEvent", function()
+	purgeResolved = false
+	cachedPurgeIcon, cachedPurgeSpell = nil, nil
+end)
+
 --- The icon to show for it: the player's own dispel spell.
 ---
 --- Better than a generic symbol, because it answers "what do I press" in the same

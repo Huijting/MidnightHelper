@@ -57,8 +57,19 @@ local function SavePos()
 end
 
 --- One icon: a texture on a plain frame, so alpha can be driven per icon.
+--- A BUTTON, not a Frame.
+---
+--- The first build used CreateFrame("Frame") and neither icon ever appeared.
+--- `SetAlphaFromBoolean` is only proven on Buttons here: CombatSafety.lua creates
+--- its warning icon and its bars that way (lines 114 and 314) and those work. On a
+--- plain Frame the method was missing, so the guarded else-branch set alpha 0 —
+--- the feature failed silently and looked like a detection problem.
+---
+--- Mouse is switched off: a Button takes clicks by default, and this one sits over
+--- the middle of the screen with nothing to click.
 local function MakeIcon(parent, index)
-	local f = CreateFrame("Frame", nil, parent)
+	local f = CreateFrame("Button", nil, parent)
+	f:EnableMouse(false)
 	f:SetSize(ICON, ICON)
 	f:SetPoint("LEFT", parent, "LEFT", (index - 1) * (ICON + GAP), 0)
 	f.tex = f:CreateTexture(nil, "ARTWORK")
@@ -222,9 +233,12 @@ end
 --- ask — the icon says "there is something here", your keybind does the rest.
 local function UpdateDispel()
 	local f = iconDispel
+	-- The OFFENSIVE purge, not the friendly dispel. Taking a buff off the enemy you
+	-- are looking at is a different spell from curing a party member, and the first
+	-- build reached for the wrong one — which is why a Shadow Priest saw nothing.
 	local tex, spellID = nil, nil
-	if ns.GetPlayerDispelIcon then
-		tex, spellID = ns.GetPlayerDispelIcon()
+	if ns.GetPlayerPurgeIcon then
+		tex, spellID = ns.GetPlayerPurgeIcon()
 	end
 	if not tex or not SpellReady(spellID) then
 		f:SetAlpha(0)
