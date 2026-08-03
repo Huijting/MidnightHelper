@@ -303,6 +303,71 @@ end
 --------------------------------------------------------------------------------
 
 --- /mh dispel probe — try the lookup path against every recorded debuff id.
+--------------------------------------------------------------------------------
+-- Allies (2026-08-03) — the party-wide half this file said it could not have
+--------------------------------------------------------------------------------
+
+--- Does this ally carry something removable right now?
+---
+--- The header above says a party-wide helper "would rest on something nobody has
+--- confirmed can be read". That was true when it was written and is not any more.
+--- Measured in a dungeon on 3 Aug, six tallies of 36 scans:
+---
+---     player 36 hits · party3 36 · party4 28 · party2 11 · party1 0
+---     zero errors, zero noUnit
+---
+--- It discriminates — party1 said no every time while party3 said yes every time,
+--- in the same fights — which a broken, forbidden or secret filter could not do.
+--- So `GetAuraSlots(unit, "HARMFUL|DISPELLABLE", 1)` answers, live, in combat.
+---
+--- Note what is NOT claimed: this returns whether a removable aura is present, not
+--- what it is. The name and spellId of that aura stay secret and are never asked
+--- for. "There is something on them" is the whole sentence, and it is enough —
+--- you press your dispel, the game picks.
+---
+--- ⚠️ UNSETTLED: whether `DISPELLABLE` means "removable by YOU" or "removable at
+--- all". SpellPilot reaches for the HELPFUL variant to catch enrages, which hints
+--- at the second. Until that is measured, callers must gate on the player owning
+--- a dispel at all, and must not promise the player can handle this particular
+--- one.
+function ns.AllyHasRemovableAura(unit)
+	if not (unit and C_UnitAuras and C_UnitAuras.GetAuraSlots) then
+		return nil
+	end
+	local uOk, exists = pcall(UnitExists, unit)
+	if not uOk or exists ~= true then
+		return nil
+	end
+	local ok, _, firstSlot = pcall(C_UnitAuras.GetAuraSlots, unit, "HARMFUL|DISPELLABLE", 1)
+	if not ok then
+		return nil -- unreadable is not "nothing there"
+	end
+	return firstSlot ~= nil
+end
+
+--- The icon to show for it: the player's own dispel spell.
+---
+--- Better than a generic symbol, because it answers "what do I press" in the same
+--- glance. Returns nil when this character has no dispel at all, which is also the
+--- gate that keeps the indicator off a warrior's screen entirely.
+local cachedDispelIcon, cachedDispelSpell
+function ns.GetPlayerDispelIcon()
+	if cachedDispelIcon ~= nil then
+		return cachedDispelIcon, cachedDispelSpell
+	end
+	local _, spells = ns.GetDispellableSchools and ns.GetDispellableSchools()
+	local first = type(spells) == "table" and spells[1] or nil
+	if not (first and first.id and C_Spell and C_Spell.GetSpellTexture) then
+		return nil
+	end
+	local ok, tex = pcall(C_Spell.GetSpellTexture, first.id)
+	if not ok or not tex then
+		return nil
+	end
+	cachedDispelIcon, cachedDispelSpell = tex, first.id
+	return cachedDispelIcon, cachedDispelSpell
+end
+
 function ns.PrintDispelProbeSelf()
 	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
 	local store = ns.db and ns.db.dispelCapture

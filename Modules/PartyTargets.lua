@@ -168,11 +168,25 @@ local function EnsurePanel()
 		row.roleLetter:SetPoint("CENTER", row.role, "CENTER", 0, 0)
 		row.roleLetter:Hide()
 
+		-- Dispel indicator: this ally is carrying something removable.
+		--
+		-- On the LEFT, next to their name, because it is about them. The raid
+		-- marker on the right is about their target; keeping the two sides
+		-- meaning different things is what stops the row becoming a row of icons.
+		--
+		-- The icon is the player's OWN dispel spell, so it answers "what do I
+		-- press" in the same glance, and it is absent entirely for a character
+		-- with no dispel.
+		row.dispel = panel:CreateTexture(nil, "OVERLAY")
+		row.dispel:SetSize(ROLE_W, ROLE_W)
+		row.dispel:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD + ROLE_W + 3, -PAD - (i - 1) * ROW_H - 1)
+		row.dispel:Hide()
+
 		row.member = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 		if ns.MHScalableFont then
 			row.member:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 		end
-		row.member:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD + ROLE_W + 4, -PAD - (i - 1) * ROW_H)
+		row.member:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD + (ROLE_W + 3) * 2, -PAD - (i - 1) * ROW_H)
 		row.member:SetWidth(MEMBER_W)
 		row.member:SetJustifyH("LEFT")
 		row.member:SetTextColor(1, 0.82, 0.2)
@@ -473,6 +487,17 @@ local function Refresh()
 			-- and only a hostile target is secret. Ask() guards it anyway; an
 			-- unreadable role simply draws nothing rather than guessing "DAMAGER".
 			SetRole(row, Ask(UnitGroupRolesAssigned, unit))
+
+			-- Only for a character that owns a dispel, and only on a definite yes.
+			-- AllyHasRemovableAura returns nil when it could not read, and nil is
+			-- not false: an unreadable answer must not draw "nothing to do here".
+			local dispelIcon = ns.GetPlayerDispelIcon and ns.GetPlayerDispelIcon()
+			if dispelIcon and ns.AllyHasRemovableAura and ns.AllyHasRemovableAura(unit) == true then
+				row.dispel:SetTexture(dispelIcon)
+				row.dispel:Show()
+			else
+				row.dispel:Hide()
+			end
 			-- A party member's own name reads normally; only their enemy target is
 			-- protected. Both are passed straight to SetText regardless — the widget
 			-- accepts a secret, we simply never look at one.
@@ -498,6 +523,7 @@ local function Refresh()
 			row.role:Hide()
 			row.roleLetter:Hide()
 			row.marker:Hide()
+			row.dispel:Hide()
 			-- The panel shrinks to fit the rows it uses, and a texture is not
 			-- clipped by its parent: a stripe left showing would hang below the
 			-- border as a floating grey bar.
@@ -559,6 +585,19 @@ f:SetScript("OnEvent", ScheduleRefresh)
 local f2 = CreateFrame("Frame")
 f2:RegisterUnitEvent("UNIT_TARGET", "party3", "party4")
 f2:SetScript("OnEvent", ScheduleRefresh)
+
+-- A debuff landing on an ally changes nobody's target, so without these the dispel
+-- indicator would only appear the next time someone switched targets — which in a
+-- fight is exactly when it is already too late to matter.
+--
+-- UNIT_AURA is noisy, and that is what the 0.1s coalescing above is for: the
+-- refresh already runs at most ten times a second however many events arrive.
+local f3 = CreateFrame("Frame")
+f3:RegisterUnitEvent("UNIT_AURA", "party1", "party2")
+f3:SetScript("OnEvent", ScheduleRefresh)
+local f4 = CreateFrame("Frame")
+f4:RegisterUnitEvent("UNIT_AURA", "party3", "party4")
+f4:SetScript("OnEvent", ScheduleRefresh)
 
 --- Read/write pair for the settings panel. A slash command alone is not a feature
 --- anyone finds: MH's own July review called that out as its heaviest UX fault, and
