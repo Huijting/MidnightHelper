@@ -67,6 +67,19 @@ local SAFE_DIFFICULTY = {
 	[16] = true, -- Raid Mythic
 	[17] = true, -- Raid LFR
 }
+-- ⚠️ UPDATE 2026-08-03: difficulty 24 is not a fluke. Three refusals now, three
+-- different Timewalking dungeons, three different days — Dire Maul and Zul'Farrak
+-- on 25 July, The Shattered Halls tonight, all ADDON_ACTION_FORBIDDEN. The
+-- reasoning below about a transient mid-loading-screen refusal is refuted for
+-- Timewalking specifically; the retry logic is still right for everything else.
+--
+-- DBM's success in the same content remains unexplained and is now the sharper
+-- question. Note that 24 also reports hasSecretRestrictions = true, which the
+-- whitelisted difficulties that DO work do not.
+--
+-- Consequence worth knowing before promising anything: interrupt credit
+-- (Modules/InterruptScore.lua) cannot work in Timewalking.
+--
 -- Difficulties that refused us THIS SESSION. Deliberately not saved.
 --
 -- It used to be persisted, and that made things worse: one transient refusal in a

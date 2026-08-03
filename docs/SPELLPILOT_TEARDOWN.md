@@ -120,6 +120,52 @@ Two caveats, both real:
   matters; it does not for the yes/no.
 - This measured **HELPFUL on the target** — purge and soothe. Dispelling a debuff
   off a party member is `HARMFUL|DISPELLABLE` against `party1..4`, and that is a
-  different call in different content. Measure it before assuming it behaves the
-  same; friendly units read where hostile ones do not, so it may well be easier —
-  but "may well be" is how the last four wrong conclusions started.
+  different call in different content. Measured next.
+
+### The friendly side works — dungeon, 3 Aug 2026
+
+Six tallies, 36 scans each, in a real dungeon run with the group:
+
+| probe | hits | misses | noUnit | errors |
+|---|---|---|---|---|
+| `player` HARMFUL | 36 | 0 | 0 | 0 |
+| `party3` HARMFUL | 36 | 0 | 0 | 0 |
+| `party4` HARMFUL | 28 | 8 | 0 | 0 |
+| `party2` HARMFUL | 11 | 25 | 0 | 0 |
+| `party1` HARMFUL | 0 | 36 | 0 | 0 |
+| `target` HELPFUL | 0 | 20 | 16 | 0 |
+
+**Zero errors anywhere, and it discriminates.** party1 answered no every single
+time while party3 answered yes every single time, in the same fights. A filter
+that was broken, forbidden or secret could not produce that spread — it would be
+all-yes or all-error. `noUnit = 0` on all four confirms the group was really
+there, so the misses are real "nothing removable on them" answers.
+
+**This is the green light for the dispel helper.** "Does this ally have something
+you can remove" is answerable, live, in combat, with no spell table, no class
+logic and no reading of anything secret.
+
+**Sampling caveat, and it matters for the wording of the feature.** The probe
+fires per aura scan, and scans are driven by the player already having aura
+activity — so these are not "how often does someone have a dispellable debuff".
+`player` at 36/36 almost certainly reflects that bias rather than a permanently
+debuffed priest. Use the filter as a live yes/no, never to claim a frequency.
+
+## Timewalking refuses the combat log. Settled, not transient.
+
+Third refusal, third dungeon, third day:
+
+    07-25  Dire Maul                              diff 24  ADDON_ACTION_FORBIDDEN
+    07-25  Zul'Farrak                             diff 24  ADDON_ACTION_FORBIDDEN
+    08-03  Hellfire Citadel: The Shattered Halls  diff 24  ADDON_ACTION_FORBIDDEN
+
+`Modules/Retrospective.lua` argues these were probably one-offs caught mid-loading-screen,
+on the grounds that DBM was announcing bosses in the same dungeon. Three
+independent occurrences refute the "transient" half. DBM's success is still
+unexplained and is now the sharper question: something about MH's registration is
+refused where theirs is not, specifically at difficulty 24, which also reports
+`hasSecretRestrictions = true`.
+
+Practical consequence, and it is not small: **interrupt credit does not work in
+Timewalking**, which is where Rob actually plays with his group. The feature is
+sound in normal and heroic dungeons and useless in the content it was asked for.
