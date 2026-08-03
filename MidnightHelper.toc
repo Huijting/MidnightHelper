@@ -80,6 +80,7 @@ Modules\InterruptMacros.lua
 Modules\RoleAcademy.lua
 Modules\HealerCooldowns.lua
 Modules\DispelHelper.lua
+Modules\ActionPrompt.lua
 Modules\TankToolkit.lua
 Modules\DpsToolkit.lua
 Modules\TankPullSummary.lua

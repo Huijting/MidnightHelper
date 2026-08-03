@@ -2558,3 +2558,25 @@ fill("itIT", {
 	INTERRUPT_WHO_FMT = "Interrotto da |cff40c040%s|r: %s",
 	INTERRUPT_WHO_FMT_PLAIN = "Interrotto da |cff40c040%s|r.",
 })
+
+-- Action prompt (3 Aug 2026): your interrupt and your dispel, in one spot.
+fill("deDE", {
+	PROMPT_ON = "Aktionshinweis AN — dein Unterbrecher und dein Zauberraub, sichtbar wenn sie greifen. Frei verschiebbar.",
+	PROMPT_OFF = "Aktionshinweis AUS.",
+})
+fill("frFR", {
+	PROMPT_ON = "Rappel d'action ACTIVÉ — votre interruption et votre dissipation, affichées quand elles s'appliquent. Déplaçable.",
+	PROMPT_OFF = "Rappel d'action DÉSACTIVÉ.",
+})
+fill("esES", {
+	PROMPT_ON = "Aviso de acción ACTIVADO — tu interrupción y tu disipación, visibles cuando procede. Arrástralo donde quieras.",
+	PROMPT_OFF = "Aviso de acción DESACTIVADO.",
+})
+fill("ptBR", {
+	PROMPT_ON = "Aviso de ação LIGADO — sua interrupção e sua dissipação, exibidas quando se aplicam. Arraste para onde quiser.",
+	PROMPT_OFF = "Aviso de ação DESLIGADO.",
+})
+fill("itIT", {
+	PROMPT_ON = "Suggerimento azione ATTIVO — la tua interruzione e la tua dissolvenza, mostrate quando servono. Trascinabile.",
+	PROMPT_OFF = "Suggerimento azione DISATTIVO.",
+})

@@ -1,0 +1,303 @@
+local _, ns = ...
+
+--[[
+	Midnight Helper — action prompt (`/mh prompt`).
+
+	Two answers to "what do I press right now", in ONE place on screen:
+
+	  • your interrupt, when your target is casting something you may interrupt
+	  • your dispel, when your target carries something removable
+
+	Rob asked for this on 3 Aug after seeing SpellPilot do it, and asked for it in
+	one spot rather than a third floating icon — MH already draws CombatSafety's
+	warning and MissingBuff's bar, and a fourth blinking thing is not a feature.
+
+	WHY THIS IS SAFE TO BUILD NOW. Every piece was measured this week rather than
+	assumed:
+
+	  • `notInterruptible` from UnitCastingInfo is SECRET, and is never read here.
+	    It goes straight to frame:SetAlphaFromBoolean, which lets the engine decide
+	    the alpha — the same route CombatSafety.lua already uses and the same one
+	    SpellPilot arrived at independently (ReminderFrame.lua:168).
+	  • `castBarID` from the same call is NOT secret, so "is a cast happening at
+	    all" can be branched on. That is what hides the icon between casts.
+	  • `GetAuraSlots("target", "HELPFUL|DISPELLABLE", 1)` was measured on 3 Aug:
+	    27 hits in 200 calls, zero errors, in a delve, in combat, while names and
+	    spellIds were coming back secret.
+
+	NOT SECURE, NOT CLICKABLE. These are display frames. Making them castable would
+	mean a SecureActionButtonTemplate, and scripts on one of those taint it — which
+	is exactly what broke the party-target panel's click-to-target on 3 Aug. The
+	prompt tells you what to press; your own keybind presses it.
+
+	⚠️ UNSETTLED, and the wording depends on it: whether `DISPELLABLE` means
+	"removable by YOU" or "removable at all". SpellPilot uses the HELPFUL variant to
+	catch enrages, which hints at the second. So the dispel icon only appears for a
+	character that owns a dispel, and it never claims this particular aura is yours
+	to take.
+]]
+
+local ICON = 34
+local GAP = 6
+
+local frame, iconInterrupt, iconDispel
+
+local function Enabled()
+	return (ns.db and ns.db.actionPrompt) and true or false
+end
+
+local function SavePos()
+	if not frame then
+		return
+	end
+	local p, _, rp, x, y = frame:GetPoint()
+	if ns.db and ns.db.ui then
+		ns.db.ui.actionPromptPos = { p, rp, x, y }
+	end
+end
+
+--- One icon: a texture on a plain frame, so alpha can be driven per icon.
+local function MakeIcon(parent, index)
+	local f = CreateFrame("Frame", nil, parent)
+	f:SetSize(ICON, ICON)
+	f:SetPoint("LEFT", parent, "LEFT", (index - 1) * (ICON + GAP), 0)
+	f.tex = f:CreateTexture(nil, "ARTWORK")
+	f.tex:SetAllPoints(f)
+	f.tex:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+	f.border = f:CreateTexture(nil, "OVERLAY")
+	f.border:SetPoint("TOPLEFT", f, "TOPLEFT", -2, 2)
+	f.border:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 2, -2)
+	f.border:SetColorTexture(1, 0.82, 0.2, 0.55)
+	f.border:SetDrawLayer("BACKGROUND")
+	f:SetAlpha(0)
+	return f
+end
+
+local function EnsureFrame()
+	if frame then
+		return frame
+	end
+	frame = CreateFrame("Frame", "MidnightHelperActionPrompt", UIParent)
+	frame:SetSize(ICON * 2 + GAP, ICON)
+	frame:SetFrameStrata("MEDIUM")
+	frame:SetClampedToScreen(true)
+	frame:SetMovable(true)
+	frame:EnableMouse(true)
+	frame:RegisterForDrag("LeftButton")
+	frame:SetScript("OnDragStart", function(self)
+		self:StartMoving()
+	end)
+	frame:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		SavePos()
+	end)
+
+	local pos = ns.db and ns.db.ui and ns.db.ui.actionPromptPos
+	if type(pos) == "table" and pos[1] then
+		frame:SetPoint(pos[1], UIParent, pos[2] or pos[1], pos[3] or 0, pos[4] or 0)
+	else
+		frame:SetPoint("CENTER", UIParent, "CENTER", 0, -140)
+	end
+
+	iconInterrupt = MakeIcon(frame, 1)
+	iconDispel = MakeIcon(frame, 2)
+	frame:Hide()
+	return frame
+end
+
+--------------------------------------------------------------------------------
+-- What this character can do
+--------------------------------------------------------------------------------
+
+local interruptName, interruptTex
+
+--- Resolve on spec change rather than per frame. The name comes from
+--- ns.MH_GetInterruptSpell, the same source InterruptScore uses — which exists
+--- because the miss hint once told a Paladin to press Kick, a spell he does not
+--- have.
+local function RefreshInterrupt()
+	interruptName, interruptTex = nil, nil
+	if not (UnitClass and GetSpecialization and ns.MH_GetInterruptSpell) then
+		return
+	end
+	local token = select(2, UnitClass("player"))
+	local idx = GetSpecialization()
+	if not (token and idx) then
+		return
+	end
+	local name = ns.MH_GetInterruptSpell(token, idx)
+	if type(name) ~= "string" or name == "" then
+		return
+	end
+	interruptName = name
+	if C_Spell and C_Spell.GetSpellTexture then
+		local ok, tex = pcall(C_Spell.GetSpellTexture, name)
+		interruptTex = ok and tex or nil
+	end
+end
+
+--- Is the spell ready? `isEnabled` and `isActive` are readable — SpellPilot's
+--- Interrupts.lua:69 says Midnight exposes them as non-secret precisely so addons
+--- can make cooldown decisions without touching protected timing. Treated as
+--- optional here: if the call fails we show the prompt anyway, because a prompt
+--- shown a second early is a smaller fault than one never shown.
+local function SpellReady(nameOrId)
+	if not (nameOrId and C_Spell and C_Spell.GetSpellCooldown) then
+		return true
+	end
+	local ok, cd = pcall(C_Spell.GetSpellCooldown, nameOrId)
+	if not ok or type(cd) ~= "table" then
+		return true
+	end
+	return cd.isEnabled ~= false and cd.isActive ~= true
+end
+
+--------------------------------------------------------------------------------
+-- Update
+--------------------------------------------------------------------------------
+
+--- Show the interrupt icon.
+---
+--- Two gates, and the split between them is the whole trick. What we may READ —
+--- is anything being cast (castBarID), do we own an interrupt, is it off cooldown
+--- — decides whether the icon exists at all. What we may NOT read — whether the
+--- cast is interruptible — is handed to the engine, which sets the alpha itself.
+local function UpdateInterrupt()
+	local f = iconInterrupt
+	if not interruptTex or not SpellReady(interruptName) then
+		f:SetAlpha(0)
+		return
+	end
+
+	local notInterruptible, castBarID
+	if UnitCastingInfo then
+		local ok, _, _, _, _, _, _, _, ni, _, id = pcall(UnitCastingInfo, "target")
+		if ok then
+			notInterruptible, castBarID = ni, id
+		end
+	end
+	if castBarID == nil and UnitChannelInfo then
+		local ok, _, _, _, _, _, _, ni, _, _, _, _, id = pcall(UnitChannelInfo, "target")
+		if ok then
+			notInterruptible, castBarID = ni, id
+		end
+	end
+	if castBarID == nil then
+		f:SetAlpha(0) -- nothing is being cast; readable, so branching is fine
+		return
+	end
+
+	f.tex:SetTexture(interruptTex)
+	if f.SetAlphaFromBoolean then
+		-- Argument order taken from CombatSafety.lua:462, which is working code:
+		-- (value, alphaWhenTrue, alphaWhenFalse). We want the opposite of
+		-- notInterruptible, so the alphas are swapped rather than the value
+		-- negated — negating would mean reading it.
+		f:SetAlphaFromBoolean(notInterruptible, 0, 1)
+	else
+		f:SetAlpha(0)
+	end
+end
+
+--- Show the dispel icon when the target carries something removable.
+---
+--- Entirely readable, so no engine trick is needed: GetAuraSlots answers with a
+--- slot or nothing. What it will not tell us is WHAT the aura is, and we do not
+--- ask — the icon says "there is something here", your keybind does the rest.
+local function UpdateDispel()
+	local f = iconDispel
+	local tex, spellID = nil, nil
+	if ns.GetPlayerDispelIcon then
+		tex, spellID = ns.GetPlayerDispelIcon()
+	end
+	if not tex or not SpellReady(spellID) then
+		f:SetAlpha(0)
+		return
+	end
+	if not (C_UnitAuras and C_UnitAuras.GetAuraSlots) then
+		f:SetAlpha(0)
+		return
+	end
+	local exists = select(2, pcall(UnitExists, "target"))
+	if exists ~= true then
+		f:SetAlpha(0)
+		return
+	end
+	local ok, _, firstSlot = pcall(C_UnitAuras.GetAuraSlots, "target", "HELPFUL|DISPELLABLE", 1)
+	if ok and firstSlot ~= nil then
+		f.tex:SetTexture(tex)
+		f:SetAlpha(1)
+	else
+		f:SetAlpha(0)
+	end
+end
+
+local pending = false
+local function Update()
+	if not Enabled() then
+		if frame then
+			frame:Hide()
+		end
+		return
+	end
+	EnsureFrame()
+	frame:Show()
+	pcall(UpdateInterrupt)
+	pcall(UpdateDispel)
+end
+
+--- Cast events fire in bursts; one update per frame is plenty for something the
+--- eye reads.
+local function Schedule()
+	if pending or not (C_Timer and C_Timer.After) then
+		return
+	end
+	pending = true
+	C_Timer.After(0.05, function()
+		pending = false
+		pcall(Update)
+	end)
+end
+
+local ev = CreateFrame("Frame")
+ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+ev:RegisterEvent("PLAYER_TARGET_CHANGED")
+ev:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+ev:RegisterEvent("SPELL_UPDATE_COOLDOWN")
+ev:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_ENTERING_WORLD" or event == "PLAYER_SPECIALIZATION_CHANGED" then
+		RefreshInterrupt()
+	end
+	Schedule()
+end)
+
+local ev2 = CreateFrame("Frame")
+for _, e in ipairs({
+	"UNIT_SPELLCAST_START", "UNIT_SPELLCAST_STOP", "UNIT_SPELLCAST_INTERRUPTED",
+	"UNIT_SPELLCAST_CHANNEL_START", "UNIT_SPELLCAST_CHANNEL_STOP", "UNIT_AURA",
+}) do
+	pcall(ev2.RegisterUnitEvent, ev2, e, "target")
+end
+ev2:SetScript("OnEvent", Schedule)
+
+--------------------------------------------------------------------------------
+-- Command
+--------------------------------------------------------------------------------
+
+function ns.IsActionPromptEnabled()
+	return Enabled()
+end
+
+function ns.ToggleActionPrompt()
+	ns.db = ns.db or {}
+	ns.db.actionPrompt = not ns.db.actionPrompt
+	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+	if ns.db.actionPrompt then
+		RefreshInterrupt()
+		print(("%s %s"):format(p, (ns.L and ns:L("PROMPT_ON"))
+			or "Action prompt ON — drag it where you want it. Shows your interrupt and your dispel when they apply."))
+	else
+		print(("%s %s"):format(p, (ns.L and ns:L("PROMPT_OFF")) or "Action prompt OFF."))
+	end
+	Update()
+end

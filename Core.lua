@@ -1024,6 +1024,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh prompt — the on-screen "what do I press": your interrupt when the target
+	-- casts something interruptible, your dispel when it carries something removable.
+	if msg == "prompt" then
+		if ns.ToggleActionPrompt then
+			ns.ToggleActionPrompt()
+		end
+		return
+	end
+
 	-- /mh kicks — interrupt scorecard: your landed/wasted this run. "alert" toggles the
 	-- personal pre-12.1 whiff nudge; "reset" clears the tally (Spec 14).
 	-- Match any argument rather than a hardcoded list. The list said

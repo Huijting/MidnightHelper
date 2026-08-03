@@ -458,6 +458,8 @@ ns._mhLocales.enUS = {
 	-- neither the router nor the handler; a hint for a command that answers
 	-- "unknown command" is worse than no hint.
 	INTERRUPT_KICKS_HINT = "Toggle: /mh kicks alert (sound) · /mh kicks who (name the interrupter) · /mh kicks reset.",
+	PROMPT_ON = "Action prompt ON — your interrupt and your dispel, shown when they apply. Drag it where you want it.",
+	PROMPT_OFF = "Action prompt OFF.",
 	INTERRUPT_WHO_ON = "Interrupt credit ON — names who kicked, in dungeons and raids only.",
 	INTERRUPT_WHO_OFF = "Interrupt credit OFF.",
 	INTERRUPT_WHO_FMT = "Interrupted by |cff40c040%s|r: %s",
