@@ -19,6 +19,32 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 | Branch | alleen `main` |
 | Deadline | **12.1 live 11 aug (NA) / 12 aug (EU), Season 2 18 aug.** Officieel bevestigd, niet langer een projectie |
 
+## ⛔ "Wie heeft er onderbroken" — vraag hier niet opnieuw naar zonder dit te lezen
+
+Rob vroeg op 3 aug om hem hieraan te herinneren. De stand, gemeten:
+
+| content | stand |
+|---|---|
+| Timewalking (difficulty 24) | **onmogelijk.** 3 weigeringen, 3 dungeons, 3 dagen: Dire Maul + Zul'Farrak (25 jul), The Shattered Halls (3 aug), alle `ADDON_ACTION_FORBIDDEN` |
+| Delves (208), ritual scenarios, follower dungeons | onmogelijk, bij ontwerp — restricted content |
+| Normaal / Heroic / M+ / raids | **zou moeten werken; NOOIT positief bevestigd** |
+
+De functie is gebouwd (`/mh kicks who`, `Modules/InterruptScore.lua`) en de route is
+juist: `SPELL_INTERRUPT` uit de combat log, meegelezen op de registratie die
+`Retrospective.lua` al bezit. Het goedkope alternatief is dood gemeten — het veld
+`interruptedBy` op `UNIT_SPELLCAST_INTERRUPTED` is **secret** zodra de onderbroken
+caster vijandig is (40 metingen: 28 nil, 12 secret, nooit leesbaar).
+
+Wat ontbreekt is een **positieve controle**: in elke vastgelegde meting tot nu toe
+stond `clogRegistered = false`. Eén run in een gewone of Heroic dungeon met
+`/mh kicks probe` aan zou dat beslissen. Doe die vóór je iets belooft — dat "de
+whitelist zegt dat het mag" is precies het soort redenering dat hier al vier keer
+fout ging.
+
+En het echte open raadsel: **DBM lukt het wél op difficulty 24.** Die difficulty
+meldt `hasSecretRestrictions = true`, wat de wél werkende difficulties niet doen.
+Dat is nu een spoor in plaats van een vaag vermoeden.
+
 ## Laatste sessies (31 juli - 1 augustus)
 
 **2.11.1 uitgebracht als correctierelease.** Een wekelijkse crest-cap van 100 die niet
