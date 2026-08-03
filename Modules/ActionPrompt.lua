@@ -101,6 +101,22 @@ local function EnsureFrame()
 
 	iconInterrupt = MakeIcon(frame, 1)
 	iconDispel = MakeIcon(frame, 2)
+
+	-- A faint outline while you are OUT of combat.
+	--
+	-- Without it the feature is unusable on first switch-on: both icons sit at
+	-- alpha 0 until something applies, so what you get is an invisible draggable
+	-- rectangle somewhere near the middle of the screen. You cannot put it where
+	-- you want it if you cannot find it.
+	--
+	-- Out of combat only, so it never adds clutter at the moment it is meant to be
+	-- read. In a fight the icons speak for themselves.
+	frame.idle = frame:CreateTexture(nil, "BACKGROUND")
+	frame.idle:SetPoint("TOPLEFT", frame, "TOPLEFT", -3, 3)
+	frame.idle:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 3, -3)
+	frame.idle:SetColorTexture(1, 0.82, 0.2, 0.10)
+	frame.idle:Hide()
+
 	frame:Hide()
 	return frame
 end
@@ -242,6 +258,9 @@ local function Update()
 	end
 	EnsureFrame()
 	frame:Show()
+	if frame.idle then
+		frame.idle:SetShown(not (InCombatLockdown and InCombatLockdown()))
+	end
 	pcall(UpdateInterrupt)
 	pcall(UpdateDispel)
 end
@@ -264,6 +283,9 @@ ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("PLAYER_TARGET_CHANGED")
 ev:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 ev:RegisterEvent("SPELL_UPDATE_COOLDOWN")
+-- The outline appears and disappears with combat, so both edges need an update.
+ev:RegisterEvent("PLAYER_REGEN_DISABLED")
+ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_ENTERING_WORLD" or event == "PLAYER_SPECIALIZATION_CHANGED" then
 		RefreshInterrupt()
