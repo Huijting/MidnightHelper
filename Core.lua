@@ -1076,6 +1076,10 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 	if msg == "death reset" then
 		if ns.ResetDeathRecapBlocks then ns.ResetDeathRecapBlocks() end
+		-- Ask for the registration again straight away. Forgetting the refusal but
+		-- waiting for the next zone change means someone standing in the dungeon
+		-- they want to retest has to walk out and back in to find out.
+		if ns.UpdateDeathRecapClog then ns.UpdateDeathRecapClog() end
 		return
 	end
 
