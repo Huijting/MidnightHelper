@@ -114,14 +114,65 @@ local function FieldLog()
 	return ns.db.dispelFieldLog
 end
 
+--- Does the 12.1 `DISPELLABLE` filter answer on this client?
+---
+--- SpellPilot reaches for `GetAuraSlots(unit, "HELPFUL|DISPELLABLE", 1)` with the
+--- note that some legacy NPC frenzy effects are removable but carry no readable
+--- Enrage label, and that this filter exposes them anyway. Worth having: a helper
+--- that misses exactly the enrages a hunter or rogue is meant to soothe is worse
+--- than none.
+---
+--- Recorded separately from the per-aura fields, because it answers a different
+--- question — not "is this one removable" but "does this filter exist and return
+--- anything at all on 12.0.7". A capped tally, since it is asked per scan.
+local FILTER_PROBE_CAP = 200
+local function RecordFilterProbe()
+	local store = Store()
+	if not store then
+		return
+	end
+	local t = store.dispelFilterProbe
+	if type(t) ~= "table" then
+		t = { hits = 0, misses = 0, errors = 0, absent = 0, tries = 0 }
+		store.dispelFilterProbe = t
+	end
+	if (t.tries or 0) >= FILTER_PROBE_CAP then
+		return
+	end
+	t.tries = t.tries + 1
+
+	if not (C_UnitAuras and C_UnitAuras.GetAuraSlots) then
+		t.absent = t.absent + 1
+		return
+	end
+	local ok, _, firstSlot = pcall(C_UnitAuras.GetAuraSlots, "target", "HELPFUL|DISPELLABLE", 1)
+	if not ok then
+		t.errors = t.errors + 1
+	elseif firstSlot ~= nil then
+		t.hits = t.hits + 1
+	else
+		t.misses = t.misses + 1
+	end
+end
+
 local function RecordReadability(aura)
+	RecordFilterProbe()
 	local log = FieldLog()
 	if not log then
 		return
 	end
 	local sId, sName, sDispel = FieldState(aura.spellId), FieldState(aura.name), FieldState(aura.dispelName)
+	-- `canActivePlayerDispel` — read from SpellPilot's Removals.lua on 3 Aug, where
+	-- it is used as a plain boolean for "you personally can remove this". If it is
+	-- readable here, the dispel helper needs no maintained spell table and no class
+	-- logic at all; if it is secret it is worth no more than dispelName already is.
+	--
+	-- Their code cannot answer this: every call sits in a pcall, and a pcall that
+	-- fails looks exactly like one returning nothing. Hence measuring it ourselves,
+	-- in the same three states the rest of this file records.
+	local sCan = FieldState(aura.canActivePlayerDispel)
 	local inCombat = (InCombatLockdown and InCombatLockdown()) and true or false
-	local key = ("%s/%s/%s/%s"):format(sId, sName, sDispel, inCombat and "combat" or "idle")
+	local key = ("%s/%s/%s/%s/%s"):format(sId, sName, sDispel, sCan, inCombat and "combat" or "idle")
 
 	local row = log[key]
 	if not row then
@@ -143,6 +194,7 @@ local function RecordReadability(aura)
 			spellId = sId,
 			name = sName,
 			dispelName = sDispel,
+			canActivePlayerDispel = sCan,
 			inCombat = inCombat,
 			instance = instName,
 			encounter = curEncName,
