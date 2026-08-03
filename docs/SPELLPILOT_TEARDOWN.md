@@ -76,3 +76,50 @@ SavedVariables, so the measurement costs one dungeon.
 
 That measurement is now the first step of the dispel-helper rather than a
 side-quest: it decides whether that feature needs a maintained spell table at all.
+
+## MEASURED, 3 Aug 2026 — Twilight Crypts, a delve, in combat
+
+One of the two is a dead end and the other is the way in.
+
+### `canActivePlayerDispel` adds nothing
+
+From the readability log, keyed spellId / name / dispelName / canActivePlayerDispel:
+
+| pattern | seen |
+|---|---|
+| `read / read / nil / read` (combat) | 167 |
+| `read / read / nil / read` (idle) | 31 |
+| `secret / secret / nil / secret` (combat) | 279 |
+
+The field is readable exactly when `spellId` and `name` are, and secret the moment
+they are. Not one combination exists where it answers while the rest stays shut.
+So it is worth no more than `dispelName` already was, and the hope that it would
+remove the need for a maintained spell table is dead. Do not revisit it because a
+competitor uses it — they use it where the aura is readable anyway.
+
+### The `DISPELLABLE` filter is the real find
+
+`C_UnitAuras.GetAuraSlots("target", "HELPFUL|DISPELLABLE", 1)`, 200 calls:
+
+    hits 27 · misses 173 · errors 0 · absent 0
+
+It **exists on 12.0.7** — not a 12.1 addition, which is what the watcher entry
+implied. It never errored. And it returned a slot 27 times while, in the same
+content and the same fight, per-aura `name` and `spellId` were coming back secret.
+
+That is the shape the dispel helper needs and could not get: **"there is something
+removable on this target" is answerable even when "what is it" is not.** Which is
+also the honest form of the feature — MH's edge is explaining, and "you can purge
+that" is a complete thought without the buff's name in it.
+
+Two caveats, both real:
+
+- `misses` includes every call made with no target at all, since the probe fired
+  per aura scan and did not record whether a target existed. So 27/200 is a floor
+  on how often it fires, not a hit rate. Worth tightening if the number ever
+  matters; it does not for the yes/no.
+- This measured **HELPFUL on the target** — purge and soothe. Dispelling a debuff
+  off a party member is `HARMFUL|DISPELLABLE` against `party1..4`, and that is a
+  different call in different content. Measure it before assuming it behaves the
+  same; friendly units read where hostile ones do not, so it may well be easier —
+  but "may well be" is how the last four wrong conclusions started.
