@@ -1026,7 +1026,11 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh kicks — interrupt scorecard: your landed/wasted this run. "alert" toggles the
 	-- personal pre-12.1 whiff nudge; "reset" clears the tally (Spec 14).
-	if msg == "kicks" or msg == "kicks alert" or msg == "kicks reset" then
+	-- Match any argument rather than a hardcoded list. The list said
+	-- kicks/alert/reset, so `/mh kicks who` answered "unknown command" the moment it
+	-- was added — the handler had it, the router did not. Routing on the verb and
+	-- letting the handler decide keeps those two from drifting apart again.
+	if msg == "kicks" or msg:match("^kicks%s+%S+$") then
 		if ns.HandleInterruptCommand then
 			ns.HandleInterruptCommand(msg:match("^kicks%s+(%S+)"))
 		end

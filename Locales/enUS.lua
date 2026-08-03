@@ -454,7 +454,10 @@ ns._mhLocales.enUS = {
 	INTERRUPT_MISS_PARTY_FMT = "Nooo — %s missed that interrupt!",
 	INTERRUPT_KICKS_FMT = "Interrupts this run: %d landed, %d wasted.",
 	INTERRUPT_KICKS_NONE = "No interrupts tracked yet this run.",
-	INTERRUPT_KICKS_HINT = "Toggle: /mh kicks alert (sound) · /mh kicks party (group chat) · /mh kicks who (name the interrupter).",
+	-- No "kicks party" here. The hint advertised it for months and it exists in
+	-- neither the router nor the handler; a hint for a command that answers
+	-- "unknown command" is worse than no hint.
+	INTERRUPT_KICKS_HINT = "Toggle: /mh kicks alert (sound) · /mh kicks who (name the interrupter) · /mh kicks reset.",
 	INTERRUPT_WHO_ON = "Interrupt credit ON — names who kicked, in dungeons and raids only.",
 	INTERRUPT_WHO_OFF = "Interrupt credit OFF.",
 	INTERRUPT_WHO_FMT = "Interrupted by |cff40c040%s|r: %s",
