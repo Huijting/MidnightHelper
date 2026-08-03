@@ -785,6 +785,17 @@ end
 --- Needed once the taint that causes the refusal is actually fixed: without this the
 --- build-scoped memory would keep us out until the next patch, long after the reason
 --- disappeared.
+--- Is the combat log actually registered right now?
+---
+--- Exposed for the interrupt probe, which otherwise cannot tell "nobody kicked
+--- anything" apart from "we were never listening". Those look identical from the
+--- outside and the difference is the whole diagnosis: Rob's Timewalking run
+--- produced no interrupt lines because difficulty 24 has been on the blocked list
+--- since 25 July, not because the feature was broken.
+function ns.IsCombatLogRegistered()
+	return clogOn == true
+end
+
 function ns.ResetDeathRecapBlocks()
 	if ns.db then
 		ns.db.cleuBlockedDiff = nil

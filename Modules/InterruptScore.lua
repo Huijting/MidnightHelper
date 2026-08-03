@@ -210,8 +210,84 @@ end
 --- interrupt in dungeons, and a companion is not in your party — filtering to
 --- party members would have dropped exactly the case he named. The combat log
 --- reports whoever did it, and so do we.
+--- `/mh kicks probe` — record instead of print.
+---
+--- Rob's idea, and the right one: watching chat mid-dungeon is how the last three
+--- measurements got lost. It also answers the question chat cannot. A run with no
+--- interrupt lines has two completely different explanations — nobody kicked
+--- anything, or we were never listening — and only the second is a bug. That is
+--- exactly what happened in Timewalking, where difficulty 24 has been refusing the
+--- combat log since 25 July.
+---
+--- So every record carries whether the combat log was registered AT THAT MOMENT,
+--- not merely what was seen.
+local KICKS_MAX = 60
+local function KicksProbeOn()
+	return (ns.db and ns.db.kicksProbe) and true or false
+end
+
+local function RecordKick(source, dest, stoppedSpell)
+	if not (ns.db and KicksProbeOn()) then
+		return
+	end
+	local log = ns.db.kicksProbeLog
+	if type(log) ~= "table" then
+		log = {}
+		ns.db.kicksProbeLog = log
+	end
+	if #log >= KICKS_MAX then
+		return
+	end
+	local ok, _, _, diffID, diffName = pcall(GetInstanceInfo)
+	log[#log + 1] = {
+		source = source or "nil",
+		dest = dest or "nil",
+		stopped = stoppedSpell or "nil",
+		zone = GetRealZoneText and GetRealZoneText() or nil,
+		difficultyID = ok and diffID or nil,
+		difficultyName = ok and diffName or nil,
+		clogRegistered = ns.IsCombatLogRegistered and ns.IsCombatLogRegistered() or false,
+		announceOn = ns.IsInterruptAnnounceEnabled(),
+	}
+end
+
+--- Write down where we are and whether we are listening, interrupts or not.
+---
+--- Without this an empty log is unreadable: it could mean a quiet run, a refused
+--- registration, or a probe nobody switched on. One row on entering the content
+--- separates all three.
+function ns.MarkKicksProbeContext(reason)
+	if not (ns.db and KicksProbeOn()) then
+		return
+	end
+	local log = ns.db.kicksProbeContext
+	if type(log) ~= "table" then
+		log = {}
+		ns.db.kicksProbeContext = log
+	end
+	if #log >= KICKS_MAX then
+		return
+	end
+	local ok, name, itype, diffID, diffName = pcall(GetInstanceInfo)
+	log[#log + 1] = {
+		reason = reason,
+		zone = GetRealZoneText and GetRealZoneText() or nil,
+		instance = ok and name or nil,
+		instanceType = ok and itype or nil,
+		difficultyID = ok and diffID or nil,
+		difficultyName = ok and diffName or nil,
+		clogRegistered = ns.IsCombatLogRegistered and ns.IsCombatLogRegistered() or false,
+		announceOn = ns.IsInterruptAnnounceEnabled(),
+	}
+end
+
 local lastAnnounce, lastKey = 0, nil
 function ns.OnInterruptAttributed(source, dest, stoppedSpell)
+	-- Recorded before the enable check: the probe is for diagnosing a feature that
+	-- is producing nothing, and gating the record on the same switch that might be
+	-- the fault would hide it.
+	RecordKick(source, dest, stoppedSpell)
+
 	if not ns.IsInterruptAnnounceEnabled() or not source then
 		return
 	end
@@ -239,6 +315,19 @@ function ns.HandleInterruptCommand(arg)
 		ns.db = ns.db or {}
 		ns.db.interruptMissAlert = not ns.db.interruptMissAlert
 		print(("%s %s"):format(prefix, ns:L(ns.db.interruptMissAlert and "INTERRUPT_ALERT_ON" or "INTERRUPT_ALERT_OFF")))
+		return
+	end
+	if arg == "probe" then
+		ns.db = ns.db or {}
+		ns.db.kicksProbe = not ns.db.kicksProbe
+		if ns.db.kicksProbe then
+			ns.db.kicksProbeLog, ns.db.kicksProbeContext = {}, {}
+			ns.MarkKicksProbeContext("probe switched on")
+			print(("%s kicks probe ON — recording. |cffffffff/reload|r when you are done."):format(prefix))
+		else
+			print(("%s kicks probe OFF — %d interrupt(s) kept."):format(prefix,
+				#(ns.db.kicksProbeLog or {})))
+		end
 		return
 	end
 	if arg == "who" then
@@ -330,6 +419,17 @@ f:SetScript("OnEvent", function(_, event, unit, _, spellID, interruptedBy)
 	elseif event == "UNIT_SPELLCAST_INTERRUPTED" then
 		OnInterrupted(unit)
 	elseif event == "PLAYER_ENTERING_WORLD" then
+		-- Note where we landed and whether the combat log took, before anything
+		-- happens. The registration is attempted 1.5s after this event, so ask
+		-- again once that has had its chance.
+		if ns.MarkKicksProbeContext then
+			ns.MarkKicksProbeContext("entered")
+			if C_Timer and C_Timer.After then
+				C_Timer.After(4, function()
+					pcall(ns.MarkKicksProbeContext, "4s after entering")
+				end)
+			end
+		end
 		-- Fresh tally per run: reset when we (re)enter an instance.
 		if IsInInstance and IsInInstance() then
 			ResetTally()
