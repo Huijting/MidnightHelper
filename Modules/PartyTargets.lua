@@ -137,6 +137,17 @@ local function EnsurePanel()
 	for i = 1, MAX_ROWS do
 		local row = {}
 
+		-- Faint stripe on every second row. The hover highlight tells you which row
+		-- you are ON; this tells you where one row ends and the next begins, which
+		-- is the half of "stop counting rows" that works before you touch the mouse.
+		if i % 2 == 0 then
+			row.stripe = panel:CreateTexture(nil, "BACKGROUND")
+			row.stripe:SetColorTexture(1, 1, 1, 0.04)
+			row.stripe:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD - 2, -PAD - (i - 1) * ROW_H)
+			row.stripe:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD + 2, -PAD - (i - 1) * ROW_H)
+			row.stripe:SetHeight(ROW_H)
+		end
+
 		-- Role marker. Rob asked for it while levelling in Timewalking dungeons,
 		-- where the group changes every few minutes and "who is the tank" is the
 		-- thing you want at a glance.
@@ -182,14 +193,21 @@ local function EnsurePanel()
 		-- its own comment says the helper "can handle secrets internally"
 		-- (SimplePartyTargets.lua:3861-3875). The base texture is set once here;
 		-- SetRaidTargetIconTexture only moves the coordinates within it.
+		-- At the END of the row, not in front of the name (Rob, 3 Aug).
+		--
+		-- "After the name" is done as "at the right edge" on purpose. Following the
+		-- text itself would mean measuring the string to know where it ends, and the
+		-- string is an enemy name — a secret we are allowed to draw and not to
+		-- inspect. The right edge needs no measuring and reads the same.
 		row.marker = panel:CreateTexture(nil, "OVERLAY")
 		row.marker:SetSize(ROLE_W, ROLE_W)
 		row.marker:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcons")
-		row.marker:SetPoint("TOPLEFT", row.member, "TOPRIGHT", 4, 1)
+		row.marker:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD, -PAD - (i - 1) * ROW_H - 1)
 		row.marker:Hide()
 
-		row.target:SetPoint("TOPLEFT", row.marker, "TOPRIGHT", 4, -1)
-		row.target:SetPoint("RIGHT", panel, "RIGHT", -PAD, 0)
+		row.target:SetPoint("TOPLEFT", row.member, "TOPRIGHT", 6, 0)
+		-- Stop short of the marker column so a long name never runs under the icon.
+		row.target:SetPoint("RIGHT", panel, "RIGHT", -PAD - ROLE_W - 4, 0)
 		row.target:SetJustifyH("LEFT")
 		-- One line per member, always. "Daggerspine Myrmidon" wrapped onto a second
 		-- line and spilled past the panel, because the rows are a fixed height (Rob,
@@ -253,6 +271,56 @@ local function SetRole(row, role)
 	else
 		row.roleLetter:Hide()
 	end
+end
+
+--- Which party unit each display row shows: tank first, then healer, then damage.
+---
+--- Rob asked for the tank on top (3 Aug). The catch is that the click buttons are
+--- bound to a unit by attribute, and changing an attribute is refused in combat —
+--- so a row that re-sorts mid-fight would keep showing one person while clicking
+--- through to another. Silently targeting the wrong mob is far worse than an
+--- unsorted list.
+---
+--- Hence: the order is only ever recomputed OUT of combat, so what a row shows and
+--- what it clicks always change together. Roles and group composition do not shift
+--- mid-pull anyway; if they somehow do, the panel keeps the order it entered
+--- combat with, which is at least honest.
+local ROLE_RANK = { TANK = 1, HEALER = 2, DAMAGER = 3 }
+local rowOrder = { 1, 2, 3, 4 }
+
+local function RecomputeOrder()
+	if InCombatLockdown and InCombatLockdown() then
+		return false
+	end
+	local list = {}
+	for i = 1, MAX_ROWS do
+		local unit = "party" .. i
+		local rank = 4
+		if ReadsTrue(Ask(UnitExists, unit)) then
+			local role = Ask(UnitGroupRolesAssigned, unit)
+			rank = ROLE_RANK[role] or 3
+		else
+			rank = 9 -- absent members sink to the bottom
+		end
+		list[#list + 1] = { index = i, rank = rank }
+	end
+	-- Stable within a rank: party order breaks ties, so three damage dealers keep
+	-- the same row from pull to pull instead of shuffling.
+	table.sort(list, function(a, b)
+		if a.rank ~= b.rank then
+			return a.rank < b.rank
+		end
+		return a.index < b.index
+	end)
+
+	local changed = false
+	for i = 1, MAX_ROWS do
+		if rowOrder[i] ~= list[i].index then
+			changed = true
+		end
+		rowOrder[i] = list[i].index
+	end
+	return changed
 end
 
 --- Draw the raid marker on a unit's target, without ever reading it.
@@ -347,6 +415,17 @@ local function EnsureClickButtons()
 			-- refuses to run in combat. A button created mid-fight would otherwise
 			-- sit at zero by zero: shown, bound correctly, and impossible to hit.
 			b:SetSize(PANEL_W - PAD * 2 - ROLE_W - 4, ROW_H)
+
+			-- Hover highlight, so you can see which row you are about to click
+			-- instead of counting down from the top (Rob, 3 Aug).
+			--
+			-- A TEXTURE, not an OnEnter script. Scripts on a secure button taint it,
+			-- and that is what broke targeting yesterday; the engine draws a
+			-- highlight texture on hover with no Lua of ours running at all.
+			local hl = b:CreateTexture(nil, "HIGHLIGHT")
+			hl:SetAllPoints(b)
+			hl:SetColorTexture(1, 0.82, 0.2, 0.18)
+			b:SetHighlightTexture(hl)
 			b:Hide()
 			clicks[i] = b
 		end
@@ -373,10 +452,19 @@ local function Refresh()
 	EnsurePanel()
 	EnsureClickButtons()
 
+	-- Re-sort and re-bind together, out of combat only (see RecomputeOrder).
+	if RecomputeOrder() and not (InCombatLockdown and InCombatLockdown()) then
+		for i = 1, MAX_ROWS do
+			if clicks[i] then
+				clicks[i]:SetAttribute("unit", "party" .. rowOrder[i] .. "target")
+			end
+		end
+	end
+
 	local shown = 0
 	local visible = {}
 	for i = 1, MAX_ROWS do
-		local unit = "party" .. i
+		local unit = "party" .. rowOrder[i]
 		local row = rows[i]
 		if ReadsTrue(Ask(UnitExists, unit)) then
 			shown = shown + 1
@@ -401,12 +489,21 @@ local function Refresh()
 			end
 			row.member:Show()
 			row.target:Show()
+			if row.stripe then
+				row.stripe:Show()
+			end
 		else
 			row.member:Hide()
 			row.target:Hide()
 			row.role:Hide()
 			row.roleLetter:Hide()
 			row.marker:Hide()
+			-- The panel shrinks to fit the rows it uses, and a texture is not
+			-- clipped by its parent: a stripe left showing would hang below the
+			-- border as a floating grey bar.
+			if row.stripe then
+				row.stripe:Hide()
+			end
 		end
 	end
 
