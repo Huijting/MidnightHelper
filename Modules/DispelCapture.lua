@@ -126,15 +126,28 @@ end
 --- question — not "is this one removable" but "does this filter exist and return
 --- anything at all on 12.0.7". A capped tally, since it is asked per scan.
 local FILTER_PROBE_CAP = 200
-local function RecordFilterProbe()
+
+--- One tally per (unit, filter) pair.
+---
+--- `noUnit` is counted apart from `misses`, which the first version did not do:
+--- 173 "misses" on 3 Aug included every call made with no target at all, so the
+--- number was a floor rather than a rate and could not say how often the filter
+--- actually finds nothing. Same distinction as everywhere else in this file —
+--- "nothing there" and "nothing to ask" are different answers.
+local function ProbeFilter(bucket, unit, filter)
 	local store = Store()
 	if not store then
 		return
 	end
-	local t = store.dispelFilterProbe
+	local all = store.dispelFilterProbes
+	if type(all) ~= "table" then
+		all = {}
+		store.dispelFilterProbes = all
+	end
+	local t = all[bucket]
 	if type(t) ~= "table" then
-		t = { hits = 0, misses = 0, errors = 0, absent = 0, tries = 0 }
-		store.dispelFilterProbe = t
+		t = { hits = 0, misses = 0, errors = 0, absent = 0, noUnit = 0, tries = 0, filter = filter, unit = unit }
+		all[bucket] = t
 	end
 	if (t.tries or 0) >= FILTER_PROBE_CAP then
 		return
@@ -145,13 +158,32 @@ local function RecordFilterProbe()
 		t.absent = t.absent + 1
 		return
 	end
-	local ok, _, firstSlot = pcall(C_UnitAuras.GetAuraSlots, "target", "HELPFUL|DISPELLABLE", 1)
+	local uOk, exists = pcall(UnitExists, unit)
+	if not uOk or exists ~= true then
+		t.noUnit = t.noUnit + 1
+		return
+	end
+	local ok, _, firstSlot = pcall(C_UnitAuras.GetAuraSlots, unit, filter, 1)
 	if not ok then
 		t.errors = t.errors + 1
 	elseif firstSlot ~= nil then
 		t.hits = t.hits + 1
 	else
 		t.misses = t.misses + 1
+	end
+end
+
+--- Hostile buffs (purge / soothe) and friendly debuffs (the actual dispel).
+---
+--- The delve of 3 Aug measured only the first. Rob asked for the second, and it is
+--- the one the helper is really for: taking a debuff off a party member. Friendly
+--- units read where hostile ones do not, so this may behave better — which is
+--- exactly why it needs measuring rather than assuming.
+local function RecordFilterProbe()
+	ProbeFilter("target_helpful", "target", "HELPFUL|DISPELLABLE")
+	ProbeFilter("player_harmful", "player", "HARMFUL|DISPELLABLE")
+	for i = 1, 4 do
+		ProbeFilter("party" .. i .. "_harmful", "party" .. i, "HARMFUL|DISPELLABLE")
 	end
 end
 
