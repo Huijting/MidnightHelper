@@ -215,19 +215,26 @@ function ns.GetSurvivalPlan(specID)
 			for _, item in ipairs(bucket) do
 				-- A spell carrying both a role and a category would otherwise be
 				-- listed twice under the same step.
-				if not already[item.key] then
-					already[item.key] = true
-					local name, id = LiveName(item.key)
-					-- nil means this character does not have it. Skip in silence:
-					-- naming a spell someone cannot cast is worse than a short card.
-					if name then
-						steps[#steps + 1] = {
-							text = name,
-							spellID = id,
-							whenKey = step.key,
-							bindKey = item.entry.bindKey,
-						}
-					end
+				local name, id = LiveName(item.key)
+				-- nil means this character does not have it. Skip in silence:
+				-- naming a spell someone cannot cast is worse than a short card.
+				--
+				-- Dedupe on the RESOLVED spell, never on the classifier key. Rob's
+				-- card showed Shimmer twice and Greater Invisibility twice, because
+				-- the game answers a replaced spell with its replacement: asking for
+				-- "Blink" returns Shimmer, asking for "Invisibility" returns Greater
+				-- Invisibility. Two different keys, one live spell — which a
+				-- key-based check cannot see. The name is the fallback for entries
+				-- that resolved no id.
+				local dedupe = id or name
+				if name and not already[dedupe] then
+					already[dedupe] = true
+					steps[#steps + 1] = {
+						text = name,
+						spellID = id,
+						whenKey = step.key,
+						bindKey = item.entry.bindKey,
+					}
 				end
 			end
 		end
