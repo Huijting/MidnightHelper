@@ -1021,7 +1021,11 @@ ns._mhLocales.nlNL = {
 	LAYOUT_EXTRA_WEAPON = "Wapen-olie",
 	LAYOUT_EXTRA_DRUMS = "Drums (Bloodlust)",
 	LAYOUT_EXTRA_TRINKET = "On-use trinket",
-	MBUFF_TXT_MISSING = "MIST",
+	-- NIET "MIST": dat leest als nevel, niet als "ontbreekt". Rob zag het op 4 aug
+	-- onder zijn Arcane Intellect en vroeg wat het betekende -- precies de verwarring
+	-- die een waarschuwingslabel niet mag veroorzaken. De andere talen gebruiken
+	-- allemaal een ondubbelzinnige vorm (FEHLT / MANQUANT / FALTA / MANCANTE).
+	MBUFF_TXT_MISSING = "ONTBREEKT",
 	GROUPBUFF_HEADER = "Groeps-buffs",
 	GROUPBUFF_GAP_FMT = "%s — ontbreekt (%d/%d heeft 'm)",
 	GROUPBUFF_SOLO = "Groeps-buffs verschijnen alleen in een party of raid.",
