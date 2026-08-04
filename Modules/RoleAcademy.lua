@@ -587,6 +587,36 @@ end
 -- Spec-aware DPS toolkit (Rob 2026-07-15: the Academy had no DPS role). Your big
 -- damage cooldowns at the top of the DPS track. Verified data lives in
 -- Modules/DpsToolkit.lua. Returns the new y cursor.
+--- "Stay alive" — the buttons in the order a fight needs them.
+---
+--- Built from ns.GetSurvivalPlan, which reads the KeybindRoles classifier rather
+--- than a table written here, so it covers every class the moment it renders.
+---
+--- Silent when there is no plan: a class without classifier data draws nothing at
+--- all rather than an empty heading, because an empty box under "stay alive" reads
+--- as "you have nothing" and that is the opposite of true.
+local function RenderSurvivalPlan(panel, child, y, cw)
+	local steps = ns.GetSurvivalPlan and ns.GetSurvivalPlan()
+	if not steps then
+		return y
+	end
+
+	y = AddToolkitLine(panel, child, cw, y, SL("SURVIVAL_HEAD"), true)
+	y = AddToolkitLine(panel, child, cw, y, "|cff9d9d9d" .. SL("SURVIVAL_INTRO") .. "|r", false)
+
+	local step = 0
+	for _, s in ipairs(steps) do
+		step = step + 1
+		-- Numbered, because the number IS the content: which one first.
+		local line = ("|cffffcc00%d.|r |cffffffff%s|r%s — %s"):format(
+			step, s.text,
+			s.bindKey and (" |cff9d9d9d[" .. s.bindKey .. "]|r") or "",
+			SL(s.whenKey))
+		y = AddToolkitLine(panel, child, cw, y, line, false, s.spellID)
+	end
+	return y - 6
+end
+
 local function RenderDpsToolkit(panel, child, y, cw)
 	local activeID = ns.GetPlayerDpsSpecID and ns.GetPlayerDpsSpecID()
 	local specID = activeID or (ns.GetClassDpsSpecID and ns.GetClassDpsSpecID())
@@ -689,6 +719,10 @@ local function RebuildScrollContent(panel)
 	elseif track == TRACK_TANK then
 		y = RenderTankToolkit(panel, child, y, cw)
 	elseif track == TRACK_DPS then
+		-- Survival first, damage second. Carola dies to rares on a Frost Mage
+		-- (Rob, 4 Aug); the cooldown list below tells her how to kill faster,
+		-- which is not her problem. Order on the page is the advice.
+		y = RenderSurvivalPlan(panel, child, y, cw)
 		y = RenderDpsToolkit(panel, child, y, cw)
 	end
 

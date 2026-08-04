@@ -2580,3 +2580,50 @@ fill("itIT", {
 	PROMPT_ON = "Suggerimento azione ATTIVO — la tua interruzione e la tua dissolvenza, mostrate quando servono. Trascinabile.",
 	PROMPT_OFF = "Suggerimento azione DISATTIVO.",
 })
+
+-- Survival plan (4 aug 2026): je knoppen in de volgorde die een gevecht vraagt.
+fill("deDE", {
+	SURVIVAL_HEAD = "Am Leben bleiben",
+	SURVIVAL_INTRO = "Deine Tasten in der Reihenfolge, die ein Kampf braucht. Lerne die erste, und die meisten Tode hören auf.",
+	SURVIVAL_STEP_KEEPUP = "aufrechterhalten, schon VOR dem Angriff aktivieren",
+	SURVIVAL_STEP_HURTS = "wenn dein Leben schnell fällt",
+	SURVIVAL_STEP_ESCAPE = "um wegzukommen",
+	SURVIVAL_STEP_INTERRUPT = "wenn er etwas zaubert",
+	SURVIVAL_STEP_HEAL = "um dich selbst zu heilen",
+})
+fill("frFR", {
+	SURVIVAL_HEAD = "Rester en vie",
+	SURVIVAL_INTRO = "Vos touches dans l'ordre qu'un combat exige. Apprenez la première et la plupart des morts cessent.",
+	SURVIVAL_STEP_KEEPUP = "à garder actif, activez-le AVANT d'attaquer",
+	SURVIVAL_STEP_HURTS = "quand vos points de vie chutent vite",
+	SURVIVAL_STEP_ESCAPE = "pour vous échapper",
+	SURVIVAL_STEP_INTERRUPT = "quand il incante quelque chose",
+	SURVIVAL_STEP_HEAL = "pour vous soigner",
+})
+fill("esES", {
+	SURVIVAL_HEAD = "Sigue con vida",
+	SURVIVAL_INTRO = "Tus botones en el orden que pide un combate. Aprende el primero y la mayoría de las muertes se acaban.",
+	SURVIVAL_STEP_KEEPUP = "mantenlo activo, actívalo ANTES de atacar",
+	SURVIVAL_STEP_HURTS = "cuando tu salud baja rápido",
+	SURVIVAL_STEP_ESCAPE = "para escapar",
+	SURVIVAL_STEP_INTERRUPT = "cuando está lanzando algo",
+	SURVIVAL_STEP_HEAL = "para curarte",
+})
+fill("ptBR", {
+	SURVIVAL_HEAD = "Continue vivo",
+	SURVIVAL_INTRO = "Seus botões na ordem que um combate exige. Aprenda o primeiro e a maioria das mortes acaba.",
+	SURVIVAL_STEP_KEEPUP = "mantenha ativo, ligue ANTES de atacar",
+	SURVIVAL_STEP_HURTS = "quando sua vida cai rápido",
+	SURVIVAL_STEP_ESCAPE = "para escapar",
+	SURVIVAL_STEP_INTERRUPT = "quando ele estiver conjurando algo",
+	SURVIVAL_STEP_HEAL = "para se curar",
+})
+fill("itIT", {
+	SURVIVAL_HEAD = "Resta vivo",
+	SURVIVAL_INTRO = "I tuoi tasti nell'ordine che serve in combattimento. Impara il primo e la maggior parte delle morti finisce.",
+	SURVIVAL_STEP_KEEPUP = "tienilo attivo, attivalo PRIMA di attaccare",
+	SURVIVAL_STEP_HURTS = "quando la vita scende in fretta",
+	SURVIVAL_STEP_ESCAPE = "per allontanarti",
+	SURVIVAL_STEP_INTERRUPT = "quando sta lanciando qualcosa",
+	SURVIVAL_STEP_HEAL = "per curarti",
+})

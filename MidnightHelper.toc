@@ -83,6 +83,7 @@ Modules\DispelHelper.lua
 Modules\ActionPrompt.lua
 Modules\TankToolkit.lua
 Modules\DpsToolkit.lua
+Modules\SurvivalPlan.lua
 Modules\TankPullSummary.lua
 Modules\DispelCapture.lua
 Modules\SMCChecklistData.lua

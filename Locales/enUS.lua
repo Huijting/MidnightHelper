@@ -458,6 +458,13 @@ ns._mhLocales.enUS = {
 	-- neither the router nor the handler; a hint for a command that answers
 	-- "unknown command" is worse than no hint.
 	INTERRUPT_KICKS_HINT = "Toggle: /mh kicks alert (sound) · /mh kicks who (name the interrupter) · /mh kicks reset.",
+	SURVIVAL_HEAD = "Stay alive",
+	SURVIVAL_INTRO = "Your buttons in the order a fight needs them. Learn the first one and most deaths stop.",
+	SURVIVAL_STEP_KEEPUP = "keep this up, put it on BEFORE you pull",
+	SURVIVAL_STEP_HURTS = "when your health drops fast",
+	SURVIVAL_STEP_ESCAPE = "to get away",
+	SURVIVAL_STEP_INTERRUPT = "when it is casting something",
+	SURVIVAL_STEP_HEAL = "to heal yourself",
 	PROMPT_ON = "Action prompt ON — your interrupt and your dispel, shown when they apply. Drag it where you want it.",
 	PROMPT_OFF = "Action prompt OFF.",
 	INTERRUPT_WHO_ON = "Interrupt credit ON — names who kicked, in dungeons and raids only.",
