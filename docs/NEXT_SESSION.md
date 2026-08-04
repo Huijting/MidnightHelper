@@ -19,7 +19,44 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 | Branch | alleen `main` |
 | Deadline | **12.1 live 11 aug (NA) / 12 aug (EU), Season 2 18 aug.** Officieel bevestigd, niet langer een projectie |
 
-## 📍 Waar we gebleven zijn (3 aug 2026, eind van de avond)
+## 📍 Waar we gebleven zijn (4 aug 2026, eind van de avond)
+
+**Voor Carola gebouwd: de overlevingskaart** (`Modules/SurvivalPlan.lua`), bovenaan
+de DPS-track van de Role Academy. Zij speelt Frost Mage, gaat snel dood bij rares
+en weet niet welke knoppen. De kaart toont haar eigen spells in de volgorde die een
+gevecht vraagt, niet als lijst. Geen nieuwe spell-data: alles komt uit de
+`KeybindRoles_*`-classifier, dus het werkt meteen voor alle dertien klassen.
+
+Vier fouten uit die avond, alle vier gemeten in plaats van beredeneerd — de laatste
+pas nadat ik er drie keer naast had gezeten:
+
+| symptoom | oorzaak |
+|---|---|
+| Alter Time ontbrak | classifier heeft `role` **en** `category`; ik las alleen `role` |
+| "Blink" beloofd, kwam nooit | Mage gebruikt `mobility` niet; Blink zit op `utility_primary` |
+| Shimmer + Greater Invis dubbel | twee sleutels lossen op naar één live spell (vervangingen) |
+| Ice Block ontbrak | **de naam "Ice Block" levert spell 414658 op** — een naamgenoot die Rob niet heeft. Zijn echte is 45438 |
+
+Daaruit volgt een regel die breder geldt dan deze kaart: **naam-opzoeken is niet
+uniek, en `IsPlayerSpell` op een vervangen spell zegt false.** Elke plek in MH die
+zo werkt heeft hetzelfde gat — `GetKnownClassDispels` en de purge-detectie van
+3 aug staan bovenaan die verdenking. Nog niet nagekeken.
+
+Meetgereedschap dat blijft staan: `/mh survival` schrijft per spell weg wat elke
+aanroep teruggeeft. Dat loste het in één run op.
+
+Ook gerepareerd: het Nederlandse `MBUFF_TXT_MISSING` stond op **"MIST"**, wat als
+nevel leest. Nu "ONTBREEKT". Rob vroeg zelf wat het betekende — Carola zou dat niet
+gevraagd hebben.
+
+**Open, met Robs eigen woorden erbij:** hij vindt zijn toetsenoverzicht "zo groot en
+breed, dat is zo onoverzichtelijk". Voorstel besproken maar níet gebouwd: een kaart
+van hooguit acht regels met per rol de spell én **de toets waar hij nu echt onder
+zit**, inclusief "niet ingesteld" waar er geen bind is. `GetActionInfo` en
+`GetBindingKey` zijn beide beschikbaar (geverifieerd). Dat "niet ingesteld" is het
+punt: hij zei zelf dat hij niet alle keys heeft ingevuld.
+
+## 📍 Waar we daarvóór gebleven waren (3 aug 2026)
 
 Rob stopte omdat hij moe was; dit is de plek om weer op te pakken.
 
