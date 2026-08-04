@@ -19,6 +19,44 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 | Branch | alleen `main` |
 | Deadline | **12.1 live 11 aug (NA) / 12 aug (EU), Season 2 18 aug.** Officieel bevestigd, niet langer een projectie |
 
+## 📍 Waar we gebleven zijn (3 aug 2026, eind van de avond)
+
+Rob stopte omdat hij moe was; dit is de plek om weer op te pakken.
+
+**Ongetest en dus het eerste wat moet gebeuren.** Er is die avond veel gebouwd dat
+Rob niet meer heeft kunnen proberen:
+
+| wat | commando | stand |
+|---|---|---|
+| Actie-hint: interrupt + purge in beeld | `/mh prompt` | **nooit werkend gezien.** Twee fouten al gefixt (`84d1470`): verkeerd widgettype en de verkeerde soort dispel |
+| Dispel-indicator naast een groepslid | staat in het targets-paneel | gebouwd, ongetest |
+| Tank bovenaan + oplichtende rij + marker rechts | idem | gebouwd, ongetest |
+
+Testvolgorde voor `/mh prompt`, en houd hem aan — hij scheidt drie soorten fout:
+1. vage gele omlijning buiten gevecht? zo niet: staat niet aan of laadt niet
+2. Silence-icoon bij een onderbreekbare cast
+3. Dispel Magic-icoon bij een vijand met een afneembare buff
+
+Zie je 1 wel en 2/3 niet, dan zit de fout in de detectie en niet meer in het
+tekenen.
+
+**`ns.OFFENSIVE_PURGES` bevat alleen PRIEST (528).** Bewust: de andere klassen zijn
+weggelaten in plaats van gegokt. Vul ze pas aan met geverifieerde ID's zodra Rob
+bevestigt dat het Priest-icoon verschijnt.
+
+**Nog open, los daarvan:**
+- **Lag-test.** Rob merkte hapering na een kill. Nooit uitgevoerd: paneel uit via
+  `/mh partytargets`, een paar pulls, blijft het? Dat is de hele test.
+- **Positieve controle op de combat log** — zie het blok hieronder.
+- **`DISPELLABLE`: "door jou" of "überhaupt"?** Onbeslist, en het bepaalt de
+  woordkeuze van de dispel-helper.
+
+⚠️ **Alles hierboven zit op `main` en in GEEN release.** De `.toc` staat nog op
+2.11.1. Met 12.1 op 11/12 aug moet iemand beslissen wat van deze avond mee mag in
+2.12.0 en wat wacht — het is allemaal ongetest gebruikersfunctionaliteit.
+
+Achtergrond bij de dispel-doorbraak en de concurrent: `docs/SPELLPILOT_TEARDOWN.md`.
+
 ## ⛔ "Wie heeft er onderbroken" — vraag hier niet opnieuw naar zonder dit te lezen
 
 Rob vroeg op 3 aug om hem hieraan te herinneren. De stand, gemeten:
