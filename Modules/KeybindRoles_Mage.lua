@@ -75,7 +75,13 @@ ns.KeybindRoleClassifier.MAGE = {
 
 	-- Extra defensives (category="defensive"; overflow-slots).
 	["Alter Time"] = { category = "defensive", priority = 2 }, -- Frost Shift+Z; DEFENSIVE [342245] (reset HP/pos)
-	["Greater Invisibility"] = { category = "defensive", priority = 3, specs = { 62, 63 } }, -- DEFENSIVE [110959] (Arcane/Fire; def+threatdrop)
+	["Greater Invisibility"] = { category = "defensive", priority = 3 }, -- [110959]; def + threatdrop. GEEN specs-lijst: het is een MAGE-klassentalent, dus alle drie.
+	-- Stond hier als specs={62,63}, en drie geinstalleerde bronnen zeggen zelfs Arcane-only
+	-- (BliZzi PartyCooldowns spec=MAGE_ARCANE; LibOpenRaid Dragonflight en MIDNIGHT allebei
+	-- specs={62}). Rob liet 4 aug zijn talentboom zien op een FROST mage: Greater Invisibility
+	-- rank 1/1, in de klassenboom, "Replaces Invisibility". Waarneming wint van drie tabellen.
+	-- Die "replaces" is ook waarom SurvivalPlan op IsPlayerSpell filtert: wie deze heeft,
+	-- heeft Invisibility [66] NIET, en beide tonen zou een knop noemen die er niet is.
 
 	-- Dispel / CC (V). Frost Nova (root) + Polymorph (CC) baseline; Remove Curse = dispel;
 	-- Ring of Frost = AoE-CC. Dragon's Breath (Fire) staat spec-specifiek onder Fire.
