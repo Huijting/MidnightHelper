@@ -94,6 +94,32 @@ bevestigt dat het Priest-icoon verschijnt.
 
 Achtergrond bij de dispel-doorbraak en de concurrent: `docs/SPELLPILOT_TEARDOWN.md`.
 
+## ⚠️ 12.1-risico op wat we deze week bouwden (uit de API-wachter, 4 aug)
+
+De API-wachter meldt "geen relevante wijzigingen deze week" — correct, want de
+grote 12.1-aurawijzigingen dateren van 15–18 juni en vallen buiten zijn venster.
+Maar ze staan wél in zijn controlenotities, en ze raken precies onze nieuwste code:
+
+> "All of the UnitAura APIs will now either return full secrets or nil when
+> called by addons"
+
+Plus: `C_UnitAuras.TriggerPrivateAuraShowDispelType` **verdwijnt**, en er komt
+nieuwe taint-machinerie (Forbidden Aspects, Private Script Objects,
+UntrustedScriptExecution, `securecopy`, `CreateSecureDelegate`).
+
+Twee dingen van deze week staan daarmee op losse schroeven, en beide zijn op
+**live 12.0.7** gemeten, niet op de PTR:
+
+1. **Dispel-helper** (`AllyHasRemovableAura`, het `HARMFUL|DISPELLABLE`-filter).
+   "Full secrets or nil" kan het filter stil of onbruikbaar maken. Meet dit op de
+   PTR vóór 11 aug, niet erna.
+2. **Party-targets secure buttons.** Daar is op 3 aug al een taint-fout uitgehaald
+   (`786cae1`); nieuwe taint-mechanismen zijn geen goed nieuws voor code die daar
+   net doorheen is.
+
+De aura-facade `ns.Aura` bestaat juist voor dit moment — als het filter valt, is
+dat de plek waar de vervanging hoort.
+
 ## ⛔ "Wie heeft er onderbroken" — vraag hier niet opnieuw naar zonder dit te lezen
 
 Rob vroeg op 3 aug om hem hieraan te herinneren. De stand, gemeten:
