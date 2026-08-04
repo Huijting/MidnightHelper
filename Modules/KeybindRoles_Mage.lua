@@ -71,7 +71,11 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Ice Floes"] = { role = "utility_secondary", priority = 2 }, -- SpellCategories UTILITY [108839]; cast-while-moving (talent)
 
 	-- Grote defensive (C). Ice Block = full immunity, baseline alle specs (DEFENSIVE [45438]).
-	["Ice Block"] = { role = "defensive_3", priority = 1 }, -- C; baseline (45438)
+	["Ice Block"] = { role = "defensive_3", priority = 1, id = 45438 }, -- C; baseline
+	-- EXPLICIET ID, gemeten 4 aug: de NAAM "Ice Block" lost op naar spell 414658, die Rob
+	-- niet heeft -- een naamgenoot wint de lookup. Zijn echte Ice Block is 45438 (tooltip in
+	-- zijn talentboom, en DPS_DEFENSIVES gebruikt hetzelfde id). Zonder dit veld viel de
+	-- sterkste defensive van de klasse van de overlevingskaart, als "je hebt hem niet".
 
 	-- Extra defensives (category="defensive"; overflow-slots).
 	["Alter Time"] = { category = "defensive", priority = 2 }, -- Frost Shift+Z; DEFENSIVE [342245] (reset HP/pos)

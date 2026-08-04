@@ -56,6 +56,7 @@ local _, ns = ...
 --- a real escape tool for a mage. The same category holds Polymorph and Remove
 --- Curse, so including it would put crowd control under "stay alive" for every
 --- class. Four right rows beat seven with two wrong ones.
+---
 --- `survival` — an explicit third field, added 4 Aug.
 ---
 --- Rob wanted Frost Nova and Blink on the card. Neither can be derived: Blink is
@@ -104,20 +105,15 @@ local function AppliesTo(entry, specID)
 	return false
 end
 
---- Live name + id for a classifier key.
+--- Live name + id for a classifier entry.
 ---
---- The classifier entries carry NO spell id — the ids appear only in the trailing
---- comments, and the table is keyed by the English spell name because the addon
---- matches those against the live spellbook. So the id is resolved from the name,
---- which is the mechanism the classifier was designed around.
+--- The table is keyed by the English spell name and matched against the live
+--- spellbook, which is the mechanism the classifier was designed around. Resolving
+--- through it buys a tooltip on the row and the name the player actually sees —
+--- the key is English, so on a German client it would otherwise name a spell that
+--- is not on their bar. An entry may override the lookup with an explicit `id`
+--- where the name is ambiguous; see below.
 ---
---- Two things this buys: a tooltip on the row, and the name as the player actually
---- sees it. The key is English, so on a German or French client it would otherwise
---- name a spell that is not on their bar.
----
---- Falls back to the key. A spell that cannot be resolved is more likely one this
---- character has not learned than a broken entry, and showing the English name is
---- honest where inventing an id would not be.
 --- @return string|nil name, number|nil spellID  — nil when the player lacks it
 ---
 --- ⚠️ The known-check is not a nicety, it is what makes the card true. Blink and
@@ -131,11 +127,24 @@ end
 ---
 --- Fails open: if IsPlayerSpell is missing we show the row. A card with one row
 --- too many is repairable by eye; one silently missing your panic button is not.
-local function LiveName(key)
+local function LiveName(key, entry)
 	if not (C_Spell and C_Spell.GetSpellInfo) then
 		return key, nil
 	end
-	local ok, info = pcall(C_Spell.GetSpellInfo, key)
+
+	-- An explicit id beats the name, because names are not unique.
+	--
+	-- Measured 4 Aug on Rob's Frost Mage: the name "Ice Block" resolves to spell
+	-- 414658, which he does not have — while his actual Ice Block is 45438. Some
+	-- other spell shares the name and wins the lookup, so the row was dropped as
+	-- "you do not own this" and I twice built a theory on the gap.
+	--
+	-- Names still work for the rest, and work well: "Blink" returned 212653
+	-- (Shimmer) and "Invisibility" returned 110959 (Greater Invisibility), both
+	-- correctly following the talent override. So the id is only needed where a
+	-- name collides, and each one added must come from a verified source.
+	local lookup = (entry and entry.id) or key
+	local ok, info = pcall(C_Spell.GetSpellInfo, lookup)
 	if not (ok and type(info) == "table" and info.spellID) then
 		return nil
 	end
@@ -318,7 +327,7 @@ function ns.GetSurvivalPlan(specID)
 			for _, item in ipairs(bucket) do
 				-- A spell carrying both a role and a category would otherwise be
 				-- listed twice under the same step.
-				local name, id = LiveName(item.key)
+				local name, id = LiveName(item.key, item.entry)
 				-- nil means this character does not have it. Skip in silence:
 				-- naming a spell someone cannot cast is worse than a short card.
 				--
