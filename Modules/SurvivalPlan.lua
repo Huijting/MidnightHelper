@@ -139,14 +139,53 @@ local function LiveName(key)
 	if not (ok and type(info) == "table" and info.spellID) then
 		return nil
 	end
-	if IsPlayerSpell then
-		local kOk, known = pcall(IsPlayerSpell, info.spellID)
-		if kOk and known ~= true then
-			return nil
+	local id = info.spellID
+
+	-- Follow the replacement.
+	--
+	-- Rob's Ice Block reads "Replaced by Ice Cold" and vanished from his card:
+	-- IsPlayerSpell(45438) is false once a talent overrides it, so the check that
+	-- correctly drops spells you lack also dropped one you own. I told him he had
+	-- no Ice Block. He had it, under another name.
+	--
+	-- Following the override fixes both halves at once — the row reappears, and it
+	-- appears as the spell actually on his bar.
+	if C_Spell.GetOverrideSpell then
+		local oOk, over = pcall(C_Spell.GetOverrideSpell, id)
+		if oOk and type(over) == "number" and over ~= 0 then
+			id = over
 		end
 	end
+
+	-- Known? Two sources, because IsPlayerSpell alone was the fault above.
+	-- `nil` means undecided and shows the row: a card with one row too many can be
+	-- spotted, one silently missing your panic button cannot.
+	local known
+	if IsPlayerSpell then
+		local kOk, k = pcall(IsPlayerSpell, id)
+		if kOk then
+			known = k
+		end
+	end
+	if known ~= true and C_SpellBook and C_SpellBook.IsSpellKnown then
+		local kOk, k = pcall(C_SpellBook.IsSpellKnown, id)
+		if kOk and k == true then
+			known = true
+		end
+	end
+	if known == false then
+		return nil
+	end
+
+	-- Name the spell the player sees, not the one the table is keyed by.
 	local name = (type(info.name) == "string" and info.name ~= "") and info.name or key
-	return name, info.spellID
+	if id ~= info.spellID then
+		local nOk, nInfo = pcall(C_Spell.GetSpellInfo, id)
+		if nOk and type(nInfo) == "table" and type(nInfo.name) == "string" and nInfo.name ~= "" then
+			name = nInfo.name
+		end
+	end
+	return name, id
 end
 
 --- @return table|nil steps  { { text, spellID, whenKey }, ... } in press order
