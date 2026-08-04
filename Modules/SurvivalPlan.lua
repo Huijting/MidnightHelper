@@ -35,16 +35,35 @@ local _, ns = ...
 	explanations would be 25 chances to be wrong about a class nobody here plays.
 ]]
 
---- Roles in the order a fight actually happens, with the sentence each one earns.
---- Order is the whole feature: a list would have told her nothing new.
+--- Steps in the order a fight actually happens.
+---
+--- ⚠️ CORRECTED 4 Aug, after Rob checked it on the Frost Mage the first version was
+--- written for. Two structural mistakes:
+---
+--- 1. The classifier has TWO fields, not one. `role` is the fixed key slots
+---    (defensive_1..4, interrupt, …) and `category` is everything that did not
+---    earn its own key (defensive, selfheal, dispel_cc, …). Reading only `role`
+---    dropped **Alter Time**, which is `category = "defensive"` — a defensive, on
+---    the very spec this was built for.
+--- 2. `mobility` is a real role (key R in KeybindSchema) but Mage does not use it:
+---    Blink sits at `utility_primary` (Q). And `utility_primary` means general
+---    utility in the schema, not escape — on another class it is something else
+---    entirely. So "how do I get away" CANNOT be derived reliably, and the first
+---    version claimed it could. It is now only shown where a class genuinely uses
+---    the `mobility` role, and skipped in silence otherwise.
+---
+--- `dispel_cc` is deliberately left out even though Frost Nova lives there and is
+--- a real escape tool for a mage. The same category holds Polymorph and Remove
+--- Curse, so including it would put crowd control under "stay alive" for every
+--- class. Four right rows beat seven with two wrong ones.
 local PLAN = {
-	{ role = "defensive_1", key = "SURVIVAL_STEP_KEEPUP" },
-	{ role = "defensive_2", key = "SURVIVAL_STEP_HURTS" },
-	{ role = "defensive_3", key = "SURVIVAL_STEP_HURTS" },
-	{ role = "defensive_4", key = "SURVIVAL_STEP_HURTS" },
-	{ role = "mobility", key = "SURVIVAL_STEP_ESCAPE" },
-	{ role = "interrupt", key = "SURVIVAL_STEP_INTERRUPT" },
-	{ role = "heal_quick", key = "SURVIVAL_STEP_HEAL" },
+	{ roles = { "defensive_1" }, key = "SURVIVAL_STEP_KEEPUP" },
+	{ roles = { "defensive_2", "defensive_3", "defensive_4" }, categories = { "defensive" },
+		key = "SURVIVAL_STEP_HURTS" },
+	{ roles = { "heal_quick", "heal_ooc", "heal_sustain" }, categories = { "selfheal" },
+		key = "SURVIVAL_STEP_HEAL" },
+	{ roles = { "mobility" }, key = "SURVIVAL_STEP_ESCAPE" },
+	{ roles = { "interrupt" }, categories = { "interrupt" }, key = "SURVIVAL_STEP_INTERRUPT" },
 }
 
 local function ClassTable()
@@ -110,22 +129,35 @@ function ns.GetSurvivalPlan(specID)
 		specID = idx and GetSpecializationInfo(idx) or nil
 	end
 
-	local byRole = {}
+	-- Index by role AND by category, since a spell may be classified either way.
+	local byRole, byCategory = {}, {}
 	for key, entry in pairs(tbl) do
-		if type(entry) == "table" and entry.role and AppliesTo(entry, specID) then
-			local bucket = byRole[entry.role]
-			if not bucket then
-				bucket = {}
-				byRole[entry.role] = bucket
+		if type(entry) == "table" and AppliesTo(entry, specID) then
+			if entry.role then
+				byRole[entry.role] = byRole[entry.role] or {}
+				table.insert(byRole[entry.role], { key = key, entry = entry })
 			end
-			bucket[#bucket + 1] = { key = key, entry = entry }
+			if entry.category then
+				byCategory[entry.category] = byCategory[entry.category] or {}
+				table.insert(byCategory[entry.category], { key = key, entry = entry })
+			end
 		end
 	end
 
-	local steps = {}
+	local steps, already = {}, {}
 	for _, step in ipairs(PLAN) do
-		local bucket = byRole[step.role]
-		if bucket then
+		local bucket = {}
+		for _, r in ipairs(step.roles or {}) do
+			for _, item in ipairs(byRole[r] or {}) do
+				bucket[#bucket + 1] = item
+			end
+		end
+		for _, c in ipairs(step.categories or {}) do
+			for _, item in ipairs(byCategory[c] or {}) do
+				bucket[#bucket + 1] = item
+			end
+		end
+		if #bucket > 0 then
 			-- Priority first, then alphabetically, so the same spec always renders
 			-- in the same order. A card that reshuffles between logins is one
 			-- nobody learns from.
@@ -137,13 +169,18 @@ function ns.GetSurvivalPlan(specID)
 				return a.key < b.key
 			end)
 			for _, item in ipairs(bucket) do
-				local name, id = LiveName(item.key)
-				steps[#steps + 1] = {
-					text = name,
-					spellID = id,
-					whenKey = step.key,
-					bindKey = item.entry.bindKey,
-				}
+				-- A spell carrying both a role and a category would otherwise be
+				-- listed twice under the same step.
+				if not already[item.key] then
+					already[item.key] = true
+					local name, id = LiveName(item.key)
+					steps[#steps + 1] = {
+						text = name,
+						spellID = id,
+						whenKey = step.key,
+						bindKey = item.entry.bindKey,
+					}
+				end
 			end
 		end
 	end
