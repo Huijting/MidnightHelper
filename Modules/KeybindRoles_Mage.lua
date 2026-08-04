@@ -66,8 +66,8 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Counterspell"] = { role = "interrupt", priority = 1 }, -- InterruptAbilities.lua [2139] kind=interrupt pri=1
 
 	-- Movement (Q). Blink = baseline; Shimmer = talent-vervanger (Shift+Q / 2e charge-variant).
-	["Blink"] = { role = "utility_primary", priority = 1 }, -- SpellCategories UTILITY [1953]; GapCloser
-	["Shimmer"] = { role = "utility_primary", priority = 2 }, -- SpellCategories UTILITY [212653]; GapCloser (talent)
+	["Blink"] = { role = "utility_primary", priority = 1, survival = "escape" }, -- SpellCategories UTILITY [1953]; GapCloser
+	["Shimmer"] = { role = "utility_primary", priority = 2, survival = "escape" }, -- SpellCategories UTILITY [212653]; GapCloser (talent)
 	["Ice Floes"] = { role = "utility_secondary", priority = 2 }, -- SpellCategories UTILITY [108839]; cast-while-moving (talent)
 
 	-- Grote defensive (C). Ice Block = full immunity, baseline alle specs (DEFENSIVE [45438]).
@@ -79,7 +79,7 @@ ns.KeybindRoleClassifier.MAGE = {
 
 	-- Dispel / CC (V). Frost Nova (root) + Polymorph (CC) baseline; Remove Curse = dispel;
 	-- Ring of Frost = AoE-CC. Dragon's Breath (Fire) staat spec-specifiek onder Fire.
-	["Frost Nova"] = { category = "dispel_cc", priority = 1 }, -- CROWD_CONTROL [122]; baseline root
+	["Frost Nova"] = { category = "dispel_cc", priority = 1, survival = "escape" }, -- CROWD_CONTROL [122]; baseline root
 	["Polymorph"] = { category = "dispel_cc", priority = 2 }, -- CROWD_CONTROL [118]; baseline CC
 	["Remove Curse"] = { category = "dispel_cc", priority = 3 }, -- UTILITY [475]; baseline curse-dispel
 	["Ring of Frost"] = { category = "dispel_cc", priority = 4 }, -- CROWD_CONTROL [113724]; AoE-CC (talent)
@@ -89,7 +89,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Spellsteal"] = { category = "dispel_cc", priority = 6 }, -- [30449]; offensieve dispel (steelt enemy-buff) -> dispel_cc, geen zuivere utility
 	["Mirror Image"] = { category = "defensive", priority = 5 }, -- [55342]; damage-reduction + threatdrop CD/def (BliZzi PartyCooldowns cat=DEF affects=self); functioneel defensive, NOOIT heal/spender
 	["Time Warp"] = { category = "utility", priority = 2 }, -- UTILITY [80353]; raid-haste (baseline)
-	["Invisibility"] = { category = "utility", priority = 4 }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
+	["Invisibility"] = { category = "utility", priority = 4, survival = "escape" }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
 
 	--==============================================================================
 	-- ARCANE (spec 62) - ranged DPS. Builder = Arcane Blast; spenders = Arcane Barrage /

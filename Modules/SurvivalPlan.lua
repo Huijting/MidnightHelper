@@ -56,14 +56,30 @@ local _, ns = ...
 --- a real escape tool for a mage. The same category holds Polymorph and Remove
 --- Curse, so including it would put crowd control under "stay alive" for every
 --- class. Four right rows beat seven with two wrong ones.
+--- `survival` — an explicit third field, added 4 Aug.
+---
+--- Rob wanted Frost Nova and Blink on the card. Neither can be derived: Blink is
+--- `utility_primary` because that is the key it belongs on, and Frost Nova is
+--- `dispel_cc` alongside Polymorph and Remove Curse. Both classifications are
+--- correct for what they are for — deciding keys — and wrong for this question.
+---
+--- Rather than bend `role` or `category`, which would move keybinds and change
+--- what the allocator does, an entry may now carry `survival = "<step>"`. It says
+--- one thing only: this spell belongs on the survival card, at this step. Nothing
+--- else reads it.
+---
+--- The cost is that it must be tagged per class by hand, and the benefit is that
+--- it is a deliberate judgement per spell instead of a rule that guesses right for
+--- mages and wrong for paladins.
 local PLAN = {
-	{ roles = { "defensive_1" }, key = "SURVIVAL_STEP_KEEPUP" },
-	{ roles = { "defensive_2", "defensive_3", "defensive_4" }, categories = { "defensive" },
-		key = "SURVIVAL_STEP_HURTS" },
-	{ roles = { "heal_quick", "heal_ooc", "heal_sustain" }, categories = { "selfheal" },
-		key = "SURVIVAL_STEP_HEAL" },
-	{ roles = { "mobility" }, key = "SURVIVAL_STEP_ESCAPE" },
-	{ roles = { "interrupt" }, categories = { "interrupt" }, key = "SURVIVAL_STEP_INTERRUPT" },
+	{ survival = "keepup", roles = { "defensive_1" }, key = "SURVIVAL_STEP_KEEPUP" },
+	{ survival = "hurts", roles = { "defensive_2", "defensive_3", "defensive_4" },
+		categories = { "defensive" }, key = "SURVIVAL_STEP_HURTS" },
+	{ survival = "heal", roles = { "heal_quick", "heal_ooc", "heal_sustain" },
+		categories = { "selfheal" }, key = "SURVIVAL_STEP_HEAL" },
+	{ survival = "escape", roles = { "mobility" }, key = "SURVIVAL_STEP_ESCAPE" },
+	{ survival = "interrupt", roles = { "interrupt" }, categories = { "interrupt" },
+		key = "SURVIVAL_STEP_INTERRUPT" },
 }
 
 local function ClassTable()
@@ -102,16 +118,35 @@ end
 --- Falls back to the key. A spell that cannot be resolved is more likely one this
 --- character has not learned than a broken entry, and showing the English name is
 --- honest where inventing an id would not be.
+--- @return string|nil name, number|nil spellID  — nil when the player lacks it
+---
+--- ⚠️ The known-check is not a nicety, it is what makes the card true. Blink and
+--- Shimmer are both classified for Mage, but Shimmer is a talent that REPLACES
+--- Blink — nobody has both, and the first version listed both. Same for Mirror
+--- Image, Greater Invisibility and every other talent entry.
+---
+--- `C_Spell.GetSpellInfo` answers for spells that merely EXIST, so it cannot carry
+--- this on its own; `IsPlayerSpell` is the filter, the same one
+--- `ns.GetKnownClassDispels` already uses so the two agree about what you own.
+---
+--- Fails open: if IsPlayerSpell is missing we show the row. A card with one row
+--- too many is repairable by eye; one silently missing your panic button is not.
 local function LiveName(key)
 	if not (C_Spell and C_Spell.GetSpellInfo) then
 		return key, nil
 	end
 	local ok, info = pcall(C_Spell.GetSpellInfo, key)
-	if ok and type(info) == "table" and info.spellID then
-		local name = (type(info.name) == "string" and info.name ~= "") and info.name or key
-		return name, info.spellID
+	if not (ok and type(info) == "table" and info.spellID) then
+		return nil
 	end
-	return key, nil
+	if IsPlayerSpell then
+		local kOk, known = pcall(IsPlayerSpell, info.spellID)
+		if kOk and known ~= true then
+			return nil
+		end
+	end
+	local name = (type(info.name) == "string" and info.name ~= "") and info.name or key
+	return name, info.spellID
 end
 
 --- @return table|nil steps  { { text, spellID, whenKey }, ... } in press order
@@ -129,8 +164,8 @@ function ns.GetSurvivalPlan(specID)
 		specID = idx and GetSpecializationInfo(idx) or nil
 	end
 
-	-- Index by role AND by category, since a spell may be classified either way.
-	local byRole, byCategory = {}, {}
+	-- Index by all three fields, since a spell may be classified any of the ways.
+	local byRole, byCategory, bySurvival = {}, {}, {}
 	for key, entry in pairs(tbl) do
 		if type(entry) == "table" and AppliesTo(entry, specID) then
 			if entry.role then
@@ -141,12 +176,21 @@ function ns.GetSurvivalPlan(specID)
 				byCategory[entry.category] = byCategory[entry.category] or {}
 				table.insert(byCategory[entry.category], { key = key, entry = entry })
 			end
+			if entry.survival then
+				bySurvival[entry.survival] = bySurvival[entry.survival] or {}
+				table.insert(bySurvival[entry.survival], { key = key, entry = entry })
+			end
 		end
 	end
 
 	local steps, already = {}, {}
 	for _, step in ipairs(PLAN) do
 		local bucket = {}
+		-- Explicitly tagged spells join the same bucket; the sort below decides the
+		-- final order by priority, so a tag adds a row without jumping the queue.
+		for _, item in ipairs(step.survival and bySurvival[step.survival] or {}) do
+			bucket[#bucket + 1] = item
+		end
 		for _, r in ipairs(step.roles or {}) do
 			for _, item in ipairs(byRole[r] or {}) do
 				bucket[#bucket + 1] = item
@@ -174,12 +218,16 @@ function ns.GetSurvivalPlan(specID)
 				if not already[item.key] then
 					already[item.key] = true
 					local name, id = LiveName(item.key)
-					steps[#steps + 1] = {
-						text = name,
-						spellID = id,
-						whenKey = step.key,
-						bindKey = item.entry.bindKey,
-					}
+					-- nil means this character does not have it. Skip in silence:
+					-- naming a spell someone cannot cast is worse than a short card.
+					if name then
+						steps[#steps + 1] = {
+							text = name,
+							spellID = id,
+							whenKey = step.key,
+							bindKey = item.entry.bindKey,
+						}
+					end
 				end
 			end
 		end
