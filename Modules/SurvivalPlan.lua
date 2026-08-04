@@ -253,6 +253,36 @@ function ns.SaveSurvivalProbe()
 				local kOk, k = pcall(C_SpellBook.IsSpellKnown, rec.byNameID)
 				rec.isSpellKnown = kOk and tostring(k) or "ERR"
 			end
+			-- The by-ID route, which the 4 Aug run never measured because the
+			-- explicit `id` field was added after it. Ice Block still did not
+			-- appear with id = 45438 set, so the fault is somewhere in THIS chain
+			-- and these four values say where.
+			if entry.id then
+				rec.explicitID = entry.id
+				local iOk, iInfo = pcall(C_Spell and C_Spell.GetSpellInfo, entry.id)
+				rec.byIdOk = iOk and true or false
+				rec.byIdName = (iOk and type(iInfo) == "table") and iInfo.name or "NIL"
+				rec.byIdID = (iOk and type(iInfo) == "table") and iInfo.spellID or "NIL"
+				if C_Spell and C_Spell.GetOverrideSpell then
+					local oOk, over = pcall(C_Spell.GetOverrideSpell, entry.id)
+					rec.byIdOverride = oOk and over or "ERR"
+					if oOk and type(over) == "number" and over ~= 0 and IsPlayerSpell then
+						local kOk, k = pcall(IsPlayerSpell, over)
+						rec.byIdOverrideKnown = kOk and tostring(k) or "ERR"
+						local nOk, nInfo = pcall(C_Spell.GetSpellInfo, over)
+						rec.byIdOverrideName = (nOk and type(nInfo) == "table") and nInfo.name or "NIL"
+					end
+				end
+				if IsPlayerSpell then
+					local kOk, k = pcall(IsPlayerSpell, entry.id)
+					rec.byIdIsPlayerSpell = kOk and tostring(k) or "ERR"
+				end
+				if C_SpellBook and C_SpellBook.IsSpellKnown then
+					local kOk, k = pcall(C_SpellBook.IsSpellKnown, entry.id)
+					rec.byIdIsSpellKnown = kOk and tostring(k) or "ERR"
+				end
+			end
+
 			out.keys[#out.keys + 1] = rec
 		end
 	end
