@@ -1024,6 +1024,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh survival — record why a spell is or is not on the survival card.
+	if msg == "survival" then
+		if ns.SaveSurvivalProbe then
+			ns.SaveSurvivalProbe()
+		end
+		return
+	end
+
 	-- /mh prompt — the on-screen "what do I press": your interrupt when the target
 	-- casts something interruptible, your dispel when it carries something removable.
 	if msg == "prompt" then

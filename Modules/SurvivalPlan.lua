@@ -188,6 +188,70 @@ local function LiveName(key)
 	return name, id
 end
 
+--- `/mh survival` — why is a spell missing from the card?
+---
+--- Ice Block did not appear on Rob's Frost Mage. It is talented, rank 1/1, and the
+--- tooltip says "Replaced by Ice Cold". I have now guessed at the cause three
+--- times: first that he did not have it, then that IsPlayerSpell was the filter to
+--- fix, then that following GetOverrideSpell would fix it. All three shipped, none
+--- worked. So this records what each call actually returns per classifier key
+--- instead of me reasoning about what they ought to.
+---
+--- Note the shape of the failure: `DpsToolkit` shows Ice Block fine, and it holds
+--- the spell ID. This file only has the English NAME. The likeliest answer is that
+--- a name lookup stops resolving once the spell is overridden — but likeliest is
+--- what the last three attempts were built on.
+function ns.SaveSurvivalProbe()
+	if not ns.db then
+		print("|cffff8080Midnight Helper:|r saved variables are not ready.")
+		return
+	end
+	local tbl = ClassTable()
+	if not tbl then
+		print("|cffff8080Midnight Helper:|r no classifier for this class.")
+		return
+	end
+	local specID
+	if GetSpecialization and GetSpecializationInfo then
+		local idx = GetSpecialization()
+		specID = idx and GetSpecializationInfo(idx) or nil
+	end
+
+	local out = { specID = specID, keys = {} }
+	for key, entry in pairs(tbl) do
+		if type(entry) == "table" and (entry.role or entry.category or entry.survival)
+			and AppliesTo(entry, specID) then
+			local rec = { key = key, role = entry.role, category = entry.category, survival = entry.survival }
+
+			local ok, info = pcall(C_Spell and C_Spell.GetSpellInfo, key)
+			rec.infoOk = ok and true or false
+			if ok and type(info) == "table" then
+				rec.byNameID = info.spellID
+				rec.byNameName = info.name
+			else
+				rec.byNameID = "NIL"
+			end
+
+			if rec.byNameID and rec.byNameID ~= "NIL" and C_Spell and C_Spell.GetOverrideSpell then
+				local oOk, over = pcall(C_Spell.GetOverrideSpell, rec.byNameID)
+				rec.override = oOk and over or "ERR"
+			end
+			if rec.byNameID and rec.byNameID ~= "NIL" and IsPlayerSpell then
+				local kOk, k = pcall(IsPlayerSpell, rec.byNameID)
+				rec.isPlayerSpell = kOk and tostring(k) or "ERR"
+			end
+			if rec.byNameID and rec.byNameID ~= "NIL" and C_SpellBook and C_SpellBook.IsSpellKnown then
+				local kOk, k = pcall(C_SpellBook.IsSpellKnown, rec.byNameID)
+				rec.isSpellKnown = kOk and tostring(k) or "ERR"
+			end
+			out.keys[#out.keys + 1] = rec
+		end
+	end
+
+	ns.db.survivalProbe = out
+	print(("|cffffcc00Midnight Helper:|r survival probe saved (%d entries). |cffffffff/reload|r."):format(#out.keys))
+end
+
 --- @return table|nil steps  { { text, spellID, whenKey }, ... } in press order
 ---
 --- Returns nil rather than an empty table when this class has no classifier data,
