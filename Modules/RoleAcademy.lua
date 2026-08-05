@@ -664,18 +664,19 @@ local function RenderDpsToolkit(panel, child, y, cw)
 			y = AddToolkitLine(panel, child, cw, y, line, false, c.id)
 		end
 	end
-	local defs = shownEntries(ns.GetDpsDefensives and ns.GetDpsDefensives(specID))
-	if #defs > 0 then
-		y = y - 4
-		y = AddToolkitLine(panel, child, cw, y, SL("DPSKIT_DEF_HEAD"), true)
-		for _, d in ipairs(defs) do
-			local cdText = d.cd and (" |cff9d9d9d(" .. ns.FormatHealerCooldown(d.cd) .. ")|r") or ""
-			local line = ("|cff40a0ff[%s]|r |cffffd100%s|r%s"):format(
-				SL("DPSKIT_TAG_DEF"), ns.HealerCooldownSpellName(d.id), cdText
-			)
-			y = AddToolkitLine(panel, child, cw, y, line, false, d.id)
-		end
-	end
+	-- The "personal defensives" block used to sit here and was removed on 5 Aug,
+	-- Rob's call. The survival card above it lists the same spells AND says when to
+	-- press them, so this repeated them with less information.
+	--
+	-- It was also actively confusing: this block names spells by their base id, so
+	-- Rob's card read "Ice Cold" at the top and "Ice Block" here — one button under
+	-- two names on one page. Fixing the name would have kept the duplication;
+	-- deleting the block removes both problems, and the page now reads simply:
+	-- stay alive, then do damage.
+	--
+	-- `ns.DPS_DEFENSIVES` and `ns.GetDpsDefensives` are deliberately left in
+	-- DpsToolkit.lua. Nothing renders them now, but they are verified per-spec data
+	-- and the obvious source for a future "is your defensive off cooldown" cue.
 	y = AddDispelSection(panel, child, y, cw)
 	return y - 10
 end
