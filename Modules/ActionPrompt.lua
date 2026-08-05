@@ -80,6 +80,28 @@ local function MakeIcon(parent, index)
 	f.border:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 2, -2)
 	f.border:SetColorTexture(1, 0.82, 0.2, 0.55)
 	f.border:SetDrawLayer("BACKGROUND")
+
+	-- A word, not just an icon. Rob, 5 Aug: an icon lighting up is easy to miss,
+	-- and Carola is learning which button to press — "INTERRUPT" tells her what to
+	-- do, the icon tells her which key.
+	--
+	-- ⚠️ THE TEXT IS A CHILD OF THIS BUTTON ON PURPOSE. It inherits the button's
+	-- alpha, and that alpha is set by the engine from a secret through
+	-- SetAlphaFromBoolean. So the word appears exactly when the cast is
+	-- interruptible, and our Lua never asks whether it is.
+	--
+	-- This is also why there is no SOUND. Playing one means deciding to play it,
+	-- and deciding requires reading the secret. Drawing can be delegated to the
+	-- engine; a decision cannot. If a sound is ever wanted it needs a different,
+	-- readable trigger — not this one.
+	f.word = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	if ns.MHScalableFont then
+		f.word:SetFontObject(ns.MHScalableFont("GameFontNormalLarge"))
+	end
+	f.word:SetPoint("TOP", f, "BOTTOM", 0, -2)
+	f.word:SetTextColor(1, 0.35, 0.25)
+	f.word:SetText("")
+
 	f:SetAlpha(0)
 	return f
 end
@@ -215,6 +237,9 @@ local function UpdateInterrupt()
 	end
 
 	f.tex:SetTexture(interruptTex)
+	if f.word then
+		f.word:SetText((ns.L and ns:L("PROMPT_WORD_INTERRUPT")) or "INTERRUPT")
+	end
 	if f.SetAlphaFromBoolean then
 		-- Argument order taken from CombatSafety.lua:462, which is working code:
 		-- (value, alphaWhenTrue, alphaWhenFalse). We want the opposite of
@@ -256,6 +281,11 @@ local function UpdateDispel()
 	local ok, _, firstSlot = pcall(C_UnitAuras.GetAuraSlots, "target", "HELPFUL|DISPELLABLE", 1)
 	if ok and firstSlot ~= nil then
 		f.tex:SetTexture(tex)
+		-- Readable case: GetAuraSlots answered, so this branch is allowed and the
+		-- word can simply be set alongside the alpha.
+		if f.word then
+			f.word:SetText((ns.L and ns:L("PROMPT_WORD_PURGE")) or "PURGE")
+		end
 		f:SetAlpha(1)
 	else
 		f:SetAlpha(0)
