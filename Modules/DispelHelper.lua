@@ -365,6 +365,12 @@ end
 --- teaches someone the wrong button, which is worse than showing nothing.
 ns.OFFENSIVE_PURGES = {
 	PRIEST = { id = 528, types = { "magic" } },
+	-- Added 5 Aug: Rob switched to his Frost Mage to test the action prompt and the
+	-- purge half could not have worked — a mage's offensive dispel is Spellsteal,
+	-- and only Priest was listed. Three sources agree on 30449:
+	-- JustAC/Data/SpellCategories.lua:514, SpellPilot/Classes/Removals.lua:25, and
+	-- our own KeybindRoles_Mage.lua:99 ("offensieve dispel, steelt enemy-buff").
+	MAGE = { id = 30449, types = { "magic" } },
 }
 
 local cachedPurgeIcon, cachedPurgeSpell, purgeResolved
