@@ -9,7 +9,7 @@ All notable changes to this project are documented in this file.
 - Fixed: the route arrow was nearly invisible against dark ground. Its halo was black, which only ever helped on bright backgrounds. A pale glow now sits outside the dark edge, so it reads on both.
 - New: `/mh arrow` reports who is guiding you, whether a route ever published a target, and which addon is standing in the way. Standing down on purpose and being broken looked identical from outside.
 - New: Stay alive, at the top of the Role Academy's DPS track - your own buttons in the order a fight needs them. Assembled from the keybind role data, so it covers every class, and resolved against your live spellbook, so a spell replaced by a talent shows the name on your bars rather than the one in our table.
-- New: `/mh kicks who` names whoever landed an interrupt. Dungeons and raids only: the combat log is refused in delves, ritual scenarios, follower dungeons and (measured three times) Timewalking.
+- Present but unannounced, because none of the three has been seen working: `/mh prompt` (your interrupt and your purge shown when they apply), the dispel indicator beside a party member, and `/mh kicks who` (naming whoever landed an interrupt). All three are off or silent by default and fail without a sound. They will be announced in the release where somebody has watched them do their job.
 - Fixed: the welcome popup promised Alt+M opens the addon. That binding is only applied while the key is free, so for some players the first sentence the addon spoke was untrue. It now points at `/mh` and offers the keybind as something you set.
 - Fixed: two Dutch labels said something other than what they meant - the missing-buff marker read "MIST", which is the Dutch word for fog.
 

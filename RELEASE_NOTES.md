@@ -33,8 +33,5 @@ The welcome popup no longer promises that Alt+M opens the addon. That key is onl
 assigned when it happens to be free, so for some players the first thing this addon said
 was untrue. It now points at `/mh`.
 
-Two Dutch labels said something other than what they meant.
-
-`/mh kicks who` is new: switch it on and a line in chat names whoever landed an
-interrupt, and the spell they stopped. Dungeons and raids only — the combat log it
-reads is refused in delves, ritual sites and follower dungeons.
+Two Dutch labels said something other than what they meant, and the crest guide no
+longer mentions a weekly cap that does not exist.
