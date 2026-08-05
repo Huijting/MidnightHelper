@@ -1024,6 +1024,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh arrow — why is the route arrow not guiding? Prints who is driving and
+	-- whether a route ever handed us a target.
+	if msg == "arrow" then
+		if ns.PrintArrowStatus then
+			ns.PrintArrowStatus()
+		end
+		return
+	end
+
 	-- /mh survival — record why a spell is or is not on the survival card.
 	if msg == "survival" then
 		if ns.SaveSurvivalProbe then

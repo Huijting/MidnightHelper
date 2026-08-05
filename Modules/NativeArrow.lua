@@ -635,3 +635,78 @@ end
 if C_Timer and C_Timer.NewTicker then
 	C_Timer.NewTicker(1.0, Tick)
 end
+
+--------------------------------------------------------------------------------
+-- `/mh arrow` — why is the arrow not guiding me?
+--------------------------------------------------------------------------------
+
+--- Carola's routes show their bottom line and then nothing happens: no arrow, and
+--- the stops never move on. The same route works on Rob's machine and on Cisca's.
+--- (Rob, 5 Aug.)
+---
+--- What is already ruled out, by him rather than by me: TomTom is switched OFF on
+--- her machine, so the TomTom stand-down is not it. She does get an arrow from
+--- Zygor, which this module knows nothing about and never yields to.
+---
+--- What remains cannot be seen from here, and this module makes it invisible by
+--- design — it hides itself for WaypointUI, and it draws nothing when no route
+--- ever handed it a lead. From the player's side those are the same thing: broken.
+---
+--- The distinction to read off the report, rather than reason about:
+---   • no lead at all       -> the route never published one; the fault is upstream
+---   • WaypointUI present   -> our arrow hides on purpose, stops still advance
+---   • TomTom arrow shown   -> we stand down fully, and advancing stops too
+--- Rob reports BOTH symptoms, and TomTom is off, so the first line is the one to
+--- look at first.
+function ns.PrintArrowStatus()
+	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+	local function yn(v)
+		if v == nil then
+			return "|cff9d9d9d?|r"
+		end
+		return v and "|cff40c040ja|r" or "|cffff8080nee|r"
+	end
+
+	print(("%s Route-pijl status:"):format(p))
+	print(("  route-eigenaar: %s"):format(tostring(ns._mhRouteOwner or "geen")))
+	if activeLead and activeLead.mapID then
+		print(("  doel: %s  (map %s  %.1f, %.1f)"):format(
+			tostring(activeLead.name or "?"), tostring(activeLead.mapID),
+			tonumber(activeLead.x) or 0, tonumber(activeLead.y) or 0))
+	else
+		print("  doel: |cffff8080GEEN — geen enkele route heeft een doel doorgegeven|r")
+	end
+
+	local tomtom = ns.IsTomTomReady and ns.IsTomTomReady() or false
+	print(("  TomTom actief: %s   zijn pijl zichtbaar: %s"):format(
+		yn(tomtom), yn(tomtom and TomTomArrowShowing() or false)))
+	print(("  WaypointUI aanwezig: %s"):format(yn(IsWaypointUIPresent())))
+
+	-- Zygor is reported only because Carola sees ITS arrow and may reasonably think
+	-- it is ours. We do not yield to it and never have.
+	local zygor = false
+	if C_AddOns and C_AddOns.IsAddOnLoaded then
+		local ok, loaded = pcall(C_AddOns.IsAddOnLoaded, "ZygorGuidesViewer")
+		zygor = ok and loaded and true or false
+	end
+	print(("  Zygor geladen: %s |cff9d9d9d(wij wijken hier NIET voor)|r"):format(yn(zygor)))
+
+	local drive = ShouldDriveNative()
+	print(("  wij sturen: %s   onze pijl getekend: %s"):format(
+		yn(drive), yn(drive and not IsWaypointUIPresent())))
+	print(("  Blizzard-waypoint gezet: %s"):format(yn(HasNativeWaypoint())))
+	print(("  pijl-frame bestaat: %s   zichtbaar: %s"):format(
+		yn(arrowFrame ~= nil), yn(arrowFrame ~= nil and arrowFrame:IsShown() or false)))
+
+	-- Say the consequence out loud. Nobody should have to know that "wij sturen:
+	-- nee" also silently switches off moving to the next stop.
+	if not (activeLead and activeLead.mapID) then
+		print("  |cffff8080Er is geen doel. Start een route en draai dit opnieuw —|r")
+		print("  |cffff8080komt hier dan nog steeds GEEN, dan ligt het niet aan de pijl.|r")
+	elseif not drive then
+		print("  |cffff8080Wij staan opzij voor TomTom: geen pijl EN geen doorschuiven.|r")
+	elseif IsWaypointUIPresent() then
+		print("  |cff9d9d9dWaypointUI stuurt; onze pijl verbergt zich met opzet.|r")
+		print("  |cff9d9d9dDe stops schuiven wel gewoon door.|r")
+	end
+end
