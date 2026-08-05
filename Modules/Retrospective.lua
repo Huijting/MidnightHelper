@@ -67,7 +67,38 @@ local SAFE_DIFFICULTY = {
 	[16] = true, -- Raid Mythic
 	[17] = true, -- Raid LFR
 }
--- ⚠️ UPDATE 2026-08-03: difficulty 24 is not a fluke. Three refusals now, three
+-- ⛔ UPDATE 2026-08-05: THE WHITELIST IS A FICTION. Nobody may register CLEU.
+--
+-- Rob ran Windrunner Spire, difficulty 1 — Dungeon Normal, the most whitelisted
+-- content there is — and got ADDON_ACTION_FORBIDDEN again. Every attempt this file
+-- has ever recorded is a refusal: Timewalking three times, and now a normal
+-- dungeon. There is not one measurement of a successful registration.
+--
+-- The premise underneath all of it was wrong, and it is written a few lines below
+-- in my own words: "DBM registers COMBAT_LOG_EVENT_UNFILTERED (DBM-Core.lua:2499)
+-- and was announcing bosses in that very dungeon, so the combat log is plainly
+-- usable". DBM does not. `DBM-Core.lua:1680`:
+--
+--     --Events that must be blocked from registering on Midnight+
+--     --Because they check UnitHealth, UnitPower, UnitAura, UnitGUID, or CLEU
+--     local restrictedEvents = { COMBAT_LOG_EVENT_UNFILTERED = true, ... }
+--
+-- and at 2532 it registers them only `if not DBM:IsPostMidnight()`. DBM announces
+-- bosses WITHOUT the combat log. I inferred its success from the feature working
+-- and never read the code.
+--
+-- Consequences, both bigger than the retry logic they sit in:
+--   • the damage ring that gives this file a death CAUSE can never fill, so the
+--     recap has been falling back to "unknown" since 12.0 — a shipped feature that
+--     silently cannot do the thing it is named for;
+--   • Modules/InterruptScore.lua's `/mh kicks who` cannot work anywhere.
+-- Blizzard's own Death Recap still works and we already open it in restricted
+-- content; that is the route, not this one.
+--
+-- Do not "fix" the whitelist. There is nothing to whitelist.
+--
+-- ⚠️ EARLIER (2026-08-03), kept because it shows how the wrong premise survived:
+-- difficulty 24 is not a fluke. Three refusals now, three
 -- different Timewalking dungeons, three different days — Dire Maul and Zul'Farrak
 -- on 25 July, The Shattered Halls tonight, all ADDON_ACTION_FORBIDDEN. The
 -- reasoning below about a transient mid-loading-screen refusal is refuted for
