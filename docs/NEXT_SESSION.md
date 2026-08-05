@@ -13,8 +13,8 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 
 | | |
 |---|---|
-| Uitgebracht | **v2.11.1**, getagd en live op CurseForge 2026-07-31 (changelog rendert schoon, 5 van 5) |
-| Volgend doel | **v2.12.0** -- de compatibiliteitsrelease voor patch 12.1. **Geen open werk meer** (zie lijst A); wacht op patchdag |
+| Uitgebracht | **v2.12.0**, getagd en live op CurseForge 2026-08-05 (upload + changelog schoon, 6 van 6; Rob plakte de description) |
+| Volgend doel | **v3.0.0** -- de Season 2-release (18 aug). 12.1 gaat live 11 aug NA / 12 aug EU |
 | Daarna | **v3.0.0** -- de Season 2-release |
 | Branch | alleen `main` |
 | Deadline | **12.1 live 11 aug (NA) / 12 aug (EU), Season 2 18 aug.** Officieel bevestigd, niet langer een projectie |
@@ -120,7 +120,38 @@ Twee dingen van deze week staan daarmee op losse schroeven, en beide zijn op
 De aura-facade `ns.Aura` bestaat juist voor dit moment — als het filter valt, is
 dat de plek waar de vervanging hoort.
 
-## ⛔ "Wie heeft er onderbroken" — vraag hier niet opnieuw naar zonder dit te lezen
+## ⛔ DE COMBAT LOG IS DICHT — voor élke addon, ook DBM (gemeten 5 aug)
+
+Dit vervangt alles wat hieronder over "wie heeft er onderbroken" staat, en het
+raakt meer dan die functie.
+
+Rob draaide **Windrunner Spire, difficulty 1** (Dungeon Normal, de meest
+whitelistbare content die er is) met `/mh kicks probe` aan. Resultaat:
+`ADDON_ACTION_FORBIDDEN`, nul onderbrekingen, `clogRegistered = false`. **Elke
+poging die deze addon ooit heeft vastgelegd is een weigering** — Timewalking 3×,
+nu Normal. Er is nooit één meting van succes geweest.
+
+De aanname eronder was fout, en stond in onze eigen code: *"DBM registreert CLEU
+en kondigt bossen aan in diezelfde dungeon, dus het kan"*. `DBM-Core.lua:1680`
+zet `COMBAT_LOG_EVENT_UNFILTERED` onder **"Events that must be blocked from
+registering on Midnight+"**, en regel 2532 registreert ze alleen
+`if not DBM:IsPostMidnight()`. DBM kondigt bossen aan zónder combat log.
+
+**Twee gevolgen:**
+1. `/mh kicks who` kan nergens werken. Staat uit, wordt niet aangekondigd.
+2. **De death recap kan sinds 12.0 geen doodsoorzaak vaststellen** — die vult zijn
+   damage-ring uit dezelfde registratie. Een uitgeleverde functie die stil niet kan
+   wat zijn naam belooft. De vervanging ligt voor de hand (Blizzards eigen Death
+   Recap, die we in restricted content al openen) maar is een ontwerpkeuze van Rob.
+
+Niet "de whitelist repareren". Er valt niets te whitelisten. Volledige uitleg met
+regelnummers staat bovenaan `Modules/Retrospective.lua`.
+
+**Wél mag:** reageren op het feit dát een event vuurt. `EXBoss` speelt geluid op
+`UNIT_SPELLCAST_START` voor `boss1-5` — dat een gebeurtenis plaatsvindt is geen
+secret, alleen de inhoud is dat. Vandaar dat `/mh prompt` wel werkt.
+
+## ⛔ "Wie heeft er onderbroken" — de oudere analyse, achterhaald door het blok hierboven
 
 Rob vroeg op 3 aug om hem hieraan te herinneren. De stand, gemeten:
 
