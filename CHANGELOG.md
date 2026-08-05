@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.12.0
+
+- New: Party targets, a panel showing every group member and what they are attacking, with their role, class colour and the raid marker on their target. Clicking a line takes that target, in combat too. Draggable, and resizable by width. Off by default - `/mh partytargets` or the Settings page. An enemy target's name is a secret value in 12.x, so the panel shows names it is not allowed to read: no sorting by target, no "three of us are on yours", no highlighting the row that matches you.
+- Fixed: the route arrow never appeared for anyone who also had WaypointUI installed. Deliberate once, on the grounds of one guide per screen, but it silently cancelled an advertised feature - and a pin on the ground and an arrow with a distance are not the same answer. The arrow now draws alongside it; `/mh arrow yield` restores the old behaviour.
+- Fixed: the route arrow was nearly invisible against dark ground. Its halo was black, which only ever helped on bright backgrounds. A pale glow now sits outside the dark edge, so it reads on both.
+- New: `/mh arrow` reports who is guiding you, whether a route ever published a target, and which addon is standing in the way. Standing down on purpose and being broken looked identical from outside.
+- New: Stay alive, at the top of the Role Academy's DPS track - your own buttons in the order a fight needs them. Assembled from the keybind role data, so it covers every class, and resolved against your live spellbook, so a spell replaced by a talent shows the name on your bars rather than the one in our table.
+- New: `/mh kicks who` names whoever landed an interrupt. Dungeons and raids only: the combat log is refused in delves, ritual scenarios, follower dungeons and (measured three times) Timewalking.
+- Fixed: the welcome popup promised Alt+M opens the addon. That binding is only applied while the key is free, so for some players the first sentence the addon spoke was untrue. It now points at `/mh` and offers the keybind as something you set.
+- Fixed: two Dutch labels said something other than what they meant - the missing-buff marker read "MIST", which is the Dutch word for fog.
+
 ## 2.11.1
 
 - Fixed: the crest pages claimed a weekly cap of roughly 100 per colour. There is no such cap - the game reports no weekly limit on any tier, measured 22 July - and the claim had already been removed from the English and Dutch guide text that day. It was still present in the Codex in all seven languages and in the crest guide in deDE, frFR, esES, ptBR and itIT. Removed everywhere.
