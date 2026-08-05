@@ -47,11 +47,13 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - **Missing Buff reminder** — a movable, resizable icon appears when you can cast a maintainable class buff you don't have active (raid buff, form, shield, weapon imbue, poison, stance, pet, ally buff or Paladin aura). **Click it to cast** (out of combat). Own, verified data across every class.
 - **Openables tracker** — a movable button with a count badge and list for openable bag items (caches, lockboxes, satchels, quest containers). Left-click opens the next; items you can't open yet are hidden; a sound plays on a new drop.
 - **Fast Mark bar** — mark your target with the raid icons, drop world markers on the ground (left-click set, right-click clear, clear-all) and run a ready check. Appears only while you're in a party or raid.
+- **Party targets** — a small panel showing every group member and what they are attacking, with their role, their class colour and the raid marker sitting on their target. **Click a line to take that target yourself**, in combat too. Drag it anywhere, drag the corner to widen it. Off until you switch it on with `/mh partytargets` or in Settings.
+- **Stay alive** — at the top of the Role Academy's DPS track, your own buttons in the order a fight needs them: the shield you keep up, the one for when your health drops, how you get away, how you interrupt. Read from your live talents, so a spell replaced by a talent shows the name that is actually on your bars.
 
 **Navigation & routes**
 - **Standalone route arrow** — Midnight Helper draws its own on-screen direction arrow (rotates toward the target, shows live distance, drag to reposition) and drives the game's own map waypoint, keeping it on your next open stop and advancing it the moment you arrive. **No TomTom required.**
 - **Per-content icon and colour** on the arrow — rare (red), treasure (gold), achievement (yellow), reset route (blue) — so you can tell at a glance what it's guiding you to.
-- **Plays nicely with your setup:** if **WaypointUI** is installed the route is handed to its in-world pin; if **TomTom** is driving its arrow, Midnight Helper stays out of the way; with neither, its own arrow guides you.
+- **Plays nicely with your setup:** if **TomTom** is driving its own arrow, Midnight Helper stays out of the way. Alongside **WaypointUI** both are shown — its pin marks the spot, our arrow gives you the direction and the distance — and `/mh arrow yield` hands the job to the pin alone if you prefer one guide. `/mh arrow` tells you who is guiding you and why.
 
 **Achievements**
 - **Achievements tab** for Midnight's collectible hunts: Treasures, The Highest Peaks (telescopes), Midnight Lore Hunter and the zone rare-hunter achievements across Eversong Woods, Zul'Aman, Harandar and Voidstorm — live per-node progress and one-click routing to whatever you still miss.
@@ -134,6 +136,8 @@ Other WoW client locales (e.g. Korean, Chinese) fall back to **English** until a
 | `/mh clear` (`clearroute` / `stop`) | Clear the active route + arrow |
 | `/mh skip` (`next`) | Skip the current route target |
 | `/mh arrowsize <28-160>` | Resize the route arrow |
+| `/mh arrow` | Who is guiding you, and why the arrow is or is not showing |
+| `/mh partytargets` | Toggle the party targets panel |
 | `/mh lang auto` · `en` · `de` · `fr` · `es` · `pt` · `it` · `nl` | Set language |
 | `/mh tracks` | Which slots are at their upgrade ceiling, and what raises them |
 | `/mh panelreset` | Put the side panels back beside their windows |
