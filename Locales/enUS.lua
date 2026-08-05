@@ -216,7 +216,10 @@ ns._mhLocales.enUS = {
 	TRANSLATE_PARTIAL_TITLE = "Finish Midnight Helper in your language?",
 	TRANSLATE_PARTIAL_BODY = "Parts of Midnight Helper still show English instead of %s. Want to help finish it? Any amount helps.",
 	FIRSTRUN_CHAT = "Welcome! New here? Type /mh to open Midnight Helper, or take the guided tour.",
-	FIRSTRUN_POPUP_TEXT = "Welcome to Midnight Helper!\n\nWant me to show you what to do this week? Open it any time with Alt+M or /mh.",
+	-- No Alt+M here. Bindings.xml declares it as a default, but WoW only applies an
+	-- addon default when that key is still free — on Carola's install it was not,
+	-- so the very first thing the addon said was untrue. /mh always works.
+	FIRSTRUN_POPUP_TEXT = "Welcome to Midnight Helper!\n\nWant me to show you what to do this week? Open it any time by typing /mh. You can also give it a key of your own under Keybindings, Midnight Helper.",
 	FIRSTRUN_SHOW_ME = "Show me",
 	START_TOUR_SHOW = "Show me around the window",
 	START_TOUR_HIDE = "Hide the walkthrough",

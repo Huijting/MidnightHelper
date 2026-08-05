@@ -176,10 +176,10 @@ local function ShouldDriveNative()
 	return true
 end
 
--- Is WaypointUI installed? When it is, it renders its own in-world pin from the
--- Blizzard user waypoint we set, so our own arrow stands down — the user wants a
--- SINGLE guide. Our arrow is the fallback for players with neither TomTom nor
--- WaypointUI. (We still set the Blizzard waypoint so WaypointUI has something to show.)
+-- Is WaypointUI installed? It renders its own in-world pin from the Blizzard user
+-- waypoint we set, which we keep setting either way so it has something to show.
+-- Whether we then hide OUR arrow is a per-player choice — see YieldToWaypointUI
+-- below; it used to be forced and is now off by default.
 local function IsWaypointUIPresent()
 	if WaypointUIAPI then
 		return true
@@ -306,6 +306,10 @@ local function UpdateArrow()
 		f.texOutline:Show()
 		f.texOutline:SetRotation(rot)
 	end
+	if f.texGlow then
+		f.texGlow:Show()
+		f.texGlow:SetRotation(rot)
+	end
 	-- Accent colour follows the content type owning the arrow; the "almost there"
 	-- green still wins when you're right on top of the target.
 	local style = OwnerStyle()
@@ -379,9 +383,24 @@ local function EnsureArrowFrame()
 		end
 	end)
 
-	-- Dark halo BEHIND the arrow (one layer down, a few px larger) so the coloured
-	-- arrow reads on any background — bright sky, pale walls. Scales with the frame
-	-- (anchored to its corners with a fixed inset) and rotates with the arrow.
+	-- TWO halos, because one is only ever right half the time.
+	--
+	-- There used to be just the dark one, and its own comment named the case it
+	-- solves: "bright sky, pale walls". Rob, 5 Aug: against dark ground the blue
+	-- arrow on a black halo is nearly invisible — a dark outline adds nothing to a
+	-- dark background. The arrow floats over the world, so both cases happen within
+	-- one lap of a route.
+	--
+	-- Outer pale glow first (reads on dark), then the dark edge just inside it
+	-- (reads on light), then the coloured arrow. Both are anchored to the frame's
+	-- corners with a fixed inset, so they scale and rotate with it.
+	local glow = f:CreateTexture(nil, "BACKGROUND")
+	glow:SetTexture("Interface\\Minimap\\MinimapArrow")
+	glow:SetPoint("TOPLEFT", f, "TOPLEFT", -7, 7)
+	glow:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 7, -7)
+	glow:SetVertexColor(1, 1, 1, 0.45)
+	f.texGlow = glow
+
 	local outline = f:CreateTexture(nil, "ARTWORK")
 	outline:SetTexture("Interface\\Minimap\\MinimapArrow")
 	outline:SetPoint("TOPLEFT", f, "TOPLEFT", -3, 3)
@@ -488,6 +507,10 @@ function ns.PreviewNativeArrow(seconds)
 	if f.texOutline then
 		f.texOutline:Show()
 		f.texOutline:SetRotation(0)
+	end
+	if f.texGlow then
+		f.texGlow:Show()
+		f.texGlow:SetRotation(0)
 	end
 	f.label:SetText("Midnight Helper")
 	f._preview = true

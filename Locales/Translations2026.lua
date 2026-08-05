@@ -1808,7 +1808,7 @@ fill("itIT", {
 -- Renown, achievement titles) — the same rule as the header of this file.
 
 fill("deDE", {
-	FIRSTRUN_POPUP_TEXT = "Willkommen bei Midnight Helper!\n\nSoll ich dir zeigen, was diese Woche ansteht? Du öffnest es jederzeit mit Alt+M oder /mh.",
+	FIRSTRUN_POPUP_TEXT = "Willkommen bei Midnight Helper!\n\nSoll ich dir zeigen, was diese Woche ansteht? Du öffnest es jederzeit mit /mh. Eine eigene Taste kannst du unter Tastenbelegung, Midnight Helper vergeben.",
 	FIRSTRUN_SHOW_ME = "Zeig es mir",
 	HOME_COLLECTIBLES_SUMMARY_FMT = "%d Reittier(e) in Arbeit",
 	HOME_HERO_ALL_DONE = "Diese Woche bist du komplett durch. Stark.",
@@ -1877,7 +1877,7 @@ fill("deDE", {
 })
 
 fill("frFR", {
-	FIRSTRUN_POPUP_TEXT = "Bienvenue dans Midnight Helper !\n\nJe te montre quoi faire cette semaine ? Ouvre-le à tout moment avec Alt+M ou /mh.",
+	FIRSTRUN_POPUP_TEXT = "Bienvenue dans Midnight Helper !\n\nJe te montre quoi faire cette semaine ? Ouvre-le à tout moment en tapant /mh. Tu peux lui attribuer ta propre touche dans les Raccourcis, Midnight Helper.",
 	FIRSTRUN_SHOW_ME = "Montre-moi",
 	HOME_COLLECTIBLES_SUMMARY_FMT = "%d monture(s) en cours",
 	HOME_HERO_ALL_DONE = "Tu es à jour cette semaine. Bien joué.",
@@ -1946,7 +1946,7 @@ fill("frFR", {
 })
 
 fill("esES", {
-	FIRSTRUN_POPUP_TEXT = "¡Bienvenido a Midnight Helper!\n\n¿Te enseño qué hacer esta semana? Ábrelo cuando quieras con Alt+M o /mh.",
+	FIRSTRUN_POPUP_TEXT = "¡Bienvenido a Midnight Helper!\n\n¿Te enseño qué hacer esta semana? Ábrelo cuando quieras escribiendo /mh. Puedes asignarle tu propia tecla en Atajos, Midnight Helper.",
 	FIRSTRUN_SHOW_ME = "Enséñamelo",
 	HOME_COLLECTIBLES_SUMMARY_FMT = "%d montura(s) en progreso",
 	HOME_HERO_ALL_DONE = "Estás al día esta semana. Bien hecho.",
@@ -2015,7 +2015,7 @@ fill("esES", {
 })
 
 fill("ptBR", {
-	FIRSTRUN_POPUP_TEXT = "Bem-vindo ao Midnight Helper!\n\nQuer que eu mostre o que fazer esta semana? Abra a qualquer momento com Alt+M ou /mh.",
+	FIRSTRUN_POPUP_TEXT = "Bem-vindo ao Midnight Helper!\n\nQuer que eu mostre o que fazer esta semana? Abra a qualquer momento digitando /mh. Você pode definir sua própria tecla em Atalhos, Midnight Helper.",
 	FIRSTRUN_SHOW_ME = "Me mostre",
 	HOME_COLLECTIBLES_SUMMARY_FMT = "%d montaria(s) em andamento",
 	HOME_HERO_ALL_DONE = "Você está em dia esta semana. Boa.",
@@ -2084,7 +2084,7 @@ fill("ptBR", {
 })
 
 fill("itIT", {
-	FIRSTRUN_POPUP_TEXT = "Benvenuto in Midnight Helper!\n\nTi mostro cosa fare questa settimana? Aprilo quando vuoi con Alt+M o /mh.",
+	FIRSTRUN_POPUP_TEXT = "Benvenuto in Midnight Helper!\n\nTi mostro cosa fare questa settimana? Aprilo quando vuoi digitando /mh. Puoi assegnargli un tasto tuo in Scorciatoie, Midnight Helper.",
 	FIRSTRUN_SHOW_ME = "Mostrami",
 	HOME_COLLECTIBLES_SUMMARY_FMT = "%d cavalcatura/e in corso",
 	HOME_HERO_ALL_DONE = "Sei in pari questa settimana. Bene.",
