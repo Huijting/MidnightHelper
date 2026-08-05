@@ -132,17 +132,24 @@ local function LiveName(key, entry)
 		return key, nil
 	end
 
-	-- An explicit id beats the name, because names are not unique.
+	-- CHECK ON THE BASE, DISPLAY THE REPLACEMENT. In that order.
 	--
-	-- Measured 4 Aug on Rob's Frost Mage: the name "Ice Block" resolves to spell
-	-- 414658, which he does not have — while his actual Ice Block is 45438. Some
-	-- other spell shares the name and wins the lookup, so the row was dropped as
-	-- "you do not own this" and I twice built a theory on the gap.
+	-- Measured 5 Aug on Rob's Frost Mage, and it took four wrong theories to get
+	-- here, so the numbers are written down:
 	--
-	-- Names still work for the rest, and work well: "Blink" returned 212653
-	-- (Shimmer) and "Invisibility" returned 110959 (Greater Invisibility), both
-	-- correctly following the talent override. So the id is only needed where a
-	-- name collides, and each one added must come from a verified source.
+	--   name "Ice Block"        -> 414658   IsPlayerSpell false
+	--   explicit id             -> 45438    IsPlayerSpell TRUE, IsSpellKnown TRUE
+	--   GetOverrideSpell(45438) -> 414658   name "Ice Cold", IsPlayerSpell FALSE
+	--
+	-- So 414658 is not a namesake, as I claimed yesterday — it IS Ice Cold, the
+	-- talent replacement. The rule the game follows: a name lookup jumps straight
+	-- to the replacement, and `IsPlayerSpell` answers **false for the replacement**
+	-- and true only for the base. Every earlier fix asked the ownership question
+	-- about the override and was told no.
+	--
+	-- Hence: resolve and verify ownership on the BASE id, then follow the override
+	-- purely to decide what to CALL it. An explicit `id` is what makes the base
+	-- reachable at all, since the name cannot get there.
 	local lookup = (entry and entry.id) or key
 	local ok, info = pcall(C_Spell.GetSpellInfo, lookup)
 	if not (ok and type(info) == "table" and info.spellID) then
@@ -150,25 +157,11 @@ local function LiveName(key, entry)
 	end
 	local id = info.spellID
 
-	-- Follow the replacement.
+	-- STEP 1 — ownership, asked about the BASE and nothing else.
 	--
-	-- Rob's Ice Block reads "Replaced by Ice Cold" and vanished from his card:
-	-- IsPlayerSpell(45438) is false once a talent overrides it, so the check that
-	-- correctly drops spells you lack also dropped one you own. I told him he had
-	-- no Ice Block. He had it, under another name.
-	--
-	-- Following the override fixes both halves at once — the row reappears, and it
-	-- appears as the spell actually on his bar.
-	if C_Spell.GetOverrideSpell then
-		local oOk, over = pcall(C_Spell.GetOverrideSpell, id)
-		if oOk and type(over) == "number" and over ~= 0 then
-			id = over
-		end
-	end
-
-	-- Known? Two sources, because IsPlayerSpell alone was the fault above.
-	-- `nil` means undecided and shows the row: a card with one row too many can be
-	-- spotted, one silently missing your panic button cannot.
+	-- Two sources, and `nil` means undecided rather than no: a card with one row
+	-- too many can be spotted by eye, one silently missing your panic button
+	-- cannot.
 	local known
 	if IsPlayerSpell then
 		local kOk, k = pcall(IsPlayerSpell, id)
@@ -186,12 +179,20 @@ local function LiveName(key, entry)
 		return nil
 	end
 
-	-- Name the spell the player sees, not the one the table is keyed by.
+	-- STEP 2 — only now follow the replacement, and only to decide the NAME.
+	--
+	-- Ownership is never re-asked about the override, because the game answers no:
+	-- IsPlayerSpell(414658 "Ice Cold") is false while IsPlayerSpell(45438
+	-- "Ice Block") is true. Doing this the other way round is what kept the row off
+	-- Rob's card through four attempts.
 	local name = (type(info.name) == "string" and info.name ~= "") and info.name or key
-	if id ~= info.spellID then
-		local nOk, nInfo = pcall(C_Spell.GetSpellInfo, id)
-		if nOk and type(nInfo) == "table" and type(nInfo.name) == "string" and nInfo.name ~= "" then
-			name = nInfo.name
+	if C_Spell.GetOverrideSpell then
+		local oOk, over = pcall(C_Spell.GetOverrideSpell, id)
+		if oOk and type(over) == "number" and over ~= 0 and over ~= id then
+			local nOk, nInfo = pcall(C_Spell.GetSpellInfo, over)
+			if nOk and type(nInfo) == "table" and type(nInfo.name) == "string" and nInfo.name ~= "" then
+				name, id = nInfo.name, over
+			end
 		end
 	end
 	return name, id
