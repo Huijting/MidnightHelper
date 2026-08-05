@@ -193,6 +193,27 @@ local function IsWaypointUIPresent()
 	return false
 end
 
+--- Do we hide our arrow because WaypointUI is installed? DEFAULT: no.
+---
+--- ⚠️ The default flipped on 5 Aug, and the reason is Rob's: "dat is wel iets wat
+--- wij beloven". Hiding for WaypointUI was a considered choice — one guide on
+--- screen — but it quietly cancelled the route arrow for anyone who has that
+--- addon, which is most of his testers. `/mh arrow` on his own machine reads
+--- "wij sturen: ja / onze pijl getekend: nee", with TomTom switched off. A feature
+--- that a release announced and that silently never appears is worse than two
+--- indicators.
+---
+--- The two are not the same thing either, which is what makes the original
+--- reasoning wrong rather than merely inconvenient: WaypointUI draws a PIN at a
+--- place. Ours is a direction with a distance and the name of the next stop. A
+--- player who wanted only the pin can still have it with one command.
+---
+--- TomTom is untouched. Its crazy arrow IS the same kind of thing as ours, so
+--- standing down for it remains right.
+local function YieldToWaypointUI()
+	return (ns.db and ns.db.arrowYieldWaypointUI) and true or false
+end
+
 -- Our own cached lead. Survives transient ns.lastTarget = nil from zone handlers.
 local activeLead
 
@@ -552,10 +573,11 @@ local function Tick()
 		return
 	end
 
-	-- No TomTom driving. If WaypointUI is installed, let ITS pin be the single guide
-	-- (fed by the Blizzard waypoint we still set below) and hide our own arrow. Our
-	-- arrow only appears for players who have neither TomTom nor WaypointUI.
-	if IsWaypointUIPresent() then
+	-- No TomTom driving. We now draw our arrow even alongside WaypointUI, because
+	-- its pin and our arrow answer different questions (where is it, versus which
+	-- way and how far). Switchable with `/mh arrow yield` for anyone who wants the
+	-- pin alone.
+	if IsWaypointUIPresent() and YieldToWaypointUI() then
 		HideArrow()
 	else
 		ShowArrow()
@@ -693,7 +715,8 @@ function ns.PrintArrowStatus()
 
 	local drive = ShouldDriveNative()
 	print(("  wij sturen: %s   onze pijl getekend: %s"):format(
-		yn(drive), yn(drive and not IsWaypointUIPresent())))
+		yn(drive), yn(drive and not (IsWaypointUIPresent() and YieldToWaypointUI()))))
+	print(("  wijken voor WaypointUI: %s |cff9d9d9d(/mh arrow yield)|r"):format(yn(YieldToWaypointUI())))
 	print(("  Blizzard-waypoint gezet: %s"):format(yn(HasNativeWaypoint())))
 	print(("  pijl-frame bestaat: %s   zichtbaar: %s"):format(
 		yn(arrowFrame ~= nil), yn(arrowFrame ~= nil and arrowFrame:IsShown() or false)))
@@ -705,8 +728,20 @@ function ns.PrintArrowStatus()
 		print("  |cffff8080komt hier dan nog steeds GEEN, dan ligt het niet aan de pijl.|r")
 	elseif not drive then
 		print("  |cffff8080Wij staan opzij voor TomTom: geen pijl EN geen doorschuiven.|r")
-	elseif IsWaypointUIPresent() then
-		print("  |cff9d9d9dWaypointUI stuurt; onze pijl verbergt zich met opzet.|r")
-		print("  |cff9d9d9dDe stops schuiven wel gewoon door.|r")
+	elseif IsWaypointUIPresent() and YieldToWaypointUI() then
+		print("  |cff9d9d9dJe hebt ingesteld dat WaypointUI stuurt, dus onze pijl blijft weg.|r")
+		print("  |cff9d9d9dTerugzetten: |cffffffff/mh arrow yield|r")
+	end
+end
+
+--- `/mh arrow yield` — give the arrow back to WaypointUI, or take it back.
+function ns.ToggleArrowYield()
+	ns.db = ns.db or {}
+	ns.db.arrowYieldWaypointUI = not ns.db.arrowYieldWaypointUI
+	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+	if ns.db.arrowYieldWaypointUI then
+		print(("%s route-pijl: WaypointUI stuurt, onze pijl blijft weg."):format(p))
+	else
+		print(("%s route-pijl: wij tekenen onze eigen pijl, ook naast WaypointUI."):format(p))
 	end
 end

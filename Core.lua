@@ -1026,7 +1026,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh arrow — why is the route arrow not guiding? Prints who is driving and
 	-- whether a route ever handed us a target.
-	if msg == "arrow" then
+	if msg == "arrow" or msg == "arrow yield" then
+		if msg == "arrow yield" then
+			if ns.ToggleArrowYield then
+				ns.ToggleArrowYield()
+			end
+			return
+		end
 		if ns.PrintArrowStatus then
 			ns.PrintArrowStatus()
 		end
