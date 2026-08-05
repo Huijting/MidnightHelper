@@ -38,10 +38,34 @@ local _, ns = ...
 -- rather than one being robbed for the other — the target column was made
 -- deliberately roomy in July after "Daggerspine Myrmidon" ran past the edge, and
 -- narrowing it again to pay for the names would walk straight back into that.
-local PANEL_W, ROW_H, PAD = 320, 16, 8
+local PANEL_W, ROW_H, PAD = 320, 22, 8
 local MAX_ROWS = 4
 local ROLE_W = 14
 local MEMBER_W = 112
+
+-- Height of the title bar. Rows start below it, so every row offset carries it and
+-- the panel's height adds it once.
+local HEAD_H = 18
+
+-- House style, from ns.UI_COLORS (UI.lua:175). Read defensively: this module loads
+-- before UI.lua in the .toc, so the table may not exist yet at file scope.
+local function HeaderRGB()
+	local c = ns.UI_COLORS and ns.UI_COLORS.header
+	if type(c) == "table" and c[1] then
+		return c[1], c[2], c[3]
+	end
+	return 0.91, 0.76, 0.42
+end
+
+--- Where a row's top edge sits inside the panel.
+local function RowTop(i)
+	return -PAD - HEAD_H - (i - 1) * ROW_H
+end
+
+--- Vertical nudge to centre a ROLE_W icon in a taller row.
+local function IconInset()
+	return math.floor((ROW_H - ROLE_W) / 2)
+end
 
 local panel, rows
 local clicks = {}
@@ -98,7 +122,13 @@ local function EnsurePanel()
 		return panel
 	end
 	panel = CreateFrame("Frame", "MidnightHelperPartyTargets", UIParent, "BackdropTemplate")
-	panel:SetSize(PANEL_W, PAD * 2 + ROW_H * MAX_ROWS)
+	-- Remembered width (Rob can drag the right edge); height still follows the
+	-- number of members, so only the width is ever restored.
+	local savedW = ns.db and ns.db.ui and tonumber(ns.db.ui.partyTargetsWidth)
+	if savedW and savedW >= 240 then
+		PANEL_W = savedW
+	end
+	panel:SetSize(PANEL_W, PAD * 2 + HEAD_H + ROW_H * MAX_ROWS)
 	panel:SetFrameStrata("MEDIUM")
 	panel:SetClampedToScreen(true)
 	panel:SetMovable(true)
@@ -122,16 +152,69 @@ local function EnsurePanel()
 		panel:SetPoint("CENTER", UIParent, "CENTER", -320, 60)
 	end
 
+	-- House style. This panel was built in a hurry and kept a warm brown of its own
+	-- (0.06, 0.05, 0.04) with a hard gold border, which sat next to every other MH
+	-- window looking like a different addon.
 	if panel.SetBackdrop then
 		panel:SetBackdrop({
 			bgFile = "Interface\\Buttons\\WHITE8X8",
 			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-			edgeSize = 16,
+			edgeSize = 14,
 			insets = { left = 4, right = 4, top = 4, bottom = 4 },
 		})
-		panel:SetBackdropColor(0.06, 0.05, 0.04, 0.92)
-		panel:SetBackdropBorderColor(1, 0.84, 0.30, 1)
+		panel:SetBackdropColor(0.05, 0.05, 0.09, 0.95)
+		panel:SetBackdropBorderColor(HeaderRGB())
 	end
+
+	-- Title. Also the honest drag handle: the click buttons cover the rows, so
+	-- without this the only bare panel left to grab was a 14px strip.
+	panel.title = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	if ns.MHScalableFont then
+		panel.title:SetFontObject(ns.MHScalableFont("GameFontNormal"))
+	end
+	panel.title:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD, -PAD + 2)
+	panel.title:SetTextColor(HeaderRGB())
+	panel.title:SetText(L("PARTYTARGETS_TITLE", "Party targets"))
+
+	-- Width grip, bottom right. WIDTH ONLY — the height follows the number of party
+	-- members and is rewritten on every refresh, so letting it be dragged would look
+	-- like the panel fighting you.
+	--
+	-- Not secure and parented to the panel, so it may carry scripts freely; the
+	-- click buttons that must stay script-free live on UIParent.
+	panel:SetResizable(true)
+	if panel.SetResizeBounds then
+		panel:SetResizeBounds(240, 1, 900, 4000)
+	end
+	local grip = CreateFrame("Frame", nil, panel)
+	grip:SetSize(14, 14)
+	grip:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -2, 2)
+	grip:EnableMouse(true)
+	grip:RegisterForDrag("LeftButton")
+	local gripTex = grip:CreateTexture(nil, "OVERLAY")
+	gripTex:SetAllPoints(grip)
+	gripTex:SetTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
+	gripTex:SetVertexColor(HeaderRGB())
+	gripTex:SetAlpha(0.6)
+	grip:SetScript("OnDragStart", function()
+		panel:StartSizing("BOTTOMRIGHT")
+	end)
+	grip:SetScript("OnDragStop", function()
+		panel:StopMovingOrSizing()
+		PANEL_W = math.max(240, math.floor(panel:GetWidth() + 0.5))
+		if ns.db and ns.db.ui then
+			ns.db.ui.partyTargetsWidth = PANEL_W
+		end
+		-- Height back under our control immediately, and the secure buttons back
+		-- under the rows. PositionClicks already refuses in combat, which is the
+		-- same deal dragging has.
+		if ns.RefreshPartyTargets then
+			ns.RefreshPartyTargets()
+		end
+		if PositionClicks then
+			PositionClicks()
+		end
+	end)
 
 	rows = {}
 	for i = 1, MAX_ROWS do
@@ -143,8 +226,8 @@ local function EnsurePanel()
 		if i % 2 == 0 then
 			row.stripe = panel:CreateTexture(nil, "BACKGROUND")
 			row.stripe:SetColorTexture(1, 1, 1, 0.04)
-			row.stripe:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD - 2, -PAD - (i - 1) * ROW_H)
-			row.stripe:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD + 2, -PAD - (i - 1) * ROW_H)
+			row.stripe:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD - 2, RowTop(i))
+			row.stripe:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD + 2, RowTop(i))
 			row.stripe:SetHeight(ROW_H)
 		end
 
@@ -160,7 +243,7 @@ local function EnsurePanel()
 		-- and look deliberate.
 		row.role = panel:CreateTexture(nil, "OVERLAY")
 		row.role:SetSize(ROLE_W, ROLE_W)
-		row.role:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD, -PAD - (i - 1) * ROW_H - 1)
+		row.role:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD, RowTop(i) - IconInset())
 		row.roleLetter = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 		if ns.MHScalableFont then
 			row.roleLetter:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
@@ -179,14 +262,14 @@ local function EnsurePanel()
 		-- with no dispel.
 		row.dispel = panel:CreateTexture(nil, "OVERLAY")
 		row.dispel:SetSize(ROLE_W, ROLE_W)
-		row.dispel:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD + ROLE_W + 3, -PAD - (i - 1) * ROW_H - 1)
+		row.dispel:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD + ROLE_W + 3, RowTop(i) - IconInset())
 		row.dispel:Hide()
 
 		row.member = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 		if ns.MHScalableFont then
 			row.member:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
 		end
-		row.member:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD + (ROLE_W + 3) * 2, -PAD - (i - 1) * ROW_H)
+		row.member:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD + (ROLE_W + 3) * 2, RowTop(i) - 3)
 		row.member:SetWidth(MEMBER_W)
 		row.member:SetJustifyH("LEFT")
 		row.member:SetTextColor(1, 0.82, 0.2)
@@ -216,7 +299,7 @@ local function EnsurePanel()
 		row.marker = panel:CreateTexture(nil, "OVERLAY")
 		row.marker:SetSize(ROLE_W, ROLE_W)
 		row.marker:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcons")
-		row.marker:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD, -PAD - (i - 1) * ROW_H - 1)
+		row.marker:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD, RowTop(i) - IconInset())
 		row.marker:Hide()
 
 		row.target:SetPoint("TOPLEFT", row.member, "TOPRIGHT", 6, 0)
@@ -387,7 +470,7 @@ function PositionClicks()
 		local b = clicks[i]
 		if b then
 			b:ClearAllPoints()
-			b:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left + inset, top - PAD - (i - 1) * ROW_H)
+			b:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left + inset, top + RowTop(i))
 			b:SetSize(w, ROW_H)
 		end
 	end
@@ -501,6 +584,23 @@ local function Refresh()
 			-- A party member's own name reads normally; only their enemy target is
 			-- protected. Both are passed straight to SetText regardless — the widget
 			-- accepts a secret, we simply never look at one.
+			-- Class colour on the MEMBER only. A party member is friendly, so their
+			-- class reads — it is only a hostile identity that is secret. Still asked
+			-- through Ask()/Secret(), and an unreadable class falls back to house gold
+			-- rather than to a guess.
+			--
+			-- row.target stays uncoloured on purpose: that name is a secret we draw
+			-- and may not classify. Colouring it would mean asking what it is.
+			local classToken = Ask(function()
+				return select(2, UnitClass(unit))
+			end)
+			local col = (not Secret(classToken)) and classToken
+				and RAID_CLASS_COLORS and RAID_CLASS_COLORS[classToken] or nil
+			if col then
+				row.member:SetTextColor(col.r, col.g, col.b)
+			else
+				row.member:SetTextColor(HeaderRGB())
+			end
 			row.member:SetText(Ask(UnitName, unit))
 			local tUnit = unit .. "target"
 			if ReadsTrue(Ask(UnitExists, tUnit)) then
@@ -549,7 +649,7 @@ local function Refresh()
 		panel:Hide()
 		return
 	end
-	panel:SetHeight(PAD * 2 + ROW_H * shown)
+	panel:SetHeight(PAD * 2 + HEAD_H + ROW_H * shown)
 	panel:Show()
 	PositionClicks()
 end

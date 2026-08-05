@@ -2471,30 +2471,35 @@ fill("itIT", { ST_SEASON_SOON = "La stagione 2 inizia la settimana del 18 agosto
 -- sentence: it sits in a four-line panel where a full clause would dominate the
 -- rows that actually carry information.
 fill("deDE", {
+	PARTYTARGETS_TITLE = "Gruppenziele",
 	PARTYTARGETS_NONE = "|cff9d9d9d— kein Ziel —|r",
 	PARTYTARGETS_ON = "Gruppenziele AN — zieh das Fenster dorthin, wo du es haben willst. Erscheint nur in einer Gruppe.",
 	PARTYTARGETS_OFF = "Gruppenziele AUS.",
 })
 
 fill("frFR", {
+	PARTYTARGETS_TITLE = "Cibles du groupe",
 	PARTYTARGETS_NONE = "|cff9d9d9d— aucune cible —|r",
 	PARTYTARGETS_ON = "Cibles du groupe ACTIVÉES — déplace le panneau où tu veux. Ne s'affiche qu'en groupe.",
 	PARTYTARGETS_OFF = "Cibles du groupe DÉSACTIVÉES.",
 })
 
 fill("esES", {
+	PARTYTARGETS_TITLE = "Objetivos del grupo",
 	PARTYTARGETS_NONE = "|cff9d9d9d— sin objetivo —|r",
 	PARTYTARGETS_ON = "Objetivos del grupo ACTIVADOS — arrastra el panel donde quieras. Solo se muestra en grupo.",
 	PARTYTARGETS_OFF = "Objetivos del grupo DESACTIVADOS.",
 })
 
 fill("ptBR", {
+	PARTYTARGETS_TITLE = "Alvos do grupo",
 	PARTYTARGETS_NONE = "|cff9d9d9d— sem alvo —|r",
 	PARTYTARGETS_ON = "Alvos do grupo LIGADOS — arraste o painel para onde quiser. Só aparece em grupo.",
 	PARTYTARGETS_OFF = "Alvos do grupo DESLIGADOS.",
 })
 
 fill("itIT", {
+	PARTYTARGETS_TITLE = "Bersagli del gruppo",
 	PARTYTARGETS_NONE = "|cff9d9d9d— nessun bersaglio —|r",
 	PARTYTARGETS_ON = "Bersagli del gruppo ATTIVI — trascina il pannello dove preferisci. Appare solo in gruppo.",
 	PARTYTARGETS_OFF = "Bersagli del gruppo DISATTIVATI.",

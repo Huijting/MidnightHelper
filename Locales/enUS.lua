@@ -210,6 +210,7 @@ ns._mhLocales.enUS = {
 	TRANSLATE_HELP_LANG = "Your language (%s) needs its first pack — even the first-screen strings help a lot.",
 	TRANSLATE_HELP_MEANWHILE = "Prefer another language meanwhile? Use /mh lang <code>.",
 	TRANSLATE_HELP_DISCORD = "See what still needs translating (pinned in #translations)",
+	PARTYTARGETS_TITLE = "Party targets",
 	PARTYTARGETS_NONE = "|cff9d9d9d— no target —|r",
 	PARTYTARGETS_ON = "Party targets ON — drag the panel where you want it. It shows in a party only.",
 	PARTYTARGETS_OFF = "Party targets OFF.",

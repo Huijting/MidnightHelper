@@ -208,6 +208,7 @@ ns._mhLocales.nlNL = {
 	TRANSLATE_HELP_LANG = "Jouw taal (%s) heeft zijn eerste pakket nodig — zelfs de eerste-scherm-teksten helpen al veel.",
 	TRANSLATE_HELP_MEANWHILE = "Liever ondertussen een andere taal? Gebruik /mh lang <code>.",
 	TRANSLATE_HELP_DISCORD = "Bekijk wat er nog vertaald moet worden (vastgezet in #translations)",
+	PARTYTARGETS_TITLE = "Doelwitten groep",
 	PARTYTARGETS_NONE = "|cff9d9d9d— geen doelwit —|r",
 	PARTYTARGETS_ON = "Party-targets AAN — sleep het paneel waar je het hebben wilt. Verschijnt alleen in een party.",
 	PARTYTARGETS_OFF = "Party-targets UIT.",
