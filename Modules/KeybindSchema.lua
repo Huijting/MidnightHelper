@@ -111,7 +111,14 @@ ns.KeybindSchema = {
 	--- Spell groups → physical slots (E omitted here; use role `interrupt`). v6 slot lists;
 	--- `defensive` keeps X/V as overflow so legacy Hunter/Paladin maps stay valid.
 	categories = {
-		main_rotation = { slots = { "1", "2", "3" } },
+		--- 4 and 5 added 6 Aug. They are role anchors (spender, and 5 was unused), so a
+		--- spec without a spender left two premium number keys empty while a rotation
+		--- spell was pushed onto a thumb button — measured on Rob's Frost Mage, where
+		--- Cone of Cold landed on BUTTON5 with 4 and 5 sitting free beside it. Every
+		--- keybinding guide says fill the base number row before reaching further.
+		--- Safe only because role anchors are now allocated BEFORE categories; without
+		--- that ordering a fourth rotation spell would steal the spender's key.
+		main_rotation = { slots = { "1", "2", "3", "4", "5" } },
 		spender = { slots = { "4", "5" } },
 		raid_heal = { slots = { "1", "2", "3", "4", "5" } }, -- healer party/raid-heals op de nummertoetsen
 		taunt = { slots = { "F" } }, -- tank-taunt op een vaste toets (essentieel, eigen kaart)
@@ -515,16 +522,38 @@ function ns.Keybind_AllocateSpells(spells, opts)
 	--- So a spell that does not fit its own key and that key's modifier layers gets NO
 	--- key, and is returned instead. "This one did not fit, click it or place it
 	--- yourself" is an honest answer. Silently landing on 3 is not.
+	--- ANCHORS FIRST, THEN CATEGORIES. `KEYBIND_STANDARD_v6.md` §4 has said so since the
+	--- standard was written — "wijs eerst alle ankers toe, dán de categorie-slots, dán
+	--- overflow" — but the code only ever sorted by priority and mixed the two. It went
+	--- unnoticed while categories were narrow enough never to reach an anchor's key.
+	--- The moment main_rotation was allowed to use 4 and 5, a fourth rotation spell
+	--- would have taken the spender's anchor from under it.
+	---
+	--- A role resolves to exactly ONE key, so it has nowhere else to go; a category has
+	--- a list. Serving the one with no alternative first is the only order that cannot
+	--- strand anybody.
 	local unplaced = {}
+	local function place(spell)
+		if not (spell and spell.id) then
+			return
+		end
+		if tryPreferredKey(spell) then
+			return
+		end
+		local slots = SlotListForSpell(spell, opts)
+		if not trySlots(slots, spell) then
+			unplaced[#unplaced + 1] = spell
+		end
+	end
+
 	for i = 1, #sorted do
-		local spell = sorted[i]
-		if spell and spell.id then
-			if not tryPreferredKey(spell) then
-				local slots = SlotListForSpell(spell, opts)
-				if not trySlots(slots, spell) then
-					unplaced[#unplaced + 1] = spell
-				end
-			end
+		if sorted[i] and sorted[i].role then
+			place(sorted[i])
+		end
+	end
+	for i = 1, #sorted do
+		if sorted[i] and not sorted[i].role then
+			place(sorted[i])
 		end
 	end
 

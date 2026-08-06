@@ -68,23 +68,96 @@ ns.KeybindRoleClassifierGlobal["Recuperate"] = { id = 1231411, role = "heal_sust
 
 --- Enumerate the player's KNOWN, active (non-passive) spells from the live spellbook.
 --- Uses the modern C_SpellBook API (same as JustAC/others on this patch). Returns name -> spellID.
+--- ⚠️ TWO BUGS LIVED HERE, both found on Rob's Frost Mage on 6 Aug. The layout came
+--- back with 18 spells and no Ice Block, no Icy Veins, no Mirror Image — not even in
+--- the "unclassified" list, so they never reached the classifier at all.
+---
+--- 1. IT STOPPED AT THE FIRST HOLE. The loop ran `for i = 1, 1000` and `break`-ed the
+---    moment an index returned nil. The spellbook is not one contiguous run; it is
+---    skill lines with offsets, so the first gap silently truncated everything after
+---    it. Walk the skill lines instead, the way EllesmereUI_Range.lua:93 and
+---    CDPulse_Options.lua:102 both do, and skip off-spec and hidden lines.
+---
+--- 2. IT ASKED ABOUT THE WRONG ID. A talent that replaces a spell gives the book two
+---    ids: `spellID` is the OVERRIDE and `actionID` the base — CDPulse_Options.lua:112
+---    carries that same note. Ice Block becomes Ice Cold, and `IsPlayerSpell` answers
+---    FALSE for the override and TRUE for the base, so asking about the override threw
+---    away a spell the player very much has. Exactly the trap that cost an hour on the
+---    survival card this afternoon; the guard simply was not here.
+---
+--- The base id is what gets stored, because `KeybindRoles_*.lua` is written in base ids
+--- and matching is this function's job. The displayed name still resolves through the
+--- override at render time, so a bar showing "Ice Cold" still matches.
 local function ReadKnownActiveSpells()
 	local out = {}
 	if not (C_SpellBook and C_SpellBook.GetSpellBookItemInfo and Enum and Enum.SpellBookSpellBank) then
 		return out
 	end
 	local bank = Enum.SpellBookSpellBank.Player
-	for i = 1, 1000 do
-		local info = C_SpellBook.GetSpellBookItemInfo(i, bank)
-		if not info then
-			break
+
+	local function Take(index)
+		local ok, info = pcall(C_SpellBook.GetSpellBookItemInfo, index, bank)
+		if not ok or type(info) ~= "table" then
+			return
 		end
-		if info.spellID and info.name and not info.isPassive then
-			local known = (not IsSpellKnown) or IsSpellKnown(info.spellID)
-				or (IsPlayerSpell and IsPlayerSpell(info.spellID))
-			if known and not out[info.name] then
-				out[info.name] = info.spellID
+		if not info.name or info.isPassive then
+			return
+		end
+		local override = info.spellID
+		local base = info.actionID or override
+		if not (override or base) then
+			return
+		end
+		--- Known if EITHER id answers yes. The override is what you press; the base is
+		--- what the game admits you own.
+		local known = false
+		if not IsSpellKnown and not IsPlayerSpell then
+			known = true -- no way to ask: do not silently drop the whole book
+		else
+			for _, id in ipairs({ base, override }) do
+				if id then
+					if IsSpellKnown then
+						local k1, v1 = pcall(IsSpellKnown, id)
+						if k1 and v1 then
+							known = true
+						end
+					end
+					if not known and IsPlayerSpell then
+						local k2, v2 = pcall(IsPlayerSpell, id)
+						if k2 and v2 then
+							known = true
+						end
+					end
+				end
 			end
+		end
+		if known and not out[info.name] then
+			out[info.name] = base or override
+		end
+	end
+
+	local numLines = 0
+	if C_SpellBook.GetNumSpellBookSkillLines then
+		local okN, n = pcall(C_SpellBook.GetNumSpellBookSkillLines)
+		numLines = (okN and n) or 0
+	end
+	if numLines > 0 and C_SpellBook.GetSpellBookSkillLineInfo then
+		for li = 1, numLines do
+			local okL, line = pcall(C_SpellBook.GetSpellBookSkillLineInfo, li)
+			if okL and type(line) == "table"
+				and line.itemIndexOffset and line.numSpellBookItems
+				and not line.shouldHide
+				-- offSpecID is 0 (not nil) on the active spec's lines.
+				and not (line.offSpecID and line.offSpecID ~= 0) then
+				for si = line.itemIndexOffset + 1, line.itemIndexOffset + line.numSpellBookItems do
+					Take(si)
+				end
+			end
+		end
+	else
+		-- No skill-line API: sweep a generous range, but never stop at a hole.
+		for i = 1, 500 do
+			Take(i)
 		end
 	end
 	return out
