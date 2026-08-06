@@ -38,10 +38,11 @@ end
 
 --- Should the combat log be registered at all?
 ---
---- Two consumers now, not one. Turning the death recap off used to switch off the
---- registration, which would silently take interrupt attribution with it — a
---- setting quietly disabling an unrelated feature is the kind of fault nobody
---- reports because nobody connects the two.
+--- Back to one consumer as of 6 Aug: interrupt attribution was removed, because
+--- the registration below is refused to every addon on Midnight and the feature
+--- could therefore never produce a line. `IsInterruptAnnounceEnabled` now returns
+--- false and the call is left standing only so this reads as what it is — a
+--- deliberate removal rather than a forgotten branch.
 local function autoEnabled()
 	if ns.IsInterruptAnnounceEnabled and ns.IsInterruptAnnounceEnabled() then
 		return true
@@ -210,16 +211,6 @@ local function OnCombatLog()
 	--
 	-- Positions: 5 sourceName, 9 destName, 16 extraSpellName (the spell that was
 	-- stopped; 13 is the kick itself).
-	if sub == "SPELL_INTERRUPT" then
-		if ns.OnInterruptAttributed then
-			local src, dst, stopped = t[5], t[9], t[16]
-			ns.OnInterruptAttributed(
-				(not isSecret(src)) and src or nil,
-				(not isSecret(dst)) and dst or nil,
-				(not isSecret(stopped)) and stopped or nil)
-		end
-		return
-	end
 
 	if not DMG_SUB[sub] then
 		return

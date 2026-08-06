@@ -198,8 +198,12 @@ end
 --- Default OFF. It adds chat lines for everyone who updates, and a new default
 --- that talks is the kind of change people experience as the addon breaking
 --- rather than gaining something. One command turns it on.
+--- Always false: the announcement was removed on 6 Aug because the combat log it
+--- needed is refused to every addon on Midnight. Kept as a function rather than
+--- deleted because Retrospective asks it before registering the combat log, and a
+--- nil there would read as "yes" through the `and` chain.
 function ns.IsInterruptAnnounceEnabled()
-	return (ns.db and ns.db.interruptAnnounce) and true or false
+	return false
 end
 
 --- Called by Retrospective's combat-log handler, which owns the registration and
@@ -247,7 +251,6 @@ local function RecordKick(source, dest, stoppedSpell)
 		difficultyID = ok and diffID or nil,
 		difficultyName = ok and diffName or nil,
 		clogRegistered = ns.IsCombatLogRegistered and ns.IsCombatLogRegistered() or false,
-		announceOn = ns.IsInterruptAnnounceEnabled(),
 	}
 end
 
@@ -277,36 +280,22 @@ function ns.MarkKicksProbeContext(reason)
 		difficultyID = ok and diffID or nil,
 		difficultyName = ok and diffName or nil,
 		clogRegistered = ns.IsCombatLogRegistered and ns.IsCombatLogRegistered() or false,
-		announceOn = ns.IsInterruptAnnounceEnabled(),
 	}
 end
 
-local lastAnnounce, lastKey = 0, nil
+--- Kept ONLY as the recorder behind `/mh kicks probe`.
+---
+--- The announcement it used to make is gone (see the note in
+--- HandleInterruptCommand). This still exists because the probe is what proved the
+--- feature impossible, and it is the thing that would notice if Blizzard ever
+--- reopened the combat log: a run that suddenly records interrupts would say so
+--- without anyone having to check.
+---
+--- Nothing calls it today, because Retrospective's dispatch was removed with the
+--- feature. It is wired back up by re-adding one line there, and the probe then
+--- answers the only question worth asking — did anything arrive at all.
 function ns.OnInterruptAttributed(source, dest, stoppedSpell)
-	-- Recorded before the enable check: the probe is for diagnosing a feature that
-	-- is producing nothing, and gating the record on the same switch that might be
-	-- the fault would hide it.
 	RecordKick(source, dest, stoppedSpell)
-
-	if not ns.IsInterruptAnnounceEnabled() or not source then
-		return
-	end
-
-	-- A double SPELL_INTERRUPT on one cast (two kicks landing together) would
-	-- otherwise print twice for what the player saw as one event.
-	local key = tostring(source) .. "|" .. tostring(stoppedSpell)
-	local now = GetTime and GetTime() or 0
-	if key == lastKey and (now - lastAnnounce) < 0.5 then
-		return
-	end
-	lastKey, lastAnnounce = key, now
-
-	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
-	if stoppedSpell then
-		print(("%s " .. ns:L("INTERRUPT_WHO_FMT")):format(prefix, source, stoppedSpell))
-	else
-		print(("%s " .. ns:L("INTERRUPT_WHO_FMT_PLAIN")):format(prefix, source))
-	end
 end
 
 function ns.HandleInterruptCommand(arg)
@@ -330,19 +319,23 @@ function ns.HandleInterruptCommand(arg)
 		end
 		return
 	end
-	if arg == "who" then
-		ns.db = ns.db or {}
-		ns.db.interruptAnnounce = not ns.db.interruptAnnounce
-		print(("%s %s"):format(prefix,
-			ns:L(ns.db.interruptAnnounce and "INTERRUPT_WHO_ON" or "INTERRUPT_WHO_OFF")))
-		-- The combat log is registered on entering tracked content, so switching
-		-- this on mid-dungeon has to ask for that registration now rather than at
-		-- the next zone change.
-		if ns.UpdateDeathRecapClog then
-			ns.UpdateDeathRecapClog()
-		end
-		return
-	end
+	-- `/mh kicks who` REMOVED 6 Aug 2026. It could never work.
+	--
+	-- It named whoever landed an interrupt, read from SPELL_INTERRUPT in the combat
+	-- log. Midnight refuses COMBAT_LOG_EVENT_UNFILTERED to every addon — measured
+	-- across Timewalking three times and a normal dungeon once, always
+	-- ADDON_ACTION_FORBIDDEN, never one success. DBM does not manage it either; it
+	-- lists the event under "must be blocked from registering on Midnight+"
+	-- (DBM-Core.lua:1680) and announces bosses without it.
+	--
+	-- Left in, the command answered "Interrupt credit ON" and then produced nothing
+	-- for the rest of the run. That is the Alt+M fault: the addon saying something
+	-- true-sounding that the player can never see happen. A command that cannot
+	-- work is worse than a missing one, because the missing one does not lie.
+	--
+	-- The route is not merely unavailable to us — it is closed to everyone, so
+	-- there is nothing to wait for and no fix to attempt. The full measurement is
+	-- at the top of Modules/Retrospective.lua.
 	if arg == "reset" then
 		ResetTally()
 	end
