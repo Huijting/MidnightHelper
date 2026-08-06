@@ -329,7 +329,20 @@ local function AnnouncePurge(isUp)
 	-- Same call CombatSafety already uses for incoming casts, including its note that
 	-- SpeakText may voice a secret string even though we may not read one.
 	if mode == "speak" and C_VoiceChat and C_VoiceChat.SpeakText then
-		local word = (ns.L and ns:L("PROMPT_WORD_PURGE")) or "Purge"
+		-- The spell's own name, for the same reason the icon shows it: a mage told to
+		-- "purge" has no such button. Falls back to the category word only if the
+		-- name cannot be resolved.
+		local word
+		if ns.GetPlayerPurgeIcon then
+			local okP, _, spellID = pcall(ns.GetPlayerPurgeIcon)
+			if okP and spellID and C_Spell and C_Spell.GetSpellName then
+				local okN, n = pcall(C_Spell.GetSpellName, spellID)
+				if okN and type(n) == "string" and n ~= "" then
+					word = n
+				end
+			end
+		end
+		word = word or (ns.L and ns:L("PROMPT_WORD_PURGE")) or "Purge"
 		local voiceId = 0
 		if C_TTSSettings and C_TTSSettings.GetVoiceOptionID and Enum and Enum.TtsVoiceType then
 			voiceId = C_TTSSettings.GetVoiceOptionID(Enum.TtsVoiceType.Standard) or 0
@@ -409,8 +422,21 @@ local function UpdateDispel()
 		f.tex:SetTexture(tex)
 		-- Readable case: GetAuraSlots answered, so this branch is allowed and the
 		-- word can simply be set alongside the alpha.
+		--
+		-- ⚠️ THE REAL SPELL NAME, not the word "PURGE". Rob saw PURGE on his mage and
+		-- reported he had no such spell — correctly, because a mage's is called
+		-- Spellsteal and a priest's is Dispel Magic. "Purge" is the shaman's name for
+		-- it and our own shorthand for the category; printing it over everyone's icon
+		-- sends nine tenths of players looking for a button they will never find.
 		if f.word then
-			f.word:SetText((ns.L and ns:L("PROMPT_WORD_PURGE")) or "PURGE")
+			local label
+			if spellID and C_Spell and C_Spell.GetSpellName then
+				local okN, n = pcall(C_Spell.GetSpellName, spellID)
+				if okN and type(n) == "string" and n ~= "" then
+					label = n
+				end
+			end
+			f.word:SetText(label or (ns.L and ns:L("PROMPT_WORD_PURGE")) or "PURGE")
 		end
 		f:SetAlpha(1)
 		AnnouncePurge(true)

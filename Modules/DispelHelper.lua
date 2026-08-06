@@ -413,11 +413,27 @@ function ns.GetPlayerPurgeIcon()
 	end
 	-- Same IsPlayerSpell gate the friendly dispels use: never claim a spell for a
 	-- spec that does not have it.
+	--
+	-- ⚠️ FAILS CLOSED. This used to skip the check when IsPlayerSpell was missing or
+	-- the call errored, which claims the spell for the whole class on the strength of
+	-- not knowing. Tonight a bare global turned out to be gone on 12.1, so "the
+	-- function is not there" is a real state, and the safe answer to "can this player
+	-- do it?" is no.
+	local has
 	if IsPlayerSpell then
-		local ok, has = pcall(IsPlayerSpell, entry.id)
-		if ok and has ~= true then
-			return nil
+		local ok, v = pcall(IsPlayerSpell, entry.id)
+		if ok then
+			has = v
 		end
+	end
+	if has ~= true and C_SpellBook and C_SpellBook.IsSpellKnown then
+		local ok2, v2 = pcall(C_SpellBook.IsSpellKnown, entry.id)
+		if ok2 and v2 == true then
+			has = true
+		end
+	end
+	if has ~= true then
+		return nil
 	end
 	if not (C_Spell and C_Spell.GetSpellTexture) then
 		return nil
