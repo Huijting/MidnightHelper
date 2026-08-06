@@ -114,3 +114,22 @@ and two curio quests off a single delve — "A Gnawing Void of Curiosity" and
 **Farthik the Plunderer does land.** Rob killed him after finding him unattackable
 earlier, so the airborne phase is a phase and not a broken spawn. The kill happened
 before the probe worked, so his questId is still open.
+
+### First Season 2 curios seen, 6 Aug
+
+Two dropped from Gnarldor Isle and appear in Valeera's Combat Curio slot:
+
+  • **Corrosive Bilespear** — Rank 1/4. "Your companion has a chance during combat to
+    impale the highest-health nearby targets with a Corrosive Bilespear, dealing
+    tremendous Nature damage."
+  • **Essence Trap** — seen in the same slot list, no tooltip read yet.
+
+Names only. `ns.DELVE_CURIOS_BY_SEASON` is keyed by item, so nothing goes in until the
+IDs are measured — and guessing them from Season 1 is exactly the failure the advisor
+was built to avoid.
+
+THE WAY TO GET THEM: `DelveCuriosAdvisor.lua` already walks the companion's trait tree
+(`C_DelvesUI.GetTraitTreeForCompanion` -> `C_Traits.GetConfigIDByTreeID` -> node and
+entry info) to read the role node. The curio slots are nodes in that same tree, so a
+dump of every node and entry would hand over the Season 2 set in one command instead
+of one screenshot at a time.
