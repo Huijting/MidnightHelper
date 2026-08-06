@@ -249,6 +249,7 @@ ns._mhLocales.nlNL = {
 	CMDLIST_ARROW = "Wie je begeleidt, en waarom de pijl wel of niet verschijnt.",
 	CMDLIST_ARROWSIZE = "Verander de grootte van de routepijl (28-160).",
 	CMDLIST_GOTO = "Zet de pijl op een plek: /mh goto 47.0 62.2 [naam]",
+	CMDLIST_MOUSE = "Hoeveel duimknoppen je muis heeft (0-6) - het keybind-schema gebruikt ze.",
 	CMDLIST_PROMPT = "Prompt op je scherm: toont je interrupt en je purge wanneer ze kunnen.",
 	CMDLIST_PROMPT_SOUND = "Melding zodra je kunt purgen: gesproken, tik, of uit (interrupts blijven stil).",
 	PROMPT_SOUND_SPEAK = "Promptgeluid: GESPROKEN - hij zegt het woord zodra je kunt purgen.",

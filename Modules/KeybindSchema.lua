@@ -54,6 +54,23 @@ ns.KeybindSchema = {
 	modifierFillOrder = { "shift", "ctrl" },
 	--- Not used for Midnight spell binds (grid slot exists but team leaves empty).
 	excludedBaseKeys = { G = true },
+
+	--- Thumb buttons, in the order they get handed out.
+	---
+	--- ⚠️ ADDED 6 Aug 2026. The standard has called mouse4/mouse5 green-tier since v6
+	--- (§2) and assigns them trinket + movement (§3) — but the ALLOCATOR knew of no
+	--- mouse button at all. Eighteen keyboard keys, nothing else. So on Rob's Naga six
+	--- first-class buttons sat unused under his thumb while the scheme pushed a third
+	--- defensive onto Ctrl+Z. Every keybinding guide rates thumb buttons alongside 1
+	--- and Q; a double modifier is rated below both.
+	---
+	--- ⚠️ THE NAMES ARE A DEFAULT, NOT A MEASUREMENT. WoW accepts BUTTON1..BUTTON31,
+	--- but a Razer Naga's pad can be configured to send either mouse buttons or number
+	--- keys, and we cannot read which from inside the game. BUTTON4/5 are safe — nearly
+	--- every mouse has them. Anything beyond that depends on the player's own driver, so
+	--- the count is a setting rather than an assumption. Default 2 covers an ordinary
+	--- mouse; Rob runs 6.
+	mouseSlotFillOrder = { "BUTTON4", "BUTTON5", "BUTTON6", "BUTTON7", "BUTTON8", "BUTTON9" },
 	--- Base keys in priority when auto-assigning within a category (interrupt uses role, not this list).
 	baseSlotFillOrder = {
 		"1",
@@ -382,6 +399,20 @@ function ns.Keybind_AllocateSpells(spells, opts)
 	--- v6 §4: vul eerst ALLE base-toetsen van de slot-lijst, dán de Shift-laag van elk,
 	--- dan Ctrl, dan Alt (modifier-major). Zo landen builders op 1/2/3 vóór ze overlopen
 	--- naar Shift+1 — i.p.v. eerst alle modifier-lagen van toets 1 te vullen.
+	--- Thumb buttons the player actually has. Setting, because we cannot read the mouse.
+	local function MouseSlots()
+		local n = tonumber(ns.db and ns.db.mouseButtonCount)
+		if not n then
+			n = 2 -- an ordinary two-thumb-button mouse
+		end
+		n = math.max(0, math.min(n, #Schema.mouseSlotFillOrder))
+		local out = {}
+		for i = 1, n do
+			out[i] = Schema.mouseSlotFillOrder[i]
+		end
+		return out
+	end
+
 	local function trySlots(slots, spell)
 		slots = slots or {}
 		local layers = { false } -- false = base-laag (geen modifier)
@@ -394,6 +425,27 @@ function ns.Keybind_AllocateSpells(spells, opts)
 				local base = ns.Keybind_NormalizeBaseKey(slots[s])
 				if base and not Schema.excludedBaseKeys[base] then
 					local bk = mod and ns.Keybind_MakeBindKey(mod, base) or base
+					if bk and not isOccupied(bk) then
+						mark(bk, spell)
+						return true
+					end
+				end
+			end
+
+			--- After Shift, before Ctrl: a free thumb button beats a double modifier.
+			---
+			--- This is the one place the scheme deliberately breaks its own
+			--- same-kind-same-place rule, and it is worth stating why. A third sibling
+			--- has to go SOMEWHERE. The choice is Ctrl+&lt;its own key&gt; — cohesive but
+			--- awkward, and every guide rates a second modifier poorly — or a thumb
+			--- button, which is rated alongside 1 and Q but sits away from its family.
+			--- Measured on Rob's Prot Paladin, the Ctrl layer held exactly two spells:
+			--- Blinding Light and Blessing of Spellwarding. Both are the kind you press
+			--- rarely and want to hit first time. Cohesion loses that trade.
+			if mod == "shift" then
+				local mice = MouseSlots()
+				for m = 1, #mice do
+					local bk = mice[m]
 					if bk and not isOccupied(bk) then
 						mark(bk, spell)
 						return true

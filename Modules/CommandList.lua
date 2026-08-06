@@ -45,6 +45,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh", descKey = "CMDLIST_MAIN" },
 		{ cmd = "/mh codex", descKey = "CMDLIST_CODEX" },
 		{ cmd = "/mh settings", descKey = "CMDLIST_SETTINGS" },
+		{ cmd = "/mh mouse", descKey = "CMDLIST_MOUSE" },
 		{ cmd = "/mh changelog", descKey = "CMDLIST_CHANGELOG" },
 		{ cmd = "/mh lang", descKey = "CMDLIST_LANG" },
 	} },

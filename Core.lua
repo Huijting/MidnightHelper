@@ -1076,6 +1076,28 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 	end
 
+	-- /mh mouse <n> — how many thumb buttons you have. We cannot read the mouse, and a
+	-- Naga's pad may send mouse buttons or number keys depending on its driver, so this
+	-- is asked rather than assumed. It decides how many premium slots the keybind
+	-- scheme may hand out before it falls back to a second modifier.
+	do
+		local mn = msg:match("^mouse%s+(%d+)$")
+		if mn or msg == "mouse" then
+			ns.db = ns.db or {}
+			local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+			if mn then
+				local n = math.max(0, math.min(tonumber(mn) or 0, 6))
+				ns.db.mouseButtonCount = n
+				print(("%s thumb buttons: %d. The keybind scheme will use them before a second modifier."):format(prefix, n))
+				print("   |cff9d9d9dRun |cffffffff/mhautomap|r to see the new layout.|r")
+			else
+				print(("%s thumb buttons: %d (set with |cffffffff/mh mouse 6|r, 0-6)."):format(
+					prefix, tonumber(ns.db.mouseButtonCount) or 2))
+			end
+			return
+		end
+	end
+
 	-- /mh bonusroll — record what Blizzard's bonus-roll popup actually is. Rob met one
 	-- after a delve on live and we have no idea what it is; guessing would be worse.
 	if msg == "bonusroll" or msg == "bonusroll clear" then

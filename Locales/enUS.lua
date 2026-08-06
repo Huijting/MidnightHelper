@@ -251,6 +251,7 @@ ns._mhLocales.enUS = {
 	CMDLIST_ARROW = "Who is guiding you, and why the arrow is or is not showing.",
 	CMDLIST_ARROWSIZE = "Resize the route arrow (28-160).",
 	CMDLIST_GOTO = "Point the arrow at a spot: /mh goto 47.0 62.2 [name]",
+	CMDLIST_MOUSE = "How many thumb buttons your mouse has (0-6) - the keybind scheme uses them.",
 	CMDLIST_PROMPT = "On-screen prompt: shows your interrupt and your purge when they apply.",
 	CMDLIST_PROMPT_SOUND = "Alert when a purge is available: spoken, chime, or off (interrupts stay silent).",
 	PROMPT_SOUND_SPEAK = "Prompt sound: SPOKEN - it says the word when a purge becomes available.",
