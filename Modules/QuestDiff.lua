@@ -252,6 +252,29 @@ function ns.HandleQuestDiff(arg)
 		return
 	end
 
+	-- `/mh questdiff check <id>` — is this one quest flagged for the character I am on?
+	--
+	-- Two questions hang on this and neither is worth guessing at. Is the flag per
+	-- character or account-wide? Log onto an alt and ask. Does it reset daily? Ask
+	-- again tomorrow. Both answers decide whether a rare that has already been killed
+	-- can be measured again at all, and the alternative to asking is copying a
+	-- character to the PTR on a hunch.
+	local checkID = tonumber(arg and arg:match("^check%s+(%d+)$"))
+	if checkID then
+		if not IsDone then
+			print(("%s check: C_QuestLog.IsQuestFlaggedCompleted is missing."):format(p))
+			return
+		end
+		local ok, done = pcall(IsDone, checkID)
+		if not ok then
+			print(("%s check %d: the call failed."):format(p, checkID))
+			return
+		end
+		print(("%s quest %d is %s for this character."):format(
+			p, checkID, done and "|cff40ff40COMPLETED|r" or "|cffff6060NOT completed|r"))
+		return
+	end
+
 	-- `/mh questdiff probe` — where do this character's completed quests actually live?
 	--
 	-- The baseline came back 0 for 88000..112000, and that number alone cannot say
