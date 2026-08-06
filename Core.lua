@@ -1024,6 +1024,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh questdiff — find the hidden kill-quest behind a rare, by diffing which
+	-- quests count as completed before and after a fight.
+	if msg == "questdiff" or msg == "questdiff clear" then
+		if ns.HandleQuestDiff then
+			ns.HandleQuestDiff(msg:match("^questdiff%s+(%S+)"))
+		end
+		return
+	end
+
 	-- /mh vignettes — record every rare vignette you fly past, to SavedVariables.
 	if msg == "vignettes" or msg == "vignettes clear" then
 		if ns.HandleVignetteCapture then
