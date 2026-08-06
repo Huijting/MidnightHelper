@@ -510,7 +510,7 @@ ns._mhLocales.enUS = {
 	-- No "kicks party" here. The hint advertised it for months and it exists in
 	-- neither the router nor the handler; a hint for a command that answers
 	-- "unknown command" is worse than no hint.
-	INTERRUPT_KICKS_HINT = "Toggle: /mh kicks alert (sound) · /mh kicks who (name the interrupter) · /mh kicks reset.",
+	INTERRUPT_KICKS_HINT = "Toggle: /mh kicks alert (sound) · /mh kicks reset.",
 	SURVIVAL_HEAD = "Stay alive",
 	SURVIVAL_INTRO = "Your buttons in the order a fight needs them. Learn the first one and most deaths stop.",
 	SURVIVAL_STEP_KEEPUP = "keep this up, put it on BEFORE you pull",
