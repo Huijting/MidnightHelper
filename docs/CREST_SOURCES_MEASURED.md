@@ -297,3 +297,58 @@ does not depend on the first being interpreted correctly. **The claim stays out.
 Do not re-add it because a guide, a recap or a watcher entry repeats it. If it ever
 becomes true the currency tab will start drawing a fraction, and `/mh crests` will
 report a non-zero maxWeeklyQuantity. Until one of those happens, this is settled.
+
+---
+
+## Season 2 measured on the 12.1 PTR (6 Aug 2026)
+
+`/mh crests save` on Rob's PTR client, 17 rows. This answers three open questions
+and settles the cap argument for good.
+
+### Which Mistcrest ids are real: the "-alt" set
+
+Both sets exist and both resolve to real currencies with the right names. The one
+that actually holds your crests is the second:
+
+| tier | id (S2) | id (S2-alt) | maxQuantity |
+|---|---|---|---|
+| Adventurer | 3437 | **3442** | 800 |
+| Veteran | 3438 | **3443** | 800 |
+| Champion | 3439 | **3444** | 800 |
+| Hero | 3440 | **3445** | 700 |
+| Myth | 3441 | **3446** | 700 |
+
+The proof is in Season 1 on the same client: id 3341 (S1) reads `quantity = 0`
+while 3342 (S1-alt) reads `quantity = 290` — the crests Rob is actually carrying.
+Same shape one season down, so the alt ids are the live ones.
+
+### There IS a cap, and it is not the one everyone repeats
+
+    maxQuantity       = 800 (adventurer/veteran/champion) · 700 (hero/myth)
+    maxWeeklyQuantity = 0
+
+A **holding** limit, not a weekly one. That is almost certainly the source of the
+"~100 per week" claim this addon shipped in seven languages and removed in 2.11.1:
+a cap exists, it is simply not weekly and not 100. The 2.11.1 correction stands,
+and the falsifier written above it still holds — `maxWeeklyQuantity` is zero.
+
+### Item levels per tier, Season 2
+
+Adventurer 269-282 · Veteran 282-295 · Champion 295-308 · Hero 308-321 ·
+Myth 321-334. Crafting sets a slightly lower band (e.g. Myth 318-331).
+
+### Prey Hunts is gone as a crest source
+
+Every Season 1 description lists "Prey Hunts" among the activities. **Not one
+Season 2 description does.** S2 sources are repeatable outdoor events, the
+Venomous Abyss at the matching difficulty, season dungeons, delve tiers and
+Trovehunter's Bounty.
+
+That matters beyond the crest pages: if the weekly planner keeps presenting Prey
+at Season 1 weight after 18 August, it sends people to content that no longer pays
+in crests. Same class of change as the world bosses keeping S1 gear.
+
+### Also confirmed
+
+`seasonTwoLive = true` on the PTR — the self-learning season gate flips by itself,
+which is what it was built for and had never been observed doing.
