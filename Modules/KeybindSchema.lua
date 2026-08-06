@@ -37,8 +37,21 @@ local MOD_RANK = {
 --- @class KeybindSchema
 ns.KeybindSchema = {
 	schema_version = 6,
-	--- Overflow on an occupied base key (same physical key). v6: Shift → Ctrl → Alt.
-	modifierFillOrder = { "shift", "ctrl", "alt" },
+	--- Overflow on an occupied base key (same physical key). Shift → Ctrl.
+	---
+	--- ⚠️ ALT REMOVED 6 Aug 2026, and it cost nothing. Measured across all 40 specs, the
+	--- Alt layer held 0–4 of 18 keys and usually 1–2; Fury Warrior and two Warlock specs
+	--- got none at all. It could not fill up: layers are tried per key, so Alt only came
+	--- up once BOTH Shift and Ctrl of that same key were taken, which almost never
+	--- happens. So it contributed a near-empty strip of AF1/A1/AQ cells that Rob could
+	--- not read — and he is the expert here; a beginner had no chance.
+	---
+	--- It also actively costs functionality: Alt is WoW's self-cast modifier, and a bind
+	--- on Alt+X breaks self-casting that key. On Rob's Prot Paladin that is Lay on Hands
+	--- and Word of Glory. Blizzard's own forums carry the same complaint repeatedly, with
+	--- "unbind your Alt combinations" as the answer. No community keybinding guide
+	--- recommends Alt as a general layer.
+	modifierFillOrder = { "shift", "ctrl" },
 	--- Not used for Midnight spell binds (grid slot exists but team leaves empty).
 	excludedBaseKeys = { G = true },
 	--- Base keys in priority when auto-assigning within a category (interrupt uses role, not this list).
@@ -436,17 +449,34 @@ function ns.Keybind_AllocateSpells(spells, opts)
 	end
 	opts.hasInterrupt = hasInterrupt
 
+	--- ⚠️ NO GLOBAL FALLBACK. Until 6 Aug an ability whose own category was full fell back
+	--- on the WHOLE base list and took the first free key from the left — which is the
+	--- number row. Measured, that put Sap on 3, Concussive Shot on 4 and Spellsteal on 5:
+	--- crowd control sitting on builder keys while its own sibling sat on V. Enhancement
+	--- got Bloodlust on 5 and Heroism on X, two faces of one button two keys apart.
+	---
+	--- The whole promise of this scheme is that the same KIND of thing lives in the same
+	--- place. A fallback that breaks that promise to avoid an empty hand is a bad trade:
+	--- it does not lose one binding, it makes the entire layout unreadable — which is
+	--- exactly the report that started this.
+	---
+	--- So a spell that does not fit its own key and that key's modifier layers gets NO
+	--- key, and is returned instead. "This one did not fit, click it or place it
+	--- yourself" is an honest answer. Silently landing on 3 is not.
+	local unplaced = {}
 	for i = 1, #sorted do
 		local spell = sorted[i]
 		if spell and spell.id then
 			if not tryPreferredKey(spell) then
 				local slots = SlotListForSpell(spell, opts)
 				if not trySlots(slots, spell) then
-					trySlots(Schema.baseSlotFillOrder, spell)
+					unplaced[#unplaced + 1] = spell
 				end
 			end
 		end
 	end
 
-	return out
+	--- @return table spellByUiKey, table unplaced  — second value is new; older callers
+	--- ignore it and behave as before, minus the key theft.
+	return out, unplaced
 end

@@ -182,15 +182,19 @@ function ns.MH_AutoMapBuild()
 		end
 	end
 
-	local map = {}
+	local map, unplaced = {}, {}
 	if ns.Keybind_AllocateSpells then
-		map = ns.Keybind_AllocateSpells(spells, { hasInterrupt = hasInterrupt })
+		-- Second return, new 6 Aug: what did not fit its own key. It used to be silently
+		-- dumped on the number row; now it is carried out so it can be SAID rather than
+		-- hidden. A spell we cannot place is information, not an embarrassment.
+		map, unplaced = ns.Keybind_AllocateSpells(spells, { hasInterrupt = hasInterrupt })
+		unplaced = unplaced or {}
 	end
 	table.sort(unmatched)
 	table.sort(clickCast, function(a, b)
 		return (a.name or "") < (b.name or "")
 	end)
-	return map, matched, unmatched, class, clickCast
+	return map, matched, unmatched, class, clickCast, unplaced
 end
 
 --- Cache: herbouwen kost een spellbook-scan; alleen opnieuw bij spec/talent-wissel.
@@ -258,7 +262,7 @@ end
 
 SLASH_MHAUTOMAP1 = "/mhautomap"
 SlashCmdList["MHAUTOMAP"] = function()
-	local map, matched, unmatched, class = ns.MH_AutoMapBuild()
+	local map, matched, unmatched, class, _, unplaced = ns.MH_AutoMapBuild()
 	print("|cff33ff99Midnight AutoMap (prototype)|r — class: |cffffd100" .. tostring(class) .. "|r")
 	if not RolesForClass(class) then
 		print("|cffff6600Nog geen classifier voor deze class geladen.|r")
@@ -275,4 +279,16 @@ SlashCmdList["MHAUTOMAP"] = function()
 	end
 	print(string.format("|cff33ff99%d|r spells geplaatst. |cff888888%d bekende active spells zonder rol:|r %s",
 		#keys, #unmatched, table.concat(unmatched, ", ")))
+
+	-- Wat niet paste. Vroeger belandde dit stil op de nummerrij; nu staat het er als
+	-- lijst, want "past niet" is een antwoord en een CC op je builder-toets niet.
+	if unplaced and #unplaced > 0 then
+		local names = {}
+		for i = 1, #unplaced do
+			names[#names + 1] = NameForId(unplaced[i].id)
+		end
+		table.sort(names)
+		print(string.format("|cffff9900%d paste niet op de eigen toets|r |cff888888(klik ze, of plaats ze zelf):|r %s",
+			#unplaced, table.concat(names, ", ")))
+	end
 end
