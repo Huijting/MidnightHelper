@@ -88,9 +88,15 @@ op *"Midnight Season 1", generatedAt 2026-07-08*. Klopt vandaag, is op 18 aug fo
 bosses en de one-time epic-gearquest zijn **niet** ge-updatet voor S2 en blijven
 S1-gear. Vanaf 18 aug stuurt de planner mensen dus naar iets dat niet meer loont.
 
-**10. Patchdag-metingen** (11/12 aug, in-game): `/mh zone` in Coiled Isle voor de
-mapID, `/mh crests` om te zien welke S2-crest-id de primaire is, en de
-Voidcore-currency-id (3418 vs 3513 — de bronnen spreken elkaar tegen).
+**10. Patchdag-metingen** (11/12 aug, in-game): `/mh crests` om te zien welke
+S2-crest-id de primaire is, en de Voidcore-currency-id (3418 vs 3513 — de bronnen
+spreken elkaar tegen).
+
+✅ **De Coiled Isle-mapID is al binnen: 2512**, gemeten op de PTR op 6 aug met
+`/dump WorldMapFrame:GetMapID()` terwijl de kaart openstond — dat werkt zonder dat
+je in de zone hoeft te staan, en de zone gaat pas open na twee campagne-hoofdstukken.
+Bewust nog **niet** in `MAP_TO_ZONE_KEY` gezet: die tabel betekent "gedekt", en we
+hebben nul rares of treasures voor dat eiland. Zie `RESEARCH_12_1.md`.
 
 ---
 

@@ -400,6 +400,38 @@ replacement for the string-mining, and it is how DBM has always done it.
 
 Note `tierTooltipSpellID = 1260975` alongside it, and `shownState = 1`.
 
+### The Coiled Isle mapID: **2512** (measured 6 Aug 2026, PTR)
+
+The number the zone scaffold has been blocked on for weeks. It is not datamined
+anywhere; Rob read it off his own PTR client.
+
+    /dump WorldMapFrame:GetMapID()      ->  [1]=2512
+
+**How, without standing there.** The isle only opens after the first two campaign
+chapters ("Hagar's Invitation" from Orweyna, Sanctum of Light, Silvermoon), and
+Rob's is still at 0/1 — so flying there was not possible. `WorldMapFrame:GetMapID()`
+returns the map you are LOOKING at rather than the one you stand on, which
+sidesteps the requirement entirely. It is a Blizzard call, used 237 times across
+the addons installed here.
+
+Map hierarchy from the same screen: Azeroth → Eastern Kingdoms → Quel'Thalas →
+**The Coiled Isle** → Vaults of Atal'Utek → Altar of Fangs. Zygor already carries
+routing coordinates for the isle (`LibRover-1.0/data_borders.lua:351`), including
+the tunnel between the isle and Vaults of Atal'Utek.
+
+⚠️ **NOT wired into `MAP_TO_ZONE_KEY` (`Modules/Rares.lua:10`), on purpose.** That
+table means "this zone is covered", and coverage is read as a promise: rares,
+treasures, routes. We have none of that for the Coiled Isle. Adding the id today
+would make `IsZoneCovered(2512)` answer true and hand a player an empty zone panel,
+which is worse than the honest false it returns now. Wire it up in the same change
+that brings the content, not before.
+
+**Also captured while there**, new to us: the reputation **Zul'jarra's Forces**
+(Zul'jarra is in our data only as an NPC in the Den of Nalorakk tips), and the Lair
+quest *"Defeat Nymrissa Wavecaller in the Tidebound Grotto lair"*, rewarding 200
+Zul'jarra's Forces plus a one-time warband reputation bonus. That confirms the
+watcher entry of 30 July naming that lair boss.
+
 ### What other addons fixed for 12.1 on 6 Aug — and why none of it touches us
 
 Rob asked, on the day a wave of addons updated, whether their patch notes named
