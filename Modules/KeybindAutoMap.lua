@@ -136,21 +136,42 @@ local function ReadKnownActiveSpells()
 		end
 	end
 
+	--- What the walk saw, kept for diagnosis. Five real Frost Mage spells were still
+	--- missing after the first fix and there was no way to tell "Rob has not talented
+	--- it" from "my filter is too strict" — so the filter now writes down what it
+	--- skipped and why, instead of leaving that to argument.
+	ns._mhSpellbookScan = { lines = {}, skipped = {} }
+	local scan = ns._mhSpellbookScan
+
 	local numLines = 0
 	if C_SpellBook.GetNumSpellBookSkillLines then
 		local okN, n = pcall(C_SpellBook.GetNumSpellBookSkillLines)
 		numLines = (okN and n) or 0
 	end
+	scan.numLines = numLines
 	if numLines > 0 and C_SpellBook.GetSpellBookSkillLineInfo then
 		for li = 1, numLines do
 			local okL, line = pcall(C_SpellBook.GetSpellBookSkillLineInfo, li)
-			if okL and type(line) == "table"
-				and line.itemIndexOffset and line.numSpellBookItems
-				and not line.shouldHide
-				-- offSpecID is 0 (not nil) on the active spec's lines.
-				and not (line.offSpecID and line.offSpecID ~= 0) then
-				for si = line.itemIndexOffset + 1, line.itemIndexOffset + line.numSpellBookItems do
-					Take(si)
+			if okL and type(line) == "table" then
+				local hidden = line.shouldHide and true or false
+				local offSpec = (line.offSpecID and line.offSpecID ~= 0) and line.offSpecID or nil
+				scan.lines[#scan.lines + 1] = {
+					index = li,
+					name = line.name,
+					offset = line.itemIndexOffset,
+					count = line.numSpellBookItems,
+					shouldHide = hidden,
+					offSpecID = offSpec,
+				}
+				if line.itemIndexOffset and line.numSpellBookItems and not hidden and not offSpec then
+					for si = line.itemIndexOffset + 1, line.itemIndexOffset + line.numSpellBookItems do
+						Take(si)
+					end
+				else
+					scan.skipped[#scan.skipped + 1] = {
+						name = line.name,
+						reason = hidden and "shouldHide" or (offSpec and "offSpec" or "no offset/count"),
+					}
 				end
 			end
 		end
@@ -365,7 +386,17 @@ SlashCmdList["MHAUTOMAP"] = function()
 		unplaced = {},
 		unmatched = unmatched or {},
 		clickCast = {},
+		spellbook = ns._mhSpellbookScan,
 	}
+	-- Every name the scan returned, so "absent" can be told apart from "unclassified".
+	do
+		local seen = {}
+		for name in pairs(ReadKnownActiveSpells()) do
+			seen[#seen + 1] = name
+		end
+		table.sort(seen)
+		dump.scanned = seen
+	end
 	for _, bk in ipairs(keys) do
 		local def = map[bk]
 		dump.placed[#dump.placed + 1] = {
