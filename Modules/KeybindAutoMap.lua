@@ -344,11 +344,40 @@ do
 	end)
 end
 
+--- The name the player will actually read on their bar.
+---
+--- ⚠️ FOLLOW THE OVERRIDE. We store BASE ids, because `KeybindRoles_*.lua` is written
+--- in base ids and that is what matching needs. But a talent that replaces a spell
+--- also replaces its name, and the player never sees the base one: Rob's spellbook
+--- says Ice Cold, Shimmer and Greater Invisibility where our map said Ice Block, Blink
+--- and Invisibility. Telling somebody to press a button that is not labelled that is
+--- the same fault as promising Alt+M opens the addon.
+---
+--- Ownership is still asked of the base — that half was right, and the survival card
+--- learned it the hard way this afternoon. Only the NAME follows the override.
+--- `C_SpellBook.FindSpellOverrideByID` is the call the other addons here use for it.
 local function NameForId(id)
+	if not id then
+		return "?"
+	end
+	local display = id
+	if C_SpellBook and C_SpellBook.FindSpellOverrideByID then
+		local ok, over = pcall(C_SpellBook.FindSpellOverrideByID, id)
+		if ok and type(over) == "number" and over ~= 0 then
+			display = over
+		end
+	end
 	if C_Spell and C_Spell.GetSpellName then
-		local n = C_Spell.GetSpellName(id)
+		local n = C_Spell.GetSpellName(display)
 		if n then
 			return n
+		end
+		-- Override resolved to something unnameable: fall back to the base.
+		if display ~= id then
+			local b = C_Spell.GetSpellName(id)
+			if b then
+				return b
+			end
 		end
 	end
 	return tostring(id)

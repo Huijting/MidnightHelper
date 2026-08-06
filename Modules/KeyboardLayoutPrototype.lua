@@ -183,14 +183,32 @@ local function ProtoResolveSlug()
 	return nil
 end
 
+--- ⚠️ Same rule as KeybindAutoMap's NameForId: the layout must print the name that is
+--- on the player's bar, not the one in our table. A talent that replaces a spell
+--- replaces its name too — Ice Block reads as Ice Cold, Blink as Shimmer, Invisibility
+--- as Greater Invisibility. We hold base ids on purpose (matching needs them); only
+--- the displayed name follows the override.
 local function ProtoSpellName(spellId)
 	local sid = tonumber(spellId)
 	if not sid or sid < 1 or not C_Spell or not C_Spell.GetSpellInfo then
 		return nil
 	end
-	local ok, si = pcall(C_Spell.GetSpellInfo, sid)
+	local display = sid
+	if C_SpellBook and C_SpellBook.FindSpellOverrideByID then
+		local okO, over = pcall(C_SpellBook.FindSpellOverrideByID, sid)
+		if okO and type(over) == "number" and over ~= 0 then
+			display = over
+		end
+	end
+	local ok, si = pcall(C_Spell.GetSpellInfo, display)
 	if ok and si and si.name and si.name ~= "" then
 		return si.name
+	end
+	if display ~= sid then
+		local okB, sb = pcall(C_Spell.GetSpellInfo, sid)
+		if okB and sb and sb.name and sb.name ~= "" then
+			return sb.name
+		end
 	end
 	return nil
 end
