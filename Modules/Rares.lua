@@ -162,12 +162,21 @@ local ZONES = {
 -- vignette recorder read every name, npcID and coordinate off the client while Rob
 -- flew a lap, and `/mh questdiff` paired one kill with the quest it flagged.
 --
--- ⚠️ ONLY ONE questId IS CONFIRMED. Lockjaw's 97227 was measured; the rest carry 0,
--- which the addon already supports (Val and Naigtal's Showdown rares do the same)
--- and which means those rares NEVER TICK THEMSELVES OFF — they stay on the list
--- after you kill them. That is a known, visible shortcoming and it is the honest
--- state of the data. The alternative was picking one of the two quest ids a kill
--- flags, which would be a guess dressed up as a measurement.
+-- HOW THE questIds WERE FOUND. A kill flags more than one quest, so a single kill
+-- could not say which id belonged to the rare. Eight kills settled it: each flagged
+-- exactly one id from the narrow band 98344..98354, and no two rares shared one.
+--
+--     98344 Farthik   98345 Siltmouth   98347 Lockjaw   98348 (unidentified, 44.1/50.4)
+--     98351 Nar'zira  98352 Coin-Eye    98353 Big Mon   98354 Sss'alik
+--
+-- The Malformed Leviathan flagged NOTHING in that band -- and it is the one that is an
+-- EVENT rather than a plain rare: a scenario banner announces "Defeat the Monstrosity!"
+-- when it spawns. The exception landing exactly where an exception was predicted is
+-- what turned this from a pattern into a measurement.
+--
+-- ⚠️ Two still carry 0 and so never tick themselves off: the Leviathan (no such quest
+-- appears to exist for it) and Venom Lancer Ori'kassi (never killed). Filling those from
+-- the unused gaps in the band would be a guess wearing a measurement's clothes.
 --
 -- ⚠️ Nar'zira sits on map 2642, an interior with its own map ID, so a lap flown over
 -- 2512 alone will not have seen everything that lives here. Expect this list to grow.
@@ -178,15 +187,15 @@ local COILED_ISLE = {
 	label = "The Coiled Isle",
 	shortLabel = "Coiled Isle",
 	rares = {
-		{ 97227, 2512, 31.72, 56.82, "Lockjaw the Snapper", 265237 },
-		{ 0, 2512, 58.01, 40.13, "Sss'alik, The Rotten Claw", 261109 },
-		{ 0, 2512, 46.99, 62.23, "Malformed Leviathan", 255087 }, -- elite
-		{ 0, 2512, 70.03, 63.44, "Big Mon", 256631 },
-		{ 0, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906 },
-		{ 0, 2512, 50.00, 69.07, "Siltmouth, the Unflappable", 268049 },
-		{ 0, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854 }, -- circles in the air until he lands
-		{ 0, 2512, 67.16, 77.52, "Venom Lancer Ori'kassi", 255927 }, -- elite
-		{ 0, 2642, 66.40, 62.90, "Nar'zira", 258920 }, -- interior map
+		{ 98347, 2512, 31.72, 56.82, "Lockjaw the Snapper", 265237 },
+		{ 98354, 2512, 58.01, 40.13, "Sss'alik, The Rotten Claw", 261109 },
+		{ 0, 2512, 46.99, 62.23, "Malformed Leviathan", 255087 }, -- elite; EVENT, no kill quest of its own
+		{ 98353, 2512, 70.03, 63.44, "Big Mon", 256631 },
+		{ 98352, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906 },
+		{ 98345, 2512, 50.00, 69.07, "Siltmouth, the Unflappable", 268049 },
+		{ 98344, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854 }, -- circles in the air until he lands
+		{ 0, 2512, 67.16, 77.52, "Venom Lancer Ori'kassi", 255927 }, -- elite; not killed yet, id unknown
+		{ 98351, 2642, 66.40, 62.90, "Nar'zira", 258920 }, -- interior map
 	},
 }
 local COILED_ISLE_MAPS = { 2512, 2642 }
