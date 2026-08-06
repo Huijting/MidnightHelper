@@ -1,0 +1,295 @@
+schema_id: mh.knowledge_object
+schema_version: 0.5.0
+status: proposal
+supersedes: 0.4.0
+changes_from_0_4:
+- >-
+  Added applicable_when. Before this, applicability came only from material inputs being
+  present, which gave the ritual tier selector the right behaviour by accident: it is
+  silent everywhere except a tiered entrance because that is the only place the tiers
+  exist. Correct by accident is not the same as stated, and nothing in the data said so.
+- >-
+  Added the tier_entry shape. The game reports a suggested item level PER TIER, so a
+  single live_recommended_item_level could only ever be a summary of six values, and we
+  have no basis for choosing which one.
+- >-
+  Added failure_reason_provenance, so a reason the game gave is distinguishable from one
+  an addon inferred. We never write a third kind.
+
+changes_from_0_3:
+- Added inputs[].origin (request|engine) — O8.
+- Added inputs[].missing_input_label — forced by fixture 07.
+- Added rules[].fallback — forced by fixture 08; replaces the self-referential
+  no_applicable_route predicate.
+- Added rules[].mode (gate|standalone|both) — forced by fixtures 02/03 versus 05.
+- Added rule_result.confidence — forced by fixture 02.
+- >-
+  Added rule_result.reports_missing — forced by fixtures 04 versus 05, which both fire on
+  an absent field while only one of them reports that field in missing_inputs. Making the
+  report explicit data is the only deterministic way to tell them apart.
+- >-
+  Added confidence_direction — a confidence policy may only LOWER the confidence a chosen
+  output declares, never raise it. Forced by fixture 04.
+- Added null_semantics (three-valued logic) so the transpiler can validate it instead of
+  the evaluator carrying it as a convention — O7 remainder.
+- Added applicability so "material input absent" is a documented skip, not evaluator
+  behaviour.
+- where clauses now follow where_grammar_v0.1 — O6.
+
+required:
+- id
+- version
+- status
+- kind
+- game_scope
+- source_status
+- staleness
+- inputs
+- derived
+- rules
+- outputs
+- copy_keys
+
+enums:
+  status: [draft, review, approved, deprecated, disabled]
+  kind:
+  - recommendation_policy
+  - activity_selector
+  - runtime_gate
+  - confidence_policy
+  - prerequisite_policy
+  - system_policy
+  - fact
+  source_status:
+  - OFFICIAL_CONFIRMED
+  - IN_GAME_VERIFIED
+  - ADDON_RESEARCH
+  - EDITORIAL_REVIEWED
+  - PTR_PROVISIONAL
+  - COMMUNITY_REPORTED
+  - UNKNOWN
+  materiality: [material, secondary, contextual]
+  origin: [request, engine]
+  rule_mode: [gate, standalone, both]
+  result_status: [recommend, conditional, ask, defer, blocked, unknown]
+  confidence: [high, medium, low, unknown]
+  on_stale: [disable, degrade_to_unknown, warn_only]
+
+field_types:
+  id: string /^MH-KO-[A-Z0-9-]+$/
+  version: semver string
+  game_scope:
+    interface_min: integer
+    interface_max: integer|null
+    season_ids: array<integer> optional
+  staleness:
+    stale_when: array<signal rule>
+    fallback_date: date|null optional
+    on_stale: enum.on_stale
+  buffer_model: object optional
+
+applicable_when:
+  type: map<context_field, value>
+  optional: true
+  purpose: >-
+    The situation an object speaks in, stated rather than inferred. Keys name fields of
+    request.evaluation_context.
+  rules:
+  - Every key must name a field of request.evaluation_context.
+  - >-
+    A context mismatch makes the object NOT APPLICABLE: it fires no rule, owns no output
+    and appears in no knowledge_object_ids.
+  - >-
+    That silence is NORMAL, not a fault. It is never reported as a missing input, never
+    lowers confidence, and never influences the timebox. Data that does not exist here is
+    absent, not missing.
+
+evaluation_context:
+  kind:
+  - tiered_entrance_selection
+  - other
+  - unknown
+  activity_type:
+  - ritual_site
+  - delve
+  - unknown
+
+tier_entry_shape:
+  required:
+  - tier
+  - unlocked
+  optional:
+  - suggested_item_level
+  - failure_reason
+  - failure_reason_provenance
+  types:
+    tier: integer
+    unlocked: boolean
+    suggested_item_level: integer|null
+    failure_reason: string|null
+    failure_reason_provenance: game_client|addon_data|unknown|null
+  rule: >-
+    Filled only from read-only client calls. Never from a guess, and never summarised
+    into a single number.
+
+failure_reason_priority:
+- game_client   # what IsDelveEntranceTierEnabled itself said
+- addon_data    # a structural prerequisite from verified addon data
+- unknown       # no reason. We never invent one.
+
+input_shape:
+  required:
+  - name
+  - type
+  - required
+  - materiality
+  - origin
+  optional:
+  - enum
+  - default
+  - mapping_key
+  - missing_input_label
+  - missing_when
+  rules:
+  - origin == request requires a mapping_key that exists in request_mapping.
+  - origin == engine must NOT carry a mapping_key and is never read from a request.
+  - missing_input_label overrides the name used in response.missing_inputs.
+  - >-
+    missing_when says what counts as missing for this input. Default `absent`: the field
+    is reported when the request did not supply it. Use `false` for a PROXY FLAG, an input
+    that reports on something other than itself — prerequisite_state_known is a boolean
+    that is present and false precisely when the prerequisite state is unknown, so absence
+    of the flag is not the condition, its value is.
+
+derived_shape:
+  type: map<string, predicate>
+  predicate_required: [operator]
+  operators:
+  - any            # over a collection, with a where clause
+  - all
+  - count_gte
+  - count_lte
+  - exists         # value is present and not null
+  - equals
+  - sum            # numeric, over `of`
+  - gt
+  - gte
+  - lt
+  - lte
+  - and
+  - or
+  - not
+  - evaluator_result   # value produced by the engine, not by the request
+  fields:
+    source: path — required for any/all/count_*/exists/equals
+    where: where-clause per where_grammar_v0.1 — optional, for any/all/count_*
+    of: array<predicate|path|number> — required for and/or/not/sum/gt/gte/lt/lte
+    value: literal — for equals
+
+rule_shape:
+  required: [priority, result]
+  optional: [when, mode, fallback]
+  defaults:
+    mode: both
+    fallback: false
+  rules:
+  - "Exactly one of `when` or `fallback: true` must be present."
+  - fallback fires only when the object is applicable AND no lower-priority rule fired.
+  - A fallback rule may not carry a `when`.
+  - mode gate       — may fire only while gating an already chosen route.
+  - mode standalone  — may fire only when no route was chosen.
+  - mode both        — may fire in either situation.
+
+rule_result:
+  allowed_exactly_one_of:
+  - output_ref: string
+  - external_output_ref: { object_id: string, output_ref: string }
+  - pass_through: true
+  - confidence: enum.confidence
+  optional:
+  - missing_input_effect: map<input_name, material|secondary>
+  - reports_missing: array<input_name>
+  rules:
+  - A local output_ref must exist in this object's outputs.
+  - An external_output_ref must name an existing object AND an existing ref in it.
+  - Cyclic external refs are forbidden.
+  - result.confidence sets the resolved confidence and produces no output of its own.
+  - >-
+    reports_missing lists exactly which inputs land in response.missing_inputs when this
+    rule fires, in that order, using each input's missing_input_label when it has one.
+    Nothing else is ever reported. An input not listed here is IRRELEVANT to this answer
+    rather than hidden — once a rule has fired, no lower-priority rule can still apply, so
+    its inputs no longer bear on the recommendation. Every input named in
+    missing_input_effect is implicitly also reported.
+  - >-
+    reports_missing may be an empty array. That is a positive statement, meaning this
+    answer names its own gap in its own copy (see TIMEBOX ask_time), not an omission.
+
+outputs_shape:
+  type: map<string, output>
+  output_required:
+  - status
+  - title_key
+  - why_key
+  - first_action_key
+  - not_now_keys
+  - confidence
+
+null_semantics:
+  rule: null means unknown. Unknown is not equal to true and not equal to false.
+  consequences:
+  - A comparison with an unknown operand yields unknown and never fires a rule.
+  - A rule requiring `true` fires only on a proven true.
+  - An unknown value is never treated as absent, and an absent value is never treated as
+    false.
+  precedent: ns.Aura in Modules/Auras.lua — true / false / nil = unreadable.
+
+applicability:
+  rule: An object is applicable only when every input with required == true AND
+    materiality == material is present and non-null.
+  consequences:
+  - A non-applicable object is skipped entirely; no rule fires, including fallback.
+  - A non-applicable object is not listed in knowledge_object_ids.
+  - >-
+    Skipping is never silent toward the player. The missing field is reported through the
+    normal missing_inputs path of whichever object does answer.
+
+confidence_direction:
+  rule: >-
+    A confidence_policy may only LOWER the confidence that the chosen output declares. It
+    may never raise it.
+  reason: >-
+    An output that declares `low` says something about itself that a generic
+    "all required inputs known" branch has no standing to overrule. Fixture 04 is exactly
+    this case: the timebox asks for the session length, declares low, and every input its
+    rule reads is present — a policy allowed to raise would report high on an answer that
+    is a question.
+  resolution: resolved_confidence = min(declared_confidence, policy_confidence)
+  order: high > medium > low > unknown
+
+materiality_resolution:
+- Explicit rule missing_input_effect wins.
+- Static material or secondary is used directly.
+- Contextual is material if no applicable rule can resolve without it.
+- Contextual is secondary if at least one applicable rule can resolve without it.
+
+staleness_semantics:
+- game_scope is binding and is evaluated first; out of scope means the object does not
+  participate at all.
+- staleness is evaluated within scope, before applicability.
+- fallback_date is consulted ONLY when the request carries an optional `today` field.
+  Without it the date is unknown and, per null_semantics, does not expire anything. The
+  evaluator never reads a clock.
+- on_stale degrade_to_unknown puts the object id in response.stale_object_ids and lets
+  MH-KO-SYSTEM-STALE-000 own the output.
+
+approval_gate:
+- status == approved
+- source_status is player-visible per source_status_policy
+- all output refs resolve, local and external
+- all derived predicates validate against derived_shape and where_grammar
+- every input with origin == request has a mapping_key present in request_mapping
+- all copy keys exist in enUS and nlNL
+- not stale
+- all nine full request/response fixtures pass
+review_means: not player-visible

@@ -1,0 +1,1421 @@
+{
+  "schema_version": "0.5.0",
+  "status": "proposal",
+  "supersedes": [
+    "fixtures_full_request_response_v0.1.json",
+    "fixture_replacements_v0.3.json"
+  ],
+  "notes": [
+    "Corpus v0.5. Every request now carries evaluation_context; the ritual tier selector only speaks at a tiered entrance.",
+    "available_tiers is a per-tier list, never a single summarised item level.",
+    "proof=in-game trace means the values came off Rob's client; proof=contract-test means the case exercises a rule and its inputs were composed to do so.",
+    "Fixtures 02, 03, 08 and 10 previously assumed a globally available available_tiers field and were rewritten for the entrance context.",
+    "The item-level comparison route (priorities 3-5) is reachable at the live default player_goal=progress and is not gated on vault_only or weekly_extra_value_available. suggested_item_level is the game's guidance, never a prerequisite: no route blocks a tier or predicts success."
+  ],
+  "fixtures": [
+    {
+      "id": "01_great_vault_ready",
+      "request": {
+        "request_id": "f01",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "other",
+          "activity_type": "unknown"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": true
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "recommend",
+        "title_key": "MH_KO_VAULT_READY_TITLE",
+        "why_key": "MH_KO_VAULT_READY_WHY",
+        "first_action_key": "MH_KO_VAULT_READY_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_VAULT_READY_NOT_NOW_1"
+        ],
+        "confidence": "high",
+        "knowledge_object_ids": [
+          "MH-KO-WEEKLY-POWER-1207-001"
+        ]
+      },
+      "proof": "contract-test"
+    },
+    {
+      "id": "02_ritual_t5_vault_only",
+      "request": {
+        "request_id": "f02",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "vault_only",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "weekly_extra_value_available": false,
+            "editorial": {
+              "interruptibility": "low"
+            },
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 215
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 231
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 244
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 257
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 264
+              },
+              {
+                "tier": 6,
+                "unlocked": true,
+                "suggested_item_level": 274
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [
+          {
+            "activity_id": "ritual_site",
+            "tier": 5,
+            "completed": true,
+            "duration_seconds": 1080,
+            "deaths": 1
+          }
+        ],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_RITUAL_T5_TITLE",
+        "why_key": "MH_KO_RITUAL_T5_WHY",
+        "first_action_key": "MH_KO_RITUAL_T5_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_RITUAL_T5_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002"
+        ],
+        "missing_inputs": []
+      },
+      "proof": "contract-test"
+    },
+    {
+      "id": "03_ritual_t6_extra_value",
+      "request": {
+        "request_id": "f03",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "weekly_extra_value_available": true,
+            "editorial": {
+              "interruptibility": "low"
+            },
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 215
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 231
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 244
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 257
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 264
+              },
+              {
+                "tier": 6,
+                "unlocked": true,
+                "suggested_item_level": 274
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [
+          {
+            "activity_id": "ritual_site",
+            "tier": 6,
+            "completed": true,
+            "duration_seconds": 1320,
+            "deaths": 2
+          }
+        ],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_RITUAL_T6_TITLE",
+        "why_key": "MH_KO_RITUAL_T6_WHY",
+        "first_action_key": "MH_KO_RITUAL_T6_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_RITUAL_T6_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002"
+        ],
+        "missing_inputs": []
+      },
+      "proof": "contract-test"
+    },
+    {
+      "id": "04_session_time_unknown",
+      "request": {
+        "request_id": "f04",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "other",
+          "activity_type": "unknown"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "delve",
+            "available": true,
+            "prerequisites_met": true,
+            "estimated_minutes": {
+              "min": 15,
+              "max": 30,
+              "source": "observed"
+            },
+            "setup_minutes": 2,
+            "editorial": {
+              "interruptibility": "low"
+            }
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": [
+          "player_goal"
+        ]
+      },
+      "expected_response": {
+        "status": "ask",
+        "title_key": "MH_KO_TIME_ASK_TITLE",
+        "why_key": "MH_KO_TIME_ASK_WHY",
+        "first_action_key": "MH_KO_TIME_ASK_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_TIME_ASK_NOT_NOW_1"
+        ],
+        "confidence": "low",
+        "knowledge_object_ids": [
+          "MH-KO-TIMEBOX-1207-003"
+        ],
+        "assumed_inputs": [
+          "player_goal"
+        ]
+      },
+      "proof": "contract-test"
+    },
+    {
+      "id": "05_unknown_duration_low_interruptibility",
+      "request": {
+        "request_id": "f05",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "other",
+          "activity_type": "unknown"
+        },
+        "available_session_minutes": 30,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "estimated_minutes": {
+              "min": null,
+              "max": null,
+              "source": "unknown"
+            },
+            "editorial": {
+              "interruptibility": "low"
+            }
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_UNKNOWN_TITLE",
+        "why_key": "MH_KO_UNKNOWN_WHY",
+        "first_action_key": "MH_KO_UNKNOWN_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_UNKNOWN_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-TIMEBOX-1207-003",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "estimated_minutes.max"
+        ]
+      },
+      "proof": "contract-test"
+    },
+    {
+      "id": "06_locked_one_prerequisite",
+      "request": {
+        "request_id": "f06",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "other",
+          "activity_type": "unknown"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": false,
+            "prerequisites_met": false,
+            "prerequisite_state_known": true,
+            "missing_prerequisites": [
+              {
+                "id": "unlock_ritual_sites",
+                "actionable": true
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "blocked",
+        "title_key": "MH_KO_PREREQ_TITLE",
+        "why_key": "MH_KO_PREREQ_WHY",
+        "first_action_key": "MH_KO_PREREQ_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_PREREQ_NOT_NOW_1"
+        ],
+        "confidence": "high",
+        "knowledge_object_ids": [
+          "MH-KO-PREREQUISITE-1207-005"
+        ],
+        "prerequisite_id": "unlock_ritual_sites"
+      },
+      "proof": "contract-test"
+    },
+    {
+      "id": "07_locked_unknown_prerequisite",
+      "request": {
+        "request_id": "f07",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "other",
+          "activity_type": "unknown"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": false,
+            "prerequisites_met": null,
+            "prerequisite_state_known": false
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "ask",
+        "title_key": "MH_KO_UNKNOWN_TITLE",
+        "why_key": "MH_KO_UNKNOWN_WHY",
+        "first_action_key": "MH_KO_UNKNOWN_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_UNKNOWN_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-PREREQUISITE-1207-005",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "prerequisite_state"
+        ]
+      },
+      "proof": "contract-test"
+    },
+    {
+      "id": "08_material_input_missing",
+      "request": {
+        "request_id": "f08",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "weekly_extra_value_available": null,
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 215
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 231
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 244
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 257
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 264
+              },
+              {
+                "tier": 6,
+                "unlocked": true,
+                "suggested_item_level": 274
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "unknown",
+        "title_key": "MH_KO_UNKNOWN_TITLE",
+        "why_key": "MH_KO_UNKNOWN_WHY",
+        "first_action_key": "MH_KO_UNKNOWN_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_UNKNOWN_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "player_item_level",
+          "weekly_extra_value_available",
+          "recent_activity_history"
+        ]
+      },
+      "proof": "contract-test",
+      "note": "Item level is null here too, so the comparison route cannot run either; the answer reports that alongside the rest."
+    },
+    {
+      "id": "09_stale_after_season_change",
+      "request": {
+        "request_id": "f09",
+        "interface": 120100,
+        "mythic_plus_season_id": 18,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "other",
+          "activity_type": "unknown"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "defer",
+        "title_key": "MH_KO_STALE_TITLE",
+        "why_key": "MH_KO_STALE_WHY",
+        "first_action_key": "MH_KO_STALE_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_STALE_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-SYSTEM-STALE-000"
+        ],
+        "stale_object_ids": [
+          "MH-KO-WEEKLY-POWER-1207-001",
+          "MH-KO-RITUAL-TIER-1207-002"
+        ],
+        "stale_reason": [
+          "interface >= 120100",
+          "mythic_plus_season_id > 17"
+        ]
+      },
+      "proof": "contract-test"
+    },
+    {
+      "id": "10_route_does_not_fit_choose_shorter",
+      "request": {
+        "request_id": "f10",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "vault_only",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": 20,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "TANK",
+          "specialization": "PROTECTION"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "weekly_extra_value_available": false,
+            "estimated_minutes": {
+              "min": 18,
+              "max": 25,
+              "source": "observed"
+            },
+            "setup_minutes": 3,
+            "editorial": {
+              "interruptibility": "low"
+            },
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 215
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 231
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 244
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 257
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 264
+              },
+              {
+                "tier": 6,
+                "unlocked": true,
+                "suggested_item_level": 274
+              }
+            ]
+          },
+          {
+            "activity_id": "delve",
+            "available": true,
+            "prerequisites_met": true,
+            "estimated_minutes": {
+              "min": 6,
+              "max": 8,
+              "source": "observed"
+            },
+            "setup_minutes": 1,
+            "editorial": {
+              "interruptibility": "low"
+            }
+          }
+        ],
+        "recent_activity_history": [
+          {
+            "activity_id": "ritual_site",
+            "tier": 5,
+            "completed": true,
+            "duration_seconds": 1140,
+            "deaths": 0
+          }
+        ],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_TIME_SHORT_TITLE",
+        "why_key": "MH_KO_TIME_SHORT_WHY",
+        "first_action_key": "MH_KO_TIME_SHORT_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_TIME_SHORT_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-TIMEBOX-1207-003"
+        ],
+        "missing_inputs": []
+      },
+      "trace_note": "Ritual selector chooses Tier 5 (goal vault_only + a completed tier-5 run). Timebox then gates that route: 3 setup + 25 max + 5 buffer = 33 > 20 available, so priority 2 fires in gate mode and replaces the route with shorter_step. The delve at 1 + 8 + 5 = 14 is the shorter relevant route the advice points at.",
+      "proof": "contract-test"
+    },
+    {
+      "id": "11_outside_entrance_ritual_object_silent",
+      "proof": "contract-test",
+      "note": "Ritual Sites are available but we are not at the entrance, so the tier selector is not applicable at all. Its silence is normal: nothing is reported missing and the timebox answers as it would anywhere else.",
+      "request": {
+        "request_id": "f11",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "other",
+          "activity_type": "unknown"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "DAMAGER",
+          "specialization": "Frost"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "prerequisite_state_known": true
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "ask",
+        "title_key": "MH_KO_TIME_ASK_TITLE",
+        "why_key": "MH_KO_TIME_ASK_WHY",
+        "first_action_key": "MH_KO_TIME_ASK_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_TIME_ASK_NOT_NOW_1"
+        ],
+        "confidence": "low",
+        "knowledge_object_ids": [
+          "MH-KO-TIMEBOX-1207-003"
+        ],
+        "missing_inputs": []
+      }
+    },
+    {
+      "id": "12_entrance_tier6_one_ilvl_short",
+      "proof": "in-game trace: tiers and suggested item levels read from Rob's obelisk 2026-08-01, player item level 273 measured on the same character",
+      "note": "Tier 6 unlocked, the game suggests 274, Rob has 273. Delta -1: named, not forbidden.",
+      "request": {
+        "request_id": "f12",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": 273,
+          "role": "DAMAGER",
+          "specialization": "Frost"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "prerequisite_state_known": true,
+            "weekly_extra_value_available": null,
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 215
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 231
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 244
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 257
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 264
+              },
+              {
+                "tier": 6,
+                "unlocked": true,
+                "suggested_item_level": 274
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": [
+          "player_goal"
+        ]
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_RITUAL_ILVL_BELOW_TITLE",
+        "why_key": "MH_KO_RITUAL_ILVL_BELOW_WHY",
+        "first_action_key": "MH_KO_RITUAL_ILVL_BELOW_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_RITUAL_ILVL_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "recent_activity_history"
+        ],
+        "selected_tier": 6,
+        "item_level_delta": -1
+      }
+    },
+    {
+      "id": "13_entrance_tier_locked_with_game_reason",
+      "proof": "contract-test",
+      "note": "Tier 6 is locked and the game supplied the reason, so tier 5 is the highest that can be chosen. NOTE: no output currently carries failure_reason to the player -- the request holds it, nothing renders it. That is an upstream gap, not something to invent copy for.",
+      "request": {
+        "request_id": "f13",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "vault_only",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": 268,
+          "role": "DAMAGER",
+          "specialization": "Frost"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "prerequisite_state_known": true,
+            "weekly_extra_value_available": false,
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 215
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 231
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 244
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 257
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 264
+              },
+              {
+                "tier": 6,
+                "unlocked": false,
+                "suggested_item_level": 274,
+                "failure_reason": "Requires item level 274.",
+                "failure_reason_provenance": "game_client"
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_RITUAL_T5_TITLE",
+        "why_key": "MH_KO_RITUAL_T5_WHY",
+        "first_action_key": "MH_KO_RITUAL_T5_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_RITUAL_T5_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "recent_activity_history"
+        ]
+      }
+    },
+    {
+      "id": "14_entrance_open_but_tiers_unreadable",
+      "proof": "contract-test",
+      "note": "The entrance is demonstrably active but the client returned no usable tier list. Saying so is the answer; silence here would hide a gap the player is standing in front of. Item level is null here too, so the comparison route cannot run either; the answer reports that alongside the rest.",
+      "request": {
+        "request_id": "f14",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "DAMAGER",
+          "specialization": "Frost"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "prerequisite_state_known": true
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": []
+      },
+      "expected_response": {
+        "status": "unknown",
+        "title_key": "MH_KO_UNKNOWN_TITLE",
+        "why_key": "MH_KO_UNKNOWN_WHY",
+        "first_action_key": "MH_KO_UNKNOWN_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_UNKNOWN_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "available_tiers",
+          "player_item_level",
+          "weekly_extra_value_available",
+          "recent_activity_history"
+        ]
+      }
+    },
+    {
+      "id": "15_entrance_exactly_on_suggestion",
+      "proof": "contract-test",
+      "note": "Exactly on the suggested value. Zero is not below, so this recommends.",
+      "request": {
+        "request_id": "f15",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": 274,
+          "role": "DAMAGER",
+          "specialization": "Frost"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "prerequisite_state_known": true,
+            "weekly_extra_value_available": null,
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 215
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 231
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 244
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 257
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 264
+              },
+              {
+                "tier": 6,
+                "unlocked": true,
+                "suggested_item_level": 274
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": [
+          "player_goal"
+        ]
+      },
+      "expected_response": {
+        "status": "recommend",
+        "title_key": "MH_KO_RITUAL_ILVL_AT_TITLE",
+        "why_key": "MH_KO_RITUAL_ILVL_AT_WHY",
+        "first_action_key": "MH_KO_RITUAL_ILVL_AT_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_RITUAL_ILVL_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "recent_activity_history"
+        ],
+        "selected_tier": 6,
+        "item_level_delta": 0
+      }
+    },
+    {
+      "id": "16_entrance_well_above_suggestion",
+      "proof": "contract-test",
+      "note": "Comfortably above the guidance.",
+      "request": {
+        "request_id": "f16",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": 284,
+          "role": "DAMAGER",
+          "specialization": "Frost"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "prerequisite_state_known": true,
+            "weekly_extra_value_available": null,
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 215
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 231
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 244
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 257
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 264
+              },
+              {
+                "tier": 6,
+                "unlocked": true,
+                "suggested_item_level": 274
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": [
+          "player_goal"
+        ]
+      },
+      "expected_response": {
+        "status": "recommend",
+        "title_key": "MH_KO_RITUAL_ILVL_AT_TITLE",
+        "why_key": "MH_KO_RITUAL_ILVL_AT_WHY",
+        "first_action_key": "MH_KO_RITUAL_ILVL_AT_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_RITUAL_ILVL_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "recent_activity_history"
+        ],
+        "selected_tier": 6,
+        "item_level_delta": 10
+      }
+    },
+    {
+      "id": "17_entrance_far_below_with_fitting_tier",
+      "proof": "contract-test",
+      "note": "Nine below the highest tier's guidance. Tier 5 suggests 264 and the player has 265, so the first action names that tier instead of discouraging the choice.",
+      "request": {
+        "request_id": "f17",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": 265,
+          "role": "DAMAGER",
+          "specialization": "Frost"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "prerequisite_state_known": true,
+            "weekly_extra_value_available": null,
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 215
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 231
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 244
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 257
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 264
+              },
+              {
+                "tier": 6,
+                "unlocked": true,
+                "suggested_item_level": 274
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": [
+          "player_goal"
+        ]
+      },
+      "expected_response": {
+        "status": "conditional",
+        "title_key": "MH_KO_RITUAL_ILVL_FAR_TITLE",
+        "why_key": "MH_KO_RITUAL_ILVL_FAR_WHY",
+        "first_action_key": "MH_KO_RITUAL_ILVL_FAR_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_RITUAL_ILVL_NOT_NOW_1"
+        ],
+        "confidence": "medium",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "recent_activity_history"
+        ],
+        "selected_tier": 6,
+        "item_level_delta": -9,
+        "fitting_tier": 5
+      }
+    },
+    {
+      "id": "18_entrance_player_item_level_missing",
+      "proof": "contract-test",
+      "note": "No item level to compare with, so no comparison is made and nothing is implied.",
+      "request": {
+        "request_id": "f18",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": null,
+          "role": "DAMAGER",
+          "specialization": "Frost"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "prerequisite_state_known": true,
+            "weekly_extra_value_available": null,
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 215
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 231
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 244
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 257
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 264
+              },
+              {
+                "tier": 6,
+                "unlocked": true,
+                "suggested_item_level": 274
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": [
+          "player_goal"
+        ]
+      },
+      "expected_response": {
+        "status": "unknown",
+        "title_key": "MH_KO_UNKNOWN_TITLE",
+        "why_key": "MH_KO_UNKNOWN_WHY",
+        "first_action_key": "MH_KO_UNKNOWN_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_UNKNOWN_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "player_item_level",
+          "weekly_extra_value_available",
+          "recent_activity_history"
+        ]
+      }
+    },
+    {
+      "id": "19_entrance_suggested_item_level_missing",
+      "proof": "contract-test",
+      "note": "The tier list is there but carries no usable suggested item levels, which is exactly what every tier reads as inside a running scenario. No comparison, no guess.",
+      "request": {
+        "request_id": "f19",
+        "interface": 120007,
+        "mythic_plus_season_id": 17,
+        "player_goal": "progress",
+        "evaluation_context": {
+          "kind": "tiered_entrance_selection",
+          "activity_type": "ritual_site"
+        },
+        "available_session_minutes": null,
+        "weekly_reward_state": {
+          "great_vault_reward_ready": false
+        },
+        "player_state": {
+          "item_level": 273,
+          "role": "DAMAGER",
+          "specialization": "Frost"
+        },
+        "activity_states": [
+          {
+            "activity_id": "ritual_site",
+            "available": true,
+            "prerequisites_met": true,
+            "prerequisite_state_known": true,
+            "weekly_extra_value_available": null,
+            "available_tiers": [
+              {
+                "tier": 1,
+                "unlocked": true,
+                "suggested_item_level": 0
+              },
+              {
+                "tier": 2,
+                "unlocked": true,
+                "suggested_item_level": 0
+              },
+              {
+                "tier": 3,
+                "unlocked": true,
+                "suggested_item_level": 0
+              },
+              {
+                "tier": 4,
+                "unlocked": true,
+                "suggested_item_level": 0
+              },
+              {
+                "tier": 5,
+                "unlocked": true,
+                "suggested_item_level": 0
+              },
+              {
+                "tier": 6,
+                "unlocked": true,
+                "suggested_item_level": 0
+              }
+            ]
+          }
+        ],
+        "recent_activity_history": [],
+        "assumed_inputs": [
+          "player_goal"
+        ]
+      },
+      "expected_response": {
+        "status": "unknown",
+        "title_key": "MH_KO_UNKNOWN_TITLE",
+        "why_key": "MH_KO_UNKNOWN_WHY",
+        "first_action_key": "MH_KO_UNKNOWN_FIRST_ACTION",
+        "not_now_keys": [
+          "MH_KO_UNKNOWN_NOT_NOW_1"
+        ],
+        "confidence": "unknown",
+        "knowledge_object_ids": [
+          "MH-KO-RITUAL-TIER-1207-002",
+          "MH-KO-CONFIDENCE-1207-004"
+        ],
+        "missing_inputs": [
+          "weekly_extra_value_available",
+          "recent_activity_history"
+        ]
+      }
+    }
+  ]
+}

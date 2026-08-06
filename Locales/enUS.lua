@@ -250,6 +250,7 @@ ns._mhLocales.enUS = {
 	CMDLIST_ITEMS = "The delve consumables panel.",
 	CMDLIST_ARROW = "Who is guiding you, and why the arrow is or is not showing.",
 	CMDLIST_ARROWSIZE = "Resize the route arrow (28-160).",
+	CMDLIST_GOTO = "Point the arrow at a spot: /mh goto 47.0 62.2",
 	CMDLIST_CLEAR = "Clear the active route and the arrow.",
 	CMDLIST_SKIP = "Skip the current route target.",
 	CMDLIST_NODES = "The nodes on your current route.",

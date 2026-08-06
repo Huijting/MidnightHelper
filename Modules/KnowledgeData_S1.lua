@@ -23,8 +23,8 @@ local NULL = setmetatable({}, { __tostring = function() return "null" end })
 
 local Knowledge = {
 	NULL = NULL,
-	schemaVersion = "0.4.0",
-	catalogVersion = "0.4.0",
+	schemaVersion = "0.5.0",
+	catalogVersion = "0.5.0",
 	-- request_mapping v0.2, verbatim. The evaluator resolves every KO input name
 	-- through this table; there is no naming convention it may fall back on.
 	requestMapping = {
@@ -122,6 +122,28 @@ local Knowledge = {
 			request_path = "today",
 			type = "date|null",
 		},
+		context_activity_type = {
+			ko_path = "evaluation_context.activity_type",
+			mapping_key = "context_activity_type",
+			request_path = "evaluation_context.activity_type",
+			type = "enum",
+			values = {
+				"ritual_site",
+				"delve",
+				"unknown",
+			},
+		},
+		context_kind = {
+			ko_path = "evaluation_context.kind",
+			mapping_key = "context_kind",
+			request_path = "evaluation_context.kind",
+			type = "enum",
+			values = {
+				"tiered_entrance_selection",
+				"other",
+				"unknown",
+			},
+		},
 		player_goal = {
 			ko_path = "player_goal",
 			mapping_key = "player_goal",
@@ -201,6 +223,18 @@ local Knowledge = {
 				},
 			},
 			type = "int|null",
+		},
+		ritual_tier_entries = {
+			ko_path = "ritual.available_tiers",
+			mapping_key = "ritual_tier_entries",
+			request_selector = {
+				collection = "activity_states",
+				field = "available_tiers",
+				where = {
+					activity_id = "ritual_site",
+				},
+			},
+			type = "array<tier_entry>",
 		},
 		ritual_tiers = {
 			ko_path = "ritual.available_tiers",
@@ -457,7 +491,25 @@ local Knowledge = {
 		},
 		{
 			_subject_activity_id = "ritual_site",
+			applicable_when = {
+				["evaluation_context.activity_type"] = "ritual_site",
+				["evaluation_context.kind"] = "tiered_entrance_selection",
+			},
 			copy_keys = {
+				"MH_KO_RITUAL_ILVL_AT_TITLE",
+				"MH_KO_RITUAL_ILVL_AT_WHY",
+				"MH_KO_RITUAL_ILVL_AT_FIRST_ACTION",
+				"MH_KO_RITUAL_ILVL_BELOW_TITLE",
+				"MH_KO_RITUAL_ILVL_BELOW_WHY",
+				"MH_KO_RITUAL_ILVL_BELOW_FIRST_ACTION",
+				"MH_KO_RITUAL_ILVL_FAR_TITLE",
+				"MH_KO_RITUAL_ILVL_FAR_WHY",
+				"MH_KO_RITUAL_ILVL_FAR_FIRST_ACTION",
+				"MH_KO_RITUAL_ILVL_NOT_NOW_1",
+				"MH_KO_UNKNOWN_TITLE",
+				"MH_KO_UNKNOWN_WHY",
+				"MH_KO_UNKNOWN_FIRST_ACTION",
+				"MH_KO_UNKNOWN_NOT_NOW_1",
 				"MH_KO_RITUAL_T5_TITLE",
 				"MH_KO_RITUAL_T5_WHY",
 				"MH_KO_RITUAL_T5_FIRST_ACTION",
@@ -468,22 +520,63 @@ local Knowledge = {
 				"MH_KO_RITUAL_T6_NOT_NOW_1",
 			},
 			derived = {
-				recent_success_tier_5 = {
-					operator = "any",
-					source = "recent_activity_history",
+				fitting_tier = {
+					field = "tier",
+					operator = "select_max",
+					source = "ritual.available_tiers",
 					where = {
-						activity_id = "ritual_site",
-						completed = true,
-						tier_gte = 5,
+						suggested_item_level_gte = 1,
+						suggested_item_level_lte = {
+							ref = "player.item_level",
+						},
+						unlocked = true,
 					},
 				},
-				recent_success_tier_6 = {
-					operator = "any",
-					source = "recent_activity_history",
+				fitting_tier_number = {
+					field = "tier",
+					operator = "field",
+					source = "fitting_tier",
+				},
+				item_level_delta = {
+					of = {
+						"player.item_level",
+						"selected_tier_suggested_ilvl",
+					},
+					operator = "subtract",
+				},
+				selected_tier = {
+					field = "tier",
+					operator = "select_max",
+					source = "ritual.available_tiers",
 					where = {
-						activity_id = "ritual_site",
-						completed = true,
-						tier_gte = 6,
+						suggested_item_level_gte = 1,
+						unlocked = true,
+					},
+				},
+				selected_tier_number = {
+					field = "tier",
+					operator = "field",
+					source = "selected_tier",
+				},
+				selected_tier_suggested_ilvl = {
+					field = "suggested_item_level",
+					operator = "field",
+					source = "selected_tier",
+				},
+				tier_5_unlocked = {
+					operator = "any",
+					source = "ritual.available_tiers",
+					where = {
+						tier = 5,
+						unlocked = true,
+					},
+				},
+				tier_6_unlocked = {
+					operator = "any",
+					source = "ritual.available_tiers",
+					where = {
+						tier = 6,
+						unlocked = true,
 					},
 				},
 			},
@@ -505,21 +598,13 @@ local Knowledge = {
 					type = "boolean|null",
 				},
 				{
-					mapping_key = "ritual_tiers",
-					materiality = "material",
+					mapping_key = "ritual_tier_entries",
+					materiality = "contextual",
+					missing_input_label = "available_tiers",
 					name = "ritual.available_tiers",
 					origin = "request",
-					required = true,
-					type = "array<int>",
-				},
-				{
-					mapping_key = "ritual_recommended_ilvl",
-					materiality = "contextual",
-					missing_input_label = "live_recommended_item_level",
-					name = "ritual.live_recommended_item_level",
-					origin = "request",
 					required = false,
-					type = "int|null",
+					type = "array<tier_entry>",
 				},
 				{
 					mapping_key = "ritual_extra_value",
@@ -529,6 +614,15 @@ local Knowledge = {
 					origin = "request",
 					required = false,
 					type = "boolean|null",
+				},
+				{
+					mapping_key = "player_item_level",
+					materiality = "contextual",
+					missing_input_label = "player_item_level",
+					name = "player.item_level",
+					origin = "request",
+					required = false,
+					type = "int|null",
 				},
 				{
 					mapping_key = "recent_history",
@@ -553,6 +647,120 @@ local Knowledge = {
 			},
 			kind = "activity_selector",
 			outputs = {
+				ritual_ilvl_at_or_above = {
+					confidence = "medium",
+					copy_params = {
+						first_action = {
+							"selected_tier",
+						},
+						title = {
+							"selected_tier",
+						},
+						why = {
+							"selected_tier",
+							"suggested_item_level",
+							"player_item_level",
+						},
+					},
+					first_action_key = "MH_KO_RITUAL_ILVL_AT_FIRST_ACTION",
+					not_now_keys = {
+						"MH_KO_RITUAL_ILVL_NOT_NOW_1",
+					},
+					response_fields = {
+						item_level_delta = {
+							derived = "item_level_delta",
+						},
+						player_item_level = {
+							input = "player.item_level",
+						},
+						selected_tier = {
+							derived = "selected_tier_number",
+						},
+						suggested_item_level = {
+							derived = "selected_tier_suggested_ilvl",
+						},
+					},
+					status = "recommend",
+					title_key = "MH_KO_RITUAL_ILVL_AT_TITLE",
+					why_key = "MH_KO_RITUAL_ILVL_AT_WHY",
+				},
+				ritual_ilvl_just_below = {
+					confidence = "medium",
+					copy_params = {
+						first_action = {
+							"selected_tier",
+						},
+						title = {
+							"selected_tier",
+						},
+						why = {
+							"selected_tier",
+							"suggested_item_level",
+							"player_item_level",
+						},
+					},
+					first_action_key = "MH_KO_RITUAL_ILVL_BELOW_FIRST_ACTION",
+					not_now_keys = {
+						"MH_KO_RITUAL_ILVL_NOT_NOW_1",
+					},
+					response_fields = {
+						item_level_delta = {
+							derived = "item_level_delta",
+						},
+						player_item_level = {
+							input = "player.item_level",
+						},
+						selected_tier = {
+							derived = "selected_tier_number",
+						},
+						suggested_item_level = {
+							derived = "selected_tier_suggested_ilvl",
+						},
+					},
+					status = "conditional",
+					title_key = "MH_KO_RITUAL_ILVL_BELOW_TITLE",
+					why_key = "MH_KO_RITUAL_ILVL_BELOW_WHY",
+				},
+				ritual_ilvl_well_below = {
+					confidence = "medium",
+					copy_params = {
+						first_action = {
+							"fitting_tier",
+						},
+						title = {
+							"selected_tier",
+						},
+						why = {
+							"selected_tier",
+							"suggested_item_level",
+							"player_item_level",
+						},
+					},
+					first_action_key = "MH_KO_RITUAL_ILVL_FAR_FIRST_ACTION",
+					not_now_keys = {
+						"MH_KO_RITUAL_ILVL_NOT_NOW_1",
+					},
+					response_fields = {
+						fitting_tier = {
+							derived = "fitting_tier_number",
+						},
+						item_level_delta = {
+							derived = "item_level_delta",
+						},
+						player_item_level = {
+							input = "player.item_level",
+						},
+						selected_tier = {
+							derived = "selected_tier_number",
+						},
+						suggested_item_level = {
+							derived = "selected_tier_suggested_ilvl",
+						},
+					},
+					status = "conditional",
+					title_key = "MH_KO_RITUAL_ILVL_FAR_TITLE",
+					why_key = "MH_KO_RITUAL_ILVL_FAR_WHY",
+				},
 				ritual_t5 = {
 					confidence = "medium",
 					first_action_key = "MH_KO_RITUAL_T5_FIRST_ACTION",
@@ -573,6 +781,16 @@ local Knowledge = {
 					title_key = "MH_KO_RITUAL_T6_TITLE",
 					why_key = "MH_KO_RITUAL_T6_WHY",
 				},
+				tiers_unreadable = {
+					confidence = "unknown",
+					first_action_key = "MH_KO_UNKNOWN_FIRST_ACTION",
+					not_now_keys = {
+						"MH_KO_UNKNOWN_NOT_NOW_1",
+					},
+					status = "unknown",
+					title_key = "MH_KO_UNKNOWN_TITLE",
+					why_key = "MH_KO_UNKNOWN_WHY",
+				},
 			},
 			rules = {
 				{
@@ -580,16 +798,16 @@ local Knowledge = {
 					priority = 1,
 					result = {
 						missing_input_effect = {
-							["ritual.live_recommended_item_level"] = "secondary",
+							recent_activity_history = "secondary",
 						},
 						output_ref = "ritual_t5",
 						reports_missing = {
-							"ritual.live_recommended_item_level",
+							"recent_activity_history",
 						},
 					},
 					when = {
 						player_goal = "vault_only",
-						recent_success_tier_5 = true,
+						tier_5_unlocked = true,
 					},
 				},
 				{
@@ -597,29 +815,76 @@ local Knowledge = {
 					priority = 2,
 					result = {
 						missing_input_effect = {
-							["ritual.live_recommended_item_level"] = "secondary",
+							recent_activity_history = "secondary",
 						},
 						output_ref = "ritual_t6",
 						reports_missing = {
-							"ritual.live_recommended_item_level",
+							"recent_activity_history",
 						},
 					},
 					when = {
-						recent_success_tier_6 = true,
 						["ritual.weekly_extra_value_available"] = true,
+						tier_6_unlocked = true,
+					},
+				},
+				{
+					mode = "both",
+					priority = 3,
+					result = {
+						missing_input_effect = {
+							recent_activity_history = "secondary",
+						},
+						output_ref = "ritual_ilvl_at_or_above",
+						reports_missing = {
+							"recent_activity_history",
+						},
+					},
+					when = {
+						item_level_delta_gte = 0,
+					},
+				},
+				{
+					mode = "both",
+					priority = 4,
+					result = {
+						missing_input_effect = {
+							recent_activity_history = "secondary",
+						},
+						output_ref = "ritual_ilvl_just_below",
+						reports_missing = {
+							"recent_activity_history",
+						},
+					},
+					when = {
+						item_level_delta_gte = -3,
+						item_level_delta_lte = -1,
+					},
+				},
+				{
+					mode = "both",
+					priority = 5,
+					result = {
+						missing_input_effect = {
+							recent_activity_history = "secondary",
+						},
+						output_ref = "ritual_ilvl_well_below",
+						reports_missing = {
+							"recent_activity_history",
+						},
+					},
+					when = {
+						item_level_delta_lt = -3,
 					},
 				},
 				{
 					fallback = true,
 					mode = "both",
-					priority = 3,
+					priority = 6,
 					result = {
-						external_output_ref = {
-							object_id = "MH-KO-CONFIDENCE-1207-004",
-							output_ref = "unknown_final",
-						},
+						output_ref = "tiers_unreadable",
 						reports_missing = {
-							"ritual.live_recommended_item_level",
+							"ritual.available_tiers",
+							"player.item_level",
 							"ritual.weekly_extra_value_available",
 							"recent_activity_history",
 						},
@@ -644,7 +909,7 @@ local Knowledge = {
 				},
 			},
 			status = "review",
-			version = "0.4.0",
+			version = "0.5.0",
 		},
 		{
 			buffer_model = {
@@ -1047,6 +1312,7 @@ local Knowledge = {
 					mapping_key = "activity_prerequisite_state_known",
 					materiality = "material",
 					missing_input_label = "prerequisite_state",
+					missing_when = "false",
 					name = "activity.prerequisite_state_known",
 					origin = "request",
 					required = true,

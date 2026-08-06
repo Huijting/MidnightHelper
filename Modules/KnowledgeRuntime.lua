@@ -231,6 +231,9 @@ end
 --------------------------------------------------------------------------------
 
 local evalPredicate
+-- Set for the duration of one predicate evaluation so a where clause can resolve
+-- { ref = ... } against the same object's inputs and derived values.
+local ctxRef
 
 --- A where clause is a conjunction of field predicates over one collection element.
 local function matchWhere(element, where, NULL)
@@ -246,6 +249,12 @@ local function matchWhere(element, where, NULL)
 	else
 		for key, expected in pairs(where) do
 			local path, op = splitPredicateKey(key)
+			-- { ref = "<input or derived>" } compares against a resolved value instead of a
+			-- literal. Needed for "a tier whose suggested item level fits MY item level":
+			-- the threshold is the player's, not a constant we could ever write down.
+			if type(expected) == "table" and expected.ref and ctxRef then
+				expected = ctxRef(expected.ref)
+			end
 			terms[#terms + 1] = compare(op, resolvePath(element, path), expected, NULL)
 		end
 	end
@@ -340,6 +349,59 @@ evalPredicate = function(ctx, obj, pred)
 		return not v
 	end
 
+	-- Pick one element out of a collection: the one with the highest value of `field`
+	-- among those matching `where`. Returns the ELEMENT, so a later predicate can read
+	-- another field off it. Ties keep the first encountered, which is stable because the
+	-- request preserves the client's own order.
+	if op == "select_max" then
+		local inputDef = findInput(obj, pred.source)
+		local collection = inputDef and resolveInput(ctx, obj, inputDef) or resolvePath(ctx.request, pred.source)
+		if type(collection) ~= "table" then
+			return UNKNOWN
+		end
+		local best, bestValue
+		local previous = ctxRef
+		ctxRef = function(name) return resolveOperand(ctx, obj, name) end
+		for i = 1, #collection do
+			if matchWhere(collection[i], pred.where, NULL) == true then
+				local value = tonumber(resolvePath(collection[i], pred.field))
+				if value and (bestValue == nil or value > bestValue) then
+					best, bestValue = collection[i], value
+				end
+			end
+		end
+		ctxRef = previous
+		if best == nil then
+			return UNKNOWN
+		end
+		return best
+	end
+
+	-- Read one field off whatever another predicate selected.
+	if op == "field" then
+		local source = resolveOperand(ctx, obj, pred.source)
+		if type(source) ~= "table" then
+			return UNKNOWN
+		end
+		local value = resolvePath(source, pred.field)
+		if isNull(value, NULL) then
+			return UNKNOWN
+		end
+		return value
+	end
+
+	-- a - b, unknown if either side is. This is the item-level delta, and it must stay
+	-- unknown rather than 0 when a number is missing: 0 would read as "exactly on the
+	-- suggested level", which is a claim we would not have measured.
+	if op == "subtract" then
+		local a = resolveOperand(ctx, obj, (pred.of or {})[1])
+		local b = resolveOperand(ctx, obj, (pred.of or {})[2])
+		if type(a) ~= "number" or type(b) ~= "number" then
+			return UNKNOWN
+		end
+		return a - b
+	end
+
 	if op == "sum" then
 		local total = 0
 		for i = 1, #(pred.of or {}) do
@@ -383,7 +445,30 @@ end
 --- no rule fires, not even its fallback. This is the difference between fixture 05
 --- (the ritual selector has no tiers and stays silent) and fixture 08 (it has what it
 --- needs and reports that no route can be chosen).
+--- An object may state the situation it speaks in. A mismatch is NORMAL SILENCE: the
+--- object contributes nothing, reports nothing, lowers no confidence and does not reach
+--- the timebox. Data that does not exist in this context is absent, not missing.
+---
+--- The ritual tier selector was already silent everywhere but a tiered entrance, because
+--- its inputs were missing there. That was correct by accident and invisible in the data;
+--- applicable_when makes it something the catalog says out loud.
+local function matchesContext(ctx, obj)
+	local when = obj.applicable_when
+	if type(when) ~= "table" then
+		return true
+	end
+	for path, expected in pairs(when) do
+		if resolvePath(ctx.request, path) ~= expected then
+			return false
+		end
+	end
+	return true
+end
+
 local function isApplicable(ctx, obj)
+	if not matchesContext(ctx, obj) then
+		return false, "context"
+	end
 	for i = 1, #obj.inputs do
 		local def = obj.inputs[i]
 		if def.required == true and def.materiality == "material" then
@@ -514,13 +599,37 @@ end
 --- Which fields this answer reports as missing, in the rule's declared order and under
 --- each input's missing_input_label. Nothing else is ever reported: an input the fired
 --- rule does not name is irrelevant to this answer, not hidden.
+--- Only fields that are ACTUALLY absent are reported. reports_missing names what this
+--- answer would report IF the field were missing; a field the request supplied must never
+--- appear in missing_inputs, because that would be the report itself lying about the very
+--- thing it exists to be honest about.
 local function collectMissing(ctx, obj, rule)
 	local out, effects = {}, (rule.result or {}).missing_input_effect or {}
 	local names = (rule.result or {}).reports_missing or {}
 	for i = 1, #names do
 		local def = findInput(obj, names[i])
-		local label = (def and def.missing_input_label) or names[i]
-		out[#out + 1] = { label = label, name = names[i], effect = effects[names[i]], def = def }
+		local present = false
+		if def then
+			local value = resolveInput(ctx, obj, def)
+			if def.missing_when == "false" then
+				-- A proxy flag: it reports on something other than itself, so its VALUE is
+				-- the condition. prerequisite_state_known is present and false exactly when
+				-- the prerequisite state is unknown.
+				present = (value == true)
+			elseif isNull(value, ctx.kb.NULL) then
+				present = false
+			elseif type(value) == "table" and #value == 0 then
+				-- An empty list is not knowledge either: a tier list with nothing in it
+				-- tells the player as little as no list at all.
+				present = false
+			else
+				present = true
+			end
+		end
+		if not present then
+			local label = (def and def.missing_input_label) or names[i]
+			out[#out + 1] = { label = label, name = names[i], effect = effects[names[i]], def = def }
+		end
 	end
 	return out
 end
@@ -573,6 +682,66 @@ end
 --------------------------------------------------------------------------------
 -- The pipeline (RFC-002 §5.2)
 --------------------------------------------------------------------------------
+
+--- An output may declare which measured values travel with it, and which of those fill
+--- the placeholders in each copy key. That keeps the numbers out of the strings: one
+--- parameterised sentence serves every tier instead of six hardcoded ones, and the values
+--- are the ones actually read from the client.
+local function resolveOutputExtras(ctx, obj, output)
+	local fields = output.response_fields
+	if type(fields) ~= "table" then
+		return nil
+	end
+
+	local resolved = {}
+	for name, spec in pairs(fields) do
+		local value
+		if spec.derived then
+			local pred = obj.derived and obj.derived[spec.derived]
+			if pred then
+				pred._name = spec.derived
+				value = evalPredicate(ctx, obj, pred)
+				if type(value) == "table" and spec.field then
+					value = resolvePath(value, spec.field)
+				end
+			end
+		elseif spec.input then
+			local def = findInput(obj, spec.input)
+			if def then
+				value = resolveInput(ctx, obj, def)
+			end
+		end
+		if not isNull(value, ctx.kb.NULL) and type(value) ~= "table" then
+			resolved[name] = value
+		end
+	end
+
+	local extras = {}
+	for name, value in pairs(resolved) do
+		extras[name] = value
+	end
+
+	if type(output.copy_params) == "table" then
+		local params = {}
+		for slot, names in pairs(output.copy_params) do
+			local values = {}
+			for i = 1, #names do
+				values[i] = resolved[names[i]]
+			end
+			if #values > 0 then
+				params[slot] = values
+			end
+		end
+		if next(params) ~= nil then
+			extras.copy_params = params
+		end
+	end
+
+	if next(extras) == nil then
+		return nil
+	end
+	return extras
+end
 
 local function buildResponse(ctx, owner, output, missing, declaredConfidence, extras)
 	local notNow = {}
@@ -759,6 +928,7 @@ function M.Evaluate(request, kb, engine)
 						route = {
 							obj = obj, owner = owner, output = output, rule = rule,
 							subjectId = obj._subject_activity_id,
+							extras = resolveOutputExtras(ctx, obj, output),
 						}
 						break
 					end
@@ -804,7 +974,8 @@ function M.Evaluate(request, kb, engine)
 	end
 
 	if route then
-		return buildResponse(ctx, route.owner, route.output, collectMissing(ctx, route.obj, route.rule), route.output.confidence)
+		return buildResponse(ctx, route.owner, route.output,
+			collectMissing(ctx, route.obj, route.rule), route.output.confidence, route.extras)
 	end
 
 	return {
@@ -883,6 +1054,95 @@ local function PlayerState()
 	return state
 end
 
+--- Where the evaluation is happening. Measured 2026-08-01: at a Ritual Site obelisk with
+--- the picker open GetTieredEntranceType returned 2 and GetTieredEntrancePDEID 235, and
+--- the six tiers came back in full. Inside the running scenario every one of those read 0,
+--- and out in the world the calls answer nothing.
+---
+--- So tier data is not something we are failing to find elsewhere — elsewhere it does not
+--- exist. The context says which of those situations we are in, so an object can stay
+--- silent without that silence being mistaken for a gap.
+local function EvaluationContext()
+	local context = { kind = "unknown", activity_type = "unknown" }
+
+	if not (C_DelvesUI and C_DelvesUI.GetTieredEntranceType) then
+		return context
+	end
+
+	local entranceType = tonumber(safe(C_DelvesUI.GetTieredEntranceType))
+	if entranceType == nil then
+		return context
+	end
+
+	if entranceType == 0 then
+		-- A picker that reports type 0 is not offering anything: either we are inside the
+		-- scenario already or nowhere near an entrance.
+		context.kind = "other"
+		return context
+	end
+
+	context.kind = "tiered_entrance_selection"
+	-- 2 was the value at Rob's Ritual Site obelisk. It is the only value measured so far,
+	-- so anything else stays "unknown" rather than being guessed into a category.
+	if entranceType == 2 then
+		context.activity_type = "ritual_site"
+	end
+	return context
+end
+
+--- The tiers on offer, one entry each, straight from the client.
+---
+--- Read-only by construction. SelectDelveEntranceTier would change the player's chosen
+--- difficulty and RequestPartyEligibilityForDelveTiers talks to the server; a probe reads,
+--- so neither is ever called from here.
+---
+--- failure_reason comes from IsDelveEntranceTierEnabled, which returns (isEnabled,
+--- failureReason). That reason is the game's own words, which is why its provenance is
+--- recorded: a reason we inferred must never be mistaken for one the client gave, and we
+--- never write a third kind.
+local function RitualTierEntries()
+	if not (C_DelvesUI and C_DelvesUI.GetDelveEntranceTiers) then
+		return nil
+	end
+	local tiers = safe(C_DelvesUI.GetDelveEntranceTiers)
+	if type(tiers) ~= "table" or #tiers == 0 then
+		return nil -- absent, which the catalog reads as "cannot see the tiers"
+	end
+
+	local entries = {}
+	for i = 1, #tiers do
+		local t = tiers[i]
+		if type(t) == "table" and tonumber(t.tier) then
+			local entry = {
+				tier = tonumber(t.tier),
+				unlocked = t.unlocked == true,
+				suggested_item_level = tonumber(t.suggestedILvl),
+				failure_reason = nil,
+				failure_reason_provenance = nil,
+			}
+			-- Ask the game why a tier is closed rather than composing a reason ourselves.
+			if C_DelvesUI.IsDelveEntranceTierEnabled then
+				local ok, enabled, reason = pcall(C_DelvesUI.IsDelveEntranceTierEnabled, entry.tier)
+				if ok then
+					if enabled == false then
+						entry.unlocked = false
+					end
+					if type(reason) == "string" and reason ~= "" then
+						entry.failure_reason = reason
+						entry.failure_reason_provenance = "game_client"
+					end
+				end
+			end
+			entries[#entries + 1] = entry
+		end
+	end
+
+	if #entries == 0 then
+		return nil
+	end
+	return entries
+end
+
 --- Ritual Sites as an activity_state.
 ---
 --- Availability comes from ns.GetRitualWeeklyHint's `kind`, which RitualSites.lua
@@ -908,8 +1168,9 @@ local function RitualActivityState()
 		available = nil,
 		prerequisites_met = nil,
 		prerequisite_state_known = false,
-		live_recommended_item_level = nil,   -- no known API; see RFC-002 section 9
 		weekly_extra_value_available = nil,  -- Tier 6 weekly quest not readable
+		-- Present only at a tiered entrance. Absent elsewhere, and absent is not missing.
+		available_tiers = RitualTierEntries(),
 	}
 
 	if kind == "locked" then
@@ -996,6 +1257,7 @@ function M.BuildRequest()
 		-- policy from ever reporting `high` on an answer the goal decided.
 		player_goal = "progress",
 		assumed_inputs = { "player_goal" },
+		evaluation_context = EvaluationContext(),
 		-- Not observable. No default would be honest, so it stays unknown and the timebox
 		-- asks instead of guessing.
 		available_session_minutes = nil,
@@ -1008,7 +1270,11 @@ function M.BuildRequest()
 	local ritual = RitualActivityState()
 	if ritual then
 		request.activity_states[#request.activity_states + 1] = ritual
-		note("ritual.available_tiers - no API reads unlocked ritual tiers, so the tier selector cannot apply")
+		if request.evaluation_context.kind ~= "tiered_entrance_selection" then
+			note("ritual tiers - only readable at a tiered entrance; not a gap out here")
+		elseif ritual.available_tiers == nil then
+			note("ritual.available_tiers - entrance is open but the client returned no usable tier list")
+		end
 		if ritual.prerequisite_state_known == false then
 			note("ritual prerequisite state - GetRitualWeeklyHint returned no usable kind")
 		end

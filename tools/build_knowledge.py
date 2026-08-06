@@ -41,11 +41,11 @@ except ImportError:  # pragma: no cover
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "docs", "knowledge_proposal_v0.4")
 
-SCHEMA_FILE = os.path.join(SRC, "ko_schema_v0.4.yaml")
-CATALOG_FILE = os.path.join(SRC, "normalized_ko_catalog_v0.4.yaml")
-MAPPING_FILE = os.path.join(SRC, "request_mapping_v0.2.yaml")
+SCHEMA_FILE = os.path.join(SRC, "ko_schema_v0.5.yaml")
+CATALOG_FILE = os.path.join(SRC, "normalized_ko_catalog_v0.5.yaml")
+MAPPING_FILE = os.path.join(SRC, "request_mapping_v0.3.yaml")
 COPY_FILE = os.path.join(SRC, "copy_catalog_enUS_nlNL_v0.3.json")
-FIXTURE_FILE = os.path.join(SRC, "fixtures_full_v0.4.json")
+FIXTURE_FILE = os.path.join(SRC, "fixtures_full_v0.5.json")
 
 OUT_DATA = os.path.join(ROOT, "Modules", "KnowledgeData_S1.lua")
 OUT_FIXTURES = os.path.join(ROOT, "tools", "knowledge_fixtures_generated.lua")
@@ -57,6 +57,8 @@ COUNT_OPS = [".count_gte", ".count_lte"]
 DERIVED_OPERATORS = {
     "any", "all", "count_gte", "count_lte", "exists", "equals", "sum",
     "gt", "gte", "lt", "lte", "and", "or", "not", "evaluator_result",
+    # v0.5: picking a tier out of the list and comparing item levels against it.
+    "select_max", "field", "subtract",
 }
 
 errors: list[str] = []
@@ -141,9 +143,9 @@ def validate_derived(obj):
         op = pred.get("operator")
         if op not in DERIVED_OPERATORS:
             err(f"{obj['id']}: derived '{name}' uses unknown operator '{op}'")
-        if op in ("any", "all", "count_gte", "count_lte", "exists", "equals") and not pred.get("source"):
+        if op in ("any", "all", "count_gte", "count_lte", "exists", "equals", "select_max", "field") and not pred.get("source"):
             err(f"{obj['id']}: derived '{name}' ({op}) needs a source")
-        if op in ("and", "or", "not", "sum", "gt", "gte", "lt", "lte") and pred.get("of") is None:
+        if op in ("and", "or", "not", "sum", "subtract", "gt", "gte", "lt", "lte") and pred.get("of") is None:
             err(f"{obj['id']}: derived '{name}' ({op}) needs an 'of' list")
         validate_where(obj, name, pred.get("where"))
 
@@ -274,10 +276,10 @@ def validate_copy(catalog, copy):
 
 
 def validate(schema, catalog, mapping, copy):
-    if str(schema.get("schema_version", "")).split(".")[0:2] != ["0", "4"]:
-        err(f"schema version {schema.get('schema_version')} is not 0.4.x")
-    if str(catalog.get("schema_version", "")).split(".")[0:2] != ["0", "4"]:
-        err(f"catalog schema version {catalog.get('schema_version')} is not 0.4.x")
+    if str(schema.get("schema_version", "")).split(".")[0:2] != ["0", "5"]:
+        err(f"schema version {schema.get('schema_version')} is not 0.5.x")
+    if str(catalog.get("schema_version", "")).split(".")[0:2] != ["0", "5"]:
+        err(f"catalog schema version {catalog.get('schema_version')} is not 0.5.x")
 
     mapping_keys, selectors = set(), {}
     for m in mapping.get("mappings", []):

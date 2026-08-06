@@ -84,6 +84,7 @@ ns.MH_COMMANDS = {
 	{ headKey = "CMDLIST_GRP_ROUTE", items = {
 		{ cmd = "/mh arrow", descKey = "CMDLIST_ARROW" },
 		{ cmd = "/mh arrowsize", descKey = "CMDLIST_ARROWSIZE" },
+		{ cmd = "/mh goto", descKey = "CMDLIST_GOTO" },
 		{ cmd = "/mh clear", descKey = "CMDLIST_CLEAR" },
 		{ cmd = "/mh skip", descKey = "CMDLIST_SKIP" },
 		{ cmd = "/mh nodes", descKey = "CMDLIST_NODES" },

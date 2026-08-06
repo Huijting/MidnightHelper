@@ -1024,6 +1024,30 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh goto <x> <y> — drop the game's waypoint on a spot in the zone you are in.
+	--
+	-- Built 6 Aug for the Coiled Isle hunt: eight rares were measured off the PTR
+	-- with coordinates, but the zone is not in MAP_TO_ZONE_KEY, so no route can
+	-- claim the arrow and reading numbers off a map by hand is miserable. This uses
+	-- the waypoint setter the routes already use, which the arrow then follows.
+	do
+		local gx, gy = msg:match("^goto%s+([%d%.]+)%s+([%d%.]+)$")
+		if gx then
+			local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+			local mapID = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+			if not mapID then
+				print(prefix .. " goto: no map for you right now.")
+				return
+			end
+			if ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(mapID, gx, gy) then
+				print(("%s waypoint set: %s, %s on map %d."):format(prefix, gx, gy, mapID))
+			else
+				print(prefix .. " goto: could not set a waypoint there.")
+			end
+			return
+		end
+	end
+
 	-- /mh questdiff — find the hidden kill-quest behind a rare, by diffing which
 	-- quests count as completed before and after a fight.
 	if msg == "questdiff" or msg == "questdiff clear" then

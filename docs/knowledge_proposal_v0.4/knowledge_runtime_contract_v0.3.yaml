@@ -1,0 +1,105 @@
+contract_version: 0.3.0
+supersedes: 0.2.0
+status: proposal
+changes_from_0_2:
+- >-
+  Added evaluation_context. Tier data exists only while the tiered-entrance picker is
+  available; everywhere else it is genuinely absent rather than missing. The context
+  makes that observable instead of inferred.
+- >-
+  Replaced the single live_recommended_item_level field with a per-tier list. The game
+  reports a suggested item level PER TIER, so one number could only ever have been a
+  summary of six, and choosing which one to summarise is a judgement we have no basis
+  for.
+- >-
+  Added failure_reason with provenance, sourced from the game's own
+  IsDelveEntranceTierEnabled rather than written by us.
+
+request:
+  required:
+  - request_id
+  - interface
+  - mythic_plus_season_id
+  - player_goal
+  - evaluation_context
+  - weekly_reward_state
+  - player_state
+  - activity_states
+  - recent_activity_history
+  - assumed_inputs
+  fields:
+    request_id: string
+    interface: integer
+    mythic_plus_season_id: integer|null
+    player_goal: progress|vault_only|learn|relax
+    available_session_minutes: integer|null optional
+    evaluation_context:
+      kind: tiered_entrance_selection|other|unknown
+      activity_type: ritual_site|delve|unknown
+    weekly_reward_state: object
+    player_state: object
+    activity_states: array
+    recent_activity_history: array
+    assumed_inputs: array<string>
+
+activity_state_shape:
+  activity_id: string
+  available: boolean|null
+  prerequisites_met: boolean|null
+  prerequisite_state_known: boolean
+  missing_prerequisites: array optional
+  estimated_minutes: "{ min, max, source } — optional"
+  setup_minutes: integer|null optional
+  editorial: "{ interruptibility } — optional"
+  # Per tier, never a single summarised number. Present only while the tiered-entrance
+  # picker is available; absent elsewhere, and absent is not missing.
+  available_tiers:
+    type: array optional
+    entry:
+      tier: integer
+      unlocked: boolean
+      suggested_item_level: integer|null
+      failure_reason: string|null
+      failure_reason_provenance: game_client|addon_data|unknown|null
+
+response:
+  required:
+  - status
+  - title_key
+  - why_key
+  - first_action_key
+  - not_now_keys
+  - confidence
+  - knowledge_object_ids
+  optional:
+  - missing_inputs
+  - assumed_inputs
+  - stale_object_ids
+  - prerequisite_id
+  - prerequisite_reason
+  - prerequisite_reason_provenance
+  - estimated_time_range
+  - selected_tier
+
+evaluation_context_semantics:
+- >-
+  kind = tiered_entrance_selection means the player is at a tiered entrance with the
+  picker available, which is the only situation in which tier data exists.
+- >-
+  activity_type names which tiered content it is. Measured 2026-08-01: at a Ritual Site
+  obelisk C_DelvesUI.GetTieredEntranceType returned 2 and GetTieredEntrancePDEID 235;
+  inside the running scenario both returned 0.
+- >-
+  An object whose applicable_when does not match the context is NOT APPLICABLE. It fires
+  nothing and contributes nothing. That silence is normal and must never be reported as
+  a missing input, must not lower confidence, and must not influence the timebox.
+
+engine_rules:
+- Evaluator is pure and performs no WoW API calls.
+- Request builder owns all client access.
+- GetNextWeeklyAction remains headline owner.
+- Knowledge output is explanation/debug in v1.
+- >-
+  The builder calls read-only APIs only. C_DelvesUI.SelectDelveEntranceTier would change
+  the player's difficulty and RequestPartyEligibilityForDelveTiers talks to the server;
+  neither is ever called.
