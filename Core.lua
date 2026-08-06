@@ -1028,22 +1028,34 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	--
 	-- Built 6 Aug for the Coiled Isle hunt: eight rares were measured off the PTR
 	-- with coordinates, but the zone is not in MAP_TO_ZONE_KEY, so no route can
-	-- claim the arrow and reading numbers off a map by hand is miserable. This uses
-	-- the waypoint setter the routes already use, which the arrow then follows.
+	-- claim the arrow and reading numbers off a map by hand is miserable.
+	--
+	-- Setting the game's waypoint is only half of it. The first version did just
+	-- that, and Rob got the game's own pin ("1.5K yds") with no MH arrow at all —
+	-- correct behaviour, because the arrow deliberately keys off `_mhRouteOwner`
+	-- rather than off a waypoint existing, so that another addon's pin can never
+	-- make us draw. A hand-typed destination has to claim ownership like any route.
+	--
+	-- It claims "waypoint", the single-destination owner that already exists in
+	-- NativeArrow: no auto-advance, and the arrow releases itself once you are
+	-- within ~20yd. That is exactly what a typed coordinate should do.
 	do
 		local gx, gy = msg:match("^goto%s+([%d%.]+)%s+([%d%.]+)$")
 		if gx then
 			local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+			local x, y = tonumber(gx), tonumber(gy)
 			local mapID = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
-			if not mapID then
-				print(prefix .. " goto: no map for you right now.")
+			if not mapID or not x or not y or x <= 0 or y <= 0 or x > 100 or y > 100 then
+				print(prefix .. " goto: give coordinates between 0 and 100, like /mh goto 47.0 62.2")
 				return
 			end
-			if ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(mapID, gx, gy) then
-				print(("%s waypoint set: %s, %s on map %d."):format(prefix, gx, gy, mapID))
-			else
+			if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(mapID, x, y)) then
 				print(prefix .. " goto: could not set a waypoint there.")
+				return
 			end
+			ns.lastTarget = { mapID = mapID, x = x, y = y, name = ("%.1f, %.1f"):format(x, y) }
+			ns._mhRouteOwner = "waypoint"
+			print(("%s arrow set to %.1f, %.1f."):format(prefix, x, y))
 			return
 		end
 	end
