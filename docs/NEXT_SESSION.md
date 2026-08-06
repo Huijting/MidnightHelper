@@ -1,5 +1,5 @@
 # Midnight Helper — waar we staan
-
+**Bijgewerkt 2026-08-06.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
 **Bijgewerkt 2026-08-02.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
 "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
@@ -18,6 +18,63 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 | Daarna | **v3.0.0** -- de Season 2-release |
 | Branch | alleen `main` |
 | Deadline | **12.1 live 11 aug (NA) / 12 aug (EU), Season 2 18 aug.** Officieel bevestigd, niet langer een projectie |
+
+## 📍 Waar we gebleven zijn (6 aug 2026, eind van de avond)
+
+**De Coiled Isle is in kaart gebracht, vijf dagen voordat hij op live bestaat.**
+Vanochtend hadden we niets over die zone; nu staat hij in de rares-tab en vinkt
+zichzelf af. Alles gemeten, niets overgenomen — HandyNotes dekt het eiland niet en
+online staan geen coordinaten.
+
+Wat er ligt (`Modules/Rares.lua`, achter `IsSeason2Visible`, dus onzichtbaar op live
+tot 11 aug):
+
+    9 rares met naam, npcID, coordinaat en 7 gemeten kill-quest-ids
+    Gnarldor Isle, de delve van de zone, ingang 64.5/77.7
+    map 2642 als tweede kaart van het eiland (Nar'zira staat daar)
+    22 schatnamen uit de achievement, 5 met coordinaat
+
+**Hoe de quest-ids gevonden zijn.** Een kill vlagt meer dan een quest, dus een enkele
+kill kon niet zeggen welke van de rare was. Acht kills gaven acht verschillende ids in
+de band 98344..98354, geen twee hetzelfde. De Malformed Leviathan vlagde er geen —
+en dat is precies de enige die een EVENT is ("Defeat the Monstrosity!"). De
+uitzondering landde waar een uitzondering voorspeld was; daarmee werd het een meting
+in plaats van een patroon.
+
+### Nog te meten op de PTR — kan alleen voor 11 aug
+
+1. **De secure klik-knoppen.** Staat al sinds 5 aug op P0 en is nog steeds open. Het
+   enige echte patchdag-risico dat we niet getest hebben: party targets is een
+   aangekondigde functie, 12.1 brengt nieuwe taint-machinerie, en op 3 aug kostte een
+   taint-fout al het complete targetten.
+2. **De curio-dump.** `DelveCuriosAdvisor` loopt al door Valeera's trait-tree; de
+   curio-slots zitten in dezelfde boom. Een dump geeft de hele Season 2-set in een
+   commando in plaats van een screenshot per curio.
+3. **Venom Lancer Ori'kassi en de negende rare** (quest 98348, gedood op 44.1/50.4,
+   identiteit onbekend — er staat geen enkele vignette binnen 4% van die plek).
+   Beide elites verschijnen alleen tijdens een event, dus dit is geluk hebben.
+
+### Code repareren voor 11 aug
+
+- **De curio-popup komt leeg op.** `DELVE_CURIOS_BY_SEASON` heeft alleen `[1]`, en de
+  terugval naar seizoen 1 is er terecht uitgesloopt — maar het venster komt nog wel op,
+  met een naamloos icoontje. Zwijgen als je niets weet.
+- **De tier-advisor kent zes tiers.** Rob haalde de achievement "Midnight Delves:
+  Tier 11 (Season 2)". Bewezen, niet afgeleid uit een dropdown.
+- ~~`/mh kicks who` stond nog in de tekst die spelers lezen~~ — gedaan 6 aug.
+
+### Wat vanavond nog meer boven kwam
+
+- **`IsQuestFlaggedCompleted` als los globaal bestaat niet meer op 12.1.** Alles van ons
+  ging al via `C_QuestLog`; ~147 kale aanroepen staan in Robs ANDERE addons en die
+  gooien op patchdag een fout. Niet onze zorg, wel handig om te weten.
+- **Vier onbewaakte GUID-splits gerepareerd**, waarvan twee in uitgebrachte code
+  (`RaidCoachData` en `SporefallCoach` op `UnitGUID("boss1")`). Een secret string
+  passeert `type()`, dus die check zei niets.
+- **Season 2-crests heten Mistcrest** (Hero/Myth). Alleen namen; ids nog niet gemeten.
+- Nieuw gereedschap dat blijft: `/mh goto x y [naam]`, `/mh capture <label>` schrijft
+  nu weg naar SavedVariables, `/mh questdiff` met `check`/`probe`/`now`.
+
 
 ## 📍 Waar we gebleven zijn (4 aug 2026, eind van de avond)
 
