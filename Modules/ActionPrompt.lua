@@ -278,6 +278,32 @@ local function UpdateDispel()
 		f:SetAlpha(0)
 		return
 	end
+
+	-- ⚠️ ONLY ON AN ENEMY. Purge and Spellsteal are offensive: cast on a friend the
+	-- game answers "Invalid target". Rob clicked a party member in the Party Targets
+	-- panel and got a PURGE prompt that could not do anything — a party member has
+	-- HELPFUL|DISPELLABLE auras all day, which is exactly what the filter below finds.
+	--
+	-- UnitIsEnemy, not UnitCanAttack. DelveCoach.lua:1589 already learned that the
+	-- hard way: a neutral quest giver is "attackable" too, and using the broad check
+	-- there made a boss prompt fire on quest NPCs.
+	local hostile = true
+	if UnitIsEnemy then
+		local okE, isEnemy = pcall(UnitIsEnemy, "player", "target")
+		if okE then
+			hostile = isEnemy and true or false
+		end
+	elseif UnitCanAttack then
+		local okA, canAttack = pcall(UnitCanAttack, "player", "target")
+		if okA then
+			hostile = canAttack and true or false
+		end
+	end
+	if not hostile then
+		f:SetAlpha(0)
+		return
+	end
+
 	local ok, _, firstSlot = pcall(C_UnitAuras.GetAuraSlots, "target", "HELPFUL|DISPELLABLE", 1)
 	if ok and firstSlot ~= nil then
 		f.tex:SetTexture(tex)
