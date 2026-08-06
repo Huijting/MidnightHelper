@@ -1129,6 +1129,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh prompt — the on-screen "what do I press": your interrupt when the target
 	-- casts something interruptible, your dispel when it carries something removable.
+	-- Hear it without changing the setting. Cycling round to the mode you already had
+	-- just to test it is three keystrokes and two settings you did not want.
+	if msg == "prompt sound test" then
+		if ns.PreviewActionPromptSound then
+			ns.PreviewActionPromptSound()
+			local mode = (ns.db and ns.db.actionPromptSound) or "off"
+			print(("|cffffcc00%s|r prompt sound test — mode: %s"):format(ns:L("PRINT_PREFIX"), tostring(mode)))
+		end
+		return
+	end
+
 	if msg == "prompt sound" then
 		if ns.ToggleActionPromptSound then
 			ns.ToggleActionPromptSound()
