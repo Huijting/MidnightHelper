@@ -224,6 +224,47 @@ function ns.HandleQuestDiff(arg)
 		return
 	end
 
+	-- `/mh questdiff probe` — where do this character's completed quests actually live?
+	--
+	-- The baseline came back 0 for 88000..112000, and that number alone cannot say
+	-- whether IsQuestFlaggedCompleted reads nothing at all or whether Midnight's ids
+	-- simply sit outside the window. A character who has played for years has
+	-- thousands of completed quests spread over the whole history of the game, so a
+	-- sweep from 1 upwards is a positive control: if the low bands come back empty
+	-- too, the call is unusable and this approach is finished. If they fill up and
+	-- only the top is empty, the window was wrong and nothing else was.
+	if arg == "probe" then
+		local BAND = 10000
+		local TOP = 150000
+		local bands, total, highest = {}, 0, 0
+		local ok, err = pcall(function()
+			for id = 1, TOP do
+				if IsQuestFlaggedCompleted(id) then
+					local b = math.floor(id / BAND)
+					bands[b] = (bands[b] or 0) + 1
+					total = total + 1
+					highest = id
+				end
+			end
+		end)
+		if not ok then
+			print(("%s probe FAILED at once: %s"):format(p, tostring(err)))
+			print("   |cff9d9d9dThe call cannot be used here. That is the answer.|r")
+			return
+		end
+		print(("%s probe: %d completed quests in 1..%d, highest id %d."):format(
+			p, total, TOP, highest))
+		for b = 0, math.floor(TOP / BAND) do
+			if bands[b] then
+				print(("   %6d-%6d : %d"):format(b * BAND, (b + 1) * BAND - 1, bands[b]))
+			end
+		end
+		if total == 0 then
+			print("   |cff9d9d9dNothing anywhere — the call returns false for everything.|r")
+		end
+		return
+	end
+
 	-- `/mh questdiff now` — force a pass without waiting for combat to end. The way
 	-- to test the machinery on demand: kill something, type this, look at the count.
 	if arg == "now" then

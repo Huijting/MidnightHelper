@@ -1062,7 +1062,8 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh questdiff — find the hidden kill-quest behind a rare, by diffing which
 	-- quests count as completed before and after a fight.
-	if msg == "questdiff" or msg == "questdiff clear" or msg == "questdiff now" then
+	if msg == "questdiff" or msg == "questdiff clear" or msg == "questdiff now"
+		or msg == "questdiff probe" then
 		if ns.HandleQuestDiff then
 			ns.HandleQuestDiff(msg:match("^questdiff%s+(%S+)"))
 		end
