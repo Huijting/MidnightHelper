@@ -211,8 +211,12 @@ end
 ---
 --- Deferred rather than gated inline because this file loads at .toc line 133 and
 --- the season gate at 157 — `ns.IsSeason2Visible` simply does not exist yet here.
---- The rares panel is built the first time the window is opened, never at load, so
---- registering at PLAYER_LOGIN is early enough for every consumer.
+---
+--- ⚠️ It hangs on ADDON_LOADED, not PLAYER_LOGIN. PLAYER_LOGIN was too late: the zone
+--- rail builds its buttons once, from this table, and Rob got a panel that showed the
+--- Coiled Isle's rares (that part refreshes) above a rail with no button for it — so
+--- once he clicked another zone he could not get back. Every file in the addon has
+--- finished executing by ADDON_LOADED, so the gate exists, and nothing has drawn yet.
 ---
 --- The gate is `IsSeason2Visible` (patch onwards), not `IsSeason2Live` (season
 --- onwards): the isle opens WITH the patch on 11 Aug, a week before Season 2. On the
@@ -235,8 +239,12 @@ local function RegisterPatchZones()
 end
 
 local patchZoneFrame = CreateFrame("Frame")
-patchZoneFrame:RegisterEvent("PLAYER_LOGIN")
-patchZoneFrame:SetScript("OnEvent", function()
+patchZoneFrame:RegisterEvent("ADDON_LOADED")
+patchZoneFrame:RegisterEvent("PLAYER_LOGIN") -- belt and braces; the call is idempotent
+patchZoneFrame:SetScript("OnEvent", function(_, event, addonName)
+	if event == "ADDON_LOADED" and addonName ~= "MidnightHelper" then
+		return
+	end
 	pcall(RegisterPatchZones)
 end)
 
