@@ -400,6 +400,51 @@ replacement for the string-mining, and it is how DBM has always done it.
 
 Note `tierTooltipSpellID = 1260975` alongside it, and `shownState = 1`.
 
+### What other addons fixed for 12.1 on 6 Aug — and why none of it touches us
+
+Rob asked, on the day a wave of addons updated, whether their patch notes named
+anything that would hit MH. Two things did, and we are already clear of both. This
+is written down so nobody spends an evening re-establishing it when 12.1 lands.
+
+**The removed glow helper.** BliZzi_Interrupts 4.1.12: *"On 12.1 clients the
+default glow spammed errors every frame: the game removed a helper the glow
+libraries relied on, both now ship their own replacement."* Checked: MH contains
+**zero** references to `ShowOverlayGlow`, `HideOverlayGlow`, `SpellAlert`,
+`LibCustomGlow` or `ActionButton_*`. We ship no glow library and call no glow
+helper, so there is nothing to break. CombatSafety's "glow" is four plain coloured
+textures placed by anchors — deliberately, since the July secret-geometry fix.
+
+**Secret errors from tooltips.** Three HandyNotes addons shipped the same class of
+fix today: *"Don't try to show a comparison tooltip if GameTooltip has become
+secret"*, *"Override reward item tooltip display to not use a MoneyFrame to avoid
+many, many Blizzard secret issues"*, *"avoid a secret-values error when viewing the
+tooltip on delve entrances"*. MH hooks item tooltips in `Modules/LootUpgrade.lua`,
+and already avoids exactly this:
+
+```lua
+if tooltip ~= GameTooltip and tooltip ~= ItemRefTooltip then
+    return -- keep shopping/compare tooltips clean
+end
+...
+local ok = pcall(addLine, tooltip, link)
+-- one bad tooltip must never break the game's tooltip; stay silent.
+```
+
+The comparison tooltips are skipped outright — which is where their errors come
+from — and the rest is wrapped. It fails closed: no tip rather than an error.
+
+**Three independent corroborations of this week's measurements**, worth keeping
+because they came from other people's clients rather than ours:
+
+- BliZzi: an offensive-CD check *"called an aura API that does not exist in the
+  game and failed silently"*. Same class as the four wrong turns behind Ice Block —
+  an absent thing and an unreadable thing look identical.
+- BliZzi: shield detection *"no longer depends on reading the shield amount, which
+  is unreadable for group members inside instances"*. Independent confirmation of
+  what the dispel probes found about group members in instanced content.
+- BliZzi's 12.1 path identifies buffs **by spell ID**, dormant until the client
+  updates. That is the design `ns.Aura` was built around in July.
+
 ### Entrance tiers at a DELVE, and what the rewards list really holds (2 Aug 2026)
 
 `C_DelvesUI.GetDelveEntranceTiers()` answers at a **delve** entrance too, which
