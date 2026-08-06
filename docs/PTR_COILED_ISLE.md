@@ -179,3 +179,33 @@ Twenty-two hidden treasures. Read off the achievement panel, not guessed:
 
 Names only — no coordinates, and a treasure list without coordinates cannot drive a
 route. `/mh capture <name>` on each one as they are found is the way to fill it in.
+
+## A pattern in the quest ids — hypothesis, not a finding
+
+Three kills on the fresh character each flagged an id from one tight run:
+
+    44.1/50.4 (unidentified)   98348  + 96464
+    Nar'zira                   98351  + 94860
+    Sss'alik, The Rotten Claw  98354  + 95447 + 95563
+
+98348, 98351, 98354 — a step of exactly 3, one per rare. If that holds, the 983xx id
+is the rare's own kill credit and the others are whatever else finished during the
+fight. Lockjaw sits outside it with 97227, but Lockjaw was measured on a DIFFERENT
+character with a different history, so that is not yet a counter-example.
+
+⚠️ Do not write any of this into `ns.RARE_ZONES` on the strength of the pattern. Three
+points on a line is how a guess starts looking like a measurement.
+
+THE TEST THAT SETTLES IT: `/mh questdiff check 98348` (and 98351, 98354) on the
+paladin. That character killed Big Mon, Farthik and Siltmouth but never touched
+Sss'alik or Nar'zira. If the 983xx ids are per-rare kill credit, the ones matching his
+kills read COMPLETED and the others do not. If they all read the same, the pattern is
+coincidence and the whole idea dies there.
+
+### Treasure coordinates, measured
+
+    Stinking Vessel          2512  53.05/43.07
+    Tarnished Amani Glaive   2512  55.19/37.94
+    Cracked Skull            2512  58.14/43.64
+
+Three of the twenty-two. Captured with `/mh capture <name>` while standing on them.
