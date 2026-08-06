@@ -12,3 +12,8 @@ Modules/Broker.lua.bak
 # Release artifacts (build locally with tools/package.ps1)
 dist/
 docs/*.tmp
+
+# Written daily by the claude.ai watchers; never part of a release.
+docs/PTR_12.1_WATCH.md
+docs/PTR_12.0.7_DATA.md
+docs/.writetest_*
