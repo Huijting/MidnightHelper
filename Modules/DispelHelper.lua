@@ -447,8 +447,15 @@ function ns.GetPlayerPurgeIcon()
 end
 
 --- Spec changes can add or remove the purge, so the cache must not outlive one.
+---
+--- ⚠️ TALENTS TOO, not just specs. Every one of these purges is a talent, so swapping
+--- loadouts inside the same spec adds or removes it without PLAYER_SPECIALIZATION_CHANGED
+--- ever firing — the icon would then keep offering a spell that had just been talented
+--- away, until a reload. TRAIT_CONFIG_UPDATED is the event the other thirteen places in
+--- this addon already use for exactly that.
 local purgeEv = CreateFrame("Frame")
 purgeEv:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+purgeEv:RegisterEvent("TRAIT_CONFIG_UPDATED")
 purgeEv:RegisterEvent("PLAYER_ENTERING_WORLD")
 purgeEv:SetScript("OnEvent", function()
 	purgeResolved = false

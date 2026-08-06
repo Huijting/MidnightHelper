@@ -480,12 +480,17 @@ local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("PLAYER_TARGET_CHANGED")
 ev:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+-- Interrupts are talents as often as the purges are, and a loadout swap inside one
+-- spec never fires PLAYER_SPECIALIZATION_CHANGED. Without this the prompt keeps
+-- offering the kick you just talented away.
+ev:RegisterEvent("TRAIT_CONFIG_UPDATED")
 ev:RegisterEvent("SPELL_UPDATE_COOLDOWN")
 -- The outline appears and disappears with combat, so both edges need an update.
 ev:RegisterEvent("PLAYER_REGEN_DISABLED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:SetScript("OnEvent", function(_, event)
-	if event == "PLAYER_ENTERING_WORLD" or event == "PLAYER_SPECIALIZATION_CHANGED" then
+	if event == "PLAYER_ENTERING_WORLD" or event == "PLAYER_SPECIALIZATION_CHANGED"
+		or event == "TRAIT_CONFIG_UPDATED" then
 		RefreshInterrupt()
 	end
 	Schedule()
