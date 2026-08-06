@@ -375,6 +375,27 @@ local function BuildKeyPositions()
 		P["F" .. i] = { f0 + (i - 1) * CELL, yF }
 	end
 
+	--- The thumb pad, to the right of the board.
+	---
+	--- ⚠️ ADDED 6 Aug, closing a hole this addon made for itself the same evening. The
+	--- allocator started handing out mouse buttons an hour earlier — on Rob's Frost Mage
+	--- that is Remove Curse and Spellsteal — and this picture could not draw them. Not
+	--- "shown as empty": absent. Two of his nineteen bindings existed only in a chat
+	--- dump. A layout view that silently omits part of the layout is worse than none.
+	---
+	--- Laid out 2 across by 3 down, the shape of a six-button thumb pad, which is what
+	--- Rob's Naga presents. Players with two buttons see two: the refresh hides any
+	--- beyond `mouseButtonCount` rather than drawing keys nobody has.
+	do
+		local padX = math.max(numBlockRight, mainRight) + CELL
+		local padY = yQ
+		for i = 1, 6 do
+			local col = (i - 1) % 2
+			local row = math.floor((i - 1) / 2)
+			P["BUTTON" .. (i + 3)] = { padX + col * CELL, padY + row * (KH + GAP) }
+		end
+	end
+
 	local maxX, maxY = 0, 0
 	for _, xy in pairs(P) do
 		local w = (type(xy[3]) == "number" and xy[3]) or KW
@@ -1103,6 +1124,12 @@ local function ProtoTooltipForDimmedKey(uiKey)
 end
 
 local function LabelForPrototypeKey(uiKey)
+	-- "BUTTON4" does not fit on a 30px key and reads as jargon. M4 is what the thumb
+	-- pad is called in every guide.
+	local mouseN = type(uiKey) == "string" and uiKey:match("^BUTTON(%d+)$")
+	if mouseN then
+		return "M" .. mouseN
+	end
 	if uiKey == " " then
 		return "Space"
 	end
@@ -1206,8 +1233,17 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 		end
 	end
 
+	--- Only draw thumb buttons the player says they have. Two is an ordinary mouse; the
+	--- rest of the pad would otherwise be six keys nobody can press, which is the exact
+	--- kind of confident-but-wrong picture this whole evening was spent removing.
+	local mouseCount = tonumber(ns.db and ns.db.mouseButtonCount) or 2
+
 	for uiKey, btn in pairs(panel._mhProtoButtons) do
 		if btn then
+			local mouseN = type(uiKey) == "string" and tonumber(uiKey:match("^BUTTON(%d+)$"))
+			if mouseN then
+				btn:SetShown((mouseN - 3) <= mouseCount)
+			end
 			local slot = slotByUi[uiKey]
 			local layers = spec and ns.Keybind_GetBindingsOnBase and ns.Keybind_GetBindingsOnBase(spec, uiKey) or {}
 			local hasSpell = #layers > 0
