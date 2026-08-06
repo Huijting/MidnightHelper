@@ -1164,17 +1164,29 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 	local spec = slug and ref and ref.specsById and ref.specsById[slug]
 	local slots
 	local usingAuto = false
-	if slug and ref then
-		slots = (ns.Keybinding_GetSlotsForSlug and ns.Keybinding_GetSlotsForSlug(slug)) or ref.slots
-	else
-		-- Geen hand-map voor deze class/spec → val terug op de live auto-map (uit de spellbook).
-		if ns.MH_AutoMapSpecAndSlots then
-			local aSpec, aSlots = ns.MH_AutoMapSpecAndSlots()
-			if aSpec and aSlots and next(aSpec.spellByUiKey or {}) then
-				spec = aSpec
-				slots = aSlots
-				usingAuto = true
-			end
+
+	--- ⚠️ THE LIVE MAP WINS. Until 6 Aug a hand-written map, where one existed, beat the
+	--- spellbook. Seven specs have one, and they are tables typed months ago against a
+	--- talent build somebody had at the time. On Rob's Frost Mage the hand-map offers
+	--- Glacial Spike on 5 and Cold Snap on X — neither of which is in his spellbook. So
+	--- the tab was teaching him keys for buttons he does not own, which is the same
+	--- failure as the Alt+M promise and the "Purge" label: confident, specific, wrong.
+	---
+	--- The auto-map reads what the player actually has, follows talent overrides, and
+	--- since this evening walks the whole book rather than the first section of it. A
+	--- hand-map cannot beat that; it can only be a fallback for a class the classifier
+	--- does not cover yet.
+	if ns.MH_AutoMapSpecAndSlots then
+		local aSpec, aSlots = ns.MH_AutoMapSpecAndSlots()
+		if aSpec and aSlots and next(aSpec.spellByUiKey or {}) then
+			spec = aSpec
+			slots = aSlots
+			usingAuto = true
+		end
+	end
+	if not usingAuto then
+		if slug and ref and spec then
+			slots = (ns.Keybinding_GetSlotsForSlug and ns.Keybinding_GetSlotsForSlug(slug)) or ref.slots
 		end
 		slots = slots or {}
 	end
