@@ -11,6 +11,27 @@ er vóór 11 aug in. De rest niet.
 
 ## P0 — vóór 11 augustus, anders gaat het op patchdag mis
 
+**1. ✅ AFGEVINKT 6 aug — de dispel-helper overleeft 12.1.**
+Gemeten op de PTR (Maisara Caverns, follower dungeon, Prot Paladin), 38 scans:
+
+```
+                tries  hits  misses  errors  absent
+player_harmful    38     15     23       0       0
+party1..4         38      0     38       0       0
+target_helpful    38      0     24       0       0
+```
+
+**Nul errors, nul absent** — het filter bestaat nog en antwoordt op een
+12.1-client. En het onderscheidt: 15 van de 38 keer vond het iets afneembaars op
+de speler zelf. De nul bij de volgers is `noUnit=0`, dus ze waren er wel en droegen
+gewoon niets afneembaars in dat halve stukje dungeon.
+
+Restpunt, klein: `dispelFieldLog` bleef leeg, dus over de leesbaarheid van
+`spellId`/`name`/`dispelName`/`canActivePlayerDispel` op 12.1 hebben we nog niets.
+Voor de helper maakt dat niet uit — die vraagt het filter, niet de velden.
+
+<details><summary>De oorspronkelijke opdracht</summary>
+
 **1. Meet de dispel-helper op de PTR.**
 `ns.AllyHasRemovableAura` leunt op `GetAuraSlots(unit, "HARMFUL|DISPELLABLE", 1)`,
 en dat is **alleen op live 12.0.7 gemeten** (36 scans, party1 0 hits vs party3 36 —
@@ -19,6 +40,7 @@ UnitAura APIs will now either return full secrets or nil when called by addons."
 Valt het filter om, dan verschijnt het dispel-icoon nooit meer — en dat faalt
 **stil**, wat de ergste vorm is: een groepslid dat een dispel nodig heeft en geen
 icoon. `copy_to_ptr.bat`, één dungeon, klaar.
+</details>
 
 **2. Meet de secure klik-knoppen op de PTR.**
 Klikken-om-over-te-nemen is uitgeleverd en werkt op live. 12.1 brengt nieuwe
