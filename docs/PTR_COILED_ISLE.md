@@ -78,3 +78,39 @@ Surges" as rotating events that spawn a rare elite at one of five locations, so 
 coordinate here may name a rare that is not always at that spot. That is their claim,
 not a measurement — but it fits an airborne, unattackable NPC waiting on an event
 better than a broken spawn does.
+
+## Measured on the ground, 6 Aug evening
+
+**The first verified rare row.** `/mh questdiff` finally ran clean and paired a kill
+with the quest it flagged:
+
+    Lockjaw the Snapper — npc 265237, questId 97227, map 2512, 31.7/56.8
+
+Two independent measurements agree on the npcID: the vignette recorder read 265237
+off the objectGUID while flying past, and the kill read 265237 off the target GUID.
+The coordinates agree to a tenth. This row can go into `ns.RARE_ZONES` as it stands.
+
+Machinery health at that moment: baseline 799 completed quests in 88000..112000,
+68 fights handled, no sweep errors. So a missing row from here on means the kill did
+not flag anything — not that the probe is broken.
+
+**Gnarldor Isle, the zone's delve** — entrance at 64.5/77.7. Its achievement
+"Gnarldor Isle Stories" wants each story variant: "Olds and Ends" (done), "Minchi's
+Osseous Adventure", "Speaking Their Language". Three variants, 5 points.
+
+**Delve tier 11 exists in Season 2** — no longer an inference off a dropdown. Rob
+earned the achievement "Midnight Delves: Tier 11 (Season 2)" completing it. Live
+currently tops out at 6, so the tier advisor's range is wrong for 12.1.
+
+**Season 2 crests are called Mistcrest.** The delve paid "Hero Mistcrest" and the
+"Cracked Keystone" quest offers 20 Hero Mistcrest + 20 Myth Mistcrest for completing
+any dungeon on Mythic 2 or higher. Names only so far — the currency IDs still need
+measuring before anything goes into the crest data.
+
+Also seen: a "Delves: Season 2" reputation, Voidlight Marl (3316) dropping in bulk,
+and two curio quests off a single delve — "A Gnawing Void of Curiosity" and
+"Ancient Curiosity: Combat".
+
+**Farthik the Plunderer does land.** Rob killed him after finding him unattackable
+earlier, so the airborne phase is a phase and not a broken spawn. The kill happened
+before the probe worked, so his questId is still open.
