@@ -132,10 +132,17 @@ local function NpcIdFromUnit(unit)
 	return tonumber((select(6, strsplit("-", guid))))
 end
 
---- Remember what we are fighting, at the START of the fight.
+--- Remember what we are fighting.
 ---
---- By the time combat ends the rare is dead and usually deselected, so reading the
---- target then would name whatever you clicked next — or nothing.
+--- Read at the START of the fight, because by the time combat ends the rare is dead
+--- and usually deselected — reading it then would name whatever you clicked next.
+---
+--- But the start is not always enough. Rob killed something on the Coiled Isle and
+--- the row came back with the quest ids and the position and no name at all: he was
+--- attacked before he had targeted anything, so at PLAYER_REGEN_DISABLED there was
+--- nothing to read. So this is also called on every target change during the fight,
+--- and it only OVERWRITES what it has when the new reading is better — a real npcID
+--- beats a blank, and nothing ever downgrades a name we already got.
 local function NoteTarget()
 	local name
 	if UnitName then
@@ -147,10 +154,18 @@ local function NoteTarget()
 			name = n
 		end
 	end
-	pendingTarget = {
-		name = name,
-		npcID = NpcIdFromUnit("target"),
-	}
+	local npcID = NpcIdFromUnit("target")
+	if not pendingTarget then
+		pendingTarget = {}
+	end
+	-- Upgrade only. A later target change must not blank out the rare we read at the
+	-- pull just because we are now looking at an add, or at nothing.
+	if npcID and not pendingTarget.npcID then
+		pendingTarget.npcID = npcID
+	end
+	if name and not pendingTarget.name then
+		pendingTarget.name = name
+	end
 end
 
 local function AfterCombat()
@@ -225,7 +240,14 @@ end
 local ev = CreateFrame("Frame")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_REGEN_DISABLED" then
+		pendingTarget = nil -- a fresh fight; NoteTarget only upgrades, never clears
 		NoteTarget()
+	elseif event == "PLAYER_TARGET_CHANGED" then
+		-- Only while fighting, and only to fill gaps. This is what catches the case
+		-- where something jumped you before you had targeted it.
+		if InCombatLockdown and InCombatLockdown() then
+			NoteTarget()
+		end
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		AfterCombatPasses()
 	end
@@ -235,6 +257,7 @@ local function SetRunning(on)
 	if on then
 		ev:RegisterEvent("PLAYER_REGEN_DISABLED")
 		ev:RegisterEvent("PLAYER_REGEN_ENABLED")
+		ev:RegisterEvent("PLAYER_TARGET_CHANGED")
 	else
 		ev:UnregisterAllEvents()
 	end
