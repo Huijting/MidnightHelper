@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.13.0
+
+- New: every command the addon has, listed inside it. The Tools page shows all forty in groups with a line each. Most of this addon was reachable only by typing something you already had to know; the linter now fails the build when a listed command is not routed, so the page cannot drift from the code.
+- Announced at last: the action prompt (`/mh prompt`). A large icon when your interrupt applies to what your target is casting, and when your target carries something you can strip. It shipped unannounced in 2.12.0 under the rule that nothing gets announced until somebody has watched it work; Rob has now seen both halves fire.
+- New: `/mh prompt sound` - spoken, chime or off, for the purge half. Interrupts stay silent by necessity, not choice: `notInterruptible` is a secret value, the icon works only because SetAlphaFromBoolean lets the engine read it, and there is no PlaySoundFromBoolean.
+- Fixed: the purge prompt appeared on friendly players, who always carry dispellable auras, so pressing it answered "Invalid target". It now requires an enemy (`UnitIsEnemy`, not `UnitCanAttack` - a neutral quest giver is attackable too).
+- Fixed: only Priest and Mage had an offensive purge listed, so nine classes could never see that half at all. Shaman (Purge 370) and Hunter (Tranquilizing Shot 19801) added, each confirmed by two independent installed addons. Druid Soothe, Warlock Devour Magic and DH Consume Magic stay out, each for a stated reason.
+- Fixed: four places split a unit GUID behind a bare `type()` check, which cannot tell a secret string from an ordinary one - two of them shipped, in `RaidCoachData` and `SporefallCoach` on `UnitGUID("boss1")`. Against a boss whose GUID the client hides, that throws mid-fight.
+- New: `/mh goto 47.0 62.2 [name]` points the arrow at any spot in your current zone, naming it from our own data when something of ours stands there.
+- Fixed: the zone rail in the Rares tab built its buttons once from a snapshot, so a zone registered later listed its rares above a rail with no button for it. It now fills its own gaps on every refresh.
+- Removed: `/mh kicks who`. It answered "ON" and could never do anything - Midnight refuses combat log registration to every addon, DBM included (`DBM-Core.lua:1680`). The interrupt card also still advertised it after the command was taken out.
+- Ready for 12.1: the Coiled Isle with nine rares - names, npcIDs, coordinates and seven kill-quest ids all measured on the PTR - and Altar of Fangs with beginner steps for all three bosses, written from the mechanics in DBM's own mods. Both behind the patch gate, so nothing appears before the content exists.
+
 ## 2.12.0
 
 - New: Party targets, a panel showing every group member and what they are attacking, with their role, class colour and the raid marker on their target. Clicking a line takes that target, in combat too. Draggable, and resizable by width. Off by default - `/mh partytargets` or the Settings page. An enemy target's name is a secret value in 12.x, so the panel shows names it is not allowed to read: no sorting by target, no "three of us are on yours", no highlighting the row that matches you.
