@@ -55,6 +55,26 @@ zwijgt. Keuze: weghalen, of laten staan met een eerlijke melding als iemand hem
 aanzet. Nu zegt hij "AAN" en doet daarna niets — dat is de Alt+M-fout in een
 andere jas.
 
+### De curio-popup wordt leeg op Season 2 — GEMETEN 6 aug
+
+`ns.DELVE_CURIOS_BY_SEASON` bevat alleen `[1]`. De terugval naar seizoen 1 is er
+bewust uitgesloopt, en terecht: seizoen-1-advies geven in seizoen 2 is liegen. Maar
+het venster komt nog wél op. Rob zag het op de PTR voor Gnarldor Isle: titel
+"Valeera — DPS curios", daaronder één icoontje zonder naam, verder leeg.
+
+Twee dingen, en het tweede is het echte werk:
+
+1. **Zwijg als je niets weet.** Geen data voor dit seizoen = geen popup, of één
+   eerlijke regel ("nog geen advies voor dit seizoen"). Een naamloos icoontje is
+   slechter dan niets, want het ziet eruit als een kapotte addon.
+2. **Season 2-curio's meten.** Pas als de curio's op de PTR bekend zijn kan hier
+   echte data in. Niet invullen op basis van wat seizoen 1 had.
+
+Punt 1 moet vóór de 11e, want dat treft iedereen die een delve start. Punt 2 mag
+na de patch.
+
+---
+
 ---
 
 ## P1 — hoort in de volgende upload, geen patchdag-risico
