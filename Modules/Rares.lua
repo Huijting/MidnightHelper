@@ -1558,8 +1558,42 @@ local function EnsureRowButton(index)
 	return btn
 end
 
+--- Anchor for the next rail button. Set while building, kept so buttons can still be
+--- added afterwards.
+local lastZoneBtn
+
+--- Create the rail button for a zone that did not have one yet.
+---
+--- ⚠️ This exists because ORDERING WAS THE WRONG THING TO FIGHT. The Coiled Isle is
+--- registered after this file loads (the season gate lives further down the .toc), and
+--- the rail used to be built once from a snapshot of ZONES. First attempt registered
+--- at PLAYER_LOGIN, second at ADDON_LOADED, and Rob still got a panel that listed the
+--- isle's rares — those refresh — above a rail with no button for it, so once he
+--- clicked another zone there was no way back. Rather than guess at a third moment
+--- that is early enough, the rail now fills its own gaps on every refresh.
+local function EnsureZoneButton(z)
+	if zoneBtns[z.key] or not zoneRail then
+		return
+	end
+	local zb = CreateFrame("Button", nil, zoneRail, "UIPanelButtonTemplate")
+	zb:SetSize(ZONE_RAIL_W - 4, ZONE_BTN_H)
+	zb:SetText(z.shortLabel or z.label)
+	if lastZoneBtn then
+		zb:SetPoint("TOPLEFT", lastZoneBtn, "BOTTOMLEFT", 0, -ZONE_BTN_GAP)
+	else
+		zb:SetPoint("TOPLEFT", zoneRail, "TOPLEFT", 0, 0)
+	end
+	zb:SetScript("OnClick", function()
+		SetSelectedZoneKey(z.key)
+		ns.RefreshRaresPanel()
+	end)
+	zoneBtns[z.key] = zb
+	lastZoneBtn = zb
+end
+
 local function RefreshZoneRail(zoneKey)
 	for _, z in ipairs(ZONES) do
+		EnsureZoneButton(z)
 		local zb = zoneBtns[z.key]
 		if zb then
 			local active = z.key == zoneKey
@@ -1713,22 +1747,12 @@ function ns.BuildRaresPanel(panel)
 		ns.GenerateRaresRoute(GetSelectedZoneKey())
 	end)
 
-	local prevZoneBtn
-	for i, z in ipairs(ZONES) do
-		local zb = CreateFrame("Button", nil, zoneRail, "UIPanelButtonTemplate")
-		zb:SetSize(ZONE_RAIL_W - 4, ZONE_BTN_H)
-		zb:SetText(z.shortLabel or z.label)
-		if i == 1 then
-			zb:SetPoint("TOPLEFT", zoneRail, "TOPLEFT", 0, 0)
-		else
-			zb:SetPoint("TOPLEFT", prevZoneBtn, "BOTTOMLEFT", 0, -ZONE_BTN_GAP)
-		end
-		zb:SetScript("OnClick", function()
-			SetSelectedZoneKey(z.key)
-			ns.RefreshRaresPanel()
-		end)
-		zoneBtns[z.key] = zb
-		prevZoneBtn = zb
+	-- The rail frame above is freshly created, so any buttons remembered from an
+	-- earlier build belong to a frame that no longer holds them.
+	wipe(zoneBtns)
+	lastZoneBtn = nil
+	for _, z in ipairs(ZONES) do
+		EnsureZoneButton(z)
 	end
 
 	listHost = CreateFrame("Frame", nil, frame)
