@@ -209,3 +209,23 @@ coincidence and the whole idea dies there.
     Cracked Skull            2512  58.14/43.64
 
 Three of the twenty-two. Captured with `/mh capture <name>` while standing on them.
+
+## Altar of Fangs — first machine-verified data, 6 Aug
+
+A follower run (difficulty 205) confirmed what the roster held, from ENCOUNTER_START
+itself rather than from DBM's files:
+
+    3456  Rav'i               journalInstanceID 1322   map 2588
+    3457  The Writhing Coil   journalInstanceID 1322   map 2589
+
+Each boss reports its own uiMapID, so the instance is split across maps. Our stored
+name was "Ravi"; the game writes **Rav'i**. Zul'jan (3458) is still only from DBM —
+the run stopped before him.
+
+**A blocking bug stopped the run**, and it is worth reporting on the PTR: four totems
+must be destroyed, which should extinguish four green beams feeding a serpent. All
+four totems went down and one beam kept shining, leaving the way shut.
+
+That mechanic is also content we did not have: an approach gate of four totems and
+four beams. It belongs in the beginner steps when those get written, whether or not
+the bug is fixed.

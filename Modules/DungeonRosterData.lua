@@ -225,7 +225,11 @@ ns.DUNGEON_ROSTER = {
 		season2 = true, -- in de S2 M+-rotatie (PTR 14 jul, in-game verifiëren)
 		season = 2,
 		bosses = {
-			{ key = "ravi",         encounterID = 2878, dungeonEncounterID = 3456, name = "Ravi" },
+			-- Names and dungeonEncounterIDs 3456/3457 MEASURED in a follower run on the
+			-- 12.1 PTR, 6 Aug: ENCOUNTER_START reported them itself, with
+			-- journalInstanceID 1322 confirming the instance. "Ravi" was our own
+			-- spelling; the game writes Rav'i. 3458 is still only from DBM.
+			{ key = "ravi",         encounterID = 2878, dungeonEncounterID = 3456, name = "Rav'i" },
 			{ key = "writhingcoil", encounterID = 2879, dungeonEncounterID = 3457, name = "The Writhing Coil" },
 			{ key = "zuljan",       encounterID = 2880, dungeonEncounterID = 3458, name = "Zul'jan" },
 		},
