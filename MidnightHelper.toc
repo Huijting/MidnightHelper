@@ -131,6 +131,7 @@ Modules\Delves.lua
 Modules\NativeArrow.lua
 Modules\WorldBoss.lua
 Modules\Rares.lua
+Modules\VignetteCapture.lua
 Modules\RitualSites.lua
 Modules\RitualCoachData.lua
 Modules\RitualCoach.lua

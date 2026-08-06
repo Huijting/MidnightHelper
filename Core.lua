@@ -1024,6 +1024,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh vignettes — record every rare vignette you fly past, to SavedVariables.
+	if msg == "vignettes" or msg == "vignettes clear" then
+		if ns.HandleVignetteCapture then
+			ns.HandleVignetteCapture(msg:match("^vignettes%s+(%S+)"))
+		end
+		return
+	end
+
 	-- /mh arrow — why is the route arrow not guiding? Prints who is driving and
 	-- whether a route ever handed us a target.
 	if msg == "arrow" or msg == "arrow yield" then
