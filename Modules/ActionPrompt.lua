@@ -251,6 +251,41 @@ local function UpdateInterrupt()
 	end
 end
 
+--- Sound when a purge BECOMES available — once, not while it stays available.
+---
+--- ⚠️ THIS EXISTS FOR PURGE AND NOT FOR INTERRUPT, and the difference is not a
+--- decision, it is the API. Deciding to play a sound means READING a boolean, and
+--- `notInterruptible` from UnitCastingInfo is a secret value in 12.x: reading it
+--- throws. The interrupt icon works only because SetAlphaFromBoolean lets the ENGINE
+--- read it and set the alpha, with the addon never seeing the answer. There is no
+--- PlaySoundFromBoolean.
+---
+--- The purge side is genuinely readable — GetAuraSlots answers with a slot or nothing
+--- — so a sound here is honest, and only here.
+---
+--- Edge-triggered: a target that keeps its buff would otherwise fire on every update,
+--- which is several times a second.
+local purgeWasUp = false
+local function AnnouncePurge(isUp)
+	if not isUp then
+		purgeWasUp = false
+		return
+	end
+	if purgeWasUp then
+		return
+	end
+	purgeWasUp = true
+	if not (ns.db and ns.db.actionPromptSound) then
+		return
+	end
+	if PlaySound and SOUNDKIT then
+		local kit = SOUNDKIT.RAID_WARNING or SOUNDKIT.READY_CHECK
+		if kit then
+			pcall(PlaySound, kit, "Master")
+		end
+	end
+end
+
 --- Show the dispel icon when the target carries something removable.
 ---
 --- Entirely readable, so no engine trick is needed: GetAuraSlots answers with a
@@ -313,8 +348,10 @@ local function UpdateDispel()
 			f.word:SetText((ns.L and ns:L("PROMPT_WORD_PURGE")) or "PURGE")
 		end
 		f:SetAlpha(1)
+		AnnouncePurge(true)
 	else
 		f:SetAlpha(0)
+		AnnouncePurge(false)
 	end
 end
 
@@ -378,6 +415,21 @@ ev2:SetScript("OnEvent", Schedule)
 
 function ns.IsActionPromptEnabled()
 	return Enabled()
+end
+
+--- `/mh prompt sound` — a chime the moment a purge becomes available.
+function ns.ToggleActionPromptSound()
+	ns.db = ns.db or {}
+	ns.db.actionPromptSound = not ns.db.actionPromptSound
+	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+	if ns.db.actionPromptSound then
+		print(("%s %s"):format(p, (ns.L and ns:L("PROMPT_SOUND_ON"))
+			or "Prompt sound ON — a chime when a purge becomes available."))
+		print("   |cff9d9d9dInterrupts stay silent: the game will not let an addon read|r")
+		print("   |cff9d9d9dwhether a cast can be kicked, only show it.|r")
+	else
+		print(("%s %s"):format(p, (ns.L and ns:L("PROMPT_SOUND_OFF")) or "Prompt sound OFF."))
+	end
 end
 
 function ns.ToggleActionPrompt()

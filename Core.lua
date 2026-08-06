@@ -1120,6 +1120,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh prompt — the on-screen "what do I press": your interrupt when the target
 	-- casts something interruptible, your dispel when it carries something removable.
+	if msg == "prompt sound" then
+		if ns.ToggleActionPromptSound then
+			ns.ToggleActionPromptSound()
+		end
+		return
+	end
+
 	if msg == "prompt" then
 		if ns.ToggleActionPrompt then
 			ns.ToggleActionPrompt()
