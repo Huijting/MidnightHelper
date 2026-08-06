@@ -383,16 +383,21 @@ local function BuildKeyPositions()
 	--- "shown as empty": absent. Two of his nineteen bindings existed only in a chat
 	--- dump. A layout view that silently omits part of the layout is worse than none.
 	---
-	--- Laid out 2 across by 3 down, the shape of a six-button thumb pad, which is what
-	--- Rob's Naga presents. Players with two buttons see two: the refresh hides any
-	--- beyond `mouseButtonCount` rather than drawing keys nobody has.
+	--- ⚠️ ONE COLUMN, not two. The first attempt laid it out 2 across by 3 down, like the
+	--- pad itself. It rendered as M4, M6, M8 — the right-hand column fell off the edge of
+	--- the panel, so half the thumb buttons were invisible again, which is the very thing
+	--- adding them was meant to fix. The panel does not scroll sideways, so anything past
+	--- its width simply is not there.
+	---
+	--- A single column of six is 186px tall, which fits inside the board's own height,
+	--- and needs one key's width beside the number block. Players with two buttons see
+	--- two: the refresh hides any beyond `mouseButtonCount` rather than drawing keys
+	--- nobody has.
 	do
-		local padX = math.max(numBlockRight, mainRight) + CELL
+		local padX = math.max(numBlockRight, mainRight) + GAP
 		local padY = yQ
 		for i = 1, 6 do
-			local col = (i - 1) % 2
-			local row = math.floor((i - 1) / 2)
-			P["BUTTON" .. (i + 3)] = { padX + col * CELL, padY + row * (KH + GAP) }
+			P["BUTTON" .. (i + 3)] = { padX, padY + (i - 1) * (KH + GAP) }
 		end
 	end
 
