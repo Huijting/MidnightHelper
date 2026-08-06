@@ -44,7 +44,10 @@ end
 
 --- npcID from field 6 of "Creature-0-...-npcID-spawnUID". Same as Rares.lua:396.
 local function NpcIdFromObjectGUID(guid)
-	if type(guid) ~= "string" then
+	-- A secret string passes type() and then throws on strsplit. Vignette GUIDs read
+	-- fine on 6 Aug, but the same check written without this guard is what broke
+	-- QuestDiff the same evening, so it is not left to luck.
+	if type(guid) ~= "string" or (issecretvalue and issecretvalue(guid)) then
 		return nil
 	end
 	return tonumber((select(6, strsplit("-", guid))))

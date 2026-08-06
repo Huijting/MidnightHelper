@@ -165,7 +165,10 @@ local function Boss1NpcId()
 		return nil
 	end
 	local guid = UnitGUID("boss1")
-	if type(guid) ~= "string" then
+	-- 12.x: een boss-GUID kan secret zijn, en een secret string is nog steeds een
+	-- string — type() laat hem er dus doorheen en strsplit klapt eronder. Zelfde
+	-- guard als TideboundGrottoCoach; hier was hij vergeten.
+	if type(guid) ~= "string" or (issecretvalue and issecretvalue(guid)) then
 		return nil
 	end
 	local kind, _, _, _, _, npcId = strsplit("-", guid)

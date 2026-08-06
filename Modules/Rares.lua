@@ -233,7 +233,9 @@ local function BuildRareNpcSet()
 end
 
 local function NpcIdFromGUID(guid)
-	if type(guid) ~= "string" then
+	-- 12.x: de GUID van een vijandige unit kan secret zijn, en een secret string is
+	-- nog steeds een string — type() zegt hier niets en strsplit klapt eronder.
+	if type(guid) ~= "string" or (issecretvalue and issecretvalue(guid)) then
 		return nil
 	end
 	return tonumber((select(6, strsplit("-", guid))))
@@ -394,7 +396,7 @@ end
 -- npcID zit in veld 6 van objectGUID ("Creature-0-...-npcID-spawnUID"),
 -- zelfde extractie als RareScanner (RSButtonHandler).
 local function NpcIdFromObjectGUID(guid)
-	if type(guid) ~= "string" then
+	if type(guid) ~= "string" or (issecretvalue and issecretvalue(guid)) then
 		return nil
 	end
 	return tonumber((select(6, strsplit("-", guid))))
