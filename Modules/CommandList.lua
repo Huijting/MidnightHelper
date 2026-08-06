@@ -117,10 +117,23 @@ function ns.BuildCommandList(panel, anchorTo)
 	scroll:SetPoint("TOPLEFT", head, "BOTTOMLEFT", 0, -8)
 	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 14)
 	local child = CreateFrame("Frame", nil, scroll)
-	child:SetSize(1, 1)
+	-- ⚠️ WIDTH FIRST, BEFORE ANY TEXT IS MEASURED.
+	--
+	-- Rob, 6 Aug: while scrolling, the /mh mark row printed on top of the row above
+	-- it and then corrected itself further down — repeatably. The cause was here:
+	-- the child was created 1px wide and only sized at the END, so every
+	-- GetStringHeight() below measured a wrapped string against the wrong width.
+	-- Rows that wrap to two lines were given one line of space, and the overlap
+	-- only resolved when scrolling forced a real layout pass.
+	--
+	-- Sizing the child first means the wrap width is true at measure time, which is
+	-- the only moment the height is asked for.
+	local width = math.max(200, (panel:GetWidth() or 400) - 44)
+	child:SetSize(width, 1)
 	scroll:SetScrollChild(child)
 
 	local y = 0
+	child._mhRows = {}
 	for _, group in ipairs(ns.MH_COMMANDS) do
 		local gh = child:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		gh:SetFontObject(SF("GameFontNormal"))
@@ -130,9 +143,10 @@ function ns.BuildCommandList(panel, anchorTo)
 		if c then
 			gh:SetTextColor(c[1], c[2], c[3])
 		end
+		child._mhRows[#child._mhRows + 1] = { head = gh }
 		y = y - 20
 
-		for _, item in ipairs(group.items) do
+		for index, item in ipairs(group.items) do
 			local cmd = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 			cmd:SetFontObject(SF("GameFontHighlightSmall"))
 			cmd:SetPoint("TOPLEFT", child, "TOPLEFT", 10, y)
@@ -150,10 +164,46 @@ function ns.BuildCommandList(panel, anchorTo)
 			desc:SetTextColor(0.78, 0.8, 0.85)
 			desc:SetText(L(item.descKey))
 
+			child._mhRows[#child._mhRows + 1] = {
+				cmd = cmd, desc = desc, last = (index == #group.items),
+			}
 			y = y - math.max(16, (desc:GetStringHeight() or 14) + 4)
 		end
 		y = y - 8
 	end
 	child:SetHeight(math.abs(y) + 10)
-	child:SetWidth(panel:GetWidth() - 44)
+
+	-- Second pass, one frame later. The width above is the panel's width AT BUILD
+	-- TIME, and the panel can still be laying itself out — so a row that wraps
+	-- differently once everything has settled would overlap again. Re-measuring
+	-- costs nothing here and removes the whole class of fault rather than the one
+	-- row Rob happened to see.
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0, function()
+			if not (child and child.SetHeight) then
+				return
+			end
+			local w = math.max(200, (panel:GetWidth() or 400) - 44)
+			child:SetWidth(w)
+			local yy = 0
+			for _, row in ipairs(child._mhRows or {}) do
+				-- ClearAllPoints first: SetPoint ADDS an anchor, so re-anchoring
+				-- without clearing leaves the old one in place and the widget ends
+				-- up pinned by both.
+				if row.head then
+					row.head:ClearAllPoints()
+					row.head:SetPoint("TOPLEFT", child, "TOPLEFT", 2, yy)
+					yy = yy - 20
+				else
+					row.cmd:ClearAllPoints()
+					row.cmd:SetPoint("TOPLEFT", child, "TOPLEFT", 10, yy)
+					yy = yy - math.max(16, (row.desc:GetStringHeight() or 14) + 4)
+					if row.last then
+						yy = yy - 8
+					end
+				end
+			end
+			child:SetHeight(math.abs(yy) + 10)
+		end)
+	end
 end
