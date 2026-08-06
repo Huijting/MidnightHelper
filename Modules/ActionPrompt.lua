@@ -166,11 +166,23 @@ local interruptName, interruptTex
 --- have.
 local function RefreshInterrupt()
 	interruptName, interruptTex = nil, nil
-	if not (UnitClass and GetSpecialization and ns.MH_GetInterruptSpell) then
+	if not (UnitClass and ns.MH_GetInterruptSpell) then
 		return
 	end
 	local token = select(2, UnitClass("player"))
-	local idx = GetSpecialization()
+	-- Namespaced first, bare global as fallback. Both are still in use across the
+	-- installed addons, so neither is dead — but tonight `IsQuestFlaggedCompleted`
+	-- turned out to be gone as a bare global on 12.1 while its C_QuestLog twin was
+	-- fine, and this whole feature hangs on one call returning something.
+	local idx
+	if C_SpecializationInfo and C_SpecializationInfo.GetSpecialization then
+		local okS, s = pcall(C_SpecializationInfo.GetSpecialization)
+		idx = okS and s or nil
+	end
+	if idx == nil and GetSpecialization then
+		local okG, g = pcall(GetSpecialization)
+		idx = okG and g or nil
+	end
 	if not (token and idx) then
 		return
 	end
@@ -211,9 +223,36 @@ end
 --- is anything being cast (castBarID), do we own an interrupt, is it off cooldown
 --- — decides whether the icon exists at all. What we may NOT read — whether the
 --- cast is interruptible — is handed to the engine, which sets the alpha itself.
+--- Count where the interrupt prompt gives up.
+---
+--- Rob had the prompt on through a whole follower dungeon and never saw the interrupt
+--- half. From outside there is no way to tell which of four very different things
+--- happened: no interrupt spell resolved for this character, the spell on cooldown,
+--- nothing casting, or the engine correctly hiding it because the cast could not be
+--- kicked. The last one is CORRECT BEHAVIOUR and looks exactly like the bugs.
+---
+--- We cannot count what we may not read, so there is deliberately no "shown" tally.
+--- `reached` is the honest ceiling: the point where the value went to the engine.
+local function Bump(key)
+	if not ns.db then
+		return
+	end
+	if type(ns.db.promptDiag) ~= "table" then
+		ns.db.promptDiag = {}
+	end
+	ns.db.promptDiag[key] = (ns.db.promptDiag[key] or 0) + 1
+end
+
 local function UpdateInterrupt()
 	local f = iconInterrupt
-	if not interruptTex or not SpellReady(interruptName) then
+	Bump("calls")
+	if not interruptTex then
+		Bump("noSpellForClass")
+		f:SetAlpha(0)
+		return
+	end
+	if not SpellReady(interruptName) then
+		Bump("onCooldown")
 		f:SetAlpha(0)
 		return
 	end
@@ -223,18 +262,24 @@ local function UpdateInterrupt()
 		local ok, _, _, _, _, _, _, _, ni, _, id = pcall(UnitCastingInfo, "target")
 		if ok then
 			notInterruptible, castBarID = ni, id
+		else
+			Bump("castingInfoError")
 		end
 	end
 	if castBarID == nil and UnitChannelInfo then
 		local ok, _, _, _, _, _, _, ni, _, _, _, _, id = pcall(UnitChannelInfo, "target")
 		if ok then
 			notInterruptible, castBarID = ni, id
+		else
+			Bump("channelInfoError")
 		end
 	end
 	if castBarID == nil then
+		Bump("nothingCasting")
 		f:SetAlpha(0) -- nothing is being cast; readable, so branching is fine
 		return
 	end
+	Bump("reached") -- a cast IS in progress; from here the engine decides
 
 	f.tex:SetTexture(interruptTex)
 	if f.word then
