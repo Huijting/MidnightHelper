@@ -16,10 +16,15 @@ local _, ns = ...
 
 	HOW IT WORKS. There is no call that lists your completed quests --
 	`C_QuestLog.GetQuestsCompleted` appears nowhere in the 90-odd addons installed
-	here, so it is not something to lean on. `IsQuestFlaggedCompleted(id)` is used
-	532 times and is the reliable one, so this sweeps a RANGE of ids, remembers which
-	came back true, and after each fight sweeps again. Whatever turned true in
-	between is what that kill flagged.
+	here, so it is not something to lean on. `C_QuestLog.IsQuestFlaggedCompleted(id)`
+	is the reliable one, so this sweeps a RANGE of ids, remembers which came back
+	true, and after each fight sweeps again. Whatever turned true in between is what
+	that kill flagged.
+
+	⚠️ It must be the NAMESPACED call. The bare global `IsQuestFlaggedCompleted` still
+	appears ~147 times across the installed addons, but on Rob's 12.1 PTR client it is
+	nil — every one of those will throw on patch day. Nothing in Midnight Helper is
+	affected: all 60-odd of our own checks already go through C_QuestLog.
 
 	The pairing is the point. A bare list of new quest ids is nearly useless a day
 	later, so each one is stored with the enemy that was targeted when the fight
@@ -42,6 +47,14 @@ local _, ns = ...
 -- Widened 6 Aug from 88000..106000. Rob killed Farthik the Plunderer with recording
 -- on and nothing was recorded, and a 12.1 zone's quests may simply sit above where
 -- Midnight's launch quests do. The extra 6000 ids cost nothing measurable.
+-- ⚠️ THE BARE GLOBAL IS GONE ON 12.1. `IsQuestFlaggedCompleted(id)` raised "attempt
+-- to call a nil value" on Rob's PTR client, 6 Aug. Everything else in this addon
+-- already went through C_QuestLog, so nothing shipped was affected — but the first
+-- version of this module guarded with `if not IsQuestFlaggedCompleted then return`,
+-- which turned a missing function into a silent zero and cost an evening of flying.
+-- A missing API should be loud.
+local IsDone = C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted
+
 local SCAN_MIN, SCAN_MAX = 88000, 112000
 local MAX_FOUND = 200
 
@@ -69,7 +82,11 @@ end
 --- SavedVariables now carry the number that separates them.
 local function Sweep()
 	local set, n = {}, 0
-	if not IsQuestFlaggedCompleted then
+	if not IsDone then
+		local store = Store()
+		if store then
+			store.sweepError = "C_QuestLog.IsQuestFlaggedCompleted is missing"
+		end
 		return set, 0
 	end
 	-- One pcall around the loop, not 24000 of them. A per-id pcall also hid WHICH
@@ -77,7 +94,7 @@ local function Sweep()
 	-- exactly like nothing being completed.
 	local ok, err = pcall(function()
 		for id = SCAN_MIN, SCAN_MAX do
-			if IsQuestFlaggedCompleted(id) then
+			if IsDone(id) then
 				set[id] = true
 				n = n + 1
 			end
@@ -239,7 +256,7 @@ function ns.HandleQuestDiff(arg)
 		local bands, total, highest = {}, 0, 0
 		local ok, err = pcall(function()
 			for id = 1, TOP do
-				if IsQuestFlaggedCompleted(id) then
+				if IsDone(id) then
 					local b = math.floor(id / BAND)
 					bands[b] = (bands[b] or 0) + 1
 					total = total + 1
