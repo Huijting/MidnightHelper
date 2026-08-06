@@ -109,13 +109,24 @@ local function Sweep()
 	return set, n
 end
 
+--- Is this value one the client will not let us look at?
+---
+--- ⚠️ A secret string IS a string. `type(v) == "string"` returns true for it and
+--- tells you nothing, which is exactly how this module threw "attempt to perform
+--- string conversion on a secret string value" on Rob's target GUID: the type check
+--- passed and strsplit then tried to read it. Core.lua's own capture handler had the
+--- right guard all along; it simply was not carried over to here.
+local function Secret(v)
+	return issecretvalue and issecretvalue(v) or false
+end
+
 --- npcID out of a unit GUID, same field the vignette recorder uses.
 local function NpcIdFromUnit(unit)
 	if not UnitGUID then
 		return nil
 	end
 	local ok, guid = pcall(UnitGUID, unit)
-	if not ok or type(guid) ~= "string" then
+	if not ok or type(guid) ~= "string" or Secret(guid) then
 		return nil
 	end
 	return tonumber((select(6, strsplit("-", guid))))
@@ -129,10 +140,10 @@ local function NoteTarget()
 	local name
 	if UnitName then
 		local ok, n = pcall(UnitName, "target")
-		-- A hostile name is a secret in 12.x. Storing it would either error or save
-		-- something that is not the name, so it is only kept when readable; the
-		-- npcID is the identifier that matters anyway.
-		if ok and type(n) == "string" then
+		-- A hostile name is a secret in 12.x, and a secret string passes type() just
+		-- like the GUID did. Only keep it when it is genuinely readable; the npcID is
+		-- the identifier that matters anyway.
+		if ok and type(n) == "string" and not Secret(n) then
 			name = n
 		end
 	end

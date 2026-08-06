@@ -1553,7 +1553,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end)
 		local name, npcId
 		if UnitExists("target") then
-			name = UnitName("target")
+			-- A hostile name is secret in 12.x, and a secret string still passes
+			-- type() — the %q below would throw on it, and since captures are stored
+			-- now it would also land in SavedVariables. Same trap that hit QuestDiff.
+			local nOk, n = pcall(UnitName, "target")
+			if nOk and type(n) == "string" and not (issecretvalue and issecretvalue(n)) then
+				name = n
+			end
 			local guid = UnitGUID("target")
 			if guid and not (issecretvalue and issecretvalue(guid)) then
 				local unitType, _, _, _, _, id = strsplit("-", guid)
