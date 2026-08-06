@@ -21,6 +21,7 @@ Usage:
 from __future__ import annotations
 
 import os
+import glob
 import re
 import sys
 
@@ -482,6 +483,47 @@ def find_broken_locale_strings(root: str) -> list[tuple]:
     return hits
 
 
+
+def check_command_list(root):
+    """Commands shown to players in Modules/CommandList.lua that nothing routes.
+
+    The list is a promise: it appears in the Tools room with a description, so an
+    entry the addon no longer answers to is the same fault as the Alt+M line in
+    the welcome popup -- telling someone to type something that does nothing.
+    Verified against Core.lua and every module, because routing lives in both
+    (/mh skip is in Achievements.lua, /mh items in DelveItemsPopup.lua).
+    """
+    src_path = os.path.join(root, "Modules", "CommandList.lua")
+    if not os.path.exists(src_path):
+        return []
+    with open(src_path, "r", encoding="utf-8", errors="replace") as fh:
+        src = fh.read()
+    cmds = re.findall(r'cmd = "(/mh[^"]*)"', src)
+
+    routes = ""
+    for path in [os.path.join(root, "Core.lua")] + sorted(
+            glob.glob(os.path.join(root, "Modules", "*.lua"))):
+        if not os.path.isfile(path):
+            continue
+        with open(path, "r", encoding="utf-8", errors="replace") as fh:
+            routes += fh.read()
+
+    missing = []
+    for full in cmds:
+        arg = full[3:].strip()
+        if not arg:
+            continue                      # bare /mh opens the main window
+        first = arg.split()[0]
+        patterns = (
+            'msg == "%s"' % arg, 'msg == "%s"' % first,
+            'line == "%s"' % arg, 'line == "%s"' % first,
+            'msg:match("^%s' % first,
+        )
+        if not any(p in routes for p in patterns):
+            missing.append(full)
+    return missing
+
+
 def main() -> int:
     root = repo_root()
     args = sys.argv[1:]
@@ -609,6 +651,17 @@ def main() -> int:
     if len(undef) > 20:
         print(f"    ... and {len(undef) - 20} more")
     hard += len(undef)
+
+    # 10. Every command listed in Modules/CommandList.lua must actually be routed
+    # (HARD -- the list is shown to players, so an entry that no longer works is
+    # the addon telling someone to type something that does nothing). Added 6 Aug
+    # 2026 with the list itself: three promises had to be corrected that week
+    # because nothing checked them.
+    listed = check_command_list(root)
+    print(f"\n[10] Commands listed to players but not routed: {len(listed)}")
+    for cmd in listed[:20]:
+        print(f"    HARD  {cmd}   listed in Modules/CommandList.lua")
+    hard += len(listed)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")

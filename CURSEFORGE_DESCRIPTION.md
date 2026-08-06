@@ -127,6 +127,10 @@ Other WoW client locales (e.g. Korean, Chinese) fall back to **English** until a
 
 ### Slash commands
 
+The ones you'll reach for first are below. **The full list — around forty commands,
+grouped and explained — lives inside the addon**, under **Tools**, so it can never
+drift from what the addon actually answers to.
+
 | Command | Action |
 |---------|--------|
 | `/mh` or `/midnight` | Toggle main window |

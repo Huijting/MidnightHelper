@@ -146,6 +146,13 @@ function ns.BuildToolsLaunchpad(panel)
 		prev = card
 	end
 
+	-- Every command, under the five cards. The cards are the tools you open; the
+	-- list is everything else the addon answers to, which until now lived only in
+	-- the source and half of it not even on the store page.
+	if ns.BuildCommandList then
+		ns.BuildCommandList(panel, prev)
+	end
+
 	-- Build may have run before the locale resolver set the active pack; re-apply
 	-- so the launchpad lands in the right language immediately.
 	RelocalizeLaunchpad()

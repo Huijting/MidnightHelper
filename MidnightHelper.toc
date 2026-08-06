@@ -191,6 +191,7 @@ Modules\CampaignLeadIn.lua
 Modules\HomeDashboard.lua
 Modules\NavSearch.lua
 Modules\DevShots.lua
+Modules\CommandList.lua
 Modules\ToolsLaunchpad.lua
 Modules\Tour.lua
 Modules\FirstRun.lua
