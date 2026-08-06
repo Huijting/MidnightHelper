@@ -1473,6 +1473,37 @@ end
 --- names from the data table — the same ones the panel shows — so a hit reads exactly
 --- like the row it takes you to.
 --- @return list of { name, zoneKey, zoneLabel, questId }
+--- Which of our rares stands at this point, if any?
+---
+--- The arrow labels a route stop with its name, but a hand-typed coordinate has no
+--- name to show and Rob got "31.7, 56.8" floating over the world where TomTom and
+--- WaypointUI would have said something. Most coordinates typed here are a rare we
+--- already know about, so this looks it up rather than making the player repeat it.
+---
+--- Tolerance is in map percent. 1.5 is about the width of the arrow's own arrival
+--- check, so it matches the spot without claiming a neighbour two ridges away.
+--- @return string|nil name
+function ns.GetRareNameNear(mapID, x, y, tolPct)
+	if not (mapID and x and y) then
+		return nil
+	end
+	tolPct = tolPct or 1.5
+	local best, bestDist
+	for _, zone in ipairs(ZONES) do
+		for _, rare in ipairs(zone.rares) do
+			if rare[2] == mapID then
+				local dx = (rare[3] or 0) - x
+				local dy = (rare[4] or 0) - y
+				local dist = math.sqrt(dx * dx + dy * dy)
+				if dist <= tolPct and (not bestDist or dist < bestDist) then
+					best, bestDist = GetRareDisplayName(rare), dist
+				end
+			end
+		end
+	end
+	return best
+end
+
 function ns.GetRareSearchIndex()
 	local out = {}
 	for _, zone in ipairs(ZONES) do

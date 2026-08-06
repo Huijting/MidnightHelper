@@ -1040,7 +1040,7 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- NativeArrow: no auto-advance, and the arrow releases itself once you are
 	-- within ~20yd. That is exactly what a typed coordinate should do.
 	do
-		local gx, gy = msg:match("^goto%s+([%d%.]+)%s+([%d%.]+)$")
+		local gx, gy, gname = msg:match("^goto%s+([%d%.]+)%s+([%d%.]+)%s*(.*)$")
 		if gx then
 			local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
 			local x, y = tonumber(gx), tonumber(gy)
@@ -1053,9 +1053,25 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 				print(prefix .. " goto: could not set a waypoint there.")
 				return
 			end
-			ns.lastTarget = { mapID = mapID, x = x, y = y, name = ("%.1f, %.1f"):format(x, y) }
+			-- Name it, in this order: what you typed, then whatever of ours stands
+			-- there, then the bare numbers. The arrow labels its target, and two
+			-- floating numbers is the one label that tells you nothing you did not
+			-- just type yourself.
+			local label = gname
+			if label == "" then
+				label = nil
+			end
+			if not label and ns.GetRareNameNear then
+				local okN, found = pcall(ns.GetRareNameNear, mapID, x, y)
+				if okN then
+					label = found
+				end
+			end
+			label = label or ("%.1f, %.1f"):format(x, y)
+
+			ns.lastTarget = { mapID = mapID, x = x, y = y, name = label }
 			ns._mhRouteOwner = "waypoint"
-			print(("%s arrow set to %.1f, %.1f."):format(prefix, x, y))
+			print(("%s arrow set to %s."):format(prefix, label))
 			return
 		end
 	end
