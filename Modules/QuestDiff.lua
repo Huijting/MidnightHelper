@@ -39,10 +39,14 @@ local _, ns = ...
 	to the data.
 ]]
 
-local SCAN_MIN, SCAN_MAX = 88000, 106000
+-- Widened 6 Aug from 88000..106000. Rob killed Farthik the Plunderer with recording
+-- on and nothing was recorded, and a 12.1 zone's quests may simply sit above where
+-- Midnight's launch quests do. The extra 6000 ids cost nothing measurable.
+local SCAN_MIN, SCAN_MAX = 88000, 112000
 local MAX_FOUND = 200
 
 local baseline -- [questID] = true, taken when recording starts
+local baselineCount = 0
 local pendingTarget -- what we were fighting when combat began
 
 local function Store()
@@ -56,18 +60,36 @@ local function Store()
 	return ns.db.questDiff
 end
 
+--- Returns the set AND how big it is.
+---
+--- The count is the whole point of the second return. When the first version found
+--- nothing after a confirmed kill there was no way to tell an empty sweep (the call
+--- unusable, so nothing is ever "completed") from a full sweep that simply missed the
+--- quest (wrong range, or the flag not set yet). Those need opposite fixes, and the
+--- SavedVariables now carry the number that separates them.
 local function Sweep()
-	local set = {}
+	local set, n = {}, 0
 	if not IsQuestFlaggedCompleted then
-		return set
+		return set, 0
 	end
-	for id = SCAN_MIN, SCAN_MAX do
-		local ok, done = pcall(IsQuestFlaggedCompleted, id)
-		if ok and done then
-			set[id] = true
+	-- One pcall around the loop, not 24000 of them. A per-id pcall also hid WHICH
+	-- id failed and whether it failed at all — an error on the very first id looked
+	-- exactly like nothing being completed.
+	local ok, err = pcall(function()
+		for id = SCAN_MIN, SCAN_MAX do
+			if IsQuestFlaggedCompleted(id) then
+				set[id] = true
+				n = n + 1
+			end
+		end
+	end)
+	if not ok then
+		local store = Store()
+		if store then
+			store.sweepError = tostring(err)
 		end
 	end
-	return set
+	return set, n
 end
 
 --- npcID out of a unit GUID, same field the vignette recorder uses.
@@ -105,14 +127,22 @@ end
 
 local function AfterCombat()
 	local store = Store()
-	if not (store and baseline) then
+	if not store then
+		return
+	end
+	-- Diagnostics, written every time so the file answers "did this even run?".
+	store.combats = (store.combats or 0) + 1
+	store.baselineCount = baselineCount
+	store.hadBaseline = baseline ~= nil
+	if not baseline then
 		return
 	end
 	if #store.found >= MAX_FOUND then
 		return
 	end
 
-	local now = Sweep()
+	local now, nowCount = Sweep()
+	store.lastSweepCount = nowCount
 	local mapID, x, y
 	if C_Map and C_Map.GetBestMapForUnit then
 		local ok, m = pcall(C_Map.GetBestMapForUnit, "player")
@@ -131,6 +161,7 @@ local function AfterCombat()
 	for id in pairs(now) do
 		if not baseline[id] then
 			baseline[id] = true -- so it is reported once, not after every fight
+			baselineCount = baselineCount + 1
 			store.found[#store.found + 1] = {
 				questID = id,
 				targetName = pendingTarget and pendingTarget.name or nil,
@@ -141,7 +172,26 @@ local function AfterCombat()
 			}
 		end
 	end
-	pendingTarget = nil
+end
+
+--- Sweep now, then again a little later.
+---
+--- The flag is set by the server, and PLAYER_REGEN_ENABLED fires the instant combat
+--- ends locally — the two are not the same moment. Sweeping once, immediately, would
+--- read the world as it was just before the kill was credited. Three passes cover a
+--- slow response without turning this into a ticker; pendingTarget is only released
+--- after the last one so a late flag still gets paired with the right enemy.
+local function AfterCombatPasses()
+	pcall(AfterCombat)
+	if C_Timer and C_Timer.After then
+		C_Timer.After(3, function() pcall(AfterCombat) end)
+		C_Timer.After(9, function()
+			pcall(AfterCombat)
+			pendingTarget = nil
+		end)
+	else
+		pendingTarget = nil
+	end
 end
 
 local ev = CreateFrame("Frame")
@@ -149,7 +199,7 @@ ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_REGEN_DISABLED" then
 		NoteTarget()
 	elseif event == "PLAYER_REGEN_ENABLED" then
-		pcall(AfterCombat)
+		AfterCombatPasses()
 	end
 end)
 
@@ -174,12 +224,24 @@ function ns.HandleQuestDiff(arg)
 		return
 	end
 
+	-- `/mh questdiff now` — force a pass without waiting for combat to end. The way
+	-- to test the machinery on demand: kill something, type this, look at the count.
+	if arg == "now" then
+		local store = Store()
+		AfterCombatPasses()
+		print(("%s quest diff: baseline %d, %d recorded so far."):format(
+			p, baselineCount, store and #store.found or 0))
+		return
+	end
+
 	ns.db.questDiffOn = not ns.db.questDiffOn
 	if ns.db.questDiffOn then
-		baseline = Sweep()
-		local n = 0
-		for _ in pairs(baseline) do
-			n = n + 1
+		local n
+		baseline, n = Sweep()
+		baselineCount = n
+		local store = Store()
+		if store then
+			store.baselineCount = n
 		end
 		SetRunning(true)
 		print(("%s quest diff ON — baseline %d completed quests in %d..%d."):format(
@@ -200,7 +262,13 @@ local boot = CreateFrame("Frame")
 boot:RegisterEvent("PLAYER_ENTERING_WORLD")
 boot:SetScript("OnEvent", function()
 	if ns.db and ns.db.questDiffOn and not baseline then
-		baseline = Sweep()
+		local n
+		baseline, n = Sweep()
+		baselineCount = n
+		local store = Store()
+		if store then
+			store.baselineCount = n
+		end
 		SetRunning(true)
 	end
 end)
