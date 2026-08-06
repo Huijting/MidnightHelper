@@ -1076,6 +1076,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 	end
 
+	-- /mh bonusroll — record what Blizzard's bonus-roll popup actually is. Rob met one
+	-- after a delve on live and we have no idea what it is; guessing would be worse.
+	if msg == "bonusroll" or msg == "bonusroll clear" then
+		if ns.HandleBonusRollCapture then
+			ns.HandleBonusRollCapture(msg:match("^bonusroll%s+(%S+)"))
+		end
+		return
+	end
+
 	-- /mh questdiff — find the hidden kill-quest behind a rare, by diffing which
 	-- quests count as completed before and after a fight.
 	if msg == "questdiff" or msg == "questdiff clear" or msg == "questdiff now"

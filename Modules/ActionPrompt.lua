@@ -311,16 +311,7 @@ end
 --- Edge-triggered: a target that keeps its buff would otherwise fire on every update,
 --- which is several times a second.
 local purgeWasUp = false
-local function AnnouncePurge(isUp)
-	if not isUp then
-		purgeWasUp = false
-		return
-	end
-	if purgeWasUp then
-		return
-	end
-	purgeWasUp = true
-	local mode = ns.db and ns.db.actionPromptSound
+local function Announce(mode)
 	if not mode then
 		return
 	end
@@ -362,6 +353,29 @@ local function AnnouncePurge(isUp)
 			pcall(PlaySound, kit, "Master")
 		end
 	end
+end
+
+--- Fire it now, whatever the state of the world.
+---
+--- Switching the alert on and then having to find an enemy with a stealable buff
+--- before you know whether it works is the same trap as an icon that stays hidden for
+--- a correct reason: you cannot tell "off" from "broken". This is what the toggle
+--- calls so you hear the thing you just enabled.
+function ns.PreviewActionPromptSound()
+	Announce((ns.db and ns.db.actionPromptSound) or "speak")
+end
+
+--- Edge-triggered wrapper: announce when a purge BECOMES available, not while it stays.
+local function AnnouncePurge(isUp)
+	if not isUp then
+		purgeWasUp = false
+		return
+	end
+	if purgeWasUp then
+		return
+	end
+	purgeWasUp = true
+	Announce(ns.db and ns.db.actionPromptSound)
 end
 
 --- Show the dispel icon when the target carries something removable.
@@ -530,6 +544,13 @@ function ns.ToggleActionPromptSound()
 		nextMode = nil
 	end
 	ns.db.actionPromptSound = nextMode
+
+	-- Play it immediately, so switching it on is its own test. Otherwise you have to
+	-- go and find an enemy carrying a stealable buff before you know it works — and
+	-- silence-because-off and silence-because-broken sound identical.
+	if nextMode then
+		pcall(ns.PreviewActionPromptSound)
+	end
 
 	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
 	if nextMode == "speak" then
