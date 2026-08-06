@@ -319,15 +319,21 @@ function ns.MH_AutoMapSpecAndSlots()
 		return nil, nil
 	end
 	local spec = { display_name = class or "", spellByUiKey = map or {}, isAutoMap = true, clickCast = clickCast }
+	-- What the keyboard view is handed. Rob's M4/M5 hold Remove Curse and Spellsteal in
+	-- the map but rendered dim, and the view lights a key only when it appears in these
+	-- slots — so this is the one place that can say whether the mouse keys ever arrive.
+	ns._mhAutoSlotsDebug = {}
 	-- Eén slot per unieke BASE-toets in de map → precies die toetsen lichten op.
 	local seen, slots = {}, {}
 	for bindKey in pairs(map) do
 		local base = (ns.Keybind_GetBaseUiKey and ns.Keybind_GetBaseUiKey(bindKey)) or bindKey
+		ns._mhAutoSlotsDebug[#ns._mhAutoSlotsDebug + 1] = tostring(bindKey) .. " -> " .. tostring(base)
 		if base and not seen[base] then
 			seen[base] = true
 			slots[#slots + 1] = { ui_key = base }
 		end
 	end
+	table.sort(ns._mhAutoSlotsDebug)
 	autoCache = { key = key, spec = spec, slots = slots }
 	return spec, slots
 end
@@ -417,6 +423,21 @@ SlashCmdList["MHAUTOMAP"] = function()
 		clickCast = {},
 		spellbook = ns._mhSpellbookScan,
 	}
+	-- Force the layout's own path to run, then record what it produced.
+	if ns.MH_AutoMapSpecAndSlots then
+		local aSpec, aSlots = ns.MH_AutoMapSpecAndSlots()
+		dump.layoutSlots = {}
+		for _, s in ipairs(aSlots or {}) do
+			dump.layoutSlots[#dump.layoutSlots + 1] = s.ui_key
+		end
+		table.sort(dump.layoutSlots)
+		dump.layoutSpecKeys = {}
+		for bk in pairs((aSpec and aSpec.spellByUiKey) or {}) do
+			dump.layoutSpecKeys[#dump.layoutSpecKeys + 1] = bk
+		end
+		table.sort(dump.layoutSpecKeys)
+		dump.baseKeyMapping = ns._mhAutoSlotsDebug
+	end
 	-- Every name the scan returned, so "absent" can be told apart from "unclassified".
 	do
 		local seen = {}
