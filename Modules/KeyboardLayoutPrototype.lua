@@ -410,8 +410,10 @@ local function BuildKeyPositions()
 	end
 
 	maxX = math.max(maxX, numBlockRight, topStart + topStripW)
-	--- Room for beginner legend under the board (still inside the scroll child).
-	local LEGEND_AREA_H = 68
+	--- Room for the beginner legend under the board (still inside the scroll child).
+	--- Generous on purpose: the exact height is computed further down from the number
+	--- of lines the active locale actually has, and this only has to not clip it.
+	local LEGEND_AREA_H = 96
 	maxY = maxY + LEGEND_AREA_H
 	return P, maxX + M + 10, maxY + M + 12
 end
@@ -425,8 +427,26 @@ for _, xy in pairs(KEY_POS) do
 	local h = (type(xy[4]) == "number" and xy[4]) or KH
 	KB_BOTTOM = math.max(KB_BOTTOM, xy[2] + h)
 end
-local CHIPS_Y = KB_BOTTOM + 76     -- filter-chips onder de legenda
-local CARDS_TOP = KB_BOTTOM + 106  -- kaarten onder de chips
+--- How tall the legend actually is, rather than how tall it used to be.
+---
+--- ⚠️ These were fixed numbers (76 and 106) sized for a five-line legend. Adding the
+--- M4-M9 line made it six, and the last line disappeared behind the filter chips —
+--- Rob spotted it within a minute of the reload. A constant that has to be updated
+--- whenever a translator adds a line is a trap, so it is counted instead: every "\n"
+--- in the string is a line, and the chips and cards sit below whatever that comes to.
+--- The other five languages differ in length and now get the same treatment for free.
+local LEGEND_LINE_H = 13
+local function LegendLineCount()
+	local s = (ns.L and ns:L("LAYOUT_LEGEND")) or ""
+	local n = 1
+	for _ in s:gmatch("\n") do
+		n = n + 1
+	end
+	return n
+end
+local LEGEND_H = 8 + LegendLineCount() * LEGEND_LINE_H + 10
+local CHIPS_Y = KB_BOTTOM + LEGEND_H       -- filter-chips onder de legenda
+local CARDS_TOP = CHIPS_Y + 30             -- kaarten onder de chips
 
 --- Filter-chips (mockup B): Alles / Alleen modifier-laag / Alleen ankers.
 local FILTER_CHIPS = {
