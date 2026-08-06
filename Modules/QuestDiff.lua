@@ -60,6 +60,7 @@ local MAX_FOUND = 200
 
 local baseline -- [questID] = true, taken when recording starts
 local baselineCount = 0
+local announced = false -- the "still running" notice, printed once per session
 local pendingTarget -- what we were fighting when combat began
 
 local function Store()
@@ -385,5 +386,15 @@ boot:SetScript("OnEvent", function()
 			store.baselineCount = n
 		end
 		SetRunning(true)
+
+		-- Say so, once. Staying on across a reload is deliberate — losing the baseline
+		-- halfway through a hunt would be worse — but "still running" and "switched
+		-- off" are invisible from outside, and this one sweeps 24000 quest flags three
+		-- times after every single fight. Left on and forgotten, that runs in raids.
+		if not announced then
+			announced = true
+			local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+			print(("%s quest diff is still ON (baseline %d). |cffffffff/mh questdiff|r to stop."):format(p, n))
+		end
 	end
 end)
