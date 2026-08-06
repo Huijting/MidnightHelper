@@ -14,6 +14,10 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 
 ### Highlights
 
+**Ready for patch 12.1**
+- The **Coiled Isle** arrives with its rares mapped: names, coordinates and the hidden kill quests that let the list tick itself off — measured on the test realm, not copied from anywhere. **Altar of Fangs** arrives with beginner steps for all three bosses.
+- Both stay hidden until your client is actually running 12.1, so nothing shows up before the content exists.
+
 **Beside Blizzard's own windows**
 - Open your **character sheet** and a small panel appears next to it: missing enchants, empty sockets, your tier set, and which slots have hit their **upgrade-track ceiling**.
 - The **Mythic+** window shows your Great Vault dungeon row with the item level each filled slot is offering. The **Adventure Guide** shows the tips for whichever boss you selected, for your role. The **mount collection** shows your wishlist. The **profession window** shows what's waiting on that profession — Knowledge left to spend, and your trainer weekly.
@@ -49,6 +53,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - **Fast Mark bar** — mark your target with the raid icons, drop world markers on the ground (left-click set, right-click clear, clear-all) and run a ready check. Appears only while you're in a party or raid.
 - **Party targets** — a small panel showing every group member and what they are attacking, with their role, their class colour and the raid marker sitting on their target. **Click a line to take that target yourself**, in combat too. Drag it anywhere, drag the corner to widen it. Off until you switch it on with `/mh partytargets` or in Settings.
 - **Stay alive** — at the top of the Role Academy's DPS track, your own buttons in the order a fight needs them: the shield you keep up, the one for when your health drops, how you get away, how you interrupt. Read from your live talents, so a spell replaced by a talent shows the name that is actually on your bars.
+- **Action prompt** — a large icon when your interrupt applies to what your target is casting, and when your target carries something you can strip off. `/mh prompt sound` makes the purge half speak the word, chime, or stay quiet. Interrupts stay silent by necessity: Midnight lets an addon *show* whether a cast can be kicked, but never read it. Off until you switch it on with `/mh prompt`.
 
 **Navigation & routes**
 - **Standalone route arrow** — Midnight Helper draws its own on-screen direction arrow (rotates toward the target, shows live distance, drag to reposition) and drives the game's own map waypoint, keeping it on your next open stop and advancing it the moment you arrive. **No TomTom required.**
