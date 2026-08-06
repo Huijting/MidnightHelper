@@ -1532,7 +1532,10 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	if msg == "capture" or msg == "coord" or msg == "rarecapture" then
+	-- Anything after the word is kept as a label ("/mh capture kist op gebroken brug"),
+	-- because a coordinate without a note is unreadable a day later.
+	ns._mhCaptureNote = msg:match("^capture%s+(.+)$") or msg:match("^coord%s+(.+)$")
+	if msg == "capture" or msg == "coord" or msg == "rarecapture" or ns._mhCaptureNote then
 		-- Dev/verify-hulpje: print een pasteable rare-regel (mapID + coords +
 		-- target-npcID) in het ns.RARE_ZONES-formaat { questId, mapID, x, y, name, npcId }.
 		-- Handig om HandyNotes-coords in-game te spot-checken of roamers vast te leggen.
@@ -1559,8 +1562,27 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 			end
 		end
 		if mapID and x and y then
-			print(("|cffffcc00%s|r capture → { 0, %d, %.2f, %.2f, %q, %d },"):format(
-				prefix, mapID, x, y, name or "?", npcId or 0))
+			-- Also KEEP it. The printed line has to be copied out of chat, which is
+			-- exactly the thing Rob cannot do while playing — he stands on the spot,
+			-- reads numbers back over voice, and they get transcribed wrong. Writing
+			-- it to SavedVariables means a lap can be captured spot by spot and read
+			-- out of the file afterwards, the same way the vignette recorder works.
+			ns.db = ns.db or {}
+			if type(ns.db.captures) ~= "table" then
+				ns.db.captures = {}
+			end
+			if #ns.db.captures < 200 then
+				ns.db.captures[#ns.db.captures + 1] = {
+					mapID = mapID,
+					x = math.floor(x * 100 + 0.5) / 100,
+					y = math.floor(y * 100 + 0.5) / 100,
+					name = name,
+					npcID = npcId,
+					note = ns._mhCaptureNote,
+				}
+			end
+			print(("|cffffcc00%s|r capture → { 0, %d, %.2f, %.2f, %q, %d },  (#%d opgeslagen)"):format(
+				prefix, mapID, x, y, name or "?", npcId or 0, #ns.db.captures))
 			if not npcId then
 				print(("|cffffcc00%s|r  (target de rare voor z'n npcID; questId 0 vul ik aan)"):format(prefix))
 			end
