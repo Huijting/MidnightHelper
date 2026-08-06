@@ -155,16 +155,90 @@ local ZONES = {
 	},
 }
 
+--------------------------------------------------------------------------------
+-- The Coiled Isle (patch 12.1) — held back until the patch is actually live.
+--
+-- Measured on the PTR on 6 Aug, five days before the zone exists on live: the
+-- vignette recorder read every name, npcID and coordinate off the client while Rob
+-- flew a lap, and `/mh questdiff` paired one kill with the quest it flagged.
+--
+-- ⚠️ ONLY ONE questId IS CONFIRMED. Lockjaw's 97227 was measured; the rest carry 0,
+-- which the addon already supports (Val and Naigtal's Showdown rares do the same)
+-- and which means those rares NEVER TICK THEMSELVES OFF — they stay on the list
+-- after you kill them. That is a known, visible shortcoming and it is the honest
+-- state of the data. The alternative was picking one of the two quest ids a kill
+-- flags, which would be a guess dressed up as a measurement.
+--
+-- ⚠️ Nar'zira sits on map 2642, an interior with its own map ID, so a lap flown over
+-- 2512 alone will not have seen everything that lives here. Expect this list to grow.
+--
+-- ⚠️ PTR coordinates can still move before the 11th. Verify on live before trusting.
+local COILED_ISLE = {
+	key = "coiled_isle",
+	label = "The Coiled Isle",
+	shortLabel = "Coiled Isle",
+	rares = {
+		{ 97227, 2512, 31.72, 56.82, "Lockjaw the Snapper", 265237 },
+		{ 0, 2512, 58.01, 40.13, "Sss'alik, The Rotten Claw", 261109 },
+		{ 0, 2512, 46.99, 62.23, "Malformed Leviathan", 255087 }, -- elite
+		{ 0, 2512, 70.03, 63.44, "Big Mon", 256631 },
+		{ 0, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906 },
+		{ 0, 2512, 50.00, 69.07, "Siltmouth, the Unflappable", 268049 },
+		{ 0, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854 }, -- circles in the air until he lands
+		{ 0, 2512, 67.16, 77.52, "Venom Lancer Ori'kassi", 255927 }, -- elite
+		{ 0, 2642, 66.40, 62.90, "Nar'zira", 258920 }, -- interior map
+	},
+}
+local COILED_ISLE_MAPS = { 2512, 2642 }
+
 local ZONE_BY_KEY = {}
 local ZONE_MAP_IDS = {}
+
+local function IndexZone(zone)
+	ZONE_BY_KEY[zone.key] = zone
+	ZONE_MAP_IDS[zone.key] = ZONE_MAP_IDS[zone.key] or {}
+end
+
 for i = 1, #ZONES do
-	ZONE_BY_KEY[ZONES[i].key] = ZONES[i]
-	ZONE_MAP_IDS[ZONES[i].key] = ZONE_MAP_IDS[ZONES[i].key] or {}
+	IndexZone(ZONES[i])
 end
 for mapID, zoneKey in pairs(MAP_TO_ZONE_KEY) do
 	local list = ZONE_MAP_IDS[zoneKey]
 	list[#list + 1] = mapID
 end
+
+--- Add the 12.1 zone once the patch is live.
+---
+--- Deferred rather than gated inline because this file loads at .toc line 133 and
+--- the season gate at 157 — `ns.IsSeason2Visible` simply does not exist yet here.
+--- The rares panel is built the first time the window is opened, never at load, so
+--- registering at PLAYER_LOGIN is early enough for every consumer.
+---
+--- The gate is `IsSeason2Visible` (patch onwards), not `IsSeason2Live` (season
+--- onwards): the isle opens WITH the patch on 11 Aug, a week before Season 2. On the
+--- PTR the client already reports the newer season, so it appears there by itself —
+--- no pretending, the same check answers correctly on both.
+local function RegisterPatchZones()
+	if ZONE_BY_KEY[COILED_ISLE.key] then
+		return
+	end
+	if not (ns.IsSeason2Visible and ns.IsSeason2Visible()) then
+		return
+	end
+	ZONES[#ZONES + 1] = COILED_ISLE
+	IndexZone(COILED_ISLE)
+	for _, mapID in ipairs(COILED_ISLE_MAPS) do
+		MAP_TO_ZONE_KEY[mapID] = COILED_ISLE.key
+		local list = ZONE_MAP_IDS[COILED_ISLE.key]
+		list[#list + 1] = mapID
+	end
+end
+
+local patchZoneFrame = CreateFrame("Frame")
+patchZoneFrame:RegisterEvent("PLAYER_LOGIN")
+patchZoneFrame:SetScript("OnEvent", function()
+	pcall(RegisterPatchZones)
+end)
 
 --- Does Midnight Helper have zone data for this map?
 ---
