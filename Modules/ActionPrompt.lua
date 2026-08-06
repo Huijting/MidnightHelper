@@ -275,9 +275,29 @@ local function AnnouncePurge(isUp)
 		return
 	end
 	purgeWasUp = true
-	if not (ns.db and ns.db.actionPromptSound) then
+	local mode = ns.db and ns.db.actionPromptSound
+	if not mode then
 		return
 	end
+
+	-- Speaking the word beats a chime: a chime means "something", the word means what.
+	-- Same call CombatSafety already uses for incoming casts, including its note that
+	-- SpeakText may voice a secret string even though we may not read one.
+	if mode == "speak" and C_VoiceChat and C_VoiceChat.SpeakText then
+		local word = (ns.L and ns:L("PROMPT_WORD_PURGE")) or "Purge"
+		local voiceId = 0
+		if C_TTSSettings and C_TTSSettings.GetVoiceOptionID and Enum and Enum.TtsVoiceType then
+			voiceId = C_TTSSettings.GetVoiceOptionID(Enum.TtsVoiceType.Standard) or 0
+		end
+		local vol = (C_TTSSettings and C_TTSSettings.GetSpeechVolume and C_TTSSettings.GetSpeechVolume()) or 100
+		local okSpeak = pcall(C_VoiceChat.SpeakText, voiceId, word, 2, vol, true)
+		if okSpeak then
+			return
+		end
+		-- Voice unavailable (it can be switched off in the game's own settings) —
+		-- fall through to the chime rather than alerting with nothing at all.
+	end
+
 	if PlaySound and SOUNDKIT then
 		local kit = SOUNDKIT.RAID_WARNING or SOUNDKIT.READY_CHECK
 		if kit then
@@ -417,16 +437,33 @@ function ns.IsActionPromptEnabled()
 	return Enabled()
 end
 
---- `/mh prompt sound` — a chime the moment a purge becomes available.
+--- `/mh prompt sound` — cycles off → spoken → chime → off.
+---
+--- Spoken first because it is the one Rob asked for: a chime says "something", the
+--- word says what. The chime stays as the second step for anyone who has the game's
+--- own text-to-speech switched off.
 function ns.ToggleActionPromptSound()
 	ns.db = ns.db or {}
-	ns.db.actionPromptSound = not ns.db.actionPromptSound
+	local cur = ns.db.actionPromptSound
+	local nextMode
+	if not cur then
+		nextMode = "speak"
+	elseif cur == "speak" then
+		nextMode = "chime"
+	else
+		nextMode = nil
+	end
+	ns.db.actionPromptSound = nextMode
+
 	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
-	if ns.db.actionPromptSound then
+	if nextMode == "speak" then
+		print(("%s %s"):format(p, (ns.L and ns:L("PROMPT_SOUND_SPEAK"))
+			or "Prompt sound: SPOKEN — it says the word when a purge becomes available."))
+		print("   |cff9d9d9dInterrupts stay silent: the game lets an addon SHOW whether a cast|r")
+		print("   |cff9d9d9dcan be kicked, but never read it — and alerting means reading.|r")
+	elseif nextMode == "chime" then
 		print(("%s %s"):format(p, (ns.L and ns:L("PROMPT_SOUND_ON"))
-			or "Prompt sound ON — a chime when a purge becomes available."))
-		print("   |cff9d9d9dInterrupts stay silent: the game will not let an addon read|r")
-		print("   |cff9d9d9dwhether a cast can be kicked, only show it.|r")
+			or "Prompt sound: CHIME when a purge becomes available."))
 	else
 		print(("%s %s"):format(p, (ns.L and ns:L("PROMPT_SOUND_OFF")) or "Prompt sound OFF."))
 	end
