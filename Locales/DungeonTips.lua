@@ -266,6 +266,18 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_TIP_WS_EMBER_DPS = "DPS: Drop your fire puddles at the edges so the middle stays clean, and sidestep the breath rather than running out of range.",
 	DGN_TIP_WS_HEART_DPS = "DPS: Take a windy arrow at 2-3 stacks, but leave one free for the full-energy blast.",
 	DGN_TIP_WS_KROLUK_DPS = "DPS: Adds come at roughly two thirds and one third health: swap straight onto them, Phantasmal Mystic first, and keep it interrupted.",
+	-- Altar of Fangs (Season 2, patch 12.1) --------------------------------------
+	-- Written 6 Aug from the mechanics in DBM-Party-Midnight/AltarofFangs: the spell
+	-- ids and DBM's own alert TYPE per ability (defensive / soak / fixate / switch /
+	-- move) are facts, the wording is ours. Rob measured bosses 1 and 2 in a follower
+	-- run the same evening; Zul'jan is unverified in play because a bug (four totems
+	-- down, one beam still lit) blocked the way to him.
+	DGN_TIP_AF_RAVI_STEPS = "1. The hydra shields itself with {SPELL:1309522} - break it off quickly.|n2. If it gets to feed first, the stronger {SPELL:1307765} follows and hits much harder.|n3. Step out of {SPELL:1307894} and out of the wave from {SPELL:1296050}.|n4. {SPELL:1296219} is group damage you cannot dodge - just heal through it.",
+	DGN_TIP_AF_RAVI_HEALER = "Healer: {SPELL:1296219} hits the whole group; have something ready for it.",
+	DGN_TIP_AF_COIL_STEPS = "1. {SPELL:1300503} picks one player to chase. That player runs and keeps running; everyone else clears out of the way.|n2. Someone caught by {SPELL:1299053}? Free them straight away.|n3. {SPELL:1300686} - switch onto what appears and kill it before carrying on.|n4. Move out of {SPELL:1299940}, and watch the stacks from {SPELL:1299154}.",
+	DGN_TIP_AF_COIL_TANK = "Tank: defensive for {SPELL:1298949}.",
+	DGN_TIP_AF_ZULJAN_STEPS = "1. {SPELL:1300876} is the one that matters: the beams have to be soaked. Take yours and stay in it.|n2. Step out of {SPELL:1301413} and {SPELL:1301111} - both are ground damage you can simply walk out of.",
+	DGN_TIP_AF_ZULJAN_TANK = "Tank: defensive for {SPELL:1301350}.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.itIT, {
@@ -681,6 +693,13 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_TIP_WS_EMBER_DPS = "DPS: Laat je vuurplassen aan de rand vallen zodat het midden schoon blijft, en stap opzij voor de breath in plaats van weg te rennen.",
 	DGN_TIP_WS_HEART_DPS = "DPS: Pak een windpijl bij 2-3 stacks, maar houd er een vrij voor de grote klap op volle energie.",
 	DGN_TIP_WS_KROLUK_DPS = "DPS: Adds komen rond twee derde en een derde health: meteen erop, Phantasmal Mystic eerst, en blijf hem onderbreken.",
+	-- Altar of Fangs (Season 2, patch 12.1) --------------------------------------
+	DGN_TIP_AF_RAVI_STEPS = "1. De hydra schermt zichzelf af met {SPELL:1309522} - sla dat er snel af.|n2. Kan hij eerst eten, dan volgt het sterkere {SPELL:1307765} en dat doet veel meer pijn.|n3. Stap uit {SPELL:1307894} en uit de golf van {SPELL:1296050}.|n4. {SPELL:1296219} is groepsschade die je niet kunt ontwijken - gewoon doorheen healen.",
+	DGN_TIP_AF_RAVI_HEALER = "Healer: {SPELL:1296219} raakt de hele groep; houd daar iets voor achter.",
+	DGN_TIP_AF_COIL_STEPS = "1. {SPELL:1300503} kiest een speler om achterna te zitten. Die rent en blijft rennen; de rest gaat opzij.|n2. Zit iemand vast in {SPELL:1299053}? Sla 'm er meteen uit.|n3. {SPELL:1300686} - schakel over op wat er verschijnt en maak het dood voor je verder gaat.|n4. Loop uit {SPELL:1299940}, en let op de stacks van {SPELL:1299154}.",
+	DGN_TIP_AF_COIL_TANK = "Tank: defensive voor {SPELL:1298949}.",
+	DGN_TIP_AF_ZULJAN_STEPS = "1. {SPELL:1300876} is de belangrijke: die beams moeten gesoakt worden. Pak de jouwe en blijf erin staan.|n2. Stap uit {SPELL:1301413} en {SPELL:1301111} - allebei grondschade waar je gewoon uit kunt lopen.",
+	DGN_TIP_AF_ZULJAN_TANK = "Tank: defensive voor {SPELL:1301350}.",
 })
 
 -- Fase 6 (12 jun): deDE/frFR/esES/ptBR — mens-kwaliteit, game-termen en

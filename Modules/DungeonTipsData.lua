@@ -41,6 +41,26 @@ ns.DUNGEON_TIPS = {
 			dps = "DGN_TIP_WS_HEART_DPS",
 		},
 	},
+	-- Altar of Fangs — the 12.1 dungeon. Keys must match DungeonRosterData's boss
+	-- keys (ravi / writhingcoil / zuljan) or the window finds nothing.
+	--
+	-- Only the sections we can stand behind exist. Rav'i has no tank line because DBM
+	-- flags no tank-defensive ability for him, and no boss here gets a dps line for
+	-- the same reason: an empty-but-present section reads as advice.
+	altaroffangs = {
+		ravi = {
+			steps = "DGN_TIP_AF_RAVI_STEPS",
+			healer = "DGN_TIP_AF_RAVI_HEALER",
+		},
+		writhingcoil = {
+			steps = "DGN_TIP_AF_COIL_STEPS",
+			tank = "DGN_TIP_AF_COIL_TANK",
+		},
+		zuljan = {
+			steps = "DGN_TIP_AF_ZULJAN_STEPS",
+			tank = "DGN_TIP_AF_ZULJAN_TANK",
+		},
+	},
 	maisara = {
 		murojin = {
 			steps = "DGN_TIP_MC_MUROJIN_STEPS",
