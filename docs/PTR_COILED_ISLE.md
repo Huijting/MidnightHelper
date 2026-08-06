@@ -133,3 +133,49 @@ THE WAY TO GET THEM: `DelveCuriosAdvisor.lua` already walks the companion's trai
 entry info) to read the role node. The curio slots are nodes in that same tree, so a
 dump of every node and entry would hand over the Season 2 set in one command instead
 of one screenshot at a time.
+
+## Second run, fresh character — 6 Aug late
+
+The flag is PER CHARACTER. `check 97227` read COMPLETED on the paladin that killed
+Lockjaw and NOT completed on another character, so a rare already killed can be
+measured again on someone else. That settled a question that was otherwise going to
+cost a day of waiting for reset.
+
+Rows measured so far:
+
+    Lockjaw the Snapper  npc 265237  map 2512  31.7/56.9  quest 97227
+    Nar'zira             npc 258920  map 2642  66.4/62.9  quests 98351 + 94860
+    (unidentified)       npc ?       map 2512  44.1/50.4  quests 98348 + 96464
+
+⚠️ **A kill can flag more than one quest, and we cannot yet say which is the rare's.**
+Lockjaw produced exactly one; Nar'zira and the unidentified one produced two each.
+Until that is understood, none of the two-quest rows can go into `ns.RARE_ZONES` —
+picking one of the pair would be a guess wearing a measurement's clothes. The way to
+settle it: kill the same rare on a third character and see which id turns true again.
+
+**Map 2642 is a second map on the isle.** Nar'zira sits there, not on 2512, so the
+zone has at least one interior with its own map ID. Any route or list keyed only to
+2512 will miss whatever lives there.
+
+**Beware the pairing.** Two rows in the same capture read "Tiny Vermin" on map 2437 —
+a critter, credited with two quests that merely finished during that fight. The module
+records what turned true where, not what the enemy was.
+
+### Treasures of the Coiled Isle — 10 points, rewards the mount Auriferous Venomfang
+
+Twenty-two hidden treasures. Read off the achievement panel, not guessed:
+
+    Amani Privateer's Cache      Fangbound Sack
+    Sunken Diver's Chest         Grave of Someone Forgotten
+    Profane Ritual Spoils        Brine-Crusted Chest
+    Possessed Vase               Malfunctioning Staff
+    Tarnished Amani Glaive       Jaktu's Cursed Blade
+    Lost Spirit                  Cracked Skull
+    Damaged Loa Trinket          Venomjade Necklace
+    Ornate Bottle                Stinking Vessel
+    Waterlogged Basket           Smoldering Incense
+    Crumbling Urn                Forgotten Mask
+    Vul'zahn's Smuggled Treasure Zul'jan's Stash
+
+Names only — no coordinates, and a treasure list without coordinates cannot drive a
+route. `/mh capture <name>` on each one as they are found is the way to fill it in.
