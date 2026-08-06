@@ -31,6 +31,55 @@ f:SetScript("OnEvent", function(_, ev, encounterID, encounterName, difficultyID,
 			prefix, tostring(encounterID), tostring(encounterName), tostring(success)
 		))
 	end
+
+	-- KEEP IT TOO. Printing alone means the numbers have to be copied out of chat
+	-- mid-run, which is the one thing Rob cannot do while playing — the same reason
+	-- the vignette recorder and /mh capture write to SavedVariables. A dungeon's three
+	-- bosses are three chat lines that scroll away behind loot spam.
+	if not ns.db then
+		return
+	end
+	if type(ns.db.encounterLog) ~= "table" then
+		ns.db.encounterLog = {}
+	end
+	local log = ns.db.encounterLog
+	if #log >= 200 then
+		return
+	end
+	local mapID
+	if C_Map and C_Map.GetBestMapForUnit then
+		local okM, m = pcall(C_Map.GetBestMapForUnit, "player")
+		mapID = okM and m or nil
+	end
+	local journalID
+	if EJ_GetInstanceForMap and mapID then
+		local okJ, jid = pcall(EJ_GetInstanceForMap, mapID)
+		if okJ then
+			journalID = jid
+		end
+	end
+	local instName, instType, instMapID
+	if GetInstanceInfo then
+		local okI, n, ty = pcall(GetInstanceInfo, nil)
+		if okI then
+			instName, instType = n, ty
+		end
+		instMapID = select(8, GetInstanceInfo())
+	end
+	log[#log + 1] = {
+		event = ev,
+		encounterID = encounterID,
+		encounterName = (type(encounterName) == "string"
+			and not (issecretvalue and issecretvalue(encounterName))) and encounterName or nil,
+		difficultyID = difficultyID,
+		groupSize = groupSize,
+		success = success,
+		mapID = mapID,
+		journalInstanceID = journalID,
+		instanceName = instName,
+		instanceType = instType,
+		instanceMapID = instMapID,
+	}
 end)
 
 function ns.ToggleEncounterCapture()
