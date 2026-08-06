@@ -371,6 +371,28 @@ ns.OFFENSIVE_PURGES = {
 	-- JustAC/Data/SpellCategories.lua:514, SpellPilot/Classes/Removals.lua:25, and
 	-- our own KeybindRoles_Mage.lua:99 ("offensieve dispel, steelt enemy-buff").
 	MAGE = { id = 30449, types = { "magic" } },
+	-- Added 6 Aug, after Rob asked whether the spoken alert works "for every kind".
+	-- It did not: with only Priest and Mage listed, nine classes could never see the
+	-- purge prompt at all, sound or no sound. Same three-source rule as Spellsteal.
+	--
+	-- Shaman Purge 370 — JustAC/Data/SpellCategories.lua:512 and
+	-- SpellPilot/Classes/Removals.lua:34.
+	SHAMAN = { id = 370, types = { "magic" } },
+	-- Hunter Tranquilizing Shot 19801 — JustAC:513, SpellPilot:22, and our own
+	-- KeybindRoles_Hunter.lua:75 ("enrage/magic dispel (19801), baseline").
+	HUNTER = { id = 19801, types = { "magic", "enrage" } },
+	--
+	-- ⚠️ DELIBERATELY NOT LISTED, each for its own reason:
+	--   Druid Soothe 2908 — enrage ONLY. The prompt asks GetAuraSlots for
+	--     HELPFUL|DISPELLABLE, and whether that filter narrows to what YOU can remove
+	--     is not something we have measured. A druid lit up for every magic buff he
+	--     cannot touch would be worse than no prompt.
+	--   Warlock Devour Magic 19505 — a PET spell. IsPlayerSpell, which is how the
+	--     prompt refuses to claim a spell you do not have, does not answer for pets,
+	--     and it needs the Felhunter out to begin with.
+	--   Demon Hunter Consume Magic 278326 — SpellPilot lists it as a removal;
+	--     JustAC only has it in SpellCooldowns, not among the dispels. One real
+	--     source is not two.
 }
 
 local cachedPurgeIcon, cachedPurgeSpell, purgeResolved
