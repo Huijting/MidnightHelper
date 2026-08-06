@@ -64,3 +64,17 @@ Two things it tells us beyond the coordinates. The isle carries the full spread 
 ordinary and elite rares, ordinary and elite treasures, lore objects — so it is a
 normal outdoor zone rather than a raid antechamber. And the npcID ranges separate
 cleanly: creatures sit around 255k-270k, objects around 619k-669k.
+
+## Field notes from the hunt, 6 Aug
+
+**Farthik the Plunderer (264854, 54.0/72.2) could not be attacked.** Rob found him
+airborne and circling, hostile name plate, level 90 Humanoid — and out of reach.
+Nothing is known about why: no installed addon mentions him, and a web search turns
+up the zone but not him. So he is recorded as a vignette that exists and a kill that
+did not happen, which is different from a rare that is simply on cooldown.
+
+Worth knowing before assuming a spawn is missing: two guide sites describe "Curse
+Surges" as rotating events that spawn a rare elite at one of five locations, so a
+coordinate here may name a rare that is not always at that spot. That is their claim,
+not a measurement — but it fits an airborne, unattackable NPC waiting on an event
+better than a broken spawn does.
