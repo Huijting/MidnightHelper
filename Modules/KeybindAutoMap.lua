@@ -260,35 +260,74 @@ local function NameForId(id)
 	return tostring(id)
 end
 
+--- `/mhautomap` — four lines in chat, the whole picture in SavedVariables.
+---
+--- ⚠️ It used to print everything. On a level 90 Paladin that is a wall: every placed
+--- spell, then every known active spell without a role — which includes professions,
+--- Warband items and toys. Rob's verdict was "dit is lastig checken", and he was right;
+--- the one line that mattered scrolled past between Zandalari Cooking and a mount.
+---
+--- Same rule as every other long read in this addon: write it to SavedVariables,
+--- reload, and let it be read at leisure.
 SLASH_MHAUTOMAP1 = "/mhautomap"
 SlashCmdList["MHAUTOMAP"] = function()
-	local map, matched, unmatched, class, _, unplaced = ns.MH_AutoMapBuild()
-	print("|cff33ff99Midnight AutoMap (prototype)|r — class: |cffffd100" .. tostring(class) .. "|r")
+	local map, matched, unmatched, class, clickCast, unplaced = ns.MH_AutoMapBuild()
+	local p = "|cff33ff99Midnight AutoMap|r"
 	if not RolesForClass(class) then
-		print("|cffff6600Nog geen classifier voor deze class geladen.|r")
+		print(p .. " |cffff6600— nog geen classifier voor " .. tostring(class) .. ".|r")
 		return
 	end
+
 	local keys = {}
 	for bk in pairs(map) do
 		keys[#keys + 1] = bk
 	end
 	table.sort(keys, ns.Keybind_CompareBindKeys)
+
+	-- The full picture, to disk.
+	ns.db = ns.db or {}
+	local dump = {
+		class = class,
+		placed = {},
+		unplaced = {},
+		unmatched = unmatched or {},
+		clickCast = {},
+	}
 	for _, bk in ipairs(keys) do
 		local def = map[bk]
-		print(string.format("  |cffffd100%-8s|r %s |cff888888(%s)|r", bk, NameForId(def.id), tostring(def.id)))
+		dump.placed[#dump.placed + 1] = {
+			key = bk,
+			name = NameForId(def.id),
+			id = def.id,
+			role = def.role,
+			category = def.category,
+		}
 	end
-	print(string.format("|cff33ff99%d|r spells geplaatst. |cff888888%d bekende active spells zonder rol:|r %s",
-		#keys, #unmatched, table.concat(unmatched, ", ")))
+	for i = 1, #(unplaced or {}) do
+		local s = unplaced[i]
+		dump.unplaced[#dump.unplaced + 1] = {
+			name = NameForId(s.id),
+			id = s.id,
+			role = s.role,
+			category = s.category,
+			priority = s.priority,
+		}
+	end
+	for i = 1, #(clickCast or {}) do
+		dump.clickCast[#dump.clickCast + 1] = clickCast[i].name
+	end
+	ns.db.autoMapDump = dump
 
-	-- Wat niet paste. Vroeger belandde dit stil op de nummerrij; nu staat het er als
-	-- lijst, want "past niet" is een antwoord en een CC op je builder-toets niet.
-	if unplaced and #unplaced > 0 then
+	-- Four lines in chat: enough to know whether it is worth reading the file.
+	print(("%s — %s: |cffffd100%d|r placed, |cffff9900%d|r did not fit, |cff888888%d unclassified|r."):format(
+		p, tostring(class), #dump.placed, #dump.unplaced, #dump.unmatched))
+	if #dump.unplaced > 0 then
 		local names = {}
-		for i = 1, #unplaced do
-			names[#names + 1] = NameForId(unplaced[i].id)
+		for i = 1, #dump.unplaced do
+			names[#names + 1] = dump.unplaced[i].name
 		end
 		table.sort(names)
-		print(string.format("|cffff9900%d paste niet op de eigen toets|r |cff888888(klik ze, of plaats ze zelf):|r %s",
-			#unplaced, table.concat(names, ", ")))
+		print("   |cffff9900Did not fit:|r " .. table.concat(names, ", "))
 	end
+	print("   |cff9d9d9dFull map written to SavedVariables — |cffffffff/reload|r and it can be read from the file.|r")
 end
