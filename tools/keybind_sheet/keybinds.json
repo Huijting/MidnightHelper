@@ -2094,10 +2094,6 @@
      "name": "Presence of Mind",
      "label": "Utility"
     },
-    "Ctrl+V": {
-     "name": "Spellsteal",
-     "label": "Dispel / CC"
-    },
     "Shift+2": {
      "name": "Arcane Explosion",
      "label": "Rotation"
@@ -2105,6 +2101,10 @@
     "Ctrl+F": {
      "name": "Evocation",
      "label": "Utility"
+    },
+    "Ctrl+V": {
+     "name": "Dragon's Breath",
+     "label": "Dispel / CC"
     },
     "Ctrl+R": {
      "name": "Slow Fall",
@@ -2114,13 +2114,13 @@
    "situational": [
     {
      "key": "BUTTON5",
-     "name": "Dragon's Breath",
-     "label": "Dispel / CC"
+     "name": "Mirror Image",
+     "label": "Defensive"
     },
     {
      "key": "BUTTON4",
-     "name": "Mirror Image",
-     "label": "Defensive"
+     "name": "Spellsteal",
+     "label": "Dispel / CC"
     }
    ],
    "clickcast": [],
@@ -2225,21 +2225,21 @@
      "name": "Phoenix Flames",
      "label": "Rotation"
     },
+    "Ctrl+Z": {
+     "name": "Mirror Image",
+     "label": "Defensive"
+    },
     "Shift+1": {
      "name": "Living Bomb",
+     "label": "Rotation"
+    },
+    "Shift+2": {
+     "name": "Arcane Explosion",
      "label": "Rotation"
     },
     "Ctrl+V": {
      "name": "Dragon's Breath",
      "label": "Dispel / CC"
-    },
-    "Ctrl+X": {
-     "name": "Spellsteal",
-     "label": "Dispel / CC"
-    },
-    "Shift+2": {
-     "name": "Arcane Explosion",
-     "label": "Rotation"
     },
     "Shift+R": {
      "name": "Slow Fall",
@@ -2254,8 +2254,8 @@
     },
     {
      "key": "BUTTON5",
-     "name": "Mirror Image",
-     "label": "Defensive"
+     "name": "Spellsteal",
+     "label": "Dispel / CC"
     }
    ],
    "clickcast": [],
@@ -2372,13 +2372,13 @@
      "name": "Ice Lance",
      "label": "Rotation"
     },
-    "Ctrl+V": {
-     "name": "Spellsteal",
-     "label": "Dispel / CC"
-    },
     "Shift+5": {
      "name": "Arcane Explosion",
      "label": "Rotation"
+    },
+    "Ctrl+V": {
+     "name": "Dragon's Breath",
+     "label": "Dispel / CC"
     },
     "Shift+R": {
      "name": "Slow Fall",
@@ -2388,13 +2388,13 @@
    "situational": [
     {
      "key": "BUTTON5",
-     "name": "Dragon's Breath",
-     "label": "Dispel / CC"
+     "name": "Mirror Image",
+     "label": "Defensive"
     },
     {
      "key": "BUTTON4",
-     "name": "Mirror Image",
-     "label": "Defensive"
+     "name": "Spellsteal",
+     "label": "Dispel / CC"
     }
    ],
    "clickcast": [],

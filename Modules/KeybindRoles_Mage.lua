@@ -96,7 +96,11 @@ ns.KeybindRoleClassifier.MAGE = {
 
 	-- Utility. Spellsteal (F) = enemy-buff-steal; Mirror Image = DPS/utility-clones (NOOIT heal);
 	-- Time Warp = raid-haste; Invisibility = OOC-utility/threatdrop; Slow = ranged snare.
-	["Spellsteal"] = { category = "dispel_cc", priority = 6 }, -- [30449]; offensieve dispel (steelt enemy-buff) -> dispel_cc, geen zuivere utility
+	-- ⚠️ PRIORITEIT 6 -> 5, 7 aug 2026. Toen Dragon's Breath's spec-grendel wegging pakte
+	-- die `Shift+X` voor Spellsteals neus weg (5 slaat 6) en werd Spellsteal naar een
+	-- duimknop geduwd. Rob, die deze klasse speelt: Spellsteal is voor een goede speler
+	-- onmisbaar, Dragon's Breath is op Frost bijvangst van de heldenboom. Hij gaat voor.
+	["Spellsteal"] = { category = "dispel_cc", priority = 5 }, -- [30449]; offensieve dispel (steelt enemy-buff) -> dispel_cc, geen zuivere utility
 	["Mirror Image"] = { category = "defensive", priority = 5 }, -- [55342]; damage-reduction + threatdrop CD/def (BliZzi PartyCooldowns cat=DEF affects=self); functioneel defensive, NOOIT heal/spender
 	["Time Warp"] = { category = "utility", priority = 2 }, -- UTILITY [80353]; raid-haste (baseline)
 	["Invisibility"] = { category = "utility", priority = 4, survival = "escape" }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
@@ -141,7 +145,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Flamestrike"] = { category = "spender", priority = 2, bindKey = "Shift+4", specs = { 63 } }, -- SpellArchetypes [2120] ranged; AoE-Hot-Streak-spender (AoE-slot)
 	-- ⚠️ SPEC-GRENDEL WEG, 7 aug 2026 — zelfde reden als Arcane Explosion hierboven. Stond
 	-- op 63, maar Robs Frost mage heeft hem (Frostfire-heldenboom) en kreeg dus geen toets.
-	["Dragon's Breath"] = { category = "dispel_cc", priority = 5 }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient
+	["Dragon's Breath"] = { category = "dispel_cc", priority = 6 }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient (achter Spellsteal, zie daar)
 	["Blazing Barrier"] = { role = "defensive_1", priority = 1, specs = { 63 } }, -- Z; DEFENSIVE [235313] (kleine def + reflect)
 	["Cauterize"] = { category = "defensive", priority = 4, specs = { 63 } }, -- Fire passieve-cheat-death-talent; defensive-overflow
 	["Combustion"] = { role = "cooldown_bar", priority = 1, specs = { 63 } }, -- F1; Fire grootste burst-CD
