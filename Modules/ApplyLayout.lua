@@ -201,38 +201,117 @@ local function BuildPlan()
 		return tostring(id)
 	end
 	local commandSlot = ns.MH_CommandSlotMap and ns.MH_CommandSlotMap() or {}
+	local slotCommand = {}
+	for command, slot in pairs(commandSlot) do
+		slotCommand[slot] = command
+	end
+
+	--- Slots we are allowed to fill, in the order we would rather use them.
+	---
+	--- Bars 7 and 8 are left alone — Rob's rule, and a sensible default rather than a
+	--- fact: somebody may already be using them, so it is a convention we state instead
+	--- of an assumption we hide. Everything else is fair game now that undo is proven,
+	--- with one ordering rule: empty slots first, so a working layout costs the player
+	--- as little of their own arrangement as it can.
+	local ALLOWED_BARS = {
+		"ACTIONBUTTON", "MULTIACTIONBAR1BUTTON", "MULTIACTIONBAR2BUTTON",
+		"MULTIACTIONBAR3BUTTON", "MULTIACTIONBAR4BUTTON", "MULTIACTIONBAR5BUTTON",
+	}
+	local function CandidateSlots()
+		local empty, used = {}, {}
+		for _, prefix in ipairs(ALLOWED_BARS) do
+			for i = 1, 12 do
+				local slot = commandSlot[prefix .. i]
+				if slot then
+					if SlotIsEmpty(slot) then
+						empty[#empty + 1] = slot
+					else
+						local ok, kind = pcall(GetActionInfo, slot)
+						if ok and RESTORABLE[kind] then
+							used[#used + 1] = slot
+						end
+					end
+				end
+			end
+		end
+		for i = 1, #used do
+			empty[#empty + 1] = used[i]
+		end
+		return empty
+	end
+	local candidates = CandidateSlots()
+	local taken = {} -- slots this run has already claimed
+
+	local function NextCandidate()
+		for i = 1, #candidates do
+			local slot = candidates[i]
+			if not taken[slot] then
+				taken[slot] = true
+				return slot
+			end
+		end
+		return nil
+	end
+
+	local function OccupantOf(slot)
+		local ok, kind, id = pcall(GetActionInfo, slot)
+		if not ok or not kind then
+			return nil
+		end
+		local name = kind
+		if kind == "spell" and id and C_Spell and C_Spell.GetSpellName then
+			local okN, n = pcall(C_Spell.GetSpellName, id)
+			name = (okN and n) or kind
+		elseif kind == "item" and id and C_Item and C_Item.GetItemNameByID then
+			local okI, n = pcall(C_Item.GetItemNameByID, id)
+			name = (okI and n) or kind
+		end
+		return { kind = kind, id = id, name = name }
+	end
+
 	for bindKey, entry in pairs(spec.spellByUiKey) do
 		if entry and entry.id then
 			local wowKey = ToWowKey(bindKey)
 			local slot = SlotHoldingSpell(entry.id)
-			local command = slot and CommandForSlot(slot)
-			if wowKey and command then
-				plan[#plan + 1] = {
-					key = bindKey,
-					wowKey = wowKey,
-					command = command,
-					slot = slot,
-					name = NameFor(entry.id),
-				}
-			elseif wowKey then
-				-- Not on a bar. Can we put it where this key already points?
-				local free, why, occupant = PlacementForKey(wowKey, commandSlot)
-				if free then
+			local command = slot and (slotCommand[slot] or CommandForSlot(slot))
+			if not wowKey then
+				missing[#missing + 1] = NameFor(entry.id) .. " (no usable key)"
+			elseif command then
+				--- Already on a bar somewhere. Point the key at it — unless it already
+				--- does, in which case there is nothing to do and we say nothing. A
+				--- plan full of no-ops is how a player stops reading the plan.
+				if GetBindingAction and GetBindingAction(wowKey) == command then
+					taken[slot] = true
+				else
 					plan[#plan + 1] = {
-						key = bindKey,
-						wowKey = wowKey,
-						command = GetBindingAction(wowKey),
-						slot = free,
-						name = NameFor(entry.id),
-						spellID = entry.id,
-						place = true, -- put the spell on the bar; no rebinding needed
-						occupant = occupant, -- what has to move aside, nil if empty
+						key = bindKey, wowKey = wowKey, command = command,
+						slot = slot, name = NameFor(entry.id),
+					}
+					taken[slot] = true
+				end
+			elseif slot then
+				missing[#missing + 1] = NameFor(entry.id)
+					.. (" (on slot %d, which no action button drives)"):format(slot)
+			else
+				-- Not on any bar. Put it somewhere we are allowed to, and bind the key.
+				local target = PlacementForKey(wowKey, commandSlot)
+				if target and not taken[target] then
+					taken[target] = true
+				else
+					target = NextCandidate()
+				end
+				if target then
+					local cmd = slotCommand[target]
+					plan[#plan + 1] = {
+						key = bindKey, wowKey = wowKey, command = cmd,
+						slot = target, name = NameFor(entry.id), spellID = entry.id,
+						place = true,
+						occupant = OccupantOf(target),
+						rebind = (GetBindingAction and GetBindingAction(wowKey) ~= cmd) or false,
 					}
 				else
-					missing[#missing + 1] = NameFor(entry.id) .. " (" .. tostring(why) .. ")"
+					missing[#missing + 1] = NameFor(entry.id) .. " (no free slot on bars 1-6)"
 				end
-			else
-				missing[#missing + 1] = NameFor(entry.id) .. " (no usable key)"
 			end
 		end
 	end
@@ -339,13 +418,14 @@ function ns.MH_ApplyLayout(arg)
 		for i = 1, #plan do
 			local p = plan[i]
 			if p.place then
+				local also = p.rebind and " |cff8ecfff+ rebind|r" or ""
 				if p.occupant then
 					-- Say what goes out, by name, before anything happens.
-					print(("   |cffffd100%-10s|r %-24s |cffff9900slot %d — replaces %s|r"):format(
-						p.wowKey, p.name, p.slot, tostring(p.occupant.name)))
+					print(("   |cffffd100%-10s|r %-24s |cffff9900slot %d — replaces %s|r%s"):format(
+						p.wowKey, p.name, p.slot, tostring(p.occupant.name), also))
 				else
-					print(("   |cffffd100%-10s|r %-24s |cff40c040empty slot %d|r"):format(
-						p.wowKey, p.name, p.slot))
+					print(("   |cffffd100%-10s|r %-24s |cff40c040empty slot %d|r%s"):format(
+						p.wowKey, p.name, p.slot, also))
 				end
 			else
 				local now = GetBindingAction and GetBindingAction(p.wowKey) or ""
@@ -381,7 +461,10 @@ function ns.MH_ApplyLayout(arg)
 				kind = p.occupant and p.occupant.kind or nil,
 				id = p.occupant and p.occupant.id or nil,
 			}
-		else
+		end
+		-- A placement may ALSO move the key. Both halves need remembering, or an undo
+		-- would put the slot back and leave the key pointing at the wrong button.
+		if not p.place or p.rebind then
 			snap[#snap + 1] = { key = p.wowKey, was = GetBindingAction(p.wowKey) or "" }
 		end
 	end
@@ -410,6 +493,13 @@ function ns.MH_ApplyLayout(arg)
 				placed = placed + 1
 			else
 				failed = failed + 1
+			end
+			if p.rebind and p.command then
+				if pcall(SetBinding, p.wowKey, p.command) then
+					done = done + 1
+				else
+					failed = failed + 1
+				end
 			end
 		else
 			local ok = pcall(SetBinding, p.wowKey, p.command)
