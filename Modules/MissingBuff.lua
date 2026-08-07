@@ -391,7 +391,7 @@ function ns.PrintMissingBuffDebug()
 		-- niemand. Wie DIT commando typt is juist op zoek naar waarom hij ziet wat hij
 		-- ziet, en dat is het moment om te zeggen dat er een tweede addon meepraat.
 		if EuiReminderLoaded and EuiReminderLoaded() then
-			print("     |cff9d9d9dEllesmereUI herinnert je hier ook aan; je ziet dus twee iconen.|r")
+			print("     |cff9d9d9dEllesmereUI herinnert je hier ook aan; je kunt er dus twee tegelijk zien.|r")
 			print("     |cff9d9d9dDe onze is in gevecht aanklikbaar, die van hen niet.|r")
 		end
 	else

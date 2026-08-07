@@ -75,6 +75,28 @@ na de patch.
 
 ---
 
+### TERUGKOMEN OP: drie herinneringen voor dezelfde ontbrekende buff
+
+Rob had er op 7 aug drie tegelijk op zijn scherm voor één ontbrekende Arcane Intellect:
+ons klikbare MissingBuff-icoon, ons `/mh gbuffs`-venster, en de buff-reminder van
+EllesmereUI. Alle drie lezen ze hetzelfde.
+
+De eerste twee zijn met opzet verschillend — een blijvende por die je kunt aanklikken
+tegenover een overzicht dat je zelf opent — maar samen is het veel. Voor nu staat er
+alleen een melding in `/mh mbuff` dat EllesmereUI meepraat; niemand gaat opzij, want de
+onze is als enige in gevecht aanklikbaar.
+
+⚠️ Twee dingen die ik die dag BEWEERDE en die niet klopten, zodat de volgende sessie er
+niet op voortbouwt:
+  • "ons icoon verbergt zich in delves" — nee. `Aura.Trusted()` volgt
+    `C_Secrets.ShouldAurasBeSecret`, en dat wisselt per moment; aan het begin van Robs
+    delve stonden onze auras gewoon te lezen.
+  • "in de delve zag je die van hen, buiten de onze" — nee, aan het begin van de delve
+    stonden ze er allebei.
+Gemeten voordat hier iets aan verandert.
+
+---
+
 ---
 
 ## P1 — hoort in de volgende upload, geen patchdag-risico
