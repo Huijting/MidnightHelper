@@ -10,10 +10,12 @@ MOD_DISPLAY = {"shift": "Shift", "ctrl": "Ctrl", "alt": "Alt"}
 # Alt was dropped from the scheme on 6 Aug 2026; this file kept handing it out for
 # another day, so the sheet showed keys the addon never binds. Mirror the Lua.
 MOD_FILL = ["shift", "ctrl"]
-# Thumb buttons, tried after the Shift layer (KeybindSchema.lua, trySlots). Offline we
-# cannot read ns.db.mouseDetect, so the sheet uses the same default a fresh install
-# gets: the two buttons nearly every mouse has.
-MOUSE_SLOTS = ["BUTTON4", "BUTTON5"]
+# Thumb buttons, tried after the Shift layer (KeybindSchema.lua, trySlots). EMPTY by
+# default, mirroring the Lua since 7 Aug 2026: we do not assume a player has any. The
+# old default of two put 52 bindings across the specs on buttons nobody confirmed, and
+# a key you cannot press is worse than an ability we admit did not fit. Set it to
+# ["BUTTON4", ...] to model a player who has told us.
+MOUSE_SLOTS = []
 EXCLUDED = {"G"}
 BASE_FILL = ["1","2","3","4","5","Q","F","R","X","Z","C","V","F1"]
 ROLES = {

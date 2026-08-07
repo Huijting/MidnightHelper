@@ -492,6 +492,14 @@ SlashCmdList["MHAUTOMAP"] = function()
 		end
 		table.sort(names)
 		print("   |cffff9900Did not fit:|r " .. table.concat(names, ", "))
+		--- Say WHY there is room to be had, but only when we genuinely do not know the
+		--- mouse. We stopped assuming two thumb buttons on 7 Aug 2026 (see MouseSlots),
+		--- which is honest but leaves abilities unplaced for anyone who does have them
+		--- and has never said so. Telling them beats guessing on their behalf.
+		local measured = ns.db and (ns.db.mouseDetect or ns.db.mouseButtonCount)
+		if not measured then
+			print("   |cff9d9d9dGot thumb buttons on your mouse? |cffffffff/mh mouse detect|r|cff9d9d9d — we do not assume you have any.|r")
+		end
 	end
 	print("   |cff9d9d9dFull map written to SavedVariables — |cffffffff/reload|r and it can be read from the file.|r")
 end

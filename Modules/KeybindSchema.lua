@@ -523,10 +523,26 @@ function ns.Keybind_AllocateSpells(spells, opts)
 				return out
 			end
 		end
-		-- Never measured: fall back to the two thumb buttons nearly every mouse has.
+		--- ⚠️ NEVER MEASURED MEANS NONE. This used to fall back on "the two thumb buttons
+		--- nearly every mouse has", which is an assumption dressed up as a safe default —
+		--- in a function whose own header says MEASURED FIRST, ASSUMED SECOND.
+		---
+		--- Measured 7 Aug 2026 across all 39 specs: that default puts 52 bindings on
+		--- BUTTON4/BUTTON5. For a player whose mouse has no thumb buttons, or who has
+		--- them mapped to browser back/forward, those 52 abilities are simply
+		--- unreachable — and silently so, because the layout shows a key and the key
+		--- does nothing. Rob, twice: "we mogen er niet van uitgaan dat users een mmo muis
+		--- gebruiken."
+		---
+		--- Costing it out honestly: assuming nothing leaves 17 abilities across all 39
+		--- specs with no key instead of 3, worst case 4 on one spec. "This one did not
+		--- fit, place it yourself" is a true statement. A key you cannot press is not.
+		---
+		--- `/mh mouse detect` records what the buttons actually send, and `/mh mouse N`
+		--- lets a player state it. Either one turns this back on.
 		local n = tonumber(ns.db and ns.db.mouseButtonCount)
 		if not n then
-			n = 2
+			n = 0
 		end
 		n = math.max(0, math.min(n, #Schema.mouseSlotFillOrder))
 		local out = {}
