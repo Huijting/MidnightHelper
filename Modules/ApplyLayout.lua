@@ -99,6 +99,52 @@ local function SlotHoldingSpell(spellID)
 	return nil
 end
 
+--- Is this action slot empty?
+local function SlotIsEmpty(slot)
+	if not (slot and GetActionInfo) then
+		return false
+	end
+	local ok, kind = pcall(GetActionInfo, slot)
+	return ok and (kind == nil)
+end
+
+--- Where could this spell go, given the key it is meant to sit on?
+---
+--- Deliberately narrow. It looks at what that KEY already does: if the key already
+--- drives an action button and that button's slot is EMPTY, the spell goes there and
+--- nothing needs rebinding — pressing the key simply starts working. Anything else is
+--- reported rather than solved.
+---
+--- ⚠️ EMPTY ONLY, at Rob's instruction. This is the first thing the addon writes to
+--- somebody's bars instead of reading them, and an occupied slot belongs to whoever
+--- put something in it. "I could not place this" is a fine answer; quietly replacing
+--- a player's button is not.
+--- @return number|nil slot, string|nil why
+local function PlacementForKey(wowKey, commandSlot)
+	if not (wowKey and GetBindingAction) then
+		return nil, "no binding API"
+	end
+	local command = GetBindingAction(wowKey)
+	if not command or command == "" then
+		return nil, "that key is not bound to an action button"
+	end
+	local slot = commandSlot[command]
+	if not slot then
+		return nil, ("%s is not an action button we can fill"):format(command)
+	end
+	if not SlotIsEmpty(slot) then
+		local _, _, _ = nil, nil, nil
+		local ok, kind, id = pcall(GetActionInfo, slot)
+		local occupant = ok and kind or "something"
+		if ok and kind == "spell" and id and C_Spell and C_Spell.GetSpellName then
+			local okN, n = pcall(C_Spell.GetSpellName, id)
+			occupant = (okN and n) or occupant
+		end
+		return nil, ("slot %d is taken by %s"):format(slot, tostring(occupant))
+	end
+	return slot
+end
+
 --- @return table plan  { {key, wowKey, command, slot, name} }, table missing {names}
 local function BuildPlan()
 	local plan, missing = {}, {}
@@ -118,6 +164,7 @@ local function BuildPlan()
 		end
 		return tostring(id)
 	end
+	local commandSlot = ns.MH_CommandSlotMap and ns.MH_CommandSlotMap() or {}
 	for bindKey, entry in pairs(spec.spellByUiKey) do
 		if entry and entry.id then
 			local wowKey = ToWowKey(bindKey)
@@ -131,8 +178,24 @@ local function BuildPlan()
 					slot = slot,
 					name = NameFor(entry.id),
 				}
+			elseif wowKey then
+				-- Not on a bar. Can we put it where this key already points?
+				local free, why = PlacementForKey(wowKey, commandSlot)
+				if free then
+					plan[#plan + 1] = {
+						key = bindKey,
+						wowKey = wowKey,
+						command = GetBindingAction(wowKey),
+						slot = free,
+						name = NameFor(entry.id),
+						spellID = entry.id,
+						place = true, -- put the spell on the bar; no rebinding needed
+					}
+				else
+					missing[#missing + 1] = NameFor(entry.id) .. " (" .. tostring(why) .. ")"
+				end
 			else
-				missing[#missing + 1] = NameFor(entry.id) .. (slot and " (slot " .. slot .. ", no command)" or " (not on any bar)")
+				missing[#missing + 1] = NameFor(entry.id) .. " (no usable key)"
 			end
 		end
 	end
@@ -149,7 +212,10 @@ function ns.MH_ApplyLayout(arg)
 
 	if arg == "undo" then
 		local snap = ns.db.bindSnapshot
-		if type(snap) ~= "table" or #snap == 0 then
+		local placedSnap = ns.db.placedSnapshot
+		local haveKeys = type(snap) == "table" and #snap > 0
+		local havePlaced = type(placedSnap) == "table" and #placedSnap > 0
+		if not haveKeys and not havePlaced then
 			print(Prefix() .. " nothing to undo — no snapshot saved.")
 			return
 		end
@@ -158,7 +224,7 @@ function ns.MH_ApplyLayout(arg)
 			return
 		end
 		local n = 0
-		for i = 1, #snap do
+		for i = 1, (haveKeys and #snap or 0) do
 			local row = snap[i]
 			if row and row.key then
 				-- An empty `was` means the key held nothing; clearing restores that.
@@ -170,11 +236,36 @@ function ns.MH_ApplyLayout(arg)
 				n = n + 1
 			end
 		end
+
+		--- Empty the slots we filled. We only ever placed into slots that were empty,
+		--- so emptying them is a true undo and cannot destroy anything of the player's.
+		---
+		--- ⚠️ PickupAction is not used by any addon installed here, so this path is
+		--- unverified in practice — it is the documented way to lift an action off a
+		--- bar, but Rob's test is the proof. If a placed spell stays put after an undo,
+		--- this is the line to look at.
+		local cleared = 0
+		for i = 1, (havePlaced and #placedSnap or 0) do
+			local row = placedSnap[i]
+			if row and row.slot and PickupAction then
+				local ok = pcall(function()
+					PickupAction(row.slot)
+					ClearCursor()
+				end)
+				pcall(ClearCursor)
+				if ok then
+					cleared = cleared + 1
+				end
+			end
+		end
+
 		if SaveBindings and GetCurrentBindingSet then
 			pcall(SaveBindings, GetCurrentBindingSet())
 		end
 		ns.db.bindSnapshot = nil
-		print(("%s undone — %d key(s) put back the way they were."):format(Prefix(), n))
+		ns.db.placedSnapshot = nil
+		print(("%s undone — %d key(s) restored, %d placed spell(s) removed."):format(
+			Prefix(), n, cleared))
 		return
 	end
 
@@ -188,9 +279,14 @@ function ns.MH_ApplyLayout(arg)
 		print(("%s this would set |cffffffff%d|r key(s):"):format(Prefix(), #plan))
 		for i = 1, #plan do
 			local p = plan[i]
-			local now = GetBindingAction and GetBindingAction(p.wowKey) or ""
-			local note = (now ~= "" and now ~= p.command) and (" |cffff9900(replaces " .. now .. ")|r") or ""
-			print(("   |cffffd100%-10s|r %-24s -> %s%s"):format(p.wowKey, p.name, p.command, note))
+			if p.place then
+				print(("   |cffffd100%-10s|r %-24s |cff40c040put on empty slot %d|r (%s)"):format(
+					p.wowKey, p.name, p.slot, p.command))
+			else
+				local now = GetBindingAction and GetBindingAction(p.wowKey) or ""
+				local note = (now ~= "" and now ~= p.command) and (" |cffff9900(replaces " .. now .. ")|r") or ""
+				print(("   |cffffd100%-10s|r %-24s -> %s%s"):format(p.wowKey, p.name, p.command, note))
+			end
 		end
 		if #missing > 0 then
 			print(("   |cffff9900%d not on a bar, so they cannot be bound:|r %s"):format(
@@ -209,30 +305,57 @@ function ns.MH_ApplyLayout(arg)
 		return
 	end
 
-	-- Snapshot FIRST, and only the keys we are about to disturb.
-	local snap = {}
+	-- Snapshot FIRST, and only what we are about to disturb.
+	local snap, placedSnap = {}, {}
 	for i = 1, #plan do
 		local p = plan[i]
-		snap[#snap + 1] = { key = p.wowKey, was = GetBindingAction(p.wowKey) or "" }
+		if p.place then
+			placedSnap[#placedSnap + 1] = { slot = p.slot }
+		else
+			snap[#snap + 1] = { key = p.wowKey, was = GetBindingAction(p.wowKey) or "" }
+		end
 	end
 	ns.db.bindSnapshot = snap
+	ns.db.placedSnapshot = placedSnap
 
-	local done, failed = 0, 0
+	local done, failed, placed = 0, 0, 0
 	for i = 1, #plan do
 		local p = plan[i]
-		local ok = pcall(SetBinding, p.wowKey, p.command)
-		if ok then
-			done = done + 1
+		if p.place then
+			--- Put the spell on the empty slot the key already points at. Same three
+			--- calls KeyUI uses (Core.lua:4575): pick up, place, clear the cursor —
+			--- and clearing matters, because a spell left on the cursor is a spell the
+			--- next click drops somewhere the player did not ask for.
+			local ok = pcall(function()
+				if C_Spell and C_Spell.PickupSpell then
+					C_Spell.PickupSpell(p.spellID)
+				elseif PickupSpell then
+					PickupSpell(p.spellID)
+				end
+				PlaceAction(p.slot)
+				ClearCursor()
+			end)
+			pcall(ClearCursor)
+			if ok then
+				placed = placed + 1
+			else
+				failed = failed + 1
+			end
 		else
-			failed = failed + 1
+			local ok = pcall(SetBinding, p.wowKey, p.command)
+			if ok then
+				done = done + 1
+			else
+				failed = failed + 1
+			end
 		end
 	end
 	if SaveBindings and GetCurrentBindingSet then
 		pcall(SaveBindings, GetCurrentBindingSet())
 	end
 
-	print(("%s applied — |cffffffff%d|r key(s) set%s."):format(
-		Prefix(), done, failed > 0 and (", " .. failed .. " failed") or ""))
+	print(("%s applied — |cffffffff%d|r key(s) set, |cffffffff%d|r spell(s) placed%s."):format(
+		Prefix(), done, placed, failed > 0 and (", " .. failed .. " failed") or ""))
 	print("   |cff9d9d9dNot what you wanted? |cffffffff/mh apply undo|r puts every one of them back.|r")
 	if #missing > 0 then
 		print(("   |cffff9900%d could not be bound (not on a bar):|r %s"):format(

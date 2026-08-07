@@ -41,6 +41,46 @@ local function Prefix()
 	return ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
 end
 
+--- Binding command -> the action slot it drives, asked of the buttons themselves.
+---
+--- Every action button frame carries its own slot in the "action" attribute, so the
+--- game answers and we do not have to keep a table that is only ever true for one
+--- person's setup. Verified against Rob's client: MULTIACTIONBAR5BUTTON2 came back as
+--- slot 146, which is what both our old table and KeyUI's say — so the table was never
+--- the problem, but asking removes the question entirely.
+local FRAME_SETS = {
+	{ command = "ACTIONBUTTON",          frame = "ActionButton" },
+	{ command = "MULTIACTIONBAR1BUTTON", frame = "MultiBarBottomLeftButton" },
+	{ command = "MULTIACTIONBAR2BUTTON", frame = "MultiBarBottomRightButton" },
+	{ command = "MULTIACTIONBAR3BUTTON", frame = "MultiBarRightButton" },
+	{ command = "MULTIACTIONBAR4BUTTON", frame = "MultiBarLeftButton" },
+	{ command = "MULTIACTIONBAR5BUTTON", frame = "MultiBar5Button" },
+	{ command = "MULTIACTIONBAR6BUTTON", frame = "MultiBar6Button" },
+	{ command = "MULTIACTIONBAR7BUTTON", frame = "MultiBar7Button" },
+}
+
+--- @return table command -> slot
+function ns.MH_CommandSlotMap()
+	local map = {}
+	for _, set in ipairs(FRAME_SETS) do
+		for i = 1, 12 do
+			local f = _G and _G[set.frame .. i]
+			if f then
+				local slot
+				if f.GetAttribute then
+					local ok, a = pcall(f.GetAttribute, f, "action")
+					slot = ok and tonumber(a) or nil
+				end
+				slot = slot or tonumber(f.action)
+				if slot then
+					map[set.command .. i] = slot
+				end
+			end
+		end
+	end
+	return map
+end
+
 local function NameForAction(kind, id)
 	if kind == "spell" and C_Spell and C_Spell.GetSpellName then
 		local ok, n = pcall(C_Spell.GetSpellName, id)
@@ -108,36 +148,12 @@ function ns.MH_BarInventory()
 	--     command's slot without a hardcoded table: the frame carries its own slot in
 	--     the "action" attribute, so the game answers instead of us.
 	out.buttonSlots = {}
-	local FRAME_SETS = {
-		{ command = "ACTIONBUTTON",          frame = "ActionButton" },
-		{ command = "MULTIACTIONBAR1BUTTON", frame = "MultiBarBottomLeftButton" },
-		{ command = "MULTIACTIONBAR2BUTTON", frame = "MultiBarBottomRightButton" },
-		{ command = "MULTIACTIONBAR3BUTTON", frame = "MultiBarRightButton" },
-		{ command = "MULTIACTIONBAR4BUTTON", frame = "MultiBarLeftButton" },
-		{ command = "MULTIACTIONBAR5BUTTON", frame = "MultiBar5Button" },
-		{ command = "MULTIACTIONBAR6BUTTON", frame = "MultiBar6Button" },
-		{ command = "MULTIACTIONBAR7BUTTON", frame = "MultiBar7Button" },
-	}
-	for _, set in ipairs(FRAME_SETS) do
-		for i = 1, 12 do
-			local f = _G and _G[set.frame .. i]
-			if f then
-				local slot
-				if f.GetAttribute then
-					local ok, a = pcall(f.GetAttribute, f, "action")
-					slot = ok and tonumber(a) or nil
-				end
-				slot = slot or tonumber(f.action)
-				if slot then
-					out.buttonSlots[#out.buttonSlots + 1] = {
-						command = set.command .. i,
-						frame = set.frame .. i,
-						slot = slot,
-					}
-				end
-			end
-		end
+	for command, slot in pairs(ns.MH_CommandSlotMap()) do
+		out.buttonSlots[#out.buttonSlots + 1] = { command = command, slot = slot }
 	end
+	table.sort(out.buttonSlots, function(a, b)
+		return a.slot < b.slot
+	end)
 
 	-- 3. Which bar addons are loaded, so a report can say whose numbering this is.
 	if C_AddOns and C_AddOns.IsAddOnLoaded then
