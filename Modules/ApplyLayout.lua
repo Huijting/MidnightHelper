@@ -219,11 +219,33 @@ local function BuildPlan()
 	if not (spec and spec.spellByUiKey) then
 		return plan, missing, 0
 	end
+	--- ⚠️ FOLLOW THE OVERRIDE — third place this had to be fixed. The plan showed Blink,
+	--- Invisibility and Ice Block while Rob's bars say Shimmer, Greater Invisibility and
+	--- Ice Cold. We hold BASE ids because that is what the role data matches on, but the
+	--- name a player reads has to be the one under their thumb; a plan naming a button
+	--- that is not on the bar is the Alt+M fault again. Already corrected in
+	--- KeybindAutoMap's NameForId and the layout's ProtoSpellName; this copy was missed.
 	local NameFor = function(id)
+		if not id then
+			return "?"
+		end
+		local display = id
+		if C_SpellBook and C_SpellBook.FindSpellOverrideByID then
+			local okO, over = pcall(C_SpellBook.FindSpellOverrideByID, id)
+			if okO and type(over) == "number" and over ~= 0 then
+				display = over
+			end
+		end
 		if C_Spell and C_Spell.GetSpellName then
-			local ok, n = pcall(C_Spell.GetSpellName, id)
+			local ok, n = pcall(C_Spell.GetSpellName, display)
 			if ok and n then
 				return n
+			end
+			if display ~= id then
+				local okB, b = pcall(C_Spell.GetSpellName, id)
+				if okB and b then
+					return b
+				end
 			end
 		end
 		return tostring(id)
