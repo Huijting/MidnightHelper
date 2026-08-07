@@ -382,12 +382,51 @@ end
 -- Aan/uit + saved settings
 --------------------------------------------------------------------------------
 
+--- Another addon reminds about missing buffs too — say so, once, and keep drawing.
+---
+--- ⚠️ EllesmereUI's buff reminders do the same job: `EllesmereUIAuraBuffReminders` maps
+--- "Arcane Intellect" to the label "Intellect" and draws its own icon. Rob and Carola
+--- both run it and saw the same missing buff announced twice.
+---
+--- WE DO NOT STAND DOWN, and that is deliberate. The obvious move was to go quiet when
+--- theirs is loaded, and it was wrong for a specific reason: ours is clickable IN
+--- COMBAT (the secure-button pattern in this file's header) and theirs is not. Going
+--- quiet would trade away the better of the two and nobody would ever know why the
+--- clickable one vanished — the WaypointUI mistake exactly, where a feature this addon
+--- advertised silently never appeared for months.
+---
+--- So it tells the player instead, once per session, and lets them decide which to keep.
+--- That is the same conclusion the keybind research reached about layouts: give the
+--- reasoning, do not make the choice for somebody about their own screen.
+local function EuiReminderLoaded()
+	if not (C_AddOns and C_AddOns.IsAddOnLoaded) then
+		return false
+	end
+	local ok, loaded = pcall(C_AddOns.IsAddOnLoaded, "EllesmereUIAuraBuffReminders")
+	return (ok and loaded) and true or false
+end
+
+local announcedOverlap = false
+
+local function AnnounceOverlapOnce()
+	if announcedOverlap or not EuiReminderLoaded() then
+		return
+	end
+	announcedOverlap = true
+	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+	print(("%s %s"):format(p, (ns.L and ns:L("MBUFF_EUI_OVERLAP"))
+		or "EllesmereUI reminds you about buffs as well, so you will see two icons."))
+	print("   |cff9d9d9d" .. ((ns.L and ns:L("MBUFF_EUI_OVERLAP_HINT"))
+		or "Ours can be clicked in combat, theirs cannot - so you may prefer to switch theirs off in EllesmereUI's options.") .. "|r")
+end
+
 local function Enabled()
 	local uiDb = ns.db and ns.db.ui
-	if type(uiDb) ~= "table" then
-		return true
+	if type(uiDb) == "table" and uiDb.missingBuff == false then
+		return false
 	end
-	return uiDb.missingBuff ~= false
+	AnnounceOverlapOnce()
+	return true
 end
 
 function ns.IsMissingBuffEnabled()
