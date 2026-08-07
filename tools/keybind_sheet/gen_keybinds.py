@@ -42,6 +42,13 @@ CATEGORIES = {
     "blessings":["R","F1"],"racial":["E"],
 }
 PREF_BASE_OK = {"E","F1","F2","F3","F4","T"} | set(BASE_FILL)  # T: consumable anchor, wishes only
+# Bare base keys no spell may take. Mirrors ns.Keybind_ReservedBaseKeys: empty by default,
+# {"1"} when the player turns on /mh sba (Blizzard's Assisted Combat button). Only the bare
+# key -- Shift+1 stays available, it is a different press.
+RESERVED_BASE = set()
+# A role resolves to one key, so a reserved key would strand it; send it to its category.
+ROLE_FALLBACK_CATEGORY = {"main_rotation_1":"main_rotation","main_rotation_2":"main_rotation",
+                          "main_rotation_3":"main_rotation","spender":"spender"}
 
 def normalize_base(k):
     k = (k or "").strip()
@@ -67,7 +74,11 @@ def make_bindkey(mod, base):
 def slotlist_for(sp):
     if sp.get("role") == "interrupt": return CATEGORIES["interrupt"]
     role = sp.get("role")
-    if role and role in ROLES: return [ROLES[role]]
+    if role and role in ROLES:
+        if ROLES[role] in RESERVED_BASE:
+            fb = ROLE_FALLBACK_CATEGORY.get(role)
+            return CATEGORIES[fb] if fb else BASE_FILL
+        return [ROLES[role]]
     cat = sp.get("category")
     if cat: return CATEGORIES.get(cat)  # None if unknown -> base fallback
     return BASE_FILL
@@ -77,7 +88,7 @@ def try_slots(slots, sp, occupied, out):
     for mod in [None] + MOD_FILL:
         for s in slots:
             base = normalize_base(s)
-            if base and base not in EXCLUDED:
+            if base and base not in EXCLUDED and not (base in RESERVED_BASE and not mod):
                 bk = make_bindkey(mod, base) if mod else base
                 if bk and bk not in occupied:
                     occupied.add(bk); out[bk] = sp; return True
@@ -92,6 +103,7 @@ def try_preferred(sp, occupied, out):
     if not sp.get("bindKey"): return False
     mod, base = parse_bindkey(sp["bindKey"])
     if not base or base in EXCLUDED or base not in PREF_BASE_OK: return False
+    if base in RESERVED_BASE and not mod: return False  # a reserved bare key beats a wish
     bk = make_bindkey(mod, base)
     if bk and bk not in occupied:
         occupied.add(bk); out[bk] = sp; return True

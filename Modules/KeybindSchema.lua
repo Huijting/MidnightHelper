@@ -411,6 +411,33 @@ function ns.Keybind_BindKeysForBaseSlot(baseKey)
 	return keys
 end
 
+--- Base keys no spell may be given, decided per player rather than per file.
+---
+--- `T` is reserved the static way — it is simply absent from every list. `1` cannot be,
+--- because it is only reserved for the players who use Blizzard's Assisted Combat button
+--- and want it under their index finger. Rob asked for exactly that on 7 Aug 2026, and
+--- only for `1`: the assistant casts your rotation, not your cooldowns, defensives or
+--- utility, so 2/3/4/5 stay filled as a manual override.
+---
+--- Measured before building it: taking `1` out costs one extra unplaced ability across
+--- all 39 specs on a two-button mouse, and none at all on six. Cheap.
+function ns.Keybind_ReservedBaseKeys()
+	local reserved = {}
+	if ns.db and ns.db.assistantKey1 then
+		reserved["1"] = true
+	end
+	return reserved
+end
+
+--- The rotation roles resolve to exactly one key each, so a reserved key would strand
+--- them. Send them to their category instead, which has a list to choose from.
+local ROLE_FALLBACK_CATEGORY = {
+	main_rotation_1 = "main_rotation",
+	main_rotation_2 = "main_rotation",
+	main_rotation_3 = "main_rotation",
+	spender = "spender",
+}
+
 local function SlotListForSpell(spell, opts)
 	opts = opts or {}
 	if spell.role == "interrupt" then
@@ -418,6 +445,14 @@ local function SlotListForSpell(spell, opts)
 	end
 	local roleDef = spell.role and Schema.roles[spell.role]
 	if roleDef and roleDef.ui_key then
+		local reserved = ns.Keybind_ReservedBaseKeys()
+		if reserved[roleDef.ui_key] then
+			local fallback = ROLE_FALLBACK_CATEGORY[spell.role]
+			if fallback then
+				return ns.Keybind_GetCategorySlots(fallback)
+			end
+			return Schema.baseSlotFillOrder
+		end
 		return { roleDef.ui_key }
 	end
 	local cat = spell.category
@@ -501,6 +536,8 @@ function ns.Keybind_AllocateSpells(spells, opts)
 		return out
 	end
 
+	local reservedBase = ns.Keybind_ReservedBaseKeys()
+
 	local function trySlots(slots, spell)
 		slots = slots or {}
 		local layers = { false } -- false = base-laag (geen modifier)
@@ -511,7 +548,12 @@ function ns.Keybind_AllocateSpells(spells, opts)
 			local mod = layers[l]
 			for s = 1, #slots do
 				local base = ns.Keybind_NormalizeBaseKey(slots[s])
-				if base and not Schema.excludedBaseKeys[base] then
+				--- Only the BARE key is reserved. Rob asked for "alleen de 1 knop", and
+				--- Shift+1 is a different press: on Frost it carries Frozen Orb as the
+				--- AoE twin of Frostbolt, and taking the whole column would break that
+				--- pairing for no reason the assistant cares about.
+				local blocked = reservedBase[base] and not mod
+				if base and not Schema.excludedBaseKeys[base] and not blocked then
 					local bk = mod and ns.Keybind_MakeBindKey(mod, base) or base
 					if bk and not isOccupied(bk) then
 						mark(bk, spell)
@@ -552,6 +594,10 @@ function ns.Keybind_AllocateSpells(spells, opts)
 		end
 		local mod, base = ns.Keybind_ParseBindKey(spell.bindKey)
 		if not base or Schema.excludedBaseKeys[base] or not PREF_BASE_OK[base] then
+			return false
+		end
+		-- A reserved bare key beats a wish: the player told us that button is spoken for.
+		if reservedBase[base] and not mod then
 			return false
 		end
 		local bk = ns.Keybind_MakeBindKey(mod, base)

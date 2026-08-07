@@ -1109,6 +1109,38 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	--- /mh sba — keep key 1 free for Blizzard's Assisted Combat button.
+	---
+	--- Opt-in, and only offered to players who actually have the assistant:
+	--- `C_AssistedCombat.IsAvailable` answers that, so nobody gets a switch that does
+	--- nothing for them. The assistant covers your rotation, not your cooldowns,
+	--- defensives or utility — so only `1` is reserved and 2/3/4/5 stay filled as a
+	--- manual override. Shift+1 is untouched; it is a different press and on Frost it
+	--- carries the AoE twin.
+	if msg == "sba" then
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		local available = false
+		if C_AssistedCombat and C_AssistedCombat.IsAvailable then
+			local ok, v = pcall(C_AssistedCombat.IsAvailable)
+			available = ok and v and true or false
+		end
+		if not available then
+			print(prefix .. " |cffff9900This character has no Assisted Combat button.|r")
+			print("   |cff9d9d9dNothing changed — the setting would have no effect here.|r")
+			return
+		end
+		ns.db = ns.db or {}
+		ns.db.assistantKey1 = not ns.db.assistantKey1
+		if ns.db.assistantKey1 then
+			print(prefix .. " key |cffffffff1|r is now reserved for the Assisted Combat button.")
+			print("   |cff9d9d9dYour rotation starts at 2. Shift+1 is unchanged.|r")
+		else
+			print(prefix .. " key |cffffffff1|r goes back to your rotation.")
+		end
+		print("   |cff9d9d9d/reload, then /mh apply to see the new layout.|r")
+		return
+	end
+
 	-- /mh mouse detect — ask the button instead of asking the player.
 	if msg == "mouse detect" then
 		if ns.StartMouseDetect then
