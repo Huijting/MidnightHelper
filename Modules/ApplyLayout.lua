@@ -358,16 +358,160 @@ local function BuildPlan()
 	return plan, missing, alreadyOk
 end
 
+--------------------------------------------------------------------------------
+-- Full rebuild: empty bars 1-6, then lay the whole scheme out on them.
+--
+-- Rob's picture, 7 Aug: "we halen alle 6 de bars leeg (...) en dan alle keybindings
+-- en spells erin". He is right that it removes a whole class of problem — if the bars
+-- are empty, "something is already there" cannot happen.
+--
+-- ⚠️ NOTHING IS DESTROYED. Emptying a bar the naive way costs the player every macro,
+-- flyout, mount and pet on it, and we PROVED this morning that we cannot put a macro
+-- back: Rob lost one, because the id we record for a macro is the spell it casts and
+-- PickupMacro wants an index. So anything we cannot recreate is MOVED to bars 7 and 8
+-- — the space Rob wanted left free anyway — and undo moves it home. What we can
+-- recreate exactly (spells, items) is simply cleared and restored from the snapshot.
+--
+-- ⚠️ It needs somewhere to move things TO. If bars 7 and 8 do not have room for
+-- everything that must be relocated, the rebuild refuses rather than starting and
+-- getting stuck halfway.
+--------------------------------------------------------------------------------
+
+local BARS_1_TO_6 = {
+	"ACTIONBUTTON", "MULTIACTIONBAR1BUTTON", "MULTIACTIONBAR2BUTTON",
+	"MULTIACTIONBAR3BUTTON", "MULTIACTIONBAR4BUTTON", "MULTIACTIONBAR5BUTTON",
+}
+local BARS_7_TO_8 = { "MULTIACTIONBAR6BUTTON", "MULTIACTIONBAR7BUTTON" }
+
+local function SlotsOfBars(prefixes, commandSlot)
+	local out = {}
+	for _, prefix in ipairs(prefixes) do
+		for i = 1, 12 do
+			local slot = commandSlot[prefix .. i]
+			if slot then
+				out[#out + 1] = slot
+			end
+		end
+	end
+	table.sort(out)
+	return out
+end
+
+--- What is in this slot, and can we put it back ourselves?
+local function Occupant(slot)
+	local ok, kind, id = pcall(GetActionInfo, slot)
+	if not ok or not kind then
+		return nil
+	end
+	return { slot = slot, kind = kind, id = id, recreatable = RESTORABLE[kind] or false }
+end
+
+--- @return table plan {clear, relocate, keep}, string|nil refusal
+local function BuildRebuild(commandSlot)
+	local work = { clear = {}, relocate = {} }
+	local home = SlotsOfBars(BARS_1_TO_6, commandSlot)
+	local spare = SlotsOfBars(BARS_7_TO_8, commandSlot)
+
+	local freeSpare = {}
+	for _, slot in ipairs(spare) do
+		if SlotIsEmpty(slot) then
+			freeSpare[#freeSpare + 1] = slot
+		end
+	end
+
+	for _, slot in ipairs(home) do
+		local occ = Occupant(slot)
+		if occ then
+			if occ.recreatable then
+				work.clear[#work.clear + 1] = occ
+			else
+				local dest = table.remove(freeSpare, 1)
+				if not dest then
+					return nil, ("bars 7 and 8 have no room left; %d thing(s) would have nowhere to go"):format(
+						#work.relocate + 1)
+				end
+				occ.dest = dest
+				work.relocate[#work.relocate + 1] = occ
+			end
+		end
+	end
+	return work
+end
+
 --- `/mh apply` — say what would change. `/mh apply go` — do it. `/mh apply undo` — put it back.
 function ns.MH_ApplyLayout(arg)
 	ns.db = ns.db or {}
 
+	if arg == "full" or arg == "full go" then
+		local commandSlot = ns.MH_CommandSlotMap and ns.MH_CommandSlotMap() or {}
+		local work, refusal = BuildRebuild(commandSlot)
+		if not work then
+			print(("%s cannot rebuild — %s."):format(Prefix(), tostring(refusal)))
+			print("   |cff9d9d9dFree a few slots on bars 7-8 and try again. Nothing was touched.|r")
+			return
+		end
+		if arg == "full" then
+			print(("%s rebuild would clear |cffffffff%d|r slot(s) and move |cffffffff%d|r thing(s) to bars 7-8:"):format(
+				Prefix(), #work.clear, #work.relocate))
+			for i = 1, #work.relocate do
+				local r = work.relocate[i]
+				print(("   |cff8ecfffmove|r %s from slot %d to %d"):format(tostring(r.kind), r.slot, r.dest))
+			end
+			print("   |cff9d9d9dNothing has changed. |cffffffff/mh apply full go|r to do it.|r")
+			print("   |cff9d9d9dAfterwards run |cffffffff/mh apply go|r to fill the empty bars.|r")
+			return
+		end
+
+		if InCombatLockdown and InCombatLockdown() then
+			print(Prefix() .. " not in combat.")
+			return
+		end
+		-- Relocate first: if we cleared first and then ran out of room, the thing we
+		-- could not recreate would already be gone.
+		local moved, cleared = 0, 0
+		local snap = { relocated = {}, cleared = {} }
+		for i = 1, #work.relocate do
+			local r = work.relocate[i]
+			local ok = pcall(function()
+				PickupAction(r.slot)
+				PlaceAction(r.dest)
+				ClearCursor()
+			end)
+			pcall(ClearCursor)
+			if ok then
+				moved = moved + 1
+				snap.relocated[#snap.relocated + 1] = { from = r.slot, to = r.dest }
+			end
+		end
+		for i = 1, #work.clear do
+			local c = work.clear[i]
+			local ok = pcall(function()
+				PickupAction(c.slot)
+				ClearCursor()
+			end)
+			pcall(ClearCursor)
+			if ok then
+				cleared = cleared + 1
+				snap.cleared[#snap.cleared + 1] = { slot = c.slot, kind = c.kind, id = c.id }
+			end
+		end
+		ns.db.rebuildSnapshot = snap
+		print(("%s rebuilt — |cffffffff%d|r moved to bars 7-8, |cffffffff%d|r cleared."):format(
+			Prefix(), moved, cleared))
+		print("   |cff9d9d9dNow run |cffffffff/mh apply|r to see the layout, then |cffffffff/mh apply go|r.|r")
+		print("   |cff9d9d9d|cffffffff/mh apply undo|r puts the bars back.|r")
+		return
+	end
+
 	if arg == "undo" then
 		local snap = ns.db.bindSnapshot
 		local placedSnap = ns.db.placedSnapshot
+		local rebuild = ns.db.rebuildSnapshot
 		local haveKeys = type(snap) == "table" and #snap > 0
 		local havePlaced = type(placedSnap) == "table" and #placedSnap > 0
-		if not haveKeys and not havePlaced then
+		local haveRebuild = type(rebuild) == "table"
+			and ((#(rebuild.relocated or {}) > 0) or (#(rebuild.cleared or {}) > 0))
+		if not haveKeys and not havePlaced and not haveRebuild then
 			print(Prefix() .. " nothing to undo — no snapshot saved.")
 			return
 		end
@@ -436,10 +580,58 @@ function ns.MH_ApplyLayout(arg)
 		if SaveBindings and GetCurrentBindingSet then
 			pcall(SaveBindings, GetCurrentBindingSet())
 		end
+		--- And the rebuild, in the reverse order it happened: first put back what we
+		--- cleared, then walk the relocations home. Reverse order matters — a thing
+		--- moved to bars 7-8 has to come back to a slot that is free again by then.
+		local restored, returned = 0, 0
+		if haveRebuild then
+			for i = 1, #(rebuild.cleared or {}) do
+				local row = rebuild.cleared[i]
+				local ok = pcall(function()
+					if row.kind == "spell" and row.id then
+						if C_Spell and C_Spell.PickupSpell then
+							C_Spell.PickupSpell(row.id)
+						elseif PickupSpell then
+							PickupSpell(row.id)
+						end
+						PlaceAction(row.slot)
+					elseif row.kind == "item" and row.id then
+						if C_Item and C_Item.PickupItem then
+							C_Item.PickupItem(row.id)
+						elseif PickupItem then
+							PickupItem(row.id)
+						end
+						PlaceAction(row.slot)
+					end
+					ClearCursor()
+				end)
+				pcall(ClearCursor)
+				if ok then
+					restored = restored + 1
+				end
+			end
+			for i = #(rebuild.relocated or {}), 1, -1 do
+				local row = rebuild.relocated[i]
+				local ok = pcall(function()
+					PickupAction(row.to)
+					PlaceAction(row.from)
+					ClearCursor()
+				end)
+				pcall(ClearCursor)
+				if ok then
+					returned = returned + 1
+				end
+			end
+		end
+
 		ns.db.bindSnapshot = nil
 		ns.db.placedSnapshot = nil
+		ns.db.rebuildSnapshot = nil
 		print(("%s undone — %d key(s) restored, %d slot(s) put back."):format(
 			Prefix(), n, cleared))
+		if haveRebuild then
+			print(("   |cff9d9d9drebuild reversed: %d restored, %d moved home.|r"):format(restored, returned))
+		end
 		return
 	end
 
