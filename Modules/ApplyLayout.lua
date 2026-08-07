@@ -90,7 +90,17 @@ local function SlotHoldingSpell(spellID)
 	end
 	for slot = 1, 180 do
 		local ok, kind, id = pcall(GetActionInfo, slot)
-		if ok and kind == "spell" and id then
+		--- ⚠️ MACROS COUNT TOO. Rob's Counterspell, Remove Curse and Ice Block were all
+		--- reported as "not on any bar" while sitting on his bars inside macros. The
+		--- undo test showed why: a macro action reports ids 2139, 475 and 414658 —
+		--- which are the spell ids of exactly those three. So for a macro the id we get
+		--- is the spell it casts, and ignoring that made us offer to place a spell the
+		--- player already had a button for.
+		---
+		--- Observed on one client rather than documented, so it only ever ADDS a match;
+		--- if it is wrong somewhere the worst case is that we think a spell is placed
+		--- when it is not, and say so, rather than moving anything.
+		if ok and (kind == "spell" or kind == "macro") and id then
 			if id == spellID or (override and id == override) then
 				return slot
 			end
@@ -125,7 +135,13 @@ end
 --- an undo. Spells, items and macros have a pickup call we can name; a flyout, a mount
 --- or a pet summon does not, at least not one verified here. Those slots are refused as
 --- targets and reported instead, so the promise stays true.
-local RESTORABLE = { spell = true, item = true, macro = true }
+--- ⚠️ MACROS ARE OUT — proven, not feared. Rob applied and undid on 7 Aug: six of the
+--- seven slots came back exactly, and the macro on slot 42 did not. We recorded its id
+--- as 2139 and handed that to PickupMacro, which expects a macro INDEX; 2139 is
+--- Counterspell's spell id. So for a macro action the second return of GetActionInfo is
+--- not the index we need, and until something can restore one reliably a macro slot is
+--- not a legitimate target. Losing somebody's macro is not a trade we get to make.
+local RESTORABLE = { spell = true, item = true }
 
 --- @return number|nil slot, string|nil why, table|nil occupant {kind,id,name}
 local function PlacementForKey(wowKey, commandSlot)
@@ -283,9 +299,9 @@ function ns.MH_ApplyLayout(arg)
 							PickupSpell(row.id)
 						end
 						PlaceAction(row.slot)
-					elseif row.kind == "macro" and row.id and PickupMacro then
-						PickupMacro(row.id)
-						PlaceAction(row.slot)
+					-- No macro branch: PickupMacro wants an index and the id we get is a
+					-- spell id, which is exactly how Rob's macro was lost. Macro slots
+					-- are refused as targets now, so this case cannot arise again.
 					elseif row.kind == "item" and row.id and C_Item and C_Item.PickupItem then
 						C_Item.PickupItem(row.id)
 						PlaceAction(row.slot)
