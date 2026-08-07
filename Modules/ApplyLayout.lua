@@ -451,6 +451,17 @@ function ns.MH_ApplyLayout(arg)
 			return
 		end
 		if arg == "full" then
+			-- To the file as well. Same rule, and the second time I forgot it.
+			ns.db.rebuildPlan = { clear = {}, relocate = {} }
+			for i = 1, #work.clear do
+				local c = work.clear[i]
+				ns.db.rebuildPlan.clear[i] = { slot = c.slot, kind = c.kind, id = c.id }
+			end
+			for i = 1, #work.relocate do
+				local r = work.relocate[i]
+				ns.db.rebuildPlan.relocate[i] = { slot = r.slot, dest = r.dest, kind = r.kind, id = r.id }
+			end
+
 			print(("%s rebuild would clear |cffffffff%d|r slot(s) and move |cffffffff%d|r thing(s) to bars 7-8:"):format(
 				Prefix(), #work.clear, #work.relocate))
 			for i = 1, #work.relocate do
