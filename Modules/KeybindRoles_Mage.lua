@@ -88,7 +88,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	-- heeft Invisibility [66] NIET, en beide tonen zou een knop noemen die er niet is.
 
 	-- Dispel / CC (V). Frost Nova (root) + Polymorph (CC) baseline; Remove Curse = dispel;
-	-- Ring of Frost = AoE-CC. Dragon's Breath (Fire) staat spec-specifiek onder Fire.
+	-- Ring of Frost = AoE-CC; Dragon's Breath = cone-disorient.
 	["Frost Nova"] = { category = "dispel_cc", priority = 1, survival = "escape" }, -- CROWD_CONTROL [122]; baseline root
 	["Polymorph"] = { category = "dispel_cc", priority = 2 }, -- CROWD_CONTROL [118]; baseline CC
 	["Remove Curse"] = { category = "dispel_cc", priority = 3 }, -- UTILITY [475]; baseline curse-dispel
@@ -100,6 +100,7 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Mirror Image"] = { category = "defensive", priority = 5 }, -- [55342]; damage-reduction + threatdrop CD/def (BliZzi PartyCooldowns cat=DEF affects=self); functioneel defensive, NOOIT heal/spender
 	["Time Warp"] = { category = "utility", priority = 2 }, -- UTILITY [80353]; raid-haste (baseline)
 	["Invisibility"] = { category = "utility", priority = 4, survival = "escape" }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
+	["Slow Fall"] = { category = "utility", priority = 9 }, -- UTILITY [130]; val-utility, bewust laatste prioriteit (buiten combat)
 
 	--==============================================================================
 	-- ARCANE (spec 62) - ranged DPS. Builder = Arcane Blast; spenders = Arcane Barrage /
@@ -112,7 +113,14 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Arcane Barrage"] = { category = "spender", priority = 1, specs = { 62 } }, -- SpellArchetypes [44425] ranged; Arcane-Charge-spender
 	["Nether Tempest"] = { category = "main_rotation", priority = 4, specs = { 62 } }, -- SpellArchetypes [114923] ranged; DoT (talent)
 	["Supernova"] = { category = "main_rotation", priority = 5, specs = { 62 } }, -- SpellArchetypes [157980] ranged; utility-nuke (talent)
-	["Arcane Explosion"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 62 } }, -- SpellArchetypes [1449] melee; AoE-slot
+	-- ⚠️ SPEC-GRENDEL WEG, 7 aug 2026. Stond op `specs = { 62 }`, maar Arcane Explosion is
+	-- een baseline mage-spell: Robs FROST mage kent hem, en de spellbook-scan slaat
+	-- off-spec-regels over, dus dat is echt van zijn eigen spec. Met de grendel erop viel
+	-- hij bij hem in de "unclassified"-lijst en kreeg hij nooit een toets.
+	-- De `bindKey = "Shift+1"` ging mee weg: op Frost zit Frozen Orb daar al, en twee
+	-- wensen op dezelfde toets binnen één spec is precies wat lint-controle [11] afvangt.
+	-- Zonder wens zoekt hij per spec zelf een vrije rotatie-plek.
+	["Arcane Explosion"] = { category = "main_rotation", priority = 6 }, -- SpellArchetypes [1449] melee; baseline PBAoE
 	["Prismatic Barrier"] = { role = "defensive_1", priority = 1, specs = { 62 } }, -- Z; DEFENSIVE [235450] (kleine def, magic-absorb)
 	["Arcane Surge"] = { role = "cooldown_bar", priority = 1, specs = { 62 } }, -- F1; SpellArchetypes [365350]; Arcane grootste burst-CD
 	["Touch of the Magi"] = { category = "cooldown", priority = 2, specs = { 62 } }, -- extra CD; burst-window-opener
@@ -131,7 +139,9 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Phoenix Flames"] = { category = "main_rotation", priority = 4, specs = { 63 } }, -- SpellArchetypes [257542] ranged; charge-builder/cleave
 	["Living Bomb"] = { category = "main_rotation", priority = 5, specs = { 63 } }, -- SpellArchetypes [44461] ranged; AoE-DoT (talent)
 	["Flamestrike"] = { category = "spender", priority = 2, bindKey = "Shift+4", specs = { 63 } }, -- SpellArchetypes [2120] ranged; AoE-Hot-Streak-spender (AoE-slot)
-	["Dragon's Breath"] = { category = "dispel_cc", priority = 5, specs = { 63 } }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient (Fire)
+	-- ⚠️ SPEC-GRENDEL WEG, 7 aug 2026 — zelfde reden als Arcane Explosion hierboven. Stond
+	-- op 63, maar Robs Frost mage heeft hem (Frostfire-heldenboom) en kreeg dus geen toets.
+	["Dragon's Breath"] = { category = "dispel_cc", priority = 5 }, -- InterruptAbilities [31661] kind=cc pri=2; PBAoE-disorient
 	["Blazing Barrier"] = { role = "defensive_1", priority = 1, specs = { 63 } }, -- Z; DEFENSIVE [235313] (kleine def + reflect)
 	["Cauterize"] = { category = "defensive", priority = 4, specs = { 63 } }, -- Fire passieve-cheat-death-talent; defensive-overflow
 	["Combustion"] = { role = "cooldown_bar", priority = 1, specs = { 63 } }, -- F1; Fire grootste burst-CD

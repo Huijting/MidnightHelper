@@ -2030,10 +2030,6 @@
      "name": "Ice Floes",
      "label": "Utility"
     },
-    "Shift+1": {
-     "name": "Arcane Explosion",
-     "label": "Rotation"
-    },
     "V": {
      "name": "Frost Nova",
      "label": "Dispel / CC"
@@ -2090,7 +2086,7 @@
      "name": "Nether Tempest",
      "label": "Rotation"
     },
-    "Shift+2": {
+    "Shift+1": {
      "name": "Supernova",
      "label": "Rotation"
     },
@@ -2098,21 +2094,33 @@
      "name": "Presence of Mind",
      "label": "Utility"
     },
+    "Ctrl+V": {
+     "name": "Spellsteal",
+     "label": "Dispel / CC"
+    },
+    "Shift+2": {
+     "name": "Arcane Explosion",
+     "label": "Rotation"
+    },
     "Ctrl+F": {
      "name": "Evocation",
+     "label": "Utility"
+    },
+    "Ctrl+R": {
+     "name": "Slow Fall",
      "label": "Utility"
     }
    },
    "situational": [
     {
+     "key": "BUTTON5",
+     "name": "Dragon's Breath",
+     "label": "Dispel / CC"
+    },
+    {
      "key": "BUTTON4",
      "name": "Mirror Image",
      "label": "Defensive"
-    },
-    {
-     "key": "BUTTON5",
-     "name": "Spellsteal",
-     "label": "Dispel / CC"
     }
    ],
    "clickcast": [],
@@ -2228,6 +2236,14 @@
     "Ctrl+X": {
      "name": "Spellsteal",
      "label": "Dispel / CC"
+    },
+    "Shift+2": {
+     "name": "Arcane Explosion",
+     "label": "Rotation"
+    },
+    "Shift+R": {
+     "name": "Slow Fall",
+     "label": "Utility"
     }
    },
    "situational": [
@@ -2355,18 +2371,30 @@
     "5": {
      "name": "Ice Lance",
      "label": "Rotation"
+    },
+    "Ctrl+V": {
+     "name": "Spellsteal",
+     "label": "Dispel / CC"
+    },
+    "Shift+5": {
+     "name": "Arcane Explosion",
+     "label": "Rotation"
+    },
+    "Shift+R": {
+     "name": "Slow Fall",
+     "label": "Utility"
     }
    },
    "situational": [
     {
+     "key": "BUTTON5",
+     "name": "Dragon's Breath",
+     "label": "Dispel / CC"
+    },
+    {
      "key": "BUTTON4",
      "name": "Mirror Image",
      "label": "Defensive"
-    },
-    {
-     "key": "BUTTON5",
-     "name": "Spellsteal",
-     "label": "Dispel / CC"
     }
    ],
    "clickcast": [],
