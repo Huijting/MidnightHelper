@@ -176,6 +176,29 @@ end
 --- on 146 unprotected, so the very next placement proposed writing Frostbolt over it
 --- and then reported Frozen Orb as unplaceable. Reserving the copy nobody can press is
 --- the same as reserving nothing.
+--- The name the PLAYER sees, which is the override's, not the base id's. BuildPlan keeps
+--- its own copy of this for historical reasons; this one exists so the layout record can
+--- use it too without reaching inside that function.
+local function NameForSpell(id)
+	if not id then
+		return "?"
+	end
+	local display = id
+	if C_SpellBook and C_SpellBook.FindSpellOverrideByID then
+		local okO, over = pcall(C_SpellBook.FindSpellOverrideByID, id)
+		if okO and type(over) == "number" and over ~= 0 then
+			display = over
+		end
+	end
+	if C_Spell and C_Spell.GetSpellName then
+		local ok, n = pcall(C_Spell.GetSpellName, display)
+		if ok and n then
+			return n
+		end
+	end
+	return tostring(id)
+end
+
 local function SlotHoldingSpell(spellID, driveable)
 	if not (spellID and GetActionInfo) then
 		return nil
@@ -873,9 +896,53 @@ function ns.MH_ApplyLayout(arg)
 		return
 	end
 
+	--- ⚠️ TWO DIFFERENT THINGS WORE THE SAME MESSAGE. "no layout to apply — run
+	--- /mhautomap first" was printed whenever the plan came back empty, which happens for
+	--- two unrelated reasons: the spellbook scan produced nothing, or it produced a
+	--- layout in which every key is already correct. Rob hit it on 7 Aug 2026 with
+	--- /mhautomap reporting 23 placed one line above, which makes the advice not just
+	--- unhelpful but visibly wrong. Ask the layout directly instead of inferring its
+	--- state from the size of the plan.
+	local specNow = ns.MH_AutoMapSpecAndSlots and ns.MH_AutoMapSpecAndSlots()
+	local layoutSize = 0
+	if specNow and specNow.spellByUiKey then
+		for _ in pairs(specNow.spellByUiKey) do
+			layoutSize = layoutSize + 1
+		end
+	end
 	local plan, missing, alreadyOk = BuildPlan()
+	if layoutSize == 0 then
+		print(Prefix() .. " no layout — the spellbook scan came back empty.")
+		print("   |cff9d9d9dThis can happen right after a reload. Try again, or run |cffffffff/mhautomap|r to see the scan.|r")
+		return
+	end
+	--- What the layout WANTS, key by key, and where each ability sits right now. Written
+	--- on every dry run including the one with nothing to do — an evening of diagnosing
+	--- "three abilities are missing" was spent inferring this from slot numbers because
+	--- the quiet path wrote nothing at all.
+	local function RecordLayout()
+		local out = {}
+		if specNow and specNow.spellByUiKey then
+			for bindKey, entry in pairs(specNow.spellByUiKey) do
+				local slot = entry and entry.id and SlotHoldingSpell and SlotHoldingSpell(entry.id) or nil
+				out[#out + 1] = {
+					key = bindKey,
+					name = entry and entry.id and NameForSpell(entry.id) or "?",
+					onSlot = slot,
+				}
+			end
+			table.sort(out, function(a, b)
+				return ns.Keybind_CompareBindKeys(a.key, b.key)
+			end)
+		end
+		return out
+	end
+
 	if #plan == 0 and #missing == 0 then
-		print(Prefix() .. " no layout to apply — run |cffffffff/mhautomap|r first.")
+		ns.db.applyPlan = { rows = {}, missing = {}, alreadyOk = alreadyOk, layout = RecordLayout() }
+		print(("%s nothing to change — all |cffffffff%d|r key(s) already point at the right slot."):format(
+			Prefix(), alreadyOk))
+		print("   |cff9d9d9dThe whole layout is in SavedVariables — |cffffffff/reload|r to read it.|r")
 		return
 	end
 
