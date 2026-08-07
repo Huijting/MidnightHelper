@@ -115,11 +115,19 @@ end
 --- nothing needs rebinding — pressing the key simply starts working. Anything else is
 --- reported rather than solved.
 ---
---- ⚠️ EMPTY ONLY, at Rob's instruction. This is the first thing the addon writes to
---- somebody's bars instead of reading them, and an occupied slot belongs to whoever
---- put something in it. "I could not place this" is a fine answer; quietly replacing
---- a player's button is not.
---- @return number|nil slot, string|nil why
+--- ⚠️ IT MAY OVERWRITE NOW — Rob's call, 7 Aug, and the measurement forced it. With
+--- "empty only" the feature placed exactly ZERO spells on his mage: every slot his keys
+--- point at was already taken. That is true of anyone who has played the character.
+--- What stood in the way was Spellsteal on two slots, Disenchant and Arcane Explosion —
+--- leftovers, not a layout worth protecting.
+---
+--- ⚠️ BUT ONLY WHAT WE CAN PUT BACK. An undo that cannot restore what it removed is not
+--- an undo. Spells, items and macros have a pickup call we can name; a flyout, a mount
+--- or a pet summon does not, at least not one verified here. Those slots are refused as
+--- targets and reported instead, so the promise stays true.
+local RESTORABLE = { spell = true, item = true, macro = true }
+
+--- @return number|nil slot, string|nil why, table|nil occupant {kind,id,name}
 local function PlacementForKey(wowKey, commandSlot)
 	if not (wowKey and GetBindingAction) then
 		return nil, "no binding API"
@@ -132,17 +140,29 @@ local function PlacementForKey(wowKey, commandSlot)
 	if not slot then
 		return nil, ("%s is not an action button we can fill"):format(command)
 	end
-	if not SlotIsEmpty(slot) then
-		local _, _, _ = nil, nil, nil
-		local ok, kind, id = pcall(GetActionInfo, slot)
-		local occupant = ok and kind or "something"
-		if ok and kind == "spell" and id and C_Spell and C_Spell.GetSpellName then
-			local okN, n = pcall(C_Spell.GetSpellName, id)
-			occupant = (okN and n) or occupant
-		end
-		return nil, ("slot %d is taken by %s"):format(slot, tostring(occupant))
+	if SlotIsEmpty(slot) then
+		return slot
 	end
-	return slot
+
+	local ok, kind, id = pcall(GetActionInfo, slot)
+	if not ok or not kind then
+		return nil, ("slot %d could not be read"):format(slot)
+	end
+	if not RESTORABLE[kind] then
+		return nil, ("slot %d holds a %s, which we could not put back"):format(slot, tostring(kind))
+	end
+	local name = kind
+	if kind == "spell" and id and C_Spell and C_Spell.GetSpellName then
+		local okN, n = pcall(C_Spell.GetSpellName, id)
+		name = (okN and n) or kind
+	elseif kind == "macro" and id and GetMacroInfo then
+		local okM, n = pcall(GetMacroInfo, id)
+		name = (okM and n) or "macro"
+	elseif kind == "item" and id and C_Item and C_Item.GetItemNameByID then
+		local okI, n = pcall(C_Item.GetItemNameByID, id)
+		name = (okI and n) or "item"
+	end
+	return slot, nil, { kind = kind, id = id, name = name }
 end
 
 --- @return table plan  { {key, wowKey, command, slot, name} }, table missing {names}
@@ -180,7 +200,7 @@ local function BuildPlan()
 				}
 			elseif wowKey then
 				-- Not on a bar. Can we put it where this key already points?
-				local free, why = PlacementForKey(wowKey, commandSlot)
+				local free, why, occupant = PlacementForKey(wowKey, commandSlot)
 				if free then
 					plan[#plan + 1] = {
 						key = bindKey,
@@ -190,6 +210,7 @@ local function BuildPlan()
 						name = NameFor(entry.id),
 						spellID = entry.id,
 						place = true, -- put the spell on the bar; no rebinding needed
+						occupant = occupant, -- what has to move aside, nil if empty
 					}
 				else
 					missing[#missing + 1] = NameFor(entry.id) .. " (" .. tostring(why) .. ")"
@@ -247,9 +268,31 @@ function ns.MH_ApplyLayout(arg)
 		local cleared = 0
 		for i = 1, (havePlaced and #placedSnap or 0) do
 			local row = placedSnap[i]
-			if row and row.slot and PickupAction then
+			if row and row.slot then
 				local ok = pcall(function()
-					PickupAction(row.slot)
+					-- Lift what we put there off the bar first, whatever happens next.
+					if PickupAction then
+						PickupAction(row.slot)
+						ClearCursor()
+					end
+					-- Then put the original back, if there was one.
+					if row.kind == "spell" and row.id then
+						if C_Spell and C_Spell.PickupSpell then
+							C_Spell.PickupSpell(row.id)
+						elseif PickupSpell then
+							PickupSpell(row.id)
+						end
+						PlaceAction(row.slot)
+					elseif row.kind == "macro" and row.id and PickupMacro then
+						PickupMacro(row.id)
+						PlaceAction(row.slot)
+					elseif row.kind == "item" and row.id and C_Item and C_Item.PickupItem then
+						C_Item.PickupItem(row.id)
+						PlaceAction(row.slot)
+					elseif row.kind == "item" and row.id and PickupItem then
+						PickupItem(row.id)
+						PlaceAction(row.slot)
+					end
 					ClearCursor()
 				end)
 				pcall(ClearCursor)
@@ -264,7 +307,7 @@ function ns.MH_ApplyLayout(arg)
 		end
 		ns.db.bindSnapshot = nil
 		ns.db.placedSnapshot = nil
-		print(("%s undone — %d key(s) restored, %d placed spell(s) removed."):format(
+		print(("%s undone — %d key(s) restored, %d slot(s) put back."):format(
 			Prefix(), n, cleared))
 		return
 	end
@@ -280,8 +323,14 @@ function ns.MH_ApplyLayout(arg)
 		for i = 1, #plan do
 			local p = plan[i]
 			if p.place then
-				print(("   |cffffd100%-10s|r %-24s |cff40c040put on empty slot %d|r (%s)"):format(
-					p.wowKey, p.name, p.slot, p.command))
+				if p.occupant then
+					-- Say what goes out, by name, before anything happens.
+					print(("   |cffffd100%-10s|r %-24s |cffff9900slot %d — replaces %s|r"):format(
+						p.wowKey, p.name, p.slot, tostring(p.occupant.name)))
+				else
+					print(("   |cffffd100%-10s|r %-24s |cff40c040empty slot %d|r"):format(
+						p.wowKey, p.name, p.slot))
+				end
 			else
 				local now = GetBindingAction and GetBindingAction(p.wowKey) or ""
 				local note = (now ~= "" and now ~= p.command) and (" |cffff9900(replaces " .. now .. ")|r") or ""
@@ -310,7 +359,12 @@ function ns.MH_ApplyLayout(arg)
 	for i = 1, #plan do
 		local p = plan[i]
 		if p.place then
-			placedSnap[#placedSnap + 1] = { slot = p.slot }
+			-- Remember what was there, by type, so undo can genuinely put it back.
+			placedSnap[#placedSnap + 1] = {
+				slot = p.slot,
+				kind = p.occupant and p.occupant.kind or nil,
+				id = p.occupant and p.occupant.id or nil,
+			}
 		else
 			snap[#snap + 1] = { key = p.wowKey, was = GetBindingAction(p.wowKey) or "" }
 		end
