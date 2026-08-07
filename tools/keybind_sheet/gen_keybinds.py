@@ -7,7 +7,13 @@ ADDON = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Modules"
 
 # ---- v6 schema tables (ported verbatim from KeybindSchema.lua) ----
 MOD_DISPLAY = {"shift": "Shift", "ctrl": "Ctrl", "alt": "Alt"}
-MOD_FILL = ["shift", "ctrl", "alt"]
+# Alt was dropped from the scheme on 6 Aug 2026; this file kept handing it out for
+# another day, so the sheet showed keys the addon never binds. Mirror the Lua.
+MOD_FILL = ["shift", "ctrl"]
+# Thumb buttons, tried after the Shift layer (KeybindSchema.lua, trySlots). Offline we
+# cannot read ns.db.mouseDetect, so the sheet uses the same default a fresh install
+# gets: the two buttons nearly every mouse has.
+MOUSE_SLOTS = ["BUTTON4", "BUTTON5"]
 EXCLUDED = {"G"}
 BASE_FILL = ["1","2","3","4","5","Q","F","R","X","T","Z","C","V","F1"]
 ROLES = {
@@ -27,12 +33,13 @@ CAT_LABEL = {
     "main_rotation":"Rotation","spender":"Spender","raid_heal":"Raid heal","taunt":"Taunt",
     "utility":"Utility","interrupt":"Interrupt","defensive":"Defensive","dispel_cc":"Dispel / CC",
     "cooldown":"Cooldown","selfheal":"Self-heal","pet_care":"Pet","blessings":"Blessing",
+    "racial":"Racial",
 }
 CATEGORIES = {
-    "main_rotation":["1","2","3"],"spender":["4","5"],"raid_heal":["1","2","3","4","5"],
+    "main_rotation":["1","2","3","4","5"],"spender":["4","5"],"raid_heal":["1","2","3","4","5"],
     "taunt":["F"],"utility":["F","R","X","T"],"interrupt":["E"],"defensive":["Z","C","X","V"],
     "dispel_cc":["V"],"cooldown":["F1"],"selfheal":["F2","F3","F4"],"pet_care":["R","F1"],
-    "blessings":["R","F1"],
+    "blessings":["R","F1"],"racial":["E"],
 }
 PREF_BASE_OK = {"E","F1","F2","F3","F4"} | set(BASE_FILL)
 
@@ -74,6 +81,11 @@ def try_slots(slots, sp, occupied, out):
                 bk = make_bindkey(mod, base) if mod else base
                 if bk and bk not in occupied:
                     occupied.add(bk); out[bk] = sp; return True
+        # After Shift, before Ctrl: a free thumb button beats a second modifier.
+        if mod == "shift":
+            for bk in MOUSE_SLOTS:
+                if bk not in occupied:
+                    occupied.add(bk); out[bk] = sp; return True
     return False
 
 def try_preferred(sp, occupied, out):
@@ -86,15 +98,43 @@ def try_preferred(sp, occupied, out):
     return False
 
 def allocate(spells):
-    out, occupied = {}, set()
+    """Two passes, wishes first inside each — see KeybindSchema.lua's `pass()`.
+
+    Role anchors resolve to exactly one key and so have nowhere else to go; categories
+    have a list. Serving the one with no alternative first is the only order that cannot
+    strand anybody. Within a pass, a spell that named a key (`bindKey`) is served before
+    ordinary overflow, or overflow sits on a key that was spoken for.
+
+    There is NO global fallback: a spell that does not fit its own slots and their
+    modifier layers gets no key and is returned as unplaced. Falling back on the whole
+    base list put crowd control on builder keys, which is the complaint that started
+    the rework.
+    """
+    out, occupied, unplaced = {}, set(), []
+
     def sortkey(s):
         return (s.get("priority", 0) or 0, 0 if s.get("role") == "interrupt" else 1, s.get("id", 0) or 0)
-    for sp in sorted(spells, key=sortkey):
-        if not try_preferred(sp, occupied, out):
-            slots = slotlist_for(sp)
-            if not try_slots(slots, sp, occupied, out):
-                try_slots(BASE_FILL, sp, occupied, out)
-    return out
+
+    def place(sp):
+        if try_preferred(sp, occupied, out):
+            return
+        if not try_slots(slotlist_for(sp), sp, occupied, out):
+            unplaced.append(sp)
+
+    ordered = sorted(spells, key=sortkey)
+    handled = set()
+    for wants_role in (True, False):
+        for wishes_first in (True, False):
+            for i, sp in enumerate(ordered):
+                if i in handled:
+                    continue
+                if (sp.get("role") is not None) != wants_role:
+                    continue
+                if (sp.get("bindKey") is not None) != wishes_first:
+                    continue
+                handled.add(i)
+                place(sp)
+    return out, unplaced
 
 # ---- parse KeybindRoles_*.lua ----
 def parse_file(path):
@@ -126,6 +166,10 @@ CLASS_ENTRIES = {}
 for path in glob.glob(os.path.join(ADDON, "KeybindRoles_*.lua")):
     fn = os.path.basename(path)
     if "HunterPaladinShaman" in fn:  # legacy draft; superseded by per-class files
+        continue
+    if "Racials" in fn:
+        # Racials register globally and depend on the player's RACE, not their spec.
+        # A per-spec sheet cannot say which one you have, so it says none.
         continue
     token = fn.replace("KeybindRoles_", "").replace(".lua", "").upper()
     CLASS_ENTRIES[token] = parse_file(path)
@@ -165,7 +209,7 @@ for sid,(token,cls,spec,role) in sorted(SPECS.items(), key=lambda kv:(kv[1][1],k
         if e["role"] == "click_cast" or e["category"] == "click_cast":
             clickcast.append(e["name"]); continue
         picked.append(e)
-    alloc = allocate(picked)
+    alloc, unplaced = allocate(picked)
     # Keep on the KEYBOARD only abilities that land on their own role/category key;
     # true overflow (a spec has more CC/dispels than the V slot holds, so the extra
     # steals a free rotation key) goes to a "situational" list instead. Cleaner sheet,
@@ -188,7 +232,8 @@ for sid,(token,cls,spec,role) in sorted(SPECS.items(), key=lambda kv:(kv[1][1],k
             situational.append({"key": bk, "name": sp["name"], "label": label_for(sp)})
     situational.sort(key=lambda x: x["name"])
     out_specs.append({"id": sid, "class": cls, "classToken": token, "spec": spec, "role": role,
-                      "keys": keys, "situational": situational, "clickcast": sorted(set(clickcast))})
+                      "keys": keys, "situational": situational, "clickcast": sorted(set(clickcast)),
+                      "unplaced": sorted(sp["name"] for sp in unplaced)})
 
 data = {"specs": out_specs}
 outpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "keybinds.json")

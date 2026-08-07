@@ -159,11 +159,12 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0;text-wrap:balance;font-weight:7
   <div class="info">
     <div class="card">
       <h3>Action bars in WoW</h3>
-      <p>This spec uses <span class="big" id="bindCount">0</span> keybinds across the base + Shift / Ctrl / Alt layers.</p>
+      <p>This spec uses <span class="big" id="bindCount">0</span> keybinds across the base + Shift / Ctrl layers.</p>
       <ul>
         <li>Open <b>Options → Action Bars</b> (or Edit Mode) and enable enough bars for every ability to have a visible slot — usually the main bar plus <b id="barCount">2</b> extra.</li>
         <li>Bind the base keys (1–5, Q E R F T X Z C V, F1–F4) on your main bar via <b>Keybindings</b>.</li>
-        <li>Put the Shift / Ctrl / Alt layers on the extra bars and let bar paging swap them — same key, one modifier deeper.</li>
+        <li>Put the Shift / Ctrl layers on the extra bars and let bar paging swap them — same key, one modifier deeper.</li>
+        <li>A <b>BUTTON4</b>/<b>BUTTON5</b> key is a thumb button on your mouse. The scheme reaches for it after Shift and before Ctrl, because a free thumb button beats a second modifier.</li>
       </ul>
     </div>
     <div class="card">
@@ -183,7 +184,7 @@ h1{font-size:26px;letter-spacing:-.01em;margin:0;text-wrap:balance;font-weight:7
 <script>
 const D = /*DATA*/;
 const specs = D.specs, roleGroup = D.roleGroup, groupLabel = D.groupLabel, rows = D.rows, moveKeys = new Set(D.moveKeys);
-const LAYERS = [["","Base"],["Shift+","Shift"],["Ctrl+","Ctrl"],["Alt+","Alt"]];
+const LAYERS = [["","Base"],["Shift+","Shift"],["Ctrl+","Ctrl"]];
 let curSpec = specs.find(s=>s.id===66) || specs[0];  // default: Prot Paladin
 let curLayer = "";
 
@@ -306,7 +307,7 @@ def build_xlsx():
             rl.font=Font(size=9,color="666666"); rl.alignment=Alignment(horizontal="center"); rl.border=border
     for c in range(1,6): ws.column_dimensions[get_column_letter(c)].width=16
     note=r0+len(layout)*2+2
-    ws.cell(row=note,column=1,value="Overflow: when a group is full, the same key moves one modifier deeper — Shift → Ctrl → Alt.").font=Font(italic=True,size=10)
+    ws.cell(row=note,column=1,value="Overflow: when a group is full, the same key moves one modifier deeper — Shift, then a free mouse thumb button, then Ctrl.").font=Font(italic=True,size=10)
     ws.cell(row=note+1,column=1,value="AoE = the Shift-twin of its single-target key (1 → Shift+1, 4 → Shift+4).").font=Font(italic=True,size=10)
     # ---- per-spec sheets ----
     for s in SPECS:
@@ -317,7 +318,7 @@ def build_xlsx():
         order=["E","Q","1","2","3","4","5","F","R","X","T","Z","C","V","F1","F2","F3","F4"]
         def sortkey(bk):
             base=bk.split("+")[-1]; mod=bk.split("+")[0] if "+" in bk else ""
-            mo={"":0,"Shift":1,"Ctrl":2,"Alt":3}.get(mod,4)
+            mo={"":0,"Shift":1,"Ctrl":2}.get(mod,3)
             bi=order.index(base) if base in order else 99
             return (mo,bi,base)
         rown=2

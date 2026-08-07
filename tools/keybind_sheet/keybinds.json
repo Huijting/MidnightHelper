@@ -19,13 +19,41 @@
      "name": "Icebound Fortitude",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Death Grip",
-     "label": "Dispel / CC"
-    },
     "F2": {
      "name": "Death Pact",
      "label": "Self-heal"
+    },
+    "V": {
+     "name": "Vampiric Blood",
+     "label": "Dispel / CC"
+    },
+    "F1": {
+     "name": "Dancing Rune Weapon",
+     "label": "Big cooldown"
+    },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+Q": {
+     "name": "Wraith Walk",
+     "label": "Movement"
+    },
+    "Z": {
+     "name": "Lichborne",
+     "label": "Defensive"
+    },
+    "Shift+1": {
+     "name": "Blood Boil",
+     "label": "Rotation"
+    },
+    "Shift+2": {
+     "name": "Death and Decay",
+     "label": "Rotation"
+    },
+    "Shift+V": {
+     "name": "Death Grip",
+     "label": "Dispel / CC"
     },
     "4": {
      "name": "Death Strike",
@@ -43,30 +71,6 @@
      "name": "Heart Strike",
      "label": "Rotation"
     },
-    "Shift+V": {
-     "name": "Vampiric Blood",
-     "label": "Dispel / CC"
-    },
-    "F1": {
-     "name": "Dancing Rune Weapon",
-     "label": "Big cooldown"
-    },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
-    },
-    "Shift+Q": {
-     "name": "Wraith Walk",
-     "label": "Movement"
-    },
-    "Ctrl+V": {
-     "name": "Chains of Ice",
-     "label": "Dispel / CC"
-    },
-    "Z": {
-     "name": "Lichborne",
-     "label": "Defensive"
-    },
     "2": {
      "name": "Marrowrend",
      "label": "Rotation"
@@ -74,10 +78,6 @@
     "Shift+F1": {
      "name": "Consumption",
      "label": "Cooldown"
-    },
-    "Alt+V": {
-     "name": "Gorefiend's Grasp",
-     "label": "Dispel / CC"
     },
     "R": {
      "name": "Raise Dead",
@@ -91,46 +91,34 @@
      "name": "Bonestorm",
      "label": "Cooldown"
     },
-    "Alt+F1": {
-     "name": "Tombstone",
-     "label": "Cooldown"
+    "Ctrl+V": {
+     "name": "Asphyxiate",
+     "label": "Dispel / CC"
     },
-    "Shift+Z": {
+    "X": {
      "name": "Anti-Magic Zone",
      "label": "Defensive"
-    },
-    "Shift+2": {
-     "name": "Blood Boil",
-     "label": "Rotation"
-    },
-    "Shift+3": {
-     "name": "Death and Decay",
-     "label": "Rotation"
     }
    },
    "situational": [
     {
-     "key": "5",
-     "name": "Asphyxiate",
+     "key": "BUTTON4",
+     "name": "Chains of Ice",
      "label": "Dispel / CC"
     },
     {
-     "key": "T",
-     "name": "Blooddrinker",
-     "label": "Cooldown"
-    },
-    {
-     "key": "Shift+1",
-     "name": "Empower Rune Weapon",
-     "label": "Cooldown"
-    },
-    {
-     "key": "X",
-     "name": "Strangulate",
+     "key": "BUTTON5",
+     "name": "Gorefiend's Grasp",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Blooddrinker",
+    "Empower Rune Weapon",
+    "Strangulate",
+    "Tombstone"
+   ]
   },
   {
    "id": 251,
@@ -151,13 +139,41 @@
      "name": "Icebound Fortitude",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Death Grip",
-     "label": "Dispel / CC"
-    },
     "F2": {
      "name": "Death Pact",
      "label": "Self-heal"
+    },
+    "F1": {
+     "name": "Pillar of Frost",
+     "label": "Big cooldown"
+    },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+Q": {
+     "name": "Wraith Walk",
+     "label": "Movement"
+    },
+    "Z": {
+     "name": "Lichborne",
+     "label": "Defensive"
+    },
+    "Shift+1": {
+     "name": "Howling Blast",
+     "label": "Rotation"
+    },
+    "Shift+2": {
+     "name": "Frostscythe",
+     "label": "Rotation"
+    },
+    "Shift+4": {
+     "name": "Glacial Advance",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Death Grip",
+     "label": "Dispel / CC"
     },
     "4": {
      "name": "Death Strike",
@@ -179,25 +195,9 @@
      "name": "Frost Strike",
      "label": "Spender"
     },
-    "F1": {
-     "name": "Pillar of Frost",
-     "label": "Big cooldown"
-    },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
-    },
-    "Shift+Q": {
-     "name": "Wraith Walk",
-     "label": "Movement"
-    },
     "Shift+V": {
      "name": "Chains of Ice",
      "label": "Dispel / CC"
-    },
-    "Z": {
-     "name": "Lichborne",
-     "label": "Defensive"
     },
     "2": {
      "name": "Remorseless Winter",
@@ -211,15 +211,7 @@
      "name": "Raise Dead",
      "label": "Utility"
     },
-    "Ctrl+F1": {
-     "name": "Breath of Sindragosa",
-     "label": "Cooldown"
-    },
     "Ctrl+V": {
-     "name": "Blinding Sleet",
-     "label": "Dispel / CC"
-    },
-    "Alt+V": {
      "name": "Strangulate",
      "label": "Dispel / CC"
     },
@@ -227,25 +219,25 @@
      "name": "Anti-Magic Zone",
      "label": "Defensive"
     },
-    "Alt+F1": {
+    "Ctrl+F1": {
      "name": "Empower Rune Weapon",
      "label": "Cooldown"
-    },
-    "Shift+1": {
-     "name": "Howling Blast",
-     "label": "Rotation"
-    },
-    "3": {
-     "name": "Frostscythe",
-     "label": "Rotation"
-    },
-    "Shift+4": {
-     "name": "Glacial Advance",
-     "label": "Spender"
     }
    },
-   "situational": [],
-   "clickcast": []
+   "situational": [
+    {
+     "key": "BUTTON5",
+     "name": "Blinding Sleet",
+     "label": "Dispel / CC"
+    },
+    {
+     "key": "BUTTON4",
+     "name": "Breath of Sindragosa",
+     "label": "Cooldown"
+    }
+   ],
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 252,
@@ -266,13 +258,37 @@
      "name": "Icebound Fortitude",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Death Grip",
-     "label": "Dispel / CC"
-    },
     "F2": {
      "name": "Death Pact",
      "label": "Self-heal"
+    },
+    "F1": {
+     "name": "Army of the Dead",
+     "label": "Big cooldown"
+    },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+Q": {
+     "name": "Wraith Walk",
+     "label": "Movement"
+    },
+    "Z": {
+     "name": "Lichborne",
+     "label": "Defensive"
+    },
+    "Shift+2": {
+     "name": "Death and Decay",
+     "label": "Rotation"
+    },
+    "Shift+4": {
+     "name": "Epidemic",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Death Grip",
+     "label": "Dispel / CC"
     },
     "4": {
      "name": "Death Strike",
@@ -294,25 +310,9 @@
      "name": "Death Coil",
      "label": "Spender"
     },
-    "F1": {
-     "name": "Army of the Dead",
-     "label": "Big cooldown"
-    },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
-    },
-    "Shift+Q": {
-     "name": "Wraith Walk",
-     "label": "Movement"
-    },
     "Shift+V": {
      "name": "Chains of Ice",
      "label": "Dispel / CC"
-    },
-    "Z": {
-     "name": "Lichborne",
-     "label": "Defensive"
     },
     "2": {
      "name": "Scourge Strike",
@@ -326,47 +326,39 @@
      "name": "Raise Dead",
      "label": "Utility"
     },
-    "Ctrl+F1": {
-     "name": "Apocalypse",
-     "label": "Cooldown"
-    },
     "3": {
      "name": "Outbreak",
      "label": "Rotation"
     },
-    "Ctrl+V": {
-     "name": "Asphyxiate",
-     "label": "Dispel / CC"
-    },
-    "Alt+F1": {
+    "Ctrl+F1": {
      "name": "Dark Transformation",
      "label": "Cooldown"
     },
-    "Alt+V": {
+    "Ctrl+V": {
      "name": "Strangulate",
      "label": "Dispel / CC"
     },
-    "Shift+Z": {
+    "X": {
      "name": "Anti-Magic Zone",
      "label": "Defensive"
-    },
-    "Shift+2": {
-     "name": "Death and Decay",
-     "label": "Rotation"
-    },
-    "Shift+4": {
-     "name": "Epidemic",
-     "label": "Spender"
     }
    },
    "situational": [
     {
-     "key": "X",
-     "name": "Unholy Assault",
+     "key": "BUTTON4",
+     "name": "Apocalypse",
      "label": "Cooldown"
+    },
+    {
+     "key": "BUTTON5",
+     "name": "Asphyxiate",
+     "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Unholy Assault"
+   ]
   },
   {
    "id": 577,
@@ -375,6 +367,18 @@
    "spec": "Havoc",
    "role": "dps",
    "keys": {
+    "Shift+Q": {
+     "name": "Vengeful Retreat",
+     "label": "Movement"
+    },
+    "Shift+F1": {
+     "name": "The Hunt",
+     "label": "Big cooldown"
+    },
+    "Ctrl+Q": {
+     "name": "Felblade",
+     "label": "Movement"
+    },
     "E": {
      "name": "Disrupt",
      "label": "Interrupt"
@@ -382,22 +386,6 @@
     "Q": {
      "name": "Fel Rush",
      "label": "Movement"
-    },
-    "V": {
-     "name": "Chaos Nova",
-     "label": "Dispel / CC"
-    },
-    "F": {
-     "name": "Torment",
-     "label": "Taunt"
-    },
-    "1": {
-     "name": "Demon's Bite",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Throw Glaive",
-     "label": "Spender"
     },
     "Z": {
      "name": "Blur",
@@ -411,23 +399,43 @@
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "Shift+Q": {
-     "name": "Vengeful Retreat",
-     "label": "Movement"
-    },
-    "Shift+F1": {
-     "name": "The Hunt",
-     "label": "Big cooldown"
-    },
     "Shift+V": {
      "name": "Sigil of Misery",
      "label": "Dispel / CC"
     },
+    "Ctrl+V": {
+     "name": "Imprison",
+     "label": "Dispel / CC"
+    },
+    "Shift+4": {
+     "name": "Blade Dance",
+     "label": "Rotation"
+    },
+    "1": {
+     "name": "Death Sweep",
+     "label": "Rotation"
+    },
+    "V": {
+     "name": "Chaos Nova",
+     "label": "Dispel / CC"
+    },
+    "F": {
+     "name": "Torment",
+     "label": "Taunt"
+    },
     "2": {
+     "name": "Demon's Bite",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Throw Glaive",
+     "label": "Spender"
+    },
+    "3": {
      "name": "Chaos Strike",
      "label": "Rotation"
     },
-    "3": {
+    "5": {
      "name": "Annihilation",
      "label": "Rotation"
     },
@@ -435,25 +443,9 @@
      "name": "Netherwalk",
      "label": "Defensive"
     },
-    "Ctrl+Q": {
-     "name": "Felblade",
-     "label": "Movement"
-    },
-    "Ctrl+V": {
-     "name": "Imprison",
-     "label": "Dispel / CC"
-    },
     "Shift+1": {
      "name": "Immolation Aura",
      "label": "Rotation"
-    },
-    "Ctrl+F1": {
-     "name": "Essence Break",
-     "label": "Cooldown"
-    },
-    "Alt+V": {
-     "name": "Consume Magic",
-     "label": "Dispel / CC"
     },
     "Shift+2": {
      "name": "Eye Beam",
@@ -463,7 +455,7 @@
      "name": "Darkness",
      "label": "Defensive"
     },
-    "Alt+F1": {
+    "Ctrl+F1": {
      "name": "Reaver's Glaive",
      "label": "Cooldown"
     },
@@ -475,10 +467,6 @@
      "name": "Sigil of Doom",
      "label": "Rotation"
     },
-    "Ctrl+1": {
-     "name": "Death Sweep",
-     "label": "Rotation"
-    },
     "T": {
      "name": "Glide",
      "label": "Utility"
@@ -486,12 +474,18 @@
    },
    "situational": [
     {
-     "key": "Shift+4",
-     "name": "Blade Dance",
-     "label": "Rotation"
+     "key": "BUTTON5",
+     "name": "Consume Magic",
+     "label": "Dispel / CC"
+    },
+    {
+     "key": "BUTTON4",
+     "name": "Essence Break",
+     "label": "Cooldown"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 581,
@@ -500,6 +494,22 @@
    "spec": "Vengeance",
    "role": "tank",
    "keys": {
+    "Shift+Q": {
+     "name": "Vengeful Retreat",
+     "label": "Movement"
+    },
+    "Shift+F1": {
+     "name": "The Hunt",
+     "label": "Big cooldown"
+    },
+    "Shift+C": {
+     "name": "Metamorphosis (Vengeance)",
+     "label": "Defensive (major)"
+    },
+    "Ctrl+Q": {
+     "name": "Felblade",
+     "label": "Movement"
+    },
     "E": {
      "name": "Disrupt",
      "label": "Interrupt"
@@ -507,30 +517,6 @@
     "Q": {
      "name": "Infernal Strike",
      "label": "Movement"
-    },
-    "V": {
-     "name": "Chaos Nova",
-     "label": "Dispel / CC"
-    },
-    "F": {
-     "name": "Torment",
-     "label": "Taunt"
-    },
-    "Shift+V": {
-     "name": "Sigil of Silence",
-     "label": "Dispel / CC"
-    },
-    "1": {
-     "name": "Shear",
-     "label": "Rotation"
-    },
-    "2": {
-     "name": "Fracture",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Soul Cleave",
-     "label": "Spender"
     },
     "Z": {
      "name": "Demon Spikes",
@@ -544,41 +530,49 @@
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "Shift+Q": {
-     "name": "Vengeful Retreat",
-     "label": "Movement"
-    },
-    "Shift+F1": {
-     "name": "The Hunt",
-     "label": "Big cooldown"
-    },
-    "Ctrl+V": {
+    "Shift+V": {
      "name": "Sigil of Misery",
      "label": "Dispel / CC"
     },
-    "Shift+C": {
-     "name": "Metamorphosis (Vengeance)",
-     "label": "Defensive (major)"
-    },
-    "Ctrl+Q": {
-     "name": "Felblade",
-     "label": "Movement"
-    },
-    "Alt+V": {
+    "Ctrl+V": {
      "name": "Imprison",
      "label": "Dispel / CC"
+    },
+    "Ctrl+F1": {
+     "name": "Soul Carver",
+     "label": "Cooldown"
+    },
+    "Shift+4": {
+     "name": "Spirit Bomb",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Chaos Nova",
+     "label": "Dispel / CC"
+    },
+    "F": {
+     "name": "Torment",
+     "label": "Taunt"
+    },
+    "1": {
+     "name": "Shear",
+     "label": "Rotation"
+    },
+    "2": {
+     "name": "Fracture",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Soul Cleave",
+     "label": "Spender"
     },
     "3": {
      "name": "Immolation Aura",
      "label": "Rotation"
     },
-    "Shift+1": {
+    "5": {
      "name": "Sigil of Flame",
      "label": "Rotation"
-    },
-    "Ctrl+F1": {
-     "name": "Soul Carver",
-     "label": "Cooldown"
     },
     "X": {
      "name": "Darkness",
@@ -596,33 +590,28 @@
      "name": "Spectral Sight",
      "label": "Utility"
     },
-    "Shift+4": {
-     "name": "Spirit Bomb",
-     "label": "Spender"
-    },
-    "Shift+F": {
+    "T": {
      "name": "Glide",
      "label": "Utility"
     }
    },
    "situational": [
     {
-     "key": "5",
+     "key": "BUTTON5",
      "name": "Consume Magic",
      "label": "Dispel / CC"
     },
     {
-     "key": "Shift+2",
-     "name": "Fel Eruption",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "T",
-     "name": "Sigil of Chains",
+     "key": "BUTTON4",
+     "name": "Sigil of Silence",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Fel Eruption",
+    "Sigil of Chains"
+   ]
   },
   {
    "id": 102,
@@ -635,25 +624,9 @@
      "name": "Solar Beam",
      "label": "Interrupt"
     },
-    "1": {
-     "name": "Wrath",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Starsurge",
-     "label": "Spender"
-    },
-    "V": {
-     "name": "Typhoon",
-     "label": "Dispel / CC"
-    },
     "F1": {
      "name": "Celestial Alignment",
      "label": "Big cooldown"
-    },
-    "Shift+V": {
-     "name": "Mighty Bash",
-     "label": "Dispel / CC"
     },
     "Q": {
      "name": "Wild Charge",
@@ -675,49 +648,13 @@
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "2": {
-     "name": "Starfire",
-     "label": "Rotation"
-    },
     "Shift+Q": {
      "name": "Tiger Dash",
      "label": "Movement"
     },
-    "Shift+F1": {
-     "name": "Incarnation: Chosen of Elune",
-     "label": "Cooldown"
-    },
     "F": {
-     "name": "Innervate",
-     "label": "Utility"
-    },
-    "Shift+F": {
      "name": "Rebirth",
      "label": "Utility"
-    },
-    "3": {
-     "name": "Moonfire",
-     "label": "Rotation"
-    },
-    "Ctrl+Q": {
-     "name": "Dash",
-     "label": "Movement"
-    },
-    "Ctrl+V": {
-     "name": "Cyclone",
-     "label": "Dispel / CC"
-    },
-    "X": {
-     "name": "Prowl",
-     "label": "Utility"
-    },
-    "Shift+1": {
-     "name": "Sunfire",
-     "label": "Rotation"
-    },
-    "Alt+V": {
-     "name": "Entangling Roots",
-     "label": "Dispel / CC"
     },
     "Shift+T": {
      "name": "Bear Form",
@@ -734,21 +671,69 @@
     "Shift+4": {
      "name": "Starfall",
      "label": "Spender"
+    },
+    "1": {
+     "name": "Wrath",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Starsurge",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Typhoon",
+     "label": "Dispel / CC"
+    },
+    "Shift+V": {
+     "name": "Mighty Bash",
+     "label": "Dispel / CC"
+    },
+    "2": {
+     "name": "Starfire",
+     "label": "Rotation"
+    },
+    "Shift+F1": {
+     "name": "Incarnation: Chosen of Elune",
+     "label": "Cooldown"
+    },
+    "X": {
+     "name": "Innervate",
+     "label": "Utility"
+    },
+    "3": {
+     "name": "Moonfire",
+     "label": "Rotation"
+    },
+    "T": {
+     "name": "Prowl",
+     "label": "Utility"
+    },
+    "5": {
+     "name": "Sunfire",
+     "label": "Rotation"
+    },
+    "Ctrl+V": {
+     "name": "Entangling Roots",
+     "label": "Dispel / CC"
     }
    },
    "situational": [
     {
-     "key": "T",
-     "name": "Remove Corruption",
+     "key": "BUTTON5",
+     "name": "Cyclone",
      "label": "Dispel / CC"
     },
     {
-     "key": "5",
-     "name": "Soothe",
-     "label": "Dispel / CC"
+     "key": "BUTTON4",
+     "name": "Dash",
+     "label": "Movement"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Remove Corruption",
+    "Soothe"
+   ]
   },
   {
    "id": 103,
@@ -760,18 +745,6 @@
     "E": {
      "name": "Skull Bash",
      "label": "Interrupt"
-    },
-    "1": {
-     "name": "Shred",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Rip",
-     "label": "Spender"
-    },
-    "V": {
-     "name": "Maim",
-     "label": "Dispel / CC"
     },
     "C": {
      "name": "Survival Instincts",
@@ -800,6 +773,50 @@
     "F4": {
      "name": "Recuperate",
      "label": "Sustain / HoT"
+    },
+    "Shift+Q": {
+     "name": "Stampeding Roar",
+     "label": "Movement"
+    },
+    "Shift+F2": {
+     "name": "Frenzied Regeneration",
+     "label": "Self-heal"
+    },
+    "F": {
+     "name": "Rebirth",
+     "label": "Utility"
+    },
+    "Shift+T": {
+     "name": "Bear Form",
+     "label": "Utility"
+    },
+    "Shift+R": {
+     "name": "Cat Form",
+     "label": "Utility"
+    },
+    "Shift+1": {
+     "name": "Swipe",
+     "label": "Rotation"
+    },
+    "Shift+X": {
+     "name": "Moonkin Form",
+     "label": "Utility"
+    },
+    "Shift+4": {
+     "name": "Primal Wrath",
+     "label": "Spender"
+    },
+    "1": {
+     "name": "Shred",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Rip",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Maim",
+     "label": "Dispel / CC"
     },
     "2": {
      "name": "Rake",
@@ -821,26 +838,6 @@
      "name": "Thrash",
      "label": "Rotation"
     },
-    "Shift+Q": {
-     "name": "Stampeding Roar",
-     "label": "Movement"
-    },
-    "Shift+F2": {
-     "name": "Frenzied Regeneration",
-     "label": "Self-heal"
-    },
-    "F": {
-     "name": "Rebirth",
-     "label": "Utility"
-    },
-    "Ctrl+F1": {
-     "name": "Tiger's Fury",
-     "label": "Cooldown"
-    },
-    "Ctrl+Q": {
-     "name": "Dash",
-     "label": "Movement"
-    },
     "Ctrl+V": {
      "name": "Cyclone",
      "label": "Dispel / CC"
@@ -848,45 +845,26 @@
     "X": {
      "name": "Prowl",
      "label": "Utility"
-    },
-    "Alt+V": {
-     "name": "Entangling Roots",
-     "label": "Dispel / CC"
-    },
-    "Shift+T": {
-     "name": "Bear Form",
-     "label": "Utility"
-    },
-    "Shift+R": {
-     "name": "Cat Form",
-     "label": "Utility"
-    },
-    "Shift+1": {
-     "name": "Swipe",
-     "label": "Rotation"
-    },
-    "Shift+X": {
-     "name": "Moonkin Form",
-     "label": "Utility"
-    },
-    "Shift+4": {
-     "name": "Primal Wrath",
-     "label": "Spender"
     }
    },
    "situational": [
     {
-     "key": "Shift+2",
-     "name": "Remove Corruption",
-     "label": "Dispel / CC"
+     "key": "BUTTON4",
+     "name": "Dash",
+     "label": "Movement"
     },
     {
-     "key": "T",
-     "name": "Soothe",
-     "label": "Dispel / CC"
+     "key": "BUTTON5",
+     "name": "Tiger's Fury",
+     "label": "Cooldown"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Entangling Roots",
+    "Remove Corruption",
+    "Soothe"
+   ]
   },
   {
    "id": 104,
@@ -898,26 +876,6 @@
     "E": {
      "name": "Skull Bash",
      "label": "Interrupt"
-    },
-    "V": {
-     "name": "Typhoon",
-     "label": "Dispel / CC"
-    },
-    "1": {
-     "name": "Mangle",
-     "label": "Rotation"
-    },
-    "Z": {
-     "name": "Ironfur",
-     "label": "Defensive"
-    },
-    "Shift+V": {
-     "name": "Mighty Bash",
-     "label": "Dispel / CC"
-    },
-    "F": {
-     "name": "Growl",
-     "label": "Taunt"
     },
     "C": {
      "name": "Survival Instincts",
@@ -935,7 +893,7 @@
      "name": "Travel Form",
      "label": "Mobility"
     },
-    "Shift+Z": {
+    "Z": {
      "name": "Barkskin",
      "label": "Defensive"
     },
@@ -947,9 +905,53 @@
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "Ctrl+V": {
-     "name": "Incapacitating Roar",
+    "Shift+Q": {
+     "name": "Stampeding Roar",
+     "label": "Movement"
+    },
+    "Shift+F2": {
+     "name": "Frenzied Regeneration",
+     "label": "Self-heal"
+    },
+    "F": {
+     "name": "Rebirth",
+     "label": "Utility"
+    },
+    "Shift+T": {
+     "name": "Bear Form",
+     "label": "Utility"
+    },
+    "Shift+R": {
+     "name": "Cat Form",
+     "label": "Utility"
+    },
+    "Shift+1": {
+     "name": "Swipe",
+     "label": "Rotation"
+    },
+    "Shift+X": {
+     "name": "Moonkin Form",
+     "label": "Utility"
+    },
+    "V": {
+     "name": "Typhoon",
      "label": "Dispel / CC"
+    },
+    "1": {
+     "name": "Mangle",
+     "label": "Rotation"
+    },
+    "X": {
+     "name": "Ironfur",
+     "label": "Defensive"
+    },
+    "Shift+V": {
+     "name": "Mighty Bash",
+     "label": "Dispel / CC"
+    },
+    "Shift+F": {
+     "name": "Growl",
+     "label": "Taunt"
     },
     "Shift+F1": {
      "name": "Incarnation: Guardian of Ursoc",
@@ -959,18 +961,6 @@
      "name": "Thrash",
      "label": "Rotation"
     },
-    "Shift+Q": {
-     "name": "Stampeding Roar",
-     "label": "Movement"
-    },
-    "Shift+F2": {
-     "name": "Frenzied Regeneration",
-     "label": "Self-heal"
-    },
-    "Shift+F": {
-     "name": "Rebirth",
-     "label": "Utility"
-    },
     "3": {
      "name": "Moonfire",
      "label": "Rotation"
@@ -979,15 +969,11 @@
      "name": "Maul",
      "label": "Spender"
     },
-    "X": {
+    "Shift+Z": {
      "name": "Rage of the Sleeper",
      "label": "Defensive"
     },
-    "Ctrl+Q": {
-     "name": "Dash",
-     "label": "Movement"
-    },
-    "Alt+V": {
+    "Ctrl+V": {
      "name": "Cyclone",
      "label": "Dispel / CC"
     },
@@ -998,42 +984,26 @@
     "Shift+C": {
      "name": "Bristling Fur",
      "label": "Defensive"
-    },
-    "Shift+T": {
-     "name": "Bear Form",
-     "label": "Utility"
-    },
-    "Shift+R": {
-     "name": "Cat Form",
-     "label": "Utility"
-    },
-    "Shift+2": {
-     "name": "Swipe",
-     "label": "Rotation"
-    },
-    "Shift+X": {
-     "name": "Moonkin Form",
-     "label": "Utility"
     }
    },
    "situational": [
     {
-     "key": "5",
-     "name": "Entangling Roots",
-     "label": "Dispel / CC"
+     "key": "BUTTON4",
+     "name": "Dash",
+     "label": "Movement"
     },
     {
-     "key": "Shift+3",
-     "name": "Remove Corruption",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "Shift+1",
-     "name": "Soothe",
+     "key": "BUTTON5",
+     "name": "Incapacitating Roar",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Entangling Roots",
+    "Remove Corruption",
+    "Soothe"
+   ]
   },
   {
    "id": 105,
@@ -1042,21 +1012,9 @@
    "spec": "Restoration",
    "role": "heal",
    "keys": {
-    "1": {
-     "name": "Wrath",
-     "label": "Rotation"
-    },
-    "V": {
-     "name": "Typhoon",
-     "label": "Dispel / CC"
-    },
     "F1": {
      "name": "Tranquility",
      "label": "Big cooldown"
-    },
-    "Shift+V": {
-     "name": "Nature's Cure",
-     "label": "Dispel / CC"
     },
     "Q": {
      "name": "Wild Charge",
@@ -1078,60 +1036,20 @@
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "Shift+4": {
-     "name": "Wild Growth",
-     "label": "Raid heal"
-    },
     "Shift+Z": {
      "name": "Ironbark",
      "label": "Defensive"
     },
-    "Shift+F1": {
-     "name": "Flourish",
-     "label": "Cooldown"
-    },
-    "Ctrl+F1": {
-     "name": "Incarnation: Tree of Life",
-     "label": "Cooldown"
-    },
-    "Alt+F1": {
-     "name": "Convoke the Spirits",
-     "label": "Cooldown"
-    },
-    "Ctrl+V": {
-     "name": "Mass Entanglement",
-     "label": "Dispel / CC"
-    },
     "F": {
-     "name": "Innervate",
-     "label": "Utility"
-    },
-    "Shift+F": {
      "name": "Rebirth",
      "label": "Utility"
-    },
-    "3": {
-     "name": "Moonfire",
-     "label": "Rotation"
     },
     "Shift+Q": {
      "name": "Dash",
      "label": "Movement"
     },
-    "Alt+V": {
-     "name": "Cyclone",
-     "label": "Dispel / CC"
-    },
-    "X": {
-     "name": "Prowl",
-     "label": "Utility"
-    },
-    "Shift+1": {
-     "name": "Sunfire",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Efflorescence",
+    "Shift+4": {
+     "name": "Wild Growth",
      "label": "Raid heal"
     },
     "Shift+T": {
@@ -1145,23 +1063,62 @@
     "Shift+X": {
      "name": "Moonkin Form",
      "label": "Utility"
+    },
+    "1": {
+     "name": "Wrath",
+     "label": "Rotation"
+    },
+    "V": {
+     "name": "Typhoon",
+     "label": "Dispel / CC"
+    },
+    "Shift+V": {
+     "name": "Nature's Cure",
+     "label": "Dispel / CC"
+    },
+    "Shift+F1": {
+     "name": "Flourish",
+     "label": "Cooldown"
+    },
+    "Ctrl+F1": {
+     "name": "Grove Guardians",
+     "label": "Cooldown"
+    },
+    "Ctrl+V": {
+     "name": "Mass Entanglement",
+     "label": "Dispel / CC"
+    },
+    "X": {
+     "name": "Innervate",
+     "label": "Utility"
+    },
+    "2": {
+     "name": "Moonfire",
+     "label": "Rotation"
+    },
+    "T": {
+     "name": "Prowl",
+     "label": "Utility"
+    },
+    "3": {
+     "name": "Sunfire",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Efflorescence",
+     "label": "Raid heal"
     }
    },
    "situational": [
     {
-     "key": "5",
-     "name": "Entangling Roots",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "2",
-     "name": "Grove Guardians",
+     "key": "BUTTON5",
+     "name": "Convoke the Spirits",
      "label": "Cooldown"
     },
     {
-     "key": "T",
-     "name": "Soothe",
-     "label": "Dispel / CC"
+     "key": "BUTTON4",
+     "name": "Incarnation: Tree of Life",
+     "label": "Cooldown"
     }
    ],
    "clickcast": [
@@ -1170,6 +1127,11 @@
     "Regrowth",
     "Rejuvenation",
     "Swiftmend"
+   ],
+   "unplaced": [
+    "Cyclone",
+    "Entangling Roots",
+    "Soothe"
    ]
   },
   {
@@ -1195,10 +1157,6 @@
      "name": "Zephyr",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Sleep Walk",
-     "label": "Dispel / CC"
-    },
     "F2": {
      "name": "Verdant Embrace",
      "label": "Self-heal"
@@ -1206,6 +1164,30 @@
     "F3": {
      "name": "Living Flame",
      "label": "Heal (out of combat)"
+    },
+    "F1": {
+     "name": "Breath of Eons",
+     "label": "Big cooldown"
+    },
+    "V": {
+     "name": "Defy Fate",
+     "label": "Dispel / CC"
+    },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+Q": {
+     "name": "Deep Breath",
+     "label": "Movement"
+    },
+    "Shift+F3": {
+     "name": "Renewing Blaze",
+     "label": "Heal (out of combat)"
+    },
+    "Shift+V": {
+     "name": "Sleep Walk",
+     "label": "Dispel / CC"
     },
     "F": {
      "name": "Blessing of the Bronze",
@@ -1219,43 +1201,19 @@
      "name": "Eruption",
      "label": "Spender"
     },
-    "F1": {
-     "name": "Breath of Eons",
-     "label": "Big cooldown"
-    },
-    "Shift+V": {
-     "name": "Defy Fate",
-     "label": "Dispel / CC"
-    },
     "2": {
      "name": "Azure Strike",
      "label": "Rotation"
-    },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
-    },
-    "Shift+Q": {
-     "name": "Deep Breath",
-     "label": "Movement"
-    },
-    "Ctrl+V": {
-     "name": "Expunge",
-     "label": "Dispel / CC"
-    },
-    "Shift+F3": {
-     "name": "Renewing Blaze",
-     "label": "Heal (out of combat)"
     },
     "3": {
      "name": "Fire Breath",
      "label": "Rotation"
     },
-    "Shift+1": {
+    "5": {
      "name": "Prescience",
      "label": "Rotation"
     },
-    "5": {
+    "Shift+4": {
      "name": "Upheaval",
      "label": "Spender"
     },
@@ -1263,13 +1221,13 @@
      "name": "Blistering Scales",
      "label": "Utility"
     },
-    "Alt+V": {
-     "name": "Cauterizing Flame",
-     "label": "Dispel / CC"
-    },
     "X": {
      "name": "Time Skip",
      "label": "Utility"
+    },
+    "Ctrl+V": {
+     "name": "Landslide",
+     "label": "Dispel / CC"
     },
     "Shift+F1": {
      "name": "Fury of the Aspects",
@@ -1282,12 +1240,18 @@
    },
    "situational": [
     {
-     "key": "T",
-     "name": "Landslide",
+     "key": "BUTTON5",
+     "name": "Cauterizing Flame",
+     "label": "Dispel / CC"
+    },
+    {
+     "key": "BUTTON4",
+     "name": "Expunge",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 1467,
@@ -1312,10 +1276,6 @@
      "name": "Zephyr",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Sleep Walk",
-     "label": "Dispel / CC"
-    },
     "F2": {
      "name": "Verdant Embrace",
      "label": "Self-heal"
@@ -1324,21 +1284,9 @@
      "name": "Living Flame",
      "label": "Heal (out of combat)"
     },
-    "F": {
-     "name": "Blessing of the Bronze",
-     "label": "Utility"
-    },
-    "4": {
-     "name": "Disintegrate",
-     "label": "Spender"
-    },
     "F1": {
      "name": "Dragonrage",
      "label": "Big cooldown"
-    },
-    "1": {
-     "name": "Azure Strike",
-     "label": "Rotation"
     },
     "F4": {
      "name": "Recuperate",
@@ -1348,13 +1296,41 @@
      "name": "Deep Breath",
      "label": "Movement"
     },
-    "Shift+V": {
-     "name": "Expunge",
-     "label": "Dispel / CC"
-    },
     "Shift+F3": {
      "name": "Renewing Blaze",
      "label": "Heal (out of combat)"
+    },
+    "Shift+2": {
+     "name": "Azure Sweep",
+     "label": "Rotation"
+    },
+    "Shift+4": {
+     "name": "Pyre",
+     "label": "Spender"
+    },
+    "Shift+5": {
+     "name": "Firestorm",
+     "label": "Rotation"
+    },
+    "V": {
+     "name": "Sleep Walk",
+     "label": "Dispel / CC"
+    },
+    "F": {
+     "name": "Blessing of the Bronze",
+     "label": "Utility"
+    },
+    "4": {
+     "name": "Disintegrate",
+     "label": "Spender"
+    },
+    "1": {
+     "name": "Azure Strike",
+     "label": "Rotation"
+    },
+    "Shift+V": {
+     "name": "Expunge",
+     "label": "Dispel / CC"
     },
     "2": {
      "name": "Fire Breath",
@@ -1368,14 +1344,6 @@
      "name": "Oppressing Roar",
      "label": "Utility"
     },
-    "Ctrl+V": {
-     "name": "Cauterizing Flame",
-     "label": "Dispel / CC"
-    },
-    "Alt+V": {
-     "name": "Landslide",
-     "label": "Dispel / CC"
-    },
     "Shift+F1": {
      "name": "Fury of the Aspects",
      "label": "Cooldown"
@@ -1383,24 +1351,22 @@
     "Ctrl+F1": {
      "name": "Tip the Scales",
      "label": "Cooldown"
-    },
-    "Shift+2": {
-     "name": "Azure Sweep",
-     "label": "Rotation"
-    },
-    "Shift+4": {
-     "name": "Pyre",
-     "label": "Spender"
     }
    },
    "situational": [
     {
-     "key": "Shift+5",
-     "name": "Firestorm",
-     "label": "Rotation"
+     "key": "BUTTON4",
+     "name": "Cauterizing Flame",
+     "label": "Dispel / CC"
+    },
+    {
+     "key": "BUTTON5",
+     "name": "Landslide",
+     "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 1468,
@@ -1425,10 +1391,6 @@
      "name": "Zephyr",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Sleep Walk",
-     "label": "Dispel / CC"
-    },
     "F2": {
      "name": "Verdant Embrace",
      "label": "Self-heal"
@@ -1436,14 +1398,6 @@
     "F3": {
      "name": "Living Flame",
      "label": "Heal (out of combat)"
-    },
-    "F": {
-     "name": "Blessing of the Bronze",
-     "label": "Utility"
-    },
-    "1": {
-     "name": "Dream Breath",
-     "label": "Raid heal"
     },
     "F1": {
      "name": "Dream Flight",
@@ -1457,13 +1411,25 @@
      "name": "Deep Breath",
      "label": "Movement"
     },
-    "Shift+V": {
-     "name": "Expunge",
-     "label": "Dispel / CC"
-    },
     "Shift+F3": {
      "name": "Renewing Blaze",
      "label": "Heal (out of combat)"
+    },
+    "V": {
+     "name": "Sleep Walk",
+     "label": "Dispel / CC"
+    },
+    "F": {
+     "name": "Blessing of the Bronze",
+     "label": "Utility"
+    },
+    "1": {
+     "name": "Dream Breath",
+     "label": "Raid heal"
+    },
+    "Shift+V": {
+     "name": "Expunge",
+     "label": "Dispel / CC"
     },
     "2": {
      "name": "Fire Breath",
@@ -1481,41 +1447,28 @@
      "name": "Source of Magic",
      "label": "Utility"
     },
-    "Ctrl+V": {
-     "name": "Cauterizing Flame",
-     "label": "Dispel / CC"
-    },
     "4": {
      "name": "Emerald Blossom",
      "label": "Raid heal"
     },
-    "Ctrl+F1": {
-     "name": "Emerald Communion",
-     "label": "Cooldown"
-    },
-    "Alt+V": {
+    "Ctrl+V": {
      "name": "Landslide",
      "label": "Dispel / CC"
     },
-    "Alt+F1": {
+    "Ctrl+F1": {
      "name": "Rewind",
      "label": "Cooldown"
     }
    },
    "situational": [
     {
-     "key": "5",
-     "name": "Fury of the Aspects",
-     "label": "Cooldown"
+     "key": "BUTTON4",
+     "name": "Cauterizing Flame",
+     "label": "Dispel / CC"
     },
     {
-     "key": "X",
-     "name": "Time Dilation",
-     "label": "Cooldown"
-    },
-    {
-     "key": "T",
-     "name": "Tip the Scales",
+     "key": "BUTTON5",
+     "name": "Emerald Communion",
      "label": "Cooldown"
     }
    ],
@@ -1523,6 +1476,11 @@
     "Echo",
     "Reversion",
     "Spiritbloom"
+   ],
+   "unplaced": [
+    "Fury of the Aspects",
+    "Time Dilation",
+    "Tip the Scales"
    ]
   },
   {
@@ -1552,13 +1510,25 @@
      "name": "Aspect of the Turtle",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Tranquilizing Shot",
-     "label": "Dispel / CC"
-    },
     "F1": {
      "name": "Bestial Wrath",
      "label": "Big cooldown"
+    },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+Q": {
+     "name": "Aspect of the Cheetah",
+     "label": "Movement"
+    },
+    "Shift+1": {
+     "name": "Multi-Shot",
+     "label": "Rotation"
+    },
+    "V": {
+     "name": "Tranquilizing Shot",
+     "label": "Dispel / CC"
     },
     "1": {
      "name": "Steady Shot",
@@ -1571,14 +1541,6 @@
     "F": {
      "name": "Mend Pet",
      "label": "Utility"
-    },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
-    },
-    "Shift+Q": {
-     "name": "Aspect of the Cheetah",
-     "label": "Movement"
     },
     "X": {
      "name": "Roar of Sacrifice",
@@ -1600,19 +1562,11 @@
      "name": "Hunter's Mark",
      "label": "Utility"
     },
-    "Ctrl+V": {
-     "name": "Binding Shot",
-     "label": "Dispel / CC"
-    },
-    "Alt+V": {
-     "name": "Intimidation",
-     "label": "Dispel / CC"
-    },
     "Ctrl+F1": {
      "name": "Bloodshed",
      "label": "Cooldown"
     },
-    "Shift+1": {
+    "4": {
      "name": "Cobra Shot",
      "label": "Rotation"
     },
@@ -1624,11 +1578,11 @@
      "name": "Feign Death",
      "label": "Utility"
     },
-    "Alt+F1": {
-     "name": "Stampede",
-     "label": "Cooldown"
+    "Ctrl+V": {
+     "name": "Scatter Shot",
+     "label": "Dispel / CC"
     },
-    "Shift+4": {
+    "5": {
      "name": "Kill Shot",
      "label": "Spender"
     },
@@ -1639,45 +1593,29 @@
     "Shift+X": {
      "name": "Flare",
      "label": "Utility"
-    },
-    "Ctrl+1": {
-     "name": "Multi-Shot",
-     "label": "Rotation"
     }
    },
    "situational": [
     {
-     "key": "Shift+3",
-     "name": "Bursting Shot",
+     "key": "BUTTON4",
+     "name": "Binding Shot",
      "label": "Dispel / CC"
     },
     {
-     "key": "5",
-     "name": "Concussive Shot",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "Shift+2",
-     "name": "Primal Rage",
-     "label": "Cooldown"
-    },
-    {
-     "key": "Shift+T",
-     "name": "Scare Beast",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "4",
-     "name": "Scatter Shot",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "Shift+5",
-     "name": "Wyvern Sting",
+     "key": "BUTTON5",
+     "name": "Intimidation",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Bursting Shot",
+    "Concussive Shot",
+    "Primal Rage",
+    "Scare Beast",
+    "Stampede",
+    "Wyvern Sting"
+   ]
   },
   {
    "id": 254,
@@ -1706,13 +1644,33 @@
      "name": "Aspect of the Turtle",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Tranquilizing Shot",
-     "label": "Dispel / CC"
-    },
     "F1": {
      "name": "Trueshot",
      "label": "Big cooldown"
+    },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+Q": {
+     "name": "Aspect of the Cheetah",
+     "label": "Movement"
+    },
+    "Shift+1": {
+     "name": "Multi-Shot",
+     "label": "Rotation"
+    },
+    "Shift+2": {
+     "name": "Volley",
+     "label": "Rotation"
+    },
+    "Shift+4": {
+     "name": "Explosive Shot",
+     "label": "Rotation"
+    },
+    "V": {
+     "name": "Tranquilizing Shot",
+     "label": "Dispel / CC"
     },
     "1": {
      "name": "Steady Shot",
@@ -1729,14 +1687,6 @@
     "F": {
      "name": "Mend Pet",
      "label": "Utility"
-    },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
-    },
-    "Shift+Q": {
-     "name": "Aspect of the Cheetah",
-     "label": "Movement"
     },
     "X": {
      "name": "Roar of Sacrifice",
@@ -1758,15 +1708,7 @@
      "name": "Hunter's Mark",
      "label": "Utility"
     },
-    "Ctrl+V": {
-     "name": "Binding Shot",
-     "label": "Dispel / CC"
-    },
-    "Alt+V": {
-     "name": "Intimidation",
-     "label": "Dispel / CC"
-    },
-    "Shift+1": {
+    "Shift+3": {
      "name": "Wailing Arrow",
      "label": "Rotation"
     },
@@ -1778,15 +1720,19 @@
      "name": "Feign Death",
      "label": "Utility"
     },
+    "Ctrl+V": {
+     "name": "Scatter Shot",
+     "label": "Dispel / CC"
+    },
     "Shift+F1": {
      "name": "Stampede",
      "label": "Cooldown"
     },
-    "Ctrl+1": {
+    "Shift+5": {
      "name": "Chimaera Shot",
      "label": "Rotation"
     },
-    "Shift+4": {
+    "Ctrl+4": {
      "name": "Kill Shot",
      "label": "Spender"
     },
@@ -1794,51 +1740,30 @@
      "name": "Camouflage",
      "label": "Utility"
     },
-    "Shift+T": {
+    "Shift+X": {
      "name": "Flare",
      "label": "Utility"
-    },
-    "Ctrl+2": {
-     "name": "Multi-Shot",
-     "label": "Rotation"
-    },
-    "Ctrl+3": {
-     "name": "Volley",
-     "label": "Rotation"
-    },
-    "Alt+1": {
-     "name": "Explosive Shot",
-     "label": "Rotation"
     }
    },
    "situational": [
     {
-     "key": "Shift+5",
-     "name": "Bursting Shot",
+     "key": "BUTTON4",
+     "name": "Binding Shot",
      "label": "Dispel / CC"
     },
     {
-     "key": "Shift+3",
-     "name": "Concussive Shot",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "Shift+Z",
-     "name": "Scare Beast",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "Shift+2",
-     "name": "Scatter Shot",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "Shift+X",
-     "name": "Wyvern Sting",
+     "key": "BUTTON5",
+     "name": "Intimidation",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Bursting Shot",
+    "Concussive Shot",
+    "Scare Beast",
+    "Wyvern Sting"
+   ]
   },
   {
    "id": 255,
@@ -1871,13 +1796,21 @@
      "name": "Aspect of the Turtle",
      "label": "Defensive (major)"
     },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+Q": {
+     "name": "Aspect of the Cheetah",
+     "label": "Movement"
+    },
+    "Shift+2": {
+     "name": "Raptor Swipe",
+     "label": "Rotation"
+    },
     "V": {
      "name": "Tranquilizing Shot",
      "label": "Dispel / CC"
-    },
-    "F1": {
-     "name": "Coordinated Assault",
-     "label": "Big cooldown"
     },
     "1": {
      "name": "Steady Shot",
@@ -1895,14 +1828,6 @@
      "name": "Mend Pet",
      "label": "Utility"
     },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
-    },
-    "Shift+Q": {
-     "name": "Aspect of the Cheetah",
-     "label": "Movement"
-    },
     "X": {
      "name": "Roar of Sacrifice",
      "label": "Defensive"
@@ -1911,16 +1836,12 @@
      "name": "Freezing Trap",
      "label": "Dispel / CC"
     },
-    "Shift+F1": {
+    "F1": {
      "name": "Fury of the Eagle",
      "label": "Cooldown"
     },
     "3": {
      "name": "Raptor Strike",
-     "label": "Rotation"
-    },
-    "Shift+1": {
-     "name": "Mongoose Bite",
      "label": "Rotation"
     },
     "5": {
@@ -1931,19 +1852,7 @@
      "name": "Hunter's Mark",
      "label": "Utility"
     },
-    "Ctrl+V": {
-     "name": "Binding Shot",
-     "label": "Dispel / CC"
-    },
-    "Alt+V": {
-     "name": "Intimidation",
-     "label": "Dispel / CC"
-    },
-    "Ctrl+F1": {
-     "name": "Spearhead",
-     "label": "Cooldown"
-    },
-    "Shift+2": {
+    "Shift+1": {
      "name": "Wildfire Bomb",
      "label": "Rotation"
     },
@@ -1959,15 +1868,15 @@
      "name": "Feign Death",
      "label": "Utility"
     },
-    "Alt+F1": {
+    "Ctrl+V": {
+     "name": "Scatter Shot",
+     "label": "Dispel / CC"
+    },
+    "Shift+F1": {
      "name": "Stampede",
      "label": "Cooldown"
     },
-    "Ctrl+1": {
-     "name": "Flanking Strike",
-     "label": "Rotation"
-    },
-    "Ctrl+4": {
+    "Shift+5": {
      "name": "Kill Shot",
      "label": "Spender"
     },
@@ -1975,56 +1884,31 @@
      "name": "Camouflage",
      "label": "Utility"
     },
-    "Ctrl+F": {
+    "Shift+T": {
      "name": "Flare",
      "label": "Utility"
-    },
-    "Ctrl+3": {
-     "name": "Raptor Swipe",
-     "label": "Rotation"
-    },
-    "Alt+1": {
-     "name": "Carve",
-     "label": "Rotation"
-    },
-    "Alt+2": {
-     "name": "Butchery",
-     "label": "Rotation"
     }
    },
    "situational": [
     {
-     "key": "Shift+T",
-     "name": "Bursting Shot",
+     "key": "BUTTON4",
+     "name": "Binding Shot",
      "label": "Dispel / CC"
     },
     {
-     "key": "Shift+5",
-     "name": "Concussive Shot",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "Ctrl+2",
-     "name": "Scare Beast",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "Shift+3",
-     "name": "Scatter Shot",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "Shift+C",
-     "name": "Steel Trap",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "Shift+Z",
-     "name": "Wyvern Sting",
+     "key": "BUTTON5",
+     "name": "Intimidation",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Bursting Shot",
+    "Concussive Shot",
+    "Scare Beast",
+    "Steel Trap",
+    "Wyvern Sting"
+   ]
   },
   {
    "id": 62,
@@ -2041,22 +1925,6 @@
      "name": "Blink",
      "label": "Movement"
     },
-    "C": {
-     "name": "Ice Block",
-     "label": "Defensive (major)"
-    },
-    "V": {
-     "name": "Frost Nova",
-     "label": "Dispel / CC"
-    },
-    "1": {
-     "name": "Arcane Blast",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Arcane Barrage",
-     "label": "Spender"
-    },
     "Z": {
      "name": "Prismatic Barrier",
      "label": "Defensive"
@@ -2064,6 +1932,10 @@
     "F1": {
      "name": "Arcane Surge",
      "label": "Big cooldown"
+    },
+    "C": {
+     "name": "Ice Block",
+     "label": "Defensive (major)"
     },
     "F4": {
      "name": "Recuperate",
@@ -2076,6 +1948,22 @@
     "F": {
      "name": "Ice Floes",
      "label": "Utility"
+    },
+    "Shift+1": {
+     "name": "Arcane Explosion",
+     "label": "Rotation"
+    },
+    "V": {
+     "name": "Frost Nova",
+     "label": "Dispel / CC"
+    },
+    "1": {
+     "name": "Arcane Blast",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Arcane Barrage",
+     "label": "Spender"
     },
     "X": {
      "name": "Alter Time",
@@ -2101,23 +1989,15 @@
      "name": "Greater Invisibility",
      "label": "Defensive"
     },
-    "Ctrl+V": {
-     "name": "Remove Curse",
-     "label": "Dispel / CC"
-    },
     "3": {
      "name": "Arcane Missiles",
      "label": "Rotation"
-    },
-    "Alt+V": {
-     "name": "Ring of Frost",
-     "label": "Dispel / CC"
     },
     "T": {
      "name": "Invisibility",
      "label": "Utility"
     },
-    "Shift+1": {
+    "5": {
      "name": "Nether Tempest",
      "label": "Rotation"
     },
@@ -2133,9 +2013,9 @@
      "name": "Presence of Mind",
      "label": "Utility"
     },
-    "Shift+3": {
-     "name": "Arcane Explosion",
-     "label": "Rotation"
+    "Ctrl+V": {
+     "name": "Spellsteal",
+     "label": "Dispel / CC"
     },
     "Shift+R": {
      "name": "Evocation",
@@ -2144,12 +2024,18 @@
    },
    "situational": [
     {
-     "key": "5",
-     "name": "Spellsteal",
+     "key": "BUTTON4",
+     "name": "Remove Curse",
+     "label": "Dispel / CC"
+    },
+    {
+     "key": "BUTTON5",
+     "name": "Ring of Frost",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 63,
@@ -2166,22 +2052,6 @@
      "name": "Blink",
      "label": "Movement"
     },
-    "C": {
-     "name": "Ice Block",
-     "label": "Defensive (major)"
-    },
-    "V": {
-     "name": "Frost Nova",
-     "label": "Dispel / CC"
-    },
-    "1": {
-     "name": "Fireball",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Pyroblast",
-     "label": "Spender"
-    },
     "Z": {
      "name": "Blazing Barrier",
      "label": "Defensive"
@@ -2189,6 +2059,10 @@
     "F1": {
      "name": "Combustion",
      "label": "Big cooldown"
+    },
+    "C": {
+     "name": "Ice Block",
+     "label": "Defensive (major)"
     },
     "F4": {
      "name": "Recuperate",
@@ -2201,6 +2075,22 @@
     "F": {
      "name": "Ice Floes",
      "label": "Utility"
+    },
+    "Shift+4": {
+     "name": "Flamestrike",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Frost Nova",
+     "label": "Dispel / CC"
+    },
+    "1": {
+     "name": "Fireball",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Pyroblast",
+     "label": "Spender"
     },
     "X": {
      "name": "Alter Time",
@@ -2218,10 +2108,6 @@
      "name": "Fire Blast",
      "label": "Rotation"
     },
-    "Shift+4": {
-     "name": "Flamestrike",
-     "label": "Spender"
-    },
     "Shift+F1": {
      "name": "Meteor",
      "label": "Cooldown"
@@ -2230,23 +2116,15 @@
      "name": "Greater Invisibility",
      "label": "Defensive"
     },
-    "Ctrl+V": {
-     "name": "Remove Curse",
-     "label": "Dispel / CC"
-    },
     "3": {
      "name": "Scorch",
      "label": "Rotation"
-    },
-    "Alt+V": {
-     "name": "Ring of Frost",
-     "label": "Dispel / CC"
     },
     "T": {
      "name": "Invisibility",
      "label": "Utility"
     },
-    "Shift+1": {
+    "5": {
      "name": "Phoenix Flames",
      "label": "Rotation"
     },
@@ -2258,24 +2136,31 @@
      "name": "Mirror Image",
      "label": "Defensive"
     },
-    "Shift+2": {
+    "Shift+1": {
      "name": "Living Bomb",
      "label": "Rotation"
+    },
+    "Ctrl+V": {
+     "name": "Dragon's Breath",
+     "label": "Dispel / CC"
     }
    },
    "situational": [
     {
-     "key": "5",
-     "name": "Dragon's Breath",
+     "key": "BUTTON4",
+     "name": "Remove Curse",
      "label": "Dispel / CC"
     },
     {
-     "key": "Shift+3",
-     "name": "Spellsteal",
+     "key": "BUTTON5",
+     "name": "Ring of Frost",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Spellsteal"
+   ]
   },
   {
    "id": 64,
@@ -2292,22 +2177,6 @@
      "name": "Blink",
      "label": "Movement"
     },
-    "C": {
-     "name": "Ice Block",
-     "label": "Defensive (major)"
-    },
-    "V": {
-     "name": "Frost Nova",
-     "label": "Dispel / CC"
-    },
-    "1": {
-     "name": "Frostbolt",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Glacial Spike",
-     "label": "Spender"
-    },
     "Z": {
      "name": "Ice Barrier",
      "label": "Defensive"
@@ -2315,6 +2184,10 @@
     "F1": {
      "name": "Icy Veins",
      "label": "Big cooldown"
+    },
+    "C": {
+     "name": "Ice Block",
+     "label": "Defensive (major)"
     },
     "F4": {
      "name": "Recuperate",
@@ -2327,6 +2200,34 @@
     "F": {
      "name": "Ice Floes",
      "label": "Utility"
+    },
+    "Shift+1": {
+     "name": "Frozen Orb",
+     "label": "Rotation"
+    },
+    "Shift+4": {
+     "name": "Comet Storm",
+     "label": "Spender"
+    },
+    "Shift+2": {
+     "name": "Blizzard",
+     "label": "Rotation"
+    },
+    "Shift+3": {
+     "name": "Cone of Cold",
+     "label": "Rotation"
+    },
+    "V": {
+     "name": "Frost Nova",
+     "label": "Dispel / CC"
+    },
+    "1": {
+     "name": "Frostbolt",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Glacial Spike",
+     "label": "Spender"
     },
     "X": {
      "name": "Alter Time",
@@ -2344,17 +2245,9 @@
      "name": "Flurry",
      "label": "Rotation"
     },
-    "Shift+1": {
-     "name": "Frozen Orb",
-     "label": "Rotation"
-    },
-    "Shift+4": {
-     "name": "Comet Storm",
-     "label": "Spender"
-    },
-    "Ctrl+V": {
-     "name": "Remove Curse",
-     "label": "Dispel / CC"
+    "Shift+Z": {
+     "name": "Greater Invisibility",
+     "label": "Defensive"
     },
     "3": {
      "name": "Ray of Frost",
@@ -2364,39 +2257,37 @@
      "name": "Cold Snap",
      "label": "Cooldown"
     },
-    "Alt+V": {
-     "name": "Ring of Frost",
-     "label": "Dispel / CC"
-    },
     "T": {
      "name": "Invisibility",
      "label": "Utility"
     },
-    "Shift+2": {
+    "5": {
      "name": "Ice Lance",
      "label": "Rotation"
     },
-    "Shift+Z": {
+    "Shift+C": {
      "name": "Mirror Image",
      "label": "Defensive"
     },
-    "Shift+3": {
-     "name": "Blizzard",
-     "label": "Rotation"
-    },
-    "Ctrl+1": {
-     "name": "Cone of Cold",
-     "label": "Rotation"
+    "Ctrl+V": {
+     "name": "Spellsteal",
+     "label": "Dispel / CC"
     }
    },
    "situational": [
     {
-     "key": "5",
-     "name": "Spellsteal",
+     "key": "BUTTON4",
+     "name": "Remove Curse",
+     "label": "Dispel / CC"
+    },
+    {
+     "key": "BUTTON5",
+     "name": "Ring of Frost",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 268,
@@ -2409,21 +2300,49 @@
      "name": "Spear Hand Strike",
      "label": "Interrupt"
     },
-    "1": {
-     "name": "Keg Smash",
-     "label": "Rotation"
-    },
     "Z": {
-     "name": "Purifying Brew",
-     "label": "Defensive"
-    },
-    "Shift+Z": {
      "name": "Celestial Brew",
      "label": "Defensive"
     },
     "F1": {
      "name": "Invoke Niuzao, the Black Ox",
      "label": "Big cooldown"
+    },
+    "Q": {
+     "name": "Roll",
+     "label": "Movement"
+    },
+    "F2": {
+     "name": "Expel Harm",
+     "label": "Self-heal"
+    },
+    "F3": {
+     "name": "Vivify",
+     "label": "Heal (out of combat)"
+    },
+    "C": {
+     "name": "Fortifying Brew",
+     "label": "Defensive (major)"
+    },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+2": {
+     "name": "Breath of Fire",
+     "label": "Rotation"
+    },
+    "Shift+3": {
+     "name": "Rushing Jade Wind",
+     "label": "Rotation"
+    },
+    "1": {
+     "name": "Keg Smash",
+     "label": "Rotation"
+    },
+    "X": {
+     "name": "Purifying Brew",
+     "label": "Defensive"
     },
     "F": {
      "name": "Provoke",
@@ -2433,29 +2352,9 @@
      "name": "Tiger Palm",
      "label": "Rotation"
     },
-    "Q": {
-     "name": "Roll",
-     "label": "Movement"
-    },
-    "F2": {
-     "name": "Expel Harm",
-     "label": "Self-heal"
-    },
-    "F3": {
-     "name": "Vivify",
-     "label": "Heal (out of combat)"
-    },
-    "C": {
-     "name": "Fortifying Brew",
-     "label": "Defensive (major)"
-    },
     "V": {
      "name": "Paralysis",
      "label": "Dispel / CC"
-    },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
     },
     "Shift+F1": {
      "name": "Weapons of Order",
@@ -2465,10 +2364,6 @@
      "name": "Leg Sweep",
      "label": "Dispel / CC"
     },
-    "Ctrl+F1": {
-     "name": "Exploding Keg",
-     "label": "Cooldown"
-    },
     "3": {
      "name": "Blackout Kick",
      "label": "Rotation"
@@ -2476,22 +2371,22 @@
     "R": {
      "name": "Transcendence",
      "label": "Utility"
-    },
-    "Alt+F1": {
-     "name": "Touch of Death",
-     "label": "Cooldown"
-    },
-    "Shift+2": {
-     "name": "Breath of Fire",
-     "label": "Rotation"
-    },
-    "Shift+3": {
-     "name": "Rushing Jade Wind",
-     "label": "Rotation"
     }
    },
-   "situational": [],
-   "clickcast": []
+   "situational": [
+    {
+     "key": "BUTTON4",
+     "name": "Exploding Keg",
+     "label": "Cooldown"
+    },
+    {
+     "key": "BUTTON5",
+     "name": "Touch of Death",
+     "label": "Cooldown"
+    }
+   ],
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 270,
@@ -2500,10 +2395,6 @@
    "spec": "Mistweaver",
    "role": "heal",
    "keys": {
-    "1": {
-     "name": "Essence Font",
-     "label": "Raid heal"
-    },
     "Z": {
      "name": "Life Cocoon",
      "label": "Defensive"
@@ -2511,14 +2402,6 @@
     "F1": {
      "name": "Revival",
      "label": "Big cooldown"
-    },
-    "V": {
-     "name": "Detox",
-     "label": "Dispel / CC"
-    },
-    "2": {
-     "name": "Tiger Palm",
-     "label": "Rotation"
     },
     "Q": {
      "name": "Roll",
@@ -2536,39 +2419,43 @@
      "name": "Fortifying Brew",
      "label": "Defensive (major)"
     },
-    "Shift+V": {
-     "name": "Paralysis",
-     "label": "Dispel / CC"
-    },
     "F4": {
      "name": "Recuperate",
      "label": "Sustain / HoT"
-    },
-    "3": {
-     "name": "Refreshing Jade Wind",
-     "label": "Raid heal"
     },
     "Shift+Q": {
      "name": "Transcendence: Transfer",
      "label": "Movement"
     },
+    "1": {
+     "name": "Essence Font",
+     "label": "Raid heal"
+    },
+    "V": {
+     "name": "Detox",
+     "label": "Dispel / CC"
+    },
+    "2": {
+     "name": "Tiger Palm",
+     "label": "Rotation"
+    },
+    "Shift+V": {
+     "name": "Paralysis",
+     "label": "Dispel / CC"
+    },
+    "3": {
+     "name": "Refreshing Jade Wind",
+     "label": "Raid heal"
+    },
     "Shift+F1": {
      "name": "Invoke Chi-Ji, the Red Crane",
      "label": "Cooldown"
     },
-    "Ctrl+V": {
-     "name": "Ring of Peace",
-     "label": "Dispel / CC"
-    },
-    "Alt+V": {
-     "name": "Leg Sweep",
-     "label": "Dispel / CC"
-    },
-    "Shift+1": {
+    "4": {
      "name": "Rising Sun Kick",
      "label": "Rotation"
     },
-    "4": {
+    "5": {
      "name": "Jadefire Stomp",
      "label": "Raid heal"
     },
@@ -2583,21 +2470,23 @@
     "F": {
      "name": "Transcendence",
      "label": "Utility"
-    },
-    "Alt+F1": {
-     "name": "Zen Meditation",
-     "label": "Cooldown"
-    },
-    "R": {
-     "name": "Thunder Focus Tea",
-     "label": "Utility"
     }
    },
    "situational": [
     {
-     "key": "5",
-     "name": "Touch of Death",
-     "label": "Cooldown"
+     "key": "BUTTON5",
+     "name": "Leg Sweep",
+     "label": "Dispel / CC"
+    },
+    {
+     "key": "BUTTON4",
+     "name": "Ring of Peace",
+     "label": "Dispel / CC"
+    },
+    {
+     "key": "Shift+1",
+     "name": "Thunder Focus Tea",
+     "label": "Utility"
     }
    ],
    "clickcast": [
@@ -2605,6 +2494,10 @@
     "Renewing Mist",
     "Sheilun's Gift",
     "Soothing Mist"
+   ],
+   "unplaced": [
+    "Touch of Death",
+    "Zen Meditation"
    ]
   },
   {
@@ -2618,10 +2511,6 @@
      "name": "Spear Hand Strike",
      "label": "Interrupt"
     },
-    "4": {
-     "name": "Fists of Fury",
-     "label": "Spender"
-    },
     "F": {
      "name": "Flying Serpent Kick",
      "label": "Utility"
@@ -2633,10 +2522,6 @@
     "F1": {
      "name": "Invoke Xuen, the White Tiger",
      "label": "Big cooldown"
-    },
-    "1": {
-     "name": "Tiger Palm",
-     "label": "Rotation"
     },
     "Q": {
      "name": "Roll",
@@ -2654,10 +2539,6 @@
      "name": "Fortifying Brew",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Paralysis",
-     "label": "Dispel / CC"
-    },
     "F4": {
      "name": "Recuperate",
      "label": "Sustain / HoT"
@@ -2666,6 +2547,22 @@
      "name": "Chi Torpedo",
      "label": "Movement"
     },
+    "Shift+2": {
+     "name": "Spinning Crane Kick",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Fists of Fury",
+     "label": "Spender"
+    },
+    "1": {
+     "name": "Tiger Palm",
+     "label": "Rotation"
+    },
+    "V": {
+     "name": "Paralysis",
+     "label": "Dispel / CC"
+    },
     "Shift+F1": {
      "name": "Storm, Earth, and Fire",
      "label": "Cooldown"
@@ -2673,10 +2570,6 @@
     "Shift+V": {
      "name": "Leg Sweep",
      "label": "Dispel / CC"
-    },
-    "Shift+2": {
-     "name": "Spinning Crane Kick",
-     "label": "Rotation"
     },
     "X": {
      "name": "Diffuse Magic",
@@ -2694,17 +2587,20 @@
      "name": "Transcendence",
      "label": "Utility"
     },
-    "Ctrl+F1": {
-     "name": "Touch of Death",
-     "label": "Cooldown"
-    },
-    "Shift+1": {
+    "5": {
      "name": "Whirling Dragon Punch",
      "label": "Rotation"
     }
    },
-   "situational": [],
-   "clickcast": []
+   "situational": [
+    {
+     "key": "BUTTON4",
+     "name": "Touch of Death",
+     "label": "Cooldown"
+    }
+   ],
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 65,
@@ -2725,17 +2621,9 @@
      "name": "Divine Shield",
      "label": "Defensive"
     },
-    "V": {
-     "name": "Cleanse",
-     "label": "Dispel / CC"
-    },
     "F1": {
      "name": "Avenging Wrath",
      "label": "Big cooldown"
-    },
-    "Shift+4": {
-     "name": "Light of Dawn",
-     "label": "Raid heal"
     },
     "F2": {
      "name": "Word of Glory",
@@ -2757,6 +2645,14 @@
      "name": "Aura Mastery",
      "label": "Big cooldown"
     },
+    "Shift+4": {
+     "name": "Light of Dawn",
+     "label": "Raid heal"
+    },
+    "V": {
+     "name": "Cleanse",
+     "label": "Dispel / CC"
+    },
     "1": {
      "name": "Holy Prism",
      "label": "Raid heal"
@@ -2764,10 +2660,6 @@
     "Shift+V": {
      "name": "Cleanse Toxins",
      "label": "Dispel / CC"
-    },
-    "Ctrl+F1": {
-     "name": "Divine Toll",
-     "label": "Cooldown"
     },
     "X": {
      "name": "Divine Protection",
@@ -2785,7 +2677,7 @@
      "name": "Barrier of Faith",
      "label": "Spender"
     },
-    "Alt+F1": {
+    "Ctrl+F1": {
      "name": "Tyr's Deliverance",
      "label": "Cooldown"
     },
@@ -2797,10 +2689,6 @@
      "name": "Light's Hammer",
      "label": "Spender"
     },
-    "Alt+V": {
-     "name": "Blinding Light",
-     "label": "Dispel / CC"
-    },
     "F": {
      "name": "Beacon of Virtue",
      "label": "Utility"
@@ -2809,35 +2697,25 @@
      "name": "Blessing of Spellwarding",
      "label": "Defensive"
     },
-    "Shift+F": {
+    "R": {
      "name": "Redemption",
      "label": "Utility"
     },
-    "Shift+R": {
+    "T": {
      "name": "Intercession",
      "label": "Utility"
     }
    },
    "situational": [
     {
-     "key": "2",
+     "key": "BUTTON4",
      "name": "Avenging Crusader",
      "label": "Big cooldown"
     },
     {
-     "key": "T",
-     "name": "Blessing of Freedom",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "3",
-     "name": "Repentance",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "R",
-     "name": "Turn Evil",
-     "label": "Dispel / CC"
+     "key": "BUTTON5",
+     "name": "Divine Toll",
+     "label": "Cooldown"
     }
    ],
    "clickcast": [
@@ -2847,6 +2725,12 @@
     "Flash of Light",
     "Holy Light",
     "Holy Shock"
+   ],
+   "unplaced": [
+    "Blessing of Freedom",
+    "Blinding Light",
+    "Repentance",
+    "Turn Evil"
    ]
   },
   {
@@ -2868,31 +2752,15 @@
      "name": "Divine Shield",
      "label": "Defensive"
     },
-    "V": {
-     "name": "Cleanse",
-     "label": "Dispel / CC"
-    },
-    "1": {
-     "name": "Judgment",
-     "label": "Rotation"
-    },
     "F1": {
      "name": "Avenging Wrath",
      "label": "Big cooldown"
-    },
-    "C": {
-     "name": "Shield of the Righteous",
-     "label": "Defensive"
-    },
-    "F": {
-     "name": "Hand of Reckoning",
-     "label": "Taunt"
     },
     "F2": {
      "name": "Word of Glory",
      "label": "Self-heal"
     },
-    "Shift+C": {
+    "C": {
      "name": "Guardian of Ancient Kings",
      "label": "Defensive (major)"
     },
@@ -2904,11 +2772,27 @@
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
+    "V": {
+     "name": "Cleanse",
+     "label": "Dispel / CC"
+    },
+    "1": {
+     "name": "Judgment",
+     "label": "Rotation"
+    },
+    "X": {
+     "name": "Shield of the Righteous",
+     "label": "Defensive"
+    },
+    "F": {
+     "name": "Hand of Reckoning",
+     "label": "Taunt"
+    },
     "4": {
      "name": "Hammer of Wrath",
      "label": "Spender"
     },
-    "X": {
+    "Shift+Z": {
      "name": "Ardent Defender",
      "label": "Defensive"
     },
@@ -2924,13 +2808,9 @@
      "name": "Divine Toll",
      "label": "Cooldown"
     },
-    "Shift+Z": {
+    "Shift+C": {
      "name": "Divine Protection",
      "label": "Defensive"
-    },
-    "Ctrl+V": {
-     "name": "Hammer of Justice",
-     "label": "Dispel / CC"
     },
     "Shift+X": {
      "name": "Blessing of Protection",
@@ -2940,27 +2820,23 @@
      "name": "Hammer of the Righteous",
      "label": "Rotation"
     },
-    "Shift+1": {
+    "5": {
      "name": "Blessed Hammer",
      "label": "Rotation"
-    },
-    "Ctrl+F1": {
-     "name": "Bastion of Light",
-     "label": "Cooldown"
     },
     "Ctrl+Z": {
      "name": "Blessing of Sacrifice",
      "label": "Defensive"
     },
-    "Shift+2": {
+    "Shift+1": {
      "name": "Consecration",
      "label": "Rotation"
     },
-    "Alt+V": {
+    "Ctrl+V": {
      "name": "Blinding Light",
      "label": "Dispel / CC"
     },
-    "Alt+F1": {
+    "Ctrl+F1": {
      "name": "Sentinel",
      "label": "Cooldown"
     },
@@ -2968,33 +2844,33 @@
      "name": "Blessing of Spellwarding",
      "label": "Defensive"
     },
-    "Shift+F": {
+    "R": {
      "name": "Redemption",
      "label": "Utility"
     },
-    "Shift+R": {
+    "T": {
      "name": "Intercession",
      "label": "Utility"
     }
    },
    "situational": [
     {
-     "key": "T",
-     "name": "Blessing of Freedom",
-     "label": "Dispel / CC"
+     "key": "BUTTON5",
+     "name": "Bastion of Light",
+     "label": "Cooldown"
     },
     {
-     "key": "5",
-     "name": "Repentance",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "R",
-     "name": "Turn Evil",
+     "key": "BUTTON4",
+     "name": "Hammer of Justice",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Blessing of Freedom",
+    "Repentance",
+    "Turn Evil"
+   ]
   },
   {
    "id": 70,
@@ -3015,21 +2891,9 @@
      "name": "Divine Shield",
      "label": "Defensive"
     },
-    "V": {
-     "name": "Cleanse",
-     "label": "Dispel / CC"
-    },
-    "1": {
-     "name": "Judgment",
-     "label": "Rotation"
-    },
     "F1": {
      "name": "Avenging Wrath",
      "label": "Big cooldown"
-    },
-    "2": {
-     "name": "Crusader Strike",
-     "label": "Rotation"
     },
     "F2": {
      "name": "Word of Glory",
@@ -3047,6 +2911,26 @@
      "name": "Divine Steed",
      "label": "Movement"
     },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+4": {
+     "name": "Divine Storm",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Cleanse",
+     "label": "Dispel / CC"
+    },
+    "1": {
+     "name": "Judgment",
+     "label": "Rotation"
+    },
+    "2": {
+     "name": "Crusader Strike",
+     "label": "Rotation"
+    },
     "4": {
      "name": "Templar's Verdict",
      "label": "Spender"
@@ -3055,16 +2939,8 @@
      "name": "Final Verdict",
      "label": "Spender"
     },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
-    },
-    "Shift+4": {
-     "name": "Hammer of Wrath",
-     "label": "Spender"
-    },
     "Shift+5": {
-     "name": "Divine Storm",
+     "name": "Hammer of Wrath",
      "label": "Spender"
     },
     "Shift+V": {
@@ -3075,17 +2951,9 @@
      "name": "Wake of Ashes",
      "label": "Cooldown"
     },
-    "Ctrl+F1": {
-     "name": "Divine Toll",
-     "label": "Cooldown"
-    },
     "X": {
      "name": "Divine Protection",
      "label": "Defensive"
-    },
-    "Ctrl+V": {
-     "name": "Hammer of Justice",
-     "label": "Dispel / CC"
     },
     "Shift+Z": {
      "name": "Blessing of Protection",
@@ -3099,11 +2967,11 @@
      "name": "Blessing of Sacrifice",
      "label": "Defensive"
     },
-    "Alt+V": {
+    "Ctrl+V": {
      "name": "Blinding Light",
      "label": "Dispel / CC"
     },
-    "Alt+F1": {
+    "Ctrl+F1": {
      "name": "Sentinel",
      "label": "Cooldown"
     },
@@ -3111,33 +2979,33 @@
      "name": "Blessing of Spellwarding",
      "label": "Defensive"
     },
-    "Shift+F": {
+    "F": {
      "name": "Redemption",
      "label": "Utility"
     },
-    "Shift+R": {
+    "R": {
      "name": "Intercession",
      "label": "Utility"
     }
    },
    "situational": [
     {
-     "key": "T",
-     "name": "Blessing of Freedom",
-     "label": "Dispel / CC"
+     "key": "BUTTON4",
+     "name": "Divine Toll",
+     "label": "Cooldown"
     },
     {
-     "key": "F",
-     "name": "Repentance",
-     "label": "Dispel / CC"
-    },
-    {
-     "key": "R",
-     "name": "Turn Evil",
+     "key": "BUTTON5",
+     "name": "Hammer of Justice",
      "label": "Dispel / CC"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Blessing of Freedom",
+    "Repentance",
+    "Turn Evil"
+   ]
   },
   {
    "id": 256,
@@ -3162,45 +3030,37 @@
      "name": "Desperate Prayer",
      "label": "Self-heal"
     },
-    "V": {
-     "name": "Psychic Scream",
-     "label": "Dispel / CC"
-    },
-    "F1": {
-     "name": "Shadowfiend",
-     "label": "Cooldown"
-    },
-    "1": {
-     "name": "Power Word: Radiance",
-     "label": "Raid heal"
-    },
     "C": {
      "name": "Power Word: Barrier",
      "label": "Defensive (major)"
     },
-    "Shift+F1": {
-     "name": "Rapture",
-     "label": "Cooldown"
-    },
-    "Ctrl+F1": {
+    "F1": {
      "name": "Ultimate Penitence",
      "label": "Big cooldown"
-    },
-    "2": {
-     "name": "Penance",
-     "label": "Rotation"
     },
     "F4": {
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "Alt+F1": {
+    "Shift+F1": {
      "name": "Power Infusion",
      "label": "Big cooldown"
     },
     "F": {
      "name": "Mind Control",
      "label": "Utility"
+    },
+    "V": {
+     "name": "Psychic Scream",
+     "label": "Dispel / CC"
+    },
+    "1": {
+     "name": "Power Word: Radiance",
+     "label": "Raid heal"
+    },
+    "2": {
+     "name": "Penance",
+     "label": "Rotation"
     },
     "4": {
      "name": "Shadow Word: Death",
@@ -3218,11 +3078,15 @@
      "name": "Purify",
      "label": "Dispel / CC"
     },
+    "Ctrl+F1": {
+     "name": "Spirit Shell",
+     "label": "Cooldown"
+    },
     "Ctrl+V": {
      "name": "Mass Dispel",
      "label": "Dispel / CC"
     },
-    "Shift+1": {
+    "5": {
      "name": "Shadow Word: Pain",
      "label": "Rotation"
     },
@@ -3242,8 +3106,13 @@
      "label": "Cooldown"
     },
     {
-     "key": "5",
-     "name": "Spirit Shell",
+     "key": "BUTTON5",
+     "name": "Rapture",
+     "label": "Cooldown"
+    },
+    {
+     "key": "BUTTON4",
+     "name": "Shadowfiend",
      "label": "Cooldown"
     }
    ],
@@ -3251,7 +3120,8 @@
     "Flash Heal",
     "Renew",
     "Shadow Mend"
-   ]
+   ],
+   "unplaced": []
   },
   {
    "id": 257,
@@ -3276,10 +3146,6 @@
      "name": "Desperate Prayer",
      "label": "Self-heal"
     },
-    "V": {
-     "name": "Psychic Scream",
-     "label": "Dispel / CC"
-    },
     "F": {
      "name": "Holy Word: Chastise",
      "label": "Utility"
@@ -3291,10 +3157,6 @@
     "F1": {
      "name": "Apotheosis",
      "label": "Big cooldown"
-    },
-    "1": {
-     "name": "Prayer of Healing",
-     "label": "Raid heal"
     },
     "F4": {
      "name": "Recuperate",
@@ -3308,6 +3170,14 @@
      "name": "Mind Control",
      "label": "Utility"
     },
+    "V": {
+     "name": "Psychic Scream",
+     "label": "Dispel / CC"
+    },
+    "1": {
+     "name": "Prayer of Healing",
+     "label": "Raid heal"
+    },
     "Shift+V": {
      "name": "Purify",
      "label": "Dispel / CC"
@@ -3316,19 +3186,11 @@
      "name": "Smite",
      "label": "Rotation"
     },
-    "Ctrl+F1": {
-     "name": "Divine Hymn",
-     "label": "Cooldown"
-    },
     "3": {
      "name": "Holy Word: Sanctify",
      "label": "Raid heal"
     },
-    "Ctrl+V": {
-     "name": "Mass Dispel",
-     "label": "Dispel / CC"
-    },
-    "Alt+F1": {
+    "Ctrl+F1": {
      "name": "Holy Word: Salvation",
      "label": "Cooldown"
     },
@@ -3340,7 +3202,7 @@
      "name": "Leap of Faith",
      "label": "Utility"
     },
-    "Shift+1": {
+    "5": {
      "name": "Halo",
      "label": "Raid heal"
     },
@@ -3355,9 +3217,14 @@
    },
    "situational": [
     {
-     "key": "5",
-     "name": "Symbol of Hope",
+     "key": "BUTTON4",
+     "name": "Divine Hymn",
      "label": "Cooldown"
+    },
+    {
+     "key": "BUTTON5",
+     "name": "Mass Dispel",
+     "label": "Dispel / CC"
     }
    ],
    "clickcast": [
@@ -3367,6 +3234,9 @@
     "Prayer of Mending",
     "Renew",
     "Shadow Mend"
+   ],
+   "unplaced": [
+    "Symbol of Hope"
    ]
   },
   {
@@ -3396,41 +3266,41 @@
      "name": "Desperate Prayer",
      "label": "Self-heal"
     },
-    "V": {
-     "name": "Psychic Scream",
-     "label": "Dispel / CC"
-    },
-    "F1": {
-     "name": "Shadowfiend",
-     "label": "Cooldown"
-    },
-    "4": {
-     "name": "Shadow Word: Madness",
-     "label": "Spender"
-    },
     "C": {
      "name": "Dispersion",
      "label": "Defensive (major)"
     },
-    "Shift+F1": {
+    "F1": {
      "name": "Void Eruption",
      "label": "Big cooldown"
-    },
-    "Ctrl+F1": {
-     "name": "Mindbender",
-     "label": "Cooldown"
     },
     "F4": {
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "Alt+F1": {
+    "Shift+F1": {
      "name": "Power Infusion",
      "label": "Big cooldown"
     },
     "F": {
      "name": "Mind Control",
      "label": "Utility"
+    },
+    "Shift+1": {
+     "name": "Mind Flay",
+     "label": "Rotation"
+    },
+    "Shift+3": {
+     "name": "Void Volley",
+     "label": "Rotation"
+    },
+    "V": {
+     "name": "Psychic Scream",
+     "label": "Dispel / CC"
+    },
+    "4": {
+     "name": "Shadow Word: Madness",
+     "label": "Spender"
     },
     "5": {
      "name": "Shadow Word: Death",
@@ -3444,11 +3314,15 @@
      "name": "Vampiric Touch",
      "label": "Rotation"
     },
+    "Ctrl+F1": {
+     "name": "Void Torrent",
+     "label": "Cooldown"
+    },
     "Shift+V": {
      "name": "Mass Dispel",
      "label": "Dispel / CC"
     },
-    "Shift+1": {
+    "3": {
      "name": "Shadow Word: Pain",
      "label": "Rotation"
     },
@@ -3459,28 +3333,22 @@
     "T": {
      "name": "Levitate",
      "label": "Utility"
-    },
-    "Shift+2": {
-     "name": "Mind Flay",
-     "label": "Rotation"
-    },
-    "Shift+3": {
-     "name": "Void Bolt",
-     "label": "Rotation"
-    },
-    "Ctrl+1": {
-     "name": "Void Volley",
-     "label": "Rotation"
     }
    },
    "situational": [
     {
-     "key": "3",
-     "name": "Void Torrent",
+     "key": "BUTTON5",
+     "name": "Mindbender",
+     "label": "Cooldown"
+    },
+    {
+     "key": "BUTTON4",
+     "name": "Shadowfiend",
      "label": "Cooldown"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 259,
@@ -3492,14 +3360,6 @@
     "E": {
      "name": "Kick",
      "label": "Interrupt"
-    },
-    "1": {
-     "name": "Mutilate",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Envenom",
-     "label": "Spender"
     },
     "F1": {
      "name": "Deathmark",
@@ -3525,6 +3385,30 @@
      "name": "Cloak of Shadows",
      "label": "Defensive (major)"
     },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+C": {
+     "name": "Evasion",
+     "label": "Defensive (major)"
+    },
+    "Shift+1": {
+     "name": "Fan of Knives",
+     "label": "Rotation"
+    },
+    "Shift+5": {
+     "name": "Crimson Tempest",
+     "label": "Spender"
+    },
+    "1": {
+     "name": "Mutilate",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Envenom",
+     "label": "Spender"
+    },
     "V": {
      "name": "Blind",
      "label": "Dispel / CC"
@@ -3532,10 +3416,6 @@
     "Shift+F1": {
      "name": "Vanish",
      "label": "Cooldown"
-    },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
     },
     "Shift+V": {
      "name": "Shiv",
@@ -3545,18 +3425,6 @@
      "name": "Rupture",
      "label": "Spender"
     },
-    "Ctrl+F1": {
-     "name": "Kingsbane",
-     "label": "Cooldown"
-    },
-    "Shift+C": {
-     "name": "Evasion",
-     "label": "Defensive (major)"
-    },
-    "Ctrl+V": {
-     "name": "Kidney Shot",
-     "label": "Dispel / CC"
-    },
     "F": {
      "name": "Stealth",
      "label": "Utility"
@@ -3565,7 +3433,7 @@
      "name": "Garrote",
      "label": "Rotation"
     },
-    "Alt+V": {
+    "Ctrl+V": {
      "name": "Cheap Shot",
      "label": "Dispel / CC"
     },
@@ -3576,29 +3444,25 @@
     "X": {
      "name": "Tricks of the Trade",
      "label": "Utility"
-    },
-    "Shift+1": {
-     "name": "Fan of Knives",
-     "label": "Rotation"
-    },
-    "Shift+5": {
-     "name": "Crimson Tempest",
-     "label": "Spender"
     }
    },
    "situational": [
     {
-     "key": "T",
-     "name": "Gouge",
+     "key": "BUTTON5",
+     "name": "Kidney Shot",
      "label": "Dispel / CC"
     },
     {
-     "key": "3",
-     "name": "Sap",
-     "label": "Dispel / CC"
+     "key": "BUTTON4",
+     "name": "Kingsbane",
+     "label": "Cooldown"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Gouge",
+    "Sap"
+   ]
   },
   {
    "id": 260,
@@ -3610,14 +3474,6 @@
     "E": {
      "name": "Kick",
      "label": "Interrupt"
-    },
-    "1": {
-     "name": "Sinister Strike",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Between the Eyes",
-     "label": "Spender"
     },
     "Q": {
      "name": "Grappling Hook",
@@ -3643,6 +3499,26 @@
      "name": "Cloak of Shadows",
      "label": "Defensive (major)"
     },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+C": {
+     "name": "Evasion",
+     "label": "Defensive (major)"
+    },
+    "Shift+1": {
+     "name": "Blade Flurry",
+     "label": "Rotation"
+    },
+    "1": {
+     "name": "Sinister Strike",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Between the Eyes",
+     "label": "Spender"
+    },
     "V": {
      "name": "Blind",
      "label": "Dispel / CC"
@@ -3650,10 +3526,6 @@
     "Shift+F1": {
      "name": "Vanish",
      "label": "Cooldown"
-    },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
     },
     "Shift+V": {
      "name": "Shiv",
@@ -3667,18 +3539,6 @@
      "name": "Dispatch",
      "label": "Spender"
     },
-    "Ctrl+F1": {
-     "name": "Killing Spree",
-     "label": "Cooldown"
-    },
-    "Shift+C": {
-     "name": "Evasion",
-     "label": "Defensive (major)"
-    },
-    "Ctrl+V": {
-     "name": "Kidney Shot",
-     "label": "Dispel / CC"
-    },
     "F": {
      "name": "Stealth",
      "label": "Utility"
@@ -3687,11 +3547,11 @@
      "name": "Roll the Bones",
      "label": "Rotation"
     },
-    "Alt+F1": {
+    "Ctrl+F1": {
      "name": "Keep It Rolling",
      "label": "Cooldown"
     },
-    "Alt+V": {
+    "Ctrl+V": {
      "name": "Cheap Shot",
      "label": "Dispel / CC"
     },
@@ -3699,28 +3559,28 @@
      "name": "Distract",
      "label": "Utility"
     },
-    "T": {
+    "X": {
      "name": "Tricks of the Trade",
      "label": "Utility"
-    },
-    "Shift+2": {
-     "name": "Blade Flurry",
-     "label": "Rotation"
     }
    },
    "situational": [
     {
-     "key": "Shift+1",
-     "name": "Gouge",
+     "key": "BUTTON5",
+     "name": "Kidney Shot",
      "label": "Dispel / CC"
     },
     {
-     "key": "X",
-     "name": "Sap",
-     "label": "Dispel / CC"
+     "key": "BUTTON4",
+     "name": "Killing Spree",
+     "label": "Cooldown"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Gouge",
+    "Sap"
+   ]
   },
   {
    "id": 261,
@@ -3732,14 +3592,6 @@
     "E": {
      "name": "Kick",
      "label": "Interrupt"
-    },
-    "1": {
-     "name": "Shadowstrike",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Eviscerate",
-     "label": "Spender"
     },
     "F1": {
      "name": "Shadow Dance",
@@ -3765,6 +3617,30 @@
      "name": "Cloak of Shadows",
      "label": "Defensive (major)"
     },
+    "F4": {
+     "name": "Recuperate",
+     "label": "Sustain / HoT"
+    },
+    "Shift+C": {
+     "name": "Evasion",
+     "label": "Defensive (major)"
+    },
+    "Shift+1": {
+     "name": "Shuriken Storm",
+     "label": "Rotation"
+    },
+    "Shift+4": {
+     "name": "Black Powder",
+     "label": "Spender"
+    },
+    "1": {
+     "name": "Shadowstrike",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Eviscerate",
+     "label": "Spender"
+    },
     "V": {
      "name": "Blind",
      "label": "Dispel / CC"
@@ -3772,10 +3648,6 @@
     "Shift+F1": {
      "name": "Vanish",
      "label": "Cooldown"
-    },
-    "F4": {
-     "name": "Recuperate",
-     "label": "Sustain / HoT"
     },
     "Shift+V": {
      "name": "Shiv",
@@ -3789,18 +3661,6 @@
      "name": "Mark for Death",
      "label": "Utility"
     },
-    "Ctrl+F1": {
-     "name": "Shadow Blades",
-     "label": "Cooldown"
-    },
-    "Shift+C": {
-     "name": "Evasion",
-     "label": "Defensive (major)"
-    },
-    "Ctrl+V": {
-     "name": "Kidney Shot",
-     "label": "Dispel / CC"
-    },
     "R": {
      "name": "Stealth",
      "label": "Utility"
@@ -3809,7 +3669,7 @@
      "name": "Secret Technique",
      "label": "Rotation"
     },
-    "Alt+V": {
+    "Ctrl+V": {
      "name": "Cheap Shot",
      "label": "Dispel / CC"
     },
@@ -3820,29 +3680,25 @@
     "T": {
      "name": "Tricks of the Trade",
      "label": "Utility"
-    },
-    "Shift+2": {
-     "name": "Shuriken Storm",
-     "label": "Rotation"
-    },
-    "Shift+4": {
-     "name": "Black Powder",
-     "label": "Spender"
     }
    },
    "situational": [
     {
-     "key": "Shift+1",
-     "name": "Gouge",
+     "key": "BUTTON5",
+     "name": "Kidney Shot",
      "label": "Dispel / CC"
     },
     {
-     "key": "5",
-     "name": "Sap",
-     "label": "Dispel / CC"
+     "key": "BUTTON4",
+     "name": "Shadow Blades",
+     "label": "Cooldown"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Gouge",
+    "Sap"
+   ]
   },
   {
    "id": 262,
@@ -3859,14 +3715,6 @@
      "name": "Astral Shift",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Hex",
-     "label": "Dispel / CC"
-    },
-    "Shift+V": {
-     "name": "Purge",
-     "label": "Dispel / CC"
-    },
     "F2": {
      "name": "Healing Surge",
      "label": "Self-heal"
@@ -3874,14 +3722,6 @@
     "Q": {
      "name": "Gust of Wind",
      "label": "Movement"
-    },
-    "1": {
-     "name": "Lava Burst",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Elemental Blast",
-     "label": "Spender"
     },
     "F": {
      "name": "Spiritwalker's Grace",
@@ -3899,9 +3739,29 @@
      "name": "Ghost Wolf",
      "label": "Movement"
     },
-    "Ctrl+V": {
-     "name": "Capacitor Totem",
+    "Shift+1": {
+     "name": "Chain Lightning",
+     "label": "Rotation"
+    },
+    "Shift+4": {
+     "name": "Earthquake",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Hex",
      "label": "Dispel / CC"
+    },
+    "Shift+V": {
+     "name": "Purge",
+     "label": "Dispel / CC"
+    },
+    "1": {
+     "name": "Lava Burst",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Elemental Blast",
+     "label": "Spender"
     },
     "2": {
      "name": "Voltaic Blaze",
@@ -3915,20 +3775,12 @@
      "name": "Lightning Bolt",
      "label": "Rotation"
     },
-    "Alt+V": {
-     "name": "Cleanse Spirit",
-     "label": "Dispel / CC"
-    },
     "Shift+F1": {
      "name": "Ascendance",
      "label": "Cooldown"
     },
     "Ctrl+F1": {
      "name": "Bloodlust",
-     "label": "Cooldown"
-    },
-    "Alt+F1": {
-     "name": "Heroism",
      "label": "Cooldown"
     },
     "X": {
@@ -3946,18 +3798,24 @@
     "Shift+F": {
      "name": "Nature's Swiftness",
      "label": "Utility"
-    },
-    "Shift+1": {
-     "name": "Chain Lightning",
-     "label": "Rotation"
-    },
-    "Shift+4": {
-     "name": "Earthquake",
-     "label": "Spender"
     }
    },
-   "situational": [],
-   "clickcast": []
+   "situational": [
+    {
+     "key": "BUTTON4",
+     "name": "Capacitor Totem",
+     "label": "Dispel / CC"
+    },
+    {
+     "key": "BUTTON5",
+     "name": "Cleanse Spirit",
+     "label": "Dispel / CC"
+    }
+   ],
+   "clickcast": [],
+   "unplaced": [
+    "Heroism"
+   ]
   },
   {
    "id": 263,
@@ -3974,14 +3832,6 @@
      "name": "Astral Shift",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Hex",
-     "label": "Dispel / CC"
-    },
-    "Shift+V": {
-     "name": "Purge",
-     "label": "Dispel / CC"
-    },
     "F2": {
      "name": "Healing Surge",
      "label": "Self-heal"
@@ -3990,17 +3840,9 @@
      "name": "Gust of Wind",
      "label": "Movement"
     },
-    "4": {
-     "name": "Elemental Blast",
-     "label": "Spender"
-    },
     "F1": {
      "name": "Stormkeeper",
      "label": "Big cooldown"
-    },
-    "1": {
-     "name": "Stormstrike",
-     "label": "Rotation"
     },
     "F": {
      "name": "Frost Shock",
@@ -4018,13 +3860,33 @@
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "Ctrl+Q": {
-     "name": "Ghost Wolf",
-     "label": "Movement"
+    "Shift+1": {
+     "name": "Chain Lightning",
+     "label": "Rotation"
     },
-    "Ctrl+V": {
-     "name": "Capacitor Totem",
+    "Shift+3": {
+     "name": "Crash Lightning",
+     "label": "Rotation"
+    },
+    "Shift+2": {
+     "name": "Sundering",
+     "label": "Rotation"
+    },
+    "V": {
+     "name": "Hex",
      "label": "Dispel / CC"
+    },
+    "Shift+V": {
+     "name": "Purge",
+     "label": "Dispel / CC"
+    },
+    "4": {
+     "name": "Elemental Blast",
+     "label": "Spender"
+    },
+    "1": {
+     "name": "Stormstrike",
+     "label": "Rotation"
     },
     "2": {
      "name": "Voltaic Blaze",
@@ -4034,7 +3896,7 @@
      "name": "Lava Lash",
      "label": "Rotation"
     },
-    "Shift+1": {
+    "5": {
      "name": "Lightning Bolt",
      "label": "Rotation"
     },
@@ -4046,49 +3908,34 @@
      "name": "Doom Winds",
      "label": "Cooldown"
     },
-    "Alt+F1": {
-     "name": "Ascendance",
-     "label": "Cooldown"
-    },
-    "T": {
+    "X": {
      "name": "Tremor Totem",
      "label": "Utility"
     },
-    "Shift+F": {
+    "T": {
      "name": "Nature's Swiftness",
      "label": "Utility"
-    },
-    "Shift+2": {
-     "name": "Chain Lightning",
-     "label": "Rotation"
-    },
-    "Shift+3": {
-     "name": "Crash Lightning",
-     "label": "Rotation"
-    },
-    "Ctrl+1": {
-     "name": "Sundering",
-     "label": "Rotation"
     }
    },
    "situational": [
     {
-     "key": "5",
-     "name": "Bloodlust",
-     "label": "Cooldown"
+     "key": "BUTTON5",
+     "name": "Capacitor Totem",
+     "label": "Dispel / CC"
     },
     {
-     "key": "X",
-     "name": "Heroism",
-     "label": "Cooldown"
-    },
-    {
-     "key": "Z",
-     "name": "Primordial Wave",
-     "label": "Cooldown"
+     "key": "BUTTON4",
+     "name": "Ghost Wolf",
+     "label": "Movement"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": [
+    "Ascendance",
+    "Bloodlust",
+    "Heroism",
+    "Primordial Wave"
+   ]
   },
   {
    "id": 264,
@@ -4105,14 +3952,6 @@
      "name": "Astral Shift",
      "label": "Defensive (major)"
     },
-    "V": {
-     "name": "Hex",
-     "label": "Dispel / CC"
-    },
-    "Shift+V": {
-     "name": "Purge",
-     "label": "Dispel / CC"
-    },
     "F2": {
      "name": "Healing Surge",
      "label": "Self-heal"
@@ -4124,10 +3963,6 @@
     "F": {
      "name": "Spiritwalker's Grace",
      "label": "Utility"
-    },
-    "Ctrl+V": {
-     "name": "Purify Spirit",
-     "label": "Dispel / CC"
     },
     "F1": {
      "name": "Healing Tide Totem",
@@ -4145,8 +3980,12 @@
      "name": "Ghost Wolf",
      "label": "Movement"
     },
-    "Alt+V": {
-     "name": "Capacitor Totem",
+    "V": {
+     "name": "Hex",
+     "label": "Dispel / CC"
+    },
+    "Shift+V": {
+     "name": "Purge",
      "label": "Dispel / CC"
     },
     "1": {
@@ -4173,15 +4012,11 @@
      "name": "Ancestral Spirit",
      "label": "Utility"
     },
-    "Alt+F1": {
-     "name": "Bloodlust",
-     "label": "Cooldown"
-    },
     "X": {
      "name": "Tremor Totem",
      "label": "Utility"
     },
-    "5": {
+    "4": {
      "name": "Surging Totem",
      "label": "Raid heal"
     },
@@ -4192,15 +4027,24 @@
    },
    "situational": [
     {
-     "key": "4",
-     "name": "Heroism",
-     "label": "Cooldown"
+     "key": "BUTTON5",
+     "name": "Capacitor Totem",
+     "label": "Dispel / CC"
+    },
+    {
+     "key": "BUTTON4",
+     "name": "Purify Spirit",
+     "label": "Dispel / CC"
     }
    ],
    "clickcast": [
     "Healing Wave",
     "Riptide",
     "Unleash Life"
+   ],
+   "unplaced": [
+    "Bloodlust",
+    "Heroism"
    ]
   },
   {
@@ -4238,18 +4082,6 @@
      "name": "Healthstone",
      "label": "Heal (out of combat)"
     },
-    "F": {
-     "name": "Soulstone",
-     "label": "Utility"
-    },
-    "1": {
-     "name": "Agony",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Malefic Rapture",
-     "label": "Spender"
-    },
     "F1": {
      "name": "Summon Darkglare",
      "label": "Big cooldown"
@@ -4265,6 +4097,26 @@
     "Shift+Q": {
      "name": "Demonic Circle: Teleport",
      "label": "Movement"
+    },
+    "Shift+F1": {
+     "name": "Malevolence",
+     "label": "Big cooldown"
+    },
+    "Shift+4": {
+     "name": "Seed of Corruption",
+     "label": "Spender"
+    },
+    "F": {
+     "name": "Soulstone",
+     "label": "Utility"
+    },
+    "1": {
+     "name": "Agony",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Malefic Rapture",
+     "label": "Spender"
     },
     "V": {
      "name": "Mortal Coil",
@@ -4286,14 +4138,6 @@
      "name": "Malefic Grasp",
      "label": "Spender"
     },
-    "Shift+F1": {
-     "name": "Soul Rot",
-     "label": "Cooldown"
-    },
-    "Ctrl+F1": {
-     "name": "Malevolence",
-     "label": "Big cooldown"
-    },
     "Shift+V": {
      "name": "Howl of Terror",
      "label": "Dispel / CC"
@@ -4305,14 +4149,6 @@
     "Shift+1": {
      "name": "Unstable Affliction",
      "label": "Rotation"
-    },
-    "Shift+4": {
-     "name": "Seed of Corruption",
-     "label": "Spender"
-    },
-    "Alt+F1": {
-     "name": "Phantom Singularity",
-     "label": "Cooldown"
     },
     "Ctrl+V": {
      "name": "Banish",
@@ -4326,23 +4162,33 @@
      "name": "Haunt",
      "label": "Rotation"
     },
+    "Ctrl+F1": {
+     "name": "Vile Taint",
+     "label": "Cooldown"
+    },
     "Shift+R": {
      "name": "Create Soulwell",
      "label": "Utility"
     },
-    "Ctrl+1": {
+    "Shift+3": {
      "name": "Drain Soul",
      "label": "Rotation"
     }
    },
    "situational": [
     {
-     "key": "Shift+3",
-     "name": "Vile Taint",
+     "key": "BUTTON5",
+     "name": "Phantom Singularity",
+     "label": "Cooldown"
+    },
+    {
+     "key": "BUTTON4",
+     "name": "Soul Rot",
      "label": "Cooldown"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 266,
@@ -4379,18 +4225,6 @@
      "name": "Healthstone",
      "label": "Heal (out of combat)"
     },
-    "F": {
-     "name": "Soulstone",
-     "label": "Utility"
-    },
-    "1": {
-     "name": "Shadow Bolt",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Hand of Gul'dan",
-     "label": "Spender"
-    },
     "F1": {
      "name": "Summon Demonic Tyrant",
      "label": "Big cooldown"
@@ -4402,6 +4236,22 @@
     "Shift+Q": {
      "name": "Demonic Circle: Teleport",
      "label": "Movement"
+    },
+    "Shift+4": {
+     "name": "Implosion",
+     "label": "Spender"
+    },
+    "F": {
+     "name": "Soulstone",
+     "label": "Utility"
+    },
+    "1": {
+     "name": "Shadow Bolt",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Hand of Gul'dan",
+     "label": "Spender"
     },
     "V": {
      "name": "Mortal Coil",
@@ -4435,17 +4285,9 @@
      "name": "Grimoire: Felguard",
      "label": "Spender"
     },
-    "Ctrl+V": {
-     "name": "Banish",
-     "label": "Dispel / CC"
-    },
     "Shift+F": {
      "name": "Create Healthstone",
      "label": "Utility"
-    },
-    "Shift+4": {
-     "name": "Implosion",
-     "label": "Spender"
     },
     "Shift+1": {
      "name": "Doom",
@@ -4456,8 +4298,15 @@
      "label": "Utility"
     }
    },
-   "situational": [],
-   "clickcast": []
+   "situational": [
+    {
+     "key": "BUTTON4",
+     "name": "Banish",
+     "label": "Dispel / CC"
+    }
+   ],
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 267,
@@ -4494,18 +4343,6 @@
      "name": "Healthstone",
      "label": "Heal (out of combat)"
     },
-    "F": {
-     "name": "Soulstone",
-     "label": "Utility"
-    },
-    "1": {
-     "name": "Incinerate",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Chaos Bolt",
-     "label": "Spender"
-    },
     "F1": {
      "name": "Summon Infernal",
      "label": "Big cooldown"
@@ -4521,6 +4358,22 @@
     "Shift+Q": {
      "name": "Demonic Circle: Teleport",
      "label": "Movement"
+    },
+    "Shift+4": {
+     "name": "Rain of Fire",
+     "label": "Spender"
+    },
+    "F": {
+     "name": "Soulstone",
+     "label": "Utility"
+    },
+    "1": {
+     "name": "Incinerate",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Chaos Bolt",
+     "label": "Spender"
     },
     "V": {
      "name": "Mortal Coil",
@@ -4550,14 +4403,6 @@
      "name": "Conflagrate",
      "label": "Rotation"
     },
-    "Shift+4": {
-     "name": "Rain of Fire",
-     "label": "Spender"
-    },
-    "Ctrl+V": {
-     "name": "Banish",
-     "label": "Dispel / CC"
-    },
     "Shift+F": {
      "name": "Create Healthstone",
      "label": "Utility"
@@ -4582,13 +4427,20 @@
      "name": "Channel Demonfire",
      "label": "Rotation"
     },
-    "Ctrl+1": {
+    "Shift+5": {
      "name": "Dimensional Rift",
      "label": "Rotation"
     }
    },
-   "situational": [],
-   "clickcast": []
+   "situational": [
+    {
+     "key": "BUTTON4",
+     "name": "Banish",
+     "label": "Dispel / CC"
+    }
+   ],
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 71,
@@ -4597,6 +4449,10 @@
    "spec": "Arms",
    "role": "dps",
    "keys": {
+    "Shift+Q": {
+     "name": "Charge",
+     "label": "Movement"
+    },
     "E": {
      "name": "Pummel",
      "label": "Interrupt"
@@ -4604,10 +4460,6 @@
     "Q": {
      "name": "Heroic Leap",
      "label": "Movement"
-    },
-    "V": {
-     "name": "Intimidating Shout",
-     "label": "Dispel / CC"
     },
     "F2": {
      "name": "Victory Rush",
@@ -4620,14 +4472,6 @@
     "F": {
      "name": "Battle Shout",
      "label": "Utility"
-    },
-    "1": {
-     "name": "Mortal Strike",
-     "label": "Rotation"
-    },
-    "4": {
-     "name": "Execute",
-     "label": "Spender"
     },
     "Z": {
      "name": "Ignore Pain",
@@ -4645,13 +4489,37 @@
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "Shift+Q": {
-     "name": "Charge",
-     "label": "Movement"
-    },
     "Shift+V": {
      "name": "Berserker Rage",
      "label": "Dispel / CC"
+    },
+    "Shift+F1": {
+     "name": "Avatar",
+     "label": "Cooldown"
+    },
+    "Shift+C": {
+     "name": "Spell Reflection",
+     "label": "Defensive"
+    },
+    "Shift+1": {
+     "name": "Sweeping Strikes",
+     "label": "Rotation"
+    },
+    "Shift+4": {
+     "name": "Cleave",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Intimidating Shout",
+     "label": "Dispel / CC"
+    },
+    "1": {
+     "name": "Mortal Strike",
+     "label": "Rotation"
+    },
+    "4": {
+     "name": "Execute",
+     "label": "Spender"
     },
     "2": {
      "name": "Overpower",
@@ -4660,10 +4528,6 @@
     "5": {
      "name": "Slam",
      "label": "Spender"
-    },
-    "Shift+F1": {
-     "name": "Avatar",
-     "label": "Cooldown"
     },
     "R": {
      "name": "Hamstring",
@@ -4674,22 +4538,14 @@
      "label": "Rotation"
     },
     "Ctrl+F1": {
-     "name": "Bladestorm",
+     "name": "Demolish",
      "label": "Cooldown"
     },
-    "Alt+F1": {
-     "name": "Ravager",
-     "label": "Cooldown"
-    },
-    "Shift+Z": {
+    "X": {
      "name": "Rallying Cry",
      "label": "Defensive"
     },
-    "Shift+C": {
-     "name": "Spell Reflection",
-     "label": "Defensive"
-    },
-    "Shift+X": {
+    "Shift+Z": {
      "name": "Intervene",
      "label": "Defensive"
     },
@@ -4701,27 +4557,25 @@
      "name": "Wrecking Throw",
      "label": "Utility"
     },
-    "Shift+1": {
-     "name": "Sweeping Strikes",
-     "label": "Rotation"
-    },
     "Ctrl+V": {
      "name": "Storm Bolt",
      "label": "Dispel / CC"
-    },
-    "Shift+4": {
-     "name": "Cleave",
-     "label": "Spender"
     }
    },
    "situational": [
     {
-     "key": "X",
-     "name": "Demolish",
+     "key": "BUTTON4",
+     "name": "Bladestorm",
+     "label": "Cooldown"
+    },
+    {
+     "key": "BUTTON5",
+     "name": "Ravager",
      "label": "Cooldown"
     }
    ],
-   "clickcast": []
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 72,
@@ -4730,6 +4584,10 @@
    "spec": "Fury",
    "role": "dps",
    "keys": {
+    "Shift+Q": {
+     "name": "Charge",
+     "label": "Movement"
+    },
     "E": {
      "name": "Pummel",
      "label": "Interrupt"
@@ -4737,10 +4595,6 @@
     "Q": {
      "name": "Heroic Leap",
      "label": "Movement"
-    },
-    "V": {
-     "name": "Intimidating Shout",
-     "label": "Dispel / CC"
     },
     "F2": {
      "name": "Victory Rush",
@@ -4753,14 +4607,6 @@
     "F": {
      "name": "Battle Shout",
      "label": "Utility"
-    },
-    "4": {
-     "name": "Execute",
-     "label": "Spender"
-    },
-    "1": {
-     "name": "Bloodthirst",
-     "label": "Rotation"
     },
     "C": {
      "name": "Enraged Regeneration",
@@ -4774,13 +4620,33 @@
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "Shift+Q": {
-     "name": "Charge",
-     "label": "Movement"
-    },
     "Shift+V": {
      "name": "Berserker Rage",
      "label": "Dispel / CC"
+    },
+    "Shift+C": {
+     "name": "Spell Reflection",
+     "label": "Defensive"
+    },
+    "Shift+1": {
+     "name": "Whirlwind",
+     "label": "Rotation"
+    },
+    "Shift+4": {
+     "name": "Thunder Blast",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Intimidating Shout",
+     "label": "Dispel / CC"
+    },
+    "4": {
+     "name": "Execute",
+     "label": "Spender"
+    },
+    "1": {
+     "name": "Bloodthirst",
+     "label": "Rotation"
     },
     "2": {
      "name": "Raging Blow",
@@ -4794,24 +4660,16 @@
      "name": "Rampage",
      "label": "Rotation"
     },
-    "Shift+1": {
+    "5": {
      "name": "Thunder Clap",
      "label": "Rotation"
     },
-    "Ctrl+F1": {
+    "Shift+F1": {
      "name": "Bladestorm",
      "label": "Cooldown"
     },
     "Z": {
      "name": "Rallying Cry",
-     "label": "Defensive"
-    },
-    "Shift+F1": {
-     "name": "Odyn's Fury",
-     "label": "Cooldown"
-    },
-    "Shift+C": {
-     "name": "Spell Reflection",
      "label": "Defensive"
     },
     "X": {
@@ -4825,22 +4683,22 @@
     "Shift+F": {
      "name": "Wrecking Throw",
      "label": "Utility"
-    },
-    "Ctrl+V": {
-     "name": "Storm Bolt",
-     "label": "Dispel / CC"
-    },
-    "Shift+2": {
-     "name": "Whirlwind",
-     "label": "Rotation"
-    },
-    "Shift+4": {
-     "name": "Thunder Blast",
-     "label": "Spender"
     }
    },
-   "situational": [],
-   "clickcast": []
+   "situational": [
+    {
+     "key": "BUTTON4",
+     "name": "Odyn's Fury",
+     "label": "Cooldown"
+    },
+    {
+     "key": "BUTTON5",
+     "name": "Storm Bolt",
+     "label": "Dispel / CC"
+    }
+   ],
+   "clickcast": [],
+   "unplaced": []
   },
   {
    "id": 73,
@@ -4849,6 +4707,14 @@
    "spec": "Protection",
    "role": "tank",
    "keys": {
+    "Shift+Q": {
+     "name": "Charge",
+     "label": "Movement"
+    },
+    "Ctrl+Q": {
+     "name": "Shield Charge",
+     "label": "Movement"
+    },
     "E": {
      "name": "Pummel",
      "label": "Interrupt"
@@ -4856,10 +4722,6 @@
     "Q": {
      "name": "Heroic Leap",
      "label": "Movement"
-    },
-    "V": {
-     "name": "Intimidating Shout",
-     "label": "Dispel / CC"
     },
     "F2": {
      "name": "Victory Rush",
@@ -4873,17 +4735,9 @@
      "name": "Battle Shout",
      "label": "Utility"
     },
-    "4": {
-     "name": "Execute",
-     "label": "Spender"
-    },
     "Z": {
      "name": "Ignore Pain",
      "label": "Defensive"
-    },
-    "1": {
-     "name": "Shield Slam",
-     "label": "Rotation"
     },
     "Shift+Z": {
      "name": "Shield Block",
@@ -4893,10 +4747,6 @@
      "name": "Shield Wall",
      "label": "Defensive (major)"
     },
-    "Shift+F": {
-     "name": "Taunt",
-     "label": "Taunt"
-    },
     "F1": {
      "name": "Champion's Spear",
      "label": "Big cooldown"
@@ -4905,10 +4755,6 @@
      "name": "Recuperate",
      "label": "Sustain / HoT"
     },
-    "Shift+Q": {
-     "name": "Charge",
-     "label": "Movement"
-    },
     "Shift+V": {
      "name": "Berserker Rage",
      "label": "Dispel / CC"
@@ -4916,6 +4762,34 @@
     "Shift+F1": {
      "name": "Avatar",
      "label": "Cooldown"
+    },
+    "Shift+C": {
+     "name": "Spell Reflection",
+     "label": "Defensive"
+    },
+    "Shift+1": {
+     "name": "Demoralizing Shout",
+     "label": "Rotation"
+    },
+    "Shift+4": {
+     "name": "Thunder Blast",
+     "label": "Spender"
+    },
+    "V": {
+     "name": "Intimidating Shout",
+     "label": "Dispel / CC"
+    },
+    "4": {
+     "name": "Execute",
+     "label": "Spender"
+    },
+    "1": {
+     "name": "Shield Slam",
+     "label": "Rotation"
+    },
+    "Shift+F": {
+     "name": "Taunt",
+     "label": "Taunt"
     },
     "2": {
      "name": "Revenge",
@@ -4929,28 +4803,12 @@
      "name": "Thunder Clap",
      "label": "Rotation"
     },
-    "Ctrl+Q": {
-     "name": "Shield Charge",
-     "label": "Movement"
-    },
-    "Ctrl+F1": {
-     "name": "Ravager",
-     "label": "Cooldown"
-    },
-    "Alt+F1": {
-     "name": "Demolish",
-     "label": "Cooldown"
-    },
     "Ctrl+V": {
      "name": "Shockwave",
      "label": "Dispel / CC"
     },
     "X": {
      "name": "Rallying Cry",
-     "label": "Defensive"
-    },
-    "Shift+C": {
-     "name": "Spell Reflection",
      "label": "Defensive"
     },
     "Shift+X": {
@@ -4969,25 +4827,29 @@
      "name": "Shattering Throw",
      "label": "Utility"
     },
-    "Shift+1": {
-     "name": "Demoralizing Shout",
-     "label": "Rotation"
-    },
     "Ctrl+F": {
      "name": "Challenging Shout",
      "label": "Utility"
-    },
-    "Shift+4": {
-     "name": "Thunder Blast",
-     "label": "Spender"
     },
     "Ctrl+R": {
      "name": "Disrupting Shout",
      "label": "Utility"
     }
    },
-   "situational": [],
-   "clickcast": []
+   "situational": [
+    {
+     "key": "BUTTON5",
+     "name": "Demolish",
+     "label": "Cooldown"
+    },
+    {
+     "key": "BUTTON4",
+     "name": "Ravager",
+     "label": "Cooldown"
+    }
+   ],
+   "clickcast": [],
+   "unplaced": []
   }
  ]
 }
