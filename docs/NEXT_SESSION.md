@@ -65,11 +65,34 @@ breder maken, dan pas over de muis praten.** Niet gedaan, wel gemeten.
   gevuld zijn, `/reload` er direct achteraan, en NIET `EditModeManagerFrame:ImportLayout`
   gebruiken. ⚠️ De exportstring is patch-gebonden — elke grote patch opnieuw maken.
 
+### Later die avond GEDAAN (7 aug, 20:00-21:00)
+- **`dispel_cc` = V,X,C en `cooldown` = F1,F3,F2** (`07785ca`). 63 zonder toets → 3.
+- **`T` is het consumable-anker** — uit de spell-verdeling gehaald. Daarvóór had 18 van de
+  39 specs GEEN vrije toets voor een healing potion; nu alle 39 wel. Tweede consumable
+  valt terug op een Shift-laag.
+- **Mage**: spec-grendels van Arcane Explosion en Dragon's Breath weg (Robs Frost mage kent
+  beide via de Frostfire-heldenboom), Slow Fall toegevoegd, en **Spellsteal gaat vóór
+  Dragon's Breath** (`90fb048`) — Rob: "voor een goede speler onmisbaar".
+- **`/mh sba`** (`30b3f23`) — houdt ALLEEN de kale `1` vrij voor Blizzards Assisted Combat.
+  Gated op `C_AssistedCombat.IsAvailable()`. Shift+1 blijft de AoE-tweeling. Kost 0.
+- ⚠️ **GEEN MUISKNOPPEN MEER AANNEMEN** (`37377a8`). `MouseSlots()` viel terug op "twee
+  duimknoppen heeft bijna elke muis" — dat zette **52 bindings** over de specs op knoppen
+  die niemand bevestigd had. Nu 0. Kost 3 → 17 zonder toets, en dat is de eerlijke prijs.
+  **Rob moest dit TWEE KEER zeggen voor het gerepareerd werd; de eerste keer beaamde ik
+  het alleen.** De harness spiegelt het (`MOUSE_SLOTS = []`).
+- **`scannedIds` in de automap-dump** (`8b4dec7`) — spell-IDs uit de eigen spellbook, want
+  grep over de andere addons gaf 22271 voor Arcane Explosion (dat is een *mob*).
+
 ### Eerstvolgende werk (volgorde)
-1. `dispel_cc` en `cooldown` breder maken — 63 zonder toets is geen acceptabele default.
-2. `/mh apply` leren welke toetsgroep op welke balk hoort. Nu vult hij het eerste vrije
+1. `/mh apply` leren welke toetsgroep op welke balk hoort. Nu vult hij het eerste vrije
    vakje, dus het plaatje klopt niet met wat er staat. Blokkeert allebei de opties.
-3. Pas daarna de keuze-kaart (MH zet het neer / doe het zelf).
+2. Pas daarna de keuze-kaart (MH zet het neer / doe het zelf).
+3. Optioneel: de 17 die nog zonder toets vallen zitten geconcentreerd bij Hunter
+   (Scare Beast, Wyvern Sting), Paladin (Blessing of Freedom, Turn Evil) en Prot Warrior.
+
+### Werkafspraak bij het lezen van SavedVariables
+**`/mh apply` en DAN `/reload`.** Het bestand wordt bij de reload geschreven, dus andersom
+lees je altijd het vorige plan. Dit heeft vanavond drie rondes gekost.
 
 Nog open van eerder: het drievoudige buff-icoon (`docs/NEXT_UPLOAD.md`), de optionele
 EllesmereUI-bar-preset, Arcane Explosion + Dragon's Breath toevoegen aan de Mage-data.
