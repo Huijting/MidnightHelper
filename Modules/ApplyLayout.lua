@@ -414,6 +414,19 @@ function ns.MH_ApplyLayout(arg)
 	end
 
 	if arg ~= "go" then
+		--- The dry run goes to the file too. It used to print and nothing else, so the
+		--- one person who needs to read it — whoever is being asked to approve it —
+		--- could only screenshot chat. Same rule as every other long read here.
+		ns.db.applyPlan = { rows = {}, missing = missing }
+		for i = 1, #plan do
+			local p = plan[i]
+			ns.db.applyPlan.rows[i] = {
+				key = p.wowKey, name = p.name, slot = p.slot, command = p.command,
+				place = p.place or false, rebind = p.rebind or false,
+				replaces = p.occupant and p.occupant.name or nil,
+			}
+		end
+
 		print(("%s this would set |cffffffff%d|r key(s):"):format(Prefix(), #plan))
 		for i = 1, #plan do
 			local p = plan[i]
