@@ -229,3 +229,30 @@ four totems went down and one beam kept shining, leaving the way shut.
 That mechanic is also content we did not have: an approach gate of four totems and
 four beams. It belongs in the beginner steps when those get written, whether or not
 the bug is fixed.
+
+## The delve bonus roll, measured on LIVE — 7 Aug
+
+Rob has met this twice: a popup with a die at the end of a delve, on live 12.0.7, which
+this addon knew nothing about. `/mh bonusroll` caught it. It is Blizzard's own
+`BonusRollFrame`, and the frame carries:
+
+    spellID     259072
+    state       prompt
+    remaining   49.2 seconds        <- it is TIMED
+    instance    The Darkway (scenario), map 2525, difficulty 208
+
+So a delve on live hands out a bonus roll with a fifty-second decision window. The
+screenshot shows "Cost: 1" against a currency icon with 23 held.
+
+⚠️ **This is not the mechanic we model.** `VaultAdvisor.lua` knows exactly one bonus
+roll: the Season 2 "Nebulous Voidcore", a BUTTON IN THE GREAT VAULT gated behind
+`IsSeason2Live` and three filled slots. A timed popup after a delve on live is something
+else, and we say nothing about it anywhere.
+
+Still unknown, and the capture was improved for the next one: WHICH currency it costs
+(the frame reported none — `C_CurrencyInfo` is now read), and the words on the popup
+(they live in child frames, so the first version read an empty top level).
+
+Worth knowing before 11 Aug: the watchers logged that Season 2 rebalances Ritual Sites
+to delve-tier rewards and removes their Voidcore bonus roll. If delves have their own
+roll on live already, our Season 2 model may be describing only half the picture.

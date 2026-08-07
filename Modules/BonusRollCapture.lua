@@ -83,10 +83,19 @@ local function FrameFields(frame)
 end
 
 --- The words on the popup, which say what it is for better than any id.
+---
+--- ⚠️ CHILDREN TOO. The first version read only `GetRegions()` on the frame itself and
+--- came back with nothing at all, while Rob's screenshot plainly showed "Bonus Loot",
+--- "Cost: 1" and a currency count. Blizzard nests those in child frames, so a flat read
+--- of the top level sees an empty popup. One level of children is enough here and keeps
+--- it cheap.
 local function FrameTexts(frame)
 	local out = {}
-	local ok = pcall(function()
-		for _, region in ipairs({ frame:GetRegions() }) do
+	local function harvest(f)
+		if not (f and f.GetRegions) then
+			return
+		end
+		for _, region in ipairs({ f:GetRegions() }) do
 			if region and region.GetText then
 				local okT, txt = pcall(region.GetText, region)
 				if okT and type(txt) == "string" and txt ~= "" and not Secret(txt) then
@@ -94,9 +103,47 @@ local function FrameTexts(frame)
 				end
 			end
 		end
+	end
+	local ok = pcall(function()
+		harvest(frame)
+		if frame.GetChildren then
+			for _, child in ipairs({ frame:GetChildren() }) do
+				harvest(child)
+			end
+		end
 	end)
 	if not ok then
 		out[#out + 1] = "(regions unreadable)"
+	end
+	return out
+end
+
+--- Which currency does it cost, and how much of it does the player have?
+---
+--- The frame reported a spellID and a countdown but no currency at all, while the popup
+--- on screen showed "Cost: 1" beside an icon and "23" below it. `C_CurrencyInfo` is
+--- where that lives; without it we would be recording that a bonus roll exists and not
+--- what it is paid with, which is the part that decides whether this is the Season 2
+--- mechanic we already model or something else entirely.
+local function CurrencyGuesses(frame)
+	local out = {}
+	local ok = pcall(function()
+		for k, v in pairs(frame) do
+			if type(k) == "string" and k:lower():find("currency") and type(v) == "number" then
+				local row = { field = k, id = v }
+				if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
+					local okC, info = pcall(C_CurrencyInfo.GetCurrencyInfo, v)
+					if okC and type(info) == "table" then
+						row.name = info.name
+						row.quantity = info.quantity
+					end
+				end
+				out[#out + 1] = row
+			end
+		end
+	end)
+	if not ok then
+		out[#out + 1] = { field = "(walk failed)" }
 	end
 	return out
 end
@@ -142,6 +189,7 @@ local function Capture()
 	store[#store + 1] = {
 		fields = FrameFields(frame),
 		texts = FrameTexts(frame),
+		currency = CurrencyGuesses(frame),
 		mapID = mapID,
 		instanceName = Scalar(instName),
 		instanceType = Scalar(instType),
