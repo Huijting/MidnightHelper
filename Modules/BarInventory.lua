@@ -199,6 +199,38 @@ function ns.MH_BarInventory()
 		out.bars[#out.bars + 1] = row
 	end
 
+	-- 2d. CAN WE TURN A BAR ON OURSELVES? Rob asked (7 Aug 2026) after I said an addon can
+	--     drive Edit Mode. That claim was about importing a whole layout string, which
+	--     EllesmereUI demonstrably does — turning a single bar on is a different call and
+	--     was never checked. `SetActionBarToggles` is the only lead, used by
+	--     OakUI_Installer behind an `if`, and historically it covers only bars 2-5;
+	--     MultiBar5/6/7 arrived with Edit Mode and predate nothing.
+	--
+	--     So ask this client instead of reasoning about it. Read-only: GetActionBarToggles
+	--     reports, SetActionBarToggles is NEVER called here.
+	out.api = {}
+	local function Note(name, value)
+		out.api[name] = value
+	end
+	Note("SetActionBarToggles", (type(SetActionBarToggles) == "function") and "function" or type(SetActionBarToggles))
+	Note("GetActionBarToggles", (type(GetActionBarToggles) == "function") and "function" or type(GetActionBarToggles))
+	if type(GetActionBarToggles) == "function" then
+		local ok, a, b, c, d, e = pcall(GetActionBarToggles)
+		if ok then
+			out.api.toggles = { tostring(a), tostring(b), tostring(c), tostring(d), tostring(e) }
+		else
+			out.api.togglesError = tostring(a)
+		end
+	end
+	for _, fn in ipairs({ "GetLayouts", "SaveLayouts", "SetActiveLayout", "ConvertStringToLayoutInfo" }) do
+		Note("C_EditMode." .. fn, (C_EditMode and type(C_EditMode[fn]) == "function") and "function" or "absent")
+	end
+	Note("EditModeManagerFrame", EditModeManagerFrame and "present" or "absent")
+	Note("EditModeManagerFrame.accountSettings",
+		(EditModeManagerFrame and EditModeManagerFrame.accountSettings) and "present" or "absent")
+	Note("Enum.EditModeActionBarSetting",
+		(Enum and Enum.EditModeActionBarSetting) and "present" or "absent")
+
 	-- 3. Which bar addons are loaded, so a report can say whose numbering this is.
 	if C_AddOns and C_AddOns.IsAddOnLoaded then
 		for _, name in ipairs({
