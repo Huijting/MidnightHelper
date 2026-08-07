@@ -155,6 +155,50 @@ function ns.MH_BarInventory()
 		return a.slot < b.slot
 	end)
 
+	-- 2c. Is each bar actually on screen, and where?
+	--
+	-- Rob, 7 Aug, looking at a screenshot of his own bars: "geen idee of ze allemaal op
+	-- visible staan". Neither did we — every reading so far was about which SLOT holds
+	-- what, and none about whether the player can see the thing they are being told to
+	-- press. A layout that fills a hidden bar is a layout nobody can use.
+	--
+	-- Read-only: IsShown for the state, GetPoint and the size for where it sits. No
+	-- opinion about whether that is a good place, and nothing moved.
+	out.bars = {}
+	local BAR_FRAMES = {
+		{ label = "Bar 1", frame = "MainMenuBar" },
+		{ label = "Bar 2", frame = "MultiBarBottomLeft" },
+		{ label = "Bar 3", frame = "MultiBarBottomRight" },
+		{ label = "Bar 4", frame = "MultiBarRight" },
+		{ label = "Bar 5", frame = "MultiBarLeft" },
+		{ label = "Bar 6", frame = "MultiBar5" },
+		{ label = "Bar 7", frame = "MultiBar6" },
+		{ label = "Bar 8", frame = "MultiBar7" },
+	}
+	for _, b in ipairs(BAR_FRAMES) do
+		local f = _G and _G[b.frame]
+		local row = { label = b.label, frame = b.frame, exists = f and true or false }
+		if f then
+			local okS, shown = pcall(f.IsShown, f)
+			row.shown = okS and shown or false
+			local okV, visible = pcall(f.IsVisible, f)
+			row.visible = okV and visible or false
+			local okP, point, _, relPoint, x, y = pcall(f.GetPoint, f, 1)
+			if okP and point then
+				row.point = point
+				row.relPoint = relPoint
+				row.x = x and math.floor(x + 0.5) or nil
+				row.y = y and math.floor(y + 0.5) or nil
+			end
+			local okZ, w, h = pcall(f.GetSize, f)
+			if okZ then
+				row.w = w and math.floor(w + 0.5) or nil
+				row.h = h and math.floor(h + 0.5) or nil
+			end
+		end
+		out.bars[#out.bars + 1] = row
+	end
+
 	-- 3. Which bar addons are loaded, so a report can say whose numbering this is.
 	if C_AddOns and C_AddOns.IsAddOnLoaded then
 		for _, name in ipairs({
