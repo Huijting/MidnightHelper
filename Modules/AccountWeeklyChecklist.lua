@@ -327,7 +327,7 @@ local function SetLine(line, show, text, r, g, b, onClick, tooltipFn)
 end
 
 function ns.RefreshAccountWeeklyChecklist()
-	if not panelUi or not panelUi.host or not panelUi.host:IsShown() then
+	if not panelUi or not panelUi.host or not panelUi.host:IsVisible() then
 		if panelUi and panelUi.block then
 			ns.RefreshAccountWeeklyChecklistLayout()
 		end

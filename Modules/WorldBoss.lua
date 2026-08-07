@@ -861,8 +861,9 @@ end
 
 local function OnWorldBossEvent()
 	SyncWarbandDoneFromQuestLog()
-	if ns.panels and ns.panels.delves then
-		ns.MH_RefreshWorldBossDelvesBlock(ns.panels.delves)
+	local panel = ns.panels and ns.panels.delves
+	if panel and panel:IsVisible() then
+		ns.MH_RefreshWorldBossDelvesBlock(panel)
 	end
 	if ns.RefreshDelvesPanel then
 		ns.RefreshDelvesPanel(false)

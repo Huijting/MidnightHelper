@@ -138,11 +138,16 @@ function ns.RequestDelveCurioItemData(season)
 	if not pack or not C_Item or not C_Item.RequestLoadItemDataByID then
 		return
 	end
-	local seen = {}
+	local seen, queued = {}, false
 	local function req(id)
 		id = tonumber(id)
 		if id and not seen[id] then
 			seen[id] = true
+			local cached = C_Item.IsItemDataCachedByID
+				and select(2, pcall(C_Item.IsItemDataCachedByID, id))
+			if not cached then
+				queued = true
+			end
 			pcall(C_Item.RequestLoadItemDataByID, id)
 		end
 	end
@@ -156,6 +161,7 @@ function ns.RequestDelveCurioItemData(season)
 			end
 		end
 	end
+	return queued
 end
 
 function ns.GetDelveCurioItemName(itemID)

@@ -51,6 +51,7 @@ local function RaidXDyn(nConsum, i)
 end
 
 local board
+local ev
 
 --- 🔴 SECURE BUTTONS LIVE ON UIParent, NEVER ON THE BOARD — and are POSITIONED here rather
 --- than anchored, which is a separate rule with the same reason.
@@ -336,6 +337,9 @@ local function EnsureBoard()
 		return board
 	end
 	local f = CreateFrame("Frame", "MidnightHelperConsumableBoard", UIParent, "BackdropTemplate")
+	f:HookScript("OnHide", function()
+		if ev then ev:UnregisterEvent("UNIT_AURA") end
+	end)
 	f:SetSize(300, 120)
 	f:SetFrameStrata("MEDIUM")
 	f:SetClampedToScreen(true)
@@ -766,6 +770,7 @@ function ns.ShowConsumableBoard()
 	-- the buttons first would park every one of them at the fallback position and leave
 	-- them there for the whole session.
 	PlaceAllSecure(f)
+	if ev then ev:RegisterEvent("UNIT_AURA") end
 	if hideTimer and hideTimer.Cancel then
 		pcall(hideTimer.Cancel, hideTimer)
 	end
@@ -796,11 +801,10 @@ function ns.RefreshConsumableBoard()
 	end
 end
 
-local ev = CreateFrame("Frame")
+ev = CreateFrame("Frame")
 ev:RegisterEvent("ENCOUNTER_START")
 ev:RegisterEvent("PLAYER_REGEN_DISABLED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
-ev:RegisterEvent("UNIT_AURA")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "ENCOUNTER_START" or event == "PLAYER_REGEN_DISABLED" then
 		ns.HideConsumableBoard()
