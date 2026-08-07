@@ -252,6 +252,7 @@ ns._mhLocales.enUS = {
 	CMDLIST_ARROWSIZE = "Resize the route arrow (28-160).",
 	CMDLIST_GOTO = "Point the arrow at a spot: /mh goto 47.0 62.2 [name]",
 	CMDLIST_MOUSE = "How many thumb buttons your mouse has (0-6); /mh mouse detect finds out what they send.",
+	CMDLIST_APPLY = "Set the keys this layout suggests. Shows them first; /mh apply undo puts them back.",
 	MOUSEDETECT_TITLE = "Press a thumb button",
 	MOUSEDETECT_HINT = "Hover this box and press each button in turn. Escape closes it. Nothing is bound - this only reports what each button sends.",
 	CMDLIST_PROMPT = "On-screen prompt: shows your interrupt and your purge when they apply.",

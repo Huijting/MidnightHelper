@@ -1080,6 +1080,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- Naga's pad may send mouse buttons or number keys depending on its driver, so this
 	-- is asked rather than assumed. It decides how many premium slots the keybind
 	-- scheme may hand out before it falls back to a second modifier.
+	-- /mh apply — set the keys the layout suggests. Bare = dry run, "go" = do it,
+	-- "undo" = put every touched key back. Never in combat, never automatic.
+	if msg == "apply" or msg == "apply go" or msg == "apply undo" then
+		if ns.MH_ApplyLayout then
+			ns.MH_ApplyLayout(msg:match("^apply%s+(%S+)"))
+		end
+		return
+	end
+
 	-- /mh mouse detect — ask the button instead of asking the player.
 	if msg == "mouse detect" then
 		if ns.StartMouseDetect then

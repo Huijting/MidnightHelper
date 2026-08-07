@@ -250,6 +250,7 @@ ns._mhLocales.nlNL = {
 	CMDLIST_ARROWSIZE = "Verander de grootte van de routepijl (28-160).",
 	CMDLIST_GOTO = "Zet de pijl op een plek: /mh goto 47.0 62.2 [naam]",
 	CMDLIST_MOUSE = "Hoeveel duimknoppen je muis heeft (0-6); /mh mouse detect zoekt uit wat ze versturen.",
+	CMDLIST_APPLY = "Zet de toetsen die deze layout voorstelt. Toont ze eerst; /mh apply undo zet alles terug.",
 	MOUSEDETECT_TITLE = "Druk een duimknop in",
 	MOUSEDETECT_HINT = "Hou je muis boven dit vak en druk elke knop een voor een in. Escape sluit het. Er wordt niets gebonden - dit meldt alleen wat elke knop verstuurt.",
 	CMDLIST_PROMPT = "Prompt op je scherm: toont je interrupt en je purge wanneer ze kunnen.",
