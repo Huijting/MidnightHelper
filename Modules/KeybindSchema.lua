@@ -574,16 +574,33 @@ function ns.Keybind_AllocateSpells(spells, opts)
 		end
 	end
 
-	for i = 1, #sorted do
-		if sorted[i] and sorted[i].role then
-			place(sorted[i])
+	--- ⚠️ WISHES BEFORE THE REST, INSIDE EACH PASS. `bindKey` is how the AoE twin rule
+	--- is written down — "Blizzard belongs on Shift+2, because Flurry is on 2" — and it
+	--- was only ever a hint that `tryPreferredKey` gave up on the moment the key was
+	--- taken. Measured across all 40 specs before this change: 108 wishes, 20 refused,
+	--- 14 specs with at least one broken pair. The refusals were not conflicts between
+	--- two wishes; they were ordinary overflow arriving first and sitting on a key that
+	--- was spoken for.
+	---
+	--- Third time today the same shape has been the answer: serve whoever named one
+	--- specific place before whoever will take anything.
+	local handled = {}
+	local function pass(wantsRole)
+		for wishesFirst = 1, 2 do
+			for i = 1, #sorted do
+				local s = sorted[i]
+				local isRole = s and s.role ~= nil
+				local hasWish = s and s.bindKey ~= nil
+				if s and not handled[s] and isRole == wantsRole
+					and ((wishesFirst == 1) == (hasWish and true or false)) then
+					handled[s] = true
+					place(s)
+				end
+			end
 		end
 	end
-	for i = 1, #sorted do
-		if sorted[i] and not sorted[i].role then
-			place(sorted[i])
-		end
-	end
+	pass(true)  -- role anchors: exactly one key each, so they cannot move
+	pass(false) -- categories: a list to choose from
 
 	--- @return table spellByUiKey, table unplaced  — second value is new; older callers
 	--- ignore it and behave as before, minus the key theft.
