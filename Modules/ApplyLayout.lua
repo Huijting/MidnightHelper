@@ -77,10 +77,19 @@ end
 ---
 --- Both ids are checked because a replaced spell sits on the bar under whichever the
 --- game feels like reporting — Ice Block and Ice Cold are the same button.
-local function SlotHoldingSpell(spellID)
+--- @param driveable table|nil  set of slots some binding command actually drives
+---
+--- ⚠️ PREFER A SLOT A KEY CAN REACH. Frozen Orb sat on Rob's bars twice: slot 121, on
+--- the skyriding bar that no binding command drives, and slot 146, which one does. The
+--- scan ran low to high, "found" it on 121, and reserved that — leaving the usable copy
+--- on 146 unprotected, so the very next placement proposed writing Frostbolt over it
+--- and then reported Frozen Orb as unplaceable. Reserving the copy nobody can press is
+--- the same as reserving nothing.
+local function SlotHoldingSpell(spellID, driveable)
 	if not (spellID and GetActionInfo) then
 		return nil
 	end
+	local fallback
 	local override
 	if C_SpellBook and C_SpellBook.FindSpellOverrideByID then
 		local ok, o = pcall(C_SpellBook.FindSpellOverrideByID, spellID)
@@ -102,11 +111,14 @@ local function SlotHoldingSpell(spellID)
 		--- when it is not, and say so, rather than moving anything.
 		if ok and (kind == "spell" or kind == "macro") and id then
 			if id == spellID or (override and id == override) then
-				return slot
+				if not driveable or driveable[slot] then
+					return slot
+				end
+				fallback = fallback or slot
 			end
 		end
 	end
-	return nil
+	return fallback
 end
 
 --- The action slot that already holds this item, so a potion already on a bar is left
@@ -221,6 +233,12 @@ local function BuildPlan()
 	for command, slot in pairs(commandSlot) do
 		slotCommand[slot] = command
 	end
+	-- Slots some binding command actually drives. A copy of a spell on any other
+	-- slot cannot be reached by a key, so it must never win over one that can.
+	local driveable = {}
+	for _, slot in pairs(commandSlot) do
+		driveable[slot] = true
+	end
 
 	--- Slots we are allowed to fill, in the order we would rather use them.
 	---
@@ -307,7 +325,7 @@ local function BuildPlan()
 
 	-- Pass 1: reserve every slot that already holds one of our spells.
 	for _, row in ipairs(ordered) do
-		local slot = SlotHoldingSpell(row.entry.id)
+		local slot = SlotHoldingSpell(row.entry.id, driveable)
 		if slot then
 			taken[slot] = true
 			row.existingSlot = slot
