@@ -83,10 +83,34 @@ breder maken, dan pas over de muis praten.** Niet gedaan, wel gemeten.
 - **`scannedIds` in de automap-dump** (`8b4dec7`) — spell-IDs uit de eigen spellbook, want
   grep over de andere addons gaf 22271 voor Arcane Explosion (dat is een *mob*).
 
+### Balkenplan GEDAAN (7 aug, laat) — en wat er nog open staat
+`6faeb63` geeft elke toetsgroep een vaste balk én een vaste plek. Getest op Robs Frost
+mage met een volledige `apply full go` + `apply go`: **24 van de 24 toetsen correct,
+niets vermist.** Vakje 1 blijft leeg (SBA), nummers op balk 1, letters op balk 2, Shift
+gesplitst over 3 en 4, F-rij op 5, reserve op 6.
+
+    balk 1  nummers 1-5              slots 1-5
+    balk 2  letters Q E R T F Z X C V  slots 61-69
+    balk 3  Shift+nummers + Shift+F   slots 49-57
+    balk 4  Shift+letters             slots 25-33
+    balk 5  F-rij F1-F4               slots 37-40
+    balk 6  Ctrl + duimknoppen        slots 145-156 (vulvolgorde)
+    balk 7/8 = van de speler, wij komen er niet
+
+**Nog te doen aan het balkenplan:**
+1. **Spells die al op balk 7/8 staan blijven daar.** `/mh apply` verplaatst niets dat al
+   werkt, dus Counterspell (157), Ice Cold (160) en Remove Curse (161) staan nog op Robs
+   eigen balk terwijl ze op `E`, `C` en `Shift+V` van balk 2/4 horen. Alleen een volledige
+   herbouw zet ze goed, en die haalt balk 7/8 bewust niet leeg. Keuze maken.
+2. **Frozen Orb staat op vakje 121** — dat is de skyriding-/voertuigbalk, niet balk 1-8.
+   `Shift+1` wijst daarheen. Werkt alleen zolang die balk zichtbaar is.
+3. ⚠️ **`/mh bars` gaf `nil` als naam voor vakjes die wél een spell bevatten** (157/160/161).
+   Dat kostte een half uur en twee verkeerde diagnoses. `NameForAction` in
+   `Modules/BarInventory.lua` nakijken.
+
 ### Eerstvolgende werk (volgorde)
-1. `/mh apply` leren welke toetsgroep op welke balk hoort. Nu vult hij het eerste vrije
-   vakje, dus het plaatje klopt niet met wat er staat. Blokkeert allebei de opties.
-2. Pas daarna de keuze-kaart (MH zet het neer / doe het zelf).
+1. De drie punten hierboven.
+2. Daarna de keuze-kaart (MH zet het neer / doe het zelf).
 3. Optioneel: de 17 die nog zonder toets vallen zitten geconcentreerd bij Hunter
    (Scare Beast, Wyvern Sting), Paladin (Blessing of Freedom, Turn Evil) en Prot Warrior.
 
