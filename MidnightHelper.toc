@@ -136,6 +136,7 @@ Modules\QuestDiff.lua
 Modules\BonusRollCapture.lua
 Modules\MouseDetect.lua
 Modules\BarInventory.lua
+Modules\LayoutConsumables.lua
 Modules\ApplyLayout.lua
 Modules\RitualSites.lua
 Modules\RitualCoachData.lua

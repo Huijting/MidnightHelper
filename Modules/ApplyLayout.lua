@@ -109,6 +109,21 @@ local function SlotHoldingSpell(spellID)
 	return nil
 end
 
+--- The action slot that already holds this item, so a potion already on a bar is left
+--- where the player put it rather than duplicated somewhere else.
+local function SlotHoldingItem(itemID)
+	if not (itemID and GetActionInfo) then
+		return nil
+	end
+	for slot = 1, 180 do
+		local ok, kind, id = pcall(GetActionInfo, slot)
+		if ok and kind == "item" and id == itemID then
+			return slot
+		end
+	end
+	return nil
+end
+
 --- Is this action slot empty?
 local function SlotIsEmpty(slot)
 	if not (slot and GetActionInfo) then
@@ -351,6 +366,47 @@ local function BuildPlan()
 			end
 		end
 	end
+	--- Consumables last, on whatever keys the spells did not want. They are pressed once
+	--- or twice a fight, so by the scheme's own frequency rule they have no claim on a
+	--- rotation key — and a rebuild that wiped Rob's healing potion and put nothing back
+	--- would be a downgrade dressed as a layout.
+	if ns.MH_ConsumableLayout then
+		local usedKeys = {}
+		for bindKey in pairs(spec.spellByUiKey) do
+			usedKeys[bindKey] = true
+		end
+		local okC, consumables = pcall(ns.MH_ConsumableLayout, usedKeys)
+		for i = 1, (okC and #consumables or 0) do
+			local c = consumables[i]
+			local wowKey = ToWowKey(c.key)
+			local slot = SlotHoldingItem(c.itemID)
+			local command = slot and (slotCommand[slot] or CommandForSlot(slot))
+			if slot and command then
+				if not (GetBindingAction and GetBindingAction(wowKey) == command) then
+					plan[#plan + 1] = {
+						key = c.key, wowKey = wowKey, command = command,
+						slot = slot, name = c.name,
+					}
+				else
+					alreadyOk = alreadyOk + 1
+				end
+				taken[slot] = true
+			elseif wowKey then
+				local target = NextCandidate()
+				if target then
+					plan[#plan + 1] = {
+						key = c.key, wowKey = wowKey, command = slotCommand[target],
+						slot = target, name = c.name, itemID = c.itemID,
+						place = true, occupant = OccupantOf(target),
+						rebind = (GetBindingAction and GetBindingAction(wowKey) ~= slotCommand[target]) or false,
+					}
+				else
+					missing[#missing + 1] = c.name .. " (no free slot on bars 1-6)"
+				end
+			end
+		end
+	end
+
 	table.sort(plan, function(a, b)
 		return ns.Keybind_CompareBindKeys(a.key, b.key)
 	end)
@@ -734,7 +790,13 @@ function ns.MH_ApplyLayout(arg)
 			--- and clearing matters, because a spell left on the cursor is a spell the
 			--- next click drops somewhere the player did not ask for.
 			local ok = pcall(function()
-				if C_Spell and C_Spell.PickupSpell then
+				if p.itemID then
+					if C_Item and C_Item.PickupItem then
+						C_Item.PickupItem(p.itemID)
+					elseif PickupItem then
+						PickupItem(p.itemID)
+					end
+				elseif C_Spell and C_Spell.PickupSpell then
 					C_Spell.PickupSpell(p.spellID)
 				elseif PickupSpell then
 					PickupSpell(p.spellID)
