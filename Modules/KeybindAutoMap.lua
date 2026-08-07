@@ -439,13 +439,23 @@ SlashCmdList["MHAUTOMAP"] = function()
 		dump.baseKeyMapping = ns._mhAutoSlotsDebug
 	end
 	-- Every name the scan returned, so "absent" can be told apart from "unclassified".
+	--
+	-- The IDs go with them. Until 7 Aug this recorded names only, and the moment three
+	-- unclassified spells needed adding to the data (Arcane Explosion, Dragon's Breath,
+	-- Slow Fall) there was no trustworthy way to learn their IDs — grepping the other
+	-- installed addons turned up a combat-log line where 22271 is a *mob's* Arcane
+	-- Explosion, which is exactly the kind of plausible-looking wrong number the
+	-- never-guess rule exists for. The player's own spellbook already knows, so write
+	-- it down.
 	do
-		local seen = {}
-		for name in pairs(ReadKnownActiveSpells()) do
+		local seen, ids = {}, {}
+		for name, sid in pairs(ReadKnownActiveSpells()) do
 			seen[#seen + 1] = name
+			ids[name] = sid
 		end
 		table.sort(seen)
 		dump.scanned = seen
+		dump.scannedIds = ids
 	end
 	for _, bk in ipairs(keys) do
 		local def = map[bk]
