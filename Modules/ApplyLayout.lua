@@ -42,6 +42,97 @@ local BAR_COMMANDS = {
 	{ prefix = "MULTIACTIONBAR7BUTTON",  first = 169 },
 }
 
+--- ⚠️ ONE KIND OF KEY PER BAR. Until now nothing decided WHERE an ability should sit;
+--- `PlacementForKey` followed whatever the key happened to be bound to already, and
+--- anything unbound fell into the first free slot. Measured on Rob's mage 7 Aug 2026:
+--- Cone of Cold, Spellsteal, his racial and his health potion all landed on the main
+--- bar's first four buttons, reachable only via Shift+3, 7, Shift+E and T. Every one of
+--- them worked, and the bar was unreadable. His words when this started: "ik hou veel
+--- ruimte over, ik vind het er niet uitzien en het is zeer verwarrend."
+---
+--- So each group of keys gets a bar, and a fixed position inside it. Sizes come from
+--- measuring all 39 specs, not from taste: numbers peak at 5, letters at 8 of a pool of
+--- 9, the F-row at 4, Ctrl at 6, and Shift at 13 — which is why Shift needs two bars.
+--- A bar holds 12 buttons and no argument makes 13 fit on one.
+---
+--- Letters run in keyboard order (top row, home row, bottom row) rather than in the
+--- scheme's own priority order: you read a bar with your eyes and press with your hand,
+--- and the eye matches position to position.
+---
+--- Bars 7 and 8 are deliberately absent. Those are the player's own — professions,
+--- portals, disenchant — and nothing here may touch them.
+local NUMBER_KEYS = { "1", "2", "3", "4", "5" }
+local LETTER_KEYS = { "Q", "E", "R", "T", "F", "Z", "X", "C", "V" }
+local FROW_KEYS = { "F1", "F2", "F3", "F4" }
+
+local function WithModifier(mod, keys)
+	local out = {}
+	for i = 1, #keys do
+		out[i] = mod .. "+" .. keys[i]
+	end
+	return out
+end
+
+local function Concat(...)
+	local out = {}
+	for _, list in ipairs({ ... }) do
+		for i = 1, #list do
+			out[#out + 1] = list[i]
+		end
+	end
+	return out
+end
+
+--- barIndex is an index into BAR_COMMANDS above; `keys` is read as position 1..n.
+--- An empty string is a deliberate gap — it keeps the positions after it lined up.
+local BAR_PLAN = {
+	{ barIndex = 1, label = "numbers", keys = NUMBER_KEYS },
+	{ barIndex = 2, label = "letters", keys = LETTER_KEYS },
+	{ barIndex = 3, label = "shift (numbers + F-row)",
+		keys = Concat(WithModifier("Shift", NUMBER_KEYS), WithModifier("Shift", FROW_KEYS)) },
+	{ barIndex = 4, label = "shift (letters)", keys = WithModifier("Shift", LETTER_KEYS) },
+	{ barIndex = 5, label = "F-row", keys = FROW_KEYS },
+	-- The Ctrl layer and the thumb buttons share a bar. Both are overflow, both are small
+	-- (Ctrl peaks at 6 per spec and the thumb buttons at 6), and together they fit inside
+	-- one bar of 12. Ctrl has no fixed position: its 18 possible keys cannot be given one
+	-- on a 12-button bar, so it fills in scheme order. Say that plainly rather than
+	-- pretend the whole layout is positional.
+	{ barIndex = 6, label = "ctrl + mouse", keys = {}, fill = true },
+}
+
+--- @return table bindKey -> action slot
+local function BuildPlannedSlots()
+	local planned = {}
+	for _, group in ipairs(BAR_PLAN) do
+		local bar = BAR_COMMANDS[group.barIndex]
+		if bar then
+			for pos = 1, #group.keys do
+				local key = group.keys[pos]
+				if key and key ~= "" and pos <= 12 then
+					planned[key] = bar.first + (pos - 1)
+				end
+			end
+		end
+	end
+	return planned
+end
+
+--- Slots on the overflow bar, in order, for the keys BAR_PLAN gives no fixed position.
+local function OverflowSlots()
+	local out = {}
+	for _, group in ipairs(BAR_PLAN) do
+		if group.fill then
+			local bar = BAR_COMMANDS[group.barIndex]
+			if bar then
+				for pos = 1, 12 do
+					out[#out + 1] = bar.first + (pos - 1)
+				end
+			end
+		end
+	end
+	return out
+end
+
 local function Prefix()
 	return ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
 end
@@ -298,6 +389,28 @@ local function BuildPlan()
 	local candidates = CandidateSlots()
 	local taken = {} -- slots this run has already claimed
 
+	--- Where BAR_PLAN says this key belongs. Nil when the key has no fixed position
+	--- (the Ctrl layer) or when the bar is not one this client drives.
+	local plannedSlot = BuildPlannedSlots()
+	local overflow = OverflowSlots()
+
+	--- The planned home first, the shared overflow bar second. Only then do we fall back
+	--- on where the key happens to be bound today — that fallback is what scattered the
+	--- layout in the first place, so it stops being the opening move.
+	local function PlannedTarget(bindKey)
+		local slot = plannedSlot[bindKey]
+		if slot and not taken[slot] and slotCommand[slot] then
+			return slot
+		end
+		for i = 1, #overflow do
+			local s = overflow[i]
+			if not taken[s] and slotCommand[s] then
+				return s
+			end
+		end
+		return nil
+	end
+
 	local function NextCandidate()
 		for i = 1, #candidates do
 			local slot = candidates[i]
@@ -385,11 +498,22 @@ local function BuildPlan()
 					.. (" (on slot %d, which no action button drives)"):format(slot)
 			else
 				-- Not on any bar. Put it somewhere we are allowed to, and bind the key.
-				local target = PlacementForKey(wowKey, commandSlot)
-				if target and not taken[target] then
+				--- BAR_PLAN first, then the key's current home, then any free slot.
+				---
+				--- The order matters and it used to be the other way round: following
+				--- the existing binding first is what put Cone of Cold, a racial and a
+				--- health potion side by side on the main bar. Where a key happens to
+				--- point today is history, not a plan.
+				local target = PlannedTarget(bindKey)
+				if target then
 					taken[target] = true
 				else
-					target = NextCandidate()
+					target = PlacementForKey(wowKey, commandSlot)
+					if target and not taken[target] then
+						taken[target] = true
+					else
+						target = NextCandidate()
+					end
 				end
 				if target then
 					local cmd = slotCommand[target]
@@ -432,7 +556,14 @@ local function BuildPlan()
 				end
 				taken[slot] = true
 			elseif wowKey then
-				local target = NextCandidate()
+				-- The potion lives on T, and T is a letter key, so BAR_PLAN has a home
+				-- for it like anything else. Only fall to a free slot if that is taken.
+				local target = PlannedTarget(c.key)
+				if target then
+					taken[target] = true
+				else
+					target = NextCandidate()
+				end
 				if target then
 					plan[#plan + 1] = {
 						key = c.key, wowKey = wowKey, command = slotCommand[target],
@@ -786,6 +917,26 @@ function ns.MH_ApplyLayout(arg)
 		if #missing > 0 then
 			print(("   |cffff9900%d not on a bar, so they cannot be bound:|r %s"):format(
 				#missing, table.concat(missing, ", ")))
+		end
+		--- A bar that is switched off in Edit Mode has no buttons, so BAR_PLAN cannot use
+		--- it and everything quietly piles onto the bars that are on. That is the failure
+		--- this whole feature exists to end, so name it instead of letting it happen.
+		local off = {}
+		local cs = ns.MH_CommandSlotMap and ns.MH_CommandSlotMap() or {}
+		local haveSlot = {}
+		for _, s in pairs(cs) do
+			haveSlot[s] = true
+		end
+		for _, group in ipairs(BAR_PLAN) do
+			local bar = BAR_COMMANDS[group.barIndex]
+			if bar and not haveSlot[bar.first] then
+				off[#off + 1] = ("bar %d (%s)"):format(group.barIndex, group.label)
+			end
+		end
+		if #off > 0 then
+			print(("   |cffff9900%d bar(s) the layout wants are switched off:|r %s"):format(
+				#off, table.concat(off, ", ")))
+			print("   |cff9d9d9dTurn them on in Edit Mode, or those keys share a bar with the rest.|r")
 		end
 		print("   |cff9d9d9dNothing has changed. |cffffffff/mh apply go|r to do it, |cffffffff/mh apply undo|r afterwards.|r")
 		return
