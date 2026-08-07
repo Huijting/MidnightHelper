@@ -1080,6 +1080,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- Naga's pad may send mouse buttons or number keys depending on its driver, so this
 	-- is asked rather than assumed. It decides how many premium slots the keybind
 	-- scheme may hand out before it falls back to a second modifier.
+	-- /mh mouse detect — ask the button instead of asking the player.
+	if msg == "mouse detect" then
+		if ns.StartMouseDetect then
+			ns.StartMouseDetect()
+		end
+		return
+	end
+
 	do
 		local mn = msg:match("^mouse%s+(%d+)$")
 		if mn or msg == "mouse" then

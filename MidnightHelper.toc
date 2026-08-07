@@ -134,6 +134,7 @@ Modules\Rares.lua
 Modules\VignetteCapture.lua
 Modules\QuestDiff.lua
 Modules\BonusRollCapture.lua
+Modules\MouseDetect.lua
 Modules\RitualSites.lua
 Modules\RitualCoachData.lua
 Modules\RitualCoach.lua
