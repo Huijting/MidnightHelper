@@ -1080,6 +1080,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- Naga's pad may send mouse buttons or number keys depending on its driver, so this
 	-- is asked rather than assumed. It decides how many premium slots the keybind
 	-- scheme may hand out before it falls back to a second modifier.
+	-- /mh bars — what is on every action slot, and which binding commands this client
+	-- knows. Measured, because slot numbering and binding names differ per bar addon.
+	if msg == "bars" then
+		if ns.MH_BarInventory then
+			ns.MH_BarInventory()
+		end
+		return
+	end
+
 	-- /mh apply — set the keys the layout suggests. Bare = dry run, "go" = do it,
 	-- "undo" = put every touched key back. Never in combat, never automatic.
 	if msg == "apply" or msg == "apply go" or msg == "apply undo" then

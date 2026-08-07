@@ -1,0 +1,114 @@
+local _, ns = ...
+
+--[[
+	Midnight Helper — what is actually on your bars, and what can bind it (`/mh bars`).
+
+	`/mh apply` bound 10 keys on Rob's mage and failed on 9, reporting spells as "not on
+	any bar" that were plainly sitting on his bars, plus an "Ice Block (slot 121, no
+	command)". The cause was an assumption: that action slots and their binding names are
+	the same for everybody. They are not. Rob and Carola run EllesmereUI, which adds bars
+	of its own with its own binding names (`EUI_BAR9_BUTTON1`...); Cisca runs neither.
+	Hardcoding a slot-to-command table only ever describes one person's setup.
+
+	So this measures instead, and both halves matter:
+
+	  • WHAT IS WHERE — every action slot the game exposes, and what sits in it.
+	  • WHAT CAN BIND IT — every binding command this client knows, from the game's own
+	    binding list, including the ones an addon added. `GetNumBindings`/`GetBinding`
+	    is the authoritative answer; a table we typed is a guess about somebody else's
+	    machine.
+
+	Between them we can work out the real mapping on THIS installation instead of
+	assuming a default one, and see immediately how a setup without a bar addon differs
+	from one with it.
+
+	⚠️ Reads only. It never binds, never moves an action, never touches a bar.
+]]
+
+local MAX_SLOT = 180
+
+local function Prefix()
+	return ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+end
+
+local function NameForAction(kind, id)
+	if kind == "spell" and C_Spell and C_Spell.GetSpellName then
+		local ok, n = pcall(C_Spell.GetSpellName, id)
+		if ok and n then
+			return n
+		end
+	elseif kind == "item" and C_Item and C_Item.GetItemNameByID then
+		local ok, n = pcall(C_Item.GetItemNameByID, id)
+		if ok and n then
+			return n
+		end
+	elseif kind == "macro" and GetMacroInfo then
+		local ok, n = pcall(GetMacroInfo, id)
+		if ok and n then
+			return n
+		end
+	end
+	return nil
+end
+
+--- `/mh bars` — write the whole picture to SavedVariables.
+function ns.MH_BarInventory()
+	ns.db = ns.db or {}
+	local out = { slots = {}, bindings = {}, addons = {} }
+
+	-- 1. What is in every action slot.
+	if GetActionInfo then
+		for slot = 1, MAX_SLOT do
+			local ok, kind, id, subType = pcall(GetActionInfo, slot)
+			if ok and kind then
+				out.slots[#out.slots + 1] = {
+					slot = slot,
+					kind = kind,
+					id = id,
+					subType = subType,
+					name = NameForAction(kind, id),
+				}
+			end
+		end
+	end
+
+	-- 2. Every binding command this client knows, with the keys on it. This is where
+	--    an addon's own bars show up: they register their own commands, and there is
+	--    no other way to learn their names from outside.
+	if GetNumBindings and GetBinding then
+		local n = GetNumBindings() or 0
+		for i = 1, n do
+			local ok, command, category, key1, key2 = pcall(GetBinding, i)
+			if ok and command then
+				-- Only the ones that drive an action button; the rest is menus and chat.
+				if command:match("ACTIONBUTTON") or command:match("ACTIONBAR")
+					or command:match("BUTTON%d+$") then
+					out.bindings[#out.bindings + 1] = {
+						command = command,
+						category = category,
+						key1 = key1,
+						key2 = key2,
+					}
+				end
+			end
+		end
+	end
+
+	-- 3. Which bar addons are loaded, so a report can say whose numbering this is.
+	if C_AddOns and C_AddOns.IsAddOnLoaded then
+		for _, name in ipairs({
+			"EllesmereUIActionBars", "EllesmereUI", "Bartender4", "Dominos", "ElvUI", "KeyUI",
+		}) do
+			local ok, loaded = pcall(C_AddOns.IsAddOnLoaded, name)
+			if ok and loaded then
+				out.addons[#out.addons + 1] = name
+			end
+		end
+	end
+
+	ns.db.barInventory = out
+	print(("%s bars: |cffffffff%d|r filled slot(s), |cffffffff%d|r action binding(s)%s."):format(
+		Prefix(), #out.slots, #out.bindings,
+		#out.addons > 0 and (", bar addons: " .. table.concat(out.addons, ", ")) or ""))
+	print("   |cff9d9d9dWritten to SavedVariables — |cffffffff/reload|r and it can be read from the file.|r")
+end
