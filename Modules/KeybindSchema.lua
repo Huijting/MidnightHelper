@@ -406,11 +406,39 @@ function ns.Keybind_AllocateSpells(spells, opts)
 	--- v6 §4: vul eerst ALLE base-toetsen van de slot-lijst, dán de Shift-laag van elk,
 	--- dan Ctrl, dan Alt (modifier-major). Zo landen builders op 1/2/3 vóór ze overlopen
 	--- naar Shift+1 — i.p.v. eerst alle modifier-lagen van toets 1 te vullen.
-	--- Thumb buttons the player actually has. Setting, because we cannot read the mouse.
+	--- The keys the player's thumb actually sends.
+	---
+	--- ⚠️ MEASURED FIRST, ASSUMED SECOND. `/mh mouse detect` records what each thumb
+	--- button produces, and on Rob's Naga that is `6 7 8 9 0 -` — keyboard keys, not
+	--- BUTTON4..BUTTON9. Everything the allocator put on BUTTON4/BUTTON5 for him was
+	--- therefore bound to something he cannot press: Remove Curse and Spellsteal on
+	--- keys his mouse never sends. The driver decides this, not the mouse, so no table
+	--- of mouse models could have got it right.
+	---
+	--- This also contradicts our own standard, and the standard is wrong. §2 bans
+	--- `6 7 8 9 0 - =` for combat as too far a reach — true for a left hand walking up
+	--- the number row, false for a thumb resting on them. Reach is a property of the
+	--- player's hardware, not of a key's name, so a key the player has TOLD us is under
+	--- their thumb is not "far" and the ban does not apply to it.
 	local function MouseSlots()
+		local detected = ns.db and ns.db.mouseDetect
+		if type(detected) == "table" and #detected > 0 then
+			local out = {}
+			for i = 1, #detected do
+				local k = detected[i] and detected[i].key
+				local base = k and ns.Keybind_NormalizeBaseKey(k)
+				if base then
+					out[#out + 1] = base
+				end
+			end
+			if #out > 0 then
+				return out
+			end
+		end
+		-- Never measured: fall back to the two thumb buttons nearly every mouse has.
 		local n = tonumber(ns.db and ns.db.mouseButtonCount)
 		if not n then
-			n = 2 -- an ordinary two-thumb-button mouse
+			n = 2
 		end
 		n = math.max(0, math.min(n, #Schema.mouseSlotFillOrder))
 		local out = {}

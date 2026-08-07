@@ -1263,11 +1263,29 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 	--- kind of confident-but-wrong picture this whole evening was spent removing.
 	local mouseCount = tonumber(ns.db and ns.db.mouseButtonCount) or 2
 
+	--- ⚠️ If the player has MEASURED their thumb buttons and none of them is a BUTTONn,
+	--- the M4-M9 column is six keys their mouse never sends. Rob's Naga turned out to
+	--- send `6 7 8 9 0 -`, so for him the pad lives on the number row and drawing a
+	--- separate strip of M-keys would be inventing hardware. Hide it in that case; the
+	--- real keys light up where they physically are.
+	local detected = ns.db and ns.db.mouseDetect
+	local padIsButtons = true
+	if type(detected) == "table" and #detected > 0 then
+		padIsButtons = false
+		for i = 1, #detected do
+			local k = detected[i] and detected[i].key
+			if type(k) == "string" and k:match("^BUTTON%d+$") then
+				padIsButtons = true
+				break
+			end
+		end
+	end
+
 	for uiKey, btn in pairs(panel._mhProtoButtons) do
 		if btn then
 			local mouseN = type(uiKey) == "string" and tonumber(uiKey:match("^BUTTON(%d+)$"))
 			if mouseN then
-				btn:SetShown((mouseN - 3) <= mouseCount)
+				btn:SetShown(padIsButtons and (mouseN - 3) <= mouseCount)
 			end
 			local slot = slotByUi[uiKey]
 			local layers = spec and ns.Keybind_GetBindingsOnBase and ns.Keybind_GetBindingsOnBase(spec, uiKey) or {}
