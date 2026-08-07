@@ -114,19 +114,36 @@ function ns.MH_ConsumableLayout(usedKeys)
 		{ category = "combatPotion", entry = spec.combatPotion },
 	}
 
+	--- ⚠️ THE BARE KEYS RUN OUT, AND USED TO RUN OUT SILENTLY. Measured 7 Aug: with `T`
+	--- reserved as the consumable anchor, 28 of 39 specs have exactly ONE bare key free —
+	--- so the healing potion is placed and the combat potion simply was not, with nothing
+	--- said about it.
+	---
+	--- A Shift layer is an honest home for the second one. The healing potion is the
+	--- panic press and keeps a bare key; a combat potion is a deliberate pre-pull or
+	--- burst press, and a modifier costs nothing there.
+	local function NextFreeKey(startIndex)
+		for i = startIndex, #CONSUMABLE_KEYS do
+			local candidate = CONSUMABLE_KEYS[i]
+			if not usedKeys[candidate] then
+				return candidate, i + 1
+			end
+		end
+		for i = 1, #CONSUMABLE_KEYS do
+			local candidate = "Shift+" .. CONSUMABLE_KEYS[i]
+			if not usedKeys[candidate] then
+				return candidate, #CONSUMABLE_KEYS + 1
+			end
+		end
+		return nil, #CONSUMABLE_KEYS + 1
+	end
+
 	local ki = 1
 	for _, w in ipairs(wanted) do
 		local itemID = CarriedBest(w.entry)
 		if itemID then
 			local key
-			while ki <= #CONSUMABLE_KEYS do
-				local candidate = CONSUMABLE_KEYS[ki]
-				ki = ki + 1
-				if not usedKeys[candidate] then
-					key = candidate
-					break
-				end
-			end
+			key, ki = NextFreeKey(ki)
 			if key then
 				out[#out + 1] = {
 					itemID = itemID,

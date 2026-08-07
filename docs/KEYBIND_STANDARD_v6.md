@@ -66,6 +66,7 @@ tekenen van de "layout"-subtab.
 | **Q** | Movement (dash/blink/roll/leap). |
 | **Z** | Kleine/rotationele defensive. |
 | **C** | Grote/panic defensive. |
+| **T** | **Consumable-anker: healing potion.** Krijgt nooit een spell — zie §4. |
 | **V** | Dispel / CC. |
 | **F1** | Grote offensieve/heal-cooldown (burst). |
 | **F2** | Snelle self-heal **ín combat** (voor specs die er een hebben — bv. Healing Surge, Exhilaration). |
@@ -73,24 +74,41 @@ tekenen van de "layout"-subtab.
 | **F4** | "Recuperate"-achtig: doorlopende self-heal / HoT (bv. Crimson Vial). |
 | **Shift+E** | Racial. |
 | **Ctrl+F1** | Trinket (of macro op een cooldown). |
-| **Alt+C** | Combat-potion. |
+| **Shift+T** | Combat-potion (of de eerste vrije `5 R X Z C`). |
 
 Ankers zijn "panic-pressable" zonder na te denken — daarom staan defensives/interrupt op
 losse toetsen, nooit weggestopt achter een modifier.
 
 ## 4. Categorie → slots (de rest, met overflow)
 
-Volgorde van vullen per categorie; loopt een groep vol → **zelfde toets + volgende modifier
-(Shift → Ctrl → Alt)**.
+Volgorde van vullen per categorie; loopt een groep vol → **zelfde toets + volgende laag:
+Shift → een vrije muis-duimknop → Ctrl**. (Alt is 6 aug 2026 uit het schema gehaald. De
+duimknop komt vóór Ctrl omdat een vrije duimknop beter drukt dan een tweede modifier.)
 
 | Categorie | Basis-slots (in volgorde) |
 |-----------|---------------------------|
-| Builder (ST-rotatie) | `1`, `2`, `3` |
+| Builder (ST-rotatie) | `1`, `2`, `3`, `4`, `5` |
 | Spender | `4`, `5` |
 | AoE | **Shift-tweeling** van de bijbehorende ST-knop (builder 1 → `Shift+1`, spender 4 → `Shift+4`) |
-| Utility | `F`, `R`, `X`, `T` (X vóór T — makkelijker reach vanaf WASD; upd. 2026-07-02. F2–F4 = heal-ankers, zie §3) |
-| Major cooldown (extra naast F1) | `Shift+F1`, `Ctrl+F1`… |
-| Defensive (extra naast Z/C) | `Shift+Z`, `Shift+C`… |
+| Utility | `F`, `R`, `X` |
+| Dispel / CC | `V`, `X`, `C` |
+| Cooldown | `F1`, `F3`, `F2` (F3 vóór F2 — F2 draagt bij 34 specs een self-heal, F3 bij 12) |
+| Defensive | `Z`, `C`, `X`, `V` |
+| Self-heal | `F2`, `F3`, `F4` |
+
+> **`T` staat in géén enkele lijst.** Dat is het consumable-anker. Gemeten 7 aug 2026:
+> daarvóór pakte de healing potion "de eerste vrije toets", en bij **18 van de 39 specs
+> was er niets vrij**. Een potion die je niet kunt halen terwijl je doodgaat is de laatste
+> bind die restjes mag krijgen. Met T buiten de spell-verdeling is hij op alle 39 specs vrij.
+>
+> Een expliciete `bindKey` mag wél een T-laag noemen (Druid's Bear Form vraagt `Shift+T`);
+> dat bezet de kale T niet.
+>
+> **Waarom Dispel/CC en Cooldown breder werden (7 aug 2026):** ze hadden allebei precies
+> één toets, dus drie plekken met Shift en Ctrl erbij — tegenover 10 CC-spells bij een
+> Druid en 11 cooldowns bij een Blood DK. Gemeten over alle 39 specs kregen **63 abilities
+> geen enkele toets**, en alle 63 kwamen uit deze twee groepen. Nu zijn het er 3, en die
+> zijn stuk voor stuk situationeel (Scare Beast, Steel Trap, Blessing of Freedom).
 
 > **Anker-pass eerst:** wijs eerst alle ankers toe (§3), dán de categorie-slots, dán overflow.
 > Zo krijgen twee mensen die dezelfde spec invullen **exact dezelfde** binds (deterministisch).

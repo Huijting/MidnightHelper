@@ -72,6 +72,18 @@ ns.KeybindSchema = {
 	--- mouse; Rob runs 6.
 	mouseSlotFillOrder = { "BUTTON4", "BUTTON5", "BUTTON6", "BUTTON7", "BUTTON8", "BUTTON9" },
 	--- Base keys in priority when auto-assigning within a category (interrupt uses role, not this list).
+	---
+	--- ⚠️ T IS THE CONSUMABLE ANCHOR AND IS NOT AUTO-ASSIGNED. `LayoutConsumables.lua`
+	--- takes the first free key from `T 5 R X Z C` for your healing potion, which meant
+	--- it only ever got whatever the abilities happened to leave — and measured on 7 Aug,
+	--- 18 of 39 specs had nothing left even before the categories were widened. A potion
+	--- you cannot reach when you are about to die is the one binding that must not be an
+	--- afterthought, so it gets a key of its own instead of the scraps. With T out of the
+	--- automatic pool it is free on all 39 specs.
+	---
+	--- An explicit `bindKey` may still name a T layer — Druid's Bear Form asks for
+	--- Shift+T — so T stays in PREF_BASE_OK below. A wish on Shift+T does not occupy the
+	--- bare T the potion needs.
 	baseSlotFillOrder = {
 		"1",
 		"2",
@@ -82,7 +94,6 @@ ns.KeybindSchema = {
 		"F",
 		"R",
 		"X",
-		"T",
 		"Z",
 		"C",
 		"V",
@@ -123,11 +134,43 @@ ns.KeybindSchema = {
 		raid_heal = { slots = { "1", "2", "3", "4", "5" } }, -- healer party/raid-heals op de nummertoetsen
 		taunt = { slots = { "F" } }, -- tank-taunt op een vaste toets (essentieel, eigen kaart)
 
-		utility = { slots = { "F", "R", "X", "T" } }, -- v6: X vóór T (makkelijker reach vanaf WASD; Rob 2026-07-02)
+		utility = { slots = { "F", "R", "X" } }, -- T is de consumable-anker (zie baseSlotFillOrder)
 		interrupt = { slots = { "E" } },
 		defensive = { slots = { "Z", "C", "X", "V" } },
-		dispel_cc = { slots = { "V" } },
-		cooldown = { slots = { "F1" } },
+		--- ⚠️ TWO KEYS WERE CARRYING THE WHOLE SCHEME. Measured 7 Aug across all 39 specs:
+		--- 63 abilities got no key at all, and every single one of them came from these
+		--- two categories. Both had exactly ONE slot, so three places once Shift and Ctrl
+		--- are counted — against a Druid's 10 dispel/CC abilities and a Blood Death
+		--- Knight's 11 cooldowns. Occupancy said the same thing from the other side: V
+		--- had 12 free places out of 117 and F1 had 17, while every other key had between
+		--- 43 and 102.
+		---
+		--- The abilities that fell out were not all small. Bloodlust, Heroism, Empower
+		--- Rune Weapon, Spellsteal and Primal Rage were among them.
+		---
+		--- Widening was measured, not guessed — five variants, against both a two-button
+		--- and a six-button mouse. These lists take unplaced from 63 to 4 on an ordinary
+		--- mouse and to 0 on six, and they cut the number of abilities landing outside
+		--- their own group from 77 to 54, because overflow no longer has to leave the
+		--- family to find room. The four that still do not fit are all situational:
+		--- Remove Corruption, Scare Beast, Steel Trap, Blessing of Freedom.
+		---
+		--- ⚠️ T IS NOT IN EITHER LIST, AND THAT IS DELIBERATE — see baseSlotFillOrder.
+		--- The variant that scored best on abilities alone was `V, T, X` with 1 unplaced,
+		--- and it was rejected: it left 27 of 39 specs with no free key for a healing
+		--- potion. Abilities and consumables were competing for the same keys and the
+		--- abilities always won, because consumables only ever got the leftovers.
+		---
+		--- On the F-row order: F3 is tried before F2 on purpose. F2 holds a self-heal on
+		--- 34 specs and F3 on only 12, so reaching for the emptier key first keeps
+		--- cooldowns out of the heals' way. Verified after the change — F2 still holds its
+		--- 34 self-heals, F3 its 12, F4 all 39; the cooldowns took only what was free.
+		---
+		--- The trade we accept: on a healer F3 is an out-of-combat heal, on most others it
+		--- is a cooldown. That costs a little cross-spec sameness. No key at all costs
+		--- more.
+		dispel_cc = { slots = { "V", "X", "C" } },
+		cooldown = { slots = { "F1", "F3", "F2" } },
 		--- Racial: §3 of the standard reserves Shift+E and the code never did.
 		---
 		--- One slot, `E`, on purpose. `E` is the interrupt role's key and roles are
@@ -171,7 +214,10 @@ local Schema = ns.KeybindSchema
 --- Toegestane base-toetsen voor een expliciete `bindKey` (de v6-toetsen). Weert stray-keys zoals
 --- "N" (kwam uit een letterlijk overgenomen placeholder "Shift+N" in de dataset) -> die worden
 --- genegeerd en vallen terug op de normale categorie-overflow (AoE -> Shift+1/2/3 enz.).
-local PREF_BASE_OK = { E = true, F1 = true, F2 = true, F3 = true, F4 = true }
+--- T is here but NOT in baseSlotFillOrder: it is the consumable anchor, so nothing lands
+--- there automatically, while a spell that explicitly asks for a T layer (Bear Form wants
+--- Shift+T) is still honoured.
+local PREF_BASE_OK = { E = true, F1 = true, F2 = true, F3 = true, F4 = true, T = true }
 for _, k in ipairs(Schema.baseSlotFillOrder or {}) do
 	PREF_BASE_OK[k] = true
 end

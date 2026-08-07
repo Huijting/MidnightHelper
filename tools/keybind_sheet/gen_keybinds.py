@@ -15,7 +15,7 @@ MOD_FILL = ["shift", "ctrl"]
 # gets: the two buttons nearly every mouse has.
 MOUSE_SLOTS = ["BUTTON4", "BUTTON5"]
 EXCLUDED = {"G"}
-BASE_FILL = ["1","2","3","4","5","Q","F","R","X","T","Z","C","V","F1"]
+BASE_FILL = ["1","2","3","4","5","Q","F","R","X","Z","C","V","F1"]
 ROLES = {
     "interrupt":"E","main_rotation_1":"1","main_rotation_2":"2","main_rotation_3":"3",
     "spender":"4","utility_primary":"Q","utility_secondary":"F","defensive_1":"Z",
@@ -37,11 +37,11 @@ CAT_LABEL = {
 }
 CATEGORIES = {
     "main_rotation":["1","2","3","4","5"],"spender":["4","5"],"raid_heal":["1","2","3","4","5"],
-    "taunt":["F"],"utility":["F","R","X","T"],"interrupt":["E"],"defensive":["Z","C","X","V"],
-    "dispel_cc":["V"],"cooldown":["F1"],"selfheal":["F2","F3","F4"],"pet_care":["R","F1"],
+    "taunt":["F"],"utility":["F","R","X"],"interrupt":["E"],"defensive":["Z","C","X","V"],
+    "dispel_cc":["V","X","C"],"cooldown":["F1","F3","F2"],"selfheal":["F2","F3","F4"],"pet_care":["R","F1"],
     "blessings":["R","F1"],"racial":["E"],
 }
-PREF_BASE_OK = {"E","F1","F2","F3","F4"} | set(BASE_FILL)
+PREF_BASE_OK = {"E","F1","F2","F3","F4","T"} | set(BASE_FILL)  # T: consumable anchor, wishes only
 
 def normalize_base(k):
     k = (k or "").strip()
