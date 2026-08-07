@@ -92,7 +92,13 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	-- Grootste CD / cooldown_bar (guide.lua {385059}=Recklessness variant; SpellDB burst)
 	["Recklessness"]          = { role = "cooldown_bar", priority = 1, specs = { 72 } },
 	-- Extra CD's (guide.lua {227847} Bladestorm; Odyn's Fury Fury-talent)
-	["Bladestorm"]            = { category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 71, 72 } }, -- guide.lua {227847} Arms & Fury
+	-- ⚠️ GEEN bindKey meer op Bladestorm, Ravager en Demolish (7 aug 2026). Alle drie
+	-- vroegen om Ctrl+F1, en dat is dubbel fout: ze kunnen daar niet alle drie op, én
+	-- KEYBIND_STANDARD_v6 §3 reserveert Ctrl+F1 voor je TRINKET. Zonder wens plaatst de
+	-- allocator ze gewoon in de cooldown-categorie (F1, dan Shift+F1), waar cooldowns
+	-- horen. Bladestorm en Ravager delen bij Arms een keuzenode — zie `excludes` — dus
+	-- in de praktijk zijn het er hooguit twee tegelijk.
+	["Bladestorm"]            = { category = "cooldown", priority = 3, specs = { 71, 72 } }, -- guide.lua {227847} Arms & Fury
 	["Odyn's Fury"]           = { category = "cooldown", priority = 4, specs = { 72 } }, -- major CD (geen heal)
 
 	--==============================================================
@@ -116,8 +122,8 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	-- Grootste CD / cooldown_bar (guide.lua Prot: {107574} Avatar als burst-opener -> zie Avatar hierboven)
 	-- Extra CD's (guide.lua {436358} Demolish; SpellArchetypes 228920 Ravager; 376080 Champion's Spear)
 	["Champion's Spear"]   = { role = "cooldown_bar", priority = 1, specs = { 73 } }, -- F1 Prot burst-anker (SpellArchetypes 376080). Avatar is bij Prot op de gedeelde 'Avatar'-key category=cooldown (die key is Arms' cooldown terwijl Arms' cooldown_bar Colossus Smash is); één key = één rol, dus Prot krijgt hier zijn eigen cooldown_bar-anker.
-	["Ravager"]            = { excludes = "Bladestorm", category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 71, 73 } }, -- SpellArchetypes 228920 (Arms/Prot Colossus-alt)
-	["Demolish"]           = { category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 71, 73 } }, -- guide.lua {436358} (Colossus hero-tree)
+	["Ravager"]            = { excludes = "Bladestorm", category = "cooldown", priority = 3, specs = { 71, 73 } }, -- SpellArchetypes 228920 (Arms/Prot Colossus-alt)
+	["Demolish"]           = { category = "cooldown", priority = 3, specs = { 71, 73 } }, -- guide.lua {436358} (Colossus hero-tree)
 	-- Utility CC (InterruptAbilities 46968 Shockwave kind="cc"; Prot/talent stun)
 	["Shockwave"]          = { category = "dispel_cc", priority = 3, specs = { 73 }, alsoStop = "stun" }, -- AoE-stun (InterruptAbilities 46968 mech=12) → Spec 08 alsoStop
 	-- Utility (SpellArchetypes 394352 Shattering Throw anti-immuniteit)

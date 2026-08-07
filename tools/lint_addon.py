@@ -734,28 +734,33 @@ def main() -> int:
         print(f"    HARD  {cmd}   listed in Modules/CommandList.lua")
     hard += len(listed)
 
-    # 11. Two spells in one spec asking for the same key (SOFT, deliberately).
+    # 11. Two spells in one spec asking for the same key (HARD since 7 Aug 2026).
     #
-    # Found by a throwaway harness on 7 Aug 2026: 8 such wishes across 7 specs,
-    # including Warrior asking three spells to sit on Ctrl+F1. Nothing in the
-    # build noticed, and nothing would have.
+    # A throwaway harness found 8 of these across 7 specs that morning, including
+    # Warrior asking three spells to sit on Ctrl+F1. Nothing in the build noticed.
+    # It ran SOFT for exactly as long as it took to work out what each one was,
+    # because this file cannot see the difference between a real clash and a
+    # harmless one on its own.
     #
-    # ⚠ SOFT AND NOT HARD, because this file cannot tell a real conflict from a
-    # harmless one. Several of these pairs REPLACE each other: Frostscythe is a
-    # talent that supersedes Howling Blast, Death Sweep is Blade Dance under
-    # Metamorphosis. The addon allocates from the LIVE spellbook, so only one of
-    # such a pair is ever present and the shared key is fine. Nothing in the data
-    # says which pairs are mutually exclusive, so a static check that failed the
-    # build here would be failing it on cases that work.
+    # Now it can, and all eight are settled, so it fails the build:
+    #   - Three were DEAD DATA. Carve went in 11.0.0, Butchery and Void Bolt in
+    #     12.0.0, and four more Survival abilities with them. Two spells that do
+    #     not exist were fighting over Shift+1.
+    #   - Two pairs genuinely cannot coexist and now say so with `excludes`:
+    #     Death Sweep IS Blade Dance under Metamorphosis, and Arms picks
+    #     Bladestorm OR Ravager from one choice node.
+    #   - Three were real and got real keys: Frostscythe moved off Howling
+    #     Blast's Shift+1, Crash Lightning off Chain Lightning's, and the three
+    #     Warrior cooldowns lost a wish for a key the standard reserves for the
+    #     player's trinket anyway.
     #
-    # It becomes HARD the day an entry can declare "this replaces that" -- then
-    # the remaining collisions are the genuine ones (Shaman's Chain Lightning and
-    # Crash Lightning are two spells you really do press in the same fight).
+    # So a hit here now means one of two things, and both deserve a stopped
+    # build: a new clash, or a spell that stopped existing.
     conflicts = check_keybind_wish_conflicts(root)
     print(f"\n[11] Spells in one spec wanting the same key: {len(conflicts)}")
     for cls, spec, key, names in conflicts[:20]:
-        print(f"    SOFT  {cls} spec {spec}: {key} wanted by {', '.join(names)}")
-    soft += len(conflicts)
+        print(f"    HARD  {cls} spec {spec}: {key} wanted by {', '.join(names)}")
+    hard += len(conflicts)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")

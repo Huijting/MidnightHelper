@@ -90,7 +90,14 @@ ns.KeybindRoleClassifier.DEATHKNIGHT = {
 	["Frost Strike"] = { category = "spender", priority = 1, specs = { 251 } },            -- 4 (RP-spender)
 	-- AoE (Shift-tweelingen)
 	["Howling Blast"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 251 } },  -- AoE
-	["Frostscythe"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 251 } },    -- AoE-alternatief (talent)
+	-- ⚠️ Shift+2, NIET Shift+1 (gewijzigd 7 aug 2026). Stond op Shift+1 naast Howling
+	-- Blast, en dat is geen alternatief maar een echte botsing: Howling Blast is de
+	-- Rime-spender die je in élke build drukt, en Frostscythe is een AoE-talent dat
+	-- OBLITERATE vervangt, niet Howling Blast. Wowhead noemt Howling Blast zelfs een
+	-- voorwaarde vóór Frostscythe. Maxroll's M+-lijst heeft ze allebei in dezelfde
+	-- rotatie ("Cast Frostscythe if you have 2 stacks of Killing Machine" naast "Cast
+	-- Howling Blast with Rime"), dus twee toetsen.
+	["Frostscythe"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 251 } },    -- AoE-talent (vervangt Obliterate)
 	["Glacial Advance"] = { category = "spender", priority = 7, bindKey = "Shift+4", specs = { 251 } },      -- AoE-spender
 	-- Grootste CD (F1) + extra CD's
 	["Pillar of Frost"] = { role = "cooldown_bar", priority = 1, specs = { 251 } },        -- F1 (grootste CD: burst)
