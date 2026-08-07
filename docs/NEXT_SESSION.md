@@ -1,6 +1,5 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-06.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
-**Bijgewerkt 2026-08-02.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
+**Bijgewerkt 2026-08-07.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
 "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
 Op 27 juli stuurde de verouderde versie van dit bestand een sessie de verkeerde kant op
@@ -18,6 +17,62 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 | Daarna | **v3.0.0** -- de Season 2-release |
 | Branch | alleen `main` |
 | Deadline | **12.1 live 11 aug (NA) / 12 aug (EU), Season 2 18 aug.** Officieel bevestigd, niet langer een projectie |
+
+## 📍 Waar we gebleven zijn (7 aug 2026, pauze)
+
+**Twee toetsen dragen het halve schema, en dat is het echte probleem — niet de muis.**
+
+De Python-harness in `tools/keybind_sheet/` liep achter op `KeybindSchema.lua` en is
+gelijkgetrokken (`5191534`). Zes verschillen; de belangrijkste was dat de harness de
+globale terugval nog had, waardoor niets ooit als "past niet" werd gemeld. Nu wel, en
+het getal is groot:
+
+    63 spells over 22 specs krijgen GEEN toets   (standaard 2-knops muis)
+    27                                            (4 duimknoppen)
+     8                                            (6 duimknoppen — Robs Naga)
+
+⚠️ **Alle 63 komen uit twee categorieën, en die hebben allebei exact één toets:**
+
+| categorie | slots | plekken met Shift+Ctrl | spells zonder toets |
+|---|---|---|---|
+| `dispel_cc` | `V` | 3 | **44** |
+| `cooldown` | `F1` | 3 | **19** |
+
+Rogue/Druid/Paladin hebben vijf tot zeven CC-spells voor drie plekken. Wat eruit valt is
+niet alleen klein grut: Bloodlust, Heroism, Empower Rune Weapon, Spellsteal, Primal Rage.
+
+**De muisknoppen zijn dus een pleister, geen oplossing.** De allocator probeert een vrije
+duimknop ná Shift en vóór Ctrl, en dat verbergt precies hoe smal die twee categorieën
+zijn. Rob vroeg (7 aug) of MMO-muisbezitters hun knoppen niet gewoon zelf in de
+muissoftware moeten koppelen — het antwoord is dat dat het probleem zou VERGROTEN: dan
+valt de ontsnappingsklep weg en staan we terug op 63. **Eerst `dispel_cc` en `cooldown`
+breder maken, dan pas over de muis praten.** Niet gedaan, wel gemeten.
+
+### Wat er verder ligt na deze sessie
+- `/mh mbuff always` is weg — restant van de EllesmereUI-stand-down die Rob afblies. Het
+  schreef `ns.db.missingBuffAlways`, wat niets las, en meldde gedrag dat niet bestond.
+- **Bar-layout aan Rob getekend**: 5 nummers / 9 letters / 9 shift / 4 F-rij / 6 duimpad
+  = 33 vakjes. Gemeten vraag per spec: min 20 (Brewmaster), mediaan 27, max 35 (MM- en
+  Survival Hunter). 33 dekt 37 van de 39 specs; een zesde balk voor de Ctrl-laag maakt 39.
+- **Zonder bar-addon werkt dit gewoon.** Balk 1 t/m 8 zijn Blizzards eigen Edit Mode-balken;
+  EllesmereUI verzet ze alleen. `EUI_BAR9`/`EUI_BAR10` zijn extra en blijven buiten het schema.
+- **Robs plan voor de keuze** (7 aug): óf MH zet het compleet neer (bars + binds + spells),
+  óf de user krijgt het overzicht en doet Edit Mode zelf. GEVERIFIEERD dat dit kan zonder
+  dat MH een bar-addon wordt: `C_EditMode.ConvertStringToLayoutInfo`/`GetLayouts`/
+  `SaveLayouts`/`SetActiveLayout` (zo doet EllesmereUI het), `SetBinding`+`SaveBindings`
+  (zo doet KeyUI het), en spells plaatsen doet `/mh apply` al. Voorwaarden uit
+  EllesmereUI's eigen code: buiten combat, `EditModeManagerFrame.accountSettings` moet
+  gevuld zijn, `/reload` er direct achteraan, en NIET `EditModeManagerFrame:ImportLayout`
+  gebruiken. ⚠️ De exportstring is patch-gebonden — elke grote patch opnieuw maken.
+
+### Eerstvolgende werk (volgorde)
+1. `dispel_cc` en `cooldown` breder maken — 63 zonder toets is geen acceptabele default.
+2. `/mh apply` leren welke toetsgroep op welke balk hoort. Nu vult hij het eerste vrije
+   vakje, dus het plaatje klopt niet met wat er staat. Blokkeert allebei de opties.
+3. Pas daarna de keuze-kaart (MH zet het neer / doe het zelf).
+
+Nog open van eerder: het drievoudige buff-icoon (`docs/NEXT_UPLOAD.md`), de optionele
+EllesmereUI-bar-preset, Arcane Explosion + Dragon's Breath toevoegen aan de Mage-data.
 
 ## 📍 Waar we gebleven zijn (6 aug 2026, eind van de avond)
 
