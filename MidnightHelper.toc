@@ -135,6 +135,7 @@ Modules\VignetteCapture.lua
 Modules\QuestDiff.lua
 Modules\BonusRollCapture.lua
 Modules\MouseDetect.lua
+Modules\TwinProbe.lua
 Modules\BarInventory.lua
 Modules\LayoutConsumables.lua
 Modules\ApplyLayout.lua

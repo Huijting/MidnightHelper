@@ -1080,6 +1080,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- Naga's pad may send mouse buttons or number keys depending on its driver, so this
 	-- is asked rather than assumed. It decides how many premium slots the keybind
 	-- scheme may hand out before it falls back to a second modifier.
+	-- /mh twins — ask the game which of the clashing spell pairs replace each other,
+	-- instead of marking them by hand across six classes we do not play.
+	if msg == "twins" then
+		if ns.MH_TwinProbe then
+			ns.MH_TwinProbe()
+		end
+		return
+	end
+
 	-- /mh bars — what is on every action slot, and which binding commands this client
 	-- knows. Measured, because slot numbering and binding names differ per bar addon.
 	if msg == "bars" then
