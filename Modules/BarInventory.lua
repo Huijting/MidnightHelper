@@ -165,8 +165,14 @@ function ns.MH_BarInventory()
 	-- Read-only: IsShown for the state, GetPoint and the size for where it sits. No
 	-- opinion about whether that is a good place, and nothing moved.
 	out.bars = {}
+	--- ⚠️ `MainMenuBar` IS THE OLD NAME. The main bar's frame is `MainActionBar`; across
+	--- Rob's installed addons that name appears 29 times against 8 for the old one. We
+	--- asked for the old one, found nothing, and reported "Bar 1 does not exist" — on
+	--- every client, not just his. It read as an EllesmereUI quirk and it was our own bug.
+	--- Both names are tried, newest first, because the buttons themselves (ActionButton1..)
+	--- were always there and the plan that fills slots 1-12 worked the whole time.
 	local BAR_FRAMES = {
-		{ label = "Bar 1", frame = "MainMenuBar" },
+		{ label = "Bar 1", frame = "MainActionBar", altFrame = "MainMenuBar" },
 		{ label = "Bar 2", frame = "MultiBarBottomLeft" },
 		{ label = "Bar 3", frame = "MultiBarBottomRight" },
 		{ label = "Bar 4", frame = "MultiBarRight" },
@@ -177,7 +183,14 @@ function ns.MH_BarInventory()
 	}
 	for _, b in ipairs(BAR_FRAMES) do
 		local f = _G and _G[b.frame]
-		local row = { label = b.label, frame = b.frame, exists = f and true or false }
+		local usedName = b.frame
+		if not f and b.altFrame then
+			f = _G and _G[b.altFrame]
+			if f then
+				usedName = b.altFrame
+			end
+		end
+		local row = { label = b.label, frame = usedName, exists = f and true or false }
 		if f then
 			local okS, shown = pcall(f.IsShown, f)
 			row.shown = okS and shown or false
