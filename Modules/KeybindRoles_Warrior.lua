@@ -116,7 +116,7 @@ ns.KeybindRoleClassifier.WARRIOR = {
 	-- Grootste CD / cooldown_bar (guide.lua Prot: {107574} Avatar als burst-opener -> zie Avatar hierboven)
 	-- Extra CD's (guide.lua {436358} Demolish; SpellArchetypes 228920 Ravager; 376080 Champion's Spear)
 	["Champion's Spear"]   = { role = "cooldown_bar", priority = 1, specs = { 73 } }, -- F1 Prot burst-anker (SpellArchetypes 376080). Avatar is bij Prot op de gedeelde 'Avatar'-key category=cooldown (die key is Arms' cooldown terwijl Arms' cooldown_bar Colossus Smash is); één key = één rol, dus Prot krijgt hier zijn eigen cooldown_bar-anker.
-	["Ravager"]            = { category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 71, 73 } }, -- SpellArchetypes 228920 (Arms/Prot Colossus-alt)
+	["Ravager"]            = { excludes = "Bladestorm", category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 71, 73 } }, -- SpellArchetypes 228920 (Arms/Prot Colossus-alt)
 	["Demolish"]           = { category = "cooldown", priority = 3, bindKey = "Ctrl+F1", specs = { 71, 73 } }, -- guide.lua {436358} (Colossus hero-tree)
 	-- Utility CC (InterruptAbilities 46968 Shockwave kind="cc"; Prot/talent stun)
 	["Shockwave"]          = { category = "dispel_cc", priority = 3, specs = { 73 }, alsoStop = "stun" }, -- AoE-stun (InterruptAbilities 46968 mech=12) → Spec 08 alsoStop

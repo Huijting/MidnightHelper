@@ -126,8 +126,15 @@ ns.KeybindRoleClassifier.PRIEST = {
 	["Vampiric Touch"] = { category = "main_rotation", priority = 2, specs = { 258 } },         -- DoT + self-heal
 	["Shadow Word: Madness"] = { category = "spender", priority = 1, specs = { 258 } }, -- Insanity-spender
 	["Mind Flay"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 258 } }, -- filler (AoE-tweeling Shift+1)
-	["Void Bolt"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 258 } }, -- Voidform-builder
-	["Void Volley"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 258 } }, -- alternatief (talent)
+	-- ⚠️ Void Bolt is HIER WEGGEHAALD op 7 aug 2026: hij bestaat niet meer. Void Volley
+	-- (1242173) heeft zijn plek in Voidform overgenomen -- "instead of granting access to
+	-- Void Bolt, Voidform now gives you access to Void Volley, which does not refresh
+	-- DoTs" (warcraftpriests.github.io/bookofshadows, Midnight-alpha). Method's rotatie
+	-- noemt Void Volley wel en Void Bolt nergens. Het was dus geen alternatief maar de
+	-- opvolger, en de "botsing" om Shift+3 was een dode spell tegen een levende.
+	-- ⚠️ Niet verwarren met Void BLAST (450405), een andere spell die naast Void Volley
+	-- bestaat in de Voidweaver-build.
+	["Void Volley"] = { category = "main_rotation", priority = 6, bindKey = "Shift+3", specs = { 258 } }, -- Voidform-spender
 	["Silence"] = { role = "interrupt", priority = 1, specs = { 258 } }, -- E: interrupt + silence
 	["Dispersion"] = { role = "defensive_3", priority = 1, specs = { 258 } }, -- C: grote defensive
 	["Void Eruption"] = { role = "cooldown_bar", priority = 1, specs = { 258 } }, -- F1: burst-CD (castbare knop = Void Eruption 228260; "Voidform" 194249 is de resulterende buff, dus naam-match faalde)

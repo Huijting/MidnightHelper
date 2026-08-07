@@ -80,7 +80,7 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Throw Glaive"]      = { category = "spender", priority = 1, specs = { 577 } },       -- ranged filler-spender (SpellArchetypes 185123; guide.lua {185123})
 	-- AoE (guide.lua {188499}/{210152} Blade Dance/Death Sweep; Shift+N-anker)
 	["Blade Dance"]       = { category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- AoE (SpellArchetypes 188499; guide.lua {188499})
-	["Death Sweep"]       = { category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- Meta-vorm van Blade Dance (SpellArchetypes 210152; guide.lua {210152})
+	["Death Sweep"]       = { excludes = "Blade Dance", category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 577 } }, -- Meta-vorm van Blade Dance (SpellArchetypes 210152; guide.lua {210152})
 	-- Kleine def (SpellCategories DEFENSIVE 198589; SpellDB fallback DEMONHUNTER {198589,...})
 	["Blur"]              = { role = "defensive_1", priority = 1, specs = { 577, 1480 } }, -- 20% dodge + DR (SpellCategories 198589; JustAC SpellDB DEMONHUNTER {198589,196718} = class-baseline -> ook Devourer, Icy Veins bevestigt)
 	-- Grote def (SpellDB fallback DEMONHUNTER {198589,196718}; Darkness = raid-wall)

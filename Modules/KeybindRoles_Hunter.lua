@@ -18,6 +18,21 @@ ns.KeybindRoleClassifier = ns.KeybindRoleClassifier or {}
 	  - JustAC/SpellDB.lua : grote CD per spec -- BM Bestial Wrath (19574) + Call of the Wild
 	    (359844) + Bloodshed (321530); MM Trueshot (288613) + Volley (260243); SV Coordinated
 	    Assault (360952) + Fury of the Eagle (203415). Gap-closer Harpoon (190925, SV).
+
+	⚠️ SURVIVAL IS UITGEDUND IN MIDNIGHT -- zes entries verwijderd op 7 aug 2026.
+	Butchery, Carve, Flanking Strike, Mongoose Bite, Spearhead en Coordinated Assault
+	bestaan niet meer. Icy Veins' Survival-gids voor 12.0.7 zegt het met zoveel woorden:
+	"The abilities Butchery, Flanking Strike, Mongoose Bite, Explosive Shot, Kill Shot,
+	Spearhead, and Coordinated Assault are gone."
+	  https://www.icy-veins.com/wow/survival-hunter-pve-dps-guide
+	Carve staat in geen enkele huidige gids meer -- ook niet als "verwijderd", wat er
+	meestal op wijst dat hij al eerder weg was. De AoE van Survival loopt nu via Raptor
+	Swipe, Wildfire Bomb en Moonlight Chakram (Method-rotatie).
+
+	Gevonden doordat de linter meldde dat Butchery en Carve dezelfde toets wilden: de
+	botsing bleek een spook tussen twee dode spells. Explosive Shot staat hier nog voor
+	MM (254) en is BEWUST NIET verwijderd -- dat citaat gaat over wat Survival verloor,
+	en of Marksmanship hem ook kwijt is, is niet nagetrokken.
 	    Pet-heals: Mend Pet (136), Exhilaration (109304). Kill Shot execute (53351 BM/MM,
 	    320976 SV).
 	  - JustAC/Data/SpellArchetypes.lua : builder/spender + aoe-archetypes (Multi-Shot 2643,
@@ -93,9 +108,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	-- Marksmanship
 	["Trueshot"] = { role = "cooldown_bar", priority = 1, specs = { 254 } }, -- MM grote CD (288613)
 	-- Survival
-	["Coordinated Assault"] = { role = "cooldown_bar", priority = 1, specs = { 255 } }, -- SV grote CD (360952)
 	["Fury of the Eagle"] = { category = "cooldown", priority = 2, specs = { 255 } }, -- SV extra CD (203415, talent)
-	["Spearhead"] = { category = "cooldown", priority = 3, specs = { 255 } }, -- SV extra CD (talent)
 	-- Gedeeld (talent-CD's die op meerdere specs kunnen zitten)
 	["Stampede"] = { category = "cooldown", priority = 4 }, -- pet-charge CD (baseline talent)
 
@@ -114,9 +127,7 @@ ns.KeybindRoleClassifier.HUNTER = {
 	["Chimaera Shot"] = { category = "main_rotation", priority = 4, specs = { 254 } }, -- MM builder (talent)
 	-- Survival
 	["Raptor Strike"] = { category = "main_rotation", priority = 2, specs = { 255 } }, -- SV melee builder (186270)
-	["Mongoose Bite"] = { category = "main_rotation", priority = 2, specs = { 255 } }, -- SV melee builder (talent, vervangt Raptor Strike)
 	["Wildfire Bomb"] = { category = "main_rotation", priority = 3, specs = { 255 } }, -- SV builder (DoT + directe schade)
-	["Flanking Strike"] = { category = "main_rotation", priority = 4, specs = { 255 } }, -- SV builder (259489, talent)
 
 	--==================================================================================
 	-- SPENDERS
@@ -138,8 +149,6 @@ ns.KeybindRoleClassifier.HUNTER = {
 	["Volley"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 254 } }, -- MM AoE-CD (260243), Shift-tweeling van Rapid Fire (2)
 	["Explosive Shot"] = { category = "main_rotation", priority = 6, bindKey = "Shift+4", specs = { 254 } }, -- MM AoE/ST (talent), Shift-tweeling van Arcane Shot (4)
 	["Raptor Swipe"] = { category = "main_rotation", priority = 6, bindKey = "Shift+2", specs = { 255 } }, -- SV AoE-variant Raptor Strike, Shift-tweeling van Raptor Strike (2)
-	["Carve"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 255 } }, -- SV melee-AoE (187708), Shift-tweeling van Kill Command (1)
-	["Butchery"] = { category = "main_rotation", priority = 6, bindKey = "Shift+1", specs = { 255 } }, -- SV melee-AoE (212436, talent), zelfde slot als Carve (1)
 
 	--==================================================================================
 	-- UTILITY

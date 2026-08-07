@@ -563,18 +563,36 @@ def check_keybind_wish_conflicts(root):
             if specs_m:
                 specs = [int(x) for x in re.findall(r'\d+', specs_m.group(1))]
                 all_specs.update(specs)
+            excl_m = re.search(r'excludes\s*=\s*"([^"]+)"', body)
             bind_m = re.search(r'bindKey\s*=\s*"([^"]+)"', body)
             if bind_m:
-                entries.append((name, bind_m.group(1), specs))
+                entries.append((name, bind_m.group(1), specs, excl_m.group(1) if excl_m else None))
 
         for spec in sorted(all_specs):
             seen = {}
-            for name, key, specs in entries:
+            excl = {}
+            for name, key, specs, excludes in entries:
                 if specs is None or spec in specs:
                     seen.setdefault(key, []).append(name)
+                    if excludes:
+                        excl[name] = excludes
             for key, names in sorted(seen.items()):
-                if len(names) > 1:
-                    out.append((cls, spec, key, sorted(names)))
+                if len(names) < 2:
+                    continue
+                # A pair that can never both be known may share a key. Two reasons
+                # produce that, and `excludes` covers both: a real override (Death
+                # Sweep IS Blade Dance under Metamorphosis) and a talent choice node
+                # (Arms picks Bladestorm OR Ravager, never both). Neither shows up in
+                # FindSpellOverrideByID as the same thing, but the consequence for a
+                # keyboard layout is identical.
+                remaining = []
+                for n in sorted(names):
+                    partner = excl.get(n)
+                    if partner and partner in names:
+                        continue      # declared mutually exclusive with someone here
+                    remaining.append(n)
+                if len(remaining) > 1:
+                    out.append((cls, spec, key, remaining))
     return out
 
 def main() -> int:
