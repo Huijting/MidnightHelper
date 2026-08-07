@@ -25,7 +25,17 @@ local _, ns = ...
 	⚠️ Reads only. It never binds, never moves an action, never touches a bar.
 ]]
 
-local MAX_SLOT = 180
+--- ⚠️ 180 WAS NOT ENOUGH, or something else is going on. Rob's scan came back with 43
+--- filled slots and not one of his rotation spells in them — no Frostbolt, no Flurry,
+--- no Counterspell — while his keys 1-5 pointed at slots holding Frozen Orb, Spellsteal
+--- and Arcane Intellect. The slot numbering is not the error: KeyUI/Mappings.lua:85 maps
+--- the same commands to the same numbers we do.
+---
+--- EllesmereUI adds two bars of twelve (EUI_BAR9/EUI_BAR10) and they may well sit past
+--- 180. Scanning further costs nothing — GetActionInfo simply returns nothing above the
+--- real end — and a wider sweep either finds them or rules the idea out. Guessing which
+--- it is would be the third guess in a row on this feature.
+local MAX_SLOT = 1000
 
 local function Prefix()
 	return ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
@@ -88,6 +98,41 @@ function ns.MH_BarInventory()
 						category = category,
 						key1 = key1,
 						key2 = key2,
+					}
+				end
+			end
+		end
+	end
+
+	-- 2b. Where a named action BUTTON actually points. This is the only way to learn a
+	--     command's slot without a hardcoded table: the frame carries its own slot in
+	--     the "action" attribute, so the game answers instead of us.
+	out.buttonSlots = {}
+	local FRAME_SETS = {
+		{ command = "ACTIONBUTTON",          frame = "ActionButton" },
+		{ command = "MULTIACTIONBAR1BUTTON", frame = "MultiBarBottomLeftButton" },
+		{ command = "MULTIACTIONBAR2BUTTON", frame = "MultiBarBottomRightButton" },
+		{ command = "MULTIACTIONBAR3BUTTON", frame = "MultiBarRightButton" },
+		{ command = "MULTIACTIONBAR4BUTTON", frame = "MultiBarLeftButton" },
+		{ command = "MULTIACTIONBAR5BUTTON", frame = "MultiBar5Button" },
+		{ command = "MULTIACTIONBAR6BUTTON", frame = "MultiBar6Button" },
+		{ command = "MULTIACTIONBAR7BUTTON", frame = "MultiBar7Button" },
+	}
+	for _, set in ipairs(FRAME_SETS) do
+		for i = 1, 12 do
+			local f = _G and _G[set.frame .. i]
+			if f then
+				local slot
+				if f.GetAttribute then
+					local ok, a = pcall(f.GetAttribute, f, "action")
+					slot = ok and tonumber(a) or nil
+				end
+				slot = slot or tonumber(f.action)
+				if slot then
+					out.buttonSlots[#out.buttonSlots + 1] = {
+						command = set.command .. i,
+						frame = set.frame .. i,
+						slot = slot,
 					}
 				end
 			end
