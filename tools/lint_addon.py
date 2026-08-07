@@ -524,6 +524,59 @@ def check_command_list(root):
     return missing
 
 
+def check_keybind_wish_conflicts(root):
+    """Two spells in the same spec asking for the same key.
+
+    `bindKey` is how the AoE twin rule is written down -- "Blizzard belongs on
+    Shift+2 because Flurry is on 2". The allocator grants those wishes before
+    anything else may take the key, so the only remaining way one can fail is
+    two spells in one spec wanting the same key, which nothing can satisfy.
+
+    Found by a throwaway harness on 7 Aug 2026: 8 such conflicts across 7 specs,
+    including Warrior asking three separate spells to sit on Ctrl+F1. Nothing in
+    the build noticed, and nothing would have. This is the check that means we
+    never have to go looking for them again.
+
+    An entry with no `specs` applies to every spec of its class, so it is
+    compared against all of them.
+    """
+    out = []
+    for path in sorted(glob.glob(os.path.join(root, "Modules", "KeybindRoles_*.lua"))):
+        cls = os.path.basename(path)[len("KeybindRoles_"):-len(".lua")]
+        with open(path, "r", encoding="utf-8", errors="replace") as fh:
+            src = fh.read()
+
+        # One entry per line, read line by line. A single regex over the whole file
+        # cannot do this: the body itself contains braces (`specs = { 71, 72 }`), so
+        # a non-greedy match stops at the FIRST closing brace and truncates the spec
+        # list to nothing -- which is exactly how the first version of this check
+        # reported zero conflicts while a harness was finding eight.
+        entries = []          # (name, bindKey, [specs] or None)
+        all_specs = set()
+        for line in src.splitlines():
+            m = re.match(r'\s*\["([^"]+)"\]\s*=\s*\{(.*)\}', line)
+            if not m:
+                continue
+            name, body = m.group(1), m.group(2)
+            specs_m = re.search(r'specs\s*=\s*\{([^}]*)\}', body)
+            specs = None
+            if specs_m:
+                specs = [int(x) for x in re.findall(r'\d+', specs_m.group(1))]
+                all_specs.update(specs)
+            bind_m = re.search(r'bindKey\s*=\s*"([^"]+)"', body)
+            if bind_m:
+                entries.append((name, bind_m.group(1), specs))
+
+        for spec in sorted(all_specs):
+            seen = {}
+            for name, key, specs in entries:
+                if specs is None or spec in specs:
+                    seen.setdefault(key, []).append(name)
+            for key, names in sorted(seen.items()):
+                if len(names) > 1:
+                    out.append((cls, spec, key, sorted(names)))
+    return out
+
 def main() -> int:
     root = repo_root()
     args = sys.argv[1:]
@@ -662,6 +715,29 @@ def main() -> int:
     for cmd in listed[:20]:
         print(f"    HARD  {cmd}   listed in Modules/CommandList.lua")
     hard += len(listed)
+
+    # 11. Two spells in one spec asking for the same key (SOFT, deliberately).
+    #
+    # Found by a throwaway harness on 7 Aug 2026: 8 such wishes across 7 specs,
+    # including Warrior asking three spells to sit on Ctrl+F1. Nothing in the
+    # build noticed, and nothing would have.
+    #
+    # ⚠ SOFT AND NOT HARD, because this file cannot tell a real conflict from a
+    # harmless one. Several of these pairs REPLACE each other: Frostscythe is a
+    # talent that supersedes Howling Blast, Death Sweep is Blade Dance under
+    # Metamorphosis. The addon allocates from the LIVE spellbook, so only one of
+    # such a pair is ever present and the shared key is fine. Nothing in the data
+    # says which pairs are mutually exclusive, so a static check that failed the
+    # build here would be failing it on cases that work.
+    #
+    # It becomes HARD the day an entry can declare "this replaces that" -- then
+    # the remaining collisions are the genuine ones (Shaman's Chain Lightning and
+    # Crash Lightning are two spells you really do press in the same fight).
+    conflicts = check_keybind_wish_conflicts(root)
+    print(f"\n[11] Spells in one spec wanting the same key: {len(conflicts)}")
+    for cls, spec, key, names in conflicts[:20]:
+        print(f"    SOFT  {cls} spec {spec}: {key} wanted by {', '.join(names)}")
+    soft += len(conflicts)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
