@@ -184,12 +184,13 @@ end
 --- @return table plan  { {key, wowKey, command, slot, name} }, table missing {names}
 local function BuildPlan()
 	local plan, missing = {}, {}
+	local alreadyOk = 0
 	if not ns.MH_AutoMapSpecAndSlots then
-		return plan, missing
+		return plan, missing, 0
 	end
 	local spec = ns.MH_AutoMapSpecAndSlots()
 	if not (spec and spec.spellByUiKey) then
-		return plan, missing
+		return plan, missing, 0
 	end
 	local NameFor = function(id)
 		if C_Spell and C_Spell.GetSpellName then
@@ -312,6 +313,10 @@ local function BuildPlan()
 				--- does, in which case there is nothing to do and we say nothing. A
 				--- plan full of no-ops is how a player stops reading the plan.
 				if GetBindingAction and GetBindingAction(wowKey) == command then
+					-- Nothing to do. Counted, not printed: a plan full of no-ops is how
+					-- a player stops reading the plan, but a plan of eight lines for a
+					-- layout of nineteen spells reads as if we only thought about eight.
+					alreadyOk = alreadyOk + 1
 					taken[slot] = true
 				else
 					plan[#plan + 1] = {
@@ -350,7 +355,7 @@ local function BuildPlan()
 		return ns.Keybind_CompareBindKeys(a.key, b.key)
 	end)
 	table.sort(missing)
-	return plan, missing
+	return plan, missing, alreadyOk
 end
 
 --- `/mh apply` — say what would change. `/mh apply go` — do it. `/mh apply undo` — put it back.
@@ -438,7 +443,7 @@ function ns.MH_ApplyLayout(arg)
 		return
 	end
 
-	local plan, missing = BuildPlan()
+	local plan, missing, alreadyOk = BuildPlan()
 	if #plan == 0 and #missing == 0 then
 		print(Prefix() .. " no layout to apply — run |cffffffff/mhautomap|r first.")
 		return
@@ -458,7 +463,9 @@ function ns.MH_ApplyLayout(arg)
 			}
 		end
 
-		print(("%s this would set |cffffffff%d|r key(s):"):format(Prefix(), #plan))
+		ns.db.applyPlan.alreadyOk = alreadyOk
+		print(("%s this would change |cffffffff%d|r thing(s); |cff40c040%d|r already correct."):format(
+			Prefix(), #plan, alreadyOk))
 		for i = 1, #plan do
 			local p = plan[i]
 			if p.place then
