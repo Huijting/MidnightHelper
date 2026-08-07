@@ -313,6 +313,11 @@ function ns.GetMissingBuffs()
 end
 
 -- Debug: /mh mbuff — toon per buff of hij geleerd/spec-ok/actief is + de missende lijst.
+local function EuiReminderLoaded()
+	if not (C_AddOns and C_AddOns.IsAddOnLoaded) then
+		return false
+	end
+
 function ns.PrintMissingBuffDebug()
 	local classToken = select(2, UnitClass("player"))
 	local sid = CurrentSpecID()
@@ -365,14 +370,30 @@ function ns.PrintMissingBuffDebug()
 			secretHP = tostring((issecretvalue(hp)) and true or false)
 		end
 	end
-	print(("  → icoon: enabled=%s  ShouldAurasBeSecret=%s  health-secret=%s"):format(
-		tostring(enabled), secretAuras, secretHP))
+	--- ⚠️ VRAAG HET AAN DEZELFDE FUNCTIE ALS DE ECHTE CODE. Deze regel leidde zijn eigen
+	--- antwoord af met `secretAuras == "true" or secretHP == "true"`, en die `or` is
+	--- precies wat Aura.Trusted() NIET doet: health telt daar alleen mee als het spel
+	--- geen aura-vlag heeft, omdat health in de open wereld van Midnight altijd geheim
+	--- is. Rob kreeg daardoor te horen dat het icoon "bewust verborgen" was terwijl
+	--- ShouldAurasBeSecret=false stond en het dus had moeten staan. Twee plekken die
+	--- hetzelfde berekenen met andere logica; nu nog één.
+	local trusted = ns.Aura and ns.Aura.Trusted and ns.Aura.Trusted()
+	print(("  → icoon: enabled=%s  ShouldAurasBeSecret=%s  health-secret=%s  auras-trusted=%s"):format(
+		tostring(enabled), secretAuras, secretHP, tostring(trusted)))
 	if enabled == false then
 		print("     |cffff6060(UIT → aanzetten in Settings → missende buff)|r")
-	elseif secretAuras == "true" or secretHP == "true" then
-		print("     |cffffcc00(restricted content → icoon bewust verborgen)|r")
+	elseif trusted == false then
+		print("     |cffffcc00(auras niet te vertrouwen hier → icoon bewust verborgen)|r")
 	elseif #missing > 0 then
 		print("     |cff66dd66(zou nu zichtbaar moeten zijn — zo niet: positie buiten beeld?)|r")
+		-- Hier hoort de overlap-melding ook thuis. Rob, 7 aug: "ik kijk zelden in de
+		-- chat bij het opstarten" -- een eenmalig regeltje bij het inloggen ziet dus
+		-- niemand. Wie DIT commando typt is juist op zoek naar waarom hij ziet wat hij
+		-- ziet, en dat is het moment om te zeggen dat er een tweede addon meepraat.
+		if EuiReminderLoaded and EuiReminderLoaded() then
+			print("     |cff9d9d9dEllesmereUI herinnert je hier ook aan; je ziet dus twee iconen.|r")
+			print("     |cff9d9d9dDe onze is in gevecht aanklikbaar, die van hen niet.|r")
+		end
 	else
 		print("     (geen missende buff → niets te tonen)")
 	end
@@ -398,10 +419,6 @@ end
 --- So it tells the player instead, once per session, and lets them decide which to keep.
 --- That is the same conclusion the keybind research reached about layouts: give the
 --- reasoning, do not make the choice for somebody about their own screen.
-local function EuiReminderLoaded()
-	if not (C_AddOns and C_AddOns.IsAddOnLoaded) then
-		return false
-	end
 	local ok, loaded = pcall(C_AddOns.IsAddOnLoaded, "EllesmereUIAuraBuffReminders")
 	return (ok and loaded) and true or false
 end
