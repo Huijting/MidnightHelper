@@ -269,10 +269,41 @@ local function BuildPlan()
 		return { kind = kind, id = id, name = name }
 	end
 
+	--- ⚠️ TWO PASSES, AND THE ORDER IS THE POINT. The first version walked
+	--- `spellByUiKey` once with `pairs`, which has no order, so whichever spell reached
+	--- a slot first owned it. Rob's plan came out proposing to put Frostbolt on slot
+	--- 146 — on top of Frozen Orb — and then reported Frozen Orb as unplaceable,
+	--- because its only other copy sits on the skyriding bar where no key can reach it.
+	--- Applying that would have cost him a spell the layout itself prescribes.
+	---
+	--- So everything ALREADY on a bar claims its slot before anything is allowed to
+	--- choose one. Same shape as the anchors-before-categories fix in the allocator
+	--- yesterday: serve whoever has no alternative first.
+	local ordered = {}
 	for bindKey, entry in pairs(spec.spellByUiKey) do
 		if entry and entry.id then
+			ordered[#ordered + 1] = { bindKey = bindKey, entry = entry }
+		end
+	end
+	table.sort(ordered, function(a, b)
+		return ns.Keybind_CompareBindKeys(a.bindKey, b.bindKey)
+	end)
+
+	-- Pass 1: reserve every slot that already holds one of our spells.
+	for _, row in ipairs(ordered) do
+		local slot = SlotHoldingSpell(row.entry.id)
+		if slot then
+			taken[slot] = true
+			row.existingSlot = slot
+		end
+	end
+
+	-- Pass 2: decide what to do with each.
+	for _, row in ipairs(ordered) do
+		local bindKey, entry = row.bindKey, row.entry
+		do
 			local wowKey = ToWowKey(bindKey)
-			local slot = SlotHoldingSpell(entry.id)
+			local slot = row.existingSlot
 			local command = slot and (slotCommand[slot] or CommandForSlot(slot))
 			if not wowKey then
 				missing[#missing + 1] = NameFor(entry.id) .. " (no usable key)"
