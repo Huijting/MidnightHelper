@@ -34,8 +34,24 @@ tekenen van de "layout"-subtab.
   (*G blijft ongebruikt per teamregel.*)
 - **Vermijden voor combat:** `6 7 8 9 0 - =` en diepe combo's (bv. Ctrl+7). Alleen voor
   out-of-combat (mount/prof/consumable die je vooraf cast).
+  - ⭐ **Dat verbod is óók een reservering — Robs inzicht, 7 aug 2026.** Omdat het schema
+    `6` tot `=` nooit uitdeelt, liggen die toetsen gegarandeerd vrij. Precies daardoor
+    zijn ze de veilige landingsplek voor een duimpad: `/mh mouse detect` mat op Robs
+    Naga `6 7 8 9 0 -`. Had hij zijn pad op `1`–`6` gezet, dan botste zijn duim met zijn
+    eigen rotatie.
+  - **Dus is het advies aan de speler:** heb je een duimpad, zet het in je muissoftware
+    op `6` en hoger. Niet omdat die toetsen ver weg zijn, maar omdat wij ze vrijhouden.
+  - ⚠️ En daarmee vervalt de oorspronkelijke motivering voor wie zo'n muis heeft.
+    "Te ver weg" geldt voor een linkerhand die de nummerrij oploopt, niet voor een duim
+    die erop rust. **Bereikbaarheid hoort bij de hardware van de speler, niet bij de
+    naam van een toets** — daarom meet de allocator het en neemt hij het niet aan.
 - **Muis:** duimknoppen (4/5) = trinket + movement/blink. **Mouseover-macro's** voor
-  interrupt/dispel/off-heal. **Healers:** single-target heals via **native Click Cast
+  interrupt/dispel/off-heal.
+  - ⚠️ **De driver bepaalt wat een knop verstuurt, niet de muis.** Een Naga-pad kan
+    muisknoppen, cijfers of F-toetsen sturen, afhankelijk van hoe de speler hem
+    instelde; van buitenaf is dat niet te zien. `/mh mouse detect` vraagt het aan de
+    knop (KeyUI doet hetzelfde: onzichtbaar frame, `EnableKeyboard` +
+    `SetPropagateKeyboardInput(true)`, dus meekijken zonder de invoer af te pakken). **Healers:** single-target heals via **native Click Cast
   Bindings** (Midnight heeft dit ingebouwd) / mouseover — zodat 1/2/4/E identiek blijven aan DPS.
 - Richtlijn: ~**18–25 combat-binds** per spec is genoeg; Midnight verlaagt bewust het aantal
   knoppen, dus provisie niet te veel modifier-lagen.
