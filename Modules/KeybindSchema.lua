@@ -128,6 +128,13 @@ ns.KeybindSchema = {
 		defensive = { slots = { "Z", "C", "X", "V" } },
 		dispel_cc = { slots = { "V" } },
 		cooldown = { slots = { "F1" } },
+		--- Racial: §3 of the standard reserves Shift+E and the code never did.
+		---
+		--- One slot, `E`, on purpose. `E` is the interrupt role's key and roles are
+		--- allocated before categories, so a racial cannot land on the base key and
+		--- overflows to Shift+E — exactly what the document describes, without needing
+		--- the role table to learn about modifiers. A second active racial gets Ctrl+E.
+		racial = { slots = { "E" } },
 		selfheal = { slots = { "F2", "F3", "F4" } },
 		pet_care = { slots = { "R", "F1" } },
 		blessings = { slots = { "R", "F1" } },

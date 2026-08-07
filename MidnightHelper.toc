@@ -56,6 +56,7 @@ Modules\KeybindSchema.lua
 Modules\KeybindingData.lua
 Modules\KeybindLayoutSlug.lua
 Modules\KeybindRoles_Warrior.lua
+Modules\KeybindRoles_Racials.lua
 Modules\KeybindRoles_Paladin.lua
 Modules\KeybindRoles_Hunter.lua
 Modules\KeybindRoles_Rogue.lua
