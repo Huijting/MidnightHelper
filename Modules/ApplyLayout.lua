@@ -792,6 +792,17 @@ function ns.MH_ApplyLayout(arg)
 			end
 		end
 		ns.db.rebuildSnapshot = snap
+		--- ⚠️ FORGET WHAT WE CLAIMED. A rebuild empties the very slots SlotOwnership is
+		--- watching, so the next plan found our abilities gone and blamed the player:
+		--- "3 slot(s) you changed yourself". Rob had changed nothing — we had. And the
+		--- accusation is not cosmetic, it permanently excludes those slots from the
+		--- layout.
+		---
+		--- After a rebuild the record describes bars that no longer exist, exactly as it
+		--- does after an undo. Wipe it; `/mh apply go` claims afresh.
+		if ns.MH_ForgetSlots then
+			ns.MH_ForgetSlots()
+		end
 		print(("%s rebuilt — |cffffffff%d|r moved to bars 7-8, |cffffffff%d|r cleared."):format(
 			Prefix(), moved, cleared))
 		print("   |cff9d9d9dNow run |cffffffff/mh apply|r to see the layout, then |cffffffff/mh apply go|r.|r")
