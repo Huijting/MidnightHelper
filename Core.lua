@@ -1129,6 +1129,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 			print("   |cff9d9d9dNothing changed — the setting would have no effect here.|r")
 			return
 		end
+		-- Detection beats the switch: if the assistant is already on a bar we know which
+		-- key presses it, and saying so is more use than toggling a setting blind.
+		local seen = ns.Keybind_AssistantKey and ns.Keybind_AssistantKey()
+		if seen then
+			print((prefix .. " the assistant is on your bars, on |cffffffff%s|r — that key is already kept free."):format(seen))
+			print("   |cff9d9d9dNo setting needed. The switch below only matters if it is NOT on a bar yet.|r")
+		end
 		ns.db = ns.db or {}
 		ns.db.assistantKey1 = not ns.db.assistantKey1
 		if ns.db.assistantKey1 then

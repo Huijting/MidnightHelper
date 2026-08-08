@@ -421,8 +421,48 @@ end
 ---
 --- Measured before building it: taking `1` out costs one extra unplaced ability across
 --- all 39 specs on a two-button mouse, and none at all on six. Cheap.
+--- Is Blizzard's Assisted Combat button sitting on one of the player's bars, and which
+--- key drives it?
+---
+--- `C_ActionBar.IsAssistedCombatAction(slot)` answers the first half — verified present,
+--- and EllesmereUI leans on it in 19 places. Asking beats a setting: a switch called
+--- "I use the assistant" is a thing the player has to know about, remember, and keep in
+--- step with reality, and every one of those is a way for the layout to be wrong while
+--- looking right.
+--- @return string|nil bindKey  the key that presses the assistant, if it is on a bar
+function ns.Keybind_AssistantKey()
+	if not (C_ActionBar and C_ActionBar.IsAssistedCombatAction and ns.MH_CommandSlotMap) then
+		return nil
+	end
+	local okMap, commandSlot = pcall(ns.MH_CommandSlotMap)
+	if not okMap or type(commandSlot) ~= "table" then
+		return nil
+	end
+	for command, slot in pairs(commandSlot) do
+		local ok, isAssist = pcall(C_ActionBar.IsAssistedCombatAction, slot)
+		if ok and isAssist and GetBindingKey then
+			local okK, key = pcall(GetBindingKey, command)
+			if okK and key then
+				local base = ns.Keybind_NormalizeBaseKey(key)
+				-- Only a bare key can be reserved; Shift+1 is a different press.
+				if base and not key:find("%-") then
+					return base
+				end
+			end
+		end
+	end
+	return nil
+end
+
 function ns.Keybind_ReservedBaseKeys()
 	local reserved = {}
+	--- Two ways in, and the measured one wins. `/mh sba` stays for the player who wants
+	--- to hold a key free BEFORE putting the assistant there, but if the assistant is
+	--- actually on a bar we do not need to be told.
+	local detected = ns.Keybind_AssistantKey and ns.Keybind_AssistantKey()
+	if detected then
+		reserved[detected] = true
+	end
 	if ns.db and ns.db.assistantKey1 then
 		reserved["1"] = true
 	end
