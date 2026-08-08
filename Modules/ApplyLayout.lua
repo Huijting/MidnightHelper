@@ -810,7 +810,83 @@ function ns.MH_ApplyLayout(arg)
 		return
 	end
 
-	--- `/mh apply reclaim` — hand the slots you changed back to the layout.
+		--- `/mh apply clean` — unbind keys that point at our bars but belong to no layout.
+	---
+	--- Rob's bars after the rebuild, read off the buttons: `a-5 a-0 a-E a-R a-F a-G a-C`
+	--- on bar 1, `a-F1 a-F2 a-F3` on bar 4. Alt bindings, all of them, left over from the
+	--- scheme as it stood before 6 Aug 2026 — the day Alt was dropped. They point at
+	--- slots we now fill with something else, so a button shows one key and does another,
+	--- which is the exact confusion this whole layout exists to remove.
+	---
+	--- ⚠️ ONLY THE ALT LAYER, AND ONLY ON BARS 1-6. Bare keys are left alone: `1` may
+	--- drive Blizzard's assistant, and the F-row and number row carry defaults a player
+	--- can reasonably want. Bars 7 and 8 are the player's own and are not touched at all.
+	--- Anything else stale is listed, not removed — naming it is help, deciding for them
+	--- is not.
+	if arg == "clean" or arg == "clean go" then
+		if not (GetNumBindings and GetBinding) then
+			print(Prefix() .. " this client does not expose the binding API.")
+			return
+		end
+		local commandSlot = ns.MH_CommandSlotMap and ns.MH_CommandSlotMap() or {}
+		local ours = {}
+		for _, slot in ipairs(SlotsOfBars(BARS_1_TO_6, commandSlot)) do
+			ours[slot] = true
+		end
+
+		local dead, other = {}, {}
+		for i = 1, (GetNumBindings() or 0) do
+			local okB, command, _, key1, key2 = pcall(GetBinding, i)
+			if okB and command and commandSlot[command] and ours[commandSlot[command]] then
+				for _, key in ipairs({ key1, key2 }) do
+					if key and key ~= "" then
+						if key:find("^ALT%-") then
+							dead[#dead + 1] = { key = key, command = command }
+						elseif key:find("%-") then
+							other[#other + 1] = key
+						end
+					end
+				end
+			end
+		end
+
+		if arg == "clean" then
+			ns.db.cleanPlan = dead
+			print(("%s |cffffffff%d|r dead Alt binding(s) on bars 1-6:"):format(Prefix(), #dead))
+			for i = 1, #dead do
+				print(("   |cffffd100%-10s|r -> %s"):format(dead[i].key, dead[i].command))
+			end
+			if #other > 0 then
+				table.sort(other)
+				print(("   |cff9d9d9d%d other modifier key(s) also point here, left alone: %s|r"):format(
+					#other, table.concat(other, " ")))
+			end
+			print("   |cff9d9d9dNothing has changed. |cffffffff/mh apply clean go|r to remove them.|r")
+			return
+		end
+
+		if InCombatLockdown and InCombatLockdown() then
+			print(Prefix() .. " not in combat.")
+			return
+		end
+		local snap, n = {}, 0
+		for i = 1, #dead do
+			snap[#snap + 1] = { key = dead[i].key, was = dead[i].command }
+			if pcall(SetBinding, dead[i].key) then
+				n = n + 1
+			end
+		end
+		if SaveBindings and GetCurrentBindingSet then
+			pcall(SaveBindings, GetCurrentBindingSet())
+		end
+		-- Same snapshot slot the rest of apply uses, so one undo covers everything.
+		ns.db.bindSnapshot = snap
+		print(("%s removed |cffffffff%d|r dead Alt binding(s)."):format(Prefix(), n))
+		print("   |cff9d9d9d|cffffffff/mh apply undo|r puts them back.|r")
+		return
+	end
+
+--- `/mh apply reclaim` — hand the slots you changed back to the layout.
 	---
 	--- Explicit on purpose. A slot stops being ours the moment the player moves it and
 	--- never returns on its own, not even if they put our ability back later. Deciding
