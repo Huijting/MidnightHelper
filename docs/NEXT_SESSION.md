@@ -137,10 +137,43 @@ naam vier keer in Robs andere addons stond — dat bewijst alleen dat iemand hem
 opschreef. **Grep over andere addons is GEEN verificatie van een game-API.** Vraag het de
 client. Robs eerstvolgende reload gaf meteen "Attempt to register unknown event".
 
+### 8 aug, ochtend — BALKENPLAN WERKT OP EEN SCHONE UI
+Rob heeft **EllesmereUI, OakUI en KeyUI verwijderd** en een verse `Modern (Preset)`
+Edit Mode gemaakt. Daarna een volledige `apply full go` + `apply go`. Gemeten resultaat:
+**24 van de 24 toetsen op hun eigen balk, nul valse markeringen.**
+
+    balk 1  4 toetsen  2 3 4 5            (vakje 1 leeg — assistent)
+    balk 2  9 toetsen  C E F Q R T V X Z
+    balk 3  4 toetsen  Shift+1..4
+    balk 4  5 toetsen  Shift+C E V X Z
+    balk 5  1 toets    F4
+    balk 6  1 toets    6 (Dragon's Breath)
+
+Dit is dus getest op precies wat Cisca heeft: kale Blizzard-balken, geen bar-addon.
+
+**Drie bugs die dit blootlegde en die gerepareerd zijn:**
+- `efdce06` **`/mh bars` gaf `nil` voor macro's, pets, mounts, flyouts en equipment sets.**
+  `GetActionInfo` geeft bij een macro de SPELL die hij cast, geen macro-index. Een naamloos
+  vakje las als leeg — dat kostte een verkeerde diagnose ("je Counterspell is weg").
+  Onbenoembare acties melden nu hun TYPE (`<macro>`).
+- `765f266` **Het balkenplan verloor van de geschiedenis.** Spells op balk 7/8 bleven daar
+  omdat `apply full` die balken bewust niet leeghaalt. Nu verhuist een spell naar zijn
+  eigen plek als die vrij is; de achterblijvende kopie wordt gemeld, nooit gewist.
+- `038bd0c` ⚠️ **Een herbouw beschuldigde de speler van zijn eigen leeghalen.**
+  "3 slot(s) you changed yourself" terwijl Rob niets deed. En dat is niet cosmetisch: zo'n
+  vakje wordt vóórgoed uitgesloten, dus elke herbouw maakte MH's werkruimte kleiner.
+  `full go` wist het eigenaarschapsregister nu, net als undo al deed.
+
+Ook nieuw: `f7c1db8` **`/mh editmode`** legt vast hoe de balken staan (layout, maten,
+zichtbaarheid) — read-only, drie foto's, plus één automatisch 10 s na login. Terugzetten
+bewust NIET gebouwd; zie de kop van `Modules/EditModeBackup.lua` voor waarom.
+
 ### Eerstvolgende werk (volgorde)
-1. De drie punten hierboven (balk 7-spells, Frozen Orb op 121, `/mh bars` nil-namen).
-2. Beslissing van Rob over `SetBindingSpell` voor de spells zonder vakje.
-3. Daarna de keuze-kaart (MH zet het neer / doe het zelf).
+1. **Alt-rommel opruimen.** Op Robs knoppen staan nog `a-F1`/`a-F3`-labels: bindings uit
+   het oude schema, dat Alt niet meer uitdeelt. Onschuldig maar verwarrend.
+2. Frozen Orb staat op vakje 121 — de skyriding-/voertuigbalk, niet balk 1-8.
+3. Beslissing van Rob over `SetBindingSpell` voor de spells zonder vakje.
+4. Daarna de keuze-kaart (MH zet het neer / doe het zelf).
 3. Optioneel: de 17 die nog zonder toets vallen zitten geconcentreerd bij Hunter
    (Scare Beast, Wyvern Sting), Paladin (Blessing of Freedom, Turn Evil) en Prot Warrior.
 
