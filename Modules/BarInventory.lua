@@ -125,10 +125,16 @@ local function NameForAction(slot, kind, id)
 			end
 		end
 	elseif kind == "summonpet" and C_PetJournal and C_PetJournal.GetPetInfoByPetID then
-		local ok, _, custom, _, _, _, _, species = pcall(C_PetJournal.GetPetInfoByPetID, id)
+		--- ⚠️ THE NAME IS RETURN 8, NOT 7. First attempt counted one short and read
+		--- `isFavorite`, a boolean, which is why Rob's battle pet reported as
+		--- `<summonpet>`. The order is speciesID, customName, level, xp, maxXp, displayID,
+		--- isFavorite, speciesName, icon — Plumber and ZygorGuidesViewer destructure it
+		--- identically, and Rob's own bar is the proof.
+		local ok, _, custom, _, _, _, _, _, speciesName = pcall(C_PetJournal.GetPetInfoByPetID, id)
 		if ok then
-			local n = (custom ~= "" and custom) or species
-			if n then
+			-- A renamed pet keeps its own name; otherwise the species.
+			local n = (type(custom) == "string" and custom ~= "" and custom) or speciesName
+			if type(n) == "string" and n ~= "" then
 				return n
 			end
 		end
