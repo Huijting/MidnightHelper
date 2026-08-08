@@ -420,15 +420,26 @@ local function BuildPlan()
 	--- The planned home first, the shared overflow bar second. Only then do we fall back
 	--- on where the key happens to be bound today — that fallback is what scattered the
 	--- layout in the first place, so it stops being the opening move.
+	--- A slot the player has taken over is not a candidate, planned home or not. Moving
+	--- their change back is the exact behaviour SlotOwnership exists to prevent.
+	local function Free(slot)
+		if not slot or taken[slot] or not slotCommand[slot] then
+			return false
+		end
+		if ns.MH_SlotIsUserOwned and ns.MH_SlotIsUserOwned(slot) then
+			return false
+		end
+		return true
+	end
+
 	local function PlannedTarget(bindKey)
 		local slot = plannedSlot[bindKey]
-		if slot and not taken[slot] and slotCommand[slot] then
+		if Free(slot) then
 			return slot
 		end
 		for i = 1, #overflow do
-			local s = overflow[i]
-			if not taken[s] and slotCommand[s] then
-				return s
+			if Free(overflow[i]) then
+				return overflow[i]
 			end
 		end
 		return nil
@@ -764,6 +775,22 @@ function ns.MH_ApplyLayout(arg)
 		return
 	end
 
+	--- `/mh apply reclaim` — hand the slots you changed back to the layout.
+	---
+	--- Explicit on purpose. A slot stops being ours the moment the player moves it and
+	--- never returns on its own, not even if they put our ability back later. Deciding
+	--- that for them is the behaviour we removed.
+	if arg == "reclaim" then
+		local n = ns.MH_ReclaimSlots and ns.MH_ReclaimSlots() or 0
+		if n == 0 then
+			print(Prefix() .. " nothing to reclaim — no slots are marked as yours.")
+		else
+			print(("%s |cffffffff%d|r slot(s) handed back to the layout."):format(Prefix(), n))
+			print("   |cff9d9d9d/mh apply|r to see what would change now.|r")
+		end
+		return
+	end
+
 	if arg == "undo" then
 		local snap = ns.db.bindSnapshot
 		local placedSnap = ns.db.placedSnapshot
@@ -888,6 +915,12 @@ function ns.MH_ApplyLayout(arg)
 		ns.db.bindSnapshot = nil
 		ns.db.placedSnapshot = nil
 		ns.db.rebuildSnapshot = nil
+		-- The bars are back the way they were, so a record of what we had placed now
+		-- describes a world that no longer exists. Keeping it would make the next run
+		-- announce that the player "changed" slots an undo changed.
+		if ns.MH_ForgetSlots then
+			ns.MH_ForgetSlots()
+		end
 		print(("%s undone — %d key(s) restored, %d slot(s) put back."):format(
 			Prefix(), n, cleared))
 		if haveRebuild then
@@ -903,6 +936,14 @@ function ns.MH_ApplyLayout(arg)
 	--- /mhautomap reporting 23 placed one line above, which makes the advice not just
 	--- unhelpful but visibly wrong. Ask the layout directly instead of inferring its
 	--- state from the size of the plan.
+	--- Before anything is planned, check the slots we filled last time. Any that no
+	--- longer hold what we put there have been changed by the player and stop being ours.
+	local handedOver = ns.MH_ReconcileSlots and ns.MH_ReconcileSlots() or 0
+	if handedOver > 0 then
+		print(("%s |cffffd100%d|r slot(s) you changed yourself — those are yours now, we leave them alone."):format(
+			Prefix(), handedOver))
+	end
+
 	local specNow = ns.MH_AutoMapSpecAndSlots and ns.MH_AutoMapSpecAndSlots()
 	local layoutSize = 0
 	if specNow and specNow.spellByUiKey then
@@ -1065,6 +1106,11 @@ function ns.MH_ApplyLayout(arg)
 			pcall(ClearCursor)
 			if ok then
 				placed = placed + 1
+				-- Write down that this one is ours, so a later run can tell our own
+				-- work apart from something the player moved.
+				if ns.MH_ClaimSlot then
+					ns.MH_ClaimSlot(p.slot, p.itemID and "item" or "spell", p.itemID or p.spellID, p.wowKey)
+				end
 			else
 				failed = failed + 1
 			end

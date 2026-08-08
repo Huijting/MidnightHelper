@@ -1101,7 +1101,7 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	-- /mh apply — set the keys the layout suggests. Bare = dry run, "go" = do it,
 	-- "undo" = put every touched key back. Never in combat, never automatic.
 	if msg == "apply" or msg == "apply go" or msg == "apply undo"
-		or msg == "apply full" or msg == "apply full go" then
+		or msg == "apply full" or msg == "apply full go" or msg == "apply reclaim" then
 		if ns.MH_ApplyLayout then
 			-- The WHOLE remainder: "full go" is two words and one instruction.
 			ns.MH_ApplyLayout(msg:match("^apply%s+(.+)$"))
