@@ -1109,6 +1109,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh events — does this client know every event we register?
+	if msg == "events" then
+		if ns.MH_EventProbe then
+			ns.MH_EventProbe()
+		end
+		return
+	end
+
 	-- /mh tips — the one-line note when you learn an ability the layout has a key for.
 	if msg == "tips" then
 		if ns.MH_ToggleGrowthTips then

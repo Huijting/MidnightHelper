@@ -1,4 +1,4 @@
-## Interface: 120007, 120100
+﻿## Interface: 120007, 120100
 ## Title: Midnight Helper
 ## Version: 2.13.0
 ## Author: TwelveInchy
@@ -139,6 +139,7 @@ Modules\MouseDetect.lua
 Modules\TwinProbe.lua
 Modules\BarInventory.lua
 Modules\LayoutConsumables.lua
+Modules\EventProbe.lua
 Modules\SlotOwnership.lua
 Modules\ApplyLayout.lua
 Modules\LayoutGrowth.lua
