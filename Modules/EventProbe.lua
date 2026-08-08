@@ -73,6 +73,35 @@ function ns.MH_EventProbe()
 	pcall(probe.UnregisterAllEvents, probe)
 	probe:SetScript("OnEvent", nil)
 
+	--- While we are asking the client things: what does C_AssistedCombat offer?
+	---
+	--- `/mh sba` can keep a key free and `IsAssistedCombatAction` can spot the button on
+	--- a bar, but Rob asked whether MH can PLACE it there. That needs something to pick
+	--- up, and no spell id for it could be found — EllesmereUI might have had the answer
+	--- and he has just uninstalled it. So ask rather than try something that would
+	--- silently do nothing.
+	if C_AssistedCombat then
+		local api = {}
+		for k, v in pairs(C_AssistedCombat) do
+			if type(k) == "string" then
+				api[k] = type(v)
+			end
+		end
+		-- The values too, where they are safe to read out of combat.
+		local extra = {}
+		if C_AssistedCombat.IsAvailable then
+			local okA, v = pcall(C_AssistedCombat.IsAvailable)
+			extra.IsAvailable = okA and tostring(v) or "error"
+		end
+		if C_AssistedCombat.GetRotationSpells then
+			local okR, v = pcall(C_AssistedCombat.GetRotationSpells)
+			extra.rotationSpellCount = (okR and type(v) == "table") and #v or "n/a"
+		end
+		ns.db.assistedCombatApi = { functions = api, values = extra }
+	else
+		ns.db.assistedCombatApi = { functions = {}, values = { note = "C_AssistedCombat absent" } }
+	end
+
 	ns.db.eventProbe = { checked = #EVENTS, unknown = unknown }
 	if #unknown == 0 then
 		print(("%s all |cffffffff%d|r registered event(s) exist on this client."):format(Prefix(), #EVENTS))

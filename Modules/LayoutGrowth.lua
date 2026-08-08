@@ -12,10 +12,8 @@ local _, ns = ...
 	one line. And then nothing happens until the player asks for it — this file never
 	places anything, never binds anything, and never touches a bar.
 
-	⚠️ The event is the modern `LEARNED_SPELL_IN_SKILL_LINE`; `LEARNED_SPELL_IN_TAB` is
-	the older name and both are still in use across installed addons, so both are
-	registered. Neither fires on login, which matters: the point is the moment of
-	learning, not a lecture every time you sign in.
+	⚠️ The event is `LEARNED_SPELL_IN_SKILL_LINE`. It does not fire on login, which
+	matters: the point is the moment of learning, not a lecture every time you sign in.
 ]]
 
 local PENDING = {}
@@ -53,6 +51,83 @@ end
 --- One tip per burst. Levelling up can teach several abilities at once, and four
 --- separate lines about four keys is the wall of buttons again, in chat.
 local MAX_LINES = 3
+
+--- A chat line is easy to miss, and Rob reads chat rarely at the best of times. So the
+--- tip also offers a button — one click and the ability is placed, no command to type.
+---
+--- Off by default is wrong here and on by default would be rude, so it follows the tips
+--- setting: if you want to be told, you probably want the button that acts on it.
+--- `/mh tips button` turns just the popup off and keeps the chat line.
+---
+--- ⚠️ NOT AUTOMATIC. The click is the explicit action `/mh apply go` would have been.
+--- MH still never places anything the player did not ask for, and that rule does not
+--- bend because the asking got easier.
+local prompt
+local ShowPrompt
+
+local function BuildPrompt()
+	if prompt then
+		return prompt
+	end
+	local f = CreateFrame("Frame", "MidnightHelperGrowthPrompt", UIParent, "BackdropTemplate")
+	f:SetSize(320, 96)
+	f:SetPoint("CENTER", UIParent, "CENTER", 0, 180)
+	f:SetFrameStrata("DIALOG")
+	f:Hide()
+	if ns.ApplyMidnightDialogBackdrop then
+		ns.ApplyMidnightDialogBackdrop(f)
+	end
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f)
+	end
+	f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	f.text:SetPoint("TOPLEFT", 14, -14)
+	f.text:SetPoint("TOPRIGHT", -14, -14)
+	f.text:SetJustifyH("LEFT")
+	f.text:SetSpacing(2)
+
+	local place = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	place:SetSize(120, 22)
+	place:SetPoint("BOTTOMRIGHT", -14, 12)
+	place:SetText(PLACE_THIS_ITEM or "Place it")
+	place:SetScript("OnClick", function()
+		f:Hide()
+		if ns.MH_ApplyLayout then
+			ns.MH_ApplyLayout("go")
+		end
+	end)
+
+	local later = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	later:SetSize(90, 22)
+	later:SetPoint("RIGHT", place, "LEFT", -8, 0)
+	later:SetText(LATER or "Not now")
+	later:SetScript("OnClick", function()
+		f:Hide()
+	end)
+
+	if ns.AttachMidnightDialogCloseButton then
+		ns.AttachMidnightDialogCloseButton(f, function()
+			f:Hide()
+		end)
+	end
+	prompt = f
+	return f
+end
+
+function ShowPrompt(lines)
+	if ns.db and ns.db.growthButton == false then
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		return
+	end
+	local f = BuildPrompt()
+	local first = lines[1]
+	local more = #lines > 1 and ("\n|cff9d9d9dand %d more.|r"):format(#lines - 1) or ""
+	f.text:SetText(("You learned |cffffffff%s|r.\nThe layout puts it on |cffffd100%s|r.%s"):format(
+		first.name, first.key, more))
+	f:Show()
+end
 
 local function Report()
 	scheduled = false
@@ -96,6 +171,7 @@ local function Report()
 		print(("   |cff9d9d9dand %d more.|r"):format(#lines - MAX_LINES))
 	end
 	print("   |cff9d9d9d|cffffffff/mh apply|r shows the change, |cffffffff/mh apply go|r makes it. Nothing has moved.|r")
+	ShowPrompt(lines)
 end
 
 local f = CreateFrame("Frame")
@@ -124,9 +200,21 @@ f:SetScript("OnEvent", function(_, _, spellID)
 	end
 end)
 
---- `/mh tips` — turn the learned-ability lines off or on.
-function ns.MH_ToggleGrowthTips()
+--- `/mh tips` — the whole thing off or on. `/mh tips button` — keep the chat line,
+--- drop the popup. Two switches because they annoy different people: the line is easy
+--- to miss, the popup is easy to resent.
+function ns.MH_ToggleGrowthTips(which)
 	ns.db = ns.db or {}
+	if which == "button" then
+		if ns.db.growthButton == false then
+			ns.db.growthButton = true
+			print(Prefix() .. " learned-ability popup on.")
+		else
+			ns.db.growthButton = false
+			print(Prefix() .. " learned-ability popup off — the chat line stays.")
+		end
+		return
+	end
 	if ns.db.growthTips == false then
 		ns.db.growthTips = true
 		print(Prefix() .. " layout tips on: we mention where a newly learned ability goes.")
