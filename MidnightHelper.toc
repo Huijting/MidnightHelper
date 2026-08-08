@@ -141,6 +141,7 @@ Modules\BarInventory.lua
 Modules\LayoutConsumables.lua
 Modules\SlotOwnership.lua
 Modules\ApplyLayout.lua
+Modules\LayoutGrowth.lua
 Modules\RitualSites.lua
 Modules\RitualCoachData.lua
 Modules\RitualCoach.lua

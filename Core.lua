@@ -1109,6 +1109,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh tips — the one-line note when you learn an ability the layout has a key for.
+	if msg == "tips" then
+		if ns.MH_ToggleGrowthTips then
+			ns.MH_ToggleGrowthTips()
+		end
+		return
+	end
+
 	--- /mh sba — keep key 1 free for Blizzard's Assisted Combat button.
 	---
 	--- Opt-in, and only offered to players who actually have the assistant:
