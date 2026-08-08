@@ -9,7 +9,7 @@
 	als openbaar tellen → vals-positief). C_TooltipInfo.GetBagItem levert de tooltip-
 	regels zonder zichtbaar frame; secret-values guarden we weg.
 
-	Openen = het item gebruiken via een SecureActionButton (type=item, item="bag slot").
+	Openen = het item gebruiken via een SecureActionButton (type=item, item="item:<id>").
 	Secure attributen/positie/zichtbaarheid mogen niet in combat gewijzigd worden — dus
 	we (her)opbouwen alleen buiten combat; een state-driver verbergt de knop in combat.
 ]]
@@ -216,13 +216,14 @@ local MAXROWS = 12
 local frame -- main secure button (UIParent)
 
 local function ApplyOpenAttr(btn, entry)
-	-- Alleen buiten combat: secure "gebruik item"-attribuut op bag/slot.
+	-- Alleen buiten combat: secure "gebruik item"-attribuut.
+	-- Target by itemID: a bag/slot attribute breaks as soon as that slot empties.
 	if InCombatLockdown and InCombatLockdown() then
 		return
 	end
-	if entry then
+	if entry and entry.itemID then
 		btn:SetAttribute("type", "item")
-		btn:SetAttribute("item", entry.bag .. " " .. entry.slot)
+		btn:SetAttribute("item", ("item:%d"):format(entry.itemID))
 	else
 		btn:SetAttribute("type", nil)
 		btn:SetAttribute("item", nil)
