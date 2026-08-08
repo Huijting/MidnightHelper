@@ -25,10 +25,45 @@ local _, ns = ...
 local MANAGED = "managed"
 local USER = "user"
 
+--- ⚠️ PER CHARACTER **AND** PER SPEC. `MidnightHelperDB` is account-wide, but action
+--- bars are not: every character has their own, and WoW keeps a separate set per
+--- specialization on top of that.
+---
+--- Rob asked on 8 Aug 2026 what happens when he logs on to his Shaman. This: the record
+--- would still describe his Mage's bars, every slot would mismatch, and the reconcile
+--- would announce that he had changed 24 slots himself. Those slots are then excluded
+--- from the layout permanently — and because the table was shared, the exclusion would
+--- have followed him back to the Mage. One alt visit would have quietly disabled the
+--- feature everywhere.
+---
+--- The question found it before the bug did.
+local function CharKey()
+	local name = (UnitName and UnitName("player")) or "?"
+	local realm = (GetRealmName and GetRealmName()) or ""
+	local spec = 0
+	if C_SpecializationInfo and C_SpecializationInfo.GetSpecialization then
+		local ok, s = pcall(C_SpecializationInfo.GetSpecialization)
+		spec = (ok and tonumber(s)) or 0
+	elseif GetSpecialization then
+		local ok, s = pcall(GetSpecialization)
+		spec = (ok and tonumber(s)) or 0
+	end
+	return ("%s-%s-%d"):format(name, realm, spec)
+end
+
 local function Slots()
 	ns.db = ns.db or {}
-	ns.db.managedSlots = ns.db.managedSlots or {}
-	return ns.db.managedSlots
+	--- The old account-wide table is dropped rather than migrated: we cannot know which
+	--- character wrote it, and guessing wrong would hand one character's records to
+	--- another — the exact fault being fixed. Losing it costs nothing: with no records,
+	--- nothing is marked as the player's, which is the safe default.
+	if ns.db.managedSlots then
+		ns.db.managedSlots = nil
+	end
+	ns.db.managedSlotsByChar = ns.db.managedSlotsByChar or {}
+	local key = CharKey()
+	ns.db.managedSlotsByChar[key] = ns.db.managedSlotsByChar[key] or {}
+	return ns.db.managedSlotsByChar[key]
 end
 
 --- What is in a slot right now, in the same shape we record.
@@ -114,5 +149,7 @@ end
 --- of what we had placed describes a world that no longer exists.
 function ns.MH_ForgetSlots()
 	ns.db = ns.db or {}
-	ns.db.managedSlots = {}
+	ns.db.managedSlots = nil -- legacy account-wide table, see Slots()
+	ns.db.managedSlotsByChar = ns.db.managedSlotsByChar or {}
+	ns.db.managedSlotsByChar[CharKey()] = {}
 end
