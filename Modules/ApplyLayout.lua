@@ -493,11 +493,32 @@ local function BuildPlan()
 	end)
 
 	-- Pass 1: reserve every slot that already holds one of our spells.
+	--
+	--- ⚠️ UNLESS THE PLANNED HOME IS FREE. Measured on Rob's mage, 8 Aug 2026, on a
+	--- clean Blizzard UI: 20 of 23 abilities landed exactly where BAR_PLAN wanted them,
+	--- and three did not — Counterspell, Ice Cold and Remove Curse, all sitting on bar 7.
+	--- `apply full` deliberately does not clear bars 7 and 8 because those are the
+	--- player's own, so those three still had a home, took this branch, and got a
+	--- binding pointing at the wrong bar instead of a place on the right one.
+	---
+	--- The bar plan has to outrank where a spell happens to be, or a rebuild can never
+	--- undo the scattering it exists to fix. But only when the planned slot is genuinely
+	--- free: if something else already holds it, moving would start a chain of shuffles
+	--- for no gain, and staying put with a working key is the better answer.
 	for _, row in ipairs(ordered) do
 		local slot = SlotHoldingSpell(row.entry.id, driveable)
 		if slot then
-			taken[slot] = true
-			row.existingSlot = slot
+			local home = plannedSlot[row.bindKey]
+			local homeIsBetter = home and home ~= slot and Free(home)
+			if homeIsBetter then
+				-- Leave `existingSlot` unset so pass 2 places it at home. The copy that
+				-- stays behind is reported, never silently deleted — it may be sitting
+				-- on a bar the player arranged themselves.
+				row.strandedCopy = slot
+			else
+				taken[slot] = true
+				row.existingSlot = slot
+			end
 		end
 	end
 
@@ -555,6 +576,9 @@ local function BuildPlan()
 						key = bindKey, wowKey = wowKey, command = cmd,
 						slot = target, name = NameFor(entry.id), spellID = entry.id,
 						place = true,
+						-- A copy left behind on a bar we do not manage. Reported so the
+						-- player can remove it; never removed for them.
+						stranded = row.strandedCopy,
 						occupant = OccupantOf(target),
 						rebind = (GetBindingAction and GetBindingAction(wowKey) ~= cmd) or false,
 					}
@@ -1013,8 +1037,9 @@ function ns.MH_ApplyLayout(arg)
 					print(("   |cffffd100%-10s|r %-24s |cffff9900slot %d — replaces %s|r%s"):format(
 						p.wowKey, p.name, p.slot, tostring(p.occupant.name), also))
 				else
-					print(("   |cffffd100%-10s|r %-24s |cff40c040empty slot %d|r%s"):format(
-						p.wowKey, p.name, p.slot, also))
+					print(("   |cffffd100%-10s|r %-24s |cff40c040empty slot %d|r%s%s"):format(
+						p.wowKey, p.name, p.slot, also,
+						p.stranded and (" |cff9d9d9d(a copy stays on slot %d — yours to remove)|r"):format(p.stranded) or ""))
 				end
 			else
 				local now = GetBindingAction and GetBindingAction(p.wowKey) or ""
