@@ -140,6 +140,7 @@ Modules\TwinProbe.lua
 Modules\BarInventory.lua
 Modules\LayoutConsumables.lua
 Modules\EventProbe.lua
+Modules\EditModeBackup.lua
 Modules\SlotOwnership.lua
 Modules\ApplyLayout.lua
 Modules\LayoutGrowth.lua

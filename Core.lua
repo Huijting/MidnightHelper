@@ -1109,6 +1109,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh editmode — read how the bars are laid out, and keep the last few pictures.
+	if msg == "editmode" then
+		if ns.MH_EditModeReport then
+			ns.MH_EditModeReport()
+		end
+		return
+	end
+
 	-- /mh events — does this client know every event we register?
 	if msg == "events" then
 		if ns.MH_EventProbe then
