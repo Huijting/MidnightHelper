@@ -81,7 +81,31 @@ function ns.MH_CommandSlotMap()
 	return map
 end
 
-local function NameForAction(kind, id)
+--- ⚠️ A NAMELESS SLOT LOOKS LIKE AN EMPTY SLOT, AND ONE IS NOT THE OTHER.
+---
+--- This returned nil for macros, battle pets, mounts, flyouts and equipment sets — every
+--- action type except a plain spell or item. On 8 Aug 2026 that cost a diagnosis: slots
+--- 157, 160 and 161 read as blank in the report, I concluded three abilities had been
+--- destroyed by the rebuild, and told Rob his interrupt was gone. Nothing was gone. The
+--- report simply could not name what was there.
+---
+--- Two specific faults behind it. For a macro, `GetActionInfo` hands back the SPELL the
+--- macro casts, not a macro index, so `GetMacroInfo(id)` was being asked a question about
+--- the wrong number entirely — the same confusion that once broke undo. And `summonpet`,
+--- `summonmount`, `flyout` and `equipmentset` had no branch at all.
+---
+--- The button's own label is tried first because it is what the player actually sees, and
+--- it is the only thing that knows a macro's name. Everything is pcalled: a function this
+--- client does not have should cost a blank name, never an error. And the caller now
+--- falls back to the action's TYPE, so the worst case reads "macro" instead of nothing.
+local function NameForAction(slot, kind, id)
+	-- What the button shows. Macros and equipment sets live here and nowhere else.
+	if slot and GetActionText then
+		local ok, t = pcall(GetActionText, slot)
+		if ok and type(t) == "string" and t ~= "" then
+			return t
+		end
+	end
 	if kind == "spell" and C_Spell and C_Spell.GetSpellName then
 		local ok, n = pcall(C_Spell.GetSpellName, id)
 		if ok and n then
@@ -92,8 +116,34 @@ local function NameForAction(kind, id)
 		if ok and n then
 			return n
 		end
-	elseif kind == "macro" and GetMacroInfo then
-		local ok, n = pcall(GetMacroInfo, id)
+	elseif kind == "macro" then
+		-- No label: name the spell it casts, which is what `id` really is here.
+		if C_Spell and C_Spell.GetSpellName then
+			local ok, n = pcall(C_Spell.GetSpellName, id)
+			if ok and n then
+				return "macro: " .. n
+			end
+		end
+	elseif kind == "summonpet" and C_PetJournal and C_PetJournal.GetPetInfoByPetID then
+		local ok, _, custom, _, _, _, _, species = pcall(C_PetJournal.GetPetInfoByPetID, id)
+		if ok then
+			local n = (custom ~= "" and custom) or species
+			if n then
+				return n
+			end
+		end
+	elseif kind == "summonmount" and C_MountJournal and C_MountJournal.GetMountInfoByID then
+		local ok, n = pcall(C_MountJournal.GetMountInfoByID, id)
+		if ok and n then
+			return n
+		end
+	elseif kind == "flyout" and GetFlyoutInfo then
+		local ok, n = pcall(GetFlyoutInfo, id)
+		if ok and n then
+			return n
+		end
+	elseif kind == "equipmentset" and C_EquipmentSet and C_EquipmentSet.GetEquipmentSetInfo then
+		local ok, n = pcall(C_EquipmentSet.GetEquipmentSetInfo, id)
 		if ok and n then
 			return n
 		end
@@ -111,12 +161,16 @@ function ns.MH_BarInventory()
 		for slot = 1, MAX_SLOT do
 			local ok, kind, id, subType = pcall(GetActionInfo, slot)
 			if ok and kind then
+				local name = NameForAction(slot, kind, id)
 				out.slots[#out.slots + 1] = {
 					slot = slot,
 					kind = kind,
 					id = id,
 					subType = subType,
-					name = NameForAction(kind, id),
+					-- Never nil. An action we cannot name still reports its TYPE, so a
+					-- filled slot can never read as an empty one again.
+					name = name or ("<" .. tostring(kind) .. ">"),
+					named = name ~= nil,
 				}
 			end
 		end
