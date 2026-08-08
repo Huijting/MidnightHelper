@@ -818,11 +818,15 @@ function ns.MH_ApplyLayout(arg)
 	--- slots we now fill with something else, so a button shows one key and does another,
 	--- which is the exact confusion this whole layout exists to remove.
 	---
-	--- ⚠️ ONLY THE ALT LAYER, AND ONLY ON BARS 1-6. Bare keys are left alone: `1` may
-	--- drive Blizzard's assistant, and the F-row and number row carry defaults a player
-	--- can reasonably want. Bars 7 and 8 are the player's own and are not touched at all.
-	--- Anything else stale is listed, not removed — naming it is help, deciding for them
-	--- is not.
+	--- ⚠️ ONLY BARS 1-6, AND ONLY WHAT NO LAYOUT CLAIMS. Bars 7 and 8 are the player's
+	--- own and are not read for this at all. Keys the layout assigns are kept, and so is
+	--- any RESERVED key — `1` drives Blizzard's Assisted Combat button, the layout leaves
+	--- its slot deliberately empty, and so it would otherwise look exactly like cruft.
+	---
+	--- Started as an Alt-only sweep on 8 Aug 2026 and Rob asked for the rest the same
+	--- morning, once the first pass proved itself: removing `a-F2` revealed the `s-E`
+	--- underneath it, a working Shift+E that the dead binding had been masking on the
+	--- button all along.
 	if arg == "clean" or arg == "clean go" then
 		if not (GetNumBindings and GetBinding) then
 			print(Prefix() .. " this client does not expose the binding API.")
@@ -834,16 +838,41 @@ function ns.MH_ApplyLayout(arg)
 			ours[slot] = true
 		end
 
-		local dead, other = {}, {}
+		--- Two things must survive, and forgetting either would take a working key away.
+		---
+		--- Keys the layout assigns, obviously. And RESERVED keys: `1` drives Blizzard's
+		--- Assisted Combat button and the layout deliberately leaves it empty, so it is
+		--- absent from the layout's own list and would otherwise look exactly like cruft.
+		local keep = {}
+		local specNow = ns.MH_AutoMapSpecAndSlots and ns.MH_AutoMapSpecAndSlots()
+		if specNow and specNow.spellByUiKey then
+			for bindKey in pairs(specNow.spellByUiKey) do
+				local k = ToWowKey(bindKey)
+				if k then
+					keep[k] = true
+				end
+			end
+		end
+		if ns.MH_ConsumableLayout then
+			local okC, cons = pcall(ns.MH_ConsumableLayout, {})
+			for i = 1, (okC and #cons or 0) do
+				local k = ToWowKey(cons[i].key)
+				if k then
+					keep[k] = true
+				end
+			end
+		end
+		local reserved = ns.Keybind_ReservedBaseKeys and ns.Keybind_ReservedBaseKeys() or {}
+
+		local dead = {}
 		for i = 1, (GetNumBindings() or 0) do
 			local okB, command, _, key1, key2 = pcall(GetBinding, i)
 			if okB and command and commandSlot[command] and ours[commandSlot[command]] then
 				for _, key in ipairs({ key1, key2 }) do
-					if key and key ~= "" then
-						if key:find("^ALT%-") then
+					if key and key ~= "" and not keep[key] then
+						local base = key:match("[^%-]+$") or key
+						if not reserved[base] then
 							dead[#dead + 1] = { key = key, command = command }
-						elseif key:find("%-") then
-							other[#other + 1] = key
 						end
 					end
 				end
@@ -852,15 +881,12 @@ function ns.MH_ApplyLayout(arg)
 
 		if arg == "clean" then
 			ns.db.cleanPlan = dead
-			print(("%s |cffffffff%d|r dead Alt binding(s) on bars 1-6:"):format(Prefix(), #dead))
+			print(("%s |cffffffff%d|r key(s) point at our bars but belong to no layout:"):format(
+				Prefix(), #dead))
 			for i = 1, #dead do
 				print(("   |cffffd100%-10s|r -> %s"):format(dead[i].key, dead[i].command))
 			end
-			if #other > 0 then
-				table.sort(other)
-				print(("   |cff9d9d9d%d other modifier key(s) also point here, left alone: %s|r"):format(
-					#other, table.concat(other, " ")))
-			end
+			print("   |cff9d9d9dKeys the layout uses are kept, and so is the assistant's key.|r")
 			print("   |cff9d9d9dNothing has changed. |cffffffff/mh apply clean go|r to remove them.|r")
 			return
 		end
