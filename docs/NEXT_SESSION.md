@@ -168,12 +168,55 @@ Ook nieuw: `f7c1db8` **`/mh editmode`** legt vast hoe de balken staan (layout, m
 zichtbaarheid) — read-only, drie foto's, plus één automatisch 10 s na login. Terugzetten
 bewust NIET gebouwd; zie de kop van `Modules/EditModeBackup.lua` voor waarom.
 
-### Eerstvolgende werk (volgorde)
-1. **Alt-rommel opruimen.** Op Robs knoppen staan nog `a-F1`/`a-F3`-labels: bindings uit
-   het oude schema, dat Alt niet meer uitdeelt. Onschuldig maar verwarrend.
+### 8 aug, verder op de ochtend — opruimen en de alt-vraag
+- ✅ **`/mh apply clean`** (`573da70` + `74d7e3a`). Haalt toetsen weg die naar balk 1-6
+  wijzen en bij geen layout horen. Bij Rob: eerst **16 Alt-bindings**, daarna nog **14**
+  losse (`F5 F6 F1 F2 F3 F7 F8 8 0 F9 9 - 7 G`). Sparen: toetsen die de layout gebruikt
+  én RESERVED-toetsen (`1` drukt de assistent, dus die staat niet in de layout-lijst en
+  zou er anders precies uitzien als rommel). Balk 7/8 wordt niet gelezen.
+  **Wat dit bewees:** `a-F2` maskeerde een werkende `s-E` op de knop. Dode bindings zijn
+  niet alleen lelijk, ze verbergen de goede.
+- ✅ **Battle-pet naam** (`d479a55`). `GetPetInfoByPetID` geeft de naam op positie **8**,
+  ik las 7 (`isFavorite`). Plumber en Zygor destructureren identiek.
+- ✅ ⚠️ **Eigenaarschap per PERSONAGE én SPEC** (`9c21640`). `MidnightHelperDB` is
+  account-breed, actiebalken niet. Robs vraag "wat als ik naar mijn Shaman ga" vond dit:
+  de Mage-administratie zou tegen Shaman-balken vergeleken worden, alles zou mismatchen,
+  en alle 24 vakjes zouden als "door de speler gewijzigd" voorgoed uitgesloten worden —
+  óók terug op de Mage. Eén alt-bezoek had de functie overal stilgelegd.
+- ✅ **Knop bij de leer-tip** (`776b91b`). "Place it" / "Not now". Uit met
+  `/mh tips button`; alles uit met `/mh tips`.
+
+**Eindstand van Robs Frost mage:** 24 toetsen, elk op zijn eigen balk, nul dode bindings,
+nul valse markeringen. Balk 1 `1 2 3 4 5` (1 vrij voor de assistent), balk 2 de negen
+letters, balk 3 `Shift+1..4`, balk 4 `Shift+C E V X Z`, balk 5 `F4`, balk 6 `6`.
+
+**Balkenplan getoetst op ALLE 39 specs: 0 specs waar het niet past.** Toetsen per spec
+21 (Brewmaster) tot 34 (MM Hunter). Zonder duimknoppen 17 spells zonder toets over 9
+specs; met 2 knoppen 3; met 6 knoppen 0. Wat overblijft is situationeel (Scare Beast,
+Steel Trap, Blessing of Freedom, Turn Evil) — nooit rotatie, interrupt of defensive.
+
+### WACHT OP ROB (openstaande beslissingen)
+1. **Verplaatsbare rol-ankers.** Rob wil van oudsher interrupt op muisknop `6`, shield op
+   `7`, taunt op `a`. Advies gegeven: niet ERBIJ maar IN PLAATS VAN — anders twee plekken
+   voor één ding, en je duimknoppen zijn nu de overloop van het hele schema. Aanbod: een
+   instelling die per rol zegt waar het anker zit, geldig op alle personages. **Niet
+   gebouwd, wacht op zijn ja.**
+2. **Gebruikt Rob muissturen?** Zo ja is `A` vrij en kan die in de pool. Nu niet.
+3. **`/mh events` draaien** — schrijft nu ook `ns.db.assistedCombatApi`. Daarmee weten we
+   of MH de assistent-knop zélf op `1` kan zetten. Geen spell-ID gevonden op schijf
+   (EllesmereUI is verwijderd), dus alleen de client kan het zeggen.
+4. **Stance bar + pet bar tegelijk?** Rob vroeg of een spec ze allebei kan hebben. Onze
+   data kan het niet beantwoorden (`pet_care` wordt door geen enkele klasse gebruikt).
+   Aanbod: `/mh bars` uitbreiden zodat hij beide balken meldt; dan meten we het op zijn
+   Warlock/Druid. Niet gebouwd.
+5. **`SetBindingSpell`** voor de spells zonder vakje — nog steeds open.
+6. **Rob moet de balken nog fysiek neerzetten.** ⚠️ Edit Mode's minimum is **6** knoppen,
+   dus balk 1 (5 nodig) en balk 5 (4 nodig) worden 6 met lege plekken. Maten: 6/9/9/9/6/12.
+
+### Eerstvolgende werk
+1. De zes punten hierboven.
 2. Frozen Orb staat op vakje 121 — de skyriding-/voertuigbalk, niet balk 1-8.
-3. Beslissing van Rob over `SetBindingSpell` voor de spells zonder vakje.
-4. Daarna de keuze-kaart (MH zet het neer / doe het zelf).
+3. Daarna de keuze-kaart (MH zet het neer / doe het zelf).
 3. Optioneel: de 17 die nog zonder toets vallen zitten geconcentreerd bij Hunter
    (Scare Beast, Wyvern Sting), Paladin (Blessing of Freedom, Turn Evil) en Prot Warrior.
 
