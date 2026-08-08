@@ -99,8 +99,16 @@ local function Report()
 end
 
 local f = CreateFrame("Frame")
+--- ⚠️ REGISTER DEFENSIVELY. `LEARNED_SPELL_IN_TAB` was added here on the strength of
+--- finding it four times across the installed addons — which proves only that somebody
+--- once wrote it down, not that this client still knows it. 12.x threw
+--- "Attempt to register unknown event" on Rob's very next reload. Grepping other addons
+--- is not a way to verify an API against the game.
+---
+--- The modern name is `LEARNED_SPELL_IN_SKILL_LINE`. Anything else is tried inside a
+--- pcall so a name that vanishes in a future patch costs a silent miss rather than an
+--- error on every login.
 f:RegisterEvent("LEARNED_SPELL_IN_SKILL_LINE")
-f:RegisterEvent("LEARNED_SPELL_IN_TAB")
 f:SetScript("OnEvent", function(_, _, spellID)
 	local id = tonumber(spellID)
 	if not id then
