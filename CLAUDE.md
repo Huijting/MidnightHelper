@@ -11,7 +11,9 @@ The maintainer (**Rob**) is a non-developer but tests every change in-game. A se
 ## How to work with Rob (important)
 
 - **Respond in Dutch, concise and direct.** Minimal fluff.
-- **Never-lie / verify, don't guess.** Never invent spell IDs, coordinates, texcoords, API names or achievement criteria. Verify via: Wowhead (12.0.7), in-game macro dump, cross-check against installed addons, or the official WoW API wiki. Prefer "I don't know, let's check" over a plausible guess. Rob/Cisca confirm in-game.
+- **Never-lie / verify, don't guess.** Never invent spell IDs, coordinates, texcoords, API names or achievement criteria. Prefer "I don't know, let's check" over a plausible guess. Rob/Cisca confirm in-game.
+  - ⚠️ **The other installed addons are a place to find CANDIDATES, never proof.** They go stale, they guard calls behind `if`, and they contain combat-log samples full of monsters' spell IDs. On 8 Aug 2026 `LEARNED_SPELL_IN_TAB` was registered because the name appeared four times across them; 12.x threw "Attempt to register unknown event" on the next reload. The same night, grepping for "Arcane Explosion" produced 22271 — a Blackwing Mage's version of it.
+  - **Ask the client instead.** Write the answer to `ns.db.<something>`, have Rob `/reload`, then read the SavedVariables file. `scannedIds` in the automap dump and `/mh events` exist for exactly this. Wowhead (12.0.7) and the official API wiki are fine for candidates too — the client settles it.
 - **Rob's in-game `/reload` is the final syntax check.** Do a static check too where possible (see Build & verify), but assume Rob will reload and report errors.
 - **Git & CurseForge are Rob's job.** Provide the exact commands + checklist, but do not push releases or trigger uploads unless Rob explicitly says to run them. (In Claude Code you *can* run git with permission — still confirm with Rob before commit/push/tag on a release.)
 - **Version bumps & releases only when Rob says "af"/"go".** Don't bump the version or write release docs pre-emptively.
