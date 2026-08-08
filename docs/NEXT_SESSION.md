@@ -108,9 +108,39 @@ gesplitst over 3 en 4, F-rij op 5, reserve op 6.
    Dat kostte een half uur en twee verkeerde diagnoses. `NameForAction` in
    `Modules/BarInventory.lua` nakijken.
 
+### Nacht van 7 op 8 aug — uit ChatGPT's technische brief
+Rob leverde `Midnight_Helper_WoW_12.1_ActionBars_Keybindings_Technical_Brief.md` aan
+(staat in zijn Downloads, niet in de repo). Het meeste beschreef wat we al hadden. Vier
+dingen waren nieuw; drie zijn gebouwd.
+
+- ✅ **Eigenaarschap per vakje** (`769d509`, `Modules/SlotOwnership.lua`). We onthouden wat
+  wij plaatsen; verandert de speler het, dan is dat vakje voorgoed van hem en raken we
+  het nooit meer aan. Terug met `/mh apply reclaim`. **Bewust NIET via
+  `ACTIONBAR_SLOT_CHANGED`** — dat event vuurt tijdens onze eigen plaatsingen, bij login
+  en bij talentwissels, en elke valse positief laat MH stil stoppen met beheren. We
+  vergelijken op het moment dat een plan gebouwd wordt.
+- ✅ **Assistent detecteren** (`a851991`). `C_ActionBar.IsAssistedCombatAction(slot)` +
+  `GetBindingKey` zeggen wélke toets de Assisted Combat-knop drukt. `/mh sba` blijft voor
+  wie een toets vrij wil hóuden vóór de knop op een balk staat.
+- ✅ **Lantaarn-tip** (`1123989`, `Modules/LayoutGrowth.lua`). Leer je iets waar de layout
+  een toets voor heeft, dan één regel in chat. Plaatst niets. Uit met `/mh tips`.
+- ⏸ **`SetBindingSpell` / `SetBindingItem`** — zou de spells zonder vakje alsnog een toets
+  geven, maar dan zie je niet meer wat je drukt. Ontwerpkeuze voor Rob, niet gebouwd.
+
+**Twee adviezen uit de brief bewust NIET overgenomen:** `SaveBindings(2)` forceert
+personage-bindings (wij doen al `SaveBindings(GetCurrentBindingSet())`, dat respecteert de
+keuze van de speler), en de voorgestelde mappenstructuur van zes nieuwe bestanden.
+`C_ActionBar.HasAction` en `IsCurrentAction` uit de brief bestaan niet.
+
+⚠️ **`LEARNED_SPELL_IN_TAB` bestond niet meer** (`dc6021b`). Ik registreerde hem omdat de
+naam vier keer in Robs andere addons stond — dat bewijst alleen dat iemand hem ooit
+opschreef. **Grep over andere addons is GEEN verificatie van een game-API.** Vraag het de
+client. Robs eerstvolgende reload gaf meteen "Attempt to register unknown event".
+
 ### Eerstvolgende werk (volgorde)
-1. De drie punten hierboven.
-2. Daarna de keuze-kaart (MH zet het neer / doe het zelf).
+1. De drie punten hierboven (balk 7-spells, Frozen Orb op 121, `/mh bars` nil-namen).
+2. Beslissing van Rob over `SetBindingSpell` voor de spells zonder vakje.
+3. Daarna de keuze-kaart (MH zet het neer / doe het zelf).
 3. Optioneel: de 17 die nog zonder toets vallen zitten geconcentreerd bij Hunter
    (Scare Beast, Wyvern Sting), Paladin (Blessing of Freedom, Turn Evil) en Prot Warrior.
 
