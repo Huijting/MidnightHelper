@@ -102,6 +102,40 @@ function ns.MH_EventProbe()
 		ns.db.assistedCombatApi = { functions = {}, values = { note = "C_AssistedCombat absent" } }
 	end
 
+	--- ⚠️ 12.1 MOVES AT LEAST ONE NAVIGATION CALL. `C_SuperTrack.GetNextWaypointForMap`
+	--- is removed in 12.1.0 and replaced by `C_Navigation.GetNextWaypointForMap`. MH does
+	--- not call the removed one — but it calls three OTHER C_SuperTrack functions in
+	--- sixteen places, and whether the whole namespace is migrating or only that one
+	--- function is exactly the sort of thing a changelog summary does not settle.
+	---
+	--- The watch note of 19 Jul concluded "NativeArrow safe", with the caveat that the
+	--- wiki page had been truncated before the Deprecated section — which is where a
+	--- removal like this lives. So: ask a client. Run this on the PTR before 11 Aug.
+	local NAMESPACES = {
+		C_SuperTrack = {
+			"GetSuperTrackedQuestID", "SetSuperTrackedQuestID",
+			"SetSuperTrackedUserWaypoint", "GetNextWaypointForMap",
+		},
+		C_Navigation = { "GetNextWaypointForMap" },
+		C_Map = { "SetUserWaypoint", "GetUserWaypoint", "HasUserWaypoint", "ClearUserWaypoint" },
+		C_UnitAuras = { "GetUnitAuras", "GetUnitAuraInstanceIDs", "GetAuraDataByIndex" },
+		C_AssistedCombat = { "IsAvailable", "GetRotationSpells", "GetNextCastSpell" },
+	}
+	local api = {}
+	for nsName, fns in pairs(NAMESPACES) do
+		local tbl = _G and _G[nsName]
+		if type(tbl) ~= "table" then
+			api[nsName] = "ABSENT"
+		else
+			local seen = {}
+			for _, fn in ipairs(fns) do
+				seen[fn] = (type(tbl[fn]) == "function") and "function" or "absent"
+			end
+			api[nsName] = seen
+		end
+	end
+	ns.db.namespaceProbe = api
+
 	ns.db.eventProbe = { checked = #EVENTS, unknown = unknown }
 	if #unknown == 0 then
 		print(("%s all |cffffffff%d|r registered event(s) exist on this client."):format(Prefix(), #EVENTS))
