@@ -219,8 +219,11 @@ function ns.MH_EditModeExport()
 	else
 		print("   |cffff9900" .. tostring(result.error) .. "|r")
 	end
-	print("   |cff9d9d9dWritten to SavedVariables — |cffffffff/reload|r and it can be read from the file.|r")
 	print("   |cff9d9d9dNothing was changed; your minimap and frames are not part of this.|r")
+	-- Straight into a box: 548 characters is not something anyone digs out of a Lua file.
+	if result.string and ns.MH_EditModeShowExport then
+		ns.MH_EditModeShowExport(result.string)
+	end
 end
 
 --- ⚠️ THE ONE PLACE MH WRITES TO EDIT MODE. Everything else in this file reads.
@@ -394,6 +397,103 @@ function ns.MH_EditModeRestore()
 	print(("%s |cffffffff%s|r restored to how it was before the import."):format(
 		Prefix(), tostring(undo.layoutName)))
 	print("   |cffff9900Reload now.|r")
+end
+
+--- ⚠️ A SLASH COMMAND CANNOT CARRY THIS. WoW's chat box stops at 255 characters and
+--- Rob's bars string is 548, so `/mh editmode bars <string>` was unusable the moment it
+--- had a real string to carry — I built the command before checking the length of the
+--- thing it was meant to take.
+---
+--- So: a box. Paste in, or copy out. The same pattern every import/export addon uses,
+--- for the same reason.
+local box
+
+local function BuildBox()
+	if box then
+		return box
+	end
+	local f = CreateFrame("Frame", "MidnightHelperEditModeBox", UIParent, "BackdropTemplate")
+	f:SetSize(520, 260)
+	f:SetPoint("CENTER")
+	f:SetFrameStrata("DIALOG")
+	f:EnableMouse(true)
+	f:Hide()
+	if ns.ApplyMidnightDialogBackdrop then
+		ns.ApplyMidnightDialogBackdrop(f)
+	end
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f)
+	end
+
+	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	f.title:SetPoint("TOPLEFT", 16, -14)
+
+	f.hint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.hint:SetPoint("TOPLEFT", 16, -38)
+	f.hint:SetPoint("TOPRIGHT", -16, -38)
+	f.hint:SetJustifyH("LEFT")
+
+	local scroll = CreateFrame("ScrollFrame", "$parentScroll", f, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", 16, -64)
+	scroll:SetPoint("BOTTOMRIGHT", -34, 48)
+
+	local edit = CreateFrame("EditBox", nil, scroll)
+	edit:SetMultiLine(true)
+	edit:SetFontObject(ChatFontNormal)
+	edit:SetWidth(452)
+	edit:SetAutoFocus(false)
+	-- 0 = no limit. The default cuts a long layout string in half without saying so.
+	edit:SetMaxLetters(0)
+	edit:SetScript("OnEscapePressed", function()
+		f:Hide()
+	end)
+	scroll:SetScrollChild(edit)
+	f.edit = edit
+
+	f.apply = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.apply:SetSize(150, 24)
+	f.apply:SetPoint("BOTTOMRIGHT", -16, 14)
+	f.apply:SetScript("OnClick", function()
+		local text = edit:GetText()
+		f:Hide()
+		if ns.MH_EditModeApplyBars then
+			ns.MH_EditModeApplyBars(text)
+		end
+	end)
+
+	if ns.AttachMidnightDialogCloseButton then
+		ns.AttachMidnightDialogCloseButton(f, function()
+			f:Hide()
+		end)
+	end
+	box = f
+	return f
+end
+
+--- Show the export string, selected and ready to copy.
+function ns.MH_EditModeShowExport(str)
+	local f = BuildBox()
+	f.title:SetText("Midnight Helper — your bars")
+	f.hint:SetText("Ctrl+C to copy. This carries the action bars only — the person who "
+		.. "pastes it keeps their own minimap, frames and chat exactly where they are.")
+	f.edit:SetText(str or "")
+	f.apply:Hide()
+	f:Show()
+	f.edit:SetFocus()
+	f.edit:HighlightText()
+end
+
+--- `/mh editmode import` — an empty box to paste someone else's bars into.
+function ns.MH_EditModeShowImport()
+	local f = BuildBox()
+	f.title:SetText("Midnight Helper — paste bars")
+	f.hint:SetText("Ctrl+V the string, then Apply. Only your action bars change; a backup "
+		.. "is taken first and /mh editmode restore puts them back.")
+	f.edit:SetText("")
+	f.apply:SetText("Apply bars")
+	f.apply:Show()
+	f:Show()
+	f.edit:SetFocus()
 end
 
 --- `/mh editmode` — capture now and say what is stored.

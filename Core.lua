@@ -1111,6 +1111,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh editmode — read how the bars are laid out, and keep the last few pictures.
+	if msg == "editmode import" then
+		if ns.MH_EditModeShowImport then
+			ns.MH_EditModeShowImport()
+		end
+		return
+	end
+
 	if msg == "editmode restore" then
 		if ns.MH_EditModeRestore then
 			ns.MH_EditModeRestore()
