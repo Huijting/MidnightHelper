@@ -153,6 +153,20 @@ end
 --- MH to transplant the systems itself, which is a decision to take with eyes open.
 local BAR_SYSTEM = 0
 
+--- ⚠️ ONLY THE NUMBERED BARS TRAVEL. System 0 has eleven entries: indexes 1-8 are the
+--- action bars the scheme fills, and 11, 12 and 13 are the pet, stance and extra bars.
+---
+--- Measured on Rob's Hunter, 10 Aug: importing his Mage's bars moved all three of those
+--- as well, and his pet bar ended up far right — at coordinates his Mage had never
+--- chosen deliberately, because a Mage does not use a pet bar. A Hunter accepting a
+--- Mage's preset should not inherit where the Mage happened to leave a bar they never
+--- look at.
+---
+--- So a share carries 1-8. Those are the ones the layout has an opinion about; the
+--- class-specific three stay where their owner put them.
+local SHARED_BAR_INDEXES = { [1] = true, [2] = true, [3] = true, [4] = true,
+	[5] = true, [6] = true, [7] = true, [8] = true }
+
 --- @return table|nil layoutInfo holding only the action-bar systems
 local function BarsOnly(layout)
 	if not (layout and layout.systems) then
@@ -160,7 +174,7 @@ local function BarsOnly(layout)
 	end
 	local systems = {}
 	for _, s in ipairs(layout.systems) do
-		if s.system == BAR_SYSTEM then
+		if s.system == BAR_SYSTEM and SHARED_BAR_INDEXES[s.systemIndex] then
 			systems[#systems + 1] = s
 		end
 	end
@@ -306,9 +320,11 @@ function ns.MH_EditModeApplyBars(str)
 		print(Prefix() .. " |cffff9900that string is not a layout|r — wrong text, or made on another patch.")
 		return
 	end
+	-- Same filter on the way in, so an older string that still carries the pet and stance
+	-- bars cannot move them either.
 	local bars = {}
 	for _, s in ipairs(incoming.systems) do
-		if s.system == BAR_SYSTEM then
+		if s.system == BAR_SYSTEM and SHARED_BAR_INDEXES[s.systemIndex] then
 			bars[#bars + 1] = s
 		end
 	end
@@ -372,7 +388,9 @@ function ns.MH_EditModeApplyBars(str)
 	--- which is the entire point.
 	local kept, replaced = {}, 0
 	for _, s in ipairs(target.systems or {}) do
-		if s.system ~= BAR_SYSTEM then
+		-- Everything that is not a shared bar stays exactly as it is: the 39 other
+		-- systems, and the player's own pet, stance and extra bars.
+		if not (s.system == BAR_SYSTEM and SHARED_BAR_INDEXES[s.systemIndex]) then
 			kept[#kept + 1] = s
 		end
 	end
