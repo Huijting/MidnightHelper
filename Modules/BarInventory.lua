@@ -167,6 +167,22 @@ function ns.MH_BarInventory()
 		for slot = 1, MAX_SLOT do
 			local ok, kind, id, subType = pcall(GetActionInfo, slot)
 			if ok and kind then
+				--- ⚠️ THE ASSISTANT LOOKS LIKE WHATEVER IT IS SUGGESTING.
+				---
+				--- Rob's idea, 10 Aug, and it explains everything: the Single-Button
+				--- Assistant shows the spell it currently recommends, so `GetActionInfo`
+				--- on that slot answers "Frozen Orb" and our search for id 1229376 found
+				--- nothing. I concluded the assistant was on no bar at all. That is
+				--- almost certainly wrong — it was hiding behind its own suggestion.
+				---
+				--- `C_ActionBar.IsAssistedCombatAction` exists for exactly this: you
+				--- cannot tell from the action itself. We had verified the function
+				--- existed and then never called it.
+				local assisted = false
+				if C_ActionBar and C_ActionBar.IsAssistedCombatAction then
+					local okA, v = pcall(C_ActionBar.IsAssistedCombatAction, slot)
+					assisted = (okA and v) and true or false
+				end
 				local name = NameForAction(slot, kind, id)
 				out.slots[#out.slots + 1] = {
 					slot = slot,
@@ -177,6 +193,7 @@ function ns.MH_BarInventory()
 					-- filled slot can never read as an empty one again.
 					name = name or ("<" .. tostring(kind) .. ">"),
 					named = name ~= nil,
+					assistedCombat = assisted or nil,
 				}
 			end
 		end
