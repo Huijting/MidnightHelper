@@ -1,29 +1,34 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: what does centring do to the bars, for a few real spec sizes?
+Right now: register LayoutWizard in the .toc and route `/mh setup`.
 """
-import math
+import io, os
 
-# bar width -> how many keys a spec uses, from the measurements
-CASES = [
-    ('balk 1 nummers',    6, [5, 4, 3]),
-    ('balk 2 letters',    9, [8, 7, 6]),
-    ('balk 3 shift-num',  7, [7, 5, 4, 1]),
-    ('balk 4 shift-let',  8, [8, 5, 3, 1]),
-    ('balk 5 F-rij',      6, [4, 3, 1]),
-    ('balk 6 ctrl',       6, [6, 3, 1]),
-]
+p = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\MidnightHelper.toc'
+t = open(p, encoding='utf-8-sig', newline='').read()
+if 'LayoutWizard' not in t:
+    t = t.replace('Modules\\BarPlanCard.lua',
+                  'Modules\\BarPlanCard.lua\nModules\\LayoutWizard.lua')
+    io.open(p + '.tmp', 'w', encoding='utf-8-sig', newline='').write(t)
+    os.replace(p + '.tmp', p)
+    print('toc ok')
+else:
+    print('toc already')
 
-for name, width, uses in CASES:
-    print('%-18s breedte %d' % (name, width))
-    for used in uses:
-        offset = math.floor((width - used) / 2) if width > used else 0
-        cells = ['.'] * width
-        for i in range(used):
-            if offset + i < width:
-                cells[offset + i] = '#'
-        left = offset
-        right = width - used - offset
-        print('   %2d in gebruik   [%s]   links leeg %d, rechts leeg %d'
-              % (used, ' '.join(cells), left, max(right, 0)))
-    print()
+p = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Core.lua'
+t = open(p, encoding='utf-8', newline='').read()
+anchor = '\tif msg == "bars plan" then'
+if 'msg == "setup"' in t:
+    print('route already')
+else:
+    assert anchor in t
+    add = ('\tif msg == "setup" then\n'
+           '\t\tif ns.MH_ShowLayoutWizard then\n'
+           '\t\t\tns.MH_ShowLayoutWizard()\n'
+           '\t\tend\n'
+           '\t\treturn\n'
+           '\tend\n\n')
+    t = t.replace(anchor, add + anchor, 1)
+    io.open(p + '.tmp', 'w', encoding='utf-8', newline='').write(t)
+    os.replace(p + '.tmp', p)
+    print('route ok')

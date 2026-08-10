@@ -146,6 +146,7 @@ Modules\SlotOwnership.lua
 Modules\ApplyLayout.lua
 Modules\LayoutGrowth.lua
 Modules\BarPlanCard.lua
+Modules\LayoutWizard.lua
 Modules\RitualSites.lua
 Modules\RitualCoachData.lua
 Modules\RitualCoach.lua
