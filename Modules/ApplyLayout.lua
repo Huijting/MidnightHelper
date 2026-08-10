@@ -118,19 +118,41 @@ local BAR_PLAN = {
 ---
 --- @param usedKeys table|nil  set of bind keys this spec has; nil packs the whole pool
 --- @return table bindKey -> action slot
+--- ⚠️ CENTRED, NOT LEFT-PACKED. Rob's idea, and it solves both halves of a problem I had
+--- been treating as a trade-off.
+---
+--- Packing from button one removed the holes but left the tail on the right, so a bar
+--- sized 9 with 5 keys showed its icons left of centre while the bar itself was centred.
+--- I had offered him a choice: one portable size with a crooked tail, or a tight size per
+--- character that needs redoing per spec. He asked why we do not start from the middle
+--- instead — and that keeps the single portable size AND centres the content.
+---
+--- A bar of 9 holding 5 fills positions 3 to 7: two empty each side, symmetric, which
+--- reads as deliberate rather than unfinished.
 local function BuildPlannedSlots(usedKeys)
 	local planned = {}
 	for _, group in ipairs(BAR_PLAN) do
 		local bar = BAR_COMMANDS[group.barIndex]
 		if bar then
-			local pos = 0
+			local wanted = {}
 			for i = 1, #group.keys do
 				local key = group.keys[i]
 				if key and key ~= "" and (not usedKeys or usedKeys[key]) then
-					pos = pos + 1
-					if pos <= 12 then
-						planned[key] = bar.first + (pos - 1)
-					end
+					wanted[#wanted + 1] = key
+				end
+			end
+			--- Centre the block inside the bar's own width. `size` is the width the
+			--- player is told to set; without it there is nothing to centre within, so
+			--- fall back to packing from the left.
+			local width = group.size or #wanted
+			local offset = 0
+			if width > #wanted then
+				offset = math.floor((width - #wanted) / 2)
+			end
+			for i = 1, #wanted do
+				local pos = offset + i
+				if pos <= 12 then
+					planned[wanted[i]] = bar.first + (pos - 1)
 				end
 			end
 		end
