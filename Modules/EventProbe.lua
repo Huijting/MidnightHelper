@@ -97,6 +97,20 @@ function ns.MH_EventProbe()
 			local okR, v = pcall(C_AssistedCombat.GetRotationSpells)
 			extra.rotationSpellCount = (okR and type(v) == "table") and #v or "n/a"
 		end
+		--- The 12.1 probe turned up a fourth function nobody had asked about:
+		--- `GetActionSpell`. If it hands back the spell that REPRESENTS the assistant on
+		--- a bar, then MH can finally place it — C_Spell.PickupSpell + PlaceAction — and
+		--- Rob's "just put it on 1 by default" becomes possible. The name is suggestive
+		--- and suggestive is not evidence, so record what it actually returns.
+		if C_AssistedCombat.GetActionSpell then
+			local okS, v = pcall(C_AssistedCombat.GetActionSpell)
+			extra.actionSpell = okS and tostring(v) or "error"
+			extra.actionSpellType = okS and type(v) or "error"
+			if okS and type(v) == "number" and C_Spell and C_Spell.GetSpellName then
+				local okN, n = pcall(C_Spell.GetSpellName, v)
+				extra.actionSpellName = okN and tostring(n) or "no name"
+			end
+		end
 		ns.db.assistedCombatApi = { functions = api, values = extra }
 	else
 		ns.db.assistedCombatApi = { functions = {}, values = { note = "C_AssistedCombat absent" } }
