@@ -550,6 +550,58 @@ function ns.Keybind_AssistantSpellID()
 	return nil
 end
 
+--- Account-wide bindings, or this character's own?
+---
+--- ⚠️ ONE SOURCE OF TRUTH, and it does not hardcode the numbers.
+---
+--- Three places used to answer this — the cleanup warning in ApplyLayout, the bar
+--- inventory, and the setup panel — and all three wrote `set == 1` for account-wide.
+--- On 10 Aug Rob switched his Hunter to character-specific "voor de zekerheid" and the
+--- panel still said account-wide. Either the switch did not take or the number does not
+--- mean what those three lines assume, and a hardcoded 1 cannot tell the difference.
+---
+--- So compare against the game's own constants when it publishes them, and when it does
+--- not, say so instead of guessing. The raw value is returned alongside the name and
+--- parked in the DB, so a `/reload` settles it rather than another round of reasoning.
+--- @return string|nil name  "account", "character", or nil when we cannot tell
+--- @return any raw  whatever the game returned, for diagnosis
+function ns.Keybind_BindingSet()
+	if type(GetCurrentBindingSet) ~= "function" then
+		return nil, nil
+	end
+	local ok, raw = pcall(GetCurrentBindingSet)
+	if not ok then
+		return nil, nil
+	end
+	if ns.db then
+		ns.db.bindingSetProbe = {
+			raw = raw,
+			account = ACCOUNT_BINDINGS,
+			character = CHARACTER_BINDINGS,
+		}
+	end
+	--- The constants are the honest comparison: FrameXML defines them next to the API
+	--- that returns them, so they cannot drift apart the way our copy of the number can.
+	if type(CHARACTER_BINDINGS) == "number" and raw == CHARACTER_BINDINGS then
+		return "character", raw
+	end
+	if type(ACCOUNT_BINDINGS) == "number" and raw == ACCOUNT_BINDINGS then
+		return "account", raw
+	end
+	if type(CHARACTER_BINDINGS) == "number" or type(ACCOUNT_BINDINGS) == "number" then
+		-- One of them exists and the value matched neither. Better to admit that.
+		return nil, raw
+	end
+	-- No constants published. 1/2 is the long-standing meaning, but it is now the
+	-- fallback rather than the assumption, and the caller gets the raw value to show.
+	if raw == 1 then
+		return "account", raw
+	elseif raw == 2 then
+		return "character", raw
+	end
+	return nil, raw
+end
+
 --- Which thumb keys the layout may actually put something on, right now.
 ---
 --- ⚠️ ONE SOURCE OF TRUTH. The keyboard view had its own idea — `mouseButtonCount or 2`

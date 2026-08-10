@@ -25,15 +25,15 @@ local PANEL_W, PANEL_H = 460, 400
 
 local panel
 
+--- ⚠️ Asks the schema rather than reading `GetCurrentBindingSet() == 1` itself. That
+--- comparison lived here, in ApplyLayout and in BarInventory, and when Rob switched his
+--- Hunter to character-specific this panel still said account-wide — three copies of an
+--- assumption cannot disagree usefully. See `ns.Keybind_BindingSet`.
 local function BindingSetName()
-	if not GetCurrentBindingSet then
-		return nil
+	if not ns.Keybind_BindingSet then
+		return nil, nil
 	end
-	local ok, set = pcall(GetCurrentBindingSet)
-	if not ok then
-		return nil
-	end
-	return (set == 1 and "account") or (set == 2 and "character") or tostring(set)
+	return ns.Keybind_BindingSet()
 end
 
 --- How many keys the layout wants, so the panel can say something true about this spec
@@ -49,21 +49,31 @@ end
 
 local function StatusText()
 	local name = (UnitName and UnitName("player")) or "?"
-	local _, class = UnitClass and UnitClass("player")
-	local set = BindingSetName()
-	local keys = LayoutSize()
+	--- ⚠️ `local _, class = UnitClass and UnitClass("player")` reads fine and cannot
+	--- work: the `and` squeezes UnitClass's several return values down to one, so the
+	--- class token never arrives and the panel showed "?". Exactly the same mistake as
+	--- `select(2, GetBuildInfo and GetBuildInfo() or nil)` earlier today — which I had
+	--- already fixed once and written down.
+	local className
+	if UnitClass then
+		local okC, localised = pcall(UnitClass, "player")
+		className = okC and localised or nil
+	end
+	local set, raw = BindingSetName()
 
 	local lines = {}
-	lines[#lines + 1] = ("|cffffd100%s|r  ·  %s  ·  |cffffffff%d|r toetsen in de layout")
-		:format(tostring(name), tostring(class or "?"), keys)
+	lines[#lines + 1] = (ns:L("MH_SETUP_WHO")):format(
+		tostring(name), tostring(className or "?"), LayoutSize())
 
 	if set == "account" then
-		lines[#lines + 1] = "|cffff9900Je keybindings zijn account-breed.|r Wat je hier"
-		lines[#lines + 1] = "|cffff9900opruimt, ruim je op ál je personages op.|r"
+		lines[#lines + 1] = ns:L("MH_SETUP_ACCOUNT_WARN")
 	elseif set == "character" then
-		lines[#lines + 1] = "|cff40c040Keybindings zijn van dit personage alleen.|r Veilig opruimen."
+		lines[#lines + 1] = ns:L("MH_SETUP_CHARACTER_OK")
 	else
-		lines[#lines + 1] = "|cff9d9d9dKon de bindingsmodus niet lezen.|r"
+		-- The raw value goes on screen too. "I cannot tell" is only useful to a player
+		-- if they can pass on what the game actually said.
+		lines[#lines + 1] = ns:L("MH_SETUP_SET_UNKNOWN")
+			.. (raw ~= nil and (" |cff9d9d9d(" .. tostring(raw) .. ")|r") or "")
 	end
 	return table.concat(lines, "\n")
 end
@@ -135,7 +145,7 @@ local function Build()
 
 	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 	f.title:SetPoint("TOPLEFT", 16, -14)
-	f.title:SetText("Je balken inrichten")
+	f.title:SetText(ns:L("MH_SETUP_TITLE"))
 
 	f.status = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	f.status:SetPoint("TOPLEFT", 16, -42)
@@ -155,49 +165,49 @@ local function Build()
 		y = y - 30
 	end
 
-	Row(MakeButton(f, "1 · Wat zou er veranderen?", function()
+	Row(MakeButton(f, ns:L("MH_SETUP_BTN_PREVIEW"), function()
 		if ns.MH_ApplyLayout then
 			ns.MH_ApplyLayout()
 		end
-	end), "Verandert niets. Zet het plan in je chat.")
+	end), ns:L("MH_SETUP_NOTE_PREVIEW"))
 
-	Row(MakeButton(f, "2 · Zet mijn layout neer", function()
+	Row(MakeButton(f, ns:L("MH_SETUP_BTN_APPLY"), function()
 		if ns.MH_ApplyLayout then
 			ns.MH_ApplyLayout("go")
 		end
-	end), "Plaatst de spells en bindt de toetsen.")
+	end), ns:L("MH_SETUP_NOTE_APPLY"))
 
-	Row(MakeArmedButton(f, "3 · Balken leeghalen", "Zeker weten? Klik weer",
+	Row(MakeArmedButton(f, ns:L("MH_SETUP_BTN_CLEAR"), ns:L("MH_SETUP_CONFIRM"),
 		function()
 			if ns.MH_ApplyLayout then
 				ns.MH_ApplyLayout("full go")
 			end
-		end), "Balk 1-6 leeg, jouw macro's naar 7-8. Doe daarna stap 2.")
+		end), ns:L("MH_SETUP_NOTE_CLEAR"))
 
-	Row(MakeArmedButton(f, "4 · Dode toetsen opruimen", "Zeker weten? Klik weer",
+	Row(MakeArmedButton(f, ns:L("MH_SETUP_BTN_CLEAN"), ns:L("MH_SETUP_CONFIRM"),
 		function()
 			if ns.MH_ApplyLayout then
 				ns.MH_ApplyLayout("clean go")
 			end
-		end), "Lees eerst de waarschuwing hierboven.")
+		end), ns:L("MH_SETUP_NOTE_CLEAN"))
 
-	Row(MakeButton(f, "Waar horen mijn balken?", function()
+	Row(MakeButton(f, ns:L("MH_SETUP_BTN_PLAN"), function()
 		if ns.MH_ShowBarPlan then
 			ns.MH_ShowBarPlan()
 		end
-	end), "Maten en volgorde voor dit personage.")
+	end), ns:L("MH_SETUP_NOTE_PLAN"))
 
-	Row(MakeButton(f, "Terugdraaien", function()
+	Row(MakeButton(f, ns:L("MH_SETUP_BTN_UNDO"), function()
 		if ns.MH_ApplyLayout then
 			ns.MH_ApplyLayout("undo")
 		end
-	end), "Zet de laatste stap terug.")
+	end), ns:L("MH_SETUP_NOTE_UNDO"))
 
 	f.foot = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	f.foot:SetPoint("BOTTOMLEFT", 16, 14)
 	f.foot:SetPoint("BOTTOMRIGHT", -16, 14)
 	f.foot:SetJustifyH("LEFT")
-	f.foot:SetText("Volgorde als je opnieuw begint: 3, dan 2. Lees stap 1 als je twijfelt.")
+	f.foot:SetText(ns:L("MH_SETUP_FOOT"))
 
 	function f:Refresh()
 		self.status:SetText(StatusText())

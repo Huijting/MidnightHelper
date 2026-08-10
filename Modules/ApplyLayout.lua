@@ -1152,8 +1152,10 @@ function ns.MH_ApplyLayout(arg)
 		--- Said, not refused. Tidying really does need doing; it just must not be a
 		--- surprise. `SaveBindings(GetCurrentBindingSet())` already writes to whichever
 		--- set the player chose, so the warning only has to name it.
-		local accountBindings = GetCurrentBindingSet and select(1, pcall(GetCurrentBindingSet))
-			and (GetCurrentBindingSet() == 1)
+		--- Asks the schema, which compares against the game's own constants — the `== 1`
+		--- that used to sit here was a third copy of the same guess. See
+		--- `ns.Keybind_BindingSet`.
+		local accountBindings = ns.Keybind_BindingSet and (ns.Keybind_BindingSet() == "account")
 		if accountBindings and #dead > 0 then
 			print(Prefix() .. " |cffff9900your keybindings are account-wide.|r")
 			print("   |cff9d9d9dRemoving these takes them off your other characters too. If a key")

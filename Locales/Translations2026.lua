@@ -2639,3 +2639,118 @@ fill("frFR", { PROMPT_WORD_INTERRUPT = "INTERROMPRE", PROMPT_WORD_PURGE = "DISSI
 fill("esES", { PROMPT_WORD_INTERRUPT = "INTERRUMPIR", PROMPT_WORD_PURGE = "DISIPAR" })
 fill("ptBR", { PROMPT_WORD_INTERRUPT = "INTERROMPER", PROMPT_WORD_PURGE = "DISSIPAR" })
 fill("itIT", { PROMPT_WORD_INTERRUPT = "INTERROMPI", PROMPT_WORD_PURGE = "DISSOLVI" })
+
+
+--======================================================================
+-- /mh setup — the layout panel (2.14.0)
+--======================================================================
+fill("deDE", {
+	MH_SETUP_TITLE = "Deine Leisten einrichten",
+	MH_SETUP_WHO = "|cffffd100%s|r  \194\183  %s  \194\183  |cffffffff%d|r Tasten im Layout",
+	MH_SETUP_ACCOUNT_WARN = "|cffff9900Deine Tastenbelegung gilt accountweit.|r Was du hier\naufräumst, räumst du auf jedem Charakter auf.",
+	MH_SETUP_CHARACTER_OK = "|cff40c040Die Tastenbelegung gehört nur diesem Charakter.|r Aufräumen ist sicher.",
+	MH_SETUP_SET_UNKNOWN = "|cff9d9d9dKonnte nicht lesen, welchen Belegungssatz du nutzt.|r",
+	MH_SETUP_BTN_PREVIEW = "1 \194\183 Was würde sich ändern?",
+	MH_SETUP_NOTE_PREVIEW = "Ändert nichts. Schreibt den Plan in deinen Chat.",
+	MH_SETUP_BTN_APPLY = "2 \194\183 Mein Layout einrichten",
+	MH_SETUP_NOTE_APPLY = "Legt die Zauber ab und belegt die Tasten.",
+	MH_SETUP_BTN_CLEAR = "3 \194\183 Leisten leeren",
+	MH_SETUP_NOTE_CLEAR = "Leisten 1-6 werden geleert, deine Makros wandern auf 7-8. Danach Schritt 2.",
+	MH_SETUP_BTN_CLEAN = "4 \194\183 Tote Tasten entfernen",
+	MH_SETUP_NOTE_CLEAN = "Lies zuerst die Warnung oben.",
+	MH_SETUP_BTN_PLAN = "Wohin gehören meine Leisten?",
+	MH_SETUP_NOTE_PLAN = "Breiten und Reihenfolge für diesen Charakter.",
+	MH_SETUP_BTN_UNDO = "Rückgängig",
+	MH_SETUP_NOTE_UNDO = "Nimmt den letzten Schritt zurück.",
+	MH_SETUP_CONFIRM = "Sicher? Nochmal klicken",
+	MH_SETUP_FOOT = "Neu anfangen? Schritt 3, dann Schritt 2. Im Zweifel Schritt 1 lesen.",
+})
+
+fill("frFR", {
+	MH_SETUP_TITLE = "Configurer vos barres",
+	MH_SETUP_WHO = "|cffffd100%s|r  \194\183  %s  \194\183  |cffffffff%d|r touches dans la disposition",
+	MH_SETUP_ACCOUNT_WARN = "|cffff9900Vos raccourcis sont liés au compte.|r Ce que vous nettoyez\nici, vous le nettoyez sur chaque personnage.",
+	MH_SETUP_CHARACTER_OK = "|cff40c040Les raccourcis appartiennent à ce personnage seul.|r Nettoyage sans risque.",
+	MH_SETUP_SET_UNKNOWN = "|cff9d9d9dImpossible de lire quel jeu de raccourcis est actif.|r",
+	MH_SETUP_BTN_PREVIEW = "1 \194\183 Qu’est-ce qui changerait ?",
+	MH_SETUP_NOTE_PREVIEW = "Ne change rien. Écrit le plan dans votre discussion.",
+	MH_SETUP_BTN_APPLY = "2 \194\183 Installer ma disposition",
+	MH_SETUP_NOTE_APPLY = "Place les sorts et assigne les touches.",
+	MH_SETUP_BTN_CLEAR = "3 \194\183 Vider les barres",
+	MH_SETUP_NOTE_CLEAR = "Barres 1-6 vidées, vos macros déplacées en 7-8. Faites ensuite l’étape 2.",
+	MH_SETUP_BTN_CLEAN = "4 \194\183 Retirer les touches mortes",
+	MH_SETUP_NOTE_CLEAN = "Lisez d’abord l’avertissement ci-dessus.",
+	MH_SETUP_BTN_PLAN = "Où vont mes barres ?",
+	MH_SETUP_NOTE_PLAN = "Largeurs et ordre pour ce personnage.",
+	MH_SETUP_BTN_UNDO = "Annuler",
+	MH_SETUP_NOTE_UNDO = "Remet la dernière étape en place.",
+	MH_SETUP_CONFIRM = "Sûr ? Cliquez encore",
+	MH_SETUP_FOOT = "Vous recommencez ? Étape 3, puis étape 2. Lisez l’étape 1 en cas de doute.",
+})
+
+fill("esES", {
+	MH_SETUP_TITLE = "Configurar tus barras",
+	MH_SETUP_WHO = "|cffffd100%s|r  \194\183  %s  \194\183  |cffffffff%d|r teclas en la distribución",
+	MH_SETUP_ACCOUNT_WARN = "|cffff9900Tus atajos son de toda la cuenta.|r Lo que limpies\naquí, lo limpias en todos los personajes.",
+	MH_SETUP_CHARACTER_OK = "|cff40c040Los atajos pertenecen solo a este personaje.|r Limpiar es seguro.",
+	MH_SETUP_SET_UNKNOWN = "|cff9d9d9dNo se pudo leer qué conjunto de atajos usas.|r",
+	MH_SETUP_BTN_PREVIEW = "1 \194\183 ¿Qué cambiaría?",
+	MH_SETUP_NOTE_PREVIEW = "No cambia nada. Escribe el plan en tu chat.",
+	MH_SETUP_BTN_APPLY = "2 \194\183 Montar mi distribución",
+	MH_SETUP_NOTE_APPLY = "Coloca los hechizos y asigna las teclas.",
+	MH_SETUP_BTN_CLEAR = "3 \194\183 Vaciar las barras",
+	MH_SETUP_NOTE_CLEAR = "Barras 1-6 vacías, tus macros pasan a 7-8. Luego haz el paso 2.",
+	MH_SETUP_BTN_CLEAN = "4 \194\183 Quitar teclas muertas",
+	MH_SETUP_NOTE_CLEAN = "Lee primero el aviso de arriba.",
+	MH_SETUP_BTN_PLAN = "¿Dónde van mis barras?",
+	MH_SETUP_NOTE_PLAN = "Anchos y orden para este personaje.",
+	MH_SETUP_BTN_UNDO = "Deshacer",
+	MH_SETUP_NOTE_UNDO = "Devuelve el último paso.",
+	MH_SETUP_CONFIRM = "¿Seguro? Haz clic otra vez",
+	MH_SETUP_FOOT = "¿Empiezas de nuevo? Paso 3 y luego paso 2. Lee el paso 1 si dudas.",
+})
+
+fill("ptBR", {
+	MH_SETUP_TITLE = "Configurar suas barras",
+	MH_SETUP_WHO = "|cffffd100%s|r  \194\183  %s  \194\183  |cffffffff%d|r teclas no layout",
+	MH_SETUP_ACCOUNT_WARN = "|cffff9900Seus atalhos valem para a conta inteira.|r O que você limpar\naqui, limpa em todos os personagens.",
+	MH_SETUP_CHARACTER_OK = "|cff40c040Os atalhos pertencem só a este personagem.|r Pode limpar com segurança.",
+	MH_SETUP_SET_UNKNOWN = "|cff9d9d9dNão deu para ler qual conjunto de atalhos está ativo.|r",
+	MH_SETUP_BTN_PREVIEW = "1 \194\183 O que mudaria?",
+	MH_SETUP_NOTE_PREVIEW = "Não muda nada. Escreve o plano no seu chat.",
+	MH_SETUP_BTN_APPLY = "2 \194\183 Montar meu layout",
+	MH_SETUP_NOTE_APPLY = "Coloca as magias e define as teclas.",
+	MH_SETUP_BTN_CLEAR = "3 \194\183 Esvaziar as barras",
+	MH_SETUP_NOTE_CLEAR = "Barras 1-6 esvaziadas, suas macros vão para 7-8. Depois faça o passo 2.",
+	MH_SETUP_BTN_CLEAN = "4 \194\183 Remover teclas mortas",
+	MH_SETUP_NOTE_CLEAN = "Leia primeiro o aviso acima.",
+	MH_SETUP_BTN_PLAN = "Onde ficam minhas barras?",
+	MH_SETUP_NOTE_PLAN = "Larguras e ordem para este personagem.",
+	MH_SETUP_BTN_UNDO = "Desfazer",
+	MH_SETUP_NOTE_UNDO = "Devolve o último passo.",
+	MH_SETUP_CONFIRM = "Tem certeza? Clique de novo",
+	MH_SETUP_FOOT = "Começando de novo? Passo 3, depois passo 2. Na dúvida, leia o passo 1.",
+})
+
+fill("itIT", {
+	MH_SETUP_TITLE = "Sistemare le tue barre",
+	MH_SETUP_WHO = "|cffffd100%s|r  \194\183  %s  \194\183  |cffffffff%d|r tasti nel layout",
+	MH_SETUP_ACCOUNT_WARN = "|cffff9900Le tue scorciatoie valgono per tutto l’account.|r Quello che pulisci\nqui, lo pulisci su ogni personaggio.",
+	MH_SETUP_CHARACTER_OK = "|cff40c040Le scorciatoie appartengono solo a questo personaggio.|r Pulire è sicuro.",
+	MH_SETUP_SET_UNKNOWN = "|cff9d9d9dNon si riesce a leggere quale set di scorciatoie è attivo.|r",
+	MH_SETUP_BTN_PREVIEW = "1 \194\183 Cosa cambierebbe?",
+	MH_SETUP_NOTE_PREVIEW = "Non cambia nulla. Scrive il piano nella chat.",
+	MH_SETUP_BTN_APPLY = "2 \194\183 Sistema il mio layout",
+	MH_SETUP_NOTE_APPLY = "Mette le magie e assegna i tasti.",
+	MH_SETUP_BTN_CLEAR = "3 \194\183 Svuota le barre",
+	MH_SETUP_NOTE_CLEAR = "Barre 1-6 svuotate, le tue macro passano a 7-8. Poi fai il passo 2.",
+	MH_SETUP_BTN_CLEAN = "4 \194\183 Togli i tasti morti",
+	MH_SETUP_NOTE_CLEAN = "Leggi prima l’avviso qui sopra.",
+	MH_SETUP_BTN_PLAN = "Dove vanno le mie barre?",
+	MH_SETUP_NOTE_PLAN = "Larghezze e ordine per questo personaggio.",
+	MH_SETUP_BTN_UNDO = "Annulla",
+	MH_SETUP_NOTE_UNDO = "Rimette a posto l’ultimo passo.",
+	MH_SETUP_CONFIRM = "Sicuro? Clicca di nuovo",
+	MH_SETUP_FOOT = "Ricominci? Passo 3, poi passo 2. Se hai dubbi leggi il passo 1.",
+})
+
