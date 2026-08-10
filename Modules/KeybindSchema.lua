@@ -423,19 +423,61 @@ end
 --- Overridable names are the roles in `Schema.roles` plus the single-slot categories
 --- (`taunt`, `interrupt`, `cooldown`). Anything else has a list to choose from and does
 --- not have an anchor to move.
+--- ⚠️ AND IT IS RE-CHECKED EVERY TIME, NOT ONLY WHEN IT IS SET.
+---
+--- An override may name a mouse key, which only exists because `/mh mouse detect`
+--- measured it. Play on a laptop without that mouse, or re-measure with fewer buttons,
+--- and the anchor points at a button that sends nothing — and the layout would say
+--- "your interrupt is on 6" while 6 did nothing. That is precisely the failure we
+--- removed on 7 Aug when we stopped assuming thumb buttons, rebuilt two days later by
+--- me in a different place.
+---
+--- So the preference is stored, and the MEASUREMENT decides whether it applies. An
+--- unreachable anchor falls back to the scheme's own key, silently in the allocator and
+--- loudly in `/mh anchor`.
 --- @return string|nil key
 function ns.Keybind_AnchorOverride(name)
 	local t = ns.db and ns.db.anchorOverrides
 	local v = t and name and t[name]
-	return (type(v) == "string" and v ~= "") and v or nil
+	if type(v) ~= "string" or v == "" then
+		return nil
+	end
+	local base = ns.Keybind_NormalizeBaseKey(v)
+	if not base then
+		return nil
+	end
+	return ns.Keybind_KeyIsReachable(base) and base or nil
+end
+
+--- Can the player actually press this key on THIS setup?
+---
+--- Two sources: the scheme's own keyboard pool, and whatever this player's mouse was
+--- measured sending. Nothing is assumed — a key we were never told about is not
+--- reachable, which is the whole point.
+function ns.Keybind_KeyIsReachable(base)
+	if not base then
+		return false
+	end
+	if PREF_BASE_OK[base] then
+		return true
+	end
+	for _, entry in ipairs((ns.db and ns.db.mouseDetect) or {}) do
+		local k = entry and entry.key and ns.Keybind_NormalizeBaseKey(entry.key)
+		if k == base then
+			return true
+		end
+	end
+	return false
 end
 
 --- Every key currently claimed by an override, so nothing else may be handed it —
 --- including the thumb-button overflow, which is exactly what took Rob's `6`.
+--- Only the ones that apply: an anchor on a key this setup cannot reach blocks nothing,
+--- because it is not in force either.
 function ns.Keybind_AnchoredKeys()
 	local out = {}
-	for _, key in pairs((ns.db and ns.db.anchorOverrides) or {}) do
-		local base = type(key) == "string" and ns.Keybind_NormalizeBaseKey(key)
+	for name in pairs((ns.db and ns.db.anchorOverrides) or {}) do
+		local base = ns.Keybind_AnchorOverride(name)
 		if base then
 			out[base] = true
 		end

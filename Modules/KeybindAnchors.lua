@@ -100,11 +100,25 @@ local function List()
 		names[#names + 1] = name
 	end
 	table.sort(names)
+	local stranded = 0
 	for _, name in ipairs(names) do
 		local key, moved = CurrentKey(name)
+		-- An override stored but not in force: the key it names cannot be pressed on
+		-- this setup, so the scheme's own key is being used instead. Say so rather than
+		-- show a preference that is quietly doing nothing.
+		local stored = ns.db and ns.db.anchorOverrides and ns.db.anchorOverrides[name]
+		local dead = stored and not moved
+		if dead then
+			stranded = stranded + 1
+		end
 		print(("   |cffffd100%-18s|r %-6s %s%s"):format(
 			name, tostring(key or "-"), MOVABLE[name],
-			moved and " |cff40c040(yours)|r" or ""))
+			dead and (" |cffff9900(you set %s — this setup cannot press it)|r"):format(tostring(stored))
+				or (moved and " |cff40c040(yours)|r" or "")))
+	end
+	if stranded > 0 then
+		print(("   |cffff9900%d anchor(s) point at a key this setup cannot press.|r"):format(stranded))
+		print("   |cff9d9d9dPlug the mouse back in and run |cffffffff/mh mouse detect|r, or pick another key.|r")
 	end
 	print("   |cff9d9d9d/mh anchor reset|r puts them all back.|r")
 end
