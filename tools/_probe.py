@@ -1,6 +1,6 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: is Rob's layout account-wide or character-specific, and how many are there?
+Right now: what do the layoutType numbers mean, and what does the Paladin use?
 """
 import subprocess
 
@@ -10,16 +10,35 @@ SV = (r'E:/World of Warcraft/_retail_/WTF/Account/JOEYWHATEVER/'
 
 script = r'''
 local chunk = assert(loadfile([[__SV__]])); chunk()
-local b = MidnightHelperDB.editModeBackups and MidnightHelperDB.editModeBackups[1]
-if not b then print("geen back-up") return end
-print("actieve index (presets tellen mee):", tostring(b.active))
-print("opgeslagen layouts:", tostring(#((b.data and b.data.layouts) or {})))
-for i, l in ipairs((b.data and b.data.layouts) or {}) do
-  print(string.format("   %d  naam=%-16s layoutType=%s",
-    i, tostring(l.layoutName), tostring(l.layoutType)))
+local db = MidnightHelperDB
+
+print("Enum.EditModeLayoutType zoals de client hem geeft:")
+local e = db.editModeEnum
+if not e or not next(e) then
+  print("   NIET GELEZEN")
+else
+  local keys = {}
+  for k in pairs(e) do keys[#keys+1] = k end
+  table.sort(keys, function(a,b) return (e[a] or 0) < (e[b] or 0) end)
+  for _, k in ipairs(keys) do print(string.format("   %-12s = %s", k, tostring(e[k]))) end
 end
+
 print("")
-print("Enum.EditModeLayoutType: 0 = Preset, 1 = Account, 2 = Character (Blizzard-volgorde)")
+local b = db.editModeBackups and db.editModeBackups[1]
+if b then
+  print("nieuwste momentopname:", tostring(b.label), " actieve index:", tostring(b.active))
+  for i, l in ipairs((b.data and b.data.layouts) or {}) do
+    print(string.format("   layout %d  %-16s type=%s", i, tostring(l.layoutName), tostring(l.layoutType)))
+  end
+end
+
+print("")
+print("beheerde vakjes per personage/spec:")
+for key, slots in pairs(db.managedSlotsByChar or {}) do
+  local n = 0
+  for _ in pairs(slots) do n = n + 1 end
+  print(string.format("   %-34s %d", key, n))
+end
 '''.replace('__SV__', SV)
 
 r = subprocess.run([LUA, '-e', script], capture_output=True, text=True,

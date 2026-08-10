@@ -321,9 +321,30 @@ function ns.MH_EditModeApplyBars(str)
 	local savedIndex = (tonumber(info.activeLayout) or 0) - presets
 	local target = info.layouts[savedIndex]
 	if not target then
+		--- Measured on Rob's Paladin: activeLayout was 1, which with two presets ahead of
+		--- the saved list means he was sitting on Blizzard's "Modern". A preset cannot be
+		--- edited at all, so this is a refusal rather than a warning.
 		print(Prefix() .. " |cffff9900you are on one of Blizzard's preset layouts.|r")
-		print("   |cff9d9d9dMake your own layout in Edit Mode first — a preset cannot be edited.|r")
+		print("   |cff9d9d9dEdit Mode → the layout dropdown → New layout. A preset cannot be changed;")
+		print("   pick |cffffffffCharacter|r there and the bars stay on this character only.|r")
 		return
+	end
+
+	--- ⚠️ AN ACCOUNT LAYOUT IS SHARED. Verified from the client, 10 Aug:
+	--- `Enum.EditModeLayoutType` is Preset 0, Account 1, Character 2, Override 3, and
+	--- Rob's own layout is type 1. So importing bars into it changes the bars on every
+	--- character that uses it — not what somebody accepting a shared preset expects.
+	---
+	--- Said, not refused: it is a legitimate thing to want, and the undo covers it. But
+	--- it must be said BEFORE, because "all my alts changed" is not a surprise anyone
+	--- should discover afterwards.
+	local accountWide = Enum and Enum.EditModeLayoutType
+		and target.layoutType == Enum.EditModeLayoutType.Account
+	if accountWide then
+		print(("%s |cffff9900note:|r |cffffffff%s|r is an account-wide layout."):format(
+			Prefix(), tostring(target.layoutName)))
+		print("   |cff9d9d9dEvery character using it gets these bars. A character-specific")
+		print("   layout in Edit Mode keeps the change to this character only.|r")
 	end
 
 	-- Capture before touching anything. This is the undo.
