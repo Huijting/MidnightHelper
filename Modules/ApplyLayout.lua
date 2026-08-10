@@ -617,12 +617,22 @@ local function BuildPlan()
 	---
 	--- Nothing happens on a character that has no assistant, which is the whole reason
 	--- this can be on by default: the slot simply stays empty, exactly as Rob put it.
-	--- ⚠️ AND IT IS TREATED LIKE ANY OTHER PLACEMENT. The first version only accepted an
-	--- EMPTY slot 1 and said nothing when it found one occupied — so on the PTR, where
-	--- slot 1 already held something, the assistant silently never appeared and the plan
-	--- gave no hint why. Every other ability in this plan may replace an occupant, by
-	--- name, out loud. Holding one to a stricter rule AND a quieter one is how a feature
-	--- looks broken while working exactly as written.
+	--- ⚠️ WE CANNOT PLACE THE ASSISTANT, MEASURED 10 AUG 2026 ON LIVE.
+	---
+	--- `C_AssistedCombat.GetActionSpell()` returns 1229376 and `C_Spell.GetSpellName`
+	--- turns it into "Single-Button Assistant", so it looks like an ordinary spell all
+	--- the way up to the moment you try to put it somewhere: `C_Spell.PickupSpell` picks
+	--- up nothing, `PlaceAction` changes nothing, and neither raises an error. Rob ran
+	--- the apply three times and slot 1 kept holding Frozen Orb while the addon claimed
+	--- success.
+	---
+	--- I had written in this very file that the function's name was "suggestive and
+	--- suggestive is not evidence", then treated a returned number as evidence anyway.
+	--- The id resolving to a name proves the id is real; it proves nothing about whether
+	--- the action can be picked up.
+	---
+	--- So the row is still planned — the verification below will tell us honestly if a
+	--- future patch starts allowing it — but the failure now says what to do instead.
 	local assistantID = ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID()
 	if assistantID and not (ns.db and ns.db.sbaOff) then
 		local target = plannedSlot["1"]
@@ -1322,6 +1332,24 @@ function ns.MH_ApplyLayout(arg)
 				ClearCursor()
 			end)
 			pcall(ClearCursor)
+			--- ⚠️ DID IT ACTUALLY LAND? `pcall` only says the three calls did not raise
+			--- an error, and that is not the same as the slot changing. On 10 Aug the
+			--- Single-Button Assistant reported "2 spell(s) placed" three times in a row
+			--- while slot 1 kept holding Frozen Orb: `C_Spell.PickupSpell(1229376)`
+			--- returns nothing placeable, quietly. Three rounds of Rob's time went to a
+			--- success message we had no evidence for.
+			---
+			--- So ask the slot. An ability that did not arrive is a failure, said out
+			--- loud, and its duplicate is NOT cleared.
+			if ok and p.spellID and GetActionInfo then
+				local okI, kind, id = pcall(GetActionInfo, p.slot)
+				local landed = okI and ((kind == "spell" and id == p.spellID)
+					or (kind == "item" and id == p.itemID))
+				if not landed then
+					ok = false
+					missing[#missing + 1] = p.name .. (" (the game refused to put it on slot %d)"):format(p.slot)
+				end
+			end
 			--- The old copy goes, so the ability lives in exactly one place on our bars.
 			--- After the placement, never before: if the placement failed we would have
 			--- deleted the only copy.
@@ -1366,7 +1394,15 @@ function ns.MH_ApplyLayout(arg)
 		Prefix(), done, placed, failed > 0 and (", " .. failed .. " failed") or ""))
 	print("   |cff9d9d9dNot what you wanted? |cffffffff/mh apply undo|r puts every one of them back.|r")
 	if #missing > 0 then
-		print(("   |cffff9900%d could not be bound (not on a bar):|r %s"):format(
+		print(("   |cffff9900%d could not be done:|r %s"):format(
 			#missing, table.concat(missing, ", ")))
+		-- The one refusal we know the cause of, so the player is not left guessing.
+		for i = 1, #missing do
+			if missing[i]:find("Assistant") then
+				print("   |cff9d9d9dThe assistant cannot be placed by an addon. Drag it from your")
+				print("   spellbook onto that button once — MH keeps the key free for it.|r")
+				break
+			end
+		end
 	end
 end
