@@ -19,6 +19,28 @@ The maintainer (**Rob**) is a non-developer but tests every change in-game. A se
 - **Version bumps & releases only when Rob says "af"/"go".** Don't bump the version or write release docs pre-emptively.
 - **Big releases: consider Beta-first on CurseForge** (Cisca-test) before Release — Rob decides.
 
+## ⚠️ Shell-commando's: geen ketens, geen heredocs, geen inline scripts
+
+Rob kreeg op 8-10 aug 2026 tientallen toestemmingsprompts omdat vrijwel elk commando de
+vorm `cd "..." && python - <<'PY' ...` had. Zulke commando's zijn **niet statisch te
+beoordelen**, dus er bestaat geen enkele toestemmingsregel die ze ooit kan matchen — de
+prompt komt altijd. Hij heeft er drie keer om gevraagd en ik verviel er twee keer in terug.
+
+**De vorm is het probleem, niet de frequentie.** Dus:
+
+- **Geen `cd X && <commando>`.** De Bash-tool onthoudt de werkmap tussen aanroepen: doe
+  `cd "<map>"` als een **los** commando (die staan exact in de allowlist), daarna kale
+  commando's.
+- **Geen `python - <<'PY'` en geen `python -c "..."`.** Schrijf het script met de Write-tool
+  naar de scratchpad en draai het als `python <pad>`. Dat pad staat in de allowlist.
+- **Geen `git commit -m` met een heredoc.** Schrijf de tekst naar `scratchpad/msg.txt` en
+  gebruik `git commit -F <pad>`.
+- **Geen `&&` of `;` om stappen te koppelen** die ook los kunnen. Aparte tool-calls zijn
+  goedkoper dan één prompt.
+
+Zie `.claude/settings.local.json` — de regels staan er, ze werken alleen als het commando
+de bovenstaande vorm heeft.
+
 ## Build & verify
 
 - **Syntax check Lua** before handing off. If `luacheck` or `luac` is available, use it; otherwise a Lua parser. Rob's `/reload` is the final word.
