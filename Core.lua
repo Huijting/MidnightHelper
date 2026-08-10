@@ -1162,9 +1162,11 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 			return
 		end
 		ns.db = ns.db or {}
-		ns.db.sbaOff = not ns.db.sbaOff
+		ns.db.sbaForce = not ns.db.sbaForce
+		ns.db.sbaOff = not ns.db.sbaForce
 		if ns.db.sbaOff then
-			print(prefix .. " assistant off — key |cffffffff1|r goes back to your rotation.")
+			print(prefix .. " key |cffffffff1|r goes back to your rotation.")
+			print("   |cff9d9d9dIf you put the assistant on a bar, MH spots it and frees that key anyway.|r")
 		else
 			local name = (C_Spell and C_Spell.GetSpellName and select(1, pcall(C_Spell.GetSpellName, id))) and
 				C_Spell.GetSpellName(id) or "Assisted Combat"

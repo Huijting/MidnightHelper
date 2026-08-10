@@ -553,15 +553,20 @@ end
 function ns.Keybind_ReservedBaseKeys()
 	local reserved = {}
 	--- ⚠️ ON BY DEFAULT WHERE THE ASSISTANT EXISTS. Until now this was opt-in, which Rob
-	--- questioned: "kan je hem gewoon niet standaard eropzetten? als ie niet bestaat
-	--- blijft het alsnog leeg." He is right, and it is now possible — GetActionSpell
-	--- gives us something to place, so the reserved key is no longer an empty promise.
+	--- ⚠️ RESERVE FOR WHAT IS THERE, NOT FOR WHAT IS AVAILABLE.
 	---
-	--- The game decides, not a setting: no assistant on this character means `1` goes
-	--- straight back to the rotation. `/mh sba` is the way out for a player who has one
-	--- and does not want it.
-	if ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID()
-		and not (ns.db and ns.db.sbaOff) then
+	--- This used to hold `1` back whenever `C_AssistedCombat.IsAvailable()` said yes.
+	--- Measured on Rob's live mage, 10 Aug: available yes, on a bar nowhere. An addon
+	--- cannot place it, and his own drag did not land either — the scan found id 1229376
+	--- in none of slots 1..1000. So the key sat empty and his rotation lost a slot in
+	--- exchange for nothing at all.
+	---
+	--- "Available" describes what the game offers. "On a bar" describes what the player
+	--- can press. Only the second is worth a key.
+	---
+	--- `/mh sba` still forces the reservation, for someone who wants the key kept free
+	--- BEFORE they put the assistant there.
+	if ns.db and ns.db.sbaForce and not ns.db.sbaOff then
 		reserved["1"] = true
 	end
 	-- And if the assistant already sits on a bar, whichever key drives it is spoken for.

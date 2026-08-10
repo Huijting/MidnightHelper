@@ -655,7 +655,7 @@ local function BuildPlan()
 		if home then
 			taken[home] = true
 		end
-	elseif assistantID and not (ns.db and ns.db.sbaOff) then
+	elseif assistantID and (ns.db and ns.db.sbaForce) and not (ns.db and ns.db.sbaOff) then
 		local target = plannedSlot["1"]
 		local already = SlotHoldingSpell(assistantID, driveable)
 		if already then
