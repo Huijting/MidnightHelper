@@ -37,6 +37,15 @@ prompt komt altijd. Hij heeft er drie keer om gevraagd en ik verviel er twee kee
   gebruik `git commit -F <pad>`.
 - **Geen `&&` of `;` om stappen te koppelen** die ook los kunnen. Aparte tool-calls zijn
   goedkoper dan één prompt.
+- **Geen pijpen en geen redirects.** `| tail -3` en `2>&1` maken een commando net zo
+  onbeoordeelbaar als een `&&`-keten. Draai de linter kaal en lees de hele uitvoer; dat
+  is één scrollbeurt tegenover een prompt.
+- ⚠️ **De werkmap valt hier terug** naar `Interface/AddOns` tussen tool-calls, dus `cd`
+  houdt geen stand. Gebruik **absolute paden** en `git -C "<repo>"`. De regels in
+  `.claude/settings.json` zijn op die vorm geschreven.
+- ⚠️ **`.claude/settings.json` wordt alleen bij het opstarten gelezen.** Nieuwe regels
+  werken pas na een herstart van Claude Code. En `settings.local.json` wordt door de app
+  zelf teruggeschreven — zet regels daarom in `settings.json`, niet in het local-bestand.
 
 Zie `.claude/settings.local.json` — de regels staan er, ze werken alleen als het commando
 de bovenstaande vorm heeft.
