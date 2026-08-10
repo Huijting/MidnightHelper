@@ -1118,8 +1118,29 @@ function ns.MH_ApplyLayout(arg)
 			end
 		end
 
+		--- ⚠️ ACCOUNT-WIDE BINDINGS MAKE THIS A CROSS-CHARACTER EDIT.
+		---
+		--- Measured on Rob's Hunter, 10 Aug: Shift+1 to Shift+4, Shift+F1 and 6 were all
+		--- bound to empty slots and none was in the Hunter's layout. They are his MAGE's
+		--- keys — action bar contents are per character, key bindings are not, and his
+		--- set is the account one. Cleaning here would have stripped them from the Mage
+		--- as well, and he would have found out the next time he logged in and pressed
+		--- Shift+1 for Frozen Orb.
+		---
+		--- Said, not refused. Tidying really does need doing; it just must not be a
+		--- surprise. `SaveBindings(GetCurrentBindingSet())` already writes to whichever
+		--- set the player chose, so the warning only has to name it.
+		local accountBindings = GetCurrentBindingSet and select(1, pcall(GetCurrentBindingSet))
+			and (GetCurrentBindingSet() == 1)
+		if accountBindings and #dead > 0 then
+			print(Prefix() .. " |cffff9900your keybindings are account-wide.|r")
+			print("   |cff9d9d9dRemoving these takes them off your other characters too. If a key")
+			print("   below belongs to an alt, run |cffffffff/mh apply|r there first and leave it be.|r")
+		end
+
 		if arg == "clean" then
 			ns.db.cleanPlan = dead
+			ns.db.cleanAccountWide = accountBindings and true or false
 			print(("%s |cffffffff%d|r key(s) point at our bars but belong to no layout:"):format(
 				Prefix(), #dead))
 			for i = 1, #dead do

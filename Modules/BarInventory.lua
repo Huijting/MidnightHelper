@@ -356,6 +356,14 @@ function ns.MH_BarInventory()
 			out.ui[name] = "absent"
 		end
 	end
+	--- Account-wide or character-specific? It decides whether a key belongs to this
+	--- character alone. Rob's Hunter carried six of his Mage's keys, which is only
+	--- possible with the account set — so record it rather than infer it next time.
+	if GetCurrentBindingSet then
+		local okB, set = pcall(GetCurrentBindingSet)
+		out.ui.bindingSet = okB and ((set == 1 and "account") or (set == 2 and "character")
+			or tostring(set)) or "error"
+	end
 	if UnitExists then
 		local okP, hasPet = pcall(UnitExists, "pet")
 		out.ui.hasPet = okP and hasPet and true or false
