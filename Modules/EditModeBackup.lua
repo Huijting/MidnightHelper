@@ -223,6 +223,179 @@ function ns.MH_EditModeExport()
 	print("   |cff9d9d9dNothing was changed; your minimap and frames are not part of this.|r")
 end
 
+--- ⚠️ THE ONE PLACE MH WRITES TO EDIT MODE. Everything else in this file reads.
+---
+--- Rob's requirement decides the design: "als Cisca haar minimap ergens heeft verplaatst
+--- moet ie daar van afblijven". Blizzard's own import cannot do that — it creates a NEW
+--- layout, so a bars-only string would leave her with bars in the right place and all 39
+--- other systems back at their defaults. The only way to change the bars and nothing else
+--- is to take her existing layout and swap its 11 bar systems.
+---
+--- Which means writing. Conditions, taken from EllesmereUI's own code and its comments:
+---   * out of combat;
+---   * `EditModeManagerFrame.accountSettings` must have populated (login);
+---   * Blizzard's built-in presets sit AHEAD of the saved layouts in the active index, so
+---     `activeLayout` cannot index `GetLayouts().layouts` directly;
+---   * `ReloadUI` immediately after, or the taint we introduce stays.
+---
+--- And a rule of our own: the layout is captured first, every time, so `/mh editmode
+--- restore` can put it back. A write we cannot undo is one we do not make.
+local function PresetCount()
+	if EditModePresetLayoutManager and EditModePresetLayoutManager.GetCopyOfPresetLayouts then
+		local ok, presets = pcall(EditModePresetLayoutManager.GetCopyOfPresetLayouts,
+			EditModePresetLayoutManager)
+		if ok and type(presets) == "table" then
+			return #presets
+		end
+	end
+	return nil
+end
+
+--- `/mh editmode bars <string>` — put someone else's bars into YOUR layout.
+function ns.MH_EditModeApplyBars(str)
+	local ok, why = Ready()
+	if not ok then
+		print(("%s cannot touch Edit Mode — %s."):format(Prefix(), tostring(why)))
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		print(Prefix() .. " not in combat.")
+		return
+	end
+	if type(str) ~= "string" or str == "" then
+		print(Prefix() .. " give me the bars string: |cffffffff/mh editmode bars <string>|r")
+		return
+	end
+	if not C_EditMode.ConvertStringToLayoutInfo then
+		print(Prefix() .. " this client cannot read layout strings.")
+		return
+	end
+
+	local okC, incoming = pcall(C_EditMode.ConvertStringToLayoutInfo, str)
+	if not (okC and type(incoming) == "table" and incoming.systems) then
+		print(Prefix() .. " |cffff9900that string is not a layout|r — wrong text, or made on another patch.")
+		return
+	end
+	local bars = {}
+	for _, s in ipairs(incoming.systems) do
+		if s.system == BAR_SYSTEM then
+			bars[#bars + 1] = s
+		end
+	end
+	if #bars == 0 then
+		print(Prefix() .. " |cffff9900that string holds no action bars.|r Nothing to do.")
+		return
+	end
+
+	local okG, info = pcall(C_EditMode.GetLayouts)
+	if not (okG and type(info) == "table" and info.layouts) then
+		print(Prefix() .. " Edit Mode returned no layouts.")
+		return
+	end
+	--- Which of the SAVED layouts is active? The presets are counted first, so subtract
+	--- them. If we cannot learn how many there are we stop — guessing the index here
+	--- would rewrite the wrong layout.
+	local presets = PresetCount()
+	if not presets then
+		print(Prefix() .. " |cffff9900cannot tell which layout is active|r (preset list unavailable).")
+		print("   |cff9d9d9dNothing was changed.|r")
+		return
+	end
+	local savedIndex = (tonumber(info.activeLayout) or 0) - presets
+	local target = info.layouts[savedIndex]
+	if not target then
+		print(Prefix() .. " |cffff9900you are on one of Blizzard's preset layouts.|r")
+		print("   |cff9d9d9dMake your own layout in Edit Mode first — a preset cannot be edited.|r")
+		return
+	end
+
+	-- Capture before touching anything. This is the undo.
+	local okB = ns.MH_EditModeCapture("before-bars-import")
+	if not okB then
+		print(Prefix() .. " |cffff9900could not back up your layout, so nothing was changed.|r")
+		return
+	end
+	ns.db.editModeBarsUndo = { savedIndex = savedIndex, layoutName = target.layoutName }
+
+	--- Swap ONLY the bar systems. Everything else in the layout is left exactly as it is,
+	--- which is the entire point.
+	local kept, replaced = {}, 0
+	for _, s in ipairs(target.systems or {}) do
+		if s.system ~= BAR_SYSTEM then
+			kept[#kept + 1] = s
+		end
+	end
+	for _, s in ipairs(bars) do
+		kept[#kept + 1] = s
+		replaced = replaced + 1
+	end
+	target.systems = kept
+
+	if EditModeManagerFrame and EditModeManagerFrame.ReconcileWithModern then
+		pcall(EditModeManagerFrame.ReconcileWithModern, EditModeManagerFrame, target)
+	end
+
+	local okS = pcall(C_EditMode.SaveLayouts, info)
+	if not okS then
+		print(Prefix() .. " |cffff9900Edit Mode refused the change.|r Your layout is untouched.")
+		return
+	end
+
+	print(("%s bars replaced — |cffffffff%d|r bar system(s) into |cffffffff%s|r."):format(
+		Prefix(), replaced, tostring(target.layoutName)))
+	print("   |cffff9900Reload now|r |cff9d9d9d— the change is not settled until you do.|r")
+	print("   |cff9d9d9dNot what you wanted? |cffffffff/mh editmode restore|r puts your layout back.|r")
+end
+
+--- `/mh editmode restore` — put the layout back as it was before the import.
+function ns.MH_EditModeRestore()
+	local ok, why = Ready()
+	if not ok then
+		print(("%s cannot touch Edit Mode — %s."):format(Prefix(), tostring(why)))
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		print(Prefix() .. " not in combat.")
+		return
+	end
+	local undo = ns.db and ns.db.editModeBarsUndo
+	local backups = ns.db and ns.db.editModeBackups
+	local snap
+	for _, b in ipairs(backups or {}) do
+		if b.label == "before-bars-import" then
+			snap = b
+			break
+		end
+	end
+	if not (undo and snap and snap.data and snap.data.layouts) then
+		print(Prefix() .. " nothing to restore — no pre-import backup saved.")
+		return
+	end
+	local was = snap.data.layouts[undo.savedIndex]
+	if not (was and was.systems) then
+		print(Prefix() .. " the backup does not hold that layout. Nothing changed.")
+		return
+	end
+
+	local okG, info = pcall(C_EditMode.GetLayouts)
+	local target = okG and info and info.layouts and info.layouts[undo.savedIndex]
+	if not target then
+		print(Prefix() .. " that layout is gone. Nothing changed.")
+		return
+	end
+	target.systems = was.systems
+	if EditModeManagerFrame and EditModeManagerFrame.ReconcileWithModern then
+		pcall(EditModeManagerFrame.ReconcileWithModern, EditModeManagerFrame, target)
+	end
+	if not pcall(C_EditMode.SaveLayouts, info) then
+		print(Prefix() .. " |cffff9900Edit Mode refused the restore.|r")
+		return
+	end
+	print(("%s |cffffffff%s|r restored to how it was before the import."):format(
+		Prefix(), tostring(undo.layoutName)))
+	print("   |cffff9900Reload now.|r")
+end
+
 --- `/mh editmode` — capture now and say what is stored.
 function ns.MH_EditModeReport()
 	local ok, why = ns.MH_EditModeCapture("manual")

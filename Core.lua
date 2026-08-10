@@ -1111,6 +1111,23 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh editmode — read how the bars are laid out, and keep the last few pictures.
+	if msg == "editmode restore" then
+		if ns.MH_EditModeRestore then
+			ns.MH_EditModeRestore()
+		end
+		return
+	end
+
+	do
+		local barsArg = msg:match("^editmode%s+bars%s+(.+)$")
+		if barsArg then
+			if ns.MH_EditModeApplyBars then
+				ns.MH_EditModeApplyBars(barsArg)
+			end
+			return
+		end
+	end
+
 	if msg == "editmode export" then
 		if ns.MH_EditModeExport then
 			ns.MH_EditModeExport()
