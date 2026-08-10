@@ -1,27 +1,29 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: route /mh editmode import in Core.lua.
+Right now: is Rob's layout account-wide or character-specific, and how many are there?
 """
-import io, os
+import subprocess
 
-p = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Core.lua'
-t = open(p, encoding='utf-8', newline='').read()
+LUA = r'C:\Users\RobHu\AppData\Local\Programs\Lua\bin\lua.exe'
+SV = (r'E:/World of Warcraft/_retail_/WTF/Account/JOEYWHATEVER/'
+      r'SavedVariables/MidnightHelper.lua')
 
-anchor = '\tif msg == "editmode restore" then'
-addition = '''\tif msg == "editmode import" then
-\t\tif ns.MH_EditModeShowImport then
-\t\t\tns.MH_EditModeShowImport()
-\t\tend
-\t\treturn
-\tend
+script = r'''
+local chunk = assert(loadfile([[__SV__]])); chunk()
+local b = MidnightHelperDB.editModeBackups and MidnightHelperDB.editModeBackups[1]
+if not b then print("geen back-up") return end
+print("actieve index (presets tellen mee):", tostring(b.active))
+print("opgeslagen layouts:", tostring(#((b.data and b.data.layouts) or {})))
+for i, l in ipairs((b.data and b.data.layouts) or {}) do
+  print(string.format("   %d  naam=%-16s layoutType=%s",
+    i, tostring(l.layoutName), tostring(l.layoutType)))
+end
+print("")
+print("Enum.EditModeLayoutType: 0 = Preset, 1 = Account, 2 = Character (Blizzard-volgorde)")
+'''.replace('__SV__', SV)
 
-'''
-
-if 'editmode import' in t:
-    print('already routed')
-else:
-    assert anchor in t, 'anchor not found'
-    t = t.replace(anchor, addition + anchor, 1)
-    io.open(p + '.tmp', 'w', encoding='utf-8', newline='').write(t)
-    os.replace(p + '.tmp', p)
-    print('routed: editmode import')
+r = subprocess.run([LUA, '-e', script], capture_output=True, text=True,
+                   encoding='utf-8', errors='replace')
+print(r.stdout)
+if r.stderr.strip():
+    print('STDERR:', r.stderr[:600])

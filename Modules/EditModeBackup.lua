@@ -112,6 +112,20 @@ function ns.MH_EditModeCapture(label)
 	--- Does this client have an export-to-string function? `ConvertStringToLayoutInfo`
 	--- (import) is confirmed present; the other direction is not, and it does not appear
 	--- in any installed addon — which after last night proves nothing either way. Ask.
+	--- ⚠️ WHICH NUMBER MEANS "ACCOUNT"? A layout is Preset, Account or Character, and
+	--- Rob's reads `layoutType = 1`. Account-wide matters a great deal here: importing
+	--- bars into an account layout changes them for EVERY character using it, which is
+	--- not what someone accepting a shared preset would expect. Guessing the enum from
+	--- memory is how three things went wrong this week, so read it.
+	ns.db.editModeEnum = {}
+	if Enum and Enum.EditModeLayoutType then
+		for k, v in pairs(Enum.EditModeLayoutType) do
+			if type(k) == "string" then
+				ns.db.editModeEnum[k] = v
+			end
+		end
+	end
+
 	ns.db.editModeApi = {}
 	for _, name in ipairs({
 		"GetLayouts", "SaveLayouts", "SetActiveLayout",
