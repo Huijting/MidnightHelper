@@ -122,6 +122,107 @@ function ns.MH_EditModeCapture(label)
 	return true
 end
 
+--- ⚠️ A LAYOUT IS NOT JUST THE BARS. Measured in Rob's own capture, 10 Aug: his active
+--- layout holds **50 systems across 24 types**, of which only **11 are action bars**
+--- (`system == 0`, indexes 1-8 plus 11, 12, 13 — the eight bars plus pet, stance and
+--- extra). The other 39 are minimap, unit frames, chat, cast bar, everything.
+---
+--- Rob asked before this was built: "als Cisca haar minimap ergens heeft verplaatst moet
+--- ie daar van afblijven". He is right, and handing someone a whole layout string would
+--- have moved every one of those 39. The question arrived one step before the mistake.
+---
+--- So a share carries the bars only. Whether Blizzard's own string format survives being
+--- given a bar-only layout is not documented anywhere we can check, so this asks the
+--- client: convert bars-only to a string, convert it straight back, and record whether
+--- the bars come out the other side. A yes means the safe route exists — the player
+--- pastes it into Blizzard's own import and we never write. A no means sharing needs
+--- MH to transplant the systems itself, which is a decision to take with eyes open.
+local BAR_SYSTEM = 0
+
+--- @return table|nil layoutInfo holding only the action-bar systems
+local function BarsOnly(layout)
+	if not (layout and layout.systems) then
+		return nil
+	end
+	local systems = {}
+	for _, s in ipairs(layout.systems) do
+		if s.system == BAR_SYSTEM then
+			systems[#systems + 1] = s
+		end
+	end
+	if #systems == 0 then
+		return nil
+	end
+	return {
+		layoutName = (layout.layoutName or "MH") .. " bars",
+		layoutType = layout.layoutType,
+		systems = systems,
+	}
+end
+
+--- `/mh editmode export` — the bars, and only the bars.
+function ns.MH_EditModeExport()
+	local ok, why = Ready()
+	if not ok then
+		print(("%s cannot read Edit Mode — %s."):format(Prefix(), tostring(why)))
+		return
+	end
+	local okG, info = pcall(C_EditMode.GetLayouts)
+	if not (okG and type(info) == "table" and info.layouts) then
+		print(Prefix() .. " Edit Mode returned no layouts.")
+		return
+	end
+	--- GetLayouts returns only the SAVED layouts; Blizzard's presets sit ahead of them in
+	--- the active index, so activeLayout cannot be used as an index here. EllesmereUI's
+	--- code says the same. Take the first saved layout unless there is exactly one.
+	local layout = info.layouts[1]
+	if not layout then
+		print(Prefix() .. " no saved layout to export — make one in Edit Mode first.")
+		return
+	end
+
+	local bars = BarsOnly(layout)
+	if not bars then
+		print(Prefix() .. " that layout holds no action-bar systems.")
+		return
+	end
+
+	ns.db = ns.db or {}
+	local result = { layoutName = layout.layoutName, barSystems = #bars.systems,
+		totalSystems = #(layout.systems or {}) }
+
+	if C_EditMode.ConvertLayoutInfoToString then
+		local okS, str = pcall(C_EditMode.ConvertLayoutInfoToString, bars)
+		if okS and type(str) == "string" and str ~= "" then
+			result.string = str
+			result.length = #str
+			-- Straight back again: a string we cannot read is a string nobody can.
+			if C_EditMode.ConvertStringToLayoutInfo then
+				local okB, back = pcall(C_EditMode.ConvertStringToLayoutInfo, str)
+				result.roundTrip = (okB and type(back) == "table") and true or false
+				result.roundTripSystems = (okB and type(back) == "table" and back.systems)
+					and #back.systems or 0
+			end
+		else
+			result.error = "ConvertLayoutInfoToString refused a bars-only layout"
+		end
+	else
+		result.error = "this client has no ConvertLayoutInfoToString"
+	end
+
+	ns.db.editModeBarsExport = result
+	print(("%s bars-only export — |cffffffff%d|r of |cffffffff%d|r systems are action bars."):format(
+		Prefix(), result.barSystems, result.totalSystems))
+	if result.string then
+		print(("   |cff40c040string made:|r %d characters, reads back as %s system(s)."):format(
+			result.length, tostring(result.roundTripSystems)))
+	else
+		print("   |cffff9900" .. tostring(result.error) .. "|r")
+	end
+	print("   |cff9d9d9dWritten to SavedVariables — |cffffffff/reload|r and it can be read from the file.|r")
+	print("   |cff9d9d9dNothing was changed; your minimap and frames are not part of this.|r")
+end
+
 --- `/mh editmode` — capture now and say what is stored.
 function ns.MH_EditModeReport()
 	local ok, why = ns.MH_EditModeCapture("manual")
