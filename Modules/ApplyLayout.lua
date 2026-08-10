@@ -636,7 +636,15 @@ local function BuildPlan()
 	--- Once the game has refused it on THIS build, stop proposing it. A plan that always
 	--- carries a line which never works is the same silent wrongness in a louder font.
 	--- Keyed to the build so a patch that starts allowing it is noticed on its own.
-	local build = select(2, GetBuildInfo and GetBuildInfo() or nil)
+	--- ⚠️ `select(2, GetBuildInfo and GetBuildInfo() or nil)` looked right and always gave
+	--- nil: the and/or squeezes GetBuildInfo's several return values down to one, so
+	--- there is no second value left to select. The refusal was therefore never
+	--- remembered and the dead row kept being proposed. Take the values properly.
+	local build
+	if GetBuildInfo then
+		local okB, _, b = pcall(GetBuildInfo)
+		build = okB and b or nil
+	end
 	local refusedHere = (ns.db and ns.db.assistantRefusedBuild) == build and build ~= nil
 
 	local assistantID = ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID()
@@ -1374,7 +1382,10 @@ function ns.MH_ApplyLayout(arg)
 					missing[#missing + 1] = p.name .. (" (the game refused to put it on slot %d)"):format(p.slot)
 					-- Remember a refusal of the assistant so we stop proposing it here.
 					if ns.Keybind_AssistantSpellID and p.spellID == ns.Keybind_AssistantSpellID() then
-						ns.db.assistantRefusedBuild = select(2, GetBuildInfo and GetBuildInfo() or nil)
+						if GetBuildInfo then
+							local okB, _, b = pcall(GetBuildInfo)
+							ns.db.assistantRefusedBuild = okB and b or nil
+						end
 					end
 				end
 			end
