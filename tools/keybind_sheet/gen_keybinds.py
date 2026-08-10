@@ -48,6 +48,9 @@ PREF_BASE_OK = {"E","F1","F2","F3","F4","T"} | set(BASE_FILL)  # T: consumable a
 # {"1"} when the player turns on /mh sba (Blizzard's Assisted Combat button). Only the bare
 # key -- Shift+1 stays available, it is a different press.
 RESERVED_BASE = set()
+# Player-moved anchors, mirroring ns.db.anchorOverrides: role/category -> key. The key is
+# also removed from the overflow pool, which is the point of the feature.
+ANCHORS = {}
 # A role resolves to one key, so a reserved key would strand it; send it to its category.
 ROLE_FALLBACK_CATEGORY = {"main_rotation_1":"main_rotation","main_rotation_2":"main_rotation",
                           "main_rotation_3":"main_rotation","spender":"spender"}
@@ -74,6 +77,8 @@ def make_bindkey(mod, base):
     return MOD_DISPLAY[mod]+"+"+base
 
 def slotlist_for(sp):
+    ov = ANCHORS.get(sp.get("role")) or ANCHORS.get(sp.get("category"))
+    if ov: return [ov]
     if sp.get("role") == "interrupt": return CATEGORIES["interrupt"]
     role = sp.get("role")
     if role and role in ROLES:
@@ -90,14 +95,17 @@ def try_slots(slots, sp, occupied, out):
     for mod in [None] + MOD_FILL:
         for s in slots:
             base = normalize_base(s)
-            if base and base not in EXCLUDED and not (base in RESERVED_BASE and not mod):
+            anchored = set(ANCHORS.values())
+            own = (len(slots) == 1 and base in anchored)
+            blocked = (base in RESERVED_BASE and not mod) or (base in anchored and not mod and not own)
+            if base and base not in EXCLUDED and not blocked:
                 bk = make_bindkey(mod, base) if mod else base
                 if bk and bk not in occupied:
                     occupied.add(bk); out[bk] = sp; return True
         # After Shift, before Ctrl: a free thumb button beats a second modifier.
         if mod == "shift":
             for bk in MOUSE_SLOTS:
-                if bk not in occupied:
+                if bk not in set(ANCHORS.values()) and bk not in occupied:
                     occupied.add(bk); out[bk] = sp; return True
     return False
 

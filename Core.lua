@@ -1126,6 +1126,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh anchor — move a role's key to one your hands already know.
+	do
+		local rest = msg:match("^anchor%s*(.*)$")
+		if rest then
+			if ns.MH_Anchor then
+				ns.MH_Anchor(rest)
+			end
+			return
+		end
+	end
+
 	-- /mh tips — the one-line note when you learn an ability the layout has a key for.
 	if msg == "tips" then
 		if ns.MH_ToggleGrowthTips then

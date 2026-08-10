@@ -411,6 +411,38 @@ function ns.Keybind_BindKeysForBaseSlot(baseKey)
 	return keys
 end
 
+--- ⚠️ THE PLAYER MAY MOVE AN ANCHOR. Rob, 10 Aug 2026: "normaal zou ik op 6 een interrupt
+--- zetten, op 7 bv een shield, op a taunt". His hands have known that for years, and the
+--- scheme was quietly overruling them — worse, it was using his thumb buttons as the
+--- OVERFLOW drain, so Dragon's Breath got his best key because it fitted nowhere else.
+---
+--- The scheme's value was never in WHICH key holds the interrupt. It is that the answer
+--- is the same on every character. So the key becomes the player's choice and the
+--- sameness is kept: an override applies to all specs, not one.
+---
+--- Overridable names are the roles in `Schema.roles` plus the single-slot categories
+--- (`taunt`, `interrupt`, `cooldown`). Anything else has a list to choose from and does
+--- not have an anchor to move.
+--- @return string|nil key
+function ns.Keybind_AnchorOverride(name)
+	local t = ns.db and ns.db.anchorOverrides
+	local v = t and name and t[name]
+	return (type(v) == "string" and v ~= "") and v or nil
+end
+
+--- Every key currently claimed by an override, so nothing else may be handed it —
+--- including the thumb-button overflow, which is exactly what took Rob's `6`.
+function ns.Keybind_AnchoredKeys()
+	local out = {}
+	for _, key in pairs((ns.db and ns.db.anchorOverrides) or {}) do
+		local base = type(key) == "string" and ns.Keybind_NormalizeBaseKey(key)
+		if base then
+			out[base] = true
+		end
+	end
+	return out
+end
+
 --- Base keys no spell may be given, decided per player rather than per file.
 ---
 --- `T` is reserved the static way — it is simply absent from every list. `1` cannot be,
@@ -509,6 +541,13 @@ local ROLE_FALLBACK_CATEGORY = {
 
 local function SlotListForSpell(spell, opts)
 	opts = opts or {}
+	--- An override outranks everything below it, including the interrupt special case:
+	--- if the player has said where their interrupt lives, that IS where it lives.
+	local override = ns.Keybind_AnchorOverride
+		and (ns.Keybind_AnchorOverride(spell.role) or ns.Keybind_AnchorOverride(spell.category))
+	if override then
+		return { override }
+	end
 	if spell.role == "interrupt" then
 		return ns.Keybind_GetCategorySlots("interrupt")
 	end
@@ -577,6 +616,13 @@ function ns.Keybind_AllocateSpells(spells, opts)
 	--- the number row, false for a thumb resting on them. Reach is a property of the
 	--- player's hardware, not of a key's name, so a key the player has TOLD us is under
 	--- their thumb is not "far" and the ban does not apply to it.
+	--- ⚠️ AN ANCHORED THUMB BUTTON IS NOT OVERFLOW. This is the whole of Rob's complaint
+	--- on 10 Aug: he wants `6` for his interrupt, and the allocator had put Dragon's
+	--- Breath there — not because it mattered, but because it fitted nowhere else and the
+	--- thumb buttons are where the scheme drains its leftovers. A key the player has
+	--- claimed by name is removed from that drain.
+	local anchored = ns.Keybind_AnchoredKeys and ns.Keybind_AnchoredKeys() or {}
+
 	local function MouseSlots()
 		local detected = ns.db and ns.db.mouseDetect
 		if type(detected) == "table" and #detected > 0 then
@@ -584,7 +630,7 @@ function ns.Keybind_AllocateSpells(spells, opts)
 			for i = 1, #detected do
 				local k = detected[i] and detected[i].key
 				local base = k and ns.Keybind_NormalizeBaseKey(k)
-				if base then
+				if base and not anchored[base] then
 					out[#out + 1] = base
 				end
 			end
@@ -637,7 +683,13 @@ function ns.Keybind_AllocateSpells(spells, opts)
 				--- Shift+1 is a different press: on Frost it carries Frozen Orb as the
 				--- AoE twin of Frostbolt, and taking the whole column would break that
 				--- pairing for no reason the assistant cares about.
-				local blocked = reservedBase[base] and not mod
+				---
+				--- An anchored key is blocked the same way, unless THIS spell is the one
+				--- that anchored it — `slots` is then the single-key list from the
+				--- override, so the check is simply whether we came in through it.
+				local isOwnAnchor = (#slots == 1 and anchored[base]) or false
+				local blocked = (reservedBase[base] and not mod)
+					or (anchored[base] and not mod and not isOwnAnchor)
 				if base and not Schema.excludedBaseKeys[base] and not blocked then
 					local bk = mod and ns.Keybind_MakeBindKey(mod, base) or base
 					if bk and not isOccupied(bk) then

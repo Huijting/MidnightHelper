@@ -69,6 +69,7 @@ Modules\KeybindRoles_Monk.lua
 Modules\KeybindRoles_Druid.lua
 Modules\KeybindRoles_DemonHunter.lua
 Modules\KeybindRoles_Evoker.lua
+Modules\KeybindAnchors.lua
 Modules\KeybindAutoMap.lua
 Modules\MacroGuideContext.lua
 Modules\KeyboardLayoutPrototype.lua
