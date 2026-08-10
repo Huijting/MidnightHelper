@@ -321,6 +321,48 @@ function ns.MH_BarInventory()
 	Note("Enum.EditModeActionBarSetting",
 		(Enum and Enum.EditModeActionBarSetting) and "present" or "absent")
 
+	--- 2e. WHAT ARE ALL THOSE EDIT MODE SYSTEMS CALLED, and can a stance bar and a pet bar
+	--- ever be on screen together?
+	---
+	--- Rob asked the second question and said, rightly, not to guess. It cannot be
+	--- answered from our own data — the `pet_care` category exists in the schema and no
+	--- class uses it — and reasoning about which class has both forms and a controllable
+	--- pet is exactly the kind of plausible answer that has been wrong three times this
+	--- week. The two bars have independent conditions: forms come from
+	--- `GetNumShapeshiftForms`, the pet bar from having a pet with an action bar. So ask
+	--- both, per character, and let a Shaman or Druid settle it.
+	out.ui = {}
+	if Enum and Enum.EditModeSystem then
+		out.ui.systemNames = {}
+		for k, v in pairs(Enum.EditModeSystem) do
+			if type(k) == "string" then
+				out.ui.systemNames[tostring(v)] = k
+			end
+		end
+	end
+	if GetNumShapeshiftForms then
+		local ok, n = pcall(GetNumShapeshiftForms)
+		out.ui.shapeshiftForms = ok and n or "error"
+	end
+	for _, name in ipairs({ "StanceBar", "PetActionBar", "MainMenuBarVehicleLeaveButton",
+		"PossessActionBar", "ExtraActionBarFrame", "EncounterBar" }) do
+		local f = _G and _G[name]
+		if f then
+			local okS, shown = pcall(f.IsShown, f)
+			local okV, vis = pcall(f.IsVisible, f)
+			out.ui[name] = ("exists shown=%s visible=%s"):format(
+				tostring(okS and shown), tostring(okV and vis))
+		else
+			out.ui[name] = "absent"
+		end
+	end
+	if UnitExists then
+		local okP, hasPet = pcall(UnitExists, "pet")
+		out.ui.hasPet = okP and hasPet and true or false
+	end
+	local _, class = UnitClass and UnitClass("player")
+	out.ui.class = class
+
 	-- 3. Which bar addons are loaded, so a report can say whose numbering this is.
 	if C_AddOns and C_AddOns.IsAddOnLoaded then
 		for _, name in ipairs({
