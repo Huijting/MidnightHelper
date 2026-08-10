@@ -417,6 +417,19 @@ local function BuildPlan()
 	local plannedSlot = BuildPlannedSlots()
 	local overflow = OverflowSlots()
 
+	--- Slots on bars 1-6 — the layout's own space. Bars 7 and 8 belong to the player and
+	--- are never cleared, only reported. Built from BAR_COMMANDS rather than the helper
+	--- further down the file, which is out of scope here.
+	local ourBars = {}
+	for i = 1, 6 do
+		local bar = BAR_COMMANDS[i]
+		if bar then
+			for n = 0, 11 do
+				ourBars[bar.first + n] = true
+			end
+		end
+	end
+
 	--- The planned home first, the shared overflow bar second. Only then do we fall back
 	--- on where the key happens to be bound today — that fallback is what scattered the
 	--- layout in the first place, so it stops being the opening move.
@@ -511,9 +524,7 @@ local function BuildPlan()
 			local home = plannedSlot[row.bindKey]
 			local homeIsBetter = home and home ~= slot and Free(home)
 			if homeIsBetter then
-				-- Leave `existingSlot` unset so pass 2 places it at home. The copy that
-				-- stays behind is reported, never silently deleted — it may be sitting
-				-- on a bar the player arranged themselves.
+				-- Leave `existingSlot` unset so pass 2 places it at home.
 				row.strandedCopy = slot
 			else
 				taken[slot] = true
@@ -576,9 +587,18 @@ local function BuildPlan()
 						key = bindKey, wowKey = wowKey, command = cmd,
 						slot = target, name = NameFor(entry.id), spellID = entry.id,
 						place = true,
-						-- A copy left behind on a bar we do not manage. Reported so the
-						-- player can remove it; never removed for them.
+						--- ⚠️ ONE ABILITY, ONE PLACE — on OUR bars.
+						---
+						--- Rob had Frozen Orb on slot 1 and slot 49 at once, which made
+						--- the plan read "Frozen Orb replaces Frozen Orb". A duplicate is
+						--- not just untidy: the layout promises that a key and a button
+						--- are the same thing, and a second copy on a different key
+						--- quietly breaks that promise.
+						---
+						--- Only on bars 1-6. A copy on bars 7 or 8 is the player's own
+						--- doing and stays; we report it and leave it alone.
 						stranded = row.strandedCopy,
+						clearStranded = (row.strandedCopy and ourBars[row.strandedCopy]) or nil,
 						occupant = OccupantOf(target),
 						rebind = (GetBindingAction and GetBindingAction(wowKey) ~= cmd) or false,
 					}
@@ -1204,7 +1224,8 @@ function ns.MH_ApplyLayout(arg)
 				else
 					print(("   |cffffd100%-10s|r %-24s |cff40c040empty slot %d|r%s%s"):format(
 						p.wowKey, p.name, p.slot, also,
-						p.stranded and (" |cff9d9d9d(a copy stays on slot %d — yours to remove)|r"):format(p.stranded) or ""))
+						p.clearStranded and (" |cff8ecfff(the duplicate on slot %d goes)|r"):format(p.clearStranded)
+							or (p.stranded and (" |cff9d9d9d(a copy stays on slot %d — your bar, your call)|r"):format(p.stranded) or "")))
 				end
 			else
 				local now = GetBindingAction and GetBindingAction(p.wowKey) or ""
@@ -1260,6 +1281,13 @@ function ns.MH_ApplyLayout(arg)
 				kind = p.occupant and p.occupant.kind or nil,
 				id = p.occupant and p.occupant.id or nil,
 			}
+			-- A duplicate we are about to remove is remembered the same way, or undo
+			-- would put the ability back in one place and leave the other gone.
+			if p.clearStranded then
+				placedSnap[#placedSnap + 1] = {
+					slot = p.clearStranded, kind = "spell", id = p.spellID,
+				}
+			end
 		end
 		-- A placement may ALSO move the key. Both halves need remembering, or an undo
 		-- would put the slot back and leave the key pointing at the wrong button.
@@ -1294,6 +1322,16 @@ function ns.MH_ApplyLayout(arg)
 				ClearCursor()
 			end)
 			pcall(ClearCursor)
+			--- The old copy goes, so the ability lives in exactly one place on our bars.
+			--- After the placement, never before: if the placement failed we would have
+			--- deleted the only copy.
+			if ok and p.clearStranded then
+				pcall(function()
+					PickupAction(p.clearStranded)
+					ClearCursor()
+				end)
+				pcall(ClearCursor)
+			end
 			if ok then
 				placed = placed + 1
 				-- Write down that this one is ours, so a later run can tell our own

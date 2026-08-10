@@ -1174,6 +1174,20 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh mouse fill — let the layout use the thumb buttons as overflow again.
+	if msg == "mouse fill" then
+		ns.db = ns.db or {}
+		ns.db.mouseOverflow = not ns.db.mouseOverflow
+		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+		if ns.db.mouseOverflow then
+			print(prefix .. " the layout may use your mouse buttons for abilities that fit nowhere else.")
+		else
+			print(prefix .. " your mouse buttons are yours — the layout only uses one if you |cffffffff/mh anchor|r something to it.")
+		end
+		print("   |cff9d9d9d/reload, then /mh apply.|r")
+		return
+	end
+
 	-- /mh mouse detect — ask the button instead of asking the player.
 	if msg == "mouse detect" then
 		if ns.StartMouseDetect then

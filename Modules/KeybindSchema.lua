@@ -665,7 +665,26 @@ function ns.Keybind_AllocateSpells(spells, opts)
 	--- claimed by name is removed from that drain.
 	local anchored = ns.Keybind_AnchoredKeys and ns.Keybind_AnchoredKeys() or {}
 
+	--- ⚠️ THE THUMB BUTTONS ARE THE PLAYER'S, LIKE BARS 7 AND 8.
+	---
+	--- Rob, 10 Aug: "als iemand een mmo muis heeft die dan kan plaatsen op 6 t/m - zonder
+	--- dat MH zich daarmee bemoeit". He is right, and it is the rule we already apply to
+	--- his own bars. Someone who bought a twelve-button mouse has plans for those buttons;
+	--- filling them with whatever overflowed is us taking the best keys on the device for
+	--- the abilities that mattered least. Dragon's Breath had his `6` for exactly that
+	--- reason.
+	---
+	--- So a measured mouse key is now used only when the player ANCHORS something to it
+	--- by name. `/mh mouse fill` opts back in to the old behaviour for anyone who wants
+	--- the layout to use the whole device.
+	---
+	--- Measured cost of the default: 17 abilities across 9 of the 39 specs get no key
+	--- instead of 0 — all of them situational (Scare Beast, Steel Trap, Blessing of
+	--- Freedom, Turn Evil). Never a rotation, interrupt or defensive.
 	local function MouseSlots()
+		if not (ns.db and ns.db.mouseOverflow) then
+			return {}
+		end
 		local detected = ns.db and ns.db.mouseDetect
 		if type(detected) == "table" and #detected > 0 then
 			local out = {}
