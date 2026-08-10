@@ -588,6 +588,32 @@ local function BuildPlan()
 			end
 		end
 	end
+	--- The assistant, on the key the layout kept free for it.
+	---
+	--- `C_AssistedCombat.GetActionSpell()` gives the spell that represents the button —
+	--- measured on the 12.1 PTR as 1229376, "Single-Button Assistant", and asked for
+	--- fresh every time rather than written down. Without it the reserved key was an
+	--- empty promise: we held `1` back and left the player to drag the thing there.
+	---
+	--- Nothing happens on a character that has no assistant, which is the whole reason
+	--- this can be on by default: the slot simply stays empty, exactly as Rob put it.
+	local assistantID = ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID()
+	if assistantID and not (ns.db and ns.db.sbaOff) then
+		local target = plannedSlot["1"]
+		local already = SlotHoldingSpell(assistantID, driveable)
+		if already then
+			taken[already] = true
+		elseif target and slotCommand[target] and not taken[target] and SlotIsEmpty(target) then
+			taken[target] = true
+			plan[#plan + 1] = {
+				key = "1", wowKey = "1", command = slotCommand[target],
+				slot = target, name = NameForSpell(assistantID), spellID = assistantID,
+				place = true,
+				rebind = (GetBindingAction and GetBindingAction("1") ~= slotCommand[target]) or false,
+			}
+		end
+	end
+
 	--- Consumables last, on whatever keys the spells did not want. They are pressed once
 	--- or twice a fight, so by the scheme's own frequency rule they have no claim on a
 	--- rotation key — and a rebuild that wiped Rob's healing potion and put nothing back

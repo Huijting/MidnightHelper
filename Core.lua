@@ -1144,32 +1144,22 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	--- carries the AoE twin.
 	if msg == "sba" then
 		local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
-		local available = false
-		if C_AssistedCombat and C_AssistedCombat.IsAvailable then
-			local ok, v = pcall(C_AssistedCombat.IsAvailable)
-			available = ok and v and true or false
-		end
-		if not available then
+		local id = ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID()
+		if not id then
 			print(prefix .. " |cffff9900This character has no Assisted Combat button.|r")
-			print("   |cff9d9d9dNothing changed — the setting would have no effect here.|r")
+			print("   |cff9d9d9dKey 1 already belongs to your rotation here. Nothing to switch.|r")
 			return
 		end
-		-- Detection beats the switch: if the assistant is already on a bar we know which
-		-- key presses it, and saying so is more use than toggling a setting blind.
-		local seen = ns.Keybind_AssistantKey and ns.Keybind_AssistantKey()
-		if seen then
-			print((prefix .. " the assistant is on your bars, on |cffffffff%s|r — that key is already kept free."):format(seen))
-			print("   |cff9d9d9dNo setting needed. The switch below only matters if it is NOT on a bar yet.|r")
-		end
 		ns.db = ns.db or {}
-		ns.db.assistantKey1 = not ns.db.assistantKey1
-		if ns.db.assistantKey1 then
-			print(prefix .. " key |cffffffff1|r is now reserved for the Assisted Combat button.")
-			print("   |cff9d9d9dYour rotation starts at 2. Shift+1 is unchanged.|r")
+		ns.db.sbaOff = not ns.db.sbaOff
+		if ns.db.sbaOff then
+			print(prefix .. " assistant off — key |cffffffff1|r goes back to your rotation.")
 		else
-			print(prefix .. " key |cffffffff1|r goes back to your rotation.")
+			local name = (C_Spell and C_Spell.GetSpellName and select(1, pcall(C_Spell.GetSpellName, id))) and
+				C_Spell.GetSpellName(id) or "Assisted Combat"
+			print((prefix .. " assistant on — |cffffffff%s|r goes on key |cffffffff1|r."):format(tostring(name)))
 		end
-		print("   |cff9d9d9d/reload, then /mh apply to see the new layout.|r")
+		print("   |cff9d9d9d/reload, then /mh apply to see it.|r")
 		return
 	end
 

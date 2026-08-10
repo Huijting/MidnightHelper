@@ -454,17 +454,46 @@ function ns.Keybind_AssistantKey()
 	return nil
 end
 
+--- The spell that IS the assistant button, straight from the game.
+---
+--- Measured on the 12.1 PTR: `C_AssistedCombat.GetActionSpell()` returns 1229376,
+--- "Single-Button Assistant". That number is deliberately NOT written down anywhere in
+--- MH — it is asked for every time, because an id that is correct today is exactly the
+--- kind of thing that quietly stops being correct, and the API costs nothing.
+--- @return number|nil spellID
+function ns.Keybind_AssistantSpellID()
+	if not (C_AssistedCombat and C_AssistedCombat.GetActionSpell and C_AssistedCombat.IsAvailable) then
+		return nil
+	end
+	local okA, available = pcall(C_AssistedCombat.IsAvailable)
+	if not (okA and available) then
+		return nil
+	end
+	local okS, id = pcall(C_AssistedCombat.GetActionSpell)
+	if okS and type(id) == "number" and id > 0 then
+		return id
+	end
+	return nil
+end
+
 function ns.Keybind_ReservedBaseKeys()
 	local reserved = {}
-	--- Two ways in, and the measured one wins. `/mh sba` stays for the player who wants
-	--- to hold a key free BEFORE putting the assistant there, but if the assistant is
-	--- actually on a bar we do not need to be told.
+	--- ⚠️ ON BY DEFAULT WHERE THE ASSISTANT EXISTS. Until now this was opt-in, which Rob
+	--- questioned: "kan je hem gewoon niet standaard eropzetten? als ie niet bestaat
+	--- blijft het alsnog leeg." He is right, and it is now possible — GetActionSpell
+	--- gives us something to place, so the reserved key is no longer an empty promise.
+	---
+	--- The game decides, not a setting: no assistant on this character means `1` goes
+	--- straight back to the rotation. `/mh sba` is the way out for a player who has one
+	--- and does not want it.
+	if ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID()
+		and not (ns.db and ns.db.sbaOff) then
+		reserved["1"] = true
+	end
+	-- And if the assistant already sits on a bar, whichever key drives it is spoken for.
 	local detected = ns.Keybind_AssistantKey and ns.Keybind_AssistantKey()
 	if detected then
 		reserved[detected] = true
-	end
-	if ns.db and ns.db.assistantKey1 then
-		reserved["1"] = true
 	end
 	return reserved
 end
