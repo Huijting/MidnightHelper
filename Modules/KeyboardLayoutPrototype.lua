@@ -1258,10 +1258,16 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 		end
 	end
 
-	--- Only draw thumb buttons the player says they have. Two is an ordinary mouse; the
-	--- rest of the pad would otherwise be six keys nobody can press, which is the exact
-	--- kind of confident-but-wrong picture this whole evening was spent removing.
-	local mouseCount = tonumber(ns.db and ns.db.mouseButtonCount) or 2
+	--- ⚠️ ASK THE SCHEMA, DO NOT KEEP A SECOND OPINION. This used to read
+	--- `mouseButtonCount or 2` and drew two thumb keys by default. The allocator stopped
+	--- assuming any on 7 Aug and, on 10 Aug, stopped using them at all unless the player
+	--- anchors something there — so the coach was drawing two keys that could never fill.
+	--- The page that explains the layout was showing the very gaps Rob had asked us to
+	--- remove from his bars.
+	---
+	--- `Keybind_MouseKeysInPlay` is what the allocator itself uses, so the picture cannot
+	--- drift from the thing it is a picture of.
+	local inPlay = ns.Keybind_MouseKeysInPlay and ns.Keybind_MouseKeysInPlay() or {}
 
 	--- ⚠️ If the player has MEASURED their thumb buttons and none of them is a BUTTONn,
 	--- the M4-M9 column is six keys their mouse never sends. Rob's Naga turned out to
@@ -1285,7 +1291,8 @@ function ns.KeyboardLayoutPrototype_Refresh(panel)
 		if btn then
 			local mouseN = type(uiKey) == "string" and tonumber(uiKey:match("^BUTTON(%d+)$"))
 			if mouseN then
-				btn:SetShown(padIsButtons and (mouseN - 3) <= mouseCount)
+				-- Shown only if the layout may actually put something there.
+				btn:SetShown(padIsButtons and inPlay[uiKey] == true)
 			end
 			local slot = slotByUi[uiKey]
 			local layers = spec and ns.Keybind_GetBindingsOnBase and ns.Keybind_GetBindingsOnBase(spec, uiKey) or {}

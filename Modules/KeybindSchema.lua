@@ -550,6 +550,41 @@ function ns.Keybind_AssistantSpellID()
 	return nil
 end
 
+--- Which thumb keys the layout may actually put something on, right now.
+---
+--- ⚠️ ONE SOURCE OF TRUTH. The keyboard view had its own idea — `mouseButtonCount or 2`
+--- — and drew two thumb keys by default. The allocator stopped assuming any on 7 Aug and
+--- stopped using them at all on 10 Aug unless the player anchors something there. So the
+--- coach was showing two keys that could never fill: the same "gatenkaas" Rob objected to
+--- on his bars, in the page that is supposed to explain them.
+---
+--- Two pieces of code computing the same thing differently is the bug shape this project
+--- keeps hitting. The view asks here now.
+--- @return table set of base keys
+function ns.Keybind_MouseKeysInPlay()
+	local out = {}
+	-- Anchored keys are in play whatever the overflow setting says: the player named them.
+	for k in pairs(ns.Keybind_AnchoredKeys and ns.Keybind_AnchoredKeys() or {}) do
+		out[k] = true
+	end
+	if not (ns.db and ns.db.mouseOverflow) then
+		return out
+	end
+	for _, entry in ipairs((ns.db and ns.db.mouseDetect) or {}) do
+		local k = entry and entry.key and ns.Keybind_NormalizeBaseKey(entry.key)
+		if k then
+			out[k] = true
+		end
+	end
+	local n = tonumber(ns.db and ns.db.mouseButtonCount)
+	if not (ns.db and ns.db.mouseDetect) and n then
+		for i = 1, math.min(n, #Schema.mouseSlotFillOrder) do
+			out[Schema.mouseSlotFillOrder[i]] = true
+		end
+	end
+	return out
+end
+
 function ns.Keybind_ReservedBaseKeys()
 	local reserved = {}
 	--- ⚠️ ON BY DEFAULT WHERE THE ASSISTANT EXISTS. Until now this was opt-in, which Rob
