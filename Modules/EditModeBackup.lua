@@ -174,6 +174,17 @@ local function BarsOnly(layout)
 	}
 end
 
+local function PresetCount()
+	if EditModePresetLayoutManager and EditModePresetLayoutManager.GetCopyOfPresetLayouts then
+		local ok, presets = pcall(EditModePresetLayoutManager.GetCopyOfPresetLayouts,
+			EditModePresetLayoutManager)
+		if ok and type(presets) == "table" then
+			return #presets
+		end
+	end
+	return nil
+end
+
 --- `/mh editmode export` — the bars, and only the bars.
 function ns.MH_EditModeExport()
 	local ok, why = Ready()
@@ -186,12 +197,24 @@ function ns.MH_EditModeExport()
 		print(Prefix() .. " Edit Mode returned no layouts.")
 		return
 	end
-	--- GetLayouts returns only the SAVED layouts; Blizzard's presets sit ahead of them in
-	--- the active index, so activeLayout cannot be used as an index here. EllesmereUI's
-	--- code says the same. Take the first saved layout unless there is exactly one.
-	local layout = info.layouts[1]
+	--- ⚠️ THE ACTIVE ONE, NOT THE FIRST ONE. This took `info.layouts[1]`, which was right
+	--- only while Rob had exactly one saved layout. The moment he made a second on his
+	--- Hunter, "export my bars" would have handed him somebody else's layout without
+	--- saying so — and a bar string that looks plausible is the worst kind of wrong.
+	---
+	--- GetLayouts returns only the SAVED layouts while activeLayout counts Blizzard's
+	--- presets first, so the index has to be shifted by the preset count. Same arithmetic
+	--- the import does; it had it and the export did not.
+	local presets = PresetCount()
+	if not presets then
+		print(Prefix() .. " |cffff9900cannot tell which layout is active|r (preset list unavailable).")
+		return
+	end
+	local activeIndex = (tonumber(info.activeLayout) or 0) - presets
+	local layout = info.layouts[activeIndex]
 	if not layout then
-		print(Prefix() .. " no saved layout to export — make one in Edit Mode first.")
+		print(Prefix() .. " |cffff9900you are on one of Blizzard's presets|r — nothing of your own to export.")
+		print("   |cff9d9d9dEdit Mode → layout dropdown → New Layout, then arrange your bars.|r")
 		return
 	end
 
@@ -257,16 +280,6 @@ end
 ---
 --- And a rule of our own: the layout is captured first, every time, so `/mh editmode
 --- restore` can put it back. A write we cannot undo is one we do not make.
-local function PresetCount()
-	if EditModePresetLayoutManager and EditModePresetLayoutManager.GetCopyOfPresetLayouts then
-		local ok, presets = pcall(EditModePresetLayoutManager.GetCopyOfPresetLayouts,
-			EditModePresetLayoutManager)
-		if ok and type(presets) == "table" then
-			return #presets
-		end
-	end
-	return nil
-end
 
 --- `/mh editmode bars <string>` — put someone else's bars into YOUR layout.
 function ns.MH_EditModeApplyBars(str)
