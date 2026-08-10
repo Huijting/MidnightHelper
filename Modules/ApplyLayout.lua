@@ -1545,8 +1545,24 @@ function ns.MH_ApplyLayout(arg)
 			--- loud, and its duplicate is NOT cleared.
 			if ok and p.spellID and GetActionInfo then
 				local okI, kind, id = pcall(GetActionInfo, p.slot)
+				--- ⚠️ A PLACED SPELL CAN REPORT ITS OVERRIDE. Measured on Rob's Hunter:
+				--- Barbed Shot, Cobra Shot and Primal Rage were all reported as "the game
+				--- refused to put it on slot N" while sitting on exactly those slots. We
+				--- place the base id and the bar answers with whichever the game prefers
+				--- — the same thing that made Ice Block read as Ice Cold.
+				---
+				--- `SlotHoldingSpell` has known about overrides for weeks; this check did
+				--- not. Two pieces of code answering "is this spell here?" differently,
+				--- for the fourth time this week.
+				local override
+				if p.spellID and C_SpellBook and C_SpellBook.FindSpellOverrideByID then
+					local okO, o = pcall(C_SpellBook.FindSpellOverrideByID, p.spellID)
+					if okO and type(o) == "number" and o ~= 0 then
+						override = o
+					end
+				end
 				-- The assistant never reports its own id; ask what the slot IS instead.
-				local landed = okI and ((kind == "spell" and id == p.spellID)
+				local landed = okI and ((kind == "spell" and (id == p.spellID or (override and id == override)))
 					or (kind == "item" and id == p.itemID)
 					or (ns.Keybind_AssistantSpellID and p.spellID == ns.Keybind_AssistantSpellID()
 						and SlotIsAssistant(p.slot)))
