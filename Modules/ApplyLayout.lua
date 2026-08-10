@@ -597,20 +597,42 @@ local function BuildPlan()
 	---
 	--- Nothing happens on a character that has no assistant, which is the whole reason
 	--- this can be on by default: the slot simply stays empty, exactly as Rob put it.
+	--- ⚠️ AND IT IS TREATED LIKE ANY OTHER PLACEMENT. The first version only accepted an
+	--- EMPTY slot 1 and said nothing when it found one occupied — so on the PTR, where
+	--- slot 1 already held something, the assistant silently never appeared and the plan
+	--- gave no hint why. Every other ability in this plan may replace an occupant, by
+	--- name, out loud. Holding one to a stricter rule AND a quieter one is how a feature
+	--- looks broken while working exactly as written.
 	local assistantID = ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID()
 	if assistantID and not (ns.db and ns.db.sbaOff) then
 		local target = plannedSlot["1"]
 		local already = SlotHoldingSpell(assistantID, driveable)
 		if already then
 			taken[already] = true
-		elseif target and slotCommand[target] and not taken[target] and SlotIsEmpty(target) then
-			taken[target] = true
-			plan[#plan + 1] = {
-				key = "1", wowKey = "1", command = slotCommand[target],
-				slot = target, name = NameForSpell(assistantID), spellID = assistantID,
-				place = true,
-				rebind = (GetBindingAction and GetBindingAction("1") ~= slotCommand[target]) or false,
-			}
+			local cmd = slotCommand[already] or CommandForSlot(already)
+			if cmd and GetBindingAction and GetBindingAction("1") ~= cmd then
+				plan[#plan + 1] = {
+					key = "1", wowKey = "1", command = cmd, slot = already,
+					name = NameForSpell(assistantID),
+				}
+			end
+		elseif target and slotCommand[target] and not taken[target] then
+			local occ = OccupantOf(target)
+			if occ and not RESTORABLE[occ.kind] then
+				missing[#missing + 1] = NameForSpell(assistantID)
+					.. (" (slot %d holds a %s we could not put back)"):format(target, tostring(occ.kind))
+			else
+				taken[target] = true
+				plan[#plan + 1] = {
+					key = "1", wowKey = "1", command = slotCommand[target],
+					slot = target, name = NameForSpell(assistantID), spellID = assistantID,
+					place = true, occupant = occ,
+					rebind = (GetBindingAction and GetBindingAction("1") ~= slotCommand[target]) or false,
+				}
+			end
+		else
+			missing[#missing + 1] = NameForSpell(assistantID)
+				.. (target and " (no action button drives slot " .. target .. ")" or " (no slot for key 1)")
 		end
 	end
 
@@ -1154,7 +1176,11 @@ function ns.MH_ApplyLayout(arg)
 		--- The dry run goes to the file too. It used to print and nothing else, so the
 		--- one person who needs to read it — whoever is being asked to approve it —
 		--- could only screenshot chat. Same rule as every other long read here.
-		ns.db.applyPlan = { rows = {}, missing = missing }
+		-- The layout goes in on EVERY dry run, not only the quiet one. It was added for
+		-- the case with nothing to report and then missing from the case that actually
+		-- needed reading — the PTR run where the assistant did not appear and the record
+		-- that would have said why came back empty.
+		ns.db.applyPlan = { rows = {}, missing = missing, layout = RecordLayout() }
 		for i = 1, #plan do
 			local p = plan[i]
 			ns.db.applyPlan.rows[i] = {
