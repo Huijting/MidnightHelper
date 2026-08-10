@@ -195,6 +195,44 @@ letters, balk 3 `Shift+1..4`, balk 4 `Shift+C E V X Z`, balk 5 `F4`, balk 6 `6`.
 specs; met 2 knoppen 3; met 6 knoppen 0. Wat overblijft is situationeel (Scare Beast,
 Steel Trap, Blessing of Freedom, Turn Evil) — nooit rotatie, interrupt of defensive.
 
+### 10 aug — 12.1-check, verplaatsbare ankers, en de assistent-saga
+**12.1 gaat 11 aug live. Gemeten op de PTR, niet gelezen:** `C_SuperTrack` heeft nog ALLE
+vier zijn functies inclusief `GetNextWaypointForMap`, en `C_Navigation` bestaat ernaast.
+Er is dus niets verwijderd — de digest die het tegendeel zei klopte niet. Onze 16
+`C_SuperTrack`-aanroepen zijn veilig, alle 4 `C_Map`-waypointcalls bestaan, en **alle 76
+events die MH registreert zijn bekend op 12.1**. `UIParentLoadAddOn` had al een fallback,
+`.toc` verklaarde `120100` al.
+
+**Gebouwd:**
+- `46d0b02` **`/mh anchor`** — 14 verplaatsbare rol-ankers. Rob wilde interrupt op muisknop
+  `6`. Verplaatst, dupliceert niet, geldt op elk personage, en de toets gaat uit de
+  overloop. Kost 0 extra spells zonder toets, gemeten over alle 39 specs.
+- `14db83d` Een anker op een onbereikbare toets valt terug op de standaard. De **meting**
+  beslist, niet de instelling — anders wijst het anker naar een knop die niets stuurt.
+- `ab4b036` **Muisknoppen zijn van de speler**, net als balk 7/8. MH gebruikt er alleen
+  een als je er iets aan koppelt. Kost 17 zonder toets over 9 specs (allemaal
+  situationeel). Terug met `/mh mouse fill`. Plus: **geen dubbelen meer op balk 1-6**.
+- `0ea2b47` **Plaatsingen worden nagekeken** tegen `GetActionInfo`. `pcall` zegt alleen dat
+  er geen fout kwam, niet dat het vakje veranderde.
+
+⚠️ **DE ASSISTENT-SAGA — de les van de dag.**
+`C_AssistedCombat.GetActionSpell()` geeft 1229376 "Single-Button Assistant". Ik concludeerde
+dat MH hem kon plaatsen, daarna dat hij nergens stond, en bouwde op beide conclusies.
+**Allebei fout.** De knop **toont de spell die hij aanraadt**, dus `GetActionInfo` op zijn
+vakje antwoordt "Frozen Orb" en het id 1229376 komt nergens voor. Rob vond dit door naar
+het GEDRAG te kijken: "die adviseert nu frozen orb op de plek waar ik de assist zette".
+
+Drie stukken code zagen dat vakje als een gewone kopie, en één daarvan was gevaarlijk: de
+dubbele-opruimer stond op het punt zijn assistent te wissen. Alle drie vragen nu
+`C_ActionBar.IsAssistedCombatAction` (`386ee7d`) — de enige eerlijke vraag is "wat IS dit
+vakje", niet "welke spell zit erin".
+
+Ook: `83e77a9` de herbouw blijft van dat vakje af (we kunnen het niet terugzetten), en
+`fb1853b` toets `1` wordt alleen vrijgehouden als de assistent **op een balk staat**, niet
+als het spel zegt dat hij "beschikbaar" is.
+
+**Eindstand Robs Frost mage: 24 van de 24 toetsen correct, niets te wijzigen.**
+
 ### WACHT OP ROB (openstaande beslissingen)
 1. **Verplaatsbare rol-ankers.** Rob wil van oudsher interrupt op muisknop `6`, shield op
    `7`, taunt op `a`. Advies gegeven: niet ERBIJ maar IN PLAATS VAN — anders twee plekken
