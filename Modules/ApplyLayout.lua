@@ -100,16 +100,37 @@ local BAR_PLAN = {
 	{ barIndex = 6, label = "ctrl + mouse", keys = {}, fill = true },
 }
 
+--- ⚠️ PACKED, NOT PINNED. Every key used to get a fixed position in its bar, so a spec
+--- that lacked `Shift+Q` left button one empty and the bar read as holes. Measured over
+--- all 39 specs: numbers and letters and the F-row sit near full, but the Shift bars
+--- carry 4 and 5 of nine and the Ctrl layer carries 2 of eighteen. Rob's word for the
+--- result was "gatenkaas", and looking at his screenshot he is right — with bars side by
+--- side, each one's empty middle reads as a hole in the whole block.
+---
+--- So a bar is filled from its first button, in the group's own order, using only the
+--- keys THIS spec actually has. Same order everywhere, no gaps, and the only empty
+--- buttons are a tail at the end which the player can size away in Edit Mode.
+---
+--- What this costs: learning a new ability can shift the ones after it by one button.
+--- That is a rare, one-off nudge, against a permanent hole on every bar. The promise the
+--- scheme actually needs is that the same KIND of key lives on the same bar in the same
+--- ORDER — not that button four is forever Shift+T.
+---
+--- @param usedKeys table|nil  set of bind keys this spec has; nil packs the whole pool
 --- @return table bindKey -> action slot
-local function BuildPlannedSlots()
+local function BuildPlannedSlots(usedKeys)
 	local planned = {}
 	for _, group in ipairs(BAR_PLAN) do
 		local bar = BAR_COMMANDS[group.barIndex]
 		if bar then
-			for pos = 1, #group.keys do
-				local key = group.keys[pos]
-				if key and key ~= "" and pos <= 12 then
-					planned[key] = bar.first + (pos - 1)
+			local pos = 0
+			for i = 1, #group.keys do
+				local key = group.keys[i]
+				if key and key ~= "" and (not usedKeys or usedKeys[key]) then
+					pos = pos + 1
+					if pos <= 12 then
+						planned[key] = bar.first + (pos - 1)
+					end
 				end
 			end
 		end
@@ -444,7 +465,22 @@ local function BuildPlan()
 
 	--- Where BAR_PLAN says this key belongs. Nil when the key has no fixed position
 	--- (the Ctrl layer) or when the bar is not one this client drives.
-	local plannedSlot = BuildPlannedSlots()
+	--- The keys THIS spec has, so the bars pack instead of leaving holes. Consumables and
+	--- the assistant count too — they occupy buttons like anything else.
+	local usedKeys = {}
+	for bindKey in pairs(spec.spellByUiKey) do
+		usedKeys[bindKey] = true
+	end
+	if ns.MH_ConsumableLayout then
+		local okU, cons = pcall(ns.MH_ConsumableLayout, {})
+		for i = 1, (okU and #cons or 0) do
+			usedKeys[cons[i].key] = true
+		end
+	end
+	if ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID() then
+		usedKeys["1"] = true
+	end
+	local plannedSlot = BuildPlannedSlots(usedKeys)
 	local overflow = OverflowSlots()
 
 	--- Slots on bars 1-6 — the layout's own space. Bars 7 and 8 belong to the player and
