@@ -795,8 +795,19 @@ local function BuildRebuild(commandSlot)
 		end
 	end
 
+	--- ⚠️ NEVER CLEAR THE ASSISTANT'S SLOT. Rob had dragged the Single-Button Assistant
+	--- onto slot 1 himself; a rebuild wiped it, and we cannot put it back because an
+	--- addon cannot place it. Removing something we are unable to restore is the one
+	--- thing this whole rebuild is designed not to do — the reason macros and battle pets
+	--- are relocated rather than cleared. The assistant slipped through because it looks
+	--- like an ordinary spell to GetActionInfo.
+	local keepSlot = nil
+	if ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID() then
+		keepSlot = BuildPlannedSlots()["1"]
+	end
+
 	for _, slot in ipairs(home) do
-		local occ = Occupant(slot)
+		local occ = (slot ~= keepSlot) and Occupant(slot) or nil
 		if occ then
 			if occ.recreatable then
 				work.clear[#work.clear + 1] = occ
