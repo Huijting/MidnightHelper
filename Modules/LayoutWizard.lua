@@ -21,9 +21,13 @@ local _, ns = ...
 	    chat while looking at his bars, which is exactly where a player looks.
 ]]
 
-local PANEL_W, PANEL_H = 460, 400
+local PANEL_W, PANEL_H = 460, 434
 
 local panel
+
+local function Prefix()
+	return ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+end
 
 --- ⚠️ Asks the schema rather than reading `GetCurrentBindingSet() == 1` itself. That
 --- comparison lived here, in ApplyLayout and in BarInventory, and when Rob switched his
@@ -163,7 +167,40 @@ local function Build()
 		fs:SetJustifyH("LEFT")
 		fs:SetText(note)
 		y = y - 30
+		return btn, fs
 	end
+
+	--- The switch itself, because the warning alone was not enough.
+	---
+	--- Rob read "your keybindings are account-wide", went to the options and set this
+	--- character to its own keys "voor de zekerheid" — and the panel still said
+	--- account-wide. It was right: `Account\...\bindings-cache.wtf` was rewritten at the
+	--- moment of his reload while `...\Redisch\bindings-cache.wtf` sat at 0 bytes and
+	--- untouched since March. The switch had not taken. A panel that names a problem and
+	--- then sends the player elsewhere to fix it is where that goes wrong.
+	---
+	--- `SaveBindings` is the same call the options screen makes, and MH already uses it
+	--- after every apply. It copies the keys you have into the chosen set — nothing is
+	--- lost either way, and pressing it again on the account set puts you back.
+	f.charBtn, f.charNote = Row(MakeButton(f, ns:L("MH_SETUP_BTN_CHARSET"), function()
+		if not SaveBindings then
+			return
+		end
+		--- ⚠️ 2 is MEASURED, not assumed. `ACCOUNT_BINDINGS`/`CHARACTER_BINDINGS` are gone
+		--- on 12.x (the probe recorded both as nil), so the constants cannot be asked.
+		--- What is known: `GetCurrentBindingSet()` returned 1 on Rob's Hunter while the
+		--- account file was the one being written, so 1 is the account set and 2 is the
+		--- only other value the call takes. And we verify rather than trust it — if the
+		--- game does not come back reading "character", the panel says so.
+		pcall(SaveBindings, 2)
+		local now = ns.Keybind_BindingSet and ns.Keybind_BindingSet()
+		if now == "character" then
+			print(Prefix() .. " " .. ns:L("MH_SETUP_CHARSET_DONE"))
+		else
+			print(Prefix() .. " " .. (ns:L("MH_SETUP_CHARSET_FAIL")):format(
+				tostring(now or "?")))
+		end
+	end), ns:L("MH_SETUP_NOTE_CHARSET"))
 
 	Row(MakeButton(f, ns:L("MH_SETUP_BTN_PREVIEW"), function()
 		if ns.MH_ApplyLayout then
@@ -211,6 +248,13 @@ local function Build()
 
 	function f:Refresh()
 		self.status:SetText(StatusText())
+		-- Greyed out rather than hidden: a row that appears and disappears moves every
+		-- button under it, and these buttons do different things.
+		local set = ns.Keybind_BindingSet and ns.Keybind_BindingSet()
+		local already = (set == "character")
+		self.charBtn:SetEnabled(not already)
+		self.charNote:SetText(already and ns:L("MH_SETUP_NOTE_CHARSET_OK")
+			or ns:L("MH_SETUP_NOTE_CHARSET"))
 	end
 
 	if ns.AttachMidnightDialogCloseButton then
