@@ -199,8 +199,37 @@ local function NameForSpell(id)
 	return tostring(id)
 end
 
+--- ⚠️ IS THIS SLOT THE ASSISTANT WEARING SOMEONE ELSE'S FACE?
+---
+--- The Single-Button Assistant displays the spell it currently recommends, so
+--- `GetActionInfo` on its slot answers "Frozen Orb" — Rob's slot 1, measured 10 Aug.
+--- Two things follow, and the second is dangerous:
+---
+---   * searching for the assistant by spell id finds nothing, which is why I wrongly
+---     concluded it was on no bar at all;
+---   * every OTHER check sees a copy of Frozen Orb. The duplicate remover was one
+---     successful placement away from clearing his assistant as a stray copy.
+---
+--- `C_ActionBar.IsAssistedCombatAction` is the only honest answer to "what is this".
+local function SlotIsAssistant(slot)
+	if not (slot and C_ActionBar and C_ActionBar.IsAssistedCombatAction) then
+		return false
+	end
+	local ok, v = pcall(C_ActionBar.IsAssistedCombatAction, slot)
+	return (ok and v) and true or false
+end
+
 local function SlotHoldingSpell(spellID, driveable)
 	if not (spellID and GetActionInfo) then
+		return nil
+	end
+	-- The assistant answers to its own id, never to the spell it is displaying.
+	if ns.Keybind_AssistantSpellID and spellID == ns.Keybind_AssistantSpellID() then
+		for slot = 1, 180 do
+			if SlotIsAssistant(slot) then
+				return slot
+			end
+		end
 		return nil
 	end
 	local fallback
@@ -223,7 +252,8 @@ local function SlotHoldingSpell(spellID, driveable)
 		--- Observed on one client rather than documented, so it only ever ADDS a match;
 		--- if it is wrong somewhere the worst case is that we think a spell is placed
 		--- when it is not, and say so, rather than moving anything.
-		if ok and (kind == "spell" or kind == "macro") and id then
+		-- An assistant slot is displaying somebody else's spell. It is not a copy of it.
+		if ok and (kind == "spell" or kind == "macro") and id and not SlotIsAssistant(slot) then
 			if id == spellID or (override and id == override) then
 				if not driveable or driveable[slot] then
 					return slot
@@ -598,7 +628,11 @@ local function BuildPlan()
 						--- Only on bars 1-6. A copy on bars 7 or 8 is the player's own
 						--- doing and stays; we report it and leave it alone.
 						stranded = row.strandedCopy,
-						clearStranded = (row.strandedCopy and ourBars[row.strandedCopy]) or nil,
+						-- Never an assistant slot: it is displaying this spell, not
+						-- holding a copy of it, and clearing it would delete the
+						-- assistant the player put there.
+						clearStranded = (row.strandedCopy and ourBars[row.strandedCopy]
+							and not SlotIsAssistant(row.strandedCopy)) or nil,
 						occupant = OccupantOf(target),
 						rebind = (GetBindingAction and GetBindingAction(wowKey) ~= cmd) or false,
 					}
@@ -809,13 +843,17 @@ local function BuildRebuild(commandSlot)
 	--- thing this whole rebuild is designed not to do — the reason macros and battle pets
 	--- are relocated rather than cleared. The assistant slipped through because it looks
 	--- like an ordinary spell to GetActionInfo.
+	--- Also: any slot that IS the assistant, wherever it sits. Looking only at the
+	--- planned key-1 slot assumed the player had put it where we expected, and the
+	--- assistant reports as whatever spell it is suggesting, so an ordinary occupant
+	--- check would happily clear it as a stray spell.
 	local keepSlot = nil
 	if ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID() then
 		keepSlot = BuildPlannedSlots()["1"]
 	end
 
 	for _, slot in ipairs(home) do
-		local occ = (slot ~= keepSlot) and Occupant(slot) or nil
+		local occ = (slot ~= keepSlot and not SlotIsAssistant(slot)) and Occupant(slot) or nil
 		if occ then
 			if occ.recreatable then
 				work.clear[#work.clear + 1] = occ
@@ -1375,8 +1413,11 @@ function ns.MH_ApplyLayout(arg)
 			--- loud, and its duplicate is NOT cleared.
 			if ok and p.spellID and GetActionInfo then
 				local okI, kind, id = pcall(GetActionInfo, p.slot)
+				-- The assistant never reports its own id; ask what the slot IS instead.
 				local landed = okI and ((kind == "spell" and id == p.spellID)
-					or (kind == "item" and id == p.itemID))
+					or (kind == "item" and id == p.itemID)
+					or (ns.Keybind_AssistantSpellID and p.spellID == ns.Keybind_AssistantSpellID()
+						and SlotIsAssistant(p.slot)))
 				if not landed then
 					ok = false
 					missing[#missing + 1] = p.name .. (" (the game refused to put it on slot %d)"):format(p.slot)
