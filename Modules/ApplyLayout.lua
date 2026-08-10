@@ -86,18 +86,18 @@ end
 --- barIndex is an index into BAR_COMMANDS above; `keys` is read as position 1..n.
 --- An empty string is a deliberate gap — it keeps the positions after it lined up.
 local BAR_PLAN = {
-	{ barIndex = 1, label = "numbers", keys = NUMBER_KEYS },
-	{ barIndex = 2, label = "letters", keys = LETTER_KEYS },
-	{ barIndex = 3, label = "shift (numbers + F-row)",
+	{ barIndex = 1, label = "numbers", size = 6, keys = NUMBER_KEYS },
+	{ barIndex = 2, label = "letters", size = 9, keys = LETTER_KEYS },
+	{ barIndex = 3, label = "shift (numbers + F-row)", size = 7,
 		keys = Concat(WithModifier("Shift", NUMBER_KEYS), WithModifier("Shift", FROW_KEYS)) },
-	{ barIndex = 4, label = "shift (letters)", keys = WithModifier("Shift", LETTER_KEYS) },
-	{ barIndex = 5, label = "F-row", keys = FROW_KEYS },
+	{ barIndex = 4, label = "shift (letters)", size = 8, keys = WithModifier("Shift", LETTER_KEYS) },
+	{ barIndex = 5, label = "F-row", size = 6, keys = FROW_KEYS },
 	-- The Ctrl layer and the thumb buttons share a bar. Both are overflow, both are small
 	-- (Ctrl peaks at 6 per spec and the thumb buttons at 6), and together they fit inside
 	-- one bar of 12. Ctrl has no fixed position: its 18 possible keys cannot be given one
 	-- on a 12-button bar, so it fills in scheme order. Say that plainly rather than
 	-- pretend the whole layout is positional.
-	{ barIndex = 6, label = "ctrl + mouse", keys = {}, fill = true },
+	{ barIndex = 6, label = "ctrl + mouse", size = 6, keys = {}, fill = true },
 }
 
 --- ⚠️ PACKED, NOT PINNED. Every key used to get a fixed position in its bar, so a spec
@@ -152,6 +152,61 @@ local function OverflowSlots()
 		end
 	end
 	return out
+end
+
+--- ⚠️ THE SIZES ARE MEASURED, NOT CHOSEN. Each `size` above is the widest that bar ever
+--- needs across all 39 specs: numbers peak at 5, letters at 8, shift-numbers at 7
+--- (Affliction Warlock), shift-letters at 8 (Guardian and Restoration Druid), the F-row
+--- at 4 and Ctrl at 6. Six is Edit Mode's minimum, so anything under it is rounded up.
+---
+--- Set the bars to these and one arrangement works on every character. Set them to what
+--- the current spec uses and it is tighter but has to be redone per alt.
+---
+--- @return table rows { barIndex, label, size, used, keys }
+function ns.MH_BarPlanSummary()
+    local used = {}
+    local spec = ns.MH_AutoMapSpecAndSlots and ns.MH_AutoMapSpecAndSlots()
+    for bindKey in pairs((spec and spec.spellByUiKey) or {}) do
+        used[bindKey] = true
+    end
+    if ns.MH_ConsumableLayout then
+        local ok, cons = pcall(ns.MH_ConsumableLayout, {})
+        for i = 1, (ok and #cons or 0) do
+            used[cons[i].key] = true
+        end
+    end
+    local out = {}
+    for _, group in ipairs(BAR_PLAN) do
+        local have, list = 0, {}
+        for _, key in ipairs(group.keys) do
+            if used[key] then
+                have = have + 1
+                list[#list + 1] = key
+            end
+        end
+        -- The overflow bar has no fixed key list; count what actually landed there.
+        if group.fill then
+            local bar = BAR_COMMANDS[group.barIndex]
+            for bindKey in pairs(used) do
+                local mod = ns.Keybind_ParseBindKey and select(1, ns.Keybind_ParseBindKey(bindKey))
+                if mod == "ctrl" then
+                    have = have + 1
+                    list[#list + 1] = bindKey
+                end
+            end
+            if not bar then
+                have = 0
+            end
+        end
+        out[#out + 1] = {
+            barIndex = group.barIndex,
+            label = group.label,
+            size = group.size or 6,
+            used = have,
+            keys = list,
+        }
+    end
+    return out
 end
 
 local function Prefix()

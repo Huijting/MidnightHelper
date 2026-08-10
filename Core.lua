@@ -1091,6 +1091,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh bars — what is on every action slot, and which binding commands this client
 	-- knows. Measured, because slot numbering and binding names differ per bar addon.
+	if msg == "bars plan" then
+		if ns.MH_ShowBarPlan then
+			ns.MH_ShowBarPlan()
+		end
+		return
+	end
+
 	if msg == "bars" then
 		if ns.MH_BarInventory then
 			ns.MH_BarInventory()
