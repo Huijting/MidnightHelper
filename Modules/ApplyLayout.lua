@@ -1373,6 +1373,47 @@ function ns.MH_ApplyLayout(arg)
 				#off, table.concat(off, ", ")))
 			print("   |cff9d9d9dTurn them on in Edit Mode, or those keys share a bar with the rest.|r")
 		end
+
+		--- ⚠️ A BAR CAN BE TOO SHORT, AND THAT FAILS SILENTLY.
+		---
+		--- Edit Mode's icon-count slider hides buttons; it does not remove the action
+		--- slots behind them. So a bar set to 6 still has slots 7-12, apply will happily
+		--- fill one, and the ability lands on a button the player cannot see. Rob was
+		--- about to size two bars to 6 that need 7 and 8 on some specs — measured over
+		--- all 39: shift-numbers peaks at 7 (Affliction Warlock), shift-letters at 8
+		--- (Guardian and Restoration Druid).
+		---
+		--- Same shape as the switched-off warning, one level finer, and worth the extra
+		--- check precisely because the slider makes it so easy to do.
+		local hidden = {}
+		for i = 1, #plan do
+			local p = plan[i]
+			local cmd = p.command
+			if cmd then
+				local frameName = cmd:gsub("BUTTON(%d+)$", "Button%1")
+					:gsub("^ACTIONBUTTON", "ActionButton")
+					:gsub("^MULTIACTIONBAR1", "MultiBarBottomLeft")
+					:gsub("^MULTIACTIONBAR2", "MultiBarBottomRight")
+					:gsub("^MULTIACTIONBAR3", "MultiBarRight")
+					:gsub("^MULTIACTIONBAR4", "MultiBarLeft")
+					:gsub("^MULTIACTIONBAR5", "MultiBar5")
+					:gsub("^MULTIACTIONBAR6", "MultiBar6")
+					:gsub("^MULTIACTIONBAR7", "MultiBar7")
+				local f = _G and _G[frameName]
+				if f and f.IsShown then
+					local okS, shown = pcall(f.IsShown, f)
+					if okS and not shown then
+						hidden[#hidden + 1] = ("%s (%s)"):format(p.name, p.wowKey)
+					end
+				end
+			end
+		end
+		if #hidden > 0 then
+			print(("   |cffff9900%d would land on a button you cannot see — that bar is too short:|r"):format(#hidden))
+			print("   " .. table.concat(hidden, ", "))
+			print("   |cff9d9d9dMake the bar longer in Edit Mode. Sizes that fit every spec:|r")
+			print("   |cff9d9d9dnumbers 6, letters 8, shift-numbers 7, shift-letters 8, F-row 6, ctrl 6.|r")
+		end
 		print("   |cff9d9d9dNothing has changed. |cffffffff/mh apply go|r to do it, |cffffffff/mh apply undo|r afterwards.|r")
 		return
 	end
