@@ -132,7 +132,14 @@ function ns.MH_EventProbe()
 		},
 		C_Navigation = { "GetNextWaypointForMap" },
 		C_Map = { "SetUserWaypoint", "GetUserWaypoint", "HasUserWaypoint", "ClearUserWaypoint" },
-		C_UnitAuras = { "GetUnitAuras", "GetUnitAuraInstanceIDs", "GetAuraDataByIndex" },
+		--- ⚠️ `GetAuraSlots` IS THE ONE THAT MATTERS FOR 12.1. Three modules read auras
+		--- through it directly, outside the `ns.Aura` facade built for exactly this
+		--- change: ActionPrompt, DispelCapture and DispelHelper. All three are
+		--- pcall-guarded, so a hard error is unlikely — but if 12.1 removes it or hands
+		--- back secret values, the dispel prompt simply stops appearing. A feature dying
+		--- quietly is the failure mode this addon keeps trying not to have.
+		C_UnitAuras = { "GetUnitAuras", "GetUnitAuraInstanceIDs", "GetAuraDataByIndex",
+			"GetAuraSlots", "GetAuraDataBySlot", "GetPlayerAuraBySpellID" },
 		C_AssistedCombat = { "IsAvailable", "GetRotationSpells", "GetNextCastSpell" },
 	}
 	local api = {}
