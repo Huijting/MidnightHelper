@@ -633,8 +633,21 @@ local function BuildPlan()
 	---
 	--- So the row is still planned — the verification below will tell us honestly if a
 	--- future patch starts allowing it — but the failure now says what to do instead.
+	--- Once the game has refused it on THIS build, stop proposing it. A plan that always
+	--- carries a line which never works is the same silent wrongness in a louder font.
+	--- Keyed to the build so a patch that starts allowing it is noticed on its own.
+	local build = select(2, GetBuildInfo and GetBuildInfo() or nil)
+	local refusedHere = (ns.db and ns.db.assistantRefusedBuild) == build and build ~= nil
+
 	local assistantID = ns.Keybind_AssistantSpellID and ns.Keybind_AssistantSpellID()
-	if assistantID and not (ns.db and ns.db.sbaOff) then
+	if assistantID and refusedHere then
+		missing[#missing + 1] = NameForSpell(assistantID)
+			.. " (an addon cannot place this — drag it from your spellbook once)"
+		local home = plannedSlot["1"]
+		if home then
+			taken[home] = true
+		end
+	elseif assistantID and not (ns.db and ns.db.sbaOff) then
 		local target = plannedSlot["1"]
 		local already = SlotHoldingSpell(assistantID, driveable)
 		if already then
@@ -1348,6 +1361,10 @@ function ns.MH_ApplyLayout(arg)
 				if not landed then
 					ok = false
 					missing[#missing + 1] = p.name .. (" (the game refused to put it on slot %d)"):format(p.slot)
+					-- Remember a refusal of the assistant so we stop proposing it here.
+					if ns.Keybind_AssistantSpellID and p.spellID == ns.Keybind_AssistantSpellID() then
+						ns.db.assistantRefusedBuild = select(2, GetBuildInfo and GetBuildInfo() or nil)
+					end
 				end
 			end
 			--- The old copy goes, so the ability lives in exactly one place on our bars.
