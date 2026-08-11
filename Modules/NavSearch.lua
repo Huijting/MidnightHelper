@@ -349,53 +349,76 @@ local function BuildNavIndex()
 		end
 	end
 
-	-- User-facing /mh commands as a command palette (Spec 17). Never-lie: only real,
-	-- non-debug commands, each verified against the SlashCmdList dispatch. Every entry
-	-- just calls the existing slash handler, so there is one truth about what it does.
-	-- Reach them all with "@command" or a leading "/" (see FilterIndex).
-	local MH_COMMANDS = {
-		{ "season", "season transition checklist wrap up" },
-		{ "loot", "loot upgrade tips tooltip toggle" },
-		{ "scorecard", "run scorecard deaths time record" },
-		{ "mplus", "mythic plus vault rating score keys gain great vault" },
-		{ "kicks", "interrupt kick scorecard landed wasted missed pummel counterspell" },
-		{ "translate", "help translate localisation language" },
-		{ "lang", "language locale switch" },
-		{ "settings", "options config preferences" },
-		{ "changelog", "whats new version notes" },
-		{ "board", "consumables board flask food rune buffs ready" },
-		{ "bosswin", "dungeon boss window tactics" },
-		{ "curios", "delve curios advisor companion" },
-		{ "ritualboss", "ritual boss coach" },
-		{ "enchant", "gear enchant gems check missing" },
-		{ "mbuff", "missing buff reminder flask" },
-		{ "tracks", "gear upgrade track ceiling hero myth maxed slot crest craft" },
-		{ "panelreset", "side panel reset position move back beside window" },
-		{ "wishlist", "mount wishlist starred favourite collect chase" },
-		{ "pawn", "stat weights export scale pawn addon gear" },
-		{ "groupbuffs", "raid buffs missing party intellect stamina group" },
-		{ "healcds", "healer cooldowns raid healing cheat sheet" },
-		{ "pullsummary", "tank pull mitigation defensives summary" },
-		{ "readyboard", "consumable ready board panel flask food group" },
-		{ "consready", "consumable ready check flask food rune chat" },
-		{ "death", "death recap killing blow what killed me lesson" },
-		{ "folio", "omnium folio rune window tree" },
-		{ "discord", "community help support invite chat server" },
-		{ "codex", "handbook glossary encyclopedia terms explained" },
-		{ "coach", "delve coach tips boss tactics" },
-		{ "mark", "raid target markers world marker fast mark skull" },
-		{ "clear", "clear route arrow stop waypoint" },
-		{ "arrowsize", "route arrow size bigger smaller resize" },
-		{ "bagarrows", "bag upgrade arrows green item better" },
+	--- The /mh commands, as things you can DO rather than syntax to memorise.
+	---
+	--- ⚠️ Two changes here, and the second is the one that mattered to Rob.
+	---
+	--- (1) ONE LIST. This file used to carry its own 33-command table next to
+	--- `ns.MH_COMMANDS` in CommandList.lua, which has more. Two tables describing the
+	--- same commands is the bug shape this project keeps hitting: the other list is
+	--- lint-checked (every `cmd` must be routed somewhere) and this one was not, so it
+	--- could drift into offering something that no longer exists. Reading from there
+	--- also means every command is now searchable, not the subset somebody remembered.
+	---
+	--- (2) THE LABEL IS THE ACTION. It used to read "/mh bosswin  Command", and Rob
+	--- asked whether that could be made clickable — it already was, all along. A row
+	--- that shows a slash command reads as documentation, so nobody presses it. Now the
+	--- description leads ("The dungeon boss window.") with the command dimmed after it,
+	--- which both answers "what does this do" and still teaches the command.
+	---
+	--- Keywords stay here: they are search vocabulary, not documentation. Without them
+	--- "kick" finds nothing, because no description contains that word.
+	local CMD_KEYWORDS = {
+		season = "season transition checklist wrap up",
+		loot = "loot upgrade tips tooltip toggle",
+		scorecard = "run scorecard deaths time record",
+		mplus = "mythic plus vault rating score keys gain great vault",
+		kicks = "interrupt kick scorecard landed wasted missed pummel counterspell",
+		translate = "help translate localisation language",
+		lang = "language locale switch",
+		settings = "options config preferences",
+		changelog = "whats new version notes",
+		board = "consumables board flask food rune buffs ready",
+		bosswin = "dungeon boss window tactics",
+		curios = "delve curios advisor companion",
+		ritualboss = "ritual boss coach",
+		enchant = "gear enchant gems check missing",
+		mbuff = "missing buff reminder flask",
+		tracks = "gear upgrade track ceiling hero myth maxed slot crest craft",
+		panelreset = "side panel reset position move back beside window",
+		wishlist = "mount wishlist starred favourite collect chase",
+		pawn = "stat weights export scale pawn addon gear",
+		groupbuffs = "raid buffs missing party intellect stamina group",
+		healcds = "healer cooldowns raid healing cheat sheet",
+		pullsummary = "tank pull mitigation defensives summary",
+		readyboard = "consumable ready board panel flask food group",
+		consready = "consumable ready check flask food rune chat",
+		death = "death recap killing blow what killed me lesson",
+		folio = "omnium folio rune window tree",
+		discord = "community help support invite chat server",
+		codex = "handbook glossary encyclopedia terms explained",
+		coach = "delve coach tips boss tactics",
+		mark = "raid target markers world marker fast mark skull",
+		clear = "clear route arrow stop waypoint",
+		arrowsize = "route arrow size bigger smaller resize",
+		bagarrows = "bag upgrade arrows green item better",
 	}
-	local cmdLabel = L("NAV_CAT_COMMAND")
-	for _, c in ipairs(MH_COMMANDS) do
-		local cmd = c[1]
-		add("/mh " .. cmd, "command slash " .. cmd .. " " .. (c[2] or ""), function()
-			if SlashCmdList and SlashCmdList["MIDNIGHTHELPER"] then
-				SlashCmdList["MIDNIGHTHELPER"](cmd)
+	for _, group in ipairs(ns.MH_COMMANDS or {}) do
+		for _, item in ipairs(group.items or {}) do
+			local cmd = item.cmd
+			if type(cmd) == "string" and cmd ~= "" then
+				-- "/mh bosswin" -> "bosswin"; bare "/mh" -> "" (the main window).
+				local sub = cmd:match("^/mh%s+(.+)$") or ""
+				local desc = item.descKey and L(item.descKey) or cmd
+				add(desc,
+					"command slash " .. cmd .. " " .. (CMD_KEYWORDS[sub] or ""),
+					function()
+						if SlashCmdList and SlashCmdList["MIDNIGHTHELPER"] then
+							SlashCmdList["MIDNIGHTHELPER"](sub)
+						end
+					end, nil, cmd, "command")
 			end
-		end, nil, cmdLabel, "command")
+		end
 	end
 
 	return idx
