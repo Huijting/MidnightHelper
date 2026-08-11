@@ -26,14 +26,31 @@ local _, ns = ...
 	with their own tool. The command says so before it does anything.
 ]]
 
---- Exported from Rob's Hunter (Redisch) on 12.0.7, 11 Aug 2026.
+--- Exported from Rob's Hunter (Redisch) on 12.0.7, 11 Aug 2026 — second export, with
+--- the empty buttons switched off.
+---
+--- ⚠️ WHAT THE TRAILING BLOB MEANS, since it decided a question we were about to guess.
+---
+--- Each system ends in a settings string: characters from ASCII 35 up, read as pairs of
+--- (setting, value). Bar 2 here is `##$$%,&''%(#,#` = 0=0 1=1 2=9 3=4 4=2 5=0 9=0, which
+--- against `Enum.EditModeActionBarSetting` reads Orientation 0, NumRows 1, NumIcons 9,
+--- IconSize 4, IconPadding 2, VisibleSetting 0, AlwaysShowButtons 0.
+---
+--- Rob exported twice — once with "Always Show Buttons" ticked and once without — and
+--- exactly one character moved per bar: the last one, `$` to `#`. So AlwaysShowButtons
+--- is 1 for on and 0 for off, and VisibleSetting 0 is "Always Visible". Measured by
+--- diffing two strings from the same character, which beats picking a plausible boolean.
+---
+--- The practical upshot is that nothing has to be injected after an import: bar width,
+--- position, visibility and empty-button behaviour all travel inside the string. Get the
+--- bars right by hand, export, ship that.
 local PRESET_1207 =
 	"2 8 0 0 0 8 6 MultiBarBottomRight -4.0 0.0 -1 ##$$%)&''%)$+$,# 0 1 0 8 6 MultiBar5"
-	.. " -4.0 0.0 -1 ##$$%,&''%(#,$ 0 2 0 4 4 UIParent 149.1 -560.0 -1 ##$$%*&''%(#,$"
-	.. " 0 3 0 8 2 MultiBarBottomLeft 0.0 4.0 -1 ##$$%+&''%(#,$ 0 4 0 8 2 MultiBar5 0.0"
-	.. " 4.0 -1 ##$$%)&''%(#,$ 0 5 0 8 2 MultiBarBottomRight 0.0 4.0 -1 ##$$%)&''%(#,$"
-	.. " 0 6 0 7 7 UIParent -614.9 2.0 -1 ##$$%/&''%(#,$ 0 7 0 4 4 UIParent 400.0 -520.0"
-	.. " -1 ##$&%/&''%(#,$"
+	.. " -4.0 0.0 -1 ##$$%,&''%(#,# 0 2 0 4 4 UIParent 149.1 -560.0 -1 ##$$%*&''%(#,#"
+	.. " 0 3 0 8 2 MultiBarBottomLeft 0.0 4.0 -1 ##$$%+&''%(#,# 0 4 0 8 2 MultiBar5 0.0"
+	.. " 4.0 -1 ##$$%)&''%(#,# 0 5 0 8 2 MultiBarBottomRight 0.0 4.0 -1 ##$$%)&''%(#,#"
+	.. " 0 6 0 7 7 UIParent -614.9 2.0 -1 ##$$%/&''%(#,# 0 7 0 4 4 UIParent 400.0 -520.0"
+	.. " -1 ##$&%/&''%(#,#"
 
 --- Which patch each string was made on, so the mismatch can be named rather than
 --- discovered by a player whose bars did not move.
