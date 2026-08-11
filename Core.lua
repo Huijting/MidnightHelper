@@ -1171,6 +1171,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh fps — read out the graphics settings (reads only, changes nothing).
+	if msg == "fps" then
+		if ns.MH_ShowFpsPanel then
+			ns.MH_ShowFpsPanel()
+		end
+		return
+	end
+
 	-- /mh worldboss — are the four world bosses still a thing in 12.1?
 	if msg == "worldboss" or msg == "wb" then
 		if ns.MH_WorldBossProbe then
