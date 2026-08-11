@@ -129,7 +129,23 @@ function ns.MH_WorldBossProbe()
 		zone.name = (type(info) == "table" and info.name) or "?"
 		zone.mapType = (type(info) == "table" and info.mapType) or nil
 
-		local tasks, why = Ask(C_TaskQuest and C_TaskQuest.GetQuestsForPlayerByMapID, mapID)
+		--- Same order the module uses now: whichever name this client has. The first
+		--- run here is what proved `GetQuestsForPlayerByMapID` is gone on 12.1.
+		local tasks, why
+		for _, fn in ipairs({ C_TaskQuest and C_TaskQuest.GetQuestsOnMap,
+		                      C_TaskQuest and C_TaskQuest.GetQuestsForPlayerByMapID }) do
+			if type(fn) == "function" then
+				local v, w = Ask(fn, mapID)
+				if type(v) == "table" then
+					tasks = v
+					break
+				end
+				why = w or why
+			else
+				why = why or "absent"
+			end
+		end
+
 		if type(tasks) ~= "table" then
 			zone.tasks = why or "no table"
 		else
@@ -145,8 +161,54 @@ function ns.MH_WorldBossProbe()
 				end
 			end
 			zone.taskCount = #zone.tasks
+			--- What an entry actually looks like. The scan reads questID/x/y off these,
+			--- and a renamed field would drop every boss just as quietly as the removed
+			--- function did — so record the shape rather than trust it.
+			if tasks[1] and type(tasks[1]) == "table" then
+				local fields = {}
+				for k, v in pairs(tasks[1]) do
+					fields[#fields + 1] = ("%s=%s"):format(tostring(k), type(v))
+				end
+				table.sort(fields)
+				zone.entryShape = table.concat(fields, " ")
+			end
 		end
 		out.zones[#out.zones + 1] = zone
+	end
+
+	--- 2b. WHICH task-quest functions still exist.
+	---
+	--- The first PTR run answered a question nobody had asked: every zone came back
+	--- `tasks = "absent"`, meaning `C_TaskQuest.GetQuestsForPlayerByMapID` is not a
+	--- function on 12.1 at all. Two of the three detection paths in QueryLiveWorldBoss
+	--- call it, so they cannot work — and they fail silently, which is why the panel
+	--- quietly fell back to a stale cache instead of saying anything.
+	---
+	--- So list what the namespace DOES offer rather than guessing at a replacement.
+	for _, ns2 in ipairs({ "C_TaskQuest", "C_QuestLog" }) do
+		local tbl = _G[ns2]
+		if type(tbl) == "table" then
+			local names = {}
+			for k, v in pairs(tbl) do
+				if type(k) == "string" and type(v) == "function" then
+					names[#names + 1] = k
+				end
+			end
+			table.sort(names)
+			out.api[ns2] = names
+		else
+			out.api[ns2] = "absent"
+		end
+	end
+
+	--- And try the likely replacement by name, on a map we know has content.
+	--- Suggestive is not evidence: record what it returns, do not adopt it here.
+	if C_TaskQuest and C_TaskQuest.GetQuestsOnMap then
+		local v = Ask(C_TaskQuest.GetQuestsOnMap, 2395)
+		out.api.getQuestsOnMap = type(v) == "table"
+			and ("table, %d entries"):format(#v) or tostring(v)
+	else
+		out.api.getQuestsOnMap = "absent"
 	end
 
 	-- 3. The Lair API --------------------------------------------------------

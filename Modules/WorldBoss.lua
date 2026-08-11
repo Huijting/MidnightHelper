@@ -47,7 +47,10 @@ local WORLD_BOSSES = {
 	},
 }
 
-local MAP_IDS_TO_SCAN = { 2395, 2437, 2413, 2405, 2576 }
+--- 2512 = The Coiled Isle, captured from the client on the 12.1 PTR (it sits under the
+--- Midnight continent 2537 alongside the four Season 1 zones). Scanning a map this
+--- client does not have costs one nil, so it is safe on 12.0.7 too.
+local MAP_IDS_TO_SCAN = { 2395, 2437, 2413, 2405, 2576, 2512 }
 
 ns.WORLD_BOSSES = WORLD_BOSSES
 
@@ -361,12 +364,39 @@ local function BossFromQuestId(questId, x, y, mapID)
 	return nil
 end
 
-local function ScanTaskQuestMap(mapID)
-	if not mapID or not C_TaskQuest or not C_TaskQuest.GetQuestsForPlayerByMapID then
+--- ⚠️ 12.1 REMOVED `C_TaskQuest.GetQuestsForPlayerByMapID`.
+---
+--- Measured on the PTR (build 12.1.0, `/mh worldboss`): the function is simply not in
+--- `C_TaskQuest` any more, and `GetQuestsOnMap` is — it returned 13 entries for Eversong
+--- Woods. Two of the three detection paths here called the removed one, plus the
+--- background probe that runs on every login.
+---
+--- The failure was silent, which is the part worth remembering: a `pcall` on a nil field
+--- never runs, the guard above simply returned nil, and the panel fell through to a
+--- cached boss from an earlier week without a word. It looked like the world bosses were
+--- gone; they are not — all four quests still exist and still carry tag 289 "World Boss".
+---
+--- Whichever name this client has, take the first that yields something. Not "new API on
+--- 12.1, old API otherwise": a build check would be a second thing to keep in step, and
+--- an empty table from the wrong one would look exactly like no world boss.
+local function TaskQuestsOnMap(mapID)
+	if not (mapID and C_TaskQuest) then
 		return nil
 	end
-	local ok, tasks = pcall(C_TaskQuest.GetQuestsForPlayerByMapID, mapID)
-	if not ok or type(tasks) ~= "table" then
+	for _, fn in ipairs({ C_TaskQuest.GetQuestsOnMap, C_TaskQuest.GetQuestsForPlayerByMapID }) do
+		if type(fn) == "function" then
+			local ok, tasks = pcall(fn, mapID)
+			if ok and type(tasks) == "table" and #tasks > 0 then
+				return tasks
+			end
+		end
+	end
+	return nil
+end
+
+local function ScanTaskQuestMap(mapID)
+	local tasks = TaskQuestsOnMap(mapID)
+	if not tasks then
 		return nil
 	end
 	for ti = 1, #tasks do
