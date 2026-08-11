@@ -65,6 +65,32 @@ end
 --- while a missing atlas simply draws nothing.
 local ACTIONS = {
 	{
+		--- MH itself, first on the bar.
+		---
+		--- The whole reason this bar exists is that Rob's minimap icon disappeared into
+		--- a button-collector addon — so the addon's own front door went with it. Same
+		--- three clicks as that icon (window / board / settings), so whichever of the two
+		--- a player uses, the muscle memory is identical.
+		id = "mh",
+		icon = "Interface\\AddOns\\MidnightHelper\\Media\\Addon_Icon",
+		titleKey = "QUICKBAR_MH",
+		linesKey = { "QUICKBAR_MH_L", "QUICKBAR_MH_R" },
+		OnClick = function(_, button)
+			if button == "RightButton" then
+				if ns.ShowMainUI then
+					ns:ShowMainUI()
+				end
+				if ns.SelectTab then
+					ns.SelectTab("settings")
+				end
+				return
+			end
+			if ns.ToggleMainWindow then
+				ns:ToggleMainWindow()
+			end
+		end,
+	},
+	{
 		id = "reload",
 		icon = "Interface\\Buttons\\UI-RefreshButton",
 		titleKey = "QUICKBAR_RELOAD",

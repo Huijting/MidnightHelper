@@ -2720,6 +2720,9 @@ fill("deDE", {
 	MH_SETUP_NOTE_EXPORT = "Eine Zeichenkette zum Teilen oder Aufheben. Nur Leisten 1-8.",
 	MH_SETUP_BTN_BARSBACK = "Meine Leisten zurück",
 	MH_SETUP_NOTE_BARSBACK = "Macht das Leisten-Layout oben rückgängig \194\183 nicht deine Zauber.",
+	QUICKBAR_MH = "Midnight Helper",
+	QUICKBAR_MH_L = "Linksklick: Hauptfenster öffnen.",
+	QUICKBAR_MH_R = "Rechtsklick: Einstellungen öffnen.",
 })
 
 fill("frFR", {
@@ -2798,6 +2801,9 @@ fill("frFR", {
 	MH_SETUP_NOTE_EXPORT = "Une chaîne à partager ou à garder. Barres 1-8 uniquement.",
 	MH_SETUP_BTN_BARSBACK = "Remettre mes barres",
 	MH_SETUP_NOTE_BARSBACK = "Annule la disposition ci-dessus \194\183 pas vos sorts.",
+	QUICKBAR_MH = "Midnight Helper",
+	QUICKBAR_MH_L = "Clic gauche : ouvrir la fenêtre principale.",
+	QUICKBAR_MH_R = "Clic droit : ouvrir les paramètres.",
 })
 
 fill("esES", {
@@ -2876,6 +2882,9 @@ fill("esES", {
 	MH_SETUP_NOTE_EXPORT = "Una cadena para compartir o guardar. Solo barras 1-8.",
 	MH_SETUP_BTN_BARSBACK = "Devolver mis barras",
 	MH_SETUP_NOTE_BARSBACK = "Deshace la distribución de arriba \194\183 no tus hechizos.",
+	QUICKBAR_MH = "Midnight Helper",
+	QUICKBAR_MH_L = "Clic izquierdo: abrir la ventana principal.",
+	QUICKBAR_MH_R = "Clic derecho: abrir los ajustes.",
 })
 
 fill("ptBR", {
@@ -2954,6 +2963,9 @@ fill("ptBR", {
 	MH_SETUP_NOTE_EXPORT = "Uma string para compartilhar ou guardar. Apenas barras 1-8.",
 	MH_SETUP_BTN_BARSBACK = "Devolver minhas barras",
 	MH_SETUP_NOTE_BARSBACK = "Desfaz o layout de barras acima \194\183 não suas magias.",
+	QUICKBAR_MH = "Midnight Helper",
+	QUICKBAR_MH_L = "Clique esquerdo: abrir a janela principal.",
+	QUICKBAR_MH_R = "Clique direito: abrir as configurações.",
 })
 
 fill("itIT", {
@@ -3032,5 +3044,8 @@ fill("itIT", {
 	MH_SETUP_NOTE_EXPORT = "Una stringa da condividere o conservare. Solo barre 1-8.",
 	MH_SETUP_BTN_BARSBACK = "Rimetti le mie barre",
 	MH_SETUP_NOTE_BARSBACK = "Annulla il layout delle barre qui sopra \194\183 non le tue magie.",
+	QUICKBAR_MH = "Midnight Helper",
+	QUICKBAR_MH_L = "Clic sinistro: apri la finestra principale.",
+	QUICKBAR_MH_R = "Clic destro: apri le impostazioni.",
 })
 
