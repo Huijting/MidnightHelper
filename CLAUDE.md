@@ -19,6 +19,27 @@ The maintainer (**Rob**) is a non-developer but tests every change in-game. A se
 - **Version bumps & releases only when Rob says "af"/"go".** Don't bump the version or write release docs pre-emptively.
 - **Big releases: consider Beta-first on CurseForge** (Cisca-test) before Release — Rob decides.
 
+## ⚠️ De PowerShell-tool: niet gebruiken
+
+Op 11 aug 2026 stonden de prompts er ineens weer, terwijl er niets aan de regels was
+veranderd. Oorzaak: ik was voor bestandsdatums overgestapt op de **PowerShell-tool** met
+lange one-liners (`Get-ChildItem ... | ForEach-Object { ... } | Format-Table`). Elke zo'n
+regel is uniek, dus geen enkele regel matcht — en "Always allow" schrijft dan de héle
+regel letterlijk weg. Zo staan er inmiddels **938 regels in `settings.local.json`** die
+samen bijna niets afvangen. Meer regels lossen dit dus niet op; het commando moet elke
+keer dezelfde string zijn.
+
+- **Alles wat scripting nodig heeft gaat door `tools/_probe.py`** — bestandsdatums,
+  versies uit `.toc`'s, bulk-edits, tellingen. Het pad is vast en staat in de allowlist,
+  dus de commandoregel verandert nooit. Het variabele deel hoort ín het script.
+- **Bestanden zoeken/lezen doe je met Glob, Grep en Read.** Die vragen nooit toestemming.
+  `Get-ChildItem -Recurse` is dus altijd de verkeerde keus.
+- **Geen extra vlaggen op een bestaand commando.** `python -X utf8 tools/lint_addon.py`
+  is een andere string dan `python tools/lint_addon.py` en matcht de regel niet meer. Los
+  het op ín het script (de linter forceert nu zelf UTF-8 op stdout).
+- Uitzondering: `tools/package.ps1` bij een release, en `tools/copy_to_ptr.bat` — beide
+  vast, beide in een **eigen** tool-call.
+
 ## ⚠️ Shell-commando's: geen ketens, geen heredocs, geen inline scripts
 
 Rob kreeg op 8-10 aug 2026 tientallen toestemmingsprompts omdat vrijwel elk commando de

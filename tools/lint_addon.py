@@ -25,6 +25,19 @@ import glob
 import re
 import sys
 
+# ⚠️ Force UTF-8 out, so the caller never needs `python -X utf8 ...`.
+#
+# Every permission rule in .claude/settings.json matches a command STRING. Adding a
+# flag makes a different string, so a rule written for the bare call cannot match it
+# and Rob gets a prompt. On 11 Aug the report's `·` separators came out as `Â·` on his
+# console, I reached for `-X utf8`, and that one extra flag was enough. The fix belongs
+# in the script: the command line stays one fixed, matchable string.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 LOCALES = ["enUS", "deDE", "frFR", "esES", "ptBR", "itIT", "nlNL"]
 LOCALE_FILE_RE = re.compile(r"^(deDE|frFR|esES|ptBR|itIT|nlNL)\.lua$")
 
