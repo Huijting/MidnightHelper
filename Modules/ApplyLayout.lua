@@ -262,6 +262,11 @@ local function ToWowKey(bindKey)
 	return string.upper(mod) .. "-" .. base
 end
 
+--- Exposed because the setup nudge has to ask the same question this file asks —
+--- "is this key bound to anything?" — and a second copy of the Shift+1/SHIFT-1
+--- conversion is exactly how two parts of an addon start disagreeing.
+ns.Keybind_ToWowKey = ToWowKey
+
 --- The action slot that already holds this spell, following talent overrides.
 ---
 --- Both ids are checked because a replaced spell sits on the bar under whichever the

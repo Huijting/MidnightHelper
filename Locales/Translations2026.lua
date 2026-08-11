@@ -2751,6 +2751,9 @@ fill("deDE", {
 	MH_SETUP_NOTE_QUICKBIND = "Blizzards Schnellbelegung \194\183 auf einen Knopf zeigen, Taste drücken.",
 	QUICKBAR_LEAVE_S = "Shift-Klick: Delve verlassen.",
 	QUICKBAR_DELVE_UNKNOWN = "dieser Client hat die Delve nicht losgelassen \194\183 nutze das Porträtmenü. Was versucht wurde, steht in der DB.",
+	SETUPNUDGE_TITLE = "Soll Midnight Helper deine Leisten einrichten?",
+	SETUPNUDGE_BODY = "Deine Zauber können für dich abgelegt und deine Tasten darauf belegt werden, pro Spezialisierung. Du siehst vorher, was sich ändern würde, und alles ist rückgängig zu machen.|n|nZufrieden mit deinen Leisten? Weglegen, dann kommt es nicht wieder.",
+	SETUPNUDGE_BTN = "Zeig es mir",
 })
 
 fill("frFR", {
@@ -2860,6 +2863,9 @@ fill("frFR", {
 	MH_SETUP_NOTE_QUICKBIND = "Attribution rapide de Blizzard \194\183 survolez un bouton, appuyez sur une touche.",
 	QUICKBAR_LEAVE_S = "Maj+clic : quitter une delve.",
 	QUICKBAR_DELVE_UNKNOWN = "ce client n’a pas quitté la delve \194\183 utilisez le menu du portrait. Les tentatives sont écrites dans la DB.",
+	SETUPNUDGE_TITLE = "Laisser Midnight Helper configurer vos barres ?",
+	SETUPNUDGE_BODY = "Vos sorts peuvent être placés pour vous et vos touches attribuées, par spécialisation. Vous voyez ce qui changerait avant que quoi que ce soit ne bouge, et tout est annulable.|n|nDéjà satisfait de vos barres ? Écartez ceci et il ne reviendra pas.",
+	SETUPNUDGE_BTN = "Montrez-moi",
 })
 
 fill("esES", {
@@ -2969,6 +2975,9 @@ fill("esES", {
 	MH_SETUP_NOTE_QUICKBIND = "Asignación rápida de Blizzard \194\183 señala un botón y pulsa una tecla.",
 	QUICKBAR_LEAVE_S = "Mayús+clic: abandonar una delve.",
 	QUICKBAR_DELVE_UNKNOWN = "este cliente no soltó la delve \194\183 usa el menú del retrato. Lo intentado queda en la DB.",
+	SETUPNUDGE_TITLE = "¿Dejas que Midnight Helper configure tus barras?",
+	SETUPNUDGE_BODY = "Tus hechizos pueden colocarse por ti y tus teclas asignarse a ellos, por especialización. Ves qué cambiaría antes de que nada se mueva, y todo se puede deshacer.|n|n¿Contento con tus barras? Descártalo y no volverá.",
+	SETUPNUDGE_BTN = "Muéstramelo",
 })
 
 fill("ptBR", {
@@ -3078,6 +3087,9 @@ fill("ptBR", {
 	MH_SETUP_NOTE_QUICKBIND = "Atalho rápido da Blizzard \194\183 aponte um botão e pressione uma tecla.",
 	QUICKBAR_LEAVE_S = "Shift+clique: sair de uma delve.",
 	QUICKBAR_DELVE_UNKNOWN = "este cliente não soltou a delve \194\183 use o menu do retrato. O que foi tentado fica na DB.",
+	SETUPNUDGE_TITLE = "Deixar o Midnight Helper montar suas barras?",
+	SETUPNUDGE_BODY = "Suas magias podem ser colocadas para você e suas teclas definidas, por especialização. Você vê o que mudaria antes de qualquer coisa se mexer, e tudo pode ser desfeito.|n|nJá satisfeito com suas barras? Dispense isto e não volta.",
+	SETUPNUDGE_BTN = "Me mostra",
 })
 
 fill("itIT", {
@@ -3187,5 +3199,8 @@ fill("itIT", {
 	MH_SETUP_NOTE_QUICKBIND = "Assegnazione rapida di Blizzard \194\183 punta un pulsante, premi un tasto.",
 	QUICKBAR_LEAVE_S = "Maiusc+clic: esci da una delve.",
 	QUICKBAR_DELVE_UNKNOWN = "questo client non ha lasciato la delve \194\183 usa il menù del ritratto. I tentativi sono scritti nel DB.",
+	SETUPNUDGE_TITLE = "Vuoi che Midnight Helper sistemi le tue barre?",
+	SETUPNUDGE_BODY = "Le tue magie possono essere posizionate per te e i tasti assegnati, per specializzazione. Vedi cosa cambierebbe prima che si muova qualcosa, e tutto è annullabile.|n|nGià contento delle tue barre? Scarta questo e non tornerà.",
+	SETUPNUDGE_BTN = "Fammi vedere",
 })
 

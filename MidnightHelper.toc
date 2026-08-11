@@ -220,6 +220,7 @@ Modules\FirstRun.lua
 Modules\Nudges.lua
 Modules\TranslateNudge.lua
 Modules\DiscordNudge.lua
+Modules\SetupNudge.lua
 Modules\SidePanel.lua
 Modules\ProfessionNextStep.lua
 Modules\ProfessionSidePanel.lua

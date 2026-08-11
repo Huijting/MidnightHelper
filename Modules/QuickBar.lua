@@ -67,11 +67,17 @@ end
 --- two this button already offers. Two of three on the bar just sends people hunting
 --- for the third, so it belongs here whether or not the portrait can do it.
 ---
---- ⚠️ HOW is genuinely unknown. Solo in a delve there is no party to leave, so
---- `LeaveParty` may not be the call at all; the portrait menu might route through
---- something else entirely. Rather than pick a plausible one, try the candidates in
---- order and write down what the client offered, so a failed press produces a finding
---- instead of a shrug.
+--- ⚠️ `C_PartyInfo.DelveTeleportOut` — MEASURED, not guessed, and nothing like the
+--- names I would have tried.
+---
+--- The first version reasoned its way to `LeaveParty` and failed in Rob's delve. The
+--- scan (`/mh delveexit`, run from inside one) then showed why: he was solo in a
+--- SCENARIO, difficulty 208 "Delves", with a group of zero. There was no party to
+--- leave, and the real call sits two entries away from the one I picked.
+---
+--- The fallbacks stay for content that is not a delve, and the whole attempt list is
+--- still recorded — this addon has now been wrong twice about which call ends an
+--- instance, and a third time should leave evidence rather than silence.
 local function LeaveDelve()
 	local tried = {}
 
@@ -87,12 +93,18 @@ local function LeaveDelve()
 
 	local _, instance = PartyCategories()
 
-	-- An instance group is the likeliest home for a delve you queued into.
+	-- The delve's own exit, first.
+	if attempt("DelveTeleportOut", C_PartyInfo and C_PartyInfo.DelveTeleportOut) then
+		return
+	end
+	-- In a group inside an instance, leaving the instance group is the way out.
 	if instance ~= nil and attempt("LeaveParty(Instance)",
 			C_PartyInfo and C_PartyInfo.LeaveParty, instance) then
 		return
 	end
-	-- Solo: some content exits through the same call with no category.
+	if attempt("LeaveInstanceParty", _G.LeaveInstanceParty) then
+		return
+	end
 	if attempt("LeaveParty()", C_PartyInfo and C_PartyInfo.LeaveParty) then
 		return
 	end
