@@ -2745,6 +2745,7 @@ fill("deDE", {
 	MH_SETUP_BTN_PADKEYS = "Daumentasten auf Leiste 8",
 	MH_SETUP_NOTE_PADKEYS = "Für eine Maus, deren Daumenpad 6 7 8 9 0 - sendet \194\183 lässt Vorhandenes stehen.",
 	PADKEYS_HOME = "zurück an seinen Platz",
+	PADKEYS_BLOCKED = "eine andere Taste zeigt bereits auf %s \194\183 sie verliert diese Belegung.",
 })
 
 fill("frFR", {
@@ -2848,6 +2849,7 @@ fill("frFR", {
 	MH_SETUP_BTN_PADKEYS = "Touches du pouce vers la barre 8",
 	MH_SETUP_NOTE_PADKEYS = "Pour une souris dont le pad envoie 6 7 8 9 0 - \194\183 conserve ce qui est déjà en place.",
 	PADKEYS_HOME = "à sa place d’origine",
+	PADKEYS_BLOCKED = "une autre touche pointe déjà vers %s \194\183 elle perdra cette attribution.",
 })
 
 fill("esES", {
@@ -2951,6 +2953,7 @@ fill("esES", {
 	MH_SETUP_BTN_PADKEYS = "Teclas del pulgar a la barra 8",
 	MH_SETUP_NOTE_PADKEYS = "Para un ratón cuyo pad envía 6 7 8 9 0 - \194\183 respeta lo que ya está puesto.",
 	PADKEYS_HOME = "de vuelta a su sitio",
+	PADKEYS_BLOCKED = "otra tecla ya apunta a %s \194\183 perderá esa asignación.",
 })
 
 fill("ptBR", {
@@ -3054,6 +3057,7 @@ fill("ptBR", {
 	MH_SETUP_BTN_PADKEYS = "Teclas do polegar para a barra 8",
 	MH_SETUP_NOTE_PADKEYS = "Para um mouse cujo pad envia 6 7 8 9 0 - \194\183 mantém o que já existe.",
 	PADKEYS_HOME = "de volta ao seu lugar",
+	PADKEYS_BLOCKED = "outra tecla já aponta para %s \194\183 ela perderá esse atalho.",
 })
 
 fill("itIT", {
@@ -3157,5 +3161,6 @@ fill("itIT", {
 	MH_SETUP_BTN_PADKEYS = "Tasti del pollice sulla barra 8",
 	MH_SETUP_NOTE_PADKEYS = "Per un mouse il cui pad invia 6 7 8 9 0 - \194\183 lascia stare quello che c’è già.",
 	PADKEYS_HOME = "di nuovo al suo posto",
+	PADKEYS_BLOCKED = "un altro tasto punta già a %s \194\183 perderà quell’assegnazione.",
 })
 

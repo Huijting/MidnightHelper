@@ -28,6 +28,22 @@ local _, ns = ...
 --- The keys, in the order the thumb pad has them.
 local PAD_KEYS = { "6", "7", "8", "9", "0", "-" }
 
+--- ⚠️ THE ORDER IS THE POINT, and I had it backwards.
+---
+--- First version placed a loose key in the lowest free button; second version put it
+--- back where it had been. Rob then showed what he actually wants, which is neither:
+--- 6 7 on the top row, 8 9 in the middle, 0 - at the bottom — the pad read the way the
+--- thumb moves. His bar happened to hold them in the opposite order, so "leave what is
+--- there" was protecting the arrangement he wanted changed.
+---
+--- On a 12-button bar drawn as 3 rows of 4, the left-hand pair of each row is buttons
+--- 1-2, 5-6 and 9-10. That is the layout in his screenshot and the default here.
+---
+--- ⚠️ A DEFAULT, NOT A LAW. Somebody with one row of 12 wants 1-6 instead. The plan is
+--- printed before anything moves, so a layout this does not suit is visible rather than
+--- discovered afterwards — and `/mh apply undo` puts it back.
+local HOME_BUTTONS = { 1, 2, 5, 6, 9, 10 }
+
 local BAR8_PREFIX = "MULTIACTIONBAR7BUTTON"
 local BAR8_BUTTONS = 12
 
@@ -135,13 +151,17 @@ function ns.MH_PadKeysApply(confirmed)
 		return
 	end
 
+	--- Every key gets its ordered home; only the ones already there are left alone.
+	--- "On bar 8 somewhere" is not good enough — being on the wrong button of the right
+	--- bar is exactly the state Rob is trying to fix.
 	local todo, already = {}, 0
-	for _, key in ipairs(PAD_KEYS) do
-		local command, isBar8 = Current(key)
-		if isBar8 then
+	for i, key in ipairs(PAD_KEYS) do
+		local want = CommandFor(HOME_BUTTONS[i] or i)
+		local command = Current(key)
+		if command == want then
 			already = already + 1
 		else
-			todo[#todo + 1] = { key = key, was = command }
+			todo[#todo + 1] = { key = key, was = command, target = want }
 		end
 	end
 
@@ -150,52 +170,41 @@ function ns.MH_PadKeysApply(confirmed)
 		return
 	end
 
-	--- Home first, lowest free second. A key MH has seen on bar 8 goes back exactly
-	--- there; only one it has never placed takes whatever is going.
-	local free = FreeButtons()
-	local freeSet = {}
-	for _, c in ipairs(free) do
-		freeSet[c] = true
+	--- ⚠️ Another pad key may be sitting on the button this one wants. That is normal
+	--- when the whole set is being reordered — all six are rebound in one pass, so a
+	--- collision between two of them resolves itself. Only a NON-pad binding in the way
+	--- is a real obstruction, and it is named rather than quietly overwritten.
+	local padKey = {}
+	for _, k in ipairs(PAD_KEYS) do
+		padKey[k] = true
 	end
-	local store = HomeStore() or {}
-	local nextFree = 1
-	for _, row in ipairs(todo) do
-		local home = store[row.key]
-		if home and freeSet[home] then
-			row.target = home
-			freeSet[home] = nil
+	local blocked = {}
+	if GetNumBindings and GetBinding then
+		local wanted = {}
+		for _, row in ipairs(todo) do
+			wanted[row.target] = row.key
 		end
-	end
-	for _, row in ipairs(todo) do
-		if not row.target then
-			while nextFree <= #free and not freeSet[free[nextFree]] do
-				nextFree = nextFree + 1
-			end
-			if nextFree <= #free then
-				row.target = free[nextFree]
-				freeSet[free[nextFree]] = nil
+		for i = 1, (GetNumBindings() or 0) do
+			local okB, command, _, k1, k2 = pcall(GetBinding, i)
+			if okB and wanted[command] then
+				for _, k in ipairs({ k1, k2 }) do
+					if k and k ~= "" and not padKey[k] then
+						blocked[#blocked + 1] = ("%s (%s)"):format(command, k)
+					end
+				end
 			end
 		end
-	end
-
-	local placeable = 0
-	for _, row in ipairs(todo) do
-		if row.target then
-			placeable = placeable + 1
-		end
-	end
-	if placeable < #todo then
-		print(("%s %s"):format(Prefix(), (ns:L("PADKEYS_NO_ROOM")):format(placeable, #todo)))
-		return
 	end
 
 	if not confirmed then
 		print(("%s %s"):format(Prefix(), (ns:L("PADKEYS_PLAN")):format(#todo)))
 		for _, row in ipairs(todo) do
-			print(("   |cffffd100%-3s|r -> %s%s%s"):format(
+			print(("   |cffffd100%-3s|r -> %s%s"):format(
 				row.key, row.target,
-				(store[row.key] == row.target) and ("   |cff40c040" .. ns:L("PADKEYS_HOME") .. "|r") or "",
 				row.was and ("   |cff9d9d9d(" .. ns:L("PADKEYS_WAS") .. " " .. row.was .. ")|r") or ""))
+		end
+		for _, b in ipairs(blocked) do
+			print("   |cffff9900" .. (ns:L("PADKEYS_BLOCKED")):format(b) .. "|r")
 		end
 		print("   |cff9d9d9d" .. ns:L("PADKEYS_PLAN_GO") .. "|r")
 		return

@@ -1564,6 +1564,7 @@ ns._mhLocales.enUS = {
 	PADKEYS_PLAN = "%d key(s) would move to bar 8. Nothing has changed:",
 	PADKEYS_WAS = "now",
 	PADKEYS_HOME = "back where it was",
+	PADKEYS_BLOCKED = "another key already points at %s \194\183 it will lose that binding.",
 	PADKEYS_PLAN_GO = "Press the button again to do it.",
 	PADKEYS_DONE = "%d key(s) now point at bar 8.",
 	PADKEYS_UNDO = "/mh apply undo puts them back.",

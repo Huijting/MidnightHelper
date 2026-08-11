@@ -1416,6 +1416,7 @@ ns._mhLocales.nlNL = {
 	PADKEYS_PLAN = "%d toets(en) zouden naar balk 8 gaan. Er is niets veranderd:",
 	PADKEYS_WAS = "nu",
 	PADKEYS_HOME = "terug op zijn eigen plek",
+	PADKEYS_BLOCKED = "een andere toets wijst al naar %s \194\183 die raakt zijn binding kwijt.",
 	PADKEYS_PLAN_GO = "Druk nog een keer op de knop om het te doen.",
 	PADKEYS_DONE = "%d toets(en) wijzen nu naar balk 8.",
 	PADKEYS_UNDO = "/mh apply undo zet ze terug.",
