@@ -61,6 +61,51 @@ local function LeaveGroup(category)
 	end
 end
 
+--- Leave a delve.
+---
+--- Rob pointed out that leaving IS available from your portrait — and so are the other
+--- two this button already offers. Two of three on the bar just sends people hunting
+--- for the third, so it belongs here whether or not the portrait can do it.
+---
+--- ⚠️ HOW is genuinely unknown. Solo in a delve there is no party to leave, so
+--- `LeaveParty` may not be the call at all; the portrait menu might route through
+--- something else entirely. Rather than pick a plausible one, try the candidates in
+--- order and write down what the client offered, so a failed press produces a finding
+--- instead of a shrug.
+local function LeaveDelve()
+	local tried = {}
+
+	local function attempt(label, fn, ...)
+		if type(fn) ~= "function" then
+			tried[#tried + 1] = label .. "=absent"
+			return false
+		end
+		local ok, err = pcall(fn, ...)
+		tried[#tried + 1] = label .. (ok and "=ok" or ("=error:" .. tostring(err)))
+		return ok
+	end
+
+	local _, instance = PartyCategories()
+
+	-- An instance group is the likeliest home for a delve you queued into.
+	if instance ~= nil and attempt("LeaveParty(Instance)",
+			C_PartyInfo and C_PartyInfo.LeaveParty, instance) then
+		return
+	end
+	-- Solo: some content exits through the same call with no category.
+	if attempt("LeaveParty()", C_PartyInfo and C_PartyInfo.LeaveParty) then
+		return
+	end
+
+	--- Nothing worked. Say so, and keep the attempt list for the next look — this is
+	--- exactly the kind of question `/mh` probes exist to answer, and a delve is the
+	--- only place it can be asked.
+	if ns.db then
+		ns.db.leaveDelveProbe = { at = time(), tried = tried }
+	end
+	print(Prefix() .. " " .. ns:L("QUICKBAR_DELVE_UNKNOWN"))
+end
+
 --- Buttons, in order. `atlas` first because a missing texture file is a black square,
 --- while a missing atlas simply draws nothing.
 local ACTIONS = {
@@ -111,10 +156,12 @@ local ACTIONS = {
 		id = "leave",
 		icon = "Interface\\Buttons\\UI-GroupLoot-Pass-Up",
 		titleKey = "QUICKBAR_LEAVE",
-		linesKey = { "QUICKBAR_LEAVE_L", "QUICKBAR_LEAVE_R" },
+		linesKey = { "QUICKBAR_LEAVE_L", "QUICKBAR_LEAVE_R", "QUICKBAR_LEAVE_S" },
 		OnClick = function(_, button)
 			local home, instance = PartyCategories()
-			if button == "RightButton" then
+			if IsShiftKeyDown and IsShiftKeyDown() then
+				LeaveDelve()
+			elseif button == "RightButton" then
 				LeaveGroup(instance)
 			else
 				LeaveGroup(home)

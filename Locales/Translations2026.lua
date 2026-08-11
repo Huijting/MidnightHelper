@@ -2749,6 +2749,8 @@ fill("deDE", {
 	PADKEYS_NO_QUICKBIND = "dieser Client wollte den Schnellbelegungsmodus nicht öffnen \194\183 Escape \194\187 Optionen \194\187 Tastenbelegung.",
 	MH_SETUP_BTN_QUICKBIND = "Tasten von Hand belegen",
 	MH_SETUP_NOTE_QUICKBIND = "Blizzards Schnellbelegung \194\183 auf einen Knopf zeigen, Taste drücken.",
+	QUICKBAR_LEAVE_S = "Shift-Klick: Delve verlassen.",
+	QUICKBAR_DELVE_UNKNOWN = "dieser Client hat die Delve nicht losgelassen \194\183 nutze das Porträtmenü. Was versucht wurde, steht in der DB.",
 })
 
 fill("frFR", {
@@ -2856,6 +2858,8 @@ fill("frFR", {
 	PADKEYS_NO_QUICKBIND = "ce client n’a pas ouvert le mode d’attribution rapide \194\183 Échap \194\187 Options \194\187 Raccourcis.",
 	MH_SETUP_BTN_QUICKBIND = "Attribuer à la main",
 	MH_SETUP_NOTE_QUICKBIND = "Attribution rapide de Blizzard \194\183 survolez un bouton, appuyez sur une touche.",
+	QUICKBAR_LEAVE_S = "Maj+clic : quitter une delve.",
+	QUICKBAR_DELVE_UNKNOWN = "ce client n’a pas quitté la delve \194\183 utilisez le menu du portrait. Les tentatives sont écrites dans la DB.",
 })
 
 fill("esES", {
@@ -2963,6 +2967,8 @@ fill("esES", {
 	PADKEYS_NO_QUICKBIND = "este cliente no abrió el modo de asignación rápida \194\183 Escape \194\187 Opciones \194\187 Atajos.",
 	MH_SETUP_BTN_QUICKBIND = "Asignar teclas a mano",
 	MH_SETUP_NOTE_QUICKBIND = "Asignación rápida de Blizzard \194\183 señala un botón y pulsa una tecla.",
+	QUICKBAR_LEAVE_S = "Mayús+clic: abandonar una delve.",
+	QUICKBAR_DELVE_UNKNOWN = "este cliente no soltó la delve \194\183 usa el menú del retrato. Lo intentado queda en la DB.",
 })
 
 fill("ptBR", {
@@ -3070,6 +3076,8 @@ fill("ptBR", {
 	PADKEYS_NO_QUICKBIND = "este cliente não abriu o modo de atalho rápido \194\183 Esc \194\187 Opções \194\187 Atalhos.",
 	MH_SETUP_BTN_QUICKBIND = "Definir teclas à mão",
 	MH_SETUP_NOTE_QUICKBIND = "Atalho rápido da Blizzard \194\183 aponte um botão e pressione uma tecla.",
+	QUICKBAR_LEAVE_S = "Shift+clique: sair de uma delve.",
+	QUICKBAR_DELVE_UNKNOWN = "este cliente não soltou a delve \194\183 use o menu do retrato. O que foi tentado fica na DB.",
 })
 
 fill("itIT", {
@@ -3177,5 +3185,7 @@ fill("itIT", {
 	PADKEYS_NO_QUICKBIND = "questo client non ha aperto la modalità di assegnazione rapida \194\183 Esc \194\187 Opzioni \194\187 Scorciatoie.",
 	MH_SETUP_BTN_QUICKBIND = "Assegna i tasti a mano",
 	MH_SETUP_NOTE_QUICKBIND = "Assegnazione rapida di Blizzard \194\183 punta un pulsante, premi un tasto.",
+	QUICKBAR_LEAVE_S = "Maiusc+clic: esci da una delve.",
+	QUICKBAR_DELVE_UNKNOWN = "questo client non ha lasciato la delve \194\183 usa il menù del ritratto. I tentativi sono scritti nel DB.",
 })
 
