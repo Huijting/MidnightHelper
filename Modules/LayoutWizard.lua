@@ -23,7 +23,7 @@ local _, ns = ...
 
 -- Wider than it looks like it needs: the buttons size themselves to the longest
 -- translated label (see Build), and the notes sit to their right.
-local PANEL_W, PANEL_H = 520, 494
+local PANEL_W, PANEL_H = 520, 524
 
 local panel
 
@@ -289,6 +289,22 @@ local function Build()
 			ns.MH_ApplyBarPreset(false)
 		end
 	end), ns:L("MH_SETUP_NOTE_PRESET"))
+
+	--- ⚠️ TWO UNDOS, AND THEY ARE NOT THE SAME UNDO.
+	---
+	--- The panel already had a button called "Undo" — it reverses the last spell/key
+	--- action. Applying the bar preset is a different kind of change, and its way back
+	--- is `/mh editmode restore`, a command that appeared nowhere on screen. Rob asked
+	--- for exactly this: if it does not suit you, there has to be a button.
+	---
+	--- So the bar undo sits directly under the bar preset, where somebody who just
+	--- pressed one looks for the other. Both keep their own wording so nobody has to
+	--- guess which of the two they are pressing.
+	Row(MakeButton(f, ns:L("MH_SETUP_BTN_BARSBACK"), function()
+		if ns.MH_EditModeRestore then
+			ns.MH_EditModeRestore()
+		end
+	end), ns:L("MH_SETUP_NOTE_BARSBACK"))
 
 	Row(MakeButton(f, ns:L("MH_SETUP_BTN_EXPORT"), function()
 		if ns.MH_EditModeExport then

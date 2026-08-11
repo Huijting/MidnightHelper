@@ -2661,7 +2661,7 @@ fill("deDE", {
 	MH_SETUP_BTN_PLAN = "Wohin gehören meine Leisten?",
 	MH_SETUP_NOTE_PLAN = "Breiten und Reihenfolge für diesen Charakter.",
 	MH_SETUP_BTN_UNDO = "Rückgängig",
-	MH_SETUP_NOTE_UNDO = "Nimmt den letzten Schritt zurück.",
+	MH_SETUP_NOTE_UNDO = "Nimmt den letzten Zauber-/Tasten-Schritt zurück.",
 	MH_SETUP_CONFIRM = "Sicher? Nochmal klicken",
 	MH_SETUP_FOOT = "Neu anfangen? Schritt 3, dann Schritt 2. Im Zweifel Schritt 1 lesen.",
 	MH_SETUP_BTN_CHARSET = "Eigene Tasten für diesen Charakter",
@@ -2718,6 +2718,8 @@ fill("deDE", {
 	MH_SETUP_NOTE_PRESET = "Setzt Leisten 1-8 dorthin, wo das Schema sie haben will.",
 	MH_SETUP_BTN_EXPORT = "Mein Leisten-Layout kopieren",
 	MH_SETUP_NOTE_EXPORT = "Eine Zeichenkette zum Teilen oder Aufheben. Nur Leisten 1-8.",
+	MH_SETUP_BTN_BARSBACK = "Meine Leisten zurück",
+	MH_SETUP_NOTE_BARSBACK = "Macht das Leisten-Layout oben rückgängig \194\183 nicht deine Zauber.",
 })
 
 fill("frFR", {
@@ -2737,7 +2739,7 @@ fill("frFR", {
 	MH_SETUP_BTN_PLAN = "Où vont mes barres ?",
 	MH_SETUP_NOTE_PLAN = "Largeurs et ordre pour ce personnage.",
 	MH_SETUP_BTN_UNDO = "Annuler",
-	MH_SETUP_NOTE_UNDO = "Remet la dernière étape en place.",
+	MH_SETUP_NOTE_UNDO = "Annule la dernière étape sorts/touches.",
 	MH_SETUP_CONFIRM = "Sûr ? Cliquez encore",
 	MH_SETUP_FOOT = "Vous recommencez ? Étape 3, puis étape 2. Lisez l’étape 1 en cas de doute.",
 	MH_SETUP_BTN_CHARSET = "Des touches propres à ce personnage",
@@ -2794,6 +2796,8 @@ fill("frFR", {
 	MH_SETUP_NOTE_PRESET = "Place les barres 1-8 là où le schéma les veut.",
 	MH_SETUP_BTN_EXPORT = "Copier ma disposition",
 	MH_SETUP_NOTE_EXPORT = "Une chaîne à partager ou à garder. Barres 1-8 uniquement.",
+	MH_SETUP_BTN_BARSBACK = "Remettre mes barres",
+	MH_SETUP_NOTE_BARSBACK = "Annule la disposition ci-dessus \194\183 pas vos sorts.",
 })
 
 fill("esES", {
@@ -2813,7 +2817,7 @@ fill("esES", {
 	MH_SETUP_BTN_PLAN = "¿Dónde van mis barras?",
 	MH_SETUP_NOTE_PLAN = "Anchos y orden para este personaje.",
 	MH_SETUP_BTN_UNDO = "Deshacer",
-	MH_SETUP_NOTE_UNDO = "Devuelve el último paso.",
+	MH_SETUP_NOTE_UNDO = "Devuelve el último paso de hechizos/teclas.",
 	MH_SETUP_CONFIRM = "¿Seguro? Haz clic otra vez",
 	MH_SETUP_FOOT = "¿Empiezas de nuevo? Paso 3 y luego paso 2. Lee el paso 1 si dudas.",
 	MH_SETUP_BTN_CHARSET = "Teclas propias para este personaje",
@@ -2870,6 +2874,8 @@ fill("esES", {
 	MH_SETUP_NOTE_PRESET = "Coloca las barras 1-8 donde las quiere el esquema.",
 	MH_SETUP_BTN_EXPORT = "Copiar mi distribución",
 	MH_SETUP_NOTE_EXPORT = "Una cadena para compartir o guardar. Solo barras 1-8.",
+	MH_SETUP_BTN_BARSBACK = "Devolver mis barras",
+	MH_SETUP_NOTE_BARSBACK = "Deshace la distribución de arriba \194\183 no tus hechizos.",
 })
 
 fill("ptBR", {
@@ -2889,7 +2895,7 @@ fill("ptBR", {
 	MH_SETUP_BTN_PLAN = "Onde ficam minhas barras?",
 	MH_SETUP_NOTE_PLAN = "Larguras e ordem para este personagem.",
 	MH_SETUP_BTN_UNDO = "Desfazer",
-	MH_SETUP_NOTE_UNDO = "Devolve o último passo.",
+	MH_SETUP_NOTE_UNDO = "Devolve o último passo de magias/teclas.",
 	MH_SETUP_CONFIRM = "Tem certeza? Clique de novo",
 	MH_SETUP_FOOT = "Começando de novo? Passo 3, depois passo 2. Na dúvida, leia o passo 1.",
 	MH_SETUP_BTN_CHARSET = "Teclas próprias para este personagem",
@@ -2946,6 +2952,8 @@ fill("ptBR", {
 	MH_SETUP_NOTE_PRESET = "Coloca as barras 1-8 onde o esquema quer.",
 	MH_SETUP_BTN_EXPORT = "Copiar meu layout de barras",
 	MH_SETUP_NOTE_EXPORT = "Uma string para compartilhar ou guardar. Apenas barras 1-8.",
+	MH_SETUP_BTN_BARSBACK = "Devolver minhas barras",
+	MH_SETUP_NOTE_BARSBACK = "Desfaz o layout de barras acima \194\183 não suas magias.",
 })
 
 fill("itIT", {
@@ -2965,7 +2973,7 @@ fill("itIT", {
 	MH_SETUP_BTN_PLAN = "Dove vanno le mie barre?",
 	MH_SETUP_NOTE_PLAN = "Larghezze e ordine per questo personaggio.",
 	MH_SETUP_BTN_UNDO = "Annulla",
-	MH_SETUP_NOTE_UNDO = "Rimette a posto l’ultimo passo.",
+	MH_SETUP_NOTE_UNDO = "Rimette a posto l’ultimo passo magie/tasti.",
 	MH_SETUP_CONFIRM = "Sicuro? Clicca di nuovo",
 	MH_SETUP_FOOT = "Ricominci? Passo 3, poi passo 2. Se hai dubbi leggi il passo 1.",
 	MH_SETUP_BTN_CHARSET = "Tasti propri per questo personaggio",
@@ -3022,5 +3030,7 @@ fill("itIT", {
 	MH_SETUP_NOTE_PRESET = "Mette le barre 1-8 dove le vuole lo schema.",
 	MH_SETUP_BTN_EXPORT = "Copia il mio layout",
 	MH_SETUP_NOTE_EXPORT = "Una stringa da condividere o conservare. Solo barre 1-8.",
+	MH_SETUP_BTN_BARSBACK = "Rimetti le mie barre",
+	MH_SETUP_NOTE_BARSBACK = "Annulla il layout delle barre qui sopra \194\183 non le tue magie.",
 })
 
