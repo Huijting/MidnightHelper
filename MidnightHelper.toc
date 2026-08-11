@@ -241,5 +241,6 @@ Modules\MountJournalSidePanel.lua
 Modules\EncounterJournalSidePanel.lua
 Addons\PlatynatorData.lua
 Addons\Platynator.lua
+Addons\DetailsProfile.lua
 Addons\Guide.lua
 Addons\Farstrider.lua

@@ -2723,6 +2723,14 @@ fill("deDE", {
 	QUICKBAR_MH = "Midnight Helper",
 	QUICKBAR_MH_L = "Linksklick: Hauptfenster öffnen.",
 	QUICKBAR_MH_R = "Rechtsklick: Einstellungen öffnen.",
+	DETAILS_TITLE = "Details! Schadensmesser \194\183 unser Profil",
+	DETAILS_INSTALLED = "Details! ist auf diesem Charakter installiert.",
+	DETAILS_MISSING = "Details! ist nicht installiert \194\183 dieses Profil hat noch kein Ziel.",
+	DETAILS_INTRO = "Ein Schadensmesser zeigt dir, was im Kampf passiert ist: wer den Schaden bekam, was dich getötet hat, ob ein Unterbrechen ankam. Midnight Helper bringt keinen mit und setzt auch keinen voraus.|n|nDies ist das Profil, das Rob nutzt \194\183 damit du kein Layout von Grund auf bauen musst. Es ist EINE Art, Details einzurichten, nicht DIE Art. Hier ändert sich nichts von selbst: du kopierst die Zeichenkette und fügst sie selbst in Details ein.",
+	DETAILS_STRING_LABEL = "Profil-Zeichenkette",
+	DETAILS_SELECT = "Zeichenkette markieren",
+	DETAILS_SELECTED = "Profil-Zeichenkette markiert \194\183 mit Strg+C kopieren.",
+	DETAILS_HOWTO = "In Details: Optionen öffnen, zu Profiles, Import wählen, einfügen und einen beliebigen Namen vergeben. Danach das Profil im Dropdown auswählen, um wirklich umzuschalten \194\183 Importieren allein aktiviert es nicht.",
 })
 
 fill("frFR", {
@@ -2804,6 +2812,14 @@ fill("frFR", {
 	QUICKBAR_MH = "Midnight Helper",
 	QUICKBAR_MH_L = "Clic gauche : ouvrir la fenêtre principale.",
 	QUICKBAR_MH_R = "Clic droit : ouvrir les paramètres.",
+	DETAILS_TITLE = "Details! compteur de dégâts \194\183 notre profil",
+	DETAILS_INSTALLED = "Details! est installé sur ce personnage.",
+	DETAILS_MISSING = "Details! n’est pas installé \194\183 ce profil n’a nulle part où aller.",
+	DETAILS_INTRO = "Un compteur de dégâts raconte ce qui s’est passé dans un combat : qui a pris les dégâts, ce qui vous a tué, si une interruption a fonctionné. Midnight Helper n’en contient pas et n’en exige pas.|n|nVoici le profil qu’utilise Rob, proposé pour vous éviter de tout construire. C’est UNE façon de configurer Details, pas LA façon. Rien ne change tout seul ici : vous copiez la chaîne et la collez vous-même dans Details.",
+	DETAILS_STRING_LABEL = "Chaîne de profil",
+	DETAILS_SELECT = "Sélectionner la chaîne",
+	DETAILS_SELECTED = "chaîne sélectionnée \194\183 Ctrl+C pour copier.",
+	DETAILS_HOWTO = "Dans Details : ouvrez les options, allez dans Profiles, choisissez Import, collez, donnez-lui le nom que vous voulez. Sélectionnez ensuite ce profil dans la liste pour y basculer \194\183 importer ne l’active pas.",
 })
 
 fill("esES", {
@@ -2885,6 +2901,14 @@ fill("esES", {
 	QUICKBAR_MH = "Midnight Helper",
 	QUICKBAR_MH_L = "Clic izquierdo: abrir la ventana principal.",
 	QUICKBAR_MH_R = "Clic derecho: abrir los ajustes.",
+	DETAILS_TITLE = "Details! medidor de daño \194\183 nuestro perfil",
+	DETAILS_INSTALLED = "Details! está instalado en este personaje.",
+	DETAILS_MISSING = "Details! no está instalado \194\183 este perfil no tiene dónde ir todavía.",
+	DETAILS_INTRO = "Un medidor de daño cuenta qué pasó en un combate: quién recibió el daño, qué te mató, si una interrupción funcionó. Midnight Helper no incluye ninguno ni lo exige.|n|nEste es el perfil que usa Rob, ofrecido para que no tengas que montar una distribución desde cero. Es UNA forma de configurar Details, no LA forma. Aquí no cambia nada solo: copias la cadena y la pegas tú en Details.",
+	DETAILS_STRING_LABEL = "Cadena de perfil",
+	DETAILS_SELECT = "Seleccionar la cadena",
+	DETAILS_SELECTED = "cadena seleccionada \194\183 pulsa Ctrl+C para copiar.",
+	DETAILS_HOWTO = "En Details: abre las opciones, ve a Profiles, elige Import, pega y ponle el nombre que quieras. Luego selecciona ese perfil en el desplegable para cambiar de verdad \194\183 importar no lo activa.",
 })
 
 fill("ptBR", {
@@ -2966,6 +2990,14 @@ fill("ptBR", {
 	QUICKBAR_MH = "Midnight Helper",
 	QUICKBAR_MH_L = "Clique esquerdo: abrir a janela principal.",
 	QUICKBAR_MH_R = "Clique direito: abrir as configurações.",
+	DETAILS_TITLE = "Details! medidor de dano \194\183 nosso perfil",
+	DETAILS_INSTALLED = "Details! está instalado neste personagem.",
+	DETAILS_MISSING = "Details! não está instalado \194\183 este perfil ainda não tem para onde ir.",
+	DETAILS_INTRO = "Um medidor de dano conta o que aconteceu no combate: quem levou o dano, o que te matou, se uma interrupção funcionou. O Midnight Helper não inclui um nem exige que você tenha.|n|nEste é o perfil que o Rob usa, oferecido para você não precisar montar tudo do zero. É UMA forma de configurar o Details, não A forma. Aqui nada muda sozinho: você copia a string e cola você mesmo no Details.",
+	DETAILS_STRING_LABEL = "String do perfil",
+	DETAILS_SELECT = "Selecionar a string",
+	DETAILS_SELECTED = "string selecionada \194\183 pressione Ctrl+C para copiar.",
+	DETAILS_HOWTO = "No Details: abra as opções, vá em Profiles, escolha Import, cole e dê o nome que quiser. Depois selecione esse perfil no menu para realmente trocar \194\183 importar sozinho não ativa.",
 })
 
 fill("itIT", {
@@ -3047,5 +3079,13 @@ fill("itIT", {
 	QUICKBAR_MH = "Midnight Helper",
 	QUICKBAR_MH_L = "Clic sinistro: apri la finestra principale.",
 	QUICKBAR_MH_R = "Clic destro: apri le impostazioni.",
+	DETAILS_TITLE = "Details! misuratore di danno \194\183 il nostro profilo",
+	DETAILS_INSTALLED = "Details! è installato su questo personaggio.",
+	DETAILS_MISSING = "Details! non è installato \194\183 questo profilo non ha ancora dove andare.",
+	DETAILS_INTRO = "Un misuratore di danno racconta cosa è successo in combattimento: chi ha preso il danno, cosa ti ha ucciso, se un interrupt è andato a segno. Midnight Helper non ne include uno e non lo richiede.|n|nQuesto è il profilo che usa Rob, offerto per non farti costruire un layout da zero. È UN modo di impostare Details, non IL modo. Qui non cambia nulla da solo: copi la stringa e la incolli tu in Details.",
+	DETAILS_STRING_LABEL = "Stringa del profilo",
+	DETAILS_SELECT = "Seleziona la stringa",
+	DETAILS_SELECTED = "stringa selezionata \194\183 premi Ctrl+C per copiare.",
+	DETAILS_HOWTO = "In Details: apri le opzioni, vai su Profiles, scegli Import, incolla e dagli il nome che vuoi. Poi seleziona quel profilo dal menù per passarci davvero \194\183 importare non lo attiva.",
 })
 
