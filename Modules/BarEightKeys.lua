@@ -39,6 +39,24 @@ local function CommandFor(index)
 	return BAR8_PREFIX .. tostring(index)
 end
 
+--- ⚠️ REMEMBER WHERE EACH KEY LIVES, because "a free button" is not "your button".
+---
+--- First version put a missing key into the lowest free button on bar 8. Rob unbound 6
+--- and 7 — which sat on buttons 9 and 10 — and got them back on 3 and 4, because those
+--- were free first. Tidy, and wrong: the spell under button 9 had not moved, so his
+--- thumb now pressed something else.
+---
+--- So MH writes down where a pad key is whenever it sees one on bar 8, and puts it back
+--- there. The player's arrangement is the arrangement; the lowest free button is only
+--- the fallback for a key that has never been placed.
+local function HomeStore()
+	if not ns.db then
+		return nil
+	end
+	ns.db.padKeyHome = ns.db.padKeyHome or {}
+	return ns.db.padKeyHome
+end
+
 --- Where a key currently points: the command, and whether that command is on bar 8.
 local function Current(key)
 	if not GetBindingAction then
@@ -48,7 +66,15 @@ local function Current(key)
 	if not ok or type(command) ~= "string" or command == "" then
 		return nil, false
 	end
-	return command, command:find(BAR8_PREFIX, 1, true) == 1
+	local onBar8 = command:find(BAR8_PREFIX, 1, true) == 1
+	if onBar8 then
+		-- Seen in place: this is its home from now on.
+		local store = HomeStore()
+		if store then
+			store[key] = command
+		end
+	end
+	return command, onBar8
 end
 
 --- Buttons on bar 8 that no key points at yet.
@@ -124,17 +150,51 @@ function ns.MH_PadKeysApply(confirmed)
 		return
 	end
 
+	--- Home first, lowest free second. A key MH has seen on bar 8 goes back exactly
+	--- there; only one it has never placed takes whatever is going.
 	local free = FreeButtons()
-	if #free < #todo then
-		print(("%s %s"):format(Prefix(), (ns:L("PADKEYS_NO_ROOM")):format(#free, #todo)))
+	local freeSet = {}
+	for _, c in ipairs(free) do
+		freeSet[c] = true
+	end
+	local store = HomeStore() or {}
+	local nextFree = 1
+	for _, row in ipairs(todo) do
+		local home = store[row.key]
+		if home and freeSet[home] then
+			row.target = home
+			freeSet[home] = nil
+		end
+	end
+	for _, row in ipairs(todo) do
+		if not row.target then
+			while nextFree <= #free and not freeSet[free[nextFree]] do
+				nextFree = nextFree + 1
+			end
+			if nextFree <= #free then
+				row.target = free[nextFree]
+				freeSet[free[nextFree]] = nil
+			end
+		end
+	end
+
+	local placeable = 0
+	for _, row in ipairs(todo) do
+		if row.target then
+			placeable = placeable + 1
+		end
+	end
+	if placeable < #todo then
+		print(("%s %s"):format(Prefix(), (ns:L("PADKEYS_NO_ROOM")):format(placeable, #todo)))
 		return
 	end
 
 	if not confirmed then
 		print(("%s %s"):format(Prefix(), (ns:L("PADKEYS_PLAN")):format(#todo)))
-		for i, row in ipairs(todo) do
-			print(("   |cffffd100%-3s|r -> %s%s"):format(
-				row.key, free[i],
+		for _, row in ipairs(todo) do
+			print(("   |cffffd100%-3s|r -> %s%s%s"):format(
+				row.key, row.target,
+				(store[row.key] == row.target) and ("   |cff40c040" .. ns:L("PADKEYS_HOME") .. "|r") or "",
 				row.was and ("   |cff9d9d9d(" .. ns:L("PADKEYS_WAS") .. " " .. row.was .. ")|r") or ""))
 		end
 		print("   |cff9d9d9d" .. ns:L("PADKEYS_PLAN_GO") .. "|r")
@@ -145,10 +205,15 @@ function ns.MH_PadKeysApply(confirmed)
 	--- than leaving a second kind of change with its own way back.
 	local snap = {}
 	local done = 0
-	for i, row in ipairs(todo) do
+	for _, row in ipairs(todo) do
 		snap[#snap + 1] = { key = row.key, was = row.was or "" }
-		if pcall(SetBinding, row.key, free[i]) then
+		if row.target and pcall(SetBinding, row.key, row.target) then
 			done = done + 1
+			-- Placed on purpose: that button is now this key's home.
+			local s = HomeStore()
+			if s then
+				s[row.key] = row.target
+			end
 		end
 	end
 	if GetCurrentBindingSet then

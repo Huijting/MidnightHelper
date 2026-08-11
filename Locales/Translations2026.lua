@@ -2744,6 +2744,7 @@ fill("deDE", {
 	PADKEYS_UNDO = "/mh apply undo stellt sie zurück.",
 	MH_SETUP_BTN_PADKEYS = "Daumentasten auf Leiste 8",
 	MH_SETUP_NOTE_PADKEYS = "Für eine Maus, deren Daumenpad 6 7 8 9 0 - sendet \194\183 lässt Vorhandenes stehen.",
+	PADKEYS_HOME = "zurück an seinen Platz",
 })
 
 fill("frFR", {
@@ -2846,6 +2847,7 @@ fill("frFR", {
 	PADKEYS_UNDO = "/mh apply undo les remet.",
 	MH_SETUP_BTN_PADKEYS = "Touches du pouce vers la barre 8",
 	MH_SETUP_NOTE_PADKEYS = "Pour une souris dont le pad envoie 6 7 8 9 0 - \194\183 conserve ce qui est déjà en place.",
+	PADKEYS_HOME = "à sa place d’origine",
 })
 
 fill("esES", {
@@ -2948,6 +2950,7 @@ fill("esES", {
 	PADKEYS_UNDO = "/mh apply undo las devuelve.",
 	MH_SETUP_BTN_PADKEYS = "Teclas del pulgar a la barra 8",
 	MH_SETUP_NOTE_PADKEYS = "Para un ratón cuyo pad envía 6 7 8 9 0 - \194\183 respeta lo que ya está puesto.",
+	PADKEYS_HOME = "de vuelta a su sitio",
 })
 
 fill("ptBR", {
@@ -3050,6 +3053,7 @@ fill("ptBR", {
 	PADKEYS_UNDO = "/mh apply undo devolve.",
 	MH_SETUP_BTN_PADKEYS = "Teclas do polegar para a barra 8",
 	MH_SETUP_NOTE_PADKEYS = "Para um mouse cujo pad envia 6 7 8 9 0 - \194\183 mantém o que já existe.",
+	PADKEYS_HOME = "de volta ao seu lugar",
 })
 
 fill("itIT", {
@@ -3152,5 +3156,6 @@ fill("itIT", {
 	PADKEYS_UNDO = "/mh apply undo li rimette.",
 	MH_SETUP_BTN_PADKEYS = "Tasti del pollice sulla barra 8",
 	MH_SETUP_NOTE_PADKEYS = "Per un mouse il cui pad invia 6 7 8 9 0 - \194\183 lascia stare quello che c’è già.",
+	PADKEYS_HOME = "di nuovo al suo posto",
 })
 
