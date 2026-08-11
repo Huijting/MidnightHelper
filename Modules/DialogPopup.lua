@@ -21,6 +21,73 @@ function ns.ApplyMidnightDialogBackdrop(frame)
 	frame:SetBackdropColor(0.06, 0.06, 0.1, 0.94)
 end
 
+local MIN_SCALE, MAX_SCALE, SCALE_STEP = 0.7, 1.6, 0.1
+
+--- Shift+scroll to resize, on every dialog rather than one of them.
+---
+--- The boss window has had this since Rob asked for it, and he has now asked again
+--- looking at the setup panel: "dat moet eigenlijk gewoon voor al onze schermen". He is
+--- right, and the reason it was not is that it was built into that one window instead of
+--- into the thing every window already calls.
+---
+--- ⚠️ Only with Shift held. Plain scroll belongs to whatever is under the cursor — a
+--- scroll frame, a list — and stealing it would break those.
+---
+--- ⚠️ Hook rather than replace. Some of these dialogs already handle the wheel; setting
+--- our own script would silently kill theirs, which is the class of bug this project
+--- keeps finding rather than causing.
+---
+--- Scale is remembered per frame name, so the panel someone made bigger stays bigger.
+local function AttachScaling(frame, name)
+	if frame._mhScalable then
+		return
+	end
+	frame._mhScalable = true
+
+	local function Saved()
+		if not ns.db then
+			return nil
+		end
+		ns.db.ui = ns.db.ui or {}
+		ns.db.ui.dialogScale = ns.db.ui.dialogScale or {}
+		return ns.db.ui.dialogScale
+	end
+
+	local store = Saved()
+	local remembered = store and tonumber(store[name])
+	if remembered then
+		pcall(frame.SetScale, frame, remembered)
+	end
+
+	local function OnWheel(self, delta)
+		if not (IsShiftKeyDown and IsShiftKeyDown()) then
+			return
+		end
+		local cur = (self.GetScale and self:GetScale()) or 1
+		local next_ = cur + (delta > 0 and SCALE_STEP or -SCALE_STEP)
+		if next_ < MIN_SCALE then
+			next_ = MIN_SCALE
+		elseif next_ > MAX_SCALE then
+			next_ = MAX_SCALE
+		end
+		if math.abs(next_ - cur) < 0.001 then
+			return
+		end
+		pcall(self.SetScale, self, next_)
+		local s = Saved()
+		if s then
+			s[name] = next_
+		end
+	end
+
+	frame:EnableMouseWheel(true)
+	if frame:GetScript("OnMouseWheel") then
+		frame:HookScript("OnMouseWheel", OnWheel)
+	else
+		frame:SetScript("OnMouseWheel", OnWheel)
+	end
+end
+
 function ns.RegisterMidnightDialogPopup(frame)
 	if not frame then
 		return
@@ -29,6 +96,10 @@ function ns.RegisterMidnightDialogPopup(frame)
 	frame:EnableMouse(true)
 	frame:SetClampedToScreen(true)
 	local name = frame.GetName and frame:GetName()
+	-- Scaling needs a name to remember it by; an anonymous dialog simply does not get it.
+	if name then
+		AttachScaling(frame, name)
+	end
 	if not name or type(UISpecialFrames) ~= "table" then
 		return
 	end
