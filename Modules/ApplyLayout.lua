@@ -1125,10 +1125,24 @@ function ns.MH_ApplyLayout(arg)
 		end
 		local reserved = ns.Keybind_ReservedBaseKeys and ns.Keybind_ReservedBaseKeys() or {}
 
+		--- ⚠️ A SECOND KEY ON A LIVE SLOT IS A CHOICE, NOT CRUFT.
+		---
+		--- This used to mark any key as dead when it pointed at one of our slots and was
+		--- not in the layout's own list. The intent, written in the warning above, was
+		--- always "bound to EMPTY slots" — but nothing checked that the slot was empty.
+		---
+		--- Rob asked whether he could put his interrupt on mouse 6 as well as its
+		--- assigned key. He can: WoW keeps two bindings per action, which is why the loop
+		--- below reads key1 AND key2. But the next `/mh apply clean` would have removed
+		--- the one he added by hand, because the allocator never assigned it — his own
+		--- deliberate choice, tidied away as rubbish.
+		---
+		--- So emptiness decides. A key onto a filled slot stays, whoever put it there.
 		local dead = {}
 		for i = 1, (GetNumBindings() or 0) do
 			local okB, command, _, key1, key2 = pcall(GetBinding, i)
-			if okB and command and commandSlot[command] and ours[commandSlot[command]] then
+			local slot = command and commandSlot[command]
+			if okB and slot and ours[slot] and SlotIsEmpty(slot) then
 				for _, key in ipairs({ key1, key2 }) do
 					if key and key ~= "" and not keep[key] then
 						local base = key:match("[^%-]+$") or key

@@ -23,7 +23,7 @@ local _, ns = ...
 
 -- Wider than it looks like it needs: the buttons size themselves to the longest
 -- translated label (see Build), and the notes sit to their right.
-local PANEL_W, PANEL_H = 520, 434
+local PANEL_W, PANEL_H = 520, 494
 
 local panel
 
@@ -277,6 +277,24 @@ local function Build()
 			ns.MH_ShowBarPlan()
 		end
 	end), ns:L("MH_SETUP_NOTE_PLAN"))
+
+	--- The bars themselves, which the panel could describe but never hand over.
+	---
+	--- Rob went looking for the export string here first, which is the right instinct
+	--- and it was not here — it lived behind `/mh editmode export`, a command you have
+	--- to know exists. The panel is where somebody is already standing when they wonder
+	--- about their bars.
+	Row(MakeButton(f, ns:L("MH_SETUP_BTN_PRESET"), function()
+		if ns.MH_ApplyBarPreset then
+			ns.MH_ApplyBarPreset(false)
+		end
+	end), ns:L("MH_SETUP_NOTE_PRESET"))
+
+	Row(MakeButton(f, ns:L("MH_SETUP_BTN_EXPORT"), function()
+		if ns.MH_EditModeExport then
+			ns.MH_EditModeExport()
+		end
+	end), ns:L("MH_SETUP_NOTE_EXPORT"))
 
 	Row(MakeButton(f, ns:L("MH_SETUP_BTN_UNDO"), function()
 		if ns.MH_ApplyLayout then

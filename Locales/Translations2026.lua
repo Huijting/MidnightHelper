@@ -2714,6 +2714,10 @@ fill("deDE", {
 	BARPRESET_PATCH = "|cffff9900Diese Layout-Zeichenkette stammt von %s, du bist auf %s.|r Blizzards Format ist patchgebunden; sie wird evtl. nicht gelesen.",
 	BARPRESET_PATCH_GO = "Trotzdem versuchen: /mh editmode preset go",
 	BARPRESET_APPLYING = "die empfohlene Leisten-Anordnung wird angewendet \194\183 nur Leisten 1-8, und /mh editmode restore stellt deine alte wieder her.",
+	MH_SETUP_BTN_PRESET = "Unser Leisten-Layout nutzen",
+	MH_SETUP_NOTE_PRESET = "Setzt Leisten 1-8 dorthin, wo das Schema sie haben will.",
+	MH_SETUP_BTN_EXPORT = "Mein Leisten-Layout kopieren",
+	MH_SETUP_NOTE_EXPORT = "Eine Zeichenkette zum Teilen oder Aufheben. Nur Leisten 1-8.",
 })
 
 fill("frFR", {
@@ -2786,6 +2790,10 @@ fill("frFR", {
 	BARPRESET_PATCH = "|cffff9900Cette chaîne de disposition a été créée sur %s et vous êtes sur %s.|r Le format de Blizzard dépend du patch ; elle peut ne pas être relue.",
 	BARPRESET_PATCH_GO = "Essayer quand même : /mh editmode preset go",
 	BARPRESET_APPLYING = "application de la disposition recommandée \194\183 barres 1-8 uniquement, et /mh editmode restore remet l’ancienne.",
+	MH_SETUP_BTN_PRESET = "Utiliser notre disposition",
+	MH_SETUP_NOTE_PRESET = "Place les barres 1-8 là où le schéma les veut.",
+	MH_SETUP_BTN_EXPORT = "Copier ma disposition",
+	MH_SETUP_NOTE_EXPORT = "Une chaîne à partager ou à garder. Barres 1-8 uniquement.",
 })
 
 fill("esES", {
@@ -2858,6 +2866,10 @@ fill("esES", {
 	BARPRESET_PATCH = "|cffff9900Esta cadena de distribución se creó en %s y tú estás en %s.|r El formato de Blizzard depende del parche; puede no leerse.",
 	BARPRESET_PATCH_GO = "Intentarlo igualmente: /mh editmode preset go",
 	BARPRESET_APPLYING = "aplicando la distribución recomendada \194\183 solo barras 1-8, y /mh editmode restore devuelve la anterior.",
+	MH_SETUP_BTN_PRESET = "Usar nuestra distribución",
+	MH_SETUP_NOTE_PRESET = "Coloca las barras 1-8 donde las quiere el esquema.",
+	MH_SETUP_BTN_EXPORT = "Copiar mi distribución",
+	MH_SETUP_NOTE_EXPORT = "Una cadena para compartir o guardar. Solo barras 1-8.",
 })
 
 fill("ptBR", {
@@ -2930,6 +2942,10 @@ fill("ptBR", {
 	BARPRESET_PATCH = "|cffff9900Esta string de layout foi feita no %s e você está no %s.|r O formato da Blizzard depende do patch; pode não ser lido.",
 	BARPRESET_PATCH_GO = "Tentar mesmo assim: /mh editmode preset go",
 	BARPRESET_APPLYING = "aplicando o layout de barras recomendado \194\183 apenas barras 1-8, e /mh editmode restore devolve o antigo.",
+	MH_SETUP_BTN_PRESET = "Usar nosso layout de barras",
+	MH_SETUP_NOTE_PRESET = "Coloca as barras 1-8 onde o esquema quer.",
+	MH_SETUP_BTN_EXPORT = "Copiar meu layout de barras",
+	MH_SETUP_NOTE_EXPORT = "Uma string para compartilhar ou guardar. Apenas barras 1-8.",
 })
 
 fill("itIT", {
@@ -3002,5 +3018,9 @@ fill("itIT", {
 	BARPRESET_PATCH = "|cffff9900Questa stringa di layout è stata creata su %s e tu sei su %s.|r Il formato di Blizzard dipende dalla patch; potrebbe non essere letto.",
 	BARPRESET_PATCH_GO = "Provare comunque: /mh editmode preset go",
 	BARPRESET_APPLYING = "applico il layout delle barre consigliato \194\183 solo barre 1-8, e /mh editmode restore rimette il precedente.",
+	MH_SETUP_BTN_PRESET = "Usa il nostro layout",
+	MH_SETUP_NOTE_PRESET = "Mette le barre 1-8 dove le vuole lo schema.",
+	MH_SETUP_BTN_EXPORT = "Copia il mio layout",
+	MH_SETUP_NOTE_EXPORT = "Una stringa da condividere o conservare. Solo barre 1-8.",
 })
 
