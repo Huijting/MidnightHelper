@@ -11,4 +11,11 @@
 	<Binding name="MIDNIGHTHELPER_CLEARROUTE" category="Midnight Helper " runOnUp="false">
 		MidnightHelper_KeybindClearRoute()
 	</Binding>
+	<!--
+		The two potion keys. `CLICK <frame>:LeftButton` is how a secure button becomes
+		bindable in Blizzard's own screen — no macro, no taint. See PotionButton.lua for
+		why these are not action-bar slots. Nothing is bound by default; the player picks.
+	-->
+	<Binding name="CLICK MidnightHelperHealPotion:LeftButton" category="Midnight Helper "></Binding>
+	<Binding name="CLICK MidnightHelperCombatPotion:LeftButton" category="Midnight Helper "></Binding>
 </Bindings>

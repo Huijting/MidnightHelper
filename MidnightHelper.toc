@@ -141,6 +141,7 @@ Modules\MouseDetect.lua
 Modules\TwinProbe.lua
 Modules\BarInventory.lua
 Modules\LayoutConsumables.lua
+Modules\PotionButton.lua
 Modules\EventProbe.lua
 Modules\EditModeBackup.lua
 Modules\SlotOwnership.lua

@@ -2691,6 +2691,11 @@ fill("deDE", {
 	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d Einstellung(en) mit \194\183 stehen im Schlachtzug nur höher, weil der Schlachtzug-Reiter noch auf Standard steht \194\183 du hast die normalen gesenkt und ihn nie geöffnet.|r",
 	BROKER_TOOLTIP_RELOAD = "Shift-Klick: Interface neu laden.",
 	BROKER_RELOAD_COMBAT = "kein Neuladen im Kampf \194\183 versuch es danach noch einmal.",
+	POTIONKEY_HEAL = "Heiltrank",
+	POTIONKEY_COMBAT = "Kampftrank",
+	POTIONKEY_NONE = "|cff9d9d9dkeiner in den Taschen|r",
+	POTIONKEY_UNBOUND = "|cff9d9d9dkeine Taste belegt|r",
+	POTIONKEY_WHERE = "Tasten unter Optionen \194\187 Tastenbelegung \194\187 Midnight Helper festlegen. Sie folgen dem Trank, den du dabeihast, und überstehen einen Leisten-Neuaufbau.",
 })
 
 fill("frFR", {
@@ -2740,6 +2745,11 @@ fill("frFR", {
 	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d paramètre(s) marqué(s) \194\183 ne sont plus élevés en raid que parce que l’onglet raid est resté par défaut \194\183 vous avez baissé les paramètres ordinaires sans jamais l’ouvrir.|r",
 	BROKER_TOOLTIP_RELOAD = "Maj+clic : recharger l’interface.",
 	BROKER_RELOAD_COMBAT = "pas de rechargement en combat \194\183 réessayez après.",
+	POTIONKEY_HEAL = "Potion de soins",
+	POTIONKEY_COMBAT = "Potion de combat",
+	POTIONKEY_NONE = "|cff9d9d9daucune dans vos sacs|r",
+	POTIONKEY_UNBOUND = "|cff9d9d9daucune touche définie|r",
+	POTIONKEY_WHERE = "Définissez les touches dans Options \194\187 Raccourcis \194\187 Midnight Helper. Elles suivent la potion que vous transportez et survivent à une reconstruction des barres.",
 })
 
 fill("esES", {
@@ -2789,6 +2799,11 @@ fill("esES", {
 	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d ajuste(s) con \194\183 solo están más altos en banda porque la pestaña de banda sigue en sus valores por defecto \194\183 bajaste los normales y nunca la abriste.|r",
 	BROKER_TOOLTIP_RELOAD = "Mayús+clic: recargar la interfaz.",
 	BROKER_RELOAD_COMBAT = "no se recarga en combate \194\183 inténtalo después.",
+	POTIONKEY_HEAL = "Poción de sanación",
+	POTIONKEY_COMBAT = "Poción de combate",
+	POTIONKEY_NONE = "|cff9d9d9dninguna en tus bolsas|r",
+	POTIONKEY_UNBOUND = "|cff9d9d9dsin tecla asignada|r",
+	POTIONKEY_WHERE = "Asigna las teclas en Opciones \194\187 Atajos \194\187 Midnight Helper. Siguen a la poción que lleves y sobreviven a una reconstrucción de barras.",
 })
 
 fill("ptBR", {
@@ -2838,6 +2853,11 @@ fill("ptBR", {
 	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d configuração(ões) com \194\183 só estão mais altas em raide porque a aba de raide continua nos padrões \194\183 você baixou as normais e nunca a abriu.|r",
 	BROKER_TOOLTIP_RELOAD = "Shift+clique: recarregar a interface.",
 	BROKER_RELOAD_COMBAT = "sem recarregar em combate \194\183 tente de novo depois.",
+	POTIONKEY_HEAL = "Poção de cura",
+	POTIONKEY_COMBAT = "Poção de combate",
+	POTIONKEY_NONE = "|cff9d9d9dnenhuma nas bolsas|r",
+	POTIONKEY_UNBOUND = "|cff9d9d9dsem tecla definida|r",
+	POTIONKEY_WHERE = "Defina as teclas em Opções \194\187 Atalhos \194\187 Midnight Helper. Elas seguem a poção que você carrega e sobrevivem a uma reconstrução das barras.",
 })
 
 fill("itIT", {
@@ -2887,5 +2907,10 @@ fill("itIT", {
 	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d impostazione/i con \194\183 sono più alte in incursione solo perché la scheda incursione è ancora sui valori predefiniti \194\183 hai abbassato quelle normali e non l’hai mai aperta.|r",
 	BROKER_TOOLTIP_RELOAD = "Maiusc+clic: ricarica l’interfaccia.",
 	BROKER_RELOAD_COMBAT = "niente ricarica in combattimento \194\183 riprova dopo.",
+	POTIONKEY_HEAL = "Pozione di cura",
+	POTIONKEY_COMBAT = "Pozione da combattimento",
+	POTIONKEY_NONE = "|cff9d9d9dnessuna nelle borse|r",
+	POTIONKEY_UNBOUND = "|cff9d9d9dnessun tasto impostato|r",
+	POTIONKEY_WHERE = "Imposta i tasti in Opzioni \194\187 Scorciatoie \194\187 Midnight Helper. Seguono la pozione che porti con te e sopravvivono a una ricostruzione delle barre.",
 })
 

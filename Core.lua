@@ -1171,6 +1171,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh potionkeys — which potion each bindable button points at, and its key.
+	if msg == "potionkeys" then
+		if ns.MH_PotionKeyReport then
+			ns.MH_PotionKeyReport()
+		end
+		return
+	end
+
 	-- /mh fps — read out the graphics settings (reads only, changes nothing).
 	if msg == "fps" then
 		if ns.MH_ShowFpsPanel then
