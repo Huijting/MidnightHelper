@@ -49,10 +49,30 @@ local ENTRY = {
 ns.CUSTOM_BOSS_ENTRIES = ns.CUSTOM_BOSS_ENTRIES or {}
 ns.CUSTOM_BOSS_ENTRIES[ENTRY.key] = ENTRY
 if type(ns.DUNGEON_TIPS) == "table" then
-	-- Empty tips table (no verified mechanics yet) — the window still opens and
-	-- shows the boss; per-boss step keys land in phase 2. never-lie: no invented
-	-- mechanics.
-	ns.DUNGEON_TIPS[ENTRY.key] = ns.DUNGEON_TIPS[ENTRY.key] or {}
+	--- Phase 2 (11 Aug): the ability NAMES, and nothing more than that.
+	---
+	--- DBM-Lairs-Midnight now registers six spells on this encounter, so the ids are
+	--- real. What each one DOES is not settled — DBM's own file carries "TODO, verify
+	--- it's actually personal" on the tank line and "TODO, is rush an aoe or something
+	--- you dodge or both?". Their mod revision is still 24 July, i.e. PTR data, not
+	--- launch data.
+	---
+	--- ⚠️ And a trap worth naming: every one of their six cooldown timers reads 20.5
+	--- seconds. That is a placeholder, not a measured cadence — six abilities do not
+	--- share a cast cycle to the half-second. So no timings are repeated here.
+	---
+	--- The text therefore lists what to expect and says plainly that it is a heads-up
+	--- rather than a strategy. `{SPELL:id}` renders the name from the client, so we are
+	--- not even inventing the spell names. Real steps after the first live run — the
+	--- same posture the Mindbreaker and Selen'vjar entries already take.
+	ns.DUNGEON_TIPS[ENTRY.key] = {
+		nymrissa = {
+			steps = "RAID_BOSS_NYMRISSA_STEPS",
+			tank = "RAID_BOSS_NYMRISSA_TANK",
+			healer = "RAID_BOSS_NYMRISSA_HEALER",
+			dps = "RAID_BOSS_NYMRISSA_DPS",
+		},
+	}
 end
 
 -- /mh-toegang loopt via de bestaande boss-window-picker; hier alleen de
