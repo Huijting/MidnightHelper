@@ -340,6 +340,57 @@ function ns.MH_Api12Probe()
 	end
 	probe:Hide()
 
+	--- ⚠️ "It exists" is not "we know what it says".
+	---
+	--- `C_Spell.IsSpellImportant` turned out to be present on 12.0.7 already, so MH could
+	--- use it today — but only once we know what it answers. DandersFrames draws an
+	--- "important" border with it, which tells us how THEY read it and nothing about
+	--- whether it agrees with our own interrupt and dispel lists.
+	---
+	--- So ask it about spells we already have an opinion on. Every id here is one this
+	--- addon names in a boss tip or a role toolkit, so agreement or disagreement is
+	--- directly meaningful: if Blizzard flags the same casts we tell people to kick,
+	--- their answer can replace our hand-built list and never go stale.
+	if _G.C_Spell and type(_G.C_Spell.IsSpellImportant) == "function" then
+		local verdicts = {}
+		local seen = {}
+		local function Ask(id)
+			id = tonumber(id)
+			if not id or seen[id] then
+				return
+			end
+			seen[id] = true
+			local okI, important = pcall(_G.C_Spell.IsSpellImportant, id)
+			local name
+			if _G.C_Spell.GetSpellName then
+				local okN, n = pcall(_G.C_Spell.GetSpellName, id)
+				name = okN and n or nil
+			end
+			verdicts[#verdicts + 1] = ("%d %s = %s"):format(
+				id, tostring(name or "?"), okI and tostring(important) or "error")
+		end
+
+		--- Spell ids MH already writes about, pulled out of the tip strings themselves
+		--- rather than duplicated here — a second list would drift from the first.
+		local packs = { ns._mhLocales and ns._mhLocales.enUS }
+		local count = 0
+		for _, pack in ipairs(packs) do
+			for key, value in pairs(pack or {}) do
+				if type(value) == "string" and type(key) == "string" and count < 40 then
+					for id in value:gmatch("{SPELL:(%d+)}") do
+						Ask(id)
+						count = count + 1
+						if count >= 40 then
+							break
+						end
+					end
+				end
+			end
+		end
+		out.importantVerdicts = verdicts
+		out.importantAsked = #verdicts
+	end
+
 	ns.db.api12Probe = out
 
 	local present, absent = {}, {}
