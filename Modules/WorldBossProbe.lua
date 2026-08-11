@@ -122,7 +122,8 @@ function ns.MH_WorldBossProbe()
 	end
 
 	-- 2. Per zone: everything the map offers, ours or not ---------------------
-	for _, mapID in ipairs({ 2395, 2437, 2413, 2405, 2576 }) do
+	-- 2512 = The Coiled Isle, captured from the map tree on the first run.
+	for _, mapID in ipairs({ 2395, 2437, 2413, 2405, 2576, 2512 }) do
 		local zone = { mapID = mapID, tasks = {} }
 
 		local info = Ask(C_Map and C_Map.GetMapInfo, mapID)
@@ -157,6 +158,14 @@ function ns.MH_WorldBossProbe()
 						title = QuestTitle(qid),
 						x = poi.x,
 						y = poi.y,
+						--- ⚠️ A POI carries its OWN mapID, which need not be the map you
+						--- asked. The first run dropped this field and I read the lair's
+						--- 0.9584/0.5563 as Zul'Aman coordinates — the route button then
+						--- announced "Target: Zul'Aman" for something the Adventure Guide
+						--- places on The Coiled Isle. Coordinates without their map are
+						--- not coordinates.
+						poiMapID = poi.mapID,
+						askedMapID = mapID,
 					}
 				end
 			end

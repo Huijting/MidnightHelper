@@ -394,7 +394,15 @@ end
 -- Quel'Thalas region vs Harandar vs Voidstorm (Phase 60 — same group = no travel nag).
 function ns.GetRegionGroupID(mapID)
 	local mid = tonumber(mapID)
-	if mid == 2393 or mid == 2576 or mid == 2424 or mid == 2395 or mid == 2437 then
+	--- 2512 = The Coiled Isle (12.1), sitting under Quel'Thalas next to Zul'Aman.
+	---
+	--- ⚠️ An unknown map falls through to group 0, and the caller's "same region, stay
+	--- quiet" check explicitly skips group 0 — so a new zone does not merely miss the
+	--- grouping, it actively triggers the travel popup. Rob got "Distance: Very Far" and
+	--- a portal suggestion while standing 954 yards from the target. Any zone Blizzard
+	--- adds does this until it is listed here.
+	if mid == 2393 or mid == 2576 or mid == 2424 or mid == 2395 or mid == 2437
+		or mid == 2512 then
 		return 1
 	end
 	if mid == 2413 then
@@ -414,6 +422,7 @@ local MIDNIGHT_OVERWORLD_MAPS = {
 	[2395] = true,
 	[2437] = true,
 	[2424] = true,
+	[2512] = true, -- The Coiled Isle (12.1)
 }
 
 local TRAVEL_ARRIVAL_YARDS = 400
