@@ -36,22 +36,30 @@ local ENTRY = {
 	key = "raid_tideboundgrotto",
 	name = "The Tidebound Grotto",
 
-	--- ⚠️ MEASURED ON THE PTR, 11 Aug — and not where anyone expected.
+	--- ⚠️ MEASURED ON THE PTR, 11 Aug, and corrected once — the correction is the
+	--- interesting part.
 	---
-	--- `/mh worldboss` dumped every task quest per zone and Zul'Aman came back with
-	--- `97128 "Lair: Nymrissa Wavecaller"` at 0.9584 / 0.5563. So the way IN is a
-	--- summoning stone on the Zul'Aman coast, not on The Coiled Isle — the instance
-	--- itself is uiMapID 2987 (DBM's SetZone), which is a different thing from where
-	--- you stand to enter it. Guessing the Coiled Isle would have sent players to the
-	--- wrong continent-corner and looked entirely reasonable doing it.
+	--- `/mh worldboss` dumps every task quest per zone. Asking Zul'Aman returned
+	--- `97128 "Lair: Nymrissa Wavecaller"` at 95.84 / 55.63, so that is what went in
+	--- here first. Asking The Coiled Isle returned the SAME quest with the SAME
+	--- `poi.mapID` at 59.99 / 66.20 — because those coordinates are expressed in
+	--- whichever map you queried, while `poi.mapID` only says where the thing lives.
+	---
+	--- Both waypoints land on the same spot, so the first one worked and hid its own
+	--- mistake; Rob walked 954 yards to it. But it announced "Target: Zul'Aman" for a
+	--- place on The Coiled Isle, and that is the version a player has to make sense of.
+	--- Rob's own screenshot settles it: he stood at 60.1 / 66.4 on the Coiled Isle map.
+	---
+	--- The instance behind the door is uiMapID 2987 (DBM's SetZone) — a third id again,
+	--- and not somewhere you can put a waypoint.
 	---
 	--- The quest id travels with the coordinates so the tooltip can say whether the
 	--- client currently sees this lair as active, instead of implying the arrow
 	--- guarantees something. Before 18 Aug on live it will not be.
 	route = {
-		mapID = 2437, -- Zul'Aman
-		x = 95.84,
-		y = 55.63,
+		mapID = 2512, -- The Coiled Isle
+		x = 59.99,
+		y = 66.20,
 		questID = 97128,
 	},
 

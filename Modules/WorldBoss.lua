@@ -403,8 +403,23 @@ local function ScanTaskQuestMap(mapID)
 		local poi = tasks[ti]
 		local qid = poi and (poi.questID or poi.questId)
 		if qid then
-			local poiMap = tonumber(poi.mapID) or mapID
-			local boss = BossFromQuestId(qid, poi.x, poi.y, poiMap)
+			--- ⚠️ THE COORDINATES BELONG TO THE MAP YOU ASKED, NOT TO `poi.mapID`.
+			---
+			--- This line used to pair `poi.x/poi.y` with `poi.mapID`, which reads as the
+			--- careful thing to do and is exactly wrong. Measured on the PTR, 11 Aug, by
+			--- asking for the same quest twice:
+			---
+			---     asked 2437 (Zul'Aman)     -> poi.mapID 2512, x/y 95.84 / 55.63
+			---     asked 2512 (Coiled Isle)  -> poi.mapID 2512, x/y 59.99 / 66.20
+			---
+			--- Same POI, same `poi.mapID`, different x/y — so the API translates the
+			--- position into whichever map you queried and uses `mapID` to say where the
+			--- thing lives. Pairing 95.84/55.63 with 2512 puts the waypoint nowhere.
+			---
+			--- It stayed invisible because the four Season 1 bosses each sit on their own
+			--- zone map, where the two ids happen to be equal. The Coiled Isle is the
+			--- first case where they differ.
+			local boss = BossFromQuestId(qid, poi.x, poi.y, mapID)
 			if boss then
 				return boss
 			end
