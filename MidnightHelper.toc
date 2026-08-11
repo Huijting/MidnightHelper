@@ -145,6 +145,7 @@ Modules\LayoutConsumables.lua
 Modules\PotionButton.lua
 Modules\EventProbe.lua
 Modules\EditModeBackup.lua
+Modules\BarPreset.lua
 Modules\SlotOwnership.lua
 Modules\ApplyLayout.lua
 Modules\LayoutGrowth.lua

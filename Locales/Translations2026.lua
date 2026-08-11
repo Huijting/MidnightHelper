@@ -2709,6 +2709,11 @@ fill("deDE", {
 	QUICKBAR_OFF = "Schnellleiste ausgeblendet.",
 	SETTINGS_QUICKBAR = "Schnellleiste",
 	SETTINGS_QUICKBAR_TT = "Eine kleine verschiebbare Leiste mit Neuladen, Gruppe verlassen und dem Layout-Fenster. Praktisch, wenn dein Minimap-Symbol in einem Button-Sammler steckt.",
+	BARPRESET_RIVAL = "|cffff9900%s ordnet deine Leisten an.|r Diese Vorlage verschiebt dieselben Leisten 1-8 und gerät damit in Konflikt.",
+	BARPRESET_RIVAL_GO = "Übernimm lieber das SCHEMA \194\183 welche Tasten in welcher Gruppe \194\183 und richte es mit deinem eigenen Werkzeug ein. Trotzdem anwenden: /mh editmode preset go",
+	BARPRESET_PATCH = "|cffff9900Diese Layout-Zeichenkette stammt von %s, du bist auf %s.|r Blizzards Format ist patchgebunden; sie wird evtl. nicht gelesen.",
+	BARPRESET_PATCH_GO = "Trotzdem versuchen: /mh editmode preset go",
+	BARPRESET_APPLYING = "die empfohlene Leisten-Anordnung wird angewendet \194\183 nur Leisten 1-8, und /mh editmode restore stellt deine alte wieder her.",
 })
 
 fill("frFR", {
@@ -2776,6 +2781,11 @@ fill("frFR", {
 	QUICKBAR_OFF = "barre rapide masquée.",
 	SETTINGS_QUICKBAR = "Barre rapide",
 	SETTINGS_QUICKBAR_TT = "Une petite barre déplaçable avec rechargement, quitter le groupe et le panneau de disposition. Pratique si votre bouton de minicarte est rangé dans un collecteur.",
+	BARPRESET_RIVAL = "|cffff9900%s organise vos barres.|r Ce préréglage déplace les mêmes barres 1-8 et entrera donc en conflit.",
+	BARPRESET_RIVAL_GO = "Reprenez plutôt le SCHÉMA \194\183 quelles touches dans quel groupe \194\183 et disposez-le avec votre propre outil. Appliquer quand même : /mh editmode preset go",
+	BARPRESET_PATCH = "|cffff9900Cette chaîne de disposition a été créée sur %s et vous êtes sur %s.|r Le format de Blizzard dépend du patch ; elle peut ne pas être relue.",
+	BARPRESET_PATCH_GO = "Essayer quand même : /mh editmode preset go",
+	BARPRESET_APPLYING = "application de la disposition recommandée \194\183 barres 1-8 uniquement, et /mh editmode restore remet l’ancienne.",
 })
 
 fill("esES", {
@@ -2843,6 +2853,11 @@ fill("esES", {
 	QUICKBAR_OFF = "barra rápida oculta.",
 	SETTINGS_QUICKBAR = "Barra rápida",
 	SETTINGS_QUICKBAR_TT = "Una pequeña barra móvil con recargar, abandonar grupo y el panel de distribución. Útil si tu botón del minimapa está dentro de un recolector de botones.",
+	BARPRESET_RIVAL = "|cffff9900%s está organizando tus barras.|r Este preajuste mueve las mismas barras 1-8, así que chocará con él.",
+	BARPRESET_RIVAL_GO = "Mejor toma el ESQUEMA \194\183 qué teclas en qué grupo \194\183 y colócalo con tu propia herramienta. Aplicar igualmente: /mh editmode preset go",
+	BARPRESET_PATCH = "|cffff9900Esta cadena de distribución se creó en %s y tú estás en %s.|r El formato de Blizzard depende del parche; puede no leerse.",
+	BARPRESET_PATCH_GO = "Intentarlo igualmente: /mh editmode preset go",
+	BARPRESET_APPLYING = "aplicando la distribución recomendada \194\183 solo barras 1-8, y /mh editmode restore devuelve la anterior.",
 })
 
 fill("ptBR", {
@@ -2910,6 +2925,11 @@ fill("ptBR", {
 	QUICKBAR_OFF = "barra rápida oculta.",
 	SETTINGS_QUICKBAR = "Barra rápida",
 	SETTINGS_QUICKBAR_TT = "Uma pequena barra móvel com recarregar, sair do grupo e o painel de layout. Útil se o seu botão do minimapa fica dentro de um coletor de botões.",
+	BARPRESET_RIVAL = "|cffff9900%s está organizando suas barras.|r Esta predefinição move as mesmas barras 1-8, então vai conflitar.",
+	BARPRESET_RIVAL_GO = "Prefira pegar o ESQUEMA \194\183 quais teclas em qual grupo \194\183 e monte com sua própria ferramenta. Aplicar mesmo assim: /mh editmode preset go",
+	BARPRESET_PATCH = "|cffff9900Esta string de layout foi feita no %s e você está no %s.|r O formato da Blizzard depende do patch; pode não ser lido.",
+	BARPRESET_PATCH_GO = "Tentar mesmo assim: /mh editmode preset go",
+	BARPRESET_APPLYING = "aplicando o layout de barras recomendado \194\183 apenas barras 1-8, e /mh editmode restore devolve o antigo.",
 })
 
 fill("itIT", {
@@ -2977,5 +2997,10 @@ fill("itIT", {
 	QUICKBAR_OFF = "barra rapida nascosta.",
 	SETTINGS_QUICKBAR = "Barra rapida",
 	SETTINGS_QUICKBAR_TT = "Una piccola barra spostabile con ricarica, esci dal gruppo e il pannello del layout. Comoda se il pulsante della minimappa sta dentro un raccoglitore di pulsanti.",
+	BARPRESET_RIVAL = "|cffff9900%s sta sistemando le tue barre.|r Questo preset sposta le stesse barre 1-8, quindi andrà in conflitto.",
+	BARPRESET_RIVAL_GO = "Prendi piuttosto lo SCHEMA \194\183 quali tasti in quale gruppo \194\183 e sistemalo con il tuo strumento. Applicare comunque: /mh editmode preset go",
+	BARPRESET_PATCH = "|cffff9900Questa stringa di layout è stata creata su %s e tu sei su %s.|r Il formato di Blizzard dipende dalla patch; potrebbe non essere letto.",
+	BARPRESET_PATCH_GO = "Provare comunque: /mh editmode preset go",
+	BARPRESET_APPLYING = "applico il layout delle barre consigliato \194\183 solo barre 1-8, e /mh editmode restore rimette il precedente.",
 })
 

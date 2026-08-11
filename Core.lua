@@ -1132,6 +1132,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh editmode preset [go] — apply the recommended bar layout.
+	if msg == "editmode preset" or msg == "editmode preset go" then
+		if ns.MH_ApplyBarPreset then
+			ns.MH_ApplyBarPreset(msg:find("go", 1, true) ~= nil)
+		end
+		return
+	end
+
 	if msg == "editmode restore" then
 		if ns.MH_EditModeRestore then
 			ns.MH_EditModeRestore()
