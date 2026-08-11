@@ -1513,6 +1513,8 @@ ns._mhLocales.enUS = {
 	-- LDB minimap launcher
 	BROKER_TOOLTIP_HINT = "Left-click: open/close Midnight Helper. Right-click: settings.",
 	BROKER_TOOLTIP_BOARD = "Middle-click: consumable ready board.",
+	BROKER_TOOLTIP_RELOAD = "Shift-click: reload the interface.",
+	BROKER_RELOAD_COMBAT = "not reloading in combat \194\183 try again afterwards.",
 	BROKER_TOOLTIP_CURRENT_SETTINGS = "Current settings",
 	BROKER_TOOLTIP_LANGUAGE_FMT = "Language: %s",
 	BROKER_TOOLTIP_GUIDE_FMT = "Leveling Guides: %s",

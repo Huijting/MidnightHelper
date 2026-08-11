@@ -1365,6 +1365,8 @@ ns._mhLocales.nlNL = {
 
 	BROKER_TOOLTIP_HINT = "Linksklik: open/sluit Midnight Helper. Rechtermuisklik: instellingen.",
 	BROKER_TOOLTIP_BOARD = "Middelklik: consumable-bord.",
+	BROKER_TOOLTIP_RELOAD = "Shift-klik: herlaad de interface.",
+	BROKER_RELOAD_COMBAT = "niet herladen in gevecht \194\183 probeer het daarna opnieuw.",
 	BROKER_TOOLTIP_CURRENT_SETTINGS = "Huidige instellingen",
 	BROKER_TOOLTIP_LANGUAGE_FMT = "Taal: %s",
 	BROKER_TOOLTIP_GUIDE_FMT = "Leveling Guides: %s",

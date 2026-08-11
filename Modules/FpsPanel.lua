@@ -25,25 +25,65 @@ local _, ns = ...
 	of the two sets applies when. That is not established, so it is not implied here.
 ]]
 
---- Everyday CVar paired with its raid/battleground counterpart.
+--- Everyday CVar, its raid/battleground counterpart, our fallback label, and the
+--- game's own global string for the same setting.
 ---
---- Names are the client's, kept verbatim so nobody has to trust our labels. The
---- descriptions say what the setting IS, never what turning it down will buy you.
+--- ⚠️ THE GAME HAS ALREADY TRANSLATED THESE. Borrowed from `!Pig`, which labels its
+--- CVar list with `LOOT_UNDER_MOUSE_TEXT` and friends rather than writing its own text:
+--- WoW ships those strings in every language it supports, so you get correct German for
+--- free and it stays correct when Blizzard rewords something. Our seven hand-made
+--- translations covered seven languages and would drift.
+---
+--- The global names are candidates, not certainties — hence a list per row and a
+--- fallback to our own key. Asking beats assuming, and a missing global would otherwise
+--- render as an empty label.
 local SETTINGS = {
-	{ "graphicsViewDistance",      "raidGraphicsViewDistance",      "FPS_VIEWDIST" },
-	{ "graphicsEnvironmentDetail", "raidGraphicsEnvironmentDetail", "FPS_ENVDETAIL" },
-	{ "graphicsGroundClutter",     "raidGraphicsGroundClutter",     "FPS_CLUTTER" },
-	{ "graphicsShadowQuality",     "raidGraphicsShadowQuality",     "FPS_SHADOW" },
-	{ "graphicsLiquidDetail",      "raidGraphicsLiquidDetail",      "FPS_LIQUID" },
-	{ "graphicsParticleDensity",   "raidGraphicsParticleDensity",   "FPS_PARTICLE" },
-	{ "graphicsSSAO",              "raidGraphicsSSAO",              "FPS_SSAO" },
-	{ "graphicsDepthEffects",      "raidGraphicsDepthEffects",      "FPS_DEPTH" },
-	{ "graphicsComputeEffects",    "raidGraphicsComputeEffects",    "FPS_COMPUTE" },
-	{ "graphicsOutlineMode",       "raidGraphicsOutlineMode",       "FPS_OUTLINE" },
-	{ "graphicsTextureResolution", "raidGraphicsTextureResolution", "FPS_TEXTURE" },
-	{ "graphicsSpellDensity",      "raidGraphicsSpellDensity",      "FPS_SPELLDENS" },
-	{ "graphicsProjectedTextures", "raidGraphicsProjectedTextures", "FPS_PROJTEX" },
+	{ "graphicsViewDistance",      "raidGraphicsViewDistance",      "FPS_VIEWDIST",  { "VIEW_DISTANCE" } },
+	{ "graphicsEnvironmentDetail", "raidGraphicsEnvironmentDetail", "FPS_ENVDETAIL", { "ENVIRONMENT_DETAIL" } },
+	{ "graphicsGroundClutter",     "raidGraphicsGroundClutter",     "FPS_CLUTTER",   { "GROUND_CLUTTER" } },
+	{ "graphicsShadowQuality",     "raidGraphicsShadowQuality",     "FPS_SHADOW",    { "SHADOW_QUALITY" } },
+	{ "graphicsLiquidDetail",      "raidGraphicsLiquidDetail",      "FPS_LIQUID",    { "LIQUID_DETAIL" } },
+	{ "graphicsParticleDensity",   "raidGraphicsParticleDensity",   "FPS_PARTICLE",  { "PARTICLE_DENSITY" } },
+	{ "graphicsSSAO",              "raidGraphicsSSAO",              "FPS_SSAO",      { "SSAO_LABEL", "SSAO" } },
+	{ "graphicsDepthEffects",      "raidGraphicsDepthEffects",      "FPS_DEPTH",     { "DEPTH_EFFECTS" } },
+	{ "graphicsComputeEffects",    "raidGraphicsComputeEffects",    "FPS_COMPUTE",   { "COMPUTE_EFFECTS" } },
+	{ "graphicsOutlineMode",       "raidGraphicsOutlineMode",       "FPS_OUTLINE",   { "OUTLINE_MODE", "OUTLINE_DETAIL" } },
+	{ "graphicsTextureResolution", "raidGraphicsTextureResolution", "FPS_TEXTURE",   { "TEXTURE_DETAIL", "TEXTURE_RESOLUTION" } },
+	{ "graphicsSpellDensity",      "raidGraphicsSpellDensity",      "FPS_SPELLDENS", { "SPELL_DENSITY" } },
+	{ "graphicsProjectedTextures", "raidGraphicsProjectedTextures", "FPS_PROJTEX",   { "PROJECTED_TEXTURES" } },
 }
+
+--- Blizzard's own wording when it exists, ours when it does not.
+---
+--- Records which globals were found in `ns.db.fpsLabelSource`, so a language where this
+--- silently fell back to English can be spotted instead of guessed at.
+local function LabelFor(descKey, globals)
+	for _, g in ipairs(globals or {}) do
+		local v = _G[g]
+		if type(v) == "string" and v ~= "" then
+			if ns.db then
+				ns.db.fpsLabelSource = ns.db.fpsLabelSource or {}
+				ns.db.fpsLabelSource[descKey] = g
+			end
+			return v
+		end
+	end
+	if ns.db then
+		ns.db.fpsLabelSource = ns.db.fpsLabelSource or {}
+		ns.db.fpsLabelSource[descKey] = "own"
+	end
+	return ns:L(descKey)
+end
+
+--- Blizzard's labels are full sentences where ours were column-width. Clip rather than
+--- let one long German noun push the numbers off the panel.
+local function Fit(s, n)
+	s = tostring(s or "")
+	if #s <= n then
+		return s
+	end
+	return s:sub(1, n - 1) .. "\226\128\166"
+end
 
 local PANEL_W, PANEL_H = 620, 520
 local panel
@@ -106,7 +146,7 @@ local function BuildLines()
 	--- value that is higher AND deliberately set is the only one that gets a mark.
 	local higherAndSet, higherAtDefault = 0, 0
 	for _, row in ipairs(SETTINGS) do
-		local name, raidName, descKey = row[1], row[2], row[3]
+		local name, raidName, descKey, globals = row[1], row[2], row[3], row[4]
 		local cur, raid, def = Read(name), Read(raidName), ReadDefault(name)
 		if cur ~= nil then
 			local n, r, d = Num(cur), Num(raid), Num(def)
@@ -121,8 +161,8 @@ local function BuildLines()
 					higherAndSet = higherAndSet + 1
 				end
 			end
-			out[#out + 1] = ("|cffffd100%-14s|r %4s %6s %7s%s   |cff9d9d9d%s|r"):format(
-				ns:L(descKey), tostring(cur), tostring(raid or "-"),
+			out[#out + 1] = ("|cffffd100%-22s|r %4s %6s %7s%s   |cff9d9d9d%s|r"):format(
+				Fit(LabelFor(descKey, globals), 22), tostring(cur), tostring(raid or "-"),
 				tostring(def or "?"), mark, name)
 		end
 	end

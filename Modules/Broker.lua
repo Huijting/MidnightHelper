@@ -387,6 +387,23 @@ function ns:InitMinimapBroker()
 		label = self:L("MAIN_TITLE"),
 		icon = MINIMAP_ICON,
 		OnClick = function(_, btn)
+			--- Shift+left = reload. Borrowed from `!Pig`, where Rob found it and called it
+			--- the best thing in the addon; every session here ends in a `/reload` typed by
+			--- hand. Shift-modified so it cannot be hit by accident, and refused in combat
+			--- because a reload mid-pull is its own kind of disaster.
+			if btn == "LeftButton" and IsShiftKeyDown and IsShiftKeyDown() then
+				if InCombatLockdown and InCombatLockdown() then
+					print(("|cffffcc00%s|r %s"):format(
+						ns:L("PRINT_PREFIX"), ns:L("BROKER_RELOAD_COMBAT")))
+					return
+				end
+				if C_UI and C_UI.Reload then
+					C_UI.Reload()
+				elseif ReloadUI then
+					ReloadUI()
+				end
+				return
+			end
 			if btn == "LeftButton" and ns.ToggleMainWindow then
 				ns:ToggleMainWindow()
 			elseif btn == "MiddleButton" then
@@ -412,6 +429,7 @@ function ns:InitMinimapBroker()
 			tt:AddLine(ns:L("BROKER_TOOLTIP_VERSION_FMT"):format(ver), 0.72, 0.82, 0.95)
 			tt:AddLine(ns:L("BROKER_TOOLTIP_HINT"), 0.86, 0.86, 0.82, true)
 			tt:AddLine(ns:L("BROKER_TOOLTIP_BOARD"), 0.86, 0.86, 0.82, true)
+			tt:AddLine(ns:L("BROKER_TOOLTIP_RELOAD"), 0.86, 0.86, 0.82, true)
 			tt:AddLine(" ")
 			tt:AddLine(ns:L("BROKER_TOOLTIP_CURRENT_SETTINGS"), 1, 0.9, 0.5)
 			local langLabel = ns.GetLanguageStatusLabel and ns:GetLanguageStatusLabel() or ns:L("LOCALE_NAME_EN")

@@ -2689,6 +2689,8 @@ fill("deDE", {
 	FPS_SPELLDENS = "Zauberdichte",
 	FPS_PROJTEX = "Proj. Texturen",
 	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d Einstellung(en) mit \194\183 stehen im Schlachtzug nur höher, weil der Schlachtzug-Reiter noch auf Standard steht \194\183 du hast die normalen gesenkt und ihn nie geöffnet.|r",
+	BROKER_TOOLTIP_RELOAD = "Shift-Klick: Interface neu laden.",
+	BROKER_RELOAD_COMBAT = "kein Neuladen im Kampf \194\183 versuch es danach noch einmal.",
 })
 
 fill("frFR", {
@@ -2736,6 +2738,8 @@ fill("frFR", {
 	FPS_SPELLDENS = "Densité sorts",
 	FPS_PROJTEX = "Text. projetées",
 	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d paramètre(s) marqué(s) \194\183 ne sont plus élevés en raid que parce que l’onglet raid est resté par défaut \194\183 vous avez baissé les paramètres ordinaires sans jamais l’ouvrir.|r",
+	BROKER_TOOLTIP_RELOAD = "Maj+clic : recharger l’interface.",
+	BROKER_RELOAD_COMBAT = "pas de rechargement en combat \194\183 réessayez après.",
 })
 
 fill("esES", {
@@ -2783,6 +2787,8 @@ fill("esES", {
 	FPS_SPELLDENS = "Densidad hech.",
 	FPS_PROJTEX = "Text. proyect.",
 	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d ajuste(s) con \194\183 solo están más altos en banda porque la pestaña de banda sigue en sus valores por defecto \194\183 bajaste los normales y nunca la abriste.|r",
+	BROKER_TOOLTIP_RELOAD = "Mayús+clic: recargar la interfaz.",
+	BROKER_RELOAD_COMBAT = "no se recarga en combate \194\183 inténtalo después.",
 })
 
 fill("ptBR", {
@@ -2830,6 +2836,8 @@ fill("ptBR", {
 	FPS_SPELLDENS = "Densidade mag.",
 	FPS_PROJTEX = "Text. projet.",
 	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d configuração(ões) com \194\183 só estão mais altas em raide porque a aba de raide continua nos padrões \194\183 você baixou as normais e nunca a abriu.|r",
+	BROKER_TOOLTIP_RELOAD = "Shift+clique: recarregar a interface.",
+	BROKER_RELOAD_COMBAT = "sem recarregar em combate \194\183 tente de novo depois.",
 })
 
 fill("itIT", {
@@ -2877,5 +2885,7 @@ fill("itIT", {
 	FPS_SPELLDENS = "Densità incantesimi",
 	FPS_PROJTEX = "Text. proiettate",
 	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d impostazione/i con \194\183 sono più alte in incursione solo perché la scheda incursione è ancora sui valori predefiniti \194\183 hai abbassato quelle normali e non l’hai mai aperta.|r",
+	BROKER_TOOLTIP_RELOAD = "Maiusc+clic: ricarica l’interfaccia.",
+	BROKER_RELOAD_COMBAT = "niente ricarica in combattimento \194\183 riprova dopo.",
 })
 
