@@ -321,6 +321,46 @@ function ns.MH_BarInventory()
 	Note("Enum.EditModeActionBarSetting",
 		(Enum and Enum.EditModeActionBarSetting) and "present" or "absent")
 
+	--- ⚠️ "PRESENT" IS NOT ENOUGH TO ACT ON. Rob asked (11 Aug) for two things Edit Mode
+	--- can do by hand: switch bars 7 and 8 on for a fresh character, and stop showing the
+	--- empty buttons. Both are settings in this enum — but knowing the table exists tells
+	--- us nothing about which field is which, and a wrong index here silently rewrites
+	--- somebody's bar instead of erroring.
+	---
+	--- So write the whole enum down, names and values. Same for the toggle count: the
+	--- earlier note said SetActionBarToggles historically reaches bars 2-5 only, so how
+	--- many values GetActionBarToggles hands back decides whether it can reach 7 and 8 at
+	--- all.
+	if Enum and Enum.EditModeActionBarSetting then
+		local fields = {}
+		for k, v in pairs(Enum.EditModeActionBarSetting) do
+			fields[tostring(k)] = tostring(v)
+		end
+		out.api.actionBarSettings = fields
+	end
+	if type(GetActionBarToggles) == "function" then
+		local packed = { pcall(GetActionBarToggles) }
+		if packed[1] then
+			-- Count what actually came back rather than assuming five.
+			out.api.toggleCount = #packed - 1
+			local all = {}
+			for i = 2, #packed do
+				all[#all + 1] = tostring(packed[i])
+			end
+			out.api.togglesAll = all
+		end
+	end
+	--- And what the account-wide Edit Mode settings hold, since that is where the
+	--- "always show buttons" style options live for some systems.
+	if EditModeManagerFrame and type(EditModeManagerFrame.accountSettings) == "table" then
+		local keys = {}
+		for k in pairs(EditModeManagerFrame.accountSettings) do
+			keys[#keys + 1] = tostring(k)
+		end
+		table.sort(keys)
+		out.api.accountSettingKeys = keys
+	end
+
 	--- 2e. WHAT ARE ALL THOSE EDIT MODE SYSTEMS CALLED, and can a stance bar and a pet bar
 	--- ever be on screen together?
 	---
