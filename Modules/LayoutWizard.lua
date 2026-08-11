@@ -23,7 +23,7 @@ local _, ns = ...
 
 -- Wider than it looks like it needs: the buttons size themselves to the longest
 -- translated label (see Build), and the notes sit to their right.
-local PANEL_W, PANEL_H = 520, 554
+local PANEL_W, PANEL_H = 520, 584
 
 local panel
 
@@ -307,6 +307,15 @@ local function Build()
 				ns.MH_PadKeysApply(false)
 			end
 		end), ns:L("MH_SETUP_NOTE_PADKEYS"))
+
+	--- Blizzard's own Quick Keybind Mode, next to our button rather than three menus
+	--- away. Ours handles the six keys it knows; everything else is bound by hovering
+	--- and pressing, which is faster than any list we could draw.
+	Row(MakeButton(f, ns:L("MH_SETUP_BTN_QUICKBIND"), function()
+		if ns.MH_OpenQuickKeybind then
+			ns.MH_OpenQuickKeybind()
+		end
+	end), ns:L("MH_SETUP_NOTE_QUICKBIND"))
 
 	--- The bars themselves, which the panel could describe but never hand over.
 	---

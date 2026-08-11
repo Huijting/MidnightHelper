@@ -2746,6 +2746,9 @@ fill("deDE", {
 	MH_SETUP_NOTE_PADKEYS = "Für eine Maus, deren Daumenpad 6 7 8 9 0 - sendet \194\183 lässt Vorhandenes stehen.",
 	PADKEYS_HOME = "zurück an seinen Platz",
 	PADKEYS_BLOCKED = "eine andere Taste zeigt bereits auf %s \194\183 sie verliert diese Belegung.",
+	PADKEYS_NO_QUICKBIND = "dieser Client wollte den Schnellbelegungsmodus nicht öffnen \194\183 Escape \194\187 Optionen \194\187 Tastenbelegung.",
+	MH_SETUP_BTN_QUICKBIND = "Tasten von Hand belegen",
+	MH_SETUP_NOTE_QUICKBIND = "Blizzards Schnellbelegung \194\183 auf einen Knopf zeigen, Taste drücken.",
 })
 
 fill("frFR", {
@@ -2850,6 +2853,9 @@ fill("frFR", {
 	MH_SETUP_NOTE_PADKEYS = "Pour une souris dont le pad envoie 6 7 8 9 0 - \194\183 conserve ce qui est déjà en place.",
 	PADKEYS_HOME = "à sa place d’origine",
 	PADKEYS_BLOCKED = "une autre touche pointe déjà vers %s \194\183 elle perdra cette attribution.",
+	PADKEYS_NO_QUICKBIND = "ce client n’a pas ouvert le mode d’attribution rapide \194\183 Échap \194\187 Options \194\187 Raccourcis.",
+	MH_SETUP_BTN_QUICKBIND = "Attribuer à la main",
+	MH_SETUP_NOTE_QUICKBIND = "Attribution rapide de Blizzard \194\183 survolez un bouton, appuyez sur une touche.",
 })
 
 fill("esES", {
@@ -2954,6 +2960,9 @@ fill("esES", {
 	MH_SETUP_NOTE_PADKEYS = "Para un ratón cuyo pad envía 6 7 8 9 0 - \194\183 respeta lo que ya está puesto.",
 	PADKEYS_HOME = "de vuelta a su sitio",
 	PADKEYS_BLOCKED = "otra tecla ya apunta a %s \194\183 perderá esa asignación.",
+	PADKEYS_NO_QUICKBIND = "este cliente no abrió el modo de asignación rápida \194\183 Escape \194\187 Opciones \194\187 Atajos.",
+	MH_SETUP_BTN_QUICKBIND = "Asignar teclas a mano",
+	MH_SETUP_NOTE_QUICKBIND = "Asignación rápida de Blizzard \194\183 señala un botón y pulsa una tecla.",
 })
 
 fill("ptBR", {
@@ -3058,6 +3067,9 @@ fill("ptBR", {
 	MH_SETUP_NOTE_PADKEYS = "Para um mouse cujo pad envia 6 7 8 9 0 - \194\183 mantém o que já existe.",
 	PADKEYS_HOME = "de volta ao seu lugar",
 	PADKEYS_BLOCKED = "outra tecla já aponta para %s \194\183 ela perderá esse atalho.",
+	PADKEYS_NO_QUICKBIND = "este cliente não abriu o modo de atalho rápido \194\183 Esc \194\187 Opções \194\187 Atalhos.",
+	MH_SETUP_BTN_QUICKBIND = "Definir teclas à mão",
+	MH_SETUP_NOTE_QUICKBIND = "Atalho rápido da Blizzard \194\183 aponte um botão e pressione uma tecla.",
 })
 
 fill("itIT", {
@@ -3162,5 +3174,8 @@ fill("itIT", {
 	MH_SETUP_NOTE_PADKEYS = "Per un mouse il cui pad invia 6 7 8 9 0 - \194\183 lascia stare quello che c’è già.",
 	PADKEYS_HOME = "di nuovo al suo posto",
 	PADKEYS_BLOCKED = "un altro tasto punta già a %s \194\183 perderà quell’assegnazione.",
+	PADKEYS_NO_QUICKBIND = "questo client non ha aperto la modalità di assegnazione rapida \194\183 Esc \194\187 Opzioni \194\187 Scorciatoie.",
+	MH_SETUP_BTN_QUICKBIND = "Assegna i tasti a mano",
+	MH_SETUP_NOTE_QUICKBIND = "Assegnazione rapida di Blizzard \194\183 punta un pulsante, premi un tasto.",
 })
 

@@ -123,6 +123,54 @@ local function FreeButtons()
 	return free
 end
 
+--- Open Blizzard's Quick Keybind Mode — hover a button, press a key, done.
+---
+--- Rob asked for this next to the pad-key button, and the pairing is the point: our
+--- button handles the six keys it knows about, and anything else you want to bind by
+--- hand is one click away instead of a menu hunt. Quick Keybind is also where the
+--- "Character Specific Keybindings" tick lives, which is the setting that caused a
+--- whole afternoon of confusion today.
+---
+--- ⚠️ THE ENTRY POINT IS ASKED FOR, NOT ASSUMED. `QuickKeybindFrame` is a Blizzard
+--- global that may or may not be loaded, and its show method has moved before. Each
+--- candidate is checked before use and the fallback is the ordinary keybindings panel;
+--- if none exist the player is told rather than left clicking a dead button.
+function ns.MH_OpenQuickKeybind()
+	if InCombatLockdown and InCombatLockdown() then
+		print(Prefix() .. " " .. ns:L("PADKEYS_COMBAT"))
+		return
+	end
+
+	local f = _G.QuickKeybindFrame
+	if f then
+		-- Blizzard's own entry point when it exists; Show() otherwise.
+		if type(f.OnQuickKeybindModeEnter) == "function" and pcall(f.OnQuickKeybindModeEnter, f) then
+			return
+		end
+		if type(f.Show) == "function" and pcall(f.Show, f) then
+			return
+		end
+	end
+
+	--- Fall back to the plain keybindings panel. Two possible routes depending on how
+	--- this client organises Settings; try both before giving up.
+	if _G.Settings and _G.Settings.OpenToCategory then
+		local ok = pcall(_G.Settings.OpenToCategory, "Keybindings")
+		if ok then
+			return
+		end
+	end
+	if _G.KeyBindingFrame_LoadUI then
+		pcall(_G.KeyBindingFrame_LoadUI)
+	end
+	if _G.KeyBindingFrame and type(_G.KeyBindingFrame.Show) == "function" then
+		if pcall(_G.KeyBindingFrame.Show, _G.KeyBindingFrame) then
+			return
+		end
+	end
+	print(Prefix() .. " " .. ns:L("PADKEYS_NO_QUICKBIND"))
+end
+
 --- `/mh padkeys` — say where the six keys point, without changing anything.
 function ns.MH_PadKeysReport()
 	print(("%s %s"):format(Prefix(), ns:L("PADKEYS_REPORT_HEAD")))
