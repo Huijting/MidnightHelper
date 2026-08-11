@@ -101,9 +101,77 @@ local function LeaveDelve()
 	--- exactly the kind of question `/mh` probes exist to answer, and a delve is the
 	--- only place it can be asked.
 	if ns.db then
-		ns.db.leaveDelveProbe = { at = time(), tried = tried }
+		ns.db.leaveDelveProbe = { at = time(), tried = tried, api = ns.MH_DelveExitScan and ns.MH_DelveExitScan() }
 	end
 	print(Prefix() .. " " .. ns:L("QUICKBAR_DELVE_UNKNOWN"))
+end
+
+--- `/mh delveexit` — everything this client offers that could leave a delve.
+---
+--- Rob's portrait menu can do it, so a call exists; `LeaveParty` is simply not it. Names
+--- are not guessed at here — the client is enumerated: what state it says you are in,
+--- every function in the party/LFG namespaces, and every global whose name mentions
+--- leaving or exiting. A probe built on guessed names finds nothing for two different
+--- reasons and cannot tell them apart.
+function ns.MH_DelveExitScan()
+	local out = { globals = {}, namespaces = {}, state = {} }
+
+	if IsInInstance then
+		local ok, inInstance, kind = pcall(IsInInstance)
+		out.state.inInstance = ok and tostring(inInstance) or "error"
+		out.state.instanceType = ok and tostring(kind) or "error"
+	end
+	if GetInstanceInfo then
+		local ok, name, kind, diffID, diffName = pcall(GetInstanceInfo)
+		if ok then
+			out.state.name = tostring(name)
+			out.state.type = tostring(kind)
+			out.state.difficulty = ("%s (%s)"):format(tostring(diffID), tostring(diffName))
+		end
+	end
+	if C_PartyInfo and C_PartyInfo.IsPartyFull then
+		out.state.numGroup = GetNumGroupMembers and select(1, pcall(GetNumGroupMembers)) and
+			tostring(GetNumGroupMembers()) or "?"
+	end
+
+	--- Whole namespaces, so a name nobody thought of still shows up.
+	for _, nsName in ipairs({ "C_PartyInfo", "C_LFGInfo", "C_Scenario", "C_DelvesUI",
+	                          "C_LFGList", "C_SummonInfo" }) do
+		local tbl = _G[nsName]
+		if type(tbl) == "table" then
+			local names = {}
+			for k, v in pairs(tbl) do
+				if type(k) == "string" and type(v) == "function" then
+					names[#names + 1] = k
+				end
+			end
+			table.sort(names)
+			out.namespaces[nsName] = names
+		else
+			out.namespaces[nsName] = "absent"
+		end
+	end
+
+	--- Globals that mention leaving. `_G` is large, so this is the one broad sweep and
+	--- it is filtered hard.
+	for k, v in pairs(_G) do
+		if type(k) == "string" and type(v) == "function" then
+			local lower = k:lower()
+			if lower:find("leave") or lower:find("teleportout") or lower:find("exitinstance") then
+				out.globals[#out.globals + 1] = k
+			end
+		end
+	end
+	table.sort(out.globals)
+
+	if ns.db then
+		ns.db.delveExitScan = out
+	end
+	print(("%s delve-exit scan: |cffffffff%d|r matching global(s); state=%s/%s. "
+		.. "|cff9d9d9dSaved \226\128\148 /reload to write the file.|r"):format(
+		Prefix(), #out.globals, tostring(out.state.instanceType),
+		tostring(out.state.name)))
+	return out
 end
 
 --- Buttons, in order. `atlas` first because a missing texture file is a black square,

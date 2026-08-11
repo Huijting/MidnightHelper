@@ -1187,6 +1187,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh delveexit — what could leave a delve? Ask from inside one.
+	if msg == "delveexit" then
+		if ns.MH_DelveExitScan then
+			ns.MH_DelveExitScan()
+		end
+		return
+	end
+
 	-- /mh bar — show or hide the little quick bar.
 	if msg == "bar" then
 		if ns.MH_ToggleQuickBar then
