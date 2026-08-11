@@ -132,6 +132,7 @@ Modules\Profession.lua
 Modules\Delves.lua
 Modules\NativeArrow.lua
 Modules\WorldBoss.lua
+Modules\WorldBossProbe.lua
 Modules\Rares.lua
 Modules\VignetteCapture.lua
 Modules\QuestDiff.lua

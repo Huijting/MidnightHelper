@@ -1171,6 +1171,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh worldboss — are the four world bosses still a thing in 12.1?
+	if msg == "worldboss" or msg == "wb" then
+		if ns.MH_WorldBossProbe then
+			ns.MH_WorldBossProbe()
+		end
+		return
+	end
+
 	-- /mh anchor — move a role's key to one your hands already know.
 	do
 		local rest = msg:match("^anchor%s*(.*)$")
