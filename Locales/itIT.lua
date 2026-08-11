@@ -660,7 +660,7 @@ ns._mhLocales.itIT = {
 	INFO_DRAWER_BODY_ADDONS = "Hub per strumenti opzionali inclusi dentro Midnight Helper invece che come download separati.\n\nScegli una sotto-tab in alto—oggi è Platynator: link Wago, import di profile-string e la galleria visiva MF Platynator.\n\nAltri pannelli partner si registrano qui automaticamente quando arriveranno moduli futuri.",
 	ABOUT_WINDOW_TITLE = "Info su Midnight Helper",
 	ABOUT_VERSION_FMT = "Versione installata: |cffffcc00%s|r",
-	ABOUT_WINDOW_BODY = "Autori: Inchy & Gemma & Cursor\n\nIl tuo compagno Midnight tutto-in-uno, organizzato in quattro stanze — Me, Codex, Tools e Settings. Fissa i preferiti sotto la barra di ricerca e digita per saltare ovunque. Con Questa settimana, Delves & Vault, coach di Delve e Ritual, il consigliere Incantesimi e Gemme, riepilogo account, guide del Codex, professioni e strumenti integrati — EN / NL / DE / FR / ES / PT / IT.",
+	ABOUT_WINDOW_BODY = "Autori: TwelveInchy & Claude\n\nIl tuo compagno Midnight tutto-in-uno, organizzato in quattro stanze — Me, Codex, Tools e Settings. Fissa i preferiti sotto la barra di ricerca e digita per saltare ovunque. Con Questa settimana, Delves & Vault, coach di Delve e Ritual, il consigliere Incantesimi e Gemme, riepilogo account, guide del Codex, professioni e strumenti integrati — EN / NL / DE / FR / ES / PT / IT.",
 	MAIN_TITLE_VERSION_FMT = "v%s",
 	BROKER_TOOLTIP_VERSION_FMT = "Versione: %s",
 

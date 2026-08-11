@@ -137,7 +137,7 @@ def main() -> None:
         "LOCALE_AUTO_HINT": "Folgt der WoW-Client-Sprache, wenn eine Übersetzung existiert; sonst Englisch. Nederlands immer manuell wählen.",
         "LANG_SLASH_HINT": "Nutze: /mh lang auto  |  /mh lang en  |  /mh lang de  |  /mh lang fr  |  /mh lang es  |  /mh lang nl  (auto = WoW-Client-Sprache)",
         "UNKNOWN_COMMAND": 'Unbekannter Befehl %q. Nutze: /mh zum Umschalten, /mh coach, /mh debug, /mh guide (Layout), /mh settings, /mh lang auto|en|de|nl.',
-        "ABOUT_WINDOW_BODY": "Autoren: Inchy & Gemma & Cursor\n\nAlles-in-einem-Midnight-Nachschlag: Delves & Vault, Delve Coach & Gruppenteilen, Delve-Items-Popup, Account-Snapshot, SMC City Guide, Berufe (KP + Schätze), Leveling Guides, gebündelte Tools — English / Deutsch / Nederlands.",
+        "ABOUT_WINDOW_BODY": "Autoren: TwelveInchy & Claude\n\nAlles-in-einem-Midnight-Nachschlag: Delves & Vault, Delve Coach & Gruppenteilen, Delve-Items-Popup, Account-Snapshot, SMC City Guide, Berufe (KP + Schätze), Leveling Guides, gebündelte Tools — English / Deutsch / Nederlands.",
         "LANG_ROW_DE_TOOLTIP": "Deutsch",
         "DELVES_BTN_BOUNTIFUL": "Nächste großzügige Tiefe finden",
         "DELVES_ROW_ROUTE_BTN": "Zeile klicken: Route zu dieser großzügigen Tiefe (TomTom).",

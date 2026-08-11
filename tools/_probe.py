@@ -1,9 +1,9 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: which currency ids the Currencies page hard-codes, per language.
+Right now: correct the author credit in the About window, every language.
 """
+import io
 import os
-import re
 import sys
 
 for _s in (sys.stdout, sys.stderr):
@@ -12,14 +12,29 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales'
+ROOT = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper'
+OLD = 'Inchy & Gemma & Cursor'
+NEW = 'TwelveInchy & Claude'
 
-for fn in sorted(os.listdir(BASE)):
-    if not fn.endswith('.lua'):
+TARGETS = [
+    r'Locales\deDE.lua',
+    r'Locales\enUS.lua',
+    r'Locales\esES.lua',
+    r'Locales\frFR.lua',
+    r'Locales\itIT.lua',
+    r'Locales\nlNL.lua',
+    r'Locales\ptBR.lua',
+    r'tools\build_deDE.py',
+]
+
+for rel in TARGETS:
+    p = os.path.join(ROOT, rel)
+    t = open(p, encoding='utf-8', newline='').read()
+    n = t.count(OLD)
+    if n == 0:
+        print('%-24s niets te doen' % rel)
         continue
-    t = open(os.path.join(BASE, fn), encoding='utf-8', errors='replace').read()
-    for m in re.finditer(r'CURRENCY_GUIDE_BODY\s*=\s*"((?:[^"\\]|\\.)*)"', t):
-        body = m.group(1)
-        ids = re.findall(r'\{CURRENCY:(\d+)\}', body)
-        print('%-24s %d ids: %s   {CRESTS}: %s' % (
-            fn, len(ids), ', '.join(ids) or '-', 'yes' if '{CRESTS}' in body else 'NO'))
+    t = t.replace(OLD, NEW)
+    io.open(p + '.tmp', 'w', encoding='utf-8', newline='').write(t)
+    os.replace(p + '.tmp', p)
+    print('%-24s %d vervangen' % (rel, n))

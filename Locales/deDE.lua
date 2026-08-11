@@ -568,7 +568,7 @@ local OVERRIDES = {
 	ABOUT_WINDOW_TITLE = "Über Midnight Helper",
 	ABOUT_VERSION_FMT = "Installierte Version: |cffffcc00%s|r",
 	ABOUT_WINDOW_BODY =
-	"Autoren: Inchy & Gemma & Cursor"
+	"Autoren: TwelveInchy & Claude"
 		.. ""
 		.. "Alles-in-einem-Midnight-Nachschlag: Delves & Vault, Tiefen-Coach & Gruppenteilen, Delve-Items-Popup, Account-Snapshot, SMC City Guide, Berufe (KP + Schätze), Leveling Guides, gebündelte Tools — EN / NL / DE / FR / ES / PT / IT.",
 	MAIN_TITLE_VERSION_FMT = "v%s",
