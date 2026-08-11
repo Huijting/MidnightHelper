@@ -86,7 +86,8 @@ end
 
 --- A button that needs two presses: the first arms it and says what it will do, the
 --- second does it. Used for anything that removes something.
-local function MakeArmedButton(parent, label, armedLabel, fn)
+--- @param onArm function|nil  runs on the FIRST press, to show what the second would do
+local function MakeArmedButton(parent, label, armedLabel, fn, onArm)
 	local b = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
 	b:SetSize(196, 24)
 	b._armed = false
@@ -95,6 +96,16 @@ local function MakeArmedButton(parent, label, armedLabel, fn)
 		if not self._armed then
 			self._armed = true
 			self:SetText(armedLabel)
+			--- ⚠️ THE BUTTON HAS TO SAY IT IS WAITING.
+			---
+			--- The thumb-key button was built with its own armed flag and a plain
+			--- MakeButton, so its label never changed. Rob pressed it once, saw a plan in
+			--- chat, and reasonably concluded it was done — the keys were still unbound.
+			--- A two-press control that looks identical in both states is a one-press
+			--- control that silently fails half the time.
+			if onArm then
+				onArm()
+			end
 			if C_Timer and C_Timer.After then
 				C_Timer.After(6, function()
 					if self._armed then
@@ -284,14 +295,18 @@ local function Build()
 	--- by hand in Blizzard's keybinding screen on every character is exactly the chore
 	--- this panel exists to remove. Two presses, like the destructive ones: the first
 	--- prints what would move, the second moves it.
-	Row(MakeButton(f, ns:L("MH_SETUP_BTN_PADKEYS"), function()
-		if not ns.MH_PadKeysApply then
-			return
-		end
-		-- First press prints the plan, second performs it.
-		ns.MH_PadKeysApply(f._padArmed == true)
-		f._padArmed = not f._padArmed
-	end), ns:L("MH_SETUP_NOTE_PADKEYS"))
+	Row(MakeArmedButton(f, ns:L("MH_SETUP_BTN_PADKEYS"), ns:L("MH_SETUP_CONFIRM"),
+		function()
+			if ns.MH_PadKeysApply then
+				ns.MH_PadKeysApply(true)
+			end
+		end,
+		function()
+			-- First press: print what the second one would move.
+			if ns.MH_PadKeysApply then
+				ns.MH_PadKeysApply(false)
+			end
+		end), ns:L("MH_SETUP_NOTE_PADKEYS"))
 
 	--- The bars themselves, which the panel could describe but never hand over.
 	---
