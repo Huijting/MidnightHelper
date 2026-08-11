@@ -712,8 +712,60 @@ local function EnsureWindow()
 			ns.ShareDungeonBossTips(curDungeon.key, b.key)
 		end
 	end)
+	--- Route to the entrance, for entries that know where theirs is.
+	---
+	--- Generic on purpose: any CUSTOM_BOSS_ENTRIES entry carrying a `route` table
+	--- {mapID, x, y} gets this button, so the Sporefall and ritual coaches can hand one
+	--- over later without touching this file again. Hidden for everything else, which is
+	--- every dungeon — those you queue for.
+	local routeBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	routeBtn:SetSize(60, 18)
+	routeBtn:SetPoint("RIGHT", shareBtn, "LEFT", -4, 0)
+	routeBtn:SetFrameLevel(f:GetFrameLevel() + 5)
+	routeBtn:SetText(ns:L("DGN_WIN_ROUTE"))
+	routeBtn:Hide()
+	routeBtn:SetScript("OnClick", function()
+		local r = curDungeon and curDungeon.route
+		if not (r and r.mapID and r.x and r.y) then
+			return
+		end
+		local title = curDungeon.name or ns:L("DGN_WIN_ROUTE")
+		if ns.AddSmartTomTomWay then
+			ns.AddSmartTomTomWay(r.mapID, r.x, r.y, title)
+		elseif ns.SetBlizzardUserWaypoint then
+			ns.SetBlizzardUserWaypoint(r.mapID, r.x, r.y)
+		end
+	end)
+	routeBtn:SetScript("OnEnter", function(self)
+		local r = curDungeon and curDungeon.route
+		if not (GameTooltip and r) then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
+		GameTooltip:SetText(curDungeon.name or "", 1, 0.9, 0.6)
+		GameTooltip:AddLine(("%.1f, %.1f"):format(r.x, r.y), 0.8, 0.8, 0.8)
+		--- Say whether the CLIENT currently sees this thing, rather than implying the
+		--- waypoint guarantees anything. On the PTR the lair quest was active; on live
+		--- before 18 Aug it will not be, and the player deserves to know which.
+		if r.questID and C_TaskQuest and C_TaskQuest.IsActive then
+			local ok, active = pcall(C_TaskQuest.IsActive, r.questID)
+			if ok then
+				GameTooltip:AddLine(
+					ns:L(active and "DGN_WIN_ROUTE_LIVE" or "DGN_WIN_ROUTE_NOT_LIVE"),
+					0.65, 0.82, 0.95, true)
+			end
+		end
+		GameTooltip:Show()
+	end)
+	routeBtn:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+
 	f._chatBtn = chatBtn
 	f._shareBtn = shareBtn
+	f._routeBtn = routeBtn
 
 	-- Resize-grip rechtsonder: breedte vrij; hoogte snapt na afloop terug
 	-- naar de tekstinhoud.
@@ -890,6 +942,12 @@ function ns.RefreshDungeonBossWindow()
 	win._sub:SetWidth(((subFs and subFs:GetStringWidth()) or 90) + 20)
 	win._pager:SetText(total > 0 and (curIdx .. "/" .. total) or "-")
 	win._body:SetText(BuildBossText(curDungeon, curIdx))
+
+	-- Only entries that know where their entrance is get the route button.
+	if win._routeBtn then
+		local r = curDungeon.route
+		win._routeBtn:SetShown(not not (r and r.mapID and r.x and r.y))
+	end
 
 	modelGen = modelGen + 1
 	-- Custom entries (Ritual Boss Coach) leveren hun (zelflerende)

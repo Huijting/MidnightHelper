@@ -35,6 +35,26 @@ end
 local ENTRY = {
 	key = "raid_tideboundgrotto",
 	name = "The Tidebound Grotto",
+
+	--- ⚠️ MEASURED ON THE PTR, 11 Aug — and not where anyone expected.
+	---
+	--- `/mh worldboss` dumped every task quest per zone and Zul'Aman came back with
+	--- `97128 "Lair: Nymrissa Wavecaller"` at 0.9584 / 0.5563. So the way IN is a
+	--- summoning stone on the Zul'Aman coast, not on The Coiled Isle — the instance
+	--- itself is uiMapID 2987 (DBM's SetZone), which is a different thing from where
+	--- you stand to enter it. Guessing the Coiled Isle would have sent players to the
+	--- wrong continent-corner and looked entirely reasonable doing it.
+	---
+	--- The quest id travels with the coordinates so the tooltip can say whether the
+	--- client currently sees this lair as active, instead of implying the arrow
+	--- guarantees something. Before 18 Aug on live it will not be.
+	route = {
+		mapID = 2437, -- Zul'Aman
+		x = 95.84,
+		y = 55.63,
+		questID = 97128,
+	},
+
 	bosses = {
 		{
 			key = "nymrissa",
