@@ -350,6 +350,43 @@ function ns.MH_BarInventory()
 			out.api.togglesAll = all
 		end
 	end
+	--- ⚠️ READ THE WORKING ANSWER INSTEAD OF GUESSING THE VALUES.
+	---
+	--- The enum gives the setting NUMBERS — VisibleSetting is 5, AlwaysShowButtons is 9 —
+	--- and says nothing about which VALUE means "shown" or "hide the empty ones". Picking
+	--- a plausible 0 or 1 is exactly the guess that has been wrong repeatedly this week,
+	--- and here a wrong value rewrites somebody's bar without erroring.
+	---
+	--- Rob's Hunter already stands the way he wants it. So dump every setting of every
+	--- bar system in the ACTIVE layout: that is the correct answer, in his own client,
+	--- for bars that are visible and bars that are not.
+	if C_EditMode and C_EditMode.GetLayouts then
+		local okL, info = pcall(C_EditMode.GetLayouts)
+		local presets = 0
+		if EditModePresetLayoutManager and EditModePresetLayoutManager.GetCopyOfPresetLayouts then
+			local okP, list = pcall(EditModePresetLayoutManager.GetCopyOfPresetLayouts,
+				EditModePresetLayoutManager)
+			presets = (okP and type(list) == "table") and #list or 0
+		end
+		local layout = okL and info and info.layouts
+			and info.layouts[(tonumber(info.activeLayout) or 0) - presets]
+		if layout then
+			out.api.activeLayoutName = layout.layoutName
+			out.api.barSystemSettings = {}
+			for _, s in ipairs(layout.systems or {}) do
+				if s.system == 0 then -- action bars
+					local row = { index = s.systemIndex, settings = {} }
+					for _, st in ipairs(s.settings or {}) do
+						row.settings[tostring(st.setting)] = tostring(st.value)
+					end
+					out.api.barSystemSettings[#out.api.barSystemSettings + 1] = row
+				end
+			end
+		else
+			out.api.activeLayoutName = "(a Blizzard preset — nothing of Rob's to read)"
+		end
+	end
+
 	--- And what the account-wide Edit Mode settings hold, since that is where the
 	--- "always show buttons" style options live for some systems.
 	if EditModeManagerFrame and type(EditModeManagerFrame.accountSettings) == "table" then
