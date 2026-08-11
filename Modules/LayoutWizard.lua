@@ -21,7 +21,9 @@ local _, ns = ...
 	    chat while looking at his bars, which is exactly where a player looks.
 ]]
 
-local PANEL_W, PANEL_H = 460, 434
+-- Wider than it looks like it needs: the buttons size themselves to the longest
+-- translated label (see Build), and the notes sit to their right.
+local PANEL_W, PANEL_H = 520, 434
 
 local panel
 
@@ -159,6 +161,9 @@ local function Build()
 
 	local y = -110
 
+	--- Every button on the panel, so the widest label can size all of them at the end.
+	local buttons = {}
+
 	local function Row(btn, note)
 		btn:SetPoint("TOPLEFT", 16, y)
 		local fs = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
@@ -167,6 +172,7 @@ local function Build()
 		fs:SetJustifyH("LEFT")
 		fs:SetText(note)
 		y = y - 30
+		buttons[#buttons + 1] = btn
 		return btn, fs
 	end
 
@@ -193,12 +199,30 @@ local function Build()
 		--- only other value the call takes. And we verify rather than trust it — if the
 		--- game does not come back reading "character", the panel says so.
 		pcall(SaveBindings, 2)
-		local now = ns.Keybind_BindingSet and ns.Keybind_BindingSet()
-		if now == "character" then
-			print(Prefix() .. " " .. ns:L("MH_SETUP_CHARSET_DONE"))
+
+		--- ⚠️ Ask again a moment later, not immediately.
+		---
+		--- Measured on the PTR: after Rob pressed this, `ns.db.bindingSetProbe` came back
+		--- `raw = 2`, so the switch worked — but the panel still read "account-wide" and
+		--- the button stayed enabled. The read straight after `SaveBindings` is too early;
+		--- the client has not finished with it yet. A verification that runs before the
+		--- thing it verifies is worse than none, because it reports a false failure.
+		local function verify()
+			local now = ns.Keybind_BindingSet and ns.Keybind_BindingSet()
+			if now == "character" then
+				print(Prefix() .. " " .. ns:L("MH_SETUP_CHARSET_DONE"))
+			else
+				print(Prefix() .. " " .. (ns:L("MH_SETUP_CHARSET_FAIL")):format(
+					tostring(now or "?")))
+			end
+			if panel and panel.Refresh then
+				panel:Refresh()
+			end
+		end
+		if C_Timer and C_Timer.After then
+			C_Timer.After(0.5, verify)
 		else
-			print(Prefix() .. " " .. (ns:L("MH_SETUP_CHARSET_FAIL")):format(
-				tostring(now or "?")))
+			verify()
 		end
 	end), ns:L("MH_SETUP_NOTE_CHARSET"))
 
@@ -239,6 +263,33 @@ local function Build()
 			ns.MH_ApplyLayout("undo")
 		end
 	end), ns:L("MH_SETUP_NOTE_UNDO"))
+
+	--- ⚠️ SIZE THE BUTTONS TO THE TEXT, DON'T PICK A NUMBER.
+	---
+	--- All seven were a fixed 196px and "Give this character its own keys" spilled out of
+	--- its edges. Bumping the constant would fix English and break German, where the same
+	--- label is "Eigene Tasten für diesen Charakter"; French and Portuguese are longer
+	--- still. A hardcoded width is a bet that no translation is longer than the one you
+	--- looked at.
+	---
+	--- So measure: widest rendered label wins, everything matches it, and the notes are
+	--- anchored to the buttons so they follow along. Works for a language nobody has
+	--- added yet.
+	do
+		local widest = 0
+		for _, b in ipairs(buttons) do
+			local fs = b.GetFontString and b:GetFontString()
+			local w = fs and fs:GetStringWidth() or 0
+			if w > widest then
+				widest = w
+			end
+		end
+		-- +26 for the template's own inner padding; never narrower than before.
+		local w = math.max(196, math.ceil(widest) + 26)
+		for _, b in ipairs(buttons) do
+			b:SetWidth(w)
+		end
+	end
 
 	f.foot = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	f.foot:SetPoint("BOTTOMLEFT", 16, 14)
