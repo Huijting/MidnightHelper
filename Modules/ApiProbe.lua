@@ -274,6 +274,97 @@ function ns.PrintRolesetProbe()
 end
 
 --- /mh roleset save — same, into SavedVariables (then /reload).
+--- `/mh api12` — do the 12.1 secret-safe helpers this client is said to have exist?
+---
+--- DandersFrames v5.0.0 shipped for interface 120100 and credits "secret aura tracking
+--- techniques from Harrek's Advanced Raid Frames". Reading it turned up five things MH
+--- has use for, and every one of them is a CANDIDATE rather than a fact: this project
+--- registered `LEARNED_SPELL_IN_TAB` on 8 Aug because the name appeared in four other
+--- addons, and 12.x threw on the next reload.
+---
+--- What they are for, if they exist:
+---   * `SetAlphaFromBoolean` — the engine picks an alpha from a secret boolean, so
+---     visibility can follow something Lua may never read. MH already leans on this in
+---     CombatSafety; worth confirming it is still the sanctioned route.
+---   * `UnitHealthPercent(unit, scale, curve)` — health as a number or colour without
+---     reading the value. `ConsumableReadyCheck` compares health percentages, which is
+---     exactly the kind of read 12.1 restricts.
+---   * `C_Spell.IsSpellImportant(spellID)` — Blizzard's own opinion on whether a spell
+---     matters. MH keeps hand-built interrupt and dispel lists; a native answer would
+---     outrank them and never go stale.
+---   * `C_StringUtil.TruncateWhenZero` / `RoundToNearestString` — formatting that
+---     accepts secrets.
+---   * `CurveConstants` — the scale constants those calls take.
+---
+--- Nothing is called with real data here; existence and type only.
+function ns.MH_Api12Probe()
+	ns.db = ns.db or {}
+	local out = {}
+
+	local function Note(label, v)
+		out[label] = (v == nil) and "absent" or type(v)
+	end
+
+	Note("issecretvalue", _G.issecretvalue)
+	Note("AbbreviateNumbers", _G.AbbreviateNumbers)
+	Note("AbbreviateLargeNumbers", _G.AbbreviateLargeNumbers)
+	Note("UnitHealthPercent", _G.UnitHealthPercent)
+	Note("UnitInRange", _G.UnitInRange)
+	Note("CurveConstants", _G.CurveConstants)
+
+	if type(_G.CurveConstants) == "table" then
+		local names = {}
+		for k in pairs(_G.CurveConstants) do
+			names[#names + 1] = tostring(k)
+		end
+		table.sort(names)
+		out.curveConstantNames = names
+	end
+
+	for _, fn in ipairs({ "TruncateWhenZero", "RoundToNearestString" }) do
+		Note("C_StringUtil." .. fn, _G.C_StringUtil and _G.C_StringUtil[fn])
+	end
+	for _, fn in ipairs({ "IsSpellImportant", "GetSpellName", "GetSpellTexture" }) do
+		Note("C_Spell." .. fn, _G.C_Spell and _G.C_Spell[fn])
+	end
+
+	--- Frame methods have to be asked of a frame, not of the global table.
+	local probe = CreateFrame("Frame", nil, UIParent)
+	for _, m in ipairs({ "SetAlphaFromBoolean", "SetShownFromBoolean", "AddRoleset",
+	                     "SetOnUpdateMode", "HasAnyForbiddenAspect" }) do
+		Note("Frame:" .. m, probe[m])
+	end
+	local fs = probe:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	for _, m in ipairs({ "SetTextFromSecret", "SetFormattedTextFromSecret" }) do
+		Note("FontString:" .. m, fs[m])
+	end
+	probe:Hide()
+
+	ns.db.api12Probe = out
+
+	local present, absent = {}, {}
+	for k, v in pairs(out) do
+		if type(v) == "string" then
+			if v == "absent" then
+				absent[#absent + 1] = k
+			else
+				present[#present + 1] = k
+			end
+		end
+	end
+	table.sort(present)
+	table.sort(absent)
+	print(("%s 12.1 helpers: |cff40c040%d present|r, |cffff9900%d absent|r."):format(
+		PREFIX, #present, #absent))
+	for _, k in ipairs(present) do
+		print("   |cff40c040+|r " .. k)
+	end
+	for _, k in ipairs(absent) do
+		print("   |cffff9900-|r " .. k)
+	end
+	print("   |cff9d9d9dSaved to the DB \226\128\148 |cffffffff/reload|r to write the file.|r")
+end
+
 function ns.SaveRolesetProbe()
 	ns.db = ns.db or {}
 	ns.db.rolesetProbe = Gather()

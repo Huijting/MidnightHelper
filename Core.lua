@@ -1179,6 +1179,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh api12 — which 12.1 secret-safe helpers does this client actually have?
+	if msg == "api12" then
+		if ns.MH_Api12Probe then
+			ns.MH_Api12Probe()
+		end
+		return
+	end
+
 	-- /mh bar — show or hide the little quick bar.
 	if msg == "bar" then
 		if ns.MH_ToggleQuickBar then
