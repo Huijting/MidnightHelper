@@ -1,6 +1,6 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-07.** Dit is het eerste wat een nieuwe sessie leest. Alles onder
-"Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+**Bijgewerkt 2026-08-11 (avond).** Dit is het eerste wat een nieuwe sessie leest. Alles
+onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
 Op 27 juli stuurde de verouderde versie van dit bestand een sessie de verkeerde kant op
 (hij wees nog naar de Achievements-tab en beweerde dat de WoW-map geen git-repo is).
@@ -12,11 +12,76 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 
 | | |
 |---|---|
-| Uitgebracht | **v2.12.0**, getagd en live op CurseForge 2026-08-05 (upload + changelog schoon, 6 van 6; Rob plakte de description) |
-| Volgend doel | **v3.0.0** -- de Season 2-release (18 aug). 12.1 gaat live 11 aug NA / 12 aug EU |
-| Daarna | **v3.0.0** -- de Season 2-release |
+| Uitgebracht | **v2.13.0** op CurseForge. Sindsdien **~136 commits** op `main`, nog niet uitgebracht |
+| Nu | **12.1 is live op NA (11 aug); EU krijgt hem 12 aug.** Rob werkt 08:00-16:00 |
+| Volgende stap | **v2.14.0 morgenavond**, mét Rob erbij en Cisca als tester. Release-artefacten staan nog op 2.13.0 -- bewust, tot Rob "af" zegt |
+| Daarna | **v3.0.0** = Season 2 (18 aug) |
 | Branch | alleen `main` |
-| Deadline | **12.1 live 11 aug (NA) / 12 aug (EU), Season 2 18 aug.** Officieel bevestigd, niet langer een projectie |
+
+## 📍 Morgen op live, in deze volgorde
+
+Alles hieronder is op de PTR gemeten en moet op live opnieuw, want de PTR is sinds
+vanavond "Incompatible" (client loopt achter op de realms; 12.1.5 komt eraan).
+
+1. **`/mh worldboss`** — zijn de vier Season 1-bossen echt vervangen door Lairs? De scan
+   werkte niet meer op 12.1 en is gerepareerd, dus nu telt het antwoord pas.
+2. **`/mh api12`** — bestaan `SetOnUpdateMode`, `AddRoleset`, `HasAnyForbiddenAspect`,
+   `SetTextFromSecret` en `SetShownFromBoolean` dan wel? Op 12.0.7 ontbraken ze alle vijf.
+3. **`/mh editmode preset`** — de bar-preset is geëxporteerd op 12.0.7. Overleeft
+   Blizzards layout-formaat een patch? Zo niet: opnieuw exporteren, één constante in
+   `Modules/BarPreset.lua` vervangen.
+4. **De Codex** — Season 2-content is season-gated en hoort pas 18 aug te verschijnen.
+   Controleren dat de gate doet wat hij belooft.
+
+## 🔴 De grootste openstaande vraag (Rob, 11 aug)
+
+**Hoe weet een gebruiker dat `/mh setup` bestaat?** Rob's eigen woorden: als hij morgen
+tegen Carola zegt dat ze haar spells automatisch kan laten instellen -- waar gaat zij dan
+heen? Een changelog leest niemand, de CF-beschrijving lees je één keer vóór installatie.
+
+Hij merkte hetzelfde bij zichzelf: de addon is zo groot geworden dat hij zijn eigen
+dingen niet terugvindt. Vanavond bleek dat letterlijk -- "details" en "platynator"
+gaven geen zoekresultaat, terwijl hij die pagina's zelf gebouwd heeft (gefixt in
+`ce76b3b`).
+
+Drie richtingen, alle drie door Rob goedgekeurd, nog niet gebouwd:
+
+1. **Een overzicht dat zichzelf uit de code genereert**, gesorteerd op *moment* (je gaat
+   een delve in / je staat voor een boss) in plaats van op feature. Handgeschreven
+   veroudert; de commandolijst laat zien hoe het wel moet.
+2. **De addon wijst zichzelf aan wanneer het uitmaakt.** Het nudge-framework (Spec 15)
+   bestaat al en doet dit voor twee dingen. Uitbreiden is registratiewerk, geen nieuwe
+   machinerie. **Dit is het directe antwoord op de Carola-vraag.**
+3. **Zoeken op intentie**, niet op naam. Vanavond gedaan voor commando's (beschrijving
+   staat nu vooraan) en voor de Addons-pagina's.
+
+## ✅ Vandaag gebouwd (11 aug), kort
+
+Setup-paneel `/mh setup` met tien knoppen; snelbalk `/mh bar` (MH · reload · groep
+verlaten · balken); potion-toetsen als bindbare secure buttons (`T` is vrij);
+`/mh fps` (leest alleen, met Blizzards eigen labels); duimtoetsen naar balk 8;
+bar-preset uit Rob's Hunter; Details!-profielpagina; shift+scroll schaalt elk
+dialoogvenster; shift+klik op het minimap-icoon herlaadt.
+
+**12.1-reparaties:** `C_TaskQuest.GetQuestsForPlayerByMapID` bestaat niet meer →
+`GetQuestsOnMap`; task-POI-coördinaten horen bij de OPGEVRAAGDE kaart, niet bij
+`poi.mapID`; The Coiled Isle (2512) toegevoegd aan de regiogroep zodat er geen
+reisadvies meer komt bij 954 yard.
+
+**Gemeten en vastgelegd:** `C_Spell.IsSpellImportant` kan onze interrupt/dispel-lijsten
+NIET vervangen (3 van 29) -- staat als do-not-retry in `ApiProbe.lua`.
+
+## ⏳ Wacht op Rob
+
+* Details!-pagina: nieuwe profielstring + screenshots (hij past zijn layout nog aan)
+* `/mh bar` shift+klik in een delve: werkt "leave delve"? De uitkomst landt in
+  `ns.db.leaveDelveProbe`
+* De professie-reset van 12.1 (eenmalig per beroep, en je zou recepten verliezen) --
+  Codex-materiaal, maar het komt van PTR-gidsen: **VERIFY vóór we het opschrijven**
+
+---
+
+# Historie
 
 ## 📍 Waar we gebleven zijn (7 aug 2026, pauze)
 
