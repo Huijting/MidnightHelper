@@ -578,6 +578,16 @@ function ns.Keybind_BindingSet()
 			raw = raw,
 			account = ACCOUNT_BINDINGS,
 			character = CHARACTER_BINDINGS,
+			--- ⚠️ Which binding functions this client actually has.
+			---
+			--- `SaveBindings(2)` moved what GetCurrentBindingSet reported, so it looked
+			--- like the switch had worked — twice. It had not: measured on the PTR, the
+			--- ACCOUNT file grew to 664 bytes after `/mh apply go` while no character
+			--- file appeared at all. Saving INTO a set is not the same as switching TO
+			--- it, and only one of those two verbs was being called.
+			hasLoad = type(_G.LoadBindings) == "function",
+			hasSave = type(_G.SaveBindings) == "function",
+			hasGet = type(_G.GetCurrentBindingSet) == "function",
 		}
 	end
 	--- The constants are the honest comparison: FrameXML defines them next to the API

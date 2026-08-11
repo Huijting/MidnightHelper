@@ -198,6 +198,26 @@ local function Build()
 		--- account file was the one being written, so 1 is the account set and 2 is the
 		--- only other value the call takes. And we verify rather than trust it — if the
 		--- game does not come back reading "character", the panel says so.
+		--- ⚠️ ONE PRESS IS NOT ENOUGH, AND THAT IS MEASURED TWICE.
+		---
+		--- `SaveBindings(2)` flips what `GetCurrentBindingSet()` reports straight away,
+		--- so the panel turns green and it looks finished. On the PTR it then fell back:
+		--- Rob pressed this, ran `/mh apply go`, reloaded — and the ACCOUNT file had
+		--- grown from 0 to 664 bytes with no character file in sight, reading 1 again.
+		--- His keys went to every character, the exact thing this button prevents.
+		---
+		--- What DID stick, found by Rob trying his own order: this button, then step 3
+		--- (clear and refill), then 1 and 2, then a reload. That left
+		--- `Mageme\bindings-cache.wtf` at 680 bytes and the set on 2.
+		---
+		--- ⚠️ Why that order works is NOT established. Two observations, no mechanism —
+		--- most likely the set only persists once real keys are written into it, but
+		--- that has not been isolated. So the note under the button tells the player to
+		--- follow up with step 2 rather than pretending one click settles it, and no
+		--- theory has been coded in. `LoadBindings` sat here briefly on the reasoning
+		--- that switching and saving are different verbs; it was removed again because
+		--- untested code that rewrites somebody's keybindings is not worth a hunch. The
+		--- probe records whether that function exists, for when this is worth finishing.
 		pcall(SaveBindings, 2)
 
 		--- ⚠️ Ask again a moment later, not immediately.
