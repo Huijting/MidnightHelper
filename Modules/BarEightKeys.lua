@@ -36,13 +36,18 @@ local PAD_KEYS = { "6", "7", "8", "9", "0", "-" }
 --- thumb moves. His bar happened to hold them in the opposite order, so "leave what is
 --- there" was protecting the arrangement he wanted changed.
 ---
---- On a 12-button bar drawn as 3 rows of 4, the left-hand pair of each row is buttons
---- 1-2, 5-6 and 9-10. That is the layout in his screenshot and the default here.
+--- ⚠️ A MULTI-ROW BAR NUMBERS FROM THE BOTTOM UP. Measured, not reasoned: buttons 1-2
+--- were placed and landed on the BOTTOM row of Rob's three, so 6 and 7 ended up under
+--- his thumb's last position instead of its first. Reading order and button order run
+--- opposite on this bar.
+---
+--- So the rows are walked in reverse: 9-10 is the top pair, 5-6 the middle, 1-2 the
+--- bottom. That puts 6 7 / 8 9 / 0 - down the pad the way the thumb travels.
 ---
 --- ⚠️ A DEFAULT, NOT A LAW. Somebody with one row of 12 wants 1-6 instead. The plan is
 --- printed before anything moves, so a layout this does not suit is visible rather than
 --- discovered afterwards — and `/mh apply undo` puts it back.
-local HOME_BUTTONS = { 1, 2, 5, 6, 9, 10 }
+local HOME_BUTTONS = { 9, 10, 5, 6, 1, 2 }
 
 local BAR8_PREFIX = "MULTIACTIONBAR7BUTTON"
 local BAR8_BUTTONS = 12
