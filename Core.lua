@@ -1195,6 +1195,20 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh padkeys [go] — where the thumb-pad keys point, and put them on bar 8.
+	if msg == "padkeys" then
+		if ns.MH_PadKeysReport then
+			ns.MH_PadKeysReport()
+		end
+		return
+	end
+	if msg == "padkeys go" then
+		if ns.MH_PadKeysApply then
+			ns.MH_PadKeysApply(true)
+		end
+		return
+	end
+
 	-- /mh potionkeys — which potion each bindable button points at, and its key.
 	if msg == "potionkeys" then
 		if ns.MH_PotionKeyReport then

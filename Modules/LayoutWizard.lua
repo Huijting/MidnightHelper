@@ -23,7 +23,7 @@ local _, ns = ...
 
 -- Wider than it looks like it needs: the buttons size themselves to the longest
 -- translated label (see Build), and the notes sit to their right.
-local PANEL_W, PANEL_H = 520, 524
+local PANEL_W, PANEL_H = 520, 554
 
 local panel
 
@@ -277,6 +277,21 @@ local function Build()
 			ns.MH_ShowBarPlan()
 		end
 	end), ns:L("MH_SETUP_NOTE_PLAN"))
+
+	--- The thumb-pad keys, for the mice that send numbers instead of mouse buttons.
+	---
+	--- Rob's Naga sends 6 7 8 9 0 - and he keeps them on bar 8 permanently. Doing that
+	--- by hand in Blizzard's keybinding screen on every character is exactly the chore
+	--- this panel exists to remove. Two presses, like the destructive ones: the first
+	--- prints what would move, the second moves it.
+	Row(MakeButton(f, ns:L("MH_SETUP_BTN_PADKEYS"), function()
+		if not ns.MH_PadKeysApply then
+			return
+		end
+		-- First press prints the plan, second performs it.
+		ns.MH_PadKeysApply(f._padArmed == true)
+		f._padArmed = not f._padArmed
+	end), ns:L("MH_SETUP_NOTE_PADKEYS"))
 
 	--- The bars themselves, which the panel could describe but never hand over.
 	---

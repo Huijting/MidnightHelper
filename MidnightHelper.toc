@@ -143,6 +143,7 @@ Modules\TwinProbe.lua
 Modules\BarInventory.lua
 Modules\LayoutConsumables.lua
 Modules\PotionButton.lua
+Modules\BarEightKeys.lua
 Modules\EventProbe.lua
 Modules\EditModeBackup.lua
 Modules\BarPreset.lua

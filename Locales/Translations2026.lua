@@ -2731,6 +2731,19 @@ fill("deDE", {
 	DETAILS_SELECT = "Zeichenkette markieren",
 	DETAILS_SELECTED = "Profil-Zeichenkette markiert \194\183 mit Strg+C kopieren.",
 	DETAILS_HOWTO = "In Details: Optionen öffnen, zu Profiles, Import wählen, einfügen und einen beliebigen Namen vergeben. Danach das Profil im Dropdown auswählen, um wirklich umzuschalten \194\183 Importieren allein aktiviert es nicht.",
+	PADKEYS_REPORT_HEAD = "worauf die Tasten 6 7 8 9 0 - gerade zeigen:",
+	PADKEYS_UNBOUND = "nicht belegt",
+	PADKEYS_SUMMARY = "|cffffffff%d|r von |cffffffff%d|r schon auf Leiste 8.",
+	PADKEYS_COMBAT = "nicht im Kampf.",
+	PADKEYS_ALL_SET = "alle %d Daumentasten liegen bereits auf Leiste 8 \194\183 nichts zu tun.",
+	PADKEYS_NO_ROOM = "nur %d freie Taste(n) auf Leiste 8 und %d zu platzieren \194\183 mach erst Platz.",
+	PADKEYS_PLAN = "%d Taste(n) würden auf Leiste 8 wandern. Nichts wurde geändert:",
+	PADKEYS_WAS = "jetzt",
+	PADKEYS_PLAN_GO = "Drück den Knopf erneut, um es auszuführen.",
+	PADKEYS_DONE = "%d Taste(n) zeigen jetzt auf Leiste 8.",
+	PADKEYS_UNDO = "/mh apply undo stellt sie zurück.",
+	MH_SETUP_BTN_PADKEYS = "Daumentasten auf Leiste 8",
+	MH_SETUP_NOTE_PADKEYS = "Für eine Maus, deren Daumenpad 6 7 8 9 0 - sendet \194\183 lässt Vorhandenes stehen.",
 })
 
 fill("frFR", {
@@ -2820,6 +2833,19 @@ fill("frFR", {
 	DETAILS_SELECT = "Sélectionner la chaîne",
 	DETAILS_SELECTED = "chaîne sélectionnée \194\183 Ctrl+C pour copier.",
 	DETAILS_HOWTO = "Dans Details : ouvrez les options, allez dans Profiles, choisissez Import, collez, donnez-lui le nom que vous voulez. Sélectionnez ensuite ce profil dans la liste pour y basculer \194\183 importer ne l’active pas.",
+	PADKEYS_REPORT_HEAD = "où pointent actuellement les touches 6 7 8 9 0 - :",
+	PADKEYS_UNBOUND = "non attribuée",
+	PADKEYS_SUMMARY = "|cffffffff%d|r sur |cffffffff%d|r déjà sur la barre 8.",
+	PADKEYS_COMBAT = "pas pendant le combat.",
+	PADKEYS_ALL_SET = "les %d touches du pouce sont déjà sur la barre 8 \194\183 rien à faire.",
+	PADKEYS_NO_ROOM = "seulement %d bouton(s) libre(s) sur la barre 8 pour %d touche(s) \194\183 libérez de la place.",
+	PADKEYS_PLAN = "%d touche(s) iraient sur la barre 8. Rien n’a changé :",
+	PADKEYS_WAS = "actuellement",
+	PADKEYS_PLAN_GO = "Appuyez de nouveau pour le faire.",
+	PADKEYS_DONE = "%d touche(s) pointent maintenant vers la barre 8.",
+	PADKEYS_UNDO = "/mh apply undo les remet.",
+	MH_SETUP_BTN_PADKEYS = "Touches du pouce vers la barre 8",
+	MH_SETUP_NOTE_PADKEYS = "Pour une souris dont le pad envoie 6 7 8 9 0 - \194\183 conserve ce qui est déjà en place.",
 })
 
 fill("esES", {
@@ -2909,6 +2935,19 @@ fill("esES", {
 	DETAILS_SELECT = "Seleccionar la cadena",
 	DETAILS_SELECTED = "cadena seleccionada \194\183 pulsa Ctrl+C para copiar.",
 	DETAILS_HOWTO = "En Details: abre las opciones, ve a Profiles, elige Import, pega y ponle el nombre que quieras. Luego selecciona ese perfil en el desplegable para cambiar de verdad \194\183 importar no lo activa.",
+	PADKEYS_REPORT_HEAD = "a dónde apuntan ahora las teclas 6 7 8 9 0 -:",
+	PADKEYS_UNBOUND = "sin asignar",
+	PADKEYS_SUMMARY = "|cffffffff%d|r de |cffffffff%d|r ya en la barra 8.",
+	PADKEYS_COMBAT = "no mientras estás en combate.",
+	PADKEYS_ALL_SET = "las %d teclas del pulgar ya están en la barra 8 \194\183 nada que hacer.",
+	PADKEYS_NO_ROOM = "solo %d botón(es) libre(s) en la barra 8 para %d tecla(s) \194\183 libera espacio primero.",
+	PADKEYS_PLAN = "%d tecla(s) irían a la barra 8. No ha cambiado nada:",
+	PADKEYS_WAS = "ahora",
+	PADKEYS_PLAN_GO = "Pulsa el botón otra vez para hacerlo.",
+	PADKEYS_DONE = "%d tecla(s) apuntan ahora a la barra 8.",
+	PADKEYS_UNDO = "/mh apply undo las devuelve.",
+	MH_SETUP_BTN_PADKEYS = "Teclas del pulgar a la barra 8",
+	MH_SETUP_NOTE_PADKEYS = "Para un ratón cuyo pad envía 6 7 8 9 0 - \194\183 respeta lo que ya está puesto.",
 })
 
 fill("ptBR", {
@@ -2998,6 +3037,19 @@ fill("ptBR", {
 	DETAILS_SELECT = "Selecionar a string",
 	DETAILS_SELECTED = "string selecionada \194\183 pressione Ctrl+C para copiar.",
 	DETAILS_HOWTO = "No Details: abra as opções, vá em Profiles, escolha Import, cole e dê o nome que quiser. Depois selecione esse perfil no menu para realmente trocar \194\183 importar sozinho não ativa.",
+	PADKEYS_REPORT_HEAD = "para onde as teclas 6 7 8 9 0 - apontam agora:",
+	PADKEYS_UNBOUND = "sem atalho",
+	PADKEYS_SUMMARY = "|cffffffff%d|r de |cffffffff%d|r já na barra 8.",
+	PADKEYS_COMBAT = "não durante o combate.",
+	PADKEYS_ALL_SET = "as %d teclas do polegar já estão na barra 8 \194\183 nada a fazer.",
+	PADKEYS_NO_ROOM = "apenas %d botão(ões) livre(s) na barra 8 para %d tecla(s) \194\183 libere espaço antes.",
+	PADKEYS_PLAN = "%d tecla(s) iriam para a barra 8. Nada mudou:",
+	PADKEYS_WAS = "agora",
+	PADKEYS_PLAN_GO = "Pressione o botão de novo para fazer.",
+	PADKEYS_DONE = "%d tecla(s) agora apontam para a barra 8.",
+	PADKEYS_UNDO = "/mh apply undo devolve.",
+	MH_SETUP_BTN_PADKEYS = "Teclas do polegar para a barra 8",
+	MH_SETUP_NOTE_PADKEYS = "Para um mouse cujo pad envia 6 7 8 9 0 - \194\183 mantém o que já existe.",
 })
 
 fill("itIT", {
@@ -3087,5 +3139,18 @@ fill("itIT", {
 	DETAILS_SELECT = "Seleziona la stringa",
 	DETAILS_SELECTED = "stringa selezionata \194\183 premi Ctrl+C per copiare.",
 	DETAILS_HOWTO = "In Details: apri le opzioni, vai su Profiles, scegli Import, incolla e dagli il nome che vuoi. Poi seleziona quel profilo dal menù per passarci davvero \194\183 importare non lo attiva.",
+	PADKEYS_REPORT_HEAD = "dove puntano ora i tasti 6 7 8 9 0 -:",
+	PADKEYS_UNBOUND = "non assegnato",
+	PADKEYS_SUMMARY = "|cffffffff%d|r su |cffffffff%d|r già sulla barra 8.",
+	PADKEYS_COMBAT = "non mentre sei in combattimento.",
+	PADKEYS_ALL_SET = "tutti i %d tasti del pollice sono già sulla barra 8 \194\183 niente da fare.",
+	PADKEYS_NO_ROOM = "solo %d tasto/i libero/i sulla barra 8 per %d tasto/i \194\183 libera prima dello spazio.",
+	PADKEYS_PLAN = "%d tasto/i andrebbero sulla barra 8. Non è cambiato nulla:",
+	PADKEYS_WAS = "ora",
+	PADKEYS_PLAN_GO = "Premi di nuovo il pulsante per farlo.",
+	PADKEYS_DONE = "%d tasto/i ora puntano alla barra 8.",
+	PADKEYS_UNDO = "/mh apply undo li rimette.",
+	MH_SETUP_BTN_PADKEYS = "Tasti del pollice sulla barra 8",
+	MH_SETUP_NOTE_PADKEYS = "Per un mouse il cui pad invia 6 7 8 9 0 - \194\183 lascia stare quello che c’è già.",
 })
 
