@@ -92,18 +92,34 @@ local function BuildLines()
 	out[#out + 1] = " "
 	out[#out + 1] = ns:L("FPS_HEADER")
 
-	local higherInRaid = 0
+	--- ⚠️ "Higher in raids" and "never touched" look identical, and only one is a
+	--- finding.
+	---
+	--- The first version flagged every setting where the raid value beat the everyday
+	--- one and announced nine of them, which reads as nine things wrong. On Rob's
+	--- machine the raid column matched the DEFAULT column line for line: he had lowered
+	--- his ordinary settings and simply never opened the raid tab. That is not a
+	--- misconfiguration, it is an untouched panel — and telling him otherwise would be
+	--- inventing a problem out of an unchanged default.
+	---
+	--- So the two cases are separated. Untouched-at-default is stated plainly; a raid
+	--- value that is higher AND deliberately set is the only one that gets a mark.
+	local higherAndSet, higherAtDefault = 0, 0
 	for _, row in ipairs(SETTINGS) do
 		local name, raidName, descKey = row[1], row[2], row[3]
 		local cur, raid, def = Read(name), Read(raidName), ReadDefault(name)
 		if cur ~= nil then
-			local n, r = Num(cur), Num(raid)
-			-- Mark where the raid value exceeds the everyday one: that is the shape
-			-- Rob's config showed, and it is the opposite of what people expect.
+			local n, r, d = Num(cur), Num(raid), Num(def)
 			local mark = ""
 			if n and r and r > n then
-				mark = " |cffff9900<|r"
-				higherInRaid = higherInRaid + 1
+				if d and r == d then
+					-- Raid side still sitting on the shipped value.
+					mark = " |cff9d9d9d\194\183|r"
+					higherAtDefault = higherAtDefault + 1
+				else
+					mark = " |cffff9900<|r"
+					higherAndSet = higherAndSet + 1
+				end
 			end
 			out[#out + 1] = ("|cffffd100%-14s|r %4s %6s %7s%s   |cff9d9d9d%s|r"):format(
 				ns:L(descKey), tostring(cur), tostring(raid or "-"),
@@ -112,8 +128,11 @@ local function BuildLines()
 	end
 
 	out[#out + 1] = " "
-	if higherInRaid > 0 then
-		out[#out + 1] = (ns:L("FPS_HIGHER_IN_RAID")):format(higherInRaid)
+	if higherAtDefault > 0 then
+		out[#out + 1] = (ns:L("FPS_RAID_UNTOUCHED")):format(higherAtDefault)
+	end
+	if higherAndSet > 0 then
+		out[#out + 1] = (ns:L("FPS_HIGHER_IN_RAID")):format(higherAndSet)
 	end
 	out[#out + 1] = ns:L("FPS_FOOTER")
 	return table.concat(out, "\n")

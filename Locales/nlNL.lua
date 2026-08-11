@@ -34,6 +34,7 @@ ns._mhLocales.nlNL = {
 	FPS_RAIDSET = "Aparte raid/battleground-instellingen: |cffffffff%s|r",
 	FPS_HEADER = "|cff9d9d9dinstelling         nu   raid  standaard   CVar|r",
 	FPS_HIGHER_IN_RAID = "|cffff9900%d instelling(en) met |cffffffff<|r|cffff9900 staan HOGER in raids dan daarbuiten.|r",
+	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d instelling(en) met \194\183 staan alleen hoger in raids omdat het raid-tabblad nog op standaard staat \194\183 je hebt de gewone verlaagd en dat tabblad nooit geopend.|r",
 	FPS_FOOTER = "|cff9d9d9dMidnight Helper verandert hier niets \194\183 hij leest alleen. Wat een waarde je kost hangt af van je hardware, je resolutie en waar je staat, en dat kan een addon geen van drie zien. Wijzigen doe je in Blizzards eigen grafische opties.|r",
 	FPS_VIEWDIST = "Zichtafstand",
 	FPS_ENVDETAIL = "Omgeving",

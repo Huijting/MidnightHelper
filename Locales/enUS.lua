@@ -32,6 +32,7 @@ ns._mhLocales.enUS = {
 	FPS_RAIDSET = "Separate raid/battleground settings: |cffffffff%s|r",
 	FPS_HEADER = "|cff9d9d9dsetting          now   raid  default   CVar|r",
 	FPS_HIGHER_IN_RAID = "|cffff9900%d setting(s) marked |cffffffff<|r|cffff9900 are HIGHER in raids than outside them.|r",
+	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d setting(s) marked \194\183 are higher in raids only because the raid tab is still on its defaults \194\183 you lowered the everyday ones and never opened it.|r",
 	FPS_FOOTER = "|cff9d9d9dMidnight Helper changes none of this \194\183 it only reads. What a number costs you depends on your hardware, your resolution and what you are standing in, none of which an addon can see. Blizzard's own graphics options are where you change them.|r",
 	FPS_VIEWDIST = "View distance",
 	FPS_ENVDETAIL = "Environment",

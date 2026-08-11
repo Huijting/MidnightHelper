@@ -2688,6 +2688,7 @@ fill("deDE", {
 	FPS_TEXTURE = "Texturen",
 	FPS_SPELLDENS = "Zauberdichte",
 	FPS_PROJTEX = "Proj. Texturen",
+	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d Einstellung(en) mit \194\183 stehen im Schlachtzug nur höher, weil der Schlachtzug-Reiter noch auf Standard steht \194\183 du hast die normalen gesenkt und ihn nie geöffnet.|r",
 })
 
 fill("frFR", {
@@ -2734,6 +2735,7 @@ fill("frFR", {
 	FPS_TEXTURE = "Textures",
 	FPS_SPELLDENS = "Densité sorts",
 	FPS_PROJTEX = "Text. projetées",
+	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d paramètre(s) marqué(s) \194\183 ne sont plus élevés en raid que parce que l’onglet raid est resté par défaut \194\183 vous avez baissé les paramètres ordinaires sans jamais l’ouvrir.|r",
 })
 
 fill("esES", {
@@ -2780,6 +2782,7 @@ fill("esES", {
 	FPS_TEXTURE = "Texturas",
 	FPS_SPELLDENS = "Densidad hech.",
 	FPS_PROJTEX = "Text. proyect.",
+	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d ajuste(s) con \194\183 solo están más altos en banda porque la pestaña de banda sigue en sus valores por defecto \194\183 bajaste los normales y nunca la abriste.|r",
 })
 
 fill("ptBR", {
@@ -2826,6 +2829,7 @@ fill("ptBR", {
 	FPS_TEXTURE = "Texturas",
 	FPS_SPELLDENS = "Densidade mag.",
 	FPS_PROJTEX = "Text. projet.",
+	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d configuração(ões) com \194\183 só estão mais altas em raide porque a aba de raide continua nos padrões \194\183 você baixou as normais e nunca a abriu.|r",
 })
 
 fill("itIT", {
@@ -2872,5 +2876,6 @@ fill("itIT", {
 	FPS_TEXTURE = "Texture",
 	FPS_SPELLDENS = "Densità incantesimi",
 	FPS_PROJTEX = "Text. proiettate",
+	FPS_RAID_UNTOUCHED = "|cff9d9d9d%d impostazione/i con \194\183 sono più alte in incursione solo perché la scheda incursione è ancora sui valori predefiniti \194\183 hai abbassato quelle normali e non l’hai mai aperta.|r",
 })
 
