@@ -111,6 +111,21 @@ function ns.MH_ReconcileSlots()
 	return changed
 end
 
+--- How many slots this character-and-spec has on record, in any state.
+---
+--- Zero means one thing only: the layout has never been applied here. It is the honest
+--- answer to "have we ever touched these bars", and the setup nudge asks exactly that.
+--- ⚠️ Do NOT read it as "the bars are empty" — a player who arranged their own bars by
+--- hand also scores zero, which is why the nudge offers rather than warns.
+--- @return number
+function ns.MH_ManagedSlotCount()
+	local n = 0
+	for _ in pairs(Slots()) do
+		n = n + 1
+	end
+	return n
+end
+
 --- @return boolean  true when the player has taken this slot over
 function ns.MH_SlotIsUserOwned(slot)
 	local rec = Slots()[slot]

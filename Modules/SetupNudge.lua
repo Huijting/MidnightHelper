@@ -17,47 +17,52 @@ local _, ns = ...
 	for her. No command to remember, and Rob's instruction becomes "open Midnight
 	Helper".
 
-	⚠️ ONLY WHEN IT IS TRUE. The card appears if this character has no MH layout on its
-	bars. Somebody who has already run `/mh apply`, or who arranges their own bars, gets
-	nothing — an addon that keeps offering to fix what is not broken is the kind this
-	project complains about. The condition is measured, not assumed: it asks the layout
-	module how many of its keys currently point at a filled slot.
+	⚠️ ONLY WHEN IT IS TRUE. The card appears when the layout has never been applied on
+	this character and spec — measured against our own record of slots we placed, not
+	guessed. Somebody who has already run `/mh apply` gets nothing; an addon that keeps
+	offering to fix what is not broken is the kind this project complains about.
 
 	⚠️ Dismissable, and it stays dismissed. The framework handles that; the Settings row
 	keeps it reachable afterwards, so a card someone clicked away is not a feature lost.
 ]]
 
---- Does this character look like it has never had the layout applied?
+--- Has the layout never been applied on this character and spec?
 ---
---- ⚠️ "No layout" and "cannot tell" are different answers and only one deserves a card.
---- If the schema cannot be read at all — no spec, no key map — this returns false and
---- says nothing, rather than offering to set up bars we know nothing about.
+--- ⚠️ COUNTING BOUND KEYS WAS THE WRONG QUESTION, and wrong on exactly the person this
+--- card exists for. The first version asked `GetBindingAction` for each of the layout's
+--- keys and showed the card when few came back bound. But WoW binds 1 through = to the
+--- first action bar on a brand-new character, so Carola — who has never touched a
+--- setting — already scores as "mostly bound" and would have seen nothing. The measure
+--- said "this player has configured their keys" when it actually meant "Blizzard ships
+--- defaults".
+---
+--- So ask the thing we genuinely know: our own per-character record of slots we placed.
+--- Empty means we have never set these bars up. That is also true of somebody who
+--- arranged their bars by hand, which is why the card OFFERS rather than warns, and why
+--- dismissing it is permanent.
+---
+--- ⚠️ "Never applied" and "cannot tell" are different answers and only one deserves a
+--- card. With no readable spec or an empty spellbook scan — which happens for a moment
+--- right after a reload — this says nothing rather than offering to set up a layout it
+--- cannot compute.
 local function NeedsSetup()
-	if not (ns.MH_AutoMapSpecAndSlots and GetBindingAction) then
+	if not (ns.MH_AutoMapSpecAndSlots and ns.MH_ManagedSlotCount) then
 		return false
 	end
+
+	local okCount, placed = pcall(ns.MH_ManagedSlotCount)
+	if not okCount or (tonumber(placed) or 0) > 0 then
+		return false
+	end
+
 	local okSpec, spec = pcall(ns.MH_AutoMapSpecAndSlots)
 	if not okSpec or type(spec) ~= "table" or type(spec.spellByUiKey) ~= "table" then
 		return false
 	end
-
-	local wanted, bound = 0, 0
-	for bindKey in pairs(spec.spellByUiKey) do
-		wanted = wanted + 1
-		local wowKey = ns.Keybind_ToWowKey and ns.Keybind_ToWowKey(bindKey) or bindKey
-		local okB, command = pcall(GetBindingAction, wowKey)
-		if okB and type(command) == "string" and command ~= "" then
-			bound = bound + 1
-		end
+	for _ in pairs(spec.spellByUiKey) do
+		return true
 	end
-	if wanted == 0 then
-		return false
-	end
-
-	--- A quarter is the line. Not zero: somebody may have bound a few keys by hand and
-	--- still want the rest done. Not most: a player who has arranged their own bars
-	--- deliberately should never see this.
-	return (bound / wanted) < 0.25
+	return false
 end
 
 ns.RegisterNudge({
