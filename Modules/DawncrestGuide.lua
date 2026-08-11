@@ -733,6 +733,46 @@ function ns.PrintCrestProbe(save)
 	print("   " .. prefix .. " descriptions are populated (verified 31 jul) — never hand-write crest sources.")
 end
 
+--- The Currencies page's own ids, one line each — the second half of `/mh crestscan`.
+---
+--- The sweep below only recognises a currency by having "crest" in its NAME, so the two
+--- hand-written ids on that page — Voidlight Marl and Field Accolade — were the one
+--- thing it could not report on. Rob asked the right question on 11 Aug 2026, the
+--- evening before 12.1: will that page still be correct tomorrow?
+---
+--- This answers it. `GetCurrencyInfo` works on ANY id, listed or not, so unlike the
+--- sweep an empty answer here is real: the client does not know that currency. The ids
+--- come from the page itself, not from a copy kept here, so this can never approve an
+--- id the panel stopped using.
+---
+--- ⚠️ Separate from the sweep on purpose. The sweep gives up when the currency list is
+--- still empty — a real state, right after a reload — and that must not take this half
+--- down with it, because this half does not need the list at all.
+local function PrintPageCurrencies(prefix)
+	if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
+		return
+	end
+	local ids = ns.MH_CurrencyGuideIds and ns.MH_CurrencyGuideIds() or nil
+	if type(ids) ~= "table" or #ids == 0 then
+		return
+	end
+	print(("%s Currencies page — the %d ids it renders:"):format(prefix, #ids))
+	local unknown = 0
+	for _, id in ipairs(ids) do
+		local okI, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
+		local name = okI and type(info) == "table" and info.name or nil
+		if name and name ~= "" then
+			print(("   |cff40c040%-26s|r id %-6d qty %s"):format(name, id, tostring(info.quantity)))
+		else
+			unknown = unknown + 1
+			print(("   |cffff8080%-26s|r id %-6d |cffff8080the client does not know this currency|r"):format("?", id))
+		end
+	end
+	if unknown > 0 then
+		print(("   |cffff8080%d id(s) gone — the Currencies page is showing a dead entry.|r"):format(unknown))
+	end
+end
+
 --- /mh crestscan — walk the player's whole currency list and show every "crest".
 ---
 --- WHY THIS EXISTS. `/mh crests` only iterates the ids we already know
@@ -753,11 +793,13 @@ function ns.PrintCrestScan()
 	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
 	if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListSize and C_CurrencyInfo.GetCurrencyListInfo) then
 		print(prefix .. " currency list API not available")
+		PrintPageCurrencies(prefix)
 		return
 	end
 	local okSize, size = pcall(C_CurrencyInfo.GetCurrencyListSize)
 	if not okSize or not size or size == 0 then
 		print(prefix .. " currency list is empty (open the Currencies tab once, then retry)")
+		PrintPageCurrencies(prefix)
 		return
 	end
 	print(("%s Currency list — every entry with \"crest\" in the name (%d rows):"):format(prefix, size))
@@ -778,6 +820,7 @@ function ns.PrintCrestScan()
 		print("   |cffff8080no currency with \"crest\" in the name is in your list|r")
 	end
 	print("   " .. prefix .. " |cff8a8f98a currency you have never seen may not be listed at all - absence is not proof.|r")
+	PrintPageCurrencies(prefix)
 end
 
 --- /mh crestfind — scan a range of currency ids and name every crest the GAME knows.

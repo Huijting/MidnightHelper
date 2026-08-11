@@ -89,6 +89,32 @@ local function BodyText()
 	return text
 end
 
+--- Every currency id this page will actually render, the seasonal ones included.
+---
+--- ⚠️ PARSED FROM THE STRING THE PANEL DRAWS, never kept as a second list. A probe
+--- with its own copy of the ids is worse than no probe: it reports cheerfully on
+--- currencies the page stopped using, which is exactly the reassurance you do not
+--- want on patch day. {CRESTS} is expanded first, so the answer follows the season
+--- the same way the panel does.
+---
+--- Written 11 Aug 2026 for `/mh crestscan`: that sweep only recognised names with
+--- "crest" in them, so Voidlight Marl and Field Accolade — the two hand-written ids
+--- on this page — were the one thing it could not tell you about.
+--- @return table ids  ordered, de-duplicated
+function ns.MH_CurrencyGuideIds()
+	local raw = ns:L("CURRENCY_GUIDE_BODY") or ""
+	raw = raw:gsub("{CRESTS}", CrestTokens)
+	local out, seen = {}, {}
+	for id in raw:gmatch("{CURRENCY:(%d+)}") do
+		local n = tonumber(id)
+		if n and not seen[n] then
+			seen[n] = true
+			out[#out + 1] = n
+		end
+	end
+	return out
+end
+
 -- Zet een waypoint naar een Quartermaster (TomTom indien aanwezig, anders native).
 local function SetQMWaypoint(qm)
 	if not qm then
