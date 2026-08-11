@@ -115,6 +115,29 @@ local function BuildNavIndex()
 	tab("TAB_ADDONS", "addons", "addon panel")
 	tab("TAB_SETTINGS", "settings", "options preferences text size font language scale")
 
+	--- The pages INSIDE the Addons tab, which were not searchable at all.
+	---
+	--- Rob typed "details" into the search bar and got nothing, then tried "platynator"
+	--- with the same result — and he built those pages. If the person who made them
+	--- cannot find them, nobody can. They were reachable only by knowing that the Addons
+	--- tab exists and then clicking through its sub-tabs.
+	---
+	--- Read from the registry rather than listed here, so a page added later is
+	--- searchable the moment it registers. That is the same rule the command list
+	--- follows, for the same reason: a second hand-kept list drifts.
+	for _, id in ipairs(ns._mhAddonSubTabOrder or {}) do
+		local def = ns._mhAddonSubTabById and ns._mhAddonSubTabById[id]
+		if def and def.label then
+			add(def.label, "addon profile import string " .. id .. " " .. def.label,
+				function()
+					OpenTab("addons")
+					if ns.SelectAddonSubTab then
+						ns.SelectAddonSubTab(id)
+					end
+				end, nil, L("TAB_ADDONS"), "tab")
+		end
+	end
+
 	-- Sub-tabs (resolved through SelectTab's legacy aliases).
 	tab("TAB_PROFESSIONS", "professions", "profession alchemy herbalism work orders crafting knowledge points")
 	-- The profession course is labelled "Course (101)" and sits inside Professions, so
