@@ -227,8 +227,29 @@ function ns.MH_EditModeExport()
 	local activeIndex = (tonumber(info.activeLayout) or 0) - presets
 	local layout = info.layouts[activeIndex]
 	if not layout then
-		print(Prefix() .. " |cffff9900you are on one of Blizzard's presets|r — nothing of your own to export.")
-		print("   |cff9d9d9dEdit Mode → layout dropdown → New Layout, then arrange your bars.|r")
+		--- ⚠️ SAY WHICH LAYOUTS EXIST, not just that this one will not do.
+		---
+		--- Rob hit this after having exported successfully earlier the same day, so his
+		--- own layout was still there — he was simply standing on a preset. "Nothing of
+		--- your own to export" reads as "your work is gone", and telling him to make a
+		--- New Layout would have had him rebuild bars he already had.
+		---
+		--- The saved layouts are right here in `info.layouts`. Listing them turns a dead
+		--- end into a one-click fix: switch to that one and export again.
+		print(Prefix() .. " |cffff9900you are on one of Blizzard's presets|r — those hold nothing of yours to export.")
+		local names = {}
+		for i = 1, #(info.layouts or {}) do
+			local l = info.layouts[i]
+			if l and l.layoutName then
+				names[#names + 1] = ("|cffffffff%s|r"):format(tostring(l.layoutName))
+			end
+		end
+		if #names > 0 then
+			print(("   |cff9d9d9dYour own layout(s): %s \226\128\148 switch to one in Edit Mode's dropdown and export again.|r")
+				:format(table.concat(names, ", ")))
+		else
+			print("   |cff9d9d9dEdit Mode → layout dropdown → New Layout, then arrange your bars.|r")
+		end
 		return
 	end
 
