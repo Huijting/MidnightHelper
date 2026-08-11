@@ -340,17 +340,25 @@ function ns.MH_Api12Probe()
 	end
 	probe:Hide()
 
-	--- ⚠️ "It exists" is not "we know what it says".
+	--- ⚠️ ANSWERED, 11 Aug: `IsSpellImportant` CANNOT replace our lists. Do not retry.
 	---
-	--- `C_Spell.IsSpellImportant` turned out to be present on 12.0.7 already, so MH could
-	--- use it today — but only once we know what it answers. DandersFrames draws an
-	--- "important" border with it, which tells us how THEY read it and nothing about
-	--- whether it agrees with our own interrupt and dispel lists.
+	--- It exists on 12.0.7 already, so the temptation was real: drop the hand-built
+	--- interrupt and dispel data and let Blizzard say what matters. Measured against 40
+	--- spell ids MH names in its own boss tips, it returned true for THREE — Pyroblast,
+	--- Polymorph and Terror Wave — and false for everything else, including Dark Rift,
+	--- Crashing Void, Mass Void Infusion and Umbral Lash. Those are mechanics this addon
+	--- tells people to react to.
 	---
-	--- So ask it about spells we already have an opinion on. Every id here is one this
-	--- addon names in a boss tip or a role toolkit, so agreement or disagreement is
-	--- directly meaningful: if Blizzard flags the same casts we tell people to kick,
-	--- their answer can replace our hand-built list and never go stale.
+	--- So it measures something narrower than "you should do something about this" —
+	--- most likely Blizzard's own short list for its important-cast UI. The asymmetry is
+	--- what makes it usable at all: **true is worth something, false proves nothing.**
+	--- It can promote a warning, never suppress one, and our data stays the source.
+	---
+	--- (Eleven of the false answers were Season 2 ids that do not exist on live yet.
+	--- Three of twenty-nine real spells is still the same conclusion.)
+	---
+	--- The probe stays so the verdict can be re-checked after a patch — cheaply, and
+	--- against our own tips rather than a second list that would drift from them.
 	if _G.C_Spell and type(_G.C_Spell.IsSpellImportant) == "function" then
 		local verdicts = {}
 		local seen = {}
