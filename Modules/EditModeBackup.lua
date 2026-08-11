@@ -374,9 +374,16 @@ function ns.MH_EditModeApplyBars(str)
 		--- Measured on Rob's Paladin: activeLayout was 1, which with two presets ahead of
 		--- the saved list means he was sitting on Blizzard's "Modern". A preset cannot be
 		--- edited at all, so this is a refusal rather than a warning.
-		print(Prefix() .. " |cffff9900you are on one of Blizzard's preset layouts.|r")
-		print("   |cff9d9d9dEdit Mode → the layout dropdown → New layout. A preset cannot be changed;")
-		print("   pick |cffffffffCharacter|r there and the bars stay on this character only.|r")
+		---
+		--- ⚠️ IT ALSO GOES ON THE PANEL, and it is a locale key now rather than three
+		--- English `print`s. Rob hit this on his level-30 TwelveInchy on 11 Aug 2026 and
+		--- fixed it in a minute — because he knew to read chat. Somebody who does not will
+		--- press the button, watch nothing happen, and be right to call that broken.
+		local msg = ns:L("MH_SAY_PRESET_LAYOUT")
+		print(Prefix() .. " |cffff9900" .. msg .. "|r")
+		if ns.MH_SetupSay then
+			ns.MH_SetupSay("warn", msg)
+		end
 		return
 	end
 
@@ -391,10 +398,11 @@ function ns.MH_EditModeApplyBars(str)
 	local accountWide = Enum and Enum.EditModeLayoutType
 		and target.layoutType == Enum.EditModeLayoutType.Account
 	if accountWide then
-		print(("%s |cffff9900note:|r |cffffffff%s|r is an account-wide layout."):format(
-			Prefix(), tostring(target.layoutName)))
-		print("   |cff9d9d9dEvery character using it gets these bars. A character-specific")
-		print("   layout in Edit Mode keeps the change to this character only.|r")
+		local msg = (ns:L("MH_SAY_ACCOUNT_LAYOUT")):format(tostring(target.layoutName))
+		print(Prefix() .. " |cffff9900" .. msg .. "|r")
+		if ns.MH_SetupSay then
+			ns.MH_SetupSay("warn", msg)
+		end
 	end
 
 	-- Capture before touching anything. This is the undo.
@@ -433,8 +441,15 @@ function ns.MH_EditModeApplyBars(str)
 
 	print(("%s bars replaced — |cffffffff%d|r bar system(s) into |cffffffff%s|r."):format(
 		Prefix(), replaced, tostring(target.layoutName)))
-	print("   |cffff9900Reload now|r |cff9d9d9d— the change is not settled until you do.|r")
 	print("   |cff9d9d9dNot what you wanted? |cffffffff/mh editmode restore|r puts your layout back.|r")
+	--- The reload is the half that matters and the half that was chat-only. Nothing is
+	--- settled until it happens, and a player who does not know that sees bars that
+	--- half-changed and no reason why.
+	local msg = (ns:L("MH_SAY_BARS_DONE")):format(replaced, tostring(target.layoutName))
+	print("   |cffff9900" .. msg .. "|r")
+	if ns.MH_SetupSay then
+		ns.MH_SetupSay("warn", msg)
+	end
 end
 
 --- `/mh editmode restore` — put the layout back as it was before the import.
@@ -481,9 +496,11 @@ function ns.MH_EditModeRestore()
 		print(Prefix() .. " |cffff9900Edit Mode refused the restore.|r")
 		return
 	end
-	print(("%s |cffffffff%s|r restored to how it was before the import."):format(
-		Prefix(), tostring(undo.layoutName)))
-	print("   |cffff9900Reload now.|r")
+	local msg = (ns:L("MH_SAY_BARS_RESTORED")):format(tostring(undo.layoutName))
+	print(Prefix() .. " " .. msg)
+	if ns.MH_SetupSay then
+		ns.MH_SetupSay("ok", msg)
+	end
 end
 
 --- ⚠️ A SLASH COMMAND CANNOT CARRY THIS. WoW's chat box stops at 255 characters and

@@ -91,11 +91,24 @@ function ns.MH_ApplyBarPreset(confirmed)
 	local iface = CurrentInterface()
 	local best = PRESETS[1]
 
+	--- ⚠️ BOTH REFUSALS BELOW GO ON THE PANEL TOO.
+	---
+	--- They stop the button and explain themselves in chat, which is where Rob found the
+	--- preset-layout refusal on 11 Aug 2026 and fixed it in a minute — because he thought
+	--- to look. From the panel both of these read as a button that does nothing.
+	---
+	--- The patch one is not hypothetical: this preset was captured on 12.0.7 and the
+	--- interface number changes tomorrow, so on 12.1 the FIRST press refuses for everyone
+	--- who tries it.
 	local rival = CompetingBarAddon()
 	if rival then
-		print(Prefix() .. " " .. (ns:L("BARPRESET_RIVAL")):format(rival))
+		local msg = (ns:L("BARPRESET_RIVAL")):format(rival)
+		print(Prefix() .. " " .. msg)
 		if not confirmed then
 			print("   |cff9d9d9d" .. ns:L("BARPRESET_RIVAL_GO") .. "|r")
+			if ns.MH_SetupSay then
+				ns.MH_SetupSay("warn", msg .. " " .. ns:L("BARPRESET_RIVAL_GO"))
+			end
 			return
 		end
 	end
@@ -103,10 +116,13 @@ function ns.MH_ApplyBarPreset(confirmed)
 	--- Say it up front. A string from another patch may apply and look subtly wrong,
 	--- which is worse than refusing, so the mismatch is named before anything happens.
 	if iface and best.interface and iface ~= best.interface then
-		print(Prefix() .. " " .. (ns:L("BARPRESET_PATCH")):format(
-			best.label, tostring(iface)))
+		local msg = (ns:L("BARPRESET_PATCH")):format(best.label, tostring(iface))
+		print(Prefix() .. " " .. msg)
 		if not confirmed then
 			print("   |cff9d9d9d" .. ns:L("BARPRESET_PATCH_GO") .. "|r")
+			if ns.MH_SetupSay then
+				ns.MH_SetupSay("warn", msg .. " " .. ns:L("BARPRESET_PATCH_GO"))
+			end
 			return
 		end
 	end

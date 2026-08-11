@@ -2754,6 +2754,10 @@ fill("deDE", {
 	SETUPNUDGE_TITLE = "Soll Midnight Helper deine Leisten einrichten?",
 	SETUPNUDGE_BODY = "Deine Zauber können für dich abgelegt und deine Tasten darauf belegt werden, pro Spezialisierung. Du siehst vorher, was sich ändern würde, und alles ist rückgängig zu machen.|n|nZufrieden mit deinen Leisten? Weglegen, dann kommt es nicht wieder.",
 	SETUPNUDGE_BTN = "Zeig es mir",
+	MH_SAY_PRESET_LAYOUT = "Du bist auf einem Vorlagen-Layout von Blizzard, und eine Vorlage lässt sich nicht ändern. Öffne den Bearbeitungsmodus, wähle im Layout-Menü → Neues Layout und häkle dort Charakter an, damit die Leisten nur auf diesem Charakter bleiben.",
+	MH_SAY_ACCOUNT_LAYOUT = "%s ist ein accountweites Layout: jeder Charakter, der es nutzt, bekommt diese Leisten. Ein charakterspezifisches Layout behält die Änderung hier.",
+	MH_SAY_BARS_DONE = "Leisten ersetzt (%d System(e) in %s). Jetzt neu laden — vorher ist nichts festgeschrieben.",
+	MH_SAY_BARS_RESTORED = "%s ist wieder wie vor dem Import. Jetzt neu laden.",
 })
 
 fill("frFR", {
@@ -2866,6 +2870,10 @@ fill("frFR", {
 	SETUPNUDGE_TITLE = "Laisser Midnight Helper configurer vos barres ?",
 	SETUPNUDGE_BODY = "Vos sorts peuvent être placés pour vous et vos touches attribuées, par spécialisation. Vous voyez ce qui changerait avant que quoi que ce soit ne bouge, et tout est annulable.|n|nDéjà satisfait de vos barres ? Écartez ceci et il ne reviendra pas.",
 	SETUPNUDGE_BTN = "Montrez-moi",
+	MH_SAY_PRESET_LAYOUT = "Tu es sur une disposition prédéfinie de Blizzard, et une prédéfinie ne peut pas être modifiée. Ouvre le mode Édition, choisis dans le menu des dispositions → Nouvelle disposition, et coche Personnage pour que les barres restent sur ce personnage uniquement.",
+	MH_SAY_ACCOUNT_LAYOUT = "%s est une disposition liée au compte : chaque personnage qui l’utilise reçoit ces barres. Une disposition propre au personnage garde le changement ici.",
+	MH_SAY_BARS_DONE = "Barres remplacées (%d système(s) dans %s). Recharge maintenant — rien n’est fixé avant ça.",
+	MH_SAY_BARS_RESTORED = "%s est revenue à son état d’avant l’import. Recharge maintenant.",
 })
 
 fill("esES", {
@@ -2978,6 +2986,10 @@ fill("esES", {
 	SETUPNUDGE_TITLE = "¿Dejas que Midnight Helper configure tus barras?",
 	SETUPNUDGE_BODY = "Tus hechizos pueden colocarse por ti y tus teclas asignarse a ellos, por especialización. Ves qué cambiaría antes de que nada se mueva, y todo se puede deshacer.|n|n¿Contento con tus barras? Descártalo y no volverá.",
 	SETUPNUDGE_BTN = "Muéstramelo",
+	MH_SAY_PRESET_LAYOUT = "Estás en una disposición predefinida de Blizzard, y una predefinida no se puede cambiar. Abre el modo Edición, elige en el menú de disposiciones → Nueva disposición, y marca Personaje para que las barras se queden solo en este personaje.",
+	MH_SAY_ACCOUNT_LAYOUT = "%s es una disposición de toda la cuenta: cada personaje que la use recibe estas barras. Una disposición propia del personaje mantiene el cambio aquí.",
+	MH_SAY_BARS_DONE = "Barras reemplazadas (%d sistema(s) en %s). Recarga ahora — nada queda fijado hasta entonces.",
+	MH_SAY_BARS_RESTORED = "%s ha vuelto a como estaba antes de la importación. Recarga ahora.",
 })
 
 fill("ptBR", {
@@ -3090,6 +3102,10 @@ fill("ptBR", {
 	SETUPNUDGE_TITLE = "Deixar o Midnight Helper montar suas barras?",
 	SETUPNUDGE_BODY = "Suas magias podem ser colocadas para você e suas teclas definidas, por especialização. Você vê o que mudaria antes de qualquer coisa se mexer, e tudo pode ser desfeito.|n|nJá satisfeito com suas barras? Dispense isto e não volta.",
 	SETUPNUDGE_BTN = "Me mostra",
+	MH_SAY_PRESET_LAYOUT = "Você está num layout predefinido da Blizzard, e um predefinido não pode ser alterado. Abre o modo Edição, escolhe no menu de layouts → Novo layout, e marca Personagem para as barras ficarem só neste personagem.",
+	MH_SAY_ACCOUNT_LAYOUT = "%s é um layout de toda a conta: cada personagem que o usa recebe estas barras. Um layout do personagem mantém a mudança aqui.",
+	MH_SAY_BARS_DONE = "Barras substituídas (%d sistema(s) em %s). Recarrega agora — nada fica definido até lá.",
+	MH_SAY_BARS_RESTORED = "%s voltou a como estava antes da importação. Recarrega agora.",
 })
 
 fill("itIT", {
@@ -3202,5 +3218,9 @@ fill("itIT", {
 	SETUPNUDGE_TITLE = "Vuoi che Midnight Helper sistemi le tue barre?",
 	SETUPNUDGE_BODY = "Le tue magie possono essere posizionate per te e i tasti assegnati, per specializzazione. Vedi cosa cambierebbe prima che si muova qualcosa, e tutto è annullabile.|n|nGià contento delle tue barre? Scarta questo e non tornerà.",
 	SETUPNUDGE_BTN = "Fammi vedere",
+	MH_SAY_PRESET_LAYOUT = "Sei su un layout predefinito di Blizzard, e un predefinito non si può modificare. Apri la modalità Modifica, scegli nel menù dei layout → Nuovo layout, e spunta Personaggio così le barre restano solo su questo personaggio.",
+	MH_SAY_ACCOUNT_LAYOUT = "%s è un layout valido per tutto l’account: ogni personaggio che lo usa riceve queste barre. Un layout del personaggio tiene la modifica qui.",
+	MH_SAY_BARS_DONE = "Barre sostituite (%d sistema/i in %s). Ricarica adesso — niente è definitivo prima.",
+	MH_SAY_BARS_RESTORED = "%s è tornato com’era prima dell’importazione. Ricarica adesso.",
 })
 

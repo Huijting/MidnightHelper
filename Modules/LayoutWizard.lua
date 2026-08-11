@@ -23,9 +23,56 @@ local _, ns = ...
 
 -- Wider than it looks like it needs: the buttons size themselves to the longest
 -- translated label (see Build), and the notes sit to their right.
-local PANEL_W, PANEL_H = 520, 584
+local PANEL_W, PANEL_H = 520, 620
 
 local panel
+
+--------------------------------------------------------------------------------
+-- What the last button actually did, ON the panel
+--------------------------------------------------------------------------------
+
+--- ⚠️ CHAT IS NOT WHERE PEOPLE LOOK, AND THE PANEL ALREADY KNEW THAT.
+---
+--- This file's own header says it: the account-bindings warning is on the panel
+--- because Rob missed it in chat while staring at his bars. Then everything the
+--- buttons ANSWER with went to chat anyway.
+---
+--- It caught him on his level-30 TwelveInchy, 11 Aug 2026. The bar preset refused —
+--- he was sitting on one of Blizzard's presets, which cannot be edited — and said so,
+--- in chat, with the fix. He read it, made a character layout, reloaded, and it worked.
+--- His point: he knew to look there. Carola will press the button, see the panel not
+--- change, and conclude the addon is broken.
+---
+--- So a button's answer lands here as well. Same words in both places — one locale key
+--- read twice, never a second shortened copy, because two texts saying nearly the same
+--- thing is how they drift apart.
+---
+--- ⚠️ Deliberately does NOT build the panel. Someone driving this from slash commands
+--- has no panel open and does not want one appearing; the message waits in `lastResult`
+--- and is drawn whenever the panel is next shown.
+--- @param kind string  "ok" | "warn" | "info"
+local lastResult
+
+local RESULT_COLOUR = {
+	ok = "|cff40c040",
+	warn = "|cffff9900",
+	info = "|cffd8d8d8",
+}
+
+function ns.MH_SetupSay(kind, text)
+	if type(text) ~= "string" or text == "" then
+		return
+	end
+	--- ⚠️ Strip the message's OWN colour codes first. Several of these strings are written
+	--- for chat and colour a phrase themselves; wrapped in the panel colour, their `|r`
+	--- ends the panel's colour early and the rest of the sentence falls back to white.
+	--- The panel decides the colour here — one severity per message, not a patchwork.
+	text = text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+	lastResult = { kind = kind, text = text }
+	if panel and panel.Refresh then
+		panel:Refresh()
+	end
+end
 
 local function Prefix()
 	return ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
@@ -242,9 +289,11 @@ local function Build()
 			local now = ns.Keybind_BindingSet and ns.Keybind_BindingSet()
 			if now == "character" then
 				print(Prefix() .. " " .. ns:L("MH_SETUP_CHARSET_DONE"))
+				ns.MH_SetupSay("ok", ns:L("MH_SETUP_CHARSET_DONE"))
 			else
-				print(Prefix() .. " " .. (ns:L("MH_SETUP_CHARSET_FAIL")):format(
-					tostring(now or "?")))
+				local msg = (ns:L("MH_SETUP_CHARSET_FAIL")):format(tostring(now or "?"))
+				print(Prefix() .. " " .. msg)
+				ns.MH_SetupSay("warn", msg)
 			end
 			if panel and panel.Refresh then
 				panel:Refresh()
@@ -390,8 +439,24 @@ local function Build()
 	f.foot:SetJustifyH("LEFT")
 	f.foot:SetText(ns:L("MH_SETUP_FOOT"))
 
+	--- Anchored to the BOTTOM so it grows upward into empty space. Anchored to the top it
+	--- would push every button down the moment a three-line answer arrived, and a panel
+	--- whose buttons move while you are reading it is its own small betrayal.
+	f.result = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f.result:SetPoint("BOTTOMLEFT", 16, 34)
+	f.result:SetPoint("BOTTOMRIGHT", -16, 34)
+	f.result:SetJustifyH("LEFT")
+	f.result:SetSpacing(2)
+	f.result:SetWordWrap(true)
+
 	function f:Refresh()
 		self.status:SetText(StatusText())
+		if lastResult then
+			self.result:SetText((RESULT_COLOUR[lastResult.kind] or RESULT_COLOUR.info)
+				.. lastResult.text .. "|r")
+		else
+			self.result:SetText("")
+		end
 		-- Greyed out rather than hidden: a row that appears and disappears moves every
 		-- button under it, and these buttons do different things.
 		local set = ns.Keybind_BindingSet and ns.Keybind_BindingSet()
