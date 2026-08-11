@@ -366,6 +366,14 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetMinimapIconShown then ns.SetMinimapIconShown(v) end
 		end, true)
+		--- Sits right under the minimap toggle on purpose: it is the answer for players
+		--- whose minimap button disappeared into a button-collector addon, which is how
+		--- Rob lost reach of the shift-click reload.
+		AddToggle("mh_quickBar", "SETTINGS_QUICKBAR", "SETTINGS_QUICKBAR_TT", function()
+			return ns.IsQuickBarShown and ns.IsQuickBarShown()
+		end, function(v)
+			if ns.SetQuickBarShown then ns.SetQuickBarShown(v) end
+		end, false)
 		AddSlider("mh_fontScale", "SETTINGS_TEXT_SIZE_LABEL", "SETTINGS_TEXT_SIZE_DESC", 0.8, 1.6, 0.1, function()
 			return ns.GetContentFontScale and ns.GetContentFontScale()
 		end, function(v)

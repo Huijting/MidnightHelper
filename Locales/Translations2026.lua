@@ -2696,6 +2696,19 @@ fill("deDE", {
 	POTIONKEY_NONE = "|cff9d9d9dkeiner in den Taschen|r",
 	POTIONKEY_UNBOUND = "|cff9d9d9dkeine Taste belegt|r",
 	POTIONKEY_WHERE = "Tasten unter Optionen \194\187 Tastenbelegung \194\187 Midnight Helper festlegen. Sie folgen dem Trank, den du dabeihast, und überstehen einen Leisten-Neuaufbau.",
+	QUICKBAR_RELOAD = "Interface neu laden",
+	QUICKBAR_RELOAD_L = "Klick: neu laden. Im Kampf abgelehnt.",
+	QUICKBAR_LEAVE = "Gruppe verlassen",
+	QUICKBAR_LEAVE_L = "Linksklick: Gruppe verlassen.",
+	QUICKBAR_LEAVE_R = "Rechtsklick: Instanzgruppe verlassen.",
+	QUICKBAR_SETUP = "Leisten einrichten",
+	QUICKBAR_SETUP_L = "Klick: Layout-Fenster öffnen.",
+	QUICKBAR_DRAG = "Zieh die Leiste, um sie zu verschieben.",
+	QUICKBAR_NO_API = "dieser Client hat die Gruppe nicht losgelassen \194\183 nutze das Gruppenmenü.",
+	QUICKBAR_ON = "Schnellleiste sichtbar \194\183 zieh sie dorthin, wo du sie willst.",
+	QUICKBAR_OFF = "Schnellleiste ausgeblendet.",
+	SETTINGS_QUICKBAR = "Schnellleiste",
+	SETTINGS_QUICKBAR_TT = "Eine kleine verschiebbare Leiste mit Neuladen, Gruppe verlassen und dem Layout-Fenster. Praktisch, wenn dein Minimap-Symbol in einem Button-Sammler steckt.",
 })
 
 fill("frFR", {
@@ -2750,6 +2763,19 @@ fill("frFR", {
 	POTIONKEY_NONE = "|cff9d9d9daucune dans vos sacs|r",
 	POTIONKEY_UNBOUND = "|cff9d9d9daucune touche définie|r",
 	POTIONKEY_WHERE = "Définissez les touches dans Options \194\187 Raccourcis \194\187 Midnight Helper. Elles suivent la potion que vous transportez et survivent à une reconstruction des barres.",
+	QUICKBAR_RELOAD = "Recharger l’interface",
+	QUICKBAR_RELOAD_L = "Clic : recharger. Refusé en combat.",
+	QUICKBAR_LEAVE = "Quitter le groupe",
+	QUICKBAR_LEAVE_L = "Clic gauche : quitter votre groupe.",
+	QUICKBAR_LEAVE_R = "Clic droit : quitter le groupe d’instance.",
+	QUICKBAR_SETUP = "Configurer vos barres",
+	QUICKBAR_SETUP_L = "Clic : ouvrir le panneau de disposition.",
+	QUICKBAR_DRAG = "Faites glisser la barre pour la déplacer.",
+	QUICKBAR_NO_API = "ce client n’a pas quitté le groupe \194\183 utilisez le menu de groupe.",
+	QUICKBAR_ON = "barre rapide affichée \194\183 placez-la où vous voulez.",
+	QUICKBAR_OFF = "barre rapide masquée.",
+	SETTINGS_QUICKBAR = "Barre rapide",
+	SETTINGS_QUICKBAR_TT = "Une petite barre déplaçable avec rechargement, quitter le groupe et le panneau de disposition. Pratique si votre bouton de minicarte est rangé dans un collecteur.",
 })
 
 fill("esES", {
@@ -2804,6 +2830,19 @@ fill("esES", {
 	POTIONKEY_NONE = "|cff9d9d9dninguna en tus bolsas|r",
 	POTIONKEY_UNBOUND = "|cff9d9d9dsin tecla asignada|r",
 	POTIONKEY_WHERE = "Asigna las teclas en Opciones \194\187 Atajos \194\187 Midnight Helper. Siguen a la poción que lleves y sobreviven a una reconstrucción de barras.",
+	QUICKBAR_RELOAD = "Recargar la interfaz",
+	QUICKBAR_RELOAD_L = "Clic: recargar. Se rechaza en combate.",
+	QUICKBAR_LEAVE = "Abandonar el grupo",
+	QUICKBAR_LEAVE_L = "Clic izquierdo: abandonar tu grupo.",
+	QUICKBAR_LEAVE_R = "Clic derecho: abandonar el grupo de instancia.",
+	QUICKBAR_SETUP = "Configurar tus barras",
+	QUICKBAR_SETUP_L = "Clic: abrir el panel de distribución.",
+	QUICKBAR_DRAG = "Arrastra la barra para moverla.",
+	QUICKBAR_NO_API = "este cliente no soltó el grupo \194\183 usa el menú de grupo.",
+	QUICKBAR_ON = "barra rápida visible \194\183 arrástrala donde quieras.",
+	QUICKBAR_OFF = "barra rápida oculta.",
+	SETTINGS_QUICKBAR = "Barra rápida",
+	SETTINGS_QUICKBAR_TT = "Una pequeña barra móvil con recargar, abandonar grupo y el panel de distribución. Útil si tu botón del minimapa está dentro de un recolector de botones.",
 })
 
 fill("ptBR", {
@@ -2858,6 +2897,19 @@ fill("ptBR", {
 	POTIONKEY_NONE = "|cff9d9d9dnenhuma nas bolsas|r",
 	POTIONKEY_UNBOUND = "|cff9d9d9dsem tecla definida|r",
 	POTIONKEY_WHERE = "Defina as teclas em Opções \194\187 Atalhos \194\187 Midnight Helper. Elas seguem a poção que você carrega e sobrevivem a uma reconstrução das barras.",
+	QUICKBAR_RELOAD = "Recarregar a interface",
+	QUICKBAR_RELOAD_L = "Clique: recarregar. Recusado em combate.",
+	QUICKBAR_LEAVE = "Sair do grupo",
+	QUICKBAR_LEAVE_L = "Clique esquerdo: sair do seu grupo.",
+	QUICKBAR_LEAVE_R = "Clique direito: sair do grupo de instância.",
+	QUICKBAR_SETUP = "Configurar suas barras",
+	QUICKBAR_SETUP_L = "Clique: abrir o painel de layout.",
+	QUICKBAR_DRAG = "Arraste a barra para movê-la.",
+	QUICKBAR_NO_API = "este cliente não soltou o grupo \194\183 use o menu do grupo.",
+	QUICKBAR_ON = "barra rápida visível \194\183 arraste para onde quiser.",
+	QUICKBAR_OFF = "barra rápida oculta.",
+	SETTINGS_QUICKBAR = "Barra rápida",
+	SETTINGS_QUICKBAR_TT = "Uma pequena barra móvel com recarregar, sair do grupo e o painel de layout. Útil se o seu botão do minimapa fica dentro de um coletor de botões.",
 })
 
 fill("itIT", {
@@ -2912,5 +2964,18 @@ fill("itIT", {
 	POTIONKEY_NONE = "|cff9d9d9dnessuna nelle borse|r",
 	POTIONKEY_UNBOUND = "|cff9d9d9dnessun tasto impostato|r",
 	POTIONKEY_WHERE = "Imposta i tasti in Opzioni \194\187 Scorciatoie \194\187 Midnight Helper. Seguono la pozione che porti con te e sopravvivono a una ricostruzione delle barre.",
+	QUICKBAR_RELOAD = "Ricarica l’interfaccia",
+	QUICKBAR_RELOAD_L = "Clic: ricarica. Rifiutato in combattimento.",
+	QUICKBAR_LEAVE = "Lascia il gruppo",
+	QUICKBAR_LEAVE_L = "Clic sinistro: lascia il gruppo.",
+	QUICKBAR_LEAVE_R = "Clic destro: lascia il gruppo dell’istanza.",
+	QUICKBAR_SETUP = "Sistema le tue barre",
+	QUICKBAR_SETUP_L = "Clic: apri il pannello del layout.",
+	QUICKBAR_DRAG = "Trascina la barra per spostarla.",
+	QUICKBAR_NO_API = "questo client non ha lasciato il gruppo \194\183 usa il menù del gruppo.",
+	QUICKBAR_ON = "barra rapida visibile \194\183 trascinala dove vuoi.",
+	QUICKBAR_OFF = "barra rapida nascosta.",
+	SETTINGS_QUICKBAR = "Barra rapida",
+	SETTINGS_QUICKBAR_TT = "Una piccola barra spostabile con ricarica, esci dal gruppo e il pannello del layout. Comoda se il pulsante della minimappa sta dentro un raccoglitore di pulsanti.",
 })
 

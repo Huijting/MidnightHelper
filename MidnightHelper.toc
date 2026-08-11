@@ -119,6 +119,7 @@ Modules\OmniumFolioData.lua
 Modules\OmniumFolio.lua
 Modules\MidnightToast.lua
 Modules\Broker.lua
+Modules\QuickBar.lua
 Modules\DelveItemBrokers.lua
 Modules\DelveItemsPopup.lua
 Modules\DelveCuriosData.lua

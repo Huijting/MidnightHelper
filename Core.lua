@@ -1171,6 +1171,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh bar — show or hide the little quick bar.
+	if msg == "bar" then
+		if ns.MH_ToggleQuickBar then
+			ns.MH_ToggleQuickBar()
+		end
+		return
+	end
+
 	-- /mh potionkeys — which potion each bindable button points at, and its key.
 	if msg == "potionkeys" then
 		if ns.MH_PotionKeyReport then
