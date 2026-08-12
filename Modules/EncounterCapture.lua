@@ -193,13 +193,33 @@ local function DumpInstance(instanceID, label, diff)
 		-- which sit in the hundreds of thousands. This was labelled "creatureID" for
 		-- one run on 2026-07-27; do not relabel it back. For a real NPC id, pull the
 		-- boss with /mh encounters on, or read it from the combat log.
+		--- ⚠️ THE FOURTH RETURN IS THE MODEL, AND IT IS THE ONE WE ACTUALLY NEEDED.
+		---
+		--- The boss window shows no 3D model for any Altar of Fangs boss, because our
+		--- CREATURES table is built from DBM's `SetCreatureID` and DBM has that line
+		--- commented out for all three of them — with the same number in each,
+		--- `231631`, which is Kroluk from Windrunner Spire. A copied template with the
+		--- placeholder left in. Taking DBM's word there would have rendered Kroluk for
+		--- three different bosses.
+		---
+		--- Rob's instinct was to look the ids up online. Fair, and Wowhead is an allowed
+		--- source for candidates — but this project's record with looked-up ids is poor
+		--- (all three Valeera poison ids wrong, Theremis's coordinates off), and a
+		--- looked-up id still has to be checked here afterwards.
+		---
+		--- So ask the client instead. `EJ_GetCreatureInfo`'s 4th return is the display
+		--- id, and DBM-Core uses exactly that for its own boss models
+		--- (`modules/objects/BossMod.lua:130`: `obj.modelId = select(4, ...)`). It comes
+		--- from the Adventure Guide, so it needs no dungeon run and no website, and it
+		--- works for bosses DBM has nothing for at all.
 		if EJ_GetCreatureInfo and encounterID then
 			for c = 1, 10 do
-				local okC, ejCreature, creatureName = pcall(EJ_GetCreatureInfo, c, encounterID)
+				local okC, ejCreature, creatureName, _, displayID = pcall(EJ_GetCreatureInfo, c, encounterID)
 				if not okC or not ejCreature then
 					break
 				end
-				print(("        ejCreature=%-8s %s"):format(tostring(ejCreature), tostring(creatureName)))
+				print(("        ejCreature=%-8s displayID=|cff40c040%-8s|r %s"):format(
+					tostring(ejCreature), tostring(displayID), tostring(creatureName)))
 			end
 		end
 	end
@@ -227,12 +247,17 @@ local function CollectInstance(instanceID, name, isRaid, diff)
 		local boss = { index = i, name = bossName, encounterID = encounterID, creatures = {} }
 		if EJ_GetCreatureInfo and encounterID then
 			for c = 1, 10 do
-				local okC, ejCreature, creatureName = pcall(EJ_GetCreatureInfo, c, encounterID)
+				local okC, ejCreature, creatureName, _, displayID = pcall(EJ_GetCreatureInfo, c, encounterID)
 				if not okC or not ejCreature then
 					break
 				end
 				-- ejCreature is the JOURNAL's creature entry id, not the NPC id.
-				boss.creatures[#boss.creatures + 1] = { ejCreature = ejCreature, name = creatureName }
+				-- displayID (4th return) is what a model frame wants — see DumpInstance.
+				boss.creatures[#boss.creatures + 1] = {
+					ejCreature = ejCreature,
+					name = creatureName,
+					displayID = displayID,
+				}
 			end
 		end
 		entry.bosses[#entry.bosses + 1] = boss
