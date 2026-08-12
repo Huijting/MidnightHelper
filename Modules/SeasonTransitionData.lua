@@ -30,6 +30,31 @@ ns.SEASON2 = {
 	-- CAPTURED IN-GAME 2026-07-19 (Rob, live 12.0.7, `/mh season`):
 	-- C_MythicPlus.GetCurrentSeason() = 17 while Midnight Season 1 is running.
 	s1MplusSeasonId = 17,
+
+	--- ⚠️ THE M+ SEASON ID IS NOT THE SEASON. MEASURED THE HARD WAY, 12 Aug 2026.
+	---
+	--- The self-learning fallback above reads "any season newer than 17 means Season 2
+	--- has opened". On live 12.1 that fired the same day the patch did: `/mh crestscan`
+	--- came back with the Currencies page rendering Adventurer..Myth MISTCREST, all at
+	--- zero, which only happens when `IsSeason2Live()` is true. Rob confirmed in one
+	--- sentence what the addon had already decided for itself: "nog niet open, seizoen 2
+	--- begint pas 18 augustus".
+	---
+	--- So the number increments at PATCH time, not at season start, and the gate the
+	--- comment below calls self-learning was learning the wrong lesson. It was written
+	--- to stop us announcing S2 content a week LATE; it announced it six days EARLY
+	--- instead, hiding the Dawncrests Rob is actually carrying behind five zeroes.
+	---
+	--- A date is the only signal we have that means what we need it to mean. Rob's, and
+	--- he plays this game for a living hours a day — this is his statement, not a
+	--- datamined guess.
+	---
+	--- ⚠️ Falsifier, so this is checkable rather than trusted: 1787011200 is
+	--- 2026-08-18 00:00 UTC, which is midnight, not the regional reset. If the season
+	--- turns out to open some hours later on that day, or a day later in the EU, this
+	--- is early by that much — bounded to one day, where the old gate was out by six.
+	--- If Rob reports on 18 Aug that the content is still shut, move this to the reset.
+	seasonStartsAt = 1787011200,
 }
 
 -- Each item: id (stable key for manual ticks), textKey (locale), and ONE source:
@@ -217,11 +242,26 @@ local function IsSeasonLive()
 	end
 	local s2 = ns.SEASON2 and ns.SEASON2.mplusSeasonId
 	if s2 then
-		return live == s2 -- exact id known: use it
+		return live == s2 -- exact id known: use it, and the date cannot override it
 	end
-	-- Self-learning fallback: any season NEWER than the recorded Season 1 means
-	-- Season 2 (or later) has opened, so the gate flips correctly without anyone
-	-- being online at the moment the season starts.
+
+	--- ⚠️ THE DATE GATES THE FALLBACK. See `seasonStartsAt` for what this cost.
+	---
+	--- Without it, "any season newer than 17" opened Season 2 on patch day, because the
+	--- M+ season id increments with the patch. The id still has to have moved — that is
+	--- a real sanity check that we are past Season 1 — but it is no longer sufficient on
+	--- its own.
+	---
+	--- Both conditions, not either: a date alone would flip the gate on a client that
+	--- never advanced past Season 1, and an id alone is what went wrong.
+	local startsAt = ns.SEASON2 and ns.SEASON2.seasonStartsAt
+	if startsAt then
+		local now = (GetServerTime and GetServerTime()) or (time and time()) or 0
+		if now < startsAt then
+			return false
+		end
+	end
+
 	local s1 = ns.SEASON2 and ns.SEASON2.s1MplusSeasonId
 	if s1 then
 		return live > s1

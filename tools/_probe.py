@@ -1,11 +1,10 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: which AddOns were updated most recently, and their versions.
+Right now: is Rob's 12.1 Hunter export the same string as the 12.0.7 one?
+Compared byte for byte, because "looks the same" is not a comparison.
 """
-import os
 import re
 import sys
-import time
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -13,45 +12,32 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns'
+NEW = ("2 8 0 0 0 8 6 MultiBarBottomRight -4.0 0.0 -1 ##$$%)&''%)$+$,# 0 1 0 8 6 "
+       "MultiBar5 -4.0 0.0 -1 ##$$%,&''%(#,# 0 2 0 4 4 UIParent 149.1 -560.0 -1 "
+       "##$$%*&''%(#,# 0 3 0 8 2 MultiBarBottomLeft 0.0 4.0 -1 ##$$%+&''%(#,# 0 4 0 8 2 "
+       "MultiBar5 0.0 4.0 -1 ##$$%)&''%(#,# 0 5 0 8 2 MultiBarBottomRight 0.0 4.0 -1 "
+       "##$$%)&''%(#,# 0 6 0 7 7 UIParent -614.9 2.0 -1 ##$$%/&''%(#,# 0 7 0 4 4 "
+       "UIParent 400.0 -520.0 -1 ##$&%/&''%(#,#")
 
+SRC = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Modules\BarPreset.lua'
+t = open(SRC, encoding='utf-8', errors='replace').read()
 
-def toc_field(folder, field):
-    for fn in os.listdir(folder):
-        if not fn.lower().endswith('.toc'):
-            continue
-        try:
-            t = open(os.path.join(folder, fn), encoding='utf-8', errors='replace').read()
-        except OSError:
-            continue
-        m = re.search(r'^##\s*%s\s*:\s*(.+)$' % field, t, re.M | re.I)
-        if m:
-            return m.group(1).strip()
-    return '?'
+m = re.search(r'local PRESET_1207\s*=\s*(.*?)\n\n', t, re.S)
+if not m:
+    print('kon PRESET_1207 niet vinden')
+    raise SystemExit(1)
 
+old = ''.join(re.findall(r'"((?:[^"\\]|\\.)*)"', m.group(1)))
 
-rows = []
-for name in os.listdir(BASE):
-    p = os.path.join(BASE, name)
-    if not os.path.isdir(p):
-        continue
-    newest = 0
-    for root, dirs, files in os.walk(p):
-        dirs[:] = [d for d in dirs if d != '.git']
-        for f in files:
-            try:
-                m = os.path.getmtime(os.path.join(root, f))
-            except OSError:
-                continue
-            if m > newest:
-                newest = m
-    rows.append((newest, name, toc_field(p, 'Version'), toc_field(p, 'Interface')))
-
-rows.sort(reverse=True)
-now = time.time()
-print('%-34s %-14s %-18s %s' % ('addon', 'version', 'interface', 'newest file'))
-for newest, name, ver, iface in rows[:30]:
-    age = (now - newest) / 3600.0
-    print('%-34s %-14s %-18s %s  (%.1f h)' % (
-        name[:34], ver[:14], iface[:18],
-        time.strftime('%Y-%m-%d %H:%M', time.localtime(newest)), age))
+print('oud (12.0.7) : %d tekens' % len(old))
+print('nieuw (12.1) : %d tekens' % len(NEW))
+print('identiek     : %s' % (old == NEW))
+if old != NEW:
+    for i, (a, b) in enumerate(zip(old, NEW)):
+        if a != b:
+            print('eerste verschil op %d: oud %r vs nieuw %r' % (i, a, b))
+            print('  oud   ...%s...' % old[max(0, i - 30):i + 30])
+            print('  nieuw ...%s...' % NEW[max(0, i - 30):i + 30])
+            break
+    else:
+        print('gelijk tot %d; lengtes verschillen' % min(len(old), len(NEW)))

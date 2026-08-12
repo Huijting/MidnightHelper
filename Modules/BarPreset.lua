@@ -54,9 +54,41 @@ local PRESET_1207 =
 
 --- Which patch each string was made on, so the mismatch can be named rather than
 --- discovered by a player whose bars did not move.
+---
+--- ⚠️ 12.1 NEEDS NO SECOND STRING — MEASURED, 12 Aug 2026. Rob re-exported the same
+--- Hunter on live 12.1 and the result is byte-for-byte identical to the 12.0.7 export:
+--- 414 characters, compared by script rather than by eye. The leading version marker is
+--- still `2`, so Blizzard's layout format did not move across this patch.
+---
+--- That makes the mismatch warning a false alarm on 12.1, and a false alarm on a button
+--- is worse than none: it refuses on the first press for every player, and the note
+--- teaching them to type `/mh editmode preset go` teaches them to ignore the check. So
+--- 12.1 is recorded as validated instead.
+---
+--- `validOn` is a LIST because "which patches has this been tried on" is the real
+--- question, and it is answered by exporting and comparing — never by assuming the next
+--- patch will also be fine. The warning still fires on anything not in the list.
 local PRESETS = {
-	{ interface = 120007, label = "12.0.7", str = PRESET_1207 },
+	{
+		interface = 120100,
+		label = "12.1",
+		str = PRESET_1207,
+		validOn = { 120100, 120007 },
+	},
 }
+
+--- Has this string been exported and checked on the player's patch?
+local function PresetValidOn(preset, iface)
+	if not (preset and iface) then
+		return true -- cannot tell: do not cry wolf
+	end
+	for _, known in ipairs(preset.validOn or { preset.interface }) do
+		if known == iface then
+			return true
+		end
+	end
+	return false
+end
 
 local function Prefix()
 	return ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH:")
@@ -115,7 +147,7 @@ function ns.MH_ApplyBarPreset(confirmed)
 
 	--- Say it up front. A string from another patch may apply and look subtly wrong,
 	--- which is worse than refusing, so the mismatch is named before anything happens.
-	if iface and best.interface and iface ~= best.interface then
+	if iface and not PresetValidOn(best, iface) then
 		local msg = (ns:L("BARPRESET_PATCH")):format(best.label, tostring(iface))
 		print(Prefix() .. " " .. msg)
 		if not confirmed then
