@@ -208,6 +208,102 @@ end
 -- Diagnostics: `/mh auras` — the first thing to run when 12.1 hits the PTR.
 --------------------------------------------------------------------------------
 
+--- ⚠️ THE INDEX SCAN IS NOT THE WHOLE STORY, AND THE DIFFERENCE DECIDES WHETHER THIS
+--- ADDON CAN LIE.
+---
+--- Rob measured 12.1 on 12 Aug: in combat `ShouldAurasBeSecret` is true, `Trusted()` is
+--- false, and both index scans come back "could not scan" — the game refuses. Safe: a
+--- refused scan is `nil`, and nil never becomes "you are missing this".
+---
+--- But almost nothing in this addon reads auras by INDEX. The claim-makers ask by SPELL
+--- ID, and `/mh auras` never tested that path. Two outcomes, and they are opposites:
+---
+---   the call THROWS      → readable = false → HasPlayerAura returns nil → we say "?"
+---   the call ANSWERS nil → readable = true  → HasPlayerAura returns FALSE
+---
+--- The second one is the dangerous one. `ConsumableReadyCheck:188` turns exactly that
+--- into "no, you do not have it", and it would be a confident red cross on a buff you
+--- are holding. That is the never-lie rule broken in combat, in front of the user.
+---
+--- So this calibrates against reality instead of guessing. OUT of combat, where the scan
+--- still works, it records the spell ids you actually carry. IN combat it asks for those
+--- same ids again. A buff you demonstrably have coming back `false` is proof the API
+--- answers wrongly rather than refusing — and then every `== false` in this addon is a
+--- landmine.
+--- @return table lines  ready to print
+local function SpellIdProbe(inCombat)
+	ns.db = ns.db or {}
+	local store = ns.db.auraSpellProbe or {}
+	ns.db.auraSpellProbe = store
+
+	if not inCombat then
+		--- Learn what you are actually carrying, while the game still lets us look.
+		local ids, ok = {}, nil
+		ok = Aura.ForEachPlayerBuff(function(aura)
+			local sid = aura.spellId
+			if sid and not Secret(sid) and #ids < 8 then
+				ids[#ids + 1] = sid
+			end
+		end)
+		if ok and #ids > 0 then
+			store.baseline = ids
+			store.baselineAt = (time and time()) or 0
+		end
+	end
+
+	local baseline = store.baseline
+	if type(baseline) ~= "table" or #baseline == 0 then
+		return { "  by spell id           = no baseline yet — run this OUT of combat first" }
+	end
+
+	--- What one raw call did: threw, answered nothing, or answered with an aura.
+	local function Outcome(fn, ...)
+		if type(fn) ~= "function" then
+			return "absent"
+		end
+		local ok, data = pcall(fn, ...)
+		if not ok then
+			return "threw"
+		end
+		return data ~= nil and "aura" or "nil"
+	end
+
+	local lines = { ("  by spell id            (baseline of %d buffs taken out of combat)"):format(#baseline) }
+	local answered, lied = 0, 0
+	local snapshot = {}
+	for _, sid in ipairs(baseline) do
+		local byPlayer = Outcome(C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID, sid)
+		local byUnit = Outcome(C_UnitAuras and C_UnitAuras.GetAuraDataBySpellID, "player", sid)
+		local has = Aura.HasPlayerAura(sid)
+		if has ~= nil then
+			answered = answered + 1
+		end
+		--- A buff we watched you receive, now reported absent. Not "we cannot tell" —
+		--- actually wrong.
+		if has == false and inCombat then
+			lied = lied + 1
+		end
+		lines[#lines + 1] = ("    %-9d PlayerAuraBySpellID=%-6s AuraDataBySpellID=%-6s HasPlayerAura=%s"):format(
+			sid, byPlayer, byUnit, tostring(has))
+		snapshot[#snapshot + 1] = { id = sid, byPlayer = byPlayer, byUnit = byUnit, has = has }
+	end
+
+	if inCombat then
+		if lied > 0 then
+			lines[#lines + 1] = ("  |cffff4040VERDICT: %d buff(s) you HAVE read back as absent. The API answers wrongly|r"):format(lied)
+			lines[#lines + 1] = "  |cffff4040— every `== false` in this addon can produce a false claim.|r"
+		elseif answered == 0 then
+			lines[#lines + 1] = "  |cff40c040VERDICT: every by-id call refused. nil, not false — nothing can lie.|r"
+		else
+			lines[#lines + 1] = ("  |cffffcc00VERDICT: %d of %d answered and none were wrong. Re-run with more buffs.|r"):format(
+				answered, #baseline)
+		end
+	end
+
+	store.lastRun = { inCombat = inCombat, answered = answered, wrong = lied, rows = snapshot }
+	return lines
+end
+
 function ns.PrintAuraDiagnostics()
 	local p = "|cffffff78Midnight Helper:|r "
 	local secret = "n/a"
@@ -244,6 +340,9 @@ function ns.PrintAuraDiagnostics()
 	end)
 	print(("  helpful auras on you   = %s"):format(okBuff and tostring(buffs) or "could not scan"))
 	print(("  harmful auras on you   = %s"):format(okDebuff and tostring(debuffs) or "could not scan"))
+	for _, line in ipairs(SpellIdProbe(inCombat)) do
+		print(line)
+	end
 end
 
 -- /mh dispelprobe — decides whether a LIVE "dispellable debuff on ally X" alert
