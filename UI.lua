@@ -794,16 +794,16 @@ local SMC_CATEGORIES = {
 	{
 		title = "Essential Services",
 		items = {
-			{ id = "bank", label = "Bank & Vault", description = "Zet een waypoint naar de bank en Great Vault locatie in Silvermoon City.", atlas = "services-icon-bank", x = 50.36, y = 65.19 },
+			{ id = "bank", label = "Bank & Vault", atlas = "services-icon-bank", x = 50.36, y = 65.19 },
 			{ id = "item_upgrades", label = "Cuzoth — Item Upgrades", description = "Zet een waypoint naar Cuzoth (item upgrades met Crests). Bazaar, naast Vaskarn.", atlas = "ItemUpgrade-FX-UpgradeArrow", x = 48.23, y = 61.75 },
 			{ id = "crest_exchange", label = "Vaskarn — Crest Exchange", description = "Zet een waypoint naar Vaskarn (Crest exchange). Bazaar, naast Cuzoth.", atlas = "WarWithin-Icon-Crest", x = 48.28, y = 61.75 },
 			{ id = "ah", label = "Auction House", atlas = "services-icon-auctioneer", x = 51.50, y = 74.68 },
 			{ id = "mailbox", label = "Mailbox", atlas = "services-icon-mailroom", x = 49.41, y = 65.92 },
-			{ id = "inn_cooking", label = "Inn & Cooking", description = "Zet een waypoint naar de inn en cooking voorzieningen.", atlas = "services-icon-innkeeper", x = 56.28, y = 70.33 },
+			{ id = "inn_cooking", label = "Inn & Cooking", atlas = "services-icon-innkeeper", x = 56.28, y = 70.33 },
 			{ id = "trading_post", label = "Trading Post", atlas = "ui-delves", x = 48.88, y = 78.15 },
 			{ id = "bmah", label = "BMAH", atlas = "services-icon-auctioneer", x = 51.86, y = 48.56 },
 			{ id = "transmog", label = "Transmog", atlas = "services-icon-transmogrifier", x = 52.87, y = 57.44 },
-			{ id = "crafting_orders", label = "Crafting Orders (Mar'nah)", description = "Zet een waypoint naar crafting orders in de Bazaar (bijv. Mar'nah).", atlas = "services-icon-battlenet", x = 45.0, y = 55.6 },
+			{ id = "crafting_orders", label = "Crafting Orders (Mar'nah)", atlas = "services-icon-battlenet", x = 45.0, y = 55.6 },
 			--- ⚠️ COORDINATEN GEMETEN, NIET UIT EEN GIDS. Rob stond bij hem en draaide
 			--- `/mh capture` op 12 aug 2026: map 2393, 45.03 / 56.20. De gids die dit
 			--- aanreikte zei 44.95 / 56.07 — dichtbij, en dichtbij is precies hoe je iemand
@@ -832,7 +832,7 @@ local SMC_CATEGORIES = {
 			{ id = "portals", label = "Portal Room", atlas = "portal-horde-white", x = 53.37, y = 66.31 },
 			{ id = "portal_voidstorm", label = "Portal to Voidstorm", atlas = "portal-horde-white", x = 35.25, y = 65.85 },
 			{ id = "portal_harandar", label = "Portal to Harandar", atlas = "portal-horde-white", x = 36.76, y = 68.52 },
-			{ id = "timeways", label = "Timeways (Lindormi)", description = "Zet een waypoint naar de Timeways-portal bij Lindormi.", atlas = "portal-horde-white", x = 42.30, y = 58.30 },
+			{ id = "timeways", label = "Timeways (Lindormi)", atlas = "portal-horde-white", x = 42.30, y = 58.30 },
 			{ id = "mplus_teleports", label = "M+ Teleports", atlas = "flightmaster", x = 42.03, y = 58.30 },
 		},
 	},
