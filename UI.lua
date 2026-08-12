@@ -795,8 +795,8 @@ local SMC_CATEGORIES = {
 		title = "Essential Services",
 		items = {
 			{ id = "bank", label = "Bank & Vault", atlas = "services-icon-bank", x = 50.36, y = 65.19 },
-			{ id = "item_upgrades", label = "Cuzoth — Item Upgrades", description = "Zet een waypoint naar Cuzoth (item upgrades met Crests). Bazaar, naast Vaskarn.", atlas = "ItemUpgrade-FX-UpgradeArrow", x = 48.23, y = 61.75 },
-			{ id = "crest_exchange", label = "Vaskarn — Crest Exchange", description = "Zet een waypoint naar Vaskarn (Crest exchange). Bazaar, naast Cuzoth.", atlas = "WarWithin-Icon-Crest", x = 48.28, y = 61.75 },
+			{ id = "item_upgrades", label = "Cuzoth — Item Upgrades", descKey = "SMC_PIN_ITEM_UPGRADES", atlas = "ItemUpgrade-FX-UpgradeArrow", x = 48.23, y = 61.75 },
+			{ id = "crest_exchange", label = "Vaskarn — Crest Exchange", descKey = "SMC_PIN_CREST_EXCHANGE", atlas = "WarWithin-Icon-Crest", x = 48.28, y = 61.75 },
 			{ id = "ah", label = "Auction House", atlas = "services-icon-auctioneer", x = 51.50, y = 74.68 },
 			{ id = "mailbox", label = "Mailbox", atlas = "services-icon-mailroom", x = 49.41, y = 65.92 },
 			{ id = "inn_cooking", label = "Inn & Cooking", atlas = "services-icon-innkeeper", x = 56.28, y = 70.33 },
@@ -815,15 +815,24 @@ local SMC_CATEGORIES = {
 			--- recepten "tijdelijk" weg zijn en vanzelf terugkomen als je identiek herbesteedt.
 			--- Dat staat er niet, en het is de ene zin die iemand zijn recepten kan kosten.
 			--- Het spel belooft niets terug — dus wij ook niet.
-			{ id = "prof_reset", label = "Theremis — Specializations resetten", description = "Reset je Midnight-specializations per beroep en krijg je Knowledge Points terug. Het spel zelf: je verliest alle bijbehorende recepten, en dit kan MAAR EEN KEER per beroep. Gemeten 12 aug 2026 (Bazaar, bij de crafting orders).", atlas = "services-icon-trainer", x = 45.03, y = 56.20 },
-			{ id = "creation_catalyst", label = "Creation Catalyst", description = "Zet een waypoint naar de Creation Catalyst in de Bazaar (neutral).", atlas = "creationcatalyst-32x32", x = 40.31, y = 64.85 },
+			{ id = "prof_reset", label = "Theremis — Specializations resetten", descKey = "SMC_PIN_PROF_RESET", atlas = "services-icon-trainer", x = 45.03, y = 56.20 },
+			{ id = "creation_catalyst", label = "Creation Catalyst", descKey = "SMC_PIN_CREATION_CATALYST", atlas = "creationcatalyst-32x32", x = 40.31, y = 64.85 },
 		},
 	},
 	{
 		title = "Gear & Currency Vendors",
 		items = {
-			{ id = "maren_silverwing", label = "Maren Silverwing — Gear caches", description = "Ruil Field Accolades (verdiend bij Ritual Sites + Void Assaults) voor Void-Touched GEAR-caches: Champion-cache 75, Hero-cache 500 Field Accolade. Kan ook Dark Particle omzetten naar Field Accolades. Staat bij de Ritual/Void-hub. (Wowhead npc 255473 — bevestig coords in-game.)", atlas = "WarWithin-Icon-Crest", x = 48.11, y = 49.10 },
-			{ id = "triam_dawnsetter", label = "Triam Dawnsetter — Transmog (cosmetics)", description = "Let op: ALLEEN cosmetics/transmog, GEEN gear. Void-Touched uiterlijken per slot: 5 Field Accolade + 150 Voidlight Marl elk (wapens 10 + 200). Geen duplicates — kopen stopt zodra je de look al kent. Staat bij de Ritual/Void-hub. (Wowhead npc 255476, 'Cosmetic Equipment Salvager' — bevestig coords in-game.)", atlas = "services-icon-transmogrifier", x = 48.11, y = 49.10 },
+			--- ⚠️ COORDS STILL UNCONFIRMED for both of these — they came from Wowhead
+			--- (npc 255473 Maren, npc 255476 Triam, listed there as "Cosmetic Equipment
+			--- Salvager") and nobody has stood next to them with `/mh capture`. Both
+			--- point at the Ritual/Void hub, which is where they are said to be.
+			---
+			--- That caveat used to sit in the tooltip, where the player read
+			--- "bevestig coords in-game" — an instruction to us, in a sentence meant for
+			--- them. It belongs here. If a route lands you beside empty ground, this is
+			--- the line that says why.
+			{ id = "maren_silverwing", label = "Maren Silverwing — Gear caches", descKey = "SMC_PIN_MAREN_SILVERWING", atlas = "WarWithin-Icon-Crest", x = 48.11, y = 49.10 },
+			{ id = "triam_dawnsetter", label = "Triam Dawnsetter — Transmog (cosmetics)", descKey = "SMC_PIN_TRIAM_DAWNSETTER", atlas = "services-icon-transmogrifier", x = 48.11, y = 49.10 },
 		},
 	},
 	{
@@ -842,7 +851,7 @@ local SMC_CATEGORIES = {
 			{
 				id = "world_boss_week",
 				label = "World boss this week",
-				description = "Open Delves & Vault and route to this week's world boss (TomTom + Travel Assistant when available).",
+				descKey = "SMC_PIN_WORLD_BOSS_WEEK",
 				atlas = "groupfinder-icon-flag",
 				action = "worldboss_week",
 				x = 48.95,
@@ -850,15 +859,15 @@ local SMC_CATEGORIES = {
 			},
 			{ id = "prey_hub", label = "Prey Hub", atlas = "ui-delves", x = 56.19, y = 65.33 },
 			{ id = "astalor", label = "Magister Astalor Bloodsworn", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
-			{ id = "weekly_hub", label = "Weekly Quest Givers", description = "Zet een waypoint naar Aethas, Liadrin en Halduron (weekly hub).", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
+			{ id = "weekly_hub", label = "Weekly Quest Givers", descKey = "SMC_PIN_WEEKLY_HUB", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
 			-- Eén knop voor twee systemen kon maar één ding doen, en werd dus de
 			-- enige in dit raster die je niet ergens heen stuurde (Rob, 28 jul).
 			-- Gesplitst, want de bestemmingen verschillen echt van aard: de
 			-- ritual site is één obelisk met exacte coords die weekelijks
 			-- rouleert, de void assault heeft géén enkel punt (strikes worden
 			-- los gemarkeerd) en kan alleen naar de staging-hub wijzen.
-			{ id = "ritual_hub", label = "Ritual Site (active)", description = "Route naar de obelisk van de ritual site die deze week actief is.", atlas = "groupfinder-icon-flag", action = "ritual_site", x = 48.2, y = 49.4 },
-			{ id = "void_hub", label = "Void Assault hub", description = "Route naar de staging-hub van de actieve void assault (de strikes zelf hebben geen vast punt).", atlas = "groupfinder-icon-flag", action = "void_hub", x = 48.2, y = 49.4 },
+			{ id = "ritual_hub", label = "Ritual Site (active)", descKey = "SMC_PIN_RITUAL_HUB", atlas = "groupfinder-icon-flag", action = "ritual_site", x = 48.2, y = 49.4 },
+			{ id = "void_hub", label = "Void Assault hub", descKey = "SMC_PIN_VOID_HUB", atlas = "groupfinder-icon-flag", action = "void_hub", x = 48.2, y = 49.4 },
 			{ id = "delves_hq", label = "Delves HQ", atlas = "ui-delves", x = 52.10, y = 77.70 },
 			{ id = "valeera_delves", label = "Valeera Sanguinar (Delves)", atlas = "ui-delves", x = 52.40, y = 78.20 },
 			{ id = "training_dummies", label = "Training Dummies", atlas = "services-icon-dueling", x = 36.0, y = 84.2 },
@@ -890,7 +899,7 @@ local SMC_CATEGORIES = {
 	{
 		title = "Gathering",
 		items = {
-			{ id = "fishing", label = "Fishing", description = "Zet een waypoint naar de Fishing-trainer / visplek in de Bazaar.", atlas = "ui-profession-fishing", x = 44.70, y = 60.20 },
+			{ id = "fishing", label = "Fishing", descKey = "SMC_PIN_FISHING", atlas = "ui-profession-fishing", x = 44.70, y = 60.20 },
 			{ id = "herbalism_trainer", label = "Herbalism Trainer", atlas = "ui-profession-herbalism", x = 48.20, y = 51.52 },
 			{ id = "mining_trainer", label = "Mining Trainer", atlas = "ui-profession-mining", x = 42.68, y = 52.84 },
 			{ id = "skinning_trainer", label = "Skinning Trainer", atlas = "ui-profession-skinning", x = 43.27, y = 55.59 },

@@ -2762,6 +2762,17 @@ fill("deDE", {
 	SMC_PIN_GOTO_FMT = "Setzt einen Wegpunkt zu %s.",
 	SMC_PIN_TRAINER_FMT = "Setzt einen Wegpunkt zum %s-Lehrer.",
 	SMC_PIN_CLICK_HINT = "Klick: Kartenmarkierung + /way #2393 (TomTom, falls vorhanden)",
+	SMC_PIN_ITEM_UPGRADES = "Verbessere deine Ausrüstung mit Wappen. Im Basar, neben Vaskarn.",
+	SMC_PIN_CREST_EXCHANGE = "Tausche Wappen eine Stufe hoch oder runter. Im Basar, neben Cuzoth.",
+	SMC_PIN_PROF_RESET = "Setzt die Midnight-Spezialisierungen EINES Berufs zurück und gibt dir dein Wissen wieder. Die Warnung des Spiels selbst: du verlierst jedes Rezept, das an diesen Entscheidungen hing, und es geht nur EINMAL pro Beruf.",
+	SMC_PIN_CREATION_CATALYST = "Im Basar, auf der neutralen Seite.",
+	SMC_PIN_MAREN_SILVERWING = "Tauscht Feldauszeichnungen — verdient an Ritualstätten und bei Void-Angriffen — gegen leerenberührte Ausrüstungsbehälter: Champion 75, Held 500. Wandelt auch Dunkelpartikel in Feldauszeichnungen um. Steht am Ritual-/Void-Hub.",
+	SMC_PIN_TRIAM_DAWNSETTER = "Nur Kosmetik, keine Ausrüstung. Leerenberührte Erscheinungsbilder kosten 5 Feldauszeichnungen + 150 Leerenlicht-Marl pro Slot (Waffen 10 + 200). Keine Duplikate: ein bereits bekanntes Aussehen wird nicht mehr angeboten. Steht am Ritual-/Void-Hub.",
+	SMC_PIN_WEEKLY_HUB = "Aethas, Liadrin und Halduron, die die wöchentlichen Quests vergeben.",
+	SMC_PIN_RITUAL_HUB = "Route zum Obelisken der diese Woche aktiven Ritualstätte.",
+	SMC_PIN_VOID_HUB = "Route zum Sammelpunkt des aktiven Void-Angriffs. Die Angriffe selbst haben keinen festen Punkt.",
+	SMC_PIN_FISHING = "Angellehrer und eine Angelstelle, beide im Basar.",
+	SMC_PIN_WORLD_BOSS_WEEK = "Öffnet Delves & Vault und legt die Route zum Weltboss dieser Woche.",
 })
 
 fill("frFR", {
@@ -2882,6 +2893,17 @@ fill("frFR", {
 	SMC_PIN_GOTO_FMT = "Place un point de passage vers %s.",
 	SMC_PIN_TRAINER_FMT = "Place un point de passage vers le maître de %s.",
 	SMC_PIN_CLICK_HINT = "Clic : point sur la carte + /way #2393 (TomTom si tu l’as)",
+	SMC_PIN_ITEM_UPGRADES = "Améliore ton équipement avec des écussons. Au Bazar, à côté de Vaskarn.",
+	SMC_PIN_CREST_EXCHANGE = "Échange tes écussons d’un palier vers le haut ou le bas. Au Bazar, à côté de Cuzoth.",
+	SMC_PIN_PROF_RESET = "Réinitialise les spécialisations Midnight d’UN métier et te rend tes Connaissances. L’avertissement du jeu lui-même : tu perds toutes les recettes liées à ces choix, et cela ne peut se faire qu’UNE SEULE FOIS par métier.",
+	SMC_PIN_CREATION_CATALYST = "Au Bazar, côté neutre.",
+	SMC_PIN_MAREN_SILVERWING = "Échange des Distinctions de campagne — gagnées aux Sites rituels et lors des Assauts du Vide — contre des caches d’équipement touché par le Vide : Champion 75, Héros 500. Transforme aussi les Particules sombres en Distinctions. Se tient au hub Rituel/Vide.",
+	SMC_PIN_TRIAM_DAWNSETTER = "Cosmétiques uniquement, pas d’équipement. Les apparences touchées par le Vide coûtent 5 Distinctions + 150 Marne de lumière du Vide par emplacement (armes 10 + 200). Pas de doublons : une apparence déjà connue n’est plus proposée. Se tient au hub Rituel/Vide.",
+	SMC_PIN_WEEKLY_HUB = "Aethas, Liadrin et Halduron, qui donnent les quêtes hebdomadaires.",
+	SMC_PIN_RITUAL_HUB = "Itinéraire vers l’obélisque du site rituel actif cette semaine.",
+	SMC_PIN_VOID_HUB = "Itinéraire vers le point de rassemblement de l’assaut du Vide actif. Les frappes elles-mêmes n’ont pas de point fixe.",
+	SMC_PIN_FISHING = "Maître pêcheur et un coin de pêche, tous deux au Bazar.",
+	SMC_PIN_WORLD_BOSS_WEEK = "Ouvre Delves & Vault et trace l’itinéraire vers le boss de monde de la semaine.",
 })
 
 fill("esES", {
@@ -3002,6 +3024,17 @@ fill("esES", {
 	SMC_PIN_GOTO_FMT = "Marca un punto de ruta hacia %s.",
 	SMC_PIN_TRAINER_FMT = "Marca un punto de ruta hacia el maestro de %s.",
 	SMC_PIN_CLICK_HINT = "Clic: marca en el mapa + /way #2393 (TomTom si lo tienes)",
+	SMC_PIN_ITEM_UPGRADES = "Mejora tu equipo con Blasones. En el Bazar, junto a Vaskarn.",
+	SMC_PIN_CREST_EXCHANGE = "Cambia Blasones de nivel, arriba o abajo. En el Bazar, junto a Cuzoth.",
+	SMC_PIN_PROF_RESET = "Reinicia las especializaciones Midnight de UNA profesión y te devuelve el Conocimiento. El aviso del propio juego: pierdes todas las recetas ligadas a esas elecciones, y solo se puede hacer UNA VEZ por profesión.",
+	SMC_PIN_CREATION_CATALYST = "En el Bazar, en el lado neutral.",
+	SMC_PIN_MAREN_SILVERWING = "Cambia Distinciones de campo — obtenidas en Sitios rituales y Asaltos del Vacío — por alijos de equipo tocado por el Vacío: Campeón 75, Héroe 500. También convierte Partícula oscura en Distinciones. Está en el centro Ritual/Vacío.",
+	SMC_PIN_TRIAM_DAWNSETTER = "Solo cosméticos, nada de equipo. Las apariencias tocadas por el Vacío cuestan 5 Distinciones + 150 Marga de luz del Vacío por espacio (armas 10 + 200). Sin duplicados: una apariencia que ya conoces deja de ofrecerse. Está en el centro Ritual/Vacío.",
+	SMC_PIN_WEEKLY_HUB = "Aethas, Liadrin y Halduron, que dan las misiones semanales.",
+	SMC_PIN_RITUAL_HUB = "Ruta hacia el obelisco del sitio ritual activo esta semana.",
+	SMC_PIN_VOID_HUB = "Ruta hacia el centro de reunión del asalto del Vacío activo. Los ataques en sí no tienen un punto fijo.",
+	SMC_PIN_FISHING = "Maestro de pesca y un punto de pesca, ambos en el Bazar.",
+	SMC_PIN_WORLD_BOSS_WEEK = "Abre Delves & Vault y traza la ruta hacia el jefe de mundo de esta semana.",
 })
 
 fill("ptBR", {
@@ -3122,6 +3155,17 @@ fill("ptBR", {
 	SMC_PIN_GOTO_FMT = "Marca um ponto de rota até %s.",
 	SMC_PIN_TRAINER_FMT = "Marca um ponto de rota até o treinador de %s.",
 	SMC_PIN_CLICK_HINT = "Clique: marcação no mapa + /way #2393 (TomTom se tiveres)",
+	SMC_PIN_ITEM_UPGRADES = "Melhora o teu equipamento com Brasões. No Bazar, ao lado de Vaskarn.",
+	SMC_PIN_CREST_EXCHANGE = "Troca Brasões de nível, para cima ou para baixo. No Bazar, ao lado de Cuzoth.",
+	SMC_PIN_PROF_RESET = "Reinicia as especializações Midnight de UMA profissão e devolve o teu Conhecimento. O aviso do próprio jogo: perdes todas as receitas ligadas a essas escolhas, e só pode ser feito UMA VEZ por profissão.",
+	SMC_PIN_CREATION_CATALYST = "No Bazar, do lado neutro.",
+	SMC_PIN_MAREN_SILVERWING = "Troca Distinções de campo — ganhas em Locais Rituais e Assaltos do Vazio — por reservas de equipamento tocado pelo Vazio: Campeão 75, Herói 500. Também converte Partícula Escura em Distinções. Fica no centro Ritual/Vazio.",
+	SMC_PIN_TRIAM_DAWNSETTER = "Só cosméticos, nada de equipamento. As aparências tocadas pelo Vazio custam 5 Distinções + 150 Marga de Luz do Vazio por espaço (armas 10 + 200). Sem duplicados: uma aparência que já conheces deixa de ser oferecida. Fica no centro Ritual/Vazio.",
+	SMC_PIN_WEEKLY_HUB = "Aethas, Liadrin e Halduron, que dão as missões semanais.",
+	SMC_PIN_RITUAL_HUB = "Rota até ao obelisco do local ritual ativo esta semana.",
+	SMC_PIN_VOID_HUB = "Rota até ao ponto de reunião do assalto do Vazio ativo. Os ataques em si não têm ponto fixo.",
+	SMC_PIN_FISHING = "Treinador de pesca e um local de pesca, ambos no Bazar.",
+	SMC_PIN_WORLD_BOSS_WEEK = "Abre Delves & Vault e traça a rota até ao chefe de mundo desta semana.",
 })
 
 fill("itIT", {
@@ -3242,5 +3286,16 @@ fill("itIT", {
 	SMC_PIN_GOTO_FMT = "Imposta un waypoint verso %s.",
 	SMC_PIN_TRAINER_FMT = "Imposta un waypoint verso il maestro di %s.",
 	SMC_PIN_CLICK_HINT = "Clic: segnalino sulla mappa + /way #2393 (TomTom se ce l’hai)",
+	SMC_PIN_ITEM_UPGRADES = "Potenzia il tuo equipaggiamento con gli Stemmi. Nel Bazaar, accanto a Vaskarn.",
+	SMC_PIN_CREST_EXCHANGE = "Scambia gli Stemmi di un livello, su o giù. Nel Bazaar, accanto a Cuzoth.",
+	SMC_PIN_PROF_RESET = "Azzera le specializzazioni Midnight di UNA professione e ti restituisce la Conoscenza. L’avviso del gioco stesso: perdi ogni ricetta legata a quelle scelte, e si può fare SOLO UNA VOLTA per professione.",
+	SMC_PIN_CREATION_CATALYST = "Nel Bazaar, sul lato neutrale.",
+	SMC_PIN_MAREN_SILVERWING = "Scambia le Onorificenze sul campo — ottenute ai Siti Rituali e negli Assalti del Vuoto — con scorte di equipaggiamento toccato dal Vuoto: Campione 75, Eroe 500. Converte anche le Particelle Oscure in Onorificenze. Si trova all’hub Rituale/Vuoto.",
+	SMC_PIN_TRIAM_DAWNSETTER = "Solo cosmetici, niente equipaggiamento. Gli aspetti toccati dal Vuoto costano 5 Onorificenze + 150 Marna di Luce del Vuoto per slot (armi 10 + 200). Nessun duplicato: un aspetto che già conosci non viene più offerto. Si trova all’hub Rituale/Vuoto.",
+	SMC_PIN_WEEKLY_HUB = "Aethas, Liadrin e Halduron, che assegnano le missioni settimanali.",
+	SMC_PIN_RITUAL_HUB = "Percorso verso l’obelisco del sito rituale attivo questa settimana.",
+	SMC_PIN_VOID_HUB = "Percorso verso il punto di raccolta dell’assalto del Vuoto attivo. Gli attacchi stessi non hanno un punto fisso.",
+	SMC_PIN_FISHING = "Maestro di pesca e un punto di pesca, entrambi nel Bazaar.",
+	SMC_PIN_WORLD_BOSS_WEEK = "Apre Delves & Vault e traccia il percorso verso il boss mondiale di questa settimana.",
 })
 
