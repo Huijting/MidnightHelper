@@ -205,6 +205,21 @@ local function BuildAccessoryHint()
 	return "\n\n|cff8a8f98" .. SL("PROFHUB_ACCESSORY_HINT_FMT"):format(empty) .. "|r"
 end
 
+--- ⚠️ THIS PAGE TELLS YOU WHERE TO SPEND KNOWLEDGE POINTS, so it is the page that owes
+--- you the news that 12.1 gives you one way back. Until now the advice quietly implied
+--- the choice was permanent; it is not, exactly once, and the cost is real.
+---
+--- It lives here rather than only on the Silvermoon list because a city-services page is
+--- where you go looking for a bank, not where the thought "can I undo this?" arrives.
+---
+--- The wording is the game's own (Theremis's confirmation window, photographed 12 Aug
+--- 2026): recipes are LOST, not parked. A guide claimed they return if you re-spend
+--- identically; the window promises nothing of the kind, and that is the sentence that
+--- could cost somebody their recipes.
+local function BuildResetHint()
+	return "\n\n|cff8a8f98" .. SL("PROFHUB_RESET_HINT") .. "|r"
+end
+
 local function RefreshOverview()
 	if not (hub and hub._phOverview and hub._phOverview:IsShown()) then
 		return
@@ -214,7 +229,7 @@ local function RefreshOverview()
 	end
 	if hub._phOverviewText then
 		local text = ns.MH_GetProfessionsOverviewText and ns.MH_GetProfessionsOverviewText() or ""
-		hub._phOverviewText:SetText(text .. BuildWeeklyText() .. BuildAccessoryHint())
+		hub._phOverviewText:SetText(text .. BuildWeeklyText() .. BuildAccessoryHint() .. BuildResetHint())
 	end
 	if hub._phOverviewHint then
 		hub._phOverviewHint:SetText(SL("PROFHUB_OVERVIEW_HINT"))

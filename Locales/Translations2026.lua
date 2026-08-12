@@ -2758,6 +2758,7 @@ fill("deDE", {
 	MH_SAY_ACCOUNT_LAYOUT = "%s ist ein accountweites Layout: jeder Charakter, der es nutzt, bekommt diese Leisten. Ein charakterspezifisches Layout behält die Änderung hier.",
 	MH_SAY_BARS_DONE = "Leisten ersetzt (%d System(e) in %s). Jetzt neu laden — vorher ist nichts festgeschrieben.",
 	MH_SAY_BARS_RESTORED = "%s ist wieder wie vor dem Import. Jetzt neu laden.",
+	PROFHUB_RESET_HINT = "Anders überlegt? Theremis in Silbermond (Basar, bei den Handwerksaufträgen) setzt die Midnight-Spezialisierungen EINES Berufs zurück und gibt dir dein Wissen wieder. Die Warnung des Spiels selbst: du verlierst jedes Rezept, das an diesen Entscheidungen hing, und es geht nur EINMAL pro Beruf.",
 })
 
 fill("frFR", {
@@ -2874,6 +2875,7 @@ fill("frFR", {
 	MH_SAY_ACCOUNT_LAYOUT = "%s est une disposition liée au compte : chaque personnage qui l’utilise reçoit ces barres. Une disposition propre au personnage garde le changement ici.",
 	MH_SAY_BARS_DONE = "Barres remplacées (%d système(s) dans %s). Recharge maintenant — rien n’est fixé avant ça.",
 	MH_SAY_BARS_RESTORED = "%s est revenue à son état d’avant l’import. Recharge maintenant.",
+	PROFHUB_RESET_HINT = "Tu as changé d’avis ? Theremis à Lune-d’argent (Bazar, près des commandes d’artisanat) réinitialise les spécialisations Midnight d’UN métier et te rend tes Connaissances. L’avertissement du jeu lui-même : tu perds toutes les recettes liées à ces choix, et cela ne peut se faire qu’UNE SEULE FOIS par métier.",
 })
 
 fill("esES", {
@@ -2990,6 +2992,7 @@ fill("esES", {
 	MH_SAY_ACCOUNT_LAYOUT = "%s es una disposición de toda la cuenta: cada personaje que la use recibe estas barras. Una disposición propia del personaje mantiene el cambio aquí.",
 	MH_SAY_BARS_DONE = "Barras reemplazadas (%d sistema(s) en %s). Recarga ahora — nada queda fijado hasta entonces.",
 	MH_SAY_BARS_RESTORED = "%s ha vuelto a como estaba antes de la importación. Recarga ahora.",
+	PROFHUB_RESET_HINT = "¿Cambiaste de idea? Theremis en Ciudad Lunargenta (Bazar, junto a los encargos de artesanía) reinicia las especializaciones Midnight de UNA profesión y te devuelve el Conocimiento. El aviso del propio juego: pierdes todas las recetas ligadas a esas elecciones, y solo se puede hacer UNA VEZ por profesión.",
 })
 
 fill("ptBR", {
@@ -3106,6 +3109,7 @@ fill("ptBR", {
 	MH_SAY_ACCOUNT_LAYOUT = "%s é um layout de toda a conta: cada personagem que o usa recebe estas barras. Um layout do personagem mantém a mudança aqui.",
 	MH_SAY_BARS_DONE = "Barras substituídas (%d sistema(s) em %s). Recarrega agora — nada fica definido até lá.",
 	MH_SAY_BARS_RESTORED = "%s voltou a como estava antes da importação. Recarrega agora.",
+	PROFHUB_RESET_HINT = "Mudaste de ideia? Theremis em Luaprata (Bazar, junto às encomendas de profissão) reinicia as especializações Midnight de UMA profissão e devolve o teu Conhecimento. O aviso do próprio jogo: perdes todas as receitas ligadas a essas escolhas, e só pode ser feito UMA VEZ por profissão.",
 })
 
 fill("itIT", {
@@ -3222,5 +3226,6 @@ fill("itIT", {
 	MH_SAY_ACCOUNT_LAYOUT = "%s è un layout valido per tutto l’account: ogni personaggio che lo usa riceve queste barre. Un layout del personaggio tiene la modifica qui.",
 	MH_SAY_BARS_DONE = "Barre sostituite (%d sistema/i in %s). Ricarica adesso — niente è definitivo prima.",
 	MH_SAY_BARS_RESTORED = "%s è tornato com’era prima dell’importazione. Ricarica adesso.",
+	PROFHUB_RESET_HINT = "Cambiato idea? Theremis a Lunargenta (Bazaar, vicino agli ordini di artigianato) azzera le specializzazioni Midnight di UNA professione e ti restituisce la Conoscenza. L’avviso del gioco stesso: perdi ogni ricetta legata a quelle scelte, e si può fare SOLO UNA VOLTA per professione.",
 })
 

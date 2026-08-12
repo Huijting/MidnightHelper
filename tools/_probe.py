@@ -1,6 +1,6 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: the nine 2.14.0 changelog lines into enUS (English only, by design).
+Right now: PROFHUB_RESET_HINT in seven languages.
 """
 import io
 import os
@@ -13,74 +13,71 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-P = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales\enUS.lua'
+BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales'
+KEY = 'PROFHUB_RESET_HINT'
 
-LINES = [
-    ("CHANGELOG_2140_1",
-     "New: /mh setup. Laying out your bars was a set of commands you had to run from "
-     "memory, in the right order, on the right character - and getting that wrong cost "
-     "one of us eight keybinds. It is a panel now. It says who you are and whether your "
-     "keys are account-wide or this character's own BEFORE offering anything that "
-     "changes them, and nothing destructive happens on a single click."),
-    ("CHANGELOG_2140_2",
-     "New: the addon offers, once. Open Midnight Helper on a character whose bars have "
-     "never been set up and a card asks whether it should do it for you. There was no "
-     "way to discover /mh setup existed - a changelog is read by nobody and the store "
-     "page is read once, before installing. Dismiss it and it stays dismissed."),
-    ("CHANGELOG_2140_3",
-     "New: our bar layout as something you can apply, not a picture to copy by hand. It "
-     "changes action bars 1-8 and nothing else, so your minimap, unit frames and macro "
-     "bars stay put, and a button next to it puts your old layout back. It refuses "
-     "politely if another addon is already arranging those bars."),
-    ("CHANGELOG_2140_4",
-     "New: thumb-button keys onto action bar 8. If your mouse sends 6 7 8 9 0 - instead "
-     "of mouse buttons, one press puts them on bar 8 and leaves every key you already "
-     "bound exactly where your hands expect it. A layout change is a habit change, so it "
-     "shows you the plan first and moves nothing until you press again."),
-    ("CHANGELOG_2140_5",
-     "New: a small quick bar, off by default: /mh bar. Midnight Helper, reload, the "
-     "setup panel, and leaving a group - including leaving a delve, which needed its own "
-     "call because solo in a delve there is no party to leave."),
-    ("CHANGELOG_2140_6",
-     "New: your healing potion and healthstone as keybinds instead of action bar slots. "
-     "Bind them in Blizzard's own keybinding screen under Midnight Helper. Nothing is "
-     "bound by default."),
-    ("CHANGELOG_2140_7",
-     "New: /mh fps reads out the graphics settings that cost the most frames and changes "
-     "none of them. It tells an untouched default apart from a deliberate choice, "
-     "because the two look identical and only one is worth mentioning. Also new: a "
-     "Details! damage meter page, which copies a profile for you to paste - it never "
-     "imports anything on its own."),
-    ("CHANGELOG_2140_8",
-     "Ready for patch 12.1. The world boss scan used a function 12.1 removed and failed "
-     "silently, falling back to a stale answer. In combat, 12.1 hides some of your own "
-     "buffs and reports them as simply not there - measured, three of five - so the "
-     "addon now answers “cannot tell” instead of “you do not have it”. And the Season "
-     "2 gate opened on patch day because it keyed off a number that changes with the "
-     "patch rather than the season."),
-    ("CHANGELOG_2140_9",
-     "Fixed: the search box did not index the Addons pages at all, so searching for the "
-     "tools they cover found nothing. Commands are searchable by what they do rather "
-     "than what they are called. Shift+scroll now resizes every dialog, not just one. "
-     "And the About window credited the wrong people."),
-]
+PACK = {
+    'enUS': 'Changed your mind? Theremis in Silvermoon (Bazaar, by the crafting orders) '
+            'resets one profession\u2019s Midnight specializations and hands your Knowledge '
+            'back. The game\u2019s own warning: you lose every recipe tied to those choices, '
+            'and it can only be done ONCE per profession.',
+    'nlNL': 'Toch anders willen? Theremis in Silvermoon (Bazaar, bij de crafting orders) '
+            'reset de Midnight-specializations van \u00e9\u00e9n beroep en geeft je Knowledge terug. '
+            'De waarschuwing van het spel zelf: je verliest elk recept dat aan die keuzes '
+            'hing, en het kan MAAR \u00c9\u00c9N KEER per beroep.',
+}
+FILLS = {
+    'deDE': 'Anders \u00fcberlegt? Theremis in Silbermond (Basar, bei den Handwerksauftr\u00e4gen) '
+            'setzt die Midnight-Spezialisierungen EINES Berufs zur\u00fcck und gibt dir dein '
+            'Wissen wieder. Die Warnung des Spiels selbst: du verlierst jedes Rezept, das an '
+            'diesen Entscheidungen hing, und es geht nur EINMAL pro Beruf.',
+    'frFR': 'Tu as chang\u00e9 d\u2019avis ? Theremis \u00e0 Lune-d\u2019argent (Bazar, pr\u00e8s des commandes '
+            'd\u2019artisanat) r\u00e9initialise les sp\u00e9cialisations Midnight d\u2019UN m\u00e9tier et te rend '
+            'tes Connaissances. L\u2019avertissement du jeu lui-m\u00eame : tu perds toutes les '
+            'recettes li\u00e9es \u00e0 ces choix, et cela ne peut se faire qu\u2019UNE SEULE FOIS par m\u00e9tier.',
+    'esES': '\u00bfCambiaste de idea? Theremis en Ciudad Lunargenta (Bazar, junto a los encargos '
+            'de artesan\u00eda) reinicia las especializaciones Midnight de UNA profesi\u00f3n y te '
+            'devuelve el Conocimiento. El aviso del propio juego: pierdes todas las recetas '
+            'ligadas a esas elecciones, y solo se puede hacer UNA VEZ por profesi\u00f3n.',
+    'ptBR': 'Mudaste de ideia? Theremis em Luaprata (Bazar, junto \u00e0s encomendas de '
+            'profiss\u00e3o) reinicia as especializa\u00e7\u00f5es Midnight de UMA profiss\u00e3o e devolve o teu '
+            'Conhecimento. O aviso do pr\u00f3prio jogo: perdes todas as receitas ligadas a essas '
+            'escolhas, e s\u00f3 pode ser feito UMA VEZ por profiss\u00e3o.',
+    'itIT': 'Cambiato idea? Theremis a Lunargenta (Bazaar, vicino agli ordini di '
+            'artigianato) azzera le specializzazioni Midnight di UNA professione e ti '
+            'restituisce la Conoscenza. L\u2019avviso del gioco stesso: perdi ogni ricetta legata '
+            'a quelle scelte, e si pu\u00f2 fare SOLO UNA VOLTA per professione.',
+}
 
-t = open(P, encoding='utf-8', newline='').read()
-if LINES[0][0] in t:
-    print('stond er al in')
-    raise SystemExit(0)
+for code, text in PACK.items():
+    p = os.path.join(BASE, '%s.lua' % code)
+    t = open(p, encoding='utf-8', newline='').read()
+    if KEY in t:
+        print('%s: stond er al in' % code)
+        continue
+    nl = '\r\n' if '\r\n' in t else '\n'
+    m = re.compile(r'^\tPROFHUB_ACCESSORY_HINT_FMT = .*$', re.M).search(t)
+    if not m:
+        print('%s: geen anker' % code)
+        continue
+    assert '"' not in text, code
+    t = t[:m.end()] + nl + '\t%s = "%s",' % (KEY, text) + t[m.end():]
+    io.open(p + '.tmp', 'w', encoding='utf-8', newline='').write(t)
+    os.replace(p + '.tmp', p)
+    print('%s: ok' % code)
 
-nl = '\r\n' if '\r\n' in t else '\n'
-m = re.compile(r'^\tCHANGELOG_2130_1 = ', re.M).search(t)
-if not m:
-    print('geen anker')
-    raise SystemExit(1)
-
-for key, text in LINES:
-    assert '"' not in text, key
-
-block = nl.join('\t%s = "%s",' % (k, v) for k, v in LINES) + nl
-t = t[:m.start()] + block + t[m.start():]
-io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(t)
-os.replace(P + '.tmp', P)
-print('%d regels toegevoegd' % len(LINES))
+p = os.path.join(BASE, 'Translations2026.lua')
+t = open(p, encoding='utf-8', newline='').read()
+if KEY in t:
+    print('Translations2026: stond er al in')
+else:
+    nl = '\r\n' if '\r\n' in t else '\n'
+    for code, text in FILLS.items():
+        assert '"' not in text, code
+        marker = 'fill("%s", {' % code
+        start = t.rindex(marker)
+        end = t.index('})', start)
+        t = t[:end] + '\t%s = "%s",%s' % (KEY, text, nl) + t[end:]
+    io.open(p + '.tmp', 'w', encoding='utf-8', newline='').write(t)
+    os.replace(p + '.tmp', p)
+    print('Translations2026: 5 talen')
