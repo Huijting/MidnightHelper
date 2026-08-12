@@ -142,8 +142,11 @@ de bovenstaande vorm heeft.
     | 2.11.1 | 22 | 1110 | 0 | ✅ clean |
     | 2.12.0 | 37 | 1652 | 0 | ✅ clean |
     | 2.13.0 | 39 | 1937 | 0 | ✅ clean |
+    | 2.14.0 | 40 | 1936 | 0 | ✅ clean |
 
-    Short and plain uploads clean; long and bullet-heavy does not. **Seven for seven** now, Rob confirming each on the page itself — 2.13.0 on 6 Aug 2026, at 39 lines the longest of the clean ones. That last one narrows it: 2.8.4 was mangled at 55 lines with 6 bullets, and 39 lines with 0 bullets is fine, so line count alone is not the trigger. Bullets remain the strongest single suspect, but no clean upload has ever carried one, so nothing separates "no bullets" from "short and plain" yet. Still a reliable rule rather than a diagnosis. Put the long prose in `docs/CURSEFORGE_<ver>.md` if you want it.
+    Short and plain uploads clean; long and bullet-heavy does not. **Eight for eight** now, Rob confirming each on the page itself — 2.14.0 on 12 Aug 2026, approved on arrival. Two things that narrow it: 2.8.4 was mangled at 55 lines with 6 bullets while 40 lines with 0 bullets is fine, so line count alone is not the trigger; and 2.14.0 is one line LONGER than 2.13.0 while a character shorter, and both are clean, so the threshold is not sitting between 39 and 40 either. Bullets remain the strongest single suspect, but no clean upload has ever carried one, so nothing yet separates "no bullets" from "short and plain". Still a reliable rule rather than a diagnosis. Put the long prose in `docs/CURSEFORGE_<ver>.md` if you want it.
+
+    ⚠️ The draft for 2.14.0 started at 45 lines and was cut to 40 on purpose. Do that: a release is the wrong place to find out where the edge is.
   - **Earlier theories, all DISPROVEN — do not revive them.** HTML in the file (2.7.0), then a leading `<!-- HTML comment -->` (2.8.0), then "pure Markdown fixes it" (2.8.1, still mangled at 60+ lines). Rob also pasted the *identical* source into CF's own editor and it rendered perfectly, which puts the fault in the upload path, not the file's contents.
   - If a release still arrives wrong: CF page → the file → Changelog → Markdown mode → paste `docs/CURSEFORGE_<ver>.md`. And if a SHORT file ever arrives mangled, this rule is dead — the next lead is the floating `BigWigsMods/packager@v2` tag in `.github/workflows/release.yml`, since 2.6.0 rendered clean and something may have changed underneath us.
 - `CHANGELOG.md` (full history)
