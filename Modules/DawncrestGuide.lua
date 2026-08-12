@@ -756,20 +756,26 @@ local function PrintPageCurrencies(prefix)
 	if type(ids) ~= "table" or #ids == 0 then
 		return
 	end
-	print(("%s Currencies page — the %d ids it renders:"):format(prefix, #ids))
-	local unknown = 0
+	local unknown, rows = 0, {}
 	for _, id in ipairs(ids) do
 		local okI, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
 		local name = okI and type(info) == "table" and info.name or nil
 		if name and name ~= "" then
-			print(("   |cff40c040%-26s|r id %-6d qty %s"):format(name, id, tostring(info.quantity)))
+			rows[#rows + 1] = { id = id, name = name, qty = tostring(info.quantity) }
 		else
 			unknown = unknown + 1
-			print(("   |cffff8080%-26s|r id %-6d |cffff8080the client does not know this currency|r"):format("?", id))
+			rows[#rows + 1] = { id = id, name = "?", unknown = true }
 		end
 	end
+	ns.db = ns.db or {}
+	ns.db.crestScanProbe = ns.db.crestScanProbe or {}
+	ns.db.crestScanProbe.page = { at = (time and time()) or 0, unknown = unknown, rows = rows }
+
 	if unknown > 0 then
-		print(("   |cffff8080%d id(s) gone — the Currencies page is showing a dead entry.|r"):format(unknown))
+		print(("%s |cffff8080%d of %d ids on the Currencies page are gone — it is showing a dead entry.|r"):format(
+			prefix, unknown, #ids))
+	else
+		print(("%s Currencies page — all %d ids still exist on this client."):format(prefix, #ids))
 	end
 end
 
@@ -802,8 +808,12 @@ function ns.PrintCrestScan()
 		PrintPageCurrencies(prefix)
 		return
 	end
-	print(("%s Currency list — every entry with \"crest\" in the name (%d rows):"):format(prefix, size))
-	local header, hits = "?", 0
+	--- ⚠️ THE LIST GOES TO THE DATABASE. Rob ran the chat version and it came to "more
+	--- than three screenshots" — a crest sweep is naturally long, and the rule since
+	--- 27 July is that long diagnostics are written to `ns.db` and read out of the
+	--- SavedVariables file. Chat keeps the count and the names, which is what tells you
+	--- at a glance whether a season renamed anything.
+	local header, hits, found = "?", 0, {}
 	for i = 1, size do
 		local okI, info = pcall(C_CurrencyInfo.GetCurrencyListInfo, i)
 		if okI and type(info) == "table" and info.name then
@@ -811,16 +821,36 @@ function ns.PrintCrestScan()
 				header = info.name
 			elseif info.name:lower():find("crest") then
 				hits = hits + 1
-				print(("   |cff40c040%-26s|r id %-6s qty %-6s  [%s]"):format(
-					info.name, tostring(info.currencyID), tostring(info.quantity), header))
+				found[#found + 1] = {
+					name = info.name,
+					id = tostring(info.currencyID),
+					qty = tostring(info.quantity),
+					header = header,
+				}
 			end
 		end
 	end
+	ns.db = ns.db or {}
+	ns.db.crestScanProbe = ns.db.crestScanProbe or {}
+	ns.db.crestScanProbe.sweep = {
+		at = (time and time()) or 0, listSize = size, hits = hits, rows = found,
+	}
+
 	if hits == 0 then
-		print("   |cffff8080no currency with \"crest\" in the name is in your list|r")
+		print(("%s |cffff8080no currency with \"crest\" in the name is in your list|r (%d rows scanned)"):format(
+			prefix, size))
+	else
+		--- Names only, on one line. A season rename is the thing you want to spot here,
+		--- and it is visible from the names alone; the ids and amounts are in the file.
+		local names = {}
+		for i = 1, #found do
+			names[i] = found[i].name
+		end
+		print(("%s %d crest currencies: %s"):format(prefix, hits, table.concat(names, ", ")))
 	end
-	print("   " .. prefix .. " |cff8a8f98a currency you have never seen may not be listed at all - absence is not proof.|r")
+	print("   |cff8a8f98a currency you have never seen may not be listed at all - absence is not proof.|r")
 	PrintPageCurrencies(prefix)
+	print("   |cff8a8f98Saved to the DB — /reload to write the file.|r")
 end
 
 --- /mh crestfind — scan a range of currency ids and name every crest the GAME knows.

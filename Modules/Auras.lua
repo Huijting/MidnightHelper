@@ -367,14 +367,6 @@ function ns.PrintAuraDiagnostics()
 	-- to ask at the only moment the answer is always false". A diagnostic that does
 	-- not record the condition it measured under is not a measurement.
 	local inCombat = InCombatLockdown and InCombatLockdown() or false
-	print(p .. "aura readability")
-	print(("  |cffffff78in combat|r             = %s%s"):format(
-		tostring(inCombat),
-		inCombat and "" or "   <- run this again DURING a fight"))
-	print(("  Trusted()              = %s"):format(tostring(Aura.Trusted())))
-	print(("  ShouldAurasBeSecret    = %s"):format(secret))
-	print(("  GetPlayerAuraBySpellID = %s"):format(tostring(C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID ~= nil)))
-	print(("  GetAuraDataByIndex     = %s"):format(tostring(C_UnitAuras and C_UnitAuras.GetAuraDataByIndex ~= nil)))
 	local buffs, debuffs = 0, 0
 	local okBuff = Aura.ForEachPlayerBuff(function()
 		buffs = buffs + 1
@@ -382,11 +374,35 @@ function ns.PrintAuraDiagnostics()
 	local okDebuff = Aura.ForEachPlayerDebuff(function()
 		debuffs = debuffs + 1
 	end)
-	print(("  helpful auras on you   = %s"):format(okBuff and tostring(buffs) or "could not scan"))
-	print(("  harmful auras on you   = %s"):format(okDebuff and tostring(debuffs) or "could not scan"))
-	for _, line in ipairs(SpellIdProbe(inCombat)) do
-		print(line)
+	local rows = SpellIdProbe(inCombat)
+
+	--- The file gets the detail, chat gets the verdict. Keyed by combat state so the
+	--- standing run and the in-combat run both survive; comparing them is the point.
+	ns.db = ns.db or {}
+	ns.db.auraReadProbe = ns.db.auraReadProbe or {}
+	ns.db.auraReadProbe[inCombat and "inCombat" or "standing"] = {
+		at = (time and time()) or 0,
+		build = select(4, GetBuildInfo()),
+		inCombat = inCombat,
+		trusted = Aura.Trusted(),
+		shouldAurasBeSecret = secret,
+		hasGetPlayerAuraBySpellID = (C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID) ~= nil,
+		hasGetAuraDataByIndex = (C_UnitAuras and C_UnitAuras.GetAuraDataByIndex) ~= nil,
+		helpful = okBuff and buffs or "could not scan",
+		harmful = okDebuff and debuffs or "could not scan",
+		lines = rows,
+	}
+
+	print(p .. ("aura readability (in combat = %s)"):format(tostring(inCombat)))
+	print(("  Trusted() = %s   ShouldAurasBeSecret = %s   helpful = %s"):format(
+		tostring(Aura.Trusted()), secret, okBuff and tostring(buffs) or "could not scan"))
+	--- Only the verdict line from the spell-id probe: the per-id rows are what turned
+	--- this into "more than three screenshots", and they are in the file now.
+	local verdict = rows[#rows]
+	if verdict and #rows > 1 then
+		print(verdict)
 	end
+	print("  |cff8a8f98Saved to the DB — /reload to write the file. Run standing AND in combat.|r")
 end
 
 --------------------------------------------------------------------------------
@@ -423,79 +439,105 @@ end
 --- (`unit, filter, nil, 0, 0`) and its comment pins the sort rule to Unsorted because
 --- the others order by secret data. We try the short form first and fall back, and print
 --- which one the client accepted.
+--- ⚠️ THE ANSWER GOES TO THE DATABASE, NOT TO CHAT.
+---
+--- Rob ran this standing still and it came to "more than three screenshots". That is a
+--- rule we already have and I broke it writing this: since 27 July long diagnostics are
+--- written to `ns.db` and read out of the SavedVariables file after a `/reload`. Chat is
+--- for the verdict, the file is for the evidence.
+---
+--- Each run is APPENDED, keyed by combat state, so the standing run and the in-combat
+--- run both survive — comparing the two is the entire point, and a probe that overwrote
+--- itself would make the second run destroy the first.
 function ns.PrintAuraInstanceProbe()
 	local p = "|cffffff78Midnight Helper:|r "
 	local UA, CS = C_UnitAuras, C_Secrets
 	local inCombat = InCombatLockdown and InCombatLockdown() or false
-	print(p .. ("aura instances (in combat = %s)"):format(tostring(inCombat)))
+
+	ns.db = ns.db or {}
+	ns.db.auraInstanceProbe = ns.db.auraInstanceProbe or {}
+	local out = {
+		inCombat = inCombat,
+		at = (time and time()) or 0,
+		build = select(4, GetBuildInfo()),
+		has = {},
+		instances = {},
+	}
+	ns.db.auraInstanceProbe[inCombat and "inCombat" or "standing"] = out
 
 	local getIDs = UA and UA.GetUnitAuraInstanceIDs
 	local shouldSecret = CS and CS.ShouldUnitAuraInstanceBeSecret
 	local byInstance = UA and UA.GetAuraDataByAuraInstanceID
-	print(("  GetUnitAuraInstanceIDs      = %s"):format(tostring(getIDs ~= nil)))
-	print(("  ShouldUnitAuraInstanceBeSecret = %s"):format(tostring(shouldSecret ~= nil)))
-	print(("  GetAuraDataByAuraInstanceID = %s"):format(tostring(byInstance ~= nil)))
+	out.has.GetUnitAuraInstanceIDs = getIDs ~= nil
+	out.has.ShouldUnitAuraInstanceBeSecret = shouldSecret ~= nil
+	out.has.GetAuraDataByAuraInstanceID = byInstance ~= nil
+
+	print(p .. ("aura instances (in combat = %s)"):format(tostring(inCombat)))
 	if not (getIDs and shouldSecret) then
+		out.verdict = "route unavailable"
 		print("  |cffff9900route unavailable on this client — nothing to build on.|r")
+		print("  |cff8a8f98Saved to the DB — /reload to write the file.|r")
 		return
 	end
 
 	--- Which call shape does this client take? Recorded, not assumed.
-	local ids, shape
+	local ids
 	for _, attempt in ipairs({
 		{ label = "(unit, filter)", args = { "player", "HELPFUL" } },
 		{ label = "(unit, filter, nil, 0, 0)", args = { "player", "HELPFUL", nil, 0, 0 } },
 	}) do
 		local ok, res = pcall(getIDs, unpack(attempt.args, 1, 5))
 		if ok and type(res) == "table" then
-			ids, shape = res, attempt.label
+			ids, out.shape = res, attempt.label
 			break
 		end
 	end
 	if not ids then
+		out.verdict = "every call shape threw"
 		print("  |cffff9900every call shape threw — the route is closed here.|r")
+		print("  |cff8a8f98Saved to the DB — /reload to write the file.|r")
 		return
 	end
-	print(("  accepted call               = %s -> %d instance(s)"):format(shape, #ids))
 
-	local readable, secretN, shown = 0, 0, 0
+	local readable, secretN = 0, 0
 	for i = 1, #ids do
 		local id = ids[i]
 		local okS, isSecret = pcall(shouldSecret, "player", id)
-		if not okS then
+		local row = { id = tostring(id) }
+		if not okS or isSecret then
 			secretN = secretN + 1
-		elseif isSecret then
-			secretN = secretN + 1
+			row.secret = okS and true or "asking threw"
 		else
 			readable = readable + 1
-			local spell = "?"
+			row.secret = false
 			if byInstance then
 				local okD, d = pcall(byInstance, "player", id)
 				--- Contractually non-secret, but read it inside pcall anyway: being wrong
 				--- here throws, and a diagnostic must never be what breaks a fight.
 				if okD and d then
 					local okI, sid = pcall(function() return d.spellId end)
-					spell = (okI and sid and not Secret(sid)) and tostring(sid) or "secret"
+					row.spellId = (okI and sid and not Secret(sid)) and tostring(sid) or "secret"
 				end
 			end
-			if shown < 10 then
-				shown = shown + 1
-				print(("    instance %-10s readable, spellId = %s"):format(tostring(id), spell))
-			end
 		end
+		out.instances[#out.instances + 1] = row
 	end
-	print(("  %d readable, %d secret"):format(readable, secretN))
+	out.total, out.readable, out.secret = #ids, readable, secretN
 
-	--- The verdict this whole probe exists for.
+	--- The verdict this whole probe exists for — the one thing worth reading on screen.
 	if secretN > 0 then
-		print("  |cffffcc00Some auras are hidden — 'absent' is NOT provable right now,|r")
-		print("  |cffffcc00but the count tells us that, which is exactly what we lacked.|r")
+		out.verdict = "some hidden — absent is not provable"
+		print(("  |cffffcc00%d readable, %d HIDDEN — 'absent' is not provable, and the count says so.|r"):format(
+			readable, secretN))
 	elseif #ids == 0 then
-		print("  |cff40c040Zero instances and nothing secret — genuinely no buffs.|r")
+		out.verdict = "zero instances, nothing secret"
+		print("  |cff40c040Zero instances and nothing hidden — genuinely no buffs.|r")
 	else
-		print("  |cff40c040Nothing hidden — a buff not in this list is genuinely absent.|r")
+		out.verdict = "nothing hidden"
+		print(("  |cff40c040All %d readable, nothing hidden — a buff not in this list is genuinely absent.|r"):format(
+			readable))
 	end
-	print("  |cff8a8f98Run this OUT of combat and again DURING a fight.|r")
+	print("  |cff8a8f98Saved to the DB — /reload to write the file. Run standing AND in combat.|r")
 end
 
 -- /mh dispelprobe — decides whether a LIVE "dispellable debuff on ally X" alert
