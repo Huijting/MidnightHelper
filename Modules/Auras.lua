@@ -103,12 +103,45 @@ function Aura.GetPlayerAura(spellID)
 end
 
 --- @return true|false|nil — nil means "could not read", NOT "absent"
+---
+--- ⚠️ "NOT FOUND" IS NOT EVIDENCE OF ABSENCE ON 12.1. MEASURED, 12 Aug 2026.
+---
+--- Rob ran the calibrated probe on a real 12.1 client. Out of combat it recorded the
+--- five buffs he was carrying; in combat it asked for those same five ids again:
+---
+---   1459    -> aura   (Arcane Intellect, still readable)
+---   225788  -> nil
+---   1305981 -> nil
+---   1272321 -> nil
+---   404468  -> aura
+---
+--- Three buffs he demonstrably HAD came back as nothing. And `GetPlayerAuraBySpellID`
+--- did not throw for them — it answered, calmly, with no aura. That is the shape we
+--- hoped not to find: not a clean refusal we could detect, but a partial, silent, wrong
+--- answer. Two of five stayed readable, so we cannot even treat "in combat" as blanket
+--- blindness.
+---
+--- (WHY those two survive is NOT measured. Both are long-lived and neither is a proc,
+--- which suggests Blizzard hides what leaks combat information — but that is a
+--- hypothesis and nothing here may depend on it.)
+---
+--- So the honest answer is: a positive sighting is still a fact, and a non-sighting is
+--- worth nothing unless the read can be trusted. Fixing it HERE rather than at each
+--- caller is the point of this file — `ConsumableReadyCheck` would otherwise put a
+--- confident red cross on a flask the player is holding, and the next module to read an
+--- aura would have to remember this all over again.
 function Aura.HasPlayerAura(spellID)
 	local data, readable = Aura.GetPlayerAura(spellID)
+	if data ~= nil then
+		return true -- seeing it is proof; nothing about 12.1 makes a sighting doubtful
+	end
 	if not readable then
 		return nil
 	end
-	return data ~= nil
+	if not Aura.Trusted() then
+		return nil -- the API answered "no", and on 12.1 that answer can be wrong
+	end
+	return false
 end
 
 --- Does `unit` carry the helpful aura `spellID`?
@@ -140,6 +173,12 @@ function Aura.HasUnitBuff(unit, spellID)
 		if sid and not Secret(sid) and sid == spellID then
 			return true
 		end
+	end
+	--- Same rule as HasPlayerAura: running off the end of somebody's aura list only
+	--- means "absent" if the list itself can be believed. On 12.1 a truncated or
+	--- silently-filtered list looks exactly like a short one.
+	if not Aura.Trusted() then
+		return nil
 	end
 	return false
 end
@@ -275,12 +314,17 @@ local function SpellIdProbe(inCombat)
 		local byPlayer = Outcome(C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID, sid)
 		local byUnit = Outcome(C_UnitAuras and C_UnitAuras.GetAuraDataBySpellID, "player", sid)
 		local has = Aura.HasPlayerAura(sid)
-		if has ~= nil then
+		--- ⚠️ THE VERDICT JUDGES THE RAW CALL, NOT OUR FACADE.
+		---
+		--- `HasPlayerAura` now refuses to turn an untrusted "no" into false — that is the
+		--- 12 Aug fix. If this counted its answers, the probe would report "nothing can
+		--- lie" the moment our own shield went up, and we would lose the ability to see
+		--- whether the CLIENT still misbehaves. So it reads `byPlayer`: a baseline buff
+		--- the raw API answers "nil" for is a buff it is hiding from us.
+		if byPlayer ~= "nil" and byPlayer ~= "threw" then
 			answered = answered + 1
 		end
-		--- A buff we watched you receive, now reported absent. Not "we cannot tell" —
-		--- actually wrong.
-		if has == false and inCombat then
+		if byPlayer == "nil" and inCombat then
 			lied = lied + 1
 		end
 		lines[#lines + 1] = ("    %-9d PlayerAuraBySpellID=%-6s AuraDataBySpellID=%-6s HasPlayerAura=%s"):format(
@@ -290,13 +334,13 @@ local function SpellIdProbe(inCombat)
 
 	if inCombat then
 		if lied > 0 then
-			lines[#lines + 1] = ("  |cffff4040VERDICT: %d buff(s) you HAVE read back as absent. The API answers wrongly|r"):format(lied)
-			lines[#lines + 1] = "  |cffff4040— every `== false` in this addon can produce a false claim.|r"
+			lines[#lines + 1] = ("  |cffff4040CLIENT: %d of %d buff(s) you HAVE are hidden and reported as nothing.|r"):format(
+				lied, #baseline)
+			lines[#lines + 1] = "  |cff40c040MH: HasPlayerAura returns nil for those, never false. Confirmed above.|r"
 		elseif answered == 0 then
-			lines[#lines + 1] = "  |cff40c040VERDICT: every by-id call refused. nil, not false — nothing can lie.|r"
+			lines[#lines + 1] = "  |cff40c040CLIENT: every by-id call refused outright. Nothing can be misread.|r"
 		else
-			lines[#lines + 1] = ("  |cffffcc00VERDICT: %d of %d answered and none were wrong. Re-run with more buffs.|r"):format(
-				answered, #baseline)
+			lines[#lines + 1] = ("  |cffffcc00CLIENT: all %d baseline buffs still readable in combat.|r"):format(answered)
 		end
 	end
 
