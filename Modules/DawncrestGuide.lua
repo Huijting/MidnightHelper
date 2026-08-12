@@ -711,12 +711,32 @@ function ns.PrintCrestProbe(save)
 			print(prefix .. " |cffff8080cannot save: saved variables are not ready|r")
 			return
 		end
+		--- ⚠️ WHO RAN IT IS PART OF THE MEASUREMENT. Crests are not warband-shared, so a
+		--- balance of zero means nothing until you know which character produced it. On
+		--- 12 Aug the Currencies page went from 328/90/78/46/55 to five zeroes overnight
+		--- and neither Rob nor I could say whether that was patch 12.1 emptying the
+		--- Season 1 crests or simply a different alt — a question the probe could have
+		--- answered by itself and did not.
+		local name = (UnitName and UnitName("player")) or "?"
+		local realm = (GetRealmName and GetRealmName()) or ""
+		--- ⚠️ Via pcall, never `local _, class = UnitClass and UnitClass("player")` — the
+		--- `and` truncates several return values to one and the class silently becomes nil.
+		--- That exact line has been written here three times.
+		local class
+		if UnitClass then
+			local okC, localised, token = pcall(UnitClass, "player")
+			class = okC and (token or localised) or nil
+		end
 		ns.db.crestProbe = {
 			rows = rows,
 			seasonTwoLive = (ns.IsSeason2Live and ns.IsSeason2Live()) or false,
 			-- The season state belongs in the file. Reading "Mistcrest, have 0" without
 			-- it cannot tell an id that does not exist yet from a season that has not
 			-- flipped, and those call for opposite conclusions.
+			character = ("%s-%s"):format(name, realm),
+			class = class or "?",
+			level = (UnitLevel and UnitLevel("player")) or 0,
+			at = (time and time()) or 0,
 		}
 		print(("%s crest probe saved: %d rows -> ns.db.crestProbe. Now |cffffffff/reload|r so it reaches the file."):format(
 			prefix, #rows))
