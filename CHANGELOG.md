@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.14.0
+
+- New: `/mh setup`. Laying out your bars was a set of commands run from memory, in the right order, on the right character. Rob cleaned his Hunter while that Hunter was still on account-wide bindings - he had switched his Druid - and his Mage lost eight keys, with nothing on screen naming the set he was on. The panel shows character, class, layout size and binding set first, and every destructive action arms on the first press and acts on the second.
+- New: the setup nudge. Opening Midnight Helper on a character whose bars have never been set up shows a card offering to do it, with the wizard one click away. It answers a question Rob asked directly: if he tells a beginner the addon can lay out her spells, where does she go? The condition is measured against our own per-character record of slots we placed, not inferred from bound keys - Blizzard binds 1 through = on a brand-new character, so the first version would have stayed silent for exactly the person it was built for.
+- New: the recommended bar layout as an applicable Edit Mode string, with `/mh editmode restore` and a button beside it to undo. Bars 1-8 only, so pet, stance and macro bars are never moved. Refuses when a competing bar addon is loaded, and names the patch a string was exported on - 12.1 verified byte-identical to the 12.0.7 export, so no second copy was needed.
+- New: thumb-pad keys 6 7 8 9 0 - onto action bar 8 from the setup panel. The button keeps each key on the button it already occupied rather than repacking the bar; three earlier versions renumbered them and each looked tidier while moving something the player's hands already knew.
+- New: a Quick Keybind Mode button, so Blizzard's own hover-and-press binding is next to ours instead of three menus away.
+- New: `/mh bar`, a small quick bar, off by default - Midnight Helper, reload, setup, and leaving a party, instance or delve. Leaving a delve needed `C_PartyInfo.DelveTeleportOut`: solo in a delve is a scenario with a group of zero, so there was never a party to leave.
+- New: healing potion and healthstone as bindable actions through `CLICK` in Bindings.xml, so they cost a keybind instead of an action bar slot. Nothing bound by default.
+- New: `/mh fps`, read-only, using Blizzard's own global strings as labels so they are translated in every language. It distinguishes a setting deliberately raised for raids from one still on its default, because the two look identical and only one is worth mentioning.
+- New: a Details! damage meter page on the Platynator pattern - it copies a profile string for you to paste and never imports anything itself.
+- New: shift+scroll resizes every Midnight Helper dialog, remembered per window.
+- Fixed for 12.1: `C_TaskQuest.GetQuestsForPlayerByMapID` was removed. The call sat behind a `pcall` on a nil field, so it failed silently and the world boss page fell back to a stale cache rather than erroring.
+- Fixed: task POI coordinates are expressed in whichever map you queried, not in `poi.mapID`. Pairing the two put waypoints nowhere, invisible until the Coiled Isle became the first zone where the ids differ. A POI belonging to another map is also clamped to the border, so each map is now asked for the bosses that live on it before any border pin is accepted.
+- Fixed for 12.1: in combat the client hides some of your own buffs and `GetPlayerAuraBySpellID` answers with nothing rather than refusing - three of five, measured on live. `Aura.HasPlayerAura` returns nil instead of false unless the read can be trusted, so a hidden buff can no longer become a confident "you do not have it".
+- Fixed: the Season 2 gate opened on patch day. Its self-learning fallback read "any M+ season newer than Season 1", and that number increments with the patch, not the season - the Currencies page showed five zeroes for Mistcrest while hiding the Dawncrests the player was carrying. It now requires the season start date as well.
+- Fixed: the search box never indexed the Addons pages, so searching for the tools they cover returned nothing on pages we built ourselves. Commands are indexed by what they do rather than only by name, and read from the single command list instead of a second private copy.
+- Fixed: `/mh apply clean` removed a second binding on a filled slot. A second key on a slot that holds something is a choice, not cruft.
+- Fixed: a button's answer went only to chat. The setup panel now shows the result of the last action, including the Edit Mode preset refusals, which previously left the panel looking like a button that did nothing.
+- Fixed: the About window credited the wrong authors, in all seven languages.
+
 ## 2.13.0
 
 - New: every command the addon has, listed inside it. The Tools page shows all forty in groups with a line each. Most of this addon was reachable only by typing something you already had to know; the linter now fails the build when a listed command is not routed, so the page cannot drift from the code.
