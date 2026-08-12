@@ -45,6 +45,34 @@ vanavond "Incompatible" (client loopt achter op de realms; 12.1.5 komt eraan).
 4. **De Codex** — Season 2-content is season-gated en hoort pas 18 aug te verschijnen.
    Controleren dat de gate doet wat hij belooft.
 
+## 🔴 GEVONDEN 12 aug — de Silvermoon-stadsgids is hardcoded NEDERLANDS
+
+Rob (taal op auto, dus Engels) zag Nederlandse tooltips op de SMC-pagina. Klopt:
+**alle 43 pins in `SMC_CATEGORIES` (UI.lua:759) hebben een hardcoded Nederlandse
+`description`** — geen enkele `ns:L()`-sleutel. Plus de voetregel in de tooltip
+("Klik: native pin + /way #2393 (TomTom indien beschikbaar)", UI.lua ~1485).
+
+Elke gebruiker in elke taal krijgt dit. Het staat er sinds de pagina gebouwd is, dus
+geen regressie — maar wel de grootste onvertaalde plek die we hebben. **Ik heb er op
+12 aug onbedoeld een 44e aan toegevoegd** (Theremis) door het patroon van de buren te
+volgen; dat is precies hoe zoiets zich vermenigvuldigt.
+
+⚠️ **NIET om middernacht in één klap doen.** 43 × 7 = ~300 strings, en dat is exact het
+soort massa-bewerking dat op 22 juli drie locale-bestanden brak.
+
+**De slimme reductie, want de meeste beschrijvingen zijn een sjabloon.** Ongeveer dertig
+zijn letterlijk "Zet een waypoint naar de X trainer/portal/bank". Eén sleutel met een
+argument dekt die allemaal:
+
+    SMC_PIN_GOTO_FMT = "Set a waypoint to %s."   -- %s = het label van de pin
+
+Dan blijven er ~10 pins over die écht inhoud dragen (Maren Silverwing, Triam Dawnsetter,
+Theremis, ritual/void-hub) en die krijgen een eigen sleutel. Zo is het ~17 sleutels in
+plaats van 43, en de labels zelf zijn al grotendeels eigennamen die niet vertaald hoeven.
+
+Doe het in twee stappen: eerst de sjabloon-pins omzetten en Rob laten kijken, dán de tien
+met eigen tekst.
+
 ## 🔴 De grootste openstaande vraag (Rob, 11 aug)
 
 **Hoe weet een gebruiker dat `/mh setup` bestaat?** Rob's eigen woorden: als hij morgen
