@@ -756,6 +756,40 @@ end
 --------------------------------------------------------------------------------
 local SMC_CITY_MAP_ID = 2393
 
+--- ⚠️ EVERY PIN HERE USED TO CARRY A HARDCODED DUTCH SENTENCE.
+---
+--- Rob runs the addon on `auto`, which resolves to English, and on 12 Aug 2026 he
+--- noticed the city guide's tooltips were Dutch. All 43 of them were, in every language,
+--- since the page was built — the single largest untranslated surface in the addon.
+---
+--- Thirty of those sentences said nothing their own label did not already say: "Zet een
+--- waypoint naar de Alchemy trainer" under a button that reads *Alchemy*. Those are gone
+--- rather than translated, and the text is built from the label instead. Seven languages
+--- times thirty sentences is the kind of bulk edit that broke three locale files on
+--- 22 July; not writing them at all is better than writing them carefully.
+---
+--- So a pin now says nothing about its own description and gets the generic line, or sets
+--- `trainer = true` for the profession phrasing, or names a `descKey` when it genuinely
+--- has something to add. Anything still holding a literal `description` is a leftover
+--- from the second pass and renders as it always did.
+---
+--- ⏭️ STILL DUTCH, deliberately (round two): the fifteen pins that carry real content, and
+--- the seven category titles. Those need real translations, not a template.
+local function PinDescription(point)
+	if not point then
+		return ""
+	end
+	if point.descKey then
+		return ns:L(point.descKey)
+	end
+	if point.description then
+		return point.description
+	end
+	local fmt = ns:L(point.trainer and "SMC_PIN_TRAINER_FMT" or "SMC_PIN_GOTO_FMT")
+	local okFmt, text = pcall(string.format, fmt, tostring(point.label or "?"))
+	return okFmt and text or tostring(point.label or "")
+end
+
 local SMC_CATEGORIES = {
 	{
 		title = "Essential Services",
@@ -763,12 +797,12 @@ local SMC_CATEGORIES = {
 			{ id = "bank", label = "Bank & Vault", description = "Zet een waypoint naar de bank en Great Vault locatie in Silvermoon City.", atlas = "services-icon-bank", x = 50.36, y = 65.19 },
 			{ id = "item_upgrades", label = "Cuzoth — Item Upgrades", description = "Zet een waypoint naar Cuzoth (item upgrades met Crests). Bazaar, naast Vaskarn.", atlas = "ItemUpgrade-FX-UpgradeArrow", x = 48.23, y = 61.75 },
 			{ id = "crest_exchange", label = "Vaskarn — Crest Exchange", description = "Zet een waypoint naar Vaskarn (Crest exchange). Bazaar, naast Cuzoth.", atlas = "WarWithin-Icon-Crest", x = 48.28, y = 61.75 },
-			{ id = "ah", label = "Auction House", description = "Zet een waypoint naar het Auction House.", atlas = "services-icon-auctioneer", x = 51.50, y = 74.68 },
-			{ id = "mailbox", label = "Mailbox", description = "Zet een waypoint naar de mailbox in Silvermoon City.", atlas = "services-icon-mailroom", x = 49.41, y = 65.92 },
+			{ id = "ah", label = "Auction House", atlas = "services-icon-auctioneer", x = 51.50, y = 74.68 },
+			{ id = "mailbox", label = "Mailbox", atlas = "services-icon-mailroom", x = 49.41, y = 65.92 },
 			{ id = "inn_cooking", label = "Inn & Cooking", description = "Zet een waypoint naar de inn en cooking voorzieningen.", atlas = "services-icon-innkeeper", x = 56.28, y = 70.33 },
-			{ id = "trading_post", label = "Trading Post", description = "Zet een waypoint naar de Trading Post locatie.", atlas = "ui-delves", x = 48.88, y = 78.15 },
-			{ id = "bmah", label = "BMAH", description = "Zet een waypoint naar het Black Market Auction House.", atlas = "services-icon-auctioneer", x = 51.86, y = 48.56 },
-			{ id = "transmog", label = "Transmog", description = "Zet een waypoint naar Transmog en Void Storage.", atlas = "services-icon-transmogrifier", x = 52.87, y = 57.44 },
+			{ id = "trading_post", label = "Trading Post", atlas = "ui-delves", x = 48.88, y = 78.15 },
+			{ id = "bmah", label = "BMAH", atlas = "services-icon-auctioneer", x = 51.86, y = 48.56 },
+			{ id = "transmog", label = "Transmog", atlas = "services-icon-transmogrifier", x = 52.87, y = 57.44 },
 			{ id = "crafting_orders", label = "Crafting Orders (Mar'nah)", description = "Zet een waypoint naar crafting orders in de Bazaar (bijv. Mar'nah).", atlas = "services-icon-battlenet", x = 45.0, y = 55.6 },
 			--- ⚠️ COORDINATEN GEMETEN, NIET UIT EEN GIDS. Rob stond bij hem en draaide
 			--- `/mh capture` op 12 aug 2026: map 2393, 45.03 / 56.20. De gids die dit
@@ -795,11 +829,11 @@ local SMC_CATEGORIES = {
 	{
 		title = "Travel",
 		items = {
-			{ id = "portals", label = "Portal Room", description = "Zet een waypoint naar de portal room.", atlas = "portal-horde-white", x = 53.37, y = 66.31 },
-			{ id = "portal_voidstorm", label = "Portal to Voidstorm", description = "Zet een waypoint naar de portal naar Voidstorm.", atlas = "portal-horde-white", x = 35.25, y = 65.85 },
-			{ id = "portal_harandar", label = "Portal to Harandar", description = "Zet een waypoint naar de portal naar Harandar.", atlas = "portal-horde-white", x = 36.76, y = 68.52 },
+			{ id = "portals", label = "Portal Room", atlas = "portal-horde-white", x = 53.37, y = 66.31 },
+			{ id = "portal_voidstorm", label = "Portal to Voidstorm", atlas = "portal-horde-white", x = 35.25, y = 65.85 },
+			{ id = "portal_harandar", label = "Portal to Harandar", atlas = "portal-horde-white", x = 36.76, y = 68.52 },
 			{ id = "timeways", label = "Timeways (Lindormi)", description = "Zet een waypoint naar de Timeways-portal bij Lindormi.", atlas = "portal-horde-white", x = 42.30, y = 58.30 },
-			{ id = "mplus_teleports", label = "M+ Teleports", description = "Zet een waypoint naar de M+ teleport locatie.", atlas = "flightmaster", x = 42.03, y = 58.30 },
+			{ id = "mplus_teleports", label = "M+ Teleports", atlas = "flightmaster", x = 42.03, y = 58.30 },
 		},
 	},
 	{
@@ -814,8 +848,8 @@ local SMC_CATEGORIES = {
 				x = 48.95,
 				y = 64.92,
 			},
-			{ id = "prey_hub", label = "Prey Hub", description = "Zet een waypoint naar de Prey-hub (in de inn, Adventure Guide / Prey).", atlas = "ui-delves", x = 56.19, y = 65.33 },
-			{ id = "astalor", label = "Magister Astalor Bloodsworn", description = "Zet een waypoint naar Magister Astalor Bloodsworn (prey quest giver).", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
+			{ id = "prey_hub", label = "Prey Hub", atlas = "ui-delves", x = 56.19, y = 65.33 },
+			{ id = "astalor", label = "Magister Astalor Bloodsworn", atlas = "services-icon-transmogrifier", x = 55.00, y = 63.40 },
 			{ id = "weekly_hub", label = "Weekly Quest Givers", description = "Zet een waypoint naar Aethas, Liadrin en Halduron (weekly hub).", atlas = "services-icon-innkeeper", x = 48.95, y = 64.92 },
 			-- Eén knop voor twee systemen kon maar één ding doen, en werd dus de
 			-- enige in dit raster die je niet ergens heen stuurde (Rob, 28 jul).
@@ -825,47 +859,51 @@ local SMC_CATEGORIES = {
 			-- los gemarkeerd) en kan alleen naar de staging-hub wijzen.
 			{ id = "ritual_hub", label = "Ritual Site (active)", description = "Route naar de obelisk van de ritual site die deze week actief is.", atlas = "groupfinder-icon-flag", action = "ritual_site", x = 48.2, y = 49.4 },
 			{ id = "void_hub", label = "Void Assault hub", description = "Route naar de staging-hub van de actieve void assault (de strikes zelf hebben geen vast punt).", atlas = "groupfinder-icon-flag", action = "void_hub", x = 48.2, y = 49.4 },
-			{ id = "delves_hq", label = "Delves HQ", description = "Zet een waypoint naar het Delves-hoofdkwartier.", atlas = "ui-delves", x = 52.10, y = 77.70 },
-			{ id = "valeera_delves", label = "Valeera Sanguinar (Delves)", description = "Zet een waypoint naar Valeera Sanguinar, Delves questgiver.", atlas = "ui-delves", x = 52.40, y = 78.20 },
-			{ id = "training_dummies", label = "Training Dummies", description = "Zet een waypoint naar de training dummies in Silvermoon City.", atlas = "services-icon-dueling", x = 36.0, y = 84.2 },
-			{ id = "pvp_hub", label = "PvP Hub", description = "Zet een waypoint naar de PvP-hub in Silvermoon City.", atlas = "pvpqueue-icon-honor", x = 34.40, y = 81.00 },
+			{ id = "delves_hq", label = "Delves HQ", atlas = "ui-delves", x = 52.10, y = 77.70 },
+			{ id = "valeera_delves", label = "Valeera Sanguinar (Delves)", atlas = "ui-delves", x = 52.40, y = 78.20 },
+			{ id = "training_dummies", label = "Training Dummies", atlas = "services-icon-dueling", x = 36.0, y = 84.2 },
+			{ id = "pvp_hub", label = "PvP Hub", atlas = "pvpqueue-icon-honor", x = 34.40, y = 81.00 },
 		},
 	},
 	{
 		title = "Horde District (Horde only)",
 		items = {
-			{ id = "horde_inn", label = "Horde Inn", description = "Zet een waypoint naar de Horde-inn (Court of Blood, alleen Horde).", atlas = "services-icon-innkeeper", x = 66.91, y = 62.09 },
-			{ id = "horde_bank", label = "Horde Bank & Vault", description = "Zet een waypoint naar bank en Great Vault in het Horde-gedeelte.", atlas = "services-icon-bank", x = 72.04, y = 64.87 },
-			{ id = "horde_ah", label = "Horde Auction House", description = "Zet een waypoint naar het Auction House in het Horde-gedeelte.", atlas = "services-icon-auctioneer", x = 67.64, y = 70.74 },
-			{ id = "horde_creation_catalyst", label = "Horde Creation Catalyst", description = "Zet een waypoint naar de Creation Catalyst in Court of Blood (alleen Horde).", atlas = "creationcatalyst-32x32", x = 70.06, y = 83.27 },
+			{ id = "horde_inn", label = "Horde Inn", atlas = "services-icon-innkeeper", x = 66.91, y = 62.09 },
+			{ id = "horde_bank", label = "Horde Bank & Vault", atlas = "services-icon-bank", x = 72.04, y = 64.87 },
+			{ id = "horde_ah", label = "Horde Auction House", atlas = "services-icon-auctioneer", x = 67.64, y = 70.74 },
+			{ id = "horde_creation_catalyst", label = "Horde Creation Catalyst", atlas = "creationcatalyst-32x32", x = 70.06, y = 83.27 },
 		},
 	},
 	{
 		title = "Professions",
 		items = {
-			{ id = "alchemy", label = "Alchemy", description = "Zet een waypoint naar de Alchemy trainer.", atlas = "ui-profession-alchemy", x = 47.02, y = 51.88 },
-			{ id = "blacksmithing", label = "Blacksmithing", description = "Zet een waypoint naar de Blacksmithing trainer.", atlas = "ui-profession-blacksmithing", x = 43.74, y = 51.33 },
-			{ id = "enchanting", label = "Enchanting", description = "Zet een waypoint naar de Enchanting trainer.", atlas = "ui-profession-enchanting", x = 47.97, y = 53.63 },
-			{ id = "engineering", label = "Engineering", description = "Zet een waypoint naar de Engineering trainer.", atlas = "ui-profession-engineering", x = 43.53, y = 54.01 },
-			{ id = "inscription", label = "Inscription", description = "Zet een waypoint naar de Inscription trainer.", atlas = "ui-profession-inscription", x = 46.78, y = 51.48 },
-			{ id = "jewelcrafting", label = "Jewelcrafting", description = "Zet een waypoint naar de Jewelcrafting trainer.", atlas = "ui-profession-jewelcrafting", x = 47.93, y = 55.15 },
-			{ id = "leatherworking", label = "Leatherworking", description = "Zet een waypoint naar de Leatherworking trainer.", atlas = "ui-profession-leatherworking", x = 43.15, y = 55.70 },
-			{ id = "tailoring", label = "Tailoring", description = "Zet een waypoint naar de Tailoring trainer.", atlas = "ui-profession-tailoring", x = 48.25, y = 54.15 },
+			{ id = "alchemy", label = "Alchemy", trainer = true, atlas = "ui-profession-alchemy", x = 47.02, y = 51.88 },
+			{ id = "blacksmithing", label = "Blacksmithing", trainer = true, atlas = "ui-profession-blacksmithing", x = 43.74, y = 51.33 },
+			{ id = "enchanting", label = "Enchanting", trainer = true, atlas = "ui-profession-enchanting", x = 47.97, y = 53.63 },
+			{ id = "engineering", label = "Engineering", trainer = true, atlas = "ui-profession-engineering", x = 43.53, y = 54.01 },
+			{ id = "inscription", label = "Inscription", trainer = true, atlas = "ui-profession-inscription", x = 46.78, y = 51.48 },
+			{ id = "jewelcrafting", label = "Jewelcrafting", trainer = true, atlas = "ui-profession-jewelcrafting", x = 47.93, y = 55.15 },
+			{ id = "leatherworking", label = "Leatherworking", trainer = true, atlas = "ui-profession-leatherworking", x = 43.15, y = 55.70 },
+			{ id = "tailoring", label = "Tailoring", trainer = true, atlas = "ui-profession-tailoring", x = 48.25, y = 54.15 },
 		},
 	},
 	{
 		title = "Gathering",
 		items = {
 			{ id = "fishing", label = "Fishing", description = "Zet een waypoint naar de Fishing-trainer / visplek in de Bazaar.", atlas = "ui-profession-fishing", x = 44.70, y = 60.20 },
-			{ id = "herbalism_trainer", label = "Herbalism Trainer", description = "Zet een waypoint naar de Herbalism trainer.", atlas = "ui-profession-herbalism", x = 48.20, y = 51.52 },
-			{ id = "mining_trainer", label = "Mining Trainer", description = "Zet een waypoint naar de Mining trainer.", atlas = "ui-profession-mining", x = 42.68, y = 52.84 },
-			{ id = "skinning_trainer", label = "Skinning Trainer", description = "Zet een waypoint naar de Skinning trainer.", atlas = "ui-profession-skinning", x = 43.27, y = 55.59 },
+			{ id = "herbalism_trainer", label = "Herbalism Trainer", atlas = "ui-profession-herbalism", x = 48.20, y = 51.52 },
+			{ id = "mining_trainer", label = "Mining Trainer", atlas = "ui-profession-mining", x = 42.68, y = 52.84 },
+			{ id = "skinning_trainer", label = "Skinning Trainer", atlas = "ui-profession-skinning", x = 43.27, y = 55.59 },
 		},
 	},
 }
 
 -- Search helpers (Guide.lua): keyword blobs per waypoint + scroll target after panel build.
-do
+--- ⚠️ REBUILT ON A LANGUAGE SWITCH, because the blobs now contain translated text.
+--- They used to hold the hardcoded Dutch, which was wrong but at least never went stale;
+--- resolving through the locale means a `/mh lang` would otherwise leave the index
+--- searching for words the tooltips no longer show.
+local function BuildSMCSearchRows()
 	local rows = {}
 	for _, cat in ipairs(SMC_CATEGORIES) do
 		for _, point in ipairs(cat.items or {}) do
@@ -874,7 +912,7 @@ do
 					"%s %s %s %s",
 					tostring(cat.title or ""),
 					tostring(point.label or ""),
-					tostring(point.description or ""),
+					tostring(PinDescription(point)),
 					tostring(point.id or "")
 				)
 			)
@@ -882,6 +920,17 @@ do
 		end
 	end
 	ns._mhSMCGuideSearchRows = rows
+end
+
+do
+	BuildSMCSearchRows()
+	local orig = ns.RefreshLocaleUI
+	function ns:RefreshLocaleUI()
+		if orig then
+			orig(self)
+		end
+		BuildSMCSearchRows()
+	end
 end
 
 local function TriggerTomTomWaySlash(point)
@@ -1492,9 +1541,9 @@ local function BuildSMCCityGuidePanel(panel)
 			btn:SetScript("OnEnter", function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 				GameTooltip:SetText(point.label, 1, 0.9, 0.6)
-				GameTooltip:AddLine(point.description, 0.9, 0.9, 0.9, true)
+				GameTooltip:AddLine(PinDescription(point), 0.9, 0.9, 0.9, true)
 				GameTooltip:AddLine(("Map 2393 • %.2f, %.2f"):format(point.x, point.y), 0.8, 0.8, 0.8, false)
-				GameTooltip:AddLine("Klik: native pin + /way #2393 (TomTom indien beschikbaar)", 0.7, 0.8, 1, true)
+				GameTooltip:AddLine(ns:L("SMC_PIN_CLICK_HINT"), 0.7, 0.8, 1, true)
 				GameTooltip:Show()
 			end)
 			btn:SetScript("OnLeave", function()
