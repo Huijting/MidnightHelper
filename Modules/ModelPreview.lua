@@ -299,10 +299,17 @@ function ns.PreviewItem(itemID, name)
 end
 
 -- Publiek: preview een creature/boss op npcID.
-function ns.PreviewCreature(creatureID, name)
+--- ⚠️ A DISPLAY ID IS ALSO A MODEL. ShowModelPreview has handled `displayID` since it
+--- was written (see its spec at the top of this file); this door only ever passed
+--- `creatureID` through, so a boss we can only identify by display id rendered in the
+--- boss window and then did nothing on shift-click. Added 12 Aug 2026, when the three
+--- Altar of Fangs bosses became the first with a display id and no creature id.
+--- @param displayID number|nil  used when there is no creatureID
+function ns.PreviewCreature(creatureID, name, displayID)
 	creatureID = tonumber(creatureID)
-	if not creatureID then
+	displayID = tonumber(displayID)
+	if not (creatureID or displayID) then
 		return
 	end
-	ns.ShowModelPreview({ creatureID = creatureID, name = name }, name)
+	ns.ShowModelPreview({ creatureID = creatureID, displayID = displayID, name = name }, name)
 end

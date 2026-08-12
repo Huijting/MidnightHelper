@@ -106,6 +106,25 @@ local COLOR_DIMTXT = "8a8f98"
 -- Creature-IDs per boss voor het 3D-model (bron: DBM-Party-* SetCreatureID,
 -- 12 jun 2026). Ontbreekt een ID (Nalorakk: "too many IDs to guess" in DBM),
 -- dan blijft het model verborgen — never-lie, niet gokken.
+--- Display ids, for bosses whose creature id we do not have.
+---
+--- ⚠️ READ OUT OF THE CLIENT, NOT LOOKED UP. `/mh ej 1322` on 12 Aug 2026, live 12.1:
+--- `EJ_GetCreatureInfo`'s fourth return is the display id, which is what DBM-Core uses
+--- for its own boss models (`modules/objects/BossMod.lua:130`).
+---
+--- These three existed nowhere else. All three Altar of Fangs mods in DBM carry the
+--- same commented-out `SetCreatureID(231631)` — a copied template whose placeholder is
+--- Kroluk from Windrunner Spire, twenty lines below in CREATURES. Trusting it would
+--- have rendered one boss's model for three different fights.
+---
+--- The Adventure Guide answers without entering the dungeon and without a website, so
+--- this is the route to prefer for any boss DBM has nothing for.
+local DISPLAYS = {
+	["altaroffangs:ravi"] = 144110,          -- Rav'i, encounter 2878
+	["altaroffangs:writhingcoil"] = 147556,  -- The Writhing Coil, encounter 2879
+	["altaroffangs:zuljan"] = 145435,        -- Zul'jan, encounter 2880
+}
+
 local CREATURES = {
 	["windrunnerspire:derelictduo"] = 231626, -- Kalis (Latch = 231629)
 	["windrunnerspire:emberdawn"] = 231606,
@@ -336,26 +355,32 @@ local MODEL_CAMSCALE = {
 -- (Robs "plaatje kwam pas na heen-en-weer bladeren"). Daarom na elke set
 -- een nalaad-tik op +0.2s die dezelfde creature opnieuw zet zolang de boss
 -- niet gewisseld is (modelGen-guard).
-local function SetModelCreature(model, creatureID)
+--- @param displayID number|nil  used only when there is no creatureID
+local function SetModelCreature(model, creatureID, displayID)
 	if not model then
 		return false
 	end
 	-- (Twee losse Settings-toggles bepalen wat zichtbaar is: `showModel` gateert het
 	-- GROTE zijpaneel en `showThumb` de kleine kop-spotlight — beide via
 	-- RefreshDungeonBossWindow, die hier creatureID=nil doorgeeft om te verbergen.)
-	if not creatureID then
+	if not (creatureID or displayID) then
 		model:Hide()
 		return false
 	end
-	-- Nieuwe boss (ander creatureID) → reset de zoom naar de per-boss start-stand.
-	-- Bij eenzelfde boss (refresh) blijft de door de speler gescrolde zoom staan.
-	if creatureID ~= model._mhLastCreatureID then
-		model._mhLastCreatureID = creatureID
-		model._mhCamScale = MODEL_CAMSCALE[creatureID] or 1.0
+	--- The zoom guard keys on whichever id we are about to use, so a display-driven
+	--- boss keeps its own scroll position like a creature-driven one.
+	local token = creatureID or ("d" .. tostring(displayID))
+	if token ~= model._mhLastCreatureID then
+		model._mhLastCreatureID = token
+		model._mhCamScale = (creatureID and MODEL_CAMSCALE[creatureID]) or 1.0
 	end
 	local function apply()
 		model:ClearModel()
-		model:SetCreature(creatureID)
+		if creatureID then
+			model:SetCreature(creatureID)
+		else
+			model:SetDisplayInfo(displayID)
+		end
 		if model.SetPortraitZoom then
 			model:SetPortraitZoom(model._mhUserZoom or (model._mhFullBody and 0 or 0.85))
 		end
@@ -547,8 +572,8 @@ local function EnsureWindow()
 	thumb:SetScript("OnMouseUp", function()
 		-- Shift-klik op het mini-model → grote roteerbare preview (hook C);
 		-- normale klik blijft het zijpaneel togglen.
-		if IsShiftKeyDown() and ns.PreviewCreature and f._previewCreatureID then
-			ns.PreviewCreature(f._previewCreatureID, f._previewName)
+		if IsShiftKeyDown() and ns.PreviewCreature and (f._previewCreatureID or f._previewDisplayID) then
+			ns.PreviewCreature(f._previewCreatureID, f._previewName, f._previewDisplayID)
 			return
 		end
 		ToggleModelPanel()
@@ -956,18 +981,22 @@ function ns.RefreshDungeonBossWindow()
 	local creatureID = (b and b.creatureId)
 		or (b and b.seedCreatureId)
 		or (b and CREATURES[curDungeon.key .. ":" .. b.key])
+	-- Alleen raadplegen als er GEEN creature-id is: een creature-id kent de camera-
+	-- standen uit MODEL_CAMSCALE en is dus de rijkere bron.
+	local displayID = (not creatureID) and b and DISPLAYS[curDungeon.key .. ":" .. b.key] or nil
 	win._previewCreatureID = creatureID -- voor de shift-klik-preview (hook C)
+	win._previewDisplayID = displayID
 	win._previewName = bossName
 	-- Kleine kop-spotlight: eigen toggle (showThumb). Uit = geen model in de kop;
 	-- de kop-knop blijft het grote paneel togglen.
 	local thumbOn = (not ns.IsBossWindowThumbEnabled) or ns.IsBossWindowThumbEnabled()
-	SetModelCreature(win._thumbModel, thumbOn and creatureID or nil)
+	SetModelCreature(win._thumbModel, thumbOn and creatureID or nil, thumbOn and displayID or nil)
 	-- De `showModel`-toggle gateert het grote zijpaneel; `showThumb` de kop-spotlight.
 	local settingOn = (not ns.IsBossWindowModelEnabled) or ns.IsBossWindowModelEnabled()
-	local panelOn = ModelPanelEnabled() and creatureID ~= nil and settingOn
+	local panelOn = ModelPanelEnabled() and (creatureID ~= nil or displayID ~= nil) and settingOn
 	win._panel:SetShown(panelOn)
 	if panelOn then
-		SetModelCreature(win._panelModel, creatureID)
+		SetModelCreature(win._panelModel, creatureID, displayID)
 	end
 
 	ApplyHeight(win)
