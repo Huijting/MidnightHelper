@@ -770,6 +770,18 @@ local SMC_CATEGORIES = {
 			{ id = "bmah", label = "BMAH", description = "Zet een waypoint naar het Black Market Auction House.", atlas = "services-icon-auctioneer", x = 51.86, y = 48.56 },
 			{ id = "transmog", label = "Transmog", description = "Zet een waypoint naar Transmog en Void Storage.", atlas = "services-icon-transmogrifier", x = 52.87, y = 57.44 },
 			{ id = "crafting_orders", label = "Crafting Orders (Mar'nah)", description = "Zet een waypoint naar crafting orders in de Bazaar (bijv. Mar'nah).", atlas = "services-icon-battlenet", x = 45.0, y = 55.6 },
+			--- ⚠️ COORDINATEN GEMETEN, NIET UIT EEN GIDS. Rob stond bij hem en draaide
+			--- `/mh capture` op 12 aug 2026: map 2393, 45.03 / 56.20. De gids die dit
+			--- aanreikte zei 44.95 / 56.07 — dichtbij, en dichtbij is precies hoe je iemand
+			--- naast een NPC laat landen.
+			---
+			--- ⚠️ DE TEKST KOMT UIT ZIJN EIGEN BEVESTIGINGSVENSTER, woordelijk: "You will
+			--- lose all associated recipes and be able to re-allocate your knowledge as you
+			--- see fit. This can only be done ONCE." De research die hier binnenkwam zei dat
+			--- recepten "tijdelijk" weg zijn en vanzelf terugkomen als je identiek herbesteedt.
+			--- Dat staat er niet, en het is de ene zin die iemand zijn recepten kan kosten.
+			--- Het spel belooft niets terug — dus wij ook niet.
+			{ id = "prof_reset", label = "Theremis — Specializations resetten", description = "Reset je Midnight-specializations per beroep en krijg je Knowledge Points terug. Het spel zelf: je verliest alle bijbehorende recepten, en dit kan MAAR EEN KEER per beroep. Gemeten 12 aug 2026 (Bazaar, bij de crafting orders).", atlas = "services-icon-trainer", x = 45.03, y = 56.20 },
 			{ id = "creation_catalyst", label = "Creation Catalyst", description = "Zet een waypoint naar de Creation Catalyst in de Bazaar (neutral).", atlas = "creationcatalyst-32x32", x = 40.31, y = 64.85 },
 		},
 	},
