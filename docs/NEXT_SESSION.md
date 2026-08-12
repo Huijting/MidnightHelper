@@ -45,6 +45,41 @@ vanavond "Incompatible" (client loopt achter op de realms; 12.1.5 komt eraan).
 4. **De Codex** — Season 2-content is season-gated en hoort pas 18 aug te verschijnen.
    Controleren dat de gate doet wat hij belooft.
 
+## 🆕 GEVONDEN 12 aug (avond) — twee dingen uit Robs screenshots
+
+### 1. De Vaults of Atal'Utek: nóg een 12.1-systeem dat we niet kennen
+
+Rob liep er in en stuurde het "Altar of Corrosion"-venster: een boomstructuur met
+nodes, plus een eigen currency. Uit Zygor (vertrouwde bron, 12.1-versie):
+
+- Quest-keten: `98388` "Into the Vaults of Atal'Utek" → `97640` "One Coin Too Many"
+  → `98428` "The Altar of Corrosion"
+- Eigen map: **Vaults of Atal'Utek**, ingang ~47.24 / 60.79
+- Eigen currency: **Corrosive Coin**; de gossip "Corrode Spirit" kost er **1000**
+  (gossip-id 141688, object `Altar of Corrosion##269485` op 51.16 / 62.80)
+
+Dit staat naast Curse Surges op dezelfde Zygor-pagina en is even groot. Beide zijn
+12.1-content die vandaag al leeft, dus geen seizoenspoort nodig.
+
+### 2. Waarom het 3D-model ontbreekt bij Altar of Fangs — en waarom dat GOED is
+
+Rob: "missen de animatie (allemaal trouwens in die dung)". Klopt, en het is opzet.
+
+`CREATURES` in `DungeonBossWindow.lua` heeft geen enkele `altaroffangs:*`-regel. Die
+tabel komt uit DBM's `SetCreatureID`, en de drie Altar of Fangs-mods hebben die regel
+**uitgecommentarieerd** — alle drie met dezelfde waarde:
+
+    --mod:SetCreatureID(231631)
+
+⚠️ **231631 is Kroluk uit Windrunner Spire.** Dat weten we omdat het getal in onze
+eigen tabel staat, twintig regels hoger. DBM heeft daar een sjabloon gekopieerd en de
+placeholder laten staan. Hadden we DBM hier "vertrouwd", dan hadden alle drie de
+Altar of Fangs-bossen Kroluks model getoond — een plausibel, aanwezig en aantoonbaar
+fout id. Precies waar de regel voor bestaat.
+
+**De fix is meten, niet overnemen.** Volgende keer in Altar of Fangs: elke boss
+targeten en `/mh capture <naam>` draaien. Drie targets, drie npcID's, klaar.
+
 ## 🔴 GEVONDEN 12 aug — de Silvermoon-stadsgids is hardcoded NEDERLANDS
 
 Rob (taal op auto, dus Engels) zag Nederlandse tooltips op de SMC-pagina. Klopt:
