@@ -394,7 +394,8 @@ local function TaskQuestsOnMap(mapID)
 	return nil
 end
 
-local function ScanTaskQuestMap(mapID)
+--- @param homeOnly boolean  only accept a POI that actually LIVES on this map
+local function ScanTaskQuestMap(mapID, homeOnly)
 	local tasks = TaskQuestsOnMap(mapID)
 	if not tasks then
 		return nil
@@ -402,6 +403,25 @@ local function ScanTaskQuestMap(mapID)
 	for ti = 1, #tasks do
 		local poi = tasks[ti]
 		local qid = poi and (poi.questID or poi.questId)
+		--- ⚠️ A POI FROM ANOTHER MAP IS PINNED TO THE BORDER, NOT TO THE BOSS.
+		---
+		--- Measured on LIVE 12.1, 12 Aug, same quest in one probe run:
+		---
+		---     Cragpine (92123, poi.mapID 2437)
+		---       asked 2437 -> 45.21 / 48.03   in the middle of Zul'Aman
+		---       asked 2512 ->  4.73 / 57.91   hard against the Coiled Isle's west edge
+		---
+		--- All five quests the Coiled Isle returned that day carried poi.mapID 2437 and
+		--- an x under 0.30 — the classic clamp of an off-map pin to the nearest border.
+		--- So the coordinate is honest about direction and useless as a destination.
+		---
+		--- Taking the right one is currently an accident of MAP_IDS_TO_SCAN's order:
+		--- 2437 happens to come before 2512, so Cragpine is found at home first. Order
+		--- is not a guarantee, so say it instead of relying on it — home maps first,
+		--- and a border pin only when no map claims the boss at all.
+		if qid and homeOnly and poi.mapID and poi.mapID ~= mapID then
+			qid = nil
+		end
 		if qid then
 			--- ⚠️ THE COORDINATES BELONG TO THE MAP YOU ASKED, NOT TO `poi.mapID`.
 			---
@@ -456,10 +476,13 @@ local function QueryLiveWorldBoss()
 			return CopyBoss(boss), true, "task_active"
 		end
 	end
-	for mi = 1, #MAP_IDS_TO_SCAN do
-		local boss = ScanTaskQuestMap(MAP_IDS_TO_SCAN[mi])
-		if boss then
-			return boss, true, "task_map"
+	-- Home maps first (see ScanTaskQuestMap), border pins only if nothing claims it.
+	for pass = 1, 2 do
+		for mi = 1, #MAP_IDS_TO_SCAN do
+			local boss = ScanTaskQuestMap(MAP_IDS_TO_SCAN[mi], pass == 1)
+			if boss then
+				return boss, true, "task_map"
+			end
 		end
 	end
 	for mi = 1, #MAP_IDS_TO_SCAN do
@@ -781,8 +804,13 @@ local function RunBackgroundWorldBossProbe()
 			end
 			return
 		end
-		if mapIndex <= #MAP_IDS_TO_SCAN then
-			local b = ScanTaskQuestMap(MAP_IDS_TO_SCAN[mapIndex])
+		--- Two laps of the map list, same rule as QueryLiveWorldBoss: every map asked for
+		--- a boss that lives there, and only then the border pins. One counter across both
+		--- laps keeps the one-map-per-tick pacing this retry exists for.
+		local nMaps = #MAP_IDS_TO_SCAN
+		if mapIndex <= nMaps * 2 then
+			local b = ScanTaskQuestMap(MAP_IDS_TO_SCAN[((mapIndex - 1) % nMaps) + 1],
+				mapIndex <= nMaps)
 			mapIndex = mapIndex + 1
 			if b then
 				SaveWbWeekCache(b, "task_map")
