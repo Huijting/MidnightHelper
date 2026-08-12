@@ -408,6 +408,34 @@ ns.CODEX_ARTICLES = {
 		tabLabelKey = "TAB_PROFESSIONS",
 		sort = 1,
 	},
+	--- Patch 12.1's one-time specialization reset.
+	---
+	--- ⚠️ EVERY CLAIM HERE COMES FROM THEREMIS'S OWN WINDOWS, photographed by Rob on
+	--- 12 Aug 2026. The gossip list showed one line per profession, so "per profession"
+	--- is observed rather than reasoned. The confirmation read, in full: "You will lose
+	--- all associated recipes and be able to re-allocate your knowledge as you see fit.
+	--- This can only be done ONCE." The capitals are Blizzard's.
+	---
+	--- ⚠️ AND ONE THING IS DELIBERATELY LEFT UNSAID. A guide told Rob the recipes come
+	--- back automatically if you re-spend your points the same way. The game promises
+	--- nothing of the sort, and that is exactly the reassurance that would cost somebody
+	--- their recipes. The article says the game does not state it and to treat them as
+	--- gone — same posture as `season_end`, which refuses to repeat the "unclaimed track
+	--- rewards are lost" scare for the same reason.
+	{
+		id = "prof_reset",
+		category = "professions",
+		titleKey = "CODEX_PROFRESET_TITLE",
+		bodyKey = "CODEX_PROFRESET_BODY",
+		tabId = "professions",
+		tabLabelKey = "TAB_PROFESSIONS",
+		sort = 3,
+		-- English on purpose: the search box matches raw text, and these are the words
+		-- somebody types the moment they regret a choice.
+		searchKeys = "reset respec specialization specialisation knowledge points kp "
+			.. "unlearn relearn refund undo theremis profession trees "
+			.. "resetten herverdelen kennispunten opnieuw",
+	},
 	{
 		id = "professions_guide",
 		category = "professions",
