@@ -843,6 +843,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh aurainst — kan de 12.1 per-instance route onderscheiden tussen "afwezig" en
+	-- "verborgen"? Apart commando, want de uitvoer is te lang naast /mh auras.
+	if msg == "aurainst" then
+		if ns.PrintAuraInstanceProbe then
+			ns.PrintAuraInstanceProbe()
+		end
+		return
+	end
+
 	-- /mh ej [instanceID] — lees de hele bossenlijst uit de Encounter Journal, zonder
 	-- te pullen. Voor krappe PTR-testvensters waarin /mh encounters te traag is.
 	-- /mh roleset [save|hide] — 12.1 Roleset-verkenning. Vraagt wat de client HEEFT;

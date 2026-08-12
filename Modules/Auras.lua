@@ -389,6 +389,115 @@ function ns.PrintAuraDiagnostics()
 	end
 end
 
+--------------------------------------------------------------------------------
+-- `/mh aurainst` — can we tell "absent" apart from "hidden" on 12.1?
+--------------------------------------------------------------------------------
+
+--- ⚠️ THIS IS A CANDIDATE FROM ANOTHER ADDON, NOT A FACT. VERIFY BEFORE BUILDING ON IT.
+---
+--- JustAC jumped from 4.55.0 to 5.1.4 on 12 Aug, interface 120100, and its debug code
+--- describes a route we do not have (`DebugCommands.lua:4437-4487`):
+---
+---   C_UnitAuras.GetUnitAuraInstanceIDs(unit, filter, ...)  -> a PLAIN list of ids
+---   C_Secrets.ShouldUnitAuraInstanceBeSecret(unit, id)     -> a plain bool, PER AURA
+---   C_UnitAuras.GetAuraDataByAuraInstanceID(unit, id)      -> readable when not secret
+---
+--- If that holds, it answers the question this morning's measurement left open. Today
+--- `HasPlayerAura` returns nil for anything it cannot see, because a hidden buff and an
+--- absent one are indistinguishable. Per-instance secrecy separates them:
+---
+---   zero instances, none secret     -> genuinely ABSENT, and we may say so
+---   readable instances, none secret -> genuinely ABSENT
+---   any secret instance             -> UNKNOWN, stay quiet
+---
+--- That would give MissingBuff and the consumable board their voice back in combat
+--- instead of a permanent "?".
+---
+--- ⚠️ NOTHING IS BUILT ON IT UNTIL THIS PRINTS. The addon rule stands: another addon is
+--- where you find a candidate, the client is what settles it. Two of Rob's five buffs
+--- stayed readable in combat this morning, which JustAC also mentions in passing as
+--- "exempt", so the shape of the problem matches — but a matching description is not a
+--- measurement.
+---
+--- The argument list is measured too. JustAC calls it with five arguments
+--- (`unit, filter, nil, 0, 0`) and its comment pins the sort rule to Unsorted because
+--- the others order by secret data. We try the short form first and fall back, and print
+--- which one the client accepted.
+function ns.PrintAuraInstanceProbe()
+	local p = "|cffffff78Midnight Helper:|r "
+	local UA, CS = C_UnitAuras, C_Secrets
+	local inCombat = InCombatLockdown and InCombatLockdown() or false
+	print(p .. ("aura instances (in combat = %s)"):format(tostring(inCombat)))
+
+	local getIDs = UA and UA.GetUnitAuraInstanceIDs
+	local shouldSecret = CS and CS.ShouldUnitAuraInstanceBeSecret
+	local byInstance = UA and UA.GetAuraDataByAuraInstanceID
+	print(("  GetUnitAuraInstanceIDs      = %s"):format(tostring(getIDs ~= nil)))
+	print(("  ShouldUnitAuraInstanceBeSecret = %s"):format(tostring(shouldSecret ~= nil)))
+	print(("  GetAuraDataByAuraInstanceID = %s"):format(tostring(byInstance ~= nil)))
+	if not (getIDs and shouldSecret) then
+		print("  |cffff9900route unavailable on this client — nothing to build on.|r")
+		return
+	end
+
+	--- Which call shape does this client take? Recorded, not assumed.
+	local ids, shape
+	for _, attempt in ipairs({
+		{ label = "(unit, filter)", args = { "player", "HELPFUL" } },
+		{ label = "(unit, filter, nil, 0, 0)", args = { "player", "HELPFUL", nil, 0, 0 } },
+	}) do
+		local ok, res = pcall(getIDs, unpack(attempt.args, 1, 5))
+		if ok and type(res) == "table" then
+			ids, shape = res, attempt.label
+			break
+		end
+	end
+	if not ids then
+		print("  |cffff9900every call shape threw — the route is closed here.|r")
+		return
+	end
+	print(("  accepted call               = %s -> %d instance(s)"):format(shape, #ids))
+
+	local readable, secretN, shown = 0, 0, 0
+	for i = 1, #ids do
+		local id = ids[i]
+		local okS, isSecret = pcall(shouldSecret, "player", id)
+		if not okS then
+			secretN = secretN + 1
+		elseif isSecret then
+			secretN = secretN + 1
+		else
+			readable = readable + 1
+			local spell = "?"
+			if byInstance then
+				local okD, d = pcall(byInstance, "player", id)
+				--- Contractually non-secret, but read it inside pcall anyway: being wrong
+				--- here throws, and a diagnostic must never be what breaks a fight.
+				if okD and d then
+					local okI, sid = pcall(function() return d.spellId end)
+					spell = (okI and sid and not Secret(sid)) and tostring(sid) or "secret"
+				end
+			end
+			if shown < 10 then
+				shown = shown + 1
+				print(("    instance %-10s readable, spellId = %s"):format(tostring(id), spell))
+			end
+		end
+	end
+	print(("  %d readable, %d secret"):format(readable, secretN))
+
+	--- The verdict this whole probe exists for.
+	if secretN > 0 then
+		print("  |cffffcc00Some auras are hidden — 'absent' is NOT provable right now,|r")
+		print("  |cffffcc00but the count tells us that, which is exactly what we lacked.|r")
+	elseif #ids == 0 then
+		print("  |cff40c040Zero instances and nothing secret — genuinely no buffs.|r")
+	else
+		print("  |cff40c040Nothing hidden — a buff not in this list is genuinely absent.|r")
+	end
+	print("  |cff8a8f98Run this OUT of combat and again DURING a fight.|r")
+end
+
 -- /mh dispelprobe — decides whether a LIVE "dispellable debuff on ally X" alert
 -- is even possible on this client. It scans party/raid members' harmful auras
 -- and reports whether the fields a dispel alert needs (dispelName = the school,
