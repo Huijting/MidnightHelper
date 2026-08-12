@@ -775,6 +775,19 @@ local SMC_CITY_MAP_ID = 2393
 ---
 --- ⏭️ STILL DUTCH, deliberately (round two): the fifteen pins that carry real content, and
 --- the seven category titles. Those need real translations, not a template.
+--- A category heading, through the locale. Same reasoning as PinDescription: the seven
+--- headings were English literals, which nobody in English ever noticed and nobody in
+--- German could ever fix.
+local function CategoryTitle(cat)
+	if not cat then
+		return ""
+	end
+	if cat.titleKey then
+		return ns:L(cat.titleKey)
+	end
+	return cat.title or ""
+end
+
 local function PinDescription(point)
 	if not point then
 		return ""
@@ -792,7 +805,7 @@ end
 
 local SMC_CATEGORIES = {
 	{
-		title = "Essential Services",
+		titleKey = "SMC_CAT_ESSENTIAL",
 		items = {
 			{ id = "bank", label = "Bank & Vault", atlas = "services-icon-bank", x = 50.36, y = 65.19 },
 			{ id = "item_upgrades", label = "Cuzoth — Item Upgrades", descKey = "SMC_PIN_ITEM_UPGRADES", atlas = "ItemUpgrade-FX-UpgradeArrow", x = 48.23, y = 61.75 },
@@ -820,7 +833,7 @@ local SMC_CATEGORIES = {
 		},
 	},
 	{
-		title = "Gear & Currency Vendors",
+		titleKey = "SMC_CAT_VENDORS",
 		items = {
 			--- ⚠️ COORDS STILL UNCONFIRMED for both of these — they came from Wowhead
 			--- (npc 255473 Maren, npc 255476 Triam, listed there as "Cosmetic Equipment
@@ -836,7 +849,7 @@ local SMC_CATEGORIES = {
 		},
 	},
 	{
-		title = "Travel",
+		titleKey = "SMC_CAT_TRAVEL",
 		items = {
 			{ id = "portals", label = "Portal Room", atlas = "portal-horde-white", x = 53.37, y = 66.31 },
 			{ id = "portal_voidstorm", label = "Portal to Voidstorm", atlas = "portal-horde-white", x = 35.25, y = 65.85 },
@@ -846,7 +859,7 @@ local SMC_CATEGORIES = {
 		},
 	},
 	{
-		title = "Quest Hubs",
+		titleKey = "SMC_CAT_QUEST_HUBS",
 		items = {
 			{
 				id = "world_boss_week",
@@ -875,7 +888,7 @@ local SMC_CATEGORIES = {
 		},
 	},
 	{
-		title = "Horde District (Horde only)",
+		titleKey = "SMC_CAT_HORDE",
 		items = {
 			{ id = "horde_inn", label = "Horde Inn", atlas = "services-icon-innkeeper", x = 66.91, y = 62.09 },
 			{ id = "horde_bank", label = "Horde Bank & Vault", atlas = "services-icon-bank", x = 72.04, y = 64.87 },
@@ -884,7 +897,7 @@ local SMC_CATEGORIES = {
 		},
 	},
 	{
-		title = "Professions",
+		titleKey = "SMC_CAT_PROFESSIONS",
 		items = {
 			{ id = "alchemy", label = "Alchemy", trainer = true, atlas = "ui-profession-alchemy", x = 47.02, y = 51.88 },
 			{ id = "blacksmithing", label = "Blacksmithing", trainer = true, atlas = "ui-profession-blacksmithing", x = 43.74, y = 51.33 },
@@ -897,7 +910,7 @@ local SMC_CATEGORIES = {
 		},
 	},
 	{
-		title = "Gathering",
+		titleKey = "SMC_CAT_GATHERING",
 		items = {
 			{ id = "fishing", label = "Fishing", descKey = "SMC_PIN_FISHING", atlas = "ui-profession-fishing", x = 44.70, y = 60.20 },
 			{ id = "herbalism_trainer", label = "Herbalism Trainer", atlas = "ui-profession-herbalism", x = 48.20, y = 51.52 },
@@ -919,7 +932,7 @@ local function BuildSMCSearchRows()
 			local blob = string.lower(
 				string.format(
 					"%s %s %s %s",
-					tostring(cat.title or ""),
+					tostring(CategoryTitle(cat)),
 					tostring(point.label or ""),
 					tostring(PinDescription(point)),
 					tostring(point.id or "")
@@ -1491,7 +1504,7 @@ local function BuildSMCCityGuidePanel(panel)
 	for _, cat in ipairs(SMC_CATEGORIES) do
 		local header = scrollContent:CreateFontString(nil, "OVERLAY", "GameFontHighlightMedium")
 		header:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, -y)
-		header:SetText(cat.title)
+		header:SetText(CategoryTitle(cat))
 		header:SetTextColor(MH_CHROME.tabTexActive[1], MH_CHROME.tabTexActive[2], MH_CHROME.tabTexActive[3])
 		y = y + 20
 

@@ -2773,6 +2773,13 @@ fill("deDE", {
 	SMC_PIN_VOID_HUB = "Route zum Sammelpunkt des aktiven Void-Angriffs. Die Angriffe selbst haben keinen festen Punkt.",
 	SMC_PIN_FISHING = "Angellehrer und eine Angelstelle, beide im Basar.",
 	SMC_PIN_WORLD_BOSS_WEEK = "Öffnet Delves & Vault und legt die Route zum Weltboss dieser Woche.",
+	SMC_CAT_ESSENTIAL = "Wichtige Dienste",
+	SMC_CAT_VENDORS = "Ausrüstungs- und Währungshändler",
+	SMC_CAT_TRAVEL = "Reisen",
+	SMC_CAT_QUEST_HUBS = "Quest-Knotenpunkte",
+	SMC_CAT_HORDE = "Horde-Viertel (nur Horde)",
+	SMC_CAT_PROFESSIONS = "Berufe",
+	SMC_CAT_GATHERING = "Sammelberufe",
 })
 
 fill("frFR", {
@@ -2904,6 +2911,13 @@ fill("frFR", {
 	SMC_PIN_VOID_HUB = "Itinéraire vers le point de rassemblement de l’assaut du Vide actif. Les frappes elles-mêmes n’ont pas de point fixe.",
 	SMC_PIN_FISHING = "Maître pêcheur et un coin de pêche, tous deux au Bazar.",
 	SMC_PIN_WORLD_BOSS_WEEK = "Ouvre Delves & Vault et trace l’itinéraire vers le boss de monde de la semaine.",
+	SMC_CAT_ESSENTIAL = "Services essentiels",
+	SMC_CAT_VENDORS = "Équipement et marchands de monnaie",
+	SMC_CAT_TRAVEL = "Voyage",
+	SMC_CAT_QUEST_HUBS = "Centres de quêtes",
+	SMC_CAT_HORDE = "Quartier de la Horde (Horde uniquement)",
+	SMC_CAT_PROFESSIONS = "Métiers",
+	SMC_CAT_GATHERING = "Métiers de récolte",
 })
 
 fill("esES", {
@@ -3035,6 +3049,13 @@ fill("esES", {
 	SMC_PIN_VOID_HUB = "Ruta hacia el centro de reunión del asalto del Vacío activo. Los ataques en sí no tienen un punto fijo.",
 	SMC_PIN_FISHING = "Maestro de pesca y un punto de pesca, ambos en el Bazar.",
 	SMC_PIN_WORLD_BOSS_WEEK = "Abre Delves & Vault y traza la ruta hacia el jefe de mundo de esta semana.",
+	SMC_CAT_ESSENTIAL = "Servicios esenciales",
+	SMC_CAT_VENDORS = "Equipo y vendedores de monedas",
+	SMC_CAT_TRAVEL = "Viajes",
+	SMC_CAT_QUEST_HUBS = "Centros de misiones",
+	SMC_CAT_HORDE = "Distrito de la Horda (solo Horda)",
+	SMC_CAT_PROFESSIONS = "Profesiones",
+	SMC_CAT_GATHERING = "Profesiones de recolección",
 })
 
 fill("ptBR", {
@@ -3166,6 +3187,13 @@ fill("ptBR", {
 	SMC_PIN_VOID_HUB = "Rota até ao ponto de reunião do assalto do Vazio ativo. Os ataques em si não têm ponto fixo.",
 	SMC_PIN_FISHING = "Treinador de pesca e um local de pesca, ambos no Bazar.",
 	SMC_PIN_WORLD_BOSS_WEEK = "Abre Delves & Vault e traça a rota até ao chefe de mundo desta semana.",
+	SMC_CAT_ESSENTIAL = "Serviços essenciais",
+	SMC_CAT_VENDORS = "Equipamento e vendedores de moedas",
+	SMC_CAT_TRAVEL = "Viagens",
+	SMC_CAT_QUEST_HUBS = "Centros de missões",
+	SMC_CAT_HORDE = "Distrito da Horda (só Horda)",
+	SMC_CAT_PROFESSIONS = "Profissões",
+	SMC_CAT_GATHERING = "Profissões de recolha",
 })
 
 fill("itIT", {
@@ -3297,5 +3325,12 @@ fill("itIT", {
 	SMC_PIN_VOID_HUB = "Percorso verso il punto di raccolta dell’assalto del Vuoto attivo. Gli attacchi stessi non hanno un punto fisso.",
 	SMC_PIN_FISHING = "Maestro di pesca e un punto di pesca, entrambi nel Bazaar.",
 	SMC_PIN_WORLD_BOSS_WEEK = "Apre Delves & Vault e traccia il percorso verso il boss mondiale di questa settimana.",
+	SMC_CAT_ESSENTIAL = "Servizi essenziali",
+	SMC_CAT_VENDORS = "Equipaggiamento e mercanti di valute",
+	SMC_CAT_TRAVEL = "Viaggi",
+	SMC_CAT_QUEST_HUBS = "Centri missioni",
+	SMC_CAT_HORDE = "Distretto dell’Orda (solo Orda)",
+	SMC_CAT_PROFESSIONS = "Professioni",
+	SMC_CAT_GATHERING = "Professioni di raccolta",
 })
 
