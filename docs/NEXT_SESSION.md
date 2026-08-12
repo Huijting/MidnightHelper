@@ -25,8 +25,20 @@ vanavond "Incompatible" (client loopt achter op de realms; 12.1.5 komt eraan).
 
 1. **`/mh worldboss`** — zijn de vier Season 1-bossen echt vervangen door Lairs? De scan
    werkte niet meer op 12.1 en is gerepareerd, dus nu telt het antwoord pas.
-2. **`/mh api12`** — bestaan `SetOnUpdateMode`, `AddRoleset`, `HasAnyForbiddenAspect`,
-   `SetTextFromSecret` en `SetShownFromBoolean` dan wel? Op 12.0.7 ontbraken ze alle vijf.
+2. ~~**`/mh api12`**~~ — ✅ **GEMETEN 12 aug op de PTR, interface 120100 (= echt 12.1).**
+   14 aanwezig, 4 afwezig. Van de vijf die we op 12.1 verwachtten kwamen er **twee**:
+   `SetOnUpdateMode` en `AddRoleset`. **Drie kwamen niet:** `HasAnyForbiddenAspect`,
+   `SetTextFromSecret`, `SetShownFromBoolean` — plus `SetFormattedTextFromSecret`.
+   Gevraagd aan een echt Frame en een echte FontString, dus voor de widgets die wij
+   zouden gebruiken bestaan ze niet.
+
+   ⚠️ **Geen enkel gevolg voor MH.** Van deze familie gebruiken wij alleen
+   `SetAlphaFromBoolean` (ActionPrompt + CombatSafety), en die is aanwezig. De andere
+   vier stonden nergens in de code. Niet opnieuw uitzoeken; wél niet meer aannemen dat
+   een aangekondigde 12.1-helper er ook is.
+
+   `C_Spell.IsSpellImportant` bestaat ook op 12.1 — bevestigt de meting van 11 aug, en
+   verandert niets: te smal om onze lijsten te vervangen.
 3. **`/mh editmode preset`** — de bar-preset is geëxporteerd op 12.0.7. Overleeft
    Blizzards layout-formaat een patch? Zo niet: opnieuw exporteren, één constante in
    `Modules/BarPreset.lua` vervangen.
