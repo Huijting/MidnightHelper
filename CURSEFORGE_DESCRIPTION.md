@@ -10,13 +10,21 @@ One window for the whole week. Clean enough for a brand-new max-level player, de
 
 ### See it in action
 
-Take a look at the screenshots for a feel of the addon in play — the **This Week** dashboard (your whole week at a glance), the **class keybind coach** (your live spellbook mapped onto a clean keyboard layout), the on-screen **route arrow**, the **Great Vault Advisor** ranking your loot choices, and the **Delve Coach** with per-boss tips.
+Take a look at the screenshots for a feel of the addon in play — the **This Week** dashboard (your whole week at a glance), the **bar setup panel** that lays out your spells and keys for you, the **class keybind coach** (your live spellbook mapped onto a clean keyboard layout), the on-screen **route arrow**, the **Great Vault Advisor** ranking your loot choices, and the **Delve Coach** with per-boss tips.
 
 ### Highlights
 
-**Ready for patch 12.1**
-- The **Coiled Isle** arrives with its rares mapped: names, coordinates and the hidden kill quests that let the list tick itself off — measured on the test realm, not copied from anywhere. **Altar of Fangs** arrives with beginner steps for all three bosses.
-- Both stay hidden until your client is actually running 12.1, so nothing shows up before the content exists.
+**Set up your bars without typing anything**
+- `/mh setup` — one panel for the whole job. It tells you which character you are on and whether your keybinds are **account-wide or this character's own** *before* it offers anything that changes them, because getting that wrong quietly rebinds every alt you have.
+- **Place your spells and bind your keys** for the spec you are playing, per specialisation. You see exactly what would change before anything moves, and everything can be undone.
+- **Our recommended bar layout as a button**, not a picture to copy by hand. It touches action bars 1-8 and nothing else — your minimap, unit frames and macro bars stay where you put them — and a second button restores your old layout.
+- **Thumb-button keys onto action bar 8.** If your mouse sends `6 7 8 9 0 -` instead of mouse buttons, one press puts them where they belong and leaves every key you already bound exactly where your hands expect it.
+- Never used any of this? Open Midnight Helper on a character whose bars have not been set up and it **offers once**, on the front page. Dismiss it and it stays dismissed.
+
+**Patch 12.1**
+- The **Coiled Isle** with its rares mapped: names, coordinates and the hidden kill quests that let the list tick itself off — measured on the test realm, not copied from anywhere. **Altar of Fangs** with beginner steps for all three bosses.
+- Season 2 content stays hidden until the season genuinely **opens**, not merely until the patch lands — those are a week apart, and an addon that announces a raid you cannot enter yet is worse than one that says nothing.
+- In combat, 12.1 hides some of your own buffs from addons and reports them as simply absent. Midnight Helper tells you it **cannot see**, instead of telling you that you are missing a buff you are holding.
 
 **Beside Blizzard's own windows**
 - Open your **character sheet** and a small panel appears next to it: missing enchants, empty sockets, your tier set, and which slots have hit their **upgrade-track ceiling**.
@@ -54,6 +62,8 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - **Party targets** — a small panel showing every group member and what they are attacking, with their role, their class colour and the raid marker sitting on their target. **Click a line to take that target yourself**, in combat too. Drag it anywhere, drag the corner to widen it. Off until you switch it on with `/mh partytargets` or in Settings.
 - **Stay alive** — at the top of the Role Academy's DPS track, your own buttons in the order a fight needs them: the shield you keep up, the one for when your health drops, how you get away, how you interrupt. Read from your live talents, so a spell replaced by a talent shows the name that is actually on your bars.
 - **Action prompt** — a large icon when your interrupt applies to what your target is casting, and when your target carries something you can strip off. `/mh prompt sound` makes the purge half speak the word, chime, or stay quiet. Interrupts stay silent by necessity: Midnight lets an addon *show* whether a cast can be kicked, but never read it. Off until you switch it on with `/mh prompt`.
+- **Potion and healthstone as keybinds** instead of action bar slots. Bind them in Blizzard's own keybinding screen under Midnight Helper — nothing is bound for you.
+- **Quick bar** (`/mh bar`, off by default) — a small strip for the things you reach for and then hunt through menus to find: the addon itself, a reload, the setup panel, and leaving a party, an instance or a delve.
 
 **Navigation & routes**
 - **Standalone route arrow** — Midnight Helper draws its own on-screen direction arrow (rotates toward the target, shows live distance, drag to reposition) and drives the game's own map waypoint, keeping it on your next open stop and advancing it the moment you arrive. **No TomTom required.**
@@ -102,7 +112,8 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - **Role Academy** — tank, heal and DPS learning tracks, each with a **spec-aware toolkit**: the cooldowns and personal defensives *your* spec actually has, with tooltips on hover. Healers also get their cooldowns labelled by purpose and a "what can I dispel?" reference.
 - **Consumables** — per-spec suggestions with Wowhead-backed data and guide search preview.
 - **SMC City Guide** — Silvermoon City pins with waypoint buttons; optional weekly/hub checklist.
-- **Addons** tab — companion helpers (e.g. Platynator integration).
+- **Addons** tab — companion helpers for addons you may already run: **Platynator** and **Details!** damage meter. Each page hands you a profile string to paste yourself; nothing is ever imported on your behalf.
+- `/mh fps` reads out the graphics settings that cost the most frames and **changes none of them**. It distinguishes a setting you deliberately raised from one still on its default, because the two look identical and only one is worth telling you about.
 - Global **search** routes keywords to the right tab (delves, consumables, academy, macros, city pins, and more).
 - In-game **changelog** window.
 
@@ -139,6 +150,9 @@ drift from what the addon actually answers to.
 | Command | Action |
 |---------|--------|
 | `/mh` or `/midnight` | Toggle main window |
+| `/mh setup` | Set up your bars and keybinds, with the state shown first |
+| `/mh bar` | Toggle the quick bar |
+| `/mh fps` | Read out the graphics settings that cost the most frames |
 | `/mh coach` | Toggle Delve Coach |
 | `/mh mark` | Toggle the Fast Mark bar |
 | `/mh items` | Toggle delve consumables panel (force preview outside a delve) |
