@@ -767,9 +767,26 @@ local function PrintPageCurrencies(prefix)
 			rows[#rows + 1] = { id = id, name = "?", unknown = true }
 		end
 	end
+	--- ⚠️ RECORD WHICH SEASON THE ADDON THINKS IT IS. On 12 Aug the page rendered the
+	--- Season 2 "Mistcrest" ids on LIVE, six days before Season 2 was expected — so
+	--- `IsSeason2Live()` is already true and every season gate in the addon flipped with
+	--- it. Whether that is right or wrong, a probe that shows the crest names without
+	--- showing which season produced them cannot tell you which.
+	local season
+	if C_MythicPlus and C_MythicPlus.GetCurrentSeason then
+		local okS, cur = pcall(C_MythicPlus.GetCurrentSeason)
+		season = okS and cur or "error"
+	end
 	ns.db = ns.db or {}
 	ns.db.crestScanProbe = ns.db.crestScanProbe or {}
-	ns.db.crestScanProbe.page = { at = (time and time()) or 0, unknown = unknown, rows = rows }
+	ns.db.crestScanProbe.page = {
+		at = (time and time()) or 0,
+		unknown = unknown,
+		rows = rows,
+		mplusSeason = season,
+		season2Live = ns.IsSeason2Live and ns.IsSeason2Live() or nil,
+		season2State = ns.GetSeason2State and ns.GetSeason2State() or nil,
+	}
 
 	if unknown > 0 then
 		print(("%s |cffff8080%d of %d ids on the Currencies page are gone — it is showing a dead entry.|r"):format(
