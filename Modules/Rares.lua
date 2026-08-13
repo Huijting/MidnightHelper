@@ -298,6 +298,42 @@ function ns.PrintRareQuestProbe()
 	print("   |cff8a8f98Run this on a character that killed some of these in an EARLIER week:|r")
 	print("   |cff8a8f98the weekly band resets, a one-off reputation quest does not.|r")
 
+	--- ⚠️ THE COILED ISLE ALONE CANNOT ANSWER THIS, so the older zones come too.
+	---
+	--- First run, 13 Aug 2026, the day after a Wednesday reset: 2 of 7 flagged on our
+	--- band, 0 of 7 on theirs. That has two readings and they are opposites. Either our
+	--- band is permanent — in which case a killed rare stays ticked forever and the
+	--- weekly claim in this file's header is wrong — or Rob simply killed those two
+	--- today, after the reset, and HandyNotes' ids are inactive.
+	---
+	--- The zones we have run for weeks separate them, and Rob's own memory is the
+	--- instrument. A rare he killed LAST week reading "done" today means the flag never
+	--- resets. Every zone is listed for that reason; the aggregate is not the point, the
+	--- one line he recognises is.
+	print(("%s the same question in the zones we have run for weeks:"):format(prefix))
+	local byZone = {}
+	for _, zone in ipairs(ZONES) do
+		if type(zone) == "table" and zone.rares then
+			local names, n = {}, 0
+			for _, r in ipairs(zone.rares) do
+				local qid = r[1]
+				if qid and qid > 0 then
+					n = n + 1
+					local ok, res = pcall(flagged, qid)
+					if ok and res then
+						names[#names + 1] = r[5]
+					end
+				end
+			end
+			byZone[zone.key] = { done = #names, total = n, names = names }
+			print(("   %-18s %d of %d flagged%s"):format(
+				zone.shortLabel or zone.key, #names, n,
+				#names > 0 and ("  |cff8a8f98" .. table.concat(names, ", "):sub(1, 60) .. "|r") or ""))
+		end
+	end
+	print("   |cffffd100Recognise one you killed LAST week? Then the flag never resets,|r")
+	print("   |cffffd100and the weekly tracking in this tab has been permanent all along.|r")
+
 	ns.db = ns.db or {}
 	ns.db.rareQuestProbe = {
 		at = (time and time()) or 0,
@@ -306,6 +342,7 @@ function ns.PrintRareQuestProbe()
 		oursDone = oursDone,
 		theirsDone = theirsDone,
 		rows = rows,
+		olderZones = byZone,
 	}
 end
 
