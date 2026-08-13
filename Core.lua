@@ -843,6 +843,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh rarequests — onze gemeten quest-band naast die van HandyNotes, per rare.
+	-- Beslist welke van de twee "deze week gedaan" betekent.
+	if msg == "rarequests" then
+		if ns.PrintRareQuestProbe then
+			ns.PrintRareQuestProbe()
+		end
+		return
+	end
+
 	-- /mh aurainst — kan de 12.1 per-instance route onderscheiden tussen "afwezig" en
 	-- "verborgen"? Apart commando, want de uitvoer is te lang naast /mh auras.
 	if msg == "aurainst" then

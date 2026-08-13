@@ -196,9 +196,118 @@ local COILED_ISLE = {
 		{ 98344, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854 }, -- circles in the air until he lands
 		{ 0, 2512, 67.16, 77.52, "Venom Lancer Ori'kassi", 255927 }, -- elite; not killed yet, id unknown
 		{ 98351, 2642, 66.40, 62.90, "Nar'zira", 258920 }, -- interior map
+		--- Four rares our own lap never saw, from HandyNotes_Midnight 149 (13 Aug 2026)
+		--- — the source Rob has told us to trust for rare coordinates without
+		--- spot-checking. Its Coiled Isle file went from nothing to fourteen nodes with
+		--- this update.
+		---
+		--- ⚠️ THEIR QUEST IDS COME FROM A DIFFERENT BAND THAN OURS, AND BOTH ARE REAL.
+		--- We measured 98344..98354 on the PTR by killing rares and watching which id
+		--- flipped. HandyNotes uses 93829..97122 as its completion flag — and its own
+		--- Farthik entry carries BOTH: `quest = 96491` for the node, and
+		--- `Reputation({id = 2772, gain = 50, quest = 98344})`, which is our number.
+		--- So we appear to have captured the reputation quest and they the kill-tracking
+		--- one. Both fire, so both look right from a single kill.
+		---
+		--- These four therefore use THEIR band, because it is the band the rest of their
+		--- data is built on and picking ours for them would be inventing a number. The
+		--- mixed bands in this table are deliberate and temporary: `/mh rarequests`
+		--- settles which one means "done this week", and then the whole table moves to
+		--- the winner.
+		---
+		--- ⚠️ Three further HandyNotes nodes are placeholders — npc id 0 at 10.00/10.00,
+		--- named Congealed Malice, Khu'tulak and Susarikk. Not imported; a coordinate
+		--- that says 10/10 says nothing.
+		{ 94856, 2512, 70.17, 45.29, "Garsecg", 258916 },
+		{ 95452, 2512, 52.05, 32.29, "Destra", 261142 },
+		{ 96464, 2512, 43.85, 50.86, "Hisstara", 265262 },
+		{ 97122, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090 },
 	},
 }
 local COILED_ISLE_MAPS = { 2512, 2642 }
+
+--------------------------------------------------------------------------------
+-- `/mh rarequests` — which quest id actually means "done"?
+--------------------------------------------------------------------------------
+
+--- Our measured id next to HandyNotes' for the same rare.
+--- @field [1] npcID, [2] our quest, [3] HandyNotes' quest, [4] name
+local RARE_QUEST_PAIRS = {
+	{ 256631, 98353, 93829, "Big Mon" },
+	{ 257906, 98352, 94619, "Coin-Eye Skully" },
+	{ 258920, 98351, 94860, "Nar'zira" },
+	{ 261109, 98354, 95447, "Sss'alik, The Rotten Claw" },
+	{ 264854, 98344, 96491, "Farthik the Plunderer" },
+	{ 265237, 98347, 96456, "Lockjaw the Snapper" },
+	{ 268049, 98345, 97112, "Siltmouth, the Unflappable" },
+}
+
+--- ⚠️ TWO BANDS, BOTH REAL, AND ONLY ONE CAN MEAN WHAT WE USE IT FOR.
+---
+--- We measured 98344..98354 on the PTR: kill a rare, watch which id flips. That is a
+--- sound measurement and it produced a band that HandyNotes does not use. Theirs, from
+--- the same rares, is 93829..97122 — and their Farthik entry carries ours as the
+--- REPUTATION quest while theirs is the node's completion flag. So the likeliest
+--- reading is that a kill fires both, we happened to catch one and they the other, and
+--- a single kill can never tell them apart.
+---
+--- What CAN tell them apart is a rare killed in a previous week. A weekly tracking
+--- quest resets; a one-off reputation grant does not. So this asks the client about
+--- both ids for every pairable rare and prints them side by side. If one column is all
+--- false on rares Rob has certainly killed, that column is the weekly one — and the
+--- whole table moves to it.
+---
+--- Deliberately reports rather than decides: the answer changes what "done this week"
+--- means for nine rares, which is not a call to make from an inference.
+function ns.PrintRareQuestProbe()
+	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
+	local flagged = C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted
+	if not flagged then
+		print(prefix .. " IsQuestFlaggedCompleted is unavailable on this client.")
+		return
+	end
+
+	local function done(id)
+		local ok, res = pcall(flagged, id)
+		if not ok then
+			return "err"
+		end
+		return res and "|cff40c040done|r" or "|cff8a8f98--|r"
+	end
+
+	local rows, oursDone, theirsDone = {}, 0, 0
+	print(("%s rare quest ids — ours vs HandyNotes, for %d rares:"):format(
+		prefix, #RARE_QUEST_PAIRS))
+	for _, p in ipairs(RARE_QUEST_PAIRS) do
+		local npc, ours, theirs, name = p[1], p[2], p[3], p[4]
+		local a, b = done(ours), done(theirs)
+		if a:find("done") then
+			oursDone = oursDone + 1
+		end
+		if b:find("done") then
+			theirsDone = theirsDone + 1
+		end
+		print(("   %-26s ours %d %-18s HN %d %s"):format(name:sub(1, 26), ours, a, theirs, b))
+		rows[#rows + 1] = {
+			npc = npc, name = name, ours = ours, theirs = theirs,
+			oursDone = a:find("done") ~= nil, theirsDone = b:find("done") ~= nil,
+		}
+	end
+	print(("   |cffffd100%d of %d done on our band, %d of %d on theirs.|r"):format(
+		oursDone, #RARE_QUEST_PAIRS, theirsDone, #RARE_QUEST_PAIRS))
+	print("   |cff8a8f98Run this on a character that killed some of these in an EARLIER week:|r")
+	print("   |cff8a8f98the weekly band resets, a one-off reputation quest does not.|r")
+
+	ns.db = ns.db or {}
+	ns.db.rareQuestProbe = {
+		at = (time and time()) or 0,
+		character = ("%s-%s"):format(
+			(UnitName and UnitName("player")) or "?", (GetRealmName and GetRealmName()) or ""),
+		oursDone = oursDone,
+		theirsDone = theirsDone,
+		rows = rows,
+	}
+end
 
 local ZONE_BY_KEY = {}
 local ZONE_MAP_IDS = {}
