@@ -480,16 +480,59 @@ function ns.PrintAuraInstanceProbe()
 		return
 	end
 
-	--- Which call shape does this client take? Recorded, not assumed.
+	--- ⚠️ THE FILTER MAY BE WHAT GETS REFUSED, NOT THE CALL.
+	---
+	--- Yesterday this asked for `HELPFUL` twice, both shapes threw in combat, and the
+	--- route was written off as closed. JustAC 5.1.5 says otherwise, in as many words:
+	--- "a throw here means this unit/filter combination is rejected, not that the API is
+	--- missing" (`BlizzardAPI/SecretValues.lua`). Its live code never asks for bare
+	--- HELPFUL — it uses `HELPFUL|PLAYER`, `HELPFUL|BIG_DEFENSIVE` and
+	--- `HARMFUL|CROWD_CONTROL`.
+	---
+	--- So every filter is tried, and every result recorded rather than stopping at the
+	--- first success. A route that is open for one filter and shut for another is a
+	--- different finding from "closed", and only the first is useful to MissingBuff.
+	---
+	--- ⚠️ AND AN UNKNOWN TOKEN FAILS OPEN. Same file: the engine silently IGNORES a
+	--- token it does not recognise and hands back the unfiltered set — measured there as
+	--- a bogus token returning all 31 helpful auras while BIG_DEFENSIVE returned 1. So a
+	--- narrowed filter answering with exactly as many instances as its base filter is
+	--- not being honoured, and the count below is what shows that.
 	local ids
-	for _, attempt in ipairs({
-		{ label = "(unit, filter)", args = { "player", "HELPFUL" } },
-		{ label = "(unit, filter, nil, 0, 0)", args = { "player", "HELPFUL", nil, 0, 0 } },
-	}) do
-		local ok, res = pcall(getIDs, unpack(attempt.args, 1, 5))
+	local FILTERS = {
+		"HELPFUL",
+		"HELPFUL|PLAYER",
+		"HELPFUL|BIG_DEFENSIVE",
+		"HARMFUL",
+		"HARMFUL|CROWD_CONTROL",
+	}
+	out.filters = {}
+	print("  per filter (a throw is the FILTER being refused, not the API):")
+	for _, filter in ipairs(FILTERS) do
+		local okF, res = pcall(getIDs, "player", filter)
+		local row = { filter = filter }
+		if not okF then
+			row.result = "threw"
+		elseif type(res) ~= "table" then
+			row.result = "no table"
+		else
+			row.result = "ok"
+			row.count = #res
+			if not ids then
+				ids, out.shape = res, filter
+			end
+		end
+		out.filters[#out.filters + 1] = row
+		print(("    %-24s %s%s"):format(filter, row.result,
+			row.count and (" — " .. row.count .. " instance(s)") or ""))
+	end
+	--- Kept from yesterday: JustAC calls this with five arguments, and if the short form
+	--- is what fails we want that on the record rather than inferred.
+	if not ids then
+		local ok, res = pcall(getIDs, "player", "HELPFUL", nil, 0, 0)
 		if ok and type(res) == "table" then
-			ids, out.shape = res, attempt.label
-			break
+			ids, out.shape = res, "HELPFUL (unit, filter, nil, 0, 0)"
+			print("    |cffffcc00only the five-argument form answered|r")
 		end
 	end
 	if not ids then

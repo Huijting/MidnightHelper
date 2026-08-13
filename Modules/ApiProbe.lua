@@ -329,10 +329,29 @@ function ns.MH_Api12Probe()
 	end
 
 	--- Frame methods have to be asked of a frame, not of the global table.
+	---
+	--- ⚠️ "ABSENT" HERE MEANS ABSENT ON THIS WIDGET TYPE, UNDER THIS NAME. Both halves
+	--- of that caveat came back to bite on 13 Aug, reading DandersFrames 5.1.2:
+	---
+	---   * It calls the forbidden-aspects check `HasAnyForbiddenAspects` — PLURAL — and
+	---     attributes it to Blizzard's own SecureTemplates.lua. We asked for the
+	---     singular and wrote "never arrived" in the handoff. Both spellings are asked
+	---     for now; a name we guessed wrong is not an API that is missing.
+	---   * Its live code calls `SetShownFromBoolean` on a STATUS BAR, not a plain frame
+	---     (`Features/TargetedSpells.lua:3667`, itself guarded). A method can exist on
+	---     one widget type and not another, so a StatusBar is asked as well.
+	---
+	--- Neither proves the method exists — DandersFrames guards its own call, so it is no
+	--- more certain than we are. It proves our question was too narrow.
 	local probe = CreateFrame("Frame", nil, UIParent)
 	for _, m in ipairs({ "SetAlphaFromBoolean", "SetShownFromBoolean", "AddRoleset",
-	                     "SetOnUpdateMode", "HasAnyForbiddenAspect" }) do
+	                     "SetOnUpdateMode", "HasAnyForbiddenAspect",
+	                     "HasAnyForbiddenAspects" }) do
 		Note("Frame:" .. m, probe[m])
+	end
+	local bar = CreateFrame("StatusBar", nil, probe)
+	for _, m in ipairs({ "SetShownFromBoolean", "SetAlphaFromBoolean" }) do
+		Note("StatusBar:" .. m, bar[m])
 	end
 	local fs = probe:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	for _, m in ipairs({ "SetTextFromSecret", "SetFormattedTextFromSecret" }) do

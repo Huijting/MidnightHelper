@@ -37,6 +37,14 @@ vanavond "Incompatible" (client loopt achter op de realms; 12.1.5 komt eraan).
    vier stonden nergens in de code. Niet opnieuw uitzoeken; wél niet meer aannemen dat
    een aangekondigde 12.1-helper er ook is.
 
+   🔻 **DIE "KWAMEN NIET" IS TE STELLIG — gecorrigeerd 13 aug na DandersFrames 5.1.2.**
+   Wat we maten is "afwezig op een kaal Frame, onder déze naam", en allebei die helften
+   blijken te smal. DandersFrames noemt de check `HasAnyForbiddenAspect**s**` (meervoud,
+   uit Blizzards eigen SecureTemplates), en roept `SetShownFromBoolean` aan op een
+   **StatusBar**, niet op een Frame. `/mh api12` vraagt nu beide spellingen én een
+   StatusBar. Dat bewijst niet dat ze bestaan — DandersFrames guardt zijn eigen aanroep —
+   maar wél dat onze vraag te nauw was.
+
    `C_Spell.IsSpellImportant` bestaat ook op 12.1 — bevestigt de meting van 11 aug, en
    verandert niets: te smal om onze lijsten te vervangen.
 3. **`/mh editmode preset`** — de bar-preset is geëxporteerd op 12.0.7. Overleeft
