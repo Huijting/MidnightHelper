@@ -480,18 +480,30 @@ function ns.PrintAuraInstanceProbe()
 		return
 	end
 
-	--- ⚠️ THE FILTER MAY BE WHAT GETS REFUSED, NOT THE CALL.
+	--- ⚠️ ANSWERED 13 Aug 2026: THE ROUTE IS SHUT IN COMBAT, FOR EVERY FILTER.
 	---
 	--- Yesterday this asked for `HELPFUL` twice, both shapes threw in combat, and the
-	--- route was written off as closed. JustAC 5.1.5 says otherwise, in as many words:
-	--- "a throw here means this unit/filter combination is rejected, not that the API is
-	--- missing" (`BlizzardAPI/SecretValues.lua`). Its live code never asks for bare
-	--- HELPFUL — it uses `HELPFUL|PLAYER`, `HELPFUL|BIG_DEFENSIVE` and
-	--- `HARMFUL|CROWD_CONTROL`.
+	--- route was written off as closed — on two attempts. JustAC 5.1.5 gave a reason to
+	--- doubt that, in as many words: "a throw here means this unit/filter combination is
+	--- rejected, not that the API is missing" (`BlizzardAPI/SecretValues.lua`), and its
+	--- live code never asks for bare HELPFUL. So all five of its filters were tried.
 	---
-	--- So every filter is tried, and every result recorded rather than stopping at the
-	--- first success. A route that is open for one filter and shut for another is a
-	--- different finding from "closed", and only the first is useful to MissingBuff.
+	---     standing:   HELPFUL 7 · HELPFUL|PLAYER 5 · BIG_DEFENSIVE 0 · HARMFUL 0
+	---     in combat:  all five threw, and so did the five-argument form
+	---
+	--- Six refusals. The route is genuinely closed in combat, and the doubt is spent.
+	---
+	--- ⚠️ The standing row is what makes that trustworthy. 7, then 5, then 0 — the tokens
+	--- are being HONOURED, so the combat throw cannot be dismissed as an unrecognised
+	--- filter degrading into something the engine rejects. Had every filter returned 7,
+	--- this whole run would have proved nothing.
+	---
+	--- ⏭️ JustAC still tracks buffs in combat, but not this way: it bridges from
+	--- `UNIT_SPELLCAST_SUCCEEDED` (plain for the player) to the instance the cast
+	--- produced, and asks `IsAuraFilteredOutByInstanceID`, a readable bool. It never
+	--- enumerates. That cannot answer MissingBuff's question, which is about a buff you
+	--- did NOT cast — you cannot bridge from a cast that never happened. It could power
+	--- something we do not have: watching a buff you did cast run down.
 	---
 	--- ⚠️ AND AN UNKNOWN TOKEN FAILS OPEN. Same file: the engine silently IGNORES a
 	--- token it does not recognise and hands back the unfiltered set — measured there as

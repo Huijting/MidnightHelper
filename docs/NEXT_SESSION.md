@@ -53,6 +53,31 @@ vanavond "Incompatible" (client loopt achter op de realms; 12.1.5 komt eraan).
 4. **De Codex** — Season 2-content is season-gated en hoort pas 18 aug te verschijnen.
    Controleren dat de gate doet wat hij belooft.
 
+## ✅ AFGESLOTEN 13 aug — de per-instance aura-route is dicht in gevecht
+
+JustAC's per-instance route (`GetUnitAuraInstanceIDs` + `ShouldUnitAuraInstanceBeSecret`)
+leek een uitweg voor MissingBuff. Hij is het niet. Gemeten met alle vijf filters die
+JustAC zelf gebruikt:
+
+| | HELPFUL | HELPFUL\|PLAYER | BIG_DEFENSIVE | HARMFUL | CROWD_CONTROL |
+|---|---|---|---|---|---|
+| staand | 7 | 5 | 0 | 0 | 0 |
+| in gevecht | threw | threw | threw | threw | threw |
+
+Plus de vijf-argumentvorm: ook geweigerd. **Zes weigeringen.**
+
+⚠️ De staande rij maakt dit pas betrouwbaar: 7 → 5 → 0 betekent dat de tokens
+**gehonoreerd** worden, dus de weigering in gevecht is geen artefact van een filter dat
+de engine niet kent. Waren het vijf keer 7 geweest, dan bewees de hele run niets
+(JustAC waarschuwt daar expliciet voor: een onbekend token faalt OPEN).
+
+**Wat blijft:** onze defensieve fix van 12 aug (`nil` in plaats van `false`) is het
+enige antwoord, niet een tijdelijke. JustAC volgt buffs in gevecht via een
+**cast→instance-brug** — `UNIT_SPELLCAST_SUCCEEDED` leest plain voor de speler, en
+`IsAuraFilteredOutByInstanceID` is een leesbare bool. Dat beantwoordt MissingBuffs vraag
+niet (die gaat over een buff die je juist NIET gecast hebt), maar zou wél een feature
+kunnen voeden die we niet hebben: een buff die je zelf opzette zien aflopen.
+
 ## 🆕 GEVONDEN 12 aug (avond) — twee dingen uit Robs screenshots
 
 ### 1. De Vaults of Atal'Utek: nóg een 12.1-systeem dat we niet kennen
