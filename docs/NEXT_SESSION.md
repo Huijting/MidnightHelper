@@ -58,6 +58,31 @@ vanavond "Incompatible" (client loopt achter op de realms; 12.1.5 komt eraan).
 4. **De Codex** — Season 2-content is season-gated en hoort pas 18 aug te verschijnen.
    Controleren dat de gate doet wat hij belooft.
 
+## 📐 GEMETEN 13 aug — Vaults of Atal'Utek, uit de client
+
+`/mh atal` + `/mh zone` binnen de Vaults. Dit is meting, geen gids meer:
+
+| | |
+|---|---|
+| uiMapID | **2509** (parent 2512, The Coiled Isle) — de gok uit de opdracht klopte |
+| Questketen | **98388 → 97640 → 98428**, alle drie voltooid |
+| Titels | het spel zet er een prefix voor: *"Vaults of Atal'Utek: One Coin Too Many"* |
+| Currency | **Corrosive Coin = 3448**, header "Zones" |
+
+Beschrijving die het spel geeft: *"Spirits of the Amani within the Vaults of Atal'Utek
+deal exclusively in this phantasmal token."*
+
+⚠️ **En er ontbreekt iets.** Robs Corrosive Codex vraagt om **Corrosive Souls** (elf in
+bezit, gifts kosten er 8), maar de sweep vond die niet — terwijl `corros` hem zowel in
+de naamscan als in de id-sweep 3300-3800 gevangen zou hebben. Hij staat ook niet in zijn
+currency-lijst. Vermoedelijk dus een **item** dat je offert, geen currency. De probe kijkt
+nu ook in de tassen; vindt hij daar niets, dan is een bredere sweep de volgende stap
+(`/mh atal 3000 4200`).
+
+**Drie namen, mogelijk drie dingen** — niet door elkaar halen: *Corrosive Coin* (3448,
+3531 in bezit), *Corrosive Souls* (Codex, 11), en *Spirit Corrosion* (de tooltip op de
+Altar-boom, teller op 0).
+
 ## ✅ AFGESLOTEN 13 aug — de per-instance aura-route is dicht in gevecht
 
 JustAC's per-instance route (`GetUnitAuraInstanceIDs` + `ShouldUnitAuraInstanceBeSecret`)

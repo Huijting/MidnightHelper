@@ -55,6 +55,25 @@ local CURRENCY_WORD = "corros"
 --- a magic number; widen it from the command if nothing turns up.
 local SWEEP_FROM, SWEEP_TO = 3300, 3800
 
+--- ⚠️ MEASURED 13 Aug 2026 — AND IT FOUND ONLY HALF THE STORY.
+---
+--- Rob ran this inside the Vaults. The sweep answered cleanly: **Corrosive Coin = 3448**,
+--- 3531 of them, filed under "Zones", described as "Spirits of the Amani within the
+--- Vaults of Atal'Utek deal exclusively in this phantasmal token." Map 2509, parent 2512.
+--- All three quest ids correct, though the game titles two of them longer than the guide
+--- did ("Vaults of Atal'Utek: One Coin Too Many").
+---
+--- But his Corrosive Codex screenshot asks for **Corrosive Souls**, and the sweep did NOT
+--- find that — even though "corros" would have matched it, in the name scan and the id
+--- sweep both. So Corrosive Souls is not a currency in 3300..3800 and not in his currency
+--- list at all, while the Codex shows he holds eleven of them.
+---
+--- The likeliest reading is that it is an ITEM, offered rather than spent. Hence the bag
+--- scan below: a currency sweep cannot see an item, and concluding "it does not exist"
+--- from a tool that could never have found it is how you get a confident wrong answer.
+--- Widening the id range is the other half, and costs nothing.
+local BAG_WORD = "corros"
+
 --- The Coiled Isle, measured off Rob's own client on 6 Aug (docs/RESEARCH_12_1.md).
 --- The Vaults are a child map of it and their own id is what we are missing.
 local COILED_ISLE_MAP = 2512
@@ -209,6 +228,43 @@ local function SweepCurrencyIds(from, to, found)
 	end
 end
 
+--- The bags, for whatever the Codex is really asking you to offer.
+---
+--- `C_Container` is the 11.x+ shape and the only one this client has; the old
+--- `GetContainerItemInfo` globals are long gone, so there is no fallback to write.
+local function ScanBagsForItems(found)
+	local CC = C_Container
+	if not (CC and CC.GetContainerNumSlots and CC.GetContainerItemInfo) then
+		print("   |cff9d9d9dC_Container unavailable — cannot look in your bags.|r")
+		return
+	end
+	print(("   |cff8fd3ffBags|r  items whose name contains \"%s\""):format(BAG_WORD))
+	local hits = 0
+	for bag = 0, 5 do
+		local okN, slots = pcall(CC.GetContainerNumSlots, bag)
+		for slot = 1, (okN and slots or 0) do
+			local okI, info = pcall(CC.GetContainerItemInfo, bag, slot)
+			if okI and type(info) == "table" then
+				local name = SafeText(info.itemName)
+				if name and Contains(name, BAG_WORD) then
+					hits = hits + 1
+					print(("      |cff40c040%-30s|r item %-8s x%s"):format(
+						name, tostring(info.itemID), tostring(info.stackCount)))
+					found[#found + 1] = {
+						source = "bag", name = name, itemID = info.itemID,
+						count = info.stackCount,
+					}
+				end
+			end
+		end
+	end
+	if hits == 0 then
+		print("      |cff9d9d9dnothing matching in your bags|r")
+		print("      |cff8a8f98The Codex counter may be a hidden currency rather than an item;|r")
+		print("      |cff8a8f98then a wider sweep is the next thing to try, not this.|r")
+	end
+end
+
 -- ---------------------------------------------------------------------------
 -- Where you are standing
 -- ---------------------------------------------------------------------------
@@ -322,6 +378,8 @@ function ns.PrintAtalUtekProbe(from, to)
 	PrintChain(out.chain)
 	ScanCurrencyList(out.currencies)
 	SweepCurrencyIds(from, to, out.currencies)
+	out.items = {}
+	ScanBagsForItems(out.items)
 	PrintMap(out)
 	PrintGossip(out)
 
