@@ -18,8 +18,16 @@ ns.SEASON2 = {
 
 	-- S2 Mythic+ season id — unknown until the season actually opens (~1 week after
 	-- the patch). nil = never claim the season is live; S2-season items then show as
-	-- "opens ~1 week after the patch" instead of as an action. Fill from
-	-- C_MythicPlus.GetCurrentSeason() once it returns the new id.
+	-- "opens ~1 week after the patch" instead of as an action.
+	--
+	-- ⚠️ DO NOT FILL THIS IN WITH 18. `/mh season` on live, 13 Aug 2026 — five days
+	-- BEFORE Season 2 opens — already reports `GetCurrentSeason() = 18`. The number
+	-- moves with the patch, not with the season, so 18 does not mean "S2 is live" and
+	-- recording it as if it did is how the 12 August bug comes back.
+	--
+	-- It is only safe to fill once someone has watched the number change AT the season
+	-- flip and it turns out to be something other than 18. Until then the date in
+	-- `seasonStartsAt` is the gate, and IsSeasonLive() now applies it to this branch too.
 	mplusSeasonId = nil,
 
 	-- Season 1's M+ season id, captured on live via `/mh season`. This is what makes
@@ -240,26 +248,35 @@ local function IsSeasonLive()
 	if not live then
 		return false
 	end
-	local s2 = ns.SEASON2 and ns.SEASON2.mplusSeasonId
-	if s2 then
-		return live == s2 -- exact id known: use it, and the date cannot override it
-	end
 
-	--- ⚠️ THE DATE GATES THE FALLBACK. See `seasonStartsAt` for what this cost.
+	--- ⚠️ THE DATE GATES EVERYTHING, INCLUDING A KNOWN ID. Read this before "improving" it.
 	---
-	--- Without it, "any season newer than 17" opened Season 2 on patch day, because the
-	--- M+ season id increments with the patch. The id still has to have moved — that is
-	--- a real sanity check that we are past Season 1 — but it is no longer sufficient on
-	--- its own.
+	--- This check used to sit BELOW the `mplusSeasonId` branch, whose comment said "exact
+	--- id known: use it, and the date cannot override it". That was written expecting the
+	--- known id to be the number the game reports once Season 2 has opened.
 	---
-	--- Both conditions, not either: a date alone would flip the gate on a client that
-	--- never advanced past Season 1, and an id alone is what went wrong.
+	--- It is not. Measured on live 13 Aug 2026, five days before the season starts:
+	--- `C_MythicPlus.GetCurrentSeason()` already returns **18**, against 17 for Season 1.
+	--- The number moves with the PATCH.
+	---
+	--- So filling in `mplusSeasonId = 18` — the obvious next step now that we know it, and
+	--- exactly what a future session will reach for — would have made `live == s2` true
+	--- immediately and thrown the gate open five days early. The same bug as 12 August,
+	--- reintroduced by writing down a measurement.
+	---
+	--- The date now applies to both routes. An id can still REFUSE (a client that never
+	--- advanced past Season 1 stays shut) but it can no longer grant on its own.
 	local startsAt = ns.SEASON2 and ns.SEASON2.seasonStartsAt
 	if startsAt then
 		local now = (GetServerTime and GetServerTime()) or (time and time()) or 0
 		if now < startsAt then
 			return false
 		end
+	end
+
+	local s2 = ns.SEASON2 and ns.SEASON2.mplusSeasonId
+	if s2 then
+		return live == s2 -- past the date, so the exact id may decide
 	end
 
 	local s1 = ns.SEASON2 and ns.SEASON2.s1MplusSeasonId
