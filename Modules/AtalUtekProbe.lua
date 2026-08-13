@@ -68,10 +68,20 @@ local SWEEP_FROM, SWEEP_TO = 3300, 3800
 --- sweep both. So Corrosive Souls is not a currency in 3300..3800 and not in his currency
 --- list at all, while the Codex shows he holds eleven of them.
 ---
---- The likeliest reading is that it is an ITEM, offered rather than spent. Hence the bag
+--- The likeliest reading was that it is an ITEM, offered rather than spent. Hence the bag
 --- scan below: a currency sweep cannot see an item, and concluding "it does not exist"
 --- from a tool that could never have found it is how you get a confident wrong answer.
---- Widening the id range is the other half, and costs nothing.
+---
+--- ✅ CONFIRMED the same evening, second run: **Corrosive Soul = item 273000**, eleven in
+--- his bags. Not a currency at all, which is why every currency route missed it.
+---
+--- So three names, three different things, and they must not be conflated:
+---
+---     Corrosive Coin    currency 3448   the zone's ordinary coin (thousands held)
+---     Corrosive Soul    item 273000     offered in the Corrosive Codex to unlock gifts
+---     Spirit Corrosion  ?               the Altar of Corrosion tree; its counter read 0
+---
+--- The guides call the first two by each other's names. The client does not.
 local BAG_WORD = "corros"
 
 --- The Coiled Isle, measured off Rob's own client on 6 Aug (docs/RESEARCH_12_1.md).

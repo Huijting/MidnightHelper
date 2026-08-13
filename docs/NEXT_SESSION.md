@@ -72,16 +72,27 @@ vanavond "Incompatible" (client loopt achter op de realms; 12.1.5 komt eraan).
 Beschrijving die het spel geeft: *"Spirits of the Amani within the Vaults of Atal'Utek
 deal exclusively in this phantasmal token."*
 
-⚠️ **En er ontbreekt iets.** Robs Corrosive Codex vraagt om **Corrosive Souls** (elf in
-bezit, gifts kosten er 8), maar de sweep vond die niet — terwijl `corros` hem zowel in
-de naamscan als in de id-sweep 3300-3800 gevangen zou hebben. Hij staat ook niet in zijn
-currency-lijst. Vermoedelijk dus een **item** dat je offert, geen currency. De probe kijkt
-nu ook in de tassen; vindt hij daar niets, dan is een bredere sweep de volgende stap
-(`/mh atal 3000 4200`).
+✅ **En de ontbrekende helft is óók gemeten.** De Corrosive Codex vraagt om *Corrosive
+Souls*, en geen enkele currency-route vond die — omdat het er geen is. De tassenscan
+gaf het antwoord: **Corrosive Soul = item 273000**, elf in bezit.
 
-**Drie namen, mogelijk drie dingen** — niet door elkaar halen: *Corrosive Coin* (3448,
-3531 in bezit), *Corrosive Souls* (Codex, 11), en *Spirit Corrosion* (de tooltip op de
-Altar-boom, teller op 0).
+**Drie namen, drie verschillende dingen. Niet door elkaar halen:**
+
+| naam | wat het is | gemeten |
+|---|---|---|
+| Corrosive Coin | currency van de zone | **3448**, duizenden in bezit |
+| Corrosive Soul | **item** dat je offert in de Codex | **273000**, 11 in bezit |
+| Spirit Corrosion | de Altar of Corrosion-boom | teller stond op 0 |
+
+De gidsen noemen de eerste twee bij elkaars naam. De client niet. Dat een currency-sweep
+een item nooit kon vinden was precies de reden om er niet uit te concluderen dat het niet
+bestond.
+
+⏭️ **Wat er nog niet gemeten is:** de twaalf gifts in de Codex (Ophidian Maw, Insidious
+Venom, Viperine Grasp, Virulent Mucus, Mephitic Cloud, Accursed Poison, Gorgoneion Gaze,
+Plague of Corrosion, Lithic Plumage, Miasma Geyser, Ouroboric Cycle, Ula'tek's Gift) —
+die namen komen van een screenshot, niet van de client. En wat de Altar-boom precies
+uitgeeft.
 
 ## ✅ AFGESLOTEN 13 aug — de per-instance aura-route is dicht in gevecht
 
