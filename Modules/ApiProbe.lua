@@ -342,8 +342,12 @@ function ns.MH_Api12Probe()
 	--- `GetTemporaryEnchantmentInfo` at all, while Details — updated for 12.1 on 12 Aug —
 	--- still calls `GetWeaponEnchantInfo`, in a file named `ThingsToMantain_Midnight.lua`.
 	---
-	--- Neither settles it. A datamined diff and a shipped addon are both candidates; the
-	--- client is the judge, and it costs two Note() lines to ask.
+	--- ✅ ANSWERED THE SAME EVENING, on live 12.1: BOTH are functions. The old call was
+	--- never removed, so there is no silent bug and the migration was not imported. The
+	--- new one exists too — 12.1 ADDED it rather than replacing anything.
+	---
+	--- Kept, because a call this addon leans on in three places is worth watching, and
+	--- because "present today" is the only claim a probe can make.
 	Note("GetWeaponEnchantInfo", _G.GetWeaponEnchantInfo)
 	Note("C_PaperDollInfo.GetTemporaryEnchantmentInfo",
 		_G.C_PaperDollInfo and _G.C_PaperDollInfo.GetTemporaryEnchantmentInfo)

@@ -1,19 +1,29 @@
 # 12.1 API-audit — de volledige diff tegen de code
 
-> ⚠️ **NOG NIET TEGEN DE CLIENT GEMETEN, 13 aug 2026.** Dit document komt uit een
-> chat-sessie die de Ketho-diff las; het is dus een kandidatenlijst, geen meting — en
-> deze addon heeft er al vier keer een gehad die niet klopte (Valeera's poisons,
-> Theremis' coords, DBM's Kroluk-placeholder, HandyNotes' quest-band).
+> 🔴 **GEMETEN OP LIVE 12.1, 13 aug 2026 — DE HOOFDCLAIM VAN DIT DOCUMENT IS FOUT.**
 >
-> **De load-bearing claim is dat `GetWeaponEnchantInfo` verwijderd is.** Het bewijs op
-> deze machine wijst de andere kant op: niets roept `C_PaperDollInfo.GetTemporaryEnchantmentInfo`
-> aan, terwijl Details — bijgewerkt voor 12.1 op 12 aug — `GetWeaponEnchantInfo` nog
-> gewoon gebruikt, in `ThingsToMantain_Midnight.lua`.
+> `/mh api12` op Robs eigen client, interface 120100:
 >
-> `/mh api12` vraagt nu allebei de namen aan de client. **De migratie
-> (`WeaponEnchant.lua`) wacht op die uitslag** — hij ligt klaar in Robs Downloads en is
-> bewust niet ingebracht, want migreren op een onbevestigde premisse is precies hoe je
-> een werkende functie vervangt door een die niet bestaat.
+>     GetWeaponEnchantInfo                        = function
+>     C_PaperDollInfo.GetTemporaryEnchantmentInfo = function
+>
+> **`GetWeaponEnchantInfo` is niet verwijderd.** Hij bestaat gewoon. Er is dus geen
+> stille bug, geen Shaman die te horen krijgt dat zijn wapen kaal is, en geen reden om
+> `MissingBuff.lua` en `ConsumableReadyCheck.lua` aan te raken. De migratie
+> (`WeaponEnchant.lua`) is daarom **niet** ingebracht.
+>
+> De nieuwe call bestaat wél, dus dat deel van de diff klopt — 12.1 heeft hem
+> toegevoegd, niet de oude vervangen. Migreren mag ooit, maar dan als keuze en niet als
+> reparatie: `GetTemporaryEnchantmentInfo` werkt per slot en heeft dus andere semantiek,
+> en dat soort verandering hoort niet in MissingBuff, waar een verkeerd antwoord een
+> valse beschuldiging is.
+>
+> ⚠️ **Lees de rest van dit document met die uitslag in gedachten.** De methode
+> (Ketho-diff) is goed en de andere bevindingen zijn plausibel, maar dit was de enige
+> die als dringend werd gebracht én de enige die gecontroleerd is — en hij hield geen
+> stand. Wat hieronder staat is een kandidatenlijst tot de client iets anders zegt.
+> Deze addon kreeg er dit weekend al vier die niet klopten: Valeera's poisons,
+> Theremis' coords, DBM's Kroluk-placeholder en HandyNotes' quest-band.
 
 **13 aug 2026.** Rob vroeg om de 143 nieuwe globals systematisch tegen de 196
 modules te leggen in plaats van steekproefsgewijs. Dit is het resultaat, en het is
@@ -25,14 +35,20 @@ signatures uit Blizzards eigen gegenereerde docs in `Gethe/wow-ui-source` op 12.
     ScriptObjectAPI   0 verwijderd     6 toegevoegd
     Events            2 verwijderd    43 toegevoegd
 
-## Wat MH raakt — één ding, en het maakte geen geluid
+## ~~Wat MH raakt — één ding, en het maakte geen geluid~~ WEERLEGD
 
-Van de 19 verwijderde globals roept MH er precies **één** aan: `GetWeaponEnchantInfo`,
-in `MissingBuff.lua` en tweemaal in `ConsumableReadyCheck.lua`. Alle drie stonden
-achter `if GetWeaponEnchantInfo then`, dus er komt geen foutmelding — de addon zou
-iedereen stil zijn gaan vertellen dat zijn wapen kaal is. Gemigreerd naar
-`Modules/WeaponEnchant.lua` (`C_PaperDollInfo.GetTemporaryEnchantmentInfo`, per slot,
-met de oude call als terugval voor 12.0.7-clients).
+~~Van de 19 verwijderde globals roept MH er precies **één** aan: `GetWeaponEnchantInfo`.~~
+
+De client zegt van niet (zie boven). De redenering eronder blijft wél de moeite waard,
+want hij beschrijft een echt gevaar: MH roept die functie op drie plekken aan, alle drie
+achter `if GetWeaponEnchantInfo then`, en `MissingBuff.WeaponEnchant()` geeft
+`false, false` als hij ontbreekt. Zou hij ooit écht verdwijnen, dan is dat geen stilte
+maar een stellige bewering dat je wapen kaal is.
+
+⏭️ **Dus dit is wat er dan moet gebeuren, en pas dan:** de drie aanroepen achter één deur
+zetten met drie antwoorden (`niet te lezen` / `leeg` / `wel`), waarbij "niet te lezen"
+zwijgt in plaats van beschuldigt. Dat ontwerp staat al uitgeschreven in
+`WeaponEnchant.lua` in Robs Downloads; het wacht op een aanleiding die er nu niet is.
 
 `C_SuperTrack.GetNextWaypointForMap` staat ook in de verwijderd-lijst, maar alleen
 in een MH-commentaar. **En dat commentaar had een open vraag die nu beantwoord is:**
