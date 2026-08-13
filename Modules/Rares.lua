@@ -201,27 +201,36 @@ local COILED_ISLE = {
 		--- spot-checking. Its Coiled Isle file went from nothing to fourteen nodes with
 		--- this update.
 		---
-		--- ⚠️ THEIR QUEST IDS COME FROM A DIFFERENT BAND THAN OURS, AND BOTH ARE REAL.
-		--- We measured 98344..98354 on the PTR by killing rares and watching which id
-		--- flipped. HandyNotes uses 93829..97122 as its completion flag — and its own
-		--- Farthik entry carries BOTH: `quest = 96491` for the node, and
-		--- `Reputation({id = 2772, gain = 50, quest = 98344})`, which is our number.
-		--- So we appear to have captured the reputation quest and they the kill-tracking
-		--- one. Both fire, so both look right from a single kill.
+		--- ⚠️ COORDINATES TAKEN, QUEST IDS NOT — AND THAT IS MEASURED, NOT CAUTION.
 		---
-		--- These four therefore use THEIR band, because it is the band the rest of their
-		--- data is built on and picking ours for them would be inventing a number. The
-		--- mixed bands in this table are deliberate and temporary: `/mh rarequests`
-		--- settles which one means "done this week", and then the whole table moves to
-		--- the winner.
+		--- HandyNotes tracks these with 93829..97122 while our own band is 98344..98354.
+		--- Both looked real: their Farthik entry even carries ours as the reputation
+		--- reward (`Reputation({id = 2772, gain = 50, quest = 98344})`) beside their own
+		--- `quest = 96491`. So the first guess was that a kill fires both and we had each
+		--- caught a different one.
+		---
+		--- `/mh rarequests` on 13 Aug 2026, the day after a Wednesday reset, settled it:
+		---
+		---     Eversong 0/15 · Zul'Aman 0/15 · Harandar 0/15 · Voidstorm 0/14
+		---     Val 0/10 · Naigtal 0/10 · Coiled Isle 2/11 (Big Mon, Nar'zira)
+		---
+		--- Every older zone cleared at the reset, so OUR band is the weekly flag and does
+		--- exactly what this file's header claims. The two still standing are the ones
+		--- Rob killed after that reset — and HandyNotes' ids for those same two kills
+		--- stayed false. Their numbers did not fire.
+		---
+		--- So these four keep their coordinates, which is what HandyNotes is trusted for,
+		--- and carry `0` for the quest — the same honest zero as the two Curse Surge
+		--- bosses below. They will not tick themselves off until somebody kills one with
+		--- `/mh questdiff` running, which is exactly how the working band was found.
 		---
 		--- ⚠️ Three further HandyNotes nodes are placeholders — npc id 0 at 10.00/10.00,
 		--- named Congealed Malice, Khu'tulak and Susarikk. Not imported; a coordinate
 		--- that says 10/10 says nothing.
-		{ 94856, 2512, 70.17, 45.29, "Garsecg", 258916 },
-		{ 95452, 2512, 52.05, 32.29, "Destra", 261142 },
-		{ 96464, 2512, 43.85, 50.86, "Hisstara", 265262 },
-		{ 97122, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090 },
+		{ 0, 2512, 70.17, 45.29, "Garsecg", 258916 },
+		{ 0, 2512, 52.05, 32.29, "Destra", 261142 },
+		{ 0, 2512, 43.85, 50.86, "Hisstara", 265262 },
+		{ 0, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090 },
 	},
 }
 local COILED_ISLE_MAPS = { 2512, 2642 }
@@ -242,23 +251,29 @@ local RARE_QUEST_PAIRS = {
 	{ 268049, 98345, 97112, "Siltmouth, the Unflappable" },
 }
 
---- ⚠️ TWO BANDS, BOTH REAL, AND ONLY ONE CAN MEAN WHAT WE USE IT FOR.
+--- ⚠️ ANSWERED 13 Aug 2026 — OUR BAND IS THE WEEKLY ONE. Kept for the next zone.
 ---
---- We measured 98344..98354 on the PTR: kill a rare, watch which id flips. That is a
---- sound measurement and it produced a band that HandyNotes does not use. Theirs, from
---- the same rares, is 93829..97122 — and their Farthik entry carries ours as the
---- REPUTATION quest while theirs is the node's completion flag. So the likeliest
---- reading is that a kill fires both, we happened to catch one and they the other, and
---- a single kill can never tell them apart.
+--- We measured 98344..98354 on the PTR: kill a rare, watch which id flips. HandyNotes
+--- tracks the same rares with 93829..97122, and their Farthik entry carries ours as the
+--- REPUTATION reward beside their own completion flag — so the first reading was that a
+--- kill fires both and neither of us could tell from one kill.
 ---
---- What CAN tell them apart is a rare killed in a previous week. A weekly tracking
---- quest resets; a one-off reputation grant does not. So this asks the client about
---- both ids for every pairable rare and prints them side by side. If one column is all
---- false on rares Rob has certainly killed, that column is the weekly one — and the
---- whole table moves to it.
+--- Run the day after a Wednesday reset, this said otherwise:
 ---
---- Deliberately reports rather than decides: the answer changes what "done this week"
---- means for nine rares, which is not a call to make from an inference.
+---     Eversong 0/15 · Zul'Aman 0/15 · Harandar 0/15 · Voidstorm 0/14
+---     Val 0/10 · Naigtal 0/10 · Coiled Isle 2/11 (Big Mon, Nar'zira)
+---
+--- Six zones cleared at the reset, so ours is the weekly flag and this tab's "resets
+--- Wednesday" is honest. The two survivors are the ones killed after that reset — and
+--- HandyNotes' ids for those very kills stayed false, so theirs did not fire at all.
+---
+--- ⚠️ The instrument was not the count. It was that the older zones had a whole week
+--- behind them and the Coiled Isle, two days old, could not have. A zone with no
+--- history cannot answer a question about resets.
+---
+--- Left in place because the next zone will raise this again, and because it reports
+--- rather than decides: what "done this week" means for nine rares is not a call to
+--- make from an inference.
 function ns.PrintRareQuestProbe()
 	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
 	local flagged = C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted
