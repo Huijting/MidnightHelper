@@ -358,6 +358,34 @@ function ns.PrintSeasonTransitionDiagnostics()
 		liveSeason,
 		tostring(ns.SEASON2 and ns.SEASON2.s1MplusSeasonId)
 	))
+
+	--- ⚠️ THE DATE IS PART OF THE GATE SINCE 12 Aug, AND THIS DID NOT SHOW IT.
+	---
+	--- On patch day the self-learning fallback ("any M+ season newer than 17") opened
+	--- Season 2 six days early, because that number increments with the PATCH. The gate
+	--- now also requires `SEASON2.seasonStartsAt`. A diagnostic that reports the season
+	--- id but not the date cannot tell you whether the gate is holding — which is the
+	--- only question worth asking in the days before a season opens.
+	local state = ns.GetSeason2State and ns.GetSeason2State() or "?"
+	local startsAt = ns.SEASON2 and ns.SEASON2.seasonStartsAt
+	local now = (GetServerTime and GetServerTime()) or (time and time()) or 0
+	local when = "not set"
+	if startsAt then
+		local left = startsAt - now
+		if left > 0 then
+			when = ("%s UTC — %.1f days away"):format(
+				date("!%d %b %H:%M", startsAt), left / 86400)
+		else
+			when = ("%s UTC — passed"):format(date("!%d %b %H:%M", startsAt))
+		end
+	end
+	print(("   |cffffd100Season 2 gate: %s|r · opens %s"):format(state, when))
+	if state == "preview" then
+		print("   |cff8a8f98\"preview\" is correct before the season opens: S2 content may be|r")
+		print("   |cff8a8f98listed and labelled, never presented as something you can do.|r")
+	elseif state == "live" and startsAt and now < startsAt then
+		print("   |cffff5040LIVE before the start date — the date gate is not being applied.|r")
+	end
 	-- The experience verdict is printed once, at the top. This line used to repeat it
 	-- from ns.IsSeasonNewcomer alone and so reported "unknown" three lines under a
 	-- "provably played" that had been carried by a different signal (Rob, 2026-07-27).
