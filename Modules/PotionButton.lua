@@ -21,6 +21,23 @@ local _, ns = ...
 	so it costs no slot, and the binding survives every rebuild because it is attached to
 	the button rather than to slot 47.
 
+	✅ STILL WORKS ON 12.1 — TESTED 13 Aug 2026, and worth recording because there was a
+	real reason to doubt it. DandersFrames 5.1.2 reports that on 12.1 the secure
+	`type="click"` ACTION is broken: Blizzard's new forbidden-aspects check calls
+	`button:HasAnyForbiddenAspects(...)` with the mouse-button STRING instead of the
+	button, so every delegated click throws (their note points at SecureTemplates.lua:564,
+	and says it hits Clique-style delegation addon-wide).
+
+	That is a different mechanism from this one. A `CLICK <frame>:LeftButton` BINDING is
+	the binding system clicking a real button; `type="click"` is a secure button
+	delegating its action to another button. Similar names, different paths — and
+	"similar" is not something to conclude from.
+
+	So Rob bound a key and pressed it at full health. The game answered "You are already
+	at full Health", which is the item refusing rather than the binding failing: the
+	button fired. A refusal is better proof than a heal would have been, because a heal
+	could have come from anywhere on his bars.
+
 	⚠️ SECURE FRAME RULES (see also MissingBuff.lua):
 	  * attributes may only be set OUT of combat — the item changes as your bags do, so
 	    updates are deferred to PLAYER_REGEN_ENABLED when a fight is on;

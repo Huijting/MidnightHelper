@@ -12,11 +12,16 @@ Werk dit kopstuk bij, of laat het weg -- maar laat het niet verouderen.
 
 | | |
 |---|---|
-| Uitgebracht | **v2.13.0** op CurseForge. Sindsdien **~136 commits** op `main`, nog niet uitgebracht |
-| Nu | **12.1 is live op NA (11 aug); EU krijgt hem 12 aug.** Rob werkt 08:00-16:00 |
-| Volgende stap | **v2.14.0 morgenavond**, mét Rob erbij en Cisca als tester. Release-artefacten staan nog op 2.13.0 -- bewust, tot Rob "af" zegt |
-| Daarna | **v3.0.0** = Season 2 (18 aug) |
+| Uitgebracht | **v2.14.0** op CurseForge (12 aug, tag op `99855ea`) — changelog schoon gerenderd én approved. 2.13.0 stond op 414 downloads |
+| Nu | **12.1 is live** (NA 11 aug, EU 12 aug). **Season 2 opent 18 aug** — de poort wacht op die datum, niet op de patch |
+| Sindsdien | ~20 commits op `main`, nog niet uitgebracht. Versie **niet** bumpen tot Rob "af" zegt |
+| Daarna | **v3.0.0** = Season 2 |
 | Branch | alleen `main` |
+
+⚠️ **Deze kop stuurde op 13 aug voor de tweede keer een sessie de verkeerde kant op** —
+hij beweerde toen dat de Silvermoon-stadsgids nog hardcoded Nederlands was, terwijl die
+'s avonds ervoor volledig vertaald was (43 pins + 7 kopjes, nul letterlijke strings).
+Werk dit blok bij aan het eind van elke sessie, of laat het weg.
 
 ## 📍 Morgen op live, in deze volgorde
 

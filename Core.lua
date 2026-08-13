@@ -843,6 +843,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh atal [van] [tot] — Vaults of Atal'Utek: questketen, currency, uiMapID en het
+	-- gossip-venster. Capture-commando, geen feature; niets is erop gebouwd.
+	if msg == "atal" or msg:match("^atal ") then
+		local from, to = msg:match("^atal (%d+) (%d+)$")
+		if ns.PrintAtalUtekProbe then
+			ns.PrintAtalUtekProbe(tonumber(from), tonumber(to))
+		end
+		return
+	end
+
 	-- /mh rarequests — onze gemeten quest-band naast die van HandyNotes, per rare.
 	-- Beslist welke van de twee "deze week gedaan" betekent.
 	if msg == "rarequests" then

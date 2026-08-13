@@ -328,6 +328,26 @@ function ns.MH_Api12Probe()
 		Note("C_Spell." .. fn, _G.C_Spell and _G.C_Spell[fn])
 	end
 
+	--- ⚠️ THE ONE CLAIM WORTH SETTLING BEFORE ACTING ON IT (13 Aug 2026).
+	---
+	--- A chat session researching the 12.0.7 -> 12.1.0 API diff reports that
+	--- `GetWeaponEnchantInfo` is REMOVED, and wrote a migration to
+	--- `C_PaperDollInfo.GetTemporaryEnchantmentInfo`. If true it matters a lot: MH calls
+	--- the old function in three places, all behind `if GetWeaponEnchantInfo then`, and
+	--- `MissingBuff.WeaponEnchant()` answers `false, false` when it is missing. That is
+	--- not silence, it is the addon telling every Shaman and Rogue their weapon is bare,
+	--- forever, in a confident voice — the 5 July shield case again.
+	---
+	--- But the installed evidence points the other way. Nothing on this machine calls
+	--- `GetTemporaryEnchantmentInfo` at all, while Details — updated for 12.1 on 12 Aug —
+	--- still calls `GetWeaponEnchantInfo`, in a file named `ThingsToMantain_Midnight.lua`.
+	---
+	--- Neither settles it. A datamined diff and a shipped addon are both candidates; the
+	--- client is the judge, and it costs two Note() lines to ask.
+	Note("GetWeaponEnchantInfo", _G.GetWeaponEnchantInfo)
+	Note("C_PaperDollInfo.GetTemporaryEnchantmentInfo",
+		_G.C_PaperDollInfo and _G.C_PaperDollInfo.GetTemporaryEnchantmentInfo)
+
 	--- Frame methods have to be asked of a frame, not of the global table.
 	---
 	--- ⚠️ "ABSENT" HERE MEANS ABSENT ON THIS WIDGET TYPE, UNDER THIS NAME. Both halves
