@@ -377,6 +377,100 @@ local function PrintGossip(out)
 end
 
 -- ---------------------------------------------------------------------------
+-- The three achievements — and the one thing we still take on trust
+-- ---------------------------------------------------------------------------
+
+--- ⚠️ ADDED 14 Aug 2026, AND THIS IS THE SECTION THAT MATTERS MOST NOW.
+---
+--- Modules/AchievementsData.lua now ships The Honored Dead as a routed twelve-node hunt.
+--- Its coordinates come from HandyNotes_Midnight 150, which this repo trusts for
+--- coordinates. Its criteria ids come from the same file, which this repo has NOT
+--- trusted for ids since 13 Aug — `/mh rarequests` proved HandyNotes' Coiled Isle quest
+--- band was not the flag the game actually fires.
+---
+--- So the hunt is shipped on a source that is half-trusted, and the failure is silent:
+--- a wrong criteria id leaves the card stuck at 0/12 while the player stands on the
+--- memorial. This asks the client for the truth instead. Anything the client prints
+--- here beats anything a note file says.
+local ACHIEVEMENTS = {
+	{ id = 63610, label = "The Honored Dead (twelve memorials, map 2509)" },
+	{ id = 63601, label = "the three rare elites on 2509 (locations still unknown)" },
+	{ id = 62601, label = "the Underbelly (map 2613)" },
+}
+
+--- Exactly what AchievementsData.lua ships for 63610, in the order it ships them.
+--- Present so the probe can say "these match" or "these do not" rather than leaving
+--- Rob to compare two lists of six-digit numbers by eye.
+local HONORED_DEAD_CRITERIA = {
+	116407, 116408, 116409, 116410, 116411, 116412,
+	116413, 116414, 116415, 116416, 116417, 116418,
+}
+
+local function PrintAchievements(out)
+	if not (GetAchievementInfo and GetAchievementNumCriteria and GetAchievementCriteriaInfo) then
+		print("   |cffff8080achievement API not available|r")
+		return
+	end
+	print("   |cff8fd3ffAchievements|r  (criteria ids below come from YOUR client)")
+
+	local shipped = {}
+	for _, id in ipairs(HONORED_DEAD_CRITERIA) do
+		shipped[id] = true
+	end
+
+	for _, row in ipairs(ACHIEVEMENTS) do
+		local rec = { id = row.id, criteria = {} }
+		local okInfo, _, name, _, completed = pcall(GetAchievementInfo, row.id)
+		rec.name = okInfo and SafeText(name) or nil
+		rec.completed = okInfo and completed and true or false
+		print(("      |cffffffff%d|r  %s  — %s  %s"):format(
+			row.id,
+			rec.name or "|cffff5040no name from the game|r",
+			row.label,
+			rec.completed and "|cff40c040earned|r" or "|cff9d9d9dnot earned|r"))
+
+		local okNum, num = pcall(GetAchievementNumCriteria, row.id)
+		num = (okNum and tonumber(num)) or 0
+		if num == 0 then
+			print("         (the client lists no criteria for this id)")
+		end
+		local matched, unmatched = 0, 0
+		for i = 1, num do
+			-- criteriaID is the 10th return of GetAchievementCriteriaInfo.
+			local okC, cName, _, cDone, _, _, _, _, _, _, criteriaID = pcall(GetAchievementCriteriaInfo, row.id, i)
+			if okC then
+				local cid = tonumber(criteriaID) or 0
+				rec.criteria[#rec.criteria + 1] = { index = i, id = cid, name = SafeText(cName), done = cDone and true or false }
+				local tag = ""
+				if row.id == 63610 then
+					if shipped[cid] then
+						matched = matched + 1
+						tag = "  |cff40c040(we ship this one)|r"
+					else
+						unmatched = unmatched + 1
+						tag = "  |cffff5040(NOT in our data)|r"
+					end
+				end
+				print(("         %2d  criteria |cffffffff%d|r  %s  %s%s"):format(
+					i, cid, SafeText(cName) or "?", cDone and "done" or "-", tag))
+			end
+		end
+
+		if row.id == 63610 and num > 0 then
+			if unmatched == 0 and matched == #HONORED_DEAD_CRITERIA then
+				print("         |cff40c040All twelve match what we ship — the hunt will tick off correctly.|r")
+			else
+				print(("         |cffff5040%d of the client's criteria are not in our data (%d matched).|r"):format(
+					unmatched, matched))
+				print("         |cffff5040Replace the criteria ids in Modules/AchievementsData.lua with the ones above.|r")
+			end
+		end
+
+		out.achievements[#out.achievements + 1] = rec
+	end
+end
+
+-- ---------------------------------------------------------------------------
 -- /mh atal [from] [to]
 -- ---------------------------------------------------------------------------
 
@@ -390,7 +484,9 @@ function ns.PrintAtalUtekProbe(from, to)
 	SweepCurrencyIds(from, to, out.currencies)
 	out.items = {}
 	ScanBagsForItems(out.items)
+	out.achievements = {}
 	PrintMap(out)
+	PrintAchievements(out)
 	PrintGossip(out)
 
 	ns.db = ns.db or {}
@@ -398,4 +494,5 @@ function ns.PrintAtalUtekProbe(from, to)
 
 	print("   |cff8a8f98Saved to the DB — /reload writes the file. Names and ids come from your client, not from a guide.|r")
 	print("   |cff8a8f98Next: /mh capture at the altar for its coordinates, and /mh zone inside the Vaults.|r")
+	print("   |cff8a8f98Still open: docs/VAULTS_MEASUREMENTS.md lists what nobody has measured yet.|r")
 end

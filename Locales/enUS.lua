@@ -443,6 +443,7 @@ ns._mhLocales.enUS = {
 	ACH_NOTE_HONOREDURNS = "Fill the cache by looting the 4 Honored Warrior's Urns around Zul'Aman; each spawns a Chosen miniboss that drops the token, then return to the cache.",
 	ACH_NOTE_SEALINGORBS = "Destroy the 4 Sealing Orbs around the chest to unseal it.",
 	ACH_NOTE_BAITTACKLE = "In the back of a small cave (entrance ~21.1, 67.1).",
+	ACH_NOTE_STRANGER = "Under the bridge, not on it — the memorial sits below the walkway, so a route that lands you on top of it will look like nothing is there.",
 	ACH_NOTE_BURROW = "In a small cave.",
 	ACH_NOTE_MRRUK = "Guarded by the miniboss Mrruk the Musclefin - defeat it first, then loot the trove.",
 	ACH_NOTE_PREDAXAS = "In a small cave (entrance ~48.96, 78.33). Inside you get the Disruptive Ozone debuff (no spells/abilities) - cross the electrified egg clutch without touching the glowing ground circles to reach the chest.",
@@ -482,6 +483,8 @@ ns._mhLocales.enUS = {
 	ACH_PEAKS_HARANDAR = "Harandar: The Highest Peaks",
 	ACH_PEAKS_VOIDSTORM = "Voidstorm: The Highest Peaks",
 	ACH_LORE_HUNTER = "Midnight Lore Hunter",
+	-- Fallback only: the card prefers the live achievement name from the client.
+	ACH_LORE_HONORED_DEAD = "The Honored Dead (Vaults of Atal'Utek)",
 	-- Trading Post tab
 	TAB_TRADINGPOST = "Trading Post",
 	TRADINGPOST_SUBTITLE = "This month's Trading Post wares, their Trader's Tender price, and whether you've already bought or own them.",
@@ -498,8 +501,16 @@ ns._mhLocales.enUS = {
 	HOME_CAMPAIGN_AVAILABLE = "The lead-in campaign has begun — pick it up in Silvermoon.",
 	HOME_CAMPAIGN_INPROGRESS = "Lead-in campaign in progress — follow it up.",
 	HOME_CAMPAIGN_ROUTE_BTN = "Route to the campaign start",
+	HOME_SECTION_VAULTS = "New: the Vaults of Atal'Utek",
+	-- No "go here" in the available line: the entrance has never been measured, so the
+	-- wording stops at what the game will tell you itself.
+	HOME_VAULTS_AVAILABLE = "Three quests open the Vaults, on the Coiled Isle — a zone with its own currency, twelve memorials and three achievements. You have not started them.",
+	HOME_VAULTS_INPROGRESS = "You are partway into the Vaults chain — finish it and the whole area opens up.",
+	HOME_VAULTS_ROUTE_BTN = "Follow the current Vaults quest",
 	HOME_CAMPAIGN_REWARD_FMT = "Reward: %s",
 	CAMPAIGN_ULATEK_NAME = "Curse of Ula'tek campaign",
+	CAMPAIGN_VAULTS_NAME = "Vaults of Atal'Utek chain",
+	CAMPAIGN_VAULTS_STARTQUEST = "Into the Vaults of Atal'Utek",
 	CAMPAIGN_ULATEK_STARTQUEST = "Hagar's Invitation",
 	CAMPAIGN_ULATEK_REWARD_MOUNT = "Dusk Grimlynx (mount)",
 	CAMPAIGN_ULATEK_REWARD_PET = "Akiki (pet)",

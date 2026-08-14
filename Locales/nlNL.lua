@@ -438,6 +438,7 @@ ns._mhLocales.nlNL = {
 	ACH_NOTE_HONOREDURNS = "Vul de cache door de 4 Honored Warrior's Urns rond Zul'Aman te looten; elk roept een Chosen-miniboss op die de token dropt, keer daarna terug naar de cache.",
 	ACH_NOTE_SEALINGORBS = "Vernietig de 4 Sealing Orbs rond de kist om hem te ontzegelen.",
 	ACH_NOTE_BAITTACKLE = "Achterin een grotje (ingang ~21.1, 67.1).",
+	ACH_NOTE_STRANGER = "Onder de brug, niet erop — het gedenkteken staat onder het looppad, dus een route die je er bovenop zet ziet eruit alsof er niets is.",
 	ACH_NOTE_BURROW = "In een grotje.",
 	ACH_NOTE_MRRUK = "Bewaakt door de miniboss Mrruk the Musclefin - versla hem eerst en loot dan de trove.",
 	ACH_NOTE_PREDAXAS = "In een grotje (ingang ~48.96, 78.33). Binnen krijg je de Disruptive Ozone-debuff (geen spells/abilities) - steek de geëlektrificeerde eierlegsel over zonder de oplichtende grondcirkels te raken om bij de kist te komen.",
@@ -477,6 +478,8 @@ ns._mhLocales.nlNL = {
 	ACH_PEAKS_HARANDAR = "Harandar: De Hoogste Pieken",
 	ACH_PEAKS_VOIDSTORM = "Voidstorm: De Hoogste Pieken",
 	ACH_LORE_HUNTER = "Midnight Lore Hunter",
+	-- Alleen fallback: de kaart gebruikt bij voorkeur de live naam uit de client.
+	ACH_LORE_HONORED_DEAD = "The Honored Dead (Vaults of Atal'Utek)",
 	TAB_TRADINGPOST = "Trading Post",
 	TRADINGPOST_SUBTITLE = "De Trading Post-waren van deze maand, hun Trader's Tender-prijs, en of je ze al hebt gekocht of bezit.",
 	TRADINGPOST_TENDER_FMT = "Trader's Tender: %d %s",
@@ -491,8 +494,16 @@ ns._mhLocales.nlNL = {
 	HOME_CAMPAIGN_AVAILABLE = "De aanloop-campagne is begonnen — pak 'm op in Silvermoon.",
 	HOME_CAMPAIGN_INPROGRESS = "Aanloop-campagne loopt — maak 'm af.",
 	HOME_CAMPAIGN_ROUTE_BTN = "Route naar de campagne-start",
+	HOME_SECTION_VAULTS = "Nieuw: de Vaults of Atal'Utek",
+	-- Geen "ga hierheen" in de available-regel: de ingang is nooit gemeten, dus de tekst
+	-- stopt bij wat het spel je zelf gaat vertellen.
+	HOME_VAULTS_AVAILABLE = "Drie quests openen de Vaults, op de Coiled Isle — een gebied met een eigen currency, twaalf gedenktekens en drie achievements. Je bent er nog niet aan begonnen.",
+	HOME_VAULTS_INPROGRESS = "Je zit middenin de Vaults-keten — maak 'm af en het hele gebied gaat open.",
+	HOME_VAULTS_ROUTE_BTN = "Volg de huidige Vaults-quest",
 	HOME_CAMPAIGN_REWARD_FMT = "Beloning: %s",
 	CAMPAIGN_ULATEK_NAME = "Curse of Ula'tek-campagne",
+	CAMPAIGN_VAULTS_NAME = "Vaults of Atal'Utek-keten",
+	CAMPAIGN_VAULTS_STARTQUEST = "Into the Vaults of Atal'Utek",
 	CAMPAIGN_ULATEK_STARTQUEST = "Hagar's Invitation",
 	CAMPAIGN_ULATEK_REWARD_MOUNT = "Dusk Grimlynx (mount)",
 	CAMPAIGN_ULATEK_REWARD_PET = "Akiki (pet)",

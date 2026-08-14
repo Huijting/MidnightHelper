@@ -231,9 +231,28 @@ local COILED_ISLE = {
 		{ 0, 2512, 52.05, 32.29, "Destra", 261142 },
 		{ 0, 2512, 43.85, 50.86, "Hisstara", 265262 },
 		{ 0, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090 },
+		--- The Underbelly (map 2613), the level below the Vaults of Atal'Utek. One rare
+		--- there, from HandyNotes_Midnight 150 — coordinates taken, quest id not.
+		--- HandyNotes gives 96030, which sits squarely in the band that `/mh rarequests`
+		--- proved is NOT the weekly kill flag on this isle, so it carries the same honest
+		--- zero as the four above: it will never tick itself off until somebody kills him
+		--- with `/mh questdiff` running. An id that looks like progress and never fires is
+		--- worse than a blank.
+		{ 0, 2613, 38.40, 17.69, "Szarith the Fanged" },
 	},
 }
-local COILED_ISLE_MAPS = { 2512, 2642 }
+--- 2509 = Vaults of Atal'Utek, 2613 = the Underbelly beneath it. Both are children of
+--- 2512 and both were measured with `/mh atal` on 13 Aug 2026.
+---
+--- They are listed here so the Rares tab and `ns.IsZoneCovered` keep answering once you
+--- walk down into the Vaults: without them the tab would go blank exactly where a new
+--- player is most lost, and "no rare list for this zone" would read as "there is nothing
+--- here" — which is the one thing this file's own header says must not happen.
+---
+--- ⚠️ 2509 itself contributes NO rares. Congealed Malice, Khu'tulak and Susarikk live
+--- there (achievement 63601) and HandyNotes still parks all three at 10.00/10.00. A
+--- placeholder is not a location; they stay out until someone measures them.
+local COILED_ISLE_MAPS = { 2512, 2642, 2509, 2613 }
 
 --------------------------------------------------------------------------------
 -- `/mh rarequests` — which quest id actually means "done"?

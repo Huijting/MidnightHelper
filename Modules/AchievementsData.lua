@@ -380,6 +380,57 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 114004, mapID = 2599, x = 35.90, y = 59.80, name = "Shadowguard Destroyer", quest = 96465 },
 		},
 	},
+	--- The Honored Dead — Vaults of Atal'Utek (uiMapID 2509, child of 2512 The Coiled
+	--- Isle, measured with /mh atal on 13 Aug 2026).
+	---
+	--- WHY THIS ENTRY EXISTS. Rob walked in on 13 Aug and said "I have no idea what I
+	--- can all do there and above all where." Twelve memorials with real coordinates is
+	--- the answer to both halves, and this table is the whole feature: the card, the
+	--- checklist, the Route button, the arrow, the per-node waypoints and the NavSearch
+	--- rows all come off it without another line of code.
+	---
+	--- ⚠️ SOURCE: HandyNotes_Midnight 150 (14 Aug 2026) — the source this repo trusts
+	--- for rare COORDINATES and, since 13 Aug, explicitly does NOT trust for quest ids.
+	--- Its Coiled Isle quest band (93829..97122) turned out not to be the flag that
+	--- fires on a kill; ours (98344..98354) was. That ruling was about rares, and these
+	--- are quest objectives rather than kills, so it does not automatically carry over —
+	--- but it is the reason both bands below are still unconfirmed rather than assumed.
+	---
+	--- The failure mode is mild either way: NodeDone prefers the criteria id and falls
+	--- back to the quest, so wrong ids leave the card stuck at 0/12 instead of claiming
+	--- progress that is not there. `/mh ach id 63610` prints every criterion of 63610 in
+	--- order and settles 116407..116418 in one go; `/mh questdiff` over a memorial
+	--- settles the quest band.
+	---
+	--- Node order is the walking order the Codex article prints — top of the map
+	--- downwards — so the checklist and the article read the same. The Route button
+	--- re-sorts by real distance anyway.
+	---
+	--- nameKey is ACH_LORE_* deliberately. These are memorials you visit, not chests, so
+	--- [Lore] is the honest tag; it also makes feedsMeta default to false, which is
+	--- right, because nobody has measured whether 63610 rolls into a zone meta.
+	---
+	--- No `faction`: the Coiled Isle's major-faction id has never been measured here.
+	--- RenownLineText omits the line when it is nil, which beats naming the wrong one.
+	{
+		achievementID = 63610, -- The Honored Dead
+		nameKey = "ACH_LORE_HONORED_DEAD",
+		nodes = {
+			{ criteria = 116415, mapID = 2509, x = 46.79, y = 7.51, name = "To a sister", quest = 98037 },
+			{ criteria = 116418, mapID = 2509, x = 56.49, y = 22.88, name = "To a shield-bearer", quest = 98040 },
+			{ criteria = 116414, mapID = 2509, x = 47.22, y = 28.77, name = "To a father", quest = 98036 },
+			{ criteria = 116417, mapID = 2509, x = 42.57, y = 33.18, name = "To a stranger", quest = 98039,
+				note = "ACH_NOTE_STRANGER" },
+			{ criteria = 116411, mapID = 2509, x = 52.91, y = 33.90, name = "To a captain", quest = 98033 },
+			{ criteria = 116410, mapID = 2509, x = 55.62, y = 40.60, name = "To a dream", quest = 98032 },
+			{ criteria = 116412, mapID = 2509, x = 42.91, y = 41.23, name = "To sons", quest = 98034 },
+			{ criteria = 116408, mapID = 2509, x = 52.21, y = 45.12, name = "To a lover", quest = 98030 },
+			{ criteria = 116416, mapID = 2509, x = 38.50, y = 47.66, name = "To Comrades", quest = 98038 },
+			{ criteria = 116409, mapID = 2509, x = 55.31, y = 48.45, name = "To parents", quest = 98031 },
+			{ criteria = 116407, mapID = 2509, x = 49.50, y = 56.59, name = "To a daughter", quest = 98029 },
+			{ criteria = 116413, mapID = 2509, x = 45.81, y = 61.79, name = "To Failure", quest = 98035 },
+		},
+	},
 }
 
 -- Elite rares (RareElite in HandyNotes_Midnight): tougher, may want a group or some

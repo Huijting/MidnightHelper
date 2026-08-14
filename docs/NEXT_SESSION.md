@@ -151,6 +151,38 @@ zien gaan. Rob's `/reload` is de eerste echte test. Wat er nog ligt als hij het 
 klopt de saldo-regel voor Corrosive Coin, en past de coördinatenregel in de panelbreedte
 of loopt hij lelijk af.
 
+### ✅ GEBOUWD 14 aug — en er staat nu een hele Vaults-laag omheen
+
+Rob vroeg wat er nog meer kon voor iemand die er nooit geweest is. Vier dingen erbij,
+alle vier op gemeten data:
+
+1. **The Honored Dead is een echte hunt.** Eén entry in `Modules/AchievementsData.lua`
+   (63610, twaalf nodes op 2509) levert de kaart, de vinkjes, de Route-knop, de pijl,
+   per-punt waypoints, auto-doorschuiven en NavSearch-regels op — nul nieuwe code. De
+   kaart draagt `nameKey = "ACH_LORE_HONORED_DEAD"`, dus tag `[Lore]` en `feedsMeta`
+   blijft false: of 63610 een meta voedt is nooit gemeten.
+2. **De Underbelly.** Szarith the Fanged staat in de Rares-tab op 2613 met een **honest
+   zero** als quest-id — HandyNotes geeft 96030 en die band is op dit eiland aantoonbaar
+   niet de vlag die vuurt. Kaarten 2509 en 2613 zijn aan `COILED_ISLE_MAPS` toegevoegd,
+   zodat de tab niet leeg valt precies waar een nieuwe speler het meest verdwaald is.
+3. **`CampaignLeadIn.lua` draagt nu twee ketens.** Ula'tek ongewijzigd; erbij de
+   Vaults-keten 98388 → 97640 → 98428. Elke campagne brengt eigen locale-keys mee voor
+   kop en tekst, en `ns.GetCampaignLeadInStates()` is nieuw naast de oude enkelvoudige
+   functie. `HomeDashboard` loopt er nu overheen.
+4. **`/mh atal` vraagt de client nu ook naar 63610, 63601 en 62601** en zegt per
+   criterium of wij hem verschepen.
+
+⚠️ **De Vaults-keten heeft met opzet GEEN startcoördinaat**, dus geen routeknop tot je
+de keten hebt opgepakt. De ingang is nooit gemeten en Zygors 47.24/60.79 gaat hier niet
+in — dezelfde bron zat op 12 aug 13m naast de Crafting Orders-pin.
+
+⚠️ **De criteria-ids 116407..116418 zijn nog HandyNotes, niet client.** Als ze fout zijn
+blijft de kaart stil op 0/12 staan in plaats van te liegen. **`/mh atal` beslist het nu
+zelf** — het nieuwe Achievements-blok zet er groen of rood bij. Dat is meting nummer één.
+
+📋 **`docs/VAULTS_MEASUREMENTS.md`** is nieuw: acht dingen die nog ongemeten zijn, met
+per punt het commando. Eén ronde door de Vaults met die lijst sluit vrijwel alles af.
+
 ## ✅ AFGESLOTEN 13 aug — de per-instance aura-route is dicht in gevecht
 
 JustAC's per-instance route (`GetUnitAuraInstanceIDs` + `ShouldUnitAuraInstanceBeSecret`)
