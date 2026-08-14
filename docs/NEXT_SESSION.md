@@ -132,6 +132,25 @@ Fanged, quest 96030, 38.40/17.69) plus vijf "Soft Underbelly"-nodes voor achieve
 Dat is samen met wat we zelf maten (Corrosive Coin 3448, Corrosive Soul 273000, de
 Codex, de Altar-boom) genoeg voor een echte uitleg-pagina.
 
+### ✅ GEBOUWD 14 aug — die uitleg-pagina staat er, in zeven talen
+
+Codex-artikel `vaults_atalutek`, categorie **world**, sort 12, met `currencyId = 3448`
+zodat je eigen Corrosive Coins boven het artikel staan (3448 is ook aan
+`CODEX_TRACKED_CURRENCY_IDS` toegevoegd). De twaalf gedenktekens staan er als één
+looproute, van boven op de kaart naar beneden, plus de Underbelly-ingang en Szarith.
+
+Vier dingen staan er **met opzet niet** in, en dat hoort zo te blijven: de twaalf
+gift-namen uit de Corrosive Codex (screenshot, geen client), wat de Altar-boom uitgeeft
+(ongemeten, teller stond op 0), coördinaten voor de drie rare elites (bestaan niet), en
+elke zin waarin Corrosive Coin en Corrosive Soul in elkaar kunnen schuiven. De redenen
+staan als commentaar bij de registry-entry in `Modules/MidnightCodexData.lua`.
+
+⚠️ **Nog niet in het spel gezien.** `lint_addon.py` gaf 0 HARD/0 SOFT en `luac5.1`
+parseerde alle 223 bestanden in een cloud-sessie, maar niemand heeft het artikel open
+zien gaan. Rob's `/reload` is de eerste echte test. Wat er nog ligt als hij het opent:
+klopt de saldo-regel voor Corrosive Coin, en past de coördinatenregel in de panelbreedte
+of loopt hij lelijk af.
+
 ## ✅ AFGESLOTEN 13 aug — de per-instance aura-route is dicht in gevecht
 
 JustAC's per-instance route (`GetUnitAuraInstanceIDs` + `ShouldUnitAuraInstanceBeSecret`)
