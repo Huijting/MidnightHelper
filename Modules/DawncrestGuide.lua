@@ -40,12 +40,29 @@ end
 --- labels. It is read defensively because a global that vanishes must not take the row
 --- with it, and what we found is recorded so a missing string is visible rather than
 --- silently papered over.
+--- ⚠️ IT IS A FORMAT STRING, NOT A LABEL. Measured 14 Aug, on screen:
+---
+---     Adventurer   100  (Current Season Maximum: %s%s/%s 100 / 100)
+---
+--- The global is `"Current Season Maximum: %s%s/%s"`, so pasting it in whole printed its
+--- own placeholders next to our numbers. I took it for a bare label because Plumber's
+--- locale files list it beside plain labels, and never looked at the value.
+---
+--- Blizzard's own arguments are not guessed at either: what the three stand for is
+--- unknown, and filling them in blind is how you get "10/100" reading as "100/10". So
+--- everything from the first `%` is cut and the remainder used as a label, with our own
+--- numbers after it. That keeps Blizzard's wording and translation without pretending to
+--- know its argument order.
 local function SeasonMaxLabel()
 	local s = _G.CURRENCY_SEASON_TOTAL_MAXIMUM
 	if type(s) == "string" and s ~= "" then
-		ns.db = ns.db or {}
-		ns.db.seasonMaxLabelSource = "CURRENCY_SEASON_TOTAL_MAXIMUM"
-		return (s:gsub("%s*:%s*$", ""))
+		local label = s:match("^(.-)%%") or s          -- cut at the first placeholder
+		label = label:gsub("[%s:%-]+$", "")            -- and any trailing colon or dash
+		if label ~= "" then
+			ns.db = ns.db or {}
+			ns.db.seasonMaxLabelSource = "CURRENCY_SEASON_TOTAL_MAXIMUM"
+			return label
+		end
 	end
 	ns.db = ns.db or {}
 	ns.db.seasonMaxLabelSource = "fallback"
