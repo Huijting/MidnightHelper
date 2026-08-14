@@ -2780,6 +2780,7 @@ fill("deDE", {
 	SMC_CAT_HORDE = "Horde-Viertel (nur Horde)",
 	SMC_CAT_PROFESSIONS = "Berufe",
 	SMC_CAT_GATHERING = "Sammelberufe",
+	DAWNCREST_ROW_CAP_FMT = "%d  (von %d, dem Maximum)",
 })
 
 fill("frFR", {
@@ -2918,6 +2919,7 @@ fill("frFR", {
 	SMC_CAT_HORDE = "Quartier de la Horde (Horde uniquement)",
 	SMC_CAT_PROFESSIONS = "Métiers",
 	SMC_CAT_GATHERING = "Métiers de récolte",
+	DAWNCREST_ROW_CAP_FMT = "%d  (sur %d, le plafond)",
 })
 
 fill("esES", {
@@ -3056,6 +3058,7 @@ fill("esES", {
 	SMC_CAT_HORDE = "Distrito de la Horda (solo Horda)",
 	SMC_CAT_PROFESSIONS = "Profesiones",
 	SMC_CAT_GATHERING = "Profesiones de recolección",
+	DAWNCREST_ROW_CAP_FMT = "%d  (de %d, el máximo)",
 })
 
 fill("ptBR", {
@@ -3194,6 +3197,7 @@ fill("ptBR", {
 	SMC_CAT_HORDE = "Distrito da Horda (só Horda)",
 	SMC_CAT_PROFESSIONS = "Profissões",
 	SMC_CAT_GATHERING = "Profissões de recolha",
+	DAWNCREST_ROW_CAP_FMT = "%d  (de %d, o máximo)",
 })
 
 fill("itIT", {
@@ -3332,5 +3336,6 @@ fill("itIT", {
 	SMC_CAT_HORDE = "Distretto dell’Orda (solo Orda)",
 	SMC_CAT_PROFESSIONS = "Professioni",
 	SMC_CAT_GATHERING = "Professioni di raccolta",
+	DAWNCREST_ROW_CAP_FMT = "%d  (su %d, il massimo)",
 })
 

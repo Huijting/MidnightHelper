@@ -37,12 +37,24 @@ local function GetCurrencyQty(currencyId)
 	end
 	local qty = math.floor(tonumber(info.quantity) or 0)
 	local earned = math.floor(tonumber(info.quantityEarnedThisWeek) or 0)
-	local maxQ = tonumber(info.maxQuantity) or tonumber(info.maxWeeklyQuantity) or 0
+	--- ⚠️ A WEEKLY CAP AND A TOTAL CAP ARE NOT THE SAME NUMBER, and this line used to
+	--- pretend they were: `maxQuantity or maxWeeklyQuantity`, whichever existed, handed
+	--- to a row that always said "this week X / Y".
+	---
+	--- Mistcrest has no weekly cap at all and a total cap of 100. Rob was sitting at
+	--- 100 of 100 — capped, the game had told him so the night before — and the row read
+	--- "100 (this week 0 / 100)". A weekly counter of zero against a lifetime cap, which
+	--- reads as "you have earned nothing this week and may earn a hundred more".
+	---
+	--- So they come back separately and the caller chooses the sentence. Dawncrest had
+	--- neither cap set, which is why this survived a whole season unnoticed.
+	local maxWeekly = math.floor(tonumber(info.maxWeeklyQuantity) or 0)
+	local maxTotal = math.floor(tonumber(info.maxQuantity) or 0)
 	-- 4th return: does this id exist at all? A real currency with a balance of 0 and
 	-- an id the game does not know both read as "0", and the caller has to tell them
 	-- apart to pick the right id.
 	local exists = type(info.name) == "string" and info.name ~= ""
-	return qty, earned, math.floor(maxQ), exists
+	return qty, earned, maxWeekly, exists, maxTotal
 end
 
 --- The currency ids this tier uses THIS season, primary first.
@@ -135,12 +147,12 @@ local function GetTierCurrencyQty(tier)
 	-- they are used only when the primary id is not a currency the game knows, never
 	-- to beat a real balance.
 	for i = 1, #ids do
-		local q, earned, maxQ, exists = GetCurrencyQty(ids[i])
+		local q, earned, maxWeekly, exists, maxTotal = GetCurrencyQty(ids[i])
 		if exists then
-			return q, earned, maxQ
+			return q, earned, maxWeekly, maxTotal
 		end
 	end
-	return 0, 0, 0
+	return 0, 0, 0, 0
 end
 
 local function RequestDawncrestCurrencyData()
@@ -381,10 +393,16 @@ function ns.RefreshDawncrestGuide()
 			local tier = tiers[i]
 			local row = crestRows[i]
 			if tier and row and row.label and row.count then
-				local qty, earned, maxQ = GetTierCurrencyQty(tier)
+				local qty, earned, maxWeekly, maxTotal = GetTierCurrencyQty(tier)
 				row.label:SetText(ns:L(tier.labelKey))
-				if maxQ > 0 then
-					row.count:SetText(ns:L("DAWNCREST_ROW_FMT"):format(qty, earned, maxQ))
+				--- Three sentences, because there are three situations and one of them
+				--- used to borrow the other's words. A weekly cap gets the weekly line;
+				--- a cap with no weekly reset gets a plain "x of y"; no cap at all gets
+				--- just the number.
+				if maxWeekly > 0 then
+					row.count:SetText(ns:L("DAWNCREST_ROW_FMT"):format(qty, earned, maxWeekly))
+				elseif maxTotal > 0 then
+					row.count:SetText(ns:L("DAWNCREST_ROW_CAP_FMT"):format(qty, maxTotal))
 				else
 					row.count:SetText(tostring(qty))
 				end
