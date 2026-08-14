@@ -94,6 +94,44 @@ Plague of Corrosion, Lithic Plumage, Miasma Geyser, Ouroboric Cycle, Ula'tek's G
 die namen komen van een screenshot, niet van de client. En wat de Altar-boom precies
 uitgeeft.
 
+### 🗺️ En het "wat kan ik daar dóen" ligt al klaar — HandyNotes 150, 14 aug
+
+Rob vroeg 13 aug: *"ik heb geen idee wat ik er allemaal kan doen en vooral waar"*.
+HandyNotes_Midnight dekt de Vaults wél, met 22 nodes over twee kaarten:
+
+**The Honored Dead — achievement 63610, twaalf memorials, ALLE met echte coords.**
+Quests 98029-98040, criteria 116407-116418. Dat is een verzamel-hunt zoals onze
+Achievements-tab er al meer heeft:
+
+| quest | criteria | naam | coords (2509) |
+|---|---|---|---|
+| 98029 | 116407 | To a daughter | 49.50, 56.59 |
+| 98030 | 116408 | To a lover | 52.21, 45.12 |
+| 98031 | 116409 | To parents | 55.31, 48.45 |
+| 98032 | 116410 | To a dream | 55.62, 40.60 |
+| 98033 | 116411 | To a captain | 52.91, 33.90 |
+| 98034 | 116412 | To sons | 42.91, 41.23 |
+| 98035 | 116413 | To Failure | 45.81, 61.79 |
+| 98036 | 116414 | To a father | 47.22, 28.77 |
+| 98037 | 116415 | To a sister | 46.79, 7.51 |
+| 98038 | 116416 | To Comrades | 38.50, 47.66 |
+| 98039 | 116417 | To a stranger (onder de brug) | 42.57, 33.18 |
+| 98040 | 116418 | To a shield-bearer | 56.49, 22.88 |
+
+⚠️ 63610 stond al sinds 19 juli als gedatamined in de watch-log. Nu heeft hij twaalf
+gemeten punten.
+
+**Verder in de Vaults:** de ingang naar de Underbelly op **47.30, 11.20**, en drie
+rare elites (Congealed Malice, Khu'tulak, Susarikk — achievement **63601**) waarvan
+HandyNotes de locatie zelf nog niet weet (10.00/10.00 placeholders).
+
+**En een derde kaart: de Underbelly = 2613**, kind van 2509. Eén rare (Szarith the
+Fanged, quest 96030, 38.40/17.69) plus vijf "Soft Underbelly"-nodes voor achievement
+**62601**, waarvan drie nog placeholder.
+
+Dat is samen met wat we zelf maten (Corrosive Coin 3448, Corrosive Soul 273000, de
+Codex, de Altar-boom) genoeg voor een echte uitleg-pagina.
+
 ## ✅ AFGESLOTEN 13 aug — de per-instance aura-route is dicht in gevecht
 
 JustAC's per-instance route (`GetUnitAuraInstanceIDs` + `ShouldUnitAuraInstanceBeSecret`)
