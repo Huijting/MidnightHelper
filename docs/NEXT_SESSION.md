@@ -183,6 +183,29 @@ zelf** — het nieuwe Achievements-blok zet er groen of rood bij. Dat is meting 
 📋 **`docs/VAULTS_MEASUREMENTS.md`** is nieuw: acht dingen die nog ongemeten zijn, met
 per punt het commando. Eén ronde door de Vaults met die lijst sluit vrijwel alles af.
 
+### 🔎 NIEUW GEREEDSCHAP — `tools/locale_probe.lua`, en waarom het er moest komen
+
+Rob vroeg op 14 aug of de vertalingen die we beloven er ook echt zijn. Dat is precies de
+vraag waar deze repo op 30 juli op stukliep: 346 van de 438 fills per taal deden al
+maanden niets, terwijl elke audit ze als klaar telde. Statisch tellen beantwoordt de
+vraag dus niet.
+
+    lua5.1 tools/locale_probe.lua KEY [KEY ...]
+
+Het laadt de locale-bestanden in `.toc`-volgorde met een echte Lua-interpreter en zegt
+per taal wat `ns:L` zou opleveren: OK, "still English (a copy, not a translation)", of
+nil. Geen WoW nodig.
+
+⚠️ **Het draait één keer per taal, en dat is de hele truc.** De packs zijn
+locale-gated — `Locales/deDE.lua` doet `if GetLocale() ~= "deDE" then return end`. Eén
+run ziet dus alleen enUS en nlNL, en een probe die dat niet weet meldt vrolijk dat vijf
+talen ontbreken terwijl ze prima staan. Dat is de eerste versie van dit script letterlijk
+overkomen.
+
+✅ **Gemeten met dit script:** alle acht nieuwe Vaults-keys komen in alle zeven talen
+door. `ACH_LORE_HONORED_DEAD` blijft met opzet Engels — de achievementkaart pakt sowieso
+de naam uit de client.
+
 ## ✅ AFGESLOTEN 13 aug — de per-instance aura-route is dicht in gevecht
 
 JustAC's per-instance route (`GetUnitAuraInstanceIDs` + `ShouldUnitAuraInstanceBeSecret`)
