@@ -494,7 +494,29 @@ local function QueryLiveWorldBoss()
 	return nil, false, nil
 end
 
+--- ⚠️ NO ARITHMETIC GUESS FROM 12.1 ONWARDS. Read this before restoring the fallback.
+---
+--- `WORLD_BOSSES` is the Season 1 roster and `ROTATION_ANCHOR` is 18 March 2026. Multiply
+--- one by the other and you always get a confident answer, including for weeks in which
+--- these four bosses may no longer be what the game is running: 12.1 is understood to
+--- have replaced them with Lairs, and `Modules/WorldBossProbe.lua:6` was written for
+--- exactly that question — *"MH shows a list that means nothing … a gap where the panel
+--- would be confidently wrong."* The probe was written; the answer was never brought back.
+---
+--- So the guess stops at the patch boundary and the honest paths keep working. The client
+--- scan (`QueryLiveWorldBoss`) and the weekly cache both still answer, and every consumer
+--- already handles nil: the dashboard falls back to `HOME_WB_UNKNOWN`, the Delves block
+--- hides itself, and `RouteToActiveWorldBoss` returns false. Losing a wrong boss name
+--- costs less than showing one.
+---
+--- ⚠️ REMOVING THIS GATE NEEDS A MEASUREMENT, NOT AN OPINION: `/mh worldboss` on live,
+--- which is item 1 on the "morgen op live" list in docs/NEXT_SESSION.md. If the four
+--- Season 1 bosses are still up and still rotating, this can go and the roster stays.
+--- If they are Lairs, the roster itself needs replacing — not the gate.
 local function GetScheduledWorldBoss()
+	if ns.IsSeason2Visible and ns.IsSeason2Visible() then
+		return nil
+	end
 	local anchor = ROTATION_ANCHOR
 	if not anchor or anchor <= 0 then
 		return WORLD_BOSSES[1]
@@ -521,7 +543,11 @@ function ns.GetActiveWorldBoss()
 	else
 		boss = GetScheduledWorldBoss()
 		fromClient = false
-		source = "schedule"
+		source = boss and "schedule" or nil
+	end
+
+	if not boss then
+		return nil, false, nil
 	end
 
 	SyncWarbandDoneFromQuestLog(boss)

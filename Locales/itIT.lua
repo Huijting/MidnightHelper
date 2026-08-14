@@ -978,6 +978,7 @@ ns._mhLocales.itIT = {
 	DELVE_ITEMS_SLASH_MARKED = "Segnato come usato per questa delve — il popup resterà nascosto finché non esci o /mh items reset.",
 	DELVE_ITEMS_SLASH_ALREADY_MARKED = "Già segnato come usato per questa delve.",
 	DELVE_CURIO_PANEL_TITLE = "Valeera — curio consigliati (Stagione %d)",
+	DELVE_CURIO_NO_SEASON_DATA = "Valeera — ancora nessun consiglio sui curio per questa stagione",
 	DELVE_CURIO_POPUP_TITLE = "Valeera — scelte curio",
 	DELVE_CURIO_POPUP_TITLE_ROLE = "Valeera — curio %s",
 	DELVE_CURIO_POPUP_HINT = "Equipaggia su Valeera al banco di riparazione. Trascina la barra del titolo per spostare.",

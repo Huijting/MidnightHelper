@@ -1,6 +1,25 @@
 # 12.1 API-audit — de volledige diff tegen de code
 
-> 🔴 **GEMETEN OP LIVE 12.1, 13 aug 2026 — DE HOOFDCLAIM VAN DIT DOCUMENT IS FOUT.**
+> 🟠 **BIJGESTELD 14 aug — beide bronnen hadden voor de helft gelijk.**
+>
+> De watcher las diezelfde dag `warcraft.wiki.gg/12.1.0/API_changes` en die zegt óók dat
+> `GetWeaponEnchantInfo` **verwijderd** is, mét vervanger — samen met
+> `GetInventorySlotInfo` → `C_PaperDollInfo.GetInventorySlotInfo` en
+> `CancelItemTempEnchantment` → `C_PaperDollInfo.CancelTemporaryEnchantment`.
+>
+> Onze meting hieronder blijft staan: op Robs live client **is** het een function. Die
+> twee spreken elkaar niet tegen — Blizzard haalt een functie uit de gedocumenteerde
+> global-tabel terwijl hij nog werkt. Dat is deprecated, niet weg.
+>
+> **Wat dat verandert:** de migratie is *verstandig*, niet *dringend*. Er is vandaag geen
+> stille bug. Maar `WeaponEnchant.lua` (in Robs Downloads) is nu wél de richting, en de
+> volgende keer dat een patch die functie echt weghaalt is er geen waarschuwing — hij
+> faalt stil, precies zoals hieronder beschreven. Inbrengen mag zodra er tijd is om het
+> in-game te testen; niet vlak voor een seizoensstart.
+>
+> ---
+>
+> 🔴 **GEMETEN OP LIVE 12.1, 13 aug 2026 — DE CLAIM "ER IS NU EEN STILLE BUG" IS FOUT.**
 >
 > `/mh api12` op Robs eigen client, interface 120100:
 >

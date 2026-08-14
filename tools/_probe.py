@@ -1,12 +1,12 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: reshape DAWNCREST_ROW_CAP_FMT (it gains Blizzard's label and the
-earned/max pair) and add DAWNCREST_SEASON_MAX as the fallback wording.
+Right now: addons touched since this morning's batch, and whether the two watch
+documents have a new entry today.
 """
-import io
 import os
 import re
 import sys
+import time
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -14,66 +14,68 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales'
+BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns'
+DOCS = os.path.join(BASE, 'MidnightHelper', 'docs')
+CUTOFF = time.mktime((2026, 8, 14, 8, 0, 0, 0, 0, -1))
 
-# %1 held · %2 Blizzard's label · %3 earned this season · %4 the cap
-CAP = {
-    'enUS': '%d  (%s %d / %d)',
-    'nlNL': '%d  (%s %d / %d)',
-    'deDE': '%d  (%s %d / %d)',
-    'frFR': '%d  (%s %d / %d)',
-    'esES': '%d  (%s %d / %d)',
-    'ptBR': '%d  (%s %d / %d)',
-    'itIT': '%d  (%s %d / %d)',
-}
-# Only used when Blizzard's global is missing.
-SEASON = {
-    'enUS': 'season max',
-    'nlNL': 'seizoensmax',
-    'deDE': 'Saisonmax',
-    'frFR': 'max saison',
-    'esES': 'm\u00e1x. temporada',
-    'ptBR': 'm\u00e1x. da temporada',
-    'itIT': 'max stagione',
-}
 
-for d in (CAP, SEASON):
-    for code, text in d.items():
-        assert '"' not in text, (code, text)
+def toc_field(folder, field):
+    try:
+        names = os.listdir(folder)
+    except OSError:
+        return '?'
+    for fn in names:
+        if not fn.lower().endswith('.toc'):
+            continue
+        try:
+            t = open(os.path.join(folder, fn), encoding='utf-8', errors='replace').read()
+        except OSError:
+            continue
+        m = re.search(r'^##\s*%s\s*:\s*(.+)$' % field, t, re.M | re.I)
+        if m:
+            return m.group(1).strip()
+    return '?'
 
-PACK = ('enUS', 'nlNL')
-changed = 0
 
-for code in PACK:
-    p = os.path.join(BASE, '%s.lua' % code)
-    t = open(p, encoding='utf-8', newline='').read()
-    nl = '\r\n' if '\r\n' in t else '\n'
-    pat = re.compile(r'^\tDAWNCREST_ROW_CAP_FMT = "(?:[^"\\]|\\.)*",', re.M)
-    if not pat.search(t):
-        print('%s: geen CAP-regel' % code)
+rows = []
+for name in sorted(os.listdir(BASE)):
+    p = os.path.join(BASE, name)
+    if not os.path.isdir(p) or name == 'MidnightHelper':
         continue
-    t = pat.sub('\tDAWNCREST_ROW_CAP_FMT = "%s",' % CAP[code], t, count=1)
-    if 'DAWNCREST_SEASON_MAX' not in t:
-        m = re.compile(r'^\tDAWNCREST_ROW_CAP_FMT = .*', re.M).search(t)
-        t = t[:m.end()] + nl + '\tDAWNCREST_SEASON_MAX = "%s",' % SEASON[code] + t[m.end():]
-    io.open(p + '.tmp', 'w', encoding='utf-8', newline='').write(t)
-    os.replace(p + '.tmp', p)
-    changed += 1
-    print('%s: ok' % code)
+    newest = 0
+    for root, dirs, files in os.walk(p):
+        dirs[:] = [d for d in dirs if d != '.git']
+        for f in files:
+            try:
+                m = os.path.getmtime(os.path.join(root, f))
+            except OSError:
+                continue
+            if m > newest:
+                newest = m
+    if newest >= CUTOFF:
+        rows.append((newest, name))
 
-p = os.path.join(BASE, 'Translations2026.lua')
-t = open(p, encoding='utf-8', newline='').read()
-nl = '\r\n' if '\r\n' in t else '\n'
-for code in ('deDE', 'frFR', 'esES', 'ptBR', 'itIT'):
-    marker = 'fill("%s", {' % code
-    start = t.rindex(marker)
-    end = t.index('})', start)
-    seg = t[start:end]
-    seg = re.sub(r'\tDAWNCREST_ROW_CAP_FMT = "(?:[^"\\]|\\.)*",',
-                 '\tDAWNCREST_ROW_CAP_FMT = "%s",' % CAP[code], seg, count=1)
-    if 'DAWNCREST_SEASON_MAX' not in seg:
-        seg = seg + '\tDAWNCREST_SEASON_MAX = "%s",%s' % (SEASON[code], nl)
-    t = t[:start] + seg + t[end:]
-io.open(p + '.tmp', 'w', encoding='utf-8', newline='').write(t)
-os.replace(p + '.tmp', p)
-print('Translations2026: 5 talen')
+rows.sort(reverse=True)
+print('ADDONS aangeraakt sinds vanochtend 08:00: %d' % len(rows))
+for newest, name in rows:
+    print('  %-34s %-16s %s' % (
+        name[:34], toc_field(os.path.join(BASE, name), 'Version')[:16],
+        time.strftime('%d %b %H:%M', time.localtime(newest))))
+if not rows:
+    print('  (geen)')
+
+print()
+for name in ('PTR_12.1_WATCH.md', 'PTR_12.0.7_DATA.md'):
+    p = os.path.join(DOCS, name)
+    if not os.path.exists(p):
+        print('%s: bestaat niet' % name)
+        continue
+    mt = os.path.getmtime(p)
+    text = open(p, encoding='utf-8', errors='replace').read()
+    lines = text.splitlines()
+    today = sum(1 for line in lines if '2026-08-14' in line)
+    print('%-22s %d regels · geschreven %s · %d regel(s) met datum 14 aug' % (
+        name, len(lines), time.strftime('%d %b %H:%M', time.localtime(mt)), today))
+    for line in lines:
+        if '2026-08-14' in line:
+            print('   ' + line[:400])

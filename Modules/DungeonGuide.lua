@@ -603,6 +603,26 @@ function ns.BuildDungeonGuidePanel(panel)
 	local function expertHidden()
 		return beginnerOn()
 	end
+	--- ⚠️ THE AFFIX LADDER AND THE BARGAIN VARIANTS ARE SEASON 1 DATA.
+	---
+	--- `ns.MPLUS_AFFIX_LADDER` and `ns.MPLUS_BARGAINS` were written against Wowhead's
+	--- "Mythic+ Season 1 Overview" (see the header of Modules/MythicPlusData.lua) and
+	--- there is no Season 2 variant of either. The dungeon POOL three sections below
+	--- flips correctly on `IsMythicSeason2()`, so without these two gates the same panel
+	--- would show the Season 2 rotation beside the Season 1 affixes, under a heading that
+	--- promises to explain how keys work THIS season.
+	---
+	--- That is the worst shape a wrong panel can take: half of it is right, so the other
+	--- half reads as checked. Better to say we have not measured it.
+	local function MythicSeason2()
+		return (ns.IsMythicSeason2 and ns.IsMythicSeason2()) and true or false
+	end
+	local function affixHidden()
+		return beginnerOn() or MythicSeason2()
+	end
+	local function affixUnknownHidden()
+		return beginnerOn() or not MythicSeason2()
+	end
 	-- Bonus-regel van het week-kaartje: alleen in beginnersmodus én alleen als we
 	-- de dungeon-of-the-week écht kennen (never-lie — anders niks tonen).
 	local function weekBonusHidden()
@@ -716,10 +736,17 @@ function ns.BuildDungeonGuidePanel(panel)
 	affixHeader:SetText(ns:L("MPLUS_AFFIX_HEADER"))
 	push(affixHeader, 12, 0, false, "mythic", expertHidden)
 
+	-- Stands in for the ladder and the Bargains once Season 2 is live, because both
+	-- tables below are Season 1 data and there is no measured Season 2 version.
+	local affixUnknown = MakeFS(child, "GameFontHighlightSmall", COLOR_DIM)
+	affixUnknown._mhKey = "MPLUS_AFFIX_UNMEASURED"
+	affixUnknown:SetText(ns:L("MPLUS_AFFIX_UNMEASURED"))
+	push(affixUnknown, 4, 8, false, "mythic", affixUnknownHidden)
+
 	ui.mythicAffixRows = {}
 	for _, a in ipairs(ns.MPLUS_AFFIX_LADDER or {}) do
 		local fs = MakeFS(child, "GameFontHighlightSmall")
-		push(fs, 4, 8, false, "mythic", expertHidden)
+		push(fs, 4, 8, false, "mythic", affixHidden)
 		ui.mythicAffixRows[#ui.mythicAffixRows + 1] = { fs = fs, level = a.level, descKey = a.descKey }
 	end
 
@@ -727,7 +754,7 @@ function ns.BuildDungeonGuidePanel(panel)
 	local bargainHeader = MakeFS(child, "GameFontNormal", COLOR_ACCENT)
 	bargainHeader._mhKey = "MPLUS_BARGAIN_HEADER"
 	bargainHeader:SetText(ns:L("MPLUS_BARGAIN_HEADER"))
-	push(bargainHeader, 12, 0, false, "mythic", expertHidden)
+	push(bargainHeader, 12, 0, false, "mythic", affixHidden)
 
 	ui.mythicBargainRows = {}
 	for _, b in ipairs(ns.MPLUS_BARGAINS or {}) do
@@ -745,7 +772,7 @@ function ns.BuildDungeonGuidePanel(panel)
 		if ns.AttachDelveTipHyperlinksToEditBox then
 			ns:AttachDelveTipHyperlinksToEditBox(box)
 		end
-		push(box, 4, 8, false, "mythic", expertHidden)
+		push(box, 4, 8, false, "mythic", affixHidden)
 		ui.mythicBargainRows[#ui.mythicBargainRows + 1] = { box = box, descKey = b.descKey }
 	end
 

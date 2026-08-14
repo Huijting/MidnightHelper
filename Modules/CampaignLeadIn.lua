@@ -1,18 +1,24 @@
 --[[
-	Curse of Ula'tek — campaign lead-in tracker.
+	Campaign / quest-chain lead-in tracker.
 
-	Patch 12.1's lead-in campaign went LIVE in 12.0.7 with the weekly reset of 7 July
-	2026 (Blizzard front-loads it so players are ready when 12.1 lands). It is the
-	prerequisite gate for the Coiled Isle. Because it is live, every ID here can be —
-	and must be — confirmed in-game rather than trusted from datamine.
+	Two chains live here now. Both answer the same question — "there is content you
+	cannot see yet, and here is the thread that opens it" — so they share one engine
+	rather than one module each.
 
-	HONESTY BY CONSTRUCTION. This block appears only when the live quest API says the
-	start quest exists and is not yet completed. If the configured quest ID were wrong,
+	HONESTY BY CONSTRUCTION. A block appears only when the live quest API says its start
+	quest exists and is not yet completed. If a configured quest ID were wrong,
 	`IsQuestFlaggedCompleted` would answer for a quest that never applies to this
 	character, so the guard below (needs GetTitleForQuestID to actually name it) keeps a
 	bogus ID from parking a permanent, false "go do this" nudge on the dashboard. The
 	arrow follows the live objective through AddSmartQuestRoute, so once you are on the
 	quest the route is Blizzard's own waypoint, not our fallback coords.
+
+	--- 1. Curse of Ula'tek ------------------------------------------------------------
+
+	Patch 12.1's lead-in campaign went LIVE in 12.0.7 with the weekly reset of 7 July
+	2026 (Blizzard front-loads it so players are ready when 12.1 lands). It is the
+	prerequisite gate for the Coiled Isle. Because it is live, every ID here can be —
+	and must be — confirmed in-game rather than trusted from datamine.
 
 	CONFIRMED (start quest cross-checked two ways: Rob's live `/mh campaign` returned
 	title="Hagar's Invitation" for 92895, and Zygor's own "The Curse of Ula'tek Campaign"
@@ -26,17 +32,41 @@
 	    Voidstorm/Val/Naigtal arc, 96048…) once Rob is there to confirm it in-game.
 	  - reward mount "Dusk Grimlynx" = item 246731; reward pet "Akiki" = npc 260149
 	    (still Wowhead-sourced — confirm via the collection when earned).
-	Run `/mh campaign` in-game to see the live state of every chain ID.
+
+	--- 2. Vaults of Atal'Utek ---------------------------------------------------------
+
+	Added 14 Aug 2026. The Vaults are a 12.1 area on the Coiled Isle with their own map,
+	their own currency and three achievements, and none of it is reachable until this
+	three-quest chain is done. Rob walked in already past it and still said "I have no
+	idea what I can all do there"; somebody who has not done the chain cannot even see
+	the question.
+
+	MEASURED, not datamined: all three ids were confirmed by `/mh atal` on Rob's own
+	client on 13 Aug 2026, which read their real titles back — and the game titles two of
+	them longer than the guides do ("Vaults of Atal'Utek: One Coin Too Many").
+
+	⚠️ NO START COORDINATES, ON PURPOSE. The entrance to the Vaults has never been
+	measured. Zygor says ~47.24 / 60.79 on the Coiled Isle and that is precisely the kind
+	of number this repo does not turn into a waypoint: on 12 Aug the Crafting Orders pin
+	proved the cost, with the guide 13m off Rob's own capture. So this entry has no
+	start* fields, `canRoute` is false until you are actually on a chain quest, and the
+	dashboard shows the nudge without a button that would point somewhere plausible and
+	wrong. One `/mh capture` at the entrance fixes it; until then, silence is the honest
+	answer. See docs/VAULTS_MEASUREMENTS.md.
 ]]
 
 local _, ns = ...
 
--- The chain, in order (Chapter 1 spine, from Zygor's Ula'tek guide, cross-checked with
--- the live quest API on Rob's character). The tracker follows the first incomplete one;
--- the block hides when all are done. Plain data — extend by appending IDs.
-local CAMPAIGN = {
+-- Chains are plain data — extend by appending IDs. Per-campaign locale keys keep the
+-- dashboard text specific ("New: Curse of Ula'tek" is not a heading the Vaults can
+-- borrow) without the dashboard having to know which campaign it is drawing.
+local ULATEK = {
 	key = "ulatek_leadin",
 	nameKey = "CAMPAIGN_ULATEK_NAME",
+	headerKey = "HOME_SECTION_CAMPAIGN",
+	availableKey = "HOME_CAMPAIGN_AVAILABLE",
+	inprogressKey = "HOME_CAMPAIGN_INPROGRESS",
+	routeBtnKey = "HOME_CAMPAIGN_ROUTE_BTN",
 	startMapID = 2393, -- Silvermoon City
 	startX = 45.38, -- Orweyna (npc 253640); Zygor coords, matches Rob's screenshot
 	startY = 70.07,
@@ -73,6 +103,24 @@ local CAMPAIGN = {
 	},
 }
 
+local VAULTS = {
+	key = "vaults_atalutek",
+	nameKey = "CAMPAIGN_VAULTS_NAME",
+	headerKey = "HOME_SECTION_VAULTS",
+	availableKey = "HOME_VAULTS_AVAILABLE",
+	inprogressKey = "HOME_VAULTS_INPROGRESS",
+	routeBtnKey = "HOME_VAULTS_ROUTE_BTN",
+	-- No startMapID/startX/startY: see the header. The entrance is unmeasured.
+	chain = {
+		{ questID = 98388, nameKey = "CAMPAIGN_VAULTS_STARTQUEST" }, -- Into the Vaults of Atal'Utek
+		{ questID = 97640 }, -- Vaults of Atal'Utek: One Coin Too Many
+		{ questID = 98428 }, -- Vaults of Atal'Utek: The Altar of Corrosion
+	},
+	-- No rewards block: nobody has measured what the chain hands out.
+}
+
+local CAMPAIGNS = { ULATEK, VAULTS }
+
 local function QuestDone(questID)
 	if not (questID and C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
 		return false
@@ -99,14 +147,9 @@ local function QuestIsReal(questID)
 	return ok and type(title) == "string" and title ~= ""
 end
 
---- Live state of the lead-in campaign.
---- @return table|nil {
----   name, status = "available"|"inprogress"|"done",
----   startMapID, startX, startY, activeQuestID, rewards }
----   nil when there is nothing to show (all known steps done, or the start quest ID is
----   not a real quest on this client — do not invent a nudge).
-function ns.GetCampaignLeadInState()
-	local start = CAMPAIGN.chain[1]
+--- Live state of one chain, or nil when there is nothing to show.
+local function StateFor(campaign)
+	local start = campaign.chain[1]
 	if not start or not QuestIsReal(start.questID) then
 		return nil -- unknown/unconfirmed quest: stay silent rather than guess
 	end
@@ -114,7 +157,7 @@ function ns.GetCampaignLeadInState()
 	-- Walk the chain once: which quest are we on, what is the first not-yet-done step, and
 	-- has any of it been finished at all?
 	local onQuestID, firstOpenID, anyDone, allDone = nil, nil, false, true
-	for _, step in ipairs(CAMPAIGN.chain) do
+	for _, step in ipairs(campaign.chain) do
 		if QuestDone(step.questID) then
 			anyDone = true
 		else
@@ -137,22 +180,71 @@ function ns.GetCampaignLeadInState()
 	-- route at the quest you are actually on, else the first step you have not done.
 	local status = (onQuestID or anyDone) and "inprogress" or "available"
 	local activeQuestID = onQuestID or firstOpenID
+	local hasStartCoords = campaign.startMapID ~= nil and campaign.startX ~= nil and campaign.startY ~= nil
 	return {
-		name = ns:L(CAMPAIGN.nameKey),
+		key = campaign.key,
+		name = ns:L(campaign.nameKey),
 		status = status,
-		startMapID = CAMPAIGN.startMapID,
-		startX = CAMPAIGN.startX,
-		startY = CAMPAIGN.startY,
+		headerKey = campaign.headerKey,
+		availableKey = campaign.availableKey,
+		inprogressKey = campaign.inprogressKey,
+		routeBtnKey = campaign.routeBtnKey,
+		startMapID = campaign.startMapID,
+		startX = campaign.startX,
+		startY = campaign.startY,
 		activeQuestID = activeQuestID,
-		rewards = CAMPAIGN.rewards,
+		rewards = campaign.rewards,
+		-- Can this state actually put an arrow somewhere? Once you are on a chain quest
+		-- the game's own objective drives, so yes regardless of coords. Before that we
+		-- need a measured start, and the Vaults do not have one — so the dashboard draws
+		-- the nudge and skips the button rather than offering a route to nowhere.
+		canRoute = (status == "inprogress") or hasStartCoords,
 	}
 end
 
--- Quick membership test for the chain, so the accept-handler only ever touches our own
+--- Every visible lead-in, in declaration order. Empty table when none apply.
+--- @return table[] states
+function ns.GetCampaignLeadInStates()
+	local out = {}
+	for _, campaign in ipairs(CAMPAIGNS) do
+		local st = StateFor(campaign)
+		if st then
+			out[#out + 1] = st
+		end
+	end
+	return out
+end
+
+--- Live state of one lead-in.
+--- @param key string|nil campaign key; omit for the first visible one (back-compat)
+--- @return table|nil {
+---   key, name, status = "available"|"inprogress",
+---   headerKey, availableKey, inprogressKey, routeBtnKey,
+---   startMapID, startX, startY, activeQuestID, rewards, canRoute }
+---   nil when there is nothing to show (all known steps done, or the start quest ID is
+---   not a real quest on this client — do not invent a nudge).
+function ns.GetCampaignLeadInState(key)
+	for _, campaign in ipairs(CAMPAIGNS) do
+		if key == nil or campaign.key == key then
+			local st = StateFor(campaign)
+			if st then
+				return st
+			end
+			if key ~= nil then
+				return nil
+			end
+		end
+	end
+	return nil
+end
+
+-- Quick membership test for every chain, so the accept-handler only ever touches our own
 -- quests and never hijacks the player's super-track for something unrelated.
 local CHAIN_SET = {}
-for _, step in ipairs(CAMPAIGN.chain) do
-	CHAIN_SET[step.questID] = true
+for _, campaign in ipairs(CAMPAIGNS) do
+	for _, step in ipairs(campaign.chain) do
+		CHAIN_SET[step.questID] = true
+	end
 end
 
 --- Turn on Blizzard's own quest arrow for a quest you are on. This is the reliable way
@@ -164,9 +256,11 @@ local function SuperTrackQuest(questID)
 	end
 end
 
---- Route to the campaign.
+--- Route to a lead-in.
 ---
---- Before you have picked it up: head to Orweyna in Silvermoon (start coords).
+--- Before you have picked it up: head to the start (Orweyna in Silvermoon for Ula'tek).
+--- A campaign with no measured start has `canRoute` false in that state and never gets
+--- here from the dashboard.
 ---
 --- Once you are ON a chain quest: let Blizzard's own quest arrow drive, because the
 --- objective ("Arrive at the meeting" in Harandar) roams and the game knows where it is.
@@ -175,8 +269,9 @@ end
 --- pickup you had already left. So: clear any competing waypoint, super-track the quest,
 --- and only add an objective waypoint if the game actually has a placeable one (no start
 --- fallback).
-function ns.RouteCampaignLeadIn()
-	local st = ns.GetCampaignLeadInState()
+--- @param key string|nil campaign key; omit for the first visible one
+function ns.RouteCampaignLeadIn(key)
+	local st = ns.GetCampaignLeadInState(key)
 	if not st then
 		return false
 	end
@@ -193,6 +288,10 @@ function ns.RouteCampaignLeadIn()
 		return true
 	end
 
+	if not st.canRoute then
+		return false -- no measured start; saying nothing beats pointing at a guess
+	end
+
 	if ns.AddSmartQuestRoute then
 		return ns.AddSmartQuestRoute(st.activeQuestID, st.startMapID, st.startX, st.startY, st.name)
 	end
@@ -204,7 +303,7 @@ end
 
 -- Auto-continue: when you accept one of our chain quests, super-track it so the arrow
 -- carries on to the next objective without re-opening Midnight Helper. Scoped to the
--- chain, so it never overrides super-tracking for an unrelated quest you pick up.
+-- chains, so it never overrides super-tracking for an unrelated quest you pick up.
 local accepted = CreateFrame("Frame")
 accepted:RegisterEvent("QUEST_ACCEPTED")
 accepted:SetScript("OnEvent", function(_, _, arg1, arg2)
@@ -222,39 +321,42 @@ end)
 
 function ns.PrintCampaignLeadInDiagnostics()
 	local p = "|cffffff78Midnight Helper:|r "
-	print(p .. "Curse of Ula'tek lead-in")
-	for i, step in ipairs(CAMPAIGN.chain) do
-		local title = "?"
-		if C_QuestLog and C_QuestLog.GetTitleForQuestID then
-			local ok, t = pcall(C_QuestLog.GetTitleForQuestID, step.questID)
-			if ok and type(t) == "string" and t ~= "" then
-				title = t
+	for _, campaign in ipairs(CAMPAIGNS) do
+		print(p .. ns:L(campaign.nameKey))
+		for i, step in ipairs(campaign.chain) do
+			local title = "?"
+			if C_QuestLog and C_QuestLog.GetTitleForQuestID then
+				local ok, t = pcall(C_QuestLog.GetTitleForQuestID, step.questID)
+				if ok and type(t) == "string" and t ~= "" then
+					title = t
+				end
 			end
+			print(("  chain[%d] quest %d  title=%s  done=%s  onQuest=%s"):format(
+				i, step.questID, title, tostring(QuestDone(step.questID)), tostring(OnQuest(step.questID))))
 		end
-		print(("  chain[%d] quest %d  title=%s  done=%s  onQuest=%s"):format(
-			i, step.questID, title, tostring(QuestDone(step.questID)), tostring(OnQuest(step.questID))))
-	end
-	local st = ns.GetCampaignLeadInState()
-	print(("  state = %s"):format(st and st.status or "nil (hidden)"))
+		local st = StateFor(campaign)
+		print(("  state = %s  canRoute = %s"):format(
+			st and st.status or "nil (hidden)", st and tostring(st.canRoute) or "-"))
 
-	-- Ground truth for the arrow: what does Blizzard itself have as the next waypoint for
-	-- the active quest, and can a waypoint be placed on that map? This says whether
-	-- super-track alone can guide, or whether we need explicit objective coords.
-	if st and st.status == "inprogress" and C_QuestLog and C_QuestLog.GetNextWaypoint then
-		local okWp, mapID, x, y = pcall(C_QuestLog.GetNextWaypoint, st.activeQuestID)
-		if okWp and mapID then
-			local canPlace = "?"
-			if C_Map and C_Map.CanSetUserWaypointOnMap then
-				local okC, v = pcall(C_Map.CanSetUserWaypointOnMap, mapID)
-				canPlace = okC and tostring(v) or "err"
+		-- Ground truth for the arrow: what does Blizzard itself have as the next waypoint for
+		-- the active quest, and can a waypoint be placed on that map? This says whether
+		-- super-track alone can guide, or whether we need explicit objective coords.
+		if st and st.status == "inprogress" and C_QuestLog and C_QuestLog.GetNextWaypoint then
+			local okWp, mapID, x, y = pcall(C_QuestLog.GetNextWaypoint, st.activeQuestID)
+			if okWp and mapID then
+				local canPlace = "?"
+				if C_Map and C_Map.CanSetUserWaypointOnMap then
+					local okC, v = pcall(C_Map.CanSetUserWaypointOnMap, mapID)
+					canPlace = okC and tostring(v) or "err"
+				end
+				print(("  active %d nextWaypoint -> map %s  %.1f/%.1f  canPlaceWaypoint=%s"):format(
+					st.activeQuestID, tostring(mapID), (x or 0) * 100, (y or 0) * 100, canPlace))
+			else
+				print(("  active %d nextWaypoint -> none (game has no waypoint for this objective)"):format(st.activeQuestID))
 			end
-			print(("  active %d nextWaypoint -> map %s  %.1f/%.1f  canPlaceWaypoint=%s"):format(
-				st.activeQuestID, tostring(mapID), (x or 0) * 100, (y or 0) * 100, canPlace))
-		else
-			print(("  active %d nextWaypoint -> none (game has no waypoint for this objective)"):format(st.activeQuestID))
+			local superID = C_SuperTrack and C_SuperTrack.GetSuperTrackedQuestID and C_SuperTrack.GetSuperTrackedQuestID() or nil
+			print(("  currently super-tracked quest = %s"):format(tostring(superID)))
 		end
-		local superID = C_SuperTrack and C_SuperTrack.GetSuperTrackedQuestID and C_SuperTrack.GetSuperTrackedQuestID() or nil
-		print(("  currently super-tracked quest = %s"):format(tostring(superID)))
 	end
 
 	-- Also list every quest currently in the log with its ID, so an accepted campaign

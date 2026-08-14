@@ -932,6 +932,7 @@ local OVERRIDES = {
 	SETTINGS_RARE_ALERT_ONLYROUTE_TT = "Zeigt 'Seltener in der Nähe'-Popups nur während einer aktiven Rare-Jagd: eine Route zu einem Seltenen (oder die ganze Zonen-Route) startet die Jagd; sie endet, sobald alle gerouteten Seltenen erledigt sind, bei einer neuen Route oder beim wöchentlichen Reset. Übersteht /reload.",
 	DELVE_ITEMS_POPUP_MINIMAP_HINT = "Klicke mit der linken Maustaste auf das Minikartensymbol: Öffne dieses Fenster. Rechtsklick: Element verwenden.",
 	DELVE_CURIO_PANEL_TITLE = "Valeera — empfohlene Kuriositäten (Saison %d)",
+	DELVE_CURIO_NO_SEASON_DATA = "Valeera — noch keine Kuriositäten-Empfehlung für diese Saison",
 	DELVE_CURIO_POPUP_TITLE = "Valeera — Kuriositäten",
 	DELVE_CURIO_POPUP_TITLE_ROLE = "Valeera — %s-Kuriositäten",
 	DELVE_CURIO_POPUP_HINT = "Am Reparaturpunkt bei Valeera ausrüsten. Titelleiste ziehen zum Verschieben.",

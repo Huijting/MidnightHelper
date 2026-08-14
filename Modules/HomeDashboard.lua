@@ -533,33 +533,42 @@ local function BuildLayout()
 		end)
 	end
 
-	------------------------------------------------------------------ Curse of Ula'tek lead-in (new this patch)
-	-- Appears only while the live quest API confirms the campaign is real and unfinished
-	-- (Modules/CampaignLeadIn.lua) — a wrong quest ID shows nothing rather than a phantom.
+	------------------------------------------------------------------ Quest-chain lead-ins (Ula'tek, Vaults of Atal'Utek)
+	-- Each appears only while the live quest API confirms that chain is real and
+	-- unfinished (Modules/CampaignLeadIn.lua) — a wrong quest ID shows nothing rather
+	-- than a phantom. Every campaign brings its own heading and wording, because "New:
+	-- Curse of Ula'tek" is not a heading the Vaults can borrow.
 	addFull(function(rows)
-		if not ns.GetCampaignLeadInState then
+		if not ns.GetCampaignLeadInStates then
 			return
 		end
-		local c = ns.GetCampaignLeadInState()
-		if not c then
-			return
-		end
-		header(rows, ns:L("HOME_SECTION_CAMPAIGN"), "campaign")
-		local msgKey = (c.status == "inprogress") and "HOME_CAMPAIGN_INPROGRESS" or "HOME_CAMPAIGN_AVAILABLE"
-		line(rows, ns:L(msgKey), COLOR_SOFT)
-		for _, r in ipairs(c.rewards or {}) do
-			if r.nameKey then
-				line(rows, ns:L("HOME_CAMPAIGN_REWARD_FMT"):format(ns:L(r.nameKey)), COLOR_DIM)
+		for _, c in ipairs(ns.GetCampaignLeadInStates()) do
+			-- Own collapse key per chain, so folding one away does not fold the other.
+			-- Ula'tek keeps the historical "campaign" key so nobody's saved collapse
+			-- state silently flips back to expanded.
+			local sectionKey = (c.key == "ulatek_leadin") and "campaign" or ("campaign_" .. tostring(c.key))
+			header(rows, ns:L(c.headerKey or "HOME_SECTION_CAMPAIGN"), sectionKey)
+			local msgKey = (c.status == "inprogress")
+				and (c.inprogressKey or "HOME_CAMPAIGN_INPROGRESS")
+				or (c.availableKey or "HOME_CAMPAIGN_AVAILABLE")
+			line(rows, ns:L(msgKey), COLOR_SOFT)
+			for _, r in ipairs(c.rewards or {}) do
+				if r.nameKey then
+					line(rows, ns:L("HOME_CAMPAIGN_REWARD_FMT"):format(ns:L(r.nameKey)), COLOR_DIM)
+				end
 			end
-		end
-		if ns.RouteCampaignLeadIn then
-			rows[#rows + 1] = {
-				button = true,
-				text = ns:L("HOME_CAMPAIGN_ROUTE_BTN"),
-				onClick = function()
-					ns.RouteCampaignLeadIn()
-				end,
-			}
+			-- No button when the chain has no measured start and you are not on it yet:
+			-- a route to a guessed entrance is worse than no route. See CampaignLeadIn.
+			if ns.RouteCampaignLeadIn and c.canRoute then
+				local key = c.key
+				rows[#rows + 1] = {
+					button = true,
+					text = ns:L(c.routeBtnKey or "HOME_CAMPAIGN_ROUTE_BTN"),
+					onClick = function()
+						ns.RouteCampaignLeadIn(key)
+					end,
+				}
+			end
 		end
 	end)
 

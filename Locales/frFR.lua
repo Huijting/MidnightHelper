@@ -929,6 +929,7 @@ local OVERRIDES = {
 	SETTINGS_RARE_ALERT_ONLYROUTE_TT = "N'affiche les fenêtres « rare à proximité » que pendant une chasse active : lancer un itinéraire vers un rare (ou l'itinéraire complet de la zone) démarre la chasse ; elle se termine quand tous les rares de l'itinéraire sont faits, au lancement d'un nouvel itinéraire ou à la réinitialisation hebdomadaire. Survit au /reload.",
 	DELVE_ITEMS_POPUP_MINIMAP_HINT = "Left-click minimap icon: open this panel. Clic droit : utiliser l'élément.",
 	DELVE_CURIO_PANEL_TITLE = "Valeera — curios recommandés (saison %d)",
+	DELVE_CURIO_NO_SEASON_DATA = "Valeera — pas encore de conseils curios pour cette saison",
 	DELVE_CURIO_POPUP_TITLE = "Valeera — choix de curios",
 	DELVE_CURIO_POPUP_TITLE_ROLE = "Valeera — curios %s",
 	DELVE_CURIO_POPUP_HINT = "À équiper chez Valeera au poste de réparation. Glissez la barre de titre pour déplacer.",

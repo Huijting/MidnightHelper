@@ -492,6 +492,58 @@ ns.CODEX_ARTICLES = {
 		tabLabelKey = "TAB_WORLD",
 		sort = 11,
 	},
+	--- The Vaults of Atal'Utek. Written 14 Aug 2026 for Rob's own question: "I have no
+	--- idea what I can all do there and above all where."
+	---
+	--- ⚠️ EVERY NUMBER IN THIS ARTICLE IS MEASURED. Map 2509 (child of 2512, The Coiled
+	--- Isle), the Underbelly 2613, the chain 98388 -> 97640 -> 98428 and Corrosive Coin
+	--- 3448 come from /mh atal on Rob's own client, 13 Aug. The twelve memorials, the
+	--- Underbelly entrance and Szarith come from HandyNotes_Midnight 150. Nothing here
+	--- is from a guide site.
+	---
+	--- The Honored Dead = achievement 63610. Quests 98029-98040 map to criteria
+	--- 116407-116418 in that order; the article prints names and coordinates only,
+	--- because a player cannot type a criteria id at anything. Kept here so the ids
+	--- survive if docs/NEXT_SESSION.md is ever trimmed:
+	---     98029/116407 To a daughter 49.50 56.59   98035/116413 To Failure        45.81 61.79
+	---     98030/116408 To a lover    52.21 45.12   98036/116414 To a father       47.22 28.77
+	---     98031/116409 To parents    55.31 48.45   98037/116415 To a sister       46.79  7.51
+	---     98032/116410 To a dream    55.62 40.60   98038/116416 To Comrades       38.50 47.66
+	---     98033/116411 To a captain  52.91 33.90   98039/116417 To a stranger     42.57 33.18
+	---     98034/116412 To sons       42.91 41.23   98040/116418 To a shield-bearer 56.49 22.88
+	--- Underbelly achievement 62601 (Szarith the Fanged, quest 96030, 38.40/17.69);
+	--- the three rare elites on 2509 are achievement 63601.
+	---
+	--- ⚠️ AND FOUR THINGS ARE LEFT OUT ON PURPOSE.
+	--- 1. The twelve gift names in the Corrosive Codex. They come from a screenshot,
+	---    not from the client. The article says the Codex exists and what it asks for.
+	--- 2. What the Altar of Corrosion tree hands out. Never measured — the tooltip said
+	---    "Spirit Corrosion" and the counter read 0, which is not enough to claim
+	---    anything. The article sends the reader to the window's own tooltips.
+	--- 3. Coordinates for Congealed Malice, Khu'tulak and Susarikk. They do not exist;
+	---    HandyNotes' 10.00/10.00 is a placeholder, not a place. Saying so is the
+	---    point — a reader who thinks we simply forgot will go looking for a list.
+	--- 4. Any sentence in which Corrosive Coin and Corrosive Soul could blur together.
+	---    Currency 3448 and item 273000 are two objects. The guides conflate them, the
+	---    client never has, and that conflation is exactly why a currency sweep spent a
+	---    day failing to find something that was in the bags all along.
+	{
+		id = "vaults_atalutek",
+		category = "world",
+		titleKey = "CODEX_ATALUTEK_TITLE",
+		bodyKey = "CODEX_ATALUTEK_BODY",
+		-- Corrosive Coin, measured 13 Aug. Shows the reader's own balance above the
+		-- body, which is also the quietest possible way to keep coin and soul apart.
+		currencyId = 3448,
+		sort = 12,
+		-- English on purpose: the search box matches raw text, and someone who has just
+		-- walked in types the zone's name or "corrosive" long before they know we have
+		-- a page for it.
+		searchKeys = "vaults of atal'utek atalutek atal utek coiled isle underbelly "
+			.. "corrosive coin corrosive soul corrosive codex altar of corrosion "
+			.. "honored dead memorials amani spirits szarith congealed malice "
+			.. "khu'tulak susarikk kluis kluizen gedenktekens waar",
+	},
 }
 
 local articlesByCategory = {}
@@ -523,7 +575,11 @@ function ns:GetCodexCategoryById(categoryId)
 	return nil
 end
 
-ns.CODEX_TRACKED_CURRENCY_IDS = { 3028, 3310, 2803, 3356, 3405 }
+-- 3448 = Corrosive Coin (Vaults of Atal'Utek). Listed so the panel asks the server for
+-- it like the others; without it the balance under that article is whatever the client
+-- happened to cache. It has no charCurrencies snapshot fallback, so an uncached read
+-- shows CODEX_BALANCE_UNKNOWN rather than a wrong number.
+ns.CODEX_TRACKED_CURRENCY_IDS = { 3028, 3310, 2803, 3356, 3405, 3448 }
 
 function ns:RequestCodexCurrencyData()
 	if not C_CurrencyInfo or not C_CurrencyInfo.RequestCurrencyDataFromServer then

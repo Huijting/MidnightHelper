@@ -132,6 +132,126 @@ Fanged, quest 96030, 38.40/17.69) plus vijf "Soft Underbelly"-nodes voor achieve
 Dat is samen met wat we zelf maten (Corrosive Coin 3448, Corrosive Soul 273000, de
 Codex, de Altar-boom) genoeg voor een echte uitleg-pagina.
 
+### ✅ GEBOUWD 14 aug — die uitleg-pagina staat er, in zeven talen
+
+Codex-artikel `vaults_atalutek`, categorie **world**, sort 12, met `currencyId = 3448`
+zodat je eigen Corrosive Coins boven het artikel staan (3448 is ook aan
+`CODEX_TRACKED_CURRENCY_IDS` toegevoegd). De twaalf gedenktekens staan er als één
+looproute, van boven op de kaart naar beneden, plus de Underbelly-ingang en Szarith.
+
+Vier dingen staan er **met opzet niet** in, en dat hoort zo te blijven: de twaalf
+gift-namen uit de Corrosive Codex (screenshot, geen client), wat de Altar-boom uitgeeft
+(ongemeten, teller stond op 0), coördinaten voor de drie rare elites (bestaan niet), en
+elke zin waarin Corrosive Coin en Corrosive Soul in elkaar kunnen schuiven. De redenen
+staan als commentaar bij de registry-entry in `Modules/MidnightCodexData.lua`.
+
+⚠️ **Nog niet in het spel gezien.** `lint_addon.py` gaf 0 HARD/0 SOFT en `luac5.1`
+parseerde alle 223 bestanden in een cloud-sessie, maar niemand heeft het artikel open
+zien gaan. Rob's `/reload` is de eerste echte test. Wat er nog ligt als hij het opent:
+klopt de saldo-regel voor Corrosive Coin, en past de coördinatenregel in de panelbreedte
+of loopt hij lelijk af.
+
+### ✅ GEBOUWD 14 aug — en er staat nu een hele Vaults-laag omheen
+
+Rob vroeg wat er nog meer kon voor iemand die er nooit geweest is. Vier dingen erbij,
+alle vier op gemeten data:
+
+1. **The Honored Dead is een echte hunt.** Eén entry in `Modules/AchievementsData.lua`
+   (63610, twaalf nodes op 2509) levert de kaart, de vinkjes, de Route-knop, de pijl,
+   per-punt waypoints, auto-doorschuiven en NavSearch-regels op — nul nieuwe code. De
+   kaart draagt `nameKey = "ACH_LORE_HONORED_DEAD"`, dus tag `[Lore]` en `feedsMeta`
+   blijft false: of 63610 een meta voedt is nooit gemeten.
+2. **De Underbelly.** Szarith the Fanged staat in de Rares-tab op 2613 met een **honest
+   zero** als quest-id — HandyNotes geeft 96030 en die band is op dit eiland aantoonbaar
+   niet de vlag die vuurt. Kaarten 2509 en 2613 zijn aan `COILED_ISLE_MAPS` toegevoegd,
+   zodat de tab niet leeg valt precies waar een nieuwe speler het meest verdwaald is.
+3. **`CampaignLeadIn.lua` draagt nu twee ketens.** Ula'tek ongewijzigd; erbij de
+   Vaults-keten 98388 → 97640 → 98428. Elke campagne brengt eigen locale-keys mee voor
+   kop en tekst, en `ns.GetCampaignLeadInStates()` is nieuw naast de oude enkelvoudige
+   functie. `HomeDashboard` loopt er nu overheen.
+4. **`/mh atal` vraagt de client nu ook naar 63610, 63601 en 62601** en zegt per
+   criterium of wij hem verschepen.
+
+⚠️ **De Vaults-keten heeft met opzet GEEN startcoördinaat**, dus geen routeknop tot je
+de keten hebt opgepakt. De ingang is nooit gemeten en Zygors 47.24/60.79 gaat hier niet
+in — dezelfde bron zat op 12 aug 13m naast de Crafting Orders-pin.
+
+⚠️ **De criteria-ids 116407..116418 zijn nog HandyNotes, niet client.** Als ze fout zijn
+blijft de kaart stil op 0/12 staan in plaats van te liegen. **`/mh atal` beslist het nu
+zelf** — het nieuwe Achievements-blok zet er groen of rood bij. Dat is meting nummer één.
+
+📋 **`docs/VAULTS_MEASUREMENTS.md`** is nieuw: acht dingen die nog ongemeten zijn, met
+per punt het commando. Eén ronde door de Vaults met die lijst sluit vrijwel alles af.
+
+### 🔎 NIEUW GEREEDSCHAP — `tools/locale_probe.lua`, en waarom het er moest komen
+
+Rob vroeg op 14 aug of de vertalingen die we beloven er ook echt zijn. Dat is precies de
+vraag waar deze repo op 30 juli op stukliep: 346 van de 438 fills per taal deden al
+maanden niets, terwijl elke audit ze als klaar telde. Statisch tellen beantwoordt de
+vraag dus niet.
+
+    lua5.1 tools/locale_probe.lua KEY [KEY ...]
+
+Het laadt de locale-bestanden in `.toc`-volgorde met een echte Lua-interpreter en zegt
+per taal wat `ns:L` zou opleveren: OK, "still English (a copy, not a translation)", of
+nil. Geen WoW nodig.
+
+⚠️ **Het draait één keer per taal, en dat is de hele truc.** De packs zijn
+locale-gated — `Locales/deDE.lua` doet `if GetLocale() ~= "deDE" then return end`. Eén
+run ziet dus alleen enUS en nlNL, en een probe die dat niet weet meldt vrolijk dat vijf
+talen ontbreken terwijl ze prima staan. Dat is de eerste versie van dit script letterlijk
+overkomen.
+
+✅ **Gemeten met dit script:** alle acht nieuwe Vaults-keys komen in alle zeven talen
+door. `ACH_LORE_HONORED_DEAD` blijft met opzet Engels — de achievementkaart pakt sowieso
+de naam uit de client.
+
+## 🔴 GEREPAREERD 14 aug — vier dingen die op 18 aug stil zouden liegen
+
+Uit `docs/PROPOSAL_ONMISBAAR.md` deel 0. Alle vier zaten in de categorie "toont met
+overtuiging iets wat niet klopt", en dat is voor deze addon de duurste soort fout.
+
+**1. `seasonStats` rolde om op patchdag, niet op seizoensdag.** `RollSeasonIfNeeded` las
+de kale `C_MythicPlus.GetCurrentSeason()`, en dat getal ging 11/12 aug van 17 naar 18.
+Het blok dat straks "Season 2" heet bevatte dus al een week Season 1 — en het zou op 18
+aug niet nog eens omrollen, want het droeg het nieuwe id al. Nu poort de roll óók op
+`ns.IsSeason2Live()`, en er zit een eenmalige reparatie voor: een blok dat vóór
+`seasonStartsAt` geopend is wordt teruggezet op Season 1 en samengevoegd met het te vroeg
+gearchiveerde blok. Tellers worden opgeteld, niet overschreven — beide helften zijn echte
+gebeurtenissen van deze speler.
+
+⚠️ **`tools/test_seasonstats.lua` test dit op de échte code**, niet op een kopie van de
+logica: hij stubt `CreateFrame`, vangt de `PLAYER_ENTERING_WORLD`-handler en vuurt hem af.
+Vier toestanden: vroeg omgerold (samenvoegen), na patchdag geïnstalleerd (herlabelen), het
+seizoen opent echt (nu wél archiveren), en een echt Season 2-blok (afblijven).
+
+**2. De M+-tab zou de S1-affixladder naast de S2-dungeonpool tonen.** `MPLUS_AFFIX_LADDER`
+en `MPLUS_BARGAINS` zijn Season 1-data zonder S2-variant, en ze werden zonder poort
+gerenderd terwijl de pool eronder wél omklapt — onder een kop die belooft uit te leggen
+hoe keys dit seizoen werken. Half goed is erger dan zichtbaar verouderd. Beide blokken
+verdwijnen nu zodra `IsMythicSeason2()` waar is, met `MPLUS_AFFIX_UNMEASURED` ervoor in de
+plaats (zeven talen).
+
+**3. Het curio-venster ging open met titel en niets erin.** `GetDelvesSeasonNumber` viel
+terug op `return 1` — precies om de "NO fallback to season 1"-garantie tien regels lager
+heen. Geeft nu `nil`. Nieuw: `ns.HasDelveCurioAdvice()`, gebruikt door alle drie de
+oppervlakken. Het ingebouwde paneel klapt dicht tot één eerlijke regel, de auto-popup
+blijft weg, en `/mh curio` zegt het hardop — een commando dat stil niets doet leest als
+kapot.
+
+**4. De world-boss-planner gokt niet meer vanaf 12.1.** `GetScheduledWorldBoss` deelde de
+weken sinds 18 mrt door de S1-roster en had dus altijd een antwoord, ook nu 12.1 die
+bossen door Lairs vervangen zou hebben. De gok stopt bij de patchgrens; de client-scan en
+de weekcache blijven gewoon werken, en elke consument had de nil-tak al.
+
+⚠️ **Punt 4 is een gok minder, geen meting meer.** `/mh worldboss` op live is nog steeds
+punt 1 van de lijst hierboven. Staan die vier bossen er nog en roteren ze nog, dan kan de
+poort weg. Zijn het Lairs, dan moet de roster zelf vervangen — niet de poort.
+
+⚠️ **Nog niets hiervan is in het spel gezien.** Linter 0 HARD/0 SOFT, `luac5.1` schoon over
+223 bestanden, de vier seizoenstoestanden groen, en beide nieuwe strings resolven in zeven
+talen via `tools/locale_probe.lua`. Robs `/reload` is de eerste echte test.
+
 ## ✅ AFGESLOTEN 13 aug — de per-instance aura-route is dicht in gevecht
 
 JustAC's per-instance route (`GetUnitAuraInstanceIDs` + `ShouldUnitAuraInstanceBeSecret`)
