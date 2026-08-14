@@ -87,10 +87,42 @@ Rob stond bij Er'inye en fotografeerde alles. **Gemeten: 2509, 51.10 / 62.76.**
 
 **En drie sleutel-items die je aan Er'inye kunt tonen** (aparte gespreksopties):
 **Excising Knife**, **Corroded Key** (item **280004**, *"This unlocks something in the
-Vaults of Atal'Utek"*), **Spirit Loupe**. Wat ze opleveren is nog niet gemeten — Rob had
-de Corroded Key en gaat 'm laten zien.
+Vaults of Atal'Utek"*), **Spirit Loupe**.
 
-⏭️ Nog open: pagina 2 en 3 van de handelaar, en wat die drie items doen.
+**Gemeten: het gesprek is een hint, geen unlock.** Rob toonde de Corroded Key en kreeg
+alleen: *"Holdin' dis, I feel adrift. I see venom all around, pourin' down on me."* met
+als enige vervolgoptie "Let's talk about something else." Er gebeurt dus niets bij
+Er'inye — hij beschrijft blind wat hij vóélt, en dat is de **plek waar het item hoort**.
+Dat is de mechaniek: item tonen → raadsel → zelf zoeken.
+
+## 3b. De vier Discoveries — KANDIDAAT, niet gemeten
+
+⚠️ **Alles hieronder komt van method.gg (14 aug), niet van de client.** Reden om het
+serieus te nemen: hun Er'inye staat op **2509 51.08 / 62.80** en Robs eigen `/mh capture`
+gaf **51.10 / 62.76** — dat is dezelfde bron, de client. En hun Corroded-Key-locatie
+("tussen twee venom-watervallen bij de Amani Foothold") is exact wat Er'inye Rob influisterde
+zonder dat wij de gids toen gelezen hadden. Twee onafhankelijke bevestigingen.
+Reden om het tóch niet te geloven: dit weekend gaven vijf externe lijsten een fout getal.
+
+Het patroon is bij alle vier hetzelfde: **sleutel-item → object openen → dat geeft een
+quest-item → quest bij Er'inye inleveren → keuze uit twee passieve nodes.**
+
+| Sleutel | Object + `/way` | Levert | Quest | Keuze |
+|---|---|---|---|---|
+| **Corroded Key** | Venom-Worn Coffer, tussen twee venom-watervallen bij de Amani Foothold (meerdere spawns) | Mummified Lynx's Paw | The Luck of the Bound Spirit | Glideways / Swift Steps |
+| **Spirit Loupe** | The Seal of Wrath, `/way #2509 48.46 25.80` | Feather of Tok'jara | The Winds of Tok'jara | Spirit Walk / Spectral Shipping |
+| **Excising Knife** | venom-poel achterin The Underbelly, `/way #2613 68.52 15.86` | Eye of Szarith | The Watchful Gaze of Szarith | Egg Specialist / Egg Evasion |
+| **Dispelling Charm** | Jin'tal's Reliquary, `/way #2638 36.73 24.73` (Profaned Mausoleum) | Lost Med'jai Amulet | The Protection of the Med'jai | Surge Seniority / Spiritual Succession |
+
+De sleutels vallen uit Temple Strikes, Temple Incursions en Ancient Foes in de Vaults.
+De **Dispelling Charm** en zone **2638** waren bij ons nog helemaal onbekend.
+
+⚠️ **Eén tegenspraak, dus minstens één van de twee is fout.** nerdschalk zet de Excising
+Knife op **69.0 / 75.7** in de Underbelly, method.gg op **68.52 / 15.86**. Zelfde X, heel
+andere Y. Neem geen van beide over zonder `/mh capture` ter plekke.
+
+⏭️ Nog open: pagina 2 en 3 van de handelaar; de coffer-coördinaat; en of de tabel klopt.
+Elke regel is met één `/mh capture` bij het object af te vinken.
 
 ## ~~3. Wat Corrosive Coins kopen, en waar~~ (afgehandeld, zie boven)
 
