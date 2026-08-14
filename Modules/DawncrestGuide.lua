@@ -56,13 +56,57 @@ end
 --- were missed: the row's NUMBER came from the right season while its icon and
 --- tooltip stayed bound to the Season 1 id, so the PTR showed a Mistcrest balance
 --- under a tooltip reading "Myth Dawncrest ... Midnight Season 1" (Rob, 31 jul).
+--- ⚠️ THE SEASON GATE IS THE WRONG QUESTION FOR A CURRENCY. FOUND 14 Aug 2026.
+---
+--- The gate answers "is Season 2 open", and for content that is exactly right — a raid
+--- you cannot enter must not be announced. But Rob was already earning Mistcrest four
+--- days BEFORE the season opens: Blizzard's own currency tab showed him 100 / 20 / 10
+--- while this panel showed five zeroes, because the gate said Season 1 and his Dawncrest
+--- balances really are zero.
+---
+--- A page whose whole job is "what do you have" was answering with what he does not have,
+--- and doing it confidently. Same shape as the Mistcrest id mix-up an hour earlier: not a
+--- crash, just a wrong number sitting where a right one belongs.
+---
+--- So the crests follow the PLAYER, not the calendar. If this character holds a Season 2
+--- crest, or has ever earned one, that is the currency being earned and the row shows it.
+--- Otherwise the gate decides as before, which keeps the pre-season display on Dawncrest
+--- for everyone who has not touched the new content yet.
+---
+--- Deliberately asks `totalEarned` as well as the balance: someone who earned a hundred
+--- and spent them all is still on the new season, and a bare quantity check would flip
+--- their page back to Dawncrest the moment they went shopping.
+local function TierHasSeason2Balance(tier)
+	local id = tier and tier.season2CurrencyId
+	if not (id and C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
+		return false
+	end
+	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
+	if not (ok and type(info) == "table") then
+		return false
+	end
+	return (tonumber(info.quantity) or 0) > 0 or (tonumber(info.totalEarned) or 0) > 0
+end
+
+--- Which season's crest a tier should show, for anyone who needs the same answer.
+---
+--- ⚠️ Exported because the Currencies page asks it too, and on 14 Aug it asked the
+--- season gate directly and got Dawncrest while the player held Mistcrest — the same
+--- wrong number in a second place. Two copies of a seasonal decision is precisely how
+--- the 31 July split happened, where a row's NUMBER came from one season and its icon
+--- and tooltip from the other.
+--- @return boolean true when this tier's Season 2 currency is the live one
+function ns.MH_TierUsesSeason2(tier)
+	return ((ns.IsSeason2Live and ns.IsSeason2Live()) or TierHasSeason2Balance(tier)) and true or false
+end
+
 --- @return table ids, number|nil primary
 local function TierCurrencyIds(tier)
 	if type(tier) ~= "table" then
 		return {}, nil
 	end
 	local primary, alternates = tier.currencyId, tier.alternateCurrencyIds
-	if ns.IsSeason2Live and ns.IsSeason2Live() and tier.season2CurrencyId then
+	if ns.MH_TierUsesSeason2(tier) and tier.season2CurrencyId then
 		primary, alternates = tier.season2CurrencyId, tier.season2AlternateCurrencyIds
 	end
 	local ids = { primary }

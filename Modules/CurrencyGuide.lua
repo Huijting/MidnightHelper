@@ -48,15 +48,26 @@ end
 --- translations never have to be touched again when a season turns. The ids come
 --- from DAWNCREST_TIERS, which is also what the Crests tab reads, so the two panels
 --- cannot disagree.
+--- ⚠️ ASKS THE SHARED DECISION, NOT THE SEASON GATE. Fixed 14 Aug 2026.
+---
+--- This used to read `IsSeason2Live()` itself, and on 14 Aug that produced five Dawncrest
+--- zeroes on a page whose subtitle promises "a quick map of every Midnight currency" —
+--- while Blizzard's own tab showed the player 100 / 20 / 10 Mistcrest. The gate is right
+--- about the SEASON and wrong about the CURRENCY: you earn the new crests before the
+--- season opens.
+---
+--- `ns.MH_TierUsesSeason2` lives in DawncrestGuide beside `TierCurrencyIds`, so the Crests
+--- tab and this page cannot disagree about which season a tier is in. They already did
+--- once, on 31 July, when a row's number came from one season and its icon from the other.
 local function CrestTokens()
 	local tiers = ns.DAWNCREST_TIERS
 	if type(tiers) ~= "table" then
 		return ""
 	end
-	local s2 = ns.IsSeason2Live and ns.IsSeason2Live()
 	local out = {}
 	for i = 1, #tiers do
 		local t = tiers[i]
+		local s2 = ns.MH_TierUsesSeason2 and ns.MH_TierUsesSeason2(t)
 		local id = t and ((s2 and t.season2CurrencyId) or t.currencyId)
 		if id then
 			out[#out + 1] = ("{CURRENCY:%d}"):format(id)
