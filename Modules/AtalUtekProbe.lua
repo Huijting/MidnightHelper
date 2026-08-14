@@ -499,6 +499,37 @@ local MAPS_OF_INTEREST = {
 	{ 2613, "The Underbelly" },
 }
 
+--- ⚠️ WIDENED 14 Aug, after the first run answered too narrowly.
+---
+--- The first POI sweep covered the three maps above and returned exactly one POI, a
+--- world quest. No delve. It is tempting to read that as "the new delves are not live",
+--- and it does not support that: it only says they are not on the Coiled Isle right now.
+---
+--- That they would be on the Coiled Isle was OUR assumption, never a measurement --
+--- and "Gnarldor Isle" does not sound like a place on this island. So the POI sweep
+--- runs over every Midnight zone the delve roster already knows, and a delve icon is
+--- then found wherever it actually is instead of confirmed absent where we guessed.
+--- Ids only, deliberately. These come from the delve roster in Modules/Delves.lua,
+--- which stores entrance maps and not their names -- and of 2424 and 2437 this repo
+--- records no name anywhere. Writing plausible ones here ("Quel'Danas", "Eversong")
+--- would put an invention in the output of the one tool whose whole job is to be
+--- believed over a guide. The client knows the names; it is asked for them below.
+local MIDNIGHT_ZONES = { 2393, 2395, 2405, 2413, 2424, 2437, 2512, 2509, 2613 }
+
+--- What the client calls a map, or the id if it will not say.
+local function MapLabel(mapID)
+	if C_Map and C_Map.GetMapInfo then
+		local ok, info = pcall(C_Map.GetMapInfo, mapID)
+		if ok and type(info) == "table" then
+			local name = SafeText(info.name)
+			if name then
+				return name
+			end
+		end
+	end
+	return ("map %d"):format(mapID)
+end
+
 --- Where you can walk from one map into another. This is what the arrows on the
 --- map are drawn from, so the count here should match what Rob counted by eye --
 --- and if it does not, the arrows are something else and we learn that too.
@@ -547,8 +578,8 @@ local function PrintAreaPOIs(out)
 		return
 	end
 	print("   |cff8fd3ffPoints of interest|r  (every POI, with the atlas its icon comes from)")
-	for _, row in ipairs(MAPS_OF_INTEREST) do
-		local mapID, label = row[1], row[2]
+	for _, mapID in ipairs(MIDNIGHT_ZONES) do
+		local label = MapLabel(mapID)
 		local okList, pois = pcall(API.GetAreaPOIForMap, mapID)
 		if not okList or type(pois) ~= "table" or #pois == 0 then
 			print(("      %-24s |cff9d9d9dnothing listed right now|r"):format(label))

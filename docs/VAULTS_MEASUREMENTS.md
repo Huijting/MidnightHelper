@@ -54,7 +54,33 @@ ids.
 
 Alternatief met meer detail per criterium: `/mh ach id 63610`.
 
-## 2. De ingang van de Vaults
+## ✅ 2. GEMETEN 14 aug — het zijn er DRIE, geen één
+
+`/mh atal` leest nu `C_Map.GetMapLinksForMap`. De client geeft **zes** links:
+
+**Coiled Isle (2512) → Vaults (2509)** — de ingangen:
+`45.37 / 64.93` · `43.28 / 44.19` · `31.88 / 64.90`
+
+**Vaults (2509) → Coiled Isle (2512)** — de uitgangen:
+`30.73 / 82.19` · `63.67 / 89.70` · `71.05 / 43.65`
+
+Die laatste drie zijn precies wat Rob op zijn kaart telde: **twee onder, één rechts**.
+Hij zag een vierde pijl; die is dus géén map-link en nog onverklaard.
+
+⚠️ **Dit is waarom twee dagen wachten de goede keus was.** Elke gids beschrijft één
+ingang. Zygors `47.24 / 60.79` ligt het dichtst bij de eerste en zit er nog ~4 naast.
+Als we die op 12 aug hadden ingevuld, hadden we niet een iets te onnauwkeurig getal
+gehad maar een **verkeerde vorm**: één deur waar er drie zijn. Preciezer meten had dat
+nooit gerepareerd.
+
+`CampaignLeadIn.lua` heeft nu `startCandidates` met alle drie en kiest de dichtstbijzijnde
+als je op 2512 staat. De routeknop is dus niet langer verborgen.
+
+⚠️ **Geen link naar 2613.** De Underbelly staat in de lijst met nul links, terwijl we
+zijn ingang op `47.30 / 11.20` hebben staan. Die overgang is dus iets anders dan een
+map-link. Niet verder onderzocht.
+
+## ~~2. De ingang van de Vaults~~ (afgehandeld, zie boven)
 
 **Waarom:** het lead-in-blok op de Home-tab laat nu bewust géén routeknop zien voor
 iemand die de keten nog niet heeft opgepakt, omdat we niet weten waar je binnengaat.
@@ -233,6 +259,25 @@ is precies de soort bron waar deze repo niet uit verscheept.
 **Points of interest**, over 2512 / 2509 / 2613. Die vragen de client wat er op het
 eiland staat, met de atlas-naam erbij — dat is waar het icoon uit getekend wordt, dus
 daar is een delve-POI aan te herkennen zonder dat wij vooraf beslissen hoe die eruitziet.
+
+**GEMETEN 14 aug, en het antwoord is smal.** De hele POI-lijst over 2512/2509/2613 was
+**één regel**: *Special Assignment: Demand and Supply*, poi 8926, op 2512 `58.77 / 48.67`,
+atlas `worldquest-Capstone-questmarker-epic-Locked`. **Geen enkele delve-POI.**
+
+Wat dat wél zegt: de API werkte, ook voor een kaart waar Rob niet stond (hij kwam net uit
+een delve), en gaf voor het eiland gewoon data terug. Een delve op de Coiled Isle zat daar
+op dat moment niet bij.
+
+Wat dat **niet** zegt: dat de drie nieuwe delves niet bestaan. Twee open mogelijkheden,
+allebei ongemeten:
+1. Ze staan **ergens anders**. *Gnarldor Isle* klinkt niet als een plek op dit eiland, en
+   niets bevestigt dat de nieuwe delves op de Coiled Isle horen — dat was **onze** aanname.
+2. Ze staan er pas bij **Season 2 (18 aug)**. De patchnotes zetten de delves op 11 aug en
+   Bountiful+Keys op 18 aug; welke van die twee de POI's aanzet, weet niemand hier.
+
+⏭️ Volgende meting: dezelfde POI-sweep over **alle** Midnight-zones (2393, 2395, 2405,
+2413, 2424, 2437, 2512), niet alleen dit eiland. Dan vinden we een nieuwe delve waar hij
+ook staat, in plaats van te bevestigen dat hij niet staat waar wij dachten.
 
 ⚠️ Een lege POI-lijst betekent "er staat nu niets", niet "het bestaat niet".
 

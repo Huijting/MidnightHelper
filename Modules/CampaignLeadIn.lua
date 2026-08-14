@@ -45,14 +45,18 @@
 	client on 13 Aug 2026, which read their real titles back — and the game titles two of
 	them longer than the guides do ("Vaults of Atal'Utek: One Coin Too Many").
 
-	⚠️ NO START COORDINATES, ON PURPOSE. The entrance to the Vaults has never been
-	measured. Zygor says ~47.24 / 60.79 on the Coiled Isle and that is precisely the kind
-	of number this repo does not turn into a waypoint: on 12 Aug the Crafting Orders pin
-	proved the cost, with the guide 13m off Rob's own capture. So this entry has no
-	start* fields, `canRoute` is false until you are actually on a chain quest, and the
-	dashboard shows the nudge without a button that would point somewhere plausible and
-	wrong. One `/mh capture` at the entrance fixes it; until then, silence is the honest
-	answer. See docs/VAULTS_MEASUREMENTS.md.
+	✅ THE VAULTS ENTRANCE IS NOW MEASURED — and the wait was worth it.
+
+	This entry shipped with no start* fields for two days, on the grounds that Zygor's
+	~47.24 / 60.79 was the kind of number that puts someone NEXT to a door (the Crafting
+	Orders pin, 12 Aug, 13m off Rob's own capture). The dashboard drew the nudge and
+	skipped the button rather than route to somewhere plausible and wrong.
+
+	On 14 Aug the client answered instead. C_Map.GetMapLinksForMap lists **three** links
+	from The Coiled Isle into the Vaults, and three back out — so the single entrance
+	every guide describes does not exist, and a static coordinate would have been wrong
+	in a way no amount of precision could have fixed. Waiting did not just get a better
+	number; it got a different shape. See `startCandidates` below.
 ]]
 
 local _, ns = ...
@@ -110,7 +114,22 @@ local VAULTS = {
 	availableKey = "HOME_VAULTS_AVAILABLE",
 	inprogressKey = "HOME_VAULTS_INPROGRESS",
 	routeBtnKey = "HOME_VAULTS_ROUTE_BTN",
-	-- No startMapID/startX/startY: see the header. The entrance is unmeasured.
+	-- ✅ MEASURED 14 Aug 2026, and there turned out to be three of them.
+	--
+	-- `/mh atal` now reads C_Map.GetMapLinksForMap, and the client lists three links
+	-- from The Coiled Isle (2512) into the Vaults (2509) -- not the one entrance every
+	-- guide describes. Zygor's 47.24 / 60.79 is nearest to the first of these and still
+	-- ~4 map units off it, which is the same story as the Crafting Orders pin.
+	--
+	-- Three real doors mean a single static coordinate would be arbitrary: correct, but
+	-- possibly the one across the island. So the route picks the nearest to where the
+	-- player is standing, and falls back to the first when they are not on 2512 yet.
+	startMapID = 2512, -- The Coiled Isle
+	startCandidates = {
+		{ 45.37, 64.93 },
+		{ 43.28, 44.19 },
+		{ 31.88, 64.90 },
+	},
 	chain = {
 		{ questID = 98388, nameKey = "CAMPAIGN_VAULTS_STARTQUEST" }, -- Into the Vaults of Atal'Utek
 		{ questID = 97640 }, -- Vaults of Atal'Utek: One Coin Too Many
@@ -148,6 +167,53 @@ local function QuestIsReal(questID)
 end
 
 --- Live state of one chain, or nil when there is nothing to show.
+--- Where to send someone who has not started yet.
+---
+--- Most campaigns have one door and carry plain startX/startY. The Vaults have three
+--- (measured 14 Aug, see the VAULTS entry), so those carry `startCandidates` instead
+--- and this picks the nearest to the player.
+---
+--- Nearest is computed in map units, which are not metres and are not even the same
+--- distance in x as in y on a non-square map. That is fine for choosing between three
+--- doors and would not be fine for anything else, so it does not leave this function.
+--- If the player is not on the campaign's start map we cannot compare at all, and the
+--- first candidate is returned rather than a guess dressed up as a choice.
+local function ResolveStart(campaign)
+	if campaign.startX and campaign.startY then
+		return campaign.startX, campaign.startY
+	end
+	local list = campaign.startCandidates
+	if type(list) ~= "table" or #list == 0 then
+		return nil, nil
+	end
+	local first = list[1]
+	if not (C_Map and C_Map.GetBestMapForUnit and C_Map.GetPlayerMapPosition) then
+		return first[1], first[2]
+	end
+	local okMap, here = pcall(C_Map.GetBestMapForUnit, "player")
+	if not okMap or here ~= campaign.startMapID then
+		return first[1], first[2]
+	end
+	local okPos, pos = pcall(C_Map.GetPlayerMapPosition, campaign.startMapID, "player")
+	if not (okPos and pos and pos.GetXY) then
+		return first[1], first[2]
+	end
+	local okXY, px, py = pcall(pos.GetXY, pos)
+	if not (okXY and px and py) then
+		return first[1], first[2]
+	end
+	px, py = px * 100, py * 100
+	local best, bestDist = first, nil
+	for _, cand in ipairs(list) do
+		local dx, dy = cand[1] - px, cand[2] - py
+		local d = dx * dx + dy * dy
+		if bestDist == nil or d < bestDist then
+			best, bestDist = cand, d
+		end
+	end
+	return best[1], best[2]
+end
+
 local function StateFor(campaign)
 	local start = campaign.chain[1]
 	if not start or not QuestIsReal(start.questID) then
@@ -180,7 +246,8 @@ local function StateFor(campaign)
 	-- route at the quest you are actually on, else the first step you have not done.
 	local status = (onQuestID or anyDone) and "inprogress" or "available"
 	local activeQuestID = onQuestID or firstOpenID
-	local hasStartCoords = campaign.startMapID ~= nil and campaign.startX ~= nil and campaign.startY ~= nil
+	local startX, startY = ResolveStart(campaign)
+	local hasStartCoords = campaign.startMapID ~= nil and startX ~= nil and startY ~= nil
 	return {
 		key = campaign.key,
 		name = ns:L(campaign.nameKey),
@@ -190,8 +257,8 @@ local function StateFor(campaign)
 		inprogressKey = campaign.inprogressKey,
 		routeBtnKey = campaign.routeBtnKey,
 		startMapID = campaign.startMapID,
-		startX = campaign.startX,
-		startY = campaign.startY,
+		startX = startX,
+		startY = startY,
 		activeQuestID = activeQuestID,
 		rewards = campaign.rewards,
 		-- Can this state actually put an arrow somewhere? Once you are on a chain quest
