@@ -23,6 +23,33 @@ hij beweerde toen dat de Silvermoon-stadsgids nog hardcoded Nederlands was, terw
 's avonds ervoor volledig vertaald was (43 pins + 7 kopjes, nul letterlijke strings).
 Werk dit blok bij aan het eind van elke sessie, of laat het weg.
 
+## 🔴 EERST MORGEN (15 aug) — Rob zag het zelf, avond 14 aug
+
+**De delve-tooltip toont Season 1-ilvls.** Op de nieuwe Gnarldor Isle-tooltip staat
+Tier 1 `End 210 | Vault 216` t/m Tier 8 `End 246 | Vault 259`. Rob: *"ik denk dat we
+andere gear krijgen"* — en dat is bijna zeker zo: **Season 2 opent 18 aug** en dan
+verschuift de hele Delve-rewardtabel.
+
+Waarom dit vóór alles gaat: het is de eerste keer dat MH een **verkeerd getal** toont in
+plaats van niets. Een lege tabel is eerlijk; `End 246` is een belofte. En het gaat over
+drie dagen fout, niet ooit.
+
+Te doen: waar die tabel vandaan komt opzoeken (hardcoded of `C_WeeklyRewards`), en
+beslissen of hij bij S2 leeg moet staan tot hij gemeten is — dat is de lijn die deze
+repo verder overal aanhoudt.
+
+⚠️ Niet uit een datamine invullen. De S2-ilvltabellen staan in `docs/PTR_12.1_WATCH.md`
+als derdepartij-kandidaten; die gaan er pas in als de client ze bevestigt.
+
+**Ook morgen, kleiner:**
+- Twee nieuwe delves staan erin (Gnarldor Isle, The Ring of Glory) maar hebben **geen
+  tips-, curios- of boss-entry**. De lookups zijn nil-safe, dus niks breekt; ze zijn
+  alleen leeg. `DelveTipsData.lua` / `DelveCuriosData.lua`.
+- Na **18 aug**: `/mh atal` opnieuw voor **Venomfall Deeps** (S2-nemesis, boss Azta'rec).
+  Verwacht op 2512, maar dat is een aanname — de meting van 14 aug gaf daar exact twee.
+- Open uit `docs/VAULTS_MEASUREMENTS.md`: het dode snelpad in kolom 1 van de elf oude
+  delves, Robs vierde kaartpijl, en dat 2613 nul map-links heeft.
+
 ## 📍 Morgen op live, in deze volgorde
 
 Alles hieronder is op de PTR gemeten en moet op live opnieuw, want de PTR is sinds
