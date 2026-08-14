@@ -106,6 +106,14 @@ de bovenstaande vorm heeft.
 - Language packs: `Locales/<code>.lua` (`enUS`, `deDE`, `frFR`, `esES`, `ptBR`, `itIT`, `nlNL`) register into `ns._mhLocales[code]`. Settings-page strings live in `Locales/SettingsPage.lua`.
 - `Locales/Translations2026.lua` is a **fill-only merge** (`fill(code, patch)` sets a key only if the pack lacks it) that adds post-2025 translations for **de/fr/es/pt/it**. Add new translations here — it never overwrites existing ones.
 - **Workflow for a new user-facing string:** add it to `enUS.lua` (and `nlNL.lua`), then add translations to the other 5 via `Translations2026.lua`. `nlNL` is manual-only (never auto-selected). `CHANGELOG_*` keys stay **English** on purpose (fallback).
+- **What never gets translated.** The rules existed but were scattered across four file headers; collected here 14 aug 2026 because they are easy to break and nothing checks them.
+  - **Proper nouns Blizzard owns:** zone, NPC, rare, mount, item and **currency names**, quest titles, and **achievement names**. Translating an achievement title invents a name Blizzard did not use, and the player's own Achievements pane will disagree with us (`Translations2026.lua:2289`). Same for `Corrosive Coin`/`Corrosive Soul`: the name is English in every pack, the sentence around it is not.
+  - **Game terms:** Mythic+, PvP, Raid, Renown, Knowledge Points/KP, Delves, Vault, Bountiful, Tier, ilvl, Keys, Shards — WoW UI spelling, all packs (`nlNL.lua:5`, `Translations2026.lua:312`).
+  - **`CHANGELOG_*`** — English everywhere, on purpose.
+  - **Markup:** `%s`/`%d`/`%%`, `|cff…|r` pairs around the same words, `|n` where the layout needs it, and the `->` arrow in menu paths (`docs/TRANSLATE_START_HERE.md`).
+  - ⚠️ **The article around an English name follows the language, not the name.** The packs write "der Coiled Isle", "la Coiled Isle", "na Coiled Isle", "de Coiled Isle" — the English "The" is dropped. On 14 aug the new Codex bodies shipped "auf The Coiled Isle" in six languages while the same feature's dashboard strings, two files away, already said "auf der Coiled Isle". Check the habit with a grep before inventing one.
+  - ⚠️ **And "currency" itself is not settled by rule but by pack.** `itIT` and `nlNL` keep the English word (12 and 10 uses in `Codex.lua`); de/fr/es/pt translate it (14 each). Grep the pack before writing the sentence.
+- **Verify translations by running them, not by counting them.** `lua5.1 tools/locale_probe.lua KEY [KEY …]` loads `Locales/` in `.toc` order and prints, per language, what `ns:L` resolves — OK / "still English" / nil. It runs the whole load **once per language** because the packs are locale-gated (`if GetLocale() ~= "deDE" then return end`), so one pass only ever builds enUS + nlNL.
 
 ### Route arrow / navigation (`Modules/NativeArrow.lua`)
 - A shared on-screen arrow + Blizzard user-waypoint driver for every route type.
