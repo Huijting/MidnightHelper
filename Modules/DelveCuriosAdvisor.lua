@@ -37,11 +37,27 @@ local P_LINE_H = 26
 local P_LINE_GAP = 8
 local POPUP_WIDTH = 340
 
+--- ⚠️ `UnitGroupRolesAssigned` CAN RETURN A SECRET VALUE ON 12.1.
+---
+--- From Blizzard's own 12.1.0 API notes (watcher, 14 Aug): "A number of Unit APIs have
+--- been changed to return secret values when the unit's identity is secret" — and the
+--- list names `UnitGroupRolesAssigned` alongside `UnitClass`, `UnitSex`, `UnitPhaseReason`
+--- and `UnitIsRaidOfficer`.
+---
+--- A secret string survives `pcall` and `type()` intact and only bites at the comparison
+--- below: `role == "TANK"` on a secret is the trap this addon already knows from four
+--- GUID reads in July, two of which shipped and threw mid-fight against a boss whose GUID
+--- the client hides.
+---
+--- "player" is the least likely unit to be secret, which is exactly why this would sit
+--- here for months and then fire once, in restricted content, in front of somebody. The
+--- guard costs a function call and the fallback below is spec-based — it does not ask
+--- about a unit at all, so it stays readable when this does not.
 local function GetPlayerRoleKey()
 	local role
 	if UnitGroupRolesAssigned then
 		local ok, r = pcall(UnitGroupRolesAssigned, "player")
-		if ok then
+		if ok and not (issecretvalue and r ~= nil and issecretvalue(r)) then
 			role = r
 		end
 	end

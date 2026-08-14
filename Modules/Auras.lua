@@ -493,6 +493,16 @@ function ns.PrintAuraInstanceProbe()
 	---
 	--- Six refusals. The route is genuinely closed in combat, and the doubt is spent.
 	---
+	--- ✅ AND BLIZZARD SAYS SO IN WRITING (watcher, 14 Aug, from the 12.1.0 API notes):
+	--- "C_UnitAura and C_TooltipInfo APIs that provide access to aura data via index,
+	--- slot, or instance ID will **Lua error** when called by addons while auras are
+	--- secret. APIs via spellID/spell name keep working."
+	---
+	--- That is this measurement, word for word, and it explains both halves of what we
+	--- found: the instance route throws (index/slot/instanceID), while
+	--- `GetPlayerAuraBySpellID` still answers — which is exactly why it could answer
+	--- WRONGLY rather than refusing, and why `HasPlayerAura` has to distrust a "no".
+	---
 	--- ⚠️ The standing row is what makes that trustworthy. 7, then 5, then 0 — the tokens
 	--- are being HONOURED, so the combat throw cannot be dismissed as an unrecognised
 	--- filter degrading into something the engine rejects. Had every filter returned 7,
