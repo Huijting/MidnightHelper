@@ -21,6 +21,43 @@ local _, ns = ...
 -- Helpers
 --------------------------------------------------------------------------------
 
+--- ⚠️ THESE WEEKLIES STOP BEING OFFERED WHEN SEASON 2 OPENS. Blizzard, hotfixes of
+--- 13 Aug 2026, verbatim: "The Naigtal and Val Sparks of War quests will no longer be
+--- offered when Season 2 begins."
+---
+--- Without this the section keeps standing on 18 August with a weekly nobody can pick
+--- up — an item that reads as "you still have to do this" and can never be finished.
+--- That is the same failure as the crest rows this morning: not a crash, a confident
+--- wrong answer in the panel whose whole job is telling you what is left.
+---
+--- ⚠️ BUT THE SEASON IS NOT THE WHOLE ANSWER, and this is where the crest fix earlier
+--- today taught us something. "No longer offered" is about NEW quests. Somebody who has
+--- one in their log at the flip still has it, and hiding it would take a real to-do off
+--- their list. So the season closes the door for new pickups and an open quest keeps it
+--- open for whoever is already through it — the player, not the calendar.
+---
+--- ⚠️ AND WHICH QUESTS ARE MEANT IS NOT SETTLED. Blizzard says "Sparks of War quests";
+--- we ship "Showdown on Naigtal/Val" (96717 / 96718 / 96713, all measured in-game). They
+--- are very likely the same weekly under its reward's name, but likely is not measured.
+--- If on 18 Aug Rob can still pick one up, this gate is wrong and should come out —
+--- which is why it hides rather than deletes, and why nothing below it changed.
+local function HasOpenShowdownWeekly()
+	if not (ns.SHOWDOWNS and ns.SHOWDOWNS.zones and C_QuestLog and C_QuestLog.IsOnQuest) then
+		return false
+	end
+	for _, zone in ipairs(ns.SHOWDOWNS.zones) do
+		for _, qid in ipairs({ zone.weekly, zone.weeklyHeroic }) do
+			if qid then
+				local ok, on = pcall(C_QuestLog.IsOnQuest, qid)
+				if ok and on then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
 -- 12.0.7 clients only: the zones, quests and APIs (GetInstanceInfo ret11) do
 -- not exist on 12.0.5 live, so the UI section hides itself entirely there.
 function ns.IsShowdownsAvailable()
@@ -28,7 +65,13 @@ function ns.IsShowdownsAvailable()
 		return false
 	end
 	local toc = select(4, GetBuildInfo())
-	return (tonumber(toc) or 0) >= 120007
+	if (tonumber(toc) or 0) < 120007 then
+		return false
+	end
+	if ns.IsSeason2Live and ns.IsSeason2Live() then
+		return HasOpenShowdownWeekly()
+	end
+	return true
 end
 
 local function ZoneName(zone)
