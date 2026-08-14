@@ -66,6 +66,35 @@ local MIDNIGHT_DELVES = {
 	{ 93427, 2405, 61.18, 71.28, "Torment's Rise" },
 }
 
+--- Is this one of the eleven we ship?
+---
+--- Exported 14 Aug 2026 so a probe can tell "the client named a delve we do not carry"
+--- apart from "the client named one we do" — which is the only interesting column when
+--- you are looking for content a patch added. The roster stays local: a probe that
+--- copied these names would drift from them the first time this list changed.
+---
+--- Returns nil for an unusable name, so "we do not have it" and "you asked me nothing"
+--- never look the same to the caller.
+---
+--- Substring both ways because a POI title can be prefixed ("Bountiful Delve: The
+--- Shadow Enclave") — the same reason MatchDelveName in DelveHistory does it.
+function ns.IsKnownDelveName(name)
+	if type(name) ~= "string" or name == "" then
+		return nil
+	end
+	for _, d in ipairs(MIDNIGHT_DELVES) do
+		local rosterName = d[5]
+		if rosterName and rosterName ~= "" then
+			if rosterName == name
+				or name:find(rosterName, 1, true)
+				or rosterName:find(name, 1, true) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 local MIDNIGHT_PORTALS = {
 	-- SILVERMOON HUB
 	{ name = "Portal to Voidstorm",  mapID = 2393, toID = 2405, x = 35.25, y = 65.85 },

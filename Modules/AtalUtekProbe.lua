@@ -612,6 +612,78 @@ local function PrintAreaPOIs(out)
 	print("      |cff8a8f98because nothing exists. Empty here is not proof of absence.|r")
 end
 
+--- ⚠️ ADDED 14 Aug, because the sweep above asked the wrong question — and said so.
+---
+--- The wide run returned 21 POIs across nine zones and not one delve. That reads like
+--- an answer. It is not: the eleven delves this addon already ships were not in it
+--- either, and those certainly exist. Zul'Aman lists two portals and no Atal'Aman.
+---
+--- So GetAreaPOIForMap does not return delves at all, and every "no delve found" it
+--- produced was a statement about the API. The only reason this was catchable is that
+--- the sweep happened to carry eleven known-positive controls; without them the empty
+--- result would have looked like news.
+---
+--- Delves.lua already knew the right call — C_AreaPoiInfo.GetDelvesForMap, which it
+--- uses for bountiful state. That one is keyed on the map, not on a name, so unlike our
+--- roster it can return a delve nobody has told it about. Which is the whole question.
+local function PrintDelvePOIs(out)
+	local API = C_AreaPoiInfo
+	if not (API and API.GetDelvesForMap and API.GetAreaPOIInfo) then
+		print("   |cff9d9d9dC_AreaPoiInfo.GetDelvesForMap not on this client|r — cannot enumerate delves.")
+		return
+	end
+	print("   |cff8fd3ffDelves the client lists per map|r  (name-independent — this can find new ones)")
+	local total = 0
+	for _, mapID in ipairs(MIDNIGHT_ZONES) do
+		local label = MapLabel(mapID)
+		local okList, ids = pcall(API.GetDelvesForMap, mapID)
+		local list = (okList and type(ids) == "table") and ids or {}
+		if #list == 0 then
+			print(("      %-24s |cff9d9d9d-|r"):format(label))
+		else
+			print(("      |cffffffff%s|r (%d) — %d delve(s)"):format(label, mapID, #list))
+			for _, poiID in ipairs(list) do
+				local okI, info = pcall(API.GetAreaPOIInfo, mapID, poiID)
+				local name, atlas, x, y
+				if okI and type(info) == "table" then
+					name = SafeText(info.name)
+					atlas = SafeText(info.atlasName)
+					if type(info.position) == "table" and info.position.GetXY then
+						local okXY, px, py = pcall(info.position.GetXY, info.position)
+						if okXY and px then x, y = px * 100, (py or 0) * 100 end
+					end
+				end
+				-- Ours or new? The roster is the eleven in Delves.lua; anything the
+				-- client names that we do not carry is exactly what we came for.
+				-- Not `f and f(name) or nil`: that idiom turns a false return into nil,
+				-- and false is the answer this whole block exists to print.
+				local known = nil
+				if ns.IsKnownDelveName then
+					known = ns.IsKnownDelveName(name)
+				end
+				local tag = ""
+				if known == false then
+					tag = "  |cff40c040<- NOT IN OUR ROSTER|r"
+				elseif known == true then
+					tag = "  |cff8a8f98(we ship this one)|r"
+				end
+				total = total + 1
+				print(("         %-7s %-30s %-24s %s%s"):format(
+					tostring(poiID), name or "?", atlas or "-",
+					x and ("%.2f, %.2f"):format(x, y) or "-", tag))
+				out.delves[#out.delves + 1] = {
+					map = mapID, poiID = poiID, name = name,
+					atlas = atlas, x = x, y = y, inRoster = known,
+				}
+			end
+		end
+	end
+	if total == 0 then
+		print("      |cffe8c36aNo delves on any of these maps.|r Since we ship eleven, that means")
+		print("      |cffe8c36athis call is not answering either — not that there are none.|r")
+	end
+end
+
 function ns.PrintAtalUtekProbe(from, to)
 	local prefix = Prefix()
 	print(("%s Vaults of Atal'Utek probe — nothing here is wired into a feature yet."):format(prefix))
@@ -625,8 +697,9 @@ function ns.PrintAtalUtekProbe(from, to)
 	out.achievements = {}
 	PrintMap(out)
 	PrintAchievements(out)
-	out.links, out.pois = {}, {}
+	out.links, out.pois, out.delves = {}, {}, {}
 	PrintMapLinks(out)
+	PrintDelvePOIs(out)
 	PrintAreaPOIs(out)
 	PrintGossip(out)
 

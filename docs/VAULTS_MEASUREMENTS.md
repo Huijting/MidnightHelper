@@ -260,26 +260,36 @@ is precies de soort bron waar deze repo niet uit verscheept.
 eiland staat, met de atlas-naam erbij — dat is waar het icoon uit getekend wordt, dus
 daar is een delve-POI aan te herkennen zonder dat wij vooraf beslissen hoe die eruitziet.
 
-**GEMETEN 14 aug, en het antwoord is smal.** De hele POI-lijst over 2512/2509/2613 was
-**één regel**: *Special Assignment: Demand and Supply*, poi 8926, op 2512 `58.77 / 48.67`,
-atlas `worldquest-Capstone-questmarker-epic-Locked`. **Geen enkele delve-POI.**
+### ❌ De eerste twee POI-metingen stelden de verkeerde vraag
 
-Wat dat wél zegt: de API werkte, ook voor een kaart waar Rob niet stond (hij kwam net uit
-een delve), en gaf voor het eiland gewoon data terug. Een delve op de Coiled Isle zat daar
-op dat moment niet bij.
+**Ronde 1 (drie kaarten):** één POI, een world quest. Geen delve.
+**Ronde 2 (negen Midnight-zones):** 21 POI's — portals, Great Vault, Trading Post,
+Soridormi, ritual sites, drie Special Assignments. **Nog steeds geen enkele delve.**
 
-Wat dat **niet** zegt: dat de drie nieuwe delves niet bestaan. Twee open mogelijkheden,
-allebei ongemeten:
-1. Ze staan **ergens anders**. *Gnarldor Isle* klinkt niet als een plek op dit eiland, en
-   niets bevestigt dat de nieuwe delves op de Coiled Isle horen — dat was **onze** aanname.
-2. Ze staan er pas bij **Season 2 (18 aug)**. De patchnotes zetten de delves op 11 aug en
-   Bountiful+Keys op 18 aug; welke van die twee de POI's aanzet, weet niemand hier.
+Dat leest als een antwoord. Het is er geen, en de meting bewijst dat zelf: **onze eigen
+elf delves stonden er ook niet in.** Zul'Aman (2395) geeft twee portals en géén Atal'Aman.
+Voidstorm (2405) geeft twee portals terwijl wij daar drie delves verschepen.
 
-⏭️ Volgende meting: dezelfde POI-sweep over **alle** Midnight-zones (2393, 2395, 2405,
-2413, 2424, 2437, 2512), niet alleen dit eiland. Dan vinden we een nieuwe delve waar hij
-ook staat, in plaats van te bevestigen dat hij niet staat waar wij dachten.
+`C_AreaPoiInfo.GetAreaPOIForMap` **geeft dus überhaupt geen delves terug.** Elke "geen
+delve gevonden" hierboven was een uitspraak over de API, niet over de wereld.
 
-⚠️ Een lege POI-lijst betekent "er staat nu niets", niet "het bestaat niet".
+⚠️ Dit was alleen te vangen omdat de sweep per ongeluk **elf bekende positieve controles**
+meedroeg. Zonder die elf had een lege lijst er als nieuws uitgezien — en had ik in ronde 1
+bijna geconcludeerd dat de nieuwe delves niet op het eiland staan.
+
+### ✅ De juiste call stond al in onze eigen code
+
+`Modules/Delves.lua:1139` gebruikt **`C_AreaPoiInfo.GetDelvesForMap`** voor de
+bountiful-status. Die is **op de kaart gesleuteld, niet op een naam** — dus anders dan
+onze roster kan hij een delve teruggeven waarvan niemand hem heeft verteld. Precies de vraag.
+
+`/mh atal` heeft nu een derde blok, **Delves the client lists per map**, over dezelfde
+negen zones, met per regel of wij hem verschepen. Staat er iets met
+**`<- NOT IN OUR ROSTER`**, dan heeft de client ons een 12.1-delve gegeven met naam,
+coördinaat en atlas — en hoeven we niks uit een datamine over te nemen.
+
+⏭️ Nog ongemeten. Twee mogelijkheden blijven open als er niks komt: de nieuwe delves staan
+in een zone die niet in deze negen zit, of ze gaan pas aan bij **Season 2 (18 aug)**.
 
 ## ⏭️ Vier pijlen op de Vaults-kaart
 

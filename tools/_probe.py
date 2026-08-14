@@ -50,7 +50,7 @@ if probe is None:
     print('GEEN atalProbe in de SV — is /mh atal wel gedraaid vóór de reload?')
 else:
     print('atalProbe gevonden (%d tekens)' % len(probe))
-    for key in ('links', 'pois'):
+    for key in ('delves', 'links', 'pois'):
         b, _ = block(probe, key)
         if b is None:
             print('\n=== %s: ONTBREEKT (oude code geladen?) ===' % key)
