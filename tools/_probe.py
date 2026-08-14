@@ -1,12 +1,15 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: everything HandyNotes_Midnight 150 knows about the Vaults of Atal'Utek
-(map 2509) and its sub-map 2613. Rob asked last night what there is to DO in there
-and where — this is what a trusted source already has.
+Right now: swap the Season 2 primary/alternate crest ids. Measured 14 Aug — the
+counts sit on 3442-3446, not on 3437-3441.
+
+Every pair is named explicitly and the count is asserted, because "swap the two
+numbers on each line" done by hand across five tiers is how one gets missed.
 """
+import io
+import os
 import re
 import sys
-from collections import Counter
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -14,53 +17,39 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-HN = (r'E:\World of Warcraft\_retail_\Interface\AddOns\HandyNotes_Midnight'
-      r'\zones\coiled_isles.lua')
-hn = open(HN, encoding='utf-8', errors='replace').read()
+P = (r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper'
+     r'\Modules\DawncrestData.lua')
 
-rows = []
-# \b before the alternation: without it, "map" also matches INSIDE "vault_map"
-# (the underscore is a word character, so \b does not apply there), and every
-# vault node got split into a "vault_" chunk plus a "map.nodes[...]" chunk that
-# then read as a Coiled Isle node and was skipped. 24 nodes came out as 6.
-for chunk in re.split(r'(?=\b(?:vault_map2|vault_map|map)\.nodes\[\d{8}\]\s*=\s*)', hn):
-    m = re.match(r'(vault_map2|vault_map|map)\.nodes\[(\d{8})\]\s*=\s*(\w+)\(\{', chunk)
-    if not m:
+# tier -> (was primary, was alternate) ; after the swap they trade places.
+PAIRS = [
+    ('adventurer', 3437, 3442),
+    ('veteran', 3438, 3443),
+    ('champion', 3439, 3444),
+    ('hero', 3440, 3445),
+    ('myth', 3441, 3446),
+]
+
+t = open(P, encoding='utf-8', newline='').read()
+done = 0
+for tier, old_primary, old_alt in PAIRS:
+    pat_p = re.compile(r'(\bseason2CurrencyId = )%d\b' % old_primary)
+    pat_a = re.compile(r'(\bseason2AlternateCurrencyIds = \{ )%d( \})' % old_alt)
+    new, np = pat_p.subn(lambda m: m.group(1) + str(old_alt), t)
+    if np != 1:
+        print('%-11s primair %d: %d treffers — NIET aangepast' % (tier, old_primary, np))
         continue
-    which, coord, kind = m.group(1), m.group(2), m.group(3)
-    if which == 'map':
-        continue  # that is The Coiled Isle itself, already compared
-    x, y = int(coord[:4]) / 100.0, int(coord[4:]) / 100.0
-    quest = re.search(r'\bquest\s*=\s*(\d+)', chunk)
-    ach = re.search(r'Achievement\(\{id\s*=\s*(\d+)(?:,\s*criteria\s*=\s*(\d+))?', chunk)
-    name = re.search(r'\n\}\)\s*--\s*(.+)', chunk)
-    rows.append({
-        'map': 2509 if which == 'vault_map' else 2613,
-        'kind': kind, 'x': x, 'y': y,
-        'quest': quest.group(1) if quest else None,
-        'ach': ach.group(1) if ach else None,
-        'crit': ach.group(2) if ach and ach.group(2) else None,
-        'name': (name.group(1).strip() if name else '')[:34],
-        'placeholder': (x == 10.0 and y in (10.0, 20.0, 30.0)),
-    })
+    new2, na = pat_a.subn(lambda m: m.group(1) + str(old_primary) + m.group(2), new)
+    if na != 1:
+        print('%-11s alternate %d: %d treffers — NIET aangepast' % (tier, old_alt, na))
+        continue
+    t = new2
+    done += 1
+    print('%-11s %d <-> %d' % (tier, old_primary, old_alt))
 
-print('Vaults of Atal'"'"'Utek in HandyNotes_Midnight 150 — %d nodes' % len(rows))
-print()
-kinds = Counter((r['kind'], r['map']) for r in rows)
-for (kind, mp), n in sorted(kinds.items()):
-    ph = sum(1 for r in rows if r['kind'] == kind and r['map'] == mp and r['placeholder'])
-    print('  %-16s map %-6d %2d node(s)%s' % (
-        kind, mp, n, ('  waarvan %d placeholder' % ph) if ph else ''))
-
-aches = Counter(r['ach'] for r in rows if r['ach'])
-print()
-print('  achievements: %s' % ', '.join('%s (%dx)' % (a, n) for a, n in aches.items()))
-
-print()
-print('%-16s %-6s %-9s %-9s %-34s %s' % ('kind', 'map', 'quest', 'criteria', 'name', 'coords'))
-print('-' * 96)
-for r in sorted(rows, key=lambda r: (r['kind'], r['map'], r['x'])):
-    mark = '  <- placeholder' if r['placeholder'] else ''
-    print('%-16s %-6d %-9s %-9s %-34s %.2f, %.2f%s' % (
-        r['kind'], r['map'], r['quest'] or '-', r['crit'] or '-',
-        r['name'], r['x'], r['y'], mark))
+print('%d van %d tiers omgedraaid' % (done, len(PAIRS)))
+if done == len(PAIRS):
+    io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(t)
+    os.replace(P + '.tmp', P)
+    print('geschreven')
+else:
+    print('NIETS geschreven — alles of niets')
