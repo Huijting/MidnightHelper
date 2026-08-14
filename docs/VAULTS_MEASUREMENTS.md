@@ -194,6 +194,57 @@ Te zien in het achievementvenster: staat 63610 onder een meta als criterium?
 
 ---
 
+## ✅ GEMETEN 14 aug — Venom-Cursed Fragments zijn een gear-systeem
+
+Stond op geen enkele lijst, kwam uit Robs eigen tassen.
+
+**Venom-Cursed Fragment**, item **279382**, soulbound, verkoopt voor 100 goud.
+*"Use: Combine two fragments to create a Champion Venom-Cursed item for your
+specialization. (5 sec cooldown)"*
+
+Rob had er drie, voegde er twee samen en kreeg **Effigy of Ula'tek's Faithful**
+(item **274483**): trinket, **ilvl 292**, Upgrade Level **Champion 1/6**, Unique-Equipped,
++121 Int/Agi/Str, met een proc voor 336 random secondary + 168 random tertiary, 12 sec.
+
+Twee dingen die dit interessant maken voor MH:
+
+1. **Het is spec-gericht catch-up gear.** "for your specialization" betekent dat het
+   nooit een miss is — precies het soort ding waar een beginner niet van weet dat het
+   bestaat. Kandidaat voor de loot-/gear-uitleg, niet voor een tracker.
+2. **Onze eigen upgrade-checker werkte.** De tooltip toonde *"MH Upgrade: +20 ilvl for
+   your spec"* op de trinket. Dat is een bevestiging in het wild, niet uit een test.
+
+⏭️ Open: waar de fragments vandaan komen (Rob wist het zelf niet — *"ik kreeg ergens dit"*),
+of het altijd een trinket is of per keer iets anders, en of er een cap op zit.
+
+## ❌ Onze Delves-lijst kan de nieuwe delves niet tonen
+
+Robs Delves-paneel toont elf delves, allemaal van basis-Midnight, geen enkele op de
+Coiled Isle. Dat is **geen client-feit maar een feit over ons**:
+`Modules/Delves.lua:55` bevat een **hardcoded roster van elf**, en de POI-scan draait op
+die namen. Een delve die 12.1 heeft toegevoegd kan daar dus nooit in verschijnen, hoe
+live hij ook is.
+
+De watchers noemen er drie — **The Ring of Glory**, **Gnarldor Isle**, **Venomfall Deeps**
+(de nieuwe Nemesis-delve, boss **Azta'rec**) — maar dat komt van datamining in juni, en dat
+is precies de soort bron waar deze repo niet uit verscheept.
+
+`/mh atal` heeft er daarom twee nieuwe blokken bij (14 aug): **Map links** en
+**Points of interest**, over 2512 / 2509 / 2613. Die vragen de client wat er op het
+eiland staat, met de atlas-naam erbij — dat is waar het icoon uit getekend wordt, dus
+daar is een delve-POI aan te herkennen zonder dat wij vooraf beslissen hoe die eruitziet.
+
+⚠️ Een lege POI-lijst betekent "er staat nu niets", niet "het bestaat niet".
+
+## ⏭️ Vier pijlen op de Vaults-kaart
+
+Rob telt er vier: twee onderaan, één rechts, en nog één. Ze zien eruit als
+map-transitions, en eruitzien als iets is niet iets zijn. Het **Map links**-blok in
+`/mh atal` vraagt het de client. Klopt het aantal met wat hij telt, dan zijn het
+ingangen; klopt het niet, dan zijn de pijlen iets anders en weten we dát.
+
+---
+
 ## Wat er al staat, zodat niemand het opnieuw meet
 
 | | |

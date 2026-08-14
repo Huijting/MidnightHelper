@@ -474,6 +474,113 @@ end
 -- /mh atal [from] [to]
 -- ---------------------------------------------------------------------------
 
+-- ---------------------------------------------------------------------------
+-- The island's own structure — added 14 Aug 2026, for two of Rob's questions
+-- ---------------------------------------------------------------------------
+
+--- ⚠️ WHY. Rob asked two things a screenshot cannot settle.
+---
+--- 1. His Delves panel lists eleven delves and none of them are on the Coiled Isle.
+---    That is not a client fact, it is OUR fact: `Modules/Delves.lua` carries a
+---    hardcoded roster of eleven base-Midnight delves and the POI scan is driven by
+---    those names. A delve 12.1 added can therefore never appear, however live it is.
+---    The watchers name three (The Ring of Glory, Gnarldor Isle, Venomfall Deeps) --
+---    from datamining in June, which is exactly the class of source this repo does
+---    not ship from. So: ask the client what POIs the island actually has.
+---
+--- 2. His Vaults map shows four gold arrows, two at the bottom and one on the right.
+---    They look like map transitions, and looking like one is not being one.
+---
+--- Both are read-only queries, and both are guarded: if an API is not there, this
+--- says so rather than printing an empty list that reads like "there is nothing".
+local MAPS_OF_INTEREST = {
+	{ 2512, "The Coiled Isle" },
+	{ 2509, "Vaults of Atal'Utek" },
+	{ 2613, "The Underbelly" },
+}
+
+--- Where you can walk from one map into another. This is what the arrows on the
+--- map are drawn from, so the count here should match what Rob counted by eye --
+--- and if it does not, the arrows are something else and we learn that too.
+local function PrintMapLinks(out)
+	if not (C_Map and C_Map.GetMapLinksForMap) then
+		print("   |cff9d9d9dC_Map.GetMapLinksForMap not on this client|r — the arrows stay unexplained; not a failure.")
+		return
+	end
+	print("   |cff8fd3ffMap links|r  (the transitions the map draws arrows for)")
+	for _, row in ipairs(MAPS_OF_INTEREST) do
+		local mapID, label = row[1], row[2]
+		local ok, links = pcall(C_Map.GetMapLinksForMap, mapID)
+		if not ok or type(links) ~= "table" then
+			print(("      %-24s |cff9d9d9dno answer|r"):format(label))
+		elseif #links == 0 then
+			print(("      %-24s |cff9d9d9d0 links|r"):format(label))
+		else
+			print(("      |cffffffff%s|r (%d) — %d link(s)"):format(label, mapID, #links))
+			for i, link in ipairs(links) do
+				local x, y
+				if type(link.position) == "table" and link.position.GetXY then
+					local okXY, px, py = pcall(link.position.GetXY, link.position)
+					if okXY and px then x, y = px * 100, (py or 0) * 100 end
+				end
+				local name = SafeText(link.name) or "?"
+				print(("         %d. -> map %-6s %-28s %s"):format(
+					i, tostring(link.linkedUiMapID), name,
+					x and ("%.2f, %.2f"):format(x, y) or "no position"))
+				out.links[#out.links + 1] = {
+					fromMap = mapID, toMap = link.linkedUiMapID,
+					name = name, x = x, y = y,
+				}
+			end
+		end
+	end
+end
+
+--- Everything the island has a point of interest for. Deliberately unfiltered:
+--- filtering on "delve" assumes we already know what a delve POI looks like in
+--- 12.1, and that assumption is the thing being tested. The atlas name is the
+--- useful column -- it is what the icon is drawn from.
+local function PrintAreaPOIs(out)
+	local API = C_AreaPoiInfo
+	if not (API and API.GetAreaPOIForMap and API.GetAreaPOIInfo) then
+		print("   |cff9d9d9dC_AreaPoiInfo not on this client|r — cannot list what is on the island.")
+		return
+	end
+	print("   |cff8fd3ffPoints of interest|r  (every POI, with the atlas its icon comes from)")
+	for _, row in ipairs(MAPS_OF_INTEREST) do
+		local mapID, label = row[1], row[2]
+		local okList, pois = pcall(API.GetAreaPOIForMap, mapID)
+		if not okList or type(pois) ~= "table" or #pois == 0 then
+			print(("      %-24s |cff9d9d9dnothing listed right now|r"):format(label))
+		else
+			print(("      |cffffffff%s|r (%d) — %d POI(s)"):format(label, mapID, #pois))
+			for _, poiID in ipairs(pois) do
+				local okI, info = pcall(API.GetAreaPOIInfo, mapID, poiID)
+				if okI and type(info) == "table" then
+					local name = SafeText(info.name) or "?"
+					local atlas = SafeText(info.atlasName) or "-"
+					local x, y
+					if type(info.position) == "table" and info.position.GetXY then
+						local okXY, px, py = pcall(info.position.GetXY, info.position)
+						if okXY and px then x, y = px * 100, (py or 0) * 100 end
+					end
+					-- Highlight anything the icon calls a delve, without relying on it.
+					local tag = Contains(atlas, "delve") and "  |cff40c040<- delve icon|r" or ""
+					print(("         %-7s %-30s %-26s %s%s"):format(
+						tostring(poiID), name, atlas,
+						x and ("%.2f, %.2f"):format(x, y) or "-", tag))
+					out.pois[#out.pois + 1] = {
+						map = mapID, poiID = poiID, name = name,
+						atlas = atlas, x = x, y = y,
+					}
+				end
+			end
+		end
+	end
+	print("      |cff8a8f98A POI list can be empty because nothing is up right now, not only|r")
+	print("      |cff8a8f98because nothing exists. Empty here is not proof of absence.|r")
+end
+
 function ns.PrintAtalUtekProbe(from, to)
 	local prefix = Prefix()
 	print(("%s Vaults of Atal'Utek probe — nothing here is wired into a feature yet."):format(prefix))
@@ -487,6 +594,9 @@ function ns.PrintAtalUtekProbe(from, to)
 	out.achievements = {}
 	PrintMap(out)
 	PrintAchievements(out)
+	out.links, out.pois = {}, {}
+	PrintMapLinks(out)
+	PrintAreaPOIs(out)
 	PrintGossip(out)
 
 	ns.db = ns.db or {}
