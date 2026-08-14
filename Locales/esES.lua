@@ -930,6 +930,7 @@ local OVERRIDES = {
 	SETTINGS_RARE_ALERT_ONLYROUTE_TT = "Muestra los avisos de 'raro cercano' solo durante una caza activa: iniciar una ruta a un raro (o la ruta completa de la zona) inicia la caza; termina cuando todos los raros de la ruta están hechos, al iniciar una ruta nueva o con el reinicio semanal. Sobrevive al /reload.",
 	DELVE_ITEMS_POPUP_MINIMAP_HINT = "Haga clic con el botón izquierdo en el icono del minimapa: abra este panel. Haga clic derecho: usar elemento.",
 	DELVE_CURIO_PANEL_TITLE = "Valeera — curios recomendados (temporada %d)",
+	DELVE_CURIO_NO_SEASON_DATA = "Valeera — todavía sin consejos de curios para esta temporada",
 	DELVE_CURIO_POPUP_TITLE = "Valeera — curios",
 	DELVE_CURIO_POPUP_TITLE_ROLE = "Valeera — curios de %s",
 	DELVE_CURIO_POPUP_HINT = "Equípalos con Valeera en el puesto de reparación. Arrastra la barra de título para mover.",

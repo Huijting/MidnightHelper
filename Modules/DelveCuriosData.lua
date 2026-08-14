@@ -66,14 +66,27 @@ ns.DELVE_CURIO_ROLE_LABEL_KEYS = {
 	tank = "DELVE_CURIO_ROLE_TANK",
 }
 
+--- The delve season the client reports, or nil when it will not say.
+---
+--- ⚠️ IT USED TO `return 1` WHEN THE API WAS ABSENT, and that quietly defeated the
+--- no-fallback guarantee twenty lines below. `GetDelveCurioSeasonTable` refuses to serve
+--- Season 1 advice for an unknown season — but if the season number itself falls back to
+--- 1, the lookup never sees an unknown season and hands over the Season 1 pack anyway.
+--- The guard and the hole were in the same file.
+---
+--- nil now means nil. Every caller in this module treats it as "we have nothing to say",
+--- which is the honest answer when the client will not tell us where we are.
 function ns.GetDelvesSeasonNumber()
 	if C_DelvesUI and C_DelvesUI.GetCurrentDelvesSeasonNumber then
 		local ok, sn = pcall(C_DelvesUI.GetCurrentDelvesSeasonNumber)
 		if ok and sn ~= nil then
-			return math.max(1, math.floor(tonumber(sn) or 1))
+			local n = math.floor(tonumber(sn) or 0)
+			if n >= 1 then
+				return n
+			end
 		end
 	end
-	return 1
+	return nil
 end
 
 --- Curio advice for a season, or nil when we have none for it.
@@ -85,7 +98,24 @@ end
 --- for nil (they hide the line), so nothing is better than something wrong.
 function ns.GetDelveCurioSeasonTable(season)
 	season = tonumber(season) or ns.GetDelvesSeasonNumber()
+	if not season then
+		return nil
+	end
 	return ns.DELVE_CURIOS_BY_SEASON[season]
+end
+
+--- Do we have curio advice for the season this client is actually in?
+---
+--- One place for the question, because three surfaces need it: the embedded panel on the
+--- Delves tab, the auto-showing popup, and `/mh curio`. Without it the popup opens with a
+--- title, a hint and no rows — a window that looks like an answer and is not one.
+--- @return boolean hasAdvice, number|nil season
+function ns.HasDelveCurioAdvice()
+	local season = ns.GetDelvesSeasonNumber()
+	if not season then
+		return false, nil
+	end
+	return ns.GetDelveCurioSeasonTable(season) ~= nil, season
 end
 
 --- Recommendations for one role; variant is "default" or "nemesis".

@@ -269,7 +269,20 @@ local function GetPopupSettings()
 	return ui.delveCuriosPopup
 end
 
+--- ⚠️ "In a delve" is no longer enough. Season 2 opens on 18 Aug 2026 and there is no
+--- Season 2 curio pack, so every surface here had to learn to say nothing rather than
+--- show an empty frame with a confident title. See ns.HasDelveCurioAdvice.
+local function HaveAdvice()
+	if ns.HasDelveCurioAdvice then
+		return (ns.HasDelveCurioAdvice()) and true or false
+	end
+	return false
+end
+
 local function IsDelveCurioUiAllowed()
+	if not HaveAdvice() then
+		return false
+	end
 	return ns.IsPlayerInActiveDelve and ns.IsPlayerInActiveDelve()
 end
 
@@ -637,6 +650,29 @@ local function RefreshPopupBody(host, season, variant, roleKey)
 end
 
 function ns.RefreshDelveCurioAdvisor()
+	-- No curio pack for the season we are in (Season 2 has none): collapse the embedded
+	-- panel to one honest line and close the popup. The panel frame stays — the Delves
+	-- tab anchors its left column underneath it — but it stops claiming anything.
+	if not HaveAdvice() then
+		if embeddedPanel then
+			if embeddedPanel._title then
+				embeddedPanel._title:SetText(ns:L("DELVE_CURIO_NO_SEASON_DATA"))
+			end
+			if embeddedPanel._body then
+				embeddedPanel._body:SetHeight(1)
+				RefreshRoleRows(embeddedPanel._body, nil, "default")
+			end
+			if embeddedPanel._nemesisFoot then
+				embeddedPanel._nemesisFoot:Hide()
+			end
+			embeddedPanel:SetHeight(PANEL_HEADER_H + PANEL_PAD)
+		end
+		if popupFrame and popupFrame:IsShown() then
+			popupFrame:Hide()
+		end
+		return
+	end
+
 	local season = ns.GetDelvesSeasonNumber and ns:GetDelvesSeasonNumber() or 1
 	if ShouldLoadCurioItemData() and ns.RequestDelveCurioItemData then
 		ns.RequestDelveCurioItemData(season)
@@ -698,7 +734,10 @@ function ns.EnsureDelveCurioPanel(parent)
 	end
 
 	local panel = CreateFrame("Frame", nil, parent)
-	panel:SetHeight(PanelContentHeight(ns.GetDelvesSeasonNumber and ns:GetDelvesSeasonNumber() or 1))
+	-- Height is set for real by RefreshDelveCurioAdvisor at the end of this function,
+	-- which also handles the "no pack for this season" case. Start at the header height
+	-- so a season we know nothing about never reserves room for rows that never come.
+	panel:SetHeight(PANEL_HEADER_H + PANEL_PAD)
 
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", PANEL_PAD, -2)
@@ -840,6 +879,14 @@ end
 function ns:ShowDelveCuriosPopup(bypassGate)
 	local s = GetPopupSettings()
 	if s and s.enabled == false then
+		return
+	end
+	-- No pack for this season: the manual command says so out loud (a command that
+	-- silently does nothing reads as broken), the automatic paths simply stay away.
+	if not HaveAdvice() then
+		if bypassGate then
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("DELVE_CURIO_NO_SEASON_DATA")))
+		end
 		return
 	end
 	if not bypassGate and not IsDelveCurioUiAllowed() then

@@ -206,6 +206,52 @@ overkomen.
 door. `ACH_LORE_HONORED_DEAD` blijft met opzet Engels — de achievementkaart pakt sowieso
 de naam uit de client.
 
+## 🔴 GEREPAREERD 14 aug — vier dingen die op 18 aug stil zouden liegen
+
+Uit `docs/PROPOSAL_ONMISBAAR.md` deel 0. Alle vier zaten in de categorie "toont met
+overtuiging iets wat niet klopt", en dat is voor deze addon de duurste soort fout.
+
+**1. `seasonStats` rolde om op patchdag, niet op seizoensdag.** `RollSeasonIfNeeded` las
+de kale `C_MythicPlus.GetCurrentSeason()`, en dat getal ging 11/12 aug van 17 naar 18.
+Het blok dat straks "Season 2" heet bevatte dus al een week Season 1 — en het zou op 18
+aug niet nog eens omrollen, want het droeg het nieuwe id al. Nu poort de roll óók op
+`ns.IsSeason2Live()`, en er zit een eenmalige reparatie voor: een blok dat vóór
+`seasonStartsAt` geopend is wordt teruggezet op Season 1 en samengevoegd met het te vroeg
+gearchiveerde blok. Tellers worden opgeteld, niet overschreven — beide helften zijn echte
+gebeurtenissen van deze speler.
+
+⚠️ **`tools/test_seasonstats.lua` test dit op de échte code**, niet op een kopie van de
+logica: hij stubt `CreateFrame`, vangt de `PLAYER_ENTERING_WORLD`-handler en vuurt hem af.
+Vier toestanden: vroeg omgerold (samenvoegen), na patchdag geïnstalleerd (herlabelen), het
+seizoen opent echt (nu wél archiveren), en een echt Season 2-blok (afblijven).
+
+**2. De M+-tab zou de S1-affixladder naast de S2-dungeonpool tonen.** `MPLUS_AFFIX_LADDER`
+en `MPLUS_BARGAINS` zijn Season 1-data zonder S2-variant, en ze werden zonder poort
+gerenderd terwijl de pool eronder wél omklapt — onder een kop die belooft uit te leggen
+hoe keys dit seizoen werken. Half goed is erger dan zichtbaar verouderd. Beide blokken
+verdwijnen nu zodra `IsMythicSeason2()` waar is, met `MPLUS_AFFIX_UNMEASURED` ervoor in de
+plaats (zeven talen).
+
+**3. Het curio-venster ging open met titel en niets erin.** `GetDelvesSeasonNumber` viel
+terug op `return 1` — precies om de "NO fallback to season 1"-garantie tien regels lager
+heen. Geeft nu `nil`. Nieuw: `ns.HasDelveCurioAdvice()`, gebruikt door alle drie de
+oppervlakken. Het ingebouwde paneel klapt dicht tot één eerlijke regel, de auto-popup
+blijft weg, en `/mh curio` zegt het hardop — een commando dat stil niets doet leest als
+kapot.
+
+**4. De world-boss-planner gokt niet meer vanaf 12.1.** `GetScheduledWorldBoss` deelde de
+weken sinds 18 mrt door de S1-roster en had dus altijd een antwoord, ook nu 12.1 die
+bossen door Lairs vervangen zou hebben. De gok stopt bij de patchgrens; de client-scan en
+de weekcache blijven gewoon werken, en elke consument had de nil-tak al.
+
+⚠️ **Punt 4 is een gok minder, geen meting meer.** `/mh worldboss` op live is nog steeds
+punt 1 van de lijst hierboven. Staan die vier bossen er nog en roteren ze nog, dan kan de
+poort weg. Zijn het Lairs, dan moet de roster zelf vervangen — niet de poort.
+
+⚠️ **Nog niets hiervan is in het spel gezien.** Linter 0 HARD/0 SOFT, `luac5.1` schoon over
+223 bestanden, de vier seizoenstoestanden groen, en beide nieuwe strings resolven in zeven
+talen via `tools/locale_probe.lua`. Robs `/reload` is de eerste echte test.
+
 ## ✅ AFGESLOTEN 13 aug — de per-instance aura-route is dicht in gevecht
 
 JustAC's per-instance route (`GetUnitAuraInstanceIDs` + `ShouldUnitAuraInstanceBeSecret`)

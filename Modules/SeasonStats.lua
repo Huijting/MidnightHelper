@@ -58,12 +58,87 @@ local function LiveSeasonId()
 	return cur
 end
 
+--- ⚠️ THE SEASON ID MOVES WITH THE PATCH, NOT WITH THE SEASON. Read this before
+--- "simplifying" the roll below back to a plain id comparison.
+---
+--- Measured on live 13 Aug 2026, five days before Season 2 opened:
+--- `C_MythicPlus.GetCurrentSeason()` already returned **18** against 17 for Season 1
+--- (`Modules/SeasonTransitionData.lua:246` carries the same measurement and the same
+--- warning). So the id changed on patch day, 11/12 Aug, and this module rolled then —
+--- a week early, in the middle of Season 1.
+---
+--- The damage is not cosmetic. The block that would be labelled "Season 2" opened on
+--- patch day and holds a week of Season 1 keys, deaths and boss kills, and it will
+--- never roll again because it already carries the new id. That is exactly what the
+--- never-lie note at the top of this file forbids: *a Season 1 number must never appear
+--- under a Season 2 heading.*
+---
+--- So the roll now needs BOTH: the id must have changed AND the shared season gate must
+--- agree that the season has actually opened. The gate is date-driven
+--- (`ns.SEASON2.seasonStartsAt`) and is the only signal in this addon that means "the
+--- season started" rather than "the patch landed".
+local function SeasonHasActuallyOpened()
+	if ns.IsSeason2Live then
+		return ns.IsSeason2Live() and true or false
+	end
+	return false -- no gate loaded: never archive on a guess
+end
+
+--- ⚠️ ONE-OFF REPAIR of the early roll described above. Runs before the roll.
+---
+--- Two shapes exist in the wild, both created before the season opened, both carrying
+--- the NEW id on a block full of OLD data:
+---   1. the player was counting before patch day  → the S1 block was archived and a new
+---      block opened. Merge the new block's counts back into the archived one.
+---   2. the player installed after patch day      → there is no archive, just a fresh
+---      block stamped with the new id.
+---
+--- In both cases the honest label for data collected before `seasonStartsAt` is the
+--- PREVIOUS season, and `s1MplusSeasonId` is a measured constant, not a guess. After the
+--- repair the ordinary roll fires correctly at the season boundary and archives the
+--- whole of Season 1 in one piece.
+---
+--- Counts are summed rather than replaced: both halves are real events this player had.
+local function RepairEarlyRoll()
+	local s = ns.db and ns.db.seasonStats
+	if not s or type(s.counts) ~= "table" then
+		return
+	end
+	local startsAt = ns.SEASON2 and ns.SEASON2.seasonStartsAt
+	local prevId = ns.SEASON2 and ns.SEASON2.s1MplusSeasonId
+	if not (startsAt and prevId) then
+		return
+	end
+	-- Only blocks that were OPENED before the season began are suspect. A block opened
+	-- after `seasonStartsAt` is a genuine Season 2 block and must be left alone.
+	if (tonumber(s.startedAt) or 0) >= startsAt then
+		return
+	end
+	if s.seasonId == prevId then
+		return -- already correct (or already repaired)
+	end
+
+	local archive = ns.db.seasonStatsArchive
+	local prev = archive and archive[tostring(prevId)]
+	if type(prev) == "table" and type(prev.counts) == "table" then
+		for k, v in pairs(s.counts) do
+			prev.counts[k] = (tonumber(prev.counts[k]) or 0) + (tonumber(v) or 0)
+		end
+		s.counts = prev.counts
+		s.startedAt = tonumber(prev.startedAt) or s.startedAt
+		archive[tostring(prevId)] = nil
+	end
+	s.seasonId = prevId
+end
+
 --- Archive the current block if the season changed, so numbers never bleed across.
 local function RollSeasonIfNeeded()
 	local s = Stats()
 	if not s then
 		return
 	end
+	RepairEarlyRoll()
+	s = Stats() -- RepairEarlyRoll may have rewritten counts/startedAt
 	local cur = LiveSeasonId()
 	if not cur then
 		return -- unknown: leave everything alone rather than archive on a guess
@@ -73,6 +148,11 @@ local function RollSeasonIfNeeded()
 		return
 	end
 	if s.seasonId ~= cur then
+		if not SeasonHasActuallyOpened() then
+			-- The id moved with the patch. Keep counting into the current block; the
+			-- roll will happen for real when the season opens.
+			return
+		end
 		ns.db.seasonStatsArchive = ns.db.seasonStatsArchive or {}
 		ns.db.seasonStatsArchive[tostring(s.seasonId)] = {
 			counts = s.counts,

@@ -1805,6 +1805,7 @@ ns._mhLocales.nlNL = {
 	DELVE_ITEMS_SLASH_MARKED = "Gemarkeerd als gebruikt voor deze delve — paneel verdwijnt tot je vertrekt of /mh items reset.",
 	DELVE_ITEMS_SLASH_ALREADY_MARKED = "Stond al gemarkeerd als gebruikt voor deze delve.",
 	DELVE_CURIO_PANEL_TITLE = "Valeera — aanbevolen curio's (seizoen %d)",
+	DELVE_CURIO_NO_SEASON_DATA = "Valeera — nog geen curio-advies voor dit seizoen",
 	DELVE_CURIO_POPUP_TITLE = "Valeera — curio-keuze",
 	DELVE_CURIO_POPUP_TITLE_ROLE = "Valeera — %s-curios",
 	DELVE_CURIO_POPUP_HINT = "Rust uit bij Valeera op het repair-punt. Sleep de titelbalk om te verplaatsen.",
