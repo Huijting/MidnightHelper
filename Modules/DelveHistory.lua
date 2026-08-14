@@ -625,6 +625,36 @@ tracker:SetScript("OnEvent", function(_, event, ...)
 		if matched then
 			RefreshBountifulSnapshot()
 			LogRun(matched, tier, duration, runState.deaths, keyUsed, runState.boss, runState.wasBountiful)
+		else
+			-- ⚠️ ADDED 14 Aug 2026. The delve roster is a hardcoded eleven, so a delve
+			-- 12.1 added does not match and its run was silently dropped -- while the
+			-- client had just told us its name. That is a free measurement thrown away
+			-- at the exact moment we are refusing to ship datamined delve names.
+			--
+			-- Nothing is logged as a run and no panel changes: an unrecognised delve
+			-- must not appear in the history as if we understood it. This only keeps
+			-- the name where the next session can read it out of SavedVariables.
+			local secret = (issecretvalue ~= nil) and issecretvalue(candidate) == true
+			if type(candidate) == "string" and candidate ~= "" and not secret then
+				-- The instance id is the column that would let us extend
+				-- instanceIDToName above; it is the 8th return of GetInstanceInfo.
+				local instanceID
+				if GetInstanceInfo then
+					local ok, _, _, _, _, _, _, _, id = pcall(GetInstanceInfo)
+					instanceID = ok and tonumber(id) or nil
+				end
+				ns.db = ns.db or {}
+				ns.db.unknownDelves = ns.db.unknownDelves or {}
+				local seen = ns.db.unknownDelves[candidate]
+				ns.db.unknownDelves[candidate] = {
+					name = candidate,
+					count = ((type(seen) == "table" and seen.count) or 0) + 1,
+					lastSeen = (time and time()) or 0,
+					instanceID = instanceID,
+					tier = tier,
+					boss = runState.boss,
+				}
+			end
 		end
 		EndDelveRun()
 	end
