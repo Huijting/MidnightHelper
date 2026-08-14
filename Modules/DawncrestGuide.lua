@@ -26,6 +26,32 @@ local function GetGuideSettings()
 	return ui.dawncrestGuide
 end
 
+--- Blizzard's own words for the season cap, so the row reads like the tooltip beside it.
+---
+--- ⚠️ THE PLAYER ALREADY HAS A NAME FOR THIS AND IT IS NOT OURS. Rob hovered Champion
+--- Mistcrest and the game said "Current Season Maximum: 10/100". Our row said "of 100,
+--- the cap", which sounds like a wall you have hit for good — his immediate reaction was
+--- that you could then only ever upgrade one item. The game's phrase carries the word
+--- that answers him: CURRENT. The number rises through the season.
+---
+--- `CURRENCY_SEASON_TOTAL_MAXIMUM` is a Blizzard global (Plumber names it in its locale
+--- files). Using it means every language gets Blizzard's own translation for free and
+--- ours matches the tooltip a hover away — the same trick `/mh fps` uses for graphics
+--- labels. It is read defensively because a global that vanishes must not take the row
+--- with it, and what we found is recorded so a missing string is visible rather than
+--- silently papered over.
+local function SeasonMaxLabel()
+	local s = _G.CURRENCY_SEASON_TOTAL_MAXIMUM
+	if type(s) == "string" and s ~= "" then
+		ns.db = ns.db or {}
+		ns.db.seasonMaxLabelSource = "CURRENCY_SEASON_TOTAL_MAXIMUM"
+		return (s:gsub("%s*:%s*$", ""))
+	end
+	ns.db = ns.db or {}
+	ns.db.seasonMaxLabelSource = "fallback"
+	return ns:L("DAWNCREST_SEASON_MAX")
+end
+
 local function GetCurrencyQty(currencyId)
 	local id = tonumber(currencyId)
 	if not id or not C_CurrencyInfo or not C_CurrencyInfo.GetCurrencyInfo then
@@ -50,11 +76,21 @@ local function GetCurrencyQty(currencyId)
 	--- neither cap set, which is why this survived a whole season unnoticed.
 	local maxWeekly = math.floor(tonumber(info.maxWeeklyQuantity) or 0)
 	local maxTotal = math.floor(tonumber(info.maxQuantity) or 0)
-	-- 4th return: does this id exist at all? A real currency with a balance of 0 and
-	-- an id the game does not know both read as "0", and the caller has to tell them
-	-- apart to pick the right id.
+	--- ⚠️ A SEASON CAP COUNTS WHAT YOU EARNED, NOT WHAT YOU ARE HOLDING.
+	---
+	--- Blizzard's own tooltip on Champion Mistcrest reads "Current Season Maximum:
+	--- 10/100" while Rob holds 10 — the two agree only because he has not spent any yet.
+	--- The moment he does, his balance drops and the cap does not move: he would still
+	--- be 10 of 100 into the season, and a row built on `quantity` would tell him he had
+	--- 100 left to earn when he had 90.
+	---
+	--- So totalEarned comes back too, and the cap line is built from it.
+	local totalEarned = math.floor(tonumber(info.totalEarned) or 0)
+	-- Does this id exist at all? A real currency with a balance of 0 and an id the game
+	-- does not know both read as "0", and the caller has to tell them apart to pick the
+	-- right id.
 	local exists = type(info.name) == "string" and info.name ~= ""
-	return qty, earned, maxWeekly, exists, maxTotal
+	return qty, earned, maxWeekly, exists, maxTotal, totalEarned
 end
 
 --- The currency ids this tier uses THIS season, primary first.
@@ -147,12 +183,12 @@ local function GetTierCurrencyQty(tier)
 	-- they are used only when the primary id is not a currency the game knows, never
 	-- to beat a real balance.
 	for i = 1, #ids do
-		local q, earned, maxWeekly, exists, maxTotal = GetCurrencyQty(ids[i])
+		local q, earned, maxWeekly, exists, maxTotal, totalEarned = GetCurrencyQty(ids[i])
 		if exists then
-			return q, earned, maxWeekly, maxTotal
+			return q, earned, maxWeekly, maxTotal, totalEarned
 		end
 	end
-	return 0, 0, 0, 0
+	return 0, 0, 0, 0, 0
 end
 
 local function RequestDawncrestCurrencyData()
@@ -393,16 +429,17 @@ function ns.RefreshDawncrestGuide()
 			local tier = tiers[i]
 			local row = crestRows[i]
 			if tier and row and row.label and row.count then
-				local qty, earned, maxWeekly, maxTotal = GetTierCurrencyQty(tier)
+				local qty, earned, maxWeekly, maxTotal, totalEarned = GetTierCurrencyQty(tier)
 				row.label:SetText(ns:L(tier.labelKey))
 				--- Three sentences, because there are three situations and one of them
 				--- used to borrow the other's words. A weekly cap gets the weekly line;
-				--- a cap with no weekly reset gets a plain "x of y"; no cap at all gets
-				--- just the number.
+				--- a season cap gets Blizzard's own phrasing against what you EARNED;
+				--- no cap at all gets just the number.
 				if maxWeekly > 0 then
 					row.count:SetText(ns:L("DAWNCREST_ROW_FMT"):format(qty, earned, maxWeekly))
 				elseif maxTotal > 0 then
-					row.count:SetText(ns:L("DAWNCREST_ROW_CAP_FMT"):format(qty, maxTotal))
+					row.count:SetText(ns:L("DAWNCREST_ROW_CAP_FMT"):format(
+						qty, SeasonMaxLabel(), totalEarned, maxTotal))
 				else
 					row.count:SetText(tostring(qty))
 				end
