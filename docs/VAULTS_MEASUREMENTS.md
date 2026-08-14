@@ -288,8 +288,35 @@ negen zones, met per regel of wij hem verschepen. Staat er iets met
 **`<- NOT IN OUR ROSTER`**, dan heeft de client ons een 12.1-delve gegeven met naam,
 coördinaat en atlas — en hoeven we niks uit een datamine over te nemen.
 
-⏭️ Nog ongemeten. Twee mogelijkheden blijven open als er niks komt: de nieuwe delves staan
-in een zone die niet in deze negen zit, of ze gaan pas aan bij **Season 2 (18 aug)**.
+### ✅ GEMETEN 14 aug — twee nieuwe delves, uit de client
+
+`GetDelvesForMap` gaf 16 delves over de negen zones. Veertien waren van ons. Twee niet:
+
+| Delve | Map | Coördinaat | poiID |
+|---|---|---|---|
+| **Gnarldor Isle** | 2512 | `64.54 / 77.58` | 8761 |
+| **The Ring of Glory** | 2512 | `71.35 / 56.54` | 8764 |
+
+Allebei atlas `delves-regular`, allebei **op de Coiled Isle**. Mijn redenering dat
+"Gnarldor Isle niet klinkt als een plek op dit eiland" was dus fout — en het maakte niet
+uit, omdat de sweep toen al over alle negen zones liep in plaats van over mijn vermoeden.
+
+Ze staan nu in `Modules/Delves.lua`, met de **echte poiID** in kolom 1. De namen stonden
+sinds juni in de watchers uit een datamine en zijn daar bewust nooit uit overgenomen; nu
+komen naam, kaart én coördinaat van Robs eigen client.
+
+**En Venomfall Deeps staat er niet.** Dat is deze keer wél iets waard: dezelfde call gaf
+op 2512 exact die twee, dus dit is afwezigheid **met een positieve controle** in plaats
+van afwezigheid uit stilte. Klopt met Blizzards eigen indeling — Nemesis en Bountiful
+zitten achter Season 2 (18 aug).
+
+⏭️ Na 18 aug `/mh atal` opnieuw. Verschijnt Venomfall Deeps, dan op dezelfde manier erbij.
+
+⚠️ Eén ding gevonden en **niet** gerepareerd: kolom 1 van de elf oude delves (93372,
+93419, …) matcht nooit met de poi-ids die `GetDelvesForMap` teruggeeft (8425, 8437, …).
+Die vallen dus elke keer door naar het name-pad. Werkt, maar het snelpad is dood. Elf
+ongeverifieerde vervangingen op een werkende fallback is een aparte, risicovollere
+verandering — wel opgeschreven, want de mismatch is onzichtbaar en ziet eruit als opzet.
 
 ## ⏭️ Vier pijlen op de Vaults-kaart
 

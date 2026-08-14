@@ -64,6 +64,33 @@ local MIDNIGHT_DELVES = {
 	{ 93426, 2405, 54.89, 46.62, "Sunkiller Sanctum" },
 	{ 93428, 2405, 37.18, 49.16, "Shadowguard Point" },
 	{ 93427, 2405, 61.18, 71.28, "Torment's Rise" },
+
+	-- ✅ PATCH 12.1, MEASURED 14 Aug 2026 — not datamined.
+	--
+	-- Rob's Delves panel showed eleven and nothing on the Coiled Isle, which looked
+	-- like missing content and was this table being faithfully rendered: the roster is
+	-- hardcoded and drives the POI scan by name, so a delve a patch adds can never
+	-- appear in it however live it is.
+	--
+	-- The names had been sitting in the watchers since June from a datamine, and were
+	-- deliberately not shipped from there. `/mh atal` asked C_AreaPoiInfo.GetDelvesForMap
+	-- instead -- keyed on the map, not on a name, so it can name a delve nobody told it
+	-- about -- and the client returned both of these on 2512 with atlas `delves-regular`.
+	--
+	-- ⚠️ Their first column is the client's REAL poiID, unlike the eleven above. That
+	-- column feeds GetDelvePoiState's fast path, which compares it against the ids
+	-- GetDelvesForMap returns (8425, 8437, ...); the 93xxx values up there cannot match
+	-- those and fall through to the name pass every time. Not fixed here -- eleven
+	-- unverified replacements on a working fallback is a separate, riskier change --
+	-- but recorded, because the mismatch is invisible and looks deliberate.
+	{ 8761, 2512, 64.54, 77.58, "Gnarldor Isle" },
+	{ 8764, 2512, 71.35, 56.54, "The Ring of Glory" },
+
+	-- ⏭️ Venomfall Deeps, the S2 Nemesis delve, is NOT here on purpose. The same call
+	-- that found the two above returned only those two for 2512, so this is absence
+	-- measured with a positive control rather than absence assumed -- and it matches
+	-- Blizzard putting the Nemesis and Bountiful behind Season 2 (18 Aug). Re-run
+	-- `/mh atal` after the season flips; if it appears, add it the same way.
 }
 
 --- Is this one of the eleven we ship?
