@@ -68,7 +68,31 @@ Ga voor de ingang staan:
 
 Daarna kan `CampaignLeadIn.lua` `startMapID/startX/startY` krijgen en verschijnt de knop.
 
-## 3. Wat Corrosive Coins kopen, en waar
+## ✅ 3. GEMETEN 14 aug — twee bestemmingen, en een prijs die meeloopt
+
+Rob stond bij Er'inye en fotografeerde alles. **Gemeten: 2509, 51.10 / 62.76.**
+
+**Twee plekken, beide bij hem:**
+
+1. **Corrode Spirit** — bij Er'inye zelf. Dit is wat de Altar-boom voedt.
+   ⚠️ **De prijs loopt op per aankoop.** Robs eigen twee screenshots: **1500**, daarna
+   **2000**. Zygor noteerde **1000**, vermoedelijk de eerste. Stappen van 500 dus, maar
+   dat zijn drie punten — het artikel zegt "hij loopt op, lees het venster" en noemt geen
+   formule.
+2. **Skull of Er'inye** — een échte handelaar, naast hem. *"You feel tempted to deposit
+   Corrosive Coins into its empty sockets in exchange for items of venomous wonder."*
+   Drie pagina's. Gezien op pagina 1: Egg of Ula'tek 500 · Corrosive Writhling 5000 ·
+   Volatile Venomfang 5000 · vier Venom-Cursed Ensembles à 10000 · Caustic Venomfang
+   10000 · Recipe: Liquid Luster 2500 + 150 · Arsenal: Venom-Cursed Arms 25000.
+
+**En drie sleutel-items die je aan Er'inye kunt tonen** (aparte gespreksopties):
+**Excising Knife**, **Corroded Key** (item **280004**, *"This unlocks something in the
+Vaults of Atal'Utek"*), **Spirit Loupe**. Wat ze opleveren is nog niet gemeten — Rob had
+de Corroded Key en gaat 'm laten zien.
+
+⏭️ Nog open: pagina 2 en 3 van de handelaar, en wat die drie items doen.
+
+## ~~3. Wat Corrosive Coins kopen, en waar~~ (afgehandeld, zie boven)
 
 **Waarom:** dit is voor een nieuwe speler de belangrijkste vraag na "waar loop ik heen",
 en we hebben er geen enkel antwoord op. Het Codex-artikel noemt daarom alleen wát de

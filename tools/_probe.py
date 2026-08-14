@@ -1,12 +1,11 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: tell the Codex where Corrosive Coins go. Er'inye, measured by Rob at
-2509 51.10 / 62.76 on 14 Aug.
+Right now: replace the Er'inye line with what Rob photographed on 14 Aug. Coins
+go two ways, and the corrode price climbs — 1500 then 2000 in his own two
+screenshots, against 1000 in a guide.
 
-Inserted before the Altar bullet in each language, so the reader meets the coin's
-destination just before the tree it feeds. The PRICE is deliberately absent: the
-game's own tooltip names Er'inye, but "1000" comes from a guide and nobody has
-photographed that window yet.
+Per-language anchors again: each language puts its own article in front of the
+English name, and a single anchor found 2 of 7 last time.
 """
 import io
 import os
@@ -19,64 +18,52 @@ for _s in (sys.stdout, sys.stderr):
         pass
 
 P = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales\Codex.lua'
-W, R, N = '|cffffffff', '|r', '|n'
+W, R = '|cffffffff', '|r'
 
-# Anchor: the first words of the Altar bullet, per language.
-ANCHORS = {
-    'en': '• %sThe Altar of Corrosion%s is the node tree' % (W, R),
-    'nl': '• %sThe Altar of Corrosion%s is de boom met nodes' % (W, R),
-    'it': '• %sThe Altar of Corrosion%s' % (W, R),
-    'de': '• %sThe Altar of Corrosion%s',
-    'fr': '• %sThe Altar of Corrosion%s',
-    'es': '• %sThe Altar of Corrosion%s',
-    'pt': '• %sThe Altar of Corrosion%s',
+OLD = {
+    'enUS': '• %sWhere the coins go:%s' % (W, R),
+    'nlNL': '• %sWaar de munten heen gaan:%s' % (W, R),
+    'deDE': '• %sWohin die M\u00fcnzen gehen:%s' % (W, R),
+    'frFR': '• %sO\u00f9 vont les pi\u00e8ces :%s' % (W, R),
+    'esES': '• %sAd\u00f3nde van las monedas:%s' % (W, R),
+    'ptBR': '• %sPara onde v\u00e3o as moedas:%s' % (W, R),
+    'itIT': '• %sDove finiscono le monete:%s' % (W, R),
 }
 
-LINE = {
-    'enUS': '• %sWhere the coins go:%s %sEr\u2019inye%s, at %s51.10, 62.76%s on the Vaults map, beside the Altar. Talk to him and he corrodes your spirit in exchange for coin \u2014 that is what feeds the tree. His window names the price; this page does not, because nobody has read it yet.' % (W, R, W, R, W, R),
-    'nlNL': '• %sWaar de munten heen gaan:%s %sEr\u2019inye%s, op %s51.10, 62.76%s op de Vaults-kaart, naast de Altar. Praat met hem en hij corrodeert je geest in ruil voor munten \u2014 dat is wat de boom voedt. Zijn venster noemt de prijs; deze pagina niet, want niemand heeft hem gelezen.' % (W, R, W, R, W, R),
-    'deDE': '• %sWohin die M\u00fcnzen gehen:%s %sEr\u2019inye%s, bei %s51.10, 62.76%s auf der Vaults-Karte, neben dem Altar. Sprich mit ihm, und er zersetzt deinen Geist gegen M\u00fcnzen \u2014 das ist es, was den Baum speist. Sein Fenster nennt den Preis; diese Seite nicht, denn niemand hat ihn gelesen.' % (W, R, W, R, W, R),
-    'frFR': '• %sO\u00f9 vont les pi\u00e8ces :%s %sEr\u2019inye%s, en %s51.10, 62.76%s sur la carte des Vaults, \u00e0 c\u00f4t\u00e9 de l\u2019autel. Parle-lui et il corrode ton esprit contre des pi\u00e8ces \u2014 c\u2019est ce qui alimente l\u2019arbre. Sa fen\u00eatre annonce le prix ; pas cette page, car personne ne l\u2019a lu.' % (W, R, W, R, W, R),
-    'esES': '• %sAd\u00f3nde van las monedas:%s %sEr\u2019inye%s, en %s51.10, 62.76%s del mapa de las Vaults, junto al altar. Habla con \u00e9l y corroe tu esp\u00edritu a cambio de monedas \u2014 eso es lo que alimenta el \u00e1rbol. Su ventana dice el precio; esta p\u00e1gina no, porque nadie lo ha le\u00eddo.' % (W, R, W, R, W, R),
-    'ptBR': '• %sPara onde v\u00e3o as moedas:%s %sEr\u2019inye%s, em %s51.10, 62.76%s no mapa das Vaults, ao lado do altar. Fala com ele e ele corr\u00f3i o teu esp\u00edrito em troca de moedas \u2014 \u00e9 isso que alimenta a \u00e1rvore. A janela dele diz o pre\u00e7o; esta p\u00e1gina n\u00e3o, porque ningu\u00e9m o leu.' % (W, R, W, R, W, R),
-    'itIT': '• %sDove finiscono le monete:%s %sEr\u2019inye%s, a %s51.10, 62.76%s sulla mappa delle Vaults, accanto all\u2019altare. Parlagli e corrode il tuo spirito in cambio di monete \u2014 \u00e8 questo che alimenta l\u2019albero. La sua finestra dice il prezzo; questa pagina no, perch\u00e9 nessuno l\u2019ha letta.' % (W, R, W, R, W, R),
+NEW = {
+    'enUS': '• %sWhere the coins go \u2014 two places, both at Er\u2019inye%s at %s51.10, 62.76%s. Talking to him buys %sCorrode Spirit%s, which is what feeds the Altar tree; beside him the %sSkull of Er\u2019inye%s is a merchant with three pages of mounts, pets, ensembles and recipes, priced from 500 to 25,000 coin. %sThe corrode price climbs every time you buy it%s \u2014 seen at 1,500 and then 2,000 on one visit \u2014 so read the window rather than saving up for a number.' % (W, R, W, R, W, R, W, R, W, R),
+    'nlNL': '• %sWaar de munten heen gaan \u2014 twee plekken, allebei bij Er\u2019inye%s op %s51.10, 62.76%s. Met hem praten koopt %sCorrode Spirit%s, en dat is wat de Altar-boom voedt; naast hem is de %sSkull of Er\u2019inye%s een handelaar met drie pagina\u2019s mounts, pets, ensembles en recepten, van 500 tot 25.000 munt. %sDe corrode-prijs loopt elke keer op%s \u2014 gezien op 1.500 en daarna 2.000 in \u00e9\u00e9n bezoek \u2014 dus lees het venster in plaats van te sparen voor een bedrag.' % (W, R, W, R, W, R, W, R, W, R),
+    'deDE': '• %sWohin die M\u00fcnzen gehen \u2014 zwei Stellen, beide bei Er\u2019inye%s bei %s51.10, 62.76%s. Mit ihm zu reden kauft %sCorrode Spirit%s, und das speist den Altar-Baum; neben ihm ist der %sSkull of Er\u2019inye%s ein H\u00e4ndler mit drei Seiten Reittiere, Haustiere, Ensembles und Rezepte, von 500 bis 25.000 M\u00fcnzen. %sDer Corrode-Preis steigt bei jedem Kauf%s \u2014 bei einem Besuch 1.500 und dann 2.000 gesehen \u2014 lies also das Fenster, statt auf eine Zahl zu sparen.' % (W, R, W, R, W, R, W, R, W, R),
+    'frFR': '• %sO\u00f9 vont les pi\u00e8ces \u2014 deux endroits, tous deux chez Er\u2019inye%s en %s51.10, 62.76%s. Lui parler ach\u00e8te %sCorrode Spirit%s, qui alimente l\u2019arbre de l\u2019autel ; \u00e0 c\u00f4t\u00e9 de lui, le %sSkull of Er\u2019inye%s est un marchand avec trois pages de montures, mascottes, ensembles et recettes, de 500 \u00e0 25 000 pi\u00e8ces. %sLe prix du corrode monte \u00e0 chaque achat%s \u2014 vu \u00e0 1 500 puis 2 000 en une visite \u2014 lis donc la fen\u00eatre au lieu d\u2019\u00e9conomiser pour un montant.' % (W, R, W, R, W, R, W, R, W, R),
+    'esES': '• %sAd\u00f3nde van las monedas \u2014 dos sitios, ambos en Er\u2019inye%s en %s51.10, 62.76%s. Hablar con \u00e9l compra %sCorrode Spirit%s, que alimenta el \u00e1rbol del altar; a su lado, la %sSkull of Er\u2019inye%s es un mercader con tres p\u00e1ginas de monturas, mascotas, conjuntos y recetas, de 500 a 25.000 monedas. %sEl precio del corrode sube cada vez que lo compras%s \u2014 visto a 1.500 y luego 2.000 en una visita \u2014 as\u00ed que lee la ventana en vez de ahorrar para una cifra.' % (W, R, W, R, W, R, W, R, W, R),
+    'ptBR': '• %sPara onde v\u00e3o as moedas \u2014 dois s\u00edtios, ambos em Er\u2019inye%s em %s51.10, 62.76%s. Falar com ele compra %sCorrode Spirit%s, que alimenta a \u00e1rvore do altar; ao lado dele, a %sSkull of Er\u2019inye%s \u00e9 um mercador com tr\u00eas p\u00e1ginas de montarias, mascotes, conjuntos e receitas, de 500 a 25.000 moedas. %sO pre\u00e7o do corrode sobe a cada compra%s \u2014 visto a 1.500 e depois 2.000 numa visita \u2014 por isso l\u00ea a janela em vez de poupar para um valor.' % (W, R, W, R, W, R, W, R, W, R),
+    'itIT': '• %sDove finiscono le monete \u2014 due posti, entrambi da Er\u2019inye%s a %s51.10, 62.76%s. Parlargli compra %sCorrode Spirit%s, che alimenta l\u2019albero dell\u2019altare; accanto a lui lo %sSkull of Er\u2019inye%s \u00e8 un mercante con tre pagine di cavalcature, mascotte, completi e ricette, da 500 a 25.000 monete. %sIl prezzo del corrode sale a ogni acquisto%s \u2014 visto a 1.500 e poi 2.000 in una visita \u2014 quindi leggi la finestra invece di risparmiare per una cifra.' % (W, R, W, R, W, R, W, R, W, R),
 }
 
-for text in LINE.values():
+for text in NEW.values():
     assert '"' not in text, text[:50]
 
 t = open(P, encoding='utf-8', newline='').read()
 
-# ⚠️ The article name stays English but each language puts its OWN article in front
-# of it -- L', Der, El, O. A single anchor found 2 of 7, which the assert caught;
-# guessing one anchor for seven languages is how a locale edit half-lands.
-# File order verified by reading the merge blocks.
-ORDER = [
-    ('enUS', '|n• %sThe Altar of Corrosion%s is the node tree' % (W, R)),
-    # itIT and frFR both open with L', so each needs enough of its own sentence.
-    ('itIT', "|n• %sL'Altar of Corrosion%s è l'albero" % (W, R)),
-    ('nlNL', '|n• %sThe Altar of Corrosion%s is de boom' % (W, R)),
-    ('deDE', '|n• %sDer Altar of Corrosion%s' % (W, R)),
-    ('frFR', "|n• %sL'Altar of Corrosion%s est" % (W, R)),
-    ('esES', '|n• %sEl Altar of Corrosion%s' % (W, R)),
-    ('ptBR', '|n• %sO Altar of Corrosion%s' % (W, R)),
-]
-
-for code, anchor in ORDER:
-    n = t.count(anchor)
-    if n != 1:
-        print('%s: %d treffers voor het anker — NIETS geschreven' % (code, n))
-        raise SystemExit(1)
-
-t2, i = t, 0
-for code, anchor in ORDER:
-    t2 = t2.replace(anchor, '|n' + LINE[code] + anchor, 1)
-    i += 1
+# Each old line runs from its opening to the |n that ends the bullet.
+changed = 0
+for code in OLD:
+    start = t.find(OLD[code])
+    if start == -1:
+        print('%s: opening niet gevonden' % code)
+        continue
+    end = t.find('|n', start + len(OLD[code]))
+    if end == -1:
+        print('%s: einde niet gevonden' % code)
+        continue
+    t = t[:start] + NEW[code] + t[end:]
+    changed += 1
     print('%s: ok' % code)
-print('%d regels ingevoegd' % i)
-if i == 7:
-    io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(t2)
+
+print('%d van %d' % (changed, len(OLD)))
+if changed == len(OLD):
+    io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(t)
     os.replace(P + '.tmp', P)
     print('geschreven')
 else:
-    print('NIETS geschreven')
+    print('NIETS geschreven — alles of niets')
