@@ -1,12 +1,16 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: addons touched since this morning's batch, and whether the two watch
-documents have a new entry today.
+Right now: the other five languages. enUS and nlNL got the achievement names a
+moment ago and the rest did not, which is exactly the half-done state this repo
+keeps producing when a locale edit is written by hand.
+
+Names stay English on purpose: the client shows achievement names in the
+player's own language, so a translated guess would not match what they see, and
+would not be searchable either.
 """
+import io
 import os
-import re
 import sys
-import time
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -14,68 +18,44 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns'
-DOCS = os.path.join(BASE, 'MidnightHelper', 'docs')
-CUTOFF = time.mktime((2026, 8, 14, 8, 0, 0, 0, 0, -1))
+P = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales\Codex.lua'
+W, R = '|cffffffff', '|r'
 
+EDITS = [
+    # Underbelly -> Soft Underbelly (62601)
+    ('e la Underbelly ha un obiettivo tutto suo.',
+     'e la Underbelly ha un obiettivo tutto suo, %sSoft Underbelly%s.' % (W, R)),
+    ('Underbelly hat einen eigenen Erfolg.',
+     'Underbelly hat einen eigenen Erfolg: %sSoft Underbelly%s.' % (W, R)),
+    ("l'Underbelly a son propre haut fait.",
+     "l'Underbelly a son propre haut fait, %sSoft Underbelly%s." % (W, R)),
+    ('Underbelly tiene un logro propio.',
+     'Underbelly tiene un logro propio: %sSoft Underbelly%s.' % (W, R)),
+    ('Underbelly tem uma proeza própria.',
+     'Underbelly tem uma proeza própria: %sSoft Underbelly%s.' % (W, R)),
+    # third achievement -> Oppose the Foes (63601)
+    ('un terzo obiettivo.', 'un terzo: %sOppose the Foes%s.' % (W, R)),
+    ('einen dritten Erfolg.', 'einen dritten: %sOppose the Foes%s.' % (W, R)),
+    ('un troisième haut fait.', 'un troisième : %sOppose the Foes%s.' % (W, R)),
+    ('un tercer logro.', 'un tercero: %sOppose the Foes%s.' % (W, R)),
+    ('uma terceira proeza.', 'uma terceira: %sOppose the Foes%s.' % (W, R)),
+]
 
-def toc_field(folder, field):
-    try:
-        names = os.listdir(folder)
-    except OSError:
-        return '?'
-    for fn in names:
-        if not fn.lower().endswith('.toc'):
-            continue
-        try:
-            t = open(os.path.join(folder, fn), encoding='utf-8', errors='replace').read()
-        except OSError:
-            continue
-        m = re.search(r'^##\s*%s\s*:\s*(.+)$' % field, t, re.M | re.I)
-        if m:
-            return m.group(1).strip()
-    return '?'
-
-
-rows = []
-for name in sorted(os.listdir(BASE)):
-    p = os.path.join(BASE, name)
-    if not os.path.isdir(p) or name == 'MidnightHelper':
+t = open(P, encoding='utf-8', newline='').read()
+changed = 0
+for old, new in EDITS:
+    n = t.count(old)
+    if n != 1:
+        print('%-46s %d treffers — overgeslagen' % (old[:46], n))
         continue
-    newest = 0
-    for root, dirs, files in os.walk(p):
-        dirs[:] = [d for d in dirs if d != '.git']
-        for f in files:
-            try:
-                m = os.path.getmtime(os.path.join(root, f))
-            except OSError:
-                continue
-            if m > newest:
-                newest = m
-    if newest >= CUTOFF:
-        rows.append((newest, name))
+    t = t.replace(old, new)
+    changed += 1
+    print('%-46s ok' % old[:46])
 
-rows.sort(reverse=True)
-print('ADDONS aangeraakt sinds vanochtend 08:00: %d' % len(rows))
-for newest, name in rows:
-    print('  %-34s %-16s %s' % (
-        name[:34], toc_field(os.path.join(BASE, name), 'Version')[:16],
-        time.strftime('%d %b %H:%M', time.localtime(newest))))
-if not rows:
-    print('  (geen)')
-
-print()
-for name in ('PTR_12.1_WATCH.md', 'PTR_12.0.7_DATA.md'):
-    p = os.path.join(DOCS, name)
-    if not os.path.exists(p):
-        print('%s: bestaat niet' % name)
-        continue
-    mt = os.path.getmtime(p)
-    text = open(p, encoding='utf-8', errors='replace').read()
-    lines = text.splitlines()
-    today = sum(1 for line in lines if '2026-08-14' in line)
-    print('%-22s %d regels · geschreven %s · %d regel(s) met datum 14 aug' % (
-        name, len(lines), time.strftime('%d %b %H:%M', time.localtime(mt)), today))
-    for line in lines:
-        if '2026-08-14' in line:
-            print('   ' + line[:400])
+print('%d van %d' % (changed, len(EDITS)))
+if changed == len(EDITS):
+    io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(t)
+    os.replace(P + '.tmp', P)
+    print('geschreven')
+else:
+    print('NIETS geschreven — alles of niets')

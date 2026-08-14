@@ -12,7 +12,29 @@ uitkomst verwerken zodra Rob hem plakt.
 
 ---
 
-## 1. De criteria-ids van The Honored Dead — begin hier
+## ✅ 1. GEMETEN 14 aug — de criteria-ids kloppen. Dit punt is dicht.
+
+`/mh atal` in de Vaults, op Robs client:
+
+- **63610 "The Honored Dead"** — alle twaalf criteria bevestigd, **116407 t/m 116418**,
+  mét de namen die het spel eraan geeft. Twee stonden al op done (*To a father* 116414,
+  *To a stranger* 116417). HandyNotes had ze dus gewoon goed.
+- **63601 heet "Oppose the Foes"** — de drie rare elites, criteria 116325/116326/116327.
+  **Khu'tulak stond op done**, dus die heeft Rob al gedood; zijn locatie is dus te vangen
+  met `/mh capture` als hij hem weer tegenkomt.
+- **62601 heet "Soft Underbelly"** — vijf criteria: Szarith the Fanged (113661), Priest of
+  the First Rattle (113558), Champion of the Scale (113557), Guardian of the Sacrifice
+  (113556), Vserix the Sneaky (113662).
+
+De twee achievement-**namen** waren nieuw en staan nu in het Codex-artikel, in alle zeven
+talen. De namen blijven Engels: het spel toont ze in de taal van de speler, dus een
+verzonnen vertaling zou niet matchen met wat hij op zijn scherm ziet.
+
+⚠️ Dat de ids klopten is een uitkomst, geen regel. HandyNotes' *coördinaten* waren al
+vertrouwd; hun *quest-band* bleek op 13 aug niet de vlag die het spel afvuurt. Dat deze
+criteria wél kloppen zegt niets over de volgende lijst die er vandaan komt.
+
+## ~~1. De criteria-ids van The Honored Dead — begin hier~~ (afgehandeld, zie boven)
 
 **Waarom eerst:** `Modules/AchievementsData.lua` verscheept de twaalf gedenktekens met
 criteria `116407..116418`. Die komen van HandyNotes_Midnight 150. Voor coördinaten is dat
