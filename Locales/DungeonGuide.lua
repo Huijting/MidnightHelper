@@ -64,7 +64,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_CH5_BODY = "• Before a run, open the Dungeon Coach view and read the short steps for each boss — and the moment you pull a boss, Midnight Helper prints those steps right in your chat.|n• Share them with your group: type /mh bossshare after the pull (plain text; localized sharing comes later).|n• Don't memorize everything: knowing the one deadly mechanic per boss is enough to start.",
 
 	DGN_CH6_TITLE = "6. Next step: Heroic",
-	DGN_CH6_BODY = "• Heroic uses this season's rotation (eight dungeons — see the Coach view, marked Season 1) with stronger enemies and better loot.|n• The Group Finder shows the gear requirement; gear up via Normal dungeons, Delves and world content first.|n• Combine it with your weeklies: Halduron's dungeon-of-the-week and Lady Liadrin's Spark weekly both live next to the vault — the This week view tracks them.|n• After Heroic comes Mythic and Mythic+ — that chapter arrives with the Mythic update of this course.",
+	DGN_CH6_BODY = "• Heroic uses this season's rotation (eight dungeons — see the Coach view, marked with the season) with stronger enemies and better loot.|n• The Group Finder shows the gear requirement; gear up via Normal dungeons, Delves and world content first.|n• Combine it with your weeklies: Halduron's dungeon-of-the-week and Lady Liadrin's Spark weekly both live next to the vault — the This week view tracks them.|n• After Heroic comes Mythic and Mythic+ — that chapter arrives with the Mythic update of this course.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
@@ -146,7 +146,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_CH5_BODY = "• Prima di una run, apri la vista Dungeon Coach e leggi i passi brevi per ogni boss — e nel momento in cui pulli un boss, Midnight Helper stampa quei passi direttamente nella tua chat.|n• Condividili col tuo gruppo: scrivi /mh bossshare dopo il pull (testo semplice; la condivisione localizzata arriverà più avanti).|n• Non memorizzare tutto: conoscere l'unica meccanica letale per ogni boss è sufficiente per iniziare.",
 
 	DGN_CH6_TITLE = "6. Prossimo passo: Heroic",
-	DGN_CH6_BODY = "• Il Heroic usa la rotazione di questa season (otto dungeon — vedi la vista Coach, contrassegnati Season 1) con nemici più forti e loot migliore.|n• Il Group Finder mostra il requisito di equipaggiamento; equipaggiati prima tramite dungeon Normal, Delve e contenuti del mondo.|n• Combinalo con le tue settimanali: il dungeon della settimana di Halduron e la settimanale Spark di Lady Liadrin stanno entrambi accanto al vault — la vista Questa settimana li tiene tracciati.|n• Dopo il Heroic arrivano Mythic e Mythic+ — quel capitolo arriverà con l'aggiornamento Mythic di questo corso.",
+	DGN_CH6_BODY = "• Il Heroic usa la rotazione di questa season (otto dungeon — vedi la vista Coach, contrassegnati con la stagione) con nemici più forti e loot migliore.|n• Il Group Finder mostra il requisito di equipaggiamento; equipaggiati prima tramite dungeon Normal, Delve e contenuti del mondo.|n• Combinalo con le tue settimanali: il dungeon della settimana di Halduron e la settimanale Spark di Lady Liadrin stanno entrambi accanto al vault — la vista Questa settimana li tiene tracciati.|n• Dopo il Heroic arrivano Mythic e Mythic+ — quel capitolo arriverà con l'aggiornamento Mythic di questo corso.",
 
 	-- Coach -------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
@@ -224,7 +224,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_CH5_BODY = "• Open vóór een run de Dungeon Coach-weergave en lees de korte stappen per boss — en zodra je een boss pullt, print Midnight Helper die stappen direct in je chat.|n• Delen met je groep: typ /mh bossshare na de pull (platte tekst; gelokaliseerd delen volgt later).|n• Je hoeft niet alles uit je hoofd te leren: dé ene dodelijke mechanic per boss kennen is genoeg om te starten.",
 
 	DGN_CH6_TITLE = "6. Volgende stap: Heroic",
-	DGN_CH6_BODY = "• Heroic gebruikt de seizoensrotatie (acht dungeons — zie de Coach-weergave, gemarkeerd Season 1) met sterkere vijanden en betere loot.|n• De Group Finder toont de gear-eis; gear eerst op via Normal-dungeons, Delves en world content.|n• Combineer met je weeklies: Haldurons dungeon-van-de-week en Lady Liadrins Spark-weekly wonen allebei naast de vault — de Deze week-weergave trackt ze.|n• Na Heroic komen Mythic en Mythic+ — dat hoofdstuk verschijnt met de Mythic-update van deze cursus.",
+	DGN_CH6_BODY = "• Heroic gebruikt de seizoensrotatie (acht dungeons — zie de Coach-weergave, gemarkeerd met het seizoen) met sterkere vijanden en betere loot.|n• De Group Finder toont de gear-eis; gear eerst op via Normal-dungeons, Delves en world content.|n• Combineer met je weeklies: Haldurons dungeon-van-de-week en Lady Liadrins Spark-weekly wonen allebei naast de vault — de Deze week-weergave trackt ze.|n• Na Heroic komen Mythic en Mythic+ — dat hoofdstuk verschijnt met de Mythic-update van deze cursus.",
 
 	-- Coach --------------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
@@ -306,7 +306,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_CH5_BODY = "• Öffne vor einem Lauf die Dungeon-Coach-Ansicht und lies die kurzen Schritte pro Boss — und sobald du einen Boss pullst, schreibt Midnight Helper diese Schritte direkt in deinen Chat.|n• Teile sie mit deiner Gruppe: tippe /mh bossshare nach dem Pull (Klartext; lokalisiertes Teilen folgt später).|n• Du musst nicht alles auswendig lernen: die eine tödliche Mechanik pro Boss zu kennen reicht für den Anfang.",
 
 	DGN_CH6_TITLE = "6. Nächster Schritt: Heroic",
-	DGN_CH6_BODY = "• Heroic nutzt die Saisonrotation (acht Dungeons — siehe Coach-Ansicht, markiert mit Season 1) mit stärkeren Gegnern und besserer Beute.|n• Die Gruppensuche zeigt die Ausrüstungsanforderung; rüste dich erst über Normal-Dungeons, Tiefen und Weltinhalte aus.|n• Kombiniere es mit deinen Weeklies: Haldurons Dungeon der Woche und Lady Liadrins Spark-Weekly wohnen beide neben dem Vault — die Diese-Woche-Ansicht verfolgt sie.|n• Nach Heroic kommen Mythic und Mythic+ — dieses Kapitel erscheint mit dem Mythic-Update dieses Kurses.",
+	DGN_CH6_BODY = "• Heroic nutzt die Saisonrotation (acht Dungeons — siehe Coach-Ansicht, mit der Saison markiert) mit stärkeren Gegnern und besserer Beute.|n• Die Gruppensuche zeigt die Ausrüstungsanforderung; rüste dich erst über Normal-Dungeons, Tiefen und Weltinhalte aus.|n• Kombiniere es mit deinen Weeklies: Haldurons Dungeon der Woche und Lady Liadrins Spark-Weekly wohnen beide neben dem Vault — die Diese-Woche-Ansicht verfolgt sie.|n• Nach Heroic kommen Mythic und Mythic+ — dieses Kapitel erscheint mit dem Mythic-Update dieses Kurses.",
 
 	-- Coach ---------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon-Coach",
@@ -384,7 +384,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_CH5_BODY = "• Avant un run, ouvre la vue Dungeon Coach et lis les étapes courtes de chaque boss — et dès que tu pull un boss, Midnight Helper affiche ces étapes directement dans ton chat.|n• Partage-les avec ton groupe : tape /mh bossshare après le pull (texte brut ; le partage localisé arrive plus tard).|n• Pas besoin de tout mémoriser : connaître LA mécanique mortelle de chaque boss suffit pour commencer.",
 
 	DGN_CH6_TITLE = "6. Étape suivante : Heroic",
-	DGN_CH6_BODY = "• Heroic utilise la rotation de la saison (huit donjons — voir la vue Coach, marqués Season 1) avec des ennemis plus forts et un meilleur butin.|n• La Recherche de groupe affiche le prérequis d'équipement ; équipe-toi d'abord via les donjons Normal, les gouffres et le contenu mondial.|n• Combine avec tes hebdos : le donjon de la semaine d'Halduron et l'hebdo Spark de Lady Liadrin vivent tous deux à côté du Vault — la vue Cette semaine les suit.|n• Après Heroic viennent Mythic et Mythic+ — ce chapitre arrivera avec la mise à jour Mythic de ce cours.",
+	DGN_CH6_BODY = "• Heroic utilise la rotation de la saison (huit donjons — voir la vue Coach, marqués avec la saison) avec des ennemis plus forts et un meilleur butin.|n• La Recherche de groupe affiche le prérequis d'équipement ; équipe-toi d'abord via les donjons Normal, les gouffres et le contenu mondial.|n• Combine avec tes hebdos : le donjon de la semaine d'Halduron et l'hebdo Spark de Lady Liadrin vivent tous deux à côté du Vault — la vue Cette semaine les suit.|n• Après Heroic viennent Mythic et Mythic+ — ce chapitre arrivera avec la mise à jour Mythic de ce cours.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
@@ -462,7 +462,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_CH5_BODY = "• Antes de una run, abre la vista Dungeon Coach y lee los pasos cortos de cada jefe — y al hacer pull, Midnight Helper imprime esos pasos directamente en tu chat.|n• Compártelos con tu grupo: escribe /mh bossshare tras el pull (texto plano; el compartir localizado llegará más adelante).|n• No memorices todo: conocer LA mecánica mortal de cada jefe basta para empezar.",
 
 	DGN_CH6_TITLE = "6. Siguiente paso: Heroic",
-	DGN_CH6_BODY = "• Heroic usa la rotación de la temporada (ocho mazmorras — ver la vista Coach, marcadas Season 1) con enemigos más fuertes y mejor botín.|n• El Buscador de grupos muestra el requisito de equipo; equípate primero con mazmorras Normal, Profundidades y contenido de mundo.|n• Combínalo con tus semanales: la mazmorra de la semana de Halduron y la semanal de Spark de Lady Liadrin viven junto al Vault — la vista Esta semana las sigue.|n• Tras Heroic vienen Mythic y Mythic+ — ese capítulo llegará con la actualización Mythic de este curso.",
+	DGN_CH6_BODY = "• Heroic usa la rotación de la temporada (ocho mazmorras — ver la vista Coach, marcadas con la temporada) con enemigos más fuertes y mejor botín.|n• El Buscador de grupos muestra el requisito de equipo; equípate primero con mazmorras Normal, Profundidades y contenido de mundo.|n• Combínalo con tus semanales: la mazmorra de la semana de Halduron y la semanal de Spark de Lady Liadrin viven junto al Vault — la vista Esta semana las sigue.|n• Tras Heroic vienen Mythic y Mythic+ — ese capítulo llegará con la actualización Mythic de este curso.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
@@ -540,7 +540,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_CH5_BODY = "• Antes de uma run, abra a visão Dungeon Coach e leia os passos curtos de cada chefe — e ao puxar um chefe, o Midnight Helper imprime esses passos direto no seu chat.|n• Compartilhe com o grupo: digite /mh bossshare depois do pull (texto simples; compartilhamento localizado vem depois).|n• Não decore tudo: conhecer A mecânica mortal de cada chefe já basta para começar.",
 
 	DGN_CH6_TITLE = "6. Próximo passo: Heroic",
-	DGN_CH6_BODY = "• Heroic usa a rotação da temporada (oito masmorras — veja a visão Coach, marcadas Season 1) com inimigos mais fortes e melhor saque.|n• O Localizador de grupos mostra o requisito de equipamento; equipe-se primeiro com masmorras Normal, Profundidades e conteúdo de mundo.|n• Combine com suas semanais: a masmorra da semana do Halduron e a semanal do Spark de Lady Liadrin moram ao lado do Vault — a visão Esta semana acompanha as duas.|n• Depois do Heroic vêm Mythic e Mythic+ — esse capítulo chega com a atualização Mythic deste curso.",
+	DGN_CH6_BODY = "• Heroic usa a rotação da temporada (oito masmorras — veja a visão Coach, marcadas com a temporada) com inimigos mais fortes e melhor saque.|n• O Localizador de grupos mostra o requisito de equipamento; equipe-se primeiro com masmorras Normal, Profundidades e conteúdo de mundo.|n• Combine com suas semanais: a masmorra da semana do Halduron e a semanal do Spark de Lady Liadrin moram ao lado do Vault — a visão Esta semana acompanha as duas.|n• Depois do Heroic vêm Mythic e Mythic+ — esse capítulo chega com a atualização Mythic deste curso.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",

@@ -637,8 +637,11 @@ function ns.BuildDungeonGuidePanel(panel)
 	end
 
 	local mythicHeader = MakeFS(child, "GameFontNormal", COLOR_HEADER)
-	mythicHeader._mhKey = "MPLUS_HEADER"
-	mythicHeader:SetText(ns:L("MPLUS_HEADER"))
+	-- Season-gated like the badge and the rotation header above (commit 6 of the
+	-- Cowork patch set that pattern); this heading was the one it missed.
+	local mplusHeaderKey = (ns.IsMythicSeason2 and ns.IsMythicSeason2()) and "MPLUS_HEADER_S2" or "MPLUS_HEADER"
+	mythicHeader._mhKey = mplusHeaderKey
+	mythicHeader:SetText(ns:L(mplusHeaderKey))
 	push(mythicHeader, 0, 0, false, "mythic")
 
 	-- Beginner/expert-toggle (altijd zichtbaar; label gezet in FillMythic).

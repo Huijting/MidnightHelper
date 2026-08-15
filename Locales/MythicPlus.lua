@@ -25,7 +25,8 @@ end
 merge(ns._mhLocales and ns._mhLocales.enUS, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Season 1",
-	MPLUS_INTRO = "How keys work this season: the affixes, the 8-dungeon pool and the casts you must interrupt. Written against the Wowhead Season 1 overview and method.gg — confirm in-game.",
+	MPLUS_HEADER_S2 = "Mythic+ — Season 2",
+	MPLUS_INTRO = "How keys work this season: the affixes, the 8-dungeon pool and the casts you must interrupt. Written against the Wowhead overview and method.gg — confirm in-game.",
 
 	MPLUS_AFFIX_HEADER = "What turns on at each key level",
 	MPLUS_AFFIX_UNMEASURED = "Season 2 changed the keystone affixes, and Midnight Helper has not measured the new ones yet. The list that used to stand here was Season 1’s, and showing it under a Season 2 heading would be worse than showing nothing. The dungeon pool below is current.",
@@ -64,7 +65,8 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 merge(ns._mhLocales and ns._mhLocales.itIT, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Season 1",
-	MPLUS_INTRO = "Come funzionano le key questa stagione: gli affix, il pool di 8 dungeon e i cast che devi interrompere. Scritto sulla base della panoramica Season 1 di Wowhead e method.gg — confermare in-game.",
+	MPLUS_HEADER_S2 = "Mythic+ — Season 2",
+	MPLUS_INTRO = "Come funzionano le key questa stagione: gli affix, il pool di 8 dungeon e i cast che devi interrompere. Scritto sulla base della panoramica di Wowhead e method.gg — confermare in-game.",
 
 	MPLUS_AFFIX_HEADER = "Cosa si attiva a ogni livello di key",
 	MPLUS_AFFIX_UNMEASURED = "La Stagione 2 ha cambiato gli affissi delle keystone e Midnight Helper non ha ancora misurato quelli nuovi. L’elenco che stava qui era della Stagione 1, e mostrarlo sotto un titolo di Stagione 2 sarebbe peggio che non mostrare nulla. Il pool di dungeon qui sotto è aggiornato.",
@@ -102,7 +104,8 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Seizoen 1",
-	MPLUS_INTRO = "Hoe keys dit seizoen werken: de affixes, de pool van 8 dungeons en de casts die je moet interrupten. Geschreven aan de hand van het Wowhead Seizoen 1-overzicht en method.gg — in-game bevestigen.",
+	MPLUS_HEADER_S2 = "Mythic+ — Seizoen 2",
+	MPLUS_INTRO = "Hoe keys dit seizoen werken: de affixes, de pool van 8 dungeons en de casts die je moet interrupten. Geschreven aan de hand van het Wowhead-overzicht en method.gg — in-game bevestigen.",
 
 	MPLUS_AFFIX_HEADER = "Wat er bij elk keyniveau aangaat",
 	MPLUS_AFFIX_UNMEASURED = "Season 2 heeft de keystone-affixen veranderd en Midnight Helper heeft de nieuwe nog niet gemeten. Het lijstje dat hier stond was dat van Season 1, en dat tonen onder een Season 2-kop is erger dan niets tonen. De dungeonpool hieronder klopt wel.",
@@ -141,7 +144,8 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 merge(ns._mhLocales and ns._mhLocales.deDE, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Saison 1",
-	MPLUS_INTRO = "Wie Keys diese Saison funktionieren: die Affixe, der Pool aus 8 Dungeons und die Zauber, die du unterbrechen musst. Geschrieben anhand der Wowhead-Saison-1-Übersicht und method.gg — im Spiel bestätigen.",
+	MPLUS_HEADER_S2 = "Mythic+ — Saison 2",
+	MPLUS_INTRO = "Wie Keys diese Saison funktionieren: die Affixe, der Pool aus 8 Dungeons und die Zauber, die du unterbrechen musst. Geschrieben anhand der Wowhead-Übersicht und method.gg — im Spiel bestätigen.",
 
 	MPLUS_AFFIX_HEADER = "Was bei jeder Keystufe aktiv wird",
 	MPLUS_AFFIX_UNMEASURED = "Season 2 hat die Keystone-Affixe geändert, und Midnight Helper hat die neuen noch nicht gemessen. Die Liste, die hier stand, war die von Season 1 — sie unter einer Season-2-Überschrift zu zeigen wäre schlimmer, als nichts zu zeigen. Der Dungeon-Pool unten ist aktuell.",
@@ -179,7 +183,8 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 merge(ns._mhLocales and ns._mhLocales.frFR, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Saison 1",
-	MPLUS_INTRO = "Comment fonctionnent les clés cette saison : les affixes, le pool de 8 donjons et les incantations que vous devez interrompre. Rédigé d'après l'aperçu Saison 1 de Wowhead et method.gg — à confirmer en jeu.",
+	MPLUS_HEADER_S2 = "Mythic+ — Saison 2",
+	MPLUS_INTRO = "Comment fonctionnent les clés cette saison : les affixes, le pool de 8 donjons et les incantations que vous devez interrompre. Rédigé d'après l'aperçu de Wowhead et method.gg — à confirmer en jeu.",
 
 	MPLUS_AFFIX_HEADER = "Ce qui s'active à chaque niveau de clé",
 	MPLUS_AFFIX_UNMEASURED = "La Saison 2 a changé les affixes de clé, et Midnight Helper n’a pas encore mesuré les nouveaux. La liste qui figurait ici était celle de la Saison 1, et l’afficher sous un titre Saison 2 serait pire que de ne rien afficher. Le pool de donjons ci-dessous est à jour.",
@@ -217,7 +222,8 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 merge(ns._mhLocales and ns._mhLocales.esES, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Temporada 1",
-	MPLUS_INTRO = "Cómo funcionan las llaves esta temporada: los afijos, el pool de 8 mazmorras y los lanzamientos que debes interrumpir. Escrito a partir del resumen de Temporada 1 de Wowhead y method.gg — confirmar en el juego.",
+	MPLUS_HEADER_S2 = "Mythic+ — Temporada 2",
+	MPLUS_INTRO = "Cómo funcionan las llaves esta temporada: los afijos, el pool de 8 mazmorras y los lanzamientos que debes interrumpir. Escrito a partir del resumen de Wowhead y method.gg — confirmar en el juego.",
 
 	MPLUS_AFFIX_HEADER = "Qué se activa en cada nivel de llave",
 	MPLUS_AFFIX_UNMEASURED = "La Temporada 2 cambió los afijos de las llaves y Midnight Helper todavía no ha medido los nuevos. La lista que había aquí era la de la Temporada 1, y mostrarla bajo un título de Temporada 2 sería peor que no mostrar nada. El grupo de mazmorras de abajo sí está al día.",
@@ -255,7 +261,8 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	MPLUS_VIEW = "Mythic+",
 	MPLUS_HEADER = "Mythic+ — Temporada 1",
-	MPLUS_INTRO = "Como as chaves funcionam nesta temporada: os afixos, o pool de 8 masmorras e as conjurações que você precisa interromper. Escrito com base na visão geral da Temporada 1 do Wowhead e no method.gg — confirmar no jogo.",
+	MPLUS_HEADER_S2 = "Mythic+ — Temporada 2",
+	MPLUS_INTRO = "Como as chaves funcionam nesta temporada: os afixos, o pool de 8 masmorras e as conjurações que você precisa interromper. Escrito com base na visão geral do Wowhead e no method.gg — confirmar no jogo.",
 
 	MPLUS_AFFIX_HEADER = "O que entra em ação em cada nível de chave",
 	MPLUS_AFFIX_UNMEASURED = "A Temporada 2 mudou os afixos das keystones e o Midnight Helper ainda não mediu os novos. A lista que estava aqui era a da Temporada 1, e mostrá-la sob um título de Temporada 2 seria pior do que não mostrar nada. O grupo de masmorras abaixo está atualizado.",

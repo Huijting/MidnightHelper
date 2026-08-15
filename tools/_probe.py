@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: DELVE_REWARDS_UNMEASURED in all seven packs, anchored on
-DELVE_TIP_UNMEASURED (added yesterday, so present exactly once per pack).
-
-The sentence has to do two things at once: admit we do not know, and tell the
-reader where the real number is (their own loot). Season names are not
-translated; "Season 2" stays English per the house rules.
+Right now: the last one. "Manuel de Midnight Saison 1" — I wrote the pattern
+without the "de". Then a final proof pass over every pack.
 """
 import io
 import os
+import re
 import sys
 
 for _s in (sys.stdout, sys.stderr):
@@ -19,43 +16,38 @@ for _s in (sys.stdout, sys.stderr):
         pass
 
 BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales'
+P = os.path.join(BASE, 'Translations2026.lua')
 
-NEW = {
-    'enUS': 'Season 2 changed these item levels and Midnight Helper has not measured the new ones yet. Rather than show you Season 1 numbers that are now too low, this list stays empty until a real run fills it in. Your end-of-delve chest and your Great Vault are the honest answer.',
-    'nlNL': 'Season 2 heeft deze item levels veranderd en Midnight Helper heeft de nieuwe nog niet gemeten. In plaats van Season 1-getallen te tonen die nu te laag zijn, blijft deze lijst leeg tot een echte run hem vult. Je eindkist en je Great Vault zijn het eerlijke antwoord.',
-    'deDE': 'Season 2 hat diese Gegenstandsstufen geändert, und Midnight Helper hat die neuen noch nicht gemessen. Statt dir Season-1-Zahlen zu zeigen, die jetzt zu niedrig sind, bleibt diese Liste leer, bis ein echter Durchlauf sie füllt. Deine Endtruhe und dein Great Vault sind die ehrliche Antwort.',
-    'frFR': 'La Season 2 a changé ces niveaux d’objet et Midnight Helper n’a pas encore mesuré les nouveaux. Plutôt que de t’afficher des chiffres de Season 1 désormais trop bas, cette liste reste vide jusqu’à ce qu’un vrai run la remplisse. Ton coffre de fin et ton Great Vault sont la réponse honnête.',
-    'esES': 'La Season 2 cambió estos niveles de objeto y Midnight Helper aún no ha medido los nuevos. En lugar de enseñarte cifras de Season 1 que ahora se quedan cortas, esta lista permanece vacía hasta que una partida real la rellene. Tu cofre final y tu Great Vault son la respuesta honesta.',
-    'ptBR': 'A Season 2 alterou estes níveis de item e o Midnight Helper ainda não mediu os novos. Em vez de te mostrar números da Season 1 que agora ficam aquém, esta lista fica vazia até que uma run a preencha. A tua arca final e o teu Great Vault são a resposta honesta.',
-    'itIT': 'La Season 2 ha cambiato questi livelli oggetto e Midnight Helper non ha ancora misurato i nuovi. Invece di mostrarti numeri della Season 1 ormai troppo bassi, questa lista resta vuota finché una run vera non la riempie. Il tuo forziere finale e il tuo Great Vault sono la risposta onesta.',
+OLD, NEW = 'Manuel de Midnight Saison 1 :', 'Manuel de Midnight :'
+t = io.open(P, encoding='utf-8', newline='').read()
+n = t.count(OLD)
+print('frFR-anker: %dx' % n)
+if n == 1:
+    io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(t.replace(OLD, NEW))
+    os.replace(P + '.tmp', P)
+    print('geschreven')
+elif n == 0:
+    sys.exit(1)
+
+PAT = re.compile(r'(season\s*1|saison\s*1|temporada\s*1|stagione\s*1|seizoen\s*1)', re.I)
+KEY = re.compile(r'^\s*([A-Z][A-Z0-9_]+)\s*=')
+KEEP = {
+    'ST_CLOSE_HEADER', 'ST_CLOSE_KSM',
+    'DELVE_TIP_TORMENTS_RISE_OVERVIEW', 'CODEX_127_SPOREFALL_BODY',
+    'DGN_BADGE_S1', 'DGN_GROUP_SEASON', 'MPLUS_HEADER',
+    'DELVE_REWARDS_UNMEASURED', 'MPLUS_AFFIX_UNMEASURED',
 }
-
-for text in NEW.values():
-    assert '"' not in text, text[:50]
-
-TARGETS = [
-    (os.path.join(BASE, 'enUS.lua'), ['enUS']),
-    (os.path.join(BASE, 'nlNL.lua'), ['nlNL']),
-    (os.path.join(BASE, 'Translations2026.lua'), ['deDE', 'frFR', 'esES', 'ptBR', 'itIT']),
-]
-
-for path, codes in TARGETS:
-    name = os.path.basename(path)
-    t = io.open(path, encoding='utf-8', newline='').read()
-    if 'DELVE_REWARDS_UNMEASURED' in t:
-        print('%s: staat er al' % name)
+print('\n=== eindcontrole ===')
+left = {}
+for fn in sorted(os.listdir(BASE)):
+    if not fn.endswith('.lua'):
         continue
-    eol = '\r\n' if '\r\n' in t else '\n'
-    out, added = [], 0
-    for line in t.split(eol):
-        out.append(line)
-        if 'DELVE_TIP_UNMEASURED' in line and added < len(codes):
-            indent = line[:len(line) - len(line.lstrip())]
-            out.append('%sDELVE_REWARDS_UNMEASURED = "%s",' % (indent, NEW[codes[added]]))
-            added += 1
-    if added != len(codes):
-        print('%s: %d van %d ankers — NIETS geschreven' % (name, added, len(codes)))
-        sys.exit(1)
-    io.open(path + '.tmp', 'w', encoding='utf-8', newline='').write(eol.join(out))
-    os.replace(path + '.tmp', path)
-    print('%s: %d toegevoegd' % (name, added))
+    for i, line in enumerate(io.open(os.path.join(BASE, fn), encoding='utf-8', errors='replace'), 1):
+        if not PAT.search(line) or line.strip().startswith('--'):
+            continue
+        m = KEY.match(line)
+        key = m.group(1) if m else '(comment)'
+        if key.startswith('CHANGELOG_') or key in KEEP or key == '(comment)':
+            continue
+        left.setdefault(key, []).append('%s:%d' % (fn, i))
+print('schoon' if not left else left)

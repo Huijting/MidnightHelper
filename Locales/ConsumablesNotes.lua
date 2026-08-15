@@ -17,7 +17,7 @@ end
 
 local EN = {
 	CONS_NOTE_01 = "Critical Strike is the default throughput flask; sim your character for close secondary stats.",
-	CONS_NOTE_02 = "Current Midnight Season 1 augment rune.",
+	CONS_NOTE_02 = "Current Midnight augment rune.",
 	CONS_NOTE_03 = "Haste is the default healer throughput flask; sim your character for close secondary stats.",
 	CONS_NOTE_04 = "Highest verified Midnight health potion.",
 	CONS_NOTE_05 = "Mastery is the default throughput flask; sim your character for close secondary stats.",
@@ -35,7 +35,7 @@ local EN = {
 
 local NL = {
 	CONS_NOTE_01 = "Critical Strike is de standaard DPS-flacon; sim je character voor de beste secundaire stats.",
-	CONS_NOTE_02 = "Huidige Midnight Season 1 augment rune.",
+	CONS_NOTE_02 = "Huidige Midnight augment rune.",
 	CONS_NOTE_03 = "Haste is de standaard healer-flacon; sim je character voor secundaire stats.",
 	CONS_NOTE_04 = "Hoogste geverifieerde Midnight health potion.",
 	CONS_NOTE_05 = "Mastery is de standaard DPS-flacon; sim je character voor secundaire stats.",
@@ -53,7 +53,7 @@ local NL = {
 
 local DE = {
 	CONS_NOTE_01 = "Kritischer Trefferwert ist die Standard-DPS-Flasche; simuliere deinen Charakter für die besten Sekundärwerte.",
-	CONS_NOTE_02 = "Aktuelle Midnight Season 1 Augmentierungsrune.",
+	CONS_NOTE_02 = "Aktuelle Midnight-Augmentierungsrune.",
 	CONS_NOTE_03 = "Tempo ist die Standard-Heiler-Flasche; simuliere deinen Charakter für Sekundärwerte.",
 	CONS_NOTE_04 = "Höchster verifizierter Midnight-Heiltrank.",
 	CONS_NOTE_05 = "Meisterschaft ist die Standard-DPS-Flasche; simuliere deinen Charakter für Sekundärwerte.",
@@ -71,7 +71,7 @@ local DE = {
 
 local ES = {
 	CONS_NOTE_01 = "Golpe crítico es el frasco DPS por defecto; simula tu personaje para stats secundarias.",
-	CONS_NOTE_02 = "Runa de aumento Midnight temporada 1 actual.",
+	CONS_NOTE_02 = "Runa de aumento Midnight actual.",
 	CONS_NOTE_03 = "Celeridad es el frasco de sanador por defecto; simula tu personaje para stats secundarias.",
 	CONS_NOTE_04 = "Poción de salud Midnight más alta verificada.",
 	CONS_NOTE_05 = "Maestría es el frasco DPS por defecto; simula tu personaje para stats secundarias.",
@@ -89,7 +89,7 @@ local ES = {
 
 local PT = {
 	CONS_NOTE_01 = "Crítico é o frasco DPS padrão; simule seu personagem para atributos secundários.",
-	CONS_NOTE_02 = "Runa de augmento Midnight temporada 1 atual.",
+	CONS_NOTE_02 = "Runa de augmento Midnight atual.",
 	CONS_NOTE_03 = "Aceleração é o frasco de curador padrão; simule para atributos secundários.",
 	CONS_NOTE_04 = "Poção de vida Midnight mais alta verificada.",
 	CONS_NOTE_05 = "Maestria é o frasco DPS padrão; simule para atributos secundários.",
@@ -107,7 +107,7 @@ local PT = {
 
 local IT = {
 	CONS_NOTE_01 = "Colpo Critico è la fiala di throughput predefinita; simula il tuo personaggio per le caratteristiche secondarie più vicine.",
-	CONS_NOTE_02 = "Runa di aumento attuale di Midnight Stagione 1.",
+	CONS_NOTE_02 = "Runa di aumento attuale di Midnight.",
 	CONS_NOTE_03 = "Celerità è la fiala di throughput predefinita per i guaritori; simula il tuo personaggio per le secondarie più vicine.",
 	CONS_NOTE_04 = "Pozione di cura Midnight più alta verificata.",
 	CONS_NOTE_05 = "Maestria è la fiala di throughput predefinita; simula il tuo personaggio per le secondarie più vicine.",

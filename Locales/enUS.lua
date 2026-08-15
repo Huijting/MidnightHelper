@@ -1041,7 +1041,7 @@ ns._mhLocales.enUS = {
 
 	MACROS_TYPE_INTERRUPT = "Interrupt",
 	MACROS_TYPE_UTILITY = "Utility",
-	MACROS_CONSUMABLES_SUBTITLE = "Midnight Season 1 best picks (flask, pots, feast, food). Hover a row for the item tooltip.",
+	MACROS_CONSUMABLES_SUBTITLE = "Midnight best picks (flask, pots, feast, food). Hover a row for the item tooltip.",
 	MACROS_CONS_NO_DATA = "No consumables data for this class and spec yet.",
 	CONS_PICK_SPEC_BTN = "Next spec",
 	CONS_SPEC_HINT = "< > cycles specs. Search bar: other classes.",
@@ -1091,7 +1091,7 @@ ns._mhLocales.enUS = {
 	SMC_CAT_HORDE = "Horde District (Horde only)",
 	SMC_CAT_PROFESSIONS = "Professions",
 	SMC_CAT_GATHERING = "Gathering",
-	INFO_DRAWER_BODY_CONSUMABLES = "Midnight Season 1 consumables per spec (Wowhead list). Use My character, < >, or search (e.g. havoc, beast) to preview another spec without relogging.",
+	INFO_DRAWER_BODY_CONSUMABLES = "Midnight consumables per spec (Wowhead list). Use My character, < >, or search (e.g. havoc, beast) to preview another spec without relogging.",
 	MACROS_MACRO_NAME_FMT = "%s",
 	MACROS_COPY_SUFFIX = "Copy the text below into Esc > Macros > New. Then drag the macro icon to a spot on your action bar (for example 1, 2, or E).",
 	MACROS_INTERRUPT_SUBTITLE = "Midnight tip: Stops an enemy cast with one button press. Pick a variant above (Focus or Mouseover), read the note, then copy the text below.",
