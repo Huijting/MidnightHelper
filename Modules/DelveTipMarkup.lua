@@ -172,6 +172,70 @@ function ns:GetWayLinkMarkup(mapID, x, y, label)
 	return ("|cff%s|Hmhway:%d:%.2f:%.2f:%s|h[%s]|h|r"):format(WAY_LINK_COLOR, mapID, x, y, safe, safe)
 end
 
+--- Zeg wát er gebeurd is na een coördinaat-klik.
+---
+--- ⚠️ TOEGEVOEGD 15 aug 2026. Rob klikte in Silvermoon op een Vaults-coördinaat en
+--- kreeg niets: geen pijl, geen melding, geen fout. Dat is de slechtste uitkomst die
+--- er is — een knop die niets doet is niet te onderscheiden van een kapotte knop, en
+--- de speler heeft geen enkele aanwijzing wat hij verkeerd deed. Hij deed niets
+--- verkeerd; hij stond alleen 300 meter en een zone verderop.
+---
+--- Deze regel verschijnt daarom ALTIJD na een klik. Drie gevallen:
+---   1. je staat op dezelfde kaart  → korte bevestiging
+---   2. je staat ergens anders      → plus waar je heen moet
+---   3. de kaart accepteert geen Blizzard-pin en je hebt geen TomTom → zeg dat,
+---      want dán is er echt geen pijl en dat is niet onze schuld maar wel onze
+---      verantwoordelijkheid om te melden.
+---
+--- Geval 3 is precies wat er in de Vaults speelt: instanced kaarten weigeren vaak
+--- `C_Map.SetUserWaypoint`, en die aanroep zit in een pcall — dus hij faalt stil.
+function ns.ReportWaypointResult(mapID, label)
+	mapID = tonumber(mapID)
+	if not mapID then
+		return
+	end
+	local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
+	local name = tostring(label or "?")
+
+	local function zoneName(id)
+		if id and C_Map and C_Map.GetMapInfo then
+			local ok, info = pcall(C_Map.GetMapInfo, id)
+			if ok and type(info) == "table" and info.name and info.name ~= "" then
+				return info.name
+			end
+		end
+		return nil
+	end
+
+	local here
+	if C_Map and C_Map.GetBestMapForUnit then
+		local ok, m = pcall(C_Map.GetBestMapForUnit, "player")
+		here = ok and m or nil
+	end
+	local targetZone = zoneName(mapID)
+	local hereZone = zoneName(here)
+
+	-- Kan het spel hier überhaupt een pin zetten, als TomTom ontbreekt?
+	local tomtom = ns.IsTomTomReady and ns.IsTomTomReady()
+	local canPin = true
+	if not tomtom and C_Map and C_Map.CanSetUserWaypointOnMap then
+		local ok, v = pcall(C_Map.CanSetUserWaypointOnMap, mapID)
+		canPin = (not ok) or (v ~= false)
+	end
+
+	if not canPin then
+		print(("%s %s"):format(prefix, (ns:L("WAY_NO_PIN")):format(name, targetZone or mapID)))
+		return
+	end
+
+	if here and here ~= mapID and targetZone then
+		print(("%s %s"):format(prefix,
+			(ns:L("WAY_SET_ELSEWHERE")):format(name, targetZone, hereZone or "?")))
+	else
+		print(("%s %s"):format(prefix, (ns:L("WAY_SET_HERE")):format(name)))
+	end
+end
+
 function ns:SetMapWaypoint(mapID, x, y, label)
 	mapID, x, y = tonumber(mapID), tonumber(x), tonumber(y)
 	if not (mapID and x and y) then
@@ -184,6 +248,7 @@ function ns:SetMapWaypoint(mapID, x, y, label)
 	-- hearthstone). De kale fallback hieronder blijft alleen voor het geval de
 	-- Delves-module niet geladen is.
 	if ns.AddSmartTomTomWay and ns.AddSmartTomTomWay(mapID, x, y, label) ~= false then
+		ns.ReportWaypointResult(mapID, label)
 		return
 	end
 	if C_AddOns and C_AddOns.LoadAddOn and C_AddOns.IsAddOnLoaded and not C_AddOns.IsAddOnLoaded("TomTom") then
