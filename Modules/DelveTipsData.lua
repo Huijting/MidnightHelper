@@ -152,22 +152,31 @@ ns.DELVE_TIP_ENTRIES = {
 		},
 	},
 
-	-- ⚠️ TOEGEVOEGD 15 aug 2026, op Robs melding: "de 2 nieuwe staan niet in de delve
-	-- coach". De picker loopt over deze tabel, niet over de roster in Delves.lua — dus
-	-- de twee 12.1-delves stonden wél in het Delves-paneel en niet in de coach.
+	-- ⚠️ 15 aug 2026, tweede versie dezelfde dag. De eerste had één placeholder-sectie
+	-- ("niets gemeten"); Rob wilde de delves er vandaag betrouwbaar in. Een sweep over
+	-- de geïnstalleerde addons leverde echte inhoud uit bronnen die deze repo al
+	-- vertrouwt: HandyNotes_Midnight voor coördinaten (Robs staande regel: ~95%, geen
+	-- spot-check) en Zygor voor questketens/overgangen.
 	--
-	-- Dat is de ergste vorm van niks weten: het scherm toonde elf en zei nergens dat er
-	-- dertien zijn. Onzichtbaar ontbreken leest als "bestaat niet".
+	-- Wat er WEL staat: binnenkaart-id, drie Sturdy Chests per delve met coördinaten op
+	-- die binnenkaart, de uitgang, en bij Gnarldor de questketen bij de ingang.
+	-- Wat er NIET staat: een boss. DBM-Delves-Midnight heeft voor beide een lege stub
+	-- (Zones/GnarldorIsle.lua en Zones/RingofGlory.lua: 10 regels, geen encounter),
+	-- geen enkele addon op schijf noemt een naam, en verzinnen doen we niet. De
+	-- overview zegt dat hardop; DelveHistory logt de bossnaam bij de eerstvolgende run
+	-- nu de namen in de roster staan.
 	--
-	-- Deze twee hebben daarom één sectie die zegt dat er niets gemeten is. Geen
-	-- verzonnen route, geen overgenomen bosstips — alleen de naam, de zone, en waarom
-	-- de rest leeg is. Zodra iemand ze loopt, groeit dit naar de vorm hierboven.
+	-- Binnenkaarten (drie addons eens): Gnarldor Isle = 2635, The Ring of Glory = 2633.
+	-- DBM-zone-ids: 3038 / 3077. Chest-quest-ids 96802-96807 bestaan in HandyNotes maar
+	-- gaan hier NIET in: dat is dezelfde quest-band-klasse die op 13 aug niet de vlag
+	-- bleek die het spel afvuurt. Coördinaten vertrouwd, ids niet.
 	{
 		id = "gnarldor_isle",
 		rosterName = "Gnarldor Isle",
 		poiId = 8761,
 		sections = {
-			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_UNMEASURED" },
+			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_GNARLDOR_OVERVIEW" },
+			{ titleKey = "DELVE_COACH_SEC_ROUTE", bodyKey = "DELVE_TIP_GNARLDOR_ROUTE" },
 		},
 	},
 	{
@@ -175,7 +184,8 @@ ns.DELVE_TIP_ENTRIES = {
 		rosterName = "The Ring of Glory",
 		poiId = 8764,
 		sections = {
-			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_UNMEASURED" },
+			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_RINGOFGLORY_OVERVIEW" },
+			{ titleKey = "DELVE_COACH_SEC_ROUTE", bodyKey = "DELVE_TIP_RINGOFGLORY_ROUTE" },
 		},
 	},
 }
