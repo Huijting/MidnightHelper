@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: read ns.db.achCheck and print the nodes a short hunt is missing.
+Right now: what does Rob's client already say about Coin vs Soul?
 
-/mh ach check found one: Showdown Slugger: Naigtal ships 8 nodes for 10
-criteria. The command stored the client's full criteria list for exactly that
-hunt, so the two missing ones are a subtraction, not a search.
+The Corrosive Codex spec asks for "the currency ID of Corrosive Souls" and a
+balance read from the currency UI. The Codex article we shipped today says the
+opposite on the game's own authority: Coin is the currency, Soul is an item.
+Before building anything on either claim, read what /mh atal already harvested
+— currencies and bag items both — instead of running a new probe for an answer
+that may be sitting in the file.
 """
 import io
 import re
@@ -22,75 +25,74 @@ P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
 
 t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
 
-i = t.find('["achCheck"]')
-if i < 0:
-    print('geen achCheck in de SavedVariables')
+
+def block(key, src):
+    i = src.find('["%s"]' % key)
+    if i < 0:
+        return None
+    s = src.index('{', i)
+    d, j = 0, s
+    while j < len(src):
+        if src[j] == '{':
+            d += 1
+        elif src[j] == '}':
+            d -= 1
+            if d == 0:
+                break
+        j += 1
+    return src[s:j + 1]
+
+
+def entries(blob):
+    out, d, buf = [], 0, ''
+    for ch in blob[1:-1]:
+        if ch == '{':
+            d += 1
+        if d > 0:
+            buf += ch
+        if ch == '}':
+            d -= 1
+            if d == 0:
+                out.append(buf)
+                buf = ''
+    return out
+
+
+def f(chunk, name):
+    m = re.search(r'\["%s"\]\s*=\s*("(?:[^"\\]|\\.)*"|true|false|[\d.-]+)' % name, chunk)
+    if not m:
+        return None
+    v = m.group(1)
+    if v.startswith('"'):
+        return v[1:-1]
+    if v in ('true', 'false'):
+        return v == 'true'
+    return v
+
+
+probe = block('atalProbe', t)
+if not probe:
+    print('geen atalProbe in de SavedVariables')
     sys.exit(1)
 
-start = t.index('{', i)
-depth, j = 0, start
-while j < len(t):
-    if t[j] == '{':
-        depth += 1
-    elif t[j] == '}':
-        depth -= 1
-        if depth == 0:
-            break
-    j += 1
-blob = t[start:j + 1]
-
-print('wrongCriteria  =', re.search(r'\["wrongCriteria"\]\s*=\s*(\d+)', blob).group(1)
-      if re.search(r'\["wrongCriteria"\]\s*=\s*(\d+)', blob) else '?')
-print('incompleteHunts=', re.search(r'\["incompleteHunts"\]\s*=\s*(\d+)', blob).group(1)
-      if re.search(r'\["incompleteHunts"\]\s*=\s*(\d+)', blob) else '?')
-print()
-
-# Every hunt row that carries a "missing" table, with its context.
-for m in re.finditer(r'\["incomplete"\]\s*=\s*true', blob):
-    # Walk back to the start of this row's table, then forward to its end.
-    k = blob.rfind('{', 0, m.start())
-    d, e = 0, k
-    while e < len(blob):
-        if blob[e] == '{':
-            d += 1
-        elif blob[e] == '}':
-            d -= 1
-            if d == 0:
-                break
-        e += 1
-    row = blob[k:e + 1]
-    name = re.search(r'\["name"\]\s*=\s*"([^"]*)"', row)
-    aid = re.search(r'\["id"\]\s*=\s*(\d+)', row)
-    nodes = re.search(r'\["nodes"\]\s*=\s*(\d+)', row)
-    total = re.search(r'\["clientCriteria"\]\s*=\s*(\d+)', row)
-    print('=' * 70)
-    print('%s  (%s)' % (name.group(1) if name else '?', aid.group(1) if aid else '?'))
-    print('wij: %s nodes   client: %s criteria' % (
-        nodes.group(1) if nodes else '?', total.group(1) if total else '?'))
-    print('=' * 70)
-
-    ms = re.search(r'\["missing"\]\s*=\s*\{', row)
-    if not ms:
-        print('geen missing-lijst opgeslagen')
+for name in ('currencies', 'items'):
+    b = block(name, probe)
+    print('=' * 72)
+    print(name.upper())
+    print('=' * 72)
+    if not b:
+        print('  (niet aanwezig)')
+        print()
         continue
-    d, e2 = 0, row.index('{', ms.start() + len('["missing"] ='))
-    s2 = e2
-    while e2 < len(row):
-        if row[e2] == '{':
-            d += 1
-        elif row[e2] == '}':
-            d -= 1
-            if d == 0:
-                break
-        e2 += 1
-    miss = row[s2:e2 + 1]
-    for sub in re.finditer(r'\{[^{}]*\}', miss):
-        c = sub.group(0)
-        cid = re.search(r'\["id"\]\s*=\s*(\d+)', c)
-        idx = re.search(r'\["index"\]\s*=\s*(\d+)', c)
-        txt = re.search(r'\["text"\]\s*=\s*"([^"]*)"', c)
-        print('   ONTBREEKT  criteria = %-8s index %-3s  %s' % (
-            cid.group(1) if cid else '?',
-            idx.group(1) if idx else '?',
-            txt.group(1) if txt else '(geen tekst)'))
+    rows = entries(b)
+    if not rows:
+        print('  (leeg — dat is een meting, geen ontbrekende data)')
+    for e in rows:
+        bits = []
+        for k in ('id', 'name', 'quantity', 'count', 'maxQuantity',
+                  'totalEarned', 'link', 'where', 'source'):
+            v = f(e, k)
+            if v is not None:
+                bits.append('%s=%s' % (k, v))
+        print('  ' + '  '.join(bits))
     print()

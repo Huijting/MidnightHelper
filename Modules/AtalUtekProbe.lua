@@ -825,6 +825,71 @@ local function PrintDelvePOIs(out)
 	end
 end
 
+-- ---------------------------------------------------------------------------
+-- The Corrosive Codex: is it a trait tree, and can we read it?
+-- ---------------------------------------------------------------------------
+
+--- The spec for the Codex module rests on one thing nobody has checked: whether the
+--- twelve powers and their unlock state are readable at all without the player
+--- standing at the altar. If they are not, half that spec is a cache that starts
+--- empty and the UI has to say so.
+---
+--- Every comparable player-power system since Dragonflight is a C_Traits tree, so
+--- that is the first place to look — but "Plumber does not list one for 12.1" is not
+--- evidence of absence, only of nobody having added it.
+---
+--- ⚠️ THE CONTROLS ARE THE POINT. This sweep must find the player's class trees and
+--- Runes of Power (tree 1186). If it finds nothing at all, the sweep is broken and
+--- says nothing about the Codex. An empty result with the controls present is a real
+--- answer: the Codex is not a trait tree and the spec needs a different approach.
+local function SweepTraitTrees(out)
+	if not (C_Traits and C_Traits.GetConfigIDByTreeID) then
+		print("   |cffff8080C_Traits not available — cannot tell whether the Codex is a trait tree.|r")
+		out.traitsAvailable = false
+		return
+	end
+	out.traitsAvailable = true
+	print("   |cff8fd3ffTrait trees|r  (your class trees and Runes of Power 1186 are the controls)")
+
+	local hits = 0
+	for treeID = 1, 1400 do
+		local okC, configID = pcall(C_Traits.GetConfigIDByTreeID, treeID)
+		if okC and configID then
+			local nodes
+			if C_Traits.GetTreeNodes then
+				local okN, list = pcall(C_Traits.GetTreeNodes, treeID)
+				nodes = (okN and type(list) == "table") and #list or nil
+			end
+			local currencies
+			if C_Traits.GetTreeCurrencyInfo then
+				local okCur, list = pcall(C_Traits.GetTreeCurrencyInfo, configID, treeID, false)
+				if okCur and type(list) == "table" then
+					currencies = {}
+					for _, ci in ipairs(list) do
+						currencies[#currencies + 1] = {
+							traitCurrencyID = ci.traitCurrencyID,
+							quantity = ci.quantity,
+							spent = ci.spent,
+						}
+					end
+				end
+			end
+			hits = hits + 1
+			out.traits[#out.traits + 1] = {
+				treeID = treeID, configID = configID,
+				nodes = nodes, currencies = currencies,
+			}
+			print(("      tree %-5d config %-8s nodes %s"):format(
+				treeID, tostring(configID), tostring(nodes or "?")))
+		end
+	end
+	if hits == 0 then
+		print("      |cffff5040nothing at all — the sweep found no trees, so it proves nothing|r")
+	else
+		print(("      |cff8a8f98%d trees. Full node/currency detail in the DB.|r"):format(hits))
+	end
+end
+
 function ns.PrintAtalUtekProbe(from, to)
 	local prefix = Prefix()
 	print(("%s Vaults of Atal'Utek probe — nothing here is wired into a feature yet."):format(prefix))
@@ -837,6 +902,8 @@ function ns.PrintAtalUtekProbe(from, to)
 	SweepCurrencyIds(from, to, out.currencies)
 	out.items = {}
 	ScanBagsForItems(out.items)
+	out.traits = {}
+	SweepTraitTrees(out)
 	out.achievements = {}
 	PrintMap(out)
 	PrintAchievements(out)
