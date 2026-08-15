@@ -80,12 +80,27 @@ method.gg lijst er **5**. De vijf zijn dus een greep, geen lijst. Ze zo verschep
 
 ## 🔶 Losse feiten, één bron, wel bruikbaar
 
-**De corrode-prijsladder** — 1.000 → 1.500 → 2.000 → 2.500 → 3.000 → 4.000 → 5.000 →
-6.000 → 7.000 → 8.000 → 10.000 → 12.500 → 15.500 → 20.000 (14 punten, 95.500 munten).
+**De corrode-prijsladder — ⚠️ TERUGGETROKKEN 15 aug.** Hier stond 1.000 → 1.500 → 2.000
+→ … → 20.000 (14 punten, 95.500 munten), met de opmerking dat het Robs meting bevestigde.
 
-⚠️ Dit **bevestigt Robs eigen meting** en lost de "gids zei 1000"-kwestie op: 1.000 is de
-**eerste** aankoop, Rob zag 1.500 en 2.000 — plek 2 en 3. Niemand had ongelijk. Een tweede
-bron noemt 15 punten en 115.000 totaal, dus het aantal staat niet vast.
+Een tweede onderzoeksronde rekende die ladder ná: **de veertien genoemde waarden tellen op
+tot 98.000, niet tot de 95.500 die diezelfde pagina's noemen**, en er circuleert een derde
+getal van 115.000. Drie onderling strijdige cijfers uit één bronnenfamilie, en alle drie
+alleen van boost-sites. De betrouwbare bronnen (method.gg, Icy Veins, Wowhead) bevestigen
+uitsluitend dát de prijs oploopt, nooit met hoeveel.
+
+Wat blijft staan is Robs eigen meting: hij zag **1.500 en daarna 2.000** in één bezoek.
+Dat de prijs klimt is dus gemeten. De ladder is dat niet.
+
+⚠️ Les: dat een reeks getallen Robs twee waarnemingen bevatte maakte hem geloofwaardig,
+en ik heb hem daarom overgenomen zonder de som te controleren. Twee punten die kloppen
+bewijzen een lijn niet.
+
+**Wat er wél toe doet en wel bevestigd is:** de eerste vier boomnodes (*Corrosive Spirit
+I–IV*) kosten niets en geven **+25/50/75/100% Corrosive Coin**. De boom betaalt zichzelf
+terug, dus vroeg uitgeven is goedkoper dan sparen. En **op munten zit geen cap** terwijl
+Corrosive Souls gerantsoeneerd zijn — dat is de scheefheid die het tempo van de zone
+bepaalt.
 
 **Zes gratis punten:** vier uit de Discoveries (één per stuk) plus twee uit Zul'jarra's
 Forces Renown, rang **8** en **14**. Alles daarboven is puur muntgestuurd, zonder tijdslot.
