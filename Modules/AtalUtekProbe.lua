@@ -57,6 +57,33 @@ local CHAIN = {
 	{ 93417, "The Vaults of Atal'Utek: Altar of Fangs" },
 }
 
+--- The repeatables. Rob, reading the finished Codex article: "wat ik mis zijn de
+--- vele daily's quest daar". The article says a rotating set exists and names not
+--- one of them, which is the same as not saying it.
+---
+--- All ten ids come from ONE addon (Plumber's Midnight landing page) and nothing
+--- else on this machine carries them, so there is no second source and no vote to
+--- take. That is fine as a starting point and useless as proof: a title coming
+--- back from the client is what turns each line into something shippable, and a
+--- silent one stays out of the Codex however plausible it looks.
+---
+--- Only three sit in the Vaults itself; the weekly meta is picked up in Silvermoon
+--- and pays for work done here, which is exactly the kind of thing a beginner
+--- never finds on their own.
+local REPEATABLE = {
+	{ 95520, "Purging the Vaults", "weekly, at the entrance" },
+	{ 98232, "Midnight: Vaults of Atal'Utek", "weekly meta, picked up in Silvermoon" },
+	{ 96995, "Turn Back the Surge", "weekly, Coiled Isle surface" },
+
+	{ 96639, "Patrolling the Temple", "group daily" },
+	{ 96640, "Bounty of the Cursed", "group daily" },
+	{ 96641, "Relentless Strikes", "group daily" },
+	{ 96642, "Decisive Incursions", "group daily" },
+	{ 96643, "From Whence it Came", "group daily" },
+	{ 96644, "Essence of Malice", "group daily" },
+	{ 98420, "What's Out There?", "group daily" },
+}
+
 --- The word the currency family is built on. "Coin" and "Soul" are both live
 --- candidates for the second half and neither is safe to filter on — the client
 --- carries a dozen coins and several souls. "corros" survives the rename either way.
@@ -171,6 +198,33 @@ local function PrintChain(rows)
 	-- the client is localised and Rob plays on auto/English -- so this reports the
 	-- disagreement instead of ruling on it.
 	print("      |cff8a8f98A missing title means the id is wrong. A different title may just be your language.|r")
+end
+
+local function PrintRepeatable(rows)
+	print("   |cff8fd3ffDailies and weeklies|r  (one addon's ids — the title is the check)")
+	for _, row in ipairs(REPEATABLE) do
+		local id, label, kind = row[1], row[2], row[3]
+		local done, onQuest, title = QuestState(id)
+		local state
+		if onQuest then
+			state = "|cffffd100in your log|r"
+		elseif done then
+			-- A daily you did today and a weekly you did this week both read as
+			-- completed here; the flag resets with the quest, so this says "not
+			-- available right now", not "finished forever".
+			state = "|cff40c040done for now|r"
+		else
+			state = "|cff9d9d9d-|r"
+		end
+		local shown = title or "|cffff5040no title from the game|r"
+		print(("      %d  %-30s %-14s %-22s %s"):format(id, label, state, kind, shown))
+		rows[#rows + 1] = {
+			id = id, guideLabel = label, kind = kind, gameTitle = title,
+			completed = done, onQuest = onQuest,
+			matches = (title ~= nil) and (title == label) or nil,
+		}
+	end
+	print("      |cff8a8f98Titles come back for any real quest id, whether or not you can see the quest today.|r")
 end
 
 -- ---------------------------------------------------------------------------
@@ -710,8 +764,9 @@ function ns.PrintAtalUtekProbe(from, to)
 	local prefix = Prefix()
 	print(("%s Vaults of Atal'Utek probe — nothing here is wired into a feature yet."):format(prefix))
 
-	local out = { at = (time and time()) or 0, chain = {}, currencies = {} }
+	local out = { at = (time and time()) or 0, chain = {}, repeatable = {}, currencies = {} }
 	PrintChain(out.chain)
+	PrintRepeatable(out.repeatable)
 	ScanCurrencyList(out.currencies)
 	SweepCurrencyIds(from, to, out.currencies)
 	out.items = {}
