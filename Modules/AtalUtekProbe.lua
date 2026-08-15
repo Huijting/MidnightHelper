@@ -961,6 +961,87 @@ local function SweepTraitTrees(out)
 	end
 end
 
+-- ---------------------------------------------------------------------------
+-- The soul ledger: measure what a source actually pays
+-- ---------------------------------------------------------------------------
+
+--- The Codex spec wants a "N souls still available this week" line, built from a
+--- table of yields — 2 for the weekly, 2 for a Pinnacle Cache, 1 for the Foe, 6 for
+--- the Journal. Those four numbers come from guides, and they are exactly the number
+--- the spec's own section 5 forbids getting wrong.
+---
+--- Nobody has to grind for them. Corrosive Soul is item 273000, so the count is
+--- readable at any moment; this watches it and writes down every change together with
+--- what happened just before. Play a week normally and the table fills itself.
+---
+--- ⚠️ It records the seconds since the last quest turn-in; it does NOT decide that the
+--- quest caused the change. A soul from a chest opened eight seconds after handing in
+--- a weekly would look identical. Attribution is a judgement to make while reading a
+--- column of these, not something to bake into the row that is being measured.
+local SOUL_ITEM = 273000
+
+local function SoulCount()
+	local f = (C_Item and C_Item.GetItemCount) or GetItemCount
+	if not f then
+		return nil
+	end
+	local ok, n = pcall(f, SOUL_ITEM)
+	return (ok and tonumber(n)) or nil
+end
+ns.GetCorrosiveSoulCount = SoulCount
+
+do
+	local watcher = CreateFrame("Frame")
+	local last, lastQuest, lastQuestAt, lastQuestTitle
+
+	watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
+	watcher:RegisterEvent("BAG_UPDATE_DELAYED")
+	watcher:RegisterEvent("QUEST_TURNED_IN")
+	watcher:SetScript("OnEvent", function(_, event, arg1)
+		if event == "QUEST_TURNED_IN" then
+			lastQuest = arg1
+			lastQuestAt = (time and time()) or 0
+			if C_QuestLog and C_QuestLog.GetTitleForQuestID then
+				local ok, v = pcall(C_QuestLog.GetTitleForQuestID, arg1)
+				lastQuestTitle = (ok and type(v) == "string" and v ~= "") and v or nil
+			end
+			return
+		end
+
+		local now = SoulCount()
+		if now == nil then
+			return
+		end
+		if last == nil then
+			last = now -- first read of the session is a baseline, not a change
+			return
+		end
+		if now == last then
+			return
+		end
+
+		ns.db = ns.db or {}
+		local log = ns.db.soulLedger
+		if type(log) ~= "table" then
+			log = {}
+			ns.db.soulLedger = log
+		end
+		local at = (time and time()) or 0
+		log[#log + 1] = {
+			at = at, from = last, to = now, delta = now - last,
+			quest = lastQuest, questTitle = lastQuestTitle,
+			-- nil when no quest was handed in this session: an empty field is honest,
+			-- a 0 would read as "at the same moment".
+			secondsSinceQuest = lastQuestAt and (at - lastQuestAt) or nil,
+		}
+		-- Keep it bounded; the oldest rows stop being useful once a week is covered.
+		while #log > 100 do
+			table.remove(log, 1)
+		end
+		last = now
+	end)
+end
+
 function ns.PrintAtalUtekProbe(from, to)
 	local prefix = Prefix()
 	print(("%s Vaults of Atal'Utek probe — nothing here is wired into a feature yet."):format(prefix))
@@ -986,6 +1067,12 @@ function ns.PrintAtalUtekProbe(from, to)
 
 	ns.db = ns.db or {}
 	ns.db.atalProbe = out
+
+	local souls = SoulCount()
+	local ledger = (ns.db and type(ns.db.soulLedger) == "table") and #ns.db.soulLedger or 0
+	print(("   |cff8fd3ffCorrosive Soul|r  item %d, you hold |cffffffff%s|r  ·  ledger has %d change(s)"):format(
+		SOUL_ITEM, tostring(souls or "unreadable"), ledger))
+	print("   |cff8a8f98It is an ITEM, not a currency — measured 15 aug, and the spec says otherwise.|r")
 
 	print("   |cff8a8f98Saved to the DB — /reload writes the file. Names and ids come from your client, not from a guide.|r")
 	print("   |cff8a8f98Next: /mh capture at the altar for its coordinates, and /mh zone inside the Vaults.|r")
