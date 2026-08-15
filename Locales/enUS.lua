@@ -486,11 +486,13 @@ ns._mhLocales.enUS = {
 	ACH_LORE_HUNTER = "Midnight Lore Hunter",
 	-- Fallback only: the card prefers the live achievement name from the client.
 	ACH_LORE_HONORED_DEAD = "The Honored Dead (Vaults of Atal'Utek)",
-	-- Also fallback only, and deliberately descriptive rather than a guessed title:
-	-- nobody outside the client knows what Blizzard calls 63395 and 63662, and a
-	-- made-up name that looks official is worse than one that plainly is not.
-	ACH_GLYPHS_COILEDISLE = "Skyriding glyphs: the Coiled Isle",
-	ACH_LORE_COILEDISLE = "Lore of the Coiled Isle",
+	-- Fallback only, and now the client's own wording: `/mh ach check` printed both
+	-- titles on 15 aug. They went in as descriptions because nothing outside the game
+	-- knew the real names; there is no reason to keep a stand-in after the game has
+	-- answered. Note the spelling — Hissstory with three s's is Blizzard's joke, not
+	-- a typo, and the Isles in 63395 is plural where the zone name is singular.
+	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
+	ACH_LORE_COILEDISLE = "Student of Hissstory",
 	-- Trading Post tab
 	TAB_TRADINGPOST = "Trading Post",
 	TRADINGPOST_SUBTITLE = "This month's Trading Post wares, their Trader's Tender price, and whether you've already bought or own them.",

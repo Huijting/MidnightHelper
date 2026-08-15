@@ -39,6 +39,14 @@ local MAX_HITS = 40
 ---   * a criterion id the achievement does not own -> the id is wrong
 ---   * fewer nodes than the achievement has criteria -> the data is incomplete
 --- Neither is visible from inside the game without this.
+---
+--- ⚠️ The result also goes to ns.db.achCheck, and that is not a nicety. The first
+--- run on 15 Aug printed twenty-odd hunts and Rob had to send four screenshots to
+--- get it out of the game -- for a report whose whole audience is a file reader.
+--- Chat keeps the summary; the DB keeps the detail, including, for any hunt that
+--- came up short, the achievement's FULL criteria list from the client. That list
+--- is the only thing that says which nodes are missing, and it is already right
+--- there when the fault is found.
 function ns.PrintAchievementDataCheck()
 	if not (GetAchievementInfo and GetAchievementNumCriteria and GetAchievementCriteriaInfoByID) then
 		print(PREFIX .. " achievement API not available on this client.")
@@ -52,6 +60,7 @@ function ns.PrintAchievementDataCheck()
 
 	print(PREFIX .. " checking every shipped hunt against your client:")
 	local badTotal, thinTotal = 0, 0
+	local out = { at = (time and time()) or 0, hunts = {} }
 	for _, entry in ipairs(hunts) do
 		local aid = tonumber(entry.achievementID)
 		local nodes = entry.nodes
@@ -87,19 +96,56 @@ function ns.PrintAchievementDataCheck()
 				print(("      |cffff5040%d of %d criteria do NOT belong to this achievement:|r %s")
 					:format(#bad, withCrit, table.concat(bad, ", ")))
 			end
-			if total > 0 and #nodes < total then
+			local short = (total > 0 and #nodes < total)
+			if short then
 				thinTotal = thinTotal + 1
 				print(("      |cffffd100we ship %d nodes, the achievement has %d criteria — incomplete|r")
 					:format(#nodes, total))
 			end
+
+			local row = {
+				id = aid,
+				name = (okA and type(name) == "string" and name ~= "") and name or nil,
+				nodes = #nodes, withCriteria = withCrit,
+				resolved = resolved, clientCriteria = total,
+				wrong = (#bad > 0) and bad or nil,
+				incomplete = short or nil,
+			}
+			-- Only for a short hunt: every criterion the client lists, so the missing
+			-- ones can be picked out by subtraction instead of guessed at.
+			if short then
+				local ours = {}
+				for _, node in ipairs(nodes) do
+					if node.criteria then
+						ours[node.criteria] = true
+					end
+				end
+				row.clientList, row.missing = {}, {}
+				for i = 1, total do
+					local okC, s, _, _, _, _, _, _, _, _, cid = pcall(GetAchievementCriteriaInfo, aid, i)
+					if okC then
+						local e = { index = i, id = cid, text = (type(s) == "string" and s ~= "") and s or nil }
+						row.clientList[#row.clientList + 1] = e
+						if cid and not ours[cid] then
+							row.missing[#row.missing + 1] = e
+						end
+					end
+				end
+			end
+			out.hunts[#out.hunts + 1] = row
 		end
 	end
+
+	out.wrongCriteria, out.incompleteHunts = badTotal, thinTotal
+	ns.db = ns.db or {}
+	ns.db.achCheck = out
 
 	if badTotal == 0 and thinTotal == 0 then
 		print("   |cff40c040Every criterion resolves and no hunt is short.|r")
 	else
 		print(("   |cffff5040%d wrong criteria|r, |cffffd100%d incomplete hunts|r."):format(badTotal, thinTotal))
 	end
+	print("   |cff8a8f98Full detail in the DB (ns.db.achCheck) — /reload writes the file, no screenshots needed.|r")
 end
 
 --- /mh ach id <n> — everything the client knows about one achievement.

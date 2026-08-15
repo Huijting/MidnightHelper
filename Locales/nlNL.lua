@@ -481,8 +481,9 @@ ns._mhLocales.nlNL = {
 	ACH_LORE_HUNTER = "Midnight Lore Hunter",
 	-- Alleen fallback: de kaart gebruikt bij voorkeur de live naam uit de client.
 	ACH_LORE_HONORED_DEAD = "The Honored Dead (Vaults of Atal'Utek)",
-	ACH_GLYPHS_COILEDISLE = "Skyriding-glyphs: de Coiled Isle",
-	ACH_LORE_COILEDISLE = "Lore van de Coiled Isle",
+	-- Achievement-namen zijn van Blizzard; die vertalen we niet. Gemeten 15 aug.
+	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
+	ACH_LORE_COILEDISLE = "Student of Hissstory",
 	TAB_TRADINGPOST = "Trading Post",
 	TRADINGPOST_SUBTITLE = "De Trading Post-waren van deze maand, hun Trader's Tender-prijs, en of je ze al hebt gekocht of bezit.",
 	TRADINGPOST_TENDER_FMT = "Trader's Tender: %d %s",

@@ -3413,10 +3413,9 @@ fill("itIT", {
 -- language. Translating either would put our wording next to Blizzard's for the same
 -- thing, which is how a guide starts contradicting the game.
 --
--- Same reasoning, 15 aug: ACH_GLYPHS_COILEDISLE and ACH_LORE_COILEDISLE. Those two
--- are not even guesses at Blizzard's titles — nobody outside the client knows what
--- 63395 and 63662 are called — so they read as plain descriptions on purpose, and
--- translating a description we invented into six languages would only spread it.
+-- Same reasoning, 15 aug: ACH_GLYPHS_COILEDISLE and ACH_LORE_COILEDISLE. Rob's client
+-- named them that evening — "The Coiled Isles Glyph Hunter" and "Student of Hissstory"
+-- — so they are Blizzard's titles now, and this file does not translate those.
 --------------------------------------------------------------------------------
 
 fill("deDE", {
