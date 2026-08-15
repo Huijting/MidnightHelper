@@ -374,15 +374,6 @@ local function AcquireArticleBlock(index)
 			textH = measured
 		end
 		h = h + 6 + math.max(textH, 14) + 6
-		-- Diagnose: als het gat er nog steeds is, zeggen deze drie getallen meteen
-		-- welke van de twee metingen loog. Naar de SavedVariables, niet naar chat.
-		if ns.db and block and block.article then
-			ns.db.codexMeasure = ns.db.codexMeasure or {}
-			ns.db.codexMeasure[block.article.bodyKey or "?"] = {
-				lines = numLines, lineH = lineH, guess = guess,
-				measured = measured, used = textH,
-			}
-		end
 		if navBtn:IsShown() or routeBtn:IsShown() then
 			h = h + 30
 		end
