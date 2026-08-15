@@ -1147,13 +1147,36 @@ local function SweepCodexPowers(out)
 		print("   |cffff8080No GetSpellIDForSpellIdentifier — cannot look a power up by name.|r")
 		return
 	end
-	-- Positive control: a spell every character has. If this does not resolve, the
-	-- lookup is broken and twelve empty answers mean nothing.
-	local okC, controlID = pcall(C_Spell.GetSpellIDForSpellIdentifier, "Auto Attack")
-	local controlOK = okC and controlID and true or false
-	print(("   |cff8fd3ffCorrosive Codex powers|r  (name lookup — control \"Auto Attack\" %s)"):format(
-		controlOK and "|cff40c040resolves|r" or "|cffff5040FAILS, so nothing below counts|r"))
-	out.powerControl = controlOK
+	-- ⚠️ TWO controls, and the first run had the wrong one.
+	--
+	-- 15 aug: "Auto Attack" resolved and all twelve powers did not, and I nearly took
+	-- that for an answer. But Auto Attack is a spell Rob HAS. It proves the function
+	-- works on the player's own spells and says nothing about whether name lookup
+	-- reaches a spell they have never cast — which is exactly what the twelve are.
+	-- Same mistake as the nine quests that answered being no control for the tenth.
+	--
+	-- So the control that matters is a spell that certainly exists and that a Paladin
+	-- certainly does not have. If those resolve, the lookup reaches beyond the
+	-- player's own book and twelve blanks are meaningful. If they do not, twelve
+	-- blanks are just the shape of this API and prove nothing at all.
+	local function Resolve(name)
+		local ok, id = pcall(C_Spell.GetSpellIDForSpellIdentifier, name)
+		return (ok and id) or nil
+	end
+
+	local mine = Resolve("Auto Attack")
+	local foreign = Resolve("Fireball") or Resolve("Chaos Bolt")
+	out.powerControlOwn = mine and true or false
+	out.powerControlForeign = foreign and true or false
+
+	print("   |cff8fd3ffCorrosive Codex powers|r  (name lookup)")
+	print(("      control, a spell you have    : %s"):format(
+		mine and "|cff40c040resolves|r" or "|cffff5040fails|r"))
+	print(("      control, a spell you do NOT  : %s"):format(
+		foreign and "|cff40c040resolves|r" or "|cffff5040fails|r"))
+	if not foreign then
+		print("      |cffffd100Name lookup does not reach spells you lack, so blanks below prove NOTHING.|r")
+	end
 
 	for _, label in ipairs(CODEX_POWERS) do
 		local ok, sid = pcall(C_Spell.GetSpellIDForSpellIdentifier, label)
