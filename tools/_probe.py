@@ -1,24 +1,24 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: make the Vaults articles readable instead of merely correct.
+Right now: give the Vaults article hierarchy instead of only air.
 
-Rob, looking at the finished page: "het is nog steeds een grote brei aan tekst
-... kijk er zelf als een nitwit naar." He is right on both counts.
+Blank lines between bullets helped, but nine equally-weighted bullets in a
+row still give the eye no map. Rob: "kijk er zelf als een nitwit naar." A
+nitwit arriving with one question wants to know which THIRD of the page to
+read, and right now every bullet advertises itself equally loudly.
 
-Two changes, and the second matters more than the first:
+Three section headings, in the blue this addon already uses for section
+labels in /mh atal — so the colour means the same thing in both places:
 
-1. A blank line between bullets. Ten bullets flush against each other read as
-   one block; the eye has nowhere to rest and nothing signals where one idea
-   ends. His own suggestion, and it costs nothing.
+    Getting started   what it is, how you get in
+    What you do here  the loop, finding a Strike, moving around, the weekly
+    Coin and Soul     the two tokens and where they go
 
-2. Reorder. "How do I actually find a Temple Strike?" — the most practical
-   question on the page — sat LAST, after three paragraphs about currencies.
-   It went there because appending was easy, not because a reader would look
-   there. It now follows the activity loop, which is the question that
-   provokes it. Definitions move to the back where reference material belongs.
-
-Applied to all three Vaults articles; the density is the same problem in each.
+The third heading is deliberately NOT "the two currencies". Corrosive Soul
+is not a currency — the bullet underneath exists to say exactly that — so a
+heading claiming otherwise would contradict its own section. Both names are
+Blizzard's, so that heading is identical in all seven languages.
 """
 import io
 import os
@@ -31,54 +31,68 @@ for _s in (sys.stdout, sys.stderr):
         pass
 
 P = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales\Codex.lua'
-KEYS = ('CODEX_ATALUTEK_BODY', 'CODEX_ATALUTEK_DISC_BODY', 'CODEX_ATALUTEK_DEAD_BODY')
+KEY = 'CODEX_ATALUTEK_BODY'
+BLUE = '|cff8fd3ff%s|r'
+
+# The merge blocks appear in this fixed order in Codex.lua; verified by grep
+# before writing, and asserted below by counting hits.
+ORDER = ('enUS', 'itIT', 'nlNL', 'deDE', 'frFR', 'esES', 'ptBR')
+
+HEAD = {
+    'enUS': ('Getting started', 'What you do here'),
+    'itIT': ('Per cominciare', 'Cosa si fa qui'),
+    'nlNL': ('Om te beginnen', 'Wat je hier doet'),
+    'deDE': ('Zum Einstieg', 'Was du hier machst'),
+    'frFR': ('Pour commencer', 'Ce que tu fais ici'),
+    'esES': ('Para empezar', u'Qu\u00e9 se hace aqu\u00ed'),
+    'ptBR': (u'Para come\u00e7ar', u'O que se faz aqui'),
+}
+COIN = 'Coin and Soul'   # both proper nouns — untranslated everywhere
 
 t = io.open(P, encoding='utf-8', newline='').read()
-if '|n|n•' in t:
-    print('witregels staan er al')
+if '|cff8fd3ff' in t:
+    print('koppen staan er al')
     sys.exit(0)
 
 eol = '\r\n' if '\r\n' in t else '\n'
-lines = t.split(eol)
 out = []
-counts = {k: 0 for k in KEYS}
+seen = 0
 
-for line in lines:
+for line in t.split(eol):
     stripped = line.lstrip()
-    key = None
-    for k in KEYS:
-        if stripped.startswith(k + ' = "'):
-            key = k
-            break
-    if not key:
+    if not stripped.startswith(KEY + ' = "'):
         out.append(line)
         continue
 
+    lang = ORDER[seen] if seen < len(ORDER) else None
+    seen += 1
+    if lang is None:
+        print('MEER dan 7 treffers — niets geschreven')
+        sys.exit(1)
+
     indent = line[:len(line) - len(line.lstrip())]
-    body = stripped[len(key) + 4:]
-    assert body.endswith('",'), key
+    body = stripped[len(KEY) + 4:]
+    assert body.endswith('",'), lang
     body = body[:-2]
 
-    # Split into bullets. The first chunk already starts with "• ".
-    parts = body.split('|n•')
+    parts = body.split('|n|n•')
     bullets = [parts[0]] + ['•' + p for p in parts[1:]]
+    if len(bullets) != 9:
+        print('%s heeft %d bullets, verwacht 9 — niets geschreven'
+              % (lang, len(bullets)))
+        sys.exit(1)
 
-    if key == 'CODEX_ATALUTEK_BODY':
-        # Move the last bullet (the Temple Strike how-to) to just after the
-        # activity loop. The loop is bullet index 2 (0-based), so the practical
-        # follow-up belongs at 3 — the question a reader asks next.
-        assert len(bullets) >= 5, key
-        strike = bullets.pop()
-        bullets.insert(3, strike)
+    a, b = HEAD[lang]
+    # Insert from the back so the earlier index stays valid.
+    bullets.insert(6, BLUE % COIN)
+    bullets.insert(2, BLUE % b)
+    bullets.insert(0, BLUE % a)
 
-    body = '|n|n'.join(bullets)
-    counts[key] += 1
-    out.append('%s%s = "%s",' % (indent, key, body))
+    out.append('%s%s = "%s",' % (indent, KEY, '|n|n'.join(bullets)))
+    print('%-6s koppen: %s / %s / %s' % (lang, a, b, COIN))
 
-for k, n in counts.items():
-    print('%-30s %d van 7' % (k, n))
-if any(n != 7 for n in counts.values()):
-    print('NIETS geschreven — alles of niets')
+if seen != 7:
+    print('%d van 7 — niets geschreven' % seen)
     sys.exit(1)
 
 io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(eol.join(out))
