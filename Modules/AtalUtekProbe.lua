@@ -947,12 +947,19 @@ local function SweepTraitTrees(out)
 											end
 											if C_Spell.GetSpellDescription then
 												local okD, v = pcall(C_Spell.GetSpellDescription, sid)
-												-- Killing Spree and Poison Cloud both came back
-												-- as a lone carriage return, which passed a
-												-- ~= "" test and would have shipped as an
-												-- effect description of nothing.
-												if okD and type(v) == "string"
-													and v:gsub("%s", "") ~= "" then
+												-- ⚠️ POSITIVE test, on purpose. Several spells
+												-- return a bare "\r\n": empty to a reader, not
+												-- empty to `~= ""`. A whitespace-stripping guard
+												-- was tried first and CR+LF still reached the
+												-- file — and I could not explain why, which is
+												-- reason enough not to trust a rule shaped as
+												-- "absence of the bad thing".
+												--
+												-- So require evidence of the good thing: at least
+												-- one word character. A description with no
+												-- letters and no digits is not a description,
+												-- whatever it is made of.
+												if okD and type(v) == "string" and v:find("%w") then
 													sdesc = v
 												end
 											end
@@ -1009,7 +1016,8 @@ local function SweepTraitTrees(out)
 				for _, n in ipairs(tree.nodeNames or {}) do
 					if n.spellID and not n.desc then
 						local okD, v = pcall(C_Spell.GetSpellDescription, n.spellID)
-						if okD and type(v) == "string" and v:gsub("%s", "") ~= "" then
+						-- Same positive test as the first pass; see the note there.
+						if okD and type(v) == "string" and v:find("%w") then
 							n.desc = v
 						end
 					end
