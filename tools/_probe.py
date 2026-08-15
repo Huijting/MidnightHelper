@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: the two controls, then the twelve powers.
+Right now: the soul ledger's first real test.
 
-The second control is the one that decides. "A spell Rob does not have" must
-resolve, or twelve blank ids say nothing about the powers and everything about
-the API.
+The Codex UI shows 3 souls; the probe measured 13 this afternoon. If ten were
+spent, the ledger built a few hours ago should have written that down — and if
+it did not, the ledger is broken and better to know now than after a week.
 """
 import io
 import re
 import sys
+import datetime
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -55,49 +56,33 @@ def split_top(blob):
     return out
 
 
-probe = block('atalProbe', t)
-if not probe:
-    print('geen atalProbe')
-    sys.exit(1)
+lb = block('soulLedger', t)
+if lb is None:
+    print('geen soulLedger in de SavedVariables.')
+    print('Het grootboek heeft dus nog nooit een verandering gezien.')
+    sys.exit(0)
 
-
-def flag(name):
-    m = re.search(r'\["%s"\]\s*=\s*(true|false)' % name, probe)
-    return m.group(1) if m else None
-
-
-own, foreign = flag('powerControlOwn'), flag('powerControlForeign')
-if own is None and foreign is None:
-    print('De nieuwe controlevelden staan er niet — dit is nog de oude run.')
-    sys.exit(1)
-
-print('CONTROLE  spell die Rob HEEFT      : %s' % own)
-print('CONTROLE  spell die Rob NIET heeft : %s' % foreign)
+rows = split_top(lb)
+print('grootboek: %d regel(s)' % len(rows))
 print()
+if not rows:
+    print('LEEG. Er is sinds vanmiddag geen verandering in item 273000 gezien.')
+    print('Als het aantal wel veranderd IS, luistert de watcher naar het')
+    print('verkeerde event of leest hij het verkeerde item.')
+    sys.exit(0)
 
-pb = block('powers', probe)
-print('%-24s %-10s %-8s %s' % ('power', 'spellID', 'known', 'aura nu'))
-print('-' * 62)
-found = 0
-for r in split_top(pb or '{}'):
-    nm = re.search(r'\["name"\]\s*=\s*"((?:[^"\\]|\\.)*)"', r)
-    sid = re.search(r'\["spellID"\]\s*=\s*(\d+)', r)
-    kn = re.search(r'\["known"\]\s*=\s*(true|false)', r)
-    au = re.search(r'\["hasAura"\]\s*=\s*(true|false)', r)
-    if sid:
-        found += 1
-    print('%-24s %-10s %-8s %s' % (
-        (nm.group(1) if nm else '?'), sid.group(1) if sid else '—',
-        kn.group(1) if kn else '-', au.group(1) if au else '-'))
-
-print()
-print('%d van de 12 namen leverden een spell-id op.' % found)
-print()
-if foreign == 'true' and found == 0:
-    print('CONCLUSIE: de lookup reikt voorbij Robs eigen spellbook, en de twaalf')
-    print('namen leveren niets op. Onder DEZE namen zijn het geen spells.')
-elif foreign == 'false':
-    print('CONCLUSIE: geen. De lookup vindt alleen spells die Rob zelf heeft,')
-    print('dus twaalf lege regels zijn de vorm van de API, geen meting.')
-elif found:
-    print('CONCLUSIE: er zijn ids. Die gaan naar een datafile; de namen niet.')
+print('%-19s %6s %6s %7s  %s' % ('wanneer', 'van', 'naar', 'delta', 'laatste quest (sec geleden)'))
+print('-' * 88)
+for r in rows:
+    def g(k):
+        m = re.search(r'\["%s"\]\s*=\s*(-?\d+)' % k, r)
+        return int(m.group(1)) if m else None
+    qt = re.search(r'\["questTitle"\]\s*=\s*"((?:[^"\\]|\\.)*)"', r)
+    at, fr, to, dl = g('at'), g('from'), g('to'), g('delta')
+    secs, q = g('secondsSinceQuest'), g('quest')
+    when = datetime.datetime.fromtimestamp(at).strftime('%Y-%m-%d %H:%M:%S') if at else '?'
+    ctx = ''
+    if q:
+        ctx = '%s (%s)  %ss' % (qt.group(1) if qt else '?', q,
+                                secs if secs is not None else '?')
+    print('%-19s %6s %6s %+7d  %s' % (when, fr, to, dl or 0, ctx))

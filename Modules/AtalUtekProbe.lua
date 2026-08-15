@@ -1067,7 +1067,47 @@ ns.GetCorrosiveSoulCount = SoulCount
 
 do
 	local watcher = CreateFrame("Frame")
-	local last, lastQuest, lastQuestAt, lastQuestTitle
+	local settled, pending, lastQuest, lastQuestAt, lastQuestTitle
+
+	-- ⚠️ SETTLE BEFORE RECORDING. The first evening of data caught this: the ledger
+	-- wrote 3 -> 0 at 21:24:12 and 0 -> 3 at 21:24:13, then the same pair again at
+	-- 21:42. Rob spent nothing. The bag simply reads 0 for a moment while it rebuilds,
+	-- and reacting to every BAG_UPDATE_DELAYED records that flicker as a transaction.
+	--
+	-- Left running a week, that fills the table with plus and minus threes and makes
+	-- it easy to "measure" that a weekly pays 3 — which is exactly the number the
+	-- spec says must never be wrong. An instrument gets tested before it is trusted.
+	--
+	-- So a change starts a timer instead of a row. Only the value that is still there
+	-- afterwards counts, and a flicker that returns to where it started writes nothing
+	-- at all, because nothing happened.
+	local SETTLE = 3
+
+	local function Record()
+		pending = nil
+		local now = SoulCount()
+		if now == nil or settled == nil or now == settled then
+			return
+		end
+		ns.db = ns.db or {}
+		local log = ns.db.soulLedger
+		if type(log) ~= "table" then
+			log = {}
+			ns.db.soulLedger = log
+		end
+		local at = (time and time()) or 0
+		log[#log + 1] = {
+			at = at, from = settled, to = now, delta = now - settled,
+			quest = lastQuest, questTitle = lastQuestTitle,
+			-- nil when no quest was handed in this session: an empty field is honest,
+			-- a 0 would read as "at the same moment".
+			secondsSinceQuest = lastQuestAt and (at - lastQuestAt) or nil,
+		}
+		while #log > 100 do
+			table.remove(log, 1)
+		end
+		settled = now
+	end
 
 	watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
 	watcher:RegisterEvent("BAG_UPDATE_DELAYED")
@@ -1083,37 +1123,23 @@ do
 			return
 		end
 
-		local now = SoulCount()
-		if now == nil then
+		-- The baseline waits too. On 15 aug the very first row was 0 -> 3, which is
+		-- not a gain: it is the bags not being loaded yet at the first read.
+		if not (C_Timer and C_Timer.After) then
+			settled = settled or SoulCount()
 			return
 		end
-		if last == nil then
-			last = now -- first read of the session is a baseline, not a change
-			return
+		if not pending then
+			pending = true
+			C_Timer.After(SETTLE, function()
+				if settled == nil then
+					settled = SoulCount()
+					pending = nil
+					return
+				end
+				Record()
+			end)
 		end
-		if now == last then
-			return
-		end
-
-		ns.db = ns.db or {}
-		local log = ns.db.soulLedger
-		if type(log) ~= "table" then
-			log = {}
-			ns.db.soulLedger = log
-		end
-		local at = (time and time()) or 0
-		log[#log + 1] = {
-			at = at, from = last, to = now, delta = now - last,
-			quest = lastQuest, questTitle = lastQuestTitle,
-			-- nil when no quest was handed in this session: an empty field is honest,
-			-- a 0 would read as "at the same moment".
-			secondsSinceQuest = lastQuestAt and (at - lastQuestAt) or nil,
-		}
-		-- Keep it bounded; the oldest rows stop being useful once a week is covered.
-		while #log > 100 do
-			table.remove(log, 1)
-		end
-		last = now
 	end)
 end
 

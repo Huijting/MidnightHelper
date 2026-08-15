@@ -69,6 +69,32 @@ spellID-route blijft werken.
 **Als een actieve power een aura op de speler is, is §3.1 alsnog te bouwen** — alleen
 via een heel andere weg dan de spec beschrijft.
 
+#### Uitkomst 15 aug, avond — de naam-route is dood, en de meting was leeg om een andere reden
+
+`GetSpellIDForSpellIdentifier` gaf **0 van de 12** een id. En de tweede controle gaf
+**false**: een spell die een Paladin niet heeft resolvet óók niet. De functie reikt dus
+alleen tot je eigen spellbook, en die twaalf blanco's zijn de vorm van de API, geen
+uitspraak over de powers. ⚠️ Met alleen de eerste controle ("Auto Attack") had hier
+gestaan dat de powers geen spells zijn.
+
+Daarna een aura-dump op het eiland: **4 auras, allemaal leesbaar** (Arcane Intellect,
+Sandstone Drake, Sign of the Emissary, Flight Style: Steady). Geen Codex-naam. Reden
+bleek uit Robs screenshot van de Codex-UI: **alle twaalf staan op slot.** Er was niets
+te vinden. De methode faalde niet — er is nog niets ontgrendeld.
+
+✅ **Wat die screenshot wél vaststelt:**
+- de twaalf namen in de spec zijn **exact** wat het spel toont
+- de UI-tekst: *"Unlock powerful gifts by offering Corrosive Souls. You may only use one
+  gift until your offerings are sufficient. Only then are you worthy of choosing two."*
+  Dat bevestigt §3.1's tweede slot, maar noemt **geen aantal van 8** — die 8 komt nog
+  steeds alleen uit gidsen.
+- **de aura-read op `"player"` werkt gewoon in 12.1** — geen secret values, geen
+  Lua-error. Relevant voor `MissingBuff`.
+
+**Volgende meting:** zodra Rob één power ontgrendelt, opnieuw `/mh atal` op het eiland.
+Verschijnt hij dan als aura, dan is §3.1 te bouwen; verschijnt hij niet, dan is die
+route definitief dood.
+
 **Gevolg:** §3.1 (actieve powers, tweede slot bij 8) en §3.3 (X/12 unlocks) zijn **niet
 te bouwen** zoals de spec ze beschrijft. Er is geen leesbare unlock-status.
 
