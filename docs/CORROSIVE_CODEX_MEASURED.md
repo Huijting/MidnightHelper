@@ -109,11 +109,24 @@ route definitief dood.
 > Upon applying 20 stacks to a target, the Gift Corrodes, dealing the remainder of its
 > damage immediately before removing itself."*
 
-⚠️ **Eén van de twaalf is geen bewijs voor alle twaalf.** De spec zegt "8 souls, volgens
-huidige bronnen uniform voor alle 12" — dat eerste getal is nu gemeten, dat woord
-*uniform* niet. Twee punten maken nog geen lijn (zie de teruggetrokken kostenladder in
-`VAULTS_DISCOVERIES.md`). De spec zegt zelf dat de kosten **per power** in data moeten;
-dat blijft dus staan, met elf lege velden.
+### ✅ De prijs is uniform — GEMETEN, niet aangenomen
+
+Rob heeft ze nagelopen: **Gorgoneion Gaze staat ook op 8, net als de rest.** Twaalf van
+twaalf, uit de tooltips zelf. De spec zei "volgens huidige bronnen uniform"; dat is nu
+geen bron meer maar een waarneming.
+
+**Daarmee is de totaalprijs bekend: 12 × 8 = 96 Corrosive Souls voor alle powers.**
+
+⚠️ Bewaar de kosten alsnog **per power** in data, zoals de spec vraagt. Niet omdat het
+nu anders is, maar omdat één hotfix er anders van maakt en een constante dan op twaalf
+plekken tegelijk liegt. Wat we hebben gemeten is de waarde van vandaag, niet een regel
+van het systeem.
+
+📌 **En dit maakt het grootboek pas echt de moeite waard.** "Hoe lang doe ik over de hele
+Codex" heeft twee helften: de prijs (96, nu bekend) en de opbrengst per week (nog steeds
+alleen gidsgetallen: 2/2/1/6). Het grootboek meet die tweede helft vanzelf. Zodra daar
+een week in zit, kan MH een eerlijk antwoord geven op de vraag die de speler écht heeft
+— en tot dan geeft het er geen.
 
 ⚠️ **De gids-parafrase klopte net niet, en miste een hele mechaniek.**
 
