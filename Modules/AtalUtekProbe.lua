@@ -866,21 +866,44 @@ local function SweepTraitTrees(out)
 				if okCur and type(list) == "table" then
 					currencies = {}
 					for _, ci in ipairs(list) do
-						currencies[#currencies + 1] = {
+						local e = {
 							traitCurrencyID = ci.traitCurrencyID,
 							quantity = ci.quantity,
 							spent = ci.spent,
 						}
+						-- ⚠️ A traitCurrencyID is not a currencyID; it is an indirection
+						-- that points at either a real currency or an ITEM. Resolving it
+						-- is what turns "tree 1057 shows 13 and Rob owns 13 Corrosive
+						-- Souls" from a coincidence into an identification. Two numbers
+						-- matching is where a wrong answer starts, not where it ends.
+						if C_Traits.GetTraitCurrencyInfo and ci.traitCurrencyID then
+							local okT, flags, cType, currencyTypesID, icon =
+								pcall(C_Traits.GetTraitCurrencyInfo, ci.traitCurrencyID)
+							if okT then
+								e.flags, e.currencyType = flags, cType
+								e.currencyTypesID, e.icon = currencyTypesID, icon
+							end
+						end
+						currencies[#currencies + 1] = e
 					end
+				end
+			end
+			-- The config often names its own system, which beats every inference above.
+			local cfgName, cfgType
+			if C_Traits.GetConfigInfo then
+				local okI, info = pcall(C_Traits.GetConfigInfo, configID)
+				if okI and type(info) == "table" then
+					cfgName, cfgType = info.name, info.type
 				end
 			end
 			hits = hits + 1
 			out.traits[#out.traits + 1] = {
 				treeID = treeID, configID = configID,
 				nodes = nodes, currencies = currencies,
+				configName = cfgName, configType = cfgType,
 			}
-			print(("      tree %-5d config %-8s nodes %s"):format(
-				treeID, tostring(configID), tostring(nodes or "?")))
+			print(("      tree %-5d config %-10s nodes %-4s %s"):format(
+				treeID, tostring(configID), tostring(nodes or "?"), cfgName or ""))
 		end
 	end
 	if hits == 0 then

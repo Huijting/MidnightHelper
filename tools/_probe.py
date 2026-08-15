@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: what does Rob's client already say about Coin vs Soul?
+Right now: read the trait-tree sweep. Controls first, then the question.
 
-The Corrosive Codex spec asks for "the currency ID of Corrosive Souls" and a
-balance read from the currency UI. The Codex article we shipped today says the
-opposite on the game's own authority: Coin is the currency, Soul is an item.
-Before building anything on either claim, read what /mh atal already harvested
-— currencies and bag items both — instead of running a new probe for an answer
-that may be sitting in the file.
+The controls decide whether this run means anything: the class trees and Runes
+of Power (tree 1186) must be in there. Only with those present does an absent
+Corrosive Codex say something.
 """
 import io
 import re
@@ -43,56 +40,51 @@ def block(key, src):
     return src[s:j + 1]
 
 
-def entries(blob):
-    out, d, buf = [], 0, ''
-    for ch in blob[1:-1]:
-        if ch == '{':
-            d += 1
-        if d > 0:
-            buf += ch
-        if ch == '}':
-            d -= 1
-            if d == 0:
-                out.append(buf)
-                buf = ''
-    return out
-
-
-def f(chunk, name):
-    m = re.search(r'\["%s"\]\s*=\s*("(?:[^"\\]|\\.)*"|true|false|[\d.-]+)' % name, chunk)
-    if not m:
-        return None
-    v = m.group(1)
-    if v.startswith('"'):
-        return v[1:-1]
-    if v in ('true', 'false'):
-        return v == 'true'
-    return v
-
-
 probe = block('atalProbe', t)
 if not probe:
-    print('geen atalProbe in de SavedVariables')
+    print('geen atalProbe')
     sys.exit(1)
 
-for name in ('currencies', 'items'):
-    b = block(name, probe)
-    print('=' * 72)
-    print(name.upper())
-    print('=' * 72)
-    if not b:
-        print('  (niet aanwezig)')
-        print()
+tb = block('traits', probe)
+if tb is None:
+    print('geen traits-blok — draaide de oude probe nog?')
+    sys.exit(1)
+
+rows, d, buf = [], 0, ''
+for ch in tb[1:-1]:
+    if ch == '{':
+        d += 1
+    if d > 0:
+        buf += ch
+    if ch == '}':
+        d -= 1
+        if d == 0:
+            rows.append(buf)
+            buf = ''
+
+print('%-8s %-10s %-7s %s' % ('treeID', 'configID', 'nodes', 'trait-currencies'))
+print('-' * 74)
+trees = []
+for r in rows:
+    tid = re.search(r'\["treeID"\]\s*=\s*(\d+)', r)
+    cfg = re.search(r'\["configID"\]\s*=\s*(\d+)', r)
+    nds = re.search(r'\["nodes"\]\s*=\s*(\d+)', r)
+    curs = re.findall(r'\["traitCurrencyID"\]\s*=\s*(\d+)', r)
+    qty = re.findall(r'\["quantity"\]\s*=\s*(\d+)', r)
+    if not tid:
         continue
-    rows = entries(b)
-    if not rows:
-        print('  (leeg — dat is een meting, geen ontbrekende data)')
-    for e in rows:
-        bits = []
-        for k in ('id', 'name', 'quantity', 'count', 'maxQuantity',
-                  'totalEarned', 'link', 'where', 'source'):
-            v = f(e, k)
-            if v is not None:
-                bits.append('%s=%s' % (k, v))
-        print('  ' + '  '.join(bits))
-    print()
+    trees.append(int(tid.group(1)))
+    pairs = ', '.join('%s(q=%s)' % (c, q) for c, q in zip(curs, qty)) or '-'
+    print('%-8s %-10s %-7s %s' % (tid.group(1), cfg.group(1) if cfg else '?',
+                                  nds.group(1) if nds else '?', pairs))
+
+print()
+print('trees gevonden: %d' % len(trees))
+print('CONTROLE Runes of Power (1186): %s'
+      % ('AANWEZIG' if 1186 in trees else 'ONTBREEKT'))
+if not trees:
+    print('LEEG — de veeg bewijst niets, hij is stuk.')
+elif 1186 not in trees:
+    print('De controle ontbreekt, dus een afwezige Codex zegt hier niets.')
+else:
+    print('Controle staat er. Een boom die geen talent- of Runes-boom is, is de kandidaat.')
