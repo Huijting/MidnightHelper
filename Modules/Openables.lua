@@ -175,22 +175,40 @@ local function CrestCapBlock(itemName)
 				if ok and type(info) == "table" then
 					local name = info.name
 					if type(name) == "string" and name ~= "" and not IsSecret(name) then
-						-- ⚠️ GEREPAREERD 15 aug, dezelfde dag als het gebouwd werd. Ik vergeleek
-						-- `quantity` met `maxQuantity`. Voor Robs 3442 gaf dat toevallig het goede
-						-- antwoord omdat quantity en totalEarned daar allebei 100 waren — maar de
-						-- cap kijkt naar `totalEarned` zodra `useTotalEarnedForMaxQty` aan staat,
-						-- en dan lopen die twee uiteen zodra je iets uitgeeft. Precies het geval
-						-- waarin dit label moet verdwijnen zou het dan blijven staan.
-						local qty
-						if info.useTotalEarnedForMaxQty then
-							qty = tonumber(info.totalEarned) or 0
-						else
-							qty = tonumber(info.quantity) or 0
-						end
-						local max = tonumber(info.maxQuantity) or 0
-						-- Substring, zodat het meervoud in "…Mistcrests" ook matcht.
-						if haystack:find(name:lower(), 1, true) and max > 0 and qty >= max then
-							return name, qty, max
+						-- Substring, zodat het meervoud in "…Mistcrests" ook matcht. Dat dekt
+						-- meteen de hele familie (Pouch of Veteran, Satchel of Champion, Pack of
+						-- Hero, Glorious Cluster of Myth …) zonder een itemID-tabel die veroudert.
+						if haystack:find(name:lower(), 1, true) then
+							-- ⚠️ HERSCHREVEN 15 aug. Eerst deed dit zijn eigen rekensom met
+							-- quantity vs maxQuantity, daarna met totalEarned erbij. Blizzard
+							-- heeft hier sinds 11.0 een eigen predicaat voor dat de hele
+							-- useTotalEarnedForMaxQty-vertakking al afhandelt. Onze eigen som
+							-- was twee keer subtiel anders; die van het spel is per definitie
+							-- die van het spel.
+							local capped
+							if C_CurrencyInfo.PlayerHasMaxQuantity then
+								local ok, v = pcall(C_CurrencyInfo.PlayerHasMaxQuantity, id)
+								capped = ok and v == true
+							end
+							if not capped and C_CurrencyInfo.PlayerHasMaxWeeklyQuantity then
+								local ok, v = pcall(C_CurrencyInfo.PlayerHasMaxWeeklyQuantity, id)
+								capped = ok and v == true
+							end
+
+							-- Alleen als die predicaten er niet zijn, rekenen we zelf.
+							local qty = tonumber(info.useTotalEarnedForMaxQty
+								and info.totalEarned or info.quantity) or 0
+							local max = tonumber(info.maxQuantity) or 0
+							if capped == nil then
+								capped = max > 0 and qty >= max
+							end
+
+							-- ⚠️ max == 0 is dubbelzinnig: het betekent "geen cap" óf "nog niet
+							-- actief", en niets in de documentatie kiest. Daarom hangt het label
+							-- aan het predicaat en niet aan dat getal.
+							if capped then
+								return name, qty, max
+							end
 						end
 					end
 				end
