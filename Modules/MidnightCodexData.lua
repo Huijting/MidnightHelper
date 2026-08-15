@@ -553,6 +553,35 @@ ns.CODEX_ARTICLES = {
 			.. "honored dead memorials amani spirits szarith congealed malice "
 			.. "khu'tulak susarikk kluis kluizen gedenktekens waar",
 	},
+
+	-- ⚠️ GESPLITST 15 aug 2026, op Robs klacht van dezelfde dag ("een kluwe aan
+	-- letters"). Het Vaults-artikel beantwoordde zeven vragen in één scherm; de
+	-- bestaande, al vertaalde tekst is op twee bullet-grenzen in drieën geknipt —
+	-- geen woord herschreven, alleen de jas. Main houdt "wat is het / hoe kom ik
+	-- binnen / de twee currencies"; dit zijn de andere twee.
+	{
+		id = "vaults_discoveries",
+		category = "coiledisle",
+		titleKey = "CODEX_ATALUTEK_DISC_TITLE",
+		bodyKey = "CODEX_ATALUTEK_DISC_BODY",
+		-- Zelfde saldo boven het artikel: de vier sleutels en Corrode Spirit lopen
+		-- allebei via Corrosive Coin.
+		currencyId = 3448,
+		sort = 13,
+		searchKeys = "altar of corrosion discoveries corroded key excising knife "
+			.. "spirit loupe dispelling charm er'inye venom-worn coffer glideways "
+			.. "swift steps broodmaster spectral winds spiritual protection sleutel keys",
+	},
+	{
+		id = "vaults_honored_dead",
+		category = "coiledisle",
+		titleKey = "CODEX_ATALUTEK_DEAD_TITLE",
+		bodyKey = "CODEX_ATALUTEK_DEAD_BODY",
+		sort = 14,
+		searchKeys = "honored dead memorials gedenktekens twelve route underbelly "
+			.. "szarith soft underbelly oppose the foes congealed malice khu'tulak "
+			.. "susarikk ancient foe temple incursion rares",
+	},
 }
 
 local articlesByCategory = {}
