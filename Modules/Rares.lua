@@ -238,7 +238,11 @@ local COILED_ISLE = {
 		--- zero as the four above: it will never tick itself off until somebody kills him
 		--- with `/mh questdiff` running. An id that looks like progress and never fires is
 		--- worse than a blank.
-		{ 0, 2613, 38.40, 17.69, "Szarith the Fanged" },
+		-- ⚠️ 15 aug: gevonden in Robs screenshot toen de andere vier gekoppeld waren.
+		-- Stond op questID 0 én zonder NPC-id, dus kon zichzelf net zomin afvinken.
+		-- Hij telt voor twee achievements; 63358 is degene die deze tab bijhoudt.
+		-- Zijn Soft Underbelly-criterium (62601 / 113661) hoort bij die andere hunt.
+		{ 0, 2613, 38.40, 17.69, "Szarith the Fanged", 263456, ach = 63358, crit = 115282 },
 	},
 }
 --- 2509 = Vaults of Atal'Utek, 2613 = the Underbelly beneath it. Both are children of
