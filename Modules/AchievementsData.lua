@@ -477,7 +477,12 @@ ns.ACHIEVEMENT_TREASURES = {
 				note = "ACH_NOTE_STRANGER" },
 			{ criteria = 116411, mapID = 2509, x = 52.91, y = 33.90, name = "To a captain", quest = 98033 },
 			{ criteria = 116410, mapID = 2509, x = 55.62, y = 40.60, name = "To a dream", quest = 98032 },
-			{ criteria = 116412, mapID = 2509, x = 42.91, y = 41.23, name = "To sons", quest = 98034 },
+			-- ✅ GECORRIGEERD 15 aug 2026 door Robs eigen meting. Stond op 42.91/41.23
+			-- (HandyNotes); hij liep de route, haalde het achievement, en las bij dit
+			-- gedenkteken 42.84/39.93 van zijn scherm. De x viel binnen afronding, de
+			-- y zat er 1,3 naast — genoeg om de pijl er voorbij te sturen.
+			-- Eerste HandyNotes-coördinaat op dit eiland die aantoonbaar fout was.
+			{ criteria = 116412, mapID = 2509, x = 42.84, y = 39.93, name = "To sons", quest = 98034 },
 			{ criteria = 116408, mapID = 2509, x = 52.21, y = 45.12, name = "To a lover", quest = 98030 },
 			{ criteria = 116416, mapID = 2509, x = 38.50, y = 47.66, name = "To Comrades", quest = 98038 },
 			{ criteria = 116409, mapID = 2509, x = 55.31, y = 48.45, name = "To parents", quest = 98031 },
