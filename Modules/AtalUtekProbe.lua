@@ -408,6 +408,16 @@ local ACHIEVEMENTS = {
 	{ id = 63610, label = "The Honored Dead (twelve memorials, map 2509)" },
 	{ id = 63601, label = "the three rare elites on 2509 (locations still unknown)" },
 	{ id = 62601, label = "the Underbelly (map 2613)" },
+
+	-- Added 15 Aug with the island's own hunts. 63359 is the one that now SHIPS a
+	-- routed twelve-plus-ten-node hunt on HandyNotes criteria, so it is the one that
+	-- fails silently if those ids are wrong — a card stuck on 0/22 while you stand on
+	-- the chest. The other three are on deck for the same treatment and are listed so
+	-- one run answers for all of them.
+	{ id = 63359, label = "Treasures of the Coiled Isle — SHIPPED, 22 nodes, verify these" },
+	{ id = 63358, label = "the Coiled Isle rares (12 criteria in HandyNotes)" },
+	{ id = 63395, label = "skyriding glyphs on 2512 (11 in HandyNotes)" },
+	{ id = 63662, label = "Student of Hissstory (10 on 2512)" },
 }
 
 --- Exactly what AchievementsData.lua ships for 63610, in the order it ships them.

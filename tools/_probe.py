@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: WAY_FLIGHT_HINT in seven packs, anchored on WAY_NO_PIN.
-One %s = the flight point's name, which stays in Blizzard's spelling
-(a proper noun the player will read off their own flight map).
+Right now: ACH_TREASURE_COILEDISLE, seven packs, anchored on
+ACH_TREASURE_EVERSONG.
+
+This key is only a FALLBACK — AchievementName() asks the client for the real
+achievement title first and only lands here if the API is unavailable. So the
+zone name stays English (Blizzard owns it) and the surrounding word follows
+each language, the same rule the other four hunt titles already follow.
 """
 import io
 import os
@@ -18,17 +22,16 @@ for _s in (sys.stdout, sys.stderr):
 BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales'
 
 NEW = {
-    'enUS': 'Nearest flight point there: %s.',
-    'nlNL': 'Dichtstbijzijnde flight point daar: %s.',
-    'deDE': 'Nächster Flugpunkt dort: %s.',
-    'frFR': 'Point de vol le plus proche là-bas : %s.',
-    'esES': 'Punto de vuelo más cercano allí: %s.',
-    'ptBR': 'Ponto de voo mais próximo lá: %s.',
-    'itIT': 'Punto volo più vicino lì: %s.',
+    'enUS': 'Treasures of the Coiled Isle',
+    'nlNL': 'Schatten van de Coiled Isle',
+    'deDE': 'Schätze der Coiled Isle',
+    'frFR': 'Trésors de la Coiled Isle',
+    'esES': 'Tesoros de la Coiled Isle',
+    'ptBR': 'Tesouros da Coiled Isle',
+    'itIT': 'Tesori della Coiled Isle',
 }
 for code, text in NEW.items():
     assert '"' not in text, code
-    assert text.count('%s') == 1, code
 
 TARGETS = [
     (os.path.join(BASE, 'enUS.lua'), ['enUS']),
@@ -39,19 +42,19 @@ TARGETS = [
 for path, codes in TARGETS:
     name = os.path.basename(path)
     t = io.open(path, encoding='utf-8', newline='').read()
-    if 'WAY_FLIGHT_HINT' in t:
+    if 'ACH_TREASURE_COILEDISLE' in t:
         print('%s: staat er al' % name)
         continue
     eol = '\r\n' if '\r\n' in t else '\n'
     out, added = [], 0
     for line in t.split(eol):
         out.append(line)
-        if 'WAY_NO_PIN' in line and added < len(codes):
+        if 'ACH_TREASURE_EVERSONG' in line and added < len(codes):
             indent = line[:len(line) - len(line.lstrip())]
-            out.append('%sWAY_FLIGHT_HINT = "%s",' % (indent, NEW[codes[added]]))
+            out.append('%sACH_TREASURE_COILEDISLE = "%s",' % (indent, NEW[codes[added]]))
             added += 1
     if added != len(codes):
-        print('%s: %d van %d — NIETS geschreven' % (name, added, len(codes)))
+        print('%s: %d van %d ankers — NIETS geschreven' % (name, added, len(codes)))
         sys.exit(1)
     io.open(path + '.tmp', 'w', encoding='utf-8', newline='').write(eol.join(out))
     os.replace(path + '.tmp', path)

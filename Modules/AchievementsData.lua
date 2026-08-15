@@ -17,6 +17,60 @@
 local _, ns = ...
 
 ns.ACHIEVEMENT_TREASURES = {
+	-- ⚠️ TOEGEVOEGD 15 aug 2026. Rob, met een screenshot van deze tab: het eiland
+	-- moet dezelfde behandeling krijgen als de oude zones. Terecht — Eversong,
+	-- Harandar, Zul'Aman en Voidstorm hadden allemaal een Treasures-hunt en de
+	-- Coiled Isle had alleen The Honored Dead.
+	--
+	-- Twee onafhankelijke bronnen noemen dit achievement 63359: onze watcher (13 aug,
+	-- derdepartij) en HandyNotes_Midnight, die er 22 criteria bij levert. Dat is de
+	-- sterkste soort kandidaat die we buiten de client hebben.
+	--
+	-- ⚠️ GEEN `quest`-velden, en dat is opzet. HandyNotes heeft ze wel, maar hun
+	-- Coiled Isle-questband bleek op 13 aug niet de vlag die het spel afvuurt. Hun
+	-- coördinaten zijn vertrouwd (Robs staande regel), hun criteria hebben een goed
+	-- track record (de twaalf van The Honored Dead waren op 14 aug allemaal juist).
+	-- Dus: criteria en coördinaten wel, quest-ids niet. Zonder quest-veld valt
+	-- NodeDone terug op het criterium, en dat is toch al de gezaghebbende bron.
+	--
+	-- ⚠️ GEEN `name`-velden. HandyNotes bewaart deze labels als sjablonen
+	-- ("{npc:263242}") die alleen binnen hun eigen renderer iets betekenen; veertien
+	-- van de tweeëntwintig zouden als letterlijke accolades op het scherm komen.
+	-- ns.AchievementNodeName haalt de naam nu uit de client — al vertaald en per
+	-- definitie in overeenstemming met het spel.
+	--
+	-- Volgorde is een looproute van noord naar zuid, zodat de pijl niet kriskras stuurt.
+	-- Nog te verifiëren: `/mh ach id 63359` op Robs client bevestigt of de 22 criteria
+	-- kloppen. Staan ze fout, dan blijft de kaart stil op 0/22 staan — dat is precies
+	-- de stille fout waar dit bestand vaker last van had.
+	{
+		achievementID = 63359, -- Treasures of the Coiled Isle
+		nameKey = "ACH_TREASURE_COILEDISLE",
+		nodes = {
+			{ criteria = 115295, mapID = 2512, x = 31.43, y = 83.49 },
+			{ criteria = 115314, mapID = 2512, x = 64.91, y = 78.89 },
+			{ criteria = 115294, mapID = 2512, x = 70.63, y = 76.63 },
+			{ criteria = 115306, mapID = 2512, x = 75.37, y = 68.33 },
+			{ criteria = 115292, mapID = 2512, x = 43.64, y = 67.38 },
+			{ criteria = 115302, mapID = 2512, x = 29.54, y = 67.23 },
+			{ criteria = 115289, mapID = 2512, x = 71.88, y = 66.66 },
+			{ criteria = 115313, mapID = 2512, x = 45.91, y = 66.28 },
+			{ criteria = 115310, mapID = 2512, x = 68.05, y = 65.90 },
+			{ criteria = 115309, mapID = 2512, x = 60.43, y = 59.46 },
+			{ criteria = 115308, mapID = 2512, x = 73.44, y = 56.61 },
+			{ criteria = 115291, mapID = 2512, x = 67.26, y = 48.46 },
+			{ criteria = 115293, mapID = 2512, x = 58.19, y = 45.72 },
+			{ criteria = 115312, mapID = 2512, x = 58.14, y = 43.55 },
+			{ criteria = 115300, mapID = 2512, x = 53.09, y = 43.10 },
+			{ criteria = 115307, mapID = 2512, x = 55.21, y = 37.96 },
+			{ criteria = 115298, mapID = 2512, x = 64.72, y = 36.65 },
+			{ criteria = 115301, mapID = 2512, x = 49.48, y = 31.98 },
+			{ criteria = 115296, mapID = 2512, x = 46.86, y = 29.57 },
+			{ criteria = 115299, mapID = 2512, x = 66.91, y = 28.06 },
+			{ criteria = 115297, mapID = 2512, x = 43.90, y = 26.54 },
+			{ criteria = 115290, mapID = 2512, x = 65.44, y = 5.60 },
+		},
+	},
 	{
 		achievementID = 61960, -- Treasures of Eversong Woods
 		nameKey = "ACH_TREASURE_EVERSONG", -- localized title (falls back to API name)

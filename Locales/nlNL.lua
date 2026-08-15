@@ -470,6 +470,7 @@ ns._mhLocales.nlNL = {
 	ACH_META_PREVIEW_HINT = "Klik: bekijk de mount",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Volg Midnight-prestaties en route naar de verzamelobjecten die je nog mist. Elke prestatie toont je voortgang en een checklist; klik op Route om de pijl naar de dichtstbijzijnde ontbrekende te sturen — die schuift automatisch door terwijl je looted.",
 	ACH_TREASURE_EVERSONG = "Schatten van Eversong Woods",
+	ACH_TREASURE_COILEDISLE = "Schatten van de Coiled Isle",
 	ACH_TREASURE_HARANDAR = "Schatten van Harandar",
 	ACH_TREASURE_ZULAMAN = "Schatten van Zul'Aman",
 	ACH_TREASURE_VOIDSTORM = "Schatten van Voidstorm",

@@ -475,6 +475,7 @@ ns._mhLocales.enUS = {
 	ACH_META_PREVIEW_HINT = "Click: preview the mount",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Track Midnight achievements and route to the collectibles you still miss. Each achievement shows your progress and a checklist; hit Route to send the arrow to the nearest missing one, and it auto-advances as you loot.",
 	ACH_TREASURE_EVERSONG = "Treasures of Eversong Woods",
+	ACH_TREASURE_COILEDISLE = "Treasures of the Coiled Isle",
 	ACH_TREASURE_HARANDAR = "Treasures of Harandar",
 	ACH_TREASURE_ZULAMAN = "Treasures of Zul'Aman",
 	ACH_TREASURE_VOIDSTORM = "Treasures of Voidstorm",

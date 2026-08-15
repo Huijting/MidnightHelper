@@ -95,6 +95,36 @@ function ns.GetTreasureProgress(entry)
 	return done, #(entry.nodes or {}), incomplete
 end
 
+--- What to call one node on screen.
+---
+--- ⚠️ ADDED 15 Aug 2026 for the Coiled Isle. Every hunt before it carried a
+--- hand-written `name` per node, harvested along with the coordinates. The Coiled
+--- Isle's source does not have them: HandyNotes stores its treasure labels as
+--- templates like "{npc:263242}" that only mean something inside its own renderer,
+--- so fourteen of twenty-two would have shipped as literal braces on screen.
+---
+--- The client has the real answer and we were throwing it away — NodeDone calls
+--- GetAchievementCriteriaInfoByID and discards its FIRST return, which is the
+--- criterion's own name, already in the player's language. Better than anything we
+--- could have typed: it cannot drift from the game, and it never needs translating.
+---
+--- `name` in the data still wins where it exists, because a few older nodes say
+--- something more useful than the criterion does ("Triple-Locked Safebox" vs a bare
+--- object name), and rewriting those was not worth the churn.
+function ns.AchievementNodeName(entry, node)
+	if node.name and node.name ~= "" then
+		return node.name
+	end
+	local aid = entry and entry.achievementID
+	if aid and node.criteria and GetAchievementCriteriaInfoByID then
+		local ok, criteriaString = pcall(GetAchievementCriteriaInfoByID, aid, node.criteria)
+		if ok and type(criteriaString) == "string" and criteriaString ~= "" then
+			return criteriaString
+		end
+	end
+	return ns:L("ACH_TOAST_FALLBACK")
+end
+
 local function AchievementName(entry)
 	if GetAchievementInfo and entry.achievementID then
 		local _, name = GetAchievementInfo(entry.achievementID)
@@ -541,13 +571,13 @@ function ns.ShowTreasureToast(node)
 	for _, b in ipairs(f.btns) do
 		b:Hide()
 	end
-	f.title:SetText(node.name or ns:L("ACH_TOAST_FALLBACK"))
+	f.title:SetText(ns.AchievementNodeName(activeEntry, node))
 	local cl = CounterLine(node)
 	f.body:SetText((node.note and ns:L(node.note) or "") .. (cl and ("\n\n" .. cl) or ""))
 
 	-- Button 1 routes back to the treasure itself (so you never lose it when the
 	-- TomTom arrow clears on arrival); the rest are its prerequisites.
-	local targets = { { name = (ns:L("ACH_TOAST_CHEST_FMT")):format(node.name or ns:L("ACH_TOAST_FALLBACK")), mapID = node.mapID, x = node.x, y = node.y } }
+	local targets = { { name = (ns:L("ACH_TOAST_CHEST_FMT")):format(ns.AchievementNodeName(activeEntry, node)), mapID = node.mapID, x = node.x, y = node.y } }
 	for _, p in ipairs(node.prereqs or {}) do
 		targets[#targets + 1] = p
 	end
@@ -837,7 +867,8 @@ local function IssueRoute(entry, firstTime, silent)
 		-- Use TomTom's default cleardistance (like the Rares route): a custom
 		-- cleardistance of 0 suppressed TomTom's big floating Crazy Arrow. TomTom's
 		-- "auto-set to next closest waypoint" advances the arrow as you reach pins.
-		ns.AddSmartTomTomWay(node.mapID, node.x, node.y, node.name, skipTravelUI, skipCrazyArrow)
+		ns.AddSmartTomTomWay(node.mapID, node.x, node.y,
+			ns.AchievementNodeName(entry, node), skipTravelUI, skipCrazyArrow)
 	end
 	local lead = waypoints[1]
 	ns.lastTarget = { mapID = lead.mapID, x = lead.x, y = lead.y, name = lead.name }

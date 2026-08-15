@@ -856,6 +856,7 @@ fill("deDE", {
 	ACH_TAB_HINT_LINK = "Umschalt-Klick: in den Chat verlinken",
 	ACH_TAB_HINT_OPEN = "Strg-Klick: im Erfolgsfenster öffnen",
 	ACH_TREASURE_EVERSONG = "Schätze des Immersangwaldes",
+	ACH_TREASURE_COILEDISLE = "Schätze der Coiled Isle",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Verfolge Midnight-Erfolge und route zu den Sammelobjekten, die dir noch fehlen. Jeder Erfolg zeigt deinen Fortschritt und eine Checkliste; klicke auf Route, um den Pfeil zum nächsten fehlenden zu schicken — er springt automatisch weiter, während du plünderst.",
 })
 fill("frFR", {
@@ -940,6 +941,7 @@ fill("frFR", {
 	ACH_TAB_HINT_LINK = "Maj-clic : lier dans le chat",
 	ACH_TAB_HINT_OPEN = "Ctrl-clic : ouvrir dans le panneau des hauts faits",
 	ACH_TREASURE_EVERSONG = "Trésors du bois des Chants éternels",
+	ACH_TREASURE_COILEDISLE = "Trésors de la Coiled Isle",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Suivez les hauts faits de Midnight et tracez un itinéraire vers les objets à collectionner qu'il vous manque. Chaque haut fait affiche votre progression et une liste ; cliquez sur Itinéraire pour envoyer la flèche vers le plus proche manquant — elle avance automatiquement à mesure que vous récupérez les objets.",
 })
 fill("esES", {
@@ -1024,6 +1026,7 @@ fill("esES", {
 	ACH_TAB_HINT_LINK = "Mayús-clic: enlazar en el chat",
 	ACH_TAB_HINT_OPEN = "Ctrl-clic: abrir en el panel de logros",
 	ACH_TREASURE_EVERSONG = "Tesoros del Bosque Canción Eterna",
+	ACH_TREASURE_COILEDISLE = "Tesoros de la Coiled Isle",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Sigue los logros de Midnight y traza una ruta a los coleccionables que aún te faltan. Cada logro muestra tu progreso y una lista; pulsa Ruta para enviar la flecha al más cercano que falte — avanza automáticamente a medida que los recoges.",
 })
 fill("ptBR", {
@@ -1108,6 +1111,7 @@ fill("ptBR", {
 	ACH_TAB_HINT_LINK = "Shift-clique: vincular no chat",
 	ACH_TAB_HINT_OPEN = "Ctrl-clique: abrir no painel de conquistas",
 	ACH_TREASURE_EVERSONG = "Tesouros da Floresta de Cantéreno",
+	ACH_TREASURE_COILEDISLE = "Tesouros da Coiled Isle",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Acompanhe as conquistas de Midnight e trace uma rota até os colecionáveis que ainda faltam. Cada conquista mostra seu progresso e uma lista; clique em Rota para enviar a seta ao mais próximo que falta — ela avança automaticamente conforme você coleta.",
 })
 fill("itIT", {
@@ -1192,6 +1196,7 @@ fill("itIT", {
 	ACH_TAB_HINT_LINK = "Maiusc-clic: collega in chat",
 	ACH_TAB_HINT_OPEN = "Ctrl-clic: apri nel pannello imprese",
 	ACH_TREASURE_EVERSONG = "Tesori del Bosco dei Canti",
+	ACH_TREASURE_COILEDISLE = "Tesori della Coiled Isle",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Tieni traccia delle imprese di Midnight e traccia un percorso verso gli oggetti da collezione che ti mancano ancora. Ogni impresa mostra i tuoi progressi e una lista; premi Percorso per inviare la freccia al più vicino mancante — avanza automaticamente mentre raccogli.",
 })
 
