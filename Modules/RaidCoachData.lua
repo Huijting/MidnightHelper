@@ -122,15 +122,14 @@ local TIPS = {
 	ulatek        = { steps = "RAID_BOSS_ULATEK_STEPS" },
 }
 
---- 3D-modellen voor de acht bosses: journal-displayIDs uit de client-DB2
---- (wago.tools, build 12.1.0.69299 — JournalEncounterCreature, letterlijk de tabel
---- waar het Adventure Guide zijn modelviewer uit vult).
+--- 3D-modellen voor de acht bosses: journal-displayIDs.
 ---
---- ⚠️ KANDIDAAT tot Robs eigen `/mh ej save` op live dezelfde nummers teruggeeft —
---- de capture-code verzamelt exact dit veld. Eén bron, maar wel een primaire
---- (gedataminede client-tabel), en intern consistent met alle acht bossnamen.
---- Council-fights krijgen het model van de naamgever; de capture kan er later
---- meer per boss geven.
+--- ✅ GEMETEN 15 aug 2026. Verscheept als DB2-kandidaten (wago.tools) en dezelfde
+--- avond geverifieerd met Robs eigen `/mh ej save` op live (build 120100): alle
+--- acht nummers staan letterlijk in zijn ejCapture, telkens als eerste creature
+--- van de encounter. De capture noemt per boss ook de adds (Barbed Bulwark,
+--- Broodling of Ithraz, de drie venoms, …) — uitbreiden kan dus uit ns.db.ejCapture
+--- zonder nieuwe bron. Council-fights dragen hier het model van de naamgever.
 ns.RAID_BOSS_DISPLAYS = {
 	nekzali       = 142077,
 	entombedsent  = 143437, -- Breath of Ula'tek (Blood = 143436)

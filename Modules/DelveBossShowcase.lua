@@ -203,6 +203,9 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 267736, label = "Osseous Amalgamation" },
 	},
 	ring_of_glory = {
+		-- ✅ Drakta als eindboss is door Rob zelf bevestigd (run van 14 aug, "het was
+		-- Drakta !!"). Zijn ogen tellen als bron voor de NAAM; het creature-id blijft
+		-- van Wowheads suggestions-endpoint tot een gelogde run het vastlegt.
 		{ creatureId = 265691, label = "Drakta" },
 		-- Gnok heeft twee ids (264423, en 264931 "Gnok?" — vrijwel zeker de fase-2
 		-- ondode vorm; die koppeling is inferentie, geen bron).

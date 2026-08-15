@@ -101,6 +101,83 @@ end
 -- Layout
 --------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+-- Boss models — Robs "animations van de bosses" (15 aug 2026)
+--------------------------------------------------------------------------------
+
+--- Een strook 3D-modellen boven de tips van een raid, één per boss, met de naam
+--- eronder. Alleen voor raids waarvan de displayIDs GEMETEN zijn: de strook leest
+--- ns.RAID_BOSS_DISPLAYS, en die tabel is op 15 aug geverifieerd tegen Robs eigen
+--- ejCapture (alle acht ids letterlijk in zijn journal). Een boss zonder id krijgt
+--- gewoon geen model — geen gok, geen placeholder-draak.
+---
+--- SetDisplayInfo, niet SetCreature: het journal geeft display-ids, en dat is ook
+--- wat het Adventure Guide zelf tekent. PlayerModel-frames zijn niet secure, dus
+--- dit mag allemaal buiten combat om zonder taint-zorgen.
+local MODEL_W, MODEL_H, MODEL_GAP, MODEL_LABEL_H = 86, 110, 4, 12
+
+local function BuildModelStrips()
+	for _, row in ipairs(ui.rows) do
+		local displays = ns.RAID_BOSS_DISPLAYS
+		local wants = false
+		if displays then
+			for _, b in ipairs(row.raid.bosses or {}) do
+				if displays[b.key] then
+					wants = true
+					break
+				end
+			end
+		end
+		if wants and not row.models then
+			local strip = CreateFrame("Frame", nil, ui.child)
+			strip:SetHeight(MODEL_H + MODEL_LABEL_H)
+			strip._cells = {}
+			for _, b in ipairs(row.raid.bosses) do
+				local id = displays[b.key]
+				if id then
+					local cell = CreateFrame("Frame", nil, strip)
+					cell:SetSize(MODEL_W, MODEL_H + MODEL_LABEL_H)
+					local model = CreateFrame("PlayerModel", nil, cell)
+					model:SetPoint("TOPLEFT", cell, "TOPLEFT", 0, 0)
+					model:SetSize(MODEL_W, MODEL_H)
+					local okSet = pcall(model.SetDisplayInfo, model, id)
+					if okSet and model.SetPortraitZoom then
+						pcall(model.SetPortraitZoom, model, 0.55)
+					end
+					local label = cell:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+					label:SetPoint("TOP", model, "BOTTOM", 0, -1)
+					label:SetWidth(MODEL_W)
+					label:SetWordWrap(false)
+					-- Alleen de eerste naam vóór een spatie-scheider zou namen als
+					-- "The Twin Fangs" slopen; toon de bossnaam gewoon klein en kap af.
+					label:SetText(b.name or "?")
+					cell._displayId = id
+					strip._cells[#strip._cells + 1] = cell
+				end
+			end
+			row.models = strip
+		end
+	end
+end
+
+--- De cellen in rijen wikkelen op de huidige breedte. Geen horizontale scroll:
+--- op een smal paneel worden het gewoon twee rijen van vier.
+local function LayoutModelStrip(strip, width)
+	local perRow = math.max(1, math.floor((width + MODEL_GAP) / (MODEL_W + MODEL_GAP)))
+	local rows = 0
+	for i, cell in ipairs(strip._cells) do
+		local col = (i - 1) % perRow
+		local r = math.floor((i - 1) / perRow)
+		rows = math.max(rows, r + 1)
+		cell:ClearAllPoints()
+		cell:SetPoint("TOPLEFT", strip, "TOPLEFT",
+			col * (MODEL_W + MODEL_GAP), -r * (MODEL_H + MODEL_LABEL_H + MODEL_GAP))
+	end
+	local h = rows * (MODEL_H + MODEL_LABEL_H + MODEL_GAP)
+	strip:SetHeight(math.max(h, 1))
+	return h
+end
+
 local function Relayout()
 	if not ui or not ui.child then
 		return
@@ -125,7 +202,17 @@ local function Relayout()
 
 		if collapsed then
 			row.body:Hide()
+			if row.models then
+				row.models:Hide()
+			end
 		else
+			if row.models then
+				row.models:Show()
+				row.models:ClearAllPoints()
+				row.models:SetPoint("TOPLEFT", ui.child, "TOPLEFT", BODY_INDENT, -y)
+				row.models:SetWidth(math.max(width - BODY_INDENT, 1))
+				y = y + LayoutModelStrip(row.models, math.max(width - BODY_INDENT, 1)) + 4
+			end
 			row.body:Show()
 			row.body:ClearAllPoints()
 			row.body:SetPoint("TOPLEFT", ui.child, "TOPLEFT", BODY_INDENT, -y)
@@ -248,6 +335,8 @@ function ns.BuildRaidsPanel(panel)
 
 		ui.rows[#ui.rows + 1] = { raid = raid, btn = btn, body = body }
 	end
+
+	BuildModelStrips()
 
 	local function syncWidth()
 		local w = scroll:GetWidth()
