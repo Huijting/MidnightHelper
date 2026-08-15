@@ -937,11 +937,22 @@ local function SweepTraitTrees(out)
 											-- are what a curio recommendation would rest on.
 											-- The client's text cannot be out of date and is
 											-- already in the player's language.
+											-- ⚠️ Ask the server BEFORE reading. The 15 aug run
+											-- got a description for 88 of 409 named nodes;
+											-- the rest were a cold spell cache, exactly like
+											-- quest 98232 an hour earlier. Same shape, same
+											-- fix, and the second pass below re-reads.
+											if C_Spell.RequestLoadSpellData then
+												pcall(C_Spell.RequestLoadSpellData, sid)
+											end
 											if C_Spell.GetSpellDescription then
 												local okD, v = pcall(C_Spell.GetSpellDescription, sid)
-												-- Empty means not cached yet, which is not
-												-- the same as "this spell has no text".
-												if okD and type(v) == "string" and v ~= "" then
+												-- Killing Spree and Poison Cloud both came back
+												-- as a lone carriage return, which passed a
+												-- ~= "" test and would have shipped as an
+												-- effect description of nothing.
+												if okD and type(v) == "string"
+													and v:gsub("%s", "") ~= "" then
 													sdesc = v
 												end
 											end
@@ -974,8 +985,46 @@ local function SweepTraitTrees(out)
 	end
 	if hits == 0 then
 		print("      |cffff5040nothing at all — the sweep found no trees, so it proves nothing|r")
-	else
-		print(("      |cff8a8f98%d trees. Full node/currency detail in the DB.|r"):format(hits))
+		return
+	end
+	print(("      |cff8a8f98%d trees. Full node/currency detail in the DB.|r"):format(hits))
+
+	-- Second pass. RequestLoadSpellData above is asynchronous, so the descriptions it
+	-- fetches are not there yet when the loop reads them — the first pass can only ever
+	-- see what was already cached. This re-reads once the answers have had time to
+	-- arrive, and reports how many it gained, so a run that gains nothing is visible as
+	-- a failed fetch rather than passing for "these spells have no text".
+	if C_Timer and C_Timer.After and C_Spell and C_Spell.GetSpellDescription then
+		local before = 0
+		for _, tree in ipairs(out.traits) do
+			for _, n in ipairs(tree.nodeNames or {}) do
+				if n.desc then
+					before = before + 1
+				end
+			end
+		end
+		C_Timer.After(3, function()
+			local after = 0
+			for _, tree in ipairs(out.traits) do
+				for _, n in ipairs(tree.nodeNames or {}) do
+					if n.spellID and not n.desc then
+						local okD, v = pcall(C_Spell.GetSpellDescription, n.spellID)
+						if okD and type(v) == "string" and v:gsub("%s", "") ~= "" then
+							n.desc = v
+						end
+					end
+					if n.desc then
+						after = after + 1
+					end
+				end
+			end
+			print(("%s |cff8fd3ffspell text|r  %d descriptions at first read, |cffffffff%d|r after asking the server."):format(
+				Prefix(), before, after))
+			if after == before then
+				print("   |cffffd100No gain — the fetch did nothing, so a missing description still means unknown.|r")
+			end
+			print("   |cff8a8f98/reload writes it.|r")
+		end)
 	end
 end
 

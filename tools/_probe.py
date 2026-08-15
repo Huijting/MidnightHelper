@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: the spec's twelve names are in no tree. Two readings stay open —
-the Codex is not a trait tree, or the spec's names (guide-sourced and admittedly
-paraphrased) are simply wrong. Search on names that came from our OWN measured
-research instead: the Altar's four discovery nodes and the Corrosive Spirit
-ranks from VAULTS_DISCOVERIES, plus anything venom/corrosion-shaped.
+Right now: dump the 12.1 Valeera tree with the game's own effect text.
 
-Prints every node name of the trees that match, so the answer is readable
-rather than inferred.
+Season 2 opens on the 18th and the curio advisor has no pack for it. The three
+poison spell ids were measured on the PTR and confirmed on live; what was still
+missing is what they actually DO, because the prose on file came from the page
+that had all three ids wrong.
 """
 import io
 import re
@@ -22,13 +20,7 @@ for _s in (sys.stdout, sys.stderr):
 
 P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
      r'\SavedVariables\MidnightHelper.lua')
-
-# From our own notes, not from the spec: node names the Altar of Corrosion is
-# documented to have, and the words the whole zone is built on.
-NEEDLES = ['corrosi', 'corrode', 'venom', 'poison', 'serpent', 'snake', 'viper',
-           'ophidian', "ula'tek", 'ulatek', 'atal', 'spirit walk', 'broodmaster',
-           'spectral', 'run of the vaults', 'glideway', 'swift steps',
-           'miasma', 'mephitic', 'gorgon', 'lithic', 'plumage', 'mucus']
+WANT_TREE = 1223
 
 t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
 
@@ -65,46 +57,55 @@ def split_top(blob):
     return out
 
 
+def unesc(s):
+    return (s.replace('\\n', ' ').replace('\\"', '"')
+             .replace('\\\\', '\\').strip())
+
+
 probe = block('atalProbe', t)
 tb = block('traits', probe)
 
-trees = []
+target = None
+withdesc = totalnamed = 0
 for r in split_top(tb):
     tid = re.search(r'\["treeID"\]\s*=\s*(\d+)', r)
-    nm = re.search(r'\["configName"\]\s*=\s*"([^"]*)"', r)
-    cnt = re.search(r'\["nodes"\]\s*=\s*(\d+)', r)
     nb = block('nodeNames', r)
-    names = []
-    if nb:
-        for n in split_top(nb):
-            m = re.search(r'\["name"\]\s*=\s*"((?:[^"\\]|\\.)*)"', n)
-            sid = re.search(r'\["spellID"\]\s*=\s*(\d+)', n)
-            rk = re.search(r'\["ranks"\]\s*=\s*(\d+)', n)
-            names.append((m.group(1) if m else None,
-                          sid.group(1) if sid else '?',
-                          rk.group(1) if rk else '0'))
-    trees.append((int(tid.group(1)) if tid else 0,
-                  nm.group(1) if nm else '',
-                  int(cnt.group(1)) if cnt else 0, names))
+    for n in (split_top(nb) if nb else []):
+        if re.search(r'\["name"\]', n):
+            totalnamed += 1
+        if re.search(r'\["desc"\]', n):
+            withdesc += 1
+    if tid and int(tid.group(1)) == WANT_TREE:
+        target = r
 
-print('%-7s %-26s %-7s %-9s %s' % ('tree', 'configName', 'nodes', 'met naam', 'treffers'))
-print('-' * 92)
-best = []
-for tid, cname, cnt, names in trees:
-    withname = sum(1 for x in names if x[0])
-    hits = [x[0] for x in names if x[0]
-            and any(k in x[0].lower() for k in NEEDLES)]
-    print('%-7s %-26s %-7s %-9s %s' % (tid, cname[:26], cnt, withname,
-                                       ', '.join(hits[:4]) or '-'))
-    if hits:
-        best.append((tid, cname, names, hits))
-
+print('nodes met naam: %d   waarvan met beschrijving: %d' % (totalnamed, withdesc))
+if withdesc == 0:
+    print('GEEN beschrijvingen — GetSpellDescription gaf niets terug of is niet gecached.')
+    print('Dat is een lege meting, geen bewijs dat de teksten niet bestaan.')
+    sys.exit(0)
 print()
-for tid, cname, names, hits in best:
-    print('=' * 78)
-    print('tree %s  %s  — alle %d nodes' % (tid, cname, len(names)))
-    print('=' * 78)
-    for nm, sid, rk in names:
-        mark = '*' if nm and any(k in nm.lower() for k in NEEDLES) else ' '
-        print('  %s %-38s spell %-9s ranks %s' % (mark, nm or '(naamloos)', sid, rk))
-    print()
+
+if not target:
+    print('tree %d niet gevonden' % WANT_TREE)
+    sys.exit(1)
+
+nb = block('nodeNames', target)
+seen = set()
+print('=' * 78)
+print('tree %d — 12.1 Valeera Sanguinar' % WANT_TREE)
+print('=' * 78)
+for n in split_top(nb):
+    nm = re.search(r'\["name"\]\s*=\s*"((?:[^"\\]|\\.)*)"', n)
+    sid = re.search(r'\["spellID"\]\s*=\s*(\d+)', n)
+    ds = re.search(r'\["desc"\]\s*=\s*"((?:[^"\\]|\\.)*)"', n)
+    rk = re.search(r'\["ranks"\]\s*=\s*(\d+)', n)
+    key = sid.group(1) if sid else (nm.group(1) if nm else '?')
+    if key in seen:
+        continue
+    seen.add(key)
+    print('%-36s spell %-9s ranks %s' % (
+        (nm.group(1) if nm else '(naamloos)'), key, rk.group(1) if rk else '0'))
+    if ds:
+        print('    %s' % unesc(ds.group(1))[:400])
+    else:
+        print('    (geen beschrijving uit de client)')
