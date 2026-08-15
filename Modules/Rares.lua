@@ -187,15 +187,15 @@ local COILED_ISLE = {
 	label = "The Coiled Isle",
 	shortLabel = "Coiled Isle",
 	rares = {
-		{ 98347, 2512, 31.72, 56.82, "Lockjaw the Snapper", 265237 },
-		{ 98354, 2512, 58.01, 40.13, "Sss'alik, The Rotten Claw", 261109 },
+		{ 98347, 2512, 31.72, 56.82, "Lockjaw the Snapper", 265237, ach = 63358, crit = 115284 },
+		{ 98354, 2512, 58.01, 40.13, "Sss'alik, The Rotten Claw", 261109, ach = 63358, crit = 115287 },
 		{ 0, 2512, 46.99, 62.23, "Malformed Leviathan", 255087 }, -- elite; EVENT, no kill quest of its own
-		{ 98353, 2512, 70.03, 63.44, "Big Mon", 256631 },
-		{ 98352, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906 },
-		{ 98345, 2512, 50.00, 69.07, "Siltmouth, the Unflappable", 268049 },
-		{ 98344, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854 }, -- circles in the air until he lands
+		{ 98353, 2512, 70.03, 63.44, "Big Mon", 256631, ach = 63358, crit = 115286 },
+		{ 98352, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906, ach = 63358, crit = 115285 },
+		{ 98345, 2512, 50.00, 69.07, "Siltmouth, the Unflappable", 268049, ach = 63358, crit = 115280 },
+		{ 98344, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854, ach = 63358, crit = 115279 }, -- circles in the air until he lands
 		{ 0, 2512, 67.16, 77.52, "Venom Lancer Ori'kassi", 255927 }, -- elite; not killed yet, id unknown
-		{ 98351, 2642, 66.40, 62.90, "Nar'zira", 258920 }, -- interior map
+		{ 98351, 2642, 66.40, 62.90, "Nar'zira", 258920, ach = 63358, crit = 115283 }, -- interior map
 		--- Four rares our own lap never saw, from HandyNotes_Midnight 149 (13 Aug 2026)
 		--- — the source Rob has told us to trust for rare coordinates without
 		--- spot-checking. Its Coiled Isle file went from nothing to fourteen nodes with
@@ -227,10 +227,10 @@ local COILED_ISLE = {
 		--- ⚠️ Three further HandyNotes nodes are placeholders — npc id 0 at 10.00/10.00,
 		--- named Congealed Malice, Khu'tulak and Susarikk. Not imported; a coordinate
 		--- that says 10/10 says nothing.
-		{ 0, 2512, 70.17, 45.29, "Garsecg", 258916 },
-		{ 0, 2512, 52.05, 32.29, "Destra", 261142 },
-		{ 0, 2512, 43.85, 50.86, "Hisstara", 265262 },
-		{ 0, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090 },
+		{ 0, 2512, 70.17, 45.29, "Garsecg", 258916, ach = 63358, crit = 110172 },
+		{ 0, 2512, 52.05, 32.29, "Destra", 261142, ach = 63358, crit = 115288 },
+		{ 0, 2512, 43.85, 50.86, "Hisstara", 265262, ach = 63358, crit = 115281 },
+		{ 0, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090, ach = 63358, crit = 115784 },
 		--- The Underbelly (map 2613), the level below the Vaults of Atal'Utek. One rare
 		--- there, from HandyNotes_Midnight 150 — coordinates taken, quest id not.
 		--- HandyNotes gives 96030, which sits squarely in the band that `/mh rarequests`
@@ -780,8 +780,38 @@ local function GetRareDisplayName(rare)
 	return "Rare " .. tostring(questId)
 end
 
-local function IsRareDoneThisWeek(questId)
-	if not questId or not C_QuestLog or not C_QuestLog.IsQuestFlaggedCompleted then
+--- Is deze rare al gedaan?
+---
+--- ⚠️ HERSCHREVEN 15 aug 2026. Nam eerst alleen een questID. Vier Coiled
+--- Isle-rares dragen questID 0 — Garsecg, Destra, Hisstara en Kari'zah — en
+--- konden zichzelf dus nooit afvinken; de kaart bleef grijs terwijl je hem net
+--- had gedood. De achievement-criteria van 63358 dekken ze allemaal, en dat is
+--- wat het spel zélf telt. Dezelfde oplossing die op 15 aug bij The Honored
+--- Dead van begin tot eind bewezen werd.
+---
+--- Neemt een rare-rij OF een kaal questID, zodat de aanroepplekken die alleen
+--- een getal hebben blijven werken. Een rij zonder `crit` valt gewoon terug op
+--- zijn quest, precies zoals eerst.
+local function IsRareDoneThisWeek(rareOrQuest)
+	local questId, ach, crit
+	if type(rareOrQuest) == "table" then
+		questId, ach, crit = rareOrQuest[1], rareOrQuest.ach, rareOrQuest.crit
+	else
+		questId = tonumber(rareOrQuest)
+	end
+
+	-- Het criterium eerst: gezaghebbend, en het bestaat waar de quest ontbreekt.
+	if ach and crit and GetAchievementCriteriaInfoByID then
+		local ok, _, _, completed = pcall(GetAchievementCriteriaInfoByID, ach, crit)
+		if ok and completed ~= nil then
+			return completed and true or false
+		end
+	end
+
+	if not questId or questId == 0 then
+		return false
+	end
+	if not C_QuestLog or not C_QuestLog.IsQuestFlaggedCompleted then
 		return false
 	end
 	return C_QuestLog.IsQuestFlaggedCompleted(questId) and true or false
@@ -903,7 +933,7 @@ local function FindNearestIncompleteRare(zone)
 	local pwx, pwy = GetPlayerWorldPos()
 	local bestRare, bestDist
 	for idx, rare in ipairs(zone.rares) do
-		if not IsRareDoneThisWeek(rare[1]) then
+		if not IsRareDoneThisWeek(rare) then
 			local dist = RareDistanceFromRef(rare, idx, pwx, pwy)
 			if not bestDist or dist < bestDist then
 				bestDist = dist
@@ -928,7 +958,7 @@ local function NearestOpenRareRespectingSkips(zone)
 	local pwx, pwy = GetPlayerWorldPos()
 	local best, bestDist, skippedBest, skippedDist
 	for idx, rare in ipairs(zone.rares) do
-		if not IsRareDoneThisWeek(rare[1]) then
+		if not IsRareDoneThisWeek(rare) then
 			local dist = RareDistanceFromRef(rare, idx, pwx, pwy)
 			if skippedRares[RareKey(rare)] then
 				if not skippedDist or dist < skippedDist then
@@ -1024,7 +1054,7 @@ end
 local function BuildGreedyRareRoute(zone)
 	local remaining = {}
 	for idx, rare in ipairs(zone.rares) do
-		if not IsRareDoneThisWeek(rare[1]) then
+		if not IsRareDoneThisWeek(rare) then
 			remaining[#remaining + 1] = { rare = rare, idx = idx }
 		end
 	end
@@ -1479,7 +1509,7 @@ end
 
 local function FormatRareRowLabel(rare, zoneKey)
 	local name = GetRareDisplayName(rare)
-	if IsRareDoneThisWeek(rare[1]) then
+	if IsRareDoneThisWeek(rare) then
 		return "|cff55ee88" .. name .. "|r"
 	end
 	if IsRareVignetteUp(rare, zoneKey) then
@@ -1582,7 +1612,7 @@ local function AttachRareRowTooltip(btn)
 		GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(GetRareDisplayName(r), 1, 0.9, 0.55)
-		if IsRareDoneThisWeek(r[1]) then
+		if IsRareDoneThisWeek(r) then
 			GameTooltip:AddLine(ns:L("RARES_TIP_DONE"), 0.35, 0.95, 0.45)
 		elseif IsRareVignetteUp(r, self._mhZoneKey) then
 			GameTooltip:AddLine(ns:L("RARES_TIP_UP"), 0.25, 1, 0.35)
@@ -1893,7 +1923,7 @@ function ns.RefreshRaresPanel()
 	local doneCount, upCount = 0, 0
 	for i = 1, #zone.rares do
 		local rare = zone.rares[i]
-		if IsRareDoneThisWeek(rare[1]) then
+		if IsRareDoneThisWeek(rare) then
 			doneCount = doneCount + 1
 		elseif IsRareVignetteUp(rare, zone.key) then
 			upCount = upCount + 1
@@ -2212,7 +2242,7 @@ local function ScanForRareAlerts()
 				local vwx, vwy = VignetteWorldPos(vignetteGUID, playerMap)
 				local rare = MatchRareInZone(zone, info.name, vwx, vwy,
 					NpcIdFromObjectGUID(info.objectGUID), vkill)
-				if rare and not IsRareDoneThisWeek(rare[1]) then
+				if rare and not IsRareDoneThisWeek(rare) then
 					-- Distance gate: prefer the vignette's own position, fall
 					-- back to the rare's known spot. Skip if we can't tell or
 					-- it's farther than the alert radius.
@@ -2300,7 +2330,7 @@ function ns.DebugRareScan()
 				tostring(info.onWorldMap),
 				(vwx and "yes" or "no"),
 				matched and GetRareDisplayName(matched) or "NONE",
-				matched and tostring(IsRareDoneThisWeek(matched[1])) or "-"
+				matched and tostring(IsRareDoneThisWeek(matched)) or "-"
 			))
 		else
 			p(("  [%d] GetVignetteInfo returned nothing"):format(vi))

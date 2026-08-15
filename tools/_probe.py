@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: correct "To sons" from Rob's own measurement.
+Right now: add `ach`/`crit` named fields to the eleven Coiled Isle rares that
+matched an achievement-63358 criterion by NPC id.
 
-He walked the route, earned The Honored Dead, and found one marker off. Our
-data said 42.91 / 41.23 (HandyNotes); he stood on it and read 42.84 / 39.93.
-The x is within rounding, the y is 1.3 out — enough to put the arrow past it.
-
-This is the first HandyNotes coordinate on the Coiled Isle proven wrong. His
-standing rule is to use their coords without a spot-check because they run
-about 95% right; this is one of the other 5%, and now it is measured.
+Named fields rather than a seventh positional number: Lua allows both in one
+table, and `crit = 115284` says what it is where a bare seventh integer would
+not. The two rares with no criterion are left alone and stay honest about it.
 """
 import io
 import os
@@ -21,34 +18,44 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper'
+P = (r'E:\World of Warcraft\_retail_\Interface\AddOns'
+     r'\MidnightHelper\Modules\Rares.lua')
 
-EDITS = [
-    (os.path.join(BASE, 'Modules', 'AchievementsData.lua'),
-     'x = 42.91, y = 41.23',
-     'x = 42.84, y = 39.93',
-     1),
-    (os.path.join(BASE, 'Locales', 'Codex.lua'),
-     '{WAY:2509:42.91:41.23:To sons 42.91, 41.23}',
-     '{WAY:2509:42.84:39.93:To sons 42.84, 39.93}',
-     7),
-]
+# npcID -> criterion, matched on NPC id (the strongest key available).
+CRIT = {
+    265237: 115284,  # Lockjaw the Snapper
+    261109: 115287,  # Sss'alik, The Rotten Claw
+    256631: 115286,  # Big Mon
+    257906: 115285,  # Coin-Eye Skully
+    268049: 115280,  # Siltmouth, the Unflappable
+    264854: 115279,  # Farthik the Plunderer
+    258920: 115283,  # Nar'zira
+    258916: 110172,  # Garsecg          — had quest 0
+    261142: 115288,  # Destra           — had quest 0
+    265262: 115281,  # Hisstara         — had quest 0
+    268090: 115784,  # Kari'zah the Forgotten — had quest 0
+}
 
-for path, old, new, expect in EDITS:
-    name = os.path.basename(path)
-    t = io.open(path, encoding='utf-8', newline='').read()
+t = io.open(P, encoding='utf-8', newline='').read()
+if 'crit = 115284' in t:
+    print('staat er al')
+    sys.exit(0)
+
+changed = 0
+for npc, crit in CRIT.items():
+    old = ', %d }' % npc
+    new = ', %d, ach = 63358, crit = %d }' % (npc, crit)
     n = t.count(old)
-    print('%-22s %d gevonden (verwacht %d)' % (name, n, expect))
-    if n != expect:
-        print('   NIETS geschreven — alles of niets')
+    if n != 1:
+        print('npc %d: %d treffers (verwacht 1) — NIETS geschreven' % (npc, n))
         sys.exit(1)
-    io.open(path + '.tmp', 'w', encoding='utf-8', newline='').write(t.replace(old, new))
-    os.replace(path + '.tmp', path)
-    print('   geschreven')
+    t = t.replace(old, new)
+    changed += 1
 
-# Bewijs: nergens meer het oude paar.
-print()
-for path, old, _new, _e in EDITS:
-    t = io.open(path, encoding='utf-8', errors='replace').read()
-    print('%-22s oude waarde nog aanwezig: %s'
-          % (os.path.basename(path), 'JA' if old in t else 'nee'))
+print('%d van %d rares gekoppeld' % (changed, len(CRIT)))
+if changed != len(CRIT):
+    sys.exit(1)
+
+io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(t)
+os.replace(P + '.tmp', P)
+print('geschreven')
