@@ -2213,6 +2213,27 @@ function ns.RouteNearestOpenAchievement()
 	end
 end
 
+--- Route een hunt op achievement-id — voor knoppen buiten de Achievements-tab.
+---
+--- ⚠️ TOEGEVOEGD 15 aug 2026 voor de Codex: het Honored Dead-artikel somt twaalf
+--- coördinaten op als tekst, terwijl dezelfde twaalf al een routed hunt zijn in de
+--- Achievements-tab. Rob: "ik zie geen route knop om ze in een keer te volgen."
+--- Terecht — een lijst die je moet overtypen naast een route die al bestaat is
+--- dubbel werk voor de lezer. Dit is bewust een dunne slag om de bestaande
+--- machinerie: zelfde route, zelfde pijl, zelfde skip-gedrag.
+function ns.RouteAchievementHuntById(achievementID)
+	if not achievementID then
+		return false
+	end
+	for _, entry in ipairs(ns.ACHIEVEMENT_TREASURES or {}) do
+		if entry.achievementID == achievementID then
+			ns.RouteAchievementTreasures(entry)
+			return true
+		end
+	end
+	return false
+end
+
 -- Slash hook (Core.lua calls this early, like the delve-items handler).
 function ns:RunAchievementSlashCommand(msg)
 	if msg == "treasures" or msg == "treasure" then

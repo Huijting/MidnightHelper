@@ -1430,6 +1430,13 @@ function ns:OpenDelveCoachPicker(anchor)
 	local f = EnsurePickerFrame()
 	f._title:SetText(self:L("DELVE_COACH_PICKER_TITLE"))
 
+	-- ⚠️ 15 aug 2026: het frame stond hard op 380 hoog, gebouwd toen er elf delves
+	-- waren ("11 delves fit without scroll", zie de comment bij listHost). Met de twee
+	-- 12.1-delves erbij stak The Ring of Glory buiten het kader — Rob zag het meteen.
+	-- Hoogte volgt nu de lijst, zodat de veertiende delve dit niet opnieuw doet.
+	local n = #(ns.DELVE_TIP_ENTRIES or {})
+	f:SetHeight(36 + (n * 28) + 16)
+
 	local content = f._content
 	local listW = math.max(200, (f:GetWidth() or 280) - 24)
 	local btnW = math.min(248, listW - 16)

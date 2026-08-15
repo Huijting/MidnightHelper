@@ -577,6 +577,10 @@ ns.CODEX_ARTICLES = {
 		category = "coiledisle",
 		titleKey = "CODEX_ATALUTEK_DEAD_TITLE",
 		bodyKey = "CODEX_ATALUTEK_DEAD_BODY",
+		-- De twaalf coördinaten hieronder zijn ook een routed hunt in de Achievements-
+		-- tab; deze knop start hem direct (Robs "route knop om ze in een keer te
+		-- volgen", 15 aug).
+		routeAchievementID = 63610,
 		sort = 14,
 		searchKeys = "honored dead memorials gedenktekens twelve route underbelly "
 			.. "szarith soft underbelly oppose the foes congealed malice khu'tulak "

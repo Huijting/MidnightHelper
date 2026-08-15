@@ -257,6 +257,18 @@ local function AcquireArticleBlock(index)
 		end
 	end)
 
+	-- Routeknop (15 aug 2026): een artikel dat een bestaande hunt beschrijft mag hem
+	-- ook stárten. Zelfde route, pijl en skip-gedrag als de Achievements-tab — dit is
+	-- alleen een tweede deurtje naar dezelfde machine.
+	local routeBtn = CreateFrame("Button", nil, root, "UIPanelButtonTemplate")
+	routeBtn:SetHeight(22)
+	routeBtn:SetPoint("TOPLEFT", bodyFs, "BOTTOMLEFT", 0, -6)
+	routeBtn:SetScript("OnClick", function(self)
+		if self._mhRouteAch and ns.RouteAchievementHuntById then
+			ns.RouteAchievementHuntById(self._mhRouteAch)
+		end
+	end)
+
 	block = {
 		root = root,
 		titleHit = titleHit,
@@ -266,6 +278,7 @@ local function AcquireArticleBlock(index)
 		curFs = curFs,
 		bodyFs = bodyFs,
 		navBtn = navBtn,
+		routeBtn = routeBtn,
 	}
 	root._mhMeasure = function()
 		local h = (titleHit:GetHeight() or 20) + 6
@@ -282,7 +295,7 @@ local function AcquireArticleBlock(index)
 			bodyFs:SetWidth(bw)
 		end
 		h = h + 6 + (bodyFs:GetStringHeight() or 40) + 6
-		if navBtn:IsShown() then
+		if navBtn:IsShown() or routeBtn:IsShown() then
 			h = h + 30
 		end
 		return h
@@ -332,6 +345,24 @@ local function ApplyArticleToBlock(block, article)
 	else
 		block.navBtn._mhArticle = nil
 		block.navBtn:Hide()
+	end
+
+	if article.routeAchievementID then
+		block.routeBtn._mhRouteAch = article.routeAchievementID
+		block.routeBtn:SetText(CodexL("CODEX_ROUTE_BTN"))
+		local tw = block.routeBtn:GetFontString() and block.routeBtn:GetFontString():GetStringWidth() or 120
+		block.routeBtn:SetWidth(math.min(280, math.max(120, tw + 28)))
+		-- Naast de navBtn als die er ook is; anders op diens plek.
+		block.routeBtn:ClearAllPoints()
+		if article.tabId then
+			block.routeBtn:SetPoint("LEFT", block.navBtn, "RIGHT", 6, 0)
+		else
+			block.routeBtn:SetPoint("TOPLEFT", block.bodyFs, "BOTTOMLEFT", 0, -6)
+		end
+		block.routeBtn:Show()
+	else
+		block.routeBtn._mhRouteAch = nil
+		block.routeBtn:Hide()
 	end
 
 	block.root:SetWidth(ui.child:GetWidth() or 300)
