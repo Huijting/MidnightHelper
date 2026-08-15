@@ -185,8 +185,26 @@ local function CrestCapBlock(itemName)
 							-- useTotalEarnedForMaxQty-vertakking al afhandelt. Onze eigen som
 							-- was twee keer subtiel anders; die van het spel is per definitie
 							-- die van het spel.
-							local capped
-							if C_CurrencyInfo.PlayerHasMaxQuantity then
+							-- ⚠️ DERDE POGING, EN DE VORIGE WAS EEN VERSLECHTERING.
+							--
+							-- Versie 2 rekende zelf en had het goed. Versie 3 verving dat door
+							-- Blizzards PlayerHasMaxQuantity omdat dat "netter" was, en zette de
+							-- eigen som als fallback áchter een `capped == nil`. Maar het
+							-- predicaat bestáát, en het gaf `false`: Rob houdt er 60 van de 100,
+							-- dus zijn bezit zit niet aan de cap. De cap zit op wat hij VERDIEND
+							-- heeft — 100 van 100 — en dat is precies wat de eigen som al las.
+							-- `false` is niet `nil`, dus de fallback draaide nooit en de regel
+							-- verscheen niet.
+							--
+							-- Nu is het een OF: het spel mag zeggen dat het vol is, en onze eigen
+							-- som mag dat ook. Geen van beide overstemt de ander, want ze meten
+							-- aantoonbaar verschillende dingen.
+							local qty = tonumber(info.useTotalEarnedForMaxQty
+								and info.totalEarned or info.quantity) or 0
+							local max = tonumber(info.maxQuantity) or 0
+							local capped = max > 0 and qty >= max
+
+							if not capped and C_CurrencyInfo.PlayerHasMaxQuantity then
 								local ok, v = pcall(C_CurrencyInfo.PlayerHasMaxQuantity, id)
 								capped = ok and v == true
 							end
@@ -195,17 +213,6 @@ local function CrestCapBlock(itemName)
 								capped = ok and v == true
 							end
 
-							-- Alleen als die predicaten er niet zijn, rekenen we zelf.
-							local qty = tonumber(info.useTotalEarnedForMaxQty
-								and info.totalEarned or info.quantity) or 0
-							local max = tonumber(info.maxQuantity) or 0
-							if capped == nil then
-								capped = max > 0 and qty >= max
-							end
-
-							-- ⚠️ max == 0 is dubbelzinnig: het betekent "geen cap" óf "nog niet
-							-- actief", en niets in de documentatie kiest. Daarom hangt het label
-							-- aan het predicaat en niet aan dat getal.
 							if capped then
 								return name, qty, max
 							end
@@ -530,7 +537,37 @@ function ns.UpdateOpenables()
 		return -- niks aan protected frames in combat; state-driver regelt de zichtbaarheid
 	end
 	local list = ScanOpenables()
-	local n = #list
+
+	-- ⚠️ TOEGEVOEGD 15 aug. Rob, over een bundel die niet open kon: "hij blijft in beeld
+	-- staan terwijl ik hem niet kan verwerken en hij staat dus in de weg".
+	--
+	-- Terecht. Dit paneel betekent "dit kun je nu openen". Iets waarvan het spel weigert
+	-- hoort daar niet bovenaan te staan, en als het het énige is, hoort de knop er niet
+	-- te zijn. Verbergen is hier geen stilte: het item ligt gewoon in je tas en komt
+	-- vanzelf terug zodra de cap bij de reset stijgt.
+	--
+	-- Geblokkeerde items zakken dus naar onderen, en is ALLES geblokkeerd dan verdwijnt
+	-- de knop. Wie er meer heeft, ziet de bruikbare bovenaan en de geblokkeerde eronder
+	-- mét de reden in de tooltip -- dan is het informatie in plaats van een obstakel.
+	-- Twee lijsten en aan elkaar plakken, niet table.sort: die is in Lua niet stabiel,
+	-- dus items binnen dezelfde groep zouden per scan van plek kunnen wisselen. Een
+	-- knop die onder je muis van item verandert is erger dan een verkeerde volgorde.
+	local usable, blocked = {}, {}
+	for _, e in ipairs(list) do
+		if e.capName then
+			blocked[#blocked + 1] = e
+		else
+			usable[#usable + 1] = e
+		end
+	end
+	if #usable > 0 then
+		for _, e in ipairs(blocked) do
+			usable[#usable + 1] = e
+		end
+		list = usable
+	end
+
+	local n = (#usable > 0) and #list or 0
 	if n == 0 then
 		if frame then
 			frame:Hide()
