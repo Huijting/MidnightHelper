@@ -288,6 +288,19 @@ local function AcquireArticleBlock(index)
 		ns:AttachDelveTipHyperlinksToEditBox(bodyFs)
 	end
 
+	-- Meetlat. Een EditBox kan zijn eigen tekst niet opmeten (geen GetStringHeight),
+	-- dus stond hier regels x (fontH + 2). Die "+ 2" is een gok, en een gok per regel
+	-- schaalt mee met de lengte: onzichtbaar op een tip van vier regels, een gat van
+	-- ruim honderd pixels onder een artikel van zestig (Rob, screenshot 15 aug — de
+	-- Vaults-tekst eindigde en het volgende artikel begon pas een halve schermhoogte
+	-- later). Een onzichtbare FontString met dezelfde font en breedte kán het wél
+	-- exact zeggen. Hij wordt nooit getekend; hij bestaat alleen om te meten.
+	local measureFs = root:CreateFontString(nil, "ARTWORK")
+	measureFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	measureFs:SetJustifyH("LEFT")
+	measureFs:SetPoint("TOPLEFT", root, "TOPLEFT", 0, 0)
+	measureFs:SetAlpha(0)
+
 	local navBtn = CreateFrame("Button", nil, root, "UIPanelButtonTemplate")
 	navBtn:SetHeight(22)
 	navBtn:SetPoint("TOPLEFT", bodyFs, "BOTTOMLEFT", 0, -6)
@@ -317,6 +330,7 @@ local function AcquireArticleBlock(index)
 		icon = icon,
 		curFs = curFs,
 		bodyFs = bodyFs,
+		measureFs = measureFs,
 		navBtn = navBtn,
 		routeBtn = routeBtn,
 	}
@@ -333,6 +347,7 @@ local function AcquireArticleBlock(index)
 		local bw = root:GetWidth()
 		if bw and bw > 0 then
 			bodyFs:SetWidth(bw)
+			measureFs:SetWidth(bw)
 		end
 		-- EditBox: hoogte = regels x regelhoogte (GetStringHeight bestaat hier niet).
 		-- De eerste meting na een SetText kan verouderd zijn; LayoutContent plant
@@ -345,7 +360,29 @@ local function AcquireArticleBlock(index)
 			end
 		end
 		local numLines = (bodyFs.GetNumLines and bodyFs:GetNumLines()) or 1
-		h = h + 6 + math.max(numLines * lineH, 14) + 6
+		local guess = math.max(numLines * lineH, 14)
+		-- De gemeten hoogte wint van de geschatte — behalve in precies de ene manier
+		-- waarop meten hier eerder faalde. Op 15 jul gaf GetStringHeight een verouderde
+		-- single-line-waarde en gingen artikelen over elkaar heen; die fout is altijd
+		-- VEEL te klein, nooit een beetje. Wijkt de meting minder dan de helft af van
+		-- de schatting, dan is ze echt en gebruiken we haar. Ligt ze daaronder, dan is
+		-- ze stale en valt hij terug op de schatting — te veel wit is lelijk, tekst
+		-- over tekst is onleesbaar, en van die twee wil je de lelijke.
+		local textH = guess
+		local measured = measureFs.GetStringHeight and measureFs:GetStringHeight() or 0
+		if measured and measured >= guess * 0.5 then
+			textH = measured
+		end
+		h = h + 6 + math.max(textH, 14) + 6
+		-- Diagnose: als het gat er nog steeds is, zeggen deze drie getallen meteen
+		-- welke van de twee metingen loog. Naar de SavedVariables, niet naar chat.
+		if ns.db and block and block.article then
+			ns.db.codexMeasure = ns.db.codexMeasure or {}
+			ns.db.codexMeasure[block.article.bodyKey or "?"] = {
+				lines = numLines, lineH = lineH, guess = guess,
+				measured = measured, used = textH,
+			}
+		end
 		if navBtn:IsShown() or routeBtn:IsShown() then
 			h = h + 30
 		end
@@ -392,6 +429,11 @@ local function ApplyArticleToBlock(block, article)
 		bodyText = ns:ExpandDelveTipMarkup(bodyText) -- {WAY:}/{SPELL:} → klikbaar
 	end
 	block.bodyFs:SetText(bodyText)
+	-- Dezelfde tekst in de meetlat, anders meet hij het vorige artikel op.
+	if block.measureFs then
+		block.measureFs:SetWidth(ui.child:GetWidth() or 300)
+		block.measureFs:SetText(bodyText)
+	end
 
 	if article.tabId then
 		block.navBtn._mhArticle = article
