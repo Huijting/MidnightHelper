@@ -95,6 +95,44 @@ te vinden. De methode faalde niet — er is nog niets ontgrendeld.
 Verschijnt hij dan als aura, dan is §3.1 te bouwen; verschijnt hij niet, dan is die
 route definitief dood.
 
+---
+
+## 5. Gemeten uit de Codex-tooltip (Rob, 15 aug, in een delve)
+
+### Ula'tek's Gift — de eerste power met een gemeten prijs én gemeten tekst
+
+> **Kosten:** *"Offer 8 Corrosive Souls to unlock."*
+
+> **Effect (letterlijk uit het spel):** *"Your harmful spells and abilities have a chance
+> to afflict your target with 5 stacks of Ula'Tek's Gift, dealing Nature damage per
+> application every 5 sec for 1 min. While you are Poisoned, apply 5 additional stacks.
+> Upon applying 20 stacks to a target, the Gift Corrodes, dealing the remainder of its
+> damage immediately before removing itself."*
+
+⚠️ **Eén van de twaalf is geen bewijs voor alle twaalf.** De spec zegt "8 souls, volgens
+huidige bronnen uniform voor alle 12" — dat eerste getal is nu gemeten, dat woord
+*uniform* niet. Twee punten maken nog geen lijn (zie de teruggetrokken kostenladder in
+`VAULTS_DISCOVERIES.md`). De spec zegt zelf dat de kosten **per power** in data moeten;
+dat blijft dus staan, met elf lege velden.
+
+⚠️ **De gids-parafrase klopte net niet, en miste een hele mechaniek.**
+
+| | |
+|---|---|
+| spec §4 | "Stapelende Nature-DoT op targets; stacks **verdubbelen** terwijl je zelf Poisoned bent" |
+| het spel | basis **5** stacks, Poisoned geeft **+5** — hier toevallig een verdubbeling |
+| spec §4 | *(niets)* |
+| het spel | **bij 20 stacks "Corrodes" de Gift**: de resterende schade valt direct en de debuff verdwijnt |
+
+"Verdubbelen" is een regel, "+5" is een getal. Ze zijn hier toevallig gelijk, en bij een
+andere basis niet meer. En de 20-stack-ontlading — de reden waarom je überhaupt stacks
+wilt opbouwen — staat nergens in de spec. Dit is precies waarom §4 zegt: haal de teksten
+uit het spel, niet uit de gids.
+
+✅ **En het bevestigt dat de powers spell-achtig zijn**: ze hebben een echte tooltip met
+stacks, duur en periodieke schade. Dat maakt de aura-route voor §3.1 aannemelijker, niet
+minder — zodra er één ontgrendeld is, is het te meten.
+
 **Gevolg:** §3.1 (actieve powers, tweede slot bij 8) en §3.3 (X/12 unlocks) zijn **niet
 te bouwen** zoals de spec ze beschrijft. Er is geen leesbare unlock-status.
 
