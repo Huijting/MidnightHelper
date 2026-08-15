@@ -1,6 +1,63 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-15 (laat).** Dit is het eerste wat een nieuwe sessie leest. Alles
-onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+**Bijgewerkt 2026-08-15 (avond, na de tweede werkdag).** Dit is het eerste wat een nieuwe
+sessie leest. Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+
+## 📌 15 aug, tweede helft — Codex-pagina, achievements, en de Corrosive Codex gemeten
+
+**v2.15.0 staat live op CF.** Daarna ~13 commits op `main`, nog niet uitgebracht.
+
+**De Vaults-pagina in de Codex is af** (Robs "grote brei aan tekst"): witregels tussen de
+bullets, drie secties (Om te beginnen / Wat je hier doet / Coin and Soul), de
+Temple-Strike-uitleg van onderaan naar plek 4 verplaatst, en alle tien repeatables bij
+naam. **Alle tien quest-ids zijn tegen Robs client geverifieerd.**
+
+⚠️ **De les van die tien:** id 98232 gaf op de eerste `/mh atal` géén titel en op de tweede
+wél. `GetTitleForQuestID` leest een cache — een stille titel is een cache-misser, geen fout
+id. Er staat nu een `RequestLoadQuestByID`-stap in de probe die dat onderscheid maakt.
+
+**Layout-bug gevonden en gerepareerd:** de Codex reserveerde regels × (fontH + 2) voor een
+EditBox die zichzelf niet kan opmeten. Die "+2" is een gok per regel en groeide mee met de
+lengte → een gat van ruim honderd pixels onder een lang artikel. Er staat nu een onzichtbare
+FontString als meetlat, met de oude schatting als vangnet (meten faalde hier op 15 jul met
+overlappende artikelen, en dat is altijd VEEL te klein — dus de meting telt alleen als ze
+binnen de helft van de schatting valt).
+
+**`/mh ach check` is nieuw en heeft meteen twee dingen gevonden.** Hij houdt élke hunt tegen
+de client en scheidt twee fouten: een criterium dat niet bij het achievement hoort (id fout)
+versus minder nodes dan criteria (data incompleet). Uitslag: **0 verkeerde criteria** in alle
+hunts, en één te korte — Showdown Slugger: Naigtal had 8 nodes voor 10 criteria. Dat gat is
+gedicht via `assetID` (de NPC-id), want de náám hielp niet: de client geeft voor criteria
+8, 9 én 10 de string "Slaipaan". Uitvoer gaat naar `ns.db.achCheck`, niet naar chat.
+
+**#6 (eiland op niveau) is AF.** Toegevoegd: 63395 The Coiled Isles Glyph Hunter (11 nodes)
+en 63662 Student of Hissstory (10). ⚠️ **Bewust NIET toegevoegd:** 62601 en 63601 — hun
+HandyNotes-coördinaten zijn 10.00/10.00, 10.00/20.00, 10.00/30.00, wat hún manier is om
+"onbekend" te schrijven. Die overnemen geeft een pijl de zee in. Niet opnieuw proberen
+zonder echte metingen.
+
+### 🔴 De Corrosive Codex-spec: de helft die niet kan, is bewezen
+
+Rob leverde `MHDelvesCorrosiveCodexspec.md` aan (Delves-tab-module). **Lees
+`docs/CORROSIVE_CODEX_MEASURED.md` vóór je er iets mee doet.** Kort:
+
+- **Corrosive Soul is een ITEM (273000), geen currency.** Coin is currency 3448. De spec
+  vraagt om een currency-id voor Souls; die bestaat niet. Balans = `C_Item.GetItemCount`.
+- **De Codex is GEEN `C_Traits`-boom** — 19 bomen gesweept, 18 met bijna alle node-namen
+  leesbaar, controles aanwezig (1186 Runes of Power, 1151/1168/1223 companions). Geen van
+  de 12 power-namen, geen van onze 4 discovery-nodes, geen "corrosi/Ula'tek/Atal". Dus
+  §3.1 (actieve powers, 2e slot) en §3.3 (X/12) zijn **niet te bouwen** zoals beschreven.
+- **Wat wél kan:** de checklist-helft, op geverifieerde quest-ids. Behalve de kolom
+  "souls per bron" (2/2/1/6 uit gidsen) — daar loopt nu een **soul-grootboek** voor:
+  `ns.db.soulLedger` schrijft elke verandering van item 273000 weg mét de seconden sinds de
+  laatste quest-turn-in. Het schrijft géén oorzaak op; die attributie is leeswerk.
+  **Kijk daar als eerste — na een week spelen staan de echte getallen erin.**
+- **Bijvangst:** tree **1223 = "12.1 Valeera Sanguinar"** (1168 = 12.0). Bevestigt op live
+  de drie PTR-poison-ids (1250826 / 1249934 / 1251120) waar Wowhead er drie fout had. En
+  `ranksPurchased` leest zonder dat haar venster open staat → de curio-advisor kan tonen
+  wat Rob al gekozen heeft.
+- **Nog onbenoemd:** tree **1191**, 22 nodes waarvan er maar 2 een naam geven (Volatility
+  Overflowing 1307833, Venomous Hunt 1307823). 12.1-band, currency-type 3, spent 2. Niet
+  gebruiken tot het een naam heeft.
 
 ## ⭐ v2.15.0 GETAGD 15 aug laat (`149078d`, tag gepusht — packager uploadt)
 
@@ -13,11 +70,9 @@ bullets — 13 regels, zou de 9e schone moeten zijn); (2) Rob plakt CURSEFORGE_D
 (bijgewerkt: delves, Codex-plank, 4 raids/17 bosses); (3) nieuwe screenshots stonden nog
 open van 12 aug.
 
-**Openstaande taken (takenlijst v/d sessie):** #3 Codex-herontwerp (plan in
-docs/CODEX_REDESIGN.md — S1/S2-schoonmaak heeft DEADLINE 18 aug), #4 WAY-klik-feedback
-buiten de zone, #5 Zygor-flightpoints 12.x, #6 Coiled Isle op gelijk niveau met de
-andere zones (Robs screenshot: Achievements-tab heeft alleen The Honored Dead voor het
-eiland — kandidaat-achievement-ids staan in de taak, ALLE in-game verifiëren).
+**Openstaande taken:** #3 Codex-herontwerp (plan in docs/CODEX_REDESIGN.md — S1/S2-schoonmaak
+heeft DEADLINE 18 aug), #8 3.0-release: de zes Cowork-features (na 18 aug, één voor één,
+elk apart getest). #4, #5, #6 en #7 zijn af.
 
 **Op 18 aug (S2 opent):** raid-tips live verifiëren (pre-release-noot weg mét meting),
 `/mh atal` voor Venomfall Deeps, delve-ilvl-tooltips (S1-getallen!), Showdown-gate,
