@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: read the trait-tree sweep. Controls first, then the question.
+Right now: which trait tree spends item 273000?
 
-The controls decide whether this run means anything: the class trees and Runes
-of Power (tree 1186) must be in there. Only with those present does an absent
-Corrosive Codex say something.
+A traitCurrencyID points at either a real currency or an item. The tree whose
+currency resolves to item 273000 (Corrosive Soul) is the Corrosive Codex. The
+config name, where the client supplies one, settles it without inference.
 """
 import io
 import re
@@ -40,51 +40,53 @@ def block(key, src):
     return src[s:j + 1]
 
 
+def split_top(blob):
+    out, d, buf = [], 0, ''
+    for ch in blob[1:-1]:
+        if ch == '{':
+            d += 1
+        if d > 0:
+            buf += ch
+        if ch == '}':
+            d -= 1
+            if d == 0:
+                out.append(buf)
+                buf = ''
+    return out
+
+
 probe = block('atalProbe', t)
-if not probe:
-    print('geen atalProbe')
+tb = block('traits', probe) if probe else None
+if not tb:
+    print('geen traits-blok')
     sys.exit(1)
 
-tb = block('traits', probe)
-if tb is None:
-    print('geen traits-blok — draaide de oude probe nog?')
-    sys.exit(1)
-
-rows, d, buf = [], 0, ''
-for ch in tb[1:-1]:
-    if ch == '{':
-        d += 1
-    if d > 0:
-        buf += ch
-    if ch == '}':
-        d -= 1
-        if d == 0:
-            rows.append(buf)
-            buf = ''
-
-print('%-8s %-10s %-7s %s' % ('treeID', 'configID', 'nodes', 'trait-currencies'))
-print('-' * 74)
-trees = []
-for r in rows:
+print('%-7s %-6s %-28s %s' % ('tree', 'nodes', 'configName', 'currency -> waar wijst hij heen'))
+print('-' * 100)
+hit = []
+for r in split_top(tb):
     tid = re.search(r'\["treeID"\]\s*=\s*(\d+)', r)
-    cfg = re.search(r'\["configID"\]\s*=\s*(\d+)', r)
     nds = re.search(r'\["nodes"\]\s*=\s*(\d+)', r)
-    curs = re.findall(r'\["traitCurrencyID"\]\s*=\s*(\d+)', r)
-    qty = re.findall(r'\["quantity"\]\s*=\s*(\d+)', r)
-    if not tid:
-        continue
-    trees.append(int(tid.group(1)))
-    pairs = ', '.join('%s(q=%s)' % (c, q) for c, q in zip(curs, qty)) or '-'
-    print('%-8s %-10s %-7s %s' % (tid.group(1), cfg.group(1) if cfg else '?',
-                                  nds.group(1) if nds else '?', pairs))
+    nm = re.search(r'\["configName"\]\s*=\s*"([^"]*)"', r)
+    cb = block('currencies', r)
+    bits = []
+    for c in (split_top(cb) if cb else []):
+        def g(k):
+            m = re.search(r'\["%s"\]\s*=\s*(-?\d+)' % k, c)
+            return m.group(1) if m else '?'
+        bits.append('tc=%s type=%s ->%s q=%s spent=%s'
+                    % (g('traitCurrencyID'), g('currencyType'),
+                       g('currencyTypesID'), g('quantity'), g('spent')))
+        if g('currencyTypesID') == '273000':
+            hit.append((tid.group(1) if tid else '?', nm.group(1) if nm else ''))
+    print('%-7s %-6s %-28s %s' % (
+        tid.group(1) if tid else '?', nds.group(1) if nds else '?',
+        (nm.group(1) if nm else '')[:28], ' | '.join(bits) or '-'))
 
 print()
-print('trees gevonden: %d' % len(trees))
-print('CONTROLE Runes of Power (1186): %s'
-      % ('AANWEZIG' if 1186 in trees else 'ONTBREEKT'))
-if not trees:
-    print('LEEG — de veeg bewijst niets, hij is stuk.')
-elif 1186 not in trees:
-    print('De controle ontbreekt, dus een afwezige Codex zegt hier niets.')
+if hit:
+    for tid, nm in hit:
+        print('>>> tree %s geeft ITEM 273000 (Corrosive Soul) uit  %s' % (tid, nm))
 else:
-    print('Controle staat er. Een boom die geen talent- of Runes-boom is, is de kandidaat.')
+    print('Geen enkele boom geeft item 273000 uit.')
+    print('Als de controles er staan, is de Corrosive Codex GEEN C_Traits-boom.')

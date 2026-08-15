@@ -896,11 +896,59 @@ local function SweepTraitTrees(out)
 					cfgName, cfgType = info.name, info.type
 				end
 			end
+			-- ⚠️ The names are the decider, not the currency.
+			--
+			-- The 15 aug run found no tree spending item 273000 — but five trees report
+			-- a currency type whose target comes back empty, so "no tree spends it" may
+			-- just be "I cannot see where those point". An absence I cannot read is not
+			-- an absence.
+			--
+			-- A spell name cannot be misread. If a tree's nodes are Ula'tek's Gift and
+			-- Ophidian Maw, that tree is the Corrosive Codex whatever its currency does;
+			-- if no tree carries those names, it is not a trait tree at all. Stored, not
+			-- printed — this is hundreds of lines and chat is the wrong place for it.
+			local nodeNames
+			if C_Traits.GetTreeNodes and C_Traits.GetNodeInfo then
+				local okN, list = pcall(C_Traits.GetTreeNodes, treeID)
+				if okN and type(list) == "table" then
+					nodeNames = {}
+					for idx = 1, math.min(#list, 60) do
+						local okI, info = pcall(C_Traits.GetNodeInfo, configID, list[idx])
+						if okI and type(info) == "table" and info.entryIDs then
+							local entryID = info.entryIDs[1]
+							if entryID and C_Traits.GetEntryInfo then
+								local okE, e = pcall(C_Traits.GetEntryInfo, configID, entryID)
+								if okE and type(e) == "table" and e.definitionID
+									and C_Traits.GetDefinitionInfo then
+									local okD, d = pcall(C_Traits.GetDefinitionInfo, e.definitionID)
+									if okD and type(d) == "table" then
+										local sid = d.spellID
+										local sname
+										if sid and C_Spell and C_Spell.GetSpellName then
+											local okS, v = pcall(C_Spell.GetSpellName, sid)
+											sname = okS and v or nil
+										end
+										nodeNames[#nodeNames + 1] = {
+											nodeID = list[idx], spellID = sid,
+											name = sname,
+											ranks = info.ranksPurchased,
+											active = info.activeEntry
+												and info.activeEntry.entryID or nil,
+										}
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+
 			hits = hits + 1
 			out.traits[#out.traits + 1] = {
 				treeID = treeID, configID = configID,
 				nodes = nodes, currencies = currencies,
 				configName = cfgName, configType = cfgType,
+				nodeNames = nodeNames,
 			}
 			print(("      tree %-5d config %-10s nodes %-4s %s"):format(
 				treeID, tostring(configID), tostring(nodes or "?"), cfgName or ""))
