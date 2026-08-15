@@ -1,25 +1,26 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: two enrichments the second research pass earned.
+Right now: answer Cisca's question, which the page did not.
 
-1. WHY the Windcallers exist. You cannot fly inside the Vaults. Without that
-   sentence the flight-hop bullet reads as a convenience; with it, it is the
-   answer to "why does crossing this place take so long".
+Rob: "Cisca lukt het maar niet om Temple strike te doen omdat ze geen idee van
+hoe en waar." The article now says Strikes exist and that they build toward an
+incursion — and never says how you find one or what you are looking for. That
+is the difference between describing a system and helping someone use it, and
+she is exactly the reader this addon is for.
 
-2. WHY you spend coin early. The tree's first four nodes are free and give
-   +25/50/75/100% Corrosive Coin, so the tree pays for itself and every lap
-   after the first is richer. That single fact reorders a player's whole first
-   evening, and it was nowhere on the page.
+Facts used, and where they come from:
+  - Strikes show on the map and have no timer; they sit there until a group
+    finishes them (method.gg, corroborated by Zygor's events guide having fixed
+    start coordinates for each).
+  - Six named Strikes with start points, from Zygor's ZygorEventsCommon.lua
+    scenario blocks — the same file whose quest tips Rob photographed, so its
+    wording is already proven against his client.
+  - Three players are enough (method.gg, single source, flagged in the text by
+    saying "a few" rather than a number).
 
-Also records the asymmetry that explains the zone's pacing: coin is uncapped,
-souls are throttled. Chasing souls is how you end up frustrated.
-
-⚠️ The Corrode Spirit cost curve is NOT added and the one already in
-docs/VAULTS_DISCOVERIES.md is now suspect: the second pass checked the
-arithmetic on the published ladder and its own fourteen values sum to 98,000
-against the 95,500 the same pages claim, with a third figure of 115,000 in
-circulation. Three mutually inconsistent numbers from one lineage of sources.
+⚠️ No respawn timer and no "every N minutes" for Strikes: sources disagree and
+a wrong number sends someone to stand somewhere.
 """
 import io
 import os
@@ -33,10 +34,10 @@ for _s in (sys.stdout, sys.stderr):
 
 P = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales\Codex.lua'
 W, R = '|cffffffff', '|r'
+LANGS = ['enUS', 'itIT', 'nlNL', 'deDE', 'frFR', 'esES', 'ptBR']
 
 
 def col(s):
-    """Alternate %s markers into open/close colour codes; refuse odd counts."""
     parts = s.split('%s')
     assert (len(parts) - 1) % 2 == 0, 'oneven aantal markers: %d' % (len(parts) - 1)
     out = [parts[0]]
@@ -46,121 +47,104 @@ def col(s):
     return ''.join(out)
 
 
-# ---- 1. "no flying" into the Windcaller bullet ------------------------------
-FLY = {
-    'enUS': ('The place is bigger than it looks and walking it is the slow way.',
-             'You cannot fly inside the Vaults, which is exactly why they are there — '
-             'the place is bigger than it looks and walking it is the slow way.'),
-    'nlNL': ('Het is er groter dan het lijkt en lopen is de trage manier.',
-             'Vliegen kan niet binnen de Vaults, en daarom bestaan ze — het is er groter '
-             'dan het lijkt en lopen is de trage manier.'),
-    'deDE': ('Es ist größer, als es aussieht, und laufen ist der langsame Weg.',
-             'Fliegen geht in den Vaults nicht, und genau deshalb gibt es sie — es ist '
-             'größer, als es aussieht, und laufen ist der langsame Weg.'),
-    'frFR': ('C’est plus grand que ça n’en a l’air, et marcher est la manière lente.',
-             'On ne peut pas voler dans les Vaults, et c’est précisément pour ça qu’ils '
-             'existent — c’est plus grand que ça n’en a l’air, et marcher est la manière lente.'),
-    'esES': ('Es más grande de lo que parece, y andar es la forma lenta.',
-             'No se puede volar dentro de las Vaults, y por eso están ahí — es más grande '
-             'de lo que parece, y andar es la forma lenta.'),
-    'ptBR': ('É maior do que parece, e andar a pé é o caminho lento.',
-             'Não se pode voar dentro das Vaults, e é precisamente por isso que existem — '
-             'é maior do que parece, e andar a pé é o caminho lento.'),
-    'itIT': ('È più grande di quanto sembri, e andare a piedi è la via lenta.',
-             'Dentro le Vaults non si può volare, ed è esattamente per questo che ci sono — '
-             'è più grande di quanto sembri, e andare a piedi è la via lenta.'),
-}
+# The six Strike start points are identical in every language.
+SPOTS = ('{WAY:2509:50.55:15.70:Cursed Depths} · {WAY:2509:47.36:46.17:Overflowing Venom} · '
+         '{WAY:2509:47.67:46.34:Profane Pyres} · {WAY:2509:47.26:26.69:Purifying Earth and Sky} · '
+         '{WAY:2509:39.32:39.92:Ruuk’Jar’s Clutch} · {WAY:2613:52.25:36.27:The Underbelly}')
 
-# ---- 2. the tree pays for itself, appended to the Discoveries article -------
-TREE = {
-    'enUS': col(
-        '|n• %sSpend your first coin on the tree straight away.%s Its first four nodes cost '
-        'nothing and unlock as you spend elsewhere, and they raise the Corrosive Coin you '
-        'earn by %s25, 50, 75 and finally 100 percent%s. The tree pays for itself, so every '
-        'lap after the first one is richer — saving up is the expensive choice. And note the '
-        'asymmetry that sets this zone’s pace: %scoin has no cap%s, while Corrosive Souls are '
-        'rationed. Farm coin freely; do not plan an evening around souls.'),
-    'nlNL': col(
-        '|n• %sGeef je eerste munten meteen uit aan de boom.%s De eerste vier nodes kosten '
-        'niets en gaan vanzelf open naarmate je elders uitgeeft, en ze verhogen de Corrosive '
-        'Coin die je verdient met %s25, 50, 75 en uiteindelijk 100 procent%s. De boom betaalt '
-        'zichzelf terug, dus elke ronde ná de eerste levert meer op — sparen is juist de dure '
-        'keuze. En let op de scheefheid die het tempo van deze zone bepaalt: %sop munten zit '
-        'geen cap%s, op Corrosive Souls wel. Farm munten gerust; plan je avond niet rond souls.'),
-    'deDE': col(
-        '|n• %sGib deine ersten Münzen sofort im Baum aus.%s Seine ersten vier Knoten kosten '
-        'nichts und öffnen sich, während du anderswo ausgibst, und sie erhöhen die Corrosive '
-        'Coin, die du verdienst, um %s25, 50, 75 und schließlich 100 Prozent%s. Der Baum zahlt '
-        'sich selbst, also ist jede Runde nach der ersten ergiebiger — sparen ist die teure '
-        'Wahl. Und beachte die Schieflage, die das Tempo dieser Zone bestimmt: %sMünzen haben '
-        'keine Grenze%s, Corrosive Souls dagegen schon. Farme Münzen frei; plane keinen Abend '
-        'um Souls herum.'),
-    'frFR': col(
-        '|n• %sDépense tes premières pièces dans l’arbre tout de suite.%s Ses quatre premiers '
-        'nœuds ne coûtent rien et s’ouvrent à mesure que tu dépenses ailleurs, et ils '
-        'augmentent la Corrosive Coin que tu gagnes de %s25, 50, 75 puis 100 pour cent%s. '
-        'L’arbre se rembourse tout seul : chaque tour après le premier rapporte plus — '
-        'économiser est le choix coûteux. Note aussi l’asymétrie qui donne son rythme à la '
-        'zone : %sles pièces n’ont pas de plafond%s, les Corrosive Souls si. Farme les pièces '
-        'librement ; ne planifie pas une soirée autour des souls.'),
-    'esES': col(
-        '|n• %sGasta tus primeras monedas en el árbol de inmediato.%s Sus cuatro primeros '
-        'nodos no cuestan nada y se abren mientras gastas en otra parte, y aumentan la '
-        'Corrosive Coin que ganas un %s25, 50, 75 y finalmente 100 por ciento%s. El árbol se '
-        'paga solo, así que cada vuelta después de la primera rinde más — ahorrar es la '
-        'opción cara. Y fíjate en la asimetría que marca el ritmo de la zona: %slas monedas no '
-        'tienen tope%s, las Corrosive Souls sí. Farmea monedas sin miedo; no planees una noche '
-        'alrededor de las souls.'),
-    'ptBR': col(
-        '|n• %sGasta as tuas primeiras moedas na árvore já.%s Os quatro primeiros nós não '
-        'custam nada e abrem à medida que gastas noutro sítio, e aumentam a Corrosive Coin que '
-        'ganhas em %s25, 50, 75 e por fim 100 por cento%s. A árvore paga-se a si própria, por '
-        'isso cada volta depois da primeira rende mais — poupar é a escolha cara. E repara na '
-        'assimetria que define o ritmo da zona: %sas moedas não têm limite%s, as Corrosive '
-        'Souls têm. Farma moedas à vontade; não planeies uma noite à volta das souls.'),
-    'itIT': col(
-        '|n• %sSpendi subito le prime monete nell’albero.%s I suoi primi quattro nodi non '
-        'costano nulla e si aprono mentre spendi altrove, e alzano la Corrosive Coin che '
-        'guadagni del %s25, 50, 75 e infine 100 per cento%s. L’albero si ripaga da solo, '
-        'quindi ogni giro dopo il primo rende di più — risparmiare è la scelta costosa. E nota '
-        'l’asimmetria che detta il ritmo della zona: %sle monete non hanno tetto%s, le '
-        'Corrosive Souls sì. Farma monete liberamente; non pianificare una serata intorno alle '
-        'souls.'),
-}
+NEW = {}
 
-for tbl in (TREE,):
-    for code, text in tbl.items():
-        assert '"' not in text, code
-        assert '%' not in text, code
+NEW['enUS'] = col(
+    '|n• %sHow do I actually find a Temple Strike?%s Open your map inside the Vaults and look '
+    'for the event icons — a Strike is marked there like any world event, and %sit has no '
+    'timer%s: it sits and waits until a group finishes it, so you can take your time walking '
+    'over. %sA few players is enough%s; you do not need a premade, and other people are '
+    'usually already on it. There are six, and each starts in a fixed spot — click one to set '
+    'a waypoint: ' + SPOTS + '.|nIf the map shows nothing, run Patrols for a while. Strikes '
+    'appear because Patrols are being done, so the fastest way to make one exist is to keep '
+    'playing.')
+
+NEW['nlNL'] = col(
+    '|n• %sHoe vind ik nou eigenlijk een Temple Strike?%s Open je kaart binnen de Vaults en '
+    'kijk naar de event-iconen — een Strike staat daar net als elk ander wereld-event, en '
+    '%shij heeft geen klok%s: hij blijft staan tot een groep hem afmaakt, dus je kunt er '
+    'rustig heen lopen. %sEen paar spelers is genoeg%s; je hebt geen vooraf gemaakte groep '
+    'nodig en meestal is er al iemand mee bezig. Er zijn er zes, elk met een vaste startplek '
+    '— klik erop voor een waypoint: ' + SPOTS + '.|nStaat er niets op je kaart, doe dan een '
+    'tijdje Patrols. Strikes verschijnen juist omdát er Patrols gedaan worden, dus doorspelen '
+    'is de snelste manier om er één te laten ontstaan.')
+
+NEW['deDE'] = col(
+    '|n• %sWie finde ich denn nun einen Temple Strike?%s Öffne in den Vaults deine Karte und '
+    'achte auf die Event-Symbole — ein Strike ist dort markiert wie jedes Weltereignis, und '
+    '%ser hat keine Uhr%s: er bleibt stehen, bis eine Gruppe ihn beendet, du kannst also in '
+    'Ruhe hinlaufen. %sEin paar Spieler reichen%s; du brauchst keine vorgefertigte Gruppe, und '
+    'meist ist schon jemand dran. Es gibt sechs, jeder mit festem Startpunkt — klick einen an '
+    'für einen Wegpunkt: ' + SPOTS + '.|nZeigt die Karte nichts, mach eine Weile Patrols. '
+    'Strikes erscheinen, weil Patrols gemacht werden — weiterspielen ist also der schnellste '
+    'Weg, einen entstehen zu lassen.')
+
+NEW['frFR'] = col(
+    '|n• %sComment trouver un Temple Strike, concrètement ?%s Ouvre ta carte dans les Vaults '
+    'et cherche les icônes d’événement — un Strike y est marqué comme n’importe quel '
+    'événement de zone, et %sil n’a pas de minuteur%s : il reste là jusqu’à ce qu’un groupe le '
+    'termine, tu peux donc y aller tranquillement. %sQuelques joueurs suffisent%s ; pas besoin '
+    'de groupe monté, et il y a généralement déjà du monde dessus. Il y en a six, chacun avec '
+    'un point de départ fixe — clique pour poser un repère : ' + SPOTS + '.|nSi la carte '
+    'n’affiche rien, fais des Patrols un moment. Les Strikes apparaissent parce que des '
+    'Patrols sont faites : continuer à jouer est le plus rapide moyen d’en faire naître un.')
+
+NEW['esES'] = col(
+    '|n• %s¿Cómo encuentro realmente un Temple Strike?%s Abre el mapa dentro de las Vaults y '
+    'busca los iconos de evento — un Strike aparece ahí como cualquier evento de zona, y %sno '
+    'tiene temporizador%s: se queda esperando hasta que un grupo lo termina, así que puedes ir '
+    'andando con calma. %sCon unos pocos jugadores basta%s; no hace falta grupo montado, y '
+    'normalmente ya hay gente. Hay seis, cada uno con un punto de inicio fijo — pulsa para '
+    'marcar: ' + SPOTS + '.|nSi el mapa no muestra nada, haz Patrols un rato. Los Strikes '
+    'aparecen porque se están haciendo Patrols, así que seguir jugando es la forma más rápida '
+    'de que surja uno.')
+
+NEW['ptBR'] = col(
+    '|n• %sComo é que encontro mesmo um Temple Strike?%s Abre o mapa dentro das Vaults e '
+    'procura os ícones de evento — um Strike aparece lá como qualquer evento de zona, e %snão '
+    'tem cronómetro%s: fica à espera até um grupo o terminar, por isso podes ir a pé com '
+    'calma. %sUns poucos jogadores chegam%s; não precisas de grupo montado e normalmente já '
+    'há gente. São seis, cada um com um ponto de partida fixo — clica para marcares: '
+    + SPOTS + '.|nSe o mapa não mostrar nada, faz Patrols durante um bocado. Os Strikes '
+    'aparecem porque há Patrols a serem feitas, portanto continuar a jogar é a forma mais '
+    'rápida de fazer nascer um.')
+
+NEW['itIT'] = col(
+    '|n• %sMa come si trova davvero un Temple Strike?%s Apri la mappa dentro le Vaults e cerca '
+    'le icone degli eventi — uno Strike è segnato lì come qualsiasi evento di zona, e %snon ha '
+    'un timer%s: resta lì finché un gruppo non lo completa, quindi puoi andarci con calma. '
+    '%sBastano pochi giocatori%s; non serve un gruppo organizzato e di solito c’è già qualcuno. '
+    'Sono sei, ognuno con un punto di partenza fisso — cliccane uno per un waypoint: '
+    + SPOTS + '.|nSe la mappa non mostra niente, fai Patrols per un po’. Gli Strike compaiono '
+    'proprio perché si fanno Patrols, quindi continuare a giocare è il modo più rapido per '
+    'farne nascere uno.')
+
+for code, text in NEW.items():
+    assert '"' not in text, code
+    assert '%' not in text, code
+    assert text.count('|cffffffff') == text.count('|r'), code
 
 t = io.open(P, encoding='utf-8', newline='').read()
-if 'Spend your first coin' in t or 'eerste munten meteen' in t:
+if 'Temple Strike?' in t or 'Temple Strike, concrètement' in t:
     print('staat er al')
     sys.exit(0)
 
-# 1. the flying sentence, per language, one hit each
-for code, (old, new) in FLY.items():
-    n = t.count(old)
-    if n != 1:
-        print('%s: vlieg-anker %d keer (verwacht 1) — NIETS geschreven' % (code, n))
-        sys.exit(1)
-    t = t.replace(old, new)
-print('vliegzin: 7 van 7')
-
-# 2. the tree bullet, appended to each DISC body (ends with `.",`)
-LANGS = ['enUS', 'itIT', 'nlNL', 'deDE', 'frFR', 'esES', 'ptBR']
 eol = '\r\n' if '\r\n' in t else '\n'
 lines, occurrence, changed = t.split(eol), 0, 0
 out = []
 for line in lines:
-    if line.lstrip().startswith('CODEX_ATALUTEK_DISC_BODY = "'):
+    if line.lstrip().startswith('CODEX_ATALUTEK_BODY = "'):
         lang = LANGS[occurrence]
         occurrence += 1
         assert line.rstrip().endswith('",'), lang
-        cut = line.rstrip()[:-2]
-        line = cut + TREE[lang] + '",'
+        line = line.rstrip()[:-2] + NEW[lang] + '",'
         changed += 1
-        print('%s: boom-bullet toegevoegd' % lang)
+        print('%s: ok' % lang)
     out.append(line)
 
 if changed != 7:

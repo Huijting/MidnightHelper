@@ -117,7 +117,15 @@ function ns.NavigateFromCodex(article)
 end
 
 local function GetCurrencyIcon(currencyId)
-	local qty, info = ns.GetCodexCurrencyQuantity and ns.GetCodexCurrencyQuantity(currencyId)
+	-- ⚠️ GEREPAREERD 15 aug 2026. Stond hier als `ns.GetCodexCurrencyQuantity(id)`
+	-- terwijl de functie met een DUBBELE PUNT gedefinieerd is (`function ns:...`).
+	-- Daardoor belandde het currency-id op de plek van `self` en was de echte
+	-- parameter nil, dus gaf de functie altijd niets terug. Gevolg: de balans is
+	-- nog NOOIT getoond — elk currency-artikel liet in plaats daarvan de
+	-- terugvalzin "Balance updates when you log in on this character" zien, wat
+	-- eruitziet als een uitleg en het in werkelijkheid stilletjes fout deed.
+	-- Rob merkte het omdat hij moest hoveren voor een getal dat er hoorde te staan.
+	local qty, info = ns.GetCodexCurrencyQuantity and ns:GetCodexCurrencyQuantity(currencyId)
 	if info and info.iconFileID then
 		return info.iconFileID, qty, info.name
 	end
