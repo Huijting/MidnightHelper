@@ -923,14 +923,32 @@ local function SweepTraitTrees(out)
 									local okD, d = pcall(C_Traits.GetDefinitionInfo, e.definitionID)
 									if okD and type(d) == "table" then
 										local sid = d.spellID
-										local sname
-										if sid and C_Spell and C_Spell.GetSpellName then
-											local okS, v = pcall(C_Spell.GetSpellName, sid)
-											sname = okS and v or nil
+										local sname, sdesc
+										if sid and C_Spell then
+											if C_Spell.GetSpellName then
+												local okS, v = pcall(C_Spell.GetSpellName, sid)
+												sname = okS and v or nil
+											end
+											-- ⚠️ The game's own effect text, and the reason
+											-- this is here. valeera-s2-poisons records that
+											-- the three poison spell ids from Wowhead were
+											-- ALL wrong, which makes the effect descriptions
+											-- from that same page worthless too — and those
+											-- are what a curio recommendation would rest on.
+											-- The client's text cannot be out of date and is
+											-- already in the player's language.
+											if C_Spell.GetSpellDescription then
+												local okD, v = pcall(C_Spell.GetSpellDescription, sid)
+												-- Empty means not cached yet, which is not
+												-- the same as "this spell has no text".
+												if okD and type(v) == "string" and v ~= "" then
+													sdesc = v
+												end
+											end
 										end
 										nodeNames[#nodeNames + 1] = {
 											nodeID = list[idx], spellID = sid,
-											name = sname,
+											name = sname, desc = sdesc,
 											ranks = info.ranksPurchased,
 											active = info.activeEntry
 												and info.activeEntry.entryID or nil,
