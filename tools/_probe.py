@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: did the twelve Corrosive Codex power names resolve to spell ids?
+Right now: the two controls, then the twelve powers.
 
-Control first. "Auto Attack" must have resolved, or twelve empty answers say
-nothing about the powers and everything about the lookup.
+The second control is the one that decides. "A spell Rob does not have" must
+resolve, or twelve blank ids say nothing about the powers and everything about
+the API.
 """
 import io
 import re
@@ -59,22 +60,26 @@ if not probe:
     print('geen atalProbe')
     sys.exit(1)
 
-ctrl = re.search(r'\["powerControl"\]\s*=\s*(true|false)', probe)
-print('CONTROLE "Auto Attack" resolved: %s'
-      % (ctrl.group(1) if ctrl else 'niet opgeslagen'))
-if ctrl and ctrl.group(1) == 'false':
-    print('De lookup werkt niet. Alles hieronder zegt niets over de powers.')
+
+def flag(name):
+    m = re.search(r'\["%s"\]\s*=\s*(true|false)' % name, probe)
+    return m.group(1) if m else None
+
+
+own, foreign = flag('powerControlOwn'), flag('powerControlForeign')
+if own is None and foreign is None:
+    print('De nieuwe controlevelden staan er niet — dit is nog de oude run.')
+    sys.exit(1)
+
+print('CONTROLE  spell die Rob HEEFT      : %s' % own)
+print('CONTROLE  spell die Rob NIET heeft : %s' % foreign)
 print()
 
 pb = block('powers', probe)
-if not pb:
-    print('geen powers-blok — draaide de oude probe nog?')
-    sys.exit(1)
-
 print('%-24s %-10s %-8s %s' % ('power', 'spellID', 'known', 'aura nu'))
 print('-' * 62)
 found = 0
-for r in split_top(pb):
+for r in split_top(pb or '{}'):
     nm = re.search(r'\["name"\]\s*=\s*"((?:[^"\\]|\\.)*)"', r)
     sid = re.search(r'\["spellID"\]\s*=\s*(\d+)', r)
     kn = re.search(r'\["known"\]\s*=\s*(true|false)', r)
@@ -82,10 +87,17 @@ for r in split_top(pb):
     if sid:
         found += 1
     print('%-24s %-10s %-8s %s' % (
-        (nm.group(1) if nm else '?'),
-        sid.group(1) if sid else '—',
-        kn.group(1) if kn else '-',
-        au.group(1) if au else '-'))
+        (nm.group(1) if nm else '?'), sid.group(1) if sid else '—',
+        kn.group(1) if kn else '-', au.group(1) if au else '-'))
 
 print()
 print('%d van de 12 namen leverden een spell-id op.' % found)
+print()
+if foreign == 'true' and found == 0:
+    print('CONCLUSIE: de lookup reikt voorbij Robs eigen spellbook, en de twaalf')
+    print('namen leveren niets op. Onder DEZE namen zijn het geen spells.')
+elif foreign == 'false':
+    print('CONCLUSIE: geen. De lookup vindt alleen spells die Rob zelf heeft,')
+    print('dus twaalf lege regels zijn de vorm van de API, geen meting.')
+elif found:
+    print('CONCLUSIE: er zijn ids. Die gaan naar een datafile; de namen niet.')

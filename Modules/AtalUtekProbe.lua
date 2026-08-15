@@ -1204,6 +1204,55 @@ local function SweepCodexPowers(out)
 	print("      |cff8a8f98English-client lookup only — ids go in a data file, names never ship.|r")
 end
 
+--- Enumerate what Rob actually carries, and read the names off that.
+---
+--- ⚠️ WHY THIS REPLACES THE LOOKUP. On 15 aug the name route came back empty for all
+--- twelve — and the second control came back FALSE: a spell a Paladin does not have
+--- does not resolve either. GetSpellIDForSpellIdentifier only reaches the player's own
+--- book, so twelve blanks were the shape of the API and not a fact about the powers.
+--- With the weaker control alone I would have written down "the powers are not spells".
+---
+--- So this goes the other way: enumerate the auras the player has and read the client's
+--- own names off them. No guessing at names, no English-only lookup, and it works for
+--- anything Blizzard ever adds — if a power is on him, it is in this list.
+---
+--- ⚠️ 12.1 aura rules: index iteration Lua-ERRORS once auras are secret, so every read
+--- is behind pcall and the loop stops at the first failure rather than spraying errors.
+--- The player's own auras are not expected to be secret; expected is not measured, and
+--- the stored `stoppedAt` says where it gave up.
+local function DumpPlayerAuras(out)
+	if not (C_UnitAuras and C_UnitAuras.GetAuraDataByIndex) then
+		print("   |cffff8080No GetAuraDataByIndex — cannot enumerate your auras.|r")
+		return
+	end
+	for _, filter in ipairs({ "HELPFUL", "HARMFUL" }) do
+		for i = 1, 60 do
+			local ok, data = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, filter)
+			if not ok then
+				out.auraStoppedAt = ("%s #%d"):format(filter, i)
+				break
+			end
+			if not data then
+				break
+			end
+			-- A secret spellId compares as neither equal nor unequal to anything useful;
+			-- tonumber on it is the cheap way to find out whether we may keep it.
+			local sid = tonumber(data.spellId)
+			local nm = data.name
+			out.auras[#out.auras + 1] = {
+				filter = filter, index = i, spellID = sid,
+				name = (type(nm) == "string" and nm ~= "") and nm or nil,
+				source = data.sourceUnit,
+			}
+		end
+	end
+	print(("   |cff8fd3ffYour auras|r  %d read%s  — the twelve powers, if active, are in here by name"):format(
+		#out.auras, out.auraStoppedAt and (", stopped at " .. out.auraStoppedAt) or ""))
+	if #out.auras == 0 then
+		print("      |cffffd100Nothing at all — that is a failed read, not an empty buff bar.|r")
+	end
+end
+
 function ns.PrintAtalUtekProbe(from, to)
 	local prefix = Prefix()
 	print(("%s Vaults of Atal'Utek probe — nothing here is wired into a feature yet."):format(prefix))
@@ -1220,6 +1269,8 @@ function ns.PrintAtalUtekProbe(from, to)
 	SweepTraitTrees(out)
 	out.powers = {}
 	SweepCodexPowers(out)
+	out.auras = {}
+	DumpPlayerAuras(out)
 	out.achievements = {}
 	PrintMap(out)
 	PrintAchievements(out)
