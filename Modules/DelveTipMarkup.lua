@@ -189,7 +189,7 @@ end
 ---
 --- Geval 3 is precies wat er in de Vaults speelt: instanced kaarten weigeren vaak
 --- `C_Map.SetUserWaypoint`, en die aanroep zit in een pcall — dus hij faalt stil.
-function ns.ReportWaypointResult(mapID, label)
+function ns.ReportWaypointResult(mapID, label, targetX, targetY)
 	mapID = tonumber(mapID)
 	if not mapID then
 		return
@@ -231,6 +231,14 @@ function ns.ReportWaypointResult(mapID, label)
 	if here and here ~= mapID and targetZone then
 		print(("%s %s"):format(prefix,
 			(ns:L("WAY_SET_ELSEWHERE")):format(name, targetZone, hereZone or "?")))
+		-- And answer the question that line leaves open: how do I get there?
+		-- The nearest flight point ON THE TARGET MAP, from Zygor's fpath data.
+		if ns.GetNearestFlightPoint then
+			local fp = ns.GetNearestFlightPoint(mapID, targetX, targetY)
+			if fp then
+				print(("   %s"):format((ns:L("WAY_FLIGHT_HINT")):format(fp)))
+			end
+		end
 	else
 		print(("%s %s"):format(prefix, (ns:L("WAY_SET_HERE")):format(name)))
 	end
@@ -248,7 +256,7 @@ function ns:SetMapWaypoint(mapID, x, y, label)
 	-- hearthstone). De kale fallback hieronder blijft alleen voor het geval de
 	-- Delves-module niet geladen is.
 	if ns.AddSmartTomTomWay and ns.AddSmartTomTomWay(mapID, x, y, label) ~= false then
-		ns.ReportWaypointResult(mapID, label)
+		ns.ReportWaypointResult(mapID, label, x, y)
 		return
 	end
 	if C_AddOns and C_AddOns.LoadAddOn and C_AddOns.IsAddOnLoaded and not C_AddOns.IsAddOnLoaded("TomTom") then

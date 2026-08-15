@@ -47,6 +47,7 @@ Locales\TranslationsS2.lua
 Locales\Locale.lua
 Modules\DelveTipsData.lua
 Modules\DelveSpellIds.lua
+Modules\FlightPointsData.lua
 Modules\DelveTipMarkup.lua
 Modules\DelveBossShowcase.lua
 Modules\DelvePartyShare.lua
