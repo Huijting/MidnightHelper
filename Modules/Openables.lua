@@ -141,6 +141,54 @@ local function SlotKind(bag, slot)
 	return kind
 end
 
+--------------------------------------------------------------------------------
+-- Crest-caps: waarom een bundel weigert open te gaan
+--------------------------------------------------------------------------------
+
+--- ⚠️ TOEGEVOEGD 15 aug 2026, uit een echte melding van Rob.
+---
+--- Hij klikte op "Bundle of Adventurer Mistcrests" en kreeg een rode foutmelding
+--- ("You cannot earn 10 Adventurer Mistcrests right now") met een popup die bleef staan.
+--- Zijn eigen crest-snapshot gaf het antwoord meteen: **Adventurer Mistcrest (3442) stond
+--- op 100 van maxQuantity 100.** Veteran op 20 en Champion op 10, dus daar viel het niet op.
+---
+--- Het spel weet dit vóór de klik en zegt het pas erna. Dat is precies het gat waar deze
+--- addon voor bestaat: niet tracken wat je al ziet, maar uitleggen wat je niet ziet.
+---
+--- Bewust smal gehouden. Dit raadt niet wat een willekeurige container uitdeelt — dat kan
+--- de client ons niet vertellen en gokken zou erger zijn dan zwijgen. Het herkent alleen
+--- het geval waarin de itemnaam zélf een crest-currency noemt die wij al bijhouden.
+--- `maxWeeklyQuantity` blijft buiten beschouwing: op 3442 stond die op 0 terwijl de
+--- seizoenscap wél vol zat, dus een weekcap is hier niet wat blokkeert.
+local function CrestCapBlock(itemName)
+	if type(itemName) ~= "string" or itemName == "" then
+		return nil
+	end
+	if not (ns.DAWNCREST_TIERS and C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
+		return nil
+	end
+	local haystack = itemName:lower()
+	for _, tier in ipairs(ns.DAWNCREST_TIERS) do
+		for _, id in ipairs({ tier.currencyId, tier.season2CurrencyId }) do
+			if id then
+				local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
+				if ok and type(info) == "table" then
+					local name = info.name
+					if type(name) == "string" and name ~= "" and not IsSecret(name) then
+						local qty = tonumber(info.quantity) or 0
+						local max = tonumber(info.maxQuantity) or 0
+						-- Substring, zodat het meervoud in "…Mistcrests" ook matcht.
+						if haystack:find(name:lower(), 1, true) and max > 0 and qty >= max then
+							return name, qty, max
+						end
+					end
+				end
+			end
+		end
+	end
+	return nil
+end
+
 -- @return geordende lijst { { bag, slot, itemID, name, icon, count }, ... }
 local function ScanOpenables()
 	local out = {}
@@ -162,14 +210,20 @@ local function ScanOpenables()
 						and select(5, C_Item.GetItemInfo(info.itemID))
 					local plvl = (UnitLevel and UnitLevel("player")) or 999
 					if not minLvl or minLvl <= plvl then
+						local itemName = info.itemName
+							or (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(info.itemID))
+							or "?"
+						local capName, capQty, capMax = CrestCapBlock(itemName)
 						out[#out + 1] = {
 							bag = bag,
 							slot = slot,
 							itemID = info.itemID,
-							name = info.itemName or (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(info.itemID)) or "?",
+							name = itemName,
 							icon = info.iconFileID or "Interface\\Icons\\INV_Misc_Bag_08",
 							count = info.stackCount or 1,
 							kind = kind, -- "openable" | "knowledge" | "learn"
+							-- Waarom dit item nu niet opengaat, als we dat weten.
+							capName = capName, capQty = capQty, capMax = capMax,
 						}
 					end
 				end
@@ -440,7 +494,16 @@ function ns.UpdateOpenables()
 		if showRows and e then
 			r = EnsureRow(i)
 			r._icon:SetTexture(e.icon)
-			r._name:SetText((e.count and e.count > 1 and (e.count .. "x ") or "") .. (e.name or "?"))
+			local label = (e.count and e.count > 1 and (e.count .. "x ") or "") .. (e.name or "?")
+			-- Een bundel die je niet kwijt kunt hoort te zeggen waarom, in plaats van je
+			-- erop te laten klikken voor een rode foutmelding en een popup die blijft
+			-- staan. Het item blijft klikbaar: de cap kan tussen twee scans veranderd
+			-- zijn, en dan is weigeren erger dan het gewoon proberen.
+			if e.capName then
+				label = ("%s  |cffff8080(%s %d/%d)|r"):format(
+					label, e.capName, e.capQty or 0, e.capMax or 0)
+			end
+			r._name:SetText(label)
 			r._bag, r._slot = e.bag, e.slot
 			ApplyOpenAttr(r, e)
 			r:Show()
