@@ -95,6 +95,51 @@ local TIPS = {
 	crown     = { steps = "RAID_BOSS_CROWN_STEPS" },
 	beloren   = { steps = "RAID_BOSS_BELOREN_STEPS" },
 	lura      = { steps = "RAID_BOSS_LURA_STEPS",      tank = "RAID_BOSS_LURA_TANK" },
+
+	-- ⚠️ Season 2, geschreven 15 aug 2026 — DRIE DAGEN VÓÓR DE OPENING. Dit is de al
+	-- geplande "fase 2 uit DBM-mechanics" (Spec 01). Bronnen, in volgorde van gewicht:
+	-- de geïnstalleerde DBM-Raids-Midnight-modules (met de hand geschreven waarschuwingen
+	-- incl. soort: rennen/kicken/soaken/dispellen), en warcraft.wiki.gg's Encounter-
+	-- Journal-dumps voor de beginner-framing. Spell-verwijzingen gaan als {SPELL:id}-
+	-- markup: de client levert naam, taal en tooltip zelf, en een fout id is meteen
+	-- zichtbaar als kapotte link in plaats van als stil verkeerd woord.
+	--
+	-- Waar DBM en de wiki elkaar tegenspreken staat de mechaniek ZONDER link of ZONDER
+	-- advies: Raging Crosswinds (1285425 vs 1285419), Guillotine (1283485 vs 1283489),
+	-- en Blink Nova — DBM zegt wegrennen, de wiki zegt stapelen; de tekst zegt dat
+	-- hardop. Ula'tek zelf is bij DBM vrijwel leeg én nooit op de PTR getest; haar
+	-- regels leunen op de wiki en zeggen dat.
+	--
+	-- BuildRaidBody toont boven elke season-2-raid RAID_PRERELEASE_NOTE tot iemand dit
+	-- na 18 aug live heeft nagelopen — haal die pas weg mét een meting.
+	nekzali       = { steps = "RAID_BOSS_NEKZALI_STEPS",       tank = "RAID_BOSS_NEKZALI_TANK" },
+	entombedsent  = { steps = "RAID_BOSS_ENTOMBEDSENT_STEPS",  tank = "RAID_BOSS_ENTOMBEDSENT_TANK", healer = "RAID_BOSS_ENTOMBEDSENT_HEALER" },
+	lostexplorers = { steps = "RAID_BOSS_LOSTEXPLORERS_STEPS" },
+	vashnik       = { steps = "RAID_BOSS_VASHNIK_STEPS",       tank = "RAID_BOSS_VASHNIK_TANK" },
+	sszorak       = { steps = "RAID_BOSS_SSZORAK_STEPS",       tank = "RAID_BOSS_SSZORAK_TANK" },
+	twinfangs     = { steps = "RAID_BOSS_TWINFANGS_STEPS",     tank = "RAID_BOSS_TWINFANGS_TANK" },
+	coiledaltar   = { steps = "RAID_BOSS_COILEDALTAR_STEPS",   healer = "RAID_BOSS_COILEDALTAR_HEALER" },
+	ulatek        = { steps = "RAID_BOSS_ULATEK_STEPS" },
+}
+
+--- 3D-modellen voor de acht bosses: journal-displayIDs uit de client-DB2
+--- (wago.tools, build 12.1.0.69299 — JournalEncounterCreature, letterlijk de tabel
+--- waar het Adventure Guide zijn modelviewer uit vult).
+---
+--- ⚠️ KANDIDAAT tot Robs eigen `/mh ej save` op live dezelfde nummers teruggeeft —
+--- de capture-code verzamelt exact dit veld. Eén bron, maar wel een primaire
+--- (gedataminede client-tabel), en intern consistent met alle acht bossnamen.
+--- Council-fights krijgen het model van de naamgever; de capture kan er later
+--- meer per boss geven.
+ns.RAID_BOSS_DISPLAYS = {
+	nekzali       = 142077,
+	entombedsent  = 143437, -- Breath of Ula'tek (Blood = 143436)
+	lostexplorers = 143824, -- Mor'zahi (Iku 143082, Nama 142158, Gebbo 143083)
+	vashnik       = 141675,
+	sszorak       = 142788,
+	twinfangs     = 140993, -- Vexhul (Ithraz 141309)
+	coiledaltar   = 142472, -- Zul'jan (Malacrass 142140)
+	ulatek        = 140369, -- ⚠️ db2 heeft ook 253512 "TEMP MODEL" (95484) — niet gebruiken
 }
 
 -- Season gate: S1 raids are always active; a season-2 raid stays hidden until the client is on

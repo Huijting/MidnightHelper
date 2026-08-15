@@ -191,6 +191,23 @@ ns.DELVE_BOSS_SHOWCASE = {
 	torments_rise = {
 		{ creatureId = 255108, label = "Nullaeus" },
 	},
+
+	-- ⚠️ 12.1-delves, 15 aug 2026 — namen MULTI-SOURCE (Method + Icy Veins), creature-
+	-- ids uit Wowheads suggestions-endpoint (enkelbrons; de gewone zoekindex kent ze
+	-- nog niet). Beide delves hebben per verhaalvariant een ándere eindboss. Niet op
+	-- Robs client gemeten: een fout id laat gewoon geen model laden (de showcase valt
+	-- stil terug), dus dit is veilig te proberen. DelveHistory logt de echte bossnaam
+	-- bij de eerstvolgende run — dat is de meting die dit bevestigt of corrigeert.
+	gnarldor_isle = {
+		{ creatureId = 260309, label = "Gralka Snake-Eater" },
+		{ creatureId = 267736, label = "Osseous Amalgamation" },
+	},
+	ring_of_glory = {
+		{ creatureId = 265691, label = "Drakta" },
+		-- Gnok heeft twee ids (264423, en 264931 "Gnok?" — vrijwel zeker de fase-2
+		-- ondode vorm; die koppeling is inferentie, geen bron).
+		{ creatureId = 264423, label = "Gnok", creatureIdFallback = { 264931 } },
+	},
 }
 
 --- Scenario step title (lowercase) -> boss index when Blizzard hides story names (secret strings).
