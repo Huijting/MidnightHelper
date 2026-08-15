@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: the soul ledger's first real test.
+Right now: does Frost Mage's right column actually LACK keys, or are they just
+off-screen?
 
-The Codex UI shows 3 souls; the probe measured 13 this afternoon. If ten were
-spent, the ledger built a few hours ago should have written that down — and if
-it did not, the ledger is broken and better to know now than after a week.
+Rob's Layout tab shows Counterspell, Shimmer, Frost Nova and friends with no key
+next to them, while the left columns show theirs fine. Two very different bugs:
+the allocator never gave them a key, or the key is drawn past the window edge.
+The generated data answers it without touching the UI.
 """
 import io
-import re
+import json
 import sys
-import datetime
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -18,71 +19,42 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
-     r'\SavedVariables\MidnightHelper.lua')
+P = (r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper'
+     r'\tools\keybind_sheet\keybinds.json')
 
-t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
+d = json.load(io.open(P, encoding='utf-8'))
+specs = d['specs']
 
-
-def block(key, src):
-    i = src.find('["%s"]' % key)
-    if i < 0:
-        return None
-    s = src.index('{', i)
-    d, j = 0, s
-    while j < len(src):
-        if src[j] == '{':
-            d += 1
-        elif src[j] == '}':
-            d -= 1
-            if d == 0:
-                break
-        j += 1
-    return src[s:j + 1]
-
-
-def split_top(blob):
-    out, d, buf = [], 0, ''
-    for ch in blob[1:-1]:
-        if ch == '{':
-            d += 1
-        if d > 0:
-            buf += ch
-        if ch == '}':
-            d -= 1
-            if d == 0:
-                out.append(buf)
-                buf = ''
-    return out
-
-
-lb = block('soulLedger', t)
-if lb is None:
-    print('geen soulLedger in de SavedVariables.')
-    print('Het grootboek heeft dus nog nooit een verandering gezien.')
+want = None
+for s in specs:
+    name = s.get('spec') or s.get('name') or ''
+    if 'frost' in str(name).lower() and 'mage' in str(s).lower()[:400]:
+        want = s
+        break
+if want is None:
+    print('specs beschikbaar:')
+    for s in specs[:50]:
+        print('  ', s.get('spec') or s.get('name'), '|', s.get('class'))
     sys.exit(0)
 
-rows = split_top(lb)
-print('grootboek: %d regel(s)' % len(rows))
+print('spec:', want.get('spec') or want.get('name'), '/', want.get('class'))
 print()
-if not rows:
-    print('LEEG. Er is sinds vanmiddag geen verandering in item 273000 gezien.')
-    print('Als het aantal wel veranderd IS, luistert de watcher naar het')
-    print('verkeerde event of leest hij het verkeerde item.')
-    sys.exit(0)
+print('%-18s %s' % ('toets', 'spell'))
+print('-' * 46)
+keys = want.get('keys') or want.get('binds') or {}
+if isinstance(keys, dict):
+    for k in sorted(keys):
+        print('%-18s %s' % (k, keys[k]))
+else:
+    for row in keys:
+        print('%-18s %s' % (row.get('key'), row.get('spell')))
 
-print('%-19s %6s %6s %7s  %s' % ('wanneer', 'van', 'naar', 'delta', 'laatste quest (sec geleden)'))
-print('-' * 88)
-for r in rows:
-    def g(k):
-        m = re.search(r'\["%s"\]\s*=\s*(-?\d+)' % k, r)
-        return int(m.group(1)) if m else None
-    qt = re.search(r'\["questTitle"\]\s*=\s*"((?:[^"\\]|\\.)*)"', r)
-    at, fr, to, dl = g('at'), g('from'), g('to'), g('delta')
-    secs, q = g('secondsSinceQuest'), g('quest')
-    when = datetime.datetime.fromtimestamp(at).strftime('%Y-%m-%d %H:%M:%S') if at else '?'
-    ctx = ''
-    if q:
-        ctx = '%s (%s)  %ss' % (qt.group(1) if qt else '?', q,
-                                secs if secs is not None else '?')
-    print('%-19s %6s %6s %+7d  %s' % (when, fr, to, dl or 0, ctx))
+print()
+LOOK = ['Counterspell', 'Shimmer', 'Frost Nova', 'Remove Curse', 'Polymorph',
+        'Spellsteal', "Dragon's Breath"]
+flat = keys if isinstance(keys, dict) else {r.get('key'): r.get('spell') for r in keys}
+rev = {}
+for k, v in flat.items():
+    rev.setdefault(str(v), []).append(k)
+for name in LOOK:
+    print('%-18s -> %s' % (name, ', '.join(rev.get(name, [])) or 'GEEN TOETS'))

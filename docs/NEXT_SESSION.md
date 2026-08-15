@@ -70,6 +70,56 @@ bullets — 13 regels, zou de 9e schone moeten zijn); (2) Rob plakt CURSEFORGE_D
 (bijgewerkt: delves, Codex-plank, 4 raids/17 bosses); (3) nieuwe screenshots stonden nog
 open van 12 aug.
 
+## 🔴 EERST: de rechterkolom van de Layout-tab toont geen toetsen (Rob, 15 aug laat)
+
+Twee screenshots, Frost Mage. De linker- en middenkolom tonen hun binds netjes
+(`Frostbolt 2`, `Shift+1`, `Ice Barrier Z`, …). De **rechterkolom niet**: Interrupts /
+stops, Movement en CC / Dispel tonen wél de spell-namen maar **bij geen enkele een
+toets** — en Counterspell hoort daar `E` te zijn.
+
+Rob: *"ineens"* — dus een regressie, niet iets dat er altijd zo uitzag.
+
+⚠️ **Nog niet gediagnosticeerd. De meest waarschijnlijke oorzaak, en dus het eerste dat
+je moet uitsluiten in plaats van aannemen:** op screenshot 2 loopt het paneel **voorbij
+de rechterrand van het spelvenster**. De toetsen staan rechts uitgelijnd in hun rij, dus
+als de kolom deels buiten beeld valt is de tekst er wél maar zie je hem niet. Dat is een
+heel andere fout dan "de bind wordt niet toegekend", en de reparatie is ook een andere.
+
+Manier om het te scheiden zonder te gokken: kijk in `keybinds.json` (net opnieuw
+gegenereerd) of Frost Mage's Counterspell/Shimmer/Frost Nova een toets hébben. Staat hij
+daar wél, dan is het layout/clipping; staat hij daar níet, dan zit het in de allocator.
+De consumables-rij rechtsonder mist ook zijn labels — waarschijnlijk hetzelfde.
+
+## 🎯 MORGEN ALS EERSTE — drie dingen, in deze volgorde (Rob, 15 aug laat)
+
+1. **Rechterkolom-fix** (zie hierboven). Data is goed, tekenen is fout.
+2. **Sheet uit Robs eigen spellbook** i.p.v. uit het schema. Zie de waarschuwing bij
+   het cheatsheet hieronder — hij gaat er anders iets uit leren dat niet klopt.
+3. **⭐ WAT HIJ ECHT WIL: zijn eigen indeling kunnen EXPORTEREN.**
+
+Zijn woorden: *"ik wil eigenlijk gewoon de mogelijkheid dat ik de indeling die ik nu heb,
+met eventuele aanpassing die ik voor mezelf maak, kunnen exporteren."*
+
+⚠️ **Dat is een derde ding, niet een variant op de eerste twee.** Nu bestaan er:
+- het **schema** (roldata → wat MH aanraadt) — dat is de huidige sheet;
+- de **auto-map** (zijn spellbook → wat MH voor hém zou voorstellen).
+
+Wat hij vraagt is **wat er feitelijk op zijn toetsen zit**, inclusief wijzigingen die hij
+zelf met de hand maakt en die MH nergens kent. Dat komt uit de client (`GetBindingKey` /
+de action bars aflopen), niet uit onze data. Bouw dit dus niet als "de sheet maar dan
+anders" — het is een andere bron.
+
+Praktisch punt: de addon **zet geen binds** (Rob-approved, `keybind-scheme-v7-direction`).
+Exporteren van wat hij zelf gemaakt heeft past daar goed bij; het is lezen, niet schrijven.
+
+## 📄 Keybind-cheatsheet opnieuw gegenereerd (15 aug)
+
+Rob wil de binds kunnen **printen of op een tweede scherm** zetten om ze te leren; het
+in-game paneel kan hij niet verplaatsen. Dat gereedschap bestond al en stond een week
+stil. `tools/keybind_sheet/gen_keybinds.py` → `build_outputs.py` → HTML + XLSX, 39 specs.
+**Draai die twee opnieuw na elke KeybindRoles-wijziging**, anders leert hij iets anders
+dan de addon toont.
+
 **Openstaande taken:** #3 Codex-herontwerp (plan in docs/CODEX_REDESIGN.md — S1/S2-schoonmaak
 heeft DEADLINE 18 aug), #8 3.0-release: de zes Cowork-features (na 18 aug, één voor één,
 elk apart getest). #4, #5, #6 en #7 zijn af.
