@@ -25,7 +25,7 @@ end
 merge(ns._mhLocales and ns._mhLocales.enUS, {
 	TAB_CODEX = "Midnight Codex",
 	CODEX_PANEL_TITLE = "Midnight Codex",
-	CODEX_PANEL_INTRO = "Your Midnight Season 1 handbook — what each system is, what currency does what, and where to click in this addon. Hover currency icons for Blizzard tooltips.",
+	CODEX_PANEL_INTRO = "Your Midnight handbook — what each system is, what currency does what, and where to click in this addon. Hover currency icons for Blizzard tooltips.",
 	CODEX_OPEN_TAB_FMT = "Open: %s",
 	CODEX_NAV_DELVES_VAULT = "Delves & Vault tab (Great Vault block)",
 	CODEX_NAV_DELVES_MIDNIGHT = "Delves & Vault tab (delve list)",
@@ -150,7 +150,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 merge(ns._mhLocales and ns._mhLocales.itIT, {
 	TAB_CODEX = "Midnight Codex",
 	CODEX_PANEL_TITLE = "Midnight Codex",
-	CODEX_PANEL_INTRO = "Il tuo manuale per la Midnight Season 1 — cos'è ogni sistema, a cosa serve ogni currency e dove cliccare in questo addon. Passa il cursore sulle icone delle currency per i tooltip di Blizzard.",
+	CODEX_PANEL_INTRO = "Il tuo manuale per Midnight — cos'è ogni sistema, a cosa serve ogni currency e dove cliccare in questo addon. Passa il cursore sulle icone delle currency per i tooltip di Blizzard.",
 	CODEX_OPEN_TAB_FMT = "Apri: %s",
 	CODEX_NAV_DELVES_VAULT = "Scheda Delves & Vault (blocco Great Vault)",
 	CODEX_NAV_DELVES_MIDNIGHT = "Scheda Delves & Vault (elenco delve)",
@@ -263,7 +263,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TAB_CODEX = "Midnight Codex",
 	CODEX_PANEL_TITLE = "Midnight Codex",
-	CODEX_PANEL_INTRO = "Jouw Midnight Season 1-handboek — wat elk systeem is, welke currency waarvoor dient, en waar je in deze addon moet klikken. Hover currency-iconen voor Blizzard-tooltips.",
+	CODEX_PANEL_INTRO = "Jouw Midnight-handboek — wat elk systeem is, welke currency waarvoor dient, en waar je in deze addon moet klikken. Hover currency-iconen voor Blizzard-tooltips.",
 	CODEX_OPEN_TAB_FMT = "Open: %s",
 	CODEX_NAV_DELVES_VAULT = "Tab Delves & Vault (Great Vault-blok)",
 	CODEX_NAV_DELVES_MIDNIGHT = "Tab Delves & Vault (delve-lijst)",
@@ -388,7 +388,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 merge(ns._mhLocales and ns._mhLocales.deDE, {
 	TAB_CODEX = "Midnight Codex",
 	CODEX_PANEL_TITLE = "Midnight Codex",
-	CODEX_PANEL_INTRO = "Dein Handbuch für Midnight Season 1 — was jedes System ist, wofür jede Währung dient und wo du in diesem Addon klickst. Bewege den Cursor über Währungssymbole für Blizzard-Tooltips.",
+	CODEX_PANEL_INTRO = "Dein Handbuch für Midnight — was jedes System ist, wofür jede Währung dient und wo du in diesem Addon klickst. Bewege den Cursor über Währungssymbole für Blizzard-Tooltips.",
 	CODEX_OPEN_TAB_FMT = "Öffnen: %s",
 	CODEX_NAV_DELVES_VAULT = "Tab Delves & Vault (Große-Schatzkammer-Block)",
 	CODEX_NAV_DELVES_MIDNIGHT = "Tab Delves & Vault (Tiefen-Liste)",
@@ -503,7 +503,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 merge(ns._mhLocales and ns._mhLocales.frFR, {
 	TAB_CODEX = "Midnight Codex",
 	CODEX_PANEL_TITLE = "Midnight Codex",
-	CODEX_PANEL_INTRO = "Ton manuel pour Midnight Saison 1 — ce qu'est chaque système, à quoi sert chaque monnaie et où cliquer dans cet addon. Survole les icônes de monnaie pour les infobulles de Blizzard.",
+	CODEX_PANEL_INTRO = "Ton manuel pour Midnight — ce qu'est chaque système, à quoi sert chaque monnaie et où cliquer dans cet addon. Survole les icônes de monnaie pour les infobulles de Blizzard.",
 	CODEX_OPEN_TAB_FMT = "Ouvrir : %s",
 	CODEX_NAV_DELVES_VAULT = "Onglet Delves & Vault (bloc Grande chambre forte)",
 	CODEX_NAV_DELVES_MIDNIGHT = "Onglet Delves & Vault (liste des gouffres)",
@@ -618,7 +618,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 merge(ns._mhLocales and ns._mhLocales.esES, {
 	TAB_CODEX = "Midnight Codex",
 	CODEX_PANEL_TITLE = "Midnight Codex",
-	CODEX_PANEL_INTRO = "Tu manual para Midnight Temporada 1: qué es cada sistema, para qué sirve cada moneda y dónde hacer clic en este addon. Pasa el cursor sobre los iconos de moneda para ver las descripciones de Blizzard.",
+	CODEX_PANEL_INTRO = "Tu manual para Midnight: qué es cada sistema, para qué sirve cada moneda y dónde hacer clic en este addon. Pasa el cursor sobre los iconos de moneda para ver las descripciones de Blizzard.",
 	CODEX_OPEN_TAB_FMT = "Abrir: %s",
 	CODEX_NAV_DELVES_VAULT = "Pestaña Delves & Vault (bloque de Gran Bóveda)",
 	CODEX_NAV_DELVES_MIDNIGHT = "Pestaña Delves & Vault (lista de profundidades)",
@@ -733,7 +733,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	TAB_CODEX = "Midnight Codex",
 	CODEX_PANEL_TITLE = "Midnight Codex",
-	CODEX_PANEL_INTRO = "Seu manual para Midnight Temporada 1 — o que é cada sistema, para que serve cada moeda e onde clicar neste addon. Passe o cursor sobre os ícones de moeda para ver as dicas da Blizzard.",
+	CODEX_PANEL_INTRO = "Seu manual para Midnight — o que é cada sistema, para que serve cada moeda e onde clicar neste addon. Passe o cursor sobre os ícones de moeda para ver as dicas da Blizzard.",
 	CODEX_OPEN_TAB_FMT = "Abrir: %s",
 	CODEX_NAV_DELVES_VAULT = "Aba Delves & Vault (bloco da Grande Câmara)",
 	CODEX_NAV_DELVES_MIDNIGHT = "Aba Delves & Vault (lista de profundezas)",
