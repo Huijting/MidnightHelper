@@ -33,7 +33,16 @@ ns.CODEX_CATEGORIES = {
 	{ id = "dungeons", labelKey = "CODEX_CAT_DUNGEONS", sort = 5 },
 	{ id = "raid", labelKey = "CODEX_CAT_RAID", sort = 6 },
 	{ id = "world", labelKey = "CODEX_CAT_WORLD", sort = 7 },
-	{ id = "professions", labelKey = "CODEX_CAT_PROFESSIONS", sort = 8 },
+	-- ⚠️ TOEGEVOEGD 15 aug 2026, op Robs eigen klacht: "de vault staat bij ritual en
+	-- void ?!?". Terecht, en het lag niet aan dat ene artikel. `world` heet "Void &
+	-- Rituals" — de naam van Season 1-buitencontent — maar was de restbak geworden voor
+	-- negen artikelen uit drie patches. Een categorie waarvan de naam maar een derde van
+	-- de inhoud dekt, verstopt de rest.
+	--
+	-- De Coiled Isle is een plek, geen patchnummer. Spelers zoeken op "waar ga ik heen",
+	-- niet op "wat kwam er in 12.1", dus dit is een zone-categorie en géén patch-lade.
+	{ id = "coiledisle", labelKey = "CODEX_CAT_COILEDISLE", sort = 8 },
+	{ id = "professions", labelKey = "CODEX_CAT_PROFESSIONS", sort = 9 },
 	-- Former top-level Reference tab, embedded as a category (no articles:
 	-- MidnightCodex.lua hosts the full ReferenceGuide panel for this id).
 	-- betaKey: hidden when the Reference beta checkbox is off.
@@ -529,7 +538,7 @@ ns.CODEX_ARTICLES = {
 	---    day failing to find something that was in the bags all along.
 	{
 		id = "vaults_atalutek",
-		category = "world",
+		category = "coiledisle",
 		titleKey = "CODEX_ATALUTEK_TITLE",
 		bodyKey = "CODEX_ATALUTEK_BODY",
 		-- Corrosive Coin, measured 13 Aug. Shows the reader's own balance above the

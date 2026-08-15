@@ -43,6 +43,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & crests",
 	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_CAT_PROFESSIONS = "Professions",
 
 	CODEX_START_TITLE = "Start Here — your Midnight week",
@@ -167,6 +168,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & crests",
 	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_CAT_PROFESSIONS = "Professions",
 
 	CODEX_START_TITLE = "Inizia qui — la tua settimana Midnight",
@@ -279,6 +281,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & crests",
 	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_CAT_PROFESSIONS = "Professions",
 
 	CODEX_START_TITLE = "Start Here — jouw Midnight-week",
@@ -403,6 +406,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & Crests",
 	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_CAT_PROFESSIONS = "Professions",
 
 	CODEX_START_TITLE = "Erste Schritte — deine Midnight-Woche",
@@ -517,6 +521,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & Crests",
 	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_CAT_PROFESSIONS = "Professions",
 
 	CODEX_START_TITLE = "Pour commencer — ta semaine Midnight",
@@ -631,6 +636,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & Crests",
 	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_CAT_PROFESSIONS = "Professions",
 
 	CODEX_START_TITLE = "Para empezar — tu semana Midnight",
@@ -745,6 +751,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & Crests",
 	CODEX_CAT_WORLD = "Void & Rituals",
+	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_CAT_PROFESSIONS = "Professions",
 
 	CODEX_START_TITLE = "Comece aqui — sua semana Midnight",

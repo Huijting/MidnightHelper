@@ -1,10 +1,12 @@
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: dump crestProbe and crestScanProbe from the SavedVariables. The
-"You cannot earn 10 Adventurer Mistcrests right now" error is a cap message, so
-the quantities and caps Rob already saved should say which cap it is.
+Right now: add CODEX_CAT_COILEDISLE next to every CODEX_CAT_WORLD.
+
+"Coiled Isle" is a zone name Blizzard owns, so it stays English in all seven
+packs — same rule as Corrosive Coin. One string, seven insertions.
 """
 import io
+import os
 import sys
 
 for _s in (sys.stdout, sys.stderr):
@@ -13,37 +15,28 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-SV = r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua'
+P = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales\Codex.lua'
+ANCHOR = '\tCODEX_CAT_WORLD = "Void & Rituals",'
+NEW = '\tCODEX_CAT_COILEDISLE = "Coiled Isle",'
 
+t = io.open(P, encoding='utf-8', newline='').read()
 
-def block(text, key, start=0):
-    i = text.find('["%s"]' % key, start)
-    if i == -1:
-        return None
-    j = text.find('{', i)
-    if j == -1:
-        return None
-    depth, k = 0, j
-    while k < len(text):
-        if text[k] == '{':
-            depth += 1
-        elif text[k] == '}':
-            depth -= 1
-            if depth == 0:
-                return text[j:k + 1]
-        k += 1
-    return None
+if 'CODEX_CAT_COILEDISLE' in t:
+    print('staat er al — niets gedaan')
+    sys.exit(0)
 
+# CRLF: the anchor line ends with \r\n, and appending after \n would put the new
+# line before the \r. Split on the line ending that is actually there.
+eol = '\r\n' if '\r\n' in t else '\n'
+count = t.count(ANCHOR)
+print('anker gevonden: %d keer (verwacht 7)' % count)
 
-t = io.open(SV, encoding='utf-8', errors='replace').read()
+if count != 7:
+    print('NIETS geschreven — alles of niets')
+    sys.exit(1)
 
-for key in ('crestProbe', 'crestScanProbe'):
-    b = block(t, key)
-    print('\n=========== %s ===========' % key)
-    if b is None:
-        print('(niet aanwezig)')
-        continue
-    lines = [ln.rstrip() for ln in b.splitlines()]
-    print('%d regels' % len(lines))
-    for ln in lines:
-        print(ln)
+t = t.replace(ANCHOR, ANCHOR + eol + NEW)
+
+io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(t)
+os.replace(P + '.tmp', P)
+print('geschreven: %d regels toegevoegd' % count)
