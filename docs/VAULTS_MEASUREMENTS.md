@@ -67,11 +67,17 @@ Alternatief met meer detail per criterium: `/mh ach id 63610`.
 Die laatste drie zijn precies wat Rob op zijn kaart telde: **twee onder, één rechts**.
 Hij zag een vierde pijl; die is dus géén map-link en nog onverklaard.
 
-⚠️ **Dit is waarom twee dagen wachten de goede keus was.** Elke gids beschrijft één
-ingang. Zygors `47.24 / 60.79` ligt het dichtst bij de eerste en zit er nog ~4 naast.
-Als we die op 12 aug hadden ingevuld, hadden we niet een iets te onnauwkeurig getal
-gehad maar een **verkeerde vorm**: één deur waar er drie zijn. Preciezer meten had dat
-nooit gerepareerd.
+⚠️ **CORRECTIE 15 aug — en de fout was van ons.** Hier stond dat Zygors `47.24 / 60.79`
+"er ~4 naast zat" en dat elke gids ten onrechte één ingang beschrijft. Zygor schrijft dat
+als `|goto Vaults of Atal'Utek/0 47.24,60.79`: dat is **kaart 2509, binnen de Vaults** —
+de questhub waar je 98388 oppakt. Het was nooit een uitspraak over het eiland. Wij hebben
+het op 12 aug overgenomen als "de ingang, op de Coiled Isle" en elke vergelijking daarna
+erfde die fout.
+
+Wat blijft staan: de drie links zijn gemeten, en één vast coördinaat zou nog steeds de
+verkeerde **vorm** zijn geweest. Wat niet blijft staan: niemand zat er 4 naast, en geen
+gids is hier weerlegd. Twee kaarten met elkaar vergelijken en het verschil andermans fout
+noemen is precies het soort zelfverzekerde misser waar dit bestand tegen bestaat.
 
 `CampaignLeadIn.lua` heeft nu `startCandidates` met alle drie en kiest de dichtstbijzijnde
 als je op 2512 staat. De routeknop is dus niet langer verborgen.

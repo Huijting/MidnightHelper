@@ -43,6 +43,18 @@ local CHAIN = {
 	{ 98388, "Into the Vaults of Atal'Utek" },
 	{ 97640, "One Coin Too Many" },
 	{ 98428, "The Altar of Corrosion" },
+
+	-- Found in ZygorGuidesViewer on 15 Aug, unverified. Both sit in the same guide block
+	-- as the three above -- which the client has already confirmed -- so they are better
+	-- candidates than most, and still only candidates until a title comes back.
+	--
+	-- 98515 matters most: it is offered alongside 97640 at the same hub and asks for a
+	-- Temple Patrol, a Temple Strike, a Temple Incursion and an Ancient Foe. Those are the
+	-- four activities every guide says drop the discovery keys, so this quest is probably
+	-- how a new player is taught they exist at all -- and we ship a three-step chain that
+	-- does not mention it.
+	{ 98515, "Vaults of Atal'Utek: A Toxic Tour" },
+	{ 93417, "The Vaults of Atal'Utek: Altar of Fangs" },
 }
 
 --- The word the currency family is built on. "Coin" and "Soul" are both live

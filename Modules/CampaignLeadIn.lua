@@ -47,16 +47,25 @@
 
 	✅ THE VAULTS ENTRANCE IS NOW MEASURED — and the wait was worth it.
 
-	This entry shipped with no start* fields for two days, on the grounds that Zygor's
-	~47.24 / 60.79 was the kind of number that puts someone NEXT to a door (the Crafting
-	Orders pin, 12 Aug, 13m off Rob's own capture). The dashboard drew the nudge and
-	skipped the button rather than route to somewhere plausible and wrong.
+	This entry shipped with no start* fields for two days, because no measurement existed.
 
-	On 14 Aug the client answered instead. C_Map.GetMapLinksForMap lists **three** links
-	from The Coiled Isle into the Vaults, and three back out — so the single entrance
-	every guide describes does not exist, and a static coordinate would have been wrong
-	in a way no amount of precision could have fixed. Waiting did not just get a better
-	number; it got a different shape. See `startCandidates` below.
+	On 14 Aug the client answered. C_Map.GetMapLinksForMap lists **three** links from The
+	Coiled Isle into the Vaults, and three back out. See `startCandidates` below.
+
+	⚠️ CORRECTION, 15 Aug — and it is a correction of ours, not of a guide.
+
+	This header used to say Zygor's ~47.24 / 60.79 "was the kind of number that puts
+	someone NEXT to a door", and that the single entrance every guide describes does not
+	exist. Zygor writes that coordinate as `|goto Vaults of Atal'Utek/0 47.24,60.79`: it
+	is on map **2509, inside the Vaults**, the quest hub where you pick up 98388. It was
+	never a claim about the island. Our notes copied it on 12 Aug as "the entrance, on The
+	Coiled Isle" and every later comparison inherited that.
+
+	What survives: the three links are measured, and a single static coordinate would
+	still have been the wrong shape. What does not: nobody was off by four, and no guide
+	was contradicted. Measuring two maps against each other and calling the gap someone
+	else's error is its own kind of confident wrong answer — the same family as the one
+	this file was built to avoid.
 ]]
 
 local _, ns = ...

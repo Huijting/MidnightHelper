@@ -1099,7 +1099,18 @@ end
 -- Delve POI state via GetDelvesForMap: bountiful flag + per-delve atlas (character map).
 -- Matches older MH behavior: scan every map/POI, OR results (duplicate POIs may disagree).
 --------------------------------------------------------------------------------
-local MAPS_BOUNTIFUL_SCRAPE = { 2393, 2437, 2395, 2424, 2444, 2413, 2405 }
+-- 2512 (The Coiled Isle) added 15 Aug 2026 with the two 12.1 delves.
+--
+-- Not a bug that was breaking them: buildBountifulMapScanOrder puts the delve's OWN map
+-- first, so 2512 was already scanned whenever one of those two was the subject. The list
+-- matters for the other direction -- scanning from wherever the player happens to be --
+-- and an island with two delves on it belongs in it.
+--
+-- ⚠️ Bountiful state is READ FROM THE CLIENT (atlas / isBountiful / textureIndex on the
+-- POI), never assumed, which is why MH showed nothing bountiful during the 11-18 Aug gap
+-- week and was right to: the 16 delves /mh atal enumerated on 14 Aug all came back
+-- `delves-regular`, not one bountiful. Bountiful returns with Season 2 on 18 Aug.
+local MAPS_BOUNTIFUL_SCRAPE = { 2393, 2437, 2395, 2424, 2444, 2413, 2405, 2512 }
 
 -- POI title may be prefixed (e.g. "Bountiful Delve: The Shadow Enclave"); roster stores short name.
 -- Also match when Blizz omits "The " or uses a different apostrophe in names like Atal'Aman.
