@@ -32,10 +32,18 @@ local _, ns = ...
 
 	  1. WoW cannot open a URL. The button shows a copy box, so joining costs
 	     copy, alt-tab, paste. That funnel is lossy by construction.
-	  2. Discord Server Discovery needs ~1,000 members and 8 weeks (third-party
-	     figures; Discord's own page 403s — but Rob's client greys the option
-	     out, which is the authoritative check). So Discovery is a reward for
-	     growth, not a route to it. The invite link is the only way in.
+	  2. Server Discovery is out of reach. Rob opened the eligibility panel the
+	     same morning and it lists, verbatim: at least **1,000 members**, at
+	     least **8 weeks old** (his server clears that on 11 Sep 2026), and no
+	     activity metrics computed at all below **200 members**. Safe
+	     Environment and No Bad Content already pass. So Discovery is a reward
+	     for growth, not a route to it, and the invite link is the only way in.
+
+	     ⚠️ Those numbers were first taken from third-party sites because
+	     Discord's own support page 403s, and were shipped here flagged as
+	     unverified. His client then confirmed them exactly. Worth remembering
+	     the next time a guide looks plausible: it was right, and it was still
+	     right to flag it until the client said so.
 
 	Two real defects were found and fixed that day: the server had "Private
 	Profile" on (non-members saw an anonymous "Private Server" card), and this
