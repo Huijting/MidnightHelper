@@ -155,7 +155,11 @@ local function EntryKind(entry)
 	end
 	if nk:find("^ACH_TREASURE") then
 		return "treasure"
-	elseif nk:find("^ACH_PEAKS") then
+	elseif nk:find("^ACH_PEAKS") or nk:find("^ACH_GLYPHS") then
+		-- Skyriding glyphs sit with the telescopes rather than the treasures: both are
+		-- a per-zone set you fly to, and neither feeds Light Up the Night. Grouping
+		-- them under "peak" is what stops the isle's glyphs from silently promising a
+		-- meta contribution they do not make.
 		return "peak"
 	elseif nk:find("^ACH_LORE") then
 		return "lore"

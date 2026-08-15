@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: add the tenth quest — the Silvermoon weekly meta — to the article.
+Right now: harvest the Coiled Isle achievement nodes out of HandyNotes_Midnight.
 
-It returned no title on the first /mh atal and its full title on the second,
-which is what a cache miss looks like and not what a wrong id looks like. Ten
-of ten now match the addon's labels character for character.
+Its node keys encode the coordinates (37416053 -> 37.41 / 60.53) and the
+trailing comment names the spot. Rob's standing instruction is that this
+addon's rare/treasure coords are good enough to ship without a spot-check;
+the achievement and criteria IDS are addon data like any other and still have
+to survive his client.
 
-Appended to the repeatables bullet (index 7 of twelve) in all seven languages.
+Prints, per achievement, a ready-to-paste node list sorted north to south —
+the same order the existing hunts use, because that is the order you walk.
 """
 import io
-import os
+import re
 import sys
+from collections import defaultdict
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -19,66 +23,56 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-P = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales\Codex.lua'
-KEY = 'CODEX_ATALUTEK_BODY'
-ORDER = ('enUS', 'itIT', 'nlNL', 'deDE', 'frFR', 'esES', 'ptBR')
+P = (r'E:\World of Warcraft\_retail_\Interface\AddOns'
+     r'\HandyNotes_Midnight\zones\coiled_isles.lua')
 
-META = "|cffffffffMidnight: Vaults of Atal'Utek|r"
-CITY = '|cffffffffSilvermoon|r'
+t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
+lines = t.split('\n')
 
-ADD = {
-    'enUS': (u' And one you would never find by being here: ' + META
-             + u' is a weekly meta for this place that you pick up in ' + CITY + u'.'),
-    'itIT': (u' E una che qui non troveresti mai: ' + META
-             + u' \u00e8 una meta settimanale di questo posto che si prende a ' + CITY + u'.'),
-    'nlNL': (u' En \u00e9\u00e9n die je hier nooit vindt: ' + META
-             + u' is een weekly meta voor deze plek die je in ' + CITY + u' ophaalt.'),
-    'deDE': (u' Und eine, die du hier unten nie findest: ' + META
-             + u' ist eine Wochen-Meta f\u00fcr diesen Ort, die du in ' + CITY + u' abholst.'),
-    'frFR': (u' Et une que tu ne trouveras jamais en restant ici : ' + META
-             + u' est une m\u00e9ta hebdomadaire pour cet endroit, \u00e0 r\u00e9cup\u00e9rer \u00e0 '
-             + CITY + u'.'),
-    'esES': (u' Y una que nunca encontrar\u00e1s estando aqu\u00ed: ' + META
-             + u' es una meta semanal de este lugar que se recoge en ' + CITY + u'.'),
-    'ptBR': (u' E uma que voc\u00ea nunca encontraria estando aqui: ' + META
-             + u' \u00e9 uma meta semanal deste lugar que voc\u00ea pega em ' + CITY + u'.'),
-}
+# Which map variable each block belongs to; the file uses more than one.
+MAPID = {'map': 2512, 'vault_map': 2509, 'vault_map2': 2613}
+for m in re.finditer(r'local\s+(\w*map\w*)\s*=\s*Map\(\{id\s*=\s*(\d+)', t):
+    MAPID[m.group(1)] = int(m.group(2))
 
-t = io.open(P, encoding='utf-8', newline='').read()
-if 'Midnight: Vaults of Atal' in t:
-    print('de meta staat er al')
-    sys.exit(0)
+found = defaultdict(list)
+cur = None
 
-eol = '\r\n' if '\r\n' in t else '\n'
-out, seen = [], 0
-
-for line in t.split(eol):
-    stripped = line.lstrip()
-    if not stripped.startswith(KEY + ' = "'):
-        out.append(line)
+for i, line in enumerate(lines):
+    m = re.match(r'\s*(\w+)\.nodes\[(\d{8})\]\s*=\s*(\w+)\(\{', line)
+    if m:
+        var, key, kind = m.group(1), m.group(2), m.group(3)
+        cur = {
+            'map': MAPID.get(var, '?'),
+            'x': int(key[:4]) / 100.0,
+            'y': int(key[4:]) / 100.0,
+            'kind': kind,
+            'name': None,
+            'ach': [],
+        }
         continue
+    if cur is None:
+        continue
+    for a in re.finditer(r'Achievement\(\{id\s*=\s*(\d+),\s*criteria\s*=\s*(\d+)', line):
+        cur['ach'].append((int(a.group(1)), int(a.group(2))))
+    # The closing "})" carries the trailing comment that names the node.
+    if line.startswith('})') or line.startswith('    })'):
+        c = re.search(r'--\s*(.+?)\s*$', line)
+        if c:
+            cur['name'] = c.group(1)
+        for aid, crit in cur['ach']:
+            found[aid].append((crit, cur))
+        cur = None
 
-    lang = ORDER[seen]
-    seen += 1
-    indent = line[:len(line) - len(line.lstrip())]
-    body = stripped[len(KEY) + 4:]
-    assert body.endswith('",'), lang
-    parts = body[:-2].split('|n|n')
-    if len(parts) != 12:
-        print('%s heeft %d blokken, verwacht 12 — niets geschreven' % (lang, len(parts)))
-        sys.exit(1)
-    if 'Essence of Malice' not in parts[7]:
-        print('%s: blok 7 is niet de repeatables — niets geschreven' % lang)
-        sys.exit(1)
-
-    parts[7] = parts[7] + ADD[lang]
-    out.append('%s%s = "%s",' % (indent, KEY, '|n|n'.join(parts)))
-    print('%-6s aangevuld' % lang)
-
-if seen != 7:
-    print('%d van 7 — niets geschreven' % seen)
-    sys.exit(1)
-
-io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(eol.join(out))
-os.replace(P + '.tmp', P)
-print('geschreven')
+for aid in sorted(found):
+    rows = found[aid]
+    print('=' * 78)
+    print('achievement %d  —  %d nodes' % (aid, len(rows)))
+    print('=' * 78)
+    rows.sort(key=lambda r: (r[1]['map'], r[1]['y'], r[1]['x']))
+    for crit, n in rows:
+        name = n['name'] or ''
+        # Strip the ", the Coiled Isles" tail; the hunt already knows the zone.
+        name = re.sub(r',\s*the Coiled Isles?$', '', name)
+        print('\t\t\t{ criteria = %d, mapID = %d, x = %5.2f, y = %5.2f, name = "%s" },'
+              % (crit, n['map'], n['x'], n['y'], name.replace('"', "'")))
+    print()

@@ -27,6 +27,81 @@ local PREFIX = "|cffffcc00Midnight Helper|r"
 -- Enough to see what you searched for without flooding chat when someone types "a".
 local MAX_HITS = 40
 
+--- /mh ach check — hold every shipped hunt against the client in one pass.
+---
+--- Why this is a command and not a note to run `/mh ach id` four times: a hunt whose
+--- criteria ids are wrong does not error. It draws a card that reads 0/11 forever,
+--- and a player just concludes they have found nothing yet. That is the quietest
+--- kind of wrong this addon can be, and it has shipped twice already -- the Treasures
+--- of the Coiled Isle entry has carried a "still to verify" note since it was added.
+---
+--- Two different faults, reported separately because they need different fixes:
+---   * a criterion id the achievement does not own -> the id is wrong
+---   * fewer nodes than the achievement has criteria -> the data is incomplete
+--- Neither is visible from inside the game without this.
+function ns.PrintAchievementDataCheck()
+	if not (GetAchievementInfo and GetAchievementNumCriteria and GetAchievementCriteriaInfoByID) then
+		print(PREFIX .. " achievement API not available on this client.")
+		return
+	end
+	local hunts = ns.ACHIEVEMENT_TREASURES
+	if type(hunts) ~= "table" then
+		print(PREFIX .. " no hunt data loaded.")
+		return
+	end
+
+	print(PREFIX .. " checking every shipped hunt against your client:")
+	local badTotal, thinTotal = 0, 0
+	for _, entry in ipairs(hunts) do
+		local aid = tonumber(entry.achievementID)
+		local nodes = entry.nodes
+		if aid and type(nodes) == "table" then
+			local okA, _, name = pcall(GetAchievementInfo, aid)
+			local okN, total = pcall(GetAchievementNumCriteria, aid)
+			total = (okN and tonumber(total)) or 0
+
+			local withCrit, resolved, bad = 0, 0, {}
+			for _, node in ipairs(nodes) do
+				if node.criteria then
+					withCrit = withCrit + 1
+					local okC, s = pcall(GetAchievementCriteriaInfoByID, aid, node.criteria)
+					if okC and type(s) == "string" and s ~= "" then
+						resolved = resolved + 1
+					else
+						bad[#bad + 1] = node.criteria
+					end
+				end
+			end
+
+			local label = (okA and type(name) == "string" and name ~= "") and name
+				or ("|cffff5040unknown to this client|r")
+			print(("   %d  %s"):format(aid, label))
+			if withCrit == 0 then
+				-- Peaks hunts detect via quest flags; nothing to check here, and saying
+				-- "0 of 0 correct" would read like a pass it never took.
+				print(("      |cff8a8f98no criteria in our data (quest-based) — nothing to check|r"))
+			elseif #bad == 0 then
+				print(("      |cff40c040%d/%d criteria resolve|r"):format(resolved, withCrit))
+			else
+				badTotal = badTotal + #bad
+				print(("      |cffff5040%d of %d criteria do NOT belong to this achievement:|r %s")
+					:format(#bad, withCrit, table.concat(bad, ", ")))
+			end
+			if total > 0 and #nodes < total then
+				thinTotal = thinTotal + 1
+				print(("      |cffffd100we ship %d nodes, the achievement has %d criteria — incomplete|r")
+					:format(#nodes, total))
+			end
+		end
+	end
+
+	if badTotal == 0 and thinTotal == 0 then
+		print("   |cff40c040Every criterion resolves and no hunt is short.|r")
+	else
+		print(("   |cffff5040%d wrong criteria|r, |cffffd100%d incomplete hunts|r."):format(badTotal, thinTotal))
+	end
+end
+
 --- /mh ach id <n> — everything the client knows about one achievement.
 ---
 --- The finder gets us a candidate; this proves what it actually asks for. Needed

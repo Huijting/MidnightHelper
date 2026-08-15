@@ -973,6 +973,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		-- /mh ach id <n> [n ...] bewijst wat gevonden achievements écht vragen.
 		-- Meerdere tegelijk, want kandidaten komen per groepje: op 26 juli moesten er
 		-- drie Prey-achievements uitgeplozen worden en dat is één commando waard.
+		-- /mh ach check — hold every shipped hunt against the client at once.
+		if msg == "ach check" then
+			if ns.PrintAchievementDataCheck then
+				ns.PrintAchievementDataCheck()
+			end
+			return
+		end
 		local detailIDs = msg:match("^ach%s+id%s+([%d%s]+)$")
 		if detailIDs then
 			if ns.PrintAchievementDetail then

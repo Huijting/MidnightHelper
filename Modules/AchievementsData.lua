@@ -71,6 +71,61 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 115290, mapID = 2512, x = 65.44, y = 5.60 },
 		},
 	},
+	-- ⚠️ TOEGEVOEGD 15 aug 2026, tweede ronde van "het eiland op niveau". De oude
+	-- zones hebben elk vier soorten hunts; de Coiled Isle had er twee.
+	--
+	-- HandyNotes_Midnight kent ZEVEN achievements op dit eiland. Vier daarvan staan
+	-- nu in dit bestand. De andere drie zijn met opzet NIET overgenomen, en dat is
+	-- de bruikbaarste uitkomst van deze ronde:
+	--
+	--   62601 (Soft Underbelly) en 63601 (de drie Ancient Foes) hebben in HandyNotes
+	--   coördinaten als 10.00/10.00, 10.00/20.00, 10.00/30.00. Dat zijn geen plekken,
+	--   dat is hun manier om "onbekend" op te schrijven. Onze eigen VAULTS_DISCOVERIES
+	--   kwam los daarvan tot dezelfde conclusie: de Ancient Foes worden vermoedelijk
+	--   ge-event-spawnd en hebben geen vaste locatie. Zulke nodes overnemen levert een
+	--   pijl richting de zee op, en een pijl die ergens heen wijst wordt geloofd.
+	--
+	--   62601 heeft daarbij één criterium (113661) TWEE keer, op 38.40 en 38.41 —
+	--   nog een teken dat dat blok bij hen ook nog niet af is.
+	--
+	-- Wat wél is overgenomen: 11 skyriding-glyphs en 10 lore-objecten, allemaal met
+	-- echte coördinaten en oplopende criteria-ids. Geen `name`- en geen `quest`-velden,
+	-- om dezelfde reden als bij de treasures hierboven: de client levert de naam al
+	-- vertaald, en HandyNotes' questband bleek op 13 aug niet de vlag die het spel
+	-- afvuurt. Volgorde noord → zuid, zodat de route niet kriskras stuurt.
+	{
+		achievementID = 63395, -- glyph hunt, Coiled Isle (client supplies the title)
+		nameKey = "ACH_GLYPHS_COILEDISLE",
+		nodes = {
+			{ criteria = 115775, mapID = 2512, x = 42.88, y = 30.59 },
+			{ criteria = 115774, mapID = 2512, x = 52.01, y = 38.41 },
+			{ criteria = 115776, mapID = 2512, x = 43.82, y = 44.19 },
+			{ criteria = 115773, mapID = 2512, x = 70.28, y = 48.16 },
+			{ criteria = 115771, mapID = 2512, x = 58.94, y = 48.91 },
+			{ criteria = 115491, mapID = 2512, x = 37.41, y = 60.53 },
+			{ criteria = 115772, mapID = 2512, x = 64.12, y = 60.65 },
+			{ criteria = 115766, mapID = 2512, x = 26.63, y = 63.14 },
+			{ criteria = 115770, mapID = 2512, x = 45.84, y = 64.93 },
+			{ criteria = 115768, mapID = 2512, x = 28.82, y = 75.23 },
+			{ criteria = 115769, mapID = 2512, x = 40.55, y = 90.49 },
+		},
+	},
+	{
+		achievementID = 63662, -- lore hunt, Coiled Isle (client supplies the title)
+		nameKey = "ACH_LORE_COILEDISLE",
+		nodes = {
+			{ criteria = 116709, mapID = 2512, x = 34.10, y = 36.45 },
+			{ criteria = 116710, mapID = 2512, x = 71.94, y = 44.92 },
+			{ criteria = 116707, mapID = 2512, x = 45.77, y = 47.93 },
+			{ criteria = 116711, mapID = 2512, x = 32.56, y = 63.66 },
+			{ criteria = 116702, mapID = 2512, x = 42.43, y = 65.02 },
+			{ criteria = 116704, mapID = 2512, x = 70.00, y = 65.97 },
+			{ criteria = 116708, mapID = 2512, x = 25.02, y = 67.75 },
+			{ criteria = 116705, mapID = 2512, x = 50.75, y = 68.20 },
+			{ criteria = 116703, mapID = 2512, x = 57.35, y = 80.36 },
+			{ criteria = 116706, mapID = 2512, x = 31.62, y = 83.74 },
+		},
+	},
 	{
 		achievementID = 61960, -- Treasures of Eversong Woods
 		nameKey = "ACH_TREASURE_EVERSONG", -- localized title (falls back to API name)
