@@ -175,7 +175,18 @@ local function CrestCapBlock(itemName)
 				if ok and type(info) == "table" then
 					local name = info.name
 					if type(name) == "string" and name ~= "" and not IsSecret(name) then
-						local qty = tonumber(info.quantity) or 0
+						-- ⚠️ GEREPAREERD 15 aug, dezelfde dag als het gebouwd werd. Ik vergeleek
+						-- `quantity` met `maxQuantity`. Voor Robs 3442 gaf dat toevallig het goede
+						-- antwoord omdat quantity en totalEarned daar allebei 100 waren — maar de
+						-- cap kijkt naar `totalEarned` zodra `useTotalEarnedForMaxQty` aan staat,
+						-- en dan lopen die twee uiteen zodra je iets uitgeeft. Precies het geval
+						-- waarin dit label moet verdwijnen zou het dan blijven staan.
+						local qty
+						if info.useTotalEarnedForMaxQty then
+							qty = tonumber(info.totalEarned) or 0
+						else
+							qty = tonumber(info.quantity) or 0
+						end
 						local max = tonumber(info.maxQuantity) or 0
 						-- Substring, zodat het meervoud in "…Mistcrests" ook matcht.
 						if haystack:find(name:lower(), 1, true) and max > 0 and qty >= max then
@@ -200,9 +211,25 @@ local function ScanOpenables()
 	for bag = 0, 5 do
 		local slots = C_Container.GetContainerNumSlots(bag) or 0
 		for slot = 1, slots do
+			local info = C_Container.GetContainerItemInfo(bag, slot)
 			local kind = SlotKind(bag, slot)
+			-- ⚠️ TOEGEVOEGD 15 aug 2026, na een sweep over 140 geïnstalleerde addons.
+			--
+			-- Rob vroeg of een andere addon een completere openables-lijst heeft. Het
+			-- antwoord: NIEMAND heeft een lijst. OPie, Syndicator en Baganator lezen
+			-- allemaal `hasLoot` van C_Container.GetContainerItemInfo — een vlag van de
+			-- client zelf, zonder tooltip, zonder taal, zonder onderhoud.
+			--
+			-- Wij vroegen die info al op en keken er niet naar. De tooltip-herkenning
+			-- hieronder blijft staan, want die vangt dingen die `hasLoot` niet dekt
+			-- (knowledge-items, "Use: Collect 10 …"-crestpacks, uncollected appearances).
+			-- Dit is dus geen vervanging maar een tweede net, voor wat onze patronen
+			-- missen — en het is meteen het antwoord op "is onze lijst compleet": nee,
+			-- en de client wist het al.
+			if not kind and info and info.hasLoot and not IsSecret(info.hasLoot) then
+				kind = "openable"
+			end
 			if kind then
-				local info = C_Container.GetContainerItemInfo(bag, slot)
 				if info then
 					-- Level-vereiste: verberg items die je nog niet kunt openen (bv. een
 					-- level-60-cache op level 23). itemMinLevel = 5e return van GetItemInfo.
