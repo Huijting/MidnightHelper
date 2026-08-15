@@ -306,8 +306,28 @@ local function applyDelveRowIcon(icon, useBountiful, grayVertex)
 	end
 end
 
--- Reference ilvls for delve rewards (Midnight season values; UI hint only).
-local DELVE_LOOT_TABLE = {
+-- Reference ilvls for delve rewards.
+--
+-- ⚠️ THESE ARE SEASON 1 NUMBERS AND THEY EXPIRE ON 18 AUGUST 2026.
+--
+-- Rob spotted them himself in the Gnarldor Isle tooltip on 15 Aug: "de ilvls die we
+-- krijgen in de nieuwe klopt niet". He was right, and it is worth naming what kind of
+-- wrong it is. Everything else this addon shipped that week says plainly when it does
+-- not know something — the raid tips carry a pre-release note, the new delves say
+-- nobody has walked them, the Ancient Foes say no coordinate exists. This table says
+-- "Tier 8: End 246 | Vault 259" in a confident white font to someone who is about to
+-- be handed 300-plus. It is the only place left where we would simply lie.
+--
+-- So the numbers are gated rather than replaced. Season 2's real values are not
+-- measured: the watchers carry datamined candidates (docs/PTR_12.1_WATCH.md) and this
+-- repo does not ship those as facts. Once the season flips, the tooltip says so and
+-- stops quoting figures — the same shape as MPLUS_AFFIX_UNMEASURED, which was written
+-- for exactly this situation one panel over.
+--
+-- To close this properly: run a delve after 18 Aug, read the end-chest and vault
+-- ilvls off your own loot, and fill in DELVE_LOOT_TABLE_S2 below. Until then the
+-- honest answer is a sentence, not a table.
+local DELVE_LOOT_TABLE_S1 = {
 	[1] = { endChest = 210, vault = 216 },
 	[2] = { endChest = 213, vault = 219 },
 	[3] = { endChest = 216, vault = 226 },
@@ -320,6 +340,22 @@ local DELVE_LOOT_TABLE = {
 	[10] = { endChest = 246, vault = 259 },
 	[11] = { endChest = 246, vault = 259 },
 }
+
+--- Season 2 values. Empty on purpose: nobody has run a delve in Season 2 yet.
+--- Fill from your own loot, not from a datamine — one delve per tier settles a row.
+local DELVE_LOOT_TABLE_S2 = {}
+
+--- Which table applies right now, or nil when the season has turned and we have not
+--- measured it. nil is a real answer here and the caller prints a sentence for it.
+local function CurrentLootTable()
+	if ns.IsSeason2Live and ns.IsSeason2Live() then
+		if next(DELVE_LOOT_TABLE_S2) ~= nil then
+			return DELVE_LOOT_TABLE_S2
+		end
+		return nil
+	end
+	return DELVE_LOOT_TABLE_S1
+end
 
 --------------------------------------------------------------------------------
 -- Great Vault (World row): must be declared before RefreshDelvesPanel() — Lua 5.1
@@ -1552,23 +1588,30 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 			GameTooltip:AddLine("Bountiful", 1, 0.82, 0)
 		end
 
-		-- 1. Reward list (compact tiers 1–8)
+		-- 1. Reward list (compact tiers 1–8), or an honest blank once the season turns.
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine("--- Rewards (by tier) ---", 1, 0.82, 0)
-		for t = 1, 8 do
-			local loot = DELVE_LOOT_TABLE[t]
-			if loot then
-				GameTooltip:AddDoubleLine(
-					"Tier " .. t .. ":",
-					string.format("End %d | Vault %d", loot.endChest, loot.vault),
-					1,
-					1,
-					1,
-					1,
-					1,
-					1
-				)
+		local lootTable = CurrentLootTable()
+		if lootTable then
+			for t = 1, 8 do
+				local loot = lootTable[t]
+				if loot then
+					GameTooltip:AddDoubleLine(
+						"Tier " .. t .. ":",
+						string.format("End %d | Vault %d", loot.endChest, loot.vault),
+						1,
+						1,
+						1,
+						1,
+						1,
+						1
+					)
+				end
 			end
+		else
+			-- Season 2 with nothing measured. Say that, rather than quote Season 1's
+			-- numbers at someone who will be handed considerably better loot.
+			GameTooltip:AddLine(ns:L("DELVE_REWARDS_UNMEASURED"), 1, 0.5, 0.5, true)
 		end
 
 		-- 2. Speed grade (MidnightHelper only; placeholder from quest id)

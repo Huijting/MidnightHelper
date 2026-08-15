@@ -1,22 +1,15 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: turn the coordinates in the three Vaults Codex bodies into {WAY:}
-links, all seven languages at once. Possible in one pass because the patterns
-are language-neutral: memorial names stay English ("To a sister"), and the
-numbers are identical in every pack.
+Right now: DELVE_REWARDS_UNMEASURED in all seven packs, anchored on
+DELVE_TIP_UNMEASURED (added yesterday, so present exactly once per pack).
 
-Three shapes:
-1. The twelve memorials: |cffffffffTo …|r X, Y  → {WAY:2509:X:Y:To … X, Y}
-2. Fixed strings that are byte-identical across languages (Er'inye's spot, the
-   Feather, the Underbelly entrance) → one literal replace each, map 2509.
-3. Szarith the Fanged, plain "38.40, 17.69" — the ONLY one on map 2613; a
-   default-2509 regex would send the reader to the wrong map, so he is done
-   first as a literal, before the generic patterns run.
+The sentence has to do two things at once: admit we do not know, and tell the
+reader where the real number is (their own loot). Season names are not
+translated; "Season 2" stays English per the house rules.
 """
 import io
 import os
-import re
 import sys
 
 for _s in (sys.stdout, sys.stderr):
@@ -25,64 +18,44 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-P = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales\Codex.lua'
-KEYS = ('CODEX_ATALUTEK_BODY', 'CODEX_ATALUTEK_DISC_BODY', 'CODEX_ATALUTEK_DEAD_BODY')
+BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales'
 
-t = io.open(P, encoding='utf-8', newline='').read()
-if '{WAY:2509:46.79' in t:
-    print('staat er al')
-    sys.exit(0)
-eol = '\r\n' if '\r\n' in t else '\n'
+NEW = {
+    'enUS': 'Season 2 changed these item levels and Midnight Helper has not measured the new ones yet. Rather than show you Season 1 numbers that are now too low, this list stays empty until a real run fills it in. Your end-of-delve chest and your Great Vault are the honest answer.',
+    'nlNL': 'Season 2 heeft deze item levels veranderd en Midnight Helper heeft de nieuwe nog niet gemeten. In plaats van Season 1-getallen te tonen die nu te laag zijn, blijft deze lijst leeg tot een echte run hem vult. Je eindkist en je Great Vault zijn het eerlijke antwoord.',
+    'deDE': 'Season 2 hat diese Gegenstandsstufen geändert, und Midnight Helper hat die neuen noch nicht gemessen. Statt dir Season-1-Zahlen zu zeigen, die jetzt zu niedrig sind, bleibt diese Liste leer, bis ein echter Durchlauf sie füllt. Deine Endtruhe und dein Great Vault sind die ehrliche Antwort.',
+    'frFR': 'La Season 2 a changé ces niveaux d’objet et Midnight Helper n’a pas encore mesuré les nouveaux. Plutôt que de t’afficher des chiffres de Season 1 désormais trop bas, cette liste reste vide jusqu’à ce qu’un vrai run la remplisse. Ton coffre de fin et ton Great Vault sont la réponse honnête.',
+    'esES': 'La Season 2 cambió estos niveles de objeto y Midnight Helper aún no ha medido los nuevos. En lugar de enseñarte cifras de Season 1 que ahora se quedan cortas, esta lista permanece vacía hasta que una partida real la rellene. Tu cofre final y tu Great Vault son la respuesta honesta.',
+    'ptBR': 'A Season 2 alterou estes níveis de item e o Midnight Helper ainda não mediu os novos. Em vez de te mostrar números da Season 1 que agora ficam aquém, esta lista fica vazia até que uma run a preencha. A tua arca final e o teu Great Vault são a resposta honesta.',
+    'itIT': 'La Season 2 ha cambiato questi livelli oggetto e Midnight Helper non ha ancora misurato i nuovi. Invece di mostrarti numeri della Season 1 ormai troppo bassi, questa lista resta vuota finché una run vera non la riempie. Il tuo forziere finale e il tuo Great Vault sono la risposta onesta.',
+}
 
-# -- 3. Szarith first: 2613, before anything generic touches his numbers.
-SZARITH = ('38.40, 17.69', '{WAY:2613:38.40:17.69:Szarith the Fanged}')
+for text in NEW.values():
+    assert '"' not in text, text[:50]
 
-# -- 2. Fixed, byte-identical strings, all map 2509.
-FIXED = [
-    ('|cffffffff51.10, 62.76|r', "{WAY:2509:51.10:62.76:Er'inye}"),
-    ('|cffffffff48.46, 25.80|r', "{WAY:2509:48.46:25.80:Feather of Tok'jara}"),
-    ('|cffffffff47.30, 11.20|r', '{WAY:2509:47.30:11.20:The Underbelly}'),
-    # In de coach-teksten staat de Feather zonder kleurwrap ("at 48.46, 25.80").
-    ('48.46, 25.80', "{WAY:2509:48.46:25.80:Feather of Tok'jara}"),
+TARGETS = [
+    (os.path.join(BASE, 'enUS.lua'), ['enUS']),
+    (os.path.join(BASE, 'nlNL.lua'), ['nlNL']),
+    (os.path.join(BASE, 'Translations2026.lua'), ['deDE', 'frFR', 'esES', 'ptBR', 'itIT']),
 ]
 
-# -- 1. The memorials: colour-wrapped English label + coords.
-MEMORIAL = re.compile(r'\|cffffffff(To [^|]{1,30})\|r (\d{1,2}\.\d{2}), (\d{1,2}\.\d{2})')
-
-def memorial_sub(m):
-    label, x, y = m.group(1), m.group(2), m.group(3)
-    return '{WAY:2509:%s:%s:%s %s, %s}' % (x, y, label, x, y)
-
-lines = t.split(eol)
-out = []
-touched = {k: 0 for k in KEYS}
-for line in lines:
-    stripped = line.lstrip()
-    hit = None
-    for k in KEYS:
-        if stripped.startswith(k + ' = "'):
-            hit = k
-            break
-    if hit:
-        new = line.replace(SZARITH[0], SZARITH[1])
-        for old, repl in FIXED:
-            new = new.replace(old, repl)
-        new, n = MEMORIAL.subn(memorial_sub, new)
-        touched[hit] += 1
-        line = new
-    out.append(line)
-
-for k, n in touched.items():
-    print('%s: %d regels bewerkt' % (k, n))
-if any(n != 7 for n in touched.values()):
-    print('niet overal 7 — NIETS geschreven')
-    sys.exit(1)
-
-body = eol.join(out)
-print('memorial-links totaal: %d (verwacht 84 = 12 x 7)' % body.count('{WAY:2509:4') if False else '')
-count_mem = len(re.findall(r'\{WAY:2509:\d', body))
-print('WAY-links op 2509: %d · op 2613: %d' % (count_mem, len(re.findall(r'\{WAY:2613:', body))))
-
-io.open(P + '.tmp', 'w', encoding='utf-8', newline='').write(body)
-os.replace(P + '.tmp', P)
-print('geschreven')
+for path, codes in TARGETS:
+    name = os.path.basename(path)
+    t = io.open(path, encoding='utf-8', newline='').read()
+    if 'DELVE_REWARDS_UNMEASURED' in t:
+        print('%s: staat er al' % name)
+        continue
+    eol = '\r\n' if '\r\n' in t else '\n'
+    out, added = [], 0
+    for line in t.split(eol):
+        out.append(line)
+        if 'DELVE_TIP_UNMEASURED' in line and added < len(codes):
+            indent = line[:len(line) - len(line.lstrip())]
+            out.append('%sDELVE_REWARDS_UNMEASURED = "%s",' % (indent, NEW[codes[added]]))
+            added += 1
+    if added != len(codes):
+        print('%s: %d van %d ankers — NIETS geschreven' % (name, added, len(codes)))
+        sys.exit(1)
+    io.open(path + '.tmp', 'w', encoding='utf-8', newline='').write(eol.join(out))
+    os.replace(path + '.tmp', path)
+    print('%s: %d toegevoegd' % (name, added))
