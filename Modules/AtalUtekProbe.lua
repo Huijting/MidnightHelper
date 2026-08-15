@@ -227,6 +227,67 @@ local function PrintRepeatable(rows)
 	print("      |cff8a8f98Titles come back for any real quest id, whether or not you can see the quest today.|r")
 end
 
+--- ⚠️ A silent title is not proof the id is wrong.
+---
+--- GetTitleForQuestID reads a client-side cache. Nine of the ten ids answered on
+--- 15 Aug and the tenth -- the weekly meta you pick up in Silvermoon -- did not,
+--- which is exactly what a real quest Rob has never been offered also looks like.
+--- The nine are not a control for this: every one of them is a quest he could
+--- plausibly have seen, so they prove the API works and say nothing about a cache
+--- miss.
+---
+--- RequestLoadQuestByID asks the server, so this turns "no answer" into an answer.
+--- Only then is a still-empty title worth acting on.
+local function ChaseMissingTitles(rows)
+	if not (C_QuestLog and C_QuestLog.RequestLoadQuestByID and CreateFrame) then
+		print("      |cff8a8f98No RequestLoadQuestByID here — a silent id stays undecided, not disproven.|r")
+		return
+	end
+	local want, ids = {}, {}
+	for _, r in ipairs(rows) do
+		if not r.gameTitle then
+			want[r.id] = r
+			ids[#ids + 1] = r.id
+		end
+	end
+	if #ids == 0 then
+		return
+	end
+	print(("      |cff8a8f98Asking the server about %d id(s) the cache had nothing for...|r"):format(#ids))
+
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("QUEST_DATA_LOAD_RESULT")
+	f:SetScript("OnEvent", function(self, _, questID, success)
+		local r = want[questID]
+		if not r then
+			return
+		end
+		want[questID] = nil
+		local title
+		if success and C_QuestLog.GetTitleForQuestID then
+			local ok, v = pcall(C_QuestLog.GetTitleForQuestID, questID)
+			title = ok and SafeText(v) or nil
+		end
+		r.gameTitle = title
+		r.askedServer = true
+		r.serverKnowsIt = success and true or false
+		if title then
+			print(("      %d  |cff40c040the server knows it:|r %s"):format(questID, title))
+		elseif success then
+			print(("      %d  |cffffd100loaded, but still no title|r"):format(questID))
+		else
+			print(("      %d  |cffff5040the server has no such quest — the id is wrong|r"):format(questID))
+		end
+		if not next(want) then
+			self:UnregisterAllEvents()
+			self:SetScript("OnEvent", nil)
+		end
+	end)
+	for _, id in ipairs(ids) do
+		pcall(C_QuestLog.RequestLoadQuestByID, id)
+	end
+end
+
 -- ---------------------------------------------------------------------------
 -- The currency, without ever naming it ourselves
 -- ---------------------------------------------------------------------------
@@ -767,6 +828,7 @@ function ns.PrintAtalUtekProbe(from, to)
 	local out = { at = (time and time()) or 0, chain = {}, repeatable = {}, currencies = {} }
 	PrintChain(out.chain)
 	PrintRepeatable(out.repeatable)
+	ChaseMissingTitles(out.repeatable)
 	ScanCurrencyList(out.currencies)
 	SweepCurrencyIds(from, to, out.currencies)
 	out.items = {}
