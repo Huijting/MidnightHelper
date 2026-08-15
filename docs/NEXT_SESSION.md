@@ -1,6 +1,27 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-11 (avond).** Dit is het eerste wat een nieuwe sessie leest. Alles
+**Bijgewerkt 2026-08-15 (laat).** Dit is het eerste wat een nieuwe sessie leest. Alles
 onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+
+## ⭐ v2.15.0 GETAGD 15 aug laat (`149078d`, tag gepusht — packager uploadt)
+
+"The Coiled Isle, for real": beide 12.1-delves compleet (routes, bosses, modellen),
+Venomous Abyss-coach met 8 bosstips + geverifieerde 3D-modellen, Coiled Isle-plank in
+de Codex met klikbare waypoints en een routeknop, crest-cap-uitleg, hasLoot.
+
+**Direct na de release checken:** (1) CF-changelog schoon gerenderd? (regel: kort, geen
+bullets — 13 regels, zou de 9e schone moeten zijn); (2) Rob plakt CURSEFORGE_DESCRIPTION.md
+(bijgewerkt: delves, Codex-plank, 4 raids/17 bosses); (3) nieuwe screenshots stonden nog
+open van 12 aug.
+
+**Openstaande taken (takenlijst v/d sessie):** #3 Codex-herontwerp (plan in
+docs/CODEX_REDESIGN.md — S1/S2-schoonmaak heeft DEADLINE 18 aug), #4 WAY-klik-feedback
+buiten de zone, #5 Zygor-flightpoints 12.x, #6 Coiled Isle op gelijk niveau met de
+andere zones (Robs screenshot: Achievements-tab heeft alleen The Honored Dead voor het
+eiland — kandidaat-achievement-ids staan in de taak, ALLE in-game verifiëren).
+
+**Op 18 aug (S2 opent):** raid-tips live verifiëren (pre-release-noot weg mét meting),
+`/mh atal` voor Venomfall Deeps, delve-ilvl-tooltips (S1-getallen!), Showdown-gate,
+Mistcrest-ids, seizoensnummers-sweep uit CODEX_REDESIGN punt 3.
 
 Op 27 juli stuurde de verouderde versie van dit bestand een sessie de verkeerde kant op
 (hij wees nog naar de Achievements-tab en beweerde dat de WoW-map geen git-repo is).
