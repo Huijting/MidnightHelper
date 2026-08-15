@@ -47,6 +47,27 @@ Valeera 12.0 (1168) en 12.1 (1223).
 > trait-boom" en "de spec-namen kloppen niet". De namen sluiten dat nu: als het een
 > trait-boom wás, zouden de vier discovery-nodes uit ons eigen onderzoek erin staan,
 > hoe fout de gids-namen ook zijn. Ze staan er niet.
+>
+> ✅ **En de tweede lezing is 15 aug definitief dood.** Blizzards eigen hotfix van
+> 14 aug noemt *Gorgoneion Gaze* en *Ula'tek's Gift* bij naam (`PTR_12.1_WATCH.md`,
+> 15 aug). Dat zijn dus Blizzard-namen en geen gids-parafrase — en ze staan alsnog in
+> geen van de 19 bomen. De conclusie werd daarmee **sterker**, niet zwakker.
+
+### ⚠️ Maar "geen trait-boom" was een antwoord over één route
+
+Dat de powers echte spells zijn (Blizzard noemt ze zo in patch notes) betekent dat ze
+een **spell-ID** hebben. "Niet leesbaar via `C_Traits`" heb ik één avond lang laten
+staan als "niet leesbaar", en dat is een grotere claim dan de meting droeg.
+
+`/mh atal` zoekt nu de twaalf namen op via `C_Spell.GetSpellIDForSpellIdentifier`
+(**lookup-gereedschap, met een positieve controle op "Auto Attack"** — nooit shipped
+logica, want naam-matching werkt alleen op een Engelse client) en kijkt per gevonden id
+naar `IsPlayerSpell` en `C_UnitAuras.GetPlayerAuraBySpellID`. Die laatste is bewust de
+spellID-route: index-iteratie gooit een Lua-error zodra auras secret zijn in 12.1, de
+spellID-route blijft werken.
+
+**Als een actieve power een aura op de speler is, is §3.1 alsnog te bouwen** — alleen
+via een heel andere weg dan de spec beschrijft.
 
 **Gevolg:** §3.1 (actieve powers, tweede slot bij 8) en §3.3 (X/12 unlocks) zijn **niet
 te bouwen** zoals de spec ze beschrijft. Er is geen leesbare unlock-status.

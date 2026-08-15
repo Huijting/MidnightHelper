@@ -1117,6 +1117,70 @@ do
 	end)
 end
 
+-- ---------------------------------------------------------------------------
+-- The twelve powers: real spells, just not trait nodes
+-- ---------------------------------------------------------------------------
+
+--- ⚠️ LOOKUP TOOL, NOT SHIPPED LOGIC — the same rule AchievementFind.lua carries.
+--- Resolving a spell by English name only works on an English client, so nothing in
+--- the addon may ever do this at runtime. Names go in here, ids come out, and only
+--- the ids get written into a data file.
+---
+--- Why this exists after concluding the Codex was unreadable: Blizzard's own hotfix
+--- notes of 14 Aug name *Gorgoneion Gaze* and *Ula'tek's Gift*. That closes the one
+--- alternative reading the trait sweep left open — the spec's names are Blizzard's,
+--- not a guide's paraphrase, and they are still in none of the 19 trees. The
+--- conclusion got stronger.
+---
+--- But it also means the powers are SPELLS. "Not a trait tree" was an answer about
+--- one route, and I let it stand as an answer about the feature. If a power is a
+--- spell, an active one is plausibly an aura on the player, and that is readable.
+--- This asks the client for each id and then whether the player knows or carries it.
+local CODEX_POWERS = {
+	"Ula'tek's Gift", "Ouroboric Cycle", "Ophidian Maw", "Viperine Grasp",
+	"Mephitic Cloud", "Miasma Geyser", "Insidious Venom", "Virulent Mucus",
+	"Accursed Poison", "Plague of Corrosion", "Gorgoneion Gaze", "Lithic Plumage",
+}
+
+local function SweepCodexPowers(out)
+	if not (C_Spell and C_Spell.GetSpellIDForSpellIdentifier) then
+		print("   |cffff8080No GetSpellIDForSpellIdentifier — cannot look a power up by name.|r")
+		return
+	end
+	-- Positive control: a spell every character has. If this does not resolve, the
+	-- lookup is broken and twelve empty answers mean nothing.
+	local okC, controlID = pcall(C_Spell.GetSpellIDForSpellIdentifier, "Auto Attack")
+	local controlOK = okC and controlID and true or false
+	print(("   |cff8fd3ffCorrosive Codex powers|r  (name lookup — control \"Auto Attack\" %s)"):format(
+		controlOK and "|cff40c040resolves|r" or "|cffff5040FAILS, so nothing below counts|r"))
+	out.powerControl = controlOK
+
+	for _, label in ipairs(CODEX_POWERS) do
+		local ok, sid = pcall(C_Spell.GetSpellIDForSpellIdentifier, label)
+		sid = ok and sid or nil
+		local known, hasAura
+		if sid then
+			if IsPlayerSpell then
+				local okK, v = pcall(IsPlayerSpell, sid)
+				known = okK and v or false
+			end
+			-- spellID-based aura reads keep working when auras go secret in 12.1;
+			-- index iteration does not. This is the path that survives.
+			if C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
+				local okA, v = pcall(C_UnitAuras.GetPlayerAuraBySpellID, sid)
+				hasAura = okA and (v ~= nil) or nil
+			end
+		end
+		out.powers[#out.powers + 1] = {
+			name = label, spellID = sid, known = known, hasAura = hasAura,
+		}
+		print(("      %-22s %s%s"):format(label,
+			sid and ("spell |cffffffff" .. sid .. "|r") or "|cff9d9d9dno id|r",
+			known and "  |cff40c040known|r" or ""))
+	end
+	print("      |cff8a8f98English-client lookup only — ids go in a data file, names never ship.|r")
+end
+
 function ns.PrintAtalUtekProbe(from, to)
 	local prefix = Prefix()
 	print(("%s Vaults of Atal'Utek probe — nothing here is wired into a feature yet."):format(prefix))
@@ -1131,6 +1195,8 @@ function ns.PrintAtalUtekProbe(from, to)
 	ScanBagsForItems(out.items)
 	out.traits = {}
 	SweepTraitTrees(out)
+	out.powers = {}
+	SweepCodexPowers(out)
 	out.achievements = {}
 	PrintMap(out)
 	PrintAchievements(out)
