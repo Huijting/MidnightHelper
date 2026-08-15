@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.15.0
+
+- New: the two 12.1 delves, for real. Gnarldor Isle and The Ring of Glory in the Delves panel, coach and picker — enumerated from the player's own client via `C_AreaPoiInfo.GetDelvesForMap` after two POI sweeps proved `GetAreaPOIForMap` never returns delves at all (our own eleven were the positive control). Routes with the three Sturdy Chests as clickable waypoints, bosses as multi-source candidates (Drakta confirmed by an actual run), showcase models that fail soft on a wrong id.
+- New: Venomous Abyss raid coach filled in — beginner steps for all eight bosses built from DBM's hand-written encounter modules plus the journal, with `{SPELL:id}` links so the client renders names in the player's language and a wrong id shows as a broken link. Where sources disagree the text says so (Blink Nova: run vs stack). A pre-release note sits above the raid until the tips are verified live.
+- New: a strip of 3D boss models on the raid page — display ids shipped as client-DB2 candidates and verified the same evening against the player's own `/mh ej save` capture, eight for eight.
+- New: Coiled Isle category in the Codex; the Vaults article split into three at its bullet boundaries without rewriting a word, in all seven languages. Every coordinate is a clickable `{WAY:}` link (105 on map 2509, and Szarith on his own map 2613), and the Honored Dead article carries a Follow the route button into the existing Achievements hunt.
+- New: the Codex body renders hyperlinks — converted from FontString to the read-only EditBox the other panels use, with the stale-first-measure defence carried over.
+- New: coordinate clicks route through `AddSmartTomTomWay` — TomTom when present, else Blizzard pin + SuperTrack, plus the Travel Assistant's portal/hearth advice.
+- New: crest bundles that cannot open say why before the click — tooltip shows the season total and explains that spending does not lower it (the cap counts earned; it rises at reset). Fully blocked bundles leave the Openables button; blocked ones sort below usable ones. Cap check asks the game's own `PlayerHasMaxQuantity` OR our earned-vs-max arithmetic — measured to disagree, both run.
+- New: Openables reads `hasLoot` from the client as a second net behind the tooltip patterns (the approach every bag addon on disk uses; none ships a list).
+- Fixed: the delve coach picker was hardcoded for eleven delves and The Ring of Glory overflowed the frame; height follows the list now.
+- Fixed: the Codex intro called itself a "Season 1 handbook" in seven languages, three of which translate the word — one anchor found half of them, the sweep found the rest.
+- Fixed: unrecognised delve runs were silently dropped by DelveHistory at the exact moment the client named them; the name is kept in SavedVariables now.
+- Corrected: the entrance note that claimed Zygor was ~4 units off — Zygor's coordinate was on map 2509 (inside the Vaults), never a claim about the island. The three real entrances (measured via `GetMapLinksForMap`) stand.
+
 ## 2.14.0
 
 - New: `/mh setup`. Laying out your bars was a set of commands run from memory, in the right order, on the right character. Rob cleaned his Hunter while that Hunter was still on account-wide bindings - he had switched his Druid - and his Mage lost eight keys, with nothing on screen naming the set he was on. The panel shows character, class, layout size and binding set first, and every destructive action arms on the first press and acts on the second.

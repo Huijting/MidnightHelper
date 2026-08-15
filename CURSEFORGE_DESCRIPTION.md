@@ -22,7 +22,8 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - Never used any of this? Open Midnight Helper on a character whose bars have not been set up and it **offers once**, on the front page. Dismiss it and it stays dismissed.
 
 **Patch 12.1**
-- The **Coiled Isle** with its rares mapped: names, coordinates and the hidden kill quests that let the list tick itself off — measured on the test realm, not copied from anywhere. **Altar of Fangs** with beginner steps for all three bosses.
+- The **Coiled Isle** with its rares mapped: names, coordinates and the hidden kill quests that let the list tick itself off — measured on the test realm, not copied from anywhere. **Altar of Fangs** with beginner steps for all three bosses, and the two **12.1 delves** (Gnarldor Isle, The Ring of Glory) in the coach with routes, bosses and 3D models.
+- A **Coiled Isle shelf in the Codex**: the Vaults of Atal'Utek in three readable articles with **clickable waypoint links** on every coordinate, the Altar of Corrosion's four hidden keys explained, and a **Follow the route** button for The Honored Dead memorial walk.
 - Season 2 content stays hidden until the season genuinely **opens**, not merely until the patch lands — those are a week apart, and an addon that announces a raid you cannot enter yet is worse than one that says nothing.
 - In combat, 12.1 hides some of your own buffs from addons and reports them as simply absent. Midnight Helper tells you it **cannot see**, instead of telling you that you are missing a buff you are holding.
 
@@ -43,7 +44,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - Mounts that are pure RNG — a rare drop, a puzzle, a hidden quest chain — show **no progress bar at all**, because there is no honest number to show.
 
 **Raids**
-- **Raids** page — boss steps for all three Season 1 raids and their nine bosses (The Dreamrift, The Voidspire, March on Quel'Danas), with tank/healer/dps lines and **clickable spell links**. Boss names come from the Encounter Journal, so they follow your game language.
+- **Raids** page — boss steps for all four raids and their seventeen bosses: the three Season 1 raids (The Dreamrift, The Voidspire, March on Quel'Danas) and **The Venomous Abyss** with beginner steps for all eight Season 2 bosses, a strip of **3D boss models** measured from the game's own journal, tank/healer lines and **clickable spell links**. Boss names come from the Encounter Journal, so they follow your game language.
 - The **Raid Coach** window still opens by itself the moment a boss pull starts; the page is for preparing beforehand.
 - **Search a boss by name** to jump straight to its steps — 52 bosses across dungeons and raids.
 
