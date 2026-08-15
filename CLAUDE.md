@@ -47,6 +47,29 @@ vorm `cd "..." && python - <<'PY' ...` had. Zulke commando's zijn **niet statisc
 beoordelen**, dus er bestaat geen enkele toestemmingsregel die ze ooit kan matchen — de
 prompt komt altijd. Hij heeft er drie keer om gevraagd en ik verviel er twee keer in terug.
 
+### 📊 GEMETEN 15 aug 2026 — en het is erger dan de schatting hierboven
+
+50 sessies, **6274 Bash-aanroepen**. Daarvan zijn er **5372 (86%) principieel onmatchbaar**:
+
+| vorm | aantal |
+|---|---|
+| `&&` | 4820 |
+| pijp `\|` | 442 |
+| `;` | 87 |
+| `\|\|` | 23 |
+| heredoc `<<` | 15 |
+
+Wat wél matchbaar is, staat allang in `.claude/settings.json`: `git -C "<repo>" *`,
+`luac -p *`, `python tools/_probe.py`, `grep *`, `ls *`. Er ontbreken geen regels.
+
+**Dus: meer regels toevoegen kan het probleem niet oplossen, en heeft dat ook nooit
+gekund.** Op 15 aug zijn 159 dode regels uit `settings.local.json` gehaald (alle
+PowerShell-one-liners, alle `git commit -m '<unieke tekst>'`); er staan er nog ~900,
+vrijwel allemaal even eenmalig. Ze doen niets en ze kosten niets — ze zijn alleen het
+bewijs dat "Always allow" op een uniek commando een dood spoor is.
+
+De rest van dit hoofdstuk is geen stijladvies maar de enige werkende oplossing.
+
 **De vorm is het probleem, niet de frequentie.** Dus:
 
 - **Geen `cd X && <commando>`.** De Bash-tool onthoudt de werkmap tussen aanroepen: doe
