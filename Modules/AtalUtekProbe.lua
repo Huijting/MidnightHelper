@@ -227,17 +227,21 @@ local function PrintRepeatable(rows)
 	print("      |cff8a8f98Titles come back for any real quest id, whether or not you can see the quest today.|r")
 end
 
---- ⚠️ A silent title is not proof the id is wrong.
+--- ⚠️ A silent title is not proof the id is wrong. SETTLED 15 Aug 2026, and it
+--- went the way that costs you a real quest if you guess.
 ---
---- GetTitleForQuestID reads a client-side cache. Nine of the ten ids answered on
---- 15 Aug and the tenth -- the weekly meta you pick up in Silvermoon -- did not,
---- which is exactly what a real quest Rob has never been offered also looks like.
---- The nine are not a control for this: every one of them is a quest he could
+--- GetTitleForQuestID reads a client-side cache. On the first /mh atal nine ids
+--- answered and the tenth -- the weekly meta you pick up in Silvermoon -- did
+--- not. The nine were no control for that: every one is a quest Rob could
 --- plausibly have seen, so they prove the API works and say nothing about a cache
---- miss.
+--- miss. On the second run, with nothing changed but time, the tenth returned
+--- "Midnight: Vaults of Atal'Utek" -- matching the addon's label exactly.
 ---
---- RequestLoadQuestByID asks the server, so this turns "no answer" into an answer.
---- Only then is a still-empty title worth acting on.
+--- So the empty answer was a cold cache, and reading it as "the id is fake" would
+--- have thrown away a real weekly that a player would otherwise never find.
+---
+--- RequestLoadQuestByID asks the server, which turns "no answer" into an answer.
+--- It stays because the next id may not be lucky enough to warm up on its own.
 local function ChaseMissingTitles(rows)
 	if not (C_QuestLog and C_QuestLog.RequestLoadQuestByID and CreateFrame) then
 		print("      |cff8a8f98No RequestLoadQuestByID here — a silent id stays undecided, not disproven.|r")
