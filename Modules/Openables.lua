@@ -312,6 +312,25 @@ end
 
 local ROWH = 24
 local MAXROWS = 12
+--- ⚠️ TOEGEVOEGD 15 aug, nadat Rob "waar vind ik dat?????" vroeg.
+---
+--- De cap stond wel achter de naam in de UITGEKLAPTE lijst en nergens anders. Wat Rob
+--- op zijn scherm ziet is de ingeklapte knop met Blizzards eigen item-tooltip erop, dus
+--- de uitleg stond precies niet op de plek waar hij keek. Een verklaring die je moet
+--- uitklappen om te vinden legt niets uit.
+---
+--- Nu hangt hij aan de tooltip van beide, en die van het spel zelf zegt het niet:
+--- Blizzard toont de cap pas in de foutmelding, achteraf.
+local function AddCapLine(owner)
+	if not (owner and owner._capName and GameTooltip) then
+		return
+	end
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(("%s  %d/%d"):format(
+		owner._capName, owner._capQty or 0, owner._capMax or 0), 1, 0.5, 0.5)
+	GameTooltip:AddLine(ns:L("OPEN_TIP_CAPPED"), 1, 0.5, 0.5, true)
+end
+
 local frame -- main secure button (UIParent)
 
 local function ApplyOpenAttr(btn, entry)
@@ -375,6 +394,7 @@ local function EnsureRow(i)
 		if self._bag and GameTooltip then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetBagItem(self._bag, self._slot)
+			AddCapLine(self)
 			GameTooltip:Show()
 		end
 		if r.SetBackdropColor then
@@ -480,6 +500,7 @@ local function EnsureFrame()
 		if self._topBag and GameTooltip then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetBagItem(self._topBag, self._topSlot)
+			AddCapLine(self)
 			GameTooltip:AddLine(ns:L("OPEN_TIP_HINT"), 0.7, 0.7, 0.7, true)
 			GameTooltip:Show()
 		end
@@ -528,6 +549,7 @@ function ns.UpdateOpenables()
 	local top = list[1]
 	f._icon:SetTexture(top.icon)
 	f._topBag, f._topSlot = top.bag, top.slot
+	f._capName, f._capQty, f._capMax = top.capName, top.capQty, top.capMax
 	f._badge:SetText(n > 1 and tostring(n) or "")
 	ApplyOpenAttr(f, top)
 
@@ -550,6 +572,7 @@ function ns.UpdateOpenables()
 			end
 			r._name:SetText(label)
 			r._bag, r._slot = e.bag, e.slot
+			r._capName, r._capQty, r._capMax = e.capName, e.capQty, e.capMax
 			ApplyOpenAttr(r, e)
 			r:Show()
 		elseif r then

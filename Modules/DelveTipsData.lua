@@ -151,6 +151,33 @@ ns.DELVE_TIP_ENTRIES = {
 			{ titleKey = "DELVE_COACH_SEC_BOSS", bodyKey = "DELVE_TIP_TORMENTS_RISE_BOSS" },
 		},
 	},
+
+	-- ⚠️ TOEGEVOEGD 15 aug 2026, op Robs melding: "de 2 nieuwe staan niet in de delve
+	-- coach". De picker loopt over deze tabel, niet over de roster in Delves.lua — dus
+	-- de twee 12.1-delves stonden wél in het Delves-paneel en niet in de coach.
+	--
+	-- Dat is de ergste vorm van niks weten: het scherm toonde elf en zei nergens dat er
+	-- dertien zijn. Onzichtbaar ontbreken leest als "bestaat niet".
+	--
+	-- Deze twee hebben daarom één sectie die zegt dat er niets gemeten is. Geen
+	-- verzonnen route, geen overgenomen bosstips — alleen de naam, de zone, en waarom
+	-- de rest leeg is. Zodra iemand ze loopt, groeit dit naar de vorm hierboven.
+	{
+		id = "gnarldor_isle",
+		rosterName = "Gnarldor Isle",
+		poiId = 8761,
+		sections = {
+			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_UNMEASURED" },
+		},
+	},
+	{
+		id = "ring_of_glory",
+		rosterName = "The Ring of Glory",
+		poiId = 8764,
+		sections = {
+			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_UNMEASURED" },
+		},
+	},
 }
 
 local byId = {}
