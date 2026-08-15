@@ -15,6 +15,38 @@ local _, ns = ...
 	set to "Never expire" again, or every shipped copy of the addon points at a
 	dead invite.
 
+	⛔ NEVER DELETE THE INVITE kBHaHcsASQ. It is baked into every copy of the
+	addon shipped since 2.8.1 (2026-07-17) and into CURSEFORGE_DESCRIPTION.md.
+	Deleting it points every existing installation at a dead link. Making an
+	ADDITIONAL invite is fine; retiring this one is not.
+
+	📊 MEASURED 2026-08-15, because Rob asked why nobody was joining. The whole
+	chain was checked and the plumbing is sound: invite valid and non-expiring,
+	link present in three places on the CurseForge page (sidebar Links plus twice
+	in the body), the nudge card rendering, server profile and channel structure
+	well set up.
+
+	The number that answers the question is the invite's own use count: **2**.
+	Twice, ever, in a month, against 6,849 downloads. So nothing leaks — almost
+	nobody clicks. Two things explain it and neither is a bug:
+
+	  1. WoW cannot open a URL. The button shows a copy box, so joining costs
+	     copy, alt-tab, paste. That funnel is lossy by construction.
+	  2. Discord Server Discovery needs ~1,000 members and 8 weeks (third-party
+	     figures; Discord's own page 403s — but Rob's client greys the option
+	     out, which is the authoritative check). So Discovery is a reward for
+	     growth, not a route to it. The invite link is the only way in.
+
+	Two real defects were found and fixed that day: the server had "Private
+	Profile" on (non-members saw an anonymous "Private Server" card), and this
+	invite was created from #translations, so newcomers landed in a working
+	channel about translating rather than at a front door. Onboarding was enabled
+	the same morning, which makes the landing channel moot.
+
+	⚠️ So do NOT reach for a settings fix if member count comes up again. It has
+	been audited end to end. The levers that remain are exposure ones: the
+	CurseForge page and this nudge are the two surfaces we own.
+
 	never-lie: the card invites, it does not pressure. The body says the addon
 	stays free either way, and dismissing costs the user nothing.
 ]]
