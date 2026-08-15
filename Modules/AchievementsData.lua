@@ -471,6 +471,22 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 114008, mapID = 2600, x = 68.50, y = 62.20, name = "Lomelith", quest = 96208 },
 			{ criteria = 114010, mapID = 2600, x = 70.30, y = 76.40, name = "Warp Agent Xi'grivr", quest = 96319 },
 			{ criteria = 114012, mapID = 2600, x = 55.20, y = 62.00, name = "Slaipaan", quest = 96320 },
+			-- ⚠️ TOEGEVOEGD 15 aug 2026. `/mh ach check` zag dat dit achievement tien
+			-- criteria heeft en wij er acht hadden — een gat dat je in het spel niet ziet,
+			-- want de kaart telde gewoon 8/8 en zweeg over de rest.
+			--
+			-- De naam hielp niet: de client geeft voor criteria 8, 9 én 10 de string
+			-- "Slaipaan". Drie keer dezelfde naam voor drie verschillende criteria.
+			-- Wat het wél oploste is `assetID` — bij criteriaType 0 (kill creature) is dat
+			-- de NPC-id, en die twee komen exact overeen met twee rares die HandyNotes
+			-- in Naigtal kent maar niet aan dit achievement had gekoppeld.
+			--
+			-- ⚠️ Deze twee `name`-velden zijn er met opzet, tegen de gewoonte in dit
+			-- bestand in. Normaal wint de client, want die is vertaald en per definitie
+			-- in overeenstemming met het spel. Hier is de client aantoonbaar kapot, en
+			-- "Slaipaan" op drie regels zou de speler naar de verkeerde rare sturen.
+			{ criteria = 116833, mapID = 2600, x = 29.70, y = 19.20, name = "Warbringer Thal'kuur", quest = 97014 },
+			{ criteria = 116834, mapID = 2600, x = 48.80, y = 47.40, name = "Voidwarped Sporebat", quest = 96566 },
 		},
 	},
 	{

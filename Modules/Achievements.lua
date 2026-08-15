@@ -111,6 +111,11 @@ end
 --- `name` in the data still wins where it exists, because a few older nodes say
 --- something more useful than the criterion does ("Triple-Locked Safebox" vs a bare
 --- object name), and rewriting those was not worth the churn.
+---
+--- ⚠️ And later the same day, a reason stronger than convenience: the client is not
+--- always right. Showdown Slugger: Naigtal returns the string "Slaipaan" for criteria
+--- 8, 9 AND 10 — three different rares, one name. Two of those nodes therefore carry
+--- an explicit `name`, and this precedence is what makes that repair possible.
 function ns.AchievementNodeName(entry, node)
 	if node.name and node.name ~= "" then
 		return node.name
