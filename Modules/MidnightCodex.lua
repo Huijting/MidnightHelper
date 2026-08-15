@@ -169,6 +169,7 @@ local function LayoutContent()
 	end
 
 	local y = 4
+	local heightChanged = false
 	for _, block in ipairs(ui.blocks) do
 		if block.root and block.root:IsShown() then
 			block.root:ClearAllPoints()
@@ -178,12 +179,27 @@ local function LayoutContent()
 			if block.root._mhMeasure then
 				h = block.root._mhMeasure() or h
 			end
+			-- EditBox-hoogtes zijn de eerste meting na SetText soms verouderd
+			-- (zelfde valkuil als RaidGuide en de Dungeon Coach): één verspringende
+			-- hoogte plant precies één hermeting, twee gelijke passes stoppen de lus.
+			if block.root._mhLastH ~= h then
+				block.root._mhLastH = h
+				heightChanged = true
+			end
+			block.root:SetHeight(h)
 			y = y + h + ARTICLE_GAP
 		end
 	end
 	ui.child:SetHeight(math.max(y + 8, 1))
 	if ui.scroll and ui.scroll.UpdateScrollChildRect then
 		ui.scroll:UpdateScrollChildRect()
+	end
+	if heightChanged and C_Timer and C_Timer.After and not ui._mhRelayoutPending then
+		ui._mhRelayoutPending = true
+		C_Timer.After(0, function()
+			ui._mhRelayoutPending = false
+			LayoutContent()
+		end)
 	end
 end
 
@@ -242,11 +258,27 @@ local function AcquireArticleBlock(index)
 	curFs:SetJustifyH("LEFT")
 	curFs:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
 
-	local bodyFs = root:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	-- ⚠️ OMGEBOUWD 15 aug 2026, op Robs herhaalde wens: klikbare coördinaten in de
+	-- Codex-tekst. Een FontString kan geen hyperlinks; dit is nu de read-only
+	-- multiline EditBox die RaidGuide en de coach al jaren gebruiken, met dezelfde
+	-- hyperlink-attach. De hoogtemeting verhuist mee naar het GetNumLines-patroon
+	-- inclusief de één-frame-hermeting — de FontString-meting met GetStringHeight
+	-- gaf hier op 15 jul al eens overlappende artikelen, dus die valkuil is bekend
+	-- en de beveiliging ertegen zit in LayoutContent.
+	local bodyFs = CreateFrame("EditBox", nil, root)
+	bodyFs:SetMultiLine(true)
 	bodyFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	bodyFs:SetJustifyH("LEFT")
-	bodyFs:SetWordWrap(true)
+	bodyFs:SetAutoFocus(false)
+	bodyFs:EnableMouse(true)
+	if bodyFs.SetMaxLetters then
+		bodyFs:SetMaxLetters(0)
+	end
 	bodyFs:SetTextColor(COLOR_BODY[1], COLOR_BODY[2], COLOR_BODY[3])
+	bodyFs._mhTipBox = true
+	if ns.AttachDelveTipHyperlinksToEditBox then
+		ns:AttachDelveTipHyperlinksToEditBox(bodyFs)
+	end
 
 	local navBtn = CreateFrame("Button", nil, root, "UIPanelButtonTemplate")
 	navBtn:SetHeight(22)
@@ -294,7 +326,18 @@ local function AcquireArticleBlock(index)
 		if bw and bw > 0 then
 			bodyFs:SetWidth(bw)
 		end
-		h = h + 6 + (bodyFs:GetStringHeight() or 40) + 6
+		-- EditBox: hoogte = regels x regelhoogte (GetStringHeight bestaat hier niet).
+		-- De eerste meting na een SetText kan verouderd zijn; LayoutContent plant
+		-- daarom één hermeting zodra een hoogte verspringt.
+		local lineH = 14
+		if bodyFs.GetFont then
+			local _, fontH = bodyFs:GetFont()
+			if fontH and fontH > 0 then
+				lineH = fontH + 2
+			end
+		end
+		local numLines = (bodyFs.GetNumLines and bodyFs:GetNumLines()) or 1
+		h = h + 6 + math.max(numLines * lineH, 14) + 6
 		if navBtn:IsShown() or routeBtn:IsShown() then
 			h = h + 30
 		end
@@ -333,7 +376,14 @@ local function ApplyArticleToBlock(block, article)
 	local anchor = article.currencyId and block.curRow or block.titleHit
 	block.bodyFs:ClearAllPoints()
 	block.bodyFs:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -6)
-	block.bodyFs:SetText(CodexL(article.bodyKey))
+	-- Breedte vóór SetText: een EditBox wikkelt bij het zetten, en een meting op
+	-- de oude breedte is precies de overlap-bug van 15 jul in een nieuw jasje.
+	block.bodyFs:SetWidth(ui.child:GetWidth() or 300)
+	local bodyText = CodexL(article.bodyKey)
+	if ns.ExpandDelveTipMarkup then
+		bodyText = ns:ExpandDelveTipMarkup(bodyText) -- {WAY:}/{SPELL:} → klikbaar
+	end
+	block.bodyFs:SetText(bodyText)
 
 	if article.tabId then
 		block.navBtn._mhArticle = article
