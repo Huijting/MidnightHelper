@@ -1,21 +1,15 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: harvest the Coiled Isle achievement nodes out of HandyNotes_Midnight.
+Right now: read ns.db.achCheck and print the nodes a short hunt is missing.
 
-Its node keys encode the coordinates (37416053 -> 37.41 / 60.53) and the
-trailing comment names the spot. Rob's standing instruction is that this
-addon's rare/treasure coords are good enough to ship without a spot-check;
-the achievement and criteria IDS are addon data like any other and still have
-to survive his client.
-
-Prints, per achievement, a ready-to-paste node list sorted north to south —
-the same order the existing hunts use, because that is the order you walk.
+/mh ach check found one: Showdown Slugger: Naigtal ships 8 nodes for 10
+criteria. The command stored the client's full criteria list for exactly that
+hunt, so the two missing ones are a subtraction, not a search.
 """
 import io
 import re
 import sys
-from collections import defaultdict
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -23,56 +17,80 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-P = (r'E:\World of Warcraft\_retail_\Interface\AddOns'
-     r'\HandyNotes_Midnight\zones\coiled_isles.lua')
+P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
+     r'\SavedVariables\MidnightHelper.lua')
 
 t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
-lines = t.split('\n')
 
-# Which map variable each block belongs to; the file uses more than one.
-MAPID = {'map': 2512, 'vault_map': 2509, 'vault_map2': 2613}
-for m in re.finditer(r'local\s+(\w*map\w*)\s*=\s*Map\(\{id\s*=\s*(\d+)', t):
-    MAPID[m.group(1)] = int(m.group(2))
+i = t.find('["achCheck"]')
+if i < 0:
+    print('geen achCheck in de SavedVariables')
+    sys.exit(1)
 
-found = defaultdict(list)
-cur = None
+start = t.index('{', i)
+depth, j = 0, start
+while j < len(t):
+    if t[j] == '{':
+        depth += 1
+    elif t[j] == '}':
+        depth -= 1
+        if depth == 0:
+            break
+    j += 1
+blob = t[start:j + 1]
 
-for i, line in enumerate(lines):
-    m = re.match(r'\s*(\w+)\.nodes\[(\d{8})\]\s*=\s*(\w+)\(\{', line)
-    if m:
-        var, key, kind = m.group(1), m.group(2), m.group(3)
-        cur = {
-            'map': MAPID.get(var, '?'),
-            'x': int(key[:4]) / 100.0,
-            'y': int(key[4:]) / 100.0,
-            'kind': kind,
-            'name': None,
-            'ach': [],
-        }
+print('wrongCriteria  =', re.search(r'\["wrongCriteria"\]\s*=\s*(\d+)', blob).group(1)
+      if re.search(r'\["wrongCriteria"\]\s*=\s*(\d+)', blob) else '?')
+print('incompleteHunts=', re.search(r'\["incompleteHunts"\]\s*=\s*(\d+)', blob).group(1)
+      if re.search(r'\["incompleteHunts"\]\s*=\s*(\d+)', blob) else '?')
+print()
+
+# Every hunt row that carries a "missing" table, with its context.
+for m in re.finditer(r'\["incomplete"\]\s*=\s*true', blob):
+    # Walk back to the start of this row's table, then forward to its end.
+    k = blob.rfind('{', 0, m.start())
+    d, e = 0, k
+    while e < len(blob):
+        if blob[e] == '{':
+            d += 1
+        elif blob[e] == '}':
+            d -= 1
+            if d == 0:
+                break
+        e += 1
+    row = blob[k:e + 1]
+    name = re.search(r'\["name"\]\s*=\s*"([^"]*)"', row)
+    aid = re.search(r'\["id"\]\s*=\s*(\d+)', row)
+    nodes = re.search(r'\["nodes"\]\s*=\s*(\d+)', row)
+    total = re.search(r'\["clientCriteria"\]\s*=\s*(\d+)', row)
+    print('=' * 70)
+    print('%s  (%s)' % (name.group(1) if name else '?', aid.group(1) if aid else '?'))
+    print('wij: %s nodes   client: %s criteria' % (
+        nodes.group(1) if nodes else '?', total.group(1) if total else '?'))
+    print('=' * 70)
+
+    ms = re.search(r'\["missing"\]\s*=\s*\{', row)
+    if not ms:
+        print('geen missing-lijst opgeslagen')
         continue
-    if cur is None:
-        continue
-    for a in re.finditer(r'Achievement\(\{id\s*=\s*(\d+),\s*criteria\s*=\s*(\d+)', line):
-        cur['ach'].append((int(a.group(1)), int(a.group(2))))
-    # The closing "})" carries the trailing comment that names the node.
-    if line.startswith('})') or line.startswith('    })'):
-        c = re.search(r'--\s*(.+?)\s*$', line)
-        if c:
-            cur['name'] = c.group(1)
-        for aid, crit in cur['ach']:
-            found[aid].append((crit, cur))
-        cur = None
-
-for aid in sorted(found):
-    rows = found[aid]
-    print('=' * 78)
-    print('achievement %d  —  %d nodes' % (aid, len(rows)))
-    print('=' * 78)
-    rows.sort(key=lambda r: (r[1]['map'], r[1]['y'], r[1]['x']))
-    for crit, n in rows:
-        name = n['name'] or ''
-        # Strip the ", the Coiled Isles" tail; the hunt already knows the zone.
-        name = re.sub(r',\s*the Coiled Isles?$', '', name)
-        print('\t\t\t{ criteria = %d, mapID = %d, x = %5.2f, y = %5.2f, name = "%s" },'
-              % (crit, n['map'], n['x'], n['y'], name.replace('"', "'")))
+    d, e2 = 0, row.index('{', ms.start() + len('["missing"] ='))
+    s2 = e2
+    while e2 < len(row):
+        if row[e2] == '{':
+            d += 1
+        elif row[e2] == '}':
+            d -= 1
+            if d == 0:
+                break
+        e2 += 1
+    miss = row[s2:e2 + 1]
+    for sub in re.finditer(r'\{[^{}]*\}', miss):
+        c = sub.group(0)
+        cid = re.search(r'\["id"\]\s*=\s*(\d+)', c)
+        idx = re.search(r'\["index"\]\s*=\s*(\d+)', c)
+        txt = re.search(r'\["text"\]\s*=\s*"([^"]*)"', c)
+        print('   ONTBREEKT  criteria = %-8s index %-3s  %s' % (
+            cid.group(1) if cid else '?',
+            idx.group(1) if idx else '?',
+            txt.group(1) if txt else '(geen tekst)'))
     print()

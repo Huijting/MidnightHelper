@@ -120,11 +120,20 @@ function ns.PrintAchievementDataCheck()
 						ours[node.criteria] = true
 					end
 				end
+				-- criteriaType and assetID as well as the string, because on 15 Aug the
+				-- string alone was useless: Showdown Slugger: Naigtal returned "Slaipaan"
+				-- for criteria 8, 9 AND 10. A name repeated three times identifies
+				-- nothing. assetID on a kill criterion is the NPC id, which does.
 				row.clientList, row.missing = {}, {}
 				for i = 1, total do
-					local okC, s, _, _, _, _, _, _, _, _, cid = pcall(GetAchievementCriteriaInfo, aid, i)
+					local okC, s, ctype, _, _, _, _, _, asset, _, cid =
+						pcall(GetAchievementCriteriaInfo, aid, i)
 					if okC then
-						local e = { index = i, id = cid, text = (type(s) == "string" and s ~= "") and s or nil }
+						local e = {
+							index = i, id = cid,
+							text = (type(s) == "string" and s ~= "") and s or nil,
+							criteriaType = ctype, assetID = asset,
+						}
 						row.clientList[#row.clientList + 1] = e
 						if cid and not ours[cid] then
 							row.missing[#row.missing + 1] = e
