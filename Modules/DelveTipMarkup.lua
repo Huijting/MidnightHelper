@@ -177,6 +177,15 @@ function ns:SetMapWaypoint(mapID, x, y, label)
 	if not (mapID and x and y) then
 		return
 	end
+	-- ⚠️ 15 aug 2026, Robs vraag vanaf zijn vliegroute: "we hebben toch zelf een
+	-- pijl, ook zonder TomTom?" Ja — en deze klik liep eromheen. AddSmartTomTomWay
+	-- is wat élke routeknop gebruikt: TomTom als die er is, anders Blizzard-pin met
+	-- SuperTrack, plus de Travel Assistant die meteen zegt hoe je er kómt (portal,
+	-- hearthstone). De kale fallback hieronder blijft alleen voor het geval de
+	-- Delves-module niet geladen is.
+	if ns.AddSmartTomTomWay and ns.AddSmartTomTomWay(mapID, x, y, label) ~= false then
+		return
+	end
 	if C_AddOns and C_AddOns.LoadAddOn and C_AddOns.IsAddOnLoaded and not C_AddOns.IsAddOnLoaded("TomTom") then
 		pcall(C_AddOns.LoadAddOn, "TomTom")
 	end
