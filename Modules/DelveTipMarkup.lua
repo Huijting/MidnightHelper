@@ -362,6 +362,14 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 	if ns.MHSameZoneOrSub and ns.MHSameZoneOrSub(currentMap, targetMap) then
 		return false
 	end
+	-- Already on a taxi: sending the arrow to the flight master you just left would be
+	-- the exact bug this file spent the afternoon fixing.
+	if UnitOnTaxi then
+		local okT, v = pcall(UnitOnTaxi, "player")
+		if okT and v then
+			return false
+		end
+	end
 
 	local px, py
 	if C_Map and C_Map.GetPlayerMapPosition then
@@ -392,12 +400,25 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 		if legWatcher then
 			legWatcher:Cancel()
 		end
-		legWatcher = C_Timer.NewTicker(3, function()
+		-- ⚠️ 1.5s, not 3. The interval is how long a stale arrow survives, and the whole
+		-- point of leg one is that the arrow tells the truth.
+		legWatcher = C_Timer.NewTicker(1.5, function()
 			if not pendingLeg then
 				ClearLeg()
 				return
 			end
-			if not ArrivedOnTargetMap() then
+			-- ⚠️ BOARDING ENDS LEG ONE, not landing. Rob, 16 aug: on the taxi the arrow
+			-- kept pointing back at The Royal Exchange, a flight master he was sitting
+			-- on top of. Once you are on the bird that leg is finished by definition —
+			-- there is nothing left to walk to — so hand the arrow to the destination
+			-- now rather than at the far end. It also makes the flight itself useful:
+			-- you can see where you are going while you go there.
+			local onTaxi = false
+			if UnitOnTaxi then
+				local okT, v = pcall(UnitOnTaxi, "player")
+				onTaxi = okT and v or false
+			end
+			if not (onTaxi or ArrivedOnTargetMap()) then
 				return
 			end
 			local leg = pendingLeg
