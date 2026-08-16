@@ -157,14 +157,15 @@ local MIDNIGHT_PORTALS = {
 	-- portal on the Tuesday the season starts. Until then the travel help must keep
 	-- pointing at the flight master, which it does on its own because the gate is false.
 	--
-	-- ✅ MEASURED 16 aug on Rob's shaman, and the two ids did not fare the same.
-	-- 96004 came back as "Prey: A Slithering Threat" exactly, so this gate rests on a
-	-- real quest. 96466 was REFUTED by the server (`serverKnowsIt = false`) — Method had
-	-- it wrong, in the same paragraph, with the same confidence.
+	-- ✅ 96004 MEASURED 16 aug on Rob's shaman: the client returns "Prey: A Slithering
+	-- Threat" exactly, so this gate rests on a real quest.
 	--
-	-- ⚠️ Which is why only 96004 gates anything here. Two ids from one source, one right
-	-- and one wrong: checking them separately is not pedantry, it is the difference
-	-- between a portal that appears and one that never does.
+	-- ⚠️ 96466 is UNDECIDED, not refuted — I said refuted and was wrong. The server
+	-- answered "no such quest", which only means "not today"; Method may have tested on
+	-- the PTR, and a quest that becomes real when Season 2 activates looks identical
+	-- from here. Re-measure after the reset (see AtalUtekProbe's REPEATABLE list).
+	--
+	-- It gates nothing either way. Only 96004 does, and that one is checked.
 	{ name = "Portal to The Coiled Isle", mapID = 2393, toID = 2512,
 		x = 56.83, y = 67.38, requiresQuest = 96004 },
 	{ name = "Portal to The Coiled Isle", mapID = 2576, toID = 2512,

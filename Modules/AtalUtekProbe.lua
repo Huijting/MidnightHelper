@@ -80,12 +80,21 @@ local REPEATABLE = {
 	-- ✅ 96004 VERIFIED 16 aug on Rob's shaman: the client returns "Prey: A Slithering
 	-- Threat", character for character. The portal gate rests on a real id.
 	{ 96004, "Prey: A Slithering Threat", "unlocks the Coiled Isle portal" },
-	-- ⚠️ 96466 is WRONG. Same Method paragraph, same confidence, and the server answered
-	-- `serverKnowsIt = false` — not a cold cache like quest 98232 was, an actual "no
-	-- such quest". Kept in the sweep so nobody re-adds it from the same page, and NOT
-	-- used to gate anything. One right and one wrong id from one paragraph is the whole
-	-- argument for checking each of them separately.
-	{ 96466, "Prey: Anguish Island (id REFUTED by the server)", "follow-up, id unknown" },
+	-- ⚠️ 96466: UNDECIDED, and my first reading of it was wrong.
+	--
+	-- The server answered `serverKnowsIt = false` and I wrote that down as "the id is
+	-- wrong". Rob pushed back: Method may have tested on the PTR, and a quest that only
+	-- becomes real when Season 2 activates would look exactly like this today. He is
+	-- right, and "the server has no such quest" only ever meant "not today".
+	--
+	-- 96004 resolving does NOT settle it. That one is gated behind Nightmare Prey Hunts
+	-- too, so availability is clearly no obstacle to resolving — but 96004 already
+	-- existed in Season 1, and 96466 may be new. The two are not comparable.
+	--
+	-- ⏰ RE-MEASURE AFTER THE RESET (S2 opens 18 aug US / 19 aug EU). Resolves then =
+	-- the id was right all along and this note was the mistake. Still silent = a wrong
+	-- id, and only then.
+	{ 96466, "Prey: Anguish Island (undecided until the S2 reset)", "follow-up" },
 
 	{ 96639, "Patrolling the Temple", "group daily" },
 	{ 96640, "Bounty of the Cursed", "group daily" },
