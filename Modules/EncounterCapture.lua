@@ -625,15 +625,26 @@ function ns.PrintZoneReport()
 			local okS, v = pcall(issecretvalue, guid)
 			secret = okS and v or false
 		end
-		local npcID = (okG and type(guid) == "string")
-			and tonumber(guid:match("^%a+%-%d+%-%d+%-%d+%-%d+%-(%d+)")) or nil
+		-- ⚠️ `type(guid) == "string"` IS TRUE FOR A SECRET STRING. The first version
+		-- checked whether the value was secret, stored the answer, and then called
+		-- guid:match() anyway — a probe written to find out whether something may be
+		-- touched, touching it. Rob's client threw "attempt to index local 'guid' (a
+		-- secret string value)" on the delve's final boss, 16 aug.
+		--
+		-- The secret flag must GATE the read, not merely be reported next to it.
+		local npcID
+		if okG and not secret and type(guid) == "string" then
+			npcID = tonumber(guid:match("^%a+%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
+		end
 		print(("   target      = %s"):format(
-			(okG and type(guid) == "string") and guid or "|cffff5040unreadable|r"))
-		print(("      secret   = %s   npcID = %s   name = %s"):format(
-			tostring(secret), tostring(npcID or "-"),
-			tostring((UnitName and UnitName("target")) or "-")))
-		if npcID and not secret then
-			print("      |cff40c040Readable — the 9 jul reason for dropping the click-the-boss prompt does not hold here.|r")
+			secret and "|cffffd100secret value|r"
+			or ((okG and type(guid) == "string") and guid or "|cffff5040unreadable|r")))
+		print(("      secret   = %s   npcID = %s"):format(
+			tostring(secret), tostring(npcID or "-")))
+		if secret then
+			print("      |cffff5040Measured: the 9 jul reason HOLDS. A delve boss cannot be identified by npcID.|r")
+		elseif npcID then
+			print("      |cff40c040Readable here — the 9 jul reason does not hold on this target.|r")
 		end
 	else
 		print("   target      = |cff8a8f98nothing targeted — target a boss and run this again|r")

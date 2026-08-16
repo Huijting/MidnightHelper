@@ -1671,6 +1671,19 @@ end
 -- een baas?" gefilterd: Delve-bazen hebben een echt level en zijn vaak als "elite" geclassificeerd
 -- (net als trash), en hun GUID/npcID kan in 12.x secret zijn — dus dat is niet betrouwbaar te
 -- bepalen. De coach is toch delve-breed; het prompt-knopje is passief (verschijnt één keer).
+-- ✅ GEMETEN 16 aug 2026, en de aanname hierboven KLOPT. Robs `/mh zone` op de eindbaas
+-- van Gnarldor Isle: `UnitGUID("target")` is een **secret value** (`issecretvalue` = true;
+-- de probe crashte er zelfs op omdat `type(guid) == "string"` óók waar is voor een secret
+-- string). Een delve-baas is dus echt niet aan zijn npcID te herkennen.
+--
+-- Dit stond vijf weken als onbewezen reden in de code en is nu een meting. Niet opnieuw
+-- betwijfelen; wél opnieuw meten als 12.2 de secret-regels verandert.
+--
+-- ⚠️ MAAR: de kosten-afweging is 16 aug wél veranderd. De oude bezwaar was dat een
+-- ongefilterde target-prompt op trash vuurde en daarmee het "1x per delve"-budget
+-- opmaakte vóór de echte baas. De prompt verdwijnt sinds vandaag na 5 seconden vanzelf,
+-- dus een misser kost nu vijf seconden in plaats van de hele delve. Een prompt op elk
+-- vijandelijk doelwit is daarmee weer bespreekbaar — als Rob dat wil.
 local targetPromptShownThisZone = false -- prompt max. 1x/delve; reset bij zone-entry
 local function MaybeShowBossPromptOnTarget() -- DEPRECATED 9 jul: vervangen door MaybeShowBossPromptForFinalStage; niet meer aangeroepen
 	do return end
