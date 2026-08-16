@@ -512,7 +512,10 @@ ns._mhLocales.enUS = {
 	-- The assistant slot shows whichever spell it currently suggests, so it is named for
 	-- what it IS. Two exports a minute apart called it Frozen Orb and then Flurry.
 	KEYBIND_EXPORT_ASSIST = "Assisted Combat (changes as you fight)",
-	KEYBIND_EXPORT_DUP = "<-- also elsewhere",
+	-- ⚠️ Parentheses, not "<--". The arrow drew a spell-check underline in Word and got
+	-- pulled onto the word before it, so a printed sheet looked like it had broken
+	-- links in it. Anything that reads as markup gets autocorrected somewhere.
+	KEYBIND_EXPORT_DUP = "(also elsewhere)",
 	KEYBIND_EXPORT_DUP_NOTE = "%d keys do something another key also does. Often deliberate — the same spell within reach on a laptop as on an MMO mouse — and worth seeing when you want room for something new.",
 	KEYBIND_EXPORT_DATED = "Read on %s. Change a key in game and this sheet is out of date — run it again.",
 	KEYBIND_EXPORT_PRINT_HINT = "To print: select all, copy, and paste into a document. A monospace font (Consolas, Courier) keeps the columns lined up.",
