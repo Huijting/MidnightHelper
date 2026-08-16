@@ -49,17 +49,43 @@ ns.ACHIEVEMENT_TREASURES = {
 		nodes = {
 			{ criteria = 115295, mapID = 2512, x = 31.43, y = 83.49 },
 			{ criteria = 115314, mapID = 2512, x = 64.91, y = 78.89 },
-			{ criteria = 115294, mapID = 2512, x = 70.63, y = 76.63, note = "ACH_NOTE_BRINE_CRUSTED" },
+			-- ⚠️ Coordinates belong in prereqs, not in the note. Rob, 16 aug: the toast
+			-- showed the steps and he could not click the numbers in them. The toast
+			-- already renders one button per prereq — the note only has to say what to
+			-- DO, and every place it mentions becomes a button that routes there.
+			{ criteria = 115294, mapID = 2512, x = 70.63, y = 76.63, note = "ACH_NOTE_BRINE_CRUSTED",
+				prereqs = {
+					{ name = "ACH_STEP_CLAM", mapID = 2512, x = 69.58, y = 82.48 },
+					{ name = "ACH_STEP_PEARL_NPC", mapID = 2512, x = 70.58, y = 77.07 },
+				} },
 			{ criteria = 115306, mapID = 2512, x = 75.37, y = 68.33 },
 			{ criteria = 115292, mapID = 2512, x = 43.64, y = 67.38, note = "ACH_NOTE_PROFANE_SPOILS" },
 			{ criteria = 115302, mapID = 2512, x = 29.54, y = 67.23 },
-			{ criteria = 115289, mapID = 2512, x = 71.88, y = 66.66, note = "ACH_NOTE_PRIVATEERS_CACHE" },
+			{ criteria = 115289, mapID = 2512, x = 71.88, y = 66.66, note = "ACH_NOTE_PRIVATEERS_CACHE",
+				prereqs = {
+					{ name = "ACH_STEP_COD_POOL", mapID = 2512, x = 73.41, y = 66.11 },
+					{ name = "ACH_STEP_CRATE", mapID = 2512, x = 73.10, y = 66.97 },
+					{ name = "ACH_STEP_URN", mapID = 2512, x = 72.42, y = 68.39 },
+				} },
 			{ criteria = 115313, mapID = 2512, x = 45.91, y = 66.28 },
-			{ criteria = 115310, mapID = 2512, x = 68.05, y = 65.90, note = "ACH_NOTE_LOST_SPIRIT" },
+			{ criteria = 115310, mapID = 2512, x = 68.05, y = 65.90, note = "ACH_NOTE_LOST_SPIRIT",
+				prereqs = {
+					{ name = "ACH_STEP_LOST_ITEM", mapID = 2512, x = 70.22, y = 64.50 },
+				} },
 			{ criteria = 115309, mapID = 2512, x = 60.43, y = 59.46 },
 			{ criteria = 115308, mapID = 2512, x = 73.44, y = 56.61 },
-			{ criteria = 115291, mapID = 2512, x = 67.26, y = 48.46, note = "ACH_NOTE_GRAVE_FORGOTTEN" },
-			{ criteria = 115293, mapID = 2512, x = 58.19, y = 45.72, note = "ACH_NOTE_VULZAHN" },
+			{ criteria = 115291, mapID = 2512, x = 67.26, y = 48.46, note = "ACH_NOTE_GRAVE_FORGOTTEN",
+				prereqs = {
+					{ name = "ACH_STEP_SPIRIT_1", mapID = 2512, x = 70.41, y = 58.39 },
+					{ name = "ACH_STEP_SPIRIT_2", mapID = 2512, x = 66.42, y = 57.23 },
+					{ name = "ACH_STEP_SPIRIT_3", mapID = 2512, x = 69.04, y = 52.71 },
+				} },
+			{ criteria = 115293, mapID = 2512, x = 58.19, y = 45.72, note = "ACH_NOTE_VULZAHN",
+				prereqs = {
+					{ name = "ACH_STEP_TRADE_1", mapID = 2512, x = 57.20, y = 48.45 },
+					{ name = "ACH_STEP_TRADE_2", mapID = 2512, x = 58.04, y = 48.78 },
+					{ name = "ACH_STEP_TRADE_3", mapID = 2512, x = 58.16, y = 45.68 },
+				} },
 			{ criteria = 115312, mapID = 2512, x = 58.14, y = 43.55 },
 			{ criteria = 115300, mapID = 2512, x = 53.09, y = 43.10 },
 			{ criteria = 115307, mapID = 2512, x = 55.21, y = 37.96 },
