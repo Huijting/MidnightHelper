@@ -187,3 +187,101 @@ function ns.GetOpenDelveChests()
 	end)
 	return open, mapID, #chests, unknown
 end
+
+--------------------------------------------------------------------------------
+-- The route itself
+--------------------------------------------------------------------------------
+
+--- ⚠️ This route does NOT go through MHResolveWaypointMap.
+---
+--- That helper climbs to the first ancestor map that accepts a user waypoint, which is
+--- right everywhere else and catastrophic here: the ancestor of a delve interior is the
+--- world outside, so it would point the player calmly out of the cave and look like it
+--- was working. `/mh zone` in Gnarldor Isle says the pin is refused on this map — so the
+--- arrow we draw ourselves is the whole mechanism, and it must be given the delve's own
+--- coordinates untranslated.
+local ticker, activeMap, activeQuest
+
+local function StopRoute(silent)
+	if ticker then
+		ticker:Cancel()
+		ticker = nil
+	end
+	activeMap, activeQuest = nil, nil
+	if ns._mhRouteOwner == "delvechest" then
+		ns._mhRouteOwner = nil
+	end
+	if not silent and ns.MH_TomTomClearAll then
+		ns.MH_TomTomClearAll()
+	end
+end
+ns.StopDelveChestRoute = StopRoute
+
+local function PointAtNearest(announce)
+	local open, mapID, total, unknown = ns.GetOpenDelveChests()
+	if not mapID or not ns.DELVE_CHESTS[mapID] then
+		StopRoute()
+		return false, "nomap"
+	end
+	if #open == 0 then
+		StopRoute()
+		if announce ~= false then
+			print(("%s %s"):format(ns:L("PRINT_PREFIX"), ns:L("DELVE_CHEST_ALL_DONE")))
+		end
+		return false, "done"
+	end
+
+	local c = open[1]
+	activeMap, activeQuest = mapID, c.quest
+	ns._mhRouteOwner = "delvechest"
+	-- clearDist 0: keep the arrow on the chest while you fight and loot it, instead of
+	-- vanishing the moment you are close. Same reason the treasure route passes 0.
+	ns.AddSmartTomTomWay(mapID, c.x, c.y,
+		(ns:L("DELVE_CHEST_LABEL")):format(c.index), false, false, false, 0)
+
+	if announce ~= false then
+		print(("%s %s"):format(ns:L("PRINT_PREFIX"),
+			(ns:L("DELVE_CHEST_ROUTING")):format(total - #open + 1, total)))
+		-- Say it out loud when a chest's state is unreadable. The route then walks you
+		-- past something you may already have opened, and a player who is not told that
+		-- concludes the addon is wrong rather than cautious.
+		if unknown > 0 then
+			print(("   %s"):format((ns:L("DELVE_CHEST_UNSURE")):format(unknown)))
+		end
+	end
+	return true
+end
+
+--- Start (or restart) the chest route for the delve the player is standing in.
+function ns.RouteDelveChests()
+	StopRoute(true)
+	local ok = PointAtNearest(true)
+	if not ok then
+		return false
+	end
+	if not (C_Timer and C_Timer.NewTicker) then
+		return true -- no ticker: the arrow still points, it just will not advance itself
+	end
+	ticker = C_Timer.NewTicker(2, function()
+		-- Someone else took the arrow (a rare route, a manual waypoint): stand down
+		-- rather than fighting over it. Ownership is the addon's existing convention.
+		if ns._mhRouteOwner ~= "delvechest" then
+			StopRoute(true)
+			return
+		end
+		local _, mapID = ns.GetDelveChestsHere()
+		if mapID ~= activeMap then
+			StopRoute(true) -- left the delve, or moved to its other floor
+			return
+		end
+		-- Only re-point once the chest we are on is actually flagged done. Re-pointing
+		-- on distance would jump to the next chest every time you walked past one.
+		if activeQuest and C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
+			local okQ, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, activeQuest)
+			if okQ and done then
+				PointAtNearest(true)
+			end
+		end
+	end)
+	return true
+end

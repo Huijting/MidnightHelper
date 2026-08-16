@@ -863,6 +863,27 @@ local function EnsureCoachFrame()
 	end)
 	f._shareBtnBoss = btnBoss
 
+	-- Rob, 16 aug: the coach already listed the chests as clickable waypoints and he
+	-- asked why that could not simply be a route. It can — see DelveChestData.lua. The
+	-- button sits with the share row because that is where the coach's actions live.
+	local btnChests = MakeShareBtn(btnRow, "DELVE_CHEST_BTN", 48)
+	btnChests:SetScript("OnClick", function()
+		if not ns.RouteDelveChests then
+			return
+		end
+		local started = ns.RouteDelveChests()
+		-- ⚠️ Only "no data" is worth printing here. RouteDelveChests already announces
+		-- the chest it picked and already says when everything is open, so echoing a
+		-- second line would make one click talk twice.
+		if not started then
+			local _, mapID = ns.GetDelveChestsHere()
+			if not (mapID and ns.DELVE_CHESTS and ns.DELVE_CHESTS[mapID]) then
+				print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("DELVE_CHEST_NO_DATA")))
+			end
+		end
+	end)
+	f._shareBtnChests = btnChests
+
 	local btnMore = MakeShareBtn(btnRow, "DELVE_SHARE_BTN_MORE", 40)
 	f._shareBtnMore = btnMore
 

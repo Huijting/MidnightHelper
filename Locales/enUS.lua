@@ -491,6 +491,15 @@ ns._mhLocales.enUS = {
 	-- knew the real names; there is no reason to keep a stand-in after the game has
 	-- answered. Note the spelling — Hissstory with three s's is Blizzard's joke, not
 	-- a typo, and the Isles in 63395 is plural where the zone name is singular.
+	-- Delve chest route (16 aug). "Unsure" is a first-class message on purpose: the
+	-- quest ids behind the done-check come from one addon, so the route says when it
+	-- cannot tell instead of quietly walking you past a chest you already opened.
+	DELVE_CHEST_BTN = "Chests",
+	DELVE_CHEST_LABEL = "Sturdy Chest %d",
+	DELVE_CHEST_ROUTING = "Sturdy Chest %d of %d — follow the arrow.",
+	DELVE_CHEST_ALL_DONE = "Every Sturdy Chest here is already open.",
+	DELVE_CHEST_NO_DATA = "No chest list for this delve yet.",
+	DELVE_CHEST_UNSURE = "%d of them I cannot check — you may walk to one you already have.",
 	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
 	ACH_LORE_COILEDISLE = "Student of Hissstory",
 	-- Trading Post tab
