@@ -509,6 +509,11 @@ ns._mhLocales.enUS = {
 	KEYBIND_EXPORT_EMPTY = "(bound to an empty slot)",
 	KEYBIND_EXPORT_EMPTY_NOTE = "%d key(s) are bound to an empty slot — pressing them does nothing.",
 	KEYBIND_EXPORT_NONE = "No bound action-bar keys came back. That is more likely a reading problem than an empty setup — try again in a moment.",
+	-- The assistant slot shows whichever spell it currently suggests, so it is named for
+	-- what it IS. Two exports a minute apart called it Frozen Orb and then Flurry.
+	KEYBIND_EXPORT_ASSIST = "Assisted Combat (changes as you fight)",
+	KEYBIND_EXPORT_DUP = "<-- also elsewhere",
+	KEYBIND_EXPORT_DUP_NOTE = "%d keys do something another key also does. Often deliberate — the same spell within reach on a laptop as on an MMO mouse — and worth seeing when you want room for something new.",
 	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
 	ACH_LORE_COILEDISLE = "Student of Hissstory",
 	-- Trading Post tab

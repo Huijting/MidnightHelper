@@ -494,6 +494,9 @@ ns._mhLocales.nlNL = {
 	KEYBIND_EXPORT_EMPTY = "(op een leeg slot gebonden)",
 	KEYBIND_EXPORT_EMPTY_NOTE = "%d toets(en) staan op een leeg slot — daar gebeurt niets als je ze indrukt.",
 	KEYBIND_EXPORT_NONE = "Geen enkele gebonden actiebalk-toets teruggekregen. Dat is eerder een leesprobleem dan een lege indeling — probeer het zo nog eens.",
+	KEYBIND_EXPORT_ASSIST = "Assisted Combat (verandert tijdens het vechten)",
+	KEYBIND_EXPORT_DUP = "<-- staat ook elders",
+	KEYBIND_EXPORT_DUP_NOTE = "%d toetsen doen iets dat een andere toets ook doet. Vaak bewust — dezelfde spell bereikbaar op een laptop én op een MMO-muis — en handig om te zien als je ruimte zoekt voor iets nieuws.",
 	-- Achievement-namen zijn van Blizzard; die vertalen we niet. Gemeten 15 aug.
 	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
 	ACH_LORE_COILEDISLE = "Student of Hissstory",

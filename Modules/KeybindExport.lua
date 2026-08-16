@@ -33,6 +33,21 @@ local function SlotContents(slot)
 	if not GetActionInfo then
 		return nil
 	end
+	-- ⚠️ THE ASSISTANT SLOT IS A MOVING TARGET, and this export exists to be printed
+	-- and learned from. Rob mentioned in passing that his key 1 is "de auto spel knop";
+	-- two runs a minute apart reported Frozen Orb and then Flurry for it. Naming
+	-- whichever spell it happened to suggest would teach him a binding that does not
+	-- exist, and it would look exactly like every other row.
+	--
+	-- C_ActionBar.IsAssistedCombatAction identifies it. Guarded, because that name comes
+	-- from JustAC rather than from the client: if it is absent nothing breaks and the
+	-- row falls back to the old behaviour.
+	if C_ActionBar and C_ActionBar.IsAssistedCombatAction then
+		local okA, isAssist = pcall(C_ActionBar.IsAssistedCombatAction, slot)
+		if okA and isAssist then
+			return L("KEYBIND_EXPORT_ASSIST"), "assist"
+		end
+	end
 	local ok, kind, id, subType = pcall(GetActionInfo, slot)
 	if not ok or not kind then
 		return nil
@@ -111,6 +126,7 @@ function ns.BuildKeybindExportText()
 	lines[#lines + 1] = ""
 
 	local bound, emptyBound = 0, 0
+	local bars, seen = {}, {}
 	for _, bar in ipairs(ns.KEYBIND_BAR_COMMANDS or {}) do
 		local rows = {}
 		for i = 1, 12 do
@@ -134,25 +150,56 @@ function ns.BuildKeybindExportText()
 				end
 			end
 			if keys then
-				local label = SlotContents(slot)
+				local label, kind = SlotContents(slot)
 				bound = bound + 1
 				if not label then
 					-- A key that is bound to an empty slot does nothing when pressed.
 					-- Worth printing, not worth hiding: it is usually a leftover.
 					emptyBound = emptyBound + 1
-					rows[#rows + 1] = ("  %-18s %s"):format(keys, L("KEYBIND_EXPORT_EMPTY"))
-				else
-					rows[#rows + 1] = ("  %-18s %s"):format(keys, label)
 				end
+				rows[#rows + 1] = {
+					keys = keys,
+					label = label or L("KEYBIND_EXPORT_EMPTY"),
+					-- The assistant slot must never count as a duplicate of the spell it
+					-- is currently suggesting; it is not that spell tomorrow.
+					countable = (label ~= nil and kind ~= "assist"),
+				}
 			end
 		end
 		if #rows > 0 then
-			lines[#lines + 1] = bar.prefix:gsub("BUTTON$", "")
+			bars[#bars + 1] = { name = bar.prefix:gsub("BUTTON$", ""), rows = rows }
 			for _, r in ipairs(rows) do
-				lines[#lines + 1] = r
+				if r.countable then
+					seen[r.label] = (seen[r.label] or 0) + 1
+				end
 			end
-			lines[#lines + 1] = ""
 		end
+	end
+
+	-- ⚠️ Marking duplicates, NOT complaining about them. Rob has six: his Naga buttons
+	-- repeat what is already on the keyboard, because he also plays on a laptop with no
+	-- MMO mouse and wants those spells reachable there. That is a good reason, and a
+	-- tool that flagged them as a mistake would be wrong about its own user.
+	--
+	-- The mark is worth having anyway: when you are learning a layout it tells you which
+	-- keys are the same thing, and when you need room for something new it shows you
+	-- where the room is.
+	local dupes = 0
+	for _, bar in ipairs(bars) do
+		lines[#lines + 1] = bar.name
+		for _, r in ipairs(bar.rows) do
+			local mark = ""
+			if r.countable and (seen[r.label] or 0) > 1 then
+				mark = "  " .. L("KEYBIND_EXPORT_DUP")
+				dupes = dupes + 1
+			end
+			lines[#lines + 1] = ("  %-18s %s%s"):format(r.keys, r.label, mark)
+		end
+		lines[#lines + 1] = ""
+	end
+	if dupes > 0 then
+		lines[#lines + 1] = (L("KEYBIND_EXPORT_DUP_NOTE")):format(dupes)
+		lines[#lines + 1] = ""
 	end
 
 	if bound == 0 then
