@@ -564,6 +564,51 @@ function ns.PrintZoneReport()
 		end
 	end
 
+	-- ⚠️ Can a route even exist HERE? Rob, 16 aug: "in de delves kunnen we ook een route
+	-- inbouwen voor de treasures". HandyNotes already has the chest coordinates on real
+	-- delve-interior maps (2535, 2502, 2633, 2635, …), so the data is not the question.
+	-- Whether navigation works inside an instance is, and these three lines answer it
+	-- without designing anything first.
+	--
+	-- The two are NOT the same test. Blizzard's user waypoint is often refused inside
+	-- instances; our own arrow only needs GetWorldPosFromMapPos to return a position.
+	-- If the waypoint is refused but world coords work, MH can still draw a direction —
+	-- and the feature is buildable by a route the outdoor code never uses.
+	--
+	-- ⚠️ And here the usual fallback is WRONG. MHResolveWaypointMap walks up to a parent
+	-- map that accepts a waypoint; for a chest inside a delve that parent is the world
+	-- outside, so it would happily point you out of the cave. Whatever gets built for
+	-- delves must not silently inherit that.
+	if C_Map.CanSetUserWaypointOnMap then
+		local okW, canWay = pcall(C_Map.CanSetUserWaypointOnMap, mapID)
+		print(("   waypoint    = %s"):format(
+			(okW and canWay) and "|cff40c040this map accepts one|r"
+			or "|cffffd100refused here — Blizzard's pin cannot be placed|r"))
+	end
+	if C_Map.GetWorldPosFromMapPos and CreateVector2D then
+		local okC, cont, world = pcall(C_Map.GetWorldPosFromMapPos, mapID, CreateVector2D(0.5, 0.5))
+		local wx, wy
+		if okC and world and world.GetXY then
+			local okXY, a, b = pcall(world.GetXY, world)
+			if okXY then
+				wx, wy = a, b
+			end
+		end
+		if wx then
+			print(("   world pos   = |cff40c040yes|r  continent %s  (%.0f, %.0f) — our own arrow can work here"):format(
+				tostring(cont), wx, wy))
+		else
+			print("   world pos   = |cffff5040none — no direction or distance can be computed on this map|r")
+		end
+	end
+	if IsInInstance then
+		local okI, inInst, instType = pcall(IsInInstance)
+		if okI then
+			print(("   instance    = %s%s"):format(tostring(inInst),
+				instType and ("  type " .. tostring(instType)) or ""))
+		end
+	end
+
 	-- Coverage. The whole point: an empty list and an unknown zone must not look
 	-- the same.
 	local covered, zoneKey = false, nil
