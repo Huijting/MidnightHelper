@@ -23,12 +23,14 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 
 **Getting there, and knowing your keys**
 - **A chest route inside delves.** The coach points you at the nearest Sturdy Chest you have not opened and moves on by itself once you loot it — and where it cannot tell whether a chest is done, it keeps it in the route and says so, rather than quietly hiding one.
-- **Travel that points at the flight master.** Ask for a waypoint on another map and the arrow goes to the flight master you can walk to first, then hands over to your destination the moment you board. The flight map names the stop to click, and tells you when that stop is not on your map yet. 649 flight points across 154 maps, filtered to your faction.
+- **Travel that points at the flight master.** Ask for a waypoint on another map and the arrow goes to the flight master you can walk to first, then hands over to your destination the moment you board. The flight map **highlights the stop to click** and tells you when that stop is not on your map yet. 649 flight points across 154 maps, filtered to your faction.
+- **`/mh curios` — what Valeera's delve curios actually do.** Every line is read out of your own game as you ask, so it describes the ranks you have rather than a guide's snapshot. It deliberately does not rank them: which curio wins depends on your spec and your delve, and nobody has measured that.
 - **`/mh binds` — your own keybinds on paper.** It reads the keys you actually have, including anything you changed by hand, and puts them in a window you can copy into a document and print. It marks keys that duplicate another, and names the Assisted Combat slot for what it is instead of for whichever spell it is suggesting right now.
 
 **Patch 12.1**
 - The **Coiled Isle** with its rares mapped: names, coordinates and the hidden kill quests that let the list tick itself off — measured on the test realm, not copied from anywhere. **Altar of Fangs** with beginner steps for all three bosses, and the two **12.1 delves** (Gnarldor Isle, The Ring of Glory) in the coach with routes, bosses and 3D models.
 - A **Coiled Isle shelf in the Codex**: the Vaults of Atal'Utek in three readable articles with **clickable waypoint links** on every coordinate, the Altar of Corrosion's four hidden keys explained, and a **Follow the route** button for The Honored Dead memorial walk.
+- The isle's **treasure, glyph and lore hunts** with every coordinate measured, and the seven treasures that need something done first now **name the step that unlocks them** instead of sending you to a chest that will not open. The **portal** to the isle and back joins route guidance once you have finished the quest that creates it.
 - Season 2 content stays hidden until the season genuinely **opens**, not merely until the patch lands — those are a week apart, and an addon that announces a raid you cannot enter yet is worse than one that says nothing.
 - In combat, 12.1 hides some of your own buffs from addons and reports them as simply absent. Midnight Helper tells you it **cannot see**, instead of telling you that you are missing a buff you are holding.
 
@@ -167,6 +169,8 @@ drift from what the addon actually answers to.
 | `/mh arrowsize <28-160>` | Resize the route arrow |
 | `/mh arrow` | Who is guiding you, and why the arrow is or is not showing |
 | `/mh binds` | Your own keybinds, read from the client — copy it out and print it |
+| `/mh curios` | What each of Valeera's delve curios does, read from your own game |
+| `/mh mount <text>` | Search the mount journal and see what your client actually knows |
 | `/mh partytargets` | Toggle the party targets panel |
 | `/mh lang auto` · `en` · `de` · `fr` · `es` · `pt` · `it` · `nl` | Set language |
 | `/mh tracks` | Which slots are at their upgrade ceiling, and what raises them |
