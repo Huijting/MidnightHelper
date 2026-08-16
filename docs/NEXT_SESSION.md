@@ -100,8 +100,37 @@ flight master, 649 flightpoints, `/mh binds`, en de Layout-kolomfix.
   niet: de kist-vlaggen zijn **account-wide**, dus op zijn account staat alles voor altijd
   op gedaan. ⚠️ Een lege route bij een veteraan is de feature die wérkt, geen bug. Deze
   feature is voor wie een delve voor het eerst ziet.
-- 🔴 **Nog ongetest:** de pijl die **omschakelt bij het instappen** op de taxi. Vraag
-  daar als eerste naar.
+- ✅ **De boss-prompt verdwijnt na 5 seconden** — Rob, 16 aug avond.
+- 🔴 **Nog ongetest, het laatste stuk van 2.16.0:** de pijl die **omschakelt bij het
+  instappen** op de taxi. Vraag daar als eerste naar.
+
+### 🔴 Openstaande meting: waarom de vliegkaart-pin niet oplicht
+
+`/mh flightpins` (nieuw, 16 aug) print bij een flight master wat het canvas aanbood.
+Twee keer heb ik een oorzaak aangenomen en twee keer fout: eerst de pin-template, toen
+de lookup-route (nu via `dataProviders` → `slotIndexToPin`, zoals Zygor het doet).
+
+- **nul pins** → onze lookup deugt niet
+- **een volle lijst zónder Tokka's Landing** → de pin bestaat daar niet; Rob keek naar
+  Eastern Kingdoms en de Coiled Isle staat daar niet op. Dan moet de feature dat zéggen.
+
+⚠️ De balk claimde intussen "hij is op de kaart gemarkeerd" terwijl er niets gemarkeerd
+was. Die tekst volgt nu de uitkomst; niet terugdraaien.
+
+### 📊 Onze delve-ilvl-tabel meet iets ANDERS dan die van EverythingDelves
+
+Rob liet hun paneel zien (T1 220/233 … T8 250/259) naast onze tabel (T1 210/216 …
+T8 246/259). **Geen conflict:** hun veld heet `bountifulLoot`, het onze `endChest`. Een
+Bountiful delve geeft hoger ilvl dan een gewone eindkist.
+
+⚠️ **Maar ons label "End" zegt niet wélke kist het is**, en niemand weet nog waar die
+S1-getallen vandaan komen. Te meten: één gewone (niet-Bountiful) delve op een bekende
+tier. Hun tabel is ook S1 ("static for S1" in hun eigen comment) en wordt dinsdag net zo
+onwaar als de onze — wij zetten de onze dan op nil en printen een zin.
+
+📌 Wat zij hebben en wij niet: een **`recGear`-kolom** (aanbevolen ilvl per tier, T1 170
+→ T11 265). "Kan ik deze tier aan?" is een echte beginnersvraag. Alleen zinvol ná dinsdag,
+en dan uit een gemeten bron — niet uit hun tabel overgetypt.
 
 **Commits ná de tag — gaan mee met 2.17.0:**
 - Dubbele "Eindbaas nog niet herkend" in de coach (de tiptekst houdt hem, de
