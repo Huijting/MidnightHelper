@@ -1511,9 +1511,22 @@ local bossPrompt
 
 local function HideBossCoachPrompt()
 	if bossPrompt then
+		if bossPrompt._mhTimer then
+			bossPrompt._mhTimer:Cancel()
+			bossPrompt._mhTimer = nil
+		end
 		bossPrompt:Hide()
 	end
 end
+
+-- ⚠️ It goes away by itself now. Rob, 16 aug: it appears at the pull and then just
+-- stays there. A prompt that outlives its moment stops being an offer and becomes
+-- furniture — and this one sits over the fight it is asking about.
+--
+-- Five seconds is his number, and it is his screen. It is short for something you are
+-- meant to react to at exactly the busiest moment of a delve, so if it turns out to
+-- vanish before you can hit it, raise this rather than concluding the idea was wrong.
+local BOSS_PROMPT_SECONDS = 5
 
 -- Toon de "open coach?"-prompt-knop (tenzij de coach al open is). Gedeeld door de
 -- ENCOUNTER_START- en de target-trigger.
@@ -1537,6 +1550,18 @@ local function ShowBossPromptButton()
 	end
 	bossPrompt:SetText(ns:SafeL("DELVE_COACH_BOSS_PROMPT"))
 	bossPrompt:Show()
+	if bossPrompt._mhTimer then
+		bossPrompt._mhTimer:Cancel()
+		bossPrompt._mhTimer = nil
+	end
+	if C_Timer and C_Timer.NewTimer then
+		bossPrompt._mhTimer = C_Timer.NewTimer(BOSS_PROMPT_SECONDS, function()
+			if bossPrompt then
+				bossPrompt._mhTimer = nil
+				bossPrompt:Hide()
+			end
+		end)
+	end
 end
 
 -- Boss-prompt trigger (herzien 9 jul, na research). De oude "eerste vijandige target"-gok

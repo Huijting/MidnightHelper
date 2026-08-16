@@ -609,6 +609,36 @@ function ns.PrintZoneReport()
 		end
 	end
 
+	-- ⚠️ TESTING AN ASSUMPTION THAT COST A FEATURE. DelveCoach turned off its
+	-- target-based prompt on 9 jul with the reason that a delve boss cannot be told
+	-- from trash because "GUID/npcID kan in 12.x secret zijn". That was never measured;
+	-- it is written in the code as a fact and it is the only reason clicking a boss
+	-- does nothing. Rob asked about exactly that today.
+	--
+	-- If a target GUID reads normally here, the reason is void and the feature can come
+	-- back. If it really is secret, we will have measured it once instead of inheriting
+	-- it forever. Either answer is worth more than the sentence in the comment.
+	if UnitExists and UnitExists("target") then
+		local okG, guid = pcall(UnitGUID, "target")
+		local secret = false
+		if okG and issecretvalue then
+			local okS, v = pcall(issecretvalue, guid)
+			secret = okS and v or false
+		end
+		local npcID = (okG and type(guid) == "string")
+			and tonumber(guid:match("^%a+%-%d+%-%d+%-%d+%-%d+%-(%d+)")) or nil
+		print(("   target      = %s"):format(
+			(okG and type(guid) == "string") and guid or "|cffff5040unreadable|r"))
+		print(("      secret   = %s   npcID = %s   name = %s"):format(
+			tostring(secret), tostring(npcID or "-"),
+			tostring((UnitName and UnitName("target")) or "-")))
+		if npcID and not secret then
+			print("      |cff40c040Readable — the 9 jul reason for dropping the click-the-boss prompt does not hold here.|r")
+		end
+	else
+		print("   target      = |cff8a8f98nothing targeted — target a boss and run this again|r")
+	end
+
 	-- Coverage. The whole point: an empty list and an unknown zone must not look
 	-- the same.
 	local covered, zoneKey = false, nil
