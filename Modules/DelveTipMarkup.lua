@@ -316,6 +316,12 @@ end
 --- to walk, or has a portal, must not be steered to an airport.
 local pendingLeg, legWatcher
 
+--- The stop the player should click on the flight map, or nil when no flight is
+--- pending. Read by FlightMapHint.lua.
+function ns.GetPendingFlightStop()
+	return pendingLeg and pendingLeg.toName or nil, pendingLeg and pendingLeg.name or nil
+end
+
 local function ClearLeg()
 	pendingLeg = nil
 	if legWatcher then
@@ -373,7 +379,10 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 		return false
 	end
 
-	pendingLeg = { mapID = targetMap, x = x, y = y, name = name }
+	-- toName is kept so the flight map can name the stop to click. A chat line telling
+	-- you which node to take is read by nobody at the moment they are staring at a map
+	-- full of dots (Rob, 16 aug).
+	pendingLeg = { mapID = targetMap, x = x, y = y, name = name, toName = toName }
 	ns._mhTravelLegBusy = true
 	ns.AddSmartTomTomWay(currentMap, fx, fy,
 		(ns:L("WAY_LEG_TO_FLIGHT")):format(fromName), true, false, false, 0)

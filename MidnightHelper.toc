@@ -132,6 +132,7 @@ Modules\ProfessionsGuide.lua
 Modules\ReferenceGuide.lua
 Modules\Profession.lua
 Modules\BriefNotice.lua
+Modules\FlightMapHint.lua
 Modules\Delves.lua
 Modules\DelveChestData.lua
 Modules\KeybindExport.lua
