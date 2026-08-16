@@ -251,6 +251,16 @@ dan de addon toont.
 heeft DEADLINE 18 aug), #8 3.0-release: de zes Cowork-features (na 18 aug, één voor één,
 elk apart getest). #4, #5, #6 en #7 zijn af.
 
+**📌 MORGEN (17 aug), door Rob aangedragen vlak voor het slapen:**
+1. **Nieuwe screenshots voor de CF-pagina** — de beschrijving is al bij (`463a6a1`).
+2. **Method uitkammen**, te beginnen met
+   `https://www.method.gg/guides/best-corrosive-codex-powers-in-wow-midnight`.
+   ⚠️ Let op de spanning: `/mh curios` weigert bewust te rangschikken omdat wij niets
+   gemeten hebben. Method rangschikt wél. Dat mag alleen mee als het als *bron met naam*
+   binnenkomt ("Method zet X bovenaan"), niet als ons eigen oordeel — anders verkopen we
+   andermans mening als meting. En Method's staat van dienst van vandaag: twee quest-ids
+   uit één alinea, één klopte, één is nog onbeslist. Kandidaten, geen bewijs.
+
 **⏰ NA DE RESET METEN: quest 96466.** De server zei 16 aug "zo'n quest bestaat niet" en
 ik schreef dat op als "fout id". **Rob corrigeerde dat terecht:** Method kan op de PTR
 getest hebben, en een quest die pas met S2 live gaat ziet er vandaag precies zo uit.
