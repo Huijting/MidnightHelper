@@ -1836,7 +1836,17 @@ local function RefreshAchPanel()
 		for _, row in ipairs(card.rows) do
 			local nd = NodeDone(card.entry.achievementID, row.node)
 			row.check:SetTexture(nd and CHECK_DONE or CHECK_TODO)
-			local label = row.node.name or "?"
+			-- ⚠️ Through the helper, not straight off the node. `node.name or "?"` is
+			-- what put twenty-two question marks on the Coiled Isle checklist (Rob,
+			-- 16 aug): those hunts ship WITHOUT names on purpose, because
+			-- ns.AchievementNodeName reads the criterion's own text from the client —
+			-- already translated and by definition matching the Achievements pane.
+			--
+			-- The helper was added the day before and wired into the toast and the
+			-- route; this row and the Waypoint button below kept reading the raw field.
+			-- A helper that exists and is not used everywhere is worse than none: it
+			-- reads as covered.
+			local label = ns.AchievementNodeName(card.entry, row.node)
 			if NodeIsElite(row.node) then
 				label = label .. " |cffff8800(" .. TL("ACH_ELITE") .. ")|r" -- elite rare
 			end
@@ -1985,7 +1995,11 @@ local function BuildAchCard(st, entry)
 		wp:SetPoint("RIGHT", rf, "RIGHT", -2, 0)
 		wp:SetScript("OnClick", function()
 			if ns.AddSmartTomTomWay then
-				ns.AddSmartTomTomWay(node.mapID, node.x, node.y, node.name)
+				-- Same helper as the row label. Passing node.name meant every waypoint
+				-- from these three hunts was created with a nil name, so the arrow read
+				-- "Waypoint" instead of the treasure you asked for.
+				ns.AddSmartTomTomWay(node.mapID, node.x, node.y,
+					ns.AchievementNodeName(entry, node))
 			end
 			-- Multi-step? also show the hint toast with its prereq buttons.
 			if (node.note or node.prereqs) and ns.ShowTreasureToast then
