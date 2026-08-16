@@ -153,6 +153,54 @@ local function MountStatus(m)
 	return nil, nil, nil
 end
 
+--- /mh mount <text> — find a mount's id by name, the sibling of /mh ach <text>.
+---
+--- ⚠️ LOOKUP TOOL, NOT SHIPPED LOGIC. Mount names are localised, so nothing in the addon
+--- may resolve one at runtime — the same rule AchievementFind.lua carries. Names go in
+--- here, ids go into the data table.
+---
+--- Why it exists: the Treasures of the Coiled Isle achievement rewards "Auriferous
+--- Venomfang" (measured from Rob's client, 16 aug), and our mount tracker keys on a
+--- mount spell or item id. Neither is documented anywhere, and no installed addon knows
+--- the mount — grepping for it produced a Battle for Azeroth trash ability with a
+--- similar name, which is exactly the false positive CLAUDE.md warns about.
+---
+--- The Mount Journal knows. Ask it instead of hunting a database.
+function ns.PrintMountFind(query)
+	local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
+	if type(query) ~= "string" or query:gsub("%s", "") == "" then
+		print(("%s usage: /mh mount <part of the name>"):format(prefix))
+		return
+	end
+	if not (C_MountJournal and C_MountJournal.GetMountIDs and C_MountJournal.GetMountInfoByID) then
+		print(("%s the Mount Journal API is not available."):format(prefix))
+		return
+	end
+	local okIDs, ids = pcall(C_MountJournal.GetMountIDs)
+	if not okIDs or type(ids) ~= "table" then
+		print(("%s GetMountIDs returned nothing usable."):format(prefix))
+		return
+	end
+	local needle, hits = query:lower(), 0
+	print(("%s mounts matching \"%s\" (%d known to your journal):"):format(
+		prefix, query, #ids))
+	for _, mid in ipairs(ids) do
+		local v = { pcall(C_MountJournal.GetMountInfoByID, mid) }
+		if v[1] and type(v[2]) == "string" and v[2]:lower():find(needle, 1, true) then
+			hits = hits + 1
+			-- spellID is what MountStatus prefers, so print it first and plainly.
+			print(("   %-34s mountID |cffffffff%s|r  spellID |cffffffff%s|r  %s"):format(
+				v[2], tostring(mid), tostring(v[3]),
+				v[12] and "|cff40c040collected|r" or "|cff9d9d9dnot collected|r"))
+		end
+	end
+	if hits == 0 then
+		-- ⚠️ Not the same as "this mount does not exist". The journal lists mounts the
+		-- account can know about; one that has never been seen may simply be absent.
+		print("   |cffffd100nothing matched — that is not proof the mount does not exist, only that your journal has no entry for it.|r")
+	end
+end
+
 local function ItemCount(itemID)
 	if itemID and C_Item and C_Item.GetItemCount then
 		local ok, n = pcall(C_Item.GetItemCount, itemID)

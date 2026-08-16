@@ -967,6 +967,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh mount <tekst> — mount-id opzoeken op naam. Opzoekgereedschap, net als /mh ach.
+	if msg:match("^mount%s+") then
+		if ns.PrintMountFind then
+			ns.PrintMountFind(msg:match("^mount%s+(.+)$") or "")
+		end
+		return
+	end
+
 	-- /mh curios — wat elke curio-keuze van je companion doet, in de taal van het spel.
 	if msg == "curios" or msg == "curio" then
 		if ns.ShowCurioExplain then
