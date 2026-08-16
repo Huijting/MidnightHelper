@@ -2058,7 +2058,10 @@ ns._mhLocales.enUS = {
 	DELVE_ITEMS_SLASH_MARKED = "Marked as used for this delve — popup will hide until you leave or /mh items reset.",
 	DELVE_ITEMS_SLASH_ALREADY_MARKED = "Already marked as used for this delve.",
 	DELVE_CURIO_PANEL_TITLE = "Valeera — recommended curios (Season %d)",
-	DELVE_CURIO_NO_SEASON_DATA = "Valeera — no curio advice for this season yet",
+	-- ⚠️ This used to end at "yet", which was true and useless — the panel announced a
+	-- gap and left the player there. /mh curios reads her actual options live, so the
+	-- line now points at the thing that does work instead of at the thing that does not.
+	DELVE_CURIO_NO_SEASON_DATA = "Valeera — no ranking for this season. Use /mh curios to see what each of her options does.",
 	DELVE_CURIO_POPUP_TITLE = "Valeera — curio picks",
 	DELVE_CURIO_POPUP_TITLE_ROLE = "Valeera — %s curios",
 	DELVE_CURIO_POPUP_HINT = "Equip on Valeera at the repair post. Drag the title bar to move.",

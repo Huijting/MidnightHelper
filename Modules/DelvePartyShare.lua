@@ -442,6 +442,34 @@ function ns.ShowShareCopyDialog(opts)
 		f:SetScript("OnDragStop", f.StopMovingOrSizing)
 		tinsert(UISpecialFrames, f:GetName())
 
+		-- ⚠️ RESIZABLE, and callers may ask for a size. This dialog was built for a
+		-- short party-share message and its 420x220 was fine for that; /mh curios
+		-- fills it with three choice slots and eight effect descriptions, and Rob's
+		-- verdict was "niet echt leesbaar". A window that fits one caller is not a
+		-- shared window, it is that caller's window being borrowed.
+		if f.SetResizable then
+			f:SetResizable(true)
+			if f.SetResizeBounds then
+				f:SetResizeBounds(360, 180)
+			end
+			local grip = CreateFrame("Button", nil, f)
+			grip:SetSize(16, 16)
+			grip:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -6, 6)
+			grip:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
+			grip:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight")
+			grip:SetScript("OnMouseDown", function()
+				f:StartSizing("BOTTOMRIGHT")
+			end)
+			grip:SetScript("OnMouseUp", function()
+				f:StopMovingOrSizing()
+				if f._eb and f._scroll then
+					-- The EditBox wraps on its own width, so it has to follow or the
+					-- text keeps its old line breaks inside a wider frame.
+					f._eb:SetWidth(math.max(200, (f._scroll:GetWidth() or 360) - 8))
+				end
+			end)
+		end
+
 		local title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		title:SetPoint("TOP", f, "TOP", 0, -14)
 		f._title = title
@@ -482,6 +510,14 @@ function ns.ShowShareCopyDialog(opts)
 		f._close = close
 		copyDialog = f
 	end
+
+	-- Caller-requested size, clamped to the screen so a big ask cannot push the close
+	-- button off the bottom.
+	local w = math.min(tonumber(opts.width) or 420, (UIParent:GetWidth() or 800) - 80)
+	local h = math.min(tonumber(opts.height) or 220, (UIParent:GetHeight() or 600) - 120)
+	copyDialog:SetSize(w, h)
+	copyDialog._hint:SetWidth(w - 40)
+	copyDialog._eb:SetWidth(w - 60)
 
 	copyDialog._mhEntryId = opts.id
 	copyDialog._title:SetText(ns:L(opts.titleKey or "DELVE_SHARE_COPY_TITLE"))

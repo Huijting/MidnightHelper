@@ -187,6 +187,9 @@ function ns.ShowCurioExplainNow()
 			titleKey = "CURIO_TITLE",
 			hintKey = "CURIO_HINT",
 			closeKey = "DELVE_SHARE_COPY_CLOSE",
+			-- Eight effect descriptions do not fit a party-message box. Drag it larger
+			-- from the corner if your screen allows.
+			width = 620, height = 480,
 		})
 	else
 		print(text)
