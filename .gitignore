@@ -17,3 +17,9 @@ docs/*.tmp
 docs/PTR_12.1_WATCH.md
 docs/PTR_12.0.7_DATA.md
 docs/.writetest_*
+
+# Printable keybind sheets built by tools/keybind_mine.py from one character's
+# SavedVariables. Personal output, named after the character, regenerated on demand —
+# and MY_KEYBINDS.html is the old fixed name from before the per-character rename.
+tools/KEYBINDS_*.html
+tools/MY_KEYBINDS.html
