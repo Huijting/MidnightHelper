@@ -246,6 +246,11 @@ local function BuildCoachBody(entry, opts)
 		local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId]
 		return type(bosses) == "table" and #bosses > 1
 	end
+	-- Set below when the "boss not identified yet" note goes into the body; the boss
+	-- strip reads it so the window never says it twice. Reset on every build, because
+	-- a stale true would silence a hint that this pass never wrote.
+	local emittedBossPending = false
+	ns._mhTipEmittedBossPending = false
 	if opts.live and entry.id then
 		if not bossEntry and ns.TryResolveDelveBossFromUnits then
 			bossEntry = select(1, ns.TryResolveDelveBossFromUnits(entry.id))
@@ -269,6 +274,15 @@ local function BuildCoachBody(entry, opts)
 					.. "|r"
 			else
 				blocks[#blocks + 1] = COLOR_SECTION .. ns:SafeL("DELVE_COACH_BOSS_PENDING") .. "|r"
+				-- ⚠️ Told to the boss strip so it does not say the same thing again.
+				-- Carola, 16 aug: "Eindbaas nog niet herkend…" appeared twice in one
+				-- window, once here and once above the models. Two independent places
+				-- render it and both conditions were true at once.
+				--
+				-- The body keeps it and the strip gives way, not the other way round:
+				-- this text is also what goes out when she shares the briefing, and
+				-- there is no FontString in a party message.
+				emittedBossPending = true
 			end
 		end
 	end
@@ -284,6 +298,7 @@ local function BuildCoachBody(entry, opts)
 		end
 		blocks[#blocks + 1] = COLOR_SECTION .. title .. ":|r|n" .. COLOR_BODY .. body .. "|r"
 	end
+	ns._mhTipEmittedBossPending = emittedBossPending
 	return table.concat(blocks, "|n|n")
 end
 
@@ -370,10 +385,13 @@ local function UpdateBossShowcase(f, entryId)
 	if f._bossAutoHint then
 		-- Only show the hint when we *want* auto selection, but do not yet have a
 		-- confirmed active boss (we're showing the saved/last index as fallback).
-		if preferAuto and not autoResolved and not f._previewMode then
+		if preferAuto and not autoResolved and not f._previewMode
+			and not ns._mhTipEmittedBossPending then
 			f._bossAutoHint:SetText(ns:SafeL("DELVE_COACH_BOSS_PENDING"))
 			f._bossAutoHint:Show()
 		else
+			-- Either the boss is known, or the tip body already said this. Repeating it
+			-- twelve lines apart reads like two different problems.
 			f._bossAutoHint:Hide()
 		end
 	end
