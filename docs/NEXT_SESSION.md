@@ -90,6 +90,39 @@ gegenereerd) of Frost Mage's Counterspell/Shimmer/Frost Nova een toets hébben. 
 daar wél, dan is het layout/clipping; staat hij daar níet, dan zit het in de allocator.
 De consumables-rij rechtsonder mist ook zijn labels — waarschijnlijk hetzelfde.
 
+## 🔍 Addon-ronde 16 aug (07:40-update) — drie dingen die ertoe doen
+
+**1. HandyNotes_Midnight 151 heeft de eiland-data NIET gewijzigd.** Zelfde zeven
+achievements, zelfde aantallen, en 62601/63601 staan nog steeds op `10001000` /
+`10002000` / `10003000`. De beslissing van 15 aug om die niet over te nemen houdt dus
+stand — een dag later weten zij het nog steeds niet.
+
+**2. ⚠️ `canaccessvalue` is GEEN aanroepbare global. Niet "upgraden".**
+SpellPilot schrijft `if canaccessvalue then return canaccessvalue(value) end` als
+voorkeur boven `issecretvalue`. DandersFrames zegt er letterlijk bij waarom dat niet
+werkt: *"canaccessvalue is not a callable global — it's only a documented return-field
+name"* (`Features/Dispel.lua:445`). Bij SpellPilot valt de guard dus altijd door naar
+`issecretvalue` en merken ze het niet.
+
+MH gebruikt al `issecretvalue` — **dat is de juiste.** Dit staat hier zodat een volgende
+sessie het niet "verbetert" na het in SpellPilot te hebben zien staan. Precies de val uit
+CLAUDE.md: een andere addon is een kandidaat, geen bewijs.
+
+**3. SpellPilot (0.11.19) overlapt MH breed — maar niet op de dispel-helper.**
+Nieuwe naam in de lijst, Interface 120100. Modules: Interrupts, Removals, Debuffs,
+HealthAssist, PetStatus, ConsumableCheck, FolioGuide, StatGuide, MythicPlusTimer,
+ReputationTracker, GearAudit, Hearthstones. Dat raakt een flink deel van MH's terrein.
+
+✅ **Maar `Removals.lua` is OFFENSIVE dispel:** het leest `"HELPFUL|DISPELLABLE"` op
+**target** en meldt afneembare *vijandelijke buffs* (purge/spellsteal). Friendly dispel —
+schadelijke debuffs van je groep halen — zit er nergens in (grep op DISPELLABLE/Cleanse/
+dispelName raakt alleen dat ene bestand). **De niche uit [[mh-market-position]] staat dus
+nog open.**
+
+📌 En het is meteen een werkend voorbeeld van de nieuwe 12.1-filtersyntax op live:
+`C_UnitAuras.GetBuffDataByIndex(unit, i)` naast een filterstring `"HELPFUL|DISPELLABLE"`.
+Bruikbaar wanneer de dispel-helper gebouwd wordt.
+
 ## 🎯 MORGEN ALS EERSTE — drie dingen, in deze volgorde (Rob, 15 aug laat)
 
 1. **Rechterkolom-fix** (zie hierboven). Data is goed, tekenen is fout.

@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: does Frost Mage's right column actually LACK keys, or are they just
-off-screen?
+Right now: which addons were updated recently, and what version do they claim?
 
-Rob's Layout tab shows Counterspell, Shimmer, Frost Nova and friends with no key
-next to them, while the left columns show theirs fine. Two very different bugs:
-the allocator never gave them a key, or the key is drawn past the window edge.
-The generated data answers it without touching the UI.
+Rob's standing request after an update round. The point is not the list but the
+diff-able facts: an addon that just gained 12.1 data is where new ids show up
+first, and a .toc Interface bump tells us who has already been rebuilt for the
+current client.
 """
 import io
-import json
+import os
+import re
 import sys
+import time
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -19,42 +20,52 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-P = (r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper'
-     r'\tools\keybind_sheet\keybinds.json')
+ROOT = r'E:\World of Warcraft\_retail_\Interface\AddOns'
+NOW = time.time()
+DAYS = 4
 
-d = json.load(io.open(P, encoding='utf-8'))
-specs = d['specs']
+rows = []
+for name in sorted(os.listdir(ROOT)):
+    d = os.path.join(ROOT, name)
+    if not os.path.isdir(d) or name.startswith('!') and False:
+        continue
+    newest, count = 0, 0
+    for base, _dirs, files in os.walk(d):
+        for f in files:
+            try:
+                m = os.path.getmtime(os.path.join(base, f))
+            except OSError:
+                continue
+            count += 1
+            if m > newest:
+                newest = m
+    if not newest:
+        continue
+    age = (NOW - newest) / 86400.0
+    if age > DAYS:
+        continue
 
-want = None
-for s in specs:
-    name = s.get('spec') or s.get('name') or ''
-    if 'frost' in str(name).lower() and 'mage' in str(s).lower()[:400]:
-        want = s
-        break
-if want is None:
-    print('specs beschikbaar:')
-    for s in specs[:50]:
-        print('  ', s.get('spec') or s.get('name'), '|', s.get('class'))
-    sys.exit(0)
+    ver = iface = None
+    for toc in os.listdir(d):
+        if toc.lower().endswith('.toc'):
+            try:
+                t = io.open(os.path.join(d, toc), encoding='utf-8',
+                            errors='replace').read()
+            except OSError:
+                continue
+            mv = re.search(r'^##\s*Version:\s*(.+)$', t, re.M)
+            mi = re.search(r'^##\s*Interface:\s*(.+)$', t, re.M)
+            ver = mv.group(1).strip() if mv else ver
+            iface = mi.group(1).strip() if mi else iface
+            break
+    rows.append((newest, name, ver, iface, count))
 
-print('spec:', want.get('spec') or want.get('name'), '/', want.get('class'))
+rows.sort(reverse=True)
+print('addons met een bestand jonger dan %d dagen: %d' % (DAYS, len(rows)))
 print()
-print('%-18s %s' % ('toets', 'spell'))
-print('-' * 46)
-keys = want.get('keys') or want.get('binds') or {}
-if isinstance(keys, dict):
-    for k in sorted(keys):
-        print('%-18s %s' % (k, keys[k]))
-else:
-    for row in keys:
-        print('%-18s %s' % (row.get('key'), row.get('spell')))
-
-print()
-LOOK = ['Counterspell', 'Shimmer', 'Frost Nova', 'Remove Curse', 'Polymorph',
-        'Spellsteal', "Dragon's Breath"]
-flat = keys if isinstance(keys, dict) else {r.get('key'): r.get('spell') for r in keys}
-rev = {}
-for k, v in flat.items():
-    rev.setdefault(str(v), []).append(k)
-for name in LOOK:
-    print('%-18s -> %s' % (name, ', '.join(rev.get(name, [])) or 'GEEN TOETS'))
+print('%-16s %-34s %-14s %s' % ('gewijzigd', 'addon', 'versie', 'Interface'))
+print('-' * 86)
+for newest, name, ver, iface, count in rows:
+    print('%-16s %-34s %-14s %s' % (
+        time.strftime('%d-%m %H:%M', time.localtime(newest)),
+        name[:34], (ver or '-')[:14], iface or '-'))
