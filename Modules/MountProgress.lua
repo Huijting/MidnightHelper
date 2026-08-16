@@ -60,6 +60,8 @@ local TRACKED = {
 		noMarl = true, -- an achievement reward, not a Voidlight Marl purchase
 		fallbackName = "Auriferous Venomfang",
 		howToKey = "MOUNTPROG_VENOMFANG_HOWTO",
+		gotoTab = "achievements",
+		gotoTabLabelKey = "TAB_ACHIEVEMENTS",
 		-- No route field: the Achievements tab already runs this exact hunt with all 22
 		-- nodes and auto-advance. A second, shorter route to the same treasures would be
 		-- a worse copy of one we already ship.
@@ -361,6 +363,10 @@ function ns.GetWeeklyMountProgress(includeCollected)
 					-- Currency the how-to line hovers (nil for non-purchase mounts).
 					currencyID = (not m.noMarl) and VOIDLIGHT_MARL or nil,
 					route = m.route,
+				-- Carried through so the panel can offer "open that tab" as a button
+				-- next to a how-to that names one.
+				gotoTab = m.gotoTab,
+				gotoTabLabelKey = m.gotoTabLabelKey,
 					-- Tooltip / 3D-model sources (best-effort): the resolved mount, plus
 					-- the teaching item / mount spell as fallbacks.
 					mountID = mountID,

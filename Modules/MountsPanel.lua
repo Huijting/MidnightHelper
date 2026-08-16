@@ -425,6 +425,27 @@ function ns.RefreshMountsPanel()
 					btn:Show()
 					y = y + BTN_H
 				end
+				-- ⚠️ A how-to that names another tab should be able to open it. Rob,
+				-- 16 aug: "kan het woord Achievements tab gelijk doorklikken?" It could
+				-- have been an inline hyperlink, but these rows are FontStrings and the
+				-- panel already answers "take me somewhere" with a button one entry
+				-- above. Matching the pattern that is already on screen beats inventing
+				-- a second one for the same job.
+				if m.gotoTab and ns.SelectTab then
+					local btn = AcquireButton(bi)
+					bi = bi + 1
+					y = y + 4
+					btn:ClearAllPoints()
+					btn:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
+					btn:SetText(ns:L("MOUNTPROG_GOTO_BTN_FMT"):format(ns:L(m.gotoTabLabelKey or "TAB_HOME")))
+					local tw = (btn.GetTextWidth and btn:GetTextWidth() or 160) + 28
+					btn:SetWidth(math.min(math.max(tw, 120), width))
+					btn:SetScript("OnClick", function()
+						ns.SelectTab(m.gotoTab)
+					end)
+					btn:Show()
+					y = y + BTN_H
+				end
 			end
 			y = y + MOUNT_GAP
 		end
