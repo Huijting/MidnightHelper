@@ -109,16 +109,119 @@ ns.DELVE_CHESTS = {
 	},
 }
 
---- @return table|nil chests, number|nil mapID  for the map the player is standing on
+--------------------------------------------------------------------------------
+-- Learning a delve we do not ship
+--------------------------------------------------------------------------------
+
+--- ⚠️ The table above is hand-extracted from another addon, so it is a snapshot. When
+--- 12.2 adds a delve, MH says "no chest list for this delve yet" — honest, and it does
+--- not fix itself. Rob asked for that to stop being true (16 aug), while keeping the
+--- HandyNotes route as the fast path: `tools/delve_chests.py` re-checks and diffs it.
+---
+--- This is the other half: learn from what the player actually opens.
+---
+--- ⚠️ The hard part is knowing a CHEST was opened rather than a mob looted. LOOT_OPENED
+--- alone would record every kill. GetLootSourceInfo hands back a GUID per loot slot, and
+--- a GameObject GUID is shaped "GameObject-0-…-<objectID>-…" while a creature's says
+--- "Creature". That distinction is free and exact — so this records objects only, and
+--- keeps the objectID so a later session can tell a Sturdy Chest from a herb node
+--- instead of guessing from coordinates.
+---
+--- Learned entries are CANDIDATES and stay marked as such. They are used for routing on
+--- a map we ship nothing for, never to overrule the table above.
+local function LearnedStore()
+	ns.db = ns.db or {}
+	if type(ns.db.delveChestsLearned) ~= "table" then
+		ns.db.delveChestsLearned = {}
+	end
+	return ns.db.delveChestsLearned
+end
+
+--- @return table|nil learned rows for this map
+function ns.GetLearnedDelveChests(mapID)
+	local store = ns.db and ns.db.delveChestsLearned
+	return (type(store) == "table" and mapID) and store[mapID] or nil
+end
+
+do
+	local watcher = CreateFrame("Frame")
+	watcher:RegisterEvent("LOOT_OPENED")
+	watcher:SetScript("OnEvent", function()
+		if not (GetNumLootItems and GetLootSourceInfo and C_Map and C_Map.GetBestMapForUnit) then
+			return
+		end
+		-- Only inside instanced content. Out in the world this would happily record
+		-- every treasure chest on the continent into a delve table.
+		if IsInInstance then
+			local okI, inInst = pcall(IsInInstance)
+			if not (okI and inInst) then
+				return
+			end
+		end
+		local okM, mapID = pcall(C_Map.GetBestMapForUnit, "player")
+		if not okM or not mapID then
+			return
+		end
+
+		local objectID
+		for slot = 1, (GetNumLootItems() or 0) do
+			local okS, guid = pcall(GetLootSourceInfo, slot)
+			if okS and type(guid) == "string" and guid:find("^GameObject") then
+				objectID = tonumber(guid:match("GameObject%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
+				break
+			end
+		end
+		if not objectID then
+			return -- a creature, or nothing we can attribute: record nothing
+		end
+
+		local okP, pos = pcall(C_Map.GetPlayerMapPosition, mapID, "player")
+		if not okP or not pos or not pos.GetXY then
+			return
+		end
+		local okXY, px, py = pcall(pos.GetXY, pos)
+		if not okXY or not px then
+			return
+		end
+		px, py = px * 100, py * 100
+
+		local store = LearnedStore()
+		store[mapID] = store[mapID] or {}
+		-- Same spot twice is the same chest seen again, not a second one. Two metres of
+		-- map percentage is well inside "you stood next to it once before".
+		for _, r in ipairs(store[mapID]) do
+			if math.abs(r.x - px) < 2 and math.abs(r.y - py) < 2 then
+				r.seen = (r.seen or 1) + 1
+				return
+			end
+		end
+		store[mapID][#store[mapID] + 1] = {
+			x = tonumber(("%.2f"):format(px)), y = tonumber(("%.2f"):format(py)),
+			objectID = objectID, seen = 1, at = (time and time()) or 0,
+		}
+	end)
+end
+
+--- @return table|nil chests, number|nil mapID, boolean learned
 function ns.GetDelveChestsHere()
 	if not (C_Map and C_Map.GetBestMapForUnit) then
-		return nil, nil
+		return nil, nil, false
 	end
 	local ok, mapID = pcall(C_Map.GetBestMapForUnit, "player")
 	if not ok or not mapID then
-		return nil, nil
+		return nil, nil, false
 	end
-	return ns.DELVE_CHESTS[mapID], mapID
+	local shipped = ns.DELVE_CHESTS[mapID]
+	if shipped then
+		return shipped, mapID, false
+	end
+	-- Nothing shipped for this map: fall back to what this character has walked into.
+	-- Marked learned so callers can say where the list came from.
+	local learned = ns.GetLearnedDelveChests(mapID)
+	if learned and #learned > 0 then
+		return learned, mapID, true
+	end
+	return nil, mapID, false
 end
 
 --- Has this chest been opened on this character?
@@ -146,9 +249,9 @@ end
 --- The chests still worth walking to here, nearest first.
 --- @return table list, number|nil mapID, number total, number unknown
 function ns.GetOpenDelveChests()
-	local chests, mapID = ns.GetDelveChestsHere()
+	local chests, mapID, learned = ns.GetDelveChestsHere()
 	if not chests then
-		return {}, mapID, 0, 0
+		return {}, mapID, 0, 0, false
 	end
 	local px, py
 	if C_Map and C_Map.GetPlayerMapPosition then
@@ -185,7 +288,7 @@ function ns.GetOpenDelveChests()
 		-- inventing one.
 		return a.index < b.index
 	end)
-	return open, mapID, #chests, unknown
+	return open, mapID, #chests, unknown, learned
 end
 
 --------------------------------------------------------------------------------
@@ -218,8 +321,8 @@ end
 ns.StopDelveChestRoute = StopRoute
 
 local function PointAtNearest(announce)
-	local open, mapID, total, unknown = ns.GetOpenDelveChests()
-	if not mapID or not ns.DELVE_CHESTS[mapID] then
+	local open, mapID, total, unknown, learned = ns.GetOpenDelveChests()
+	if not mapID or total == 0 then
 		StopRoute()
 		return false, "nomap"
 	end
@@ -247,6 +350,13 @@ local function PointAtNearest(announce)
 		-- concludes the addon is wrong rather than cautious.
 		if unknown > 0 then
 			print(("   %s"):format((ns:L("DELVE_CHEST_UNSURE")):format(unknown)))
+		end
+		-- Say out loud that this list came from watching, not from a checked source.
+		-- A learned list has no quest ids at all, so it can never tick anything off —
+		-- letting that look identical to the shipped route would be the quiet kind of
+		-- wrong this file keeps trying to avoid.
+		if learned then
+			print(("   %s"):format(ns:L("DELVE_CHEST_LEARNED")))
 		end
 	end
 	return true

@@ -500,6 +500,7 @@ ns._mhLocales.enUS = {
 	DELVE_CHEST_ALL_DONE = "Every Sturdy Chest here is already open.",
 	DELVE_CHEST_NO_DATA = "No chest list for this delve yet.",
 	DELVE_CHEST_UNSURE = "%d of them I cannot check — you may walk to one you already have.",
+	DELVE_CHEST_LEARNED = "This list is what I watched you open here, not a checked one — it cannot tell what is done.",
 	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
 	ACH_LORE_COILEDISLE = "Student of Hissstory",
 	-- Trading Post tab

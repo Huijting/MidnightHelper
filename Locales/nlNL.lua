@@ -487,6 +487,7 @@ ns._mhLocales.nlNL = {
 	DELVE_CHEST_ALL_DONE = "Alle Sturdy Chests hier heb je al open.",
 	DELVE_CHEST_NO_DATA = "Voor deze delve heb ik nog geen kistenlijst.",
 	DELVE_CHEST_UNSURE = "%d ervan kan ik niet controleren — je loopt misschien naar eentje die je al had.",
+	DELVE_CHEST_LEARNED = "Deze lijst is wat ik je hier zag openen, geen gecontroleerde — hij weet niet wat je al gehad hebt.",
 	-- Achievement-namen zijn van Blizzard; die vertalen we niet. Gemeten 15 aug.
 	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
 	ACH_LORE_COILEDISLE = "Student of Hissstory",
