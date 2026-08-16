@@ -42,6 +42,29 @@ local TRACKED = {
 		route = { mapID = 2413, x = 73.7, y = 66.5, nameKey = "MOUNTPROG_SPOREGLIDER_ROUTE_NAME" },
 	},
 	{
+		-- ⚠️ MEASURED 16 aug 2026, all of it from Rob's own client. The achievement's
+		-- reward line (`/mh ach id 63359`) named the mount, and `/mh mount venomfang`
+		-- gave the ids from his Mount Journal. Nothing here came from a database:
+		-- searching the installed addons for "Venomfang" produced a Battle for Azeroth
+		-- trash ability, which is why the lookup command exists at all.
+		--
+		-- ⚠️ metaAchievementID, not achievementID, and the field name is the misleading
+		-- part. achievementID reads the FIRST criterion's quantity, which is right for a
+		-- counter ("collect 50 of X") and wrong here: 63359 has 22 separate treasure
+		-- criteria and its first one is a single chest. metaAchievementID counts
+		-- COMPLETED criteria, which is exactly "3 of 22 treasures found".
+		key = "venomfang",
+		mountSpellID = 1297224,      -- Auriferous Venomfang (mountID 3023)
+		metaAchievementID = 63359,   -- Treasures of the Coiled Isle
+		need = 22,
+		noMarl = true, -- an achievement reward, not a Voidlight Marl purchase
+		fallbackName = "Auriferous Venomfang",
+		howToKey = "MOUNTPROG_VENOMFANG_HOWTO",
+		-- No route field: the Achievements tab already runs this exact hunt with all 22
+		-- nodes and auto-advance. A second, shorter route to the same treasures would be
+		-- a worse copy of one we already ship.
+	},
+	{
 		key = "vyranoth",
 		mountItemID = 258884,     -- Spawn of Vyranoth (teaches the mount)
 		achievementID = 61463,    -- Master of the Turbulent Timeways V (4 of 5 weeks)
