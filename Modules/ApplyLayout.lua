@@ -42,6 +42,12 @@ local BAR_COMMANDS = {
 	{ prefix = "MULTIACTIONBAR7BUTTON",  first = 169 },
 }
 
+--- ⚠️ SHARED, not copied. KeybindExport needs exactly this mapping to read back what
+--- the player has bound, and a second copy of eight numbers is a second thing to keep
+--- right. It is exported rather than duplicated so a fix here cannot leave the exporter
+--- describing bars that moved.
+ns.KEYBIND_BAR_COMMANDS = BAR_COMMANDS
+
 --- ⚠️ ONE KIND OF KEY PER BAR. Until now nothing decided WHERE an ability should sit;
 --- `PlacementForKey` followed whatever the key happened to be bound to already, and
 --- anything unbound fell into the first free slot. Measured on Rob's mage 7 Aug 2026:

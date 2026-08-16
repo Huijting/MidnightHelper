@@ -501,6 +501,14 @@ ns._mhLocales.enUS = {
 	DELVE_CHEST_NO_DATA = "No chest list for this delve yet.",
 	DELVE_CHEST_UNSURE = "%d of them I cannot check — you may walk to one you already have.",
 	DELVE_CHEST_LEARNED = "This list is what I watched you open here, not a checked one — it cannot tell what is done.",
+	-- /mh binds — the player's OWN bindings, read from the client. Not the schema and
+	-- not the auto-map; the subtitle says so because the three look alike on paper.
+	KEYBIND_EXPORT_TITLE = "Your keybinds",
+	KEYBIND_EXPORT_SUB = "Read from your client — this is what your keys do right now, including anything you changed yourself.",
+	KEYBIND_EXPORT_HINT = "Ctrl+C to copy. Paste it into a document, or put it on your second screen.",
+	KEYBIND_EXPORT_EMPTY = "(bound to an empty slot)",
+	KEYBIND_EXPORT_EMPTY_NOTE = "%d key(s) are bound to an empty slot — pressing them does nothing.",
+	KEYBIND_EXPORT_NONE = "No bound action-bar keys came back. That is more likely a reading problem than an empty setup — try again in a moment.",
 	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
 	ACH_LORE_COILEDISLE = "Student of Hissstory",
 	-- Trading Post tab

@@ -488,6 +488,12 @@ ns._mhLocales.nlNL = {
 	DELVE_CHEST_NO_DATA = "Voor deze delve heb ik nog geen kistenlijst.",
 	DELVE_CHEST_UNSURE = "%d ervan kan ik niet controleren — je loopt misschien naar eentje die je al had.",
 	DELVE_CHEST_LEARNED = "Deze lijst is wat ik je hier zag openen, geen gecontroleerde — hij weet niet wat je al gehad hebt.",
+	KEYBIND_EXPORT_TITLE = "Jouw keybinds",
+	KEYBIND_EXPORT_SUB = "Uit je client gelezen — dit is wat je toetsen nú doen, inclusief wat je zelf hebt aangepast.",
+	KEYBIND_EXPORT_HINT = "Ctrl+C om te kopiëren. Plak het in een document, of zet het op je tweede scherm.",
+	KEYBIND_EXPORT_EMPTY = "(op een leeg slot gebonden)",
+	KEYBIND_EXPORT_EMPTY_NOTE = "%d toets(en) staan op een leeg slot — daar gebeurt niets als je ze indrukt.",
+	KEYBIND_EXPORT_NONE = "Geen enkele gebonden actiebalk-toets teruggekregen. Dat is eerder een leesprobleem dan een lege indeling — probeer het zo nog eens.",
 	-- Achievement-namen zijn van Blizzard; die vertalen we niet. Gemeten 15 aug.
 	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
 	ACH_LORE_COILEDISLE = "Student of Hissstory",

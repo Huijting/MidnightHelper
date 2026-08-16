@@ -967,6 +967,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh binds — jouw eigen keybinds, uit de client, om te printen of te leren.
+	if msg == "binds" or msg == "keybinds" then
+		if ns.ShowKeybindExport then
+			ns.ShowKeybindExport()
+		end
+		return
+	end
+
 	-- /mh ach <tekst> — zoek een achievement-ID op naam. Alleen een opzoekgereedschap:
 	-- de addon zelf mag nooit op naam matchen (namen zijn gelokaliseerd).
 	if msg:match("^ach%s+") or msg == "ach" then
