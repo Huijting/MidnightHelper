@@ -104,18 +104,26 @@ flight master, 649 flightpoints, `/mh binds`, en de Layout-kolomfix.
 - 🔴 **Nog ongetest, het laatste stuk van 2.16.0:** de pijl die **omschakelt bij het
   instappen** op de taxi. Vraag daar als eerste naar.
 
-### 🔴 Openstaande meting: waarom de vliegkaart-pin niet oplicht
+### ✅ De vliegkaart-pin licht op — OPGELOST 16 aug (`0997123`)
 
-`/mh flightpins` (nieuw, 16 aug) print bij een flight master wat het canvas aanbood.
-Twee keer heb ik een oorzaak aangenomen en twee keer fout: eerst de pin-template, toen
-de lookup-route (nu via `dataProviders` → `slotIndexToPin`, zoals Zygor het doet).
+**Oorzaak: de client noemt een taxi-node mét zijn zone.** Robs muis over de pin gaf
+Blizzards eigen tooltip: *"Tokka's Landing, The Coiled Isle"*, terwijl onze
+FLIGHT_POINTS (uit Zygor) *"Tokka's Landing"* zegt. De `==`-vergelijking miste hem —
+in de markering **én** in de "staat deze halte op je kaart"-check, dus de balk klaagde
+niet eens. Nu op **prefix**.
 
-- **nul pins** → onze lookup deugt niet
-- **een volle lijst zónder Tokka's Landing** → de pin bestaat daar niet; Rob keek naar
-  Eastern Kingdoms en de Coiled Isle staat daar niet op. Dan moet de feature dat zéggen.
+⚠️ **Twee eerdere pogingen namen een oorzaak aan en waren allebei fout** (eerst de
+pin-template `FlightMap_FlightPointPinTemplate`, toen de lookup-route). Wat het oploste
+was een screenshot waarop het spel het antwoord zelf toonde. `/mh flightpins` bestaat nog
+als diagnose maar was uiteindelijk niet nodig.
 
-⚠️ De balk claimde intussen "hij is op de kaart gemarkeerd" terwijl er niets gemarkeerd
-was. Die tekst volgt nu de uitkomst; niet terugdraaien.
+📌 De pins komen via `FlightMapFrame.dataProviders` → de provider met `AddFlightNode` →
+`slotIndexToPin`; elke pin draagt `taxiNodeData` (name, nodeID, state). Dat patroon komt
+uit ZygorGuidesViewer `Libs/LibTaxi-1.0` — een API-gebruikspatroon is leesbaar en
+controleerbaar, anders dan game-data uit dezelfde addon.
+
+⚠️ De balk zegt alleen "gemarkeerd" als het markeren écht lukte. Niet terugdraaien naar
+een vaste tekst.
 
 ### 📊 Onze delve-ilvl-tabel meet iets ANDERS dan die van EverythingDelves
 
