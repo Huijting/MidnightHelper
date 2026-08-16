@@ -86,19 +86,39 @@ end
 --- map itself.
 local glow
 
+--- ⚠️ VIA THE DATA PROVIDER, not EnumeratePinsByTemplate. The first attempt guessed the
+--- template name "FlightMap_FlightPointPinTemplate" and lit nothing; Rob said plainly
+--- that Zygor manages it, so I read how instead of guessing again.
+---
+--- Their route (LibTaxi-1.0.lua): walk FlightMapFrame.dataProviders for the one that
+--- has AddFlightNode, then use its `slotIndexToPin` table. Every pin there carries
+--- `taxiNodeData` with name, nodeID and state. That is shipping code in an addon this
+--- player already runs, which beats a template name I remembered.
+local function FlightPinsByProvider(frame)
+	if not (frame and type(frame.dataProviders) == "table") then
+		return nil
+	end
+	for provider in pairs(frame.dataProviders) do
+		if type(provider) == "table" and provider.AddFlightNode
+			and type(provider.slotIndexToPin) == "table" then
+			return provider.slotIndexToPin
+		end
+	end
+	return nil
+end
+
 local function HighlightPin(frame, wanted)
 	if glow then
 		glow:Hide()
 	end
-	if not (frame and frame.EnumeratePinsByTemplate and wanted) then
+	if not wanted then
 		return false
 	end
-	local ok, iter = pcall(frame.EnumeratePinsByTemplate, frame,
-		"FlightMap_FlightPointPinTemplate")
-	if not ok or type(iter) ~= "function" then
+	local pins = FlightPinsByProvider(frame)
+	if not pins then
 		return false
 	end
-	for pin in iter do
+	for _, pin in pairs(pins) do
 		local data = pin and pin.taxiNodeData
 		if type(data) == "table" and data.name == wanted then
 			if not glow then
