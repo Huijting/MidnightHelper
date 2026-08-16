@@ -157,9 +157,14 @@ local MIDNIGHT_PORTALS = {
 	-- portal on the Tuesday the season starts. Until then the travel help must keep
 	-- pointing at the flight master, which it does on its own because the gate is false.
 	--
-	-- ⚠️ The two quest ids are Method's, not measured. If 96004 is wrong the gate never
-	-- opens and the portal stays invisible — the safe direction to be wrong in, but
-	-- still worth checking against the client (see /mh atal's REPEATABLE pattern).
+	-- ✅ MEASURED 16 aug on Rob's shaman, and the two ids did not fare the same.
+	-- 96004 came back as "Prey: A Slithering Threat" exactly, so this gate rests on a
+	-- real quest. 96466 was REFUTED by the server (`serverKnowsIt = false`) — Method had
+	-- it wrong, in the same paragraph, with the same confidence.
+	--
+	-- ⚠️ Which is why only 96004 gates anything here. Two ids from one source, one right
+	-- and one wrong: checking them separately is not pedantry, it is the difference
+	-- between a portal that appears and one that never does.
 	{ name = "Portal to The Coiled Isle", mapID = 2393, toID = 2512,
 		x = 56.83, y = 67.38, requiresQuest = 96004 },
 	{ name = "Portal to The Coiled Isle", mapID = 2576, toID = 2512,

@@ -77,8 +77,15 @@ local REPEATABLE = {
 
 	-- The Coiled Isle portal chain (method.gg, 16 aug). Gates the portal we just added
 	-- to MIDNIGHT_PORTALS, so a wrong id means the portal never appears for anyone.
+	-- ✅ 96004 VERIFIED 16 aug on Rob's shaman: the client returns "Prey: A Slithering
+	-- Threat", character for character. The portal gate rests on a real id.
 	{ 96004, "Prey: A Slithering Threat", "unlocks the Coiled Isle portal" },
-	{ 96466, "Prey: Anguish Island", "follow-up, back through the portal" },
+	-- ⚠️ 96466 is WRONG. Same Method paragraph, same confidence, and the server answered
+	-- `serverKnowsIt = false` — not a cold cache like quest 98232 was, an actual "no
+	-- such quest". Kept in the sweep so nobody re-adds it from the same page, and NOT
+	-- used to gate anything. One right and one wrong id from one paragraph is the whole
+	-- argument for checking each of them separately.
+	{ 96466, "Prey: Anguish Island (id REFUTED by the server)", "follow-up, id unknown" },
 
 	{ 96639, "Patrolling the Temple", "group daily" },
 	{ 96640, "Bounty of the Cursed", "group daily" },
