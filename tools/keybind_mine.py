@@ -33,7 +33,11 @@ for _s in (sys.stdout, sys.stderr):
 
 SV = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
       r'\SavedVariables\MidnightHelper.lua')
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'MY_KEYBINDS.html')
+OUTDIR = os.path.dirname(os.path.abspath(__file__))
+# ⚠️ One file per character AND spec. It was MY_KEYBINDS.html, and Rob spotted the
+# problem before it bit him: printing his hunter would silently overwrite the mage
+# sheet he had just made. A generator that destroys its own previous output is worse
+# than one that refuses to run.
 
 # Blizzard's binding command names mean nothing to a player reading a printout.
 BAR_NAMES = {
@@ -176,6 +180,9 @@ H.append('<div class="note">Momentopname van %s. Verander je iets in het spel, d
          'dan opnieuw <code>/mh binds</code> + <code>/reload</code> en genereer dit '
          'blad opnieuw — anders leer je iets dat niet meer klopt.</div>' % when)
 H.append('</body></html>')
+
+slug = re.sub(r'[^A-Za-z0-9]+', '_', ('%s_%s' % (player, spec or '')).strip('_'))
+OUT = os.path.join(OUTDIR, 'KEYBINDS_%s.html' % slug.strip('_'))
 
 io.open(OUT + '.tmp', 'w', encoding='utf-8').write('\n'.join(H))
 os.replace(OUT + '.tmp', OUT)
