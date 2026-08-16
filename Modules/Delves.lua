@@ -882,6 +882,12 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	-- right; saying nothing at all is not.
 	if not travelOnly and ns.ReportTravelHintForWaypoint then
 		ns.ReportTravelHintForWaypoint(targetMap, title, xPct, yPct, currentMap)
+		-- ...and then actually point there. The line above tells you to fly; without
+		-- this the arrow kept aiming at the destination across the water, so the two
+		-- halves of the same answer disagreed (Rob, 16 aug, standing in Silvermoon).
+		if ns.RouteFirstToFlightPoint then
+			ns.RouteFirstToFlightPoint(targetMap, xPct, yPct, title, currentMap)
+		end
 	end
 
 	if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then

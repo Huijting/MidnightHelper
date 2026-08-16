@@ -297,6 +297,114 @@ function ns.ReportTravelHintForWaypoint(mapID, label, x, y, currentMap)
 	end
 end
 
+--------------------------------------------------------------------------------
+-- Two-leg travel: the flight master first, the destination after
+--------------------------------------------------------------------------------
+
+--- ⚠️ SAYING THE ROUTE IS NOT THE SAME AS POINTING AT IT. Rob, 16 aug, still in
+--- Silvermoon: the line read "Fly from The Royal Exchange to Tokka's Landing" and the
+--- arrow went on pointing 8 km across the sea. Advice and arrow disagreed, and the
+--- arrow is the thing you follow.
+---
+--- So a trip that needs a flight becomes two legs. Leg one is the flight master you can
+--- actually walk to; leg two is the real destination, taken up automatically once you
+--- land on the target map.
+---
+--- Deliberately conservative. It only takes over when the destination is on a DIFFERENT
+--- map, a usable flight point exists on the map you are standing on, and the two are not
+--- the same stop. Anything else keeps the old single-leg behaviour: a player who wants
+--- to walk, or has a portal, must not be steered to an airport.
+local pendingLeg, legWatcher
+
+local function ClearLeg()
+	pendingLeg = nil
+	if legWatcher then
+		legWatcher:Cancel()
+		legWatcher = nil
+	end
+end
+ns.ClearTravelLeg = ClearLeg
+
+local function ArrivedOnTargetMap()
+	if not (pendingLeg and C_Map and C_Map.GetBestMapForUnit) then
+		return false
+	end
+	local ok, here = pcall(C_Map.GetBestMapForUnit, "player")
+	if not ok or not here then
+		return false
+	end
+	if here == pendingLeg.mapID then
+		return true
+	end
+	-- A sub-area of the destination counts as arrived; the delve entrance sits on the
+	-- island's own map, not on the sub-map you may be standing in.
+	if ns.MHSameZoneOrSub and ns.MHSameZoneOrSub(here, pendingLeg.mapID) then
+		return true
+	end
+	return false
+end
+
+--- @return boolean true when the arrow was sent to a flight master instead
+function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
+	targetMap, currentMap = tonumber(targetMap), tonumber(currentMap)
+	if not (targetMap and currentMap) or targetMap == currentMap then
+		return false
+	end
+	if ns._mhTravelLegBusy or not ns.GetNearestFlightPoint then
+		return false -- re-entry: leg one sets its own waypoint through the same call
+	end
+	if ns.MHSameZoneOrSub and ns.MHSameZoneOrSub(currentMap, targetMap) then
+		return false
+	end
+
+	local px, py
+	if C_Map and C_Map.GetPlayerMapPosition then
+		local okP, pos = pcall(C_Map.GetPlayerMapPosition, currentMap, "player")
+		if okP and pos and pos.GetXY then
+			local okXY, a, b = pcall(pos.GetXY, pos)
+			if okXY and a then
+				px, py = a * 100, b * 100
+			end
+		end
+	end
+	local fromName, fx, fy = ns.GetNearestFlightPoint(currentMap, px, py)
+	local toName = ns.GetNearestFlightPoint(targetMap, x, y)
+	if not (fromName and fx and fy and toName) or fromName == toName then
+		return false
+	end
+
+	pendingLeg = { mapID = targetMap, x = x, y = y, name = name }
+	ns._mhTravelLegBusy = true
+	ns.AddSmartTomTomWay(currentMap, fx, fy,
+		(ns:L("WAY_LEG_TO_FLIGHT")):format(fromName), true, false, false, 0)
+	ns._mhTravelLegBusy = nil
+
+	if C_Timer and C_Timer.NewTicker then
+		if legWatcher then
+			legWatcher:Cancel()
+		end
+		legWatcher = C_Timer.NewTicker(3, function()
+			if not pendingLeg then
+				ClearLeg()
+				return
+			end
+			if not ArrivedOnTargetMap() then
+				return
+			end
+			local leg = pendingLeg
+			ClearLeg()
+			-- Leg two. Busy-flag set so this does not decide it needs a flight again
+			-- the moment it lands.
+			ns._mhTravelLegBusy = true
+			ns.AddSmartTomTomWay(leg.mapID, leg.x, leg.y, leg.name, true, false, false, 0)
+			ns._mhTravelLegBusy = nil
+			print(("|cffffcc00%s|r %s"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH",
+				(ns:L("WAY_LEG_ARRIVED")):format(tostring(leg.name or "?"))))
+		end)
+	end
+	return true
+end
+
 function ns:SetMapWaypoint(mapID, x, y, label)
 	mapID, x, y = tonumber(mapID), tonumber(x), tonumber(y)
 	if not (mapID and x and y) then

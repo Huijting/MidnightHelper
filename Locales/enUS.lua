@@ -1302,6 +1302,10 @@ ns._mhLocales.enUS = {
 	WAY_NO_PIN = "This map does not accept a waypoint without TomTom, so there is no arrow for %s in %s. The coordinates in the text are still correct.",
 	WAY_FLIGHT_HINT = "Nearest flight point there: %s.",
 	WAY_FLIGHT_FROM_TO = "Fly from %s to %s.",
+	-- The arrow is on the first leg, so it has to say so — an arrow labelled with the
+	-- destination while pointing at a flight master is worse than no label.
+	WAY_LEG_TO_FLIGHT = "Flight master: %s",
+	WAY_LEG_ARRIVED = "You are there — the arrow is now on %s.",
 	DELVE_TIP_GNARLDOR_OVERVIEW = "• New in 12.1, on the Coiled Isle — entrance at {WAY:2512:64.3:77.7:Gnarldor Isle}. Scrollmaster Ruma at the entrance starts a short quest chain.|n• Three story variants, two bosses (per Method and Icy Veins — not yet measured on your client). Two variants end at Gralka Snake-Eater: she eats snakes for damage stacks and leaves venom puddles — drag her off them, sidestep the waves of her Purging Breath.|n• The third ends at Osseous Amalgamation: interrupt his bone shield, run from Bonestorm, dodge the bone spikes.|n• Click the Tortollan Scrolls you pass — buffs, some with a catch.",
 	DELVE_TIP_GNARLDOR_ROUTE = "• Three Sturdy Chests — click to set a waypoint: {WAY:2635:60.44:68.12:Sturdy Chest 1} · {WAY:2635:52.41:40.84:Sturdy Chest 2} · {WAY:2635:28.67:41.69:Sturdy Chest 3}.|n• You arrive at about 77, 46; the exit portal stands right there — sweep the chests and you end where you began.",
 	DELVE_TIP_RINGOFGLORY_OVERVIEW = "• New in 12.1, on the Coiled Isle — entrance at {WAY:2512:71.1:56.4:The Ring of Glory}. An arena delve: one variant is a gauntlet of duels, one a ghostly ball game, one an animal rescue.|n• The first two end at Drakta (per Method and Icy Veins — not yet measured on your client): dodge his Soul Cleave circle, drag him out of the zone it leaves, and when Death Grip pulls the furthest player in, break line of sight behind a pillar. The rescue ends at Gnok, who rises again undead halfway.|n• Floor traps everywhere — watch your step.|n• Interrupt the Spiritcallers’ self-heal and kill the War Drum the Warsingers plant.",
