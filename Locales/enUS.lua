@@ -531,6 +531,21 @@ ns._mhLocales.enUS = {
 	KEYBIND_BAR_6 = "Bar 6",
 	KEYBIND_BAR_7 = "Bar 7",
 	KEYBIND_BAR_8 = "Bar 8 (often the mouse buttons)",
+	-- ⚠️ Seven of the 22 Coiled Isle treasures cannot simply be opened. Rob walked to
+	-- the Brine-Crusted Chest and got "Requires Dropped Key" with nothing from us
+	-- (16 aug). These print as one line when the route reaches the treasure.
+	--
+	-- Written as prose with plain coordinates on purpose: this text goes to chat, which
+	-- does not expand our {WAY:} markup, and HandyNotes' own {item:NNN} braces would
+	-- print as literal braces. Names of objects and NPCs are theirs, kept in English
+	-- like every other proper noun.
+	ACH_NOTE_BRINE_CRUSTED = "Locked. Open a Bubbling Clam (around 69.6/82.5, 71.0/81.7, 71.9/82.8, 71.3/83.3) for a pearl, take it to the NPC at 70.6/77.1 and place it on the arrow on the ground - she drops the key. If no clam opens, you already have a pearl.",
+	ACH_NOTE_PRIVATEERS_CACHE = "Locked. Fish the Grisly Cod Pool at 73.4/66.1, feed the fish to the dolphin underwater, then follow it to a crate at 73.1/67.0 and an urn at 72.4/68.4. Combine the two halves. Stay underwater - surfacing makes the dolphin leave.",
+	ACH_NOTE_SUNKEN_DIVER = "Locked. Kill the nearby elite and loot three fragments, then combine them into the key.",
+	ACH_NOTE_GRAVE_FORGOTTEN = "Locked. Speak with three spirits first - 70.4/58.4, 66.4/57.2 and 69.0/52.7 - then come back to the grave.",
+	ACH_NOTE_PROFANE_SPOILS = "Locked. Face the statue and click the braziers in this order: top-right, top-left, bottom-right, bottom-left.",
+	ACH_NOTE_VULZAHN = "Locked. A three-step trade: the NPC at 57.2/48.5, then 58.0/48.8, then 58.2/45.7 hands you what opens it.",
+	ACH_NOTE_LOST_SPIRIT = "Locked. Pick up the item at 70.2/64.5 and return it to the spirit here.",
 	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
 	ACH_LORE_COILEDISLE = "Student of Hissstory",
 	-- Trading Post tab
