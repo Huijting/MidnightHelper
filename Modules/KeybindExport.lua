@@ -51,6 +51,20 @@ local function SlotContents(slot)
 			local okM, v = pcall(GetMacroInfo, id)
 			name = okM and v or nil
 		end
+		-- ⚠️ GetMacroInfo takes a macro INDEX (1-138 global plus per-character), and
+		-- Rob's export came back with "macro 475" and "macro 2139" — numbers far outside
+		-- that range, so it returned nothing and the row said nothing useful. Something
+		-- else put those there (he runs OPie among others).
+		--
+		-- The button itself knows its own label, whoever wrote it. GetActionText is the
+		-- name drawn on the slot, which is exactly what a player recognises — and it is
+		-- still a NAME, not an interpretation of what the macro does.
+		if not name and GetActionText then
+			local okT, v = pcall(GetActionText, slot)
+			if okT and type(v) == "string" and v ~= "" then
+				name = v
+			end
+		end
 		-- A macro's body can be anything, so the honest label is its name plus the fact
 		-- that it is a macro. Reading the body and guessing the spell would be inventing.
 		return (name and (name .. " (macro)")) or ("macro " .. tostring(id)), "macro"
