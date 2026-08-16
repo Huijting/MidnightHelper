@@ -19,6 +19,27 @@ local _, ns = ...
 	FlightMapFrame exists at login.
 ]]
 
+--- ⚠️ THE CLIENT'S NODE NAME CARRIES THE ZONE. Rob hovered the pin and Blizzard's own
+--- tooltip read "Tokka's Landing, The Coiled Isle" while our flight-point table (from
+--- Zygor) says "Tokka's Landing". Comparing with == therefore missed a pin that was
+--- sitting right there — in the highlight AND in the "is it on your map" check, which
+--- is why the banner never even said it was missing.
+---
+--- This is evidence off a screenshot, not the third guess in a row: the two earlier
+--- attempts assumed a cause, this one reads one.
+---
+--- Prefix, not substring: "Tokka's Landing, The Coiled Isle" starts with what we asked
+--- for, while a plain find() could match a stop that merely mentions it.
+local function NodeNameMatches(nodeName, wanted)
+	if type(nodeName) ~= "string" or type(wanted) ~= "string" or wanted == "" then
+		return false
+	end
+	if nodeName == wanted then
+		return true
+	end
+	return nodeName:sub(1, #wanted) == wanted
+end
+
 local banner
 
 local function EnsureBanner(parent)
@@ -63,7 +84,7 @@ local function NodeState(wanted)
 		return nil, nil
 	end
 	for _, n in ipairs(nodes) do
-		if type(n.name) == "string" and n.name == wanted then
+		if NodeNameMatches(n.name, wanted) then
 			local st = n.state
 			-- Enum.FlightPathState: Current = 0, Reachable = 1, Unreachable = 2.
 			-- Compared by value because the enum has been renamed before; a nil state
@@ -120,7 +141,7 @@ local function HighlightPin(frame, wanted)
 	end
 	for _, pin in pairs(pins) do
 		local data = pin and pin.taxiNodeData
-		if type(data) == "table" and data.name == wanted then
+		if type(data) == "table" and NodeNameMatches(data.name, wanted) then
 			if not glow then
 				glow = UIParent:CreateTexture(nil, "OVERLAY")
 				glow:SetTexture("Interface\\Cooldown\\star4")
