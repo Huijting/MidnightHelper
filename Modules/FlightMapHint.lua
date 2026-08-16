@@ -74,11 +74,58 @@ local function NodeState(wanted)
 	return false, false
 end
 
+--- ⚠️ HIGHLIGHT THE PIN, not just name it. Rob, 16 aug, looking at a flight map of the
+--- whole Eastern Kingdoms: "konden wij niet aanwijzen waar ie naar toe moet vliegen?"
+--- Naming a stop and leaving him to find it among a hundred identical dots is half the
+--- job — the same half-answer as telling someone to fly and pointing the arrow at the
+--- destination instead of the flight master.
+---
+--- The canvas hands out its own pins, so we borrow the one that is already there rather
+--- than drawing a second dot in the wrong place. Everything is guarded: the template
+--- name is Blizzard's and could change, and a missing highlight must never break the
+--- map itself.
+local glow
+
+local function HighlightPin(frame, wanted)
+	if glow then
+		glow:Hide()
+	end
+	if not (frame and frame.EnumeratePinsByTemplate and wanted) then
+		return false
+	end
+	local ok, iter = pcall(frame.EnumeratePinsByTemplate, frame,
+		"FlightMap_FlightPointPinTemplate")
+	if not ok or type(iter) ~= "function" then
+		return false
+	end
+	for pin in iter do
+		local data = pin and pin.taxiNodeData
+		if type(data) == "table" and data.name == wanted then
+			if not glow then
+				glow = UIParent:CreateTexture(nil, "OVERLAY")
+				glow:SetTexture("Interface\\Cooldown\\star4")
+				glow:SetBlendMode("ADD")
+				glow:SetVertexColor(1, 0.85, 0.2, 0.9)
+			end
+			glow:SetParent(pin)
+			glow:ClearAllPoints()
+			glow:SetPoint("CENTER", pin, "CENTER", 0, 0)
+			glow:SetSize(44, 44)
+			glow:Show()
+			return true
+		end
+	end
+	return false
+end
+
 local function Refresh(parent)
 	local stop, destination = ns.GetPendingFlightStop and ns.GetPendingFlightStop()
 	if not stop then
 		if banner then
 			banner:Hide()
+		end
+		if glow then
+			glow:Hide()
 		end
 		return
 	end
@@ -94,11 +141,32 @@ local function Refresh(parent)
 		f._text:SetText((ns:L("FLIGHTMAP_UNREACHABLE")):format(stop))
 		f._text:SetTextColor(1, 0.55, 0.4)
 	else
-		f._text:SetText((ns:L("FLIGHTMAP_TAKE")):format(stop,
-			tostring(destination or "?")))
+		-- ⚠️ Never print "?" as a destination. Rob's banner read "then on to ?." because
+		-- the waypoint carried a name that had not resolved. A question mark tells the
+		-- player nothing and looks like a fault in the addon; naming only the stop is
+		-- less information and entirely true.
+		local dest = destination
+		if type(dest) ~= "string" or dest == "" or dest == "?" then
+			dest = nil
+		end
+		if dest then
+			f._text:SetText((ns:L("FLIGHTMAP_TAKE")):format(stop, dest))
+		else
+			f._text:SetText((ns:L("FLIGHTMAP_TAKE_ONLY")):format(stop))
+		end
 		f._text:SetTextColor(0.5, 1, 0.5)
 	end
 	f:Show()
+
+	-- Pins exist only once the canvas has laid itself out, so a first pass right after
+	-- OnShow finds nothing. Try now, then once more a beat later.
+	if not HighlightPin(parent, stop) and C_Timer and C_Timer.After then
+		C_Timer.After(0.3, function()
+			if parent and parent:IsShown() then
+				HighlightPin(parent, stop)
+			end
+		end)
+	end
 end
 
 local loader = CreateFrame("Frame")
@@ -119,6 +187,9 @@ loader:SetScript("OnEvent", function(self, event, arg1)
 	frame:HookScript("OnHide", function()
 		if banner then
 			banner:Hide()
+		end
+		if glow then
+			glow:Hide()
 		end
 	end)
 	-- Already open when the addon loaded (a /reload at the flight master).

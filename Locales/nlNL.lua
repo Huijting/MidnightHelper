@@ -1291,6 +1291,7 @@ ns._mhLocales.nlNL = {
 	WAY_LEG_TO_FLIGHT = "Flight master: %s",
 	WAY_LEG_ARRIVED = "Je bent er — de pijl staat nu op %s.",
 	FLIGHTMAP_TAKE = "Neem %s — daarna door naar %s.",
+	FLIGHTMAP_TAKE_ONLY = "Neem %s — hij is op de kaart gemarkeerd.",
 	FLIGHTMAP_NOT_FOUND = "%s staat nog niet op je kaart — daar moet je één keer te voet heen.",
 	FLIGHTMAP_UNREACHABLE = "%s staat op de kaart maar is van hieruit grijs.",
 	CURIO_TITLE = "De keuzes van je companion",

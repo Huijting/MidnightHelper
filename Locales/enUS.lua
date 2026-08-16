@@ -1340,6 +1340,7 @@ ns._mhLocales.enUS = {
 	WAY_LEG_ARRIVED = "You are there — the arrow is now on %s.",
 	-- On the flight map itself, where a player actually looks at that moment.
 	FLIGHTMAP_TAKE = "Take %s — then on to %s.",
+	FLIGHTMAP_TAKE_ONLY = "Take %s — it is marked on the map.",
 	FLIGHTMAP_NOT_FOUND = "%s is not on your map yet — you have to reach it once on foot.",
 	FLIGHTMAP_UNREACHABLE = "%s is on the map but greyed out from here.",
 	-- /mh curios — what each option does, in the game's own words. Never a ranking:
