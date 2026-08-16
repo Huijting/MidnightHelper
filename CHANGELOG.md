@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.17.0
+
+- New: `Modules/CurioExplain.lua` — `/mh curios` prints what each Valeera delve curio does, with nothing hardcoded. Ids are resolved through the trait tree (`C_Traits.GetConfigIDByTreeID` → `GetTreeNodes` → `GetEntryInfo` → `GetDefinitionInfo`) and the text comes from `GetSpellDescription` on the player's own ranks. No ranking is offered: which curio wins depends on spec and delve, and nobody measured that.
+- Fixed the same async bug twice in one day and wrote down why: `GetSpellDescription` reads a cache, so the first pass printed "(no description)" for eight options. `C_Spell.RequestLoadSpellData` plus a one-second deferred read turns silence into an answer. I had copied that call from my own morning fix without the reason for it.
+- New: seven Coiled Isle treasures carry `prereqs` in `ns.ACHIEVEMENT_HUNTS` — the step that unlocks them, with its own coordinates on a clickable button rather than in the sentence. A locked chest with no explanation reads as a wrong coordinate.
+- New: `Modules/FlightMapHint.lua` now glows the pin as well as naming it, found through `FlightMapFrame.dataProviders` → the provider owning `AddFlightNode` → `slotIndexToPin`, matching on `taxiNodeData.name`. Matching is by prefix: a node name carries its zone ("Anathos, Silvermoon City"), which is why equality found nothing. Two guesses preceded this — a template name and a lookup route — while a working reference sat on disk.
+- New: `/mh mount <text>` asks `C_MountJournal` the way `/mh ach` asks the achievement API, plus Auriferous Venomfang with every id measured on Rob's client.
+- New: the Coiled Isle portal pair in `MIDNIGHT_PORTALS`, gated on quest 96004 (title verified against the client, character for character). `PortalUsable` returns false when the flag is unreadable — deliberately the opposite default to the delve chests, because hiding a portal costs a walk and inventing one costs trust in the arrow.
+- Measured: quest 96466 from the same guide paragraph does not resolve on this client. Recorded as undecided, not refuted — Method may have tested on the PTR, and a Season 2 quest that has not activated looks identical from here. Re-measure after the reset.
+- Fixed: `ns.AchievementNodeName` existed but was called in two of six places, so 22 criteria showed `?` and Route crashed on a nameless node. A helper that is not used everywhere is worse than no helper — it makes the bug look fixed.
+- Fixed: the share row's buttons ran past the frame edge. The row never asked how wide it was, and the fix I nearly made — dropping a button — would have been wrong: the Dutch labels are roughly three times the English width, which is why only Carola saw it.
+- Fixed: a delve boss GUID is a secret value in 12.x. `type(guid) == "string"` is true for one, so checking `issecretvalue` and then indexing anyway still threw. The flag has to gate the read.
+- Also: the delve boss prompt hides after five seconds, and the copy dialog has a size.
+
 ## 2.16.0
 
 - New: a chest route inside delves — `ns.DELVE_CHESTS`, 36 Sturdy Chests across 13 maps, extracted from HandyNotes_Midnight and cross-checked against the six coordinates we already shipped in our own tip text (exact to the decimal). A Chests button in the delve coach points the arrow at the nearest one still open and re-points on the quest flag, not on distance. Measured first: `/mh zone` inside Gnarldor Isle reports the user waypoint as refused while world coordinates resolve, which is why our own arrow works there and Blizzard's pin cannot.
