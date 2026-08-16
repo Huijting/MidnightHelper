@@ -141,6 +141,34 @@ local MIDNIGHT_PORTALS = {
 	{ name = "Portal to Silvermoon", mapID = 2576, toID = 2393, x = 51.61, y = 70.22, zone = "Voidstorm" },
 	{ name = "Portal to Harandar",   mapID = 2576, toID = 2413, x = 51.72, y = 70.33, zone = "Voidstorm" },
 
+	-- COILED ISLE (12.1) — ⚠️ GATED, and that is the whole point of the field.
+	--
+	-- This portal does not exist until you have unlocked it, so listing it plainly
+	-- would send a player to a wall in Astalor's Sanctum and look like our data is
+	-- wrong. `requiresQuest` makes it appear only for someone who can use it — the same
+	-- discipline as the delve chests, where an unreadable flag keeps the chest in the
+	-- route instead of hiding it.
+	--
+	-- Unlock (method.gg, read in full 16 aug 2026): quest 96004 "Prey: A Slithering
+	-- Threat" from Astalor at 2393 56.63/65.61, which asks for one Prey Hunt on
+	-- NIGHTMARE difficulty on the Coiled Isle; then 96466 "Prey: Anguish Island".
+	--
+	-- ⚠️ Nightmare Prey Hunts only open in WEEK TWO of Season 2, so nobody can have this
+	-- portal on the Tuesday the season starts. Until then the travel help must keep
+	-- pointing at the flight master, which it does on its own because the gate is false.
+	--
+	-- ⚠️ The two quest ids are Method's, not measured. If 96004 is wrong the gate never
+	-- opens and the portal stays invisible — the safe direction to be wrong in, but
+	-- still worth checking against the client (see /mh atal's REPEATABLE pattern).
+	{ name = "Portal to The Coiled Isle", mapID = 2393, toID = 2512,
+		x = 56.83, y = 67.38, requiresQuest = 96004 },
+	{ name = "Portal to The Coiled Isle", mapID = 2576, toID = 2512,
+		x = 56.83, y = 67.38, zone = "Silvermoon", requiresQuest = 96004 },
+	-- The way back, from Tokka's Landing. Same gate: you only ever see this one after
+	-- arriving through the first.
+	{ name = "Portal to Silvermoon", mapID = 2512, toID = 2393,
+		x = 58.25, y = 48.46, requiresQuest = 96004 },
+
 	-- SHOWDOWN VOID WORLDS
 	-- Naigtal had no entry at all, so the travel assistant found nothing there and
 	-- told Rob to hearth home while he was standing next to the way back (30 jul).
@@ -164,6 +192,25 @@ local MIDNIGHT_PORTALS = {
 
 ns.MIDNIGHT_DELVES = MIDNIGHT_DELVES
 ns.MIDNIGHT_PORTALS = MIDNIGHT_PORTALS
+
+--- Is this portal usable by THIS character right now?
+---
+--- ⚠️ An unreadable quest flag counts as NOT usable, which is the opposite of the rule
+--- for delve chests — and deliberately so. There, hiding a chest costs you a treasure
+--- you never find; here, showing a portal that is not there sends you to a blank wall
+--- and makes every other direction we give look untrustworthy. The cheap failure is a
+--- portal we forget to offer, not one we invent.
+local function PortalUsable(portal)
+	if not portal or not portal.requiresQuest then
+		return true
+	end
+	if not (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
+		return false
+	end
+	local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, portal.requiresQuest)
+	return (ok and done) and true or false
+end
+ns.MHPortalUsable = PortalUsable
 
 -- Verified Midnight currency IDs (Restored Coffer Key, Shards, Undercoin, Untainted Mana-Crystals).
 local CURRENCY_COFFER_KEY = 3028
@@ -958,7 +1005,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 			local mapMatch = (tonumber(portal.mapID) == tonumber(currentMap))
 			local hubMatch = (not portal.zone or (currentHub == portal.zone) or currentZoneName:find(portal.zone))
 
-			if mapMatch and hubMatch then
+			if mapMatch and hubMatch and PortalUsable(portal) then
 				local dist = math.sqrt((portal.x - px) ^ 2 + (portal.y - py) ^ 2)
 				local distYards = math.floor(dist * 45)
 				if targetChain[tonumber(portal.toID)] then
@@ -1103,7 +1150,10 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 		for _, portal in ipairs(MIDNIGHT_PORTALS) do
 			local mapMatch = (tonumber(portal.mapID) == tonumber(currentMap))
 			local hubMatch = (not portal.zone or (currentHub == portal.zone) or currentZoneName:find(portal.zone))
-			if mapMatch and hubMatch then
+			-- Second of the two loops over this table; a gate applied in only one of
+			-- them would show the portal in half the situations, which is the worst of
+			-- both answers.
+			if mapMatch and hubMatch and PortalUsable(portal) then
 				local dist = math.sqrt((portal.x - px) ^ 2 + (portal.y - py) ^ 2)
 				local distYards = math.floor(dist * 45)
 				if tonumber(portal.toID) == targetMap then

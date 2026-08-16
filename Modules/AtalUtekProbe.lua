@@ -75,6 +75,11 @@ local REPEATABLE = {
 	{ 98232, "Midnight: Vaults of Atal'Utek", "weekly meta, picked up in Silvermoon" },
 	{ 96995, "Turn Back the Surge", "weekly, Coiled Isle surface" },
 
+	-- The Coiled Isle portal chain (method.gg, 16 aug). Gates the portal we just added
+	-- to MIDNIGHT_PORTALS, so a wrong id means the portal never appears for anyone.
+	{ 96004, "Prey: A Slithering Threat", "unlocks the Coiled Isle portal" },
+	{ 96466, "Prey: Anguish Island", "follow-up, back through the portal" },
+
 	{ 96639, "Patrolling the Temple", "group daily" },
 	{ 96640, "Bounty of the Cursed", "group daily" },
 	{ 96641, "Relentless Strikes", "group daily" },
