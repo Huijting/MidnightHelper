@@ -834,22 +834,48 @@ local function EnsureCoachFrame()
 		btn:SetWidth(math.max(minWidth or 44, w))
 	end
 
+	-- ⚠️ WRAPS NOW. This laid the buttons out left to right and never once asked how
+	-- wide the row was, so the last one simply ran off the frame. Rob spotted it on a
+	-- photo of Carola's screen (16 aug) after 2.16.0 added a sixth button.
+	--
+	-- The sixth button is only half of it, and the half I would have "fixed" wrongly:
+	-- her client is Dutch, where "Deel briefing" is nearly three times the width of
+	-- "Brief". On an English client the same six probably still fit. Removing a button
+	-- would have hidden a layout that was already one long translation away from
+	-- breaking — in seven languages, on a row nobody measures.
+	--
+	-- So it fills a line, drops to the next when the next button would not fit, and
+	-- grows the row's height to match. Nothing below it needs to know: they anchor to
+	-- the row, not to a number.
+	local BTN_GAP, BTN_H, ROW_GAP = 4, 22, 4
 	local function ReflowShareButtons()
-		local prev
+		local avail = btnRow:GetWidth()
+		if not avail or avail <= 0 then
+			avail = (f:GetWidth() or 300) - 24 -- pre-layout pass: estimate, then redo
+		end
+		local prev, lineHead, used, lines = nil, nil, 0, 1
 		for i = 1, #shareBtnList do
 			local b = shareBtnList[i]
 			if b and b._mhLabelKey then
 				b:SetText(ns:L(b._mhLabelKey))
 				FitCoachShareButton(b, i == 1 and 52 or 40)
+				local w = b:GetWidth() or 40
 				b:ClearAllPoints()
 				if not prev then
-					b:SetPoint("LEFT", btnRow, "LEFT", 0, 0)
+					b:SetPoint("TOPLEFT", btnRow, "TOPLEFT", 0, 0)
+					lineHead, used = b, w
+				elseif used + BTN_GAP + w <= avail then
+					b:SetPoint("LEFT", prev, "RIGHT", BTN_GAP, 0)
+					used = used + BTN_GAP + w
 				else
-					b:SetPoint("LEFT", prev, "RIGHT", 4, 0)
+					b:SetPoint("TOPLEFT", lineHead, "BOTTOMLEFT", 0, -ROW_GAP)
+					lineHead, used = b, w
+					lines = lines + 1
 				end
 				prev = b
 			end
 		end
+		btnRow:SetHeight(lines * BTN_H + (lines - 1) * ROW_GAP + 2)
 	end
 
 	local function MakeShareBtn(parent, labelKey, minWidth)
@@ -1250,6 +1276,11 @@ local function EnsureCoachFrame()
 			return
 		end
 		SaveCoachSize(f)
+		-- The share row wraps on width, so a narrower panel has to re-flow or the last
+		-- button hangs outside again — the same way it did before it could wrap at all.
+		if f._reflowShareButtons then
+			f._reflowShareButtons()
+		end
 		ScheduleRelayoutCoachFrame(f)
 	end)
 
