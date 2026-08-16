@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.16.0
+
+- New: a chest route inside delves — `ns.DELVE_CHESTS`, 36 Sturdy Chests across 13 maps, extracted from HandyNotes_Midnight and cross-checked against the six coordinates we already shipped in our own tip text (exact to the decimal). A Chests button in the delve coach points the arrow at the nearest one still open and re-points on the quest flag, not on distance. Measured first: `/mh zone` inside Gnarldor Isle reports the user waypoint as refused while world coordinates resolve, which is why our own arrow works there and Blizzard's pin cannot.
+- New: `ns.IsDelveChestDone` is three-state. An unreadable quest flag returns nil, never false, so a wrong id costs a chest walked to twice rather than a chest silently hidden — the quest ids come from one addon whose Coiled Isle band was wrong on 13 Aug.
+- New: chests are learned from `LOOT_OPENED` on maps we ship nothing for, filtered to GameObject GUIDs so a looted corpse is not recorded as a chest, keeping the objectID. Learned lists announce themselves and never overrule the shipped table.
+- New: two-leg travel. `ns.RouteFirstToFlightPoint` sends the arrow to a walkable flight master first and hands over to the destination the moment `UnitOnTaxi` is true — boarding ends leg one, not landing. Narrow by design: different map, a faction-usable flight point where you stand, and not the same stop.
+- New: `Modules/FlightMapHint.lua` names the stop to take on `FlightMapFrame` itself, checked against `C_TaxiMap` rather than trusting our own table, with separate lines for undiscovered and unreachable. It only draws; no node is ever selected.
+- New: flight points 23 → 649 across 154 maps, joined from Zygor's LibTaxi through LibRover's own name→uiMapID table rather than by matching zone names. One block that did not resolve is reported and dropped. Faction is now stored and filtered; unknown faction still counts as usable.
+- New: `/mh binds` exports the player's real bindings — a third source beside the schema and the auto-map, read from the client and never written. Multi-key commands print every key, a key on an empty slot is shown and counted, macros are named via `GetActionText` when `GetMacroInfo` fails, and the Assisted Combat slot is named for what it is (two runs a minute apart reported Frozen Orb and then Flurry).
+- New: `Modules/BriefNotice.lua` — a five-second on-screen notice that fades itself and takes no mouse input, for feedback that answers "did my click work".
+- Fixed: the Layout tab laid its cards out across `HOST_W` (the keyboard's width) while the host is a scroll child of a narrower panel, so the third column's right-aligned keycaps fell off the edge. `UIPanelScrollFrameTemplate` scrolls vertically only, so nothing could bring them back — and a missing key reads as "unbound", not as broken.
+- Fixed: the delve boss prompt hides itself after five seconds instead of sitting over the fight it asks about.
+- Also: `/mh ach check` holds every achievement hunt against the client and separates a wrong criterion id from an incomplete node list; it found Showdown Slugger: Naigtal shipping 8 nodes for 10 criteria, closed via `assetID` after the client returned "Slaipaan" for three different criteria.
+- Also: the Coiled Isle gains its glyph (63395) and lore (63662) hunts. 62601 and 63601 were deliberately left out — their HandyNotes coordinates are 10.00/10.00 placeholders, and an arrow that points somewhere gets believed.
+- Tools: `tools/delve_chests.py`, `tools/flight_points.py` and `tools/keybind_mine.py` all diff against what we ship before printing, and none of them writes to the addon.
+
 ## 2.15.0
 
 - New: the two 12.1 delves, for real. Gnarldor Isle and The Ring of Glory in the Delves panel, coach and picker — enumerated from the player's own client via `C_AreaPoiInfo.GetDelvesForMap` after two POI sweeps proved `GetAreaPOIForMap` never returns delves at all (our own eleven were the positive control). Routes with the three Sturdy Chests as clickable waypoints, bosses as multi-source candidates (Drakta confirmed by an actual run), showcase models that fail soft on a wrong id.

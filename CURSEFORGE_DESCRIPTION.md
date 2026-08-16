@@ -21,6 +21,11 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - **Thumb-button keys onto action bar 8.** If your mouse sends `6 7 8 9 0 -` instead of mouse buttons, one press puts them where they belong and leaves every key you already bound exactly where your hands expect it.
 - Never used any of this? Open Midnight Helper on a character whose bars have not been set up and it **offers once**, on the front page. Dismiss it and it stays dismissed.
 
+**Getting there, and knowing your keys**
+- **A chest route inside delves.** The coach points you at the nearest Sturdy Chest you have not opened and moves on by itself once you loot it — and where it cannot tell whether a chest is done, it keeps it in the route and says so, rather than quietly hiding one.
+- **Travel that points at the flight master.** Ask for a waypoint on another map and the arrow goes to the flight master you can walk to first, then hands over to your destination the moment you board. The flight map names the stop to click, and tells you when that stop is not on your map yet. 649 flight points across 154 maps, filtered to your faction.
+- **`/mh binds` — your own keybinds on paper.** It reads the keys you actually have, including anything you changed by hand, and puts them in a window you can copy into a document and print. It marks keys that duplicate another, and names the Assisted Combat slot for what it is instead of for whichever spell it is suggesting right now.
+
 **Patch 12.1**
 - The **Coiled Isle** with its rares mapped: names, coordinates and the hidden kill quests that let the list tick itself off — measured on the test realm, not copied from anywhere. **Altar of Fangs** with beginner steps for all three bosses, and the two **12.1 delves** (Gnarldor Isle, The Ring of Glory) in the coach with routes, bosses and 3D models.
 - A **Coiled Isle shelf in the Codex**: the Vaults of Atal'Utek in three readable articles with **clickable waypoint links** on every coordinate, the Altar of Corrosion's four hidden keys explained, and a **Follow the route** button for The Honored Dead memorial walk.
@@ -161,6 +166,7 @@ drift from what the addon actually answers to.
 | `/mh skip` (`next`) | Skip the current route target |
 | `/mh arrowsize <28-160>` | Resize the route arrow |
 | `/mh arrow` | Who is guiding you, and why the arrow is or is not showing |
+| `/mh binds` | Your own keybinds, read from the client — copy it out and print it |
 | `/mh partytargets` | Toggle the party targets panel |
 | `/mh lang auto` · `en` · `de` · `fr` · `es` · `pt` · `it` · `nl` | Set language |
 | `/mh tracks` | Which slots are at their upgrade ceiling, and what raises them |
