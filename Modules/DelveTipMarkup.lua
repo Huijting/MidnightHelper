@@ -269,8 +269,32 @@ function ns.ReportTravelHintForWaypoint(mapID, label, x, y, currentMap)
 		-- way with confidence.
 		return
 	end
-	print(("|cffffcc00%s|r %s"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH",
-		(ns:L("WAY_FLIGHT_HINT")):format(fp)))
+
+	-- ⚠️ NAME WHERE YOU LEAVE FROM TOO. Rob, 16 aug: "ik sta letterlijk naast Anathos"
+	-- while the hint told him about a flight point on the island. Both halves were in
+	-- our own data — The Royal Exchange is in FLIGHT_POINTS[2393] — and the message
+	-- only ever asked about the destination. Telling someone standing at a flight
+	-- master where to land is answering the second half of their question.
+	local from
+	if currentMap and C_Map and C_Map.GetPlayerMapPosition then
+		local okP, pos = pcall(C_Map.GetPlayerMapPosition, tonumber(currentMap), "player")
+		if okP and pos and pos.GetXY then
+			local okXY, px, py = pcall(pos.GetXY, pos)
+			if okXY and px then
+				from = ns.GetNearestFlightPoint(tonumber(currentMap), px * 100, py * 100)
+			end
+		end
+		-- No position: still worth asking for the zone's flight point without one, so
+		-- a loading screen does not silently drop half the advice.
+		from = from or ns.GetNearestFlightPoint(tonumber(currentMap))
+	end
+
+	local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
+	if from and from ~= fp then
+		print(("%s %s"):format(prefix, (ns:L("WAY_FLIGHT_FROM_TO")):format(from, fp)))
+	else
+		print(("%s %s"):format(prefix, (ns:L("WAY_FLIGHT_HINT")):format(fp)))
+	end
 end
 
 function ns:SetMapWaypoint(mapID, x, y, label)
