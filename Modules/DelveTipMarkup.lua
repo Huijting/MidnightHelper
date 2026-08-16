@@ -244,6 +244,35 @@ function ns.ReportWaypointResult(mapID, label, targetX, targetY)
 	end
 end
 
+--- Just the "how do I get there" half, for callers that set their own waypoint.
+---
+--- ⚠️ Split out of ReportWaypointResult on 16 aug. That function also prints "waypoint
+--- set in X while you are in Y", which is right for a text link you just clicked and
+--- noise for a route button that already shows an arrow. A route needs the travel
+--- advice without the confirmation, so the two are now separable rather than one being
+--- copied into the other.
+---
+--- Says nothing when you are already on the target map: standing in the zone, the
+--- nearest flight point is not the answer to anything.
+function ns.ReportTravelHintForWaypoint(mapID, label, x, y, currentMap)
+	mapID = tonumber(mapID)
+	if not mapID or not ns.GetNearestFlightPoint then
+		return
+	end
+	if currentMap and tonumber(currentMap) == mapID then
+		return
+	end
+	local fp = ns.GetNearestFlightPoint(mapID, x, y)
+	if not fp then
+		-- No flight point in our data for that zone. Silence is correct here: inventing
+		-- travel advice for a place we have not mapped is how someone flies the wrong
+		-- way with confidence.
+		return
+	end
+	print(("|cffffcc00%s|r %s"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH",
+		(ns:L("WAY_FLIGHT_HINT")):format(fp)))
+end
+
 function ns:SetMapWaypoint(mapID, x, y, label)
 	mapID, x, y = tonumber(mapID), tonumber(x), tonumber(y)
 	if not (mapID and x and y) then

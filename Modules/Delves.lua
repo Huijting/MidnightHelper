@@ -867,6 +867,23 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		return true
 	end
 
+	-- ⚠️ THE FLIGHT HINT BELONGS HERE, not only on a {WAY:} click. Rob, 16 aug: standing
+	-- in Silvermoon he pointed at a delve on the Coiled Isle and got an arrow reading
+	-- "8km 320m away" and nothing else, while both ends have flight masters.
+	--
+	-- The advice already existed — ReportWaypointResult names the nearest flight point —
+	-- but only SetMapWaypoint called it, so a text link got help and every route BUTTON
+	-- did not. Same destination, two different answers depending on what you clicked.
+	--
+	-- It runs before the suppression checks below on purpose. Those exist to stop the
+	-- portal/hearthstone popup nagging inside one region, and Silvermoon and the Coiled
+	-- Isle sit in the same MIDNIGHT_OVERWORLD_MAPS group — so every one of them says
+	-- "no travel help needed" for a trip across the sea. The popup staying quiet is
+	-- right; saying nothing at all is not.
+	if not travelOnly and ns.ReportTravelHintForWaypoint then
+		ns.ReportTravelHintForWaypoint(targetMap, title, xPct, yPct, currentMap)
+	end
+
 	if ns.ShouldSuppressTravelPopup(currentMap, targetMap, xPct, yPct, title) then
 		SafeHideTravelPopup()
 		return true
