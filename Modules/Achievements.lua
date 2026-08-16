@@ -880,7 +880,10 @@ local function IssueRoute(entry, firstTime, silent)
 			ns.AchievementNodeName(entry, node), skipTravelUI, skipCrazyArrow)
 	end
 	local lead = waypoints[1]
-	ns.lastTarget = { mapID = lead.mapID, x = lead.x, y = lead.y, name = lead.name }
+	-- The arrow reads ns.lastTarget for the name it draws under the distance, so this
+	-- one matters as much as the chat line: lead.name nil made it say "Waypoint".
+	ns.lastTarget = { mapID = lead.mapID, x = lead.x, y = lead.y,
+		name = ns.AchievementNodeName(entry, lead) }
 	routeSig = RouteFingerprint(entry)
 	DBG(
 		"issue: lead=%s leadMap=%s incomplete=%d firstTime=%s playerMap=%s",
@@ -896,11 +899,17 @@ local function IssueRoute(entry, firstTime, silent)
 	-- survives). AddSmartTomTomWay already adds a Blizzard backup for genuine
 	-- cross-continent targets, and TomTom's own arrow persists across zones.
 	if not silent then
+		-- ⚠️ Through the helper. `first.name` is nil on every hunt that ships without
+		-- names — the Coiled Isle treasures, lore and glyphs — and string.format throws
+		-- on a nil, so pressing Route on them crashed outright (Rob, 16 aug). Third
+		-- place today reading the raw field instead of asking for the name; the other
+		-- two only looked wrong, this one stopped the route.
+		local firstName = ns.AchievementNodeName(entry, first)
 		if firstTime then
 			print((ns:L("ACH_MSG_ROUTE_START")):format(
-				Prefix(), title, done, total, #incomplete, first.name))
+				Prefix(), title, done, total, #incomplete, firstName))
 		else
-			print((ns:L("ACH_MSG_ROUTE_NEXT")):format(Prefix(), first.name, done, total))
+			print((ns:L("ACH_MSG_ROUTE_NEXT")):format(Prefix(), firstName, done, total))
 		end
 		if first.note then
 			print((ns:L("ACH_MSG_ROUTE_NOTE")):format(Prefix(), ns:L(first.note)))
@@ -921,7 +930,8 @@ local function IssueRoute(entry, firstTime, silent)
 	-- (no waypoint side effects) so the arrow re-focuses on the portal/HS instead of
 	-- vanishing. Gated on cross-continent, so same-continent advances stay untouched.
 	if not firstTime and not silent and lead and C_Timer and C_Timer.After then
-		local lmap, lx, ly, lname = lead.mapID, lead.x, lead.y, lead.name
+		local lmap, lx, ly = lead.mapID, lead.x, lead.y
+		local lname = ns.AchievementNodeName(entry, lead)
 		C_Timer.After(0.4, function()
 			if
 				activeEntry
