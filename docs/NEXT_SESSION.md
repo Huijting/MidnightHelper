@@ -95,10 +95,13 @@ De consumables-rij rechtsonder mist ook zijn labels — waarschijnlijk hetzelfde
 "Getting there, and knowing your keys": delve-kistenroute, tweetraps-reizen naar de
 flight master, 649 flightpoints, `/mh binds`, en de Layout-kolomfix.
 
-**🔴 ONGETEST in 2.16.0, met opzet uitgebracht zodat Carola het kan doen:**
-1. de kistenroute die **doorschuift** naar de volgende kist (Rob had ze al alle drie);
-2. de pijl die **omschakelt bij het instappen** op de taxi.
-Vraag daar als eerste naar.
+**Getest sinds de tag:**
+- ✅ **De kistenroute schuift door** — bevestigd door **Carola** (16 aug). Rob kon het
+  niet: de kist-vlaggen zijn **account-wide**, dus op zijn account staat alles voor altijd
+  op gedaan. ⚠️ Een lege route bij een veteraan is de feature die wérkt, geen bug. Deze
+  feature is voor wie een delve voor het eerst ziet.
+- 🔴 **Nog ongetest:** de pijl die **omschakelt bij het instappen** op de taxi. Vraag
+  daar als eerste naar.
 
 **Commits ná de tag — gaan mee met 2.17.0:**
 - Dubbele "Eindbaas nog niet herkend" in de coach (de tiptekst houdt hem, de

@@ -231,6 +231,16 @@ end
 --- API is unavailable). Callers must treat nil as "still worth visiting". Collapsing
 --- nil into true would make a wrong quest id hide a chest the player never opened, and
 --- they would never learn why the route skipped it.
+---
+--- ✅ VERIFIED 16 aug 2026, and the verification came from a second person. Rob could
+--- not test the route advancing because every chest already read as done — the flags are
+--- ACCOUNT-WIDE, so once any character has opened a delve's chests, none of his ever
+--- sees them again. Carola, who had not, walked the route and it advanced correctly.
+---
+--- ⚠️ That is worth knowing before anyone "improves" this: for a veteran account the
+--- feature is permanently silent, and correctly so. It is for a player seeing a delve
+--- for the first time. An empty route on Rob's account is the feature working, not a
+--- bug to chase — and MH's own tester could not have found that out alone.
 --- @return boolean|nil
 function ns.IsDelveChestDone(chest)
 	if not (chest and chest.quest) then
