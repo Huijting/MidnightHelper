@@ -140,8 +140,45 @@ function ns.BuildCurioExplainText()
 	return table.concat(lines, "\n")
 end
 
+--- ⚠️ ASK FIRST, READ AFTER. RequestLoadSpellData is asynchronous, and the first run
+--- proved it the hard way: every one of eight curios printed "(the game gave no
+--- description for this one)" because the request and the read happened in the same
+--- frame. The trait sweep learned this a few hours earlier and grew a second pass; this
+--- file requested the data and then read it immediately anyway.
+---
+--- So the request goes out, and the text is built a beat later. A description that is
+--- still missing then is genuinely missing, which is worth saying — the point of asking
+--- is that silence afterwards means something.
+local function RequestAll(nodes)
+	if not (C_Spell and C_Spell.RequestLoadSpellData) then
+		return
+	end
+	for _, node in ipairs(nodes or {}) do
+		for _, o in ipairs(node.options or {}) do
+			if o.spellID then
+				pcall(C_Spell.RequestLoadSpellData, o.spellID)
+			end
+		end
+	end
+end
+
 --- /mh curios
 function ns.ShowCurioExplain()
+	local nodes = ns.GetCompanionChoices()
+	if nodes and C_Timer and C_Timer.After then
+		RequestAll(nodes)
+		-- One second, once. Long enough for the server round-trip, short enough that it
+		-- still feels like a response to the command rather than a delayed surprise.
+		C_Timer.After(1, function()
+			ns.ShowCurioExplainNow()
+		end)
+		print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"), L("CURIO_LOADING")))
+		return
+	end
+	ns.ShowCurioExplainNow()
+end
+
+function ns.ShowCurioExplainNow()
 	local text = ns.BuildCurioExplainText()
 	if ns.ShowShareCopyDialog then
 		ns.ShowShareCopyDialog({
