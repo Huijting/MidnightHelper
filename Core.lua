@@ -967,6 +967,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh flightpins — wat de vliegkaart aanbood toen hij het laatst open stond.
+	if msg == "flightpins" then
+		if ns.PrintFlightPins then
+			ns.PrintFlightPins()
+		end
+		return
+	end
+
 	-- /mh mount <tekst> — mount-id opzoeken op naam. Opzoekgereedschap, net als /mh ach.
 	if msg:match("^mount%s+") then
 		if ns.PrintMountFind then

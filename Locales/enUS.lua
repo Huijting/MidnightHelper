@@ -1341,6 +1341,9 @@ ns._mhLocales.enUS = {
 	-- On the flight map itself, where a player actually looks at that moment.
 	FLIGHTMAP_TAKE = "Take %s — then on to %s.",
 	FLIGHTMAP_TAKE_ONLY = "Take %s — it is marked on the map.",
+	-- Used when the pin could not be marked. Says less rather than claiming more.
+	FLIGHTMAP_TAKE_UNMARKED = "Take %s — then on to %s. (Could not mark it on this map.)",
+	FLIGHTMAP_TAKE_BARE = "Take %s.",
 	FLIGHTMAP_NOT_FOUND = "%s is not on your map yet — you have to reach it once on foot.",
 	FLIGHTMAP_UNREACHABLE = "%s is on the map but greyed out from here.",
 	-- /mh curios — what each option does, in the game's own words. Never a ranking:

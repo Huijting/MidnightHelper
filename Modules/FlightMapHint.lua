@@ -169,23 +169,66 @@ local function Refresh(parent)
 		if type(dest) ~= "string" or dest == "" or dest == "?" then
 			dest = nil
 		end
-		if dest then
+		-- ⚠️ The wording FOLLOWS the highlight, it does not promise it. The first
+		-- version said "it is marked on the map" whether or not anything had been
+		-- marked, and Rob's screenshot showed exactly that: a confident sentence over
+		-- an unmarked map. A line that describes something the player cannot see is
+		-- worse than the plain one.
+		local marked = HighlightPin(parent, stop)
+		if not marked and C_Timer and C_Timer.After then
+			-- Pins exist only once the canvas has laid itself out, so try again a beat
+			-- later and upgrade the wording if it works then.
+			C_Timer.After(0.3, function()
+				if parent and parent:IsShown() and HighlightPin(parent, stop) and dest then
+					f._text:SetText((ns:L("FLIGHTMAP_TAKE")):format(stop, dest))
+				end
+			end)
+		end
+		if dest and marked then
 			f._text:SetText((ns:L("FLIGHTMAP_TAKE")):format(stop, dest))
-		else
+		elseif dest then
+			f._text:SetText((ns:L("FLIGHTMAP_TAKE_UNMARKED")):format(stop, dest))
+		elseif marked then
 			f._text:SetText((ns:L("FLIGHTMAP_TAKE_ONLY")):format(stop))
+		else
+			f._text:SetText((ns:L("FLIGHTMAP_TAKE_BARE")):format(stop))
 		end
 		f._text:SetTextColor(0.5, 1, 0.5)
+
+		-- ⚠️ Diagnostic, because guessing why the pin does not light has failed twice.
+		-- Tokka's Landing is on the Coiled Isle while Rob was looking at Eastern
+		-- Kingdoms, so the pin may simply not exist on that canvas — a different
+		-- problem from a wrong lookup, and only the list of what IS there can tell
+		-- them apart. `/mh flightpins` prints it.
+		local pins = FlightPinsByProvider(parent)
+		local names = {}
+		for _, pin in pairs(pins or {}) do
+			local d = pin and pin.taxiNodeData
+			if type(d) == "table" and type(d.name) == "string" then
+				names[#names + 1] = d.name
+			end
+		end
+		ns.db = ns.db or {}
+		ns.db.flightPins = { wanted = stop, marked = marked, found = #names, names = names }
 	end
 	f:Show()
+end
 
-	-- Pins exist only once the canvas has laid itself out, so a first pass right after
-	-- OnShow finds nothing. Try now, then once more a beat later.
-	if not HighlightPin(parent, stop) and C_Timer and C_Timer.After then
-		C_Timer.After(0.3, function()
-			if parent and parent:IsShown() then
-				HighlightPin(parent, stop)
-			end
-		end)
+--- /mh flightpins — what the flight map actually offered, last time it was open.
+function ns.PrintFlightPins()
+	local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
+	local d = ns.db and ns.db.flightPins
+	if type(d) ~= "table" then
+		print(("%s open a flight master first, then run this."):format(prefix))
+		return
+	end
+	print(("%s flight map: wanted |cffffffff%s|r, marked = %s, %d pins on that canvas"):format(
+		prefix, tostring(d.wanted), tostring(d.marked), d.found or 0))
+	for i, n in ipairs(d.names or {}) do
+		print(("   %2d  %s"):format(i, n))
+	end
+	if (d.found or 0) == 0 then
+		print("   |cffffd100No pins at all — the lookup is wrong, not the map.|r")
 	end
 end
 
