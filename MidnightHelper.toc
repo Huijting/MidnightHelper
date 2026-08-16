@@ -131,6 +131,7 @@ Modules\ProfessionsGuideData.lua
 Modules\ProfessionsGuide.lua
 Modules\ReferenceGuide.lua
 Modules\Profession.lua
+Modules\BriefNotice.lua
 Modules\Delves.lua
 Modules\DelveChestData.lua
 Modules\KeybindExport.lua

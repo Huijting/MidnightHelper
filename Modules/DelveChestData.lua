@@ -329,6 +329,9 @@ local function PointAtNearest(announce)
 	if #open == 0 then
 		StopRoute()
 		if announce ~= false then
+			if ns.ShowBriefNotice then
+				ns.ShowBriefNotice(ns:L("DELVE_CHEST_ALL_DONE"), 5)
+			end
 			print(("%s %s"):format(ns:L("PRINT_PREFIX"), ns:L("DELVE_CHEST_ALL_DONE")))
 		end
 		return false, "done"
@@ -343,8 +346,15 @@ local function PointAtNearest(announce)
 		(ns:L("DELVE_CHEST_LABEL")):format(c.index), false, false, false, 0)
 
 	if announce ~= false then
-		print(("%s %s"):format(ns:L("PRINT_PREFIX"),
-			(ns:L("DELVE_CHEST_ROUTING")):format(total - #open + 1, total)))
+		local headline = (ns:L("DELVE_CHEST_ROUTING")):format(total - #open + 1, total)
+		-- On screen AND in chat. The notice answers "did my click work" where the eyes
+		-- already are; the chat line stays because it is the one you can scroll back to
+		-- when the notice has gone. Rob, 16 aug: he only spotted the chat line because
+		-- he asked for the feature.
+		if ns.ShowBriefNotice then
+			ns.ShowBriefNotice(headline, 5)
+		end
+		print(("%s %s"):format(ns:L("PRINT_PREFIX"), headline))
 		-- Say it out loud when a chest's state is unreadable. The route then walks you
 		-- past something you may already have opened, and a player who is not told that
 		-- concludes the addon is wrong rather than cautious.

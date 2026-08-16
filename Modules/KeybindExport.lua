@@ -191,6 +191,7 @@ function ns.BuildKeybindExportText()
 			local mark = ""
 			if r.countable and (seen[r.label] or 0) > 1 then
 				mark = "  " .. L("KEYBIND_EXPORT_DUP")
+				r.duplicate = true -- carried into ns.db for the printable sheet
 				dupes = dupes + 1
 			end
 			lines[#lines + 1] = ("  %-18s %s%s"):format(r.keys, r.label, mark)
@@ -201,6 +202,20 @@ function ns.BuildKeybindExportText()
 		lines[#lines + 1] = (L("KEYBIND_EXPORT_DUP_NOTE")):format(dupes)
 		lines[#lines + 1] = ""
 	end
+
+	-- ⚠️ The same thing as STRUCTURE, not only as prose. Rob wants to print this, and
+	-- WoW cannot print — that is the platform, not a missing feature. So the addon
+	-- reads and a browser prints: tools/keybind_mine.py turns this table into a styled
+	-- page. Parsing the text above to get there would mean writing a parser for our own
+	-- output, which breaks the first time a label contains two spaces.
+	ns.db = ns.db or {}
+	ns.db.keybindExport = {
+		at = (time and time()) or 0,
+		player = name, class = class, spec = specName,
+		bars = bars,
+		duplicates = dupes,
+		emptyBound = emptyBound,
+	}
 
 	if bound == 0 then
 		-- ⚠️ Empty output must never read as "you have no bindings". Far likelier is that
