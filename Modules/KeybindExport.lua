@@ -27,6 +27,22 @@ local function L(key)
 	return (ns.L and ns:L(key)) or key
 end
 
+--- ⚠️ Blizzard's binding command names are not English, they are internal.
+--- "MULTIACTIONBAR7" tells a player nothing; the same list previously only got human
+--- names inside Rob's private Python tool, which meant every other user read the raw
+--- tokens. If the shipped text is the version most people will ever print, the plain
+--- names belong in the addon.
+local BAR_LABEL_KEY = {
+	ACTION = "KEYBIND_BAR_ACTION",
+	MULTIACTIONBAR1 = "KEYBIND_BAR_BOTTOMLEFT",
+	MULTIACTIONBAR2 = "KEYBIND_BAR_BOTTOMRIGHT",
+	MULTIACTIONBAR3 = "KEYBIND_BAR_RIGHT",
+	MULTIACTIONBAR4 = "KEYBIND_BAR_RIGHT2",
+	MULTIACTIONBAR5 = "KEYBIND_BAR_6",
+	MULTIACTIONBAR6 = "KEYBIND_BAR_7",
+	MULTIACTIONBAR7 = "KEYBIND_BAR_8",
+}
+
 --- What sits in one action slot, in words.
 --- @return string|nil label, string|nil kind
 local function SlotContents(slot)
@@ -123,6 +139,15 @@ function ns.BuildKeybindExportText()
 	lines[#lines + 1] = ("%s — %s%s"):format(name, specName and (specName .. " ") or "",
 		class or "")
 	lines[#lines + 1] = L("KEYBIND_EXPORT_SUB")
+	-- ⚠️ Date it. A printed sheet outlives the layout it describes, and one that has
+	-- quietly gone stale teaches a key that is no longer there. Cheap insurance on a
+	-- page whose whole purpose is to be trusted away from the screen.
+	if date then
+		local okD, stamp = pcall(date, "%d-%m-%Y %H:%M")
+		if okD and stamp then
+			lines[#lines + 1] = (L("KEYBIND_EXPORT_DATED")):format(stamp)
+		end
+	end
 	lines[#lines + 1] = ""
 
 	local bound, emptyBound = 0, 0
@@ -167,7 +192,15 @@ function ns.BuildKeybindExportText()
 			end
 		end
 		if #rows > 0 then
-			bars[#bars + 1] = { name = bar.prefix:gsub("BUTTON$", ""), rows = rows }
+			local token = bar.prefix:gsub("BUTTON$", "")
+			-- Store the readable label as well as the token. The printable-sheet tool
+			-- used to carry its own copy of these names; two lists of the same eight
+			-- bars is two lists that can disagree, and only one of them is localised.
+			bars[#bars + 1] = {
+				name = token,
+				label = (BAR_LABEL_KEY[token] and L(BAR_LABEL_KEY[token])) or token,
+				rows = rows,
+			}
 			for _, r in ipairs(rows) do
 				if r.countable then
 					seen[r.label] = (seen[r.label] or 0) + 1
@@ -186,7 +219,7 @@ function ns.BuildKeybindExportText()
 	-- where the room is.
 	local dupes = 0
 	for _, bar in ipairs(bars) do
-		lines[#lines + 1] = bar.name
+		lines[#lines + 1] = "== " .. (bar.label or bar.name) .. " =="
 		for _, r in ipairs(bar.rows) do
 			local mark = ""
 			if r.countable and (seen[r.label] or 0) > 1 then
@@ -194,7 +227,12 @@ function ns.BuildKeybindExportText()
 				r.duplicate = true -- carried into ns.db for the printable sheet
 				dupes = dupes + 1
 			end
-			lines[#lines + 1] = ("  %-18s %s%s"):format(r.keys, r.label, mark)
+			-- ⚠️ Padding AND a separator, deliberately both. The padded columns line up
+			-- in the in-game box and in any monospace font; they collapse the moment
+			-- this is pasted into Word, which is exactly where a player will take it to
+			-- print. The dash keeps every line readable as "KEY — what it does" even
+			-- when the alignment is gone.
+			lines[#lines + 1] = ("  %-16s — %s%s"):format(r.keys, r.label, mark)
 		end
 		lines[#lines + 1] = ""
 	end
@@ -202,6 +240,10 @@ function ns.BuildKeybindExportText()
 		lines[#lines + 1] = (L("KEYBIND_EXPORT_DUP_NOTE")):format(dupes)
 		lines[#lines + 1] = ""
 	end
+	-- The shipped answer to "how do I print this". There is no other one: an addon may
+	-- not write files and WoW cannot print, so the honest instruction is where to take
+	-- the text — not a promise the game cannot keep.
+	lines[#lines + 1] = L("KEYBIND_EXPORT_PRINT_HINT")
 
 	-- ⚠️ The same thing as STRUCTURE, not only as prose. Rob wants to print this, and
 	-- WoW cannot print — that is the platform, not a missing feature. So the addon

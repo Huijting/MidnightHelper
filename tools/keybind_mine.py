@@ -39,17 +39,11 @@ OUTDIR = os.path.dirname(os.path.abspath(__file__))
 # sheet he had just made. A generator that destroys its own previous output is worse
 # than one that refuses to run.
 
-# Blizzard's binding command names mean nothing to a player reading a printout.
-BAR_NAMES = {
-    'ACTION': 'Main bar',
-    'MULTIACTIONBAR1': 'Bottom left bar',
-    'MULTIACTIONBAR2': 'Bottom right bar',
-    'MULTIACTIONBAR3': 'Right bar',
-    'MULTIACTIONBAR4': 'Right bar 2',
-    'MULTIACTIONBAR5': 'Bar 6',
-    'MULTIACTIONBAR6': 'Bar 7',
-    'MULTIACTIONBAR7': 'Bar 8 (mouse buttons)',
-}
+# ⚠️ NO BAR-NAME TABLE HERE ANY MORE. This file used to translate MULTIACTIONBAR7 into
+# "Bar 8" itself, which meant the readable names existed only in Rob's private tool
+# while every shipped user read the raw tokens — and it was a second list of the same
+# eight bars, able to disagree with the addon's. The addon now stores the label next to
+# the token, already localised, and this just prints it.
 
 
 def block(key, src):
@@ -127,7 +121,7 @@ for b in split_top(bars_blob or '{}'):
             'dup': field(r, 'duplicate') is True,
         })
     if rows:
-        bars.append((BAR_NAMES.get(name, name), rows))
+        bars.append((field(b, 'label') or name, rows))
 
 when = '?'
 try:

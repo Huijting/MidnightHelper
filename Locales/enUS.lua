@@ -514,6 +514,18 @@ ns._mhLocales.enUS = {
 	KEYBIND_EXPORT_ASSIST = "Assisted Combat (changes as you fight)",
 	KEYBIND_EXPORT_DUP = "<-- also elsewhere",
 	KEYBIND_EXPORT_DUP_NOTE = "%d keys do something another key also does. Often deliberate — the same spell within reach on a laptop as on an MMO mouse — and worth seeing when you want room for something new.",
+	KEYBIND_EXPORT_DATED = "Read on %s. Change a key in game and this sheet is out of date — run it again.",
+	KEYBIND_EXPORT_PRINT_HINT = "To print: select all, copy, and paste into a document. A monospace font (Consolas, Courier) keeps the columns lined up.",
+	-- Plain names for the action bars. Blizzard's binding commands are internal tokens;
+	-- MULTIACTIONBAR7 means nothing to the person reading a printout.
+	KEYBIND_BAR_ACTION = "Main bar",
+	KEYBIND_BAR_BOTTOMLEFT = "Bottom left bar",
+	KEYBIND_BAR_BOTTOMRIGHT = "Bottom right bar",
+	KEYBIND_BAR_RIGHT = "Right bar",
+	KEYBIND_BAR_RIGHT2 = "Right bar 2",
+	KEYBIND_BAR_6 = "Bar 6",
+	KEYBIND_BAR_7 = "Bar 7",
+	KEYBIND_BAR_8 = "Bar 8 (often the mouse buttons)",
 	ACH_GLYPHS_COILEDISLE = "The Coiled Isles Glyph Hunter",
 	ACH_LORE_COILEDISLE = "Student of Hissstory",
 	-- Trading Post tab
