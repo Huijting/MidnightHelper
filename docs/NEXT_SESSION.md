@@ -101,8 +101,23 @@ flight master, 649 flightpoints, `/mh binds`, en de Layout-kolomfix.
   op gedaan. ⚠️ Een lege route bij een veteraan is de feature die wérkt, geen bug. Deze
   feature is voor wie een delve voor het eerst ziet.
 - ✅ **De boss-prompt verdwijnt na 5 seconden** — Rob, 16 aug avond.
-- 🔴 **Nog ongetest, het laatste stuk van 2.16.0:** de pijl die **omschakelt bij het
-  instappen** op de taxi. Vraag daar als eerste naar.
+- ✅ **De pijl schakelt om bij het instappen op de taxi** — Rob, 16 aug avond.
+  **Daarmee is 2.16.0 volledig getest.**
+
+### 💡 Robs idee: één knop "breng me naar de Coiled Isle" (16 aug, avond)
+
+⚠️ **Eerst meten, dan bouwen.** `MIDNIGHT_PORTALS` (Delves.lua:125) kent Silvermoon ↔
+Harandar ↔ Voidstorm en **géén portaal naar 2512**. Dat betekent niet dat er geen is —
+alleen dat wij er geen hebben. Rob checkt de portaalkamer in Silvermoon.
+
+Bestaat het portaal, dan moet de knop dáárheen sturen: de vlucht naar Tokka's Landing
+duurt 6:18 (Blizzards eigen tooltip), een portaal is direct. Bestaat het niet, dan naar
+de flight master.
+
+📌 **De machinerie ligt er al.** De tweetraps-reis doet precies "van waar dan ook naar X":
+vertrekpunt zoeken, pijl naar de flight master, omschakelen bij instappen, halte oplichten
+op de vliegkaart. Een knop is alleen een vaste bestemming die dat aanzet — de vraag is
+wáár hij staat en waarheen hij wijst, niet of het kan.
 
 ### ✅ De vliegkaart-pin licht op — OPGELOST 16 aug (`0997123`)
 
