@@ -136,6 +136,7 @@ Modules\FlightMapHint.lua
 Modules\Delves.lua
 Modules\DelveChestData.lua
 Modules\KeybindExport.lua
+Modules\CurioExplain.lua
 Modules\NativeArrow.lua
 Modules\WorldBoss.lua
 Modules\WorldBossProbe.lua

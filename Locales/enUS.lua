@@ -1310,6 +1310,18 @@ ns._mhLocales.enUS = {
 	FLIGHTMAP_TAKE = "Take %s — then on to %s.",
 	FLIGHTMAP_NOT_FOUND = "%s is not on your map yet — you have to reach it once on foot.",
 	FLIGHTMAP_UNREACHABLE = "%s is on the map but greyed out from here.",
+	-- /mh curios — what each option does, in the game's own words. Never a ranking:
+	-- see the header of CurioExplain.lua for why.
+	CURIO_TITLE = "Your companion's choices",
+	CURIO_HINT = "Ctrl+C to copy. Marked with > is what you have selected right now.",
+	CURIO_HEADER = "What each option does, in the game's own words. Which one suits you depends on your tier, your role and whether you run alone - so this explains rather than picks.",
+	CURIO_CHOICE_FMT = "A choice of %d",
+	CURIO_ACTIVE = "> ",
+	CURIO_NO_TEXT = "(the game gave no description for this one)",
+	CURIO_NO_API = "This client does not offer the companion trait API.",
+	CURIO_NO_TREE = "No companion tree found. Open your companion's window once, then try again - that window is what tells the addon which companion you have.",
+	CURIO_NO_CHOICES = "No choice slots found on your companion. Either none are unlocked yet, or the tree has not loaded.",
+	CURIO_FOOTER = "Read live from your own client, so it stays right when Blizzard changes something. If you want someone to pick for you, Everything Delves ranks them; this is here to tell you what you are choosing between.",
 	DELVE_TIP_GNARLDOR_OVERVIEW = "• New in 12.1, on the Coiled Isle — entrance at {WAY:2512:64.3:77.7:Gnarldor Isle}. Scrollmaster Ruma at the entrance starts a short quest chain.|n• Three story variants, two bosses (per Method and Icy Veins — not yet measured on your client). Two variants end at Gralka Snake-Eater: she eats snakes for damage stacks and leaves venom puddles — drag her off them, sidestep the waves of her Purging Breath.|n• The third ends at Osseous Amalgamation: interrupt his bone shield, run from Bonestorm, dodge the bone spikes.|n• Click the Tortollan Scrolls you pass — buffs, some with a catch.",
 	DELVE_TIP_GNARLDOR_ROUTE = "• Three Sturdy Chests — click to set a waypoint: {WAY:2635:60.44:68.12:Sturdy Chest 1} · {WAY:2635:52.41:40.84:Sturdy Chest 2} · {WAY:2635:28.67:41.69:Sturdy Chest 3}.|n• You arrive at about 77, 46; the exit portal stands right there — sweep the chests and you end where you began.",
 	DELVE_TIP_RINGOFGLORY_OVERVIEW = "• New in 12.1, on the Coiled Isle — entrance at {WAY:2512:71.1:56.4:The Ring of Glory}. An arena delve: one variant is a gauntlet of duels, one a ghostly ball game, one an animal rescue.|n• The first two end at Drakta (per Method and Icy Veins — not yet measured on your client): dodge his Soul Cleave circle, drag him out of the zone it leaves, and when Death Grip pulls the furthest player in, break line of sight behind a pillar. The rescue ends at Gnok, who rises again undead halfway.|n• Floor traps everywhere — watch your step.|n• Interrupt the Spiritcallers’ self-heal and kill the War Drum the Warsingers plant.",

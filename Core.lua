@@ -967,6 +967,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh curios — wat elke curio-keuze van je companion doet, in de taal van het spel.
+	if msg == "curios" or msg == "curio" then
+		if ns.ShowCurioExplain then
+			ns.ShowCurioExplain()
+		end
+		return
+	end
+
 	-- /mh binds — jouw eigen keybinds, uit de client, om te printen of te leren.
 	if msg == "binds" or msg == "keybinds" then
 		if ns.ShowKeybindExport then
