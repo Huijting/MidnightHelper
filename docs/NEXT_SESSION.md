@@ -90,6 +90,45 @@ gegenereerd) of Frost Mage's Counterspell/Shimmer/Frost Nova een toets hébben. 
 daar wél, dan is het layout/clipping; staat hij daar níet, dan zit het in de allocator.
 De consumables-rij rechtsonder mist ook zijn labels — waarschijnlijk hetzelfde.
 
+## ⭐ v2.16.0 GETAGD 16 aug (`v2.16.0`, packager uploadt) — en er staat al werk ná de tag
+
+"Getting there, and knowing your keys": delve-kistenroute, tweetraps-reizen naar de
+flight master, 649 flightpoints, `/mh binds`, en de Layout-kolomfix.
+
+**🔴 ONGETEST in 2.16.0, met opzet uitgebracht zodat Carola het kan doen:**
+1. de kistenroute die **doorschuift** naar de volgende kist (Rob had ze al alle drie);
+2. de pijl die **omschakelt bij het instappen** op de taxi.
+Vraag daar als eerste naar.
+
+**Commits ná de tag — gaan mee met 2.17.0:**
+- Dubbele "Eindbaas nog niet herkend" in de coach (de tiptekst houdt hem, de
+  modellenstrip geeft toe — die tekst gaat mee als je de briefing deelt).
+- De deel-knoppenrij liep buiten het frame. ⚠️ Niet "één knop te veel": Carola speelt
+  Nederlands, waar *"Deel briefing"* bijna 3× zo breed is als *"Brief"*. De rij wrapt nu
+  op breedte. Beide bugs kwamen van **één foto van Carola's monitor**.
+- **`/mh curios`** — wat elke curio-keuze van je companion doet, live uit de client.
+
+### 🎯 `/mh curios` en waarom het GEEN ranglijst is
+
+Rob vroeg om advies bij Valeera. Bewust niet gebouwd als "kies deze":
+
+- **`Everything Delves`** (CF, v1.25.0, 12.1) heeft `/ed curios` mét ranking — maar bij
+  Rob toonde het *Porcelain Blade Tip* en *Mandate of Sacred Death*, voor alle drie de
+  rollen identiek. **Dat zijn Brann-curio's uit The War Within**; Valeera's echte opties
+  zijn Ouroboric Curse / Essence Trap en Dundun's Favor / Soul-Cracking Dreamcatcher /
+  Venom Infusion. Hun ranking klopt hier dus niet. ⚠️ Ik had Rob eerst geadviseerd dat
+  addon erbij te installeren — dat advies is ingetrokken toen zijn screenshot dit liet
+  zien.
+- De boost-sites (boostmatch/expcarry/koroboost) recyclen dezelfde TWW-namen onder een
+  12.1-kop. Zelfde bronnenfamilie als de teruggetrokken kostenladder.
+- Dus: **niets hardcoded.** Keuzeslots uit de trait-boom, effecttekst uit
+  `GetSpellDescription` (al vertaald), actieve keuze uit de node. Een curio die Blizzard
+  toevoegt verschijnt vanzelf. Zie `mh-market-position` in het geheugen.
+
+⚠️ **`RequestLoadSpellData` is asynchroon** — de eerste versie printte acht keer "geen
+beschrijving" omdat aanvraag en uitlezing in dezelfde frame zaten. Zelfde les als bij de
+trait-sweep die ochtend; de aanroep was overgenomen, de reden niet.
+
 ## 🔍 Addon-ronde 16 aug (07:40-update) — drie dingen die ertoe doen
 
 **1. HandyNotes_Midnight 151 heeft de eiland-data NIET gewijzigd.** Zelfde zeven
