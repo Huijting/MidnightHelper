@@ -970,7 +970,23 @@ local function ProtoRefreshCards(panel, spec, slots)
 	local COLS = 3
 	local GAPC = 12
 	local pad = 10
+	-- ⚠️ Measure the VIEWPORT, not the keyboard. HOST_W is the width the key picture
+	-- needs; the cards were laid out across that same width, and the host is a scroll
+	-- child of a frame anchored to the panel. Where the panel is narrower than the
+	-- keyboard — Rob, 15 aug, Frost Mage — the third column runs off the right edge,
+	-- and UIPanelScrollFrameTemplate only scrolls vertically, so nothing can bring it
+	-- back. The keycap is anchored to the row's RIGHT, so the column looked like it had
+	-- no binds at all while the data had every one of them (Counterspell E, Shimmer
+	-- Shift+Q, Frost Nova V). A missing key reads as "unbound", which is the worst way
+	-- for this to fail: the panel taught the wrong thing instead of looking broken.
+	local viewport = host and host:GetParent()
+	local visW = viewport and viewport.GetWidth and viewport:GetWidth() or nil
 	local usableW = HOST_W - 2 * pad
+	if visW and visW > 120 and visW < HOST_W then
+		-- The scrollbar sits inside the frame's width; leave it room or the last column
+		-- ends up underneath it.
+		usableW = visW - 2 * pad - 6
+	end
 	local cardW = math.floor((usableW - (COLS - 1) * GAPC) / COLS)
 	local titleH, rowH = 24, 30
 	local colY = {}
