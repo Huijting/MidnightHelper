@@ -3472,6 +3472,7 @@ fill("itIT", {
 --------------------------------------------------------------------------------
 
 fill("deDE", {
+	HAZARD_SECTION_FMT = "Hier solltest du nicht stehen bleiben (%s)",
 	HAZARD_OUTSIDE = "Du bist in keiner Instanz, für hier gibt es also keine Liste.",
 	HAZARD_WORLD_COUNT = "Gefahren sind für Midnights Außenwelt bekannt, aber nicht, zu welcher Zone jede gehört.",
 	HAZARD_NONE_KNOWN = "Was dir hier wehtut, ist noch nicht bekannt.",
@@ -3480,6 +3481,7 @@ fill("deDE", {
 })
 
 fill("frFR", {
+	HAZARD_SECTION_FMT = "Ne reste pas là-dedans (%s)",
 	HAZARD_OUTSIDE = "Tu n'es pas en instance, il n'y a donc pas de liste pour ici.",
 	HAZARD_WORLD_COUNT = "dangers sont connus pour le monde extérieur de Midnight, mais pas à quelle zone chacun appartient.",
 	HAZARD_NONE_KNOWN = "on ne sait pas encore ce qui fait mal ici.",
@@ -3488,6 +3490,7 @@ fill("frFR", {
 })
 
 fill("esES", {
+	HAZARD_SECTION_FMT = "No te quedes aquí dentro (%s)",
 	HAZARD_OUTSIDE = "No estás en una instancia, así que no hay lista para aquí.",
 	HAZARD_WORLD_COUNT = "peligros se conocen para el mundo exterior de Midnight, pero no a qué zona pertenece cada uno.",
 	HAZARD_NONE_KNOWN = "todavía no se sabe qué te hace daño aquí.",
@@ -3496,6 +3499,7 @@ fill("esES", {
 })
 
 fill("ptBR", {
+	HAZARD_SECTION_FMT = "Não fique parado aqui (%s)",
 	HAZARD_OUTSIDE = "Você não está em uma instância, então não há lista para aqui.",
 	HAZARD_WORLD_COUNT = "perigos são conhecidos para o mundo aberto de Midnight, mas não a qual zona cada um pertence.",
 	HAZARD_NONE_KNOWN = "ainda não se sabe o que te machuca aqui.",
@@ -3504,6 +3508,7 @@ fill("ptBR", {
 })
 
 fill("itIT", {
+	HAZARD_SECTION_FMT = "Non restare qui dentro (%s)",
 	HAZARD_OUTSIDE = "Non sei in un'istanza, quindi per qui non c'è una lista.",
 	HAZARD_WORLD_COUNT = "pericoli sono noti per il mondo esterno di Midnight, ma non a quale zona appartenga ciascuno.",
 	HAZARD_NONE_KNOWN = "non si sa ancora cosa ti fa male qui.",

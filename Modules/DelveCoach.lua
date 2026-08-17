@@ -298,6 +298,25 @@ local function BuildCoachBody(entry, opts)
 		end
 		blocks[#blocks + 1] = COLOR_SECTION .. title .. ":|r|n" .. COLOR_BODY .. body .. "|r"
 	end
+
+	--- What hurts you here, from GTFO's hazard list (17 aug).
+	---
+	--- ⚠️ Driven by WHERE THE PLAYER IS, never by which briefing is open. The coach is
+	--- also a reading room — you can open Gnarldor Isle's page while standing in
+	--- Silvermoon — and a hazard list is the one section that would be a lie there.
+	--- So: only inside an instance, and the heading carries the name the CLIENT gave
+	--- that instance, not the entry's own label. When those two disagree the player
+	--- sees which place the warning is about.
+	local hazards, _, zoneName = ns.GetHazardsHere and ns.GetHazardsHere()
+	if hazards and ns.FormatHazardLines then
+		local lines = ns.FormatHazardLines(hazards)
+		if lines then
+			blocks[#blocks + 1] = COLOR_SECTION
+				.. ns:SafeL("HAZARD_SECTION_FMT"):format(zoneName or "?")
+				.. ":|r|n" .. COLOR_BODY .. lines .. "|r"
+		end
+	end
+
 	ns._mhTipEmittedBossPending = emittedBossPending
 	return table.concat(blocks, "|n|n")
 end
