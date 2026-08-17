@@ -1403,6 +1403,7 @@ ns._mhLocales.enUS = {
 	RARES_SKIP_LAST = "That's the last open rare — nothing to skip to.",
 	RARES_SKIP_SINGLE = "Skip works during Generate Route (it chains past un-spawned rares).",
 	ARROW_OTHER_CONTINENT = "(other continent — travel back)",
+	ARROW_FLY_TO = "head for %s",
 	ROUTE_CLEARED = "Route cleared.",
 	ROUTE_CLEAR_NONE = "No active route to clear.",
 	RARES_ROUTE_ORDER_NEAR = "Order: nearest first, then next closest each step.",

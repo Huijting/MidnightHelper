@@ -268,7 +268,30 @@ local function UpdateArrow()
 		if not other or other == "ARROW_OTHER_CONTINENT" then
 			other = "(other continent)"
 		end
-		f.label:SetText((t.name or "") .. "  " .. other)
+
+		--- ⚠️ Rob, 17 aug: "waarom krijg ik dit en wat moet ik ermee?!? ik zie geen
+		--- afstand of niks." Refusing to draw a direction across continents is right —
+		--- it would be invented — but naming the target and stopping there tells him
+		--- what he is looking for and nothing about what to do, which is the half of
+		--- the job this addon exists for.
+		---
+		--- We already know the answer and were not saying it: the same flight point
+		--- this addon prints to chat when the route is first set. Naming it turns a
+		--- dead label into one instruction. Still no direction and no distance, because
+		--- there honestly is none from here.
+		local aim
+		if ns.GetNearestFlightPoint then
+			local ok, fp = pcall(ns.GetNearestFlightPoint, t.mapID, t.x, t.y)
+			if ok and type(fp) == "string" and fp:find("%w") then
+				aim = fp
+			end
+		end
+		if aim then
+			f.label:SetText(("%s  %s  |cff8fd3ff%s|r"):format(
+				t.name or "", other, (ns:L("ARROW_FLY_TO")):format(aim)))
+		else
+			f.label:SetText((t.name or "") .. "  " .. other)
+		end
 		lastLabelName, lastLabelVal, lastLabelUnit = nil, nil, nil -- invalidate label cache
 		return
 	end
