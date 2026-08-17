@@ -424,16 +424,44 @@ function ns.PrintSeasonTransitionDiagnostics()
 	--- id but not the date cannot tell you whether the gate is holding — which is the
 	--- only question worth asking in the days before a season opens.
 	local state = ns.GetSeason2State and ns.GetSeason2State() or "?"
+	--- ⚠️ This line used to count down to `seasonStartsAt` itself, which put two
+	--- different opening moments on one screen the moment the reset gate landed above
+	--- it: "opens 18 Aug 00:00 UTC — 0.7 days away" directly under "opens for you at
+	--- 19 Aug 03:59 UTC". Rob's own screenshot, 17 aug.
+	---
+	--- Both numbers were true about different things and that is exactly what makes it
+	--- a bug: a reader has to know which of the two the addon actually obeys. It obeys
+	--- the reset, so that is the one that gets counted down to, and the bare date is
+	--- named as what it is — the earliest it could happen anywhere.
 	local startsAt = ns.SEASON2 and ns.SEASON2.seasonStartsAt
 	local now = (GetServerTime and GetServerTime()) or (time and time()) or 0
 	local when = "not set"
 	if startsAt then
-		local left = startsAt - now
+		-- The moment this player's gate actually opens: their first reset on or after
+		-- the season date, or the date itself if their reset already covers it.
+		local opensAt = startsAt
+		if C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset then
+			local ok, secs = pcall(C_DateAndTime.GetSecondsUntilWeeklyReset)
+			if ok and type(secs) == "number" and secs > 0 then
+				local nextReset = now + secs
+				local lastReset = nextReset - (7 * 24 * 60 * 60)
+				if lastReset < startsAt then
+					opensAt = nextReset
+				else
+					opensAt = lastReset
+				end
+			end
+		end
+		local left = opensAt - now
 		if left > 0 then
 			when = ("%s UTC — %.1f days away"):format(
-				date("!%d %b %H:%M", startsAt), left / 86400)
+				date("!%d %b %H:%M", opensAt), left / 86400)
 		else
-			when = ("%s UTC — passed"):format(date("!%d %b %H:%M", startsAt))
+			when = ("%s UTC — passed"):format(date("!%d %b %H:%M", opensAt))
+		end
+		if opensAt ~= startsAt then
+			when = when .. (" (season date %s UTC, earliest anywhere)"):format(
+				date("!%d %b %H:%M", startsAt))
 		end
 	end
 	print(("   |cffffd100Season 2 gate: %s|r · opens %s"):format(state, when))
