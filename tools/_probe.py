@@ -1,17 +1,12 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: did the flight-map learner record anything, and specifically
-anything on map 2509 (Vaults of Atal'Utek)?
-
-Rob's screenshot shows the Amani Windcaller is a GOSSIP npc, not a taxi map,
-so the expectation is that 2509 holds only Mal'Tiki's real flight master (if
-he opened that map at all) and nothing for the two internal hops. An empty
-result here is informative rather than a failure -- but only if some OTHER
-zone recorded something, which is the control.
+Right now: the 2.18.0 release check, re-run after the notes gained two
+sections. Under ~40 lines and no bullet lists is what ten clean CurseForge
+uploads have in common, and a release is the wrong place to find the edge.
 """
 import io
-import re
+import os
 import sys
 
 for _s in (sys.stdout, sys.stderr):
@@ -20,60 +15,50 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
-     r'\SavedVariables\MidnightHelper.lua')
+BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper'
 
-t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
+t = io.open(BASE + r'\RELEASE_NOTES.md', encoding='utf-8',
+            errors='replace', newline='').read()
+lines = t.rstrip('\n').split('\n')
+bullets = [n for n, l in enumerate(lines, 1)
+           if l.lstrip().startswith(('- ', '* ', '+ '))]
 
+print('RELEASE_NOTES.md')
+print('  regels  : %d      (schoon geweest t/m 40)' % len(lines))
+print('  tekens  : %d    (langste schone: 1937)' % len(t))
+print('  bullets : %d' % len(bullets))
+ok = len(lines) <= 40 and not bullets and lines[0].startswith('# ')
+print('  %s' % ('✅ binnen de regel' if ok else '❌ BUITEN de regel'))
 
-def block(key, src, bracket=False):
-    needle = ('[%s]' % key) if bracket else ('["%s"]' % key)
-    i = src.find(needle)
-    if i < 0:
-        return None
-    s = src.index('{', i)
-    d, j = 0, s
-    while j < len(src):
-        if src[j] == '{':
-            d += 1
-        elif src[j] == '}':
-            d -= 1
-            if d == 0:
-                break
-        j += 1
-    return src[s:j + 1]
+toc = io.open(BASE + r'\MidnightHelper.toc', encoding='utf-8',
+              errors='replace', newline='').read()
+ver = None
+for l in toc.split('\n'):
+    if l.startswith('## Version:'):
+        ver = l.split(':', 1)[1].strip()
+        break
 
+chg = io.open(BASE + r'\Modules\Changelog.lua', encoding='utf-8',
+              errors='replace', newline='').read()
+en = io.open(BASE + r'\Locales\enUS.lua', encoding='utf-8',
+             errors='replace', newline='').read()
+key = 'CHANGELOG_%s_' % (ver.replace('.', '') if ver else '')
 
-seen = block('taxiSeen', t)
-if not seen:
-    print('geen taxiSeen in de SavedVariables.')
-    print('⚠️ Dat betekent dat er GEEN enkele vliegkaart is uitgelezen — dus dit')
-    print('   zegt niets over de Vaults in het bijzonder. Er is geen controle,')
-    print('   dus de meting is onbeslist, niet negatief.')
-    sys.exit(0)
+print('\nversie-samenhang')
+print('  .toc                : %s' % ver)
+print('  in de notes         : %s' % ('ja' if ver and ver in lines[0] else 'NEE'))
+print('  changelog-module    : %s'
+      % ('ja' if ver and ('version = "%s"' % ver) in chg else 'NEE'))
+print('  enUS-regels         : %d' % en.count(key))
 
-# [mapID] = { ["Name"] = { ... }, ... }
-zones = re.findall(r'\[(\d+)\]\s*=\s*\{', seen)
-print('vliegkaarten waarvan iets is opgeschreven: %s' % (', '.join(zones) or 'geen'))
-print()
-
-for m in re.finditer(r'\["([^"\\]+)"\]\s*=\s*\{([^{}]*)\}', seen):
-    name, body = m.group(1), m.group(2)
-
-    def f(k):
-        mm = re.search(r'\["%s"\]\s*=\s*("(?:[^"\\]|\\.)*"|[\d.-]+|true|false)' % k, body)
-        if not mm:
-            return None
-        v = mm.group(1)
-        return v[1:-1] if v.startswith('"') else v
-
-    print('  %-32s x=%-8s y=%-8s node=%-6s via=%s' % (
-        name, f('x') or '—', f('y') or '—', f('nodeID') or '—', f('via') or '—'))
-
-print()
-if '2509' in zones:
-    print('✅ map 2509 (Vaults) is uitgelezen.')
+arch = BASE + r'\docs\CURSEFORGE_%s.md' % (ver.replace('.', '') if ver else '')
+if os.path.exists(arch):
+    a = io.open(arch, encoding='utf-8', errors='replace', newline='').read()
+    print('  docs-archief gelijk : %s' % ('ja' if a == t else 'NEE'))
 else:
-    print('⚠️ map 2509 (Vaults) staat er NIET bij.')
-    print('   Klopt met de screenshot: de Amani Windcaller is een gossip-NPC,')
-    print('   geen vliegkaart, dus er valt daar niets van pins te lezen.')
+    print('  docs-archief        : ONTBREEKT')
+
+full = io.open(BASE + r'\CHANGELOG.md', encoding='utf-8',
+               errors='replace', newline='').read()
+print('  CHANGELOG.md        : %s'
+      % ('ja' if ver and ('## %s' % ver) in full else 'NEE'))
