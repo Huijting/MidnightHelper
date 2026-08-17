@@ -1346,7 +1346,9 @@ function ns.SkipCurrentAchievementNode()
 	end
 	if currentLead then
 		skippedNodes[NodeKey(currentLead)] = true
-		print((ns:L("ACH_MSG_SKIP_DONE")):format(Prefix(), currentLead.name or "?"))
+		-- Helper, not the raw field: /mh skip would otherwise announce "skipped ?".
+		print((ns:L("ACH_MSG_SKIP_DONE")):format(Prefix(),
+			ns.AchievementNodeName(activeEntry, currentLead)))
 	end
 	IssueRoute(activeEntry, false)
 end
@@ -1907,7 +1909,22 @@ local function RefreshAchPanel()
 			else
 				row.name:SetText(label)
 			end
-			row.wp:SetText(TL("ACH_TAB_WAYPOINT"))
+			--- ⚠️ Third layer of the same fault in one morning, and the note above
+			--- already predicted it: "this row and the Waypoint button below". The
+			--- arrow was guarded, then the card's Route button, and the per-row
+			--- Waypoint button was still offered on criteria that have no coordinate.
+			--- Rob's screenshot, 17 aug: all five Soft Underbelly rows carried one,
+			--- including the three that only exist during a Temple Strike.
+			---
+			--- Hidden rather than disabled here: a row is a thin line and a greyed
+			--- button on it reads as "broken", where an absent one reads as "nothing
+			--- to go to", which is the truth.
+			if ns.AchievementNodeRoutable(row.node) then
+				row.wp:SetText(TL("ACH_TAB_WAYPOINT"))
+				row.wp:Show()
+			else
+				row.wp:Hide()
+			end
 		end
 	end
 	LayoutAchPanel()
@@ -2074,7 +2091,11 @@ local function BuildAchCard(st, entry)
 			end
 			local n = row.node
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetText(n.name or "?", 1, 0.82, 0.2)
+			-- ⚠️ Through the helper. This tooltip was the one place `node.name or "?"`
+			-- survived the 16 aug sweep, so hovering any Coiled Isle row showed a
+			-- question mark while the row itself named the criterion correctly. Six
+			-- call sites were fixed that day and this was a seventh nobody counted.
+			GameTooltip:SetText(ns.AchievementNodeName(entry, n), 1, 0.82, 0.2)
 			local hasExtra = false
 			if NodeIsElite(n) then
 				GameTooltip:AddLine(TL("ACH_ELITE_TIP"), 1, 0.5, 0, true)
