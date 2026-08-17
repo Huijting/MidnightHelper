@@ -103,6 +103,36 @@ local REPEATABLE = {
 	{ 96643, "From Whence it Came", "group daily" },
 	{ 96644, "Essence of Malice", "group daily" },
 	{ 98420, "What's Out There?", "group daily" },
+
+	-- ── Added 17 aug from Method's own guides, all UNVERIFIED ────────────────
+	--
+	-- Their "Where to Find All of the Discoveries for the Altar of Corrosion"
+	-- page gives a quest id per discovery. If these resolve, the four hunts in
+	-- CorrosiveCodexHunts.lua stop resting on prose and get a flag we can read.
+	{ 97661, "Altar discovery (Method, id unverified)", "one of the four" },
+	{ 97662, "Altar discovery (Method, id unverified)", "one of the four" },
+	{ 97668, "Altar discovery (Method, id unverified)", "one of the four" },
+	{ 97669, "Altar discovery (Method, id unverified)", "one of the four" },
+
+	-- ⚠️ 96528 is the interesting one. Method's PORTAL guide calls the follow-up
+	-- to 96004 "Prey: Anguish Island" (96466); their PREY guide calls it "Prey:
+	-- Anguish From Beyond" (96528). Same starter, two different ids, one site.
+	--
+	-- 96466 did not resolve on Rob's client on 16 aug, and I wrongly wrote that
+	-- down as settled. Rob pushed back that it might simply go live with S2, and
+	-- he was right that the measurement could not tell those apart. This one can:
+	-- if 96528 resolves TODAY while 96466 stays silent, "not live yet" no longer
+	-- explains anything, because both would be the same unreleased content.
+	{ 96528, "Prey: Anguish From Beyond (Method, competing id)", "tests 96466" },
+
+	-- Their Vaults overview page. 98388 is quoted twice across two guides.
+	{ 98388, "Vaults of Atal'Utek: Certain Doom (Method)", "unlocks the Altar" },
+	{ 97616, "Corrosive Gifts: Corrosive Power (Method)", "Altar-related" },
+
+	-- Season 2 delve and weekly ids worth having before Tuesday.
+	{ 97482, "Azta'rec nemesis delve (Method)", "S2 delve" },
+	{ 96995, "Turn Back the Surge (Method)", "Spark of Tides weekly" },
+	{ 96110, "Captain Tokka (Method)", "renown track" },
 }
 
 --- The word the currency family is built on. "Coin" and "Soul" are both live

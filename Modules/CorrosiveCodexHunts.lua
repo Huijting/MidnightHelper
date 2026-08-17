@@ -109,6 +109,33 @@ ns.CORROSIVE_KEY_HUNTS = {
 	},
 }
 
+--- ⚠️ METHOD DISAGREES WITH ICY VEINS ABOUT WHERE THREE OF THE FOUR OBJECTS ARE.
+---
+--- Method's "Where to Find All of the Discoveries for the Altar of Corrosion"
+--- (10 aug) puts all four on map 2509: 54.83/48.11, 48.46/25.80, 52.51/53.85 and
+--- 47.23/8.13. Icy Veins puts two of them on entirely different maps — the Eye of
+--- Szarith on 2613 and the Lost Med'jai Amulet on 2638.
+---
+--- ✅ They agree on exactly one: 48.46 / 25.80. That is the Feather of Tok'jara, and
+--- with our own July note it now has THREE independent reads behind it. It is the
+--- only coordinate in this file anyone should trust today.
+---
+--- ❌ The other three are one-source-each and the two sources contradict. So nothing
+--- is overwritten and nothing is merged: Method's numbers sit here as a rival claim,
+--- unpaired with the Icy Veins entries above, because pairing them would mean
+--- deciding which object each belongs to and nobody knows that either.
+---
+--- Method also gives a quest id per discovery (97661, 97662, 97668, 97669) and item
+--- 280005 for the Dispelling Charm. Those are in the /mh atal sweep — a quest that
+--- resolves settles far more than a coordinate that does not.
+ns.CORROSIVE_DISCOVERY_RIVAL = {
+	source = "method-10aug",
+	mapID = 2509,
+	spots = { { 54.83, 48.11 }, { 48.46, 25.80 }, { 52.51, 53.85 }, { 47.23, 8.13 } },
+	questIDs = { 97661, 97662, 97668, 97669 },
+	dispellingCharmItem = 280005,
+}
+
 --- The chain these four feed, per Icy Veins. Named here so the article can say what
 --- it is for; none of it is verified against an achievement id yet.
 ns.CORROSIVE_REWARD_CHAIN = {
