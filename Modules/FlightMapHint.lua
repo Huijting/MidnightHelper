@@ -128,6 +128,64 @@ local function FlightPinsByProvider(frame)
 	return nil
 end
 
+--- Write down every flight point the player can see, wherever they open the map.
+---
+--- ⚠️ Rob, 17 aug: he offered to walk to the two Vaults flight points our table is
+--- missing and read the coordinates off. He should not have to. We already walk these
+--- pins to make one of them glow, and each one carries its own name and position —
+--- the data was passing through our hands unread.
+---
+--- This is also the honest fix for a table harvested from someone else's addon. 649
+--- points came out of Zygor; every one of them is a claim. A point the player has
+--- actually seen on their own flight map is a measurement, and it arrives without
+--- anyone doing anything except flying as usual.
+---
+--- ⚠️ FIELD NAMES ARE NOT GUESSED. `taxiNodeData` is documented as carrying name,
+--- nodeID and state; whether the position sits on `.position`, on `.x`/`.y`, or on
+--- the pin itself is not something to assume, so every plausible shape is tried and
+--- what actually worked is recorded next to the value. If none resolve, the name is
+--- still written with `pos = nil`, which says "seen but unplaced" rather than
+--- inventing a coordinate.
+local function LearnFlightPins(frame, mapID)
+	local pins = FlightPinsByProvider(frame)
+	if not (pins and mapID) then
+		return
+	end
+	ns.db = ns.db or {}
+	ns.db.taxiSeen = ns.db.taxiSeen or {}
+	local zone = ns.db.taxiSeen[mapID] or {}
+	ns.db.taxiSeen[mapID] = zone
+
+	for _, pin in pairs(pins) do
+		local data = pin and pin.taxiNodeData
+		if type(data) == "table" and type(data.name) == "string" and data.name:find("%w") then
+			local x, y, via
+			if type(data.position) == "table" and data.position.GetXY then
+				local ok, a, b = pcall(data.position.GetXY, data.position)
+				if ok and type(a) == "number" then
+					x, y, via = a * 100, b * 100, "position:GetXY"
+				end
+			end
+			if not x and type(data.x) == "number" and type(data.y) == "number" then
+				x, y, via = data.x * 100, data.y * 100, "data.x/y"
+			end
+			if not x and pin.GetPosition then
+				local ok, a, b = pcall(pin.GetPosition, pin)
+				if ok and type(a) == "number" then
+					x, y, via = a * 100, b * 100, "pin:GetPosition"
+				end
+			end
+			zone[data.name] = {
+				nodeID = data.nodeID,
+				state = data.state,
+				x = x and tonumber(("%.2f"):format(x)) or nil,
+				y = y and tonumber(("%.2f"):format(y)) or nil,
+				via = via,
+			}
+		end
+	end
+end
+
 local function HighlightPin(frame, wanted)
 	if glow then
 		glow:Hide()
@@ -160,6 +218,19 @@ local function HighlightPin(frame, wanted)
 end
 
 local function Refresh(parent)
+	--- Record what is on this map first, and unconditionally. Learning does not depend
+	--- on there being a pending trip: most flight maps a player opens have nothing to
+	--- do with a route, and those are exactly the zones our harvested table is most
+	--- likely to be wrong about.
+	if parent then
+		local m
+		if C_Map and C_Map.GetBestMapForUnit then
+			local ok, v = pcall(C_Map.GetBestMapForUnit, "player")
+			m = ok and v or nil
+		end
+		pcall(LearnFlightPins, parent, m)
+	end
+
 	-- ⚠️ Not `f and f()`: `and` yields one value, so `destination` was always nil and
 	-- the banner has never once named where the flight goes. It looked correct because
 	-- the "never print ?" guard below catches a nil the same way it catches a bad name.
