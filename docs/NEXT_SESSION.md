@@ -1,6 +1,39 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-15 (avond, na de tweede werkdag).** Dit is het eerste wat een nieuwe
-sessie leest. Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+**Bijgewerkt 2026-08-17 (avond).** Dit is het eerste wat een nieuwe sessie leest.
+Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+
+## 🌅 MORGENVROEG — twee dingen, en Rob brengt data mee
+
+**1. Vier scènes toevoegen aan `Modules/DevShots.lua`.** `/mh shots` maakt nu zeven
+scènes (This Week, mounts-preview, raids, search-boss, class-coach, alts, void-rituals)
+en niets van 17 aug. Nodig voor de CF-pagina: het **hazard-blok** in de Delve Coach, het
+**Achievements-tabblad** met de vijf Coiled Isle-kaarten (Soft Underbelly uitgeklapt, dan
+zie je de stap-knoppen), **`/mh keys`** en **`/mh plan`**. Het is een tabel met scènes —
+kleine klus. Daarna: `/mh shots`, **`/reload`** (SavedVariables worden pas dan
+weggeschreven, zonder reload snijdt hij verkeerd), dan `tools\Crop-Shots.bat`.
+
+**2. De Windcaller-coördinaten die Rob meebrengt.** Wat we hebben: Amani Foothold
+`2509 44.42/62.21` (taxi-node, eruit) en één Windcaller op `2509 49.99/61.93`. Wat
+ontbreekt: waar **Eastern Amani Outpost** en **Northern Amani Bulwark** liggen, en waar
+hun Windcallers staan. Zonder die kan `/mh plan` niet kiezen wélke interne sprong het
+beste is — nu neemt hij altijd de noordelijke, omdat de Underbelly-deur noordelijk ligt.
+Er zit al een halve regel in die bewijsbaar klopt: sta je dichter bij de deur dan bij de
+NPC, dan slaat hij de sprong over. De omgekeerde conclusie is bewust NIET getrokken.
+
+**Daarna:** de pijl het plan laten lópen (nu loopt hij alleen stap 1), en dan 3.0.0.
+
+## 📌 17 aug — v2.18.0 GETAGD, seizoensgate geregionaliseerd
+
+**v2.18.0 staat op CF en wacht op goedkeuring.** Werkboom schoon, linter 12/12.
+
+⚠️ **Rob's afspraak over 3.0.0 staat in dit bestand (regel ~289, ~1283): "v3.0.0 =
+Season 2", bij de seizoensstart.** Hij bracht dat terecht op; ik was het kwijt. Besloten:
+2.18.0 vandaag (de seizoensgate moest vóór de reset live), **3.0.0 deze week** als het
+seizoen echt open is — met gemeten delve-ilvls, geverifieerde raid-tips en de complete
+reisplanner, in plaats van een hernummering.
+
+**Nog te testen door Rob:** de vliegbanner ("Take X — then on to Y"), het dispel-icoon.
+Allebei fixes van vandaag die niemand ooit heeft zien werken, want ze werkten nooit.
 
 ## 📌 15 aug, tweede helft — Codex-pagina, achievements, en de Corrosive Codex gemeten
 
