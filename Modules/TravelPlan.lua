@@ -186,7 +186,34 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 				-- next to the Windcaller and reading a plan that told him to walk north
 				-- first: "volgens mij moet het plan zo zijn dat ik de interne
 				-- mogelijkheid gebruik om naar het noordelijke gedeelte te vliegen."
-				if link.via then
+				--- ⚠️ SKIP THE HOP WHEN IT WOULD SEND YOU BACKWARDS. Rob: "of als je
+				--- dichterbij de ingang bent gelijk de pijl naar de ingang?"
+				---
+				--- We cannot answer the fuller question — which of the three inner hops
+				--- is best — because we do not have the coordinates of the two landing
+				--- points, only of the NPC. So the plan deliberately answers the half
+				--- that IS provable: if the player is already nearer the door than the
+				--- Windcaller, flying cannot help, because reaching the NPC alone means
+				--- walking away from where they are going.
+				---
+				--- The other direction is NOT assumed. Being nearer the NPC does not
+				--- prove the hop is worth it — that depends on where it lands, which is
+				--- unmeasured — so the hop is still offered there rather than dropped.
+				local skipVia = false
+				if link.via and here == link.fromMap and link.via.x and C_Map
+					and C_Map.GetPlayerMapPosition then
+					local okP, pos = pcall(C_Map.GetPlayerMapPosition, link.fromMap, "player")
+					if okP and pos and pos.GetXY then
+						local okXY, a, b = pcall(pos.GetXY, pos)
+						if okXY and a then
+							local px, py = a * 100, b * 100
+							local toDoor = (link.x - px) ^ 2 + (link.y - py) ^ 2
+							local toNpc = (link.via.x - px) ^ 2 + (link.via.y - py) ^ 2
+							skipVia = toDoor < toNpc
+						end
+					end
+				end
+				if link.via and not skipVia then
 					steps[#steps + 1] = {
 						kind = link.via.kind,
 						mapID = link.via.mapID,
