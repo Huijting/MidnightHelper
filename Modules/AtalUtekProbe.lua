@@ -80,21 +80,25 @@ local REPEATABLE = {
 	-- ✅ 96004 VERIFIED 16 aug on Rob's shaman: the client returns "Prey: A Slithering
 	-- Threat", character for character. The portal gate rests on a real id.
 	{ 96004, "Prey: A Slithering Threat", "unlocks the Coiled Isle portal" },
-	-- ⚠️ 96466: UNDECIDED, and my first reading of it was wrong.
+	-- ✅ SETTLED 17 aug — measured, not argued. 96466 is a wrong id.
 	--
-	-- The server answered `serverKnowsIt = false` and I wrote that down as "the id is
-	-- wrong". Rob pushed back: Method may have tested on the PTR, and a quest that only
-	-- becomes real when Season 2 activates would look exactly like this today. He is
-	-- right, and "the server has no such quest" only ever meant "not today".
+	-- Three versions of this note, and only the third is worth anything.
+	-- 16 aug: "refuted", asserted from silence. Rob objected that a Season 2 quest
+	-- that has not activated looks identical to one that does not exist, and he was
+	-- right — that measurement could not tell them apart, so I softened it to
+	-- "undecided until the reset".
 	--
-	-- 96004 resolving does NOT settle it. That one is gated behind Nightmare Prey Hunts
-	-- too, so availability is clearly no obstacle to resolving — but 96004 already
-	-- existed in Season 1, and 96466 may be new. The two are not comparable.
+	-- What actually settled it came from his question, not from waiting. Method's own
+	-- Prey guide names the SAME follow-up 96528. Both ids would be the same unreleased
+	-- content, so "not live yet" has to apply to both or neither. It does not:
 	--
-	-- ⏰ RE-MEASURE AFTER THE RESET (S2 opens 18 aug US / 19 aug EU). Resolves then =
-	-- the id was right all along and this note was the mistake. Still silent = a wrong
-	-- id, and only then.
-	{ 96466, "Prey: Anguish Island (undecided until the S2 reset)", "follow-up" },
+	--     96004  →  "Prey: A Slithering Threat"
+	--     96528  →  "Prey: Anguish from Beyond"
+	--     96466  →  nothing
+	--
+	-- A rival id that resolves is what a bare silence could never be: a control that
+	-- can fail. Kept in the sweep so nobody re-adds it from Method's portal page.
+	{ 96466, "Prey: Anguish Island (WRONG id — measured 17 aug)", "see 96528" },
 
 	{ 96639, "Patrolling the Temple", "group daily" },
 	{ 96640, "Bounty of the Cursed", "group daily" },

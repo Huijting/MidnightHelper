@@ -261,13 +261,13 @@ elk apart getest). #4, #5, #6 en #7 zijn af.
    andermans mening als meting. En Method's staat van dienst van vandaag: twee quest-ids
    uit één alinea, één klopte, één is nog onbeslist. Kandidaten, geen bewijs.
 
-**⏰ NA DE RESET METEN: quest 96466.** De server zei 16 aug "zo'n quest bestaat niet" en
-ik schreef dat op als "fout id". **Rob corrigeerde dat terecht:** Method kan op de PTR
-getest hebben, en een quest die pas met S2 live gaat ziet er vandaag precies zo uit.
-96004 (dezelfde alinea) resolvet wél, maar die bestond al in S1 — dus dat bewijst niets
-over 96466. Resolvet hij ná de reset, dan was het id goed en mijn conclusie fout.
-Blijft hij stil, dán pas is het een fout id. Zie ook [[silence-is-not-absence]] — dit is
-diezelfde fout in spiegelbeeld: een server die "nee" zegt over content die nog niet leeft.
+**✅ 96466 IS BESLIST (17 aug) — en niet door te wachten.** De server zei 16 aug "bestaat
+niet" en ik noemde dat "fout id". Rob wierp terecht tegen dat een S2-quest die nog niet
+geactiveerd is er precies zo uitziet. Die tegenwerping leverde de betere test op: Method's
+Prey-gids noemt dezelfde vervolgquest **96528**, en die kent de client wél ("Prey: Anguish
+from Beyond") terwijl 96466 stil blijft. Twee ids voor dezelfde niet-live content, één
+resolvet — dus "nog niet live" verklaart niets meer. **96466 is een fout id van Method.**
+Les: een lege uitkomst werd pas bewijs toen er een *rivaal* naast lag die kon slagen.
 
 **Op 18 aug (S2 opent):** raid-tips live verifiëren (pre-release-noot weg mét meting),
 `/mh atal` voor Venomfall Deeps, delve-ilvl-tooltips (S1-getallen!), Showdown-gate,

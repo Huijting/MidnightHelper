@@ -160,12 +160,12 @@ local MIDNIGHT_PORTALS = {
 	-- ✅ 96004 MEASURED 16 aug on Rob's shaman: the client returns "Prey: A Slithering
 	-- Threat" exactly, so this gate rests on a real quest.
 	--
-	-- ⚠️ 96466 is UNDECIDED, not refuted — I said refuted and was wrong. The server
-	-- answered "no such quest", which only means "not today"; Method may have tested on
-	-- the PTR, and a quest that becomes real when Season 2 activates looks identical
-	-- from here. Re-measure after the reset (see AtalUtekProbe's REPEATABLE list).
+	-- ✅ 96466 SETTLED 17 aug: it is a wrong id, and this time it was measured rather
+	-- than asserted. Method's Prey guide names the same follow-up 96528, which the
+	-- client DOES know ("Prey: Anguish from Beyond") — so "Season 2 has not activated
+	-- yet" cannot explain 96466's silence, because it would silence 96528 too.
 	--
-	-- It gates nothing either way. Only 96004 does, and that one is checked.
+	-- Neither gates anything here. Only 96004 does, and that one is checked.
 	{ name = "Portal to The Coiled Isle", mapID = 2393, toID = 2512,
 		x = 56.83, y = 67.38, requiresQuest = 96004 },
 	{ name = "Portal to The Coiled Isle", mapID = 2576, toID = 2512,

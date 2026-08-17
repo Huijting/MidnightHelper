@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: read back the second /mh mech run — 103 ids over 17 instances, and
-the client's own name for each instance (3079, 2963, 2858 and 1592 are ones
-this addon has never heard of).
+Right now, two reads from one /mh atal run:
+
+  1. The quest ids added from Method today. The one that matters is 96528
+     against 96466: both are the same unreleased Season 2 follow-up, so if one
+     resolves and the other does not, "not live yet" stops being an
+     explanation and 96466 is simply a wrong id.
+
+  2. ns.db.hazardZones — Rob says he was standing in a delve, so the instance
+     may have named itself. 3079 is the one worth having.
 """
 import io
 import re
@@ -66,47 +72,72 @@ def f(chunk, name):
     return v
 
 
-probe = block('mechProbe', t)
-if not probe:
-    print('geen mechProbe — is /mh mech gelopen vóór de reload?')
-    sys.exit(1)
+WANT = {
+    '96004': 'known-good control (resolved 16 aug)',
+    '96466': 'Method portal guide',
+    '96528': 'Method Prey guide — the rival id',
+    '97661': 'discovery: Protection of the Med\'jai',
+    '97662': 'discovery: Winds of Tok\'jara',
+    '97668': 'discovery: Watchful Gaze of Szarith',
+    '97669': 'discovery: Luck of the Bound Spirit',
+    '98388': 'Certain Doom / Into the Vaults (name disputed)',
+    '97616': 'Corrosive Gifts: Corrosive Power',
+    '97482': 'Azta\'rec nemesis delve',
+    '96995': 'Turn Back the Surge',
+    '96110': 'Captain Tokka',
+}
 
-print('gemeten om : %s' % (f(probe, 'askedAt') or '?'))
-print('genoemd    : %s van %s   (%s vóór de serveraanvraag)'
-      % (f(probe, 'named'), f(probe, 'total'), f(probe, 'namedFirstPass')))
+probe = block('atalProbe', t)
+rb = block('repeatable', probe) if probe else None
+if not rb:
+    print('geen repeatable-blok — is /mh atal gelopen vóór de reload?')
+else:
+    print('%-8s %-34s %-38s %s' % ('id', 'wat de client zegt', 'waarvoor', 'gevraagd'))
+    print('-' * 100)
+    seen = set()
+    for e in split_top(rb):
+        qid = f(e, 'id')
+        if qid not in WANT:
+            continue
+        seen.add(qid)
+        title = f(e, 'gameTitle')
+        asked = f(e, 'askedServer')
+        print('%-8s %-34s %-38s %s' % (
+            qid, title or '— NIETS —', WANT[qid], 'ja' if asked else '-'))
+    missing = [q for q in WANT if q not in seen]
+    if missing:
+        print('\nniet in de dump: %s' % ', '.join(sorted(missing)))
 
-ctrl = block('controls', probe)
-imp = f(ctrl, 'impossibleName') if ctrl else None
-print('controles  : onmogelijk id %s · eigen DBM-ids %s/%s'
-      % ('LEEG ✅' if not imp else ('"%s" ❌ DODE RUN' % imp),
-         f(ctrl, 'knownHits') if ctrl else '?',
-         f(ctrl, 'knownTotal') if ctrl else '?'))
+    print('\n' + '=' * 70)
+    print('DE BESLISSENDE VERGELIJKING')
+    print('=' * 70)
+    got = {}
+    for e in split_top(rb):
+        qid = f(e, 'id')
+        if qid in ('96004', '96466', '96528'):
+            got[qid] = f(e, 'gameTitle')
+    print('96004 (bestond al)      : %s' % (got.get('96004') or '— NIETS —'))
+    print('96466 (Method portal)   : %s' % (got.get('96466') or '— NIETS —'))
+    print('96528 (Method Prey)     : %s' % (got.get('96528') or '— NIETS —'))
+    if got.get('96528') and not got.get('96466'):
+        print('\n  → 96528 bestaat WEL en 96466 NIET, terwijl beide dezelfde')
+        print('    nog-niet-live vervolgquest zouden zijn. "Komt pas na de reset"')
+        print('    verklaart dat niet meer: 96466 is dan gewoon een fout id.')
+    elif not got.get('96528') and not got.get('96466'):
+        print('\n  → allebei stil. Dat kan nog steeds "nog niet live" zijn;')
+        print('    deze meting beslist niets. Opnieuw na de reset.')
+    elif got.get('96466'):
+        print('\n  → 96466 bestaat wél. Mijn conclusie van 16 aug was fout.')
 
-zones = block('zones', probe)
-if not zones:
-    sys.exit(1)
-
-print('\n' + '=' * 74)
-print('%-9s %-30s %-6s %s' % ('instance', 'naam volgens de client', 'via', 'genoemd'))
-print('=' * 74)
-blocks = split_top(zones)
-for z in blocks:
-    sp = block('spells', z)
-    rows = split_top(sp) if sp else []
-    named = sum(1 for e in rows if f(e, 'name'))
-    print('%-9s %-30s %-6s %d/%d' % (
-        f(z, 'instance') or '(geen)',
-        f(z, 'zone') or '— client zegt niets —',
-        f(z, 'zoneVia') or '—', named, len(rows)))
-
-print('\n' + '=' * 74)
-print('DE MECHANICS')
-print('=' * 74)
-for z in blocks:
-    sp = block('spells', z)
-    rows = split_top(sp) if sp else []
-    print('\n%s — %s' % (f(z, 'instance') or '(geen instance)',
-                        f(z, 'zone') or '— client zegt niets —'))
-    for e in rows:
-        nm = f(e, 'name')
-        print('   %-10s %s' % (f(e, 'id'), nm if nm else '— niets —'))
+print('\n' + '=' * 70)
+print('INSTANCES DIE ZICHZELF HEBBEN GENOEMD')
+print('=' * 70)
+hz = block('hazardZones', t)
+if not hz:
+    print('nog geen hazardZones — dan heeft de client nog niets geleerd.')
+else:
+    for m in re.finditer(r'\[(\d+)\]\s*=\s*"((?:[^"\\]|\\.)*)"', hz):
+        note = ''
+        if m.group(1) == '3079':
+            note = '   <<< de onbekende'
+        print('   %-8s %s%s' % (m.group(1), m.group(2), note))
