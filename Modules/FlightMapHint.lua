@@ -140,12 +140,30 @@ end
 --- actually seen on their own flight map is a measurement, and it arrives without
 --- anyone doing anything except flying as usual.
 ---
---- ⚠️ FIELD NAMES ARE NOT GUESSED. `taxiNodeData` is documented as carrying name,
---- nodeID and state; whether the position sits on `.position`, on `.x`/`.y`, or on
---- the pin itself is not something to assume, so every plausible shape is tried and
---- what actually worked is recorded next to the value. If none resolve, the name is
---- still written with `pos = nil`, which says "seen but unplaced" rather than
---- inventing a coordinate.
+--- ⚠️ THE POSITIONS ARE NOT ZONE COORDINATES, AND THE FIRST RUN PROVED IT.
+---
+--- `position:GetXY` resolved for all 65 nodes, which looked like a clean measurement
+--- until the numbers were held against what we ship. The flight map reported Amani
+--- Foothold at 71.77/26.03 where our table says 44.42/62.21, and Tokka's Landing at
+--- 74.17/21.65 against 57.88/45.70. Ours are not wrong: a flight-map pin is placed on
+--- the CONTINENT canvas the map is drawing, not on the zone the node sits in.
+---
+--- Recording those as coordinates would have handed the router numbers that point at
+--- the wrong side of a continent while carrying the authority of "measured on your own
+--- client". That is worse than the harvested table it was meant to correct.
+---
+--- So the position is stored under `canvas`, named for what it is and useless to
+--- anything that wants a `/way`. What this pass legitimately measures is the rest:
+---
+---   * the NAME, which carries its own zone ("Amani Foothold, Vaults of Atal'Utek") —
+---     a real answer to "which flight points exist and where do they belong";
+---   * the nodeID, stable and unambiguous;
+---   * that this character can see the node at all, i.e. has discovered it.
+---
+--- ⚠️ And the map key is the player's location, not the node's. One flight map lists a
+--- whole continent, so 2512 and 2509 both received the same 65 entries. Kept anyway
+--- because it records WHERE the player was when they saw them, but it is not a
+--- per-zone index and must never be read as one.
 local function LearnFlightPins(frame, mapID)
 	local pins = FlightPinsByProvider(frame)
 	if not (pins and mapID) then
@@ -175,12 +193,13 @@ local function LearnFlightPins(frame, mapID)
 					x, y, via = a * 100, b * 100, "pin:GetPosition"
 				end
 			end
+			-- `canvas`, not x/y: see the note above. Anything reading this for a
+			-- waypoint should find no field that looks like one.
 			zone[data.name] = {
 				nodeID = data.nodeID,
 				state = data.state,
-				x = x and tonumber(("%.2f"):format(x)) or nil,
-				y = y and tonumber(("%.2f"):format(y)) or nil,
-				via = via,
+				canvas = (x and y) and ("%.2f/%.2f"):format(x, y) or nil,
+				canvasVia = via,
 			}
 		end
 	end
