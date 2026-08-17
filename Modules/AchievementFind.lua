@@ -211,9 +211,26 @@ function ns.PrintAchievementDetail(id)
 		return
 	end
 	print(("   criteria    = %d"):format(num))
+
+	--- ⚠️ The criteria ID is the TENTH return, not the eighth.
+	---
+	--- This printer read as far as totalQuantity and stopped, so it showed the names
+	--- and never the ids — and `ns.ACHIEVEMENT_HUNTS` is keyed on `criteria = <id>`.
+	--- On 17 aug Rob screenshotted both 62601 and 63601 and neither run could be used,
+	--- because the one number the data needs was the one not printed.
+	---
+	--- assetID (8th) is a different thing: it is the sub-ACHIEVEMENT id on a meta, and
+	--- it is 0 on an ordinary criterion. Both are captured so the two can never be
+	--- confused again — they were, on 13 aug, and closing Showdown Slugger took a day.
+	ns.db = ns.db or {}
+	ns.db.achDump = ns.db.achDump or {}
+	local rows = {}
+
 	for i = 1, num do
-		-- criteriaString, criteriaType, criteriaCompleted, quantity, totalQuantity, ...
-		local okC, criteriaString, _, cDone, qty, total = pcall(GetAchievementCriteriaInfo, id, i)
+		-- criteriaString, criteriaType, completed, quantity, reqQuantity, charName,
+		-- flags, assetID, quantityString, criteriaID, ...
+		local okC, criteriaString, cType, cDone, qty, total, _charName, _flags,
+			assetID, _qtyString, criteriaID = pcall(GetAchievementCriteriaInfo, id, i)
 		if okC and criteriaString ~= nil then
 			local label = (type(criteriaString) == "string" and criteriaString ~= "")
 				and criteriaString or ("(criterion %d)"):format(i)
@@ -221,9 +238,30 @@ function ns.PrintAchievementDetail(id)
 			if type(total) == "number" and total > 1 then
 				prog = ("  %s/%s"):format(tostring(qty), tostring(total))
 			end
-			print(("     %s %s%s"):format(cDone and "|cff40c040x|r" or "|cffb0b0b0-|r", label, prog))
+			print(("     %s %-34s crit=%s%s"):format(
+				cDone and "|cff40c040x|r" or "|cffb0b0b0-|r", label,
+				tostring(criteriaID or "?"),
+				(type(assetID) == "number" and assetID > 0)
+					and ("  asset=" .. assetID) or ""))
+			if prog ~= "" then
+				print("       " .. prog)
+			end
+			rows[#rows + 1] = {
+				index = i,
+				name = label,
+				criteriaID = criteriaID,
+				assetID = (type(assetID) == "number" and assetID > 0) and assetID or nil,
+				criteriaType = cType,
+				completed = cDone and true or false,
+			}
 		end
 	end
+
+	-- The house rule since 27 jul: long output goes to the DB and gets read from the
+	-- SavedVariables file. Rob is on a laptop over Parsec today, where a chat dump of
+	-- five criteria is genuinely unreadable.
+	ns.db.achDump[id] = { name = name, criteria = rows }
+	print("   |cff8a8f98/reload writes this to the DB — no screenshot needed.|r")
 end
 
 --- /mh ach <text> — find achievements whose name or description contains <text>.
