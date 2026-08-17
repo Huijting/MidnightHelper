@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now, two reads from one /mh atal run:
+Right now: did /mh atal's trait sweep ever see the Altar of Corrosion tree?
 
-  1. The quest ids added from Method today. The one that matters is 96528
-     against 96466: both are the same unreleased Season 2 follow-up, so if one
-     resolves and the other does not, "not live yet" stops being an
-     explanation and 96466 is simply a wrong id.
-
-  2. ns.db.hazardZones — Rob says he was standing in a delve, so the instance
-     may have named itself. 3079 is the one worth having.
+The four disputed choice nodes (Spiritual Succession vs our own wording) can
+only be settled by the node's own description. Before building anything new,
+check whether the existing sweep already holds it — and if not, say WHY rather
+than "not found": which trees did it see, and did any of them carry names?
 """
 import io
 import re
@@ -72,72 +69,46 @@ def f(chunk, name):
     return v
 
 
-WANT = {
-    '96004': 'known-good control (resolved 16 aug)',
-    '96466': 'Method portal guide',
-    '96528': 'Method Prey guide — the rival id',
-    '97661': 'discovery: Protection of the Med\'jai',
-    '97662': 'discovery: Winds of Tok\'jara',
-    '97668': 'discovery: Watchful Gaze of Szarith',
-    '97669': 'discovery: Luck of the Bound Spirit',
-    '98388': 'Certain Doom / Into the Vaults (name disputed)',
-    '97616': 'Corrosive Gifts: Corrosive Power',
-    '97482': 'Azta\'rec nemesis delve',
-    '96995': 'Turn Back the Surge',
-    '96110': 'Captain Tokka',
-}
-
 probe = block('atalProbe', t)
-rb = block('repeatable', probe) if probe else None
-if not rb:
-    print('geen repeatable-blok — is /mh atal gelopen vóór de reload?')
-else:
-    print('%-8s %-34s %-38s %s' % ('id', 'wat de client zegt', 'waarvoor', 'gevraagd'))
-    print('-' * 100)
-    seen = set()
-    for e in split_top(rb):
-        qid = f(e, 'id')
-        if qid not in WANT:
-            continue
-        seen.add(qid)
-        title = f(e, 'gameTitle')
-        asked = f(e, 'askedServer')
-        print('%-8s %-34s %-38s %s' % (
-            qid, title or '— NIETS —', WANT[qid], 'ja' if asked else '-'))
-    missing = [q for q in WANT if q not in seen]
-    if missing:
-        print('\nniet in de dump: %s' % ', '.join(sorted(missing)))
+tr = block('traits', probe) if probe else None
+if not tr:
+    print('geen traits-blok in atalProbe — de sweep heeft niets weggeschreven.')
+    sys.exit(0)
 
-    print('\n' + '=' * 70)
-    print('DE BESLISSENDE VERGELIJKING')
-    print('=' * 70)
-    got = {}
-    for e in split_top(rb):
-        qid = f(e, 'id')
-        if qid in ('96004', '96466', '96528'):
-            got[qid] = f(e, 'gameTitle')
-    print('96004 (bestond al)      : %s' % (got.get('96004') or '— NIETS —'))
-    print('96466 (Method portal)   : %s' % (got.get('96466') or '— NIETS —'))
-    print('96528 (Method Prey)     : %s' % (got.get('96528') or '— NIETS —'))
-    if got.get('96528') and not got.get('96466'):
-        print('\n  → 96528 bestaat WEL en 96466 NIET, terwijl beide dezelfde')
-        print('    nog-niet-live vervolgquest zouden zijn. "Komt pas na de reset"')
-        print('    verklaart dat niet meer: 96466 is dan gewoon een fout id.')
-    elif not got.get('96528') and not got.get('96466'):
-        print('\n  → allebei stil. Dat kan nog steeds "nog niet live" zijn;')
-        print('    deze meting beslist niets. Opnieuw na de reset.')
-    elif got.get('96466'):
-        print('\n  → 96466 bestaat wél. Mijn conclusie van 16 aug was fout.')
+WANTED = ('Spiritual Succession', 'Surge Seniority', 'Egg Evasion',
+          'Egg Specialist', 'Spectral Shipping', 'Spirit Walk',
+          'Glideways', 'Swift Steps')
 
-print('\n' + '=' * 70)
-print('INSTANCES DIE ZICHZELF HEBBEN GENOEMD')
-print('=' * 70)
-hz = block('hazardZones', t)
-if not hz:
-    print('nog geen hazardZones — dan heeft de client nog niets geleerd.')
+print('%-8s %-10s %-7s %s' % ('tree', 'config', 'nodes', 'namen gelezen'))
+print('-' * 62)
+total_named, hit = 0, []
+for e in split_top(tr):
+    tree = f(e, 'treeID')
+    cfg = f(e, 'configID')
+    nodes = f(e, 'nodes')
+    nn = block('nodeNames', e)
+    rows = split_top(nn) if nn else []
+    named = [f(r, 'name') for r in rows]
+    named = [n for n in named if n]
+    total_named += len(named)
+    for n in named:
+        if n in WANTED:
+            hit.append((tree, n, f(rows[named.index(n)], 'desc')))
+    print('%-8s %-10s %-7s %d' % (tree or '?', cfg or '-', nodes or '?', len(named)))
+
+print('-' * 62)
+print('%d namen in totaal over alle bomen' % total_named)
+
+print('\nde vier omstreden keuzeknopen:')
+if hit:
+    for tree, name, desc in hit:
+        print('  tree %s  %s' % (tree, name))
+        print('    %s' % (desc or '— geen beschrijving —'))
 else:
-    for m in re.finditer(r'\[(\d+)\]\s*=\s*"((?:[^"\\]|\\.)*)"', hz):
-        note = ''
-        if m.group(1) == '3079':
-            note = '   <<< de onbekende'
-        print('   %-8s %s%s' % (m.group(1), m.group(2), note))
+    print('  GEEN ENKELE gevonden.')
+    print('  ⚠️ Dat bewijst niet dat ze niet bestaan. De sweep heeft %d namen'
+          % total_named)
+    print('     gelezen, dus namen lezen wérkt — maar de Altar-boom zat er niet bij.')
+    print('     Waarschijnlijkste reden: de boom hoort bij content die deze')
+    print('     character niet heeft vrijgespeeld. Meten op een character die')
+    print('     de questketen af heeft, staand bij de Altar.')

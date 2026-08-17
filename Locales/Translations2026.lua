@@ -3472,6 +3472,20 @@ fill("itIT", {
 --------------------------------------------------------------------------------
 
 fill("deDE", {
+	ICV_KEYS_TITLE = "Die vier Altar-of-Corrosion-Knoten, die man nicht kaufen kann",
+	ICV_UNLOCK_ANCIENT_FOE = "Fällt von jedem Ancient Foe, am Ende einer Temple Incursion.",
+	ICV_UNLOCK_TEMPLE_STRIKE = "Fällt aus Temple Strikes.",
+	ICV_UNLOCK_TEMPLE_INCURSION = "Fällt aus Temple Incursions.",
+	ICV_UNLOCK_JINTAL = "Von High Priest Jin'tal, im Vault of Restless Brothers - er taucht in der Nebenquestreihe The Med'jai Medallion auf.",
+	ICV_WHERE_TOKJARA = "Auf einem Sims rechts vom Eingang zum Venomous-Abyss-Raid.",
+	ICV_WHERE_LYNX = "In Truhen unter den Giftwasserfällen.",
+	ICV_WHERE_SZARITH = "Nordseite der Underbelly, in einem runden Giftbecken.",
+	ICV_WHERE_MEDJAI = "Ostseite des Profaned Mausoleum - nach dem Eingang links, in einer Truhe auf einem Regal.",
+	ICV_SPOTS_PREFIX = "Neun Stellen, an denen sie liegen kann:",
+	ICV_ALSO_CALLED = "Anderswo genannt:",
+	ICV_DISPUTE_MEDJAI = "Die Quellen widersprechen sich bei der zweiten Option: wir schrieben 'sofort wieder aufstehen, wenn du ausserhalb der Vaults stirbst', Icy Veins nennt es eine sofortige Wiederbelebung innerhalb von Atal'Utek. Gemessen hat es niemand.",
+	ICV_SOURCE_NOTE = "Fundorte und Koordinaten von Icy Veins, 16. Aug - eine Quelle, im Spiel noch nicht bestaetigt. Die Feather of Tok'jara ist die Ausnahme: unsere eigenen Juli-Notizen nennen dieselben zwei Zahlen.",
+
 	HAZARD_SECTION_FMT = "Hier solltest du nicht stehen bleiben (%s)",
 	HAZARD_OUTSIDE = "Du bist in keiner Instanz, für hier gibt es also keine Liste.",
 	HAZARD_WORLD_COUNT = "Gefahren sind für Midnights Außenwelt bekannt, aber nicht, zu welcher Zone jede gehört.",
@@ -3481,6 +3495,20 @@ fill("deDE", {
 })
 
 fill("frFR", {
+	ICV_KEYS_TITLE = "Les quatre noeuds de l'Altar of Corrosion qui ne s'achètent pas",
+	ICV_UNLOCK_ANCIENT_FOE = "Tombe de n'importe quel Ancient Foe, à la fin d'une Temple Incursion.",
+	ICV_UNLOCK_TEMPLE_STRIKE = "Tombe des Temple Strikes.",
+	ICV_UNLOCK_TEMPLE_INCURSION = "Tombe des Temple Incursions.",
+	ICV_UNLOCK_JINTAL = "De High Priest Jin'tal, dans le Vault of Restless Brothers - il apparaît dans la quête annexe The Med'jai Medallion.",
+	ICV_WHERE_TOKJARA = "Sur une corniche à droite de l'entrée du raid Venomous Abyss.",
+	ICV_WHERE_LYNX = "Dans des coffres sous les cascades de venin.",
+	ICV_WHERE_SZARITH = "Côté nord de l'Underbelly, dans une flaque de venin ronde.",
+	ICV_WHERE_MEDJAI = "Côté est du Profaned Mausoleum - à gauche après l'entrée, dans un coffre sur une étagère.",
+	ICV_SPOTS_PREFIX = "Neuf endroits possibles :",
+	ICV_ALSO_CALLED = "Appelé ailleurs :",
+	ICV_DISPUTE_MEDJAI = "Les sources se contredisent sur la seconde option : nous avons écrit 'se relever aussitôt quand tu meurs hors des Vaults', Icy Veins parle d'une résurrection instantanée dans Atal'Utek. Personne ne l'a mesuré.",
+	ICV_SOURCE_NOTE = "Sources et coordonnées d'Icy Veins, 16 août - une seule source, pas encore vérifiée en jeu. La Feather of Tok'jara fait exception : nos propres notes de juillet donnent les mêmes deux chiffres.",
+
 	HAZARD_SECTION_FMT = "Ne reste pas là-dedans (%s)",
 	HAZARD_OUTSIDE = "Tu n'es pas en instance, il n'y a donc pas de liste pour ici.",
 	HAZARD_WORLD_COUNT = "dangers sont connus pour le monde extérieur de Midnight, mais pas à quelle zone chacun appartient.",
@@ -3490,6 +3518,20 @@ fill("frFR", {
 })
 
 fill("esES", {
+	ICV_KEYS_TITLE = "Los cuatro nodos del Altar of Corrosion que no se pueden comprar",
+	ICV_UNLOCK_ANCIENT_FOE = "Cae de cualquier Ancient Foe, al final de una Temple Incursion.",
+	ICV_UNLOCK_TEMPLE_STRIKE = "Cae de las Temple Strikes.",
+	ICV_UNLOCK_TEMPLE_INCURSION = "Cae de las Temple Incursions.",
+	ICV_UNLOCK_JINTAL = "De High Priest Jin'tal, en el Vault of Restless Brothers - aparece en la misión secundaria The Med'jai Medallion.",
+	ICV_WHERE_TOKJARA = "En una cornisa a la derecha de la entrada de la banda Venomous Abyss.",
+	ICV_WHERE_LYNX = "En cofres bajo las cascadas de veneno.",
+	ICV_WHERE_SZARITH = "Lado norte del Underbelly, en un charco de veneno redondo.",
+	ICV_WHERE_MEDJAI = "Lado este del Profaned Mausoleum - a la izquierda al entrar, en un cofre sobre un estante.",
+	ICV_SPOTS_PREFIX = "Nueve sitios donde puede estar:",
+	ICV_ALSO_CALLED = "En otros sitios llamado:",
+	ICV_DISPUTE_MEDJAI = "Las fuentes se contradicen sobre la segunda opción: nosotros escribimos 'levantarte al instante si mueres fuera de las Vaults', Icy Veins la describe como una resurrección instantánea dentro de Atal'Utek. Nadie lo ha medido.",
+	ICV_SOURCE_NOTE = "Fuentes y coordenadas de Icy Veins, 16 de agosto - una sola fuente, aún sin confirmar en el juego. La Feather of Tok'jara es la excepción: nuestras propias notas de julio dan los mismos dos números.",
+
 	HAZARD_SECTION_FMT = "No te quedes aquí dentro (%s)",
 	HAZARD_OUTSIDE = "No estás en una instancia, así que no hay lista para aquí.",
 	HAZARD_WORLD_COUNT = "peligros se conocen para el mundo exterior de Midnight, pero no a qué zona pertenece cada uno.",
@@ -3499,6 +3541,20 @@ fill("esES", {
 })
 
 fill("ptBR", {
+	ICV_KEYS_TITLE = "Os quatro nós do Altar of Corrosion que não dá para comprar",
+	ICV_UNLOCK_ANCIENT_FOE = "Cai de qualquer Ancient Foe, no fim de uma Temple Incursion.",
+	ICV_UNLOCK_TEMPLE_STRIKE = "Cai das Temple Strikes.",
+	ICV_UNLOCK_TEMPLE_INCURSION = "Cai das Temple Incursions.",
+	ICV_UNLOCK_JINTAL = "De High Priest Jin'tal, no Vault of Restless Brothers - ele aparece na linha de missões secundária The Med'jai Medallion.",
+	ICV_WHERE_TOKJARA = "Numa saliência à direita da entrada da raide Venomous Abyss.",
+	ICV_WHERE_LYNX = "Em baús debaixo das cachoeiras de veneno.",
+	ICV_WHERE_SZARITH = "Lado norte do Underbelly, numa poça de veneno redonda.",
+	ICV_WHERE_MEDJAI = "Lado leste do Profaned Mausoleum - à esquerda depois de entrar, num baú sobre uma prateleira.",
+	ICV_SPOTS_PREFIX = "Nove lugares onde pode estar:",
+	ICV_ALSO_CALLED = "Em outros lugares chamado:",
+	ICV_DISPUTE_MEDJAI = "As fontes se contradizem sobre a segunda opção: nós escrevemos 'levantar na hora quando você morre fora das Vaults', a Icy Veins chama de ressurreição instantânea dentro de Atal'Utek. Ninguém mediu isso.",
+	ICV_SOURCE_NOTE = "Fontes e coordenadas da Icy Veins, 16 de agosto - uma fonte só, ainda não confirmada no jogo. A Feather of Tok'jara é a exceção: nossas próprias notas de julho dão os mesmos dois números.",
+
 	HAZARD_SECTION_FMT = "Não fique parado aqui (%s)",
 	HAZARD_OUTSIDE = "Você não está em uma instância, então não há lista para aqui.",
 	HAZARD_WORLD_COUNT = "perigos são conhecidos para o mundo aberto de Midnight, mas não a qual zona cada um pertence.",
@@ -3508,6 +3564,20 @@ fill("ptBR", {
 })
 
 fill("itIT", {
+	ICV_KEYS_TITLE = "I quattro nodi dell'Altar of Corrosion che non si possono comprare",
+	ICV_UNLOCK_ANCIENT_FOE = "Cade da qualsiasi Ancient Foe, alla fine di una Temple Incursion.",
+	ICV_UNLOCK_TEMPLE_STRIKE = "Cade dalle Temple Strikes.",
+	ICV_UNLOCK_TEMPLE_INCURSION = "Cade dalle Temple Incursions.",
+	ICV_UNLOCK_JINTAL = "Da High Priest Jin'tal, nel Vault of Restless Brothers - compare nella linea di missioni secondaria The Med'jai Medallion.",
+	ICV_WHERE_TOKJARA = "Su una sporgenza a destra dell'ingresso del raid Venomous Abyss.",
+	ICV_WHERE_LYNX = "In casse sotto le cascate di veleno.",
+	ICV_WHERE_SZARITH = "Lato nord dell'Underbelly, in una pozza di veleno rotonda.",
+	ICV_WHERE_MEDJAI = "Lato est del Profaned Mausoleum - a sinistra dopo l'ingresso, in una cassa su una mensola.",
+	ICV_SPOTS_PREFIX = "Nove punti in cui può trovarsi:",
+	ICV_ALSO_CALLED = "Altrove chiamato:",
+	ICV_DISPUTE_MEDJAI = "Le fonti si contraddicono sulla seconda opzione: noi abbiamo scritto 'rialzarti subito se muori fuori dalle Vaults', Icy Veins la chiama una resurrezione istantanea dentro Atal'Utek. Nessuno l'ha misurata.",
+	ICV_SOURCE_NOTE = "Fonti e coordinate da Icy Veins, 16 ago - una sola fonte, non ancora verificata in gioco. La Feather of Tok'jara è l'eccezione: le nostre note di luglio danno gli stessi due numeri.",
+
 	HAZARD_SECTION_FMT = "Non restare qui dentro (%s)",
 	HAZARD_OUTSIDE = "Non sei in un'istanza, quindi per qui non c'è una lista.",
 	HAZARD_WORLD_COUNT = "pericoli sono noti per il mondo esterno di Midnight, ma non a quale zona appartenga ciascuno.",
