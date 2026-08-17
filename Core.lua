@@ -991,6 +991,20 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh plan — de hele route naar het huidige doel, stap voor stap en klikbaar.
+	if msg == "plan" or msg == "route" then
+		if ns.PrintTravelPlan then
+			local t = ns.lastTarget
+			if t and t.mapID then
+				ns.PrintTravelPlan(t.mapID, t.x, t.y, t.name)
+			else
+				print(("|cffffcc00%s|r %s"):format(
+					ns:L("PRINT_PREFIX"), ns:L("PLAN_NO_TARGET")))
+			end
+		end
+		return
+	end
+
 	-- /mh keys — de vier Altar of Corrosion-nodes die achter een zoektocht zitten.
 	if msg == "keys" or msg == "codexkeys" then
 		if ns.ShowCorrosiveKeyHunts then
