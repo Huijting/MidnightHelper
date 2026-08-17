@@ -266,12 +266,45 @@ local function IsSeasonLive()
 	---
 	--- The date now applies to both routes. An id can still REFUSE (a client that never
 	--- advanced past Season 1 stays shut) but it can no longer grant on its own.
+	--- ⚠️ AND THE DATE ALONE IS A DAY EARLY IN EUROPE. Fixed 17 aug, before it bit.
+	---
+	--- `seasonStartsAt` is 2026-08-18 00:00 UTC. A season opens at a weekly RESET, and
+	--- resets are regional: the Americas turn on Tuesday, Europe on Wednesday morning.
+	--- So for Rob, Carola and every EU player this date is roughly 29 hours early —
+	--- exactly the falsifier the comment beside `seasonStartsAt` wrote down for itself,
+	--- and the watch log confirms it ("18 aug NA, EU-reset 19 aug").
+	---
+	--- Rather than hardcode two regional timestamps and get one of them wrong, ask the
+	--- client when its OWN reset is. `GetSecondsUntilWeeklyReset` is already regional
+	--- and already correct, so the question becomes: has a weekly reset happened on or
+	--- after the season date? Subtracting one week from the next reset gives the last
+	--- one, and if that is still before the season date, the season has not turned here
+	--- yet no matter what the calendar says.
+	---
+	--- This also removes the "someone must be present at the flip" problem entirely: it
+	--- is right in every region without anyone measuring anything.
 	local startsAt = ns.SEASON2 and ns.SEASON2.seasonStartsAt
 	if startsAt then
 		local now = (GetServerTime and GetServerTime()) or (time and time()) or 0
 		if now < startsAt then
 			return false
 		end
+		local secs
+		if C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset then
+			local ok, v = pcall(C_DateAndTime.GetSecondsUntilWeeklyReset)
+			if ok and type(v) == "number" and v > 0 then
+				secs = v
+			end
+		end
+		if secs then
+			-- The most recent reset for THIS region.
+			local lastReset = (now + secs) - (7 * 24 * 60 * 60)
+			if lastReset < startsAt then
+				return false
+			end
+		end
+		-- No reset API: fall back to the bare date. Being a day early in the EU is
+		-- still better than never opening at all, and it is the old behaviour.
 	end
 
 	local s2 = ns.SEASON2 and ns.SEASON2.mplusSeasonId
