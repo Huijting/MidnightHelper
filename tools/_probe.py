@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: GTFO 6.7.2 landed this morning with "Added Midnight spells (delves)".
-GTFO only lists things that DAMAGE YOU AVOIDABLY, which is exactly the shape of
-a "do not stand in this" tip -- so the question is how much of it lands on
-content our delve coach already covers, and how much is new.
+Right now: harvest GTFO's Midnight hazards PROPERLY.
 
-Counts per zone block, then holds the zone ids against ours. Candidates only:
-GTFO's ids are datamined for content that is not live yet, same provenance as
-DBM's, so this measures OVERLAP, never truth.
+The first pass keyed off section headers of the form `--- * Zone (id) *` and
+so silently skipped every entry filed under a header without an id -- which is
+exactly where the two Season 2 delves live. Rob asking "does this affect
+Season 2?" is what surfaced it. This pass reads each GTFO.SpellID entry and
+takes the `instance =` on the entry itself, which is the field GTFO actually
+keys on, so a header style cannot hide anything again.
+
+Reads both the Spells and Fail files: GTFO splits "this hurts" from "you
+failed", and both are avoidable damage.
 """
 import io
 import os
@@ -23,27 +26,11 @@ for _s in (sys.stdout, sys.stderr):
 
 ADDONS = r'E:\World of Warcraft\_retail_\Interface\AddOns'
 MH = os.path.join(ADDONS, 'MidnightHelper')
-G = os.path.join(ADDONS, 'GTFO', 'Spells', 'GTFO_Spells_MN.lua')
+FILES = [
+    os.path.join(ADDONS, 'GTFO', 'Spells', 'GTFO_Spells_MN.lua'),
+    os.path.join(ADDONS, 'GTFO', 'Spells', 'GTFO_Fail_MN.lua'),
+]
 
-t = io.open(G, encoding='utf-8', errors='replace', newline='').read()
-lines = t.split('\n')
-
-blocks, cur = [], None
-for l in lines:
-    m = re.match(r'^--- \* (.+?) \((\d+)\) \*', l)
-    if m:
-        cur = {'zone': m.group(1), 'id': m.group(2), 'ids': [], 'todo': 0}
-        blocks.append(cur)
-        continue
-    if cur is None:
-        continue
-    m = re.match(r'^GTFO\.SpellID\["(\d+)"\]', l)
-    if m:
-        cur['ids'].append(m.group(1))
-    elif re.match(r'^GTFO\.SpellID\["\?+"\]', l):
-        cur['todo'] += 1
-
-# Everything our own addon references, so "new" means new to us.
 ours = ''
 for root, dirs, files in os.walk(MH):
     dirs[:] = [d for d in dirs if d not in ('.git', 'docs', 'tools')]
@@ -52,25 +39,73 @@ for root, dirs, files in os.walk(MH):
             ours += io.open(os.path.join(root, f), encoding='utf-8',
                             errors='replace', newline='').read()
 
-print('=' * 76)
-print('GTFO 6.7.2 — Midnight-spells per zone, en wat wij er al van kennen')
-print('=' * 76)
-print('%-26s %7s %6s %5s %6s  %s' % ('zone', 'uiMapID', 'spells', 'TODO',
-                                     'nieuw', 'zone-id bij ons?'))
-print('-' * 76)
+entries = []
+for path in FILES:
+    if not os.path.exists(path):
+        print('ontbreekt: %s' % path)
+        continue
+    src = io.open(path, encoding='utf-8', errors='replace', newline='').read()
+    kind = 'fail' if 'Fail' in os.path.basename(path) else 'spell'
+    # Each entry runs from GTFO.SpellID[...] to its closing };
+    for m in re.finditer(r'GTFO\.SpellID\["(\d+)"\]\s*=\s*\{(.*?)\n\};',
+                         src, re.S):
+        sid, body = m.group(1), m.group(2)
+        # A commented-out entry inside a --[[ ]]-- block is a TODO, not data.
+        start = m.start()
+        opened = src.rfind('--[[', 0, start)
+        closed = src.rfind(']]--', 0, start)
+        if opened > closed:
+            continue
+        inst = re.search(r'instance\s*=\s*(\d+)', body)
+        enc = re.search(r'encounter\s*=\s*(\d+)', body)
+        desc = re.search(r'--\s*desc\s*=\s*"(.*?)"', body)
+        entries.append({
+            'id': sid,
+            'instance': inst.group(1) if inst else None,
+            'encounter': enc.group(1) if enc else None,
+            'desc': desc.group(1) if desc else '',
+            'kind': kind,
+        })
+
+by_inst = {}
+for e in entries:
+    by_inst.setdefault(e['instance'], []).append(e)
+
+print('=' * 78)
+print('GTFO Midnight — per instance, uit de entries zelf (niet uit de kopjes)')
+print('=' * 78)
+print('%-9s %6s %6s %6s  %s' % ('instance', 'spells', 'fail', 'nieuw', 'voorbeeld'))
+print('-' * 78)
 tot_new = 0
-for b in blocks:
-    new = [i for i in b['ids'] if i not in ours]
+for inst in sorted(by_inst, key=lambda x: (x is None, x)):
+    rows = by_inst[inst]
+    new = [r for r in rows if r['id'] not in ours]
     tot_new += len(new)
-    known_zone = 'ja' if b['id'] in ours else '—'
-    print('%-26s %7s %6d %5d %6d  %s' % (
-        b['zone'][:26], b['id'], len(b['ids']), b['todo'], len(new), known_zone))
+    ns_ = sum(1 for r in rows if r['kind'] == 'spell')
+    nf = sum(1 for r in rows if r['kind'] == 'fail')
+    ex = next((r['desc'] for r in rows if r['desc']), '')
+    print('%-9s %6d %6d %6d  %s' % (inst or '—', ns_, nf, len(new), ex[:34]))
 
-print('-' * 76)
-print('%d zone-blokken, %d spell-ids nieuw voor ons' % (len(blocks), tot_new))
+print('-' * 78)
+print('%d entries, %d instances, %d ids die wij nog nergens noemen'
+      % (len(entries), len(by_inst), tot_new))
 
-print('\nDe nieuwe ids per zone (kandidaten — de client geeft pas de naam):')
-for b in blocks:
-    new = [i for i in b['ids'] if i not in ours]
+# The two Season 2 delves specifically -- the question that prompted this pass.
+print('\n' + '=' * 78)
+print('SEASON 2 (12.1): Gnarldor Isle 3038, The Ring of Glory 3077')
+print('=' * 78)
+for inst in ('3038', '3077', '2963'):
+    rows = by_inst.get(inst, [])
+    print('\ninstance %s — %d entries' % (inst, len(rows)))
+    for r in rows:
+        print('   %-10s enc %-6s %-5s %s   %s' % (
+            r['id'], r['encounter'] or '—', r['kind'], r['desc'],
+            '(nieuw)' if r['id'] not in ours else '(kennen we)'))
+
+print('\n' + '=' * 78)
+print('ALLE nieuwe ids per instance (kandidaten — de client geeft de naam)')
+print('=' * 78)
+for inst in sorted(by_inst, key=lambda x: (x is None, x)):
+    new = [r for r in by_inst[inst] if r['id'] not in ours]
     if new:
-        print('  %-26s %s' % (b['zone'][:26], ' '.join(new)))
+        print('  %-8s %s' % (inst or '—', ' '.join(r['id'] for r in new)))

@@ -38,32 +38,66 @@ local _, ns = ...
 -- The candidates, exactly as GTFO groups them
 -- ---------------------------------------------------------------------------
 
---- Zone label, GTFO's uiMapID, and the ids we do not already reference.
---- Order preserved from GTFO_Spells_MN.lua so a re-harvest diffs cleanly.
+--- GTFO's instance id, and the ids we do not already reference.
+---
+--- ⚠️ NO ZONE NAMES HERE, on purpose. The first harvest keyed off section headers
+--- shaped `--- * Zone (id) *` and therefore skipped every entry filed under a header
+--- without an id — which is precisely where the two Season 2 delves live. Rob asking
+--- "does this affect Season 2?" is the only reason that was caught. This list comes
+--- from the `instance =` field on each entry, and the NAME of each instance is asked
+--- of the client below, so a zone label can no longer be something I typed.
+---
+--- 103 ids over 17 instances. Roughly half come from GTFO's Fail file, which the
+--- first pass did not read at all.
 local CANDIDATES = {
-	{ "Magister's Terrace", 2811, { 1214089 } },
-	{ "Windrunner Spire", 2805, { 473784, 472118, 468924, 472777 } },
-	{ "The Dreamrift", 2939, { 1245919 } },
-	{ "Nexus-Point Xenas", 2915, { 1277597 } },
-	{ "The Voidspire", 2912, {
-		1284786, 1280101, 1251213, 1245592, 1260030, 1244672,
-		1245421, 1276982, 1246158, 1272324, 1238206, 1242553,
+	{ 1592, { 1221901 } },
+	{ 2813, { 1223906, 474740, 474768, 1266241, 1214663, 1217384, 1297691, 1297695, 1294836 } },
+	{ 2825, { 1234021, 1235129, 1240280, 1235795, 1235641, 1247030, 1242887, 1297797 } },
+	{ 2858, { 1225385, 1226990, 1257514, 1257563 } },
+	{ 2859, { 1238638, 1263642, 1237267, 1259365, 1242138, 1242200 } },
+	{ 2874, {
+		1257160, 1257164, 1258823, 1265832, 1249638, 1249989, 1256247, 1252611,
+		1266706, 1259887, 1257895, 1259664, 1259713, 1248980, 1279517, 1254175,
 	} },
-	{ "March on Quel'Danas", 2913, { 1241840, 1241841, 1242803, 1242815, 1282470, 1222306 } },
-	{ "Altar of Fangs", 2993, { 1306232, 1306669, 1307573, 1307531, 1309416, 1301231 } },
-	{ "Maisara Caverns", 2874, {
-		1257782, 1243752, 1251833, 1252130, 1257898,
-		1259777, 1252816, 1253779, 1254043,
+	{ 2912, { 1258883, 1259186, 1241844, 1264467, 1265152, 1248652, 1243753 } },
+	{ 2913, { 1243866 } },
+	{ 2923, { 1299145, 1311712, 1234917, 1296963, 1300262, 1233264, 1226031, 1222724, 1310026 } },
+	{ 2963, { 1280182 } },
+	{ 2987, { 1307062, 1313448 } },
+	{ 2993, { 1307915, 1296069, 1300083, 1300044, 1305393, 1295073, 1306856, 1294197 } },
+	{ 3004, { 1296439, 1294846 } },
+	{ 3038, { 1287680, 1287559 } },
+	{ 3077, { 1301863, 1238255, 392013, 1239757, 1296414, 1296441, 1296366 } },
+	{ 3079, { 1298887, 1291555, 1309412, 1288126 } },
+	-- GTFO files these with no instance at all: Midnight world and Prey content.
+	{ nil, {
+		1243988, 1270862, 1284716, 1295990, 1270524, 1276517, 1297422, 1253237,
+		1256357, 1271755, 1266183, 1258640, 1230634, 1235134, 1285974, 1291560,
 	} },
-	{ "Tidebound Grotto", 2987, { 1257654, 1265425, 1281341 } },
-	{ "The Venomous Abyss", 3004, { 1285623 } },
-	{ "Murder Row", 2813, { 474234, 1216590, 1215985, 1294870, 1215200, 1216955 } },
-	{ "Voidscar Arena", 2923, {
-		1249712, 1228126, 1299210, 1296967, 1222484, 1282892, 1264188, 1248130,
-	} },
-	{ "The Blinding Vale", 2859, { 1237858, 1314885, 1234802, 1235828, 1251345, 1239919, 1246751 } },
-	{ "Den of Nalorakk", 2825, { 1297701, 1252825, 1235405, 1236289, 1247367 } },
 }
+
+--- Ask the client what an instance id is called. Two lookups because GTFO's field is
+--- whatever `GetInstanceInfo` reports, which is not always a uiMapID — and a nil here
+--- is reported as nil rather than filled in from a guide.
+local function InstanceName(instanceID)
+	if not instanceID then
+		return nil
+	end
+	if C_Map and C_Map.GetMapInfo then
+		local ok, info = pcall(C_Map.GetMapInfo, instanceID)
+		if ok and type(info) == "table" and type(info.name) == "string"
+			and info.name:find("%w") then
+			return info.name, "C_Map"
+		end
+	end
+	if EJ_GetInstanceInfo then
+		local ok, name = pcall(EJ_GetInstanceInfo, instanceID)
+		if ok and type(name) == "string" and name:find("%w") then
+			return name, "EJ"
+		end
+	end
+	return nil
+end
 
 --- The six we already ship for Nymrissa, from DBM-Lairs-Midnight. Unreleased lair,
 --- datamined — so if the client can name these it can name GTFO's too.
@@ -118,7 +152,7 @@ function ns.ProbeMechanicNames()
 	ns.db = ns.db or {}
 
 	for _, z in ipairs(CANDIDATES) do
-		for _, id in ipairs(z[3]) do
+		for _, id in ipairs(z[2]) do
 			Ask(id)
 		end
 	end
@@ -129,7 +163,7 @@ function ns.ProbeMechanicNames()
 
 	local firstNamed, total = 0, 0
 	for _, z in ipairs(CANDIDATES) do
-		for _, id in ipairs(z[3]) do
+		for _, id in ipairs(z[2]) do
 			total = total + 1
 			if NameOf(id) then
 				firstNamed = firstNamed + 1
@@ -141,14 +175,20 @@ function ns.ProbeMechanicNames()
 		local named = 0
 		for _, z in ipairs(CANDIDATES) do
 			local rows = {}
-			for _, id in ipairs(z[3]) do
+			for _, id in ipairs(z[2]) do
 				local n = NameOf(id)
 				if n then
 					named = named + 1
 				end
 				rows[#rows + 1] = { id = id, name = n }
 			end
-			out.zones[#out.zones + 1] = { zone = z[1], mapID = z[2], spells = rows }
+			local zoneName, via = InstanceName(z[1])
+			out.zones[#out.zones + 1] = {
+				instance = z[1],
+				zone = zoneName,
+				zoneVia = via,
+				spells = rows,
+			}
 		end
 
 		local knownNamed = {}
