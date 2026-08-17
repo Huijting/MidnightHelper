@@ -211,7 +211,12 @@ ns.INSTANCE_HAZARDS = {
 		1296439, -- Corpse Blight
 		1294846, -- Anguished Echoes
 	},
-	[3038] = { -- Gnarldor Isle (Season 2 delve)
+	[3038] = { -- Gnarldor Isle (Season 2 delve) — CONFIRMED by Rob's client 17 aug,
+		-- which named the instance itself on entry. The one placement in this file
+		-- that is not GTFO's word for it.
+		--
+		-- ⚠️ Its boss is spelled two ways: GTFO writes "Graka Snake-Eater", Method
+		-- writes "Gralka Snake-Eater". Encounter 3512 will say which.
 		1287680, -- Snake Eater
 		1287559, -- Muckwave
 	},
@@ -224,8 +229,12 @@ ns.INSTANCE_HAZARDS = {
 		1296441, -- Hex Pile
 		1296366, -- Scything Blade
 	},
-	[3079] = { -- name still unknown. Ula'tek-themed, so plausibly Venomfall Deeps —
-		-- plausibly is not a name, so it stays unnamed until someone stands in it.
+	[3079] = { -- CANDIDATE, 17 aug: Method publishes an "Azta'rec nemesis delve"
+		-- guide whose boss abilities include Noxious Bile — one of the four ids
+		-- below — at 2512 51.22 / 30.27, and Venomfall Deeps was already on our
+		-- Season 2 list. Matching ability names is a strong hint and still a hint;
+		-- the client names this instance the moment anyone walks in, and that is
+		-- what will actually settle it.
 		1298887, -- Noxious Venom
 		1291555, -- Noxious Bile
 		1309412, -- Venom Wave

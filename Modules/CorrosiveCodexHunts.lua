@@ -109,32 +109,80 @@ ns.CORROSIVE_KEY_HUNTS = {
 	},
 }
 
---- ⚠️ METHOD DISAGREES WITH ICY VEINS ABOUT WHERE THREE OF THE FOUR OBJECTS ARE.
+--- ⚠️ A CONTRADICTION I INVENTED, AND THEN HAD TO WITHDRAW.
 ---
---- Method's "Where to Find All of the Discoveries for the Altar of Corrosion"
---- (10 aug) puts all four on map 2509: 54.83/48.11, 48.46/25.80, 52.51/53.85 and
---- 47.23/8.13. Icy Veins puts two of them on entirely different maps — the Eye of
---- Szarith on 2613 and the Lost Med'jai Amulet on 2638.
+--- For about an hour this file said Method and Icy Veins disagreed about where three
+--- of the four objects are — Method putting all four on map 2509 while Icy Veins used
+--- 2613 and 2638. That was wrong, and the way it went wrong is worth keeping.
 ---
---- ✅ They agree on exactly one: 48.46 / 25.80. That is the Feather of Tok'jara, and
---- with our own July note it now has THREE independent reads behind it. It is the
---- only coordinate in this file anyone should trust today.
+--- I wrote it from a research summary that listed four 2509 coordinates, and read a
+--- partial list as a complete one. The page itself gives TWO coordinates per object:
+--- an entrance on 2509 and the object itself on the interior map. Read in full, the
+--- two sources very nearly agree:
 ---
---- ❌ The other three are one-source-each and the two sources contradict. So nothing
---- is overwritten and nothing is merged: Method's numbers sit here as a rival claim,
---- unpaired with the Icy Veins entries above, because pairing them would mean
---- deciding which object each belongs to and nobody knows that either.
+---     Eye of Szarith      Method 2613 68.52/15.86   ·  Icy Veins 2613 68.60/15.66
+---     Lost Med'jai Amulet Method 2638 36.73/24.73   ·  Icy Veins 2638 36.26/23.70
 ---
---- Method also gives a quest id per discovery (97661, 97662, 97668, 97669) and item
---- 280005 for the Dispelling Charm. Those are in the /mh atal sweep — a quest that
---- resolves settles far more than a coordinate that does not.
+--- Two independent reads within a few tenths of each other is agreement, not conflict.
+--- The lesson is the older one: a summary is not the source. Both sets are kept below
+--- because neither is measured, and the small spread is honest about that.
+---
+--- ✅ The Feather of Tok'jara stands apart: 2509 48.46/25.80 from our own July note,
+--- from Icy Veins and from Method, character for character. Four reads, one answer.
 ns.CORROSIVE_DISCOVERY_RIVAL = {
 	source = "method-10aug",
-	mapID = 2509,
-	spots = { { 54.83, 48.11 }, { 48.46, 25.80 }, { 52.51, 53.85 }, { 47.23, 8.13 } },
-	questIDs = { 97661, 97662, 97668, 97669 },
-	dispellingCharmItem = 280005,
+	-- Entrances on the outer map, which Icy Veins does not give at all.
+	entrances = {
+		{ mapID = 2509, x = 54.83, y = 48.11, leadsTo = "medjai", label = "Profaned Mausoleum" },
+		{ mapID = 2509, x = 47.23, y = 8.13, leadsTo = "szarith", label = "The Underbelly" },
+	},
+	-- Method's own interior coordinates, beside the Icy Veins ones above.
+	interiors = {
+		{ hunt = "medjai", mapID = 2638, x = 36.73, y = 24.73 },
+		{ hunt = "szarith", mapID = 2613, x = 68.52, y = 15.86 },
+		{ hunt = "tokjara", mapID = 2509, x = 48.46, y = 25.80 },
+	},
+	-- ⚠️ FIVE spots for the Venom-Worn Coffer where Icy Veins gives NINE, and only
+	-- some of them line up (53.69/18.18 against 53.67/18.13; 47.48/37.59 against
+	-- 47.52/38.37). Neither list is a subset of the other, so both are walked.
+	coffer = {
+		mapID = 2509,
+		spots = { { 52.51, 53.85 }, { 41.96, 53.58 }, { 42.51, 12.01 },
+			{ 47.48, 37.59 }, { 53.69, 18.18 } },
+	},
 }
+
+--- ✅ Method supplies the ONE thing Icy Veins did not: which unlock item opens which
+--- discovery, with an item id for every piece and a named quest per hunt. All four
+--- pairings match what this file already had, which is the first time two sources
+--- have confirmed each other on this content rather than just co-existing.
+ns.CORROSIVE_DISCOVERY_IDS = {
+	source = "method-10aug",
+	medjai  = { unlock = 280005, starter = 278517, quest = 97661, questName = "The Protection of the Med'jai" },
+	tokjara = { unlock = 280006, starter = 278523, quest = 97662, questName = "The Winds of Tok'jara" },
+	lynx    = { unlock = 280004, starter = 278536, quest = 97669, questName = "The Luck of the Bound Spirit" },
+	szarith = { unlock = 280003, starter = 278534, quest = 97668, questName = "The Watchful Gaze of Szarith" },
+}
+
+--- ⚠️ TWO SYSTEMS, AND WE HAD BEEN TREATING THEM AS ONE.
+---
+--- Method separates them cleanly across two pages, and once separated the whole
+--- picture stops contradicting itself:
+---
+---   * the CORROSIVE CODEX — 12 individual powers, 8 Corrosive Souls each, no choice
+---     pairs and no treasure gating at all;
+---   * the ALTAR OF CORROSION talent tree — 24 talents bought with Spirit Corrosions,
+---     of which exactly four are choice nodes behind these Discoveries.
+---
+--- Everything in this file is the SECOND one. The name of the file says Codex, which
+--- is now the wrong word for what it holds; kept for the moment because renaming a
+--- module mid-session is how load order breaks, and flagged here so the next person
+--- does not inherit the confusion silently.
+---
+--- It also explains a "contradiction" the research flagged between Method's own
+--- pages: souls being weekly-limited (Codex) while Altar upgrades have no time gate
+--- (tree). Two currencies, two rules, one word doing double duty.
+ns.CORROSIVE_SYSTEMS_NOTE = "altar-tree-not-codex-powers"
 
 --- The chain these four feed, per Icy Veins. Named here so the article can say what
 --- it is for; none of it is verified against an achievement id yet.
