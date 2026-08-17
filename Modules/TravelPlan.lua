@@ -165,6 +165,7 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 	-- Walk inward: for each container we are not yet in, add the way in.
 	for i = startAt, 1, -1 do
 		local intoMap = (i == 1) and targetMap or chain[i - 1]
+		local added = false
 		for _, link in ipairs(LINKS) do
 			if link.kind == "walk" and link.fromMap == chain[i] and link.toMap == intoMap then
 				steps[#steps + 1] = {
@@ -176,7 +177,67 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 					localized = true,
 					source = link.source,
 				}
+				added = true
 			end
+		end
+
+		--- ⚠️ THE GAP ROB FOUND BY ASKING WHERE TO STAND. LINKS has the Underbelly
+		--- door and nothing for the Coiled Isle → Vaults step, so a plan started
+		--- outside the Vaults silently skipped the one door the player is actually
+		--- looking for.
+		---
+		--- Not fixed by typing a coordinate. The client knows its own doors:
+		--- C_Map.GetMapLinksForMap was already measured on 14 aug and reported THREE
+		--- ways from the isle into the Vaults, where every guide describes one. A
+		--- single hardcoded door would be correct and possibly the one across the
+		--- island, so we ask, and pick the nearest to where the player stands.
+		if not added then
+			local best, bx, by
+			if C_Map and C_Map.GetMapLinksForMap then
+				local ok, links = pcall(C_Map.GetMapLinksForMap, chain[i])
+				if ok and type(links) == "table" then
+					local px, py
+					if here == chain[i] and C_Map.GetPlayerMapPosition then
+						local okP, pos = pcall(C_Map.GetPlayerMapPosition, chain[i], "player")
+						if okP and pos and pos.GetXY then
+							local okXY, a, b = pcall(pos.GetXY, pos)
+							if okXY and a then
+								px, py = a * 100, b * 100
+							end
+						end
+					end
+					for _, link in ipairs(links) do
+						if link.linkedUiMapID == intoMap and link.position then
+							local okXY, a, b = pcall(link.position.GetXY, link.position)
+							if okXY and a then
+								local lx, ly = a * 100, b * 100
+								if not best then
+									best, bx, by = link, lx, ly
+								elseif px then
+									local d1 = (lx - px) ^ 2 + (ly - py) ^ 2
+									local d2 = (bx - px) ^ 2 + (by - py) ^ 2
+									if d1 < d2 then
+										best, bx, by = link, lx, ly
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+			if best then
+				steps[#steps + 1] = {
+					kind = "walk",
+					mapID = chain[i],
+					x = tonumber(("%.2f"):format(bx)),
+					y = tonumber(("%.2f"):format(by)),
+					label = "PLAN_STEP_DOOR",
+					localized = true,
+					source = "C_Map.GetMapLinksForMap",
+				}
+			end
+			-- No link and no hardcoded door: say nothing. A plan with a hole in it is
+			-- honest; a plan with an invented door is what today kept producing.
 		end
 	end
 

@@ -554,6 +554,7 @@ ns._mhLocales.enUS = {
 	ACH_STEP_UNDERBELLY_WAY_IN = "Way into the Underbelly (the only one)",
 
 	PLAN_HEADER = "How to reach %s, step by step:",
+	PLAN_STEP_DOOR = "the way through (nearest of the ones your client knows)",
 	PLAN_NO_TARGET = "No destination given.",
 	PLAN_NO_POSITION = "Cannot tell where you are right now - try again in a moment.",
 	PLAN_ALREADY_THERE = "You are already there, or close enough that a plan would be silly.",

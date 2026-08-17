@@ -521,6 +521,7 @@ ns._mhLocales.nlNL = {
 	ACH_STEP_UNDERBELLY_WAY_IN = "De ingang van de Underbelly (de enige)",
 
 	PLAN_HEADER = "Zo kom je bij %s, stap voor stap:",
+	PLAN_STEP_DOOR = "de doorgang (de dichtstbijzijnde die je client kent)",
 	PLAN_NO_TARGET = "Geen bestemming opgegeven.",
 	PLAN_NO_POSITION = "Kan nu niet bepalen waar je staat - probeer het zo nog eens.",
 	PLAN_ALREADY_THERE = "Je bent er al, of zo dichtbij dat een plan onzin is.",
