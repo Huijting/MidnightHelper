@@ -171,6 +171,13 @@ ns.ACHIEVEMENT_TREASURES = {
 	--- with the same NPC id, independently. Method's five and three names match too.
 	{
 		achievementID = 62601, -- Soft Underbelly (client supplies the title)
+		--- ⚠️ `feedsMeta = false` is not decoration. Neither entry carries a `nameKey`
+		--- — the title comes from the client — and `EntryKind` reads a missing nameKey
+		--- as "rare", which is a fair description of both (they are kill lists) but
+		--- carries a claim with it: rares roll up into the zone metas and so into
+		--- Light Up the Night. These two feed Assault the Vault instead. Without this
+		--- line the card would promise a contribution that does not exist.
+		feedsMeta = false,
 		nodes = {
 			-- Two have real, agreeing coordinates. Szarith: HandyNotes 38.40/17.69,
 			-- Method 38.14/16.92 on one page and 38.64/16.92 on another — the same
@@ -191,6 +198,7 @@ ns.ACHIEVEMENT_TREASURES = {
 	},
 	{
 		achievementID = 63601, -- Oppose the Foes (client supplies the title)
+		feedsMeta = false, -- Assault the Vault, not Light Up the Night. See 62601 above.
 		-- No node here will ever carry a coordinate: an Ancient Foe appears where the
 		-- Temple Incursion finishes, and it is the fourth stage of a rotation rather
 		-- than a place you travel to. A checklist is the whole feature.
