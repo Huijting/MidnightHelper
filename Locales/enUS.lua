@@ -394,6 +394,7 @@ ns._mhLocales.enUS = {
 	TAB_ACHIEVEMENTS = "Achievements",
 	ACH_TAB_INTRO = "Track Midnight achievements and route to the collectibles you still miss. Click an achievement to expand its checklist.",
 	ACH_TAB_ROUTE = "Route",
+	ACH_TAB_NO_ROUTE = "No route",
 	ACH_TAB_DONE = "Done",
 	ACH_TAB_WAYPOINT = "Waypoint",
 	ACH_TAB_EMPTY = "No tracked achievements yet.",

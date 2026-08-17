@@ -389,6 +389,7 @@ ns._mhLocales.nlNL = {
 	TAB_ACHIEVEMENTS = "Prestaties",
 	ACH_TAB_INTRO = "Volg Midnight-prestaties en route naar de verzamelobjecten die je nog mist. Klik op een prestatie om de checklist uit te klappen.",
 	ACH_TAB_ROUTE = "Route",
+	ACH_TAB_NO_ROUTE = "Geen route",
 	ACH_TAB_DONE = "Klaar",
 	ACH_TAB_WAYPOINT = "Waypoint",
 	ACH_TAB_EMPTY = "Nog geen gevolgde prestaties.",

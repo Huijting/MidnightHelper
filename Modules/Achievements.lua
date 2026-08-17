@@ -1861,8 +1861,26 @@ local function RefreshAchPanel()
 		if card.reward then
 			card.reward:SetText(card.rewardText or "")
 		end
-		card.routeBtn:SetText(complete and TL("ACH_TAB_DONE") or TL("ACH_TAB_ROUTE"))
-		if complete then
+		--- ⚠️ A hunt can be unfinished and still have nowhere to send you. Oppose the
+		--- Foes is three Ancient Foes that spawn wherever an incursion ends; not one of
+		--- its nodes carries a coordinate, so a Route button on that card is a promise
+		--- the addon cannot keep. Rob's screenshot, 17 aug: 1/3, with a live Route
+		--- button next to it.
+		---
+		--- The card itself still works — the checklist ticks itself off, which is the
+		--- whole feature for content you cannot walk to. Only the button stands down,
+		--- exactly as it already does when a hunt is finished.
+		local routable = 0
+		for _, n in ipairs(card.entry.nodes or {}) do
+			if ns.AchievementNodeRoutable(n)
+				and not NodeDone(card.entry.achievementID, n) then
+				routable = routable + 1
+			end
+		end
+		local noWhereToGo = (not complete) and routable == 0
+		card.routeBtn:SetText(complete and TL("ACH_TAB_DONE")
+			or (noWhereToGo and TL("ACH_TAB_NO_ROUTE") or TL("ACH_TAB_ROUTE")))
+		if complete or noWhereToGo then
 			card.routeBtn:Disable()
 		else
 			card.routeBtn:Enable()
