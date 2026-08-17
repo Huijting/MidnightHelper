@@ -991,6 +991,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh mech — noemen GTFO's 71 mechanic-ids iets op deze client? Twee controles.
+	if msg == "mech" or msg == "mechanics" then
+		if ns.ProbeMechanicNames then
+			ns.ProbeMechanicNames()
+		end
+		return
+	end
+
 	-- /mh binds — jouw eigen keybinds, uit de client, om te printen of te leren.
 	if msg == "binds" or msg == "keybinds" then
 		if ns.ShowKeybindExport then
