@@ -991,6 +991,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh keys — de vier Altar of Corrosion-nodes die achter een zoektocht zitten.
+	if msg == "keys" or msg == "codexkeys" then
+		if ns.ShowCorrosiveKeyHunts then
+			ns.ShowCorrosiveKeyHunts()
+		end
+		return
+	end
+
 	-- /mh hazards — wat je hier vermijdbare schade doet, voor waar je nú staat.
 	if msg == "hazards" or msg == "hazard" then
 		if ns.ShowHazards then
