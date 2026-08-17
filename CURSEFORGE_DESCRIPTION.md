@@ -24,6 +24,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 **Getting there, and knowing your keys**
 - **A chest route inside delves.** The coach points you at the nearest Sturdy Chest you have not opened and moves on by itself once you loot it — and where it cannot tell whether a chest is done, it keeps it in the route and says so, rather than quietly hiding one.
 - **Travel that points at the flight master.** Ask for a waypoint on another map and the arrow goes to the flight master you can walk to first, then hands over to your destination the moment you board. The flight map **highlights the stop to click** and tells you when that stop is not on your map yet. 649 flight points across 154 maps, filtered to your faction.
+- **What not to stand in, wherever you are.** The Delve Coach lists the avoidable damage for the instance you are actually in — 173 named hazards across every Midnight dungeon and delve, the lair and the raid. Names come from your own game, so they are already in your language.
 - **`/mh curios` — what Valeera's delve curios actually do.** Every line is read out of your own game as you ask, so it describes the ranks you have rather than a guide's snapshot. It deliberately does not rank them: which curio wins depends on your spec and your delve, and nobody has measured that.
 - **`/mh binds` — your own keybinds on paper.** It reads the keys you actually have, including anything you changed by hand, and puts them in a window you can copy into a document and print. It marks keys that duplicate another, and names the Assisted Combat slot for what it is instead of for whichever spell it is suggesting right now.
 
@@ -170,6 +171,8 @@ drift from what the addon actually answers to.
 | `/mh arrow` | Who is guiding you, and why the arrow is or is not showing |
 | `/mh binds` | Your own keybinds, read from the client — copy it out and print it |
 | `/mh curios` | What each of Valeera's delve curios does, read from your own game |
+| `/mh hazards` | What does avoidable damage where you are standing |
+| `/mh keys` | The four Altar of Corrosion nodes that need a treasure hunt first |
 | `/mh mount <text>` | Search the mount journal and see what your client actually knows |
 | `/mh partytargets` | Toggle the party targets panel |
 | `/mh lang auto` · `en` · `de` · `fr` · `es` · `pt` · `it` · `nl` | Set language |

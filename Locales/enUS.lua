@@ -1472,6 +1472,13 @@ ns._mhLocales.enUS = {
 	HAZARD_COUNT = "things not to stand in",
 	HAZARD_SOURCE_NOTE = "Names come from your own client. That each belongs to this place is GTFO's data, not measured.",
 
+	CHANGELOG_2180_1 = "New: the Delve Coach lists what will hurt you where you are standing - 173 hazard names across 20 instances, from every Midnight dungeon and delve to the lair and the raid. It goes by where you actually are, never by whichever page you have open, because the coach is also something you read while sitting in a city.",
+	CHANGELOG_2180_2 = "Season 2 now opens when YOUR region's weekly reset says so, not on one fixed date. The old gate would have unlocked Season 2 content a day early for everyone in Europe. The lair tip named that same day, and now names both.",
+	CHANGELOG_2180_3 = "Two achievement hunts join the list: Soft Underbelly and Oppose the Foes. They were held back because several targets had no coordinates - which turned out to be right, since those only appear while an event is running. They are checklists now, and the arrow skips whatever has no place to go.",
+	CHANGELOG_2180_4 = "New: /mh keys explains the four Altar of Corrosion nodes you cannot simply buy - which item unlocks each one, where the thing it opens sits, and what the two powers do. Where two sources disagree, it says so instead of quietly picking one.",
+	CHANGELOG_2180_5 = "Fixed: the dispel icon had never once appeared, and the flight banner had never named where it was taking you. Both were the same one-line mistake in different files, invisible from outside. A build check now watches for it.",
+	CHANGELOG_2180_6 = "/mh keys and the hazard lists read in all seven languages, and every spell and criterion name comes from your own game rather than from anything typed here - so they are already correct in your language and cannot drift from the patch.",
+
 	CHANGELOG_2170_1 ="New: /mh curios explains Valeera's delve curios. Every line is read from your own game at the moment you ask, so it describes the ranks you actually have. It deliberately does not rank them for you - which option is best depends on your spec and your delve, and nobody measured that.",
 	CHANGELOG_2170_2 = "Seven Coiled Isle treasures cannot simply be walked to. The achievement route now names the step that unlocks each one and puts its coordinates on a button you can click, instead of leaving you at a chest that will not open.",
 	CHANGELOG_2170_3 = "The flight map now highlights the stop you need. It used to only name it in text, which meant reading a sentence and then hunting the same name across a map full of pins.",

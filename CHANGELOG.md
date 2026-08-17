@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## 2.18.0
+
+- New: `Modules/HazardData.lua` + `Modules/Hazards.lua` — 173 avoidable-damage spell ids across 20 instances, harvested from GTFO 6.7.2 per entry rather than per section header. Every id was put to the client twice with two controls holding (an impossible id stayed empty, our own six DBM ids all resolved) and all 173 came back named. Shown in the Delve Coach and via `/mh hazards`.
+- New: hazards are keyed on the instance id the client itself reports, so no zone name is ever typed. Asked what instance 1592 is called, `C_Map` answered "Ny'alotha" — a Battle for Azeroth raid — because GTFO's field is not a uiMapID. Sixteen of seventeen returned nothing and the one that answered was the wrong one, which is the whole argument for `ns.db.hazardZones` learning names on entry. Gnarldor Isle (3038) named itself on Rob's first run.
+- Fixed: `IsSeasonLive()` used one timestamp for every region, so Season 2 would have opened about a day early across Europe. It now asks `GetSecondsUntilWeeklyReset` — already regional, already right — and requires a reset on or after the season date. Third correction to this gate: six days early in June, five in August, one day in the EU now.
+- Fixed: the same wrong day was written into `RAID_BOSS_NYMRISSA_STEPS` in five languages. Fixing the gate and leaving the sentence would have been worse, since players read the sentence.
+- New: `ns.ACHIEVEMENT_HUNTS` gains Soft Underbelly (62601) and Oppose the Foes (63601). Left out on 15 Aug because HandyNotes gave several nodes 10.00/10.00; that was not broken data but a way of saying "no fixed spot" — three of Soft Underbelly's five only exist during the Underbelly Temple Strike, and Ancient Foes spawn where the incursion ends. Every criteria id read from the client and confirmed twice (HandyNotes pairs the same criterion with the same NPC id; Method's eight names match).
+- New: `ns.AchievementNodeRoutable` — added before the first coordinate-less node existed, because `NodeWorldPos` reads `(node.x or 0)` and would have pointed the arrow at 0,0 with full confidence.
+- New: `/mh keys` and `Modules/CorrosiveCodexHunts.lua` — the four Altar of Corrosion choice nodes behind a treasure hunt, with the item→node pairing, item ids and quest names Method supplies, all attributed. Two sources agreeing (Feather of Tok'jara at 2509 48.46/25.80, now four independent reads) is marked differently from one source claiming.
+- Fixed: three multi-return calls guarded as `f and f()`, which yields a single value. The dispel icon had therefore never appeared, the flight banner had never named its destination, and the world-boss fallback ran on every call. Lint check `[12]` now fails the build on the pattern.
+- Fixed: `/mh ach id` read `GetAchievementCriteriaInfo` only as far as totalQuantity, so it printed criteria names and never criteria ids — the one number needed to add a hunt. It now captures `criteriaID` (10th return) and `assetID` (8th) separately and writes to `ns.db.achDump`.
+- Measured: quest 96466 from Method's portal guide does not exist. Settled not by waiting for the season but by a rival id for the same content — Method's own Prey guide names the follow-up 96528, which resolves ("Prey: Anguish from Beyond"), so "not live yet" cannot explain 96466's silence. The portal gate itself was always on 96004 and never moved.
+- Also: `/mh mech` (client-side name check with two controls), `/mh keys` in seven languages, and the Corrosive Codex / Altar of Corrosion split recorded — two systems with two currencies that this addon had been treating as one.
+
 ## 2.17.0
 
 - New: `Modules/CurioExplain.lua` — `/mh curios` prints what each Valeera delve curio does, with nothing hardcoded. Ids are resolved through the trait tree (`C_Traits.GetConfigIDByTreeID` → `GetTreeNodes` → `GetEntryInfo` → `GetDefinitionInfo`) and the text comes from `GetSpellDescription` on the player's own ranks. No ranking is offered: which curio wins depends on spec and delve, and nobody measured that.

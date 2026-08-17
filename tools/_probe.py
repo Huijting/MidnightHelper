@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: read ns.db.achDump for 62601 (Soft Underbelly) and 63601 (Oppose
-the Foes). The criteria IDs are the whole point; the names are the check that
-the right achievement was read.
+Right now: release check for 2.18.0. Does RELEASE_NOTES.md sit inside the rule
+that keeps CurseForge's auto-upload from mangling it (nine clean uploads: under
+~40 lines, no bullet lists), and does every artefact agree on the version?
 """
 import io
-import re
+import os
 import sys
 
 for _s in (sys.stdout, sys.stderr):
@@ -15,96 +15,52 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
-     r'\SavedVariables\MidnightHelper.lua')
+BASE = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper'
 
-t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
+t = io.open(BASE + r'\RELEASE_NOTES.md', encoding='utf-8',
+            errors='replace', newline='').read()
+lines = t.rstrip('\n').split('\n')
+bullets = [n for n, l in enumerate(lines, 1)
+           if l.lstrip().startswith(('- ', '* ', '+ '))]
 
+print('RELEASE_NOTES.md')
+print('  regels  : %d      (schoon geweest t/m 40)' % len(lines))
+print('  tekens  : %d    (langste schone: 1937)' % len(t))
+print('  bullets : %d' % len(bullets))
+print('  kop     : %r' % lines[0][:64])
+ok = len(lines) <= 40 and not bullets and lines[0].startswith('# ')
+print('  %s' % ('✅ binnen de regel' if ok else '❌ BUITEN de regel'))
 
-def block(key, src, bracket=False):
-    needle = ('[%s]' % key) if bracket else ('["%s"]' % key)
-    i = src.find(needle)
-    if i < 0:
-        return None
-    s = src.index('{', i)
-    d, j = 0, s
-    while j < len(src):
-        if src[j] == '{':
-            d += 1
-        elif src[j] == '}':
-            d -= 1
-            if d == 0:
-                break
-        j += 1
-    return src[s:j + 1]
+toc = io.open(BASE + r'\MidnightHelper.toc', encoding='utf-8',
+              errors='replace', newline='').read()
+ver = None
+for l in toc.split('\n'):
+    if l.startswith('## Version:'):
+        ver = l.split(':', 1)[1].strip()
+        break
 
+chg = io.open(BASE + r'\Modules\Changelog.lua', encoding='utf-8',
+              errors='replace', newline='').read()
+en = io.open(BASE + r'\Locales\enUS.lua', encoding='utf-8',
+             errors='replace', newline='').read()
+key = 'CHANGELOG_%s_' % (ver.replace('.', '') if ver else '')
 
-def split_top(blob):
-    out, d, buf = [], 0, ''
-    for ch in blob[1:-1]:
-        if ch == '{':
-            d += 1
-        if d > 0:
-            buf += ch
-        if ch == '}':
-            d -= 1
-            if d == 0:
-                out.append(buf)
-                buf = ''
-    return out
+print('\nversie-samenhang')
+print('  .toc                 : %s' % ver)
+print('  in de release notes  : %s' % ('ja' if ver and ver in lines[0] else 'NEE'))
+print('  changelog-module     : %s'
+      % ('ja' if ver and ('version = "%s"' % ver) in chg else 'NEE'))
+print('  enUS-regels          : %d' % en.count(key))
+print('  regels in de module  : %d' % chg.count('"%s' % key))
 
+arch = BASE + r'\docs\CURSEFORGE_%s.md' % (ver.replace('.', '') if ver else '')
+print('  docs-archief         : %s'
+      % ('bestaat' if os.path.exists(arch) else 'ONTBREEKT'))
+if os.path.exists(arch):
+    a = io.open(arch, encoding='utf-8', errors='replace', newline='').read()
+    print('  identiek aan notes   : %s' % ('ja' if a == t else 'NEE'))
 
-def f(chunk, name):
-    m = re.search(r'\["%s"\]\s*=\s*("(?:[^"\\]|\\.)*"|true|false|[\d.-]+)'
-                  % name, chunk)
-    if not m:
-        return None
-    v = m.group(1)
-    if v.startswith('"'):
-        return v[1:-1]
-    if v in ('true', 'false'):
-        return v == 'true'
-    return v
-
-
-dump = block('achDump', t)
-if not dump:
-    print('geen achDump — is /mh ach id gelopen vóór de reload?')
-    sys.exit(1)
-
-for aid in ('62601', '63601'):
-    ach = block(aid, dump, bracket=True)
-    print('=' * 66)
-    if not ach:
-        print('%s — NIET in de dump' % aid)
-        continue
-    print('%s  %s' % (aid, f(ach, 'name') or '?'))
-    print('=' * 66)
-    crit = block('criteria', ach)
-    if not crit:
-        print('  geen criteria-blok')
-        continue
-    print('  %-4s %-34s %-10s %-8s %s'
-          % ('#', 'naam', 'criteriaID', 'assetID', 'gedaan'))
-    print('  ' + '-' * 62)
-    for e in split_top(crit):
-        print('  %-4s %-34s %-10s %-8s %s' % (
-            f(e, 'index') or '?',
-            f(e, 'name') or '?',
-            f(e, 'criteriaID') or '— GEEN —',
-            f(e, 'assetID') or '-',
-            'ja' if f(e, 'completed') else 'nee'))
-
-print('\n' + '=' * 66)
-print('Ter vergelijking: een hunt die we al shippen, zelfde vorm')
-print('=' * 66)
-for aid in ('63359',):
-    ach = block(aid, dump, bracket=True)
-    if not ach:
-        print('%s staat niet in de dump — niet erg, alleen geen controle.' % aid)
-        continue
-    crit = block('criteria', ach)
-    rows = split_top(crit) if crit else []
-    print('%s %s — %d criteria, eerste id %s'
-          % (aid, f(ach, 'name') or '?', len(rows),
-             f(rows[0], 'criteriaID') if rows else '?'))
+full = io.open(BASE + r'\CHANGELOG.md', encoding='utf-8',
+               errors='replace', newline='').read()
+print('  CHANGELOG.md         : %s'
+      % ('ja' if ver and ('## %s' % ver) in full else 'NEE'))
