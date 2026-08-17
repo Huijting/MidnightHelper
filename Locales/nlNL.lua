@@ -1302,7 +1302,11 @@ ns._mhLocales.nlNL = {
 	CURIO_CHOICE_FMT = "Een keuze uit %d",
 	CURIO_ACTIVE = "> ",
 	CURIO_NO_TEXT = "(het spel gaf hier geen beschrijving bij)",
-	ICV_KEYS_TITLE = "De vier Altar of Corrosion-nodes die je niet kunt kopen",
+	ACH_NOTE_UNDERBELLY_STRIKE = "Staat er alleen terwijl de Temple Strike: The Underbelly loopt - er is geen vaste plek om heen te lopen, dus de pijl laat deze met rust.",
+	ACH_NOTE_ANCIENT_FOE = "Verschijnt waar een Temple Incursion eindigt, dus hij heeft geen plek op de kaart. Sluit aan bij wat er loopt en hij komt vanzelf.",
+	ACH_NOTE_VSERIX = "Zwerft rond, en is te doden zonder dat er een event loopt.",
+
+	ICV_KEYS_TITLE ="De vier Altar of Corrosion-nodes die je niet kunt kopen",
 	ICV_UNLOCK_ANCIENT_FOE = "Valt van elke Ancient Foe, aan het eind van een Temple Incursion.",
 	ICV_UNLOCK_TEMPLE_STRIKE = "Valt uit Temple Strikes.",
 	ICV_UNLOCK_TEMPLE_INCURSION = "Valt uit Temple Incursions.",

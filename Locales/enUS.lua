@@ -1447,7 +1447,11 @@ ns._mhLocales.enUS = {
 	CHANGELOG_185_4 = "Fixed: the world boss \"Warband: defeated this week\" line now shows on all your characters once any one of them kills it (account-wide check), not only on the looter — and remembers which character did it.",
 	CHANGELOG_185_5 = "Fixed: the weekly Coffer Shard cap popup now appears only once per character per week. You may see it one more time after this update, then it stays off until the next reset (when you hit the cap again).",
 	CHANGELOG_185_6 = "New in Professions 101: a 'Skill leveling 1-100' route per profession (Alchemy & Herbalism first, more coming) and a clear 'Work Orders explained' chapter - how to order items and craft for others.",
-	ICV_KEYS_TITLE = "The four Altar of Corrosion nodes you cannot buy",
+	ACH_NOTE_UNDERBELLY_STRIKE = "Only up while the Temple Strike: The Underbelly is running - there is no fixed spot to walk to, so the arrow leaves this one alone.",
+	ACH_NOTE_ANCIENT_FOE = "Spawns where a Temple Incursion finishes, so it has no place on the map. Join whatever is running and it comes to you.",
+	ACH_NOTE_VSERIX = "Wanders, and can be killed without any event running.",
+
+	ICV_KEYS_TITLE ="The four Altar of Corrosion nodes you cannot buy",
 	ICV_UNLOCK_ANCIENT_FOE = "Drops from any Ancient Foe, at the end of a Temple Incursion.",
 	ICV_UNLOCK_TEMPLE_STRIKE = "Drops from Temple Strikes.",
 	ICV_UNLOCK_TEMPLE_INCURSION = "Drops from Temple Incursions.",

@@ -82,13 +82,37 @@ local function NodeDone(achievementID, node)
 	return false
 end
 
+--- Can the arrow be sent to this node at all?
+---
+--- ⚠️ ADDED 17 aug, before the first coordinate-less node existed, because the code
+--- was ready to lie about one. `NodeWorldPos` reads `(node.x or 0)`, so a node with
+--- no coordinate silently becomes 0,0 — the top-left corner of the map — and the
+--- arrow points there with the same confidence as anywhere else. "An arrow that
+--- points somewhere gets believed" is already why 62601 was left out on 15 aug.
+---
+--- Some criteria genuinely have no fixed place: three of Soft Underbelly's five only
+--- appear while the Underbelly Temple Strike is running, and Ancient Foes spawn where
+--- the incursion ends. HandyNotes marked those with 10.00/10.00 placeholders, which
+--- read as bad data and were actually a way of saying "there is no spot".
+---
+--- So such nodes count toward progress and appear in the checklist, and the route
+--- steps over them.
+function ns.AchievementNodeRoutable(node)
+	return (type(node) == "table"
+		and type(node.mapID) == "number"
+		and type(node.x) == "number"
+		and type(node.y) == "number") and true or false
+end
+
 -- entry from ns.ACHIEVEMENT_TREASURES -> (doneCount, total, { incomplete nodes }).
+--- ⚠️ `incomplete` feeds the ROUTE, so it only ever carries routable nodes; the
+--- totals still count everything, or the card would read 2/5 on a finished hunt.
 function ns.GetTreasureProgress(entry)
 	local done, incomplete = 0, {}
 	for _, node in ipairs(entry.nodes or {}) do
 		if NodeDone(entry.achievementID, node) then
 			done = done + 1
-		else
+		elseif ns.AchievementNodeRoutable(node) then
 			incomplete[#incomplete + 1] = node
 		end
 	end

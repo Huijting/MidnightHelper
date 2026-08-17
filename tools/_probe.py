@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Right now: did /mh atal's trait sweep ever see the Altar of Corrosion tree?
-
-The four disputed choice nodes (Spiritual Succession vs our own wording) can
-only be settled by the node's own description. Before building anything new,
-check whether the existing sweep already holds it — and if not, say WHY rather
-than "not found": which trees did it see, and did any of them carry names?
+Right now: read ns.db.achDump for 62601 (Soft Underbelly) and 63601 (Oppose
+the Foes). The criteria IDs are the whole point; the names are the check that
+the right achievement was read.
 """
 import io
 import re
@@ -24,8 +21,9 @@ P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
 t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
 
 
-def block(key, src):
-    i = src.find('["%s"]' % key)
+def block(key, src, bracket=False):
+    needle = ('[%s]' % key) if bracket else ('["%s"]' % key)
+    i = src.find(needle)
     if i < 0:
         return None
     s = src.index('{', i)
@@ -69,46 +67,44 @@ def f(chunk, name):
     return v
 
 
-probe = block('atalProbe', t)
-tr = block('traits', probe) if probe else None
-if not tr:
-    print('geen traits-blok in atalProbe — de sweep heeft niets weggeschreven.')
-    sys.exit(0)
+dump = block('achDump', t)
+if not dump:
+    print('geen achDump — is /mh ach id gelopen vóór de reload?')
+    sys.exit(1)
 
-WANTED = ('Spiritual Succession', 'Surge Seniority', 'Egg Evasion',
-          'Egg Specialist', 'Spectral Shipping', 'Spirit Walk',
-          'Glideways', 'Swift Steps')
+for aid in ('62601', '63601'):
+    ach = block(aid, dump, bracket=True)
+    print('=' * 66)
+    if not ach:
+        print('%s — NIET in de dump' % aid)
+        continue
+    print('%s  %s' % (aid, f(ach, 'name') or '?'))
+    print('=' * 66)
+    crit = block('criteria', ach)
+    if not crit:
+        print('  geen criteria-blok')
+        continue
+    print('  %-4s %-34s %-10s %-8s %s'
+          % ('#', 'naam', 'criteriaID', 'assetID', 'gedaan'))
+    print('  ' + '-' * 62)
+    for e in split_top(crit):
+        print('  %-4s %-34s %-10s %-8s %s' % (
+            f(e, 'index') or '?',
+            f(e, 'name') or '?',
+            f(e, 'criteriaID') or '— GEEN —',
+            f(e, 'assetID') or '-',
+            'ja' if f(e, 'completed') else 'nee'))
 
-print('%-8s %-10s %-7s %s' % ('tree', 'config', 'nodes', 'namen gelezen'))
-print('-' * 62)
-total_named, hit = 0, []
-for e in split_top(tr):
-    tree = f(e, 'treeID')
-    cfg = f(e, 'configID')
-    nodes = f(e, 'nodes')
-    nn = block('nodeNames', e)
-    rows = split_top(nn) if nn else []
-    named = [f(r, 'name') for r in rows]
-    named = [n for n in named if n]
-    total_named += len(named)
-    for n in named:
-        if n in WANTED:
-            hit.append((tree, n, f(rows[named.index(n)], 'desc')))
-    print('%-8s %-10s %-7s %d' % (tree or '?', cfg or '-', nodes or '?', len(named)))
-
-print('-' * 62)
-print('%d namen in totaal over alle bomen' % total_named)
-
-print('\nde vier omstreden keuzeknopen:')
-if hit:
-    for tree, name, desc in hit:
-        print('  tree %s  %s' % (tree, name))
-        print('    %s' % (desc or '— geen beschrijving —'))
-else:
-    print('  GEEN ENKELE gevonden.')
-    print('  ⚠️ Dat bewijst niet dat ze niet bestaan. De sweep heeft %d namen'
-          % total_named)
-    print('     gelezen, dus namen lezen wérkt — maar de Altar-boom zat er niet bij.')
-    print('     Waarschijnlijkste reden: de boom hoort bij content die deze')
-    print('     character niet heeft vrijgespeeld. Meten op een character die')
-    print('     de questketen af heeft, staand bij de Altar.')
+print('\n' + '=' * 66)
+print('Ter vergelijking: een hunt die we al shippen, zelfde vorm')
+print('=' * 66)
+for aid in ('63359',):
+    ach = block(aid, dump, bracket=True)
+    if not ach:
+        print('%s staat niet in de dump — niet erg, alleen geen controle.' % aid)
+        continue
+    crit = block('criteria', ach)
+    rows = split_top(crit) if crit else []
+    print('%s %s — %d criteria, eerste id %s'
+          % (aid, f(ach, 'name') or '?', len(rows),
+             f(rows[0], 'criteriaID') if rows else '?'))

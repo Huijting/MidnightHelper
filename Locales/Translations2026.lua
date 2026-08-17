@@ -3472,6 +3472,10 @@ fill("itIT", {
 --------------------------------------------------------------------------------
 
 fill("deDE", {
+	ACH_NOTE_UNDERBELLY_STRIKE = "Nur da, solange der Temple Strike: The Underbelly läuft - es gibt keinen festen Punkt, also lässt der Pfeil diesen aus.",
+	ACH_NOTE_ANCIENT_FOE = "Erscheint dort, wo eine Temple Incursion endet, hat also keinen Platz auf der Karte. Mach mit, was gerade läuft, dann kommt er von selbst.",
+	ACH_NOTE_VSERIX = "Wandert umher und lässt sich töten, ohne dass ein Event läuft.",
+
 	ICV_KEYS_TITLE = "Die vier Altar-of-Corrosion-Knoten, die man nicht kaufen kann",
 	ICV_UNLOCK_ANCIENT_FOE = "Fällt von jedem Ancient Foe, am Ende einer Temple Incursion.",
 	ICV_UNLOCK_TEMPLE_STRIKE = "Fällt aus Temple Strikes.",
@@ -3495,6 +3499,10 @@ fill("deDE", {
 })
 
 fill("frFR", {
+	ACH_NOTE_UNDERBELLY_STRIKE = "Présent uniquement pendant le Temple Strike : The Underbelly - il n'y a pas d'endroit fixe, donc la flèche l'ignore.",
+	ACH_NOTE_ANCIENT_FOE = "Apparaît là où se termine une Temple Incursion, donc il n'a pas de place sur la carte. Rejoins ce qui est en cours et il viendra à toi.",
+	ACH_NOTE_VSERIX = "Se déplace, et peut être tué sans qu'aucun événement soit en cours.",
+
 	ICV_KEYS_TITLE = "Les quatre noeuds de l'Altar of Corrosion qui ne s'achètent pas",
 	ICV_UNLOCK_ANCIENT_FOE = "Tombe de n'importe quel Ancient Foe, à la fin d'une Temple Incursion.",
 	ICV_UNLOCK_TEMPLE_STRIKE = "Tombe des Temple Strikes.",
@@ -3518,6 +3526,10 @@ fill("frFR", {
 })
 
 fill("esES", {
+	ACH_NOTE_UNDERBELLY_STRIKE = "Solo está mientras corre el Temple Strike: The Underbelly - no hay un sitio fijo al que ir, así que la flecha lo deja pasar.",
+	ACH_NOTE_ANCIENT_FOE = "Aparece donde termina una Temple Incursion, así que no tiene sitio en el mapa. Únete a lo que esté activo y vendrá solo.",
+	ACH_NOTE_VSERIX = "Deambula, y se puede matar sin que haya ningún evento activo.",
+
 	ICV_KEYS_TITLE = "Los cuatro nodos del Altar of Corrosion que no se pueden comprar",
 	ICV_UNLOCK_ANCIENT_FOE = "Cae de cualquier Ancient Foe, al final de una Temple Incursion.",
 	ICV_UNLOCK_TEMPLE_STRIKE = "Cae de las Temple Strikes.",
@@ -3541,6 +3553,10 @@ fill("esES", {
 })
 
 fill("ptBR", {
+	ACH_NOTE_UNDERBELLY_STRIKE = "Só aparece enquanto o Temple Strike: The Underbelly está rolando - não há um ponto fixo, então a seta ignora este.",
+	ACH_NOTE_ANCIENT_FOE = "Surge onde uma Temple Incursion termina, então não tem lugar no mapa. Entre no que estiver rolando e ele vem até você.",
+	ACH_NOTE_VSERIX = "Fica andando por aí, e dá para matar sem nenhum evento ativo.",
+
 	ICV_KEYS_TITLE = "Os quatro nós do Altar of Corrosion que não dá para comprar",
 	ICV_UNLOCK_ANCIENT_FOE = "Cai de qualquer Ancient Foe, no fim de uma Temple Incursion.",
 	ICV_UNLOCK_TEMPLE_STRIKE = "Cai das Temple Strikes.",
@@ -3564,6 +3580,10 @@ fill("ptBR", {
 })
 
 fill("itIT", {
+	ACH_NOTE_UNDERBELLY_STRIKE = "C'è solo mentre è attivo il Temple Strike: The Underbelly - non esiste un punto fisso, quindi la freccia lo salta.",
+	ACH_NOTE_ANCIENT_FOE = "Compare dove finisce una Temple Incursion, quindi non ha un posto sulla mappa. Unisciti a quello che è in corso e arriverà da solo.",
+	ACH_NOTE_VSERIX = "Si sposta, e si può uccidere senza che sia attivo alcun evento.",
+
 	ICV_KEYS_TITLE = "I quattro nodi dell'Altar of Corrosion che non si possono comprare",
 	ICV_UNLOCK_ANCIENT_FOE = "Cade da qualsiasi Ancient Foe, alla fine di una Temple Incursion.",
 	ICV_UNLOCK_TEMPLE_STRIKE = "Cade dalle Temple Strikes.",

@@ -152,6 +152,54 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 116706, mapID = 2512, x = 31.62, y = 83.74 },
 		},
 	},
+	--- ✅ ADDED 17 aug — the two that were deliberately left out on 15 aug, and the
+	--- reason they were left out turns out to have been half right for the wrong cause.
+	---
+	--- They were dropped because HandyNotes gave several of their nodes 10.00/10.00,
+	--- which read as broken data. It was not broken: it was HandyNotes' way of saying
+	--- "this thing has no fixed spot". Three of Soft Underbelly's five only appear
+	--- while the Underbelly Temple Strike is running, and all three Ancient Foes spawn
+	--- wherever the incursion ends. There is no coordinate to have.
+	---
+	--- So both ship WITHOUT invented coordinates. Nodes with no place are checklist
+	--- entries: they count toward progress and `ns.AchievementNodeRoutable` keeps the
+	--- arrow off them. That is strictly more honest than 15 aug, when the whole hunt
+	--- was hidden because part of it could not be mapped.
+	---
+	--- ✅ EVERY criteria id below was read from Rob's own client (`/mh ach id`, 17 aug)
+	--- and every one is confirmed a second time: HandyNotes pairs the same criterion
+	--- with the same NPC id, independently. Method's five and three names match too.
+	{
+		achievementID = 62601, -- Soft Underbelly (client supplies the title)
+		nodes = {
+			-- Two have real, agreeing coordinates. Szarith: HandyNotes 38.40/17.69,
+			-- Method 38.14/16.92 on one page and 38.64/16.92 on another — the same
+			-- corner of the map from three reads, so HandyNotes' is used.
+			{ criteria = 113661, mapID = 2613, x = 38.40, y = 17.69 },
+			-- Vserix: HandyNotes 40.00/67.93 against Method's 40.07/67.49. Two
+			-- independent sources within half a percent.
+			{ criteria = 113662, mapID = 2613, x = 40.00, y = 67.93,
+				note = "ACH_NOTE_VSERIX" },
+			-- ⚠️ NO COORDINATES, ON PURPOSE. These three are Temple Strike spawns.
+			-- Method's page has two spare numbers for three mobs and no mapping
+			-- between them, and guessing which is which is exactly the mistake this
+			-- morning already cost an hour.
+			{ criteria = 113558, note = "ACH_NOTE_UNDERBELLY_STRIKE" },
+			{ criteria = 113557, note = "ACH_NOTE_UNDERBELLY_STRIKE" },
+			{ criteria = 113556, note = "ACH_NOTE_UNDERBELLY_STRIKE" },
+		},
+	},
+	{
+		achievementID = 63601, -- Oppose the Foes (client supplies the title)
+		-- No node here will ever carry a coordinate: an Ancient Foe appears where the
+		-- Temple Incursion finishes, and it is the fourth stage of a rotation rather
+		-- than a place you travel to. A checklist is the whole feature.
+		nodes = {
+			{ criteria = 116325, note = "ACH_NOTE_ANCIENT_FOE" },
+			{ criteria = 116326, note = "ACH_NOTE_ANCIENT_FOE" },
+			{ criteria = 116327, note = "ACH_NOTE_ANCIENT_FOE" },
+		},
+	},
 	{
 		achievementID = 61960, -- Treasures of Eversong Woods
 		nameKey = "ACH_TREASURE_EVERSONG", -- localized title (falls back to API name)
