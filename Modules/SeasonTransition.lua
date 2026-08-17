@@ -319,10 +319,67 @@ function ns.GetSeasonTransitionSteps()
 end
 
 -- ---------------------------------------------------------------- /mh season diagnostic
+--- When does the gate open for THIS player, in their own region?
+---
+--- ⚠️ Added 17 aug so the regional fix is checkable BEFORE it fires rather than
+--- after. Rob can only reach a Wednesday reset, but Midnight Helper has players on
+--- Tuesday resets too, and "wait and see" would test one region and ship for five.
+---
+--- Prints the arithmetic rather than the verdict: server time, the season date, the
+--- client's own seconds-until-reset, and the two resets derived from it. If the last
+--- reset is before the season date the season has not turned here, whatever the
+--- calendar says — and the line that matters is the one naming the exact moment it
+--- will. A wrong answer is then visible today instead of on the day.
+local function PrintResetGate(prefix)
+	local startsAt = ns.SEASON2 and ns.SEASON2.seasonStartsAt
+	if not startsAt then
+		return
+	end
+	local now = (GetServerTime and GetServerTime()) or (time and time()) or 0
+	local secs
+	if C_DateAndTime and C_DateAndTime.GetSecondsUntilWeeklyReset then
+		local ok, v = pcall(C_DateAndTime.GetSecondsUntilWeeklyReset)
+		if ok and type(v) == "number" and v > 0 then
+			secs = v
+		end
+	end
+
+	local function When(ts)
+		return (date and date("!%Y-%m-%d %H:%M UTC", ts)) or tostring(ts)
+	end
+
+	print(("   |cff8fd3ffreset gate|r  now %s · season date %s"):format(
+		When(now), When(startsAt)))
+
+	if not secs then
+		-- The one branch that would fail silently: no API, so the bare date decides
+		-- and Europe is a day early again. Say it out loud.
+		print("      |cffff5040GetSecondsUntilWeeklyReset unavailable|r — falling back to the")
+		print("      |cffff5040bare date, which is about a day early outside the Americas.|r")
+		return
+	end
+
+	local nextReset = now + secs
+	local lastReset = nextReset - (7 * 24 * 60 * 60)
+	print(("      your resets: last %s · next %s"):format(When(lastReset), When(nextReset)))
+
+	if now < startsAt then
+		print(("      |cffffd100not yet: the season date has not passed.|r Opens for you at %s."):format(
+			When(nextReset >= startsAt and nextReset or startsAt)))
+	elseif lastReset < startsAt then
+		print(("      |cffffd100not yet: no reset since the season date.|r Opens for you at %s."):format(
+			When(nextReset)))
+	else
+		print(("      |cff40d060open|r — your reset at %s was on or after the season date."):format(
+			When(lastReset)))
+	end
+end
+
 function ns.PrintSeasonTransitionDiagnostics()
 	local prefix = ("|cffffcc00%s|r"):format(L("PRINT_PREFIX"))
 	local phase = ns.GetSeasonPhase()
 	print(("%s Season transition — phase |cffffffff%s|r"):format(prefix, phase))
+	PrintResetGate(prefix)
 	-- Without this line the newcomer wiring is unobservable: a player who dismissed
 	-- the onboarding block months ago sees no difference either way, and a change
 	-- nobody can observe is a change nobody can verify.
