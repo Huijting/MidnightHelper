@@ -1164,7 +1164,14 @@ end
 -- (Rob, 10 Jun). Only when no boss is known at all does the bare
 -- "(open map)" label remain.
 local function SMCWorldBossButtonText()
-	local boss, fromClient = ns.GetActiveWorldBoss and ns.GetActiveWorldBoss()
+	-- ⚠️ Not `f and f()`: `and` yields one value, so `fromClient` was always nil and
+	-- the fallback below ran on every single call — including when the client HAD
+	-- just answered. It reached the same boss by another road, which is why nothing
+	-- ever looked wrong. Found by lint check [12], 17 aug.
+	local boss, fromClient
+	if ns.GetActiveWorldBoss then
+		boss, fromClient = ns.GetActiveWorldBoss()
+	end
 
 	-- If we already know warband completion from SavedVariables, show the boss name even when
 	-- Blizzard task/map APIs haven't loaded on this character yet.

@@ -472,7 +472,14 @@ function ns.GetPlayerDispelIcon()
 	if cachedDispelIcon ~= nil then
 		return cachedDispelIcon, cachedDispelSpell
 	end
-	local _, spells = ns.GetDispellableSchools and ns.GetDispellableSchools()
+	-- ⚠️ Not `f and f()`: that guard returns a single value, so `spells` was always
+	-- nil, `first` was always nil, and this function has only ever returned nil —
+	-- the dispel icon has never once appeared. Found by lint check [12], 17 aug.
+	local spells
+	if ns.GetDispellableSchools then
+		local _schools, list = ns.GetDispellableSchools()
+		spells = list
+	end
 	local first = type(spells) == "table" and spells[1] or nil
 	if not (first and first.id and C_Spell and C_Spell.GetSpellTexture) then
 		return nil

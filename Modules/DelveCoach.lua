@@ -307,7 +307,17 @@ local function BuildCoachBody(entry, opts)
 	--- So: only inside an instance, and the heading carries the name the CLIENT gave
 	--- that instance, not the entry's own label. When those two disagree the player
 	--- sees which place the warning is about.
-	local hazards, _, zoneName = ns.GetHazardsHere and ns.GetHazardsHere()
+	---
+	--- ⚠️ Called on its own line, NOT as `ns.GetHazardsHere and ns.GetHazardsHere()`.
+	--- That guard idiom is everywhere in this file and is fine for one return value,
+	--- but `and`/`or` truncate a multi-return to a single value — so the zone name
+	--- silently arrived as nil and the heading read "(?)" in Rob's delve. The call
+	--- returns three things; it has to be called where three can land.
+	local hazards, zoneName
+	if ns.GetHazardsHere then
+		local list, _instanceID, name = ns.GetHazardsHere()
+		hazards, zoneName = list, name
+	end
 	if hazards and ns.FormatHazardLines then
 		local lines = ns.FormatHazardLines(hazards)
 		if lines then

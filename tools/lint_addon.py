@@ -497,6 +497,39 @@ def find_broken_locale_strings(root: str) -> list[tuple]:
 
 
 
+def check_and_guard_truncation(root):
+    """`local a, b = f and f()` — the guard silently throws away every return
+    value but the first.
+
+    Lua's `and`/`or` yield a single value, so guarding a multi-return call this
+    way is a bug that cannot be seen by reading the line: the first variable is
+    filled correctly and every later one is nil. On 17 Aug 2026 the Delve
+    Coach's hazard heading read "(?)" for exactly this reason -- the zone name
+    was the second return of three.
+
+    Only flags calls with NO arguments, where `X and X()` is a pure existence
+    guard. `f and f(x)` on a multi-assignment is the same trap, but the pattern
+    is rarer and this stays a check with no false positives.
+    """
+    hits = []
+    pat = re.compile(
+        r'local\s+([A-Za-z_][\w]*\s*(?:,\s*[A-Za-z_][\w]*\s*)+)=\s*'
+        r'([\w.:]+)\s+and\s+\2\(\s*\)')
+    paths = [os.path.join(root, "Core.lua"), os.path.join(root, "UI.lua")]
+    paths += sorted(glob.glob(os.path.join(root, "Modules", "*.lua")))
+    for path in paths:
+        if not os.path.exists(path):
+            continue
+        with open(path, "r", encoding="utf-8", errors="replace") as fh:
+            text = fh.read()
+        for n, line in enumerate(text.splitlines(), 1):
+            m = pat.search(line)
+            if m:
+                names = [v.strip() for v in m.group(1).split(",") if v.strip()]
+                hits.append((os.path.basename(path), n, m.group(2), len(names)))
+    return hits
+
+
 def check_command_list(root):
     """Commands shown to players in Modules/CommandList.lua that nothing routes.
 
@@ -774,6 +807,16 @@ def main() -> int:
     for cls, spec, key, names in conflicts[:20]:
         print(f"    HARD  {cls} spec {spec}: {key} wanted by {', '.join(names)}")
     hard += len(conflicts)
+
+    # [12] The guard that eats return values. Invisible by reading: the first
+    # variable is right and the rest are nil, so the bug shows up as a "?" or a
+    # missing label somewhere far from the line that caused it.
+    trunc = check_and_guard_truncation(root)
+    print(f"\n[12] Multi-assignment behind an `and` guard: {len(trunc)}")
+    for fname, line, call, count in trunc[:20]:
+        print(f"    HARD  {fname}:{line}  {call}() feeds {count} names, "
+              f"but `and` returns only the first")
+    hard += len(trunc)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")

@@ -160,7 +160,13 @@ local function HighlightPin(frame, wanted)
 end
 
 local function Refresh(parent)
-	local stop, destination = ns.GetPendingFlightStop and ns.GetPendingFlightStop()
+	-- ⚠️ Not `f and f()`: `and` yields one value, so `destination` was always nil and
+	-- the banner has never once named where the flight goes. It looked correct because
+	-- the "never print ?" guard below catches a nil the same way it catches a bad name.
+	local stop, destination
+	if ns.GetPendingFlightStop then
+		stop, destination = ns.GetPendingFlightStop()
+	end
 	if not stop then
 		if banner then
 			banner:Hide()
