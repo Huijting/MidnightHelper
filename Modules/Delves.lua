@@ -3061,6 +3061,23 @@ function ns:ShowTravelPopup(targetMapName, extraInfo)
 	if InCombatLockdown() then
 		return
 	end
+
+	--- ⚠️ NEVER INSIDE AN INSTANCE. Rob, 17 aug: standing in a delve, he clicked a
+	--- waypoint and was offered a Hearthstone and a Mage portal to Silvermoon.
+	---
+	--- This is the one travel suggestion that can cost something. Every other one
+	--- wastes a walk; this one ends the delve he was in the middle of, and the button
+	--- sits under the cursor he just clicked with. Travel planning is for deciding
+	--- where to go next, which is not a question you have inside a locked instance.
+	---
+	--- The waypoint itself is still set — it is waiting for him when he comes out.
+	--- Only the offer to leave is withheld.
+	if IsInInstance then
+		local ok, inInstance = pcall(IsInInstance)
+		if ok and inInstance then
+			return
+		end
+	end
 	local extra = extraInfo or ""
 	if not ns.IsTomTomReady() then
 		extra = extra .. ns:L("TRAVEL_BLIZZARD_WAYPOINT_HINT")

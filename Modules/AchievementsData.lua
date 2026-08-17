@@ -182,11 +182,32 @@ ns.ACHIEVEMENT_TREASURES = {
 			-- Two have real, agreeing coordinates. Szarith: HandyNotes 38.40/17.69,
 			-- Method 38.14/16.92 on one page and 38.64/16.92 on another — the same
 			-- corner of the map from three reads, so HandyNotes' is used.
-			{ criteria = 113661, mapID = 2613, x = 38.40, y = 17.69 },
+			--- ⚠️ THE UNDERBELLY IS NOT SOMEWHERE YOU FLY TO. Rob, 17 aug: "moet ik dan
+			--- niet de Vault in om bij de underbelly te komen?" — yes, and the arrow
+			--- said nothing about it. Map 2613 sits inside the Vaults (2509) and has a
+			--- single entrance; pointing at a coordinate on an interior map is true and
+			--- useless if you cannot work out how to get onto that map.
+			---
+			--- So both Underbelly nodes carry the way in as a step, which is the same
+			--- mechanism the Brine-Crusted Chest uses for its clam and pearl: a labelled
+			--- button with a real coordinate, rather than a sentence.
+			---
+			--- Entrance from Method (2509 45.19/11.15, "close to the Northern Amani
+			--- Bulwark flight point", and they call it the only way in or out). One
+			--- source, unverified — but a step that turns out to be slightly off still
+			--- puts you in the right part of the zone, where no step at all leaves you
+			--- circling an interior map you cannot reach.
+			{ criteria = 113661, mapID = 2613, x = 38.40, y = 17.69,
+				prereqs = {
+					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 45.19, y = 11.15 },
+				} },
 			-- Vserix: HandyNotes 40.00/67.93 against Method's 40.07/67.49. Two
 			-- independent sources within half a percent.
 			{ criteria = 113662, mapID = 2613, x = 40.00, y = 67.93,
-				note = "ACH_NOTE_VSERIX" },
+				note = "ACH_NOTE_VSERIX",
+				prereqs = {
+					{ name = "ACH_STEP_UNDERBELLY_WAY_IN", mapID = 2509, x = 45.19, y = 11.15 },
+				} },
 			-- ⚠️ NO COORDINATES, ON PURPOSE. These three are Temple Strike spawns.
 			-- Method's page has two spare numbers for three mobs and no mapping
 			-- between them, and guessing which is which is exactly the mistake this

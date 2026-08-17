@@ -518,6 +518,7 @@ ns._mhLocales.nlNL = {
 	ACH_NOTE_VULZAHN = "Op slot. Een ruil in drie stappen - elke stap geeft je wat de volgende nodig heeft.",
 	ACH_NOTE_LOST_SPIRIT = "Op slot. Pak het verloren voorwerp op en breng het terug naar de geest hier.",
 	ACH_STEP_CLAM = "Bubbling Clam",
+	ACH_STEP_UNDERBELLY_WAY_IN = "De ingang van de Underbelly (de enige)",
 	ACH_STEP_PEARL_NPC = "Parel hier afgeven",
 	ACH_STEP_COD_POOL = "Grisly Cod Pool",
 	ACH_STEP_CRATE = "Waterlogged Crate",

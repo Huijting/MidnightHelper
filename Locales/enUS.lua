@@ -551,6 +551,7 @@ ns._mhLocales.enUS = {
 	ACH_NOTE_LOST_SPIRIT = "Locked. Pick up the lost item and bring it back to the spirit here.",
 	-- Prereq button labels. Short: they sit on a button, not in a sentence.
 	ACH_STEP_CLAM = "Bubbling Clam",
+	ACH_STEP_UNDERBELLY_WAY_IN = "Way into the Underbelly (the only one)",
 	ACH_STEP_PEARL_NPC = "Give the pearl here",
 	ACH_STEP_COD_POOL = "Grisly Cod Pool",
 	ACH_STEP_CRATE = "Waterlogged Crate",
