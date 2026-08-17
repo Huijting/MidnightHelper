@@ -138,6 +138,8 @@ Modules\DelveChestData.lua
 Modules\KeybindExport.lua
 Modules\CurioExplain.lua
 Modules\MechanicNameProbe.lua
+Modules\HazardData.lua
+Modules\Hazards.lua
 Modules\NativeArrow.lua
 Modules\WorldBoss.lua
 Modules\WorldBossProbe.lua

@@ -3463,3 +3463,51 @@ fill("itIT", {
 	HOME_VAULTS_ROUTE_BTN = "Segui la missione attuale delle Vaults",
 })
 
+--------------------------------------------------------------------------------
+-- /mh hazards (17 aug) — wat je vermijdbare schade doet, per instance.
+--
+-- "GTFO" blijft overal staan: het is de naam van een addon, geen woord.
+-- De hazard-namen zelf staan hier NIET; die rendert {SPELL:id} uit de client, dus
+-- ze zijn al in de taal van de speler en kunnen niet verlopen.
+--------------------------------------------------------------------------------
+
+fill("deDE", {
+	HAZARD_OUTSIDE = "Du bist in keiner Instanz, für hier gibt es also keine Liste.",
+	HAZARD_WORLD_COUNT = "Gefahren sind für Midnights Außenwelt bekannt, aber nicht, zu welcher Zone jede gehört.",
+	HAZARD_NONE_KNOWN = "Was dir hier wehtut, ist noch nicht bekannt.",
+	HAZARD_COUNT = "Dinge, in denen du nicht stehen solltest",
+	HAZARD_SOURCE_NOTE = "Die Namen kommen aus deinem eigenen Client. Dass sie zu diesem Ort gehören, sind Daten von GTFO, nicht gemessen.",
+})
+
+fill("frFR", {
+	HAZARD_OUTSIDE = "Tu n'es pas en instance, il n'y a donc pas de liste pour ici.",
+	HAZARD_WORLD_COUNT = "dangers sont connus pour le monde extérieur de Midnight, mais pas à quelle zone chacun appartient.",
+	HAZARD_NONE_KNOWN = "on ne sait pas encore ce qui fait mal ici.",
+	HAZARD_COUNT = "choses dans lesquelles il ne faut pas rester",
+	HAZARD_SOURCE_NOTE = "Les noms viennent de ton propre client. Qu'ils appartiennent à cet endroit vient des données de GTFO, ce n'est pas mesuré.",
+})
+
+fill("esES", {
+	HAZARD_OUTSIDE = "No estás en una instancia, así que no hay lista para aquí.",
+	HAZARD_WORLD_COUNT = "peligros se conocen para el mundo exterior de Midnight, pero no a qué zona pertenece cada uno.",
+	HAZARD_NONE_KNOWN = "todavía no se sabe qué te hace daño aquí.",
+	HAZARD_COUNT = "cosas en las que no debes quedarte",
+	HAZARD_SOURCE_NOTE = "Los nombres vienen de tu propio cliente. Que pertenezcan a este lugar son datos de GTFO, no medidos.",
+})
+
+fill("ptBR", {
+	HAZARD_OUTSIDE = "Você não está em uma instância, então não há lista para aqui.",
+	HAZARD_WORLD_COUNT = "perigos são conhecidos para o mundo aberto de Midnight, mas não a qual zona cada um pertence.",
+	HAZARD_NONE_KNOWN = "ainda não se sabe o que te machuca aqui.",
+	HAZARD_COUNT = "coisas onde não vale a pena ficar parado",
+	HAZARD_SOURCE_NOTE = "Os nomes vêm do seu próprio cliente. Que pertençam a este lugar são dados do GTFO, não medidos.",
+})
+
+fill("itIT", {
+	HAZARD_OUTSIDE = "Non sei in un'istanza, quindi per qui non c'è una lista.",
+	HAZARD_WORLD_COUNT = "pericoli sono noti per il mondo esterno di Midnight, ma non a quale zona appartenga ciascuno.",
+	HAZARD_NONE_KNOWN = "non si sa ancora cosa ti fa male qui.",
+	HAZARD_COUNT = "cose in cui non conviene restare",
+	HAZARD_SOURCE_NOTE = "I nomi vengono dal tuo client. Che appartengano a questo luogo sono dati di GTFO, non misurati.",
+})
+

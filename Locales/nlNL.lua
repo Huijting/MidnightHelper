@@ -1302,6 +1302,12 @@ ns._mhLocales.nlNL = {
 	CURIO_CHOICE_FMT = "Een keuze uit %d",
 	CURIO_ACTIVE = "> ",
 	CURIO_NO_TEXT = "(het spel gaf hier geen beschrijving bij)",
+	HAZARD_OUTSIDE = "Je zit niet in een instance, dus voor hier is er geen lijst.",
+	HAZARD_WORLD_COUNT = "hazards zijn bekend voor Midnights buitenwereld, maar niet bij welke zone elk hoort.",
+	HAZARD_NONE_KNOWN = "we weten nog niet wat je hier pijn doet.",
+	HAZARD_COUNT = "dingen om niet in te gaan staan",
+	HAZARD_SOURCE_NOTE = "De namen komen uit je eigen client. Dat ze bij deze plek horen is data van GTFO, niet gemeten.",
+
 	CURIO_NO_API = "Deze client biedt de companion-trait-API niet.",
 	CURIO_NO_TREE = "Geen companion-boom gevonden. Open het venster van je companion één keer en probeer het opnieuw - dat venster vertelt de addon welke companion je hebt.",
 	CURIO_NO_CHOICES = "Geen keuzeslots gevonden bij je companion. Of er is nog niets ontgrendeld, of de boom is nog niet geladen.",

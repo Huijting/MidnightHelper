@@ -991,6 +991,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh hazards — wat je hier vermijdbare schade doet, voor waar je nú staat.
+	if msg == "hazards" or msg == "hazard" then
+		if ns.ShowHazards then
+			ns.ShowHazards()
+		end
+		return
+	end
+
 	-- /mh mech — noemen GTFO's 71 mechanic-ids iets op deze client? Twee controles.
 	if msg == "mech" or msg == "mechanics" then
 		if ns.ProbeMechanicNames then
