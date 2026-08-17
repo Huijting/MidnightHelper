@@ -34,20 +34,19 @@ local _, ns = ...
 ---
 --- Sources are named per entry. Nothing here is inferred from another entry.
 local LINKS = {
-	--- ✅ MEASURED from Rob's screenshot, 17 aug: the Windcaller stands at 49.99/61.93
-	--- in the Vaults, and its gossip offers exactly these two destinations.
-	{
-		kind = "gossip",
-		fromMap = 2509,
-		x = 49.99,
-		y = 61.93,
-		npc = "Amani Windcaller",
-		optionKey = "PLAN_OPT_NORTHERN_BULWARK",
-		reaches = { 2509 },
-		note = "PLAN_NOTE_WINDCALLER",
-		source = "rob-screenshot-17aug",
-	},
-	--- Method, 10 aug: one entrance, near the Northern Amani Bulwark. Unverified.
+	--- Method, 10 aug: one entrance to the Underbelly, and they place it "close to the
+	--- Northern Amani Bulwark flight point". Unverified, but the coordinate agrees with
+	--- itself: 11.15 is the far north of the map.
+	---
+	--- ⚠️ `via` is the fix for an ordering mistake Rob caught immediately. The first
+	--- version emitted the Windcaller as a loose extra step AFTER the door, tagged
+	--- "optional, saves a walk" — so a plan read "go to the far north of the map" and
+	--- then, too late, "by the way, there is a man who flies you there".
+	---
+	--- Standing beside that NPC, Rob said what the plan should obviously be: use the
+	--- inner hop to reach the northern part, then the door. He is right, and the
+	--- reason the code got it wrong is that a gossip hop was bolted on rather than
+	--- attached to the thing it serves. Now it belongs to the door.
 	{
 		kind = "walk",
 		fromMap = 2509,
@@ -56,6 +55,21 @@ local LINKS = {
 		y = 11.15,
 		labelKey = "ACH_STEP_UNDERBELLY_WAY_IN",
 		source = "method-10aug",
+		via = {
+			--- ✅ MEASURED from Rob's screenshot, 17 aug: the Windcaller stands at
+			--- 49.99/61.93 and its gossip offers the Eastern Amani Outpost and the
+			--- Northern Amani Bulwark. The northern one is named here because the door
+			--- above is northern — not because we know where either lands, which we do
+			--- not. If a plan ever needs the eastern hop, that is a new measurement.
+			kind = "gossip",
+			mapID = 2509,
+			x = 49.99,
+			y = 61.93,
+			npc = "Amani Windcaller",
+			optionKey = "PLAN_OPT_NORTHERN_BULWARK",
+			note = "PLAN_NOTE_WINDCALLER",
+			source = "rob-screenshot-17aug",
+		},
 	},
 }
 
@@ -168,6 +182,22 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		local added = false
 		for _, link in ipairs(LINKS) do
 			if link.kind == "walk" and link.fromMap == chain[i] and link.toMap == intoMap then
+				-- The hop that gets you to the door goes BEFORE the door. Rob, standing
+				-- next to the Windcaller and reading a plan that told him to walk north
+				-- first: "volgens mij moet het plan zo zijn dat ik de interne
+				-- mogelijkheid gebruik om naar het noordelijke gedeelte te vliegen."
+				if link.via then
+					steps[#steps + 1] = {
+						kind = link.via.kind,
+						mapID = link.via.mapID,
+						x = link.via.x,
+						y = link.via.y,
+						label = link.via.npc,
+						detail = link.via.optionKey,
+						note = link.via.note,
+						source = link.via.source,
+					}
+				end
 				steps[#steps + 1] = {
 					kind = "walk",
 					mapID = link.fromMap,
@@ -241,32 +271,11 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		end
 	end
 
-	--- A gossip hop inside the container we are heading through. Offered rather than
-	--- required: it shortens the walk, and saying so is more useful than pretending
-	--- there is only one way.
-	for _, link in ipairs(LINKS) do
-		if link.kind == "gossip" then
-			local relevant = false
-			for _, m in ipairs(chain) do
-				if m == link.fromMap then
-					relevant = true
-				end
-			end
-			if relevant or here == link.fromMap then
-				steps[#steps + 1] = {
-					kind = "gossip",
-					mapID = link.fromMap,
-					x = link.x,
-					y = link.y,
-					label = link.npc,
-					detail = link.optionKey,
-					note = link.note,
-					optional = true,
-					source = link.source,
-				}
-			end
-		end
-	end
+	--- ⚠️ REMOVED: a loose pass that appended every gossip hop at the end of the plan.
+	--- That is what produced "walk to the far north" followed by "(optional, saves a
+	--- walk) talk to the man who flies you there". A hop belongs to the door it serves
+	--- and is emitted with it, above — a step that is only useful before another step
+	--- cannot be listed after it and still be advice.
 
 	steps[#steps + 1] = {
 		kind = "arrive",
@@ -310,6 +319,9 @@ function ns.PrintTravelPlan(targetMap, x, y, targetName)
 		if s.detail then
 			extra = " |cff8a8f98" .. L(s.detail) .. "|r"
 		end
+		-- `optional` is no longer set by anything: the one step that used it was the
+		-- gossip hop, and calling a step optional while listing it after the step it
+		-- replaces was the whole mistake. Kept as a renderer capability, unused.
 		if s.optional then
 			extra = extra .. " |cff8a8f98(" .. L("PLAN_OPTIONAL") .. ")|r"
 		end
