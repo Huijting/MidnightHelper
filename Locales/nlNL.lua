@@ -1192,6 +1192,27 @@ ns._mhLocales.nlNL = {
 	KEYBIND_PALADIN_CAT_UTILITY = "Utility",
 	KEYBIND_PALADIN_CAT_DEFENSIVES = "Defensives",
 	KEYBIND_PALADIN_CAT_BLESSINGS = "Zegeningen / mobility",
+	-- Mage en Shaman ontbraken hier terwijl enUS ze wel heeft: de kaart toonde dus
+	-- de Engelse fallback voor twee klassen en het Nederlands voor de rest.
+	--
+	-- Conventie overgenomen van Hunter en Paladin hierboven, niet zelf bedacht:
+	-- "Main Rotation" wordt vertaald, "Spender", "Utility", "Defensives" en
+	-- "Cooldowns" blijven staan — dat zijn de woorden die spelers zelf gebruiken.
+	-- ⚠️ "Self-heal" is om dezelfde reden NIET "Zelfheal" geworden: "Pet care" bleef
+	-- ook Engels, en een half vertaald leenwoord leest slechter dan geen van beide.
+	KEYBIND_MAGE_CAT_MAIN_ROTATION = "Hoofdrotatie",
+	KEYBIND_MAGE_CAT_SPENDER = "Spender",
+	KEYBIND_MAGE_CAT_UTILITY = "Utility",
+	KEYBIND_MAGE_CAT_DEFENSIVES = "Defensives",
+	KEYBIND_MAGE_CAT_CC = "CC / Dispel",
+	KEYBIND_MAGE_CAT_COOLDOWN = "Cooldowns",
+	KEYBIND_SHAMAN_CAT_MAIN_ROTATION = "Hoofdrotatie",
+	KEYBIND_SHAMAN_CAT_SPENDER = "Spender (Maelstrom)",
+	KEYBIND_SHAMAN_CAT_UTILITY = "Utility",
+	KEYBIND_SHAMAN_CAT_DEFENSIVES = "Defensives",
+	KEYBIND_SHAMAN_CAT_CC = "CC / Dispel",
+	KEYBIND_SHAMAN_CAT_COOLDOWN = "Cooldowns",
+	KEYBIND_SHAMAN_CAT_HEAL = "Self-heal",
 
 	KEYBIND_ROLE_INTERRUPT = "Interrupt",
 	KEYBIND_ROLE_MAIN_ROTATION = "Rotatie",

@@ -98,7 +98,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - **Travel Assistant** for sensible cross-zone hops toward delve entrances.
 
 **In-delve tools**
-- **Delve Coach** — route, trash, and boss tips for all **11 Midnight Season 1 delves**; resizable panel; boss **3D preview** with scroll-zoom; spell tooltips where IDs are known.
+- **Delve Coach** — route, trash, and boss tips for all **13 Midnight delves**, including Gnarldor Isle and The Ring of Glory from 12.1; resizable panel; boss **3D preview** with scroll-zoom; spell tooltips where IDs are known.
 - **Delve Party Share** — send coach tips to party, raid, or instance chat; recipients do not need this addon.
 - **Delve consumables** — quick-use panel for **RAID-R Mini** and **Trovehunter's Bounty** when you carry them; auto-shows on delve entry; minimap launchers visible only during an active delve.
 - **Valeera curio advisor** — role-based curio suggestions on the Delves tab and a popup at repair / gossip NPCs.
@@ -118,7 +118,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - A Codex entry explains what a season rollover actually does to your gear, your currencies and your progress tracks — including the difference between a season change and a stat squish.
 
 **Guides & reference**
-- **Midnight Codex** — Season 1 handbook (Start Here, weekly loop, currencies with live balances, delves, M+, raid, world content, professions); **Open** links jump to the matching tab.
+- **Midnight Codex** — the in-game handbook (Start Here, weekly loop, currencies with live balances, delves, M+, raid, world content, professions); **Open** links jump to the matching tab.
 - **Guide** — compact reference / advisor.
 - **Macros** — interrupt and team macro templates with class context.
 - **Role Academy** — tank, heal and DPS learning tracks, each with a **spec-aware toolkit**: the cooldowns and personal defensives *your* spec actually has, with tooltips on hover. Healers also get their cooldowns labelled by purpose and a "what can I dispel?" reference.
