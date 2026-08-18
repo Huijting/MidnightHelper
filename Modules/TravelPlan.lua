@@ -254,7 +254,7 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 				---   * nearer the door than the NPC — the hop sends you backwards;
 				---   * the chosen hub has no landing recorded (Foothold is where the
 				---     Windcallers send you FROM, not to), so there is nothing to say.
-				local skipVia, hub = false, nil
+				local skipVia, hub, viaNpc = false, nil, nil
 				if link.via and here == link.fromMap and C_Map
 					and C_Map.GetPlayerMapPosition then
 					local okP, pos = pcall(C_Map.GetPlayerMapPosition, link.fromMap, "player")
@@ -275,8 +275,20 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 								local npcY = (near and near.npcY) or link.via.y
 								local toNpc = (npcX - px) ^ 2 + (npcY - py) ^ 2
 								skipVia = toDoor < toNpc
+								--- ⚠️ DO NOT WRITE INTO `link.via`. This used to set
+								--- `link.via.x, link.via.y = near.npcX, near.npcY`,
+								--- which edits the module-level LINKS table — so the
+								--- first plan ever built stamped whichever Windcaller
+								--- that player happened to be near into the data
+								--- permanently, and every later plan on every character
+								--- inherited it.
+								---
+								--- Rob standing at the EASTERN Windcaller is what sent
+								--- me back to look. The chosen NPC is a property of this
+								--- one plan, so it lives in a local and the table stays
+								--- the constant it was written to be.
 								if not skipVia and near then
-									link.via.x, link.via.y = near.npcX, near.npcY
+									viaNpc = near
 								end
 							end
 						end
@@ -286,8 +298,10 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 					steps[#steps + 1] = {
 						kind = link.via.kind,
 						mapID = link.via.mapID,
-						x = link.via.x,
-						y = link.via.y,
+						-- The Windcaller nearest the player when one was chosen, the
+						-- data's own otherwise. Never written back into the table.
+						x = (viaNpc and viaNpc.npcX) or link.via.x,
+						y = (viaNpc and viaNpc.npcY) or link.via.y,
 						label = link.via.npc,
 						detail = (hub and hub.optionKey) or link.via.optionKey,
 						note = link.via.note,
