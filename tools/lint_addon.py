@@ -530,6 +530,124 @@ def check_and_guard_truncation(root):
     return hits
 
 
+VALUE_BARE_RE = re.compile(r'^\s*([A-Z][A-Z0-9_]+)\s*=\s*\x22((?:[^\x22\\]|\\.)*)\x22')
+VALUE_BRACKET_RE = re.compile(
+    r'^\s*\[\s*\x22([A-Z][A-Z0-9_]+)\x22\s*\]\s*=\s*\x22((?:[^\x22\\]|\\.)*)\x22')
+
+FORMAT_RE = re.compile(r"%(?:\d+\$)?[sdfg%]")
+COLOUR_OPEN_RE = re.compile(r"\|c[0-9a-fA-F]{8}")
+COLOUR_CLOSE_RE = re.compile(r"\|r")
+
+
+def collect_locale_values(root: str) -> dict:
+    """defined[locale] -> {key: (value, rel, lineno)} for single-line entries.
+
+    Deliberately simpler than collect_locale_keys: only entries whose whole
+    `KEY = "value"` fits on one line are captured, because those are the ones a
+    translator edits. A multi-line concatenation is skipped rather than guessed at.
+    """
+    values = {loc: {} for loc in LOCALES}
+    for path in locale_files(root):
+        base = os.path.basename(path)
+        rel = os.path.relpath(path, root).replace("\\", "/")
+        m = LOCALE_FILE_RE.match(base)
+        ctx = m.group(1) if m else ("enUS" if base == "enUS.lua" else None)
+        for i, line in enumerate(read_lines(path), 1):
+            cm = CTX_MERGE_RE.search(line)
+            if cm:
+                ctx = cm.group(1)
+            cf = CTX_FILL_RE.search(line)
+            if cf:
+                ctx = cf.group(1)
+            if CTX_ENUS_TABLE_RE.search(line):
+                ctx = "enUS"
+            cl = CTX_DOTTED_LOCAL_RE.search(line)
+            if cl:
+                ctx = cl.group(2)
+            if ctx not in values:
+                continue
+            hit = VALUE_BARE_RE.match(line) or VALUE_BRACKET_RE.match(line)
+            if hit:
+                values[ctx].setdefault(hit.group(1), (hit.group(2), rel, i))
+    return values
+
+
+def check_translation_markup(root):
+    """[13] A translation that breaks its own formatting, or drops a name.
+
+    Rob, 19 aug, on hearing that five languages sit at 82%: "moeten we niet meer
+    vertalen??" The answer is yes, and the reason this check comes first is that
+    2935 strings are about to be written that nobody in this project can read back.
+    Neither Rob nor I can judge Portuguese prose. Both of the ways a translation
+    genuinely BREAKS, as opposed to reading awkwardly, are mechanical:
+
+      * Format specifiers. `%s` and `%d` are filled in by the code. Drop one and
+        the sentence loses its number; add one and string.format throws. This is
+        the same class of fault as the unescaped quote in check [7], which cost a
+        day of Rob's interface rendering as raw key names.
+      * Colour markup. `|cffffcc00...|r` must balance. An unclosed one bleeds its
+        colour over everything printed after it.
+
+    HARD, both of them, because they are not opinions.
+
+    A third failure is real but softer: translating a proper noun Blizzard owns.
+    "Corrosive Coin" rendered as "Korrosive Münze" cannot be found in the player's
+    own game -- CLAUDE.md collects these rules and they were written by hand. It is
+    SOFT because a legitimate translation may reword around a term, and a check
+    that cries wolf gets switched off.
+    """
+    values = collect_locale_values(root)
+    enus = values.get("enUS", {})
+
+    # Names that must survive verbatim when enUS uses them.
+    #
+    # ⚠️ THIS LIST STARTED WRONG AND THE FIRST RUN PROVED IT. "Great Vault" and
+    # "Midnight Helper" were in it and produced 215 warnings, every one of them
+    # false: Blizzard localises the Great Vault itself (German players read "Große
+    # Schatzkammer" in their own game, so translating it is CORRECT), and a title
+    # need not repeat the addon's name. A check that shouts 215 times on its first
+    # run is a check nobody will read twice.
+    #
+    # What is left are names Blizzard does NOT localise -- zone and currency names
+    # that the player will search for verbatim in their own client. "Raid", "Vault"
+    # and "Tier" are deliberately absent: they are ordinary words in five of these
+    # languages.
+    KEEP = [
+        "Corrosive Coin", "Corrosive Soul", "Coiled Isle", "Atal'Utek",
+    ]
+
+    hard, soft = [], []
+    for loc in LOCALES:
+        if loc == "enUS":
+            continue
+        for key, (val, rel, ln) in sorted(values[loc].items()):
+            src = enus.get(key)
+            if not src:
+                continue
+            en = src[0]
+            if en == val:
+                continue  # untranslated copy; check [5] already counts those
+
+            if sorted(FORMAT_RE.findall(en)) != sorted(FORMAT_RE.findall(val)):
+                hard.append((loc, key, rel, ln, "format specifiers differ from enUS"))
+
+            # ⚠️ Measured against enUS, NOT against zero. The first version demanded
+            # that opens equal closes and immediately flagged six faithful
+            # translations of FPS_HIGHER_IN_RAID -- whose ENGLISH original opens
+            # three colours and closes two, on purpose, because |r resets to default
+            # rather than to the previous colour. The translations were copying the
+            # original correctly. What matters is whether a translation drifted from
+            # its source, not whether the source suits a tidy rule.
+            if (len(COLOUR_OPEN_RE.findall(val)) - len(COLOUR_CLOSE_RE.findall(val))
+                    != len(COLOUR_OPEN_RE.findall(en)) - len(COLOUR_CLOSE_RE.findall(en))):
+                hard.append((loc, key, rel, ln, "colour markup drifted from enUS"))
+
+            for name in KEEP:
+                if name in en and name not in val:
+                    soft.append((loc, key, rel, ln, f'"{name}" was translated away'))
+    return hard, soft
+
+
 def check_command_list(root):
     """Commands shown to players in Modules/CommandList.lua that nothing routes.
 
@@ -817,6 +935,16 @@ def main() -> int:
         print(f"    HARD  {fname}:{line}  {call}() feeds {count} names, "
               f"but `and` returns only the first")
     hard += len(trunc)
+
+    tm_hard, tm_soft = check_translation_markup(root)
+    print(f"\n[13] Translations that break their own markup: {len(tm_hard)}")
+    for loc, key, rel, ln, why in tm_hard[:20]:
+        print(f"    HARD  {loc}  {key}   {rel}:{ln}  — {why}")
+    hard += len(tm_hard)
+    print(f"     proper nouns translated away: {len(tm_soft)}  (SOFT)")
+    for loc, key, rel, ln, why in tm_soft[:12]:
+        print(f"    warn  {loc}  {key}   {rel}:{ln}  — {why}")
+    soft += len(tm_soft)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")

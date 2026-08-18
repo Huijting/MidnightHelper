@@ -901,8 +901,12 @@ local OVERRIDES = {
 	ALT_VAULT_TOOLTIP_STALE_RESET = "La instantánea es anterior al reinicio de esta semana. Registra este personaje para actualizar.",
 	ALT_UPDATED_UNKNOWN = "desconocido",
 	ALT_UPDATED_SECONDS = "Hace %ds",
-	ALT_UPDATED_MINUTES = "__TKHace 0__m",
-	ALT_UPDATED_HOURS = "__TK hace 0__h",
+	-- ⚠️ Deze twee stonden als `__TKHace 0__m` en `__TK hace 0__h` in de release van
+	-- 18 aug: een onafgemaakte vertaalmarkering, en de `%d` vervangen door een
+	-- letterlijke nul. Spaanse spelers zagen dus altijd "0" plus die markering op hun
+	-- scherm. Gevonden door lint-check [13] op zijn allereerste run.
+	ALT_UPDATED_MINUTES = "hace %dm",
+	ALT_UPDATED_HOURS = "hace %dh",
 	ALT_UPDATED_DAYS = "Hace %dd",
 	DELVES_ACC_MIDNIGHT = "Profundidades Midnight",
 	DELVES_ACC_VAULT = "Gran Bóveda (mundo)",
