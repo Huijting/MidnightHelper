@@ -889,6 +889,77 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_TIP_AA_DORAGOSA_STEPS = "1. {SPELL:374341} auf dir? Trag sie weg von der Gruppe — sie platzt 8 Meter breit.|n2. {SPELL:388820} zieht alle hinein und explodiert dann — LAUF RAUS vor dem Knall.|n3. {SPELL:389011} stapelt von jeder Mechanik, die du frisst — bei 3 Stapeln bricht es in einen Arcane Rift aus; bleib sauber.|n4. Bleib vom {SPELL:389007}-Boden weg.",
 	DGN_TIP_AA_DORAGOSA_TANK = "Tank: Defensive für {SPELL:1282251}.",
 	DGN_TIP_AA_DORAGOSA_HEALER = "Heiler: achte auf {SPELL:389011}-Stapel — Träger ticken pro Stapel härter.",
+
+	-- DPS-Zeilen und Altar of Fangs, nachgetragen 19 Aug 2026.
+	--
+	-- ⚠️ Diese Gruppe war der schiefste Fall im ganzen Projekt: 129 deutsche Bosstipps
+	-- neben 49 englischen, im selben Fenster. Der Grund ist kein Versäumnis an einer
+	-- Stelle, sondern das Muster — die DPS-Rolle kam als ein Stapel dazu, nachdem die
+	-- Übersetzungsrunde für diesen Dungeon schon gelaufen war, und Altar of Fangs kam
+	-- mit Season 2. Eigennamen bleiben englisch (Lashers, Sunwing, Nibbles ...), so wie
+	-- im Rest dieser Datei und wie es CLAUDE.md verlangt.
+	DGN_TIP_AA_ANCIENT_DPS = "DPS: Räum die schlafenden Lashers vor voller Energie, sonst erwachen sie alle gleichzeitig. Töte das geworfene Ast-Add und unterbrich seinen Zauber.",
+	DGN_TIP_AA_CRAWTH_DPS = "DPS: Hör auf zu zaubern, wenn der Boden aufbricht — es unterbricht dich ohnehin — und verteilt euch dann. Erziel ein Tor im Feuertor: das stunnt sie und sie erleidet 75% mehr Schaden.",
+	DGN_TIP_AA_DORAGOSA_DPS = "DPS: Trag deinen Debuff weg von der Gruppe; er platzt 8 Meter breit. Jede Mechanik, die du frisst, stapelt — bei 3 Stapeln wird ein Arcane Rift daraus.",
+	DGN_TIP_AA_VEXAMUS_DPS = "DPS: Soak die Orbs einzeln, ein Spieler pro Orb: jeder Orb, den er aufnimmt, trifft die ganze Gruppe. Trag deinen eigenen Blitz raus, bevor er sich sammelt.",
+
+	-- Altar of Fangs (Season 2) --------------------------------------------------
+	DGN_TIP_AF_COIL_STEPS = "1. {SPELL:1300503} sucht sich einen Spieler zum Jagen. Dieser Spieler läuft und läuft weiter; alle anderen gehen aus dem Weg.|n2. Jemand von {SPELL:1299053} gefangen? Befrei ihn sofort.|n3. {SPELL:1300686} — wechsle auf das, was erscheint, und töte es, bevor es weitergeht.|n4. Geh aus {SPELL:1299940} raus und achte auf die Stapel von {SPELL:1299154}.",
+	DGN_TIP_AF_COIL_TANK = "Tank: Defensive für {SPELL:1298949}.",
+	DGN_TIP_AF_RAVI_STEPS = "1. Die Hydra schildet sich mit {SPELL:1309522} — brich das schnell ab.|n2. Kommt sie vorher zum Fressen, folgt das stärkere {SPELL:1307765} und schlägt deutlich härter zu.|n3. Tritt aus {SPELL:1307894} raus und aus der Welle von {SPELL:1296050}.|n4. {SPELL:1296219} ist Gruppenschaden, dem du nicht ausweichen kannst — einfach durchheilen.",
+	DGN_TIP_AF_RAVI_HEALER = "Heiler: {SPELL:1296219} trifft die ganze Gruppe; halt etwas dafür bereit.",
+	DGN_TIP_AF_ZULJAN_STEPS = "1. {SPELL:1300876} ist das Entscheidende: die Strahlen müssen gesoakt werden. Nimm deinen und bleib drin.|n2. Tritt aus {SPELL:1301413} und {SPELL:1301111} raus — beides ist Bodenschaden, aus dem du einfach herauslaufen kannst.",
+	DGN_TIP_AF_ZULJAN_TANK = "Tank: Defensive für {SPELL:1301350}.",
+
+	DGN_TIP_BV_IKUZZ_DPS = "DPS: Setz deine Wurzeln an den Rand. Fixiert? Dann lauf die vollen 10 Sekunden — dagegen ankämpfen geht nicht.",
+	DGN_TIP_BV_RUIA_DPS = "DPS: Jede Form bringt ihren eigenen Trick, also achte darauf, was sie wird. Heb deine Cooldowns für die Endphase auf, wenn alles gleichzeitig kommt.",
+	DGN_TIP_BV_TRINITY_DPS = "DPS: Bleib auf dem aktuellen Ziel des Tanks, statt den Schaden auf alle drei zu verteilen. Einen Strahl zu soaken kostet dich Uptime und ist trotzdem richtig.",
+	DGN_TIP_BV_ZIEKKET_DPS = "DPS: Zerlege die Lightbloom-Orbs, bevor sie zu Ziekket treiben, und mach die Lashers richtig tot — schlafende wachen wieder auf.",
+
+	DGN_TIP_DN_HOARDMONGER_DPS = "DPS: Keine Adds, keine Wechsel: hier geht es nur darum, aus Sachen rauszubleiben. Steh nie im Frontalkegel und halt dich von den Pilzen fern.",
+	DGN_TIP_DN_NALORAKK_DPS = "DPS: Hier zählen Körper mehr als Schaden: stell dich den Geisterbären in den Weg. Jeder Bär, der Zul'jarra erreicht, kostet die Gruppe.",
+	DGN_TIP_DN_SENTINEL_DPS = "DPS: Zwei Burn-Checks: zerstör den Fractured Shivercore, den die Eiszapfen freilegen, und brich den gefrorenen Schleier schnell — er tickt auf der Gruppe, bis er fällt.",
+
+	DGN_TIP_MC_MUROJIN_DPS = "DPS: Beide Bosse müssen kurz nacheinander sterben — behalt beide Lebensbalken im Auge und wechsle früh, denn ein allein Überlebender geht in den Berserker.",
+	DGN_TIP_MC_RAKTUL_DPS = "DPS: Erst die Totems, dann zurück auf den Boss. In der Seelenphase zählt dein Schaden kaum — nutz die Zeit für Crowd-Control und Unterbrechungen.",
+	DGN_TIP_MC_VORDAZA_DPS = "DPS: Die Phantome sind dein Job: töte sie, bevor sie jemanden erreichen, aber eins nach dem anderen — jeder Tod ist Gruppenschaden, dem niemand ausweichen kann.",
+
+	DGN_TIP_MR_KYSTIA_DPS = "DPS: Stunn oder kontrolliere die Klone — sie kanalisieren alle Felstorm. Wechsle auf Nibbles, sobald sie in ihre Lichtform geht.",
+	DGN_TIP_MR_LITHIEL_DPS = "DPS: Verteilt euch 6+ Meter und räumt dann die Wild Imps schnell. Der Vilefiend muss vor der nächsten Imp-Welle liegen.",
+	DGN_TIP_MR_XATHUUX_DPS = "DPS: Viel zum Wechseln gibt es hier nicht — trag deinen Blitz weg von der Gruppe, bleib dann in Bewegung und heb die Defensives für die Gruppenschläge auf.",
+	DGN_TIP_MR_ZAEN_DPS = "DPS: Sichtlinie ist der ganze Kampf: steh hinter einer Kiste oder Säule, bevor der Schuss kommt, nicht danach.",
+
+	DGN_TIP_MT_ARCANOTRON_DPS = "DPS: Fang die Energy Orbs während des Auftankens ab und spar deine Cooldowns dafür auf: in diesem Fenster erleidet er +20% Schaden.",
+	DGN_TIP_MT_DEGENTRIUS_DPS = "DPS: Soak je einen Einschlag der Unstable Void Essence, sonst bricht sie aus. Wenn dein Entropy-DoT gleich ausläuft, geh vorher aus der Gruppe raus.",
+	DGN_TIP_MT_GEMELLUS_DPS = "DPS: Brich deine Verbindung, bevor du weitermachst — jeder Punkt, der in seinen Absorb-Schild geht, ist verschenkt.",
+	DGN_TIP_MT_SERANEL_DPS = "DPS: Dispell oder stiehl den Hastening Ward jedes Mal, wenn er landet. Geh für die Welle in die Suppression Zone und dann wieder raus — sie macht dich stumm.",
+
+	DGN_TIP_NX_KASRETH_DPS = "DPS: Entfern deinen Debuff, indem du in einen Leyline-Strahl trittst — der kurze Stun kostet weniger, als ihn zu behalten. Sonst kreuz niemals eine Leyline.",
+	DGN_TIP_NX_LOTHRAXION_DPS = "DPS: Wenn er sich zwischen seinen Abbildern versteckt, find das echte und unterbrich ihn — Schaden auf die Abbilder ist verschenkt.",
+	DGN_TIP_NX_NYSARRA_DPS = "DPS: Adds vor Boss, immer — sie heilt sich an jedem, den du stehen lässt. Wechsle, sobald sie erscheinen, statt deinen Zauber auf ihr zu Ende zu bringen.",
+
+	DGN_TIP_PS_GARFROST_DPS = "DPS: Erz ist Deckung: stell dich für den Schmiedepuls hinter einen Brocken. Halt 5+ Meter Abstand zum Tank, damit der Schlag dich nicht mitnimmt.",
+	DGN_TIP_PS_KRICKICK_DPS = "DPS: Wenn Krick sich zu einem Ritualkreis teleportiert, wechsle auf die Shades. Von Ick fixiert? Lauf weit außen — alle anderen schlagen weiter.",
+	DGN_TIP_PS_TYRANNUS_DPS = "DPS: Markiert? Stell dich neben Bone Piles, damit sie einfrieren; gefrorene Haufen können keine Adds erwecken. Erheben sich doch welche, sterben die Plaguespreader zuerst.",
+
+	DGN_TIP_SR_ARAKNATH_DPS = "DPS: Blockier die Konstrukt-Strahlen mit deinem Körper — jeder Strahl, der ankommt, heilt ihn wieder hoch.",
+	DGN_TIP_SR_RANJIT_DPS = "DPS: Ein Positionskampf, kein Zielkampf: tritt für die Linie zur Seite, web dich um die Wirbel und achte darauf, was hinter dir liegt, wenn er wegschleudert.",
+	DGN_TIP_SR_RUKHRAN_DPS = "DPS: Quills heißt Säule, jedes Mal. Töte danach den Sunwing schnell; wen er fixiert, der hält Abstand.",
+	DGN_TIP_SR_VIRYX_DPS = "DPS: Unterbrich den Tank-Nuke wirklich jedes Mal — es ist ein 3-Sekunden-Zauber. Befrei jeden, den der Solar Zealot packt, bevor er über den Balkon geht.",
+
+	DGN_TIP_ST_LURA_DPS = "DPS: Führ deinen Strahl durch die Notes of Despair — die strahlen weiter, bis sie verstummt sind — und halt ihn von Verbündeten weg, denn er trifft sie auch.",
+	DGN_TIP_ST_NEZHAR_DPS = "DPS: Töte die Tentakel und unterbrich den Tank-Nuke, wann immer es geht. Die Zonen ticken hart, also raus damit, statt auf Uptime zu spielen.",
+	DGN_TIP_ST_SAPRISH_DPS = "DPS: Unterbrich den Zauber des Shadewing und setz deine Void Bombs an den Rand — je weniger Bomben auf dem Boden liegen, desto milder die Massenzündung.",
+	DGN_TIP_ST_ZURAAL_DPS = "DPS: Räum die Coalesced-Void-Adds vor Crashing Void, sonst werden sie mit dir hineingezogen. Steh nie vor ihm.",
+
+	DGN_TIP_VA_ATROXUS_DPS = "DPS: Töte die Toxic Creepers, sobald sie herauskriechen — die Pfützen erzeugen immer neue.",
+	DGN_TIP_VA_CHARONUS_DPS = "DPS: Kite deinen eigenen Gravitic Orb in eine Unstable Singularity; innerhalb von 6 Metern stirbt er. Such dir sicheren Boden, bevor der Knockback kommt.",
+	DGN_TIP_VA_TAZRAH_DPS = "DPS: Nach jedem Teleport erst die Ethereal Shades umhauen, dann zurück auf den Boss.",
+
+	DGN_TIP_WS_DUO_DPS = "DPS: Teil deinen Schaden so auf, dass beide kurz nacheinander sterben, und halt Shadow Bolt unterbrochen. Kontrolliere die Dark Entity, die ein Fluch beschwört, statt sie zu jagen.",
+	DGN_TIP_WS_EMBER_DPS = "DPS: Setz deine Feuerpfützen an den Rand, damit die Mitte sauber bleibt, und tritt zur Seite aus dem Atem, statt aus der Reichweite zu laufen.",
+	DGN_TIP_WS_HEART_DPS = "DPS: Nimm bei 2-3 Stapeln eine Windpfeil-Fahrt, aber lass eine für die Explosion bei voller Energie frei.",
+	DGN_TIP_WS_KROLUK_DPS = "DPS: Adds kommen bei etwa zwei Dritteln und einem Drittel Leben: wechsle sofort drauf, Phantasmal Mystic zuerst, und halt ihn unterbrochen.",
 })
 
 merge(ns._mhLocales and ns._mhLocales.frFR, {
