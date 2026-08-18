@@ -83,6 +83,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh healcds", descKey = "CMDLIST_HEALCDS" },
 		{ cmd = "/mh dispel", descKey = "CMDLIST_DISPEL" },
 		{ cmd = "/mh prompt", descKey = "CMDLIST_PROMPT" },
+		{ cmd = "/mh brace", descKey = "CMDLIST_BRACE" },
 		{ cmd = "/mh prompt sound", descKey = "CMDLIST_PROMPT_SOUND" },
 	} },
 	{ headKey = "CMDLIST_GRP_CONTENT", items = {

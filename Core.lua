@@ -1050,6 +1050,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh brace — waarschuwing voor casts die je niet kunt stoppen of ontlopen.
+	-- `/mh brace spec` beperkt hem tot de spec waarop je nu speelt.
+	if msg == "brace" or msg == "brace spec" then
+		if ns.ToggleBracePrompt then
+			ns.ToggleBracePrompt(msg == "brace spec" and "spec" or nil)
+		end
+		return
+	end
+
 	-- /mh keys — de vier Altar of Corrosion-nodes die achter een zoektocht zitten.
 	if msg == "keys" or msg == "codexkeys" then
 		if ns.ShowCorrosiveKeyHunts then
