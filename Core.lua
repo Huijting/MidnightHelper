@@ -991,6 +991,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh here [notitie] — schrijf op waar je staat (en wat je aanklikt). Lijst, geen
+	-- slot: een rondje lopen en daarna één reload is het hele idee.
+	if msg == "here" or msg:match("^here%s+") then
+		local arg = msg:match("^here%s+(.+)$")
+		if arg == "clear" then
+			if ns.ClearSpotLog then ns.ClearSpotLog() end
+		elseif ns.LogSpotHere then
+			ns.LogSpotHere(arg)
+		end
+		return
+	end
+
 	-- /mh plan — de hele route naar het huidige doel, stap voor stap en klikbaar.
 	if msg == "plan" or msg == "route" then
 		if ns.PrintTravelPlan then
