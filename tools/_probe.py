@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Morning routine: which addons were updated, and did the two claude.ai watchers
-run? An addon's own folder date barely moves, so take the newest source file
-inside it. Watch files are appended at the bottom, so print the tail.
+Two reads from one reload: the criteria of the two achievements HandyNotes
+added overnight (Coiled Isle Safari 62492, Mysterious Mixing 63432), and the
+spot log Rob walked for the Amani Windcallers.
 """
 import io
-import os
+import re
 import sys
-import time
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -16,55 +15,101 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-ADDONS = r'E:\World of Warcraft\_retail_\Interface\AddOns'
-DOCS = ADDONS + r'\MidnightHelper\docs'
-NOW = time.time()
-EXT = ('.lua', '.toc', '.xml')
+P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
+     r'\SavedVariables\MidnightHelper.lua')
 
-print('nu: %s' % time.strftime('%Y-%m-%d %H:%M', time.localtime(NOW)))
+t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
 
-rows = []
-for name in os.listdir(ADDONS):
-    d = os.path.join(ADDONS, name)
-    if not os.path.isdir(d):
+
+def block(key, src, bracket=False):
+    needle = ('[%s]' % key) if bracket else ('["%s"]' % key)
+    i = src.find(needle)
+    if i < 0:
+        return None
+    s = src.index('{', i)
+    d, j = 0, s
+    while j < len(src):
+        if src[j] == '{':
+            d += 1
+        elif src[j] == '}':
+            d -= 1
+            if d == 0:
+                break
+        j += 1
+    return src[s:j + 1]
+
+
+def split_top(blob):
+    out, d, buf = [], 0, ''
+    for ch in blob[1:-1]:
+        if ch == '{':
+            d += 1
+        if d > 0:
+            buf += ch
+        if ch == '}':
+            d -= 1
+            if d == 0:
+                out.append(buf)
+                buf = ''
+    return out
+
+
+def f(chunk, name):
+    m = re.search(r'\["%s"\]\s*=\s*("(?:[^"\\]|\\.)*"|true|false|[\d.-]+)'
+                  % name, chunk)
+    if not m:
+        return None
+    v = m.group(1)
+    if v.startswith('"'):
+        return v[1:-1]
+    if v in ('true', 'false'):
+        return v == 'true'
+    return v
+
+
+dump = block('achDump', t)
+for aid in ('62492', '63432'):
+    print('=' * 74)
+    ach = block(aid, dump, bracket=True) if dump else None
+    if not ach:
+        print('%s — NIET in de dump' % aid)
         continue
-    newest = 0
-    for root, dirs, files in os.walk(d):
-        dirs[:] = [x for x in dirs if x != '.git']
-        for f in files:
-            if f.lower().endswith(EXT):
-                try:
-                    m = os.path.getmtime(os.path.join(root, f))
-                except OSError:
-                    continue
-                if m > newest:
-                    newest = m
-    if newest:
-        rows.append((newest, name))
-
-rows.sort(reverse=True)
-
-print('\n' + '=' * 66)
-print('ADDONS — nieuwste bronbestand per map')
-print('=' * 66)
-for m, name in rows[:16]:
-    age = (NOW - m) / 3600.0
-    mark = '  <<< sinds gisteravond' if age < 14 else ''
-    print('%-34s %s  %5.1f u%s' % (
-        name[:34], time.strftime('%Y-%m-%d %H:%M', time.localtime(m)), age, mark))
-
-for fn in ('PTR_12.1_WATCH.md', 'PTR_12.0.7_DATA.md'):
-    p = os.path.join(DOCS, fn)
-    print('\n' + '=' * 66)
-    if not os.path.exists(p):
-        print('%s — BESTAAT NIET' % fn)
+    print('%s  %s' % (aid, f(ach, 'name') or '?'))
+    print('=' * 74)
+    crit = block('criteria', ach)
+    if not crit:
+        print('  geen criteria')
         continue
-    m = os.path.getmtime(p)
-    print('%s — geschreven %s (%.1f uur geleden)'
-          % (fn, time.strftime('%Y-%m-%d %H:%M', time.localtime(m)),
-             (NOW - m) / 3600.0))
-    print('=' * 66)
-    t = io.open(p, encoding='utf-8', errors='replace', newline='').read()
-    lines = t.rstrip('\n').split('\n')
-    for l in lines[-8:]:
-        print('  | ' + l[:120])
+    rows = split_top(crit)
+    print('  %d criteria' % len(rows))
+    print('  %-4s %-38s %-10s %-8s %s'
+          % ('#', 'naam', 'criteriaID', 'assetID', 'gedaan'))
+    print('  ' + '-' * 70)
+    for e in rows:
+        print('  %-4s %-38s %-10s %-8s %s' % (
+            f(e, 'index') or '?',
+            (f(e, 'name') or '?')[:38],
+            f(e, 'criteriaID') or '— GEEN —',
+            f(e, 'assetID') or '-',
+            'ja' if f(e, 'completed') else 'nee'))
+
+print('\n' + '=' * 74)
+print('SPOT LOG — /mh here')
+print('=' * 74)
+spots = block('spots', t)
+if not spots:
+    print('geen spots — is /mh here gelopen vóór de reload?')
+else:
+    rows = split_top(spots)
+    print('%d plek%s' % (len(rows), 'ken' if len(rows) != 1 else ''))
+    print('%-4s %-7s %-8s %-8s %-26s %s'
+          % ('#', 'map', 'x', 'y', 'zone', 'doelwit / notitie'))
+    print('-' * 74)
+    for n, e in enumerate(rows, 1):
+        label = f(e, 'target') or ''
+        note = f(e, 'note')
+        if note:
+            label = (label + '  ' + note).strip()
+        print('%-4d %-7s %-8s %-8s %-26s %s' % (
+            n, f(e, 'mapID') or '?', f(e, 'x') or '?', f(e, 'y') or '?',
+            (f(e, 'zone') or '?')[:26], label))

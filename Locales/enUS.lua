@@ -566,6 +566,7 @@ ns._mhLocales.enUS = {
 	PLAN_KIND_ARRIVE = "Arrive at:",
 	PLAN_DETAIL_FLY_TO = "the nearest flight point there",
 	PLAN_OPT_NORTHERN_BULWARK = "pick \"Fly me to the Northern Amani Bulwark\"",
+	PLAN_OPT_EASTERN_OUTPOST = "pick \"Fly me to the Eastern Amani Outpost\"",
 	PLAN_NOTE_WINDCALLER = "The Windcallers are a conversation, not a flight master - there is no map pin to click, you talk to them.",
 	ACH_STEP_PEARL_NPC = "Give the pearl here",
 	ACH_STEP_COD_POOL = "Grisly Cod Pool",

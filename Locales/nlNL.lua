@@ -533,6 +533,7 @@ ns._mhLocales.nlNL = {
 	PLAN_KIND_ARRIVE = "Aankomst:",
 	PLAN_DETAIL_FLY_TO = "de dichtstbijzijnde flight point daar",
 	PLAN_OPT_NORTHERN_BULWARK = "kies \"Fly me to the Northern Amani Bulwark\"",
+	PLAN_OPT_EASTERN_OUTPOST = "kies \"Fly me to the Eastern Amani Outpost\"",
 	PLAN_NOTE_WINDCALLER = "De Windcallers zijn een gesprek, geen flight master - er is geen speld op de kaart om aan te klikken, je praat met ze.",
 	ACH_STEP_PEARL_NPC = "Parel hier afgeven",
 	ACH_STEP_COD_POOL = "Grisly Cod Pool",

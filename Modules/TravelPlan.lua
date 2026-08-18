@@ -33,6 +33,51 @@ local _, ns = ...
 --- waiting there is a conversation.
 ---
 --- Sources are named per entry. Nothing here is inferred from another entry.
+--- ✅ THE WHOLE AMANI WINDCALLER NETWORK, MEASURED 18 aug.
+---
+--- Rob walked the circuit with `/mh here`, targeting each NPC and each landing spot,
+--- which is the first time this addon has had all three hubs rather than the one he
+--- happened to be standing next to. Yesterday the plan always took the northern hop
+--- because the Underbelly door is northern — a guess that happened to be right.
+---
+--- It is now arithmetic. Door at 45.19/11.15 against the three landings:
+---   northern 41.25/23.45 → ~12.9      eastern 54.36/39.96 → ~30.2
+---   foothold 50.03/61.93 → ~51.0
+--- Northern wins by a distance no measurement error is going to close.
+---
+--- ⚠️ The Windcaller and its landing spot are DIFFERENT places and both are recorded.
+--- You talk to the NPC; you arrive at the landing. Collapsing them into one point
+--- would put the "where does this hop leave me" calculation a few units off, which is
+--- exactly the size of error that picks the wrong hub for a target between two of them.
+ns.AMANI_HUBS = {
+	{ key = "foothold", npcX = 50.03, npcY = 61.93 },
+	{ key = "eastern", npcX = 54.25, npcY = 39.41, landX = 54.36, landY = 39.96,
+		optionKey = "PLAN_OPT_EASTERN_OUTPOST" },
+	{ key = "northern", npcX = 41.53, npcY = 23.34, landX = 41.25, landY = 23.45,
+		optionKey = "PLAN_OPT_NORTHERN_BULWARK" },
+}
+
+--- Which hub leaves you nearest `(x, y)`, and which Windcaller is nearest the player.
+--- @return table|nil best, table|nil nearestNpc
+local function ChooseHub(x, y, px, py)
+	local best, bestD, near, nearD
+	for _, hub in ipairs(ns.AMANI_HUBS) do
+		if hub.landX and x then
+			local d = (hub.landX - x) ^ 2 + (hub.landY - y) ^ 2
+			if not bestD or d < bestD then
+				best, bestD = hub, d
+			end
+		end
+		if px then
+			local d = (hub.npcX - px) ^ 2 + (hub.npcY - py) ^ 2
+			if not nearD or d < nearD then
+				near, nearD = hub, d
+			end
+		end
+	end
+	return best, near
+end
+
 local LINKS = {
 	--- Method, 10 aug: one entrance to the Underbelly, and they place it "close to the
 	--- Northern Amani Bulwark flight point". Unverified, but the coordinate agrees with
@@ -199,17 +244,41 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 				--- The other direction is NOT assumed. Being nearer the NPC does not
 				--- prove the hop is worth it — that depends on where it lands, which is
 				--- unmeasured — so the hop is still offered there rather than dropped.
-				local skipVia = false
-				if link.via and here == link.fromMap and link.via.x and C_Map
+				--- ⚠️ NOW COMPUTED, NOT ASSUMED. Yesterday this always offered the
+				--- northern hop because the door is northern; with all three hubs
+				--- measured it picks the one that lands nearest the door, and the one
+				--- whose Windcaller is nearest the player to talk to.
+				---
+				--- Three reasons to say nothing, all of them real:
+				---   * already at the hub that serves this door — flying is a no-op;
+				---   * nearer the door than the NPC — the hop sends you backwards;
+				---   * the chosen hub has no landing recorded (Foothold is where the
+				---     Windcallers send you FROM, not to), so there is nothing to say.
+				local skipVia, hub = false, nil
+				if link.via and here == link.fromMap and C_Map
 					and C_Map.GetPlayerMapPosition then
 					local okP, pos = pcall(C_Map.GetPlayerMapPosition, link.fromMap, "player")
 					if okP and pos and pos.GetXY then
 						local okXY, a, b = pcall(pos.GetXY, pos)
 						if okXY and a then
 							local px, py = a * 100, b * 100
-							local toDoor = (link.x - px) ^ 2 + (link.y - py) ^ 2
-							local toNpc = (link.via.x - px) ^ 2 + (link.via.y - py) ^ 2
-							skipVia = toDoor < toNpc
+							local best, near = ChooseHub(link.x, link.y, px, py)
+							hub = best
+							if not best then
+								skipVia = true
+							elseif near and best.key == near.key then
+								-- Standing at the hub that already serves this door.
+								skipVia = true
+							else
+								local toDoor = (link.x - px) ^ 2 + (link.y - py) ^ 2
+								local npcX = (near and near.npcX) or link.via.x
+								local npcY = (near and near.npcY) or link.via.y
+								local toNpc = (npcX - px) ^ 2 + (npcY - py) ^ 2
+								skipVia = toDoor < toNpc
+								if not skipVia and near then
+									link.via.x, link.via.y = near.npcX, near.npcY
+								end
+							end
 						end
 					end
 				end
@@ -220,7 +289,7 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 						x = link.via.x,
 						y = link.via.y,
 						label = link.via.npc,
-						detail = link.via.optionKey,
+						detail = (hub and hub.optionKey) or link.via.optionKey,
 						note = link.via.note,
 						source = link.via.source,
 					}
