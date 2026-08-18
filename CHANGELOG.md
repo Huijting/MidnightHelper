@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## 3.0.0
+
+- New: `Modules/TravelPlan.lua` / `/mh plan` — the whole way to a target as clickable steps, and `Modules/NativeArrow.lua` now walks it: it steers to the first step on the player's own map, rebuilds the plan on every update so progress needs no tracking, and reports "you are standing on this step" instead of drawing an arrow at someone's feet. All three Amani Windcaller landing spots measured in game (`ns.AMANI_HUBS`), so `ChooseHub` is arithmetic; the hop is skipped when the door is nearer than the NPC.
+- Fixed: `BuildTravelPlan` wrote the chosen Windcaller back into its own module-level `LINKS` table, so the first plan any character built stamped that NPC into the data permanently and every later plan on every character inherited it. Found because Rob was standing at the eastern Windcaller and the plan named it for a northern door.
+- Fixed: `MapContinent` returning nil was read as "a different continent", and `MHSameZoneOrSub` cut a two-leg journey short at both the start and the end of a leg — the second one let a leg declare itself arrived 1.5 seconds in.
+- New: the Coiled Isle's Mysterious Mix Master — ten offerings with three ingredients each in `ns.MIX_MASTER_RECIPES`, verified machine-side (every row sums to three, every column totals ten). One shared Route button in the card header replaced ten identical ones pointing at the same cauldron.
+- Fixed: every Coiled Isle treasure was invisible to the search box. `NavSearch` indexed `node.name`, and those hunts deliberately have none; it now reads `ns.AchievementNodeName`, which is the client's own localized name. Seventh instance of that same fault.
+- Fixed: the command list itself was unsearchable, and was missing nine features that had shipped months earlier. The five measurement probes moved into a labelled group rather than being deleted.
+- New: a red `danger` section in the Delve Coach, used once — The Ring of Glory, where the golem's slam cannot be interrupted and lands underneath you.
+- Measured, and it killed a feature: 12.1 gives an addon nothing readable about an enemy cast. The spell id from `UNIT_SPELLCAST_START` was secret 13 times out of 13; sampling all twelve returns of `UnitCastingInfo` over six casts gave name, text, icon, castID, `notInterruptible`, spellID **and both timestamps** as secret, leaving only `castBarID` (a counter) and `isTradeSkill`. With the start and end times secret, even a cast's duration is not a fingerprint. A delve target's GUID has been secret since 16 aug. So `Modules/BracePrompt.lua`, built and measured the same day, was removed rather than shipped as a prompt that could not name what it warned about — the knowledge went into the Delve Coach instead.
+- Fixed: `/mh here` threw on a secret string because `type(x) == "string"` is true for one. Root cause was six file-local copies of `IsSecretValue`, none exported; `ns.IsSecretValue` and `ns.CanAccessText` now live in `Core.lua`.
+- Fixed: a slash command whose router whitelisted two literal spellings while the handler had learned four arguments, so half of them answered "Unknown command".
+- New: two `/mh shots` scenes (Achievements on an expanded card, the Delve Coach on The Ring of Glory). A scene may now omit `tab` and may name a different window as its subject. `/mh keys` and `/mh plan` were on the list and are not shootable: both print to chat, and the rig hides UIParent.
+
 ## 2.18.0
 
 - New: `Modules/HazardData.lua` + `Modules/Hazards.lua` — 173 avoidable-damage spell ids across 20 instances, harvested from GTFO 6.7.2 per entry rather than per section header. Every id was put to the client twice with two controls holding (an impossible id stayed empty, our own six DBM ids all resolved) and all 173 came back named. Shown in the Delve Coach and via `/mh hazards`.

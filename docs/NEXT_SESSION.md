@@ -1,6 +1,32 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-17 (avond).** Dit is het eerste wat een nieuwe sessie leest.
+**Bijgewerkt 2026-08-18 (avond).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+
+## 🚀 18 aug — v3.0.0 GETAGD (Season 2)
+
+Rob: *"maak hier idd maar v 3.0 van en go"*. Zijn eigen afspraak "v3.0.0 = Season 2"
+is daarmee ingelost. Vijf artefacten bij: toc, `Changelog.lua` + `CHANGELOG_300_*`,
+`RELEASE_NOTES.md` (25 regels, 0 bullets), `CHANGELOG.md`, `docs/CURSEFORGE_3.0.0.md`.
+`CURSEFORGE_DESCRIPTION.md` op drie plekken bijgewerkt (reisplan, Mix Master + Ring of
+Glory, `/mh plan` in de commandotabel) — **Rob plakt die zelf op de CF-pagina.**
+
+⚠️ **Twee dingen uit het kopstuk van 17 aug waren al opgelost en stonden hier ten
+onrechte nog open** (dit bestand was ouder dan de commits):
+- De Windcaller-coördinaten zijn **binnen** — alle drie de hubs staan in `ns.AMANI_HUBS`
+  met NPC- én landingscoördinaten (`d797415`).
+- De pijl **loopt het plan al**. Niet door voortgang bij te houden, maar doordat
+  `BuildTravelPlan` bij elke update opnieuw draait vanaf waar je staat: na de vlucht is
+  de deur dichterbij dan de Windcaller, dus `skipVia` wordt waar en die stap valt weg.
+
+**Nog open na 3.0.0:** Rob moet nog croppen (`tools\Crop-Shots.bat`) — `/mh shots` en
+de reload zijn gedaan. Negen scènes nu; `/mh keys` en `/mh plan` zijn **niet** te
+fotograferen zolang ze naar de chat printen en de rig UIParent verbergt.
+
+🔴 **De Timeworn Golem is GESLOTEN, niet vergeten.** Er kan geen live waarschuwing
+komen: 12.1 geeft niets leesbaars over een vijandelijke cast (spell-id 13/13 secret,
+en naam/icoon/begintijd/eindtijd óók). `BracePrompt.lua` is dezelfde dag gebouwd,
+gemeten en weer verwijderd. De inhoud staat nu in de Delve Coach als rood blok.
+Niet opnieuw bouwen; wél hermeten als 12.2 landt.
 
 ## 📌 18 aug — Season 2 open, 2.18.0 live, en een dag van vindbaarheid
 

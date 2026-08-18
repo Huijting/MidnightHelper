@@ -23,7 +23,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 
 **Getting there, and knowing your keys**
 - **A chest route inside delves.** The coach points you at the nearest Sturdy Chest you have not opened and moves on by itself once you loot it — and where it cannot tell whether a chest is done, it keeps it in the route and says so, rather than quietly hiding one.
-- **Travel that points at the flight master.** Ask for a waypoint on another map and the arrow goes to the flight master you can walk to first, then hands over to your destination the moment you board. The flight map **highlights the stop to click** and tells you when that stop is not on your map yet. 649 flight points across 154 maps, filtered to your faction.
+- **Travel that plans the whole way.** `/mh plan` lays out the route to your current target as steps you can click, and the arrow walks it: it points at the first step on your own map, works out the plan again as you move, and says "you are here, walk through" rather than spinning when you are already standing on one. Where a door is closer than a flight, it takes the door and tells you why. 649 flight points across 154 maps, filtered to your faction, and the flight map **highlights the stop to click**.
 - **What not to stand in, wherever you are.** The Delve Coach lists the avoidable damage for the instance you are actually in — 173 named hazards across every Midnight dungeon and delve, the lair and the raid. Names come from your own game, so they are already in your language.
 - **`/mh curios` — what Valeera's delve curios actually do.** Every line is read out of your own game as you ask, so it describes the ranks you have rather than a guide's snapshot. It deliberately does not rank them: which curio wins depends on your spec and your delve, and nobody has measured that.
 - **`/mh binds` — your own keybinds on paper.** It reads the keys you actually have, including anything you changed by hand, and puts them in a window you can copy into a document and print. It marks keys that duplicate another, and names the Assisted Combat slot for what it is instead of for whichever spell it is suggesting right now.
@@ -33,7 +33,10 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - A **Coiled Isle shelf in the Codex**: the Vaults of Atal'Utek in three readable articles with **clickable waypoint links** on every coordinate, the Altar of Corrosion's four hidden keys explained, and a **Follow the route** button for The Honored Dead memorial walk.
 - The isle's **treasure, glyph and lore hunts** with every coordinate measured, and the seven treasures that need something done first now **name the step that unlocks them** instead of sending you to a chest that will not open. The **portal** to the isle and back joins route guidance once you have finished the quest that creates it.
 - Season 2 content stays hidden until the season genuinely **opens**, not merely until the patch lands — those are a week apart, and an addon that announces a raid you cannot enter yet is worse than one that says nothing.
+- The **Mysterious Mix Master**'s ten offerings, each with the three ingredients it wants, and one Route button for the cauldron rather than ten identical ones.
+- **The Ring of Glory** opens with a warning in red: the golem's slam cannot be interrupted and lands underneath you, so stun it or take it on a defensive.
 - In combat, 12.1 hides some of your own buffs from addons and reports them as simply absent. Midnight Helper tells you it **cannot see**, instead of telling you that you are missing a buff you are holding.
+- The same patch hides what an **enemy** is casting — the spell, the icon and even the cast's length. So warnings like the one above are written into the briefing you read before you go in, rather than shown at the moment they would be useless. Where something is not possible, this addon says so instead of guessing convincingly.
 
 **Beside Blizzard's own windows**
 - Open your **character sheet** and a small panel appears next to it: missing enchants, empty sockets, your tier set, and which slots have hit their **upgrade-track ceiling**.
@@ -169,6 +172,7 @@ drift from what the addon actually answers to.
 | `/mh skip` (`next`) | Skip the current route target |
 | `/mh arrowsize <28-160>` | Resize the route arrow |
 | `/mh arrow` | Who is guiding you, and why the arrow is or is not showing |
+| `/mh plan` | The whole way to your current target, as steps you can click |
 | `/mh binds` | Your own keybinds, read from the client — copy it out and print it |
 | `/mh curios` | What each of Valeera's delve curios does, read from your own game |
 | `/mh hazards` | What does avoidable damage where you are standing |
