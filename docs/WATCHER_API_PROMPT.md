@@ -1,7 +1,21 @@
 # Prompt: Midnight Helper — API-wachter
 
-De prompt hieronder is bedoeld voor een dagelijkse scheduled task (claude.ai) die een
-document schrijft in de Drive-map **"Midnight Helper — PTR-wachter"**.
+De prompt hieronder is bedoeld voor een dagelijkse scheduled task die bijschrijft in
+**`MidnightHelper/docs/API_WATCH.md`**, net als de twee contentwachters in hun eigen
+bestanden.
+
+⚠️ **GEWIJZIGD 18 aug 2026 — dit schreef eerst naar Google Drive.** Rob vroeg waarom
+deze wachter niet in de dagelijkse ronde zat. Antwoord: hij schreef een Google-document
+in de Drive-map "Midnight Helper — PTR-wachter", en de ochtendronde leest `docs/`. Puur
+mechanisch dus, niet inhoudelijk — zijn bevindingen waren goed en werden alleen niet
+gelezen. Bij het nalopen op 18 aug bleek élke 12.1-bevinding al afgedekt in de code
+(`EventProbe` kent de `C_SuperTrack` → `C_Navigation`-verhuizing, `Core.lua` doet
+`LoadAddOnWithErrorHandling or UIParentLoadAddOn`, en `getglobal`/`setglobal`/
+`SecureAuraHeaderTemplate`/`showCountdownFrame` komen nergens voor).
+
+⚠️ **De oude Drive-documenten blijven bestaan** en zijn niet waardeloos: 15 t/m 18 aug
+staan daar en niet in de repo. Wil je die geschiedenis erbij, kopieer ze dan één keer
+handmatig in `API_WATCH.md` — deze prompt haalt niets op met terugwerkende kracht.
 
 **Waarom deze bestaat.** Onze twee bestaande wachters kijken naar *content*: nieuwe
 zones, quests, currencies, achievements. Ze zagen de aura-API-omwenteling van 12.1 niet
@@ -82,10 +96,21 @@ HARDE REGELS
    woorden "PTR, nog niet live".
 
 OUTPUT
-Schrijf een Google-document in de Drive-map "Midnight Helper — PTR-wachter", met als
-titel: "Midnight Helper — API-wachter · JJJJ-MM-DD".
+Voeg je bevindingen TOE aan het bestand `MidnightHelper/docs/API_WATCH.md` in de
+repo, op dezelfde manier als de twee contentwachters dat doen in
+`docs/PTR_12.1_WATCH.md` en `docs/PTR_12.0.7_DATA.md`:
 
-Gebruik deze indeling:
+  - Nieuwe regels gaan ONDERAAN. Nooit iets bestaands overschrijven of herschrijven.
+  - Elke regel begint met `- [JJJJ-MM-DD]` gevolgd door een emoji en een vette kop.
+  - Bestaat het bestand nog niet, maak het dan aan met een korte kopregel die zegt
+    wat het is en dat alles tegen de eigen code geverifieerd moet worden.
+
+Waarom dit zo moet: tot 18 aug 2026 schreef deze wachter een Google-document in de
+Drive-map "Midnight Helper — PTR-wachter". Dat werkte, maar het stond buiten de
+repo, en daardoor zat hij niet in de dagelijkse ochtendronde van Claude Code — die
+leest `docs/`. De bevindingen waren goed en werden simpelweg niet gelezen.
+
+Gebruik deze indeling per regel:
 
   MIDNIGHT HELPER — API-WACHTER
   [dag, datum]
