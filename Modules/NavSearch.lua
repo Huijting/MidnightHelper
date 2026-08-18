@@ -359,12 +359,35 @@ local function BuildNavIndex()
 				end
 			end
 			for _, node in ipairs(entry.nodes or {}) do
-				if node.name and node.mapID and not (node.quest and rareQuests[node.quest]) then
-					local n = node
-					add(n.name, "treasure", function()
+				--- ⚠️ THROUGH THE HELPER, AND THE SEVENTH PLACE THIS WAS WRONG.
+				---
+				--- This read `node.name` and skipped anything without one. Every Coiled
+				--- Isle hunt ships WITHOUT names on purpose — the criterion's own text
+				--- comes from the client through ns.AchievementNodeName, already
+				--- translated — so all of them were silently absent from search: 22
+				--- treasures, 11 glyphs, 10 lore objects and the four hunts added today.
+				---
+				--- Rob asked "kunnen we niet op rare namen en treasures zoeken?" and the
+				--- honest answer was that rares worked and treasures mostly did not. The
+				--- index was built correctly; it was reading the wrong field.
+				---
+				--- ✅ Reading it from the client is better than a typed name would have
+				--- been: a German player types the German name and finds it, because the
+				--- label IS whatever their own Achievements pane says.
+				local label = ns.AchievementNodeName and ns.AchievementNodeName(entry, node)
+				--- Somewhere to go: a coordinate, or the `wp*` destination a node can
+				--- carry without having a location of its own (the ten Mix Master
+				--- offerings all point at one cauldron).
+				local goMap = node.mapID or node.wpMapID
+				local goX, goY = node.x or node.wpX, node.y or node.wpY
+				if label and label ~= "" and goMap and goX
+					and not (node.quest and rareQuests[node.quest]) then
+					local n, lbl = node, label
+					add(lbl, "treasure", function()
 						OpenTab("achievements")
 						if ns.AddSmartTomTomWay then
-							ns.AddSmartTomTomWay(n.mapID, n.x, n.y, n.name)
+							ns.AddSmartTomTomWay(n.mapID or n.wpMapID,
+								n.x or n.wpX, n.y or n.wpY, lbl)
 						end
 					end, TIER_CONTENT, title, "treasure")
 				end
