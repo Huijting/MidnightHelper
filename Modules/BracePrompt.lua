@@ -83,6 +83,54 @@ local function Allowed()
 	return true
 end
 
+--- Getters and setters, so the Settings panel has something to bind to.
+---
+--- ⚠️ These exist because the command came first and the switch came second, which is
+--- backwards and is the mistake this file was already an example of. Every other
+--- toggle in the addon exposes Is/Set pairs for exactly this reason.
+function ns.IsBracePromptEnabled()
+	return (ns.db and ns.db.bracePrompt) and true or false
+end
+
+function ns.SetBracePromptEnabled(v)
+	ns.db = ns.db or {}
+	ns.db.bracePrompt = v and true or nil
+	if not v and frame then
+		frame:Hide()
+	end
+end
+
+function ns.IsBracePromptSpecOnly()
+	return (ns.db and ns.db.bracePromptMySpecOnly) and true or false
+end
+
+--- Turning this on remembers the spec you are standing in RIGHT NOW. That is the whole
+--- mechanism — no table of spec ids, and it works for any class.
+function ns.SetBracePromptSpecOnly(v)
+	ns.db = ns.db or {}
+	if not v then
+		ns.db.bracePromptMySpecOnly = nil
+		ns.db.bracePromptSpecID = nil
+		return
+	end
+	local specID
+	if GetSpecialization and GetSpecializationInfo then
+		local okIdx, idx = pcall(GetSpecialization)
+		if okIdx and idx then
+			local okID, sid = pcall(GetSpecializationInfo, idx)
+			specID = okID and sid or nil
+		end
+	end
+	if not specID then
+		-- Cannot read the spec: leave it off rather than lock the prompt to nothing.
+		ns.db.bracePromptMySpecOnly = nil
+		ns.db.bracePromptSpecID = nil
+		return
+	end
+	ns.db.bracePromptMySpecOnly = true
+	ns.db.bracePromptSpecID = specID
+end
+
 local frame
 
 local function EnsureFrame()
@@ -211,7 +259,18 @@ function ns.ToggleBracePrompt(arg)
 		return
 	end
 
-	ns.db.bracePrompt = not ns.db.bracePrompt or nil
+	--- ⚠️ BARE `/mh brace` NO LONGER TOGGLES. Rob turned it on, went to the golem, saw
+	--- nothing, and the only way to read the counters that explain why was to type the
+	--- command again — which switched the feature off. A diagnostic you have to break
+	--- the thing to read is not a diagnostic.
+	---
+	--- The switch lives in Settings now, so the command is free to just report. `on`
+	--- and `off` still work for anyone who prefers typing.
+	if arg == "on" or arg == "off" then
+		if ns.SetBracePromptEnabled then
+			ns.SetBracePromptEnabled(arg == "on")
+		end
+	end
 	print(("%s %s"):format(Prefix(), ns.db.bracePrompt
 		and ((ns.L and ns:L("BRACE_ON")) or "on")
 		or ((ns.L and ns:L("BRACE_OFF")) or "off")))
@@ -223,5 +282,12 @@ function ns.ToggleBracePrompt(arg)
 		print(("   |cffff5040%s|r"):format(
 			(ns.L and ns:L("BRACE_ALL_SECRET")) or
 			"Every cast id came back secret, so this prompt can never fire."))
+	end
+	--- The other way it can be silent, and the one Rob is most likely hitting: the
+	--- event never arrived. Say which of the two it is instead of leaving him to guess.
+	if (p.castsSeen or 0) == 0 then
+		print(("   |cffffd100%s|r"):format(
+			(ns.L and ns:L("BRACE_NO_CASTS")) or
+			"No casts seen at all - the mob has to be your TARGET before it starts casting."))
 	end
 end

@@ -1489,7 +1489,12 @@ ns._mhLocales.enUS = {
 	BRACE_OFF = "Brace prompt off.",
 	BRACE_THIS_SPEC = "Brace prompt: this spec only (%d). Type /mh brace spec again for every spec.",
 	BRACE_ANY_SPEC = "Brace prompt: every spec.",
-	BRACE_ALL_SECRET = "Every cast id came back secret, so this prompt can never fire. Worth reporting.",
+	BRACE_NO_CASTS = "No casts seen at all - the mob has to be your TARGET before it starts casting.",
+	SET_BRACE_TITLE = "Brace prompt",
+	SET_BRACE_DESC = "Warns you when your target starts a cast you cannot interrupt and cannot walk out of. Tells you to stun or use a defensive instead.",
+	SET_BRACE_SPEC_TITLE = "Brace prompt: this spec only",
+	SET_BRACE_SPEC_DESC = "Switch this on while playing the spec you want it for. It remembers that spec and stays quiet on the others.",
+	BRACE_ALL_SECRET ="Every cast id came back secret, so this prompt can never fire. Worth reporting.",
 
 	ACH_NOTE_VSERIX ="Wanders, and can be killed without any event running.",
 	ACH_NOTE_MIX_MASTER = "One per day, crafted at Ofi the Sly's cauldron at 57.4 / 48.7 - not the Ofi in the swamp, who cannot mix. Each offering is an exact three-ingredient combination and the game shows you nothing while you pick, so the recipe below is the whole job. Ingredients come from Cracked Canopic Jars, Venom-Clotted Baubles and Singing Shells around the isle, and they are tradable, so the auction house works too.",

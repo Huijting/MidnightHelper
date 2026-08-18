@@ -1342,7 +1342,12 @@ ns._mhLocales.nlNL = {
 	BRACE_OFF = "Brace-prompt uit.",
 	BRACE_THIS_SPEC = "Brace-prompt: alleen deze spec (%d). Typ /mh brace spec nog eens voor alle specs.",
 	BRACE_ANY_SPEC = "Brace-prompt: alle specs.",
-	BRACE_ALL_SECRET = "Elke cast-id kwam secret terug, dus deze prompt kan nooit afgaan. Meld dit.",
+	BRACE_NO_CASTS = "Helemaal geen casts gezien - de mob moet je DOELWIT zijn voor hij begint te casten.",
+	SET_BRACE_TITLE = "Brace-prompt",
+	SET_BRACE_DESC = "Waarschuwt zodra je doelwit begint aan een cast die je niet kunt onderbreken en niet kunt ontlopen. Zegt dan dat je moet stunnen of een defensive moet gebruiken.",
+	SET_BRACE_SPEC_TITLE = "Brace-prompt: alleen deze spec",
+	SET_BRACE_SPEC_DESC = "Zet dit aan terwijl je op de spec speelt waarvoor je hem wilt. Hij onthoudt die spec en blijft stil op de andere.",
+	BRACE_ALL_SECRET ="Elke cast-id kwam secret terug, dus deze prompt kan nooit afgaan. Meld dit.",
 
 	ACH_NOTE_VSERIX ="Zwerft rond, en is te doden zonder dat er een event loopt.",
 	ACH_NOTE_MIX_MASTER = "Een per dag, gemaakt bij de ketel van Ofi the Sly op 57.4 / 48.7 - niet die Ofi in het moeras, die kan niet mengen. Elk offer is een exacte combinatie van drie ingredienten en het spel laat je tijdens het kiezen niets zien, dus het recept hieronder is het hele werk. Ingredienten komen uit Cracked Canopic Jars, Venom-Clotted Baubles en Singing Shells over het eiland, en ze zijn verhandelbaar - de veiling kan dus ook.",
