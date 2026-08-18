@@ -63,7 +63,6 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh lang", descKey = "CMDLIST_LANG" },
 	} },
 	{ headKey = "CMDLIST_GRP_WEEK", items = {
-		{ cmd = "/mh weeklies", descKey = "CMDLIST_WEEKLIES" },
 		{ cmd = "/mh milestones", descKey = "CMDLIST_MILESTONES" },
 		{ cmd = "/mh season", descKey = "CMDLIST_SEASON" },
 		{ cmd = "/mh delves", descKey = "CMDLIST_DELVES" },
@@ -71,11 +70,9 @@ ns.MH_COMMANDS = {
 	} },
 	{ headKey = "CMDLIST_GRP_GEAR", items = {
 		{ cmd = "/mh tracks", descKey = "CMDLIST_TRACKS" },
-		{ cmd = "/mh crests", descKey = "CMDLIST_CRESTS" },
 		{ cmd = "/mh loot", descKey = "CMDLIST_LOOT" },
 		{ cmd = "/mh enchant", descKey = "CMDLIST_ENCHANT" },
 		{ cmd = "/mh bagarrows", descKey = "CMDLIST_BAGARROWS" },
-		{ cmd = "/mh folio", descKey = "CMDLIST_FOLIO" },
 	} },
 	{ headKey = "CMDLIST_GRP_GROUP", items = {
 		{ cmd = "/mh partytargets", descKey = "CMDLIST_PARTYTARGETS" },
@@ -85,7 +82,6 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh kicks", descKey = "CMDLIST_KICKS" },
 		{ cmd = "/mh healcds", descKey = "CMDLIST_HEALCDS" },
 		{ cmd = "/mh dispel", descKey = "CMDLIST_DISPEL" },
-		{ cmd = "/mh mbuff", descKey = "CMDLIST_MBUFF" },
 		{ cmd = "/mh prompt", descKey = "CMDLIST_PROMPT" },
 		{ cmd = "/mh prompt sound", descKey = "CMDLIST_PROMPT_SOUND" },
 	} },
@@ -106,8 +102,6 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh goto", descKey = "CMDLIST_GOTO" },
 		{ cmd = "/mh clear", descKey = "CMDLIST_CLEAR" },
 		{ cmd = "/mh skip", descKey = "CMDLIST_SKIP" },
-		{ cmd = "/mh nodes", descKey = "CMDLIST_NODES" },
-		{ cmd = "/mh trail", descKey = "CMDLIST_TRAIL" },
 		{ cmd = "/mh plan", descKey = "CMDLIST_PLAN" },
 		{ cmd = "/mh zone", descKey = "CMDLIST_ZONE" },
 	} },
@@ -125,6 +119,31 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh binds", descKey = "CMDLIST_BINDS" },
 		{ cmd = "/mh ach", descKey = "CMDLIST_ACH" },
 		{ cmd = "/mh mount", descKey = "CMDLIST_MOUNTLOOKUP" },
+	} },
+	--- ⚠️ MEASUREMENT, NOT FEATURES — and they were listed as features until 18 aug.
+	---
+	--- Proposal item 3.2 named five: `/mh mbuff` was described as "toggle the missing
+	--- buff reminder" and toggles nothing; `/mh trail` as "plan a way to get somewhere"
+	--- while its own code says MEASUREMENT ONLY, not wired into the travel assistant.
+	--- `/mh nodes`, `/mh weeklies` and `/mh folio` the same. `/mh crests` is a sixth
+	--- nobody had counted.
+	---
+	--- Moved rather than deleted, on Rob's call and for a reason I had not weighed:
+	--- this list is also how a later session discovers what exists. Deleting them
+	--- means re-inventing them in three weeks. A labelled section keeps them findable
+	--- and stops the false promise, which was the actual complaint.
+	---
+	--- ⚠️ The features these describe are NOT gone. `/mh mbuff`'s reminder is a
+	--- Settings toggle (mh_missingBuff); only its debug print lives here. And `/mh
+	--- trail` no longer sits beside `/mh plan` looking like two versions of one
+	--- thing — plan is what trail promised.
+	{ headKey = "CMDLIST_GRP_PROBE", items = {
+		{ cmd = "/mh weeklies", descKey = "CMDLIST_WEEKLIES" },
+		{ cmd = "/mh crests", descKey = "CMDLIST_CRESTS" },
+		{ cmd = "/mh folio", descKey = "CMDLIST_FOLIO" },
+		{ cmd = "/mh nodes", descKey = "CMDLIST_NODES" },
+		{ cmd = "/mh trail", descKey = "CMDLIST_TRAIL" },
+		{ cmd = "/mh mbuff", descKey = "CMDLIST_MBUFF" },
 	} },
 }
 
