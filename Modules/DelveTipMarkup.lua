@@ -410,6 +410,30 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 			end
 		end
 	end
+	--- ⚠️ THE PLAN OUTRANKS THE FLIGHT HEURISTIC. Rob, 18 aug: standing 90 metres from
+	--- a Vault gate and asking for the Underbelly, he was sent to Tokka's Landing — a
+	--- kilometre away — because this function only knows about flight points and the
+	--- gate is not one.
+	---
+	--- A door on the map you are standing on always beats flying somewhere. So if the
+	--- travel plan has a first step here, say nothing and let the plan lead. The
+	--- heuristic is for when there is no door to use.
+	if ns.BuildTravelPlan then
+		local okP, steps = pcall(ns.BuildTravelPlan, targetMap, x, y, name)
+		if okP and type(steps) == "table" then
+			for _, s in ipairs(steps) do
+				if s.kind ~= "arrive" and s.mapID == currentMap and s.x and s.y then
+					return false
+				end
+				-- Only the FIRST step counts. A later step on this map means you come
+				-- back through here, which is not a reason to skip the flight.
+				if s.kind ~= "arrive" then
+					break
+				end
+			end
+		end
+	end
+
 	local fromName, fx, fy = ns.GetNearestFlightPoint(currentMap, px, py)
 	local toName = ns.GetNearestFlightPoint(targetMap, x, y)
 	if not (fromName and fx and fy and toName) or fromName == toName then

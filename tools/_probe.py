@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-The API watcher's "what MH uses" list was written by hand in July and copied
-forward since. Measure it instead: which C_* namespaces does the addon
-actually call, and how often? A watcher matching against a stale list will
-quietly stop flagging the modules that matter.
+Read the spot log. Rob marked two places while the arrow was misbehaving: in
+the gate corridor (where it kept pointing back at the door he had just walked
+through) and further in (where it finally pointed at the destination). The
+map ids are the interesting part -- they say where the boundary actually is.
 """
 import io
-import os
 import re
 import sys
-from collections import Counter
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -18,45 +16,75 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-MH = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper'
+P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
+     r'\SavedVariables\MidnightHelper.lua')
 
-ns_counts = Counter()
-ns_files = {}
-for root, dirs, files in os.walk(MH):
-    dirs[:] = [d for d in dirs if d not in ('.git', 'docs', 'tools', 'dist')]
-    for f in files:
-        if not f.endswith('.lua'):
-            continue
-        p = os.path.join(root, f)
-        text = io.open(p, encoding='utf-8', errors='replace').read()
-        for m in re.finditer(r'\b(C_[A-Za-z]+)\.', text):
-            ns_counts[m.group(1)] += 1
-            ns_files.setdefault(m.group(1), set()).add(f)
+t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
 
-print('C_* namespaces die Midnight Helper aanroept')
-print('=' * 66)
-print('%-28s %6s  %s' % ('namespace', 'calls', 'bestanden'))
-print('-' * 66)
-for name, n in ns_counts.most_common():
-    print('%-28s %6d  %d' % (name, n, len(ns_files[name])))
 
-print('\n%d namespaces in totaal' % len(ns_counts))
+def block(key, src):
+    i = src.find('["%s"]' % key)
+    if i < 0:
+        return None
+    s = src.index('{', i)
+    d, j = 0, s
+    while j < len(src):
+        if src[j] == '{':
+            d += 1
+        elif src[j] == '}':
+            d -= 1
+            if d == 0:
+                break
+        j += 1
+    return src[s:j + 1]
 
-# The global (non-C_) API surface that a secure-action addon can lose.
-print('\n' + '=' * 66)
-print('Globale API die een secure-action addon kan verliezen')
-print('=' * 66)
-GLOBALS = ['CreateFrame', 'RegisterStateDriver', 'SecureActionButtonTemplate',
-           'InCombatLockdown', 'GetAchievementCriteriaInfo', 'GetInstanceInfo',
-           'UnitAura', 'issecretvalue', 'GetSpellInfo', 'UnitOnTaxi',
-           'SetOverrideBinding', 'C_Timer']
-for g in GLOBALS:
-    hits = 0
-    for root, dirs, files in os.walk(MH):
-        dirs[:] = [d for d in dirs if d not in ('.git', 'docs', 'tools', 'dist')]
-        for f in files:
-            if f.endswith('.lua'):
-                text = io.open(os.path.join(root, f), encoding='utf-8',
-                               errors='replace').read()
-                hits += len(re.findall(r'\b%s\b' % re.escape(g), text))
-    print('%-34s %d' % (g, hits))
+
+def split_top(blob):
+    out, d, buf = [], 0, ''
+    for ch in blob[1:-1]:
+        if ch == '{':
+            d += 1
+        if d > 0:
+            buf += ch
+        if ch == '}':
+            d -= 1
+            if d == 0:
+                out.append(buf)
+                buf = ''
+    return out
+
+
+def f(chunk, name):
+    m = re.search(r'\["%s"\]\s*=\s*("(?:[^"\\]|\\.)*"|true|false|[\d.-]+)'
+                  % name, chunk)
+    if not m:
+        return None
+    v = m.group(1)
+    if v.startswith('"'):
+        return v[1:-1]
+    if v in ('true', 'false'):
+        return v == 'true'
+    return v
+
+
+spots = block('spots', t)
+if not spots:
+    print('geen spots')
+    sys.exit(0)
+
+rows = split_top(spots)
+print('%d plekken\n' % len(rows))
+print('%-4s %-7s %-8s %-8s %-26s %s'
+      % ('#', 'map', 'x', 'y', 'zone', 'doelwit / notitie'))
+print('-' * 84)
+for n, e in enumerate(rows, 1):
+    label = f(e, 'target') or ''
+    note = f(e, 'note')
+    if note:
+        label = (label + '  ' + note).strip()
+    print('%-4d %-7s %-8s %-8s %-26s %s' % (
+        n, f(e, 'mapID') or '?', f(e, 'x') or '?', f(e, 'y') or '?',
+        (f(e, 'zone') or '?')[:26], label))
+    when = f(e, 'when')
+    if when:
+        print('     %s' % when)

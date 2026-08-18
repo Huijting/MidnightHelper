@@ -519,7 +519,7 @@ ns._mhLocales.nlNL = {
 	ACH_NOTE_LOST_SPIRIT = "Op slot. Pak het verloren voorwerp op en breng het terug naar de geest hier.",
 	ACH_STEP_CLAM = "Bubbling Clam",
 	ACH_STEP_UNDERBELLY_WAY_IN = "De ingang van de Underbelly (de enige)",
-	ACH_STEP_OFI_CAULDRON = "De ketel van Ofi the Sly (Tokka's Landing)",
+	ACH_STEP_OFI_CAULDRON = "De ketel bij Tokka's Landing",
 
 	PLAN_HEADER = "Zo kom je bij %s, stap voor stap:",
 	PLAN_STEP_DOOR = "de doorgang (de dichtstbijzijnde die je client kent)",
@@ -1397,6 +1397,7 @@ ns._mhLocales.nlNL = {
 	RARES_SKIP_SINGLE = "Skip werkt tijdens Generate Route (schuift langs niet-gespawnde rares).",
 	ARROW_OTHER_CONTINENT = "(ander continent — reis terug)",
 	ARROW_FLY_TO = "ga richting %s",
+	ARROW_AT_STEP = "Je staat bij %s — loop erdoor, aan de andere kant pakt de pijl het weer op.",
 	ROUTE_CLEARED = "Route gewist.",
 	ROUTE_CLEAR_NONE = "Geen actieve route om te wissen.",
 	RARES_ROUTE_ORDER_NEAR = "Volgorde: dichtstbijzijnde eerst, daarna steeds de volgende.",

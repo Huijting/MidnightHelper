@@ -552,7 +552,7 @@ ns._mhLocales.enUS = {
 	-- Prereq button labels. Short: they sit on a button, not in a sentence.
 	ACH_STEP_CLAM = "Bubbling Clam",
 	ACH_STEP_UNDERBELLY_WAY_IN = "Way into the Underbelly (the only one)",
-	ACH_STEP_OFI_CAULDRON = "Ofi the Sly's cauldron (Tokka's Landing)",
+	ACH_STEP_OFI_CAULDRON = "The cauldron at Tokka's Landing",
 
 	PLAN_HEADER = "How to reach %s, step by step:",
 	PLAN_STEP_DOOR = "the way through (nearest of the ones your client knows)",
@@ -1421,6 +1421,7 @@ ns._mhLocales.enUS = {
 	RARES_SKIP_SINGLE = "Skip works during Generate Route (it chains past un-spawned rares).",
 	ARROW_OTHER_CONTINENT = "(other continent — travel back)",
 	ARROW_FLY_TO = "head for %s",
+	ARROW_AT_STEP = "You are at %s — go through, the arrow picks up on the other side.",
 	ROUTE_CLEARED = "Route cleared.",
 	ROUTE_CLEAR_NONE = "No active route to clear.",
 	RARES_ROUTE_ORDER_NEAR = "Order: nearest first, then next closest each step.",

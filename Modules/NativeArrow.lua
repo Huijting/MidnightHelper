@@ -290,11 +290,38 @@ local function UpdateArrow()
 	--- the first step that IS on this map and steer to that. The arrow behaves
 	--- normally — rotates, counts down the metres, advances when he arrives — and the
 	--- black label is left for the case where genuinely nothing here helps.
+	local standingOnStep
 	if unreachable and ns.BuildTravelPlan then
 		local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
 		if okP and type(steps) == "table" then
+			--- Where the player is on their own map, so a step they are already
+			--- standing on can be told apart from one they still have to walk to.
+			local px, py
+			if C_Map and C_Map.GetPlayerMapPosition then
+				local okQ, pos = pcall(C_Map.GetPlayerMapPosition, pmap, "player")
+				if okQ and pos and pos.GetXY then
+					local okXY, a, b = pcall(pos.GetXY, pos)
+					if okXY and a then
+						px, py = a * 100, b * 100
+					end
+				end
+			end
 			for _, s in ipairs(steps) do
 				if s.kind ~= "arrive" and s.mapID == pmap and s.x and s.y then
+					--- ⚠️ DO NOT POINT AT SOMEONE'S OWN FEET. Rob, 18 aug: walking into
+					--- the gate corridor, the arrow kept pointing back at the gate. His
+					--- `/mh here` explains it — inside the corridor the client still
+					--- reports him on 2512 at 43.12/44.19, right on top of the door. He
+					--- had not crossed onto 2509 yet, so the step was not "done", and
+					--- an arrow to a place you are standing in spins uselessly.
+					---
+					--- There is nothing further to point at either: the next step is on
+					--- a map he is not on. So say the true thing — you are at it, walk
+					--- through — instead of drawing a direction to nowhere.
+					if px and ((s.x - px) ^ 2 + (s.y - py) ^ 2) < 4 then
+						standingOnStep = s.localized and ns:L(s.label) or s.label
+						break
+					end
 					t = {
 						mapID = s.mapID,
 						x = s.x,
@@ -348,7 +375,11 @@ local function UpdateArrow()
 				aim = fp
 			end
 		end
-		if aim then
+		if standingOnStep then
+			-- You are on it. One instruction, no direction, no distance.
+			f.label:SetText(("|cffffd100%s|r"):format(
+				(ns:L("ARROW_AT_STEP")):format(standingOnStep)))
+		elseif aim then
 			f.label:SetText(("%s  %s  |cff8fd3ff%s|r"):format(
 				t.name or "", other, (ns:L("ARROW_FLY_TO")):format(aim)))
 		else

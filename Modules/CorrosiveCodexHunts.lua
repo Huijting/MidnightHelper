@@ -294,7 +294,27 @@ ns.MIX_MASTER_GATES = { renownFaction = 2772, renownLevel = 3, altarNode = "Ofi'
 
 --- Two NPCs are called Ofi the Sly and only one of them mixes. The swamp copy at
 --- 61.0/32.6 has no cauldron dialogue; the cauldron is at Tokka's Landing.
-ns.MIX_MASTER_CAULDRON = { mapID = 2512, x = 57.4, y = 48.7, npc = "Ofi the Sly" }
+--- ⚠️ AND THE NPC THERE MAY NOT BE OFI. Rob marked the spot himself on 18 aug with
+--- `/mh here` while targeting whoever was standing at it: **Apothecary Dezi**, at
+--- 2512 57.23 / 48.46. The research said Ofi the Sly at 57.4 / 48.7.
+---
+--- Those are close enough to be the same corner of the map and far enough apart to be
+--- two different NPCs standing near one cauldron — and Rob also ran a quest there
+--- called "Get the Balance Right", which is not the daily "Mixing Mysteries" this
+--- file is about. So there is more going on at that cauldron than one NPC and one
+--- quest.
+---
+--- Rob's number wins for the WAYPOINT, because he stood on it and read it off his own
+--- client. The name is left unresolved rather than swapped: naming Dezi as the mixer
+--- would be as much a guess as leaving Ofi there.
+ns.MIX_MASTER_CAULDRON = {
+	mapID = 2512,
+	x = 57.23,
+	y = 48.46,
+	measured = "rob /mh here 18 aug",
+	npcSeen = "Apothecary Dezi",
+	npcClaimed = "Ofi the Sly (research, 57.4/48.7)",
+}
 
 --- Every stop for the key hunts, in one flat route: the objects with a single known
 --- spot first, then the nine candidate spots for the Lynx's Paw.
