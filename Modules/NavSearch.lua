@@ -110,7 +110,12 @@ local function BuildNavIndex()
 	tab("TAB_SMC", "smcguide", "smc suffused mote city")
 	tab("TAB_CURRENCY", "currency", "currencies caps gold")
 	tab("TAB_GUIDE", "guide", "leveling layout keybinds")
-	tab("TAB_TOOLSLAUNCH", "toolslaunch", "tools launchpad pop-out windows launcher")
+	--- ⚠️ "command", "commands" and "slash" were NOT in these keywords, and the full
+	--- command list lives at the bottom of this tab. Rob, 18 aug, after an hour spent
+	--- making commands discoverable: "maar waar vind ik die, vroeg ik met blozende
+	--- wangen". The list of commands was the one thing you could not search for.
+	tab("TAB_TOOLSLAUNCH", "toolslaunch",
+		"tools launchpad pop-out windows launcher command commands slash /mh chat")
 	tab("TAB_TOOLBOX", "toolbox", "tools utilities")
 	tab("TAB_ADDONS", "addons", "addon panel")
 	tab("TAB_SETTINGS", "settings", "options preferences text size font language scale")
