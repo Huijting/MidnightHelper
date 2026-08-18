@@ -260,8 +260,22 @@ local function UpdateArrow()
 	end
 	-- Different continent (e.g. you portaled to Orgrimmar mid-hunt): coords aren't
 	-- comparable, so don't draw a bogus direction/distance — just name the target.
+	--- ⚠️ nil IS NOT "ELSEWHERE". Rob, 18 aug: standing in the Vaults with a target on
+	--- the Coiled Isle above him, the arrow read "other continent — travel back".
+	---
+	--- MapContinent returns nil when the lookup fails, and `nil ~= 947` is true, so an
+	--- unreadable map was being reported as a different continent with full confidence.
+	--- Same shape as the aura contract: unreadable ≠ absent. Both sides must resolve
+	--- before this branch may claim anything.
+	---
+	--- ⚠️ And even when both resolve it can be misleading. The Vaults carry their own
+	--- coordinate space, so 2509 and 2512 genuinely differ — while the thing the player
+	--- has to do is walk out of a door, not fly across the world. "Travel back" is a
+	--- true sentence and useless advice, which is the pairing this addon keeps having
+	--- to fix.
 	local pmap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
-	if pmap and MapContinent(pmap) ~= MapContinent(t.mapID) then
+	local pc, tc = MapContinent(pmap), MapContinent(t.mapID)
+	if pmap and pc and tc and pc ~= tc then
 		f.tex:Hide()
 		if f.icon then f.icon:Hide() end
 		local other = ns:L("ARROW_OTHER_CONTINENT")
@@ -279,8 +293,23 @@ local function UpdateArrow()
 		--- this addon prints to chat when the route is first set. Naming it turns a
 		--- dead label into one instruction. Still no direction and no distance, because
 		--- there honestly is none from here.
+		--- Prefer the first step of the actual plan over the destination's flight point.
+		--- Standing inside the Vaults, "head for Tokka's Landing" is where you end up;
+		--- the door out is what you do NEXT, and that is the difference between a label
+		--- and an instruction. Falls back to the flight point when no plan exists.
 		local aim
-		if ns.GetNearestFlightPoint then
+		if ns.BuildTravelPlan then
+			local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
+			if okP and type(steps) == "table" then
+				for _, s in ipairs(steps) do
+					if s.kind ~= "arrive" and s.label then
+						aim = s.localized and ns:L(s.label) or s.label
+						break
+					end
+				end
+			end
+		end
+		if not aim and ns.GetNearestFlightPoint then
 			local ok, fp = pcall(ns.GetNearestFlightPoint, t.mapID, t.x, t.y)
 			if ok and type(fp) == "string" and fp:find("%w") then
 				aim = fp
