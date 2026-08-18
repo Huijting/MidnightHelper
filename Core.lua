@@ -1072,6 +1072,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh hazards — wat je hier vermijdbare schade doet, voor waar je nú staat.
+	-- `check` legt élk id in het bestand aan de client voor, met twee controles.
+	if msg == "hazards check" or msg == "hazard check" then
+		if ns.CheckHazardIDs then
+			ns.CheckHazardIDs()
+		end
+		return
+	end
 	if msg == "hazards" or msg == "hazard" then
 		if ns.ShowHazards then
 			ns.ShowHazards()

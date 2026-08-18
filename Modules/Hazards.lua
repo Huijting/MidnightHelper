@@ -125,6 +125,123 @@ function ns.ShowHazards()
 end
 
 -- ---------------------------------------------------------------------------
+-- `/mh hazards check` — put every id in the file to the client
+-- ---------------------------------------------------------------------------
+
+--[[
+	The 173 ids that opened this file were checked once, by a throwaway script that no
+	longer exists. So when GTFO 6.8 added sixteen more on 18 aug there was nothing to
+	re-run, and "verify it the way we did last time" meant writing it again from memory.
+	This is that check, kept.
+
+	⚠️ IT NEEDS TWO CONTROLS, AND THEY BOTH HAVE TO BE ABLE TO FAIL. An id that comes
+	back nameless proves nothing on its own — the spell cache may simply not be loaded,
+	in which case EVERY id looks wrong and the run would condemn 189 good ones. So:
+
+	  • a POSITIVE control (an id measured on Rob's own client on 17 aug) must resolve.
+	    If it does not, the cache is cold and the whole run is thrown away, not reported.
+	  • a NEGATIVE control (an id that cannot exist) must NOT resolve. If it does, then
+	    "resolves" means nothing here and a pass proves nothing either.
+
+	This is the rule that cost us three separate mistakes before 16 aug: an empty answer
+	is not an absence unless something in the same run could have answered.
+
+	⚠️ AND IT MUST WAIT. C_Spell.GetSpellName reads a cache that fills asynchronously;
+	a straight loop reports "no name" for ids that are perfectly real. That bug already
+	cost a day on /mh curios in 2.17.0. RequestLoadSpellData first, then read a second
+	later.
+]]
+
+local POSITIVE_CONTROL = 1287680 -- Snake Eater, named by Rob's client 17 aug
+local NEGATIVE_CONTROL = 99999991 -- must stay nameless, or "named" means nothing
+
+local function SpellName(id)
+	if C_Spell and C_Spell.GetSpellName then
+		local ok, n = pcall(C_Spell.GetSpellName, id)
+		if ok and n and n ~= "" then
+			return n
+		end
+	end
+	if C_Spell and C_Spell.GetSpellInfo then
+		local ok, info = pcall(C_Spell.GetSpellInfo, id)
+		if ok and info and info.name and info.name ~= "" then
+			return info.name
+		end
+	end
+	return nil
+end
+
+--- Every id in the file, with the instance it sits under. Duplicates are kept: the
+--- same spell legitimately appears in two instances, and collapsing them would hide
+--- which instance a bad id belongs to.
+local function EveryID()
+	local out = {}
+	for instanceID, list in pairs(ns.INSTANCE_HAZARDS or {}) do
+		for _, id in ipairs(list) do
+			out[#out + 1] = { id = id, where = instanceID }
+		end
+	end
+	for _, id in ipairs(ns.WORLD_HAZARDS or {}) do
+		out[#out + 1] = { id = id, where = "world" }
+	end
+	return out
+end
+
+function ns.CheckHazardIDs()
+	local rows = EveryID()
+	print(("%s |cff8fd3ffchecking %d hazard ids against your client…|r"):format(
+		Prefix(), #rows))
+
+	if C_Spell and C_Spell.RequestLoadSpellData then
+		pcall(C_Spell.RequestLoadSpellData, POSITIVE_CONTROL)
+		for _, row in ipairs(rows) do
+			pcall(C_Spell.RequestLoadSpellData, row.id)
+		end
+	end
+
+	C_Timer.After(1.5, function()
+		local posOK = SpellName(POSITIVE_CONTROL) ~= nil
+		local negName = SpellName(NEGATIVE_CONTROL)
+
+		if not posOK then
+			print(("   |cffff5040The control failed: %d has no name either, so the spell cache is not loaded. Nothing is proven — run it again in a moment.|r")
+				:format(POSITIVE_CONTROL))
+			return
+		end
+		if negName then
+			print(("   |cffff5040The impossible id %d came back as %q, so 'has a name' means nothing here. Report this.|r")
+				:format(NEGATIVE_CONTROL, negName))
+			return
+		end
+
+		local named, nameless = 0, {}
+		for _, row in ipairs(rows) do
+			local n = SpellName(row.id)
+			if n then
+				named = named + 1
+			else
+				nameless[#nameless + 1] = row
+			end
+		end
+
+		print(("   |cff40c040%d named|r · |cffffd100%d without a name|r  (controls held)")
+			:format(named, #nameless))
+		for _, row in ipairs(nameless) do
+			print(("      |cffff5040%d|r  instance %s"):format(row.id, tostring(row.where)))
+		end
+		if #nameless == 0 then
+			print("      |cff8a8f98Every id in the file resolves.|r")
+		end
+
+		--- To SavedVariables as well, so a long list does not have to be read off a
+		--- screenshot -- the standing rule since 27 jul.
+		ns.db = ns.db or {}
+		ns.db.hazardCheck = { named = named, nameless = nameless, checked = #rows }
+		print("      |cff8a8f98Also written to ns.db.hazardCheck — /reload to save it.|r")
+	end)
+end
+
+-- ---------------------------------------------------------------------------
 -- Learn the name of every instance the player enters, hazards or not.
 -- ---------------------------------------------------------------------------
 

@@ -166,21 +166,24 @@ ns.DELVE_TIP_ENTRIES = {
 	-- hardop; DelveHistory logt de bossnaam bij de eerstvolgende run nu de namen in de
 	-- roster staan.
 	--
-	-- ⚠️ "GEEN ENKELE ADDON OP SCHIJF NOEMT EEN NAAM" STOND HIER, EN DAT IS SINDS
-	-- 18 AUG NIET MEER WAAR. GTFO 6.8 noemt er twee, elk met een encounter-id:
+	-- ⚠️ "GEEN ENKELE ADDON OP SCHIJF NOEMT EEN NAAM" STOND HIER, EN DAT WAS AL ONWAAR
+	-- OP HET MOMENT DAT HET GESCHREVEN WERD. Twee van onze eigen bestanden spraken
+	-- elkaar tegen: `HazardData.lua` r.242 draagt sinds 17 aug de bosnaam uit GTFO,
+	-- mét encounter-id én mét een spellingsverschil dat deze regel ontkende:
 	--
-	--     instance 3038  encounter 3512  "Snake Eater (Graka Snake-Eater)"
-	--     instance 3077  encounter 3535  "Spirit Tear (Drakta)"
+	--     instance 3038  encounter 3512  GTFO: "Graka Snake-Eater" / Method: "Gralka"
+	--     instance 3077  encounter 3535  GTFO: "Drakta"  (ook Method + Icy Veins)
 	--
-	-- Drakta stond al in onze overview-tekst, uit Method en Icy Veins; GTFO is een
-	-- derde, onafhankelijke bron. Graka Snake-Eater is nieuw — voor Gnarldor Isle
-	-- hadden we niets.
+	-- Op 18 aug meldde ik dit aan Rob als een vondst van GTFO 6.8. Dat was het niet —
+	-- 6.7.2 had die regels ook, wij hadden ze al geoogst, en ik had het in ons eigen
+	-- bestand kunnen lezen. De les is niet "GTFO checken" maar: kijk eerst wat wij zelf
+	-- al weten voordat je een andere bron nieuws noemt.
 	--
-	-- ⚠️ TOCH GAAN ZE HIER NIET IN. Het zijn commentaarregels in andermans addon, en
-	-- CLAUDE.md is er stellig over: een andere addon levert kandidaten, geen bewijs.
-	-- Precies zo'n regel gaf op 8 aug een Blackwing Mage's Arcane Explosion. De naam
-	-- die wij tonen moet uit Robs eigen client komen — DelveHistory pakt hem op bij de
-	-- eerstvolgende run, en dat kost niets extra's.
+	-- ⚠️ EN ZE GAAN HIER NOG STEEDS NIET IN. Het zijn commentaarregels in andermans
+	-- addon, en de twee bronnen zijn het niet eens over de spelling — precies waarom
+	-- CLAUDE.md zegt: kandidaten, geen bewijs. Een verkeerd gespelde bossnaam is erger
+	-- dan geen, want de speler kan hem nergens terugvinden. Encounter 3512 of Robs
+	-- eigen client via DelveHistory beslist het, en dat kost ons niets extra's.
 	--
 	-- Binnenkaarten (drie addons eens): Gnarldor Isle = 2635, The Ring of Glory = 2633.
 	-- DBM-zone-ids: 3038 / 3077. Chest-quest-ids 96802-96807 bestaan in HandyNotes maar

@@ -85,6 +85,10 @@ ns.INSTANCE_HAZARDS = {
 		1297691, -- Whirlwind
 		1297695, -- Felfire Bombardment
 		1294836, -- Defiled Detonation
+		-- GTFO 6.8, 18 aug — unverified until `/mh hazards check`.
+		473898,  -- Legion Strike (Xathuux the Annihilator)
+		1216074, -- Spill Zone (Selenar Sunshy)
+		1253813, -- Fel Spray (Nibbles)
 	},
 	[2825] = { -- Den of Nalorakk
 		1235405, -- Bonespiked
@@ -100,6 +104,7 @@ ns.INSTANCE_HAZARDS = {
 		1247030, -- Poison Spear Volley
 		1242887, -- Echoing Maul
 		1297797, -- Forceful Slam
+		1297749, -- Frozen Tempest (Sentinel of Winter) — GTFO 6.8, 18 aug
 	},
 	[2858] = { -- name still unknown — the client has never been asked from inside
 		1225385, -- Grasping Shadows
@@ -118,9 +123,14 @@ ns.INSTANCE_HAZARDS = {
 		1238638, -- Bullet Seeds
 		1263642, -- Belch Spores
 		1237267, -- Incise
+		--- ⚠️ GTFO 6.8 DROPPED 1259365 (Bloodthorn Roots) from this instance. Kept
+		--- anyway: it survived the 17 aug client check with a real name, and a hazard
+		--- we show that no longer exists costs a glance, while one we remove that does
+		--- still exist costs a death. Removal needs a reason, not merely an absence.
 		1259365, -- Bloodthorn Roots
 		1242138, -- Solar Breath
 		1242200, -- Lightwarden's Blight
+		1246753, -- Lightsap (Ziekket) — GTFO 6.8, 18 aug
 	},
 	[2874] = { -- Maisara Caverns
 		1243752, -- Icy Slick
@@ -148,6 +158,9 @@ ns.INSTANCE_HAZARDS = {
 		1248980, -- Volatile Essence
 		1279517, -- Soul Expulsion
 		1254175, -- Cries of the Fallen
+		1243900, -- Fetid Quillstorm (Nekraxx) — GTFO 6.8, 18 aug. A SECOND id for a
+		         -- name we already carry as 1256247; both stay until the client says
+		         -- otherwise, exactly like the two Wild Bites in 2987.
 	},
 	[2912] = { -- The Voidspire
 		1238206, -- Volatile Fissure
@@ -169,8 +182,13 @@ ns.INSTANCE_HAZARDS = {
 		1265152, -- Impale
 		1248652, -- Divine Toll
 		1243753, -- Ravenous Abyss
+		1260712, -- Oblivion's Wrath (Imperator Averzian) — GTFO 6.8, 18 aug
 	},
 	[2913] = { -- March on Quel'Danas
+		--- ⚠️ GTFO 6.8 MOVED 1222306 (Sporecloud) from here to instance 1592. Left where
+		--- it is: 1592 is the instance whose name nothing on this machine can resolve
+		--- (see its own note below), so "GTFO now files it under the mystery id" is not
+		--- a reason to follow. If it belongs to 1592 it will simply never fire here.
 		1222306, -- Sporecloud
 		1241840, -- Light Patch
 		1241841, -- Void Patch
@@ -200,6 +218,7 @@ ns.INSTANCE_HAZARDS = {
 		1226031, -- Poison Splash
 		1222724, -- Noxious Breath
 		1310026, -- Atomized
+		1234833, -- Ravenous Swarm (Chitigoth) — GTFO 6.8, 18 aug
 	},
 	[2939] = { -- The Dreamrift
 		1245919, -- Alndust Essence
@@ -213,6 +232,7 @@ ns.INSTANCE_HAZARDS = {
 		1281341, -- Wild Bite
 		1307062, -- Big Wave
 		1313448, -- Frost Orb
+		1258668, -- Swirling Whirlpools (Nymrissa Wavecaller) — GTFO 6.8, 18 aug
 	},
 	[2993] = { -- Altar of Fangs
 		1301231, -- Bloodletting
@@ -234,6 +254,18 @@ ns.INSTANCE_HAZARDS = {
 		1285623, -- Soulcoil Well
 		1296439, -- Corpse Blight
 		1294846, -- Anguished Echoes
+		--- ⚠️ ADDED 18 aug from GTFO 6.8, and UNVERIFIED until `/mh hazards check` runs.
+		--- The raid opened today, so GTFO grew from 3 ids to 8 for it overnight. That
+		--- makes these the least-settled entries in this file, not the most current:
+		--- a same-day harvest is exactly when a data addon is most likely to carry a
+		--- placeholder. FormatHazardLines drops anything the client cannot name, so a
+		--- wrong id here shows nothing rather than something false — but silence is
+		--- not verification, which is why the check command exists.
+		1284210, -- Blood Venom (Blood of Ula'tek)
+		1284947, -- Cultivated Burst
+		1288554, -- Latent Cultist
+		1294933, -- Slithering Flame (Echo of Jawae)
+		1300239, -- Swirling Spirit
 	},
 	[3038] = { -- Gnarldor Isle (Season 2 delve) — CONFIRMED by Rob's client 17 aug,
 		-- which named the instance itself on entry. The one placement in this file
