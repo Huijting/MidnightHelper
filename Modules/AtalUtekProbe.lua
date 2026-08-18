@@ -98,7 +98,33 @@ local REPEATABLE = {
 	--
 	-- A rival id that resolves is what a bare silence could never be: a control that
 	-- can fail. Kept in the sweep so nobody re-adds it from Method's portal page.
-	{ 96466, "Prey: Anguish Island (WRONG id — measured 17 aug)", "see 96528" },
+	--
+	-- ⚠️ REOPENED 18 aug, AND THE ARGUMENT ABOVE IS WEAKER THAN IT READS.
+	--
+	-- Zygor's chain brought three more ids into the sweep, and Rob's client answered:
+	--
+	--     96004  ✓        96474  ✓        96528  ✓
+	--     96466  ✗        96525  ✗        96503  ✗        96532  ✗
+	--
+	-- Four silences, one signature. The 17 aug reasoning rested on an assumption it
+	-- never stated: that every step of the same unreleased chain behaves alike, so one
+	-- step resolving proves the others would too. Tonight the chain plainly does NOT
+	-- behave alike — three steps answer and three do not, and nobody here knows why.
+	-- Once resolution varies WITHIN a chain, 96528's presence stops saying anything
+	-- about 96466's absence.
+	--
+	-- And three ids from a paid guide with its own dataminers being wrong at once is a
+	-- worse bet than one id being early.
+	--
+	-- ⚠️ THE DECIDING MEASUREMENT IS ROB'S, TOMORROW. He plays EU, where Season 2 opens
+	-- at the 19 aug reset — the very objection he raised on 17 aug and which I talked
+	-- past. If any of 96525/96503/96532 light up after that reset, "not live yet" is
+	-- the explanation, this whole note is the answer to 96466 as well, and the label
+	-- below must change. If they all stay silent through a live Season 2, then they are
+	-- wrong ids and so is 96466 — and only then.
+	--
+	-- Until that run: this is UNDECIDED, not settled. Nothing is gated on 96466.
+	{ 96466, "Prey: Anguish Island (UNDECIDED — see the note above, re-measure 19 aug)", "see 96528" },
 
 	-- ⚠️ THE REST OF THE CHAIN, and the reason the portal gate is now in doubt.
 	--
