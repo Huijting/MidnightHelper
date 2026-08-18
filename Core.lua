@@ -1050,22 +1050,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	-- /mh brace — waarschuwing voor casts die je niet kunt stoppen of ontlopen.
-	-- `spec` beperkt hem tot de spec waarop je nu speelt; `on`/`off` schakelen hem;
-	-- `slots`/`reset` zijn voor de meting (zie BracePrompt.lua).
+	-- ⚠️ /mh brace IS WEG (18 aug), en dit is de reden, zodat niemand hem opnieuw bouwt.
+	-- De prompt moest waarschuwen voor een cast die je niet kunt onderbreken. 12.1 laat
+	-- dat niet toe: het spell-id is secret (13 casts, 13x secret), het npc-id van een
+	-- delve-mob ook (16 aug, Gnarldor), en het samplen van alle twaalf returns van
+	-- UnitCastingInfo gaf naam, tekst, icoon EN begin-/eindtijd allemaal secret — dus
+	-- zelfs de cast-duur is geen kenmerk meer. Er blijft niets over om casts uit elkaar
+	-- te houden. Wat er nog kon (de engine de alpha laten zetten) sprak over ELKE
+	-- niet-kickbare cast en dus ook de hele fight door op een baas.
 	--
-	-- ⚠️ HIER STOND EEN VASTE LIJST: `msg == "brace" or msg == "brace spec"`. Alles wat
-	-- de functie daarna aan argumenten leerde kennen kwam er dus nooit doorheen — Rob
-	-- kreeg "Unknown command" op `brace reset`, en `on`/`off` waren al net zo dood
-	-- terwijl de commit-tekst beweerde dat ze werkten. Geef het argument door in plaats
-	-- van het te whitelisten; de functie kent zijn eigen woorden beter dan de router.
-	local braceArg = msg:match("^brace%s+(%S+)$")
-	if msg == "brace" or braceArg then
-		if ns.ToggleBracePrompt then
-			ns.ToggleBracePrompt(braceArg)
-		end
-		return
-	end
+	-- Rob heeft hem er 18 aug uit laten halen: te veel tijd voor te weinig, en de mob
+	-- staat alleen in de hogere tiers. De kennis staat nu in de Delve Coach bij The Ring
+	-- of Glory, waar je hem toch al opent.
 
 	-- /mh keys — de vier Altar of Corrosion-nodes die achter een zoektocht zitten.
 	if msg == "keys" or msg == "codexkeys" then

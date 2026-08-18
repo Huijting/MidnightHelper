@@ -1392,7 +1392,13 @@ ns._mhLocales.enUS = {
 	CURIO_FOOTER ="Read live from your own client, so it stays right when Blizzard changes something. If you want someone to pick for you, Everything Delves ranks them; this is here to tell you what you are choosing between.",
 	DELVE_TIP_GNARLDOR_OVERVIEW = "• New in 12.1, on the Coiled Isle — entrance at {WAY:2512:64.3:77.7:Gnarldor Isle}. Scrollmaster Ruma at the entrance starts a short quest chain.|n• Three story variants, two bosses (per Method and Icy Veins — not yet measured on your client). Two variants end at Gralka Snake-Eater: she eats snakes for damage stacks and leaves venom puddles — drag her off them, sidestep the waves of her Purging Breath.|n• The third ends at Osseous Amalgamation: interrupt his bone shield, run from Bonestorm, dodge the bone spikes.|n• Click the Tortollan Scrolls you pass — buffs, some with a catch.",
 	DELVE_TIP_GNARLDOR_ROUTE = "• Three Sturdy Chests — click to set a waypoint: {WAY:2635:60.44:68.12:Sturdy Chest 1} · {WAY:2635:52.41:40.84:Sturdy Chest 2} · {WAY:2635:28.67:41.69:Sturdy Chest 3}.|n• You arrive at about 77, 46; the exit portal stands right there — sweep the chests and you end where you began.",
-	DELVE_TIP_RINGOFGLORY_OVERVIEW = "• New in 12.1, on the Coiled Isle — entrance at {WAY:2512:71.1:56.4:The Ring of Glory}. An arena delve: one variant is a gauntlet of duels, one a ghostly ball game, one an animal rescue.|n• The first two end at Drakta (per Method and Icy Veins — not yet measured on your client): dodge his Soul Cleave circle, drag him out of the zone it leaves, and when Death Grip pulls the furthest player in, break line of sight behind a pillar. The rescue ends at Gnok, who rises again undead halfway.|n• Floor traps everywhere — watch your step.|n• Interrupt the Spiritcallers’ self-heal and kill the War Drum the Warsingers plant.",
+	-- ⚠️ The golem's own NAME is not in here on purpose. Rob reported the cast as
+	-- "Fishure Slam ofzoiets" and the rest came from guides, and 12.1 has made the
+	-- name unverifiable in the client — an enemy's cast text is secret. So the tip
+	-- says what he SAW and what to do about it, and does not put a proper noun in a
+	-- player's mouth that nobody has been able to confirm.
+	DELVE_TIP_RINGOFGLORY_DANGER = "• The golem's Fissuring Slam cannot be interrupted. A kick does nothing — the cast bar carries the shield.|n• It lands underneath you, so there is nothing to walk out of. Stun it, or use a defensive and take the hit.|n• It only shows up in the higher tiers.|n• Midnight Helper cannot warn you the moment it starts: since 12.1 an addon can no longer see which spell an enemy is casting. That is why this note is here instead.",
+	DELVE_TIP_RINGOFGLORY_OVERVIEW ="• New in 12.1, on the Coiled Isle — entrance at {WAY:2512:71.1:56.4:The Ring of Glory}. An arena delve: one variant is a gauntlet of duels, one a ghostly ball game, one an animal rescue.|n• The first two end at Drakta (per Method and Icy Veins — not yet measured on your client): dodge his Soul Cleave circle, drag him out of the zone it leaves, and when Death Grip pulls the furthest player in, break line of sight behind a pillar. The rescue ends at Gnok, who rises again undead halfway.|n• Floor traps everywhere — watch your step.|n• Interrupt the Spiritcallers’ self-heal and kill the War Drum the Warsingers plant.",
 	DELVE_TIP_RINGOFGLORY_ROUTE = "• Three Sturdy Chests — click to set a waypoint: {WAY:2633:44.16:22.60:Sturdy Chest 1} · {WAY:2633:25.19:73.74:Sturdy Chest 2} · {WAY:2633:48.56:94.84:Sturdy Chest 3}.|n• The exit is at {WAY:2633:80.10:53.69:Exit}.",
 	MARK_DRAG = "Drag to move (out of combat)",
 	MARK_CLEAR_TARGET = "Clear target marker",
@@ -1482,19 +1488,6 @@ ns._mhLocales.enUS = {
 	CHANGELOG_185_6 = "New in Professions 101: a 'Skill leveling 1-100' route per profession (Alchemy & Herbalism first, more coming) and a clear 'Work Orders explained' chapter - how to order items and craft for others.",
 	ACH_NOTE_UNDERBELLY_STRIKE = "Only up while the Temple Strike: The Underbelly is running - there is no fixed spot to walk to, so the arrow leaves this one alone.",
 	ACH_NOTE_ANCIENT_FOE = "Spawns where a Temple Incursion finishes, so it has no place on the map. Join whatever is running and it comes to you.",
-	CMDLIST_BRACE = "Warn about casts you cannot interrupt or walk out of. /mh brace spec limits it to your current spec.",
-	BRACE_WORD = "STUN OR DEFENSIVE",
-	BRACE_SUB = "Your target is casting something you cannot interrupt.",
-	BRACE_ON = "Brace prompt on.",
-	BRACE_OFF = "Brace prompt off.",
-	BRACE_THIS_SPEC = "Brace prompt: this spec only (%d). Type /mh brace spec again for every spec.",
-	BRACE_ANY_SPEC = "Brace prompt: every spec.",
-	BRACE_NO_CASTS = "No casts seen at all - the mob has to be your TARGET before it starts casting.",
-	SET_BRACE_TITLE = "Brace prompt",
-	SET_BRACE_DESC = "Warns you when your target starts a cast you cannot interrupt, so you stun it or use a defensive instead. It cannot tell one such cast from another, so on a boss it will speak often.",
-	SET_BRACE_SPEC_TITLE = "Brace prompt: this spec only",
-	SET_BRACE_SPEC_DESC = "Switch this on while playing the spec you want it for. It remembers that spec and stays quiet on the others.",
-	BRACE_ALL_SECRET ="Every cast id came back secret, so this prompt can never fire. Worth reporting.",
 
 	ACH_NOTE_VSERIX ="Wanders, and can be killed without any event running.",
 	ACH_NOTE_MIX_MASTER = "One per day, crafted at Ofi the Sly's cauldron at 57.4 / 48.7 - not the Ofi in the swamp, who cannot mix. Each offering is an exact three-ingredient combination and the game shows you nothing while you pick, so the recipe below is the whole job. Ingredients come from Cracked Canopic Jars, Venom-Clotted Baubles and Singing Shells around the isle, and they are tradable, so the auction house works too.",
@@ -2287,6 +2280,7 @@ ns._mhLocales.enUS = {
 	DELVE_COACH_ACTIVE_STORY_UNKNOWN_BOSS_FMT = "Today's story: %s -> Final boss: unknown (follow objectives)",
 	DELVE_COACH_BOSS_PENDING = "Final boss not detected yet — hover the delve icon on your world map for today's story.",
 	DELVE_COACH_ACTIVE_BOSS_FMT = "Today's boss: %s",
+	DELVE_COACH_SEC_DANGER = "This one kills you",
 	DELVE_COACH_SEC_OVERVIEW = "Overview",
 	DELVE_COACH_SEC_ROUTE = "Route",
 	DELVE_COACH_SEC_TRASH = "Trash & mechanics",

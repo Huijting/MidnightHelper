@@ -33,6 +33,9 @@ local COACH_FRAME_STRATA = "FULLSCREEN_DIALOG"
 local COACH_FRAME_LEVEL = 500
 local COLOR_SECTION = "|cffffcc00"
 local COLOR_BODY = "|cffffffff"
+--- Same red the hazard lines and the death recap use, so "this one kills you" looks
+--- the same everywhere in the addon rather than being a colour per module.
+local COLOR_DANGER = "|cffff5040"
 
 local function BringCoachFrameToFront(f)
 	if not f then
@@ -296,7 +299,15 @@ local function BuildCoachBody(entry, opts)
 		if ns.ExpandDelveTipMarkup then
 			body = ns:ExpandDelveTipMarkup(body)
 		end
-		blocks[#blocks + 1] = COLOR_SECTION .. title .. ":|r|n" .. COLOR_BODY .. body .. "|r"
+		--- `sec.danger` paints the heading red instead of yellow.
+		---
+		--- ⚠️ Use it for the one thing in a delve that KILLS you outright, and nowhere
+		--- else. Every section looking urgent is the same as none of them looking
+		--- urgent. There is exactly one user today: the golem in The Ring of Glory,
+		--- which we cannot warn about at runtime because 12.1 hands addons nothing
+		--- readable about an enemy cast — so this heading is the warning.
+		blocks[#blocks + 1] = (sec.danger and COLOR_DANGER or COLOR_SECTION)
+			.. title .. ":|r|n" .. COLOR_BODY .. body .. "|r"
 	end
 
 	--- What hurts you here, from GTFO's hazard list (17 aug).

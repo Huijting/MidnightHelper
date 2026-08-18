@@ -184,6 +184,16 @@ ns.DELVE_TIP_ENTRIES = {
 		rosterName = "The Ring of Glory",
 		poiId = 8764,
 		sections = {
+			--- ⚠️ EERST, EN ROOD, EN DAT IS EEN BESLISSING VAN 18 AUG. Dit had een
+			-- live prompt moeten zijn: een melding op het moment dat de golem begint
+			-- te casten. Dat kan niet in 12.1 — spell-id, npc-id, icoon én begin-/
+			-- eindtijd van een vijandelijke cast zijn allemaal secret, dus een addon
+			-- kan niet zien WELKE cast er loopt. Er is niets meer om op te reageren.
+			--
+			-- Wat overblijft is dit: het vooraf vertellen, op de plek die je toch
+			-- opent voordat je naar binnen gaat. Minder mooi, maar het is waar, en
+			-- een waarschuwing die je vóór de pull leest is niet waardeloos.
+			{ titleKey = "DELVE_COACH_SEC_DANGER", bodyKey = "DELVE_TIP_RINGOFGLORY_DANGER", danger = true },
 			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_RINGOFGLORY_OVERVIEW" },
 			{ titleKey = "DELVE_COACH_SEC_ROUTE", bodyKey = "DELVE_TIP_RINGOFGLORY_ROUTE" },
 		},

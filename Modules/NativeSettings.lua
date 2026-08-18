@@ -195,24 +195,11 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetPartyTargetsEnabled then ns.SetPartyTargetsEnabled(v) end
 		end, false)
-		-- The brace prompt sits next to the Action prompt because it is the same kind
-		-- of thing seen from the other side: that one tells you what to do TO a cast,
-		-- this one tells you a cast is going to happen to YOU regardless.
-		--
-		-- ⚠️ It shipped as a command with no switch on 18 aug, two hours after the
-		-- same session measured that twelve features were reachable only by typing.
-		-- Rob: "zorg dat je je eigen regel nooit meer vergeet." Lint check [13] now
-		-- enforces it; this entry is the thing the check was written to require.
-		AddToggle("mh_bracePrompt", "SET_BRACE_TITLE", "SET_BRACE_DESC", function()
-			return ns.IsBracePromptEnabled and ns.IsBracePromptEnabled()
-		end, function(v)
-			if ns.SetBracePromptEnabled then ns.SetBracePromptEnabled(v) end
-		end, false)
-		AddToggle("mh_braceSpecOnly", "SET_BRACE_SPEC_TITLE", "SET_BRACE_SPEC_DESC", function()
-			return ns.IsBracePromptSpecOnly and ns.IsBracePromptSpecOnly()
-		end, function(v)
-			if ns.SetBracePromptSpecOnly then ns.SetBracePromptSpecOnly(v) end
-		end, false)
+		-- ⚠️ Hier stonden 18 aug twee brace-prompt-schakelaars. Ze zijn dezelfde dag weer
+		-- weggehaald: 12.1 geeft geen enkel leesbaar kenmerk van een vijandelijke cast
+		-- meer (spell-id, npc-id, icoon en begin-/eindtijd allemaal secret), dus de
+		-- prompt kon niet zeggen WELKE cast hij bedoelde. Zie de uitleg bij /mh brace in
+		-- Core.lua. De inhoud staat nu in de Delve Coach bij The Ring of Glory.
 		AddToggle("mh_csSpeak", "SET_CS_SPEAK_TITLE", "SET_CS_SPEAK_DESC", function()
 			return ns.IsCombatSafetySpeakEnabled and ns.IsCombatSafetySpeakEnabled()
 		end, function(v)

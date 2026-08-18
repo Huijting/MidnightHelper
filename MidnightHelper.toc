@@ -141,7 +141,6 @@ Modules\MechanicNameProbe.lua
 Modules\CorrosiveCodexHunts.lua
 Modules\TravelPlan.lua
 Modules\SpotLog.lua
-Modules\BracePrompt.lua
 Modules\HazardData.lua
 Modules\Hazards.lua
 Modules\NativeArrow.lua
