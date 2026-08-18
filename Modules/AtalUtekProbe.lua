@@ -164,7 +164,22 @@ local REPEATABLE = {
 	{ 97616, "Corrosive Gifts: Corrosive Power (Method)", "Altar-related" },
 
 	-- Season 2 delve and weekly ids worth having before Tuesday.
-	{ 97482, "Azta'rec nemesis delve (Method)", "S2 delve" },
+	--
+	-- ⚠️ TWO SOURCES, TWO COORDINATES, AND THAT DISAGREEMENT IS THE POINT OF ASKING.
+	-- 97482 has sat here since 17 aug as Method's "Azta'rec nemesis delve". A Wowhead
+	-- guide (18 aug) gives the same delve a NAME, an npc and a first quest — Venomfall
+	-- Deeps, Azta'rec is npc 265500, and 97482 turns out to be the SECOND step, "Fangs
+	-- for the Memories", after 97321 "Slithering Spoils" from Valeera at the Delver's
+	-- Headquarters. Neither is required to open the delve, both give a toy (275988).
+	--
+	-- The entrance is where they part company: Method says 2512 51.22/30.27, Wowhead
+	-- says 51.2/31.0. Three quarters of a coordinate apart is a different spot on the
+	-- ground. Neither goes into the data — Delves.lua already says what settles this,
+	-- and the season it was waiting for flipped today: the POI sweep further down this
+	-- file asks the client for the island's delves, and the client's own poiID and
+	-- coordinates beat both guides.
+	{ 97321, "Slithering Spoils — Valeera, step 1 (Wowhead)", "Azta'rec intro" },
+	{ 97482, "Fangs for the Memories — step 2 (Method + Wowhead)", "S2 delve" },
 	{ 96995, "Turn Back the Surge (Method)", "Spark of Tides weekly" },
 	{ 96110, "Captain Tokka (Method)", "renown track" },
 }
@@ -622,6 +637,23 @@ local ACHIEVEMENTS = {
 	{ id = 63358, label = "the Coiled Isle rares (12 criteria in HandyNotes)" },
 	{ id = 63395, label = "skyriding glyphs on 2512 (11 in HandyNotes)" },
 	{ id = 63662, label = "Student of Hissstory (10 on 2512)" },
+
+	--- ⏰ AZTA'REC, THE SEASON 2 NEMESIS — and the first of these has a deadline.
+	---
+	--- 63334 is *Fabled Let Me Solo Him*, a solo kill inside the FIRST WEEK of Season 2.
+	--- The ?? difficulty only opened with the season on 18 aug, so the readable window
+	--- is 18-25 aug and it closes at a reset. That is the one thing here worth building
+	--- on, and it is also the one thing that must never be built on a hardcoded date:
+	--- ask GetAchievementInfo whether it is still obtainable and the row disappears by
+	--- itself when Blizzard closes it, however the week is counted.
+	---
+	--- ⚠️ The other two are ordinary and permanent, listed together so one run answers
+	--- for all three. Nothing is shipped off these ids until this probe returns names:
+	--- they come from a Wowhead guide, and MH already carries FOUR Azta'rec achievement
+	--- ids logged on 19 jul that nobody has matched against these.
+	{ id = 63334, label = "Fabled Let Me Solo Him: Azta'rec — EXPIRES at the 25 aug reset" },
+	{ id = 63333, label = "Let Me Solo Him: Azta'rec (mount, solo on ??)" },
+	{ id = 63326, label = "My Venomous Nemesis (back transmog)" },
 }
 
 --- Exactly what AchievementsData.lua ships for 63610, in the order it ships them.

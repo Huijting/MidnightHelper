@@ -318,6 +318,19 @@ ns.INSTANCE_HAZARDS = {
 		-- Season 2 list. Matching ability names is a strong hint and still a hint;
 		-- the client names this instance the moment anyone walks in, and that is
 		-- what will actually settle it.
+		--
+		-- 📌 18 aug — A SECOND SOURCE NOW SAYS THE SAME, and it is still not proof.
+		-- GTFO's own file labels this instance in as many words: `instance = 3079;
+		-- -- Venomfall Deeps`, with 1298887 described as "Noxious Venom (Azta'rec)".
+		-- So the guide and the hazard addon agree, which is worth more than either
+		-- alone — two sources that could have disagreed and did not.
+		--
+		-- ⚠️ But both are still someone's comment line, and I cannot even tell whether
+		-- GTFO's label is new: 6.7.2 is overwritten on disk, so "6.8 added this" is a
+		-- claim I have no way to check. (Making exactly that claim about a boss name
+		-- earlier tonight is what taught me to write this sentence.) The instance name
+		-- still enters `ns.db.hazardZones` from Rob's own client on entry, and that
+		-- remains the only thing that turns this comment into a fact.
 		1298887, -- Noxious Venom
 		1291555, -- Noxious Bile
 		1309412, -- Venom Wave
