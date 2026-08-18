@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Rob runs a third daily watcher on the API and wants to know whether it belongs
-in the morning routine. Before judging that: is it actually running, where
-does it write, and what does the tail say?
+The API watcher's "what MH uses" list was written by hand in July and copied
+forward since. Measure it instead: which C_* namespaces does the addon
+actually call, and how often? A watcher matching against a stale list will
+quietly stop flagging the modules that matter.
 """
 import io
 import os
+import re
 import sys
-import time
+from collections import Counter
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -16,39 +18,45 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-DOCS = (r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\docs')
-NOW = time.time()
+MH = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper'
 
-print('nu: %s\n' % time.strftime('%Y-%m-%d %H:%M', time.localtime(NOW)))
+ns_counts = Counter()
+ns_files = {}
+for root, dirs, files in os.walk(MH):
+    dirs[:] = [d for d in dirs if d not in ('.git', 'docs', 'tools', 'dist')]
+    for f in files:
+        if not f.endswith('.lua'):
+            continue
+        p = os.path.join(root, f)
+        text = io.open(p, encoding='utf-8', errors='replace').read()
+        for m in re.finditer(r'\b(C_[A-Za-z]+)\.', text):
+            ns_counts[m.group(1)] += 1
+            ns_files.setdefault(m.group(1), set()).add(f)
 
-for fn in ('WATCHER_API_PROMPT.md', 'API_12_1_AUDIT.md',
-           'PTR_12.1_WATCH.md', 'PTR_12.0.7_DATA.md'):
-    p = os.path.join(DOCS, fn)
-    if not os.path.exists(p):
-        print('%-24s ONTBREEKT' % fn)
-        continue
-    m = os.path.getmtime(p)
-    t = io.open(p, encoding='utf-8', errors='replace', newline='').read()
-    lines = t.rstrip('\n').split('\n')
-    age = (NOW - m) / 3600.0
-    print('%-24s %s  %6.1f u  %5d regels%s' % (
-        fn, time.strftime('%Y-%m-%d %H:%M', time.localtime(m)), age, len(lines),
-        '  <<< vandaag' if age < 14 else ''))
+print('C_* namespaces die Midnight Helper aanroept')
+print('=' * 66)
+print('%-28s %6s  %s' % ('namespace', 'calls', 'bestanden'))
+print('-' * 66)
+for name, n in ns_counts.most_common():
+    print('%-28s %6d  %d' % (name, n, len(ns_files[name])))
 
-print('\n' + '=' * 70)
-print('API_12_1_AUDIT.md — laatste 30 regels')
-print('=' * 70)
-p = os.path.join(DOCS, 'API_12_1_AUDIT.md')
-if os.path.exists(p):
-    t = io.open(p, encoding='utf-8', errors='replace', newline='').read()
-    for l in t.rstrip('\n').split('\n')[-30:]:
-        print('  | ' + l[:130])
+print('\n%d namespaces in totaal' % len(ns_counts))
 
-print('\n' + '=' * 70)
-print('WATCHER_API_PROMPT.md — eerste 40 regels (wat de opdracht is)')
-print('=' * 70)
-p = os.path.join(DOCS, 'WATCHER_API_PROMPT.md')
-if os.path.exists(p):
-    t = io.open(p, encoding='utf-8', errors='replace', newline='').read()
-    for l in t.rstrip('\n').split('\n')[:40]:
-        print('  | ' + l[:130])
+# The global (non-C_) API surface that a secure-action addon can lose.
+print('\n' + '=' * 66)
+print('Globale API die een secure-action addon kan verliezen')
+print('=' * 66)
+GLOBALS = ['CreateFrame', 'RegisterStateDriver', 'SecureActionButtonTemplate',
+           'InCombatLockdown', 'GetAchievementCriteriaInfo', 'GetInstanceInfo',
+           'UnitAura', 'issecretvalue', 'GetSpellInfo', 'UnitOnTaxi',
+           'SetOverrideBinding', 'C_Timer']
+for g in GLOBALS:
+    hits = 0
+    for root, dirs, files in os.walk(MH):
+        dirs[:] = [d for d in dirs if d not in ('.git', 'docs', 'tools', 'dist')]
+        for f in files:
+            if f.endswith('.lua'):
+                text = io.open(os.path.join(root, f), encoding='utf-8',
+                               errors='replace').read()
+                hits += len(re.findall(r'\b%s\b' % re.escape(g), text))
+    print('%-34s %d' % (g, hits))
