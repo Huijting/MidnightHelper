@@ -631,6 +631,19 @@ def check_translation_markup(root):
             if sorted(FORMAT_RE.findall(en)) != sorted(FORMAT_RE.findall(val)):
                 hard.append((loc, key, rel, ln, "format specifiers differ from enUS"))
 
+            # ⚠️ A DOUBLED BACKSLASH BEFORE n. Lua reads `\\n` as a literal backslash
+            # followed by the letter n, so the player reads "\n" as text where a
+            # paragraph break belongs. Found 19 Aug in 362 places across deDE, esES,
+            # frFR and ptBR -- almost all of them in the Academy, which is the
+            # teaching content this addon is built around. enUS, nlNL and itIT were
+            # correct, so it was one generation run and not a convention.
+            #
+            # Checked against the string itself rather than against enUS: there is no
+            # sentence in any language where a literal backslash-n is wanted.
+            if "\\\\n" in val:
+                hard.append((loc, key, rel, ln,
+                             "\\\\n renders as literal text, not a line break"))
+
             # ⚠️ Measured against enUS, NOT against zero. The first version demanded
             # that opens equal closes and immediately flagged six faithful
             # translations of FPS_HIGHER_IN_RAID -- whose ENGLISH original opens
