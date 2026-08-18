@@ -244,7 +244,17 @@ ns.INSTANCE_HAZARDS = {
 		1287680, -- Snake Eater
 		1287559, -- Muckwave
 	},
-	[3077] = { -- The Ring of Glory (Season 2 delve)
+	--- ✅ CONFIRMED 18 aug, and it settles the design question this file opened with.
+	--- `GetInstanceInfo` on Rob's client returned 3077 for The Ring of Glory, 3038 for
+	--- Gnarldor Isle and 2916 for the Vaults of Atal'Utek — the same numbers GTFO keys
+	--- on, three for three. Keying this table on what the client reports rather than on
+	--- a zone name is therefore measured right, not merely plausible.
+	---
+	--- Also measured there: The Ring of Glory's **uiMapID is 2633**, which is a
+	--- different number again and one we had nowhere. Kept here because the next person
+	--- to want a coordinate inside this delve will need it, and because it is the
+	--- clearest example of why the two ids must never be mixed.
+	[3077] = { -- The Ring of Glory (Season 2 delve) — uiMapID 2633
 		1301863, -- Spirit Tear
 		1238255, -- Whirling Spirit
 		392013,  -- Golem Smash
