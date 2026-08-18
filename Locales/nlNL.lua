@@ -1323,6 +1323,7 @@ ns._mhLocales.nlNL = {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Staat er alleen terwijl de Temple Strike: The Underbelly loopt - er is geen vaste plek om heen te lopen, dus de pijl laat deze met rust.",
 	ACH_NOTE_ANCIENT_FOE = "Verschijnt waar een Temple Incursion eindigt, dus hij heeft geen plek op de kaart. Sluit aan bij wat er loopt en hij komt vanzelf.",
 	ACH_NOTE_VSERIX = "Zwerft rond, en is te doden zonder dat er een event loopt.",
+	ACH_NOTE_MIX_MASTER = "Een offer dat je inlevert op de Coiled Isle, rond 57.4 / 48.7 - elk offer vraagt zijn eigen verzamelde item, dus dit is verzamelwerk en geen plek om heen te lopen. Vereist Zul'jarra's Forces renown 3.",
 
 	ICV_KEYS_TITLE ="De vier Altar of Corrosion-nodes die je niet kunt kopen",
 	ICV_UNLOCK_ANCIENT_FOE = "Valt van elke Ancient Foe, aan het eind van een Temple Incursion.",

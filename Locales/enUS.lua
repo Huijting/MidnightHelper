@@ -1469,6 +1469,7 @@ ns._mhLocales.enUS = {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Only up while the Temple Strike: The Underbelly is running - there is no fixed spot to walk to, so the arrow leaves this one alone.",
 	ACH_NOTE_ANCIENT_FOE = "Spawns where a Temple Incursion finishes, so it has no place on the map. Join whatever is running and it comes to you.",
 	ACH_NOTE_VSERIX = "Wanders, and can be killed without any event running.",
+	ACH_NOTE_MIX_MASTER = "An offering you hand in on the Coiled Isle, near 57.4 / 48.7 - each one needs its own gathered item, so this is a collecting job rather than a place to walk to. Needs Zul'jarra's Forces renown 3.",
 
 	ICV_KEYS_TITLE ="The four Altar of Corrosion nodes you cannot buy",
 	ICV_UNLOCK_ANCIENT_FOE = "Drops from any Ancient Foe, at the end of a Temple Incursion.",

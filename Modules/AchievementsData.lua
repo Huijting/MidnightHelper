@@ -229,6 +229,73 @@ ns.ACHIEVEMENT_TREASURES = {
 			{ criteria = 116327, note = "ACH_NOTE_ANCIENT_FOE" },
 		},
 	},
+	--- ✅ ADDED 18 aug, from a HandyNotes_Midnight update that morning — and only
+	--- because Rob asked "waren ook de handynotes niet geupdate?". The addon sweep had
+	--- reported nothing useful, from a list truncated at sixteen entries with
+	--- HandyNotes sitting just below the cut.
+	---
+	--- Every criteria id below came from Rob's client (`/mh ach id`, 18 aug), not from
+	--- HandyNotes — which matters here more than usual, because the client also
+	--- corrected the achievement's NAME: HandyNotes calls it Mysterious Mixing, the
+	--- game calls it Mysterious Mix Master.
+	{
+		achievementID = 62492, -- The Coiled Isle Safari (client supplies the title)
+		--- A pet-battle safari. Not a treasure hunt, but the same shape: eight named
+		--- things in fixed places, and the arrow can walk them.
+		feedsMeta = false,
+		nodes = {
+			-- Coordinates from HandyNotes_Midnight, 18 aug. Its node keys encode the
+			-- position (71836484 → 71.83/64.84), so these are transcriptions rather
+			-- than measurements — the criteria ids beside them are measured.
+			{ criteria = 113420, mapID = 2512, x = 66.30, y = 62.60 },
+			{ criteria = 113418, mapID = 2512, x = 71.83, y = 64.84 },
+			{ criteria = 113425, mapID = 2512, x = 72.37, y = 55.02 },
+			{ criteria = 113424, mapID = 2512, x = 65.40, y = 49.80 },
+			{ criteria = 113423, mapID = 2512, x = 61.78, y = 81.99 },
+			{ criteria = 113422, mapID = 2512, x = 49.83, y = 55.80 },
+			-- ⚠️ Cursed Spawn has TWO spots in HandyNotes, one on the isle and one in
+			-- the Vaults. The isle one is used: it is the map the other seven are on,
+			-- so the route stays in one zone. The Vaults spot is not deleted knowledge
+			-- — it is written here — but a second node for one criterion would make the
+			-- hunt read 9/8.
+			{ criteria = 113426, mapID = 2512, x = 46.20, y = 48.60 },
+			-- Caustic Writhling is the exception: HandyNotes only places it inside the
+			-- Vaults, so this one node genuinely sits on 2509.
+			{ criteria = 113421, mapID = 2509, x = 38.92, y = 33.51 },
+		},
+	},
+	{
+		achievementID = 63432, -- Mysterious Mix Master (client supplies the title)
+		--- ⚠️ NO COORDINATES AT ALL, and that is correct rather than missing.
+		---
+		--- All ten criteria are offerings you hand in, each with its own item
+		--- (assetIDs 277937-277946 from the client). There is one place involved —
+		--- HandyNotes puts the giver at 2512 57.40/48.70 — but ten identical nodes on
+		--- one spot is a route that tells you to stand still ten times.
+		---
+		--- So it is a checklist, like Oppose the Foes: it counts, and the arrow leaves
+		--- it alone. What the player actually needs is the ten NAMES, which the client
+		--- supplies, and the note below for where to hand them in.
+		---
+		--- ⚠️ HandyNotes and the client disagree on one number worth not merging:
+		--- HandyNotes annotates criterion 115810 as "3x item 276117", while the client
+		--- reports assetID 277946 for that same criterion. Those are two different
+		--- items — plausibly the thing you gather versus the offering it becomes — and
+		--- nobody has established which is which.
+		feedsMeta = false,
+		nodes = {
+			{ criteria = 115813, note = "ACH_NOTE_MIX_MASTER" },
+			{ criteria = 115810, note = "ACH_NOTE_MIX_MASTER" },
+			{ criteria = 115818, note = "ACH_NOTE_MIX_MASTER" },
+			{ criteria = 115817, note = "ACH_NOTE_MIX_MASTER" },
+			{ criteria = 115819, note = "ACH_NOTE_MIX_MASTER" },
+			{ criteria = 115814, note = "ACH_NOTE_MIX_MASTER" },
+			{ criteria = 115815, note = "ACH_NOTE_MIX_MASTER" },
+			{ criteria = 115816, note = "ACH_NOTE_MIX_MASTER" },
+			{ criteria = 115811, note = "ACH_NOTE_MIX_MASTER" },
+			{ criteria = 115812, note = "ACH_NOTE_MIX_MASTER" },
+		},
+	},
 	{
 		achievementID = 61960, -- Treasures of Eversong Woods
 		nameKey = "ACH_TREASURE_EVERSONG", -- localized title (falls back to API name)
