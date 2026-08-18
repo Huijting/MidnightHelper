@@ -1,6 +1,108 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-18 (avond).** Dit is het eerste wat een nieuwe sessie leest.
+**Bijgewerkt 2026-08-18 (23:50).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+
+## 🎯 MORGEN 19 AUG — PRIORITEIT: de EU-seizoensstart
+
+Rob speelt **EU**; Season 2 opent daar pas bij de reset van 19 aug. Alles wat gisteravond
+leeg terugkwam bewijst dus **niets** — hij waarschuwde daar zelf voor toen ik op het punt
+stond het weer als bewijs te lezen. Eén run na de reset beantwoordt vier dingen tegelijk:
+
+```
+/reload      →      /mh atal      →      /reload   (dan leest de sessie ns.db.atalProbe)
+```
+
+**1. 🔴 96466 STAAT WEER OPEN — dit is de belangrijkste meting.** Op 17 aug sloot ik hem
+als "fout id" met het argument: 96528 resolvet, dus "nog niet live" kan de stilte van
+96466 niet verklaren. Zygor bracht 18 aug drie ids uit dezelfde Prey-keten mee en Robs
+client antwoordde:
+
+```
+96004 ✓    96474 ✓    96528 ✓
+96466 –    96525 –    96503 –    96532 –
+```
+
+Drie stappen antwoorden, drie niet, bínnen één keten. Daarmee valt de aanname weg waar
+mijn argument op rustte (dat alle stappen van dezelfde ongereleasde keten zich hetzelfde
+gedragen). **Springt na de EU-reset één van 96525/96503/96532 aan → "nog niet live" was
+altijd de verklaring, en 96466 is daarmee ook beantwoord.** Blijven ze stil terwijl S2
+draait → dán pas zijn het foute ids. Er hangt niets aan 96466, dus er breekt niets.
+
+**2. Verschijnt Venomfall Deeps als POI?** `Modules/Delves.lua:89` voorspelt van niet vóór
+de seizoensstart (gemeten mét positieve controle: de sweep gaf 14 aug precies twee delves
+voor 2512). Verschijnt hij nu, dan levert de client **zelf het poiID en de coördinaten** —
+en zijn we van het bronnenverschil af: Method zegt `2512 51.22/30.27`, Wowhead `51.2/31.0`.
+Geen van beide staat in de data.
+
+**3. De portaal-gate.** Wij hangen het Coiled Isle-portaal aan **96004** (eerste quest van
+de keten), Zygors reisgraaf aan **96532** (de vijfde) — én Zygor accepteert "quest actief"
+waar wij "voltooid" eisen. Rob kan de questlijn morgen pas lopen (Zygor heeft hem als
+guide). **Vraag er expliciet bij of het portaal in Astalor's Sanctum werkt**; zonder dat
+is de questlijst alleen een lijst. Coördinaten van beide bronnen liggen binnen een tiende
+van de onze — dat is al onafhankelijke bevestiging van onze eigen getallen.
+
+**4. Klopt onze seizoensgate?** `IsSeasonLive()` is in 2.18.0 geregionaliseerd
+(`GetSecondsUntilWeeklyReset`). De EU-reset is er de eerste echte test van: S2-content moet
+vóór de reset verborgen zijn en erna zichtbaar. Derde correctie op die gate — kijk of het
+deze keer klopt.
+
+**Ook morgen, tijdgebonden:** achievement **63334** (*Fabled Let Me Solo Him: Azta'rec*,
+solo-kill) **vervalt bij de reset van 25 aug**. Naam en id zijn 18 aug door Robs client
+bevestigd. Als de planner daar een rij voor krijgt: voeden met `GetAchievementInfo`, nooit
+met een datum in de code, zodat de rij vanzelf verdwijnt.
+
+## 📌 18 aug (avond) — na de release: vertalingen, en drie kapotte-stringbugs
+
+Zestien commits na `v3.0.0`, alles gepusht, werkboom schoon, lint 0/0.
+
+**Wat er gemeten is:** 189 hazard-ids allemaal benoemd door Robs client (16 nieuw uit
+GTFO 6.8, inclusief 5 voor de raid die diezelfde dag openging), en de Azta'rec-introketen
+bevestigd — 97321 "Slithering Spoils" en 97482 "Fangs for the Memories" komen terug met
+exact de namen uit de gids. 97482 stond bij ons verkeerd als "de delve" en is stap 2.
+
+**Nieuw gereedschap:** `/mh hazards check` legt élk id in het bestand aan de client voor,
+met een positieve controle die moet slagen en een onmogelijk id dat moet falen. De 173 van
+17 aug waren met een wegwerpscript gecontroleerd dat niet meer bestond.
+
+**Lint-check [13]** bewaakt vertalingen op de drie manieren waarop ze machinaal breken. Alle
+drie zijn in twee uur gevonden, en geen ervan had met taalgevoel te maken:
+- esES toonde `__TKHace 0__m` — een onafgemaakte vertaalmarkering, `%d` vervangen door een
+  letterlijke nul. Stond in de 3.0.0 van gisteren.
+- **362×** `\n` als zichtbare tekst in deDE/esES/frFR/ptBR (dubbele backslash), vrijwel
+  allemaal in de **Academy**.
+- **116×** een backslash vóór elk aanhalingsteken, zelfde vier packs, zelfde feature.
+
+⚠️ **De eerste reparatie van die 116 brak alle vier de packs** (aangenomen dat het er twee
+waren; het zijn er drie). Meteen teruggedraaid. **Les: tel de bytes, lees ze niet af van een
+weergave** — en elk pack, óók enUS en nlNL, heeft twee backslashes vóór een `R`, dus een
+algemene "dubbele backslash opruimen"-regel sloopt juist de goede bestanden.
+
+**Vertaald:** 49 Duitse dungeon-tips (de DPS-regels + Altar of Fangs) en de hele Duitse
+Academy (DPS-spoor, 5 heal-hoofdstukken, checklist). deDE 80,2% → **83,0%**.
+
+**De audit telt nu eerlijk:** `CHANGELOG_*` en `LANG_LABEL_*` (330 sleutels) zijn bewust
+Engels en zaten in de noemer. nlNL staat op **100%** en stond dat al.
+
+## ⚠️ OPEN, en het raakt alle vertaalwerk
+
+**`/mh lang de` doet niets op een niet-Duitse client.** `deDE.lua` kapt bovenaan af
+(`if GetLocale() ~= "deDE" then return end`) omdat de taalkeuze in SavedVariables zit en die
+pas ná de locale-bestanden laadt. Gevolg: **Rob kan geen enkele vertaling zelf zien** — hij
+draait een Engelse client — en het verklaart waarom die 362 kapotte regels nooit gemeld
+zijn. Alleen spelers mét een Duitse client zagen ze.
+
+Voorstel (nog niet gebouwd, ~5 bestanden + laadvolgorde): de tabel niet afkappen maar in een
+functie zetten die pas draait als de voorkeur bekend is. Dan werkt de taalkiezer voor
+iedereen en betaalt alleen wie erom vraagt het geheugen. Goedkope tussenstap voor een test:
+die drie regels tijdelijk uitzetten, kijken, terugzetten.
+
+**Wat níét afgedekt is en ook niet kan:** of het Duits goed *klinkt*. Daar is een
+moedertaalspreker voor nodig — `#translations`, zoals Robs eigen brief al voorstelde.
+
+**Kleiner open:** vier keer `Schlüssel` waar `Taste` hoort in de Duitse Layout/Guide-teksten
+(de Academy-versie is gefixt), Robs screenshots moeten nog gecropt (`tools\Crop-Shots.bat`),
+en op CurseForge moeten de **description** (bijgewerkt in de repo) en de **summary** nog met
+de hand geplakt.
 
 ## 🚀 18 aug — v3.0.0 GETAGD (Season 2)
 
