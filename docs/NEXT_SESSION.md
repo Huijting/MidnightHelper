@@ -2,6 +2,35 @@
 **Bijgewerkt 2026-08-17 (avond).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
+## 📌 18 aug — Season 2 open, 2.18.0 live, en een dag van vindbaarheid
+
+**v2.18.0 staat op CurseForge (approved).** Daarna ~20 commits, nog niet uitgebracht.
+
+**De rode draad van vandaag: de gaten zijn geen ontbrekende features, het zijn features
+onder een naam die niemand zou raden.** Drie keer dezelfde vorm gevonden:
+- **12 features waren alleen bereikbaar door te typen** — geen knop, geen Settings.
+  Onder andere `/mh dispel`, `/mh healcds`, `/mh kicks`, `/mh binds`, `/mh plan`.
+  Gemeten met `tools/_probe.py`; de lijst staat in de sessie. **Nog te doen: welke van
+  die twaalf een echte plek in de UI krijgen** (dat is voorstel-punt 3.4, maar dan 12×).
+- **Elke Coiled Isle-treasure was onzichtbaar voor de zoekfunctie** — de index las
+  `node.name` en die hunts hebben bewust geen naam. Zevende plek van diezelfde fout.
+  Gefixt: leest nu `ns.AchievementNodeName`, dus een Duitse speler vindt de Duitse naam.
+- **De commandolijst zelf was niet vindbaar** — onderaan tabblad "Losse vensters", zonder
+  "command" in de zoektrefwoorden. Gefixt.
+
+**Nieuw vandaag:** `/mh here` (plekken opschrijven i.p.v. screenshots overtikken), de
+Coiled Isle Safari + Mysterious Mix Master met de tien recepten, alle drie de Amani-hubs
+gemeten, en de API-wachter draait nu lokaal en schrijft in `docs/API_WATCH.md`.
+
+**🔴 OPEN — Timeworn Golem in The Ring of Glory.** Rob: een mob die one-shot met iets als
+"Fissure Slam", niet te ontkomen, alleen te overleven met een defensive. GTFO heeft
+`392013 Golem Smash` op instance 3077, **maar datzelfde id staat óók in hun DF- en
+TWW-bestanden met andere NPC-namen** — het is een generieke golem-ability en misschien
+niet wat Rob zag. Een agent zoekt het uit; Rob levert NPC-naam via `/mh here` en de
+castbalk-naam. **Bouw niets tot het id gemeten is** — een prompt op het verkeerde id
+waarschuwt voor iets anders dan wat je doodmaakt. Machinerie bestaat wel: de Action
+prompt draait op `UNIT_SPELLCAST_START` (geen combat log, dus toegestaan).
+
 ## 🌅 MORGENVROEG — twee dingen, en Rob brengt data mee
 
 **1. Vier scènes toevoegen aan `Modules/DevShots.lua`.** `/mh shots` maakt nu zeven
