@@ -56,12 +56,27 @@ local function Here()
 end
 
 --- The name of whatever is targeted, or nil. Used as the label for the spot.
+---
+--- ⚠️ `type(x) == "string"` IS TRUE FOR A SECRET STRING. Rob targeted the Timeworn
+--- Golem on 18 aug and this threw: "attempt to index local 'name' (a secret string
+--- value)". The type check passed, and `name:find` then indexed a value the client
+--- will not let us read.
+---
+--- I made this exact mistake on 16 aug, wrote it down, and made it again two days
+--- later — the note said the flag must GATE the read, and here it was not consulted
+--- at all. `issecretvalue` first, always, before anything touches the value.
+---
+--- Returning nil is right: a secret name is unreadable, not absent, and a spot with
+--- no label is still a useful measurement.
 local function TargetName()
 	if not (UnitExists and UnitExists("target") and UnitName) then
 		return nil
 	end
 	local ok, name = pcall(UnitName, "target")
-	if ok and type(name) == "string" and name:find("%w") then
+	if not ok or not (ns.CanAccessText and ns.CanAccessText(name)) then
+		return nil
+	end
+	if name:find("%w") then
 		return name
 	end
 	return nil

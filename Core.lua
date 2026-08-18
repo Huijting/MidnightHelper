@@ -31,6 +31,39 @@
 
 local addonName, ns = ... ---@type string, MidnightHelperNS
 
+--------------------------------------------------------------------------------
+-- Secret values: one shared pair, because six copies were not enough
+--------------------------------------------------------------------------------
+--- ⚠️ THE HELPER EXISTED SIX TIMES AND NONE OF THEM WAS REACHABLE.
+---
+--- `IsSecretValue` is defined as a file-local in DaggerspineCoach, DelveBossShowcase,
+--- DelveCuriosAdvisor, DelveItemsPopup, DungeonBossWindow and RitualBossCoach. All six
+--- are correct. None is exported, so a new module has nothing to call — and on 18 aug
+--- SpotLog hand-rolled a seventh check, got it wrong, and threw on Rob's first target
+--- that returned a secret name (the Timeworn Golem).
+---
+--- ⚠️ `type(x) == "string"` IS TRUE FOR A SECRET STRING. That is the trap, and it is
+--- the same one that broke a probe on 16 aug. A type check does not protect a read;
+--- only asking whether the value is secret does, BEFORE anything indexes it.
+---
+--- Declared here at the top of Core so every module loaded after it can use these
+--- instead of writing a seventh. The six file-locals still stand and can migrate at
+--- leisure; the point is that the NEXT module has something to reach for.
+function ns.IsSecretValue(value)
+	return issecretvalue ~= nil and value ~= nil and issecretvalue(value) == true
+end
+
+--- True only when `value` is a string this addon may actually read.
+function ns.CanAccessText(value)
+	if value == nil or ns.IsSecretValue(value) then
+		return false
+	end
+	if canaccessvalue and not canaccessvalue(value) then
+		return false
+	end
+	return type(value) == "string"
+end
+
 --- Load an on-demand Blizzard addon (e.g. "Blizzard_AchievementUI").
 --- 12.1 renames `UIParentLoadAddOn` to `LoadAddOnWithErrorHandling` (Warcraft Wiki,
 --- Patch 12.1.0 API changes, datamined build 68675). Every call site guarded the
