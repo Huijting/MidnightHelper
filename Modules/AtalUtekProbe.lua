@@ -100,6 +100,36 @@ local REPEATABLE = {
 	-- can fail. Kept in the sweep so nobody re-adds it from Method's portal page.
 	{ 96466, "Prey: Anguish Island (WRONG id — measured 17 aug)", "see 96528" },
 
+	-- ⚠️ THE REST OF THE CHAIN, and the reason the portal gate is now in doubt.
+	--
+	-- Zygor 9.6 (18 aug) carries the whole "Prey: Season 2" storyline as one group:
+	-- 96004, 96474, 96525, 96503, 96532, 96528 (plus 96466, which our client already
+	-- refused). Their guide gives each a name and a coordinate, and two of them use
+	-- the portal AS A QUEST OBJECTIVE:
+	--
+	--     96525/1  "Take the Portal Back to Astalor's Sanctum"      2512 58.17/48.48
+	--     96532/1  "Take the Portal from Astalor's Sanctum to ..."  2393 56.87/67.46
+	--
+	-- Those two coordinates land within a tenth of the ones already in MIDNIGHT_PORTALS,
+	-- which is a genuinely independent confirmation of our own numbers.
+	--
+	-- ⚠️ BUT THE GATE DISAGREES. We hang the portal on 96004, the FIRST quest of the
+	-- chain. Zygor's travel graph hangs it on `PlayerCompletedQuest(96532) or
+	-- PlayerIsOnQuest(96532)` — the fifth. If they are right, we offer the portal to
+	-- someone who cannot use it yet, which is exactly the blank wall our own comment in
+	-- Delves.lua warns about. And they accept BEING ON the quest where we demand it
+	-- finished, so a player mid-chain would get flight advice from us for a portal they
+	-- are standing next to.
+	--
+	-- Neither claim can be settled from files. What settles it is this sweep plus Rob,
+	-- who ran the chain on 18 aug: whichever ids come back "completed" or "in your log"
+	-- next to a portal he can actually use is the gate. Nothing changes in Delves.lua
+	-- until then.
+	{ 96474, "Prey: Something for Astalor (Zygor 9.6)", "chain step 2" },
+	{ 96525, "Prey: Out of Our Depth (Zygor 9.6)", "objective 1 IS the return portal" },
+	{ 96503, "Prey: A Ghostly Nightmare (Zygor 9.6)", "100x Ossified Relic" },
+	{ 96532, "Prey: Attending the Attendant (Zygor 9.6)", "Zygor gates the portal on THIS" },
+
 	{ 96639, "Patrolling the Temple", "group daily" },
 	{ 96640, "Bounty of the Cursed", "group daily" },
 	{ 96641, "Relentless Strikes", "group daily" },

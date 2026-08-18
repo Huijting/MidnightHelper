@@ -1,101 +1,83 @@
-# -*- coding: utf-8 -*-
-"""Scratch script — rewritten per task, always run as tools/_probe.py.
+"""Scratch probe -- fixed path so the allowlist keeps matching (see CLAUDE.md).
 
-Read the newest spot marks. Rob stood on the Timeworn Golem in The Ring of
-Glory; the interesting part is the mapID, because GTFO's 3077 is an
-instanceID and we have never had this delve's uiMapID.
+Today: GTFO 6.8 landed. We harvested 6.7.2 into Modules/HazardData.lua. What is in
+their files now that is NOT in ours, for the instances we care about? And which
+entries carry a `desc` comment naming a boss -- that is the part 6.7.2 did not give
+us for the two 12.1 delves.
+
+Reports CANDIDATES only. GTFO is another addon, so nothing here is proof; the ids
+still have to be put to the client. (CLAUDE.md: "andere addons zijn een plek om
+kandidaten te vinden, nooit bewijs".)
 """
+
 import io
+import os
 import re
-import sys
 
-for _s in (sys.stdout, sys.stderr):
-    try:
-        _s.reconfigure(encoding="utf-8", errors="replace")
-    except (AttributeError, ValueError):
-        pass
+GTFO = r"E:\World of Warcraft\_retail_\Interface\AddOns\GTFO\Spells"
+HAZ = (r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper"
+       r"\Modules\HazardData.lua")
 
-P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
-     r'\SavedVariables\MidnightHelper.lua')
+# GTFO.SpellID["1287680"] = { ... instance = 3038; ... };
+BLOCK = re.compile(r'GTFO\.SpellID\["(\d+)"\]\s*=\s*\{(.*?)\n\}', re.S)
+INSTANCE = re.compile(r"instance\s*=\s*(\d+)")
+DESC = re.compile(r"--\s*desc\s*=\s*\"([^\"]+)\"")
+ENCOUNTER = re.compile(r"encounter\s*=\s*(\d+)")
 
-t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
+# What ours knows: [3077] = { 1301863, ... }
+OURS_BLOCK = re.compile(r"\[(\d+)\]\s*=\s*\{(.*?)\}", re.S)
 
-
-def block(key, src):
-    i = src.find('["%s"]' % key)
-    if i < 0:
-        return None
-    s = src.index('{', i)
-    d, j = 0, s
-    while j < len(src):
-        if src[j] == '{':
-            d += 1
-        elif src[j] == '}':
-            d -= 1
-            if d == 0:
-                break
-        j += 1
-    return src[s:j + 1]
-
-
-def split_top(blob):
-    out, d, buf = [], 0, ''
-    for ch in blob[1:-1]:
-        if ch == '{':
-            d += 1
-        if d > 0:
-            buf += ch
-        if ch == '}':
-            d -= 1
-            if d == 0:
-                out.append(buf)
-                buf = ''
-    return out
-
-
-def f(chunk, name):
-    m = re.search(r'\["%s"\]\s*=\s*("(?:[^"\\]|\\.)*"|true|false|[\d.-]+)'
-                  % name, chunk)
-    if not m:
-        return None
-    v = m.group(1)
-    if v.startswith('"'):
-        return v[1:-1]
-    if v in ('true', 'false'):
-        return v == 'true'
-    return v
-
-
-spots = block('spots', t)
-rows = split_top(spots) if spots else []
-print('%d plekken — de laatste vier:\n' % len(rows))
-print('%-4s %-7s %-8s %-8s %-22s %s'
-      % ('#', 'map', 'x', 'y', 'zone', 'doelwit / notitie'))
-print('-' * 78)
-for n, e in enumerate(rows, 1):
-    if n <= len(rows) - 4:
+theirs = {}   # instance -> {spellid: (desc, encounter)}
+for fn in sorted(os.listdir(GTFO)):
+    if not fn.endswith(".lua"):
         continue
-    label = f(e, 'target') or '(geen naam — secret)'
-    note = f(e, 'note')
-    if note:
-        label = (label + '  ' + note).strip()
-    print('%-4d %-7s %-8s %-8s %-22s %s' % (
-        n, f(e, 'mapID') or '?', f(e, 'x') or '?', f(e, 'y') or '?',
-        (f(e, 'zone') or '?')[:22], label))
+    with io.open(os.path.join(GTFO, fn), "r", encoding="utf-8", errors="replace") as fh:
+        text = fh.read()
+    for sid, body in BLOCK.findall(text):
+        d = DESC.search(body)
+        e = ENCOUNTER.search(body)
+        for inst in INSTANCE.findall(body):
+            theirs.setdefault(int(inst), {})[int(sid)] = (
+                d.group(1) if d else "", int(e.group(1)) if e else 0)
 
-# What do we already record for this delve, and under which id?
-print('\n' + '=' * 62)
-print('Wat wij van The Ring of Glory hebben')
-print('=' * 62)
-hz = io.open(r'E:\World of Warcraft\_retail_\Interface\AddOns'
-             r'\MidnightHelper\Modules\HazardData.lua',
-             encoding='utf-8', errors='replace').read()
-print('HazardData kent instance 3077 : %s'
-      % ('ja' if '[3077]' in hz else 'NEE'))
-print('en 388310 (Fissuring Slam)     : %s'
-      % ('ja' if '388310' in hz else 'NEE'))
+with io.open(HAZ, "r", encoding="utf-8", errors="replace") as fh:
+    ours_text = fh.read()
+ours = {}
+for inst, body in OURS_BLOCK.findall(ours_text):
+    ids = set(int(x) for x in re.findall(r"\b(\d{4,})\b", body))
+    ours[int(inst)] = ids
 
-zones = block('hazardZones', t)
-if zones:
-    for m in re.finditer(r'\[(\d+)\]\s*=\s*"((?:[^"\\]|\\.)*)"', zones):
-        print('geleerd: instance %-8s %s' % (m.group(1), m.group(2)))
+print("=" * 78)
+print("GTFO 6.8 vs onze HazardData (geoogst uit 6.7.2)")
+print("=" * 78)
+print("wij kennen %d instances, GTFO noemt er %d" % (len(ours), len(theirs)))
+print()
+
+new_total = 0
+for inst in sorted(set(ours) | set(theirs)):
+    mine = ours.get(inst, set())
+    their = theirs.get(inst, {})
+    extra = set(their) - mine
+    gone = mine - set(their)
+    if not extra and not gone:
+        continue
+    print("-" * 78)
+    print("instance %s   (wij %d ids, GTFO %d)" % (inst, len(mine), len(their)))
+    for sid in sorted(extra):
+        desc, enc = their[sid]
+        new_total += 1
+        print("   NIEUW  %-9d %s%s" % (
+            sid, desc or "(geen desc)", ("   encounter %d" % enc) if enc else ""))
+    for sid in sorted(gone):
+        print("   alleen bij ons: %d" % sid)
+
+print()
+print("=" * 78)
+print("Nieuwe kandidaten in totaal: %d" % new_total)
+print("=" * 78)
+print()
+print("Bosnamen die GTFO noemt voor de instances die wij tonen:")
+for inst in sorted(ours):
+    for sid, (desc, enc) in sorted(theirs.get(inst, {}).items()):
+        if enc:
+            print("   instance %-6s encounter %-6s %s" % (inst, enc, desc or "(geen desc)"))

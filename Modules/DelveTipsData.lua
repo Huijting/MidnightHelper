@@ -161,10 +161,26 @@ ns.DELVE_TIP_ENTRIES = {
 	-- Wat er WEL staat: binnenkaart-id, drie Sturdy Chests per delve met coördinaten op
 	-- die binnenkaart, de uitgang, en bij Gnarldor de questketen bij de ingang.
 	-- Wat er NIET staat: een boss. DBM-Delves-Midnight heeft voor beide een lege stub
-	-- (Zones/GnarldorIsle.lua en Zones/RingofGlory.lua: 10 regels, geen encounter),
-	-- geen enkele addon op schijf noemt een naam, en verzinnen doen we niet. De
-	-- overview zegt dat hardop; DelveHistory logt de bossnaam bij de eerstvolgende run
-	-- nu de namen in de roster staan.
+	-- (Zones/GnarldorIsle.lua en Zones/RingofGlory.lua: nog steeds 9 regels in r258,
+	-- opnieuw gecontroleerd 18 aug) en verzinnen doen we niet. De overview zegt dat
+	-- hardop; DelveHistory logt de bossnaam bij de eerstvolgende run nu de namen in de
+	-- roster staan.
+	--
+	-- ⚠️ "GEEN ENKELE ADDON OP SCHIJF NOEMT EEN NAAM" STOND HIER, EN DAT IS SINDS
+	-- 18 AUG NIET MEER WAAR. GTFO 6.8 noemt er twee, elk met een encounter-id:
+	--
+	--     instance 3038  encounter 3512  "Snake Eater (Graka Snake-Eater)"
+	--     instance 3077  encounter 3535  "Spirit Tear (Drakta)"
+	--
+	-- Drakta stond al in onze overview-tekst, uit Method en Icy Veins; GTFO is een
+	-- derde, onafhankelijke bron. Graka Snake-Eater is nieuw — voor Gnarldor Isle
+	-- hadden we niets.
+	--
+	-- ⚠️ TOCH GAAN ZE HIER NIET IN. Het zijn commentaarregels in andermans addon, en
+	-- CLAUDE.md is er stellig over: een andere addon levert kandidaten, geen bewijs.
+	-- Precies zo'n regel gaf op 8 aug een Blackwing Mage's Arcane Explosion. De naam
+	-- die wij tonen moet uit Robs eigen client komen — DelveHistory pakt hem op bij de
+	-- eerstvolgende run, en dat kost niets extra's.
 	--
 	-- Binnenkaarten (drie addons eens): Gnarldor Isle = 2635, The Ring of Glory = 2633.
 	-- DBM-zone-ids: 3038 / 3077. Chest-quest-ids 96802-96807 bestaan in HandyNotes maar
