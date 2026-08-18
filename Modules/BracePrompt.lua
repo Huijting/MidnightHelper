@@ -181,12 +181,73 @@ local function Show()
 	end
 end
 
+--- What is this value, without ever assuming it is safe to look at?
+---
+--- ⚠️ The secret check comes FIRST and the `type()` check second, never the other way
+--- round. `type()` on a secret string answers "string" quite happily — that exact
+--- mistake crashed `/mh here` on the golem on 18 aug.
+local function Describe(v)
+	if ns.IsSecretValue and ns.IsSecretValue(v) then
+		return "SECRET"
+	end
+	if v == nil then
+		return "nil"
+	end
+	local t = type(v)
+	if t == "number" then
+		return ("num %s"):format(tostring(v))
+	elseif t == "string" then
+		if ns.CanAccessText and ns.CanAccessText(v) then
+			return ("str %q"):format(v:sub(1, 40))
+		end
+		return "str (blocked)"
+	elseif t == "boolean" then
+		return v and "bool true" or "bool false"
+	end
+	return t
+end
+
+--- Record every return slot of UnitCastingInfo, readable or not.
+---
+--- ⚠️ THIS IS A MEASUREMENT, NOT A FEATURE. The spell id came back secret 13 times out
+--- of 13, and a delve target's GUID has been secret since 16 aug, so neither the spell
+--- nor the mob can be named. The prompt therefore has to work the way the Action prompt
+--- does — hand `notInterruptible` straight to `SetAlphaFromBoolean` and let the engine
+--- decide — which fires on EVERY uninterruptible cast, and a boss does those all fight.
+--- Something has to narrow it, and the only honest way to find out what is left to
+--- narrow it WITH is to write down which slots survive. Slot numbers are deliberately
+--- not named: naming them would be the guess this is meant to replace.
+local function SampleCastInfo()
+	if not UnitCastingInfo then
+		return
+	end
+	local packed = { pcall(UnitCastingInfo, "target") }
+	if not packed[1] then
+		Bump("castingInfoError")
+		return
+	end
+	local db = ns.db and ns.db.braceProbe
+	if not db then
+		return
+	end
+	db.samples = db.samples or {}
+	if #db.samples >= 12 then
+		return -- twelve is plenty to read a pattern; the SV file stays small
+	end
+	local row = {}
+	for i = 2, 13 do
+		row[#row + 1] = ("%d=%s"):format(i - 1, Describe(packed[i]))
+	end
+	db.samples[#db.samples + 1] = table.concat(row, " · ")
+end
+
 --- @param spellID any the third payload of UNIT_SPELLCAST_START — readable or secret
 local function OnCastStart(unit, spellID)
 	if unit ~= "target" then
 		return
 	end
 	Bump("castsSeen")
+	pcall(SampleCastInfo)
 
 	--- ⚠️ The whole measurement. A secret id is not a small id — it cannot be compared
 	--- at all, and `ns.BRACE_SPELLS[spellID]` on one would throw. Ask first.
@@ -270,6 +331,11 @@ function ns.ToggleBracePrompt(arg)
 		if ns.SetBracePromptEnabled then
 			ns.SetBracePromptEnabled(arg == "on")
 		end
+	elseif arg == "reset" then
+		--- So a second measurement is not read on top of the first one's numbers.
+		ns.db.braceProbe = nil
+		print(("%s |cff8a8f98counters cleared.|r"):format(Prefix()))
+		return
 	end
 	print(("%s %s"):format(Prefix(), ns.db.bracePrompt
 		and ((ns.L and ns:L("BRACE_ON")) or "on")
@@ -289,5 +355,20 @@ function ns.ToggleBracePrompt(arg)
 		print(("   |cffffd100%s|r"):format(
 			(ns.L and ns:L("BRACE_NO_CASTS")) or
 			"No casts seen at all - the mob has to be your TARGET before it starts casting."))
+	end
+
+	--- The measurement, printed rather than only written to SavedVariables — Rob should
+	--- not need me to read a file to see what his own client answered.
+	if arg == "slots" then
+		local s = p.samples or {}
+		if #s == 0 then
+			print("   |cff8a8f98no cast samples yet — target something that casts.|r")
+			return
+		end
+		for i = 1, #s do
+			print(("   |cff8a8f98[%d]|r %s"):format(i, s[i]))
+		end
+	elseif p.samples and #p.samples > 0 then
+		print(("   |cff8a8f98%d cast samples stored — /mh brace slots to read them.|r"):format(#p.samples))
 	end
 end
