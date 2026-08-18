@@ -275,7 +275,40 @@ local function UpdateArrow()
 	--- to fix.
 	local pmap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
 	local pc, tc = MapContinent(pmap), MapContinent(t.mapID)
-	if pmap and pc and tc and pc ~= tc then
+	local unreachable = pmap and pc and tc and pc ~= tc
+
+	--- ⚠️ POINT AT THE FIRST STEP INSTEAD OF GIVING UP. Rob, 18 aug, standing on the
+	--- isle with a target in the Underbelly: "kan hij niet zien dat ik er buiten sta
+	--- en niet in de underbelly ben, dat moet anders."
+	---
+	--- He is right, and the previous fix only got halfway. The label had learned to
+	--- name the door — but a name is not an arrow, and the door is standing on HIS
+	--- OWN MAP with a real direction and a real distance. Refusing to draw was correct
+	--- only about the destination; it was never correct about the next step.
+	---
+	--- So when the target sits in another coordinate space, ask the travel plan for
+	--- the first step that IS on this map and steer to that. The arrow behaves
+	--- normally — rotates, counts down the metres, advances when he arrives — and the
+	--- black label is left for the case where genuinely nothing here helps.
+	if unreachable and ns.BuildTravelPlan then
+		local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
+		if okP and type(steps) == "table" then
+			for _, s in ipairs(steps) do
+				if s.kind ~= "arrive" and s.mapID == pmap and s.x and s.y then
+					t = {
+						mapID = s.mapID,
+						x = s.x,
+						y = s.y,
+						name = s.localized and ns:L(s.label) or (s.label or t.name),
+					}
+					unreachable = false
+					break
+				end
+			end
+		end
+	end
+
+	if unreachable then
 		f.tex:Hide()
 		if f.icon then f.icon:Hide() end
 		local other = ns:L("ARROW_OTHER_CONTINENT")

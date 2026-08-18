@@ -1879,8 +1879,35 @@ local function RefreshAchPanel()
 				routable = routable + 1
 			end
 		end
-		local noWhereToGo = (not complete) and routable == 0
+		--- Does every unfinished row point at the SAME place? Then the card owns one
+		--- button and the rows carry none. Anything less than unanimous keeps the
+		--- per-row buttons, because a header button that covers most of a list is a
+		--- worse lie than ten honest ones.
+		card._sharedWp = nil
+		if routable == 0 and not complete then
+			local shared, ok = nil, true
+			for _, n in ipairs(card.entry.nodes or {}) do
+				if n.wpMapID and n.wpX and n.wpY then
+					local key = ("%d:%.2f:%.2f"):format(n.wpMapID, n.wpX, n.wpY)
+					if not shared then
+						shared = { key = key, mapID = n.wpMapID, x = n.wpX, y = n.wpY, name = n.wpName }
+					elseif shared.key ~= key then
+						ok = false
+						break
+					end
+				else
+					ok = false
+					break
+				end
+			end
+			if ok and shared then
+				card._sharedWp = shared
+			end
+		end
+
+		local noWhereToGo = (not complete) and routable == 0 and not card._sharedWp
 		card.routeBtn:SetText(complete and TL("ACH_TAB_DONE")
+			or (card._sharedWp and TL("ACH_TAB_WAYPOINT"))
 			or (noWhereToGo and TL("ACH_TAB_NO_ROUTE") or TL("ACH_TAB_ROUTE")))
 		if complete or noWhereToGo then
 			card.routeBtn:Disable()
@@ -1921,7 +1948,10 @@ local function RefreshAchPanel()
 			--- to go to", which is the truth.
 			-- A row shows its button when it has anywhere to send you, which is not the
 			-- same as being routable: `wp*` is a destination without being a location.
-			if ns.AchievementNodeRoutable(row.node) or row.node.wpMapID then
+			-- The header took the button when every row shares one destination.
+			if card._sharedWp then
+				row.wp:Hide()
+			elseif ns.AchievementNodeRoutable(row.node) or row.node.wpMapID then
 				row.wp:SetText(TL("ACH_TAB_WAYPOINT"))
 				row.wp:Show()
 			else
@@ -1982,7 +2012,16 @@ local function BuildAchCard(st, entry)
 	local routeBtn = CreateFrame("Button", nil, header, "UIPanelButtonTemplate")
 	routeBtn:SetSize(78, 20)
 	routeBtn:SetPoint("RIGHT", header, "RIGHT", -2, 0)
+	--- One shared destination gets one button, in the header. Rob, 18 aug, looking at
+	--- ten Waypoint buttons all pointing at Ofi's cauldron: "ik denk dat we beter al
+	--- die route knoppen weg kunnen halen en in de kop zetten zodat we maar 1 knop
+	--- hebben." Ten identical buttons is not ten choices.
 	routeBtn:SetScript("OnClick", function()
+		if card._sharedWp and ns.AddSmartTomTomWay then
+			local w = card._sharedWp
+			ns.AddSmartTomTomWay(w.mapID, w.x, w.y, w.name and ns:L(w.name) or nil)
+			return
+		end
 		ns.RouteAchievementTreasures(entry)
 	end)
 	card.routeBtn = routeBtn
