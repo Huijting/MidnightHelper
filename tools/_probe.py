@@ -1,46 +1,64 @@
 """Scratch probe -- fixed path so the allowlist keeps matching (see CLAUDE.md).
 
-Today: the .toc was edited in six places by hand. Assert what the brief asked for
-and what an editor can silently break: the UTF-8 BOM, the accented characters in
-five languages, and the French space before its colon.
+How much of the "missing translation" gap is deliberate? CLAUDE.md: CHANGELOG_*
+keys stay English on purpose, so the in-game what's-new popup is one language.
+The i18n audit counts them as gaps anyway, which flatters the problem.
 """
 
 import io
+import os
+import re
+from collections import defaultdict
 
-TOC = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\MidnightHelper.toc"
+LOC = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales"
 
-raw = io.open(TOC, "rb").read()
+KEY = re.compile(r'^\s*(?:\[\s*")?([A-Z][A-Z0-9_]+)"?\]?\s*=\s*"')
+FILL = re.compile(r'fill\(\s*"(\w+)"\s*,')
+MERGE = re.compile(r'merge\(\s*ns\._mhLocales(?:\s+and\s+ns\._mhLocales)?\.(\w+)\s*,')
+FILE_RE = re.compile(r"^(deDE|frFR|esES|ptBR|itIT|nlNL)\.lua$")
 
-print("=" * 70)
-print("MidnightHelper.toc")
-print("=" * 70)
+data = defaultdict(set)
+for fn in sorted(os.listdir(LOC)):
+    if not fn.endswith(".lua"):
+        continue
+    m = FILE_RE.match(fn)
+    ctx = m.group(1) if m else ("enUS" if fn == "enUS.lua" else None)
+    with io.open(os.path.join(LOC, fn), "r", encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            f = FILL.search(line)
+            if f:
+                ctx = f.group(1)
+            g = MERGE.search(line)
+            if g:
+                ctx = g.group(1)
+            if "ns._mhLocales.enUS = {" in line:
+                ctx = "enUS"
+            if not ctx:
+                continue
+            k = KEY.match(line)
+            if k:
+                data[ctx].add(k.group(1))
 
-bom = raw[:3] == b"\xef\xbb\xbf"
-print("UTF-8 BOM present            : %s" % ("YES" if bom else "NO -- BROKEN"))
+en = data["enUS"]
 
-try:
-    text = raw.decode("utf-8-sig")
-    print("decodes as UTF-8             : YES")
-except UnicodeDecodeError as e:
-    print("decodes as UTF-8             : NO -- %s" % e)
-    raise SystemExit(1)
+# Keys that are English ON PURPOSE.
+#   CHANGELOG_*  -- the in-game what's-new popup, English since 2.4.0 (CLAUDE.md)
+#   LANG_LABEL_* -- language names in their own language, identical in every pack
+BY_DESIGN = [k for k in en if k.startswith("CHANGELOG_") or k.startswith("LANG_LABEL_")]
 
-# Accents that must have survived, one per language that has any.
-CHECKS = [
-    ("deDE", "f\u00fcr Midnight"),          # fur -> for
-    ("deDE", "Routenf\u00fchrung"),
-    ("frFR", "Midnight : planning"),         # the space before the colon
-    ("frFR", "d'itin\u00e9raire"),
-    ("esES", "planificaci\u00f3n"),
-    ("esES", "gu\u00eda de rutas"),
-    ("ptBR", "planejamento semanal"),
-    ("itIT", "pianificazione settimanale"),
-]
+print("=" * 72)
+print("Hoeveel van het 'gat' is opzet?")
+print("=" * 72)
+print("enUS totaal                       : %d" % len(en))
+print("waarvan bewust Engels             : %d  (CHANGELOG_* + LANG_LABEL_*)" % len(BY_DESIGN))
+print("dus echt te vertalen              : %d" % (len(en) - len(BY_DESIGN)))
 print()
-for lang, needle in CHECKS:
-    print("%-6s %-30s %s" % (lang, needle, "ok" if needle in text else "MISSING"))
-
-print()
-left = text.count("12.0.7")
-print("occurrences of '12.0.7' left : %d" % left)
-print("Interface line               : %s" % text.splitlines()[0])
+print("%-6s %8s %8s %8s %9s" % ("pack", "heeft", "gat(ruw)", "gat(echt)", "echt %"))
+print("-" * 72)
+real_en = set(en) - set(BY_DESIGN)
+for loc in ("deDE", "frFR", "esES", "ptBR", "itIT", "nlNL"):
+    have = data[loc]
+    raw_gap = len(en - have)
+    real_gap = len(real_en - have)
+    pct = 100.0 * (len(real_en) - real_gap) / max(1, len(real_en))
+    print("%-6s %8d %8d %8d %8.1f%%" % (loc, len(have), raw_gap, real_gap, pct))

@@ -44,6 +44,17 @@ import pathlib
 import re
 import sys
 
+# The report is full of accented text and em-dashes, and the Windows console does
+# not default to UTF-8 -- the header printed as "Midnight ? i18n audit". Forced
+# here rather than fixed by a command-line flag on purpose: CLAUDE.md notes that a
+# flag makes the command a different string and it stops matching its permission
+# rule, so Rob gets a prompt every run. lint_addon.py already does exactly this.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 # Packs that ship in the .toc. koKR/zh*/ruRU have no pack -> nothing to audit.
 KNOWN_LANGS = ["enUS", "nlNL", "deDE", "frFR", "esES", "ptBR", "itIT"]
 # enUS is the source of truth; everything else is a translation target.
@@ -54,6 +65,12 @@ TARGETS = ["nlNL", "deDE", "frFR", "esES", "ptBR", "itIT"]
 # stays English; keep it small and documented. Empty by default.
 IGNORE_PREFIXES = (
     "CHANGELOG",      # older changelog entries stay English (per the addon itself)
+    # Language names written in their own language -- "Deutsch", "Français",
+    # "Nederlands" -- identical in every pack, so they live in SettingsPage.lua and
+    # not in the packs. Added 19 Aug after they were the only seven keys standing
+    # between nlNL and 100%: chasing them would have meant "fixing" the language
+    # picker into showing every language's name in Dutch.
+    "LANG_LABEL",
     "OMNIUM_RUNE",    # rune item names
     "WB_BOSS",        # world boss names
     "WB_ZONE",        # zone names (WB_ZONE_FMT is translated; the names stay English)
@@ -191,14 +208,25 @@ def main():
     en = keys["enUS"]
     report_path = pathlib.Path(args.report) if args.report else root / "tools" / "i18n_missing_report.txt"
 
+    # ⚠️ THE DENOMINATOR IS THE TRANSLATABLE SET, NOT EVERY KEY.
+    #
+    # This used to divide by len(en) while already dropping ignored keys from the
+    # missing count -- so the deliberately-English keys counted as translated work
+    # nobody did, and every pack read a point or two better than it was. Found on
+    # 19 Aug while answering Rob's "hebben alle languages de juiste teksten?": the
+    # honest figure for deDE is 79.5%, not 82%.
+    translatable = {k for k in en if not ignored(k)}
+
     lines = []
     lines.append("Midnight Helper — i18n audit")
     lines.append(f"scanned {len(files)} locale files; enUS reference keys: {len(en)}")
+    lines.append(f"of those, {len(translatable)} are translatable "
+                 f"({len(en) - len(translatable)} stay English on purpose)")
     lines.append("")
     lines.append(f"{'pack':6} {'have':>6} {'missing':>8}  coverage")
     for l in TARGETS:
         miss = {k for k in (en - keys[l]) if not ignored(k)}
-        cov = 100.0 * (len(en) - len(miss)) / max(1, len(en))
+        cov = 100.0 * (len(translatable) - len(miss)) / max(1, len(translatable))
         lines.append(f"{l:6} {len(keys[l]):>6} {len(miss):>8}  {cov:5.1f}%")
     lines.append("")
 
