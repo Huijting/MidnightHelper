@@ -1987,6 +1987,33 @@ local function RelocalizeAchPanel()
 	RefreshAchPanel()
 end
 
+--- Expand the first card whose achievement name contains `fragment`, collapsing the rest.
+---
+--- ⚠️ FOR `/mh shots` ONLY. A gallery picture of this tab with every card collapsed is a
+--- list of headings and shows none of the work; the step buttons and the shared route
+--- button only exist once a card is open. There is no keyboard or mouse path the rig can
+--- take to click a header, so it asks here instead.
+---
+--- Matched on the CLIENT's own achievement name, not on an index: the card order changes
+--- with what you have completed, so "the fourth card" is a different card on every
+--- account. Returns whether it found one, so a scene can say so instead of shooting a
+--- picture of nothing.
+function ns.DevExpandAchCard(fragment)
+	local st = achPanelState
+	if not st or not fragment then
+		return false
+	end
+	local found = false
+	for _, card in ipairs(st.cards) do
+		local name = AchievementName(card.entry)
+		local hit = (not found) and name and name:lower():find(fragment:lower(), 1, true) ~= nil
+		card.expanded = hit and true or false
+		found = found or hit
+	end
+	LayoutAchPanel()
+	return found
+end
+
 local function BuildAchCard(st, entry)
 	local card = { entry = entry, rows = {}, expanded = false } -- collapsed until clicked
 

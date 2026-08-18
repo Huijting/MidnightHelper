@@ -1394,6 +1394,16 @@ function ns:RefreshDelveCoachLocale()
 	end
 end
 
+--- The coach window itself, for `/mh shots` to photograph. Nil until one has been opened.
+---
+--- ⚠️ The rig hides UIParent, and this window hangs under it, so it needs the frame in
+--- order to reparent it — the same treatment the floating mount preview gets. Without
+--- that the scene shoots an empty screen and looks like a broken window rather than a
+--- hidden one.
+function ns.DevGetDelveCoachFrame()
+	return coachFrame
+end
+
 function ns:ShowDelveCoach(entryId, options)
 	options = options or {}
 	local entry = ns.GetDelveTipEntryById and ns.GetDelveTipEntryById(entryId)

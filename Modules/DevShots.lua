@@ -147,6 +147,36 @@ local SHOTS = {
 	{ name = "05-class-coach", tab = "guide" },
 	{ name = "06-alts", tab = "account" },
 	{ name = "07-void-rituals", tab = "world" },
+	--- Two scenes for the 12.1 / Season 2 work, added 18 aug.
+	---
+	--- ⚠️ `/mh keys` and `/mh plan` were on the shot list too and are NOT here. Both
+	--- print to the chat frame, and this rig hides UIParent — so the chat is not even on
+	--- screen when the shutter fires. They cannot be photographed until they have a
+	--- window; pretending otherwise would produce two pictures of an empty backdrop.
+	{
+		name = "08-achievements-coiled-isle",
+		tab = "achievements",
+		setup = function()
+			--- Open on the hunt with the most to show: several steps, and the shared
+			--- route button in the header that replaced ten identical ones.
+			if ns.DevExpandAchCard then
+				ns.DevExpandAchCard("Soft Underbelly")
+			end
+		end,
+	},
+	{
+		name = "09-delve-coach-ring-of-glory",
+		--- No tab: the coach is its own window. `preview` so it opens on a delve the
+		--- player is not standing in — the whole point of a gallery picture.
+		setup = function()
+			if ns.ShowDelveCoach then
+				ns:ShowDelveCoach("ring_of_glory", { preview = true })
+			end
+		end,
+		base = function()
+			return ns.DevGetDelveCoachFrame and ns.DevGetDelveCoachFrame() or nil
+		end,
+	},
 }
 
 local function Say(msg)
@@ -290,6 +320,11 @@ local function RestoreWindow(main, savedFormat)
 			f:Hide()
 		end
 	end
+	--- The coach was opened in preview mode for its own scene; leaving it on screen would
+	--- have the operator close a window they never opened.
+	if ns.HideDelveCoach then
+		pcall(ns.HideDelveCoach, ns, true)
+	end
 end
 
 function ns.RunDevShots()
@@ -340,11 +375,17 @@ function ns.RunDevShots()
 
 		-- Every step is guarded: one bad scene must never take the rest of the run with
 		-- it (a hidden tab did exactly that on the first outing).
-		local ok, err = pcall(ns.SelectTab, shot.tab)
-		if not ok then
-			Say(("|cffff6060skipped|r %s — tab '%s': %s"):format(shot.name, tostring(shot.tab), tostring(err)))
-			C_Timer.After(0.1, takeNext)
-			return
+		--
+		-- ⚠️ `tab` is OPTIONAL since 18 aug. Not everything worth showing lives in the
+		-- main window: the Delve Coach is its own window, and calling SelectTab(nil) for
+		-- it would fail the scene for a tab it never wanted.
+		if shot.tab then
+			local ok, err = pcall(ns.SelectTab, shot.tab)
+			if not ok then
+				Say(("|cffff6060skipped|r %s — tab '%s': %s"):format(shot.name, tostring(shot.tab), tostring(err)))
+				C_Timer.After(0.1, takeNext)
+				return
+			end
 		end
 
 		C_Timer.After(STEP_DELAY, function()
@@ -354,6 +395,28 @@ function ns.RunDevShots()
 				local sok, serr = pcall(shot.setup)
 				if not sok then
 					Say(("|cffff6060setup failed|r %s: %s"):format(shot.name, tostring(serr)))
+				end
+			end
+
+			--- A scene may name a DIFFERENT window as the subject. It is then centred and
+			--- cropped in the main window's place, and the main window is pushed out of
+			--- the picture rather than hidden: hiding it makes the tab machinery re-run on
+			--- the next scene and the run loses its footing. Off-screen is enough — the
+			--- crop is a rectangle, not a screenshot of everything.
+			local subject = main
+			if shot.base then
+				local bok, bframe = pcall(shot.base)
+				if bok and bframe then
+					subject = bframe
+					if uiHidden then
+						Reparent(subject, WorldFrame)
+					end
+					main:ClearAllPoints()
+					main:SetPoint("TOPLEFT", UIParent, "TOPLEFT", -5000, 0)
+				else
+					Say(("|cffff6060no window|r %s — skipped"):format(shot.name))
+					C_Timer.After(0.1, takeNext)
+					return
 				end
 			end
 
@@ -372,8 +435,8 @@ function ns.RunDevShots()
 				end
 				-- One more tick when a model had to reload after becoming visible.
 				C_Timer.After(extra and 0.5 or 0, function()
-					CenterWindow(main) -- right before the shutter: nothing may drift
-					local rok, rect = pcall(PixelRect, main, extra, shot.pad)
+					CenterWindow(subject) -- right before the shutter: nothing may drift
+					local rok, rect = pcall(PixelRect, subject, extra, shot.pad)
 					if rok and rect then
 						rect.name = shot.name
 						-- WoW names its screenshots WoWScrnShot_MMDDYY_HHMMSS, so stamp the
