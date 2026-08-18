@@ -1,15 +1,12 @@
 """Scratch probe -- fixed path so the allowlist keeps matching (see CLAUDE.md).
 
-Fix the doubled backslash in four locale packs: `\\n` where `\n` belongs. Lua reads
-the first as a literal backslash plus the letter n, so players of those four
-languages read "\n\n" as text where a paragraph break should be. enUS, nlNL and
-itIT are already correct, which is what makes this a slip from one generation run
-rather than a convention.
+Report-only. The repair already ran; this answers the question the crashed run
+could not print: are there backslash runs in these packs that are neither a lone
+escape nor something already handled? Anything unexpected gets named rather than
+touched -- assuming what was there is exactly what broke the first attempt.
 
-⚠️ Only touches the VALUE of a single-line locale entry. A blanket search-and-
-replace over the file could hit a backslash that belongs somewhere else, and these
-files are the live addon -- see the atomic-write note in CLAUDE.md, which exists
-because Rob once logged in halfway through a rewrite of enUS.lua.
+No emoji in the output: the Windows console is cp1252 and the previous run died on
+one, which swallowed the very report it existed to produce.
 """
 
 import io
@@ -17,39 +14,29 @@ import os
 import re
 
 LOC = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales"
-FILES = ["deDE.lua", "esES.lua", "frFR.lua", "ptBR.lua"]
 
-ENTRY = re.compile(r'^(\s*(?:\[\s*")?[A-Z][A-Z0-9_]+"?\]?\s*=\s*")((?:[^"\\]|\\.)*)(".*)$')
+ENTRY = re.compile(r'^\s*(?:\[\s*")?([A-Z][A-Z0-9_]+)"?\]?\s*=\s*"((?:[^"\\]|\\.)*)"')
+RUNS = re.compile(r"(\\+)(.)")
 
-total = 0
-for fn in FILES:
-    path = os.path.join(LOC, fn)
-    with io.open(path, "r", encoding="utf-8", newline="") as fh:
-        lines = fh.readlines()
+print("=" * 70)
+print("Backslash-runs per pack (aantal x volgend teken)")
+print("=" * 70)
 
-    changed = 0
-    out = []
-    for line in lines:
-        m = ENTRY.match(line.rstrip("\r\n"))
-        if not m:
-            out.append(line)
-            continue
-        head, val, tail = m.group(1), m.group(2), m.group(3)
-        fixed = val.replace("\\\\n", "\\n")
-        if fixed != val:
-            changed += val.count("\\\\n")
-            ending = line[len(line.rstrip("\r\n")):]
-            out.append(head + fixed + tail + ending)
-        else:
-            out.append(line)
-
-    if changed:
-        tmp = path + ".tmp"
-        with io.open(tmp, "w", encoding="utf-8", newline="") as fh:
-            fh.writelines(out)
-        os.replace(tmp, path)   # atomic: the game sees old or new, never half
-    print("%-12s %3d hersteld" % (fn, changed))
-    total += changed
-
-print("-" * 30)
-print("totaal      %3d" % total)
+for fn in sorted(os.listdir(LOC)):
+    if not fn.endswith(".lua"):
+        continue
+    tally = {}
+    with io.open(os.path.join(LOC, fn), "r", encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            m = ENTRY.match(line)
+            if not m:
+                continue
+            for run, nxt in RUNS.findall(m.group(2)):
+                tally[(len(run), nxt)] = tally.get((len(run), nxt), 0) + 1
+    if not tally:
+        continue
+    odd = {k: v for k, v in tally.items() if k[0] != 1}
+    line = "  ".join("%dx%r:%d" % (n, c, v) for (n, c), v in sorted(tally.items()))
+    print("%-22s %s" % (fn, line))
+    if odd:
+        print("%-22s LET OP: %s" % ("", odd))

@@ -644,6 +644,19 @@ def check_translation_markup(root):
                 hard.append((loc, key, rel, ln,
                              "\\\\n renders as literal text, not a line break"))
 
+            # ⚠️ THREE backslashes before a quote, not two. 116 of these across the
+            # same four packs, mostly the Academy's party-chat lines, where the
+            # player read \"like this\" with the slashes showing.
+            #
+            # The count matters and is why this is measured rather than eyeballed:
+            # the first repair attempt assumed two, removed one, left two, and every
+            # quote then closed its own string. All four packs failed luac and had
+            # to be reverted. Reading escaping off a rendered view is how that
+            # happened; the fix came from counting the bytes.
+            if ("\\" * 3 + '"') in val:
+                hard.append((loc, key, rel, ln,
+                             "three backslashes before a quote; one is an escape"))
+
             # ⚠️ Measured against enUS, NOT against zero. The first version demanded
             # that opens equal closes and immediately flagged six faithful
             # translations of FPS_HIGHER_IN_RAID -- whose ENGLISH original opens
