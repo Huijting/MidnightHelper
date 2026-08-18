@@ -1469,7 +1469,9 @@ ns._mhLocales.enUS = {
 	ACH_NOTE_UNDERBELLY_STRIKE = "Only up while the Temple Strike: The Underbelly is running - there is no fixed spot to walk to, so the arrow leaves this one alone.",
 	ACH_NOTE_ANCIENT_FOE = "Spawns where a Temple Incursion finishes, so it has no place on the map. Join whatever is running and it comes to you.",
 	ACH_NOTE_VSERIX = "Wanders, and can be killed without any event running.",
-	ACH_NOTE_MIX_MASTER = "You craft these, one per day. Take the daily near 57.4 / 48.7 on the Coiled Isle, then make the offering from ingredients found in Cracked Canopic Jars, Venom-Clotted Baubles and Singing Shells around the isle - or simply buy them at the auction house. Needs Zul'jarra's Forces renown 3. There is no route because the containers have no fixed spots.",
+	ACH_NOTE_MIX_MASTER = "One per day, crafted at Ofi the Sly's cauldron at 57.4 / 48.7 - not the Ofi in the swamp, who cannot mix. Each offering is an exact three-ingredient combination and the game shows you nothing while you pick, so the recipe below is the whole job. Ingredients come from Cracked Canopic Jars, Venom-Clotted Baubles and Singing Shells around the isle, and they are tradable, so the auction house works too.",
+	ACH_NOTE_MIX_GATES = "Two things gate this. Renown 3 with Zul'jarra's Forces makes the containers appear at all, and the Ofi's Offerings node on the Altar of Corrosion is what puts ingredients inside them - with the first and not the second you will loot nothing and think it is broken.",
+	ACH_MIX_RECIPE_FMT = "Needs: %s",
 
 	ICV_KEYS_TITLE ="The four Altar of Corrosion nodes you cannot buy",
 	ICV_UNLOCK_ANCIENT_FOE = "Drops from any Ancient Foe, at the end of a Temple Incursion.",

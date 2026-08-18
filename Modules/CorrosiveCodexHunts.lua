@@ -238,6 +238,64 @@ function ns.ShowCorrosiveKeyHunts()
 	print(("|cff8a8f98%s|r"):format(L("ICV_SOURCE_NOTE")))
 end
 
+-- ---------------------------------------------------------------------------
+-- Mysterious Mix Master: the recipes, which is the part nobody can see
+-- ---------------------------------------------------------------------------
+
+--- ⚠️ THIS CORRECTS ME. I wrote that this achievement had "no route because the
+--- containers have no fixed spots". Wowhead maps 197 of them on 2512 — 65 Cracked
+--- Canopic Jars, 61 Venom-Clotted Baubles, 71 Singing Shells. Rob asked whether we
+--- could just check instead of reasoning; we could, and the reasoning was wrong.
+---
+--- It stays routeless anyway, for a reason that survives the correction: a scatter of
+--- 197 gatherables is a HandyNotes overlay, not a route, and the ingredients are
+--- tradable so half of everyone will buy them.
+---
+--- ✅ THE REAL GAP IS THE RECIPES. Ten offerings, each an exact three-ingredient
+--- combination, chosen through dialogue with NO visual feedback, and the ingredients
+--- are only consumed on the THIRD choice. Get it wrong and the day is spent. That is
+--- precisely the shape this addon exists for — explaining rather than tracking.
+---
+--- Source: Wowhead comment 6389799 (Lazey), decoded from the raw HTML rather than a
+--- summariser, and independently matched against the MysteriousMixHelper addon's own
+--- published table. Two arithmetic checks hold: every row sums to 3, and each
+--- ingredient column totals exactly 10.
+---
+--- ⚠️ An addon already does this job (TheDooft/MysteriousMixHelper, on CurseForge).
+--- We are not rebuilding it — a recipe line inside an achievement card the player is
+--- already reading is a different thing from a dedicated helper, and mh-market-position
+--- says our edge is the explaining, not the tracking.
+ns.MIX_MASTER_INGREDIENTS = {
+	[276124] = "Ancient Knucklebone",   -- Cracked Canopic Jar (object 654991)
+	[276126] = "Serpent's Feather",     -- Venom-Clotted Bauble (object 656039)
+	[276117] = "Clouded Blood-Pearl",   -- Singing Shell (object 656044)
+}
+
+--- criteriaID → { [itemID] = count }. Criteria ids measured on Rob's client 18 aug;
+--- the counts are Lazey's table.
+ns.MIX_MASTER_RECIPES = {
+	[115810] = { [276117] = 3 },                                  -- Choleric
+	[115811] = { [276126] = 1, [276117] = 2 },                    -- Virulent
+	[115812] = { [276124] = 1, [276117] = 2 },                    -- Volatile
+	[115815] = { [276126] = 3 },                                  -- Phlegmatic
+	[115814] = { [276126] = 2, [276117] = 1 },                    -- Odious
+	[115816] = { [276124] = 1, [276126] = 2 },                    -- Pestilent
+	[115819] = { [276124] = 3 },                                  -- Melancholic
+	[115817] = { [276124] = 2, [276117] = 1 },                    -- Fragile
+	[115818] = { [276124] = 2, [276126] = 1 },                    -- Eerie
+	[115813] = { [276124] = 1, [276126] = 1, [276117] = 1 },      -- Balanced
+}
+
+--- ⚠️ TWO GATES, AND WITHOUT THE SECOND THE CONTAINERS ARE EMPTY. Renown 3 with
+--- Zul'jarra's Forces (2772) makes them appear at all; the "Ofi's Offerings" node on
+--- the Altar of Corrosion tree is what puts ingredients inside them. A player with the
+--- first and not the second loots nothing and concludes the addon is wrong.
+ns.MIX_MASTER_GATES = { renownFaction = 2772, renownLevel = 3, altarNode = "Ofi's Offerings" }
+
+--- Two NPCs are called Ofi the Sly and only one of them mixes. The swamp copy at
+--- 61.0/32.6 has no cauldron dialogue; the cauldron is at Tokka's Landing.
+ns.MIX_MASTER_CAULDRON = { mapID = 2512, x = 57.4, y = 48.7, npc = "Ofi the Sly" }
+
 --- Every stop for the key hunts, in one flat route: the objects with a single known
 --- spot first, then the nine candidate spots for the Lynx's Paw.
 --- @return table stops

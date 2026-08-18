@@ -2106,6 +2106,30 @@ local function BuildAchCard(st, entry)
 				GameTooltip:AddLine(body, 0.9, 0.9, 0.9, true)
 				hasExtra = true
 			end
+			--- The exact three ingredients this offering needs.
+			---
+			--- ⚠️ The one thing a player cannot see for themselves: Ofi's dialogue gives
+			--- no feedback while you pick, and the ingredients are only consumed on the
+			--- third choice — so a wrong guess costs the day, and the game never tells
+			--- you what the right one was. This is the line that makes the card worth
+			--- opening.
+			---
+			--- Ingredient names come from ns.MIX_MASTER_INGREDIENTS rather than being
+			--- typed here, and the counts from the recipe table beside them.
+			if n.recipe and ns.MIX_MASTER_RECIPES and n.criteria then
+				local r = ns.MIX_MASTER_RECIPES[n.criteria]
+				if r then
+					local parts = {}
+					for itemID, count in pairs(r) do
+						local nm = ns.MIX_MASTER_INGREDIENTS and ns.MIX_MASTER_INGREDIENTS[itemID]
+						parts[#parts + 1] = ("%dx %s"):format(count, nm or ("item " .. itemID))
+					end
+					table.sort(parts)
+					GameTooltip:AddLine((TL("ACH_MIX_RECIPE_FMT")):format(
+						table.concat(parts, ", ")), 1, 0.82, 0.2, true)
+					hasExtra = true
+				end
+			end
 			if n.counterName and n.counterNeed then
 				GameTooltip:AddLine(("%s x%d"):format(n.counterName, n.counterNeed), 0.7, 0.85, 1.0, true)
 				hasExtra = true
