@@ -519,6 +519,7 @@ ns._mhLocales.nlNL = {
 	ACH_NOTE_LOST_SPIRIT = "Op slot. Pak het verloren voorwerp op en breng het terug naar de geest hier.",
 	ACH_STEP_CLAM = "Bubbling Clam",
 	ACH_STEP_UNDERBELLY_WAY_IN = "De ingang van de Underbelly (de enige)",
+	ACH_STEP_OFI_CAULDRON = "De ketel van Ofi the Sly (Tokka's Landing)",
 
 	PLAN_HEADER = "Zo kom je bij %s, stap voor stap:",
 	PLAN_STEP_DOOR = "de doorgang (de dichtstbijzijnde die je client kent)",

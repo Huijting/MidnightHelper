@@ -359,9 +359,22 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 	if ns._mhTravelLegBusy or not ns.GetNearestFlightPoint then
 		return false -- re-entry: leg one sets its own waypoint through the same call
 	end
-	if ns.MHSameZoneOrSub and ns.MHSameZoneOrSub(currentMap, targetMap) then
-		return false
-	end
+	--- ⚠️ REMOVED 18 aug: a bail-out on "same zone or sub-zone".
+	---
+	--- Rob, standing in the Vaults with a delve on the isle above him: "ik wil gewoon
+	--- de pijl naar de FP in de vault." He could not have it, because the Vaults are a
+	--- child map of The Coiled Isle and this check treated the pair as one place.
+	---
+	--- The rule was reasonable and wrong: you do not normally fly within a zone, but
+	--- these two each have their own flight point and flying between them is the
+	--- intended way around. Parentage was never the question.
+	---
+	--- The real test was already two lines below and still is — `fromName == toName`.
+	--- If the flight point nearest you IS the one nearest the target, flying achieves
+	--- nothing and we say nothing; if they differ, it helps, whatever the map tree
+	--- says about who contains whom. One check, doing the job the other only
+	--- approximated.
+	--- (`ns.MHSameZoneOrSub` stays — other callers use it for what it actually means.)
 	-- Already on a taxi: sending the arrow to the flight master you just left would be
 	-- the exact bug this file spent the afternoon fixing.
 	if UnitOnTaxi then

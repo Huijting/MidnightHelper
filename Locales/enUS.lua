@@ -552,6 +552,7 @@ ns._mhLocales.enUS = {
 	-- Prereq button labels. Short: they sit on a button, not in a sentence.
 	ACH_STEP_CLAM = "Bubbling Clam",
 	ACH_STEP_UNDERBELLY_WAY_IN = "Way into the Underbelly (the only one)",
+	ACH_STEP_OFI_CAULDRON = "Ofi the Sly's cauldron (Tokka's Landing)",
 
 	PLAN_HEADER = "How to reach %s, step by step:",
 	PLAN_STEP_DOOR = "the way through (nearest of the ones your client knows)",
