@@ -342,10 +342,26 @@ local function ArrivedOnTargetMap()
 	if here == pendingLeg.mapID then
 		return true
 	end
-	-- A sub-area of the destination counts as arrived; the delve entrance sits on the
-	-- island's own map, not on the sub-map you may be standing in.
-	if ns.MHSameZoneOrSub and ns.MHSameZoneOrSub(here, pendingLeg.mapID) then
-		return true
+
+	--- ⚠️ THE SAME SUB-ZONE MISTAKE, ONE LAYER DOWN — and I fixed the other one and
+	--- left this. Rob, 18 aug: the arrow reached "Flight master: Amani Foothold, 33m
+	--- away" and flipped back to the destination about two seconds later. That is this
+	--- ticker's 1.5s beat: standing in the Vaults with a leg aimed at the isle,
+	--- MHSameZoneOrSub said the Vaults are part of the isle, so the leg counted itself
+	--- as arrived before he had taken a step.
+	---
+	--- Parentage is the wrong question here too. The test that matters is the one now
+	--- used to START a leg: if the flight point nearest you is the leg's own
+	--- destination flight point, you are in that travel neighbourhood and the leg is
+	--- done. If it is a different flight point — Amani Foothold against Tokka's
+	--- Landing — you have not arrived, whatever the map tree says.
+	---
+	--- Same criterion at both ends, which is what stops the two from disagreeing again.
+	if pendingLeg.toName and ns.GetNearestFlightPoint then
+		local okF, hereFp = pcall(ns.GetNearestFlightPoint, here)
+		if okF and type(hereFp) == "string" and hereFp == pendingLeg.toName then
+			return true
+		end
 	end
 	return false
 end

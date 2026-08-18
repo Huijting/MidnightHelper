@@ -1919,7 +1919,9 @@ local function RefreshAchPanel()
 			--- Hidden rather than disabled here: a row is a thin line and a greyed
 			--- button on it reads as "broken", where an absent one reads as "nothing
 			--- to go to", which is the truth.
-			if ns.AchievementNodeRoutable(row.node) then
+			-- A row shows its button when it has anywhere to send you, which is not the
+			-- same as being routable: `wp*` is a destination without being a location.
+			if ns.AchievementNodeRoutable(row.node) or row.node.wpMapID then
 				row.wp:SetText(TL("ACH_TAB_WAYPOINT"))
 				row.wp:Show()
 			else
@@ -2067,8 +2069,16 @@ local function BuildAchCard(st, entry)
 				-- Same helper as the row label. Passing node.name meant every waypoint
 				-- from these three hunts was created with a nil name, so the arrow read
 				-- "Waypoint" instead of the treasure you asked for.
-				ns.AddSmartTomTomWay(node.mapID, node.x, node.y,
-					ns.AchievementNodeName(entry, node))
+				--
+				--- ⚠️ `wp*` FIRST. A criterion can have somewhere to SEND you without
+				--- having a place of its own — Rob asked for a button to Ofi's cauldron
+				--- on all ten Mix Master offerings, which are crafted at one spot and
+				--- have no location each. Routing still reads mapID/x/y, so those ten
+				--- stay off the route while the button works. Two different questions,
+				--- two different fields, instead of one field forced to answer both.
+				ns.AddSmartTomTomWay(node.wpMapID or node.mapID,
+					node.wpX or node.x, node.wpY or node.y,
+					node.wpName and ns:L(node.wpName) or ns.AchievementNodeName(entry, node))
 			end
 			-- Multi-step? also show the hint toast with its prereq buttons.
 			if (node.note or node.prereqs) and ns.ShowTreasureToast then
