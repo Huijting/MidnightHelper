@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """Scratch script — rewritten per task, always run as tools/_probe.py.
 
-Read the spot log. Rob marked two places while the arrow was misbehaving: in
-the gate corridor (where it kept pointing back at the door he had just walked
-through) and further in (where it finally pointed at the destination). The
-map ids are the interesting part -- they say where the boundary actually is.
+Lint check [10] asks "is every command in CommandList.lua actually routed?"
+Nobody asks the mirror question: is every routed command in the list? Eight
+commands were added in two days and none of them appear, so the answer is
+probably no and probably worse than eight.
 """
+import glob
 import io
+import os
 import re
 import sys
 
@@ -16,75 +18,40 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-P = (r'E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER'
-     r'\SavedVariables\MidnightHelper.lua')
+MH = r'E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper'
 
-t = io.open(P, encoding='utf-8', errors='replace', newline='').read()
+listed = set()
+src = io.open(os.path.join(MH, 'Modules', 'CommandList.lua'),
+              encoding='utf-8', errors='replace').read()
+for m in re.finditer(r'cmd = "/mh\s*([^"]*)"', src):
+    listed.add(m.group(1).split()[0] if m.group(1).strip() else '')
 
+# Routed: `msg == "x"` and `msg:match("^x")` in Core.lua and the modules.
+routed = set()
+paths = [os.path.join(MH, 'Core.lua')]
+paths += sorted(glob.glob(os.path.join(MH, 'Modules', '*.lua')))
+for p in paths:
+    text = io.open(p, encoding='utf-8', errors='replace').read()
+    for m in re.finditer(r'msg\s*==\s*"([a-z]+)"', text):
+        routed.add(m.group(1))
+    for m in re.finditer(r'msg:match\("\^([a-z]+)', text):
+        routed.add(m.group(1))
 
-def block(key, src):
-    i = src.find('["%s"]' % key)
-    if i < 0:
-        return None
-    s = src.index('{', i)
-    d, j = 0, s
-    while j < len(src):
-        if src[j] == '{':
-            d += 1
-        elif src[j] == '}':
-            d -= 1
-            if d == 0:
-                break
-        j += 1
-    return src[s:j + 1]
+print('in de spelerslijst : %d' % len(listed))
+print('gerouteerd in code : %d' % len(routed))
 
+missing = sorted(routed - listed)
+print('\n' + '=' * 60)
+print('GEROUTEERD MAAR NIET IN DE LIJST — %d' % len(missing))
+print('=' * 60)
+for c in missing:
+    print('  /mh %s' % c)
 
-def split_top(blob):
-    out, d, buf = [], 0, ''
-    for ch in blob[1:-1]:
-        if ch == '{':
-            d += 1
-        if d > 0:
-            buf += ch
-        if ch == '}':
-            d -= 1
-            if d == 0:
-                out.append(buf)
-                buf = ''
-    return out
-
-
-def f(chunk, name):
-    m = re.search(r'\["%s"\]\s*=\s*("(?:[^"\\]|\\.)*"|true|false|[\d.-]+)'
-                  % name, chunk)
-    if not m:
-        return None
-    v = m.group(1)
-    if v.startswith('"'):
-        return v[1:-1]
-    if v in ('true', 'false'):
-        return v == 'true'
-    return v
-
-
-spots = block('spots', t)
-if not spots:
-    print('geen spots')
-    sys.exit(0)
-
-rows = split_top(spots)
-print('%d plekken\n' % len(rows))
-print('%-4s %-7s %-8s %-8s %-26s %s'
-      % ('#', 'map', 'x', 'y', 'zone', 'doelwit / notitie'))
-print('-' * 84)
-for n, e in enumerate(rows, 1):
-    label = f(e, 'target') or ''
-    note = f(e, 'note')
-    if note:
-        label = (label + '  ' + note).strip()
-    print('%-4d %-7s %-8s %-8s %-26s %s' % (
-        n, f(e, 'mapID') or '?', f(e, 'x') or '?', f(e, 'y') or '?',
-        (f(e, 'zone') or '?')[:26], label))
-    when = f(e, 'when')
-    if when:
-        print('     %s' % when)
+ghost = sorted(listed - routed)
+print('\n' + '=' * 60)
+print('IN DE LIJST MAAR NIET GEVONDEN ALS ROUTE — %d' % len(ghost))
+print('(check [10] zegt 0; die kijkt breder dan dit script, dus')
+print(' verschillen hier zijn eerder mijn regex dan een echt gat)')
+print('=' * 60)
+for c in ghost:
+    print('  /mh %s' % c)

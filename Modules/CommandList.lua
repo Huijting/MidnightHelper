@@ -41,8 +41,20 @@ end
 --- Grouped so it can be scanned, not alphabetical so it can be searched. Someone
 --- looking for "what can this thing do in a dungeon" reads a heading, not a C.
 ns.MH_COMMANDS = {
+	--- ⚠️ NINE SHIPPED FEATURES WERE MISSING FROM THIS LIST, 18 aug 2026.
+	---
+	--- Lint check [10] asks whether every command in this file is routed, and the
+	--- answer has always been yes. Nobody asked the mirror question. `/mh setup` —
+	--- the onboarding command the CurseForge page leads with — has never appeared
+	--- here, and neither have `/mh bar` or `/mh fps`, which that page also lists.
+	--- Five more arrived in the last two days and went straight past it.
+	---
+	--- The measurement: 149 routed names against 44 listed. Most of the gap is dev
+	--- probes (`auradump`, `eventspy`, `rarescan`) which correctly stay out. These
+	--- nine are the ones a player is meant to find, and could not.
 	{ headKey = "CMDLIST_GRP_MAIN", items = {
 		{ cmd = "/mh", descKey = "CMDLIST_MAIN" },
+		{ cmd = "/mh setup", descKey = "CMDLIST_SETUP" },
 		{ cmd = "/mh codex", descKey = "CMDLIST_CODEX" },
 		{ cmd = "/mh settings", descKey = "CMDLIST_SETTINGS" },
 		{ cmd = "/mh mouse", descKey = "CMDLIST_MOUSE" },
@@ -82,6 +94,9 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh bosswin", descKey = "CMDLIST_BOSSWIN" },
 		{ cmd = "/mh ritualboss", descKey = "CMDLIST_RITUALBOSS" },
 		{ cmd = "/mh curio", descKey = "CMDLIST_CURIO" },
+		{ cmd = "/mh curios", descKey = "CMDLIST_CURIOS" },
+		{ cmd = "/mh hazards", descKey = "CMDLIST_HAZARDS" },
+		{ cmd = "/mh keys", descKey = "CMDLIST_KEYS" },
 		{ cmd = "/mh board", descKey = "CMDLIST_BOARD" },
 		{ cmd = "/mh items", descKey = "CMDLIST_ITEMS" },
 	} },
@@ -93,12 +108,23 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh skip", descKey = "CMDLIST_SKIP" },
 		{ cmd = "/mh nodes", descKey = "CMDLIST_NODES" },
 		{ cmd = "/mh trail", descKey = "CMDLIST_TRAIL" },
+		{ cmd = "/mh plan", descKey = "CMDLIST_PLAN" },
 		{ cmd = "/mh zone", descKey = "CMDLIST_ZONE" },
 	} },
 	{ headKey = "CMDLIST_GRP_LOOK", items = {
 		{ cmd = "/mh size", descKey = "CMDLIST_SIZE" },
 		{ cmd = "/mh framesize", descKey = "CMDLIST_FRAMESIZE" },
 		{ cmd = "/mh panelreset", descKey = "CMDLIST_PANELRESET" },
+		{ cmd = "/mh bar", descKey = "CMDLIST_BAR" },
+		{ cmd = "/mh fps", descKey = "CMDLIST_FPS" },
+	} },
+	--- Lookup tools rather than features: they answer a question about your own
+	--- character and change nothing. Grouped apart so the list above stays "what
+	--- this addon does" and this stays "what you can ask it".
+	{ headKey = "CMDLIST_GRP_LOOKUP", items = {
+		{ cmd = "/mh binds", descKey = "CMDLIST_BINDS" },
+		{ cmd = "/mh ach", descKey = "CMDLIST_ACH" },
+		{ cmd = "/mh mount", descKey = "CMDLIST_MOUNTLOOKUP" },
 	} },
 }
 
