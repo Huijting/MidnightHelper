@@ -1051,10 +1051,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh brace — waarschuwing voor casts die je niet kunt stoppen of ontlopen.
-	-- `/mh brace spec` beperkt hem tot de spec waarop je nu speelt.
-	if msg == "brace" or msg == "brace spec" then
+	-- `spec` beperkt hem tot de spec waarop je nu speelt; `on`/`off` schakelen hem;
+	-- `slots`/`reset` zijn voor de meting (zie BracePrompt.lua).
+	--
+	-- ⚠️ HIER STOND EEN VASTE LIJST: `msg == "brace" or msg == "brace spec"`. Alles wat
+	-- de functie daarna aan argumenten leerde kennen kwam er dus nooit doorheen — Rob
+	-- kreeg "Unknown command" op `brace reset`, en `on`/`off` waren al net zo dood
+	-- terwijl de commit-tekst beweerde dat ze werkten. Geef het argument door in plaats
+	-- van het te whitelisten; de functie kent zijn eigen woorden beter dan de router.
+	local braceArg = msg:match("^brace%s+(%S+)$")
+	if msg == "brace" or braceArg then
 		if ns.ToggleBracePrompt then
-			ns.ToggleBracePrompt(msg == "brace spec" and "spec" or nil)
+			ns.ToggleBracePrompt(braceArg)
 		end
 		return
 	end
