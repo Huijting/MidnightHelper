@@ -417,6 +417,10 @@ local OVERRIDES = {
 	ACADEMY_SUBTITLE = "Kurzer Meisterkurs zum Tanken und Heilen in Gruppen – Denkweise, Vorbereitungs-Checkboxen und ein sanfter Aufstieg in Dungeons. Kein Parse-Leitfaden.",
 	ACADEMY_TRACK_TANK = "Tank-Spur",
 	ACADEMY_TRACK_HEAL = "Heal-Spur",
+	ACADEMY_TRACK_DPS = "DPS-Spur",
+	-- „Berufe“ ist der Name, den dieselbe Datei dem Tab gibt (TAB_PROFESSIONS) — der
+	-- Hinweis muss dorthin zeigen, wo der Spieler wirklich klicken soll.
+	NAV_WHERE_PROFACADEMY = "in Berufe",
 	ACADEMY_CLASS_FMT = "Angemeldet: %s - %s (öffne Makros / Verbrauchsmaterialien / Anleitungen in der Seitenleiste)",
 	ACADEMY_CLASS_OPEN_CHAT_FMT = "Makros geöffnet für %s - %s. Schau auch bei Verbrauchsmaterialien nach Flaschen und Töpfen.",
 	ACADEMY_PREF_TITLE = "Checkliste vor dem Start (abhaken, wenn du bereit bist)",
@@ -424,11 +428,20 @@ local OVERRIDES = {
 	ACADEMY_PREF_TANK_INTERRUPT = "Makro auf meiner Leiste unterbrechen (Registerkarte „Makros“)",
 	ACADEMY_PREF_TANK_DEFENSIVE = "Eine bereite Defensive (Anleitungen -> Defensiven oder In Gruppen)",
 	ACADEMY_PREF_TANK_CONSUMABLES = "Flasche/Topf bereit (Registerkarte „Verbrauchsmaterialien“)",
-	ACADEMY_PREF_TANK_TAUNT = "Ich kenne meinen Verspottungsschlüssel (einmal Dummy-Test)",
+	-- ⚠️ Stand hier als „Verspottungsschlüssel“. Ein Schlüssel schließt eine Tür; eine
+	-- Taste sitzt auf der Tastatur — für einen deutschen Spieler war das schlicht das
+	-- falsche Wort. Dieselbe Verwechslung steckt noch an vier Stellen im Layout- und
+	-- Guide-Text dieser Datei; die gehören nicht zur Akademie und bleiben vorerst
+	-- stehen, damit diese Änderung überprüfbar bleibt.
+	ACADEMY_PREF_TANK_TAUNT = "Ich kenne meine Spott-Taste (einmal am Dummy getestet)",
 	ACADEMY_PREF_HEAL_MACROS = "Mouseover-/Fokusheilungsmakros (Registerkarte „Makros“)",
 	ACADEMY_PREF_HEAL_DEFENSIVE = "Persönliche Defensive am Balken (Guides -> Defensiven oder In Gruppen)",
 	ACADEMY_PREF_HEAL_CONSUMABLES = "Manatopf/Flasche (Registerkarte „Verbrauchsgüter“)",
 	ACADEMY_PREF_HEAL_PRACTICE = "Habe einmal die Schwebeheilung an einem Freund geübt",
+	ACADEMY_PREF_DPS_ROTATION = "Hauptfähigkeiten auf gut erreichbaren Tasten",
+	ACADEMY_PREF_DPS_INTERRUPT = "Mein Unterbrechen ist gebunden (einmal am Dummy getestet)",
+	ACADEMY_PREF_DPS_DEFENSIVE = "Eine persönliche Defensive auf meiner Leiste",
+	ACADEMY_PREF_DPS_COOLDOWNS = "Schadens-Cooldowns gebunden (nicht irgendwo auf der Leiste verloren)",
 	ACADEMY_TANK_INTRO_TITLE = "Tank-Denkweise",
 	ACADEMY_TANK_INTRO_BODY = "deine Aufgabe ist Tempo und Aufmerksamkeit – nicht die Schadensanzeige zu toppen.\n\nEin ruhiger Pull schlägt eine perfekte Rotation bei einer toten Gruppe. Sag Pulls laut, wenn es hilft: „Pull in 3“.",
 	ACADEMY_TANK_PULL_TITLE = "Während eines Pulls (erste 10 Sekunden)",
@@ -461,8 +474,44 @@ local OVERRIDES = {
 	ACADEMY_HEAL_CHAT_BODY = "\"Lernender Heiler – ich rufe niedriges Mana an.\"\n\"Tank hat Priorität – schrei, wenn du eine Verschnaufpause brauchst.\"\n\"Große Heilung für dich – achte auf deine Gesundheit.\"\n\"Oom 5 Sekunden zwischen den Zügen.\"\n\"Das ging auf mich – ich hebe beim nächsten Zug mehr für den Tank auf.\"",
 	ACADEMY_HEAL_LADDER_TITLE = "Angstleiter (empfohlene Reihenfolge)",
 	ACADEMY_HEAL_LADDER_BODY = "1. Heile einen Freund in der offenen Welt\n2. Tiefen mit kleiner Gruppe\n3. Normaler Dungeon mit geduldigen Freunden\n4. Raid LFR / heroisch, wenn bereit\n\nTiefen sind der sanfteste Schritt in instanzierten Content.",
+	-- Die fünf fehlenden Heal-Kapitel, nachgetragen 19 Aug 2026. Sie standen bisher
+	-- auf Englisch mitten zwischen den deutschen — dieselbe Lücke wie bei den
+	-- Dungeon-Tipps, und aus demselben Grund: die Kapitel kamen nach der
+	-- Übersetzungsrunde dazu.
+	ACADEMY_HEAL_MANA_TITLE = "Mana und Effizienz",
+	ACADEMY_HEAL_MANA_BODY = "Mana ist deine eigentliche Lebensanzeige. Ist es leer, kannst du gar nicht mehr heilen.\n\nNimm billige, schnelle Heilungen für kleine Diller; heb die großen, teuren für echte Notfälle auf. Nicht jeder muss auf voll stehen – lass die Leute ruhig auf 80 % laufen.\n\nTrink zwischen jedem Pull. „Oom, 5 Sek“ zu sagen ist normal und professionell.",
+	ACADEMY_HEAL_POSITION_TITLE = "Wo du stehst",
+	ACADEMY_HEAL_POSITION_BODY = "Bleib in Reichweite der ganzen Gruppe, aber nicht oben auf dem Boss. Eine hintere Ecke mit Sicht auf alle schlägt Ankleben am Tank.\n\nAusweichen musst du trotzdem. Ein toter Heiler heilt niemanden – geh aus dem Dreck raus, auch wenn es eine halbe Sekunde Zauberzeit kostet.\n\nAcht auf Sichtlinie: durch eine Wand oder Säule heilst du niemanden.",
+	ACADEMY_HEAL_COOLDOWNS_TITLE = "Heb deine großen Cooldowns auf",
+	ACADEMY_HEAL_COOLDOWNS_BODY = "Deine großen Heil-Cooldowns sind für großen, geplanten Schaden – den raidweiten Schlag eines Bosses – nicht für zufällige Kratzer.\n\nEinen Cooldown den ganzen Kampf „für alle Fälle“ festzuhalten verschenkt ihn. Ein Cooldown, der zu 90 % im richtigen Moment kommt, schlägt einen, der nie kommt.\n\nTipp /mh healcds für die Cooldowns deiner Spezialisierung und wofür du jeden aufheben solltest.",
+	ACADEMY_HEAL_MISTAKES_TITLE = "Typische Anfängerfehler",
+	ACADEMY_HEAL_MISTAKES_BODY = "1. Auf eine Lebensanzeige starren, während drei andere fallen\n2. In Panik auf 100 % hochheilen und dabei Mana leeren\n3. Im Dreck stehen, weil du auf die Balken schaust\n4. Die eigenen Cooldowns nie drücken\n5. Schaden weganheilen, statt um eine Unterbrechung zu bitten\n\nNimm dir pro Lauf einen davon vor – nicht alle fünf auf einmal.",
+	ACADEMY_HEAL_CONFIDENCE_TITLE = "Es ist okay, jemanden zu verlieren",
+	ACADEMY_HEAL_CONFIDENCE_BODY = "Irgendwann stirbt jemand unter deiner Aufsicht. Jeder Heiler, den es gibt, hat Leute sterben lassen – so lernt man, wo die Grenzen liegen.\n\nEin Tod ist kein Wipe, und ein Wipe ist kein Urteil über dich. Merk dir die eine Sache, die du anders machen würdest, und dann lass es gut sein.\n\nGruppen erinnern sich an einen ruhigen Heiler, der redet, weit eher als an einen perfekten.",
+
 	ACADEMY_HEAL_BOTH_TITLE = "Lernpanzer auch?",
 	ACADEMY_HEAL_BOTH_BODY = "Nutze die Tank-Spur fürs Dungeon-Queueing; heile weiter in Tiefen, bis Tanken vertraut wirkt.\n\nZwei Rollen in einer Woche in Pugs ist viel – eine Rolle als „Haupt“ nimmt die Angst.",
+
+	-- Die komplette DPS-Spur, nachgetragen 19 Aug 2026. Sie existierte bisher nur auf
+	-- Englisch: die Rolle kam als ganzer Stapel dazu, lange nachdem Tank und Heal
+	-- übersetzt worden waren. Ton und Anrede von den beiden anderen Spuren übernommen,
+	-- nicht neu erfunden.
+	ACADEMY_DPS_INTRO_TITLE = "DPS-Denkweise",
+	ACADEMY_DPS_INTRO_BODY = "Deine Aufgabe ist Schaden – aber ein toter DPS macht null. Am Leben bleiben und Mechaniken erledigen kommt zuerst, Schaden danach.\n\nDu musst nicht oben auf der Anzeige stehen. Gleichmäßiger Schaden, während du deine Arbeit machst, schlägt riesige Zahlen mit einem Tod dahinter.",
+	ACADEMY_DPS_ROTATION_TITLE = "Priorität statt fester Rotation",
+	ACADEMY_DPS_ROTATION_BODY = "Die meisten Spezialisierungen bauen eine Ressource auf und geben sie wieder aus. Halt Aufbau und Ausgabe im Fluss; lauf nicht ins Ressourcen-Cap und lass keine DoTs oder Buffs auslaufen.\n\nEin oder zwei Tasten zur richtigen Zeit schlagen fünf im Blindflug. Lern die Priorität, keine auswendige Reihenfolge.",
+	ACADEMY_DPS_COOLDOWNS_TITLE = "Bring deine Cooldowns in Reihe",
+	ACADEMY_DPS_COOLDOWNS_BODY = "Deine Schadens-Cooldowns sind der größte Teil deines Schadens. Sie zu drücken, sobald sie bereit sind, schlägt das Aufheben für einen „perfekten“ Moment, der nie kommt.\n\nBeim Boss: entweder gleich damit eröffnen oder für die Phase aufheben, auf die es ankommt. Dein Werkzeugkasten oben listet sie für deine Spezialisierung auf.",
+	ACADEMY_DPS_MECHANICS_TITLE = "Mechaniken schlagen Schaden",
+	ACADEMY_DPS_MECHANICS_BODY = "Geh aus dem Dreck raus, auch wenn es einen Zauber kostet. Ein Stapel vermeidbarer Schaden wipet die Gruppe schneller als niedriger DPS es je könnte.\n\nGierig ist, für einen Zauber mehr im Feuer stehen zu bleiben. Gut ist, sich eine halbe Sekunde neu zu stellen und den Rest noch drücken zu können.",
+	ACADEMY_DPS_UTILITY_TITLE = "Du bist kein Schadensautomat",
+	ACADEMY_DPS_UTILITY_BODY = "Unterbrich gefährliche Zauber, nutz deine Kontrolle, und drück deine persönliche Defensive, wenn du einen großen Treffer kassierst.\n\nEin DPS, der unterbricht und überlebt, ist weit mehr wert als einer, der nur Zahlen pumpt.",
+	ACADEMY_DPS_MISTAKES_TITLE = "Typische Anfängerfehler",
+	ACADEMY_DPS_MISTAKES_BODY = "1. Auf Cooldowns sitzen bleiben, „nur für den Fall“\n2. Ins Ressourcen-Cap laufen (verschenkter Aufbau)\n3. Für einen Zauber mehr im Dreck stehen bleiben\n4. Nie unterbrechen, nie Utility nutzen\n5. Im Tunnelblick Schaden fahren, während dein Leben nach unten geht\n\nNimm dir pro Lauf einen davon vor – nicht alle fünf auf einmal.",
+	ACADEMY_DPS_PRACTICE_TITLE = "Üben am Dummy",
+	ACADEMY_DPS_PRACTICE_BODY = "Zwei Minuten auf eine Übungspuppe: halt deine Ressource im Fluss, web deine Cooldowns ein, und schau, was dabei ausläuft.\n\nDanach Tiefen, danach normale Dungeons. Du brauchst zum Anfangen keine perfekte Rotation – du musst weiterdrücken und am Leben bleiben.",
+	ACADEMY_DPS_BOTH_TITLE = "Über Tank oder Heal nachgedacht?",
+	ACADEMY_DPS_BOTH_BODY = "Du kennst die Kämpfe schon vom DPS-Platz aus, und das ist der größte Teil der Arbeit. Tanken bringt dir sofortige Dungeon-Warteschlangen; Heilen kostet die meisten Nerven, ist aber am gefragtesten.\n\nProbier die neue Rolle erst in einer Tiefe oder einem Gefolgsleute-Dungeon aus, wo niemand auf dich wartet. Bleib danach eine Weile bei einer Rolle als Haupt, statt in jedem Pug zu wechseln.",
 	INFO_DRAWER_BODY_ACADEMY = "Rollenakademie: Tank-/Heal-Spuren, Checkliste, Dungeon- vs. Raid-Notizen und Party-Chat-Zeilen. Leveling Guides ergänzt pro Rolle den Tab „In Gruppen“. In der Seitenleiste: Makros, Verbrauchsmaterialien, Guides und Tiefen.",
 	TAB_GUIDE_SUB_GUIDE = "Führung",
 	TAB_GUIDE_SUB_LAYOUT = "Layout",
