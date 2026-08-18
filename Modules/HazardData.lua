@@ -32,6 +32,30 @@ local _, ns = ...
 	already correct in all seven languages and cannot drift from the game.
 ]]
 
+--- ⚠️ GTFO IS A FLOOR, NOT A CEILING — measured 18 aug on one mob.
+---
+--- Rob reported a golem in The Ring of Glory that kills him outright, and this sweep
+--- had already given us that delve. It held `392013 Golem Smash` and nothing else for
+--- the golem. Looking it up properly found the Timeworn Golem casts THREE things, and
+--- the one Rob was dying to — Fissuring Slam 388310 — was not in GTFO at all. GTFO
+--- records what its author has been hit by; absence from it means nobody reported a
+--- thing, not that the thing is safe.
+---
+--- Two further corrections from the same pass:
+---   * GTFO calls 392013 "Golem Smash (Ancient Golem)". The in-game names are Timeworn
+---     Golem (264496) and Ancient Goalem (268544) — the second spelled with an 'a', a
+---     pun, because it carries an extra `Goalie` ability for the Headball variant.
+---     GTFO's label is a description, not the mob's name.
+---   * Wowhead's "used by" list for 392013 DOES include both of those, so GTFO's
+---     placement was right even though the id is a Dragonflight-era spell shared with
+---     twenty other constructs. That reuse worry was worth checking and came out clean.
+---
+--- ⚠️ NOBODY HAS SHOWN THE ONE-SHOT. No source states it, and the tooltip numbers
+--- (15, 20, 10/sec) are unscaled placeholders that say nothing about real damage.
+--- Golem Smash carries a 3-second stun, which in a delve full of adds is a plausible
+--- route to dying while already low — but that is a guess about a mechanism, not a
+--- measurement, and it goes into no player-facing text.
+
 --- [instanceID] = ordered spell ids. Order is GTFO's, so a re-harvest diffs cleanly.
 --- The trailing comment on each line is the name Rob's client returned — a record of
 --- the measurement, never the source: the UI reads {SPELL:id}, never this text.
@@ -224,6 +248,21 @@ ns.INSTANCE_HAZARDS = {
 		1301863, -- Spirit Tear
 		1238255, -- Whirling Spirit
 		392013,  -- Golem Smash
+		--- ⚠️ ADDED 18 aug — the one that was actually killing Rob, and GTFO does not
+		--- have it. He described a mob that "one-shots you unless you have a defensive",
+		--- which he heard as "Fissure Slam". No such spell exists; it is **Fissuring
+		--- Slam**, and the Timeworn Golem (npc 264496) casts two of them.
+		---
+		--- 388310 is the 2-second cast: it shatters the ground BENEATH up to 5 players
+		--- within 50 yards, thrown from up to 100 yards away. That is why he could not
+		--- escape or outrange it — it lands where you stand rather than where it was
+		--- aimed. GTFO's list for this delve has only Golem Smash, which is a frontal
+		--- line with locked facing and therefore the dodgeable one.
+		---
+		--- 392365 is what it leaves behind: damage every second plus a 30% snare, so
+		--- walking off it is slower than walking onto it.
+		388310,  -- Fissuring Slam (the cast)
+		392365,  -- Fissuring Slam (the ground it leaves)
 		1239757, -- Soul Impale
 		1296414, -- Thrusting Spear
 		1296441, -- Hex Pile
