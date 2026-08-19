@@ -562,6 +562,50 @@ end
 
 ns.GetVaultProgress = GetVaultProgress
 
+--- Learn the vault item level per delve tier from the player's OWN Great Vault.
+---
+--- Rob, 19 aug, looking at the empty `Vault ?` column: "je kan toch ook tussendoor voor
+--- woensdag met Shift-J zien wat je nu in je vault hebt klaarstaan?" Yes — and better
+--- than that, we already read it. GetVaultProgress asks the game for an example reward
+--- per activity and pulls its item level off the link. Every entry also carries the
+--- `level` of the activity that filled it.
+---
+--- So the column nobody could measure fills itself: do a tier 8 delve, and this records
+--- that a tier 8 world activity offers ilvl N in the vault. No guide, no datamine, no
+--- other addon's typing — the player's own week.
+---
+--- ⚠️ ONE ASSUMPTION, WRITTEN DOWN RATHER THAN BURIED: that `activity.level` on a World
+--- row is the DELVE TIER. It is the obvious reading and it is not measured. The stored
+--- entry keeps the raw level and ilvl, so the first time Rob runs a known tier the pair
+--- either matches or it does not, and this comment is what gets corrected.
+---
+--- ⚠️ AND THE VAULT'S OWN RULE MAKES THIS SUBTLE. Blizzard's tooltip says the reward is
+--- "based on the lowest of your top 2 activities this week", so a row can report a level
+--- lower than the best delve you actually ran. That makes a learned value a FLOOR for
+--- that tier, never a ceiling — which is why it is stored per tier as a maximum seen and
+--- never overwritten downwards.
+function ns.LearnVaultIlvlByTier()
+	local rows = GetVaultProgress()
+	if type(rows) ~= "table" or #rows == 0 then
+		return
+	end
+	ns.db = ns.db or {}
+	ns.db.vaultIlvlByTier = ns.db.vaultIlvlByTier or {}
+	local learned = 0
+	for _, row in ipairs(rows) do
+		local tier = tonumber(row.level) or 0
+		local ilvl = tonumber(row.ilvl) or 0
+		if tier > 0 and ilvl > 0 then
+			local had = tonumber(ns.db.vaultIlvlByTier[tier]) or 0
+			if ilvl > had then
+				ns.db.vaultIlvlByTier[tier] = ilvl
+				learned = learned + 1
+			end
+		end
+	end
+	return learned
+end
+
 local function VaultHasClaimableRewards()
 	if not C_WeeklyRewards or not C_WeeklyRewards.HasAvailableRewards then
 		return false
@@ -1783,7 +1827,18 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 					if loot.bounty then
 						parts[#parts + 1] = ("Trove %d"):format(loot.bounty)
 					end
-					parts[#parts + 1] = loot.vault and ("Vault %d"):format(loot.vault) or "Vault ?"
+					--- The vault figure, in order of how much it is worth: the table if it
+					--- ever gets one, then what this player's OWN vault has offered for
+					--- that tier, then an honest question mark. A learned value is marked
+					--- so nobody mistakes one week's observation for a published table.
+					local learned = ns.db and ns.db.vaultIlvlByTier and ns.db.vaultIlvlByTier[t]
+					if loot.vault then
+						parts[#parts + 1] = ("Vault %d"):format(loot.vault)
+					elseif tonumber(learned) then
+						parts[#parts + 1] = ("Vault %d*"):format(learned)
+					else
+						parts[#parts + 1] = "Vault ?"
+					end
 					GameTooltip:AddDoubleLine(
 						"Tier " .. t .. ":",
 						table.concat(parts, " | "),
@@ -1803,6 +1858,11 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 			if eight and eleven and eight.endChest == eleven.endChest
 				and eight.bounty == eleven.bounty then
 				GameTooltip:AddLine(ns:L("DELVE_REWARDS_CAP_AT_8"), 0.6, 0.9, 0.6, true)
+			end
+			--- Only say what the star means when a star is actually on screen.
+			if ns.db and type(ns.db.vaultIlvlByTier) == "table"
+				and next(ns.db.vaultIlvlByTier) ~= nil then
+				GameTooltip:AddLine(ns:L("DELVE_REWARDS_VAULT_LEARNED"), 0.6, 0.8, 1, true)
 			end
 		else
 			-- Season 2 with nothing measured. Say that, rather than quote Season 1's
@@ -2760,6 +2820,15 @@ local function CreateEventBridge()
 			end
 			RequestTrackedCurrencyData()
 		end
+		--- Learn on every vault update, and BEFORE the panel-active test below. The
+		--- learner needs no window open — a player who never opens our Delves tab still
+		--- fills the table by playing, and the tooltip is better for it next time.
+		if event == "WEEKLY_REWARDS_UPDATE" or event == "PLAYER_ENTERING_WORLD" then
+			if ns.LearnVaultIlvlByTier then
+				pcall(ns.LearnVaultIlvlByTier)
+			end
+		end
+
 		local wantsRefresh = (event == "CURRENCY_DISPLAY_UPDATE")
 			or (event == "WEEKLY_REWARDS_UPDATE")
 			or (event == "MAJOR_FACTION_RENOWN_LEVEL_CHANGED")
