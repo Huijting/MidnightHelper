@@ -208,7 +208,24 @@ local REPEATABLE = {
 	-- and the season it was waiting for flipped today: the POI sweep further down this
 	-- file asks the client for the island's delves, and the client's own poiID and
 	-- coordinates beat both guides.
-	{ 97321, "Slithering Spoils — Valeera, step 1 (Wowhead)", "Azta'rec intro" },
+	--- ⚠️ 97321 IS NOT THE START. Rob was offered "Seasonal Refresher: Midnight" by
+	--- Valeera on 19 aug and asked whether we knew it; we did not. Zygor 9.6 has the
+	--- whole chain, and it puts a season-opening quest in front of the Azta'rec line:
+	---
+	---     97454  Seasonal Refresher: Midnight   Valeera (npc 242381)  2393 52.54/78.26
+	---       └ review the Delver's Guide (npc 254565)          52.47/78.23
+	---       └ buy Delver's Starter Kit (item 275978)          52.76/77.89  Naleidea Rivergleam
+	---       └ buy Delver's Cosmetic Surprise Bag (275986)     52.53/78.88  Telemancer Astrandis
+	---     97454 turn-in hands you 97321 on the spot.
+	---
+	--- So the two quests below are steps two and three of something, not a beginning.
+	--- Worth knowing before we ever point a player at 97321: it will not be on offer.
+	---
+	--- ⚠️ Rob had already finished 97454 when he asked, which makes his next sweep a
+	--- clean test of Zygor's id rather than of the content — a completed flag plus the
+	--- matching title is the confirmation.
+	{ 97454, "Seasonal Refresher: Midnight (Zygor) — opens the S2 delve line", "Valeera, S2 start" },
+	{ 97321, "Slithering Spoils — Valeera, step 2 of the chain (Zygor)", "Azta'rec intro" },
 	{ 97482, "Fangs for the Memories — step 2 (Method + Wowhead)", "S2 delve" },
 	{ 96995, "Turn Back the Surge (Method)", "Spark of Tides weekly" },
 	{ 96110, "Captain Tokka (Method)", "renown track" },
