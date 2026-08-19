@@ -1024,6 +1024,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh npc <id> [id …] — vraag de client hoe een npc-id heet. Voor ids uit gidsen die
+	-- we niet kunnen verifiëren zolang de GUID van het doelwit secret is.
+	if msg == "npc" or msg:match("^npc%s") then
+		if ns.LookupNpcIDs then
+			ns.LookupNpcIDs(msg:match("^npc%s+(.+)$"))
+		end
+		return
+	end
+
 	-- /mh quest — id + titel van het questvenster dat nu openstaat. Zelfde logboek als
 	-- `/mh here`, want allebei zijn het "iets wat ik al spelend tegenkwam".
 	if msg == "quest" then

@@ -25,6 +25,81 @@ local function Prefix()
 	return "|cff8fd3ffMidnight Helper|r"
 end
 
+--- `/mh npc <id> [id …]` — ask the client what an npc id is actually called.
+---
+--- Rob, after Azta'rec's GUID came back secret: "anders nemen we toch een id nr wat we
+--- wel weten via andere opties?? en dan zie ik wel na een reload of het klopt." Right
+--- instinct, and the second half is the part that matters — an id nobody can check is
+--- what 96466 has been for three days.
+---
+--- So this is the check. `C_TooltipInfo.GetHyperlink` on a synthetic creature link
+--- returns a tooltip whose first line is the npc's name; HandyNotes_Midnight resolves
+--- its own npc references exactly this way (core/util.lua:98). Ask the client, compare
+--- to what the guide claimed, and the id is settled either way.
+---
+--- ⚠️ THE NAME CAN BE SECRET. HandyNotes' own comment says so for 11.x+, and this addon
+--- has been bitten twice by `type(x) == "string"` passing on a secret string. Guarded,
+--- and a secret is reported as unreadable rather than as absent — those are different
+--- answers and only one of them means "wrong id".
+---
+--- ⚠️ AND IT IS ASYNCHRONOUS. The first call primes a cache and often returns nothing;
+--- the answer arrives a moment later. That is the same trap that made /mh curios print
+--- "(no description)" for eight options in 2.17.0. Prime, wait, then read.
+function ns.LookupNpcIDs(rest)
+	local ids = {}
+	for word in tostring(rest or ""):gmatch("%d+") do
+		local n = tonumber(word)
+		if n and n > 0 then
+			ids[#ids + 1] = n
+		end
+	end
+	if #ids == 0 then
+		print(("%s |cffff5040give me an npc id — /mh npc 265500|r"):format(Prefix()))
+		return
+	end
+	if not (C_TooltipInfo and C_TooltipInfo.GetHyperlink) then
+		print(("%s |cffff5040C_TooltipInfo.GetHyperlink is missing on this client.|r"):format(Prefix()))
+		return
+	end
+
+	local function Link(id)
+		return ("unit:Creature-0-0-0-0-%d-0000000000"):format(id)
+	end
+
+	for _, id in ipairs(ids) do
+		pcall(C_TooltipInfo.GetHyperlink, Link(id))
+	end
+
+	C_Timer.After(1.0, function()
+		ns.db = ns.db or {}
+		ns.db.npcNames = ns.db.npcNames or {}
+		print(("%s |cff8fd3ffnpc ids, as your client names them|r"):format(Prefix()))
+		for _, id in ipairs(ids) do
+			local name, why
+			local ok, data = pcall(C_TooltipInfo.GetHyperlink, Link(id))
+			if not ok then
+				why = "the lookup threw"
+			elseif type(data) ~= "table" or type(data.lines) ~= "table" then
+				why = "no tooltip"
+			else
+				local first = data.lines[1]
+				local text = first and first.leftText
+				if ns.IsSecretValue and ns.IsSecretValue(text) then
+					why = "name is secret"
+				elseif ns.CanAccessText and ns.CanAccessText(text) and text:find("%w") then
+					name = text
+				else
+					why = "no name"
+				end
+			end
+			ns.db.npcNames[id] = name or ("? " .. (why or "unknown"))
+			print(("   %-9d %s"):format(id,
+				name and ("|cff40c040" .. name .. "|r") or ("|cffff5040" .. (why or "?") .. "|r")))
+		end
+		print("   |cff8a8f98A name means the id is real. \"no name\" means it is not — but \"secret\" means neither.|r")
+	end)
+end
+
 --- `/mh quest` — the id and title of the quest window currently open.
 ---
 --- Rob, 19 aug, with "Seasonal Refresher: Midnight" on screen from Valeera: "kenden we

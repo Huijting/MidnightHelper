@@ -303,6 +303,7 @@ ns._mhLocales.nlNL = {
 	CMDLIST_DISPEL = "Wat jij kunt dispellen, en wat er nu op je staat.",
 	CMDLIST_MBUFF = "Print wat de ontbrekende-buff-check ziet. De melding zelf staat in Settings.",
 	CMDLIST_QUEST = "Schrijft id en titel op van het questvenster dat openstaat. Zelfde logboek als /mh here.",
+	CMDLIST_NPC = "Vraagt je eigen client hoe een npc-id heet, zodat een id uit een gids te controleren is in plaats van te geloven.",
 	CMDLIST_COACH = "De Delve Coach.",
 	CMDLIST_BOSSWIN = "Het dungeon-bossvenster.",
 	CMDLIST_RITUALBOSS = "De bosscoach voor ritual sites.",
