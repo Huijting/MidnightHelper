@@ -356,6 +356,123 @@ function ns.LogSpotHere(note)
 	print("   |cff8a8f98/reload writes the list to the DB.|r")
 end
 
+-- ---------------------------------------------------------------------------
+-- /mh crest — what a delve actually pays, measured instead of argued about
+-- ---------------------------------------------------------------------------
+
+--[[
+	Rob, 19 aug: "ik geloof nooit dat je niet meer crests of andere crests krijgt als
+	je hogere delves doet."
+
+	He is right to push back, and the claim he is pushing back on is ours. We measured
+	tiers 8-11 through the entrance window and found one reward context (37/121/107),
+	end chest 295 — but that window describes GEAR. Crests are currency, they arrive
+	from a different pot (completion + the Gilded Stash), and we never once looked at
+	them. "The gear is identical" quietly grew into "the rewards are identical", which
+	is the same mistake as reading an empty result as an absence.
+
+	So this measures instead. Deliberately dumb: it snapshots EVERY currency and diffs
+	them afterwards. It does not know what a crest is called, how many kinds there are,
+	or whether 12.1 renamed them — whatever moved, moved. A filter here would only be
+	able to find the crests I already believed in.
+
+	⚠️ A currency this character has never earned is not in the list at all, so a first
+	crest of its kind is absent-then-present. That counts as a gain, not as a skip.
+
+		/mh crest        → snapshot now (before you go in)
+		/mh crest 8      → diff against the snapshot, filed under tier 8
+
+	Loot the end chest before the second call. If you also open the Gilded Stash, say
+	so with `/mh crest 8 stash` — it pays crests too, and a run that includes it is not
+	comparable to one that does not.
+]]
+
+local function ReadAllCurrencies()
+	local out, n = {}, 0
+	if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListSize and C_CurrencyInfo.GetCurrencyListInfo) then
+		return nil, 0
+	end
+	local okSize, size = pcall(C_CurrencyInfo.GetCurrencyListSize)
+	size = (okSize and tonumber(size)) or 0
+	for i = 1, size do
+		local okI, info = pcall(C_CurrencyInfo.GetCurrencyListInfo, i)
+		if okI and type(info) == "table" and not info.isHeader then
+			local id = tonumber(info.currencyID)
+			local qty = tonumber(info.quantity)
+			-- Names can be secret in 12.x; the id carries the fact, the name is decoration.
+			local name = info.name
+			if issecretvalue and issecretvalue(name) then
+				name = nil
+			end
+			if id and qty then
+				out[id] = { qty = qty, name = (type(name) == "string") and name or nil }
+				n = n + 1
+			end
+		end
+	end
+	return out, n
+end
+
+--- `/mh crest` / `/mh crest <tier> [stash]`
+function ns.CrestProbe(rest)
+	ns.db = ns.db or {}
+
+	local tier = tonumber((rest or ""):match("%d+"))
+	local withStash = (rest or ""):lower():find("stash") ~= nil
+
+	local now, n = ReadAllCurrencies()
+	if not now then
+		print(("%s |cffff5040currency API unavailable|r."):format(Prefix()))
+		return
+	end
+	if n == 0 then
+		print(("%s |cffe8c36ayour currency list is empty|r — open the Currencies tab once, then retry."):format(Prefix()))
+		return
+	end
+
+	if not tier then
+		ns.db.crestSnap = { at = date and date("%Y-%m-%d %H:%M:%S") or nil, cur = now }
+		print(("%s snapshot taken — |cffffd100%d currencies|r."):format(Prefix(), n))
+		print("   |cff8a8f98Run the delve, loot the end chest, then /mh crest <tier>.|r")
+		return
+	end
+
+	local snap = ns.db.crestSnap and ns.db.crestSnap.cur
+	if not snap then
+		print(("%s no snapshot yet — run |cffffd100/mh crest|r first, then the delve."):format(Prefix()))
+		return
+	end
+
+	local gains = {}
+	for id, cur in pairs(now) do
+		local before = snap[id] and snap[id].qty or 0
+		local delta = cur.qty - before
+		if delta ~= 0 then
+			gains[#gains + 1] = { id = id, name = cur.name, delta = delta, total = cur.qty, isNew = snap[id] == nil }
+		end
+	end
+	table.sort(gains, function(a, b) return a.delta > b.delta end)
+
+	ns.db.crestRuns = ns.db.crestRuns or {}
+	ns.db.crestRuns[#ns.db.crestRuns + 1] = {
+		tier = tier, stash = withStash or nil, gains = gains,
+		when = date and date("%Y-%m-%d %H:%M:%S") or nil,
+	}
+
+	print(("%s |cffffd100tier %d|r%s — %d currenc%s moved:"):format(
+		Prefix(), tier, withStash and " |cff8a8f98(incl. Gilded Stash)|r" or "",
+		#gains, #gains == 1 and "y" or "ies"))
+	if #gains == 0 then
+		print("   |cff8a8f98nothing changed — did the snapshot happen before the run?|r")
+	end
+	for _, g in ipairs(gains) do
+		print(("   |cff40c040%+d|r  %-30s |cff8a8f98id %s · now %d%s|r"):format(
+			g.delta, g.name or "(name unreadable)", tostring(g.id), g.total,
+			g.isNew and " · first ever" or ""))
+	end
+	print("   |cff8a8f98/reload files it. Snapshot again before the next run.|r")
+end
+
 --- `/mh here clear` — start a fresh circuit.
 function ns.ClearSpotLog()
 	ns.db = ns.db or {}

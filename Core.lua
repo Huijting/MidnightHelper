@@ -1042,6 +1042,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh crest [tier] [stash] — momentopname van al je currency, en daarna het verschil.
+	-- Meet wat een delve echt uitbetaalt in plaats van erover te redeneren; het argument
+	-- "tier 8-11 is identiek" ging over gear en heeft crests nooit bekeken.
+	if msg == "crest" or msg:match("^crest%s") then
+		if ns.CrestProbe then
+			ns.CrestProbe(msg:match("^crest%s+(.+)$"))
+		end
+		return
+	end
+
 	-- /mh here [notitie] — schrijf op waar je staat (en wat je aanklikt). Lijst, geen
 	-- slot: een rondje lopen en daarna één reload is het hele idee.
 	if msg == "here" or msg:match("^here%s+") then
