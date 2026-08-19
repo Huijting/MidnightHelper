@@ -1186,6 +1186,7 @@ ns._mhLocales.enUS = {
 	SMC_PIN_TRAINER_FMT = "Set a waypoint to the %s trainer.",
 	SMC_PIN_CLICK_HINT = "Click: map pin + /way #2393 (TomTom when you have it)",
 	SMC_PIN_ITEM_UPGRADES = "Upgrade your gear with Crests. In the Bazaar, next to Vaskarn.",
+	SMC_PIN_PORTAL_ISLE = "Straight to The Coiled Isle, next to Astalor in Murder Row. It only appears once you are into the Prey line — see the Prey guide in the Codex. The way back stands at 58.12, 48.48 on the isle.",
 	SMC_PIN_CREST_EXCHANGE = "Trade Crests up or down a tier. In the Bazaar, next to Cuzoth.",
 	SMC_PIN_PROF_RESET = "Resets one profession’s Midnight specializations and hands your Knowledge Points back. The game’s own warning: you lose every recipe tied to those choices, and it can only be done ONCE per profession.",
 	SMC_PIN_CREATION_CATALYST = "In the Bazaar, on the neutral side.",

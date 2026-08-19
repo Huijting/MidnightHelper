@@ -854,6 +854,17 @@ local SMC_CATEGORIES = {
 			{ id = "portals", label = "Portal Room", atlas = "portal-horde-white", x = 53.37, y = 66.31 },
 			{ id = "portal_voidstorm", label = "Portal to Voidstorm", atlas = "portal-horde-white", x = 35.25, y = 65.85 },
 			{ id = "portal_harandar", label = "Portal to Harandar", atlas = "portal-horde-white", x = 36.76, y = 68.52 },
+			--- ⚠️ COORDINAAT GEMETEN, NIET UIT EEN GIDS. Rob stond op 19 aug bij Astalor,
+			--- had hem aangeklikt (npc 246231 mee vastgelegd) en draaide `/mh here`: map
+			--- 2393, 56.74 / 67.30. Onze Codex stuurde mensen tot vandaag naar 55.00 / 63.40
+			--- — bijna vier punten mis, wat in een stad een andere straat is.
+			---
+			--- Deze pin is er omdat de addon het portaal wél kende (het staat in
+			--- MIDNIGHT_PORTALS en het reisplan bood het al aan) maar nergens liet zien
+			--- waar het stáát. Rob, 19 aug, vanaf het eiland: "ik weet niet 1 2 3 waar die
+			--- portal is naar smc". Iets kennen en iemand het kunnen laten vinden zijn twee
+			--- verschillende dingen.
+			{ id = "portal_coiled_isle", label = "Portal to The Coiled Isle", descKey = "SMC_PIN_PORTAL_ISLE", atlas = "portal-horde-white", x = 56.74, y = 67.30 },
 			{ id = "timeways", label = "Timeways (Lindormi)", atlas = "portal-horde-white", x = 42.30, y = 58.30 },
 			{ id = "mplus_teleports", label = "M+ Teleports", atlas = "flightmaster", x = 42.03, y = 58.30 },
 		},
