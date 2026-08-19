@@ -183,6 +183,17 @@ local REPEATABLE = {
 	-- who ran the chain on 18 aug: whichever ids come back "completed" or "in your log"
 	-- next to a portal he can actually use is the gate. Nothing changes in Delves.lua
 	-- until then.
+	--- ✅ MEASURED 19 aug, from Rob's own quest windows via `/mh quest`, and it settles
+	--- the three-day argument above: **96466 exists.** The client named it "Prey: Anguish
+	--- Island" three separate times. The two guides that carried it were right and our
+	--- server check was wrong — which is the reverse of the usual lesson here, and worth
+	--- keeping: "the server says no" is only evidence if the question reached the server
+	--- in a form it answers.
+	---
+	--- 92926 came with it and is in NO guide we read. Lower id than the rest of the
+	--- chain, so probably older or shared, but it turned up in the Prey line on his run.
+	{ 96466, "Prey: Anguish Island (MEASURED 19 aug)", "was disputed for three days; it exists" },
+	{ 92926, "Prey: Astalor's Initiative (MEASURED 19 aug)", "not in any guide we read" },
 	{ 96474, "Prey: Something for Astalor (Zygor 9.6)", "chain step 2" },
 	{ 96525, "Prey: Out of Our Depth (Zygor 9.6)", "objective 1 IS the return portal" },
 	{ 96503, "Prey: A Ghostly Nightmare (Zygor 9.6)", "100x Ossified Relic" },
