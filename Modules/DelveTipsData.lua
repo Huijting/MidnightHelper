@@ -217,6 +217,34 @@ ns.DELVE_TIP_ENTRIES = {
 			{ titleKey = "DELVE_COACH_SEC_ROUTE", bodyKey = "DELVE_TIP_RINGOFGLORY_ROUTE" },
 		},
 	},
+	--- ⚠️ THE NEMESIS DELVE, AND THE ONLY ENTRY HERE BUILT AROUND SOMEBODY'S DEATH.
+	---
+	--- Venomfall Deeps was the one delve with no coach entry at all. It got one on 19 aug
+	--- because Rob walked in on a Mage at ilvl 280 and Azta'rec killed him from full
+	--- health, and the pieces to explain why were scattered across four places that only
+	--- meet here.
+	---
+	--- `rosterName` is what HIS CLIENT wrote into ns.db.hazardZones on entry, not a name
+	--- from a guide. `poiId` is deliberately absent: the delve POI sweep has never
+	--- returned this delve, and inventing an id to fill the field would break the fast
+	--- path in GetDelvePoiState rather than help it.
+	---
+	--- ⚠️ SOURCING, because this entry leans harder on third parties than any other. The
+	--- ability names, the fixed rotation and the intermission rules come from one guide
+	--- video, which is weaker than measurement and is why the body says so in the text a
+	--- player reads. What IS ours: the instance id (his client), the hazard ids (already
+	--- shipping, and the one that killed him was in there), that Wrath of Ula'tek deals
+	--- Nature damage and is marked Avoidable (his death recap), and that this delve gives
+	--- out no coordinates at all (`/mh here`, measured on the spot).
+	{
+		id = "venomfall_deeps",
+		rosterName = "Venomfall Deeps",
+		sections = {
+			{ titleKey = "DELVE_COACH_SEC_DANGER", bodyKey = "DELVE_TIP_VENOMFALL_DANGER", danger = true },
+			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_VENOMFALL_OVERVIEW" },
+			{ titleKey = "DELVE_COACH_SEC_BOSS", bodyKey = "DELVE_TIP_VENOMFALL_BOSS" },
+		},
+	},
 }
 
 local byId = {}
