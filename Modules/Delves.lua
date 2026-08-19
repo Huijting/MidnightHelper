@@ -419,17 +419,40 @@ local DELVE_LOOT_TABLE_S1 = {
 --- Season 2 values. Empty on purpose: nobody has run a delve in Season 2 yet.
 --- Fill from your own loot, not from a datamine — one delve per tier settles a row.
 ---
---- ⚠️ AND THERE IS NO SHORTCUT, measured 19 aug rather than assumed. 12.1 added
---- `C_DelvesUI.GetDelveEntranceTiers()`, which sounded like it might hand over the whole
---- table; it does not. It returns `suggestedILvl` — the level a tier recommends you
---- BRING — and only while the entrance picker is open on screen. EverythingDelves, which
---- reads that API, says of the reward columns in its own file: "The two reward columns
---- have no live API and are hand-authored."
+--- ⚠️ MEASURED 19 aug, and the first version of this note was wrong.
 ---
---- So these eleven rows can only come from someone's loot. Their hand-typed table is
---- worth comparing a reading against, and is not a source to copy: third-party typing
---- is the same class of thing as a guide, and this table is gated precisely so that a
---- confident wrong number never reaches a player.
+--- It said there was no shortcut, on EverythingDelves' word: "The two reward columns
+--- have no live API and are hand-authored." Rob did not believe that anybody had failed
+--- to work this out, and he was right. With the entrance picker OPEN,
+--- `C_DelvesUI.GetDelveEntranceTiers()` returns a `rewards` table per tier. The earlier
+--- probe printed it as `table: 0000017C…` and I read an address as an absence.
+---
+--- What the client actually says, from Rob's own run (`ns.db.atalProbe.delvesUI`):
+---
+---     tier   coffer 254250   bounty 265714   trunk 257387
+---      1-3   context 25/26/27      –          107
+---      4-7   context 28/29/30/36   117-120    107
+---     8-11   context 37            121        107
+---
+--- ⚠️ THE ITEM LEVEL IS NOT IN THERE. `context` is what varies, and the level is derived
+--- from it somewhere we cannot see. So the API gives the SHAPE and not the numbers.
+---
+--- ✅ But the shape is worth having on its own, and it is a player-facing fact nobody
+--- had to guess: TIERS 9, 10 AND 11 CARRY THE SAME CONTEXT AS TIER 8. Their rewards are
+--- identical. Running tier 11 over tier 8 buys nothing.
+---
+--- ✅ And two cells are settled by Rob's own screen at tier 11 — Bountiful Coffer 295
+--- (Champion 2/6), Trovehunter's Bounty 305 (Hero 1/6) — which by the table above is
+--- also tiers 8, 9 and 10.
+---
+--- ⚠️ Trovehunter's Bounty is NOT the vault. It is a map to a Hidden Trove; the Great
+--- Vault world row is a third ceiling again. Filling `vault` from that 305 would be the
+--- confident wrong number this whole table is gated against, however neatly it matches
+--- what the guides quote for the vault.
+---
+--- To finish this WITHOUT eleven delve runs: in that same picker, hover each reward at
+--- one tier per distinct context. Eight for the coffer (tiers 1-8), five for the bounty
+--- (tiers 4-8). Two are already done. Thirteen hovers, one window.
 local DELVE_LOOT_TABLE_S2 = {}
 
 --- Which table applies right now, or nil when the season has turned and we have not

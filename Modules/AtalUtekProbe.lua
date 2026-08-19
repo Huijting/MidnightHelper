@@ -964,15 +964,20 @@ end
 ---      The picker window has to be up. So an empty list here means "not interacting",
 ---      not "the API is dead" — worth knowing before someone declares it broken.
 ---
----   2. THE LOOT LEVELS HAVE NO API AT ALL. Same file, plainer still: "The two reward
----      columns have no live API and are hand-authored." So the numbers
----      DELVE_LOOT_TABLE_S2 is waiting for cannot be read from the game by anyone;
----      EverythingDelves typed theirs in by hand.
+---   2. ⚠️ AND THE CLAIM I REPEATED FROM THEM WAS WRONG. Their file says "The two
+---      reward columns have no live API and are hand-authored", I wrote that down as
+---      settled, and Rob refused to believe nobody had worked it out. With the picker
+---      open every tier carries a `rewards` table: item ids plus a per-tier `context`.
+---      What I had called absence was tostring() on a table address.
 ---
---- That closes the idea this section was written to test. The eleven rows still have to
---- come from Rob's own loot, exactly as Delves.lua:380 says. Their hand-authored table
---- is a candidate to CHECK his readings against, never a substitute for them — it is a
---- third party's typing, which is the same class of source as a guide.
+---      The item LEVEL is still not in there — `context` is what varies and the level
+---      is derived from it out of sight. But the structure is: tiers 8 through 11 share
+---      one context, so their rewards are identical, which is a real answer nobody had
+---      to guess at. See the table in Delves.lua beside DELVE_LOOT_TABLE_S2.
+---
+--- The lesson is not about this API. A third party's comment and my own lazy dump agreed
+--- with each other, and agreement between two careless sources reads exactly like
+--- confirmation.
 local function PrintDelvesUI(out)
 	out.delvesUI = {}
 	print("   |cff8fd3ffC_DelvesUI|r  (candidate names from EverythingDelves — does YOUR client have them?)")
