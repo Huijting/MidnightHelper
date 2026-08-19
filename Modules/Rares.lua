@@ -1025,7 +1025,10 @@ function ns.GetNearestIncompleteRareLead()
 	if not rare then
 		return nil
 	end
-	return { mapID = rare[2], x = rare[3], y = rare[4], name = GetRareDisplayName(rare) }
+	--- `roams` rijdt mee zodat de pijl bij aankomst kan zeggen dat het getal een hint is
+	--- en geen plek. Onderweg verandert het niets: die richting klopt gewoon.
+	return { mapID = rare[2], x = rare[3], y = rare[4], name = GetRareDisplayName(rare),
+		roams = rare.roams }
 end
 
 -- Public: fully stop the rare hunt (used by ns.ClearActiveRoute / /mh clear). Clears
@@ -1703,7 +1706,8 @@ function ns.GenerateRaresRoute(zoneKey)
 		-- advancing to the nearest still-open rare via ns.GetNearestIncompleteRareLead.)
 		local lead = routeRares[1]
 		if lead then
-			ns.lastTarget = { mapID = lead[2], x = lead[3], y = lead[4], name = GetRareDisplayName(lead) }
+			ns.lastTarget = { mapID = lead[2], x = lead[3], y = lead[4], name = GetRareDisplayName(lead),
+				roams = lead.roams }
 		end
 	end
 

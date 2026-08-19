@@ -1450,6 +1450,8 @@ ns._mhLocales.enUS = {
 	ARROW_OTHER_CONTINENT = "(other continent — travel back)",
 	ARROW_FLY_TO = "head for %s",
 	ARROW_AT_STEP = "You are at %s — go through, the arrow picks up on the other side.",
+	-- Short on purpose: it sits on the arrow label beside a name and a distance.
+	ARROW_TARGET_ROAMS = "|cffffd100(roams — look around)|r",
 	ROUTE_CLEARED = "Route cleared.",
 	ROUTE_CLEAR_NONE = "No active route to clear.",
 	RARES_ROUTE_ORDER_NEAR = "Order: nearest first, then next closest each step.",

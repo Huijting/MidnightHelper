@@ -231,7 +231,11 @@ end
 -- every tick (review F3.3). The target's world coords change only when the lead
 -- changes; the label string only when the shown distance/name changes.
 local leadWorldKey, leadWx, leadWy
-local lastLabelName, lastLabelVal, lastLabelUnit
+local lastLabelName, lastLabelVal, lastLabelUnit, lastLabelRoam
+
+--- How close before the arrow admits a target roams. Deliberately generous: this is
+--- "you are in the neighbourhood, start looking around", not "you have arrived".
+local ROAM_HINT_YARDS = 80
 
 --------------------------------------------------------------------------------
 -- On-screen direction arrow (our own; retail has no built-in rotating arrow).
@@ -452,10 +456,25 @@ local function UpdateArrow()
 	end
 	-- Only rebuild the label string when something visible changed (~30 Hz loop): the
 	-- floored distance rarely moves between adjacent ticks, so this skips most allocs.
+	--- ⚠️ A ROAMING TARGET ONLY MISLEADS AT THE END. Coin-Eye Skully swims: our
+	--- coordinate, HandyNotes' and Rob's own reading are three different points on the
+	--- same north-south line, and none of them is wrong. From across the zone the arrow
+	--- is still right — head that way. It is on arrival that a fixed point lies, because
+	--- the player stands on it, sees nothing, and concludes the data is broken.
+	---
+	--- So the note appears near the destination and not before. Naming it earlier would
+	--- undercut a direction that is perfectly good for the whole journey.
+	local roaming = t.roams and dist <= ROAM_HINT_YARDS
 	local shownInt = math.floor(shown + 0.5)
-	if t.name ~= lastLabelName or shownInt ~= lastLabelVal or unit ~= lastLabelUnit then
+	if t.name ~= lastLabelName or shownInt ~= lastLabelVal or unit ~= lastLabelUnit
+		or roaming ~= lastLabelRoam then
 		lastLabelName, lastLabelVal, lastLabelUnit = t.name, shownInt, unit
-		f.label:SetText(("%s  %d %s"):format(t.name or "", shownInt, unit))
+		lastLabelRoam = roaming
+		local text = ("%s  %d %s"):format(t.name or "", shownInt, unit)
+		if roaming then
+			text = text .. "  " .. ns:L("ARROW_TARGET_ROAMS")
+		end
+		f.label:SetText(text)
 	end
 end
 
