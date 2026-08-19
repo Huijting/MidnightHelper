@@ -632,6 +632,23 @@ ev:RegisterEvent("ITEM_LOCK_CHANGED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:RegisterEvent("PLAYER_LEVEL_UP") -- level-gated cache wordt openbaar bij het juiste level
 ev:RegisterEvent("GET_ITEM_INFO_RECEIVED") -- item-info kwam alsnog binnen (level/naam)
+-- ⚠️ VAKVAARDIGHEDEN LADEN LATER DAN JE TAS, en dat kostte Rob 19 aug een item.
+--
+-- Hij raapte een Finely Woven Lynx Collar op ("Use: Study to increase your Midnight
+-- Tailoring Knowledge by 2", met daaronder "Requires Midnight Tailoring (1)"). Er kwam
+-- niets in beeld; pas na een /reload verscheen het item. Een enchanting-studieboek even
+-- daarvoor werkte wél meteen.
+--
+-- De oorzaak zit in SlotKind: een RODE vereisten-regel betekent "dit kun je niet
+-- gebruiken" en levert `return nil`. Zolang de client jouw skill-lines nog niet heeft
+-- geladen, rendert "Requires Midnight Tailoring (1)" rood — ook al héb je het beroep.
+-- Dus een tijdelijke toestand werd als een permanent oordeel gelezen. Bij enchanting was
+-- die skill al bekend, dus daar viel het niet op.
+--
+-- PLAYER_LEVEL_UP staat hierboven om exact dezelfde reden: een vereiste die verandert,
+-- verandert de uitkomst. Een beroep leren of laden is dezelfde soort gebeurtenis.
+ev:RegisterEvent("SKILL_LINES_CHANGED")
+ev:RegisterEvent("TRADE_SKILL_LIST_UPDATE")
 
 local function Schedule()
 	if throttle > 0 then
