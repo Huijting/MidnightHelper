@@ -81,6 +81,24 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.84,
 		vers = 0.55,
 	},
+	--- Balance Druid (Keeper of the Grove): Intellect > Mastery > Crit > Haste > Vers
+	--- Icy Veins: https://www.icy-veins.com/wow/balance-druid-pve-dps-stat-priority
+	--- Wowhead: https://www.wowhead.com/guide/classes/druid/balance/stat-priority-pve-dps
+	["DRUID_102_HERO_23"] = {
+		mastery = 1.00,
+		haste = 0.84,
+		crit = 0.92,
+		vers = 0.55,
+	},
+	--- Balance Druid (Elune's Chosen): Intellect > Mastery > Haste > Crit > Vers
+	--- Icy Veins: https://www.icy-veins.com/wow/balance-druid-pve-dps-stat-priority
+	--- Wowhead: https://www.wowhead.com/guide/classes/druid/balance/stat-priority-pve-dps
+	["DRUID_102_HERO_24"] = {
+		mastery = 1.00,
+		haste = 0.92,
+		crit = 0.84,
+		vers = 0.55,
+	},
 	--- Feral Druid: Agility > Mastery > Haste > Crit > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/feral-druid-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/druid/feral/stat-priority-pve-dps
@@ -679,6 +697,16 @@ ns.VAULT_ADVISOR_SPEC_META = {
 		patch = "12.1",
 	},
 	["DRUID_102"] = {
+		priorityText = "Intellect > Mastery > Haste > Crit > Vers",
+		sources = "Icy Veins, Wowhead",
+		patch = "12.1",
+	},
+	["DRUID_102_HERO_23"] = {
+		priorityText = "Intellect > Mastery > Crit > Haste > Vers",
+		sources = "Icy Veins, Wowhead",
+		patch = "12.1",
+	},
+	["DRUID_102_HERO_24"] = {
 		priorityText = "Intellect > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
 		patch = "12.1",

@@ -189,6 +189,54 @@
       ]
     },
     {
+      "key": "DRUID_102_HERO_23",
+      "class": "DRUID",
+      "specID": 102,
+      "label": "Balance Druid (Keeper of the Grove)",
+      "priority": [
+        "mastery",
+        "crit",
+        "haste",
+        "vers"
+      ],
+      "priorityText": "Intellect > Mastery > Crit > Haste > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/balance-druid-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/druid/balance/stat-priority-pve-dps"
+        }
+      ],
+      "heroID": 23
+    },
+    {
+      "key": "DRUID_102_HERO_24",
+      "class": "DRUID",
+      "specID": 102,
+      "label": "Balance Druid (Elune's Chosen)",
+      "priority": [
+        "mastery",
+        "haste",
+        "crit",
+        "vers"
+      ],
+      "priorityText": "Intellect > Mastery > Haste > Crit > Vers",
+      "sources": [
+        {
+          "name": "Icy Veins",
+          "url": "https://www.icy-veins.com/wow/balance-druid-pve-dps-stat-priority"
+        },
+        {
+          "name": "Wowhead",
+          "url": "https://www.wowhead.com/guide/classes/druid/balance/stat-priority-pve-dps"
+        }
+      ],
+      "heroID": 24
+    },
+    {
       "key": "DRUID_103",
       "class": "DRUID",
       "specID": 103,

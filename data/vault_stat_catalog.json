@@ -63,7 +63,11 @@
       "primary": "Intellect",
       "wowheadClass": "druid",
       "wowheadSpec": "balance",
-      "icyVeinsUrl": "https://www.icy-veins.com/wow/balance-druid-pve-dps-stat-priority"
+      "icyVeinsUrl": "https://www.icy-veins.com/wow/balance-druid-pve-dps-stat-priority",
+      "heroTalents": [
+        { "heroID": 24, "label": "Elune's Chosen", "widgetIndex": 0 },
+        { "heroID": 23, "label": "Keeper of the Grove", "widgetIndex": 1 }
+      ]
     },
     {
       "class": "DRUID",
@@ -352,7 +356,8 @@
       "wowheadSpec": "shadow",
       "icyVeinsUrl": "https://www.icy-veins.com/wow/shadow-priest-pve-dps-stat-priority",
       "priorityText": "Intellect > Haste > Mastery > Crit > Vers",
-      "fallbackPriority": ["haste", "mastery", "crit", "vers"]
+      "fallbackPriority": ["haste", "mastery", "crit", "vers"],
+      "_heroTalentsNote": "NOT split. Archon (19) and Voidweaver (18) were added on 19 aug 2026 and both came back identical to the base spec: the Shadow page carries only ONE stat-priority widget, and the fetcher falls back to widget 0 when the index runs past the end. The per-hero difference an audit found lives in that page's prose, not in the widget this pipeline reads. Two identical rows presenting themselves as a choice are worse than no split, so the entries were removed rather than shipped."
     },
     {
       "class": "ROGUE",
