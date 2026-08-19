@@ -27,8 +27,8 @@ ns.ConsumablesWowheadByClassSpec.DEATHKNIGHT = {
 			noteKey = "CONS_NOTE_15",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		augmentRune = {
@@ -60,8 +60,8 @@ ns.ConsumablesWowheadByClassSpec.DEATHKNIGHT = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		augmentRune = {
@@ -93,8 +93,8 @@ ns.ConsumablesWowheadByClassSpec.DEATHKNIGHT = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		augmentRune = {
@@ -128,8 +128,8 @@ ns.ConsumablesWowheadByClassSpec.DEMONHUNTER = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -165,8 +165,8 @@ ns.ConsumablesWowheadByClassSpec.DEMONHUNTER = {
 			noteKey = "CONS_NOTE_15",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -202,8 +202,8 @@ ns.ConsumablesWowheadByClassSpec.DEMONHUNTER = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -242,8 +242,8 @@ ns.ConsumablesWowheadByClassSpec.DRUID = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -279,8 +279,8 @@ ns.ConsumablesWowheadByClassSpec.DRUID = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -316,8 +316,8 @@ ns.ConsumablesWowheadByClassSpec.DRUID = {
 			noteKey = "CONS_NOTE_15",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -353,8 +353,8 @@ ns.ConsumablesWowheadByClassSpec.DRUID = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -393,8 +393,8 @@ ns.ConsumablesWowheadByClassSpec.EVOKER = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -430,8 +430,8 @@ ns.ConsumablesWowheadByClassSpec.EVOKER = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -467,8 +467,8 @@ ns.ConsumablesWowheadByClassSpec.EVOKER = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -507,8 +507,8 @@ ns.ConsumablesWowheadByClassSpec.HUNTER = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -544,8 +544,8 @@ ns.ConsumablesWowheadByClassSpec.HUNTER = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -581,8 +581,8 @@ ns.ConsumablesWowheadByClassSpec.HUNTER = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -621,8 +621,8 @@ ns.ConsumablesWowheadByClassSpec.MAGE = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -658,8 +658,8 @@ ns.ConsumablesWowheadByClassSpec.MAGE = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -695,8 +695,8 @@ ns.ConsumablesWowheadByClassSpec.MAGE = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -735,8 +735,8 @@ ns.ConsumablesWowheadByClassSpec.MONK = {
 			noteKey = "CONS_NOTE_15",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -772,8 +772,8 @@ ns.ConsumablesWowheadByClassSpec.MONK = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -809,8 +809,8 @@ ns.ConsumablesWowheadByClassSpec.MONK = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -849,8 +849,8 @@ ns.ConsumablesWowheadByClassSpec.PALADIN = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -886,8 +886,8 @@ ns.ConsumablesWowheadByClassSpec.PALADIN = {
 			noteKey = "CONS_NOTE_15",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -923,8 +923,8 @@ ns.ConsumablesWowheadByClassSpec.PALADIN = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -963,8 +963,8 @@ ns.ConsumablesWowheadByClassSpec.PRIEST = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1000,8 +1000,8 @@ ns.ConsumablesWowheadByClassSpec.PRIEST = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1037,8 +1037,8 @@ ns.ConsumablesWowheadByClassSpec.PRIEST = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1077,8 +1077,8 @@ ns.ConsumablesWowheadByClassSpec.ROGUE = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1114,8 +1114,8 @@ ns.ConsumablesWowheadByClassSpec.ROGUE = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1151,8 +1151,8 @@ ns.ConsumablesWowheadByClassSpec.ROGUE = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1191,8 +1191,8 @@ ns.ConsumablesWowheadByClassSpec.SHAMAN = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1228,8 +1228,8 @@ ns.ConsumablesWowheadByClassSpec.SHAMAN = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1265,8 +1265,8 @@ ns.ConsumablesWowheadByClassSpec.SHAMAN = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1305,8 +1305,8 @@ ns.ConsumablesWowheadByClassSpec.WARLOCK = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1342,8 +1342,8 @@ ns.ConsumablesWowheadByClassSpec.WARLOCK = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1379,8 +1379,8 @@ ns.ConsumablesWowheadByClassSpec.WARLOCK = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1419,8 +1419,8 @@ ns.ConsumablesWowheadByClassSpec.WARRIOR = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1456,8 +1456,8 @@ ns.ConsumablesWowheadByClassSpec.WARRIOR = {
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
@@ -1493,8 +1493,8 @@ ns.ConsumablesWowheadByClassSpec.WARRIOR = {
 			noteKey = "CONS_NOTE_15",
 		},
 		healingPotion = {
-			best = { 241304 },
-			alternates = {  },
+			best = { 271883, 271884 },
+			alternates = { 241304, 241305 },
 			noteKey = "CONS_NOTE_04",
 		},
 		weaponOil = {
