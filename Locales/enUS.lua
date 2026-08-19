@@ -2331,7 +2331,11 @@ ns._mhLocales.enUS = {
 	DELVE_SHARE_COMBAT = "Cannot send delve tips during combat lockdown.",
 	DELVE_SHARE_BUSY = "Already sending delve tips — wait a moment.",
 	DELVE_SHARE_COOLDOWN = "Wait a few seconds before sharing delve tips again.",
-	DELVE_SHARE_MISSING = "Party tip text is missing for this delve (update the addon).",
+	-- ⚠️ Said "(update the addon)" until 19 aug, which sent Rob looking for a newer
+	-- version that does not exist. The addon was current; the delve simply has no text
+	-- for that section yet. Blaming the install for a gap in our own data is the worst
+	-- of both — it is wrong, and it wastes the reader's time.
+	DELVE_SHARE_MISSING = "Nothing written for that part of this delve yet, so there is nothing to share.",
 	DELVE_SHARE_FAILED = "Could not build delve tips to share.",
 	DELVE_SHARE_MENU_UNAVAILABLE = "Share menu could not open (dropdown API missing). Use Share brief or Boss.",
 	DELVE_SHARE_SENT_FMT = "Sent %d delve tip line(s) to %s.",

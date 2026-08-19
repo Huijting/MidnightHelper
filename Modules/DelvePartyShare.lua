@@ -216,15 +216,32 @@ function ns.BuildDelvePartyShareLines(entryId, mode)
 		return nil, "bad_mode"
 	end
 
+	--- ⚠️ A MULTI-SECTION SHARE SKIPS WHAT IT LACKS INSTEAD OF REFUSING EVERYTHING.
+	---
+	--- "brief" asks for overview + trash + boss, and this used to abandon the whole send
+	--- the moment any one of them had no text. Rob hit that on 19 aug in Venomfall Deeps:
+	--- the delve has an overview and a boss section and no trash notes, so pressing Share
+	--- told him nothing was available when two thirds of it was.
+	---
+	--- A single-section button still reports honestly — asking for the boss text when
+	--- there is none is a real miss, and silence there would be worse.
 	local blocks = {}
+	local wanted, skipped = #modes, 0
 	for _, m in ipairs(modes) do
 		local bodyKey = ns.GetDelvePartyShareBodyKey(entryId, m)
 		local body = bodyKey and ns.LChat and ns:LChat(bodyKey) or (bodyKey and ns.L and ns:L(bodyKey) or "")
 		if body == "" or body == bodyKey then
-			return nil, "missing_locale"
+			if wanted == 1 then
+				return nil, "missing_locale"
+			end
+			skipped = skipped + 1
+		else
+			local label = (ns.LChat and ns:LChat(SECTION_MODES[m].labelKey)) or ns:L(SECTION_MODES[m].labelKey)
+			blocks[#blocks + 1] = { mode = m, label = label, body = PrepareShareBody(body) }
 		end
-		local label = (ns.LChat and ns:LChat(SECTION_MODES[m].labelKey)) or ns:L(SECTION_MODES[m].labelKey)
-		blocks[#blocks + 1] = { mode = m, label = label, body = PrepareShareBody(body) }
+	end
+	if #blocks == 0 then
+		return nil, "missing_locale"
 	end
 
 	local totalParts = 0

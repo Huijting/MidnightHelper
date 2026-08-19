@@ -136,6 +136,11 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DELVE_CHAT_GRUDGE_PIT_OVERVIEW = "SE Harandar arena delve. Champion / Rotstalk / Invasion. Bosses: Brightthorn, Gyrospore, or Mycomight.",
 	DELVE_CHAT_GRUDGE_PIT_ROUTE = "Champion: wave arena (Sporbits help). Rotstalk: punt fans, taunt crowd. Invasion: free fighters, blow spawn points.",
 	DELVE_CHAT_GRUDGE_PIT_TRASH = "Use Sporbits in arena. Clear invasion waves. Don't ignore Rotstalk fans.",
+	-- Venomfall Deeps (Season 2 Nemesis). No TRASH line: nobody has written down what
+	-- the trash here does, and a share that invents one is worse than a share missing a
+	-- third. BuildDelvePartyShareLines skips absent sections since 19 aug.
+	DELVE_CHAT_VENOMFALL_DEEPS_OVERVIEW = "Nemesis delve, north island of the Coiled Isle. Azta'rec. Bring 290 ilvl for ?, 309 for ??. Valeera on Healer. No coordinates work in here.",
+	DELVE_CHAT_VENOMFALL_DEEPS_BOSS = "Fixed order: Noxious Bile, Void Toxin, Soul Extinction, Venom Storm - so the third one is the kick. Soul Extinction one-shots, interrupt it every time. At 90/60/30% the room splits in four: stand in the clear quarter, remember the ORDER, he repeats it with nothing shown. One hit = +500% nature for the rest of the fight.",
 	DELVE_CHAT_GRUDGE_PIT_BOSS = "Brightthorn: dodge {SPELL:@solar_charge}, interrupt Bloom Thorn, turn from {SPELL:@blinding_burst}. Gyrospore: dodge {SPELL:@fungalstorm}, burst when dizzy. Mycomight: puddles away from fight.",
 
 	DELVE_CHAT_SUNKILLER_SANCTUM_OVERVIEW = "East Voidstorm. Core / Not Expected / Gravity variants. Boss: Esuritus (or 3 Umbraroot, no boss).",
@@ -408,6 +413,9 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_CHAT_GRUDGE_PIT_ROUTE = "Champion: golven (Sporbits). Rotstalk: fans schoppen, taunt crowd. Invasion: fighters vrij, spawn points.",
 	DELVE_CHAT_GRUDGE_PIT_TRASH = "Sporbits in arena. Clear invasion-golven. Rotstalk-fans niet negeren.",
 	DELVE_CHAT_GRUDGE_PIT_BOSS = "Brightthorn: ontwijk {SPELL:@solar_charge}, interrupt Bloom Thorn, weg van {SPELL:@blinding_burst}. Gyrospore: ontwijk {SPELL:@fungalstorm}, burst dizzy. Mycomight: plassen weg.",
+
+	DELVE_CHAT_VENOMFALL_DEEPS_OVERVIEW = "Nemesis-delve, noordelijke eiland Coiled Isle. Azta'rec. Kom met 290 ilvl voor ?, 309 voor ??. Valeera op Healer. Coördinaten werken hier niet.",
+	DELVE_CHAT_VENOMFALL_DEEPS_BOSS = "Vaste volgorde: Noxious Bile, Void Toxin, Soul Extinction, Venom Storm - de derde is dus de kick. Soul Extinction one-shot, altijd onderbreken. Op 90/60/30% splitst de kamer in vieren: ga in het vrije kwart, onthoud de VOLGORDE, hij herhaalt hem zonder iets te tonen. Eén treffer = +500% nature de rest van het gevecht.",
 
 	DELVE_CHAT_SUNKILLER_SANCTUM_OVERVIEW = "Oost Voidstorm. Core / Not Expected / Gravity. Baas Esuritus (of 3 Umbraroot, geen baas).",
 	DELVE_CHAT_SUNKILLER_SANCTUM_ROUTE = "Core: stop Domanaar met orbs (snelheid + DR). Not Expected: 3 Umbraroot. Gravity: singularities voor schilden.",
