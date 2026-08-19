@@ -136,6 +136,42 @@ local function TargetName()
 	return nil
 end
 
+--- The npc id of whatever is targeted, and WHY it is missing when it is.
+---
+--- Rob, standing in front of Azta'rec on 19 aug: "kunnen we die id niet uitlezen?" The
+--- honest answer was "probably not" — a delve boss's GUID came back secret on Gnarldor
+--- Isle on 16 aug, and the probe of the day crashed on it. But that was one boss in one
+--- delve, and a measured no on THIS boss is worth as much as a yes.
+---
+--- ⚠️ EVERY STEP GUARDED, and the order matters. `issecretvalue` before any read, then
+--- the type check — never the other way round, because `type()` on a secret string
+--- happily answers "string" and the next line indexes something the client refuses.
+--- That mistake was made on 16 aug, written down, and made again on the 18th.
+---
+--- @return number|nil npcID, string reason
+local function TargetNpcID()
+	if not (UnitExists and UnitExists("target")) then
+		return nil, "no target"
+	end
+	if not UnitGUID then
+		return nil, "UnitGUID missing"
+	end
+	local ok, guid = pcall(UnitGUID, "target")
+	if not ok then
+		return nil, "UnitGUID threw"
+	end
+	if ns.IsSecretValue and ns.IsSecretValue(guid) then
+		return nil, "the GUID is secret"
+	end
+	if type(guid) ~= "string" then
+		return nil, "no GUID"
+	end
+	-- Field 6 of a Creature/Vehicle GUID is the npc id — the same extraction Rares.lua
+	-- uses. Deliberately not a name lookup.
+	local id = guid:match("^%a+%-%d+%-%d+%-%d+%-%d+%-(%d+)")
+	return tonumber(id), id and "read from the GUID" or "GUID has no npc field"
+end
+
 --- Instances where the client refuses to give a position at all — not a hiccup, a rule.
 ---
 --- ✅ MEASURED 19 aug: Rob ran `/mh here` inside Venomfall Deeps and got nothing. A guide
@@ -188,6 +224,29 @@ function ns.LogSpotHere(note)
 			print(("%s |cffffd100%s does not give out coordinates.|r"):format(
 				Prefix(), where or "This delve"))
 			print("   |cff8a8f98Blizzard blocked it here, so retrying will not help — and the route arrow is silent in here for the same reason, not because it is broken.|r")
+
+			--- ⚠️ BUT DO NOT LEAVE EMPTY-HANDED. Rob asked, standing in front of Azta'rec,
+			--- whether we could read the boss's id — and this function was bailing on the
+			--- position before it ever looked at his target. A place that hides one thing
+			--- has not necessarily hidden the rest, and finding out costs nothing.
+			local npcID, why = TargetNpcID()
+			local tname = TargetName()
+			if npcID or tname then
+				ns.db = ns.db or {}
+				ns.db.spots = ns.db.spots or {}
+				ns.db.spots[#ns.db.spots + 1] = {
+					kind = "target",
+					npcID = npcID,
+					target = tname,
+					note = note,
+					where = where,
+				}
+				print(("   |cff40c040target:|r %s  |cff8a8f98npc %s|r"):format(
+					tname or "(name unreadable)", npcID and tostring(npcID) or ("— " .. why)))
+				print("      |cff8a8f98Written down without coordinates — /reload saves it.|r")
+			elseif UnitExists and UnitExists("target") then
+				print(("   |cff8a8f98target gives nothing either: %s|r"):format(why))
+			end
 			return
 		end
 		print(("%s |cffff5040no position right now|r — try again in a moment, or step outside."):format(Prefix()))
@@ -197,20 +256,27 @@ function ns.LogSpotHere(note)
 	ns.db = ns.db or {}
 	ns.db.spots = ns.db.spots or {}
 
+	--- The npc id rides along on every spot from 19 aug. "The Windcaller at 49.99/61.93"
+	--- was already better than a bare coordinate; an npc id is better still, because a
+	--- name can be secret, localised or duplicated and an id is none of those.
+	local npcID = TargetNpcID()
+
 	local row = {
 		mapID = mapID,
 		x = tonumber(("%.2f"):format(x)),
 		y = tonumber(("%.2f"):format(y)),
 		zone = zone,
 		target = TargetName(),
+		npcID = npcID,
 		note = (type(note) == "string" and note:find("%w")) and note or nil,
 		when = date and date("%Y-%m-%d %H:%M:%S") or nil,
 	}
 	ns.db.spots[#ns.db.spots + 1] = row
 
-	print(("%s |cff40d060%d.|r %s  |cffffd100%.2f / %.2f|r  %s%s"):format(
+	print(("%s |cff40d060%d.|r %s  |cffffd100%.2f / %.2f|r  %s%s%s"):format(
 		Prefix(), #ns.db.spots, zone or ("map " .. mapID), row.x, row.y,
 		row.target and ("|cff8fd3ff" .. row.target .. "|r") or "",
+		row.npcID and ("  |cff8a8f98npc " .. row.npcID .. "|r") or "",
 		row.note and ("  " .. row.note) or ""))
 	print("   |cff8a8f98/reload writes the list to the DB.|r")
 end
