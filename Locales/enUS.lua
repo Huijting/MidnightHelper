@@ -2460,6 +2460,7 @@ ns._mhLocales.enUS = {
 	ST_CLOSE_PREY = "Preying For Midnight - the Preyseeker title, a meta of 7 Prey achievements",
 	ST_PREP_LEADIN = "Do the 12.1 lead-in quest",
 	ST_PREP_ISLE = "Unlock the Coiled Isle",
+	ST_PREP_DELVELINE = "Start the Season 2 delve questline (Valeera, Delver's Hub)",
 	ST_PREP_ALTS = "Level & gear your alts",
 	ST_DISMISS = "Got it — hide",
 

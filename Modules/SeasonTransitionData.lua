@@ -214,6 +214,17 @@ ns.SEASON_TRANSITION = {
 		-- Coiled Isle unlock signal is unknown until the PTR → manual for now.
 		{ id = "isle", textKey = "ST_PREP_ISLE", manual = true },
 		{ id = "alts", textKey = "ST_PREP_ALTS", manual = true },
+		--- ⚠️ NOBODY TOLD ANYONE ABOUT THIS ONE. Season 2 opens its delve line behind a
+		--- short questline from Valeera, and until now it lived only in a comment in
+		--- `AtalUtekProbe.lua`. Rob found it by walking into it and asked, on 19 aug,
+		--- whether we had ever made it clear. We had not — this card is the whole point of
+		--- the addon and it was missing the step that unlocks the season's own delves.
+		---
+		--- 97454 "Seasonal Refresher: Midnight" from Valeera (npc 242381) at 2393
+		--- 52.54/78.26, measured on Rob's client. Turning it in hands you 97321 on the
+		--- spot, so naming the first one is enough — pointing at 97321 would send someone
+		--- to a quest nobody is offering yet.
+		{ id = "s2_delveline", textKey = "ST_PREP_DELVELINE", quest = 97454 },
 	},
 }
 

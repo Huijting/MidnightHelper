@@ -2225,6 +2225,7 @@ ns._mhLocales.nlNL = {
 	ST_CLOSE_DAWN_AT = "%s - nu nog te halen (%d te gaan, 50%% Warband-upgradekorting)",
 	ST_PREP_LEADIN = "Doe de 12.1 lead-in quest",
 	ST_PREP_ISLE = "Ontgrendel Coiled Isle",
+	ST_PREP_DELVELINE = "Start de Season 2-delve-questlijn (Valeera, Delver's Hub)",
 	ST_PREP_ALTS = "Level & gear je alts",
 	ST_DISMISS = "Begrepen — verbergen",
 
