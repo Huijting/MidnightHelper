@@ -917,6 +917,7 @@ ns._mhLocales.nlNL = {
 	GEM_HEADER_FMT = "Gem-check (je beste stats: %s / %s)",
 	GEM_MISSING = "LEGE SOCKET",
 	GEM_OK = "Geen lege gem-sockets",
+	GEM_OPEN_SOCKET_FMT = "Open het socket-venster (%s)",
 	GEM_BEST_FMT = "Beste: 1× %s (uniek) + %s in je overige sockets",
 	GEM_NO_DIAMOND = "Nog geen Thalassian Diamond — zet er 1× %s in (uniek, +32 primary)",
 

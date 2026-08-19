@@ -620,6 +620,19 @@ end
 
 local ui
 
+--- The first equipped slot with an empty socket, or nil.
+---
+--- Shared by the button and its own enable/disable, so the button can never offer to
+--- open a window for a slot the report is not complaining about.
+local function FirstEmptySocketSlot()
+	for _, gs in ipairs(GEM_SLOTS) do
+		if EmptySocketCount(gs.id) > 0 then
+			return gs.id, (gs.label and _G[gs.label]) or ("slot " .. gs.id)
+		end
+	end
+	return nil
+end
+
 function ns.RefreshGearEnchantPanel()
 	if not (ui and ui.body) then
 		return
@@ -627,6 +640,23 @@ function ns.RefreshGearEnchantPanel()
 	ui.linkAH = ui.linkAH or {}
 	wipe(ui.linkAH)
 	ui.body:SetText(table.concat(BuildReportLines(ui.linkAH), "|n"))
+
+	--- ⚠️ THE BUTTON ONLY EXISTS WHEN THERE IS SOMETHING TO SOCKET. Cisca did not know
+	--- how to get a gem into a socket, and "socket 1x Eversong Diamond" is a verb you
+	--- have to already know. A button that opens the window is the answer, but a button
+	--- that is always there and does nothing when you have no empty socket teaches the
+	--- opposite lesson — that our buttons are unreliable.
+	if ui.socketBtn then
+		local slotId, slotName = FirstEmptySocketSlot()
+		ui.socketSlot = slotId
+		if slotId then
+			ui.socketBtn:SetText((ns:L("GEM_OPEN_SOCKET_FMT")):format(slotName))
+			ui.socketBtn:SetWidth(ui.socketBtn:GetTextWidth() + 30)
+			ui.socketBtn:Show()
+		else
+			ui.socketBtn:Hide()
+		end
+	end
 end
 
 function ns.BuildGearEnchantPanel(panel)
@@ -664,6 +694,28 @@ function ns.BuildGearEnchantPanel(panel)
 	copyLabel:SetText(ns:L("ENCHANT_COPY_LABEL"))
 	copyLabel:SetTextColor(0.62, 0.60, 0.55)
 
+	--- "Open the socket window" — measured on 19 aug before it was written. `/mh socket`
+	--- reported the frame actually on screen after the call, not merely that the call did
+	--- not error, because 12.x has protected a great many UI actions and a protected one
+	--- fails quietly. It opened, so the button is honest.
+	---
+	--- Sits above the copy bar rather than in the report text: the report is a read-only
+	--- EditBox whose links go to the auction-house copy box, and threading an action into
+	--- that would make one click mean two things.
+	local socketBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	socketBtn:SetHeight(22)
+	socketBtn:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 14, 44)
+	socketBtn:Hide() -- Refresh decides; there may be nothing to socket
+	socketBtn:SetScript("OnClick", function()
+		local slotId = ui and ui.socketSlot
+		if not slotId or not SocketInventoryItem then
+			return
+		end
+		-- Guarded: if 12.x ever protects this, the click must do nothing rather than
+		-- throw a Lua error at someone who only wanted help with a gem.
+		pcall(SocketInventoryItem, slotId)
+	end)
+
 	local copyBox = CreateFrame("EditBox", "MidnightHelperEnchantCopyBox", panel, "InputBoxTemplate")
 	copyBox:SetHeight(20)
 	copyBox:SetPoint("LEFT", copyLabel, "RIGHT", 10, 0)
@@ -694,7 +746,7 @@ function ns.BuildGearEnchantPanel(panel)
 		ns:AttachDelveTipHyperlinksToEditBox(body)
 	end
 
-	ui = { panel = panel, title = title, subtitle = subtitle, body = body, copyBox = copyBox, copyLabel = copyLabel, linkAH = {} }
+	ui = { panel = panel, title = title, subtitle = subtitle, body = body, copyBox = copyBox, copyLabel = copyLabel, socketBtn = socketBtn, linkAH = {} }
 
 	-- Klik op een enchant-link → AH-naam naar de kopieerbalk (val terug op de
 	-- tooltip-handler als we de link niet kennen).

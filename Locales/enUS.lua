@@ -954,6 +954,7 @@ ns._mhLocales.enUS = {
 	GEM_HEADER_FMT = "Gem check (your top stats: %s / %s)",
 	GEM_MISSING = "EMPTY SOCKET",
 	GEM_OK = "No empty gem sockets",
+	GEM_OPEN_SOCKET_FMT = "Open the socket window (%s)",
 	GEM_BEST_FMT = "Best: 1× %s (unique) + %s in your other sockets",
 	GEM_NO_DIAMOND = "No Thalassian Diamond yet — socket 1× %s (unique, +32 primary)",
 
