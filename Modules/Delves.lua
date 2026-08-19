@@ -308,11 +308,17 @@ function ns.PrintPortalAccess()
 				why = ("quest %d %s"):format(portal.requiresQuest, done and "completed" or "NOT completed")
 			end
 		end
+		--- ⚠️ TEXTURES, NOT CHARACTERS. The first version used ✓ and ✗ and Rob's screenshot
+		--- came back with a row of empty boxes: the WoW font has no glyph for either, so
+		--- the one column that carried the answer rendered as nothing at all. This addon
+		--- already solved that in ConsumableReadyCheck.lua — ready-check icons, which ship
+		--- with the game and cannot go missing.
 		print(("   %s %-32s |cff8a8f98%s|r"):format(
-			usable and "|cff40c040✓|r" or "|cffff5040✗|r",
+			usable and "|TInterface/RAIDFRAME/ReadyCheck-Ready:0|t"
+				or "|TInterface/RAIDFRAME/ReadyCheck-NotReady:0|t",
 			tostring(portal.name or "?"), why))
 	end
-	print("   |cff8a8f98A ✓ here is what the travel plan offers before it ever suggests flying.|r")
+	print("   |cff8a8f98A green tick here is what the travel plan offers before it ever suggests flying.|r")
 end
 
 -- Verified Midnight currency IDs (Restored Coffer Key, Shards, Undercoin, Untainted Mana-Crystals).
