@@ -20,6 +20,8 @@ German additionally gained the whole DPS Academy track, five missing heal chapte
 
 ## Smaller things
 
+The Codex button that said "Void & Rituals" now says "World content". Prey hunts, rares, Showdowns and Turbulent Timeways were all filed behind that name, which is a good way to own a page nobody finds.
+
 Sixteen more hazards, and the Coiled Isle portal is now explained in the Codex with a waypoint to where that questline begins.
 
 Several messages used to mislead. "Update the addon" now names the text that is missing instead of blaming your install, a delve that hides your position says so rather than asking you to try again, and sharing tips to party chat no longer refuses everything because one section of three is empty.
