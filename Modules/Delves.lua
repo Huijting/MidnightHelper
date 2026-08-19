@@ -275,6 +275,46 @@ local function PortalUsable(portal)
 end
 ns.MHPortalUsable = PortalUsable
 
+--- `/mh portals` — which portals do we think you may use, and on what grounds.
+---
+--- Rob, 19 aug: "kunnen we nu ook zelf zien als we de portal mogelijkheid hebben??" The
+--- answer was already yes and he had no way to look. `PortalUsable` reads his own quest
+--- flag and `BuildTravelPlan` tries portals before the flight network, so the behaviour
+--- he asked for has been there — invisible, which for a player is much the same as absent.
+---
+--- ⚠️ It prints the REASON, not just a tick. A portal we withhold and a portal that does
+--- not exist look identical from the outside, and this file deliberately errs towards
+--- withholding (see the note above PortalUsable). Without the reason, that caution is
+--- indistinguishable from a bug — the same trap `/mh arrow` and `/mh rarehint` exist for.
+function ns.PrintPortalAccess()
+	local p = "|cffffff78Midnight Helper:|r"
+	if type(ns.MIDNIGHT_PORTALS) ~= "table" then
+		print(("%s |cffff5040no portal table loaded|r."):format(p))
+		return
+	end
+	print(("%s portals, as this character sees them:"):format(p))
+	for _, portal in ipairs(ns.MIDNIGHT_PORTALS) do
+		local usable = PortalUsable(portal)
+		local why
+		if not portal.requiresQuest then
+			why = "no requirement"
+		elseif not (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
+			why = "quest API unavailable — withheld on purpose"
+		else
+			local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, portal.requiresQuest)
+			if not ok then
+				why = ("quest %d unreadable — withheld on purpose"):format(portal.requiresQuest)
+			else
+				why = ("quest %d %s"):format(portal.requiresQuest, done and "completed" or "NOT completed")
+			end
+		end
+		print(("   %s %-32s |cff8a8f98%s|r"):format(
+			usable and "|cff40c040✓|r" or "|cffff5040✗|r",
+			tostring(portal.name or "?"), why))
+	end
+	print("   |cff8a8f98A ✓ here is what the travel plan offers before it ever suggests flying.|r")
+end
+
 -- Verified Midnight currency IDs (Restored Coffer Key, Shards, Undercoin, Untainted Mana-Crystals).
 local CURRENCY_COFFER_KEY = 3028
 local CURRENCY_COFFER_SHARDS = 3310

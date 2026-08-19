@@ -1042,6 +1042,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh portals — welke portalen wij voor dit personage bruikbaar achten, mét reden.
+	-- Het reisplan gebruikt ze al vóór het vliegen aanraadt; dit maakt zichtbaar waarom.
+	if msg == "portals" or msg == "portal" then
+		if ns.PrintPortalAccess then
+			ns.PrintPortalAccess()
+		end
+		return
+	end
+
 	-- /mh socket — kan een addon het socket-venster nog openen in 12.1? Cisca wist niet
 	-- hoe je een gem erin krijgt en wij leggen het nergens uit; dit bepaalt of het een
 	-- knop wordt of een uitleg-tekst.
