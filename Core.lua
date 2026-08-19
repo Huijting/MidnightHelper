@@ -1042,6 +1042,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh rarehint — waarom je de aankomst-regel wel of niet hoort. Deze hint is twee keer
+	-- stil mislukt; "ik zie niks" onderscheidt zes oorzaken niet van elkaar.
+	if msg == "rarehint" then
+		if ns.PrintRareHintState then
+			ns.PrintRareHintState()
+		end
+		return
+	end
+
 	-- /mh crest [tier] [stash] — momentopname van al je currency, en daarna het verschil.
 	-- Meet wat een delve echt uitbetaalt in plaats van erover te redeneren; het argument
 	-- "tier 8-11 is identiek" ging over gear en heeft crests nooit bekeken.

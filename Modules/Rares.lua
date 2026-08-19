@@ -1129,23 +1129,72 @@ local function CheckArrivalHint()
 	print(("|cffffff78Midnight Helper:|r %s — %s"):format(GetRareDisplayName(rare), text))
 end
 
---- Start the watcher with the hunt, stop it when the hunt lets go of the arrow, so it
---- costs nothing the rest of the time.
-function ns.StartRareArrivalWatch()
+--- Run the watcher wherever there are rares to be near, and nowhere else.
+---
+--- ⚠️ IT USED TO START WITH OUR ROUTE, AND ROB STILL SAW NOTHING. `_mhRouteOwner` is a
+--- runtime variable: his /reload wiped it, while TomTom's waypoint survived the reload
+--- untouched. So he walked the last stretch on TomTom's arrow with no route claimed on
+--- our side, and a watcher waiting for `_mhRouteOwner == "rare"` waited forever.
+---
+--- Which was the wrong condition to begin with, and for the same reason the hint was on
+--- the wrong surface an hour ago: this is a fact about a PLACE you are standing near, not
+--- about a route you happened to start in this session. Tying it to our own bookkeeping
+--- means it works for the player who used our button and fails for everyone else — and
+--- everyone else is most of them.
+---
+--- Zone in, ticker on; zone out, ticker off. Costs one lookup every 2s in Midnight zones.
+function ns.UpdateRareArrivalWatch()
+	local inRareZone = CurrentHuntZone() ~= nil
+	if not inRareZone then
+		if hintTicker then
+			hintTicker:Cancel()
+			hintTicker = nil
+		end
+		return
+	end
 	if hintTicker or not (C_Timer and C_Timer.NewTicker) then
 		return
 	end
-	wipe(hintSaidFor)
-	hintTicker = C_Timer.NewTicker(HINT_TICK_SEC, function()
-		if ns._mhRouteOwner ~= "rare" then
-			if hintTicker then
-				hintTicker:Cancel()
-				hintTicker = nil
-			end
-			return
-		end
-		CheckArrivalHint()
-	end)
+	hintTicker = C_Timer.NewTicker(HINT_TICK_SEC, CheckArrivalHint)
+end
+
+--- `/mh rarehint` — why you are or are not hearing the arrival line.
+---
+--- This hint has now failed twice in a row without saying a word about it: first on a
+--- surface TomTom hides, then on a condition a /reload cleared. Both times the only
+--- evidence was Rob standing next to a rare seeing nothing, which does not distinguish
+--- between six different causes. `/mh arrow` exists for exactly this reason on the
+--- arrow; this is the same idea one layer down.
+function ns.PrintRareHintState()
+	local p = "|cffffff78Midnight Helper:|r"
+	local zone = CurrentHuntZone()
+	print(("%s rare-hint state"):format(p))
+	print(("   zone: %s"):format(zone and "found" or "|cffff5040none — no rares tracked here|r"))
+	print(("   ticker: %s"):format(hintTicker and "|cff40c040running|r" or "|cffff5040off|r"))
+	local rare = zone and NearestOpenRareRespectingSkips(zone)
+	if not rare then
+		print("   |cffff5040no open rare — all done this week, or none in range of the list|r")
+		return
+	end
+	local key = ns.RareArrivalHintKey(rare)
+	print(("   nearest open rare: %s  |cff8a8f98npc %s|r"):format(
+		GetRareDisplayName(rare), tostring(rare[6])))
+	print(("   hint key: %s"):format(key or "|cff8a8f98none — this rare has no quirk to mention|r"))
+	if key then
+		local text = ns.L and ns:L(key)
+		print(("   resolves to: %s"):format(
+			(text and text ~= key) and text or "|cffff5040UNRESOLVED — key missing from enUS|r"))
+		print(("   already said: %s"):format(hintSaidFor[rare[6]] and "yes (once per session)" or "no"))
+	end
+	local rx, ry = GetRareWorldPos(rare)
+	local px, py = PlayerWorldPos()
+	if rx and px then
+		local dx, dy = rx - px, ry - py
+		local d = math.sqrt(dx * dx + dy * dy)
+		print(("   distance: |cffffd100%.0f yd|r  (speaks under %d)"):format(d, ARRIVAL_HINT_YARDS))
+	else
+		print("   distance: |cffff5040unknown — no position here|r")
+	end
 end
 
 function ns.GetNearestIncompleteRareLead()
@@ -1395,7 +1444,7 @@ local function RouteRare(rare, clearOthers)
 	-- token releases as soon as it's looted, even if older rares linger in the hunt
 	-- store (released in the event handler below).
 	ns._mhRouteOwner = "rare"
-	ns.StartRareArrivalWatch()
+	ns.UpdateRareArrivalWatch()
 	ns._mhLastRoutedRareQuest = (rare[1] and rare[1] ~= 0) and rare[1] or nil
 	-- Gejaagde rare → skull (nu als 'ie al zichtbaar is, anders zodra z'n
 	-- nameplate verschijnt). KnownRareNpc = veld 6 of geleerd npcID.
@@ -1827,7 +1876,7 @@ function ns.GenerateRaresRoute(zoneKey)
 	if added > 0 then
 		wipe(skippedRares) -- fresh hunt: forget previous skips
 		ns._mhRouteOwner = "rare" -- claim the shared arrow (see RouteRare note)
-		ns.StartRareArrivalWatch()
+		ns.UpdateRareArrivalWatch()
 		ns._mhRarePrevOwner = "rare" -- a detour to another rare returns to this hunt
 		ns._mhLastRoutedRareQuest = nil -- a full route: release when the whole hunt is done
 		-- AddSmartTomTomWay set ns.lastTarget to the LAST pin added; for the native
@@ -2591,6 +2640,9 @@ ev:SetScript("OnEvent", function(_, event)
 		or event == "PLAYER_ENTERING_WORLD"
 	then
 		ScanForRareAlerts()
+	end
+	if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
+		ns.UpdateRareArrivalWatch()
 	end
 	if frame and frame:IsVisible() then
 		if event == "ZONE_CHANGED_NEW_AREA" then
