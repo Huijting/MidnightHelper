@@ -2,6 +2,57 @@
 **Bijgewerkt 2026-08-18 (23:50).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
+## 💡 ROB-VERZOEK 19 AUG — "dit soort info moeten wij ook gaan bieden!!!"
+
+Aanleiding: Rob stond op het punt Azta'rec te pullen met **Valeera op Tank**. Uit
+EverythingDelves' Nemesis-tab kwam dat je haar op **Healer** moet zetten, en waarom:
+twee mechanieken bepalen alles — **Soul Extinction** (onderbreekbaar, dodelijk als hij
+doorkomt) en **Void Toxin** (dispelbare magic debuff, tikt hard én −40% schade).
+
+**En dáár zit ons gat, én onze voorsprong.** Hun advies is generiek: *"as DPS or tank,
+set Valeera to Healer"*. Ik moest dat met de hand vertalen naar: *"jij speelt Mage, dus
+je kunt Void Toxin niet zelf weghalen — dit is geen voorkeur maar noodzaak."* **Die
+vertaalslag kan de addon zelf maken, want wij lezen de spec al.**
+
+### Waarom dit past en niet gekopieerd is
+
+De redenering is van ons, niet van hen. Wij hebben al:
+- `ns.HEALER_DISPELS` / `ns.NONHEALER_DISPELS` — wat jouw spec van een vriend kan halen
+- `ns.OFFENSIVE_PURGES` — apart gehouden, en dat is hier cruciaal: `MAGE = 30449`
+  (Spellsteal) staat er als **offensieve** purge, dus een Mage krijgt terecht "nee" op
+  "kun jij een magic debuff van jezelf halen?". Die categoriefout is op 5 aug al een
+  keer gemaakt en toen opgelost — de landmijn ligt er dus niet meer.
+- KeybindRoles per spec — interrupts, defensives, CC
+
+Wat we **moeten meten** is per baas: welke mechaniek doet ertoe, en van welke soort is
+hij (onderbreekbaar / magic-dispelbaar / geen van beide). Dat is precies de tabel die
+niemand mag overschrijven uit andermans addon.
+
+### De vorm
+
+Per delve-baas een handvol regels `{ spellID, kind = "interrupt" | "dispel_magic" }`,
+en dan kruist de addon dat met wat JIJ kunt:
+
+> Soul Extinction — jij kickt dit zelf (Counterspell).
+> Void Toxin — **jij kunt dit niet weghalen.** Zet Valeera op Healer.
+
+Dus: eerst zeggen wat de speler zelf dekt, dan wat er overblijft, en daaruit volgt
+de companion-stand. Nooit "zet haar op Healer" zonder de reden erbij — dat is precies
+het verschil met een gids.
+
+⚠️ **Curio-advies blijft per gevecht, niet algemeen.** `/mh curios` legt bewust niet
+vast welke curio "de beste" is: dat hangt van spec én delve af en niemand heeft het
+gemeten. Wat hier bijkomt is per-baas advies, met bron erbij. De **Poisons-slot** is
+dit seizoen nieuw (notitie van 27 jul) en heeft nog helemaal geen advies.
+
+**Huis:** `DelveCuriosAdvisor.lua` doet al rolgebaseerde curio-suggesties en heeft al
+een popup-plek. `DelveTipsData.lua` heeft de per-delve secties, inclusief de rode
+`danger`-vlag van 18 aug.
+
+⚠️ **Venomfall Deeps heeft nog HELEMAAL GEEN coach-entry**, als enige delve. Dat is de
+plek om dit als eerste te bouwen — en Rob loopt hem vandaag, dus de mechanieken komen
+uit zijn eigen run in plaats van uit een gids.
+
 ## 🎯 MORGEN 19 AUG — PRIORITEIT: de EU-seizoensstart
 
 Rob speelt **EU**; Season 2 opent daar pas bij de reset van 19 aug. Alles wat gisteravond
