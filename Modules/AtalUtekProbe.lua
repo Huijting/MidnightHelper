@@ -1036,9 +1036,37 @@ local function PrintDelvesUI(out)
 			if type(row) == "table" then
 				--- Every field, not just the one we came for: if the loot levels are in
 				--- here too, that closes DELVE_LOOT_TABLE_S2 without eleven delve runs.
+				---
+				--- ⚠️ AND EXPAND SUB-TABLES. The first run with the picker open printed
+				--- `rewards=table: 0000017C2EAE9B10` and I read that as "no reward data",
+				--- which is what EverythingDelves' comment had primed me to expect. Rob
+				--- did not believe it. He was right: the field is there, tostring() just
+				--- turned it into an address. A guide's claim plus a lazy dump agreed
+				--- with each other and were both wrong.
+				local function Describe(v)
+					if type(v) ~= "table" then
+						return tostring(v)
+					end
+					local inner = {}
+					for ik, iv in pairs(v) do
+						if type(iv) == "table" then
+							local deep = {}
+							for dk, dv in pairs(iv) do
+								deep[#deep + 1] = ("%s=%s"):format(tostring(dk), tostring(dv))
+							end
+							table.sort(deep)
+							inner[#inner + 1] = ("%s{%s}"):format(tostring(ik), table.concat(deep, ","))
+						else
+							inner[#inner + 1] = ("%s=%s"):format(tostring(ik), tostring(iv))
+						end
+					end
+					table.sort(inner)
+					return "{" .. table.concat(inner, " ") .. "}"
+				end
+
 				local parts = {}
 				for k, v in pairs(row) do
-					parts[#parts + 1] = ("%s=%s"):format(tostring(k), tostring(v))
+					parts[#parts + 1] = ("%s=%s"):format(tostring(k), Describe(v))
 				end
 				table.sort(parts)
 				local line = table.concat(parts, " ")
