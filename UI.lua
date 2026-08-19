@@ -864,7 +864,7 @@ local SMC_CATEGORIES = {
 			--- waar het stáát. Rob, 19 aug, vanaf het eiland: "ik weet niet 1 2 3 waar die
 			--- portal is naar smc". Iets kennen en iemand het kunnen laten vinden zijn twee
 			--- verschillende dingen.
-			{ id = "portal_coiled_isle", label = "Portal to The Coiled Isle", descKey = "SMC_PIN_PORTAL_ISLE", atlas = "portal-horde-white", x = 56.74, y = 67.30 },
+			{ id = "portal_coiled_isle", label = "Portal to The Coiled Isle", descKey = "SMC_PIN_PORTAL_ISLE", atlas = "portal-horde-white", x = 56.74, y = 67.30, requiresQuest = 96004 },
 			{ id = "timeways", label = "Timeways (Lindormi)", atlas = "portal-horde-white", x = 42.30, y = 58.30 },
 			{ id = "mplus_teleports", label = "M+ Teleports", atlas = "flightmaster", x = 42.03, y = 58.30 },
 		},
@@ -1565,6 +1565,32 @@ local function BuildSMCCityGuidePanel(panel)
 			end
 			label:SetTextColor(1, 0.94, 0.75)
 
+			--- ⚠️ A PIN FOR SOMETHING YOU CANNOT USE YET MUST SAY SO ON ITS FACE.
+			---
+			--- Rob, 19 aug, reading the released notes: the portal pin "werkt alleen als je
+			--- de pre-prey seizoen 2 quest hebt gedaan !!". The description said so and the
+			--- label did not, so the first thing a player without the quest meets is a
+			--- normal-looking button that walks them to an empty wall.
+			---
+			--- `Delves.lua` already settled the principle for the portal data itself: the
+			--- cheap failure is a portal we forget to offer, not one we invent. The pin was
+			--- the one place still offering it unconditionally.
+			---
+			--- Greyed rather than hidden — hiding it means nobody ever learns the portal
+			--- exists, and finding out it is worth working towards is the point.
+			if point.requiresQuest and C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
+				local okQ, doneQ = pcall(C_QuestLog.IsQuestFlaggedCompleted, point.requiresQuest)
+				if okQ and not doneQ then
+					label:SetTextColor(0.55, 0.55, 0.58)
+					if icon then
+						icon:SetDesaturated(true)
+					end
+					point._mhLocked = true
+				else
+					point._mhLocked = nil
+				end
+			end
+
 			btn._mhSMCIcon = icon
 			btn._mhSMCLabel = label
 			panel._mhSMCWaypointButtons[#panel._mhSMCWaypointButtons + 1] = { btn, point }
@@ -1582,6 +1608,9 @@ local function BuildSMCCityGuidePanel(panel)
 				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 				GameTooltip:SetText(point.label, 1, 0.9, 0.6)
 				GameTooltip:AddLine(PinDescription(point), 0.9, 0.9, 0.9, true)
+				if point._mhLocked then
+					GameTooltip:AddLine(ns:L("SMC_PIN_LOCKED"), 1, 0.5, 0.4, true)
+				end
 				GameTooltip:AddLine(("Map 2393 • %.2f, %.2f"):format(point.x, point.y), 0.8, 0.8, 0.8, false)
 				GameTooltip:AddLine(ns:L("SMC_PIN_CLICK_HINT"), 0.7, 0.8, 1, true)
 				GameTooltip:Show()

@@ -12,7 +12,7 @@ Season 2 replaced Silvermoon Health Potion with the Concentrated version, and br
 
 ## The portal to The Coiled Isle, both ways
 
-The addon has known about the portal for weeks and never showed anyone where it stands. The way in is now a pin in the City Guide under Travel, on a coordinate measured standing at Astalor rather than copied from a guide, because the old one was nearly four points out. The way back has its own waypoint in the Prey guide. Every guide tells you how to reach an island and goes quiet about leaving it.
+The portal only exists once you are into the Prey line, so the pin greys itself out until you are — it is worth knowing it is coming rather than wondering why the wall is blank. The way in is a pin in the City Guide under Travel, on a coordinate measured standing at Astalor rather than copied from a guide, because the old one was nearly four points out. The way back has its own waypoint in the Prey guide. Every guide tells you how to reach an island and goes quiet about leaving it.
 
 ## Getting a gem into a socket
 
