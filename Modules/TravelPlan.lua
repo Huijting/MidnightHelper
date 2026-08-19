@@ -207,8 +207,25 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		end
 		-- Failing a portal, the flight network is the honest fallback, and it can
 		-- only speak about places it has. Silence beats a guessed hop.
+		--- ⚠️ PASS THE COORDINATES. `GetNearestFlightPoint` only lives up to its name when
+		--- it gets a position: without one it returns "the first stop this faction may
+		--- use", which is list order, not distance (FlightPointsData.lua:1041).
+		---
+		--- Rob saw both answers stacked in one screen on 19 aug — chat said "Nearest flight
+		--- point there: Silverglade Refuge", the arrow said "head for Fairbreeze Village",
+		--- for the same delve in the same breath. Same function, two precisions: the chat
+		--- had passed the target's position and this call had not.
+		---
+		--- Only when the outermost container IS the target's own map do the target's
+		--- coordinates describe a point on it; one map further out they would be numbers
+		--- from the wrong space, and a confidently wrong stop is worse than an arbitrary
+		--- one. So the guess stays where it cannot be improved.
 		if #steps == 0 and ns.GetNearestFlightPoint then
-			local ok, fp = pcall(ns.GetNearestFlightPoint, outermost)
+			local fx, fy
+			if outermost == targetMap then
+				fx, fy = x, y
+			end
+			local ok, fp = pcall(ns.GetNearestFlightPoint, outermost, fx, fy)
 			if ok and type(fp) == "string" and fp:find("%w") then
 				steps[#steps + 1] = {
 					kind = "fly",
