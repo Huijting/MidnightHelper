@@ -202,6 +202,25 @@ ns.DELVE_BOSS_SHOWCASE = {
 		{ creatureId = 260309, label = "Gralka Snake-Eater" },
 		{ creatureId = 267736, label = "Osseous Amalgamation" },
 	},
+	-- ⚠️ VENOMFALL DEEPS — hetzelfde patroon als Drakta hieronder, en het antwoord op
+	-- Robs vraag van 19 aug: "we hebben voor andere delves toch ook een animatie terwijl
+	-- ze niet in-game te herkennen zijn?"
+	--
+	-- Klopt, en dit is waarom het werkt: een model komt uit een CREATURE-ID via
+	-- SetCreature, niet uit de naam en niet uit de GUID. Beide van die twee zijn hier
+	-- dicht — Azta'rec's GUID is secret (gemeten, 19 aug) en `/mh npc` gaf op alle vijf
+	-- de ids "name is secret" terug. Het model trekt zich daar niets van aan.
+	--
+	-- 265500 komt van Wowhead en is dus een kandidaat. Er is geen manier om hem via de
+	-- naam te bevestigen zolang die secret is — MAAR er is een betere: het model rendert
+	-- of het rendert niet, en Rob herkent de tweekoppige slangenworm in één blik. Zijn
+	-- ogen zijn hier de meting, precies zoals bij Drakta.
+	--
+	-- ⚠️ Rendert er niets of iets anders: het id is fout en deze regel gaat eruit. Een
+	-- leeg venster is beter dan een verkeerde baas, en beter dan geen antwoord.
+	venomfall_deeps = {
+		{ creatureId = 265500, label = "Azta'rec" },
+	},
 	ring_of_glory = {
 		-- ✅ Drakta als eindboss is door Rob zelf bevestigd (run van 14 aug, "het was
 		-- Drakta !!"). Zijn ogen tellen als bron voor de NAAM; het creature-id blijft
