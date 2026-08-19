@@ -677,6 +677,23 @@ local ACHIEVEMENTS = {
 	--- for all three. Nothing is shipped off these ids until this probe returns names:
 	--- they come from a Wowhead guide, and MH already carries FOUR Azta'rec achievement
 	--- ids logged on 19 jul that nobody has matched against these.
+	--- 📌 FROM HANDYNOTES 154 (19 aug), and therefore ids we do NOT trust — that file's
+	--- coordinates are trusted here and its ids are not, which is the split CLAUDE.md
+	--- draws and which a wrong quest band earned on 13 aug.
+	---
+	--- 63390 is the interesting one: three RareElites on the Coiled Isle carrying a
+	--- "curse surge" note and criteria 115368/115369/115370, and we track none of them.
+	--- One is already known to us from the other side — `/mh rarescan` found npc 255088
+	--- "Looming Mutagenitor" on the PTR (VignetteCapture.lua:7) — so the mob is real
+	--- even if the achievement is unconfirmed.
+	---
+	--- 63170/63171 are the per-delve Sturdy Chest achievements for Gnarldor Isle and
+	--- The Ring of Glory. We ship all six chest coordinates and match HandyNotes exactly
+	--- on every one; we just never carried the achievement they feed.
+	{ id = 63390, label = "curse-surge elites on 2512 (HandyNotes: 3 criteria)" },
+	{ id = 63170, label = "Gnarldor Isle Sturdy Chests (HandyNotes)" },
+	{ id = 63171, label = "The Ring of Glory Sturdy Chests (HandyNotes)" },
+
 	{ id = 63334, label = "Fabled Let Me Solo Him: Azta'rec — EXPIRES at the 25 aug reset" },
 	{ id = 63333, label = "Let Me Solo Him: Azta'rec (mount, solo on ??)" },
 	{ id = 63326, label = "My Venomous Nemesis (back transmog)" },

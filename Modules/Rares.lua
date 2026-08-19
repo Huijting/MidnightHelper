@@ -191,6 +191,21 @@ local COILED_ISLE = {
 		{ 98354, 2512, 58.01, 40.13, "Sss'alik, The Rotten Claw", 261109, ach = 63358, crit = 115287 },
 		{ 0, 2512, 46.99, 62.23, "Malformed Leviathan", 255087 }, -- elite; EVENT, no kill quest of its own
 		{ 98353, 2512, 70.03, 63.44, "Big Mon", 256631, ach = 63358, crit = 115286 },
+		--- ⚠️ DISPUTED, 19 aug — the biggest coordinate disagreement on this island.
+		--- HandyNotes 154 puts this rare at 57.21/64.17, which is 4.4 away from ours.
+		--- It is provably the same rare and not a second one: same npc (257906) and the
+		--- same achievement criterion (115285).
+		---
+		--- Neither side is assumed right. Ours came off the 12.1 PTR, and the comment at
+		--- the top of this table says PTR coordinates can move before live. But their
+		--- file is not automatically right either — AchievementsData.lua:732 records a
+		--- HandyNotes memorial that sat 1.3 out until Rob read the real number off his
+		--- own screen, and 154 still ships that wrong value.
+		---
+		--- 4.4 is more than three times that error, so this one is worth a look before it
+		--- sends anybody across a beach. `/mh here` on the rare settles it in seconds.
+		--- Left on our value until then: changing it on another addon's word is exactly
+		--- what the never-lie rule is for.
 		{ 98352, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906, ach = 63358, crit = 115285 },
 		{ 98345, 2512, 50.00, 69.07, "Siltmouth, the Unflappable", 268049, ach = 63358, crit = 115280 },
 		{ 98344, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854, ach = 63358, crit = 115279 }, -- circles in the air until he lands
