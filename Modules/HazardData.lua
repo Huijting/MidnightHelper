@@ -312,7 +312,19 @@ ns.INSTANCE_HAZARDS = {
 		1296441, -- Hex Pile
 		1296366, -- Scything Blade
 	},
-	[3079] = { -- CANDIDATE, 17 aug: Method publishes an "Azta'rec nemesis delve"
+	--- ✅ CONFIRMED 19 aug — Rob walked in and his client wrote `[3079] = "Venomfall
+	--- Deeps"` into ns.db.hazardZones. No more candidate: the name comes from the game.
+	---
+	--- And the delve confirmed the hazard list the hard way. Wrath of Ula'tek (1288126,
+	--- four lines down) killed him from 100% health for 771,735 — Blizzard's own death
+	--- recap marks it **Avoidable**, so it is a dodge and not a defensive check. The id
+	--- we listed on somebody's ability-name match turned out to be the one that matters.
+	---
+	--- ⚠️ AND THAT IS THE UNCOMFORTABLE HALF. This addon knew the name of the thing that
+	--- one-shot him, and he found out from a death recap. The list only speaks when you
+	--- open the Delve Coach or type /mh hazards. See the companion-advisor spec at the
+	--- top of docs/NEXT_SESSION.md — it exists because of this pull.
+	[3079] = { -- was CANDIDATE, 17 aug: Method publishes an "Azta'rec nemesis delve"
 		-- guide whose boss abilities include Noxious Bile — one of the four ids
 		-- below — at 2512 51.22 / 30.27, and Venomfall Deeps was already on our
 		-- Season 2 list. Matching ability names is a strong hint and still a hint;
