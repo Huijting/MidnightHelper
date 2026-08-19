@@ -1441,6 +1441,7 @@ ns._mhLocales.nlNL = {
 	ARROW_FLY_TO = "ga richting %s",
 	ARROW_AT_STEP = "Je staat bij %s — loop erdoor, aan de andere kant pakt de pijl het weer op.",
 	ARROW_TARGET_ROAMS = "|cffffd100(zwerft — kijk rond)|r",
+	RARE_SPAWN_FROM_CHEST = "|cffffd100(open de kist om hem op te roepen)|r",
 	ROUTE_CLEARED = "Route gewist.",
 	ROUTE_CLEAR_NONE = "Geen actieve route om te wissen.",
 	RARES_ROUTE_ORDER_NEAR = "Volgorde: dichtstbijzijnde eerst, daarna steeds de volgende.",

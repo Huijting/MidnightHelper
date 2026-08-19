@@ -220,7 +220,19 @@ local COILED_ISLE = {
 		--- spent the morning deciding which file to distrust.
 		{ 98352, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906, ach = 63358, crit = 115285, roams = true },
 		{ 98345, 2512, 50.00, 69.07, "Siltmouth, the Unflappable", 268049, ach = 63358, crit = 115280 },
-		{ 98344, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854, ach = 63358, crit = 115279 }, -- circles in the air until he lands
+		--- ✅ 19 aug — HIJ SPAWNT NIET VANZELF. Rob: "deze rare verschijnt na het openen van
+		--- een kist". Zijn `/mh here` gaf 53.75/71.96 en dat is de KIST, niet de rare.
+		---
+		--- Daarmee is ook meteen duidelijk waarom niemand het hier oneens was: wij
+		--- 54.03/72.22, HandyNotes 53.77/72.04, Robs kist 53.75/71.96 — allemaal binnen
+		--- een kwart punt, want ze wijzen alle drie naar hetzelfde voorwerp. En de oude
+		--- notitie "circles in the air until he lands" klopt met zijn screenshot: hij
+		--- hangt boven die kist voordat hij landt.
+		---
+		--- ⚠️ Zonder dat te zeggen sta je op de juiste plek en zie je niets — precies de
+		--- stilte die eruitziet als verouderde data. Vandaar `spawnKey`.
+		{ 98344, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854, ach = 63358, crit = 115279,
+			spawnKey = "RARE_SPAWN_FROM_CHEST" },
 		{ 0, 2512, 67.16, 77.52, "Venom Lancer Ori'kassi", 255927 }, -- elite; not killed yet, id unknown
 		{ 98351, 2642, 66.40, 62.90, "Nar'zira", 258920, ach = 63358, crit = 115283 }, -- interior map
 		--- Four rares our own lap never saw, from HandyNotes_Midnight 149 (13 Aug 2026)
@@ -1019,16 +1031,36 @@ end
 -- NativeArrow (no-TomTom mode) to keep the standalone arrow advancing to the next
 -- rare after you kill one — TomTom does this itself, but the native path needs us
 -- to re-point. Prefers the zone you're standing in, else the selected zone.
+--- What the arrow should add to its label once you are nearly there, or nil.
+---
+--- ⚠️ ARRIVAL ONLY, and that is the whole design. A rare's coordinate is right for the
+--- entire journey; it is at the destination that it can mislead, because the player
+--- stands on the dot, sees nothing and blames the data. Two ways that happens, both
+--- measured on 19 aug:
+---   * the mob swims (Coin-Eye Skully — three sources, three points, one line);
+---   * the mob is not there until you do something (Farthik — you open a chest, and the
+---     coordinate everyone published is the chest).
+---
+--- `spawnKey` wins over `roams`: "open the chest" is an instruction, "look around" is a
+--- consolation, and a player who can act should be told the action.
+function ns.RareArrivalHintKey(rare)
+	if type(rare) ~= "table" then
+		return nil
+	end
+	if rare.spawnKey then
+		return rare.spawnKey
+	end
+	return rare.roams and "ARROW_TARGET_ROAMS" or nil
+end
+
 function ns.GetNearestIncompleteRareLead()
 	local zone = CurrentHuntZone()
 	local rare = zone and NearestOpenRareRespectingSkips(zone)
 	if not rare then
 		return nil
 	end
-	--- `roams` rijdt mee zodat de pijl bij aankomst kan zeggen dat het getal een hint is
-	--- en geen plek. Onderweg verandert het niets: die richting klopt gewoon.
 	return { mapID = rare[2], x = rare[3], y = rare[4], name = GetRareDisplayName(rare),
-		roams = rare.roams }
+		hintKey = ns.RareArrivalHintKey(rare) }
 end
 
 -- Public: fully stop the rare hunt (used by ns.ClearActiveRoute / /mh clear). Clears
@@ -1707,7 +1739,7 @@ function ns.GenerateRaresRoute(zoneKey)
 		local lead = routeRares[1]
 		if lead then
 			ns.lastTarget = { mapID = lead[2], x = lead[3], y = lead[4], name = GetRareDisplayName(lead),
-				roams = lead.roams }
+				hintKey = ns.RareArrivalHintKey(lead) }
 		end
 	end
 

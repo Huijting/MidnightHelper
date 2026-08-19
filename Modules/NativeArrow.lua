@@ -231,11 +231,11 @@ end
 -- every tick (review F3.3). The target's world coords change only when the lead
 -- changes; the label string only when the shown distance/name changes.
 local leadWorldKey, leadWx, leadWy
-local lastLabelName, lastLabelVal, lastLabelUnit, lastLabelRoam
+local lastLabelName, lastLabelVal, lastLabelUnit, lastLabelHint
 
---- How close before the arrow admits a target roams. Deliberately generous: this is
---- "you are in the neighbourhood, start looking around", not "you have arrived".
-local ROAM_HINT_YARDS = 80
+--- How close before the arrow adds what it knows about the destination. Deliberately
+--- generous: this is "you are in the neighbourhood", not "you have arrived".
+local ARRIVAL_HINT_YARDS = 80
 
 --------------------------------------------------------------------------------
 -- On-screen direction arrow (our own; retail has no built-in rotating arrow).
@@ -456,23 +456,31 @@ local function UpdateArrow()
 	end
 	-- Only rebuild the label string when something visible changed (~30 Hz loop): the
 	-- floored distance rarely moves between adjacent ticks, so this skips most allocs.
-	--- ⚠️ A ROAMING TARGET ONLY MISLEADS AT THE END. Coin-Eye Skully swims: our
-	--- coordinate, HandyNotes' and Rob's own reading are three different points on the
-	--- same north-south line, and none of them is wrong. From across the zone the arrow
-	--- is still right — head that way. It is on arrival that a fixed point lies, because
-	--- the player stands on it, sees nothing, and concludes the data is broken.
+	--- ⚠️ AN ARRIVAL HINT, SHOWN ONLY ON ARRIVAL. A coordinate is right for the whole
+	--- journey; it is at the destination that it can mislead, because the player stands
+	--- on the dot, sees nothing, and blames the data. Two measured cases on 19 aug: a
+	--- rare that swims (three sources, three points, one line) and a rare that is not
+	--- there until you open a chest — where every published coordinate is the chest.
 	---
-	--- So the note appears near the destination and not before. Naming it earlier would
-	--- undercut a direction that is perfectly good for the whole journey.
-	local roaming = t.roams and dist <= ROAM_HINT_YARDS
+	--- Saying it earlier would undercut a direction that is perfectly good all the way.
+	local hint = (t.hintKey and dist <= ARRIVAL_HINT_YARDS) and t.hintKey or nil
 	local shownInt = math.floor(shown + 0.5)
 	if t.name ~= lastLabelName or shownInt ~= lastLabelVal or unit ~= lastLabelUnit
-		or roaming ~= lastLabelRoam then
+		or hint ~= lastLabelHint then
 		lastLabelName, lastLabelVal, lastLabelUnit = t.name, shownInt, unit
-		lastLabelRoam = roaming
+		lastLabelHint = hint
 		local text = ("%s  %d %s"):format(t.name or "", shownInt, unit)
-		if roaming then
-			text = text .. "  " .. ns:L("ARROW_TARGET_ROAMS")
+		if hint then
+			--- ⚠️ THIS LOOKUP IS INVISIBLE TO THE LINTER. Check [1] only resolves locale
+			--- keys written as literals, and says so itself — "dynamic refs skipped,
+			--- blind spot". The key here arrives in a variable from the rare's own row,
+			--- so a typo in the data would put a raw key name on the arrow and nothing
+			--- would fail the build. The resolver hands the key back when it cannot
+			--- resolve it, so compare against it and drop the hint instead.
+			local resolved = ns:L(hint)
+			if resolved and resolved ~= hint then
+				text = text .. "  " .. resolved
+			end
 		end
 		f.label:SetText(text)
 	end
