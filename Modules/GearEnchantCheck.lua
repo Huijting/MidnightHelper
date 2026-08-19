@@ -253,6 +253,77 @@ local function EmptySocketCount(slotId)
 	return empty > 0 and empty or 0
 end
 
+--------------------------------------------------------------------------------
+-- /mh socket — kunnen we het socket-venster zelf openen?
+--------------------------------------------------------------------------------
+
+--[[
+	Cisca wist niet hoe je een gem in een socket krijgt. Terecht: wij zeggen WELKE gem
+	("socket 1× Eversong Diamond") en DAT er sockets leeg zijn, maar nergens hoe. Dat
+	is een werkwoord dat je al moet kennen, en precies het soort gat waar deze addon
+	voor bestaat — uitleggen, niet alleen tellen.
+
+	Een knop die het venster gewoon opent is beter dan welke uitleg ook. Of dat mag, is
+	geen kwestie van mening: `SocketInventoryItem` bestaat al jaren, maar 12.x heeft veel
+	UI-acties beschermd, en dan faalt hij stil of met ADDON_ACTION_BLOCKED.
+
+	⚠️ NIET UIT MIJN HOOFD BEANTWOORDEN. Deze probe vraagt het de client:
+	   1. bestaat de functie?
+	   2. is onze aanroep secure?
+	   3. en — het enige dat echt telt — STAAT HET VENSTER OPEN na de aanroep?
+
+	Stap 3 is er omdat 1 en 2 allebei "ja" kunnen zeggen terwijl er niets gebeurt. Een
+	geslaagde pcall bewijst alleen dat er geen fout kwam, niet dat het werkte; dat is
+	dezelfde val als een lege uitkomst voor een afwezigheid aanzien. Daarom wordt er een
+	halve seconde later gekeken of `ItemSocketingFrame` zichtbaar is.
+]]
+
+function ns.ProbeSocketUI()
+	local p = "|cffffff78Midnight Helper:|r"
+	print(("%s socket-UI probe"):format(p))
+
+	local fn = _G.SocketInventoryItem
+	print(("   SocketInventoryItem: %s"):format(
+		type(fn) == "function" and "|cff40c040bestaat|r" or "|cffff5040ONTBREEKT|r"))
+	if type(fn) ~= "function" then
+		print("   |cff8a8f98Dan is een knop uitgesloten en wordt het een uitleg-tekst.|r")
+		return
+	end
+	print(("   onze aanroep is secure: %s"):format(
+		(issecure and issecure()) and "ja" or "|cffe8c36anee (kan geblokkeerd worden)|r"))
+
+	-- Het eerste uitgeruste slot met een lege socket, via dezelfde telling als het advies.
+	local slotId, slotName
+	for _, gs in ipairs(GEM_SLOTS) do
+		if EmptySocketCount(gs.id) > 0 then
+			-- `label` is een Blizzard-global ("HEADSLOT"), dus die geeft de speler zijn
+			-- eigen slotnaam in zijn eigen taal; anders het nummer.
+			slotId = gs.id
+			slotName = (gs.label and _G[gs.label]) or ("slot " .. gs.id)
+			break
+		end
+	end
+	if not slotId then
+		print("   |cff8a8f98Geen leeg socket uitgerust — doe dit met een item dat er wel een heeft,|r")
+		print("   |cff8a8f98anders bewijst 'venster bleef dicht' niks.|r")
+		return
+	end
+	print(("   probeert te openen voor: |cffffd100%s|r"):format(tostring(slotName)))
+
+	local ok, err = pcall(fn, slotId)
+	print(("   aanroep: %s"):format(ok and "geen fout" or ("|cffff5040" .. tostring(err) .. "|r")))
+
+	-- ⚠️ Het bewijs. "Geen fout" is geen resultaat.
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.5, function()
+			local f = _G.ItemSocketingFrame
+			local shown = f and f.IsShown and f:IsShown()
+			print(("   |cffffff78→|r venster open: %s"):format(
+				shown and "|cff40c040JA — de knop kan|r" or "|cffff5040NEE — het wordt een uitleg-tekst|r"))
+		end)
+	end
+end
+
 -- Heeft de speler al ergens een Thalassian Diamond gesocket? (Gem-ID's uit de item-link:
 -- item:itemID:enchant:gem1:gem2:gem3:gem4:...). Zo ja: niet om een tweede vragen.
 local function HasDiamondEquipped()

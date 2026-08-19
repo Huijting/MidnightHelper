@@ -1042,6 +1042,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh socket — kan een addon het socket-venster nog openen in 12.1? Cisca wist niet
+	-- hoe je een gem erin krijgt en wij leggen het nergens uit; dit bepaalt of het een
+	-- knop wordt of een uitleg-tekst.
+	if msg == "socket" then
+		if ns.ProbeSocketUI then
+			ns.ProbeSocketUI()
+		end
+		return
+	end
+
 	-- /mh rarehint — waarom je de aankomst-regel wel of niet hoort. Deze hint is twee keer
 	-- stil mislukt; "ik zie niks" onderscheidt zes oorzaken niet van elkaar.
 	if msg == "rarehint" then
