@@ -743,7 +743,16 @@ local ACHIEVEMENTS = {
 	{ id = 63170, label = "Gnarldor Isle Sturdy Chests (HandyNotes)" },
 	{ id = 63171, label = "The Ring of Glory Sturdy Chests (HandyNotes)" },
 
-	{ id = 63334, label = "Fabled Let Me Solo Him: Azta'rec — EXPIRES at the 25 aug reset" },
+	--- ⚠️ THE DEADLINE IS THE 26th FOR ROB, NOT THE 25th. The watch log took Blizzard's
+	--- date (25 aug) and this file repeated it; a guide video for this exact fight states
+	--- both regions: "NA has until the 25th of August and EU has until the 26th". That is
+	--- the same +1 that has caught us at every season boundary — the Americas turn on
+	--- Tuesday and Europe on Wednesday — and Rob plays EU.
+	---
+	--- Which is also why nothing about this row should ever be hardcoded to a date. Ask
+	--- GetAchievementInfo whether it is still obtainable and the row leaves by itself, in
+	--- whichever region the player is actually in.
+	{ id = 63334, label = "Fabled Let Me Solo Him: Azta'rec — EU deadline 26 aug (NA 25th)" },
 	{ id = 63333, label = "Let Me Solo Him: Azta'rec (mount, solo on ??)" },
 	{ id = 63326, label = "My Venomous Nemesis (back transmog)" },
 }

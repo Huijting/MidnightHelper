@@ -324,6 +324,25 @@ ns.INSTANCE_HAZARDS = {
 	--- one-shot him, and he found out from a death recap. The list only speaks when you
 	--- open the Delve Coach or type /mh hazards. See the companion-advisor spec at the
 	--- top of docs/NEXT_SESSION.md — it exists because of this pull.
+	---
+	--- 📌 WHAT 1288126 PROBABLY IS, 19 aug — a reading, not a measurement, and useful
+	--- enough to write down with that label on it. A guide video for this fight describes
+	--- the intermission: the room splits into quadrants, venom bursts into all but one,
+	--- and being caught applies "Ula'tek's Mark", +500% NATURE damage for the rest of the
+	--- fight. Rob's death recap reads 489,890 Nature, killing blow at 100% health, marked
+	--- Avoidable — and he was standing beside the boss during what he took for a cast,
+	--- which fits Sermon of Ula'tek being a channel.
+	---
+	--- So Wrath of Ula'tek is most likely the quadrant burst rather than a main-phase
+	--- ability. Every detail agrees; none of it is measured. What would settle it: whether
+	--- it only ever appears at 90/60/30% health.
+	---
+	--- ⚠️ AND A TECHNICAL ONE THAT AFFECTS US DIRECTLY. The same video reports that
+	--- Blizzard has BLOCKED coordinate tracking inside this delve, which is what killed
+	--- the third-party "which quadrant is safe" addons. If that holds, our own arrow,
+	--- `/mh here` and any waypoint will be silent in here — and a silent arrow looks
+	--- identical to a broken one. Unverified; Rob is in there now and `/mh here` answers
+	--- it in one command.
 	[3079] = { -- was CANDIDATE, 17 aug: Method publishes an "Azta'rec nemesis delve"
 		-- guide whose boss abilities include Noxious Bile — one of the four ids
 		-- below — at 2512 51.22 / 30.27, and Venomfall Deeps was already on our
