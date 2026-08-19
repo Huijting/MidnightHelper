@@ -201,14 +201,23 @@ local MIDNIGHT_PORTALS = {
 	-- which is exactly the track Icy Veins named ("only Prey Journey rank 1 is needed").
 	-- `C_MajorFactions.GetMajorFactionData(2808).renownLevel` answers it directly.
 	--
-	-- ⚠️ NOT CHANGED YET, and the reason is the measurement we do not have. Rob sits at
-	-- rank 0 and has not picked up 96004, so nobody has yet seen the portal exist at
-	-- rank 1 — the claim is still Icy Veins', not ours. What we now know is only that it
-	-- is CHECKABLE, which it was not this morning.
+	-- ✅ SETTLED 19 aug, and the answer is the opposite of what was planned here. Rob ran
+	-- `/mh atal` on an alt: **Preyhunter's Journey renown 0**, the Prey chain flagged
+	-- completed (96004, 96466, 96474, 96525), and **the portals work for that character**.
+	-- Renown zero with a working portal rules renown out as the gate — a requirement you
+	-- do not meet cannot be what is letting you through.
 	--
-	-- When someone does confirm it, `requiresQuest` is the wrong field rather than the
-	-- wrong id, and this row wants a `requiresRenown = { faction = 2808, level = 1 }`
-	-- shape instead. Do not convert it on the strength of a guide.
+	-- So `requiresQuest` STAYS. The plan recorded above — convert this row to
+	-- `requiresRenown = { faction = 2808, level = 1 }` — would have broken the feature for
+	-- exactly the players it is meant to serve, and it came from a guide sentence that
+	-- sounded specific enough to trust. This is the second time today a guide's confident
+	-- phrasing nearly overwrote something the client could settle in a minute.
+	--
+	-- Left open, because nothing measured touches it: WHICH quest is the gate. 96004 is
+	-- the id we use and it is completed on both characters, so it is consistent with the
+	-- evidence rather than proven by it. A character part-way through the chain would
+	-- separate 96004 from the rest; until then this is the honest best guess and is
+	-- labelled as one.
 	--
 	-- Two player claims from the same source are deliberately NOT acted on: that the
 	-- portal only works at level 90, and that the portal quest starts only after a
