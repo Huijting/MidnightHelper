@@ -910,6 +910,103 @@ end
 --- Delves.lua already knew the right call — C_AreaPoiInfo.GetDelvesForMap, which it
 --- uses for bountiful state. That one is keyed on the map, not on a name, so unlike our
 --- roster it can return a delve nobody has told it about. Which is the whole question.
+--- ⚠️ CANDIDATE API NAMES, taken from another addon and therefore NOT trusted.
+---
+--- EverythingDelves 1.26.0 (18 aug) stopped hardcoding its tier table and now reads it
+--- from the game. Three names appear in its Constants.lua:
+---
+---     C_DelvesUI.GetCurrentDelvesSeasonNumber()
+---     C_DelvesUI.GetDelveEntranceTiers()        -> rows carrying .suggestedILvl
+---     C_DelvesUI.GetTieredEntranceType()
+---
+--- The first is the one worth having. Our own `IsSeason2Live()` computes the season
+--- from a reset date and has been corrected THREE times — six days early in June, five
+--- in August, one day for the EU. If the client will simply say which delve season it
+--- is, that arithmetic can go.
+---
+--- ⚠️ But this is exactly the shape that produced `LEARNED_SPELL_IN_TAB`: a name that
+--- appeared in several addons, was registered on trust, and threw on the next reload
+--- because 12.x had removed it. So nothing here is called without a guard, nothing is
+--- built on the answer, and the point of this section is to find out whether the names
+--- exist AT ALL on Rob's client. Everything lands in the DB either way.
+---
+--- ⚠️ AND `suggestedILvl` IS NOT OUR LOOT TABLE. It is the item level a tier suggests
+--- you bring, not the end-chest and vault levels DELVE_LOOT_TABLE_S2 wants. Reading one
+--- and filling in the other would be the confident-wrong-number this addon gates
+--- against. Two different questions; this answers the first only.
+local function PrintDelvesUI(out)
+	out.delvesUI = {}
+	print("   |cff8fd3ffC_DelvesUI|r  (candidate names from EverythingDelves — does YOUR client have them?)")
+
+	if type(C_DelvesUI) ~= "table" then
+		print("      |cffff5040C_DelvesUI does not exist on this client.|r")
+		out.delvesUI.tableExists = false
+		return
+	end
+	out.delvesUI.tableExists = true
+
+	local function Try(name, fn)
+		if type(C_DelvesUI[name]) ~= "function" then
+			print(("      |cffff5040%s|r  — not a function here"):format(name))
+			out.delvesUI[name] = "missing"
+			return nil
+		end
+		local ok, result = pcall(C_DelvesUI[name])
+		if not ok then
+			print(("      |cffff5040%s|r  — threw: %s"):format(name, tostring(result)))
+			out.delvesUI[name] = "error"
+			return nil
+		end
+		if fn then
+			fn(result)
+		end
+		return result
+	end
+
+	Try("GetCurrentDelvesSeasonNumber", function(n)
+		print(("      |cff40c040GetCurrentDelvesSeasonNumber|r → |cffffffff%s|r"):format(tostring(n)))
+		out.delvesUI.seasonNumber = n
+		--- The whole reason this is interesting: does the client agree with our own gate?
+		local ours = ns.IsSeason2Live and ns.IsSeason2Live()
+		out.delvesUI.ourGateSaysS2 = ours and true or false
+		print(("      |cff8a8f98our IsSeason2Live() says: %s|r"):format(tostring(ours)))
+	end)
+
+	Try("GetTieredEntranceType", function(t)
+		print(("      |cff40c040GetTieredEntranceType|r → |cffffffff%s|r"):format(tostring(t)))
+		out.delvesUI.entranceType = tostring(t)
+	end)
+
+	Try("GetDelveEntranceTiers", function(tiers)
+		if type(tiers) ~= "table" then
+			print(("      |cffffd100GetDelveEntranceTiers|r → %s (not a table)"):format(tostring(tiers)))
+			out.delvesUI.tiers = tostring(tiers)
+			return
+		end
+		print(("      |cff40c040GetDelveEntranceTiers|r → %d row(s)"):format(#tiers))
+		out.delvesUI.tiers = {}
+		for i, row in ipairs(tiers) do
+			if type(row) == "table" then
+				--- Every field, not just the one we came for: if the loot levels are in
+				--- here too, that closes DELVE_LOOT_TABLE_S2 without eleven delve runs.
+				local parts = {}
+				for k, v in pairs(row) do
+					parts[#parts + 1] = ("%s=%s"):format(tostring(k), tostring(v))
+				end
+				table.sort(parts)
+				local line = table.concat(parts, " ")
+				out.delvesUI.tiers[i] = line
+				if i <= 4 then
+					print(("         [%d] %s"):format(i, line))
+				end
+			end
+		end
+		if #tiers > 4 then
+			print(("         |cff8a8f98… %d more, all in the DB|r"):format(#tiers - 4))
+		end
+	end)
+end
+
 local function PrintDelvePOIs(out)
 	local API = C_AreaPoiInfo
 	if not (API and API.GetDelvesForMap and API.GetAreaPOIInfo) then
@@ -1445,6 +1542,7 @@ function ns.PrintAtalUtekProbe(from, to)
 	PrintAchievements(out)
 	out.links, out.pois, out.delves = {}, {}, {}
 	PrintMapLinks(out)
+	PrintDelvesUI(out)
 	PrintDelvePOIs(out)
 	PrintAreaPOIs(out)
 	PrintGossip(out)
