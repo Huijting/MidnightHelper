@@ -1032,6 +1032,49 @@ end
 --- The lesson is not about this API. A third party's comment and my own lazy dump agreed
 --- with each other, and agreement between two careless sources reads exactly like
 --- confirmation.
+--- Every Renown faction this client knows, with its name and current level.
+---
+--- ⚠️ ONE QUESTION ONLY: is there a Midnight faction we never listed? MountProgress.lua
+--- carries five (Amani, Hara'ti, Silvermoon, Singularity, Ritual) and a 12.1 mount guide
+--- describes two mounts sold at renown 17 and 19 by a faction it calls "Zul'jara's
+--- Forces" — exactly the shape of the rows we already have.
+---
+--- The source is an auto-transcribed spoken word and renders Tokka's Landing as
+--- "Tucker's Landing", so the NAME is worth nothing. The count is worth everything: six
+--- ids means we are missing a renown track, two mounts and a progress bar. Five means
+--- somebody misheard one of ours.
+local function PrintMajorFactions(out)
+	out.factions = {}
+	if not (C_MajorFactions and C_MajorFactions.GetMajorFactionIDs) then
+		print("   |cffff5040C_MajorFactions is not available on this client.|r")
+		return
+	end
+	local ok, ids = pcall(C_MajorFactions.GetMajorFactionIDs)
+	if not ok or type(ids) ~= "table" then
+		print("   |cffff5040GetMajorFactionIDs gave nothing.|r")
+		return
+	end
+	print(("   |cff8fd3ffRenown factions|r  (%d — we list 5 in MountProgress)"):format(#ids))
+	for _, id in ipairs(ids) do
+		local name, level
+		if C_MajorFactions.GetMajorFactionData then
+			local okD, data = pcall(C_MajorFactions.GetMajorFactionData, id)
+			if okD and type(data) == "table" then
+				if ns.CanAccessText and ns.CanAccessText(data.name) then
+					name = data.name
+				end
+				level = tonumber(data.renownLevel)
+			end
+		end
+		out.factions[#out.factions + 1] = {
+			id = id, name = name, renown = level,
+		}
+		print(("      %-6d %-34s renown %s"):format(
+			id, name or "(no name)", level and tostring(level) or "?"))
+	end
+	print("      |cff8a8f98Six Midnight ids means we are missing one. Five means a guide misheard ours.|r")
+end
+
 local function PrintDelvesUI(out)
 	out.delvesUI = {}
 	print("   |cff8fd3ffC_DelvesUI|r  (candidate names from EverythingDelves — does YOUR client have them?)")
@@ -1676,6 +1719,7 @@ function ns.PrintAtalUtekProbe(from, to)
 	PrintAchievements(out)
 	out.links, out.pois, out.delves = {}, {}, {}
 	PrintMapLinks(out)
+	PrintMajorFactions(out)
 	PrintDelvesUI(out)
 	PrintDelvePOIs(out)
 	PrintAreaPOIs(out)

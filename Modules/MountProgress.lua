@@ -111,6 +111,24 @@ local TRACKED = {
 	-- — if one never hides after you collect it, that item ID is the thing to re-check).
 	-- We only surface a renown mount once you have ANY renown with the faction, so
 	-- un-started factions don't clutter the list with 0/NN goals.
+	--
+	-- ⚠️ OPEN, 19 aug: IS THERE A SIXTH MIDNIGHT FACTION WE HAVE NEVER LISTED?
+	--
+	-- A 12.1 mount guide describes two mounts sold by Jansari at Tokka's Landing for
+	-- Voidlight Marl at renown 17 and 19 — Indigo Coiled Horror and Violet-Backed
+	-- Skyfang — from a faction it calls "Zul'jara's Forces". That is precisely the shape
+	-- of every row below: one faction, a mount at 17 and another at 19, paid in Marl.
+	--
+	-- We carry five faction ids: 2696 Amani, 2704 Hara'ti, 2710 Silvermoon, 2699
+	-- Singularity, 2792 Ritual. None of them is a Coiled Isle faction by name.
+	--
+	-- ⚠️ AND THE SOURCE IS AN AUTO-TRANSCRIBED SPOKEN WORD, so the name is worth very
+	-- little: the same transcript renders Tokka's Landing as "Tucker's Landing". Either
+	-- a whole renown track is missing from this list — two mounts and a progress bar
+	-- nobody sees — or it is one of the five above, misheard.
+	--
+	-- `C_MajorFactions.GetMajorFactionIDs()` settles it, and `/mh atal` now prints it.
+	-- Do NOT add a sixth row until that returns a sixth id.
 	{ key = "amanibear",  mountItemID = 257219, renownFactionID = 2696, need = 17, fallbackName = "Amani Blessed Bear",             howToKey = "MOUNTPROG_AMANIBEAR_HOWTO" },
 	{ key = "amaniwind",  mountItemID = 250889, renownFactionID = 2696, need = 19, fallbackName = "Amani Windcaller",              howToKey = "MOUNTPROG_AMANIWIND_HOWTO" },
 	{ key = "grimlynx",   mountItemID = 246734, renownFactionID = 2704, need = 16, fallbackName = "Fierce Grimlynx",              howToKey = "MOUNTPROG_GRIMLYNX_HOWTO" },
