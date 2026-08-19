@@ -136,12 +136,53 @@ local function TargetName()
 	return nil
 end
 
+--- Instances where the client refuses to give a position at all — not a hiccup, a rule.
+---
+--- ✅ MEASURED 19 aug: Rob ran `/mh here` inside Venomfall Deeps and got nothing. A guide
+--- video for that delve says why — Blizzard blocked coordinate tracking in here, which is
+--- what broke the third-party "which quadrant is safe" addons that were reading them.
+---
+--- ⚠️ THE POINT IS THE WORDING, NOT THE LIST. The old message said "try again in a
+--- moment", which is true of a loading screen and false here: it never comes back. A
+--- player who follows that advice stands there retrying a command that cannot work, and
+--- concludes the addon is broken. The same silence hits the route arrow and every
+--- waypoint in this delve, and a silent arrow is indistinguishable from a broken one —
+--- which is the exact confusion `/mh arrow` exists to clear up.
+---
+--- Keyed on the instance id the client itself reports, like HazardData: no zone names.
+--- Other delves are fine — the golem in The Ring of Glory was logged this way on 18 aug.
+ns.POSITION_BLOCKED = {
+	[3079] = true, -- Venomfall Deeps (Azta'rec)
+}
+
+--- @return boolean blocked, string|nil instanceName
+function ns.PositionBlockedHere()
+	if not GetInstanceInfo then
+		return false
+	end
+	local ok, name, _, _, _, _, _, instanceID = pcall(GetInstanceInfo)
+	if not ok or not instanceID then
+		return false
+	end
+	if not ns.POSITION_BLOCKED[instanceID] then
+		return false
+	end
+	return true, (ns.CanAccessText and ns.CanAccessText(name)) and name or nil
+end
+
 --- `/mh here [note]` — append this spot to ns.db.spots.
 function ns.LogSpotHere(note)
 	local mapID, x, y, zone = Here()
 	if not (mapID and x and y) then
 		-- Position is unavailable in a few places (some instances, mid-loading). Say
 		-- so rather than writing a row with holes in it that reads like a measurement.
+		local blocked, where = ns.PositionBlockedHere()
+		if blocked then
+			print(("%s |cffffd100%s does not give out coordinates.|r"):format(
+				Prefix(), where or "This delve"))
+			print("   |cff8a8f98Blizzard blocked it here, so retrying will not help — and the route arrow is silent in here for the same reason, not because it is broken.|r")
+			return
+		end
 		print(("%s |cffff5040no position right now|r — try again in a moment, or step outside."):format(Prefix()))
 		return
 	end

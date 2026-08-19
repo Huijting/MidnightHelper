@@ -337,12 +337,14 @@ ns.INSTANCE_HAZARDS = {
 	--- ability. Every detail agrees; none of it is measured. What would settle it: whether
 	--- it only ever appears at 90/60/30% health.
 	---
-	--- ⚠️ AND A TECHNICAL ONE THAT AFFECTS US DIRECTLY. The same video reports that
-	--- Blizzard has BLOCKED coordinate tracking inside this delve, which is what killed
-	--- the third-party "which quadrant is safe" addons. If that holds, our own arrow,
-	--- `/mh here` and any waypoint will be silent in here — and a silent arrow looks
-	--- identical to a broken one. Unverified; Rob is in there now and `/mh here` answers
-	--- it in one command.
+	--- ✅ AND A TECHNICAL ONE THAT AFFECTS US DIRECTLY — CONFIRMED the same hour. Blizzard
+	--- has BLOCKED coordinate tracking inside this delve, which is what killed the
+	--- third-party "which quadrant is safe" addons. Rob ran `/mh here` standing in it and
+	--- the client gave him nothing.
+	---
+	--- So our route arrow, every waypoint and `/mh here` are silent in here, and a silent
+	--- arrow is indistinguishable from a broken one. `ns.POSITION_BLOCKED` in SpotLog.lua
+	--- now carries 3079 so the addon says which of the two it is.
 	[3079] = { -- was CANDIDATE, 17 aug: Method publishes an "Azta'rec nemesis delve"
 		-- guide whose boss abilities include Noxious Bile — one of the four ids
 		-- below — at 2512 51.22 / 30.27, and Venomfall Deeps was already on our
