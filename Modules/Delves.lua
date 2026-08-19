@@ -450,10 +450,45 @@ local DELVE_LOOT_TABLE_S1 = {
 --- confident wrong number this whole table is gated against, however neatly it matches
 --- what the guides quote for the vault.
 ---
---- To finish this WITHOUT eleven delve runs: in that same picker, hover each reward at
---- one tier per distinct context. Eight for the coffer (tiers 1-8), five for the bounty
---- (tiers 4-8). Two are already done. Thirteen hovers, one window.
-local DELVE_LOOT_TABLE_S2 = {}
+--- ✅ FILLED 19 aug FROM ROB'S OWN SCREEN. Thirteen tooltips in the entrance picker of
+--- The Darkway, tier by tier. Not a guide, not a datamine, not another addon's typing:
+--- the numbers the game itself showed him.
+---
+--- ✅ AND THE CONTROL HELD. Tier 8 was hovered even though the context table said it
+--- had to equal tier 11 — it read 295 and 305, exactly as tier 11 had. So the inference
+--- "tiers 8-11 share a context, therefore share rewards" is measured rather than
+--- reasoned, and rows 9-11 below are copies on purpose.
+---
+--- ⚠️ `vault` IS STILL MISSING, AND THAT IS DELIBERATE. The entrance window shows two
+--- of the three ceilings; the Great Vault world row is not in it. The sources disagree
+--- about that one — published guides say it reaches 305, EverythingDelves' hand-typed
+--- column stops at 298 — and this table has no business picking a winner from the
+--- sidelines. It stays absent until someone reads their own vault.
+---
+--- 📌 `bounty` is new here and had no column before: the Trovehunter's Bounty leads to a
+--- a Hidden Trove and is a SEPARATE reward from the end chest, once per week per
+--- character. It does not exist below tier 4.
+---
+--- 📌 The Bountiful Heavy Trunk is 201 at every tier (one shared context, 107), so it is
+--- not a per-tier row at all.
+---
+--- Worth noting for the next season: EverythingDelves' hand-typed coffer column matched
+--- all eleven of these exactly. Their typing was right; the rule against copying it is
+--- about not being able to TELL, not about them being sloppy.
+local DELVE_LOOT_TABLE_S2 = {
+	[1]  = { endChest = 266, endTrack = "Adventurer 1/6" },
+	[2]  = { endChest = 269, endTrack = "Adventurer 2/6" },
+	[3]  = { endChest = 272, endTrack = "Adventurer 3/6" },
+	[4]  = { endChest = 276, endTrack = "Adventurer 4/6", bounty = 282, bountyTrack = "Veteran 2/6" },
+	[5]  = { endChest = 279, endTrack = "Veteran 1/6",    bounty = 289, bountyTrack = "Veteran 4/6" },
+	[6]  = { endChest = 282, endTrack = "Veteran 2/6",    bounty = 292, bountyTrack = "Champion 1/6" },
+	[7]  = { endChest = 292, endTrack = "Champion 1/6",   bounty = 295, bountyTrack = "Champion 2/6" },
+	[8]  = { endChest = 295, endTrack = "Champion 2/6",   bounty = 305, bountyTrack = "Hero 1/6" },
+	-- 9, 10 and 11 are tier 8 again — same context, measured, not assumed.
+	[9]  = { endChest = 295, endTrack = "Champion 2/6",   bounty = 305, bountyTrack = "Hero 1/6" },
+	[10] = { endChest = 295, endTrack = "Champion 2/6",   bounty = 305, bountyTrack = "Hero 1/6" },
+	[11] = { endChest = 295, endTrack = "Champion 2/6",   bounty = 305, bountyTrack = "Hero 1/6" },
+}
 
 --- Which table applies right now, or nil when the season has turned and we have not
 --- measured it. nil is a real answer here and the caller prints a sentence for it.
@@ -1729,12 +1764,29 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 		GameTooltip:AddLine("--- Rewards (by tier) ---", 1, 0.82, 0)
 		local lootTable = CurrentLootTable()
 		if lootTable then
+			--- ⚠️ BUILT FROM WHAT THE ROW ACTUALLY HAS. This used to be a bare
+			--- `format("End %d | Vault %d", loot.endChest, loot.vault)`, which throws the
+			--- moment a row knows one number and not the other — and that is precisely
+			--- the shape of the Season 2 table: its end-chest and Trovehunter values were
+			--- read off the entrance window, while the Great Vault row is not shown there
+			--- and remains unmeasured.
+			---
+			--- A missing figure prints as "?" rather than being left out, so the gap is
+			--- visible instead of looking like a reward that does not exist.
 			for t = 1, 8 do
 				local loot = lootTable[t]
 				if loot then
+					local parts = {}
+					if loot.endChest then
+						parts[#parts + 1] = ("End %d"):format(loot.endChest)
+					end
+					if loot.bounty then
+						parts[#parts + 1] = ("Trove %d"):format(loot.bounty)
+					end
+					parts[#parts + 1] = loot.vault and ("Vault %d"):format(loot.vault) or "Vault ?"
 					GameTooltip:AddDoubleLine(
 						"Tier " .. t .. ":",
-						string.format("End %d | Vault %d", loot.endChest, loot.vault),
+						table.concat(parts, " | "),
 						1,
 						1,
 						1,
@@ -1743,6 +1795,14 @@ local function ApplyDelveRowVisuals(row, item, _colIdx)
 						1
 					)
 				end
+			end
+			--- Season 2 caps at tier 8 and the four tiers above it are identical, which is
+			--- the one thing here a player can act on immediately. Only worth saying while
+			--- that is true, so it hangs off the data rather than off the season.
+			local eight, eleven = lootTable[8], lootTable[11]
+			if eight and eleven and eight.endChest == eleven.endChest
+				and eight.bounty == eleven.bounty then
+				GameTooltip:AddLine(ns:L("DELVE_REWARDS_CAP_AT_8"), 0.6, 0.9, 0.6, true)
 			end
 		else
 			-- Season 2 with nothing measured. Say that, rather than quote Season 1's

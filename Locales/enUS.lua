@@ -1359,6 +1359,7 @@ ns._mhLocales.enUS = {
 	OPEN_TIP_HINT = "Left-click: open · right-drag: move · arrow: toggle list · Shift+scroll: resize",
 	OPEN_TIP_CAPPED = "Season total reached, so this will not open. Spending does not help — the cap counts what you have earned. It rises at the weekly reset.",
 	DELVE_TIP_UNMEASURED = "New in patch 12.1, on the Coiled Isle. Midnight Helper found this delve on your own client, but nobody has walked it yet — so there is no route, no trash list and no boss plan here rather than a borrowed one. It fills in once it has been run.",
+	DELVE_REWARDS_CAP_AT_8 = "Tiers 9, 10 and 11 give exactly what tier 8 gives — the game hands all four the same rewards. Read off the delve entrance, not from a guide. Vault numbers are still unmeasured; that row is a separate ceiling the entrance does not show.",
 	DELVE_REWARDS_UNMEASURED = "Season 2 changed these item levels and Midnight Helper has not measured the new ones yet. Rather than show you Season 1 numbers that are now too low, this list stays empty until a real run fills it in. Your end-of-delve chest and your Great Vault are the honest answer.",
 	WAY_SET_HERE = "Waypoint set: %s.",
 	WAY_SET_ELSEWHERE = "Waypoint set: %s, in %s. You are in %s — travel there first and the arrow will pick you up.",
