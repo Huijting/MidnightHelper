@@ -955,6 +955,24 @@ end
 --- you bring, not the end-chest and vault levels DELVE_LOOT_TABLE_S2 wants. Reading one
 --- and filling in the other would be the confident-wrong-number this addon gates
 --- against. Two different questions; this answers the first only.
+---
+--- ✅ MEASURED 19 aug, twice, and both results are worth keeping:
+---
+---   1. STANDING AT AN ENTRANCE IS NOT ENOUGH. Rob ran this beside a delve and `tiers`
+---      came back empty both times, with entranceType 0. EverythingDelves says why in
+---      its own comment: "It only reads while a delve entrance interaction is open."
+---      The picker window has to be up. So an empty list here means "not interacting",
+---      not "the API is dead" — worth knowing before someone declares it broken.
+---
+---   2. THE LOOT LEVELS HAVE NO API AT ALL. Same file, plainer still: "The two reward
+---      columns have no live API and are hand-authored." So the numbers
+---      DELVE_LOOT_TABLE_S2 is waiting for cannot be read from the game by anyone;
+---      EverythingDelves typed theirs in by hand.
+---
+--- That closes the idea this section was written to test. The eleven rows still have to
+--- come from Rob's own loot, exactly as Delves.lua:380 says. Their hand-authored table
+--- is a candidate to CHECK his readings against, never a substitute for them — it is a
+--- third party's typing, which is the same class of source as a guide.
 local function PrintDelvesUI(out)
 	out.delvesUI = {}
 	print("   |cff8fd3ffC_DelvesUI|r  (candidate names from EverythingDelves — does YOUR client have them?)")
@@ -1002,6 +1020,14 @@ local function PrintDelvesUI(out)
 		if type(tiers) ~= "table" then
 			print(("      |cffffd100GetDelveEntranceTiers|r → %s (not a table)"):format(tostring(tiers)))
 			out.delvesUI.tiers = tostring(tiers)
+			return
+		end
+		if #tiers == 0 then
+			--- Say what empty MEANS, or the next reader concludes the API is dead. It
+			--- only answers while the entrance picker is actually open on screen.
+			print("      |cffffd100GetDelveEntranceTiers|r → empty. Click the delve entrance so the")
+			print("         |cff8a8f98tier picker is OPEN, then run this again — it only reads while that window is up.|r")
+			out.delvesUI.tiers = "empty (picker not open?)"
 			return
 		end
 		print(("      |cff40c040GetDelveEntranceTiers|r → %d row(s)"):format(#tiers))

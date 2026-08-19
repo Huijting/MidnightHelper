@@ -418,6 +418,18 @@ local DELVE_LOOT_TABLE_S1 = {
 
 --- Season 2 values. Empty on purpose: nobody has run a delve in Season 2 yet.
 --- Fill from your own loot, not from a datamine — one delve per tier settles a row.
+---
+--- ⚠️ AND THERE IS NO SHORTCUT, measured 19 aug rather than assumed. 12.1 added
+--- `C_DelvesUI.GetDelveEntranceTiers()`, which sounded like it might hand over the whole
+--- table; it does not. It returns `suggestedILvl` — the level a tier recommends you
+--- BRING — and only while the entrance picker is open on screen. EverythingDelves, which
+--- reads that API, says of the reward columns in its own file: "The two reward columns
+--- have no live API and are hand-authored."
+---
+--- So these eleven rows can only come from someone's loot. Their hand-typed table is
+--- worth comparing a reading against, and is not a source to copy: third-party typing
+--- is the same class of thing as a guide, and this table is gated precisely so that a
+--- confident wrong number never reaches a player.
 local DELVE_LOOT_TABLE_S2 = {}
 
 --- Which table applies right now, or nil when the season has turned and we have not
