@@ -83,8 +83,32 @@ local FEET_TERTIARY = {
 	{ sid = 1236057, ah = "Enchant Boots - Lynx's Dexterity" },
 }
 -- LEGS: top-tier kit (Agi/Str) en spellthread (Int).
-local LEG_AGISTR = { iid = 244640, ah = "Forest Hunter's Armor Kit" }
-local LEG_INT = { iid = 240154, ah = "Arcanoweave Spellthread" }
+--- ⚠️ WE OFFERED ONE OF EACH AND THERE ARE TWO OF EACH. The primary-stat split is right —
+--- Intellect takes a spellthread, Agility and Strength take a kit — but inside each of
+--- those there is a second choice we never showed, and the stale-advice audit found six
+--- of six sampled specs picking by it.
+---
+--- Both kits grant "Agility / Strength", so the axis is not the primary stat at all: it is
+--- armor (Blood Knight's) against stamina (Forest Hunter's). Both threads grant Intellect;
+--- there it is mana (Arcanoweave) against stamina (Sunfire Silk).
+---
+--- ⏳ NO PER-SPEC RULE IS ASSERTED. The obvious one — armor for tanks — does not survive
+--- the evidence: Prot Paladin and Fury Warrior both take Blood Knight's, and Fury is not a
+--- tank. Six sampled specs is enough to prove the choice exists and nowhere near enough to
+--- write the rule, so both are listed the way head and feet already list their trio, and
+--- the footer keeps pointing at a class guide for true best-in-slot.
+---
+--- All four item ids confirmed against Rob's client on 19 aug (`/mh item`). Note 244640
+--- and 244641 both come back "Forest Hunter's Armor Kit" — the same adjacent-id pairing
+--- the consumables data shows, so our long-standing number was never wrong.
+local LEG_AGISTR = {
+	{ iid = 244640, ah = "Forest Hunter's Armor Kit" },
+	{ iid = 244642, ah = "Blood Knight's Armor Kit" },
+}
+local LEG_INT = {
+	{ iid = 240154, ah = "Arcanoweave Spellthread" },
+	{ iid = 240133, ah = "Sunfire Silk Spellthread" },
+}
 --- SHOULDER: Speed-enchant.
 ---
 --- ⚠️ THE AH STRING SAID "Shoulder" AND THE ITEM IS "Shoulders". One missing letter, and
@@ -502,21 +526,28 @@ local function Recommend(slotId, stat, map)
 			parts[#parts + 1] = LinkOf(map, e)
 		end
 		return ns:L("ENCHANT_PICK") .. " " .. table.concat(parts, " / ")
-	elseif slotId == 7 then -- legs: kies op hoofdstat (Int → spellthread, Agi/Str → kit)
+	elseif slotId == 7 then -- legs: hoofdstat kiest kit of thread; binnen elk nog een keuze
+		local function bothOf(list)
+			local parts = {}
+			for _, e in ipairs(list) do
+				parts[#parts + 1] = LinkOf(map, e)
+			end
+			return ns:L("ENCHANT_PICK") .. " " .. table.concat(parts, " / ")
+		end
 		local p = PrimaryStat()
 		if p == "int" then
-			return LinkOf(map, LEG_INT)
+			return bothOf(LEG_INT)
 		elseif p == "agi" or p == "str" then
-			return LinkOf(map, LEG_AGISTR)
+			return bothOf(LEG_AGISTR)
 		end
-		-- Onbekend: toon beide met labels als veilige fallback.
+		-- Onbekende hoofdstat: allebei de families met hun label, zoals voorheen.
 		return ns:L("ENCHANT_LEGS_AGISTR")
 			.. " "
-			.. LinkOf(map, LEG_AGISTR)
+			.. bothOf(LEG_AGISTR)
 			.. "   "
 			.. ns:L("ENCHANT_LEGS_INT")
 			.. " "
-			.. LinkOf(map, LEG_INT)
+			.. bothOf(LEG_INT)
 	end
 	return nil
 end
