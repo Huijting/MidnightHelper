@@ -155,16 +155,23 @@ ns.POSITION_BLOCKED = {
 	[3079] = true, -- Venomfall Deeps (Azta'rec)
 }
 
+--- ⚠️ USES ns.GetCurrentInstanceID RATHER THAN ASKING GetInstanceInfo AGAIN, and the
+--- first version of this function is why that sentence is here. It unpacked the call
+--- itself with six underscores where eight returns deep is needed, so it read `isDynamic`
+--- as the instance id, never matched, and Rob saw the old "try again in a moment" message
+--- while standing in the one delve this was written for.
+---
+--- Hazards.lua:28 already had the call, already correct. Re-implementing a multi-return
+--- unpack two files away from a working one is how you get an off-by-one that lints
+--- clean, throws nothing, and simply never fires.
+---
 --- @return boolean blocked, string|nil instanceName
 function ns.PositionBlockedHere()
-	if not GetInstanceInfo then
+	if not ns.GetCurrentInstanceID then
 		return false
 	end
-	local ok, name, _, _, _, _, _, instanceID = pcall(GetInstanceInfo)
-	if not ok or not instanceID then
-		return false
-	end
-	if not ns.POSITION_BLOCKED[instanceID] then
+	local instanceID, name = ns.GetCurrentInstanceID()
+	if not instanceID or not ns.POSITION_BLOCKED[instanceID] then
 		return false
 	end
 	return true, (ns.CanAccessText and ns.CanAccessText(name)) and name or nil
