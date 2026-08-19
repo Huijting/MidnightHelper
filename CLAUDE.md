@@ -144,6 +144,12 @@ de bovenstaande vorm heeft.
 - **Never couple arrow lifetime to `ns.lastTarget` alone** — several modules nil `ns.lastTarget` in zone handlers, which used to kill the arrow. NativeArrow caches its own `activeLead` and keys off the stable `_mhRouteOwner`. Modules that nil `ns.lastTarget` expose `ns.GetNearestIncomplete<X>Lead()` for the arrow to follow.
 - Per-content icon/colour comes from an `OWNER_STYLE` table. If **TomTom** is driving, our arrow stays idle — its crazy arrow is the same kind of thing as ours. Otherwise **we draw**, including alongside WaypointUI.
 - ⚠️ **Changed 5 Aug 2026.** We used to stand down for **WaypointUI** too, which quietly cancelled the route arrow for everyone who has that addon — most of Rob's testers. `/mh arrow` on his own machine, with TomTom off, read "wij sturen: ja / onze pijl getekend: nee". A feature a release announced and that silently never appears is worse than two indicators, and the two are not even the same: WaypointUI draws a pin at a place, ours gives a direction, a distance and the next stop's name. Restore the old behaviour per player with `/mh arrow yield`.
+- ⚠️ **Do not hang information on the arrow's label.** Fixed 19 Aug 2026, and it is the same
+  mistake as the WaypointUI one above wearing a different hat. The rare arrival hints ("this one
+  roams", "comes out of a chest") were written onto the arrow's label — invisible to Rob, because
+  he runs TomTom and we stand down for it, and invisible to every other TomTom user with him. The
+  arrow is a place we *sometimes* own; a sentence the player needs is not conditional on that.
+  Say it in chat (`ns.StartRareArrivalWatch` in `Rares.lua`), where no other addon can take it away.
 - **`/mh arrow`** prints who is driving and whether a route ever published a target. Use it before debugging a "the arrow does not work" report: standing down on purpose and being genuinely broken look identical from outside.
 
 ### Secure frames (WoW 12.x — read before touching markers/casting UI)

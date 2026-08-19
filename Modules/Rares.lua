@@ -1053,6 +1053,101 @@ function ns.RareArrivalHintKey(rare)
 	return rare.roams and "ARROW_TARGET_ROAMS" or nil
 end
 
+--------------------------------------------------------------------------------
+--- Arrival hint, said out loud instead of drawn.
+---
+--- ⚠️ THE FIRST VERSION PUT THIS ON OUR ARROW'S LABEL, AND ROB NEVER SAW IT. He has
+--- TomTom, and NativeArrow's own header says what happens then: "While TomTom's crazy
+--- arrow is actually showing, this module stands down." So the label the hint lived on
+--- is not drawn for him — nor for most of his testers, nor for anyone else running
+--- TomTom. A note attached to a thing that usually is not there is not a note.
+---
+--- Chat does not care who draws the arrow. It costs one line, it cannot be missed, and
+--- it survives TomTom, WaypointUI and having no arrow at all.
+---
+--- ⚠️ ONCE PER RARE, not once per tick. The ticker runs at 2s while a rare route is
+--- live; without the guard this would be a sentence every two seconds for as long as
+--- you stand there, which is how a useful line becomes something people switch off.
+--------------------------------------------------------------------------------
+
+local HINT_TICK_SEC = 2
+local ARRIVAL_HINT_YARDS = 80
+local hintTicker
+local hintSaidFor = {} -- npcID -> true for rares we have already spoken about
+
+local function PlayerWorldPos()
+	if not (C_Map and C_Map.GetBestMapForUnit and C_Map.GetPlayerMapPosition) then
+		return nil
+	end
+	local okM, mapID = pcall(C_Map.GetBestMapForUnit, "player")
+	if not okM or not mapID then
+		return nil
+	end
+	local okP, pos = pcall(C_Map.GetPlayerMapPosition, mapID, "player")
+	if not okP or not pos or not pos.GetXY then
+		return nil
+	end
+	local okXY, px, py = pcall(pos.GetXY, pos)
+	if not okXY or type(px) ~= "number" then
+		return nil
+	end
+	return MapPosToWorld(mapID, px, py)
+end
+
+--- Say the hint for the rare the arrow is currently on, once per rare.
+local function CheckArrivalHint()
+	-- Resolve the lead per tick rather than pinning one rare: the arrow advances to the
+	-- next open rare by itself, and a watcher holding the rare it started on would go on
+	-- describing a mob nobody is walking to.
+	local zone = CurrentHuntZone()
+	local rare = zone and NearestOpenRareRespectingSkips(zone)
+	if not rare then
+		return
+	end
+	local key = ns.RareArrivalHintKey(rare)
+	if not key then
+		return
+	end
+	local npc = rare[6]
+	if hintSaidFor[npc] then
+		return
+	end
+	local rx, ry = GetRareWorldPos(rare)
+	local px, py = PlayerWorldPos()
+	if not (rx and px) then
+		return -- no position here (some delves refuse); silence beats a wrong nudge
+	end
+	local dx, dy = rx - px, ry - py
+	if (dx * dx + dy * dy) > (ARRIVAL_HINT_YARDS * ARRIVAL_HINT_YARDS) then
+		return
+	end
+	local text = ns.L and ns:L(key)
+	if not text or text == key then
+		return -- unresolved key: say nothing rather than print its name
+	end
+	hintSaidFor[npc] = true
+	print(("|cffffff78Midnight Helper:|r %s — %s"):format(GetRareDisplayName(rare), text))
+end
+
+--- Start the watcher with the hunt, stop it when the hunt lets go of the arrow, so it
+--- costs nothing the rest of the time.
+function ns.StartRareArrivalWatch()
+	if hintTicker or not (C_Timer and C_Timer.NewTicker) then
+		return
+	end
+	wipe(hintSaidFor)
+	hintTicker = C_Timer.NewTicker(HINT_TICK_SEC, function()
+		if ns._mhRouteOwner ~= "rare" then
+			if hintTicker then
+				hintTicker:Cancel()
+				hintTicker = nil
+			end
+			return
+		end
+		CheckArrivalHint()
+	end)
+end
+
 function ns.GetNearestIncompleteRareLead()
 	local zone = CurrentHuntZone()
 	local rare = zone and NearestOpenRareRespectingSkips(zone)
@@ -1300,6 +1395,7 @@ local function RouteRare(rare, clearOthers)
 	-- token releases as soon as it's looted, even if older rares linger in the hunt
 	-- store (released in the event handler below).
 	ns._mhRouteOwner = "rare"
+	ns.StartRareArrivalWatch()
 	ns._mhLastRoutedRareQuest = (rare[1] and rare[1] ~= 0) and rare[1] or nil
 	-- Gejaagde rare → skull (nu als 'ie al zichtbaar is, anders zodra z'n
 	-- nameplate verschijnt). KnownRareNpc = veld 6 of geleerd npcID.
@@ -1731,6 +1827,7 @@ function ns.GenerateRaresRoute(zoneKey)
 	if added > 0 then
 		wipe(skippedRares) -- fresh hunt: forget previous skips
 		ns._mhRouteOwner = "rare" -- claim the shared arrow (see RouteRare note)
+		ns.StartRareArrivalWatch()
 		ns._mhRarePrevOwner = "rare" -- a detour to another rare returns to this hunt
 		ns._mhLastRoutedRareQuest = nil -- a full route: release when the whole hunt is done
 		-- AddSmartTomTomWay set ns.lastTarget to the LAST pin added; for the native
