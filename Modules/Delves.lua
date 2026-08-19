@@ -166,6 +166,28 @@ local MIDNIGHT_PORTALS = {
 	-- yet" cannot explain 96466's silence, because it would silence 96528 too.
 	--
 	-- Neither gates anything here. Only 96004 does, and that one is checked.
+	--
+	-- 📌 19 aug — THREE ANSWERS NOW, AND OURS IS NO LONGER THE ONLY CANDIDATE.
+	--   * we gate on 96004, the intro "Prey: A Slithering Threat";
+	--   * Zygor 9.6 gates its travel graph on 96532, the FIFTH step, and accepts merely
+	--     being on that quest where we demand it finished;
+	--   * Icy Veins (via the watcher, 19 aug) says the gate is neither: the portal needs
+	--     only **Prey Journey rank 1** and no active hunt.
+	--
+	-- If the third is right, both quest gates are proxies for a rank — and ours is the
+	-- closer proxy, since finishing the intro is the likeliest way to reach rank 1. That
+	-- is reasoning, not measurement, so nothing moves yet.
+	--
+	-- ⚠️ IT ALSO CHANGES WHAT TO ASK ROB. Not "which quest opened it" but "does the
+	-- portal work at Journey rank 1, without an active hunt?" A quest-completion check
+	-- can only ever approximate a rank, and if the rank is the real gate this field
+	-- should eventually read it instead — `requiresQuest` would then be the wrong shape,
+	-- not merely the wrong id.
+	--
+	-- Two player claims from the same source are deliberately NOT acted on: that the
+	-- portal only works at level 90, and that the portal quest starts only after a
+	-- Nightmare Prey on the island. Comments under a news article are the weakest source
+	-- this file admits, and neither is needed to use the portal today.
 	{ name = "Portal to The Coiled Isle", mapID = 2393, toID = 2512,
 		x = 56.83, y = 67.38, requiresQuest = 96004 },
 	{ name = "Portal to The Coiled Isle", mapID = 2576, toID = 2512,

@@ -71,6 +71,10 @@ local CHAIN = {
 --- and pays for work done here, which is exactly the kind of thing a beginner
 --- never finds on their own.
 local REPEATABLE = {
+	-- ⚠️ 18 aug hotfix: this one could not be completed at all if you already carried the
+	-- Codex of the Soulcoilers. Worth knowing because a stuck weekly looks exactly like
+	-- a wrong id from here — the sweep would have reported it "not completed" week after
+	-- week and the id would have been the suspect. It was Blizzard's bug, now fixed.
 	{ 95520, "Purging the Vaults", "weekly, at the entrance" },
 	{ 98232, "Midnight: Vaults of Atal'Utek", "weekly meta, picked up in Silvermoon" },
 	{ 96995, "Turn Back the Surge", "weekly, Coiled Isle surface" },
