@@ -27,7 +27,10 @@ CLASS_TO_TOKEN = {
 
 SPEC_TO_INDEX = {
     "DEATHKNIGHT": {"Blood": 1, "Frost": 2, "Unholy": 3},
-    "DEMONHUNTER": {"Havoc": 1, "Vengeance": 2},
+    # Devourer is Midnight's third DH spec. It was hand-written straight into the generated
+    # Lua because this map did not know it, which is why regenerating used to delete it —
+    # the generator silently skipped the spec and the hand edit went with it.
+    "DEMONHUNTER": {"Havoc": 1, "Vengeance": 2, "Devourer": 3},
     "DRUID": {"Balance": 1, "Feral": 2, "Guardian": 3, "Restoration": 4},
     "EVOKER": {"Devastation": 1, "Preservation": 2, "Augmentation": 3},
     "HUNTER": {"Beast Mastery": 1, "Marksmanship": 2, "Survival": 3},
@@ -119,6 +122,11 @@ def main() -> int:
         f'\tgameVersion = "{lua_escape(str(meta.get("gameVersion", "")))}",',
         f'\tcontentPhase = "{lua_escape(str(meta.get("contentPhase", "")))}",',
         f'\tgeneratedAt = "{lua_escape(str(meta.get("generatedAt", "")))}",',
+        # Carried through so a hand-patch since the last full pass is visible in the file
+        # itself. The Lua used to claim a 12.0.7 refresh that never happened — one item id
+        # changed in 277 entries — and a meta line nobody can contradict is how that stood
+        # for six weeks.
+        f'\tpatchedSince = "{lua_escape(str(meta.get("patchedSince", "")))}",',
         "}",
         "",
         "ns.ConsumablesWowheadByClassSpec = {}",
@@ -141,7 +149,14 @@ def main() -> int:
         lines.append("}")
         lines.append("")
 
-    out.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    # ⚠️ Atomic. `out` is Modules/ConsumablesWowheadData.lua and the repo IS the running
+    # game folder, so a plain write_text leaves a window where the file on disk is empty or
+    # half-written. That window broke Locales/enUS.lua on 22 July 2026 when a player logged
+    # in during it. Third generator carrying this pattern, all found on 19 August; rename
+    # is atomic, so the game sees the old file or the new one and never a half.
+    tmp = out.with_suffix(out.suffix + ".tmp")
+    tmp.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    tmp.replace(out)
     print(f"Wrote {out}")
     return 0
 

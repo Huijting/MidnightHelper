@@ -1,0 +1,20 @@
+{
+  "_comment": "Stable note-text -> locale-key mapping. APPEND-ONLY: never renumber an existing entry. The keys are referenced by Locales/ConsumablesNotes.lua in 7 languages, so a key that changes meaning silently mistranslates. Reworded a note? Give it a NEW key and retire the old one; do not edit the text in place.",
+  "keys": {
+    "Critical Strike is the default throughput flask; sim your character for close secondary stats.": "CONS_NOTE_01",
+    "Current Midnight Season 1 augment rune.": "CONS_NOTE_02",
+    "Haste is the default healer throughput flask; sim your character for close secondary stats.": "CONS_NOTE_03",
+    "Highest verified Midnight health potion.": "CONS_NOTE_04",
+    "Mastery is the default throughput flask; sim your character for close secondary stats.": "CONS_NOTE_05",
+    "Primary-stat feast is the safe group default for Intellect specs.": "CONS_NOTE_06",
+    "Primary-stat feast is the safe group default.": "CONS_NOTE_07",
+    "Primary-stat personal food is the safe default when no feast is available.": "CONS_NOTE_08",
+    "Secondary-stat feast is a strong tank choice; primary-stat feast is a safe alternative.": "CONS_NOTE_09",
+    "Use Thalassian Phoenix Oil unless Flametongue Weapon is preferred by your current build.": "CONS_NOTE_10",
+    "Use Thalassian Phoenix Oil unless Windfury/Flametongue weapon imbues are required by your build.": "CONS_NOTE_11",
+    "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it.": "CONS_NOTE_12",
+    "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback.": "CONS_NOTE_13",
+    "Use the listed potion as the default burst/throughput choice for PvE.": "CONS_NOTE_14",
+    "Use this as the default tank potion when you want throughput with manageable risk.": "CONS_NOTE_15"
+  }
+}

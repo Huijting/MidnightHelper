@@ -7,9 +7,10 @@
 local addonName, ns = ...
 
 ns.ConsumablesWowheadMeta = {
-	gameVersion = "12.0.7",
+	gameVersion = "12.0.5",
 	contentPhase = "Midnight Season 1",
-	generatedAt = "2026-07-08",
+	generatedAt = "2026-05-18",
+	patchedSince = "2026-08-19: Season 2 health potion (Concentrated Silvermoon) only",
 }
 
 ns.ConsumablesWowheadByClassSpec = {}

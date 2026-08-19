@@ -4,7 +4,8 @@
     "contentPhase": "Midnight Season 1",
     "primarySource": "https://www.wowhead.com",
     "generatedAt": "2026-05-18",
-    "localeItemNames": "enUS"
+    "localeItemNames": "enUS",
+    "patchedSince": "2026-08-19: Season 2 health potion (Concentrated Silvermoon) only"
   },
   "Death Knight": {
     "Blood": {
@@ -59,12 +60,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -186,12 +203,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -313,12 +346,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -442,12 +491,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -574,12 +639,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -653,6 +734,156 @@
         "alternates": [],
         "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
       }
+    },
+    "Devourer": {
+      "sourcePages": [],
+      "flask": {
+        "best": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241326,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
+          },
+          {
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
+          }
+        ],
+        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+      },
+      "combatPotion": {
+        "best": [
+          {
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241309,
+            "name": "Light's Potential",
+            "wowheadUrl": "https://www.wowhead.com/item=241309"
+          },
+          {
+            "id": 241292,
+            "name": "Draught of Rampant Abandon",
+            "wowheadUrl": "https://www.wowhead.com/item=241292"
+          }
+        ],
+        "noteEn": "Use the listed potion as the default burst/throughput choice for PvE."
+      },
+      "healingPotion": {
+        "best": [
+          {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241304,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
+          }
+        ],
+        "noteEn": "Highest verified Midnight health potion."
+      },
+      "weaponOil": {
+        "best": [
+          {
+            "id": 243734,
+            "name": "Thalassian Phoenix Oil",
+            "wowheadUrl": "https://www.wowhead.com/item=243734"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it."
+      },
+      "augmentRune": {
+        "best": [
+          {
+            "id": 259085,
+            "name": "Augment Rune",
+            "wowheadUrl": "https://www.wowhead.com/item=259085"
+          }
+        ],
+        "alternates": [],
+        "noteEn": "Current Midnight Season 1 augment rune."
+      },
+      "feast": {
+        "best": [
+          {
+            "id": 255845,
+            "name": "Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=255845"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 266985,
+            "name": "Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=266985"
+          },
+          {
+            "id": 266996,
+            "name": "Feast",
+            "wowheadUrl": "https://www.wowhead.com/item=266996"
+          }
+        ],
+        "noteEn": "Primary-stat feast is the safe group default for Intellect specs."
+      },
+      "personalFood": {
+        "best": [
+          {
+            "id": 242747,
+            "name": "Hearty Food",
+            "wowheadUrl": "https://www.wowhead.com/item=242747"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 242275,
+            "name": "Food",
+            "wowheadUrl": "https://www.wowhead.com/item=242275"
+          },
+          {
+            "id": 268679,
+            "name": "Food",
+            "wowheadUrl": "https://www.wowhead.com/item=268679"
+          },
+          {
+            "id": 255847,
+            "name": "Food",
+            "wowheadUrl": "https://www.wowhead.com/item=255847"
+          }
+        ],
+        "noteEn": "Primary-stat personal food is the safe default when no feast is available."
+      }
     }
   },
   "Druid": {
@@ -713,12 +944,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -850,12 +1097,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -982,12 +1245,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -1097,9 +1376,9 @@
       "combatPotion": {
         "best": [
           {
-            "id": 241309,
-            "name": "Light's Potential",
-            "wowheadUrl": "https://www.wowhead.com/item=241309"
+            "id": 241288,
+            "name": "Potion of Recklessness",
+            "wowheadUrl": "https://www.wowhead.com/item=241288"
           }
         ],
         "alternates": [
@@ -1119,12 +1398,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -1258,12 +1553,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -1395,12 +1706,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -1532,12 +1859,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -1671,12 +2014,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -1808,12 +2167,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -1945,12 +2320,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -2084,12 +2475,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -2221,12 +2628,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -2358,12 +2781,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -2492,12 +2931,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -2629,12 +3084,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -2766,12 +3237,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -2905,12 +3392,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -3037,12 +3540,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -3174,12 +3693,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -3313,12 +3848,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -3450,12 +4001,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -3587,12 +4154,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -3726,12 +4309,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -3863,12 +4462,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -4000,12 +4615,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -4139,12 +4770,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -4276,12 +4923,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -4413,12 +5076,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -4552,12 +5231,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -4689,12 +5384,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -4826,12 +5537,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -4965,12 +5692,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -5102,12 +5845,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
@@ -5234,12 +5993,28 @@
       "healingPotion": {
         "best": [
           {
+            "id": 271883,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271883"
+          },
+          {
+            "id": 271884,
+            "name": "Concentrated Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=271884"
+          }
+        ],
+        "alternates": [
+          {
             "id": 241304,
             "name": "Silvermoon Health Potion",
             "wowheadUrl": "https://www.wowhead.com/item=241304"
+          },
+          {
+            "id": 241305,
+            "name": "Silvermoon Health Potion",
+            "wowheadUrl": "https://www.wowhead.com/item=241305"
           }
         ],
-        "alternates": [],
         "noteEn": "Highest verified Midnight health potion."
       },
       "augmentRune": {
