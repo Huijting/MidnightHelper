@@ -988,6 +988,23 @@ local function MaybeAutoRun(force)
 		if not CurrentContentKey() then
 			return
 		end
+		--- ⚠️ NIET VANZELF IN EEN RAID. Rob, 19 aug: het bord kwam op bij een
+		--- wereldbaas-groep van ruim 5 man — "dat is niet echt handig".
+		---
+		--- Het is erger dan onhandig. Het bord heeft vijf rijen (MAX_ROWS), dus in een
+		--- groep van veertig toont het raid1..raid5: een willekeurige snee waar je zelf
+		--- niet eens in hoeft te staan, gepresenteerd als een groepsoverzicht. Een
+		--- steekproef die zich voordoet als het geheel is geen ongemak maar een
+		--- onwaarheid, en dit bord bestaat juist om te zeggen wie er klaar is.
+		---
+		--- Een party is in WoW maximaal vijf, dus alles daarboven is per definitie een
+		--- raid — `IsInRaid` is precies de grens die het bord aankan.
+		---
+		--- Alleen de AUTOMATISCHE opening staat stil. Open je hem zelf via de knop of de
+		--- zoekbalk, dan krijg je hem gewoon; dan weet je wat je opvraagt.
+		if IsInRaid and IsInRaid() then
+			return
+		end
 		-- Visueel bord (Fase 3); valt terug op de chat-versie als het bord-
 		-- bestand (nog) niet geladen is.
 		if ns.ShowConsumableBoard then
