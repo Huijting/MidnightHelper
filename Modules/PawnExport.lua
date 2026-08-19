@@ -89,7 +89,22 @@ function ns.BuildPawnString()
 		return nil, "nodata"
 	end
 
-	return ("( Pawn: v1: \"MH %s\": %s )"):format(specName or "Scale", table.concat(parts, ", "))
+	--- ⚠️ THE PATCH GOES IN THE NAME, because this string leaves the addon and does not
+	--- come back. A player pastes it into Pawn and it sits there ranking their gear for
+	--- months; nothing in Pawn will ever tell them it was written for an older patch. Our
+	--- own panel stamps the patch on screen, which helps exactly the person who has not
+	--- copied it yet.
+	---
+	--- 19 aug made that concrete: patch 12.1 retuned almost every spec, 24 of our 70
+	--- entries changed, and anyone carrying a scale pasted before today has been ranking
+	--- gear on superseded weights with nothing on screen to say so. A name that carries its
+	--- vintage is the difference between stale and silently stale.
+	local patch = ns.VAULT_ADVISOR_PATCH
+	local name = specName or "Scale"
+	if type(patch) == "string" and patch ~= "" then
+		name = ("%s %s"):format(name, patch)
+	end
+	return ("( Pawn: v1: \"MH %s\": %s )"):format(name, table.concat(parts, ", "))
 end
 
 --------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 {
-  "patch": "12.0.5",
+  "patch": "12.1",
   "note": "Secondary stat order from Icy Veins stat-priority-widget (Midnight). Regenerate: python tools/fetch_vault_stat_priorities.py && python tools/generate_vault_stat_weights.py",
   "entries": [
     {
@@ -8,12 +8,12 @@
       "specID": 250,
       "label": "Blood Death Knight",
       "priority": [
+        "haste",
         "crit",
-        "vers",
         "mastery",
-        "haste"
+        "vers"
       ],
-      "priorityText": "Strength > Crit > Vers > Mastery > Haste",
+      "priorityText": "Strength > Haste > Crit > Mastery > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -31,12 +31,12 @@
       "specID": 250,
       "label": "Blood Death Knight (San'layn)",
       "priority": [
+        "haste",
         "crit",
-        "vers",
         "mastery",
-        "haste"
+        "vers"
       ],
-      "priorityText": "Strength > Crit > Vers > Mastery > Haste",
+      "priorityText": "Strength > Haste > Crit > Mastery > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -55,12 +55,12 @@
       "specID": 250,
       "label": "Blood Death Knight (Deathbringer)",
       "priority": [
-        "haste",
         "crit",
+        "mastery",
         "vers",
-        "mastery"
+        "haste"
       ],
-      "priorityText": "Strength > Haste > Crit > Vers > Mastery",
+      "priorityText": "Strength > Crit > Mastery > Vers > Haste",
       "sources": [
         {
           "name": "Icy Veins",
@@ -79,12 +79,12 @@
       "specID": 251,
       "label": "Frost Death Knight",
       "priority": [
-        "mastery",
         "crit",
         "haste",
+        "mastery",
         "vers"
       ],
-      "priorityText": "Strength > Mastery > Crit > Haste > Vers",
+      "priorityText": "Strength > Crit > Haste > Mastery > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -102,12 +102,12 @@
       "specID": 252,
       "label": "Unholy Death Knight",
       "priority": [
-        "mastery",
         "crit",
+        "mastery",
         "haste",
         "vers"
       ],
-      "priorityText": "Strength > Mastery > Crit > Haste > Vers",
+      "priorityText": "Strength > Crit > Mastery > Haste > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -171,12 +171,12 @@
       "specID": 102,
       "label": "Balance Druid",
       "priority": [
-        "crit",
         "mastery",
         "haste",
+        "crit",
         "vers"
       ],
-      "priorityText": "Intellect > Crit > Mastery > Haste > Vers",
+      "priorityText": "Intellect > Mastery > Haste > Crit > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -242,11 +242,11 @@
       "label": "Feral Druid (Wildstalker)",
       "priority": [
         "mastery",
-        "haste",
         "crit",
+        "haste",
         "vers"
       ],
-      "priorityText": "Agility > Mastery > Haste > Crit > Vers",
+      "priorityText": "Agility > Mastery > Crit > Haste > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -360,9 +360,9 @@
       "label": "Restoration Druid (M+)",
       "priority": [
         "haste",
+        "mastery",
         "vers",
-        "crit",
-        "mastery"
+        "crit"
       ],
       "priorityText": "Intellect > Haste > Vers > Crit > Mastery (M+)",
       "sources": [
@@ -430,12 +430,12 @@
       "specID": 1467,
       "label": "Devastation Evoker",
       "priority": [
-        "haste",
         "crit",
+        "haste",
         "mastery",
         "vers"
       ],
-      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
+      "priorityText": "Intellect > Crit > Haste > Mastery > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -499,12 +499,12 @@
       "specID": 1473,
       "label": "Augmentation Evoker",
       "priority": [
+        "mastery",
         "crit",
         "haste",
-        "mastery",
         "vers"
       ],
-      "priorityText": "Intellect > Crit > Haste > Mastery > Vers",
+      "priorityText": "Intellect > Mastery > Crit > Haste > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -523,11 +523,11 @@
       "label": "Beast Mastery Hunter",
       "priority": [
         "mastery",
-        "crit",
         "haste",
+        "crit",
         "vers"
       ],
-      "priorityText": "Agility > Mastery > Crit > Haste > Vers",
+      "priorityText": "Agility > Mastery > Haste > Crit > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -591,12 +591,12 @@
       "specID": 62,
       "label": "Arcane Mage",
       "priority": [
-        "mastery",
-        "vers",
+        "haste",
         "crit",
-        "haste"
+        "mastery",
+        "vers"
       ],
-      "priorityText": "Intellect > Mastery > Vers > Crit > Haste",
+      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1020,11 +1020,11 @@
       "label": "Retribution Paladin",
       "priority": [
         "mastery",
-        "crit",
         "haste",
+        "crit",
         "vers"
       ],
-      "priorityText": "Strength > Mastery > Crit > Haste > Vers",
+      "priorityText": "Strength > Mastery > Haste > Crit > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1043,11 +1043,11 @@
       "label": "Discipline Priest",
       "priority": [
         "haste",
-        "crit",
         "mastery",
+        "crit",
         "vers"
       ],
-      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
+      "priorityText": "Intellect > Haste > Mastery > Crit > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1089,11 +1089,11 @@
       "label": "Discipline Priest (Archon)",
       "priority": [
         "haste",
-        "crit",
         "mastery",
+        "crit",
         "vers"
       ],
-      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
+      "priorityText": "Intellect > Haste > Mastery > Crit > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1113,11 +1113,11 @@
       "label": "Discipline Priest (Oracle)",
       "priority": [
         "haste",
-        "crit",
         "mastery",
+        "crit",
         "vers"
       ],
-      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
+      "priorityText": "Intellect > Haste > Mastery > Crit > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1137,11 +1137,11 @@
       "label": "Holy Priest",
       "priority": [
         "crit",
-        "vers",
         "mastery",
+        "vers",
         "haste"
       ],
-      "priorityText": "Intellect > Crit > Vers > Mastery > Haste",
+      "priorityText": "Intellect > Crit > Mastery > Vers > Haste",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1183,11 +1183,11 @@
       "label": "Holy Priest (Archon)",
       "priority": [
         "crit",
-        "vers",
         "mastery",
+        "vers",
         "haste"
       ],
-      "priorityText": "Intellect > Crit > Vers > Mastery > Haste",
+      "priorityText": "Intellect > Crit > Mastery > Vers > Haste",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1299,12 +1299,12 @@
       "specID": 261,
       "label": "Subtlety Rogue",
       "priority": [
-        "haste",
         "mastery",
-        "crit",
-        "vers"
+        "haste",
+        "vers",
+        "crit"
       ],
-      "priorityText": "Agility > Haste > Mastery > Crit > Vers",
+      "priorityText": "Agility > Mastery > Haste > Vers > Crit",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1458,8 +1458,8 @@
       "specID": 263,
       "label": "Enhancement Shaman (Stormbringer)",
       "priority": [
-        "haste",
         "mastery",
+        "haste",
         "crit",
         "vers"
       ],
@@ -1564,12 +1564,12 @@
       "specID": 266,
       "label": "Demonology Warlock",
       "priority": [
-        "crit",
         "haste",
+        "crit",
         "mastery",
         "vers"
       ],
-      "priorityText": "Intellect > Crit > Haste > Mastery > Vers",
+      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1587,12 +1587,12 @@
       "specID": 267,
       "label": "Destruction Warlock",
       "priority": [
-        "crit",
         "haste",
+        "crit",
         "mastery",
         "vers"
       ],
-      "priorityText": "Intellect > Crit > Haste > Mastery > Vers",
+      "priorityText": "Intellect > Haste > Crit > Mastery > Vers",
       "sources": [
         {
           "name": "Icy Veins",
@@ -1657,11 +1657,11 @@
       "label": "Protection Warrior",
       "priority": [
         "haste",
-        "vers",
         "crit",
+        "vers",
         "mastery"
       ],
-      "priorityText": "Strength > Haste > Vers > Crit > Mastery",
+      "priorityText": "Strength > Haste > Crit > Vers > Mastery",
       "sources": [
         {
           "name": "Icy Veins",

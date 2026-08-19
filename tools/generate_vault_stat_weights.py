@@ -128,6 +128,12 @@ def main() -> int:
         [
             "",
             "--- ilvl is weighted heavily because guides treat item level as primary for upgrades.",
+            # The patch as one constant, so the Pawn export can stamp it into the scale
+            # NAME. That string leaves the addon and never comes back — it sits in Pawn
+            # ranking someone's gear for months with nothing to say which patch it was
+            # written for. Generated rather than hand-written so it cannot drift from the
+            # data it describes.
+            f'ns.VAULT_ADVISOR_PATCH = "{patch}"',
             "ns.VAULT_ADVISOR_ILVL_WEIGHT = 8",
             "",
             "--- Activity types from Enum.WeeklyRewardChestThresholdType (C_WeeklyRewards.GetActivities).",
@@ -143,7 +149,15 @@ def main() -> int:
         ]
     )
 
-    out.write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    # ⚠️ ATOMIC, AND THIS ONE IS NOT OPTIONAL. `out` is Modules/VaultAdvisorData.lua, which
+    # lives in the running game folder — the repo IS the live AddOns directory. A plain
+    # write_text truncates first and writes after, so a player logging in during that
+    # window loads a Lua file that stops mid-table. That is not hypothetical: it happened
+    # to Locales/enUS.lua on 22 July 2026 and rendered raw keys in Rob's Great Vault popup.
+    # Rename is atomic, so the game sees the old file or the new one and never a half.
+    tmp = out.with_suffix(out.suffix + ".tmp")
+    tmp.write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    tmp.replace(out)
     print(f"Wrote {out} ({len(entries)} spec entries, patch {patch})")
     return 0
 

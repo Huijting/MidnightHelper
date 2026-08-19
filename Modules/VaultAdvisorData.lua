@@ -1,6 +1,6 @@
 --[[
 	Midnight Helper — Great Vault Advisor stat weights.
-	AUTO-GENERATED from data/vault_stat_priorities.json (patch 12.0.5).
+	AUTO-GENERATED from data/vault_stat_priorities.json (patch 12.1).
 	Edit the JSON and run: python tools/generate_vault_stat_weights.py
 	Primary stat / item level handled in VaultAdvisor.lua.
 ]]
@@ -9,49 +9,49 @@ local _, ns = ...
 
 --- Relative weights for secondary stats (from guide priority order, not SimC/Pawn).
 ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
-	--- Blood Death Knight: Strength > Crit > Vers > Mastery > Haste
+	--- Blood Death Knight: Strength > Haste > Crit > Mastery > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/blood-death-knight-pve-tank-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/death-knight/blood/stat-priority-pve-tank
 	["DEATHKNIGHT_250"] = {
 		mastery = 0.84,
-		haste = 0.55,
-		crit = 1.00,
-		vers = 0.92,
+		haste = 1.00,
+		crit = 0.92,
+		vers = 0.55,
 	},
-	--- Blood Death Knight (San'layn): Strength > Crit > Vers > Mastery > Haste
+	--- Blood Death Knight (San'layn): Strength > Haste > Crit > Mastery > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/blood-death-knight-pve-tank-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/death-knight/blood/stat-priority-pve-tank
 	["DEATHKNIGHT_250_HERO_31"] = {
 		mastery = 0.84,
-		haste = 0.55,
-		crit = 1.00,
-		vers = 0.92,
-	},
-	--- Blood Death Knight (Deathbringer): Strength > Haste > Crit > Vers > Mastery
-	--- Icy Veins: https://www.icy-veins.com/wow/blood-death-knight-pve-tank-stat-priority
-	--- Wowhead: https://www.wowhead.com/guide/classes/death-knight/blood/stat-priority-pve-tank
-	["DEATHKNIGHT_250_HERO_33"] = {
-		mastery = 0.55,
 		haste = 1.00,
-		crit = 0.92,
-		vers = 0.84,
-	},
-	--- Frost Death Knight: Strength > Mastery > Crit > Haste > Vers
-	--- Icy Veins: https://www.icy-veins.com/wow/frost-death-knight-pve-dps-stat-priority
-	--- Wowhead: https://www.wowhead.com/guide/classes/death-knight/frost/stat-priority-pve-dps
-	["DEATHKNIGHT_251"] = {
-		mastery = 1.00,
-		haste = 0.84,
 		crit = 0.92,
 		vers = 0.55,
 	},
-	--- Unholy Death Knight: Strength > Mastery > Crit > Haste > Vers
+	--- Blood Death Knight (Deathbringer): Strength > Crit > Mastery > Vers > Haste
+	--- Icy Veins: https://www.icy-veins.com/wow/blood-death-knight-pve-tank-stat-priority
+	--- Wowhead: https://www.wowhead.com/guide/classes/death-knight/blood/stat-priority-pve-tank
+	["DEATHKNIGHT_250_HERO_33"] = {
+		mastery = 0.92,
+		haste = 0.55,
+		crit = 1.00,
+		vers = 0.84,
+	},
+	--- Frost Death Knight: Strength > Crit > Haste > Mastery > Vers
+	--- Icy Veins: https://www.icy-veins.com/wow/frost-death-knight-pve-dps-stat-priority
+	--- Wowhead: https://www.wowhead.com/guide/classes/death-knight/frost/stat-priority-pve-dps
+	["DEATHKNIGHT_251"] = {
+		mastery = 0.84,
+		haste = 0.92,
+		crit = 1.00,
+		vers = 0.55,
+	},
+	--- Unholy Death Knight: Strength > Crit > Mastery > Haste > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/unholy-death-knight-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/death-knight/unholy/stat-priority-pve-dps
 	["DEATHKNIGHT_252"] = {
-		mastery = 1.00,
+		mastery = 0.92,
 		haste = 0.84,
-		crit = 0.92,
+		crit = 1.00,
 		vers = 0.55,
 	},
 	--- Havoc Demon Hunter: Agility > Crit > Mastery > Haste > Vers
@@ -72,13 +72,13 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.84,
 		vers = 0.92,
 	},
-	--- Balance Druid: Intellect > Crit > Mastery > Haste > Vers
+	--- Balance Druid: Intellect > Mastery > Haste > Crit > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/balance-druid-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/druid/balance/stat-priority-pve-dps
 	["DRUID_102"] = {
-		mastery = 0.92,
-		haste = 0.84,
-		crit = 1.00,
+		mastery = 1.00,
+		haste = 0.92,
+		crit = 0.84,
 		vers = 0.55,
 	},
 	--- Feral Druid: Agility > Mastery > Haste > Crit > Vers
@@ -99,13 +99,13 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.84,
 		vers = 0.55,
 	},
-	--- Feral Druid (Wildstalker): Agility > Mastery > Haste > Crit > Vers
+	--- Feral Druid (Wildstalker): Agility > Mastery > Crit > Haste > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/feral-druid-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/druid/feral/stat-priority-pve-dps
 	["DRUID_103_HERO_22"] = {
 		mastery = 1.00,
-		haste = 0.92,
-		crit = 0.84,
+		haste = 0.84,
+		crit = 0.92,
 		vers = 0.55,
 	},
 	--- Guardian Druid: Agility > Haste > Vers > Mastery > Crit
@@ -148,10 +148,10 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 	--- Icy Veins: https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/druid/restoration/stat-priority-pve-healing
 	["DRUID_105_MPLUS"] = {
-		mastery = 0.55,
+		mastery = 0.92,
 		haste = 1.00,
-		crit = 0.84,
-		vers = 0.92,
+		crit = 0.55,
+		vers = 0.84,
 	},
 	--- Restoration Druid (Keeper of the Grove): Intellect > Haste > Mastery > Vers > Crit
 	--- Icy Veins: https://www.icy-veins.com/wow/restoration-druid-pve-healing-stat-priority
@@ -171,13 +171,13 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.55,
 		vers = 0.84,
 	},
-	--- Devastation Evoker: Intellect > Haste > Crit > Mastery > Vers
+	--- Devastation Evoker: Intellect > Crit > Haste > Mastery > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/devastation-evoker-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/evoker/devastation/stat-priority-pve-dps
 	["EVOKER_1467"] = {
 		mastery = 0.84,
-		haste = 1.00,
-		crit = 0.92,
+		haste = 0.92,
+		crit = 1.00,
 		vers = 0.55,
 	},
 	--- Preservation Evoker: Intellect > Mastery > Crit > Haste > Vers
@@ -198,22 +198,22 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.92,
 		vers = 0.55,
 	},
-	--- Augmentation Evoker: Intellect > Crit > Haste > Mastery > Vers
+	--- Augmentation Evoker: Intellect > Mastery > Crit > Haste > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/augmentation-evoker-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/evoker/augmentation/stat-priority-pve-dps
 	["EVOKER_1473"] = {
-		mastery = 0.84,
-		haste = 0.92,
-		crit = 1.00,
+		mastery = 1.00,
+		haste = 0.84,
+		crit = 0.92,
 		vers = 0.55,
 	},
-	--- Beast Mastery Hunter: Agility > Mastery > Crit > Haste > Vers
+	--- Beast Mastery Hunter: Agility > Mastery > Haste > Crit > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/hunter/beast-mastery/stat-priority-pve-dps
 	["HUNTER_253"] = {
 		mastery = 1.00,
-		haste = 0.84,
-		crit = 0.92,
+		haste = 0.92,
+		crit = 0.84,
 		vers = 0.55,
 	},
 	--- Marksmanship Hunter: Agility > Crit > Mastery > Vers > Haste
@@ -234,14 +234,14 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.92,
 		vers = 0.55,
 	},
-	--- Arcane Mage: Intellect > Mastery > Vers > Crit > Haste
+	--- Arcane Mage: Intellect > Haste > Crit > Mastery > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/arcane-mage-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/mage/arcane/stat-priority-pve-dps
 	["MAGE_62"] = {
-		mastery = 1.00,
-		haste = 0.55,
-		crit = 0.84,
-		vers = 0.92,
+		mastery = 0.84,
+		haste = 1.00,
+		crit = 0.92,
+		vers = 0.55,
 	},
 	--- Fire Mage: Intellect > Haste > Mastery > Vers > Crit
 	--- Icy Veins: https://www.icy-veins.com/wow/fire-mage-pve-dps-stat-priority
@@ -396,22 +396,22 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.92,
 		vers = 0.84,
 	},
-	--- Retribution Paladin: Strength > Mastery > Crit > Haste > Vers
+	--- Retribution Paladin: Strength > Mastery > Haste > Crit > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/retribution-paladin-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/paladin/retribution/stat-priority-pve-dps
 	["PALADIN_70"] = {
 		mastery = 1.00,
-		haste = 0.84,
-		crit = 0.92,
+		haste = 0.92,
+		crit = 0.84,
 		vers = 0.55,
 	},
-	--- Discipline Priest: Intellect > Haste > Crit > Mastery > Vers
+	--- Discipline Priest: Intellect > Haste > Mastery > Crit > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/discipline-priest-pve-healing-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/priest/discipline/stat-priority-pve-healing
 	["PRIEST_256"] = {
-		mastery = 0.84,
+		mastery = 0.92,
 		haste = 1.00,
-		crit = 0.92,
+		crit = 0.84,
 		vers = 0.55,
 	},
 	--- Discipline Priest (M+): Intellect > Haste > Crit > Mastery > Vers (M+)
@@ -423,32 +423,32 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.92,
 		vers = 0.55,
 	},
-	--- Discipline Priest (Archon): Intellect > Haste > Crit > Mastery > Vers
+	--- Discipline Priest (Archon): Intellect > Haste > Mastery > Crit > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/discipline-priest-pve-healing-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/priest/discipline/stat-priority-pve-healing
 	["PRIEST_256_HERO_19"] = {
-		mastery = 0.84,
+		mastery = 0.92,
 		haste = 1.00,
-		crit = 0.92,
+		crit = 0.84,
 		vers = 0.55,
 	},
-	--- Discipline Priest (Oracle): Intellect > Haste > Crit > Mastery > Vers
+	--- Discipline Priest (Oracle): Intellect > Haste > Mastery > Crit > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/discipline-priest-pve-healing-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/priest/discipline/stat-priority-pve-healing
 	["PRIEST_256_HERO_20"] = {
-		mastery = 0.84,
+		mastery = 0.92,
 		haste = 1.00,
-		crit = 0.92,
+		crit = 0.84,
 		vers = 0.55,
 	},
-	--- Holy Priest: Intellect > Crit > Vers > Mastery > Haste
+	--- Holy Priest: Intellect > Crit > Mastery > Vers > Haste
 	--- Icy Veins: https://www.icy-veins.com/wow/holy-priest-pve-healing-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/priest/holy/stat-priority-pve-healing
 	["PRIEST_257"] = {
-		mastery = 0.84,
+		mastery = 0.92,
 		haste = 0.55,
 		crit = 1.00,
-		vers = 0.92,
+		vers = 0.84,
 	},
 	--- Holy Priest (M+): Intellect > Crit > Vers > Haste > Mastery (M+)
 	--- Icy Veins: https://www.icy-veins.com/wow/holy-priest-pve-healing-stat-priority
@@ -459,14 +459,14 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 1.00,
 		vers = 0.92,
 	},
-	--- Holy Priest (Archon): Intellect > Crit > Vers > Mastery > Haste
+	--- Holy Priest (Archon): Intellect > Crit > Mastery > Vers > Haste
 	--- Icy Veins: https://www.icy-veins.com/wow/holy-priest-pve-healing-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/priest/holy/stat-priority-pve-healing
 	["PRIEST_257_HERO_19"] = {
-		mastery = 0.84,
+		mastery = 0.92,
 		haste = 0.55,
 		crit = 1.00,
-		vers = 0.92,
+		vers = 0.84,
 	},
 	--- Holy Priest (Oracle): Intellect > Crit > Vers > Haste > Mastery
 	--- Icy Veins: https://www.icy-veins.com/wow/holy-priest-pve-healing-stat-priority
@@ -504,14 +504,14 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 1.00,
 		vers = 0.84,
 	},
-	--- Subtlety Rogue: Agility > Haste > Mastery > Crit > Vers
+	--- Subtlety Rogue: Agility > Mastery > Haste > Vers > Crit
 	--- Icy Veins: https://www.icy-veins.com/wow/subtlety-rogue-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/rogue/subtlety/stat-priority-pve-dps
 	["ROGUE_261"] = {
-		mastery = 0.92,
-		haste = 1.00,
-		crit = 0.84,
-		vers = 0.55,
+		mastery = 1.00,
+		haste = 0.92,
+		crit = 0.55,
+		vers = 0.84,
 	},
 	--- Elemental Shaman: Intellect > Mastery > Haste = Crit > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/elemental-shaman-pve-dps-stat-priority
@@ -562,8 +562,8 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 	--- Icy Veins: https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/shaman/enhancement/stat-priority-pve-dps
 	["SHAMAN_263_HERO_55"] = {
-		mastery = 0.92,
-		haste = 1.00,
+		mastery = 1.00,
+		haste = 0.92,
 		crit = 0.84,
 		vers = 0.55,
 	},
@@ -594,22 +594,22 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.92,
 		vers = 0.55,
 	},
-	--- Demonology Warlock: Intellect > Crit > Haste > Mastery > Vers
+	--- Demonology Warlock: Intellect > Haste > Crit > Mastery > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/demonology-warlock-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/warlock/demonology/stat-priority-pve-dps
 	["WARLOCK_266"] = {
 		mastery = 0.84,
-		haste = 0.92,
-		crit = 1.00,
+		haste = 1.00,
+		crit = 0.92,
 		vers = 0.55,
 	},
-	--- Destruction Warlock: Intellect > Crit > Haste > Mastery > Vers
+	--- Destruction Warlock: Intellect > Haste > Crit > Mastery > Vers
 	--- Icy Veins: https://www.icy-veins.com/wow/destruction-warlock-pve-dps-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/warlock/destruction/stat-priority-pve-dps
 	["WARLOCK_267"] = {
 		mastery = 0.84,
-		haste = 0.92,
-		crit = 1.00,
+		haste = 1.00,
+		crit = 0.92,
 		vers = 0.55,
 	},
 	--- Arms Warrior: Strength > Crit > Haste > Mastery > Vers
@@ -630,368 +630,368 @@ ns.VAULT_ADVISOR_SPEC_WEIGHTS = {
 		crit = 0.55,
 		vers = 0.84,
 	},
-	--- Protection Warrior: Strength > Haste > Vers > Crit > Mastery
+	--- Protection Warrior: Strength > Haste > Crit > Vers > Mastery
 	--- Icy Veins: https://www.icy-veins.com/wow/protection-warrior-pve-tank-stat-priority
 	--- Wowhead: https://www.wowhead.com/guide/classes/warrior/protection/stat-priority-pve-tank
 	["WARRIOR_73"] = {
 		mastery = 0.55,
 		haste = 1.00,
-		crit = 0.84,
-		vers = 0.92,
+		crit = 0.92,
+		vers = 0.84,
 	},
 }
 
 --- Guide text and sources per weight key (shown in vault advisor UI).
 ns.VAULT_ADVISOR_SPEC_META = {
 	["DEATHKNIGHT_250"] = {
-		priorityText = "Strength > Crit > Vers > Mastery > Haste",
+		priorityText = "Strength > Haste > Crit > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DEATHKNIGHT_250_HERO_31"] = {
-		priorityText = "Strength > Crit > Vers > Mastery > Haste",
+		priorityText = "Strength > Haste > Crit > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DEATHKNIGHT_250_HERO_33"] = {
-		priorityText = "Strength > Haste > Crit > Vers > Mastery",
+		priorityText = "Strength > Crit > Mastery > Vers > Haste",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DEATHKNIGHT_251"] = {
-		priorityText = "Strength > Mastery > Crit > Haste > Vers",
+		priorityText = "Strength > Crit > Haste > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DEATHKNIGHT_252"] = {
-		priorityText = "Strength > Mastery > Crit > Haste > Vers",
+		priorityText = "Strength > Crit > Mastery > Haste > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DEMONHUNTER_577"] = {
 		priorityText = "Agility > Crit > Mastery > Haste > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DEMONHUNTER_581"] = {
 		priorityText = "Agility > Haste > Vers > Crit > Mastery",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_102"] = {
-		priorityText = "Intellect > Crit > Mastery > Haste > Vers",
+		priorityText = "Intellect > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_103"] = {
 		priorityText = "Agility > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_103_HERO_21"] = {
 		priorityText = "Agility > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_103_HERO_22"] = {
-		priorityText = "Agility > Mastery > Haste > Crit > Vers",
+		priorityText = "Agility > Mastery > Crit > Haste > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_104"] = {
 		priorityText = "Agility > Haste > Vers > Mastery > Crit",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_104_HERO_21"] = {
 		priorityText = "Agility > Haste > Vers > Mastery > Crit",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_104_HERO_23"] = {
 		priorityText = "Agility > Haste > Vers > Crit > Mastery",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_105"] = {
 		priorityText = "Intellect > Haste > Mastery > Vers > Crit",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_105_MPLUS"] = {
 		priorityText = "Intellect > Haste > Vers > Crit > Mastery (M+)",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_105_HERO_23"] = {
 		priorityText = "Intellect > Haste > Mastery > Vers > Crit",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["DRUID_105_HERO_24"] = {
 		priorityText = "Intellect > Mastery > Haste > Vers > Crit",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["EVOKER_1467"] = {
-		priorityText = "Intellect > Haste > Crit > Mastery > Vers",
+		priorityText = "Intellect > Crit > Haste > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["EVOKER_1468"] = {
 		priorityText = "Intellect > Mastery > Crit > Haste > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["EVOKER_1468_MPLUS"] = {
 		priorityText = "Intellect > Haste > Crit > Mastery > Vers (M+)",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["EVOKER_1473"] = {
-		priorityText = "Intellect > Crit > Haste > Mastery > Vers",
+		priorityText = "Intellect > Mastery > Crit > Haste > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["HUNTER_253"] = {
-		priorityText = "Agility > Mastery > Crit > Haste > Vers",
+		priorityText = "Agility > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["HUNTER_254"] = {
 		priorityText = "Agility > Crit > Mastery > Vers > Haste",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["HUNTER_255"] = {
 		priorityText = "Agility > Mastery > Crit > Haste > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MAGE_62"] = {
-		priorityText = "Intellect > Mastery > Vers > Crit > Haste",
+		priorityText = "Intellect > Haste > Crit > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MAGE_63"] = {
 		priorityText = "Intellect > Haste > Mastery > Vers > Crit",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MAGE_64"] = {
 		priorityText = "Intellect > Mastery = Crit > Haste > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MONK_268"] = {
 		priorityText = "Agility > Crit > Vers > Mastery > Haste",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MONK_268_HERO_65"] = {
 		priorityText = "Agility > Crit > Vers > Mastery > Haste",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MONK_268_HERO_66"] = {
 		priorityText = "Agility > Crit > Mastery > Vers > Haste",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MONK_269"] = {
 		priorityText = "Agility > Haste > Crit > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MONK_270"] = {
 		priorityText = "Intellect > Haste > Crit > Vers > Mastery",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MONK_270_MPLUS"] = {
 		priorityText = "Intellect > Haste > Crit > Vers > Mastery (M+)",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MONK_270_HERO_64"] = {
 		priorityText = "Intellect > Haste > Crit > Vers > Mastery",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["MONK_270_HERO_66"] = {
 		priorityText = "Intellect > Haste > Crit > Vers > Mastery",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PALADIN_65"] = {
 		priorityText = "Intellect > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PALADIN_65_MPLUS"] = {
 		priorityText = "Intellect > Mastery > Crit > Haste > Vers (M+)",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PALADIN_65_HERO_49"] = {
 		priorityText = "Intellect > Mastery > Crit > Haste > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PALADIN_65_HERO_50"] = {
 		priorityText = "Intellect > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PALADIN_66"] = {
 		priorityText = "Strength > Haste > Vers > Mastery > Crit",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PALADIN_66_HERO_48"] = {
 		priorityText = "Strength > Haste > Vers > Mastery > Crit",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PALADIN_66_HERO_49"] = {
 		priorityText = "Strength > Haste > Crit > Vers > Mastery",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PALADIN_70"] = {
-		priorityText = "Strength > Mastery > Crit > Haste > Vers",
+		priorityText = "Strength > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PRIEST_256"] = {
-		priorityText = "Intellect > Haste > Crit > Mastery > Vers",
+		priorityText = "Intellect > Haste > Mastery > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PRIEST_256_MPLUS"] = {
 		priorityText = "Intellect > Haste > Crit > Mastery > Vers (M+)",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PRIEST_256_HERO_19"] = {
-		priorityText = "Intellect > Haste > Crit > Mastery > Vers",
+		priorityText = "Intellect > Haste > Mastery > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PRIEST_256_HERO_20"] = {
-		priorityText = "Intellect > Haste > Crit > Mastery > Vers",
+		priorityText = "Intellect > Haste > Mastery > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PRIEST_257"] = {
-		priorityText = "Intellect > Crit > Vers > Mastery > Haste",
+		priorityText = "Intellect > Crit > Mastery > Vers > Haste",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PRIEST_257_MPLUS"] = {
 		priorityText = "Intellect > Crit > Vers > Haste > Mastery (M+)",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PRIEST_257_HERO_19"] = {
-		priorityText = "Intellect > Crit > Vers > Mastery > Haste",
+		priorityText = "Intellect > Crit > Mastery > Vers > Haste",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PRIEST_257_HERO_20"] = {
 		priorityText = "Intellect > Crit > Vers > Haste > Mastery",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["PRIEST_258"] = {
 		priorityText = "Intellect > Haste > Mastery > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["ROGUE_259"] = {
 		priorityText = "Agility > Crit > Haste > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["ROGUE_260"] = {
 		priorityText = "Agility > Crit > Haste > Vers > Mastery",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["ROGUE_261"] = {
-		priorityText = "Agility > Haste > Mastery > Crit > Vers",
+		priorityText = "Agility > Mastery > Haste > Vers > Crit",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["SHAMAN_262"] = {
 		priorityText = "Intellect > Mastery > Haste = Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["SHAMAN_262_HERO_55"] = {
 		priorityText = "Intellect > Mastery > Haste = Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["SHAMAN_262_HERO_56"] = {
 		priorityText = "Intellect > Mastery > Haste = Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["SHAMAN_263"] = {
 		priorityText = "Agility > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["SHAMAN_263_HERO_54"] = {
 		priorityText = "Agility > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["SHAMAN_263_HERO_55"] = {
 		priorityText = "Agility > Mastery > Haste > Crit > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["SHAMAN_264"] = {
 		priorityText = "Intellect > Crit > Vers = Mastery > Haste",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["SHAMAN_264_MPLUS"] = {
 		priorityText = "Intellect > Crit = Vers = Haste > Mastery (M+)",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["WARLOCK_265"] = {
 		priorityText = "Intellect > Haste > Crit > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["WARLOCK_266"] = {
-		priorityText = "Intellect > Crit > Haste > Mastery > Vers",
+		priorityText = "Intellect > Haste > Crit > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["WARLOCK_267"] = {
-		priorityText = "Intellect > Crit > Haste > Mastery > Vers",
+		priorityText = "Intellect > Haste > Crit > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["WARRIOR_71"] = {
 		priorityText = "Strength > Crit > Haste > Mastery > Vers",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["WARRIOR_72"] = {
 		priorityText = "Strength > Mastery > Haste > Vers > Crit",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 	["WARRIOR_73"] = {
-		priorityText = "Strength > Haste > Vers > Crit > Mastery",
+		priorityText = "Strength > Haste > Crit > Vers > Mastery",
 		sources = "Icy Veins, Wowhead",
-		patch = "12.0.5",
+		patch = "12.1",
 	},
 }
 
@@ -1041,6 +1041,7 @@ ns.VAULT_ADVISOR_HERO_NAMES = {
 
 
 --- ilvl is weighted heavily because guides treat item level as primary for upgrades.
+ns.VAULT_ADVISOR_PATCH = "12.1"
 ns.VAULT_ADVISOR_ILVL_WEIGHT = 8
 
 --- Activity types from Enum.WeeklyRewardChestThresholdType (C_WeeklyRewards.GetActivities).

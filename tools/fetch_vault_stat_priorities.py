@@ -245,7 +245,12 @@ def main() -> int:
         "Regenerate: python tools/fetch_vault_stat_priorities.py && python tools/generate_vault_stat_weights.py",
         "entries": entries,
     }
-    OUT_JSON.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    # Atomic: write beside the target, then rename over it. A plain write_text truncates
+    # first and fills after, so a crash or a reader mid-write sees a half file. Cheap
+    # here, essential in the generator that follows — see its note.
+    tmp = OUT_JSON.with_suffix(OUT_JSON.suffix + ".tmp")
+    tmp.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    tmp.replace(OUT_JSON)
     print(f"\nWrote {len(entries)} entries to {OUT_JSON}")
     if failed:
         print("Failed specs:", ", ".join(failed))
