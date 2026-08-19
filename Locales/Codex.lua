@@ -42,7 +42,12 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	CODEX_CAT_DELVES = "Delves",
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & crests",
-	CODEX_CAT_WORLD = "Void & Rituals",
+	-- ⚠️ Was "Void & Rituals" until 19 aug, and half of what sits under it is neither.
+	-- The category holds Prey hunts, rares, Turbulent Timeways and Showdowns alongside
+	-- the void and ritual articles. Rob went looking for Prey, read that button, and
+	-- walked straight past it — the same class of fault as the twelve type-only commands
+	-- on 18 aug: the feature was there, under a name nobody would guess.
+	CODEX_CAT_WORLD = "World content",
 	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_ROUTE_BTN = "Follow the route",
 	CODEX_CAT_PROFESSIONS = "Professions",
@@ -172,7 +177,12 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	CODEX_CAT_DELVES = "Delves",
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & crests",
-	CODEX_CAT_WORLD = "Void & Rituals",
+	-- ⚠️ Was "Void & Rituals" until 19 aug, and half of what sits under it is neither.
+	-- The category holds Prey hunts, rares, Turbulent Timeways and Showdowns alongside
+	-- the void and ritual articles. Rob went looking for Prey, read that button, and
+	-- walked straight past it — the same class of fault as the twelve type-only commands
+	-- on 18 aug: the feature was there, under a name nobody would guess.
+	CODEX_CAT_WORLD = "World content",
 	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_ROUTE_BTN = "Segui il percorso",
 	CODEX_CAT_PROFESSIONS = "Professions",
@@ -290,7 +300,12 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	CODEX_CAT_DELVES = "Delves",
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & crests",
-	CODEX_CAT_WORLD = "Void & Rituals",
+	-- ⚠️ Was "Void & Rituals" until 19 aug, and half of what sits under it is neither.
+	-- The category holds Prey hunts, rares, Turbulent Timeways and Showdowns alongside
+	-- the void and ritual articles. Rob went looking for Prey, read that button, and
+	-- walked straight past it — the same class of fault as the twelve type-only commands
+	-- on 18 aug: the feature was there, under a name nobody would guess.
+	CODEX_CAT_WORLD = "Wereldcontent",
 	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_ROUTE_BTN = "Volg de route",
 	CODEX_CAT_PROFESSIONS = "Professions",
@@ -420,7 +435,12 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	CODEX_CAT_DELVES = "Delves",
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & Crests",
-	CODEX_CAT_WORLD = "Void & Rituals",
+	-- ⚠️ Was "Void & Rituals" until 19 aug, and half of what sits under it is neither.
+	-- The category holds Prey hunts, rares, Turbulent Timeways and Showdowns alongside
+	-- the void and ritual articles. Rob went looking for Prey, read that button, and
+	-- walked straight past it — the same class of fault as the twelve type-only commands
+	-- on 18 aug: the feature was there, under a name nobody would guess.
+	CODEX_CAT_WORLD = "World content",
 	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_ROUTE_BTN = "Der Route folgen",
 	CODEX_CAT_PROFESSIONS = "Professions",
@@ -540,7 +560,12 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	CODEX_CAT_DELVES = "Delves",
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & Crests",
-	CODEX_CAT_WORLD = "Void & Rituals",
+	-- ⚠️ Was "Void & Rituals" until 19 aug, and half of what sits under it is neither.
+	-- The category holds Prey hunts, rares, Turbulent Timeways and Showdowns alongside
+	-- the void and ritual articles. Rob went looking for Prey, read that button, and
+	-- walked straight past it — the same class of fault as the twelve type-only commands
+	-- on 18 aug: the feature was there, under a name nobody would guess.
+	CODEX_CAT_WORLD = "World content",
 	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_ROUTE_BTN = "Suivre la route",
 	CODEX_CAT_PROFESSIONS = "Professions",
@@ -660,7 +685,12 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	CODEX_CAT_DELVES = "Delves",
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & Crests",
-	CODEX_CAT_WORLD = "Void & Rituals",
+	-- ⚠️ Was "Void & Rituals" until 19 aug, and half of what sits under it is neither.
+	-- The category holds Prey hunts, rares, Turbulent Timeways and Showdowns alongside
+	-- the void and ritual articles. Rob went looking for Prey, read that button, and
+	-- walked straight past it — the same class of fault as the twelve type-only commands
+	-- on 18 aug: the feature was there, under a name nobody would guess.
+	CODEX_CAT_WORLD = "World content",
 	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_ROUTE_BTN = "Seguir la ruta",
 	CODEX_CAT_PROFESSIONS = "Professions",
@@ -780,7 +810,12 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	CODEX_CAT_DELVES = "Delves",
 	CODEX_CAT_DUNGEONS = "Dungeons & M+",
 	CODEX_CAT_RAID = "Raid & Crests",
-	CODEX_CAT_WORLD = "Void & Rituals",
+	-- ⚠️ Was "Void & Rituals" until 19 aug, and half of what sits under it is neither.
+	-- The category holds Prey hunts, rares, Turbulent Timeways and Showdowns alongside
+	-- the void and ritual articles. Rob went looking for Prey, read that button, and
+	-- walked straight past it — the same class of fault as the twelve type-only commands
+	-- on 18 aug: the feature was there, under a name nobody would guess.
+	CODEX_CAT_WORLD = "World content",
 	CODEX_CAT_COILEDISLE = "Coiled Isle",
 	CODEX_ROUTE_BTN = "Seguir a rota",
 	CODEX_CAT_PROFESSIONS = "Professions",
