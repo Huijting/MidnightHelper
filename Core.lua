@@ -1024,6 +1024,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh quest — id + titel van het questvenster dat nu openstaat. Zelfde logboek als
+	-- `/mh here`, want allebei zijn het "iets wat ik al spelend tegenkwam".
+	if msg == "quest" then
+		if ns.LogQuestHere then
+			ns.LogQuestHere()
+		end
+		return
+	end
+
 	-- /mh here [notitie] — schrijf op waar je staat (en wat je aanklikt). Lijst, geen
 	-- slot: een rondje lopen en daarna één reload is het hele idee.
 	if msg == "here" or msg:match("^here%s+") then

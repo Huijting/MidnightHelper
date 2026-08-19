@@ -304,6 +304,7 @@ ns._mhLocales.enUS = {
 	CMDLIST_HEALCDS = "Your healing cooldowns, for healer specs.",
 	CMDLIST_DISPEL = "What you can dispel, and what is on you now.",
 	CMDLIST_MBUFF = "Prints what the missing-buff check sees. The reminder itself is a Settings toggle.",
+	CMDLIST_QUEST = "With a quest window open, writes down its id and title. Same log as /mh here.",
 	CMDLIST_COACH = "The Delve Coach.",
 	CMDLIST_BOSSWIN = "The dungeon boss window.",
 	CMDLIST_RITUALBOSS = "The ritual site boss coach.",

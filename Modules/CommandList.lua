@@ -144,6 +144,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh nodes", descKey = "CMDLIST_NODES" },
 		{ cmd = "/mh trail", descKey = "CMDLIST_TRAIL" },
 		{ cmd = "/mh mbuff", descKey = "CMDLIST_MBUFF" },
+		{ cmd = "/mh quest", descKey = "CMDLIST_QUEST" },
 	} },
 }
 

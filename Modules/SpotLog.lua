@@ -25,6 +25,60 @@ local function Prefix()
 	return "|cff8fd3ffMidnight Helper|r"
 end
 
+--- `/mh quest` — the id and title of the quest window currently open.
+---
+--- Rob, 19 aug, with "Seasonal Refresher: Midnight" on screen from Valeera: "kenden we
+--- de Delves season 2 quest al?" We did not, and there was no way to find out but to
+--- search a guide for a name and hope the id matched — which is the shape that produced
+--- the wrong 96466 and cost two days.
+---
+--- The quest is right there in front of him. `GetQuestID()` answers while the offer or
+--- detail frame is up, so the client names its own quest and nobody guesses.
+---
+--- ⚠️ Appends to the same log as `/mh here`, deliberately. A quest and a coordinate are
+--- both "something I found while playing", and splitting them into two lists would mean
+--- two reloads to collect one afternoon.
+function ns.LogQuestHere()
+	local id
+	if GetQuestID then
+		local ok, v = pcall(GetQuestID)
+		id = ok and tonumber(v) or nil
+	end
+	if not id or id == 0 then
+		print(("%s |cffff5040No quest window open — open the quest first, then type this.|r")
+			:format(Prefix()))
+		return
+	end
+
+	--- The title from the frame if the client will give it, never typed in from the
+	--- screenshot. A secret or missing title is recorded as absent rather than invented.
+	local title
+	if GetTitleText then
+		local ok, v = pcall(GetTitleText)
+		if ok and ns.CanAccessText and ns.CanAccessText(v) and v ~= "" then
+			title = v
+		end
+	end
+	if not title and C_QuestLog and C_QuestLog.GetTitleForQuestID then
+		local ok, v = pcall(C_QuestLog.GetTitleForQuestID, id)
+		if ok and ns.CanAccessText and ns.CanAccessText(v) then
+			title = v
+		end
+	end
+
+	ns.db = ns.db or {}
+	ns.db.spots = ns.db.spots or {}
+	ns.db.spots[#ns.db.spots + 1] = {
+		kind = "quest",
+		questID = id,
+		title = title,
+	}
+	print(("%s |cff40c040quest %d|r  %s"):format(
+		Prefix(), id, title or "|cff8a8f98(no readable title)|r"))
+	print(("   |cff8a8f98Written down — /reload saves it. %d entr%s in the log.|r"):format(
+		#ns.db.spots, #ns.db.spots == 1 and "y" or "ies"))
+end
+
 --- Where the player is, as map id and 0-100 coordinates.
 --- @return number|nil mapID, number|nil x, number|nil y, string|nil zoneName
 local function Here()

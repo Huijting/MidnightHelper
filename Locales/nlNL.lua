@@ -302,6 +302,7 @@ ns._mhLocales.nlNL = {
 	CMDLIST_HEALCDS = "Je healing-cooldowns, voor healer-specs.",
 	CMDLIST_DISPEL = "Wat jij kunt dispellen, en wat er nu op je staat.",
 	CMDLIST_MBUFF = "Print wat de ontbrekende-buff-check ziet. De melding zelf staat in Settings.",
+	CMDLIST_QUEST = "Schrijft id en titel op van het questvenster dat openstaat. Zelfde logboek als /mh here.",
 	CMDLIST_COACH = "De Delve Coach.",
 	CMDLIST_BOSSWIN = "Het dungeon-bossvenster.",
 	CMDLIST_RITUALBOSS = "De bosscoach voor ritual sites.",
