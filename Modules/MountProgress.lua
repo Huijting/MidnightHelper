@@ -112,23 +112,30 @@ local TRACKED = {
 	-- We only surface a renown mount once you have ANY renown with the faction, so
 	-- un-started factions don't clutter the list with 0/NN goals.
 	--
-	-- ⚠️ OPEN, 19 aug: IS THERE A SIXTH MIDNIGHT FACTION WE HAVE NEVER LISTED?
+	-- ✅ ANSWERED 19 aug, AND WE ARE MISSING A WHOLE FACTION.
 	--
-	-- A 12.1 mount guide describes two mounts sold by Jansari at Tokka's Landing for
-	-- Voidlight Marl at renown 17 and 19 — Indigo Coiled Horror and Violet-Backed
-	-- Skyfang — from a faction it calls "Zul'jara's Forces". That is precisely the shape
-	-- of every row below: one faction, a mount at 17 and another at 19, paid in Marl.
+	-- The question was whether a 12.1 mount guide's "Zul'jara's Forces" was real or a
+	-- mis-transcription. Rob's client listed every Renown faction it knows, and there it
+	-- is: **2772 "Zul'jarra's Forces"**, and he is already at renown 4 with it. Two
+	-- mounts are said to sit at renown 17 and 19 — Indigo Coiled Horror and
+	-- Violet-Backed Skyfang, from Jansari at Tokka's Landing, 6k and 8k Voidlight Marl.
+	-- That is precisely the shape of every row below.
 	--
-	-- We carry five faction ids: 2696 Amani, 2704 Hara'ti, 2710 Silvermoon, 2699
-	-- Singularity, 2792 Ritual. None of them is a Coiled Isle faction by name.
+	-- Our five all checked out (2696, 2699, 2704, 2710, 2792), so nothing here is wrong
+	-- — there is simply a sixth nobody added, and its progress bar has never been shown
+	-- to anyone.
 	--
-	-- ⚠️ AND THE SOURCE IS AN AUTO-TRANSCRIBED SPOKEN WORD, so the name is worth very
-	-- little: the same transcript renders Tokka's Landing as "Tucker's Landing". Either
-	-- a whole renown track is missing from this list — two mounts and a progress bar
-	-- nobody sees — or it is one of the five above, misheard.
+	-- ⚠️ NO ROW YET, because a row needs a `mountItemID` and the guide gives none. The
+	-- renown levels and Marl costs come from that same video; the item ids have to come
+	-- from the client. `/mh mount indigo` and `/mh mount skyfang` are the way in.
 	--
-	-- `C_MajorFactions.GetMajorFactionIDs()` settles it, and `/mh atal` now prints it.
-	-- Do NOT add a sixth row until that returns a sixth id.
+	-- 📌 THE SAME DUMP FOUND TWO MORE TRACKS WE DO NOT CARRY, and one of them settles an
+	-- older argument:
+	--   * **2808 "Preyhunter's Journey"** — Icy Veins says the Coiled Isle portal needs
+	--     only "Prey Journey rank 1". That rank is READABLE. See the note beside
+	--     `requiresQuest` in Delves.lua: our quest gate may be the wrong shape entirely.
+	--   * **2796 "Delves: Season 2"** — the Delver's Journey as a renown track. The same
+	--     guide puts the Corroded Soul Crusher at rank 5 of it.
 	{ key = "amanibear",  mountItemID = 257219, renownFactionID = 2696, need = 17, fallbackName = "Amani Blessed Bear",             howToKey = "MOUNTPROG_AMANIBEAR_HOWTO" },
 	{ key = "amaniwind",  mountItemID = 250889, renownFactionID = 2696, need = 19, fallbackName = "Amani Windcaller",              howToKey = "MOUNTPROG_AMANIWIND_HOWTO" },
 	{ key = "grimlynx",   mountItemID = 246734, renownFactionID = 2704, need = 16, fallbackName = "Fierce Grimlynx",              howToKey = "MOUNTPROG_GRIMLYNX_HOWTO" },

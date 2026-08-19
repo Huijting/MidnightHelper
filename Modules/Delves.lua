@@ -196,6 +196,20 @@ local MIDNIGHT_PORTALS = {
 	-- Recorded because naming the thing the player clicks is worth more than a coordinate
 	-- when a route tip has to say what to look for.
 	--
+	-- ✅ 19 aug — THE RANK IS READABLE, so the third theory can actually be tested. A dump
+	-- of every Renown faction on Rob's client turned up **2808 "Preyhunter's Journey"**,
+	-- which is exactly the track Icy Veins named ("only Prey Journey rank 1 is needed").
+	-- `C_MajorFactions.GetMajorFactionData(2808).renownLevel` answers it directly.
+	--
+	-- ⚠️ NOT CHANGED YET, and the reason is the measurement we do not have. Rob sits at
+	-- rank 0 and has not picked up 96004, so nobody has yet seen the portal exist at
+	-- rank 1 — the claim is still Icy Veins', not ours. What we now know is only that it
+	-- is CHECKABLE, which it was not this morning.
+	--
+	-- When someone does confirm it, `requiresQuest` is the wrong field rather than the
+	-- wrong id, and this row wants a `requiresRenown = { faction = 2808, level = 1 }`
+	-- shape instead. Do not convert it on the strength of a guide.
+	--
 	-- Two player claims from the same source are deliberately NOT acted on: that the
 	-- portal only works at level 90, and that the portal quest starts only after a
 	-- Nightmare Prey on the island. Comments under a news article are the weakest source
