@@ -307,6 +307,26 @@ local function IsSeasonLive()
 		-- still better than never opening at all, and it is the old behaviour.
 	end
 
+	--- ✅ MEASURED 19 aug: `C_DelvesUI.GetCurrentDelvesSeasonNumber()` exists on Rob's
+	--- client and returned 2, with this gate independently saying "live" on the same run.
+	--- The name came from EverythingDelves 1.26.0 and is verified rather than borrowed.
+	---
+	--- ⚠️ IT MAY REFUSE, IT MAY NOT GRANT — the same rule the M+ id above lives under,
+	--- and for the same reason. Filling in `mplusSeasonId` as proof would have opened the
+	--- gate five days early on 12 aug; a delve season number could carry the identical
+	--- trap. Nobody read this function BEFORE the EU reset, so we do not know whether it
+	--- turned on the American Tuesday or the European Wednesday. Until someone measures
+	--- that, treating a 2 as permission would be inventing regional behaviour.
+	---
+	--- What it CAN do is stop a client that never advanced: if it plainly says season 1,
+	--- no arithmetic about reset times should override that.
+	if C_DelvesUI and type(C_DelvesUI.GetCurrentDelvesSeasonNumber) == "function" then
+		local okD, delveSeason = pcall(C_DelvesUI.GetCurrentDelvesSeasonNumber)
+		if okD and type(delveSeason) == "number" and delveSeason < 2 then
+			return false
+		end
+	end
+
 	local s2 = ns.SEASON2 and ns.SEASON2.mplusSeasonId
 	if s2 then
 		return live == s2 -- past the date, so the exact id may decide
