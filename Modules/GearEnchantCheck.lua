@@ -44,6 +44,10 @@ local RING_BY_STAT = {
 	mastery = { sid = 1236060, ah = "Enchant Ring - Zul'jin's Mastery" },
 	vers = { sid = 1236089, ah = "Enchant Ring - Silvermoon's Tenacity" },
 }
+--- Not keyed by stat, and that is the point: it raises crit EFFECTIVENESS rather than a
+--- secondary stat, so it sits outside the by-stat table that could never have found it.
+--- Spell id confirmed against Rob's client, 19 aug (`/mh spell 1236059`).
+local RING_EFFECT = { sid = 1236059, ah = "Enchant Ring - Eyes of the Eagle" }
 local WEAPON_BY_STAT = {
 	haste = { sid = 1236067, ah = "Enchant Weapon - Berserker's Rage" },
 	crit = { sid = 1236066, ah = "Enchant Weapon - Jan'alai's Precision" },
@@ -53,10 +57,23 @@ local WEAPON_BY_STAT = {
 local CHEST_PRIMARY = { sid = 1236069, ah = "Enchant Chest - Mark of the Worldsoul" }
 
 -- HEAD + FEET tertiary-keuze: Speed / Leech / Avoidance.
+--- ⚠️ THESE COME IN TWO RANKS AND WE WERE RECOMMENDING THE CHEAP ONE. The plain versions
+--- are what our own Enchanting guide calls a skill-up craft (`enUS.lua`, the 25-40 line),
+--- and all six specs the stale-advice audit checked want the "Empowered" rank instead —
+--- Rob's own helm was already wearing Empowered Rune of Avoidance while this table told
+--- him to buy the other one.
+---
+--- Both ids confirmed against his client on 19 aug via `/mh spell`, not taken from the
+--- guide pages that suggested them.
+---
+--- ⏳ Hex of Leeching still points at the base rank. The two confirmed ids sit exactly one
+--- above their plain versions (1236083→1236084, 1236070→1236071), so 1236056 is the
+--- obvious candidate — and an obvious candidate is still a guess until the client names
+--- it. Left alone rather than shipped on a pattern.
 local HEAD_TERTIARY = {
-	{ sid = 1236070, ah = "Enchant Helm - Blessing of Speed" },
+	{ sid = 1236071, ah = "Enchant Helm - Empowered Blessing of Speed" },
 	{ sid = 1236055, ah = "Enchant Helm - Hex of Leeching" },
-	{ sid = 1236083, ah = "Enchant Helm - Rune of Avoidance" },
+	{ sid = 1236084, ah = "Enchant Helm - Empowered Rune of Avoidance" },
 }
 local FEET_TERTIARY = {
 	{ sid = 1236085, ah = "Enchant Boots - Farstrider's Hunt" },
@@ -453,7 +470,22 @@ local function Recommend(slotId, stat, map)
 	if slotId == 16 then
 		return stat and WEAPON_BY_STAT[stat] and LinkOf(map, WEAPON_BY_STAT[stat]) or nil
 	elseif slotId == 11 or slotId == 12 then
-		return stat and RING_BY_STAT[stat] and LinkOf(map, RING_BY_STAT[stat]) or nil
+		--- ⚠️ THE WHOLE RING MODEL WAS THE WRONG SHAPE, not merely missing a row. We picked
+		--- a ring by your best secondary stat, so a ring enchant that grants no secondary
+		--- stat could never be suggested by construction — and Eyes of the Eagle, which
+		--- raises critical strike EFFECTIVENESS, is what five of the six specs the audit
+		--- checked actually want. Only Prot Paladin took a flat-stat ring.
+		---
+		--- Confirmed by Rob's client on 19 aug: `/mh spell 1236059` came back "Enchant Ring
+		--- - Eyes of the Eagle". The four stat rings stay as the alternative, because a
+		--- guide majority is not a rule and the footer already says to check a class guide
+		--- for true best-in-slot.
+		local first = LinkOf(map, RING_EFFECT)
+		local byStat = stat and RING_BY_STAT[stat] and LinkOf(map, RING_BY_STAT[stat]) or nil
+		if byStat then
+			return ns:L("ENCHANT_PICK") .. " " .. first .. " / " .. byStat
+		end
+		return first
 	elseif slotId == 5 then
 		return LinkOf(map, CHEST_PRIMARY)
 	elseif slotId == 1 then -- head: tertiary keuze
