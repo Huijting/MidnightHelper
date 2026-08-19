@@ -180,10 +180,33 @@ local function InGroup()
 	return IsInGroup and IsInGroup() and true or false
 end
 
+--- ⚠️ GUARDED 19 aug, and the reason is a warning rather than a crash anyone has seen.
+---
+--- The 12.1 API notes say more `Unit*` calls return a SECRET when the unit's identity is
+--- secret, `UnitGroupRolesAssigned` among them. This used to compare its result to
+--- "HEALER" inside a bare `if`, and comparing a secret in a conditional throws.
+---
+--- DelveCuriosAdvisor.lua:52 already guards the same call and says why: "player is the
+--- least likely unit to be secret, which is exactly why this would sit here for months
+--- and then fire once, in restricted content, in front of somebody." That argument is
+--- STRONGER here — this asks about other group members, not about the player.
+---
+--- ⚠️ Nobody has confirmed that party roles ever go secret, so this is consistency with
+--- a sister module rather than a fix for a measured break. That is also why the
+--- behaviour is unchanged: an unreadable role is skipped, exactly as a non-healer is.
+---
+--- ⚠️ AND THAT LEAVES A REAL BLIND SPOT, named here rather than hidden: "every role was
+--- unreadable" and "there is no healer" come out of this function identically, and the
+--- caller turns both into "do not suggest Source of Magic". A missing suggestion is the
+--- cheaper failure than one naming a healer who is not there, but it IS a failure, and
+--- if 12.2 makes party roles secret in earnest this function needs a third state.
 local function HealerInGroup()
 	for _, u in ipairs(GroupUnits()) do
-		if u ~= "player" and UnitGroupRolesAssigned and UnitGroupRolesAssigned(u) == "HEALER" then
-			return true
+		if u ~= "player" and UnitGroupRolesAssigned then
+			local ok, role = pcall(UnitGroupRolesAssigned, u)
+			if ok and not (ns.IsSecretValue and ns.IsSecretValue(role)) and role == "HEALER" then
+				return true
+			end
 		end
 	end
 	return false
