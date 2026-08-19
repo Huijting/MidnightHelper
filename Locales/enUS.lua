@@ -1448,6 +1448,7 @@ ns._mhLocales.enUS = {
 	RARES_SKIP_LAST = "That's the last open rare — nothing to skip to.",
 	RARES_SKIP_SINGLE = "Skip works during Generate Route (it chains past un-spawned rares).",
 	ARROW_OTHER_CONTINENT = "(other continent — travel back)",
+	ARROW_LEAVE_INSTANCE_FIRST = "(leave here first)",
 	ARROW_FLY_TO = "head for %s",
 	ARROW_AT_STEP = "You are at %s — go through, the arrow picks up on the other side.",
 	-- Short on purpose: it sits on the arrow label beside a name and a distance.

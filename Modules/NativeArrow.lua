@@ -347,6 +347,23 @@ local function UpdateArrow()
 			other = "(other continent)"
 		end
 
+		--- ⚠️ FROM INSIDE AN INSTANCE, "other continent" IS A GUESS WE CANNOT MAKE.
+		--- Rob, 19 aug: standing in a delve he asked for the nearest bountiful one and got
+		--- "The Shadow Enclave (other continent — travel back) head for Fairbreeze Village".
+		--- Fairbreeze may well be right once he is outside, but the verdict in the middle is
+		--- invented: a delve's own map has no continent relationship to anything outdoors, so
+		--- "unreachable" in here means "you are indoors", not "you are far away". It could
+		--- have been the delve next door and the label would have read the same.
+		---
+		--- One thing IS true from in here and it is the thing he has to do first, so say that
+		--- and leave the travel hint to speak for the part that comes after.
+		if IsInInstance and select(1, IsInInstance()) then
+			local inside = ns:L("ARROW_LEAVE_INSTANCE_FIRST")
+			if inside and inside ~= "ARROW_LEAVE_INSTANCE_FIRST" then
+				other = inside
+			end
+		end
+
 		--- ⚠️ Rob, 17 aug: "waarom krijg ik dit en wat moet ik ermee?!? ik zie geen
 		--- afstand of niks." Refusing to draw a direction across continents is right —
 		--- it would be invented — but naming the target and stopping there tells him

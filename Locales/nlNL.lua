@@ -1438,6 +1438,7 @@ ns._mhLocales.nlNL = {
 	RARES_SKIP_LAST = "Dit is de laatste open rare — niks om naar over te slaan.",
 	RARES_SKIP_SINGLE = "Skip werkt tijdens Generate Route (schuift langs niet-gespawnde rares).",
 	ARROW_OTHER_CONTINENT = "(ander continent — reis terug)",
+	ARROW_LEAVE_INSTANCE_FIRST = "(eerst hier naar buiten)",
 	ARROW_FLY_TO = "ga richting %s",
 	ARROW_AT_STEP = "Je staat bij %s — loop erdoor, aan de andere kant pakt de pijl het weer op.",
 	ARROW_TARGET_ROAMS = "|cffffd100(zwerft — kijk rond)|r",
