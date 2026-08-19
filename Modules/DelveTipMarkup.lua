@@ -488,6 +488,58 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 	return true
 end
 
+--------------------------------------------------------------------------------
+--- Ask again once you are outside, because inside the answer was unavailable.
+---
+--- ⚠️ THE LEG DECISION USED TO BE MADE EXACTLY ONCE, when the route was set, and that
+--- is one moment too few. Rob, 19 aug: standing in a delve he asked for the nearest
+--- bountiful one, walked out, and the arrow still pointed 8 km across the world at the
+--- delve itself instead of at a flight master.
+---
+--- Nothing was broken. `RouteFirstToFlightPoint` looks up the flight point nearest YOU,
+--- and inside a delve there is none — `fromName` came back nil and it correctly declined
+--- to invent a leg. Then he left, the situation changed, and nobody asked it again.
+---
+--- So this is not new logic, only a second chance to run the existing logic. Every guard
+--- in there still applies: it stays silent when the two flight points are the same, when
+--- the travel plan already has a door on this map, and while you are on a taxi. If it
+--- decides a leg helps, it says so; if not, nothing moves.
+---
+--- ⚠️ Only when a leg is NOT already running. Re-deciding mid-leg would send the arrow
+--- back to the flight master you are walking away from — the exact bug the taxi check
+--- inside the watcher exists to prevent.
+function ns.HasPendingTravelLeg()
+	return pendingLeg ~= nil
+end
+
+local legRetry = CreateFrame("Frame")
+legRetry:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+legRetry:RegisterEvent("PLAYER_ENTERING_WORLD")
+legRetry:SetScript("OnEvent", function()
+	if not (ns.lastTarget and ns.RouteFirstToFlightPoint) then
+		return
+	end
+	if pendingLeg or ns._mhTravelLegBusy then
+		return
+	end
+	-- Indoors the lookup has nothing to answer with; that is what got us here.
+	if IsInInstance and select(1, IsInInstance()) then
+		return
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.7, function() -- let the map settle after the load screen
+			local t = ns.lastTarget
+			if not (t and t.mapID) or pendingLeg or ns._mhTravelLegBusy then
+				return
+			end
+			local here = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+			if here then
+				pcall(ns.RouteFirstToFlightPoint, t.mapID, t.x, t.y, t.name, here)
+			end
+		end)
+	end
+end)
+
 function ns:SetMapWaypoint(mapID, x, y, label)
 	mapID, x, y = tonumber(mapID), tonumber(x), tonumber(y)
 	if not (mapID and x and y) then
