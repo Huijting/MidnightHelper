@@ -125,7 +125,12 @@ local ZONES = {
 		shortLabel = "Val",
 		rares = {
 			{ 95939, 2599, 66.80, 86.40, "Sleet-Rune", 261965 },
-			{ 95559, 2599, 67.20, 41.80, "Glacial Broodmother", 261716 }, -- elite, roamt
+			--- ⚠️ `roams = true` bestaat sinds 19 aug (zie Coin-Eye Skully) en hoort ook op de
+		--- drie hieronder, die al met "-- roamt" in commentaar stonden. Nog niet gezet:
+		--- die drie zijn nooit gemeten zoals Skully dat is, en een vlag zetten op een
+		--- vermoeden maakt van commentaar een bewering. Wie er een tegenkomt en het ziet
+		--- zwemmen, zet 'm om.
+		{ 95559, 2599, 67.20, 41.80, "Glacial Broodmother", 261716 }, -- elite, roamt
 			{ 96370, 2599, 28.50, 74.50, "Xirah", 264864 },
 			{ 96373, 2599, 33.30, 43.00, "Opprimius", 264868 },
 			{ 96375, 2599, 33.50, 58.20, "The Horror Below", 264870 },
@@ -191,22 +196,29 @@ local COILED_ISLE = {
 		{ 98354, 2512, 58.01, 40.13, "Sss'alik, The Rotten Claw", 261109, ach = 63358, crit = 115287 },
 		{ 0, 2512, 46.99, 62.23, "Malformed Leviathan", 255087 }, -- elite; EVENT, no kill quest of its own
 		{ 98353, 2512, 70.03, 63.44, "Big Mon", 256631, ach = 63358, crit = 115286 },
-		--- ⚠️ DISPUTED, 19 aug — the biggest coordinate disagreement on this island.
-		--- HandyNotes 154 puts this rare at 57.21/64.17, which is 4.4 away from ours.
-		--- It is provably the same rare and not a second one: same npc (257906) and the
-		--- same achievement criterion (115285).
+		--- ✅ SETTLED 19 aug, AND NOBODY WAS WRONG. This was flagged that morning as the
+		--- island's biggest coordinate disagreement — ours 4.4 away from HandyNotes 154,
+		--- provably the same rare (npc 257906, criterion 115285). Rob targeted it and ran
+		--- `/mh here`, and the answer was a third number again:
 		---
-		--- Neither side is assumed right. Ours came off the 12.1 PTR, and the comment at
-		--- the top of this table says PTR coordinates can move before live. But their
-		--- file is not automatically right either — AchievementsData.lua:732 records a
-		--- HandyNotes memorial that sat 1.3 out until Rob read the real number off his
-		--- own screen, and 154 still ships that wrong value.
+		---     ours              57.67 / 68.54
+		---     HandyNotes 154    57.21 / 64.17
+		---     Rob, 19 aug       57.58 / 88.34
 		---
-		--- 4.4 is more than three times that error, so this one is worth a look before it
-		--- sends anybody across a beach. `/mh here` on the rare settles it in seconds.
-		--- Left on our value until then: changing it on another addon's word is exactly
-		--- what the never-lie rule is for.
-		{ 98352, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906, ach = 63358, crit = 115285 },
+		--- His explanation on sight: "deze rare zwemt rond dus een vaste plek is er niet."
+		--- The x agrees across all three within half a point; the y runs from 64 to 88.
+		--- It swims a north-south line, and every coordinate anyone has ever published for
+		--- it is a snapshot of where it happened to be.
+		---
+		--- ⚠️ SO THE COORDINATE IS A HINT, NOT A PLACE, and `roams` says so in the data
+		--- instead of leaving three files quietly disagreeing forever. The number stays
+		--- ours — it is as true as the other two — but nothing should treat it as a spot
+		--- where the mob will be waiting.
+		---
+		--- The lesson is worth more than the rare: a disagreement between careful sources
+		--- can mean the thing being measured moves, not that someone measured badly. I
+		--- spent the morning deciding which file to distrust.
+		{ 98352, 2512, 57.67, 68.54, "Coin-Eye Skully", 257906, ach = 63358, crit = 115285, roams = true },
 		{ 98345, 2512, 50.00, 69.07, "Siltmouth, the Unflappable", 268049, ach = 63358, crit = 115280 },
 		{ 98344, 2512, 54.03, 72.22, "Farthik the Plunderer", 264854, ach = 63358, crit = 115279 }, -- circles in the air until he lands
 		{ 0, 2512, 67.16, 77.52, "Venom Lancer Ori'kassi", 255927 }, -- elite; not killed yet, id unknown
