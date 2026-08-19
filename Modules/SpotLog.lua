@@ -405,6 +405,66 @@ function ns.LookupSpellIDs(rest)
 	end
 end
 
+--- `/mh item <id> [id …]` — ask the client what an item id is actually called.
+---
+--- Third of the family, after `/mh npc` and `/mh spell`, and added for the same reason:
+--- the leg-armour rework needs item ids for the kits and spellthreads, and the audit's
+--- came from guide pages with its own warning that the exact numbers were the shakiest
+--- part of the report.
+---
+--- ⚠️ ITEM INFO IS ASYNCHRONOUS. The first call on an id the client has never seen returns
+--- nothing and quietly starts a server request; the answer lands a moment later. Reading
+--- that first nil as "no such item" is the trap that made `/mh curios` print "(no
+--- description)" eight times in 2.17.0. So this primes every id, waits, and only then
+--- reports — and still says "not loaded yet, try again" rather than "does not exist".
+function ns.LookupItemIDs(rest)
+	local p = "|cffffff78Midnight Helper:|r"
+	if type(rest) ~= "string" or not rest:find("%d") then
+		print(("%s usage: |cffffd100/mh item 244640 244642|r"):format(p))
+		return
+	end
+	local ids = {}
+	for id in rest:gmatch("%d+") do
+		ids[#ids + 1] = tonumber(id)
+	end
+	local request = C_Item and (C_Item.RequestLoadItemDataByID or C_Item.RequestLoadItemData)
+	for _, id in ipairs(ids) do
+		if request then
+			pcall(request, id)
+		end
+	end
+	local function report()
+		print(("%s item ids, as your client names them:"):format(p))
+		for _, id in ipairs(ids) do
+			local name
+			if C_Item and C_Item.GetItemNameByID then
+				local ok, n = pcall(C_Item.GetItemNameByID, id)
+				if ok then
+					name = n
+				end
+			end
+			if name == nil and _G.GetItemInfo then
+				local ok, n = pcall(_G.GetItemInfo, id)
+				if ok then
+					name = n
+				end
+			end
+			if issecretvalue and name ~= nil and issecretvalue(name) then
+				print(("   |cffe8c36a%d|r — |cff8a8f98secret, unreadable|r"):format(id))
+			elseif type(name) == "string" and name ~= "" then
+				print(("   |cff40c040%d|r — %s"):format(id, name))
+			else
+				print(("   |cffff5040%d|r — |cff8a8f98not loaded yet — run it once more|r"):format(id))
+			end
+		end
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(1, report)
+	else
+		report()
+	end
+end
+
 -- ---------------------------------------------------------------------------
 -- /mh crest — what a delve actually pays, measured instead of argued about
 -- ---------------------------------------------------------------------------

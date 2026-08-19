@@ -1033,6 +1033,28 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh skip — sla de rare/route-halte over waar de pijl nu op staat en ga door naar de
+	-- volgende. Bestond al als keybind-functie en dus alleen voor wie er een toets aan
+	-- gebonden had; Rob vloog 19 aug over een rare heen, wilde verder, en kreeg onze pijl
+	-- terug zodra TomTom zijn waypoint bij aankomst wiste. Dat is bedoeld gedrag — een
+	-- rare-route blijft staan tot de rare dood is — maar er moet een manier zijn om nee te
+	-- zeggen die je kunt vinden zonder de keybind-lijst door te lezen.
+	if msg == "skip" then
+		if MidnightHelper_KeybindSkipNode then
+			MidnightHelper_KeybindSkipNode()
+		end
+		return
+	end
+
+	-- /mh item <id> [id …] — vraag de client hoe een item-id heet. Voor de kits en
+	-- spellthreads van de been-enchants; item-info is async, dus hij wacht even.
+	if msg == "item" or msg:match("^item%s") then
+		if ns.LookupItemIDs then
+			ns.LookupItemIDs(msg:match("^item%s+(.+)$"))
+		end
+		return
+	end
+
 	-- /mh spell <id> [id …] — vraag de client hoe een spell-id heet. Zusje van /mh npc,
 	-- voor enchant- en spell-id's uit gidsen die we niet op hun woord geloven.
 	if msg == "spell" or msg:match("^spell%s") then
