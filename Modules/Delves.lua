@@ -184,6 +184,18 @@ local MIDNIGHT_PORTALS = {
 	-- should eventually read it instead — `requiresQuest` would then be the wrong shape,
 	-- not merely the wrong id.
 	--
+	-- ✅ 19 aug, AND IT LEANS OUR WAY. Zygor's walked route shows the portal being USED
+	-- as objective /3 of the quest Astalor hands over the moment 96004 is turned in. So
+	-- the portal exists one quest after our gate, and their travel graph's 96532 is five
+	-- steps later than that — conservative for a route planner, not a correction of us.
+	-- The first objective of that same quest is "unlock the Coiled Isle by continuing the
+	-- Curse of Ula'tek", so the deepest lever is probably campaign progress rather than
+	-- either quest. Left on 96004: it is the closest readable proxy anyone has shown.
+	--
+	-- 📌 The portals are objects 265506 (Silvermoon → isle) and 265505 (isle → Sanctum).
+	-- Recorded because naming the thing the player clicks is worth more than a coordinate
+	-- when a route tip has to say what to look for.
+	--
 	-- Two player claims from the same source are deliberately NOT acted on: that the
 	-- portal only works at level 90, and that the portal quest starts only after a
 	-- Nightmare Prey on the island. Comments under a news article are the weakest source

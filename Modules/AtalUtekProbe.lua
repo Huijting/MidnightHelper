@@ -128,7 +128,35 @@ local REPEATABLE = {
 	-- wrong ids and so is 96466 — and only then.
 	--
 	-- Until that run: this is UNDECIDED, not settled. Nothing is gated on 96466.
-	{ 96466, "Prey: Anguish Island (UNDECIDED — see the note above, re-measure 19 aug)", "see 96528" },
+	--
+	-- 📌 19 aug — ZYGOR HAS IT AS A REAL STEP, WITH THREE OBJECTIVES. Not a bare id in a
+	-- quest-group table this time, but a walked route:
+	--
+	--     96466 "Prey: Anguish Island", from Astalor (npc 246231) right after 96004
+	--       /1  Unlock the Coiled Isle by Continuing the Curse of Ula'tek
+	--       /3  Use the Portal to the Coiled Isle in Astalor's Sanctum  2393 56.87/67.47
+	--       /2  Locate Astalor's Servant on the isle                    2512 58.18/48.66
+	--     turn in to Sanctum Attendant Ethrandil (265267), who hands over 96474.
+	--
+	-- So two independent guides now carry this id, one of them with objective text and
+	-- coordinates, and Rob's server still says it does not exist. That is stranger than
+	-- it was on 17 aug, not clearer.
+	--
+	-- ✅ WHAT IT DOES SETTLE is our own portal gate. The portal is USED as an objective
+	-- of 96466, which is the quest handed out the moment 96004 is turned in — so gating
+	-- on 96004 is defensible, and Zygor's own travel graph gating on 96532 (five steps
+	-- later) is conservative for their purpose rather than a correction of ours. The
+	-- island itself hangs off the Curse of Ula'tek campaign, which is a different lever
+	-- again and probably the real one.
+	--
+	-- 📌 Portal objects, from the same guide: 265506 out, 265505 back.
+	--
+	-- ⚠️ AND THERE IS NOW A CLEAN TEST. Rob is on 97321 today. When he walks the Prey
+	-- line and Astalor offers the quest after 96004, `/mh quest` (built this morning for
+	-- exactly this shape of problem) reads the id the client actually hands him. If it is
+	-- 96466 the server's silence needs another explanation; if it is anything else, both
+	-- guides share one stale datamined id and this closes for good.
+	{ 96466, "Prey: Anguish Island (UNDECIDED — /mh quest on the real offer settles it)", "see 96528" },
 
 	-- ⚠️ THE REST OF THE CHAIN, and the reason the portal gate is now in doubt.
 	--
