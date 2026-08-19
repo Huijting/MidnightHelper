@@ -356,6 +356,55 @@ function ns.LogSpotHere(note)
 	print("   |cff8a8f98/reload writes the list to the DB.|r")
 end
 
+--- `/mh spell <id> [id …]` — ask the client what a spell id is actually called.
+---
+--- The sibling of `/mh npc`, and it exists for the same reason. The stale-advice audit
+--- came back with spell ids for the "Empowered" rank of the head enchants, taken from
+--- guide pages; one of the three it could not source at all. Shipping the two and guessing
+--- the third is exactly the move this project has a rule against — an enchant id nobody
+--- checked is what quest 96466 was for three days.
+---
+--- ⚠️ The name can be nil for a real id that is not cached yet, so nil is reported as
+--- "unknown to this client" rather than "does not exist". Those are different answers and
+--- only one of them means the id is wrong.
+function ns.LookupSpellIDs(rest)
+	local p = "|cffffff78Midnight Helper:|r"
+	if type(rest) ~= "string" or not rest:find("%d") then
+		print(("%s usage: |cffffd100/mh spell 1236084 1236071|r"):format(p))
+		return
+	end
+	local getInfo = (C_Spell and C_Spell.GetSpellInfo) or nil
+	local getName = (C_Spell and C_Spell.GetSpellName) or _G.GetSpellInfo
+	if not (getInfo or getName) then
+		print(("%s |cffff5040no spell API available|r."):format(p))
+		return
+	end
+	print(("%s spell ids, as your client names them:"):format(p))
+	for id in rest:gmatch("%d+") do
+		local sid = tonumber(id)
+		local name
+		if getInfo then
+			local ok, info = pcall(getInfo, sid)
+			if ok and type(info) == "table" then
+				name = info.name
+			end
+		end
+		if name == nil and getName then
+			local ok, n = pcall(getName, sid)
+			if ok then
+				name = n
+			end
+		end
+		if issecretvalue and name ~= nil and issecretvalue(name) then
+			print(("   |cffe8c36a%d|r — |cff8a8f98secret, unreadable|r"):format(sid))
+		elseif type(name) == "string" and name ~= "" then
+			print(("   |cff40c040%d|r — %s"):format(sid, name))
+		else
+			print(("   |cffff5040%d|r — |cff8a8f98unknown to this client|r"):format(sid))
+		end
+	end
+end
+
 -- ---------------------------------------------------------------------------
 -- /mh crest — what a delve actually pays, measured instead of argued about
 -- ---------------------------------------------------------------------------

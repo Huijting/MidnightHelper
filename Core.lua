@@ -1033,6 +1033,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh spell <id> [id …] — vraag de client hoe een spell-id heet. Zusje van /mh npc,
+	-- voor enchant- en spell-id's uit gidsen die we niet op hun woord geloven.
+	if msg == "spell" or msg:match("^spell%s") then
+		if ns.LookupSpellIDs then
+			ns.LookupSpellIDs(msg:match("^spell%s+(.+)$"))
+		end
+		return
+	end
+
 	-- /mh quest — id + titel van het questvenster dat nu openstaat. Zelfde logboek als
 	-- `/mh here`, want allebei zijn het "iets wat ik al spelend tegenkwam".
 	if msg == "quest" then

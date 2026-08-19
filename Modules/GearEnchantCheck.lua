@@ -66,8 +66,20 @@ local FEET_TERTIARY = {
 -- LEGS: top-tier kit (Agi/Str) en spellthread (Int).
 local LEG_AGISTR = { iid = 244640, ah = "Forest Hunter's Armor Kit" }
 local LEG_INT = { iid = 240154, ah = "Arcanoweave Spellthread" }
--- SHOULDER: optionele utility-enchant (effect onbevestigd — geen stat-claim).
-local SHOULDER_OPT = { iid = 243962, ah = "Enchant Shoulder - Akil'zon's Swiftness" }
+--- SHOULDER: Speed-enchant.
+---
+--- ⚠️ THE AH STRING SAID "Shoulder" AND THE ITEM IS "Shoulders". One missing letter, and
+--- the copy box handed the player a search that matches nothing — so the enchant looked
+--- like it did not exist. Found by the stale-advice audit on 19 aug; every other slot's
+--- prefix (`Enchant Ring -`, `Enchant Helm -`, `Enchant Boots -`, `Enchant Chest -`,
+--- `Enchant Weapon -`) is correct, which is why nobody ever noticed this one.
+---
+--- A hand-typed name that nothing checks is a standing invitation to this bug. The right
+--- repair is to ask the client for the item's own name by id — `C_Item.GetItemInfo` knows
+--- it — rather than storing a second copy of a string the game already owns. Left as a
+--- typo fix for now because the copy-box path feeds several slots and that is its own
+--- change; noted here so it does not get forgotten.
+local SHOULDER_OPT = { iid = 243962, ah = "Enchant Shoulders - Akil'zon's Swiftness" }
 
 -- Midnight-gems (12.0.7, geverifieerd — zie docs/GEMS_12.0.7_DATA.md). Blue/rare,
 -- prismatic (passen in elke socket), ilvl 295 "Flawless". Dual-stat: +16 hoofdstat
