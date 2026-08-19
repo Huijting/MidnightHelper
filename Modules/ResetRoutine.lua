@@ -181,6 +181,11 @@ local GIVER_WEEKLIES = {
 		noNameMatch = true,
 		pickupKey = "HOME_ROUTINE_GIVER_PICKUP_SHOWDOWN_FMT",
 		pin = { 2393, 47.93, 48.09, "HOME_ROUTINE_PIN_SHOWDOWN" },
+		-- Shares the Showdowns section's own gate rather than repeating its reasoning, so
+		-- the two can never disagree again. See the note in GiverState.
+		available = function()
+			return not (ns.IsShowdownsAvailable and not ns.IsShowdownsAvailable())
+		end,
 	},
 }
 
@@ -480,6 +485,32 @@ local function GiverState(def)
 			return "locked"
 		end
 	end
+
+	--- ⚠️ "NOT DONE YET" IS NOT THE SAME AS "STILL AVAILABLE", and this function assumed it
+	--- was. Everything above answers from the player's own log; nothing asked whether the
+	--- quest can still be picked up at all.
+	---
+	--- Found by the stale-advice audit on 19 aug: `Showdowns.lua` quotes Blizzard's hotfix
+	--- verbatim — "The Naigtal and Val Sparks of War quests will no longer be offered when
+	--- Season 2 begins" — and hides its own section accordingly, while this routine kept
+	--- posting Riftblade Maella as an open to-do with a waypoint, on every level-90
+	--- character, every week. One addon, two answers, and the one people actually read was
+	--- the wrong one. It also costs a portal trip rather than merely misinforming.
+	---
+	--- The gate is `IsShowdownsAvailable` itself rather than a copy of its reasoning, so
+	--- the two cannot drift apart again. Note the ordering matters: a weekly already in
+	--- your log returns "inlog" above and never reaches here, which is deliberate — the
+	--- hotfix stops NEW offers and takes nothing off the list of someone already holding
+	--- one.
+	---
+	--- ⚠️ ITS OWN ANSWER, NOT nil. nil already means "we do not know this giver's quest
+	--- ids", and the caller turns that into a generic "go look at the quest givers" line
+	--- with a route pin. Reusing it here would swap a specific wrong nudge for a vague one
+	--- and still walk the player to Silvermoon. "locked" is wrong too — that claims a
+	--- requirement you could go and meet.
+	if def.available and not def.available() then
+		return "unavailable"
+	end
 	return "pickup"
 end
 
@@ -581,6 +612,10 @@ function ns.GetResetRoutineSteps()
 					RouteSingle(pin[1], pin[2], pin[3], pin[4])
 				end or giversRoute,
 			}
+		elseif gs == "unavailable" then
+			-- Deliberately silent. The quest cannot be picked up any more, so there is
+			-- nothing to do and nothing to route to — and saying "nothing to do here" for
+			-- content that has ended is just another line to read past.
 		else
 			untrackedGivers = true
 		end
