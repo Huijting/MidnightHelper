@@ -211,13 +211,16 @@ ns.DELVE_BOSS_SHOWCASE = {
 	-- dicht — Azta'rec's GUID is secret (gemeten, 19 aug) en `/mh npc` gaf op alle vijf
 	-- de ids "name is secret" terug. Het model trekt zich daar niets van aan.
 	--
-	-- 265500 komt van Wowhead en is dus een kandidaat. Er is geen manier om hem via de
-	-- naam te bevestigen zolang die secret is — MAAR er is een betere: het model rendert
-	-- of het rendert niet, en Rob herkent de tweekoppige slangenworm in één blik. Zijn
-	-- ogen zijn hier de meting, precies zoals bij Drakta.
+	-- ✅ 265500 BEVESTIGD 19 aug. Het kwam van Wowhead, en de naam-route was dicht — maar
+	-- het model rendert wél, en Rob stond ervoor. Zijn screenshot toont het venster en de
+	-- echte baas naast elkaar: hetzelfde silhouet, dezelfde magenta kam, dezelfde horens.
+	-- Ogen als meetinstrument, precies zoals bij Drakta hieronder.
 	--
-	-- ⚠️ Rendert er niets of iets anders: het id is fout en deze regel gaat eruit. Een
-	-- leeg venster is beter dan een verkeerde baas, en beter dan geen antwoord.
+	-- ⚠️ EN LET OP WAT DIT OVER SECRET VALUES ZEGT. Zijn nameplate zei gewoon "Azta'rec"
+	-- terwijl `/mh npc` op ditzelfde id "name is secret" teruggaf. Secret betekent dus
+	-- niet "de client weet het niet" maar "de client vertelt het jou niet" — de speler
+	-- ziet het, de addon niet. Wie ooit uit een secret naam concludeert dat iets niet
+	-- bestaat, kijkt naar het verkeerde bewijs.
 	venomfall_deeps = {
 		{ creatureId = 265500, label = "Azta'rec" },
 	},
