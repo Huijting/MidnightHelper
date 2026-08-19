@@ -66,13 +66,15 @@ local CHEST_PRIMARY = { sid = 1236069, ah = "Enchant Chest - Mark of the Worldso
 --- Both ids confirmed against his client on 19 aug via `/mh spell`, not taken from the
 --- guide pages that suggested them.
 ---
---- ⏳ Hex of Leeching still points at the base rank. The two confirmed ids sit exactly one
---- above their plain versions (1236083→1236084, 1236070→1236071), so 1236056 is the
---- obvious candidate — and an obvious candidate is still a guess until the client names
---- it. Left alone rather than shipped on a pattern.
+--- ✅ All three now confirmed. The first two came back named, which put the Empowered ids
+--- exactly one above their plain versions (1236083→1236084, 1236070→1236071) and made
+--- 1236056 the obvious third. It was still sent to the client before being written down,
+--- and it came back "Enchant Helm - Empowered Hex of Leeching". The pattern was right —
+--- which is not the same as it having been safe to assume, and is why the audit's own
+--- unsourced id was the one thing it refused to hand over.
 local HEAD_TERTIARY = {
 	{ sid = 1236071, ah = "Enchant Helm - Empowered Blessing of Speed" },
-	{ sid = 1236055, ah = "Enchant Helm - Hex of Leeching" },
+	{ sid = 1236056, ah = "Enchant Helm - Empowered Hex of Leeching" },
 	{ sid = 1236084, ah = "Enchant Helm - Empowered Rune of Avoidance" },
 }
 local FEET_TERTIARY = {
