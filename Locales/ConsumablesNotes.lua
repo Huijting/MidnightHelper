@@ -31,6 +31,7 @@ local EN = {
 	CONS_NOTE_13 = "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback.",
 	CONS_NOTE_14 = "Use the listed potion as the default burst/throughput choice for PvE.",
 	CONS_NOTE_15 = "Use this as the default tank potion when you want throughput with manageable risk.",
+	CONS_NOTE_16 = "Two flasks, and the guide gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold.",
 }
 
 local NL = {
@@ -49,6 +50,7 @@ local NL = {
 	CONS_NOTE_13 = "Gebruik de genoemde tank-flacon; wissel naar Versatility voor meer defensief.",
 	CONS_NOTE_14 = "Gebruik de genoemde potion als burst/throughput-keuze voor PvE.",
 	CONS_NOTE_15 = "Standaard tank-potion met throughput en beperkt risico.",
+	CONS_NOTE_16 = "Twee flasks, en de gids geeft een afweging in plaats van een winnaar — welke beter is hangt af van je hero-talent, je content, of welke secondary je tekortkomt. Kijk in een class-guide voor je goud uitgeeft.",
 }
 
 local DE = {
@@ -67,6 +69,7 @@ local DE = {
 	CONS_NOTE_13 = "Nutze die genannte Tank-Flasche; wechsle zu Vielseitigkeit für mehr Defensive.",
 	CONS_NOTE_14 = "Genannter Trank als Burst/Throughput-Wahl für PvE.",
 	CONS_NOTE_15 = "Standard-Tanktrank mit Throughput und überschaubarem Risiko.",
+	CONS_NOTE_16 = "Zwei Flasks, und der Guide nennt eine Abwägung statt eines Siegers — welcher besser ist, hängt von deinem Heldentalent, deinem Content oder der fehlenden Sekundärwertung ab. Schau in einen Klassenguide, bevor du Gold ausgibst.",
 }
 
 local ES = {
@@ -85,6 +88,7 @@ local ES = {
 	CONS_NOTE_13 = "Frasco tank listado; cambia a Versatilidad para más defensivo.",
 	CONS_NOTE_14 = "Poción listada como burst/throughput en PvE.",
 	CONS_NOTE_15 = "Poción tank por defecto con throughput y riesgo controlado.",
+	CONS_NOTE_16 = "Dos flasks, y la guía da un criterio en vez de un ganador — cuál es mejor depende de tu talento de héroe, tu contenido o la secundaria que te falte. Consulta una guía de clase antes de gastar oro.",
 }
 
 local PT = {
@@ -103,6 +107,7 @@ local PT = {
 	CONS_NOTE_13 = "Frasco tank listado; troque para Versatilidade para mais defensivo.",
 	CONS_NOTE_14 = "Poção listada como burst/throughput em PvE.",
 	CONS_NOTE_15 = "Poção tank padrão com throughput e risco controlado.",
+	CONS_NOTE_16 = "Dois flasks, e o guia dá um critério em vez de um vencedor — qual é melhor depende do teu talento de herói, do teu conteúdo ou da secundária que te falta. Vê um guia de classe antes de gastar ouro.",
 }
 
 local IT = {
@@ -121,6 +126,7 @@ local IT = {
 	CONS_NOTE_13 = "Usa la fiala indicata come scelta tank predefinita; passa a Versatilità quando vuoi un ripiego difensivo più sicuro.",
 	CONS_NOTE_14 = "Usa la pozione indicata come scelta di burst/throughput predefinita per il PvE.",
 	CONS_NOTE_15 = "Usala come pozione tank predefinita quando vuoi throughput con un rischio gestibile.",
+	CONS_NOTE_16 = "Due flask, e la guida dà un criterio invece di un vincitore — quale sia meglio dipende dal tuo talento eroe, dal tuo contenuto o dalla secondaria che ti manca. Consulta una guida di classe prima di spendere oro.",
 }
 
 merge(ns._mhLocales.enUS or {}, EN)

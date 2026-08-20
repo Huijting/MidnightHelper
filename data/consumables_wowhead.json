@@ -1053,13 +1053,6 @@
       "flask": {
         "best": [
           {
-            "id": 241326,
-            "name": "Flask of the Shattered Sun",
-            "wowheadUrl": "https://www.wowhead.com/item=241326"
-          }
-        ],
-        "alternates": [
-          {
             "id": 241322,
             "name": "Flask of the Magisters",
             "wowheadUrl": "https://www.wowhead.com/item=241322"
@@ -1068,6 +1061,13 @@
             "id": 241324,
             "name": "Flask of the Blood Knights",
             "wowheadUrl": "https://www.wowhead.com/item=241324"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
           },
           {
             "id": 241320,
@@ -1075,7 +1075,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteEn": "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold."
       },
       "combatPotion": {
         "best": [
@@ -1519,13 +1519,6 @@
       "flask": {
         "best": [
           {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
-          }
-        ],
-        "alternates": [
-          {
             "id": 241324,
             "name": "Flask of the Blood Knights",
             "wowheadUrl": "https://www.wowhead.com/item=241324"
@@ -1534,6 +1527,13 @@
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
+          }
+        ],
+        "alternates": [
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
           },
           {
             "id": 241320,
@@ -1541,7 +1541,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Mastery is the default throughput flask; sim your character for close secondary stats."
+        "noteEn": "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold."
       },
       "combatPotion": {
         "best": [
@@ -2937,16 +2937,16 @@
       "flask": {
         "best": [
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
+            "id": 241320,
+            "name": "Flask of Thalassian Resistance",
+            "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
         "alternates": [
           {
-            "id": 241320,
-            "name": "Flask of Thalassian Resistance",
-            "wowheadUrl": "https://www.wowhead.com/item=241320"
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
           },
           {
             "id": 241326,
@@ -4022,18 +4022,6 @@
       "flask": {
         "best": [
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
-          }
-        ],
-        "alternates": [
-          {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
-          },
-          {
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
@@ -4044,7 +4032,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "noteEn": "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold."
       },
       "combatPotion": {
         "best": [
@@ -4330,21 +4330,21 @@
       "flask": {
         "best": [
           {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
           }
         ],
         "alternates": [
           {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          },
+          {
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
-          },
-          {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
           },
           {
             "id": 241320,
@@ -4949,21 +4949,21 @@
       "flask": {
         "best": [
           {
-            "id": 241326,
-            "name": "Flask of the Shattered Sun",
-            "wowheadUrl": "https://www.wowhead.com/item=241326"
-          }
-        ],
-        "alternates": [
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
           {
             "id": 241322,
             "name": "Flask of the Magisters",
             "wowheadUrl": "https://www.wowhead.com/item=241322"
-          },
+          }
+        ],
+        "alternates": [
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
+            "id": 241326,
+            "name": "Flask of the Shattered Sun",
+            "wowheadUrl": "https://www.wowhead.com/item=241326"
           },
           {
             "id": 241320,
@@ -4971,7 +4971,7 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Critical Strike is the default throughput flask; sim your character for close secondary stats."
+        "noteEn": "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold."
       },
       "combatPotion": {
         "best": [
@@ -5102,18 +5102,6 @@
       "flask": {
         "best": [
           {
-            "id": 241324,
-            "name": "Flask of the Blood Knights",
-            "wowheadUrl": "https://www.wowhead.com/item=241324"
-          }
-        ],
-        "alternates": [
-          {
-            "id": 241322,
-            "name": "Flask of the Magisters",
-            "wowheadUrl": "https://www.wowhead.com/item=241322"
-          },
-          {
             "id": 241326,
             "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
@@ -5124,7 +5112,19 @@
             "wowheadUrl": "https://www.wowhead.com/item=241320"
           }
         ],
-        "noteEn": "Haste is the default healer throughput flask; sim your character for close secondary stats."
+        "alternates": [
+          {
+            "id": 241324,
+            "name": "Flask of the Blood Knights",
+            "wowheadUrl": "https://www.wowhead.com/item=241324"
+          },
+          {
+            "id": 241322,
+            "name": "Flask of the Magisters",
+            "wowheadUrl": "https://www.wowhead.com/item=241322"
+          }
+        ],
+        "noteEn": "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold."
       },
       "combatPotion": {
         "best": [

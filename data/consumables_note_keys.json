@@ -15,6 +15,7 @@
     "Use as the default temporary weapon buff unless your class/spec-specific weapon imbue overrides it.": "CONS_NOTE_12",
     "Use the listed flask as the default tank choice; swap to Versatility when you want a safer defensive fallback.": "CONS_NOTE_13",
     "Use the listed potion as the default burst/throughput choice for PvE.": "CONS_NOTE_14",
-    "Use this as the default tank potion when you want throughput with manageable risk.": "CONS_NOTE_15"
+    "Use this as the default tank potion when you want throughput with manageable risk.": "CONS_NOTE_15",
+    "Two flasks, and the page gives an axis rather than a winner — which is better depends on your hero talent, your content, or which secondary you are short of. Check a class guide before committing gold.": "CONS_NOTE_16"
   }
 }

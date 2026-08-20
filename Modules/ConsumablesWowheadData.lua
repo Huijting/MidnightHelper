@@ -270,9 +270,9 @@ ns.ConsumablesWowheadByClassSpec.DRUID = {
 	},
 	[2] = {
 		flask = {
-			best = { 241326 },
-			alternates = { 241322, 241324, 241320 },
-			noteKey = "CONS_NOTE_01",
+			best = { 241322, 241324 },
+			alternates = { 241326, 241320 },
+			noteKey = "CONS_NOTE_16",
 		},
 		combatPotion = {
 			best = { 241288 },
@@ -384,9 +384,9 @@ ns.ConsumablesWowheadByClassSpec.DRUID = {
 ns.ConsumablesWowheadByClassSpec.EVOKER = {
 	[1] = {
 		flask = {
-			best = { 241322 },
-			alternates = { 241324, 241326, 241320 },
-			noteKey = "CONS_NOTE_05",
+			best = { 241324, 241326 },
+			alternates = { 241322, 241320 },
+			noteKey = "CONS_NOTE_16",
 		},
 		combatPotion = {
 			best = { 241309 },
@@ -726,8 +726,8 @@ ns.ConsumablesWowheadByClassSpec.MAGE = {
 ns.ConsumablesWowheadByClassSpec.MONK = {
 	[1] = {
 		flask = {
-			best = { 241324 },
-			alternates = { 241320, 241326 },
+			best = { 241320 },
+			alternates = { 241324, 241326 },
 			noteKey = "CONS_NOTE_13",
 		},
 		combatPotion = {
@@ -991,9 +991,9 @@ ns.ConsumablesWowheadByClassSpec.PRIEST = {
 	},
 	[2] = {
 		flask = {
-			best = { 241324 },
-			alternates = { 241322, 241326, 241320 },
-			noteKey = "CONS_NOTE_03",
+			best = { 241326, 241320 },
+			alternates = { 241324, 241322 },
+			noteKey = "CONS_NOTE_16",
 		},
 		combatPotion = {
 			best = { 241309 },
@@ -1068,8 +1068,8 @@ ns.ConsumablesWowheadByClassSpec.PRIEST = {
 ns.ConsumablesWowheadByClassSpec.ROGUE = {
 	[1] = {
 		flask = {
-			best = { 241322 },
-			alternates = { 241326, 241324, 241320 },
+			best = { 241324 },
+			alternates = { 241322, 241326, 241320 },
 			noteKey = "CONS_NOTE_01",
 		},
 		combatPotion = {
@@ -1219,9 +1219,9 @@ ns.ConsumablesWowheadByClassSpec.SHAMAN = {
 	},
 	[2] = {
 		flask = {
-			best = { 241326 },
-			alternates = { 241322, 241324, 241320 },
-			noteKey = "CONS_NOTE_01",
+			best = { 241324, 241322 },
+			alternates = { 241326, 241320 },
+			noteKey = "CONS_NOTE_16",
 		},
 		combatPotion = {
 			best = { 241288 },
@@ -1256,9 +1256,9 @@ ns.ConsumablesWowheadByClassSpec.SHAMAN = {
 	},
 	[3] = {
 		flask = {
-			best = { 241324 },
-			alternates = { 241322, 241326, 241320 },
-			noteKey = "CONS_NOTE_03",
+			best = { 241326, 241320 },
+			alternates = { 241324, 241322 },
+			noteKey = "CONS_NOTE_16",
 		},
 		combatPotion = {
 			best = { 241309 },
