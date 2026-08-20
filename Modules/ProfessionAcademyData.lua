@@ -327,6 +327,26 @@ ns.PROF_ACADEMY = {
 			searchKeys = "concentration guarantee next quality flame button refill regenerate "
 				.. "ingenuity refund per profession",
 		},
+		--- Lesson 6, round C. Built from docs/COPY_GOLD_BEGINNER.md at commit 8f4c9d1.
+		---
+		--- The only chapter with a `datedKey`, and that is the point of it. Half of this
+		--- subject is durable (how the two markets differ, what a supply lock is) and half
+		--- expires within weeks (what sells right now). Every guide we read mixes them, so
+		--- the whole thing reads as stale the moment the specific half goes off.
+		---
+		--- ⚠️ When it is re-measured, write a NEW key with the new date and point this at
+		--- it — do not edit the old one in place. The date in the key is what makes it
+		--- possible to see, from the data alone, how old the perishable advice is.
+		{
+			key = "gold",
+			titleKey = "PROFACAD_CH_GOLD_TITLE",
+			bodyKey = "PROFACAD_CH_GOLD_BODY",
+			introKey = "PROFACAD_CH_GOLD_INTRO",
+			datedKey = "PROFACAD_CH_GOLD_DATED_202608",
+			taskKey = "PROFACAD_CH_GOLD_TASK",
+			searchKeys = "gold money profit auction house sell market margin craftsim "
+				.. "auctionator soulbound warband cooldown is it worth crafting",
+		},
 		{
 			key = "recipes",
 			titleKey = "PROFACAD_CH_RECIPES_TITLE",

@@ -605,6 +605,20 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 					body = body .. "\n\n" .. lvlText
 				end
 			end
+			-- Perishable half, last and separately keyed. Some advice is durable (how
+			-- a market works) and some expires within weeks (what sells right now),
+			-- and every guide we read mixes the two — so the whole thing reads as
+			-- stale the moment the specific part does.
+			--
+			-- The key carries its own measurement date (…_DATED_YYYYMM), so a
+			-- re-measurement replaces ONE string instead of hunting through seven
+			-- language packs for the sentences that went off.
+			if ch.datedKey then
+				local dated = SL(ch.datedKey)
+				if dated and dated ~= "" and dated ~= ch.datedKey then
+					body = body .. "\n\n" .. dated:gsub("|n", "\n")
+				end
+			end
 			row.bodyFs:SetText(body)
 
 			local task = SL(ch.taskKey)
