@@ -88,9 +88,18 @@ local FEET_TERTIARY = {
 --- those there is a second choice we never showed, and the stale-advice audit found six
 --- of six sampled specs picking by it.
 ---
---- Both kits grant "Agility / Strength", so the axis is not the primary stat at all: it is
---- armor (Blood Knight's) against stamina (Forest Hunter's). Both threads grant Intellect;
---- there it is mana (Arcanoweave) against stamina (Sunfire Silk).
+--- ✅ CONFIRMED FROM THE ITEM TOOLTIPS on 20 aug (`/mh item 244640 244642`), because two
+--- addons told different stories and neither is evidence:
+---   Forest Hunter's — "increasing its Agility or Strength by 32. Additionally, the item
+---                      also gains 70 Stamina."
+---   Blood Knight's  — "increasing its Agility or Strength by 32. Additionally, the item
+---                      also gains 16 armor."
+--- So the axis is not the primary stat at all: both grant "Agility or Strength", and the
+--- choice is stamina against armor. SpellPilot 0.11.38 states the opposite (Blood Knight's
+--- = Strength, Forest Hunter's = Agility) and is simply wrong — a working addon shipping a
+--- confident wrong line, which is the whole reason CLAUDE.md calls them candidates.
+--- Both threads grant Intellect; there it is mana (Arcanoweave) against stamina (Sunfire
+--- Silk) — same shape, not yet read from the tooltips.
 ---
 --- ⏳ NO PER-SPEC RULE IS ASSERTED. The obvious one — armor for tanks — does not survive
 --- the evidence: Prot Paladin and Fury Warrior both take Blood Knight's, and Fury is not a
@@ -101,6 +110,12 @@ local FEET_TERTIARY = {
 --- All four item ids confirmed against Rob's client on 19 aug (`/mh item`). Note 244640
 --- and 244641 both come back "Forest Hunter's Armor Kit" — the same adjacent-id pairing
 --- the consumables data shows, so our long-standing number was never wrong.
+---
+--- ⏳ BUT PROBABLY THE LOWER RANK. 244640's tooltip reads 32 / 70 Stamina, while SpellPilot
+--- quotes 41 / 115 for the same name — which is what the higher rank of the pair should
+--- say, and 244641 is the obvious candidate. Not changed on that reasoning: it is the same
+--- pattern-instead-of-measurement that the Empowered enchant ids went through last night,
+--- and that one only shipped once the client named it. `/mh item 244641` settles it.
 local LEG_AGISTR = {
 	{ iid = 244640, ah = "Forest Hunter's Armor Kit" },
 	{ iid = 244642, ah = "Blood Knight's Armor Kit" },
