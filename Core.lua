@@ -1101,6 +1101,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh kp — welke currency-regel van een profession-boom de Knowledge Points zijn.
+	-- We lezen vandaag blind `cur[1]` en tonen dat als "unspent". Er bestaan twee soorten
+	-- (punten, en een gratis ontgrendel-token), en drie eerdere pogingen zijn op precies
+	-- die verwarring stukgelopen. Voor er een getal op het Home-scherm komt, meten we het.
+	if msg == "kp" then
+		if ns.ProbeKnowledgeCurrency then
+			ns.ProbeKnowledgeCurrency()
+		end
+		return
+	end
+
 	-- /mh crest [tier] [stash] — momentopname van al je currency, en daarna het verschil.
 	-- Meet wat een delve echt uitbetaalt in plaats van erover te redeneren; het argument
 	-- "tier 8-11 is identiek" ging over gear en heeft crests nooit bekeken.

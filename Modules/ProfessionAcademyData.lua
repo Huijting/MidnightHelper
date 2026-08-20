@@ -258,6 +258,9 @@ ns.PROF_ACADEMY = {
 			introKey = "PROFACAD_CH_KNOWLEDGE_INTRO",
 			taskKey = "PROFACAD_CH_KNOWLEDGE_TASK",
 			detect = "profui",
+			-- searchKeys: the words a reader types BEFORE they know the chapter's
+			-- own title. Same reason the Codex articles carry them.
+			searchKeys = "knowledge points kp what are they where do i get them",
 		},
 		{
 			key = "gearup",
@@ -266,6 +269,7 @@ ns.PROF_ACADEMY = {
 			introKey = "PROFACAD_CH_GEARUP_INTRO",
 			taskKey = "PROFACAD_CH_GEARUP_TASK",
 			detect = "proftool",
+			searchKeys = "profession gear tool accessory equipment slots empty skill",
 		},
 		{
 			key = "trees",
@@ -275,6 +279,53 @@ ns.PROF_ACADEMY = {
 			advancedKey = "PROFACAD_CH_TREES_ADVANCED",
 			taskKey = "PROFACAD_CH_TREES_TASK",
 			detect = "kpspent",
+			-- "respec", "reset" and "refund" matter most here: that is what someone
+			-- types the moment they fear they spent a point wrong, and until 3.3.0
+			-- this chapter told them the wrong answer.
+			searchKeys = "specialization specialisation tree respec reset refund undo theremis knowledge points",
+		},
+		--- Lessons 3, 4 and 5 from the beginner copy, round A of Spec 27. Built from
+		--- docs/COPY_QUALITY_BEGINNER.md, COPY_STATS_BEGINNER.md and
+		--- COPY_CONCENTRATION_BEGINNER.md, all at commit 8a5ca58 (20 Aug 2026).
+		--- ⚠️ If those files move on, diff them against these bodies — a source revision
+		--- landing after the build diverges silently, which is exactly how the
+		--- Leatherworking route and its own paragraph contradicted each other for a month.
+		---
+		--- Placed after "trees" on purpose: quality is what makes the tree choice matter,
+		--- the six stats are the mechanics underneath it, and Concentration is the safety
+		--- net both of them point at. No `detect` — only profui/proftool/kpspent exist,
+		--- and none of them describes "has read this", so these stay manual checkboxes.
+		{
+			key = "quality",
+			titleKey = "PROFACAD_CH_QUALITY_TITLE",
+			bodyKey = "PROFACAD_CH_QUALITY_BODY",
+			introKey = "PROFACAD_CH_QUALITY_INTRO",
+			advancedKey = "PROFACAD_CH_QUALITY_ADVANCED",
+			taskKey = "PROFACAD_CH_QUALITY_TASK",
+			searchKeys = "quality rank tier skill recipe difficulty reagent reagents crafting details "
+				.. "why is my item worse minimum quality order cannot complete",
+		},
+		{
+			key = "profstats",
+			titleKey = "PROFACAD_CH_STATS_TITLE",
+			bodyKey = "PROFACAD_CH_STATS_BODY",
+			introKey = "PROFACAD_CH_STATS_INTRO",
+			advancedKey = "PROFACAD_CH_STATS_ADVANCED",
+			taskKey = "PROFACAD_CH_STATS_TASK",
+			-- All six by name: this chapter exists because the single most repeated
+			-- complaint on the official forums is having to look them up every time.
+			searchKeys = "stats multicraft resourcefulness ingenuity finesse perception deftness "
+				.. "crafting details percentages what do they mean",
+		},
+		{
+			key = "concentration",
+			titleKey = "PROFACAD_CH_CONC_TITLE",
+			bodyKey = "PROFACAD_CH_CONC_BODY",
+			introKey = "PROFACAD_CH_CONC_INTRO",
+			advancedKey = "PROFACAD_CH_CONC_ADVANCED",
+			taskKey = "PROFACAD_CH_CONC_TASK",
+			searchKeys = "concentration guarantee next quality flame button refill regenerate "
+				.. "ingenuity refund per profession",
 		},
 		{
 			key = "recipes",
@@ -282,6 +333,7 @@ ns.PROF_ACADEMY = {
 			bodyKey = "PROFACAD_CH_RECIPES_BODY",
 			introKey = "PROFACAD_CH_RECIPES_INTRO",
 			taskKey = "PROFACAD_CH_RECIPES_TASK",
+			searchKeys = "recipes where do they come from trainer learn unlock first craft",
 		},
 		{
 			key = "moxie",
@@ -289,6 +341,7 @@ ns.PROF_ACADEMY = {
 			bodyKey = "PROFACAD_CH_MOXIE_BODY",
 			introKey = "PROFACAD_CH_MOXIE_INTRO",
 			taskKey = "PROFACAD_CH_MOXIE_TASK",
+			searchKeys = "moxie artisan currency vendor shopping money buy recipes books",
 		},
 		{
 			key = "weekly",
@@ -297,6 +350,7 @@ ns.PROF_ACADEMY = {
 			introKey = "PROFACAD_CH_WEEKLY_INTRO",
 			taskKey = "PROFACAD_CH_WEEKLY_TASK",
 			taskWaypoint = "workOrderStation",
+			searchKeys = "weekly quest profession knowledge every week reset",
 		},
 		{
 			key = "workorders",
@@ -305,6 +359,7 @@ ns.PROF_ACADEMY = {
 			introKey = "PROFACAD_CH_WORKORDERS_INTRO",
 			taskKey = "PROFACAD_CH_WORKORDERS_TASK",
 			taskWaypoint = "workOrderStation",
+			searchKeys = "work orders crafting orders public guild personal commission customer",
 		},
 		{
 			key = "enchanting",

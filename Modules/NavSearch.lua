@@ -154,6 +154,33 @@ local function BuildNavIndex()
 		function()
 			OpenTab("profacademy")
 		end, nil, L("NAV_WHERE_PROFACADEMY"), "tab")
+
+	--- Every course CHAPTER, not just the course. The whole thing was one entry,
+	--- so the only findable word was "course" — a beginner searching the word they
+	--- actually have ("concentration", "multicraft", "quality") got nothing, and
+	--- the course is exactly where the answer was. Same failure as the Codex
+	--- articles above, and the same fix.
+	---
+	--- Read from the chapter registry rather than a hand-kept list here, so a
+	--- chapter added later is searchable the moment it registers. `searchKeys`
+	--- carries the words a reader types before they know the chapter's own title.
+	if type(ns.PROF_ACADEMY) == "table" and type(ns.PROF_ACADEMY.chapters) == "table" then
+		local courseLabel = L("PROFHUB_TAB_COURSE")
+		for _, ch in ipairs(ns.PROF_ACADEMY.chapters) do
+			if type(ch) == "table" and ch.key and ch.titleKey then
+				local chKey = ch.key
+				add(courseLabel .. ": " .. L(ch.titleKey),
+					"profession course " .. chKey .. " " .. (ch.searchKeys or ""),
+					function()
+						OpenTab("profacademy")
+						if ns.MH_ScrollProfAcademyToChapter then
+							ns.MH_ScrollProfAcademyToChapter(chKey)
+						end
+					end, nil, L("NAV_WHERE_PROFACADEMY"), "tab")
+			end
+		end
+	end
+
 	tab("TAB_MACROS", "macros", "interrupt macro kick")
 	-- "party targets" is what a player calls it; "focus" and "assist" are what they
 	-- search for when they do not know the name. Additive, like every keyword here.

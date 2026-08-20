@@ -445,10 +445,18 @@ local function Relayout(panel)
 		return
 	end
 	local y = 4
+	panel._profAcadChapterY = panel._profAcadChapterY or {}
+	wipe(panel._profAcadChapterY)
 	for _, el in ipairs(panel._profAcadOrder) do
 		local w = el.w
 		if w:IsShown() then
 			y = y + (el.gapTop or 0)
+			-- Remember where each chapter's heading landed, so search can scroll to it.
+			-- Only the title FontStrings carry a key, and only shown ones get a
+			-- position — a chapter filtered out has no place to scroll to.
+			if w._mhChapterKey then
+				panel._profAcadChapterY[w._mhChapterKey] = y
+			end
 			w:ClearAllPoints()
 			w:SetPoint("TOPLEFT", child, "TOPLEFT", el.indent or 0, -y)
 			w:SetWidth(math.max(width - (el.indent or 0), 1))
@@ -694,6 +702,7 @@ function ns.BuildProfessionAcademyPanel(panel)
 		titleFs:SetFontObject(ns.MHScalableFont("GameFontNormalLarge"))
 		titleFs:SetJustifyH("LEFT")
 		titleFs:SetWordWrap(true)
+		titleFs._mhChapterKey = ch.key
 		push(titleFs, (i == 1) and 0 or 18, 0)
 		row.titleFs = titleFs
 
@@ -769,6 +778,95 @@ function ns.BuildProfessionAcademyPanel(panel)
 	end)
 
 	ns.MH_RefreshProfessionAcademyPanel(panel)
+end
+
+--- `/mh kp` — dump every currency row of every profession tree, unfiltered.
+---
+--- GetSpecSummary above reads `cur[1]` and calls its quantity "unspent", and the
+--- Professions overview already prints that number. But a profession tree carries
+--- more than one currency: Blizzard's own gamedata separates knowledge points from
+--- a free unlock token, and three earlier attempts in this project confused the two.
+--- If `cur[1]` is the token rather than the points, we have been showing the wrong
+--- number for months, and a Home-screen nudge built on it would be wrong louder.
+---
+--- So: print everything with an index, and write it to SavedVariables as well, since
+--- a screenshot of a long list is exactly what we agreed to stop doing. No filter by
+--- name or id — a filter can only find the currency we already believe in.
+function ns.ProbeKnowledgeCurrency()
+	local out = {}
+	local function say(s)
+		print("|cff66ccff[MH kp]|r " .. s)
+		out[#out + 1] = s
+	end
+	if not (C_ProfSpecs and C_Traits and C_TradeSkillUI) then
+		say("profession APIs unavailable")
+		return
+	end
+	local lines = C_TradeSkillUI.GetAllProfessionTradeSkillLines
+		and C_TradeSkillUI.GetAllProfessionTradeSkillLines() or {}
+	for _, skillLine in ipairs(lines) do
+		local okCfg, cfg = pcall(C_ProfSpecs.GetConfigIDForSkillLine, skillLine)
+		local okTabs, tabs = pcall(C_ProfSpecs.GetSpecTabIDsForSkillLine, skillLine)
+		if okCfg and cfg and okTabs and type(tabs) == "table" and tabs[1] then
+			local okInfo, info = pcall(C_TradeSkillUI.GetProfessionInfoBySkillLineID, skillLine)
+			local name = (okInfo and type(info) == "table" and info.professionName) or tostring(skillLine)
+			say(("--- %s (skillLine %d, cfg %s, %d tabs)"):format(name, skillLine, tostring(cfg), #tabs))
+			local okCur, cur = pcall(C_Traits.GetTreeCurrencyInfo, cfg, tabs[1], false)
+			if okCur and type(cur) == "table" then
+				for i, c in ipairs(cur) do
+					say(("  [%d] traitCurrencyID=%s quantity=%s spent=%s maxQuantity=%s"):format(
+						i, tostring(c.traitCurrencyID), tostring(c.quantity),
+						tostring(c.spent), tostring(c.maxQuantity)))
+				end
+				if #cur == 0 then
+					say("  (no currency rows returned — that is itself the answer)")
+				end
+			else
+				say("  GetTreeCurrencyInfo failed: " .. tostring(cur))
+			end
+		end
+	end
+	if #out == 0 then
+		say("no professions with spec tabs found")
+	end
+	ns.db = ns.db or {}
+	ns.db.kpProbe = out
+	print("|cff66ccff[MH kp]|r written to MidnightHelperDB.kpProbe — /reload to flush it to disk.")
+end
+
+--- Public: scroll the course to one chapter, used by the search.
+---
+--- Landing on the tab is not the same as finding the answer. The course is one
+--- long scroll, so a search hit for "concentration" that dumps the reader at the
+--- top has technically worked and practically failed — they still have to hunt.
+---
+--- Deferred by a frame because the panel may only just have been shown: widths
+--- are zero until the layout runs, and Relayout bails out on a zero width, so
+--- the positions do not exist yet at the moment the search fires.
+function ns.MH_ScrollProfAcademyToChapter(key)
+	if not key then
+		return
+	end
+	local function jump()
+		local panel = builtPanel
+		if not (panel and panel._profAcadBuilt) then
+			return
+		end
+		local y = panel._profAcadChapterY and panel._profAcadChapterY[key]
+		local scroll = _G["MidnightHelperProfAcademyScroll"]
+		if not (y and scroll) then
+			return
+		end
+		-- Clamp: a chapter near the bottom asks for more scroll than exists, and
+		-- an unclamped SetVerticalScroll leaves the frame blank.
+		local maxY = scroll:GetVerticalScrollRange() or 0
+		scroll:SetVerticalScroll(math.max(0, math.min(y - 8, maxY)))
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0, jump)
+	else
+		jump()
+	end
 end
 
 --------------------------------------------------------------------------------
