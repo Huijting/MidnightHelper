@@ -453,6 +453,28 @@ function ns.LookupItemIDs(rest)
 				print(("   |cffe8c36a%d|r — |cff8a8f98secret, unreadable|r"):format(id))
 			elseif type(name) == "string" and name ~= "" then
 				print(("   |cff40c040%d|r — %s"):format(id, name))
+				--- ⚠️ AND THE TOOLTIP, because a name settles identity and nothing else.
+				--- On 20 aug SpellPilot and Method disagreed about what the two leg-armour
+				--- kits grant — one says Strength against Agility, the other says both give
+				--- "Agility / Strength" and differ by armor against stamina. Two addons,
+				--- two stories, one item. The item's own text ends the argument, and
+				--- reading it is cheaper than choosing a source to believe.
+				if C_TooltipInfo and C_TooltipInfo.GetItemByID then
+					local okT, info = pcall(C_TooltipInfo.GetItemByID, id)
+					if okT and type(info) == "table" and type(info.lines) == "table" then
+						for li, line in ipairs(info.lines) do
+							if li > 1 then -- line 1 is the name, already printed
+								local t = line.leftText
+								if issecretvalue and t ~= nil and issecretvalue(t) then
+									t = nil
+								end
+								if type(t) == "string" and t:find("%w") then
+									print(("        |cff8a8f98%s|r"):format(t))
+								end
+							end
+						end
+					end
+				end
 			else
 				print(("   |cffff5040%d|r — |cff8a8f98not loaded yet — run it once more|r"):format(id))
 			end
