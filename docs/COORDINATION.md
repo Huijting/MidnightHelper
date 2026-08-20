@@ -107,7 +107,39 @@ verdeling van de eerstvolgende klus, zodat we niet allebei hetzelfde of allebei 
 Raakt alleen `Locales/*.lua` en `Modules/ProfessionAcademy*.lua`. Het bouwplan, met twee
 metingen die Spec 27's aannames bijstellen, staat bovenaan `docs/NEXT_SESSION.md`.
 
-**ONDERZOEK: de resterende routes uit Spec 24.**
+## ✅ AFGEROND 20 aug (avond) — Spec 27 én Spec 28 zijn gebouwd
+
+**Alles hieronder in deze sectie is GESCHIEDENIS.** Het staat er nog omdat de redenering
+klopte en de tellingen nagekeken zijn, maar de klussen zelf zijn af:
+
+- **Spec 28: alle tien de routes staan in `advisorRoutes`** (`c0cb6b1`), elk met een
+  commentaarregel over wat er fout was en waartegen het gecontroleerd is. Nieuw in het
+  schema: `points` (een hint, met "lees de tooltip" in de UI), `points = 0` (open de tak,
+  investeer niet — afgerond zodra ontgrendeld), en `goals`, dat **beide** takken toont in
+  plaats van er één te kiezen. Die laatste wijkt bewust af van het voorstel: de klacht was
+  dat `anyOf` de keuze verbérgt, en kiezen vóór de speler vervangt een muntworp door een gok.
+- **De starter-build-sectie van les 2 is gebouwd** — de Alchemy- en Herbalism-hoofdstukken
+  dragen nu dezelfde volgorde als de routes, dus de blocker is weg.
+- **Beide Zygor-kandidaten zijn toegepast**: Engineering heeft `points = 10`, Inscription
+  leidt met `Calm Hands` op 10. De Resourcefulness-sub-spec is bewust NIET geraden — dat is
+  een node en we hebben er geen geverifieerde naam voor.
+- **Geverifieerd op Robs scherm**: Enchanting leidt nu met `Disenchanting Delegate`,
+  Tailoring toont de drempel van 20 mét de tooltip-waarschuwing.
+
+🔴 **En de verificatie legde een defect van ONSZELF bloot — dat is de eerste klus van 21
+aug.** Rob heeft 12 onbestede punten op Tailoring en kan er **geen enkele** van uitgeven:
+zijn skill staat onder 25 en alle vier de specialisaties zitten op slot. Onze This
+Week-melding zegt ondertussen *"spend it"*. Volledig uitgeschreven bovenaan
+`docs/NEXT_SESSION.md`, inclusief wat diezelfde tooltip juist bevestigde. **Eerst meten** —
+de vergrendelde staat lezen we nergens uit, en `active - 1` maakt "op slot" en "open maar
+onaangeraakt" allebei tot 0.
+
+⚠️ Dit corrigeert ook de aanname twee alinea's verderop dat Rob zijn punten puur bewust liet
+liggen. Bij Tailoring is dat niet de reden — het kán niet.
+
+---
+
+**ONDERZOEK: de resterende routes uit Spec 24.** *(afgehandeld, zie hierboven)*
 
 🔴 **GECORRIGEERD door ONDERZOEK, 20 aug — het zijn er tien, niet acht, en de aanname dat
 Alchemy en Herbalism al gerepareerd waren klopt niet.**
