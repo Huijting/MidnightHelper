@@ -817,6 +817,22 @@ function ns.ProbeKnowledgeCurrency()
 					say(("  [%d] traitCurrencyID=%s quantity=%s spent=%s maxQuantity=%s"):format(
 						i, tostring(c.traitCurrencyID), tostring(c.quantity),
 						tostring(c.spent), tostring(c.maxQuantity)))
+					-- Round 2: what IS each of these? Row 1 looks like the knowledge pool
+					-- (uncapped, large spend) and the rest look like capped unlock tokens,
+					-- but that is inferred from shape. Ask the client to name them instead.
+					-- Every field is dumped rather than the ones we expect: picking fields
+					-- can only ever confirm the structure we already imagine.
+					if C_Traits.GetTraitCurrencyInfo and c.traitCurrencyID then
+						local okI, a, b, d, e = pcall(C_Traits.GetTraitCurrencyInfo, c.traitCurrencyID)
+						if okI then
+							say(("       info: %s | %s | %s | %s"):format(
+								tostring(a), tostring(b), tostring(d), tostring(e)))
+						else
+							say("       GetTraitCurrencyInfo failed: " .. tostring(a))
+						end
+					else
+						say("       (no C_Traits.GetTraitCurrencyInfo on this client)")
+					end
 				end
 				if #cur == 0 then
 					say("  (no currency rows returned — that is itself the answer)")
