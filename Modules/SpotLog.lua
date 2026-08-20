@@ -501,8 +501,20 @@ function ns.LookupItemIDs(rest)
 		-- A longer wait than the chat path: a big batch is a lot of server round-trips,
 		-- and an id reported as "not loaded" because we asked too early is exactly the
 		-- false negative this whole command exists to avoid.
+		--- ⚠️ ACCUMULATES ACROSS RUNS, keyed by id. The first version overwrote, which meant
+		--- scanning two ranges cost two reloads — and the whole point of the batch was to
+		--- stop trading a reload for every question. Re-scanning an id replaces its row, so
+		--- a repeat run is a refresh rather than a duplicate.
 		local function store()
 			ns.db = ns.db or {}
+			local prev = (type(ns.db.itemScan) == "table" and type(ns.db.itemScan.items) == "table")
+				and ns.db.itemScan.items or {}
+			local byId = {}
+			for _, row in ipairs(prev) do
+				if row.id then
+					byId[row.id] = row
+				end
+			end
 			local out = { when = date and date("%Y-%m-%d %H:%M:%S") or nil, items = {} }
 			for _, id in ipairs(ids) do
 				local row = { id = id }
@@ -539,10 +551,15 @@ function ns.LookupItemIDs(rest)
 						end
 					end
 				end
+				byId[id] = row
+			end
+			for _, row in pairs(byId) do
 				out.items[#out.items + 1] = row
 			end
+			table.sort(out.items, function(x, y) return (x.id or 0) < (y.id or 0) end)
 			ns.db.itemScan = out
-			print(("%s |cff40c040%d items|r written to ns.db.itemScan — |cffffd100/reload|r and it can be read."):format(p, #ids))
+			print(("%s |cff40c040%d scanned|r, |cffffd100%d total|r in ns.db.itemScan — run more ranges, then |cffffd100/reload|r."):format(
+				p, #ids, #out.items))
 		end
 		if C_Timer and C_Timer.After then
 			-- Scaled with the batch: three seconds is right for a dozen and far too short
