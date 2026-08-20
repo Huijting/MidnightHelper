@@ -109,6 +109,56 @@ end
 --- when the route is complete, or nil when no advice is possible (unknown
 --- route, name mismatch, no tab data) — then nothing is shown.
 --- NB: defined before BuildProfsText, which calls it (local scoping).
+--- Goal keys, in the order they are shown. Fixed list rather than pairs(): the
+--- two lines must not swap places between reloads.
+local GOAL_ORDER = { "gold", "self" }
+
+--- First unfinished step of a step list, plus that step's points hint.
+--- Returns nil, nil when a name does not resolve (a rename or a localised tab
+--- name), false when every step is satisfied.
+local function FirstUnfinishedStep(steps, byName, classToken)
+	for _, step in ipairs(steps) do
+		if not (step.skipIfClass and step.skipIfClass == classToken) then
+			local names = step.anyOf or { step.tree }
+			local display, satisfied = nil, false
+			for _, n in ipairs(names) do
+				local t = byName[n:lower()]
+				if t then
+					display = display or t
+					if step.points == 0 then
+						-- "Open this branch, put nothing in it" (Mining's Over-LODED:
+						-- unlocking it already grants the ability, and points beyond
+						-- that are a bet on mote prices). Satisfied by the unlock
+						-- itself — a root at rank 1 is unlocked but untouched, so
+						-- waiting for max here would park the advice on it forever.
+						if t.active >= 1 then
+							satisfied = true
+						end
+					elseif t.max > 0 and t.active >= t.max then
+						satisfied = true
+					elseif t.active > 1 then
+						-- Player already invests here: advise finishing this one.
+						display = t
+					end
+				end
+			end
+			if not display then
+				return nil
+			end
+			if not satisfied then
+				return display, step.points
+			end
+		end
+	end
+	return false
+end
+
+--- Third return value carries a goal split: { { goal, tab, points }, ... }.
+--- Four professions (Tailoring, Leatherworking, Enchanting, Skinning) diverge so
+--- far between "sell it" and "wear it" that one recommendation is a guess. The
+--- old anyOf hid that choice behind a coin flip; showing both surfaces it. We do
+--- NOT pick for the player and we do not store a preference — nobody ever told us
+--- which they are playing for.
 local function GetAdviceForProf(skillLine, summary)
 	local d = ns.PROF_ACADEMY
 	local route = d and d.advisorRoutes and d.advisorRoutes[skillLine]
@@ -122,28 +172,26 @@ local function GetAdviceForProf(skillLine, summary)
 			byName[t.name:lower()] = t
 		end
 	end
-	for _, step in ipairs(route) do
-		if not (step.skipIfClass and step.skipIfClass == classToken) then
-			local names = step.anyOf or { step.tree }
-			local display, anyMaxed = nil, false
-			for _, n in ipairs(names) do
-				local t = byName[n:lower()]
-				if t then
-					display = display or t
-					if t.max > 0 and t.active >= t.max then
-						anyMaxed = true
-					elseif t.active > 1 then
-						-- Player already invests here: advise finishing this one.
-						display = t
-					end
+	local display, points = FirstUnfinishedStep(route, byName, classToken)
+	if display == nil then
+		return nil
+	elseif display then
+		return display, points
+	end
+	-- Shared steps done. Where the route splits by goal, the choice IS the advice.
+	if type(route.goals) == "table" then
+		local out = {}
+		for _, goal in ipairs(GOAL_ORDER) do
+			local branch = route.goals[goal]
+			if type(branch) == "table" then
+				local tab, pts = FirstUnfinishedStep(branch, byName, classToken)
+				if tab then
+					out[#out + 1] = { goal = goal, tab = tab, points = pts }
 				end
 			end
-			if not display then
-				return nil
-			end
-			if not anyMaxed then
-				return display
-			end
+		end
+		if #out > 0 then
+			return nil, nil, out
 		end
 	end
 	return false
@@ -217,7 +265,7 @@ end
 --- (2026-07-22). So the location left the sentence and became a pointer the caller
 --- adds only where it is actually true.
 local function BuildAdviceLine(skillLine, summary, withPointer, midnightLine)
-	local advice = GetAdviceForProf(skillLine, summary)
+	local advice, points, goals = GetAdviceForProf(skillLine, summary)
 	local text
 	if advice == false then
 		-- Roots done: name the actual node when we have a verified one for this
@@ -236,10 +284,29 @@ local function BuildAdviceLine(skillLine, summary, withPointer, midnightLine)
 			text = SL("PROFACAD_ADVISE_DONE")
 		end
 	elseif advice then
-		text = SL("PROFACAD_ADVISE_NEXT_FMT"):format(
-			advice.name,
-			math.max(advice.active - 1, 0),
-			math.max(advice.max - 1, 0))
+		local spent, cap = math.max(advice.active - 1, 0), math.max(advice.max - 1, 0)
+		if points == 0 then
+			-- Threshold of zero is not a typo: unlocking is the whole advice.
+			text = SL("PROFACAD_ADVISE_NEXT_OPEN_FMT"):format(advice.name)
+		elseif points then
+			-- The number is the best-supported figure we found, and sources
+			-- disagreed about it at every profession, sometimes by a factor of
+			-- two. So it is offered as an aim with the client named as the
+			-- authority, never as the truth.
+			text = SL("PROFACAD_ADVISE_NEXT_POINTS_FMT"):format(advice.name, spent, cap, points)
+		else
+			text = SL("PROFACAD_ADVISE_NEXT_FMT"):format(advice.name, spent, cap)
+		end
+	elseif goals then
+		local parts = {}
+		for _, g in ipairs(goals) do
+			parts[#parts + 1] = SL("PROFACAD_ADVISE_GOAL_LINE_FMT"):format(
+				SL("PROFACAD_GOAL_" .. g.goal:upper()),
+				g.tab.name,
+				math.max(g.tab.active - 1, 0),
+				math.max(g.tab.max - 1, 0))
+		end
+		text = SL("PROFACAD_ADVISE_GOALS_FMT"):format(table.concat(parts, " "))
 	else
 		return nil
 	end

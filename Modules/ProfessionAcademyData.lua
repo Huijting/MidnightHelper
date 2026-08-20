@@ -139,44 +139,119 @@ ns.PROF_ACADEMY = {
 	},
 
 	advisorRoutes = {
-		-- Blacksmithing: RECIPE tree first, then the efficiency trees. Corrected
-		-- 2026-07-24 (Rob) — it used to lead with "The Old Ways" (a Multicraft/
-		-- Resourcefulness efficiency tree) with no documented reason. wow-professions'
-		-- Midnight Blacksmithing build for beginners is explicit: 1) Armorsmithing OR
-		-- Weaponsmithing, 2) The Old Ways, 3) Craftsmithing. A beginner wants to be able
-		-- to MAKE gear first (self-sufficient); the stat boosts help what you can craft,
-		-- so they come after. (Enchanting deliberately leads with efficiency instead —
-		-- there its chapter/consensus says Spellbound Shatterer first. Per profession.)
+		--- ⚠️ ALL TEN ROUTES BELOW WERE REWRITTEN 20 Aug 2026 from Spec 28, which is
+		--- built on Spec 24 (audit) and Spec 25 (Blizzard's own gamedata, build
+		--- 12.1.0.69382). Before that, every one of the eleven was wrong in some way;
+		--- only [202] Engineering had been repaired, earlier the same day.
+		---
+		--- 🔴 MATCHED BY NAME, AND THAT IS A LOADED GUN. `Lasting Leather` exists TWICE
+		--- inside Midnight: Leatherworking trait 107889 and Skinning trait 106088. It
+		--- works today only because Profession.lua resolves names per skill line via
+		--- C_ProfSpecs.GetSpecTabIDsForSkillLine, so the two can never meet. That is a
+		--- property of the lookup, not of this table — do not "simplify" the lookup to a
+		--- global name map.
+		---
+		--- `points` is a HINT, never the truth. Sources disagreed at every single
+		--- profession, sometimes by a factor of two, so the UI names the in-game tooltip
+		--- as the authority. `points = 0` means "open this branch, invest nothing".
+
+		-- Blacksmithing. The Old Ways moves to the FRONT: two independent sources lead
+		-- with it and it touches every Blacksmithing craft, so our order had people
+		-- burning materials for weeks without the branch that gives them back.
+		--
+		-- 🔴 `Craftsmithing` REMOVED. The comment that used to sit here credited the step
+		-- to wow-professions' beginner build; that page does not name it there. It was
+		-- added in July with a citation that did not cover it. Craftsmithing makes tools
+		-- for OTHER crafters and does nothing for your own gear.
 		[164] = {
-			{ anyOf = { "Armorsmithing", "Weaponsmithing" } },
 			{ tree = "The Old Ways" },
-			{ tree = "Craftsmithing" },
+			{ anyOf = { "Armorsmithing", "Weaponsmithing" } },
 		},
-		-- Leatherworking: same correction. Guide order = armour recipe tree(s) first,
-		-- then Learned Leatherworker (efficiency) for optimization. It used to lead
-		-- with Learned Leatherworker.
+		-- Leatherworking. The route was never corrected when the prose was, on 24 July.
+		-- It is not wrong for a gear player, but it is incomplete: gold and gear diverge
+		-- further here than in any other profession.
+		--
+		-- ⚠️ `Mastering Multicraft` works on commodities only, NOT on armour. Someone
+		-- making leather armour gains nothing from it — the exact opposite of
+		-- Blacksmithing's Prolific Worker, which is why one route cannot serve both.
 		[165] = {
-			{ anyOf = { "Lasting Leather", "Safeguarding Scales" } },
-			{ tree = "Learned Leatherworker" },
-			{ tree = "Flawless Fortes" },
+			goals = {
+				self = {
+					{ anyOf = { "Lasting Leather", "Safeguarding Scales" } },
+					{ tree = "Learned Leatherworker" },
+				},
+				gold = {
+					{ tree = "Flawless Fortes" },
+					{ tree = "Commanding Commodities" },
+					{ tree = "Learned Leatherworker" },
+					{ tree = "Mastering Multicraft" },
+				},
+			},
 		},
+		-- Alchemy. Transmutation was second and belongs LAST; Potion Prowess leads.
+		-- Filling Potion Prowess gives the Voidlight Potion Cauldron, which serves gold
+		-- and guild at once. Prolific Potioneer - Light is the Multicraft node, Light
+		-- because that is the potion that sells this season. Reuse returns herbs, which
+		-- is strong next to Herbalism.
+		--
+		-- 📌 `Haranir Secrets` is not an afterthought. Its own tooltip ends "and Cauldron
+		-- of Sin'dorei Flasks" — without points there you cannot make the flask cauldron
+		-- at top rank. Every guide paraphrases the node as "phials only" and drops that
+		-- half-sentence.
 		[171] = {
-			{ anyOf = { "Fluent in Flasks", "Potion Prowess" } },
+			{ tree = "Potion Prowess" },
+			{ tree = "Path of Light" },
+			{ tree = "Prolific Potioneer - Light" },
+			{ tree = "Alchemical Mastery" },
+			{ tree = "Reuse" },
+			{ tree = "Fluent in Flasks", points = 15 },
+			{ tree = "Sin'dorei Specialist" },
+			{ tree = "Haranir Secrets" },
 			{ tree = "Transmutation Authority" },
 		},
+		-- Herbalism. `Mulching` was missing and `Midnight Overload` had to go.
+		-- Botany at 40 is picking from your mount, the single biggest time saving in the
+		-- profession. Mulching at 20 gives Imbued Mulch, a guaranteed rare find — which
+		-- is Nocturnal Lotus, the herb in all four flasks and both cauldrons.
+		--
+		-- `Midnight Overload` dropped: it only works on the elemental nodes, costs a lot
+		-- of points, and you meet too few of them. Worth it only for targeted mote farming.
 		[182] = {
-			{ tree = "Botany", skipIfClass = "DRUID" },
+			{ tree = "Botany", skipIfClass = "DRUID", points = 40 },
+			{ tree = "Mulching", points = 20 },
 			{ tree = "Bountiful Harvests" },
-			{ tree = "Midnight Overload" },
 		},
+		-- Mining. Was not wrong, but incomplete.
+		--
+		-- 📌 `Over-LODED` at ZERO points is not a typo. Unlocking that branch already
+		-- grants the Overload ability and its cooldown reduction; points beyond the
+		-- unlock are a bet on mote prices. The advisor treats such a step as done the
+		-- moment the branch is open, so it never parks there.
 		[186] = {
-			{ tree = "Meticulous Mining" },
+			{ tree = "Over-LODED", points = 0 },
+			{ tree = "Meticulous Mining", points = 40 },
 			{ tree = "Plentiful Ores" },
 		},
+		-- Tailoring. The old anyOf hid the very choice this profession turns on, and
+		-- `Fabric Specialist` was described in our text as "spare points" while it holds
+		-- a Multicraft node that works on EVERY recipe.
+		--
+		-- 📌 20 in `Nimble Needlework` is not arbitrary: the weaving branches are what
+		-- make enemies drop the expensive cloth at all. Without them you never see it.
 		[197] = {
-			{ tree = "Nimble Needlework" },
-			{ anyOf = { "Sin'dorei Finery", "Fiber Arts" } },
-			{ tree = "Fabric Specialist" },
+			{ tree = "Nimble Needlework", points = 20 },
+			goals = {
+				gold = {
+					{ tree = "Sunfire Silk Weaving" },
+					{ tree = "Fiber Arts" },
+					{ tree = "Creative Efficiency" },
+					{ tree = "Fabric Specialist" },
+				},
+				self = {
+					{ tree = "Sin'dorei Finery" },
+					{ tree = "Fiber Arts" },
+				},
+			},
 		},
 		-- Engineering: was ONLY "Recycling" (an efficiency tree) with no recipe tree
 		-- at all — the one clearly broken route. Corrected 2026-07-24 against
@@ -192,41 +267,79 @@ ns.PROF_ACADEMY = {
 		--- gamedata, build 12.1.0.69382). We had it as the last step because we read it as
 		--- an efficiency branch. Anyone following that recycles, sees nothing, and concludes
 		--- the feature is broken — which is a worse outcome than no advice at all.
+		--- 📎 The 10-point threshold comes from Zygor's Midnight guide, which is an
+		--- independent source rather than an echo of Spec 24: "Put 10 points into the
+		--- Recycling specialization and pick the Resourcefulness sub-spec". The sub-spec
+		--- half is a NODE, so it belongs in advisorNodeRoutes and is deliberately not
+		--- guessed at here — we have no verified node name for it.
 		[202] = {
-			{ tree = "Recycling" },
+			{ tree = "Recycling", points = 10 },
 			{ anyOf = { "Market Mobility", "Combat Analytics", "Bits and Bots" } },
 		},
+		-- Enchanting. Our order was backwards, and expensively so: disenchanting ignores
+		-- EVERY craft stat and reads raw Skill only, so the first ~50 points we sent
+		-- people to spend did nothing for it.
+		--
+		-- Disenchanting Delegate pays out linearly from the very first point, has no
+		-- auction-house competition, and produces the materials the rest of the
+		-- profession runs on. Shard Supplier if you break down blues, Crystal Collector
+		-- for epics — choosing wrong here is the costliest mistake in this tree.
+		--
+		-- ⚠️ Where our error came from, so nobody restores it: Wowhead's guide carries a
+		-- boilerplate table saying disenchanting uses Multicraft/Resourcefulness/
+		-- Ingenuity, while its own prose below says the opposite. All 28 perk lines in
+		-- the gamedata name Skill and nothing else.
 		[333] = {
-			{ tree = "Spellbound Shatterer" },
-			{ tree = "Elevating Equipment" },
 			{ tree = "Disenchanting Delegate" },
+			{ anyOf = { "Shard Supplier", "Crystal Collector" } },
+			{ tree = "Elevating Equipment" },
+			{ tree = "Spellbound Shatterer" },
 		},
+		-- Skinning. The whole sub-specialisation layer was missing, and Talented Tracker
+		-- sat at position three, which is wrong for anyone playing for gold.
+		--
+		-- Order between the first two does not matter: both grant their core ability on
+		-- being learned.
+		-- ⚠️ `Lasting Leather` here is the SKINNING trait 106088, not the Leatherworking
+		-- namesake in [165]. See the warning at the top of this table.
 		[393] = {
 			{ tree = "Thorough Tanning" },
 			{ tree = "Gainful Gathering" },
-			{ tree = "Talented Tracker" },
+			goals = {
+				self = { { anyOf = { "Lasting Leather", "Superb Scales" } } },
+				gold = { { tree = "Talented Tracker" }, { tree = "Majestic Materials" } },
+			},
 		},
+		-- Jewelcrafting. `Alluring Accessories` was missing entirely — precisely the tree
+		-- for yourself and your guild.
+		--
+		-- 📌 Gems are no longer the automatic gold mine. Midnight has no item that adds
+		-- sockets any more (only the Great Vault), so demand for cut gems is structurally
+		-- lower than last expansion. Step two is a real choice, not a default.
 		[755] = {
 			{ tree = "Thoughtful Throughput" },
-			{ tree = "Glamorous Gems" },
+			{ anyOf = { "Glamorous Gems", "Alluring Accessories" } },
 			{ tree = "Proficient Processor" },
 		},
-		-- Inscription: the guide's popular build LEADS with Calm Hands (an efficiency
-		-- tree — Multicraft/Resourcefulness for all Inscription), then Perfected
-		-- Products (reagents/inks everyone needs). Our route omitted Calm Hands and led
-		-- with Blueprints (niche weapon/tool recipes). Corrected 2026-07-24 against
-		-- wow-professions. (Efficiency-first here, unlike Blacksmithing — it genuinely
-		-- differs per profession; JC leads with efficiency too, BS/LW/Alch/Eng with
-		-- recipes.)
-		-- Two sources disagree on the middle tree's name: wow-professions writes
-		-- "Perfected Products", method.gg writes "Perfect Products". Rob has no
-		-- Inscription character to settle it, so list BOTH spellings — anyOf matches
-		-- whichever one the game actually uses and the other simply never resolves.
-		-- Calm Hands and Blueprints are confirmed identically by both sources.
+		-- Inscription. Steps 2 and 3 were swapped, and the old order was not merely
+		-- suboptimal but IMPOSSIBLE to follow: Blueprints opens at skill 50 and
+		-- Perfected Products only at 60.
+		--
+		-- ✅ The double spelling is gone. Gamedata settles it: trait 109660 is
+		-- `Perfected Products`. The confusion came from its SUB-branches, which really
+		-- are called "Perfect ..." (Perfect Vantus Runes, 109656) — one guide dropped
+		-- the -ed from the stem. wow-professions was right. Listing both spellings was
+		-- a reasonable hedge while nobody had an Inscription character; it is now just
+		-- a dead name that would silently never resolve.
+		--
+		-- 📌 `Calm Hands` caps at rank 10, not the 30 the guides print. The first point
+		-- already grants the Treatise recipe; at 10 your Treatise yields an extra
+		-- Knowledge Point per week. That makes it the most important threshold in the
+		-- profession, because it accelerates every later point you earn.
 		[773] = {
-			{ tree = "Calm Hands" },
-			{ anyOf = { "Perfected Products", "Perfect Products" } },
+			{ tree = "Calm Hands", points = 10 },
 			{ tree = "Blueprints" },
+			{ tree = "Perfected Products" },
 		},
 	},
 
