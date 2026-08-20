@@ -753,7 +753,7 @@
           },
           {
             "id": 241326,
-            "name": "Flask of Thalassian Resistance",
+            "name": "Flask of the Shattered Sun",
             "wowheadUrl": "https://www.wowhead.com/item=241326"
           },
           {
@@ -828,7 +828,7 @@
         "best": [
           {
             "id": 259085,
-            "name": "Augment Rune",
+            "name": "Void-Touched Augment Rune",
             "wowheadUrl": "https://www.wowhead.com/item=259085"
           }
         ],
@@ -839,19 +839,19 @@
         "best": [
           {
             "id": 255845,
-            "name": "Feast",
+            "name": "Silvermoon Parade",
             "wowheadUrl": "https://www.wowhead.com/item=255845"
           }
         ],
         "alternates": [
           {
             "id": 266985,
-            "name": "Feast",
+            "name": "Hearty Silvermoon Parade",
             "wowheadUrl": "https://www.wowhead.com/item=266985"
           },
           {
             "id": 266996,
-            "name": "Feast",
+            "name": "Hearty Harandar Celebration",
             "wowheadUrl": "https://www.wowhead.com/item=266996"
           }
         ],
@@ -861,24 +861,24 @@
         "best": [
           {
             "id": 242747,
-            "name": "Hearty Food",
+            "name": "Hearty Royal Roast",
             "wowheadUrl": "https://www.wowhead.com/item=242747"
           }
         ],
         "alternates": [
           {
             "id": 242275,
-            "name": "Food",
+            "name": "Royal Roast",
             "wowheadUrl": "https://www.wowhead.com/item=242275"
           },
           {
             "id": 268679,
-            "name": "Food",
+            "name": "Hearty Impossibly Royal Roast",
             "wowheadUrl": "https://www.wowhead.com/item=268679"
           },
           {
             "id": 255847,
-            "name": "Food",
+            "name": "Impossibly Royal Roast",
             "wowheadUrl": "https://www.wowhead.com/item=255847"
           }
         ],
