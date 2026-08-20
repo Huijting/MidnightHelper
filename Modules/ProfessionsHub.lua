@@ -332,6 +332,36 @@ function ns.BuildProfessionsHubPanel(panel)
 	ot:SetWordWrap(true)
 	ot:SetSpacing(3)
 	panel._phOverviewText = ot
+
+	--- ⚠️ WE KNEW WHERE HE STOOD AND NEVER OFFERED TO TAKE ANYONE THERE.
+	---
+	--- Rob, 20 aug, reading this page: "we zeggen wel waar je je punten eenmalig kan
+	--- resetten, maar geven geen route (knop) en wij kunnen beter." He is right, and it is
+	--- the same shape as the Coiled Isle portal the day before — the coordinate has been in
+	--- the City Guide since 12 Aug, measured by him with `/mh capture` (2393, 45.03/56.20),
+	--- while the page that raises the thought "can I undo this?" offered only prose.
+	---
+	--- Knowing a thing and letting someone act on it are different jobs, and this addon
+	--- keeps shipping the first without the second.
+	local resetBtn = CreateFrame("Button", nil, overview, "UIPanelButtonTemplate")
+	resetBtn:SetHeight(22)
+	resetBtn:SetPoint("TOPLEFT", ot, "BOTTOMLEFT", 0, -10)
+	resetBtn:SetText(SL("PROFHUB_RESET_ROUTE"))
+	resetBtn:SetWidth(resetBtn:GetTextWidth() + 30)
+	resetBtn:SetScript("OnClick", function()
+		if ns.AddSmartTomTomWay then
+			ns.AddSmartTomTomWay(2393, 45.03, 56.20, SL("PROFHUB_RESET_ROUTE_PIN"))
+		end
+	end)
+	resetBtn:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetText(SL("PROFHUB_RESET_ROUTE_PIN"), 1, 0.9, 0.6)
+		GameTooltip:AddLine(SL("PROFHUB_RESET_HINT"), 0.9, 0.9, 0.9, true)
+		GameTooltip:Show()
+	end)
+	resetBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+	panel._phResetBtn = resetBtn
+
 	local hint = overview:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	hint:SetPoint("BOTTOMLEFT", overview, "BOTTOMLEFT", 12, 12)
 	hint:SetPoint("RIGHT", overview, "RIGHT", -16, 0)
