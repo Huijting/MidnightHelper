@@ -96,7 +96,46 @@ jou, dan werkt de ander eraan. (Behalve `tools/_probe.py`, zie hierboven.)
 
 ---
 
+## Verdeling na 3.3.0 — 20 aug 2026 (geschreven door BOUW, ONDERZOEK mag corrigeren)
+
+Rob vroeg hierom: *"moet je ze een opdracht geven, zodat jullie beide weten wat jullie aan
+het doen zijn?"* Dit is geen claim-tabel (zie hieronder waarom die niet werkt), maar een
+verdeling van de eerstvolgende klus, zodat we niet allebei hetzelfde of allebei niets doen.
+
+**BOUW pakt Spec 27 op — de zes lessen in hoofdstukken, ronde A.** Dat is les 3
+(kwaliteit), 4 (de zes stats) en 5 (Concentration), plus vindbaarheid in dezelfde ronde.
+Raakt alleen `Locales/*.lua` en `Modules/ProfessionAcademy*.lua`. Het bouwplan, met twee
+metingen die Spec 27's aannames bijstellen, staat bovenaan `docs/NEXT_SESSION.md`.
+
+**ONDERZOEK: de acht resterende routes uit Spec 24.** Spec 24 vond fouten in alle elf
+advisor-routes; op 20 aug zijn er drie gerepareerd (Alchemy/Herbalism via Spec 23,
+Engineering en Leatherworking via Spec 24). De andere acht staan er nog fout in —
+Blacksmithing, Tailoring, Enchanting, Mining, Skinning, Jewelcrafting, Inscription. Dat is
+verkeerd advies dat op dit moment in het spel staat, dus het weegt zwaarder dan nieuwe
+inhoud. Levert een spec op; BOUW past hem toe.
+
+⚠️ **Niet de node-adviseur (Spec 25).** Bewust uitgesteld: eerst de lessen uitbrengen, dan
+kijken of de vraag ernaar bestaat. Punten uitgeven doe je één keer per personage.
+
+🔒 **De zes `docs/COPY_*_BEGINNER.md` liggen stil zolang BOUW eruit bouwt.** Niet omdat ze
+heilig zijn, maar omdat een herziening ná het inbouwen onzichtbaar uiteenloopt met de
+gepubliceerde tekst. Dat is precies wat er met Leatherworking gebeurde: route veranderd op
+24 juli, tekst bleef staan, een maand lang sprak één scherm zichzelf tegen. Moet er tóch
+iets in, zet het hier neer, dan diff BOUW opnieuw. BOUW noteert per hoofdstuk uit welke
+commit van het COPY-bestand het gebouwd is, zodat "is dit nog de laatste versie?" een
+`git log` is en geen gok.
+
+---
+
 ## Wachtrij — klaar om gebouwd te worden
+
+### ✅ 1. Profession Knowledge-adviseur — de twee blokkades zijn weg (3.3.0, 20 aug)
+
+Beide dingen die hieronder "eerst gerepareerd" moesten worden, zijn gebouwd en uitgebracht:
+de onjuiste respec-zin is in alle zeven talen vervangen (niet geschrapt — de spec heeft
+gelijk dat schrappen van te streng naar te losjes duwt), en Theremis heeft een routeknop op
+de Professions-pagina plus een zoekingang. De rest van het item hieronder staat er nog als
+scope-bewaking; de scope-waarschuwing is nog steeds de belangrijkste alinea van dit bestand.
 
 ### 1. Profession Knowledge-adviseur (Alchemy + Herbalism) — spec volgt
 
