@@ -53,12 +53,19 @@ bewoordingen, voor verschillende professions.
 📌 **Dit is de waardevolste zin die MH hier kan tonen**, en hij geldt overal. Toon hem één keer
 prominent in plaats van elf keer verstopt.
 
-### c) Twee verzinsels staan al sinds 24 juli in de code
+### c) Eén verzinsel staat sinds 24 juli in de code — het waren er geen twee
 
-- Blacksmithing stap 3 (`Craftsmithing`) met een bronvermelding die hem niet dekt.
-- Tailoring `"5 points into Nimble Needlework"` — een getal zonder bron.
+- Blacksmithing stap 3 (`Craftsmithing`) met een bronvermelding die hem niet dekt. **Blijft staan als fout.**
 
-Beide zien eruit als degelijk onderbouwd advies. Dat is precies waarom ze gevaarlijk zijn.
+🔴 **INGETROKKEN, 20 aug:** ik markeerde Tailoring `"5 points into Nimble Needlework"` als een
+tweede verzinsel. **Dat was onterecht.** De gamedata (Wowhead tree-calculator, geverifieerd op
+Live én 12.1-PTR) zegt: sub-tak #1 gaat open op **5 punten**, en die sub-tak
+(`Sunfire Silk Weaving` / `Arcanoweaving`) geeft op punt 0 meteen het bolt-recept met zijn
+dagelijkse cooldown. **Onze regel was correct.** De gidsen noemen 20 omdat zij willen dat je
+béide stofsoorten aanzet — sub-tak #2 staat inderdaad op 20.
+
+De les is scherper dan de fout: ik verklaarde een regel tot verzinsel omdat ik hem niet in een
+gids terugvond. Afwezigheid in de gidsen is geen bewijs. Zie [[silence-is-not-absence]].
 
 ### d) De bronnen zelf zijn een mijnenveld
 
