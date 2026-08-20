@@ -136,6 +136,30 @@ addon:
 ⚠️ **171 en 182 zijn Robs eigen beroepen** en dus het advies dat hij vandaag zelf volgt. Die
 gaan voor. Levert een spec op; BOUW past hem toe.
 
+🎯 **GEMETEN 20 aug: er zit een echte gebruiker op twee van die tien routes te wachten,
+en het is Rob zelf.** `/mh kp` op zijn shadow priest: **Tailoring 12 onbestede
+Knowledge Points, Enchanting 22 — en nul ooit uitgegeven.** Dat zijn precies twee van de
+routes die volgens de audit hierboven fout zijn (197 `anyOf` verbergt de goud-versus-gilde
+keuze; 333 staat omgekeerd).
+
+Waarom dat ertoe doet: Rob geeft ze **bewust niet uit**, hij wacht op de gecorrigeerde
+routes. Dus dit is géén bewijs dat onze uitleg tekortschiet — de Home-melding vuurt, staat
+in waarschuwingskleur en is zichtbaar, en dat is nagekeken op zijn scherm in plaats van
+aangenomen. **De node-adviseur (Spec 25) blijft dus terecht uitgesteld.** Wat het wél
+betekent: 197 en 333 hebben nu een wachtende gebruiker, naast 171 en 182 die al vooraan
+stonden omdat het zijn eigen beroepen zijn.
+
+En het levert een testcase op die je normaal niet krijgt: een personage met onbestede
+punten in allebei de beroepen, dat de gecorrigeerde route **vanaf nul** kan lopen. Een
+route controleren op een personage dat zijn punten al uitgegeven heeft, kan dat niet.
+
+⚠️ **Bijvangst, niet ingebouwd:** Herbalism gaf op diezelfde priest een levende config
+(`52906084`) met **24 onbestede punten**, terwijl het beroep niet op zijn Home staat en
+`GetProfessions()` het niet teruggeeft. Waarschijnlijk een laten vallen beroep waarvan de
+trait-config blijft staan. Niet geverifieerd, dus nergens op gebouwd — wel het noteren
+waard, want als die punten terugkomen bij het opnieuw leren is dat iets wat geen enkele
+gids vertelt. Zie [[trait-currency-types-measured]].
+
 📎 **Twee KANDIDATEN uit de Zygor-update van 20 aug, voor die routelijst.** Zygor 9.6
 (Interface 120100) draait bij Rob en heeft een volledige Midnight-set. Uit
 `Guides-Retail/Professions/ZygorProfessionsCommonMID.lua` — géén bewijs, wel een
