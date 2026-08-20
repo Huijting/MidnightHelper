@@ -350,7 +350,7 @@ function ns.BuildProfessionsHubPanel(panel)
 	resetBtn:SetWidth(resetBtn:GetTextWidth() + 30)
 	resetBtn:SetScript("OnClick", function()
 		if ns.AddSmartTomTomWay then
-			ns.AddSmartTomTomWay(2393, 45.03, 56.20, SL("PROFHUB_RESET_ROUTE_PIN"))
+			ns.AddSmartTomTomWay(2393, 45.05, 56.17, SL("PROFHUB_RESET_ROUTE_PIN"))
 		end
 	end)
 	resetBtn:SetScript("OnEnter", function(self)

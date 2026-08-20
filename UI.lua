@@ -822,13 +822,19 @@ local SMC_CATEGORIES = {
 			--- aanreikte zei 44.95 / 56.07 — dichtbij, en dichtbij is precies hoe je iemand
 			--- naast een NPC laat landen.
 			---
+			--- 20 aug hermeten met `/mh here`, nu mét npc-id: **45.05 / 56.17, npc 243280**.
+			--- Twee honderdsten van de eerste meting — dat is geen correctie maar een
+			--- bevestiging, en het is de reden om hem over te nemen: twee onafhankelijke
+			--- metingen die samenvallen zijn sterker dan één. Het npc-id is de echte winst;
+			--- daarmee is de pin te controleren zonder op de naam te vertrouwen.
+			---
 			--- ⚠️ DE TEKST KOMT UIT ZIJN EIGEN BEVESTIGINGSVENSTER, woordelijk: "You will
 			--- lose all associated recipes and be able to re-allocate your knowledge as you
 			--- see fit. This can only be done ONCE." De research die hier binnenkwam zei dat
 			--- recepten "tijdelijk" weg zijn en vanzelf terugkomen als je identiek herbesteedt.
 			--- Dat staat er niet, en het is de ene zin die iemand zijn recepten kan kosten.
 			--- Het spel belooft niets terug — dus wij ook niet.
-			{ id = "prof_reset", label = "Theremis — Specializations resetten", descKey = "SMC_PIN_PROF_RESET", atlas = "services-icon-trainer", x = 45.03, y = 56.20 },
+			{ id = "prof_reset", label = "Theremis — Specializations resetten", descKey = "SMC_PIN_PROF_RESET", atlas = "services-icon-trainer", x = 45.05, y = 56.17, npcID = 243280 },
 			{ id = "creation_catalyst", label = "Creation Catalyst", descKey = "SMC_PIN_CREATION_CATALYST", atlas = "creationcatalyst-32x32", x = 40.31, y = 64.85 },
 		},
 	},

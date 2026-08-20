@@ -98,8 +98,22 @@ local FEET_TERTIARY = {
 --- choice is stamina against armor. SpellPilot 0.11.38 states the opposite (Blood Knight's
 --- = Strength, Forest Hunter's = Agility) and is simply wrong — a working addon shipping a
 --- confident wrong line, which is the whole reason CLAUDE.md calls them candidates.
---- Both threads grant Intellect; there it is mana (Arcanoweave) against stamina (Sunfire
---- Silk) — same shape, not yet read from the tooltips.
+--- The threads confirm the same shape, also from the tooltips:
+---   Arcanoweave  — "increasing its Intellect by 32 and increasing the wearer's maximum
+---                   mana by 3%."
+---   Sunfire Silk — "increasing its Intellect by 41 and Stamina by 115."
+--- So mana against stamina, as expected.
+---
+--- ⚠️ BUT THOSE TWO ARE NOT THE SAME RANK, and neither are our four ids as a set. Measured
+--- 20 aug: 244640 gives 32/70 and 244641 gives 41/115 — same name, adjacent ids, different
+--- ranks. Ours are currently three low (244640, 244642, 240154 all at 32) and one high
+--- (240133 at 41), so the panel invites a comparison between items that are not comparable.
+--- Sunfire Silk looks strictly better than Arcanoweave largely because it is a rank above.
+---
+--- ⏳ Fixing that needs the high rank of Blood Knight's and of Arcanoweave. The +1 pairing
+--- makes 244643 and 240155 obvious, and obvious is where this project keeps getting caught
+--- — the Empowered enchant ids only shipped once the client named them. Not changed until
+--- `/mh item 244643 240155` answers.
 ---
 --- ⏳ NO PER-SPEC RULE IS ASSERTED. The obvious one — armor for tanks — does not survive
 --- the evidence: Prot Paladin and Fury Warrior both take Blood Knight's, and Fury is not a
