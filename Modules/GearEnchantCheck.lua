@@ -178,7 +178,30 @@ local LEG_INT = {
 --- it — rather than storing a second copy of a string the game already owns. Left as a
 --- typo fix for now because the copy-box path feeds several slots and that is its own
 --- change; noted here so it does not get forgotten.
-local SHOULDER_OPT = { iid = 243962, ah = "Enchant Shoulders - Akil'zon's Swiftness" }
+--- SHOULDER: the same Speed / Leech / Avoidance choice head and feet already offer.
+---
+--- ⚠️ WE SHOWED ONE OF SIX, AND CALLED ITS EFFECT UNKNOWN. Both halves are now measured.
+--- Rob scanned the enchant id block on 20 aug (`/mh item save 243900-244090`) and his
+--- client named every one, with its rank and its effect:
+---
+---   Speed      Flight of the Eagle    243960 / 243961
+---              Akil'zon's Swiftness   243962 / 243963   ← guides recommend this family
+---   Avoidance  Nature's Grace         243988 / 243989
+---              Amirdrassil's Grace    243990 / 243991   ← "increasing Avoidance by 111"
+---   Leech      Thalassian Recovery    244018 / 244019
+---              Silvermoon's Mending   244020 / 244021   ← guides recommend this family
+---
+--- Two families per tertiary, two ranks each, and we were on the Tier 1 of one of them —
+--- the same rank mistake the leg kits had. The trio below is the Tier 2 of the family the
+--- nine spec pages surveyed on 20 aug actually name.
+---
+--- The old entry also carried "confirm the effect in-game", which was honest when nobody
+--- had. Somebody has now, so the hedge goes: it is a Speed enchant and the panel may say so.
+local SHOULDER_TERTIARY = {
+	{ iid = 243963, ah = "Enchant Shoulders - Akil'zon's Swiftness" },
+	{ iid = 244021, ah = "Enchant Shoulders - Silvermoon's Mending" },
+	{ iid = 243991, ah = "Enchant Shoulders - Amirdrassil's Grace" },
+}
 
 -- Midnight-gems (12.0.7, geverifieerd — zie docs/GEMS_12.0.7_DATA.md). Blue/rare,
 -- prismatic (passen in elke socket), ilvl 295 "Flawless". Dual-stat: +16 hoofdstat
@@ -650,10 +673,14 @@ local function BuildReportLines(map)
 		if hasItem then
 			local label = (s.id == 16 and (_G.WEAPON or "Weapon")) or _G[s.label] or s.label
 			if s.id == 3 then
-				-- Shoulder: optioneel. Toon altijd de optionele utility-suggestie,
-				-- geen rode MISSING-alarm (effect onbevestigd → geen stat-claim).
-				local rec = LinkOf(map, SHOULDER_OPT)
-				lines[#lines + 1] = ("|cffc8b88a%s — %s %s|r"):format(label, ns:L("ENCHANT_SHOULDER_OPT"), rec)
+				-- Schouder: nog steeds geen rood MISSING-alarm — het is een tertiary-keuze
+				-- zoals helm en voeten, geen verplichte stat-enchant. Wél alle drie tonen.
+				local parts = {}
+				for _, e in ipairs(SHOULDER_TERTIARY) do
+					parts[#parts + 1] = LinkOf(map, e)
+				end
+				lines[#lines + 1] = ("|cffc8b88a%s — %s %s|r"):format(
+					label, ns:L("ENCHANT_SHOULDER_OPT"), table.concat(parts, " / "))
 			elseif enchanted then
 				local ench = SlotEnchantText(s.id)
 				local tail = ench and (": " .. ench) or ""
