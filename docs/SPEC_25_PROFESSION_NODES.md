@@ -41,6 +41,26 @@ De uitzondering: de vier JC-ertsnodes staan wél op de echte munt.
 een ander als "kost je eerste punt", beiden zonder de munt te checken). Wie deze data ooit
 opnieuw ophaalt: **check `TraitCurrencyID`, niet alleen `SpentAmountRequired`.**
 
+### De exacte formulering voor de addon
+
+Onafhankelijk geverifieerd op Blacksmithing, Leatherworking en Tailoring (30/32/26 unlock-regels,
+exact één per node, **geen enkele 0**) én op Jewelcrafting:
+
+- `requiredPoints: 0` in Wowheads JSON is de **voorwaarde vooraf**, niet de prijs. De prijs
+  staat in `cost.amount` en is **1**.
+- Die 1 is een **Type 2-token**. `TraitCurrencySource` zegt waar hij vandaan komt, letterlijk:
+  *"You can learn a sub-specialization upon specializing in The Old Ways."* en
+  *"Requires 10 points in The Old Ways to learn an additional sub-specialization."*
+
+➡️ **Zeg dus niet "gratis" en niet "je eerste punt".** Zeg:
+
+> *"Zodra je deze sub-tak opent heb je het recept — dat kost je geen Knowledge Point. Maar je
+> kunt maar zoveel sub-takken openen als je ontgrendelingen hebt, en die komen op vaste
+> drempels in de moedertak."*
+
+Dat vangt zowel de gratis-kant als de **rantsoenering**, en dat laatste is precies wat de
+speler moet begrijpen om zijn punten goed te zetten.
+
 ---
 
 ## 3. Omvang per profession
@@ -174,10 +194,14 @@ vastgesteld.
 
 ## 8. ⛔ Niet encoderen
 
-1. **Skill-niveaus per boom** (25/50/60/75). De reeks circuleert, maar **welke boom bij welk
-   niveau hoort staat nergens** — het is een gevolgtrekking uit de volgorde van bullets op één
-   ongedateerde pagina. DB2 bevat geen skill-eis per tree. Bij vier professions apart
-   vastgesteld als "niet gevonden".
+1. ✅ **OPGELOST — de skill-niveaus 25/50/60/75 bestaan wél, maar de toewijzing niet.**
+   `TraitCurrencySource` bevat vier **generieke** ontgrendel-tokens:
+   *"Requires level 25 of Midnight Blacksmithing to unlock a specialization."* (achievement
+   41690), idem voor 50 (41691), 60 (41692) en 75 (41693). Het spel schrijft dus **niet** voor
+   welke boom bij welk niveau hoort — de speler kiest zelf. Vier professions markeerden die
+   toewijzing als "niet gevonden"; nu is duidelijk **waarom**: hij bestaat niet.
+   ➡️ In de addon: "op skill 25/50/60/75 mag je er telkens één kiezen", nooit "op skill 50 gaat
+   tak X open".
 2. **Percentages en proc-kansen** die alleen in gidsproza staan.
 3. **Effectgetallen uit DB2** — die staan er niet in (§6).
 4. **`Imbued Mulch` cooldown** — method.gg zegt 1 uur; de wiki noemt geen cooldown. Onbevestigd,
