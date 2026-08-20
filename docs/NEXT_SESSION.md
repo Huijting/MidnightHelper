@@ -2,6 +2,62 @@
 **Bijgewerkt 2026-08-18 (23:50).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
+## 🔴 EERST MORGEN (21 aug) — wij dragen Rob op iets te doen dat niet kan
+
+**GEMETEN op Robs shadow priest, 20 aug laat.** Hij heeft 12 onbestede Knowledge Points op
+Tailoring, en hij kan er **geen enkele** van uitgeven. Uit de tooltip van `Nimble
+Needlework`, met alle vier de tabbladen op slot:
+
+> Nimble Needlework — Specialization (Locked) — **Rank 0/30**
+> On learning this specialization: Gain +5 Ingenuity when crafting Midnight bolts.
+> 🔴 **Requires level 25 in Midnight Tailoring to unlock a specialization.**
+
+Zijn Midnight Tailoring staat onder de 25. De knop onderaan zegt **"Unlock Specialization"**
+en doet niets.
+
+**En ondertussen zegt onze This Week-melding: _"Tailoring: 12 Knowledge unspent — spend
+it."_** Dat is advies dat niet uitvoerbaar is, en dat is erger dan geen advies: de speler
+gaat aan zichzelf twijfelen in plaats van aan ons. Zelfde familie als Engineering dat mensen
+in een doodlopende weg zette en work orders die naar de verkeerde balie wezen.
+
+Het verklaart ook een stuk van gisteravond. De aanname was dat Rob zijn punten bewust liet
+liggen omdat hij op de gecorrigeerde routes wachtte. Bij Tailoring is dat niet eens de
+reden — het kán niet.
+
+### Twee plekken die het fout zeggen
+
+| waar | wat er staat | wat waar is |
+|---|---|---|
+| `Modules/ProfessionNextStep.lua` (~114-124), Home | "X Knowledge unspent — spend it" | hij kan niets uitgeven tot skill 25 |
+| Academy-adviesregel | "next points into Nimble Needlework" | het werkwoord op zijn scherm is **Unlock**, en de eerste stap is kiezen wélke van vier |
+
+### ⚠️ Eerst meten, niets verzinnen
+
+We lezen de **vergrendelde staat nu nergens uit**. `summary.tabs` geeft `active`/`max`, en
+`math.max(active - 1, 0)` maakt "op slot" en "open maar onaangeraakt" allebei tot `0` — die
+twee zijn met wat we lezen dus niet te onderscheiden. **Verzin hier geen API-naam.** Eerst
+een probe die per tab dumpt wat er te weten valt (en of er iets is dat de skill-drempel
+noemt), dan pas de reparatie.
+
+**Doel van de reparatie:** de melding zegt *"breng je Tailoring eerst naar 25"* in plaats
+van *"spend it"*, en de adviesregel gebruikt het werkwoord dat op het scherm staat.
+
+### ✅ Wat hiermee BEVESTIGD is — niet opnieuw uitzoeken
+
+- De keuze-momenten op **skill 25, 50, 60 en 75** staan letterlijk in de tooltip. De tekst in
+  `PROFACAD_CH_TREES_BODY` klopt.
+- **"On learning this specialization"** bevestigt dat het openen zelf al iets geeft — precies
+  wat het hoofdstuk zegt over openen versus volmaken.
+- **Rank 0/30** komt overeen met wat de addon uit de client las.
+
+### ⏳ Nog steeds onbevestigd
+
+De **20 punten** bij `Nimble Needlework` (advisorRoutes[197]). Die drempel is pas te zien
+als de tree open is, dus niet verifieerbaar zolang de skill onder 25 staat. Blijft een hint
+met "lees de tooltip" ernaast, zoals bedoeld.
+
+---
+
 ## 🔨 BOUWPLAN 20 AUG — de zes professie-lessen in de addon (bouwkant van Spec 27)
 
 Spec 27 (onderzoek, `06d6343`) beschrijft *wat* er moet komen. Dit is de bouwkant, en
