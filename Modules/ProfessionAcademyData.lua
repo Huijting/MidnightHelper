@@ -357,9 +357,26 @@ ns.PROF_ACADEMY = {
 			titleKey = "PROFACAD_CH_WORKORDERS_TITLE",
 			bodyKey = "PROFACAD_CH_WORKORDERS_BODY",
 			introKey = "PROFACAD_CH_WORKORDERS_INTRO",
+			advancedKey = "PROFACAD_CH_WORKORDERS_ADVANCED",
 			taskKey = "PROFACAD_CH_WORKORDERS_TASK",
 			taskWaypoint = "workOrderStation",
-			searchKeys = "work orders crafting orders public guild personal commission customer",
+			searchKeys = "work orders crafting orders public guild personal commission customer "
+				.. "mar'nah marnah order table two counters workbench",
+		},
+		--- Patron orders were a paragraph inside the work-orders chapter, and they are the
+		--- half that actually matters: they are the largest weekly Knowledge source, they
+		--- live at a different place from the rest, and they carry a timing trap that costs
+		--- points silently. Buried in a list of four they read as "the fourth kind".
+		---
+		--- Built from docs/COPY_WORKORDERS_BEGINNER.md at commit c693ae2 (20 Aug 2026).
+		{
+			key = "patron",
+			titleKey = "PROFACAD_CH_PATRON_TITLE",
+			bodyKey = "PROFACAD_CH_PATRON_BODY",
+			introKey = "PROFACAD_CH_PATRON_INTRO",
+			taskKey = "PROFACAD_CH_PATRON_TASK",
+			searchKeys = "patron orders npc orders knowledge points weekly source "
+				.. "daily small order catch up behind goal",
 		},
 		{
 			key = "enchanting",
