@@ -136,6 +136,26 @@ addon:
 ⚠️ **171 en 182 zijn Robs eigen beroepen** en dus het advies dat hij vandaag zelf volgt. Die
 gaan voor. Levert een spec op; BOUW past hem toe.
 
+📎 **Twee KANDIDATEN uit de Zygor-update van 20 aug, voor die routelijst.** Zygor 9.6
+(Interface 120100) draait bij Rob en heeft een volledige Midnight-set. Uit
+`Guides-Retail/Professions/ZygorProfessionsCommonMID.lua` — géén bewijs, wel een
+onafhankelijk spoor dat niet uit Spec 24 komt:
+
+- **Engineering (202), regel 1166 en 1217.** *"Learn Recycling as your first
+  specialization — the cheapest recipes to level with require 10 points in the Recycling
+  specialization"*, en later *"Put 10 points into the Recycling specialization and pick the
+  Resourcefulness sub-spec"*. Bevestigt de reparatie die vandaag uitging, en voegt twee
+  dingen toe die onze route niet draagt: de **drempel van 10 punten** en een **sub-spec**.
+- **Inscription (773), regel 2364.** *"Learn the Calm Hands specialization — this will
+  allow you to make Thalassian Treatise on Inscription to level with later."* Onze eigen
+  levelgids zegt hetzelfde (`PROFGUIDE_LVL_INSCRIPTION`: "Bei 25 lerne Calm Hands als deine
+  erste Spec"), terwijl de advisor-route voor 773 volgens jullie onuitvoerbare stappen
+  heeft. Twee bronnen die het al eens zijn met elkaar en niet met onze route.
+
+⚠️ **Coördinaten van Zygor overnemen doen we niet.** Hun farm-routes zijn hun werk; dit
+zijn losse uitspraken die tegen de client te toetsen zijn, en dat is iets anders dan een
+route kopiëren. Zie ook wat er met de EXBoss-melding speelde.
+
 ⚠️ **Niet de node-adviseur (Spec 25).** Bewust uitgesteld: eerst de lessen uitbrengen, dan
 kijken of de vraag ernaar bestaat. Punten uitgeven doe je één keer per personage.
 
