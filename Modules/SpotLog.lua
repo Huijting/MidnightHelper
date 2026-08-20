@@ -464,8 +464,32 @@ function ns.LookupItemIDs(rest)
 	end
 	local save = rest:lower():find("save") ~= nil
 	local ids = {}
-	for id in rest:gmatch("%d+") do
-		ids[#ids + 1] = tonumber(id)
+	--- ⚠️ RANGES, because sometimes the id is the thing you are missing. The shoulder
+	--- enchants needed on 20 aug exist in no addon and on no page we can read — Icy Veins
+	--- carries no item links at all, SpellPilot has names without ids. But Midnight's
+	--- enchant items sit in one numeric block (243957 is a ring enchant, 243962 a shoulder
+	--- one), so asking the client to name a stretch of it finds them by brute force.
+	--- That is measurement, not guesswork: every name comes from the player's own client.
+	---
+	--- Capped at 200. A typo like 1-999999 would otherwise fire a hundred thousand server
+	--- requests, and the cap turns that into a message rather than a disconnect.
+	local a, b = rest:match("(%d+)%s*-%s*(%d+)")
+	if a and b then
+		a, b = tonumber(a), tonumber(b)
+		if b < a then
+			a, b = b, a
+		end
+		if b - a > 200 then
+			print(("%s |cffff5040range too wide|r (%d ids) — 200 at a time."):format(p, b - a + 1))
+			return
+		end
+		for id = a, b do
+			ids[#ids + 1] = id
+		end
+	else
+		for id in rest:gmatch("%d+") do
+			ids[#ids + 1] = tonumber(id)
+		end
 	end
 	local request = C_Item and (C_Item.RequestLoadItemDataByID or C_Item.RequestLoadItemData)
 	for _, id in ipairs(ids) do
@@ -521,8 +545,12 @@ function ns.LookupItemIDs(rest)
 			print(("%s |cff40c040%d items|r written to ns.db.itemScan — |cffffd100/reload|r and it can be read."):format(p, #ids))
 		end
 		if C_Timer and C_Timer.After then
-			print(("%s scanning |cffffd100%d items|r…"):format(p, #ids))
-			C_Timer.After(3, store)
+			-- Scaled with the batch: three seconds is right for a dozen and far too short
+			-- for two hundred, and an id reported "not loaded" because we asked too early
+			-- is the false negative this command exists to avoid.
+			local wait = math.min(12, 3 + #ids / 25)
+			print(("%s scanning |cffffd100%d items|r… (%ds)"):format(p, #ids, wait))
+			C_Timer.After(wait, store)
 		else
 			store()
 		end
