@@ -367,10 +367,41 @@ end
 --- ⚠️ The name can be nil for a real id that is not cached yet, so nil is reported as
 --- "unknown to this client" rather than "does not exist". Those are different answers and
 --- only one of them means the id is wrong.
+--- `save` writes to `ns.db.spellScan` instead of chat — same reason as `/mh item save`.
 function ns.LookupSpellIDs(rest)
 	local p = "|cffffff78Midnight Helper:|r"
 	if type(rest) ~= "string" or not rest:find("%d") then
-		print(("%s usage: |cffffd100/mh spell 1236084 1236071|r"):format(p))
+		print(("%s usage: |cffffd100/mh spell 1236084 1236071|r  or  |cffffd100/mh spell save <ids>|r"):format(p))
+		return
+	end
+	if rest:lower():find("save") then
+		ns.db = ns.db or {}
+		local out = { when = date and date("%Y-%m-%d %H:%M:%S") or nil, spells = {} }
+		local getInfoS = (C_Spell and C_Spell.GetSpellInfo) or nil
+		local getNameS = (C_Spell and C_Spell.GetSpellName) or _G.GetSpellInfo
+		local n = 0
+		for id in rest:gmatch("%d+") do
+			local sid = tonumber(id)
+			local name
+			if getInfoS then
+				local ok, info = pcall(getInfoS, sid)
+				if ok and type(info) == "table" then name = info.name end
+			end
+			if name == nil and getNameS then
+				local ok, nm = pcall(getNameS, sid)
+				if ok then name = nm end
+			end
+			local row = { id = sid }
+			if issecretvalue and name ~= nil and issecretvalue(name) then
+				row.secret = true
+			elseif type(name) == "string" and name ~= "" then
+				row.name = name
+			end
+			out.spells[#out.spells + 1] = row
+			n = n + 1
+		end
+		ns.db.spellScan = out
+		print(("%s |cff40c040%d spells|r written to ns.db.spellScan — |cffffd100/reload|r and it can be read."):format(p, n))
 		return
 	end
 	local getInfo = (C_Spell and C_Spell.GetSpellInfo) or nil
@@ -417,12 +448,21 @@ end
 --- that first nil as "no such item" is the trap that made `/mh curios` print "(no
 --- description)" eight times in 2.17.0. So this primes every id, waits, and only then
 --- reports — and still says "not loaded yet, try again" rather than "does not exist".
+--- ⚠️ `save` MODE, and it should have been here from the start. Rob, 20 aug: "kunnen we
+--- niet een grote batch zoeken en dan jou een reload geven die alles heeft?" Yes — and it
+--- is this project's own standing rule since 27 July: long diagnostic output goes to
+--- `ns.db` and a `/reload`, so the file gets read directly instead of photographed. Three
+--- rounds of screenshots this morning were three rounds of ignoring it.
+---
+--- `/mh item save 244643 240155 ...` writes every id, its name and its full tooltip to
+--- `ns.db.itemScan`. No chat spam, no cropping, and forty ids cost the same as two.
 function ns.LookupItemIDs(rest)
 	local p = "|cffffff78Midnight Helper:|r"
 	if type(rest) ~= "string" or not rest:find("%d") then
-		print(("%s usage: |cffffd100/mh item 244640 244642|r"):format(p))
+		print(("%s usage: |cffffd100/mh item 244640 244642|r  or  |cffffd100/mh item save <ids>|r"):format(p))
 		return
 	end
+	local save = rest:lower():find("save") ~= nil
 	local ids = {}
 	for id in rest:gmatch("%d+") do
 		ids[#ids + 1] = tonumber(id)
@@ -432,6 +472,61 @@ function ns.LookupItemIDs(rest)
 		if request then
 			pcall(request, id)
 		end
+	end
+	if save then
+		-- A longer wait than the chat path: a big batch is a lot of server round-trips,
+		-- and an id reported as "not loaded" because we asked too early is exactly the
+		-- false negative this whole command exists to avoid.
+		local function store()
+			ns.db = ns.db or {}
+			local out = { when = date and date("%Y-%m-%d %H:%M:%S") or nil, items = {} }
+			for _, id in ipairs(ids) do
+				local row = { id = id }
+				local name
+				if C_Item and C_Item.GetItemNameByID then
+					local ok, n = pcall(C_Item.GetItemNameByID, id)
+					if ok then name = n end
+				end
+				if name == nil and _G.GetItemInfo then
+					local ok, n = pcall(_G.GetItemInfo, id)
+					if ok then name = n end
+				end
+				if issecretvalue and name ~= nil and issecretvalue(name) then
+					row.name = nil
+					row.secret = true
+				elseif type(name) == "string" and name ~= "" then
+					row.name = name
+				end
+				if C_TooltipInfo and C_TooltipInfo.GetItemByID then
+					local okT, info = pcall(C_TooltipInfo.GetItemByID, id)
+					if okT and type(info) == "table" and type(info.lines) == "table" then
+						local lines = {}
+						for _, line in ipairs(info.lines) do
+							local t = line.leftText
+							if issecretvalue and t ~= nil and issecretvalue(t) then
+								t = nil
+							end
+							if type(t) == "string" and t:find("%w") then
+								lines[#lines + 1] = t
+							end
+						end
+						if #lines > 0 then
+							row.tooltip = lines
+						end
+					end
+				end
+				out.items[#out.items + 1] = row
+			end
+			ns.db.itemScan = out
+			print(("%s |cff40c040%d items|r written to ns.db.itemScan — |cffffd100/reload|r and it can be read."):format(p, #ids))
+		end
+		if C_Timer and C_Timer.After then
+			print(("%s scanning |cffffd100%d items|r…"):format(p, #ids))
+			C_Timer.After(3, store)
+		else
+			store()
+		end
+		return
 	end
 	local function report()
 		print(("%s item ids, as your client names them:"):format(p))
