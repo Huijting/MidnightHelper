@@ -161,8 +161,8 @@ ns.ConsumablesWowheadByClassSpec.DEMONHUNTER = {
 			noteKey = "CONS_NOTE_13",
 		},
 		combatPotion = {
-			best = { 241292 },
-			alternates = { 241309, 241288 },
+			best = { 241288 },
+			alternates = { 241292, 241309, 241288 },
 			noteKey = "CONS_NOTE_15",
 		},
 		healingPotion = {
@@ -307,13 +307,13 @@ ns.ConsumablesWowheadByClassSpec.DRUID = {
 	},
 	[3] = {
 		flask = {
-			best = { 241320 },
-			alternates = { 241324, 241326 },
+			best = { 241324 },
+			alternates = { 241320, 241324, 241326 },
 			noteKey = "CONS_NOTE_13",
 		},
 		combatPotion = {
-			best = { 241292 },
-			alternates = { 241309, 241288 },
+			best = { 241309 },
+			alternates = { 241292, 241309, 241288 },
 			noteKey = "CONS_NOTE_15",
 		},
 		healingPotion = {
@@ -426,8 +426,8 @@ ns.ConsumablesWowheadByClassSpec.EVOKER = {
 			noteKey = "CONS_NOTE_03",
 		},
 		combatPotion = {
-			best = { 241309 },
-			alternates = { 241288, 241292 },
+			best = { 241288 },
+			alternates = { 241309, 241288, 241292 },
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
@@ -498,8 +498,8 @@ ns.ConsumablesWowheadByClassSpec.EVOKER = {
 ns.ConsumablesWowheadByClassSpec.HUNTER = {
 	[1] = {
 		flask = {
-			best = { 241326 },
-			alternates = { 241322, 241324, 241320 },
+			best = { 241322 },
+			alternates = { 241326, 241322, 241324, 241320 },
 			noteKey = "CONS_NOTE_01",
 		},
 		combatPotion = {
@@ -572,8 +572,8 @@ ns.ConsumablesWowheadByClassSpec.HUNTER = {
 	},
 	[3] = {
 		flask = {
-			best = { 241326 },
-			alternates = { 241322, 241324, 241320 },
+			best = { 241322 },
+			alternates = { 241326, 241322, 241324, 241320 },
 			noteKey = "CONS_NOTE_01",
 		},
 		combatPotion = {
@@ -612,8 +612,8 @@ ns.ConsumablesWowheadByClassSpec.HUNTER = {
 ns.ConsumablesWowheadByClassSpec.MAGE = {
 	[1] = {
 		flask = {
-			best = { 241322 },
-			alternates = { 241324, 241326, 241320 },
+			best = { 241324 },
+			alternates = { 241322, 241324, 241326, 241320 },
 			noteKey = "CONS_NOTE_05",
 		},
 		combatPotion = {
@@ -649,8 +649,8 @@ ns.ConsumablesWowheadByClassSpec.MAGE = {
 	},
 	[2] = {
 		flask = {
-			best = { 241322 },
-			alternates = { 241324, 241326, 241320 },
+			best = { 241324 },
+			alternates = { 241322, 241324, 241326, 241320 },
 			noteKey = "CONS_NOTE_05",
 		},
 		combatPotion = {
@@ -686,13 +686,13 @@ ns.ConsumablesWowheadByClassSpec.MAGE = {
 	},
 	[3] = {
 		flask = {
-			best = { 241322 },
-			alternates = { 241324, 241326, 241320 },
+			best = { 241326 },
+			alternates = { 241322, 241324, 241326, 241320 },
 			noteKey = "CONS_NOTE_05",
 		},
 		combatPotion = {
-			best = { 241309 },
-			alternates = { 241288, 241292 },
+			best = { 241288 },
+			alternates = { 241309, 241288, 241292 },
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
@@ -845,8 +845,8 @@ ns.ConsumablesWowheadByClassSpec.PALADIN = {
 			noteKey = "CONS_NOTE_03",
 		},
 		combatPotion = {
-			best = { 241309 },
-			alternates = { 241288, 241292 },
+			best = { 241288 },
+			alternates = { 241309, 241288, 241292 },
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
@@ -877,13 +877,13 @@ ns.ConsumablesWowheadByClassSpec.PALADIN = {
 	},
 	[2] = {
 		flask = {
-			best = { 241324 },
-			alternates = { 241320, 241326 },
+			best = { 241326 },
+			alternates = { 241324, 241320, 241326 },
 			noteKey = "CONS_NOTE_13",
 		},
 		combatPotion = {
-			best = { 241292 },
-			alternates = { 241309, 241288 },
+			best = { 241309 },
+			alternates = { 241292, 241309, 241288 },
 			noteKey = "CONS_NOTE_15",
 		},
 		healingPotion = {
@@ -914,8 +914,8 @@ ns.ConsumablesWowheadByClassSpec.PALADIN = {
 	},
 	[3] = {
 		flask = {
-			best = { 241326 },
-			alternates = { 241322, 241324, 241320 },
+			best = { 241322 },
+			alternates = { 241326, 241322, 241324, 241320 },
 			noteKey = "CONS_NOTE_01",
 		},
 		combatPotion = {
@@ -1073,8 +1073,8 @@ ns.ConsumablesWowheadByClassSpec.ROGUE = {
 			noteKey = "CONS_NOTE_01",
 		},
 		combatPotion = {
-			best = { 241288 },
-			alternates = { 241309, 241292 },
+			best = { 241309 },
+			alternates = { 241288, 241309, 241292 },
 			noteKey = "CONS_NOTE_14",
 		},
 		healingPotion = {
@@ -1296,8 +1296,8 @@ ns.ConsumablesWowheadByClassSpec.SHAMAN = {
 ns.ConsumablesWowheadByClassSpec.WARLOCK = {
 	[1] = {
 		flask = {
-			best = { 241322 },
-			alternates = { 241324, 241326, 241320 },
+			best = { 241324 },
+			alternates = { 241322, 241324, 241326, 241320 },
 			noteKey = "CONS_NOTE_05",
 		},
 		combatPotion = {
@@ -1333,8 +1333,8 @@ ns.ConsumablesWowheadByClassSpec.WARLOCK = {
 	},
 	[2] = {
 		flask = {
-			best = { 241322 },
-			alternates = { 241324, 241326, 241320 },
+			best = { 241326 },
+			alternates = { 241322, 241324, 241326, 241320 },
 			noteKey = "CONS_NOTE_05",
 		},
 		combatPotion = {

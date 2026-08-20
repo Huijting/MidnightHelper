@@ -111,11 +111,28 @@ def main():
         ours = json.load(fh)
     names = known_names()
 
-    args = [a for a in sys.argv[1:] if a != "--all"]
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
     show_all = "--all" in sys.argv
+    do_apply = "--apply" in sys.argv
     only = args[0].lower() if args else None
     mismatches = 0
     unknown = set()
+    applied = []
+    # One entry per known name, so an applied change carries a real id rather than a name.
+    name_to_entry = {}
+    for className, specs_ in ours.items():
+        if className == "meta" or not isinstance(specs_, dict):
+            continue
+        for _sn, cats_ in specs_.items():
+            if not isinstance(cats_, dict):
+                continue
+            for _c, blk in cats_.items():
+                if not isinstance(blk, dict):
+                    continue
+                for tier in ("best", "alternates"):
+                    for e in blk.get(tier) or []:
+                        if e.get("name") and e.get("name") not in name_to_entry:
+                            name_to_entry[e["name"]] = e
 
     for spec in catalog.get("specs", []):
         label = spec.get("label") or ""
@@ -150,12 +167,20 @@ def main():
                 continue
             text = strip_tags(m.group(1))
             hits = [n for n in names if n and n in text]
-            # Longest first: "Hearty Blooming Feast" must win over "Blooming Feast".
+            # Longest first ONLY to resolve overlap: "Hearty Blooming Feast" must win over
+            # "Blooming Feast" so the shorter name is not also counted.
             hits.sort(key=len, reverse=True)
             kept = []
             for h in hits:
                 if not any(h in k for k in kept):
                     kept.append(h)
+            # ⚠️ THEN BACK INTO PAGE ORDER. Sorting by length and reporting that order made
+            # the first entry look like the page's first recommendation when it was only
+            # the longest name. For flask and combat potion that ordering IS the answer —
+            # the page's first mention is what it recommends — so getting it from the text
+            # position rather than from string length is the difference between a
+            # correction and a coin flip.
+            kept.sort(key=text.index)
             found[heading] = kept
 
         picks, why = ours_for(ours, spec)
@@ -204,6 +229,44 @@ def main():
                 block_lines.append("  %-13s ours: %s" % ("", mine_s))
             if not kept:
                 unknown.add((label, heading))
+        # --apply: rewrite `best` for the two categories where the page gives a single,
+        # unambiguous answer. Flask and combat potion are one-item picks and the page's
+        # first mention is its recommendation. Food is not — one section covers feast and
+        # personal food and often names only one — so it is never touched here.
+        if do_apply and not why:
+            for heading, cat in (("Flask", "flask"), ("Potions", "combatPotion")):
+                kept = found.get(heading) or []
+                if heading == "Potions":
+                    # Strip the healing potion: that section discusses both, and only the
+                    # combat potion is what `combatPotion` means.
+                    kept = [k for k in kept if "Health Potion" not in k]
+                if len(kept) != 1:
+                    continue  # two named or none: a judgement call, left to a person
+                want = kept[0]
+                cats_now = (ours.get(CLASS_KEY.get(spec.get("class", ""))) or {}).get(
+                    (spec.get("wowheadSpec") or "").replace("-", " ").title()
+                )
+                block = (cats_now or {}).get(cat)
+                if not isinstance(block, dict):
+                    continue
+                have = [e.get("name") for e in block.get("best") or []]
+                if want in have:
+                    continue
+                entry = name_to_entry.get(want)
+                if not entry:
+                    print("   !! %-24s %s: no id known for %r" % (label, cat, want))
+                    continue
+                old = ", ".join(have) or "(none)"
+                # Demote rather than delete: the previous pick stays reachable as an
+                # alternate, because one guide's page is a strong hint and not a proof.
+                alts = [dict(e) for e in block.get("best") or []]
+                for e in block.get("alternates") or []:
+                    if e.get("id") not in [a.get("id") for a in alts]:
+                        alts.append(dict(e))
+                block["best"] = [dict(entry)]
+                block["alternates"] = alts
+                applied.append("%-24s %-13s %s -> %s" % (label, cat, old, want))
+
         if spec_mismatch or show_all:
             print("=" * 78)
             print("%s  — %d section(s) differ" % (label, spec_mismatch))
@@ -215,8 +278,22 @@ def main():
     print("Sections where no item we ship was named at all: %d" % len(unknown))
     for label, heading in sorted(unknown):
         print("   %-28s %s" % (label, heading))
-    print("\n⚠️  This is a report. Nothing was written. Decide per spec, then edit the JSON")
-    print("   and run generate_consumables_lua.py + apply_cons_note_keys.py.")
+    if do_apply and applied:
+        print("\nApplied %d change(s):" % len(applied))
+        for line in applied:
+            print("   " + line)
+        tmp = CONSUM + ".tmp"
+        with io.open(tmp, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(json.dumps(ours, indent=2, ensure_ascii=False) + "\n")
+        os.replace(tmp, CONSUM)
+        print("\nJSON written atomically. Now run:")
+        print("   python tools/generate_consumables_lua.py")
+        print("   python tools/apply_cons_note_keys.py")
+    elif do_apply:
+        print("\nNothing unambiguous to apply.")
+    else:
+        print("\n⚠️  This is a report. Nothing was written. Add --apply to take the")
+        print("   unambiguous flask and combat-potion picks; food is never touched.")
     return 0
 
 
