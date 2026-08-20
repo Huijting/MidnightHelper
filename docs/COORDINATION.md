@@ -183,7 +183,40 @@ route kopiëren. Zie ook wat er met de EXBoss-melding speelde.
 ⚠️ **Niet de node-adviseur (Spec 25).** Bewust uitgesteld: eerst de lessen uitbrengen, dan
 kijken of de vraag ernaar bestaat. Punten uitgeven doe je één keer per personage.
 
-🔒 **De zes `docs/COPY_*_BEGINNER.md` liggen stil zolang BOUW eruit bouwt.** Niet omdat ze
+✅ **KLAAR 20 aug (avond): ronde A, B en C zijn gebouwd. Alle zes de lessen staan in de
+addon**, in enUS en nlNL. Ronde D (de vijf andere talen) blokkeert niets — `ns:L` valt terug
+op Engels, dus een niet-vertaalde les is Engels en niet stuk.
+
+Wat waaruit gebouwd is, zodat een diff mogelijk blijft:
+
+| hoofdstuk | bron | commit |
+|---|---|---|
+| `quality`, `profstats`, `concentration` | COPY_QUALITY / COPY_STATS / COPY_CONCENTRATION | `8a5ca58` |
+| `workorders` + nieuw `patron` | COPY_WORKORDERS | `c693ae2` |
+| `knowledge`, `trees` (herschreven) | COPY_PROFESSIONS | `6c9de4a` |
+| `gold` + `PROFACAD_CH_GOLD_DATED_202608` | COPY_GOLD | `8f4c9d1` |
+
+🔴 **Eén stuk is bewust NIET gebouwd, en het is jullie blocker om weg te halen.** De
+Alchemy- en Herbalism-starter-builds aan het eind van les 2 dragen al de **gecorrigeerde**
+volgorde (Potion Prowess leidend, Mulching erbij, Midnight Overload eruit), terwijl
+`advisorRoutes[171]` en `[182]` nog de oude hebben. Inbouwen zou een hoofdstuk laten
+botsen met zijn eigen adviesroute op één scherm — exact de Leatherworking-fout van
+vanochtend, opnieuw gemaakt. **Zodra de routespec er is, gaat die sectie er alsnog in.**
+
+📌 **En één fout die uit de diff kwam en die jullie kan raken:** ons work-orders-hoofdstuk
+zei dat een crafter **vier openbare bestellingen per dag** kan aannemen. Het zijn er vier
+tegoed met **één erbij per dag** — ongeveer zeven per week. Dat stond in zeven talen fout
+en is nu gecorrigeerd; als dat getal ergens in een spec of gids terugkomt, is dit de bron.
+
+🔓 **Het slot op de zes COPY-bestanden is daarmee opgeheven** — maar de regel verandert:
+een herziening raakt vanaf nu **uitgeleverde tekst**. Zet het hier neer als er iets in
+moet, dan diff BOUW het tegen de commits in de tabel hierboven.
+
+🗂️ **Voor de geheugenindex:** er staat een nieuw memory-bestand
+`trait-currency-types-measured.md` dat nog een regel in `MEMORY.md` nodig heeft. BOUW raakt
+die index niet aan (regel 4).
+
+🔒 ~~De zes `docs/COPY_*_BEGINNER.md` liggen stil zolang BOUW eruit bouwt.~~ (opgeheven, zie hierboven) Niet omdat ze
 heilig zijn, maar omdat een herziening ná het inbouwen onzichtbaar uiteenloopt met de
 gepubliceerde tekst. Dat is precies wat er met Leatherworking gebeurde: route veranderd op
 24 juli, tekst bleef staan, een maand lang sprak één scherm zichzelf tegen. Moet er tóch
