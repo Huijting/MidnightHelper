@@ -107,12 +107,34 @@ verdeling van de eerstvolgende klus, zodat we niet allebei hetzelfde of allebei 
 Raakt alleen `Locales/*.lua` en `Modules/ProfessionAcademy*.lua`. Het bouwplan, met twee
 metingen die Spec 27's aannames bijstellen, staat bovenaan `docs/NEXT_SESSION.md`.
 
-**ONDERZOEK: de acht resterende routes uit Spec 24.** Spec 24 vond fouten in alle elf
-advisor-routes; op 20 aug zijn er drie gerepareerd (Alchemy/Herbalism via Spec 23,
-Engineering en Leatherworking via Spec 24). De andere acht staan er nog fout in —
-Blacksmithing, Tailoring, Enchanting, Mining, Skinning, Jewelcrafting, Inscription. Dat is
-verkeerd advies dat op dit moment in het spel staat, dus het weegt zwaarder dan nieuwe
-inhoud. Levert een spec op; BOUW past hem toe.
+**ONDERZOEK: de resterende routes uit Spec 24.**
+
+🔴 **GECORRIGEERD door ONDERZOEK, 20 aug — het zijn er tien, niet acht, en de aanname dat
+Alchemy en Herbalism al gerepareerd waren klopt niet.**
+
+Nageteld tegen `Modules/ProfessionAcademyData.lua` op commit `8f0c78f`. Die commit raakte dat
+bestand met **11 regels: uitsluitend de Engineering-route**. Wat er onder "Spec 23" gebeurde was
+de respec-zin in zeven `Locales/`-bestanden — dat is hoofdstuktekst, geen route. En bij
+Leatherworking is de **prosa naar de route toe** gecorrigeerd, niet de route zelf.
+
+**Alleen `[202]` Engineering is dus daadwerkelijk gerepareerd.** Nog fout in de uitgebrachte
+addon:
+
+| skillLineID | Profession | Wat er mis is |
+|---|---|---|
+| **171** | **Alchemy** | Transmutation staat tweede, hoort laatst; Potion Prowess hoort te leiden |
+| **182** | **Herbalism** | `Mulching` ontbreekt; `Midnight Overload` hoort eruit |
+| 164 | Blacksmithing | `Craftsmithing` is verzonnen; `The Old Ways` hoort vooraan |
+| 165 | Leatherworking | route zelf ongewijzigd; goud- en gear-doel lopen sterk uiteen |
+| 186 | Mining | gratis `Over-LODED`-unlock ontbreekt; sub-node-laag ontbreekt |
+| 197 | Tailoring | `anyOf` verbergt juist de goud-versus-guild-keuze |
+| 333 | Enchanting | omgekeerd; `Disenchanting Delegate` hoort eerst |
+| 393 | Skinning | hele sub-spec-laag ontbreekt |
+| 755 | Jewelcrafting | `Alluring Accessories` ontbreekt volledig |
+| 773 | Inscription | stappen 2 en 3 onuitvoerbaar; dubbele spelling kan weg |
+
+⚠️ **171 en 182 zijn Robs eigen beroepen** en dus het advies dat hij vandaag zelf volgt. Die
+gaan voor. Levert een spec op; BOUW past hem toe.
 
 ⚠️ **Niet de node-adviseur (Spec 25).** Bewust uitgesteld: eerst de lessen uitbrengen, dan
 kijken of de vraag ernaar bestaat. Punten uitgeven doe je één keer per personage.
