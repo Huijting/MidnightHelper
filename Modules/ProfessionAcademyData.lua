@@ -183,9 +183,18 @@ ns.PROF_ACADEMY = {
 		-- wow-professions: a beginner builds a recipe tree they enjoy (gadgets, goggles
 		-- or tools), then Recycling for the big skill/yield bonus. anyOf so the advice
 		-- follows whichever recipe tree the player already started.
+		--- ⚠️ RECYCLING FIRST, AND IT USED TO BE LAST. Spec 24 calls this the worst of the
+		--- nine route errors, and the reason is that it does not merely give slow advice —
+		--- it sends the player somewhere nothing happens.
+		---
+		--- In Midnight you discover most Engineering recipes by recycling, and recycling
+		--- stays OFF until points go into the tree (threshold confirmed in Blizzard's own
+		--- gamedata, build 12.1.0.69382). We had it as the last step because we read it as
+		--- an efficiency branch. Anyone following that recycles, sees nothing, and concludes
+		--- the feature is broken — which is a worse outcome than no advice at all.
 		[202] = {
-			{ anyOf = { "Market Mobility", "Combat Analytics", "Bits and Bots" } },
 			{ tree = "Recycling" },
+			{ anyOf = { "Market Mobility", "Combat Analytics", "Bits and Bots" } },
 		},
 		[333] = {
 			{ tree = "Spellbound Shatterer" },
