@@ -1915,13 +1915,18 @@ function ns.GetProfessionNodeChoices(midnightLine, maxCount)
 		return (a.purchased or 0) > (b.purchased or 0)
 	end)
 	local limit = tonumber(maxCount) or 4
+	-- Second return: how many there actually are. The caller prints a handful and
+	-- used to say nothing about the rest, which reads as "these are your options"
+	-- when it means "here are four of nineteen". Silent truncation is the same
+	-- fault as silent staleness — say what was left out.
+	local total = #started + #fresh
 	for _, list in ipairs({ started, fresh }) do
 		for _, n in ipairs(list) do
 			if #out >= limit then
-				return out
+				return out, total
 			end
 			out[#out + 1] = n
 		end
 	end
-	return out
+	return out, total
 end

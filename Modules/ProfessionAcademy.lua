@@ -347,10 +347,25 @@ local function BuildProfsText(profs, summaries, withPointer)
 				end
 				-- Only while there is something to spend: with nothing in hand this list is
 				-- trivia, and the page is long enough already.
+				-- ⚠️ These are NODES, and the advice line above names a TREE. Stacked
+				-- with an unqualified header they read as alternatives to the advice,
+				-- which is how Rob's screen came to say "put points into Disenchanting
+				-- Delegate" directly above four branches that did not include it
+				-- (2026-08-20). Nothing was wrong; the two lists were different layers
+				-- and nothing said so.
+				--
+				-- The header now names the layer and the count. It also stopped
+				-- claiming these are "open": GetProfessionSpecNodes walks every tree
+				-- and returns whatever is not full yet, without ever checking whether
+				-- the player can buy it right now.
 				if (s.unspent or 0) > 0 and ns.GetProfessionNodeChoices then
-					local okC, choices = pcall(ns.GetProfessionNodeChoices, s.midnightLine, 4)
+					local okC, choices, total = pcall(ns.GetProfessionNodeChoices, s.midnightLine, 4)
 					if okC and type(choices) == "table" and #choices > 0 then
-						text = text .. "\n|cff8a8f98" .. SL("PROFACAD_CHOICES_HEADER") .. "|r"
+						local header = SL("PROFACAD_CHOICES_HEADER")
+						if total and total > #choices then
+							header = SL("PROFACAD_CHOICES_HEADER_MORE_FMT"):format(#choices, total)
+						end
+						text = text .. "\n|cff8a8f98" .. header .. "|r"
 						for _, c in ipairs(choices) do
 							local desc = c.desc and (" - " .. c.desc) or ""
 							text = text .. "\n   |cffd8c89a"

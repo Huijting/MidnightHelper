@@ -860,7 +860,11 @@ ns._mhLocales.enUS = {
 	PROFACAD_ADVISE_SEE_COURSE = "Open Course (101) above: it names the branch and explains why.",
 	PROFACAD_ADVISE_NODE_FINISH_FMT = "No verified next pick beyond this. Your points so far went into %s (%d/%d).",
 	PROFACAD_ADVISE_NODE_FMT = "Advice: put your next points into %s (%d/%d).",
-	PROFACAD_CHOICES_HEADER = "Your open choices:",
+	-- Not "your open choices": these are individual nodes spread across the trees,
+	-- while the advice line above names a whole tree. Read as alternatives to that
+	-- advice they contradict it, and we never check whether they can be bought yet.
+	PROFACAD_CHOICES_HEADER = "Individual nodes inside your trees that are not full yet:",
+	PROFACAD_CHOICES_HEADER_MORE_FMT = "Individual nodes inside your trees that are not full yet (%d of %d):",
 	PROFACAD_CHOICE_FMT = "%s (%d/%d)",
 	PROFACAD_ADVISE_DONE = "Advice: the recommended roots are done.",
 	PROFHUB_TAB_OVERVIEW = "Overview",
