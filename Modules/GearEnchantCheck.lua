@@ -48,6 +48,26 @@ local RING_BY_STAT = {
 --- secondary stat, so it sits outside the by-stat table that could never have found it.
 --- Spell id confirmed against Rob's client, 19 aug (`/mh spell 1236059`).
 local RING_EFFECT = { sid = 1236059, ah = "Enchant Ring - Eyes of the Eagle" }
+
+--- ⚠️ THE WEAPON ENCHANT IS A ROLE CHOICE, and our by-secondary table could not express it
+--- — the same shape of gap as the ring above. Acuity of the Ren'dorei procs PRIMARY stat,
+--- so no "best secondary" lookup will ever reach it.
+---
+--- Surveyed across nine specs on 20 aug: every tank and healer sampled takes it (Protection
+--- Paladin, Brewmaster, Holy Priest, Restoration Druid, Mistweaver) and every damage spec
+--- sampled takes a secondary proc instead (Frost Mage, Fury Warrior, Havoc DH). Five for
+--- five and three for three is a rule worth acting on; two specs, which is what the audit
+--- reported, would not have been.
+---
+--- ⚠️ Blood Death Knight is outside all of this: its page recommends Rune of Sanguination
+--- and Rune of the Fallen Crusader, which are class runes rather than enchants. Not
+--- modelled — better to say nothing than to offer a Death Knight an enchant their guide
+--- does not mention.
+---
+--- ⏳ Rite of the Hash'ey (12.1, new) is deliberately absent. It shipped on 11 August and
+--- the spec pages were updated on the 10th, so not one of them has adopted it yet. Adding
+--- it would be us front-running our own source.
+local WEAPON_PRIMARY = { sid = 1236095, ah = "Enchant Weapon - Acuity of the Ren'dorei" }
 local WEAPON_BY_STAT = {
 	haste = { sid = 1236067, ah = "Enchant Weapon - Berserker's Rage" },
 	crit = { sid = 1236066, ah = "Enchant Weapon - Jan'alai's Precision" },
@@ -530,7 +550,22 @@ end
 -- Aanbevolen enchant-tekst (gerenderde links) per slot, of nil = geen suggestie.
 local function Recommend(slotId, stat, map)
 	if slotId == 16 then
-		return stat and WEAPON_BY_STAT[stat] and LinkOf(map, WEAPON_BY_STAT[stat]) or nil
+		local byStat = stat and WEAPON_BY_STAT[stat] and LinkOf(map, WEAPON_BY_STAT[stat]) or nil
+		-- Tanks and healers lead with the primary-stat proc; damage specs lead with their
+		-- secondary. Both are offered either way — one guide's survey is a strong hint and
+		-- the footer still points at a class guide for true best-in-slot.
+		local role = ns.GetPlayerRoleKey and ns.GetPlayerRoleKey()
+		if role == "tank" or role == "heal" then
+			local first = LinkOf(map, WEAPON_PRIMARY)
+			if byStat then
+				return ns:L("ENCHANT_PICK") .. " " .. first .. " / " .. byStat
+			end
+			return first
+		end
+		if byStat then
+			return ns:L("ENCHANT_PICK") .. " " .. byStat .. " / " .. LinkOf(map, WEAPON_PRIMARY)
+		end
+		return LinkOf(map, WEAPON_PRIMARY)
 	elseif slotId == 11 or slotId == 12 then
 		--- ⚠️ THE WHOLE RING MODEL WAS THE WRONG SHAPE, not merely missing a row. We picked
 		--- a ring by your best secondary stat, so a ring enchant that grants no secondary

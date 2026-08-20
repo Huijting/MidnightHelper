@@ -80,6 +80,12 @@ local function GetPlayerRoleKey()
 	return nil
 end
 
+--- Shared, because the enchant advisor needs the same answer and the careful part of this
+--- is the guarding, not the mapping. Copying it would mean two places to forget the
+--- secret-value check in — and this project has spent a week finding pairs of copies that
+--- had drifted apart.
+ns.GetPlayerRoleKey = GetPlayerRoleKey
+
 --- Map a role subtree's name/icon to our role key. The subtree name is the
 --- same localized string the companion frame shows (e.g. "Tank"), so we match
 --- it against WoW's own role globals; the icon atlas is a locale-free backup.
