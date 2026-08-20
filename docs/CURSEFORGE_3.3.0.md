@@ -1,6 +1,8 @@
 # Midnight Helper 3.3.0
 
-Almost everything here is a correction. Not bugs, but sentences that were true when they were written and had quietly stopped being true since. A release spent going back over what the addon already said is less exciting than a new feature, and it is worth more.
+Midnight Helper is written and maintained by one person. That is the honest reason updates arrive in bursts rather than on a schedule, and it is also the reason a release like this one exists at all.
+
+Almost everything here is a correction. Not bugs, but sentences that were true when they were written and had quietly stopped being true since. Going back over what the addon already said is less exciting than adding something new, and it is worth more.
 
 ## Knowledge Points can be undone
 
@@ -49,8 +51,8 @@ Some things could not be corrected because they should never have been said. The
 
 The Season 2 delve questline is mentioned, which the addon has known about all along and never said out loud. Rare arrival hints moved off our own arrow and into chat, where TomTom cannot hide them. Balance Druid is split by hero talent; Shadow Priest deliberately is not. Stat priorities are refreshed for this patch.
 
-## What is coming, and why it arrives in bursts
+## What is coming
 
 A much larger professions update is being written: beginner chapters on quality, on the six profession stats, on Concentration, on work orders and on making gold, every one of them checked against this patch rather than carried over from the last.
 
-Midnight Helper is a one-man project. That is the honest reason updates land in bursts instead of on a schedule, and the reason this release spends itself on going back over old ground. Thank you for the reports that make that possible.
+It will take a while, for the reason at the top. Thank you for the reports that make it possible.
