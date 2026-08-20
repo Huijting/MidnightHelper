@@ -25,9 +25,13 @@ andere. Dat is geen pech en geen bug: gemaakte spullen hebben een **kwaliteit**.
 Het beeld dat helpt: **het recept zegt wát je maakt, de kwaliteit zegt hoe goed het gelukt is.**
 Twee bakkers met hetzelfde recept bakken niet hetzelfde brood.
 
-Je ziet het aan een klein **rangteken** bij het item — een cijfer of streepjes, afhankelijk van
-hoe je interface staat. Bij gemaakte uitrusting loopt dat van laag naar hoog in vijf stappen;
-bij verzamelde grondstoffen in Midnight zijn het er maar twee.
+Je ziet het aan een klein **vormpje** bij het item. In het tekstblokje staat gewoon
+*"Quality:"* met dat teken erachter: een **grijs ruitje** is laag, een **gouden vijfhoekje** is
+hoog. Hoe hoger, hoe fraaier het vormpje.
+
+In je beroepsvenster zie je hetzelfde terug als een **balk** met links het laagste teken en
+rechts het hoogste. Het witte streepje op die balk laat zien waar jouw craft ongeveer gaat
+landen.
 
 ---
 
@@ -38,8 +42,12 @@ Drie redenen, en de derde verrast mensen.
 **Betere spullen.** Een hogere rang betekent simpelweg hogere waarden op je uitrusting, of een
 sterker drankje.
 
-**Meer goud.** Kopers letten hier scherp op. Hetzelfde item op de hoogste rang is vaak een
-veelvoud waard van dezelfde op de laagste — soms is de laagste zelfs onverkoopbaar.
+**Meer goud.** Kopers letten hier scherp op. Een voorbeeld uit een echt veilinghuis, hetzelfde
+recept: **Scalewoven Hide** op de laagste rang deed **10 goud 94**, op de hoogste **21 goud 12**.
+Bijna het dubbele, voor dezelfde grondstoffen en dezelfde handeling.
+
+Let op: het zijn ook echt **verschillende items** — ze hebben elk een eigen plek op het
+veilinghuis, en je kunt ze dus niet door elkaar stapelen.
 
 **En je kunt opdrachten niet aannemen zonder.** Vraagt iemand om een bepaalde rang en haal jij
 die niet, dan **kún je die opdracht niet afmaken**. Niet "hij wordt minder goed" — je kunt hem
@@ -68,8 +76,13 @@ voor gereedschap en twee accessoires per beroep. Die geven vaardigheid, en veel 
 gewoon **leeg** — dat is gratis kwaliteit die je laat liggen. Ze zijn te maken door andere
 spelers; vraag ernaar in je gilde.
 
-**4. Je grondstoffen.** Ook materialen hebben een rang. Maak je iets van de goede spullen, dan
-telt dat mee in het resultaat. Goedkope materialen zijn dus niet altijd goedkoper.
+**4. Je grondstoffen.** Ook materialen hebben een rang, met precies dezelfde vormpjes. Maak je
+iets van de goede spullen, dan telt dat mee in het resultaat — goedkope materialen zijn dus niet
+altijd goedkoper.
+
+Je kunt zelf kiezen wélke je gebruikt: klik op een grondstof in het recept en je mag per
+kwaliteit verdelen. Er staat ook een vinkje **"Use Best Quality Reagents"** dat automatisch je
+beste pakt. Handig, maar besef dat het je dure spullen opmaakt.
 
 ---
 
@@ -116,12 +129,24 @@ al je keuzes samenkomen.**
 - Exacte vaardigheidsgetallen per rang. Die verschillen per recept en per beroep, en de gidsen
   spreken elkaar tegen. In het spel staat het bij het recept zelf.
 
-## ⚠️ Te verifiëren vóór dit live gaat
+## ✅ Geverifieerd op Robs eigen scherm, 20 aug 2026
 
-- **"Vijf stappen" bij gemaakte uitrusting.** Meerdere bronnen spreken over "Rank 5"-gear, maar
-  ik heb dat niet in de client-data bevestigd zoals bij de nodes wel is gebeurd. Als iemand
-  `/mh` ooit langs een recepttooltip haalt: dit is het getal om vast te leggen.
-- **"Twee rangen" bij Midnight-grondstoffen** komt van de warcraft.wiki-pagina van Tranquility
-  Bloom. Eén bron, wel expliciet.
-- **De beschrijving van het rangteken** ("cijfer of streepjes") is bewust vaag gehouden omdat de
-  weergave per interface verschilt. Als we een screenshot maken, kan dit exact.
+Screenshots van een Leatherworking-venster (recept *Scalewoven Hide*):
+
+- **Het rangteken is een vormpje, geen cijfer.** Tooltip toont letterlijk `Quality:` met een
+  **grijs ruitje** (laag) of een **gouden vijfhoekje** (hoog). De eerdere formulering "een cijfer
+  of streepjes" was gegokt en is vervangen.
+- **Elke rang is een eigen item met een eigen ID** (244631 versus 244632) en een eigen prijs op
+  het veilinghuis: **10g94** tegen **21g12**. Dat prijsvoorbeeld staat nu in de tekst.
+- **Grondstoffen dragen dezelfde vormpjes**, en het recept meldt *"Left Click to allocate reagent
+  qualities"* — je kiest dus zelf welke je erin stopt.
+- **Het `Crafting Details`-blok toont het rekenwerk**: Recipe Difficulty 505 tegen Skill 281, en
+  de vier stats als percentages.
+
+## ⚠️ Nog steeds niet vastgesteld
+
+- **Hoevéél rangen er in totaal zijn.** De balk loopt van ruitje naar vijfhoekje, maar het aantal
+  tussenstappen is er niet uit af te lezen. De claim "vijf stappen" is daarom **uit de tekst
+  gehaald** in plaats van gegokt. Een beginner heeft het getal ook niet nodig; hij heeft nodig
+  dat hij het vormpje herkent.
+- **Of grondstoffen een kortere schaal hebben dan eindproducten.** Zelfde reden.

@@ -102,12 +102,20 @@ vol, dan laat je waarschijnlijk kwaliteit liggen.
 - Hoe je hem via kennispunten goedkoper maakt. Dat zit verspreid door de bomen uit les 2 en
   hoort bij de per-beroep-adviezen, niet hier.
 
+## ✅ Geverifieerd op Robs eigen scherm, 20 aug 2026
+
+- **Max 1000 klopt.** Linksboven in het beroepsvenster stond `1000/1000`.
+- **De tekst van het spel zelf**, bij het vlammetje:
+  *"Apply Leatherworking Concentration — Apply 358 concentration to guarantee the next quality
+  for this recipe."* Twee dingen bevestigd: het woord **guarantee** (geen kans, zekerheid), en
+  dat de accu **per beroep** is — hij staat op naam.
+- **Een echte prijs:** die ene craft kostte **358** van de 1000. Meer dan een derde van de accu
+  voor één item. Dat onderbouwt "dit is geen knop die je zomaar aan laat staan".
+
 ## ⚠️ Onzekerheden, eerlijk gemarkeerd
 
 - **"Ongeveer 250 per dag"** komt uit de tekst van de client zelf (*"Concentration regenerates
   250 points over each day"*). Wowheads Midnight-gids zegt 10 per uur, wat op 240 per dag
   uitkomt. Het verschil is klein en de client wint, maar daarom staat er "ongeveer".
-- **"Max 1000"** komt uit Wowheads Midnight-gids, niet uit client-data. Te bevestigen door één
-  keer naar de balk te kijken.
 - **Dat crafters meer vragen bij Concentration-gebruik** is spelersgewoonte uit de forums, geen
   regel. Het staat in de tekst met die formulering.

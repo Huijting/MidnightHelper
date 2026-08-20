@@ -82,6 +82,16 @@ Multicraft sterk. Maak je uitrusting, dan doet Multicraft niets en is Resourcefu
 
 ---
 
+### Waar zie je ze?
+
+Open een recept in je beroepsvenster. Rechts staat een blokje **Crafting Details**, en daar
+staan ze op een rij als percentages — bijvoorbeeld Resourcefulness 4%, Multicraft 4%,
+Ingenuity 19%.
+
+In datzelfde blokje zie je meteen waaróm je kwaliteit is zoals hij is: **Recipe Difficulty**
+tegenover jouw **Skill**. Staat je Skill ver onder de Difficulty, dan haal je de hoogste rang
+niet — en dan zie je daaronder wat Concentration je zou kosten om het toch af te dwingen.
+
 ### Waar komen die getallen vandaan?
 
 Twee plekken, en je kunt ze allebei sturen:
