@@ -104,16 +104,23 @@ local FEET_TERTIARY = {
 ---   Sunfire Silk — "increasing its Intellect by 41 and Stamina by 115."
 --- So mana against stamina, as expected.
 ---
---- ⚠️ BUT THOSE TWO ARE NOT THE SAME RANK, and neither are our four ids as a set. Measured
---- 20 aug: 244640 gives 32/70 and 244641 gives 41/115 — same name, adjacent ids, different
---- ranks. Ours are currently three low (244640, 244642, 240154 all at 32) and one high
---- (240133 at 41), so the panel invites a comparison between items that are not comparable.
---- Sunfire Silk looks strictly better than Arcanoweave largely because it is a rank above.
+--- ✅ ALL FOUR NOW ON TIER 2, measured 20 aug via `/mh item save` into `ns.db.itemScan`.
+--- Each of these exists in two ranks and we were mixing them — three at 32 and one at 41 —
+--- so the panel invited a comparison between items that are not comparable, and Sunfire
+--- Silk looked stronger than Arcanoweave partly because it simply was a rank above.
 ---
---- ⏳ Fixing that needs the high rank of Blood Knight's and of Arcanoweave. The +1 pairing
---- makes 244643 and 240155 obvious, and obvious is where this project keeps getting caught
---- — the Empowered enchant ids only shipped once the client named them. Not changed until
---- `/mh item 244643 240155` answers.
+---   Forest Hunter's  244640 = 32/70 Sta   · 244641 = 41/115 Sta
+---   Blood Knight's   244642 = 32/16 armor · 244643 = 41/27 armor
+---   Arcanoweave      240154 = 32/3% mana  · 240155 = 41/4% mana
+---   Sunfire Silk                            240133 = 41/115 Sta
+---
+--- The tooltip's own Quality line names the rank (`Tier1` / `Tier2`), which is a cheaper
+--- check than comparing stat numbers if this ever needs auditing again.
+---
+--- ⚠️ AND DO NOT INFER RANK FROM THE ID. The +1 pairing held for all three leg families and
+--- then broke on the health potions in the same scan: Silvermoon 241304 is Tier2 while
+--- 241305 is Tier1 — the higher id is the LOWER rank there. Three confirmations and one
+--- counter-example, which is exactly the shape of a rule worth not trusting.
 ---
 --- ⏳ NO PER-SPEC RULE IS ASSERTED. The obvious one — armor for tanks — does not survive
 --- the evidence: Prot Paladin and Fury Warrior both take Blood Knight's, and Fury is not a
@@ -131,11 +138,11 @@ local FEET_TERTIARY = {
 --- pattern-instead-of-measurement that the Empowered enchant ids went through last night,
 --- and that one only shipped once the client named it. `/mh item 244641` settles it.
 local LEG_AGISTR = {
-	{ iid = 244640, ah = "Forest Hunter's Armor Kit" },
-	{ iid = 244642, ah = "Blood Knight's Armor Kit" },
+	{ iid = 244641, ah = "Forest Hunter's Armor Kit" },
+	{ iid = 244643, ah = "Blood Knight's Armor Kit" },
 }
 local LEG_INT = {
-	{ iid = 240154, ah = "Arcanoweave Spellthread" },
+	{ iid = 240155, ah = "Arcanoweave Spellthread" },
 	{ iid = 240133, ah = "Sunfire Silk Spellthread" },
 }
 --- SHOULDER: Speed-enchant.
