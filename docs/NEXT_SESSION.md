@@ -2,6 +2,66 @@
 **Bijgewerkt 2026-08-18 (23:50).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
+## 🔨 BOUWPLAN 20 AUG — de zes professie-lessen in de addon (bouwkant van Spec 27)
+
+Spec 27 (onderzoek, `06d6343`) beschrijft *wat* er moet komen. Dit is de bouwkant, en
+twee metingen stellen zijn aannames bij. Beide kosten anders werk dat niet nodig is.
+
+### 1. De lay-outbeslissing is geen keuze maar een meting — en hij is al beantwoord
+
+Spec 27 noemt dit "de beslissing vóór alle andere": lessen van 800-1500 woorden zouden
+niet passen in hoofdstukken die nu één of twee alinea's zijn, dus splitsen / scrollen /
+inklappen moet gekozen worden vóór er vertaald wordt.
+
+**Gemeten in `Modules/ProfessionAcademy.lua`:** alle hoofdstukken staan al in één
+`UIPanelScrollFrameTemplate` (regel 674). Per hoofdstuk is `bodyFs` een FontString met
+`SetWordWrap(true)` (regel 703) en de rijhoogte wordt in `Relayout` uit de gewrapte
+tekst berekend — er is nergens een hoogtelimiet. **Lange teksten passen dus al.**
+
+Dat maakt de vraag een andere: niet *of* het past, maar of het leest. Daarom:
+- **Geen nieuwe container bouwen**, geen inklapveld, geen scroll-in-scroll.
+- **Wel splitsen waar de les twee dingen doet** — les 2 is KP én specialisaties, dat zijn
+  twee hoofdstukken. Splitsen op inhoud, niet op lengte.
+- Dit hoeft dus niet vóór het vertalen beslist te worden, want het is per les te zien.
+
+### 2. Vertalen blokkeert niets — het is geen onderdeel van de klus, maar een klus erna
+
+`ns:L` valt bij een ontbrekende sleutel terug op enUS (zie CLAUDE.md → Localization). Een
+les die alleen in enUS en nlNL bestaat is niet stuk; hij is Engels. Dat is precies wat
+5 van de 7 packs vandaag al doen voor alles wat na 2025 is toegevoegd, tot
+`Translations2026.lua` bijgewerkt wordt.
+
+Daarmee valt "de grootste vertaalklus die dit project ooit had" van het kritieke pad af.
+Bouwen en uitbrengen in enUS + nlNL; vertalen als eigen ronde daarna, fill-only.
+
+### Volgorde
+
+- **Ronde A** — les 3 (kwaliteit), les 4 (de zes stats), les 5 (Concentration). Drie
+  nieuwe hoofdstukken, niets bestaands te herschrijven, tijdloos. Plus vindbaarheid,
+  zie hieronder. Dit is één sessie en het is al een echte professions-update.
+- **Ronde B** — les 1 (work orders) en les 2 (KP + specialisaties). Die *vervangen*
+  bestaande hoofdstukken, dus eerst de bestaande tekst ernaast leggen en per zin
+  bepalen wat fout is en wat alleen korter. Niets weggooien voor die diff er is.
+- **Ronde C** — les 6 (goud). Het vergankelijke deel krijgt een eigen gedateerde
+  sleutel, zodat een hermeting één string is en geen zeven talen.
+- **Ronde D** — vertalingen via `Translations2026.lua`.
+
+### Vindbaarheid hoort in ronde A, niet erna
+
+Een zevende hoofdstuk in een tab die niemand opent lost het probleem van vandaag niet op:
+Rob wist zelf niet dat de Academy er stond. Minimaal mee te leveren in ronde A:
+- een regel op **This Week** zodra er onbestede Knowledge Points zijn, met een knop naar
+  het hoofdstuk — de punten zijn al leesbaar, dus dit is een koppeling en geen meting;
+- **elk nieuw hoofdstuk in de zoekindex.** Nieuwe inhoud wordt hier niet automatisch
+  geïndexeerd; dat is dezelfde bug die mounts, raids en toolslaunch onvindbaar hield.
+
+### Niet in dit plan
+
+De node-adviseur (Spec 25). Eens met de onderzoekskant: eerst de lessen uitbrengen, dan
+pas kijken of de vraag ernaar bestaat. Punten uitgeven doe je één keer per personage.
+
+---
+
 ## 💡 ROB-VERZOEK 19 AUG — "dit soort info moeten wij ook gaan bieden!!!"
 
 Aanleiding: Rob stond op het punt Azta'rec te pullen met **Valeera op Tank**. Uit

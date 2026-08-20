@@ -1,5 +1,7 @@
 ## Midnight Helper
 
+> 🌙 **A one-man project.** Midnight Helper is written and maintained by one person. That is the honest reason updates arrive in bursts rather than on a schedule, and why a release sometimes spends itself going back over what the addon already said, instead of adding something new. Everything in here is checked against the live client before it ships.
+
 > 💬 **Join the community** — need help, found a bug, or want to help translate? Come say hi on [Discord](https://discord.gg/kBHaHcsASQ). Beginners very welcome, and the addon is always free. 🌙
 
 **Just hit 90 and nobody explained any of this?**
