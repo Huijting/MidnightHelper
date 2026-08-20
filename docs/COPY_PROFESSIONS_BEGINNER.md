@@ -40,8 +40,16 @@ Dat is ook waarom je niet alles kunt. Je moet kiezen.
 Open het venster van je beroep — hetzelfde venster met je recepten. Onderaan zitten tabbladen,
 en je hebt die met de **specialisaties** (*Specializations*) nodig.
 
-Daar staan drie of vier bomen naast elkaar. Elke boom heeft een grote cirkel in het midden en
-kleinere eromheen. In die cirkels stop je je punten.
+Daar staan drie of vier **bomen** naast elkaar. Elke boom bestaat uit ronde vakjes met een
+plaatje erin, verbonden door lijntjes.
+
+**Zo'n rond vakje noem ik hierna een cirkel** (in Engelse gidsen heet het een *wheel* of een
+*node*). Je herkent hem hieraan: er loopt een ring omheen die voller wordt naarmate je er
+punten in stopt, en als je er met je muis boven hangt staat er iets als **"3 / 30"** — drie
+punten erin, dertig is vol.
+
+Elke boom heeft **één grote cirkel in het midden** (de *root*) en kleinere eromheen die pas
+verschijnen als je in die grote genoeg punten hebt.
 
 **Rustig rondkijken kan geen kwaad** — er verandert niets tot je op bevestigen klikt.
 
@@ -177,3 +185,22 @@ ene keer kijken is het waard.
 - Welke boom op welk vaardigheidsniveau opengaat. Het spel bepaalt dat **niet**: je krijgt op
   25, 50, 60 en 75 telkens een keuze, en je kiest zelf.
 - Concentration. Dat is een apart onderwerp en hoort niet in de eerste uitleg.
+
+---
+
+## 🔴 Testresultaat 20 aug — één struikelpunt gevonden
+
+Rob las de tekst koud en stokte op precies één woord: **"cirkel"**.
+
+Dat is een beeld dat ík introduceerde, en ik heb nergens gezegd waar je het op je scherm aan
+herkent. Daarmee overtrad ik mijn eigen schrijfregel 3 — betekenis eerst, label erbij — op het
+enige woord dat ik zelf verzonnen had, en dus juist het woord dat uitleg nodig had.
+
+**Gerepareerd:** de cirkel wordt nu bij eerste gebruik beschreven (rond vakje, ring die
+volloopt, "3 / 30" in de tooltip), met de gids-termen *wheel* en *node* erbij, en het
+onderscheid tussen de grote middelste (*root*) en de kleinere eromheen.
+
+**Regel die hieruit volgt, voor elke volgende tekst:** een beeld dat je zelf verzint is
+gevaarlijker dan jargon. Jargon herkent de lezer als iets dat hij niet kent en opzoekt; een
+zelfverzonnen woord klinkt alsof hij het hóórt te snappen. **Elk beeld dat je introduceert moet
+je bij eerste gebruik verankeren aan iets zichtbaars op het scherm.**
