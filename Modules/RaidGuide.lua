@@ -132,7 +132,7 @@ local function BuildModelStrips()
 			local strip = CreateFrame("Frame", nil, ui.child)
 			strip:SetHeight(MODEL_H + MODEL_LABEL_H)
 			strip._cells = {}
-			for _, b in ipairs(row.raid.bosses) do
+			for i, b in ipairs(row.raid.bosses) do
 				local id = displays[b.key]
 				if id then
 					local cell = CreateFrame("Frame", nil, strip)
@@ -150,7 +150,21 @@ local function BuildModelStrips()
 					label:SetWordWrap(false)
 					-- Alleen de eerste naam vóór een spatie-scheider zou namen als
 					-- "The Twin Fangs" slopen; toon de bossnaam gewoon klein en kap af.
-					label:SetText(b.name or "?")
+					--
+					--- ⚠️ VIA DE ENCOUNTER JOURNAL, NIET VIA ONZE TABEL. Regel 72 hierboven
+					--- deed dat al; dit label was de laatste plek die `b.name` rechtstreeks
+					--- toonde, en dus de enige die de Engelse naam liet zien aan een Duitse
+					--- speler.
+					---
+					--- 20 aug gaf daar een tweede reden voor. Blizzards hotfix van 19 aug
+					--- schrijft "Nek'zali the Soul*caller*"; Blizzards eigen seizoensartikel
+					--- én Icy Veins schrijven "Soul*coiler*" — twee achternamen uit drie
+					--- publicaties, waarvan twee van Blizzard zelf. Onze tabel zegt
+					--- Soulcoiler omdat de PTR-client dat zei, wat een betere bron is dan
+					--- alle drie, maar het blijft een naam die kan verschuiven zonder dat
+					--- wij iets merken. `EJ_GetEncounterInfo` op de encounterID die er toch
+					--- al naast staat volgt de client vanzelf — in elke taal, na elke rename.
+					label:SetText((ns.GetDungeonBossName and ns.GetDungeonBossName(b, row.raid, i)) or b.name or "?")
 					cell._displayId = id
 					strip._cells[#strip._cells + 1] = cell
 				end

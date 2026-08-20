@@ -222,6 +222,19 @@ local function Boss1NpcId()
 	return nil
 end
 
+--- ⚠️ THE CLIENT'S NAME, NOT ONLY OURS. This compared an incoming name against `b.name`,
+--- which is the English string in our table — so on a German or French client the match
+--- could never succeed, and the auto-open silently did nothing for six of our seven
+--- languages. The encounterID paths covered the common case, which is exactly why nobody
+--- noticed.
+---
+--- The Soulcaller/Soulcoiler split on 20 aug is the second reason. Blizzard's own hotfix
+--- and their own season article spell Nek'zali's surname differently; ours came from the
+--- PTR client and may or may not still match live. Asking `EJ_GetEncounterInfo` for the
+--- encounterID we already store means a rename costs us nothing.
+---
+--- Our own string stays as the fallback: the journal is not always loaded, and an English
+--- match is better than no match.
 local function FindBossByName(name)
 	if type(name) ~= "string" or name == "" then
 		return nil, nil
@@ -231,6 +244,12 @@ local function FindBossByName(name)
 		for _, b in ipairs(raid.bosses) do
 			if b.name and b.name:lower() == lower then
 				return raid, b.key
+			end
+			if b.encounterID and EJ_GetEncounterInfo then
+				local ok, ejName = pcall(EJ_GetEncounterInfo, b.encounterID)
+				if ok and type(ejName) == "string" and ejName:lower() == lower then
+					return raid, b.key
+				end
 			end
 		end
 	end
