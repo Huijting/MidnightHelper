@@ -15,6 +15,10 @@ local SIDE_PAD = 12
 local SCROLL_BOTTOM = 12
 local CHECK_SIZE = 24
 local BTN_H = 24
+-- Contents rail: wide enough for the longest chapter title at the default font,
+-- narrow enough that the chapter itself keeps a readable measure beside it.
+local RAIL_W = 168
+local RAIL_ROW_H = 18
 
 local COLOR_TITLE = { 1, 0.88, 0.45 }
 local COLOR_TITLE_DONE = { 0.45, 0.9, 0.5 }
@@ -627,10 +631,49 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 		end
 	end
 
+	--- Contents mode: the rail is the navigation and one chapter renders at a time.
+	--- Off unless asked for — the long scroll is what everyone has had until now.
+	local contentsOn = (ns.db and ns.db.profAcadContents) and true or false
+	local order = {}
+	for _, row in ipairs(panel._profAcadRows) do
+		if IsChapterVisible(row.chapter, profs) then
+			order[#order + 1] = row
+		end
+	end
+	local selKey = ns.db and ns.db.profAcadChapter
+	if contentsOn then
+		-- A remembered chapter can vanish: drop a profession and its chapter goes
+		-- with it. Fall back to the first unread one, which is where someone
+		-- returning to the course actually wants to be.
+		local found = false
+		for _, r in ipairs(order) do
+			if r.chapter.key == selKey then
+				found = true
+				break
+			end
+		end
+		if not found then
+			selKey = nil
+			for _, r in ipairs(order) do
+				if not IsChapterDone(r.chapter.key) then
+					selKey = r.chapter.key
+					break
+				end
+			end
+			selKey = selKey or (order[1] and order[1].chapter.key)
+		end
+	end
+
 	local shownNum = 0
 	for _, row in ipairs(panel._profAcadRows) do
 		local ch = row.chapter
-		local visible = IsChapterVisible(ch, profs)
+		local inCourse = IsChapterVisible(ch, profs)
+		if inCourse then
+			shownNum = shownNum + 1
+		end
+		-- The number keeps counting the whole course even when one chapter renders,
+		-- so "7." means seventh of fourteen rather than "the only one on screen".
+		local visible = inCourse and (not contentsOn or ch.key == selKey)
 		row.titleFs:SetShown(visible)
 		row.bodyFs:SetShown(visible)
 		row.taskRow:SetShown(visible)
@@ -639,7 +682,6 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 		end
 
 		if visible then
-			shownNum = shownNum + 1
 			local isDone = IsChapterDone(ch.key)
 
 			local title = ("%d. %s"):format(shownNum, SL(ch.titleKey))
@@ -717,6 +759,58 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 		end
 	end
 
+	-- Fill the rail, and give the reading pane the room the rail is not using.
+	if panel._contentsBtn then
+		panel._contentsBtn:SetText(SL(contentsOn and "PROFACAD_CONTENTS_HIDE" or "PROFACAD_CONTENTS_SHOW"))
+	end
+	local rail, btns = panel._profAcadRail, panel._profAcadRailBtns
+	if rail and btns then
+		for i, b in ipairs(btns) do
+			local r = order[i]
+			if contentsOn and r then
+				local ch = r.chapter
+				local done = IsChapterDone(ch.key)
+				-- Tick or a spacer, so the titles line up whether or not they are done.
+				local mark = done
+					and "|TInterface\\RaidFrame\\ReadyCheck-Ready:10:10:0:0|t "
+					or "|TInterface\\Buttons\\UI-Quickslot2:10:10:0:0:64:64:64:64:64:64|t "
+				b._fs:SetText(("%s%d. %s"):format(mark, i, SL(ch.titleKey)))
+				local sel = (ch.key == selKey)
+				b._isSel = sel
+				b._sel:SetShown(sel)
+				if sel then
+					b._fs:SetTextColor(COLOR_TITLE[1], COLOR_TITLE[2], COLOR_TITLE[3])
+				elseif done then
+					b._fs:SetTextColor(COLOR_TITLE_DONE[1], COLOR_TITLE_DONE[2], COLOR_TITLE_DONE[3])
+				else
+					b._fs:SetTextColor(0.72, 0.70, 0.66)
+				end
+				local key = ch.key
+				b:SetScript("OnClick", function()
+					ns.db = ns.db or {}
+					ns.db.profAcadChapter = key
+					ns.MH_RefreshProfessionAcademyPanel(panel)
+					local sf = _G["MidnightHelperProfAcademyScroll"]
+					if sf then
+						sf:SetVerticalScroll(0)
+					end
+				end)
+				b:Show()
+			else
+				b:Hide()
+			end
+		end
+		rail:SetShown(contentsOn)
+		-- Both left anchors move, or the pane ends up a parallelogram: TOPLEFT hangs
+		-- off the header and BOTTOMLEFT off the panel.
+		local scroll = _G["MidnightHelperProfAcademyScroll"]
+		local inset = contentsOn and (RAIL_W + 10) or 0
+		if scroll and panel._profsFs then
+			scroll:SetPoint("TOPLEFT", panel._profsFs, "BOTTOMLEFT", inset, -8)
+			scroll:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", SIDE_PAD + inset, SCROLL_BOTTOM)
+		end
+	end
+
 	Relayout(panel)
 end
 
@@ -753,6 +847,26 @@ function ns.BuildProfessionAcademyPanel(panel)
 			ns.MH_OpenProfessionGuide()
 		end
 	end)
+
+	--- Contents rail toggle. OFF by default, and that is deliberate: the long scroll
+	--- is what everyone has had until now, so nobody should find their course
+	--- rearranged without asking. Rob's words: "hij moet natuurlijk alleen verschijnen
+	--- als we er om vragen".
+	---
+	--- Why it exists: the course grew to 14 chapters and ~355 rendered lines on
+	--- 20 Aug, which is roughly thirteen screens. Reaching a chapter meant scrolling
+	--- past every chapter before it, so better content had made the course less
+	--- usable. The fix is navigation, not more room — a second window the same size
+	--- would hold the same 355 lines.
+	local contentsBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	contentsBtn:SetSize(130, 22)
+	contentsBtn:SetPoint("TOPRIGHT", guideBtn, "TOPLEFT", -6, 0)
+	contentsBtn:SetScript("OnClick", function()
+		ns.db = ns.db or {}
+		ns.db.profAcadContents = not ns.db.profAcadContents
+		ns.MH_RefreshProfessionAcademyPanel(panel)
+	end)
+	panel._contentsBtn = contentsBtn
 	panel._guideBtn = guideBtn
 
 	local progressFs = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -779,6 +893,49 @@ function ns.BuildProfessionAcademyPanel(panel)
 	scroll:SetPoint("TOPLEFT", profsFs, "BOTTOMLEFT", 0, -8)
 	scroll:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", SIDE_PAD, SCROLL_BOTTOM)
 	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -28, SCROLL_BOTTOM)
+
+	--- The contents rail. Built once, filled on every refresh, hidden unless asked for.
+	--- It sits beside the scroll frame rather than inside it, so the chapter list stays
+	--- put while the chapter itself scrolls.
+	-- Anchored to the header, NOT to the scroll frame: the scroll frame moves right
+	-- when the rail appears, so hanging the rail off it would be circular.
+	local rail = CreateFrame("Frame", nil, panel)
+	rail:SetPoint("TOPLEFT", profsFs, "BOTTOMLEFT", 0, -8)
+	rail:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", SIDE_PAD, SCROLL_BOTTOM)
+	rail:SetWidth(RAIL_W)
+	rail:Hide()
+	panel._profAcadRail = rail
+	panel._profAcadRailBtns = {}
+	for i = 1, #ns.PROF_ACADEMY.chapters do
+		local b = CreateFrame("Button", nil, rail)
+		b:SetHeight(RAIL_ROW_H)
+		b:SetPoint("TOPLEFT", rail, "TOPLEFT", 0, -((i - 1) * RAIL_ROW_H))
+		b:SetPoint("RIGHT", rail, "RIGHT", -6, 0)
+		local hl = b:CreateTexture(nil, "BACKGROUND")
+		hl:SetAllPoints(b)
+		hl:SetColorTexture(1, 1, 1, 0.07)
+		hl:Hide()
+		b._sel = hl
+		local fs = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+		fs:SetPoint("LEFT", b, "LEFT", 6, 0)
+		fs:SetPoint("RIGHT", b, "RIGHT", -2, 0)
+		fs:SetJustifyH("LEFT")
+		fs:SetWordWrap(false)
+		b._fs = fs
+		b:SetScript("OnEnter", function(self)
+			if not self._isSel then
+				self._sel:Show()
+			end
+		end)
+		b:SetScript("OnLeave", function(self)
+			if not self._isSel then
+				self._sel:Hide()
+			end
+		end)
+		b:Hide()
+		panel._profAcadRailBtns[i] = b
+	end
 
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(1, 1)
@@ -1088,6 +1245,18 @@ function ns.MH_ScrollProfAcademyToChapter(key)
 	local function jump()
 		local panel = builtPanel
 		if not (panel and panel._profAcadBuilt) then
+			return
+		end
+		-- With the contents rail on, "jump to a chapter" means SELECT it. Scrolling
+		-- to an offset would be meaningless: only one chapter is rendered, so the
+		-- search would land on whatever happened to be open.
+		if ns.db and ns.db.profAcadContents then
+			ns.db.profAcadChapter = key
+			ns.MH_RefreshProfessionAcademyPanel(panel)
+			local sf = _G["MidnightHelperProfAcademyScroll"]
+			if sf then
+				sf:SetVerticalScroll(0)
+			end
 			return
 		end
 		local y = panel._profAcadChapterY and panel._profAcadChapterY[key]
