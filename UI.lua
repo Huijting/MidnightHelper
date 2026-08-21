@@ -957,6 +957,18 @@ do
 	if type(fps) == "table" then
 		for _, cat in ipairs(SMC_CATEGORIES) do
 			if cat.titleKey == "SMC_CAT_TRAVEL" then
+				-- First, the one that is not about Silvermoon: nearest stop from
+				-- wherever you are. This is what Rob was actually asking for; the
+				-- two pins below only answer the question inside this city.
+				cat.items[#cat.items + 1] = {
+					id = "nearest_fp",
+					label = "Nearest flight master (any zone)",
+					descKey = "SMC_PIN_NEAREST_FP",
+					atlas = "flightmaster",
+					action = "nearest_fp",
+					x = 50.97,
+					y = 71.25,
+				}
 				for i, fp in ipairs(fps) do
 					local name, x, y = fp[1], tonumber(fp[2]), tonumber(fp[3])
 					if name and x and y then
@@ -1041,6 +1053,16 @@ local function SetSMCWaypoint(point)
 	end
 
 	-- Non-map actions (pseudo rows in SMC list).
+	--- The only row here that is not about Silvermoon at all. It sits with the other
+	--- travel buttons because that is where someone looks for "how do I get around",
+	--- but it reads where you are standing and works in every zone we have stops for.
+	if point.action == "nearest_fp" then
+		if ns.RouteToNearestFlightPoint then
+			ns.RouteToNearestFlightPoint()
+		end
+		return
+	end
+
 	if point.action == "worldboss_week" then
 		if ns.ShowMainUI and ns.SelectTab then
 			ns:ShowMainUI()

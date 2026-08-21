@@ -1304,6 +1304,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh fp — arrow to the nearest flight master, wherever you are standing.
+	-- Rob asked for a pin in the city guide, then said what he actually wanted: not
+	-- "where is it in Silvermoon" but a button that works in every zone.
+	if msg == "fp" then
+		if ns.RouteToNearestFlightPoint then
+			ns.RouteToNearestFlightPoint()
+		end
+		return
+	end
+
 	-- /mh goto <x> <y> — drop the game's waypoint on a spot in the zone you are in.
 	--
 	-- Built 6 Aug for the Coiled Isle hunt: eight rares were measured off the PTR

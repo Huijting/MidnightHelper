@@ -1052,3 +1052,108 @@ function ns.GetNearestFlightPoint(mapID, x, y)
 	end
 	return best[1], best[2], best[3]
 end
+
+--- Map coords -> world (yard) coords. Raw 0-100 map coords are NOT isotropic: a step
+--- in x and a step in y cover different distances, and by different amounts per zone.
+--- Comparing them squared therefore picks the nearer-looking stop rather than the
+--- nearer one. Same helper shape as Achievements.lua's nearest-route.
+local function MapPosToWorld(mapID, x100, y100)
+	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D) then
+		return nil
+	end
+	local ok, _, world = pcall(C_Map.GetWorldPosFromMapPos, mapID, CreateVector2D(x100 / 100, y100 / 100))
+	if ok and type(world) == "table" then
+		local wx, wy
+		if world.GetXY then
+			wx, wy = world:GetXY()
+		else
+			wx, wy = world.x, world.y
+		end
+		if type(wx) == "number" and type(wy) == "number" then
+			return wx, wy
+		end
+	end
+	return nil
+end
+
+--- "Take me to the nearest flight point, wherever I am." (Rob, 21 Aug 2026.)
+---
+--- He asked for a pin in the city guide first, then said what he actually wanted:
+--- not "where is the flight master in Silvermoon" but a button that works anywhere.
+--- The pin only helps in the one city; this helps in every zone we have data for.
+---
+--- ⚠️ Deliberately NOT reusing GetNearestFlightPoint's own comparison. That one
+--- compares raw map coordinates, which several callers rely on and which is fine for
+--- their purposes — but for "which of these two is nearer to me" it is the wrong
+--- measure, because map units are not square. This does the comparison in yards when
+--- the client can convert, and falls back to the shared lookup when it cannot.
+---
+--- Sets the game's own waypoint AND claims the arrow, the same pair `/mh goto` uses:
+--- setting a waypoint alone gives Blizzard's pin and no MH arrow, because the arrow
+--- keys off ownership rather than off a waypoint existing.
+function ns.RouteToNearestFlightPoint()
+	local prefix = ("|cffffcc00%s|r"):format(ns:L("PRINT_PREFIX"))
+	local mapID = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	if not mapID then
+		print(prefix .. " " .. ns:L("FP_NEAREST_NO_MAP"))
+		return false
+	end
+
+	local px, py
+	if C_Map.GetPlayerMapPosition then
+		local okPos, pos = pcall(C_Map.GetPlayerMapPosition, mapID, "player")
+		if okPos and type(pos) == "table" and pos.GetXY then
+			local x01, y01 = pos:GetXY()
+			-- An instance or a zone that hides coordinates returns 0,0. That is not
+			-- a position, and treating it as one would silently pick the stop nearest
+			-- the map's top-left corner.
+			if x01 and y01 and (x01 ~= 0 or y01 ~= 0) then
+				px, py = x01 * 100, y01 * 100
+			end
+		end
+	end
+
+	local name, x, y
+	local list = ns.FLIGHT_POINTS[tonumber(mapID) or 0]
+	-- NOT `wx, wy = px and py and MapPosToWorld(...)`: an `and` expression is adjusted
+	-- to a single value, so the second return would silently be nil and every stop
+	-- would fall through to the fallback. CLAUDE.md's linter has a rule for this trap;
+	-- it did not fire on this shape.
+	local wx, wy
+	if px and py then
+		wx, wy = MapPosToWorld(mapID, px, py)
+	end
+	if list and wx and wy then
+		local bestD
+		for _, fp in ipairs(list) do
+			if UsableByPlayer(fp) then
+				local fx, fy = MapPosToWorld(mapID, fp[2], fp[3])
+				if fx and fy then
+					local dx, dy = fx - wx, fy - wy
+					local d = dx * dx + dy * dy
+					if bestD == nil or d < bestD then
+						bestD, name, x, y = d, fp[1], fp[2], fp[3]
+					end
+				end
+			end
+		end
+	end
+	if not name then
+		name, x, y = ns.GetNearestFlightPoint(mapID, px, py)
+	end
+	if not name then
+		-- Honest about which of the two it is: a zone we have no data for is a
+		-- different problem from a zone whose stops your faction cannot use.
+		print(prefix .. " " .. ns:L((list and #list > 0) and "FP_NEAREST_NONE_FACTION" or "FP_NEAREST_NONE"))
+		return false
+	end
+
+	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(mapID, x, y)) then
+		print(prefix .. " " .. ns:L("FP_NEAREST_NO_WAYPOINT"))
+		return false
+	end
+	ns.lastTarget = { mapID = mapID, x = x, y = y, name = name }
+	ns._mhRouteOwner = "waypoint"
+	print(("%s %s"):format(prefix, ns:L("FP_NEAREST_SET_FMT"):format(name)))
+	return true, name
+end
