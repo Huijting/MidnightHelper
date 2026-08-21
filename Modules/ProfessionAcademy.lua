@@ -876,6 +876,99 @@ function ns.BuildProfessionAcademyPanel(panel)
 	ns.MH_RefreshProfessionAcademyPanel(panel)
 end
 
+--- `/mh lock` — why can a specialization not be picked yet, and can we read that?
+---
+--- The defect this exists for: Rob holds 12 unspent Knowledge Points on Tailoring and
+--- cannot spend one of them — his skill is under 25 and all four specializations are
+--- padlocked ("Requires level 25 in Midnight Tailoring to unlock a specialization").
+--- Meanwhile our own This Week line says "12 Knowledge unspent - spend it". Advice you
+--- cannot act on is worse than none: the player doubts themselves instead of us.
+---
+--- We cannot currently tell locked from unlocked-but-untouched, because `active - 1`
+--- collapses both to 0. Rather than guess an API name for it, ASK THE CLIENT WHAT EXISTS:
+--- enumerate C_ProfSpecs, then dump every scalar field of the tab info and the root node.
+--- A guessed name would either work by luck or fail silently; an enumeration cannot lie.
+function ns.ProbeSpecLockState()
+	local out = {}
+	local function say(s)
+		print("|cff66ccff[MH lock]|r " .. s)
+		out[#out + 1] = s
+	end
+	if not (C_ProfSpecs and C_Traits and C_TradeSkillUI) then
+		say("profession APIs unavailable")
+		return
+	end
+
+	-- 1. What does this client actually offer? No name guessing.
+	local names = {}
+	for k, v in pairs(C_ProfSpecs) do
+		if type(v) == "function" then
+			names[#names + 1] = k
+		end
+	end
+	table.sort(names)
+	say("C_ProfSpecs functions (" .. #names .. "): " .. table.concat(names, ", "))
+
+	-- 2. Everything readable about each tab and its root, scalars only.
+	local function dump(prefix, tbl)
+		if type(tbl) ~= "table" then
+			say(prefix .. " = " .. tostring(tbl))
+			return
+		end
+		local keys = {}
+		for k in pairs(tbl) do
+			keys[#keys + 1] = tostring(k)
+		end
+		table.sort(keys)
+		for _, k in ipairs(keys) do
+			local v = tbl[k] ~= nil and tbl[k] or tbl[tonumber(k)]
+			local t = type(v)
+			if t == "table" then
+				say(("%s.%s = <table, %d entries>"):format(prefix, k, #v))
+			elseif t ~= "function" then
+				say(("%s.%s = %s"):format(prefix, k, tostring(v)))
+			end
+		end
+	end
+
+	local lines = C_TradeSkillUI.GetAllProfessionTradeSkillLines
+		and C_TradeSkillUI.GetAllProfessionTradeSkillLines() or {}
+	for _, skillLine in ipairs(lines) do
+		local okCfg, cfg = pcall(C_ProfSpecs.GetConfigIDForSkillLine, skillLine)
+		local okTabs, tabs = pcall(C_ProfSpecs.GetSpecTabIDsForSkillLine, skillLine)
+		if okCfg and cfg and cfg ~= 0 and okTabs and type(tabs) == "table" and tabs[1] then
+			local okI, info = pcall(C_TradeSkillUI.GetProfessionInfoBySkillLineID, skillLine)
+			local pname = (okI and type(info) == "table" and info.professionName) or tostring(skillLine)
+			say(("=== %s (skillLine %d, cfg %s) — skillLevel=%s maxSkill=%s"):format(
+				pname, skillLine, tostring(cfg),
+				tostring(okI and info and info.skillLevel),
+				tostring(okI and info and info.maxSkillLevel)))
+			for _, tabID in ipairs(tabs) do
+				local okT, tinfo = pcall(C_ProfSpecs.GetTabInfo, tabID)
+				say(("--- tab %s"):format(tostring(tabID)))
+				if okT then
+					dump("  tabInfo", tinfo)
+				else
+					say("  GetTabInfo failed: " .. tostring(tinfo))
+				end
+				local okR, rootPath = pcall(C_ProfSpecs.GetRootPathForTab, tabID)
+				if okR and rootPath then
+					local okN, node = pcall(C_Traits.GetNodeInfo, cfg, rootPath)
+					if okN then
+						dump("  rootNode", node)
+					else
+						say("  GetNodeInfo failed: " .. tostring(node))
+					end
+				end
+			end
+		end
+	end
+
+	ns.db = ns.db or {}
+	ns.db.lockProbe = out
+	print("|cff66ccff[MH lock]|r written to MidnightHelperDB.lockProbe — /reload to flush it.")
+end
+
 --- `/mh kp` — dump every currency row of every profession tree, unfiltered.
 ---
 --- GetSpecSummary above reads `cur[1]` and calls its quantity "unspent", and the

@@ -1101,6 +1101,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh lock — kunnen we lezen DAT een specialisatie nog op slot zit, en waarom?
+	-- Rob heeft 12 onbestede punten op Tailoring en kan er geen uitgeven (skill < 25),
+	-- terwijl onze eigen Home-melding "spend it" zegt. Eerst meten: de vergrendelde
+	-- staat lezen we nergens uit, en `active - 1` maakt "op slot" en "open maar
+	-- onaangeraakt" allebei tot 0.
+	if msg == "lock" then
+		if ns.ProbeSpecLockState then
+			ns.ProbeSpecLockState()
+		end
+		return
+	end
+
 	-- /mh kp — welke currency-regel van een profession-boom de Knowledge Points zijn.
 	-- We lezen vandaag blind `cur[1]` en tonen dat als "unspent". Er bestaan twee soorten
 	-- (punten, en een gratis ontgrendel-token), en drie eerdere pogingen zijn op precies
