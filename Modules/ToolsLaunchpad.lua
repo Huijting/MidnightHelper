@@ -44,6 +44,11 @@ local TOOLS = {
 		icon = "Interface\\Icons\\Spell_Arcane_PortalSilvermoon", slash = "/mh ritualboss",
 		open = function() if ns.ToggleRitualBossWindow then ns:ToggleRitualBossWindow() end end,
 	},
+	{
+		nameKey = "TOOLLP_COURSE_NAME", descKey = "TOOLLP_COURSE_DESC",
+		icon = "Interface\\Icons\\INV_Misc_Book_09", slash = "/mh course",
+		open = function() if ns.ToggleProfessionCourseWindow then ns.ToggleProfessionCourseWindow() end end,
+	},
 }
 
 -- Re-apply localized text to a built launchpad (called on locale change, and

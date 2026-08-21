@@ -524,6 +524,67 @@ local function RouteChapterWaypoint(key)
 end
 
 -- Re-stack all chapter widgets top-to-bottom (heights depend on word wrap).
+--- Compose a chapter's full text: intro, body, the advanced paragraph, live tree
+--- advice, the levelling route and the dated half, in that order.
+---
+--- Extracted 21 Aug 2026 so the pop-out course window renders exactly what the
+--- panel renders. Two copies of this would drift, and text drifting away from the
+--- thing beside it is the fault this course spent two days repairing.
+local function ComposeChapterBody(ch, treesAdvice)
+	local body = SL(ch.bodyKey)
+	-- Instap-alinea vóór de body (PROFACAD_CH_*_INTRO). Zelfde vertaal-
+	-- fallback als levelingKey hieronder: staat de key er in deze taal
+	-- niet, dan valt 'ie weg en rendert het hoofdstuk als voorheen.
+	if ch.introKey then
+		local intro = SL(ch.introKey)
+		if intro and intro ~= "" and intro ~= ch.introKey then
+			body = intro:gsub("|n", "\n") .. "\n\n" .. body
+		end
+	end
+	-- "You are past the starter build" paragraph, after the body and before
+	-- the levelling route. Same optional-key pattern as introKey: a chapter
+	-- without it renders exactly as before, and a language that has not
+	-- translated it yet simply does not show it.
+	--
+	-- Rob hit the gap this answers: his three recommended Enchanting roots
+	-- were done, he had 30 Knowledge spare, and every line in the addon was
+	-- written for someone still building UP to that point (2026-07-22).
+	if ch.advancedKey then
+		local adv = SL(ch.advancedKey)
+		if adv and adv ~= "" and adv ~= ch.advancedKey then
+			body = body .. "\n\n" .. adv:gsub("|n", "\n")
+		end
+	end
+	if ch.key == "trees" and treesAdvice ~= "" then
+		body = body .. "\n" .. treesAdvice
+	end
+	-- Optioneel skill-leveling-routje onder een professie-hoofdstuk
+	-- (PROFGUIDE_LVL_*). De route gebruikt |n-markup; hier omgezet naar
+	-- echte newlines zodat 'ie als de andere body-tekst rendert.
+	if ch.levelingKey then
+		local lvl = SL(ch.levelingKey)
+		if lvl and lvl ~= "" and lvl ~= ch.levelingKey then
+			local lvlText = lvl:gsub("|n", "\n")
+			body = body .. "\n\n" .. lvlText
+		end
+	end
+	-- Perishable half, last and separately keyed. Some advice is durable (how
+	-- a market works) and some expires within weeks (what sells right now),
+	-- and every guide we read mixes the two — so the whole thing reads as
+	-- stale the moment the specific part does.
+	--
+	-- The key carries its own measurement date (…_DATED_YYYYMM), so a
+	-- re-measurement replaces ONE string instead of hunting through seven
+	-- language packs for the sentences that went off.
+	if ch.datedKey then
+		local dated = SL(ch.datedKey)
+		if dated and dated ~= "" and dated ~= ch.datedKey then
+			body = body .. "\n\n" .. dated:gsub("|n", "\n")
+		end
+	end
+	return body
+end
+
 local function Relayout(panel)
 	local child = panel._profAcadChild
 	local width = child and child:GetWidth()
@@ -692,58 +753,7 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 				row.titleFs:SetTextColor(COLOR_TITLE[1], COLOR_TITLE[2], COLOR_TITLE[3])
 			end
 			row.titleFs:SetText(title)
-			local body = SL(ch.bodyKey)
-			-- Instap-alinea vóór de body (PROFACAD_CH_*_INTRO). Zelfde vertaal-
-			-- fallback als levelingKey hieronder: staat de key er in deze taal
-			-- niet, dan valt 'ie weg en rendert het hoofdstuk als voorheen.
-			if ch.introKey then
-				local intro = SL(ch.introKey)
-				if intro and intro ~= "" and intro ~= ch.introKey then
-					body = intro:gsub("|n", "\n") .. "\n\n" .. body
-				end
-			end
-			-- "You are past the starter build" paragraph, after the body and before
-			-- the levelling route. Same optional-key pattern as introKey: a chapter
-			-- without it renders exactly as before, and a language that has not
-			-- translated it yet simply does not show it.
-			--
-			-- Rob hit the gap this answers: his three recommended Enchanting roots
-			-- were done, he had 30 Knowledge spare, and every line in the addon was
-			-- written for someone still building UP to that point (2026-07-22).
-			if ch.advancedKey then
-				local adv = SL(ch.advancedKey)
-				if adv and adv ~= "" and adv ~= ch.advancedKey then
-					body = body .. "\n\n" .. adv:gsub("|n", "\n")
-				end
-			end
-			if ch.key == "trees" and treesAdvice ~= "" then
-				body = body .. "\n" .. treesAdvice
-			end
-			-- Optioneel skill-leveling-routje onder een professie-hoofdstuk
-			-- (PROFGUIDE_LVL_*). De route gebruikt |n-markup; hier omgezet naar
-			-- echte newlines zodat 'ie als de andere body-tekst rendert.
-			if ch.levelingKey then
-				local lvl = SL(ch.levelingKey)
-				if lvl and lvl ~= "" and lvl ~= ch.levelingKey then
-					local lvlText = lvl:gsub("|n", "\n")
-					body = body .. "\n\n" .. lvlText
-				end
-			end
-			-- Perishable half, last and separately keyed. Some advice is durable (how
-			-- a market works) and some expires within weeks (what sells right now),
-			-- and every guide we read mixes the two — so the whole thing reads as
-			-- stale the moment the specific part does.
-			--
-			-- The key carries its own measurement date (…_DATED_YYYYMM), so a
-			-- re-measurement replaces ONE string instead of hunting through seven
-			-- language packs for the sentences that went off.
-			if ch.datedKey then
-				local dated = SL(ch.datedKey)
-				if dated and dated ~= "" and dated ~= ch.datedKey then
-					body = body .. "\n\n" .. dated:gsub("|n", "\n")
-				end
-			end
-			row.bodyFs:SetText(body)
+			row.bodyFs:SetText(ComposeChapterBody(ch, treesAdvice))
 
 			local task = SL(ch.taskKey)
 			if ch.detect then
@@ -758,6 +768,12 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 			end
 		end
 	end
+
+	-- The live tree advice is built from the player's own trees here; the pop-out
+	-- window has no profession data of its own, so it reads what this pass produced.
+	-- Never opened the panel? Then it is nil and the trees chapter simply renders
+	-- without the live line, which is what it did before that line existed.
+	ns._mhTreesAdvice = treesAdvice
 
 	-- Fill the rail, and give the reading pane the room the rail is not using.
 	if panel._contentsBtn then
@@ -794,6 +810,9 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 					if sf then
 						sf:SetVerticalScroll(0)
 					end
+					if ns.RefreshProfessionCourseWindow then
+						ns.RefreshProfessionCourseWindow()
+					end
 				end)
 				b:Show()
 			else
@@ -823,6 +842,9 @@ function ns.BuildProfessionAcademyPanel(panel)
 	end
 	panel._profAcadBuilt = true
 	builtPanel = panel
+	-- The pop-out course window pushes a refresh back here when you pick a chapter
+	-- there, so the two surfaces never show different chapters at once.
+	ns._mhProfAcadPanelRef = panel
 
 	if panel._body then
 		panel._body:Hide()
@@ -1227,6 +1249,45 @@ function ns.ProbeKnowledgeCurrency()
 	ns.db = ns.db or {}
 	ns.db.kpProbe = out
 	print("|cff66ccff[MH kp]|r written to MidnightHelperDB.kpProbe — /reload to flush it to disk.")
+end
+
+--- Public: the course as the pop-out window needs it — the chapters this character
+--- actually sees, in order, with their tick state.
+---
+--- Filtered by IsChapterVisible for the same reason the panel filters: a Tailoring
+--- chapter in a Skinner's course is noise, and the numbering has to match what the
+--- panel shows or the two surfaces disagree about which chapter is "7".
+function ns.MH_GetCourseChapters()
+	local out = {}
+	if not (ns.PROF_ACADEMY and ns.PROF_ACADEMY.chapters) then
+		return out
+	end
+	local profs = GetPrimaryProfessions()
+	for _, ch in ipairs(ns.PROF_ACADEMY.chapters) do
+		if IsChapterVisible(ch, profs) then
+			out[#out + 1] = {
+				key = ch.key,
+				title = SL(ch.titleKey),
+				done = IsChapterDone(ch.key) and true or false,
+			}
+		end
+	end
+	return out
+end
+
+--- Public: one chapter's title and composed text, for the pop-out window.
+--- Same composer the panel uses, so the two can never say different things.
+function ns.MH_GetChapterText(chKey)
+	if not (chKey and ns.PROF_ACADEMY and ns.PROF_ACADEMY.chapters) then
+		return nil
+	end
+	for _, ch in ipairs(ns.PROF_ACADEMY.chapters) do
+		if ch.key == chKey then
+			local task = SL(ch.taskKey)
+			return SL(ch.titleKey), ComposeChapterBody(ch, ns._mhTreesAdvice), task
+		end
+	end
+	return nil
 end
 
 --- Public: scroll the course to one chapter, used by the search.

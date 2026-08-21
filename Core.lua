@@ -1304,6 +1304,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh course — the professions course in its own window, beside the game.
+	-- Inside the main window the chapter list only gets the height left under the
+	-- status block; here it gets the whole side.
+	if msg == "course" then
+		if ns.ToggleProfessionCourseWindow then
+			ns.ToggleProfessionCourseWindow()
+		end
+		return
+	end
+
 	-- /mh fp — arrow to the nearest flight master, wherever you are standing.
 	-- Rob asked for a pin in the city guide, then said what he actually wanted: not
 	-- "where is it in Silvermoon" but a button that works in every zone.
