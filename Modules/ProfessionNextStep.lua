@@ -115,9 +115,19 @@ function ns.GetProfessionNextSteps()
 	--    right now, and it is fixed in one click.
 	for _, p in ipairs(list) do
 		if p.readable and (p.unspent or 0) > 0 and #steps < MAX_LINES then
+			-- "Spend it" is only advice if spending is possible. Rob held 12 points on
+			-- Tailoring with every specialization padlocked behind a skill requirement,
+			-- and this line still told him to spend them (21 Aug 2026). Unactionable
+			-- advice is worse than silence: the player doubts themselves, not the addon.
+			-- canSpend nil means unreadable, and then the old wording stands rather than
+			-- a guess in either direction.
+			local key, colour = "PROFNEXT_UNSPENT_FMT", "warn"
+			if p.canSpend == false then
+				key, colour = "PROFNEXT_UNSPENT_LOCKED_FMT", "dim"
+			end
 			steps[#steps + 1] = {
-				text = (ns:L("PROFNEXT_UNSPENT_FMT")):format(p.baseName or p.name, p.unspent),
-				color = "warn",
+				text = (ns:L(key)):format(p.baseName or p.name, p.unspent),
+				color = colour,
 				onClick = OpenProfession,
 			}
 		end

@@ -1206,6 +1206,7 @@ ns._mhLocales.enUS = {
 	PROFHUB_WEEKLY_ESSENCE_NOTE_FMT = "(first %d each week give KP)",
 	PROFNEXT_PANEL_TITLE = "Professions",
 	PROFNEXT_UNSPENT_FMT = "%s: %d Knowledge unspent - spend it",
+	PROFNEXT_UNSPENT_LOCKED_FMT = "%s: %d Knowledge banked, and nothing can take it yet - no specialization is unlockable, so raise the skill first (the first choice comes at 25)",
 	PROFNEXT_WEEKLY_TODO_FMT = "%s: trainer weekly not picked up yet",
 	PROFNEXT_WEEKLY_PICKED_FMT = "%s: trainer weekly picked up - turn it in",
 	PROFNEXT_WEEKLY_DONE_FMT = "%s: trainer weekly done this week",

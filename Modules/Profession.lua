@@ -488,6 +488,52 @@ local function GetMidnightUnspentKnowledge(midnightSkillLineID)
 	return unspentKP, true
 end
 
+--- Can this profession take a Knowledge Point right now, at all?
+---
+--- GEMETEN 21 aug 2026 on Rob's priest. He held 12 unspent points on Tailoring and could
+--- not spend one: every specialization was padlocked behind a skill requirement, while
+--- our own This Week line read "12 Knowledge unspent - spend it". Telling someone to do
+--- something impossible is worse than saying nothing — they doubt themselves, not us.
+---
+--- ⚠️ The obvious-looking function is the WRONG one. `ShouldShowPointsReminderForSkillLine`
+--- returned true for Tailoring (nothing unlockable) and false for Khaz Algar Alchemy (four
+--- tabs unlockable) — the opposite of what we need, in both directions. It answers some
+--- other question. `CanUnlockTab` is the one that tracks reality.
+---
+--- ⚠️ And CanUnlockTab alone is not enough: it is false for a tab that is already OPEN, so
+--- a fully unlocked profession would read as "cannot spend". Hence the second test — a root
+--- at activeRank >= 1 is unlocked (rank 1 = open but untouched, per GetSpecSummary), and an
+--- open tree can always take points.
+---
+--- Returns true / false, or nil when unreadable — and nil must stay silent rather than
+--- become a guess in either direction.
+local function CanSpendKnowledge(midnightSkillLineID)
+	if not (midnightSkillLineID and ProfSpecsAPIReady() and C_ProfSpecs.CanUnlockTab) then
+		return nil
+	end
+	local okC, configID = pcall(C_ProfSpecs.GetConfigIDForSkillLine, midnightSkillLineID)
+	local okT, treeIDs = pcall(C_ProfSpecs.GetSpecTabIDsForSkillLine, midnightSkillLineID)
+	if not (okC and configID and configID ~= 0 and okT and type(treeIDs) == "table") then
+		return nil
+	end
+	for _, tabID in ipairs(treeIDs) do
+		local okU, canUnlock = pcall(C_ProfSpecs.CanUnlockTab, tabID, configID)
+		if okU and canUnlock then
+			return true
+		end
+		if C_ProfSpecs.GetRootPathForTab and C_Traits.GetNodeInfo then
+			local okR, rootPath = pcall(C_ProfSpecs.GetRootPathForTab, tabID)
+			if okR and rootPath then
+				local okN, node = pcall(C_Traits.GetNodeInfo, configID, rootPath)
+				if okN and type(node) == "table" and (tonumber(node.activeRank) or 0) >= 1 then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
 --------------------------------------------------------------------------------
 -- Tracker row icons: quest completion is the only source of truth for the glyph
 --------------------------------------------------------------------------------
@@ -1579,6 +1625,8 @@ function ns.GetProfessionKnowledgeStatus()
 					baseSkillLine = baseSkillLine,
 					unspent = unspent or 0,
 					readable = readable and true or false,
+					-- false = points in hand but nothing will accept them yet.
+					canSpend = CanSpendKnowledge(midnightLine),
 				}
 			end
 		end

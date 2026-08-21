@@ -1162,6 +1162,7 @@ ns._mhLocales.nlNL = {
 	PROFHUB_WEEKLY_ESSENCE_NOTE_FMT = "(de eerste %d per week geven KP)",
 	PROFNEXT_PANEL_TITLE = "Professies",
 	PROFNEXT_UNSPENT_FMT = "%s: %d Knowledge onbesteed - geef het uit",
+	PROFNEXT_UNSPENT_LOCKED_FMT = "%s: %d Knowledge op de plank, en er kan nog niets in - geen specialisatie is te ontgrendelen, dus eerst je skill omhoog (de eerste keuze komt op 25)",
 	PROFNEXT_WEEKLY_TODO_FMT = "%s: trainer-weekly nog niet opgepakt",
 	PROFNEXT_WEEKLY_PICKED_FMT = "%s: trainer-weekly opgepakt - lever hem in",
 	PROFNEXT_WEEKLY_DONE_FMT = "%s: trainer-weekly deze week klaar",
