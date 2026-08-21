@@ -943,9 +943,42 @@ function ns.ProbeSpecLockState()
 				pname, skillLine, tostring(cfg),
 				tostring(okI and info and info.skillLevel),
 				tostring(okI and info and info.maxSkillLevel)))
+			-- Round 2. The enumeration named these; round 1 proved the NODE cannot answer
+			-- the question (canPurchaseRank, isAvailable and meetsEdgeRequirements were
+			-- all true on a padlocked tab), so the gate lives at tab level.
+			-- ShouldShowPointsReminderForSkillLine is the interesting one: it is
+			-- Blizzard's own answer to "should I nag this player about unspent points",
+			-- which is exactly the sentence we are getting wrong.
+			for _, fn in ipairs({
+				"ShouldShowPointsReminderForSkillLine",
+				"SkillLineHasSpecialization",
+				"GetCurrencyInfoForSkillLine",
+				"GetDefaultSpecSkillLine",
+			}) do
+				if C_ProfSpecs[fn] then
+					local ok, a, b, c = pcall(C_ProfSpecs[fn], skillLine)
+					say(("  %s(%d) -> %s | %s | %s"):format(
+						fn, skillLine, tostring(a), tostring(b), tostring(c)))
+					if ok and type(a) == "table" then
+						dump("    " .. fn, a)
+					end
+				end
+			end
 			for _, tabID in ipairs(tabs) do
 				local okT, tinfo = pcall(C_ProfSpecs.GetTabInfo, tabID)
 				say(("--- tab %s"):format(tostring(tabID)))
+				-- Argument order is not documented anywhere we trust, so try both
+				-- shapes and report which one answered rather than assuming.
+				for _, fn in ipairs({ "CanUnlockTab", "GetStateForTab", "ShouldShowSpecTab" }) do
+					if C_ProfSpecs[fn] then
+						local ok1, r1 = pcall(C_ProfSpecs[fn], tabID)
+						local ok2, r2 = pcall(C_ProfSpecs[fn], tabID, cfg)
+						say(("  %s: (tabID)=%s%s  (tabID,cfg)=%s%s"):format(
+							fn,
+							tostring(r1), ok1 and "" or " [err]",
+							tostring(r2), ok2 and "" or " [err]"))
+					end
+				end
 				if okT then
 					dump("  tabInfo", tinfo)
 				else
