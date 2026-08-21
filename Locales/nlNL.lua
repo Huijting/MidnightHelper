@@ -1187,6 +1187,7 @@ ns._mhLocales.nlNL = {
 	SMC_PIN_CLICK_HINT = "Klik: kaartpin + /way #2393 (TomTom als je die hebt)",
 	SMC_PIN_ITEM_UPGRADES = "Upgrade je gear met Crests. In de Bazaar, naast Vaskarn.",
 	SMC_PIN_LOCKED = "Deze kun je nog niet gebruiken — het portaal staat er pas als je in de Prey-lijn zit. Het waypoint werkt wel, als je wilt zien waar hij komt.",
+	SMC_PIN_FLIGHTMASTER ="Silvermoon heeft twee vliegmeesters, dus de nuttige vraag is welke dichterbij is. Ze vliegen dezelfde routes.",
 	SMC_PIN_PORTAL_ISLE = "Rechtstreeks naar The Coiled Isle, naast Astalor in Murder Row. Hij verschijnt pas als je in de Prey-lijn zit — zie de Prey-gids in de Codex. De weg terug staat op 58.12, 48.48 op het eiland.",
 	SMC_PIN_CREST_EXCHANGE = "Ruil Crests een tier omhoog of omlaag. In de Bazaar, naast Cuzoth.",
 	SMC_PIN_PROF_RESET = "Reset de Midnight-specializations van één beroep en geeft je Knowledge Points terug. De waarschuwing van het spel zelf: je verliest elk recept dat aan die keuzes hing, en het kan MAAR ÉÉN KEER per beroep.",

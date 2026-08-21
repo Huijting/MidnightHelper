@@ -937,6 +937,49 @@ local SMC_CATEGORIES = {
 	},
 }
 
+--- The city's own flight masters, built from ns.FLIGHT_POINTS rather than typed out.
+---
+--- Rob, 21 Aug 2026: "ik zoek nu een dichtstbijzijnde flightpoint in SMC, en vroeg me af
+--- waar is ie". The addon has had every Midnight flight point since 16 Aug and routes
+--- people through them — and the city guide, which lists portals, Timeways and even M+
+--- teleports, never showed the one thing you use most. Same fault as the Coiled Isle
+--- portal above: knowing a thing and letting someone find it are different jobs.
+---
+--- There are TWO in Silvermoon, which is the whole reason this belongs on a map pin:
+--- the useful question is not "where is the flight master" but "which one is nearer".
+---
+--- Read from the data instead of copied into this table on purpose. A second copy of a
+--- coordinate is a second thing to update, and this repo spent 20 Aug repairing text that
+--- had drifted away from the data beside it.
+do
+	local SILVERMOON_MAP = 2393
+	local fps = ns.FLIGHT_POINTS and ns.FLIGHT_POINTS[SILVERMOON_MAP]
+	if type(fps) == "table" then
+		for _, cat in ipairs(SMC_CATEGORIES) do
+			if cat.titleKey == "SMC_CAT_TRAVEL" then
+				for i, fp in ipairs(fps) do
+					local name, x, y = fp[1], tonumber(fp[2]), tonumber(fp[3])
+					if name and x and y then
+						cat.items[#cat.items + 1] = {
+							id = "flightmaster_" .. i,
+							-- Label stays English like every other pin here; only the
+						-- description resolves through the locale. These labels are
+						-- built once at load, so a resolved string would freeze on
+						-- the language that was active at login.
+						label = "Flight master — " .. name,
+							descKey = "SMC_PIN_FLIGHTMASTER",
+							atlas = "flightmaster",
+							x = x,
+							y = y,
+						}
+					end
+				end
+				break
+			end
+		end
+	end
+end
+
 -- Search helpers (Guide.lua): keyword blobs per waypoint + scroll target after panel build.
 --- ⚠️ REBUILT ON A LANGUAGE SWITCH, because the blobs now contain translated text.
 --- They used to hold the hardcoded Dutch, which was wrong but at least never went stale;
