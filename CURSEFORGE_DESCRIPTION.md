@@ -108,7 +108,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 **Account & professions**
 - **Account snapshot** — per-character overview (keys, shards, undercoins, item level, profession weekly currencies in tooltips), with a sort/filter toolbar, a stale-since-Wednesday badge, and compact vault status per row.
 - **"Where do my Knowledge Points go?"** — the Professions overview names the tree to fill, then the exact node to spend on once the recommended trees are done, and lists every open choice with **what it actually does** — read live from the game, so it works for all **11 professions** and in your own language. The recommended build order is checked against the current guides per profession. Where the best pick is genuinely your call, it explains the options instead of pretending there's one right answer.
-- **Professions 101** beginner course — each chapter opens with a plain-language intro before the build text and tells you where to actually click to spend points (the Specializations tab). A **Guided mode** wizard walks a total newcomer through learning and levelling any of the 11 professions, ticking steps off as your skill grows.
+- **Professions 101** — a real beginner course, not a help page. Fourteen chapters that answer the questions the game never does: why the same recipe gives two players different results, what those six numbers on your screen actually mean (Multicraft, Resourcefulness, Ingenuity, Finesse, Perception, Deftness), when Concentration is worth spending, how work orders really work and why there are two counters rather than one, where your Knowledge Points come from, and how to make gold without fooling yourself. It has a contents list and can open in **a window of its own beside the game**, because half these chapters end by telling you to go and press something. A **Guided mode** wizard walks a total newcomer through learning and levelling any of the 11 professions, ticking steps off as your skill grows.
 
 **Gear: what to do when a slot is maxed**
 - `/mh tracks` lists which equipped slots are at their upgrade-track ceiling and names the two ways onward: the **Great Vault**, and **crafting**.
@@ -155,6 +155,8 @@ Full UI, coach tips, consumable notes and guide content are available in:
 
 Other WoW client locales (e.g. Korean, Chinese) fall back to **English** until a dedicated pack is added.
 
+> ⚠️ **Being straight about 3.4.0:** the professions course is new and large, and it is currently **English in German, French, Spanish, Portuguese and Italian**. Nothing is broken — untranslated text falls back to English rather than showing you a blank — but you would notice, so it is said here rather than discovered. English and Dutch are complete; the rest follow within a few days. Help with your own language is very welcome on [Discord](https://discord.gg/kBHaHcsASQ).
+
 ### Slash commands
 
 The ones you'll reach for first are below. **The full list — around forty commands,
@@ -167,6 +169,8 @@ drift from what the addon actually answers to.
 | `/mh setup` | Set up your bars and keybinds, with the state shown first |
 | `/mh bar` | Toggle the quick bar |
 | `/mh fps` | Read out the graphics settings that cost the most frames |
+| `/mh course` | Professions 101 in a window of its own, beside the game |
+| `/mh fp` | Point the arrow at the nearest flight master, wherever you are |
 | `/mh coach` | Toggle Delve Coach |
 | `/mh mark` | Toggle the Fast Mark bar |
 | `/mh items` | Toggle delve consumables panel (force preview outside a delve) |
