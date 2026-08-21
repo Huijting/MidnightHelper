@@ -107,6 +107,44 @@ verdeling van de eerstvolgende klus, zodat we niet allebei hetzelfde of allebei 
 Raakt alleen `Locales/*.lua` en `Modules/ProfessionAcademy*.lua`. Het bouwplan, met twee
 metingen die Spec 27's aannames bijstellen, staat bovenaan `docs/NEXT_SESSION.md`.
 
+## 🌍 VOLGENDE KLUS 22 aug — de vertalingen, en die kan ONDERZOEK oppakken
+
+**3.4.0 is uit** (tag `v3.4.0`, 21 aug). Wat er nu ligt is één grote, goed afgebakende klus:
+**56 teksten × 5 talen ≈ 148.000 tekens.**
+
+⚠️ **Eigenaarschap tijdelijk aangepast, want dit is het enige zinnige.** `Locales/` staat in
+de tabel als BOUW, maar deze klus zit vrijwel volledig in **`Locales/Translations2026.lua`**
+— het fill-only bestand voor de vijf niet-Nederlandse packs. **Dat ene bestand is voor deze
+klus van ONDERZOEK.** BOUW blijft van `enUS.lua` en `nlNL.lua` af tijdens de klus, en raakt
+`Translations2026.lua` niet aan. Zo hoeft niemand te wachten en botst er niets.
+
+**Begin met `python tools/translation_todo.py --text`.** Dat leest enUS en de vijf packs
+zoals ze nu zijn en print per sleutel de Engelse tekst, de grootte, en of hij ontbreekt of
+STALE is. Een geplakte lijst zou verouderen; dit kan niet met de addon van mening verschillen.
+
+🔴 **STALE gaat vóór missing, en dat verschil is belangrijk.** Een sleutel die in een pack
+ONTBREEKT valt terug op Engels en is dus niet stuk. Een sleutel die er WÉL in staat toont
+wat dat pack zegt — dus bij een tekst die wij herschreven blijft de oude versie staan. Op
+21 aug zijn zeven van die verouderde vertalingen uit vijf packs **verwijderd** (o.a. de
+work-orders-tekst die "vier per dag" zei, en de Alchemy/Herbalism-hoofdstukken die de
+gecorrigeerde routes tegenspraken). Die moeten dus **opnieuw en vertaald** terugkomen —
+niet de oude tekst herstellen.
+
+De schrijfregels staan onderaan de uitvoer van dat script, inclusief wat níet vertaald mag
+worden. Twee die hier het meest misgaan: de zes profession-stats en `Concentration` blijven
+Engels, en het lidwoord volgt de taal maar de naam niet ("der Coiled Isle", niet "der The
+Coiled Isle"). **Controleren door het te draaien:** `lua5.1 tools/locale_probe.lua KEY`.
+
+📌 **Twee kleinere dingen die er ook liggen** (BOUW, tenzij het beter uitkomt):
+- De **vertaalmelding praat onzin** tegen wie al een pakket heeft. `OpenTranslateHelp()` in
+  `TranslateNudge.lua` print `TRANSLATE_HELP_LANG` onvoorwaardelijk, dus Rob kreeg "Jouw taal
+  (enUS) heeft zijn eerste pakket nodig" — enUS is de brontaal. En het staat in de chat,
+  precies waar `FlightMapHint.lua` al over opschreef dat niemand het leest.
+- De **`points = 0`-tekst** (`PROFACAD_ADVISE_NEXT_OPEN_FMT`, Mining's `Over-LODED`) heeft
+  nog nooit iemand gerenderd zien worden. Geen bug bekend, alleen ongetest.
+
+---
+
 ## ✅ AFGEROND 20 aug (avond) — Spec 27 én Spec 28 zijn gebouwd
 
 **Alles hieronder in deze sectie is GESCHIEDENIS.** Het staat er nog omdat de redenering
