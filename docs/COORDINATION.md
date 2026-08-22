@@ -107,7 +107,81 @@ verdeling van de eerstvolgende klus, zodat we niet allebei hetzelfde of allebei 
 Raakt alleen `Locales/*.lua` en `Modules/ProfessionAcademy*.lua`. Het bouwplan, met twee
 metingen die Spec 27's aannames bijstellen, staat bovenaan `docs/NEXT_SESSION.md`.
 
-## 🌍 VOLGENDE KLUS 22 aug — de vertalingen, en die kan ONDERZOEK oppakken
+## 📌 REGEL 7 — dit bestand bijwerken hoort bij "klaar"
+
+**Rob, 22 aug 2026:** *"denk aan de samenwerking MD, die moet standaard als we klaar zijn
+geschreven/bijgewerkt worden."*
+
+Niet als een sessie er zin in heeft, maar als vast onderdeel van afronden. De reden is
+vandaag drie keer bewezen: dit bestand stond twee keer een klus aan te prijzen die al af
+was, en één keer een aanname die de andere sessie moest komen corrigeren. Wie het hier niet
+leest, begint aan werk dat niet meer bestaat.
+
+Wat "bijwerken" minimaal betekent: wat er af is verhuist naar geschiedenis, wat er open
+staat komt bovenaan, en een aanname die onderweg onjuist bleek wordt **doorgestreept in
+plaats van stil verwijderd** — de correctie is vaak nuttiger dan de oorspronkelijke regel.
+
+---
+
+## ✅ STAND 22 aug (avond) — 3.4.0 is uit en de vertalingen zijn binnen
+
+**Uitgebracht:** `v3.4.0` (tag op `f953036`), met de professie-cursus, de tien gecorrigeerde
+routes, het cursusvenster, de inhoudsopgave, `/mh fp` en de vliegmeester-pins.
+⚠️ **De vertalingen zitten NIET in 3.4.0** — die kwamen erna en gaan mee met de volgende.
+
+**Vertalingen:** de tien commits zijn toegepast en gepusht (`5e0ab71..ff03d0b`), alleen
+`Translations2026.lua` geraakt, `luac` schoon, en de resolver geeft 390 van de 392 OK. De
+twee overblijvers zijn nlNL's bewuste Engelse kopieën van "Professions 101" en een kale
+opmaakstring.
+
+🔴 **Daarna vier fouten gevonden en gerepareerd**, met een agent tegen Blizzards eigen DB2 in
+plaats van tegen Wowhead. **Die methode is de winst: `wago.tools/db2/<Tabel>/csv?build=<build>&locale=<code>`**
+— kale CSV, gepind op buildnummer, geen rate limit. Gebruik dit voortaan voor elke
+"hoe heet dit in taal X"-vraag.
+
+| wat | waar | was | is |
+|---|---|---|---|
+| Deftness | itIT | Destrezza (bestaat niet in de client) | Velocità |
+| Crafting Details | fr/es/pt | Engels gelaten | Détails de la fabrication / Detalles de fabricación / Detalhes da criação |
+| Patron-tab | fr/es/pt | Engels gelaten | Client / Cliente / Cliente |
+| Recipe Difficulty | fr/pt | Engels gelaten | Difficulté / Dificuldade da receita |
+
+✅ **Twee dingen beslecht in het voordeel van de vertaler**: ptBR `Resourcefulness` verschilt
+écht tussen paneel (`Desenvoltura`) en tooltip (`Devolução de recursos`), en ons hoofdstuk
+verwijst naar het paneel — dus goed. En `Reuse` is aantoonbaar onvertaald in alle vijf de
+clients (`TraitDefinition` 136970/136986), een slordigheid van Blizzard en terecht zo
+gelaten.
+
+**Twee tools repareerden hun eigen blinde vlek.** `translation_todo.py` telde of een sleutel
+*bestond* in plaats van te vragen wat de speler ziet; hij draait nu `locale_probe`. En de
+linter had `Coiled Isle` in zijn KEEP-lijst, terwijl Blizzard zones juist wél localiseert —
+één verkeerde regel, geen kapotte controle.
+
+**Ook nieuw sinds de release:** de Valeera-popup (verschijnt in een delve, verdwijnt erbuiten,
+meet zelf wat een bountiful run oplevert) en de spec-bewuste regel bij Azta'rec die zegt
+*waarom* Valeera op Healer moet — die verschilt per specialisatie en is Robs verzoek van
+19 aug.
+
+### 🔴 Openstaand, en twee ervan zijn ROBS beslissing
+
+- **`CLAUDE.md`'s eigennamen-regel klopt niet meer.** Hij zegt dat Blizzard-eigennamen en de
+  zes profession-stats Engels blijven; de client localiseert ze wél. De juiste toets is niet
+  *"is het een eigennaam"* maar *"laat Blizzard het Engels"*. **Niet aanpassen zonder Rob.**
+- **De oudere strings in de vijf packs** dragen nog `Wissenspunkte`, `puntos de Conocimiento`
+  enzovoort naast de nieuwe termen. Eén zoek-en-vervang, maar het raakt uitgeleverde tekst.
+  **Niet zonder Rob.** ⚠️ Op 22 aug per ongeluk twee Franse strings hierin geraakt door een
+  te brede vervanging; teruggedraaid.
+- **De vertaalmelding praat onzin** tegen wie al een pakket heeft (`OpenTranslateHelp()` in
+  `TranslateNudge.lua` print `TRANSLATE_HELP_LANG` onvoorwaardelijk, dus enUS krijgt "jouw
+  taal heeft zijn eerste pakket nodig"). En het staat in de chat.
+- **`points = 0`** (`PROFACAD_ADVISE_NEXT_OPEN_FMT`, Mining's `Over-LODED`) is nog nooit
+  door iemand gerenderd gezien.
+- **`Oddball Ingredient`** — nieuw delve-item met draaglimiet sinds 21 aug, nul treffers in
+  de repo.
+
+---
+
+## 🌍 AFGEROND — de vertaalklus van 22 aug *(zie de stand hierboven)*
 
 **3.4.0 is uit** (tag `v3.4.0`, 21 aug). Wat er nu ligt is één grote, goed afgebakende klus:
 **56 teksten × 5 talen ≈ 148.000 tekens.**
