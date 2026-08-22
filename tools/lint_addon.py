@@ -612,8 +612,20 @@ def check_translation_markup(root):
     # that the player will search for verbatim in their own client. "Raid", "Vault"
     # and "Tier" are deliberately absent: they are ordinary words in five of these
     # languages.
+    # ⚠️ "Coiled Isle" REMOVED 22 aug 2026, for exactly the reason Great Vault was
+    # removed above: Blizzard localises it. Zone 16365 is Die Gewundene Insel /
+    # Île Annelée / Isla Serpenteante / A Ilha Enrolada / Isola Serpeggiante, each
+    # with its own page in Blizzard's own locale data. A German player searching
+    # their map for "Coiled Isle" finds nothing, so keeping it English is the
+    # failure this check exists to catch — the list had it backwards.
+    #
+    # The test for this list is not "is it a proper noun" but "does Blizzard leave
+    # it in English". Zone names: localised. Currency names like Corrosive Coin:
+    # not, verified across all seven packs. When in doubt, look it up per language
+    # before adding a name here; a wrong entry teaches five translators to write
+    # something the player cannot find.
     KEEP = [
-        "Corrosive Coin", "Corrosive Soul", "Coiled Isle", "Atal'Utek",
+        "Corrosive Coin", "Corrosive Soul", "Atal'Utek",
     ]
 
     hard, soft = [], []
