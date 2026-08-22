@@ -143,6 +143,11 @@ local function Refresh()
 		return
 	end
 	frame.text:SetText(text)
+	-- Grow to fit. A fixed height was wrong the moment the sentence ran to three
+	-- lines: the text drew straight over the bar and past the bottom edge. The bar
+	-- is anchored to the bottom, so the frame has to make room for the words above it.
+	local textH = frame.text:GetStringHeight() or 0
+	frame:SetHeight(math.max(textH + 44, 60))
 	local w = math.max((frame:GetWidth() - 24) * (frac or 0), 1)
 	frame.fill:SetWidth(w)
 end
@@ -198,7 +203,8 @@ local function Build()
 	local text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	text:SetFontObject(SF("GameFontHighlightSmall"))
 	text:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -10)
-	text:SetPoint("RIGHT", f, "RIGHT", -24, 0)
+	-- Clear of the close button, which sits in the top right corner.
+	text:SetPoint("RIGHT", f, "RIGHT", -28, 0)
 	text:SetJustifyH("LEFT")
 	text:SetWordWrap(true)
 	text:SetSpacing(2)
