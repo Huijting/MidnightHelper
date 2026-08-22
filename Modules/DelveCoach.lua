@@ -293,6 +293,16 @@ local function BuildCoachBody(entry, opts)
 		local sec = entry.sections[i]
 		local title = ns:SafeL(sec.titleKey or "DELVE_COACH_SEC_OVERVIEW")
 		local body = ns:SafeL(sec.bodyKey or "")
+		-- A section may add a sentence that depends on who is reading it. Static text
+		-- cannot say "you play Mage, so this one is not optional for you" — and that
+		-- translation from a general rule to this character is the thing MH is for.
+		-- Returns nil to stay silent, which is what unreadable must always do.
+		if type(sec.bodyFn) == "function" then
+			local okFn, extra = pcall(sec.bodyFn)
+			if okFn and type(extra) == "string" and extra ~= "" then
+				body = (body ~= "" and (body .. "|n|n") or "") .. extra
+			end
+		end
 		if bossIndex and ns.FilterDelveTipBodyForBoss and MULTI_BOSS_TIP_SECTIONS[sec.titleKey] then
 			body = ns.FilterDelveTipBodyForBoss(body, entry.id, bossIndex)
 		end

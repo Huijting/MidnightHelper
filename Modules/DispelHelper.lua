@@ -57,6 +57,32 @@ end
 --- which was Rob's point on 2026-07-15 and is why the toolkit shows it for
 --- non-healers as well.
 --- @return table set  { magic = true, poison = true, ... } (possibly empty)
+--- Can THIS character take a magic debuff off themselves?
+---
+--- Rob asked for exactly this translation on 19 Aug 2026, standing in front of Azta'rec
+--- with Valeera set to Tank. Every guide says "set Valeera to Healer"; none of them say
+--- why, and the why is different per spec. A Priest can shrug Void Toxin off. A Mage
+--- cannot, and for them Valeera on Healer is not a preference but the only way that
+--- debuff comes off.
+---
+--- ⚠️ Offensive purges deliberately do not count. A Mage's Spellsteal takes a buff off
+--- an ENEMY and does nothing for a debuff on their own bar — which is why
+--- OFFENSIVE_PURGES is a separate table in this file. That category error was made here
+--- once already, on 5 Aug, and it produced exactly the confident wrong answer this
+--- function exists to avoid.
+---
+--- @return boolean|nil true / false, or nil when the spellbook cannot be read
+function ns.CanSelfRemoveMagic()
+	if type(ns.GetDispellableSchools) ~= "function" then
+		return nil
+	end
+	local ok, set = pcall(ns.GetDispellableSchools)
+	if not ok or type(set) ~= "table" then
+		return nil
+	end
+	return set["magic"] and true or false
+end
+
 --- @return table list { { id, types }, ... } the spells behind it
 function ns.GetDispellableSchools()
 	local set, spells = {}, {}

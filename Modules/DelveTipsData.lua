@@ -242,7 +242,32 @@ ns.DELVE_TIP_ENTRIES = {
 		sections = {
 			{ titleKey = "DELVE_COACH_SEC_DANGER", bodyKey = "DELVE_TIP_VENOMFALL_DANGER", danger = true },
 			{ titleKey = "DELVE_COACH_SEC_OVERVIEW", bodyKey = "DELVE_TIP_VENOMFALL_OVERVIEW" },
-			{ titleKey = "DELVE_COACH_SEC_BOSS", bodyKey = "DELVE_TIP_VENOMFALL_BOSS" },
+			--- ⚠️ The one section in this file that reads the player before it speaks.
+			---
+			--- Rob, 19 Aug 2026, about to pull Azta'rec with Valeera on Tank: every
+			--- guide says "set Valeera to Healer" and none says why. The why is Void
+			--- Toxin — a magic debuff (confirmed by DBM's own mod, which files its timer
+			--- under the magic icon) — and whether it matters depends entirely on
+			--- whether YOU can take it off yourself. A Priest can. A Mage cannot, and
+			--- for them her role is not a preference.
+			---
+			--- That is the whole translation MH exists to make, and it is one line.
+			{
+				titleKey = "DELVE_COACH_SEC_BOSS",
+				bodyKey = "DELVE_TIP_VENOMFALL_BOSS",
+				bodyFn = function()
+					if type(ns.CanSelfRemoveMagic) ~= "function" then
+						return nil
+					end
+					local can = ns.CanSelfRemoveMagic()
+					if can == nil then
+						return nil -- unreadable stays quiet rather than guessing
+					end
+					local key = can and "DELVE_TIP_VENOMFALL_DISPEL_YOU"
+						or "DELVE_TIP_VENOMFALL_DISPEL_NOTYOU"
+					return ns.SafeL and ns:SafeL(key) or nil
+				end,
+			},
 		},
 	},
 }
