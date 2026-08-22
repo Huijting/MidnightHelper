@@ -123,6 +123,45 @@ plaats van stil verwijderd** — de correctie is vaak nuttiger dan de oorspronke
 
 ---
 
+## 🌍 KLUS VOOR 23 aug — de professie-cursus áf maken (ONDERZOEK / cowork)
+
+**Start met dit commando. Geen geplakte lijst — die is verouderd zodra iemand één string
+aanraakt.**
+
+```
+python tools/translation_todo.py --prefix PROFACAD_,PROFGUIDE_,PROFHUB_,PROFNEXT_,PGUIDE_ --text
+```
+
+**Stand nu: 153 van de 212 klaar in alle zes de packs, 20.201 tekens te gaan** over alle
+talen samen. Dat is ongeveer een zevende van de klus van 22 aug.
+
+⚠️ **Waarom deze 59 zijn blijven liggen, en het is geen slordigheid van wie 22 aug deed.**
+Die opdracht was *"alles wat sinds v3.3.0 nieuw is"*, en deze strings zijn **ouder** dan die
+tag — ze vielen dus buiten de scope, terwijl de tool netjes "klaar" meldde. Daarom heeft
+`translation_todo.py` er sinds vanavond een tweede vraag bij: `--since` beantwoordt *"wat is
+er nieuw sinds een release"*, `--prefix` beantwoordt *"wat is er nog Engels in dit
+gebied"*. De tweede heeft die blinde vlek niet.
+
+**Grootste stukken eerst:** `PROFACAD_CH_ENCHANTING_ADVANCED` (565 tekens) springt eruit;
+daarna is het vooral de rij intro-zinnetjes boven de beroepshoofdstukken (Alchemy, Mining,
+Herbalism, Inscription, Blacksmithing, Leatherworking — elk 150-300 tekens) en verder
+knoplabels van tien tot dertig tekens.
+
+**Zelfde afspraken als 22 aug:** alles gaat in `Locales/Translations2026.lua` (fill-only);
+blijf van `enUS.lua` en `nlNL.lua` af; controleren door te **draaien**
+(`lua tools/locale_probe.lua KEY`), niet door te tellen.
+
+🔴 **En gebruik de bron die 22 aug vier fouten ving:**
+`wago.tools/db2/<Tabel>/csv?build=<build>&locale=<code>` voor elke "hoe heet dit in taal X".
+Wowhead is een kandidaat, Blizzards eigen DB2 beslist. Concreet uit die ronde: de zes
+profession-stats en de Patron-tab hebben **wél** een vertaalde naam in de client — Engels
+laten staan is daar de fout, niet de veilige keuze.
+
+📌 **Als dit af is** kan de zin *"other languages follow within a few days"* van de
+CurseForge-pagina af (`CURSEFORGE_DESCRIPTION.md`, onder de talentabel).
+
+---
+
 ## ✅ STAND 22 aug (avond) — 3.4.0 is uit en de vertalingen zijn binnen
 
 **Uitgebracht:** `v3.4.0` (tag op `f953036`), met de professie-cursus, de tien gecorrigeerde

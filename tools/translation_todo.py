@@ -40,28 +40,43 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PACKS = ["deDE", "frFR", "esES", "ptBR", "itIT", "nlNL"]
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--since", default="v3.3.0")
+ap.add_argument("--since", default="v3.3.0",
+                help="report strings enUS gained since this tag (the default question)")
+ap.add_argument("--prefix",
+                help="instead: report every key starting with these comma-separated "
+                     "prefixes, however old. Use this to finish an AREA rather than a "
+                     "release, e.g. --prefix PROFACAD_,PROFGUIDE_,PROFHUB_,PROFNEXT_,PGUIDE_")
 ap.add_argument("--text", action="store_true")
 args = ap.parse_args()
 
 # ---------------------------------------------------------------- pending keys
-diff = subprocess.run(
-    ["git", "-C", REPO, "diff", args.since + "..HEAD", "--", "Locales/enUS.lua"],
-    capture_output=True, text=True, encoding="utf-8", errors="replace").stdout
-
-added = []
-for line in diff.splitlines():
-    m = re.match(r'\+\t([A-Z][A-Z0-9_]+)\s*=', line)
-    if m and not line.startswith("+++"):
-        added.append(m.group(1))
-
-# CHANGELOG_* stays English on purpose (CLAUDE.md), so it is not work.
-pending = [k for k in dict.fromkeys(added) if not k.startswith("CHANGELOG_")]
-if not pending:
-    raise SystemExit("Nothing changed in enUS since " + args.since + ".")
-
 en = io.open(os.path.join(REPO, "Locales/enUS.lua"), encoding="utf-8").read()
 strings = dict(re.findall(r'^\t([A-Z][A-Z0-9_]+)\s*=\s*"((?:[^"\\]|\\.)*)"', en, re.M))
+
+if args.prefix:
+    # ⚠️ Finishing an AREA, not a release. The --since question only ever sees strings
+    # added after a tag, which is exactly why 46 professions strings sat untranslated
+    # after the 22 Aug batch reported itself complete: they were older than v3.3.0 and
+    # so were never in scope. Asking by prefix has no such blind spot.
+    pres = tuple(p.strip() for p in args.prefix.split(",") if p.strip())
+    pending = sorted(k for k in strings if k.startswith(pres))
+    scope = "matching " + ", ".join(pres)
+else:
+    diff = subprocess.run(
+        ["git", "-C", REPO, "diff", args.since + "..HEAD", "--", "Locales/enUS.lua"],
+        capture_output=True, text=True, encoding="utf-8", errors="replace").stdout
+    added = []
+    for line in diff.splitlines():
+        m = re.match(r'\+\t([A-Z][A-Z0-9_]+)\s*=', line)
+        if m and not line.startswith("+++"):
+            added.append(m.group(1))
+    pending = list(dict.fromkeys(added))
+    scope = "changed since " + args.since
+
+# CHANGELOG_* stays English on purpose (CLAUDE.md), so it is not work.
+pending = [k for k in pending if not k.startswith("CHANGELOG_")]
+if not pending:
+    raise SystemExit("No strings " + scope + ".")
 
 # ---------------------------------------------------------------- ask the resolver
 lua = shutil.which("lua") or shutil.which("lua5.1") or shutil.which("lua54")
@@ -92,7 +107,7 @@ for line in probe.splitlines():
 # ---------------------------------------------------------------- report
 todo_chars = 0
 done_all = 0
-print("Changed in enUS since {}: {} strings\n".format(args.since, len(pending)))
+print("Strings {}: {}\n".format(scope, len(pending)))
 for key in pending:
     per = status.get(key, {})
     missing = [c for c in PACKS if per.get(c, "?") != "OK"]
