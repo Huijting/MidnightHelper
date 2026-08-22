@@ -1304,6 +1304,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh valeera — her delve progress. Normally it shows itself on entering a delve
+	-- and hides on leaving; this is for looking at it deliberately.
+	if msg == "valeera" then
+		if ns.ToggleValeeraPopup then
+			ns.ToggleValeeraPopup()
+		end
+		return
+	end
+
 	-- /mh course — the professions course in its own window, beside the game.
 	-- Inside the main window the chapter list only gets the height left under the
 	-- status block; here it gets the whole side.

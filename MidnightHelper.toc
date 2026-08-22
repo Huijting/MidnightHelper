@@ -173,6 +173,7 @@ Modules\StartHere.lua
 Modules\ProfessionAcademyData.lua
 Modules\ProfessionAcademy.lua
 Modules\ProfessionCourseWindow.lua
+Modules\ValeeraProgress.lua
 Modules\ProfessionGuidedData.lua
 Modules\ProfessionGuided.lua
 Modules\ProfessionsHub.lua

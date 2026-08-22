@@ -361,6 +361,19 @@ local function TryCaptureTier()
 	end
 end
 
+--- Public: which delve are you in right now, and at which tier.
+---
+--- Exported 22 Aug 2026 for the Valeera popup, which needs to know whether the run it
+--- is watching is bountiful. This file already resolves the name carefully (scenario
+--- text, then the POI list), and a second guess elsewhere would be a second thing to
+--- get wrong. Returns nil outside a delve.
+function ns.GetCurrentDelveRun()
+	if not runState.inDelve then
+		return nil
+	end
+	return runState.delveName, runState.tier
+end
+
 local function BeginDelveRun(name)
 	runState.inDelve = true
 	runState.delveName = name
