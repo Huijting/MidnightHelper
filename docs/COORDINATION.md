@@ -123,6 +123,34 @@ plaats van stil verwijderd** — de correctie is vaak nuttiger dan de oorspronke
 
 ---
 
+## 🧭 23 aug (avond) — reisadvies: twee implementaties, en een stokje dat viel
+
+Rob stond náást het Coiled-Isle-portaal, klikte een waypoint voor een delve óp dat eiland,
+en kreeg "vlieg van Sanctum of Light naar Tokka's Landing" met een pijl 8 km de zee op.
+
+Er ontbrak niets in de data: het portaal staat in `MIDNIGHT_PORTALS` met de juiste
+bestemming, zijn quest-poort stond groen (`/mh portals` bevestigde het), en de delve staat
+in ons eigen rooster op map 2512. **`BuildTravelPlan` probeert portalen vóór vliegen — het
+waypoint-pad vroeg het alleen nooit** en sprong regelrecht naar `GetNearestFlightPoint`.
+Twee implementaties van één vraag, en de kortste leverde het slechtste antwoord.
+
+Daarna bleek de pijl een tweede, apart gat te hebben. `RouteFirstToFlightPoint` raadpleegde
+de planner wél en trok zich netjes terug zodra de eerste stap op je huidige kaart staat —
+*"let the plan lead"*. Maar er leidde niemand: het bestemmings-waypoint was al eerder gezet
+en niet-verleggen liet het staan. Nu verlegt die stand-down hem zelf via
+`AddSmartTomTomWay`.
+
+📌 **Patroon om te onthouden, want dit is de derde keer deze week:** als tekst en pijl (of
+tekst en data) elkaar tegenspreken, zoek niet naar ontbrekende gegevens maar naar **twee
+plekken die dezelfde vraag beantwoorden**. Zo ging het ook bij de cursustekst
+(`ComposeChapterBody`) en bij de Leatherworking-route.
+
+⚠️ **Open gebleven en bewust niet half gebouwd:** wat de pijl doet nadat je door een portaal
+bent. Je komt aan met een verbruikte pijl — hetzelfde gat als in
+`route-arrow-no-resume` (22 jul). Eigen klus.
+
+---
+
 ## ✅ 23 aug (avond) — de vertaalronde is binnen, en de repo was even op slot
 
 **44 commits op `main`** (`9ad71f3..9da3cbc`), `luac` schoon, linter 0 hard / 0 soft.

@@ -390,6 +390,49 @@ local function ArrivedOnTargetMap()
 	return false
 end
 
+--- Arm the hand-off that gives the arrow back to the destination once leg one is
+--- done. Extracted 23 Aug 2026 because the portal redirect needs the same thing,
+--- and a second copy of a ticker that owns the on-screen arrow is precisely the
+--- duplication that produced tonight's other two bugs.
+local function StartLegWatcher()
+if C_Timer and C_Timer.NewTicker then
+	if legWatcher then
+		legWatcher:Cancel()
+	end
+	-- ⚠️ 1.5s, not 3. The interval is how long a stale arrow survives, and the whole
+	-- point of leg one is that the arrow tells the truth.
+	legWatcher = C_Timer.NewTicker(1.5, function()
+		if not pendingLeg then
+			ClearLeg()
+			return
+		end
+		-- ⚠️ BOARDING ENDS LEG ONE, not landing. Rob, 16 aug: on the taxi the arrow
+		-- kept pointing back at The Royal Exchange, a flight master he was sitting
+		-- on top of. Once you are on the bird that leg is finished by definition —
+		-- there is nothing left to walk to — so hand the arrow to the destination
+		-- now rather than at the far end. It also makes the flight itself useful:
+		-- you can see where you are going while you go there.
+		local onTaxi = false
+		if UnitOnTaxi then
+			local okT, v = pcall(UnitOnTaxi, "player")
+			onTaxi = okT and v or false
+		end
+		if not (onTaxi or ArrivedOnTargetMap()) then
+			return
+		end
+		local leg = pendingLeg
+		ClearLeg()
+		-- Leg two. Busy-flag set so this does not decide it needs a flight again
+		-- the moment it lands.
+		ns._mhTravelLegBusy = true
+		ns.AddSmartTomTomWay(leg.mapID, leg.x, leg.y, leg.name, true, false, false, 0)
+		ns._mhTravelLegBusy = nil
+		print(("|cffffcc00%s|r %s"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH",
+			(ns:L("WAY_LEG_ARRIVED")):format(tostring(leg.name or "?"))))
+	end)
+end
+end
+
 --- @return boolean true when the arrow was sent to a flight master instead
 function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 	targetMap, currentMap = tonumber(targetMap), tonumber(currentMap)
@@ -463,6 +506,16 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 						ns._mhTravelLegBusy = true
 						pcall(ns.AddSmartTomTomWay, s.mapID, s.x, s.y, s.label or name, true)
 						ns._mhTravelLegBusy = nil
+						--- And arm the same hand-off the flight leg uses, so the arrow
+						--- picks the destination back up on the far side instead of
+						--- being spent the moment you step through.
+						---
+						--- No `toName`: that field is the flight-point arrival test, and
+						--- a portal has no flight point. The map test alone is exactly
+						--- right here — coming out of this portal PUTS you on the target
+						--- map, which is the plainest arrival signal there is.
+						pendingLeg = { mapID = targetMap, x = x, y = y, name = name }
+						StartLegWatcher()
 					end
 					return false
 				end
@@ -490,42 +543,8 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 		(ns:L("WAY_LEG_TO_FLIGHT")):format(fromName), true, false, false, 0)
 	ns._mhTravelLegBusy = nil
 
-	if C_Timer and C_Timer.NewTicker then
-		if legWatcher then
-			legWatcher:Cancel()
-		end
-		-- ⚠️ 1.5s, not 3. The interval is how long a stale arrow survives, and the whole
-		-- point of leg one is that the arrow tells the truth.
-		legWatcher = C_Timer.NewTicker(1.5, function()
-			if not pendingLeg then
-				ClearLeg()
-				return
-			end
-			-- ⚠️ BOARDING ENDS LEG ONE, not landing. Rob, 16 aug: on the taxi the arrow
-			-- kept pointing back at The Royal Exchange, a flight master he was sitting
-			-- on top of. Once you are on the bird that leg is finished by definition —
-			-- there is nothing left to walk to — so hand the arrow to the destination
-			-- now rather than at the far end. It also makes the flight itself useful:
-			-- you can see where you are going while you go there.
-			local onTaxi = false
-			if UnitOnTaxi then
-				local okT, v = pcall(UnitOnTaxi, "player")
-				onTaxi = okT and v or false
-			end
-			if not (onTaxi or ArrivedOnTargetMap()) then
-				return
-			end
-			local leg = pendingLeg
-			ClearLeg()
-			-- Leg two. Busy-flag set so this does not decide it needs a flight again
-			-- the moment it lands.
-			ns._mhTravelLegBusy = true
-			ns.AddSmartTomTomWay(leg.mapID, leg.x, leg.y, leg.name, true, false, false, 0)
-			ns._mhTravelLegBusy = nil
-			print(("|cffffcc00%s|r %s"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH",
-				(ns:L("WAY_LEG_ARRIVED")):format(tostring(leg.name or "?"))))
-		end)
-	end
+	StartLegWatcher()
+
 	return true
 end
 
