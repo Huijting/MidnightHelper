@@ -1,6 +1,43 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-18 (23:50).** Dit is het eerste wat een nieuwe sessie leest.
+**Bijgewerkt 2026-08-23 (avond).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+
+## ✅ 3.5.0 UITGEBRACHT — tag `v3.5.0` staat op GitHub (23 aug)
+
+77 commits boven `v3.4.0`. De vijf talen zijn af, Valeera's voortgang in delves, portaal-
+bewust reisadvies. Description bijgewerkt. Linter 0/0.
+
+## 🔵 ROB VRAAGT — 24/25 aug (hij is twee dagen vrij)
+
+### 1. Tier set in jip-en-janneke-taal
+Wat het is, en hoe je het krijgt of maakt. Nieuw hoofdstuk-materiaal, zelfde toon als de
+professie-cursus: betekenis vóór het label, en veranker elk zelfverzonnen beeld.
+⚠️ Zoek eerst uit of het bij de **Codex** hoort of bij de **Academy** — niet allebei. Drie
+keer deze week was de oorzaak van een bug "twee plekken beantwoorden dezelfde vraag".
+
+### 2. 🔴 "Zijn onze spec-spells nog actueel in 12.1?" — MEET DIT, raad het niet
+`Modules/KeybindRoles_<Class>.lua`, 14 bestanden. **Laatst aangeraakt 4-7 aug 2026 —
+vóór 12.1 live ging.** Dus de vraag is terecht.
+
+**Maar het faalt maar op één manier, en dat bepaalt de meting.** Die data is geen spell-lijst
+maar een *rol-toewijzing over spells die de client bevestigt dat je ze hebt* (zie de commits
+van 4 aug: "only the ones you actually have", "Robs talenttree versloeg drie databronnen").
+Gevolg:
+
+- Een spell die 12.1 **verwijderd** heeft → verdwijnt vanzelf. Zelfherstellend, geen werk.
+- Een spell die 12.1 **toegevoegd/hernoemd** heeft → staat nergens en zegt niets. **Stil gat.**
+
+⚠️ Dus tellen hoeveel van onze spells nog bestaan bewijst niets — dat meet precies de kant
+die zichzelf al repareert. Zie [[silence-is-not-absence]]: dit is dezelfde vorm als de
+Valeera-fout van vanavond.
+
+**De meting die het wél beantwoordt:** loop Robs spellbook af en rapporteer de spells die
+**wij niet kennen**, per spec. Positieve controle in dezelfde run: de spells die we wél
+kennen moeten er ook uit komen, anders is de sonde stuk en niet de data. Schrijf naar
+`ns.db.<iets>` + `/reload`, dan lees ik het SV-bestand — geen screenshots van lange lijsten.
+
+⚠️ Rob speelt **Prot Paladin (66)**. Eén spec meten dekt één spec; zeg dat er dan bij in
+plaats van te doen alsof het over alle veertien gaat.
 
 ## 🔴 EERST MORGEN (21 aug) — wij dragen Rob op iets te doen dat niet kan
 
