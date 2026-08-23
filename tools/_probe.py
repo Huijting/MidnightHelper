@@ -1,64 +1,41 @@
-"""Scratch probe -- fixed path so the allowlist keeps matching (see CLAUDE.md).
+# -*- coding: utf-8 -*-
+"""Test the bash guard: does it block what it should and pass what it should?"""
+import json
+import subprocess
+import sys
 
-Does a sixth Midnight renown faction exist? MountProgress.lua lists five; a mount
-guide describes two mounts from a faction it calls "Zul'jara's Forces". Rob's client
-just dumped every Renown faction it knows into ns.db.atalProbe.factions.
+import os
 
-The count is the measurement, not the name -- that transcript writes Tokka's Landing
-as "Tucker's Landing".
-"""
+# ⚠️ Absolute. A missing script also exits 2, which is the guard's own "blocked" code —
+# so a wrong path reads as "everything is blocked" and the test lies in the safe-looking
+# direction. Same class as the earlier probe that reported keys as translated.
+GUARD = ["python", os.path.join(os.path.dirname(os.path.abspath(__file__)), "bash_guard.py")]
 
-import io
-import re
+CASES = [
+    # (command, should_be_blocked)
+    ('cd "E:/x" && git log --oneline v3.4.0..main | wc -l', True),
+    ('git log --oneline | wc -l', True),
+    ('ls; echo hi', True),
+    ('python -c "print(1)"', True),
+    ('cat <<EOF', True),
+    ('git -C "E:/World of Warcraft/_retail_/Interface/AddOns/MidnightHelper" status --short', False),
+    ('python tools/lint_addon.py', False),
+    ('luac -p Locales/enUS.lua', False),
+    ('git commit -F msg.txt', False),
+    # Quoted shell characters are data, not syntax.
+    ('git -C "E:/repo" commit -m "fixed A && B"', False),
+]
 
-SV = (r"E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER"
-      r"\SavedVariables\MidnightHelper.lua")
+fails = 0
+for cmd, expect_block in CASES:
+    payload = json.dumps({"tool_name": "Bash", "tool_input": {"command": cmd}})
+    p = subprocess.run(GUARD, input=payload, capture_output=True, text=True)
+    blocked = (p.returncode == 2)
+    ok = (blocked == expect_block)
+    if not ok:
+        fails += 1
+    print("{}  blocked={:<5} want={:<5}  {}".format(
+        "ok " if ok else "FAIL", str(blocked), str(expect_block), cmd[:58]))
 
-OURS = {
-    2696: "Amani",
-    2704: "Hara'ti",
-    2710: "Silvermoon",
-    2699: "Singularity",
-    2792: "Ritual",
-}
-
-text = io.open(SV, "r", encoding="utf-8", errors="replace").read()
-
-start = text.find('["factions"] = {')
-if start < 0:
-    raise SystemExit("no factions block in the SavedVariables")
-
-# Read forward until the block closes; entries are {id=, name=, renown=}.
-chunk = text[start:start + 20000]
-ENTRY = re.compile(
-    r'\["id"\]\s*=\s*(\d+),\s*\n\["name"\]\s*=\s*"([^"]*)",\s*\n\["renown"\]\s*=\s*(\d+)')
-
-rows = [(int(i), n, int(r)) for i, n, r in ENTRY.findall(chunk)]
-
-print("=" * 70)
-print("Renown-facties die de client kent: %d" % len(rows))
-print("=" * 70)
-
-# Midnight ids sit in the 26xx-27xx band; print everything above the TWW block so
-# nothing is filtered away on a guess about where the band starts.
-print("%-7s %-34s %s" % ("id", "naam", "renown"))
-print("-" * 70)
-for fid, name, renown in rows:
-    if fid < 2650:
-        continue
-    mark = ""
-    if fid in OURS:
-        mark = "  <-- wij: " + OURS[fid]
-    print("%-7d %-34s %-6d%s" % (fid, name, renown, mark))
-
-print()
-have = {fid for fid, _, _ in rows}
-missing = [f for f in OURS if f not in have]
-extra = [(fid, name) for fid, name, _ in rows if fid >= 2650 and fid not in OURS]
-
-print("Onze vijf, gevonden op de client : %d van 5" % (5 - len(missing)))
-if missing:
-    print("   NIET gevonden:", ", ".join("%d (%s)" % (f, OURS[f]) for f in missing))
-print("Facties >=2650 die wij NIET listen: %d" % len(extra))
-for fid, name in extra:
-    print("   %-7d %s" % (fid, name))
+print("\nfailures:", fails)
+sys.exit(1 if fails else 0)
