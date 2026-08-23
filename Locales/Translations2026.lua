@@ -2554,6 +2554,12 @@ fill("esES", { WAY_PORTAL_HINT = "Coge %s — más rápido que volar, y puedes u
 fill("ptBR", { WAY_PORTAL_HINT = "Pegue %s — mais rápido que voar, e você pode usá-lo." })
 fill("itIT", { WAY_PORTAL_HINT = "Prendi %s — più veloce che volare, e puoi usarlo." })
 
+-- ⚠️ The reworded Valeera strings do NOT live here. They already existed further down, in
+-- each language's own section, and fill() is fill-only: a second copy up here would win and
+-- silently kill the checked ones below. The linter caught exactly that (10 HARD).
+-- They also each use their own word for Delves -- Tiefen in German, Gouffres in French,
+-- delve(s) in the rest -- which a fresh block written in one sitting would have flattened.
+
 -- Season 2's date became official on 30 jul (Blizzard, "Midnight Season 2 Begins
 -- August 18"), so this line may finally name it. Blizzard's own wording is "week
 -- of", and that is kept on purpose: the US reset falls on Tuesday and the European
@@ -5630,8 +5636,10 @@ fill("deDE", {
 	TRANSLATE_NUDGE_BODY = "Es gibt noch kein %s-Paket — willst du beim Übersetzen helfen? Bis dahin bleibt es Englisch.",
 	TRANSLATE_NUDGE_BTN = "Beim Übersetzen helfen",
 	TRANSLATE_NUDGE_TITLE = "Midnight Helper in deiner Sprache?",
-	VALEERA_LEFT_RUNS_FMT = "Noch %s — etwa %d Bountiful-Tiefen. (An deinen eigenen Läufen gemessen: ~%s pro Lauf, über %d.)",
-	VALEERA_LEFT_UNMEASURED_FMT = "Noch %s, und nur |cffffffffBountiful|r-Tiefen zahlen darauf ein. Schließ eine ab, dann messe ich, was ein Lauf wert ist, und sage es dir danach in Läufen statt in Punkten.",
+	VALEERA_LEFT_RUNS_FMT = "Noch %s — etwa %d Bountiful-Tiefen, nach deinen letzten %d (~%s pro Lauf).",
+	VALEERA_LEFT_RUNS_RANGE_FMT = "Noch %s — zwischen %d und %d Bountiful-Tiefen. Deine letzten %d gaben %s bis %s: Was ein Lauf wert ist, machen die Tiefe und deine Fundstücke aus.",
+	VALEERA_LEFT_UNMEASURED_FMT = "Noch %s, und nur |cffffffffBountiful|r-Tiefen zahlen darauf ein. Wie viel eine bringt, hängt von der Tiefe ab und davon, was du unterwegs aufsammelst — lauf ein paar, dann steht hier die Spanne aus deinen eigenen.",
+	VALEERA_OFF_HINT = "Valeeras Tiefen-Fenster ist aus. Mit |cffffff00/mh valeera|r oder über die Karte \"Pop-out windows\" kommt es zurück.",
 	VALEERA_LEVEL = "Stufe",
 	VALEERA_MAXED = "am Maximum — hier gibt es nichts mehr zu holen.",
 	VALEERA_UNREADABLE = "Valeeras Fortschritt lässt sich gerade nicht auslesen.",
@@ -6003,8 +6011,10 @@ fill("frFR", {
 	TRANSLATE_NUDGE_BODY = "Il n'y a pas encore de pack %s — envie d'aider à le traduire ? Ça reste en anglais jusque-là.",
 	TRANSLATE_NUDGE_BTN = "Aider à traduire",
 	TRANSLATE_NUDGE_TITLE = "Midnight Helper dans ta langue ?",
-	VALEERA_LEFT_RUNS_FMT = "%s restant — environ %d Gouffres abondants. (Mesuré sur tes propres runs : ~%s chacun, sur %d.)",
-	VALEERA_LEFT_UNMEASURED_FMT = "%s restant, et seuls les gouffres |cffffffffBountiful|r y ajoutent. Termines-en un et je mesurerai ce que vaut un run, puis je te le dirai en runs plutôt qu'en points.",
+	VALEERA_LEFT_RUNS_FMT = "%s restant — environ %d Gouffres abondants, d'après tes %d derniers (~%s chacun).",
+	VALEERA_LEFT_RUNS_RANGE_FMT = "%s restant — entre %d et %d Gouffres abondants. Tes %d derniers ont donné de %s à %s : ce que vaut un run dépend du gouffre et de ce que tu ramasses.",
+	VALEERA_LEFT_UNMEASURED_FMT = "%s restant, et seuls les gouffres |cffffffffBountiful|r y ajoutent. Ce qu'un run rapporte dépend du gouffre et de ce que tu ramasses en chemin — fais-en quelques-uns et l'écart de tes propres runs s'affichera ici.",
+	VALEERA_OFF_HINT = "La fenêtre de Valeera est désactivée. Pour la revoir : |cffffff00/mh valeera|r ou la carte \"Pop-out windows\".",
 	VALEERA_LEVEL = "Niveau",
 	VALEERA_MAXED = "au maximum — plus rien à gagner ici.",
 	VALEERA_UNREADABLE = "La progression de Valeera ne peut pas être lue en ce moment.",
@@ -6384,8 +6394,10 @@ fill("esES", {
 	TRANSLATE_NUDGE_BODY = "Aún no hay paquete de %s — ¿quieres ayudar a traducirlo? Hasta entonces se queda en inglés.",
 	TRANSLATE_NUDGE_BTN = "Ayudar a traducir",
 	TRANSLATE_NUDGE_TITLE = "¿Midnight Helper en tu idioma?",
-	VALEERA_LEFT_RUNS_FMT = "Falta %s — unos %d delves bountiful. (Medido con tus propios runs: ~%s cada uno, sobre %d.)",
-	VALEERA_LEFT_UNMEASURED_FMT = "Falta %s, y solo los delves |cffffffffBountiful|r suman. Termina uno y mediré cuánto vale un run, y así te lo diré en runs en vez de en puntos.",
+	VALEERA_LEFT_RUNS_FMT = "Falta %s — unos %d delves bountiful, según tus últimos %d (~%s cada uno).",
+	VALEERA_LEFT_RUNS_RANGE_FMT = "Falta %s — entre %d y %d delves bountiful. Tus últimos %d dieron de %s a %s: lo que vale un run depende del delve y de lo que recojas.",
+	VALEERA_LEFT_UNMEASURED_FMT = "Falta %s, y solo los delves |cffffffffBountiful|r suman. Cuánto da cada uno depende del delve y de lo que recojas por el camino — haz unos cuantos y aquí verás el margen de los tuyos.",
+	VALEERA_OFF_HINT = "La ventana de Valeera está desactivada. Vuelve a abrirla con |cffffff00/mh valeera|r o desde la tarjeta \"Pop-out windows\".",
 	VALEERA_LEVEL = "Nivel",
 	VALEERA_MAXED = "al máximo — aquí ya no queda nada que ganar.",
 	VALEERA_UNREADABLE = "Ahora mismo no se puede leer el progreso de Valeera.",
@@ -6761,8 +6773,10 @@ fill("ptBR", {
 	TRANSLATE_NUDGE_BODY = "Ainda não existe um pacote de %s — quer ajudar a traduzir? Até lá ele fica em inglês.",
 	TRANSLATE_NUDGE_BTN = "Ajude a traduzir",
 	TRANSLATE_NUDGE_TITLE = "Midnight Helper no seu idioma?",
-	VALEERA_LEFT_RUNS_FMT = "Faltam %s — cerca de %d delves bountiful. (Medido nas suas próprias runs: ~%s cada, em %d.)",
-	VALEERA_LEFT_UNMEASURED_FMT = "Faltam %s, e só delves |cffffffffBountiful|r contam para isso. Termine um e eu meço quanto vale uma run, e aí digo em runs em vez de pontos.",
+	VALEERA_LEFT_RUNS_FMT = "Faltam %s — cerca de %d delves bountiful, pelas suas últimas %d (~%s cada).",
+	VALEERA_LEFT_RUNS_RANGE_FMT = "Faltam %s — entre %d e %d delves bountiful. As suas últimas %d renderam de %s a %s: o valor de uma run depende do delve e do que você pega.",
+	VALEERA_LEFT_UNMEASURED_FMT = "Faltam %s, e só delves |cffffffffBountiful|r contam para isso. O quanto cada um dá depende do delve e do que você pega pelo caminho — faça algumas e aqui aparece a faixa das suas.",
+	VALEERA_OFF_HINT = "A janela da Valeera está desligada. Traga de volta com |cffffff00/mh valeera|r ou pelo cartão \"Pop-out windows\".",
 	VALEERA_LEVEL = "Nível",
 	VALEERA_MAXED = "no máximo — não sobrou nada para ganhar aqui.",
 	VALEERA_UNREADABLE = "Não dá para ler o progresso de Valira agora.",
@@ -7168,8 +7182,10 @@ fill("itIT", {
 	TRANSLATE_NUDGE_BODY = "Non c'è ancora un pacchetto %s — vuoi aiutare a tradurlo? Fino ad allora resta in inglese.",
 	TRANSLATE_NUDGE_BTN = "Aiuta a tradurre",
 	TRANSLATE_NUDGE_TITLE = "Midnight Helper nella tua lingua?",
-	VALEERA_LEFT_RUNS_FMT = "Mancano %s — circa %d bountiful delve. (Misurato sulle tue run: ~%s ciascuna, su %d.)",
-	VALEERA_LEFT_UNMEASURED_FMT = "Mancano %s, e solo le delve |cffffffffBountiful|r ci contribuiscono. Finiscine una e misurerò quanto vale una run, poi te lo dirò in run invece che in punti.",
+	VALEERA_LEFT_RUNS_FMT = "Mancano %s — circa %d bountiful delve, in base alle tue ultime %d (~%s ciascuna).",
+	VALEERA_LEFT_RUNS_RANGE_FMT = "Mancano %s — tra %d e %d bountiful delve. Le tue ultime %d hanno dato da %s a %s: quanto vale una run dipende dalla delve e da cosa raccogli.",
+	VALEERA_LEFT_UNMEASURED_FMT = "Mancano %s, e solo le delve |cffffffffBountiful|r ci contribuiscono. Quanto rende una dipende dalla delve e da cosa raccogli lungo il percorso — falne qualcuna e qui vedrai l'intervallo delle tue.",
+	VALEERA_OFF_HINT = "La finestra di Valeera è disattivata. Riportala con |cffffff00/mh valeera|r o dalla scheda \"Pop-out windows\".",
 	VALEERA_LEVEL = "Livello",
 	VALEERA_MAXED = "al massimo — non c'è più nulla da guadagnare qui.",
 	VALEERA_UNREADABLE = "I progressi di Valeera non si riescono a leggere in questo momento.",

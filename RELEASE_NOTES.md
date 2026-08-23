@@ -33,7 +33,11 @@ The tool that checks this used to ask whether a key existed in a pack and call t
 
 Her progress now shows while you are in one: where she is, and what the bar in front of you cannot tell you — what a bountiful run is actually worth, measured from your own recent runs rather than from a number someone posted.
 
+And it does not pretend that number is fixed. A run is worth what the delve and your pickups make it, so once your runs disagree the popup gives you the range instead of a single tidy figure. Nobody has measured how much that varies, and inventing a precision is worse than admitting the spread.
+
 She is also given a reason rather than an instruction. Healer is the recommendation, and the reason it is a recommendation differs depending on what you play, so it now says the one that applies to you.
+
+The X closes it for good, not just for that delve. `/mh valeera` or the Pop-out windows card brings it back, and it says so in chat when you close it.
 
 ## Standing next to a portal and being told to fly
 

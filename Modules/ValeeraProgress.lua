@@ -80,20 +80,29 @@ local function GetValeera()
 	}
 end
 
---- Average XP a bountiful run has actually given THIS character, or nil.
+--- What bountiful runs have actually given THIS character: average, count, lowest, highest.
 --- Kept as a list rather than a running average so one odd run can be seen and,
 --- if it ever matters, thrown out — an average hides the run that disagrees.
-local function BountifulAverage()
+---
+--- ⚠️ AND THE SPREAD IS REPORTED, NOT JUST THE AVERAGE. Rob asked the right question from
+--- inside a bountiful delve on 23 aug: does the gain not depend on which delve you run and
+--- how many boons you pick up along the way? It was never measured either way — 20 aug
+--- established only that bountiful delves are the ones that count, not that they all count
+--- the same. Printing one averaged figure as "about 6 runs" turns a variable into a rate
+--- and invents a precision nobody checked. So when the runs disagree, the sentence says so.
+local function BountifulStats()
 	local s = Settings()
 	local runs = s.bountifulGains
 	if type(runs) ~= "table" or #runs == 0 then
 		return nil
 	end
-	local total = 0
+	local total, lo, hi = 0, nil, nil
 	for _, v in ipairs(runs) do
 		total = total + v
+		lo = (lo == nil or v < lo) and v or lo
+		hi = (hi == nil or v > hi) and v or hi
 	end
-	return math.floor(total / #runs + 0.5), #runs
+	return math.floor(total / #runs + 0.5), #runs, lo, hi
 end
 
 local function BuildText()
@@ -117,17 +126,24 @@ local function BuildText()
 		pct)
 
 	-- The half a bar cannot say.
-	local avg, runs = BountifulAverage()
+	local avg, runs, lo, hi = BountifulStats()
+	local big = BreakUpLargeNumbers or function(n) return n end
 	local tail
 	if avg and avg > 0 then
-		tail = L("VALEERA_LEFT_RUNS_FMT"):format(
-			BreakUpLargeNumbers and BreakUpLargeNumbers(left) or left,
-			math.max(math.ceil(left / avg), 1),
-			BreakUpLargeNumbers and BreakUpLargeNumbers(avg) or avg,
-			runs)
+		-- One run tells you nothing about the spread, so a range needs at least two runs
+		-- that genuinely disagree. A tenth apart is noise; beyond that it is the delve.
+		if runs >= 2 and hi > lo * 1.1 then
+			tail = L("VALEERA_LEFT_RUNS_RANGE_FMT"):format(
+				big(left),
+				math.max(math.ceil(left / hi), 1),   -- best case: the richest runs
+				math.max(math.ceil(left / lo), 1),   -- worst case: the leanest
+				runs, big(lo), big(hi))
+		else
+			tail = L("VALEERA_LEFT_RUNS_FMT"):format(
+				big(left), math.max(math.ceil(left / avg), 1), runs, big(avg))
+		end
 	else
-		tail = L("VALEERA_LEFT_UNMEASURED_FMT"):format(
-			BreakUpLargeNumbers and BreakUpLargeNumbers(left) or left)
+		tail = L("VALEERA_LEFT_UNMEASURED_FMT"):format(big(left))
 	end
 	return head .. "\n" .. tail, (span > 0) and (into / span) or 0
 end
@@ -195,9 +211,21 @@ local function Build()
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -2, -2)
 	close:SetScript("OnClick", function()
-		-- Dismissed for THIS delve only; entering the next one shows it again.
-		f._userDismissed = true
+		-- ⚠️ The X used to mean "this delve only", and it reset on the way out. For anyone
+		-- who simply does not want the popup that is not a close button, it is a chore
+		-- repeated every single delve -- the same "it is always there" complaint this
+		-- feature was built to answer, wearing a different hat (Rob, 23 aug).
+		-- So closing it means closing it. And it says how to get it back, in chat, because
+		-- a setting nobody can find is the same as no setting.
+		Settings().off = true
 		f:Hide()
+		-- ns:PrintChat, colon-declared in Locales/Locale.lua. ns.Print does not exist --
+		-- I wrote it from memory and grep caught it, which is the whole reason for the rule.
+		if ns.PrintChat then
+			ns:PrintChat(L("VALEERA_OFF_HINT"))
+		else
+			print(L("VALEERA_OFF_HINT"))
+		end
 	end)
 
 	local text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -232,9 +260,11 @@ end
 function ns.ToggleValeeraPopup()
 	local f = Build()
 	if f:IsShown() then
+		Settings().off = true
 		f:Hide()
 	else
-		f._userDismissed = false
+		-- Asking for it by hand is the way back in after the X.
+		Settings().off = false
 		f:Show()
 		Refresh()
 	end
@@ -304,16 +334,17 @@ local function Tick()
 			local okB, res = pcall(ns.IsDelveBountiful, name)
 			bountiful = (okB and res) and true or false
 		end
+		-- The snapshot is taken whether or not the popup is shown: someone who turned it
+		-- off still gets a correct measurement waiting for them if they turn it back on.
 		enterSnapshot = v and { cur = v.cur, bountiful = bountiful } or nil
-		local f = Build()
-		if not f._userDismissed then
+		if not Settings().off then
+			local f = Build()
 			f:Show()
 			Refresh()
 		end
 	elseif not inDelve and wasInDelve then
 		OnLeftDelve()
 		if frame then
-			frame._userDismissed = false
 			frame:Hide()
 		end
 	elseif inDelve and frame and frame:IsShown() then

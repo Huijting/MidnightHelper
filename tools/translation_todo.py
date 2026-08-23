@@ -77,6 +77,7 @@ SETTLED = {
     "PROFACAD_ADVISE_GOAL_LINE_FMT": (("nlNL",), "'root' is deliberate nlNL vocabulary"),
     "PROFGUIDE_BTN_OPEN_BROWSER":    (("nlNL",), "'Open in browser' is identical in Dutch"),
     "PROFHUB_GOAL_ALLROUND":         (("nlNL",), "'Allround' is a Dutch word"),
+    "VALEERA_LEVEL":                 (("nlNL",), "game term; Dutch players say 'level'"),
 }
 
 
