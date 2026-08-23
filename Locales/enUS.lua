@@ -880,6 +880,7 @@ ns._mhLocales.enUS = {
 	PROFACAD_CHOICES_HEADER = "Individual nodes inside your trees that are not full yet:",
 	PROFACAD_CHOICES_HEADER_MORE_FMT = "Individual nodes inside your trees that are not full yet (%d of %d):",
 	PROFACAD_CHOICE_FMT = "%s (%d/%d)",
+	PROFACAD_ADVISE_LOCKED = "No specialization can take points yet, so there is nothing to advise. Raise the skill first - the first choice opens at 25. Your Knowledge keeps until then; none of it is being wasted.",
 	PROFACAD_ADVISE_DONE = "Advice: the recommended roots are done.",
 	PROFHUB_TAB_OVERVIEW = "Overview",
 	PROFHUB_TAB_TREASURES = "Treasures & Books",

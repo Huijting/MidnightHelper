@@ -836,6 +836,7 @@ ns._mhLocales.nlNL = {
 	PROFACAD_CHOICES_HEADER = "Losse nodes in je trees die nog niet vol zijn:",
 	PROFACAD_CHOICES_HEADER_MORE_FMT = "Losse nodes in je trees die nog niet vol zijn (%d van %d):",
 	PROFACAD_CHOICE_FMT = "%s (%d/%d)",
+	PROFACAD_ADVISE_LOCKED = "Er kan nog geen enkele specialisatie punten aannemen, dus valt er niets te adviseren. Werk eerst je skill omhoog — de eerste keuze gaat open op 25. Je Knowledge blijft tot dan gewoon staan; er gaat niets verloren.",
 	PROFACAD_ADVISE_DONE = "Advies: de aanbevolen roots zijn klaar.",
 	PROFHUB_TAB_OVERVIEW = "Overzicht",
 	PROFHUB_TAB_TREASURES = "Treasures & Books",

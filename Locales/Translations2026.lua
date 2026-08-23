@@ -3986,6 +3986,7 @@ fill("itIT", {
 fill("deDE", {
 	PROFACAD_ADVISE_NODE_FINISH_FMT = "Darüber hinaus gibt es keine geprüfte nächste Wahl. Deine bisherigen Punkte sind in %s (%d/%d) gegangen.",
 	PROFACAD_ADVISE_NODE_FMT = "Tipp: steck deine nächsten Punkte in %s (%d/%d).",
+	PROFACAD_ADVISE_LOCKED = "Noch kann keine Spezialisierung Punkte aufnehmen, also gibt es nichts zu raten. Steigere zuerst die Fertigkeit — die erste Wahl öffnet bei 25. Dein Wissen bleibt bis dahin erhalten; nichts davon verfällt.",
 	PROFACAD_ADVISE_SEE_COURSE = "Öffne oben Kurs (101): dort steht, welcher Zweig es ist und warum.",
 	PROFACAD_BTN_GLAMOUR = "Route zu Jennara Sonnenglanz (+24 Wissen)",
 	PROFACAD_CH_ALCHEMY_INTRO = "Alchemie stellt die Tränke und Fläschchen her, die vor jedem Boss getrunken werden — Nachfrage gibt es also immer. Dein erster Schritt ist schlicht: weiterbrauen, während deine Fertigkeit steigt.",
@@ -4022,6 +4023,7 @@ fill("deDE", {
 fill("frFR", {
 	PROFACAD_ADVISE_NODE_FINISH_FMT = "Pas de suite vérifiée au-delà. Jusqu'ici, tes points sont allés dans %s (%d/%d).",
 	PROFACAD_ADVISE_NODE_FMT = "Conseil : mets tes prochains points dans %s (%d/%d).",
+	PROFACAD_ADVISE_LOCKED = "Aucune spécialisation ne peut encore recevoir de points, il n'y a donc rien à conseiller. Monte d'abord la compétence — le premier choix s'ouvre à 25. Ton Savoir reste acquis jusque-là ; rien n'est perdu.",
 	PROFACAD_ADVISE_SEE_COURSE = "Ouvre Cours (101) ci-dessus : il nomme la branche et explique pourquoi.",
 	PROFACAD_BTN_GLAMOUR = "Itinéraire vers Jennara Soléclat (+24 points de connaissance)",
 	PROFACAD_CH_ALCHEMY_INTRO = "L'Alchimie fabrique les potions et les flacons que tout le monde boit avant chaque boss : la demande ne s'arrête jamais. Ta première étape, c'est simplement de continuer à distiller pendant que ta Compétence monte.",
@@ -4057,6 +4059,7 @@ fill("frFR", {
 fill("esES", {
 	PROFACAD_ADVISE_NODE_FINISH_FMT = "Más allá de esto no hay una siguiente elección verificada. Tus puntos hasta ahora han ido a %s (%d/%d).",
 	PROFACAD_ADVISE_NODE_FMT = "Consejo: mete tus próximos puntos en %s (%d/%d).",
+	PROFACAD_ADVISE_LOCKED = "Todavía ninguna especialización puede recibir puntos, así que no hay nada que aconsejar. Sube primero la habilidad: la primera elección se abre a 25. Tu Conocimiento se conserva hasta entonces; no se pierde nada.",
 	PROFACAD_ADVISE_SEE_COURSE = "Abre arriba Curso (101): ahí se nombra la rama y se explica por qué.",
 	PROFACAD_BTN_GLAMOUR = "Ruta a Jennara Brillosol (+24 de conocimiento)",
 	PROFACAD_CH_ALCHEMY_INTRO = "La Alquimia hace las pociones y los frascos que todo el mundo bebe antes de cada jefe, así que siempre hay demanda. Tu primer paso es sencillamente seguir fabricando mientras sube tu habilidad.",
@@ -4092,6 +4095,7 @@ fill("esES", {
 fill("ptBR", {
 	PROFACAD_ADVISE_NODE_FINISH_FMT = "Daqui em diante não há próxima escolha verificada. Seus pontos até agora foram para %s (%d/%d).",
 	PROFACAD_ADVISE_NODE_FMT = "Conselho: coloque seus próximos pontos em %s (%d/%d).",
+	PROFACAD_ADVISE_LOCKED = "Nenhuma especialização pode receber pontos ainda, então não há o que aconselhar. Suba primeiro a habilidade — a primeira escolha abre em 25. Seu Conhecimento fica guardado até lá; nada se perde.",
 	PROFACAD_ADVISE_SEE_COURSE = "Abra Curso (101) acima: ele nomeia o ramo e explica o porquê.",
 	PROFACAD_BTN_GLAMOUR = "Rota para Jennara Rubrossol (+24 de Conhecimento)",
 	PROFACAD_CH_ALCHEMY_INTRO = "A Alquimia faz as poções e os frascos que todo mundo bebe antes de cada chefe, então a demanda nunca acaba. Seu primeiro passo é simplesmente continuar fabricando enquanto a sua perícia sobe.",
@@ -4137,6 +4141,7 @@ fill("itIT", {
 	PGUIDE_STEP_FMT = "Passo %d di %d  •  %d fatti",
 	PROFACAD_ADVISE_NODE_FINISH_FMT = "Oltre a questo non c'è una scelta successiva verificata. I punti che hai speso finora sono andati in %s (%d/%d).",
 	PROFACAD_ADVISE_NODE_FMT = "Consiglio: metti i prossimi punti in %s (%d/%d).",
+	PROFACAD_ADVISE_LOCKED = "Nessuna specializzazione può ancora ricevere punti, quindi non c'è nulla da consigliare. Alza prima l'abilità: la prima scelta si apre a 25. La tua Conoscenza resta lì fino ad allora; non si perde nulla.",
 	PROFACAD_ADVISE_SEE_COURSE = "Apri Corso (101) qui sopra: dice qual è il ramo e spiega perché.",
 	PROFACAD_BTN_GLAMOUR = "Percorso verso Jennara Irasolare (+24 Conoscenza)",
 	PROFACAD_CH_ALCHEMY_INTRO = "L'Alchimia fa le pozioni e i tonici che tutti bevono prima di ogni boss, quindi la domanda non manca mai. Il tuo primo passo è semplicemente continuare a preparare mentre la tua Competenza sale.",

@@ -534,6 +534,15 @@ local function CanSpendKnowledge(midnightSkillLineID)
 	return false
 end
 
+--- ⚠️ EXPORTED BECAUSE ASKING IT TWICE IS HOW THIS BUG SURVIVED. The 21 aug fix taught the
+--- This Week line about the lock and left the Professions 101 advice line saying "next
+--- points into Nimble Needlework" to the same player, on the same character, with every
+--- specialization padlocked. Rob found it on 23 aug and asked what HE was doing wrong.
+--- Two places answering one question, and the unfixed one shipping the worse answer -- the
+--- fourth time that shape caused a bug this week. So there is one implementation and every
+--- caller reaches it through here, rather than a copy that can drift.
+ns.MH_CanSpendKnowledge = CanSpendKnowledge
+
 --------------------------------------------------------------------------------
 -- Tracker row icons: quest completion is the only source of truth for the glyph
 --------------------------------------------------------------------------------

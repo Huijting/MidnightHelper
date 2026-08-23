@@ -269,6 +269,24 @@ end
 --- (2026-07-22). So the location left the sentence and became a pointer the caller
 --- adds only where it is actually true.
 local function BuildAdviceLine(skillLine, summary, withPointer, midnightLine)
+	-- 🔴 BEFORE ANY ADVICE: can this player spend at all? Every branch below tells them
+	-- where to put points, and on a profession whose specializations are still padlocked
+	-- behind a skill requirement there is nowhere to put them. Rob hit exactly that on
+	-- 23 aug -- 84 Knowledge on Tailoring, nothing started, and this line cheerfully
+	-- naming a root -- and his first thought was that HE was doing something wrong.
+	-- That is the cost of unactionable advice: the player doubts themselves, not us.
+	--
+	-- ⚠️ The same lock is asked via ns.MH_CanSpendKnowledge rather than re-derived here.
+	-- This bug exists because the 21 aug fix landed in ProfessionNextStep only; a second
+	-- copy of the test would set that up to happen again.
+	-- nil means unreadable, and then the advice stands rather than a guess either way.
+	if midnightLine and ns.MH_CanSpendKnowledge then
+		local ok, canSpend = pcall(ns.MH_CanSpendKnowledge, midnightLine)
+		if ok and canSpend == false then
+			return "|cffaaaaaa" .. SL("PROFACAD_ADVISE_LOCKED") .. "|r"
+		end
+	end
+
 	local advice, points, goals = GetAdviceForProf(skillLine, summary)
 	local text
 	if advice == false then
@@ -362,7 +380,17 @@ local function BuildProfsText(profs, summaries, withPointer)
 				-- claiming these are "open": GetProfessionSpecNodes walks every tree
 				-- and returns whatever is not full yet, without ever checking whether
 				-- the player can buy it right now.
-				if (s.unspent or 0) > 0 and ns.GetProfessionNodeChoices then
+				-- 🔴 And not while the trees are locked. The comment above already admits
+				-- this list never checks whether a node can be bought; with every
+				-- specialization padlocked that is not a caveat but four nodes offered to
+				-- someone who cannot buy any of them, directly under a line that just
+				-- said so. Same lock, same single implementation.
+				local locked = false
+				if s.midnightLine and ns.MH_CanSpendKnowledge then
+					local okL, canSpend = pcall(ns.MH_CanSpendKnowledge, s.midnightLine)
+					locked = (okL and canSpend == false)
+				end
+				if not locked and (s.unspent or 0) > 0 and ns.GetProfessionNodeChoices then
 					local okC, choices, total = pcall(ns.GetProfessionNodeChoices, s.midnightLine, 4)
 					if okC and type(choices) == "table" and #choices > 0 then
 						local header = SL("PROFACAD_CHOICES_HEADER")
