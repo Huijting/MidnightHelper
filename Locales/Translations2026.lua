@@ -3491,8 +3491,8 @@ fill("ptBR", {
 
 fill("itIT", {
 	ACH_NOTE_STRANGER = "Sotto il ponte, non sopra — il memoriale sta al di sotto della passerella, quindi un percorso che ti lascia sopra farà sembrare che non ci sia nulla.",
-	CAMPAIGN_VAULTS_NAME = "Catena delle Segrete di Atal'utek",
-	HOME_SECTION_VAULTS = "Novità: le Segrete di Atal'utek",
+	CAMPAIGN_VAULTS_NAME = "Catena delle Segrete di Atal'Utek",
+	HOME_SECTION_VAULTS = "Novità: le Segrete di Atal'Utek",
 	HOME_VAULTS_AVAILABLE = "Tre missioni aprono le Segrete, sull'Isola Serpeggiante — una zona con una currency propria, dodici memoriali e tre obiettivi. Non le hai ancora iniziate.",
 	HOME_VAULTS_INPROGRESS = "Sei a metà della catena delle Segrete — completala e l'intera zona si apre.",
 	HOME_VAULTS_ROUTE_BTN = "Segui la missione attuale delle Segrete",
@@ -3630,7 +3630,7 @@ fill("itIT", {
 	ICV_WHERE_MEDJAI = "Lato est del Profaned Mausoleum - a sinistra dopo l'ingresso, in una cassa su una mensola.",
 	ICV_SPOTS_PREFIX = "Nove punti in cui può trovarsi:",
 	ICV_ALSO_CALLED = "Altrove chiamato:",
-	ICV_DISPUTE_MEDJAI = "Le fonti si contraddicono sulla seconda opzione: noi abbiamo scritto 'rialzarti subito se muori fuori dalle Segrete', Icy Veins la chiama una resurrezione istantanea dentro Atal'utek. Nessuno l'ha misurata.",
+	ICV_DISPUTE_MEDJAI = "Le fonti si contraddicono sulla seconda opzione: noi abbiamo scritto 'rialzarti subito se muori fuori dalle Segrete', Icy Veins la chiama una resurrezione istantanea dentro Atal'Utek. Nessuno l'ha misurata.",
 	ICV_SOURCE_NOTE = "Fonti e coordinate da Icy Veins, 16 ago - una sola fonte, non ancora verificata in gioco. La Feather of Tok'jara è l'eccezione: le nostre note di luglio danno gli stessi due numeri.",
 
 	HAZARD_SECTION_FMT = "Non restare qui dentro (%s)",
@@ -5077,7 +5077,7 @@ fill("itIT", {
 	ACADEMY_PREF_DPS_INTERRUPT = "Il mio interrupt assegnato a un tasto (provato una volta sul dummy)",
 	ACADEMY_PREF_DPS_ROTATION = "Abilità principali su tasti facili da raggiungere",
 	ACADEMY_TRACK_DPS = "Percorso DPS",
-	ACH_LORE_HONORED_DEAD = "Morti da onorare (Segrete di Atal'utek)",
+	ACH_LORE_HONORED_DEAD = "Morti da onorare (Segrete di Atal'Utek)",
 	ACH_META_PREVIEW_HINT = "Clicca: anteprima della cavalcatura",
 	ACH_MIX_RECIPE_FMT = "Servono: %s",
 	ACH_NOTE_BRINE_CRUSTED = "Bloccato. Apri un Bivalve Ribollente per una perla, poi mettila sulla freccia a terra accanto all'NPC - è lei che lascia cadere la chiave. Se nessun bivalve si apre, la perla ce l'hai già.",
@@ -6774,7 +6774,7 @@ fill("itIT", {
 	BINDING_NAME_CLEARROUTE = "Cancella il percorso / la freccia attivi",
 	CAMPAIGN_ULATEK_NAME = "Campagna Curse of Ula'tek",
 	CAMPAIGN_ULATEK_REWARD_MOUNT = "Dusk Grimlynx (cavalcatura)",
-	CAMPAIGN_VAULTS_STARTQUEST = "Nelle Segrete di Atal'utek",
+	CAMPAIGN_VAULTS_STARTQUEST = "Nelle Segrete di Atal'Utek",
 	CHARPANEL_ALLGOOD = "L'equipaggiamento sembra completo. Ottimo.",
 	CHARPANEL_ENCH_FMT = "%d slot senza enchant",
 	CHARPANEL_SOCKET_FMT = "%d socket vuoti",
