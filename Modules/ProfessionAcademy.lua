@@ -908,9 +908,32 @@ function ns.BuildProfessionAcademyPanel(panel)
 	--- past every chapter before it, so better content had made the course less
 	--- usable. The fix is navigation, not more room — a second window the same size
 	--- would hold the same 355 lines.
+	--- 🔴 "Full course" used to be THIS button's on-state label, and it lied by being
+	--- reasonable. Rob read it as "open the whole course" -- which is exactly what the
+	--- pop-out window does -- clicked it, and got the same cramped panel with the contents
+	--- rail switched off (23 aug). He said he had expected the window instead.
+	---
+	--- The window was built for precisely his complaint, and until now nothing on this page
+	--- opened it: it lived behind /mh course and the Pop-out windows card, neither of which
+	--- you are looking at while you are reading a chapter. Same lesson as the starter builds
+	--- nobody could find -- if the person who commissioned it does not find it, no beginner
+	--- will. So the label that misled him now does the thing he expected, and the toggle
+	--- below says what it actually toggles.
+	local windowBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	windowBtn:SetSize(130, 22)
+	windowBtn:SetPoint("TOPRIGHT", guideBtn, "TOPLEFT", -6, 0)
+	windowBtn:SetText(SL("PROFACAD_BTN_FULL_COURSE"))
+	windowBtn:SetScript("OnClick", function()
+		if ns.ToggleProfessionCourseWindow then
+			ns.ToggleProfessionCourseWindow()
+		end
+	end)
+
+	-- 150 rather than 130: the off-state label went from one word to two, and the widest
+	-- translation ("Inhalt ausblenden") has to fit without being clipped.
 	local contentsBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
-	contentsBtn:SetSize(130, 22)
-	contentsBtn:SetPoint("TOPRIGHT", guideBtn, "TOPLEFT", -6, 0)
+	contentsBtn:SetSize(150, 22)
+	contentsBtn:SetPoint("TOPRIGHT", windowBtn, "TOPLEFT", -6, 0)
 	contentsBtn:SetScript("OnClick", function()
 		ns.db = ns.db or {}
 		ns.db.profAcadContents = not ns.db.profAcadContents
