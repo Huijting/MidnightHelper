@@ -39,6 +39,57 @@ for _stream in (sys.stdout, sys.stderr):
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PACKS = ["deDE", "frFR", "esES", "ptBR", "itIT", "nlNL"]
 
+# ---------------------------------------------------------------- settled, not missing
+#
+# ⚠️ THE SECOND WAY THIS TOOL MISLEADS, and it is the mirror of the first. The probe reports
+# a verbatim English copy as untranslated, because from the resolver's side those are
+# indistinguishable. On 23 Aug it reported "400 characters still to write" across 18 keys
+# and every single one was already correct -- an hour spent re-deciding settled questions,
+# and an invitation to "fix" strings that were right. A warning in the footer did not stop
+# that; it has been there since the tool was written.
+#
+# So a key ruled deliberately-English is recorded HERE, with its reason, and reported as
+# `settled` rather than TODO. The reason is the point: it makes the ruling auditable and
+# re-openable instead of folklore. Wordless format strings are detected below rather than
+# listed, because there is nothing to decide about them.
+#
+# langs=None means every pack. Add an entry only after checking the evidence, and write
+# down what the evidence WAS.
+SETTLED = {
+    "PGUIDE_WAYPOINT_LABEL":         (None, "our own addon name"),
+    "PROFGUIDE_BTN_WOWHEAD_PROF_FMT": (None, "brand name + placeholder"),
+    "PROFHUB_GOAL_GOLD":             (("deDE",), "'Gold' is the German word; deDE.lua uses it 6x"),
+    # nlNL keeps game terms English -- no Dutch client exists (CLAUDE.md, Localization).
+    # Checked 23 Aug: the Dutch bodies around these do the same, e.g.
+    # PROFGUIDE_SEC_SKINNING_BODY = "Leather gebruikt |cffffffffLeatherworking|r".
+    "PROFGUIDE_SEC_ALCHEMY_TITLE":        (("nlNL",), "profession name, English in nlNL"),
+    "PROFGUIDE_SEC_ENCHANTING_TITLE":     (("nlNL",), "profession name, English in nlNL"),
+    "PROFGUIDE_SEC_HERBALISM_TITLE":      (("nlNL",), "profession name, English in nlNL"),
+    "PROFGUIDE_SEC_LEATHERWORKING_TITLE": (("nlNL",), "profession name, English in nlNL"),
+    "PROFGUIDE_SEC_SKINNING_TITLE":       (("nlNL",), "profession name, English in nlNL"),
+    "PROFGUIDE_SEC_TAILORING_TITLE":      (("nlNL",), "profession name, English in nlNL"),
+    "PROFGUIDE_SEC_COMBO_TE_TITLE":       (("nlNL",), "two profession names, English in nlNL"),
+    "PROFGUIDE_SUB_PROFESSIONS":          (("nlNL",), "game term (the client's own tab)"),
+    "PROFGUIDE_SUB_DAWNCREST":            (("nlNL",), "game term"),
+    # "root" is taught as vocabulary by PROFACAD_CH_TREES_BODY ("het vakje in het midden
+    # (de root)") and used by ADVISE_NEXT_FMT and ADVISE_DONE. Translating it here alone
+    # would break the word the chapter just explained.
+    "PROFACAD_ADVISE_GOAL_LINE_FMT": (("nlNL",), "'root' is deliberate nlNL vocabulary"),
+    "PROFGUIDE_BTN_OPEN_BROWSER":    (("nlNL",), "'Open in browser' is identical in Dutch"),
+    "PROFHUB_GOAL_ALLROUND":         (("nlNL",), "'Allround' is a Dutch word"),
+}
+
+
+def is_wordless(s):
+    """True when the string is only placeholders, markup and punctuation.
+
+    "%s x%d" and "%s (%d/%d)." carry nothing to translate, so a pack that copies them
+    verbatim is finished, not behind.
+    """
+    t = re.sub(r"%%|%\d*\.?\d*[sdfx]", " ", s)
+    t = re.sub(r"\|c[fF][fF][0-9a-fA-F]{6}|\|[rn]", " ", t)
+    return not re.search(r"[A-Za-z]{2}", t)
+
 ap = argparse.ArgumentParser()
 ap.add_argument("--since", default="v3.3.0",
                 help="report strings enUS gained since this tag (the default question)")
@@ -107,17 +158,31 @@ for line in probe.splitlines():
 # ---------------------------------------------------------------- report
 todo_chars = 0
 done_all = 0
+settled_notes = []
 print("Strings {}: {}\n".format(scope, len(pending)))
 for key in pending:
     per = status.get(key, {})
     missing = [c for c in PACKS if per.get(c, "?") != "OK"]
     body = strings.get(key, "")
+
+    # Drop the languages where English is the settled answer, so they never read as debt.
+    if missing:
+        if is_wordless(body):
+            settled_notes.append((key, "nothing to translate"))
+            missing = []
+        elif key in SETTLED:
+            langs, why = SETTLED[key]
+            kept = [c for c in missing if langs is not None and c not in langs]
+            if len(kept) < len(missing):
+                settled_notes.append((key, why))
+            missing = kept
+
     if missing:
         todo_chars += len(body) * len(missing)
         mark = "TODO in " + ",".join(missing)
     else:
         done_all += 1
-        mark = "done"
+        mark = "settled" if key in dict(settled_notes) else "done"
     print("{:<40} {:>6} chars   {}".format(key, len(body), mark))
     if args.text and missing:
         print("    EN: " + body[:4000] + ("..." if len(body) > 4000 else ""))
@@ -125,10 +190,19 @@ for key in pending:
 
 print("\n{} of {} strings are done in all six packs.".format(done_all, len(pending)))
 print("characters still to write, across all languages: {:,}".format(todo_chars))
+
+if settled_notes:
+    print("\nEnglish on purpose ({} keys) -- reasons, so the ruling can be re-opened:".format(
+        len(settled_notes)))
+    for key, why in settled_notes:
+        print("  {:<38} {}".format(key, why))
+    print("  Disagree with one? Edit SETTLED at the top of this file, don't just translate it:")
+    print("  the reason is what stops the question being re-decided every release.")
+
 print("""
-⚠️ A "TODO in nlNL" on a bare format string or a proper name is usually correct as it
-stands -- locale_probe reports a verbatim English copy as untranslated, and sometimes the
-copy IS the translation. Read the two before treating them as work.
+⚠️ Anything still listed as TODO is a string the resolver returns English for AND that is
+not recorded as deliberately-English above. Read it before treating it as work: a verbatim
+English copy and a missing translation look identical from the resolver's side.
 
 RULES (CLAUDE.md, Localization):
   - Keep %s / %d / %% and every |cff...|r pair around the SAME words. Keep \\n as \\n.
