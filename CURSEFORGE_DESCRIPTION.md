@@ -155,7 +155,7 @@ Full UI, coach tips, consumable notes and guide content are available in:
 
 Other WoW client locales (e.g. Korean, Chinese) fall back to **English** until a dedicated pack is added.
 
-> ⚠️ **Being straight about 3.4.0:** the professions course is new and large, and it is currently **English in German, French, Spanish, Portuguese and Italian**. Nothing is broken — untranslated text falls back to English rather than showing you a blank — but you would notice, so it is said here rather than discovered. English and Dutch are complete; the rest follow within a few days. Help with your own language is very welcome on [Discord](https://discord.gg/kBHaHcsASQ).
+> ✅ **As of 3.5.0 all seven read as their own language throughout**, professions course included — and every game term in them was checked against Blizzard's own game data, so the words match the ones in your client rather than ones we invented. Short labels (stat names, `DPS`, `Flask`, `Bountiful`) stay English on purpose, because your tooltips do too. Spotted something that reads wrong in your language? That is exactly the report worth making on [Discord](https://discord.gg/kBHaHcsASQ).
 
 ### Slash commands
 

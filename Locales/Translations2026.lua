@@ -2542,6 +2542,18 @@ fill("esES", { DISCORD_NUDGE_BTN = "Mostrar enlace de invitación de Discord" })
 fill("ptBR", { DISCORD_NUDGE_BTN = "Mostrar link de convite do Discord" })
 fill("itIT", { DISCORD_NUDGE_BTN = "Mostra il link d'invito Discord" })
 
+-- The portal hint, written 23 aug for the Coiled Isle report and therefore English in five
+-- packs on the day the release claims the languages are finished.
+-- ⚠️ %s stays English on purpose: it is our own hardcoded label ("Portal to Voidstorm" in
+-- Delves.lua MIDNIGHT_PORTALS), not a name read from the client -- so the sentence has to
+-- read correctly with an English noun phrase dropped into it. Register follows each pack's
+-- own habit: tu / tú / você / tu (counted, not assumed).
+fill("deDE", { WAY_PORTAL_HINT = "Nimm %s — schneller als Fliegen, und du kannst es benutzen." })
+fill("frFR", { WAY_PORTAL_HINT = "Prends %s — plus rapide que de voler, et tu peux l'utiliser." })
+fill("esES", { WAY_PORTAL_HINT = "Coge %s — más rápido que volar, y puedes usarlo." })
+fill("ptBR", { WAY_PORTAL_HINT = "Pegue %s — mais rápido que voar, e você pode usá-lo." })
+fill("itIT", { WAY_PORTAL_HINT = "Prendi %s — più veloce che volare, e puoi usarlo." })
+
 -- Season 2's date became official on 30 jul (Blizzard, "Midnight Season 2 Begins
 -- August 18"), so this line may finally name it. Blizzard's own wording is "week
 -- of", and that is kept on purpose: the US reset falls on Tuesday and the European

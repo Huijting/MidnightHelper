@@ -1,41 +1,26 @@
 # -*- coding: utf-8 -*-
-"""Test the bash guard: does it block what it should and pass what it should?"""
-import json
-import subprocess
-import sys
+"""Copy RELEASE_NOTES.md to the per-version archive, byte for byte, and prove it.
 
+CLAUDE.md requires the two to stay identical. Writing the same text twice by hand is how
+they drift. Atomic write: the repo IS the live game folder.
+"""
+import hashlib
+import io
 import os
 
-# ⚠️ Absolute. A missing script also exits 2, which is the guard's own "blocked" code —
-# so a wrong path reads as "everything is blocked" and the test lies in the safe-looking
-# direction. Same class as the earlier probe that reported keys as translated.
-GUARD = ["python", os.path.join(os.path.dirname(os.path.abspath(__file__)), "bash_guard.py")]
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC = os.path.join(REPO, "RELEASE_NOTES.md")
+DST = os.path.join(REPO, "docs", "CURSEFORGE_3.5.0.md")
 
-CASES = [
-    # (command, should_be_blocked)
-    ('cd "E:/x" && git log --oneline v3.4.0..main | wc -l', True),
-    ('git log --oneline | wc -l', True),
-    ('ls; echo hi', True),
-    ('python -c "print(1)"', True),
-    ('cat <<EOF', True),
-    ('git -C "E:/World of Warcraft/_retail_/Interface/AddOns/MidnightHelper" status --short', False),
-    ('python tools/lint_addon.py', False),
-    ('luac -p Locales/enUS.lua', False),
-    ('git commit -F msg.txt', False),
-    # Quoted shell characters are data, not syntax.
-    ('git -C "E:/repo" commit -m "fixed A && B"', False),
-]
+data = io.open(SRC, "rb").read()
+io.open(DST + ".tmp", "wb").write(data)
+os.replace(DST + ".tmp", DST)
 
-fails = 0
-for cmd, expect_block in CASES:
-    payload = json.dumps({"tool_name": "Bash", "tool_input": {"command": cmd}})
-    p = subprocess.run(GUARD, input=payload, capture_output=True, text=True)
-    blocked = (p.returncode == 2)
-    ok = (blocked == expect_block)
-    if not ok:
-        fails += 1
-    print("{}  blocked={:<5} want={:<5}  {}".format(
-        "ok " if ok else "FAIL", str(blocked), str(expect_block), cmd[:58]))
+back = io.open(DST, "rb").read()
+print("identical:", data == back, "|", len(data), "bytes",
+      hashlib.sha256(data).hexdigest()[:16])
 
-print("\nfailures:", fails)
-sys.exit(1 if fails else 0)
+text = data.decode("utf-8")
+lines = text.splitlines()
+print("lines: {}   chars: {}   bullets: {}   first: {}".format(
+    len(lines), len(text), sum(1 for l in lines if l.startswith("- ")), lines[0]))

@@ -145,9 +145,17 @@ tekst en data) elkaar tegenspreken, zoek niet naar ontbrekende gegevens maar naa
 plekken die dezelfde vraag beantwoorden**. Zo ging het ook bij de cursustekst
 (`ComposeChapterBody`) en bij de Leatherworking-route.
 
-⚠️ **Open gebleven en bewust niet half gebouwd:** wat de pijl doet nadat je door een portaal
-bent. Je komt aan met een verbruikte pijl — hetzelfde gat als in
-`route-arrow-no-resume` (22 jul). Eigen klus.
+~~⚠️ **Open gebleven en bewust niet half gebouwd:** wat de pijl doet nadat je door een
+portaal bent. Je komt aan met een verbruikte pijl — hetzelfde gat als in
+`route-arrow-no-resume` (22 jul). Eigen klus.~~
+
+✅ **Toch dezelfde avond af, en kleiner dan gedacht** (`b0138e7`). Het mechanisme bestond al:
+`StartLegWatcher()` gaf na een vlucht het stokje door aan de eindbestemming. Het stond alleen
+in de vlucht-tak ingebakken. Uitgetild, en de portaal-tak armeert hem nu ook.
+⚠️ Zijn `pendingLeg` krijgt **geen** `toName` — dat veld is de aankomsttest van een vlucht, en
+invullen zou de portaal-etappe laten wachten op een aankomst die nooit komt.
+Dit blijft los staan van `route-arrow-no-resume`: dat gaat over een eigenaar-slot zonder
+geheugen, niet over een etappe die zijn opvolger niet aanwijst.
 
 ---
 
@@ -166,6 +174,58 @@ Dekking sprong ver voorbij de klus die hieronder gepland stond:
 
 De professie-cursus zelf: **194 van de 212 klaar in alle zes de packs**, nog 400 tekens —
 was 20.201.
+
+### 🔴 Die laatste 400 tekens bestonden niet — en dat is een les over het meetinstrument
+
+Alle 18 sleutels nagelopen: **geen enkele was onvertaald.** Onze eigen addonnaam, twee
+strings zonder woorden erin (`"%s x%d"`), `"Gold"` (dát is Duits — deDE gebruikt het 6×),
+zeven professienamen die nlNL Engels houdt volgens dezelfde regel die zijn eigen zinnen
+volgen (*"Leather gebruikt Leatherworking"*), en `"Open in browser"`, dat toevallig identiek
+Nederlands is.
+
+De resolver kan een **bewuste** Engelse kopie niet onderscheiden van een **ontbrekende**
+vertaling. Dat is de tweede manier waarop dit gereedschap misleidt, en de spiegel van de
+eerste (aanwezigheid ≠ vertaald, 22 aug). Een waarschuwing in de voettekst stond er al en
+hield het niet tegen — dus staan de uitspraken nu ín `tools/translation_todo.py` als een
+`SETTLED`-tabel **mét reden per sleutel**. Zonder die reden is het een stomme negeerlijst en
+moet de volgende lezer het hele onderzoek overdoen. 400 tekens → 17.
+
+⚠️ **En pas op met zelfgebouwde tellers.** Ik schreef vanavond twee keer een eigen sonde om
+de dekking te meten; **allebei fout**, en de eerste in de geruststellende richting (hij las
+de fill-bestanden zonder onderscheid naar taal, dus een Duitse fill telde ook voor Italiaans).
+Hij was het oneens met de linter — 107 tegen 311 voor deDE — en dát verschil was het
+signaal. `locale_probe.lua` is het enige instrument dat telt.
+
+### 📊 Wat die 89–91% wél betekent
+
+Niet wat het lijkt. Van de ~306 resterende sleutels per pack zijn er **311 `CHANGELOG_*`**,
+Engels met opzet. Meet je in plaats daarvan **zinnen** (≥4 echte woorden), dan blijven er in
+de vijf packs **nul** over. De allerlaatste was `WAY_PORTAL_HINT` — diezelfde avond
+geschreven voor Robs portaal-melding, en vóór de tag vertaald. Wat verder Engels blijft zijn
+stat-namen, `DPS`, `Flask`, `Bountiful` en format-strings.
+
+---
+
+## 🚀 23 aug (avond) — 3.5.0 staat klaar om te taggen
+
+71 commits boven `v3.4.0`. `luac` schoon, linter 0 hard / 0 soft, `RELEASE_NOTES.md` en
+`docs/CURSEFORGE_3.5.0.md` byte-identiek (46 regels / 3855 tekens / 2 bullets — ruim binnen
+wat 3.3.0 al bewees, en de lengteregel is en blijft dood).
+
+De belofte uit 3.4.0 — *"de andere talen volgen binnen enkele dagen"* — is ingelost en die
+zin is uit `CURSEFORGE_DESCRIPTION.md` verwijderd.
+
+⚠️ **Bewust laten staan, geen defect:** `PROFHUB_TAB_TREASURES` is in nlNL Engels terwijl
+zijn twee buurtabs Nederlands zijn. `PROFHUB_OVERVIEW_HINT` noemt die tab óók in het Engels,
+dus de twee spreken elkaar niet tegen. Het veranderen raakt uitgeleverde tekst voor smaak.
+Staat als enige echte open vraag in de `--prefix`-uitvoer.
+
+🔒 **Nieuw, alleen voor ontwikkelaars:** `tools/bash_guard.py` weigert shell-commando's met
+`&&`, `||`, `;`, pijpen, heredocs of `python -c` — vormen die geen enkele toestemmingsregel
+kan matchen, en de reden dat 86% van de Bash-aanroepen tóch een prompt gaf. Rob vroeg er
+vijf keer om; een zesde belofte was niet de oplossing. Geregistreerd in
+`AddOns/.claude/settings.json`, dat **boven** deze repo ligt en dus niet in git zit — na een
+herstart van Claude Code actief.
 
 🔴 **LES: draai `git am` nooit op de live map vanuit een omgeving die niet kan opruimen.**
 De cowork-sessie deed dat, de `am` faalde (die VM heeft geen git-identiteit), en de brug
