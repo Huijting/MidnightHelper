@@ -447,6 +447,23 @@ function ns.RouteFirstToFlightPoint(targetMap, x, y, name, currentMap)
 		if okP and type(steps) == "table" then
 			for _, s in ipairs(steps) do
 				if s.kind ~= "arrive" and s.mapID == currentMap and s.x and s.y then
+					--- ...and then actually LEAD, which is the half that was missing.
+					---
+					--- This block only stood down, on the assumption the plan would
+					--- point the arrow. Nothing did: the destination waypoint had
+					--- already been set further up the click path, and declining to
+					--- change it left it there. Rob, 23 aug, beside the Coiled Isle
+					--- portal: the chat said "take the portal" and TomTom's arrow ran
+					--- eight kilometres out to sea. Handing the baton to a runner who
+					--- is not on the track is the same as dropping it.
+					---
+					--- skipTravelUI, or setting this waypoint would run the travel
+					--- assistant again for the leg it just produced.
+					if ns.AddSmartTomTomWay and not ns._mhTravelLegBusy then
+						ns._mhTravelLegBusy = true
+						pcall(ns.AddSmartTomTomWay, s.mapID, s.x, s.y, s.label or name, true)
+						ns._mhTravelLegBusy = nil
+					end
 					return false
 				end
 				-- Only the FIRST step counts. A later step on this map means you come
