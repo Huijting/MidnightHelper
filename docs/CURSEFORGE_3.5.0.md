@@ -45,6 +45,12 @@ If you were on the Coiled Isle dock with the portal in front of you, the travel 
 
 The hint now asks the travel planner first, so a portal is reported as the first step when a portal is the first step. The arrow follows: it points at the portal, and after you take it, it hands back to your actual destination — which it already did after a flight, and now does after both.
 
+## Two things we were telling you that were not so
+
+The consumable check said bag sharing was "coming in Phase 2". It arrived in 1.8.3. If a groupmate runs Midnight Helper you have been seeing their bags this whole time — the footer just never said so, in seven languages.
+
+And a ritual boss tip promised its detailed steps "in the next Midnight Helper update", through four updates. It now says the truth instead: that boss was never datamined, nobody has reported a run, and if you fight it we would genuinely like to hear what it did.
+
 ## Come and say hello
 
 Every correction above started with someone noticing the addon had told them something untrue — including the last one, which was reported from a dock with a screenshot. That is worth more than any feature list, and Discord is where it reaches me fastest: **https://discord.gg/kBHaHcsASQ**
