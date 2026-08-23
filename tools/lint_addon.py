@@ -539,6 +539,24 @@ COLOUR_OPEN_RE = re.compile(r"\|c[0-9a-fA-F]{8}")
 COLOUR_CLOSE_RE = re.compile(r"\|r")
 
 
+# Fill-only merges: they set a key only where the pack has nothing of its own, or
+# still carries a verbatim copy of the English. A key they define on top of such a
+# copy is the merge working, not a clash -- see the header of Translations2026.lua.
+FILL_FILES = {"Locales/Translations2026.lua", "Locales/TranslationsS2.lua"}
+
+
+def value_at(root: str, rel: str, lineno: int):
+    """The string a single-line `KEY = "value"` sets at rel:lineno, or None."""
+    try:
+        lines = read_lines(os.path.join(root, rel))
+    except OSError:
+        return None
+    if not 1 <= lineno <= len(lines):
+        return None
+    hit = VALUE_BARE_RE.match(lines[lineno - 1]) or VALUE_BRACKET_RE.match(lines[lineno - 1])
+    return hit.group(2) if hit else None
+
+
 def collect_locale_values(root: str) -> dict:
     """defined[locale] -> {key: (value, rel, lineno)} for single-line entries.
 
@@ -802,6 +820,7 @@ def main() -> int:
     args = sys.argv[1:]
     lf = locale_files(root)
     defined = collect_locale_keys(lf)
+    values = collect_locale_values(root)
     static_refs, dynamic = collect_references(root)
     toc_files = parse_toc(root)
     orphans, pending_toc = find_orphans(root, toc_files)
@@ -842,17 +861,47 @@ def main() -> int:
 
     # 3. Duplicate keys within a locale (HARD)
     dup_total = 0
+    fill_ok = 0
+    dead_fill = 0
     print("\n[3] Duplicate keys within a locale (last-wins silent override):")
     for loc in LOCALES:
         dups = {k: v for k, v in defined[loc].items() if len(v) > 1}
-        if dups:
-            dup_total += len(dups)
-            print(f"    {loc}: {len(dups)} duplicated")
-            for k, locs in list(sorted(dups.items()))[:12]:
-                where = "  ".join(f"{r}:{n}" for r, n in locs)
+        real, dead, benign = {}, {}, 0
+        for k, sites in dups.items():
+            fills = [s for s in sites if s[0] in FILL_FILES]
+            owners = [s for s in sites if s[0] not in FILL_FILES]
+            if len(fills) < 1 or len(owners) != 1:
+                real[k] = sites          # two owners, or two fills: someone loses
+                continue
+            owner_value = value_at(root, owners[0][0], owners[0][1])
+            en_value = (values.get("enUS", {}).get(k) or (None,))[0]
+            if owner_value is not None and owner_value == en_value:
+                benign += 1              # the fill replaces an English copy: by design
+            else:
+                dead[k] = sites          # the fill can never apply -- worse than a dup
+        fill_ok += benign
+        dead_fill += len(dead)
+        dup_total += len(real) + len(dead)
+        if real or dead or benign:
+            parts = []
+            if real:
+                parts.append(f"{len(real)} duplicated")
+            if dead:
+                parts.append(f"{len(dead)} fill never applies")
+            if benign:
+                parts.append(f"{benign} fill over an English copy (by design)")
+            print(f"    {loc}: " + ", ".join(parts))
+            for k, sites in list(sorted(real.items()))[:12]:
+                where = "  ".join(f"{r}:{n}" for r, n in sites)
                 print(f"      HARD  {k}   {where}")
-    if dup_total == 0:
+            for k, sites in list(sorted(dead.items()))[:12]:
+                where = "  ".join(f"{r}:{n}" for r, n in sites)
+                print(f"      HARD  {k}   the pack already translates this, so the "
+                      f"fill is dead code   {where}")
+    if dup_total == 0 and fill_ok == 0:
         print("    none")
+    print(f"    (fill-only files: {', '.join(sorted(FILL_FILES))} — a key they set on top "
+          f"of an English copy is the merge doing its job, not a duplicate)")
     hard += dup_total
 
     # 4. Search-index coverage (SOFT for now — best-effort)
