@@ -123,7 +123,49 @@ plaats van stil verwijderd** — de correctie is vaak nuttiger dan de oorspronke
 
 ---
 
-## 🌍 KLUS VOOR 23 aug — de professie-cursus áf maken (ONDERZOEK / cowork)
+## ✅ 23 aug (avond) — de vertaalronde is binnen, en de repo was even op slot
+
+**44 commits op `main`** (`9ad71f3..9da3cbc`), `luac` schoon, linter 0 hard / 0 soft.
+Dekking sprong ver voorbij de klus die hieronder gepland stond:
+
+| | 22 aug | nu |
+|---|---|---|
+| deDE | 76,5% | **90,9%** |
+| frFR | 74,1% | **91,0%** |
+| esES / ptBR | 73,2% | **91,0%** |
+| itIT | 71,1% | **89,5%** |
+| nlNL | 94,0% | 94,0% |
+
+De professie-cursus zelf: **194 van de 212 klaar in alle zes de packs**, nog 400 tekens —
+was 20.201.
+
+🔴 **LES: draai `git am` nooit op de live map vanuit een omgeving die niet kan opruimen.**
+De cowork-sessie deed dat, de `am` faalde (die VM heeft geen git-identiteit), en de brug
+daar mag geen bestanden verwijderen — dus bleven `.git/index.lock`, `HEAD.lock`,
+`packed-refs.lock` en `rebase-apply/` staan en zat git volledig op slot. Robs game bleef
+gewoon draaien, want de Lua was geldig, maar er kon niets meer geschreven worden.
+
+Opruimen vanaf een omgeving die wél mag verwijderen: **eerst controleren dat er geen
+git-proces draait** (`tasklist`), dan de locks weg, dan `git am --abort`. ⚠️ Struikelt de
+abort over "Entry ... not uptodate", dan staat er een niet-gecommitte bewerking in de weg —
+`git checkout -- <bestand>` en opnieuw.
+
+📌 **Twee dingen die deze ronde opleverde en die blijven gelden:**
+- **wago.tools is vanaf de cowork-omgeving geblokkeerd** (egress-allowlist, niet
+  robots.txt). Die bron werkt alleen vanaf Robs eigen machine. Wie daar een naam moet
+  opzoeken: vraag het hier, of gebruik de Blizzard API met token.
+- **De duplicaatcontrole in de linter snapt nu fill-only merges.** Een fill-sleutel bovenop
+  een pack dat daar nog een letterlijke Engelse kopie heeft is het systeem dat wérkt; twee
+  echte eigenaren blijft een botsing, en een fill die nooit kan winnen heet nu een *dead
+  fill*. Die aanpassing komt van de cowork-sessie en is nagekeken — hij dempt niets.
+
+⚠️ **Nog open, en het is Robs beslissing:** `PROFHUB_GOAL_ALLROUND` staat in `deDE.lua` als
+`"Allround"`, wat eerder Engels dan Duits is. `"Ausgewogen"` is waarschijnlijk beter, maar
+het is uitgeleverde tekst.
+
+---
+
+## ~~🌍 KLUS VOOR 23 aug — de professie-cursus áf maken~~ *(gedaan, zie hierboven)*
 
 **Start met dit commando. Geen geplakte lijst — die is verouderd zodra iemand één string
 aanraakt.**
