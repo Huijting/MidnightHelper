@@ -297,7 +297,7 @@ fill("ptBR", {
 	INFO_DRAWER_BODY_CODEX = "Manual da Midnight: Comece aqui, moedas com saldos ao vivo, e guias curtos que abrem a aba certa (Delves, Vault, Void & Rituals, Professions e mais).",
 	INFO_DRAWER_BODY_DUNGEONS = "Táticas de chefes de masmorra Mítica+ com um coach por chefe. Escolha uma masmorra para dicas pull a pull.",
 	INFO_DRAWER_BODY_EVENTS = "Um calendário dos eventos de mundo e seu status semanal, para você planejar o que fazer e quando.",
-	INFO_DRAWER_BODY_OMNIUM = "O consultor da árvore de runas Omnium Folio: as 5 fileiras de runas semanais, a escolha recomendada por tipo de conteúdo e seu progresso de desbloqueio.",
+	INFO_DRAWER_BODY_OMNIUM = "O consultor da árvore de runas Omnium Fólio: as 5 fileiras de runas semanais, a escolha recomendada por tipo de conteúdo e seu progresso de desbloqueio.",
 	INFO_DRAWER_BODY_TOOLSLAUNCH = "O launchpad de Tools: abra as janelas de ajuda flutuantes (janela de chefe, painel de consumíveis, curios, chefe de ritual) de um só lugar.",
 	SET_CAT_TABS = "Tabs",
 	SET_CAT_TABS_DESC = "Mostrar ou ocultar abas individuais do MidnightHelper.",
@@ -580,11 +580,11 @@ fill("ptBR", {
 	PROFGUIDE_URL_POPUP_TITLE = "Copiar link",
 	PROFGUIDE_MORE_DETAIL = "Mais detalhes:",
 	PROFGUIDE_PICK_PROF = "Escolha uma profissão:",
-	PROFGUIDE_PANEL_INTRO = "Ajuda de profissões para iniciantes: o que fazer a cada semana, onde gastar Knowledge Points, as Crafting Orders e ganhar ouro na Casa de Leilões.",
+	PROFGUIDE_PANEL_INTRO = "Ajuda de profissões para iniciantes: o que fazer a cada semana, onde gastar Pontos de Conhecimento, as Crafting Orders e ganhar ouro na Casa de Leilões.",
 	GUIDE_CONS_COPY_TITLE = "Copiar para a Casa de Leilões",
 	GUIDE_CONS_COPY_HINT = "Clique na caixa, depois Ctrl+C. Cole na busca da Casa de Leilões.",
-	ACCOUNT_WEEKLY_RITUAL_DONE = "Ritual Site Studies (Lady Darkglen): entregue (este personagem)",
-	ACCOUNT_WEEKLY_RITUAL_OPEN = "Ritual Site Studies (Lady Darkglen): semanal aberto (este personagem)",
+	ACCOUNT_WEEKLY_RITUAL_DONE = "Ritual Site Studies (Lady Valenero): entregue (este personagem)",
+	ACCOUNT_WEEKLY_RITUAL_OPEN = "Ritual Site Studies (Lady Valenero): semanal aberto (este personagem)",
 	FAV_CHIP_HINT = "Clique esquerdo para abrir · clique direito para desafixar",
 	FAV_PLUS_HINT = "Fixar ou desafixar abas (favoritos)",
 	TOOLLP_INTRO = "Abra as janelas de ajuda flutuantes do Midnight Helper de um só lugar. Cada uma também funciona pelo seu comando /mh.",
@@ -676,7 +676,7 @@ fill("esES", {
 
 fill("ptBR", {
 	PROFGUIDE_SEC_101_TITLE = "Professions 101 — comece aqui",
-	PROFGUIDE_SEC_101_BODY = "|cffffcc00Dia 1 — faça isto hoje|r|n|n1. Aperte |cffffff00K|r (Professions) e confira se suas duas profissões estão aprendidas. Ainda não? |cffffff00Aba SMC|r neste addon → ponto de rota do treinador.|n2. Fabrique cada |cffffff00receita nova que brilha|r uma vez por profissão (as mais baratas primeiro).|n3. Em Lunargente: mesa de |cffffff00Crafting Orders|r → Patron Orders que dão |cffffff00Knowledge|r.|n4. |cffffff00Aba Professions|r aqui → marcações de mapa para tesouros e livros que ainda faltam.|n5. Encante sua |cffffff00arma e anéis|r.|n6. Abaixo: escolha |cffffff00Tailoring + Enchanting|r se essa for sua combo (plano para você, amigos e ouro).|n|n|cffffcc00O que é uma profissão?|r|nUma profissão é um trabalho do seu personagem. Algumas profissões |cffffff00fabricam|r (crafting). Outras |cffffff00coletam|r materiais no mundo (ervas, minério, peles).|n|n|cffffcc00Quantas posso aprender?|r|n|n• Cada personagem pode aprender |cffffff002 profissões de fabricação|r (exemplo: Alchemy + Enchanting).|n• Você também pode aprender |cffffff00coleta|r no mesmo personagem (Herbalism, Mining, Skinning).|n• |cffffff00Cooking|r e |cffffff00Fishing|r são extras — qualquer um pode aprendê-las por cima, como hobbies.|n• Muitos jogadores usam |cffffff00outros alts|r no bando de guerra: um alt coleta, outro fabrica, e você manda os materiais pelo banco.|n|n|cffffcc00Knowledge Points (KP)|r|nKP são pontos para suas |cffffff00árvores de especialização|r (como talentos extras para a profissão). Mais KP = melhores receitas e maior qualidade de item.|n|n|cffffcc00Moxie|r|nMoxie é uma moeda |cffffff00por profissão|r naquele personagem. O Moxie de Alchemy só compra coisas de Alchemy — não transfere para Enchanting. Você ganha um pouco de Moxie quando ganha KP.|n|n|cffffcc00Bônus de primeira fabricação|r|nFabrique cada receita |cffffff00nova|r uma vez se puder pagar. Receitas novas costumam brilhar na sua lista. Cada primeira fabricação geralmente dá +1 KP (e Moxie). Escolha receitas baratas primeiro.|n|n|cffffcc00Seu ciclo semanal|r (toda semana)|n|n1. Pegue a |cffffff00missão semanal|r do seu treinador (geralmente: terminar cerca de 3 crafting orders).|n2. Abra a mesa de |cffffff00Crafting Orders|r em Lunargente.|n3. Faça as |cffffff00Patron Orders|r que dão |cffffff00Glimmer of … Knowledge|r (+2 KP) ou |cffffff00Flicker|r (+1 KP, recuperação).|n4. Use a aba |cffffff00Professions|r neste addon para achar |cffffff00tesouros|r e |cffffff00livros|r únicos no mapa.|n5. Opcional: missão de profissão da Feira da Lua Negra, tratado da Casa de Leilões.|n|n|cffffcc00Crafting orders — três tipos|r|n|n|cffffff00Patron|r — trabalhos de NPC no quadro. O melhor para aprender e KP constante.|n|cffffff00Public|r — outros jogadores te pagam para fabricar. Bom para ouro quando você conhece uma receita.|n|cffffff00Personal|r — você fabrica só para o seu próprio personagem.|n|n|cffffcc00Especializações|r|nAs árvores desbloqueiam por volta de perícia |cffffff0025, 50, 60 e 75|r. Não espalhe os pontos por tudo de uma vez. Escolha um objetivo: |cffffff00flasks para raids|r, |cffffff00encantamentos para vender|r, |cffffff00equipamento de couro|r, etc.|n|n|cffffcc00Ouro na Casa de Leilões|r|n|n• Foque em |cffffff001–2 produtos|r que você fabrica de forma confiável — não vinte itens diferentes.|n• Confira a CdL |cffffff00antes|r de fabricar um lote: preço dos materiais vs item pronto.|n• Flasks de raid, encantamentos de arma e de anel são vendas clássicas — mas os preços mudam toda semana.|n• Baixar 1 de cobre é normal; não fabrique 200 itens se ninguém está comprando.|n|n|cffffcc00Use este addon|r|n|n• |cffffff00Aba Professions|r = KP ao vivo, moedas semanais, marcações de tesouros/livros.|n• |cffffff00Aba SMC|r = treinadores em Lunargente.|n• Seções abaixo = planos simples por profissão.",
+	PROFGUIDE_SEC_101_BODY = "|cffffcc00Dia 1 — faça isto hoje|r|n|n1. Aperte |cffffff00K|r (Professions) e confira se suas duas profissões estão aprendidas. Ainda não? |cffffff00Aba SMC|r neste addon → ponto de rota do treinador.|n2. Fabrique cada |cffffff00receita nova que brilha|r uma vez por profissão (as mais baratas primeiro).|n3. Em Lunargente: mesa de |cffffff00Crafting Orders|r → Patron Orders que dão |cffffff00Conhecimento|r.|n4. |cffffff00Aba Professions|r aqui → marcações de mapa para tesouros e livros que ainda faltam.|n5. Encante sua |cffffff00arma e anéis|r.|n6. Abaixo: escolha |cffffff00Tailoring + Encantamento|r se essa for sua combo (plano para você, amigos e ouro).|n|n|cffffcc00O que é uma profissão?|r|nUma profissão é um trabalho do seu personagem. Algumas profissões |cffffff00fabricam|r (crafting). Outras |cffffff00coletam|r materiais no mundo (ervas, minério, peles).|n|n|cffffcc00Quantas posso aprender?|r|n|n• Cada personagem pode aprender |cffffff002 profissões de fabricação|r (exemplo: Alchemy + Encantamento).|n• Você também pode aprender |cffffff00coleta|r no mesmo personagem (Herbalism, Mineração, Skinning).|n• |cffffff00Cooking|r e |cffffff00Fishing|r são extras — qualquer um pode aprendê-las por cima, como hobbies.|n• Muitos jogadores usam |cffffff00outros alts|r no bando de guerra: um alt coleta, outro fabrica, e você manda os materiais pelo banco.|n|n|cffffcc00Pontos de Conhecimento (KP)|r|nKP são pontos para suas |cffffff00árvores de especialização|r (como talentos extras para a profissão). Mais KP = melhores receitas e maior qualidade de item.|n|n|cffffcc00Marra|r|nA Marra é uma moeda |cffffff00por profissão|r naquele personagem. A Marra de Alchemy só compra coisas de Alchemy — não transfere para Encantamento. Você ganha um pouco de Marra quando ganha KP.|n|n|cffffcc00Bônus de primeira fabricação|r|nFabrique cada receita |cffffff00nova|r uma vez se puder pagar. Receitas novas costumam brilhar na sua lista. Cada primeira fabricação geralmente dá +1 KP (e Marra). Escolha receitas baratas primeiro.|n|n|cffffcc00Seu ciclo semanal|r (toda semana)|n|n1. Pegue a |cffffff00missão semanal|r do seu treinador (geralmente: terminar cerca de 3 crafting orders).|n2. Abra a mesa de |cffffff00Crafting Orders|r em Lunargente.|n3. Faça as |cffffff00Patron Orders|r que dão |cffffff00Glimmer of … Knowledge|r (+2 KP) ou |cffffff00Flicker|r (+1 KP, recuperação).|n4. Use a aba |cffffff00Professions|r neste addon para achar |cffffff00tesouros|r e |cffffff00livros|r únicos no mapa.|n5. Opcional: missão de profissão da Feira da Lua Negra, tratado da Casa de Leilões.|n|n|cffffcc00Crafting orders — três tipos|r|n|n|cffffff00Patron|r — trabalhos de NPC no quadro. O melhor para aprender e KP constante.|n|cffffff00Public|r — outros jogadores te pagam para fabricar. Bom para ouro quando você conhece uma receita.|n|cffffff00Personal|r — você fabrica só para o seu próprio personagem.|n|n|cffffcc00Especializações|r|nAs árvores desbloqueiam por volta de perícia |cffffff0025, 50, 60 e 75|r. Não espalhe os pontos por tudo de uma vez. Escolha um objetivo: |cffffff00flasks para raids|r, |cffffff00encantamentos para vender|r, |cffffff00equipamento de couro|r, etc.|n|n|cffffcc00Ouro na Casa de Leilões|r|n|n• Foque em |cffffff001–2 produtos|r que você fabrica de forma confiável — não vinte itens diferentes.|n• Confira a CdL |cffffff00antes|r de fabricar um lote: preço dos materiais vs item pronto.|n• Flasks de raid, encantamentos de arma e de anel são vendas clássicas — mas os preços mudam toda semana.|n• Baixar 1 de cobre é normal; não fabrique 200 itens se ninguém está comprando.|n|n|cffffcc00Use este addon|r|n|n• |cffffff00Aba Professions|r = KP ao vivo, moedas semanais, marcações de tesouros/livros.|n• |cffffff00Aba SMC|r = treinadores em Lunargente.|n• Seções abaixo = planos simples por profissão.",
 	PROFGUIDE_SEC_ALCHEMY_TITLE = "Alquimia",
 	PROFGUIDE_SEC_ALCHEMY_BODY = "|cffffcc00O que faz|r|nTransforma ervas em |cffffff00poções|r (buffs curtos) e |cffffff00flasks|r (buffs longos para raids). Ótimo para |cffffff00você mesmo|r e para |cffffff00ouro|r.|n|n|cffffcc00Boa combo|r|nAprenda |cffffff00Herbalism|r neste personagem ou num alt-coletor e mande as ervas pelo banco do bando de guerra.|n|n|cffffcc00Checklist semana 1|r|n|n• Aprenda Alchemy em Lunargente.|n• Fabrique cada |cffffff00receita nova|r barata uma vez (KP de primeira fabricação).|n• Termine a |cffffff00missão semanal do treinador|r (geralmente 3 orders).|n• Faça Patron Orders com |cffffff00Glimmer of Alchemy Knowledge|r.|n• Escolha um caminho: |cffffff00flasks|r OU |cffffff00poções|r — não os dois no começo.|n|n|cffffcc00Onde gastar KP — para você|r|n|n• Coloque os primeiros pontos na especialização que desbloqueia |cffffff00os flasks que seu raid usa|r.|n• Pergunte à sua guilda ou veja a CdL: qual flask vende mais neste tier?|n• Qualidade importa: flask de maior qualidade = buff mais forte. Use |cffffff00Concentration|r nos crafts importantes (o jogo mostra na tela de fabricação).|n|n|cffffcc00Onde gastar KP — para ouro|r|n|n• Mesma ideia: um |cffffff00flask de raid popular|r por temporada.|n• Acompanhe o custo de materiais vs o preço do flask por uma semana antes de se comprometer.|n• Não fabrique 50 flasks se a CdL já está inundada.|n|n|cffffcc00Crafting orders|r|nAs Patron Orders são seu melhor amigo. As Public Orders podem pagar bem quando sua perícia chega a |cffffff00Quality 2–3|r.|n|n|cffffcc00Casa de Leilões|r|nVenda os |cffffff00flasks|r antes das noites de raid (terça/quarta em muitos reinos). Poções também vendem, muitas vezes em quantidades menores.",
 	PROFGUIDE_SEC_COMBO_TE_TITLE = "Alfaiataria + Encantamento",
@@ -690,7 +690,7 @@ fill("ptBR", {
 	PROFGUIDE_SEC_SKINNING_TITLE = "Esfolamento",
 	PROFGUIDE_SEC_SKINNING_BODY = "|cffffcc00O que faz|r|nVocê |cffffff00esfola feras|r por couro. O couro alimenta o |cffffff00Leatherworking|r.|n|n|cffffcc00Quem deve aprender?|r|n|n• Combina com |cffffff00Leatherworking|r (mesmo personagem ou alt).|n• Ótimo enquanto sobe de nível — mate mobs, esfole-os.|n|n|cffffcc00Checklist semana 1|r|n|n• Aprenda Skinning.|n• Esfole cada fera que matar em profundezas e mundo aberto.|n• Tesouros de mapa pela aba Professions.|n• KP: mais couro por esfola e coleta mais rápida.|n|n|cffffcc00Ouro|r|nVenda lotes de couro na CdL, ou fabrique com Leatherworking para mais lucro.|n|n|cffffcc00Dica|r|nVocê não precisa de estação de craft para esfolar — só uma faca de esfolar nas bolsas.",
 	PROFGUIDE_SEC_TAILORING_TITLE = "Alfaiataria",
-	PROFGUIDE_SEC_TAILORING_BODY = "|cffffcc00O que faz|r|nTransforma |cffffff00tecido|r (da Casa de Leilões ou vendedores) em armadura de tecido, bolsas e outros itens. Combina perfeitamente com o |cffffff00Enchanting|r no mesmo personagem.|n|n|cffffcc00Checklist semana 1|r|n|n• Aprenda Tailoring em Lunargente.|n• Compre um pouco de tecido ou farme enquanto faz missões — não compre demais no primeiro dia.|n• Primeira fabricação de cada |cffffff00receita nova|r barata uma vez.|n• Missão semanal + Patron Orders com recompensas Knowledge.|n• Fabrique melhorias para os slots que você |cffffff00realmente usa|r (usuários de tecido: Mago, Sacerdote, Bruxo, Conjurador, etc.).|n|n|cffffcc00Onde gastar KP — para você|r|n|n• Pontos no tipo de armadura que você usa.|n• Bolsas e utilidade são legais, mas a potência de armadura geralmente vem primeiro.|n• Depois encante essas peças com Enchanting.|n|n|cffffcc00Para amigos e guilda|r|n|n• Ofereça crafts de braçadeiras, capa ou cinto se tiver uma boa receita.|n• Eles fornecem o tecido ou pagam gorjeta — combinem antes de fabricar.|n• Você ainda não é um vendedor de equipamento completo; comece com amigos próximos.|n|n|cffffcc00Onde gastar KP — para ouro|r|n|n• Vigie a CdL: às vezes as |cffffff00bolsas|r ou slots de tecido populares vendem.|n• Só fabrique quando o |cffffff00preço de venda|r superar o |cffffff00custo do tecido|r.|n• As public orders de tailoring em Lunargente podem pagar quando sua qualidade está mais alta.|n|n|cffffcc00Com Enchanting|r|nVocê faz o item; o Enchanting o deixa forte. Por isso essa dupla é popular para você mesmo e para ajudar os outros.|n|n|cffffcc00Dica|r|nO tecido não é coletado neste personagem — confira os preços do tecido na CdL antes de se comprometer com um craft grande.",
+	PROFGUIDE_SEC_TAILORING_BODY = "|cffffcc00O que faz|r|nTransforma |cffffff00tecido|r (da Casa de Leilões ou vendedores) em armadura de tecido, bolsas e outros itens. Combina perfeitamente com o |cffffff00Encantamento|r no mesmo personagem.|n|n|cffffcc00Checklist semana 1|r|n|n• Aprenda Tailoring em Lunargente.|n• Compre um pouco de tecido ou farme enquanto faz missões — não compre demais no primeiro dia.|n• Primeira fabricação de cada |cffffff00receita nova|r barata uma vez.|n• Missão semanal + Patron Orders com recompensas de Conhecimento.|n• Fabrique melhorias para os slots que você |cffffff00realmente usa|r (usuários de tecido: Mago, Sacerdote, Bruxo, Conjurador, etc.).|n|n|cffffcc00Onde gastar KP — para você|r|n|n• Pontos no tipo de armadura que você usa.|n• Bolsas e utilidade são legais, mas a potência de armadura geralmente vem primeiro.|n• Depois encante essas peças com Encantamento.|n|n|cffffcc00Para amigos e guilda|r|n|n• Ofereça crafts de braçadeiras, capa ou cinto se tiver uma boa receita.|n• Eles fornecem o tecido ou pagam gorjeta — combinem antes de fabricar.|n• Você ainda não é um vendedor de equipamento completo; comece com amigos próximos.|n|n|cffffcc00Onde gastar KP — para ouro|r|n|n• Vigie a CdL: às vezes as |cffffff00bolsas|r ou slots de tecido populares vendem.|n• Só fabrique quando o |cffffff00preço de venda|r superar o |cffffff00custo do tecido|r.|n• As public orders de tailoring em Lunargente podem pagar quando sua qualidade está mais alta.|n|n|cffffcc00Com Encantamento|r|nVocê faz o item; o Encantamento o deixa forte. Por isso essa dupla é popular para você mesmo e para ajudar os outros.|n|n|cffffcc00Dica|r|nO tecido não é coletado neste personagem — confira os preços do tecido na CdL antes de se comprometer com um craft grande.",
 })
 
 --========================================================================
@@ -1119,7 +1119,7 @@ fill("ptBR", {
 	ACH_TAB_HINT_LINK = "Shift-clique: vincular no chat",
 	ACH_TAB_HINT_OPEN = "Ctrl-clique: abrir no painel de conquistas",
 	ACH_TREASURE_EVERSONG = "Tesouros da Floresta de Cantéreno",
-	ACH_TREASURE_COILEDISLE = "Tesouros da Coiled Isle",
+	ACH_TREASURE_COILEDISLE = "Tesouros da Ilha Enrolada",
 	INFO_DRAWER_BODY_ACHIEVEMENTS = "Acompanhe as conquistas de Midnight e trace uma rota até os colecionáveis que ainda faltam. Cada conquista mostra seu progresso e uma lista; clique em Rota para enviar a seta ao mais próximo que falta — ela avança automaticamente conforme você coleta.",
 })
 fill("itIT", {
@@ -1366,18 +1366,18 @@ fill("ptBR", {
 	MBUFF_TIP_HINT = "Clique para conjurar (fora de combate) · Shift+scroll para redimensionar · arraste para mover",
 	OPEN_TIP_HINT = "Clique esquerdo: abrir · arraste com o direito: mover · seta: alternar lista · Shift+scroll: redimensionar",
 	OPEN_TIP_CAPPED = "Total da temporada atingido, por isso não vai abrir. Gastar não ajuda — o limite conta o que ganhaste. Sobe no reinício semanal.",
-	DELVE_TIP_UNMEASURED = "Novo no patch 12.1, na Coiled Isle. O Midnight Helper encontrou este delve no teu próprio cliente, mas ainda ninguém o percorreu — por isso aqui não há rota, nem lista de trash, nem plano de boss, em vez de um emprestado. Preenche-se assim que for feito.",
-	DELVE_REWARDS_UNMEASURED = "A Season 2 alterou estes níveis de item e o Midnight Helper ainda não mediu os novos. Em vez de te mostrar números da Season 1 que agora ficam aquém, esta lista fica vazia até que uma run a preencha. A tua arca final e o teu Great Vault são a resposta honesta.",
+	DELVE_TIP_UNMEASURED = "Novo no patch 12.1, na Ilha Enrolada. O Midnight Helper encontrou este delve no teu próprio cliente, mas ainda ninguém o percorreu — por isso aqui não há rota, nem lista de trash, nem plano de boss, em vez de um emprestado. Preenche-se assim que for feito.",
+	DELVE_REWARDS_UNMEASURED = "A Série 2 alterou estes níveis de item e o Midnight Helper ainda não mediu os novos. Em vez de te mostrar números da Série 1 que agora ficam aquém, esta lista fica vazia até que uma run a preencha. A tua arca final e o teu Great Vault são a resposta honesta.",
 	WAY_SET_HERE = "Ponto marcado: %s.",
 	WAY_SET_ELSEWHERE = "Ponto marcado: %s, em %s. Estás em %s — vai lá primeiro e a seta trata do resto.",
 	WAY_NO_PIN = "Este mapa não aceita um ponto sem o TomTom, por isso não há seta para %s em %s. As coordenadas no texto continuam certas.",
 	WAY_FLIGHT_HINT = "Ponto de voo mais próximo lá: %s.",
-	DELVE_TIP_GNARLDOR_OVERVIEW = "• Novo na 12.1, na Coiled Isle — entrada em {WAY:2512:64.3:77.7:Gnarldor Isle}. O Scrollmaster Ruma na entrada inicia uma pequena cadeia de missões.|n• Três variantes, dois chefes (segundo a Method e a Icy Veins — ainda não medido no teu cliente). Duas variantes acabam em Gralka Snake-Eater: ela come cobras para acumular dano e deixa poças de veneno — tira-a de lá e desvia das ondas do Purging Breath dela.|n• A terceira acaba em Osseous Amalgamation: interrompe o escudo de ossos, foge do Bonestorm, desvia dos espigões.|n• Clica nos Tortollan Scrolls pelo caminho — buffs, alguns com rasteira.",
+	DELVE_TIP_GNARLDOR_OVERVIEW = "• Novo na 12.1, na Ilha Enrolada — entrada em {WAY:2512:64.3:77.7:Gnarldor Isle}. O Scrollmaster Ruma na entrada inicia uma pequena cadeia de missões.|n• Três variantes, dois chefes (segundo a Method e a Icy Veins — ainda não medido no teu cliente). Duas variantes acabam em Gralka Snake-Eater: ela come cobras para acumular dano e deixa poças de veneno — tira-a de lá e desvia das ondas do Purging Breath dela.|n• A terceira acaba em Osseous Amalgamation: interrompe o escudo de ossos, foge do Bonestorm, desvia dos espigões.|n• Clica nos Tortollan Scrolls pelo caminho — buffs, alguns com rasteira.",
 	DELVE_TIP_GNARLDOR_ROUTE = "• Três Sturdy Chests — clica para marcar um ponto: {WAY:2635:60.44:68.12:Sturdy Chest 1} · {WAY:2635:52.41:40.84:Sturdy Chest 2} · {WAY:2635:28.67:41.69:Sturdy Chest 3}.|n• Chegas por volta de 77, 46; o portal de saída está mesmo aí — percorre as arcas e acabas onde começaste.",
 	ARROW_LEAVE_INSTANCE_FIRST = "(sai daqui primeiro)",
 	GEM_OPEN_SOCKET_FMT = "Abrir a janela de engaste (%s)",
 	DELVE_TIP_RINGOFGLORY_DANGER = "• O Fissuring Slam do golem não pode ser interrompido. Um kick não faz nada — a barra de lançamento tem o escudo.|n• Cai por baixo de ti, por isso não há nada de onde sair. Atordoa-o, ou usa uma defensiva e encaixa o golpe.|n• Só aparece nos Tiers mais altos, e não sozinho: no Tier 11 eram três, a andar à solta. Podem ser puxados um de cada vez — faz isso. Dois juntos são dois slams que não consegues interromper.|n• O Midnight Helper não te consegue avisar no momento: desde a 12.1 um addon já não pode ver que magia um inimigo está a lançar. É por isso que esta nota está aqui.",
-	DELVE_TIP_RINGOFGLORY_OVERVIEW = "• Novo na 12.1, na Coiled Isle — entrada em {WAY:2512:71.1:56.4:The Ring of Glory}. Um delve-arena: uma variante é uma série de duelos, outra um jogo de bola fantasmagórico, outra um resgate de animais.|n• As duas primeiras acabam em Drakta (segundo a Method e a Icy Veins — ainda não medido no teu cliente): desvia do círculo do Soul Cleave, tira-o da zona que fica, e quando o Death Grip puxar o jogador mais distante, corta a linha de visão atrás de um pilar.|n• O resgate acaba em Gnok, e ele volta morto-vivo a meio — por isso mata-lo duas vezes. Isso está medido, não copiado.|n• Armadilhas no chão por todo o lado — vê onde pisas.|n• Interrompe a autocura dos Spiritcallers e destrói o War Drum dos Warsingers.",
+	DELVE_TIP_RINGOFGLORY_OVERVIEW = "• Novo na 12.1, na Ilha Enrolada — entrada em {WAY:2512:71.1:56.4:The Ring of Glory}. Um delve-arena: uma variante é uma série de duelos, outra um jogo de bola fantasmagórico, outra um resgate de animais.|n• As duas primeiras acabam em Drakta (segundo a Method e a Icy Veins — ainda não medido no teu cliente): desvia do círculo do Soul Cleave, tira-o da zona que fica, e quando o Death Grip puxar o jogador mais distante, corta a linha de visão atrás de um pilar.|n• O resgate acaba em Gnok, e ele volta morto-vivo a meio — por isso mata-lo duas vezes. Isso está medido, não copiado.|n• Armadilhas no chão por todo o lado — vê onde pisas.|n• Interrompe a autocura dos Spiritcallers e destrói o War Drum dos Warsingers.",
 	DELVE_TIP_RINGOFGLORY_ROUTE = "• Três Sturdy Chests — clica para marcar um ponto: {WAY:2633:44.16:22.60:Sturdy Chest 1} · {WAY:2633:25.19:73.74:Sturdy Chest 2} · {WAY:2633:48.56:94.84:Sturdy Chest 3}.|n• A saída está em {WAY:2633:80.10:53.69:Saída}.",
 	MARK_DRAG = "Arraste para mover (fora de combate)",
 	MARK_CLEAR_TARGET = "Limpar marcador do alvo",
@@ -1795,10 +1795,10 @@ fill("ptBR", {
 	LVL8090_INTRO = "Dicas independentes de classe para ir de 80 a 90 rápido. Para talentos e rotações, use o Icy Veins ou o Wowhead.",
 	LVL8090_SEC_PATH_TITLE = "1. Caminho mais rápido de 80 a 90",
 	LVL8090_PATH_1 = "A campanha da Midnight (17 capítulos) te leva quase até 90; as World Quests fecham a conta.",
-	LVL8090_PATH_2 = "Seu primeiro personagem deve fazer a campanha — ela desbloqueia a zona final, Voidstorm.",
-	LVL8090_PATH_3 = "Ordem das zonas: Eversong (80-82) -> Zul'Aman / Harandar (~82-88) -> Voidstorm (88-90).",
+	LVL8090_PATH_2 = "Seu primeiro personagem deve fazer a campanha — ela desbloqueia a zona final, Tempestade do Caos.",
+	LVL8090_PATH_3 = "Ordem das zonas: Eversong (80-82) -> Zul'Aman / Harandar (~82-88) -> Tempestade do Caos (88-90).",
 	LVL8090_PATH_4 = "Depois da campanha em um personagem, use o Adventure Mode para os alts (zonas em qualquer ordem, sem os 17 capítulos lineares).",
-	LVL8090_PATH_5 = "Atalho para alts: faça cada delve no Tier 1 em nível baixo, pegue cada quest Delver's Call mas não entregue; faça quests até ~87-88 e entregue todas de uma vez.",
+	LVL8090_PATH_5 = "Atalho para alts: faça cada delve no Tier 1 em nível baixo, pegue cada quest Chamado do Imersor mas não entregue; faça quests até ~87-88 e entregue todas de uma vez.",
 	LVL8090_PATH_6 = "As primeiras criações de profissão dão um belo empurrão de XP para fechar o último trecho.",
 	LVL8090_PATH_7 = "Nos alts a campanha é menos eficiente em XP do que quests comuns; quests de masmorra são lentas, então pule-as nos alts.",
 	LVL8090_PATH_8 = "No total, 80 a 90 são 4.963.065 XP. A primeira passagem tranquila leva cerca de 8-10 horas; um alt otimizado com todos os buffs costuma ficar em torno de 3-5 horas.",
@@ -1808,15 +1808,15 @@ fill("ptBR", {
 	LVL8090_XP_3 = "O War Mode dá o buff Enlisted: +15% de XP apenas no mundo aberto (não em cidades ou instâncias).",
 	LVL8090_XP_4 = "Darkmoon Faire (primeira semana cheia do mês): WHEE! (o carrossel) ou o Darkmoon Top Hat dão +10% de XP (não acumulam entre si).",
 	LVL8090_XP_5 = "As Heirlooms ainda dão um bônus de XP de nível em toda a conta.",
-	LVL8090_XP_6 = "A XP de Delver's Call escala com seu nível, então entregar essas quests mais tarde (por volta de 88) rende bastante XP.",
+	LVL8090_XP_6 = "A XP do Chamado do Imersor escala com seu nível, então entregar essas quests mais tarde (por volta de 88) rende bastante XP.",
 	LVL8090_XP_7 = "Um Battle Standard ou bandeira de guilda em um grupo costuma dar um pouco de XP extra.",
 	LVL8090_SEC_UNLOCKS_TITLE = "3. Desbloqueios por nível (80 a 90)",
 	LVL8090_UNLOCK_1 = "O Skyriding está disponível logo no início da Midnight (sem Pathfinder ou grind de reputação).",
 	LVL8090_UNLOCK_2 = "O Chromie Time na Midnight cobre 10-70; aos 70 você recebe o catch-up acelerado de TWW.",
 	LVL8090_UNLOCK_3 = "O Adventure Mode abre para os alts só depois de você terminar a campanha em um personagem.",
 	LVL8090_UNLOCK_4 = "As Delves ficam limitadas ao Tier 3 abaixo do nível 90; aos 90 todos os tiers mais as Bountiful Delves são desbloqueados.",
-	LVL8090_UNLOCK_5 = "Você pode pegar profissões enquanto sobe de nível (Mining/Herbalism para ouro; as primeiras criações dão XP).",
-	LVL8090_UNLOCK_6 = "Os Ritual Sites abrem via Renown (em todo o warband) mais uma breve quest de introdução, não em um nível fixo.",
+	LVL8090_UNLOCK_5 = "Você pode pegar profissões enquanto sobe de nível (Mineração/Herbalism para ouro; as primeiras criações dão XP).",
+	LVL8090_UNLOCK_6 = "Os Sítios Ritualísticos abrem via Renown (em todo o warband) mais uma breve quest de introdução, não em um nível fixo.",
 	LVL8090_SEC_CONS_TITLE = "4. Consumíveis enquanto sobe de nível",
 	LVL8090_CONS_1 = "Prioridade: primeiro flask e food, depois poções de cura, depois runas situacionais ou poções de DPS.",
 	LVL8090_CONS_2 = "Enquanto sobe de nível, um flask e food geralmente bastam — guarde as augment runes e poções caras para conteúdo mais difícil.",
@@ -1825,12 +1825,12 @@ fill("ptBR", {
 	LVL8090_GEAR_1 = "Greens de quest e blues de masmorra servem o caminho todo — equipamento de nível é descartável.",
 	LVL8090_GEAR_2 = "Não encante, não coloque gemas nem soquetes nos greens de nível (você os troca o tempo todo) — guarde os encantamentos para seu set recém-chegado aos 90.",
 	LVL8090_GEAR_3 = "Crafted gear e Sparks of Radiance são catch-up de endgame, não precisam enquanto sobe de nível.",
-	LVL8090_GEAR_4 = "Com Enchanting você pode desencantar seus greens de quest pelo caminho (mats grátis e um pouco de XP de profissão).",
+	LVL8090_GEAR_4 = "Com Encantamento você pode desencantar seus greens de quest pelo caminho (mats grátis e um pouco de XP de profissão).",
 	LVL8090_GEAR_5 = "Pare de se preocupar com equipamento até 90 — o gearing de verdade (masmorras, delves, vault) começa no nível máximo.",
 	LVL8090_SEC_HANDOFF_TITLE = "6. A transição aos 90",
 	LVL8090_HANDOFF_1 = "Se você chegar a 90 antes de a história acabar, termine a campanha primeiro (ela abre as World Quests, o Renown e o Adventure Mode).",
-	LVL8090_HANDOFF_2 = "As Prey Hunts começam com Magister Astalor Bloodsworn em Murder Row, Silvermoon (alimentam a Great Vault e a Voidforge).",
-	LVL8090_HANDOFF_3 = "Gearing da semana 1: Normal -> Heroic -> Mythic 0 -> M+/raid Normal; delves para o cache semanal.",
+	LVL8090_HANDOFF_2 = "As Caçadas de Presa começam com Magister Astalor Bloodsworn em Murder Row, Silvermoon (alimentam a Great Vault e a Voidforge).",
+	LVL8090_HANDOFF_3 = "Gearing da semana 1: Normal -> Heroico -> Mythic 0 -> M+/raid Normal; delves para o cache semanal.",
 	LVL8090_HANDOFF_4 = "Great Vault: atinja os limites de delve/M+/raid na semana 1 para abrir slots de vault.",
 	LVL8090_HANDOFF_5 = "Daqui em diante, as ferramentas de endgame do Midnight Helper assumem (delves, vault, rares, rituals, rotina de reset).",
 	LVL8090_BTN_OPEN_CONSUMABLES = "Abrir aba Consumables",
@@ -2113,24 +2113,24 @@ fill("ptBR", {
 	HOME_SECTION_COLLECTIBLES = "Montarias colecionáveis",
 	HOME_SECTION_RAIDS = "Raids",
 	HOME_VOID_HUB_BTN = "Rota para o hub do Vazio",
-	MOUNTPROG_AMANIBEAR_HOWTO = "Alcance Renown 17 com a Amani Tribe e compre-a por 6.000 Voidlight Marl.",
-	MOUNTPROG_AMANIWIND_HOWTO = "Alcance Renown 19 com a Amani Tribe e compre-a por 8.000 Voidlight Marl.",
+	MOUNTPROG_AMANIBEAR_HOWTO = "Alcance Renown 17 com a Amani Tribe e compre-a por 6.000 Silte de Luz Caótica.",
+	MOUNTPROG_AMANIWIND_HOWTO = "Alcance Renown 19 com a Amani Tribe e compre-a por 8.000 Silte de Luz Caótica.",
 	MOUNTPROG_ANUSHALLA_HOWTO = "Colecione 600 montarias ('Insurmountable Collection') — a contagem é das montarias da sua conta.",
-	MOUNTPROG_CERULEANSG_HOWTO = "Alcance Renown 19 com os Hara'ti e compre-a por 8.000 Voidlight Marl.",
-	MOUNTPROG_CRIMSONHS_HOWTO = "Alcance Renown 17 com a Silvermoon Court e compre-a por 6.000 Voidlight Marl.",
-	MOUNTPROG_GORGER_HOWTO = "Conclua a meta 'Heroic Showdowns' (6 objetivos Showdown heroicos em Naigtal e Val, cerca de 2 semanas) e compre-a com Kifaan por 15 Voidlight Marl.",
-	MOUNTPROG_GRIMLYNX_HOWTO = "Alcance Renown 16 com os Hara'ti e compre-a por 6.000 Voidlight Marl.",
+	MOUNTPROG_CERULEANSG_HOWTO = "Alcance Renown 19 com os Hara'ti e compre-a por 8.000 Silte de Luz Caótica.",
+	MOUNTPROG_CRIMSONHS_HOWTO = "Alcance Renown 17 com a Silvermoon Court e compre-a por 6.000 Silte de Luz Caótica.",
+	MOUNTPROG_GORGER_HOWTO = "Conclua a meta 'Batalhas Decisivas Heroicas' (6 objetivos heroicos de Batalha Decisiva em Naigtal e Val, cerca de 2 semanas) e compre-a com Kifaan por 15 Silte de Luz Caótica.",
+	MOUNTPROG_GRIMLYNX_HOWTO = "Alcance Renown 16 com os Hara'ti e compre-a por 6.000 Silte de Luz Caótica.",
 	MOUNTPROG_HEXEAGLE_HOWTO = "Broken Throne (nível 2 ou superior): resolva o enigma da Missing Ritual Candle no círculo ritual para invocar e derrotar o chefe.",
-	MOUNTPROG_NULLFRAME_HOWTO = "Conclua a meta 'A Trip Through the Stars' (6 objetivos Showdown de Naigtal, cerca de 2 semanas) e compre-a com Kifaan por 15 Voidlight Marl.",
+	MOUNTPROG_NULLFRAME_HOWTO = "Conclua a meta 'A Trip Through the Stars' (6 objetivos de Batalha Decisiva em Naigtal, cerca de 2 semanas) e compre-a com Kifaan por 15 Silte de Luz Caótica.",
 	MOUNTPROG_ROUTE_BTN_FMT = "Rota para %s",
-	MOUNTPROG_SHREDCLAW_HOWTO = "Alcance Renown 17 com The Singularity e compre-a por 6.000 Voidlight Marl.",
-	MOUNTPROG_SNAPDRAGON_HOWTO = "Daggerspine Point (Eversong Woods): vasculhe os montes de Washed Up Kelp; com sorte surge o raro Void-Touched Snapdragon, que pode largar a montaria.",
+	MOUNTPROG_SHREDCLAW_HOWTO = "Alcance Renown 17 com a Singularidade e compre-a por 6.000 Silte de Luz Caótica.",
+	MOUNTPROG_SNAPDRAGON_HOWTO = "Ponto de Espinhadaga (Floresta do Canto Eterno): vasculhe os montes de Washed Up Kelp; com sorte surge o raro Void-Touched Snapdragon, que pode largar a montaria.",
 	MOUNTPROG_SPOREGLIDER_HOWTO = "Derrote Rotmire na raid Sporefall (Harandar) para ganhar um Delicious Sporesnack — cerca de 1 por semana, são necessários 4.",
 	MOUNTPROG_SPOREGLIDER_ROUTE_NAME = "Entrada da raid Sporefall (Harandar)",
-	MOUNTPROG_STARCARVER_HOWTO = "Conclua a meta 'A Trip Around the Stars' (6 objetivos Showdown de Val, cerca de 2 semanas) e compre-a com Kifaan por 15 Voidlight Marl.",
-	MOUNTPROG_STORMRAY_HOWTO = "Alcance Renown 19 com The Singularity e compre-a por 8.000 Voidlight Marl.",
+	MOUNTPROG_STARCARVER_HOWTO = "Conclua a meta 'A Trip Around the Stars' (6 objetivos de Batalha Decisiva em Val, cerca de 2 semanas) e compre-a com Kifaan por 15 Silte de Luz Caótica.",
+	MOUNTPROG_STORMRAY_HOWTO = "Alcance Renown 19 com a Singularidade e compre-a por 8.000 Silte de Luz Caótica.",
 	MOUNTPROG_UMBRALDH_HOWTO = "Conquiste 'Life of the Party' — reputação máxima com as quatro subfacções da Silvermoon Court.",
-	MOUNTPROG_VOIDHAWK_HOWTO = "Alcance Ritual Sites Renown 8 e compre-a com Sergeant Vornin em Silvermoon por 4.500 Voidlight Marl.",
+	MOUNTPROG_VOIDHAWK_HOWTO = "Alcance Renown 8 dos Sítios Ritualísticos e compre-a com Sergeant Vornin em Silvermoon por 4.500 Silte de Luz Caótica.",
 	MOUNTPROG_VOIDLYNX_HOWTO = "Couraria (90 Midnight): aprenda 'Pattern: Rope Lynx Harness' (drop raro do baú final de um Ritual Site de nível 5) e fabrique-a com uma Broken Lynx Leash.",
 	MOUNTPROG_VYRANOTH_HOWTO = "Evento Turbulent Timeways: mantenha o buff 'Mastery of the Timeways' (de 4 masmorras Timewalking) em 4 das 5 semanas do evento.",
 	MOUNTPROG_WARBEAR_HOWTO = "Broken Throne (nível 2 ou superior): alimente o Lost Bear Cub, depois derrote o Angry Amani Warbear e dê a ele Practically Pork.",
@@ -2402,7 +2402,7 @@ fill("ptBR", {
 	ST_CLOSE_NEMESIS = "Derrote Nullaeus em seu covil - o troféu vai embora com a temporada",
 	ST_CLOSE_SOLO = "Mate Nullaeus sem grupo - uma montaria que vai embora com a temporada",
 	ST_CLOSE_DARK = "Lighting the Dark - derrote Nullaeus pelo título “the Ominous”",
-	ST_CLOSE_PREY = "Preying For Midnight - o título Preyseeker, um meta de 7 conquistas Prey",
+	ST_CLOSE_PREY = "Preying For Midnight - o título Preyseeker, um meta de 7 conquistas de Presa",
 })
 
 fill("itIT", {
@@ -2433,7 +2433,7 @@ fill("esES", {
 })
 
 fill("ptBR", {
-	POISON_HEADER = "Os venenos de Valeera - o que o jogo diz:",
+	POISON_HEADER = "Os venenos de Valira - o que o jogo diz:",
 	POISON_NONE = "Sem venenos neste cliente - eles chegam com a temporada 2.",
 })
 
@@ -2462,7 +2462,7 @@ fill("esES", {
 })
 
 fill("ptBR", {
-	CODEX_PREY_TITLE = "Caçadas Prey",
+	CODEX_PREY_TITLE = "Caçadas de Presa",
 })
 
 fill("itIT", {
@@ -3482,11 +3482,11 @@ fill("esES", {
 
 fill("ptBR", {
 	ACH_NOTE_STRANGER = "Debaixo da ponte, não em cima — o memorial fica abaixo da passarela, por isso uma rota que te deixe em cima vai parecer que não há nada ali.",
-	CAMPAIGN_VAULTS_NAME = "Cadeia das Vaults of Atal'Utek",
-	HOME_SECTION_VAULTS = "Novo: as Vaults of Atal'Utek",
-	HOME_VAULTS_AVAILABLE = "Três missões abrem as Vaults, na Coiled Isle — uma área com moeda própria, doze memoriais e três proezas. Ainda não as começaste.",
-	HOME_VAULTS_INPROGRESS = "Estás a meio da cadeia das Vaults — termina-a e a área inteira abre.",
-	HOME_VAULTS_ROUTE_BTN = "Seguir a missão atual das Vaults",
+	CAMPAIGN_VAULTS_NAME = "Cadeia das Câmaras de Atal'Utek",
+	HOME_SECTION_VAULTS = "Novo: as Câmaras de Atal'Utek",
+	HOME_VAULTS_AVAILABLE = "Três missões abrem as Câmaras, na Ilha Enrolada — uma área com moeda própria, doze memoriais e três proezas. Ainda não as começaste.",
+	HOME_VAULTS_INPROGRESS = "Estás a meio da cadeia das Câmaras — termina-a e a área inteira abre.",
+	HOME_VAULTS_ROUTE_BTN = "Seguir a missão atual das Câmaras",
 })
 
 fill("itIT", {
@@ -3588,7 +3588,7 @@ fill("esES", {
 })
 
 fill("ptBR", {
-	ACH_NOTE_UNDERBELLY_STRIKE = "Só aparece enquanto o Temple Strike: The Underbelly está rolando - não há um ponto fixo, então a seta ignora este.",
+	ACH_NOTE_UNDERBELLY_STRIKE = "Só aparece enquanto o Temple Strike: Os Esgotos está rolando - não há um ponto fixo, então a seta ignora este.",
 	ACH_NOTE_ANCIENT_FOE = "Surge onde uma Temple Incursion termina, então não tem lugar no mapa. Entre no que estiver rolando e ele vem até você.",
 	ACH_NOTE_VSERIX = "Fica andando por aí, e dá para matar sem nenhum evento ativo.",
 
@@ -3599,11 +3599,11 @@ fill("ptBR", {
 	ICV_UNLOCK_JINTAL = "De High Priest Jin'tal, no Vault of Restless Brothers - ele aparece na linha de missões secundária The Med'jai Medallion.",
 	ICV_WHERE_TOKJARA = "Numa saliência à direita da entrada da raide Venomous Abyss.",
 	ICV_WHERE_LYNX = "Em baús debaixo das cachoeiras de veneno.",
-	ICV_WHERE_SZARITH = "Lado norte do Underbelly, numa poça de veneno redonda.",
+	ICV_WHERE_SZARITH = "Lado norte dos Esgotos, numa poça de veneno redonda.",
 	ICV_WHERE_MEDJAI = "Lado leste do Profaned Mausoleum - à esquerda depois de entrar, num baú sobre uma prateleira.",
 	ICV_SPOTS_PREFIX = "Nove lugares onde pode estar:",
 	ICV_ALSO_CALLED = "Em outros lugares chamado:",
-	ICV_DISPUTE_MEDJAI = "As fontes se contradizem sobre a segunda opção: nós escrevemos 'levantar na hora quando você morre fora das Vaults', a Icy Veins chama de ressurreição instantânea dentro de Atal'Utek. Ninguém mediu isso.",
+	ICV_DISPUTE_MEDJAI = "As fontes se contradizem sobre a segunda opção: nós escrevemos 'levantar na hora quando você morre fora das Câmaras', a Icy Veins chama de ressurreição instantânea dentro de Atal'Utek. Ninguém mediu isso.",
 	ICV_SOURCE_NOTE = "Fontes e coordenadas da Icy Veins, 16 de agosto - uma fonte só, ainda não confirmada no jogo. A Feather of Tok'jara é a exceção: nossas próprias notas de julho dão os mesmos dois números.",
 
 	HAZARD_SECTION_FMT = "Não fique parado aqui (%s)",
