@@ -104,6 +104,7 @@ Take a look at the screenshots for a feel of the addon in play — the **This We
 - **Delve Party Share** — send coach tips to party, raid, or instance chat; recipients do not need this addon.
 - **Delve consumables** — quick-use panel for **RAID-R Mini** and **Trovehunter's Bounty** when you carry them; auto-shows on delve entry; minimap launchers visible only during an active delve.
 - **Valeera curio advisor** — role-based curio suggestions on the Delves tab and a popup at repair / gossip NPCs.
+- **Valeera's progress, only while you are in a delve.** Her level, how far to the next one and how much is left. It appears when you go in and is gone when you come out, because a number that is always on screen stops being read. Close it and it stays closed. It does not estimate how many runs you still need: every delve feeds her and bountiful ones feed her more, but how much any single run gives is not something we can honestly pin down.
 
 **Account & professions**
 - **Account snapshot** — per-character overview (keys, shards, undercoins, item level, profession weekly currencies in tooltips), with a sort/filter toolbar, a stale-since-Wednesday badge, and compact vault status per row.
@@ -181,6 +182,7 @@ drift from what the addon actually answers to.
 | `/mh plan` | The whole way to your current target, as steps you can click |
 | `/mh binds` | Your own keybinds, read from the client — copy it out and print it |
 | `/mh curios` | What each of Valeera's delve curios does, read from your own game |
+| `/mh valeera` | Her progress popup — bring it back after you have closed it |
 | `/mh hazards` | What does avoidable damage where you are standing |
 | `/mh keys` | The four Altar of Corrosion nodes that need a treasure hunt first |
 | `/mh mount <text>` | Search the mount journal and see what your client actually knows |
