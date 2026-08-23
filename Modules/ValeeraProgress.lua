@@ -7,13 +7,32 @@ local _, ns = ...
 	liked it, and said the two things wrong with it for him: it is on screen all the time,
 	and it lives in its own addon. On screen all the time is how a number becomes wallpaper.
 
-	So this shows up when you enter a delve and goes away when you leave.
+	So this shows up when you enter a delve and goes away when you leave. That, and an X
+	that means it, is the whole difference from the bar Rob already had — which he says is
+	more than enough as it is.
 
-	⚠️ AND IT SAYS THE HALF A BAR CANNOT. A percentage tells you where you are, not what to
-	do about it. Only BOUNTIFUL delves feed this — measured 2026-08-20, and it is the thing
-	no progress bar knows — so the number that actually helps is "how many bountiful runs
-	is that". We do not hardcode a figure for it: the addon watches your own runs and
-	learns the gain from them. Until it has seen one, it says so rather than guessing.
+	🔴 IT USED TO PREDICT RUNS. IT DOES NOT ANY MORE, AND THE REASON MATTERS.
+
+	It claimed "only BOUNTIFUL delves add to it (measured 2026-08-20)" and turned the
+	remainder into a number of bountiful runs. Rob disproved the premise from inside the
+	game on 23 aug: he ran a level 3 delve — not bountiful — with Cisca and gained Valeera
+	XP for it. Less than a bountiful run, but not nothing.
+
+	The 20 aug "measurement" never measured that. It confirmed bountiful delves DO feed
+	her and concluded the others do not — absence inferred from not having looked, with no
+	positive control in the same run. That is the one mistake this project has made most
+	often, and it shipped in six languages this time.
+
+	Rob's second point retired the feature rather than the sentence: he does not believe the
+	gain per delve is reliably measurable at all. Predicting "about six more runs" on top of
+	a quantity that cannot be pinned down is not a service, it is false precision wearing a
+	measurement's clothes. So the prediction, the per-run bookkeeping and the bountiful
+	detection are all gone rather than patched — there is nothing left for them to be right
+	about. What remains is what the bar knows and one true sentence: every delve adds to it,
+	bountiful ones add more.
+
+	⚠️ Do not rebuild the estimate without a real measurement first: same delve tier, both
+	bountiful and not, several runs, gains written down. Until then it is a guess.
 
 	⚠️ THE FACTION ID IS CHECKED, NOT TRUSTED. 2744 comes from another addon, which makes
 	it a candidate. GetFriendshipReputation returns the faction's name, so we compare it
@@ -25,7 +44,7 @@ local FACTION_ID = 2744
 local NAME_MUST_CONTAIN = "valeera"
 local TICK_SEC = 2
 
-local frame, ticker, wasInDelve, enterSnapshot
+local frame, ticker, wasInDelve
 
 local function L(key)
 	return (ns.L and ns:L(key)) or key
@@ -80,31 +99,6 @@ local function GetValeera()
 	}
 end
 
---- What bountiful runs have actually given THIS character: average, count, lowest, highest.
---- Kept as a list rather than a running average so one odd run can be seen and,
---- if it ever matters, thrown out — an average hides the run that disagrees.
----
---- ⚠️ AND THE SPREAD IS REPORTED, NOT JUST THE AVERAGE. Rob asked the right question from
---- inside a bountiful delve on 23 aug: does the gain not depend on which delve you run and
---- how many boons you pick up along the way? It was never measured either way — 20 aug
---- established only that bountiful delves are the ones that count, not that they all count
---- the same. Printing one averaged figure as "about 6 runs" turns a variable into a rate
---- and invents a precision nobody checked. So when the runs disagree, the sentence says so.
-local function BountifulStats()
-	local s = Settings()
-	local runs = s.bountifulGains
-	if type(runs) ~= "table" or #runs == 0 then
-		return nil
-	end
-	local total, lo, hi = 0, nil, nil
-	for _, v in ipairs(runs) do
-		total = total + v
-		lo = (lo == nil or v < lo) and v or lo
-		hi = (hi == nil or v > hi) and v or hi
-	end
-	return math.floor(total / #runs + 0.5), #runs, lo, hi
-end
-
 local function BuildText()
 	local v = GetValeera()
 	if not v then
@@ -125,27 +119,10 @@ local function BuildText()
 		BreakUpLargeNumbers and BreakUpLargeNumbers(span) or span,
 		pct)
 
-	-- The half a bar cannot say.
-	local avg, runs, lo, hi = BountifulStats()
+	-- How much is left, and the one thing about it that is actually known.
 	local big = BreakUpLargeNumbers or function(n) return n end
-	local tail
-	if avg and avg > 0 then
-		-- One run tells you nothing about the spread, so a range needs at least two runs
-		-- that genuinely disagree. A tenth apart is noise; beyond that it is the delve.
-		if runs >= 2 and hi > lo * 1.1 then
-			tail = L("VALEERA_LEFT_RUNS_RANGE_FMT"):format(
-				big(left),
-				math.max(math.ceil(left / hi), 1),   -- best case: the richest runs
-				math.max(math.ceil(left / lo), 1),   -- worst case: the leanest
-				runs, big(lo), big(hi))
-		else
-			tail = L("VALEERA_LEFT_RUNS_FMT"):format(
-				big(left), math.max(math.ceil(left / avg), 1), runs, big(avg))
-		end
-	else
-		tail = L("VALEERA_LEFT_UNMEASURED_FMT"):format(big(left))
-	end
-	return head .. "\n" .. tail, (span > 0) and (into / span) or 0
+	return head .. "\n" .. L("VALEERA_LEFT_FMT"):format(big(left)),
+		(span > 0) and (into / span) or 0
 end
 
 local function Refresh()
@@ -271,7 +248,7 @@ function ns.ToggleValeeraPopup()
 end
 
 --------------------------------------------------------------------------------
--- Show in a delve, hide outside it, and learn what a run is worth
+-- Show in a delve, hide outside it
 --------------------------------------------------------------------------------
 
 local function InDelve()
@@ -284,66 +261,15 @@ local function InDelve()
 	return false
 end
 
---- On leaving, compare against the snapshot taken on entry. A gain only counts as a
---- bountiful gain when we could actually tell the delve WAS bountiful — an unknown
---- delve is not filed as one, because a wrong number here would quietly turn into
---- "about six runs" advice that is off by a factor.
-local function OnLeftDelve()
-	local before = enterSnapshot
-	enterSnapshot = nil
-	if not before then
-		return
-	end
-	local v = GetValeera()
-	if not (v and before.cur) then
-		return
-	end
-	local gain = v.cur - before.cur
-	if gain <= 0 then
-		return
-	end
-	if not before.bountiful then
-		return
-	end
-	local s = Settings()
-	if type(s.bountifulGains) ~= "table" then
-		s.bountifulGains = {}
-	end
-	s.bountifulGains[#s.bountifulGains + 1] = gain
-	-- Keep the last handful: the reward has changed with patches before, and an
-	-- average over a year of runs would hide that it moved.
-	while #s.bountifulGains > 8 do
-		table.remove(s.bountifulGains, 1)
-	end
-end
-
 local function Tick()
 	local inDelve = InDelve()
 	if inDelve and not wasInDelve then
-		local v = GetValeera()
-		-- The name comes from DelveHistory, which already resolves it from the
-		-- scenario text and the POI list. Guessing it a second time here would be a
-		-- second thing to get wrong.
-		local name
-		if ns.GetCurrentDelveRun then
-			local okN, n = pcall(ns.GetCurrentDelveRun)
-			name = okN and n or nil
-		end
-		local bountiful = false
-		if name and ns.IsDelveBountiful then
-			local okB, res = pcall(ns.IsDelveBountiful, name)
-			bountiful = (okB and res) and true or false
-		end
-		-- The snapshot is taken whether or not the popup is shown: someone who turned it
-		-- off still gets a correct measurement waiting for them if they turn it back on.
-		enterSnapshot = v and { cur = v.cur, bountiful = bountiful } or nil
 		if not Settings().off then
 			local f = Build()
 			f:Show()
 			Refresh()
 		end
 	elseif not inDelve and wasInDelve then
-		OnLeftDelve()
 		if frame then
 			frame:Hide()
 		end

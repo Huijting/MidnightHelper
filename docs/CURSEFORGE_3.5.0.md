@@ -31,13 +31,13 @@ The tool that checks this used to ask whether a key existed in a pack and call t
 
 ## Valeera, in the delve
 
-Her progress now shows while you are in one: where she is, and what the bar in front of you cannot tell you — what a bountiful run is actually worth, measured from your own recent runs rather than from a number someone posted.
+Her level, how far to the next one, and how much is left — shown when you enter a delve and gone when you leave. That is the whole feature. Close it and it stays closed; `/mh valeera` brings it back.
 
-And it does not pretend that number is fixed. A run is worth what the delve and your pickups make it, so once your runs disagree the popup gives you the range instead of a single tidy figure. Nobody has measured how much that varies, and inventing a precision is worse than admitting the spread.
+It was going to be cleverer than that, and it should not have been. It claimed only Bountiful delves feed her reputation and turned the remainder into "about six more bountiful runs". A tester ran a level 3 delve — not bountiful — and gained reputation for it. Less than a bountiful run, but not nothing, so the sentence was simply false, in six languages.
+
+The original check had confirmed that bountiful delves count and concluded the others do not. That is not a measurement, it is a gap where a measurement should have been. The estimate built on top of it is gone rather than corrected — a per-run figure that cannot be pinned down is not worth predicting from. What is left is one sentence that is true: every delve adds to it, bountiful ones add more.
 
 She is also given a reason rather than an instruction. Healer is the recommendation, and the reason it is a recommendation differs depending on what you play, so it now says the one that applies to you.
-
-The X closes it for good, not just for that delve. `/mh valeera` or the Pop-out windows card brings it back, and it says so in chat when you close it.
 
 ## Standing next to a portal and being told to fly
 
