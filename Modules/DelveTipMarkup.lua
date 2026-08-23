@@ -262,6 +262,30 @@ function ns.ReportTravelHintForWaypoint(mapID, label, x, y, currentMap)
 	if currentMap and tonumber(currentMap) == mapID then
 		return
 	end
+	--- ⚠️ ASK THE PLANNER FIRST, because it knows about portals and this did not.
+	---
+	--- Rob, 23 aug: standing beside the Coiled Isle portal in Silvermoon, clicking a
+	--- waypoint for The Ring of Glory — which is ON the Coiled Isle — and being told to
+	--- fly from Sanctum of Light to Tokka's Landing. Everything needed for the right
+	--- answer was already in the addon: the portal is in MIDNIGHT_PORTALS, his quest
+	--- gate was green (`/mh portals` said so), and BuildTravelPlan tries portals before
+	--- flight. This function simply never asked it, and went straight to the flight
+	--- network — two implementations of one question, with the shorter one shipping the
+	--- worse answer.
+	---
+	--- Only the FIRST step is reported: this is a one-line chat hint, not the full plan
+	--- (`/mh plan` prints that). And only when it is a portal — for anything else the
+	--- flight sentence below is already the better-worded version of the same advice.
+	if ns.BuildTravelPlan then
+		local okPlan, steps = pcall(ns.BuildTravelPlan, mapID, x, y, label)
+		if okPlan and type(steps) == "table" and steps[1] and steps[1].kind == "portal" then
+			local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
+			print(("%s %s"):format(prefix,
+				(ns:L("WAY_PORTAL_HINT")):format(tostring(steps[1].label or "?"))))
+			return
+		end
+	end
+
 	local fp = ns.GetNearestFlightPoint(mapID, x, y)
 	if not fp then
 		-- No flight point in our data for that zone. Silence is correct here: inventing

@@ -1403,6 +1403,7 @@ ns._mhLocales.nlNL = {
 	WAY_NO_PIN = "Deze kaart accepteert geen waypoint zonder TomTom, dus er komt geen pijl voor %s in %s. De coördinaten in de tekst kloppen wel gewoon.",
 	WAY_FLIGHT_HINT = "Dichtstbijzijnde flight point daar: %s.",
 	WAY_FLIGHT_FROM_TO = "Vlieg van %s naar %s.",
+	WAY_PORTAL_HINT = "Neem de %s — sneller dan vliegen, en je kunt hem gebruiken.",
 	WAY_LEG_TO_FLIGHT = "Flight master: %s",
 	WAY_LEG_ARRIVED = "Je bent er — de pijl staat nu op %s.",
 	FLIGHTMAP_TAKE = "Neem %s — daarna door naar %s.",

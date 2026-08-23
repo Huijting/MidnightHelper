@@ -1435,6 +1435,7 @@ ns._mhLocales.enUS = {
 	WAY_NO_PIN = "This map does not accept a waypoint without TomTom, so there is no arrow for %s in %s. The coordinates in the text are still correct.",
 	WAY_FLIGHT_HINT = "Nearest flight point there: %s.",
 	WAY_FLIGHT_FROM_TO = "Fly from %s to %s.",
+	WAY_PORTAL_HINT = "Take the %s — faster than flying, and you can use it.",
 	-- The arrow is on the first leg, so it has to say so — an arrow labelled with the
 	-- destination while pointing at a flight master is worse than no label.
 	WAY_LEG_TO_FLIGHT = "Flight master: %s",
