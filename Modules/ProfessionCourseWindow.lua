@@ -24,10 +24,24 @@ local _, ns = ...
 ]]
 
 local MIN_W, MIN_H = 380, 260
-local DEFAULT_W, DEFAULT_H = 560, 620
-local RAIL_W = 172
+local DEFAULT_W, DEFAULT_H = 700, 620
+local RAIL_MIN_W, RAIL_MAX_W = 172, 320
 local RAIL_ROW_H = 18
 local PAD = 12
+
+--- 🔴 The rail used to be a FIXED 172px, and that made resizing useless for the one
+--- problem it looked like it would solve. Rob, 23 aug: "het is te vaak afgebroken in de
+--- linker kolom en hoe ik ook probeer ik krijg de rest niet te zien". He was dragging the
+--- window wider and every extra pixel went to the body, so "3. Choosing trees - wi..." was
+--- still "3. Choosing trees - wi...". A control that visibly does nothing for the thing you
+--- are trying to fix is worse than no control.
+---
+--- So the rail takes a share of the width and grows with it. Capped, because past ~320px a
+--- chapter title has run out of words and the reading column starts paying for nothing.
+local function RailWidth(f)
+	local w = (f and f:GetWidth()) or DEFAULT_W
+	return math.max(RAIL_MIN_W, math.min(RAIL_MAX_W, w * 0.36))
+end
 
 local frame
 
@@ -99,6 +113,7 @@ local function Refresh()
 	end
 	local chapters = (ns.MH_GetCourseChapters and ns.MH_GetCourseChapters()) or {}
 	local selKey = SelectedKey(chapters)
+	frame.rail:SetWidth(RailWidth(frame))
 
 	for i, b in ipairs(frame.railBtns) do
 		local c = chapters[i]
@@ -106,6 +121,10 @@ local function Refresh()
 			local mark = c.done
 				and "|TInterface\\RaidFrame\\ReadyCheck-Ready:10:10:0:0|t "
 				or "|TInterface\\Buttons\\UI-Quickslot2:10:10:0:0:64:64:64:64:64:64|t "
+			-- Kept for the tooltip: even at the widest rail some chapter titles are
+			-- longer than any sensible column, and a truncated title is a chapter you
+			-- cannot identify. Hovering has to be able to answer it.
+			b.fullTitle = ("%d. %s"):format(i, c.title or c.key)
 			b.fs:SetText(("%s%d. %s"):format(mark, i, c.title or c.key))
 			local sel = (c.key == selKey)
 			b.isSel = sel
@@ -203,8 +222,16 @@ local function Build()
 	local rail = CreateFrame("Frame", nil, f)
 	rail:SetPoint("TOPLEFT", head, "BOTTOMLEFT", 0, -8)
 	rail:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", PAD + 4, PAD + 4)
-	rail:SetWidth(RAIL_W)
+	rail:SetWidth(RailWidth(f))
 	f.rail = rail
+
+	-- Live while dragging the grip, not only on mouse-up: the whole complaint was that
+	-- widening the window did nothing visible for the titles.
+	f:SetScript("OnSizeChanged", function(self)
+		if self.rail then
+			self.rail:SetWidth(RailWidth(self))
+		end
+	end)
 
 	f.railBtns = {}
 	local maxRows = (ns.PROF_ACADEMY and ns.PROF_ACADEMY.chapters and #ns.PROF_ACADEMY.chapters) or 24
@@ -229,11 +256,20 @@ local function Build()
 			if not self.isSel then
 				self.hl:Show()
 			end
+			-- Only when it is actually cut off. A tooltip that repeats a title you can
+			-- already read is noise on all fourteen rows.
+			local shown, avail = self.fs:GetStringWidth() or 0, self.fs:GetWidth() or 0
+			if self.fullTitle and avail > 0 and shown > avail then
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+				GameTooltip:SetText(self.fullTitle, 1, 0.82, 0.25, 1, true)
+				GameTooltip:Show()
+			end
 		end)
 		b:SetScript("OnLeave", function(self)
 			if not self.isSel then
 				self.hl:Hide()
 			end
+			GameTooltip:Hide()
 		end)
 		b:Hide()
 		f.railBtns[i] = b
