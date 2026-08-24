@@ -1113,6 +1113,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh chunks — resolve the Companion Experience Chunk item ids against the client.
+	-- They come from another addon, so they are candidates until the game names them.
+	if msg == "chunks" then
+		if ns.ProbeCompanionChunks then
+			ns.ProbeCompanionChunks()
+		end
+		return
+	end
+
 	-- /mh kp — welke currency-regel van een profession-boom de Knowledge Points zijn.
 	-- We lezen vandaag blind `cur[1]` en tonen dat als "unspent". Er bestaan twee soorten
 	-- (punten, en een gratis ontgrendel-token), en drie eerdere pogingen zijn op precies

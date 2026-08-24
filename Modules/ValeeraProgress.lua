@@ -63,6 +63,91 @@ local function Settings()
 	return ns.db.valeera
 end
 
+--------------------------------------------------------------------------------
+-- Companion Experience Chunks — the thing that actually feeds her
+--------------------------------------------------------------------------------
+
+--- ⚠️ CANDIDATES, NOT FACTS — these 14 ids come from Delve Companion XP Tracker v0.3.0,
+--- which makes them a place to look and nothing more (CLAUDE.md). On 8 Aug 2026 an event
+--- name copied out of four other addons threw "unknown event" on the next reload, and the
+--- same night a spell name grep produced a Blackwing Mage's version of it.
+---
+--- So `/mh chunks` asks the client for each one and parks the answer in SavedVariables.
+--- Nothing below this table is used for anything until that has run and the names come back
+--- looking like Companion Experience Chunks.
+---
+--- WHY IT MATTERS. Rob asked on 23 Aug whether Valeera's gain does not depend on what you
+--- pick up. It does, and this is the mechanism: chunks are physical loot in three
+--- rarities. That is why a non-bountiful delve still pays, why bountiful pays more, and why
+--- "XP per run" was never a quantity we could have measured.
+local CHUNK_CANDIDATES = {
+	-- rarity as the other addon labels it; ours is confirmed from the client instead.
+	[228071] = "uncommon", [254756] = "uncommon", [235504] = "uncommon", [232047] = "uncommon",
+	[228072] = "rare",     [254757] = "rare",     [235503] = "rare",     [232046] = "rare",
+	[254869] = "epic",     [228073] = "epic",     [232045] = "epic",     [235502] = "epic",
+	[254748] = "epic",     [235607] = "epic",
+}
+
+--- /mh chunks — resolve every candidate id against the client and save the result.
+---
+--- Items are not always cached, and an uncached id returns nil rather than "does not
+--- exist". Those two look identical and only one of them is a finding, so this requests
+--- the data first and reports how many actually answered.
+function ns.ProbeCompanionChunks()
+	local prefix = "|cffffcc00Midnight Helper|r"
+	if not (C_Item and C_Item.GetItemInfo) then
+		print(prefix .. " C_Item.GetItemInfo unavailable.")
+		return
+	end
+	local ids = {}
+	for id in pairs(CHUNK_CANDIDATES) do
+		ids[#ids + 1] = id
+	end
+	table.sort(ids)
+
+	for _, id in ipairs(ids) do
+		if C_Item.RequestLoadItemDataByID then
+			pcall(C_Item.RequestLoadItemDataByID, id)
+		end
+	end
+
+	-- Give the client a moment to answer, then read. Reading in the same frame as the
+	-- request is how you measure "not cached yet" and call it "does not exist".
+	local function report()
+		ns.db = ns.db or {}
+		local out, answered = {}, 0
+		for _, id in ipairs(ids) do
+			local ok, name, _, quality = pcall(C_Item.GetItemInfo, id)
+			local row = {
+				id = id,
+				claimed = CHUNK_CANDIDATES[id],
+				name = (ok and name) or nil,
+				quality = (ok and quality) or nil,
+			}
+			if row.name then
+				answered = answered + 1
+			end
+			out[#out + 1] = row
+			print(("   %d  %-10s %s  q=%s"):format(
+				id, row.claimed, tostring(row.name or "|cffff5555no answer|r"),
+				tostring(row.quality)))
+		end
+		ns.db.chunkProbe = out
+		print(("%s %d of %d ids answered."):format(prefix, answered, #ids))
+		if answered == 0 then
+			print("   |cffff5555Zero answers means the probe is broken, not that the ids are wrong.|r")
+		end
+		print("   |cffffff78Now type /reload|r — SavedVariables only reach disk on reload or logout.")
+	end
+
+	print(prefix .. " asking the client about " .. #ids .. " Companion Experience Chunk ids...")
+	if C_Timer and C_Timer.After then
+		C_Timer.After(1.5, report)
+	else
+		report()
+	end
+end
+
 --- Current standing, or nil when unreadable or when the id turns out to be someone else.
 local function GetValeera()
 	if not (C_GossipInfo and C_GossipInfo.GetFriendshipReputation) then
