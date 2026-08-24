@@ -7,27 +7,31 @@ Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 77 commits boven `v3.4.0`. De vijf talen zijn af, Valeera's voortgang in delves, portaal-
 bewust reisadvies. Description bijgewerkt. Linter 0/0.
 
-## 🔴 24 aug — OPEN: het bossvenster toont een dungeon waar je NIET bent
+## 🟡 24 aug — het bossvenster wacht op de eerste pull voor het weet waar je bent
 
-**Cisca, in LFR:** ze opent het bossvenster en ziet een andere dungeon of raid.
+**Cisca, in LFR van The Venomous Abyss:** ze opent het bossvenster en ziet een andere dungeon.
 
-`DefaultDungeon()` (`DungeonBossWindow.lua:277`) doet drie stappen: herkende instantie →
-**dungeon van de week** → **`windrunnerspire`**, hardgecodeerd. De herkenning
-(`DungeonForCurrentInstance`) zoekt alleen in `GetDungeonRoster()`. Een **raid** staat daar
-niet in, dus valt LFR door naar stap 2 of 3 en toont met volle overtuiging iets anders.
+🔴 **EERSTE DIAGNOSE WAS FOUT — hier laten staan omdat hij plausibel was.** Ik schreef op dat
+raids helemaal niet herkend worden, op grond van `DefaultDungeon()` → dungeon van de week →
+`windrunnerspire`, en `DungeonForCurrentInstance` die alleen `GetDungeonRoster()` doorzoekt.
+Dat klopt als code-observatie en het is de verkeerde conclusie: raids registreren zich als
+`ns.CUSTOM_BOSS_ENTRIES` (`RaidCoachData.lua:170`) en het venster springt naar de juiste boss
+op **`ENCOUNTER_START`** via de encounter-id. Wat Cisca nu ziet — Nek'zali the Soulcoiler — is
+dus **correct**. Rob controleerde het en zei "klopt, het is die abyss raid".
 
-⚠️ **De fout is niet dat we raids niet kennen — het is dat we het niet toegeven.** Binnen een
-onbekende instantie behandelen we je alsof je buiten staat. Zelfde familie als de rest van
-deze dag: een zelfverzekerd fout antwoord waar "deze ken ik niet" de waarheid is.
+**Het echte gat, kleiner en preciezer:** tussen *binnenlopen* en *de eerste pull* weet het
+venster het nog niet en toont het `DefaultDungeon()`. Dat is het moment waarop je hem juist
+openslaat om te kijken wat je te wachten staat.
 
-**Twee delen, en het eerste kan los:**
-1. **Eerlijk zijn.** Sta je ín een instantie die we niet herkennen, zeg dat dan en noem wat
-   `GetInstanceInfo()` teruggeeft, in plaats van een willekeurige dungeon te tonen. Klein.
-2. **Raids herkennen.** `RaidCoachData` heeft ze al (incl. The Venomous Abyss). Het venster
-   kan er minstens naar doorverwijzen. Groter, en een ontwerpkeuze: het venster is bewust
-   dungeon-only gebouwd.
+**De reparatie is één opzoeking.** `DungeonForCurrentInstance` haalt al de
+`journalInstanceID` van je kaart op (`EJ_GetInstanceForMap`) en vergelijkt die met de
+dungeon-lijst. Diezelfde id ook tegen `CUSTOM_BOSS_ENTRIES` houden vindt de raid bij
+binnenkomst — `RaidCoachData.lua:57` noemt journalInstanceID **1320** voor The Venomous
+Abyss, dus de data ligt er al.
 
 ⚠️ Buiten een instantie is "dungeon van de week" een prima standaard — die niet weghalen.
+⚠️ En blijft er een instantie over die we écht niet kennen, dan is "deze ken ik niet" +
+`GetInstanceInfo()`-naam nog steeds beter dan zelfverzekerd iets anders tonen.
 
 ## ✅ 24 aug — de Bountiful-log: vier bronnen, en de toewijzing was schoon
 
