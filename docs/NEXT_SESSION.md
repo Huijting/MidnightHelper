@@ -7,6 +7,31 @@ Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 77 commits boven `v3.4.0`. De vijf talen zijn af, Valeera's voortgang in delves, portaal-
 bewust reisadvies. Description bijgewerkt. Linter 0/0.
 
+## 🟡 24 aug — addon-update-ronde: GTFO 6.9 kent 20 hazards die wij niet hebben
+
+Rob werkte de CF-addons bij. Vier vanochtend (WIM, Platynator, MidnightMountTooltip,
+**GTFO 6.9**), DBM-Midnight/-Raids/-Lairs staan sinds 2 dagen op **12.1.5**.
+
+`GTFO_Spells_MN.lua` heeft **111** Midnight-hazard-ids; **20** komen nergens voor in
+`Modules/HazardData.lua`:
+
+`1222129` Writhing Vines (Rotmire) · `1283290` Noxious Ground (Zul'jan) · `1285145` Water
+Hazard · `1285733` Brambles · `1285890` Return To The Track! · `1286785` Vile Spew ·
+`1290672` Clutchspew (Vassti) · `1291461` Virulent Fumes (Vashnik) · `1291780` Venom Deluge
++ `1292010` Oozing Poison (Malformed Leviathan) · `1292552` Congealed Gore + `1292807` Stir
+the Depths + `1309471` Noxious Slick (The Twin Fangs) · `1296667` Caustic Residue (Sszorak) ·
+`1297338` Deadly Venom · `1297650` Spreading Flames (Trader Gebbo) · `1298591` Defiled Ground
+(Zul'jan) · `1301104` Noxious Spittle (Susarikk) · `1306858` Warden's Protection (Doomscale
+Warden) · `1310500` Aftershock (First Mate Nama)
+
+⚠️ **Dit is kleiner dan het lijkt, en dat moet erbij.** Sszorak en The Twin Fangs staan al in
+`RaidCoachData.lua` (The Venomous Abyss), en `RAID_BOSS_SSZORAK_STEPS` gebruikt `1285733`
+zelfs al. Het is dus een gat in de **hazard-lijst**, niet in onze kennis van de content.
+Malformed Leviathan en Susarikk kennen we uit `Rares.lua` / de Codex.
+
+⚠️ **GTFO is een kandidatenbron, geen bewijs** (CLAUDE.md). Deze 20 ids gaan pas de code in
+nadat de client ze bevestigt. Niet overtypen.
+
 ## 🔵 ROB VRAAGT — 24/25 aug (hij is twee dagen vrij)
 
 ### 1. Tier set in jip-en-janneke-taal
