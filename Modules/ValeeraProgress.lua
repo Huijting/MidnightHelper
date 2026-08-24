@@ -167,6 +167,24 @@ local function ChunkQuality(itemID)
 	return nil
 end
 
+--- /mh chunklog — start or stop logging every looted item against her standing.
+---
+--- Off by default and deliberately not a permanent feature: it writes a row per looted item
+--- and only exists to name the thing that gave Rob XP from an elite's corpse while our
+--- chunk count stayed at zero.
+function ns.ToggleChunkLog()
+	local s = Settings()
+	s.log = not s.log
+	if s.log then
+		ns.db.chunkLog = {}
+		print("|cffffcc00Midnight Helper|r chunk log ON — cleared. Run a delve, loot "
+			.. "normally, then |cffffff78/reload|r and tell me.")
+	else
+		local n = (ns.db and type(ns.db.chunkLog) == "table") and #ns.db.chunkLog or 0
+		print(("|cffffcc00Midnight Helper|r chunk log OFF — %d rows recorded."):format(n))
+	end
+end
+
 --- /mh chunks — resolve every candidate id against the client and save the result.
 ---
 --- Items are not always cached, and an uncached id returns nil rather than "does not
@@ -477,13 +495,51 @@ ev:SetScript("OnEvent", function(_, event, message)
 			return
 		end
 		-- The loot line carries an item link; the id is the first field of it.
+		local seen = {}
 		for idStr in message:gmatch("|Hitem:(%d+):") do
-			local q = ChunkQuality(tonumber(idStr))
+			local id = tonumber(idStr)
+			seen[#seen + 1] = id
+			local q = ChunkQuality(id)
 			if q then
 				run.chunks = run.chunks + 1
 				run.byQuality[q] = (run.byQuality[q] or 0) + 1
 			end
 		end
+
+		--- 🔎 DIAGNOSTIC (24 aug, /mh chunklog). Rob looted an elite and Valeera gained XP
+		--- while our chunk count stayed at zero — so something that is NOT one of the 14
+		--- confirmed chunks also feeds her, and both our tracker and the addon we are
+		--- replacing would under-report it.
+		---
+		--- Logs every looted id with her standing immediately before and shortly after, so
+		--- the item that coincides with a rise can be named instead of guessed. The delayed
+		--- read matters: reputation lands a beat after the loot line, and reading in the
+		--- same frame would record "no change" for every single pickup.
+		if Settings().log then
+			local beforeV = GetValeera()
+			local before = beforeV and beforeV.cur or nil
+			local ids = seen
+			C_Timer.After(1.0, function()
+				local afterV = GetValeera()
+				ns.db = ns.db or {}
+				if type(ns.db.chunkLog) ~= "table" then
+					ns.db.chunkLog = {}
+				end
+				for _, id in ipairs(ids) do
+					local ok, name, _, quality = pcall(C_Item.GetItemInfo, id)
+					ns.db.chunkLog[#ns.db.chunkLog + 1] = {
+						id = id,
+						name = (ok and name) or nil,
+						quality = (ok and quality) or nil,
+						isChunk = ChunkQuality(id) and true or false,
+						before = before,
+						after = afterV and afterV.cur or nil,
+						gained = (afterV and afterV.cur and before) and (afterV.cur - before) or nil,
+					}
+				end
+			end)
+		end
+
 		Refresh()
 		return
 	end

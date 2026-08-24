@@ -1113,6 +1113,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh chunklog — log every looted item against Valeera's standing, to name whatever
+	-- else feeds her. Diagnostic; off unless asked for.
+	if msg == "chunklog" then
+		if ns.ToggleChunkLog then
+			ns.ToggleChunkLog()
+		end
+		return
+	end
+
 	-- /mh chunks — resolve the Companion Experience Chunk item ids against the client.
 	-- They come from another addon, so they are candidates until the game names them.
 	if msg == "chunks" then
