@@ -108,6 +108,63 @@ local function MapContinent(mapID)
 	return nil -- transient failure: don't cache, retry next tick
 end
 
+--- 🔴 IS ONE OF THESE MAPS SIMPLY INSIDE THE OTHER? Ask the client, do not model it.
+---
+--- Measured 24 aug 2026 from Rob's `/mh arrow`: standing in Silvermoon City (2393) with a
+--- delve target in Eversong Woods (2395), the arrow announced "other continent — travel
+--- back" and pointed him at the Portal to Harandar. Nothing was wrong with the route — the
+--- target was right both before and after — but Silvermoon City carries its own coordinate
+--- space, so GetWorldPosFromMapPos hands back a different continent for a zone you reach by
+--- walking out of the gate.
+---
+--- The comment on the continent test already predicted this shape for the Vaults: "true
+--- sentence and useless advice". Same fault, one zone over, and it has been shipping.
+---
+--- ⚠️ NOT a hardcoded pair, and not an extension of TravelPlan's INSIDE table. The client
+--- publishes the real hierarchy through GetMapInfo().parentMapID, so containment is read
+--- rather than declared -- which also covers every city, every Vault and everything a
+--- future patch adds without anyone remembering to update a list.
+local parentCache = {}
+local function ParentMap(mapID)
+	if not mapID then
+		return nil
+	end
+	local cached = parentCache[mapID]
+	if cached ~= nil then
+		return cached or nil
+	end
+	if not (C_Map and C_Map.GetMapInfo) then
+		return nil
+	end
+	local ok, info = pcall(C_Map.GetMapInfo, mapID)
+	local p = (ok and type(info) == "table") and tonumber(info.parentMapID) or nil
+	-- `false` marks "asked and there is none", so a top-level map is not re-queried
+	-- every tick by a cache that cannot tell nil from unknown.
+	parentCache[mapID] = p or false
+	return p
+end
+
+--- True when either map contains the other, however deeply.
+local function OneContainsTheOther(a, b)
+	if not (a and b) then
+		return false
+	end
+	if a == b then
+		return true
+	end
+	for _, pair in ipairs({ { a, b }, { b, a } }) do
+		local m, target, hops = pair[1], pair[2], 0
+		while m and hops < 12 do -- hop cap: a malformed chain must not hang the arrow
+			m = ParentMap(m)
+			hops = hops + 1
+			if m == target then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 local function PlayerWorld()
 	if not (C_Map and C_Map.GetBestMapForUnit) then
 		return nil
@@ -280,6 +337,11 @@ local function UpdateArrow()
 	local pmap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
 	local pc, tc = MapContinent(pmap), MapContinent(t.mapID)
 	local unreachable = pmap and pc and tc and pc ~= tc
+	--- ...unless one map simply sits inside the other. Silvermoon City and Eversong Woods
+	--- report different continents and are a walk apart; see OneContainsTheOther.
+	if unreachable and OneContainsTheOther(pmap, t.mapID) then
+		unreachable = false
+	end
 
 	--- ⚠️ POINT AT THE FIRST STEP INSTEAD OF GIVING UP. Rob, 18 aug, standing on the
 	--- isle with a target in the Underbelly: "kan hij niet zien dat ik er buiten sta
