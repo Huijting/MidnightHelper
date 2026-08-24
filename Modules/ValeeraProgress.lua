@@ -534,6 +534,15 @@ ev:SetScript("OnEvent", function(_, event, message)
 		--- the item that coincides with a rise can be named instead of guessed. The delayed
 		--- read matters: reputation lands a beat after the loot line, and reading in the
 		--- same frame would record "no change" for every single pickup.
+		--- ⚠️ ONE ROW PER LOOT EVENT, NOT PER ITEM — and the first version got this wrong.
+		--- It recorded her standing before and after for EVERY item in the message, so a
+		--- chunk and a Boon looted together were both credited with the same single gain.
+		--- Rob's bountiful produced 19 chunks and 19 "non-chunks that moved her standing",
+		--- with identical amounts down the list: not a second source, one gain counted
+		--- twice. The counts being exactly equal is what gave it away.
+		---
+		--- An event row can be attributed properly afterwards: look for events containing
+		--- no chunk at all. Those, and only those, say whether anything else pays.
 		if Settings().log then
 			local beforeV = GetValeera()
 			local before = beforeV and beforeV.cur or nil
@@ -544,18 +553,27 @@ ev:SetScript("OnEvent", function(_, event, message)
 				if type(ns.db.chunkLog) ~= "table" then
 					ns.db.chunkLog = {}
 				end
+				local items, chunkCount = {}, 0
 				for _, id in ipairs(ids) do
 					local ok, name, _, quality = pcall(C_Item.GetItemInfo, id)
-					ns.db.chunkLog[#ns.db.chunkLog + 1] = {
+					local isChunk = ChunkQuality(id) and true or false
+					if isChunk then
+						chunkCount = chunkCount + 1
+					end
+					items[#items + 1] = {
 						id = id,
 						name = (ok and name) or nil,
 						quality = (ok and quality) or nil,
-						isChunk = ChunkQuality(id) and true or false,
-						before = before,
-						after = afterV and afterV.cur or nil,
-						gained = (afterV and afterV.cur and before) and (afterV.cur - before) or nil,
+						isChunk = isChunk,
 					}
 				end
+				ns.db.chunkLog[#ns.db.chunkLog + 1] = {
+					items = items,
+					chunks = chunkCount,
+					before = before,
+					after = afterV and afterV.cur or nil,
+					gained = (afterV and afterV.cur and before) and (afterV.cur - before) or nil,
+				}
 			end)
 		end
 
