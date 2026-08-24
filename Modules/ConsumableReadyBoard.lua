@@ -52,6 +52,62 @@ end
 
 local board
 
+--- 🔴 SECURE BUTTONS LIVE ON UIParent, NEVER ON THE BOARD — and are POSITIONED here rather
+--- than anchored, which is a separate rule with the same reason.
+---
+--- Measured 24 aug 2026 on Rob's client: clicking a buff threw ADDON_ACTION_FORBIDDEN,
+--- "MidnightHelper tried to call the protected function CastSpellByName()", three times.
+--- Both secure buttons in this file were created with the board as their parent and
+--- anchored to it. CLAUDE.md's secure-frames section has said since 12.0 that a frame
+--- which parents a secure button — OR IS ANCHORED TO BY ONE — becomes protected, and that
+--- protection propagates up the parent chain. We move, show and hide this board, so we were
+--- tainting our own click path.
+---
+--- ⚠️ It had been that way since 1.8.4 and only misfired sometimes, because whether the
+--- taint reaches the click depends on what happened to the board just before. Rob asked the
+--- right question — "why now, we changed nothing" — and the answer is that nothing changed;
+--- a latent fault simply found its moment. `git log` on this file confirms it: untouched
+--- for months.
+---
+--- ⚠️ And do NOT anchor these to `f` to save code. MissingBuff.lua:606-627 carries the same
+--- warning after paying for it once: anchoring is enough to protect the target frame, so
+--- f:Hide() then fails in combat with ADDON_ACTION_BLOCKED.
+---
+--- Screen coordinates rather than f's own anchor, so this holds however the player has
+--- dragged the board. Out of combat only — moving a secure frame in combat is refused.
+local function PlaceSecure(btn, f)
+	if not (btn and f) then
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		return
+	end
+	local left, top = f:GetLeft(), f:GetTop()
+	btn:ClearAllPoints()
+	if left and top then
+		btn:SetScale(f:GetScale() or 1)
+		btn:SetPoint("CENTER", UIParent, "BOTTOMLEFT",
+			left + (btn._dx or 0), top + (btn._dy or 0))
+	else
+		-- The board has no rect yet (never shown). Park it offscreen-ish rather than at
+		-- 0,0 where it would sit under the player's other UI and eat clicks.
+		btn:SetPoint("CENTER", UIParent, "CENTER", 0, 400)
+	end
+end
+
+--- Re-place every secure button after the board moves or its columns change.
+local function PlaceAllSecure(f)
+	if not f then
+		return
+	end
+	if f._useBtns then
+		for _, b in pairs(f._useBtns) do
+			PlaceSecure(b, f)
+		end
+	end
+	PlaceSecure(f._raidBtn, f)
+end
+
 local function GetWinSettings()
 	if not (ns.db and ns.db.ui) then
 		return {}
@@ -292,6 +348,9 @@ local function EnsureBoard()
 	f:SetScript("OnDragStop", function()
 		f:StopMovingOrSizing()
 		SavePosition(f)
+		-- The secure buttons no longer ride along with the board (they cannot, without
+		-- protecting it), so dragging has to bring them after it by hand.
+		PlaceAllSecure(f)
 	end)
 	if f.SetBackdrop then
 		f:SetBackdrop({
@@ -393,11 +452,15 @@ local function EnsureBoard()
 		local y1 = HEADER_Y
 		local idx = { flask = 1, rune = 2, weapon = 3, cpot = 4, hpot = 5, food = 6, hs = 7 }
 		for cat, i in pairs(idx) do
-			local btn = CreateFrame("Button", "MidnightHelperConsumeUse" .. cat, f, "SecureActionButtonTemplate")
+			-- ⚠️ UIParent, NOT the board. See PlaceSecure below for what this cost.
+			local btn = CreateFrame("Button", "MidnightHelperConsumeUse" .. cat, UIParent, "SecureActionButtonTemplate")
 			btn:SetSize(ICON + 4, ICON + 4)
-			btn:SetPoint("CENTER", f, "TOPLEFT", ConsumX(i), y1)
+			btn._dx, btn._dy = ConsumX(i), y1
+			PlaceSecure(btn, f)
 			btn:RegisterForClicks("AnyUp", "AnyDown")
 			btn:EnableMouse(true)
+			btn:SetFrameStrata("DIALOG")
+			RegisterStateDriver(btn, "visibility", "[combat] hide; nil")
 			btn:SetFrameLevel((f:GetFrameLevel() or 1) + 10)
 			btn:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
 			btn._cat = cat
@@ -426,11 +489,14 @@ local function EnsureBoard()
 	-- Eén knop; positie + spell worden in UpdateUseButtons gezet (buiten combat),
 	-- want de raid-buff-kolommen zijn dynamisch van plek.
 	do
-		local btn = CreateFrame("Button", "MidnightHelperRaidBuffCast", f, "SecureActionButtonTemplate")
+		local btn = CreateFrame("Button", "MidnightHelperRaidBuffCast", UIParent, "SecureActionButtonTemplate")
 		btn:SetSize(ICON + 4, ICON + 4)
-		btn:SetPoint("CENTER", f, "TOPLEFT", RaidX(1), HEADER_Y)
+		btn._dx, btn._dy = RaidX(1), HEADER_Y
+		PlaceSecure(btn, f)
 		btn:RegisterForClicks("AnyUp", "AnyDown")
 		btn:EnableMouse(true)
+		btn:SetFrameStrata("DIALOG")
+		RegisterStateDriver(btn, "visibility", "[combat] hide; nil")
 		btn:SetFrameLevel((f:GetFrameLevel() or 1) + 10)
 		btn:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
 		btn:SetScript("OnEnter", function(self)
@@ -478,8 +544,10 @@ local function UpdateUseButtons(f)
 	for cat, btn in pairs(f._useBtns) do
 		local slot = slotOf[cat]
 		if slot then
-			btn:ClearAllPoints()
-			btn:SetPoint("CENTER", f, "TOPLEFT", ConsumX(slot), HEADER_Y)
+			-- Offset first, then place from the board's screen rect. Anchoring to f here
+			-- is what protected the board in the first place (see PlaceSecure).
+			btn._dx, btn._dy = ConsumX(slot), HEADER_Y
+			PlaceSecure(btn, f)
 			local id = owned[cat]
 			if id then
 				btn._itemID = id
@@ -525,8 +593,8 @@ local function UpdateUseButtons(f)
 			end
 		end
 		if def and x and spellName then
-			rb:ClearAllPoints()
-			rb:SetPoint("CENTER", f, "TOPLEFT", x, HEADER_Y)
+			rb._dx, rb._dy = x, HEADER_Y
+			PlaceSecure(rb, f)
 			rb._spellID = def.spellID
 			rb._buffKey = def.key
 			rb:SetAttribute("type", "spell")
@@ -694,6 +762,10 @@ function ns.ShowConsumableBoard()
 	local f = EnsureBoard()
 	Render()
 	f:Show()
+	-- ⚠️ AFTER Show(), not before: an unshown frame has no GetLeft()/GetTop(), so placing
+	-- the buttons first would park every one of them at the fallback position and leave
+	-- them there for the whole session.
+	PlaceAllSecure(f)
 	if hideTimer and hideTimer.Cancel then
 		pcall(hideTimer.Cancel, hideTimer)
 	end
