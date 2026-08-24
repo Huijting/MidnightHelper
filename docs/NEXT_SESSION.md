@@ -32,6 +32,39 @@ Malformed Leviathan en Susarikk kennen we uit `Rares.lua` / de Codex.
 ⚠️ **GTFO is een kandidatenbron, geen bewijs** (CLAUDE.md). Deze 20 ids gaan pas de code in
 nadat de client ze bevestigt. Niet overtypen.
 
+## 🔴 24 aug — DE GROEPS-DISPELHELPER IS IN 12.1 NIET TE BOUWEN ZOALS GEPLAND
+
+Rob installeerde **HexBreak 0.6.12 Beta** (dispel-interface voor 12.1 S2, GPL-3). Het
+antwoord op "hoe leest hij andermans auras in 12.1" is: **hij leest ze niet.**
+
+Hij laadt `Blizzard_AuraContainer`, maakt een `CustomAuraContainerTemplate`, bindt die aan
+een tegel (`SetUnit` → `AddAuraSlot` → `SetEnabled` → `UpdateAllAuras`) en laat **de game
+zelf** de dispelbare debuffs tekenen. Filter: `"HARMFUL|RAID"`, eerst gevalideerd met
+`AuraUtil.IsValidFilterString`. De addon krijgt de inhoud nooit te zien.
+
+🔴 **En daar zit de muur.** Uit zijn eigen commentaar (Core.lua:1905):
+
+> *"12.1 applies UntrustedScriptExecution to AuraButtons. Addon-installed OnShow/OnHide
+> handlers therefore cannot be used as a reliable self-alert trigger while auras are secret."*
+
+En zijn changelog **0.6.11**: Priority Target System **compleet verwijderd** — PRIO-balk,
+P1/P2/P3-nameplates, raidmarkers, HBPRIO-macro, keybinds, `Bindings.xml` eruit. In 0.6.12
+nog steeds weg. Iemand heeft dit dus gebouwd en er weer uitgesloopt.
+
+**Gevolg voor onze roadmap.** [[mh-market-position]] noemt de dispel-helper de sterkste
+volgende bouwklus en [[healer-initiative]] punt 3 vraagt erom. In 12.1 kun je groeps-dispels
+wél **tonen** en niet **lezen** — dus geen prioriteit, geen "deze eerst", geen alarm, en geen
+uitleg. Onze hele meerwaarde is uitleggen. **Die feature is in deze vorm dood tot Blizzard
+het opent.**
+
+✅ **Wat wél overeind blijft, en al gebouwd is:** `Modules/DispelHelper.lua` doet
+uitdrukkelijk alleen *jouw eigen* debuffs, met de school uit `dispelName` van de game zelf,
+en meldt onleesbaar i.p.v. "niets". Dat is precies het stuk dat HexBreak niet kan en wij wel.
+Geen overlap; niet nabouwen wat hij doet.
+
+📌 **Bewaard voor als we ooit een groepsweergave willen:** het recept hierboven werkt
+aantoonbaar in een draaiend addon. Het is een weergave, geen databron.
+
 ## 🔵 ROB VRAAGT — 24/25 aug (hij is twee dagen vrij)
 
 ### 1. 🔴 Tier set — en de uitleg die er AL staat, is verouderd
