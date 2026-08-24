@@ -7,6 +7,28 @@ Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 77 commits boven `v3.4.0`. De vijf talen zijn af, Valeera's voortgang in delves, portaal-
 bewust reisadvies. Description bijgewerkt. Linter 0/0.
 
+## 🟡 24 aug — OPEN: Valeera's stand stijgt zónder loot (+104)
+
+Rob deed midden in een Bountiful een `/reload` en zag daarna zijn stand van **204.099 naar
+204.203** gaan — 104 XP — terwijl de runregel "nog niets" bleef zeggen. Hij had na de reload
+alleen mobs gedood en geen enkele Boon opgeraapt.
+
+Twee verklaringen, allebei plausibel, en ze zijn te onderscheiden:
+
+1. **Kills geven zelf XP**, los van loot. Dan mist onze teller die per definitie — hij hangt
+   volledig aan `CHAT_MSG_LOOT`.
+2. **Het venster van 1 seconde in de teller is te kort.** We lezen haar stand 1,0 s na de
+   lootregel; landt de reputatie later, dan meten we "geen verandering" en telt het niet.
+
+⚠️ 104 past bij geen enkel bekend bedrag (2.437 / 4.875 / 12.188 / 3.250 / 26.000), wat
+pleit vóór verklaring 1 — maar dat is een vormargument, geen meting.
+
+**De test:** dood een mob en loot *helemaal niets* — autoloot uit, lijk laten liggen. Stijgt
+de stand alsnog, dan is het kills.
+
+✅ **Raakt de release niet.** Het XP-getal in de popup komt rechtstreeks van haar stand en
+klopt dus altijd; alleen de teller is conservatief, en dat staat er zo bij.
+
 ## 🔴 24 aug — OPEN: "other continent" voor een zone waar je naartoe kunt lopen
 
 **Zit in uitgebrachte versies.** Rob stond in Silvermoon City (2393) met een delve-doel in
