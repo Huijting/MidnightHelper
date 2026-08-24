@@ -13,17 +13,12 @@ local _, ns = ...
 
 local SIDE_PAD = 12
 local SCROLL_BOTTOM = 12
-local CHECK_SIZE = 24
-local BTN_H = 24
--- Contents rail: wide enough for the longest chapter title at the default font,
--- narrow enough that the chapter itself keeps a readable measure beside it.
-local RAIL_W = 168
-local RAIL_ROW_H = 18
 
-local COLOR_TITLE = { 1, 0.88, 0.45 }
-local COLOR_TITLE_DONE = { 0.45, 0.9, 0.5 }
-local COLOR_BODY = { 0.78, 0.78, 0.8 }
-local COLOR_TASK = { 0.85, 0.82, 0.65 }
+-- CHECK_SIZE, BTN_H, RAIL_W, RAIL_ROW_H and the four chapter colours lived here until
+-- 24 aug. They dressed the chapters this panel used to render; the course is one surface
+-- now and it is the window. Left behind they would read as "the panel still draws
+-- chapters", which is exactly the sort of half-truth that sends the next reader looking
+-- for code that is not there.
 
 local function SL(key)
 	if ns.SafeL then
@@ -620,28 +615,17 @@ local function Relayout(panel)
 		return
 	end
 	local y = 4
-	panel._profAcadChapterY = panel._profAcadChapterY or {}
-	wipe(panel._profAcadChapterY)
+	-- The chapter-position map and the task-row height branch went with the chapters
+	-- (24 aug): nothing pushed here carries a chapter key or a wrapping task label any
+	-- more, so both were bookkeeping for readers that no longer exist.
 	for _, el in ipairs(panel._profAcadOrder) do
 		local w = el.w
 		if w:IsShown() then
 			y = y + (el.gapTop or 0)
-			-- Remember where each chapter's heading landed, so search can scroll to it.
-			-- Only the title FontStrings carry a key, and only shown ones get a
-			-- position — a chapter filtered out has no place to scroll to.
-			if w._mhChapterKey then
-				panel._profAcadChapterY[w._mhChapterKey] = y
-			end
 			w:ClearAllPoints()
 			w:SetPoint("TOPLEFT", child, "TOPLEFT", el.indent or 0, -y)
 			w:SetWidth(math.max(width - (el.indent or 0), 1))
-			if el.taskFs then
-				-- Task row: height follows the (word-wrapped) label, measured
-				-- after the width above is applied.
-				local h = math.max((el.taskFs:GetStringHeight() or 0) + 10, CHECK_SIZE)
-				w:SetHeight(h)
-				y = y + h
-			elseif el.fixedH then
+			if el.fixedH then
 				y = y + math.max(w:GetHeight() or 0, tonumber(el.fixedH) or 1)
 			else
 				y = y + math.max(w:GetStringHeight() or 0, 1)
@@ -720,143 +704,11 @@ function ns.MH_RefreshProfessionAcademyPanel(panel)
 		end
 	end
 
-	--- Contents mode: the rail is the navigation and one chapter renders at a time.
-	--- Off unless asked for — the long scroll is what everyone has had until now.
-	local contentsOn = (ns.db and ns.db.profAcadContents) and true or false
-	local order = {}
-	for _, row in ipairs(panel._profAcadRows) do
-		if IsChapterVisible(row.chapter, profs) then
-			order[#order + 1] = row
-		end
-	end
-	local selKey = ns.db and ns.db.profAcadChapter
-	if contentsOn then
-		-- A remembered chapter can vanish: drop a profession and its chapter goes
-		-- with it. Fall back to the first unread one, which is where someone
-		-- returning to the course actually wants to be.
-		local found = false
-		for _, r in ipairs(order) do
-			if r.chapter.key == selKey then
-				found = true
-				break
-			end
-		end
-		if not found then
-			selKey = nil
-			for _, r in ipairs(order) do
-				if not IsChapterDone(r.chapter.key) then
-					selKey = r.chapter.key
-					break
-				end
-			end
-			selKey = selKey or (order[1] and order[1].chapter.key)
-		end
-	end
-
-	local shownNum = 0
-	for _, row in ipairs(panel._profAcadRows) do
-		local ch = row.chapter
-		local inCourse = IsChapterVisible(ch, profs)
-		if inCourse then
-			shownNum = shownNum + 1
-		end
-		-- The number keeps counting the whole course even when one chapter renders,
-		-- so "7." means seventh of fourteen rather than "the only one on screen".
-		local visible = inCourse and (not contentsOn or ch.key == selKey)
-		row.titleFs:SetShown(visible)
-		row.bodyFs:SetShown(visible)
-		row.taskRow:SetShown(visible)
-		if row.wpBtn then
-			row.wpBtn:SetShown(visible)
-		end
-
-		if visible then
-			local isDone = IsChapterDone(ch.key)
-
-			local title = ("%d. %s"):format(shownNum, SL(ch.titleKey))
-			if isDone then
-				title = title .. "  |TInterface\\RaidFrame\\ReadyCheck-Ready:12:12:0:0|t"
-				row.titleFs:SetTextColor(COLOR_TITLE_DONE[1], COLOR_TITLE_DONE[2], COLOR_TITLE_DONE[3])
-			else
-				row.titleFs:SetTextColor(COLOR_TITLE[1], COLOR_TITLE[2], COLOR_TITLE[3])
-			end
-			row.titleFs:SetText(title)
-			row.bodyFs:SetText(ComposeChapterBody(ch, treesAdvice))
-
-			local task = SL(ch.taskKey)
-			if ch.detect then
-				task = task .. "  |cff8a8f98" .. SL("PROFACAD_TASK_AUTO_HINT") .. "|r"
-			end
-			row.taskFs:SetText(task)
-			row.check:SetChecked(isDone)
-
-			if row.wpBtn then
-				local wp = ns.PROF_ACADEMY and ch.taskWaypoint and ns.PROF_ACADEMY[ch.taskWaypoint]
-				row.wpBtn:SetText(SL((wp and wp.btnKey) or "PROFACAD_BTN_WORKORDER"))
-			end
-		end
-	end
-
 	-- The live tree advice is built from the player's own trees here; the pop-out
 	-- window has no profession data of its own, so it reads what this pass produced.
 	-- Never opened the panel? Then it is nil and the trees chapter simply renders
 	-- without the live line, which is what it did before that line existed.
 	ns._mhTreesAdvice = treesAdvice
-
-	-- Fill the rail, and give the reading pane the room the rail is not using.
-	if panel._contentsBtn then
-		panel._contentsBtn:SetText(SL(contentsOn and "PROFACAD_CONTENTS_HIDE" or "PROFACAD_CONTENTS_SHOW"))
-	end
-	local rail, btns = panel._profAcadRail, panel._profAcadRailBtns
-	if rail and btns then
-		for i, b in ipairs(btns) do
-			local r = order[i]
-			if contentsOn and r then
-				local ch = r.chapter
-				local done = IsChapterDone(ch.key)
-				-- Tick or a spacer, so the titles line up whether or not they are done.
-				local mark = done
-					and "|TInterface\\RaidFrame\\ReadyCheck-Ready:10:10:0:0|t "
-					or "|TInterface\\Buttons\\UI-Quickslot2:10:10:0:0:64:64:64:64:64:64|t "
-				b._fs:SetText(("%s%d. %s"):format(mark, i, SL(ch.titleKey)))
-				local sel = (ch.key == selKey)
-				b._isSel = sel
-				b._sel:SetShown(sel)
-				if sel then
-					b._fs:SetTextColor(COLOR_TITLE[1], COLOR_TITLE[2], COLOR_TITLE[3])
-				elseif done then
-					b._fs:SetTextColor(COLOR_TITLE_DONE[1], COLOR_TITLE_DONE[2], COLOR_TITLE_DONE[3])
-				else
-					b._fs:SetTextColor(0.72, 0.70, 0.66)
-				end
-				local key = ch.key
-				b:SetScript("OnClick", function()
-					ns.db = ns.db or {}
-					ns.db.profAcadChapter = key
-					ns.MH_RefreshProfessionAcademyPanel(panel)
-					local sf = _G["MidnightHelperProfAcademyScroll"]
-					if sf then
-						sf:SetVerticalScroll(0)
-					end
-					if ns.RefreshProfessionCourseWindow then
-						ns.RefreshProfessionCourseWindow()
-					end
-				end)
-				b:Show()
-			else
-				b:Hide()
-			end
-		end
-		rail:SetShown(contentsOn)
-		-- Both left anchors move, or the pane ends up a parallelogram: TOPLEFT hangs
-		-- off the header and BOTTOMLEFT off the panel.
-		local scroll = _G["MidnightHelperProfAcademyScroll"]
-		local inset = contentsOn and (RAIL_W + 10) or 0
-		if scroll and panel._profsFs then
-			scroll:SetPoint("TOPLEFT", panel._profsFs, "BOTTOMLEFT", inset, -8)
-			scroll:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", SIDE_PAD + inset, SCROLL_BOTTOM)
-		end
-	end
 
 	Relayout(panel)
 end
@@ -929,17 +781,10 @@ function ns.BuildProfessionAcademyPanel(panel)
 		end
 	end)
 
-	-- 150 rather than 130: the off-state label went from one word to two, and the widest
-	-- translation ("Inhalt ausblenden") has to fit without being clipped.
-	local contentsBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
-	contentsBtn:SetSize(150, 22)
-	contentsBtn:SetPoint("TOPRIGHT", windowBtn, "TOPLEFT", -6, 0)
-	contentsBtn:SetScript("OnClick", function()
-		ns.db = ns.db or {}
-		ns.db.profAcadContents = not ns.db.profAcadContents
-		ns.MH_RefreshProfessionAcademyPanel(panel)
-	end)
-	panel._contentsBtn = contentsBtn
+	-- The contents-rail toggle lived here for one day. It belonged to a course that
+	-- rendered in this panel; the rail now lives in the window, where it is always on and
+	-- has full height to be on in. A button that toggles something on another surface is
+	-- worse than no button.
 	panel._guideBtn = guideBtn
 
 	local progressFs = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -967,123 +812,14 @@ function ns.BuildProfessionAcademyPanel(panel)
 	scroll:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", SIDE_PAD, SCROLL_BOTTOM)
 	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -28, SCROLL_BOTTOM)
 
-	--- The contents rail. Built once, filled on every refresh, hidden unless asked for.
-	--- It sits beside the scroll frame rather than inside it, so the chapter list stays
-	--- put while the chapter itself scrolls.
-	-- Anchored to the header, NOT to the scroll frame: the scroll frame moves right
-	-- when the rail appears, so hanging the rail off it would be circular.
-	local rail = CreateFrame("Frame", nil, panel)
-	rail:SetPoint("TOPLEFT", profsFs, "BOTTOMLEFT", 0, -8)
-	rail:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", SIDE_PAD, SCROLL_BOTTOM)
-	rail:SetWidth(RAIL_W)
-	rail:Hide()
-	panel._profAcadRail = rail
-	panel._profAcadRailBtns = {}
-	for i = 1, #ns.PROF_ACADEMY.chapters do
-		local b = CreateFrame("Button", nil, rail)
-		b:SetHeight(RAIL_ROW_H)
-		b:SetPoint("TOPLEFT", rail, "TOPLEFT", 0, -((i - 1) * RAIL_ROW_H))
-		b:SetPoint("RIGHT", rail, "RIGHT", -6, 0)
-		local hl = b:CreateTexture(nil, "BACKGROUND")
-		hl:SetAllPoints(b)
-		hl:SetColorTexture(1, 1, 1, 0.07)
-		hl:Hide()
-		b._sel = hl
-		local fs = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-		fs:SetPoint("LEFT", b, "LEFT", 6, 0)
-		fs:SetPoint("RIGHT", b, "RIGHT", -2, 0)
-		fs:SetJustifyH("LEFT")
-		fs:SetWordWrap(false)
-		b._fs = fs
-		b:SetScript("OnEnter", function(self)
-			if not self._isSel then
-				self._sel:Show()
-			end
-		end)
-		b:SetScript("OnLeave", function(self)
-			if not self._isSel then
-				self._sel:Hide()
-			end
-		end)
-		b:Hide()
-		panel._profAcadRailBtns[i] = b
-	end
-
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(1, 1)
 	scroll:SetScrollChild(child)
 	panel._profAcadChild = child
 	panel._profAcadOrder = {}
-	panel._profAcadRows = {}
 
 	local function push(w, gapTop, indent, fixedH, taskFs)
 		panel._profAcadOrder[#panel._profAcadOrder + 1] = { w = w, gapTop = gapTop, indent = indent, fixedH = fixedH, taskFs = taskFs }
-	end
-
-	for i, ch in ipairs(ns.PROF_ACADEMY.chapters) do
-		local row = { chapter = ch }
-
-		local titleFs = child:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-		titleFs:SetFontObject(ns.MHScalableFont("GameFontNormalLarge"))
-		titleFs:SetJustifyH("LEFT")
-		titleFs:SetWordWrap(true)
-		titleFs._mhChapterKey = ch.key
-		push(titleFs, (i == 1) and 0 or 18, 0)
-		row.titleFs = titleFs
-
-		local bodyFs = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		bodyFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-		bodyFs:SetJustifyH("LEFT")
-		bodyFs:SetWordWrap(true)
-		bodyFs:SetTextColor(COLOR_BODY[1], COLOR_BODY[2], COLOR_BODY[3])
-		push(bodyFs, 6, 0)
-		row.bodyFs = bodyFs
-
-		-- Task row: checkbox + wrapping label. Height is computed in Relayout
-		-- from the label's wrapped height (see el.taskFs there).
-		local taskRow = CreateFrame("Frame", nil, child)
-		taskRow:SetHeight(CHECK_SIZE)
-		row.taskRow = taskRow
-
-		local check = CreateFrame("CheckButton", nil, taskRow, "UICheckButtonTemplate")
-		check:SetSize(CHECK_SIZE, CHECK_SIZE)
-		check:SetPoint("TOPLEFT", taskRow, "TOPLEFT", 0, 0)
-		check:SetScript("OnClick", function(self)
-			SetChapterDone(ch.key, self:GetChecked() and true or false)
-			ns.MH_RefreshProfessionAcademyPanel(panel)
-		end)
-		row.check = check
-
-		local taskFs = taskRow:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		taskFs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-		taskFs:SetPoint("TOPLEFT", check, "TOPRIGHT", 4, -5)
-		taskFs:SetPoint("RIGHT", taskRow, "RIGHT", 0, 0)
-		taskFs:SetJustifyH("LEFT")
-		taskFs:SetWordWrap(true)
-		taskFs:SetTextColor(COLOR_TASK[1], COLOR_TASK[2], COLOR_TASK[3])
-		row.taskFs = taskFs
-		push(taskRow, 6, 0, CHECK_SIZE, taskFs)
-
-		if ch.taskWaypoint then
-			local wpBtn = CreateFrame("Button", nil, child, "UIPanelButtonTemplate")
-			wpBtn:SetHeight(BTN_H)
-			local wpKey = ch.taskWaypoint
-			wpBtn:SetScript("OnClick", function()
-				RouteChapterWaypoint(wpKey)
-			end)
-			local fs = wpBtn.GetFontString and wpBtn:GetFontString()
-			if fs then
-				fs:SetJustifyH("LEFT")
-				fs:ClearAllPoints()
-				fs:SetPoint("LEFT", wpBtn, "LEFT", 8, 0)
-				fs:SetPoint("RIGHT", wpBtn, "RIGHT", -8, 0)
-			end
-			push(wpBtn, 4, CHECK_SIZE + 4, BTN_H)
-			row.wpBtn = wpBtn
-		end
-
-		panel._profAcadRows[i] = row
 	end
 
 	scroll:SetScript("OnSizeChanged", function(_, w)
@@ -1320,10 +1056,47 @@ function ns.MH_GetCourseChapters()
 				key = ch.key,
 				title = SL(ch.titleKey),
 				done = IsChapterDone(ch.key) and true or false,
+				-- The window owns the tick and the task since 24 aug (see the note on
+				-- ns.MH_SetChapterDone), so it needs the waypoint key too.
+				-- `detect` (not `autoTask` -- I wrote that from memory and grep caught it)
+				-- is what marks a chapter the addon ticks off by itself.
+				taskWaypoint = ch.taskWaypoint,
+				detected = ch.detect and true or false,
 			}
 		end
 	end
 	return out
+end
+
+--- Public: tick a chapter off, and route its task waypoint.
+---
+--- ⚠️ EXPORTED 24 AUG BECAUSE THE WINDOW IS NOW THE ONLY COURSE SURFACE. The panel used to
+--- render every chapter underneath the overview, and Rob's verdict on that was blunt: "dat
+--- onderste gedeelte moet weg -- het past fysiek niet en het is lelijk opgemaakt". Removing
+--- it takes the checkbox, the task line and the waypoint button with it, because those only
+--- ever existed there. So they move rather than disappear: same two functions, one
+--- implementation, called from the window.
+---
+--- The header of ProfessionCourseWindow used to say "it renders, it does not own" and that
+--- the tick "stays in the panel on purpose". That was true when there were two surfaces.
+--- There is one now, and that note has been corrected rather than left to mislead.
+function ns.MH_SetChapterDone(key, done)
+	if key then
+		SetChapterDone(key, done and true or false)
+	end
+end
+
+function ns.MH_RouteChapterWaypoint(key)
+	return RouteChapterWaypoint(key)
+end
+
+--- Public: the label for a chapter's waypoint button, or nil when it has none.
+function ns.MH_GetChapterWaypointLabel(wpKey)
+	local wp = wpKey and ns.PROF_ACADEMY and ns.PROF_ACADEMY[wpKey]
+	if not wp then
+		return nil
+	end
+	return SL(wp.btnKey or "PROFACAD_BTN_WORKORDER")
 end
 
 --- Public: one chapter's title and composed text, for the pop-out window.
@@ -1335,6 +1108,11 @@ function ns.MH_GetChapterText(chKey)
 	for _, ch in ipairs(ns.PROF_ACADEMY.chapters) do
 		if ch.key == chKey then
 			local task = SL(ch.taskKey)
+			-- Same "(ticks itself when detected)" the panel appended, so a chapter the
+			-- addon watches does not look like one you forgot to tick.
+			if ch.detect then
+				task = task .. "  |cff8a8f98" .. SL("PROFACAD_TASK_AUTO_HINT") .. "|r"
+			end
 			return SL(ch.titleKey), ComposeChapterBody(ch, ns._mhTreesAdvice), task
 		end
 	end
@@ -1343,43 +1121,35 @@ end
 
 --- Public: scroll the course to one chapter, used by the search.
 ---
---- Landing on the tab is not the same as finding the answer. The course is one
---- long scroll, so a search hit for "concentration" that dumps the reader at the
---- top has technically worked and practically failed — they still have to hunt.
+--- Landing on the tab is not the same as finding the answer. A search hit for
+--- "concentration" that only opens the Professions tab has technically worked and
+--- practically failed — the reader still has to hunt.
 ---
---- Deferred by a frame because the panel may only just have been shown: widths
---- are zero until the layout runs, and Relayout bails out on a zero width, so
---- the positions do not exist yet at the moment the search fires.
+--- It used to scroll the panel to a remembered Y offset. The panel no longer renders
+--- chapters, so "jump to a chapter" now means: select it and open the course window.
+--- The NAME is unchanged on purpose — NavSearch calls it, and renaming a function
+--- because its insides moved is churn that breaks a caller for no gain.
+---
+--- Deferred by a frame because the window may only just have been created: its rows
+--- have no width until the layout runs, and Refresh reads widths.
 function ns.MH_ScrollProfAcademyToChapter(key)
 	if not key then
 		return
 	end
+	ns.db = ns.db or {}
+	ns.db.profAcadChapter = key
 	local function jump()
-		local panel = builtPanel
-		if not (panel and panel._profAcadBuilt) then
-			return
+		-- Toggle would CLOSE an already-open window, which is the opposite of what a
+		-- search result should do. Open it only when it is not already showing.
+		local f = _G["MidnightHelperCourseWindow"]
+		if not (f and f:IsShown()) and ns.ToggleProfessionCourseWindow then
+			ns.ToggleProfessionCourseWindow()
+		elseif ns.RefreshProfessionCourseWindow then
+			ns.RefreshProfessionCourseWindow()
 		end
-		-- With the contents rail on, "jump to a chapter" means SELECT it. Scrolling
-		-- to an offset would be meaningless: only one chapter is rendered, so the
-		-- search would land on whatever happened to be open.
-		if ns.db and ns.db.profAcadContents then
-			ns.db.profAcadChapter = key
-			ns.MH_RefreshProfessionAcademyPanel(panel)
-			local sf = _G["MidnightHelperProfAcademyScroll"]
-			if sf then
-				sf:SetVerticalScroll(0)
-			end
-			return
+		if builtPanel and builtPanel._profAcadBuilt then
+			ns.MH_RefreshProfessionAcademyPanel(builtPanel)
 		end
-		local y = panel._profAcadChapterY and panel._profAcadChapterY[key]
-		local scroll = _G["MidnightHelperProfAcademyScroll"]
-		if not (y and scroll) then
-			return
-		end
-		-- Clamp: a chapter near the bottom asks for more scroll than exists, and
-		-- an unclamped SetVerticalScroll leaves the frame blank.
-		local maxY = scroll:GetVerticalScrollRange() or 0
-		scroll:SetVerticalScroll(math.max(0, math.min(y - 8, maxY)))
 	end
 	if C_Timer and C_Timer.After then
 		C_Timer.After(0, jump)

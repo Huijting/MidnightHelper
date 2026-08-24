@@ -13,14 +13,23 @@ local _, ns = ...
 	chapter tells you to go and press something in the game, you want that text beside
 	the game rather than under a window covering it.
 
-	⚠️ IT RENDERS, IT DOES NOT OWN. The chapter list, the tick state, the selection and
-	the text all come from ProfessionAcademy through MH_GetCourseChapters /
-	MH_GetChapterText, which use the same composer the panel uses. A second copy of the
+	⚠️ IT RENDERS, IT DOES NOT OWN THE DATA. The chapter list, the tick state, the
+	selection and the text all come from ProfessionAcademy through MH_GetCourseChapters /
+	MH_GetChapterText, which use the same composer the panel used. A second copy of the
 	text assembly would drift, and drifting text beside its own data is exactly what
 	this course spent two days repairing.
 
-	Ticking a chapter off stays in the panel on purpose. This is a reader you keep open
-	while you play; the checkbox belongs where the task and its waypoint button are.
+	🔴 CORRECTED 24 AUG: this file used to say "ticking a chapter off stays in the panel on
+	purpose -- the checkbox belongs where the task and its waypoint button are". That was
+	true while the panel still rendered chapters. Rob then read the course in here, looked
+	at the squeezed copy underneath the overview and said it had to go: "het past fysiek
+	niet en het is lelijk opgemaakt". He is right, and one course on two surfaces was always
+	going to end in this question.
+
+	So the panel keeps the overview -- your professions, the advice, the progress count --
+	and this window is the whole course: list, text, the tick, the task and its waypoint
+	button. The reasoning in the old note still holds; it just points here now, because
+	this IS where the task and the button are.
 ]]
 
 local MIN_W, MIN_H = 380, 260
@@ -159,12 +168,48 @@ local function Refresh()
 		title, body, task = ns.MH_GetChapterText(selKey)
 	end
 	frame.title:SetText(title or L("TAB_PROF_ACADEMY"))
-	local text = body or ""
-	if task and task ~= "" then
-		text = text .. "\n\n|cffffd966" .. task .. "|r"
-	end
-	frame.body:SetText(text)
+	-- The task no longer rides along at the end of the body: it has its own row with the
+	-- checkbox beside it, which is the whole point of moving the tick in here.
+	frame.body:SetText(body or "")
 	frame.child:SetHeight(math.max((frame.body:GetStringHeight() or 0) + 20, 1))
+
+	local sel
+	for _, c in ipairs(chapters) do
+		if c.key == selKey then
+			sel = c
+			break
+		end
+	end
+
+	local hasTask = sel and task and task ~= ""
+	frame.taskCheck:SetShown(hasTask and true or false)
+	frame.taskFs:SetShown(hasTask and true or false)
+	if hasTask then
+		frame.taskCheck:SetChecked(sel.done and true or false)
+		frame.taskFs:SetText(task)
+	end
+
+	local wpLabel = hasTask and sel.taskWaypoint and ns.MH_GetChapterWaypointLabel
+		and ns.MH_GetChapterWaypointLabel(sel.taskWaypoint) or nil
+	if wpLabel then
+		frame.wpBtn:SetText(wpLabel)
+		frame.wpBtn._key = sel.taskWaypoint
+		frame.wpBtn:Show()
+	else
+		frame.wpBtn:Hide()
+	end
+
+	-- The footer is only as tall as what it shows, so a chapter without a task does not
+	-- leave a band of empty gold-bordered nothing under the text.
+	local h = 0
+	if hasTask then
+		h = h + math.max(frame.taskFs:GetStringHeight() or 0, 20) + 6
+	end
+	if wpLabel then
+		h = h + 26
+	end
+	frame.footer:SetHeight(math.max(h, 1))
+	frame.footer:SetShown(h > 1)
 end
 
 local function Build()
@@ -275,9 +320,62 @@ local function Build()
 		f.railBtns[i] = b
 	end
 
+	-- Footer first: the scroll frame ends above it, so the task and its button stay put
+	-- while the chapter text scrolls. A task that scrolls off the screen is a task you
+	-- forget you had.
+	local footer = CreateFrame("Frame", nil, f)
+	footer:SetPoint("BOTTOMLEFT", rail, "BOTTOMRIGHT", 10, 0)
+	footer:SetPoint("RIGHT", f, "RIGHT", -30, 0)
+	footer:SetHeight(1)
+	f.footer = footer
+
+	local taskCheck = CreateFrame("CheckButton", nil, footer, "UICheckButtonTemplate")
+	taskCheck:SetSize(20, 20)
+	taskCheck:SetPoint("TOPLEFT", footer, "TOPLEFT", 0, 0)
+	taskCheck:SetScript("OnClick", function(self)
+		local key = ns.db and ns.db.profAcadChapter
+		if key and ns.MH_SetChapterDone then
+			ns.MH_SetChapterDone(key, self:GetChecked() and true or false)
+		end
+		Refresh()
+		-- The panel still shows "Progress: x/14", so it has to hear about this.
+		if ns.MH_RefreshProfessionAcademyPanel and ns._mhProfAcadPanelRef then
+			ns.MH_RefreshProfessionAcademyPanel(ns._mhProfAcadPanelRef)
+		end
+	end)
+	f.taskCheck = taskCheck
+
+	local taskFs = footer:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	taskFs:SetFontObject(SF("GameFontHighlightSmall"))
+	taskFs:SetPoint("TOPLEFT", taskCheck, "TOPRIGHT", 4, -4)
+	taskFs:SetPoint("RIGHT", footer, "RIGHT", 0, 0)
+	taskFs:SetJustifyH("LEFT")
+	taskFs:SetWordWrap(true)
+	taskFs:SetTextColor(1, 0.85, 0.4)
+	f.taskFs = taskFs
+
+	local wpBtn = CreateFrame("Button", nil, footer, "UIPanelButtonTemplate")
+	wpBtn:SetHeight(22)
+	wpBtn:SetPoint("BOTTOMLEFT", footer, "BOTTOMLEFT", 0, 0)
+	wpBtn:SetPoint("RIGHT", footer, "RIGHT", 0, 0)
+	wpBtn:SetScript("OnClick", function(self)
+		if self._key and ns.MH_RouteChapterWaypoint then
+			ns.MH_RouteChapterWaypoint(self._key)
+		end
+	end)
+	local wpFs = wpBtn.GetFontString and wpBtn:GetFontString()
+	if wpFs then
+		wpFs:SetJustifyH("LEFT")
+		wpFs:ClearAllPoints()
+		wpFs:SetPoint("LEFT", wpBtn, "LEFT", 8, 0)
+		wpFs:SetPoint("RIGHT", wpBtn, "RIGHT", -8, 0)
+	end
+	wpBtn:Hide()
+	f.wpBtn = wpBtn
+
 	local scroll = CreateFrame("ScrollFrame", "MidnightHelperCourseWindowScroll", f, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", rail, "TOPRIGHT", 10, 0)
-	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -30, PAD + 4)
+	scroll:SetPoint("BOTTOMRIGHT", footer, "TOPRIGHT", 0, 8)
 	f.scroll = scroll
 
 	local child = CreateFrame("Frame", nil, scroll)
