@@ -32,6 +32,49 @@ Malformed Leviathan en Susarikk kennen we uit `Rares.lua` / de Codex.
 ⚠️ **GTFO is een kandidatenbron, geen bewijs** (CLAUDE.md). Deze 20 ids gaan pas de code in
 nadat de client ze bevestigt. Niet overtypen.
 
+## 🟢 24 aug — THE RING OF GLORY VOLLEDIG GELOPEN, TIER 11: de hele gauntlet gemeten
+
+Rob liep hem uit op **Tier 11** (Frost Mage, solo, géén Bountiful). Onze tekst zei al *"one
+variant is a gauntlet of duels"* en dat klopt — wat ontbrak waren **de tegenstanders**. Dit
+staat voor zover bekend nergens online; Wowhead had voor Crushfoot drie spelerscomments van
+6-12 dagen oud en verder niets.
+
+**De volgorde zoals hij hem kreeg**, elk met de objective-tekst van het spel zelf:
+
+| # | objective | tegenstander(s) |
+|---|---|---|
+| 1 | (terrein leegmaken) | 4 nemeses + 1 elite |
+| 2 | `0/1 Crushfoot defeated` | **Crushfoot** (npc 265686) |
+| 3 | `0/1 Bluegill Brothers defeated` | **Lurgle** + **Smurgle** + 3× **Bluegill Tagteam** |
+| 4 | `0/1 Brinebeater defeated` | **Brinebeater** |
+| 5 | `0/1 Guth'kar defeated` | **Guth'kar the Bound** |
+| 6 | `0/3 Arena champions defeated` | **Hexspitter Zit'ka**, **Za'rema the Slicer**, **Ka the Mad** |
+| 7 | — | **Drakta** (eindbaas) |
+
+⚠️ Eén run, één tier, één speler. Of de volgorde vast is, of fase 1 altijd terrein-leegmaken
+is, en of er meer tegenstanders in de pool zitten: **niet gemeten**. Hij kreeg wel een leven
+terug onderweg (❤️ 1 → 2).
+
+**Crushfoot — GEMETEN:** zijn charge is **te CC'en** (Rob, Frost Mage). Dat bevestigt
+Wowhead-comment dlbert2000 ("You can CC him while he's casting his charge... you can also get
+a lucky Valeera stun"). De twee **portals met blauwe orbs** (NO en ZW, je teleporteert naar
+de andere toren) uit comments van Syrick en Tempurus: **niet getest**, hij kwam er niet aan
+toe. ZW zou hoog liggen en niet voor elke klasse bereikbaar zijn.
+
+**Drakta — geleend werd gemeten, op één punt na:**
+- ✅ **Soul Cleave** bestaat, met de cirkel
+- ✅ er zijn **pilaren**
+- 🔴 de **pull** is er, maar Rob kon er niet op reageren — "of te laat gezien, of hij pullt
+  heel snel". Onze tekst zegt *"break line of sight behind a pillar"*: dat is **reactief**
+  advies uit een groepsgids, en solo ben je altijd het doelwit én kun je de cast niet zien
+  (12.1 verbergt vijandelijke casts). **Onuitvoerbaar advies — zelfde familie als de
+  Knowledge die je niet kon uitgeven.** Herschrijven, maar de tactiek is Robs beslissing,
+  niet iets om te verzinnen.
+
+📌 **Te doen:** `DELVE_TIP_RINGOFGLORY_OVERVIEW` herschrijven in 7 talen. Nu staat er "drie
+varianten" met twee eindbazen; het is een gauntlet met een wisselende reeks. Het voorbehoud
+"per Method and Icy Veins — not yet measured" mag eruit voor Soul Cleave en de pilaren.
+
 ## 🔴 24 aug — DE GROEPS-DISPELHELPER IS IN 12.1 NIET TE BOUWEN ZOALS GEPLAND
 
 Rob installeerde **HexBreak 0.6.12 Beta** (dispel-interface voor 12.1 S2, GPL-3). Het
