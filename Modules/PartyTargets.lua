@@ -496,6 +496,19 @@ local function EnsureClickButtons()
 			b:RegisterForClicks("AnyUp", "AnyDown")
 			b:SetAttribute("*type1", "target")
 			b:SetAttribute("unit", "party" .. i .. "target")
+			--- Right-click targets the GROUP MEMBER instead of their target. Rob, 24 aug:
+			--- "ik kan wel de mobs aanklikken die mijn teammaten getarged hebben maar ik
+			--- kan hun zelf niet aanklikken."
+			---
+			--- Left keeps what it did, because that is the panel's whole purpose and
+			--- changing it would move a click people already have in their fingers.
+			---
+			--- ⚠️ `unit2` and not a second button: SecureActionButton resolves the unit per
+			--- mouse button, falling back to `unit` when the numbered one is absent. So one
+			--- button carries both bindings and neither needs a script — which is the rule
+			--- this file paid for once already (see the note below about TargetUnit()).
+			b:SetAttribute("*type2", "target")
+			b:SetAttribute("unit2", "party" .. i)
 			-- NO SCRIPTS ON THIS BUTTON. Not OnDragStart, not OnClick, nothing.
 			--
 			-- The first two builds hung drag handlers here so the rows would stay
@@ -554,6 +567,10 @@ local function Refresh()
 		for i = 1, MAX_ROWS do
 			if clicks[i] then
 				clicks[i]:SetAttribute("unit", "party" .. rowOrder[i] .. "target")
+				-- Both bindings move together. Rebinding only the left one would leave
+				-- right-click pointing at whoever used to be on this row -- a stale click
+				-- that looks like it worked, which is the failure this file exists to avoid.
+				clicks[i]:SetAttribute("unit2", "party" .. rowOrder[i])
 			end
 		end
 	end
