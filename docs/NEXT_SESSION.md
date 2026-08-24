@@ -34,11 +34,33 @@ nadat de client ze bevestigt. Niet overtypen.
 
 ## 🔵 ROB VRAAGT — 24/25 aug (hij is twee dagen vrij)
 
-### 1. Tier set in jip-en-janneke-taal
-Wat het is, en hoe je het krijgt of maakt. Nieuw hoofdstuk-materiaal, zelfde toon als de
-professie-cursus: betekenis vóór het label, en veranker elk zelfverzonnen beeld.
-⚠️ Zoek eerst uit of het bij de **Codex** hoort of bij de **Academy** — niet allebei. Drie
-keer deze week was de oorzaak van een bug "twee plekken beantwoorden dezelfde vraag".
+### 1. 🔴 Tier set — en de uitleg die er AL staat, is verouderd
+
+Rob en Cisca snappen het niet. Eerste bevinding: dat ligt niet aan hen.
+
+`TIER_GUIDE_BODY` (enUS.lua) bestaat al en zegt onder "How you get them":
+> *"Raid drops: **The Voidspire** bosses 2–5 each drop a class token... The chest piece
+> comes from **The Dreamrift**."*
+
+Beide zijn **Season 1**-raids. Onze eigen `RaidCoachData.lua` zegt dat de Season 2-raid
+**The Venomous Abyss** is (`season = 2`, 8 bosses), live sinds 18 aug. We sturen ze dus naar
+de raid van vórig seizoen voor hun tier-tokens. En `TIER_FOOTER` zegt nog "datamined for
+**12.0.7**" terwijl we op 12.1 zitten.
+
+⚠️ **Wat we NIET weten en niet mogen verzinnen:** welke Venomous Abyss-boss welk token-slot
+laat vallen, en of de Catalyst-kant nog klopt (Eldara Dawnrunner, quest 'Taste True Power',
+Dawnlight Manaflux, "eerste lading week 1 daarna elke 2 weken"). Die hele alinea is
+ongecontroleerd sinds S1.
+
+**De meting, en er is geen nieuwe code voor nodig:** Rob doet `/mh ej save` + `/reload`;
+`ns.db.ejCapture` bevat dan de Encounter Journal van deze tier, inclusief de loot per boss,
+in zijn eigen taal. Daaruit halen we de tokens per boss. De Catalyst-vragen zijn een aparte
+bron (client/NPC in Silvermoon), niet uit de EJ.
+
+**Pas daarna schrijven** — en dan in één keer goed in zeven talen, niet twee keer.
+⚠️ De uitleg hoort op één plek. `Modules/TierSet.lua` heeft hem al; er komt geen tweede in
+de Academy of de Codex bij. Drie keer deze week was de oorzaak van een bug "twee plekken
+beantwoorden dezelfde vraag".
 
 ### 2. 🔴 "Zijn onze spec-spells nog actueel in 12.1?" — MEET DIT, raad het niet
 `Modules/KeybindRoles_<Class>.lua`, 14 bestanden. **Laatst aangeraakt 4-7 aug 2026 —
@@ -64,7 +86,15 @@ kennen moeten er ook uit komen, anders is de sonde stuk en niet de data. Schrijf
 ⚠️ Rob speelt **Prot Paladin (66)**. Eén spec meten dekt één spec; zeg dat er dan bij in
 plaats van te doen alsof het over alle veertien gaat.
 
-## 🔴 EERST MORGEN (21 aug) — wij dragen Rob op iets te doen dat niet kan
+## ✅ AF (23-24 aug) — ~~EERST MORGEN (21 aug): wij dragen Rob op iets te doen dat niet kan~~
+
+Gerepareerd op **twee** plekken, en de tweede pas nadat Rob hem op 23 aug opnieuw tegenkwam:
+`ProfessionNextStep.lua` (21 aug, `CanSpendKnowledge`) én de adviesregel in Professions 101
+(`BuildAdviceLine`, 24 aug). Die tweede was de bug: `canSpend` had één lezer, en de cursus
+vroeg het nooit. De test staat nu als `ns.MH_CanSpendKnowledge` — één implementatie, en de
+nodelijst eronder verdwijnt ook zolang alles op slot zit. Alles hieronder is historie.
+
+## 🔴 ~~EERST MORGEN (21 aug)~~ — wij dragen Rob op iets te doen dat niet kan
 
 **GEMETEN op Robs shadow priest, 20 aug laat.** Hij heeft 12 onbestede Knowledge Points op
 Tailoring, en hij kan er **geen enkele** van uitgeven. Uit de tooltip van `Nimble
