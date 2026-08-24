@@ -46,6 +46,40 @@ local TICK_SEC = 2
 
 local frame, ticker, wasInDelve
 
+--- This delve's tally. Chunks counted from loot, XP taken from her own standing.
+---
+--- ⚠️ THE XP IS A DIFFERENCE, NOT A SUM OF TABLE VALUES. The other addon adds up 1250 /
+--- 2500 / 6250 per rarity and needed a changelog entry when a 50% bonus made every total
+--- wrong. We already read her standing every two seconds, so "gained this run" is just
+--- now-minus-entry: correct under any bonus, any Delver's Journey rank, and any number the
+--- game changes next patch, because we never claim to know what a chunk is worth.
+local run = { chunks = 0, byQuality = {}, entryStanding = nil }
+
+local function ResetRun(standing)
+	run.chunks = 0
+	run.byQuality = {}
+	run.entryStanding = standing
+end
+
+--- Blizzard's own localized quality words -- "Uncommon" / "Rare" / "Epic" in the player's
+--- language, for free. Inventing our own labels would mean seven translations of words the
+--- client already has, and they would disagree with the item tooltip beside them.
+local function QualityLabel(q)
+	local g = _G["ITEM_QUALITY" .. tostring(q) .. "_DESC"]
+	if g and g ~= "" then
+		return g
+	end
+	return tostring(q)
+end
+
+local function QualityColor(q)
+	local c = _G.ITEM_QUALITY_COLORS and _G.ITEM_QUALITY_COLORS[q]
+	if c and c.hex then
+		return c.hex
+	end
+	return "|cffffffff"
+end
+
 local function L(key)
 	return (ns.L and ns:L(key)) or key
 end
@@ -67,26 +101,71 @@ end
 -- Companion Experience Chunks — the thing that actually feeds her
 --------------------------------------------------------------------------------
 
---- ⚠️ CANDIDATES, NOT FACTS — these 14 ids come from Delve Companion XP Tracker v0.3.0,
---- which makes them a place to look and nothing more (CLAUDE.md). On 8 Aug 2026 an event
---- name copied out of four other addons threw "unknown event" on the next reload, and the
---- same night a spell name grep produced a Blackwing Mage's version of it.
+--- ✅ CONFIRMED IN ROB'S CLIENT, 24 Aug 2026. The ids came from Delve Companion XP Tracker
+--- v0.3.0 — candidates, because copying identifiers out of another addon is how we
+--- registered LEARNED_SPELL_IN_TAB on 8 Aug and got "unknown event" on the next reload.
+--- `/mh chunks` asked the game: all 14 answered, every one named "Chunk of Companion
+--- Experience", and every quality matched the rarity the other addon claimed (2/3/4).
 ---
---- So `/mh chunks` asks the client for each one and parks the answer in SavedVariables.
---- Nothing below this table is used for anything until that has run and the names come back
---- looking like Companion Experience Chunks.
+--- ⚠️ NO RARITY TABLE. We deliberately do NOT keep their uncommon/rare/epic mapping: the
+--- client hands us `quality` per item, so a hardcoded copy could only ever drift away from
+--- it. Their own changelog shows the cost of deriving rarity indirectly — they first read it
+--- from the XP amount and miscounted whenever a 50% bonus was active.
 ---
 --- WHY IT MATTERS. Rob asked on 23 Aug whether Valeera's gain does not depend on what you
 --- pick up. It does, and this is the mechanism: chunks are physical loot in three
 --- rarities. That is why a non-bountiful delve still pays, why bountiful pays more, and why
---- "XP per run" was never a quantity we could have measured.
-local CHUNK_CANDIDATES = {
-	-- rarity as the other addon labels it; ours is confirmed from the client instead.
-	[228071] = "uncommon", [254756] = "uncommon", [235504] = "uncommon", [232047] = "uncommon",
-	[228072] = "rare",     [254757] = "rare",     [235503] = "rare",     [232046] = "rare",
-	[254869] = "epic",     [228073] = "epic",     [232045] = "epic",     [235502] = "epic",
-	[254748] = "epic",     [235607] = "epic",
+--- "XP per run" was never a quantity anyone could have measured.
+local CHUNK_IDS = {
+	[228071] = true, [254756] = true, [235504] = true, [232047] = true,
+	[228072] = true, [254757] = true, [235503] = true, [232046] = true,
+	[254869] = true, [228073] = true, [232045] = true, [235502] = true,
+	[254748] = true, [235607] = true,
 }
+
+--- ⚠️ A fifteenth id in the next patch would be silently missed by the list above, and a
+--- silent miss is the failure mode this module already shipped once. So an unknown looted
+--- item also counts when its name equals a known chunk's name.
+---
+--- Compared against a name the CLIENT gives us for one of the confirmed ids, never against
+--- the English literal: hardcoding "Chunk of Companion Experience" would work for Rob and
+--- quietly fail for every German, French, Spanish, Portuguese and Italian player.
+local chunkName
+local function ChunkDisplayName()
+	if chunkName then
+		return chunkName
+	end
+	if not (C_Item and C_Item.GetItemInfo) then
+		return nil
+	end
+	for id in pairs(CHUNK_IDS) do
+		local ok, name = pcall(C_Item.GetItemInfo, id)
+		if ok and name and name ~= "" then
+			chunkName = name
+			return chunkName
+		end
+	end
+	return nil
+end
+
+--- Is this looted item a chunk, and at what quality? nil when it is not one.
+local function ChunkQuality(itemID)
+	if not (itemID and C_Item and C_Item.GetItemInfo) then
+		return nil
+	end
+	local ok, name, _, quality = pcall(C_Item.GetItemInfo, itemID)
+	if not ok then
+		return nil
+	end
+	if CHUNK_IDS[itemID] then
+		return tonumber(quality) or 0
+	end
+	local known = ChunkDisplayName()
+	if known and name and name == known then
+		return tonumber(quality) or 0
+	end
+	return nil
+end
 
 --- /mh chunks — resolve every candidate id against the client and save the result.
 ---
@@ -100,7 +179,7 @@ function ns.ProbeCompanionChunks()
 		return
 	end
 	local ids = {}
-	for id in pairs(CHUNK_CANDIDATES) do
+	for id in pairs(CHUNK_IDS) do
 		ids[#ids + 1] = id
 	end
 	table.sort(ids)
@@ -120,7 +199,6 @@ function ns.ProbeCompanionChunks()
 			local ok, name, _, quality = pcall(C_Item.GetItemInfo, id)
 			local row = {
 				id = id,
-				claimed = CHUNK_CANDIDATES[id],
 				name = (ok and name) or nil,
 				quality = (ok and quality) or nil,
 			}
@@ -128,9 +206,8 @@ function ns.ProbeCompanionChunks()
 				answered = answered + 1
 			end
 			out[#out + 1] = row
-			print(("   %d  %-10s %s  q=%s"):format(
-				id, row.claimed, tostring(row.name or "|cffff5555no answer|r"),
-				tostring(row.quality)))
+			print(("   %d  %s  q=%s"):format(
+				id, tostring(row.name or "|cffff5555no answer|r"), tostring(row.quality)))
 		end
 		ns.db.chunkProbe = out
 		print(("%s %d of %d ids answered."):format(prefix, answered, #ids))
@@ -206,8 +283,28 @@ local function BuildText()
 
 	-- How much is left, and the one thing about it that is actually known.
 	local big = BreakUpLargeNumbers or function(n) return n end
-	return head .. "\n" .. L("VALEERA_LEFT_FMT"):format(big(left)),
-		(span > 0) and (into / span) or 0
+	local text = head .. "\n" .. L("VALEERA_LEFT_FMT"):format(big(left))
+
+	-- This delve's tally, once there is one. Outside a delve entryStanding is nil and the
+	-- line stays away rather than reporting a stale run.
+	if run.entryStanding then
+		local gained = math.max(v.cur - run.entryStanding, 0)
+		if run.chunks > 0 then
+			local parts = {}
+			for _, q in ipairs({ 4, 3, 2, 1, 0 }) do
+				local n = run.byQuality[q]
+				if n and n > 0 then
+					parts[#parts + 1] = ("%s%d %s|r"):format(QualityColor(q), n, QualityLabel(q))
+				end
+			end
+			text = text .. "\n" .. L("VALEERA_RUN_FMT"):format(
+				table.concat(parts, ", "), big(gained))
+		else
+			text = text .. "\n" .. L("VALEERA_RUN_NONE")
+		end
+	end
+
+	return text, (span > 0) and (into / span) or 0
 end
 
 local function Refresh()
@@ -349,12 +446,17 @@ end
 local function Tick()
 	local inDelve = InDelve()
 	if inDelve and not wasInDelve then
+		-- Start the tally whether or not the popup shows: someone who turned it off still
+		-- gets a real run waiting for them if they turn it back on mid-delve.
+		local v = GetValeera()
+		ResetRun(v and v.cur or nil)
 		if not Settings().off then
 			local f = Build()
 			f:Show()
 			Refresh()
 		end
 	elseif not inDelve and wasInDelve then
+		ResetRun(nil)
 		if frame then
 			frame:Hide()
 		end
@@ -366,7 +468,25 @@ end
 
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
-ev:SetScript("OnEvent", function()
+ev:RegisterEvent("CHAT_MSG_LOOT")
+ev:SetScript("OnEvent", function(_, event, message)
+	if event == "CHAT_MSG_LOOT" then
+		-- Only inside a delve: chunks can only be looted there, and counting outside would
+		-- mean a stale tally waiting in the popup the next time it opens.
+		if not run.entryStanding or type(message) ~= "string" then
+			return
+		end
+		-- The loot line carries an item link; the id is the first field of it.
+		for idStr in message:gmatch("|Hitem:(%d+):") do
+			local q = ChunkQuality(tonumber(idStr))
+			if q then
+				run.chunks = run.chunks + 1
+				run.byQuality[q] = (run.byQuality[q] or 0) + 1
+			end
+		end
+		Refresh()
+		return
+	end
 	if not ticker and C_Timer and C_Timer.NewTicker then
 		ticker = C_Timer.NewTicker(TICK_SEC, Tick)
 	end
