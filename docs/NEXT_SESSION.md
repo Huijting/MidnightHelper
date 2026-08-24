@@ -52,10 +52,57 @@ laat vallen, en of de Catalyst-kant nog klopt (Eldara Dawnrunner, quest 'Taste T
 Dawnlight Manaflux, "eerste lading week 1 daarna elke 2 weken"). Die hele alinea is
 ongecontroleerd sinds S1.
 
-**De meting, en er is geen nieuwe code voor nodig:** Rob doet `/mh ej save` + `/reload`;
-`ns.db.ejCapture` bevat dan de Encounter Journal van deze tier, inclusief de loot per boss,
-in zijn eigen taal. Daaruit halen we de tokens per boss. De Catalyst-vragen zijn een aparte
-bron (client/NPC in Silvermoon), niet uit de EJ.
+🔴 **GEMETEN 24 aug: `/mh ej save` LEGT GEEN LOOT VAST.** Rob heeft het gedraaid; het blok
+staat op regel 31166-32110 van zijn SavedVariables en bevat instances → bosses → creatures
+met display-ids, en **nul** itemIDs. De 64 `itemID`-regels in dat bestand horen bij
+`tradingPostCache`, een andere sectie. `EncounterCapture.lua` roept `EJ_GetLootInfo*` nooit
+aan. Deze meting kan de token-vraag dus niet beantwoorden.
+
+**Wat er wél voor nodig is:** een loot-tak in `ns.CaptureEncounterJournal` die per boss
+`EJ_GetNumLoot` + `EJ_GetLootInfoByIndex` uitleest. Kleine, afgebakende toevoeging; daarna
+één `/mh ej save` + `/reload` en het antwoord staat er.
+
+⚠️ Vier sondes op rij sliceden dit bestand verkeerd (900k-terugval, 1-regel-blok, verkeerde
+sectie) omdat ik op inspringing probeerde te knippen. **Het SavedVariables-bestand heeft
+GEEN inspringing.** Accolades tellen vanaf de sleutel is de enige grens die het heeft.
+
+✅ **Bonus uit dezelfde capture — de Season 2-roster, uit de client:** Altar of Fangs (1322:
+Rav'i, The Writhing Coil, Zul'jan), Den of Nalorakk (1311), Murder Row (1304), The Blinding
+Vale (1309), Voidscar Arena (1313), **The Tidebound Grotto (1317)**, **The Venomous Abyss
+(1320)**, plus Kings' Rest / Ruby Life Pools / Temple of Sethraliss. Dat is precies de
+Spec 01-lijst die nog open stond (Altar of Fangs + Tidebound Grotto), nu met
+client-bevestigde bossnamen en encounterIDs.
+
+De Catalyst-vragen blijven een aparte bron (NPC in Silvermoon), niet uit de EJ.
+
+## 🟢 24 aug — WAAROM VALEERA-XP PER DELVE VERSCHILT: het zijn Chunks
+
+Rob installeerde **Delve Companion XP Tracker v0.3.0**. Dat beantwoordt de vraag waarop we
+gisteren de run-schatting geschrapt hebben, en Rob had het bij het rechte eind: het hangt af
+van wat je oppakt.
+
+Valeera-XP komt uit **Companion Experience Chunks** — losse voorwerpen in de delve, in drie
+zeldzaamheden. Het addon leest de rarity uit het **item-id** en niet uit het XP-bedrag,
+juist omdat Delver's Journey en weekbonussen dat bedrag veranderen:
+
+| rarity | basis | met 1,5× |
+|---|---|---|
+| Uncommon | 1.250 | 1.875 |
+| Rare | 2.500 | 3.750 |
+| Epic | 6.250 | 9.375 |
+
+Item-ids die het gebruikt — **kandidaten, niet bewezen** (ander addon, CLAUDE.md):
+groen `228071 254756 235504 232047` · blauw `228072 254757 235503 232046` ·
+paars `254869 228073 232045 235502 254748 235607`
+
+Dit verklaart alles wat we fout hadden: een niet-Bountiful delve geeft XP (er liggen chunks),
+Bountiful geeft meer (meer/betere chunks), en "XP per run" bestaat niet als grootheid.
+
+⚠️ **NIET nabouwen.** Dat addon trackt dit goed en Rob gebruikt het. Onze marktpositie is
+uitléggen, niet tracken ([[mh-market-position]]). Het gat dat wél van ons is: onze popup zegt
+nu "elke delve telt mee, Bountiful meer" — waar hij zou kunnen zeggen wat je moet zóeken.
+Eerst de ids en bedragen in de client bevestigen; overtypen uit een ander addon is precies
+de fout die 8 aug een niet-bestaand event opleverde.
 
 **Pas daarna schrijven** — en dan in één keer goed in zeven talen, niet twee keer.
 ⚠️ De uitleg hoort op één plek. `Modules/TierSet.lua` heeft hem al; er komt geen tweede in
