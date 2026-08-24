@@ -53,11 +53,12 @@ local frame, ticker, wasInDelve
 --- wrong. We already read her standing every two seconds, so "gained this run" is just
 --- now-minus-entry: correct under any bonus, any Delver's Journey rank, and any number the
 --- game changes next patch, because we never claim to know what a chunk is worth.
-local run = { chunks = 0, byQuality = {}, entryStanding = nil }
+local run = { chunks = 0, byQuality = {}, others = 0, entryStanding = nil }
 
 local function ResetRun(standing)
 	run.chunks = 0
 	run.byQuality = {}
+	run.others = 0
 	run.entryStanding = standing
 end
 
@@ -307,14 +308,20 @@ local function BuildText()
 	-- line stays away rather than reporting a stale run.
 	if run.entryStanding then
 		local gained = math.max(v.cur - run.entryStanding, 0)
-		if run.chunks > 0 then
-			local parts = {}
-			for _, q in ipairs({ 4, 3, 2, 1, 0 }) do
-				local n = run.byQuality[q]
-				if n and n > 0 then
-					parts[#parts + 1] = ("%s%d %s|r"):format(QualityColor(q), n, QualityLabel(q))
-				end
+		local parts = {}
+		for _, q in ipairs({ 4, 3, 2, 1, 0 }) do
+			local n = run.byQuality[q]
+			if n and n > 0 then
+				parts[#parts + 1] = ("%s%d %s|r"):format(QualityColor(q), n, QualityLabel(q))
 			end
+		end
+		-- The others go in the same list rather than a line of their own: the player is
+		-- reading "what did I pick up that counted", and splitting it by how WE identify
+		-- them would be our bookkeeping leaking into their sentence.
+		if run.others > 0 then
+			parts[#parts + 1] = L("VALEERA_RUN_OTHER_FMT"):format(run.others)
+		end
+		if #parts > 0 then
 			text = text .. "\n" .. L("VALEERA_RUN_FMT"):format(
 				table.concat(parts, ", "), big(gained))
 		else
@@ -514,15 +521,50 @@ ev:SetScript("OnEvent", function(_, event, message)
 			return
 		end
 		-- The loot line carries an item link; the id is the first field of it.
-		local seen = {}
+		local seen, chunksHere = {}, 0
 		for idStr in message:gmatch("|Hitem:(%d+):") do
 			local id = tonumber(idStr)
 			seen[#seen + 1] = id
 			local q = ChunkQuality(id)
 			if q then
+				chunksHere = chunksHere + 1
 				run.chunks = run.chunks + 1
 				run.byQuality[q] = (run.byQuality[q] or 0) + 1
 			end
+		end
+
+		--- ✅ COUNT THE OTHER THINGS THAT FEED HER — BY EFFECT, NOT BY NAME.
+		---
+		--- Measured 24 aug on a normal Tier 11 run: six loot events contained no chunk at
+		--- all and still moved her standing — five Boons (Vigor, Fortitude, Temperance) at
+		--- 3,250 and one `Insect Shedding` at 26,000, the same figure a `Rootlight Lamppost`
+		--- gave in the bountiful. Six other events did contain a chunk and also gained, so
+		--- the measurement had its positive control. Rob's original instinct was right and
+		--- my "the boons are being double-counted" guess, hung on a broken log, was not.
+		---
+		--- ⚠️ Deliberately NOT a list of boon ids or a name match on "Boon of". A name test
+		--- would work for Rob and fail silently for every German and Italian player, and a
+		--- hardcoded list goes stale the first patch that adds one. An event with no chunk
+		--- that raised her standing is proof by effect: language-proof, patch-proof, and it
+		--- counts items nobody has named yet.
+		---
+		--- Only unambiguous events count. Chunks in the same event would make the gain
+		--- unattributable, which is exactly the mistake the earlier per-item log made.
+		if #seen > 0 then
+			local beforeV = GetValeera()
+			local before = beforeV and beforeV.cur or nil
+			local n = #seen
+			C_Timer.After(1.0, function()
+				if not run.entryStanding then
+					return -- left the delve while we waited
+				end
+				local afterV = GetValeera()
+				local gained = (afterV and afterV.cur and before) and (afterV.cur - before) or 0
+				if chunksHere == 0 and gained > 0 then
+					run.others = run.others + n
+					Refresh()
+				end
+			end)
 		end
 
 		--- 🔎 DIAGNOSTIC (24 aug, /mh chunklog). Rob looted an elite and Valeera gained XP
