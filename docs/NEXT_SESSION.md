@@ -7,6 +7,46 @@ Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 77 commits boven `v3.4.0`. De vijf talen zijn af, Valeera's voortgang in delves, portaal-
 bewust reisadvies. Description bijgewerkt. Linter 0/0.
 
+## 🔴 24 aug — OPEN: het bossvenster toont een dungeon waar je NIET bent
+
+**Cisca, in LFR:** ze opent het bossvenster en ziet een andere dungeon of raid.
+
+`DefaultDungeon()` (`DungeonBossWindow.lua:277`) doet drie stappen: herkende instantie →
+**dungeon van de week** → **`windrunnerspire`**, hardgecodeerd. De herkenning
+(`DungeonForCurrentInstance`) zoekt alleen in `GetDungeonRoster()`. Een **raid** staat daar
+niet in, dus valt LFR door naar stap 2 of 3 en toont met volle overtuiging iets anders.
+
+⚠️ **De fout is niet dat we raids niet kennen — het is dat we het niet toegeven.** Binnen een
+onbekende instantie behandelen we je alsof je buiten staat. Zelfde familie als de rest van
+deze dag: een zelfverzekerd fout antwoord waar "deze ken ik niet" de waarheid is.
+
+**Twee delen, en het eerste kan los:**
+1. **Eerlijk zijn.** Sta je ín een instantie die we niet herkennen, zeg dat dan en noem wat
+   `GetInstanceInfo()` teruggeeft, in plaats van een willekeurige dungeon te tonen. Klein.
+2. **Raids herkennen.** `RaidCoachData` heeft ze al (incl. The Venomous Abyss). Het venster
+   kan er minstens naar doorverwijzen. Groter, en een ontwerpkeuze: het venster is bewust
+   dungeon-only gebouwd.
+
+⚠️ Buiten een instantie is "dungeon van de week" een prima standaard — die niet weghalen.
+
+## ✅ 24 aug — de Bountiful-log: vier bronnen, en de toewijzing was schoon
+
+61 loot-momenten, 17 met winst: 8 mét chunk (positieve controle), **9 zonder**. Nul
+meervoudige momenten met winst, dus niets was dubbelzinnig.
+
+| bron | bedrag |
+|---|---|
+| Chunk uncommon / rare / epic | 2.437 / 4.875 / 12.188 |
+| **Boons** (Vigor, Potency, Temperance, Possibilities) | 3.250 |
+| **26.000-tier:** `Insect Shedding`, `Rootlight Lamppost`, `Tattered Clothes` | 26.000 |
+| **`Griftah's Token of Appreciation`** | **54.600** |
+
+📌 Die drie 26.000-items klinken als opraapbaar rommelgoed in delves. Als dat klopt is het
+een categorie en geen toeval — maar dat is een vermoeden uit namen, niet gemeten.
+
+⚠️ Niets hiervan wordt hardgecodeerd. De teller werkt op effect en vangt deze items al; een
+lijst zou alleen kunnen verouderen. Dit staat hier als **kennis**, niet als data.
+
 ## 🟡 24 aug — OPEN: Valeera's stand stijgt zónder loot (+104)
 
 Rob deed midden in een Bountiful een `/reload` en zag daarna zijn stand van **204.099 naar
