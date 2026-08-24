@@ -478,11 +478,16 @@ end
 
 --- One secure button per row, permanently bound to that row's unit.
 ---
---- `unit` is set once to "party<i>target" and never changes, because row i always
---- shows party i. That is the whole trick: SimplePartyTargets has to reassign the
---- attribute as its slots move and therefore guards it with InCombatLockdown
---- (`SimplePartyTargets.lua:3503`), which means a click can go stale mid-fight.
---- A fixed binding cannot.
+--- Each row carries both bindings at once — left the member, right their target —
+--- rather than one attribute that gets rewritten as the situation changes. That is
+--- the whole trick: SimplePartyTargets reassigns its attribute as slots move and
+--- therefore guards it with InCombatLockdown (`SimplePartyTargets.lua:3503`), which
+--- means a click can go stale mid-fight. Two fixed bindings cannot.
+---
+--- ⚠️ The rows DO re-sort by role, and both attributes are rewritten together there
+--- (see the RecomputeOrder block). This comment used to claim `unit` "is set once and
+--- never changes", which was already untrue when it was written and would have sent
+--- the next reader looking for a guarantee that does not exist.
 ---
 --- Drag is forwarded to the panel so the rows stay draggable even though the
 --- buttons now cover them. Clicking still works: a button registered for both
@@ -494,21 +499,26 @@ local function EnsureClickButtons()
 				"SecureActionButtonTemplate")
 			b:SetFrameStrata("DIALOG")
 			b:RegisterForClicks("AnyUp", "AnyDown")
-			b:SetAttribute("*type1", "target")
-			b:SetAttribute("unit", "party" .. i .. "target")
-			--- Right-click targets the GROUP MEMBER instead of their target. Rob, 24 aug:
-			--- "ik kan wel de mobs aanklikken die mijn teammaten getarged hebben maar ik
-			--- kan hun zelf niet aanklikken."
+			--- LEFT targets the GROUP MEMBER, RIGHT targets what they are looking at.
 			---
-			--- Left keeps what it did, because that is the panel's whole purpose and
-			--- changing it would move a click people already have in their fingers.
+			--- Rob asked for member-clicking on 24 aug ("ik kan hun zelf niet aanklikken")
+			--- and the first build put it on right-click, to avoid moving a click people
+			--- already had in their fingers. He tried it in a delve within the hour:
+			--- "rechts klik is inderdaad raar, dus die moet andersom".
+			---
+			--- He is right for a better reason than habit. Everywhere else in this game,
+			--- left-clicking a unit frame selects that unit — so a row showing a person
+			--- that does NOT select them on left-click is fighting the platform, and no
+			--- amount of internal logic about "the panel's purpose" wins that argument.
 			---
 			--- ⚠️ `unit2` and not a second button: SecureActionButton resolves the unit per
 			--- mouse button, falling back to `unit` when the numbered one is absent. So one
 			--- button carries both bindings and neither needs a script — which is the rule
 			--- this file paid for once already (see the note below about TargetUnit()).
+			b:SetAttribute("*type1", "target")
+			b:SetAttribute("unit", "party" .. i)
 			b:SetAttribute("*type2", "target")
-			b:SetAttribute("unit2", "party" .. i)
+			b:SetAttribute("unit2", "party" .. i .. "target")
 			-- NO SCRIPTS ON THIS BUTTON. Not OnDragStart, not OnClick, nothing.
 			--
 			-- The first two builds hung drag handlers here so the rows would stay
@@ -566,11 +576,11 @@ local function Refresh()
 	if RecomputeOrder() and not (InCombatLockdown and InCombatLockdown()) then
 		for i = 1, MAX_ROWS do
 			if clicks[i] then
-				clicks[i]:SetAttribute("unit", "party" .. rowOrder[i] .. "target")
-				-- Both bindings move together. Rebinding only the left one would leave
-				-- right-click pointing at whoever used to be on this row -- a stale click
-				-- that looks like it worked, which is the failure this file exists to avoid.
-				clicks[i]:SetAttribute("unit2", "party" .. rowOrder[i])
+				-- Both bindings move together. Rebinding only one would leave the other
+				-- pointing at whoever used to be on this row -- a stale click that looks
+				-- like it worked, which is the failure this file exists to avoid.
+				clicks[i]:SetAttribute("unit", "party" .. rowOrder[i])
+				clicks[i]:SetAttribute("unit2", "party" .. rowOrder[i] .. "target")
 			end
 		end
 	end
