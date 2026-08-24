@@ -461,8 +461,27 @@ local function InDelve()
 	return false
 end
 
+--- 🔴 THE RUN'S LIFETIME HANGS ON THIS, NOT ON IsDelveInProgress. Measured 24 aug, Rob's
+--- Tier 11 Ring of Glory: the popup closed by itself partway through, which means
+--- `C_PartyInfo.IsDelveInProgress` read false while he was still inside — plausibly between
+--- the gauntlet's successive duels, since that delve is a chain of separate encounters.
+---
+--- Because the tally and the chunk log both keyed off that flag, a single false reading
+--- wiped the run and stopped recording. He noticed only because the window vanished; the
+--- silent half was the log quietly going blank.
+---
+--- So a progress flag now only STARTS a run. Whether it is still going is answered by where
+--- the player physically is, which cannot blink between stages.
+local function InScenario()
+	if not IsInInstance then
+		return false
+	end
+	local inInst, instType = IsInInstance()
+	return (inInst and instType == "scenario") and true or false
+end
+
 local function Tick()
-	local inDelve = InDelve()
+	local inDelve = InDelve() or (wasInDelve and InScenario())
 	if inDelve and not wasInDelve then
 		-- Start the tally whether or not the popup shows: someone who turned it off still
 		-- gets a real run waiting for them if they turn it back on mid-delve.
