@@ -7,6 +7,33 @@ Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 77 commits boven `v3.4.0`. De vijf talen zijn af, Valeera's voortgang in delves, portaal-
 bewust reisadvies. Description bijgewerkt. Linter 0/0.
 
+## 🔴 24 aug — OPEN: "other continent" voor een zone waar je naartoe kunt lopen
+
+**Zit in uitgebrachte versies.** Rob stond in Silvermoon City (2393) met een delve-doel in
+Eversong Woods (2395) en kreeg *"other continent — travel back, head for Portal to Harandar"*.
+Silvermoon City heeft een eigen coördinatenstelsel, dus `GetWorldPosFromMapPos` geeft er
+werkelijk een ander continent voor terug — en wij sturen je naar een portaal terwijl je de
+stad uit moet lopen.
+
+✅ **Wat de `/mh arrow`-uitdraaien wél bewezen:** de route is onschuldig. Het doel is vóór en
+ná een portaal identiek (`Collegiate Calamity`, map 2393). `RouteNearestDelve` draait alleen
+op een klik en herberekent nooit vanzelf. Wat wisselt is wie tekent: TomTom verbergt zijn
+pijl zodra het doel op een andere kaart ligt, wij nemen het over, en dán valt deze zin.
+
+🔴 **Poging 1 (`71833d6`) WERKT NIET.** `OneContainsTheOther` via
+`GetMapInfo().parentMapID` zou 2393-in-2395 moeten vangen; na Robs reload was het bericht
+onveranderd. De wijziging is daarmee **inert** — hij zet alleen iets uit dat kennelijk nooit
+aan gaat. Niet teruggedraaid, wel als onbewezen gemarkeerd.
+
+⚠️ **Drie kandidaten en ze zijn van buitenaf niet te onderscheiden:** (1) `parentMapID` van
+2393 is niet 2395, (2) het doel in de route heeft een andere mapID dan gedacht, (3) de zin
+komt uit een andere tak dan `unreachable`. Daarom drukt `/mh arrow` nu **beide kaarten, hun
+continent-id én hun oudersketen** af. Eén screenshot beantwoordt welke van de drie het is.
+
+⚠️ Ook onbekend: welke kant Rob getest heeft. Vanuit **Harandar** is "travel back" correct
+gedrag — dan is er niets mis en meet je niets. De test moet vanuit **Silvermoon** met een
+doel in **Eversong Woods**.
+
 ## 🟡 24 aug — addon-update-ronde: GTFO 6.9 kent 20 hazards die wij niet hebben
 
 Rob werkte de CF-addons bij. Vier vanochtend (WIM, Platynator, MidnightMountTooltip,

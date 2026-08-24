@@ -944,6 +944,32 @@ function ns.PrintArrowStatus()
 		print("  doel: |cffff8080GEEN — geen enkele route heeft een doel doorgegeven|r")
 	end
 
+	--- 🔎 THE CONTINENT VERDICT AND WHY. Added 24 aug because a fix went in blind and did
+	--- nothing: Rob reported "other continent" for a target one zone away, the parent-map
+	--- test was meant to catch it, and after a reload the message was unchanged. Which of
+	--- the three inputs is wrong -- the target's map, the continent lookup, or the client's
+	--- parent chain -- cannot be told apart from outside, so print all three.
+	do
+		local pmap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+		local tmap = activeLead and activeLead.mapID
+		local function chain(m)
+			local out, hops = { tostring(m or "?") }, 0
+			while m and hops < 12 do
+				m = ParentMap(m)
+				hops = hops + 1
+				if m then
+					out[#out + 1] = tostring(m)
+				end
+			end
+			return table.concat(out, " -> ")
+		end
+		print(("  jij: map %s (continent %s)   keten: %s"):format(
+			tostring(pmap or "?"), tostring(MapContinent(pmap) or "?"), chain(pmap)))
+		print(("  doel: map %s (continent %s)   keten: %s"):format(
+			tostring(tmap or "?"), tostring(MapContinent(tmap) or "?"), chain(tmap)))
+		print(("  een ligt in de ander: %s"):format(yn(OneContainsTheOther(pmap, tmap))))
+	end
+
 	local tomtom = ns.IsTomTomReady and ns.IsTomTomReady() or false
 	print(("  TomTom actief: %s   zijn pijl zichtbaar: %s"):format(
 		yn(tomtom), yn(tomtom and TomTomArrowShowing() or false)))
