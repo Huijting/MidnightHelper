@@ -530,7 +530,18 @@ local function UpdateUseButtons(f)
 			rb._spellID = def.spellID
 			rb._buffKey = def.key
 			rb:SetAttribute("type", "spell")
-			rb:SetAttribute("spell", spellName)
+			-- 🔴 THE SPELL ID, NOT THE NAME. Measured 24 aug 2026 on Rob's client: a name
+			-- here routes the click through CastSpellByName(), which is protected in 12.x,
+			-- and the game refused it three times with ADDON_ACTION_FORBIDDEN. The button
+			-- looked fine and simply did nothing.
+			--
+			-- CLAUDE.md has said "cast by spell-ID" since the secure-frames section was
+			-- written, and MissingBuff.lua:699-703 already does exactly that with the
+			-- reason in a comment. This file was the one place that never got the memo.
+			--
+			-- The name lookup above stays as an EXISTENCE check -- GetSpellName returning
+			-- nil means there is nothing to cast -- but it is not what we hand the button.
+			rb:SetAttribute("spell", def.spellID)
 			rb:Show()
 		else
 			rb._spellID = nil
