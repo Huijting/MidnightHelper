@@ -86,11 +86,24 @@ local MIDNIGHT_DELVES = {
 	{ 8761, 2512, 64.54, 77.58, "Gnarldor Isle" },
 	{ 8764, 2512, 71.35, 56.54, "The Ring of Glory" },
 
-	-- ⏭️ Venomfall Deeps, the S2 Nemesis delve, is NOT here on purpose. The same call
-	-- that found the two above returned only those two for 2512, so this is absence
-	-- measured with a positive control rather than absence assumed -- and it matches
-	-- Blizzard putting the Nemesis and Bountiful behind Season 2 (18 Aug). Re-run
-	-- `/mh atal` after the season flips; if it appears, add it the same way.
+	-- ✅ THE RE-RUN HAPPENED AND IT CHANGED THE ANSWER — measured 24 Aug 2026.
+	--
+	-- This block used to say Venomfall Deeps was deliberately absent: on 14 Aug the same
+	-- call returned only the two above for 2512, which was absence measured with a
+	-- positive control rather than assumed, and it matched Blizzard gating the Nemesis
+	-- delve behind Season 2. The note ended "re-run /mh atal after the season flips".
+	--
+	-- Season 2 opened 18 Aug. Rob re-ran it on the 24th after meeting the delve at the end
+	-- of the Season 2 delve quest, and the client now returns it. The control still holds
+	-- in the same output: Gnarldor Isle and The Ring of Glory come back with
+	-- `inRoster = true`, Venomfall with `false`, so the probe knew exactly what we ship.
+	--
+	-- ⚠️ ONE poiID, TWO MAPS. 8779 is returned for 2437 (87.81, 22.79) as well as 2512.
+	-- Both are shipped: the roster is keyed by map, and dropping either would make the
+	-- delve invisible on a map where the client says it is. Which is the real entrance and
+	-- which a second marker is NOT measured, so neither is presented as the main one.
+	{ 8779, 2512, 51.23, 30.36, "Venomfall Deeps" },
+	{ 8779, 2437, 87.81, 22.79, "Venomfall Deeps" },
 }
 
 --- Is this one of the eleven we ship?
