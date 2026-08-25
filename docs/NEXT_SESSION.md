@@ -74,6 +74,59 @@ ondersteunend bewijs opgevoerd dat wij achterliepen op Robs delve. Fout — die 
 draaglimiet. Twee 12.1-varianten gebruiken allebei "ingrediënten". De conclusie hield stand
 op ander bewijs, de redenering ernaartoe niet.
 
+## 🔵 25 aug — ROB-GOEDGEKEURD, VOLGENDE BOUWKLUS: dispel/purge op de rechtermuisknop + rode gloed
+
+**Wat Rob wil, in zijn woorden:** de addon kijkt wat *jouw spec* kan — Remove Curse, Cleanse,
+Purify, Dispel Magic aan de vriendelijke kant; Purge, Spellsteal aan de offensieve — en zet de
+juiste op de rechtermuisknop, afhankelijk van wáár je klikt.
+
+**Zijn layout-inzicht, en het is beter dan wat ik voorstelde.** De rij ís al visueel in tweeën
+(naam links, zijn target rechts) maar er ligt **één** klikknop overheen (`PositionClicks`,
+`b:SetSize(w, ROW_H)`). Splits die in twee knoppen en alles past:
+
+```
+linkerhelft  · linksklik  -> groepslid targetten     · rechtsklik -> DISPEL hem
+rechterhelft · linksklik  -> zijn target targetten   · rechtsklik -> PURGE dat doelwit
+```
+
+Beide bestaande linksklikken blijven; de rechterknop komt vrij. `ns.GetPlayerDispelIcon()` en
+`ns.GetPlayerPurgeIcon()` bestaan al in `DispelHelper.lua`.
+
+### 🔴 De rode gloed — en hoe je de 12.1-muur omzeilt
+
+Onze API_WATCH van 24 aug concludeerde: *"je kunt groeps-dispels tonen maar niet lezen, dus
+geen prioriteit, geen alarm"*. Dat klopte, en het is niet het einde. HexBreak 0.6.12 doet het
+wél, en hun eigen commentaar (`Core.lua:1842`) zegt hoe:
+
+> *"HexBreak **never reads the aura payload** or turns a secret aura value into Lua logic. The
+> visual warning is attached directly to Blizzard's AuraSlot."*
+
+**Je vraagt niets. Je laat Blizzard beslissen en je decoreert.** Een eigen container op filter
+`HARMFUL|RAID` (= "door mij te dispellen"); Blizzard toont het vakje of niet; jij hangt er
+statische kunst op (rode wash, gloed, driehoek, het woord DISPEL). Verschijnt het vakje, dan
+verschijnt de gloed mee.
+
+⚠️ **Statische artwork, geen scripts.** `UntrustedScriptExecution` op AuraButtons maakt
+OnShow/OnHide-handlers onbruikbaar — dus geen geluid, geen logica, geen prioriteit. Alleen
+texturen die met het vakje meekomen.
+
+**Het recept, letterlijk uit hun code — de volgorde is kritiek:**
+
+```
+C_AddOns.LoadAddOn("Blizzard_AuraContainer")
+AuraUtil.IsValidFilterString("HARMFUL|RAID")     -- valideren, niet aannemen
+CreateFrame(..., "CustomAuraContainerTemplate")
+
+aanmaken : SetUnit -> AddAuraSlot -> Show -> SetEnabled(true) -> UpdateAllAuras
+herbinden: SetUnit -> Show -> SetEnabled(true) -> UpdateAllAuras
+```
+
+🔴 **NOOIT `SetEnabled(false)` om te herbinden** — op 12.1 wist dat de eigen AuraButtons, dus
+ook onze presentatie (`Core.lua:2093`). Containers blijven staan en worden hergebruikt.
+
+⚠️ Alles in `pcall`, en bij een fout een **reden** opslaan in plaats van stil niets doen —
+anders staat er straks een gloed die nooit verschijnt en weet niemand waarom.
+
 ## ✅ 25 aug — tier-gids herschreven op gemeten data, en drie dingen die nergens staan
 
 De uitleg in het Tier-tabblad was van **Season 1** en stuurde spelers naar The Voidspire en
