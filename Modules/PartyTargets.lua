@@ -552,7 +552,40 @@ local function EnsureClickButtons()
 	end
 end
 
+--- 🔴 NOT IN A RAID. Rob, in LFR of The Venomous Abyss, 25 aug 2026: "de party target
+--- frame hoort hier niet."
+---
+--- Nothing was broken -- and that is the point. `party1` through `party4` still resolve
+--- inside a raid, where they mean your own subgroup, so the panel quietly turned into
+--- "four of the twenty-four people here" and kept working. A panel called Party targets,
+--- built to let you see and click what a five-man group is fighting, is answering a
+--- question nobody asked in a raid, while sitting on screen next to real raid frames.
+---
+--- Silently repurposing itself is worse than failing: there is nothing to notice.
+local function InRaidGroup()
+	if not IsInRaid then
+		return false
+	end
+	local ok, v = pcall(IsInRaid)
+	return ok and v == true
+end
+
 local function Refresh()
+	if InRaidGroup() then
+		if panel then
+			panel:Hide()
+		end
+		-- Same reason as below: the click buttons live on UIParent and a hidden panel
+		-- does not take them with it, so an invisible catcher would stay behind.
+		if not (InCombatLockdown and InCombatLockdown()) then
+			for i = 1, MAX_ROWS do
+				if clicks[i] then
+					clicks[i]:Hide()
+				end
+			end
+		end
+		return
+	end
 	if not (ns.db and ns.db.partyTargets) then
 		if panel then
 			panel:Hide()

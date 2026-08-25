@@ -64,8 +64,24 @@ end
 -- roepen het aan en staan lager in het bestand; een local die later wordt
 -- gedeclareerd is daar nog niet zichtbaar (nil-call, die luac niet ziet).
 local bossPrompt
+--- 🔴 THE PROMPT NEEDED AN EXPIRY AND DID NOT HAVE ONE.
+---
+--- Rob, in LFR of The Venomous Abyss, 25 aug 2026: "de rode regel bleef te lang
+--- staan". It only ever disappeared on a click or at encounter end, so through a long
+--- pull it just sat across the top of the screen.
+---
+--- It is an OFFER -- "want the guide open?" -- and an offer that never withdraws stops
+--- being an offer and becomes clutter. Ten seconds is long enough to notice and act on
+--- during a pull, short enough that ignoring it costs nothing.
+local promptTimer
 
 local function HideBossWindowPrompt()
+	if promptTimer then
+		if promptTimer.Cancel then
+			pcall(promptTimer.Cancel, promptTimer)
+		end
+		promptTimer = nil
+	end
 	if bossPrompt then
 		bossPrompt:Hide()
 	end
@@ -96,6 +112,20 @@ local function ShowBossWindowPrompt()
 	end
 	bossPrompt:SetText(ns:SafeL("DGN_WIN_BOSS_PROMPT"))
 	bossPrompt:Show()
+	-- Restart the clock on every show, so a second boss gets its own ten seconds
+	-- instead of inheriting whatever was left of the first one's.
+	if promptTimer and promptTimer.Cancel then
+		pcall(promptTimer.Cancel, promptTimer)
+	end
+	promptTimer = nil
+	if C_Timer and C_Timer.NewTimer then
+		promptTimer = C_Timer.NewTimer(10, function()
+			promptTimer = nil
+			if bossPrompt then
+				bossPrompt:Hide()
+			end
+		end)
+	end
 end
 
 local COLOR_TANK = "aecbfa"
