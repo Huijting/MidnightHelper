@@ -1053,10 +1053,6 @@ function ns.IsBossWindowAutoOpenEnabled()
 	return GetWinSettings().autoOpen ~= false
 end
 
-function ns.SetBossWindowAutoOpenEnabled(v)
-	GetWinSettings().autoOpen = v and true or false
-end
-
 -- 3D-bossmodel tonen in het boss-venster. Community-verzoek 21 jun
 -- (gadrinonturalyon): checkbox om het model te verbergen.
 --
