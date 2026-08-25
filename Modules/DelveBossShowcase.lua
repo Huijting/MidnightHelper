@@ -442,6 +442,22 @@ local function StripColorCodes(s)
 	return ok and out or ""
 end
 
+--- Variants MEASURED to end without a final boss — the chest replaces the kill.
+--- Keyed on the lowercased story name.
+---
+--- ⚠️ This is a list of two verified facts, not a catalogue of guesses, and it must
+--- stay that way. "We cannot name the boss" and "there is no boss" are different
+--- claims, and only the second one belongs here. Everything else gets the neutral
+--- line that states the variant and stops.
+---   • An Elementary Antidote — Rob ran it 25 aug 2026 and no boss appeared; DB2 has
+---     no kill step for it where the other three Collegiate variants do have one.
+---   • Not What I Expected — the case this whole branch was originally written for.
+ns.DELVE_STORY_NO_BOSS = {
+	["an elementary antidote"] = true,
+	["academic antitoxin"] = true, -- the DB2 name for the same variant
+	["not what i expected"] = true,
+}
+
 local GENERIC_STORY_NAMES = {
 	delves = true,
 	delve = true,
@@ -1571,11 +1587,29 @@ function ns.ResolveDelveStoryBoss(entryId)
 		return snap.storyName, bosses[snap.bossIndex], snap.bossIndex
 	end
 
-	if entryId == "sunkiller_sanctum" then
-		for _, list in ipairs({ tier, poi, pri, sec, spellNames }) do
-			for _, text in ipairs(list) do
-				if StoryMatches(text, { "Not What I Expected", "Nicht das, was ich erwartet habe", "Pas ce à quoi je m'attendais" }) then
-					return text, nil, nil
+	--- ⚠️ NAME THE VARIANT EVEN WITH NO BOSS TO PIN IT TO.
+	---
+	--- This used to fire only for sunkiller_sanctum and only for one hardcoded story
+	--- name. Generalised 25 aug 2026, because the measurement made the old shape
+	--- indefensible: Rob hovered every delve on the map in one pass, and of the 12
+	--- variants the client handed us we could name a boss for 3. The other 9 rendered
+	--- nothing at all -- while their names were sitting in our own SavedVariables,
+	--- captured seconds earlier.
+	---
+	--- Our hand-written table will always trail the game; the client never does. So a
+	--- known name with an unknown boss is the NORMAL case, not a special one, and
+	--- "today: Bombing Run" beats silence even when we have nothing to add about it.
+	--- It also covers variants that genuinely have no final boss, such as Collegiate
+	--- Calamity's An Elementary Antidote, where the chest replaces the kill.
+	---
+	--- cachedList goes first on purpose: it is the POI tooltip, day-stamped and read
+	--- straight off the map, where the scenario lists can still be mid-update.
+	for _, list in ipairs({ cachedList, tier, poi, pri, sec, spellNames }) do
+		for _, text in ipairs(list) do
+			if CanAccessText(text) then
+				local clean = StripColorCodes(text)
+				if clean ~= "" and not IsGenericStoryName(clean) then
+					return clean, nil, nil
 				end
 			end
 		end

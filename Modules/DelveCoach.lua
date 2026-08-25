@@ -266,9 +266,21 @@ local function BuildCoachBody(entry, opts)
 			blocks[#blocks + 1] = COLOR_SECTION
 				.. ns:SafeL("DELVE_COACH_ACTIVE_BOSS_FMT"):format(bossEntry.label)
 				.. "|r"
-		elseif storyName and entry.id == "sunkiller_sanctum" then
+		-- Any delve, not just sunkiller_sanctum: if the client named today's variant
+		-- and we cannot pin a boss to it, say the name. See ResolveDelveStoryBoss.
+		--
+		-- ⚠️ Two different sentences, because they are two different claims. "There is
+		-- no final boss" is only said for variants measured to have none; everything
+		-- else gets the neutral line, which names the variant and stops. Saying "no
+		-- final boss" for a variant we simply cannot identify would be inventing an
+		-- answer out of our own ignorance -- and a player who then skips the boss
+		-- would have been misled by us.
+		elseif storyName then
+			local noBoss = ns.DELVE_STORY_NO_BOSS
+				and ns.DELVE_STORY_NO_BOSS[storyName:lower()]
 			blocks[#blocks + 1] = COLOR_SECTION
-				.. ns:SafeL("DELVE_COACH_ACTIVE_STORY_NO_BOSS_FMT"):format(storyName)
+				.. ns:SafeL(noBoss and "DELVE_COACH_ACTIVE_STORY_NO_BOSS_FMT"
+					or "DELVE_COACH_ACTIVE_STORY_UNKNOWN_BOSS_FMT"):format(storyName)
 				.. "|r"
 		elseif multiBossDelve(entry.id) and not bossEntry then
 			if storyName then
