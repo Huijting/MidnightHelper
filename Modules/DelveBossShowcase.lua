@@ -432,7 +432,12 @@ local function StripColorCodes(s)
 		return ""
 	end
 	local ok, out = pcall(function()
-		return s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|T.-|t", ""):gsub("^%s+", ""):gsub("%s+$", "")
+		-- 12.x ships story-variant text as |cnWHITE_FONT_COLOR:Name, not the old
+		-- |cffRRGGBB form. Measured 25 aug 2026 in Rob's SavedVariables: every one
+		-- of the 11 captured storyDaily rows still carried the prefix. It never
+		-- broke matching because StoryMatches falls back to a substring test for
+		-- keys of 10+ characters -- a trap that had not gone off yet, not a bug.
+		return s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|cn%u[%u%d_]*:", ""):gsub("|r", ""):gsub("|T.-|t", ""):gsub("^%s+", ""):gsub("%s+$", "")
 	end)
 	return ok and out or ""
 end

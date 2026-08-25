@@ -7,6 +7,55 @@ Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 77 commits boven `v3.4.0`. De vijf talen zijn af, Valeera's voortgang in delves, portaal-
 bewust reisadvies. Description bijgewerkt. Linter 0/0.
 
+## ✅ 25 aug — de vierde Collegiate-variant, en waarom onze lijst het verloor van de client
+
+Rob stond in Collegiate Calamity met een voortgangsbalk **"Ingredients collected"** die wij
+nergens kenden, en vroeg of we de scenario's überhaupt dekken. Drie agents; de uitkomst is
+belangrijker dan de ene ontbrekende variant.
+
+**De client vertelt de variant al, en wij lazen hem al.** De delve-POI op de world map heeft
+een regel `Story Variant: <naam>`. In Robs SavedVariables staan **elf gemeten varianten**
+(`delveCoach.storyDaily`, regel 164293). Bevestigd op zijn scherm, 25 aug:
+`Story Variant: An Elementary Antidote`.
+
+⚠️ **Onze handgeschreven lijst was dus niet "de bron" maar de achterblijver.**
+`DelveBossShowcase.lua:136` kende drie varianten voor Collegiate; de client kende er een
+vierde. Zesde keer dat twee plekken dezelfde vraag beantwoorden en de niet-gerepareerde de
+slechtste antwoorden geeft. **Bij een volgende "wij kennen X niet": kijk eerst of de client
+het al zegt en of wij het al opslaan.**
+
+**Wat DB2 (build 12.1.0.69497) erbij gaf.** Er zijn precies **vier** varianten, niet meer;
+de vierde is nieuw in 12.1 (label "12.1 Delves" tegen "12.0 Delves" voor de andere drie).
+Route: Sir Finley Mrrgglton → 10 Research Tomes → ingrediënten (balk tot 400, bronnen wegen
+**2 / 20 / 35**) + 7 Envenomed Denizens. **Geen eindbaas** — de kist verschijnt als het werk
+klaar is. Alle zeven talen hebben de vierde regel nu in OVERVIEW en ROUTE; de/fr/es/pt zeiden
+letterlijk "drie verschillende eindbazen", dat is nu "vier varianten, drie eindbazen".
+
+🔴 **Twee namen, en dat is geen slordigheid maar twee velden.** DB2 noemt de variant
+**"Academic Antitoxin"** (CriteriaTree 230848, achievement 61726); de tooltip zegt
+**"An Elementary Antidote"**. Onze matching kijkt naar de **tooltip**, dus die naam telt.
+Wie hier ooit "opschoont" naar de DB2-naam breekt de herkenning.
+
+**Nog open:**
+- ❓ **De 150/4-drempel is NIET geverifieerd.** DB2 heeft een aparte "Rewards Cutoff"
+  (223199): **150** ingrediëntpunten + **4** denizens zou al genoeg zijn voor de beloning,
+  in plaats van 400 + 7. Dat is precies het soort tip waar MH voor bestaat, maar het is
+  datamining. **Bewust NIET in de tip gezet tot iemand het in-game ziet.** Meting: begin een
+  run, tel tot ~150/4 en kijk of de kist al verschijnt.
+- ❓ **Een variant zonder eindbaas heeft geen plek in `DELVE_BOSS_SHOWCASE`** — die tabel
+  hangt alles aan een `creatureId`. Nu vindt de matcher niets en toont niets. Dat is
+  technisch juist maar leest als kapot. Nog te bedenken: een expliciete "deze variant heeft
+  geen boss"-vorm, zodat stilte een antwoord wordt in plaats van een gat.
+- ⚠️ `DelveTipsData.lua:36` heeft `poiId = 93419` terwijl `docs/PTR_DELVE_SCAN.md:30`
+  Collegiate op `poi=8425` meet. Andere id-ruimte; valt elke keer door naar het naam-pad.
+  Niet aangeraakt, maar het staat er wel.
+
+**Rechtzetting bij deze klus:** de notitie `Oddball Ingredient` (COORDINATION.md:348) is als
+ondersteunend bewijs opgevoerd dat wij achterliepen op Robs delve. Fout — die hoort bij
+**Shadow Enclave** (`TwilightsBlade01 - V04`), en de hotfix van 21 aug ging over een
+draaglimiet. Twee 12.1-varianten gebruiken allebei "ingrediënten". De conclusie hield stand
+op ander bewijs, de redenering ernaartoe niet.
+
 ## 🟡 24 aug — het bossvenster wacht op de eerste pull voor het weet waar je bent
 
 **Cisca, in LFR van The Venomous Abyss:** ze opent het bossvenster en ziet een andere dungeon.
