@@ -68,7 +68,51 @@ local function IconInset()
 end
 
 local panel, rows
-local clicks = {}
+local clicks = {}   -- left half: the group member
+local tclicks = {}  -- right half: whatever that member is looking at
+
+--- Put this spec's dispel on the member half and its purge on the target half.
+---
+--- ⚠️ OUT OF COMBAT ONLY. Secure attributes cannot be changed in a fight, so the
+--- assignment happens when the buttons are built and again on every spec or talent
+--- change; DispelHelper already fires on both.
+---
+--- ⚠️ And a spec with no dispel gets `type2 = nil`, not a button that swallows the
+--- click and does nothing. A warrior right-clicking should get their own UI's
+--- behaviour back, not our silence.
+---
+--- Casting by spell ID, never by name: a renamed pet or spell hands back a name that
+--- cannot be cast (MissingBuff.lua:700 paid for that one).
+function ApplyDispelAttributes()
+	if InCombatLockdown and InCombatLockdown() then
+		return
+	end
+	-- ⚠️ Two lines, not `f and f()`: that guard returns a single value, so the second
+	-- return would always be nil. Exactly the bug lint check [12] exists for, and the
+	-- one that kept GetPlayerDispelIcon returning nil for months (DispelHelper.lua:501).
+	local dispelSpell
+	if ns.GetPlayerDispelIcon then
+		local _, id = ns.GetPlayerDispelIcon()
+		dispelSpell = id
+	end
+	local purgeSpell
+	if ns.GetPlayerPurgeIcon then
+		local _, id = ns.GetPlayerPurgeIcon()
+		purgeSpell = id
+	end
+	for i = 1, MAX_ROWS do
+		local b = clicks[i]
+		if b then
+			b:SetAttribute("*type2", dispelSpell and "spell" or nil)
+			b:SetAttribute("spell2", dispelSpell or nil)
+		end
+		local t = tclicks[i]
+		if t then
+			t:SetAttribute("*type2", purgeSpell and "spell" or nil)
+			t:SetAttribute("spell2", purgeSpell or nil)
+		end
+	end
+end
 -- Forward-declared: the panel's own drag handler is written before this exists,
 -- and dragging the panel has to drag the buttons with it.
 local PositionClicks
@@ -466,12 +510,27 @@ function PositionClicks()
 	-- thing left to grab once the buttons cover the rest of every row.
 	local inset = PAD + ROLE_W + 4
 	local w = math.max(1, panel:GetWidth() - inset - PAD)
+	--- Split at a FIXED fraction, not at where the name happens to end.
+	---
+	--- The two halves are drawn by text: the member's name, then their target beside
+	--- it. Following that boundary would move the click split every time somebody
+	--- targeted something with a longer name -- and secure buttons cannot be
+	--- repositioned in combat, so it would drift out of step exactly when it matters.
+	--- A fixed 45% is predictable, which is what your hand needs.
+	local wLeft = math.max(1, math.floor(w * 0.45))
+	local wRight = math.max(1, w - wLeft)
 	for i = 1, MAX_ROWS do
 		local b = clicks[i]
 		if b then
 			b:ClearAllPoints()
 			b:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left + inset, top + RowTop(i))
-			b:SetSize(w, ROW_H)
+			b:SetSize(wLeft, ROW_H)
+		end
+		local t = tclicks[i]
+		if t then
+			t:ClearAllPoints()
+			t:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left + inset + wLeft, top + RowTop(i))
+			t:SetSize(wRight, ROW_H)
 		end
 	end
 end
@@ -492,10 +551,12 @@ end
 --- Drag is forwarded to the panel so the rows stay draggable even though the
 --- buttons now cover them. Clicking still works: a button registered for both
 --- fires the click only when no drag happened, exactly like Blizzard's own.
-local function EnsureClickButtons()
-	for i = 1, MAX_ROWS do
-		if not clicks[i] then
-			local b = CreateFrame("Button", "MidnightHelperPartyTargetClick" .. i, UIParent,
+--- One secure button, bound to one unit, carrying both mouse buttons.
+--- Called twice per row: once for the member, once for whatever they are looking at.
+local function MakeClickButton(name, unitToken)
+	do
+		do
+			local b = CreateFrame("Button", name, UIParent,
 				"SecureActionButtonTemplate")
 			b:SetFrameStrata("DIALOG")
 			b:RegisterForClicks("AnyUp", "AnyDown")
@@ -515,10 +576,26 @@ local function EnsureClickButtons()
 			--- mouse button, falling back to `unit` when the numbered one is absent. So one
 			--- button carries both bindings and neither needs a script — which is the rule
 			--- this file paid for once already (see the note below about TargetUnit()).
+			--- ⚠️ SPLIT INTO TWO BUTTONS, 25 AUG 2026 — ROB'S OBSERVATION, NOT MINE.
+			---
+			--- The row is already drawn in two halves: their name on the left, what they
+			--- are looking at on the right. One button covered both, so left and right
+			--- mouse had to share the work and the right button was spent on targeting.
+			---
+			--- His point: "als ik links hem met de linker muis knop aantik dan selecteer
+			--- ik hem, zo ook met zijn target. Dan hebben we toch de rechter knop over
+			--- voor de dispels?" Correct, and it costs nothing — both left-clicks keep
+			--- exactly what they did, and the right button comes free on both halves.
+			---
+			--- So `unit2` is gone. Each button now owns ONE unit and both mouse buttons:
+			---   left half  -> unit = partyN         left: target   right: dispel HIM
+			---   right half -> unit = partyN target  left: target   right: purge IT
+			---
+			--- The spells are filled in by ApplyDispelAttributes, out of combat only,
+			--- from whatever this spec actually has. A spec with no dispel gets no
+			--- right-click rather than a button that does nothing.
 			b:SetAttribute("*type1", "target")
-			b:SetAttribute("unit", "party" .. i)
-			b:SetAttribute("*type2", "target")
-			b:SetAttribute("unit2", "party" .. i .. "target")
+			b:SetAttribute("unit", unitToken)
 			-- NO SCRIPTS ON THIS BUTTON. Not OnDragStart, not OnClick, nothing.
 			--
 			-- The first two builds hung drag handlers here so the rows would stay
@@ -547,9 +624,23 @@ local function EnsureClickButtons()
 			hl:SetColorTexture(1, 0.82, 0.2, 0.18)
 			b:SetHighlightTexture(hl)
 			b:Hide()
-			clicks[i] = b
+			return b
 		end
 	end
+end
+
+--- Two buttons per row: the member on the left half, their target on the right.
+local function EnsureClickButtons()
+	for i = 1, MAX_ROWS do
+		if not clicks[i] then
+			clicks[i] = MakeClickButton("MidnightHelperPartyTargetClick" .. i, "party" .. i)
+		end
+		if not tclicks[i] then
+			tclicks[i] = MakeClickButton("MidnightHelperPartyTargetTClick" .. i,
+				"party" .. i .. "target")
+		end
+	end
+	ApplyDispelAttributes()
 end
 
 --- 🔴 NOT IN A RAID. Rob, in LFR of The Venomous Abyss, 25 aug 2026: "de party target
@@ -582,6 +673,9 @@ local function Refresh()
 				if clicks[i] then
 					clicks[i]:Hide()
 				end
+				if tclicks[i] then
+					tclicks[i]:Hide()
+				end
 			end
 		end
 		return
@@ -598,6 +692,9 @@ local function Refresh()
 				if clicks[i] then
 					clicks[i]:Hide()
 				end
+				if tclicks[i] then
+					tclicks[i]:Hide()
+				end
 			end
 		end
 		return
@@ -608,12 +705,16 @@ local function Refresh()
 	-- Re-sort and re-bind together, out of combat only (see RecomputeOrder).
 	if RecomputeOrder() and not (InCombatLockdown and InCombatLockdown()) then
 		for i = 1, MAX_ROWS do
+			-- Both halves move together. Rebinding only one would leave the other
+			-- pointing at whoever used to be on this row -- a stale click that looks
+			-- like it worked, which is the failure this file exists to avoid. That was
+			-- true when they were two attributes on one button and it is just as true
+			-- now that they are two buttons.
 			if clicks[i] then
-				-- Both bindings move together. Rebinding only one would leave the other
-				-- pointing at whoever used to be on this row -- a stale click that looks
-				-- like it worked, which is the failure this file exists to avoid.
 				clicks[i]:SetAttribute("unit", "party" .. rowOrder[i])
-				clicks[i]:SetAttribute("unit2", "party" .. rowOrder[i] .. "target")
+			end
+			if tclicks[i] then
+				tclicks[i]:SetAttribute("unit", "party" .. rowOrder[i] .. "target")
 			end
 		end
 	end
@@ -699,8 +800,12 @@ local function Refresh()
 	-- the worst moment.
 	if not (InCombatLockdown and InCombatLockdown()) then
 		for i = 1, MAX_ROWS do
+			local on = visible[i] and shown > 0 or false
 			if clicks[i] then
-				clicks[i]:SetShown(visible[i] and shown > 0 or false)
+				clicks[i]:SetShown(on)
+			end
+			if tclicks[i] then
+				tclicks[i]:SetShown(on)
 			end
 		end
 	end
@@ -736,6 +841,13 @@ f:RegisterEvent("GROUP_ROSTER_UPDATE")
 f:RegisterEvent("PLAYER_ROLES_ASSIGNED")
 -- Leaving combat is when the secure buttons can finally be shown and repositioned.
 f:RegisterEvent("PLAYER_REGEN_ENABLED")
+--- The right-click spells belong to a SPEC, and a spec is not a fixed thing. Both of
+--- these change which dispel and purge this character has, and neither one moves a
+--- unit, so without them the buttons would keep casting the previous build's spell.
+--- DispelHelper watches the same pair for the same reason -- every one of these
+--- spells is a talent, so a loadout swap changes them without the spec ever changing.
+f:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+f:RegisterEvent("TRAIT_CONFIG_UPDATED")
 -- Placing a skull on the mob everyone is already fighting changes no target, so
 -- UNIT_TARGET stays silent and the icon would only appear on the next swap.
 f:RegisterEvent("RAID_TARGET_UPDATE")

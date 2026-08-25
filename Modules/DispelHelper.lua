@@ -483,9 +483,22 @@ local purgeEv = CreateFrame("Frame")
 purgeEv:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 purgeEv:RegisterEvent("TRAIT_CONFIG_UPDATED")
 purgeEv:RegisterEvent("PLAYER_ENTERING_WORLD")
+--- 🔴 THE FRIENDLY DISPEL CACHE WAS NEVER CLEARED, ONLY THE PURGE ONE.
+---
+--- Found 25 aug 2026 while wiring these spells onto a right-click. The purge cache has
+--- been invalidated here since it was written; `cachedDispelIcon` had no reset
+--- anywhere, so after a spec or talent change it kept handing out the previous spec's
+--- dispel until a reload.
+---
+--- ⚠️ It mattered little while the answer only drove an ICON -- a slightly wrong
+--- picture. It matters completely now that the same spell id is about to sit on a
+--- secure button: pressing dispel would cast the spell of a spec you no longer are.
+--- Fixed before the button is built rather than after, because the symptom would have
+--- been "the dispel button sometimes does nothing" and nobody would have looked here.
 purgeEv:SetScript("OnEvent", function()
 	purgeResolved = false
 	cachedPurgeIcon, cachedPurgeSpell = nil, nil
+	ns.MH_ResetDispelCache()
 end)
 
 --- The icon to show for it: the player's own dispel spell.
@@ -494,6 +507,13 @@ end)
 --- glance. Returns nil when this character has no dispel at all, which is also the
 --- gate that keeps the indicator off a warrior's screen entirely.
 local cachedDispelIcon, cachedDispelSpell
+
+--- Declared before the reader so the event handler above can call it. Kept as an ns
+--- function rather than a local because that handler is defined earlier in the file.
+function ns.MH_ResetDispelCache()
+	cachedDispelIcon, cachedDispelSpell = nil, nil
+end
+
 function ns.GetPlayerDispelIcon()
 	if cachedDispelIcon ~= nil then
 		return cachedDispelIcon, cachedDispelSpell
