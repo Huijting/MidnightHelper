@@ -1,142 +1,51 @@
 # -*- coding: utf-8 -*-
-"""Welke Abyss-drops dragen een set-regel in hun tooltip? Dat is de tier-test.
+"""Vervangt TIER_GUIDE_BODY en TIER_FOOTER in de vijf overige packs.
 
-setLine kan drie dingen zijn en die mogen NIET op een hoop:
-  een tekst   -> het spel zegt zelf dat dit een setstuk is
-  false       -> tooltip gelezen, geen setregel  (echt geen tier)
-  een reden   -> tooltip niet leesbaar           (weten we niets)
+⚠️ WAAROM DIT MOET. ns:L valt alleen terug op enUS als een key ONTBREEKT. Deze vijf
+packs hebben de key zelf, met de Season 1-tekst erin (The Voidspire, The Dreamrift,
+Eldara Dawnrunner, Dawnlight Manaflux). Alleen het Engels herschrijven laat die vijf
+dus stil naar de verkeerde raid wijzen -- precies de val die in CLAUDE.md staat.
+
+Atomair schrijven: de repo IS de spelmap.
 """
 import io
+import os
 import re
 import sys
 
-SV = (r"E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER"
-      r"\SavedVariables\MidnightHelper.lua")
-TIER_SLOTS = {"Head", "Shoulder", "Chest", "Hands", "Legs"}
-
+ROOT = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales"
 sys.stdout.reconfigure(encoding="utf-8")
 
-with io.open(SV, "r", encoding="utf-8", errors="replace") as fh:
-    lines = fh.read().split("\n")
+BODY = {
+"deDE": "|cffe8c36aWas ein Tier-Set ist|r|n• Fünf Slots — Kopf, Schultern, Brust, Hände, Beine — tragen einen Set-Bonus. Zwei Teile geben den kleinen, vier den großen. Der 4er-Bonus ist meist mehr wert als ein paar Gegenstandsstufen, also sind vier das Ziel.|n• Du brauchst nur 4 von 5. Lass den Slot aus, in dem dein normales Teil am stärksten ist — genau das würdest du hergeben.|n• Handgelenk, Gürtel, Schuhe, Hals, Ringe, Umhang und Waffen gehören nie zu einem Set. Trag dort einfach das Beste, was du hast.|n|n|cffe8c36aWoher es diese Saison kommt|r|n• Der Season-2-Raid ist |cffffffffThe Venomous Abyss|r, auf Raid Finder, Normal, Heroisch und Mythisch.|n• Great Vault: Deine wöchentliche Auswahl kann dir ein Teil geben, das nie gedroppt ist.|n• {CATALYST}: baut Rüstung, die du schon besitzt, in ein Set-Teil um. Das ist der Weg, der nicht von Glück abhängt.|n|n|cffe8c36aDer Catalyst und was du hineingibst|r|n• Jede Umwandlung kostet einen |cffffffffVenomblight Manaflux|r, und du bekommst etwa alle zwei Wochen einen. Eine Ladung ist also kostbar.|n• ⚠️ Das neue Teil behält die |cffffffffSekundärwerte des Teils, das du hineingibst|r. Du änderst, WAS der Gegenstand ist, nicht was er gewürfelt hat — gib also etwas hinein, dessen Werte dir schon passen.|n• Sobald du das Feat \\\"Season 2 Catalyst Unbound\\\" freigeschaltet hast, kommen Ladungen auch aus Mythic Keystones, Venomous-Abyss-Bossen, Bountiful Delves und gewertetem PvP.|n|n|cffe8c36aWelche Teile du umwandelst — und welche nicht|r|n• Nur Slots, in denen du etwas Normales trägst. Verschwende nie eine Ladung auf einen Slot, der schon ein Set-Teil hat.|n• Behalte dein stärkstes Nicht-Set-Teil und lass diesen Slot aus — vier reichen für den großen Bonus.|n• Unentschieden zwischen zweien? Nimm das, dessen Sekundärwerte du behalten willst, denn die wandern mit.",
+"frFR": "|cffe8c36aCe qu'est un set|r|n• Cinq emplacements — tête, épaules, torse, mains, jambes — portent un bonus de set. Deux pièces donnent le petit, quatre le grand. Le bonus 4 pièces vaut souvent plus que quelques niveaux d'objet, donc visez quatre.|n• Il n'en faut que 4 sur 5. Laissez de côté l'emplacement où votre pièce ordinaire est la plus forte, car c'est elle que vous abandonneriez.|n• Poignets, ceinture, bottes, cou, anneaux, cape et armes ne font jamais partie d'un set. Portez-y simplement ce que vous avez de mieux.|n|n|cffe8c36aD'où cela vient cette saison|r•|n• Le raid de la saison 2 est |cffffffffThe Venomous Abyss|r, en Recherche de raid, Normal, Héroïque et Mythique.|n• Great Vault : vos choix hebdomadaires peuvent vous donner une pièce jamais tombée.|n• {CATALYST} : transforme une armure que vous possédez déjà en pièce de set. C'est la voie qui ne dépend pas de la chance.|n|n|cffe8c36aLe Catalyst, et quoi lui donner|r|n• Chaque conversion coûte un |cffffffffVenomblight Manaflux|r, et vous en gagnez un environ toutes les deux semaines. Une charge est donc précieuse.|n• ⚠️ La nouvelle pièce conserve les |cffffffffstatistiques secondaires de la pièce que vous donnez|r. Vous changez CE QU'EST l'objet, pas ce qu'il a tiré — donnez donc quelque chose dont les stats vous conviennent déjà.|n• Une fois le haut fait \\\"Season 2 Catalyst Unbound\\\" débloqué, des charges tombent aussi des Mythic Keystones, des boss de Venomous Abyss, des Bountiful Delves et du PvP coté.|n|n|cffe8c36aQuelles pièces convertir, et lesquelles non|r|n• Uniquement les emplacements où vous portez de l'ordinaire. Ne dépensez jamais une charge sur un emplacement qui a déjà une pièce de set.|n• Gardez votre meilleure pièce hors set et sautez cet emplacement — quatre suffisent pour le grand bonus.|n• Hésitation entre deux ? Prenez celle dont vous voulez garder les stats secondaires, car elles suivent.",
+"esES": "|cffe8c36aQué es un conjunto|r|n• Cinco ranuras — cabeza, hombros, pecho, manos, piernas — llevan un bonus de conjunto. Dos piezas dan el pequeño, cuatro el grande. El bonus de 4 suele valer más que unos cuantos niveles de objeto, así que el objetivo es cuatro.|n• Solo necesitas 4 de 5. Deja fuera la ranura donde tu pieza normal sea más fuerte, porque es la que estarías entregando.|n• Muñecas, cinturón, botas, cuello, anillos, capa y armas nunca forman parte de un conjunto. Ahí lleva simplemente lo mejor que tengas.|n|n|cffe8c36aDe dónde sale esta temporada|r|n• La raid de la temporada 2 es |cffffffffThe Venomous Abyss|r, en Buscador de bandas, Normal, Heroico y Mítico.|n• Great Vault: tus elecciones semanales pueden darte una pieza que nunca viste caer.|n• {CATALYST}: convierte una armadura que ya tienes en una pieza de conjunto. Esta es la vía que no depende de la suerte.|n|n|cffe8c36aEl Catalyst y qué meterle|r|n• Cada conversión cuesta un |cffffffffVenomblight Manaflux|r, y consigues uno cada dos semanas aproximadamente. Una carga es valiosa.|n• ⚠️ La pieza nueva conserva las |cffffffffestadísticas secundarias de la pieza que metes|r. Cambias LO QUE ES el objeto, no lo que ha salido — así que mete algo cuyas estadísticas ya te vengan bien.|n• Cuando desbloquees la proeza \\\"Season 2 Catalyst Unbound\\\", también caen cargas de Mythic Keystones, jefes de Venomous Abyss, Bountiful Delves y PvP con clasificación.|n|n|cffe8c36aCuáles convertir y cuáles no|r|n• Solo ranuras donde lleves algo normal. Nunca gastes una carga en una ranura que ya tiene pieza de conjunto.|n• Quédate con tu mejor pieza que no sea del conjunto y salta esa ranura — cuatro bastan para el bonus grande.|n• ¿Dudas entre dos? Coge la que tenga las secundarias que quieres conservar, porque esas se mantienen.",
+"ptBR": "|cffe8c36aO que é um conjunto|r|n• Cinco espaços — cabeça, ombros, peito, mãos, pernas — carregam um bônus de conjunto. Duas peças dão o pequeno, quatro dão o grande. O bônus de 4 costuma valer mais que alguns níveis de item, então quatro é o objetivo.|n• Você só precisa de 4 dos 5. Deixe de fora o espaço onde sua peça comum é mais forte, porque é ela que você estaria abrindo mão.|n• Pulsos, cinto, botas, pescoço, anéis, capa e armas nunca fazem parte de um conjunto. Ali é só usar o melhor que tiver.|n|n|cffe8c36aDe onde vem nesta temporada|r|n• A raide da temporada 2 é |cffffffffThe Venomous Abyss|r, em Buscador de Raide, Normal, Heroico e Mítico.|n• Great Vault: suas escolhas semanais podem te dar uma peça que nunca caiu.|n• {CATALYST}: transforma uma armadura que você já tem em peça de conjunto. Este é o caminho que não depende de sorte.|n|n|cffe8c36aO Catalyst e o que colocar nele|r|n• Cada conversão custa um |cffffffffVenomblight Manaflux|r, e você ganha um a cada duas semanas mais ou menos. Uma carga é preciosa.|n• ⚠️ A peça nova mantém os |cffffffffatributos secundários da peça que você coloca|r. Você muda O QUE o item é, não o que ele rolou — então coloque algo cujos atributos já sirvam para você.|n• Depois de desbloquear o feito \\\"Season 2 Catalyst Unbound\\\", cargas também vêm de Mythic Keystones, chefes da Venomous Abyss, Bountiful Delves e PvP ranqueado.|n|n|cffe8c36aQuais converter e quais não|r|n• Só espaços onde você usa algo comum. Nunca gaste uma carga num espaço que já tem peça de conjunto.|n• Guarde sua melhor peça fora do conjunto e pule esse espaço — quatro bastam para o bônus grande.|n• Na dúvida entre duas? Pegue a que tem os secundários que você quer manter, porque eles vão junto.",
+"itIT": "|cffe8c36aCos'è un tier set|r|n• Cinque slot — testa, spalle, petto, mani, gambe — portano un bonus set. Due pezzi danno quello piccolo, quattro quello grande. Il bonus da 4 vale di solito più di qualche livello oggetto, quindi l'obiettivo è quattro.|n• Te ne servono solo 4 su 5. Lascia fuori lo slot dove il tuo pezzo normale è più forte, perché è quello a cui rinunceresti.|n• Polsi, cintura, stivali, collo, anelli, mantello e armi non fanno mai parte di un set. Lì metti semplicemente il meglio che hai.|n|n|cffe8c36aDa dove arriva questa stagione|r|n• Il raid della Stagione 2 è |cffffffffThe Venomous Abyss|r, in Raid Finder, Normale, Eroico e Mitico.|n• Great Vault: le tue scelte settimanali possono darti un pezzo che non hai mai visto cadere.|n• {CATALYST}: trasforma un'armatura che possiedi già in un pezzo del set. È la via che non dipende dalla fortuna.|n|n|cffe8c36aIl Catalyst e cosa dargli|r|n• Ogni conversione costa un |cffffffffVenomblight Manaflux|r, e ne ottieni uno circa ogni due settimane. Una carica è preziosa.|n• ⚠️ Il pezzo nuovo mantiene le |cffffffffstatistiche secondarie del pezzo che ci metti|r. Cambi COSA è l'oggetto, non cosa ha tirato — quindi mettici qualcosa le cui statistiche ti vanno già bene.|n• Una volta sbloccata l'impresa \\\"Season 2 Catalyst Unbound\\\", le cariche arrivano anche da Mythic Keystone, boss della Venomous Abyss, Bountiful Delve e PvP classificato.|n|n|cffe8c36aQuali convertire e quali no|r|n• Solo slot dove indossi qualcosa di normale. Non sprecare mai una carica su uno slot che ha già un pezzo del set.|n• Tieni il tuo pezzo non-set più forte e salta quello slot — quattro bastano per il bonus grande.|n• Indeciso tra due? Prendi quello di cui vuoi tenere le secondarie, perché quelle passano.",
+}
 
-i = next(k for k, l in enumerate(lines)
-         if l.strip() == '["name"] = "The Venomous Abyss",')
-bal, start = 0, i
-while start > 0:
-    start -= 1
-    bal += lines[start].count("}") - lines[start].count("{")
-    if bal < 0:
-        break
-depth, end = 0, start
-for k in range(start, len(lines)):
-    depth += lines[k].count("{") - lines[k].count("}")
-    if depth == 0 and k > start:
-        end = k
-        break
+FOOTER = {
+"deDE": "Die Bonus-Links stammen aus einem 12.0.7-Datamine und könnten noch von letzter Saison sein - fahre über einen für den Live-Tooltip, der stimmt immer. Woher die Teile kommen, wurde aus deinem eigenen Client gelesen.",
+"frFR": "Les liens de bonus viennent d'un datamining 12.0.7 et peuvent dater de la saison passée - survolez-en un pour l'infobulle en direct, qui est toujours juste. La provenance des pièces a été lue dans votre propre client.",
+"esES": "Los enlaces de bonus vienen de un datamining 12.0.7 y pueden ser de la temporada pasada - pasa el ratón por uno para ver el tooltip en vivo, que siempre acierta. De dónde salen las piezas se ha leído de tu propio cliente.",
+"ptBR": "Os links de bônus vêm de um datamining 12.0.7 e podem ser da temporada passada - passe o mouse em um para ver a tooltip ao vivo, que está sempre certa. De onde vêm as peças foi lido do seu próprio cliente.",
+"itIT": "I link dei bonus vengono da un datamining 12.0.7 e potrebbero essere ancora della scorsa stagione - passaci sopra per il tooltip live, che è sempre giusto. Da dove arrivano i pezzi è stato letto dal tuo client.",
+}
 
-boss_no, items, bosses, cur = None, [], [], {}
-for line in lines[start:end + 1]:
-    s = line.strip()
-    m = re.match(r'\["index"\] = (\d+),$', s)
-    if m:
-        if boss_no is not None:
-            bosses.append((boss_no, items))
-        boss_no, items = int(m.group(1)), []
-        continue
-    m = re.match(r'\["(itemID|slot|armorType|name|setLine)"\] = (.*),$', s)
-    if m:
-        v = m.group(2).strip()
-        cur[m.group(1)] = (v == "true") if v in ("true", "false") else v.strip('"')
-        if v == "false":
-            cur[m.group(1)] = False
-        continue
-    if s == "}," and "itemID" in cur:
-        items.append(cur)
-        cur = {}
-        continue
-    if s.endswith("{"):
-        cur = {}
-if boss_no is not None:
-    bosses.append((boss_no, items))
-
-NAMES = ["Nek'zali the Soulcoiler", "Entombed Sentinels", "The Lost Explorers",
-         "Vashnik the Malignant", "Sszorak", "The Twin Fangs",
-         "The Coiled Altar", "Ula'tek"]
-
-setpieces, plain, unread = [], [], []
-for no, its in bosses:
-    for it in its:
-        if it.get("slot") not in TIER_SLOTS:
+for code in BODY:
+    p = os.path.join(ROOT, code + ".lua")
+    with io.open(p, "r", encoding="utf-8", newline="") as fh:
+        txt = fh.read()
+    before = txt
+    for key, table in (("TIER_GUIDE_BODY", BODY), ("TIER_FOOTER", FOOTER)):
+        pat = re.compile(r'(\t%s = ")(?:[^"\\]|\\.)*(",)' % key)
+        if not pat.search(txt):
+            print("  %s: %s NIET gevonden" % (code, key))
             continue
-        sl = it.get("setLine")
-        row = (no, NAMES[no - 1] if no <= len(NAMES) else str(no),
-               it.get("name", "?"), it.get("armorType") or "-", sl)
-        if sl is False:
-            plain.append(row)
-        elif isinstance(sl, str) and sl in ("tooltip unreadable",
-                                            "no C_TooltipInfo.GetItemByID"):
-            unread.append(row)
-        elif isinstance(sl, str):
-            setpieces.append(row)
-        else:
-            unread.append(row)
-
-print("tier-slot drops in The Venomous Abyss: %d"
-      % (len(setpieces) + len(plain) + len(unread)))
-print("  met setregel        : %d" % len(setpieces))
-print("  gelezen, geen set   : %d" % len(plain))
-print("  tooltip onleesbaar  : %d   <- hierover weten we NIETS" % len(unread))
-print("")
-
-if setpieces:
-    print("=== SETSTUKKEN (het spel zegt het zelf) ===")
-    for no, boss, nm, armor, sl in setpieces:
-        print("  boss %d  %-34s %-8s  %s" % (no, nm[:34], armor, sl))
-    print("")
-
-if unread:
-    print("=== onleesbaar ===")
-    for no, boss, nm, armor, sl in unread[:12]:
-        print("  boss %d  %-34s %-8s  %s" % (no, nm[:34], armor, sl))
-    print("")
-
-print("=== gelezen, GEEN setregel ===")
-for no, boss, nm, armor, sl in plain:
-    print("  boss %d  %-34s %s" % (no, nm[:34], armor))
-
-# ---------------------------------------------------------------------------
-# POSITIEVE CONTROLE. Nul setregels kan twee dingen betekenen: deze raid heeft
-# geen tier, OF de test werkt niet. Season 1 HAD tier-sets, dus als The Voidspire
-# er ook nul geeft, is mijn test kapot en zegt de uitkomst hierboven niets.
-# ---------------------------------------------------------------------------
-print("")
-print("=== POSITIEVE CONTROLE: setregels in de HELE vangst ===")
-whole = "\n".join(lines)
-tot = len(re.findall(r'\["setLine"\] = ', whole))
-false_n = len(re.findall(r'\["setLine"\] = false,', whole))
-unread_n = len(re.findall(r'\["setLine"\] = "tooltip unreadable"', whole))
-noapi_n = len(re.findall(r'\["setLine"\] = "no C_TooltipInfo', whole))
-real = tot - false_n - unread_n - noapi_n
-print("  setLine-velden totaal : %d" % tot)
-print("  false (geen set)      : %d" % false_n)
-print("  onleesbaar            : %d" % unread_n)
-print("  API ontbrak           : %d" % noapi_n)
-print("  ECHTE setregels       : %d" % real)
-if real:
-    print("")
-    print("  voorbeelden:")
-    seen = set()
-    for m in re.finditer(r'\["setLine"\] = "(.*?)",', whole):
-        t = m.group(1)
-        if t.startswith("tooltip") or t.startswith("no C_Tooltip") or t in seen:
-            continue
-        seen.add(t)
-        print("     %s" % t)
-        if len(seen) >= 8:
-            break
-else:
-    print("")
-    print("  ⚠️ NUL in de hele vangst, ook in Season 1-raids die wel tier hadden.")
-    print("     Dan bewijst de uitslag hierboven NIETS over de Abyss -- dan is de")
-    print("     test zelf stuk (waarschijnlijk geeft GetItemByID geen setregel voor")
-    print("     een item dat je niet bezit).")
+        txt = pat.sub(lambda m: m.group(1) + table[code] + m.group(2), txt, count=1)
+    if txt == before:
+        print("  %s: niets gewijzigd" % code)
+        continue
+    io.open(p + ".tmp", "w", encoding="utf-8", newline="").write(txt)
+    os.replace(p + ".tmp", p)
+    print("  %s: bijgewerkt" % code)
