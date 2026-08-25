@@ -103,18 +103,64 @@ neem de achievementtekst over, niet de gidsen.
 
 ---
 
-## 6. De meting die de rest beslecht
+## 6. Wat de client-data zegt — en waarom die het niet beslecht
 
-Eén handeling dekt punt 1 én 2 uit §5:
+Een tweede onderzoek ging rechtstreeks naar de DB2-tabellen. Uitkomst, en het is genuanceerder
+dan §1 alleen:
 
-> Zet een stuk met **bekende secondaries én een tertiary** (leech, speed of avoidance) door de
-> catalyst in Silvermoon, en vergelijk het resultaat met het origineel. Zit er een socket op, dan
-> weet je die vraag meteen ook.
+**a) De catalyst-UI zwijgt volledig over stats.** Alle `GlobalStrings` rond de catalyst zijn nog
+de Shadowlands-9.2-teksten (`SL_SET_CONVERSION_*`, `GENERIC_ITEM_CONVERSION_SLOT_TOOLTIP`). De
+diff 12.0.7.68974 → 12.1.0.69465 telt 606 nieuwe tags, en **nul** daarvan raakt de catalyst.
 
-Voor de cantrip is een **Venomcursed**-stuk uit The Venomous Abyss nodig.
+⚠️ Dat is een **gemeten** stilte, geen gereedschapsfout: dezelfde run ving wél echte
+12.1-wijzigingen op (`WEEKLY_REWARDS_COMPLETE_WORLD` ging van "Ritual Sites (Tier 5, 6, 7, 12,
+or 13…)" naar "Ritual Sites (Tier 1-6)").
 
-⚠️ Dit is een **onomkeerbare** handeling op een echt item, en charges zijn gecapt op 8 met
-+1 per twee weken. Doe dit dus op een stuk dat je toch wilde omzetten — niet als experiment.
+**b) De uitvoer-items hebben een VAST secundair paar in hun template.** Voor Robs Prot Paladin,
+set *Consecrated Flame* (conversie 13, build 12.1.0.69382): `Bulwark of the Consecrated Flame`
+(**271468**) staat op **Mastery + Haste**, `Warhelm` (271465) op Crit + Mastery, enzovoort. De
+12.0-sets zijn identiek opgebouwd.
+
+**c) Aan de conversietabellen is niets van betekenis veranderd.** `ItemConversionEntry` heeft
+117 rijen voor zowel 12.0 als 12.1 (13 klassen × 9 items) — **geen slot-uitbreiding**. Enige
+structuurwijziging: een nieuwe, onleesbare `Flags`-kolom die 12.1 níét van 12.0 onderscheidt.
+
+### Waarom dit §1 niet tegenspreekt
+
+**Tertiairen, sockets en ilvl staan sowieso nooit in het item-template** — die worden bij creatie
+via bonus-ID's op het item geplakt. En een bonus-ID van **type 2** kan de template-secondaries
+overschrijven; dat mechanisme bestaat al jaren. De conversielogica zit dus **server-side en is in
+DB2 principieel onzichtbaar**.
+
+➡️ De blue post en de currency-tooltip blijven het bewijs. De template-stats zijn een
+**vertrekpunt**, geen eindstand.
+
+---
+
+## 7. 🔴 De meting — en die is GRATIS, in tegenstelling tot wat ik eerder schreef
+
+**Correctie op een eerdere versie van deze spec**, die zei dat je een charge moest opofferen. Dat
+hoeft niet: **de Catalyst-UI toont een preview vóórdat je bevestigt.**
+
+1. Zoek een **borststuk** dat **niet** Mastery + Haste heeft — bijvoorbeeld Crit + Versatility.
+   Noteer de secondaries, plus een eventueel tertiair (Leech/Speed/Avoidance) en socket.
+2. Leg het in het Catalyst-slot in Silvermoon. **Niet bevestigen.**
+3. Hover de preview. Die hoort `Bulwark of the Consecrated Flame` (271468) te zijn.
+
+| Preview toont | Conclusie |
+|---|---|
+| **Mastery + Haste** | stats zijn voorgeschreven — de gids heeft ongelijk |
+| **Crit + Versatility** (jouw invoer) | stats worden overgenomen — §1 bevestigd in de praktijk |
+
+⚠️ **Let apart op het tertiair en de socket.** Die konden in Dragonflight en TWW al meekomen, dus
+*"mijn Leech bleef staan"* is **geen** bewijs dat de secondaries meekomen. Dat is precies het
+soort halve conclusie waar deze hele dag over ging.
+
+Wil je het achteraf hard vastleggen: vergelijk de bonus-ID-lijsten van in- en uitvoer via
+`C_Container.GetContainerItemLink(bag, slot)`. Komt de lijst van het invoeritem grotendeels
+terug, dan is dát het mechanisme.
+
+Voor de cantrip is nog steeds een **Venomcursed**-stuk uit The Venomous Abyss nodig.
 
 ---
 
