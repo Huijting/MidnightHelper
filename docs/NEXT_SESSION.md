@@ -100,6 +100,28 @@ continent-id én hun oudersketen** af. Eén screenshot beantwoordt welke van de 
 gedrag — dan is er niets mis en meet je niets. De test moet vanuit **Silvermoon** met een
 doel in **Eversong Woods**.
 
+## ✅ 25 aug — addon-ronde schoon, en een meetles voor de volgende keer
+
+128 addons, 33 aangeraakt in 28 uur. Bijna alles dagelijkse ruis: 13 RaiderIO-databases,
+HandyNotes-varianten, Baganator/Syndicator/Auctionator, MDT 6.2.8, SimplePartyTargets 1.3.0.1.
+
+**JustAC 5.3.4 → 5.3.7** (drie versies op één dag) is de enige die ertoe doet — dat is onze
+kandidatenbron voor interrupt- en dispel-ids. **Geen gat gevonden.** Kick, Spear Hand Strike,
+Mind Freeze en Counterspell staan er allemaal, en meerdere citeren JustAC al in het
+commentaar. Soothe/Devour Magic/Consume Magic staan bewust níét in `OFFENSIVE_PURGES`, elk
+met eigen reden (`DispelHelper.lua:411-421`).
+
+⚠️ **MEETLES, want dit gaat elke ronde terugkomen.** Mijn eerste vergelijking meldde 26
+ontbrekende ids en dat was twee keer het verkeerde instrument:
+1. **Asymmetrische regex** — JustAC op `\d{3,7}`, wij op `\d{4,7}`. Elk id van drie cijfers
+   (408 Kidney Shot, 853 Hammer of Justice) kwam daardoor onterecht als ontbrekend boven.
+   Ze stáán er, en 853 zelfs mét `id = 853` erbij.
+2. **Onze tabellen zijn op NAAM gesleuteld**, niet op id (`["Kick"] = { role = ... }`). Een
+   id-diff kan er per definitie niets in vinden.
+
+Plus ruis: `2024` uit hun copyrightregel, acht Arcane Torrent-varianten (racial), en
+pet-spells. **Vergelijk op naam, of controleer gericht — niet met een id-diff.**
+
 ## 🟡 24 aug — addon-update-ronde: GTFO 6.9 kent 20 hazards die wij niet hebben
 
 Rob werkte de CF-addons bij. Vier vanochtend (WIM, Platynator, MidnightMountTooltip,

@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
-"""The bountiful run's chunk log: what fed her, and did anything unattributable slip past?
+"""JustAC 5.3.7 landed today (was 5.3.4). Did anything we rely on move?
 
-Same reader as before. Positive control: events WITH a chunk must show gains, or nothing
-below means anything.
+We check interrupt and dispel spell ids against this addon (memory: alsoStop tags for
+Paladin were JustAC-verified). It is a CANDIDATE source, never proof -- but a changed id
+there is a reason to go and ask the client.
+
+Compares JustAC's interrupt ids against the ones our own KeybindRoles files carry, and
+prints both counts first: if either side is ~0 the comparison proves nothing.
 """
 import io
+import os
 import re
 import sys
 
@@ -14,64 +19,34 @@ for _s in (sys.stdout, sys.stderr):
     except Exception:
         pass
 
-SV = r"E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua"
-lines = io.open(SV, encoding="utf-8", errors="replace").read().splitlines()
+ADDONS = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+JA = os.path.join(ADDONS, "JustAC", "Data", "InterruptAbilities.lua")
+MH = os.path.join(ADDONS, "MidnightHelper", "Modules")
 
-start = next((n for n, l in enumerate(lines) if '["chunkLog"]' in l), None)
-if start is None:
-    raise SystemExit("No chunkLog in SavedVariables.")
-depth, end = 0, len(lines)
-for n in range(start, len(lines)):
-    depth += lines[n].count("{") - lines[n].count("}")
-    if n > start and depth <= 0:
-        end = n
-        break
+try:
+    ja_text = io.open(JA, encoding="utf-8", errors="replace").read()
+except IOError:
+    raise SystemExit("JustAC InterruptAbilities.lua not found -- path changed?")
 
-rows, cur, d = [], [], 0
-for n in range(start + 1, end):
-    l = lines[n]
-    if d == 0 and l.strip() == "{":
-        cur, d = [], 1
-        continue
-    if d > 0:
-        d += l.count("{") - l.count("}")
-        if d <= 0:
-            rows.append("\n".join(cur))
-            d = 0
-        else:
-            cur.append(l)
+print("--- JustAC/Data/InterruptAbilities.lua: first 30 lines ---")
+for line in ja_text.splitlines()[:30]:
+    print("   " + line)
 
+ja_ids = set(int(m) for m in re.findall(r"\b(\d{3,7})\b", ja_text))
+print("\nnumbers in JustAC's interrupt file: %d" % len(ja_ids))
 
-def num(r, key):
-    m = re.search(r'\["%s"\]\s*=\s*(-?\d+)' % key, r)
-    return int(m.group(1)) if m else None
+ours = set()
+for name in sorted(os.listdir(MH)):
+    if name.startswith("KeybindRoles_") and name.endswith(".lua"):
+        t = io.open(os.path.join(MH, name), encoding="utf-8", errors="replace").read()
+        ours |= set(int(m) for m in re.findall(r"\b(\d{4,7})\b", t))
+print("numbers across our KeybindRoles files: %d" % len(ours))
 
+if not ja_ids or not ours:
+    raise SystemExit("\nOne side is empty -- this comparison proves nothing.")
 
-new = [r for r in rows if '["items"]' in r or '["chunks"]' in r]
-print("events: %d (per-event rows: %d)\n" % (len(rows), len(new)))
-
-gained = [r for r in new if (num(r, "gained") or 0) > 0]
-withchunk = [r for r in gained if (num(r, "chunks") or 0) > 0]
-nochunk = [r for r in gained if (num(r, "chunks") or 0) == 0]
-print("events with a gain: %d   (with a chunk: %d = positive control, without: %d)"
-      % (len(gained), len(withchunk), len(nochunk)))
-
-if not withchunk:
-    raise SystemExit("\nNo chunk event gained -- the log is broken, read nothing into the rest.")
-
-print("\nGAINS WITH NO CHUNK — what else paid:")
-tally = {}
-for r in nochunk:
-    names = re.findall(r'\["name"\]\s*=\s*"([^"]*)"', r)
-    g = num(r, "gained")
-    print("   +%-7s  %s" % (g, ", ".join(names) or "(unnamed)"))
-    for nm in names:
-        tally[nm] = tally.get(nm, 0) + 1
-
-print("\nby item:")
-for nm in sorted(tally, key=lambda k: -tally[k]):
-    print("   %-32s %d" % (nm, tally[nm]))
-
-# Events with several items and a gain: unattributable by design, worth knowing the size of.
-multi = [r for r in gained if len(re.findall(r'\["id"\]', r)) > 1]
-print("\nmulti-item events with a gain (not attributable): %d" % len(multi))
+print("\nJustAC interrupt ids we do NOT carry anywhere in KeybindRoles: %d"
+      % len(ja_ids - ours))
+for sid in sorted(ja_ids - ours)[:30]:
+    ctx = re.search(r"^.*\b%d\b.*$" % sid, ja_text, re.M)
+    print("   %-9d %s" % (sid, (ctx.group(0).strip()[:100] if ctx else "")))
