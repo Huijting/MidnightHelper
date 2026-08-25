@@ -1,19 +1,13 @@
 # -*- coding: utf-8 -*-
-"""Herschrijft de Catalyst-Unbound-regel in alle zeven packs.
+"""Vult de Catalyst-regel aan: het item level blijft óók behouden.
 
-GEMETEN 25 aug 2026 via /mh ach id 61519 op Robs client:
-  name        = Midnight Season 1: Catalyst Unbound
-  description = Unlocked your class set bonuses during Midnight Season 1.
-  reward      = Dawnlight Manaflux can drop from additional sources.
-  completed   = yes, 14-7-26
+GEMETEN 25 aug 2026. Rob zette een Champion-schouder om en het tier-stuk kwam eruit
+met hetzelfde item level. De currency-omschrijving belooft alleen dat de secondary
+stats meegaan en zwijgt over ilvl -- dus dit was niet af te leiden, alleen te meten.
 
-Dus de feat komt VAN je set-bonussen; hij is geen aparte voorwaarde vooraf. De zin
-die ik vanmiddag schreef noemde alleen de feat bij naam en liet de speler met precies
-de vraag zitten die Rob meteen stelde: hoe ontgrendel ik dat dan.
-
-De oude tekst ("zodra je 4-set hebt") had dit al goed te pakken in gewone taal. Deze
-versie houdt die uitleg en voegt de naam toe, in plaats van de naam ervoor in de
-plaats te zetten.
+Waarom het ertoe doet: als er precies hetzelfde uitkomt, alleen nu als setstuk, dan
+is de natuurlijke reflex fout. Iedereen bewaart zijn beste stuk en voert de Catalyst
+een reservestuk. Dat levert een reservestuk met een setbonus op.
 """
 import io
 import os
@@ -23,23 +17,23 @@ ROOT = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales"
 sys.stdout.reconfigure(encoding="utf-8")
 
 OLD = {
-"enUS": "• After you unlock the Season 2 Catalyst Unbound feat, extra charges also come from Mythic Keystones, Venomous Abyss bosses, Bountiful Delves and rated PvP.",
-"nlNL": "• Zodra je de Season 2 Catalyst Unbound-feat hebt, komen er ook charges uit Mythic Keystones, Venomous Abyss-bosses, Bountiful Delves en rated PvP.",
-"deDE": "• Sobald du das Feat \\\"Season 2 Catalyst Unbound\\\" freigeschaltet hast, kommen Ladungen auch aus Mythic Keystones, Venomous-Abyss-Bossen, Bountiful Delves und gewertetem PvP.",
-"frFR": "• Une fois le haut fait \\\"Season 2 Catalyst Unbound\\\" débloqué, des charges tombent aussi des Mythic Keystones, des boss de Venomous Abyss, des Bountiful Delves et du PvP coté.",
-"esES": "• Cuando desbloquees la proeza \\\"Season 2 Catalyst Unbound\\\", también caen cargas de Mythic Keystones, jefes de Venomous Abyss, Bountiful Delves y PvP con clasificación.",
-"ptBR": "• Depois de desbloquear o feito \\\"Season 2 Catalyst Unbound\\\", cargas também vêm de Mythic Keystones, chefes da Venomous Abyss, Bountiful Delves e PvP ranqueado.",
-"itIT": "• Una volta sbloccata l'impresa \\\"Season 2 Catalyst Unbound\\\", le cariche arrivano anche da Mythic Keystone, boss della Venomous Abyss, Bountiful Delve e PvP classificato.",
+"enUS": "The new piece keeps the |cffffffffsecondary stats of the piece you put in|r. You are changing what the item IS, not what it rolled — so feed it something whose stats already suit you.",
+"nlNL": "Het nieuwe stuk behoudt de |cffffffffsecondary stats van het stuk dat je erin stopt|r. Je verandert WAT het item is, niet wat het gerold heeft — stop er dus iets in waarvan de stats je al bevallen.",
+"deDE": "Das neue Teil behält die |cffffffffSekundärwerte des Teils, das du hineingibst|r. Du änderst, WAS der Gegenstand ist, nicht was er gewürfelt hat — gib also etwas hinein, dessen Werte dir schon passen.",
+"frFR": "La nouvelle pièce conserve les |cffffffffstatistiques secondaires de la pièce que vous donnez|r. Vous changez CE QU'EST l'objet, pas ce qu'il a tiré — donnez donc quelque chose dont les stats vous conviennent déjà.",
+"esES": "La pieza nueva conserva las |cffffffffestadísticas secundarias de la pieza que metes|r. Cambias LO QUE ES el objeto, no lo que ha salido — así que mete algo cuyas estadísticas ya te vengan bien.",
+"ptBR": "A peça nova mantém os |cffffffffatributos secundários da peça que você coloca|r. Você muda O QUE o item é, não o que ele rolou — então coloque algo cujos atributos já sirvam para você.",
+"itIT": "Il pezzo nuovo mantiene le |cffffffffstatistiche secondarie del pezzo che ci metti|r. Cambi COSA è l'oggetto, non cosa ha tirato — quindi mettici qualcosa le cui statistiche ti vanno già bene.",
 }
 
 NEW = {
-"enUS": "• Mythic Keystones, Venomous Abyss bosses, Bountiful Delves and rated PvP drop extra charges too - but only once your class set bonuses are running. That is the Catalyst Unbound feat, and it is a reward for getting there, not a hoop to jump through first.",
-"nlNL": "• Mythic Keystones, Venomous Abyss-bosses, Bountiful Delves en rated PvP geven ook extra charges - maar pas zodra je set-bonussen draaien. Dat is de Catalyst Unbound-feat: een beloning voor het bereiken van je set, geen hoepel vooraf.",
-"deDE": "• Mythic Keystones, Venomous-Abyss-Bosse, Bountiful Delves und gewertetes PvP geben ebenfalls Ladungen - aber erst, wenn deine Klassenset-Boni laufen. Das ist das Feat Catalyst Unbound: eine Belohnung dafür, dass du dein Set hast, keine Hürde davor.",
-"frFR": "• Les Mythic Keystones, les boss de Venomous Abyss, les Bountiful Delves et le PvP coté donnent aussi des charges - mais seulement une fois vos bonus de set actifs. C'est le haut fait Catalyst Unbound : une récompense pour y être arrivé, pas un obstacle préalable.",
-"esES": "• Mythic Keystones, jefes de Venomous Abyss, Bountiful Delves y PvP con clasificación también dan cargas - pero solo cuando tus bonus de conjunto estén activos. Esa es la proeza Catalyst Unbound: una recompensa por haber llegado, no un requisito previo.",
-"ptBR": "• Mythic Keystones, chefes da Venomous Abyss, Bountiful Delves e PvP ranqueado também dão cargas - mas só depois que seus bônus de conjunto estiverem ativos. Esse é o feito Catalyst Unbound: uma recompensa por ter chegado lá, não um obstáculo antes.",
-"itIT": "• Mythic Keystone, boss della Venomous Abyss, Bountiful Delve e PvP classificato danno anche cariche - ma solo quando i bonus del set sono attivi. È l'impresa Catalyst Unbound: una ricompensa per esserci arrivato, non un ostacolo prima.",
+"enUS": "The new piece keeps |cffffffffboth the item level and the secondary stats|r of what you put in. What goes in is what comes back, only now it counts towards the set - so feed it your BEST piece in that slot, never a spare. Saving the good one and converting a leftover just gives you a leftover with a set bonus.",
+"nlNL": "Het nieuwe stuk behoudt |cffffffffzowel het item level als de secondary stats|r van wat je erin stopt. Er komt precies hetzelfde uit, alleen telt het nu mee voor de set - stop er dus je BESTE stuk in dat slot in, nooit een reserve. Het goede bewaren en een restje omzetten levert je een restje met een setbonus op.",
+"deDE": "Das neue Teil behält |cffffffffsowohl die Gegenstandsstufe als auch die Sekundärwerte|r dessen, was du hineingibst. Es kommt genau dasselbe heraus, nur zählt es jetzt für das Set - gib also dein BESTES Teil in diesem Slot hinein, nie ein Reserveteil. Das gute aufheben und einen Rest umwandeln bringt dir einen Rest mit Set-Bonus.",
+"frFR": "La nouvelle pièce conserve |cffffffffà la fois le niveau d'objet et les statistiques secondaires|r de ce que vous donnez. Ce qui entre ressort à l'identique, mais compte désormais pour le set - donnez donc votre MEILLEURE pièce sur cet emplacement, jamais une pièce de rechange. Garder la bonne et convertir un reste vous donne un reste avec un bonus de set.",
+"esES": "La pieza nueva conserva |cfffffffftanto el nivel de objeto como las estadísticas secundarias|r de lo que metes. Sale exactamente lo mismo, solo que ahora cuenta para el conjunto - así que mete tu MEJOR pieza de esa ranura, nunca una de repuesto. Guardar la buena y convertir una sobra te da una sobra con bonus de conjunto.",
+"ptBR": "A peça nova mantém |cffffffffo nível de item E os atributos secundários|r do que você coloca. Sai exatamente o mesmo, só que agora conta para o conjunto - então coloque a sua MELHOR peça daquele espaço, nunca uma reserva. Guardar a boa e converter uma sobra te dá uma sobra com bônus de conjunto.",
+"itIT": "Il pezzo nuovo mantiene |cffffffffsia il livello oggetto sia le statistiche secondarie|r di quello che ci metti. Esce esattamente lo stesso, solo che ora conta per il set - quindi mettici il tuo pezzo MIGLIORE per quello slot, mai un ricambio. Tenere quello buono e convertire un avanzo ti dà un avanzo con un bonus set.",
 }
 
 for code in OLD:
