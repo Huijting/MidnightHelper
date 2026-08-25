@@ -10,6 +10,13 @@ local COFFER_KEY = 3028
 local COFFER_SHARDS = 3310
 local UNDERCOIN = 2803
 local UNTAINTED_MANA_CRYSTALS = 3356
+--- Catalyst charges. GEMETEN 25 aug 2026 in Robs client: dit is een PER-CHARACTER
+--- currency met een maximum van 8, niet account-breed zoals ik eerst aannam. Zijn
+--- tooltip toonde "Total Maximum: 1/8" plus zeven characters met elk 1 -- dus zeven
+--- omzettingen die je alleen ziet door zeven keer in te loggen. Precies waar dit
+--- overzicht voor bestaat.
+local VENOMBLIGHT_MANAFLUX = 3465
+local MANAFLUX_CAP = 8
 
 --- Layout: keys / shards narrow; Undercoins wider so the header fits.
 local PAD_L = 4
@@ -405,6 +412,7 @@ local function SaveCurrentSnapshot()
 		shardsWeeklyMax = shardMax,
 		undercoin = GetCurrencyQty(UNDERCOIN),
 		manaCrystals = GetCurrencyQty(UNTAINTED_MANA_CRYSTALS),
+		manaflux = GetCurrencyQty(VENOMBLIGHT_MANAFLUX),
 		level = UnitLevel("player") or 0,
 		ilvl = GetPlayerItemLevel(),
 		vaultUnlocked = 0,
@@ -1075,6 +1083,9 @@ function ns:_mhAltOverviewCollectEntries()
 				shardsWeeklyMax = tonumber(snap.shardsWeeklyMax) or 600,
 				undercoin = tonumber(snap.undercoin) or 0,
 				manaCrystals = tonumber(snap.manaCrystals) or tonumber(snap.voidlightMarl) or 0,
+				-- nil, niet 0: een snapshot van vóór deze kolom weet het niet, en dat
+				-- is iets anders dan "deze character heeft er geen".
+				manaflux = tonumber(snap.manaflux),
 				level = tonumber(snap.level) or 0,
 				ilvl = tonumber(snap.ilvl) or 0,
 				vaultUnlocked = tonumber(snap.vaultUnlocked) or 0,
@@ -1213,6 +1224,7 @@ function ns:_mhAltOverviewRefreshRows()
 			e.ilvl = GetPlayerItemLevel()
 			e.undercoin = GetCurrencyQty(UNDERCOIN)
 			e.manaCrystals = GetCurrencyQty(UNTAINTED_MANA_CRYSTALS)
+			e.manaflux = GetCurrencyQty(VENOMBLIGHT_MANAFLUX)
 			if ns.GetProfessionWeeklySnapshot then
 				e.profAbundance, e.profDundun, e.profMoxie = ns.GetProfessionWeeklySnapshot()
 			end
@@ -1388,6 +1400,7 @@ function ns:_mhAltOverviewRefreshRows()
 			level = lvl,
 			ilvl = ilvl,
 			manaCrystals = tonumber(e.manaCrystals) or 0,
+			manaflux = tonumber(e.manaflux),
 			undercoin = tonumber(e.undercoin) or 0,
 		}
 		row.vaultTip.likelyClaim = (not row.vaultTip.hasAvailableRewards) and row.vaultTip.staleSinceReset and unlockedAny
@@ -1433,6 +1446,19 @@ function ns:_mhAltOverviewRefreshRows()
 				)
 			end
 			GameTooltip:AddLine(ns:L("ALT_TOOLTIP_KEYS"):format(tonumber(self.vaultTip.keys) or 0), 0.9, 0.9, 0.9)
+			--- Catalyst charges, and a warning when this character has stopped gaining.
+			--- ⚠️ nil means "captured before we tracked this", NOT zero. Printing 0 for a
+			--- character that may be sitting on 8 would be worse than printing nothing.
+			local mf = tonumber(self.vaultTip.manaflux)
+			if mf then
+				local capped = mf >= MANAFLUX_CAP
+				GameTooltip:AddLine(
+					ns:L("ALT_TOOLTIP_MANAFLUX_FMT"):format(mf, MANAFLUX_CAP),
+					capped and 1 or 0.75, capped and 0.82 or 0.88, capped and 0.35 or 1)
+				if capped then
+					GameTooltip:AddLine(ns:L("ALT_TOOLTIP_MANAFLUX_CAPPED"), 1, 0.82, 0.35, true)
+				end
+			end
 			GameTooltip:AddLine(
 				ns:L("ALT_TOOLTIP_UNDER_MANA_FMT"):format(
 					tonumber(self.vaultTip.undercoin) or 0,
