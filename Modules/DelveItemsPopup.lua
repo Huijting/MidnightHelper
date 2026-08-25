@@ -324,6 +324,13 @@ local function PlayerCarriesUnusableDelveItem(itemID)
 	if type(IsUsableItem) ~= "function" then
 		return false
 	end
+	-- an uncached item reads as unusable, which can mark it used on disk
+	if C_Item and C_Item.IsItemDataCachedByID and not C_Item.IsItemDataCachedByID(itemID) then
+		if C_Item.RequestLoadItemDataByID then
+			C_Item.RequestLoadItemDataByID(itemID)
+		end
+		return false
+	end
 	if IsUsableItem(itemID) == true then
 		return false
 	end
