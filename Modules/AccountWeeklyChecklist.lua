@@ -105,6 +105,20 @@ function ns.ComputeAccountWeeklyChecklist()
 
 	local staleLabels, shardBelowLabels, dundunLabels = {}, {}, {}
 	local keysTotal, altsWithKeys = 0, 0
+	--- 🔴 CATALYST CHARGES BELONG HERE, NOT ONLY IN A ROW TOOLTIP.
+	---
+	--- Added 25 aug 2026 the same evening the tooltip version shipped. Rob asked to
+	--- track Manaflux per character, I put it in the row tooltip, and his next message
+	--- was "waar vind ik de manaflux precies, ik zie het hier niet". He was reading the
+	--- table, where Keys and Shards live. A number you have to go hunting for is not a
+	--- tracker.
+	---
+	--- This block already answers exactly his question for other resources ("Restored
+	--- Coffer Keys on account: 18"), so the charges go in beside them. The cap line is
+	--- the one that actually needs acting on: a character at 8 has stopped gaining, and
+	--- that happens to the alts nobody logs into.
+	local fluxTotal, fluxChars, fluxCappedLabels = 0, 0, {}
+	local MANAFLUX_CAP = 8
 
 	for i = 1, #entries do
 		local e = entries[i]
@@ -116,6 +130,18 @@ function ns.ComputeAccountWeeklyChecklist()
 		keysTotal = keysTotal + k
 		if k > 0 then
 			altsWithKeys = altsWithKeys + 1
+		end
+		-- nil means "captured before we tracked this", not zero. Such a character is
+		-- left out of both the total and the count rather than counted as empty.
+		local flux = tonumber(e.manaflux)
+		if flux then
+			fluxTotal = fluxTotal + flux
+			if flux > 0 then
+				fluxChars = fluxChars + 1
+			end
+			if flux >= MANAFLUX_CAP then
+				fluxCappedLabels[#fluxCappedLabels + 1] = label
+			end
 		end
 		if ns.MhAccountEntryShardsBelowCap and ns:MhAccountEntryShardsBelowCap(e) then
 			shardBelowLabels[#shardBelowLabels + 1] = label
@@ -231,6 +257,9 @@ function ns.ComputeAccountWeeklyChecklist()
 		staleLabels = staleLabels,
 		keysTotal = keysTotal,
 		altsWithKeys = altsWithKeys,
+		fluxTotal = fluxTotal,
+		fluxChars = fluxChars,
+		fluxCapped = fluxCappedLabels,
 		shardBelowLabels = shardBelowLabels,
 		dundunLabels = dundunLabels,
 		smcDone = smcDone,
@@ -543,6 +572,27 @@ function ns.RefreshAccountWeeklyChecklist()
 				function()
 					ToggleWeeklyFilter("keys")
 				end
+			)
+		end
+
+		-- Catalyst charges: where they are, and where they have stopped growing.
+		if (data.fluxTotal or 0) > 0 then
+			nextLine(
+				true,
+				ns:L("ACCOUNT_WEEKLY_FLUX_FMT"):format(data.fluxTotal, data.fluxChars),
+				0.9,
+				0.9,
+				0.95
+			)
+		end
+		if data.fluxCapped and #data.fluxCapped > 0 then
+			nextLine(
+				true,
+				ns:L("ACCOUNT_WEEKLY_FLUX_CAPPED_FMT")
+					:format(#data.fluxCapped, FormatNamePreview(data.fluxCapped)),
+				1,
+				0.82,
+				0.35
 			)
 		end
 
