@@ -1420,7 +1420,7 @@ ns._mhLocales.nlNL = {
 	CURIO_HEADER = "Wat elke optie doet, in de woorden van het spel zelf. Welke bij jou past hangt af van je tier, je rol en of je alleen loopt - dus dit legt uit in plaats van te kiezen.",
 	CURIO_CHOICE_FMT = "Een keuze uit %d",
 	CURIO_ACTIVE = "> ",
-	CURIO_NO_TEXT = "(het spel gaf hier geen beschrijving bij)",
+	CURIO_NO_TEXT = "(tekst niet kunnen lezen - ga er in het spel een keer overheen en draai dit opnieuw)",
 	ACH_NOTE_UNDERBELLY_STRIKE = "Staat er alleen terwijl de Temple Strike: The Underbelly loopt - er is geen vaste plek om heen te lopen, dus de pijl laat deze met rust.",
 	ACH_NOTE_ANCIENT_FOE = "Verschijnt waar een Temple Incursion eindigt, dus hij heeft geen plek op de kaart. Sluit aan bij wat er loopt en hij komt vanzelf.",
 

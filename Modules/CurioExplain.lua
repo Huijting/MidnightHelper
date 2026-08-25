@@ -146,9 +146,18 @@ end
 --- frame. The trait sweep learned this a few hours earlier and grew a second pass; this
 --- file requested the data and then read it immediately anyway.
 ---
---- So the request goes out, and the text is built a beat later. A description that is
---- still missing then is genuinely missing, which is worth saying — the point of asking
---- is that silence afterwards means something.
+--- So the request goes out, and the text is built a beat later.
+---
+--- 🔴 AND ONE SECOND IS NOT ENOUGH — measured 25 aug 2026, which killed the sentence
+--- that used to end this comment. It read: "A description that is still missing then is
+--- genuinely missing, which is worth saying." Rob ran /mh curios and two of six poisons
+--- came back blank; he then hovered those exact two in the game's own picker and both
+--- had full text (Frostheart Venom 1305912, Phantasmal Spore Toxin 1305924). So a blank
+--- after one second means the cache was still cold, not that the spell has no text.
+---
+--- That is the same mistake this repo keeps making in a new place: treating silence as
+--- absence. The wait now retries instead of concluding, and the line shown for a text
+--- that never arrives says it could not be read — not that the game has nothing.
 local function RequestAll(nodes)
 	if not (C_Spell and C_Spell.RequestLoadSpellData) then
 		return
@@ -167,11 +176,33 @@ function ns.ShowCurioExplain()
 	local nodes = ns.GetCompanionChoices()
 	if nodes and C_Timer and C_Timer.After then
 		RequestAll(nodes)
-		-- One second, once. Long enough for the server round-trip, short enough that it
-		-- still feels like a response to the command rather than a delayed surprise.
-		C_Timer.After(1, function()
-			ns.ShowCurioExplainNow()
-		end)
+		--- Keep asking until every option has text, or until we run out of patience.
+		--- One second used to be the whole plan and it was not enough (see RequestAll).
+		--- Re-requesting matters as much as re-reading: a cold spell needs the ask, and
+		--- the previous ask may have gone out before its node was even known.
+		local tries = 0
+		local function attempt()
+			tries = tries + 1
+			local fresh = ns.GetCompanionChoices()
+			local missing = 0
+			for _, node in ipairs(fresh or {}) do
+				for _, o in ipairs(node.options or {}) do
+					if o.spellID and not o.desc then
+						missing = missing + 1
+					end
+				end
+			end
+			-- Show as soon as everything is in, or after the last try. Four attempts
+			-- over ~4s: long enough for a slow round-trip, short enough that it still
+			-- reads as an answer to the command.
+			if missing == 0 or tries >= 4 then
+				ns.ShowCurioExplainNow()
+				return
+			end
+			RequestAll(fresh)
+			C_Timer.After(1, attempt)
+		end
+		C_Timer.After(1, attempt)
 		print(("|cffffcc00%s|r %s"):format(L("PRINT_PREFIX"), L("CURIO_LOADING")))
 		return
 	end
