@@ -1152,6 +1152,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh shards — de ruwe velden van currency 3310. Bestaat omdat drie modules het
+	-- oneens zijn over welk veld de weekcap is, en alleen de client dat kan beslechten.
+	if msg == "shards" then
+		if ns.PrintCofferShardProbe then
+			ns.PrintCofferShardProbe()
+		end
+		return
+	end
+
 	-- /mh here [notitie] — schrijf op waar je staat (en wat je aanklikt). Lijst, geen
 	-- slot: een rondje lopen en daarna één reload is het hele idee.
 	if msg == "here" or msg:match("^here%s+") then

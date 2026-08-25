@@ -1995,6 +1995,22 @@ function ns.RouteToNearestRare(zoneKey)
 	end
 	if RouteRare(rare, true) then
 		print(string.format(ns:L("RARES_NEAREST_ROUTE"), GetRareDisplayName(rare)))
+		--- ⚠️ THE ANSWER TO A BUTTON ROB ASKED FOR AND DOES NOT NEED.
+		---
+		--- 25 aug 2026 he wanted a second route that walks past EVERY rare, not only
+		--- the open ones, because he was farming Coffer Key Shards. The cap is 600 a
+		--- week and a rare pays 50, so twelve rares fill it — and this route already
+		--- walks him past exactly the rares that still pay.
+		---
+		--- What he was missing was not a route. It was knowing when to stop. So the
+		--- route says how much of the week is left, in rares, and stays quiet when it
+		--- cannot say something true.
+		if ns.GetCofferShardRareLine then
+			local line = ns.GetCofferShardRareLine()
+			if line then
+				print("|cffffff78Midnight Helper:|r " .. line)
+			end
+		end
 		return true
 	end
 	return false
