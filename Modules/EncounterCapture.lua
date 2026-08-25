@@ -183,30 +183,72 @@ end
 --- people to last season's raid. Rather than retype it from a website, ask the client
 --- which bosses actually drop the tokens now.
 ---
---- ⚠️ UNPROVEN API. Every other EJ_ call in this file is used elsewhere and works;
---- these four are not, so nothing here assumes they exist. If they are missing the
---- capture records that fact instead of an empty list, because "no loot" and "we could
---- not ask" are different answers and only one of them is worth acting on.
+--- ⚠️ THE FIRST VERSION ASKED FOR ALL FOUR AT ONCE AND GOT NOTHING, 43 TIMES.
 ---
---- EJ_SelectEncounter is required before reading: the loot list belongs to whatever
---- encounter the journal currently has selected, not to an id you pass in.
+--- It required EJ_SelectEncounter, EJ_GetNumLoot and EJ_GetLootInfoByIndex together
+--- and bailed on the whole set. Rob's run wrote "EJ loot API missing on this client"
+--- for every boss, which was true and useless: it never said WHICH one was missing.
+---
+--- The answer is that the loot reader moved namespace while the rest did not. Details
+--- calls `EJ_GetNumLoot()` bare and `C_EncounterJournal.GetLootInfoByIndex(i)`
+--- namespaced, in adjacent lines (Libs/DF/ejournal.lua:379-382) -- a split nobody
+--- invents. Candidate, not proof, which is exactly why each name is resolved
+--- separately below and the outcome recorded: one more run now settles all four
+--- instead of me guessing which combination the client actually has.
+local LootApi
+local function ResolveLootApi()
+	if LootApi then
+		return LootApi
+	end
+	local CEJ = C_EncounterJournal
+	local function pick(bare, field)
+		if type(bare) == "function" then
+			return bare, "bare"
+		end
+		if CEJ and type(CEJ[field]) == "function" then
+			return CEJ[field], "C_EncounterJournal"
+		end
+		return nil, "missing"
+	end
+	local api, where = {}, {}
+	api.selectInstance, where.selectInstance = pick(EJ_SelectInstance, "SelectInstance")
+	api.selectEncounter, where.selectEncounter = pick(EJ_SelectEncounter, "SelectEncounter")
+	api.numLoot, where.numLoot = pick(EJ_GetNumLoot, "GetNumLoot")
+	api.lootByIndex, where.lootByIndex = pick(EJ_GetLootInfoByIndex, "GetLootInfoByIndex")
+	api.where = where
+	LootApi = api
+	return api
+end
+
+--- Point the journal at one instance. The loot list belongs to whatever the journal
+--- currently has selected, so this has to happen before the encounter loop.
+local function SelectLootInstance(instanceID)
+	local api = ResolveLootApi()
+	if api.selectInstance and instanceID then
+		pcall(api.selectInstance, instanceID)
+	end
+end
+
 local function CaptureBossLoot(encounterID)
 	if not encounterID then
 		return nil
 	end
-	if not (EJ_SelectEncounter and EJ_GetNumLoot and EJ_GetLootInfoByIndex) then
-		return { unavailable = "EJ loot API missing on this client" }
+	local api = ResolveLootApi()
+	if not api.numLoot or not api.lootByIndex then
+		-- Say which names were tried and how each one resolved, so a second run is not
+		-- needed to learn what this one already knew.
+		return { unavailable = "loot reader missing", resolved = api.where }
 	end
-	if not pcall(EJ_SelectEncounter, encounterID) then
-		return { unavailable = "EJ_SelectEncounter failed" }
+	if api.selectEncounter and not pcall(api.selectEncounter, encounterID) then
+		return { unavailable = "SelectEncounter failed", resolved = api.where }
 	end
-	local okN, n = pcall(EJ_GetNumLoot)
+	local okN, n = pcall(api.numLoot)
 	if not okN or type(n) ~= "number" then
-		return { unavailable = "EJ_GetNumLoot gave nothing" }
+		return { unavailable = "GetNumLoot gave nothing", resolved = api.where }
 	end
-	local out = { count = n, items = {} }
+	local out = { count = n, resolved = api.where, items = {} }
 	for i = 1, n do
-		local okL, info = pcall(EJ_GetLootInfoByIndex, i)
+		local okL, info = pcall(api.lootByIndex, i)
 		if okL and type(info) == "table" then
 			out.items[#out.items + 1] = {
 				itemID = info.itemID,
@@ -287,6 +329,8 @@ local function CollectInstance(instanceID, name, isRaid, diff)
 		difficulty = diff,
 		bosses = {},
 	}
+	-- Before the loop: the journal's loot list follows the SELECTED instance.
+	SelectLootInstance(instanceID)
 	for i = 1, 25 do
 		local ok, bossName, _, encounterID = pcall(EJ_GetEncounterInfoByIndex, i, instanceID)
 		if not ok or not bossName then
