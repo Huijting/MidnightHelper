@@ -62,6 +62,13 @@ local CANDIDATES = {
 	{ 2912, { 1258883, 1259186, 1241844, 1264467, 1265152, 1248652, 1243753 } },
 	{ 2913, { 1243866 } },
 	{ 2923, { 1299145, 1311712, 1234917, 1296963, 1300262, 1233264, 1226031, 1222724, 1310026 } },
+	--- GTFO 6.9.1 (25 aug 2026) added four delve spells. Three we already carry —
+	--- 1280182, 1287680 and 1301863, and Snake Eater is our own positive control.
+	--- This is the only new one. GTFO files it under BOTH Collegiate Calamity and
+	--- Parhelion Plaza (2953); listed once, because the client names a spell, not a
+	--- spell-per-instance.
+	--- ⚠️ Still a candidate: GTFO is where we find ids, never where we confirm them.
+	{ 2933, { 1260224 } },
 	{ 2963, { 1280182 } },
 	{ 2987, { 1307062, 1313448 } },
 	{ 2993, { 1307915, 1296069, 1300083, 1300044, 1305393, 1295073, 1306856, 1294197 } },
