@@ -510,6 +510,47 @@ local function Tick()
 	wasInDelve = inDelve
 end
 
+--- The one open loot window. Nil when nothing is pending; see the comment at the
+--- CHAT_MSG_LOOT handler for why there may only ever be one.
+local pendingLoot
+
+--- 🔎 DIAGNOSTIC (/mh chunklog). Writes one row per resolved window, never per item
+--- and never per loot line. Reputation lands a beat after the loot text, so the read
+--- is delayed; reading in the same frame records "no change" for every pickup.
+---
+--- ⚠️ Read a row as "one of these items paid", not "this item paid". When a window
+--- holds a chunk and a Boon the gain is genuinely unattributable, and pretending
+--- otherwise is what produced two confident wrong readings of this very log.
+local function LogLootWindow(p, afterV, gained)
+	if not Settings().log then
+		return
+	end
+	ns.db = ns.db or {}
+	if type(ns.db.chunkLog) ~= "table" then
+		ns.db.chunkLog = {}
+	end
+	local items = {}
+	for _, id in ipairs(p.ids) do
+		local ok, name, _, quality = pcall(C_Item.GetItemInfo, id)
+		items[#items + 1] = {
+			id = id,
+			name = (ok and name) or nil,
+			quality = (ok and quality) or nil,
+			isChunk = ChunkQuality(id) and true or false,
+		}
+	end
+	ns.db.chunkLog[#ns.db.chunkLog + 1] = {
+		items = items,
+		chunks = p.chunks,
+		before = p.before,
+		after = afterV and afterV.cur or nil,
+		gained = (afterV and afterV.cur and p.before) and gained or nil,
+		-- More than one item in a window means the gain cannot be pinned to one of
+		-- them. Recorded so a later reader cannot make the mistake I made.
+		ambiguous = (#p.ids > 1) or nil,
+	}
+end
+
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("CHAT_MSG_LOOT")
@@ -550,74 +591,52 @@ ev:SetScript("OnEvent", function(_, event, message)
 		---
 		--- Only unambiguous events count. Chunks in the same event would make the gain
 		--- unattributable, which is exactly the mistake the earlier per-item log made.
+		--- ⚠️ ONE OPEN WINDOW AT A TIME. Fixed 25 aug 2026, and this was not only a
+		--- diagnostic problem — the "other finds" number players see had it too.
+		---
+		--- Every loot event used to open its own 1.0s window. Loot two things inside
+		--- one second and both windows span the same gain, so both claim it. Measured
+		--- on Rob's Collegiate Calamity run: 57 logged rows were really 28 events, and
+		--- 21 "gains" were really 10. Not one non-zero gain stood alone. Worse for the
+		--- shipped counter: three of those shared rows carried no chunk, so they were
+		--- counted as "other finds" on the strength of a chunk's gain.
+		---
+		--- So a window that is already open absorbs the later items instead of opening
+		--- a second one. The gain is then attributed once, to everything that could
+		--- have caused it — which is honest, where two confident wrong answers were not.
 		if #seen > 0 then
-			local beforeV = GetValeera()
-			local before = beforeV and beforeV.cur or nil
-			local n = #seen
-			C_Timer.After(1.0, function()
-				if not run.entryStanding then
-					return -- left the delve while we waited
+			if pendingLoot then
+				for _, id in ipairs(seen) do
+					pendingLoot.ids[#pendingLoot.ids + 1] = id
 				end
-				local afterV = GetValeera()
-				local gained = (afterV and afterV.cur and before) and (afterV.cur - before) or 0
-				if chunksHere == 0 and gained > 0 then
-					run.others = run.others + n
-					Refresh()
-				end
-			end)
+				pendingLoot.chunks = pendingLoot.chunks + chunksHere
+			else
+				local beforeV = GetValeera()
+				pendingLoot = {
+					ids = seen,
+					chunks = chunksHere,
+					before = beforeV and beforeV.cur or nil,
+				}
+				C_Timer.After(1.0, function()
+					local p = pendingLoot
+					pendingLoot = nil
+					if not p or not run.entryStanding then
+						return -- left the delve while we waited
+					end
+					local afterV = GetValeera()
+					local gained = (afterV and afterV.cur and p.before)
+						and (afterV.cur - p.before) or 0
+					if p.chunks == 0 and gained > 0 then
+						run.others = run.others + #p.ids
+						Refresh()
+					end
+					LogLootWindow(p, afterV, gained)
+				end)
+			end
 		end
 
-		--- 🔎 DIAGNOSTIC (24 aug, /mh chunklog). Rob looted an elite and Valeera gained XP
-		--- while our chunk count stayed at zero — so something that is NOT one of the 14
-		--- confirmed chunks also feeds her, and both our tracker and the addon we are
-		--- replacing would under-report it.
-		---
-		--- Logs every looted id with her standing immediately before and shortly after, so
-		--- the item that coincides with a rise can be named instead of guessed. The delayed
-		--- read matters: reputation lands a beat after the loot line, and reading in the
-		--- same frame would record "no change" for every single pickup.
-		--- ⚠️ ONE ROW PER LOOT EVENT, NOT PER ITEM — and the first version got this wrong.
-		--- It recorded her standing before and after for EVERY item in the message, so a
-		--- chunk and a Boon looted together were both credited with the same single gain.
-		--- Rob's bountiful produced 19 chunks and 19 "non-chunks that moved her standing",
-		--- with identical amounts down the list: not a second source, one gain counted
-		--- twice. The counts being exactly equal is what gave it away.
-		---
-		--- An event row can be attributed properly afterwards: look for events containing
-		--- no chunk at all. Those, and only those, say whether anything else pays.
-		if Settings().log then
-			local beforeV = GetValeera()
-			local before = beforeV and beforeV.cur or nil
-			local ids = seen
-			C_Timer.After(1.0, function()
-				local afterV = GetValeera()
-				ns.db = ns.db or {}
-				if type(ns.db.chunkLog) ~= "table" then
-					ns.db.chunkLog = {}
-				end
-				local items, chunkCount = {}, 0
-				for _, id in ipairs(ids) do
-					local ok, name, _, quality = pcall(C_Item.GetItemInfo, id)
-					local isChunk = ChunkQuality(id) and true or false
-					if isChunk then
-						chunkCount = chunkCount + 1
-					end
-					items[#items + 1] = {
-						id = id,
-						name = (ok and name) or nil,
-						quality = (ok and quality) or nil,
-						isChunk = isChunk,
-					}
-				end
-				ns.db.chunkLog[#ns.db.chunkLog + 1] = {
-					items = items,
-					chunks = chunkCount,
-					before = before,
-					after = afterV and afterV.cur or nil,
-					gained = (afterV and afterV.cur and before) and (afterV.cur - before) or nil,
-				}
-			end)
-		end
+		-- The log is written by LogLootWindow, from the same single window as the
+		-- counter above. Two clocks for one question is how this went wrong twice.
 
 		Refresh()
 		return

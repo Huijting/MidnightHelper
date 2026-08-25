@@ -1,62 +1,81 @@
 # -*- coding: utf-8 -*-
-"""The control run: is the chunk log EMPTY?
-
-Rob killed things in a delve and looted nothing, and Valeera's standing rose. An empty log
-is the proof that no loot event fired -- without it we are trusting that autoloot stayed
-quiet, which is the one thing that could void the test.
-
-⚠️ Absence is only evidence if the probe can find something when it is there. So this also
-reports whether the key exists at all: "no chunkLog key" and "chunkLog with zero rows" are
-different answers, and only the second one means anything.
-"""
+"""Wat gebeurde er TUSSEN de loot-momenten? (= alles wat geen loot is)"""
 import io
-import os
+import re
 import sys
-import time
 
-for _s in (sys.stdout, sys.stderr):
-    try:
-        _s.reconfigure(encoding="utf-8", errors="replace")
-    except Exception:
-        pass
+PATH = (r"E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER"
+        r"\SavedVariables\MidnightHelper.lua")
 
-SV = r"E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua"
-print("file written: %s (%.1f minutes ago)" % (
-    time.strftime("%H:%M:%S", time.localtime(os.path.getmtime(SV))),
-    (time.time() - os.path.getmtime(SV)) / 60.0))
+sys.stdout.reconfigure(encoding="utf-8")
 
-lines = io.open(SV, encoding="utf-8", errors="replace").read().splitlines()
-start = next((n for n, l in enumerate(lines) if '["chunkLog"]' in l), None)
-if start is None:
-    print("\nNo chunkLog key at all -- logging was off, or the reload has not landed yet.")
-    print("That is NOT the same as 'nothing was looted'.")
-    raise SystemExit(0)
+with io.open(PATH, "r", encoding="utf-8", errors="replace") as fh:
+    lines = fh.read().split("\n")
 
-depth, end = 0, len(lines)
-for n in range(start, len(lines)):
-    depth += lines[n].count("{") - lines[n].count("}")
-    if n > start and depth <= 0:
-        end = n
+start = next((i for i, l in enumerate(lines) if '["chunkLog"]' in l), None)
+depth, end = 0, start
+for i in range(start, len(lines)):
+    depth += lines[i].count("{") - lines[i].count("}")
+    if depth == 0 and i > start:
+        end = i
         break
 
-rows, d = 0, 0
-for n in range(start + 1, end):
-    l = lines[n]
-    if d == 0 and l.strip() == "{":
-        rows += 1
-        d = 1
+events, cur = [], None
+for line in lines[start:end + 1]:
+    if '["items"]' in line:
+        cur = {"items": [], "gained": 0, "before": None, "after": None}
+        events.append(cur)
         continue
-    if d > 0:
-        d += l.count("{") - l.count("}")
-        if d <= 0:
-            d = 0
+    if cur is None:
+        continue
+    m = re.search(r'\["name"\] = "(.*?)"', line)
+    if m:
+        cur["items"].append(m.group(1))
+    m = re.search(r'\["(gained|before|after)"\] = (-?\d+)', line)
+    if m:
+        cur[m.group(1)] = int(m.group(2))
 
-print("\nchunkLog present: lines %d..%d" % (start, end))
-print("loot events recorded: %d" % rows)
-if rows == 0:
-    print("\n✅ EMPTY. No loot event fired, so the XP gain came from something that is not")
-    print("   loot -- the kills. The control holds.")
-else:
-    print("\n⚠️ NOT empty. Something was looted after all, so this run cannot settle it.")
-    for n in range(start, min(end, start + 40)):
-        print("   " + lines[n])
+# Echte winst per GROEP (rijen die dezelfde before+after delen tellen 1x).
+groups, i = [], 0
+while i < len(events):
+    j = i
+    while (j + 1 < len(events)
+           and events[j + 1]["before"] == events[i]["before"]
+           and events[j + 1]["after"] == events[i]["after"]):
+        j += 1
+    groups.append(events[i:j + 1])
+    i = j + 1
+
+real_loot = sum(g[0]["gained"] for g in groups)
+span = events[-1]["after"] - events[0]["before"]
+
+print("loot-momenten (rijen)      : %d" % len(events))
+print("werkelijke loot-gebeurtenissen: %d" % len(groups))
+print("")
+print("winst DOOR loot (ontdubbeld): %d" % real_loot)
+print("totale winst in de run      : %d" % span)
+print("winst BUITEN loot om        : %d" % (span - real_loot))
+print("")
+
+print("--- sprongen tussen twee loot-momenten (dus geen loot) ---")
+gaps = []
+for k in range(1, len(events)):
+    d = events[k]["before"] - events[k - 1]["after"]
+    if d > 0:
+        gaps.append(d)
+        note = ""
+        if d % 13 == 0:
+            note = "  (= %d x 13)" % (d // 13)
+        print("  na rij %2d: +%-7d%s" % (k, d, note))
+
+print("")
+print("aantal sprongen: %d" % len(gaps))
+print("som            : %d" % sum(gaps))
+small = [g for g in gaps if g < 1000]
+big = [g for g in gaps if g >= 1000]
+print("")
+print("kleine sprongen (<1000): %d stuks, som %d" % (len(small), sum(small)))
+if small:
+    print("  waarden: %s" % ", ".join(str(g) for g in sorted(set(small))))
+    print("  allemaal deelbaar door 13? %s" % all(g % 13 == 0 for g in small))
+print("grote sprongen (>=1000): %s" % (", ".join(str(g) for g in big) or "geen"))
