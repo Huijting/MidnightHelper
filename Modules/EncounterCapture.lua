@@ -310,8 +310,27 @@ end
 --- not a token this season, or these items are the tier and it drops as ordinary
 --- gear. The names cannot tell those apart. The tooltip can.
 ---
---- Only tier slots are checked; a trinket or a weapon can never be a set piece and
---- reading 300 tooltips to learn that would be work for nothing.
+--- 🔴 IT DOES NOT WORK, AND THE ONLY REASON WE KNOW IS THE POSITIVE CONTROL.
+---
+--- Measured 25 aug 2026. Across the whole capture there are 115 tier-slot drops. All
+--- 115 tooltips read cleanly -- zero unreadable, so this was not a cold cache -- and
+--- every single one came back with NO set line. Including The Voidspire, a Season 1
+--- raid that certainly had tier sets.
+---
+--- A test that answers "no" for a raid we know says "yes" is not measuring anything.
+--- The reason is that a set line counts YOUR equipped pieces ("(2/5)"), so an item
+--- the player does not own has no set context to render and the line never appears.
+--- TierSet.lua:49 works because it reads gear off the player's own body.
+---
+--- ⚠️ THIS WAS ONE STEP FROM SHIPPING. The Venomous Abyss had already come back with
+--- no class tokens, and this test agreeing would have made "Season 2 has no tier set"
+--- look confirmed from two directions. It is a large claim about the game and it was
+--- about to rest on an instrument that returns the same answer for everything.
+---
+--- So it no longer returns false, because false reads as "not a set piece" and that is
+--- a conclusion this cannot support. It records that the question was asked and cannot
+--- be answered from outside the player's own inventory. Left in place rather than
+--- deleted so the next person does not rebuild it.
 local TIER_SLOT_NAMES = {
 	Head = true, Shoulder = true, Chest = true, Hands = true, Legs = true,
 }
@@ -324,16 +343,17 @@ local function ReadItemSetLine(itemID, slot)
 	end
 	local ok, data = pcall(C_TooltipInfo.GetItemByID, itemID)
 	if not ok or type(data) ~= "table" or type(data.lines) ~= "table" then
-		-- Cold cache reads as "no tooltip", which is not the same as "not a set piece".
 		return "tooltip unreadable"
 	end
 	for _, line in ipairs(data.lines) do
 		local t = line and line.leftText
 		if type(t) == "string" and t:match("%((%d+)/%d+%)") then
+			-- Kept because a future patch may start rendering it. If this ever fires,
+			-- the comment above is out of date and the finding is real.
 			return t
 		end
 	end
-	return false -- read it, and it carries no set line
+	return "no set line — but this test cannot see one on unowned items (see comment)"
 end
 
 local function CaptureBossLoot(encounterID)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Tier-tokens in The Venomous Abyss, uit ns.db.ejCapture.
+"""Welke Abyss-drops dragen een set-regel in hun tooltip? Dat is de tier-test.
 
-Een class-token herken je NIET aan zijn naam (die verzin ik dan) maar aan de vorm:
-het bezet een tier-slot (head/shoulder/chest/hands/legs) en heeft GEEN armorType,
-want het is nog geen wapenrusting. We tonen alle vijf de slots zodat de conclusie
-te controleren is in plaats van te geloven.
+setLine kan drie dingen zijn en die mogen NIET op een hoop:
+  een tekst   -> het spel zegt zelf dat dit een setstuk is
+  false       -> tooltip gelezen, geen setregel  (echt geen tier)
+  een reden   -> tooltip niet leesbaar           (weten we niets)
 """
 import io
 import re
@@ -19,11 +19,8 @@ sys.stdout.reconfigure(encoding="utf-8")
 with io.open(SV, "r", encoding="utf-8", errors="replace") as fh:
     lines = fh.read().split("\n")
 
-# Het instance-blok begint bij de naamregel; loop terug naar de openende accolade.
-# ⚠️ NIET "de eerste regel die op { eindigt": sinds de vangst een lootFilters-blok
-# vóór de naam schrijft, is dat de accolade van dát blok en leest de probe vijf regels
-# in plaats van achthonderd. Tel accolades, dan maakt de volgorde niet uit.
-i = next(k for k, l in enumerate(lines) if l.strip() == '["name"] = "The Venomous Abyss",')
+i = next(k for k, l in enumerate(lines)
+         if l.strip() == '["name"] = "The Venomous Abyss",')
 bal, start = 0, i
 while start > 0:
     start -= 1
@@ -37,78 +34,109 @@ for k in range(start, len(lines)):
         end = k
         break
 
-block = lines[start:end + 1]
-print("The Venomous Abyss: regel %d-%d" % (start + 1, end + 1))
-
-# Bosses liggen op een vaste diepte; we volgen ["index"] als bossgrens en
-# verzamelen de items ertussen.
-boss_no, boss_items, bosses = None, [], []
-cur = {}
-for line in block:
+boss_no, items, bosses, cur = None, [], [], {}
+for line in lines[start:end + 1]:
     s = line.strip()
     m = re.match(r'\["index"\] = (\d+),$', s)
     if m:
         if boss_no is not None:
-            bosses.append((boss_no, boss_items))
-        boss_no, boss_items = int(m.group(1)), []
+            bosses.append((boss_no, items))
+        boss_no, items = int(m.group(1)), []
         continue
-    m = re.match(r'\["(itemID|slot|armorType|filterType|name)"\] = (.*),$', s)
+    m = re.match(r'\["(itemID|slot|armorType|name|setLine)"\] = (.*),$', s)
     if m:
-        cur[m.group(1)] = m.group(2).strip('"')
+        v = m.group(2).strip()
+        cur[m.group(1)] = (v == "true") if v in ("true", "false") else v.strip('"')
+        if v == "false":
+            cur[m.group(1)] = False
         continue
     if s == "}," and "itemID" in cur:
-        boss_items.append(cur)
+        items.append(cur)
         cur = {}
         continue
     if s.endswith("{"):
         cur = {}
 if boss_no is not None:
-    bosses.append((boss_no, boss_items))
+    bosses.append((boss_no, items))
 
-# Bossnamen uit onze eigen tabel, in volgorde.
 NAMES = ["Nek'zali the Soulcoiler", "Entombed Sentinels", "The Lost Explorers",
          "Vashnik the Malignant", "Sszorak", "The Twin Fangs",
          "The Coiled Altar", "Ula'tek"]
 
-print("bosses met loot: %d" % len(bosses))
+setpieces, plain, unread = [], [], []
+for no, its in bosses:
+    for it in its:
+        if it.get("slot") not in TIER_SLOTS:
+            continue
+        sl = it.get("setLine")
+        row = (no, NAMES[no - 1] if no <= len(NAMES) else str(no),
+               it.get("name", "?"), it.get("armorType") or "-", sl)
+        if sl is False:
+            plain.append(row)
+        elif isinstance(sl, str) and sl in ("tooltip unreadable",
+                                            "no C_TooltipInfo.GetItemByID"):
+            unread.append(row)
+        elif isinstance(sl, str):
+            setpieces.append(row)
+        else:
+            unread.append(row)
+
+print("tier-slot drops in The Venomous Abyss: %d"
+      % (len(setpieces) + len(plain) + len(unread)))
+print("  met setregel        : %d" % len(setpieces))
+print("  gelezen, geen set   : %d" % len(plain))
+print("  tooltip onleesbaar  : %d   <- hierover weten we NIETS" % len(unread))
 print("")
-tokens = []
-for no, items in bosses:
-    nm = NAMES[no - 1] if no <= len(NAMES) else ("boss %d" % no)
-    print("-- %d. %s  (%d items)" % (no, nm, len(items)))
-    for it in items:
-        mark = ""
-        if it.get("slot") in TIER_SLOTS and not it.get("armorType"):
-            mark = "  <== tier-slot zonder armorType"
-            tokens.append((no, nm, it))
-        print("     %-36s slot=%-10s armor=%-9s filter=%-3s id=%s%s"
-              % (it.get("name", "?")[:36], it.get("slot", "") or "-",
-                 it.get("armorType", "") or "-", it.get("filterType", "-"),
-                 it.get("itemID"), mark))
+
+if setpieces:
+    print("=== SETSTUKKEN (het spel zegt het zelf) ===")
+    for no, boss, nm, armor, sl in setpieces:
+        print("  boss %d  %-34s %-8s  %s" % (no, nm[:34], armor, sl))
     print("")
 
-print("=== samenvatting ===")
-print("items zonder armorType op een tier-slot: %d" % len(tokens))
-for no, nm, it in tokens:
-    print("   %s  (boss %d, %s)" % (it.get("name"), no, nm))
+if unread:
+    print("=== onleesbaar ===")
+    for no, boss, nm, armor, sl in unread[:12]:
+        print("  boss %d  %-34s %-8s  %s" % (no, nm[:34], armor, sl))
+    print("")
 
-print("")
-print("=== per pantsertype: welke boss geeft welk tier-slot? ===")
-grid = {}
-for no, items in bosses:
-    for it in items:
-        a, s = it.get("armorType"), it.get("slot")
-        if a in ("Cloth", "Leather", "Mail", "Plate") and s in TIER_SLOTS:
-            grid.setdefault(a, {}).setdefault(s, []).append((no, it.get("name")))
+print("=== gelezen, GEEN setregel ===")
+for no, boss, nm, armor, sl in plain:
+    print("  boss %d  %-34s %s" % (no, nm[:34], armor))
 
-order = ["Head", "Shoulder", "Chest", "Hands", "Legs"]
-print("%-9s %s" % ("", "  ".join("%-9s" % s for s in order)))
-for a in ("Cloth", "Leather", "Mail", "Plate"):
-    row = []
-    for s in order:
-        hits = grid.get(a, {}).get(s, [])
-        row.append("%-9s" % (",".join(str(h[0]) for h in hits) or "-"))
-    print("%-9s %s" % (a, "  ".join(row)))
+# ---------------------------------------------------------------------------
+# POSITIEVE CONTROLE. Nul setregels kan twee dingen betekenen: deze raid heeft
+# geen tier, OF de test werkt niet. Season 1 HAD tier-sets, dus als The Voidspire
+# er ook nul geeft, is mijn test kapot en zegt de uitkomst hierboven niets.
+# ---------------------------------------------------------------------------
 print("")
-print("(cijfers = bossnummer. Een compleet stel op alle vijf de slots betekent dat")
-print(" tier hier als GEWONE uitrusting valt en niet als class-token.)")
+print("=== POSITIEVE CONTROLE: setregels in de HELE vangst ===")
+whole = "\n".join(lines)
+tot = len(re.findall(r'\["setLine"\] = ', whole))
+false_n = len(re.findall(r'\["setLine"\] = false,', whole))
+unread_n = len(re.findall(r'\["setLine"\] = "tooltip unreadable"', whole))
+noapi_n = len(re.findall(r'\["setLine"\] = "no C_TooltipInfo', whole))
+real = tot - false_n - unread_n - noapi_n
+print("  setLine-velden totaal : %d" % tot)
+print("  false (geen set)      : %d" % false_n)
+print("  onleesbaar            : %d" % unread_n)
+print("  API ontbrak           : %d" % noapi_n)
+print("  ECHTE setregels       : %d" % real)
+if real:
+    print("")
+    print("  voorbeelden:")
+    seen = set()
+    for m in re.finditer(r'\["setLine"\] = "(.*?)",', whole):
+        t = m.group(1)
+        if t.startswith("tooltip") or t.startswith("no C_Tooltip") or t in seen:
+            continue
+        seen.add(t)
+        print("     %s" % t)
+        if len(seen) >= 8:
+            break
+else:
+    print("")
+    print("  ⚠️ NUL in de hele vangst, ook in Season 1-raids die wel tier hadden.")
+    print("     Dan bewijst de uitslag hierboven NIETS over de Abyss -- dan is de")
+    print("     test zelf stuk (waarschijnlijk geeft GetItemByID geen setregel voor")
+    print("     een item dat je niet bezit).")
