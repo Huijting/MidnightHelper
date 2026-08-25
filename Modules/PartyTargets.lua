@@ -70,6 +70,157 @@ end
 local panel, rows
 local clicks = {}   -- left half: the group member
 local tclicks = {}  -- right half: whatever that member is looking at
+local glows = {}    -- per row: Blizzard's aura container, drawing "you can remove this"
+
+--- 🔴 WE NEVER READ THE AURA. BLIZZARD DECIDES; WE ONLY DECORATE.
+---
+--- The obvious build — scan an ally's debuffs, compare against what this spec can
+--- remove, colour the row — cannot work on 12.1. Another unit's aura data is secret in
+--- combat inside an instance, which is exactly when it matters. Our own API watch wrote
+--- that off on 24 aug as "you can show group dispels but not read them".
+---
+--- HexBreak 0.6.12 does it anyway, and their comment says how (Core.lua:1842): they
+--- never read the payload either. They ask Blizzard for an aura container filtered to
+--- HARMFUL|RAID — the game's own idea of "dispellable by me" — and hang static artwork
+--- on the slot. Blizzard shows the slot or does not; the red wash comes with it. The
+--- addon never learns what the aura is, and does not need to.
+---
+--- ⚠️ STATIC ARTWORK ONLY, NO SCRIPTS. 12.1 puts UntrustedScriptExecution on
+--- AuraButtons, so an OnShow handler here is not a reliable trigger. That rules out a
+--- sound, a count, a priority, or any Lua reacting to it. Textures parented to the slot
+--- are shown and hidden by the engine along with it, and that is the whole mechanism.
+---
+--- ⚠️ AND IT MUST NOT EAT CLICKS. The row underneath is a secure button; a container
+--- swallowing the mouse would break the dispel it is advertising.
+local DISPEL_FILTER = "HARMFUL|RAID"
+local glowUnavailable  -- a reason string, so a silent nothing is never the answer
+
+local function PaintDispelSlot(slot)
+	if slot.SetMouseClickEnabled then
+		pcall(slot.SetMouseClickEnabled, slot, false)
+	end
+	if slot.SetMouseMotionEnabled then
+		pcall(slot.SetMouseMotionEnabled, slot, false)
+	end
+	pcall(slot.SetAllPoints, slot)
+
+	local wash = slot:CreateTexture(nil, "OVERLAY", nil, 1)
+	wash:SetAllPoints()
+	wash:SetColorTexture(0.62, 0.02, 0.02, 0.30)
+
+	local edge = slot:CreateTexture(nil, "OVERLAY", nil, 2)
+	edge:SetPoint("TOPLEFT", -2, 2)
+	edge:SetPoint("BOTTOMRIGHT", 2, -2)
+	edge:SetColorTexture(1, 0.08, 0.02, 0.22)
+	edge:SetBlendMode("ADD")
+end
+
+--- One container per row. Created once, then rebound as the roster moves.
+function EnsureDispelGlow(i)
+	if glows[i] or glowUnavailable or not panel then
+		return
+	end
+	if not (C_AddOns and C_AddOns.LoadAddOn) then
+		glowUnavailable = "C_AddOns.LoadAddOn missing"
+		return
+	end
+	pcall(C_AddOns.LoadAddOn, "Blizzard_AuraContainer")
+	-- Validate the filter rather than assume it: a wrong string would give a container
+	-- that quietly never fires, which looks exactly like "nothing to dispel".
+	if not (AuraUtil and AuraUtil.IsValidFilterString) then
+		glowUnavailable = "AuraUtil.IsValidFilterString missing"
+		return
+	end
+	local okF, valid = pcall(AuraUtil.IsValidFilterString, DISPEL_FILTER)
+	if not okF or valid ~= true then
+		glowUnavailable = "filter rejected: " .. DISPEL_FILTER
+		return
+	end
+	local okC, c = pcall(CreateFrame, "AuraContainer", nil, panel, "CustomAuraContainerTemplate")
+	if not okC or not c then
+		glowUnavailable = "CustomAuraContainerTemplate: " .. tostring(c)
+		return
+	end
+	pcall(c.SetPoint, c, "TOPLEFT", panel, "TOPLEFT", PAD - 2, RowTop(i))
+	pcall(c.SetPoint, c, "TOPRIGHT", panel, "TOPRIGHT", -PAD + 2, RowTop(i))
+	pcall(c.SetHeight, c, ROW_H)
+	if not (c.SetUnit and c.AddAuraSlot and c.SetEnabled) then
+		glowUnavailable = "AuraContainer is missing SetUnit/AddAuraSlot/SetEnabled"
+		return
+	end
+	-- ⚠️ ORDER IS LOAD-BEARING, and it is HexBreak's, tested on live 12.1:
+	-- SetUnit -> AddAuraSlot -> Show -> SetEnabled -> UpdateAllAuras.
+	pcall(c.SetUnit, c, "none")
+	local okS = pcall(c.AddAuraSlot, c, "mhPartyDispel", DISPEL_FILTER, {
+		initializeFrame = PaintDispelSlot,
+	})
+	if not okS then
+		glowUnavailable = "AddAuraSlot failed"
+		return
+	end
+	glows[i] = c
+end
+
+--- Why is there no red wash? Answer it out loud instead of leaving a blank screen.
+---
+--- ⚠️ "No glow" has four causes that look identical: the container never built, the
+--- filter was rejected, this character has no dispel, or there is genuinely nothing to
+--- remove. Only the last is good news, and without this they are indistinguishable —
+--- the exact trap that cost most of this afternoon.
+function ns.PrintPartyDispelGlowStatus()
+	local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
+	print(prefix .. " party dispel glow:")
+	if glowUnavailable then
+		print("   |cffff5555not available:|r " .. tostring(glowUnavailable))
+	else
+		local n = 0
+		for i = 1, MAX_ROWS do
+			if glows[i] then
+				n = n + 1
+			end
+		end
+		print(("   containers built: %d of %d   filter=%s"):format(n, MAX_ROWS, DISPEL_FILTER))
+		if n == 0 then
+			print("   |cff8a8f98None yet -- they are built with the panel, so open it in a group first.|r")
+		end
+	end
+	local icon, id = nil, nil
+	if ns.GetPlayerDispelIcon then
+		icon, id = ns.GetPlayerDispelIcon()
+	end
+	if id then
+		print(("   your dispel: spell %d  (right-click the left half of a row)"):format(id))
+	else
+		print("   |cff8a8f98This character has no dispel, so no row will ever glow.|r")
+	end
+	local pid
+	if ns.GetPlayerPurgeIcon then
+		local _, v = ns.GetPlayerPurgeIcon()
+		pid = v
+	end
+	print(pid and ("   your purge : spell %d  (right-click the right half)"):format(pid)
+		or "   |cff8a8f98This character has no purge.|r")
+end
+
+--- Point a row's container at a unit, or park it.
+---
+--- ⚠️ NEVER SetEnabled(false) TO REBIND. On 12.1 that clears the container's own
+--- AuraButtons, taking our artwork with it (HexBreak Core.lua:2093). SetUnit on a
+--- configured container is legal; Show and SetEnabled(true) then re-arm it.
+local function BindDispelGlow(i, unit)
+	local c = glows[i]
+	if not c then
+		return
+	end
+	pcall(c.SetUnit, c, unit or "none")
+	pcall(c.SetShown, c, unit ~= nil)
+	if unit then
+		pcall(c.SetEnabled, c, true)
+		if c.UpdateAllAuras then
+			pcall(c.UpdateAllAuras, c)
+		end
+	end
+end
 
 --- Put this spec's dispel on the member half and its purge on the target half.
 ---
@@ -263,6 +414,9 @@ local function EnsurePanel()
 	rows = {}
 	for i = 1, MAX_ROWS do
 		local row = {}
+		-- A red wash over this row when the game says there is something here you can
+		-- remove. Built after the row's artwork so it draws on top of the stripe.
+		EnsureDispelGlow(i)
 
 		-- Faint stripe on every second row. The hover highlight tells you which row
 		-- you are ON; this tells you where one row ends and the next begins, which
@@ -742,6 +896,10 @@ local function Refresh()
 			else
 				row.dispel:Hide()
 			end
+			-- The red wash, bound to this row's current occupant. Only for a character
+			-- that HAS a dispel: the container would otherwise light up rows for
+			-- somebody who can do nothing about them.
+			BindDispelGlow(i, dispelIcon and unit or nil)
 			-- A party member's own name reads normally; only their enemy target is
 			-- protected. Both are passed straight to SetText regardless — the widget
 			-- accepts a secret, we simply never look at one.
@@ -785,6 +943,10 @@ local function Refresh()
 			row.roleLetter:Hide()
 			row.marker:Hide()
 			row.dispel:Hide()
+			-- Park the container too: same reason as the stripe below. An unbound
+			-- aura container left on a shrunken panel would keep watching whoever
+			-- used to sit here.
+			BindDispelGlow(i, nil)
 			-- The panel shrinks to fit the rows it uses, and a texture is not
 			-- clipped by its parent: a stripe left showing would hang below the
 			-- border as a floating grey bar.

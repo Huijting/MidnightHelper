@@ -1161,6 +1161,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh glow — waarom licht een rij niet rood op? Vier oorzaken zien er hetzelfde
+	-- uit en maar één daarvan is goed nieuws.
+	if msg == "glow" then
+		if ns.PrintPartyDispelGlowStatus then
+			ns.PrintPartyDispelGlowStatus()
+		end
+		return
+	end
+
 	-- /mh here [notitie] — schrijf op waar je staat (en wat je aanklikt). Lijst, geen
 	-- slot: een rondje lopen en daarna één reload is het hele idee.
 	if msg == "here" or msg:match("^here%s+") then
