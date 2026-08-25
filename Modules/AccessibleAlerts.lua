@@ -119,12 +119,36 @@ function ns.ShowAccessibleAlertTest()
 	Show(ns:L("ALERT_TEST"), a and a.sound)
 end
 
+--- Scope of the ACCESSIBILITY alert: dungeons and scenarios, as the header says and as
+--- Rob asked for. Deliberate, unchanged.
 local function InInstanceForAlerts()
 	if not IsInInstance then
 		return false
 	end
 	local inInst, kind = IsInInstance()
 	return inInst and (kind == "party" or kind == "scenario") or false
+end
+
+--- 🔴 SCOPE OF THE DISPEL ALERT — ITS OWN, AND RAIDS ARE IN IT.
+---
+--- The dispel alert was hooked into this scan on 27 jul, and the comment there explains
+--- why sharing the scan was right: one UNIT_AURA handler, one cooldown, no doubled work.
+--- What nobody separated was the GATE. It silently inherited a scope chosen for a
+--- different feature — "dungeons and scenarios", picked for Rob's sister and dangerous
+--- debuffs — and so said nothing in a raid, which is where dispelling matters most.
+---
+--- Found 25 aug because Rob logged onto a druid and saw another addon shout at him about a
+--- removable debuff. Ours would have stayed quiet: he was not in a party instance.
+---
+--- ⚠️ Open world deliberately still excluded, pending Rob's call. A dispellable debuff out
+--- there is constant and a flashing warning for every one of them is how a good alert
+--- teaches people to ignore it. Raids are not a judgement call; the world is.
+local function InInstanceForDispelAlert()
+	if not IsInInstance then
+		return false
+	end
+	local inInst, kind = IsInInstance()
+	return inInst and (kind == "party" or kind == "scenario" or kind == "raid") or false
 end
 
 local function ScanDebuffs()
@@ -138,7 +162,11 @@ local function ScanDebuffs()
 	if not (wantAccessible or wantDispel) then
 		return
 	end
-	if not InInstanceForAlerts() then
+	-- Each feature answers to its own scope. Sharing the scan is right; sharing the gate
+	-- was not, and it kept the dispel alert silent in raids (see InInstanceForDispelAlert).
+	wantAccessible = wantAccessible and InInstanceForAlerts()
+	wantDispel = wantDispel and InInstanceForDispelAlert()
+	if not (wantAccessible or wantDispel) then
 		return
 	end
 	local now = (GetTime and GetTime()) or 0
@@ -162,7 +190,7 @@ local function ScanDebuffs()
 		-- in here rather than given its own UNIT_AURA handler, so both features
 		-- share this scan, this global cooldown and this per-spell cooldown instead
 		-- of doubling the work on every aura change.
-		if ns.GetDispelAlertFor and (lastBySpell[id] or 0) + PER_SPELL_GAP <= now then
+		if wantDispel and ns.GetDispelAlertFor and (lastBySpell[id] or 0) + PER_SPELL_GAP <= now then
 			local msg = ns.GetDispelAlertFor(aura)
 			if msg then
 				lastBySpell[id] = now
