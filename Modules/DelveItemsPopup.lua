@@ -324,12 +324,24 @@ local function PlayerCarriesUnusableDelveItem(itemID)
 	if type(IsUsableItem) ~= "function" then
 		return false
 	end
-	-- an uncached item reads as unusable, which can mark it used on disk
-	if C_Item and C_Item.IsItemDataCachedByID and not C_Item.IsItemDataCachedByID(itemID) then
-		if C_Item.RequestLoadItemDataByID then
-			C_Item.RequestLoadItemDataByID(itemID)
+	--- An uncached item reads as unusable, and this function's `true` is written to
+	--- disk as "already used this run". So in the moment after a /reload inside a
+	--- delve, before bags are populated, it would mark consumables the player has not
+	--- touched -- permanently for that run. Found by AndyMM22 (PR #4), independently
+	--- of the four times the same shape bit us on 25 aug: an empty answer read as a
+	--- real one.
+	---
+	--- ⚠️ pcall added on merge. VaultAdvisor.lua:415 already wraps this exact call, and
+	--- the existence check alone only covers "the API is missing" -- not "the API threw
+	--- on an odd id", which here would break the popup outright.
+	if C_Item and C_Item.IsItemDataCachedByID then
+		local okCache, cached = pcall(C_Item.IsItemDataCachedByID, itemID)
+		if okCache and not cached then
+			if C_Item.RequestLoadItemDataByID then
+				pcall(C_Item.RequestLoadItemDataByID, itemID)
+			end
+			return false
 		end
-		return false
 	end
 	if IsUsableItem(itemID) == true then
 		return false
