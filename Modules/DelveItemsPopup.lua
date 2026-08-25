@@ -753,21 +753,26 @@ end
 
 RebuildSpellIdMap()
 
+local activeCache, activeCacheAt = {}, 0
+
 function ns:IsDelveConsumableActive(itemID)
 	SyncDelveConsumableSession()
 	if delveConsumablesUsed[itemID] then
 		return true
 	end
-	if PlayerHasActiveBuffsForItem(itemID) then
-		return true
+	local now = GetTime()
+	if now - activeCacheAt > 0.5 then
+		activeCache, activeCacheAt = {}, now
 	end
-	if PlayerHasDelveConsumableUseLock(itemID) then
-		return true
+	local cached = activeCache[itemID]
+	if cached ~= nil then
+		return cached
 	end
-	if PlayerCarriesUnusableDelveItem(itemID) then
-		return true
-	end
-	return false
+	local active = PlayerHasActiveBuffsForItem(itemID)
+		or PlayerHasDelveConsumableUseLock(itemID)
+		or PlayerCarriesUnusableDelveItem(itemID)
+	activeCache[itemID] = active
+	return active
 end
 
 function ns:ShouldAdviseDelveConsumable(itemID)
@@ -1007,8 +1012,13 @@ local function GetPopupSecureForRow(row)
 		btn:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 		btn:Hide()
 	end
+	if btn._mhConfiguredFor == row.itemID then
+		btn._row = row
+		return btn
+	end
 	btn:RegisterForClicks("AnyUp", "AnyDown")
 	ApplyPopupSlotSecureAction(btn, row.itemID)
+	btn._mhConfiguredFor = row.itemID
 	EnsurePopupSecureHitTexture(btn)
 	btn._row = row
 	btn._mhSecureUseSlot = true
@@ -1629,6 +1639,12 @@ local function EnsurePopupFrame()
 			end
 			return
 		end
+		self._mhTickElapsed = (self._mhTickElapsed or 0) + elapsed
+		if self._mhTickElapsed < 0.25 then
+			return
+		end
+		elapsed = self._mhTickElapsed
+		self._mhTickElapsed = 0
 		if InCombatLockdown() and IsDelveItemsUiAllowed() then
 			self._mhCombatStateElapsed = (self._mhCombatStateElapsed or 0) + elapsed
 			if self._mhCombatStateElapsed >= 0.5 then
