@@ -175,6 +175,54 @@ local function ReturnDifficulty(prev)
 	end
 end
 
+--- What one boss drops, straight from the Adventure Guide.
+---
+--- ⚠️ WHY THIS EXISTS. The tier-set guide tells players which raid bosses drop their
+--- class token. That text was written for Season 1 and still names The Voidspire and
+--- The Dreamrift, while Season 2 runs on The Venomous Abyss — so as of 12.1 it sends
+--- people to last season's raid. Rather than retype it from a website, ask the client
+--- which bosses actually drop the tokens now.
+---
+--- ⚠️ UNPROVEN API. Every other EJ_ call in this file is used elsewhere and works;
+--- these four are not, so nothing here assumes they exist. If they are missing the
+--- capture records that fact instead of an empty list, because "no loot" and "we could
+--- not ask" are different answers and only one of them is worth acting on.
+---
+--- EJ_SelectEncounter is required before reading: the loot list belongs to whatever
+--- encounter the journal currently has selected, not to an id you pass in.
+local function CaptureBossLoot(encounterID)
+	if not encounterID then
+		return nil
+	end
+	if not (EJ_SelectEncounter and EJ_GetNumLoot and EJ_GetLootInfoByIndex) then
+		return { unavailable = "EJ loot API missing on this client" }
+	end
+	if not pcall(EJ_SelectEncounter, encounterID) then
+		return { unavailable = "EJ_SelectEncounter failed" }
+	end
+	local okN, n = pcall(EJ_GetNumLoot)
+	if not okN or type(n) ~= "number" then
+		return { unavailable = "EJ_GetNumLoot gave nothing" }
+	end
+	local out = { count = n, items = {} }
+	for i = 1, n do
+		local okL, info = pcall(EJ_GetLootInfoByIndex, i)
+		if okL and type(info) == "table" then
+			out.items[#out.items + 1] = {
+				itemID = info.itemID,
+				name = info.name,
+				slot = info.slot,
+				armorType = info.armorType,
+				-- The journal marks a class token's classes here; it is the field that
+				-- says "this is tier" without matching on a name we would have to guess.
+				filterType = info.filterType,
+				encounterID = info.encounterID,
+			}
+		end
+	end
+	return out
+end
+
 --- Every boss of one instance: encounterID + the creature ids behind it.
 local function DumpInstance(instanceID, label, diff)
 	local prefix = ejPrefix()
@@ -245,6 +293,7 @@ local function CollectInstance(instanceID, name, isRaid, diff)
 			break
 		end
 		local boss = { index = i, name = bossName, encounterID = encounterID, creatures = {} }
+		boss.loot = CaptureBossLoot(encounterID)
 		if EJ_GetCreatureInfo and encounterID then
 			for c = 1, 10 do
 				local okC, ejCreature, creatureName, _, displayID = pcall(EJ_GetCreatureInfo, c, encounterID)
