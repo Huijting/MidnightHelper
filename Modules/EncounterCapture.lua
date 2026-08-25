@@ -255,6 +255,17 @@ local function WithLootFiltersCleared(fn)
 	end
 	if type(EJ_SetLootFilter) == "function" then
 		note.clearedClass = pcall(EJ_SetLootFilter, 0, 0) or nil
+		-- ⚠️ pcall succeeding says the CALL worked, not that the list rebuilt. Pass one
+		-- reported clearedClass=true and still returned nothing but Leather, which is
+		-- Rob's druid. Record what the journal says the filter is NOW, so the next
+		-- capture proves the clear instead of asserting it.
+		if type(EJ_GetLootFilter) == "function" then
+			local okAfter, c, s = pcall(EJ_GetLootFilter)
+			if okAfter then
+				note.classAfterClear = c
+				note.specAfterClear = s
+			end
+		end
 	else
 		note.clearedClass = false
 	end
@@ -426,7 +437,47 @@ end
 ---
 --- ⚠️ SavedVariables are only flushed on /reload or logout. Without that step the
 --- file on disk still holds the previous session and looks like the capture failed.
-function ns.SaveEncounterJournalCapture()
+--- 🔴 TWO PASSES, AND THE FIRST ONE IS THROWN AWAY ON PURPOSE.
+---
+--- Three captures in a row came back wrong in three different ways, and all three had
+--- the same shape: ask and read in the same breath.
+---
+---   1. loot API "missing"  -- one bare name had moved namespace
+---   2. 5-9 items a boss    -- the journal's slot filter was still on
+---   3. every piece Leather -- the CLASS filter reported cleared and was not, because
+---                             EJ_SetLootFilter does not rebuild the list synchronously
+---
+--- On top of that roughly half the items came back with no name at all: item data is a
+--- cache, and an id nobody has looked at is cold. Reading it once returns "?" and
+--- writing that down would have meant a token list with holes exactly where the
+--- unlooked-at items are -- which is to say, exactly where the tokens are.
+---
+--- So the first pass exists only to warm things up: it clears the filters, walks every
+--- boss, and requests item data for every id it sees. The second pass, a beat later,
+--- is the one that gets saved. Rob asked for this to be done properly rather than
+--- quickly, which is the only reason it now is.
+local function RequestAllLootItemData(cap)
+	if not (C_Item and C_Item.RequestLoadItemDataByID) then
+		return 0
+	end
+	local n, seen = 0, {}
+	for _, inst in ipairs(cap.instances or {}) do
+		for _, boss in ipairs(inst.bosses or {}) do
+			local loot = boss.loot
+			for _, it in ipairs((loot and loot.items) or {}) do
+				local id = tonumber(it.itemID)
+				if id and not seen[id] then
+					seen[id] = true
+					n = n + 1
+					pcall(C_Item.RequestLoadItemDataByID, id)
+				end
+			end
+		end
+	end
+	return n
+end
+
+function ns.SaveEncounterJournalCapture(isSecondPass)
 	local prefix = ejPrefix()
 	if not (EJ_GetInstanceByIndex and EJ_GetEncounterInfoByIndex) then
 		print(prefix .. " Encounter Journal API not available.")
@@ -469,9 +520,41 @@ function ns.SaveEncounterJournalCapture()
 		ReturnDifficulty(restore)
 	end
 
+	if not isSecondPass then
+		-- Pass one is the warm-up: it is NOT saved. Ask for everything, then read it
+		-- back a beat later, because none of this answers in the same frame.
+		local asked = RequestAllLootItemData(cap)
+		print(("%s pass 1: asked the server for %d items and cleared the journal's filters."):format(
+			prefix, asked))
+		print("   |cff8a8f98Reading again in a moment -- the first read is thrown away on purpose.|r")
+		if C_Timer and C_Timer.After then
+			C_Timer.After(3, function()
+				ns.SaveEncounterJournalCapture(true)
+			end)
+			return
+		end
+		-- No timer available: save what we have rather than nothing, and say so.
+		cap.warning = "single pass only (no C_Timer); names and filters may be stale"
+	end
+
 	ns.db.ejCapture = cap
+	local named, total = 0, 0
+	for _, inst in ipairs(cap.instances) do
+		for _, boss in ipairs(inst.bosses or {}) do
+			for _, it in ipairs((boss.loot and boss.loot.items) or {}) do
+				total = total + 1
+				if it.name and it.name ~= "" then
+					named = named + 1
+				end
+			end
+		end
+	end
 	print(("%s captured %d instances, %d bosses, tier %s (%s)."):format(
 		prefix, #cap.instances, totalBosses, tostring(tier), tostring(tierName or "?")))
+	-- The named/total ratio is the honest health check: a low one means the cache was
+	-- still cold and the capture should not be trusted for anything item-shaped.
+	print(("   loot: %d items, %d with a readable name (%d%%)."):format(
+		total, named, total > 0 and math.floor(named / total * 100) or 0))
 	print("   |cffffff78Now type /reload|r -- SavedVariables only reach disk on reload or logout.")
 end
 

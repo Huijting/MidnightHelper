@@ -20,10 +20,16 @@ with io.open(SV, "r", encoding="utf-8", errors="replace") as fh:
     lines = fh.read().split("\n")
 
 # Het instance-blok begint bij de naamregel; loop terug naar de openende accolade.
+# ⚠️ NIET "de eerste regel die op { eindigt": sinds de vangst een lootFilters-blok
+# vóór de naam schrijft, is dat de accolade van dát blok en leest de probe vijf regels
+# in plaats van achthonderd. Tel accolades, dan maakt de volgorde niet uit.
 i = next(k for k, l in enumerate(lines) if l.strip() == '["name"] = "The Venomous Abyss",')
-start = i - 1
-while not lines[start].strip().endswith("{"):
+bal, start = 0, i
+while start > 0:
     start -= 1
+    bal += lines[start].count("}") - lines[start].count("{")
+    if bal < 0:
+        break
 depth, end = 0, start
 for k in range(start, len(lines)):
     depth += lines[k].count("{") - lines[k].count("}")
@@ -69,15 +75,16 @@ print("")
 tokens = []
 for no, items in bosses:
     nm = NAMES[no - 1] if no <= len(NAMES) else ("boss %d" % no)
-    tier = [it for it in items
-            if it.get("slot") in TIER_SLOTS and not it.get("armorType")]
-    print("-- %d. %s  (%d items, %d zonder armorType op een tier-slot)"
-          % (no, nm, len(items), len(tier)))
-    for it in tier:
-        print("     %-34s %-9s filter=%s  id=%s"
-              % (it.get("name", "?")[:34], it.get("slot"),
-                 it.get("filterType", "-"), it.get("itemID")))
-        tokens.append((no, nm, it))
+    print("-- %d. %s  (%d items)" % (no, nm, len(items)))
+    for it in items:
+        mark = ""
+        if it.get("slot") in TIER_SLOTS and not it.get("armorType"):
+            mark = "  <== tier-slot zonder armorType"
+            tokens.append((no, nm, it))
+        print("     %-36s slot=%-10s armor=%-9s filter=%-3s id=%s%s"
+              % (it.get("name", "?")[:36], it.get("slot", "") or "-",
+                 it.get("armorType", "") or "-", it.get("filterType", "-"),
+                 it.get("itemID"), mark))
     print("")
 
 print("=== samenvatting ===")
