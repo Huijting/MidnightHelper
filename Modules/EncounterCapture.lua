@@ -296,6 +296,46 @@ local function WithLootFiltersCleared(fn)
 	return note
 end
 
+--- Is this loot item part of a set, in the game's own words?
+---
+--- ⚠️ NOT a guess from the item's name or its filterType. TierSet.lua already knows
+--- the authoritative marker and has used it for months: a set piece carries a
+--- "(n/5)" line in its own tooltip, and that is how the equipped-piece counter works
+--- (TierSet.lua:49). The same test applied to a journal item answers "is this tier"
+--- without inventing a rule.
+---
+--- Why it is needed at all: The Venomous Abyss turned out to contain no class tokens.
+--- Every armour piece has a real armour type, and no armour type gets all five tier
+--- slots -- cloth has no chest, mail no hands, plate no shoulder. So either tier is
+--- not a token this season, or these items are the tier and it drops as ordinary
+--- gear. The names cannot tell those apart. The tooltip can.
+---
+--- Only tier slots are checked; a trinket or a weapon can never be a set piece and
+--- reading 300 tooltips to learn that would be work for nothing.
+local TIER_SLOT_NAMES = {
+	Head = true, Shoulder = true, Chest = true, Hands = true, Legs = true,
+}
+local function ReadItemSetLine(itemID, slot)
+	if not itemID or not slot or not TIER_SLOT_NAMES[slot] then
+		return nil
+	end
+	if not (C_TooltipInfo and C_TooltipInfo.GetItemByID) then
+		return "no C_TooltipInfo.GetItemByID"
+	end
+	local ok, data = pcall(C_TooltipInfo.GetItemByID, itemID)
+	if not ok or type(data) ~= "table" or type(data.lines) ~= "table" then
+		-- Cold cache reads as "no tooltip", which is not the same as "not a set piece".
+		return "tooltip unreadable"
+	end
+	for _, line in ipairs(data.lines) do
+		local t = line and line.leftText
+		if type(t) == "string" and t:match("%((%d+)/%d+%)") then
+			return t
+		end
+	end
+	return false -- read it, and it carries no set line
+end
+
 local function CaptureBossLoot(encounterID)
 	if not encounterID then
 		return nil
@@ -317,16 +357,16 @@ local function CaptureBossLoot(encounterID)
 	for i = 1, n do
 		local okL, info = pcall(api.lootByIndex, i)
 		if okL and type(info) == "table" then
-			out.items[#out.items + 1] = {
+			local row = {
 				itemID = info.itemID,
 				name = info.name,
 				slot = info.slot,
 				armorType = info.armorType,
-				-- The journal marks a class token's classes here; it is the field that
-				-- says "this is tier" without matching on a name we would have to guess.
 				filterType = info.filterType,
 				encounterID = info.encounterID,
 			}
+			row.setLine = ReadItemSetLine(info.itemID, info.slot)
+			out.items[#out.items + 1] = row
 		end
 	end
 	return out

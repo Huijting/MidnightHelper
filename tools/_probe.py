@@ -88,10 +88,27 @@ for no, items in bosses:
     print("")
 
 print("=== samenvatting ===")
-print("kandidaat-tokens: %d" % len(tokens))
-slots = {}
+print("items zonder armorType op een tier-slot: %d" % len(tokens))
 for no, nm, it in tokens:
-    slots.setdefault(it.get("slot"), []).append("%d. %s" % (no, nm))
-for slot in ("Head", "Shoulder", "Chest", "Hands", "Legs"):
-    who = slots.get(slot)
-    print("  %-9s %s" % (slot, ", ".join(who) if who else "GEEN"))
+    print("   %s  (boss %d, %s)" % (it.get("name"), no, nm))
+
+print("")
+print("=== per pantsertype: welke boss geeft welk tier-slot? ===")
+grid = {}
+for no, items in bosses:
+    for it in items:
+        a, s = it.get("armorType"), it.get("slot")
+        if a in ("Cloth", "Leather", "Mail", "Plate") and s in TIER_SLOTS:
+            grid.setdefault(a, {}).setdefault(s, []).append((no, it.get("name")))
+
+order = ["Head", "Shoulder", "Chest", "Hands", "Legs"]
+print("%-9s %s" % ("", "  ".join("%-9s" % s for s in order)))
+for a in ("Cloth", "Leather", "Mail", "Plate"):
+    row = []
+    for s in order:
+        hits = grid.get(a, {}).get(s, [])
+        row.append("%-9s" % (",".join(str(h[0]) for h in hits) or "-"))
+    print("%-9s %s" % (a, "  ".join(row)))
+print("")
+print("(cijfers = bossnummer. Een compleet stel op alle vijf de slots betekent dat")
+print(" tier hier als GEWONE uitrusting valt en niet als class-token.)")
