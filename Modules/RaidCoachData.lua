@@ -63,6 +63,21 @@ local RAIDS = {
 		key = "raid_venomousabyss",
 		name = "The Venomous Abyss",
 		season = 2,
+		--- ✅ CLIENT-VERIFIED 24 aug 2026, and now a FIELD rather than a remark. It sat in
+		--- the comment above as "journalInstanceID 1320" read out of DBM, where nothing
+		--- could use it. Rob's own `/mh ej save` returned `The Venomous Abyss  id 1320`
+		--- from his client, so the number is confirmed rather than borrowed.
+		---
+		--- What it buys: the boss window can now recognise this raid the moment you walk
+		--- in, instead of waiting for ENCOUNTER_START. Cisca opened it in LFR before the
+		--- first pull and got the dungeon of the week, because "in an instance we cannot
+		--- name yet" and "not in an instance" took the same path.
+		---
+		--- ⚠️ The Season 1 raids above deliberately have NO id. Rob's capture covers the
+		--- current tier only, so theirs would be a guess, and a wrong journalInstanceID
+		--- silently matches the wrong raid. Absent means "we never measured it" and the
+		--- lookup simply skips them -- which is the old behaviour, not a regression.
+		journalInstanceID = 1320,
 		-- ⚠️ ORDER CORRECTED 2026-07-27 from the client itself (`/mh ej save` on PTR
 		-- build 120100). The list used to be in SetEncounterID order, which is DBM's
 		-- numbering and NOT the order you fight them -- the comment above asked for

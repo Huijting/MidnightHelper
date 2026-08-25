@@ -242,6 +242,28 @@ local function DungeonForCurrentInstance()
 						break
 					end
 				end
+				--- ✅ RAIDS TOO, on the same id. Cisca, 24 aug: she opened the window in
+				--- LFR before the first pull and got the dungeon of the week.
+				---
+				--- Raids were never invisible to this window — they auto-open on
+				--- ENCOUNTER_START via the encounter id, which is why she saw the right
+				--- boss once the fight started. The gap was the stretch BEFORE the pull,
+				--- which is exactly when you open it to see what is coming: this lookup
+				--- searched only the dungeon roster, so an instance we could not name yet
+				--- took the same path as not being in an instance at all.
+				---
+				--- ⚠️ A raid with no `journalInstanceID` is skipped rather than guessed at.
+				--- Only The Venomous Abyss carries a client-verified one; the Season 1
+				--- raids would need Rob to capture their ids, and a wrong id here would
+				--- quietly open the wrong raid.
+				if not found and type(ns.CUSTOM_BOSS_ENTRIES) == "table" then
+					for _, e in pairs(ns.CUSTOM_BOSS_ENTRIES) do
+						if type(e) == "table" and e.journalInstanceID == jid then
+							found = e
+							break
+						end
+					end
+				end
 			end
 		end
 	end
