@@ -262,6 +262,22 @@ function ns.RegisterNativeSettings()
 			if ns.SetShardCapAlertEnabled then ns.SetShardCapAlertEnabled(v) end
 		end, true)
 
+		--- ⚠️ These two existed only as `/mh tips`, a command listed nowhere. Rob met the
+		--- popup mid-session and asked whether it was even ours; it was, and there was no
+		--- way to look it up or refuse it. Anything that takes the screen has to be
+		--- findable and refusable before it may be on by default -- so it is now both, and
+		--- it defaults to off.
+		AddToggle("mh_growthTips", "SET_GROWTH_TIPS_TITLE", "SET_GROWTH_TIPS_DESC", function()
+			return ns.IsGrowthTipsEnabled and ns.IsGrowthTipsEnabled()
+		end, function(v)
+			if ns.SetGrowthTipsEnabled then ns.SetGrowthTipsEnabled(v) end
+		end, false)
+		AddToggle("mh_growthPopup", "SET_GROWTH_POPUP_TITLE", "SET_GROWTH_POPUP_DESC", function()
+			return ns.IsGrowthPopupEnabled and ns.IsGrowthPopupEnabled()
+		end, function(v)
+			if ns.SetGrowthPopupEnabled then ns.SetGrowthPopupEnabled(v) end
+		end, false)
+
 		----------------------------------------------------------------
 		-- Dungeon-hulp
 		----------------------------------------------------------------

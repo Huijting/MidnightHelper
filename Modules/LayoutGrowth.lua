@@ -114,8 +114,40 @@ local function BuildPrompt()
 	return f
 end
 
+--- 🔴 DEFAULT OFF SINCE 25 AUG 2026, AND THE REASON IS NOT THE FEATURE.
+---
+--- Rob met this popup mid-session and asked whether it was even ours. It was, and it
+--- turned out to have no Settings entry and no search entry -- so a window that
+--- interrupts you offered no way to look it up, and no way to say "not this". The only
+--- off switch was `/mh tips`, a command listed nowhere.
+---
+--- That is worse than a hidden feature: the Manaflux counter was merely invisible, this
+--- one takes the screen. Anything that interrupts has to be findable and refusable
+--- BEFORE it earns the right to be on by default. It is now both, and it starts off.
+---
+--- Note the inversion: these read `== true` rather than `~= false`, so an account that
+--- never chose stays quiet. Someone who deliberately switched it on keeps it.
+function ns.IsGrowthTipsEnabled()
+	return (ns.db and ns.db.growthTips) == true
+end
+
+function ns.IsGrowthPopupEnabled()
+	-- The popup is a sub-setting of the tips: no tips, no popup.
+	return ns.IsGrowthTipsEnabled() and (ns.db and ns.db.growthButton) ~= false
+end
+
+function ns.SetGrowthTipsEnabled(v)
+	ns.db = ns.db or {}
+	ns.db.growthTips = v and true or false
+end
+
+function ns.SetGrowthPopupEnabled(v)
+	ns.db = ns.db or {}
+	ns.db.growthButton = v and true or false
+end
+
 function ShowPrompt(lines)
-	if ns.db and ns.db.growthButton == false then
+	if not ns.IsGrowthPopupEnabled() then
 		return
 	end
 	if InCombatLockdown and InCombatLockdown() then
@@ -134,7 +166,7 @@ local function Report()
 	local ids = PENDING
 	PENDING = {}
 
-	if ns.db and ns.db.growthTips == false then
+	if not ns.IsGrowthTipsEnabled() then
 		return
 	end
 	if InCombatLockdown and InCombatLockdown() then
@@ -206,20 +238,19 @@ end)
 function ns.MH_ToggleGrowthTips(which)
 	ns.db = ns.db or {}
 	if which == "button" then
-		if ns.db.growthButton == false then
-			ns.db.growthButton = true
-			print(Prefix() .. " learned-ability popup on.")
-		else
-			ns.db.growthButton = false
-			print(Prefix() .. " learned-ability popup off — the chat line stays.")
+		local on = not ns.IsGrowthPopupEnabled()
+		ns.SetGrowthPopupEnabled(on)
+		if on and not ns.IsGrowthTipsEnabled() then
+			-- Turning on the popup while the whole feature is off would do nothing, and
+			-- silently doing nothing after a deliberate toggle is its own small lie.
+			ns.SetGrowthTipsEnabled(true)
 		end
+		print(Prefix() .. (on and " learned-ability popup on."
+			or " learned-ability popup off — the chat line stays."))
 		return
 	end
-	if ns.db.growthTips == false then
-		ns.db.growthTips = true
-		print(Prefix() .. " layout tips on: we mention where a newly learned ability goes.")
-	else
-		ns.db.growthTips = false
-		print(Prefix() .. " layout tips off.")
-	end
+	local on = not ns.IsGrowthTipsEnabled()
+	ns.SetGrowthTipsEnabled(on)
+	print(Prefix() .. (on and " layout tips on: we mention where a newly learned ability goes."
+		or " layout tips off."))
 end

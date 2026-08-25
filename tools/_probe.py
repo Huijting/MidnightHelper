@@ -1,49 +1,79 @@
 # -*- coding: utf-8 -*-
-"""Vult de Catalyst-regel aan: het item level blijft óók behouden.
+"""Zet de twee LayoutGrowth-instellingen in alle zeven blokken van SettingsPage.lua.
 
-GEMETEN 25 aug 2026. Rob zette een Champion-schouder om en het tier-stuk kwam eruit
-met hetzelfde item level. De currency-omschrijving belooft alleen dat de secondary
-stats meegaan en zwijgt over ilvl -- dus dit was niet af te leiden, alleen te meten.
-
-Waarom het ertoe doet: als er precies hetzelfde uitkomt, alleen nu als setstuk, dan
-is de natuurlijke reflex fout. Iedereen bewaart zijn beste stuk en voert de Catalyst
-een reservestuk. Dat levert een reservestuk met een setbonus op.
+Anker: de bestaande SET_SHARDCAP_TOGGLE_DESC-regel binnen elk taalblok. Die staat er
+zeven keer, dus we voegen na élke voorkomende toe -- de talen staan in vaste volgorde
+in het bestand (enUS, itIT, nlNL, deDE, frFR, esES, ptBR volgens de regelnummers).
 """
 import io
 import os
+import re
 import sys
 
-ROOT = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales"
+P = (r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper"
+     r"\Locales\SettingsPage.lua")
 sys.stdout.reconfigure(encoding="utf-8")
 
-OLD = {
-"enUS": "The new piece keeps the |cffffffffsecondary stats of the piece you put in|r. You are changing what the item IS, not what it rolled — so feed it something whose stats already suit you.",
-"nlNL": "Het nieuwe stuk behoudt de |cffffffffsecondary stats van het stuk dat je erin stopt|r. Je verandert WAT het item is, niet wat het gerold heeft — stop er dus iets in waarvan de stats je al bevallen.",
-"deDE": "Das neue Teil behält die |cffffffffSekundärwerte des Teils, das du hineingibst|r. Du änderst, WAS der Gegenstand ist, nicht was er gewürfelt hat — gib also etwas hinein, dessen Werte dir schon passen.",
-"frFR": "La nouvelle pièce conserve les |cffffffffstatistiques secondaires de la pièce que vous donnez|r. Vous changez CE QU'EST l'objet, pas ce qu'il a tiré — donnez donc quelque chose dont les stats vous conviennent déjà.",
-"esES": "La pieza nueva conserva las |cffffffffestadísticas secundarias de la pieza que metes|r. Cambias LO QUE ES el objeto, no lo que ha salido — así que mete algo cuyas estadísticas ya te vengan bien.",
-"ptBR": "A peça nova mantém os |cffffffffatributos secundários da peça que você coloca|r. Você muda O QUE o item é, não o que ele rolou — então coloque algo cujos atributos já sirvam para você.",
-"itIT": "Il pezzo nuovo mantiene le |cffffffffstatistiche secondarie del pezzo che ci metti|r. Cambi COSA è l'oggetto, non cosa ha tirato — quindi mettici qualcosa le cui statistiche ti vanno già bene.",
+# Volgorde zoals de blokken in het bestand staan.
+ORDER = ["enUS", "itIT", "nlNL", "deDE", "frFR", "esES", "ptBR"]
+
+T = {
+"enUS": ("Say where a new ability goes",
+         "When you learn an ability, mention which key your layout has for it. One line, once. Off by default - nothing is placed or bound unless you ask.",
+         "Use a popup for it",
+         "Show it as a small window with a Place it button instead of only a chat line. Needs the setting above."),
+"itIT": ("Dimmi dove va una nuova abilità",
+         "Quando impari un'abilità, ti dice quale tasto le assegna il tuo layout. Una riga, una volta. Disattivato di default - non viene piazzato né assegnato nulla senza che tu lo chieda.",
+         "Usa un popup",
+         "Mostralo come una finestrella con un pulsante Place it invece della sola riga in chat. Richiede l'opzione qui sopra."),
+"nlNL": ("Zeggen waar een nieuwe spell hoort",
+         "Zodra je iets leert, noemen we welke toets jouw layout ervoor heeft. Eén regel, één keer. Standaard uit - er wordt niets geplaatst of gebonden tenzij je erom vraagt.",
+         "Doe dat met een popup",
+         "Toon het als een klein venster met een Place it-knop in plaats van alleen een chatregel. Vereist de instelling hierboven."),
+"deDE": ("Sagen, wohin eine neue Fähigkeit gehört",
+         "Wenn du etwas lernst, nennen wir die Taste, die dein Layout dafür vorsieht. Eine Zeile, einmal. Standardmäßig aus - es wird nichts platziert oder belegt, solange du nicht fragst.",
+         "Dafür ein Popup verwenden",
+         "Als kleines Fenster mit einem Place it-Knopf zeigen statt nur als Chatzeile. Benötigt die Einstellung darüber."),
+"frFR": ("Dire où va une nouvelle capacité",
+         "Quand vous apprenez une capacité, on indique la touche que votre disposition lui réserve. Une ligne, une fois. Désactivé par défaut - rien n'est placé ni assigné sans votre demande.",
+         "Utiliser une popup",
+         "L'afficher dans une petite fenêtre avec un bouton Place it plutôt qu'en simple ligne de chat. Nécessite l'option ci-dessus."),
+"esES": ("Decir dónde va una habilidad nueva",
+         "Cuando aprendes una habilidad, te decimos qué tecla le reserva tu distribución. Una línea, una vez. Desactivado por defecto: no se coloca ni asigna nada salvo que lo pidas.",
+         "Usar una ventana emergente",
+         "Mostrarlo como una ventanita con un botón Place it en vez de solo una línea de chat. Necesita la opción de arriba."),
+"ptBR": ("Dizer onde vai uma habilidade nova",
+         "Quando você aprende uma habilidade, dizemos qual tecla o seu layout reserva para ela. Uma linha, uma vez. Desligado por padrão - nada é colocado ou vinculado sem você pedir.",
+         "Usar um popup",
+         "Mostrar numa janelinha com um botão Place it em vez de só uma linha no chat. Precisa da opção acima."),
 }
 
-NEW = {
-"enUS": "The new piece keeps |cffffffffboth the item level and the secondary stats|r of what you put in. What goes in is what comes back, only now it counts towards the set - so feed it your BEST piece in that slot, never a spare. Saving the good one and converting a leftover just gives you a leftover with a set bonus.",
-"nlNL": "Het nieuwe stuk behoudt |cffffffffzowel het item level als de secondary stats|r van wat je erin stopt. Er komt precies hetzelfde uit, alleen telt het nu mee voor de set - stop er dus je BESTE stuk in dat slot in, nooit een reserve. Het goede bewaren en een restje omzetten levert je een restje met een setbonus op.",
-"deDE": "Das neue Teil behält |cffffffffsowohl die Gegenstandsstufe als auch die Sekundärwerte|r dessen, was du hineingibst. Es kommt genau dasselbe heraus, nur zählt es jetzt für das Set - gib also dein BESTES Teil in diesem Slot hinein, nie ein Reserveteil. Das gute aufheben und einen Rest umwandeln bringt dir einen Rest mit Set-Bonus.",
-"frFR": "La nouvelle pièce conserve |cffffffffà la fois le niveau d'objet et les statistiques secondaires|r de ce que vous donnez. Ce qui entre ressort à l'identique, mais compte désormais pour le set - donnez donc votre MEILLEURE pièce sur cet emplacement, jamais une pièce de rechange. Garder la bonne et convertir un reste vous donne un reste avec un bonus de set.",
-"esES": "La pieza nueva conserva |cfffffffftanto el nivel de objeto como las estadísticas secundarias|r de lo que metes. Sale exactamente lo mismo, solo que ahora cuenta para el conjunto - así que mete tu MEJOR pieza de esa ranura, nunca una de repuesto. Guardar la buena y convertir una sobra te da una sobra con bonus de conjunto.",
-"ptBR": "A peça nova mantém |cffffffffo nível de item E os atributos secundários|r do que você coloca. Sai exatamente o mesmo, só que agora conta para o conjunto - então coloque a sua MELHOR peça daquele espaço, nunca uma reserva. Guardar a boa e converter uma sobra te dá uma sobra com bônus de conjunto.",
-"itIT": "Il pezzo nuovo mantiene |cffffffffsia il livello oggetto sia le statistiche secondarie|r di quello che ci metti. Esce esattamente lo stesso, solo che ora conta per il set - quindi mettici il tuo pezzo MIGLIORE per quello slot, mai un ricambio. Tenere quello buono e convertire un avanzo ti dà un avanzo con un bonus set.",
-}
+with io.open(P, "r", encoding="utf-8", newline="") as fh:
+    txt = fh.read()
 
-for code in OLD:
-    p = os.path.join(ROOT, code + ".lua")
-    with io.open(p, "r", encoding="utf-8", newline="") as fh:
-        txt = fh.read()
-    if OLD[code] not in txt:
-        print("  %s: oude zin NIET gevonden -- overgeslagen" % code)
-        continue
-    txt = txt.replace(OLD[code], NEW[code], 1)
-    io.open(p + ".tmp", "w", encoding="utf-8", newline="").write(txt)
-    os.replace(p + ".tmp", p)
-    print("  %s: bijgewerkt" % code)
+if "SET_GROWTH_TIPS_TITLE" in txt:
+    print("staat er al -- niets gedaan")
+    raise SystemExit(0)
+
+pat = re.compile(r'\tSET_SHARDCAP_TOGGLE_DESC = "[^"]*",\r?\n')
+hits = list(pat.finditer(txt))
+print("ankers gevonden: %d (verwacht %d)" % (len(hits), len(ORDER)))
+if len(hits) != len(ORDER):
+    raise SystemExit("aantal klopt niet -- niets gewijzigd")
+
+# Achterstevoren invoegen, zodat eerdere offsets geldig blijven.
+for idx in range(len(hits) - 1, -1, -1):
+    m = hits[idx]
+    code = ORDER[idx]
+    t1, d1, t2, d2 = T[code]
+    nl = "\r\n" if m.group(0).endswith("\r\n") else "\n"
+    ins = ('\tSET_GROWTH_TIPS_TITLE = "%s",%s'
+           '\tSET_GROWTH_TIPS_DESC = "%s",%s'
+           '\tSET_GROWTH_POPUP_TITLE = "%s",%s'
+           '\tSET_GROWTH_POPUP_DESC = "%s",%s' % (t1, nl, d1, nl, t2, nl, d2, nl))
+    txt = txt[:m.end()] + ins + txt[m.end():]
+    print("  %s: toegevoegd" % code)
+
+io.open(P + ".tmp", "w", encoding="utf-8", newline="").write(txt)
+os.replace(P + ".tmp", P)
+print("klaar")
