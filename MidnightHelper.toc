@@ -33,6 +33,7 @@ Locales\itIT.lua
 Locales\nlNL.lua
 Locales\ConsumablesNotes.lua
 Locales\DelveTips.lua
+Locales\DelveStories.lua
 Locales\RitualTips.lua
 Locales\RaidTips.lua
 Locales\MythicPlus.lua
@@ -46,6 +47,7 @@ Locales\Translations2026.lua
 Locales\TranslationsS2.lua
 Locales\Locale.lua
 Modules\DelveTipsData.lua
+Modules\DelveStoryData.lua
 Modules\DelveSpellIds.lua
 Modules\FlightPointsData.lua
 Modules\DelveTipMarkup.lua

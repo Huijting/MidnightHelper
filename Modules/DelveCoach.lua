@@ -300,6 +300,25 @@ local function BuildCoachBody(entry, opts)
 				emittedBossPending = true
 			end
 		end
+
+		--- What the variant actually asks of you, in Blizzard's own words.
+		---
+		--- Added 25 aug 2026. Naming the variant was the first half; without this the
+		--- window said "Bombing Run" and stopped, which tells a new player nothing. The
+		--- text comes from the DB2 gossip table, which the client only ever shows inside
+		--- the delve's own gossip window -- so this is genuinely information the player
+		--- could not otherwise have while deciding whether to walk in.
+		---
+		--- Keyed on the variant name alone, not on the delve. That is deliberate:
+		--- Crocolisk Reintroduction appears in four delves with identical text, and a
+		--- per-delve table would have had to repeat it four times and drift.
+		if storyName and ns.DELVE_STORY_TIP then
+			local key = ns.DELVE_STORY_TIP[storyName:lower()]
+			local text = key and ns:SafeL(key)
+			if type(text) == "string" and text ~= "" and text ~= key then
+				blocks[#blocks + 1] = text
+			end
+		end
 	end
 	for i = 1, #entry.sections do
 		local sec = entry.sections[i]

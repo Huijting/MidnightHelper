@@ -15,28 +15,35 @@
 	Usage:  lua5.1 scratchpad/locale_probe.lua KEY [KEY ...]
 ]]
 
-local ORDER = {
-	"Locales/enUS.lua",
-	"Locales/deDE.lua",
-	"Locales/frFR.lua",
-	"Locales/esES.lua",
-	"Locales/ptBR.lua",
-	"Locales/itIT.lua",
-	"Locales/nlNL.lua",
-	"Locales/ConsumablesNotes.lua",
-	"Locales/DelveTips.lua",
-	"Locales/RitualTips.lua",
-	"Locales/RaidTips.lua",
-	"Locales/MythicPlus.lua",
-	"Locales/StartHere.lua",
-	"Locales/DungeonGuide.lua",
-	"Locales/SettingsPage.lua",
-	"Locales/DungeonTips.lua",
-	"Locales/Codex.lua",
-	"Locales/OmniumFolio.lua",
-	"Locales/Translations2026.lua",
-	"Locales/TranslationsS2.lua",
-}
+--- ⚠️ READ FROM THE .toc, not from a list kept here by hand.
+---
+--- This used to be a hardcoded table while the comment above it claimed ".toc order".
+--- On 25 aug 2026 Locales/DelveStories.lua was added to the .toc and the probe
+--- reported all 48 of its keys as MISSING FROM enUS -- a file it had simply never
+--- been told to load. The verdict looked exactly like a real breakage, and the only
+--- reason it was not believed is that nlNL resolved fine in the same run.
+---
+--- A checking tool that silently checks less than it claims is worse than no tool,
+--- so it now derives the list from the same file the game reads.
+local ORDER = {}
+do
+	local toc = io.open("MidnightHelper.toc", "r")
+	if not toc then
+		io.write("  PROBLEM cannot open MidnightHelper.toc -- run this from the addon root\n")
+		os.exit(2)
+	end
+	for line in toc:lines() do
+		local path = line:match("^%s*(Locales[\\/][%w_]+%.lua)%s*$")
+		if path then
+			ORDER[#ORDER + 1] = path:gsub("\\", "/")
+		end
+	end
+	toc:close()
+	if #ORDER == 0 then
+		io.write("  PROBLEM the .toc lists no Locales files -- refusing to report on nothing\n")
+		os.exit(2)
+	end
+end
 
 local PACKS = { "enUS", "deDE", "frFR", "esES", "ptBR", "itIT", "nlNL" }
 
