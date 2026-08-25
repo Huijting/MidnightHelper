@@ -74,6 +74,30 @@ ondersteunend bewijs opgevoerd dat wij achterliepen op Robs delve. Fout — die 
 draaglimiet. Twee 12.1-varianten gebruiken allebei "ingrediënten". De conclusie hield stand
 op ander bewijs, de redenering ernaartoe niet.
 
+## 🟡 25 aug AVOND — dispel/purge GEBOUWD, gloed nog niet in het wild gezien
+
+**Wat af en getest is:** de rij is gesplitst in twee secure knoppen. Links de speler, rechts
+zijn doelwit; linksklik doet wat het deed, rechtsklik dispelt respectievelijk purget. Rob
+testte op zijn mage: **Remove Curse (475) en Spellsteal (30449) vuren allebei**.
+
+**Wat gebouwd maar ONGEZIEN is:** de rode gloed. `/mh glow` meldt 4 van 4 containers en vindt
+de juiste spells, dus de machinerie leeft — maar niemand heeft hem ooit zien oplichten.
+
+⚠️ **Drie redenen waarom een lege test niets bewijst, en ze zien er identiek uit:**
+1. Er kwam niets dispelbaars langs. Rob bevestigde dit zelf voor één run: **HexBreak zweeg
+   in diezelfde run ook**, en die gebruikt hetzelfde mechanisme. Sterke controle.
+2. Het landde **op de speler zelf**. 🔴 Ons paneel toont `party1-4` en heeft **geen eigen rij**.
+   HexBreak heeft die wel. Dit is een echt gat, geen bug.
+3. Er is werkelijk iets stuk.
+
+**Volgende meting:** een spec met een **magic** dispel (Holy/Disc priest, Resto-specs) in
+Magisters' Terrace; de shackle van Arcanotron Custos (`1214038`) is magic. Let op WIE hem
+krijgt — een follower betekent iets anders dan de speler zelf.
+
+**Gemeten onderweg, en het klopte:** Shadow Priest heeft géén Purify Disease. `IsPlayerSpell`
+filterde hem terecht weg, dus de melding "this character has no dispel" was juist. Disc en
+Holy hebben hem wel. Rob controleerde dit vóór hij de dungeon inging in plaats van erna.
+
 ## 🔵 25 aug — ROB-GOEDGEKEURD, VOLGENDE BOUWKLUS: dispel/purge op de rechtermuisknop + rode gloed
 
 **Wat Rob wil, in zijn woorden:** de addon kijkt wat *jouw spec* kan — Remove Curse, Cleanse,
