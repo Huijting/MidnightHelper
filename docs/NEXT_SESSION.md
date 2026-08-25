@@ -51,7 +51,28 @@ een categorie en geen toeval — maar dat is een vermoeden uit namen, niet gemet
 ⚠️ Niets hiervan wordt hardgecodeerd. De teller werkt op effect en vangt deze items al; een
 lijst zou alleen kunnen verouderen. Dit staat hier als **kennis**, niet als data.
 
-## 🟡 24 aug — OPEN: Valeera's stand stijgt zónder loot (+104)
+## ✅ 25 aug — OPGELOST: **doden geeft zelf Valeera-XP**. Vierde bron.
+
+De +104 van gisteren is verklaard. Rob deed de schone test: delve in, **alleen gedood, niets
+opgeraapt**, en haar stand ging omhoog.
+
+✅ **De controle hield.** `/mh chunklog` stond aan, dus de sleutel `ns.db.chunkLog` bestónd
+in het bestand — en er stonden **nul** loot-momenten in. Dat onderscheid is het hele punt:
+"geen sleutel" betekent dat de log uitstond, "sleutel met nul rijen" betekent dat er
+werkelijk niets is opgeraapt. Alleen het tweede bewijst iets.
+
+Dus de bronnen zijn nu: **chunks · Boons · rijke vondsten · kills.**
+
+⚠️ **De teller mist kills per definitie** — die hangt aan `CHAT_MSG_LOOT`. Dat is geen bug
+om te repareren: het getal heet "opgepakt" en kills pak je niet op. Het **XP-getal** ernaast
+klopt wél altijd, want dat is het verschil in haar stand.
+
+📌 Wat er wél fout was: de tekst zei *"het is allemaal loot, dus maak alles open"*. Dat is nu
+onwaar én het gaf verkeerd advies — je hoeft niet alleen op te rapen, je moet ook niet alles
+voorbijlopen. Herschreven in zeven talen; de runregel zegt nu "XP tot nu toe, kills
+meegerekend".
+
+## ~~🟡 24 aug — OPEN: Valeera's stand stijgt zónder loot (+104)~~
 
 Rob deed midden in een Bountiful een `/reload` en zag daarna zijn stand van **204.099 naar
 204.203** gaan — 104 XP — terwijl de runregel "nog niets" bleef zeggen. Hij had na de reload
