@@ -229,6 +229,62 @@ local function SelectLootInstance(instanceID)
 	end
 end
 
+--- 🔴 THE JOURNAL FILTERS ITS LOOT, AND THE FIRST CAPTURE INHERITED THAT.
+---
+--- Rob's run returned 5 to 9 items per raid boss and exactly two head pieces across
+--- all eight bosses of The Venomous Abyss -- no shoulder, chest, hands or legs token
+--- anywhere. A tier set needs five slots, so that was not the raid's loot table; it
+--- was the raid's loot table as seen through his own class filter, which the journal
+--- keeps between sessions and applies to every read.
+---
+--- Left alone this would have produced a confident, specific, wrong answer about
+--- which bosses drop tier -- the exact failure this capture exists to prevent.
+---
+--- Two filters, both cleared and both restored: EJ_SetLootFilter(classID, specID) and
+--- C_EncounterJournal.SetSlotFilter. Restoring matters because these are the player's
+--- own Adventure Guide settings, not ours to leave changed.
+local function WithLootFiltersCleared(fn)
+	local prevClass, prevSpec, prevSlot
+	local note = {}
+	if type(EJ_GetLootFilter) == "function" then
+		local ok, c, s = pcall(EJ_GetLootFilter)
+		if ok then
+			prevClass, prevSpec = c, s
+			note.hadClassFilter = (tonumber(c) or 0) ~= 0
+		end
+	end
+	if type(EJ_SetLootFilter) == "function" then
+		note.clearedClass = pcall(EJ_SetLootFilter, 0, 0) or nil
+	else
+		note.clearedClass = false
+	end
+	local CEJ = C_EncounterJournal
+	if CEJ and type(CEJ.GetSlotFilter) == "function" then
+		local ok, v = pcall(CEJ.GetSlotFilter)
+		if ok then
+			prevSlot = v
+		end
+	end
+	if CEJ and type(CEJ.SetSlotFilter) == "function" and Enum and Enum.ItemSlotFilterType then
+		note.clearedSlot = pcall(CEJ.SetSlotFilter, Enum.ItemSlotFilterType.NoFilter) or nil
+	else
+		note.clearedSlot = false
+	end
+
+	local ok, err = pcall(fn, note)
+
+	if prevClass ~= nil and type(EJ_SetLootFilter) == "function" then
+		pcall(EJ_SetLootFilter, prevClass, prevSpec or 0)
+	end
+	if prevSlot ~= nil and CEJ and type(CEJ.SetSlotFilter) == "function" then
+		pcall(CEJ.SetSlotFilter, prevSlot)
+	end
+	if not ok then
+		error(err, 0)
+	end
+	return note
+end
+
 local function CaptureBossLoot(encounterID)
 	if not encounterID then
 		return nil
@@ -329,7 +385,9 @@ local function CollectInstance(instanceID, name, isRaid, diff)
 		difficulty = diff,
 		bosses = {},
 	}
-	-- Before the loop: the journal's loot list follows the SELECTED instance.
+	-- Before the loop: the journal's loot list follows the SELECTED instance, and its
+	-- class/slot filters are the player's own and would otherwise hide most of it.
+	entry.lootFilters = WithLootFiltersCleared(function()
 	SelectLootInstance(instanceID)
 	for i = 1, 25 do
 		local ok, bossName, _, encounterID = pcall(EJ_GetEncounterInfoByIndex, i, instanceID)
@@ -355,6 +413,7 @@ local function CollectInstance(instanceID, name, isRaid, diff)
 		end
 		entry.bosses[#entry.bosses + 1] = boss
 	end
+	end)
 	return entry
 end
 
