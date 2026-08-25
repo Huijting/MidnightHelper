@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-"""Vervangt TIER_GUIDE_BODY en TIER_FOOTER in de vijf overige packs.
+"""Vult de Manaflux-regel aan in alle zeven packs.
 
-⚠️ WAAROM DIT MOET. ns:L valt alleen terug op enUS als een key ONTBREEKT. Deze vijf
-packs hebben de key zelf, met de Season 1-tekst erin (The Voidspire, The Dreamrift,
-Eldara Dawnrunner, Dawnlight Manaflux). Alleen het Engels herschrijven laat die vijf
-dus stil naar de verkeerde raid wijzen -- precies de val die in CLAUDE.md staat.
+GEMETEN 25 aug 2026 op Robs scherm: de currency-tooltip toont "Total Maximum: 1/8"
+plus een lijst per personage (Purlymixanox 1, Earthshammy 1, Twelveinchy 1,
+Warlockie 1, ...) met 7 over alle characters samen. Het is dus PER PERSONAGE, met
+een plafond van 8 -- niet account-breed zoals ik aannam.
 
-Atomair schrijven: de repo IS de spelmap.
+Dat maakt de oude zin onvolledig op een manier die geld kost: wie niet weet dat het
+per character opbouwt, laat zes voorraadjes stilstaan; wie niet weet van het plafond,
+verliest opbouw zodra een character vol zit.
 """
 import io
 import os
@@ -16,36 +18,34 @@ import sys
 ROOT = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales"
 sys.stdout.reconfigure(encoding="utf-8")
 
-BODY = {
-"deDE": "|cffe8c36aWas ein Tier-Set ist|r|n• Fünf Slots — Kopf, Schultern, Brust, Hände, Beine — tragen einen Set-Bonus. Zwei Teile geben den kleinen, vier den großen. Der 4er-Bonus ist meist mehr wert als ein paar Gegenstandsstufen, also sind vier das Ziel.|n• Du brauchst nur 4 von 5. Lass den Slot aus, in dem dein normales Teil am stärksten ist — genau das würdest du hergeben.|n• Handgelenk, Gürtel, Schuhe, Hals, Ringe, Umhang und Waffen gehören nie zu einem Set. Trag dort einfach das Beste, was du hast.|n|n|cffe8c36aWoher es diese Saison kommt|r|n• Der Season-2-Raid ist |cffffffffThe Venomous Abyss|r, auf Raid Finder, Normal, Heroisch und Mythisch.|n• Great Vault: Deine wöchentliche Auswahl kann dir ein Teil geben, das nie gedroppt ist.|n• {CATALYST}: baut Rüstung, die du schon besitzt, in ein Set-Teil um. Das ist der Weg, der nicht von Glück abhängt.|n|n|cffe8c36aDer Catalyst und was du hineingibst|r|n• Jede Umwandlung kostet einen |cffffffffVenomblight Manaflux|r, und du bekommst etwa alle zwei Wochen einen. Eine Ladung ist also kostbar.|n• ⚠️ Das neue Teil behält die |cffffffffSekundärwerte des Teils, das du hineingibst|r. Du änderst, WAS der Gegenstand ist, nicht was er gewürfelt hat — gib also etwas hinein, dessen Werte dir schon passen.|n• Sobald du das Feat \\\"Season 2 Catalyst Unbound\\\" freigeschaltet hast, kommen Ladungen auch aus Mythic Keystones, Venomous-Abyss-Bossen, Bountiful Delves und gewertetem PvP.|n|n|cffe8c36aWelche Teile du umwandelst — und welche nicht|r|n• Nur Slots, in denen du etwas Normales trägst. Verschwende nie eine Ladung auf einen Slot, der schon ein Set-Teil hat.|n• Behalte dein stärkstes Nicht-Set-Teil und lass diesen Slot aus — vier reichen für den großen Bonus.|n• Unentschieden zwischen zweien? Nimm das, dessen Sekundärwerte du behalten willst, denn die wandern mit.",
-"frFR": "|cffe8c36aCe qu'est un set|r|n• Cinq emplacements — tête, épaules, torse, mains, jambes — portent un bonus de set. Deux pièces donnent le petit, quatre le grand. Le bonus 4 pièces vaut souvent plus que quelques niveaux d'objet, donc visez quatre.|n• Il n'en faut que 4 sur 5. Laissez de côté l'emplacement où votre pièce ordinaire est la plus forte, car c'est elle que vous abandonneriez.|n• Poignets, ceinture, bottes, cou, anneaux, cape et armes ne font jamais partie d'un set. Portez-y simplement ce que vous avez de mieux.|n|n|cffe8c36aD'où cela vient cette saison|r•|n• Le raid de la saison 2 est |cffffffffThe Venomous Abyss|r, en Recherche de raid, Normal, Héroïque et Mythique.|n• Great Vault : vos choix hebdomadaires peuvent vous donner une pièce jamais tombée.|n• {CATALYST} : transforme une armure que vous possédez déjà en pièce de set. C'est la voie qui ne dépend pas de la chance.|n|n|cffe8c36aLe Catalyst, et quoi lui donner|r|n• Chaque conversion coûte un |cffffffffVenomblight Manaflux|r, et vous en gagnez un environ toutes les deux semaines. Une charge est donc précieuse.|n• ⚠️ La nouvelle pièce conserve les |cffffffffstatistiques secondaires de la pièce que vous donnez|r. Vous changez CE QU'EST l'objet, pas ce qu'il a tiré — donnez donc quelque chose dont les stats vous conviennent déjà.|n• Une fois le haut fait \\\"Season 2 Catalyst Unbound\\\" débloqué, des charges tombent aussi des Mythic Keystones, des boss de Venomous Abyss, des Bountiful Delves et du PvP coté.|n|n|cffe8c36aQuelles pièces convertir, et lesquelles non|r|n• Uniquement les emplacements où vous portez de l'ordinaire. Ne dépensez jamais une charge sur un emplacement qui a déjà une pièce de set.|n• Gardez votre meilleure pièce hors set et sautez cet emplacement — quatre suffisent pour le grand bonus.|n• Hésitation entre deux ? Prenez celle dont vous voulez garder les stats secondaires, car elles suivent.",
-"esES": "|cffe8c36aQué es un conjunto|r|n• Cinco ranuras — cabeza, hombros, pecho, manos, piernas — llevan un bonus de conjunto. Dos piezas dan el pequeño, cuatro el grande. El bonus de 4 suele valer más que unos cuantos niveles de objeto, así que el objetivo es cuatro.|n• Solo necesitas 4 de 5. Deja fuera la ranura donde tu pieza normal sea más fuerte, porque es la que estarías entregando.|n• Muñecas, cinturón, botas, cuello, anillos, capa y armas nunca forman parte de un conjunto. Ahí lleva simplemente lo mejor que tengas.|n|n|cffe8c36aDe dónde sale esta temporada|r|n• La raid de la temporada 2 es |cffffffffThe Venomous Abyss|r, en Buscador de bandas, Normal, Heroico y Mítico.|n• Great Vault: tus elecciones semanales pueden darte una pieza que nunca viste caer.|n• {CATALYST}: convierte una armadura que ya tienes en una pieza de conjunto. Esta es la vía que no depende de la suerte.|n|n|cffe8c36aEl Catalyst y qué meterle|r|n• Cada conversión cuesta un |cffffffffVenomblight Manaflux|r, y consigues uno cada dos semanas aproximadamente. Una carga es valiosa.|n• ⚠️ La pieza nueva conserva las |cffffffffestadísticas secundarias de la pieza que metes|r. Cambias LO QUE ES el objeto, no lo que ha salido — así que mete algo cuyas estadísticas ya te vengan bien.|n• Cuando desbloquees la proeza \\\"Season 2 Catalyst Unbound\\\", también caen cargas de Mythic Keystones, jefes de Venomous Abyss, Bountiful Delves y PvP con clasificación.|n|n|cffe8c36aCuáles convertir y cuáles no|r|n• Solo ranuras donde lleves algo normal. Nunca gastes una carga en una ranura que ya tiene pieza de conjunto.|n• Quédate con tu mejor pieza que no sea del conjunto y salta esa ranura — cuatro bastan para el bonus grande.|n• ¿Dudas entre dos? Coge la que tenga las secundarias que quieres conservar, porque esas se mantienen.",
-"ptBR": "|cffe8c36aO que é um conjunto|r|n• Cinco espaços — cabeça, ombros, peito, mãos, pernas — carregam um bônus de conjunto. Duas peças dão o pequeno, quatro dão o grande. O bônus de 4 costuma valer mais que alguns níveis de item, então quatro é o objetivo.|n• Você só precisa de 4 dos 5. Deixe de fora o espaço onde sua peça comum é mais forte, porque é ela que você estaria abrindo mão.|n• Pulsos, cinto, botas, pescoço, anéis, capa e armas nunca fazem parte de um conjunto. Ali é só usar o melhor que tiver.|n|n|cffe8c36aDe onde vem nesta temporada|r|n• A raide da temporada 2 é |cffffffffThe Venomous Abyss|r, em Buscador de Raide, Normal, Heroico e Mítico.|n• Great Vault: suas escolhas semanais podem te dar uma peça que nunca caiu.|n• {CATALYST}: transforma uma armadura que você já tem em peça de conjunto. Este é o caminho que não depende de sorte.|n|n|cffe8c36aO Catalyst e o que colocar nele|r|n• Cada conversão custa um |cffffffffVenomblight Manaflux|r, e você ganha um a cada duas semanas mais ou menos. Uma carga é preciosa.|n• ⚠️ A peça nova mantém os |cffffffffatributos secundários da peça que você coloca|r. Você muda O QUE o item é, não o que ele rolou — então coloque algo cujos atributos já sirvam para você.|n• Depois de desbloquear o feito \\\"Season 2 Catalyst Unbound\\\", cargas também vêm de Mythic Keystones, chefes da Venomous Abyss, Bountiful Delves e PvP ranqueado.|n|n|cffe8c36aQuais converter e quais não|r|n• Só espaços onde você usa algo comum. Nunca gaste uma carga num espaço que já tem peça de conjunto.|n• Guarde sua melhor peça fora do conjunto e pule esse espaço — quatro bastam para o bônus grande.|n• Na dúvida entre duas? Pegue a que tem os secundários que você quer manter, porque eles vão junto.",
-"itIT": "|cffe8c36aCos'è un tier set|r|n• Cinque slot — testa, spalle, petto, mani, gambe — portano un bonus set. Due pezzi danno quello piccolo, quattro quello grande. Il bonus da 4 vale di solito più di qualche livello oggetto, quindi l'obiettivo è quattro.|n• Te ne servono solo 4 su 5. Lascia fuori lo slot dove il tuo pezzo normale è più forte, perché è quello a cui rinunceresti.|n• Polsi, cintura, stivali, collo, anelli, mantello e armi non fanno mai parte di un set. Lì metti semplicemente il meglio che hai.|n|n|cffe8c36aDa dove arriva questa stagione|r|n• Il raid della Stagione 2 è |cffffffffThe Venomous Abyss|r, in Raid Finder, Normale, Eroico e Mitico.|n• Great Vault: le tue scelte settimanali possono darti un pezzo che non hai mai visto cadere.|n• {CATALYST}: trasforma un'armatura che possiedi già in un pezzo del set. È la via che non dipende dalla fortuna.|n|n|cffe8c36aIl Catalyst e cosa dargli|r|n• Ogni conversione costa un |cffffffffVenomblight Manaflux|r, e ne ottieni uno circa ogni due settimane. Una carica è preziosa.|n• ⚠️ Il pezzo nuovo mantiene le |cffffffffstatistiche secondarie del pezzo che ci metti|r. Cambi COSA è l'oggetto, non cosa ha tirato — quindi mettici qualcosa le cui statistiche ti vanno già bene.|n• Una volta sbloccata l'impresa \\\"Season 2 Catalyst Unbound\\\", le cariche arrivano anche da Mythic Keystone, boss della Venomous Abyss, Bountiful Delve e PvP classificato.|n|n|cffe8c36aQuali convertire e quali no|r|n• Solo slot dove indossi qualcosa di normale. Non sprecare mai una carica su uno slot che ha già un pezzo del set.|n• Tieni il tuo pezzo non-set più forte e salta quello slot — quattro bastano per il bonus grande.|n• Indeciso tra due? Prendi quello di cui vuoi tenere le secondarie, perché quelle passano.",
+OLD = {
+"enUS": "and you gain one roughly every two weeks. A charge is precious.",
+"nlNL": "en je krijgt er ongeveer één per twee weken. Een charge is dus kostbaar.",
+"deDE": "und du bekommst etwa alle zwei Wochen einen. Eine Ladung ist also kostbar.",
+"frFR": "et vous en gagnez un environ toutes les deux semaines. Une charge est donc précieuse.",
+"esES": "y consigues uno cada dos semanas aproximadamente. Una carga es valiosa.",
+"ptBR": "e você ganha um a cada duas semanas mais ou menos. Uma carga é preciosa.",
+"itIT": "e ne ottieni uno circa ogni due settimane. Una carica è preziosa.",
 }
 
-FOOTER = {
-"deDE": "Die Bonus-Links stammen aus einem 12.0.7-Datamine und könnten noch von letzter Saison sein - fahre über einen für den Live-Tooltip, der stimmt immer. Woher die Teile kommen, wurde aus deinem eigenen Client gelesen.",
-"frFR": "Les liens de bonus viennent d'un datamining 12.0.7 et peuvent dater de la saison passée - survolez-en un pour l'infobulle en direct, qui est toujours juste. La provenance des pièces a été lue dans votre propre client.",
-"esES": "Los enlaces de bonus vienen de un datamining 12.0.7 y pueden ser de la temporada pasada - pasa el ratón por uno para ver el tooltip en vivo, que siempre acierta. De dónde salen las piezas se ha leído de tu propio cliente.",
-"ptBR": "Os links de bônus vêm de um datamining 12.0.7 e podem ser da temporada passada - passe o mouse em um para ver a tooltip ao vivo, que está sempre certa. De onde vêm as peças foi lido do seu próprio cliente.",
-"itIT": "I link dei bonus vengono da un datamining 12.0.7 e potrebbero essere ancora della scorsa stagione - passaci sopra per il tooltip live, che è sempre giusto. Da dove arrivano i pezzi è stato letto dal tuo client.",
+NEW = {
+"enUS": "and you gain one roughly every two weeks.|n• ⚠️ Every character builds their OWN supply, up to 8. So your alts are quietly saving charges too - and a character sitting at 8 has stopped gaining, which is the one way to waste them.",
+"nlNL": "en je krijgt er ongeveer één per twee weken.|n• ⚠️ Elk personage bouwt zijn EIGEN voorraad op, tot 8. Je alts sparen dus stilletjes mee - en een character dat op 8 staat wint niets meer, en dat is de enige manier om ze te verspillen.",
+"deDE": "und du bekommst etwa alle zwei Wochen einen.|n• ⚠️ Jeder Charakter baut seinen EIGENEN Vorrat auf, bis 8. Deine Twinks sammeln also still mit - und ein Charakter bei 8 gewinnt nichts mehr dazu, und genau so verschenkt man sie.",
+"frFR": "et vous en gagnez un environ toutes les deux semaines.|n• ⚠️ Chaque personnage constitue sa PROPRE réserve, jusqu'à 8. Vos rerolls accumulent donc aussi - et un personnage à 8 ne gagne plus rien, ce qui est la seule façon d'en perdre.",
+"esES": "y consigues uno cada dos semanas aproximadamente.|n• ⚠️ Cada personaje acumula su PROPIA reserva, hasta 8. Tus alts también van guardando - y un personaje que está en 8 ha dejado de ganar, que es la única forma de desperdiciarlas.",
+"ptBR": "e você ganha um a cada duas semanas mais ou menos.|n• ⚠️ Cada personagem acumula a PRÓPRIA reserva, até 8. Seus alts também vão guardando - e um personagem parado em 8 não ganha mais nada, que é o único jeito de desperdiçar.",
+"itIT": "e ne ottieni uno circa ogni due settimane.|n• ⚠️ Ogni personaggio accumula la SUA riserva, fino a 8. Anche i tuoi alt stanno mettendo da parte - e un personaggio fermo a 8 non guadagna più nulla, che è l'unico modo per sprecarle.",
 }
 
-for code in BODY:
+for code in OLD:
     p = os.path.join(ROOT, code + ".lua")
     with io.open(p, "r", encoding="utf-8", newline="") as fh:
         txt = fh.read()
-    before = txt
-    for key, table in (("TIER_GUIDE_BODY", BODY), ("TIER_FOOTER", FOOTER)):
-        pat = re.compile(r'(\t%s = ")(?:[^"\\]|\\.)*(",)' % key)
-        if not pat.search(txt):
-            print("  %s: %s NIET gevonden" % (code, key))
-            continue
-        txt = pat.sub(lambda m: m.group(1) + table[code] + m.group(2), txt, count=1)
-    if txt == before:
-        print("  %s: niets gewijzigd" % code)
+    if OLD[code] not in txt:
+        print("  %s: oude zin NIET gevonden -- overgeslagen" % code)
         continue
+    txt = txt.replace(OLD[code], NEW[code], 1)
     io.open(p + ".tmp", "w", encoding="utf-8", newline="").write(txt)
     os.replace(p + ".tmp", p)
     print("  %s: bijgewerkt" % code)
