@@ -179,7 +179,13 @@ function ns.PrintPartyDispelGlowStatus()
 				n = n + 1
 			end
 		end
-		print(("   containers built: %d of %d   filter=%s"):format(n, MAX_ROWS, DISPEL_FILTER))
+		-- ⚠️ `|` is an escape character in WoW's text, so printing the filter raw ate it:
+		-- Rob's first run read "filter=HARMFULAID". The filter was fine -- it had been
+		-- validated and four containers were built on it -- but the line reporting it
+		-- was wrong, in a diagnostic whose entire job is to not mislead. Doubling the
+		-- pipe prints one.
+		print(("   containers built: %d of %d   filter=%s")
+			:format(n, MAX_ROWS, (DISPEL_FILTER:gsub("|", "||"))))
 		if n == 0 then
 			print("   |cff8a8f98None yet -- they are built with the panel, so open it in a group first.|r")
 		end
