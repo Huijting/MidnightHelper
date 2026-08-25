@@ -23,3 +23,7 @@ docs/.writetest_*
 # and MY_KEYBINDS.html is the old fixed name from before the per-character rename.
 tools/KEYBINDS_*.html
 tools/MY_KEYBINDS.html
+
+# Same idea for tools/profession_plan.py: the sheet lists Rob's own characters and
+# realms, so the generator is version-controlled and its output never is.
+tools/PROFESSIONS_PLAN.html
