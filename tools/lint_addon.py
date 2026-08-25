@@ -815,6 +815,55 @@ def check_keybind_wish_conflicts(root):
                     out.append((cls, spec, key, remaining))
     return out
 
+def check_emoji_in_strings(root):
+    """[14] An emoji in a SHIPPED string, which WoW's font cannot draw.
+
+    Caught on Rob's screen 25 aug 2026: the tier guide's two warning bullets rendered
+    as two empty boxes, because the client has no glyph for U+26A0. In a Lua COMMENT
+    the same character is harmless and this repo is full of them -- they never reach a
+    screen. So the distinction this check makes is comment versus string, not
+    file-by-file.
+
+    Colour codes are the alternative that always works: |cffffd100Note:|r renders in
+    every locale and needs no font support.
+
+    ⚠️ THE FIRST VERSION FLAGGED 62 ARROWS. It matched every symbol block, which caught
+    the "→" in Codex, DungeonGuide and RitualTips -- strings that have shipped for
+    months and that Rob has never once reported as broken, because the arrow renders
+    fine. A check that cries wolf 62 times is worse than no check: it teaches everyone
+    to run past section [14].
+
+    So the test is narrow and matches what actually fails. Emoji presentation is the
+    problem: U+FE0F after a symbol (that is what makes ⚠️ an emoji rather than a plain
+    warning sign), and the astral emoji planes. Plain arrows and typographic symbols
+    stay legal.
+    """
+    hits = []
+    loc = os.path.join(root, "Locales")
+    if not os.path.isdir(loc):
+        return hits
+    bad = re.compile("[←-⯿]️"          # symbol + emoji selector
+                     "|[\U0001F000-\U0001FAFF]")      # astral emoji
+    for fn in sorted(os.listdir(loc)):
+        if not fn.endswith(".lua"):
+            continue
+        with open(os.path.join(loc, fn), "r", encoding="utf-8",
+                  errors="replace") as fh:
+            for ln, line in enumerate(fh, 1):
+                if line.lstrip().startswith("--"):
+                    continue
+                # Only the quoted VALUE, never the key or a trailing comment.
+                m = re.match(r'\s*\[?"?([A-Za-z0-9_]+)"?\]?\s*=\s*"(.*)"\s*,?\s*$',
+                             line)
+                if not m:
+                    continue
+                found = bad.search(m.group(2))
+                if found:
+                    hits.append((os.path.join("Locales", fn), ln, m.group(1),
+                                 found.group(0)))
+    return hits
+
+
 def main() -> int:
     root = repo_root()
     args = sys.argv[1:]
@@ -1032,6 +1081,12 @@ def main() -> int:
     for loc, key, rel, ln, why in tm_soft[:12]:
         print(f"    warn  {loc}  {key}   {rel}:{ln}  — {why}")
     soft += len(tm_soft)
+
+    emoji = check_emoji_in_strings(root)
+    print(f"\n[14] Emoji inside a string the player sees: {len(emoji)}")
+    for rel, ln, key, ch in emoji[:20]:
+        print(f"    HARD  {rel}:{ln}  {key}  contains {ch!r} — WoW's font draws an empty box")
+    hard += len(emoji)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")

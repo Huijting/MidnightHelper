@@ -1,48 +1,49 @@
 # -*- coding: utf-8 -*-
-"""Zet de twee Manaflux-tooltipregels in de vijf packs, direct na ALT_TOOLTIP_KEYS.
+"""Positieve controle op linter-check [14].
 
-Die staan in de packs zelf en niet in Translations2026.lua -- eerst gecontroleerd
-in plaats van aangenomen, want de vorige poging schreef naar het verkeerde bestand.
-
-"Venomblight Manaflux" blijft in elke taal Engels: het is een currency-naam, en die
-staan volgens CLAUDE.md nooit vertaald.
+Nul treffers betekent niets als de check ook nul zou geven op een regel die WEL
+fout is. Dit voert de echte regel uit op zelfgemaakte regels waarvan we het
+antwoord weten -- inclusief de pijl die 62 keer vals alarm gaf.
 """
-import io
-import os
 import re
 import sys
 
-ROOT = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\Locales"
 sys.stdout.reconfigure(encoding="utf-8")
 
-NEW = {
-"deDE": ('Venomblight Manaflux: %d/%d (Catalyst-Ladungen)',
-         'Voll - dieser Charakter gewinnt nichts mehr dazu. Gib eine aus, damit die Uhr wieder läuft.'),
-"frFR": ('Venomblight Manaflux : %d/%d (charges du Catalyst)',
-         "Plein - ce personnage ne gagne plus rien. Dépensez-en une pour relancer le compteur."),
-"esES": ('Venomblight Manaflux: %d/%d (cargas del Catalyst)',
-         'Lleno - este personaje ya no gana más. Gasta una para que vuelva a contar.'),
-"ptBR": ('Venomblight Manaflux: %d/%d (cargas do Catalyst)',
-         'Cheio - este personagem parou de ganhar. Gaste uma para o relógio voltar a correr.'),
-"itIT": ('Venomblight Manaflux: %d/%d (cariche del Catalyst)',
-         'Pieno - questo personaggio non guadagna più nulla. Spendine una per far ripartire il conto.'),
-}
+bad = re.compile("[←-⯿]️"
+                 "|[\U0001F000-\U0001FAFF]")
 
-for code, (fmt, capped) in NEW.items():
-    p = os.path.join(ROOT, code + ".lua")
-    with io.open(p, "r", encoding="utf-8", newline="") as fh:
-        txt = fh.read()
-    if "ALT_TOOLTIP_MANAFLUX_FMT" in txt:
-        print("  %s: staat er al" % code)
-        continue
-    m = re.search(r'\tALT_TOOLTIP_KEYS = "[^"]*",\r?\n', txt)
-    if not m:
-        print("  %s: anker niet gevonden" % code)
-        continue
-    nl = "\r\n" if m.group(0).endswith("\r\n") else "\n"
-    ins = ('\tALT_TOOLTIP_MANAFLUX_FMT = "%s",%s'
-           '\tALT_TOOLTIP_MANAFLUX_CAPPED = "%s",%s' % (fmt, nl, capped, nl))
-    txt = txt[:m.end()] + ins + txt[m.end():]
-    io.open(p + ".tmp", "w", encoding="utf-8", newline="").write(txt)
-    os.replace(p + ".tmp", p)
-    print("  %s: toegevoegd" % code)
+CASES = [
+    # (regel, moet-vlaggen, waarom)
+    ('\tX = "⚠️ Every character builds their own supply.",', True,
+     "de regel die vanmiddag als twee lege blokjes op Robs scherm stond"),
+    ('\tX = "Stap 1 → stap 2.",', False,
+     "pijl: staat al maanden in Codex en DungeonGuide en rendert prima"),
+    ('\tX = "Café crème, naïve über",', False,
+     "accenten moeten met rust gelaten worden"),
+    ('\tX = "• bullet en em-dash — blijven",', False,
+     "typografie die de hele addon gebruikt"),
+    ('\tX = "\U0001f525 vuur",', True,
+     "astrale emoji"),
+    ('\t-- ⚠️ dit is commentaar en bereikt nooit een scherm', False,
+     "commentaar is toegestaan; de check slaat die regels over"),
+]
+
+fails = 0
+for line, should_flag, why in CASES:
+    if line.lstrip().startswith("--"):
+        flagged = False
+    else:
+        m = re.match(r'\s*\[?"?([A-Za-z0-9_]+)"?\]?\s*=\s*"(.*)"\s*,?\s*$', line)
+        flagged = bool(m and bad.search(m.group(2)))
+    ok = flagged == should_flag
+    fails += 0 if ok else 1
+    print("%s  vlagt=%-5s verwacht=%-5s  %s"
+          % ("OK  " if ok else "FOUT", flagged, should_flag, why))
+
+print("")
+if fails:
+    print("%d van de %d gevallen fout -- check [14] deugt niet." % (fails, len(CASES)))
+else:
+    print("Alle %d gevallen goed. De check vangt de echte fout en laat de rest staan."
+          % len(CASES))
