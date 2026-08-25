@@ -74,7 +74,63 @@ ondersteunend bewijs opgevoerd dat wij achterliepen op Robs delve. Fout — die 
 draaglimiet. Twee 12.1-varianten gebruiken allebei "ingrediënten". De conclusie hield stand
 op ander bewijs, de redenering ernaartoe niet.
 
-## 🟡 24 aug — het bossvenster wacht op de eerste pull voor het weet waar je bent
+## ✅ 25 aug — tier-gids herschreven op gemeten data, en drie dingen die nergens staan
+
+De uitleg in het Tier-tabblad was van **Season 1** en stuurde spelers naar The Voidspire en
+The Dreamrift voor hun tokens. Alles hieronder komt uit Robs client, niet van een guide-site.
+
+| | |
+|---|---|
+| S2-raid | **The Venomous Abyss**, alle 4 difficulties (uit de crest-omschrijvingen) |
+| Catalyst-charge | **Venomblight Manaflux**, currency **3465** |
+| Opbouw | **per personage**, ~1 per 2 weken, **cap 8** |
+| Catalyst Unbound | achievement **61519** = *"Unlocked your class set bonuses"* |
+| Omzetting behoudt | **item level ÉN secondary stats** |
+
+⚠️ **Die laatste twee staan nergens gedocumenteerd.** De currency-tekst noemt alleen de
+secondary stats en zwijgt over item level — en zwijgen is geen "nee". Rob zette een
+Champion-schouder om en kreeg dezelfde ilvl terug. Daaruit volgt het advies dat tegen de
+intuïtie in gaat: **voer de Catalyst je BESTE stuk in dat slot**, want er komt hetzelfde uit.
+Het goede bewaren en een restje omzetten levert een restje met een setbonus op.
+
+Manaflux staat nu **per character** in het alt-overzicht, met een waarschuwing bij 8/8.
+
+**Nog open, en bewust niet verzonnen:** welke boss welk tier-stuk geeft. Vijf EJ-vangsten
+kregen dat niet rond — zie het kopje hieronder. En `TIER_SPEC_BONUS` is nog een 12.0.7-datamine
+uit juni; de voettekst zegt dat nu eerlijk en de links tonen live tooltips.
+
+## 🔴 25 aug — vier keer een leeg antwoord dat niets mat
+
+Op één middag, in de EJ-loot-vangst, allemaal dezelfde vorm: een schone, stellige, lege
+uitkomst van een instrument dat niets meet.
+
+1. "loot API missing", 43×. Eén functienaam was van namespace veranderd.
+2. 5-9 items per raidboss. Het **slot-filter** van de Adventure Guide stond aan.
+3. Alles Leather. Het **klassenfilter** meldde `cleared = true` en was het niet: `pcall`
+   slaagde, de lijst was nog niet herbouwd. **Slagen van de aanroep ≠ slagen van het effect.**
+4. De setregel-test: 115 drops, 115 tooltips leesbaar, **nul** setregels — óók in The
+   Voidspire, dat gegarandeerd tier had. Stond op het punt "Season 2 heeft geen tier-set" te
+   worden, náást de al gevonden "geen class-tokens". **Twee bronnen die hetzelfde zeggen voelt
+   als zekerheid**; de tweede was een kapotte meter.
+
+⚠️ **Regel hieruit: voor je "niets gevonden" opschrijft, laat het instrument eerst iets vinden
+waarvan je wéét dat het er is.** Linter-check [14] heeft daarom zes testgevallen in
+`tools/_probe.py`. En check [14] zelf vlagde eerst 62 pijltjes die al maanden goed renderen —
+62× vals alarm leert iedereen om er langs te scrollen.
+
+## ✅ 25 aug — bossvenster in de Abyss: GEREPAREERD en door Rob getest
+
+Rob deed zelf LFR *The Soulcoilers* en opende het venster **vóór de eerste pull**: "Nek'zali
+the Soulcoiler — The Venomous Abyss", mét stappen. De kaart-`journalInstanceID` tegen
+`CUSTOM_BOSS_ENTRIES` houden vindt de raid nu bij binnenkomst. **Cisca hoeft dit niet meer.**
+
+Twee dingen die hij er los bij vond, allebei gerepareerd:
+- De **"Boss pulled"-knop** had geen vervaltijd → nu 10 s, per boss opnieuw.
+- **Party targets** stond open in een 25-man raid. Er was niets kapot: `party1-4` bestaan daar
+  ook (je subgroep), dus het paneel werd stilletjes "vier van de vierentwintig" en bleef
+  perfect werken. Verbergt zich nu bij `IsInRaid()`.
+
+## ~~🟡 24 aug — het bossvenster wacht op de eerste pull voor het weet waar je bent~~
 
 **Cisca, in LFR van The Venomous Abyss:** ze opent het bossvenster en ziet een andere dungeon.
 
