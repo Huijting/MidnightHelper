@@ -7,6 +7,24 @@ Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 77 commits boven `v3.4.0`. De vijf talen zijn af, Valeera's voortgang in delves, portaal-
 bewust reisadvies. Description bijgewerkt. Linter 0/0.
 
+## 🔵 25 aug — GEVRAAGD DOOR ROB: een route langs ÁLLE rares, niet alleen de openstaande
+
+Rob wil **Coffer Key Shards** farmen door rares te killen. De bestaande routeknop stuurt hem
+alleen langs rares die nog **niet** afgevinkt zijn (`FindNearestIncompleteRare`,
+`Rares.lua:972`). Hij wil een tweede knop die dat filter negeert en je langs **alle** rares
+van de zone stuurt.
+
+⚠️ **Eén ding uitzoeken vóór we bouwen, want het kan de knop zinloos maken.** Ons filter hangt
+aan een vlag die deze repo zelf heeft **gemeten als wekelijks** (`Rares.lua:320-338`: zes
+zones sprongen op 0 bij de woensdag-reset). Als de shard-drop aan diezelfde weeklock hangt,
+dan stuurt een "alle rares"-route je langs spawns die niets meer geven en doet de bestaande
+knop al precies het goede.
+
+De vraag is dus niet "kunnen we het bouwen" (dat is klein — hetzelfde routepad met het filter
+uit) maar: **geeft een rare die je deze week al gekild hebt nog shards?** Rob weet dat sneller
+dan wij het kunnen afleiden; vraag het hem. Zegt hij ja, dan is de knop meteen terecht en is
+ons filter voor dit doel gewoon het verkeerde.
+
 ## ✅ 25 aug — de vierde Collegiate-variant, en waarom onze lijst het verloor van de client
 
 Rob stond in Collegiate Calamity met een voortgangsbalk **"Ingredients collected"** die wij
