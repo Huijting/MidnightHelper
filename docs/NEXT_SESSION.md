@@ -1,6 +1,32 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-23 (avond).** Dit is het eerste wat een nieuwe sessie leest.
+**Bijgewerkt 2026-08-26 (middag).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+
+## ✅ 26 aug — vertaal-drift is nu meetbaar (`tools/check_drift.py`)
+
+Uit de opdracht van de andere chat. **Zeven keys staan los**: hun Engelse zin is veranderd
+nadat de vertaling gemaakt was, en `ns:L` valt alleen terug op enUS als een key *ontbreekt* —
+niet als hij aanwezig is. Dus blijven vijf talen de oude bewering doen. `VALEERA_RUN_FMT` is
+het scherpste geval: op 20 aug corrigeerden we "XP so far" naar "kills included", en in vijf
+talen staat de ingetrokken versie er nog.
+
+Rapport: `docs/TRANSLATION_DRIFT.md` (met de Engelse én de huidige vertaling naast elkaar).
+Vaste stap staat nu in CLAUDE.md: **na elke enUS-correctie `python tools/check_drift.py`.**
+De lijst gaat naar #translations — niets machinaal vertalen, drift niet met `fill()`
+dichtplakken.
+
+⚠️ **De checker leest geen Lua.** Bij het bouwen gaf een statische parser drie keer op rij een
+verkeerd antwoord (keys die een regel delen; de `merge()`-blokken per taal in DelveTips/Codex;
+en een "bewijs" dat 1170 fills dood waren — `fill()` overschrijft juist wél een waarde die
+gelijk is aan het Engels). `locale_probe.lua` sprak hem elke keer tegen en had elke keer
+gelijk. Vandaar de nieuwe `--dump`-modus: de checker vraagt het de loader.
+
+⚠️ **Nog open in de vertaalhoek:** `tools/translation_todo.py` leest alleen `Locales/enUS.lua`
+(regel 105) en is dus blind voor **901 enUS-keys in elf merge-bestanden** — `--prefix
+DELVE_STORY` antwoordt "geen strings gevonden" terwijl er 48 zijn. Echte gaten daarin: de
+**48 delve-verhalen** van 25 aug (alleen enUS+nlNL) plus `FOLLOWER_BOSSHINT_TITLE` en
+`OMNIUM_TOAST_TITLE` in itIT. En `lint_addon.py` [5] telt 3421 enUS-keys waar de loader er
+3446 ziet; twee getallen voor hetzelfde, niet uitgezocht.
 
 ## ✅ 3.5.0 UITGEBRACHT — tag `v3.5.0` staat op GitHub (23 aug)
 
