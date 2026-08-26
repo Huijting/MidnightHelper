@@ -27,3 +27,7 @@ tools/MY_KEYBINDS.html
 # Same idea for tools/profession_plan.py: the sheet lists Rob's own characters and
 # realms, so the generator is version-controlled and its output never is.
 tools/PROFESSIONS_PLAN.html
+
+# tools/check_drift.py --seed pakt de locale-bestanden van een oude tag hierheen uit
+# om ze door de echte loader te halen. Wegwerp, en volledig af te leiden uit git.
+tools/.baseline-*/

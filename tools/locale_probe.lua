@@ -72,8 +72,46 @@ local function BuildFor(locale)
 end
 
 local KEYS = { ... }
+
+--- `--dump` prints every key in every language as TSV, for tools/check_drift.py.
+---
+--- The drift checker used to parse the locale files itself. On 26 aug 2026 that
+--- parser was wrong three times in one hour -- it missed keys sharing a line
+--- ("A = ..., B = ..."), it missed the per-language merge() blocks inside
+--- DelveTips/Codex/..., and it "proved" that 1170 fills were dead. This loader
+--- disagreed every time, and this loader was right. So the checker no longer
+--- reads Lua; it reads this.
+if KEYS[1] == "--dump" then
+	local function esc(s)
+		return (tostring(s):gsub("\\", "\\\\"):gsub("\n", "\\n"):gsub("\t", "\\t"):gsub("\r", ""))
+	end
+	for _, code in ipairs(PACKS) do
+		local ns, problems = BuildFor(code)
+		for _, p in ipairs(problems) do
+			io.stderr:write("PROBLEM (" .. code .. ") " .. p .. "\n")
+		end
+		local pack = (ns._mhLocales and ns._mhLocales[code]) or nil
+		if not pack then
+			io.stderr:write(("PROBLEM (%s) pack never registered\n"):format(code))
+		else
+			local keys = {}
+			for k in pairs(pack) do
+				if type(k) == "string" then keys[#keys + 1] = k end
+			end
+			table.sort(keys)
+			for _, k in ipairs(keys) do
+				if type(pack[k]) == "string" then
+					io.write(code, "\t", k, "\t", esc(pack[k]), "\n")
+				end
+			end
+		end
+	end
+	return
+end
+
 if #KEYS == 0 then
-	print("usage: lua5.1 scratchpad/locale_probe.lua KEY [KEY ...]")
+	print("usage: lua tools/locale_probe.lua KEY [KEY ...]")
+	print("       lua tools/locale_probe.lua --dump      (TSV for check_drift.py)")
 	return
 end
 
