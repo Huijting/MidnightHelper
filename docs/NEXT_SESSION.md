@@ -1,6 +1,37 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-26 (middag).** Dit is het eerste wat een nieuwe sessie leest.
+**Bijgewerkt 2026-08-26 (avond).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+
+## 🔵 EERST MORGEN: de dispel-gloed verifiëren bij Murojin
+
+**De gloed VUURT — dat is 26 aug bewezen.** Maisara Caverns, follower dungeon, Holy Priest:
+onze regel voor Shuja Grimaxe lichtte op, tegelijk met HexBreak, en niet voor de anderen.
+`/mh glow` meldde 4 van 4 containers en 4 rijen bewapend met Purify (527).
+
+**Maar hij was onleesbaar, en de oorzaak was frame level — niet het kunstwerk.** Het aura-
+vakje tekende ónder de achtergrond van ons eigen paneel; het enige zichtbare was de 2px die
+eroverheen stak. Drie builds lang heb ik het kunstwerk verplaatst om een stapelvolgorde te
+repareren. `Modules/PartyTargets.lua` staat nu gelijk aan HexBreak (`Core.lua:1856-1859`):
+
+```lua
+slot:SetAllPoints()                                  -- geen argument = vul je OUDER
+slot:SetFrameLevel(math.max(slot:GetFrameLevel(), panel:GetFrameLevel() + 8))
+```
+
+⚠️ **Nog niet in het wild gezien.** De laatste baas van 26 aug triggerde niets. Verifieer bij
+**Murojin, de eerste baas** — daar staat de disease in onze eigen tips (`DGN_TIP_MC_MUROJIN_HEALER`).
+Twee losse dingen om te checken: vult het rood de hele regel, én werkt de rechtermuisknop nog.
+
+🔴 **De les, want die kostte de meeste tijd.** Rob vroeg als eerste: *"je kan toch bij HexBreak
+kijken hoe het werkt?"* Dat bestand had ik al open gehad — voor het mechanisme — waarna ik
+over de vormgeving ben gaan gokken terwijl het antwoord veertien regels verderop stond. Elke
+gok kostte een `/reload`. Een werkend voorbeeld op de schijf lees je niet één keer voor één
+vraag.
+
+**Ook open:** wij hebben géén rij voor Rob zelf (Umbrion), HexBreak wel. Maar `DISPEL_ALERT_FMT`
+in `DispelHelper.lua` roept al een gele balk mét de naam van de debuff zodra er iets op Rob
+staat — voor jezelf is dat beter dan een rij. Robs keuze, geen technische; niet bouwen zonder
+dat hij het vraagt.
 
 ## ✅ 26 aug — vertaal-drift is nu meetbaar (`tools/check_drift.py`)
 

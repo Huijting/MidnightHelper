@@ -95,6 +95,32 @@ local glows = {}    -- per row: Blizzard's aura container, drawing "you can remo
 local DISPEL_FILTER = "HARMFUL|RAID"
 local glowUnavailable  -- a reason string, so a silent nothing is never the answer
 
+--- Which of our row containers a slot belongs to.
+---
+--- 🔴 THE SLOT IS ICON-SIZED, THE ROW IS NOT. The first build painted the wash with
+--- `wash:SetAllPoints()`, which fills the AuraButton — a small square — and then drew a
+--- 2px edge around that. Rob's screenshot from Maisara Caverns, 26 aug: HexBreak filled
+--- Shuja Grimaxe's whole tile red and wrote DISPEL on it; ours showed a thin red line and
+--- he could not tell who needed him. The glow was working perfectly and saying nothing.
+--- So the artwork anchors to the ROW and only its PARENT stays the slot — the engine
+--- shows and hides children with the parent, which is the whole mechanism we rely on.
+local glowLookup = setmetatable({}, { __mode = "k" })
+local paintLog = {}
+
+local function OwningRow(slot)
+	local f = slot
+	for _ = 1, 6 do
+		f = f and f.GetParent and f:GetParent()
+		if not f then
+			return nil
+		end
+		if glowLookup[f] then
+			return f
+		end
+	end
+	return nil
+end
+
 local function PaintDispelSlot(slot)
 	if slot.SetMouseClickEnabled then
 		pcall(slot.SetMouseClickEnabled, slot, false)
@@ -102,17 +128,74 @@ local function PaintDispelSlot(slot)
 	if slot.SetMouseMotionEnabled then
 		pcall(slot.SetMouseMotionEnabled, slot, false)
 	end
-	pcall(slot.SetAllPoints, slot)
+
+	local row = OwningRow(slot)
+
+	-- What the artwork was actually given to work with. Rob's second screenshot showed a
+	-- red line above each row with DISPEL hanging outside the panel, which means one of
+	-- these numbers is not what this code assumes. Printing them beats another guess.
+	paintLog[#paintLog + 1] = {
+		row = row and true or false,
+		sw = slot.GetWidth and slot:GetWidth() or -1,
+		sh = slot.GetHeight and slot:GetHeight() or -1,
+		rw = row and row.GetWidth and row:GetWidth() or -1,
+		rh = row and row.GetHeight and row:GetHeight() or -1,
+		depth = (function()
+			local f, n = slot, 0
+			while f and n < 8 do
+				if glowLookup[f] then return n end
+				f = f.GetParent and f:GetParent()
+				n = n + 1
+			end
+			return -1
+		end)(),
+	}
+
+	-- 🔴 FILL THE PARENT, THEN RISE ABOVE THE PANEL. Both lines are HexBreak's
+	-- (Core.lua:1856-1859), and the second is the one we never had.
+	--
+	-- `SetAllPoints()` with NO argument anchors to the parent — here the row container.
+	-- Our first build had exactly this and I deleted it on 26 aug, reading it as a frame
+	-- anchored to itself. It was correct.
+	--
+	-- The real fault was the missing frame level. Without it the slot draws BEHIND the
+	-- panel's own row artwork, so all that ever showed was the 2px the old edge texture
+	-- stuck out past it. Three screenshots of "a thin red line" were never a broken glow:
+	-- they were the glow, underneath. I changed the artwork three times to fix a stacking
+	-- order — while a working implementation sat installed and readable, which is what Rob
+	-- asked about before any of it.
+	pcall(function()
+		slot:SetAllPoints()
+		slot:SetFrameLevel(math.max(slot:GetFrameLevel(), panel:GetFrameLevel() + 8))
+	end)
 
 	local wash = slot:CreateTexture(nil, "OVERLAY", nil, 1)
 	wash:SetAllPoints()
-	wash:SetColorTexture(0.62, 0.02, 0.02, 0.30)
+	wash:SetColorTexture(0.62, 0.010, 0.006, 0.55)
 
-	local edge = slot:CreateTexture(nil, "OVERLAY", nil, 2)
-	edge:SetPoint("TOPLEFT", -2, 2)
-	edge:SetPoint("BOTTOMRIGHT", 2, -2)
-	edge:SetColorTexture(1, 0.08, 0.02, 0.22)
-	edge:SetBlendMode("ADD")
+	-- A bright rim, because a wash alone reads as "this row is selected" rather than
+	-- "act on this row". Four thin textures, not a border texture, so nothing scales oddly
+	-- when Rob drags the panel wider.
+	for _, side in ipairs({ "TOP", "BOTTOM", "LEFT", "RIGHT" }) do
+		local bar = slot:CreateTexture(nil, "OVERLAY", nil, 2)
+		bar:SetColorTexture(1, 0.12, 0.025, 1)
+		if side == "TOP" or side == "BOTTOM" then
+			bar:SetHeight(2)
+			bar:SetPoint(side .. "LEFT", slot, side .. "LEFT", 0, 0)
+			bar:SetPoint(side .. "RIGHT", slot, side .. "RIGHT", 0, 0)
+		else
+			bar:SetWidth(2)
+			bar:SetPoint("TOP" .. side, slot, "TOP" .. side, 0, 0)
+			bar:SetPoint("BOTTOM" .. side, slot, "BOTTOM" .. side, 0, 0)
+		end
+	end
+
+	-- HexBreak writes the word on the tile and that is why Rob could read theirs at a
+	-- glance. Static artwork, so it is allowed here; a FontString is not a script.
+	local tag = slot:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	tag:SetPoint("RIGHT", slot, "RIGHT", -6, 0)
+	tag:SetText((ns.L and ns:L("PARTY_DISPEL_TAG")) or "DISPEL")
+	tag:SetTextColor(1, 0.92, 0.55)
 end
 
 --- One container per row. Created once, then rebound as the roster moves.
@@ -141,6 +224,16 @@ function EnsureDispelGlow(i)
 		glowUnavailable = "CustomAuraContainerTemplate: " .. tostring(c)
 		return
 	end
+	-- ⚠️ REGISTER BEFORE AddAuraSlot. `initializeFrame` can fire during that call, and a
+	-- slot that initialises before its row is known falls back to painting itself — which
+	-- is exactly the thin-line bug this replaced.
+	glowLookup[c] = true
+
+	-- ⚠️ NOT disabling the mouse on the container itself. I added that on 26 aug on a
+	-- hunch about the dead clicks, and it went in together with a slot resize — so when
+	-- every click died, two changes shared the blame and neither was proven. HexBreak
+	-- does not touch the container's mouse, and a plain Frame does not take one. Matching
+	-- their build exactly leaves one difference to test instead of three.
 	pcall(c.SetPoint, c, "TOPLEFT", panel, "TOPLEFT", PAD - 2, RowTop(i))
 	pcall(c.SetPoint, c, "TOPRIGHT", panel, "TOPRIGHT", -PAD + 2, RowTop(i))
 	pcall(c.SetHeight, c, ROW_H)
@@ -206,6 +299,56 @@ function ns.PrintPartyDispelGlowStatus()
 	end
 	print(pid and ("   your purge : spell %d  (right-click the right half)"):format(pid)
 		or "   |cff8a8f98This character has no purge.|r")
+
+	-- ⚠️ WHAT THE SPELL LOOKUP FOUND IS NOT WHAT THE BUTTON CARRIES. The lines above read
+	-- GetPlayerDispelIcon again, live; the button was armed by ApplyDispelAttributes,
+	-- which refuses to run in combat. Those two can disagree -- and if they do, that is
+	-- precisely why a right-click does nothing while this diagnostic looks healthy.
+	local armed, blank = 0, 0
+	for i = 1, MAX_ROWS do
+		local b = clicks[i]
+		if b then
+			if b:GetAttribute("spell2") then armed = armed + 1 else blank = blank + 1 end
+		end
+	end
+	print(("   rows armed to dispel: %d   without a spell: %d%s")
+		:format(armed, blank,
+			(InCombatLockdown and InCombatLockdown()) and "   |cffff5555(in combat — arming is blocked)|r" or ""))
+	if armed == 0 and id then
+		print("   |cffff5555Your spec HAS a dispel but no row carries it.|r "
+			.. "Leave combat and reopen the panel.")
+	end
+
+	-- Does anything above the row still take the mouse? If a right-click does nothing
+	-- while the rows are armed, this is where it is going.
+	for i = 1, MAX_ROWS do
+		local c = glows[i]
+		if c and c.IsMouseEnabled then
+			local ok, on = pcall(c.IsMouseEnabled, c)
+			-- ⚠️ `on` IS A SECRET BOOLEAN in 12.1 once our own execution is tainted, and
+			-- testing it directly throws. Rob, 26 aug: this diagnostic — whose entire job
+			-- is to explain a failure — became the failure. CLAUDE.md has said "guard with
+			-- issecretvalue() before comparing" since 12.0; I wrote the check without one.
+			if ok and not (issecretvalue and issecretvalue(on)) and on == true then
+				print(("   |cffff5555row %d: the glow container still takes the mouse|r"):format(i))
+			end
+		end
+	end
+
+	-- Geometry, because the artwork landed in the wrong place twice and both times the
+	-- explanation was an assumed size.
+	if #paintLog == 0 then
+		print("   |cff8a8f98No slot has been painted yet — nothing dispellable has appeared.|r")
+	else
+		for n, p in ipairs(paintLog) do
+			print(("   paint %d: row found=%s (depth %d)  slot %.0fx%.0f  row %.0fx%.0f")
+				:format(n, tostring(p.row), p.depth, p.sw, p.sh, p.rw, p.rh))
+			if n >= 4 then
+				print(("   ... and %d more"):format(#paintLog - n))
+				break
+			end
+		end
+	end
 end
 
 --- Point a row's container at a unit, or park it.

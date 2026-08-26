@@ -353,6 +353,8 @@ ns._mhLocales.enUS = {
 	PARTYTARGETS_NONE = "|cff9d9d9d— no target —|r",
 	PARTYTARGETS_ON = "Party targets ON — drag the panel where you want it. It shows in a party only.",
 	PARTYTARGETS_OFF = "Party targets OFF.",
+	-- Sits on the glowing row. WoW UI spelling, English in every pack (game term).
+	PARTY_DISPEL_TAG = "DISPEL",
 	TRANSLATE_PARTIAL_TITLE = "Finish Midnight Helper in your language?",
 	TRANSLATE_PARTIAL_BODY = "Parts of Midnight Helper still show English instead of %s. Want to help finish it? Any amount helps.",
 	FIRSTRUN_CHAT = "Welcome! New here? Type /mh to open Midnight Helper, or take the guided tour.",
