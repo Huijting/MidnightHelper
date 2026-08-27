@@ -206,6 +206,7 @@ Modules\RaidGuide.lua
 Modules\DaggerspineCoach.lua
 Modules\AccessibleAlerts.lua
 Modules\DispelTest.lua
+Modules\InterruptEventProbe.lua
 Modules\NativeSettings.lua
 Modules\FpsPanel.lua
 Modules\SettingsPage.lua

@@ -1209,6 +1209,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh kickprobe [clear] — is UNIT_SPELLCAST_INTERRUPTED leesbaar in 12.1? Onze
+	-- afschrijving van 18 aug ging over de LOPENDE cast, niet over dit event.
+	if msg == "kickprobe" or msg:match("^kickprobe%s") then
+		if ns.PrintInterruptEventProbe then
+			ns.PrintInterruptEventProbe(msg:match("^kickprobe%s+(.+)$"))
+		end
+		return
+	end
+
 	-- /mh dispeltest [decide|show|combat] — het dispel-alarm zien werken zonder een mob te
 	-- zoeken. Zoeken test de beslissing en de vertoning tegelijk en zegt niet welke van de
 	-- twee zweeg, terwijl zwijgen hier vaak het juiste antwoord is.
