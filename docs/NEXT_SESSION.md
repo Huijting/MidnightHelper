@@ -1,6 +1,37 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-26 (avond).** Dit is het eerste wat een nieuwe sessie leest.
+**Bijgewerkt 2026-08-27 (avond).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
+
+## ✅ 3.6.0 KLAARGEZET 27 aug — 73 commits boven `v3.5.0`
+
+Versie, changelog, release-notes, CHANGELOG.md en de CF-description zijn bij. Linter 0/0,
+alle 243 bestanden compileren. **Tag nog niet gezet** — dat is Robs beslissing.
+
+## 🔴 EERSTE KLUS MORGEN: één schone rechtsklik
+
+**De enige meting die nooit schoon gedaan is:** één rechtsklik op een **rode** naam, zonder
+tegelijk iets anders in te drukken. Twee seconden werk, en het beslist of de dispel-knop werkt.
+
+⚠️ **Waarom het nog niet beslist is, en dat is mijn fout.** De castlijst in `/mh glow` legt
+élke spreuk vast die Rob cast, ongeacht de bron. In een bossfight drukt hij van alles in; er
+stonden Holy Fire, Chastise en Halo tussen, die geen enkele knop van ons kan afvuren. Uit een
+rij `Dispel Magic (528)` concludeerde ik dat de klik op de rechterhelft landde. **Dat kan die
+meter niet zien** — precies de fout waar ik Rob diezelfde middag voor waarschuwde bij de
+kick-probe.
+
+**Wat wél vaststaat, allemaal gemeten:**
+
+| | |
+|---|---|
+| de gloed vuurt en vult de regel | ✅ Maisara Caverns, "heel veel oplichten" |
+| de rechterhelft cast | ✅ `cast Dispel Magic (528)` |
+| knop-attributen | ✅ `*type2=spell spell2=527 unit=party1` |
+| geometrie, in én buiten gevecht | ✅ 1695..1858 en 1858..2038, geen overlap |
+| lagen | ✅ knoppen DIALOG, gloed MEDIUM — de gloed ligt eronder |
+| Purify zonder debuff | doet stilletjes niets: normaal, geen bug |
+
+Drie hypotheses zijn op die getallen gesneuveld (overlappende helften, combat die de layout
+bevriest, de gloed die de rij afdekt). Ga er geen vierde bedenken vóór die schone klik.
 
 ## 📋 `docs/TESTLIJST.md` — alles wat op Rob wacht, op één plek
 

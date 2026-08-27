@@ -187,7 +187,12 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	SET_BOSSWIN_SCALE = "Scala finestra",
 	SET_CONSREADY_TITLE = "Controllo consumabili",
 	SET_CONSREADY_DESC = "Controlla flask, augment rune, pozioni, cibo e healthstone quando entri in un ritual, delve o dungeon.",
-	SET_CONSREADY_TOGGLE_TITLE = "Mostra all'ingresso nel dungeon",
+	-- 🔴 REMOVED 27 aug 2026, not translated away. This said "on entering the DUNGEON"
+	-- while the alert also fires in rituals and delves — the very promise Andy's PR fixed
+	-- in English. A missing key falls back to enUS, which is now correct, so deleting a
+	-- wrong translation is strictly better than keeping it until a volunteer arrives.
+	-- The English is "Show consumable check on entry"; it is on the #translations list.
+	-- SET_CONSREADY_TOGGLE_TITLE = "Mostra all'ingresso nel dungeon",
 	SET_CONSREADY_TOGGLE_DESC = "Esegue automaticamente il controllo consumabili appena entri in un ritual, delve o dungeon. Puoi anche usare /mh readytoggle.",
 	SET_CONSREADY_SHOW = "Mostra ora il pannello",
 	SET_SHARING_BODY = "La condivisione di Delve, Ritual e fasi dei boss invia testo semplice in chat al tuo gruppo. I membri che usano anch'essi Midnight Helper ricevono i suggerimenti delve nella loro lingua — la stessa ricezione localizzata è in sviluppo per le condivisioni di ritual e fasi dei boss.",
@@ -424,7 +429,9 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	SET_BOSSWIN_SCALE = "Échelle de la fenêtre",
 	SET_CONSREADY_TITLE = "Vérif. consommables",
 	SET_CONSREADY_DESC = "Vérifie votre flask, augment rune, potions, nourriture et healthstone quand vous entrez dans un rituel, une delve ou un donjon.",
-	SET_CONSREADY_TOGGLE_TITLE = "Afficher à l'entrée du donjon",
+	-- Removed 27 aug 2026 — said "dungeon" for an alert that also fires in rituals and
+	-- delves. Falls back to the corrected English; see the note in the itIT block.
+	-- SET_CONSREADY_TOGGLE_TITLE = "Afficher à l'entrée du donjon",
 	SET_CONSREADY_TOGGLE_DESC = "Lance automatiquement la vérif. des consommables dès l'entrée dans un rituel, une delve ou un donjon. Possible aussi via /mh readytoggle.",
 	SET_CONSREADY_SHOW = "Afficher le tableau",
 	SET_SHARING_BODY = "Le partage des gouffres, rituels et étapes de boss envoie du texte brut à ton groupe. Les membres qui utilisent aussi Midnight Helper reçoivent les astuces de gouffre dans leur propre langue — la même réception localisée est en cours pour les partages de rituels et de boss.",
@@ -478,7 +485,9 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	SET_BOSSWIN_SCALE = "Escala de la ventana",
 	SET_CONSREADY_TITLE = "Chequeo de consumibles",
 	SET_CONSREADY_DESC = "Comprueba tu flask, augment rune, pociones, comida y healthstone al entrar en un ritual, una delve o una mazmorra.",
-	SET_CONSREADY_TOGGLE_TITLE = "Mostrar al entrar en mazmorra",
+	-- Removed 27 aug 2026 — said "dungeon" for an alert that also fires in rituals and
+	-- delves. Falls back to the corrected English; see the note in the itIT block.
+	-- SET_CONSREADY_TOGGLE_TITLE = "Mostrar al entrar en mazmorra",
 	SET_CONSREADY_TOGGLE_DESC = "Ejecuta el chequeo de consumibles automáticamente al entrar en un ritual, una delve o una mazmorra. También con /mh readytoggle.",
 	SET_CONSREADY_SHOW = "Mostrar tablero",
 	SET_SHARING_BODY = "Compartir profundidades, rituales y pasos de jefe envía texto plano a tu grupo. Los miembros que también usan Midnight Helper reciben los consejos de profundidad en su propio idioma — esa misma recepción localizada está en desarrollo para rituales y jefes.",
@@ -532,7 +541,9 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	SET_BOSSWIN_SCALE = "Escala da janela",
 	SET_CONSREADY_TITLE = "Verificação de consumíveis",
 	SET_CONSREADY_DESC = "Verifica o teu flask, augment rune, poções, comida e healthstone ao entrar num ritual, numa delve ou numa masmorra.",
-	SET_CONSREADY_TOGGLE_TITLE = "Mostrar ao entrar na masmorra",
+	-- Removed 27 aug 2026 — said "dungeon" for an alert that also fires in rituals and
+	-- delves. Falls back to the corrected English; see the note in the itIT block.
+	-- SET_CONSREADY_TOGGLE_TITLE = "Mostrar ao entrar na masmorra",
 	SET_CONSREADY_TOGGLE_DESC = "Executa a verificação de consumíveis automaticamente ao entrar num ritual, numa delve ou numa masmorra. Também com /mh readytoggle.",
 	SET_CONSREADY_SHOW = "Mostrar painel",
 	SET_SHARING_BODY = "Compartilhar profundidades, rituais e passos de chefe envia texto simples ao grupo. Membros que também usam o Midnight Helper recebem dicas de profundidade no próprio idioma — a mesma recepção localizada está em desenvolvimento para rituais e chefes.",
