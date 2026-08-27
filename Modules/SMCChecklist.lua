@@ -166,10 +166,19 @@ end
 
 do
 	local ev = CreateFrame("Frame")
+	local pendingTimer
 	ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 	ev:RegisterEvent("QUEST_LOG_UPDATE")
 	ev:RegisterEvent("QUEST_TURNED_IN")
+	-- QUEST_LOG_UPDATE arrives in bursts
 	ev:SetScript("OnEvent", function()
-		ns.SMC_RefreshDynamicChecklist()
+		local panel = ns.panels and ns.panels.smcguide
+		if pendingTimer or not (panel and panel:IsVisible()) then
+			return
+		end
+		pendingTimer = C_Timer.NewTimer(0.3, function()
+			pendingTimer = nil
+			ns.SMC_RefreshDynamicChecklist()
+		end)
 	end)
 end

@@ -400,12 +400,25 @@ end
 -- definition; without this it would resolve to a nil global.
 local GetItemIDFromLink
 
+local itemDataListener
+-- IsVisible: a child stays shown when its window is closed
+local function VaultUiVisible()
+	if WeeklyRewardsFrame and WeeklyRewardsFrame:IsVisible() then
+		return true
+	end
+	local p = ns.panels and ns.panels.delves
+	return (p and p:IsVisible()) and true or false
+end
+
 local function RequestItemDataForLink(link, itemID)
 	itemID = itemID or GetItemIDFromLink(link)
 	if not itemID or not C_Item or not C_Item.RequestLoadItemDataByID then
 		return
 	end
 	pcall(C_Item.RequestLoadItemDataByID, itemID)
+	if itemDataListener and VaultUiVisible() then
+		itemDataListener:RegisterEvent("ITEM_DATA_LOAD_RESULT")
+	end
 end
 
 local function IsItemDataCached(itemID)
@@ -1968,12 +1981,16 @@ function ns.RefreshVaultAdvisorPanel(parent, innerWidth, claimReady)
 end
 
 local ev = CreateFrame("Frame", nil, UIParent)
+itemDataListener = ev
 ev:RegisterEvent("WEEKLY_REWARDS_UPDATE")
 ev:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 ev:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
-ev:RegisterEvent("ITEM_DATA_LOAD_RESULT")
+-- ITEM_DATA_LOAD_RESULT is not registered here: see RequestItemDataForLink
 ev:SetScript("OnEvent", function(_, event)
 	if event == "ITEM_DATA_LOAD_RESULT" then
+		if not VaultUiVisible() then
+			ev:UnregisterEvent("ITEM_DATA_LOAD_RESULT")
+		end
 		ScheduleRescan()
 	elseif event == "WEEKLY_REWARDS_UPDATE" or event == "PLAYER_SPECIALIZATION_CHANGED" or event == "PLAYER_EQUIPMENT_CHANGED" then
 		lastScanKey = nil

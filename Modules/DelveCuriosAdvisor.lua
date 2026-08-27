@@ -559,10 +559,11 @@ local function RefreshNemesisFootnote(panel, season)
 end
 
 local function ShouldLoadCurioItemData()
-	if popupFrame and popupFrame:IsShown() then
+	-- IsVisible: a child stays shown when its window is closed
+	if popupFrame and popupFrame:IsVisible() then
 		return true
 	end
-	if embeddedPanel and embeddedPanel:IsShown() then
+	if embeddedPanel and embeddedPanel:IsVisible() then
 		return true
 	end
 	return false
@@ -697,7 +698,9 @@ function ns.RefreshDelveCurioAdvisor()
 
 	local season = ns.GetDelvesSeasonNumber and ns:GetDelvesSeasonNumber() or 1
 	if ShouldLoadCurioItemData() and ns.RequestDelveCurioItemData then
-		ns.RequestDelveCurioItemData(season)
+		if ns.RequestDelveCurioItemData(season) and eventFrame then
+			eventFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
+		end
 	end
 	local variant = (ns.IsPlayerInNemesisDelve and ns:IsPlayerInNemesisDelve()) and "nemesis" or "default"
 
@@ -1021,12 +1024,14 @@ local function EnsureEventBridge()
 	eventFrame:RegisterEvent("GOSSIP_SHOW")
 	eventFrame:RegisterEvent("GOSSIP_CLOSED")
 	eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-	eventFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
+	-- ITEM_DATA_LOAD_RESULT is not registered here: see RefreshDelveCurioAdvisor
 	eventFrame:RegisterEvent("ADDON_LOADED")
 	eventFrame:RegisterEvent("TRAIT_CONFIG_UPDATED")
 	eventFrame:SetScript("OnEvent", function(_, event, arg1)
 		if event == "ITEM_DATA_LOAD_RESULT" then
-			if arg1 and ns.IsDelveCurioItemID and ns.IsDelveCurioItemID(arg1) and ShouldLoadCurioItemData() then
+			if not ShouldLoadCurioItemData() then
+				eventFrame:UnregisterEvent("ITEM_DATA_LOAD_RESULT")
+			elseif arg1 and ns.IsDelveCurioItemID and ns.IsDelveCurioItemID(arg1) then
 				ScheduleCurioAdvisorRefresh()
 			end
 			return
