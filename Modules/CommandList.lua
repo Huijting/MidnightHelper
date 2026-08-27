@@ -64,7 +64,13 @@ ns.MH_COMMANDS = {
 	} },
 	{ headKey = "CMDLIST_GRP_WEEK", items = {
 		{ cmd = "/mh milestones", descKey = "CMDLIST_MILESTONES" },
-		{ cmd = "/mh season", descKey = "CMDLIST_SEASON" },
+		-- 🔴 `/mh season stats`, NOT `/mh season`. This row promised "Season stats for
+		-- this character" and pointed at the developer diagnostic, which prints the
+		-- season-transition checklist with its raw ids and ends by telling the reader to
+		-- verify each resolved name. Rob searched for "stats", took what the list
+		-- offered, and got that (27 aug). The bare command still works; it is simply not
+		-- advertised, the same as /mh glow and /mh dispeltest.
+		{ cmd = "/mh season stats", descKey = "CMDLIST_SEASON" },
 		{ cmd = "/mh delves", descKey = "CMDLIST_DELVES" },
 		{ cmd = "/mh scorecard", descKey = "CMDLIST_SCORECARD" },
 	} },
@@ -72,6 +78,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh tracks", descKey = "CMDLIST_TRACKS" },
 		{ cmd = "/mh loot", descKey = "CMDLIST_LOOT" },
 		{ cmd = "/mh enchant", descKey = "CMDLIST_ENCHANT" },
+		{ cmd = "/mh stats", descKey = "CMDLIST_STATS" },
 		{ cmd = "/mh bagarrows", descKey = "CMDLIST_BAGARROWS" },
 	} },
 	{ headKey = "CMDLIST_GRP_GROUP", items = {

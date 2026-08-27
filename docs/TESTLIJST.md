@@ -9,6 +9,41 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 ---
 
+## 🟣 NIET GECOMMIT — `/mh stats` (patch aangebracht 27 aug)
+
+⚠️ Deze feature staat wel in je spelmap maar **niet in git**. Rob heeft gevraagd niets te
+committen tot hij "af" zegt. Ga je iets anders doen waarbij de map schoon moet zijn, zeg het
+dan — dan zetten we hem even apart.
+
+### 0a. `/mh stats` — leest het als jip-en-janneke?
+
+Een venster met je hoofdstat, je vier secondaries in **jouw** volgorde, en je eigen live
+percentages. De kop zegt met opzet dat hoger item level bijna altijd wint en stats pas de
+doorslag geven bij twee stukken die dicht bij elkaar liggen — anders gaat een beginner hogere
+ilvl weigeren om een kleurtje na te jagen.
+
+### 0b. `/mh stats probe` — drie dingen die niemand buiten het spel kan weten
+
+De probe print elke API die hij probeert, of hij antwoordde, en wat hij zei. Plak de uitvoer
+hierheen; er zijn drie dingen te beslissen:
+
+1. **Welke mastery-API bestaat.** Er staan er twee in als kandidaat
+   (`C_SpecializationInfo.GetMasterySpells` en `GetSpecializationMasterySpells`). De verliezer
+   moet daarna weg — niet laten staan "voor de zekerheid". Op 8 aug ging op precies die manier
+   een niet-bestaande event-naam mee.
+2. **Of `primaryStat` echt de 6e waarde van `GetSpecializationInfo` is.** Staat als
+   `primaryStat=1` in de uitvoer. Klopt het niet, dan vervalt alleen de hoofdstat-regel.
+3. **De vier percentages tegen je characterscherm (toets C).** Vooral crit: casters lezen een
+   andere functie dan de rest, en dat is de regel die niet te bewijzen was. De probe print ze
+   allebei, dus één blik volstaat.
+
+📌 **Ook meegekomen:** een echte bug in `CurioExplain.lua`. Het kleurcode-patroon `|c%x+` is
+gulzig en a–f zijn hex-cijfers, dus het at de eerste letters van het gemarkeerde woord op —
+buiten het spel bewezen: `Blood Shield` werd `lood Shield`, `deflect` werd `lect`. Gerepareerd
+naar exact acht cijfers. Kijk bij `/mh curios` of de gemarkeerde woorden nu compleet zijn.
+
+---
+
 ## 🔴 Eerst: één reload, dan alles achter elkaar
 
 Deze twee kunnen staand in Silvermoon, geen dungeon nodig.

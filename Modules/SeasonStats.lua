@@ -243,16 +243,41 @@ function ns.PrintSeasonStats()
 	local prefix = "|cffe8c36aMidnight Helper|r"
 	local when = (date and type(since) == "number" and since > 0) and date("%d/%m/%Y", since) or "?"
 	print(("%s — %s"):format(prefix, (ns:L("SEASONSTATS_SINCE_FMT")):format(when)))
-	-- Sorted, so two runs of the command are comparable line by line.
-	local keys = {}
+	-- 🔴 EVERY COUNTER, ZEROS INCLUDED, AND IN WORDS. Rob ran this on 27 aug and got two
+	-- lines: `bossKills: 21` and `deaths: 37`. Both true, and between them they said
+	-- something false — that MH counts two things. It counts five; the other three were
+	-- simply absent from the table because nothing had bumped them yet, and a missing
+	-- line reads as "not tracked", not as "zero".
+	--
+	-- That is this project's oldest failure mode wearing a new hat: silence is not
+	-- absence. A player deciding whether to bother with keys this season cannot use a
+	-- list that hides the keys line precisely when the answer is none.
+	--
+	-- Raw table keys were on his screen too. `bossKills` is a variable name; he had
+	-- already met one dev-facing dump today via a command list entry that promised
+	-- player text.
+	local KNOWN = {
+		{ key = "keysRun", label = "SEASONSTATS_KEYSRUN" },
+		{ key = "keysTimed", label = "SEASONSTATS_KEYSTIMED" },
+		{ key = "bossKills", label = "SEASONSTATS_BOSSKILLS" },
+		{ key = "deaths", label = "SEASONSTATS_DEATHS" },
+		{ key = "mounts", label = "SEASONSTATS_MOUNTS" },
+	}
+	local shown = {}
+	for _, row in ipairs(KNOWN) do
+		shown[row.key] = true
+		print(("   %s: %d"):format(ns:L(row.label), counts[row.key] or 0))
+	end
+	-- A counter added later still appears, by its raw key, rather than vanishing until
+	-- someone remembers to add it above.
+	local extra = {}
 	for k in pairs(counts) do
-		keys[#keys + 1] = k
+		if not shown[k] then
+			extra[#extra + 1] = k
+		end
 	end
-	table.sort(keys)
-	for _, k in ipairs(keys) do
+	table.sort(extra)
+	for _, k in ipairs(extra) do
 		print(("   %s: %d"):format(k, counts[k]))
-	end
-	if #keys == 0 then
-		print("   " .. ns:L("SEASONSTATS_EMPTY"))
 	end
 end
