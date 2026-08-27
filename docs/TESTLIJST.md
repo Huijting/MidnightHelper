@@ -94,7 +94,18 @@ conclusie waar deze week over ging.
 
 ## 🔵 In een dungeon: Maisara Caverns, eerste baas
 
-### 2b. 🔴 DOE DIT EERST: `/mh glow test` — staand in Silvermoon
+### 2b. ✅ AF (27 aug): de gloed vult nu de hele regel
+
+Bevestigd op Robs scherm, staand in Silvermoon: vier volledig rode regels met DISPEL erin.
+Het glow-test-commando blijft bestaan — draai het na elke wijziging aan `PartyTargets.lua`,
+want dit is drie keer stuk geweest zonder dat iemand het zag tot er een baas aan te pas kwam.
+
+⚠️ **Wat hiermee NIET bewezen is:** of het spel dat aura-vakje ooit tóónt. Dat blijft de
+dungeon-test hieronder.
+
+<details><summary>De oorspronkelijke opdracht (voor herhaling)</summary>
+
+### `/mh glow test` — staand in Silvermoon
 
 Zet `/mh partytargets` aan en typ `/mh glow test`. Zes seconden lang worden de rijen
 geschilderd alsof er iets te dispellen valt.
@@ -110,6 +121,8 @@ dat hier niet, dan hoef je niet te gaan.
 ⚠️ **Wat het NIET test:** of het spel dat vakje ooit tóónt. Dat is Blizzards beslissing op een
 filter dat wij nooit lezen — precies het enige deel dat we niet in de hand hebben. Een schone
 uitkomst hier plus stilte in een dungeon betekent dus nog steeds "er kwam niks langs".
+
+</details>
 
 ### 3. De rode gloed op een groepsregel (gerepareerd 26 aug, ongetest)
 

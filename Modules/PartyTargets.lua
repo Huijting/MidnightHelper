@@ -131,15 +131,18 @@ local function PaintDispelSlot(slot)
 
 	local row = OwningRow(slot)
 
-	-- What the artwork was actually given to work with. Rob's second screenshot showed a
-	-- red line above each row with DISPEL hanging outside the panel, which means one of
-	-- these numbers is not what this code assumes. Printing them beats another guess.
-	paintLog[#paintLog + 1] = {
+	-- 🔴 MEASURE AFTER, NOT BEFORE. This block used to sit above the sizing call and
+	-- reported `slot 0x0` every time — which is simply what the engine hands us, before
+	-- our own code has done anything. Rob ran it on 27 aug and I was about to build a
+	-- theory on that zero. A diagnostic that reports the input while labelling it the
+	-- result is worse than no diagnostic: it is confidently wrong, and it wastes the run
+	-- it was added to explain.
+	local entry = {
 		row = row and true or false,
-		sw = slot.GetWidth and slot:GetWidth() or -1,
-		sh = slot.GetHeight and slot:GetHeight() or -1,
 		rw = row and row.GetWidth and row:GetWidth() or -1,
 		rh = row and row.GetHeight and row:GetHeight() or -1,
+		beforeW = slot.GetWidth and slot:GetWidth() or -1,
+		beforeH = slot.GetHeight and slot:GetHeight() or -1,
 		depth = (function()
 			local f, n = slot, 0
 			while f and n < 8 do
@@ -150,6 +153,7 @@ local function PaintDispelSlot(slot)
 			return -1
 		end)(),
 	}
+	paintLog[#paintLog + 1] = entry
 
 	-- 🔴 FILL THE PARENT, THEN RISE ABOVE THE PANEL. Both lines are HexBreak's
 	-- (Core.lua:1856-1859), and the second is the one we never had.
@@ -164,10 +168,43 @@ local function PaintDispelSlot(slot)
 	-- they were the glow, underneath. I changed the artwork three times to fix a stacking
 	-- order — while a working implementation sat installed and readable, which is what Rob
 	-- asked about before any of it.
-	pcall(function()
-		slot:SetAllPoints()
+	-- 🔴 TAKE THE SIZE FROM THE PANEL, NOT FROM THE CONTAINER.
+	--
+	-- Measured 27 aug, and it settles three days of guessing: at paint time everything is
+	-- already right — the slot goes 0x0 -> 362x22, frame level 9 against the panel's 1,
+	-- no swallowed error. And the row still draws as a thin line. So the geometry is
+	-- correct when we set it and wrong when it is drawn: the container shrinks afterwards,
+	-- and `SetAllPoints()` faithfully follows it down. Everything hanging off it collapses
+	-- to about two pixels, which is exactly what a 2px-tall row looks like — top and
+	-- bottom rim on the same line, DISPEL sitting on it.
+	--
+	-- Why it shrinks is Blizzard's business: the container is their template and it lays
+	-- itself out around aura slots we never fill. Rather than find out and depend on the
+	-- answer, the artwork now takes its rectangle from OUR panel, whose row geometry we
+	-- own. The container stays the parent — that is what makes the game show and hide our
+	-- red along with the aura — but it no longer decides how big it is.
+	--
+	-- Three earlier fixes each moved the artwork somewhere else while leaving it anchored
+	-- to something Blizzard controls. This is the first one that removes the dependency.
+	local idx = row and row._mhRowIndex
+	local okSize, sizeErr = pcall(function()
+		if idx and panel then
+			slot:ClearAllPoints()
+			slot:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD - 2, RowTop(idx))
+			slot:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD + 2, RowTop(idx))
+			slot:SetHeight(ROW_H)
+		else
+			slot:SetAllPoints()
+		end
 		slot:SetFrameLevel(math.max(slot:GetFrameLevel(), panel:GetFrameLevel() + 8))
 	end)
+	-- ⚠️ A swallowed error here looks exactly like a working call. Recorded, not hidden.
+	entry.sized = okSize
+	entry.sizeErr = (not okSize) and tostring(sizeErr) or nil
+	entry.afterW = slot.GetWidth and slot:GetWidth() or -1
+	entry.afterH = slot.GetHeight and slot:GetHeight() or -1
+	entry.level = slot.GetFrameLevel and slot:GetFrameLevel() or -1
+	entry.panelLevel = (panel and panel.GetFrameLevel) and panel:GetFrameLevel() or -1
 
 	local wash = slot:CreateTexture(nil, "OVERLAY", nil, 1)
 	wash:SetAllPoints()
@@ -228,6 +265,9 @@ function EnsureDispelGlow(i)
 	-- slot that initialises before its row is known falls back to painting itself — which
 	-- is exactly the thin-line bug this replaced.
 	glowLookup[c] = true
+	-- Which row this container belongs to, so the artwork can take its rectangle from the
+	-- panel instead of from a frame whose height Blizzard changes underneath us.
+	c._mhRowIndex = i
 
 	-- ⚠️ NOT disabling the mouse on the container itself. I added that on 26 aug on a
 	-- hunch about the dead clicks, and it went in together with a slot resize — so when
@@ -341,8 +381,11 @@ function ns.PrintPartyDispelGlowStatus()
 		print("   |cff8a8f98No slot has been painted yet — nothing dispellable has appeared.|r")
 	else
 		for n, p in ipairs(paintLog) do
-			print(("   paint %d: row found=%s (depth %d)  slot %.0fx%.0f  row %.0fx%.0f")
-				:format(n, tostring(p.row), p.depth, p.sw, p.sh, p.rw, p.rh))
+			print(("   paint %d: row=%s(d%d) %.0fx%.0f | slot %.0fx%.0f -> %.0fx%.0f | level %d (panel %d)%s")
+				:format(n, tostring(p.row), p.depth or -1, p.rw or -1, p.rh or -1,
+					p.beforeW or -1, p.beforeH or -1, p.afterW or -1, p.afterH or -1,
+					p.level or -1, p.panelLevel or -1,
+					p.sizeErr and ("  |cffff5555" .. p.sizeErr .. "|r") or ""))
 			if n >= 4 then
 				print(("   ... and %d more"):format(#paintLog - n))
 				break
@@ -378,10 +421,47 @@ function ns.ShowPartyDispelGlowTest()
 		print(prefix .. " |cffff5555glow not available:|r " .. tostring(glowUnavailable))
 		return
 	end
+	-- 🔴 SOLO, THE PANEL HIDES ITSELF, AND THAT IS CORRECT. Refresh ends with
+	-- `if shown == 0 then panel:Hide()` because party1-4 do not exist when you are alone
+	-- and an empty panel is noise. I read that path, concluded "works solo", and told Rob
+	-- so — he typed the command and nothing appeared. So the test borrows the panel for
+	-- six seconds instead of assuming it is already there.
+	--
+	-- Borrowed, not bypassed: the artwork still hangs on the real row containers at the
+	-- real frame level, which is the whole thing under test. ns.RefreshPartyTargets puts
+	-- reality back afterwards rather than this function guessing what it was.
+	if panel and not panel:IsShown() then
+		panel:SetHeight(PAD * 2 + HEAD_H + ROW_H * MAX_ROWS)
+		for i = 1, MAX_ROWS do
+			local row = rows and rows[i]
+			if row and row.member then
+				row.member:SetText(("(%s %d)"):format((ns.L and ns:L("PARTY_DISPEL_TAG")) or "DISPEL", i))
+				row.member:SetTextColor(HeaderRGB())
+				row.member:Show()
+			end
+			if row and row.stripe and i % 2 == 0 then
+				row.stripe:Show()
+			end
+		end
+		panel:Show()
+	end
+
 	local n = 0
 	for i = 1, MAX_ROWS do
 		local c = glows[i]
 		if c then
+			-- 🔴 THE CONTAINER IS PARKED WHEN NO ONE IS ON THE ROW. BindDispelGlow ends
+			-- with `SetShown(c, unit ~= nil)`, so alone every container is hidden — and a
+			-- child of a hidden frame is hidden with it. First attempt showed the panel
+			-- and four labels and not one pixel of red, because the artwork was correct
+			-- and its parent was switched off.
+			--
+			-- ⚠️ Show only. NOT SetEnabled — that is Blizzard's own machinery, and
+			-- toggling it is what wipes the AuraButtons and our artwork with them
+			-- (HexBreak learned that one the hard way). We are drawing our own textures
+			-- here, so we never need to ask the game for anything.
+			pcall(c.SetShown, c, true)
+
 			local art = testArt[i]
 			if not art then
 				art = CreateFrame("Frame", nil, c)
@@ -396,7 +476,10 @@ function ns.ShowPartyDispelGlowTest()
 		end
 	end
 	if n == 0 then
-		print(prefix .. " |cff8a8f98no rows to paint — open the panel in a party first.|r")
+		-- The panel is built on first show, so an off switch means there is nothing to
+		-- paint on. Name the switch rather than leaving the player to work that out.
+		print(prefix .. " |cff8a8f98nothing to paint yet — turn the panel on with "
+			.. "|r|cffffcc00/mh partytargets|r|cff8a8f98 and run this again.|r")
 		return
 	end
 	print(prefix .. (" painting %d row(s) for 6 seconds."):format(n))
@@ -406,6 +489,10 @@ function ns.ShowPartyDispelGlowTest()
 		C_Timer.After(6, function()
 			for _, art in pairs(testArt) do
 				art:Hide()
+			end
+			-- Reality, recomputed — not a guess at what the panel looked like before.
+			if ns.RefreshPartyTargets then
+				pcall(ns.RefreshPartyTargets)
 			end
 			print(prefix .. " glow test over.")
 		end)
