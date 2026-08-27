@@ -86,6 +86,23 @@ Op 25 aug bewezen op Robs **mage** (Remove Curse 475, Spellsteal 30449). Op de p
 
 ---
 
+## ⚪ Als je toch bij een beroep bent
+
+### 6. Een gecorrigeerde route vanaf nul lopen (Spec 28, §5)
+
+De tien routes zijn 20 aug herschreven en gedeeltelijk op je scherm bevestigd (Enchanting
+leidt nu met `Disenchanting Delegate`, Tailoring toont de drempel van 20 met de
+tooltip-waarschuwing). Wat nooit gedaan is: er één **helemaal** volgen en kijken of het advies
+blijft kloppen terwijl je punten uitgeeft.
+
+Je shadow priest heeft **Enchanting 22** onbestede punten — dat is de bruikbare testcase.
+
+⚠️ **Tailoring werkt daar niet voor:** je skill staat onder 25, dus alle specialisaties zitten
+op slot en je kunt er niets uitgeven. Dat is geen bug meer (gerepareerd 21 aug), maar het maakt
+Tailoring wel ongeschikt als test.
+
+---
+
 ## ⚪ Wacht op iets anders
 
 ### 5. Andy's twee pull requests — nog NIET binnengehaald
