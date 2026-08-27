@@ -457,7 +457,21 @@ function ns.ShowShareCopyDialog(opts)
 		f:RegisterForDrag("LeftButton")
 		f:SetScript("OnDragStart", f.StartMoving)
 		f:SetScript("OnDragStop", f.StopMovingOrSizing)
-		tinsert(UISpecialFrames, f:GetName())
+
+		-- 🔴 REGISTER LIKE EVERY OTHER MH DIALOG. This one grew its own movable/Escape
+		-- handling before DialogPopup existed and was never switched over, so it quietly
+		-- missed the Shift+scroll scaling that shipped for "al onze schermen". Rob found
+		-- it on 27 aug looking at /mh stats: the corner grip resizes the FRAME, which is
+		-- not the same thing as scaling what is in it, and he expected the behaviour he
+		-- has everywhere else.
+		--
+		-- One line, five windows: /mh stats, /mh curios, the keybind export, the delve
+		-- party share and the ritual share all come through here.
+		if ns.RegisterMidnightDialogPopup then
+			ns.RegisterMidnightDialogPopup(f)
+		else
+			tinsert(UISpecialFrames, f:GetName())
+		end
 
 		-- ⚠️ RESIZABLE, and callers may ask for a size. This dialog was built for a
 		-- short party-share message and its 420x220 was fine for that; /mh curios
