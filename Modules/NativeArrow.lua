@@ -818,6 +818,23 @@ local function Tick()
 		return
 	end
 
+	--- 🔴 INSIDE AN INSTANCE THE ARROW HAS NOTHING TRUE TO SAY. Rob, 27 aug: standing in
+	--- a ritual site with "Daggerspine Point — Eversong Woods 248 m" still on screen.
+	--- "Die pijl moet natuurlijk weg zijn als ik in de ritual ben aangekomen."
+	---
+	--- He is right, and the label three hundred lines up already admits it: from indoors
+	--- it stops giving a direction and says "leave the instance first" instead. A pointer
+	--- that cannot point is decoration.
+	---
+	--- ⚠️ HIDDEN, NOT RELEASED. `_mhRouteOwner` stays exactly where it was. Clearing a
+	--- route on a zone change is the bug this file was rewritten to stop — arrows died
+	--- halfway through a run and the convention in CLAUDE.md says a route lets go only
+	--- when it is truly finished. Walking back out puts it straight back.
+	if IsInInstance and select(1, IsInInstance()) then
+		HideArrow()
+		return
+	end
+
 	-- No TomTom driving. We now draw our arrow even alongside WaypointUI, because
 	-- its pin and our arrow answer different questions (where is it, versus which
 	-- way and how far). Switchable with `/mh arrow yield` for anyone who wants the

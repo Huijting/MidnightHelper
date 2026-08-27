@@ -176,8 +176,33 @@ local function GroupHasBuff(spellID)
 	return false
 end
 
+--- 🔴 NOT `IsInGroup()`. MEASURED 27 aug: Rob stood ALONE in a ritual site and `/mh mbuff`
+--- printed `inGroup=true`, so BUFF ALLY was on his screen with nobody to cast it on. A
+--- ritual puts you in an instance group; the game answers "yes, a group" quite correctly,
+--- and the question was wrong.
+---
+--- What an ally-buff needs to know is whether there is somebody to buff. That is a
+--- different question from whether a group exists, and only one of them can be answered by
+--- counting party slots that actually hold a unit.
 local function InGroup()
-	return IsInGroup and IsInGroup() and true or false
+	if not UnitExists then
+		return false
+	end
+	if IsInRaid and IsInRaid() then
+		for i = 1, 40 do
+			local u = "raid" .. i
+			if UnitExists(u) and not (UnitIsUnit and UnitIsUnit(u, "player")) then
+				return true
+			end
+		end
+		return false
+	end
+	for i = 1, 4 do
+		if UnitExists("party" .. i) then
+			return true
+		end
+	end
+	return false
 end
 
 --- ⚠️ GUARDED 19 aug, and the reason is a warning rather than a crash anyone has seen.
@@ -344,8 +369,11 @@ local function EuiReminderLoaded()
 function ns.PrintMissingBuffDebug()
 	local classToken = select(2, UnitClass("player"))
 	local sid = CurrentSpecID()
-	print(("|cffffcc00MH MissingBuff|r class=%s spec=%s inGroup=%s"):format(
-		tostring(classToken), tostring(sid), tostring(InGroup())))
+	-- Both numbers, because they disagreed and that disagreement WAS the bug: a ritual
+	-- site answers IsInGroup() with yes while no party slot holds anyone.
+	print(("|cffffcc00MH MissingBuff|r class=%s spec=%s allyPresent=%s (IsInGroup=%s)"):format(
+		tostring(classToken), tostring(sid), tostring(InGroup()),
+		tostring(IsInGroup and IsInGroup() or false)))
 	local mh, oh = WeaponEnchant()
 	print(("  wapen-enchant: mainhand=%s offhand=%s"):format(tostring(mh), tostring(oh)))
 	local defs = ns.MISSING_BUFF_DEFS and ns.MISSING_BUFF_DEFS[classToken]
@@ -794,6 +822,16 @@ ev:RegisterEvent("PLAYER_REGEN_DISABLED")
 ev:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
 ev:RegisterEvent("GROUP_ROSTER_UPDATE") -- ally-buffs: groep verandert
 ev:RegisterEvent("PLAYER_ROLES_ASSIGNED") -- healer-in-groep-detectie
+--- 🔴 WHERE YOU ARE IS PART OF THE ANSWER, SO ARRIVING HAS TO RECOUNT. Fourteen events
+--- were registered and not one of them was a zone change. Ally-buffs depend on whether
+--- anybody is standing next to you, and that changes the moment you walk into an instance
+--- — which is exactly where Rob met BUFF ALLY alone in a ritual on 27 aug.
+---
+--- GROUP_ROSTER_UPDATE covers a roster that changes under you; it does not cover you
+--- moving to where the roster means something different. Reloading inside the ritual left
+--- the same gap: nothing here fires on login either.
+ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 
 local function ScheduleUpdate()
 	if throttle > 0 then

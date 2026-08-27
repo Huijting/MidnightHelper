@@ -479,17 +479,50 @@ end
 ---
 --- So a progress flag now only STARTS a run. Whether it is still going is answered by where
 --- the player physically is, which cannot blink between stages.
+--- 🔴 AND IT MUST BE THE SAME SCENARIO. Rob, 27 aug: standing alone in a ritual site,
+--- with Valeera's window open telling him "This delve: nothing picked up yet." Rituals ARE
+--- scenarios — this repo says so in three other files — so after any delve earlier in the
+--- session the run flag stayed set and the next ritual kept the window alive.
+---
+--- The fix for the 24 aug bug was right about WHERE rather than a blinking flag, and too
+--- broad about which where. So the instance is pinned when the run starts and compared on
+--- every tick: a different scenario is not this delve, however scenario-shaped it is.
+local runInstanceID
+
+local function CurrentInstanceID()
+	if not (IsInInstance and GetInstanceInfo) then
+		return nil
+	end
+	local inInst = IsInInstance()
+	if not inInst then
+		return nil
+	end
+	local ok, id = pcall(function()
+		return select(8, GetInstanceInfo())
+	end)
+	return ok and id or nil
+end
+
 local function InScenario()
 	if not IsInInstance then
 		return false
 	end
 	local inInst, instType = IsInInstance()
-	return (inInst and instType == "scenario") and true or false
+	if not (inInst and instType == "scenario") then
+		return false
+	end
+	-- No pin means we never saw the delve start; fall back to the old, broader answer
+	-- rather than closing a window on a player mid-run.
+	if runInstanceID == nil then
+		return true
+	end
+	return CurrentInstanceID() == runInstanceID
 end
 
 local function Tick()
 	local inDelve = InDelve() or (wasInDelve and InScenario())
 	if inDelve and not wasInDelve then
+		runInstanceID = CurrentInstanceID()
 		-- Start the tally whether or not the popup shows: someone who turned it off still
 		-- gets a real run waiting for them if they turn it back on mid-delve.
 		local v = GetValeera()
@@ -500,6 +533,7 @@ local function Tick()
 			Refresh()
 		end
 	elseif not inDelve and wasInDelve then
+		runInstanceID = nil
 		ResetRun(nil)
 		if frame then
 			frame:Hide()
