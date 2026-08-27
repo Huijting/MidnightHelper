@@ -44,6 +44,22 @@ naar exact acht cijfers. Kijk bij `/mh curios` of de gemarkeerde woorden nu comp
 
 ---
 
+## ✅ Bevestigd 27 aug (avond)
+
+Alles staand in een ritual site op Robs Elemental Shaman, één reload:
+
+- **Bossvenster blijft uit in rituals** — Andy's PR #2a doet wat hij belooft.
+- **BUFF ALLY weg.** Een ritual zet je in een instance-groep, dus `IsInGroup()` zei terecht
+  "ja" terwijl er niemand stond. We tellen nu of er iemand ín een party-slot zit.
+- **Valeera-venster weg.** Rituals zijn scenario's; na een delve hield elk ritual het venster
+  open. De instance wordt nu vastgepind bij de start.
+- **Geen zwevende pijl meer.** Verborgen binnen, en hij komt terug als je naar buiten loopt —
+  de route wordt níét losgelaten.
+- **De A-toets is Rob nooit kwijt geweest.** De focus-bug zat er wel (vier plekken,
+  gerepareerd), maar heeft hem niet geraakt: het waren dialogen die hij zelden opent.
+
+---
+
 ## 🔴 Eerst: één reload, dan alles achter elkaar
 
 Deze twee kunnen staand in Silvermoon, geen dungeon nodig.
