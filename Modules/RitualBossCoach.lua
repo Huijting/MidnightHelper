@@ -394,8 +394,8 @@ local function OnScenarioTick()
 			if not (ns.IsBossWindowSuppressedFor
 				and ns.IsBossWindowSuppressedFor(ENTRY.key, b.key)) then
 				ApplyLearnedModel(b)
-				if ns.ShowBossWindowForEntry then
-					ns.ShowBossWindowForEntry(ENTRY, b.key)
+				if ns.AutoShowBossWindowForEntry then
+					ns.AutoShowBossWindowForEntry(ENTRY, b.key)
 				end
 			end
 		end

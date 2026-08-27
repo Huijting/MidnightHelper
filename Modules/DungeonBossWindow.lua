@@ -1083,10 +1083,6 @@ function ns.IsBossWindowAutoOpenEnabled()
 	return GetWinSettings().autoOpen ~= false
 end
 
-function ns.SetBossWindowAutoOpenEnabled(v)
-	GetWinSettings().autoOpen = v and true or false
-end
-
 -- 3D-bossmodel tonen in het boss-venster. Community-verzoek 21 jun
 -- (gadrinonturalyon): checkbox om het model te verbergen.
 --
@@ -1173,6 +1169,52 @@ function ns.ShowBossWindowForEntry(d, bossKey)
 	local f = EnsureWindow()
 	f:Show()
 	ns.RefreshDungeonBossWindow()
+end
+
+-- Same split as the picker: a ritual_ key is a ritual, every other custom entry a raid.
+local function EntryKind(d)
+	local key = type(d) == "table" and d.key or nil
+	return (key and key:find("^ritual_")) and "ritual" or "raid"
+end
+
+local AUTO_OPEN_KINDS = { "dungeon", "ritual", "raid" }
+
+function ns.IsBossWindowAutoOpenEnabledFor(kind)
+	local by = GetWinSettings().autoOpenBy
+	local v = by and by[kind]
+	if v == nil then
+		return ns.IsBossWindowAutoOpenEnabled()
+	end
+	return v ~= false
+end
+
+function ns.SetBossWindowAutoOpenEnabled(v)
+	ns.SetBossWindowAutoOpenEnabledFor("dungeon", v)
+end
+
+function ns.SetBossWindowAutoOpenEnabledFor(kind, v)
+	local s = GetWinSettings()
+	if kind == "dungeon" then
+		-- before the snapshot, so kinds still following the dungeon toggle inherit this
+		s.autoOpen = v and true or false
+	end
+	if not s.autoOpenBy then
+		s.autoOpenBy = {}
+		for _, k in ipairs(AUTO_OPEN_KINDS) do
+			s.autoOpenBy[k] = ns.IsBossWindowAutoOpenEnabled()
+		end
+	end
+	s.autoOpenBy[kind] = v and true or false
+end
+
+function ns.AutoShowBossWindowForEntry(d, bossKey)
+	if not ns.IsBossWindowAutoOpenEnabledFor(EntryKind(d)) then
+		if not (win and win:IsShown()) and type(d) == "table" and type(d.bosses) == "table" and d.key then
+			curDungeon, curIdx = d, bossKey and FindBossIndex(d, bossKey) or 1
+		end
+		return
+	end
+	ns.ShowBossWindowForEntry(d, bossKey)
 end
 
 -- X-suppress per boss raadpleegbaar, zodat een auto-open elders Robs

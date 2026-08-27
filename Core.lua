@@ -122,6 +122,8 @@ local DEFAULT_DB = {
 	seasonStats = {},
 	--- One Codex entry per day on This Week: { dismissedDay=, enabled= }.
 	dailyTip = {},
+	--- Windows that may open by themselves: { [key] = false } turns one off; empty means all on.
+	autoPopups = {},
 	ui = {
 		-- If true, the main window will be shown automatically after login.
 		openOnLogin = false,
@@ -546,6 +548,17 @@ end
 
 function ns.IsBetaTabId(tabId)
 	return tabId and BETA_TAB_IDS[tabId] == true
+end
+
+function ns.IsAutoPopupEnabled(key)
+	local t = ns.db and ns.db.autoPopups
+	return not (t and t[key] == false)
+end
+
+function ns.SetAutoPopupEnabled(key, v)
+	ns.db = ns.db or {}
+	ns.db.autoPopups = ns.db.autoPopups or {}
+	ns.db.autoPopups[key] = v and true or false
 end
 
 function ns.IsBetaTabEnabled(tabId)

@@ -99,13 +99,13 @@ local function OnEncounterStart(encounterID, encounterName)
 		end
 	end
 
-	if match and ns.ShowBossWindowForEntry then
+	if match and ns.AutoShowBossWindowForEntry then
 		-- npcID leren van het boss1-frame (model-correctie), net als RitualBoss.
 		local id = Boss1NpcId()
 		if id then
 			ENTRY.bosses[1].creatureId = id
 		end
-		ns.ShowBossWindowForEntry(ENTRY, ENTRY.bosses[1].key)
+		ns.AutoShowBossWindowForEntry(ENTRY, ENTRY.bosses[1].key)
 	end
 end
 

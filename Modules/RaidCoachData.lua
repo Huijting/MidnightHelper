@@ -302,7 +302,7 @@ local function OnEncounterStart(encounterID, encounterName)
 		entry, bossKey = FindBossByNpc(Boss1NpcId())
 	end
 
-	if entry and bossKey and ns.ShowBossWindowForEntry then
+	if entry and bossKey and ns.AutoShowBossWindowForEntry then
 		-- npcID leren van het boss1-frame (model-correctie), zoals Sporefall.
 		local learned = Boss1NpcId()
 		if learned then
@@ -313,7 +313,7 @@ local function OnEncounterStart(encounterID, encounterName)
 				end
 			end
 		end
-		ns.ShowBossWindowForEntry(entry, bossKey)
+		ns.AutoShowBossWindowForEntry(entry, bossKey)
 	end
 end
 

@@ -261,6 +261,12 @@ function ns.RegisterNativeSettings()
 		end, function(v)
 			if ns.SetShardCapAlertEnabled then ns.SetShardCapAlertEnabled(v) end
 		end, true)
+		AddToggle("mh_apConsumables", "SET_AP_CONSUMABLES_TITLE", "SET_AP_CONSUMABLES_DESC", function()
+			return ns.IsAutoPopupEnabled and ns.IsAutoPopupEnabled("consumables")
+		end, function(v)
+			if ns.SetAutoPopupEnabled then ns.SetAutoPopupEnabled("consumables", v) end
+		end, true)
+
 
 		--- ⚠️ These two existed only as `/mh tips`, a command listed nowhere. Rob met the
 		--- popup mid-session and asked whether it was even ours; it was, and there was no
@@ -288,9 +294,30 @@ function ns.RegisterNativeSettings()
 			if ns.SetDungeonLiveTipsEnabled then ns.SetDungeonLiveTipsEnabled(v) end
 		end, true)
 		AddToggle("mh_bossAuto", "SET_BOSSWIN_AUTO_TITLE", "SET_BOSSWIN_AUTO_DESC", function()
-			return ns.IsBossWindowAutoOpenEnabled and ns.IsBossWindowAutoOpenEnabled()
+			return ns.IsBossWindowAutoOpenEnabledFor
+				and ns.IsBossWindowAutoOpenEnabledFor("dungeon")
 		end, function(v)
-			if ns.SetBossWindowAutoOpenEnabled then ns.SetBossWindowAutoOpenEnabled(v) end
+			if ns.SetBossWindowAutoOpenEnabledFor then
+				ns.SetBossWindowAutoOpenEnabledFor("dungeon", v)
+			end
+		end, true)
+		AddToggle("mh_bossAutoRitual", "SET_BOSSWIN_AUTO_RITUAL_TITLE",
+			"SET_BOSSWIN_AUTO_RITUAL_DESC", function()
+			return ns.IsBossWindowAutoOpenEnabledFor
+				and ns.IsBossWindowAutoOpenEnabledFor("ritual")
+		end, function(v)
+			if ns.SetBossWindowAutoOpenEnabledFor then
+				ns.SetBossWindowAutoOpenEnabledFor("ritual", v)
+			end
+		end, true)
+		AddToggle("mh_bossAutoRaid", "SET_BOSSWIN_AUTO_RAID_TITLE",
+			"SET_BOSSWIN_AUTO_RAID_DESC", function()
+			return ns.IsBossWindowAutoOpenEnabledFor
+				and ns.IsBossWindowAutoOpenEnabledFor("raid")
+		end, function(v)
+			if ns.SetBossWindowAutoOpenEnabledFor then
+				ns.SetBossWindowAutoOpenEnabledFor("raid", v)
+			end
 		end, true)
 		AddToggle("mh_bossModel", "SET_BOSSWIN_MODEL_TITLE", "SET_BOSSWIN_MODEL_DESC", function()
 			return ns.IsBossWindowModelEnabled and ns.IsBossWindowModelEnabled()

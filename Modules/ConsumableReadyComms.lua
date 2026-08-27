@@ -209,9 +209,11 @@ f:SetScript("OnEvent", function(_, event, prefix, msg, channel, sender)
 	end
 
 	-- Leader-commando "toon je bord" (apart van de bag-counts-payload). Onschadelijk
-	-- (het bord auto-hide't na 25s); de leader-gating zit aan de zendkant.
+	-- (het bord auto-hide't na 25s); de leader-gating zit aan de zendkant,
+	-- de ontvanger kan hem weigeren.
 	if msg == PROTO .. "|cmd:show" then
-		if ns.ShowConsumableBoard then
+		if ns.ShowConsumableBoard and ns.IsAutoPopupEnabled
+			and ns.IsAutoPopupEnabled("consumables") then
 			ns.ShowConsumableBoard()
 		end
 		return
