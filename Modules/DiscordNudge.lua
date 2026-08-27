@@ -98,7 +98,12 @@ local function showCopyBox(text, title)
 		eb:SetSize(390, 32)
 		eb:SetPoint("CENTER", 0, -4)
 		eb:SetAutoFocus(false)
-		eb:SetScript("OnEscapePressed", function() f:Hide() end)
+		-- ClearFocus before Hide: a hidden EditBox that still owns the keyboard eats the
+		-- movement keys, and nothing on screen points at us. See PawnExport for the note.
+		eb:SetScript("OnEscapePressed", function(self)
+			self:ClearFocus()
+			f:Hide()
+		end)
 		eb:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
 		-- Read-only by restore: typing snaps the link back, so the text stays copyable
 		-- and correct. The restoring SetText fires OnTextChanged again with user=false,

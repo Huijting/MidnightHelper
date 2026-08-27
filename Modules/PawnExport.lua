@@ -152,7 +152,12 @@ local function ensureFrame()
 	eb:SetSize(420, 30)
 	eb:SetPoint("BOTTOM", 0, 42)
 	eb:SetAutoFocus(false)
-	eb:SetScript("OnEscapePressed", function()
+	-- 🔴 LET GO BEFORE HIDING. Hiding the frame does not release the keyboard: the box
+	-- keeps focus while invisible and swallows every keystroke after it, walking included.
+	-- WoWNext shipped 2.0.3 for this on 27 aug and noted they went looking for a keybind
+	-- to `A` first — there never is one, which is what makes it so hard to trace.
+	eb:SetScript("OnEscapePressed", function(self)
+		self:ClearFocus()
 		f:Hide()
 	end)
 	-- Wrap in a closure: WoW hands script handlers extra args, and passing the raw

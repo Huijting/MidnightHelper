@@ -548,7 +548,10 @@ local function BuildBox()
 	edit:SetAutoFocus(false)
 	-- 0 = no limit. The default cuts a long layout string in half without saying so.
 	edit:SetMaxLetters(0)
-	edit:SetScript("OnEscapePressed", function()
+	-- ClearFocus before Hide: a hidden EditBox that still owns the keyboard eats the
+	-- movement keys, and nothing on screen points at us. See PawnExport for the note.
+	edit:SetScript("OnEscapePressed", function(self)
+		self:ClearFocus()
 		f:Hide()
 	end)
 	scroll:SetScrollChild(edit)

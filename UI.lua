@@ -2030,6 +2030,22 @@ function ns:EnsureMainUI()
 		self:ClearFocus()
 	end)
 
+	--- 🔴 ESCAPE MUST LET GO OF THE KEYBOARD. A focused EditBox eats every keystroke,
+	--- including the ones you walk with. Enter released it and Escape did not, so closing
+	--- the window with Escape left this box holding focus while invisible — and from then
+	--- on `A` strafes nothing.
+	---
+	--- ⚠️ AND THERE IS NOTHING TO FIND WHEN IT HAPPENS. WoWNext shipped 2.0.3 on 27 aug
+	--- for exactly this and wrote it down: "No WoWNext key binding to A was found; the
+	--- issue was caused by retained EditBox focus." They went looking for a keybind first,
+	--- because that is what a stolen movement key looks like from the player's side.
+	---
+	--- `SetAutoFocus(false)` — which all twenty of our boxes have — stops the box from
+	--- TAKING focus. It does nothing about giving it back.
+	searchEdit:SetScript("OnEscapePressed", function(self)
+		self:ClearFocus()
+	end)
+
 	-- Placeholder inside the box. This bar is the addon's front door — it finds tabs,
 	-- tools and every boss we wrote steps for — but a bare "Search:" never tells you
 	-- that. Greyed, and gone the moment you focus the box or type in it. Hooked after
@@ -3147,6 +3163,13 @@ function ns:EnsureMainUI()
 	main:SetScript("OnHide", function()
 		if ns._mhInfoWindow and ns._mhInfoWindow.Hide then
 			ns._mhInfoWindow:Hide()
+		end
+		-- 🔴 A HIDDEN BOX CAN STILL OWN THE KEYBOARD. The window closes by several routes
+		-- — Escape through UISpecialFrames, the X, the minimap button, a slash command —
+		-- and the OnEscapePressed handler on the box only covers one of them. Releasing
+		-- here covers all of them at once, and costs nothing when the box never had focus.
+		if ns.mhSearchEdit and ns.mhSearchEdit.ClearFocus then
+			ns.mhSearchEdit:ClearFocus()
 		end
 	end)
 

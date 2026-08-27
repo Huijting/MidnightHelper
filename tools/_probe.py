@@ -1,66 +1,68 @@
 # -*- coding: utf-8 -*-
-"""Addon-ronde: wat is er sinds de vorige ronde bijgewerkt, en welke versie draait er?
+"""Welke EditBoxes kunnen het toetsenbord vasthouden?
 
-CLAUDE.md: bestandsdatums en versies uit .toc's gaan hier doorheen, nooit via een
-PowerShell-one-liner — die verandert elke keer van vorm en levert dus altijd een prompt.
+WoWNext 2.0.3 (27 aug 2026) was een hotfix hiervoor: hun invoervelden hielden focus
+vast en slikten daarna bewegingstoetsen op. Hun eigen conclusie: "No WoWNext key
+binding to A was found; the issue was caused by retained EditBox focus."
+
+Een EditBox met focus vangt elke toetsaanslag. Laat hij niet los, dan is de speler zijn
+A-toets kwijt en wijst niets naar ons -- er IS namelijk geen keybind om te vinden.
+
+Drie dingen maken een veld veilig:
+  SetAutoFocus(false)   pakt de focus niet zomaar
+  OnEscapePressed       + ClearFocus
+  ClearFocus bij Hide   (of op OnEditFocusLost / de sluitknop)
+
+Dit telt per bestand hoeveel EditBoxes er zijn en welke van die drie ontbreken.
 """
 import io
 import os
 import re
 import sys
-import time
 
-ADDONS = r"E:\World of Warcraft\_retail_\Interface\AddOns"
+ROOT = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper"
 sys.stdout.reconfigure(encoding="utf-8")
 
-DAYS = 10
-now = time.time()
-cut = now - DAYS * 86400
-
-
-def toc_version(folder):
-    """## Version uit de .toc die bij de map hoort."""
-    for name in (folder + ".toc", folder + "_Mainline.toc", folder + "-Mainline.toc"):
-        p = os.path.join(ADDONS, folder, name)
-        if not os.path.exists(p):
-            continue
-        try:
-            with io.open(p, encoding="utf-8", errors="replace") as fh:
-                for line in fh:
-                    m = re.match(r"^##\s*Version:\s*(.+?)\s*$", line)
-                    if m:
-                        return m.group(1)
-        except OSError:
-            pass
-    return "?"
-
-
-def newest(folder):
-    """Jongste bestandsdatum in de map — pakketten raken niet elk bestand aan."""
-    best = 0
-    for root, _dirs, files in os.walk(os.path.join(ADDONS, folder)):
-        for f in files:
-            try:
-                t = os.path.getmtime(os.path.join(root, f))
-            except OSError:
-                continue
-            if t > best:
-                best = t
-    return best
-
+SKIP = (os.sep + "tools" + os.sep, os.sep + "docs" + os.sep, os.sep + ".git" + os.sep)
 
 rows = []
-for folder in sorted(os.listdir(ADDONS)):
-    p = os.path.join(ADDONS, folder)
-    if not os.path.isdir(p) or folder.startswith("."):
+for base, _dirs, files in os.walk(ROOT):
+    if any(s in base + os.sep for s in SKIP):
         continue
-    t = newest(folder)
-    if t >= cut:
-        rows.append((t, folder, toc_version(folder)))
+    for fn in sorted(files):
+        if not fn.endswith(".lua"):
+            continue
+        p = os.path.join(base, fn)
+        with io.open(p, "r", encoding="utf-8", errors="replace") as fh:
+            txt = fh.read()
+        n = len(re.findall(r'CreateFrame\(\s*"EditBox"', txt))
+        if n == 0:
+            continue
+        rows.append({
+            "file": os.path.relpath(p, ROOT).replace("\\", "/"),
+            "n": n,
+            "autofocus": len(re.findall(r"SetAutoFocus\(\s*false\s*\)", txt)),
+            "escape": len(re.findall(r'"OnEscapePressed"', txt)),
+            "clear": len(re.findall(r"ClearFocus\(", txt)),
+        })
 
-rows.sort(reverse=True)
-print("Addons met bestanden nieuwer dan %d dagen (%d van %d mappen)\n"
-      % (DAYS, len(rows), len(os.listdir(ADDONS))))
-print("%-19s %-34s %s" % ("jongste bestand", "addon", "versie"))
-for t, folder, ver in rows:
-    print("%-19s %-34s %s" % (time.strftime("%Y-%m-%d %H:%M", time.localtime(t)), folder, ver))
+print("EditBoxes in Midnight Helper — kan er eentje het toetsenbord vasthouden?\n")
+print("%-44s %5s %9s %7s %6s  %s" % ("bestand", "boxen", "autofocus", "escape", "clear", "risico"))
+bad = 0
+for r in sorted(rows, key=lambda r: -r["n"]):
+    missing = []
+    if r["autofocus"] < r["n"]:
+        missing.append("autofocus")
+    if r["escape"] < r["n"]:
+        missing.append("escape")
+    if r["clear"] == 0:
+        missing.append("clear")
+    if missing:
+        bad += 1
+    print("%-44s %5d %9d %7d %6d  %s"
+          % (r["file"], r["n"], r["autofocus"], r["escape"], r["clear"],
+             ", ".join(missing) if missing else "-"))
+
+print("\n%d van %d bestanden missen minstens een van de drie." % (bad, len(rows)))
+print("⚠️ Dit is een AANWIJZING, geen bewijs: het telt patronen per bestand, niet per veld.")
+print("   Een bestand met twee boxen waarvan er een netjes is, kan hier schoon lijken.")
