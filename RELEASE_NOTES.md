@@ -38,8 +38,17 @@ Right-click a group member's name to remove what is on them; right-click their t
 it. The row turns red when the game says there is something there you can take off — Blizzard
 draws that, so it is never our guess about what an aura is.
 
-The panel is off by default. `/mh partytargets` turns it on. This is new, so tell us if it
-misbehaves.
+The panel is off by default. `/mh partytargets` turns it on.
+
+**Half of this is still under construction, and you should know which half.** The red has been
+confirmed in a live dungeon: rows light up at the right moment, for the right person. The
+right-click dispel has *not* been confirmed on a real dispellable debuff — everything we can
+measure about it is correct, and that is not the same as seeing it work. The purge on the
+right half has been seen casting.
+
+So treat the dispel click as untested and tell us what happens. `/mh glow` prints what the
+button is carrying and what your client actually cast, which is exactly what we need in a
+report.
 
 ## Windows now honour your settings
 
