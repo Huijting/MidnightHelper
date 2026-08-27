@@ -107,6 +107,14 @@ local glowUnavailable  -- a reason string, so a silent nothing is never the answ
 local glowLookup = setmetatable({}, { __mode = "k" })
 local paintLog = {}
 
+--- ⚠️ DECLARED HERE, FILLED FURTHER DOWN. `/mh glow` reads this around line 400 and the
+--- watcher that writes it lives near 500. Declaring it beside the watcher made the read
+--- a global lookup — nil — and the command threw the moment Rob ran it.
+---
+--- Lint check [6] catches exactly this for local FUNCTIONS and had just caught one in the
+--- same edit. It does not look at local tables, so this one went straight past it.
+local castLog = {}
+
 local function OwningRow(slot)
 	local f = slot
 	for _ = 1, 6 do
@@ -186,27 +194,53 @@ local function PaintDispelSlot(slot)
 	--
 	-- Three earlier fixes each moved the artwork somewhere else while leaving it anchored
 	-- to something Blizzard controls. This is the first one that removes the dependency.
+	--- 🔴 LEAVE THE SLOT ALONE. PAINT ON A CANVAS INSTEAD.
+	---
+	--- Rob, 27 aug, Maisara Caverns: two rows blazing red with DISPEL, and right-click
+	--- did nothing at all. Same symptom as this morning, same cause, and I walked into it
+	--- twice. Resizing the slot to cover the row makes it cover the SECURE BUTTON, and
+	--- `SetMouseClickEnabled(false)` at init does not survive the engine showing it. An
+	--- advertisement that swallows the thing it advertises.
+	---
+	--- Both requirements are real and they looked contradictory: the art must fill the row
+	--- (or you cannot see it), and it must not lie over the button (or you cannot click).
+	--- They are only contradictory while the art lives ON the slot.
+	---
+	--- So: a plain Frame, PARENTED to the slot — which is what makes the engine show and
+	--- hide it along with the aura, the whole mechanism — but ANCHORED to our panel's row
+	--- rectangle, which we own and which does not shrink. It takes no mouse. The slot keeps
+	--- whatever size Blizzard gave it and never reaches the button.
 	local idx = row and row._mhRowIndex
+	local canvas = CreateFrame("Frame", nil, slot)
 	local okSize, sizeErr = pcall(function()
-		if idx and panel then
-			slot:ClearAllPoints()
-			slot:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD - 2, RowTop(idx))
-			slot:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD + 2, RowTop(idx))
-			slot:SetHeight(ROW_H)
-		else
-			slot:SetAllPoints()
+		-- Belt and braces on the slot itself, since it is the thing that could still
+		-- intercept a click if the engine hands it a size of its own.
+		if slot.EnableMouse then
+			slot:EnableMouse(false)
 		end
-		slot:SetFrameLevel(math.max(slot:GetFrameLevel(), panel:GetFrameLevel() + 8))
+		if idx and panel then
+			canvas:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD - 2, RowTop(idx))
+			canvas:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD + 2, RowTop(idx))
+			canvas:SetHeight(ROW_H)
+		else
+			canvas:SetAllPoints(slot)
+		end
+		canvas:EnableMouse(false)
+		if canvas.SetMouseClickEnabled then
+			canvas:SetMouseClickEnabled(false)
+		end
+		-- Above the panel's own row artwork, below nothing that matters.
+		canvas:SetFrameLevel(math.max(canvas:GetFrameLevel(), panel:GetFrameLevel() + 8))
 	end)
 	-- ⚠️ A swallowed error here looks exactly like a working call. Recorded, not hidden.
 	entry.sized = okSize
 	entry.sizeErr = (not okSize) and tostring(sizeErr) or nil
-	entry.afterW = slot.GetWidth and slot:GetWidth() or -1
-	entry.afterH = slot.GetHeight and slot:GetHeight() or -1
-	entry.level = slot.GetFrameLevel and slot:GetFrameLevel() or -1
+	entry.afterW = canvas.GetWidth and canvas:GetWidth() or -1
+	entry.afterH = canvas.GetHeight and canvas:GetHeight() or -1
+	entry.level = canvas.GetFrameLevel and canvas:GetFrameLevel() or -1
 	entry.panelLevel = (panel and panel.GetFrameLevel) and panel:GetFrameLevel() or -1
 
-	local wash = slot:CreateTexture(nil, "OVERLAY", nil, 1)
+	local wash = canvas:CreateTexture(nil, "OVERLAY", nil, 1)
 	wash:SetAllPoints()
 	wash:SetColorTexture(0.62, 0.010, 0.006, 0.55)
 
@@ -214,23 +248,23 @@ local function PaintDispelSlot(slot)
 	-- "act on this row". Four thin textures, not a border texture, so nothing scales oddly
 	-- when Rob drags the panel wider.
 	for _, side in ipairs({ "TOP", "BOTTOM", "LEFT", "RIGHT" }) do
-		local bar = slot:CreateTexture(nil, "OVERLAY", nil, 2)
+		local bar = canvas:CreateTexture(nil, "OVERLAY", nil, 2)
 		bar:SetColorTexture(1, 0.12, 0.025, 1)
 		if side == "TOP" or side == "BOTTOM" then
 			bar:SetHeight(2)
-			bar:SetPoint(side .. "LEFT", slot, side .. "LEFT", 0, 0)
-			bar:SetPoint(side .. "RIGHT", slot, side .. "RIGHT", 0, 0)
+			bar:SetPoint(side .. "LEFT", canvas, side .. "LEFT", 0, 0)
+			bar:SetPoint(side .. "RIGHT", canvas, side .. "RIGHT", 0, 0)
 		else
 			bar:SetWidth(2)
-			bar:SetPoint("TOP" .. side, slot, "TOP" .. side, 0, 0)
-			bar:SetPoint("BOTTOM" .. side, slot, "BOTTOM" .. side, 0, 0)
+			bar:SetPoint("TOP" .. side, canvas, "TOP" .. side, 0, 0)
+			bar:SetPoint("BOTTOM" .. side, canvas, "BOTTOM" .. side, 0, 0)
 		end
 	end
 
 	-- HexBreak writes the word on the tile and that is why Rob could read theirs at a
 	-- glance. Static artwork, so it is allowed here; a FontString is not a script.
-	local tag = slot:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-	tag:SetPoint("RIGHT", slot, "RIGHT", -6, 0)
+	local tag = canvas:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	tag:SetPoint("RIGHT", canvas, "RIGHT", -6, 0)
 	tag:SetText((ns.L and ns:L("PARTY_DISPEL_TAG")) or "DISPEL")
 	tag:SetTextColor(1, 0.92, 0.55)
 end
@@ -354,6 +388,24 @@ function ns.PrintPartyDispelGlowStatus()
 	print(("   rows armed to dispel: %d   without a spell: %d%s")
 		:format(armed, blank,
 			(InCombatLockdown and InCombatLockdown()) and "   |cffff5555(in combat — arming is blocked)|r" or ""))
+
+	--- 🔴 COUNTING `spell2` IS NOT THE SAME AS BEING ARMED. Rob, 27 aug: four rows armed,
+	--- spell 527 found, left-click targets fine — and right-click produced no cast, no
+	--- failure and no error. The game was not even trying.
+	---
+	--- `spell2` says WHAT to cast. `*type2` says THAT there is an action at all. The count
+	--- above only ever read the first one, so a button with the spell and no action type
+	--- reported as healthy. Print what the button actually carries instead of what we
+	--- believe we wrote to it.
+	local b1 = clicks[1]
+	if b1 then
+		local function A(k)
+			local ok, v = pcall(b1.GetAttribute, b1, k)
+			return (ok and v ~= nil) and tostring(v) or "nil"
+		end
+		print(("   row 1 attributes: *type1=%s  *type2=%s  type2=%s  spell2=%s  unit=%s")
+			:format(A("*type1"), A("*type2"), A("type2"), A("spell2"), A("unit")))
+	end
 	if armed == 0 and id then
 		print("   |cffff5555Your spec HAS a dispel but no row carries it.|r "
 			.. "Leave combat and reopen the panel.")
@@ -371,6 +423,27 @@ function ns.PrintPartyDispelGlowStatus()
 			-- issecretvalue() before comparing" since 12.0; I wrote the check without one.
 			if ok and not (issecretvalue and issecretvalue(on)) and on == true then
 				print(("   |cffff5555row %d: the glow container still takes the mouse|r"):format(i))
+			end
+		end
+	end
+
+	-- What your own client did with the last few clicks. This is the half the panel
+	-- cannot see about itself.
+	if #castLog == 0 then
+		print("   |cff8a8f98no casts or errors recorded yet — right-click a row, then run "
+			.. "this again.|r")
+	else
+		print("   recent casts and errors (newest last):")
+		for _, c in ipairs(castLog) do
+			if c.kind == "error" then
+				print(("      |cffff9040error|r  %s"):format(tostring(c.extra)))
+			else
+				local nm
+				if c.spellID and C_Spell and C_Spell.GetSpellInfo then
+					local okI, info = pcall(C_Spell.GetSpellInfo, c.spellID)
+					nm = okI and type(info) == "table" and info.name or nil
+				end
+				print(("      %-7s %s (%s)"):format(c.kind, nm or "?", tostring(c.spellID)))
 			end
 		end
 	end
@@ -393,6 +466,54 @@ function ns.PrintPartyDispelGlowStatus()
 		end
 	end
 end
+
+--------------------------------------------------------------------------------
+-- Did the right-click actually cast anything?
+--------------------------------------------------------------------------------
+
+--- 🔴 THE ONE QUESTION THE PANEL CANNOT ANSWER BY LOOKING AT ITSELF. Rob, 27 aug, in a
+--- follower dungeon: left-click targets the follower, `/mh glow` reports the button armed
+--- with Purify (527), and right-click produces nothing at all — no cast, no error.
+---
+--- Three explanations fit that silence and they are indistinguishable from outside: the
+--- click never becomes a spell, the spell fires and fails quietly, or the spell fires and
+--- there is simply nothing on the target to remove.
+---
+--- Your OWN casts are readable — the kick probe proved that this evening, where every
+--- `unit = "player"` row came back with a real spell name while every enemy was secret.
+--- So we ask the game rather than reason about it. (`castLog` itself is declared at the
+--- top of the file — see the note there for why.)
+local function LogCast(kind, spellID, extra)
+	castLog[#castLog + 1] = {
+		at = (GetTime and GetTime()) or 0,
+		kind = kind,
+		spellID = spellID,
+		extra = extra,
+	}
+	while #castLog > 12 do
+		table.remove(castLog, 1)
+	end
+end
+
+local castWatch = CreateFrame("Frame")
+castWatch:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
+castWatch:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
+castWatch:RegisterEvent("UI_ERROR_MESSAGE")
+castWatch:SetScript("OnEvent", function(_, event, a, _b, c)
+	if event == "UI_ERROR_MESSAGE" then
+		-- The error text is the thing that says "there is nothing to dispel", which is a
+		-- SUCCESSFUL click with nothing to do — the outcome hardest to tell from failure.
+		LogCast("error", nil, tostring(_b or a or ""))
+		return
+	end
+	-- ⚠️ Not the file's Secret() helper: that is declared 170 lines below this, so it
+	-- would be nil here and throw on the first cast. Lint check [6] caught it — the
+	-- check exists because this exact shape has bitten the file before.
+	local id = c
+	if id ~= nil and not (issecretvalue and issecretvalue(id)) then
+		LogCast(event == "UNIT_SPELLCAST_FAILED" and "failed" or "cast", tonumber(id))
+	end
+end)
 
 --- `/mh glow test` — paint the rows now, without waiting for a debuff.
 ---
@@ -961,15 +1082,37 @@ function PositionClicks()
 	-- thing left to grab once the buttons cover the rest of every row.
 	local inset = PAD + ROLE_W + 4
 	local w = math.max(1, panel:GetWidth() - inset - PAD)
-	--- Split at a FIXED fraction, not at where the name happens to end.
+
+	--- 🔴 ONE NUMBER FOR THE COLUMN AND THE CLICK SPLIT.
 	---
-	--- The two halves are drawn by text: the member's name, then their target beside
-	--- it. Following that boundary would move the click split every time somebody
-	--- targeted something with a longer name -- and secure buttons cannot be
-	--- repositioned in combat, so it would drift out of step exactly when it matters.
-	--- A fixed 45% is predictable, which is what your hand needs.
-	local wLeft = math.max(1, math.floor(w * 0.45))
+	--- This used to split at a fixed 45% while the name column was a fixed 112 pixels.
+	--- At the default width those land on the same pixel — which is why it looked right
+	--- and why nobody noticed. Rob widened the panel on 27 aug, as I had just suggested,
+	--- and got a strange picture: the names stayed in their narrow column, a gap opened
+	--- beside them, and the divider sat a hundred pixels into the TARGET text. Clicking a
+	--- target's name was still a dispel.
+	---
+	--- The old comment defended the fixed fraction by saying that following the name
+	--- would drift as people target things with longer names. True of the name TEXT, and
+	--- irrelevant to the name COLUMN, which is a constant we choose. So the column now
+	--- grows with the panel and the split is read off it.
+	local nameW = math.max(MEMBER_W, math.floor(w * 0.42))
+	local wLeft = math.max(1, (PAD + (ROLE_W + 3) * 2 + nameW + 3) - inset)
+	if wLeft >= w then
+		wLeft = math.max(1, math.floor(w * 0.45))
+	end
 	local wRight = math.max(1, w - wLeft)
+
+	-- Keep the drawn column and the clickable half in step. Out of combat only, same as
+	-- everything else here — but this is text, so a stale width is ugly, not dangerous.
+	if rows then
+		for i = 1, MAX_ROWS do
+			local r = rows[i]
+			if r and r.member and r.member.SetWidth then
+				r.member:SetWidth(nameW)
+			end
+		end
+	end
 	for i = 1, MAX_ROWS do
 		local b = clicks[i]
 		if b then
@@ -982,6 +1125,31 @@ function PositionClicks()
 			t:ClearAllPoints()
 			t:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left + inset + wLeft, top + RowTop(i))
 			t:SetSize(wRight, ROW_H)
+		end
+
+		--- 🔴 SHOW WHERE THE HALVES MEET. Rob, 27 aug, in Maisara Caverns: rows were
+		--- lighting up, he right-clicked, a cooldown started — and the row stayed red. He
+		--- had crossed the invisible 45% line, so the click cast his PURGE at that
+		--- member's target instead of his dispel on the member. A different spell, its own
+		--- cooldown, and nothing to see on the ally.
+		---
+		--- Both halves were doing exactly what they promise. Nothing told him where one
+		--- ended, and the hover highlight only shows it once the mouse is already there —
+		--- which is no use mid-fight, when you are aiming rather than exploring.
+		---
+		--- A texture on the PANEL, not on the secure buttons: art on those taints them,
+		--- and that is what broke targeting on 25 aug.
+		local row = rows and rows[i]
+		if row then
+			if not row.split then
+				row.split = panel:CreateTexture(nil, "ARTWORK")
+				row.split:SetColorTexture(1, 1, 1, 0.10)
+				row.split:SetWidth(1)
+			end
+			row.split:ClearAllPoints()
+			row.split:SetPoint("TOPLEFT", panel, "TOPLEFT", inset + wLeft, RowTop(i) - 3)
+			row.split:SetHeight(ROW_H - 6)
+			row.split:Show()
 		end
 	end
 end
@@ -1249,6 +1417,10 @@ local function Refresh()
 			-- border as a floating grey bar.
 			if row.stripe then
 				row.stripe:Hide()
+			end
+			-- Same reason: the divider would otherwise hang below the shrunken border.
+			if row.split then
+				row.split:Hide()
 			end
 		end
 	end

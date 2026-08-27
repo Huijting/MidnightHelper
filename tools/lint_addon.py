@@ -398,6 +398,23 @@ def find_use_before_local(root: str, toc_files: set[str]) -> list[tuple]:
     hits = []
     def_re = re.compile(r"^[ \t]*local[ \t]+function[ \t]+([A-Za-z_]\w*)[ \t]*\(", re.M)
     fwd_re = re.compile(r"^[ \t]*local[ \t]+([A-Za-z_][\w, \t]*?)[ \t]*$", re.M)
+    # ⚠️ TABLES ARE **NOT** COVERED, AND THAT WAS TRIED AND REVERTED ON 27 AUG 2026.
+    #
+    # The bug that prompted it: `local castLog = {}` sat beside the code that fills it,
+    # ~100 lines below the diagnostic that reads it, so `#castLog` there was a global
+    # lookup and /mh glow threw the moment Rob ran it. This check had caught a local
+    # FUNCTION in the very same edit and walked straight past the table.
+    #
+    # Two attempts, both worse than the gap. Allowing indentation gave 2320 hits: with no
+    # notion of scope, a `local value` inside one function matches `value(...)` inside
+    # another, and every library lit up. Restricting to file scope still gave 70, because
+    # short names (`f`, `icon`, `en`) exist BOTH at file scope and as an inner local, and
+    # a regex cannot tell which one a given line means.
+    #
+    # Local functions are catchable because `local function Foo` is a distinctive,
+    # rarely-shadowed shape. Values are not. Left uncovered deliberately rather than
+    # shipping a check that cries wolf seventy times — that is how a linter stops being
+    # read at all.
     block_re = re.compile(r"--\[(=*)\[.*?\]\1\]", re.S)
 
     def strip_block_comments(src: str) -> str:
