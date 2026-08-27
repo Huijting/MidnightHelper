@@ -33,6 +33,28 @@ uit.
 Die zag je 26 aug spontaan: *"Cries of the Fallen - you can dispel this"*. Werkt al, staat hier
 alleen zodat we weten dat hij nog steeds komt na de wijzigingen aan `AccessibleAlerts.lua`.
 
+### 3. De catalyst-tekst kloppend maken — en de meting is gratis
+
+De tier-uitleg zegt nu dat het nieuwe stuk je secundaire stats overneemt. **Twee primaire
+bronnen zeggen dat** (blue post 18 juni + de tooltip van Venomblight Manaflux), maar we hebben
+het zelf nooit gezien.
+
+⚠️ Dit hoeft **geen** charge te kosten. De Catalyst-UI toont een voorbeeld vóór je bevestigt.
+
+1. Pak een **borststuk** dat NIET Mastery + Haste heeft — bijvoorbeeld Crit + Versatility.
+   Schrijf de stats op, inclusief een eventuele Leech/Speed/Avoidance en socket.
+2. Leg het in het Catalyst-slot in Silvermoon (Bazaar). **Niet bevestigen.**
+3. Ga met je muis over het voorbeeld.
+
+| Wat je ziet | Wat het betekent |
+|---|---|
+| Mastery + Haste | de stats liggen vast — onze tekst is fout en moet terug |
+| Crit + Versatility (wat jij erin legde) | de stats gaan mee — bevestigd |
+
+🔴 **Kijk apart naar het tertiair en de socket.** Die konden vroeger al meekomen, dus "mijn
+Leech bleef staan" bewijst **niets** over de secondaries. Dat is precies het soort halve
+conclusie waar deze week over ging.
+
 ---
 
 ## 🔵 In een dungeon: Maisara Caverns, eerste baas
