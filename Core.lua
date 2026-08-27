@@ -1029,6 +1029,22 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh stats — wat je vier secondary stats doen, in gewone taal, in de volgorde van
+	-- de spec waar je nú in zit. `probe` print welke API's antwoordden; die staat er
+	-- omdat twee mastery-API-namen kandidaat zijn en de client dat beslist, niet wij.
+	if msg == "stats" or msg == "stat" then
+		if ns.ShowStatCoach then
+			ns.ShowStatCoach()
+		end
+		return
+	end
+	if msg == "stats probe" or msg == "stat probe" then
+		if ns.PrintStatProbe then
+			ns.PrintStatProbe()
+		end
+		return
+	end
+
 	-- /mh curios — wat elke curio-keuze van je companion doet, in de taal van het spel.
 	if msg == "curios" or msg == "curio" then
 		if ns.ShowCurioExplain then

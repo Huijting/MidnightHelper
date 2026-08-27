@@ -466,6 +466,8 @@ local function BuildNavIndex()
 		panelreset = "side panel reset position move back beside window",
 		wishlist = "mount wishlist starred favourite collect chase",
 		pawn = "stat weights export scale pawn addon gear",
+		stats = "stats stat secondary crit critical strike haste mastery versatility vers "
+			.. "primary strength agility intellect priority order explain plain what do they do",
 		groupbuffs = "raid buffs missing party intellect stamina group",
 		healcds = "healer cooldowns raid healing cheat sheet",
 		pullsummary = "tank pull mitigation defensives summary",

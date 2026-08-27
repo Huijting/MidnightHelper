@@ -117,6 +117,22 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_WARBAND_BODY",
 		sort = 2,
 	},
+	-- The general half of /mh stats. The command answers "what about MY spec"; this
+	-- answers "what are these four words" for someone who is not in the game right
+	-- now, and it leads with the rule that matters more than the answer — ilvl
+	-- first, stats as a tie-break.
+	{
+		id = "stats_explained",
+		category = "start",
+		titleKey = "CODEX_STATS_TITLE",
+		bodyKey = "CODEX_STATS_BODY",
+		sort = 3,
+		-- English on purpose: the search box matches raw text, and these are the
+		-- words someone types before they know what any of them mean.
+		searchKeys = "stats stat secondary secondaries primary crit critical strike haste "
+			.. "mastery versatility vers strength agility intellect stat priority weights "
+			.. "what do stats do which stat is best beste stat volgorde",
+	},
 
 	-- Weekly loop
 	{

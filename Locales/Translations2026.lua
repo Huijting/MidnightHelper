@@ -7413,3 +7413,125 @@ fill("itIT", {
 	SHOWDOWNS_WAYPOINT_MAELLA = "Fendivarchi Maella",
 	WB_BOSS_CRAGPINE = "Rupizio",
 })
+
+--- /mh stats — the plain-language stat coach (StatCoach.lua).
+---
+--- ⚠️ The four stat NAMES stay English in the prose here (Critical Strike, Haste,
+--- Mastery, Versatility, and Strength/Agility/Intellect), the same call nlNL makes.
+--- In the command itself they are never written at all: they come from Blizzard's
+--- own STAT_* globals, so a player always sees their client's wording. Only this
+--- Codex article has to spell them out, and inventing a translation there would put
+--- a word on screen that their character sheet does not use.
+---
+--- CMDLIST_STATS is deliberately absent: the command list is English + Dutch by
+--- design (see CommandList.lua) and falls back to enUS everywhere else.
+--- STATS_LINE_FMT and STATS_PERCENT_FMT are pure format strings — nothing to translate.
+fill("deDE", {
+	STATS_TITLE = "Deine Werte, in einfachen Worten",
+	STATS_HINT = "Strg+C zum Kopieren. Die Zahlen werden live von deinem eigenen Charakter gelesen.",
+	STATS_HEADER_FMT = "%s - was deine Werte wirklich tun",
+	STATS_SHORT = "Die kurze Fassung: ein höheres Item Level ist fast immer das bessere Item. Werte entscheiden erst, wenn zwei Teile dicht beieinander liegen. Du musst nichts davon verstehen, um dich gut auszurüsten - Midnight Helper wendet die Reihenfolge unten längst im Great Vault und in deinen Beute-Tipps an.",
+	STATS_PRIMARY_FMT = "Dein Hauptwert: %s",
+	STATS_PRIMARY_BODY = "Der Motor hinter allem, was du tust. Er kommt gratis mit dem Item Level, jede Verbesserung bringt also mehr davon - hier gibt es nichts zu wählen.",
+	STATS_ORDER_HEAD = "Die anderen vier, der beste zuerst für deine Spezialisierung:",
+	STATS_ORDER_HEAD_UNRANKED = "Die anderen vier. Für diese Spezialisierung haben wir noch keine gepflegte Reihenfolge, sie stehen also einfach untereinander:",
+	STATS_VALUE_UNKNOWN = "(diesen konnte ich nicht auslesen)",
+	STATS_CRIT_BODY = "Die Chance, dass ein Treffer doppelt so hart einschlägt. Rund zwanzig heißt etwa jeder fünfte Treffer. Launisch: großartig, wenn es zündet, und nichts, wenn nicht.",
+	STATS_HASTE_BODY = "Alles geht schneller - du schlägst schneller zu, deine Zauber sind kürzer und Energie oder Fokus kommen früher zurück. Mehr Tastendrücke pro Minute.",
+	STATS_MAST_BODY = "Mastery ist für jede Spezialisierung ein anderer Effekt, die Zeile darüber gehört also nur dir und kommt direkt aus dem Spiel.",
+	STATS_MAST_NO_TEXT = "(dein Mastery-Text war nicht lesbar - öffne einmal dein Charakterfenster und führe das erneut aus)",
+	STATS_VERS_BODY = "Der langweilige Verlässliche: du machst etwas mehr Schaden und Heilung und nimmst etwas weniger Schaden. Er tut nie nichts.",
+	STATS_ORDER_RAW_FMT = "So, wie Guides es schreiben: %s",
+	STATS_FOOTER = "Eine Faustregel, kein Gesetz. Zwei Werte, die dicht beieinander liegen, machen im Spiel kaum einen Unterschied, und keiner davon ist je schlecht - einer ist pro Punkt nur etwas mehr wert als der nächste. Lass dafür nie ein höheres Item Level liegen.",
+	STATS_NO_SPEC = "Du hast noch keine Spezialisierung, also gibt es keine Wertereihenfolge zu zeigen. Die kommt beim Leveln von allein.",
+	CODEX_STATS_TITLE = "Werte, ohne Fachjargon",
+	CODEX_STATS_BODY = "Deine Ausrüstung trägt zwei Arten von Zahlen.|n|n|cffffcc00Dein Hauptwert|r - Strength, Agility oder Intellect, je nach Spezialisierung - ist der Motor. Du wählst ihn nie: er kommt mit dem Item Level, und das Spiel setzt immer den richtigen auf Rüstung, die du tragen kannst.|n|n|cffffcc00Die vier sekundären Werte|r sind der Geschmack, und es sind für alle dieselben vier:|n• |cffffffffCritical Strike|r - die Chance, dass ein Treffer doppelt so hart einschlägt.|n• |cffffffffHaste|r - alles geht schneller, du drückst also mehr Tasten.|n• |cffffffffMastery|r - für jede Spezialisierung etwas anderes. Deiner steht in deinem Charakterfenster.|n• |cffffffffVersatility|r - etwas mehr Schaden und Heilung, etwas weniger Schaden herein.|n|nJede Spezialisierung will sie in einer anderen Reihenfolge, und diese Reihenfolge ist der einzige Grund, sich dafür zu interessieren. |cffffcc00Die Regel, die schwerer wiegt als die Reihenfolge: ein höheres Item Level ist fast immer das bessere Item.|r Werte entscheiden, wenn zwei Teile dicht beieinander liegen, nicht wenn eines klar größer ist.|n|nTippe |cffffffff/mh stats|r für deine eigene Spezialisierung - deine vier Zahlen, in deiner Reihenfolge, mit deinem Mastery in den Worten des Spiels selbst.",
+})
+
+fill("frFR", {
+	STATS_TITLE = "Tes stats, en mots simples",
+	STATS_HINT = "Ctrl+C pour copier. Les chiffres sont lus en direct sur ton propre personnage.",
+	STATS_HEADER_FMT = "%s - ce que tes stats font vraiment",
+	STATS_SHORT = "La version courte : un item level plus élevé est presque toujours le meilleur objet. Les stats ne tranchent que si deux pièces sont proches. Tu n'as besoin de rien comprendre à tout ça pour bien t'équiper - Midnight Helper applique déjà l'ordre ci-dessous dans le Great Vault et dans tes infobulles de butin.",
+	STATS_PRIMARY_FMT = "Ta stat principale : %s",
+	STATS_PRIMARY_BODY = "Le moteur de tout ce que tu fais. Elle vient gratuitement avec l'item level, donc chaque amélioration en apporte plus et il n'y a rien à choisir ici.",
+	STATS_ORDER_HEAD = "Les quatre autres, la meilleure d'abord pour ta spécialisation :",
+	STATS_ORDER_HEAD_UNRANKED = "Les quatre autres. Nous n'avons pas encore d'ordre établi pour cette spécialisation, elles sont donc simplement listées :",
+	STATS_VALUE_UNKNOWN = "(je n'ai pas pu lire celle-ci)",
+	STATS_CRIT_BODY = "La chance qu'un coup frappe deux fois plus fort. Autour de vingt, cela fait à peu près un coup sur cinq. Capricieux : excellent quand ça part, nul quand ça ne part pas.",
+	STATS_HASTE_BODY = "Tout va plus vite - tu frappes plus vite, tes incantations sont plus courtes et ton énergie ou ta focalisation revient plus tôt. Plus de boutons par minute.",
+	STATS_MAST_BODY = "Mastery est un effet différent pour chaque spécialisation ; la ligne au-dessus n'appartient donc qu'à toi et sort directement du jeu.",
+	STATS_MAST_NO_TEXT = "(texte de ta Mastery illisible - ouvre une fois ta fiche de personnage, puis relance ceci)",
+	STATS_VERS_BODY = "La fiable et ennuyeuse : tu infliges un peu plus de dégâts et de soins, et tu en prends un peu moins. Elle ne fait jamais rien de nul.",
+	STATS_ORDER_RAW_FMT = "Comme l'écrivent les guides : %s",
+	STATS_FOOTER = "Une règle empirique, pas une loi. Deux stats proches ne changent presque rien en jeu, et aucune n'est jamais mauvaise - l'une vaut simplement un peu plus par point que la suivante. Ne refuse jamais un item level plus élevé pour en courir une.",
+	STATS_NO_SPEC = "Tu n'as pas encore de spécialisation, il n'y a donc pas d'ordre de stats à montrer. Il arrivera tout seul en montant de niveau.",
+	CODEX_STATS_TITLE = "Les stats, sans le jargon",
+	CODEX_STATS_BODY = "Ton équipement porte deux sortes de chiffres.|n|n|cffffcc00Ta stat principale|r - Strength, Agility ou Intellect selon ta spécialisation - est le moteur. Tu ne la choisis jamais : elle arrive avec l'item level, et le jeu ne met que la bonne sur l'armure que tu peux porter.|n|n|cffffcc00Les quatre stats secondaires|r sont la saveur, et ce sont les mêmes quatre pour tout le monde :|n• |cffffffffCritical Strike|r - la chance qu'un coup frappe deux fois plus fort.|n• |cffffffffHaste|r - tout va plus vite, donc tu appuies sur plus de boutons.|n• |cffffffffMastery|r - un effet différent pour chaque spécialisation. La tienne est décrite sur ta fiche de personnage.|n• |cffffffffVersatility|r - un peu plus de dégâts et de soins, un peu moins de dégâts subis.|n|nChaque spécialisation les veut dans un ordre différent, et cet ordre est la seule raison de s'y intéresser. |cffffcc00La règle qui pèse plus lourd que l'ordre : un item level plus élevé est presque toujours le meilleur objet.|r Les stats tranchent quand deux pièces sont proches, pas quand l'une est nettement plus grosse.|n|nTape |cffffffff/mh stats|r pour ta propre spécialisation - tes quatre chiffres, dans ton ordre, avec ta Mastery expliquée avec les mots du jeu.",
+})
+
+fill("esES", {
+	STATS_TITLE = "Tus stats, en palabras sencillas",
+	STATS_HINT = "Ctrl+C para copiar. Los números se leen en vivo de tu propio personaje.",
+	STATS_HEADER_FMT = "%s - lo que tus stats hacen de verdad",
+	STATS_SHORT = "La versión corta: un item level más alto es casi siempre el mejor objeto. Las stats solo deciden cuando dos piezas están muy cerca. No necesitas entender nada de esto para equiparte bien - Midnight Helper ya aplica el orden de abajo en el Great Vault y en tus consejos de botín.",
+	STATS_PRIMARY_FMT = "Tu stat principal: %s",
+	STATS_PRIMARY_BODY = "El motor de todo lo que haces. Viene gratis con el item level, así que cada mejora trae más y aquí no hay nada que elegir.",
+	STATS_ORDER_HEAD = "Las otras cuatro, la mejor primero para tu especialización:",
+	STATS_ORDER_HEAD_UNRANKED = "Las otras cuatro. Todavía no tenemos un orden revisado para esta especialización, así que simplemente se listan:",
+	STATS_VALUE_UNKNOWN = "(esta no la he podido leer)",
+	STATS_CRIT_BODY = "La probabilidad de que un golpe pegue el doble. En torno a veinte es aproximadamente uno de cada cinco golpes. Irregular: estupendo cuando salta, nada cuando no.",
+	STATS_HASTE_BODY = "Todo va más rápido: golpeas antes, tus lanzamientos son más cortos y tu energía o concentración vuelve antes. Más botones por minuto.",
+	STATS_MAST_BODY = "Mastery es un efecto distinto en cada especialización, así que la línea de arriba es solo tuya y sale directamente del juego.",
+	STATS_MAST_NO_TEXT = "(no he podido leer tu texto de Mastery - abre una vez tu hoja de personaje y vuelve a ejecutarlo)",
+	STATS_VERS_BODY = "La aburrida y fiable: haces algo más de daño y curación, y recibes algo menos. Nunca se queda en nada.",
+	STATS_ORDER_RAW_FMT = "Tal y como lo escriben las guías: %s",
+	STATS_FOOTER = "Una regla general, no una ley. Dos stats parecidas apenas se notan al jugar, y ninguna es mala - una simplemente vale un poco más por punto que la siguiente. Nunca rechaces un item level más alto por perseguir una.",
+	STATS_NO_SPEC = "Aún no tienes especialización, así que no hay orden de stats que mostrar. Llegará solo mientras subes de nivel.",
+	CODEX_STATS_TITLE = "Stats, sin jerga",
+	CODEX_STATS_BODY = "Tu equipo lleva dos clases de números.|n|n|cffffcc00Tu stat principal|r - Strength, Agility o Intellect, según tu especialización - es el motor. Nunca la eliges: llega con el item level, y el juego solo pone la correcta en la armadura que puedes llevar.|n|n|cffffcc00Las cuatro stats secundarias|r son el sabor, y son las mismas cuatro para todos:|n• |cffffffffCritical Strike|r - la probabilidad de que un golpe pegue el doble.|n• |cffffffffHaste|r - todo va más rápido, así que pulsas más botones.|n• |cffffffffMastery|r - un efecto distinto en cada especialización. La tuya está descrita en tu hoja de personaje.|n• |cffffffffVersatility|r - algo más de daño y curación, algo menos de daño recibido.|n|nCada especialización las quiere en un orden distinto, y ese orden es la única razón para preocuparse. |cffffcc00La regla que pesa más que el orden: un item level más alto es casi siempre el mejor objeto.|r Las stats deciden cuando dos piezas están cerca, no cuando una es claramente mayor.|n|nEscribe |cffffffff/mh stats|r para tu propia especialización: tus cuatro números, en tu orden, con tu Mastery explicada con las palabras del propio juego.",
+})
+
+fill("ptBR", {
+	STATS_TITLE = "Seus stats, em palavras simples",
+	STATS_HINT = "Ctrl+C para copiar. Os números são lidos ao vivo do seu próprio personagem.",
+	STATS_HEADER_FMT = "%s - o que seus stats realmente fazem",
+	STATS_SHORT = "A versão curta: um item level mais alto é quase sempre o melhor item. Os stats só decidem quando duas peças ficam bem próximas. Você não precisa entender nada disso para se equipar bem - o Midnight Helper já aplica a ordem abaixo no Great Vault e nas suas dicas de loot.",
+	STATS_PRIMARY_FMT = "Seu stat principal: %s",
+	STATS_PRIMARY_BODY = "O motor por trás de tudo o que você faz. Ele vem de graça com o item level, então cada upgrade traz mais - aqui não há nada para escolher.",
+	STATS_ORDER_HEAD = "Os outros quatro, o melhor primeiro para a sua especialização:",
+	STATS_ORDER_HEAD_UNRANKED = "Os outros quatro. Ainda não temos uma ordem revisada para esta especialização, então eles aparecem apenas listados:",
+	STATS_VALUE_UNKNOWN = "(este eu não consegui ler)",
+	STATS_CRIT_BODY = "A chance de um golpe acertar com o dobro da força. Perto de vinte é mais ou menos um golpe em cada cinco. Irregular: ótimo quando dispara, nada quando não dispara.",
+	STATS_HASTE_BODY = "Tudo acontece mais rápido - você bate antes, seus conjuros ficam mais curtos e sua energia ou foco volta mais cedo. Mais botões por minuto.",
+	STATS_MAST_BODY = "Mastery é um efeito diferente em cada especialização, então a linha acima é só sua e vem direto do jogo.",
+	STATS_MAST_NO_TEXT = "(não consegui ler o texto da sua Mastery - abra uma vez a sua ficha de personagem e rode isto de novo)",
+	STATS_VERS_BODY = "O chato e confiável: você causa um pouco mais de dano e cura, e recebe um pouco menos. Nunca fica em nada.",
+	STATS_ORDER_RAW_FMT = "Do jeito que os guias escrevem: %s",
+	STATS_FOOTER = "Uma regra de bolso, não uma lei. Dois stats próximos quase não mudam nada na prática, e nenhum deles é ruim - um vale apenas um pouco mais por ponto do que o outro. Nunca recuse um item level mais alto para correr atrás de um deles.",
+	STATS_NO_SPEC = "Você ainda não tem especialização, então não há ordem de stats para mostrar. Ela chega sozinha conforme você sobe de nível.",
+	CODEX_STATS_TITLE = "Stats, sem o jargão",
+	CODEX_STATS_BODY = "Seu equipamento carrega dois tipos de número.|n|n|cffffcc00Seu stat principal|r - Strength, Agility ou Intellect, conforme a sua especialização - é o motor. Você nunca o escolhe: ele vem com o item level, e o jogo só coloca o certo na armadura que você pode usar.|n|n|cffffcc00Os quatro stats secundários|r são o tempero, e são os mesmos quatro para todo mundo:|n• |cffffffffCritical Strike|r - a chance de um golpe acertar com o dobro da força.|n• |cffffffffHaste|r - tudo acontece mais rápido, então você aperta mais botões.|n• |cffffffffMastery|r - um efeito diferente em cada especialização. A sua está descrita na sua ficha de personagem.|n• |cffffffffVersatility|r - um pouco mais de dano e cura, um pouco menos de dano recebido.|n|nCada especialização os quer em uma ordem diferente, e essa ordem é o único motivo para se importar. |cffffcc00A regra que pesa mais do que a ordem: um item level mais alto é quase sempre o melhor item.|r Os stats decidem quando duas peças estão próximas, não quando uma é claramente maior.|n|nDigite |cffffffff/mh stats|r para a sua própria especialização - seus quatro números, na sua ordem, com a sua Mastery explicada com as palavras do próprio jogo.",
+})
+
+fill("itIT", {
+	STATS_TITLE = "Le tue stat, in parole semplici",
+	STATS_HINT = "Ctrl+C per copiare. I numeri sono letti dal vivo dal tuo personaggio.",
+	STATS_HEADER_FMT = "%s - cosa fanno davvero le tue stat",
+	STATS_SHORT = "La versione breve: un item level più alto è quasi sempre l'oggetto migliore. Le stat decidono solo quando due pezzi sono vicini. Non devi capire niente di tutto questo per equipaggiarti bene - Midnight Helper applica già l'ordine qui sotto nel Great Vault e nei suggerimenti sul loot.",
+	STATS_PRIMARY_FMT = "La tua stat principale: %s",
+	STATS_PRIMARY_BODY = "Il motore di tutto quello che fai. Arriva gratis con l'item level, quindi ogni miglioramento ne porta di più e qui non c'è niente da scegliere.",
+	STATS_ORDER_HEAD = "Le altre quattro, la migliore per prima per la tua specializzazione:",
+	STATS_ORDER_HEAD_UNRANKED = "Le altre quattro. Per questa specializzazione non abbiamo ancora un ordine curato, quindi sono solo elencate:",
+	STATS_VALUE_UNKNOWN = "(questa non sono riuscito a leggerla)",
+	STATS_CRIT_BODY = "La probabilità che un colpo arrivi il doppio più forte. Intorno a venti significa circa un colpo su cinque. Discontinua: ottima quando scatta, niente quando non scatta.",
+	STATS_HASTE_BODY = "Tutto va più veloce: colpisci prima, le tue magie sono più corte e l'energia o la concentrazione torna prima. Più tasti al minuto.",
+	STATS_MAST_BODY = "Mastery è un effetto diverso per ogni specializzazione, quindi la riga qui sopra è solo tua e viene direttamente dal gioco.",
+	STATS_MAST_NO_TEXT = "(non sono riuscito a leggere il testo della tua Mastery - apri una volta la scheda del personaggio e rilancia questo comando)",
+	STATS_VERS_BODY = "La noiosa e affidabile: fai un po' più danno e cura, e ne prendi un po' meno. Non resta mai a zero.",
+	STATS_ORDER_RAW_FMT = "Come lo scrivono le guide: %s",
+	STATS_FOOTER = "Una regola pratica, non una legge. Due stat vicine cambiano pochissimo nel gioco reale, e nessuna è mai cattiva - una vale solo un po' di più per punto rispetto alla successiva. Non rifiutare mai un item level più alto per rincorrerne una.",
+	STATS_NO_SPEC = "Non hai ancora una specializzazione, quindi non c'è un ordine di stat da mostrare. Arriva da sé mentre sali di livello.",
+	CODEX_STATS_TITLE = "Le stat, senza gergo",
+	CODEX_STATS_BODY = "Il tuo equipaggiamento porta due tipi di numeri.|n|n|cffffcc00La tua stat principale|r - Strength, Agility o Intellect, a seconda della specializzazione - è il motore. Non la scegli mai: arriva con l'item level, e il gioco mette solo quella giusta sull'armatura che puoi indossare.|n|n|cffffcc00Le quattro stat secondarie|r sono il sapore, e sono le stesse quattro per tutti:|n• |cffffffffCritical Strike|r - la probabilità che un colpo arrivi il doppio più forte.|n• |cffffffffHaste|r - tutto va più veloce, quindi premi più tasti.|n• |cffffffffMastery|r - un effetto diverso per ogni specializzazione. La tua è descritta nella scheda del personaggio.|n• |cffffffffVersatility|r - un po' più di danno e cura, un po' meno danno subito.|n|nOgni specializzazione le vuole in un ordine diverso, e quell'ordine è l'unico motivo per interessarsene. |cffffcc00La regola che pesa più dell'ordine: un item level più alto è quasi sempre l'oggetto migliore.|r Le stat decidono quando due pezzi sono vicini, non quando uno è chiaramente più grande.|n|nDigita |cffffffff/mh stats|r per la tua specializzazione: i tuoi quattro numeri, nel tuo ordine, con la tua Mastery spiegata con le parole del gioco stesso.",
+})

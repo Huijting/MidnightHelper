@@ -125,7 +125,13 @@ function ns.BuildCurioExplainText()
 			local mark = o.active and L("CURIO_ACTIVE") or "  "
 			lines[#lines + 1] = ("%s %s"):format(mark, o.name or ("spell " .. o.spellID))
 			if o.desc then
-				local clean = o.desc:gsub("|c%x+", ""):gsub("|r", "")
+				-- ⚠️ EXACTLY EIGHT hex digits. `|c%x+` is greedy and A-F are hex
+				-- digits, so it swallows the first letter of the coloured word —
+				-- "|cffffffffBlood Shield|r" came out as "lood Shield" in the stat
+				-- coach's smoke test, 26 aug, with this very pattern. Every curio
+				-- whose highlighted word starts with a, b, c, d, e or f has been
+				-- printing one letter short since this shipped.
+				local clean = o.desc:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
 					:gsub("|T[^|]*|t", ""):gsub("%s+", " "):gsub("^%s+", "")
 				lines[#lines + 1] = ("      %s"):format(clean)
 			else

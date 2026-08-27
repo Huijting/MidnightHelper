@@ -1466,6 +1466,41 @@ ns._mhLocales.enUS = {
 	CURIO_NO_CHOICES = "No choice slots found on your companion. Either none are unlocked yet, or the tree has not loaded.",
 	CURIO_LOADING = "Asking the server for the effect texts...",
 	CURIO_FOOTER ="Read live from your own client, so it stays right when Blizzard changes something. If you want someone to pick for you, Everything Delves ranks them; this is here to tell you what you are choosing between.",
+	-- /mh stats — the four secondaries in plain words, in THIS spec's order. The
+	-- mastery sentence is the client's own, per spec; see StatCoach.lua for why none
+	-- of it is hardcoded and why the page opens by saying ilvl matters more.
+	STATS_TITLE = "Your stats, in plain words",
+	STATS_HINT = "Ctrl+C to copy. The numbers are read live from your own character.",
+	STATS_HEADER_FMT = "%s - what your stats actually do",
+	-- Spec, then class in brackets. Not glued together: word order differs per
+	-- language and the bracket form survives it.
+	STATS_SPEC_FMT = "%s (%s)",
+	STATS_SHORT = "The short version: a higher item level is almost always the better item. Stats only settle it when two pieces sit close together. You do not need to understand any of this to gear up well - Midnight Helper already applies the order below in the Great Vault and in your loot tips.",
+	STATS_PRIMARY_FMT = "Your main stat: %s",
+	STATS_PRIMARY_BODY = "The engine behind everything you do. It comes free with item level, so every upgrade brings more of it and there is nothing here to choose.",
+	STATS_ORDER_HEAD = "The other four, best first for your spec:",
+	-- Shown after two stats that weigh the same. A number implies a claim; where the
+	-- data ties, say so instead of letting the sort invent an order.
+	STATS_TIED_MARK = "|cff9aa0a8(equal — take whichever the item offers)|r",
+	-- Dock/undock button on every MH dialog (Rob, 27 aug: "die schermen moeten kunnen
+	-- vastplakken"). Two states, one button.
+	DIALOG_DOCK = "Dock to window",
+	DIALOG_UNDOCK = "Undock",
+	STATS_ORDER_HEAD_UNRANKED = "The other four. There is no curated order for this spec yet, so they are simply listed:",
+	STATS_LINE_FMT = "%d. %s - %s",
+	STATS_PERCENT_FMT = "%.2f%%",
+	STATS_VALUE_UNKNOWN = "(could not read this one)",
+	STATS_CRIT_BODY = "The chance that a hit lands twice as hard. Around twenty means roughly one hit in five. Spiky: brilliant when it fires, nothing when it does not.",
+	STATS_HASTE_BODY = "Everything happens faster - you swing quicker, your casts are shorter and your energy or focus comes back sooner. More buttons per minute.",
+	STATS_MAST_BODY = "Mastery is a different effect for every spec, so the line above is yours alone, straight out of the game.",
+	STATS_MAST_NO_TEXT = "(could not read your mastery text - open your character sheet once, then run this again)",
+	STATS_VERS_BODY = "The dull, dependable one: you deal a little more damage and healing, and you take a little less. It never does nothing.",
+	STATS_ORDER_RAW_FMT = "The way guides write it: %s",
+	STATS_FOOTER = "A rule of thumb, not a law. Two stats close together barely differ in play, and none of them is ever bad - one is simply worth a little more per point than the next. Never turn down a higher item level to chase one.",
+	STATS_NO_SPEC = "You have no specialisation yet, so there is no stat order to show. That arrives on its own as you level.",
+	CMDLIST_STATS = "What your stats do, for the spec you are in.",
+	CODEX_STATS_TITLE = "Stats, without the jargon",
+	CODEX_STATS_BODY = "Your gear carries two kinds of number.|n|n|cffffcc00Your main stat|r - Strength, Agility or Intellect, whichever your spec uses - is the engine. You never pick it: it arrives with item level, and the game only puts the right one on armour you can wear.|n|n|cffffcc00The four secondary stats|r are the flavour, and they are the same four for everyone:|n• |cffffffffCritical Strike|r - the chance a hit lands twice as hard.|n• |cffffffffHaste|r - everything happens faster, so you press more buttons.|n• |cffffffffMastery|r - a different effect for every spec. Yours is the one your character sheet describes.|n• |cffffffffVersatility|r - a little more damage and healing, a little less damage taken.|n|nSpecs prefer them in different orders, and that order is the only reason to care. |cffffcc00The rule that matters more than the order: a higher item level is almost always the better item.|r Stats settle it when two pieces are close, not when one is clearly bigger.|n|nType |cffffffff/mh stats|r for your own spec - your four numbers, in your order, with your Mastery explained in the game's own words.",
 	DELVE_TIP_GNARLDOR_OVERVIEW = "• New in 12.1, on the Coiled Isle — entrance at {WAY:2512:64.3:77.7:Gnarldor Isle}. Scrollmaster Ruma at the entrance starts a short quest chain.|n• Three story variants, two bosses (per Method and Icy Veins — not yet measured on your client). Two variants end at Gralka Snake-Eater: she eats snakes for damage stacks and leaves venom puddles — drag her off them, sidestep the waves of her Purging Breath.|n• The third ends at Osseous Amalgamation: interrupt his bone shield, run from Bonestorm, dodge the bone spikes.|n• Click the Tortollan Scrolls you pass — buffs, some with a catch.",
 	DELVE_TIP_GNARLDOR_ROUTE = "• Three Sturdy Chests — click to set a waypoint: {WAY:2635:60.44:68.12:Sturdy Chest 1} · {WAY:2635:52.41:40.84:Sturdy Chest 2} · {WAY:2635:28.67:41.69:Sturdy Chest 3}.|n• You arrive at about 77, 46; the exit portal stands right there — sweep the chests and you end where you began.",
 	-- ⚠️ The golem's own NAME is not in here on purpose. Rob reported the cast as
@@ -2032,6 +2067,13 @@ ns._mhLocales.enUS = {
 	MILE_NONE_YET = "No milestones yet - they'll show up as you go.",
 	SEASONSTATS_SINCE_FMT = "Counting since %s:",
 	SEASONSTATS_EMPTY = "Nothing counted yet.",
+	-- Printed for every counter, including the ones still at zero — a missing line reads
+	-- as "not tracked" rather than "none yet". Keystone/Mythic stay WoW's own spelling.
+	SEASONSTATS_KEYSRUN = "Mythic Keystones run",
+	SEASONSTATS_KEYSTIMED = "Keystones timed",
+	SEASONSTATS_BOSSKILLS = "Boss kills",
+	SEASONSTATS_DEATHS = "Deaths",
+	SEASONSTATS_MOUNTS = "Mounts collected",
 	DAILYTIP_PREFIX = "Today's tip:",
 	DAILYTIP_DISMISS = "Not today, thanks",
 	NAV_WHERE_PROFACADEMY = "inside Professions",

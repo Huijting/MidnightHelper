@@ -100,6 +100,7 @@ Modules\VaultReminder.lua
 Modules\VaultAdvisorData.lua
 Modules\VaultAdvisor.lua
 Modules\PawnExport.lua
+Modules\StatCoach.lua
 Modules\MythicGain.lua
 Modules\LootUpgrade.lua
 Modules\BagUpgrade.lua
