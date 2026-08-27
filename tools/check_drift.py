@@ -202,6 +202,58 @@ def flat(s):
     return s.replace("\n", " ").strip()
 
 
+def render_workpackage(rows):
+    """Paste-ready blocks for #translations / a GitHub translation issue.
+
+    A volunteer cannot use a status table. They need the key, the English, and --
+    for drift -- what their language says NOW, because a drifted string is edited,
+    not written from scratch. Same shape as docs/TRANSLATE_START_HERE.md, including
+    its "leave these alone" rules, since that is the page they were sent to before.
+    """
+    o = []
+    o.append("# Vertaalpakket")
+    o.append("")
+    o.append("Gegenereerd door `python tools/check_drift.py --workpackage`. "
+             "Plakklaar voor #translations of een "
+             "[vertaal-issue](https://github.com/Huijting/MidnightHelper/issues/new?template=translation.yml).")
+    o.append("")
+    o.append("**Laat deze precies staan zoals ze zijn:** `%s` en `%d` (het spel vult "
+             "een naam of getal in), `%%` (een echt procentteken), `|cffffffff` … `|r` "
+             "(kleurcodes, om dezelfde woorden houden), `|n` (regelovergang), "
+             "`{SPELL:12345}` (spreuknaam — nooit het nummer vertalen), en de `->` in "
+             "een menupad.")
+    o.append("")
+    o.append("Namen die Blizzard bezit blijven Engels: zones, NPC's, items, currencies, "
+             "quests en achievements. Spelbegrippen ook: Mythic+, PvP, Raid, Renown, "
+             "Delves, Vault, Bountiful, Tier, ilvl.")
+    o.append("")
+
+    for code in LANGS:
+        drift = [r for r in rows[code] if r[0] == "DRIFT"]
+        if not drift:
+            continue
+        o.append("## %s — %d zinnen die niet meer kloppen" % (code, len(drift)))
+        o.append("")
+        o.append("De Engelse zin is veranderd nádat deze vertaling gemaakt werd. "
+                 "**Dit is bijwerken, geen nieuw werk** — vergelijk de twee en pas aan "
+                 "wat er inhoudelijk veranderd is.")
+        o.append("")
+        o.append("⚠️ **Sommige hiervan zullen al kloppen.** Deze lijst weet alleen dát "
+                 "het Engels veranderd is, niet of de betekenis meeschoof — een "
+                 "herformulering telt net zo hard mee als een correctie. Kom je er een "
+                 "tegen die inhoudelijk nog klopt, zeg dat dan in plaats van hem te "
+                 "herschrijven; dan halen wij hem van de lijst.")
+        o.append("")
+        for _st, key, env, val in drift:
+            o.append("```lua")
+            o.append("-- nu in %s: %s" % (code, flat(val or "")))
+            o.append("-- enUS   : %s" % flat(env))
+            o.append('%s = "",' % key)
+            o.append("```")
+            o.append("")
+    return "\n".join(o) + "\n"
+
+
 def render_report(rows, state, en_total, scored):
     per = counts(rows)
     o = []
@@ -277,6 +329,14 @@ def main():
     en_total = len(now["enUS"])
     scored = len(rows[LANGS[0]])
     print(render_console(rows, state, en_total, scored))
+    if "--workpackage" in args:
+        p = os.path.join(REPO, "docs", "TRANSLATION_WORKPACKAGE.md")
+        with io.open(p + ".tmp", "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(render_workpackage(rows))
+        os.replace(p + ".tmp", p)
+        with io.open(p, encoding="utf-8") as fh:
+            fh.read()
+        print("\ngeschreven: %s (UTF-8 teruggelezen, ok)" % p)
     if "--write-report" in args:
         with io.open(REPORT + ".tmp", "w", encoding="utf-8", newline="\n") as fh:
             fh.write(render_report(rows, state, en_total, scored))
