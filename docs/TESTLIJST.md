@@ -103,15 +103,60 @@ Tailoring wel ongeschikt als test.
 
 ---
 
-## ⚪ Wacht op iets anders
+## 🟠 Andy's twee PR's — GEMERGED 27 aug, nu in je client
 
-### 5. Andy's twee pull requests — nog NIET binnengehaald
+Beide zaten sinds 7 augustus open en zijn vandaag binnengehaald. Ze raken **zeventien**
+bestanden, en dat is meteen het risico: als er iets raars gebeurt met een venster, is dit de
+eerste verdachte.
 
-Staan open op GitHub, dus ze zitten **niet** in Robs client. Pas testbaar na mergen.
+### 7. PR #1 — vensters die dicht stonden bleven rekenen
 
-- **#1 "Stop hidden panels from processing events"** — vier onderdelen bleven rekenen met hun
-  venster dicht. Testen: Vault, delve-curio's, wereldbaas, checklist, consumables-bord. Hij
-  waarschuwt zelf dat de twee checklists even kunnen achterlopen bij heropenen.
-- **#2 "Settings for windows that open by themselves"** — het bossvenster negeerde je
-  uit-standje in rituals en raids; het consumables-bord ging open als een groepsgenoot dat
-  wilde. Testen: allebei uitzetten en kijken of ze dan écht dichtblijven.
+Vier onderdelen deden werk terwijl hun scherm dicht was. Andy meet dat de addon van 0,060 naar
+0,003 ms per beeldje gaat als je stilstaat met alles gesloten.
+
+**Wat je test: dat alles nog steeds bijwerkt.** Dit is een optimalisatie, dus het risico is
+niet dat er iets stukgaat maar dat iets *stopt met verversen*. Open en sluit deze, kijk of de
+inhoud klopt:
+
+- Great Vault-advies
+- delve-curio's
+- wereldbaas
+- de weekchecklist en de account-checklist
+- het consumables-bord
+
+⚠️ **Andy waarschuwt zelf voor één ding:** de twee checklists verversen niet meer terwijl hun
+venster dicht is. Heropen je hetzelfde tabblad, dan kunnen ze een paar seconden achterlopen tot
+de volgende quest- of currency-gebeurtenis. Dat is bekend en bedoeld — geen bug.
+
+### 8. PR #2 — vensters die zichzelf openden zonder te vragen
+
+Twee stukken. Het tweede heb je **iemand anders** voor nodig.
+
+**a) Het bossvenster.** De aan/uit-knop werd alleen gelezen op de dungeon-route, dus het venster
+ging in **rituals en raids** gewoon open terwijl jij hem uit had staan. Nu per soort instelbaar.
+
+1. Zet in de instellingen het bossvenster uit.
+2. Ga een **ritual** in. Blijft hij dicht?
+3. Zet hem weer aan en kijk of hij in een dungeon nog wel komt.
+
+📌 De dungeon-knop uitzetten schakelt nog steeds alle drie uit — dat is wat de omschrijving
+belooft en dat hoort zo te blijven.
+
+**b) Het consumables-bord.** Een groepsgenoot kan een verzoek sturen om het bord te tonen, en
+jouw client opende het zonder naar jouw eigen instelling te kijken. Er is nu een opt-out onder
+*Alerts & popups*.
+
+Nodig: **je zus of Cisca in de groep.** Zet bij jou de opt-out aan, laat de ander het bord
+oproepen, en kijk of hij bij jou dichtblijft.
+
+### 9. 🔴 Vier talen beloven nu iets wat niet klopt
+
+Andy hernoemde het label `SET_CONSREADY_TOGGLE_TITLE` omdat de tekst "bij binnenkomst in de
+dungeon" zei terwijl de melding óók in rituals en delves komt. Het Engels is nu *"Show
+consumable check on entry"*.
+
+**Frans, Spaans, Portugees en Italiaans zeggen nog steeds "dungeon".** Duits en Nederlands zijn
+goed. Dit is geen achterstand maar een onjuistheid, en hij staat in `docs/TRANSLATION_DRIFT.md`
+bij de andere zeven.
+
+Niets voor Rob om te testen — genoteerd zodat het niet als bugmelding terugkomt.

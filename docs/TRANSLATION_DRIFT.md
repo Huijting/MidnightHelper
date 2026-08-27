@@ -8,20 +8,20 @@ Basis: **v3.5.0** — 2996 keys met een vastgelegde herkomst.
 
 | taal | OK | drift | onvertaald | onbekend |
 |---|---:|---:|---:|---:|
-| deDE | 2938 | 7 | 158 | 6 |
-| frFR | 2958 | 7 | 138 | 6 |
-| esES | 2958 | 7 | 138 | 6 |
-| ptBR | 2959 | 7 | 137 | 6 |
-| itIT | 2876 | 7 | 220 | 6 |
-| nlNL | 2571 | 7 | 473 | 58 |
+| deDE | 2937 | 8 | 158 | 12 |
+| frFR | 2957 | 8 | 144 | 6 |
+| esES | 2957 | 8 | 144 | 6 |
+| ptBR | 2958 | 8 | 143 | 6 |
+| itIT | 2875 | 8 | 226 | 6 |
+| nlNL | 2570 | 8 | 473 | 64 |
 
 **onbekend** = na de basistag vertaald, dus we weten niet uit welke Engelse versie. Dat is niet hetzelfde als verouderd.
 
-De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overgeslagen (`CHANGELOG_*`, `LANG_LABEL_*` en waarden die precies een spelbegrip zijn). ⚠️ `tools/lint_addon.py` [5] telt hetzelfde anders — die parseert de bestanden zelf en slaat niets over, dus zijn "still English" ligt hoger. Twee getallen die hetzelfde lijken te meten en niet gelijk zijn: gebruik hier het getal van de loader.
+De loader ziet **3453** enUS-keys; hiervan zijn er 3115 beoordeeld en 338 overgeslagen (`CHANGELOG_*`, `LANG_LABEL_*` en waarden die precies een spelbegrip zijn). ⚠️ `tools/lint_addon.py` [5] telt hetzelfde anders — die parseert de bestanden zelf en slaat niets over, dus zijn "still English" ligt hoger. Twee getallen die hetzelfde lijken te meten en niet gelijk zijn: gebruik hier het getal van de loader.
 
 ⚠️ **Niets hier automatisch vertalen.** Deze lijst gaat naar #translations op Discord; een machinevertaling in een pack is niet te onderscheiden van een gecontroleerde en blokkeert de echte.
 
-## deDE — 7 gedrift
+## deDE — 8 gedrift
 
 ### `CURIO_NO_TEXT`
 
@@ -43,6 +43,13 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 |---|---|
 | enUS **nu** | • Under Siege: close void portals and kill Devouring Host.\|n• Faculty of Fear: Eye of Revelation — suspicious students glow yellow through walls.\|n• Invasive Glow: Deweeder kills small Lightbloom and damages large ones.\|n• Clear Luminibulb patches on the main level.\|n• An Elementary Antidote: speak to Sir Finley Mrrgglton, gather 10 Research Tomes, then collect ingredients and cure 7 Envenomed Denizens. Ingredients are worth different amounts, so grab the big ones.\|n• Fungal Pharmacon is a weapon too: it clears the poison pools AND hits everything within 5 yards of where it lands. |
 | deDE **staat nu** | • Unter Belagerung: Leerenportale schließen und Devouring Host töten.\|n• Fakultät der Angst: Auge der Offenbarung – verdächtige Schüler leuchten gelb durch Wände.\|n• Invasives Leuchten: Deweeder tötet kleine Lightbloom und beschädigt große.\|n• Löschen du Luminibulb-Patches auf der Hauptebene.\|n• An Elementary Antidote: Sprich mit Sir Finley Mrrgglton, sammle 10 Research Tomes, dann Zutaten sammeln und 7 Envenomed Denizens heilen. Zutaten zählen unterschiedlich viel, nimm also die großen.\|n• Fungal Pharmacon ist auch eine Waffe: er räumt die Poison Pools weg UND trifft alles im Umkreis von 5 Yards um den Einschlag. |
+
+### `SET_CONSREADY_TOGGLE_TITLE`
+
+| | |
+|---|---|
+| enUS **nu** | Show consumable check on entry |
+| deDE **staat nu** | Verbrauchsgüter-Check beim Betreten anzeigen |
 
 ### `TIER_FOOTER`
 
@@ -72,7 +79,7 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 | enUS **nu** | This delve: nothing picked up yet. Chunks of Companion Experience, Boons and the odd rich find all feed her — and so does killing things, so nothing you do in here is wasted. |
 | deDE **staat nu** | Diese Tiefe: noch nichts aufgesammelt. Chunks of Companion Experience, Boons und ab und zu ein besonders ergiebiger Fund zahlen alle ein — und Töten zählt auch, es ist hier drin also nichts umsonst. |
 
-## frFR — 7 gedrift
+## frFR — 8 gedrift
 
 ### `CURIO_NO_TEXT`
 
@@ -94,6 +101,13 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 |---|---|
 | enUS **nu** | • Under Siege: close void portals and kill Devouring Host.\|n• Faculty of Fear: Eye of Revelation — suspicious students glow yellow through walls.\|n• Invasive Glow: Deweeder kills small Lightbloom and damages large ones.\|n• Clear Luminibulb patches on the main level.\|n• An Elementary Antidote: speak to Sir Finley Mrrgglton, gather 10 Research Tomes, then collect ingredients and cure 7 Envenomed Denizens. Ingredients are worth different amounts, so grab the big ones.\|n• Fungal Pharmacon is a weapon too: it clears the poison pools AND hits everything within 5 yards of where it lands. |
 | frFR **staat nu** | • En état de siège : fermez les portails du Vide et tuez l'Hôte dévorant.\|n• Faculté de la peur : Œil de la révélation – les étudiants méfiants brillent en jaune à travers les murs.\|n• Lueur envahissante : Le désherbant tue les petites fleurs de lumière et endommage les grandes.\|n• Effacer les patchs Lumibulb au niveau principal.\|n• An Elementary Antidote : parlez à Sir Finley Mrrgglton, rassemblez 10 Research Tomes, puis récoltez les ingrédients et soignez 7 Envenomed Denizens. Les ingrédients ne comptent pas tous pareil, prenez les gros.\|n• Fungal Pharmacon est aussi une arme : il nettoie les poison pools ET frappe tout dans un rayon de 5 yards autour du point d'impact. |
+
+### `SET_CONSREADY_TOGGLE_TITLE`
+
+| | |
+|---|---|
+| enUS **nu** | Show consumable check on entry |
+| frFR **staat nu** | Afficher à l'entrée du donjon |
 
 ### `TIER_FOOTER`
 
@@ -123,7 +137,7 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 | enUS **nu** | This delve: nothing picked up yet. Chunks of Companion Experience, Boons and the odd rich find all feed her — and so does killing things, so nothing you do in here is wasted. |
 | frFR **staat nu** | Ce gouffre : rien de ramassé pour l'instant. Les Chunks of Companion Experience, les Boons et de temps en temps une trouvaille généreuse comptent tous — et tuer compte aussi, donc rien de ce que tu fais ici n'est perdu. |
 
-## esES — 7 gedrift
+## esES — 8 gedrift
 
 ### `CURIO_NO_TEXT`
 
@@ -145,6 +159,13 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 |---|---|
 | enUS **nu** | • Under Siege: close void portals and kill Devouring Host.\|n• Faculty of Fear: Eye of Revelation — suspicious students glow yellow through walls.\|n• Invasive Glow: Deweeder kills small Lightbloom and damages large ones.\|n• Clear Luminibulb patches on the main level.\|n• An Elementary Antidote: speak to Sir Finley Mrrgglton, gather 10 Research Tomes, then collect ingredients and cure 7 Envenomed Denizens. Ingredients are worth different amounts, so grab the big ones.\|n• Fungal Pharmacon is a weapon too: it clears the poison pools AND hits everything within 5 yards of where it lands. |
 | esES **staat nu** | • Bajo asedio: cierra los portales del vacío y mata a la Hueste devoradora.\|n• Facultad del Miedo: Ojo de la Revelación: los estudiantes sospechosos brillan de color amarillo a través de las paredes.\|n• Resplandor invasivo: Deweeder mata a los pequeños Lightbloom y daña a los grandes.\|n• Borrar parches Luminibulb en el nivel principal.\|n• An Elementary Antidote: habla con Sir Finley Mrrgglton, reúne 10 Research Tomes, luego recoge ingredientes y cura a 7 Envenomed Denizens. Los ingredientes no valen lo mismo, así que coge los grandes.\|n• Fungal Pharmacon también es un arma: limpia las poison pools Y golpea todo en 5 yardas alrededor del impacto. |
+
+### `SET_CONSREADY_TOGGLE_TITLE`
+
+| | |
+|---|---|
+| enUS **nu** | Show consumable check on entry |
+| esES **staat nu** | Mostrar al entrar en mazmorra |
 
 ### `TIER_FOOTER`
 
@@ -174,7 +195,7 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 | enUS **nu** | This delve: nothing picked up yet. Chunks of Companion Experience, Boons and the odd rich find all feed her — and so does killing things, so nothing you do in here is wasted. |
 | esES **staat nu** | Este delve: aún no has recogido nada. Los Chunks of Companion Experience, los Boons y de vez en cuando un hallazgo generoso suman todos — y matar también suma, así que nada de lo que hagas aquí se pierde. |
 
-## ptBR — 7 gedrift
+## ptBR — 8 gedrift
 
 ### `CURIO_NO_TEXT`
 
@@ -196,6 +217,13 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 |---|---|
 | enUS **nu** | • Under Siege: close void portals and kill Devouring Host.\|n• Faculty of Fear: Eye of Revelation — suspicious students glow yellow through walls.\|n• Invasive Glow: Deweeder kills small Lightbloom and damages large ones.\|n• Clear Luminibulb patches on the main level.\|n• An Elementary Antidote: speak to Sir Finley Mrrgglton, gather 10 Research Tomes, then collect ingredients and cure 7 Envenomed Denizens. Ingredients are worth different amounts, so grab the big ones.\|n• Fungal Pharmacon is a weapon too: it clears the poison pools AND hits everything within 5 yards of where it lands. |
 | ptBR **staat nu** | • Under Siege: feche portais vazios e mate Devouring Host.\|n• Faculdade do Medo: Olho da Revelação — estudantes suspeitos brilham em amarelo através das paredes.\|n• Brilho Invasivo: Deweeder mata Lightbloom pequeno e danifica os grandes.\|n• Patches claros do Luminibulb no nível principal.\|n• An Elementary Antidote: fale com Sir Finley Mrrgglton, reúna 10 Research Tomes, depois colete ingredientes e cure 7 Envenomed Denizens. Os ingredientes não valem o mesmo, então pegue os grandes.\|n• Fungal Pharmacon também é uma arma: limpa as poison pools E atinge tudo num raio de 5 jardas do impacto. |
+
+### `SET_CONSREADY_TOGGLE_TITLE`
+
+| | |
+|---|---|
+| enUS **nu** | Show consumable check on entry |
+| ptBR **staat nu** | Mostrar ao entrar na masmorra |
 
 ### `TIER_FOOTER`
 
@@ -225,7 +253,7 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 | enUS **nu** | This delve: nothing picked up yet. Chunks of Companion Experience, Boons and the odd rich find all feed her — and so does killing things, so nothing you do in here is wasted. |
 | ptBR **staat nu** | Este delve: ainda não recolheste nada. Os Chunks of Companion Experience, os Boons e de vez em quando um achado generoso contam todos — e matar também conta, por isso nada do que fazes aqui é desperdiçado. |
 
-## itIT — 7 gedrift
+## itIT — 8 gedrift
 
 ### `CURIO_NO_TEXT`
 
@@ -247,6 +275,13 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 |---|---|
 | enUS **nu** | • Under Siege: close void portals and kill Devouring Host.\|n• Faculty of Fear: Eye of Revelation — suspicious students glow yellow through walls.\|n• Invasive Glow: Deweeder kills small Lightbloom and damages large ones.\|n• Clear Luminibulb patches on the main level.\|n• An Elementary Antidote: speak to Sir Finley Mrrgglton, gather 10 Research Tomes, then collect ingredients and cure 7 Envenomed Denizens. Ingredients are worth different amounts, so grab the big ones.\|n• Fungal Pharmacon is a weapon too: it clears the poison pools AND hits everything within 5 yards of where it lands. |
 | itIT **staat nu** | • Under Siege: chiudi i void portal e uccidi i Devouring Host.\|n• Faculty of Fear: Eye of Revelation — gli studenti sospetti brillano di giallo attraverso i muri.\|n• Invasive Glow: il Deweeder uccide i piccoli Lightbloom e danneggia quelli grandi.\|n• Elimina le zone di Luminibulb sul livello principale.\|n• An Elementary Antidote: parla con Sir Finley Mrrgglton, raccogli 10 Research Tomes, poi raccogli gli ingredienti e cura 7 Envenomed Denizens. Gli ingredienti valgono cifre diverse, quindi prendi quelli grandi.\|n• Fungal Pharmacon è anche un'arma: ripulisce le poison pool E colpisce tutto entro 5 yard dal punto d'impatto. |
+
+### `SET_CONSREADY_TOGGLE_TITLE`
+
+| | |
+|---|---|
+| enUS **nu** | Show consumable check on entry |
+| itIT **staat nu** | Mostra all'ingresso nel dungeon |
 
 ### `TIER_FOOTER`
 
@@ -276,7 +311,7 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 | enUS **nu** | This delve: nothing picked up yet. Chunks of Companion Experience, Boons and the odd rich find all feed her — and so does killing things, so nothing you do in here is wasted. |
 | itIT **staat nu** | Questa delve: ancora niente raccolto. Chunks of Companion Experience, Boon e ogni tanto un ritrovamento generoso contribuiscono tutti — e anche uccidere conta, quindi niente di quel che fai qui è sprecato. |
 
-## nlNL — 7 gedrift
+## nlNL — 8 gedrift
 
 ### `CURIO_NO_TEXT`
 
@@ -298,6 +333,13 @@ De loader ziet **3447** enUS-keys; hiervan zijn er 3109 beoordeeld en 338 overge
 |---|---|
 | enUS **nu** | • Under Siege: close void portals and kill Devouring Host.\|n• Faculty of Fear: Eye of Revelation — suspicious students glow yellow through walls.\|n• Invasive Glow: Deweeder kills small Lightbloom and damages large ones.\|n• Clear Luminibulb patches on the main level.\|n• An Elementary Antidote: speak to Sir Finley Mrrgglton, gather 10 Research Tomes, then collect ingredients and cure 7 Envenomed Denizens. Ingredients are worth different amounts, so grab the big ones.\|n• Fungal Pharmacon is a weapon too: it clears the poison pools AND hits everything within 5 yards of where it lands. |
 | nlNL **staat nu** | • Under Siege: sluit void-portals en kill Devouring Host.\|n• Faculty of Fear: Eye of Revelation — verdachte studenten gloeien geel door muren.\|n• Invasive Glow: Deweeder voor kleine Lightbloom, schade aan grote.\|n• Verwijder Luminibulb-patches op het hoofdniveau.\|n• An Elementary Antidote: praat met Sir Finley Mrrgglton, verzamel 10 Research Tomes, daarna ingrediënten en genees 7 Envenomed Denizens. Ingrediënten tellen verschillend zwaar, dus pak de grote.\|n• Fungal Pharmacon is ook een wapen: hij ruimt de poison pools op én raakt alles binnen 5 yards van waar hij landt. |
+
+### `SET_CONSREADY_TOGGLE_TITLE`
+
+| | |
+|---|---|
+| enUS **nu** | Show consumable check on entry |
+| nlNL **staat nu** | Consumable-check tonen bij binnenkomst |
 
 ### `TIER_FOOTER`
 
