@@ -204,6 +204,7 @@ Modules\RaidCoachData.lua
 Modules\RaidGuide.lua
 Modules\DaggerspineCoach.lua
 Modules\AccessibleAlerts.lua
+Modules\DispelTest.lua
 Modules\NativeSettings.lua
 Modules\FpsPanel.lua
 Modules\SettingsPage.lua

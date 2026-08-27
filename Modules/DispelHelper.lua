@@ -280,34 +280,46 @@ end
 ---
 --- @param aura table  a debuff already checked for a readable spellId
 --- @return string|nil message
+--- @return string reason  why, in English, for `/mh dispeltest decide`
+---
+--- ⚠️ THE REASON IS A RETURN VALUE, NOT A REBUILD. The test could have re-derived why
+--- this said nothing, but then it would be testing its own copy of the reasoning and
+--- would keep agreeing with itself after this function changed. Callers in the real path
+--- read only the first value, so adding the second changes nothing for them.
 function ns.GetDispelAlertFor(aura)
 	if not ns.DispelAlertEnabled() then
-		return nil
+		return nil, "the dispel alert is switched off"
 	end
 	if type(aura) ~= "table" then
-		return nil
+		return nil, "not an aura table"
 	end
 	local dn = aura.dispelName
-	if dn == nil or isSecret(dn) then
-		return nil -- unreadable: not "no school", just unknown
+	if dn == nil then
+		return nil, "no dispelName on this debuff — nothing can remove it"
+	end
+	if isSecret(dn) then
+		-- unreadable: not "no school", just unknown
+		return nil, "dispelName is a SECRET value — unreadable, which is not the same as absent"
 	end
 	local school = SCHOOL[dn]
 	if not school then
-		return nil
+		return nil, ("dispelName '%s' is not a school we map"):format(tostring(dn))
 	end
 	local schools = ns.GetDispellableSchools()
 	if not schools[school] then
-		return nil -- something else's job, or nobody's
+		-- something else's job, or nobody's
+		return nil, ("%s is not a school this character can remove"):format(school)
 	end
 	local name = aura.name
 	if name == nil or isSecret(name) then
 		name = nil
 	end
 	if name then
-		return (ns:L("DISPEL_ALERT_FMT")):format(name)
+		return (ns:L("DISPEL_ALERT_FMT")):format(name), ("%s, and you can remove %s"):format(name, school)
 	end
 	-- The school alone is still actionable, and is better than inventing a name.
-	return (ns:L("DISPEL_ALERT_SCHOOL_FMT")):format(ns:L("DISPEL_SCHOOL_" .. school:upper()))
+	return (ns:L("DISPEL_ALERT_SCHOOL_FMT")):format(ns:L("DISPEL_SCHOOL_" .. school:upper())),
+		("name unreadable, but %s is yours to remove"):format(school)
 end
 
 --------------------------------------------------------------------------------

@@ -119,6 +119,26 @@ function ns.ShowAccessibleAlertTest()
 	Show(ns:L("ALERT_TEST"), a and a.sound)
 end
 
+--- The ONE way an alert reaches the screen, cooldown included.
+---
+--- 🔴 THE GAP IS NOT OPTIONAL, AND THAT IS THE POINT OF THIS FUNCTION. `/mh dispeltest
+--- show` has to travel the same road as a real debuff; a test that quietly skips
+--- MIN_GAP would pass on the exact build where a double-alert bug lives. So the test
+--- calls this, ScanDebuffs calls this, and there is no third door.
+---
+--- @return boolean fired
+--- @return number|nil secondsLeft  when it did not, how long the caller must wait
+function ns.FireAccessibleAlert(msg, withSound)
+	local now = (GetTime and GetTime()) or 0
+	local waited = now - lastAlertAt
+	if waited < MIN_GAP then
+		return false, MIN_GAP - waited
+	end
+	lastAlertAt = now
+	Show(msg, withSound)
+	return true
+end
+
 --- Scope of the ACCESSIBILITY alert: dungeons and scenarios, as the header says and as
 --- Rob asked for. Deliberate, unchanged.
 local function InInstanceForAlerts()
@@ -211,8 +231,8 @@ local function ScanDebuffs()
 		end
 	end)
 	if fired then
-		lastAlertAt = now
-		Show(fired, a.sound)
+		-- Through the shared door, so the test above exercises this exact code.
+		ns.FireAccessibleAlert(fired, a.sound)
 	end
 end
 

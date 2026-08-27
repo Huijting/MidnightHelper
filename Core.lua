@@ -1170,6 +1170,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh dispeltest [decide|show|combat] — het dispel-alarm zien werken zonder een mob te
+	-- zoeken. Zoeken test de beslissing en de vertoning tegelijk en zegt niet welke van de
+	-- twee zweeg, terwijl zwijgen hier vaak het juiste antwoord is.
+	if msg == "dispeltest" or msg:match("^dispeltest%s") then
+		if ns.RunDispelTest then
+			ns.RunDispelTest(msg:match("^dispeltest%s+(.+)$"))
+		end
+		return
+	end
+
 	-- /mh here [notitie] — schrijf op waar je staat (en wat je aanklikt). Lijst, geen
 	-- slot: een rondje lopen en daarna één reload is het hele idee.
 	if msg == "here" or msg:match("^here%s+") then

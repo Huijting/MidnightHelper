@@ -114,6 +114,31 @@ de bovenstaande vorm heeft.
   ```
   The Write/Edit tools are fine; this applies to scripted rewrites.
 
+## 🔴 Bouw je iets dat kan zwijgen, bouw dan een manier om te zien dát het zweeg
+
+Uit Spec 30, en op 26 aug 2026 duur betaald. Deze addon staat vol met *"zwijg als je het
+niet zeker weet"* — `issecretvalue`-guards in 36 bestanden, `ns.Aura` waar `nil`
+**onleesbaar** betekent en niet **afwezig**, en de regel dat een lege API-uitkomst niets
+bewijst. Dat is goed ontwerp, maar het maakt **stilte de normale uitkomst**, en van
+buitenaf is correct zwijgen niet te onderscheiden van kapot zijn.
+
+Elke module waarvan de normale uitkomst "niets doen" is, krijgt daarom een
+`/mh <ding>`-diagnose die **de beslissing én de reden** print, en waar iets zichtbaars
+hoort te gebeuren een manier om dat te tonen zonder op de echte trigger te wachten.
+Verplicht als de trigger niet op afroep is, als het gedrag in combat anders is, of als de
+toestand niet te reproduceren is.
+
+- **Precedenten die zich al terugbetaald hebben:** `/mh arrow` (standing down on purpose
+  en echt kapot zien er van buiten identiek uit), `/mh glow`, `/mh dispeltest`.
+- ⚠️ **De test moet door dezelfde deur als het spel.** Geen `if testMode`-takken in het
+  echte pad; `ns.FireAccessibleAlert` bestaat zodat de test dezelfde cooldown krijgt. Een
+  test die de gap overslaat, slaagt juist op de build waar de dubbel-alarm-bug in zit.
+- ⚠️ **En verzin geen toestand die de client zelf maakt.** Een secret value kun je in Lua
+  niet nabouwen; `/mh dispeltest` zégt dat dus, in plaats van een nep-secret te testen die
+  zich anders gedraagt.
+- 📌 **Niet met terugwerkende kracht op alles** — wel bij nieuwe modules, en bij bestaande
+  zodra je ze toch aanraakt.
+
 ## Layout
 
 - `MidnightHelper.toc` — load order + metadata (`## Version`, `## Interface 120007`). Adding a module = add its file here.
