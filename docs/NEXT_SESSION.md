@@ -7,6 +7,25 @@ Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 Versie, changelog, release-notes, CHANGELOG.md en de CF-description zijn bij. Linter 0/0,
 alle 243 bestanden compileren. **Tag nog niet gezet** — dat is Robs beslissing.
 
+## 🔵 ROB VRAAGT (27 aug, avond): "hoe krijgt HexBreak het wél voor elkaar?"
+
+Zijn voorstel: desnoods hun venster op onze manier nabouwen.
+
+⚠️ **Check eerst of hun venster überhaupt dispelt.** Wij hebben van HexBreak de GLOED
+overgenomen en die is bewezen — hun `InitializeNativeDispelSlot` staat byte voor byte gelijk
+aan de onze. Maar of hun tegels ook een **klik-om-te-dispellen** hebben is nooit gecontroleerd;
+Rob dispelt zelf met zijn eigen keybinds, dus hij heeft het bij hen ook nooit zien gebeuren.
+
+Mogelijke uitkomst: ze doen het helemaal niet, en dan valt er niets te klonen. Dat zou geen
+teleurstelling zijn maar een antwoord — het zou betekenen dat wij iets proberen dat zij
+overslaan, en dan is de vraag waaróm.
+
+Te beantwoorden zonder het spel: grep `HexBreak/Core.lua` op `SecureActionButton`,
+`RegisterForClicks` en `SetAttribute`. Vindt hij daar geen `type2`/`spell`-constructie, dan is
+het antwoord binnen in vijf minuten.
+
+📌 Doe dat **na** de schone rechtsklik hieronder. Werkt die gewoon, dan is de hele vraag weg.
+
 ## 🔴 EERSTE KLUS MORGEN: één schone rechtsklik
 
 **De enige meting die nooit schoon gedaan is:** één rechtsklik op een **rode** naam, zonder
