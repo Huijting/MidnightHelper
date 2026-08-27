@@ -738,22 +738,51 @@ end
 
 local ttsCache = {}
 
+--- 🔴 THESE ASK ABOUT A HOSTILE UNIT, WHICH IS THE MOST LIKELY THING TO BE SECRET.
+---
+--- The comment below used to call UnitClassification a "niet-secret classificatie". That
+--- was an assumption, never a measurement, and 12.1 has been moving hostile identity
+--- behind secrets all year. CastBreaker printed this crash 145 times on Rob's screen on
+--- 27 aug — `if matches` on a secret boolean that a pcall had happily returned — and
+--- /mh glow did the same thing that morning.
+---
+--- ⚠️ pcall is not the guard. The call is allowed; the COMPARISON throws.
+local function ReadableValue(v)
+	return v ~= nil and not (issecretvalue and issecretvalue(v))
+end
+
+--- @return any|nil  the value, or nil when it is missing or unreadable
+local function Ask(fn, ...)
+	if type(fn) ~= "function" then
+		return nil
+	end
+	local ok, v = pcall(fn, ...)
+	if not ok or not ReadableValue(v) then
+		return nil
+	end
+	return v
+end
+
 -- Alleen in instances, of in gevecht met een vechtende bron (geen idle stads-casters).
 local function AnnounceContextOK(unit)
 	if IsInInstance and select(1, IsInInstance()) then
 		return true
 	end
 	local inCombat = InCombatLockdown and InCombatLockdown()
-	local unitFighting = UnitAffectingCombat and UnitAffectingCombat(unit)
+	-- Unreadable "is it fighting" counts as NOT fighting: this gate exists to keep us
+	-- quiet about idle city casters, and staying quiet is the safe side of it.
+	local unitFighting = Ask(UnitAffectingCombat, unit) == true
 	return (inCombat and unitFighting) and true or false
 end
 
--- Sla triviale mobs/minions over (niet-secret classificatie).
+-- Sla triviale mobs/minions over.
 local function AnnounceNpcOK(unit)
-	if UnitIsMinion and UnitIsMinion(unit) then
+	if Ask(UnitIsMinion, unit) == true then
 		return false
 	end
-	local c = UnitClassification and UnitClassification(unit)
+	-- An unreadable classification is not "trivial" — we simply do not know, and the
+	-- announcement goes ahead rather than being dropped on a guess.
+	local c = Ask(UnitClassification, unit)
 	if c == "trivial" or c == "minus" then
 		return false
 	end

@@ -21,6 +21,38 @@ local _, ns = ...
 	  • Buff names come from the game (C_Spell.GetSpellName), so they are localized.
 ]]
 
+--- Ask about another unit without ever comparing a secret.
+---
+--- `pcall` does NOT make this safe: the call succeeds and hands back a secret, and the
+--- throw happens on the next line where you test it. That is the crash CastBreaker was
+--- printing 145 times on 27 aug, and the one /mh glow made the same morning.
+local function Readable(v)
+	return v ~= nil and not (issecretvalue and issecretvalue(v))
+end
+
+local function Exists(u)
+	if not UnitExists then
+		return false
+	end
+	local ok, v = pcall(UnitExists, u)
+	-- Unreadable existence is treated as "not here": counting a unit we cannot even
+	-- confirm would put a phantom in the denominator.
+	return ok and Readable(v) and v == true
+end
+
+local function Alive(u)
+	if not UnitIsDeadOrGhost then
+		return true
+	end
+	local ok, v = pcall(UnitIsDeadOrGhost, u)
+	if not (ok and Readable(v)) then
+		-- ⚠️ Cannot tell -> treat as alive. The opposite would silently drop a group
+		-- member from the count and turn "3 of 5 buffed" into a confident "3 of 3".
+		return true
+	end
+	return v ~= true
+end
+
 local RAID_BUFFS -- array of { buff = <auraID>, spell = <spellID> }
 local PROVIDER -- [auraID] = { MAGE = true, ... } — classes that cast it
 
@@ -104,7 +136,17 @@ function ns.GetGroupBuffStatus()
 	for _, b in ipairs(RAID_BUFFS) do
 		local have, total = 0, 0
 		for _, u in ipairs(units) do
-			if UnitExists and UnitExists(u) and not (UnitIsDeadOrGhost and UnitIsDeadOrGhost(u)) then
+			-- 🔴 BOTH OF THESE ASK ABOUT SOMEONE ELSE, AND A SECRET CANNOT BE TESTED.
+			-- CastBreaker 2.1.0 threw this at Rob 145 times on 27 aug:
+			--   attempt to compare local 'matches' (a secret boolean value)
+			-- from `ok, matches = pcall(UnitIsUnit, ...)` followed by `if matches`. The
+			-- pcall is no protection: calling is allowed, COMPARING is what throws. I made
+			-- the same mistake that morning in /mh glow with IsMouseEnabled.
+			--
+			-- ⚠️ And an unreadable answer must not become "dead". `Alive()` returns true
+			-- when it cannot tell, because skipping a group member here would quietly
+			-- shrink the denominator and report "3 of 3 buffed" for a party of five.
+			if Exists(u) and Alive(u) then
 				-- true / false / nil(=unreadable) — nil is skipped, never "missing".
 				local h = ns.Aura and ns.Aura.HasUnitBuff and ns.Aura.HasUnitBuff(u, b.buff)
 				if h ~= nil then
