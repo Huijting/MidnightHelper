@@ -1199,6 +1199,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh glow test — teken de rijen nu, zonder op een debuff te wachten. Drie builds
+	-- op 26 aug faalden allemaal op WAAR de kunst tekende, niet op of hij vuurt; dat
+	-- deel is dus zonder dungeon te zien.
+	if msg == "glow test" then
+		if ns.ShowPartyDispelGlowTest then
+			ns.ShowPartyDispelGlowTest()
+		end
+		return
+	end
+
 	-- /mh dispeltest [decide|show|combat] — het dispel-alarm zien werken zonder een mob te
 	-- zoeken. Zoeken test de beslissing en de vertoning tegelijk en zegt niet welke van de
 	-- twee zweeg, terwijl zwijgen hier vaak het juiste antwoord is.

@@ -351,6 +351,67 @@ function ns.PrintPartyDispelGlowStatus()
 	end
 end
 
+--- `/mh glow test` — paint the rows now, without waiting for a debuff.
+---
+--- 🔴 WHAT THIS PROVES, AND WHAT IT CANNOT. Three builds in a row got this feature
+--- wrong on 26 aug and all three failures were the SAME kind: the artwork drew in the
+--- wrong place — icon-sized, then anchored to a zero-sized slot, then underneath the
+--- panel's own background. None of them were about whether Blizzard shows the slot.
+--- Each attempt cost Rob a `/reload` and a boss that might not even cast anything.
+---
+--- So this runs the real painter, `PaintDispelSlot`, on a stand-in frame parented to the
+--- real row container, at the real frame level. If the red does not fill the row here, it
+--- will not fill it in a dungeon either, and you know that standing in Silvermoon.
+---
+--- ⚠️ IT DOES NOT TEST THE TRIGGER. Whether the aura slot ever appears is Blizzard's
+--- decision on a filter we never read — that is the whole mechanism, and faking it would
+--- be faking the only part we do not control. A clean test here plus a silent dungeon
+--- still means "nothing dispellable came past", exactly as before.
+---
+--- Follows the rule this repo added the same week: build something that can stay silent,
+--- build a way to see that it stayed silent.
+local testArt = {}
+
+function ns.ShowPartyDispelGlowTest()
+	local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
+	if glowUnavailable then
+		print(prefix .. " |cffff5555glow not available:|r " .. tostring(glowUnavailable))
+		return
+	end
+	local n = 0
+	for i = 1, MAX_ROWS do
+		local c = glows[i]
+		if c then
+			local art = testArt[i]
+			if not art then
+				art = CreateFrame("Frame", nil, c)
+				art:SetFrameLevel(c:GetFrameLevel() + 1)
+				-- Same starting point the engine gives us: no size of its own. If the
+				-- painter needs one, that is a fault worth reproducing here.
+				PaintDispelSlot(art)
+				testArt[i] = art
+			end
+			art:Show()
+			n = n + 1
+		end
+	end
+	if n == 0 then
+		print(prefix .. " |cff8a8f98no rows to paint — open the panel in a party first.|r")
+		return
+	end
+	print(prefix .. (" painting %d row(s) for 6 seconds."):format(n))
+	print("   " .. "|cff8a8f98This is the artwork only. Whether the game ever SHOWS the slot "
+		.. "is its own decision and is not tested here.|r")
+	if C_Timer and C_Timer.After then
+		C_Timer.After(6, function()
+			for _, art in pairs(testArt) do
+				art:Hide()
+			end
+			print(prefix .. " glow test over.")
+		end)
+	end
+end
+
 --- Point a row's container at a unit, or park it.
 ---
 --- ⚠️ NEVER SetEnabled(false) TO REBIND. On 12.1 that clears the container's own

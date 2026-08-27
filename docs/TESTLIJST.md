@@ -94,6 +94,23 @@ conclusie waar deze week over ging.
 
 ## 🔵 In een dungeon: Maisara Caverns, eerste baas
 
+### 2b. 🔴 DOE DIT EERST: `/mh glow test` — staand in Silvermoon
+
+Zet `/mh partytargets` aan en typ `/mh glow test`. Zes seconden lang worden de rijen
+geschilderd alsof er iets te dispellen valt.
+
+**Waarom dit vóór de dungeon komt.** Alle drie de mislukte pogingen van 26 aug gingen over
+**waar** de kunst tekende — icoon-formaat, daarna aan een vakje van nul bij nul, daarna ónder
+de achtergrond van het paneel. Geen van de drie ging over of de gloed vuurt. Dat deel kost dus
+geen dungeon en geen baas die toevallig iets moet casten.
+
+Vult het rood hier de hele regel met DISPEL erin, dan doet het dat in een dungeon ook. Doet het
+dat hier niet, dan hoef je niet te gaan.
+
+⚠️ **Wat het NIET test:** of het spel dat vakje ooit tóónt. Dat is Blizzards beslissing op een
+filter dat wij nooit lezen — precies het enige deel dat we niet in de hand hebben. Een schone
+uitkomst hier plus stilte in een dungeon betekent dus nog steeds "er kwam niks langs".
+
 ### 3. De rode gloed op een groepsregel (gerepareerd 26 aug, ongetest)
 
 **Ga naar Murojin, de eerste baas.** Onze eigen tips zetten de dispel daar
