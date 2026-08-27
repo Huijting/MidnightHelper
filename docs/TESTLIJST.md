@@ -179,9 +179,19 @@ eerste verdachte.
 Vier onderdelen deden werk terwijl hun scherm dicht was. Andy meet dat de addon van 0,060 naar
 0,003 ms per beeldje gaat als je stilstaat met alles gesloten.
 
-**Wat je test: dat alles nog steeds bijwerkt.** Dit is een optimalisatie, dus het risico is
-niet dat er iets stukgaat maar dat iets *stopt met verversen*. Open en sluit deze, kijk of de
-inhoud klopt:
+**Wat je test: dat alles nog steeds bijwerkt.** Dit is een optimalisatie, dus je zoekt niet
+naar iets dat stuk is maar naar iets dat **stopt met verversen**. Dat is een stil soort falen:
+een scherm dat verouderde cijfers toont ziet er precies zo uit als een scherm dat klopt.
+
+**De scherpste test — doe dit met minstens één van de vijf:**
+
+1. Open het venster en onthoud een getal.
+2. Sluit het.
+3. Doe iets waardoor dat getal moet veranderen: een currency oppikken, een quest inleveren,
+   een delve afmaken.
+4. Open het weer. Staat het bij?
+
+Langs deze vijf:
 
 - Great Vault-advies
 - delve-curio's
@@ -189,30 +199,46 @@ inhoud klopt:
 - de weekchecklist en de account-checklist
 - het consumables-bord
 
-⚠️ **Andy waarschuwt zelf voor één ding:** de twee checklists verversen niet meer terwijl hun
+⚠️ **Andy's eigen voorbehoud, dus géén bug:** de twee checklists verversen niet meer terwijl hun
 venster dicht is. Heropen je hetzelfde tabblad, dan kunnen ze een paar seconden achterlopen tot
-de volgende quest- of currency-gebeurtenis. Dat is bekend en bedoeld — geen bug.
+de volgende quest- of currency-gebeurtenis.
 
 ### 8. PR #2 — vensters die zichzelf openden zonder te vragen
 
 Twee stukken. Het tweede heb je **iemand anders** voor nodig.
 
 **a) Het bossvenster.** De aan/uit-knop werd alleen gelezen op de dungeon-route, dus het venster
-ging in **rituals en raids** gewoon open terwijl jij hem uit had staan. Nu per soort instelbaar.
+ging in **rituals en raids** gewoon open terwijl jij hem uit had staan.
 
-1. Zet in de instellingen het bossvenster uit.
-2. Ga een **ritual** in. Blijft hij dicht?
-3. Zet hem weer aan en kijk of hij in een dungeon nog wel komt.
+Ga naar **Settings → Midnight Helper**. Waar één schakelaar stond, staan er nu drie. Robs
+client is Engels, dus dit zijn de labels zoals ze op zijn scherm staan:
 
-📌 De dungeon-knop uitzetten schakelt nog steeds alle drie uit — dat is wat de omschrijving
-belooft en dat hoort zo te blijven.
+| Schakelaar | Waarvoor |
+|---|---|
+| `Open automatically` | dungeons |
+| `Open automatically for rituals` | rituals |
+| `Open automatically for raids` | raids |
+
+1. Zet **`Open automatically for rituals`** uit.
+2. Ga een **ritual site** in. Blijft het bossvenster dicht? Dát is de bug die hier gerepareerd
+   is — vóór deze PR ging hij daar open ook al stond hij uit.
+3. Zet hem weer aan en kijk of hij dan wél komt.
+
+⚠️ **Niet melden als bug:** de allereerste keer dat je de **dungeon**-schakelaar aanraakt,
+neemt hij de andere twee mee. Dat is met opzet — je oude instelling gold voor álles, dus die
+wordt eerst voor alle drie overgenomen (`DungeonBossWindow.lua:1195-1207`). Daarna staan ze los
+van elkaar en gebeurt het niet meer.
 
 **b) Het consumables-bord.** Een groepsgenoot kan een verzoek sturen om het bord te tonen, en
-jouw client opende het zonder naar jouw eigen instelling te kijken. Er is nu een opt-out onder
-*Alerts & popups*.
+jouw client opende het zonder naar jouw eigen instelling te kijken.
 
-Nodig: **je zus of Cisca in de groep.** Zet bij jou de opt-out aan, laat de ander het bord
-oproepen, en kijk of hij bij jou dichtblijft.
+Nieuwe schakelaar: **`Allow group consumable check`**.
+
+Nodig: **je zus of Cisca in de groep.** Zet die schakelaar **uit**, laat de ander de
+groeps-consumablecheck oproepen, en kijk of het bord bij jou dicht blijft.
+
+Ook hernoemd: **`Show consumable check on entry`**. Stond eerst "on dungeon entry", terwijl die
+melding ook in rituals en delves komt — de tooltip eronder zei dat al.
 
 ### 9. 🔴 Vier talen beloven nu iets wat niet klopt
 
