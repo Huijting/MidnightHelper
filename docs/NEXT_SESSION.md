@@ -2,6 +2,12 @@
 **Bijgewerkt 2026-08-26 (avond).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
+## 📋 `docs/TESTLIJST.md` — alles wat op Rob wacht, op één plek
+
+Rob 27 aug: *"we gaan later alles proberen, dan maken we straks een lijstje wat ik in een keer
+kan testen"*. **Bouw je iets dat hij moet bevestigen, zet het daar meteen bij** — niet in een
+chatbericht dat wegscrollt. Afvinken doet hij zelf.
+
 ## 🔵 EERST MORGEN: de dispel-gloed verifiëren bij Murojin
 
 **De gloed VUURT — dat is 26 aug bewezen.** Maisara Caverns, follower dungeon, Holy Priest:
