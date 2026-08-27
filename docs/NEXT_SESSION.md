@@ -7,24 +7,42 @@ Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 Versie, changelog, release-notes, CHANGELOG.md en de CF-description zijn bij. Linter 0/0,
 alle 243 bestanden compileren. **Tag nog niet gezet** — dat is Robs beslissing.
 
-## 🔵 ROB VRAAGT (27 aug, avond): "hoe krijgt HexBreak het wél voor elkaar?"
+## 🔵 HOE HEXBREAK HET WÉL DOET — drie verschillen, gelezen 27 aug
 
-Zijn voorstel: desnoods hun venster op onze manier nabouwen.
+**Rob: bij HexBreak werkt die muisknop wél om te dispellen.** Dat is waarneming, geen aanname,
+en het maakt hun `ApplySecureSpellAttributes` (`Core.lua:1716`) de sterkste bron die we hebben.
+⚠️ Ik had hier eerst genoteerd dat we moesten checken of ze het überhaupt doen. Dat was mijn
+aanname; die van hem wint.
 
-⚠️ **Check eerst of hun venster überhaupt dispelt.** Wij hebben van HexBreak de GLOED
-overgenomen en die is bewezen — hun `InitializeNativeDispelSlot` staat byte voor byte gelijk
-aan de onze. Maar of hun tegels ook een **klik-om-te-dispellen** hebben is nooit gecontroleerd;
-Rob dispelt zelf met zijn eigen keybinds, dus hij heeft het bij hen ook nooit zien gebeuren.
+**1. Zij casten op NAAM, wij op ID.**
+```lua
+button:SetAttribute("spell1", currentSpells[1].name)   -- HexBreak
+b:SetAttribute("spell2", dispelSpell)                  -- ons: het getal 527
+```
+📌 Dit botst met onze eigen regel "cast by spell ID, never by name" (`MissingBuff.lua:700`,
+betaald met een hernoemde pet). Beide kunnen waar zijn: een ID is stabieler bij hernoemingen,
+en een naam werkt waar een override-ID niet resolvet. Meten, niet kiezen op principe.
 
-Mogelijke uitkomst: ze doen het helemaal niet, en dan valt er niets te klonen. Dat zou geen
-teleurstelling zijn maar een antwoord — het zou betekenen dat wij iets proberen dat zij
-overslaan, en dan is de vraag waaróm.
+**2. Hun attribuut-paren delen hun voorvoegsel, die van ons niet.**
+Zij: `type1`+`spell1`, `shift-type1`+`shift-spell1` — telkens hetzelfde voorvoegsel.
+Wij: **`*type2` mét ster, `spell2` zonder.** Zoekt de resolver bij een `*`-type ook een
+`*`-spell, dan vindt hij het type wel en de spreuk niet: geen cast, geen fout, niets.
 
-Te beantwoorden zonder het spel: grep `HexBreak/Core.lua` op `SecureActionButton`,
-`RegisterForClicks` en `SetAttribute`. Vindt hij daar geen `type2`/`spell`-constructie, dan is
-het antwoord binnen in vijf minuten.
+**3. Zij registreren één kliksoort, wij twee.**
+`GetClickRegistration()` kiest `AnyDown` óf `AnyUp` op de `ActionButtonUseKeyDown`-cvar. Wij
+doen `RegisterForClicks("AnyUp", "AnyDown")`, dus onze knop vuurt twee keer per klik.
+Onzichtbaar bij targetten, niet bij een spreuk.
 
-📌 Doe dat **na** de schone rechtsklik hieronder. Werkt die gewoon, dan is de hele vraag weg.
+📌 Zij hebben dispel op LINKS en targetten op rechts — omgekeerd aan ons. **Niet overnemen:**
+Rob vroeg zelf om links = targetten (25 aug, "rechts klik is inderdaad raar").
+
+⚠️ **Wat nog niet past, en dus getest moet worden in plaats van verklaard:** Robs PURGE werkt
+wél, met exact dezelfde constructie als de dispel (`*type2` + `spell2`, ID). Was verschil 2 de
+oorzaak, dan zou die ook moeten falen.
+
+**Volgorde morgen, goedkoopste eerst:** eerst de schone rechtsklik hieronder — werkt die, dan
+is alles hierboven overbodig. Daarna verschil 2 (één regel: `*spell2` erbij zetten), dan 1
+(naam i.p.v. ID), dan 3.
 
 ## 🔴 EERSTE KLUS MORGEN: één schone rechtsklik
 
