@@ -406,6 +406,58 @@ function ns.PrintPartyDispelGlowStatus()
 		print(("   row 1 attributes: *type1=%s  *type2=%s  type2=%s  spell2=%s  unit=%s")
 			:format(A("*type1"), A("*type2"), A("type2"), A("spell2"), A("unit")))
 	end
+
+	--- 🔴 WHERE THE TWO HALVES ACTUALLY ARE. Rob, 27 aug, on Murojin: every right-click
+	--- logged Dispel Magic (528) — the PURGE, which belongs to the right half — while the
+	--- left button demonstrably carries Purify (527) and party1. So the click is landing
+	--- on the wrong button, and the only thing that can do that is geometry.
+	---
+	--- ⚠️ PositionClicks REFUSES IN COMBAT, so a button created or a panel resized during
+	--- a fight keeps its creation-time size: nearly the full row width, for BOTH halves.
+	--- Two full-width buttons stacked means the one drawn last wins every click, and the
+	--- one drawn last is the right half. That is a hypothesis; these numbers settle it.
+	local function Rect(b)
+		if not (b and b.GetLeft and b:GetLeft()) then
+			return "not placed"
+		end
+		return ("x=%.0f w=%.0f h=%.0f shown=%s")
+			:format(b:GetLeft(), b:GetWidth() or -1, b:GetHeight() or -1,
+				tostring(b:IsShown()))
+	end
+	print("   row 1 left half : " .. Rect(clicks[1]))
+	print("   row 1 right half: " .. Rect(tclicks[1]))
+	if panel and panel.GetLeft and panel:GetLeft() then
+		print(("   panel x=%.0f w=%.0f  strata=%s level=%d")
+			:format(panel:GetLeft(), panel:GetWidth() or -1,
+				tostring(panel:GetFrameStrata()), panel:GetFrameLevel() or -1))
+	end
+	if clicks[1] and clicks[1].GetFrameStrata then
+		print(("   buttons strata=%s level=%d")
+			:format(tostring(clicks[1]:GetFrameStrata()), clicks[1]:GetFrameLevel() or -1))
+	end
+
+	--- 🔴 THE GLOW CONTAINER IS THE ONLY THING THAT APPEARS WHEN RED APPEARS. Out of
+	--- combat, with nothing dispellable, every measurement above is provably correct: the
+	--- halves sit side by side and the left one carries Purify. In combat, with rows lit,
+	--- every right-click logged the PURGE instead. The difference between those two runs
+	--- is combat and the container being visible — so print what the container is doing.
+	---
+	--- A frame at a higher strata than DIALOG would sit above the secure buttons no matter
+	--- what our own levels say, and it is Blizzard's template that chooses.
+	for i = 1, MAX_ROWS do
+		local c = glows[i]
+		if c and c.GetFrameStrata then
+			local okM, mouse = pcall(c.IsMouseEnabled, c)
+			local m = "?"
+			if okM and not (issecretvalue and issecretvalue(mouse)) then
+				m = tostring(mouse)
+			end
+			print(("   glow %d: strata=%s level=%d shown=%s mouse=%s")
+				:format(i, tostring(c:GetFrameStrata()), c:GetFrameLevel() or -1,
+					tostring(c:IsShown()), m))
+			break
+		end
+	end
 	if armed == 0 and id then
 		print("   |cffff5555Your spec HAS a dispel but no row carries it.|r "
 			.. "Leave combat and reopen the panel.")
