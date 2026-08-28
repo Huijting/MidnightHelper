@@ -168,6 +168,52 @@ volgende ronde: welke panelen laten een klik door dezelfde wachtrij lopen als hu
 achtergrond-events, en kan die klik daar verloren gaan? ⚠️ Niet blind repareren — Rob heeft
 één geval gemeten, de rest is vermoeden.
 
+## 🔵 VOLGENDE KEER — vertaalde spelnamen, en een fill() die de regel terugdraait
+
+**Rob, 28 aug, na crests checken met Carola:** zij snapte niet dat "Kampioen crest" hetzelfde
+is als de *Champion Crest* op haar scherm. Zijn punt, en het is de kern: **dat het Duits het
+vertaalt betekent niet dat het Nederlands het moet.**
+
+🔴 **De regel die hieruit volgt (staat nu ook in CLAUDE.md): de toets is wat de client van
+DEZE speler toont.** Er bestaat **geen Nederlandse WoW-client**, dus een Nederlandse speler
+ziet altijd Blizzards Engelse termen. Vertalen we die in `nlNL`, dan benoemen we iets dat op
+geen enkel scherm bestaat. Duits en Frans zijn wél clienttalen; daar kan vertalen juist goed
+zijn.
+
+### Wat er gemeten is (28 aug, zes keys)
+
+`DAWNCREST_TIER_*` — de crest-rangen:
+
+| taal | Champion |
+|---|---|
+| deDE / frFR / itIT | "Champion" — Engels gehouden |
+| esES / ptBR / nlNL | "Campeón" / "Campeão" / "Kampioen" |
+
+Niemand heeft dat verschil ooit besloten; het is per pack anders gegroeid. **Voor nlNL is het
+antwoord zeker** (Engels). Voor es/pt moet iemand met die client kijken wat er op het scherm
+staat — niet uit het hoofd beslissen.
+
+### 🔴 En twee fouten die groter zijn dan crests
+
+**1. `DAWNCREST_ACH_*` zijn ACHIEVEMENT-namen, en die worden in vijf van de zes talen
+vertaald** — terwijl CLAUDE.md dat al verbiedt ("het eigen Achievements-paneel van de speler
+spreekt ons dan tegen"). De echte naam staat in Robs SavedVariables:
+`achievementName = "Veteran of the Dawn"`. Fout in de/fr/es/pt/nl.
+
+**2. `fill()` DRAAIT DE REGEL ACTIEF TERUG, en dát is het systeemprobleem.** `itIT.lua:1012`
+houdt `DAWNCREST_ACH_VETERAN` bewust op `"Veteran of the Dawn"` — correct — en
+`Translations2026.lua:7376` overschrijft dat met `"Veterano dell'Alba"`. Oorzaak: `fill()`
+leest "gelijk aan het Engels" als "nog niet vertaald" en gaat eroverheen.
+
+⚠️ **Gevolg: een key die je expres in het Engels laat staan is niet veilig.** De regel
+"vertaal eigennamen niet" is dus niet af te dwingen door hem te volgen — er is een markering
+nodig die `fill()` respecteert, of een linter-check die eigennaam-keys bewaakt. Dit raakt
+vrijwel zeker meer dan deze zes keys.
+
+📌 **Niet machinaal oplossen.** Wat de client per taal toont is een vraag voor #translations
+en voor mensen met die client, niet voor ons. Wat wij wél alleen kunnen: het fill-mechanisme
+repareren en een check bouwen die het bewaakt.
+
 ## 📋 `docs/TESTLIJST.md` — alles wat op Rob wacht, op één plek
 
 Rob 27 aug: *"we gaan later alles proberen, dan maken we straks een lijstje wat ik in een keer

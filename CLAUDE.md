@@ -173,6 +173,14 @@ toestand niet te reproduceren is.
   - **Game terms:** Mythic+, PvP, Raid, Renown, Knowledge Points/KP, Delves, Vault, Bountiful, Tier, ilvl, Keys, Shards — WoW UI spelling, all packs (`nlNL.lua:5`, `Translations2026.lua:312`).
   - **`CHANGELOG_*`** — English everywhere, on purpose.
   - **Markup:** `%s`/`%d`/`%%`, `|cff…|r` pairs around the same words, `|n` where the layout needs it, and the `->` arrow in menu paths (`docs/TRANSLATE_START_HERE.md`).
+  - 🔴 **The test is "what does THIS player's client show", not "is this word translatable".**
+    Rob, 28 aug 2026, after checking crests with Carola: she did not recognise "Kampioen
+    crest" as the *Champion Crest* on her screen. **There is no Dutch WoW client**, so a
+    Dutch player always sees Blizzard's English terms — translating one in `nlNL` names a
+    thing that exists on no screen anywhere. German and French are real client languages, so
+    translating there can be right. **One language translating a term says nothing about
+    another.** Measured that day: `DAWNCREST_TIER_CHAMPION` is "Champion" in de/fr/it but
+    "Kampioen"/"Campeón"/"Campeão" in nl/es/pt, with nobody having decided that on purpose.
   - ⚠️ **The article around an English name follows the language, not the name.** The packs write "der Coiled Isle", "la Coiled Isle", "na Coiled Isle", "de Coiled Isle" — the English "The" is dropped. On 14 aug the new Codex bodies shipped "auf The Coiled Isle" in six languages while the same feature's dashboard strings, two files away, already said "auf der Coiled Isle". Check the habit with a grep before inventing one.
   - ⚠️ **And "currency" itself is not settled by rule but by pack.** `itIT` and `nlNL` keep the English word (12 and 10 uses in `Codex.lua`); de/fr/es/pt translate it (14 each). Grep the pack before writing the sentence.
 - 🔴 **Na ELKE correctie aan een enUS-string: `python tools/check_drift.py`.** De vijf packs blijven dan de oude bewering doen — `ns:L` valt alleen terug op enUS als een key *ontbreekt*, niet als hij aanwezig is. Op 26 aug stonden zo 7 keys los, waaronder `VALEERA_RUN_FMT`, dat in vijf talen nog steeds de claim droeg die we op 20 aug juist hadden ingetrokken. De uitkomst gaat naar #translations op Discord — **niets machinaal vertalen**, en drift níét met `fill()` dichtplakken.
