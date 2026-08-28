@@ -700,7 +700,55 @@ bonus-IDs ophalen. Bron-volgorde: eerst de client (die settelt het), wago.tools/
 kandidatenlijst. ⚠️ **Niet uit Wowhead overtypen zoals in juni** — dat is precies hoe deze
 tabel S1 werd en drie maanden S1 bleef zonder dat iemand het merkte.
 
-### ❌ `/mh ej save` KAN DIT NIET BEANTWOORDEN — gemeten 28 aug, niet opnieuw proberen
+### 🔴 CORRECTIE 28 aug — SEASON 2 HÉÉFT TIER SETS. Onze metingen klopten, onze conclusie niet.
+
+**Ik was op weg naar "The Venomous Abyss heeft geen class tier set". Dat is fout.** Er zijn
+gewoon 13 sets; ze zijn alleen **geen bossdrop**. Je krijgt **tokens** en ruilt die in bij
+**Kirana**, naast de Catalyst in Silvermoon. Daarom stond er niets in de loot-tabel, en daarom
+zag Rob geen set-ingang onder Ula'tek — precies wat we maten, met de verkeerde uitleg erbij.
+
+🔴 **En de tokens zaten al in onze eigen data.** Mijn analyse filterde op items in de vijf
+harnasslots; een token heeft **geen slot**, dus alle 50 slotloze items gingen de prullenbak in.
+Uit Robs `tierScan`, per class:
+
+| harnastype | tokenfamilie | classes |
+|---|---|---|
+| Cloth | **Venomwoven** | Mage, Priest, Warlock |
+| Leather | **Venomcured** | Rogue, Monk, Druid, Demon Hunter |
+| Mail | **Venomcast** | Shaman, Evoker, Hunter |
+| Plate | **Venomforged** | Warrior, Paladin, Death Knight |
+
+Vijf per familie + één omni-token, met de encounter waar ze vallen:
+
+| encounter | token | cloth / leather / mail / plate |
+|---|---|---|
+| 2871 | Relic | 270918 / 270919 / 270920 / 270921 |
+| 2887 | Effigy | 270914 / 270915 / 270916 / 270917 |
+| 2874 | Idol | 270910 / 270911 / 270912 / 270913 |
+| 2894 | Remnant | 270922 / 270923 / 270924 / 270925 |
+| 2882 | Icon | 270926 / 270927 / 270928 / 270929 |
+| 2895 | **Slumbering Coil Curio 270909** | alle classes |
+
+⚠️ **2883 en 2888 geven geen token.** Alle bovenstaande item-IDs en namen komen uit **Robs
+client**, niet uit een datamine.
+
+**De 13 SETNAMEN komen wél van buiten** — wago.tools `ItemSet` 2055-2067, build 12.1.0.69497.
+Dat is Blizzards eigen DB2, dus sterk, maar het is **niet de client**. Vóór ze in
+`TierSetData.lua` gaan: laat de client ze bevestigen (de bonus-spell-IDs staan erbij, dus
+`C_Spell.GetSpellName`/`GetSpellDescription` is één ronde). ⚠️ Icy Veins schrijft *"Jade
+Warrior's Dominion"* waar DB2 **"Jade Warlord's Dominion"** zegt — overtypen van een gids is
+precies hoe deze tabel in juni Season 1 werd.
+
+📌 **Twee dingen uit de officiële patch notes** (news.blizzard.com, Curse of Ula'tek):
+*"Class set vendor Kirana has relocated… near the Catalyst in Silvermoon… in exchange for
+Slumbering Coil Curios"* en *"Class set armor now inherits the secondary and tertiary stats as
+well as certain special cantrip effects."* Dat laatste bevestigt onafhankelijk wat het
+Catalyst-venster zelf zei (zie `docs/TESTLIJST.md`), en het voegt **tertiair + cantrips** toe.
+
+⚠️ **Nog niet vastgesteld:** welk token bij welk slot hoort (head/schouder/borst/handen/benen),
+en wat Kirana per stuk rekent.
+
+### ⚠️ `/mh ej save` alléén kan dit niet beantwoorden — maar `/mh tierscan` wel
 
 Rob draaide het en herlaadde. De capture is inmiddels **wél** een loot-capture (die tak is
 na 24 aug toegevoegd): `ejCapture` in zijn SavedVariables telt 12 instances en 268 items,
