@@ -1,4 +1,39 @@
 # Midnight Helper — waar we staan
+
+## 🎯 MORGEN (29 aug) — Robs opdracht: tier sets afmaken, en talen zodat Carola het snapt
+
+Twee sporen, en ze komen samen: de tier-pagina is precies waar Carola "Kampioen crest"
+tegenkomt. Alles hieronder is al uitgezocht — **niets opnieuw meten.**
+
+### Spoor A — tier sets: van onderzoek naar werkende pagina
+
+1. **De twaalf resterende setnamen uit de client halen.** Mage is al bevestigd
+   (`Primal Leywarden's Attire`). Twee wegen, allebei nu open: `C_Spell.GetSpellName` /
+   `GetSpellDescription` op de bonus-IDs uit DB2, of `ReadItemSetLine` op de setitem-IDs —
+   die functie is 28 aug bewezen werkend met `/mh setline`.
+2. **Beslissen of `TierSetData.lua` als tabel blijft bestaan.** Rob heeft het advies
+   overgenomen dat hij weg moet zodra de client de naam kan leveren. Die tabel is nu drie
+   keer stil verrot; dit is het moment.
+3. **De bonusteksten komen uit de live tooltip** — dat deel werkte altijd al en hoeft niet
+   opgeslagen te worden.
+
+### Spoor B — talen: eerst het mechanisme, dan de woorden
+
+1. 🔴 **`fill()` repareren, want dat is de oorzaak en niet het symptoom.** Hij leest "gelijk
+   aan het Engels" als "nog niet vertaald" en overschrijft een naam die iemand expres in het
+   Engels liet staan (bewijs: `itIT.lua:1012` correct, `Translations2026.lua:7376` draait het
+   terug). Zolang dat zo is, is elke reparatie hieronder tijdelijk. Er is een markering nodig
+   die `fill()` respecteert, plus een linter-check die eigennaam-keys bewaakt.
+2. **`DAWNCREST_ACH_*` terug naar het Engels** in de/fr/es/pt/nl — achievement-namen, en die
+   regel stond al in CLAUDE.md. Echte naam: `Veteran of the Dawn`.
+3. **Crest-rangen per taal.** Voor **nlNL is het antwoord zeker Engels** — er bestaat geen
+   Nederlandse client, dus Carola ziet altijd *Champion Crest*. Dat kunnen we zelf doen.
+   ⚠️ Voor esES en ptBR **niet zelf beslissen**: iemand met die client moet kijken wat er op
+   het scherm staat. Naar #translations.
+
+📌 **Waarom dit werk waard is:** het kwam niet uit een audit maar uit Carola die een woord
+zocht dat nergens bestond. Dat is de enige manier waarop dit soort fouten gevonden wordt.
+
 **Bijgewerkt 2026-08-28 (ochtend).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
