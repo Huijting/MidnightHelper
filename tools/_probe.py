@@ -1,96 +1,77 @@
 #!/usr/bin/env python3
-"""Ask GitHub whether anyone has reacted: issues, PRs, discussions and recent comments.
+"""The Venomous Abyss loot, per boss, in the five tier slots.
 
-Rob asked "kijk op github of er nog iemand gereageerd heeft". Everything goes through one
-allowlisted command (`python tools/_probe.py`) so it costs no permission prompt.
-
-It reports what it COULD NOT check as loudly as what it found -- an empty answer from a
-tool that never ran looks exactly like "nobody reacted".
+Parse each {...} item table and read its fields independently -- the previous pass wanted
+armorType/itemID/slot/encounterID/name adjacent, and an optional ["setLine"] sits between
+them on armour, which is exactly the 115 entries that matter here.
 """
-import json
+import io
 import os
-import subprocess
+import re
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-def run(args):
-    try:
-        r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8",
-                           errors="replace", cwd=REPO)
-    except FileNotFoundError:
-        return None, "command not found: " + args[0]
-    if r.returncode != 0:
-        return None, (r.stderr or r.stdout).strip()
-    return r.stdout, None
+SV = os.path.join("E:\\", "World of Warcraft", "_retail_", "WTF", "Account",
+                  "JOEYWHATEVER", "SavedVariables", "MidnightHelper.lua")
+text = io.open(SV, encoding="utf-8", errors="replace").read()
 
 
-# --- which repo are we even talking to? -----------------------------------------------
-url, err = run(["git", "-C", REPO, "remote", "get-url", "origin"])
-print("origin: " + (url.strip() if url else "UNKNOWN (%s)" % err))
-
-ver, err = run(["gh", "--version"])
-if not ver:
-    raise SystemExit("gh CLI unavailable: %s\nNothing was checked -- do not read this as "
-                     "'nobody reacted'." % err)
-print("gh: " + ver.splitlines()[0])
-
-auth, err = run(["gh", "auth", "status"])
-if err:
-    print("!! gh auth status failed: " + err)
-
-FIELDS = "number,title,state,author,updatedAt,comments,url"
+def block_from(s, i):
+    depth = 0
+    for j in range(i, len(s)):
+        if s[j] == "{":
+            depth += 1
+        elif s[j] == "}":
+            depth -= 1
+            if depth == 0:
+                return s[i:j + 1]
+    return None
 
 
-def show(kind, args, empty):
-    out, e = run(args)
-    print("\n=== %s ===" % kind)
-    if e:
-        print("!! could not check: " + e)
-        return
-    try:
-        rows = json.loads(out)
-    except Exception:
-        print("!! unreadable answer: " + (out or "")[:400])
-        return
-    if not rows:
-        print(empty)
-        return
-    for r in rows:
-        who = (r.get("author") or {}).get("login", "?")
-        n = r.get("comments")
-        n = len(n) if isinstance(n, list) else (n or 0)
-        print("#%s  %s  [%s]  by %s  updated %s  comments: %d"
-              % (r.get("number"), (r.get("title") or "")[:70], r.get("state"), who,
-                 (r.get("updatedAt") or "")[:10], n))
-        print("    " + (r.get("url") or ""))
-        for c in (r.get("comments") if isinstance(r.get("comments"), list) else [])[-3:]:
-            ca = (c.get("author") or {}).get("login", "?")
-            body = " ".join((c.get("body") or "").split())[:220]
-            print("    - %s (%s): %s" % (ca, (c.get("createdAt") or "")[:10], body))
+m = re.search(r'\["ejCapture"\]\s*=\s*\{', text)
+cap = block_from(text, m.end() - 1)
 
+m = re.search(r'\["name"\]\s*=\s*"The Venomous Abyss",\s*\["id"\]\s*=\s*1320,\s*\["bosses"\]\s*=\s*\{', cap)
+if not m:
+    raise SystemExit("Venomous Abyss bosses block not found")
+blk = block_from(cap, m.end() - 1)
+print("Venomous Abyss bosses block: %d chars" % len(blk))
 
-show("OPEN ISSUES", ["gh", "issue", "list", "--state", "open", "--limit", "30",
-                     "--json", FIELDS], "geen open issues")
-show("RECENT CLOSED ISSUES", ["gh", "issue", "list", "--state", "closed", "--limit", "5",
-                              "--json", FIELDS], "geen gesloten issues")
-show("OPEN PRs", ["gh", "pr", "list", "--state", "open", "--limit", "30",
-                  "--json", FIELDS], "geen open pull requests")
-show("RECENT MERGED/CLOSED PRs", ["gh", "pr", "list", "--state", "closed", "--limit", "5",
-                                  "--json", FIELDS], "geen gesloten pull requests")
+ARMOUR = {"Cloth", "Leather", "Mail", "Plate"}
+TIER_SLOTS = ["Head", "Shoulder", "Chest", "Hands", "Legs"]
 
-# Comments on the newest items, so a reply on an old thread still surfaces.
-out, e = run(["gh", "api", "repos/{owner}/{repo}/issues/comments?per_page=15&sort=created&direction=desc"])
-print("\n=== NIEUWSTE COMMENTS (issues + PRs door elkaar) ===")
-if e:
-    print("!! could not check: " + e)
-else:
-    try:
-        for c in json.loads(out):
-            who = (c.get("user") or {}).get("login", "?")
-            body = " ".join((c.get("body") or "").split())[:240]
-            print("%s  %s  op %s\n    %s" % ((c.get("created_at") or "")[:16], who,
-                                             (c.get("issue_url") or "").rsplit("/", 1)[-1],
-                                             body))
-    except Exception:
-        print("!! unreadable: " + (out or "")[:400])
+rows = []
+for im in re.finditer(r'\{[^{}]*\["itemID"\][^{}]*\}', blk):
+    frag = im.group(0)
+
+    def f(name):
+        mm = re.search(r'\["%s"\]\s*=\s*"((?:[^"\\]|\\.)*)"' % name, frag)
+        if mm:
+            return mm.group(1)
+        mm = re.search(r'\["%s"\]\s*=\s*(\d+)' % name, frag)
+        return mm.group(1) if mm else ""
+
+    rows.append((f("armorType"), f("slot"), f("encounterID"), f("itemID"), f("name")))
+
+print("items: %d" % len(rows))
+tier = [r for r in rows if r[0] in ARMOUR and r[1] in TIER_SLOTS]
+print("armour in the five tier slots: %d\n" % len(tier))
+
+for enc in sorted({r[2] for r in tier}, key=int):
+    print("encounter %s:" % enc)
+    for a, s, e, i, n in tier:
+        if e == enc:
+            print("   %-8s %-9s %-7s %s" % (a, s, i, n))
+    print()
+
+print("--- shared phrases per armour type (a set name would repeat across slots) ---")
+for armor in sorted(ARMOUR):
+    names = [n for a, s, e, i, n in tier if a == armor]
+    counts = {}
+    for n in names:
+        w = n.split()
+        for size in (2, 3):
+            for k in range(len(w) - size + 1):
+                p = " ".join(w[k:k + size])
+                counts[p] = counts.get(p, 0) + 1
+    top = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[:6]
+    print("%-8s (%2d): %s" % (armor, len(names),
+                              ", ".join("%s x%d" % (p, c) for p, c in top) or "-"))

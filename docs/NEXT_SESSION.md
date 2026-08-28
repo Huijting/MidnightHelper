@@ -673,6 +673,34 @@ bonus-IDs ophalen. Bron-volgorde: eerst de client (die settelt het), wago.tools/
 kandidatenlijst. ⚠️ **Niet uit Wowhead overtypen zoals in juni** — dat is precies hoe deze
 tabel S1 werd en drie maanden S1 bleef zonder dat iemand het merkte.
 
+### ❌ `/mh ej save` KAN DIT NIET BEANTWOORDEN — gemeten 28 aug, niet opnieuw proberen
+
+Rob draaide het en herlaadde. De capture is inmiddels **wél** een loot-capture (die tak is
+na 24 aug toegevoegd): `ejCapture` in zijn SavedVariables telt 12 instances en 268 items,
+waarvan **The Venomous Abyss (1320) 8 bosses en 114 items**. Encounter-IDs client-bevestigd:
+**2871, 2874, 2882, 2883, 2887, 2888, 2894, 2895** — dat komt overeen met
+`docs/PTR_S2_ENCOUNTERS.md`.
+
+🔴 **Maar er zit geen tier in.** De 21 harnasstukken in de vijf setslots zijn gewone
+raid-armor (*Ruthless Slaughtergrips*, *Ophidian Fangmail*, *Coiled Hex Legguards*); ze
+delen geen setnaam, in geen van de vier harnastypes. Class sets zitten in de Encounter
+Journal achter een **apart filter** en dat stond bij deze capture niet aan. En elk
+`setLine`-veld is leeg met dezelfde reden: *"cannot see one on unowned items"* — de EJ geeft
+setlidmaatschap niet vrij voor spullen die je niet bezit.
+
+**Twee routes die wél kunnen, in deze volgorde:**
+1. **Het class-set-filter aanzetten in de capture** (`EJ_SetLootFilter` / de class-tab) en
+   opnieuw opslaan. Dan staan de 13 sets er per class in, uit de client.
+2. **Van een gedragen tier-stuk lezen.** `TierPiecesEquipped` haalt de "(n/5)"-regel al uit
+   de item-tooltip; op diezelfde regel staat de setnaam. ⚠️ Werkt alleen als de speler er
+   één draagt — en dat is precies wanneer de pagina het minst nodig is.
+
+📌 **Rob heeft 28 aug het advies overgenomen dat de hardgecodeerde tabel weg moet** zodra de
+client de naam kan leveren. Route 1 haalt de data uit de client maar houdt een tabel; route
+2 heeft geen tabel maar ook geen antwoord voor wie nog niks draagt. Waarschijnlijk allebei:
+lees het van een gedragen stuk, val terug op wat de capture opleverde. Niet bouwen terwijl
+Rob niet kan testen.
+
 ⚠️ **En overweeg of dit überhaupt data moet zijn.** Een hardgecodeerde tabel die per seizoen
 verrot is drie keer stil fout gegaan in deze repo. De teller leest de setnaam al uit de
 item-tooltip (`TierPiecesEquipped`, "(n/5)"); als de client de naam kan geven, hoort onze
