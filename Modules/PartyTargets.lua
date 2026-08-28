@@ -61,7 +61,18 @@ local PANEL_W, ROW_H, PAD = 320, 22, 8
 --- positions your fingers already know.
 local MAX_ROWS = 5
 local PARTY_ROWS = 4
+--- 🔴 YOUR ROW IS THE FIRST FREE ONE, NOT ALWAYS THE FIFTH. Rob, 28 aug, in a party of two:
+--- the panel drew Rouky in row 1 and "Earthshammy" floating BELOW the panel entirely.
+---
+--- The panel is exactly as tall as it has visible rows (`ROW_H * shown`), and that works
+--- because RecomputeOrder sinks absent members to the bottom, so the visible rows are always
+--- packed against the top. Pinning the player to index 5 broke that promise: with one party
+--- member, rows 2-4 are empty and row 5 lands past the end of a two-row panel.
+---
+--- So this is a live value, recomputed with the order. `PARTY_ROWS + 1` is only its starting
+--- point and its maximum.
 local PLAYER_ROW = 5
+local playerRowIndex = PLAYER_ROW
 local ROLE_W = 14
 local MEMBER_W = 112
 
@@ -1294,7 +1305,7 @@ local rowOrder = { 1, 2, 3, 4 }
 --- the role order, so this is the ONE place that turns a row number into a unit token.
 --- Every earlier bug in this area came from a second place doing the same sum.
 local function UnitForRow(i)
-	if i == PLAYER_ROW then
+	if i == playerRowIndex then
 		return "player"
 	end
 	return "party" .. (rowOrder[i] or i)
@@ -1332,6 +1343,26 @@ local function RecomputeOrder()
 			changed = true
 		end
 		rowOrder[i] = list[i].index
+	end
+
+	-- Your own row sits directly under the last party member who is actually there, so the
+	-- visible rows stay packed and the panel's height still matches what it draws.
+	--
+	-- ⚠️ This counts AFTER the sort, walking rowOrder rather than party1-4 in raw order: the
+	-- sort is what guarantees the present ones come first, and counting the raw tokens would
+	-- give the same number by luck and the wrong one as soon as somebody leaves mid-list.
+	local present = 0
+	for i = 1, PARTY_ROWS do
+		if ReadsTrue(Ask(UnitExists, "party" .. rowOrder[i])) then
+			present = present + 1
+		end
+	end
+	local wanted = math.min(present + 1, PLAYER_ROW)
+	if wanted ~= playerRowIndex then
+		playerRowIndex = wanted
+		-- Counts as a change so the secure buttons are re-bound with it. They may only move
+		-- out of combat, and this whole function already refuses to run in combat.
+		changed = true
 	end
 	return changed
 end
@@ -1664,7 +1695,7 @@ local function Refresh()
 		-- own row has no such job -- you know your own target -- so without a dispel it is
 		-- only a row that does nothing when clicked.
 		local present
-		if i == PLAYER_ROW then
+		if i == playerRowIndex then
 			local canDispel = ns.GetPlayerDispelIcon and ns.GetPlayerDispelIcon() and true or false
 			present = canDispel and IsInGroup and IsInGroup()
 				and not (IsInRaid and IsInRaid())

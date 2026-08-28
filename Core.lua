@@ -1199,6 +1199,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh setline [itemID] — werkt ReadItemSetLine? Positieve én negatieve controle in één
+	-- run, want een lezer die overal "nee" op zegt ziet er hetzelfde uit als een juiste "nee".
+	if msg == "setline" or msg:match("^setline%s") then
+		if ns.RunSetLineControl then
+			ns.RunSetLineControl(msg:match("^setline%s+(%S+)"))
+		end
+		return
+	end
+
 	-- /mh tierscan [instanceID] — de lootlijst per class, om de Season 2 tier-set uit de
 	-- client te halen. De gewone capture WIST het class-filter (terecht, om Robs eigen
 	-- filter te neutraliseren) en dat is precies waarom er geen tier in zat.

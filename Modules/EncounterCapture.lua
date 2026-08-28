@@ -359,7 +359,105 @@ local function ReadItemSetLine(itemID, slot)
 			return t
 		end
 	end
-	return "no set line — but this test cannot see one on unowned items (see comment)"
+	-- ⚠️ The old text here asserted "this test cannot see one on unowned items". That claim
+	-- was disproven on 28 aug and must not travel on inside the saved data. Whether this
+	-- reader is blind is exactly what `/mh setline` settles; until it has run, "no" means
+	-- no more than "no".
+	return "no set line"
+end
+
+--- `/mh setline [itemID]` — does ReadItemSetLine work at all? Settle it with a real control.
+---
+--- 🔴 THIS IS THE CONTROL THE 25 AUG RUN DID NOT HAVE. That run tested 115 journal items,
+--- got "no set line" from every one, and concluded the reader was blind -- while the true
+--- explanation was that not one of those 115 was a set piece. See the comment above.
+---
+--- So this runs BOTH directions on purpose:
+---   POSITIVE  271563  Primal Leywarden's Tailored Legwraps -- a real Season 2 set piece,
+---                     confirmed from Rob's Catalyst preview on 28 aug, which he does NOT own.
+---   NEGATIVE  268236  Initiate's Sacrificial Tights -- ordinary cloth legs from the same
+---                     raid, in the same slot, which is NOT a set piece.
+--- One answer alone proves nothing here: a reader that says "no" to everything looks
+--- identical to a correct "no" until something is supposed to say yes.
+---
+--- ⚠️ IT CALLS `ReadItemSetLine` ITSELF rather than re-reading the tooltip here. A test that
+--- reimplements the thing under test passes on the build where the real one is broken --
+--- the same rule `/mh dispeltest` follows.
+---
+--- ⚠️ COLD CACHE IS NOT AN ANSWER. An item the client has never seen returns nothing, which
+--- reads exactly like "no set line". So it requests the data, waits, and reports the cache
+--- state per item instead of quietly folding it into the verdict.
+function ns.RunSetLineControl(arg)
+	local prefix = ejPrefix()
+	local items
+	local given = tonumber(arg)
+	if given then
+		items = { { id = given, slot = "Legs", label = "your item", expect = nil } }
+	else
+		items = {
+			{ id = 271563, slot = "Legs", label = "POSITIVE — a set piece", expect = true },
+			{ id = 268236, slot = "Legs", label = "NEGATIVE — ordinary armour", expect = false },
+		}
+	end
+
+	if C_Item and C_Item.RequestLoadItemDataByID then
+		for _, it in ipairs(items) do
+			pcall(C_Item.RequestLoadItemDataByID, it.id)
+		end
+	end
+
+	local function report()
+		print(prefix .. " set-line control:")
+		local verdict = {}
+		for _, it in ipairs(items) do
+			local cached = "unknown"
+			if C_Item and C_Item.IsItemDataCachedByID then
+				local okC, c = pcall(C_Item.IsItemDataCachedByID, it.id)
+				if okC then
+					cached = tostring(c)
+				end
+			end
+			local name
+			if C_Item and C_Item.GetItemNameByID then
+				local okN, n = pcall(C_Item.GetItemNameByID, it.id)
+				name = okN and n or nil
+			end
+			-- The function under test, called exactly as the capture calls it.
+			local line = ReadItemSetLine(it.id, it.slot)
+			local sawSet = type(line) == "string" and line:match("%(%d+/%d+%)") ~= nil
+			verdict[#verdict + 1] = sawSet
+			print(("   %s  item %d %s"):format(it.label, it.id, name and ("(" .. name .. ")") or ""))
+			print(("      cached: %s   set line: %s"):format(cached, sawSet and "|cff40ff40YES|r" or "|cff8a8f98no|r"))
+			print("      returned: " .. tostring(line))
+		end
+		if given then
+			return
+		end
+		if verdict[1] and not verdict[2] then
+			print("   |cff40ff40ReadItemSetLine WORKS.|r It sees a set piece and does not "
+				.. "invent one for ordinary armour — so it can identify set items without "
+				.. "owning them, and the 25 aug verdict was wrong.")
+		elseif not verdict[1] and not verdict[2] then
+			print("   |cffff5555Blind after all.|r The known set piece did not report a set "
+				.. "line either, so the reader really cannot see one on an unowned item. "
+				.. "⚠️ Check 'cached' above first — an uncached item says 'no' for the wrong reason.")
+		elseif verdict[1] and verdict[2] then
+			print("   |cffff5555Says yes to everything|r — it is not discriminating, so a "
+				.. "'yes' from it means nothing.")
+		else
+			print("   |cffff5555Backwards|r — the ordinary piece reported a set and the set "
+				.. "piece did not. Something is wrong with the item ids, not the reader.")
+		end
+	end
+
+	-- One second is enough for a cache fill in every other probe in this addon; the cache
+	-- state is printed regardless, so a slow answer is visible rather than silent.
+	if C_Timer and C_Timer.After then
+		print(prefix .. " asking the server for the items, one moment…")
+		C_Timer.After(1, report)
+	else
+		report()
+	end
 end
 
 local function CaptureBossLoot(encounterID)
