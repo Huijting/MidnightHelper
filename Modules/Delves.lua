@@ -2626,6 +2626,18 @@ do
 	local MIN_INTERVAL = 0.8 -- seconds (Delves UI refresh is heavy; keep it smooth)
 	local dirty = false
 	local wantFull = false
+	--- 🔴 A CLICK IS NOT AN EVENT, AND MAY NOT WAIT FOR YOU TO STAND STILL.
+	---
+	--- Rob, 28 aug, on a flight path: the Great Vault and Midnight Delves sections showed
+	--- their headers with nothing under them, and clicking either one did nothing. On
+	--- landing it was fine. The move-defer below is why: a full refresh is skipped while
+	--- `GetUnitSpeed("player") > 0`, and on a taxi that is true for the whole flight, so
+	--- the click's own refresh was deferred every time until PLAYER_STOPPED_MOVING.
+	---
+	--- The defer is right for background events -- currency, quest log and POI bursts have
+	--- no business rebuilding the panel mid-run. It was never meant to hold back something
+	--- the player just pressed, and nobody noticed because on foot you stop within seconds.
+	local wantNow = false
 	local lastMoveAt = 0
 	local IDLE_DELAY = 3.0 -- seconds standing still before full (POI) refresh while moving
 	local moveWatchFrame
@@ -2647,9 +2659,17 @@ do
 		end)
 	end
 
-	function ns.RefreshDelvesPanel(fullRefresh)
+	--- `userAction` marks a refresh the player asked for by clicking something. It skips the
+	--- move-defer, not the throttle: two clicks in a row still coalesce.
+	---
+	--- ⚠️ Set BEFORE the `pending` early-return, so a click that lands while a refresh is
+	--- already queued still lifts the defer on that queued run instead of being swallowed.
+	function ns.RefreshDelvesPanel(fullRefresh, userAction)
 		if fullRefresh ~= false then
 			wantFull = true
+		end
+		if userAction then
+			wantNow = true
 		end
 		dirty = true
 		if pending then
@@ -2677,7 +2697,7 @@ do
 			local now2 = (GetTime and GetTime()) or now
 			local doFull = wantFull
 			-- Full POI rebuild: defer while moving or shortly after (avoids hitch + timer spam).
-			if doFull then
+			if doFull and not wantNow then
 				-- GetUnitSpeed("player") is a SECRET value in delves; comparing it taints
 				-- (Rob delve-crash 2026-07-07). Guard with issecretvalue; when it is secret
 				-- we skip the move-defer and fall back to the event-driven idle timer below.
@@ -2696,6 +2716,7 @@ do
 			lastAt = (GetTime and GetTime()) or now
 			local full = wantFull
 			wantFull = false
+			wantNow = false
 			dirty = false
 			PaintDelvesPanel(full)
 		end
@@ -2719,7 +2740,9 @@ function ns.SyncDelvesAccordion(section)
 		ns:_mhAltOverviewAccordionSync()
 	end
 	if ns.RefreshDelvesPanel then
-		ns.RefreshDelvesPanel(true)
+		-- userAction: this is a click on the section bar, so it must not wait for the
+		-- player to stand still. See the note on wantNow.
+		ns.RefreshDelvesPanel(true, true)
 	end
 end
 

@@ -138,6 +138,36 @@ kick-probe.
 Drie hypotheses zijn op die getallen gesneuveld (overlappende helften, combat die de layout
 bevriest, de gloed die de rij afdekt). Ga er geen vierde bedenken vóór die schone klik.
 
+## ✅ GEREPAREERD 28 aug — de Delves-tab reageerde niet terwijl je vloog
+
+Rob zat op een taxi tussen twee flight points en zag "Weekly Great Vault (World)" en
+"Midnight Delves" als koppen **zonder inhoud**; klikken deed niets. Na de landing was het
+goed. Oorzaak: `Delves.lua` stelt een **volledige** refresh uit zolang
+`GetUnitSpeed("player") > 0`, plus 3 seconden nadien — en op een taxi is dat minutenlang waar.
+Een klik op zo'n sectiebalk vráágt juist een volledige refresh, dus die werd elke keer
+uitgesteld tot `PLAYER_STOPPED_MOVING`.
+
+De rem blijft; hij is terecht voor achtergrond-events (currency, quest log, POI-bursts). Een
+klik draagt nu een `userAction`-vlag en slaat hem over. De 0,8s-throttle blijft wél staan.
+📌 De vlag wordt gezet **vóór** de `pending`-early-return, anders wordt een klik die op een al
+geplande run valt stilzwijgend opgeslokt.
+
+**Waarom dit nooit eerder opviel:** te voet sta je binnen seconden stil en lost de rem zichzelf
+op. Alleen een taxi houdt je minutenlang in beweging terwijl je in de UI klikt.
+
+### 🔵 VRAAG VOOR DE VOLGENDE RONDE — één patroon nagekeken, één nog niet
+
+✅ **De bewegings-rem zelf is nergens anders.** Grep op `GetUnitSpeed` / `lastMoveAt` /
+`PLAYER_STOPPED_MOVING` geeft alleen `Delves.lua` en `EventProbe.lua` (een sonde, geen paneel).
+Dit specifieke gat is dus gedicht waar het bestond.
+
+❓ **Niet nagekeken: andere panelen met een throttle die een KLIK kan opslokken.** Het patroon
+"gebruiker klikt → refresh wordt uitgesteld → er gebeurt zichtbaar niets" hoeft geen
+bewegingscheck te hebben; elke voorwaarde die lang waar blijft doet hetzelfde. Vraag voor een
+volgende ronde: welke panelen laten een klik door dezelfde wachtrij lopen als hun
+achtergrond-events, en kan die klik daar verloren gaan? ⚠️ Niet blind repareren — Rob heeft
+één geval gemeten, de rest is vermoeden.
+
 ## 📋 `docs/TESTLIJST.md` — alles wat op Rob wacht, op één plek
 
 Rob 27 aug: *"we gaan later alles proberen, dan maken we straks een lijstje wat ik in een keer
