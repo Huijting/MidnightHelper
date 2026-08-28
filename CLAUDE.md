@@ -84,6 +84,20 @@ De rest van dit hoofdstuk is geen stijladvies maar de enige werkende oplossing.
 - **Geen pijpen en geen redirects.** `| tail -3` en `2>&1` maken een commando net zo
   onbeoordeelbaar als een `&&`-keten. Draai de linter kaal en lees de hele uitvoer; dat
   is één scrollbeurt tegenover een prompt.
+- 🔴 **Geef git NOOIT bestandsnamen als argument mee.** GEMETEN 28 aug 2026, vier proeven
+  op Robs scherm: `git -C "<repo>" log --oneline -4` draait schoon, maar diezelfde regel
+  mét `-- docs/NEXT_SESSION.md` erachter geeft een prompt. Read-only git staat in Claude
+  Codes ingebouwde lijst en hoort nooit te vragen; die dekking valt weg zodra er paden bij
+  staan (vermoedelijk "commands the analysis can't parse"). Kale git is dus gratis —
+  `log`, `status`, `show`, `tag`, `rev-list`. Moet je per bestand filteren, doe het in
+  `tools/_probe.py`. ⚠️ Of de `--` zelf meetelt is niet vastgesteld; deze regel dekt beide.
+  📌 Dit is ook waaróm `tools/git_stage.py` werkt: `git add <lijst bestanden>` heeft exact
+  dezelfde vorm. Die oplossing was goed om de verkeerde reden.
+- ⚠️ **De theorie dat de allowlist verkeerd geschreven is, is DOOD** (28 aug 2026). De
+  regels gebruiken `Bash(git -C "..." *)` met een spatie-ster; de officiële
+  permissions-documentatie bevestigt dat `Bash(ls *)` zowel `ls -la` als kaal `ls` matcht
+  en dat `:*` slechts een gelijkwaardige schrijfwijze is. **Niet omschrijven** — dat maakt
+  een werkende regel kapot.
 - ⚠️ **De werkmap valt hier terug** naar `Interface/AddOns` tussen tool-calls, dus `cd`
   houdt geen stand. Gebruik **absolute paden** en `git -C "<repo>"`. De regels in
   `.claude/settings.json` zijn op die vorm geschreven.
