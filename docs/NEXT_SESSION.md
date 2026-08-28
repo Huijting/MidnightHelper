@@ -645,18 +645,38 @@ aantoonbaar in een draaiend addon. Het is een weergave, geen databron.
 
 ## 🔵 ROB VRAAGT — 24/25 aug (hij is twee dagen vrij)
 
-### 1. 🔴 Tier set — en de uitleg die er AL staat, is verouderd
+### 1. 🔴 Tier set — de TEKST is af, de DATA is nog Season 1
 
-Rob en Cisca snappen het niet. Eerste bevinding: dat ligt niet aan hen.
+✅ **De klacht hieronder is achterhaald en dat is 28 aug gecontroleerd in het bestand.**
+`TIER_GUIDE_BODY` noemt Voidspire en Dreamrift niet meer; er staat *"The Season 2 raid is
+The Venomous Abyss"*. Ik gaf dit die ochtend nog als openstaand door zonder te kijken —
+dezelfde fout als bij HexBreak, en dit keer in ons eigen bestand.
 
-`TIER_GUIDE_BODY` (enUS.lua) bestaat al en zegt onder "How you get them":
-> *"Raid drops: **The Voidspire** bosses 2–5 each drop a class token... The chest piece
-> comes from **The Dreamrift**."*
+🔴 **Wat er WEL fout is, en het is groter.** `Modules/TierSetData.lua:6-7` zegt het zelf:
+*"namen + IDs uit Wowhead 12.0.7-PTR (research 16 jun)"*. Dat is **Season 1**. Dus de
+setnaam per class (`TIER_SET_BY_CLASS`, 13 stuks) en alle 2/4-set-bonus-spell-IDs
+(`TIER_SPEC_BONUS`, ~38 specs) zijn die van vorig seizoen, terwijl Rob sinds 18 aug in
+Season 2 zit. Dát is waarom hij en Cisca er niet uitkwamen: we tonen ze de verkeerde set.
 
-Beide zijn **Season 1**-raids. Onze eigen `RaidCoachData.lua` zegt dat de Season 2-raid
-**The Venomous Abyss** is (`season = 2`, 8 bosses), live sinds 18 aug. We sturen ze dus naar
-de raid van vórig seizoen voor hun tier-tokens. En `TIER_FOOTER` zegt nog "datamined for
-**12.0.7**" terwijl we op 12.1 zitten.
+📌 **De bonus-TEKST zelf is niet fout** — die komt uit de live spell-tooltip (`TierSet.lua`
+regel 7-9), dus wat je ziet als je hovert klopt altijd. Fout zijn de **setnaam** en **welke
+spell** we linken.
+
+✅ **28 aug gedaan, zonder client:** de voetnoot zei vrijblijvend *"may still be last
+season's"*. Dat is te zacht nu we het weten. `TIER_FOOTER` en `INFO_DRAWER_BODY_TIER`
+zeggen nu dat de setnaam en de links uit Season 1 komen en dat je je eigen uitrusting moet
+geloven boven ons. enUS + nlNL bij; de vijf andere talen staan als drift in
+`docs/TRANSLATION_DRIFT.md` (nu 9 keys) — die gaan naar #translations.
+
+🔵 **Wat nog moet, en wat het nodig heeft.** De echte reparatie is de S2-setnamen en
+bonus-IDs ophalen. Bron-volgorde: eerst de client (die settelt het), wago.tools/DB2 als
+kandidatenlijst. ⚠️ **Niet uit Wowhead overtypen zoals in juni** — dat is precies hoe deze
+tabel S1 werd en drie maanden S1 bleef zonder dat iemand het merkte.
+
+⚠️ **En overweeg of dit überhaupt data moet zijn.** Een hardgecodeerde tabel die per seizoen
+verrot is drie keer stil fout gegaan in deze repo. De teller leest de setnaam al uit de
+item-tooltip (`TierPiecesEquipped`, "(n/5)"); als de client de naam kan geven, hoort onze
+tabel te verdwijnen in plaats van jaarlijks bijgewerkt te worden.
 
 ⚠️ **Wat we NIET weten en niet mogen verzinnen:** welke Venomous Abyss-boss welk token-slot
 laat vallen, en of de Catalyst-kant nog klopt (Eldara Dawnrunner, quest 'Taste True Power',
