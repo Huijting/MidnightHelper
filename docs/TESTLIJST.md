@@ -107,10 +107,18 @@ hierheen; er zijn drie dingen te beslissen:
 
 </details>
 
-📌 **Ook meegekomen:** een echte bug in `CurioExplain.lua`. Het kleurcode-patroon `|c%x+` is
-gulzig en a–f zijn hex-cijfers, dus het at de eerste letters van het gemarkeerde woord op —
-buiten het spel bewezen: `Blood Shield` werd `lood Shield`, `deflect` werd `lect`. Gerepareerd
-naar exact acht cijfers. Kijk bij `/mh curios` of de gemarkeerde woorden nu compleet zijn.
+### 0c. ✅ AF 28 aug — `/mh curios`, de opgegeten letters zijn terug
+
+Een echte bug in `CurioExplain.lua`: het kleurcode-patroon `|c%x+` is gulzig en a–f zijn
+hex-cijfers, dus het at de eerste letters van het gemarkeerde woord op — buiten het spel
+bewezen: `Blood Shield` werd `lood Shield`, `deflect` werd `lect`. Gerepareerd naar exact
+acht cijfers (`CurioExplain.lua:134`).
+
+Rob plakte 28 aug de volledige uitvoer van Valeera's twaalf keuzes. **Geen enkel afgeknot
+woord** — "Haste reduced", "Leech, Avoidance, and Speed", "Horrifying", "Corrosive Bilespear",
+alles heel. Twee dingen tegelijk bevestigd: het patroon knipt goed, en de beschrijvingen komen
+inderdaad live uit de client (de tekst bevat Blizzards eigen "stacking up to 1 times", dat
+zouden wij nooit zo schrijven).
 
 ---
 
