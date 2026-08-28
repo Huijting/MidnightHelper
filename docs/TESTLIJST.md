@@ -15,9 +15,9 @@ Rob bevestigde het in het spel. Oorzaak: de knop kreeg het spell-**ID** mee; hij
 **naam** hebben, zoals HexBreak doet. Zie `docs/NEXT_SESSION.md` bovenaan voor waarom dat een
 bewuste uitzondering op onze ID-regel is, en wat de vier uur eromheen kostte.
 
-Nog wél open uit deze ronde: **werkt de purge op de rechterhelft ook nog?** Die kreeg dezelfde
-naam-behandeling maar is sinds de wijziging niet geprobeerd. Eén rechtsklik op de rechterhelft
-van een regel, met een vijand als doelwit dat iets te stelen heeft.
+✅ **En de purge op de rechterhelft ook** — Rob bevestigde Dispel Magic (528) met de
+rechtermuisknop op de doelwit-helft, direct erna. De naam-fix repareerde dus **beide** knoppen,
+niet alleen de dispel. Niets meer open aan deze feature.
 
 <details><summary>De oorspronkelijke opdracht (voor herhaling)</summary>
 

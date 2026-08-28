@@ -18,6 +18,10 @@ Rob, in het spel bevestigd: *"het werkt!"* De knop cast nu `C_Spell.GetSpellName
 plaats van het ID, precies zoals HexBreak (`Core.lua:1731`). Terug te vinden in
 `PartyTargets.lua`, `CastableForm` + `ApplyDispelAttributes`.
 
+✅ **Beide helften, niet alleen de dispel.** Direct erna bevestigde Rob ook de purge op de
+doelwit-helft: Dispel Magic (528) met de rechtermuisknop. Eén oorzaak, twee knoppen gerepareerd
+— wat achteraf klopt, want ze deelden `ApplyDispelAttributes`.
+
 ⚠️ **Dit is een bewuste uitzondering op onze eigen regel "cast op ID, nooit op naam"** — die
 regel is betaald met een hernoemde pet (`MissingBuff.lua:700`) en blijft overal elders staan.
 Ze dekken verschillende soorten falen: een naam breekt bij hernoemen, een basis-ID van een
