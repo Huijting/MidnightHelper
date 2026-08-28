@@ -1199,6 +1199,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh tierscan [instanceID] — de lootlijst per class, om de Season 2 tier-set uit de
+	-- client te halen. De gewone capture WIST het class-filter (terecht, om Robs eigen
+	-- filter te neutraliseren) en dat is precies waarom er geen tier in zat.
+	if msg == "tierscan" or msg:match("^tierscan%s") then
+		if ns.ScanClassSetLoot then
+			ns.ScanClassSetLoot(msg:match("^tierscan%s+(%S+)"))
+		end
+		return
+	end
+
 	-- /mh range — welke range-API antwoordt hier echt? Rob wil een grijze regel als hij
 	-- iemand niet kan bereiken; er zijn drie kandidaten en geen enkele andere addon doet
 	-- dit, dus de client beslist het in plaats van wij.

@@ -537,6 +537,133 @@ local function RequestAllLootItemData(cap)
 	return n
 end
 
+--- `/mh tierscan` — the loot list ONE CLASS AT A TIME, which is the one thing nobody tried.
+---
+--- 🔴 WHY THIS EXISTS AND WHY THE EARLIER CAPTURE COULD NOT ANSWER IT. `WithLootFiltersCleared`
+--- above sets `EJ_SetLootFilter(0, 0)` and proves the clear took (Rob's file: hadClassFilter
+--- true, classAfterClear 0, on all 12 instances). That was the right fix for the ORIGINAL
+--- bug -- his own class filter was silently narrowing every read. But clearing is also why
+--- there is no tier in the result: the Adventure Guide shows a class set only while that
+--- class is selected. We cleared the very filter that reveals the thing we were looking for.
+---
+--- So this walks the classes and SETS the filter, once each, instead of clearing it.
+---
+--- ⚠️ Class list from the client (`GetNumClasses`/`GetClassInfo`), not from a table of 13
+--- numbers. Same rule as everywhere else here, and it costs one call.
+---
+--- ⚠️ POSITIVE CONTROL, because this file has been burned by its absence twice. Setting a
+--- filter and reading loot back proves nothing on its own: `pcall` succeeding says the CALL
+--- worked, not that the journal rebuilt its list. So each class records what
+--- `EJ_GetLootFilter` reports AFTER the set, and the summary prints the item count per
+--- class. Thirteen classes returning identical counts means the filter is being ignored and
+--- the run is worthless -- and you can see that instead of believing it.
+---
+--- ⚠️ It restores the player's own filters afterwards. Those are his Adventure Guide
+--- settings, not ours.
+function ns.ScanClassSetLoot(arg)
+	local prefix = ejPrefix()
+	local instanceID = tonumber(arg) or 1320 -- The Venomous Abyss, id read from Rob's own capture
+	local api = ResolveLootApi()
+	if not (api.numLoot and api.lootByIndex and EJ_GetEncounterInfoByIndex) then
+		print(prefix .. " loot reader missing: " .. tostring(api.where and api.where.numLoot))
+		return
+	end
+	if type(EJ_SetLootFilter) ~= "function" then
+		print(prefix .. " |cffff5555EJ_SetLootFilter is not on this client|r — this scan "
+			.. "cannot be done, and that is the answer.")
+		return
+	end
+	ns.db = ns.db or {}
+
+	-- Remember the player's filters before touching anything.
+	local prevClass, prevSpec
+	if type(EJ_GetLootFilter) == "function" then
+		local ok, c, s = pcall(EJ_GetLootFilter)
+		if ok then
+			prevClass, prevSpec = c, s
+		end
+	end
+
+	local classes = {}
+	local n = GetNumClasses and GetNumClasses() or 0
+	for i = 1, n do
+		local ok, cname, cfile, cid = pcall(GetClassInfo, i)
+		if ok and cid then
+			classes[#classes + 1] = { id = cid, file = cfile, name = cname }
+		end
+	end
+
+	local out = {
+		captured = (time and time()) or 0,
+		build = select(4, GetBuildInfo()),
+		instanceID = instanceID,
+		classCount = #classes,
+		classes = {},
+	}
+
+	-- Encounters of this instance, once.
+	local encounters = {}
+	for i = 1, 20 do
+		local ok, ename, _, encID = pcall(EJ_GetEncounterInfoByIndex, i, instanceID)
+		if not ok or not encID then
+			break
+		end
+		encounters[#encounters + 1] = { id = encID, name = ename }
+	end
+	out.encounterCount = #encounters
+
+	for _, c in ipairs(classes) do
+		pcall(EJ_SetLootFilter, c.id, 0)
+		local seen
+		if type(EJ_GetLootFilter) == "function" then
+			local okA, ca = pcall(EJ_GetLootFilter)
+			seen = okA and ca or nil
+		end
+		local row = { classID = c.id, name = c.name, filterAfterSet = seen, items = {} }
+		if api.selectInstance then
+			pcall(api.selectInstance, instanceID)
+		end
+		for _, e in ipairs(encounters) do
+			if not api.selectEncounter or pcall(api.selectEncounter, e.id) then
+				local okN, cnt = pcall(api.numLoot)
+				if okN and type(cnt) == "number" then
+					for i = 1, cnt do
+						local okL, info = pcall(api.lootByIndex, i)
+						if okL and type(info) == "table" then
+							row.items[#row.items + 1] = {
+								encounterID = e.id,
+								itemID = info.itemID,
+								name = info.name,
+								slot = info.slot,
+								armorType = info.armorType,
+								filterType = info.filterType,
+							}
+						end
+					end
+				end
+			end
+		end
+		out.classes[c.file or tostring(c.id)] = row
+	end
+
+	-- Put his own filters back.
+	if prevClass ~= nil then
+		pcall(EJ_SetLootFilter, prevClass, prevSpec or 0)
+	end
+
+	ns.db.tierScan = out
+	print(("%s tier scan: instance %d, %d encounters, %d classes.")
+		:format(prefix, instanceID, #encounters, #classes))
+	for _, c in ipairs(classes) do
+		local row = out.classes[c.file or tostring(c.id)]
+		print(("   %-14s filter after set: %-4s items: %d")
+			:format(c.name or "?", tostring(row and row.filterAfterSet),
+				row and #row.items or 0))
+	end
+	print("   |cff8a8f98Identical counts across all classes means the filter was ignored "
+		.. "and this run proves nothing. Then /reload and hand me the file.|r")
+end
+
 function ns.SaveEncounterJournalCapture(isSecondPass)
 	local prefix = ejPrefix()
 	if not (EJ_GetInstanceByIndex and EJ_GetEncounterInfoByIndex) then
