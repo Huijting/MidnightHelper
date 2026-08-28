@@ -66,7 +66,31 @@ percentages. De kop zegt met opzet dat hoger item level bijna altijd wint en sta
 doorslag geven bij twee stukken die dicht bij elkaar liggen — anders gaat een beginner hogere
 ilvl weigeren om een kleurtje na te jagen.
 
-### 0b. `/mh stats probe` — drie dingen die niemand buiten het spel kan weten
+### 0b. ✅ AF 28 aug — `/mh stats probe`, alle drie beslist
+
+Gedraaid op Robs Frost Mage (Iceicebaby, ilvl 295) en naast toets C gelegd:
+
+| probe | characterscherm |
+|---|---|
+| `GetCritChance` 17,065 · `GetSpellCritChance(2)` 17,065 | Critical Strike **17%** |
+| `GetHaste` 21,177 | Haste **21%** |
+| `GetMasteryEffect` 46,843 | Mastery **47%** |
+| `GetCombatRatingBonus(vers)` 6,444 | Versatility **6%** |
+| `primaryStat = 4` | **Intellect** bovenaan |
+
+1. **Mastery-API:** `GetSpecializationMasterySpells` OK, `C_SpecializationInfo.GetMasterySpells`
+   MISSING — nu op een tweede class bevestigd (27 aug Elemental Shaman, 28 aug Frost Mage).
+   De verliezer was al verwijderd; dit is de tweede meting die dat bevestigt.
+2. **`primaryStat` is echt de 6e return**, en `PRIMARY_BY_STAT` mapt 4 → Intellect
+   (`StatCoach.lua:94-98`). ⚠️ Bevestigd voor Intellect; 1/Strength en 2/Agility zijn nog
+   nooit gezien — een melee-alt zou dat afmaken, maar de mapping is Blizzards eigen
+   `LE_UNIT_STAT_*`, dus dit is geen open risico.
+3. **De crit-vraag is dood.** Beide functies gaven hetzelfde getal, en dat getal staat op zijn
+   scherm. Er was geen caster/niet-caster-splitsing om omheen te bouwen.
+
+<details><summary>De oorspronkelijke opdracht (voor herhaling)</summary>
+
+### `/mh stats probe` — drie dingen die niemand buiten het spel kan weten
 
 De probe print elke API die hij probeert, of hij antwoordde, en wat hij zei. Plak de uitvoer
 hierheen; er zijn drie dingen te beslissen:
@@ -80,6 +104,8 @@ hierheen; er zijn drie dingen te beslissen:
 3. **De vier percentages tegen je characterscherm (toets C).** Vooral crit: casters lezen een
    andere functie dan de rest, en dat is de regel die niet te bewijzen was. De probe print ze
    allebei, dus één blik volstaat.
+
+</details>
 
 📌 **Ook meegekomen:** een echte bug in `CurioExplain.lua`. Het kleurcode-patroon `|c%x+` is
 gulzig en a–f zijn hex-cijfers, dus het at de eerste letters van het gemarkeerde woord op —
