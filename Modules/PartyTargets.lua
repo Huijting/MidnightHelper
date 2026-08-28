@@ -39,7 +39,29 @@ local _, ns = ...
 -- deliberately roomy in July after "Daggerspine Myrmidon" ran past the edge, and
 -- narrowing it again to pay for the names would walk straight back into that.
 local PANEL_W, ROW_H, PAD = 320, 22, 8
-local MAX_ROWS = 4
+--- Four party members plus YOU, on the bottom row.
+---
+--- 🔴 ROB ASKED FOR HIS OWN ROW ON 28 aug, and the note that had been sitting here since
+--- the 27th said not to build it: a yellow alert bar naming the debuff is better for
+--- yourself than a row. That was my reasoning against his experience -- HexBreak lists him
+--- and we did not, and he noticed within a day of using both.
+---
+--- 🔴 HE ALSO ASKED WHETHER THE ROW COULD APPEAR ONLY WHEN HE HAS SOMETHING TO DISPEL, and
+--- the answer is worth keeping because half of it is possible. DETECTING it: yes -- your
+--- own auras stay readable where other players' are secret, which is how DispelHelper
+--- already raises the yellow bar. SHOWING it: no -- the row carries a secure button, and a
+--- secure frame cannot be shown or hidden in combat. The row would arrive after the fight,
+--- which is exactly when it is useless. What IS allowed mid-combat is changing how it
+--- looks, and that is already built: the row sits quiet and turns red with DISPEL in it the
+--- moment something lands. So the answer to "only when there is something" is the glow, not
+--- a hidden row.
+---
+--- ⚠️ `PARTY_ROWS` is what the role sort walks; `MAX_ROWS` is what everything else walks.
+--- Your row is never sorted -- it stays on the bottom so the four above it keep the
+--- positions your fingers already know.
+local MAX_ROWS = 5
+local PARTY_ROWS = 4
+local PLAYER_ROW = 5
 local ROLE_W = 14
 local MEMBER_W = 112
 
@@ -566,6 +588,173 @@ castWatch:SetScript("OnEvent", function(_, event, a, _b, c)
 		LogCast(event == "UNIT_SPELLCAST_FAILED" and "failed" or "cast", tonumber(id))
 	end
 end)
+
+--- ============================================================================
+--- CAN I ACTUALLY REACH THIS PERSON? — fade the row when the dispel cannot land.
+---
+--- Rob, 28 aug: *"ik kan niet zien of ik in range van die persoon ben en dat lijkt me best
+--- belangrijk"*. He is right, and it is the same failure mode as the dead right-click: you
+--- press, nothing happens, and nothing tells you whether it was the button or the distance.
+---
+--- 🔴 THE METHOD IS DandersFrames' (`Features/Range.lua`), WHICH IS Grid2'S. Read whole,
+--- not skimmed -- the week this was built cost four hours to a line in a working addon that
+--- had been read three times in fragments. Two facts settled the design outright:
+---   * `C_Spell.IsSpellInRange` returns NORMAL booleans, not secret values, so it can be
+---     compared directly. Their header says so and credits Grid2 for the same conclusion.
+---   * `UnitInRange` MAY return a secret boolean in Midnight+, so it stays guarded.
+--- That is why there is no `/mh range` probe here any more: it was written to discover this
+--- and the answer was already on disk, twice over.
+---
+--- 📌 WE HAVE IT EASIER THAN THEY DO. DandersFrames must pick a plausible friendly spell per
+--- spec to measure with. Our question is not "how far away is he" but "can I dispel him from
+--- here" -- so we measure with the dispel itself and inherit its real range, including
+--- whatever a talent does to it.
+---
+--- 🔴 WHEN IN DOUBT, DO NOT FADE. A row wrongly greyed says "do not bother" about someone you
+--- could have saved; a row wrongly bright costs one wasted click. Those are not equal, so
+--- every unknown resolves to full brightness. Same reasoning as `ns.Aura`'s nil.
+local RANGE_ALPHA = 0.4
+local rangeReason = {}
+
+--- Returns true when the dispel can land on `unit`, plus a short reason for `/mh glow`.
+local function DispelReaches(unit, spell)
+	if not unit or not spell then
+		return true, "no dispel to measure with"
+	end
+	-- ⚠️ The guards are written out here instead of using Ask()/Secret(): those helpers
+	-- live further down this file, so at this point they are not yet in scope. Same
+	-- meaning, three lines longer.
+	local okE, exists = pcall(UnitExists, unit)
+	if not (okE and not (issecretvalue and issecretvalue(exists)) and exists == true) then
+		return true, "unit does not read"
+	end
+	-- Phased players are unreachable no matter the distance (Grid2 does this first too).
+	if UnitPhaseReason then
+		local okP, phased = pcall(UnitPhaseReason, unit)
+		if okP and not (issecretvalue and issecretvalue(phased)) and phased then
+			return false, "phased"
+		end
+	end
+	if C_Spell and C_Spell.IsSpellInRange then
+		local ok, inRange = pcall(C_Spell.IsSpellInRange, spell, unit)
+		if ok and inRange == true then
+			return true, "spell says yes"
+		elseif ok and inRange == false then
+			-- Out of combat, be lenient: a spec or talent edge case can say "no" for a
+			-- player standing right next to you. Both Grid2 and LibRangeCheck gate this
+			-- leniency behind "not in combat", and so do we.
+			if not (InCombatLockdown and InCombatLockdown())
+				and CheckInteractDistance and CheckInteractDistance(unit, 4) then
+				return true, "spell said no, but he is within interact distance"
+			end
+			return false, "spell says no"
+		end
+		-- nil: the spell cannot target this unit at all (dead, offline, disconnected).
+	end
+	if not (InCombatLockdown and InCombatLockdown()) and CheckInteractDistance then
+		local okC, near = pcall(CheckInteractDistance, unit, 4)
+		if okC and near ~= nil then
+			return near and true or false, "interact distance (no spell answer)"
+		end
+	end
+	return true, "no answer — not fading on a guess"
+end
+
+--- Repaint the fade. Cheap enough to run on a timer: a handful of rows and one API call
+--- each, and it only runs while the panel is on screen.
+---
+--- ⚠️ ALPHA, NOT COLOUR. The member name carries the class colour, which is information;
+--- overwriting it with grey would trade one fact for another. Fading keeps both.
+local function UpdateRangeFade()
+	if not (panel and panel:IsShown()) then
+		return
+	end
+	local spell
+	if ns.GetPlayerDispelIcon then
+		local _, id = ns.GetPlayerDispelIcon()
+		if id and C_Spell and C_Spell.GetSpellName then
+			local okN, n = pcall(C_Spell.GetSpellName, id)
+			if okN and type(n) == "string" and n ~= "" then
+				spell = n
+			else
+				spell = id
+			end
+		end
+	end
+	for i = 1, MAX_ROWS do
+		local row = rows and rows[i]
+		if row and row._mhUnit and row.member and row.member:IsShown() then
+			local reaches, why = DispelReaches(row._mhUnit, spell)
+			rangeReason[i] = why
+			row.member:SetAlpha(reaches and 1 or RANGE_ALPHA)
+			if row.role then row.role:SetAlpha(reaches and 1 or RANGE_ALPHA) end
+			if row.roleLetter then row.roleLetter:SetAlpha(reaches and 1 or RANGE_ALPHA) end
+		elseif row then
+			rangeReason[i] = nil
+			if row.member then row.member:SetAlpha(1) end
+			if row.role then row.role:SetAlpha(1) end
+			if row.roleLetter then row.roleLetter:SetAlpha(1) end
+		end
+	end
+end
+
+do
+	local elapsed = 0
+	local ticker = CreateFrame("Frame")
+	ticker:SetScript("OnUpdate", function(_, dt)
+		elapsed = elapsed + dt
+		if elapsed < 0.25 then
+			return
+		end
+		elapsed = 0
+		local ok, err = pcall(UpdateRangeFade)
+		if not ok then
+			-- A range read that throws must not take the panel with it, and it must not
+			-- spam: say it once and stand down until the next reload.
+			ticker:SetScript("OnUpdate", nil)
+			print(("|cffffcc00MH|r |cffff5555range fade stopped:|r %s"):format(tostring(err)))
+		end
+	end)
+end
+
+--- `/mh range` — what the fade decided, and why.
+---
+--- Required by the rule this repo added the same week: a feature whose normal outcome is
+--- "nothing visible" needs a way to see that it stayed silent on purpose. A row at full
+--- brightness can mean "he is in range" or "we could not tell and refused to guess", and
+--- from the outside those look identical.
+function ns.PrintPartyRangeProbe()
+	local prefix = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH")
+	print(prefix .. " range fade:")
+	local id
+	if ns.GetPlayerDispelIcon then
+		local _, spellID = ns.GetPlayerDispelIcon()
+		id = spellID
+	end
+	if not id then
+		print("   |cff8a8f98you have no dispel, so nothing is measured and nothing fades.|r")
+		return
+	end
+	local name
+	if C_Spell and C_Spell.GetSpellName then
+		local okN, n = pcall(C_Spell.GetSpellName, id)
+		if okN then name = n end
+	end
+	print(("   measuring with: %s (%s)"):format(tostring(name or "?"), tostring(id)))
+	local any = false
+	for i = 1, MAX_ROWS do
+		local row = rows and rows[i]
+		if row and row._mhUnit then
+			any = true
+			local reaches, why = DispelReaches(row._mhUnit, name or id)
+			print(("   row %d (%s): %s — %s"):format(i, row._mhUnit,
+				reaches and "|cff40ff40in reach|r" or "|cff8a8f98faded|r", tostring(why)))
+		end
+	end
+	if not any then
+		print("   |cff8a8f98no rows on screen — this says nothing either way.|r")
+	end
+end
 
 --- `/mh glow test` — paint the rows now, without waiting for a debuff.
 ---
@@ -1101,12 +1290,23 @@ end
 local ROLE_RANK = { TANK = 1, HEALER = 2, DAMAGER = 3 }
 local rowOrder = { 1, 2, 3, 4 }
 
+--- Which unit a row shows. Row 5 is always you and is never re-sorted; rows 1-4 follow
+--- the role order, so this is the ONE place that turns a row number into a unit token.
+--- Every earlier bug in this area came from a second place doing the same sum.
+local function UnitForRow(i)
+	if i == PLAYER_ROW then
+		return "player"
+	end
+	return "party" .. (rowOrder[i] or i)
+end
+
 local function RecomputeOrder()
 	if InCombatLockdown and InCombatLockdown() then
 		return false
 	end
 	local list = {}
-	for i = 1, MAX_ROWS do
+	-- PARTY_ROWS, not MAX_ROWS: your own row is not part of the role sort.
+	for i = 1, PARTY_ROWS do
 		local unit = "party" .. i
 		local rank = 4
 		if ReadsTrue(Ask(UnitExists, unit)) then
@@ -1127,7 +1327,7 @@ local function RecomputeOrder()
 	end)
 
 	local changed = false
-	for i = 1, MAX_ROWS do
+	for i = 1, PARTY_ROWS do
 		if rowOrder[i] ~= list[i].index then
 			changed = true
 		end
@@ -1352,11 +1552,11 @@ end
 local function EnsureClickButtons()
 	for i = 1, MAX_ROWS do
 		if not clicks[i] then
-			clicks[i] = MakeClickButton("MidnightHelperPartyTargetClick" .. i, "party" .. i)
+			clicks[i] = MakeClickButton("MidnightHelperPartyTargetClick" .. i, UnitForRow(i))
 		end
 		if not tclicks[i] then
 			tclicks[i] = MakeClickButton("MidnightHelperPartyTargetTClick" .. i,
-				"party" .. i .. "target")
+				UnitForRow(i) .. "target")
 		end
 	end
 	ApplyDispelAttributes()
@@ -1430,10 +1630,10 @@ local function Refresh()
 			-- true when they were two attributes on one button and it is just as true
 			-- now that they are two buttons.
 			if clicks[i] then
-				clicks[i]:SetAttribute("unit", "party" .. rowOrder[i])
+				clicks[i]:SetAttribute("unit", UnitForRow(i))
 			end
 			if tclicks[i] then
-				tclicks[i]:SetAttribute("unit", "party" .. rowOrder[i] .. "target")
+				tclicks[i]:SetAttribute("unit", UnitForRow(i) .. "target")
 			end
 		end
 	end
@@ -1441,9 +1641,37 @@ local function Refresh()
 	local shown = 0
 	local visible = {}
 	for i = 1, MAX_ROWS do
-		local unit = "party" .. rowOrder[i]
+		local unit = UnitForRow(i)
 		local row = rows[i]
-		if ReadsTrue(Ask(UnitExists, unit)) then
+		-- ⚠️ YOUR OWN ROW NEEDS A GROUP CHECK, because `UnitExists("player")` is always
+		-- true. Without this the panel would count one visible row while you are questing
+		-- alone, and the `shown == 0 -> hide` rule below would never fire again: a party
+		-- panel following you around the open world.
+		--
+		-- 🔴 AND IT ONLY EXISTS IF YOU CAN DISPEL. Rob, 28 aug: *"kan ik dispellen dan 5e
+		-- rij, zo niet dan geen rij... toch?"* Yes, and I had argued against it by
+		-- answering a different question. Two things were being confused:
+		--   "is something on me RIGHT NOW"  -> changes mid-fight, so it may not drive a
+		--                                      secure frame's visibility. That is the glow.
+		--   "do I have a dispel AT ALL"     -> changes only on a spec or loadout swap, and
+		--                                      neither can happen in combat. Perfectly safe.
+		-- He spotted it from our own output: `/mh glow` on his Shadow Priest printed "this
+		-- character has no dispel, so nothing will ever glow" and the panel drew the row
+		-- anyway. We already knew; we just were not acting on it.
+		--
+		-- The four rows above are different and stay unconditional: they tell you who is
+		-- attacking what, which is worth seeing whether or not you can clean anyone. Your
+		-- own row has no such job -- you know your own target -- so without a dispel it is
+		-- only a row that does nothing when clicked.
+		local present
+		if i == PLAYER_ROW then
+			local canDispel = ns.GetPlayerDispelIcon and ns.GetPlayerDispelIcon() and true or false
+			present = canDispel and IsInGroup and IsInGroup()
+				and not (IsInRaid and IsInRaid())
+		else
+			present = ReadsTrue(Ask(UnitExists, unit))
+		end
+		if present then
 			shown = shown + 1
 			visible[i] = true
 			-- UnitGroupRolesAssigned reads for a party member — they are friendly,
@@ -1496,12 +1724,17 @@ local function Refresh()
 				row.target:SetText(L("PARTYTARGETS_NONE", "|cff9d9d9d— no target —|r"))
 				row.marker:Hide()
 			end
+			-- Who this row is about, so the range fade knows what to measure. The
+			-- refresh already has the unit in hand; the fade runs on a timer and would
+			-- otherwise have to guess the row order, which re-sorts by role.
+			row._mhUnit = unit
 			row.member:Show()
 			row.target:Show()
 			if row.stripe then
 				row.stripe:Show()
 			end
 		else
+			row._mhUnit = nil
 			row.member:Hide()
 			row.target:Hide()
 			row.role:Hide()
@@ -1601,6 +1834,13 @@ f3:SetScript("OnEvent", ScheduleRefresh)
 local f4 = CreateFrame("Frame")
 f4:RegisterUnitEvent("UNIT_AURA", "party3", "party4")
 f4:SetScript("OnEvent", ScheduleRefresh)
+-- And your own row, added 28 aug with it. Registering party1-4 and forgetting "player"
+-- would have given your own row a dispel indicator that only updated when somebody ELSE
+-- gained an aura -- the exact "it works, except when it matters" bug the party rows had
+-- before f3/f4 existed.
+local f5 = CreateFrame("Frame")
+f5:RegisterUnitEvent("UNIT_AURA", "player")
+f5:SetScript("OnEvent", ScheduleRefresh)
 
 --- Read/write pair for the settings panel. A slash command alone is not a feature
 --- anyone finds: MH's own July review called that out as its heaviest UX fault, and

@@ -1199,6 +1199,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh range — welke range-API antwoordt hier echt? Rob wil een grijze regel als hij
+	-- iemand niet kan bereiken; er zijn drie kandidaten en geen enkele andere addon doet
+	-- dit, dus de client beslist het in plaats van wij.
+	if msg == "range" then
+		if ns.PrintPartyRangeProbe then
+			ns.PrintPartyRangeProbe()
+		end
+		return
+	end
+
 	-- /mh glow test — teken de rijen nu, zonder op een debuff te wachten. Drie builds
 	-- op 26 aug faalden allemaal op WAAR de kunst tekende, niet op of hij vuurt; dat
 	-- deel is dus zonder dungeon te zien.

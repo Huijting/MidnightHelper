@@ -17,7 +17,12 @@ bewuste uitzondering op onze ID-regel is, en wat de vier uur eromheen kostte.
 
 ✅ **En de purge op de rechterhelft ook** — Rob bevestigde Dispel Magic (528) met de
 rechtermuisknop op de doelwit-helft, direct erna. De naam-fix repareerde dus **beide** knoppen,
-niet alleen de dispel. Niets meer open aan deze feature.
+niet alleen de dispel.
+
+✅ **Range-fade en de eigen rij ook af (28 aug, in het spel bevestigd).** Wegloplopen vervaagt
+een naam; heen en weer switchen tussen Holy en Shadow laat de vijfde rij komen en gaan. Rob:
+*"het werkt perfect"*. Niets meer open aan deze feature — de tekst voor CurseForge staat
+bovenaan `docs/NEXT_SESSION.md`.
 
 <details><summary>De oorspronkelijke opdracht (voor herhaling)</summary>
 

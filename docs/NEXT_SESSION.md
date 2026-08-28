@@ -12,6 +12,27 @@ met 3.6.0"*.
 `Modules/DispelTest.lua` (`/mh dispeltest`) zitten allebei in de tag — `docs/TESTLIJST.md`
 noemde ze tot vanochtend nog lokaal. Uitgebracht ≠ getest; ze staan nog steeds op de testlijst.
 
+## 📢 MOET IN DE VOLGENDE CF-RELEASE — Rob heeft er expliciet om gevraagd
+
+Rob, 28 aug 09:07: *"deze aanpassingen moeten duidelijk vermeld worden als we hem naar CF
+doen dus incl range, dat ie nu werkt en hoe en dat er een 5e rij bij komt als je jezelf kan
+dispellen"*. **Versie nog niet gebumpt** — dat is Robs "af". Dit wordt een **minor** (3.7.0,
+niet 3.6.1): er komt nieuw gedrag bij, en dat is dezelfde afweging als bij 3.2.0.
+
+Drie dingen, en het eerste is een correctie op onszelf:
+
+1. **De rechtsklik-dispel werkt nu echt.** 3.6.0 kondigde hem aan terwijl hij op veel
+   specs stilletjes niets deed. Zeg dat hardop en zeg waarom: de knop kreeg het spell-ID
+   mee, en bij een spreuk die een spec vervangt — Purify op een Holy Priest — komt dat ID
+   nergens op uit. Hij cast nu op naam.
+2. **De rij vervaagt als je iemand niet kunt bereiken.** Gemeten met je eigen dispel, dus
+   het klopt met jouw echte range, inclusief wat een talent eraan verandert.
+3. **Een vijfde rij: jezelf** — maar alleen als je een dispel hebt. Geen dispel, geen rij.
+
+⚠️ **Bij het schrijven:** de lengteregel is dood (zie CLAUDE.md), dus schrijf punt 1 als een
+echte rectificatie en niet als een bulletje. Iemand heeft twee weken gedacht dat zijn knop
+kapot was.
+
 ## ✅ OPGELOST 28 aug — de rechtsklik-dispel werkt: hij moest op NAAM casten
 
 Rob, in het spel bevestigd: *"het werkt!"* De knop cast nu `C_Spell.GetSpellName(id)` in
