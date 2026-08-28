@@ -737,11 +737,28 @@ Dat is Blizzards eigen DB2, dus sterk, maar het is **niet de client**. Vóór ze
 `TierSetData.lua` gaan: laat de client ze bevestigen (de bonus-spell-IDs staan erbij, dus
 `C_Spell.GetSpellName`/`GetSpellDescription` is één ronde).
 
-✅ **Eén van de dertien is al bevestigd, en per ongeluk.** Robs Catalyst-screenshot van 28 aug
-(hij is Mage) toont als uitkomst **"Spellcloak of the Primal Leywarden"** — item 271559, uit
-zijn eigen client. DB2 noemt de Mage-set **"Primal Leywarden's Attire"**. Dat is client-bewijs
-voor de naamstam van set 2060, gevonden op een screenshot die voor een heel andere vraag was
-gemaakt. Twaalf te gaan. ⚠️ Icy Veins schrijft *"Jade
+✅ **DE MAGE-SET IS HELEMAAL BEVESTIGD, uit de client, via de Catalyst.** Rob legde een
+legs-stuk in (Pyrewalker's Treads, ilvl 295) en het voorbeeld gaf **item 271563 "Primal
+Leywarden's Tailored Legwraps"** met het volledige setblok erin:
+
+- **`Primal Leywarden's Attire (1/5)`** — exact de DB2-naam van set 2060, nu uit het spel.
+- **De vijf stukken:** Crest of the Primal Leywarden · Primal Leywarden's Manashapers ·
+  Crown of the Primal Leywarden · Primal Leywarden's Tailored Legwraps · Primal Leywarden's
+  Manaflux. ⚠️ Alleen van de Legwraps staat het slot vast (het stuk zelf is Legs); de andere
+  vier niet toewijzen op naam — "Crest" en "Crown" zíjn geen bewijs van chest en head.
+- **De bonusteksten van Frost Mage, woordelijk:** *(2) Set: Each stack of Freezing Shattered
+  has a 4% chance to generate an Icicle. Glacial Spike damage increased by 20%.* · *(4) Set:
+  Casting Glacial Spike has a chance to rapidly generate 5 Icicles over 1 sec. Shatter damage
+  increased by 5%.*
+
+📌 Ook meegekomen: **295 → 295** en +85 Haste / +104 Versatility onveranderd — tweede
+bevestiging van zowel het item level als de secundaire stats.
+
+⚠️ **Naamverwarring om te vermijden:** *Primal Leywarden's **Manaflux*** is een setstuk;
+*Venomblight **Manaflux*** is de Catalyst-currency (3465). Twee verschillende dingen.
+
+Twaalf sets te gaan. Robs Catalyst geeft ze alleen voor zíjn class, dus de rest moet via
+`C_Spell` op de bonus-IDs of via de setline-toets hieronder. ⚠️ Icy Veins schrijft *"Jade
 Warrior's Dominion"* waar DB2 **"Jade Warlord's Dominion"** zegt — overtypen van een gids is
 precies hoe deze tabel in juni Season 1 werd.
 

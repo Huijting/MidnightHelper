@@ -310,27 +310,33 @@ end
 --- not a token this season, or these items are the tier and it drops as ordinary
 --- gear. The names cannot tell those apart. The tooltip can.
 ---
---- 🔴 IT DOES NOT WORK, AND THE ONLY REASON WE KNOW IS THE POSITIVE CONTROL.
+--- 🔴 25 aug: "IT DOES NOT WORK." 🔴 28 aug: THAT VERDICT WAS WRONG, AND SO WAS THE
+--- REASONING UNDER IT. Both are kept here because the mistake is the useful part.
 ---
---- Measured 25 aug 2026. Across the whole capture there are 115 tier-slot drops. All
---- 115 tooltips read cleanly -- zero unreadable, so this was not a cold cache -- and
---- every single one came back with NO set line. Including The Voidspire, a Season 1
---- raid that certainly had tier sets.
+--- What was measured on 25 aug is still true: across the capture, 115 tier-slot drops
+--- all read cleanly and every one came back with NO set line -- including The Voidspire,
+--- a Season 1 raid. From that I concluded the test was blind, and explained it as "a set
+--- line counts YOUR equipped pieces, so an item you do not own has no set context".
 ---
---- A test that answers "no" for a raid we know says "yes" is not measuring anything.
---- The reason is that a set line counts YOUR equipped pieces ("(2/5)"), so an item
---- the player does not own has no set context to render and the line never appears.
---- TierSet.lua:49 works because it reads gear off the player's own body.
+--- ❌ THE EXPLANATION IS DISPROVEN. Rob's Catalyst screenshot, 28 aug: the preview for
+--- item 271563 "Primal Leywarden's Tailored Legwraps" -- which he does not own -- renders
+--- the full block, "Primal Leywarden's Attire (1/5)", all five piece names, and both set
+--- bonuses. So an unowned item absolutely can show a set line.
 ---
---- ⚠️ THIS WAS ONE STEP FROM SHIPPING. The Venomous Abyss had already come back with
---- no class tokens, and this test agreeing would have made "Season 2 has no tier set"
---- look confirmed from two directions. It is a large claim about the game and it was
---- about to rest on an instrument that returns the same answer for everything.
+--- ❌ AND THE POSITIVE CONTROL WAS NOT ONE. It rested on "The Voidspire certainly had
+--- tier sets", meaning its journal loot must contain set pieces. It does not: in Midnight
+--- the sets are token goods, and Blizzard's own JournalEncounterItem rows contain none of
+--- the 65 Season 2 set items NOR any Season 1 set item. So the test was pointed at 115
+--- items that were never set pieces, and answering "no set line" was CORRECT every time.
+--- A control that is not a control turns a right answer into evidence of blindness.
 ---
---- So it no longer returns false, because false reads as "not a set piece" and that is
---- a conclusion this cannot support. It records that the question was asked and cannot
---- be answered from outside the player's own inventory. Left in place rather than
---- deleted so the next person does not rebuild it.
+--- ⚠️ Which leaves the real question open: does this function work? Unknown, and now
+--- cheaply testable, because there is finally a true positive control -- item 271563 is a
+--- set piece Rob does not own. If `C_TooltipInfo.GetItemByID(271563)` returns the "(1/5)"
+--- line, this works and can identify every set item without owning one.
+---
+--- 📌 What stays right either way: it does not return false. False reads as "not a set
+--- piece", and that is a conclusion this cannot support until the control above is run.
 local TIER_SLOT_NAMES = {
 	Head = true, Shoulder = true, Chest = true, Hands = true, Legs = true,
 }
