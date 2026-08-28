@@ -516,6 +516,33 @@ aan gaat. Niet teruggedraaid, wel als onbewezen gemarkeerd.
 komt uit een andere tak dan `unreachable`. Daarom drukt `/mh arrow` nu **beide kaarten, hun
 continent-id én hun oudersketen** af. Eén screenshot beantwoordt welke van de drie het is.
 
+### ✅ 28 aug — die screenshot is er, en hij wijst een VIERDE oorzaak aan
+
+Rob draaide `/mh arrow` staand in **Silvermoon City (2393)**. Uitkomst:
+
+- ❌ **Kandidaat 1 is dood.** De ketenregel leest `2393 -> 2395 -> 2537 -> 13 -> 947 -> 946 -> 0`:
+  de ouder van Silvermoon City **is** Eversong Woods. En de containment-check zelf drukte
+  "een ligt in de ander: **ja**" af, dus die werkt.
+- ⚠️ **Deze run reproduceert de bug niet** — het delve-doel was de *Portal to The Coiled Isle*,
+  op 2393 zelf. Geen doel in Eversong, dus geen "other continent". Geen weerlegging.
+
+🔴 **Maar de uitdraai zegt ook: "wij staan opzij voor TomTom: geen pijl EN geen doorschuiven."**
+En `ARROW_OTHER_CONTINENT` bestaat op **precies één plek**: het label van onze eigen pijl
+(`NativeArrow.lua:404-409`, geverifieerd met een grep over Modules + Core + UI — geen chatregel,
+geen paneel). Draait TomTom, dan tekenen wij dat label nooit, **en dan kan geen enkele
+reparatie eraan iets veranderen.** Dát is waarom `71833d6` inert leek: niet omdat de fix fout
+is, maar omdat de tak niet loopt.
+
+🔴 **Dit is dezelfde fout voor de derde keer, en CLAUDE.md waarschuwt er sinds 19 aug voor:**
+*"Do not hang information on the arrow's label"* — geschreven na de rare-hints, om precies
+deze reden. De echte reparatie is dus **niet** een betere continent-check maar de zin uít het
+pijllabel halen (chat, zoals `ns.StartRareArrivalWatch` doet). Zolang hij daar staat is hij
+onzichtbaar voor iedere TomTom-gebruiker, en dat zijn bijna al Robs testers.
+
+**Wil iemand hem tóch nog reproduceren:** TomTom uit (of `/mh arrow` tot "onze pijl getekend:
+ja" leest), staand in Silvermoon, met een delve-doel in **Eversong Woods** — niet op de
+Coiled Isle.
+
 ⚠️ Ook onbekend: welke kant Rob getest heeft. Vanuit **Harandar** is "travel back" correct
 gedrag — dan is er niets mis en meet je niets. De test moet vanuit **Silvermoon** met een
 doel in **Eversong Woods**.
