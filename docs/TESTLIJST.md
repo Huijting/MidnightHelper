@@ -108,7 +108,19 @@ Alles staand in een ritual site op Robs Elemental Shaman, één reload:
 
 Deze twee kunnen staand in Silvermoon, geen dungeon nodig.
 
-### 1. `/mh dispeltest` — de nieuwe testmodus (27 aug, ongetest)
+### 1. ✅ AF 28 aug — `/mh dispeltest`, alle drie de takken
+
+Rob draaide ze allemaal. `decide`: **5 passed, 0 failed**, inclusief de SECRET-regel die
+netjes zegt dat een secret value niet na te bouwen is en dus niet getest wórdt. `show`: de
+gele balk kwam ("Testitis - you can dispel this"). `combat`: eerst **`in combat = false`** —
+hij vuurde terwijl Rob stilstond, dus die run testte hetzelfde als `show`. Tweede poging,
+slaand op iets: **`in combat = true, fired = true`**.
+
+📌 Die eerste combat-run is het bewaren waard: het commando meldde eerlijk dát het buiten
+gevecht landde, in plaats van "fired = true" te printen en de indruk te wekken dat de zware
+helft getest was. Dat is precies waarvoor `InCombatLockdown()` in die regel staat.
+
+<details><summary>De oorspronkelijke opdracht (voor herhaling)</summary>
 
 | commando | wat je hoort te zien |
 |---|---|
@@ -123,10 +135,17 @@ Bij `combat` is de chatregel het bewijs, niet de balk — hij meldt of hij in co
 hij is afgegaan. Een alarm dat je gemist hebt en een alarm dat nooit kwam zien er hetzelfde
 uit.
 
-### 2. De gele balk op jezelf
+</details>
 
-Die zag je 26 aug spontaan: *"Cries of the Fallen - you can dispel this"*. Werkt al, staat hier
-alleen zodat we weten dat hij nog steeds komt na de wijzigingen aan `AccessibleAlerts.lua`.
+### 2. ✅ AF 28 aug — de gele balk op jezelf, ná de wijzigingen
+
+Meegekomen met de test hierboven: `dispeltest show` en `combat` vuren door **dezelfde deur**
+als het echte alarm (`ns.FireAccessibleAlert`), en die balk kwam allebei de keren op Robs
+scherm. De vraag was of hij ná de wijzigingen aan `AccessibleAlerts.lua` nog komt — ja, en in
+gevecht ook.
+
+📌 Dat de test dezelfde deur gebruikt is geen detail: een test met een eigen `if testMode`-tak
+slaagt juist op de build waar de echte weg stuk is.
 
 ### 3. De catalyst-tekst kloppend maken — en de meting is gratis
 
