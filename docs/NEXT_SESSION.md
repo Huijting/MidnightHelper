@@ -1,11 +1,16 @@
 # Midnight Helper — waar we staan
-**Bijgewerkt 2026-08-27 (avond).** Dit is het eerste wat een nieuwe sessie leest.
+**Bijgewerkt 2026-08-28 (ochtend).** Dit is het eerste wat een nieuwe sessie leest.
 Alles onder "Historie" is oud logboek; alleen dit kopstuk is bijgehouden.
 
-## ✅ 3.6.0 KLAARGEZET 27 aug — 73 commits boven `v3.5.0`
+## ✅ 3.6.0 UITGEBRACHT — tag `v3.6.0` staat op `af5ed92` (28 aug, live)
 
-Versie, changelog, release-notes, CHANGELOG.md en de CF-description zijn bij. Linter 0/0,
-alle 243 bestanden compileren. **Tag nog niet gezet** — dat is Robs beslissing.
+73 commits boven `v3.5.0`. Versie, changelog, release-notes, CHANGELOG.md en de CF-description
+zijn bij. Linter 0/0, alle 243 bestanden compileren. Rob 28 aug: *"we zijn al een paar uur live
+met 3.6.0"*.
+
+📌 **Meegegaan, en dus niet meer "ongecommit":** `Modules/StatCoach.lua` (`/mh stats`) en
+`Modules/DispelTest.lua` (`/mh dispeltest`) zitten allebei in de tag — `docs/TESTLIJST.md`
+noemde ze tot vanochtend nog lokaal. Uitgebracht ≠ getest; ze staan nog steeds op de testlijst.
 
 ## 🔵 HOE HEXBREAK HET WÉL DOET — drie verschillen, gelezen 27 aug
 
@@ -48,6 +53,8 @@ is alles hierboven overbodig. Daarna verschil 2 (één regel: `*spell2` erbij ze
 
 **De enige meting die nooit schoon gedaan is:** één rechtsklik op een **rode** naam, zonder
 tegelijk iets anders in te drukken. Twee seconden werk, en het beslist of de dispel-knop werkt.
+
+📌 Staat sinds 28 aug **bovenaan `docs/TESTLIJST.md`**, zodat Rob hem meeneemt zodra hij inlogt.
 
 ⚠️ **Waarom het nog niet beslist is, en dat is mijn fout.** De castlijst in `/mh glow` legt
 élke spreuk vast die Rob cast, ongeacht de bron. In een bossfight drukt hij van alles in; er

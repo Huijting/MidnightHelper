@@ -1,85 +1,96 @@
-# -*- coding: utf-8 -*-
-"""Waar vergelijken wij een waarde die SECRET kan zijn?
+#!/usr/bin/env python3
+"""Ask GitHub whether anyone has reacted: issues, PRs, discussions and recent comments.
 
-CastBreaker 2.1.0 gaf Rob op 27 aug 145 fouten van deze vorm:
+Rob asked "kijk op github of er nog iemand gereageerd heeft". Everything goes through one
+allowlisted command (`python tools/_probe.py`) so it costs no permission prompt.
 
-    attempt to compare local 'matches' (a secret boolean value, ...)
-    ok, matches = pcall(UnitIsUnit, ...)   -- pcall slaagt
-    if matches then                        -- en HIER gooit hij
-
-Dezelfde fout maakte ik die ochtend in /mh glow met IsMouseEnabled. De pcall vangt
-niets: het aanroepen mág, het VERGELIJKEN niet. CLAUDE.md schrijft daarom een
-issecretvalue()-guard voor.
-
-Dit zoekt Unit*-aanroepen die rechtstreeks in een voorwaarde staan. Het is een grove
-zeef: onze eigen helpers (Ask, ReadsTrue, Secret) doen het goed en worden hier ook
-opgesomd, zodat zichtbaar is wat afgedekt is en wat niet.
+It reports what it COULD NOT check as loudly as what it found -- an empty answer from a
+tool that never ran looks exactly like "nobody reacted".
 """
-import io
+import json
 import os
-import re
-import sys
+import subprocess
 
-ROOT = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper"
-sys.stdout.reconfigure(encoding="utf-8")
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SKIP = (os.sep + "tools" + os.sep, os.sep + "docs" + os.sep, os.sep + ".git" + os.sep,
-        os.sep + "Libs" + os.sep, os.sep + ".baseline")
 
-# Unit-functies waarvan 12.1 een secret kan teruggeven.
-RISKY = ("UnitIsUnit", "UnitExists", "UnitGroupRolesAssigned", "UnitClass", "UnitName",
-         "UnitIsDead", "UnitIsDeadOrGhost", "UnitIsPlayer", "UnitAffectingCombat",
-         "UnitIsFriend", "UnitIsEnemy", "UnitCanAttack", "UnitInRange", "UnitIsConnected")
+def run(args):
+    try:
+        r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8",
+                           errors="replace", cwd=REPO)
+    except FileNotFoundError:
+        return None, "command not found: " + args[0]
+    if r.returncode != 0:
+        return None, (r.stderr or r.stdout).strip()
+    return r.stdout, None
 
-# Direct in een voorwaarde: `if UnitX(...)`, `and UnitX(...)`, `not UnitX(...)`, `== `
-COND = re.compile(r"\b(?:if|elseif|while|and|or|not)\s+\(?\s*(" + "|".join(RISKY) + r")\s*\(")
 
-# Onze eigen guards. Een bestand dat deze gebruikt heeft er over nagedacht.
-GUARD = re.compile(r"issecretvalue|\bAsk\(|\bReadsTrue\(|\bSecret\(")
+# --- which repo are we even talking to? -----------------------------------------------
+url, err = run(["git", "-C", REPO, "remote", "get-url", "origin"])
+print("origin: " + (url.strip() if url else "UNKNOWN (%s)" % err))
 
-rows = []
-for base, _dirs, files in os.walk(ROOT):
-    if any(s in base + os.sep for s in SKIP):
-        continue
-    for fn in sorted(files):
-        if not fn.endswith(".lua"):
-            continue
-        p = os.path.join(base, fn)
-        with io.open(p, "r", encoding="utf-8", errors="replace") as fh:
-            lines = fh.readlines()
-        txt = "".join(lines)
-        hits = []
-        for i, line in enumerate(lines, 1):
-            s = line.strip()
-            if s.startswith("--"):
-                continue
-            m = COND.search(line)
-            if m:
-                hits.append((i, m.group(1), s[:96]))
-        if hits:
-            rows.append({
-                "file": os.path.relpath(p, ROOT).replace("\\", "/"),
-                "hits": hits,
-                "guarded": bool(GUARD.search(txt)),
-            })
+ver, err = run(["gh", "--version"])
+if not ver:
+    raise SystemExit("gh CLI unavailable: %s\nNothing was checked -- do not read this as "
+                     "'nobody reacted'." % err)
+print("gh: " + ver.splitlines()[0])
 
-total = sum(len(r["hits"]) for r in rows)
-print("Unit*-aanroepen die rechtstreeks in een voorwaarde staan: %d, in %d bestanden\n"
-      % (total, len(rows)))
+auth, err = run(["gh", "auth", "status"])
+if err:
+    print("!! gh auth status failed: " + err)
 
-unguarded = [r for r in rows if not r["guarded"]]
-print("=== bestanden ZONDER enige guard (%d) ===" % len(unguarded))
-for r in unguarded:
-    print("\n  %s  (%d)" % (r["file"], len(r["hits"])))
-    for ln, fnname, src in r["hits"][:6]:
-        print("     %5d  %-24s %s" % (ln, fnname, src))
+FIELDS = "number,title,state,author,updatedAt,comments,url"
 
-print("\n=== bestanden die WEL guards gebruiken (%d) ==="
-      % (len(rows) - len(unguarded)))
-for r in rows:
-    if r["guarded"]:
-        print("  %-46s %d treffer(s)" % (r["file"], len(r["hits"])))
 
-print("\n⚠️ Een treffer is GEEN fout. UnitExists geeft in de praktijk zelden een secret,")
-print("   en een bestand met guards heeft er meestal over nagedacht. Dit wijst aan waar")
-print("   je moet KIJKEN, niet wat er stuk is.")
+def show(kind, args, empty):
+    out, e = run(args)
+    print("\n=== %s ===" % kind)
+    if e:
+        print("!! could not check: " + e)
+        return
+    try:
+        rows = json.loads(out)
+    except Exception:
+        print("!! unreadable answer: " + (out or "")[:400])
+        return
+    if not rows:
+        print(empty)
+        return
+    for r in rows:
+        who = (r.get("author") or {}).get("login", "?")
+        n = r.get("comments")
+        n = len(n) if isinstance(n, list) else (n or 0)
+        print("#%s  %s  [%s]  by %s  updated %s  comments: %d"
+              % (r.get("number"), (r.get("title") or "")[:70], r.get("state"), who,
+                 (r.get("updatedAt") or "")[:10], n))
+        print("    " + (r.get("url") or ""))
+        for c in (r.get("comments") if isinstance(r.get("comments"), list) else [])[-3:]:
+            ca = (c.get("author") or {}).get("login", "?")
+            body = " ".join((c.get("body") or "").split())[:220]
+            print("    - %s (%s): %s" % (ca, (c.get("createdAt") or "")[:10], body))
+
+
+show("OPEN ISSUES", ["gh", "issue", "list", "--state", "open", "--limit", "30",
+                     "--json", FIELDS], "geen open issues")
+show("RECENT CLOSED ISSUES", ["gh", "issue", "list", "--state", "closed", "--limit", "5",
+                              "--json", FIELDS], "geen gesloten issues")
+show("OPEN PRs", ["gh", "pr", "list", "--state", "open", "--limit", "30",
+                  "--json", FIELDS], "geen open pull requests")
+show("RECENT MERGED/CLOSED PRs", ["gh", "pr", "list", "--state", "closed", "--limit", "5",
+                                  "--json", FIELDS], "geen gesloten pull requests")
+
+# Comments on the newest items, so a reply on an old thread still surfaces.
+out, e = run(["gh", "api", "repos/{owner}/{repo}/issues/comments?per_page=15&sort=created&direction=desc"])
+print("\n=== NIEUWSTE COMMENTS (issues + PRs door elkaar) ===")
+if e:
+    print("!! could not check: " + e)
+else:
+    try:
+        for c in json.loads(out):
+            who = (c.get("user") or {}).get("login", "?")
+            body = " ".join((c.get("body") or "").split())[:240]
+            print("%s  %s  op %s\n    %s" % ((c.get("created_at") or "")[:16], who,
+                                             (c.get("issue_url") or "").rsplit("/", 1)[-1],
+                                             body))
+    except Exception:
+        print("!! unreadable: " + (out or "")[:400])

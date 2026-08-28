@@ -9,11 +9,36 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 ---
 
-## 🟣 NIET GECOMMIT — `/mh stats` (patch aangebracht 27 aug)
+## 🔴 ALLEREERST — één schone rechtsklik (2 seconden, beslist de rest)
 
-⚠️ Deze feature staat wel in je spelmap maar **niet in git**. Rob heeft gevraagd niets te
-committen tot hij "af" zegt. Ga je iets anders doen waarbij de map schoon moet zijn, zeg het
-dan — dan zetten we hem even apart.
+**Rechtsklik op een RODE naam in het party-paneel. Verder niets indrukken** — geen shift, geen
+ctrl, geen alt, en niet tegelijk je eigen dispel-toets. Kijk of de dispel afgaat.
+
+| Wat je ziet | Wat we daarna doen |
+|---|---|
+| de dispel gaat af | klaar — het hele HexBreak-onderzoek hieronder vervalt |
+| er gebeurt niets | ik zet `*spell2` erbij (één regel), dan casten-op-naam, dan de dubbele klik |
+
+📌 **Doe dit vóór al het andere op deze lijst.** Er liggen drie mogelijke reparaties klaar op
+basis van hoe HexBreak het doet. Werkt de klik gewoon, dan zijn alle drie overbodig.
+
+🔴 **Waarom het nog niet beslist is, en dat is mijn fout.** Ik las in de castlijst van
+`/mh glow` een regel `Dispel Magic (528)` en concludeerde dat de klik op de rechterhelft
+landde. Die lijst legt **élke** spreuk vast die je cast, ongeacht waar hij vandaan komt — in een
+bossfight druk je van alles in. Die meter kan dat verschil niet zien; hij bewijst dus niets.
+
+⚠️ **Verzin geen vierde verklaring vóór deze klik.** Drie hypotheses zijn al gesneuveld op
+gemeten getallen (overlappende helften, combat die de layout bevriest, de gloed die de rij
+afdekt). Geometrie, lagen en knop-attributen zijn allemaal ✅ gemeten en goed.
+
+---
+
+## 🟣 `/mh stats` — meegegaan in 3.6.0 (28 aug)
+
+✅ **Niet meer "ongecommit".** De kop hierboven zei tot 28 aug dat deze feature alleen in Robs
+spelmap stond; dat is achterhaald. `Modules/StatCoach.lua` én `Modules/DispelTest.lua` zitten
+allebei in de tag `v3.6.0` en staan dus bij iedereen op de schijf. Ongetest blijft het wél —
+uitgebracht is niet hetzelfde als gezien.
 
 ### 0a. `/mh stats` — leest het als jip-en-janneke?
 
