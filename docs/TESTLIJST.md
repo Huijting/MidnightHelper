@@ -7,6 +7,22 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 📍 STAND 28 aug (avond) — alles met een dwingende reden is af
+
+Afgevinkt vandaag: de rechtsklik-dispel én de purge, de range-fade, de eigen rij,
+`/mh dispeltest` (alle drie de takken), de gele balk, `/mh stats probe` (alle drie de
+beslissingen), `/mh curios`, de Catalyst-meting, `/mh setline`, en Andy's PR #2b.
+
+**Twee dingen staan nog open, allebei "als je er toch bent" en geen van beide een klus:**
+
+1. **PR #1 — de vijf vensters die stil kunnen stoppen met verversen** (punt 7 hieronder).
+   ⚠️ Dit is het enige punt met een echt risico erin: het faalt **stilzwijgend**. Een scherm
+   met verouderde cijfers ziet er precies zo uit als een dat klopt. Doe het een keer terloops:
+   getal onthouden, venster dicht, iets laten veranderen, weer open.
+2. **Een professie-route helemaal lopen** (punt 6) — Enchanting 22 punten op de shadow priest.
+
+Alles daarboven en daaronder met een ✅ is in het spel bevestigd, niet beredeneerd.
+
 ---
 
 ## ✅ AF 28 aug — de rechtsklik-dispel werkt
@@ -376,13 +392,24 @@ neemt hij de andere twee mee. Dat is met opzet — je oude instelling gold voor 
 wordt eerst voor alle drie overgenomen (`DungeonBossWindow.lua:1195-1207`). Daarna staan ze los
 van elkaar en gebeurt het niet meer.
 
-**b) Het consumables-bord.** Een groepsgenoot kan een verzoek sturen om het bord te tonen, en
-jouw client opende het zonder naar jouw eigen instelling te kijken.
+**b) ✅ AF 28 aug — het consumables-bord respecteert nu jouw eigen schakelaar.**
 
-Nieuwe schakelaar: **`Allow group consumable check`**.
+Met Carola in de groep, en in de **strengere volgorde** dan hier oorspronkelijk stond:
 
-Nodig: **je zus of Cisca in de groep.** Zet die schakelaar **uit**, laat de ander de
-groeps-consumablecheck oproepen, en kijk of het bord bij jou dicht blijft.
+| Robs `Allow group consumable check` | Carola typt | Robs scherm |
+|---|---|---|
+| **AAN** | `/mh readyall` | bord **komt** |
+| **UIT** | `/mh readyall` | bord **blijft dicht** ✅ |
+
+📌 **Die volgorde was Robs keuze en hij is beter dan mijn opdracht.** Ik schreef "zet hem uit
+en kijk of er niets gebeurt". Hij deed eerst AAN — en daarmee staat vast dát het verzoek
+aankomt en het bord kán openen. Zonder die positieve controle vooraf is "er gebeurde niets"
+niet te onderscheiden van een kapotte functie. Dezelfde les als bij `/mh setline` diezelfde dag.
+
+⚠️ **Praktisch, voor een volgende keer:** in een **party** bestaan geen assistenten, alleen een
+leider. Rob moest Carola dus eerst de leiding geven (`/leader <naam>`) — en die kun je zelf
+niet terugpakken, de ander moet hem teruggeven. Beide helften van dit commando zitten in
+`v3.6.0`, dus de tester heeft genoeg aan de CurseForge-versie.
 
 Ook hernoemd: **`Show consumable check on entry`**. Stond eerst "on dungeon entry", terwijl die
 melding ook in rituals en delves komt — de tooltip eronder zei dat al.
