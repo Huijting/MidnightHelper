@@ -735,7 +735,13 @@ client**, niet uit een datamine.
 **De 13 SETNAMEN komen wél van buiten** — wago.tools `ItemSet` 2055-2067, build 12.1.0.69497.
 Dat is Blizzards eigen DB2, dus sterk, maar het is **niet de client**. Vóór ze in
 `TierSetData.lua` gaan: laat de client ze bevestigen (de bonus-spell-IDs staan erbij, dus
-`C_Spell.GetSpellName`/`GetSpellDescription` is één ronde). ⚠️ Icy Veins schrijft *"Jade
+`C_Spell.GetSpellName`/`GetSpellDescription` is één ronde).
+
+✅ **Eén van de dertien is al bevestigd, en per ongeluk.** Robs Catalyst-screenshot van 28 aug
+(hij is Mage) toont als uitkomst **"Spellcloak of the Primal Leywarden"** — item 271559, uit
+zijn eigen client. DB2 noemt de Mage-set **"Primal Leywarden's Attire"**. Dat is client-bewijs
+voor de naamstam van set 2060, gevonden op een screenshot die voor een heel andere vraag was
+gemaakt. Twaalf te gaan. ⚠️ Icy Veins schrijft *"Jade
 Warrior's Dominion"* waar DB2 **"Jade Warlord's Dominion"** zegt — overtypen van een gids is
 precies hoe deze tabel in juni Season 1 werd.
 

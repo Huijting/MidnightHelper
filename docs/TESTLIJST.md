@@ -200,9 +200,16 @@ op de client.
   een set" klopt over de bónus; het spel weigert het stuk niet.
 - Het venster somt de vijf bonusslots zelf op — dezelfde vijf als `ns.TIER_SLOTS`.
 
-⚠️ **Niet geclaimd:** dat het item level meegaat. Het resultaat staat op 305 en Robs uitrusting
-ook, maar het ilvl van het ingelegde stuk is op de screenshot niet te zien. De zin over
-secundaire stats is gemeten; die over item level nog steeds niet.
+✅ **En het item level gaat óók mee — gemeten, niet aangenomen.** Ik had dit eerst als
+onbewezen weggezet omdat het ilvl van het ingelegde stuk niet op de screenshot stond. Rob wees
+erop dat het er wél stond: hij legde de cloak in die hij **aan had**, dus de "Equipped"-tooltip
+naast het voorbeeld ís de invoer. Invoer **305** → uitvoer **305**, en de twee tooltips lopen
+regel voor regel gelijk (Armor 65, Stamina 1.572, Intellect 81, Haste 37, Versatility 63).
+Beide helften van de zin in `TIER_GUIDE_BODY` staan nu op de client.
+
+📌 **Ook uit de patch notes** (news.blizzard.com, Curse of Ula'tek): *"Class set armor now
+inherits the secondary and tertiary stats as well as certain special cantrip effects."* Dat is
+**meer** dan onze tekst belooft — tertiair en cantrips staan er nog niet in.
 
 <details><summary>De oorspronkelijke opdracht (voor herhaling)</summary>
 
