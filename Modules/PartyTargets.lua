@@ -704,6 +704,52 @@ end
 ---
 --- Casting by spell ID, never by name: a renamed pet or spell hands back a name that
 --- cannot be cast (MissingBuff.lua:700 paid for that one).
+---
+--- ✅ TESTED AND RULED OUT 28 aug 2026: the star-only form is NOT why the click is dead.
+--- HexBreak writes the plain `type1`/`spell1` with no star anywhere
+--- (`HexBreak/Core.lua:1730`), so we briefly set BOTH `type2` and `*type2`. Rob reloaded
+--- and `/mh glow` confirmed the change had landed -- `type2=spell` where it had said
+--- `type2=nil` -- and the right click still did nothing. Reverted rather than left in
+--- "just in case": a change that explains nothing is a change the next reader has to
+--- explain. The attribute side is now clean and can be crossed off.
+---
+--- 📌 There is a cheaper way to see this, and it costs no reload. Left-click carries
+--- `*type1` and NO plain `type1` (see MakeClickButton). So if left-clicking a row still
+--- selects that player, the star form resolves fine and "the star is only a fallback"
+--- was never a real problem. ⚠️ NOT YET CONFIRMED -- ask Rob before repeating it as fact.
+--- The same question separates the two remaining explanations: if left-click works on a
+--- RED row the click reaches the button and the aura art is innocent; if left-click dies
+--- on a red row but works on a plain one, the glow is eating the click after all.
+--- 🔴 CAST BY NAME, and this is a deliberate exception to the file's own rule.
+---
+--- Rob measured on 28 aug, in a trash pull, that left-click selects a player from EVERY
+--- row -- red or not, in combat or not -- while right-click does nothing anywhere. So the
+--- click reaches the button, the glow does not eat it, and combat is not the cause. Button
+--- 1 acts, button 2 does not, and the only remaining difference from HexBreak (whose left
+--- click dispels on his Priest, measured) is that they pass the spell NAME and we pass an
+--- ID (`HexBreak/Core.lua:1731`).
+---
+--- ⚠️ The ID rule elsewhere in this addon stays. A renamed pet hands back a name that
+--- cannot be cast (MissingBuff.lua:700 paid for that), and that is still true. But an
+--- override spell is the mirror image: Purify on a Holy Priest is exactly the kind of
+--- spell a spec can replace, and a base ID that no longer resolves fails silently -- which
+--- is the symptom we have. Both rules can be right for different failure modes.
+---
+--- Falls back to the ID when the name cannot be resolved: a nil name must not disarm a
+--- button that had a working ID in it.
+local function CastableForm(spellID)
+	if not spellID then
+		return nil
+	end
+	if C_Spell and C_Spell.GetSpellName then
+		local ok, name = pcall(C_Spell.GetSpellName, spellID)
+		if ok and type(name) == "string" and name ~= "" then
+			return name
+		end
+	end
+	return spellID
+end
+
 function ApplyDispelAttributes()
 	if InCombatLockdown and InCombatLockdown() then
 		return
@@ -721,16 +767,18 @@ function ApplyDispelAttributes()
 		local _, id = ns.GetPlayerPurgeIcon()
 		purgeSpell = id
 	end
+	local dispelCast = CastableForm(dispelSpell)
+	local purgeCast = CastableForm(purgeSpell)
 	for i = 1, MAX_ROWS do
 		local b = clicks[i]
 		if b then
-			b:SetAttribute("*type2", dispelSpell and "spell" or nil)
-			b:SetAttribute("spell2", dispelSpell or nil)
+			b:SetAttribute("*type2", dispelCast and "spell" or nil)
+			b:SetAttribute("spell2", dispelCast or nil)
 		end
 		local t = tclicks[i]
 		if t then
-			t:SetAttribute("*type2", purgeSpell and "spell" or nil)
-			t:SetAttribute("spell2", purgeSpell or nil)
+			t:SetAttribute("*type2", purgeCast and "spell" or nil)
+			t:SetAttribute("spell2", purgeCast or nil)
 		end
 	end
 end

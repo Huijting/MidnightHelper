@@ -12,7 +12,43 @@ met 3.6.0"*.
 `Modules/DispelTest.lua` (`/mh dispeltest`) zitten allebei in de tag — `docs/TESTLIJST.md`
 noemde ze tot vanochtend nog lokaal. Uitgebracht ≠ getest; ze staan nog steeds op de testlijst.
 
-## 🔵 HOE HEXBREAK HET WÉL DOET — drie verschillen, gelezen 27 aug
+## ✅ OPGELOST 28 aug — de rechtsklik-dispel werkt: hij moest op NAAM casten
+
+Rob, in het spel bevestigd: *"het werkt!"* De knop cast nu `C_Spell.GetSpellName(id)` in
+plaats van het ID, precies zoals HexBreak (`Core.lua:1731`). Terug te vinden in
+`PartyTargets.lua`, `CastableForm` + `ApplyDispelAttributes`.
+
+⚠️ **Dit is een bewuste uitzondering op onze eigen regel "cast op ID, nooit op naam"** — die
+regel is betaald met een hernoemde pet (`MissingBuff.lua:700`) en blijft overal elders staan.
+Ze dekken verschillende soorten falen: een naam breekt bij hernoemen, een basis-ID van een
+spec-vervangen spreuk (Purify op een Holy Priest) lost stilletjes nergens op. **Niet
+"opruimen" naar een ID.**
+
+### Wat de vier uur kostte, want dat is het bruikbare deel
+
+**Het antwoord stond de hele tijd in HexBreak.** Rob vroeg op dag één of we daar niet konden
+kijken. Dat bestand is drie keer geopend — voor het mechanisme, voor de vormgeving, voor de
+muis — en elke keer is alleen de vraag van dát moment beantwoord. Regel 1731 stond er telkens.
+🔴 **Een werkend voorbeeld op de schijf lees je één keer helemaal, niet drie keer half.**
+
+**Wat het wél oploste: uitsluiten in plaats van gokken.** Vier klikken van Rob, links/rechts ×
+rood/gewoon × wel/geen gevecht, sloten in tien minuten drie verklaringen uit:
+
+| gemeten | gevolg |
+|---|---|
+| links selecteert op ELKE regel, ook rood, ook in gevecht | de gloed vreet niets — spoor dood |
+| idem | combat is niet de oorzaak — spoor dood |
+| links werkt met alleen `*type1`, zonder kale `type1` | de ster-vorm resolvet prima — spoor dood |
+
+Alles wat daarvóór geprobeerd is, was een verklaring bedenken voor gedrag dat niemand had
+afgebakend. **Splits eerst de knop van de actie, dan pas theorieën.**
+
+🔴 **En twee metingen waren waardeloos om dezelfde reden:** de castlijst van `/mh glow` legt
+élke spreuk vast die Rob cast, uit welke bron dan ook. Twee keer is daaruit "de klik landde"
+geconcludeerd. Het bewijs dat wél werkt is de **cooldown van de spreuk** — die kan zijn eigen
+toets niet nabootsen als hij hem niet aanraakt.
+
+## 🔵 HOE HEXBREAK HET WÉL DOET — drie verschillen, gelezen 27 aug (historie — verschil 1 was het)
 
 **Rob: bij HexBreak werkt die muisknop wél om te dispellen.** Dat is waarneming, geen aanname,
 en het maakt hun `ApplySecureSpellAttributes` (`Core.lua:1716`) de sterkste bron die we hebben.
@@ -49,7 +85,7 @@ oorzaak, dan zou die ook moeten falen.
 is alles hierboven overbodig. Daarna verschil 2 (één regel: `*spell2` erbij zetten), dan 1
 (naam i.p.v. ID), dan 3.
 
-## 🔴 EERSTE KLUS MORGEN: één schone rechtsklik
+## ✅ AFGEROND 28 aug — de schone rechtsklik (historie; uitkomst staat bovenaan)
 
 **De enige meting die nooit schoon gedaan is:** één rechtsklik op een **rode** naam, zonder
 tegelijk iets anders in te drukken. Twee seconden werk, en het beslist of de dispel-knop werkt.

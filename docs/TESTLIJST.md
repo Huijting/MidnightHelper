@@ -9,7 +9,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
 ---
 
-## 🔴 ALLEREERST — één schone rechtsklik (2 seconden, beslist de rest)
+## ✅ AF 28 aug — de rechtsklik-dispel werkt
+
+Rob bevestigde het in het spel. Oorzaak: de knop kreeg het spell-**ID** mee; hij moest de
+**naam** hebben, zoals HexBreak doet. Zie `docs/NEXT_SESSION.md` bovenaan voor waarom dat een
+bewuste uitzondering op onze ID-regel is, en wat de vier uur eromheen kostte.
+
+Nog wél open uit deze ronde: **werkt de purge op de rechterhelft ook nog?** Die kreeg dezelfde
+naam-behandeling maar is sinds de wijziging niet geprobeerd. Eén rechtsklik op de rechterhelft
+van een regel, met een vijand als doelwit dat iets te stelen heeft.
+
+<details><summary>De oorspronkelijke opdracht (voor herhaling)</summary>
+
+### één schone rechtsklik (2 seconden, beslist de rest)
 
 **Rechtsklik op een RODE naam in het party-paneel. Verder niets indrukken** — geen shift, geen
 ctrl, geen alt, en niet tegelijk je eigen dispel-toets. Kijk of de dispel afgaat.
@@ -30,6 +42,8 @@ bossfight druk je van alles in. Die meter kan dat verschil niet zien; hij bewijs
 ⚠️ **Verzin geen vierde verklaring vóór deze klik.** Drie hypotheses zijn al gesneuveld op
 gemeten getallen (overlappende helften, combat die de layout bevriest, de gloed die de rij
 afdekt). Geometrie, lagen en knop-attributen zijn allemaal ✅ gemeten en goed.
+
+</details>
 
 ---
 
