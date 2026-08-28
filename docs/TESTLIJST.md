@@ -181,7 +181,32 @@ gevecht ook.
 📌 Dat de test dezelfde deur gebruikt is geen detail: een test met een eigen `if testMode`-tak
 slaagt juist op de build waar de echte weg stuk is.
 
-### 3. De catalyst-tekst kloppend maken — en de meting is gratis
+### 3. ✅ AF 28 aug — de Catalyst zegt het zélf, en dat is sterker dan onze bron
+
+Rob kreeg geen borststuk in het slot en probeerde een **cloak**. Dat bleek genoeg, want het
+antwoord staat in de kop van het venster, in Blizzards eigen woorden:
+
+> *"Transform an item into a set item. Only Head, Shoulder, Chest, Hand, and Legs provide
+> bonus… **Secondary stats are inherited.**"*
+
+Het voorbeeld bevestigde het: het resultaat droeg **+37 Haste / +63 Versatility**, hetzelfde
+als wat erin ging. `TIER_GUIDE_BODY` stond op een blue post en een tooltip; die claim rust nu
+op de client.
+
+📌 **Drie dingen die er gratis bij kwamen:**
+- **Costs: 1 charge, en Rob heeft er 0** — en het voorbeeld rendert tóch. De aanname dat deze
+  meting geen charge kost is daarmee niet alleen waar maar ook verklaard.
+- **Een cloak mag erín**, hij geeft alleen geen setbonus. Onze zin "cloaks zijn nooit deel van
+  een set" klopt over de bónus; het spel weigert het stuk niet.
+- Het venster somt de vijf bonusslots zelf op — dezelfde vijf als `ns.TIER_SLOTS`.
+
+⚠️ **Niet geclaimd:** dat het item level meegaat. Het resultaat staat op 305 en Robs uitrusting
+ook, maar het ilvl van het ingelegde stuk is op de screenshot niet te zien. De zin over
+secundaire stats is gemeten; die over item level nog steeds niet.
+
+<details><summary>De oorspronkelijke opdracht (voor herhaling)</summary>
+
+### De catalyst-tekst kloppend maken — en de meting is gratis
 
 De tier-uitleg zegt nu dat het nieuwe stuk je secundaire stats overneemt. **Twee primaire
 bronnen zeggen dat** (blue post 18 juni + de tooltip van Venomblight Manaflux), maar we hebben
@@ -202,6 +227,8 @@ het zelf nooit gezien.
 🔴 **Kijk apart naar het tertiair en de socket.** Die konden vroeger al meekomen, dus "mijn
 Leech bleef staan" bewijst **niets** over de secondaries. Dat is precies het soort halve
 conclusie waar deze week over ging.
+
+</details>
 
 ---
 
