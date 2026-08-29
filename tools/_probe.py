@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Settle the two-counts question: which enUS keys does the loader have that no file spells out?
+"""Positive control: does check [15] now guard the split ADVENTURER name, and leave the hint alone?
 
-lint_addon.py [5] reports ~3476 enUS keys where locale_probe --dump reports ~3501. The note in
-NEXT_SESSION says "two numbers for the same thing, never looked into". Rather than guess which
-one is wrong, list the difference and look at it: a key the loader knows but that appears
-nowhere as a literal `KEY =` is built at runtime, and that is a real and interesting answer.
+Two things to prove, not one:
+  1. Translating the NAME in nlNL must fire.
+  2. The Dutch "(groen)" hint must NOT fire -- it is supposed to follow the language, and the
+     whole reason for splitting was that guarding it was wrong.
+
+Restores atomically in a finally block; this is Rob's live folder.
 """
 import io
 import os
@@ -12,37 +14,43 @@ import re
 import subprocess
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOC = os.path.join(REPO, "Locales")
-LUA = os.path.join(os.path.expanduser("~"), "AppData", "Local", "Programs", "Lua", "bin", "lua.exe")
+TARGET = os.path.join(REPO, "Locales", "nlNL.lua")
+LINT = os.path.join(REPO, "tools", "lint_addon.py")
 
-p = subprocess.run([LUA, "tools/locale_probe.lua", "--dump"], cwd=REPO,
-                   capture_output=True, text=True, encoding="utf-8", errors="replace")
-if p.returncode != 0:
-    raise SystemExit("dump failed:\n" + (p.stderr or ""))
+original = io.open(TARGET, encoding="utf-8").read()
 
-loader = set()
-for line in p.stdout.splitlines():
-    parts = line.split("\t")
-    if len(parts) == 3 and parts[0] == "enUS":
-        loader.add(parts[1])
-print("loader enUS keys: %d" % len(loader))
 
-# Every key that any locale file spells out literally, in any context.
-literal = set()
-for fn in sorted(os.listdir(LOC)):
-    if not fn.endswith(".lua"):
-        continue
-    text = io.open(os.path.join(LOC, fn), encoding="utf-8", errors="replace").read()
-    for m in re.finditer(r'\[?"?([A-Z][A-Z0-9_]{2,})"?\]?\s*=\s*["\[]', text):
-        literal.add(m.group(1))
-print("keys written out literally somewhere in Locales/: %d" % len(literal))
+def lint_15():
+    r = subprocess.run(["python", LINT], capture_output=True, text=True,
+                       encoding="utf-8", errors="replace", cwd=REPO)
+    for line in (r.stdout or "").splitlines():
+        if line.strip().startswith("[15]") or "DAWNCREST" in line:
+            print("   " + line.strip())
+    return r.stdout or ""
 
-only_loader = sorted(loader - literal)
-print("\nIn the loader but never written literally: %d" % len(only_loader))
-for k in only_loader[:60]:
-    print("   " + k)
 
-only_files = sorted(literal - loader)
-print("\nWritten literally but NOT in the loader's enUS: %d" % len(only_files))
-for k in only_files[:60]:
-    print("   " + k)
+print("BEFORE (expect 0):")
+lint_15()
+
+try:
+    broken = original.replace('DAWNCREST_TIER_ADVENTURER = "Adventurer"',
+                              'DAWNCREST_TIER_ADVENTURER = "Avonturier"', 1)
+    if broken == original:
+        raise SystemExit("could not find the split name line; nothing changed")
+    io.open(TARGET + ".tmp", "w", encoding="utf-8", newline="").write(broken)
+    os.replace(TARGET + ".tmp", TARGET)
+    print("\n1) NAME translated (expect 1, naming ADVENTURER):")
+    out = lint_15()
+    name_fires = "translated anyway: 1" in out
+finally:
+    io.open(TARGET + ".tmp", "w", encoding="utf-8", newline="").write(original)
+    os.replace(TARGET + ".tmp", TARGET)
+
+print("\n2) HINT is Dutch, as designed (expect 0 — it must NOT be guarded):")
+out2 = lint_15()
+hint_quiet = "translated anyway: 0" in out2
+
+print("\nVERDICT:")
+print("   name guarded : " + ("yes" if name_fires else "NO — check is decorative"))
+print("   hint free    : " + ("yes" if hint_quiet else "NO — it is being guarded wrongly"))
+print("   file restored: %s" % (io.open(TARGET, encoding="utf-8").read() == original))

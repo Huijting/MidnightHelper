@@ -2121,7 +2121,8 @@ ns._mhLocales.nlNL = {
 	-- clienttalen. Zie CLAUDE.md: de toets is wat de client van díé speler toont.
 	-- 📌 "(groen)" is onze eigen verduidelijking en geen woord van Blizzard, dus die blijft
 	-- Nederlands: het lidwoord volgt de taal, de naam niet.
-	DAWNCREST_TIER_ADVENTURER = "Adventurer (groen)",
+	DAWNCREST_TIER_ADVENTURER = "Adventurer",
+	DAWNCREST_TIER_ADVENTURER_HINT = "(groen)",
 	DAWNCREST_TIER_VETERAN = "Veteran",
 	DAWNCREST_TIER_CHAMPION = "Champion",
 	DAWNCREST_TIER_HERO = "Hero",

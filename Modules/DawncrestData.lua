@@ -55,6 +55,13 @@ ns.DAWNCREST_TIERS = {
 		season2CurrencyId = 3442,
 		season2AlternateCurrencyIds = { 3437 },
 		labelKey = "DAWNCREST_TIER_ADVENTURER",
+		--- 🔴 SPLIT ON 29 aug 2026, and only this rank has one. The label used to read
+		--- "Adventurer (green)" — a rank name Blizzard owns plus a colour hint we added
+		--- ourselves. As one string it cannot be guarded: the name has to follow Blizzard
+		--- per language (English for nlNL, since there is no Dutch client) while the hint
+		--- follows the language always, and lint check [15] fired on the CORRECT Dutch
+		--- value because it can only compare whole strings.
+		hintKey = "DAWNCREST_TIER_ADVENTURER_HINT",
 		achievementId = 61809,
 		achLabelKey = "DAWNCREST_ACH_ADVENTURER",
 	},

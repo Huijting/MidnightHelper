@@ -447,7 +447,17 @@ function ns.RefreshDawncrestGuide()
 			local row = crestRows[i]
 			if tier and row and row.label and row.count then
 				local qty, earned, maxWeekly, maxTotal, totalEarned = GetTierCurrencyQty(tier)
-				row.label:SetText(ns:L(tier.labelKey))
+				-- The rank name, plus its clarifier when it has one. They are two keys
+				-- because they answer to different rules: the name follows Blizzard per
+				-- language, the "(green)" follows the reader's language. See DawncrestData.
+				local label = ns:L(tier.labelKey)
+				if tier.hintKey then
+					local hint = ns:L(tier.hintKey)
+					if hint and hint ~= tier.hintKey and hint ~= "" then
+						label = label .. " " .. hint
+					end
+				end
+				row.label:SetText(label)
 				--- Three sentences, because there are three situations and one of them
 				--- used to borrow the other's words. A weekly cap gets the weekly line;
 				--- a season cap gets Blizzard's own phrasing against what you EARNED;

@@ -52,15 +52,14 @@ ns.KEEP_ENGLISH = {
 --- to #translations, so they are absent rather than guessed at.
 ns.KEEP_ENGLISH_FOR = {
 	nlNL = {
-		-- ⚠️ DAWNCREST_TIER_ADVENTURER IS DELIBERATELY ABSENT, and the gap is the point.
-		-- It reads "Adventurer (green)" — a name Blizzard owns AND a clarifier we added
-		-- ourselves. The name must stay English; the clarifier follows the language, which
-		-- is why nlNL says "Adventurer (groen)". This mechanism guards WHOLE strings, so it
-		-- cannot express "this half only", and adding the key made check [15] fire on a
-		-- value that is correct. Weakening the check to a substring test would let
-		-- "Avonturier (groen)" through everywhere, which is worse.
-		-- The real fix is to split the label from the clarifier into two keys. Rob's call,
-		-- because it is his Dutch and the other four ranks carry no parenthetical at all.
+		-- 📌 ADVENTURER CAN BE GUARDED NOW, and it could not this morning. It used to read
+		-- "Adventurer (green)" — a name plus a clarifier of ours — and check [15] compares
+		-- whole strings, so listing it fired on the correct Dutch "Adventurer (groen)".
+		-- Rob chose to split it (29 aug): the name lives here, the "(groen)" moved to
+		-- DAWNCREST_TIER_ADVENTURER_HINT, which is NOT guarded and follows the language.
+		-- Weakening the check to a substring test was the alternative, and it would have
+		-- let "Avonturier (groen)" through everywhere.
+		DAWNCREST_TIER_ADVENTURER = "no Dutch client: the game says Adventurer",
 		DAWNCREST_TIER_VETERAN = "no Dutch client: the game says Veteran",
 		DAWNCREST_TIER_CHAMPION = "no Dutch client: the game says Champion",
 		DAWNCREST_TIER_HERO = "no Dutch client: the game says Hero",
