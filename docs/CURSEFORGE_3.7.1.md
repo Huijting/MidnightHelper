@@ -1,4 +1,6 @@
-# Midnight Helper 3.8.0
+# Midnight Helper 3.7.1
+
+Four corrections. Nothing new was added — things we had told you wrong are now right.
 
 ## The Tier Sets page was showing you last season's set
 
@@ -35,6 +37,14 @@ themselves back on the next load.
 The remaining question is honest and open: Spanish, Portuguese and Italian translate the
 crest ranks today, German and French do not. Whether their clients show a translated rank is
 something a native speaker has to look at, not something we should guess from here.
+
+## A pin said "you cannot use this yet" about a portal you were walking through
+
+The check was right. The timing was not: it ran once when the panel was built and the answer
+was kept for the session. Right after a reload the quest data has not loaded, so it read "not
+done" — and stuck.
+
+It is asked when you hover now, and re-checked whenever the panel refreshes.
 
 ## "That is on another continent" now reaches you
 

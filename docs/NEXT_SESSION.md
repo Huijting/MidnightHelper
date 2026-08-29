@@ -1,5 +1,35 @@
 # Midnight Helper — waar we staan
 
+## 🔵 OPEN 29 aug — de SMC-pin zet TWEE waypoints, plus één die niemand vroeg
+
+Rob klikte de pin "Portal to The Coiled Isle". Zijn chat, in deze volgorde:
+
+```
+TomTom: Added a waypoint (Portal to The Coiled Isle - 56.74, 67.30) in Silvermoon City
+Midnight Helper: Waypoint set: Portal to The Coiled Isle (#2393 56.7, 67.3)
+TomTom: Added a waypoint (Portal to The Coiled Isle - 56.74, 67.30) in Silvermoon City
+TomTom: Added a waypoint (Flight master: Tokka's Landing - 57.88, 45.70) in The Coiled Isle
+```
+
+Robs woorden: *"terwijl ik gewoon naar het eiland wil."*
+
+**Wat vaststaat:** regel 1 komt van `TriggerTomTomWaySlash` (`UI.lua:1147`), regel 2 is onze
+eigen print één regel later. Regels 3 en 4 komen dus **ná** de klik, van iets dat reageert —
+waarschijnlijk een reisplan dat zijn stappen als waypoints publiceert, want stap 1 is precies
+dezelfde portal en stap 2 de flight master erachter.
+
+⚠️ **Uitgesloten, gemeten:** TomTom spiegelt Blizzards user-waypoints **niet** — grep over de
+hele addon op `SetUserWaypoint`/`USER_WAYPOINT` geeft nul treffers. De dubbele komt dus niet
+doordat `C_Map.SetUserWaypoint` en `/way` allebei in TomTom landen.
+
+📌 **Wat wél opvalt en de volgende stap is:** `SetSMCWaypoint` gebruikt als enige plek NIET
+`ns.AddSmartTomTomWay` (`Delves.lua:1083`), de gedeelde helper die bewust *of* TomTom *of*
+Blizzard kiest en een `skipTravelUI`-schakelaar heeft. Deze functie doet allebei én zet
+`ns.lastTarget`. Begin daar, en zoek wie op `lastTarget` reageert.
+
+🔴 **Niet gerepareerd op vermoeden.** Ik heb de oorzaak van regel 3 en 4 niet aangetoond, en
+gisteren kostte precies zo'n vierde theorie vier uur.
+
 ## ⚠️ 29 aug — de "other continent"-chatregel is ONGEVERIFIEERD, en kleiner dan gedacht
 
 De zin staat nu in de chat in plaats van op het pijllabel (dat bij TomTom-gebruikers nooit

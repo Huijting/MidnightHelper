@@ -1301,6 +1301,63 @@ function ns.MH_RefreshSMCWorldBossShortcut()
 	end
 end
 
+--- Is this pin's requirement still unmet, RIGHT NOW?
+---
+--- 🔴 Never cached. The old code stored the verdict on the point at build time and the panel
+--- builds once a session, so a "no" read before the quest data loaded stood until logout —
+--- which is what put "you cannot use this yet" on a portal Rob was walking through.
+---
+--- ⚠️ `nil` and `false` mean different things here. No requirement, no API, or a call that
+--- errored all mean "we cannot say it is locked", and the pin must then look normal: telling
+--- someone they cannot do a thing is the expensive mistake, and staying quiet is the cheap
+--- one. Only a definite "not completed" locks it.
+local function SMCPinLocked(point)
+	if not (point and point.requiresQuest) then
+		return false
+	end
+	if not (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
+		return false
+	end
+	local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, point.requiresQuest)
+	if not ok then
+		return false
+	end
+	return done ~= true
+end
+
+--- Paint one pin according to that answer. Split out so the styling and the tooltip cannot
+--- drift apart, and so a refresh can re-apply it without rebuilding the panel.
+local function SMCApplyPinLock(point, label, icon)
+	local locked = SMCPinLocked(point)
+	if label and label.SetTextColor then
+		if locked then
+			label:SetTextColor(0.55, 0.55, 0.58)
+		else
+			label:SetTextColor(1, 0.94, 0.75)
+		end
+	end
+	if icon and icon.SetDesaturated then
+		icon:SetDesaturated(locked and true or false)
+	end
+end
+
+--- Re-apply the greying on every pin, so a panel built before the quest data arrived does
+--- not keep showing a stale lock. Cheap: a handful of buttons and one API call each.
+function ns.MH_RefreshSMCPinLocks()
+	local sg = ns.panels and ns.panels.smcguide
+	local list = sg and sg._mhSMCWaypointButtons
+	if type(list) ~= "table" then
+		return
+	end
+	for i = 1, #list do
+		local row = list[i]
+		local btn, pt = row and row[1], row and row[2]
+		if btn and pt then
+			SMCApplyPinLock(pt, btn._mhSMCLabel, btn._mhSMCIcon)
+		end
+	end
+end
+
 local function BuildSMCCityGuidePanel(panel)
 	if not panel or panel._mhSmlBuilt then
 		return
@@ -1649,18 +1706,18 @@ local function BuildSMCCityGuidePanel(panel)
 			---
 			--- Greyed rather than hidden — hiding it means nobody ever learns the portal
 			--- exists, and finding out it is worth working towards is the point.
-			if point.requiresQuest and C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted then
-				local okQ, doneQ = pcall(C_QuestLog.IsQuestFlaggedCompleted, point.requiresQuest)
-				if okQ and not doneQ then
-					label:SetTextColor(0.55, 0.55, 0.58)
-					if icon then
-						icon:SetDesaturated(true)
-					end
-					point._mhLocked = true
-				else
-					point._mhLocked = nil
-				end
-			end
+			--- 🔴 ASK EVERY TIME, DO NOT STORE THE ANSWER. Rob, 29 aug: the portal pin said
+			--- "you cannot use this yet" while he walked straight through it. The verdict was
+			--- computed here, once, and kept on `point._mhLocked` — and this panel is built
+			--- exactly once per session (`_mhSmlBuilt` at the top). Right after a `/reload`
+			--- the quest data is not loaded yet, `IsQuestFlaggedCompleted` answers false, and
+			--- that "no" then stood for the rest of the session.
+			---
+			--- ⚠️ THE API WAS NEVER THE PROBLEM, and I nearly replaced it. `/mh questgate`
+			--- settled it on his client: per-character AND account-wide both return true, quest
+			--- 96004 is the right id. A wrong-looking answer from a right function, cached at
+			--- the wrong moment. Measuring first is what stopped a pointless API swap.
+			SMCApplyPinLock(point, label, icon)
 
 			btn._mhSMCIcon = icon
 			btn._mhSMCLabel = label
@@ -1679,7 +1736,8 @@ local function BuildSMCCityGuidePanel(panel)
 				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 				GameTooltip:SetText(point.label, 1, 0.9, 0.6)
 				GameTooltip:AddLine(PinDescription(point), 0.9, 0.9, 0.9, true)
-				if point._mhLocked then
+				-- Asked at hover time, not read from a flag set when the panel was built.
+				if SMCPinLocked(point) then
 					GameTooltip:AddLine(ns:L("SMC_PIN_LOCKED"), 1, 0.5, 0.4, true)
 				end
 				GameTooltip:AddLine(("Map 2393 • %.2f, %.2f"):format(point.x, point.y), 0.8, 0.8, 0.8, false)
@@ -1717,6 +1775,11 @@ local function BuildSMCCityGuidePanel(panel)
 	end
 	if ns.MH_RefreshSMCWorldBossShortcut then
 		ns.MH_RefreshSMCWorldBossShortcut()
+	end
+	-- The panel builds once a session; this is what lets a lock read before the quest data
+	-- arrived correct itself instead of standing until logout.
+	if ns.MH_RefreshSMCPinLocks then
+		ns.MH_RefreshSMCPinLocks()
 	end
 end
 

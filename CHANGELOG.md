@@ -2,7 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
-## 3.8.0
+## 3.7.1
+
+📌 **A patch, not a minor — Rob's call, 29 aug 2026.** I had this as 3.8.0 on the grounds that
+the Tier Sets page visibly changes: it gained the five piece names, swapped bonus links for
+bonus text, and grew an empty state. His answer was "er is niet iets groots bij", and he is
+right about the shape of it: not one new feature ships here. Every line below is either a
+thing we had told players wrong, or a sentence moved to where it can be read.
 
 - 🔴 **`TierSetData.lua`'s two tables are DELETED, not refilled.** `TIER_SET_BY_CLASS` (13 names) and `TIER_SPEC_BONUS` (~38 spec entries) came from a Wowhead 12.0.7-PTR datamine researched 16 June — Season 1 — and were still being shown as this season's truth on 28 aug, a week into Season 2. Rob and Carola could not make sense of the page; the reason was that we named the wrong set. A table keyed to a season rots every season, and this one had rotted three times unnoticed. Rob's call: remove it rather than refill it.
 - **`ReadWornTierSet` reads the whole thing off the player's gear**: set name, count, all five piece names and both bonus texts, already translated by the client. Measured on his Shaman before a line was written. ⚠️ The trap it caught: at 3/5 the EARNED 2-set bonus renders with its `(2)` prefix simply absent while the unearned 4-set keeps its own, so a parser matching `^%(2%)` silently finds nothing and hides the active bonus forever. Bonuses are matched on `Set:` and which is live comes from the count.
@@ -14,6 +20,7 @@ All notable changes to this project are documented in this file.
 - **The "other continent" sentence moved from the arrow's label to chat** (`NativeArrow.lua`), announced once per target and never from inside an instance. It named the flight point to head for and lived on a label that is hidden whenever TomTom draws, so no TomTom user has ever read it — the same rule CLAUDE.md added on 19 aug for the rare arrival hints, third instance. ⚠️ **Unverified in the wild:** Rob routed to The Coiled Isle and the travel plan solved it first, publishing the portal on his own map as the target. It is a fallback, not a main path.
 - **`translation_todo.py` was blind to 901 keys** — it read `Locales/enUS.lua` with a leading-tab pattern, so eleven merge files were invisible and `--prefix DELVE_STORY` answered "no strings found" while there were 48. It asks the loader now (the same `--dump` the drift checker uses) and `--since` diffs the whole `Locales/` directory. It also stopped counting deliberate English as debt.
 - 📌 **"Two counts for the same number" settled.** The loader sees 3501 enUS keys and the files spell out 3498: nine `LOCALE_NAME_*` keys are built at runtime and no static parser can ever see them, and four keys sit in packs, never reach enUS and are requested nowhere. Those four are left in place — `PGUIDE_BTN_WOWHEAD` carries four translations and discarding those is not a cleanup decision. ~16 of the linter's own gap remains unexplained and is recorded as such.
+- 🔴 **An SMC pin told Rob "you cannot use this yet" about a portal he was walking through — and the API was never the problem.** The lock is `C_QuestLog.IsQuestFlaggedCompleted(96004)`, computed in `BuildSMCCityGuidePanel` and stored on the point; that panel builds ONCE per session (`_mhSmlBuilt`), so a read taken before the quest data loaded stood until logout. ⚠️ I was one edit away from swapping in `IsQuestFlaggedCompletedOnAccount` on a warbound theory. `/mh questgate` settled it on his client instead: per-character **true**, account-wide **true**, id correct. A right function, cached at the wrong moment. `SMCPinLocked` now asks at hover time, `SMCApplyPinLock` keeps styling and tooltip from drifting apart, and `MH_RefreshSMCPinLocks` re-applies on refresh. ⚠️ nil/false/errored all mean "do not claim it is locked": telling someone they cannot do a thing is the expensive mistake.
 - **TomTom v4.3.9 (29 aug) checked against our integration:** `AddWaypoint`, `ClearAllWaypoints` and the `TomTomCrazyArrow` frame all unchanged, and the new arrow themes create textures on the same button rather than replacing it, so the stand-down still works. Their embedded HereBeDragons update passes us by entirely — we removed that dependency on purpose.
 
 ## 3.7.0

@@ -1199,6 +1199,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh questgate [id] — waarom staat een pin op slot terwijl hij werkt? Twee verklaringen
+	-- zien er van buiten identiek uit: een accountbrede ontgrendeling die wij per character
+	-- toetsen, of een verkeerd quest-ID. De client beslist welke.
+	if msg == "questgate" or msg:match("^questgate%s") then
+		if ns.PrintQuestGateProbe then
+			ns.PrintQuestGateProbe(msg:match("^questgate%s+(%S+)"))
+		end
+		return
+	end
+
 	-- /mh tierread — wat is er van een GEDRAGEN setstuk af te lezen? Beslist of
 	-- TierSetData.lua's twee tabellen kunnen verdwijnen.
 	if msg == "tierread" then

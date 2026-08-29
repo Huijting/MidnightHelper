@@ -664,6 +664,70 @@ end
 ---
 --- ⚠️ It restores the player's own filters afterwards. Those are his Adventure Guide
 --- settings, not ours.
+--- `/mh questgate [id]` — why does a pin say "you cannot use this yet" when you can?
+---
+--- 🔴 ROB, 29 aug 2026: the Portal to The Coiled Isle pin is greyed with "you cannot use this
+--- yet", and he can walk straight through it. The gate is
+--- `C_QuestLog.IsQuestFlaggedCompleted(96004)` in `UI.lua:1652` — a PER-CHARACTER test.
+---
+--- ⚠️ TWO EXPLANATIONS LOOK IDENTICAL FROM OUTSIDE, and picking one without measuring is how
+--- this repo has lost afternoons:
+---   1. the unlock is account-wide (warbound) and we ask a per-character question, or
+---   2. quest 96004 is simply the wrong id, so it can never read as completed.
+--- Both produce exactly "greyed, but it works". This prints what the client says so the
+--- answer arrives instead of a theory.
+---
+--- ⚠️ `IsQuestFlaggedCompletedOnAccount` is a CANDIDATE, not a fact. It is reported to exist
+--- in modern clients and this addon has never called it; a grep across other addons would be
+--- the same class of evidence that shipped a dead event name on 8 aug. So the probe asks
+--- whether the function is there at all, and says so plainly when it is not.
+function ns.PrintQuestGateProbe(arg)
+	local prefix = ejPrefix()
+	local id = tonumber(arg) or 96004
+	print(("%s quest gate probe for quest %d:"):format(prefix, id))
+
+	local QL = C_QuestLog
+	if not QL then
+		print("   |cffff5555C_QuestLog is missing entirely|r — nothing to measure.")
+		return
+	end
+
+	local function say(name, fn)
+		if type(fn) ~= "function" then
+			print(("   %-42s |cff8a8f98not present on this client|r"):format(name))
+			return nil
+		end
+		local ok, v = pcall(fn, id)
+		if not ok then
+			print(("   %-42s |cffff5555errored|r"):format(name))
+			return nil
+		end
+		print(("   %-42s %s"):format(name, tostring(v)))
+		return v
+	end
+
+	local perChar = say("IsQuestFlaggedCompleted (what we use)", QL.IsQuestFlaggedCompleted)
+	local onAcct = say("IsQuestFlaggedCompletedOnAccount", QL.IsQuestFlaggedCompletedOnAccount)
+	say("IsOnQuest (are you doing it now)", QL.IsOnQuest)
+
+	print("   ---")
+	if perChar == true then
+		print("   |cffffd100This character HAS completed it.|r So the gate should already be "
+			.. "open, and the bug is elsewhere — say so rather than changing the API.")
+	elseif onAcct == true then
+		print("   |cff40ff40Account yes, character no.|r That is the answer: the unlock is "
+			.. "account-wide and we are asking a per-character question.")
+	elseif onAcct == nil then
+		print("   |cffff9040Character says no and there is no account-wide function to ask.|r "
+			.. "Then either the id is wrong, or this client cannot answer the question — and "
+			.. "we must not guess which.")
+	else
+		print("   |cffff9040Both say no, yet the portal works.|r Then quest " .. id
+			.. " is probably not the gate at all, and the id needs finding rather than the "
+			.. "check needs fixing.")
+	end
+end
+
 function ns.ScanClassSetLoot(arg)
 	local prefix = ejPrefix()
 	local instanceID = tonumber(arg) or 1320 -- The Venomous Abyss, id read from Rob's own capture
