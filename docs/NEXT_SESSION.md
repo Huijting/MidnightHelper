@@ -1,6 +1,34 @@
 # Midnight Helper — waar we staan
 
-## 🎯 MORGEN (29 aug) — Robs opdracht: tier sets afmaken, en talen zodat Carola het snapt
+## ✅ 29 aug — beide sporen grotendeels af
+
+**Spoor A: de tier-tabellen zijn weg.** `TierSet.lua` leest de set van het stuk dat je draagt:
+naam, telling, alle vijf de stuknamen en beide bonusteksten, al vertaald door het spel. Op
+Robs scherm bevestigd. `TierSetData.lua` is nu een toelichting plus `TIER_SLOTS`, met de
+instructie waarom er geen nieuwe tabel mag komen. ⚠️ **Nog ongezien:** het geval "geen tier
+aan" — daar hoort de nieuwe zin te staan in plaats van een setnaam.
+
+**Spoor B: de `fill()`-bug is opgelost bij de wortel.** `Locales/KeepEnglish.lua` maakt
+"bewust Engels" uitdrukbaar, beide fill-bestanden respecteren het, en **linter-check [15]**
+faalt als een pack het toch vertaalt — mét positieve controle (één waarde gebroken → check
+sloeg aan en noemde de key → teruggezet → weer stil, bestand byte-voor-byte terug).
+De drie Dawn-achievements staan in alle zes bestanden terug op Blizzards naam, en de vijf
+crest-rangen zijn in **nlNL** Engels. Alles geverifieerd via `locale_probe.lua`, niet geteld.
+
+### 🔵 Wat er van spoor B nog ligt
+
+1. **esES / ptBR / itIT: crest-rangen.** Zij vertalen *Champion* wél (`Campeón`, `Campeão`,
+   `Campione`); deDE en frFR houden hem al Engels. **Niet van hieruit beslissen** — iemand met
+   die client moet kijken wat er op het scherm staat. → #translations.
+2. **De bredere nlNL-vraag.** De crest-rangen waren één vindplaats; de regel ("geen
+   Nederlandse client, dus Blizzard-termen blijven Engels") geldt breder. Er is nog geen
+   inventarisatie van wat er verder in `nlNL.lua` vertaald staat dat op Carola's scherm
+   Engels is. Dat is een aparte, afgebakende klus.
+3. ⚠️ **`locale_probe.lua` heeft dezelfde blinde vlek als `fill()` had:** hij meldt bewust
+   Engels als *"still English (a copy, not a translation)"*. Voor `KEEP_ENGLISH`-keys is dat
+   op te lossen; voor per-taal-beslissingen zoals de crest-rangen niet.
+
+## 🎯 OPDRACHT 29 aug — Robs opdracht: tier sets afmaken, en talen zodat Carola het snapt
 
 Twee sporen, en ze komen samen: de tier-pagina is precies waar Carola "Kampioen crest"
 tegenkomt. Alles hieronder is al uitgezocht — **niets opnieuw meten.**

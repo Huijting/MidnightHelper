@@ -2112,11 +2112,18 @@ ns._mhLocales.nlNL = {
 	DAWNCREST_GUIDE_TITLE = "Crests — simpel uitgelegd",
 	DAWNCREST_GUIDE_SUMMARY = "Crests zijn munten om je spullen sterker te maken. Hover hieronder over een crest-icoon: het spel toont precies welke activiteiten die tier geven, en wat je andere personages hebben.|n|nGeef ze uit bij Cuzoth in Silvermoon. Ruil lagere crests bij Vaskarn als je die track niet meer nodig hebt.|n|nExtra lagere crests helpen je alts.",
 	DAWNCREST_GUIDE_DAWN_DISCOUNT = "«…van de Dageraad»-achievements geven 50% korting op upgrades voor je hele Warband.",
-	DAWNCREST_TIER_ADVENTURER = "Avonturier (groen)",
-	DAWNCREST_TIER_VETERAN = "Veteraan",
-	DAWNCREST_TIER_CHAMPION = "Kampioen",
-	DAWNCREST_TIER_HERO = "Held",
-	DAWNCREST_TIER_MYTH = "Mythe",
+	-- 🔴 CREST-RANGEN BLIJVEN ENGELS IN nlNL. Carola, 28 aug 2026, zocht op haar scherm naar
+	-- "Kampioen crest" en vond niets: er bestaat geen Nederlandse WoW-client, dus zij leest
+	-- altijd "Champion Crest". Een vertaling hier benoemt iets dat nergens bestaat.
+	-- ⚠️ Dit geldt NIET automatisch voor de andere talen — Duits en Frans zijn wél
+	-- clienttalen. Zie CLAUDE.md: de toets is wat de client van díé speler toont.
+	-- 📌 "(groen)" is onze eigen verduidelijking en geen woord van Blizzard, dus die blijft
+	-- Nederlands: het lidwoord volgt de taal, de naam niet.
+	DAWNCREST_TIER_ADVENTURER = "Adventurer (groen)",
+	DAWNCREST_TIER_VETERAN = "Veteran",
+	DAWNCREST_TIER_CHAMPION = "Champion",
+	DAWNCREST_TIER_HERO = "Hero",
+	DAWNCREST_TIER_MYTH = "Myth",
 	DAWNCREST_ROW_FMT = "%d  (deze week %d / %d)",
 	DAWNCREST_ROW_CAP_FMT = "%d  (%s %d / %d)",
 	DAWNCREST_SEASON_MAX = "seizoensmax",
