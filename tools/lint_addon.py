@@ -881,6 +881,73 @@ def check_emoji_in_strings(root):
     return hits
 
 
+def check_keep_english(root):
+    """[15] A key that must stay English, translated anyway.
+
+    Locales/KeepEnglish.lua lists keys where Blizzard's own UI shows that exact string --
+    achievement titles above all. Translating one invents a name the game never used, and
+    the player's own Achievements pane then disagrees with us. The rule has been in
+    CLAUDE.md since 14 aug 2026 and was broken in five of six packs on 29 aug, so writing
+    it down again was never going to be enough.
+
+    ⚠️ IT DID NOT SURVIVE BEING FOLLOWED, WHICH IS WHY THIS EXISTS. `fill()` replaces a
+    value identical to enUS, because the packs copy every English string at load and a
+    "is it nil" test could never fire. That rescued ~400 real translations per language --
+    and it also means a key left in English ON PURPOSE looks exactly like a placeholder.
+    itIT kept "Veteran of the Dawn" correctly and Translations2026 overwrote it. Intent
+    had to become data; this is the half that catches the next lapse.
+
+    Compares each pack's literal assignment against enUS. Anything that differs is a
+    translation of a name Blizzard owns.
+    """
+    hits = []
+    loc = os.path.join(root, "Locales")
+    keep_path = os.path.join(loc, "KeepEnglish.lua")
+    if not os.path.isfile(keep_path):
+        return hits
+    with open(keep_path, "r", encoding="utf-8", errors="replace") as fh:
+        keep_src = fh.read()
+    # Keys of ns.KEEP_ENGLISH: `KEY = "why",` inside the table, comments skipped.
+    keep = set()
+    for line in keep_src.splitlines():
+        s = line.strip()
+        if s.startswith("--"):
+            continue
+        m = re.match(r'([A-Z][A-Z0-9_]+)\s*=\s*"', s)
+        if m:
+            keep.add(m.group(1))
+    if not keep:
+        return hits
+
+    def literals(fn):
+        out = {}
+        p = os.path.join(loc, fn)
+        if not os.path.isfile(p):
+            return out
+        with open(p, "r", encoding="utf-8", errors="replace") as fh:
+            for ln, line in enumerate(fh, 1):
+                if line.lstrip().startswith("--"):
+                    continue
+                m = re.match(r'\s*\[?"?([A-Za-z0-9_]+)"?\]?\s*=\s*"((?:[^"\\]|\\.)*)"',
+                             line)
+                if m and m.group(1) in keep:
+                    out.setdefault(m.group(1), []).append((ln, m.group(2)))
+        return out
+
+    english = {k: v[0][1] for k, v in literals("enUS.lua").items() if v}
+    for fn in sorted(os.listdir(loc)):
+        if not fn.endswith(".lua") or fn in ("enUS.lua", "KeepEnglish.lua"):
+            continue
+        for key, rows in literals(fn).items():
+            want = english.get(key)
+            if want is None:
+                continue
+            for ln, got in rows:
+                if got != want:
+                    hits.append((os.path.join("Locales", fn), ln, key, got, want))
+    return hits
+
+
 def main() -> int:
     root = repo_root()
     args = sys.argv[1:]
@@ -1104,6 +1171,12 @@ def main() -> int:
     for rel, ln, key, ch in emoji[:20]:
         print(f"    HARD  {rel}:{ln}  {key}  contains {ch!r} — WoW's font draws an empty box")
     hard += len(emoji)
+
+    keepen = check_keep_english(root)
+    print(f"\n[15] Keys that must stay English, translated anyway: {len(keepen)}")
+    for rel, ln, key, got, want in keepen[:20]:
+        print(f"    HARD  {rel}:{ln}  {key}  is {got!r} — Blizzard's own name is {want!r}")
+    hard += len(keepen)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")

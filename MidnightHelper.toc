@@ -25,6 +25,7 @@ Core.lua
 Modules\Comms.lua
 Modules\Auras.lua
 Locales\enUS.lua
+Locales\KeepEnglish.lua
 Locales\deDE.lua
 Locales\frFR.lua
 Locales\esES.lua

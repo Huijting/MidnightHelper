@@ -188,6 +188,12 @@ local function ReadWornTierSet()
 			local set, seenSet = nil, false
 			for _, line in ipairs(data.lines) do
 				local t = line and line.leftText
+				-- ⚠️ TRIM BEFORE TESTING FOR EMPTY. A tooltip separator line is not "" but a
+				-- single space, so `t ~= ""` let it through and it became a sixth piece --
+				-- which is why the list rendered with a trailing comma on Rob's first look.
+				if type(t) == "string" then
+					t = t:match("^%s*(.-)%s*$")
+				end
 				if type(t) == "string" and t ~= "" then
 					if not seenSet then
 						local nm, have, total = t:match("^(.-)%s*%((%d+)/(%d+)%)%s*$")
@@ -202,12 +208,14 @@ local function ReadWornTierSet()
 							}
 						end
 					elseif t:match("Set:") then
-						-- Strip a leading "(n)" when the game supplies one; the earned bonus
-						-- has none, so the text is the only thing both forms share.
-						set.bonuses[#set.bonuses + 1] = (t:gsub("^%s*%(%d+%)%s*", ""))
+						-- Strip the leading "(n)" where the game supplies one -- the earned
+						-- bonus has none -- and then the word "Set:" itself, because our own
+						-- label already says "2-set bonus:" and "Set: Set:" reads as a bug.
+						local body = t:gsub("^%s*%(%d+%)%s*", ""):gsub("^%s*[Ss]et:%s*", "")
+						set.bonuses[#set.bonuses + 1] = body
 					elseif #set.bonuses == 0 then
 						-- Between the set line and the first bonus sit the piece names.
-						set.pieces[#set.pieces + 1] = (t:gsub("^%s+", ""))
+						set.pieces[#set.pieces + 1] = t
 					end
 				end
 			end

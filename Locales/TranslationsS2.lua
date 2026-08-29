@@ -19,8 +19,12 @@ local function fill(code, patch)
 	if type(t) ~= "table" or type(patch) ~= "table" then return end
 	local en = ns._mhLocales and ns._mhLocales.enUS
 	for k, v in pairs(patch) do
-		local cur = t[k]
-		if cur == nil or (type(en) == "table" and cur == en[k]) then t[k] = v end
+		-- Same guard as Translations2026: a key declared in Locales/KeepEnglish.lua is
+		-- English on purpose, not a placeholder waiting to be filled.
+		if not (ns.IsKeepEnglishKey and ns.IsKeepEnglishKey(k)) then
+			local cur = t[k]
+			if cur == nil or (type(en) == "table" and cur == en[k]) then t[k] = v end
+		end
 	end
 end
 

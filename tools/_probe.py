@@ -1,89 +1,58 @@
 #!/usr/bin/env python3
-"""Are the Season 2 tier TOKENS in Rob's own capture after all?
+"""Positive control for lint check [15]: break one value, confirm it fires, put it back.
 
-Research says the sets are token goods, not boss drops: five per-slot token families from
-five of the eight Venomous Abyss bosses, plus an omni-token from Ula'tek. My earlier analysis
-only looked at items whose slot was one of Head/Shoulder/Chest/Hands/Legs -- and a token has
-no slot. There were 50 items with an empty slot in the capture and I discarded every one.
+A check that reports zero proves nothing until something is supposed to make it non-zero.
+Today alone that mistake appeared twice -- ReadItemSetLine was declared blind on a control
+that was not one, and the first bonus parser matched a prefix that is absent when the bonus
+is earned.
 
-So: list the empty-slot items per class, and look for the token names and IDs the research
-named. This either confirms the finding from Rob's own client or exposes a real gap.
+⚠️ This edits a file in Rob's LIVE AddOns folder, so the restore is in a finally block and
+the write is atomic. If this script is interrupted the worst case is the original text back
+on disk, never a truncated locale.
 """
 import io
 import os
-import re
+import subprocess
 
-SV = os.path.join("E:\\", "World of Warcraft", "_retail_", "WTF", "Account",
-                  "JOEYWHATEVER", "SavedVariables", "MidnightHelper.lua")
-text = io.open(SV, encoding="utf-8", errors="replace").read()
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TARGET = os.path.join(REPO, "Locales", "nlNL.lua")
+LINT = os.path.join(REPO, "tools", "lint_addon.py")
 
+GOOD = 'DAWNCREST_ACH_HERO = "Hero of the Dawn"'
+BAD = 'DAWNCREST_ACH_HERO = "Held van de Dageraad"'
 
-def block(name, src=None):
-    s = src if src is not None else text
-    m = re.search(r'\["%s"\]\s*=\s*\{' % re.escape(name), s)
-    if not m:
-        return None
-    i = m.end() - 1
-    depth = 0
-    for j in range(i, len(s)):
-        if s[j] == "{":
-            depth += 1
-        elif s[j] == "}":
-            depth -= 1
-            if depth == 0:
-                return s[i:j + 1]
-    return None
+original = io.open(TARGET, encoding="utf-8").read()
+if GOOD not in original:
+    raise SystemExit("Expected line not found; refusing to edit blind.")
 
 
-scan = block("tierScan")
-classes = block("classes", scan) if scan else None
-if not classes:
-    raise SystemExit("no tierScan/classes in SavedVariables")
+def run_lint():
+    r = subprocess.run(["python", LINT], capture_output=True, text=True,
+                       encoding="utf-8", errors="replace", cwd=REPO)
+    for line in (r.stdout or "").splitlines():
+        if line.strip().startswith("[15]") or "DAWNCREST_ACH_HERO" in line:
+            print("   " + line.strip())
+    return r.stdout or ""
 
-CANDIDATE_WORDS = ("Venomwoven", "Venomcured", "Slumbering", "Curio", "Relic", "Idol",
-                   "Effigy", "Remnant", "Icon")
 
-print("=== items with NO slot, per class (the ones my first pass threw away) ===")
-found_any = False
-for m in re.finditer(r'\["([A-Z]+)"\]\s*=\s*\{', classes):
-    cls = m.group(1)
-    b = block(cls, classes)
-    if not b:
-        continue
-    rows = []
-    for im in re.finditer(r'\{[^{}]*\["itemID"\][^{}]*\}', b):
-        frag = im.group(0)
+print("BEFORE (should be 0):")
+run_lint()
 
-        def f(k):
-            mm = re.search(r'\["%s"\]\s*=\s*"((?:[^"\\]|\\.)*)"' % k, frag)
-            if mm:
-                return mm.group(1)
-            mm = re.search(r'\["%s"\]\s*=\s*(\d+)' % k, frag)
-            return mm.group(1) if mm else ""
+try:
+    broken = original.replace(GOOD, BAD, 1)
+    io.open(TARGET + ".tmp", "w", encoding="utf-8", newline="").write(broken)
+    os.replace(TARGET + ".tmp", TARGET)
+    print("\nWITH ONE DELIBERATELY TRANSLATED (should be 1 and name the key):")
+    out = run_lint()
+    fired = "[15] Keys that must stay English, translated anyway: 1" in out
+finally:
+    io.open(TARGET + ".tmp", "w", encoding="utf-8", newline="").write(original)
+    os.replace(TARGET + ".tmp", TARGET)
 
-        if f("slot") == "" and f("armorType") == "":
-            rows.append((f("itemID"), f("encounterID"), f("name")))
-    # unique by itemID, keep order
-    seen, uniq = set(), []
-    for r in rows:
-        if r[0] not in seen:
-            seen.add(r[0])
-            uniq.append(r)
-    print("\n%s — %d slotless items:" % (cls, len(uniq)))
-    for iid, enc, name in uniq:
-        mark = "  <<<" if any(w.lower() in name.lower() for w in CANDIDATE_WORDS) else ""
-        if mark:
-            found_any = True
-        print("   %-8s enc=%-6s %s%s" % (iid, enc, name, mark))
+print("\nAFTER RESTORE (should be 0 again):")
+run_lint()
 
-print("\n=== the specific item IDs the research named ===")
-for iid in ("270909", "270910", "270911", "270912", "270913", "270916", "270917",
-            "270920", "270921", "270924", "270925", "270928", "270929"):
-    hits = re.findall(r'\["itemID"\]\s*=\s*%s,\s*\["name"\]\s*=\s*"((?:[^"\\]|\\.)*)"' % iid, text)
-    if not hits:
-        hits = re.findall(r'\["name"\]\s*=\s*"((?:[^"\\]|\\.)*)",[^{}]*\["itemID"\]\s*=\s*%s' % iid, text)
-    print("   %s -> %s" % (iid, hits[0] if hits else "not in this file"))
-
-if not found_any:
-    print("\nNo token-looking names found. That is a real discrepancy, not a filtering "
-          "mistake, and it belongs in the notes as such.")
+print("\nVERDICT: " + ("check [15] works" if fired else
+                       "check [15] did NOT fire -- it is decorative, fix it"))
+print("file restored byte-for-byte: %s"
+      % (io.open(TARGET, encoding="utf-8").read() == original))

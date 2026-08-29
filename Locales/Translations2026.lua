@@ -36,9 +36,14 @@ local function fill(code, patch)
 	end
 	local en = ns._mhLocales and ns._mhLocales.enUS
 	for k, v in pairs(patch) do
-		local cur = t[k]
-		if cur == nil or (type(en) == "table" and cur == en[k]) then
-			t[k] = v
+		-- ⚠️ AND A KEY THAT IS ENGLISH ON PURPOSE IS NOT A PLACEHOLDER. The test above cannot
+		-- tell those apart, so intent is declared in Locales/KeepEnglish.lua instead: itIT
+		-- kept "Veteran of the Dawn" correctly and this fill used to overwrite it.
+		if not (ns.IsKeepEnglishKey and ns.IsKeepEnglishKey(k)) then
+			local cur = t[k]
+			if cur == nil or (type(en) == "table" and cur == en[k]) then
+				t[k] = v
+			end
 		end
 	end
 end
@@ -7370,10 +7375,10 @@ fill("itIT", {
 	CURRENCY_QM_COURT = "Corte di Lunargenta",
 	CURRENCY_QM_SINGULARITY = "Singolarità",
 	DAWNCREST_ACH_ADVENTURER = "Avventuriero dell'Alba",
-	DAWNCREST_ACH_CHAMPION = "Campione dell'alba",
-	DAWNCREST_ACH_HERO = "Eroe dell'Alba",
+	DAWNCREST_ACH_CHAMPION = "Champion of the Dawn",
+	DAWNCREST_ACH_HERO = "Hero of the Dawn",
 	DAWNCREST_ACH_MYTH = "Mito dell'Alba",
-	DAWNCREST_ACH_VETERAN = "Veterano dell'Alba",
+	DAWNCREST_ACH_VETERAN = "Veteran of the Dawn",
 	DAWNCREST_TIER_MYTH = "Mito",
 	DAWNCREST_TIER_VETERAN = "Veterano",
 	DELVES_CURRENCY_BOUNTIES = "Bottini: %d",
