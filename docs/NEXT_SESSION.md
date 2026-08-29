@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## ⚠️ 29 aug — de "other continent"-chatregel is ONGEVERIFIEERD, en kleiner dan gedacht
+
+De zin staat nu in de chat in plaats van op het pijllabel (dat bij TomTom-gebruikers nooit
+getekend wordt). Dat gat was echt. **Maar hij is niet in het wild gezien, en dat kan even
+duren.**
+
+Rob startte 29 aug een route naar The Ring of Glory op The Coiled Isle, staand in Silvermoon.
+Uitkomst: het reisplan loste het cross-continent-geval **zelf op** — het reisadvies zei *"Take
+the Portal to The Coiled Isle — faster than flying"* en de route publiceerde daarna **de
+portal** als doel, op map 2393. Zelfde continent, dus `AnnounceUnreachable` zweeg terecht.
+
+🔴 **Dus de melding is een terugval, geen hoofdweg.** In het normale geval doet het reisplan
+het werk en zegt het reisadvies al wat de speler moet doen. Mijn samenvatting van die middag
+suggereerde dat dit een veelvoorkomend gat was; dat klopte niet.
+
+⚠️ **Niet gaan zoeken naar een geval om het te bewijzen.** Hij vuurt als een route een doel
+publiceert op een ander continent waarvoor géén reisplan-stap op de eigen kaart bestaat. Komt
+dat langs, dan zie je één chatregel. Zo niet, dan doet het reisplan zijn werk — en dat is de
+betere uitkomst.
+
 ## ✅ 29 aug — beide sporen grotendeels af
 
 **Spoor A: de tier-tabellen zijn weg.** `TierSet.lua` leest de set van het stuk dat je draagt:
