@@ -309,8 +309,18 @@ local function BodyText()
 		lines[#lines + 1] = "|cff9aa0a8" .. ns:L("TIER_SET_UNKNOWN") .. "|r"
 	end
 
-	lines[#lines + 1] = " "
-	lines[#lines + 1] = "|cff9aa0a8" .. ns:L("TIER_FOOTER") .. "|r"
+	--- ⚠️ THE FOOTER ONLY MAKES SENSE WHEN THERE IS A SET ABOVE IT. Rob, 29 aug, on his
+	--- Shadow Priest: the page correctly said "put on one tier piece and this fills itself
+	--- in" and then, two lines down, "The set above is read from the piece you are wearing"
+	--- — about a set that was not there. Worse, the two sentences say the same thing, so the
+	--- one case with nothing to show got the explanation twice and the subject once.
+	---
+	--- TIER_SET_UNKNOWN already carries the mechanism ("we read your set off the gear you are
+	--- wearing"), so with no set on there is nothing left for a footnote to add.
+	if worn then
+		lines[#lines + 1] = " "
+		lines[#lines + 1] = "|cff9aa0a8" .. ns:L("TIER_FOOTER") .. "|r"
+	end
 
 	return table.concat(lines, "|n")
 end
