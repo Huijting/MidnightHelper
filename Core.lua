@@ -1199,6 +1199,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh tierread — wat is er van een GEDRAGEN setstuk af te lezen? Beslist of
+	-- TierSetData.lua's twee tabellen kunnen verdwijnen.
+	if msg == "tierread" then
+		if ns.PrintTierReadProbe then
+			ns.PrintTierReadProbe()
+		end
+		return
+	end
+
 	-- /mh setline [itemID] — werkt ReadItemSetLine? Positieve én negatieve controle in één
 	-- run, want een lezer die overal "nee" op zegt ziet er hetzelfde uit als een juiste "nee".
 	if msg == "setline" or msg:match("^setline%s") then
