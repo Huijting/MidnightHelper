@@ -345,7 +345,24 @@ DELVE_STORY` antwoordt "geen strings gevonden" terwijl er 48 zijn. Echte gaten d
 77 commits boven `v3.4.0`. De vijf talen zijn af, Valeera's voortgang in delves, portaal-
 bewust reisadvies. Description bijgewerkt. Linter 0/0.
 
-## 🔵 25 aug — GEVRAAGD DOOR ROB: een route langs ÁLLE rares, niet alleen de openstaande
+## ❌ GESLOTEN 29 aug — de "alle rares"-route wordt NIET gebouwd, en dat is het goede nieuws
+
+**Rob, 29 aug, op de vraag hieronder:** *"nee je krijgt niet weer die shards als je hem deze
+week al een keer gekilled hebt."*
+
+Daarmee valt de knop weg. Een route langs **alle** rares zou je langs spawns sturen die deze
+week niets meer opleveren; de bestaande knop — die alleen de nog niet afgevinkte rares
+aandoet — deed dus al precies het juiste. Ons wekelijkse filter is voor dit doel niet het
+verkeerde maar het enige juiste.
+
+📌 **Niet opnieuw voorstellen.** Dit is geen "nog niet gedaan" maar een beantwoorde vraag: de
+feature is afgewezen op een meting van de speler, niet op onze inschatting. De kosten waren
+één vraag; het bouwen was klein geweest maar het resultaat had actief slechter advies gegeven
+dan wat er al stond.
+
+<details><summary>De oorspronkelijke opdracht en de redenering (voor herhaling)</summary>
+
+### 25 aug — GEVRAAGD DOOR ROB: een route langs ÁLLE rares, niet alleen de openstaande
 
 Rob wil **Coffer Key Shards** farmen door rares te killen. De bestaande routeknop stuurt hem
 alleen langs rares die nog **niet** afgevinkt zijn (`FindNearestIncompleteRare`,
@@ -362,6 +379,8 @@ De vraag is dus niet "kunnen we het bouwen" (dat is klein — hetzelfde routepad
 uit) maar: **geeft een rare die je deze week al gekild hebt nog shards?** Rob weet dat sneller
 dan wij het kunnen afleiden; vraag het hem. Zegt hij ja, dan is de knop meteen terecht en is
 ons filter voor dit doel gewoon het verkeerde.
+
+</details>
 
 ## ✅ 25 aug — de vierde Collegiate-variant, en waarom onze lijst het verloor van de client
 

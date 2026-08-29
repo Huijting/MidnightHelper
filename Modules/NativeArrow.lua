@@ -471,9 +471,11 @@ local function UpdateArrow()
 		lastLabelName, lastLabelVal, lastLabelUnit = nil, nil, nil -- invalidate label cache
 		return
 	end
+	-- (the same verdict is also said in chat — see AnnounceUnreachable)
 	local pwx, pwy = PlayerWorld()
 	-- Target is stationary: recompute its world coords only when the lead changes.
 	local tkey = TargetKey(t)
+	-- (see AnnounceUnreachable below — the same verdict, said where everyone can hear it)
 	if tkey ~= leadWorldKey then
 		leadWorldKey = tkey
 		leadWx, leadWy = MapToWorld(t.mapID, (t.x or 0) / 100, (t.y or 0) / 100)
@@ -684,6 +686,78 @@ local function HideArrow()
 	end
 end
 
+--- Say "that is not on this continent, go here first" in CHAT, once per target.
+---
+--- 🔴 THE ARROW'S LABEL IS NOT A CHANNEL. It only exists while we draw, and we stand down
+--- for TomTom — which Rob and most of his testers run. So the one instruction this branch
+--- produces has never reached them, and a fix to that branch on 24 aug looked "inert" for
+--- five days because the branch was not running. Chat cannot be taken away by another addon.
+--- Third instance of the rule CLAUDE.md added on 19 aug for the rare arrival hints.
+---
+--- ⚠️ ONCE PER TARGET, or it becomes noise. The driver runs on a timer; without the key
+--- guard this would repeat every tick and teach the player to ignore our chat entirely.
+---
+--- ⚠️ NOT FROM INSIDE AN INSTANCE. A delve's map has no continent relationship to anything
+--- outdoors, so "other continent" in there is invented rather than measured — the label
+--- learned that on 19 aug and says "leave first" instead. In chat the honest move is to say
+--- nothing at all: the player already knows they are indoors.
+local announcedUnreachableKey
+local function AnnounceUnreachable(t)
+	if not (t and t.mapID) then
+		announcedUnreachableKey = nil
+		return
+	end
+	if IsInInstance and select(1, IsInInstance()) then
+		return
+	end
+	local key = TargetKey(t)
+	if key == announcedUnreachableKey then
+		return
+	end
+
+	local pmap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	local pc, tc = MapContinent(pmap), MapContinent(t.mapID)
+	if not (pmap and pc and tc and pc ~= tc) then
+		return
+	end
+	-- Silvermoon City sits inside Eversong Woods and reports a different continent; that
+	-- is a walk, not a flight. Same guard the label uses.
+	if OneContainsTheOther(pmap, t.mapID) then
+		return
+	end
+
+	-- Where to go FIRST: the travel plan's opening step, or the destination's flight point.
+	local aim
+	if ns.BuildTravelPlan then
+		local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
+		if okP and type(steps) == "table" then
+			for _, s in ipairs(steps) do
+				if s.kind ~= "arrive" and s.label then
+					aim = s.localized and ns:L(s.label) or s.label
+					break
+				end
+			end
+		end
+	end
+	if not aim and ns.GetNearestFlightPoint then
+		local ok, fp = pcall(ns.GetNearestFlightPoint, t.mapID, t.x, t.y)
+		if ok and type(fp) == "string" and fp:find("%w") then
+			aim = fp
+		end
+	end
+
+	announcedUnreachableKey = key
+	local name = t.name or "?"
+	local msg = aim
+		and (ns:L("ARROW_CHAT_TRAVEL")):format(name, aim)
+		or (ns:L("ARROW_CHAT_TRAVEL_NOAIM")):format(name)
+	if ns.PrintChat then
+		ns:PrintChat(msg)
+	else
+		print(("|cffffcc00%s|r %s"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH", msg))
+	end
+end
+
 -- Public: live resize from the Settings slider (or /mh arrowsize). Persists.
 function ns.SetNativeArrowSize(px)
 	px = tonumber(px)
@@ -812,6 +886,19 @@ local function Tick()
 		HideArrow()
 		return
 	end
+
+	--- 🔴 SAY IT BEFORE STANDING DOWN, because the label nobody sees is not an answer.
+	---
+	--- "(other continent — travel back) head for X" is a real instruction, and it lived
+	--- only on our arrow's label. Rob runs TomTom, so we hide the arrow four lines below
+	--- and that sentence has never reached him -- nor any of his testers, who mostly run
+	--- TomTom too. It is why the containment fix of 24 aug looked inert for five days: the
+	--- branch it repaired was not running.
+	---
+	--- CLAUDE.md has said since 19 aug not to hang information on the arrow's label, after
+	--- exactly this happened to the rare arrival hints. This is the third time, so the
+	--- sentence moves to chat, which no other addon can take away.
+	AnnounceUnreachable(activeLead)
 
 	if not ShouldDriveNative() then
 		HideArrow() -- TomTom's crazy arrow is doing the job; stand down.
