@@ -30,6 +30,30 @@ steeds één poging, want anders kunnen we nooit ontdekken dat de deur weer open
 moest `cleuAllowed` ook build-gebonden worden — een succes uit 12.0.7 zou op 12.1 hebben
 beweerd dat het werkt, en dan bleef hij eeuwig doorproberen.
 
+## 🔨 MORGEN BOUWEN — het consumables-bord moet kunnen VRAGEN, niet alleen ontvangen
+
+Rob, 29 aug, in een Timewalking dungeon met Cisca én Carola die allebei MH draaien: **één rij
+op het bord**, de zijne. Geen bug in de zin dat er iets stuk is — het is hoe het gebouwd is,
+en dat ontwerp leunt volledig op timing.
+
+**Hoe het nu werkt** (`ConsumableReadyComms.lua`): iedereen zendt zijn tellingen **uit
+zichzelf** bij `GROUP_ROSTER_UPDATE` en `PLAYER_ENTERING_WORLD`, met 1s vertraging en een
+3s-throttle (regel 176-183). Verder gebeurt er niets. Er wordt nooit *gevraagd*.
+
+🔴 **Wie op dat moment in een laadscherm zit, mist het bericht definitief.** Addon-berichten
+worden niet bewaard, en niets vraagt er later opnieuw om. Robs eigen rij staat er wél, want
+die leest live uit zijn tassen — vandaar precies één rij.
+
+**De reparatie:** het protocol kent al `PROTO|cmd:show` (regel 214). Daar hoort een
+`cmd:req` naast: zodra het bord opengaat, vraagt je client de groep om opnieuw te sturen.
+Ontvangers antwoorden met hun gewone payload. ⚠️ Wel throttlen — `lastSend` staat op 3s, en
+een verzoek mag die niet omzeilen, anders bouwt vijf man samen een stormpje.
+
+📌 **Eerst Robs test afwachten:** laat Cisca `/reload` doen terwijl ze in de groep zit. Dat
+vuurt bij haar `PLAYER_ENTERING_WORLD` en haar regel hoort dan alsnog te verschijnen. Doet hij
+dat, dan is de diagnose bevestigd; doet hij dat niet, dan is het iets anders en klopt dit hele
+plan niet.
+
 ## 🔵 OPEN 29 aug — de SMC-pin zet TWEE waypoints, plus één die niemand vroeg
 
 Rob klikte de pin "Portal to The Coiled Isle". Zijn chat, in deze volgorde:
