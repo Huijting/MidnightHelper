@@ -162,6 +162,51 @@ local function RememberBlocked(diffID)
 	end
 end
 
+--- 🔴 STOP TRYING ONCE THIS BUILD HAS PROVEN CLOSED. Rob, 29 aug 2026, option B.
+---
+--- Remembering refusals per difficulty ended the per-session spam for a difficulty we had
+--- already met, and it still costs one visible ADDON_ACTION_FORBIDDEN for every NEW one —
+--- Timewalking was the twenty-third session, on a difficulty this table had not seen.
+---
+--- The measurement that settles it is in his SavedVariables: `cleuBlockedDiff` holds a
+--- refusal for build 120100 and `cleuAllowed` is **empty**. Registration has not succeeded
+--- once on this build, in any instance, at any difficulty. That matches what was measured on
+--- 5 aug — the combat log is closed to every addon on Midnight, DBM included.
+---
+--- So the question stops being "which difficulties refuse us" and becomes "does this build
+--- allow it at all". One refusal with zero successes answers it, and every further attempt
+--- buys nothing but another error in the player's log.
+---
+--- ⚠️ NOT PERMANENT, and that is the whole point. Both tables are keyed on the interface
+--- build, so a patch wipes them and we measure again from scratch. And the very first
+--- refusal on a new build still costs one attempt — without it we could never discover that
+--- a patch reopened the door.
+local function PersistedAllowed()
+	if not ns.db then
+		return nil
+	end
+	local build = (GetBuildInfo and select(4, GetBuildInfo())) or 0
+	local t = ns.db.cleuAllowed
+	-- ⚠️ Rebuilt when the build differs: a success recorded on 12.0.7 says nothing about
+	-- 12.1, and carrying it over would keep us trying forever on the strength of old news.
+	if type(t) ~= "table" or t.build ~= build then
+		t = { build = build, diffs = {} }
+		ns.db.cleuAllowed = t
+	end
+	t.diffs = t.diffs or {}
+	return t
+end
+
+--- @return boolean true when this build has refused us and never once allowed us
+local function CLEUProvenClosedThisBuild()
+	local blocked = PersistedBlocked()
+	local allowed = PersistedAllowed()
+	if not (blocked and allowed) then
+		return false
+	end
+	return next(blocked.diffs) ~= nil and next(allowed.diffs) == nil
+end
+
 local function inTrackedInstance()
 	if not (IsInInstance and GetInstanceInfo) then
 		return false
@@ -530,6 +575,13 @@ end
 local function DoClogRegistration()
 	local want = not cleuBlocked and autoEnabled() and inTrackedInstance()
 	if want and not clogOn then
+		--- ⚠️ SILENTLY, and on purpose. A player who has met this once does not need a line
+		--- about it in every instance for the rest of the patch; `/mh death` says it on
+		--- demand instead. The one thing that must not happen is another RegisterEvent.
+		if CLEUProvenClosedThisBuild() then
+			cleuBlocked = true
+			return
+		end
 		if clogAttempts >= MAX_CLOG_ATTEMPTS then
 			StandDownCLEU("attempt cap reached")
 			return
@@ -546,13 +598,13 @@ local function DoClogRegistration()
 			-- The other half of the comparison. A refusal log alone cannot tell us
 			-- whether HasSecretRestrictions() distinguishes anything -- we need its
 			-- value where registration SUCCEEDS too. One row per instance is enough.
-			if ns.db then
+			local allowed = PersistedAllowed()
+			if allowed then
 				local okI, iname, itype, diffID = pcall(GetInstanceInfo)
 				local okFlag, flag = pcall(function()
 					return C_Secrets and C_Secrets.HasSecretRestrictions and C_Secrets.HasSecretRestrictions()
 				end)
-				ns.db.cleuAllowed = ns.db.cleuAllowed or {}
-				ns.db.cleuAllowed[tostring(okI and diffID or "?")] = {
+				allowed.diffs[tostring(okI and diffID or "?")] = {
 					instance = tostring(okI and iname or "?"),
 					itype = tostring(okI and itype or "?"),
 					hasSecretRestrictions = okFlag and tostring(flag) or "error",
@@ -761,6 +813,24 @@ function ns.PrintDeathRecapDiagnostics()
 			#kept > 0 and table.concat(kept, ", ") or "none",
 			#kept > 0 and "  |cff8a8f98(cleared by the next patch, or /mh death reset)|r" or ""
 		))
+	end
+	-- 🔴 The stand-down that says nothing in play has to say it here, or "we stopped trying"
+	-- and "it silently broke" look identical from outside — the failure this file exists to
+	-- prevent. Both halves of the verdict are printed, not just the conclusion.
+	do
+		local allowed = PersistedAllowed()
+		local n = 0
+		if allowed then
+			for _ in pairs(allowed.diffs) do
+				n = n + 1
+			end
+		end
+		print(("   registrations that SUCCEEDED on this build: %d"):format(n))
+		if CLEUProvenClosedThisBuild() then
+			print("   |cffff9040Not attempting at all on this build.|r Refused at least once, "
+				.. "never once allowed — so every further attempt would only add an error to "
+				.. "your log. |cff8a8f98A patch clears this and we measure again.|r")
+		end
 	end
 	print(("   damage-buffer entries: %d"):format(#dmgRing))
 	for i = 1, #dmgRing do

@@ -1,5 +1,35 @@
 # Midnight Helper — waar we staan
 
+## ✅ 29 aug — CLEU: we proberen het niet meer op deze build. Bevestigd in het wild.
+
+**Na 3.7.1**, dus dit zit in de VOLGENDE release. Rob liep een Timewalking dungeon in en kreeg
+`ADDON_ACTION_FORBIDDEN` uit `Retrospective.lua:538` — 23 sessies inmiddels. Zijn keuze
+(optie B): stoppen met proberen zolang deze build geen enkele registratie heeft toegelaten.
+
+**Wat de meting in zijn SavedVariables zei:** `cleuBlockedDiff` had weigeringen op build
+120100 en **`cleuAllowed` was leeg**. Nul successen, waar dan ook.
+
+🔴 **En zijn `/mh death`-uitdraai maakt het model definitief onjuist**, niet alleen omslachtig:
+
+| instance | difficulty |
+|---|---|
+| Zul'Farrak · Shattered Halls · Forge of Souls | 24 (Timewalking) |
+| **Windrunner Spire** | **1 (Normal)** |
+| The Venomous Abyss | 17 (Looking For Raid) |
+
+Difficulty **1** is een doodgewone dungeon. Het is dus geen eigenschap van bepaalde content —
+de combat log is dicht, punt. Het per-difficulty-geheugen kon dat nooit goed modelleren; het
+kostte één zichtbare fout per nieuwe difficulty en er zijn er blijkbaar veel.
+
+✅ **In het wild bevestigd:** direct erna nog een Timewalking dungeon, **geen melding meer**.
+`/mh death` toont "registrations that SUCCEEDED on this build: 0" plus de stand-down-regel.
+
+📌 **Twee dingen die de reparatie veilig maken.** De grendel hangt aan het **buildnummer**, dus
+een patch wist hem en we meten opnieuw; en de eerste weigering op een nieuwe build kost nog
+steeds één poging, want anders kunnen we nooit ontdekken dat de deur weer open is. ⚠️ Daarvoor
+moest `cleuAllowed` ook build-gebonden worden — een succes uit 12.0.7 zou op 12.1 hebben
+beweerd dat het werkt, en dan bleef hij eeuwig doorproberen.
+
 ## 🔵 OPEN 29 aug — de SMC-pin zet TWEE waypoints, plus één die niemand vroeg
 
 Rob klikte de pin "Portal to The Coiled Isle". Zijn chat, in deze volgorde:
