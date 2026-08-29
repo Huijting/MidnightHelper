@@ -333,7 +333,37 @@ en een "bewijs" dat 1170 fills dood waren — `fill()` overschrijft juist wél e
 gelijk is aan het Engels). `locale_probe.lua` sprak hem elke keer tegen en had elke keer
 gelijk. Vandaar de nieuwe `--dump`-modus: de checker vraagt het de loader.
 
-⚠️ **Nog open in de vertaalhoek:** `tools/translation_todo.py` leest alleen `Locales/enUS.lua`
+## ✅ 29 aug — `translation_todo.py` is niet meer blind, en "twee getallen" is deels verklaard
+
+**De blinde vlek is weg.** De tool haalde zijn key-lijst uit één bestand met een tab-patroon
+(`^\t KEY = "..."`), dus elf merge-bestanden vielen buiten beeld. Nu vraagt hij het de
+**loader** (`locale_probe.lua --dump`), net als de drift-checker. Bewijs: `--prefix
+DELVE_STORY` gaf "geen strings gevonden" en geeft nu **48**. De `--since`-modus diff't ook
+niet langer alleen `enUS.lua` maar de hele `Locales/`-map.
+
+📌 Geen vierde statische parser gebouwd — CLAUDE.md houdt bij dat er al drie zelfverzekerd
+fout zaten en dat `locale_probe.lua` ze alle drie tegensprak en gelijk had.
+
+### Wat het verschil in de tellingen blijkt te zijn
+
+Loader: **3501**. Keys die ergens letterlijk uitgeschreven staan: **3498**. Het verschil is
+uitgezocht in plaats van vermoed:
+
+- ➕ **9 keys bestaan alleen op runtime:** `LOCALE_NAME_deDE` t/m `LOCALE_NAME_zhTW` worden
+  in een lus gebouwd. **Geen enkele statische parser kan die zien** — de loader heeft gelijk
+  en de linter kan er niets aan doen. Dit is geen bug maar een grens.
+- ➖ **4 dode keys:** `LANG_ROW_ES_TOOLTIP`, `LANG_ROW_FR_TOOLTIP`, `LANG_ROW_PT_TOOLTIP`
+  (esES/ptBR) en `PGUIDE_BTN_WOWHEAD` (TranslationsS2, vier talen). Ze staan in de packs,
+  bereiken enUS niet, en worden **nergens opgevraagd** — gecontroleerd over Modules, Core,
+  UI en Config. ⚠️ **Bewust niet verwijderd:** `PGUIDE_BTN_WOWHEAD` draagt vier vertalingen,
+  en die weggooien is een beslissing voor Rob, niet voor een opruimbeurt.
+
+⚠️ **Eerlijk over wat NIET verklaard is:** de linter meldt 3476 waar de loader 3501 ziet, een
+gat van 25. Hiervan zijn de 9 runtime-keys verklaard; de resterende ~16 niet. De linter past
+eigen context-regels toe (merge/fill-blokken per taal) en telt dus iets net anders dan de
+loader. Niet verder uitgezocht — het is een rapportageverschil, geen speler die iets fout ziet.
+
+⚠️ **Nog open in de vertaalhoek:** ~~`tools/translation_todo.py` leest alleen `Locales/enUS.lua`~~
 (regel 105) en is dus blind voor **901 enUS-keys in elf merge-bestanden** — `--prefix
 DELVE_STORY` antwoordt "geen strings gevonden" terwijl er 48 zijn. Echte gaten daarin: de
 **48 delve-verhalen** van 25 aug (alleen enUS+nlNL) plus `FOLLOWER_BOSSHINT_TITLE` en

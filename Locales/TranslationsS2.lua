@@ -21,7 +21,7 @@ local function fill(code, patch)
 	for k, v in pairs(patch) do
 		-- Same guard as Translations2026: a key declared in Locales/KeepEnglish.lua is
 		-- English on purpose, not a placeholder waiting to be filled.
-		if not (ns.IsKeepEnglishKey and ns.IsKeepEnglishKey(k)) then
+		if not (ns.IsKeepEnglishFor and ns.IsKeepEnglishFor(code, k)) then
 			local cur = t[k]
 			if cur == nil or (type(en) == "table" and cur == en[k]) then t[k] = v end
 		end

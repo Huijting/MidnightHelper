@@ -907,17 +907,35 @@ def check_keep_english(root):
         return hits
     with open(keep_path, "r", encoding="utf-8", errors="replace") as fh:
         keep_src = fh.read()
-    # Keys of ns.KEEP_ENGLISH: `KEY = "why",` inside the table, comments skipped.
-    keep = set()
+    # Two tables, and the second is the one Carola's case needs: ns.KEEP_ENGLISH holds keys
+    # Blizzard owns in EVERY language, ns.KEEP_ENGLISH_FOR holds ones settled per language
+    # (crest ranks are English in nlNL because there is no Dutch client, and an open question
+    # in esES/ptBR/itIT — so those are absent rather than guessed).
+    keep, keep_for = set(), {}
+    cur = None
     for line in keep_src.splitlines():
         s = line.strip()
         if s.startswith("--"):
             continue
-        m = re.match(r'([A-Z][A-Z0-9_]+)\s*=\s*"', s)
+        if re.match(r'ns\.KEEP_ENGLISH\s*=', s):
+            cur = "__global__"
+            continue
+        if re.match(r'ns\.KEEP_ENGLISH_FOR\s*=', s):
+            cur = None
+            continue
+        m = re.match(r'([a-z]{2}[A-Z]{2})\s*=\s*\{', s)
         if m:
-            keep.add(m.group(1))
-    if not keep:
+            cur = m.group(1)
+            continue
+        m = re.match(r'([A-Z][A-Z0-9_]+)\s*=\s*"', s)
+        if m and cur:
+            if cur == "__global__":
+                keep.add(m.group(1))
+            else:
+                keep_for.setdefault(cur, set()).add(m.group(1))
+    if not keep and not keep_for:
         return hits
+    every = keep | set().union(*keep_for.values()) if keep_for else set(keep)
 
     def literals(fn):
         out = {}
@@ -930,7 +948,7 @@ def check_keep_english(root):
                     continue
                 m = re.match(r'\s*\[?"?([A-Za-z0-9_]+)"?\]?\s*=\s*"((?:[^"\\]|\\.)*)"',
                              line)
-                if m and m.group(1) in keep:
+                if m and m.group(1) in every:
                     out.setdefault(m.group(1), []).append((ln, m.group(2)))
         return out
 
@@ -938,9 +956,19 @@ def check_keep_english(root):
     for fn in sorted(os.listdir(loc)):
         if not fn.endswith(".lua") or fn in ("enUS.lua", "KeepEnglish.lua"):
             continue
+        # A pack file is that language; a fill file carries every language, and the whole
+        # point of the per-language table is that the answer differs, so a fill file is only
+        # judged against the global list.
+        m = re.match(r'^([a-z]{2}[A-Z]{2})\.lua$', fn)
+        file_lang = m.group(1) if m else None
         for key, rows in literals(fn).items():
             want = english.get(key)
             if want is None:
+                continue
+            applies = key in keep
+            if not applies and file_lang:
+                applies = key in keep_for.get(file_lang, ())
+            if not applies:
                 continue
             for ln, got in rows:
                 if got != want:

@@ -39,7 +39,7 @@ local function fill(code, patch)
 		-- ⚠️ AND A KEY THAT IS ENGLISH ON PURPOSE IS NOT A PLACEHOLDER. The test above cannot
 		-- tell those apart, so intent is declared in Locales/KeepEnglish.lua instead: itIT
 		-- kept "Veteran of the Dawn" correctly and this fill used to overwrite it.
-		if not (ns.IsKeepEnglishKey and ns.IsKeepEnglishKey(k)) then
+		if not (ns.IsKeepEnglishFor and ns.IsKeepEnglishFor(code, k)) then
 			local cur = t[k]
 			if cur == nil or (type(en) == "table" and cur == en[k]) then
 				t[k] = v

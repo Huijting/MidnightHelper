@@ -39,8 +39,46 @@ ns.KEEP_ENGLISH = {
 	DAWNCREST_ACH_HERO = "achievement name (Blizzard's own title)",
 }
 
+--- 🔴 AND THE PER-LANGUAGE HALF, which the global table above deliberately cannot express.
+---
+--- Crest ranks are the case. There is no Dutch WoW client, so a Dutch player always reads
+--- "Champion Crest" and translating it names something that exists on no screen — Carola
+--- went looking for "Kampioen crest" on 28 aug and found nothing. German and French are real
+--- client languages where translating may be exactly right, and both already keep "Champion"
+--- anyway. One global list cannot hold both answers, so this one is keyed by language.
+---
+--- ⚠️ Only languages whose answer is SETTLED belong here. esES, ptBR and itIT translate these
+--- ranks today and nobody has checked what their clients show; that question is open and goes
+--- to #translations, so they are absent rather than guessed at.
+ns.KEEP_ENGLISH_FOR = {
+	nlNL = {
+		-- ⚠️ DAWNCREST_TIER_ADVENTURER IS DELIBERATELY ABSENT, and the gap is the point.
+		-- It reads "Adventurer (green)" — a name Blizzard owns AND a clarifier we added
+		-- ourselves. The name must stay English; the clarifier follows the language, which
+		-- is why nlNL says "Adventurer (groen)". This mechanism guards WHOLE strings, so it
+		-- cannot express "this half only", and adding the key made check [15] fire on a
+		-- value that is correct. Weakening the check to a substring test would let
+		-- "Avonturier (groen)" through everywhere, which is worse.
+		-- The real fix is to split the label from the clarifier into two keys. Rob's call,
+		-- because it is his Dutch and the other four ranks carry no parenthetical at all.
+		DAWNCREST_TIER_VETERAN = "no Dutch client: the game says Veteran",
+		DAWNCREST_TIER_CHAMPION = "no Dutch client: the game says Champion",
+		DAWNCREST_TIER_HERO = "no Dutch client: the game says Hero",
+		DAWNCREST_TIER_MYTH = "no Dutch client: the game says Myth",
+	},
+}
+
 --- Shared by both fill files, so the rule cannot hold in one and lapse in the other.
 --- @return boolean true when this key must not be written by a fill
 function ns.IsKeepEnglishKey(key)
 	return ns.KEEP_ENGLISH ~= nil and ns.KEEP_ENGLISH[key] ~= nil
+end
+
+--- @return boolean true when this key must stay English in THIS language specifically
+function ns.IsKeepEnglishFor(code, key)
+	if ns.IsKeepEnglishKey(key) then
+		return true
+	end
+	local per = ns.KEEP_ENGLISH_FOR and ns.KEEP_ENGLISH_FOR[code]
+	return per ~= nil and per[key] ~= nil
 end

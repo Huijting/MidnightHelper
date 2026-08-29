@@ -102,8 +102,52 @@ ap.add_argument("--text", action="store_true")
 args = ap.parse_args()
 
 # ---------------------------------------------------------------- pending keys
-en = io.open(os.path.join(REPO, "Locales/enUS.lua"), encoding="utf-8").read()
-strings = dict(re.findall(r'^\t([A-Z][A-Z0-9_]+)\s*=\s*"((?:[^"\\]|\\.)*)"', en, re.M))
+#
+# 🔴 THE KEY LIST USED TO COME FROM ONE FILE, AND THAT WAS THE SECOND TIME THIS TOOL LIED.
+#
+# It read Locales/enUS.lua and matched `^\t KEY = "..."`. Everything else was invisible:
+# eleven merge files (DelveTips, DelveStories, Codex, RitualTips, RaidTips, MythicPlus,
+# StartHere, DungeonGuide, SettingsPage, DungeonTips, OmniumFolio, ConsumablesNotes) define
+# enUS strings too, and any key indented differently fell out as well. Measured 26 aug:
+# 901 enUS keys were out of scope, so `--prefix DELVE_STORY` answered "no strings found"
+# while there were 48 of them -- including the 48 delve stories that exist in enUS and nlNL
+# only. Two counts for the same number came from the same blind spot: lint_addon.py [5] saw
+# 3421 keys where the loader saw 3446.
+#
+# The header above already says this tool must ask the resolver rather than count. The
+# resolution half did; the SCOPE half still counted, in a file. So both halves ask now.
+#
+# ⚠️ Deliberately not a fourth parser. CLAUDE.md records three static parsers that each gave
+# a confidently wrong answer here, and locale_probe.lua contradicted every one of them and
+# was right every time. Same --dump the drift checker uses.
+def _english_from_loader():
+    """{key: english text} exactly as the client would load it, merge files included."""
+    exe = shutil.which("lua") or shutil.which("lua5.1") or shutil.which("lua54")
+    if not exe:
+        raise SystemExit(
+            "No Lua interpreter on PATH, so the loader cannot be asked for the key list.\n"
+            "Deliberately NOT falling back to reading enUS.lua: that is the blind spot\n"
+            "this replaced, and a confident wrong scope is worse than no answer.")
+    p = subprocess.run([exe, "tools/locale_probe.lua", "--dump"], cwd=REPO,
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+    if p.returncode != 0:
+        raise SystemExit("locale_probe.lua --dump failed:\n" + (p.stderr or ""))
+    out = {}
+    for line in p.stdout.splitlines():
+        parts = line.split("\t")
+        if len(parts) != 3:
+            continue
+        code, key, val = parts
+        if code != "enUS":
+            continue
+        out[key] = val.replace("\\t", "\t").replace("\\n", "\n").replace("\\\\", "\\")
+    if not out:
+        raise SystemExit("The dump contained no enUS at all. That is a broken instrument, "
+                         "not an empty answer.")
+    return out
+
+
+strings = _english_from_loader()
 
 if args.prefix:
     # ⚠️ Finishing an AREA, not a release. The --since question only ever sees strings
@@ -114,19 +158,66 @@ if args.prefix:
     pending = sorted(k for k in strings if k.startswith(pres))
     scope = "matching " + ", ".join(pres)
 else:
+    # ⚠️ EVERY locale file, not just enUS.lua -- a string added to Codex.lua or DelveTips.lua
+    # is exactly as untranslated as one added to the main pack, and the old single-file diff
+    # could never see it. The leading-tab requirement is gone for the same reason.
     diff = subprocess.run(
-        ["git", "-C", REPO, "diff", args.since + "..HEAD", "--", "Locales/enUS.lua"],
+        ["git", "-C", REPO, "diff", args.since + "..HEAD", "--", "Locales"],
         capture_output=True, text=True, encoding="utf-8", errors="replace").stdout
     added = []
     for line in diff.splitlines():
-        m = re.match(r'\+\t([A-Z][A-Z0-9_]+)\s*=', line)
-        if m and not line.startswith("+++"):
+        if line.startswith("+++"):
+            continue
+        m = re.match(r'\+\s*\[?"?([A-Z][A-Z0-9_]+)"?\]?\s*=\s*"', line)
+        if m:
             added.append(m.group(1))
-    pending = list(dict.fromkeys(added))
+    # A key only counts if the loader actually has it in enUS: a diff hunk can name a key
+    # that was later renamed or removed, and reporting that as work to do is noise.
+    pending = [k for k in dict.fromkeys(added) if k in strings]
     scope = "changed since " + args.since
 
 # CHANGELOG_* stays English on purpose (CLAUDE.md), so it is not work.
 pending = [k for k in pending if not k.startswith("CHANGELOG_")]
+
+
+# ---------------------------------------------------------------- deliberately English
+# 🔴 A KEY THAT IS ENGLISH ON PURPOSE IS NOT DEBT, and a list that says it is gets ignored.
+# Locales/KeepEnglish.lua records both halves: keys Blizzard owns in every language
+# (achievement titles), and keys settled per language (crest ranks are English in nlNL
+# because there is no Dutch client). Without this the tool reported the three Dawn
+# achievements as TODO in all six packs on the very day they were deliberately reverted.
+def _keep_english():
+    """(global set, {lang: set}) straight out of the Lua table."""
+    path = os.path.join(REPO, "Locales", "KeepEnglish.lua")
+    glob, per = set(), {}
+    if not os.path.isfile(path):
+        return glob, per
+    cur = None
+    for line in io.open(path, encoding="utf-8", errors="replace"):
+        s = line.strip()
+        if s.startswith("--"):
+            continue
+        if re.match(r'ns\.KEEP_ENGLISH\s*=', s):
+            cur = "__global__"
+            continue
+        if re.match(r'ns\.KEEP_ENGLISH_FOR\s*=', s):
+            cur = None
+            continue
+        m = re.match(r'([a-z]{2}[A-Z]{2})\s*=\s*\{', s)
+        if m:
+            cur = m.group(1)
+            continue
+        m = re.match(r'([A-Z][A-Z0-9_]+)\s*=\s*"', s)
+        if m and cur:
+            if cur == "__global__":
+                glob.add(m.group(1))
+            else:
+                per.setdefault(cur, set()).add(m.group(1))
+    return glob, per
+
+
+KEEP_GLOBAL, KEEP_PER_LANG = _keep_english()
+pending = [k for k in pending if k not in KEEP_GLOBAL]
 if not pending:
     raise SystemExit("No strings " + scope + ".")
 
@@ -164,6 +255,9 @@ print("Strings {}: {}\n".format(scope, len(pending)))
 for key in pending:
     per = status.get(key, {})
     missing = [c for c in PACKS if per.get(c, "?") != "OK"]
+    # A language where this key is settled as English is not behind; drop it silently
+    # rather than let it read as work that will never be done.
+    missing = [c for c in missing if key not in KEEP_PER_LANG.get(c, ())]
     body = strings.get(key, "")
 
     # Drop the languages where English is the settled answer, so they never read as debt.
