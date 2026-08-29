@@ -1,6 +1,6 @@
-# Midnight Helper 3.7.1
+# Midnight Helper 3.7.2
 
-Four corrections. Nothing new was added — things we had told you wrong are now right.
+Five corrections. Nothing new was added — things we had told you wrong are now right.
 
 ## The Tier Sets page was showing you last season's set
 
@@ -45,6 +45,16 @@ was kept for the session. Right after a reload the quest data has not loaded, so
 done" — and stuck.
 
 It is asked when you hover now, and re-checked whenever the panel refreshes.
+
+## An error every session, for anyone who watches their error log
+
+The death recap asked the game for the combat log and was refused. It has been refused
+everywhere we have tried on this patch — Timewalking, Looking For Raid, and an ordinary
+Normal dungeon — and it has never once been allowed, so every attempt did nothing but add a
+line to your log.
+
+It stops asking. The check is tied to the patch number, so a future patch clears it and we
+measure again rather than assuming the door stays shut.
 
 ## "That is on another continent" now reaches you
 

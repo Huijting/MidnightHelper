@@ -2,7 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
-## 3.7.1
+## 3.7.2
+
+⚠️ **v3.7.1 EXISTS AS A TAG AND WAS NEVER RELEASED.** It reached CurseForge and sat unapproved
+while Rob walked into a Timewalking dungeon and hit the combat-log error below — twenty-three
+sessions old, fixed and confirmed within the hour. Nobody had 3.7.1 yet, so pulling it cost
+nothing and saved everyone a second update. The tag is left where it is: moving a pushed tag
+means nobody can tell later which code v3.7.1 held, and the packager may or may not re-fire on
+it. Counting forward is cheaper than being clever.
 
 📌 **A patch, not a minor — Rob's call, 29 aug 2026.** I had this as 3.8.0 on the grounds that
 the Tier Sets page visibly changes: it gained the five piece names, swapped bonus links for
@@ -21,6 +28,8 @@ thing we had told players wrong, or a sentence moved to where it can be read.
 - **`translation_todo.py` was blind to 901 keys** — it read `Locales/enUS.lua` with a leading-tab pattern, so eleven merge files were invisible and `--prefix DELVE_STORY` answered "no strings found" while there were 48. It asks the loader now (the same `--dump` the drift checker uses) and `--since` diffs the whole `Locales/` directory. It also stopped counting deliberate English as debt.
 - 📌 **"Two counts for the same number" settled.** The loader sees 3501 enUS keys and the files spell out 3498: nine `LOCALE_NAME_*` keys are built at runtime and no static parser can ever see them, and four keys sit in packs, never reach enUS and are requested nowhere. Those four are left in place — `PGUIDE_BTN_WOWHEAD` carries four translations and discarding those is not a cleanup decision. ~16 of the linter's own gap remains unexplained and is recorded as such.
 - 🔴 **An SMC pin told Rob "you cannot use this yet" about a portal he was walking through — and the API was never the problem.** The lock is `C_QuestLog.IsQuestFlaggedCompleted(96004)`, computed in `BuildSMCCityGuidePanel` and stored on the point; that panel builds ONCE per session (`_mhSmlBuilt`), so a read taken before the quest data loaded stood until logout. ⚠️ I was one edit away from swapping in `IsQuestFlaggedCompletedOnAccount` on a warbound theory. `/mh questgate` settled it on his client instead: per-character **true**, account-wide **true**, id correct. A right function, cached at the wrong moment. `SMCPinLocked` now asks at hover time, `SMCApplyPinLock` keeps styling and tooltip from drifting apart, and `MH_RefreshSMCPinLocks` re-applies on refresh. ⚠️ nil/false/errored all mean "do not claim it is locked": telling someone they cannot do a thing is the expensive mistake.
+- 🔴 **The death recap no longer asks for the combat log on a build that has never said yes.** Rob's twenty-third session of `ADDON_ACTION_FORBIDDEN`, this time in Timewalking. Remembering refusals per difficulty had stopped the repeats for difficulties already met and still charged one visible error for every new one. ⚠️ **The per-difficulty model was not clumsy, it was wrong:** `/mh death` shows refusals at difficulty 24 (Timewalking), 17 (LFR) **and 1 — Windrunner Spire, an ordinary Normal dungeon**, while `cleuAllowed` was empty for build 120100. It is not a property of certain content; the log is shut. `CLEUProvenClosedThisBuild()` now stands down before `RegisterEvent` is ever called. Confirmed in the wild: the next Timewalking dungeon was silent.
+- ⚠️ **`cleuAllowed` had to become build-scoped for that gate to be trustworthy.** It was keyed by difficulty with no build, so a success recorded on 12.0.7 would have claimed "it works here" on 12.1 and kept us trying forever — failing in the one direction nobody would notice. Both tables reset on a patch, and the FIRST refusal on a new build still costs one attempt, because without it we could never learn the door had reopened.
 - **TomTom v4.3.9 (29 aug) checked against our integration:** `AddWaypoint`, `ClearAllWaypoints` and the `TomTomCrazyArrow` frame all unchanged, and the new arrow themes create textures on the same button rather than replacing it, so the stand-down still works. Their embedded HereBeDragons update passes us by entirely — we removed that dependency on purpose.
 
 ## 3.7.0
