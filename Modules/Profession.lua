@@ -2025,6 +2025,12 @@ function ns.PrintUnlearnedProbe()
 		"GetBaseProfessionInfo", "GetChildProfessionInfo", "SetShowUnlearned",
 		"GetOnlyShowLearnableRecipes", "SetOnlyShowLearnableRecipes",
 		"GetRecipeSchematic", "GetRecipeSourceText", "GetTradeSkillLineInfoByID",
+		-- 🔴 Added after the filter assumption failed. GetFilteredRecipeIDs was
+		-- supposed to honour the profession window's expansion filter; Rob set it to
+		-- Midnight and the list went 316 -> 310, still full of Dornogal and Azj-Kahet.
+		-- I assumed where I should have measured. Categories are the next candidate
+		-- for scoping, so ask whether they are readable rather than assuming again.
+		"GetCategoryInfo", "GetCategories", "GetChildProfessionInfos",
 	}
 	local have, missing = {}, {}
 	for _, fn in ipairs(CANDIDATES) do
@@ -2113,6 +2119,9 @@ function ns.PrintUnlearnedProbe()
 				sourceType = info.sourceType,
 				disabled = info.disabled,
 				skillLineAbilityID = info.skillLineAbilityID,
+				-- Kept so the categories can be grouped afterwards. Which of them is
+				-- Midnight is a question for the dump, not a guess about ID ranges.
+				categoryID = info.categoryID,
 			}
 		end
 	end
@@ -2121,6 +2130,24 @@ function ns.PrintUnlearnedProbe()
 	for _, r in ipairs(dump) do
 		if r.source then
 			withSource = withSource + 1
+		end
+	end
+
+	-- Every category the unlearned recipes fall into, with whatever name the client
+	-- gives it. This is what should let us scope to Midnight without inventing a rule.
+	local cats, catList = {}, {}
+	for _, r in ipairs(dump) do
+		local c = r.categoryID
+		if c and not cats[c] then
+			local nm
+			if type(C_TradeSkillUI.GetCategoryInfo) == "function" then
+				local okC, ci = pcall(C_TradeSkillUI.GetCategoryInfo, c)
+				if okC and type(ci) == "table" then
+					nm = ci.name
+				end
+			end
+			cats[c] = true
+			catList[#catList + 1] = { id = c, name = nm }
 		end
 	end
 
@@ -2133,13 +2160,16 @@ function ns.PrintUnlearnedProbe()
 		learned = learned,
 		unreadable = unreadable,
 		withSource = withSource,
+		categories = catList,
 		sample = sample,
 		recipes = dump,
 	}
 	say(("%d unlearned, %d learned, %d unreadable. |cffffd100/reload|r to write it to the file.")
 		:format(#dump, learned, unreadable))
-	say(("%d of the %d say where they come from."):format(withSource, #dump))
-	if listFrom == "GetAllRecipeIDs" then
-		say("|cffff6666This is EVERY expansion|r — set the profession window's filter to Midnight and run it again for a list you can act on.")
-	end
+	say(("%d of the %d say where they come from; %d categories."):format(withSource, #dump, #catList))
+	-- ⚠️ NOT a claim that the list is scoped. Measured 30 Aug: with the window filtered
+	-- to Midnight the count went 316 -> 310 and the list still opened with Khaz Algar
+	-- recipes, so neither call honours that filter. Say what it is, not what it should
+	-- have been -- the dump's category names are how we scope it next.
+	say("|cffff6666Scope is NOT solved|r: this is still every expansion. The categories in the dump are the next lead.")
 end
