@@ -330,12 +330,22 @@ local function GetNodeAdviceForProf(baseSkillLine, midnightLine)
 	-- as the tree route does. Returning the first one is what made this route name
 	-- Thalassian silently on 30 Aug while Rob was asking which family to pick.
 	for _, step in ipairs(route) do
-		local opts = {}
+		local opts, satisfied = {}, false
 		for _, name in ipairs(step.anyOfNodes or { step.node }) do
 			local n = name and byName[name:lower()]
-			if n and (n.purchased or 0) < (n.max or 0) then
-				opts[#opts + 1] = n
+			if n then
+				if (n.purchased or 0) < (n.max or 0) then
+					opts[#opts + 1] = n
+				else
+					-- `anyOf` means ONE of these, so a filled option ends the step.
+					-- Without this the advice would keep offering the other two
+					-- families forever after the player had finished one.
+					satisfied = true
+				end
 			end
+		end
+		if satisfied then
+			opts = {}
 		end
 		if #opts == 1 then
 			return opts[1], "route"

@@ -155,16 +155,30 @@ ns.PROF_ACADEMY = {
 	-- and not an order. That is exactly what anyOfNodes is for, and listing one of three
 	-- was only ever defensible while nobody had checked whether they were equivalent.
 	--
-	-- 📌 The three Weapon/Chest/Ring nodes, one per family. Their siblings (Helm/Shoulder/
-	-- Boot, Tool) are deliberately not routed: which slot line pays is a market question
-	-- and we have no market source -- see PROFACAD_CH_ENCHANTING_FAMILIES, which explains
-	-- the whole grid so the player can decide with the facts in front of them.
+	-- 🔴 TWO STEPS, BECAUSE THE TREE HAS TWO LEVELS. Rob, 30 Aug, reading the one-step
+	-- version: "ik snap het advies niet, waar vind ik dit dan?" -- and he was right to
+	-- ask. Zul'Aman Zeal and its siblings sit INSIDE the family branches, which sit
+	-- inside Elevating Equipment. With all three branches still at 0/20 he could not
+	-- click any of the three names we gave him. Naming a node two layers below where
+	-- the player stands is the same fault as naming one of three options: technically
+	-- about the right thing, useless at the moment it is read.
+	--
+	-- Step 1 is what he can act on now: which family branch to open. Step 2 is the
+	-- Weapon/Chest/Ring node inside it, which only becomes reachable afterwards.
+	-- 📌 The Helm/Shoulder/Boot and Tool siblings are deliberately not routed: which
+	-- slot line pays is a market question and we have no market source -- see
+	-- PROFACAD_CH_ENCHANTING_FAMILIES, which lays out the whole grid instead.
 	advisorNodeRoutes = {
 		[333] = { -- Enchanting
 			{ anyOfNodes = {
-				"Zul'Aman Zeal",           -- Amani: Mastery rings, Strength chest
-				"Azerothian Arms",         -- Haranir: Crit rings, Mark of the Worldsoul
-				"Silvermoon's Spellpower", -- Thalassian: Haste + Versatility rings
+				"Amani Augments",          -- Mastery rings, Strength chest
+				"Thalassian Talents",      -- Haste + Versatility rings
+				"Haranir Heightening",     -- Crit rings, Mark of the Worldsoul
+			} },
+			{ anyOfNodes = {
+				"Zul'Aman Zeal",           -- Amani: Weapon/Chest/Ring
+				"Silvermoon's Spellpower", -- Thalassian: Weapon/Chest/Ring
+				"Azerothian Arms",         -- Haranir: Weapon/Chest/Ring
 			} },
 		},
 	},

@@ -234,6 +234,19 @@ local function RefreshOverview()
 	if hub._phOverviewHint then
 		hub._phOverviewHint:SetText(SL("PROFHUB_OVERVIEW_HINT"))
 	end
+	-- ⚠️ Height AFTER the texts, never before: the strings are what determine it, and a
+	-- scroll child left at its old height clips exactly the content that just grew.
+	local content, ot = hub._phOverviewContent, hub._phOverviewText
+	if content and ot then
+		local h = ot:GetStringHeight() + 10
+		if hub._phResetBtn then
+			h = h + hub._phResetBtn:GetHeight() + 12
+		end
+		if hub._phOverviewHint then
+			h = h + hub._phOverviewHint:GetStringHeight()
+		end
+		content:SetHeight(math.max(h + 12, 1))
+	end
 end
 
 function ns.MH_SelectProfessionsInnerTab(which)
@@ -324,10 +337,36 @@ function ns.BuildProfessionsHubPanel(panel)
 
 	-- (goal picker removed -- see the note above RefreshGoalChrome)
 
-	local ot = overview:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	--- 🔴 SCROLLED, because the content genuinely does not fit any more.
+	---
+	--- Everything under the header stacks downward and this panel had no scroll frame,
+	--- so anything past the bottom edge was simply gone. On 30 Aug that cost Rob the
+	--- "Route to Theremis" BUTTON -- not a caption, an action he could no longer reach.
+	--- Moving the legend out of the way (the fix an hour earlier) only decided which
+	--- element fell off the edge; it could not stop something falling off.
+	---
+	--- ⚠️ The height is computed in RefreshOverview from the strings' own heights, so
+	--- it MUST be recomputed whenever the text changes. A scroll child left at its old
+	--- height silently clips the bottom again, which is the same failure wearing a
+	--- different hat.
+	local scroll = CreateFrame("ScrollFrame", nil, overview, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", oh, "BOTTOMLEFT", 0, -10)
+	scroll:SetPoint("BOTTOMRIGHT", overview, "BOTTOMRIGHT", -28, 8)
+	local content = CreateFrame("Frame", nil, scroll)
+	content:SetSize(1, 1)
+	scroll:SetScrollChild(content)
+	scroll:SetScript("OnSizeChanged", function(_, w)
+		if w and w > 0 then
+			content:SetWidth(w)
+		end
+	end)
+	panel._phOverviewScroll = scroll
+	panel._phOverviewContent = content
+
+	local ot = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	ot:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-	ot:SetPoint("TOPLEFT", oh, "BOTTOMLEFT", 0, -10)
-	ot:SetPoint("RIGHT", overview, "RIGHT", -16, 0)
+	ot:SetPoint("TOPLEFT", content, "TOPLEFT", 12, 0)
+	ot:SetPoint("RIGHT", content, "RIGHT", -16, 0)
 	ot:SetJustifyH("LEFT")
 	ot:SetWordWrap(true)
 	ot:SetSpacing(3)
@@ -343,7 +382,7 @@ function ns.BuildProfessionsHubPanel(panel)
 	---
 	--- Knowing a thing and letting someone act on it are different jobs, and this addon
 	--- keeps shipping the first without the second.
-	local resetBtn = CreateFrame("Button", nil, overview, "UIPanelButtonTemplate")
+	local resetBtn = CreateFrame("Button", nil, content, "UIPanelButtonTemplate")
 	resetBtn:SetHeight(22)
 	resetBtn:SetPoint("TOPLEFT", ot, "BOTTOMLEFT", 0, -10)
 	resetBtn:SetText(SL("PROFHUB_RESET_ROUTE"))
@@ -379,9 +418,9 @@ function ns.BuildProfessionsHubPanel(panel)
 	--- can now push this legend past the bottom edge and out of sight. That is the
 	--- better failure — it explains three tabs and is the least important text on the
 	--- page, and text you cannot see beats text painted over the text you need.
-	local hint = overview:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	local hint = content:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	hint:SetPoint("TOPLEFT", resetBtn, "BOTTOMLEFT", 0, -12)
-	hint:SetPoint("RIGHT", overview, "RIGHT", -16, 0)
+	hint:SetPoint("RIGHT", content, "RIGHT", -16, 0)
 	hint:SetJustifyH("LEFT")
 	hint:SetWordWrap(true)
 	panel._phOverviewHint = hint
