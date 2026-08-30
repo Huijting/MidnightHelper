@@ -30,10 +30,34 @@ is a guess."* Er zijn `goals`-tabellen voor `[165]`, `[197]` en `[393]` — **`[
 geen**. Enchanting is de enige van de vier die genoemd wordt en niet gesplitst is, en Rob is
 exact het geval dat daardoor het verkeerde antwoord krijgt.
 
-**Te doen, in deze volgorde:** (1) uitzoeken wat Shatter Essence feitelijk doet in 12.1 — DB2 /
-gamedata, niet een guide; (2) `goals = { gold, self }` voor `[333]`; (3) de cursustekst
-gelijktrekken met wat daaruit komt. Niet één van de twee stilzwijgend aanpassen: dan verdwijnt
-alleen het bewijs dat ze ooit botsten.
+### ✅ Stap 1 GEDAAN — Shatter Essence gemeten in de gamedata (wago.tools, 30 aug)
+
+| spell | wat |
+|---|---|
+| `1235731` Shatter Essence (Midnight) | *"Shatter a magical essence of Midnight… Gain the following effect"* |
+| `1235733` de buff | *"increasing Resourcefulness by $w1, Ingenuity by $w2, and Multicraft by $w3 while practicing Midnight Enchanting"* — `SpellEffect`: drie effecten, elk basispunten **5** |
+
+**Dus: +5 Resourcefulness, +5 Ingenuity, +5 Multicraft, en dat zijn CRAFT-stats.** De cursus had
+gelijk dát de buff je crafting helpt, en de route-correctie had óók gelijk: disenchanten leest
+alleen ruwe Skill, dus deze buff doet daar niets. **Beide beweringen zijn waar, over verschillende
+bezigheden.** Dat bewijst dat `[333]` gesplitst hoort te worden en niet dat één kant fout is.
+
+🔴 **Maar één zin in de cursus is niet te onderbouwen:** *"More points in Spellbound Shatterer
+raise the Shatter Essence buff."* Voor **TWW** bestaat die trait — `456873`, *"The amount of
+Resourcefulness, Ingenuity, and Multicraft provided by Shatter Essence is increased by $s1…
+requires Khaz Algar Enchanting"*. Voor **Midnight is er geen tegenhanger gevonden.**
+
+📌 **Met positieve controle**, want een lege uitslag bewijst niets: dezelfde zoekopdracht op
+`Description_lang` = "Resourcefulness, Ingenuity" geeft drie rijen — TWW-shatter (`445466`),
+TWW-vergroter (`456873`) en Midnight-shatter (`1235731`). De zoekopdracht vindt Midnight-inhoud
+prima; alleen de vergroter ontbreekt. ⚠️ Nog steeds bewijs en geen bewijs-van-afwezigheid: hij
+kan anders geformuleerd zijn of als trait rechtstreeks op de aura-punten werken. **Goedkoopste
+bevestiging: Rob hovert de nodes in Spellbound Shatterer.**
+
+**Te doen:** (2) `goals = { gold, self }` voor `[333]` — met Elevating Equipment vooraan bij
+`gold`/crafter, en Disenchanting Delegate vooraan bij materiaal-zelfvoorziening; (3) die ene zin
+uit de cursus halen of vervangen door wat de tree in Midnight écht doet. Niet één van de twee
+stilzwijgend aanpassen: dan verdwijnt alleen het bewijs dat ze ooit botsten.
 
 📌 **Wat Rob intussen veilig kan doen:** beide bronnen zetten Elevating Equipment hoog en geen
 van beide zet hem laatst. Shard Supplier vol (30), dan Elevating Equipment. Spellbound Shatterer
