@@ -1987,3 +1987,138 @@ function ns.GetProfessionNodeChoices(midnightLine, maxCount)
 	end
 	return out, total
 end
+
+--- `/mh unlearned` — every recipe this profession has that you have NOT learned,
+--- plus whatever the client is willing to say about where each comes from.
+---
+--- Rob, 30 Aug 2026, looking at his Unlearned list: "waar kan ik deze zaken eigenlijk
+--- leren?" We could answer for exactly one of them, from a DB2 row, and the honest
+--- answer for the rest was "nobody traced it". The client knows -- the profession
+--- window prints a source line under greyed recipes -- so ask it instead of us
+--- guessing, which is the rule this addon exists on.
+---
+--- 🔴 DELIBERATELY DISCOVERS THE API RATHER THAN ASSUMING IT. On 8 Aug 2026
+--- `LEARNED_SPELL_IN_TAB` was registered because the name appeared in other addons,
+--- and 12.x threw "unknown event" on the next reload. So this probes which
+--- C_TradeSkillUI functions actually exist on THIS build, reports that, and dumps one
+--- whole recipe table field by field. What the source field is called -- if there is
+--- one -- is a question for the dump, not for me.
+---
+--- ⚠️ Needs the profession window OPEN: C_TradeSkillUI answers about the open trade
+--- skill and nothing else. It says so rather than returning an empty list, because an
+--- empty list would look exactly like "you have learned everything".
+---
+--- Output goes to ns.db.unlearnedDump for reading out of the SavedVariables file --
+--- the standing method for anything longer than a few chat lines.
+function ns.PrintUnlearnedProbe()
+	local function say(s)
+		print("|cffe8c36aMH|r " .. s)
+	end
+	if not C_TradeSkillUI then
+		say("C_TradeSkillUI is missing entirely. Nothing to ask.")
+		return
+	end
+
+	-- 1. What does this build actually offer? Names only, no calls yet.
+	local CANDIDATES = {
+		"IsTradeSkillReady", "GetAllRecipeIDs", "GetFilteredRecipeIDs", "GetRecipeInfo",
+		"GetBaseProfessionInfo", "GetChildProfessionInfo", "SetShowUnlearned",
+		"GetOnlyShowLearnableRecipes", "SetOnlyShowLearnableRecipes",
+		"GetRecipeSchematic", "GetRecipeSourceText", "GetTradeSkillLineInfoByID",
+	}
+	local have, missing = {}, {}
+	for _, fn in ipairs(CANDIDATES) do
+		if type(C_TradeSkillUI[fn]) == "function" then
+			have[#have + 1] = fn
+		else
+			missing[#missing + 1] = fn
+		end
+	end
+	say("present: " .. (#have > 0 and table.concat(have, ", ") or "none"))
+	if #missing > 0 then
+		say("|cffff6666absent|r: " .. table.concat(missing, ", "))
+	end
+
+	local ready = true
+	if type(C_TradeSkillUI.IsTradeSkillReady) == "function" then
+		local ok, r = pcall(C_TradeSkillUI.IsTradeSkillReady)
+		ready = ok and r and true or false
+	end
+	if not ready then
+		say("|cffff6666Open your profession window first|r, then run this again — the API only answers about the open trade skill.")
+		return
+	end
+
+	-- 2. Which recipe list can we get? Prefer the unfiltered one.
+	local ids
+	for _, fn in ipairs({ "GetAllRecipeIDs", "GetFilteredRecipeIDs" }) do
+		if type(C_TradeSkillUI[fn]) == "function" then
+			local ok, list = pcall(C_TradeSkillUI[fn])
+			if ok and type(list) == "table" and #list > 0 then
+				ids = list
+				say(("recipe list from %s: %d entries"):format(fn, #list))
+				break
+			end
+		end
+	end
+	if not ids then
+		say("|cffff6666No recipe list|r. With the window open that is a finding, not a dead end — tell Rob.")
+		return
+	end
+
+	if type(C_TradeSkillUI.GetRecipeInfo) ~= "function" then
+		say("|cffff6666GetRecipeInfo is absent|r; cannot tell learned from unlearned on this build.")
+		return
+	end
+
+	-- 3. Collect the unlearned ones, and keep one COMPLETE info table so the field
+	-- names come from the client instead of from my memory.
+	local dump, sample, learned, unreadable = {}, nil, 0, 0
+	for _, id in ipairs(ids) do
+		local ok, info = pcall(C_TradeSkillUI.GetRecipeInfo, id)
+		if not ok or type(info) ~= "table" then
+			unreadable = unreadable + 1
+		elseif info.learned then
+			learned = learned + 1
+		else
+			if not sample then
+				sample = {}
+				for k, v in pairs(info) do
+					local t = type(v)
+					sample[tostring(k)] = (t == "string" or t == "number" or t == "boolean")
+						and v or ("<" .. t .. ">")
+				end
+			end
+			dump[#dump + 1] = {
+				id = id,
+				name = info.name,
+				-- Anything that might carry a source. Whichever of these exists on
+				-- this build shows up in the file; the rest arrive as nil and that
+				-- is itself the answer.
+				sourceText = info.sourceText,
+				sourceType = info.sourceType,
+				disabled = info.disabled,
+				disabledReason = info.disabledReason,
+				skillLineAbilityID = info.skillLineAbilityID,
+			}
+		end
+	end
+
+	ns.db = ns.db or {}
+	ns.db.unlearnedDump = {
+		when = date and date("%Y-%m-%d %H:%M") or nil,
+		apiPresent = have,
+		apiAbsent = missing,
+		learned = learned,
+		unreadable = unreadable,
+		sample = sample,
+		recipes = dump,
+	}
+	say(("%d unlearned, %d learned, %d unreadable. Written to ns.db.unlearnedDump — |cffffd100/reload|r so it reaches the SavedVariables file.")
+		:format(#dump, learned, unreadable))
+	if sample and sample.sourceText then
+		say("the client DOES give a source line — first one: " .. tostring(sample.sourceText))
+	else
+		say("no sourceText field on this build's recipe info; the dump lists every field it did have.")
+	end
+end

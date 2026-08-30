@@ -1209,6 +1209,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh unlearned — welke recepten heb je nog niet, en wat zegt de client over waar
+	-- ze vandaan komen? Vereist een geopend beroepsvenster; schrijft naar
+	-- ns.db.unlearnedDump omdat de lijst te lang is voor de chat.
+	if msg == "unlearned" then
+		if ns.PrintUnlearnedProbe then
+			ns.PrintUnlearnedProbe()
+		end
+		return
+	end
+
 	-- /mh profadvice — waarom zegt de beroepen-adviseur wat hij zegt, of niets?
 	-- Zwijgen is zijn normale faalwijze: op 30 aug 2026 stond Rob met 235 Knowledge
 	-- vast omdat stap 2 van de Enchanting-route nodes noemde in een lijst met trees.
