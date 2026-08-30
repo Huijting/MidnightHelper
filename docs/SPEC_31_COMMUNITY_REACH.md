@@ -322,6 +322,37 @@ achievement hunts, mounts. But those three are what the addon is *for*.
 - "See it in action" (regel 15, tachtig woorden die de lezer vertellen naar plaatjes te kijken)
   vervalt. Die tekst hoort in de bijschriften bij de schermafbeeldingen (A4).
 
+### B10b. 🔴 De scènelijst van `/mh shots` mist onze belangrijkste functie
+
+Rob (30 aug): *"moeten we dan niet eerst die shots aanpassen met wat we willen hebben?"* — ja.
+Eerst de lijst, dan schieten.
+
+`Modules/DevShots.lua:124-168` schiet negen scènes: `01-this-week`, `02-mounts-preview`,
+`03-raids`, `04-search-boss`, `05-class-coach`, `06-alts`, `07-void-rituals`,
+`08-achievements-coiled-isle`, `09-delve-coach-ring-of-glory`.
+
+**Er zit geen enkele professie-scène bij.** Sinds 30 aug belooft de CurseForge-samenvatting als
+eerste een professiecursus, en er is geen beeld van. Dat is nu de opvallendste leemte in de
+gallery.
+
+⚠️ **Het is geen regel in de tabel.** De cursus opent in een **eigen venster**
+(`Modules/ProfessionCourseWindow.lua`) terwijl de rig gebouwd is om het *hoofdvenster* te
+parkeren en naar `WorldFrame` te herouderen (`Modules/DevShots.lua:44-52`). Een tweede,
+losstaand venster moet dus meegenomen worden in `Reparent` en in de uitsnede-berekening, net
+zoals de zwevende 3D-preview dat al is.
+
+Gewenste scènes, in volgorde van waarde:
+1. **De professiecursus** (`/mh course`) — met een hoofdstuk open, zodat je ziet dat het proza is
+   en geen hulppagina.
+2. **"Waar gaan mijn Knowledge Points heen?"** — het adviesscherm met echte, live gelezen nodes.
+
+📌 Als de tweede te veel werk is: de eerste alleen is al de grootste winst. En hij hoort
+**beeld nummer 2** te worden in de gallery, direct na This Week.
+
+📌 `docs/SCREENSHOTS_WANTED.md` is verouderd — die zegt nog *"4–5 volstaan"* terwijl er tien
+online staan, en beschrijft de handmatige werkwijze van vóór `/mh shots`. Bijwerken of
+weggooien.
+
 ### B11. Twee verouderde feiten
 - `README.md` zegt **11 delves**, `CURSEFORGE_DESCRIPTION.md` zegt **14**. Eén van beide is fout.
 - De waarschuwing *"New in 3.6.0 and partly unproven"* bij de dispel-klik (regel 76) hoort in de
@@ -440,15 +471,28 @@ Rob heeft A1 dezelfde dag doorgevoerd. Gemeten op de projectpagina, 30 aug 2026:
 | Categorieën | Miscellaneous (hoofd), Map & Minimap, Class, Professions — `Quests & Leveling` nog **niet** toegevoegd |
 | Laatste release vóór de wijziging | 3.7.2, geüpload 29 aug 2026 |
 
-**Aflezen op 13 sep 2026:** unieke downloads per dag over 30 aug – 13 sep, vergeleken met
-16 – 30 aug.
+**🔴 HERZIEN nog dezelfde dag.** Een eerdere versie hiervan vroeg om géén release tot 13 sep.
+**Dat verzoek is ingetrokken.** Rob meldde op 30 aug dat de professie-hulp niet goed werkt en dat
+BOUW daar nu aan bouwt. Werkende software gaat vóór een meetbaar experiment — altijd, en zeker
+bij een meting die zelfs schoon geen oorzaak zou bewijzen. **Release wanneer het klaar is.**
 
-⛔ **De meting is bedorven als er tussen 30 aug en 13 sep een release uitgaat.** Een release
-geeft altijd een piek en die overstemt alles. Gaat er toch één uit, noteer dan de datum en meet
-de twee stukken los — niet doen alsof de piek de tekst was.
+Gevolg voor de twee metingen:
 
-⚠️ En zelfs een schone meting bewijst geen oorzaak: het seizoen loopt door, 12.1 is drie weken
-oud en de hele categorie groeit. Dit onderscheidt "iets" van "niets", niet meer dan dat.
+| Meting | Overleeft een release? |
+|---|---|
+| **Unieke downloads, 14 dagen ervoor tegen 14 dagen erna** | ⛔ **Nee.** Een release geeft een piek die alles overstemt. Laten vallen zodra er een release in het venster valt; noteer wel de datum |
+| **Zoekplaatsing op de gemeten termen** | ✅ **Ja.** Waar we in de resultaten staan hangt aan naam + samenvatting, niet aan downloads |
+
+**Dus wordt dit de meting.** Al bevestigd op 30 aug, binnen een dag na de wijziging: zoeken op
+`beginner` geeft *"5 Projects found"* met MH erbij — vanmorgen stonden we er niet in. Het
+mechanisme uit §2 is daarmee niet langer een voorspelling.
+
+**Aflezen op 13 sep 2026:** herhaal de zoekopdrachten uit de tabel in §2 (`returning player`,
+`beginner`, `knowledge points`, `concentration`, `work orders`, `weekly planner`) en noteer
+positie én het totaal aantal resultaten. Downloads erbij als er toevallig geen release was.
+
+⚠️ Zoekplaatsing is *vindbaarheid*, geen publiek. Het zegt dat we in het schap liggen, niet dat
+iemand ons pakt. Verwar de twee niet — en dat is precies wat er van deze meting overblijft.
 
 | Instrument | Beantwoordt | Blijft onbekend |
 |---|---|---|
