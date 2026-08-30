@@ -54,10 +54,33 @@ prima; alleen de vergroter ontbreekt. ⚠️ Nog steeds bewijs en geen bewijs-va
 kan anders geformuleerd zijn of als trait rechtstreeks op de aura-punten werken. **Goedkoopste
 bevestiging: Rob hovert de nodes in Spellbound Shatterer.**
 
-**Te doen:** (2) `goals = { gold, self }` voor `[333]` — met Elevating Equipment vooraan bij
-`gold`/crafter, en Disenchanting Delegate vooraan bij materiaal-zelfvoorziening; (3) die ene zin
-uit de cursus halen of vervangen door wat de tree in Midnight écht doet. Niet één van de twee
-stilzwijgend aanpassen: dan verdwijnt alleen het bewijs dat ze ooit botsten.
+### ✅ Bevestigd in de client, en de cursus is gecorrigeerd (30 aug)
+
+Rob hoverde alle vier de nodes van Spellbound Shatterer. **Geen enkele verhoogt de Shatter
+Essence-buff.** Wat ze wél doen:
+
+| node | per punt | bij het leren |
+|---|---|---|
+| **Spellbound Shatterer** (root) | +1 Ingenuity | leert Shatter Essence · −2% Concentration op Midnight-formules |
+| Responsible Resources | +1 Resourcefulness | Resourcefulness geeft **+5% meer materiaal** terug |
+| Infinite Ingenuity | +1 Ingenuity | **+5% Concentration** terug |
+| Multicrafting Meticulously | +1 Multicraft | +25% extra goods — ⚠️ **alleen bij illusions** |
+
+De drie subnodes vragen **5 punten in de root**. De zin *"More points in Spellbound Shatterer
+raise the Shatter Essence buff"* is in alle **zeven** talen vervangen door wat er echt staat.
+Gemarkeerd in de drift-state; drift blijft 0.
+
+⚠️ **Wat ik bewust NIET heb aangeraakt:** vijf talen vertalen in dit hoofdstuk de spec-namen —
+`Zauberzerschmetterer`, `Fracassement envoûté`, `Destrucción de vínculos`,
+`Estilhaça-enfeitiçado`, `Frantumatore Vincolamagie`, plus `Entzauberungsentsandter` en de
+buffnaam. Dezelfde categorie als "Kampioen crest": **de/fr/es/pt zijn echte clienttalen, dus
+vertalen kán juist zijn — maar dan moet het Blizzards eigen vertaling zijn en niet de onze.**
+Te controleren via `wago.tools` (SpellName heeft locale-varianten). Nu veranderen zou een
+ongeverifieerde wijziging in een feitelijke correctie smokkelen.
+
+**Te doen:** (2) `goals = { gold, self }` voor `[333]`. ⚠️ Vóór je die volgorde vastlegt: van
+**Elevating Equipment** hebben we nog géén tooltips, alleen van Spellbound Shatterer. Een
+volgorde kiezen op eenzijdige informatie is precies hoe deze route de eerste keer fout ging.
 
 📌 **Wat Rob intussen veilig kan doen:** beide bronnen zetten Elevating Equipment hoog en geen
 van beide zet hem laatst. Shard Supplier vol (30), dan Elevating Equipment. Spellbound Shatterer

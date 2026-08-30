@@ -8,16 +8,16 @@ Basis: **v3.5.0** — 2996 keys met een vastgelegde herkomst.
 
 | taal | OK | drift | onvertaald | onbekend |
 |---|---:|---:|---:|---:|
-| deDE | 2942 | 0 | 175 | 32 |
-| frFR | 2961 | 0 | 162 | 26 |
-| esES | 2961 | 0 | 162 | 26 |
-| ptBR | 2962 | 0 | 161 | 26 |
-| itIT | 2878 | 0 | 245 | 26 |
-| nlNL | 2570 | 0 | 484 | 95 |
+| deDE | 2942 | 0 | 175 | 33 |
+| frFR | 2961 | 0 | 162 | 27 |
+| esES | 2961 | 0 | 162 | 27 |
+| ptBR | 2962 | 0 | 161 | 27 |
+| itIT | 2878 | 0 | 245 | 27 |
+| nlNL | 2570 | 0 | 484 | 96 |
 
 **onbekend** = na de basistag vertaald, dus we weten niet uit welke Engelse versie. Dat is niet hetzelfde als verouderd.
 
-De loader ziet **3507** enUS-keys; hiervan zijn er 3149 beoordeeld en 358 overgeslagen (`CHANGELOG_*`, `LANG_LABEL_*` en waarden die precies een spelbegrip zijn). ⚠️ `tools/lint_addon.py` [5] telt hetzelfde anders — die parseert de bestanden zelf en slaat niets over, dus zijn "still English" ligt hoger. Twee getallen die hetzelfde lijken te meten en niet gelijk zijn: gebruik hier het getal van de loader.
+De loader ziet **3508** enUS-keys; hiervan zijn er 3150 beoordeeld en 358 overgeslagen (`CHANGELOG_*`, `LANG_LABEL_*` en waarden die precies een spelbegrip zijn). ⚠️ `tools/lint_addon.py` [5] telt hetzelfde anders — die parseert de bestanden zelf en slaat niets over, dus zijn "still English" ligt hoger. Twee getallen die hetzelfde lijken te meten en niet gelijk zijn: gebruik hier het getal van de loader.
 
 🔴 **Wij vertalen dit zelf.** Deze lijst ging vroeger "naar #translations", maar daar is niemand: dat betekende in de praktijk "wordt nooit gerepareerd", en een vertaling die iets onwaars beweert is erger dan een zorgvuldige van ons. Wel eerst lezen — "gedrift" zegt alleen dat het Engels veranderd is, niet dat de vertaling fout is (30 aug: 5 van de 11 waren loos alarm). En elk pack houdt zijn eigen woordenschat: `itIT` schrijft Great Vault, `deDE` Große Schatzkammer.
 
