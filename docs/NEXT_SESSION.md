@@ -78,9 +78,37 @@ vertalen kán juist zijn — maar dan moet het Blizzards eigen vertaling zijn en
 Te controleren via `wago.tools` (SpellName heeft locale-varianten). Nu veranderen zou een
 ongeverifieerde wijziging in een feitelijke correctie smokkelen.
 
-**Te doen:** (2) `goals = { gold, self }` voor `[333]`. ⚠️ Vóór je die volgorde vastlegt: van
-**Elevating Equipment** hebben we nog géén tooltips, alleen van Spellbound Shatterer. Een
-volgorde kiezen op eenzijdige informatie is precies hoe deze route de eerste keer fout ging.
+### ✅ Elevating Equipment óók gemeten (30 aug) — en de twee trees doen iets FUNDAMENTEEL anders
+
+| node | per punt | bij het leren |
+|---|---|---|
+| **Elevating Equipment** (root, 30) | **+1 Skill** | — |
+| Amani Augments (0/20) | +1 Skill | +5 Skill voor Amani · **Finishing Reagents** op Amani-recepten |
+| Thalassian Talents (0/20) | +1 Skill | +5 Skill voor Thalassian · Finishing Reagents |
+| Haranir Heightening (0/20) | +1 Skill | +5 Skill voor Haranir · Finishing Reagents |
+
+🔴 **Elevating Equipment geeft Skill. Spellbound Shatterer geeft craft-stats.** Dat is geen
+gradueel verschil maar twee verschillende assen:
+
+- **Skill** bepaalt welke **kwaliteitsrang** je een enchant kunt geven, en de subnodes
+  ontgrendelen **Finishing Reagents** per enchant-familie (Amani / Thalassian / Haranir).
+- **Resourcefulness / Ingenuity / Multicraft** bepalen wat een craft **kost** en hoe vaak er
+  extra uit komt.
+
+**Voor een verkoper is dat een volgorde en geen keuze: je kunt geen rang-3 enchant verkopen die
+je niet kúnt maken.** Skill eerst, marge daarna. Dat is precies de volgorde van `advisorRoutes[333]`
+(Elevating Equipment stap 3, Spellbound Shatterer stap 4), en het is de **tweede** manier waarop
+de cursus met "Spellbound Shatterer first" ernaast zat.
+
+📌 En het verklaart de vier nodes die de addon eerder toonde: `Azerothian Arms` (*Haranir Weapon,
+Chest, and Ring*), `Worldsoul Wards` (*Helm, Shoulder, Boot*), `Nature's Novelties` (*Profession
+Tool*) zitten dieper onder de Haranir-tak. De "Weapon/Ring/Chest branch" uit onze cursus is dus
+`Azerothian Arms`, en die zit twee lagen diep — niet vlak onder de root zoals de tekst suggereert.
+
+**Te doen:** (2) `goals` voor `[333]` bouwen op deze meting. ⚠️ Let op dat beide doelen met
+Elevating Equipment beginnen; de echte splitsing zit tussen **Disenchanting Delegate**
+(zelfvoorziening in materiaal) en **Elevating Equipment** (kwaliteit van je product), niet tussen
+Shatterer en de rest. Het codecommentaar dat "gold vs self" suggereert is hier dus te grof.
 
 📌 **Wat Rob intussen veilig kan doen:** beide bronnen zetten Elevating Equipment hoog en geen
 van beide zet hem laatst. Shard Supplier vol (30), dan Elevating Equipment. Spellbound Shatterer
