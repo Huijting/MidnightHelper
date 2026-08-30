@@ -7,6 +7,32 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🔴 30 aug — beroepen-adviseur zweeg voor een heel beroep. Fix ligt klaar, ONGETEST.
+
+Rob zat vast: Disenchanting Delegate op 30/30, 235 Knowledge in de hand, en géén groene
+adviesregel onder "Enchanting". Oorzaak: stap 2 van de route noemde `Shard Supplier` /
+`Crystal Collector` als `anyOf` — maar dat zijn **nodes**, en `anyOf` wordt opgezocht tussen de
+vier **tree**-tabbladen. Geen match → `return nil` → geen advies, ook niet voor stap 3 en 4.
+
+**Na een `/reload`, met je Enchanting op 30/30:**
+
+1. **De adviesregel is terug.** Toolbox -> Professions -> Overview. Onder "Enchanting: 30 KP
+   spent" hoort nu een groene regel te staan die **Shard Supplier of Crystal Collector** noemt,
+   met `(0/20)` erachter. Stond er eerst niets; dát was de bug.
+2. **`/mh profadvice`** — print per beroep elke routestap en of hij oplost. Wat je wil zien:
+   `step 2 [node] Shard Supplier 0/20 | Crystal Collector 0/20` en daaronder
+   `-> verdict: advise ...`. ⚠️ Staat er `|cffff6666NOT FOUND|r` bij die twee namen, dan bestaan
+   ze niet in 12.1 en is onze **data** fout — dat is een ander probleem dan deze fix, en dan
+   moeten we de echte namen uit jouw client halen vóór je nog punten uitgeeft.
+3. **Tailoring mag niet veranderd zijn.** Die regel (Nimble Needlework, aim 20) stond goed en
+   moet er onveranderd staan — de fix raakt alleen routes met node-stappen.
+4. **Zet een punt in de gekozen node en kijk opnieuw.** De regel hoort mee te lopen (`1/20`), en
+   zodra de node vol is hoort het advies door te schuiven naar **Elevating Equipment**. Dat is
+   het stuk dat vóór vandaag helemáál onbereikbaar was.
+
+📌 De adviesregel noemt de node maar **kiest niet voor je**: Shard Supplier als je blues sloopt,
+Crystal Collector bij epics. Dat verschil is echt en staat in `ProfessionAcademyData.lua:279`.
+
 ## 📍 STAND 28 aug (avond) — alles met een dwingende reden is af
 
 Afgevinkt vandaag: de rechtsklik-dispel én de purge, de range-fade, de eigen rij,

@@ -289,9 +289,17 @@ ns.PROF_ACADEMY = {
 		-- boilerplate table saying disenchanting uses Multicraft/Resourcefulness/
 		-- Ingenuity, while its own prose below says the opposite. All 28 perk lines in
 		-- the gamedata name Skill and nothing else.
+		--
+		-- 🔴 `anyOfNodes`, not `anyOf`. Shard Supplier and Crystal Collector are NODES
+		-- inside Disenchanting Delegate, not specialization trees — the four trees are
+		-- the tabs at the top of the window. Written as `anyOf` they were looked up
+		-- among the tab names, matched nothing, and the advisor returned nil for the
+		-- WHOLE profession: Rob finished the 30-point root on 30 Aug 2026, had 235
+		-- Knowledge in hand and got no advice line at all, for this step or the two
+		-- tree steps after it. Steps 3 and 4 were never reached.
 		[333] = {
 			{ tree = "Disenchanting Delegate" },
-			{ anyOf = { "Shard Supplier", "Crystal Collector" } },
+			{ anyOfNodes = { "Shard Supplier", "Crystal Collector" } },
 			{ tree = "Elevating Equipment" },
 			{ tree = "Spellbound Shatterer" },
 		},

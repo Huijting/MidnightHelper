@@ -112,16 +112,77 @@ end
 --- two lines must not swap places between reloads.
 local GOAL_ORDER = { "gold", "self" }
 
+--- Does this route reach inside a tree anywhere, goal branches included?
+--- Reading every node of every tree costs real work, and only Enchanting needs it
+--- today; asking first keeps that off the other ten professions.
+local function RouteWantsNodes(route)
+	local function any(steps)
+		if type(steps) ~= "table" then
+			return false
+		end
+		for _, step in ipairs(steps) do
+			if step.anyOfNodes or step.node then
+				return true
+			end
+		end
+		return false
+	end
+	if any(route) then
+		return true
+	end
+	if type(route.goals) == "table" then
+		for _, branch in pairs(route.goals) do
+			if any(branch) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 --- First unfinished step of a step list, plus that step's points hint.
 --- Returns nil, nil when a name does not resolve (a rename or a localised tab
 --- name), false when every step is satisfied.
-local function FirstUnfinishedStep(steps, byName, classToken)
+---
+--- @param nodesByName table|nil lowercased node name -> { name=, purchased=, max= }
+---
+--- A step names either TREES (`tree` / `anyOf`, looked up among the window's tabs)
+--- or NODES inside a tree (`node` / `anyOfNodes`, looked up among the trait nodes).
+--- The two are different layers and cannot share one lookup: Enchanting's second
+--- step names two nodes, and as an `anyOf` it was searched among four tab names,
+--- found nothing, and killed the advice for the entire profession.
+---
+--- 🔴 An unresolved step no longer aborts the route. It used to `return nil`, which
+--- meant one bad name in step 2 silenced steps 3 and 4 as well — Rob had 235
+--- Knowledge and a blank line where the advice belongs (30 Aug 2026). We genuinely
+--- do not know whether an invisible step is done, so skipping it can advise slightly
+--- out of order; total silence for the rest of a profession is the worse of the two,
+--- and `/mh profadvice` names every step we could not resolve so it is never silent
+--- to US. If nothing at all resolves, the result is still nil and nothing is shown.
+local function FirstUnfinishedStep(steps, byName, classToken, nodesByName)
+	local resolved = 0
 	for _, step in ipairs(steps) do
 		if not (step.skipIfClass and step.skipIfClass == classToken) then
-			local names = step.anyOf or { step.tree }
+			-- Node steps carry tooltip-form ranks (0/20); tab steps count the free
+			-- base rank in both numbers. Wrapped to the tab convention here so the
+			-- one comparison below, and the caller's `active - 1` display maths,
+			-- stay true for both.
+			local names, lookup = step.anyOf or { step.tree }, byName
+			if step.anyOfNodes or step.node then
+				names, lookup = step.anyOfNodes or { step.node }, nil
+			end
 			local display, satisfied = nil, false
 			for _, n in ipairs(names) do
-				local t = byName[n:lower()]
+				local t
+				if lookup then
+					t = lookup[n:lower()]
+				else
+					local raw = nodesByName and nodesByName[n:lower()]
+					if raw then
+						t = { name = raw.name, isNode = true,
+							active = (raw.purchased or 0) + 1, max = (raw.max or 0) + 1 }
+					end
+				end
 				if t then
 					display = display or t
 					if step.points == 0 then
@@ -141,13 +202,21 @@ local function FirstUnfinishedStep(steps, byName, classToken)
 					end
 				end
 			end
-			if not display then
-				return nil
-			end
-			if not satisfied then
-				return display, step.points
+			-- No `display` means the step is invisible to us: a rename, a localised
+			-- name, or data that is simply wrong. Skipped rather than treated as
+			-- satisfied, and named by `/mh profadvice` so it is not silent to us.
+			if display then
+				resolved = resolved + 1
+				if not satisfied then
+					return display, step.points
+				end
 			end
 		end
+	end
+	-- Nothing resolved at all -> we have no picture of this route, so say nothing.
+	-- That is the old behaviour, kept for the case it was actually right for.
+	if resolved == 0 then
+		return nil
 	end
 	return false
 end
@@ -158,7 +227,8 @@ end
 --- old anyOf hid that choice behind a coin flip; showing both surfaces it. We do
 --- NOT pick for the player and we do not store a preference — nobody ever told us
 --- which they are playing for.
-local function GetAdviceForProf(skillLine, summary)
+--- @param midnightLine number|nil the Midnight skill line, for node-level steps
+local function GetAdviceForProf(skillLine, summary, midnightLine)
 	local d = ns.PROF_ACADEMY
 	local route = d and d.advisorRoutes and d.advisorRoutes[skillLine]
 	if not (route and summary and summary.tabs and #summary.tabs > 0) then
@@ -171,7 +241,21 @@ local function GetAdviceForProf(skillLine, summary)
 			byName[t.name:lower()] = t
 		end
 	end
-	local display, points = FirstUnfinishedStep(route, byName, classToken)
+	-- Only fetched when the route actually reaches inside a tree. Walking every
+	-- node of every tree is not free, and most routes never need it.
+	local nodesByName
+	if midnightLine and ns.GetProfessionSpecNodes and RouteWantsNodes(route) then
+		local okN, nodes = pcall(ns.GetProfessionSpecNodes, midnightLine)
+		if okN and type(nodes) == "table" then
+			nodesByName = {}
+			for _, n in ipairs(nodes) do
+				if n.name then
+					nodesByName[n.name:lower()] = n
+				end
+			end
+		end
+	end
+	local display, points = FirstUnfinishedStep(route, byName, classToken, nodesByName)
 	if display == nil then
 		return nil
 	elseif display then
@@ -183,7 +267,7 @@ local function GetAdviceForProf(skillLine, summary)
 		for _, goal in ipairs(GOAL_ORDER) do
 			local branch = route.goals[goal]
 			if type(branch) == "table" then
-				local tab, pts = FirstUnfinishedStep(branch, byName, classToken)
+				local tab, pts = FirstUnfinishedStep(branch, byName, classToken, nodesByName)
 				if tab then
 					out[#out + 1] = { goal = goal, tab = tab, points = pts }
 				end
@@ -221,10 +305,15 @@ local function GetNodeAdviceForProf(baseSkillLine, midnightLine)
 			byName[n.name:lower()] = n
 		end
 	end
+	-- `anyOfNodes` understood here too, so the two route tables take the same step
+	-- shapes. A node route that only ever read `node` is how the same "written one
+	-- way, read another" gap could open a second time.
 	for _, step in ipairs(route) do
-		local n = step.node and byName[step.node:lower()]
-		if n and (n.purchased or 0) < (n.max or 0) then
-			return n, "route"
+		for _, name in ipairs(step.anyOfNodes or { step.node }) do
+			local n = name and byName[name:lower()]
+			if n and (n.purchased or 0) < (n.max or 0) then
+				return n, "route"
+			end
 		end
 	end
 	-- Route exhausted (Rob finished Silvermoon's Spellpower and had 10 points
@@ -282,7 +371,7 @@ local function BuildAdviceLine(skillLine, summary, withPointer, midnightLine)
 		end
 	end
 
-	local advice, points, goals = GetAdviceForProf(skillLine, summary)
+	local advice, points, goals = GetAdviceForProf(skillLine, summary, midnightLine)
 	local text
 	if advice == false then
 		-- Roots done: name the actual node when we have a verified one for this
@@ -1207,3 +1296,94 @@ ev:SetScript("OnEvent", function(_, event)
 		ns.MH_RefreshProfessionAcademyPanel(builtPanel)
 	end
 end)
+
+--- `/mh profadvice` — why the advisor said what it said, or nothing at all.
+---
+--- The advisor's normal failure is SILENCE: no line renders and the panel looks
+--- merely sparse. That is exactly how Rob spent a session stuck on 30 Aug 2026 with
+--- 235 Knowledge in hand, assuming he had missed something. From outside, "this
+--- route is complete", "we cannot read your trees" and "step 2 names a node in a
+--- list of trees" are the same blank space.
+---
+--- So this prints every step and the reason it did or did not resolve, and it walks
+--- the SAME functions the panel uses. A probe with its own copy of the logic would
+--- pass on the build the real one fails.
+function ns.PrintProfAdviceProbe()
+	local function say(s)
+		print("|cff8ee6a1MH|r " .. s)
+	end
+	local d = ns.PROF_ACADEMY
+	if not (d and d.advisorRoutes) then
+		say("no route data loaded at all — ProfessionAcademyData.lua did not run.")
+		return
+	end
+	-- The panel's own two functions, not copies of them.
+	local profs = GetPrimaryProfessions()
+	if not profs or #profs == 0 then
+		say("no professions detected. Open a profession window once, then retry.")
+		return
+	end
+	local classToken = select(2, UnitClass("player"))
+	for _, p in ipairs(profs) do
+		local summary = GetSpecSummary(p.skillLine)
+		say(("=== %s (skillLine %s)"):format(p.name or "?", tostring(p.skillLine)))
+		local route = d.advisorRoutes[p.skillLine]
+		if not route then
+			say("   no curated route for this profession — silence here is correct.")
+		elseif not (summary and summary.tabs and #summary.tabs > 0) then
+			say("   trees unreadable (no tabs). Not the same as 'no advice'.")
+		else
+			local tabs = {}
+			for _, t in ipairs(summary.tabs) do
+				if t.name then
+					tabs[t.name:lower()] = t
+				end
+			end
+			local nodes, nodeCount = nil, 0
+			if summary.midnightLine and ns.GetProfessionSpecNodes then
+				local okN, list = pcall(ns.GetProfessionSpecNodes, summary.midnightLine)
+				if okN and type(list) == "table" then
+					nodes = {}
+					for _, n in ipairs(list) do
+						if n.name then
+							nodes[n.name:lower()] = n
+							nodeCount = nodeCount + 1
+						end
+					end
+				end
+			end
+			say(("   %d trees, %s nodes readable")
+				:format(#summary.tabs, nodes and tostring(nodeCount) or "no"))
+			for i, step in ipairs(route) do
+				local isNode = (step.anyOfNodes or step.node) and true or false
+				local names = step.anyOfNodes or step.anyOf or { step.node or step.tree }
+				local hits = {}
+				for _, n in ipairs(names) do
+					local t = isNode and (nodes and nodes[n:lower()]) or tabs[n:lower()]
+					if t then
+						local got = isNode and (t.purchased or 0) or math.max((t.active or 0) - 1, 0)
+						local cap = isNode and (t.max or 0) or math.max((t.max or 0) - 1, 0)
+						hits[#hits + 1] = ("%s %d/%d"):format(n, got, cap)
+					else
+						hits[#hits + 1] = ("%s |cffff6666NOT FOUND|r"):format(n)
+					end
+				end
+				local skip = (step.skipIfClass and step.skipIfClass == classToken)
+					and " |cff8a8f98(skipped for your class)|r" or ""
+				say(("   step %d [%s] %s%s"):format(i, isNode and "node" or "tree",
+					table.concat(hits, " | "), skip))
+			end
+			local advice, points, goals = GetAdviceForProf(p.skillLine, summary, summary.midnightLine)
+			if advice == nil and goals then
+				say("   -> verdict: goal split (gold vs self), both shown.")
+			elseif advice == nil then
+				say("   -> verdict: |cffff6666nothing resolved|r — no line is drawn.")
+			elseif advice == false then
+				say("   -> verdict: route complete; node route / fallback decides.")
+			else
+				say(("   -> verdict: advise %s%s"):format(advice.name or "?",
+					points and (" (aim %d)"):format(points) or ""))
+			end
+		end
+	end
+end

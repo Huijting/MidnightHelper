@@ -1209,6 +1209,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh profadvice — waarom zegt de beroepen-adviseur wat hij zegt, of niets?
+	-- Zwijgen is zijn normale faalwijze: op 30 aug 2026 stond Rob met 235 Knowledge
+	-- vast omdat stap 2 van de Enchanting-route nodes noemde in een lijst met trees.
+	-- Van buiten zien "route af", "trees onleesbaar" en "naam niet gevonden" er
+	-- identiek uit — namelijk als een lege regel.
+	if msg == "profadvice" then
+		if ns.PrintProfAdviceProbe then
+			ns.PrintProfAdviceProbe()
+		end
+		return
+	end
+
 	-- /mh tierread — wat is er van een GEDRAGEN setstuk af te lezen? Beslist of
 	-- TierSetData.lua's twee tabellen kunnen verdwijnen.
 	if msg == "tierread" then
