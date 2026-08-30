@@ -362,8 +362,25 @@ function ns.BuildProfessionsHubPanel(panel)
 	resetBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
 	panel._phResetBtn = resetBtn
 
+	--- 🔴 FLOWS WITH THE CONTENT, and used to be pinned to the panel's bottom edge.
+	---
+	--- Everything above it grows downward and nothing bounds it: `ot` is a wrapping
+	--- FontString whose length depends on how many professions you have and how much
+	--- the advisor has to say, and `resetBtn` hangs off its bottom. A legend nailed to
+	--- BOTTOMLEFT therefore only looked fine while the text happened to be short.
+	---
+	--- Rob's screenshot, 30 Aug 2026: the reset paragraph and this legend painted over
+	--- each other, both unreadable. The advice line had grown from one line to three
+	--- that afternoon (it now names three branch options instead of silently picking
+	--- one), which was enough to close the gap. The bug was always there; my change
+	--- only spent the slack that was hiding it.
+	---
+	--- ⚠️ Trade-off taken deliberately: with no scroll frame here, a long enough page
+	--- can now push this legend past the bottom edge and out of sight. That is the
+	--- better failure — it explains three tabs and is the least important text on the
+	--- page, and text you cannot see beats text painted over the text you need.
 	local hint = overview:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-	hint:SetPoint("BOTTOMLEFT", overview, "BOTTOMLEFT", 12, 12)
+	hint:SetPoint("TOPLEFT", resetBtn, "BOTTOMLEFT", 0, -12)
 	hint:SetPoint("RIGHT", overview, "RIGHT", -16, 0)
 	hint:SetJustifyH("LEFT")
 	hint:SetWordWrap(true)

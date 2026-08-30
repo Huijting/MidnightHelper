@@ -16,6 +16,27 @@ vier **tree**-tabbladen. Geen match → `return nil` → geen advies, ook niet v
 
 **Na een `/reload`, met je Enchanting op 30/30:**
 
+### 🆕 30 aug, laat — overlappende tekst onderaan Professions → Overview (ONGETEST)
+
+Rob's screenshot: de reset-alinea (*"Changed your mind? Theremis in Silvermoon…"*) en de
+legenda-regel eronder (*"Treasures & Books: … Course (101): … Weekly KP: …"*) tekenden over
+elkaar heen, allebei onleesbaar.
+
+**Oorzaak:** de legenda hing aan `BOTTOMLEFT` van het paneel terwijl alles erboven naar beneden
+groeit en niets dat begrenst. Dat ging alleen goed zolang de tekst kort was. Mijn adviesregel
+groeide die middag van één naar drie regels (hij noemt nu drie takken in plaats van er stil één
+te kiezen) en dat was genoeg om de speling op te eten. **De bug zat er altijd al; ik heb alleen
+de marge opgemaakt die hem verborg.**
+
+**Te controleren na `/reload`:** Toolbox → Professions → Overview, helemaal naar beneden. De
+legenda hoort nu **onder** de "Route to Theremis"-knop te staan, met ruimte ertussen, en niets
+mag meer over elkaar lopen.
+
+⚠️ Bewuste keuze: er is hier geen scrollframe, dus bij een héél lange pagina kan die legenda nu
+onder de onderrand vallen en onzichtbaar worden. Dat is de betere storing — het is de minst
+belangrijke tekst op de pagina, en onzichtbaar is beter dan dwars door de tekst die je nodig
+hebt. Zie je hem helemaal niet meer, meld het dan; dan is een scrollframe de echte oplossing.
+
 ### 🆕 30 aug, laat — de drie enchant-families in de addon (ONGETEST)
 
 Na een `/reload`, Toolbox → Professions → **Course (101)** → hoofdstuk **Enchanting**:
