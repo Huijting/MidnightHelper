@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the packs for the corrected chapter, then mark it so the drift list stays honest."""
+"""Run the packs for the new families block, then mark it."""
 import os
 import subprocess
 import sys
@@ -12,7 +12,7 @@ except Exception:
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LUA = os.path.join(os.path.expanduser("~"), "AppData", "Local", "Programs", "Lua", "bin", "lua.exe")
 CHECK = os.path.join(REPO, "tools", "check_drift.py")
-KEY = "PROFACAD_CH_ENCHANTING_ADVANCED"
+KEY = "PROFACAD_CH_ENCHANTING_FAMILIES"
 
 r = subprocess.run([LUA, os.path.join(REPO, "tools", "locale_probe.lua"), KEY],
                    capture_output=True, text=True, encoding="utf-8", errors="replace", cwd=REPO)

@@ -325,12 +325,27 @@ local function GetNodeAdviceForProf(baseSkillLine, midnightLine)
 	-- `anyOfNodes` understood here too, so the two route tables take the same step
 	-- shapes. A node route that only ever read `node` is how the same "written one
 	-- way, read another" gap could open a second time.
+	--
+	-- And when a step offers several live options it hands back all of them, exactly
+	-- as the tree route does. Returning the first one is what made this route name
+	-- Thalassian silently on 30 Aug while Rob was asking which family to pick.
 	for _, step in ipairs(route) do
+		local opts = {}
 		for _, name in ipairs(step.anyOfNodes or { step.node }) do
 			local n = name and byName[name:lower()]
 			if n and (n.purchased or 0) < (n.max or 0) then
-				return n, "route"
+				opts[#opts + 1] = n
 			end
+		end
+		if #opts == 1 then
+			return opts[1], "route"
+		elseif #opts > 1 then
+			local out = {}
+			for k, v in pairs(opts[1]) do
+				out[k] = v
+			end
+			out.options = opts
+			return out, "route"
 		end
 	end
 	-- Route exhausted (Rob finished Silvermoon's Spellpower and had 10 points
@@ -394,7 +409,18 @@ local function BuildAdviceLine(skillLine, summary, withPointer, midnightLine)
 		-- Roots done: name the actual node when we have a verified one for this
 		-- profession. Otherwise fall back to the general line.
 		local node, why = GetNodeAdviceForProf(skillLine, midnightLine)
-		if node then
+		if node and node.options then
+			-- Several live options: name them all. Node ranks are already in tooltip
+			-- form here (0/20), unlike the tree path, so they are not adjusted.
+			local parts = {}
+			for _, o in ipairs(node.options) do
+				parts[#parts + 1] = SL("PROFACAD_CHOICE_FMT")
+					:format(o.name, o.purchased or 0, o.max or 0)
+			end
+			text = SL("PROFACAD_ADVISE_PICK_ONE_FMT"):format(table.concat(parts, ", "))
+			-- Pointer deliberately KEPT here. A choice is not an answer, and what
+			-- separates these options lives in the chapter.
+		elseif node then
 			local key = (why == "finish") and "PROFACAD_ADVISE_NODE_FINISH_FMT" or "PROFACAD_ADVISE_NODE_FMT"
 			text = SL(key):format(node.name, node.purchased or 0, node.max or 0)
 			-- A route hit answers the question outright, so the pointer is noise. The
@@ -694,6 +720,19 @@ local function ComposeChapterBody(ch, treesAdvice)
 		local adv = SL(ch.advancedKey)
 		if adv and adv ~= "" and adv ~= ch.advancedKey then
 			body = body .. "\n\n" .. adv:gsub("|n", "\n")
+		end
+	end
+	-- A reference block for a profession whose branches are a genuine choice rather
+	-- than an order. Same optional-key shape as introKey/advancedKey above: a chapter
+	-- without it renders exactly as before.
+	--
+	-- Enchanting has one because its three families are equally strong and differ only
+	-- in which stats they let you sell -- and because the addon spent months naming one
+	-- of them without ever saying the other two existed.
+	if ch.familiesKey then
+		local fam = SL(ch.familiesKey)
+		if fam and fam ~= "" and fam ~= ch.familiesKey then
+			body = body .. "\n\n" .. fam:gsub("|n", "\n")
 		end
 	end
 	if ch.key == "trees" and treesAdvice ~= "" then

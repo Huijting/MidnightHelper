@@ -16,6 +16,23 @@ vier **tree**-tabbladen. Geen match → `return nil` → geen advies, ook niet v
 
 **Na een `/reload`, met je Enchanting op 30/30:**
 
+### 🆕 30 aug, laat — de drie enchant-families in de addon (ONGETEST)
+
+Na een `/reload`, Toolbox → Professions → **Course (101)** → hoofdstuk **Enchanting**:
+
+1. **Onderaan het hoofdstuk staat een nieuw blok** "The three families, and why the choice
+   matters" met de stat-tabel per familie. Staat het er niet, dan wordt `familiesKey` niet
+   gerenderd.
+2. **De adviesregel noemt nu drie namen.** Met je tree-route af hoort er te staan: *"je volgende
+   punten gaan in ÉÉN hiervan — Zul'Aman Zeal, Azerothian Arms, Silvermoon's Spellpower"*, elk
+   met `(0/20)`. ⚠️ Stond er eerst alleen `Silvermoon's Spellpower`; dát was de stille keuze.
+3. **`/mh profadvice`** — step 2 van de node-route moet nu drie namen tonen in plaats van één.
+4. ⚠️ **Zie je bij een van de drie `NOT FOUND`?** Dan bestaat die node-naam niet zoals wij hem
+   schrijven. `Zul'Aman Zeal` en `Azerothian Arms` komen uit de DB2 van de agents, níét uit jouw
+   client — alleen `Silvermoon's Spellpower` is ooit door jou bevestigd.
+5. **Nog steeds waar:** de addon controleert niet of je een node kúnt kopen. Staat er een naam
+   die in het spel op slot zit, dan is dat deze bekende beperking en geen nieuwe bug.
+
 ✅ **Ronde 1 al bevestigd op Robs scherm:** de adviesregel was terug en `/mh profadvice` gaf
 `step 2 [node] Shard Supplier 0/30 | Crystal Collector 0/30` → `verdict: advise Shard Supplier`.
 Geen `NOT FOUND`, dus de namen bestaan echt in 12.1. Zijn tooltips brachten daarna twee dingen

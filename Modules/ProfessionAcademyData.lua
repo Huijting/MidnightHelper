@@ -144,13 +144,28 @@ ns.PROF_ACADEMY = {
 	-- He had just said he does not know which family he makes -- and we answered by naming
 	-- one silently. Third time today the same fault: one option shown as the answer.
 	--
-	-- ⚠️ Left as ONE entry on purpose until someone measures which family is worth it.
-	-- Turning it into an anyOfNodes of all three would stop it lying, but it would also
-	-- claim they are interchangeable, and nobody has checked that. What the families
-	-- actually differ in (stats, item level, demand) is unmeasured -- see docs/NEXT_SESSION.md.
+	-- ✅ MEASURED 30 Aug 2026, and now all three are listed. Two agents read Blizzard's
+	-- DB2 independently and agreed to the last decimal: every gear enchant in all three
+	-- families is ItemLevelMin 120, and SpellItemEnchantment.EffectScalingPoints is
+	-- bit-for-bit equal wherever the stat matches (lesser rings 0.65414899588, chest
+	-- primary 0.95148998499, tools 10.5784). No family is stronger and none is legacy.
+	--
+	-- What differs is which stats you may sell -- the tertiaries form a Latin square, so
+	-- Leech on shoulders exists only for Thalassian -- which makes this a real choice
+	-- and not an order. That is exactly what anyOfNodes is for, and listing one of three
+	-- was only ever defensible while nobody had checked whether they were equivalent.
+	--
+	-- 📌 The three Weapon/Chest/Ring nodes, one per family. Their siblings (Helm/Shoulder/
+	-- Boot, Tool) are deliberately not routed: which slot line pays is a market question
+	-- and we have no market source -- see PROFACAD_CH_ENCHANTING_FAMILIES, which explains
+	-- the whole grid so the player can decide with the facts in front of them.
 	advisorNodeRoutes = {
 		[333] = { -- Enchanting
-			{ node = "Silvermoon's Spellpower" },
+			{ anyOfNodes = {
+				"Zul'Aman Zeal",           -- Amani: Mastery rings, Strength chest
+				"Azerothian Arms",         -- Haranir: Crit rings, Mark of the Worldsoul
+				"Silvermoon's Spellpower", -- Thalassian: Haste + Versatility rings
+			} },
 		},
 	},
 
@@ -552,6 +567,7 @@ ns.PROF_ACADEMY = {
 			bodyKey = "PROFACAD_CH_ENCHANTING_BODY",
 			introKey = "PROFACAD_CH_ENCHANTING_INTRO",
 			advancedKey = "PROFACAD_CH_ENCHANTING_ADVANCED",
+			familiesKey = "PROFACAD_CH_ENCHANTING_FAMILIES",
 			taskWaypoint = "glamourTeacher",
 			taskKey = "PROFACAD_CH_ENCHANTING_TASK",
 			levelingKey = "PROFGUIDE_LVL_ENCHANTING",
