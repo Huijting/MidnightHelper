@@ -238,15 +238,109 @@ vanzelf blijft draaien.
 📌 En: **onze vertaal-issue-vorm is beter dan die van WeakAuras, BigWigs, Plater of Krowi.** Dat
 vakje is afgevinkt; Weblate/Crowdin erbij halen loont niet bij een Lua-tabelformaat.
 
-### B9. Bouwvolgorde
+### B10. De bovenkant van `CURSEFORGE_DESCRIPTION.md` herschrijven
+
+⚠️ **Dit bestand is van BOUW** (`COORDINATION.md`, regel 1), vandaar dat het hier staat en niet
+in deel A. De sámenvatting (A1) zet Rob rechtstreeks op de site; dit gaat over het bestand.
+
+**De diagnose.** De beste zin die we hebben — *"Just hit 90 and nobody explained any of this?"*
+— staat op regel 7, ónder een eenmansproject-verontschuldiging en ónder een Discord-plug voor
+een Discord met twee leden. En de professies-cursus, ons meest onderscheidende bezit, staat op
+**regel 115 van 228** — ruim voorbij waar een vreemde afhaakt. De pagina is geordend naar hoe de
+addon gebouwd is, niet naar wat een onbekende nodig heeft.
+
+📌 **De eerlijkheid over het eenmansproject blijft — hij verhuist alleen.** Dat is iets wat
+vertrouwen *sluit*, niet iets wat het opent. Onderaan de eerste schermvulling, niet erboven.
+
+⛔ **Alles vanaf `### Highlights` blijft ongewijzigd.** Dit vervangt uitsluitend regel 1 t/m 16
+(de twee blokcitaten, de pitch en de alinea "See it in action").
+
+```markdown
+## Midnight Helper
+
+**The addon that explains *why*, not just *what*.**
+
+Your gear says "Champion 4/6" and the game never tells you what that means. Your Great
+Vault has three empty slots and nothing says how to fill them. Your profession window has
+six numbers on it and no one has ever explained a single one.
+
+Midnight Helper answers those questions in plain language — in your own language — and
+then takes you there.
+
+**It is for you if you have just hit 90, or if you are coming back after a few expansions
+away and half the game has been renamed.** One window for your whole week. Clean enough
+for a brand-new max-level player, deep enough for a min-maxer.
+
+**Free, open source (MIT), no dependencies, no ads, and seven languages built in — no
+second addon to install.**
+
+### Start with these three
+
+- **Professions 101** — a fourteen-chapter beginner course, not a help page. Why the same
+  recipe gives two players different results. What Multicraft, Resourcefulness, Ingenuity,
+  Finesse, Perception and Deftness actually do. When Concentration is worth spending. How
+  work orders really work, and why there are two counters rather than one. Where your
+  Knowledge Points come from — and, live from your own game, exactly which node to spend
+  the ones you have.
+- **"What should I do this week?"** — the This Week page opens with the single most useful
+  thing you can do right now and a **Take me there** button that sets the route. While you
+  are still levelling it never proposes endgame content you cannot do yet.
+- **Your class, on a keyboard** — your live spellbook drawn onto a clean keyboard layout,
+  every ability on the key it belongs on, for all 13 classes and 40 specs. A new alt or a
+  fresh spec becomes readable in about five seconds.
+
+There is a great deal more below — vault advice, delve and raid coaching, route guidance,
+achievement hunts, mounts. But those three are what the addon is *for*.
+
+> 🌙 **One person writes this, in their spare time.** That is the honest reason updates
+> arrive in bursts rather than on a schedule. Everything in here is checked against the
+> live client before it ships, and where the game will not tell us something, the addon
+> says so instead of guessing convincingly.
+```
+
+**Verantwoording, want never-lie geldt hier net zo hard:**
+
+- Elke bewering staat al in de huidige omschrijving: 14 hoofdstukken (regel 115), de zes
+  professiegetallen (regel 115), 13 klassen / 40 specs (regel 66), "Next up" met de
+  levelgrens (regel 49), zeven talen (regel 148). Er is geen functie verzonnen.
+- **MIT / open source** is nieuw op de pagina maar staat in `MidnightHelper.toc`
+  (`## X-License: MIT`) en de repo is openbaar. Wil Rob dat niet adverteren, dan valt die
+  clausule weg zonder dat er iets anders van afhangt.
+- **"seven languages built in — no second addon to install"** is nieuw en is een gemeten claim:
+  `Larias' Weekly Checklist: Localization` is een **aparte** addon met 153.400 downloads
+  (CurseForge, 30 aug 2026). Er is dus aantoonbaar vraag naar, en wij zijn de enige die het
+  zonder tweede installatie doen. ⚠️ Noem geen concurrent bij naam op onze eigen pagina.
+- 🔴 **Eén bewuste ingreep die Rob moet goedkeuren.** Uit het eenmansproject-blok is deze
+  clausule geschrapt: *"and why a release sometimes spends itself going back over what the
+  addon already said, instead of adding something new."* Die is eerlijk, maar een vreemde
+  leest hem als "er gebeurt soms niets". Vervangen door de positieve vorm van dezelfde belofte
+  (*"where the game will not tell us something, the addon says so instead of guessing
+  convincingly"*) — even waar, en het leest als kracht in plaats van verontschuldiging.
+  **Voelt dat als afzwakken, zet de originele zin dan terug**; hij kost één regel en er hangt
+  niets van af.
+- De Discord-plug bovenaan is weg. Hij staat verderop nog twee keer.
+- "See it in action" (regel 15, tachtig woorden die de lezer vertellen naar plaatjes te kijken)
+  vervalt. Die tekst hoort in de bijschriften bij de schermafbeeldingen (A4).
+
+### B11. Twee verouderde feiten
+- `README.md` zegt **11 delves**, `CURSEFORGE_DESCRIPTION.md` zegt **14**. Eén van beide is fout.
+- De waarschuwing *"New in 3.6.0 and partly unproven"* bij de dispel-klik (regel 76) hoort in de
+  release-notities, niet permanent op de productpagina.
+
+### B12. Bouwvolgorde
 1. **B1** (never-lie-correctie) — mag niet naast nieuwe vragen blijven staan.
 2. **B2** (twee tabelregels, repareert een defect en herleeft de zoekbalk).
 3. **B3** (echte `when`).
 4. **B4** (changelog-voetregel).
    → *stap 1 t/m 4 zijn samen één avond en raken vier bestanden.*
-5. **B5** (`/mh report`).
-6. **B6** (vragen op de ongemeten plekken; heeft B5 nodig).
-7. **B7** / **B8** (buiten de addon, kan parallel).
+5. **B10** + **B11** (de CurseForge-pagina; alleen tekst, geen Lua — kan tussendoor).
+6. **B5** (`/mh report`).
+7. **B6** (vragen op de ongemeten plekken; heeft B5 nodig).
+8. **B7** / **B8** (buiten de addon, kan parallel).
+
+⚠️ **B10 gaat mee met de eerstvolgende release**, niet los — de CurseForge-paginatekst wordt
+door Rob geplakt, en een wijziging op een releasedag maakt de meting uit §7 onbruikbaar. Zie de
+waarschuwing daar: verander de sámenvatting (A1) juist op een dag **zonder** release.
 
 ---
 
