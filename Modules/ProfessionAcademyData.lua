@@ -132,6 +132,22 @@ ns.PROF_ACADEMY = {
 	-- "Silvermoon's Spellpower" reads "Learn the secrets of Thalassian Weapon, Ring,
 	-- and Chest Armor enchantments" -- an exact match, confirmed by /mh nodes
 	-- reporting it as 0/20. That is the only node route verified so far.
+	-- 🔴 30 Aug 2026: THAT MATCH PICKED A FAMILY WITHOUT DECIDING ANYTHING. Midnight has
+	-- three parallel enchant families -- Amani, Thalassian and Haranir -- and each has its
+	-- own Weapon/Ring/Chest node. `Azerothian Arms` reads "granting your HARANIR Weapon,
+	-- Chest, and Ring enchantments", word for word the same shape as the Thalassian one
+	-- above. Our chapter's phrase "the Weapon/Ring/Chest branch" therefore matches at least
+	-- two nodes, and in July the first match won.
+	--
+	-- Rob hit this live: with the tree route finished the advice read "put your next points
+	-- into Silvermoon's Spellpower" while the panel underneath listed four Haranir nodes.
+	-- He had just said he does not know which family he makes -- and we answered by naming
+	-- one silently. Third time today the same fault: one option shown as the answer.
+	--
+	-- ⚠️ Left as ONE entry on purpose until someone measures which family is worth it.
+	-- Turning it into an anyOfNodes of all three would stop it lying, but it would also
+	-- claim they are interchangeable, and nobody has checked that. What the families
+	-- actually differ in (stats, item level, demand) is unmeasured -- see docs/NEXT_SESSION.md.
 	advisorNodeRoutes = {
 		[333] = { -- Enchanting
 			{ node = "Silvermoon's Spellpower" },

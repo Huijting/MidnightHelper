@@ -105,6 +105,30 @@ Chest, and Ring*), `Worldsoul Wards` (*Helm, Shoulder, Boot*), `Nature's Novelti
 Tool*) zitten dieper onder de Haranir-tak. De "Weapon/Ring/Chest branch" uit onze cursus is dus
 `Azerothian Arms`, en die zit twee lagen diep — niet vlak onder de root zoals de tekst suggereert.
 
+### 🔴 En de node-route wijst een FAMILIE aan zonder dat te zeggen (30 aug, live bij Rob)
+
+Rob maakte de tree-route af (120 KP, 145 over) en kreeg: *"Advice: put your next points into
+Silvermoon's Spellpower (0/20)"* — met daaronder vier **Haranir**-nodes in de lijst.
+
+`Silvermoon's Spellpower` is **Thalassian** Weapon/Ring/Chest (door Rob gehoverd 22 juli, staat
+in het commentaar bij `advisorNodeRoutes`). Midnight heeft **drie** enchant-families — Amani,
+Thalassian, Haranir — elk met zo'n Weapon/Ring/Chest-node. `Azerothian Arms` is de Haranir-versie
+en past woord voor woord op dezelfde omschrijving.
+
+⚠️ **De keuze is nooit gemaakt.** Het commentaar zegt het zelf: onze cursus schrijft *"the
+Weapon/Ring/Chest branch"*, dat matchte op Silvermoon's Spellpower, en die match werd de route.
+Rob zei letterlijk *"weet niet welke familie"* en kreeg er één aangewezen zonder het woord
+Thalassian te zien.
+
+📌 **Derde keer vandaag dezelfde fout**, na de disenchant-nodes (`anyOf` als antwoord i.p.v.
+keuze) en de Shatter Essence-zin. Het patroon: **wij tonen één optie waar er meerdere zijn, en
+noemen de as waarlangs ze verschillen niet.**
+
+**NIET opgelost door er `anyOfNodes` van te maken.** Dat stopt het liegen maar beweert dat de
+drie uitwisselbaar zijn, en dát is niet gemeten. **Eerst meten:** verschillen Amani/Thalassian/
+Haranir in stats, item level, of alleen in naam? Dat bepaalt of het één keuze is of drie namen
+voor hetzelfde. Robs eigen recepten-tab is de goedkoopste bron.
+
 **Te doen:** (2) `goals` voor `[333]` bouwen op deze meting. ⚠️ Let op dat beide doelen met
 Elevating Equipment beginnen; de echte splitsing zit tussen **Disenchanting Delegate**
 (zelfvoorziening in materiaal) en **Elevating Equipment** (kwaliteit van je product), niet tussen
