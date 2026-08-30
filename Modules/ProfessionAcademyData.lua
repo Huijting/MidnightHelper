@@ -297,9 +297,20 @@ ns.PROF_ACADEMY = {
 		-- WHOLE profession: Rob finished the 30-point root on 30 Aug 2026, had 235
 		-- Knowledge in hand and got no advice line at all, for this step or the two
 		-- tree steps after it. Steps 3 and 4 were never reached.
+		--
+		-- 🔴 THREE options, not two. Read off Rob's own tooltips 30 Aug 2026, in
+		-- Blizzard's words: Dust Deliverer is Uncommon, Shard Supplier is Rare,
+		-- Crystal Collector is Epic — each "+1 Skill per point when disenchanting"
+		-- that quality and +5 on learning. We listed only two and had described them
+		-- as "blues" and "epics", which happens to map correctly onto Rare and Epic
+		-- but left the green tier out of a choice we call the costliest in the tree.
+		-- They are Rank 0/30 each, not 0/20.
+		--
+		-- Deliberately NOT ranked. Which one pays depends on what the player actually
+		-- breaks down, and we have never asked. The advisor names all three.
 		[333] = {
 			{ tree = "Disenchanting Delegate" },
-			{ anyOfNodes = { "Shard Supplier", "Crystal Collector" } },
+			{ anyOfNodes = { "Dust Deliverer", "Shard Supplier", "Crystal Collector" } },
 			{ tree = "Elevating Equipment" },
 			{ tree = "Spellbound Shatterer" },
 		},

@@ -172,6 +172,11 @@ local function FirstUnfinishedStep(steps, byName, classToken, nodesByName)
 				names, lookup = step.anyOfNodes or { step.node }, nil
 			end
 			local display, satisfied = nil, false
+			-- Every option we could resolve, in route order. An `anyOf` step means
+			-- "pick one", and picking the first for the player is how the old code
+			-- hid the choice this profession turns on: Enchanting's three sub-nodes
+			-- serve Uncommon, Rare and Epic gear and are not interchangeable.
+			local options = {}
 			for _, n in ipairs(names) do
 				local t
 				if lookup then
@@ -184,6 +189,7 @@ local function FirstUnfinishedStep(steps, byName, classToken, nodesByName)
 					end
 				end
 				if t then
+					options[#options + 1] = t
 					display = display or t
 					if step.points == 0 then
 						-- "Open this branch, put nothing in it" (Mining's Over-LODED:
@@ -208,6 +214,17 @@ local function FirstUnfinishedStep(steps, byName, classToken, nodesByName)
 			if display then
 				resolved = resolved + 1
 				if not satisfied then
+					-- More than one live option: hand the caller all of them rather
+					-- than a winner. Copied, never mutated in place — `display` can
+					-- be a table owned by the summary.
+					if #options > 1 then
+						local out = {}
+						for k, v in pairs(display) do
+							out[k] = v
+						end
+						out.options = options
+						return out, step.points
+					end
 					return display, step.points
 				end
 			end
@@ -391,7 +408,19 @@ local function BuildAdviceLine(skillLine, summary, withPointer, midnightLine)
 		end
 	elseif advice then
 		local spent, cap = math.max(advice.active - 1, 0), math.max(advice.max - 1, 0)
-		if points == 0 then
+		if advice.options then
+			-- The step offers a real choice, so the advice is the choice. Naming the
+			-- first option as though it were the answer is what hid Enchanting's
+			-- three disenchanting branches behind one of them; they serve Uncommon,
+			-- Rare and Epic gear and only one matches what a given player breaks
+			-- down. We do not know which, and have never asked.
+			local parts = {}
+			for _, o in ipairs(advice.options) do
+				parts[#parts + 1] = SL("PROFACAD_CHOICE_FMT"):format(o.name,
+					math.max((o.active or 0) - 1, 0), math.max((o.max or 0) - 1, 0))
+			end
+			text = SL("PROFACAD_ADVISE_PICK_ONE_FMT"):format(table.concat(parts, ", "))
+		elseif points == 0 then
 			-- Threshold of zero is not a typo: unlocking is the whole advice.
 			text = SL("PROFACAD_ADVISE_NEXT_OPEN_FMT"):format(advice.name)
 		elseif points then

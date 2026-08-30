@@ -16,22 +16,27 @@ vier **tree**-tabbladen. Geen match → `return nil` → geen advies, ook niet v
 
 **Na een `/reload`, met je Enchanting op 30/30:**
 
-1. **De adviesregel is terug.** Toolbox -> Professions -> Overview. Onder "Enchanting: 30 KP
-   spent" hoort nu een groene regel te staan die **Shard Supplier of Crystal Collector** noemt,
-   met `(0/20)` erachter. Stond er eerst niets; dát was de bug.
-2. **`/mh profadvice`** — print per beroep elke routestap en of hij oplost. Wat je wil zien:
-   `step 2 [node] Shard Supplier 0/20 | Crystal Collector 0/20` en daaronder
-   `-> verdict: advise ...`. ⚠️ Staat er `|cffff6666NOT FOUND|r` bij die twee namen, dan bestaan
-   ze niet in 12.1 en is onze **data** fout — dat is een ander probleem dan deze fix, en dan
-   moeten we de echte namen uit jouw client halen vóór je nog punten uitgeeft.
-3. **Tailoring mag niet veranderd zijn.** Die regel (Nimble Needlework, aim 20) stond goed en
-   moet er onveranderd staan — de fix raakt alleen routes met node-stappen.
-4. **Zet een punt in de gekozen node en kijk opnieuw.** De regel hoort mee te lopen (`1/20`), en
-   zodra de node vol is hoort het advies door te schuiven naar **Elevating Equipment**. Dat is
-   het stuk dat vóór vandaag helemáál onbereikbaar was.
+✅ **Ronde 1 al bevestigd op Robs scherm:** de adviesregel was terug en `/mh profadvice` gaf
+`step 2 [node] Shard Supplier 0/30 | Crystal Collector 0/30` → `verdict: advise Shard Supplier`.
+Geen `NOT FOUND`, dus de namen bestaan echt in 12.1. Zijn tooltips brachten daarna twee dingen
+aan het licht die we níét wisten, en die zijn hierna verwerkt — **dat deel is nog ongetest:**
 
-📌 De adviesregel noemt de node maar **kiest niet voor je**: Shard Supplier als je blues sloopt,
-Crystal Collector bij epics. Dat verschil is echt en staat in `ProfessionAcademyData.lua:279`.
+1. **Er staan nu DRIE opties, geen twee.** De adviesregel hoort te luiden: *"je volgende punten
+   gaan in ÉÉN hiervan — Dust Deliverer (0/30), Shard Supplier (0/30), Crystal Collector
+   (0/30)"*. `Dust Deliverer` ontbrak volledig in onze data.
+2. **Hij mag niet meer vóór je kiezen.** Er stond *"advise Shard Supplier"* alsof dat hét
+   antwoord was, terwijl de drie op verschillende gear werken (Uncommon / Rare / Epic). Zie je
+   nog één naam met "next points into", dan werkt de keuzeregel niet.
+3. **`/mh profadvice`** moet bij step 2 nu drie namen tonen.
+4. **Tailoring mag niet veranderd zijn** — die regel (Nimble Needlework, aim 20) stond goed en
+   de fix raakt alleen routes met node-stappen.
+5. **Zet een punt en kijk opnieuw.** De regel hoort mee te lopen (`1/30`), en zodra de node vol
+   is hoort het advies door te schuiven naar **Elevating Equipment**. Dat stuk was vóór vandaag
+   helemaal onbereikbaar.
+
+📌 Welke van de drie is **Robs keuze, niet de onze** — we hebben nooit gevraagd wat hij sloopt.
+Blizzards eigen tooltips: Dust Deliverer = Uncommon, Shard Supplier = Rare, Crystal Collector =
+Epic; elk +1 Skill per punt op díé kwaliteit, +5 bij het leren.
 
 ## 📍 STAND 28 aug (avond) — alles met een dwingende reden is af
 

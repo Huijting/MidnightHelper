@@ -828,6 +828,7 @@ ns._mhLocales.nlNL = {
 	PROFACAD_ADVISE_NEXT_FMT = "Advies: volgende punten in %s (root %d/%d).",
 	PROFACAD_ADVISE_NEXT_POINTS_FMT = "Advies: je volgende punten in %s (root %d/%d) — mik op ongeveer %d. Hang in het spel boven de node; zijn tooltip geeft het exacte getal, en de gidsen spreken elkaar erover tegen.",
 	PROFACAD_ADVISE_NEXT_OPEN_FMT = "Advies: open %s — en stop daar. Het ontgrendelen is wat oplevert; punten daarbovenop zijn een gok op materiaalprijzen.",
+	PROFACAD_ADVISE_PICK_ONE_FMT = "Advies: je volgende punten gaan in ÉÉN hiervan — %s. Ze zijn niet uitwisselbaar, dus hover ze in het spel en neem degene die past bij wat je echt doet.",
 	PROFACAD_ADVISE_GOALS_FMT = "Vanaf hier splitst de route, en die twee verschillen echt. %s",
 	PROFACAD_ADVISE_GOAL_LINE_FMT = "%s %s (root %d/%d).",
 	PROFACAD_GOAL_GOLD = "Verkopen aan anderen:",

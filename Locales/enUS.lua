@@ -867,6 +867,10 @@ ns._mhLocales.enUS = {
 	PROFACAD_ADVISE_NEXT_FMT = "Advice: next points into %s (root %d/%d).",
 	PROFACAD_ADVISE_NEXT_POINTS_FMT = "Advice: next points into %s (root %d/%d) — aim for about %d. Hover the node in game; its tooltip has the exact number, and guides disagree about it.",
 	PROFACAD_ADVISE_NEXT_OPEN_FMT = "Advice: open %s — and then stop. Unlocking it is what pays; points beyond that are a gamble on material prices.",
+	-- Shown when the route step offers a choice rather than a next thing. We name the
+	-- options and stop there: which one pays depends on what the player actually
+	-- makes or breaks down, and MH has never asked them.
+	PROFACAD_ADVISE_PICK_ONE_FMT = "Advice: your next points go into ONE of these — %s. They are not interchangeable, so hover each in game and take the one that matches what you actually do.",
 	PROFACAD_ADVISE_GOALS_FMT = "From here the route splits, and the two genuinely differ. %s",
 	PROFACAD_ADVISE_GOAL_LINE_FMT = "%s %s (root %d/%d).",
 	-- ⚠️ These two are built dynamically ("PROFACAD_GOAL_" .. goal:upper()), so the
