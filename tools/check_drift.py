@@ -289,9 +289,18 @@ def render_report(rows, state, en_total, scored):
              "meten en niet gelijk zijn: gebruik hier het getal van de loader."
              % (en_total, scored, en_total - scored))
     o.append("")
-    o.append("⚠️ **Niets hier automatisch vertalen.** Deze lijst gaat naar "
-             "#translations op Discord; een machinevertaling in een pack is niet "
-             "te onderscheiden van een gecontroleerde en blokkeert de echte.")
+    o.append("🔴 **Wij vertalen dit zelf.** Deze lijst ging vroeger \"naar "
+             "#translations\", maar daar is niemand: dat betekende in de praktijk "
+             "\"wordt nooit gerepareerd\", en een vertaling die iets onwaars beweert "
+             "is erger dan een zorgvuldige van ons. Wel eerst lezen — \"gedrift\" "
+             "zegt alleen dat het Engels veranderd is, niet dat de vertaling fout is "
+             "(30 aug: 5 van de 11 waren loos alarm). En elk pack houdt zijn eigen "
+             "woordenschat: `itIT` schrijft Great Vault, `deDE` Große Schatzkammer.")
+    o.append("")
+    o.append("⚠️ **Wat wij schrijven is niet nagekeken door een moedertaalspreker.** "
+             "Verschijnt er ooit een vertaler, dan begint die hier: de tier-teksten "
+             "(`INFO_DRAWER_BODY_TIER`, `TIER_FOOTER`, `TIER_SET_UNKNOWN`) en de "
+             "Collegiate-tip zijn op 30 aug 2026 door ons geschreven in de/fr/es/pt/it.")
     o.append("")
     for code in LANGS:
         drift = [r for r in rows[code] if r[0] == "DRIFT"]
