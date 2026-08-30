@@ -105,6 +105,55 @@ Chest, and Ring*), `Worldsoul Wards` (*Helm, Shoulder, Boot*), `Nature's Novelti
 Tool*) zitten dieper onder de Haranir-tak. De "Weapon/Ring/Chest branch" uit onze cursus is dus
 `Azerothian Arms`, en die zit twee lagen diep — niet vlak onder de root zoals de tekst suggereert.
 
+### ✅ De drie families GEMETEN (30 aug, twee agents onafhankelijk in DB2)
+
+**Uitkomst: dezelfde slots, dezelfde kracht, andere stats.** Geen tiers, geen legacy-familie.
+
+Bewijs voor gelijke kracht: `SpellItemEnchantment.EffectScalingPoints_0` is **bit voor bit
+gelijk** waar de stat hetzelfde is — lower-rank ringen `0.65414899588` / `0.71361798048` in alle
+drie, upper-rank `0.80282002687` / `0.86228799820`, chest-primary `0.95148998499`, tools
+`10.5784`. Elke gear-enchant `ItemLevelMin = 120`, elke tool-enchant 175–367. Beide agents kwamen
+op dezelfde getallen zonder van elkaar te weten.
+
+Familielidmaatschap is **niet afgeleid**: elke `Spell.Description_lang` eindigt op een letterlijke
+node-tag, bv. `|cnNORMAL_FONT_COLOR:Amani Augments - Zul'Aman Zeal|R`. Spell-blok 1236054–1236097
+(43 enchants; 1236096 is leeg). Amani 14 · Haranir 14 · Thalassian 15.
+
+| slot | Amani | Haranir | Thalassian |
+|---|---|---|---|
+| Ring | **Mastery** ×2 + crit-*effectiviteit* | **Crit** ×2 | **Haste** ×2 + **Versatility** ×2 |
+| Chest (primary) | Strength + Stam | Agility + Speed · **+ `Mark of the Worldsoul` = elke primary** | Intellect + Mana% |
+| Helm | Leech | Speed | Avoidance |
+| Shoulders | Speed | Avoidance | Leech |
+| Boots | Avoidance | Leech | Speed |
+| Tool | Perception, **Resourcefulness** | Finesse, **Multicraft** | Deftness, **Ingenuity** |
+| Weapon (proc) | Crit, Haste, bleed | Vers, heal-absorb, tank-aegis | **Mastery**, primary, fire |
+
+Elke familie heeft dezelfde drie subnodes: Weapon/Chest/Ring · Helm/Shoulder/Boot · Tool.
+Volledig: Amani = Zul'Aman Zeal / Berserker Brawn / Trollish Tools · Haranir = Azerothian Arms /
+Worldsoul Wards / Nature's Novelties · Thalassian = Silvermoon's Spellpower / Eversong
+Empowerments / Quel'Thalas Quality.
+
+🔴 **Vier dingen die de keuze bepalen:**
+
+1. **De tertiaries vormen een Latijns vierkant** — elke stat één keer per kolom. Leech op
+   shoulders bestaat alléén bij Thalassian. Klanten moeten dus naar een specifieke enchanter.
+2. **`Mark of the Worldsoul` (Haranir, chest, 1236069) is de ENIGE uitschieter in de hele
+   dataset**: elke primary stat, en `1.07043`/`1.48670` tegenover `0.95149`/`1.18936` voor de drie
+   klasse-specifieke chests — **~25% meer primary, verkoopbaar aan iedere klasse.** ⚠️ Hoe je hem
+   leert is NIET getraceerd (hij zit niet bij de 22 `Formula:`-items).
+3. **Ring-stat ≠ weapon-stat binnen een familie.** Mastery-ring is Amani, maar de Mastery-*proc*
+   is Thalassian. Geen familie bedient één stat volledig.
+4. **Tools splitsen zesvoudig zonder overlap** — Multicraft/Finesse alleen Haranir,
+   Resourcefulness/Perception alleen Amani, Ingenuity/Deftness alleen Thalassian. Captive market.
+
+📌 **Er bestaan GEEN Midnight-enchants voor cloak, bracer, belt of gloves.** Zeven slots, meer
+niet. En Midnight heeft nog maar **twee** kwaliteitstiers (TWW had er drie).
+
+⚠️ **Wat niemand weet:** reagentia per familie, proc-rates op de negen wapen-enchants, en de
+werkelijke marktprijzen — r/woweconomy was voor de agent volledig geblokkeerd, dus er is geen
+enkele echte marktbron. Nieuwste guide is 11 aug.
+
 ### 🔴 En de node-route wijst een FAMILIE aan zonder dat te zeggen (30 aug, live bij Rob)
 
 Rob maakte de tree-route af (120 KP, 145 over) en kreeg: *"Advice: put your next points into
