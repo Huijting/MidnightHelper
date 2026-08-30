@@ -4681,12 +4681,12 @@
    "ptBR": "ecf2d10600f02310"
   },
   "CURIO_NO_TEXT": {
-   "deDE": "1b05494ea0a7c9a9",
-   "esES": "1b05494ea0a7c9a9",
-   "frFR": "1b05494ea0a7c9a9",
-   "itIT": "1b05494ea0a7c9a9",
-   "nlNL": "1b05494ea0a7c9a9",
-   "ptBR": "1b05494ea0a7c9a9"
+   "deDE": "1b426b7953c8987d",
+   "esES": "1b426b7953c8987d",
+   "frFR": "1b426b7953c8987d",
+   "itIT": "1b426b7953c8987d",
+   "nlNL": "1b426b7953c8987d",
+   "ptBR": "1b426b7953c8987d"
   },
   "CURIO_NO_TREE": {
    "deDE": "2d77a8c03c67ce68",
@@ -4867,12 +4867,12 @@
    "ptBR": "a35cd3e6bfcd2d45"
   },
   "DAWNCREST_TIER_ADVENTURER": {
-   "deDE": "35aac28f4f9b0011",
-   "esES": "35aac28f4f9b0011",
-   "frFR": "35aac28f4f9b0011",
+   "deDE": "f6a8e7d227e87384",
+   "esES": "f6a8e7d227e87384",
+   "frFR": "f6a8e7d227e87384",
    "itIT": "35aac28f4f9b0011",
    "nlNL": "35aac28f4f9b0011",
-   "ptBR": "35aac28f4f9b0011"
+   "ptBR": "f6a8e7d227e87384"
   },
   "DAWNCREST_TIER_CHAMPION": {
    "esES": "d0dc8a2a8303bf4a",
@@ -6496,12 +6496,12 @@
    "ptBR": "df6d943cbef87862"
   },
   "DELVE_TIP_COLLEGIATE_CALAMITY_OVERVIEW": {
-   "deDE": "76d6c55b406c7100",
-   "esES": "76d6c55b406c7100",
-   "frFR": "76d6c55b406c7100",
-   "itIT": "76d6c55b406c7100",
-   "nlNL": "76d6c55b406c7100",
-   "ptBR": "76d6c55b406c7100"
+   "deDE": "f98adf46cd5c8d92",
+   "esES": "f98adf46cd5c8d92",
+   "frFR": "f98adf46cd5c8d92",
+   "itIT": "f98adf46cd5c8d92",
+   "nlNL": "f98adf46cd5c8d92",
+   "ptBR": "f98adf46cd5c8d92"
   },
   "DELVE_TIP_COLLEGIATE_CALAMITY_ROUTE": {
    "deDE": "eae824d518f6daee",
@@ -19575,11 +19575,11 @@
    "ptBR": "84852a62bf6463a9"
   },
   "SET_CONSREADY_TOGGLE_TITLE": {
-   "deDE": "d88bacc8455aad68",
+   "deDE": "e1345c58a37f1dee",
    "esES": "d88bacc8455aad68",
    "frFR": "d88bacc8455aad68",
    "itIT": "d88bacc8455aad68",
-   "nlNL": "d88bacc8455aad68",
+   "nlNL": "e1345c58a37f1dee",
    "ptBR": "d88bacc8455aad68"
   },
   "SET_CS_BARS_DESC": {
@@ -22407,20 +22407,20 @@
    "ptBR": "f8bf8c8cfde5635d"
   },
   "VALEERA_RUN_FMT": {
-   "deDE": "e55446533e892a8c",
-   "esES": "e55446533e892a8c",
-   "frFR": "e55446533e892a8c",
-   "itIT": "e55446533e892a8c",
-   "nlNL": "e55446533e892a8c",
-   "ptBR": "e55446533e892a8c"
+   "deDE": "89251e3248742baf",
+   "esES": "89251e3248742baf",
+   "frFR": "89251e3248742baf",
+   "itIT": "89251e3248742baf",
+   "nlNL": "89251e3248742baf",
+   "ptBR": "89251e3248742baf"
   },
   "VALEERA_RUN_NONE": {
-   "deDE": "1a74da732b33ecd1",
-   "esES": "1a74da732b33ecd1",
-   "frFR": "1a74da732b33ecd1",
-   "itIT": "1a74da732b33ecd1",
-   "nlNL": "1a74da732b33ecd1",
-   "ptBR": "1a74da732b33ecd1"
+   "deDE": "62bc913d717ddbc9",
+   "esES": "62bc913d717ddbc9",
+   "frFR": "62bc913d717ddbc9",
+   "itIT": "62bc913d717ddbc9",
+   "nlNL": "62bc913d717ddbc9",
+   "ptBR": "62bc913d717ddbc9"
   },
   "VALEERA_RUN_OTHER_FMT": {
    "deDE": "72cf7ee8f1cd2e06",

@@ -310,9 +310,66 @@ def render_report(rows, state, en_total, scored):
     return "\n".join(o) + "\n"
 
 
+def mark(now, state, keys):
+    """Record that these keys were translated against the CURRENT English.
+
+    🔴 THE VERB THAT WAS MISSING. `state.keys[KEY][code]` holds a hash of the English text as
+    it stood when that language was translated, and drift is simply "that hash is stale". So
+    the tool could report drift and could re-seed from a tag, and had no way at all to say
+    "this one is done now". Measured 30 aug 2026: the Collegiate overview was corrected in
+    four languages and the count stayed at eleven, because nothing updates the hash. A list
+    that cannot shrink is not a work list, and people stop reading it.
+
+    ⚠️ DELIBERATE, NEVER AUTOMATIC. Marking a key asserts that a person brought that language
+    in line with the current English. Doing it on a schedule, or for everything at once, would
+    silence real drift permanently -- the exact failure this file exists to catch. Hence an
+    explicit key list on the command line and a printed line per language.
+
+    Only languages that actually HAVE a translation are marked: a value equal to enUS is
+    untranslated, and stamping it would claim work nobody did.
+    """
+    en = now["enUS"]
+    touched = 0
+    for key in keys:
+        env = en.get(key)
+        if env is None:
+            print("  %-46s |onbekend in enUS -- overgeslagen" % key)
+            continue
+        cur = h(env)
+        for code in LANGS:
+            val = now.get(code, {}).get(key)
+            if val is None or val == env:
+                print("  %-46s %s  onvertaald, niet gemarkeerd" % (key, code))
+                continue
+            state.setdefault("keys", {}).setdefault(key, {})[code] = cur
+            touched += 1
+            print("  %-46s %s  gemarkeerd" % (key, code))
+    return touched
+
+
 def main():
     args = sys.argv[1:]
     now = dump(REPO)
+    if "--mark" in args:
+        keys = [a for a in args[args.index("--mark") + 1:] if not a.startswith("--")]
+        if not keys:
+            sys.exit("STOP: --mark heeft minstens een KEY nodig. Dit stempelt dat JIJ die "
+                     "key hebt bijgewerkt tegen het huidige Engels; alles stempelen zou "
+                     "echte drift voorgoed doen zwijgen.")
+        if not os.path.exists(STATE):
+            sys.exit("STOP: %s bestaat niet. Draai eerst --seed." % STATE)
+        with io.open(STATE, encoding="utf-8") as fh:
+            st = json.load(fh)
+        print("markeren als bijgewerkt tegen het huidige Engels:")
+        n = mark(now, st, keys)
+        if n:
+            with io.open(STATE + ".tmp", "w", encoding="utf-8", newline="\n") as fh:
+                json.dump(st, fh, ensure_ascii=False, indent=1, sort_keys=True)
+            os.replace(STATE + ".tmp", STATE)
+            print("\ngeschreven: %s (%d taal-regels)" % (STATE, n))
+        else:
+            print("\nniets gemarkeerd.")
+        return
     if "--seed" in args:
         st = seed(now, baseline(SEED_TAG))
         with io.open(STATE + ".tmp", "w", encoding="utf-8", newline="\n") as fh:
