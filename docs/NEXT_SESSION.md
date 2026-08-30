@@ -1,5 +1,62 @@
 # Midnight Helper — waar we staan
 
+## 📌 30 aug, einde sessie — afspraken met de ONDERZOEK-chat (SPEC_31)
+
+`docs/SPEC_31_COMMUNITY_REACH.md`, vier parallelle onderzoeken, niets in `Modules/` of
+`Locales/` aangeraakt door die sessie.
+
+🔴 **De hoofdvondst, want hij bepaalt wat zinvol is:** CurseForge indexeert **alleen** de
+projectnaam en de samenvatting van ~200 tekens. De omschrijving van 28.382 tekens telt voor
+**nul** mee. Bewezen: zoeken op "Openables" — een woord dat letterlijk in onze omschrijving
+staat — geeft 20 resultaten mét `RawMouseEnable`, zonder ons. Binnen een dag bevestigd door de
+nieuwe samenvatting: "beginner" gaf 's ochtends niets en daarna "5 Projects found" met MH erbij.
+**Gevolg: de omschrijving uitbreiden voor vindbaarheid is pure kostenpost.**
+
+**Al door Rob gedaan, niet overdoen:** CF-samenvatting vervangen (staat live), GitHub-omschrijving
++ website-URL + 14 topics, Discussions aan, categorie "Quests & Leveling".
+
+**✅ B1 GEDAAN 30 aug** — `TRANSLATE_HELP_DISCORD` beloofde in zeven talen een vastgeprikte lijst
+in #translations die er niet is. Onze eigen never-lie-fout, twaalf uur oud. Regel herschreven
+(geen lijst meer, wél "wil je gevraagd worden voor er iets aan een taal verandert"), en
+`TranslateNudge` print nu **GitHub eerst**.
+
+**Volgende, in deze volgorde:**
+- **B2** — `/mh discord` en `/mh translate` zijn gerouteerd maar staan niet in `ns.MH_COMMANDS`;
+  NavSearch bouwt zijn index alléén daaruit, dus onze eigen zoekbalk vindt onze eigen
+  commando's niet. Sleept zes andere mee (`pawn`, `wishlist`, `death`, `pullsummary`,
+  `consready`, `groupbuffs`) plus een naamverschil: gesleuteld als `groupbuffs`, commando heet
+  `/mh gbuffs`. 📌 **Linter [10] komt hier schoon doorheen** — die test of alles wat vermeld
+  wordt ook gerouteerd is, niet andersom. Zelfde blinde vlek als de rest van vandaag: een
+  controle die precies meet wat hij meet. Voeg de omgekeerde check toe.
+- **B3** — de Discord-kaart vraagt vanaf de allereerste login (`when = function() return true end`).
+  Een gunst vragen voor de addon er een bewezen heeft. Signaal moet WAAR zijn en O(1).
+- **B4** — de voet van het changelog-venster: grootste ongebruikte plek, per versie eenmalig.
+- **B5** — `/mh report` via het bestaande `ns.ShowShareCopyDialog`; bedrading, geen nieuw scherm.
+- **B7/B8/B10/B10b/B11** — publiceren naar Wago/WoWInterface, `bug_report.yml` (nul issues in
+  vier maanden, want er ís geen template), CF-pagina bovenkant, professie-scene in `/mh shots`,
+  en twee verouderde feiten (README zegt 11 delves, CF zegt 14).
+
+⚠️ **Niet doen:** nieuwe nudges, omschrijving verlengen voor trefwoorden, hernoemen, GIF/video,
+donatieknop in de addon (Blizzard-beleid punt 5), Discord Server Discovery. **Geen
+releasebevriezing** — die is ingetrokken.
+
+**Bewoording voor B4 en B6** (model dat al werkt, `RitualTips.lua:117`): noem het ontbrekende
+feit, zeg dat het erin gaat, en zeg **niet** "de community" of "join onze Discord".
+
+## 🆕 30 aug — waar komen onaangeleerde recepten vandaan? (OPEN)
+
+Robs "Unlearned"-lijst is **volledig Thalassian** (`Silvermoon's Alacrity`, `Silvermoon's
+Tenacity`, `Silvermoon's Mending`, `Flames of the Sin'dorei`, `Empowered Rune of Avoidance`) en
+hij heeft **nul** punten in Thalassian Talents. Sterkste aanwijzing tot nu toe dat spec-takken
+wél recepten afschermen — maar het kan ook skill-niveau zijn.
+
+Gemeten: `Formula: Enchant Ring - Silvermoon's Tenacity` bestaat als item (ItemSparse 256760,
+`RequiredSkill 2909`, `RequiredSkillRank 50`, `MinReputation 0`) — die is dus te koop/vinden.
+`Silvermoon's Alacrity` en `Silvermoon's Mending` hebben **géén** formule-item.
+
+**Volgende stap is goedkoop:** Rob hovert een grijze regel; het spel zet er meestal een bron bij.
+Dat beantwoordt tegelijk de open vraag in `PROFACAD_CH_ENCHANTING_FAMILIES`.
+
 ## 🔴 30 aug — Enchanting: onze cursus en onze adviseur geven de OMGEKEERDE volgorde
 
 Gevonden doordat Rob vroeg wat hij na Shard Supplier moest doen. Hij is enchanter *"voor onszelf
