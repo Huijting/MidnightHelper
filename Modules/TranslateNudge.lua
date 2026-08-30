@@ -46,11 +46,19 @@ end
 function ns.OpenTranslateHelp()
 	local loc = GetLocale()
 	print("|cffe8c36aMidnight Helper|r — " .. ns:L("TRANSLATE_HELP_HEADER"))
-	-- Discord first: the actual list of what still needs translating is pinned in
-	-- #translations there (Rob posted it 29 jul). GitHub is where finished work is
-	-- merged, which matters later and to fewer people.
-	print("  " .. ns:L("TRANSLATE_HELP_DISCORD") .. ": " .. DISCORD_INVITE)
+	-- 🔴 GITHUB FIRST, AND IT USED TO BE DISCORD. The old comment here said the list of
+	-- what still needs translating was pinned in #translations (Rob posted it 29 jul).
+	-- Rob, 30 aug 2026: "er is nog helemaal niemand op Discord." That route was written
+	-- off in CLAUDE.md that morning while this function went on promising it in seven
+	-- languages -- an empty channel and a list nobody maintains, offered to the one kind
+	-- of person who volunteered to help.
+	--
+	-- GitHub is the route that works: it has a translation issue template, and
+	-- `tools/check_drift.py --workpackage` generates the paste-ready list on demand
+	-- instead of relying on someone remembering to re-pin it.
+	-- Discord stays, because Rob really is reachable there. It no longer claims a list.
 	print("  " .. ns:L("TRANSLATE_HELP_LINK") .. ": " .. TRANSLATE_URL)
+	print("  " .. ns:L("TRANSLATE_HELP_DISCORD") .. ": " .. DISCORD_INVITE)
 	print("  " .. string.format(ns:L("TRANSLATE_HELP_LANG"), loc))
 	print("  " .. ns:L("TRANSLATE_HELP_MEANWHILE"))
 end
