@@ -429,6 +429,27 @@ maand, en beloof niet meer.
 
 ## 7. Meten — eerlijk over wat niet kan
 
+### 7.0 📊 NULMETING — de samenvatting is live sinds 30 aug 2026
+
+Rob heeft A1 dezelfde dag doorgevoerd. Gemeten op de projectpagina, 30 aug 2026:
+
+| | |
+|---|---|
+| Samenvatting | de lange variant uit A1, woordelijk |
+| Downloads op het moment van wijzigen | **10.870** |
+| Categorieën | Miscellaneous (hoofd), Map & Minimap, Class, Professions — `Quests & Leveling` nog **niet** toegevoegd |
+| Laatste release vóór de wijziging | 3.7.2, geüpload 29 aug 2026 |
+
+**Aflezen op 13 sep 2026:** unieke downloads per dag over 30 aug – 13 sep, vergeleken met
+16 – 30 aug.
+
+⛔ **De meting is bedorven als er tussen 30 aug en 13 sep een release uitgaat.** Een release
+geeft altijd een piek en die overstemt alles. Gaat er toch één uit, noteer dan de datum en meet
+de twee stukken los — niet doen alsof de piek de tekst was.
+
+⚠️ En zelfs een schone meting bewijst geen oorzaak: het seizoen loopt door, 12.1 is drie weken
+oud en de hele categorie groeit. Dit onderscheidt "iets" van "niets", niet meer dan dat.
+
 | Instrument | Beantwoordt | Blijft onbekend |
 |---|---|---|
 | **CurseForge auteursdashboard** (gratis, unieke downloads per dag) | Of de nieuwe samenvatting werkt — **dit is een echt toetsbaar experiment**, 14 dagen ervoor tegen 14 dagen erna | ⚠️ Alleen geldig als er die dag géén release uitgaat, anders meet je de release |
