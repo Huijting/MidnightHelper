@@ -2049,13 +2049,19 @@ function ns.PrintUnlearnedProbe()
 		return
 	end
 
-	-- 2. Which recipe list can we get? Prefer the unfiltered one.
-	local ids
-	for _, fn in ipairs({ "GetAllRecipeIDs", "GetFilteredRecipeIDs" }) do
+	-- 2. FILTERED first, deliberately. GetAllRecipeIDs returns every expansion the
+	-- character has ever learned this profession in: Rob's first run answered 316
+	-- unlearned, and the top of the list was Harbinger Crests and Oil of Beledar's
+	-- Grace -- The War Within, which he will never care about. GetFilteredRecipeIDs
+	-- honours the profession window's own expansion filter, so the player decides the
+	-- scope with a control they already have instead of us inventing a rule about
+	-- which recipe IDs count as Midnight.
+	local ids, listFrom
+	for _, fn in ipairs({ "GetFilteredRecipeIDs", "GetAllRecipeIDs" }) do
 		if type(C_TradeSkillUI[fn]) == "function" then
 			local ok, list = pcall(C_TradeSkillUI[fn])
 			if ok and type(list) == "table" and #list > 0 then
-				ids = list
+				ids, listFrom = list, fn
 				say(("recipe list from %s: %d entries"):format(fn, #list))
 				break
 			end
@@ -2089,36 +2095,51 @@ function ns.PrintUnlearnedProbe()
 						and v or ("<" .. t .. ">")
 				end
 			end
+			-- 🔴 THE SOURCE LINE IS A SEPARATE CALL, not a field. Rob's first run showed
+			-- GetRecipeSourceText present on this build while the recipe info carried
+			-- no sourceText at all -- which is exactly why the probe dumps the client's
+			-- own field list instead of trusting a name I remembered.
+			local src
+			if type(C_TradeSkillUI.GetRecipeSourceText) == "function" then
+				local okS, s = pcall(C_TradeSkillUI.GetRecipeSourceText, id)
+				if okS and type(s) == "string" and s ~= "" then
+					src = s
+				end
+			end
 			dump[#dump + 1] = {
 				id = id,
 				name = info.name,
-				-- Anything that might carry a source. Whichever of these exists on
-				-- this build shows up in the file; the rest arrive as nil and that
-				-- is itself the answer.
-				sourceText = info.sourceText,
+				source = src,
 				sourceType = info.sourceType,
 				disabled = info.disabled,
-				disabledReason = info.disabledReason,
 				skillLineAbilityID = info.skillLineAbilityID,
 			}
+		end
+	end
+
+	local withSource = 0
+	for _, r in ipairs(dump) do
+		if r.source then
+			withSource = withSource + 1
 		end
 	end
 
 	ns.db = ns.db or {}
 	ns.db.unlearnedDump = {
 		when = date and date("%Y-%m-%d %H:%M") or nil,
+		listFrom = listFrom,
 		apiPresent = have,
 		apiAbsent = missing,
 		learned = learned,
 		unreadable = unreadable,
+		withSource = withSource,
 		sample = sample,
 		recipes = dump,
 	}
-	say(("%d unlearned, %d learned, %d unreadable. Written to ns.db.unlearnedDump — |cffffd100/reload|r so it reaches the SavedVariables file.")
+	say(("%d unlearned, %d learned, %d unreadable. |cffffd100/reload|r to write it to the file.")
 		:format(#dump, learned, unreadable))
-	if sample and sample.sourceText then
-		say("the client DOES give a source line — first one: " .. tostring(sample.sourceText))
-	else
-		say("no sourceText field on this build's recipe info; the dump lists every field it did have.")
+	say(("%d of the %d say where they come from."):format(withSource, #dump))
+	if listFrom == "GetAllRecipeIDs" then
+		say("|cffff6666This is EVERY expansion|r — set the profession window's filter to Midnight and run it again for a list you can act on.")
 	end
 end
