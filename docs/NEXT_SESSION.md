@@ -1,5 +1,50 @@
 # Midnight Helper — waar we staan
 
+## 🔴 30 aug — de Duitse en Franse delve-tips zijn machinaal vertaald. GEMETEN, niet gerepareerd.
+
+Gevonden terwijl ik `DelveTips.lua` opendeed voor de laatste gedrifte key. De regel erboven:
+
+> `"• Unterbrechen du {SPELL:@shadow_bolt}, wann immer du können."`
+
+Duits bouwt daar een gebiedende wijs (*Unterbrich … wann immer du kannst*). Een infinitief
+achter "du" is wat je krijgt als elk Engels woord los wordt vervangen. **Duits en Frans zijn
+echte clienttalen** — dit staat op het scherm van elke Duitse en Franse speler.
+
+**De meting** (`tools/_probe.py`, smal patroon: hoofdletter-infinitief + `du`, en `du` + kale
+infinitief; allebei onmogelijk in correct Duits):
+
+| bestand | verdachte regels |
+|---|---:|
+| `DelveTips.lua` | **49** |
+| `Translations2026.lua` | 36 |
+| `deDE.lua` | 14 |
+| `MythicPlus.lua` | 7 |
+| rest (7 bestanden) | 12 |
+| **totaal** | **92** — waarvan 2 vals alarm bij nalezen |
+
+Voorbeelden die het patroon laten zien: *"Finden du Ley-Linien-Fokussierer"*, *"Bannen du
+verhexte Amani"*, *"Bleiben du während des Abstiegs"*, *"du können sich bewegen und wirken"*,
+*"Fans tun weh, wenn du ignoriert werden"*, *"Valeera hilft, du zu brechen"*.
+
+⚠️ **Frans is niet beter, en faalt anders**, dus één detector vindt het niet allebei:
+*"Enregistrez le burst"* leest "save" als **opnemen**; een damage pool werd *"une flaque
+d'eau"*; *"évite les grues"* (kranen); en `DELVE_TIP_SHADOW_ENCLAVE_TRASH` schrijft *"tu et tes
+ennemis êtes éblouis"* — tu en vous in één zin. Voor Spaans/Portugees/Italiaans is nog **niets**
+gemeten; ga er niet vanuit dat die schoon zijn.
+
+📌 **Waarom de linter dit nooit ving:** die controleert markup, eigennamen en `KEEP_ENGLISH` —
+allemaal dingen die je machinaal kunt zien. *Of een zin grammaticaal is in de doeltaal* zit daar
+niet bij, en `locale_probe` zegt alleen "OK" omdat er íets staat. **Een vertaling kan door alle
+zeven checks komen en toch onleesbaar zijn.**
+
+⚠️ **Nog open uit dezelfde vondst:** het `frFR`-pack is 993× `tu` tegen 110× `vous` en mengt de
+twee door elkaar. `TIER_GUIDE_BODY` is 30 aug omgezet naar `tu` omdat het tier-paneel anders
+beide vormen tegelijk toonde; de rest van het pack is niet aangeraakt.
+
+**Beslissing aan Rob:** dit is veel groter dan de drift-lijst was. Losse opties: (a) alleen
+`DelveTips.lua` deDE+frFR, de ergste 49+; (b) alle deDE; (c) laten staan tot er een
+moedertaalspreker is. Er is nog niemand op Discord, dus (c) betekent voorlopig "blijft staan".
+
 ## ✅ 29 aug — CLEU: we proberen het niet meer op deze build. Bevestigd in het wild.
 
 **Na 3.7.1**, dus dit zit in de VOLGENDE release. Rob liep een Timewalking dungeon in en kreeg
