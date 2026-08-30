@@ -1,5 +1,44 @@
 # Midnight Helper — waar we staan
 
+## 🔴 30 aug — Enchanting: onze cursus en onze adviseur geven de OMGEKEERDE volgorde
+
+Gevonden doordat Rob vroeg wat hij na Shard Supplier moest doen. Hij is enchanter *"voor onszelf
+en om ze te verkopen"* — dus een crafter, geen materiaalverzamelaar.
+
+| bron | volgorde |
+|---|---|
+| `PROFACAD_CH_ENCHANTING_BODY` (cursus) | **Spellbound Shatterer** → Elevating Equipment → Disenchanting Delegate ("strong third") |
+| `advisorRoutes[333]` (adviseur) | **Disenchanting Delegate** → disenchant-node → Elevating Equipment → **Spellbound Shatterer** |
+
+Precies tegengesteld op de eerste en de laatste. Rob heeft op ons advies al 30 punten in
+Disenchanting Delegate staan.
+
+**Welke klopt is NIET vastgesteld.** Wat we weten:
+- De route is later bewust gecorrigeerd (Spec 28) met een reden uit de gamedata: disenchanting
+  negeert élke craft-stat en leest alleen ruwe Skill, dus de eerste ~50 punten van de óude
+  volgorde deden er niets voor. Die redenering gaat over **disenchanten**.
+- De cursus zet Shatterer eerst omdat de Shatter Essence-buff je **craft**-stats verhoogt. Dat
+  gaat over een andere activiteit en spreekt de correctie dus niet tegen — ze kunnen allebei
+  waar zijn, voor verschillende spelers.
+- ⚠️ De cursustekst is nooit bijgewerkt toen de route werd gecorrigeerd. Eén van de twee is
+  hoe dan ook verouderd op het scherm.
+
+🔴 **De onderliggende oorzaak is een gat in de data, en die is hard vastgesteld.**
+`GetAdviceForProf` zegt in commentaar: *"Four professions (Tailoring, Leatherworking,
+**Enchanting**, Skinning) diverge so far between 'sell it' and 'wear it' that one recommendation
+is a guess."* Er zijn `goals`-tabellen voor `[165]`, `[197]` en `[393]` — **`[333]` heeft er
+geen**. Enchanting is de enige van de vier die genoemd wordt en niet gesplitst is, en Rob is
+exact het geval dat daardoor het verkeerde antwoord krijgt.
+
+**Te doen, in deze volgorde:** (1) uitzoeken wat Shatter Essence feitelijk doet in 12.1 — DB2 /
+gamedata, niet een guide; (2) `goals = { gold, self }` voor `[333]`; (3) de cursustekst
+gelijktrekken met wat daaruit komt. Niet één van de twee stilzwijgend aanpassen: dan verdwijnt
+alleen het bewijs dat ze ooit botsten.
+
+📌 **Wat Rob intussen veilig kan doen:** beide bronnen zetten Elevating Equipment hoog en geen
+van beide zet hem laatst. Shard Supplier vol (30), dan Elevating Equipment. Spellbound Shatterer
+pas ná (1).
+
 ## 🔴 30 aug — de Duitse en Franse delve-tips zijn machinaal vertaald. GEMETEN, niet gerepareerd.
 
 Gevonden terwijl ik `DelveTips.lua` opendeed voor de laatste gedrifte key. De regel erboven:
