@@ -105,6 +105,33 @@ Chest, and Ring*), `Worldsoul Wards` (*Helm, Shoulder, Boot*), `Nature's Novelti
 Tool*) zitten dieper onder de Haranir-tak. De "Weapon/Ring/Chest branch" uit onze cursus is dus
 `Azerothian Arms`, en die zit twee lagen diep — niet vlak onder de root zoals de tekst suggereert.
 
+### ✅ De andere tien beroepen nagelopen — de angst was grotendeels ongegrond
+
+Rob vroeg terecht: *"moeten we dan niet ook de andere proffs nalopen?"* Nieuwe tool
+`tools/audit_chapter_vs_route.py` vergelijkt per beroep de volgorde waarin het hoofdstuk de
+trees noemt met de volgorde van `advisorRoutes`. Uitslag na het opschonen van valse positieven:
+
+| | |
+|---|---|
+| ✅ schoon | herbalism · enchanting · skinning · jewelcrafting · inscription |
+| ⚠️ loos alarm | **alchemy** — de tekst somt eerst *"the four are…"* op en geeft dáárna de bouwvolgorde, die wél klopt (*"Transmutation Authority comes last, not second"*) |
+| 🔴 echt | **mining** — kleine omissie, zie hieronder |
+
+**Mining:** de route begint met `{ tree = "Over-LODED", points = 0 }`, de cursustekst noemt
+Over-LODED alleen als iets dat de Overload-cooldown *"buffs further"* en begint zelf bij
+Meticulous Mining. De adviseur zal dus *"open Over-LODED — en stop daar"* zeggen terwijl het
+hoofdstuk daar niets over vertelt. Geen tegenspraak maar een **gat**: het hoofdstuk mist stap 1.
+Klein, niet gerepareerd, wél opgeschreven.
+
+⚠️ **De tool geeft KANDIDATEN, geen oordelen** — en dat is bewust. Proza noemt een tree ook om
+andere redenen dan bouwvolgorde. Bij de eerste run waren 3 van de 6 treffers precies dat
+(Tailoring en Leatherworking splitsen per doel, Skinning noemde Talented Tracker als sfeer). Als
+hij ooit zelf gaat beslissen, is hij geworden wat hij moest opsporen.
+
+📌 **Wat dit NIET dekt:** of de route inhoudelijk klopt. Alleen of onze twee eigen teksten
+elkaar tegenspreken. De inhoudelijke controle per beroep is de dure variant en vraagt per
+beroep hetzelfde werk als Enchanting vandaag kostte — drie agents en een uur.
+
 ### ✅ De drie families GEMETEN (30 aug, twee agents onafhankelijk in DB2)
 
 **Uitkomst: dezelfde slots, dezelfde kracht, andere stats.** Geen tiers, geen legacy-familie.
