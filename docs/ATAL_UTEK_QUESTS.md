@@ -90,6 +90,21 @@ NOT FOUND, geen enkele bron.
 
 ---
 
+## ✅ GEMETEN 31 aug (avond): de keten is ACCOUNT-BREED
+
+`/mh campaign` op **Warlockie, level 82**: alle vier de quests `done=true`. Een personage van 82
+kan een level-90-quest niet gedaan hebben, dus **één personage klaart dit voor het hele account**.
+Rob zag het aankomen omdat hij met al zijn alts de Vaults in kan — de zone-toegang is dus óók
+account-breed.
+
+📌 Twee gevolgen. Het blok verbergt zich terecht op ál zijn personages; er is niets stuk. En de
+eis-regel die we die middag toevoegden is **correct én door hem nooit te zien** — die bereikt
+alleen iemand die deze keten op géén enkel personage gedaan heeft. Daarom print `/mh campaign`
+de zin nu uit: hij kan de bewoording beoordelen zonder de toestand te kunnen bereiken.
+
+⚠️ **Dit beslist NIET of 98515 verhaal of dagelijks is.** Een daily die je vandaag deed leest óók
+`done=true` tot de reset. Die vraag blijft open.
+
 ## Nog open
 - Is 98515 verhaal of dagelijks? Alleen in het spel te zien.
 - De gevers van de losse quests.

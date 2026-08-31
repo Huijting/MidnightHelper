@@ -455,12 +455,18 @@ function ns.PrintCampaignLeadInDiagnostics()
 
 		--- 🔴 SHOW THE GATE TEXT EVEN WHEN THE DASHBOARD WILL NEVER SHOW IT.
 		---
-		--- Rob, 31 Aug 2026: the Vaults block is invisible on every one of his characters,
-		--- and his read is that the chain is warbound -- do it once, done account-wide. If
-		--- that holds, the gate line is correct AND permanently unverifiable by the person
-		--- who has to sign it off, because it only ever reaches somebody who has done this
-		--- chain on NO character. Working-as-intended and broken look identical from his
-		--- chair, which is the exact case this repo has a rule about.
+		--- ✅ MEASURED 31 Aug 2026 and Rob called it before the probe did. `/mh campaign` on
+		--- **Warlockie, level 82**, returns done=true for all four chain quests -- and a
+		--- level-82 character cannot have completed a level-90 quest. **Completion is
+		--- account-wide.** He noticed because he could walk into the Vaults on every alt.
+		---
+		--- So the gate line is correct AND permanently unverifiable by the person who signs
+		--- it off: it reaches only somebody who has run this chain on NO character. Working
+		--- as intended and genuinely broken look identical from his chair, which is the exact
+		--- case this repo has a rule about -- hence the print below.
+		---
+		--- ⚠️ This does NOT settle whether 98515 is story or daily. A daily completed today
+		--- also reads done until reset, so done=true is consistent with both.
 		---
 		--- So the diagnostic prints the sentence and says who would see it. He can read the
 		--- wording without being able to reach the state.
@@ -468,7 +474,7 @@ function ns.PrintCampaignLeadInDiagnostics()
 			print(("  gate (shown only before you start): %s"):format(ns:L(campaign.gateKey)))
 			if st == nil then
 				print("    ^ hidden for you: every chain step reads done. If that is true on a "
-					.. "character that never ran it, the chain is account-wide.")
+					.. "character that never ran it, the chain is account-wide -- measured true 31 Aug.")
 			end
 		end
 
