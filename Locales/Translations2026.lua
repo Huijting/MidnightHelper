@@ -3480,7 +3480,7 @@ fill("deDE", {
 	ACH_NOTE_STRANGER = "Unter der Brücke, nicht darauf — die Gedenkstätte steht unterhalb des Stegs, ein Weg, der dich obendrauf absetzt, sieht also aus, als wäre dort nichts.",
 	CAMPAIGN_VAULTS_NAME = "Kette der Kammern von Atal'Utek",
 	HOME_SECTION_VAULTS = "Neu: die Kammern von Atal'Utek",
-	HOME_VAULTS_AVAILABLE = "Drei Quests öffnen die Vaults auf der Gewundenen Insel — ein Gebiet mit eigener Währung, zwölf Gedenkstätten und drei Erfolgen. Du hast noch nicht angefangen.",
+	HOME_VAULTS_AVAILABLE = "Vier Quests öffnen die Vaults auf der Gewundenen Insel — ein Gebiet mit eigener Währung, zwölf Gedenkstätten und drei Erfolgen. Du hast noch nicht angefangen.",
 	HOME_VAULTS_INPROGRESS = "Du steckst mitten in der Vaults-Kette — schließ sie ab, dann öffnet sich das ganze Gebiet.",
 	HOME_VAULTS_ROUTE_BTN = "Der aktuellen Vaults-Quest folgen",
 })
@@ -3489,7 +3489,7 @@ fill("frFR", {
 	ACH_NOTE_STRANGER = "Sous le pont, pas dessus — le mémorial se trouve en dessous de la passerelle, donc un trajet qui te dépose au-dessus donnera l'impression qu'il n'y a rien.",
 	CAMPAIGN_VAULTS_NAME = "Chaîne des Caveaux d'Atal'Utek",
 	HOME_SECTION_VAULTS = "Nouveau : les Caveaux d'Atal'Utek",
-	HOME_VAULTS_AVAILABLE = "Trois quêtes ouvrent les Caveaux, sur l'Île Annelée — une zone avec sa propre monnaie, douze mémoriaux et trois hauts faits. Tu ne les as pas commencées.",
+	HOME_VAULTS_AVAILABLE = "Quatre quêtes ouvrent les Caveaux, sur l'Île Annelée — une zone avec sa propre monnaie, douze mémoriaux et trois hauts faits. Tu ne les as pas commencées.",
 	HOME_VAULTS_INPROGRESS = "Tu es en plein milieu de la chaîne des Caveaux — termine-la et toute la zone s'ouvre.",
 	HOME_VAULTS_ROUTE_BTN = "Suivre la quête des Caveaux en cours",
 })
@@ -3498,7 +3498,7 @@ fill("esES", {
 	ACH_NOTE_STRANGER = "Bajo el puente, no encima — el memorial está debajo de la pasarela, así que una ruta que te deje arriba parecerá que no hay nada.",
 	CAMPAIGN_VAULTS_NAME = "Cadena de las Cámaras de Atal'Utek",
 	HOME_SECTION_VAULTS = "Nuevo: las Cámaras de Atal'Utek",
-	HOME_VAULTS_AVAILABLE = "Tres misiones abren las Cámaras, en la Isla Serpenteante — una zona con su propia moneda, doce memoriales y tres logros. Aún no las has empezado.",
+	HOME_VAULTS_AVAILABLE = "Cuatro misiones abren las Cámaras, en la Isla Serpenteante — una zona con su propia moneda, doce memoriales y tres logros. Aún no las has empezado.",
 	HOME_VAULTS_INPROGRESS = "Estás a medias en la cadena de las Cámaras — termínala y se abre toda la zona.",
 	HOME_VAULTS_ROUTE_BTN = "Seguir la misión actual de las Cámaras",
 })
@@ -3507,7 +3507,7 @@ fill("ptBR", {
 	ACH_NOTE_STRANGER = "Debaixo da ponte, não em cima — o memorial fica abaixo da passarela, por isso uma rota que te deixe em cima vai parecer que não há nada ali.",
 	CAMPAIGN_VAULTS_NAME = "Cadeia das Câmaras de Atal'Utek",
 	HOME_SECTION_VAULTS = "Novo: as Câmaras de Atal'Utek",
-	HOME_VAULTS_AVAILABLE = "Três missões abrem as Câmaras, na Ilha Enrolada — uma área com moeda própria, doze memoriais e três proezas. Ainda não as começaste.",
+	HOME_VAULTS_AVAILABLE = "Quatro missões abrem as Câmaras, na Ilha Enrolada — uma área com moeda própria, doze memoriais e três proezas. Ainda não as começaste.",
 	HOME_VAULTS_INPROGRESS = "Estás a meio da cadeia das Câmaras — termina-a e a área inteira abre.",
 	HOME_VAULTS_ROUTE_BTN = "Seguir a missão atual das Câmaras",
 })
@@ -3516,7 +3516,7 @@ fill("itIT", {
 	ACH_NOTE_STRANGER = "Sotto il ponte, non sopra — il memoriale sta al di sotto della passerella, quindi un percorso che ti lascia sopra farà sembrare che non ci sia nulla.",
 	CAMPAIGN_VAULTS_NAME = "Catena delle Segrete di Atal'Utek",
 	HOME_SECTION_VAULTS = "Novità: le Segrete di Atal'Utek",
-	HOME_VAULTS_AVAILABLE = "Tre missioni aprono le Segrete, sull'Isola Serpeggiante — una zona con una currency propria, dodici memoriali e tre obiettivi. Non le hai ancora iniziate.",
+	HOME_VAULTS_AVAILABLE = "Quattro missioni aprono le Segrete, sull'Isola Serpeggiante — una zona con una currency propria, dodici memoriali e tre obiettivi. Non le hai ancora iniziate.",
 	HOME_VAULTS_INPROGRESS = "Sei a metà della catena delle Segrete — completala e l'intera zona si apre.",
 	HOME_VAULTS_ROUTE_BTN = "Segui la missione attuale delle Segrete",
 })

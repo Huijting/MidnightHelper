@@ -637,7 +637,7 @@ ns._mhLocales.enUS = {
 	HOME_SECTION_VAULTS = "New: the Vaults of Atal'Utek",
 	-- No "go here" in the available line: the entrance has never been measured, so the
 	-- wording stops at what the game will tell you itself.
-	HOME_VAULTS_AVAILABLE = "Three quests open the Vaults, on the Coiled Isle — a zone with its own currency, twelve memorials and three achievements. You have not started them.",
+	HOME_VAULTS_AVAILABLE = "Four quests open the Vaults, on the Coiled Isle — a zone with its own currency, twelve memorials and three achievements. You have not started them.",
 	HOME_VAULTS_INPROGRESS = "You are partway into the Vaults chain — finish it and the whole area opens up.",
 	HOME_VAULTS_ROUTE_BTN = "Follow the current Vaults quest",
 	HOME_CAMPAIGN_REWARD_FMT = "Reward: %s",

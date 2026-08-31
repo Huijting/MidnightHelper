@@ -601,7 +601,7 @@ ns._mhLocales.nlNL = {
 	HOME_SECTION_VAULTS = "Nieuw: de Vaults of Atal'Utek",
 	-- Geen "ga hierheen" in de available-regel: de ingang is nooit gemeten, dus de tekst
 	-- stopt bij wat het spel je zelf gaat vertellen.
-	HOME_VAULTS_AVAILABLE = "Drie quests openen de Vaults, op de Coiled Isle — een gebied met een eigen currency, twaalf gedenktekens en drie achievements. Je bent er nog niet aan begonnen.",
+	HOME_VAULTS_AVAILABLE = "Vier quests openen de Vaults, op de Coiled Isle — een gebied met een eigen currency, twaalf gedenktekens en drie achievements. Je bent er nog niet aan begonnen.",
 	HOME_VAULTS_INPROGRESS = "Je zit middenin de Vaults-keten — maak 'm af en het hele gebied gaat open.",
 	HOME_VAULTS_ROUTE_BTN = "Volg de huidige Vaults-quest",
 	HOME_CAMPAIGN_REWARD_FMT = "Beloning: %s",
