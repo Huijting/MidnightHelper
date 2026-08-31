@@ -419,7 +419,18 @@ uitkomst hier plus stilte in een dungeon betekent dus nog steeds "er kwam niks l
 
 </details>
 
-### 3. De rode gloed op een groepsregel (gerepareerd 26 aug, ongetest)
+### 3. ✅ AF — de rode gloed op een groepsregel
+
+🔴 **Deze sectie stond tot 31 aug op "ongetest" en dat was fout.** De gloed die de hele regel
+vult is 27 aug bevestigd (punt 2b), en de STAND van 28 aug hierboven vinkt de rechtsklik-dispel
+én de purge af. Rob wees me erop toen ik het als openstaand opsomde; hij had gelijk.
+
+⚠️ **De les zit in de vórm van de fout, niet in deze twee regels.** Dit bestand heeft een
+statusregel bovenaan die alles eronder overschrijft, en ik las de detailsectie zonder die
+statusregel. Een kop die "ongetest" zegt is dus geen bewijs — zoek de nieuwste STAND-regel.
+Wie hierna secties toevoegt: werk de oude kop bij in plaats van er een nieuwe onder te zetten.
+
+<details><summary>De oorspronkelijke testinstructies (bewaard, niet meer nodig)</summary>
 
 **Ga naar Murojin, de eerste baas.** Onze eigen tips zetten de dispel daar
 (`DGN_TIP_MC_MUROJIN_HEALER`: disease, zware groepsschade). Bij de laatste baas kwam 26 aug
@@ -439,10 +450,13 @@ Drie dingen apart bekijken, want ze kunnen los van elkaar stuk zijn:
 
 Werkt er iets niet: `/mh glow` en de uitvoer hierheen plakken.
 
-### 4. Rechtsklik-dispel op de Priest (ongetest)
+### 4. ✅ AF 28 aug — rechtsklik-dispel op de Priest
 
-Op 25 aug bewezen op Robs **mage** (Remove Curse 475, Spellsteal 30449). Op de priest heeft
-`/mh glow` alleen gemeld dat de knop Purify (527) draagt — dat is de knop, niet de dispel.
+Eerst bewezen op Robs **mage** (25 aug: Remove Curse 475, Spellsteal 30449), daarna op de
+priest bevestigd — zie "AF 28 aug" hierboven: de dispel én Dispel Magic (528) op de
+doelwit-helft werkten allebei na de naam-fix.
+
+</details>
 
 ---
 

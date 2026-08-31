@@ -31,10 +31,19 @@ Midnight-launch. Belangrijker: **geen guide weet of `Reuse` een tabblad of een n
 laag staat niet in proza. Dat is precies de fout die vandaag zes routestappen brak, en alleen
 `/mh profadvice` op een echt personage vindt hem.
 
-⚠️ **Daarom blijft dit open: 4 van de 11 beroepen zijn gemeten** (Tailoring, Enchanting,
-Alchemy, Herbalism — de twee die Rob heeft, op twee personages). Van de andere zeven is de
-structuur ONGECONTROLEERD. Dat lost geen research op; daar is een personage met dat beroep voor
-nodig.
+✅ **ACHTERHAALD DEZELFDE DAG — alle elf zijn gemeten.** Deze alinea zei dat 4 van de 11 beroepen
+gecontroleerd waren en de andere zeven niet. Dat klopte 's ochtends en was 's middags niet meer
+waar: Rob liep vier personages langs met `/mh profids`, en
+`tools/_probe.py run audit_routes_vs_client` geeft nu **0 afwijkingen over alle 11 beroepen**.
+
+🔴 Ik somde die zeven 's avonds nog op als openstaand, uit dit bestand. Rob corrigeerde me —
+*"we zijn de hele ochtend bezig geweest met de beroepen"*. Een status die je overschrijft met
+werk moet je bijwerken, anders citeer je later je eigen verouderde aantekening als bewijs.
+
+⚠️ **Wat WEL open blijft, en het verschil is echt:** dit meet de STRUCTUUR — is een stap een
+tabblad of een node. Het zegt niets over de INHOUD: of `Recycling` het juiste eerste punt is
+voor Engineering, is nooit tegen de gamedata gelegd. Voor Engineering, Jewelcrafting en
+Inscription is die vraag helemaal open.
 
 ### 🔴 DE VONDST DIE VANDAAG VERKLAART: wij matchen op NAAM, de rest op ID
 
