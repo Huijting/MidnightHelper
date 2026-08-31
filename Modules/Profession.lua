@@ -2029,8 +2029,24 @@ function ns.PrintProfIdsProbe()
 	--- keying by skillLine and keeping what is already there lets him chain characters and
 	--- hand over one file at the end.
 	---
-	--- ⚠️ Existing entries are OVERWRITTEN per skillLine on purpose: re-running on the same
-	--- profession should refresh it, not silently keep a stale capture.
+	--- 🔴 AND IT KEEPS THE RICHEST CAPTURE, not the newest. The first version overwrote per
+	--- skillLine, reasoning that a re-run should refresh rather than keep something stale.
+	--- That is true of one character and false of an account: three of Rob's alts have
+	--- Herbalism, so running this on a level-15 one replaced Earthshammy's Botany 40/40
+	--- with a fresh set of zeroes and the real state was gone. He found it by doing more
+	--- than I asked for.
+	---
+	--- So a capture now records WHICH character it came from and how many ranks it saw,
+	--- and only replaces an existing one when it comes from the same character or has at
+	--- least as many ranks. Refreshing your own progress still works; a bare alt can no
+	--- longer erase a maxed main.
+	local me = UnitName("player") or "?"
+	local function TotalRanks(p)
+		local n = 0
+		for _, t in ipairs(p.tabs or {}) do n = n + (tonumber(t.rank) or 0) end
+		for _, t in ipairs(p.nodes or {}) do n = n + (tonumber(t.rank) or 0) end
+		return n
+	end
 	local store = ns.db.profIdDump or {}
 	ns.db.profIdDump = store
 	local before = 0
@@ -2043,8 +2059,8 @@ function ns.PrintProfIdsProbe()
 		if okC and type(cfg) == "number" and cfg ~= 0 then
 			local okT, tabs = pcall(C_ProfSpecs.GetSpecTabIDsForSkillLine, child)
 			if okT and type(tabs) == "table" and #tabs > 0 then
-				local prof = { skillLine = base, midnightLine = child, tabs = {}, nodes = {} }
-				store[tostring(base)] = prof
+				local prof = { skillLine = base, midnightLine = child, char = me, tabs = {}, nodes = {} }
+				-- stored below, once we know how much this character actually has
 				for _, tabID in ipairs(tabs) do
 					local okI, info = pcall(C_ProfSpecs.GetTabInfo, tabID)
 					--- 🔴 RANKS TOO, and leaving them out cost Rob a morning of logins.
@@ -2093,8 +2109,18 @@ function ns.PrintProfIdsProbe()
 						end
 					end
 				end
-				lines[#lines + 1] = ("   skillLine %d: %d tabs, %d nodes")
-					:format(base, #prof.tabs, #prof.nodes)
+				local mine = TotalRanks(prof)
+					local old = store[tostring(base)]
+					local oldRanks = old and TotalRanks(old) or -1
+					local keep = (not old) or old.char == me or mine >= oldRanks
+					if keep then
+						prof.ranks = mine
+						store[tostring(base)] = prof
+					end
+					lines[#lines + 1] = ("   skillLine %d: %d tabs, %d nodes, %d ranks%s")
+						:format(base, #prof.tabs, #prof.nodes, mine,
+							keep and "" or (" |cffff9900(kept %s's %d instead)|r")
+								:format(old.char or "?", oldRanks))
 			end
 		end
 	end
