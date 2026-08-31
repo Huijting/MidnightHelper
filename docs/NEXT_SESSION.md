@@ -1,5 +1,41 @@
 # Midnight Helper — waar we staan
 
+## ✅ 31 aug — GEMETEN: geen enkele addon adviseert waar je Knowledge uitgeeft
+
+Agent-onderzoek, ~20 addons met datum en downloadaantal (CurseForge, 31 aug).
+
+| addon | downloads | doet |
+|---|---:|---|
+| CraftSim | 10,1M | simuleert een craft |
+| Myu's Knowledge Points Tracker | 3,0M | **telt** punten |
+| Profession Shopping List | 2,2M | telt wat nog te halen is |
+| **iets dat een node aanwijst** | — | **bestaat niet** |
+
+Alle gevonden addons vallen in vier bakken: **tracken, farmen, simuleren, of jouw eigen plan
+uitvoeren**. Het advies zelf staat volledig op Wowhead ("Specialization Guide - Builds and
+Spending Knowledge Points", 8 beroepen) en Icy Veins, en is nooit in-game gekomen.
+
+📌 **Om van te leren:** `KnowledgeLoadout` (172 downloads, 1 aug) heeft de andere helft — een
+importeerbaar `KL1`-formaat met volgorde en herhaalde node-bezoeken — maar **nul meegeleverde
+builds**. Wij hebben het plan zonder uitvoerder, zij de uitvoerder zonder plan.
+
+⚠️ **Grenzen die de agent zelf noemde:** Reddit onbereikbaar (403), dus **geen citaat** waarin de
+community zegt dat het niet bestaat — afgeleid uit het landschap. Broncode gelezen van maar
+**twee** addons; de rest beoordeeld op CF-omschrijvingen. `gh search code` gaf aantoonbaar
+onvolledige resultaten en telt als corroboratie, niet als bewijs.
+
+🔴 **En wat GEEN website kan leveren, ook wow-professions niet.** Zij zijn de enige bron met echte
+puntenaantallen per build, en daarmee nuttig voor *wat je wilt*. Maar hun pagina is
+ondateerbaar (geen datum in HTML of metadata) en hun eigen tekst plaatst hem rond de
+Midnight-launch. Belangrijker: **geen guide weet of `Reuse` een tabblad of een node is.** Die
+laag staat niet in proza. Dat is precies de fout die vandaag zes routestappen brak, en alleen
+`/mh profadvice` op een echt personage vindt hem.
+
+⚠️ **Daarom blijft dit open: 4 van de 11 beroepen zijn gemeten** (Tailoring, Enchanting,
+Alchemy, Herbalism — de twee die Rob heeft, op twee personages). Van de andere zeven is de
+structuur ONGECONTROLEERD. Dat lost geen research op; daar is een personage met dat beroep voor
+nodig.
+
 ## 📌 30 aug, einde sessie — afspraken met de ONDERZOEK-chat (SPEC_31)
 
 `docs/SPEC_31_COMMUNITY_REACH.md`, vier parallelle onderzoeken, niets in `Modules/` of
