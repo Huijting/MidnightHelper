@@ -60,7 +60,29 @@ def main() -> int:
     except Exception:
         return 0  # never block on a payload we cannot read
 
-    if payload.get("tool_name") != "Bash":
+    tool = payload.get("tool_name")
+
+    # 🔴 The PowerShell tool is banned outright, and this guard used to let it straight
+    # through -- it checked for "Bash" and returned on anything else. MEASURED 31 Aug 2026:
+    # a subagent I briefed on research, but not on our shell rules, reached for PowerShell
+    # and put an allow-prompt on Rob's PHONE while he was travelling. Agents obey the SAME
+    # permission rules I do; nothing here was exempting them. The hole was that no rule and
+    # no guard covered this tool, so there was nothing for them to obey.
+    #
+    # ⚠️ A guard that only covers the tool I happen to prefer is not a guard.
+    if tool == "PowerShell":
+        sys.stderr.write(
+            "Blocked: the PowerShell tool is not used in this project.\n\n"
+            "Every PowerShell line here is a unique string, so no permission rule can ever "
+            "match one and Rob gets a prompt for each -- that is how ~938 dead rules ended "
+            "up in settings.local.json.\n\n"
+            "  files      ->  Glob, Grep, Read   (these never prompt)\n"
+            "  anything\n"
+            "  scripted   ->  python \"{repo}/tools/_probe.py\" run <tool> [args]\n\n"
+            "See CLAUDE.md. If you are a subagent: this applies to you too.\n".format(repo=REPO))
+        return 2
+
+    if tool != "Bash":
         return 0
     cmd = (payload.get("tool_input") or {}).get("command") or ""
     if not cmd.strip():
