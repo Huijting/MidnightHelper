@@ -36,6 +36,62 @@ Alchemy, Herbalism — de twee die Rob heeft, op twee personages). Van de andere
 structuur ONGECONTROLEERD. Dat lost geen research op; daar is een personage met dat beroep voor
 nodig.
 
+### 🔴 DE VONDST DIE VANDAAG VERKLAART: wij matchen op NAAM, de rest op ID
+
+Tweede, diepere agent-ronde (broncode gelezen, niet omschrijvingen). Blizzards eigen vocabulaire
+is de val: **de API noemt een node een `path`.** `GetRootPathForTab(tabTreeID) → rootPathID`, en
+díé pathID gaat in `C_Traits.GetNodeInfo`. Tab en node worden alleen door die call verbonden.
+
+**Geen enkele andere addon resolvet op naam.** Ze keyen allemaal op node-ID en leiden de naam af
+voor weergave. `CraftSim` doet `nodeID → entryIDs → GetEntryInfo → GetDefinitionInfo →
+overrideName`. Onze `advisorRoutes` met `tree = "The Old Ways"` is **uniek in het ecosysteem** —
+en de `Lasting Leather`-botsing waar `ProfessionAcademyData.lua:192` zelf voor waarschuwt is
+exact de faalwijze die ID-keying uitsluit. De zes gebroken stappen van vandaag zijn hetzelfde
+probleem in een ander jasje.
+
+📌 **Referentie-implementatie om te kopiëren:** `ProfessionsSpecPathMixin:GetRanks()` van
+Blizzard zelf. Ontgrendelen geeft rank 1 gratis, dus **bestede punten = `activeRank - 1`**. PSL,
+Lodestar én Profession Spec Tracker implementeren dat onafhankelijk; wie het niet doet zit er
+één punt per node naast. `Profession Spec Tracker` (MIT, 97 downloads, wél stale op 12.0.1) heeft
+de netste tree-walk van alles wat gelezen is: `GetSpecTabIDsForSkillLine` → `GetTabInfo().rootNodeID`
+→ recursief `GetChildrenForPath` → `GetNodeInfo`, met `GetUnlockEntryForPath` om de gratis rank
+eraf te halen.
+
+⚠️ **`C_Traits.GetTreeNodes` gebruikt maar één addon** (WeeklyKnowledge); iedereen anders loopt
+vanaf de root-path naar beneden. Wij gebruiken `GetTreeNodes` in `ns.GetProfessionSpecNodes`.
+
+### 📌 CraftSim probeert dit al te bouwen — en het loopt vast
+
+Twee **open** PR's, allebei geverifieerd via de GitHub-API:
+- **#1282** "Implement Knowledge Path ROI Optimizer" — open sinds 13 apr 2026.
+- **#1422** "Knowledge Point Value + Respec Planner" — open sinds 20 jul, laatst 11 aug,
+  **`mergeable_state: dirty`**, 2311 regels over 8 bestanden. Mikt expliciet op de eenmalige
+  12.1-respec.
+
+Hun as is **goud** (ROI per punt, uit jouw recepten en TSM/Auctionator-prijzen). Onze as is
+**uitleg**. Dat PR #1422 drie weken op conflicten staat, suggereert dat de goud-as ook de
+moeilijkere is. ⚠️ CraftSims Midnight-specdata heeft maar **8 bestanden — alleen de
+craft-beroepen**, geen Herbalism/Mining/Skinning, waar DF en TWW er 11 hebben.
+
+### ✅ Waarom `/mh unlearned` nergens anders bestaat
+
+`C_TradeSkillUI.GetRecipeSourceText` heeft **nul gebruikers** in elke gelezen repo. De reden is
+gemeten, niet geraden: **de functie staat niet in Blizzards gegenereerde API-documentatie.** De
+agent haalde `TradeSkillUIDocumentation.lua` uit `Gethe/wow-ui-source` (live, 28 aug) — 350
+entries, mét `GetRecipeInfo` en `GetRecipeSchematic`, **zonder** `GetRecipeSourceText`. Hij
+wérkt (onze run van 30 aug bewijst het) maar is onvindbaar voor addon-auteurs.
+
+⚠️ **En Wowheads 12.1-spec-guides zijn gestempeld "Updated 2026/02/21"** — zes maanden vóór de
+patch live ging op 11 aug. Dat is de datum om te noemen als iemand zegt "maar het staat op
+Wowhead".
+
+### 👀 Lodestar — nieuwste concurrent, 5 dagen oud
+
+Wago v1.57, repo aangemaakt **24 aug 2026**, interface `120100`. All-in-one weekly dashboard:
+Delves, Vault, rares, keystones, housing, collections, readiness-scoring. **Geen spec-advies**
+(zijn `kp_spend_`-taak zegt alleen *"je hebt N onbestede punten"*), maar qua vórm de dichtste
+concurrent van MH die tot nu toe gevonden is. In de gaten houden.
+
 ## 📌 30 aug, einde sessie — afspraken met de ONDERZOEK-chat (SPEC_31)
 
 `docs/SPEC_31_COMMUNITY_REACH.md`, vier parallelle onderzoeken, niets in `Modules/` of
