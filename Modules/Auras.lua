@@ -125,6 +125,28 @@ end
 --- which suggests Blizzard hides what leaks combat information — but that is a
 --- hypothesis and nothing here may depend on it.)
 ---
+--- 🔴 REPRODUCED AND SHARPENED, 31 Aug 2026. Rob ran it again on live 12.1: a baseline of
+--- eight buffs out of combat, then the same eight in combat. Seven came back `nil` from
+--- `GetPlayerAuraBySpellID` — the same calm wrong answer as 12 Aug, so this is stable
+--- behaviour and not a one-off.
+---
+--- The new part is proof rather than inference. For 462854 the two calls DISAGREED inside
+--- a single run, at one instant:
+---
+---   GetPlayerAuraBySpellID(462854)          -> aura   (and our facade said has = true)
+---   GetAuraDataBySpellID("player", 462854)  -> absent
+---
+--- One call saw the aura, so the aura was there; the other reported it absent. An expired
+--- buff cannot explain that, which is what every earlier row was individually open to.
+--- `GetAuraDataBySpellID` therefore does not merely go quiet in combat — it returns a
+--- confident wrong answer, and it did so for all eight ids including the one that was
+--- provably present.
+---
+--- ✅ And the shield held. Those seven carried no `has` value at all in the dump, meaning
+--- HasPlayerAura returned nil: "?" rather than "you are missing this". The 12 Aug fix is
+--- doing exactly the job it was written for. What we lose in combat is the FEATURE, not
+--- the truth — buff checks go blind rather than wrong, and that is the trade we chose.
+---
 --- So the honest answer is: a positive sighting is still a fact, and a non-sighting is
 --- worth nothing unless the read can be trusted. Fixing it HERE rather than at each
 --- caller is the point of this file — `ConsumableReadyCheck` would otherwise put a
