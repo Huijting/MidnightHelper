@@ -2,6 +2,44 @@
 
 All notable changes to this project are documented in this file.
 
+## 3.7.3
+
+📌 **A patch, not a minor — Rob's call again, 31 aug 2026.** I put the choice to him as 3.7.3
+versus 3.8.0 and he picked the patch. It is the right read: one piece of genuinely new content
+(the three enchant families) against a list that is otherwise entirely "it did not do what it
+promised". ⚠️ Worth noting the precedent cuts both ways — 3.3.0 was also a correction release
+and took a minor. This is a convention, not a rule, and it is Rob's to set.
+
+### Fixed
+
+- **The profession advisor was silent for entire professions.** Twelve route steps across five
+  professions named a node as though it were a tab; Blizzard's API calls a node a *path* and
+  reaches tabs another way, so those steps matched nothing — and one unreadable step abandoned
+  every step after it. All eleven professions verified against a real client
+  (`tools/audit_routes_vs_client.py`, 0 mismatches), captured over four characters.
+  🔴 `Lasting Leather` is a **tab** in Leatherworking and a **node** in Skinning, which is why
+  no amount of reading guides could have found this.
+- **The advisor silently picked one branch at a fork** and it read as the answer. It names every
+  option now. Enchanting gained a section on the three enchant families; Mining's chapter gained
+  its own missing first step.
+- **deDE, frFR, esES and ptBR delve tips were machine-translated** and rewritten from the English
+  by language experts. Measured faults included inverted wipe-risk advice in two languages, a
+  boss name rendered as "my power", and *delve* appearing as five different words in one file.
+  Zone names now follow the player's own client.
+- **ptBR called the companion Valeera**; she is **Valira Sanguinar** there. Measured in DB2 with
+  a positive control. de/fr/es/it were checked too and correctly keep Valeera.
+- **Five spell placeholders had no IDs** and printed as bare lowercase text. Each new ID is tied
+  to the boss that casts it — two of the three IDs Icy Veins publishes are the wrong caster.
+- **One English sentence was ambiguous enough that two translators read it oppositely.** Settled
+  from scenario data: the Galvanic Rifle is a weapon, not a verb.
+- Overlapping text at the bottom of Professions → Overview; *Deathholme* → **Deatholme**.
+
+### Added
+
+- `.github/ISSUE_TEMPLATE/bug_report.yml` and `config.yml` — reporting a fault gave you a blank
+  box before, which fits nul issues in four months exactly.
+- Lint check [17]: GitHub issue templates must parse. It caught a bug in itself on its first run.
+
 ## 3.7.2
 
 ⚠️ **v3.7.1 EXISTS AS A TAG AND WAS NEVER RELEASED.** It reached CurseForge and sat unapproved
