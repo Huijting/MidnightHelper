@@ -7,6 +7,28 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 31 aug — één ronde op Earthshammy, om herstelde data te bewijzen (ONGETEST)
+
+Rob draaide `/mh profids` over meer personages dan gevraagd en legde daarmee een ontwerpfout
+bloot: de vangst overschreef per beroep, dus een alt met Herbalism op nul wiste Earthshammy's
+**Botany 40/40** uit het bestand. Drie van zijn alts hebben Herbalism; de laatste won gewoon.
+
+De fix (`ab11f2b`) laat een vangst vastleggen **van wie** hij komt en vervangt alleen bij
+hetzelfde personage of méér rangen. Wat er al kapot is, repareert dat niet.
+
+**Log in op Earthshammy, open Herbalism (en Alchemy als die er staat), `/reload`, dan:**
+
+```
+/mh profids
+```
+
+- [ ] Herbalism staat weer op **40** — controleer met `python tools/_probe.py`
+- [ ] De regel noemt nu rangen én blijft staan als je 'm daarna op een alt draait:
+      verwacht `|cffff9900(kept Earthshammy's 40 instead)|r`
+- [ ] ⚠️ **Open vraag die alleen deze ronde kan beantwoorden:** Alchemy sprong van 0 naar 20.
+      Dat is óf Rob die punten uitgaf, óf een tweede Alchemy-personage dat erover heen ging.
+      De oude dump legde geen eigenaar vast, dus dit is niet uit het bestand te halen.
+
 ## 🔴 30 aug — beroepen-adviseur zweeg voor een heel beroep. Fix ligt klaar, ONGETEST.
 
 Rob zat vast: Disenchanting Delegate op 30/30, 235 Knowledge in de hand, en géén groene

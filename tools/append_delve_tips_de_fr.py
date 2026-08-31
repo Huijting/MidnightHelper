@@ -1,8 +1,30 @@
 #!/usr/bin/env python3
-"""Append deDE + frFR DelveTips merges (batch translate from enUS block)."""
+"""🔴 DO NOT RUN. This script is what produced the broken translations.
+
+It machine-translated all 88 DelveTips keys into deDE and frFR through GoogleTranslator, and
+that output shipped. What it cost, measured 30-31 Aug 2026: 92 suspect German lines
+("Unterbrechen du ... wann immer du können"), grues rendered as sadness in Portuguese, wipe
+risk INVERTED into "eliminates the risk" in two languages, three {SPELL:@...} placeholders
+misspelled into tokens that can never resolve, and the word "delve" translated thirteen times
+across five different words in one file.
+
+⚠️ It is kept, disabled, because the name describes exactly what a future session will want
+("append delve tips for a language") and deleting it would only mean writing it again. The
+trap is the name, so the warning has to live here.
+
+Use tools/apply_agent_translation.py instead: a language expert translates from the English,
+writes KEY/TEXT blocks, and the checker validates markup and placeholders before any of it
+becomes Lua. That pipeline is why the `-&gt;` HTML escape was caught in review rather than in
+Rob's game.
+"""
 import re
+import sys
 from pathlib import Path
-from deep_translator import GoogleTranslator
+
+print(__doc__)
+sys.exit("refusing to run: see the header, and use apply_agent_translation.py")
+
+from deep_translator import GoogleTranslator  # noqa: E402  (unreachable, kept for history)
 
 ROOT = Path(__file__).resolve().parents[1]
 path = ROOT / "Locales" / "DelveTips.lua"
