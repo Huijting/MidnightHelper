@@ -1988,6 +1988,91 @@ function ns.GetProfessionNodeChoices(midnightLine, maxCount)
 	return out, total
 end
 
+--- `/mh profids` — dump every specialization TAB and NODE with its id, for the professions
+--- this character actually has.
+---
+--- 🔴 WHY IDS. `advisorRoutes` matches on NAME, and measured 31 Aug 2026 we are the only
+--- addon in the ecosystem that does: every other one keys on node ids and derives the name
+--- for display. Two things follow, and both bit us.
+---
+--- A name can point at two things. `Lasting Leather` exists twice in Midnight, in
+--- Leatherworking and in Skinning, and ProfessionAcademyData.lua:192 already says so —
+--- adding that it works "only because the lookup resolves per skill line". That is a
+--- property of a function somewhere else, not of the data. Anyone who ever simplifies that
+--- lookup arms the collision.
+---
+--- And a name does not say which LAYER it lives on. That is what broke six route steps
+--- today: five of Alchemy's nine and Herbalism's Mulching were written as `tree` and are
+--- nodes. No amount of reading the name could have told us; only the client could.
+---
+--- An id answers both. Ask for it and you get a node, a tab, or nothing.
+---
+--- ⚠️ Only for professions this character HAS — four of eleven on Rob's two characters. The
+--- other seven need wago.tools DB2 (profession_traits), which is what CraftSim automates.
+--- Blizzard's own vocabulary is a trap worth naming here: the API calls a node a PATH.
+--- `GetRootPathForTab(tabID)` returns a rootPathID, and that is what `GetNodeInfo` takes.
+function ns.PrintProfIdsProbe()
+	local function say(s)
+		print("|cffe8c36aMH|r " .. s)
+	end
+	if not (C_ProfSpecs and C_Traits) then
+		say("C_ProfSpecs / C_Traits missing.")
+		return
+	end
+	local d = ns.PROF_ACADEMY
+	local lines = {}
+	ns.db = ns.db or {}
+	local store = {}
+	ns.db.profIdDump = store
+
+	for base, child in pairs((d and d.specSkillLines) or {}) do
+		local okC, cfg = pcall(C_ProfSpecs.GetConfigIDForSkillLine, child)
+		if okC and type(cfg) == "number" and cfg ~= 0 then
+			local okT, tabs = pcall(C_ProfSpecs.GetSpecTabIDsForSkillLine, child)
+			if okT and type(tabs) == "table" and #tabs > 0 then
+				local prof = { skillLine = base, midnightLine = child, tabs = {}, nodes = {} }
+				store[tostring(base)] = prof
+				for _, tabID in ipairs(tabs) do
+					local okI, info = pcall(C_ProfSpecs.GetTabInfo, tabID)
+					prof.tabs[#prof.tabs + 1] = {
+						id = tabID,
+						name = (okI and type(info) == "table" and info.name) or nil,
+					}
+					-- Nodes come from the tree, keyed by id, name derived — the way every
+					-- other addon does it and the way this table should.
+					local okN, nodes = pcall(C_Traits.GetTreeNodes, tabID)
+					if okN and type(nodes) == "table" then
+						for _, nodeID in ipairs(nodes) do
+							local okX, node = pcall(C_Traits.GetNodeInfo, cfg, nodeID)
+							if okX and type(node) == "table" and (node.maxRanks or 0) > 1 then
+								local nm = ns.ResolveTraitNodeName and ns.ResolveTraitNodeName(cfg, node)
+								if nm then
+									prof.nodes[#prof.nodes + 1] = {
+										id = nodeID, tab = tabID, name = nm,
+										max = (node.maxRanks or 0) - 1,
+									}
+								end
+							end
+						end
+					end
+				end
+				lines[#lines + 1] = ("   skillLine %d: %d tabs, %d nodes")
+					:format(base, #prof.tabs, #prof.nodes)
+			end
+		end
+	end
+
+	if #lines == 0 then
+		say("|cffff6666Nothing readable|r — open a profession window first; the API only answers about professions this character has.")
+		return
+	end
+	say("specialization ids captured:")
+	for _, l in ipairs(lines) do
+		print(l)
+	end
+	say("Written to ns.db.profIdDump — |cffffd100/reload|r so it reaches the SavedVariables file.")
+end
+
 --- `/mh unlearned` — every recipe this profession has that you have NOT learned,
 --- plus whatever the client is willing to say about where each comes from.
 ---

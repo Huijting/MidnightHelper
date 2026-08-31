@@ -1209,6 +1209,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh profids — alle spec-tabbladen en nodes MET hun id, voor de beroepen die dit
+	-- personage heeft. Grondstof om advisorRoutes van naam naar id om te zetten.
+	if msg == "profids" then
+		if ns.PrintProfIdsProbe then
+			ns.PrintProfIdsProbe()
+		end
+		return
+	end
+
 	-- /mh unlearned — welke recepten heb je nog niet, en wat zegt de client over waar
 	-- ze vandaan komen? Vereist een geopend beroepsvenster; schrijft naar
 	-- ns.db.unlearnedDump omdat de lijst te lang is voor de chat.
