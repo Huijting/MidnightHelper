@@ -1,30 +1,37 @@
 #!/usr/bin/env python3
-"""Run the packs for the answered question, then mark it."""
+"""Why did `## Interface:` on line 1 escape both grep and my regex?
+
+Suspect a UTF-8 BOM: the line would then start with \\ufeff rather than '#'. The addon
+demonstrably loads, so this is about my tooling being blind, not about a broken toc -- but a
+scanner that silently misses line 1 of every toc is worth knowing about.
+"""
+import io
 import os
-import subprocess
-import sys
 
-try:
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-except Exception:
-    pass
+ADDONS = r"E:\World of Warcraft\_retail_\Interface\AddOns"
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LUA = os.path.join(os.path.expanduser("~"), "AppData", "Local", "Programs", "Lua", "bin", "lua.exe")
-CHECK = os.path.join(REPO, "tools", "check_drift.py")
-KEY = "PROFACAD_CH_ENCHANTING_FAMILIES"
+def first_bytes(p, n=8):
+    with io.open(p, "rb") as fh:
+        return fh.read(n)
 
-r = subprocess.run([LUA, os.path.join(REPO, "tools", "locale_probe.lua"), KEY],
-                   capture_output=True, text=True, encoding="utf-8", errors="replace", cwd=REPO)
-print(r.stdout.rstrip())
-if r.returncode != 0:
-    print("LUA EXIT %d" % r.returncode)
-    print(r.stderr.rstrip())
-    sys.exit(1)
+mine = os.path.join(ADDONS, "MidnightHelper", "MidnightHelper.toc")
+b = first_bytes(mine)
+print("MidnightHelper.toc first bytes: %s" % " ".join("%02X" % x for x in b))
+print("BOM present: %s" % (b[:3] == b"\xef\xbb\xbf"))
 
-print()
-for argv in ([CHECK, "--mark", KEY], [CHECK, "--write-report"]):
-    p = subprocess.run([sys.executable] + argv, capture_output=True, text=True,
-                       encoding="utf-8", errors="replace", cwd=REPO)
-    print(p.stdout.rstrip())
-    print()
+# How common is it across the other addons' tocs?
+withbom, without = [], []
+for name in sorted(os.listdir(ADDONS)):
+    d = os.path.join(ADDONS, name)
+    if not os.path.isdir(d):
+        continue
+    p = os.path.join(d, name + ".toc")
+    if not os.path.exists(p):
+        continue
+    try:
+        (withbom if first_bytes(p)[:3] == b"\xef\xbb\xbf" else without).append(name)
+    except OSError:
+        pass
+print("\ntocs with a BOM: %d   without: %d" % (len(withbom), len(without)))
+if withbom:
+    print("with: %s" % ", ".join(withbom[:12]) + (" ..." if len(withbom) > 12 else ""))

@@ -4,7 +4,7 @@ Guidance for Claude when working in this repository. Read this first every sessi
 
 ## What this is
 
-**Midnight Helper** is an all-in-one utility addon for **World of Warcraft Retail** (patch 12.0.7 "Midnight", interface `120007`), written in **Lua**. It covers weekly planning, Delves, Great Vault, achievement hunts, a live class-layout coach, on-screen combat helpers, standalone route guidance, and reference guides — localized in 7 languages.
+**Midnight Helper** is an all-in-one utility addon for **World of Warcraft Retail** (patch **12.1 "Curse of Ula'tek"**, live since 11 Aug 2026; Season 2 since 18 Aug. The `.toc` declares `## Interface: 120007, 120100`), written in **Lua**. It covers weekly planning, Delves, Great Vault, achievement hunts, a live class-layout coach, on-screen combat helpers, standalone route guidance, and reference guides — localized in 7 languages.
 
 The maintainer (**Rob**) is a non-developer but tests every change in-game. A second tester (**Cisca**) is used for big changes.
 
