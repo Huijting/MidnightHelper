@@ -243,15 +243,26 @@ ns.PROF_ACADEMY = {
 		-- of Sin'dorei Flasks" — without points there you cannot make the flask cauldron
 		-- at top rank. Every guide paraphrases the node as "phials only" and drops that
 		-- half-sentence.
+		-- 🔴 FIVE OF THESE NINE ARE NODES, NOT TREES. Measured on Rob's shaman with
+		-- `/mh profadvice`, 31 Aug 2026: Path of Light, Prolific Potioneer - Light,
+		-- Reuse, Sin'dorei Specialist and Haranir Secrets all report "is a NODE, not a
+		-- tree". Written as `tree =` they were looked up among the four tab names,
+		-- matched nothing, and were skipped — so five ninths of this route silently did
+		-- not exist. Before 30 Aug it was worse: an unresolved step aborted the whole
+		-- route, leaving Alchemy with no advice at all past Potion Prowess.
+		--
+		-- 📌 The chapter text knew: it says "Alchemical Mastery and INSIDE IT Reuse",
+		-- and calls Prolific Potioneer - Light "the Multicraft node". The prose had the
+		-- layer right and the data did not, for as long as both have existed.
 		[171] = {
 			{ tree = "Potion Prowess" },
-			{ tree = "Path of Light" },
-			{ tree = "Prolific Potioneer - Light" },
+			{ node = "Path of Light" },
+			{ node = "Prolific Potioneer - Light" },
 			{ tree = "Alchemical Mastery" },
-			{ tree = "Reuse" },
+			{ node = "Reuse" },
 			{ tree = "Fluent in Flasks", points = 15 },
-			{ tree = "Sin'dorei Specialist" },
-			{ tree = "Haranir Secrets" },
+			{ node = "Sin'dorei Specialist" },
+			{ node = "Haranir Secrets" },
 			{ tree = "Transmutation Authority" },
 		},
 		-- Herbalism. `Mulching` was missing and `Midnight Overload` had to go.
@@ -261,9 +272,20 @@ ns.PROF_ACADEMY = {
 		--
 		-- `Midnight Overload` dropped: it only works on the elemental nodes, costs a lot
 		-- of points, and you meet too few of them. Worth it only for targeted mote farming.
+		-- 🔴 `Mulching` IS A NODE. Measured on Rob's shaman, 31 Aug 2026 — and this one
+		-- cost something, because I told him that morning Herbalism was in order after
+		-- MEASURING Alchemy and merely READING this. Three tidy names, three lines of
+		-- data, "those look fine". He had already spent his one-time Knowledge reset by
+		-- the time the probe said otherwise: Botany 40/40 and Bountiful Harvests 29/40,
+		-- with Mulching still at 0 — the route's own step two, skipped because we told
+		-- the advisor to look for it in the wrong list.
+		--
+		-- Nothing was destroyed (both filled trees are on the route, and Mulching still
+		-- takes points), but the payoff the comment below describes was delayed for
+		-- weeks by a one-word mistake in a table nobody re-read.
 		[182] = {
 			{ tree = "Botany", skipIfClass = "DRUID", points = 40 },
-			{ tree = "Mulching", points = 20 },
+			{ node = "Mulching", points = 20 },
 			{ tree = "Bountiful Harvests" },
 		},
 		-- Mining. Was not wrong, but incomplete.
