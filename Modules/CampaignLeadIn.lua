@@ -453,6 +453,25 @@ function ns.PrintCampaignLeadInDiagnostics()
 		print(("  state = %s  canRoute = %s"):format(
 			st and st.status or "nil (hidden)", st and tostring(st.canRoute) or "-"))
 
+		--- 🔴 SHOW THE GATE TEXT EVEN WHEN THE DASHBOARD WILL NEVER SHOW IT.
+		---
+		--- Rob, 31 Aug 2026: the Vaults block is invisible on every one of his characters,
+		--- and his read is that the chain is warbound -- do it once, done account-wide. If
+		--- that holds, the gate line is correct AND permanently unverifiable by the person
+		--- who has to sign it off, because it only ever reaches somebody who has done this
+		--- chain on NO character. Working-as-intended and broken look identical from his
+		--- chair, which is the exact case this repo has a rule about.
+		---
+		--- So the diagnostic prints the sentence and says who would see it. He can read the
+		--- wording without being able to reach the state.
+		if campaign.gateKey then
+			print(("  gate (shown only before you start): %s"):format(ns:L(campaign.gateKey)))
+			if st == nil then
+				print("    ^ hidden for you: every chain step reads done. If that is true on a "
+					.. "character that never ran it, the chain is account-wide.")
+			end
+		end
+
 		-- Ground truth for the arrow: what does Blizzard itself have as the next waypoint for
 		-- the active quest, and can a waypoint be placed on that map? This says whether
 		-- super-track alone can guide, or whether we need explicit objective coords.
