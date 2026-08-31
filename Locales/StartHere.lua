@@ -396,7 +396,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	START_S3_NAV = "Abrir Início",
 
 	START_S4_TITLE = "4. Rode suas Profundidades",
-	START_S4_BODY = "Profundidades são masmorras solo ou de grupo pequeno com o Valeera ao seu lado — equipamento constante e o progresso mais fácil da fileira de Mundo. Suba primeiro os tiers normais (abaixo do nível 90 o máximo é o Tier 3); ao chegar ao Tier 8 você pode rodar Bountiful Delves (precisa de uma Restored Coffer Key) para equipamento Champion e opções Hero-track no Vault. O Treinador de profundidades dá dicas por profundidade que você pode compartilhar com o grupo.",
+	START_S4_BODY = "Profundidades são masmorras solo ou de grupo pequeno com o Valira ao seu lado — equipamento constante e o progresso mais fácil da fileira de Mundo. Suba primeiro os tiers normais (abaixo do nível 90 o máximo é o Tier 3); ao chegar ao Tier 8 você pode rodar Bountiful Delves (precisa de uma Restored Coffer Key) para equipamento Champion e opções Hero-track no Vault. O Treinador de profundidades dá dicas por profundidade que você pode compartilhar com o grupo.",
 	START_S4_NAV = "Abrir Profundidades",
 
 	START_S5_TITLE = "5. Ritual Sites e Void Assaults",

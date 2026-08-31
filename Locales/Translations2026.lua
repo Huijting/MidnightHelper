@@ -6795,7 +6795,7 @@ fill("ptBR", {
 	VALEERA_RUN_OTHER_FMT = "%d outros achados",
 	VALEERA_RUN_NONE = "Este delve: ainda não recolheste nada. Os Chunks of Companion Experience, os Boons e de vez em quando um achado generoso contam todos — e matar também conta, por isso nada do que fazes aqui é desperdiçado.",
 	VALEERA_LEFT_FMT = "Faltam %s. Todo delve conta; os |cffffffffBountiful|r rendem mais.",
-	VALEERA_OFF_HINT = "A janela da Valeera está desligada. Traga de volta com |cffffff00/mh valeera|r ou pelo cartão \"Pop-out windows\".",
+	VALEERA_OFF_HINT = "A janela da Valira está desligada. Traga de volta com |cffffff00/mh valeera|r ou pelo cartão \"Pop-out windows\".",
 	VALEERA_LEVEL = "Nível",
 	VALEERA_MAXED = "no máximo — não sobrou nada para ganhar aqui.",
 	VALEERA_UNREADABLE = "Não dá para ler o progresso de Valira agora.",

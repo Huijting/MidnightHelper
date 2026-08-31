@@ -870,8 +870,8 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	CODEX_DELVE_COACH_TITLE = "Delve Coach",
 	CODEX_DELVE_COACH_BODY = "• Painel de dicas flutuante: rota, trash e mecânicas de chefe por profundeza.|n• Abre automaticamente em uma profundeza (opcional) ou via |cffffffffDelve Coach (preview tips)|r / |cffffffff/mh coach|r.|n• O texto em inglês ou neerlandês segue `/mh lang`.|n• Destaque do chefe: role no modelo para dar zoom (salvo por chefe).|n• Nomes de magias em azul levam às dicas reais de magia quando os IDs são conhecidos.",
 
-	CODEX_DELVE_CURIOS_TITLE = "Valeera & curios de profundeza",
-	CODEX_DELVE_CURIOS_BODY = "• Curios modificam sua próxima run de profundeza (saque extra, chefes mais fáceis, etc.).|n• Valeera dá conselhos em NPCs de reparo/diálogo — popup na aba Delves quando relevante.|n• Acompanhe consumíveis e botões de minimapa pelo popup de itens de profundeza (RAID-R Mini, Trovehunter's Bounty).",
+	CODEX_DELVE_CURIOS_TITLE = "Valira & curios de profundeza",
+	CODEX_DELVE_CURIOS_BODY = "• Curios modificam sua próxima run de profundeza (saque extra, chefes mais fáceis, etc.).|n• Valira dá conselhos em NPCs de reparo/diálogo — popup na aba Delves quando relevante.|n• Acompanhe consumíveis e botões de minimapa pelo popup de itens de profundeza (RAID-R Mini, Trovehunter's Bounty).",
 
 	CODEX_TORMENTS_TITLE = "Torment's Rise (profundeza Nêmesis)",
 	CODEX_TORMENTS_BODY = "• Profundeza Nêmesis suprema em Voidstorm — portal de instância separado, não uma profundeza de mundo rotativa.|n• Desbloqueia em níveis de profundeza altos com vidas limitadas (veja os requisitos no jogo).|n• Chefe Nullaeus — forte teste de interrupção/DPS; veja Delve Coach para as mecânicas.|n• A recompensa semanal pode atrair um Nullaeus enfraquecido para uma profundeza normal (Beacon of Hope).",

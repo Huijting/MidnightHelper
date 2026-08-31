@@ -45,8 +45,8 @@ def block(s, at):
 
 
 dump = block(text, text.find('["profIdDump"]'))
-print("%-16s %-8s %-8s %s" % ("profession", "entries", "ranks", "highest rank seen"))
-print("-" * 60)
+print("%-16s %-8s %-8s %-6s %s" % ("profession", "entries", "ranks", "top", "captured on"))
+print("-" * 66)
 missing = []
 for sid in sorted(PROF):
     m = re.search(r'\["%d"\]\s*=\s*\{' % sid, dump)
@@ -57,7 +57,9 @@ for sid in sorted(PROF):
     ids = len(re.findall(r'\["id"\]\s*=\s*\d+', b))
     ranks = [int(x) for x in re.findall(r'\["rank"\]\s*=\s*(\d+)', b)]
     top = max(ranks) if ranks else None
-    flag = "" if ranks else "   <-- NO RANKS, needs another pass"
-    print("%-16s %-8d %-8s %s%s" % (PROF[sid], ids, len(ranks) or "-",
-                                    top if top is not None else "-", flag))
+    who = re.search(r'\["char"\]\s*=\s*"([^"]*)"', b)
+    # ⚠️ No owner means the row predates the fix, NOT that it came from nobody.
+    owner = who.group(1) if who else "|before the fix|"
+    print("%-16s %-8d %-8s %-6s %s" % (PROF[sid], ids, len(ranks) or "-",
+                                       top if top is not None else "-", owner))
 print("\nnot captured at all: %s" % (", ".join(missing) or "none"))
