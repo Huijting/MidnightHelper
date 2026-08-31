@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-"""Which character has which professions? MH already knows -- charCurrencies stores it.
+"""Check EVERY advisorRoutes name against the ids Rob captured from his own client.
 
-Rob was right: no need to ask him to remember. This turns "log in on everything" into a named
-shortlist, and shows which of the eleven professions nobody covers.
+Measurement before rewriting, which is the whole lesson of 31 Aug: this morning six route
+steps were wrong about the LAYER and nobody knew until the client was asked. Eight of the
+eleven professions are now captured, so the rest of that question can be answered in one run
+instead of one profession at a time.
+
+Reports per step: is it a tab, a node, or neither -- and whether the route calls it right.
 """
 import io
+import os
 import re
 import sys
 
@@ -14,71 +19,85 @@ except Exception:
     pass
 
 SV = r"E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua"
-text = io.open(SV, encoding="utf-8", errors="replace").read()
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA = os.path.join(REPO, "Modules", "ProfessionAcademyData.lua")
 
-m = re.search(r'^\["charCurrencies"\]\s*=\s*\{', text, re.M)
-start = m.end() - 1
-depth, j, in_str = 0, start, False
-while j < len(text):
-    c = text[j]
-    if in_str:
-        if c == "\\":
-            j += 2
-            continue
-        if c == '"':
-            in_str = False
-    elif c == '"':
-        in_str = True
-    elif c == "{":
-        depth += 1
-    elif c == "}":
-        depth -= 1
-        if depth == 0:
-            break
-    j += 1
-blob = text[start:j + 1]
+PROF = {164: "Blacksmithing", 165: "Leatherworking", 171: "Alchemy", 182: "Herbalism",
+        186: "Mining", 197: "Tailoring", 202: "Engineering", 333: "Enchanting",
+        393: "Skinning", 755: "Jewelcrafting", 773: "Inscription"}
 
-chars = []
-for pm in re.finditer(r'\["(Player-\d+-[0-9A-F]+)"\]\s*=\s*\{', blob):
-    s = pm.end() - 1
-    d2, k, ins = 0, s, False
-    while k < len(blob):
-        c = blob[k]
+
+def block(s, at):
+    start = s.find("{", at)
+    depth, j, ins = 0, start, False
+    while j < len(s):
+        c = s[j]
         if ins:
             if c == "\\":
-                k += 2
+                j += 2
                 continue
             if c == '"':
                 ins = False
         elif c == '"':
             ins = True
         elif c == "{":
-            d2 += 1
+            depth += 1
         elif c == "}":
-            d2 -= 1
-            if d2 == 0:
-                break
-        k += 1
-    b = blob[s:k + 1]
-    g = lambda p: (re.search(p, b).group(1) if re.search(p, b) else None)
-    chars.append({
-        "name": g(r'\["name"\]\s*=\s*"([^"]*)"'),
-        "realm": g(r'\["realm"\]\s*=\s*"([^"]*)"'),
-        "level": g(r'\["level"\]\s*=\s*(\d+)'),
-        "profs": g(r'\["professionsFull"\]\s*=\s*"([^"]*)"') or g(r'\["professions"\]\s*=\s*"([^"]*)"'),
-    })
+            depth -= 1
+            if depth == 0:
+                return s[start:j + 1]
+        j += 1
+    return ""
 
-ALL = ["Alchemy", "Blacksmithing", "Enchanting", "Engineering", "Herbalism", "Inscription",
-       "Jewelcrafting", "Leatherworking", "Mining", "Skinning", "Tailoring"]
-have = set()
-print("%-16s %-14s %-5s %s" % ("character", "realm", "lvl", "professions"))
-print("-" * 74)
-for c in sorted(chars, key=lambda x: -(int(x["level"] or 0))):
-    p = c["profs"] or ""
-    for a in ALL:
-        if a in p:
-            have.add(a)
-    print("%-16s %-14s %-5s %s" % (c["name"] or "?", c["realm"] or "?", c["level"] or "?", p or "—"))
 
-print("\ncovered  (%d/11): %s" % (len(have), ", ".join(sorted(have))))
-print("MISSING  (%d/11): %s" % (11 - len(have), ", ".join(a for a in ALL if a not in have)))
+sv = io.open(SV, encoding="utf-8", errors="replace").read()
+dump = block(sv, sv.find('["profIdDump"]'))
+
+# skillLine -> {"tabs": {name: id}, "nodes": {name: id}}
+client = {}
+for m in re.finditer(r'\["(\d+)"\]\s*=\s*\{', dump):
+    sid = int(m.group(1))
+    if sid not in PROF:
+        continue
+    b = block(dump, m.end() - 1)
+    out = {"tabs": {}, "nodes": {}}
+    for which in ("tabs", "nodes"):
+        mm = re.search(r'\["%s"\]\s*=\s*\{' % which, b)
+        if not mm:
+            continue
+        sub = block(b, mm.end() - 1)
+        for e in re.finditer(r'\{(.*?)\}', sub, re.S):
+            t = e.group(1)
+            i_ = re.search(r'\["id"\]\s*=\s*(\d+)', t)
+            n_ = re.search(r'\["name"\]\s*=\s*"([^"]*)"', t)
+            if i_ and n_:
+                out[which][n_.group(1).lower()] = int(i_.group(1))
+    client[sid] = out
+
+data = io.open(DATA, encoding="utf-8", errors="replace").read()
+body = data[data.index("advisorRoutes = {"):]
+
+print("%-16s %-34s %-10s %s" % ("profession", "step", "written as", "client says"))
+print("-" * 88)
+bad = 0
+for m in re.finditer(r'\n\t\t\[(\d+)\]\s*=\s*\{(.*?)\n\t\t\},', body, re.S):
+    sid, steps = int(m.group(1)), m.group(2)
+    if sid not in client:
+        continue
+    for st in re.finditer(r'\{\s*(tree|node|anyOf|anyOfNodes)\s*=\s*(.*?)\s*[,}]', steps, re.S):
+        kind, rest = st.group(1), st.group(2)
+        names = re.findall(r'"([^"]+)"', rest)
+        for nm in names:
+            low = nm.lower()
+            is_tab = low in client[sid]["tabs"]
+            is_node = low in client[sid]["nodes"]
+            want = "tree" if kind in ("tree", "anyOf") else "node"
+            real = "TAB" if is_tab else ("NODE" if is_node else "NEITHER")
+            ok = (want == "tree" and is_tab) or (want == "node" and is_node)
+            if not ok:
+                bad += 1
+            print("%-16s %-34s %-10s %s%s" % (
+                PROF[sid], nm[:33], kind, real, "" if ok else "   <-- MISMATCH"))
+
+print("\n%d mismatched step name(s) across the 8 captured professions." % bad)
+print("missing from the dump: %s" % ", ".join(PROF[s] for s in sorted(PROF) if s not in client))

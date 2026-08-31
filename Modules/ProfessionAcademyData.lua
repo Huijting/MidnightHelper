@@ -189,6 +189,22 @@ ns.PROF_ACADEMY = {
 		--- 12.1.0.69382). Before that, every one of the eleven was wrong in some way;
 		--- only [202] Engineering had been repaired, earlier the same day.
 		---
+		--- 🔴 MEASURED 31 Aug 2026 against Rob's own client (`/mh profids` on four
+		--- characters, 8 of 11 professions, 202 id-bearing entries). TWELVE steps named a
+		--- node as if it were a tab, across SIX of the eight: five in Alchemy, two each in
+		--- Leatherworking, Tailoring and Skinning, and Herbalism's Mulching. Written as
+		--- `tree` they were looked up among the tab names, matched nothing, and were
+		--- skipped — the advice for those steps silently did not exist.
+		---
+		--- ⚠️ And `Lasting Leather` is worse than the warning below says. It is a TAB in
+		--- Leatherworking and a NODE in Skinning: not two things sharing a name, two
+		--- different LAYERS sharing a name. Per-skill-line scoping cannot save you from
+		--- that, because the collision is not in which profession you look at — it is in
+		--- which of two lookup tables you were supposed to use.
+		---
+		--- Engineering, Jewelcrafting and Inscription are UNVERIFIED: nobody on the account
+		--- has them, so their steps have never been checked against a client.
+		---
 		--- 🔴 MATCHED BY NAME, AND THAT IS A LOADED GUN. `Lasting Leather` exists TWICE
 		--- inside Midnight: Leatherworking trait 107889 and Skinning trait 106088. It
 		--- works today only because Profession.lua resolves names per skill line via
@@ -227,9 +243,9 @@ ns.PROF_ACADEMY = {
 				},
 				gold = {
 					{ tree = "Flawless Fortes" },
-					{ tree = "Commanding Commodities" },
+					{ node = "Commanding Commodities" },
 					{ tree = "Learned Leatherworker" },
-					{ tree = "Mastering Multicraft" },
+					{ node = "Mastering Multicraft" },
 				},
 			},
 		},
@@ -309,9 +325,9 @@ ns.PROF_ACADEMY = {
 			{ tree = "Nimble Needlework", points = 20 },
 			goals = {
 				gold = {
-					{ tree = "Sunfire Silk Weaving" },
+					{ node = "Sunfire Silk Weaving" },
 					{ tree = "Fiber Arts" },
-					{ tree = "Creative Efficiency" },
+					{ node = "Creative Efficiency" },
 					{ tree = "Fabric Specialist" },
 				},
 				self = {
@@ -392,8 +408,8 @@ ns.PROF_ACADEMY = {
 			{ tree = "Thorough Tanning" },
 			{ tree = "Gainful Gathering" },
 			goals = {
-				self = { { anyOf = { "Lasting Leather", "Superb Scales" } } },
-				gold = { { tree = "Talented Tracker" }, { tree = "Majestic Materials" } },
+				self = { { anyOfNodes = { "Lasting Leather", "Superb Scales" } } },
+				gold = { { tree = "Talented Tracker" }, { node = "Majestic Materials" } },
 			},
 		},
 		-- Jewelcrafting. `Alluring Accessories` was missing entirely — precisely the tree
