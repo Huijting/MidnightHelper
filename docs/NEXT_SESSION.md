@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## 🔴 EERST, 1 sep: zeg Rob dat hij Claude Code moet HERSTARTEN
+
+Rob werkt die dag onderweg vanaf zijn telefoon (Remote Control — die zet **hij** aan, dat kan de
+sessie niet zelf). Op 31 aug greep een subagent naar de **PowerShell-tool** en zette daarmee een
+toestemmingsprompt op zijn telefoon terwijl hij reed.
+
+De reparatie staat klaar: de PreToolUse-hook matcht nu `Bash|PowerShell` en `bash_guard.py`
+weigert die tool botweg. ⚠️ **Maar `settings.json` wordt alleen bij het opstarten gelezen**, dus
+tot de eerste herstart is het slot niet actief en moet het met gedrag: **elke agent-opdracht
+draagt de shell-regels zelf mee.**
+
+📌 Werk dat onderweg gedaan kán worden: research in Blizzards eigen data (zoals de vijf spell-ID's
+en de Galvanic Rifle op 31 aug). Werk dat NIET moet: een stapel code die hij pas 's avonds kan
+testen — we hebben net gereleased, dus ongeteste voorraad opbouwen is verkeerd om. En houd
+antwoorden kort; hij leest ze op een telefoonscherm.
+
 ## ✅ 3.7.3 LIVE en approved op CurseForge — 31 aug 2026 (tag `v3.7.3` op `945e17d`)
 
 De adviseur zweeg voor hele beroepen (12 routestappen in 5 beroepen noemden een node alsof het een
