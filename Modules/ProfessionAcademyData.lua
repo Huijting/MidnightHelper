@@ -202,8 +202,22 @@ ns.PROF_ACADEMY = {
 		--- that, because the collision is not in which profession you look at — it is in
 		--- which of two lookup tables you were supposed to use.
 		---
-		--- Engineering, Jewelcrafting and Inscription are UNVERIFIED: nobody on the account
-		--- has them, so their steps have never been checked against a client.
+		--- ✅ ALL ELEVEN ARE NOW CLIENT-VERIFIED, 31 Aug 2026 — a first. Rob logged through
+		--- four characters for the eight he had, then cycled his level-82 Warlock through
+		--- Engineering, Jewelcrafting and Inscription, which nobody on the account owned.
+		--- Two things that made that cheap and are worth knowing: level 82 is enough for
+		--- the Midnight spec trees (measured, not assumed), and a profession can be dropped
+		--- the moment it is captured, because the ids end up here rather than on the
+		--- character.
+		---
+		--- Five professions carried layer errors: Alchemy 5, Leatherworking 2, Tailoring 2,
+		--- Skinning 2, Herbalism 1. Six were already right — Blacksmithing, Mining,
+		--- Engineering, Enchanting, Jewelcrafting, Inscription. There was no pattern to
+		--- predict which, which is the argument for checking rather than reading.
+		---
+		--- ⚠️ Re-run `tools/_probe.py`'s route check after ANY edit here, and after a patch:
+		--- it compares every step against ns.db.profIdDump and is the only thing standing
+		--- between this table and the twelve silent failures it had this morning.
 		---
 		--- 🔴 MATCHED BY NAME, AND THAT IS A LOADED GUN. `Lasting Leather` exists TWICE
 		--- inside Midnight: Leatherworking trait 107889 and Skinning trait 106088. It
