@@ -89,3 +89,40 @@ for sid in sorted(PROF):
     print("%-16s %-8d %-8s %-6s %s" % (PROF[sid], ids, len(ranks) or "-",
                                        top if top is not None else "-", owner))
 print("\nnot captured at all: %s" % (", ".join(missing) or "none"))
+
+# Who has which profession -- so "log in on X" is answered from the roster rather than from
+# memory. ⚠️ The rank dump only names an owner for captures taken after the 31 Aug fix, so
+# this is the only source that can say who to log in on.
+# 🔴 The first version looked inside `["alts"]`, which is a BOOLEAN setting, not the roster --
+# so it printed an empty table. It was caught only because it says out loud that an empty result
+# may mean the shape changed. Without that line it would have read as "no alt has a profession",
+# which is plainly false and would have sent Rob hunting through characters.
+# The real per-character rows carry `["professionsFull"]` and `["realm"]`.
+print("\n%-18s %-7s %s" % ("character", "level", "professions"))
+print("-" * 74)
+seen, rows = set(), []
+for m in re.finditer(r'\["([^"\]]+)"\]\s*=\s*\{', text):
+    b = block(text, m.end() - 1)
+    if '["professionsFull"]' not in b:
+        continue
+    p = re.search(r'\["professionsFull"\]\s*=\s*"([^"]*)"', b)
+    if not p or not p.group(1):
+        continue
+    # ⚠️ The table key is a GUID ("Player-1388-09A6E15F"), so splitting it gives "Player" for
+    # every row -- which is what the first run printed, seven times, uselessly. The readable
+    # name is a field inside.
+    nm = re.search(r'\["name"\]\s*=\s*"([^"]+)"', b)
+    if not nm:
+        continue
+    name = nm.group(1).split("-")[0]
+    lvl = re.search(r'\["level"\]\s*=\s*(\d+)', b)
+    key = (name, p.group(1))
+    if key in seen:  # the same character is written once per snapshot
+        continue
+    seen.add(key)
+    rows.append((name, lvl.group(1) if lvl else "?", p.group(1)))
+for name, lvl, profs in sorted(rows):
+    print("%-18s %-7s %s" % (name, lvl, profs))
+if not rows:
+    print("  ⚠️ nothing found -- the roster shape may have changed again.\n"
+          "     Check one entry by hand before believing this is empty.")
