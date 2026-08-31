@@ -2047,9 +2047,32 @@ function ns.PrintProfIdsProbe()
 				store[tostring(base)] = prof
 				for _, tabID in ipairs(tabs) do
 					local okI, info = pcall(C_ProfSpecs.GetTabInfo, tabID)
+					--- 🔴 RANKS TOO, and leaving them out cost Rob a morning of logins.
+					--- The dump held id, name and max but not where his points actually
+					--- were, so I could verify the DATA offline and never the ADVICE — and
+					--- had to ask him to log in on each character and screenshot
+					--- /mh profadvice for me. With ranks in here the whole advisor can be
+					--- replayed from the file.
+					---
+					--- ⚠️ Tab ranks live on the tab's ROOT PATH, not on the tab: Blizzard
+					--- calls a node a path, and GetRootPathForTab is the only bridge.
+					--- `- 1` because unlocking grants rank 1 free — the convention
+					--- ProfessionsSpecPathMixin:GetRanks() sets and three other addons copy.
+					local trank, tmax
+					if C_ProfSpecs.GetRootPathForTab then
+						local okR, rootPath = pcall(C_ProfSpecs.GetRootPathForTab, tabID)
+						if okR and rootPath then
+							local okRN, rn = pcall(C_Traits.GetNodeInfo, cfg, rootPath)
+							if okRN and type(rn) == "table" then
+								trank = math.max((tonumber(rn.activeRank) or 0) - 1, 0)
+								tmax = math.max((tonumber(rn.maxRanks) or 0) - 1, 0)
+							end
+						end
+					end
 					prof.tabs[#prof.tabs + 1] = {
 						id = tabID,
 						name = (okI and type(info) == "table" and info.name) or nil,
+						rank = trank, max = tmax,
 					}
 					-- Nodes come from the tree, keyed by id, name derived — the way every
 					-- other addon does it and the way this table should.
@@ -2062,6 +2085,7 @@ function ns.PrintProfIdsProbe()
 								if nm then
 									prof.nodes[#prof.nodes + 1] = {
 										id = nodeID, tab = tabID, name = nm,
+										rank = math.max((tonumber(node.ranksPurchased) or 0) - 1, 0),
 										max = (node.maxRanks or 0) - 1,
 									}
 								end
