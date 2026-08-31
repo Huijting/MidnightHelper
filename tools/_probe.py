@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
-"""Which /mh commands are ROUTED but not LISTED?
+"""Write a translation work file: the English source beside the current deDE/frFR value.
 
-Linter check [10] asks the other direction -- everything listed must be routed -- and passes
-clean while `/mh discord` is invisible to our own search box. NavSearch builds its index
-solely from ns.MH_COMMANDS (NavSearch.lua), so a routed-but-unlisted command cannot be found
-by typing its own name.
-
-Routed = a `msg == "x"` or `msg:match("^x%s")` test in Core.lua's slash handler.
-Listed  = a cmd entry in Modules/CommandList.lua.
+The agents translate FROM THE ENGLISH. The existing text is included only so they can see
+what went wrong and avoid inheriting it -- patching the German would carry its errors
+forward, which is how "Unterbrechen du" survived this long.
 """
 import io
 import os
@@ -20,35 +16,37 @@ except Exception:
     pass
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-core = io.open(os.path.join(REPO, "Core.lua"), encoding="utf-8", errors="replace").read()
-clist = io.open(os.path.join(REPO, "Modules", "CommandList.lua"), encoding="utf-8", errors="replace").read()
+PATH = os.path.join(REPO, "Locales", "DelveTips.lua")
+OUT = os.path.join(os.environ.get("TEMP", REPO), "mh_delvetips_source.md")
 
-routed = set()
-for m in re.finditer(r'msg\s*==\s*"([a-z0-9_]+)"', core):
-    routed.add(m.group(1))
-for m in re.finditer(r'msg:match\(\s*"\^([a-z0-9_]+)', core):
-    routed.add(m.group(1))
+CODES = ("enUS", "deDE", "frFR", "esES", "ptBR", "itIT", "nlNL")
+BLOCK = re.compile(r'(?:fill|merge)\s*\([^)]*?(?:"|_mhLocales\.)(' + "|".join(CODES) + r')\b')
+KEYLINE = re.compile(r'^[ \t]*(?:\["([A-Z0-9_]+)"\]|([A-Z0-9_]+))[ \t]*=[ \t]*"(.*)",?[ \t]*$')
 
-listed = set()
-for m in re.finditer(r'cmd\s*=\s*"/mh\s+([a-z0-9_]+)', clist):
-    listed.add(m.group(1))
-for m in re.finditer(r'cmd\s*=\s*"([a-z0-9_]+)"', clist):
-    listed.add(m.group(1))
+vals = {c: {} for c in CODES}
+order = []
+current = None
+for line in io.open(PATH, encoding="utf-8", errors="replace").read().splitlines():
+    m = BLOCK.search(line)
+    if m:
+        current = m.group(1)
+    if current is None:
+        continue
+    k = KEYLINE.match(line)
+    if k:
+        key = k.group(1) or k.group(2)
+        vals[current][key] = k.group(3)
+        if current == "enUS":
+            order.append(key)
 
-print("routed: %d   listed: %d\n" % (len(routed), len(listed)))
-missing = sorted(routed - listed)
-print("ROUTED BUT NOT LISTED (%d) — invisible to NavSearch:" % len(missing))
-for c in missing:
-    print("   /mh %s" % c)
+with io.open(OUT, "w", encoding="utf-8", newline="\n") as fh:
+    fh.write("# DelveTips source — English, with the current German and French beside it\n\n")
+    fh.write("%d keys. Translate FROM THE ENGLISH.\n\n" % len(order))
+    for key in order:
+        fh.write("## `%s`\n\n" % key)
+        fh.write("**EN**\n```\n%s\n```\n\n" % vals["enUS"].get(key, "(missing)"))
+        fh.write("**current deDE**\n```\n%s\n```\n\n" % vals["deDE"].get(key, "(missing)"))
+        fh.write("**current frFR**\n```\n%s\n```\n\n" % vals["frFR"].get(key, "(missing)"))
 
-extra = sorted(listed - routed)
-print("\nLISTED BUT NOT ROUTED (%d) — what check [10] already covers:" % len(extra))
-for c in extra:
-    print("   /mh %s" % c)
-
-# The keyword blocks NavSearch carries for commands it can never reach.
-print("\nNavSearch keyword blocks:")
-nav = io.open(os.path.join(REPO, "Modules", "NavSearch.lua"), encoding="utf-8", errors="replace").read()
-for m in re.finditer(r'^\s*(\w+)\s*=\s*"([^"]{0,90})"', nav, re.M):
-    if any(w in m.group(2).lower() for w in ("discord", "community", "translate")):
-        print("   %s = %s" % (m.group(1), m.group(2)[:80]))
+print("written:", OUT)
+print("keys: %s" % ", ".join("%s=%d" % (c, len(vals[c])) for c in CODES))
