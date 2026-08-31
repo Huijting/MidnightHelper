@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-"""Run the packs for the Mining paragraph, then mark it and re-check drift."""
-import os
-import subprocess
+"""Did every profession get ranks, or only the ones Rob happened to visit?
+
+⚠️ A rank of 0 everywhere looks exactly like a capture that did not work, so this reports
+per profession whether ranks are PRESENT and whether any are NON-ZERO -- the positive control.
+"""
+import io
+import re
 import sys
 
 try:
@@ -9,21 +13,51 @@ try:
 except Exception:
     pass
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LUA = os.path.join(os.path.expanduser("~"), "AppData", "Local", "Programs", "Lua", "bin", "lua.exe")
-CHECK = os.path.join(REPO, "tools", "check_drift.py")
-KEY = "PROFACAD_CH_MINING_BODY"
+SV = r"E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua"
+PROF = {164: "Blacksmithing", 165: "Leatherworking", 171: "Alchemy", 182: "Herbalism",
+        186: "Mining", 197: "Tailoring", 202: "Engineering", 333: "Enchanting",
+        393: "Skinning", 755: "Jewelcrafting", 773: "Inscription"}
 
-r = subprocess.run([LUA, os.path.join(REPO, "tools", "locale_probe.lua"), KEY],
-                   capture_output=True, text=True, encoding="utf-8", errors="replace", cwd=REPO)
-print(r.stdout.rstrip())
-if r.returncode != 0:
-    print(r.stderr.rstrip())
-    sys.exit(1)
+text = io.open(SV, encoding="utf-8", errors="replace").read()
 
-print()
-for argv in ([CHECK, "--mark", KEY], [CHECK]):
-    p = subprocess.run([sys.executable] + argv, capture_output=True, text=True,
-                       encoding="utf-8", errors="replace", cwd=REPO)
-    print(p.stdout.rstrip())
-    print()
+
+def block(s, at):
+    start = s.find("{", at)
+    depth, j, ins = 0, start, False
+    while j < len(s):
+        c = s[j]
+        if ins:
+            if c == "\\":
+                j += 2
+                continue
+            if c == '"':
+                ins = False
+        elif c == '"':
+            ins = True
+        elif c == "{":
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth == 0:
+                return s[start:j + 1]
+        j += 1
+    return ""
+
+
+dump = block(text, text.find('["profIdDump"]'))
+print("%-16s %-8s %-8s %s" % ("profession", "entries", "ranks", "highest rank seen"))
+print("-" * 60)
+missing = []
+for sid in sorted(PROF):
+    m = re.search(r'\["%d"\]\s*=\s*\{' % sid, dump)
+    if not m:
+        missing.append(PROF[sid])
+        continue
+    b = block(dump, m.end() - 1)
+    ids = len(re.findall(r'\["id"\]\s*=\s*\d+', b))
+    ranks = [int(x) for x in re.findall(r'\["rank"\]\s*=\s*(\d+)', b)]
+    top = max(ranks) if ranks else None
+    flag = "" if ranks else "   <-- NO RANKS, needs another pass"
+    print("%-16s %-8d %-8s %s%s" % (PROF[sid], ids, len(ranks) or "-",
+                                    top if top is not None else "-", flag))
+print("\nnot captured at all: %s" % (", ".join(missing) or "none"))
