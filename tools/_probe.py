@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
-"""Read ns.db.unlearnedDump and build a per-category list with sources.
+"""Which character has which professions? MH already knows -- charCurrencies stores it.
 
-Generic this time: yesterday's version hardcoded the Enchanting category ids, which was
-fine for a one-off and useless the moment the professions changed. Groups by whatever
-categories the dump actually contains.
+Rob was right: no need to ask him to remember. This turns "log in on everything" into a named
+shortlist, and shows which of the eleven professions nobody covers.
 """
 import io
-import os
 import re
 import sys
-from collections import defaultdict
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -17,98 +14,71 @@ except Exception:
     pass
 
 SV = r"E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua"
-OUT = r"E:\World of Warcraft\_retail_\Interface\AddOns\MidnightHelper\docs\UNLEARNED_SHAMAN.md"
-
 text = io.open(SV, encoding="utf-8", errors="replace").read()
 
+m = re.search(r'^\["charCurrencies"\]\s*=\s*\{', text, re.M)
+start = m.end() - 1
+depth, j, in_str = 0, start, False
+while j < len(text):
+    c = text[j]
+    if in_str:
+        if c == "\\":
+            j += 2
+            continue
+        if c == '"':
+            in_str = False
+    elif c == '"':
+        in_str = True
+    elif c == "{":
+        depth += 1
+    elif c == "}":
+        depth -= 1
+        if depth == 0:
+            break
+    j += 1
+blob = text[start:j + 1]
 
-def brace_block(s, at):
-    start = s.find("{", at)
-    depth, j, in_str = 0, start, False
-    while j < len(s):
-        c = s[j]
-        if in_str:
+chars = []
+for pm in re.finditer(r'\["(Player-\d+-[0-9A-F]+)"\]\s*=\s*\{', blob):
+    s = pm.end() - 1
+    d2, k, ins = 0, s, False
+    while k < len(blob):
+        c = blob[k]
+        if ins:
             if c == "\\":
-                j += 2
+                k += 2
                 continue
             if c == '"':
-                in_str = False
+                ins = False
         elif c == '"':
-            in_str = True
+            ins = True
         elif c == "{":
-            depth += 1
+            d2 += 1
         elif c == "}":
-            depth -= 1
-            if depth == 0:
-                return s[start:j + 1]
-        j += 1
-    return ""
+            d2 -= 1
+            if d2 == 0:
+                break
+        k += 1
+    b = blob[s:k + 1]
+    g = lambda p: (re.search(p, b).group(1) if re.search(p, b) else None)
+    chars.append({
+        "name": g(r'\["name"\]\s*=\s*"([^"]*)"'),
+        "realm": g(r'\["realm"\]\s*=\s*"([^"]*)"'),
+        "level": g(r'\["level"\]\s*=\s*(\d+)'),
+        "profs": g(r'\["professionsFull"\]\s*=\s*"([^"]*)"') or g(r'\["professions"\]\s*=\s*"([^"]*)"'),
+    })
 
+ALL = ["Alchemy", "Blacksmithing", "Enchanting", "Engineering", "Herbalism", "Inscription",
+       "Jewelcrafting", "Leatherworking", "Mining", "Skinning", "Tailoring"]
+have = set()
+print("%-16s %-14s %-5s %s" % ("character", "realm", "lvl", "professions"))
+print("-" * 74)
+for c in sorted(chars, key=lambda x: -(int(x["level"] or 0))):
+    p = c["profs"] or ""
+    for a in ALL:
+        if a in p:
+            have.add(a)
+    print("%-16s %-14s %-5s %s" % (c["name"] or "?", c["realm"] or "?", c["level"] or "?", p or "—"))
 
-def entries(block):
-    out, k = [], 1
-    while True:
-        nxt = block.find("{", k)
-        if nxt < 0:
-            return out
-        e = brace_block(block, nxt)
-        if not e:
-            return out
-        out.append(e)
-        k = nxt + len(e)
-
-
-i = text.find("unlearnedDump")
-if i < 0:
-    print("auraSpellProbe-style miss: unlearnedDump not in the file.")
-    print("The probe stores in memory; only /reload or logout writes SavedVariables.")
-    sys.exit(0)
-dump = brace_block(text, i)
-
-when = re.search(r'\["when"\]\s*=\s*"([^"]*)"', dump)
-print("dump written: %s" % (when.group(1) if when else "?"))
-
-cat = {}
-cb = brace_block(dump, dump.find('["categories"]'))
-for e in entries(cb):
-    a = re.search(r'\["id"\]\s*=\s*(\d+)', e)
-    b = re.search(r'\["name"\]\s*=\s*"([^"]*)"', e)
-    if a:
-        cat[int(a.group(1))] = b.group(1) if b else None
-
-
-def clean(s):
-    s = s.replace("\\r\\n", " · ").replace("\\n", " · ").replace("|n", " · ")
-    s = re.sub(r"\|c[0-9A-Fa-f]{8}", "", s).replace("|r", "")
-    s = re.sub(r"\|H.*?\|h\[?(.*?)\]?\|h", r"\1", s)
-    s = re.sub(r"\|T.*?\|t", "", s)
-    s = re.sub(r"\s*·\s*·\s*", " · ", s)
-    return re.sub(r"\s+", " ", s).strip(" ·")
-
-
-groups, total = defaultdict(list), 0
-for e in entries(brace_block(dump, dump.find('["recipes"]'))):
-    total += 1
-    cid = re.search(r'\["categoryID"\]\s*=\s*(\d+)', e)
-    nm = re.search(r'\["name"\]\s*=\s*"([^"]*)"', e)
-    src = re.search(r'\["source"\]\s*=\s*"((?:[^"\\]|\\.)*)"', e)
-    c = int(cid.group(1)) if cid else 0
-    groups[c].append((nm.group(1) if nm else "?", clean(src.group(1)) if src else None))
-
-print("%d unlearned recipes across %d categories\n" % (total, len(groups)))
-lines = ["# Onaangeleerde recepten — Robs shaman\n",
-         "Uit de client met `/mh unlearned` (`C_TradeSkillUI.GetRecipeSourceText`). "
-         "**Niet met de hand bijwerken.**\n",
-         "⚠️ Dit is één personage op één moment.\n",
-         "**%d recepten** in %d categorieën.\n" % (total, len(groups))]
-for c in sorted(groups, key=lambda k: (cat.get(k) or "zzz")):
-    name = cat.get(c) or ("categorie %d" % c)
-    print("   %-6s %-32s %d" % (c, name, len(groups[c])))
-    lines.append("\n## %s\n" % name)
-    lines.append("| recept | waar je het leert |")
-    lines.append("|---|---|")
-    for n, s in sorted(groups[c]):
-        lines.append("| %s | %s |" % (n, s or "— *(de client zegt het niet)*"))
-
-io.open(OUT, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
-print("\nwritten:", OUT)
+print("\ncovered  (%d/11): %s" % (len(have), ", ".join(sorted(have))))
+print("MISSING  (%d/11): %s" % (11 - len(have), ", ".join(a for a in ALL if a not in have)))

@@ -2022,8 +2022,21 @@ function ns.PrintProfIdsProbe()
 	local d = ns.PROF_ACADEMY
 	local lines = {}
 	ns.db = ns.db or {}
-	local store = {}
+	--- 🔴 MERGES, and the first version did not. Rob spotted it before running anything:
+	--- one character can only ever reach two professions, so covering eleven means logging
+	--- through several — and a store that replaces itself would leave only whoever logged
+	--- out last. MidnightHelperDB is account-wide and flushes on reload or logout, so
+	--- keying by skillLine and keeping what is already there lets him chain characters and
+	--- hand over one file at the end.
+	---
+	--- ⚠️ Existing entries are OVERWRITTEN per skillLine on purpose: re-running on the same
+	--- profession should refresh it, not silently keep a stale capture.
+	local store = ns.db.profIdDump or {}
 	ns.db.profIdDump = store
+	local before = 0
+	for _ in pairs(store) do
+		before = before + 1
+	end
 
 	for base, child in pairs((d and d.specSkillLines) or {}) do
 		local okC, cfg = pcall(C_ProfSpecs.GetConfigIDForSkillLine, child)
@@ -2070,7 +2083,16 @@ function ns.PrintProfIdsProbe()
 	for _, l in ipairs(lines) do
 		print(l)
 	end
-	say("Written to ns.db.profIdDump — |cffffd100/reload|r so it reaches the SavedVariables file.")
+	local total = 0
+	local names = {}
+	for k in pairs(store) do
+		total = total + 1
+		names[#names + 1] = k
+	end
+	table.sort(names)
+	say(("%d profession(s) in the store now (was %d): %s"):format(
+		total, before, table.concat(names, ", ")))
+	say("|cffffd100/reload|r or log out to write it, then the next character adds to this.")
 end
 
 --- `/mh unlearned` — every recipe this profession has that you have NOT learned,
