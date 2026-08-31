@@ -13,6 +13,26 @@ The maintainer (**Rob**) is a non-developer but tests every change in-game. A se
 - **Respond in Dutch, concise and direct.** Minimal fluff.
 - **Never-lie / verify, don't guess.** Never invent spell IDs, coordinates, texcoords, API names or achievement criteria. Prefer "I don't know, let's check" over a plausible guess. Rob/Cisca confirm in-game.
   - ⚠️ **The other installed addons are a place to find CANDIDATES, never proof.** They go stale, they guard calls behind `if`, and they contain combat-log samples full of monsters' spell IDs. On 8 Aug 2026 `LEARNED_SPELL_IN_TAB` was registered because the name appeared four times across them; 12.x threw "Attempt to register unknown event" on the next reload. The same night, grepping for "Arcane Explosion" produced 22271 — a Blackwing Mage's version of it.
+  - 🔴 **EN DAT GELDT OOK VOOR STATUS, NIET ALLEEN VOOR SPEL-DATA. Rob, 31 aug 2026: "je moet
+    niets aannemen maar altijd en dan ook altijd factchecken."** Die dag somde ik elf Spec
+    31-punten op als af/open, en Rob vroeg tweemaal of ik het écht gecontroleerd had. Beide keren
+    terecht: één punt had ik nul keer aangeraakt, twee greps zochten naar **zelfverzonnen
+    sleutelnamen**, en één regel had ik stilzwijgend laten vallen omdat mijn patroon niets vond.
+    De conclusies klopten toevallig — dat maakt het erger, niet beter.
+    **Een status uit een document citeren is géén controle.** `NEXT_SESSION.md` zei diezelfde
+    dag dat 7 van de 11 beroepen ongecontroleerd waren; dat was 's ochtends waar en 's middags
+    niet meer, en ik gaf het door als feit.
+    Dus, verplicht, elke keer:
+    1. **Meet het in de bron** — de code, het bestand, de client — niet in een aantekening
+       erover. Een aantekening is een claim mét een datum, geen bewijs.
+    2. 🔴 **Een leeg zoekresultaat bewijst NIETS zonder positieve controle in dezelfde run.**
+       Bewijs eerst dat je patroon iets vindt dat er zéker is. GEMETEN diezelfde dag: `grep
+       RING_OF_GLORY` gaf nul treffers in `enUS.lua` — de sleutel heet daar `RINGOFGLORY`. Was
+       ik gestopt, dan had ik gemeld dat een delve geen tips had. Zie [[silence-is-not-absence]].
+    3. **Zeg per bewering of hij GEMETEN of AFGELEID is.** Een tabel waarin die twee er hetzelfde
+       uitzien is een tabel die liegt over zijn eigen betrouwbaarheid.
+    4. **Kun je iets niet meten, zeg dat** in plaats van het weg te laten. Weglaten leest als
+       "gecontroleerd en in orde".
   - **Ask the client instead.** Write the answer to `ns.db.<something>`, have Rob `/reload`, then read the SavedVariables file. `scannedIds` in the automap dump and `/mh events` exist for exactly this. Wowhead (12.0.7) and the official API wiki are fine for candidates too — the client settles it.
 - **Rob's in-game `/reload` is the final syntax check.** Do a static check too where possible (see Build & verify), but assume Rob will reload and report errors.
 - **Git & CurseForge are Rob's job.** Provide the exact commands + checklist, but do not push releases or trigger uploads unless Rob explicitly says to run them. (In Claude Code you *can* run git with permission — still confirm with Rob before commit/push/tag on a release.)

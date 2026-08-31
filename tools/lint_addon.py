@@ -1248,6 +1248,36 @@ def main() -> int:
         hard += 1
     hard += len(unclassified)
 
+    # [17] GitHub issue templates must parse, or the "new issue" page silently loses them.
+    # ⚠️ A broken template does not error anywhere WE look -- GitHub just drops it from the
+    # chooser and the reporter gets a blank box, which is exactly the state that produced zero
+    # issues in four months. Added 31 Aug 2026 with bug_report.yml, because "I read it carefully"
+    # is not a check.
+    tdir = os.path.join(root, ".github", "ISSUE_TEMPLATE")
+    tpl = sorted(f for f in os.listdir(tdir) if f.endswith((".yml", ".yaml"))) \
+        if os.path.isdir(tdir) else []
+    broken, unchecked = [], False
+    try:
+        import yaml
+        for f in tpl:
+            try:
+                with open(os.path.join(tdir, f), encoding="utf-8") as fh:
+                    yaml.safe_load(fh)
+            except Exception as e:
+                broken.append((f, str(e).splitlines()[0]))
+    except ImportError:
+        unchecked = True
+
+    print(f"\n[17] GitHub issue templates that parse: "
+          f"{'not checked (no PyYAML)' if unchecked else f'{len(tpl) - len(broken)}/{len(tpl)}'}")
+    for f, why in broken:
+        print(f"    HARD  .github/ISSUE_TEMPLATE/{f} — {why}")
+    hard += len(broken)
+    if not tpl:
+        # Not fatal, but say it out loud: silence here could mean "all fine" or "wrong folder".
+        print("    SOFT  no templates found — check the path before believing this is clean")
+        soft += 1
+
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)

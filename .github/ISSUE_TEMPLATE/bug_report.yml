@@ -1,0 +1,73 @@
+name: Bug report
+description: Something in Midnight Helper is wrong, missing, or says something untrue
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. **One person writes this addon**, so a report with the version and
+        what you saw on screen is worth far more than a polished one.
+
+        📌 **"It told me something wrong" counts as a bug here.** Midnight Helper's whole promise
+        is explaining *why*, so an explanation that is out of date, or advice that sends you to
+        the wrong place, is exactly as much a defect as an error message — often a worse one,
+        because nothing on screen looks broken.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect instead?
+      placeholder: |
+        e.g. The Great Vault panel showed 2 slots filled, but in game I had 3.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Where were you, and what were you doing?
+      description: >
+        Zone, dungeon or panel, and the steps that led up to it. If you know a slash command
+        that shows it (`/mh vault`, `/mh glow`, `/mh arrow`, ...), say which one.
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: Midnight Helper version
+      description: Bottom of the main window, or the addon list on the character screen.
+      placeholder: "3.7.3"
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: Game version and language
+      description: >
+        The build number under the character-select screen, and which language you play in.
+        The language matters — most of the addon is translated, and a fault can exist in one
+        language and not another.
+      placeholder: "12.1.0 (69497), enUS"
+    validations:
+      required: false
+  - type: textarea
+    id: error
+    attributes:
+      label: Error text, if you got one
+      description: >
+        If an error popup appeared, paste it whole. With BugSack or BugGrabber installed you can
+        copy it from there.
+        ⚠️ A counter like "13x" in BugGrabber means 13 **sessions**, not 13 occurrences.
+      render: text
+    validations:
+      required: false
+  - type: checkboxes
+    id: addons
+    attributes:
+      label: One thing that saves a lot of back-and-forth
+      options:
+        - label: >
+            I tried it with only Midnight Helper enabled, and the problem still happens.
+            (Optional. If you did not, say so and report anyway — please do not skip the report
+            over this.)
+          required: false

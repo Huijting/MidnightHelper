@@ -1,0 +1,12 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Ask a question on Discord
+    url: https://discord.gg/kBHaHcsASQ
+    about: >
+      Questions, ideas, or not sure whether something is a bug — come say hi. Beginners very
+      welcome, and the addon stays free either way.
+  - name: Help translate
+    url: https://github.com/Huijting/MidnightHelper/blob/main/docs/TRANSLATE_START_HERE.md
+    about: >
+      Seven languages ship today. The 248 strings a new player meets first are listed ready to
+      copy — a handful already helps.

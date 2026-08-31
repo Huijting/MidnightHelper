@@ -13,7 +13,7 @@ It combines Delves, Great Vault progress, alt snapshots, in-delve coaching, prof
 
 - **Midnight Codex** — handbook (Start Here, currencies with live balances, weekly loop, delves, M+, raid, world, professions) with buttons into each tab.
 - Delves dashboard with currencies, bountiful tracking, Great Vault helper, and travel assistant.
-- **Delve Coach** — tips for all 11 Midnight delves; boss 3D preview; party share to group chat.
+- **Delve Coach** — tips for all 14 Midnight delves, including Gnarldor Isle, The Ring of Glory and the Season 2 Nemesis delve Venomfall Deeps; boss 3D preview; party share to group chat.
 - **Delve consumables** — RAID-R Mini / Trovehunter's Bounty popup and minimap buttons (in-delve only).
 - **Valeera curio advisor** — Delves tab + repair/gossip popup.
 - Account snapshot with per-character vault status, keys, shards, and profession currency tooltips.
