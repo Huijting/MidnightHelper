@@ -160,8 +160,9 @@ end
 --- and `/mh profadvice` names every step we could not resolve so it is never silent
 --- to US. If nothing at all resolves, the result is still nil and nothing is shown.
 local function FirstUnfinishedStep(steps, byName, classToken, nodesByName)
-	local resolved = 0
+	local resolved, considered = 0, 0
 	for _, step in ipairs(steps) do
+		considered = considered + 1
 		if not (step.skipIfClass and step.skipIfClass == classToken) then
 			-- Node steps carry tooltip-form ranks (0/20); tab steps count the free
 			-- base rank in both numbers. Wrapped to the tab convention here so the
@@ -230,9 +231,15 @@ local function FirstUnfinishedStep(steps, byName, classToken, nodesByName)
 			end
 		end
 	end
-	-- Nothing resolved at all -> we have no picture of this route, so say nothing.
-	-- That is the old behaviour, kept for the case it was actually right for.
-	if resolved == 0 then
+	-- 🔴 `considered > 0` MATTERS, and leaving it out broke Leatherworking for a day.
+	-- Route [165] is goal-split with NO top-level steps at all, so this loop runs zero
+	-- times and `resolved` is 0 for the honest reason that there was nothing to resolve.
+	-- Returning nil there made the caller bail before it ever looked at route.goals:
+	-- Rob's screenshot, 31 Aug, "Leatherworking — nothing resolved, no line is drawn".
+	--
+	-- Nothing resolved means "we have no picture of this route" only when there WAS a
+	-- list to fail at. An empty list is complete, not unreadable.
+	if considered > 0 and resolved == 0 then
 		return nil
 	end
 	return false
@@ -1432,7 +1439,21 @@ function ns.PrintProfAdviceProbe()
 			end
 			say(("   %d trees, %s nodes readable")
 				:format(#summary.tabs, nodes and tostring(nodeCount) or "no"))
-			for i, step in ipairs(route) do
+			-- ⚠️ Goal branches walked too. Leatherworking has NO top-level steps, so this
+			-- printed an empty list and read as "the route is broken" when the steps were
+			-- simply one level down. A probe that cannot see half the data shape is how
+			-- the regression above stayed invisible.
+			local flat = {}
+			for _, s in ipairs(route) do
+				flat[#flat + 1] = { s, "" }
+			end
+			for goal, branch in pairs(type(route.goals) == "table" and route.goals or {}) do
+				for _, s in ipairs(branch) do
+					flat[#flat + 1] = { s, " |cff8a8f98(" .. goal .. ")|r" }
+				end
+			end
+			for i, pair in ipairs(flat) do
+				local step, tag = pair[1], pair[2]
 				local isNode = (step.anyOfNodes or step.node) and true or false
 				local names = step.anyOfNodes or step.anyOf or { step.node or step.tree }
 				local hits = {}
@@ -1464,8 +1485,8 @@ function ns.PrintProfAdviceProbe()
 				end
 				local skip = (step.skipIfClass and step.skipIfClass == classToken)
 					and " |cff8a8f98(skipped for your class)|r" or ""
-				say(("   step %d [%s] %s%s"):format(i, isNode and "node" or "tree",
-					table.concat(hits, " | "), skip))
+				say(("   step %d [%s] %s%s%s"):format(i, isNode and "node" or "tree",
+					table.concat(hits, " | "), skip, tag))
 			end
 			local advice, points, goals = GetAdviceForProf(p.skillLine, summary, summary.midnightLine)
 			if advice == nil and goals then
