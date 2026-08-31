@@ -67,7 +67,16 @@ vier taalexperts los van elkaar over dezelfde regels struikelden.
       **Ghostlands**, niet in zuidwest Eversong. Klopt onze plaatsbepaling van The Shadow Enclave
       wel? Portugees liet het Engels staan in plaats van een gok vast te leggen.
 
-## 🆕 31 aug — één ronde op Earthshammy, om herstelde data te bewijzen (ONGETEST)
+## ✅ AF 31 aug — Earthshammy-ronde gedaan en geverifieerd
+
+Rob draaide hem diezelfde middag. `tools/_probe.py` leest **Herbalism 40, captured on
+Earthshammy** — de vangst is dus hersteld én draagt nu een eigennaam. De andere tien staan op
+`|before the fix|`, wat klopt: die zijn vastgelegd vóór de reload met de nieuwe code.
+
+📌 Eén vraag blijft open en lost zichzelf op: Alchemy staat op 20 zonder eigenaar. Zodra iemand
+daar een keer het venster opent, staat er een naam bij.
+
+<details><summary>De oorspronkelijke instructies</summary>
 
 Rob draaide `/mh profids` over meer personages dan gevraagd en legde daarmee een ontwerpfout
 bloot: de vangst overschreef per beroep, dus een alt met Herbalism op nul wiste Earthshammy's
@@ -88,6 +97,8 @@ hetzelfde personage of méér rangen. Wat er al kapot is, repareert dat niet.
 - [ ] ⚠️ **Open vraag die alleen deze ronde kan beantwoorden:** Alchemy sprong van 0 naar 20.
       Dat is óf Rob die punten uitgaf, óf een tweede Alchemy-personage dat erover heen ging.
       De oude dump legde geen eigenaar vast, dus dit is niet uit het bestand te halen.
+
+</details>
 
 ## 🔴 30 aug — beroepen-adviseur zweeg voor een heel beroep. Fix ligt klaar, ONGETEST.
 
@@ -579,7 +590,17 @@ niet terugpakken, de ander moet hem teruggeven. Beide helften van dit commando z
 Ook hernoemd: **`Show consumable check on entry`**. Stond eerst "on dungeon entry", terwijl die
 melding ook in rituals en delves komt — de tooltip eronder zei dat al.
 
-### 9. 🔴 Vier talen beloven nu iets wat niet klopt
+### 9. ✅ OPGELOST — gemeten 31 aug, en niet doordat we het repareerden
+
+`lua tools/locale_probe.lua SET_CONSREADY_TOGGLE_TITLE` geeft nu voor fr/es/pt/it
+`nil -> shows English`. De foute "dungeon"-regels zijn dus weg uit die vier packs; ze vallen
+terug op het Engels, wat klopt. Duits en Nederlands hebben een eigen goede vertaling.
+
+📌 Waarschijnlijk meegenomen in een van de drift-rondes van 30/31 aug zonder dat iemand het
+apart afvinkte. **Dat is precies waarom dit gemeten is en niet aangenomen** — deze regel had
+anders nog maanden als openstaande fout in de lijst gestaan.
+
+<details><summary>De oorspronkelijke melding</summary>
 
 Andy hernoemde het label `SET_CONSREADY_TOGGLE_TITLE` omdat de tekst "bij binnenkomst in de
 dungeon" zei terwijl de melding óók in rituals en delves komt. Het Engels is nu *"Show
@@ -590,3 +611,5 @@ goed. Dit is geen achterstand maar een onjuistheid, en hij staat in `docs/TRANSL
 bij de andere zeven.
 
 Niets voor Rob om te testen — genoteerd zodat het niet als bugmelding terugkomt.
+
+</details>
