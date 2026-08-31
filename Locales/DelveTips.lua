@@ -228,7 +228,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 
 	-- Shadowguard Point
 	DELVE_TIP_SHADOWGUARD_POINT_OVERVIEW = "• Voidstorm ovest (a nord di Abundant Voidburrow).|n• Tre varianti contro gli Shadowguard Ethereal.|n• Boss finale in tutte: Chief-Arcanist Patram.",
-	DELVE_TIP_SHADOWGUARD_POINT_ROUTE = "• Calamitous: sovraccarica i Void Stabilizer con gli Arcane Charge (buff velocità; le esplosioni uccidono i mob — non restarci dentro).|n• Captured Wildlife: libera le void creature (la loro AoE può comunque colpirti).|n• Stolen Mana: il fucile destabilizza i contenitori di mana finché il boss non si apre.",
+	DELVE_TIP_SHADOWGUARD_POINT_ROUTE = "• Calamitous: sovraccarica i Void Stabilizer con gli Arcane Charge (buff velocità; le esplosioni uccidono i mob — non restarci dentro).|n• Captured Wildlife: libera le void creature (la loro AoE può comunque colpirti).|n• Stolen Mana: prendi il fucile e usa Galvanic Blast sui contenitori di mana finché l'Arcane Barrier non cade.",
 	DELVE_TIP_SHADOWGUARD_POINT_TRASH = "• Calamitous: pianifica i sovraccarichi in sicurezza mentre porti gli Arcane Charge.|n• Pack di ethereal: interrompi i cast.|n• Variante Wildlife: dai spazio alle creature liberate.",
 	DELVE_TIP_SHADOWGUARD_POINT_BOSS = "• Interrompi {SPELL:@void_bolt_patram}.|n• Uccidi il Void Emissary prima che {SPELL:@submit_to_the_void} finisca (ottieni Vers + CDR; se fallisci il buff va a Patram).|n• Scansa le void zone di {SPELL:@discordant_hymn} (slow + danni).",
 
@@ -285,7 +285,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DELVE_CHAT_SUNKILLER_SANCTUM_BOSS = "Tutti i Voidcaller morti prima di {SPELL:@gorge} o accumula +danni. Kicka {SPELL:@calling_bolt}. Dissolvi {SPELL:@coalescing_malediction}. Schiva {SPELL:@crushing_rift} (4 caller).",
 
 	DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW = "Voidstorm ovest contro ethereal. Calamitous / Wildlife / Stolen Mana. Boss: Chief-Arcanist Patram.",
-	DELVE_CHAT_SHADOWGUARD_POINT_ROUTE = "Calamitous: sovraccarica gli stabilizer con gli Arcane Charge (non restare nelle esplosioni). Wildlife: libera i mob con cura. Mana: fucile sui contenitori.",
+	DELVE_CHAT_SHADOWGUARD_POINT_ROUTE = "Calamitous: sovraccarica gli stabilizer con gli Arcane Charge (non restare nelle esplosioni). Wildlife: libera i mob con cura. Mana: usa Galvanic Blast sui contenitori finché l'Arcane Barrier non cade.",
 	DELVE_CHAT_SHADOWGUARD_POINT_TRASH = "Interrompi gli ethereal. Pianifica il trasporto delle charge in sicurezza.",
 	DELVE_CHAT_SHADOWGUARD_POINT_BOSS = "Kicka {SPELL:@void_bolt_patram}. Uccidi il Void Emissary prima di {SPELL:@submit_to_the_void} o il buff va a Patram. Schiva {SPELL:@discordant_hymn}.",
 
@@ -364,7 +364,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 
 	-- Shadowguard Point
 	DELVE_TIP_SHADOWGUARD_POINT_OVERVIEW = "• West Voidstorm (noord van Abundant Voidburrow).|n• Drie varianten vs Shadowguard Ethereals.|n• Eindbaas: Chief-Arcanist Patram.",
-	DELVE_TIP_SHADOWGUARD_POINT_ROUTE = "• Calamitous: overload Void Stabilizers met Arcane Charges (sneller lopen; explosies killen mobs — sta er niet in).|n• Captured Wildlife: bevrijd creatures (hun AoE kan jou raken).|n• Stolen Mana: rifle op mana-containers tot baas opent.",
+	DELVE_TIP_SHADOWGUARD_POINT_ROUTE = "• Calamitous: overload Void Stabilizers met Arcane Charges (sneller lopen; explosies killen mobs — sta er niet in).|n• Captured Wildlife: bevrijd creatures (hun AoE kan jou raken).|n• Stolen Mana: pak het geweer en gebruik Galvanic Blast op de mana-containers tot de Arcane Barrier valt.",
 	DELVE_TIP_SHADOWGUARD_POINT_TRASH = "• Calamitous: plan overloads veilig met Arcane Charges.|n• Onderbreek ethereals.|n• Wildlife: ruimte voor bevrijde creatures.",
 	DELVE_TIP_SHADOWGUARD_POINT_BOSS = "• Onderbreek {SPELL:@void_bolt_patram}.|n• Kill Void Emissary vóór {SPELL:@submit_to_the_void} (jij krijgt Vers + CDR; anders bufft Patram).|n• Ontwijk {SPELL:@discordant_hymn} (slow + schade).",
 
@@ -423,7 +423,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_CHAT_SUNKILLER_SANCTUM_BOSS = "Alle Voidcallers dood vóór {SPELL:@gorge}. Kick {SPELL:@calling_bolt}. Dispel {SPELL:@coalescing_malediction}. Ontwijk {SPELL:@crushing_rift}.",
 
 	DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW = "West Voidstorm vs ethereals. Calamitous / Wildlife / Mana. Baas: Patram.",
-	DELVE_CHAT_SHADOWGUARD_POINT_ROUTE = "Calamitous: overload met Arcane Charges (niet in explosie). Wildlife: voorzichtig vrijlaten. Mana: rifle op containers.",
+	DELVE_CHAT_SHADOWGUARD_POINT_ROUTE = "Calamitous: overload met Arcane Charges (niet in explosie). Wildlife: voorzichtig vrijlaten. Mana: Galvanic Blast op de containers tot de Arcane Barrier valt.",
 	DELVE_CHAT_SHADOWGUARD_POINT_TRASH = "Onderbreek ethereals. Charges veilig dragen.",
 	DELVE_CHAT_SHADOWGUARD_POINT_BOSS = "Kick {SPELL:@void_bolt_patram}. Kill Void Emissary vóór {SPELL:@submit_to_the_void}. Ontwijk {SPELL:@discordant_hymn}.",
 
@@ -482,7 +482,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	["DELVE_TIP_SUNKILLER_SANCTUM_TRASH"] = "• Töte die Voidcaller in jeder Gruppe schnell – sie stärken später Esuritus.|n• Unterbrich Arcane Deluge, wo immer es auftaucht.|n• Sammel in der Core-Variante die Kugeln ein, das hält dich am Leben.",
 	["DELVE_TIP_SUNKILLER_SANCTUM_BOSS"] = "• Töte alle Voidcaller vor {SPELL:@gorge}, sonst bekommt er pro Verschlungenem 30 Sek. lang mehr Schaden.|n• Unterbrich {SPELL:@calling_bolt}.|n• Banne {SPELL:@coalescing_malediction} oder töte das Add, das daraus entsteht.|n• Weich {SPELL:@crushing_rift} aus (beschwört 4 Voidcaller).",
 	["DELVE_TIP_SHADOWGUARD_POINT_OVERVIEW"] = "• Westen von Voidstorm (nördlich von Abundant Voidburrow).|n• Drei Varianten gegen die Shadowguard Ethereals.|n• Endboss in allen: Chief-Arcanist Patram.",
-	["DELVE_TIP_SHADOWGUARD_POINT_ROUTE"] = "• Calamitous: Überlade die Void Stabilizers mit Arcane Charges (Tempo-Buff; die Explosionen töten Mobs – stell dich nicht hinein).|n• Captured Wildlife: Befrei die Leerenkreaturen (ihr AoE trifft dich trotzdem).|n• Stolen Mana: Das Gewehr destabilisiert die Manabehälter, bis der Boss zugänglich wird.",
+	["DELVE_TIP_SHADOWGUARD_POINT_ROUTE"] = "• Calamitous: Überlade die Void Stabilizers mit Arcane Charges (Tempo-Buff; die Explosionen töten Mobs – stell dich nicht hinein).|n• Captured Wildlife: Befrei die Leerenkreaturen (ihr AoE trifft dich trotzdem).|n• Stolen Mana: Nimm das Gewehr auf und setz Galvanic Blast auf die Manabehälter ein, bis die Arcane Barrier fällt.",
 	["DELVE_TIP_SHADOWGUARD_POINT_TRASH"] = "• Calamitous: Plan die Überladungen sicher, solange du Arcane Charges trägst.|n• Ethereal-Gruppen: Unterbrich ihre Zauber.|n• Wildlife-Variante: Lass den befreiten Kreaturen Platz.",
 	["DELVE_TIP_SHADOWGUARD_POINT_BOSS"] = "• Unterbrich {SPELL:@void_bolt_patram}.|n• Töte den Void Emissary, bevor {SPELL:@submit_to_the_void} endet (du bekommst Vielseitigkeit + CDR; schaffst du es nicht, bekommt Patram den Buff).|n• Tritt aus den Leerenzonen von {SPELL:@discordant_hymn} heraus (Verlangsamung + Schaden).",
 	["DELVE_TIP_TORMENTS_RISE_OVERVIEW"] = "• Voidstorm – Nemesis-Delve der Season 1 (Abschluss).|n• Tier ? nach jedem T7 mit mindestens 1 Leben; Tier ?? nach jedem T10 mit mindestens 1 Leben.|n• Boss: Nullaeus.|n• Auf Tier ?? ist Valeera als Heilerin dringend zu empfehlen.",
@@ -526,7 +526,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	["DELVE_CHAT_SUNKILLER_SANCTUM_TRASH"] = "Töte in jeder Gruppe die Voidcaller – sie buffen Esuritus. Sammel bei Core die Kugeln ein.",
 	["DELVE_CHAT_SUNKILLER_SANCTUM_BOSS"] = "Alle Voidcaller tot vor {SPELL:@gorge}, sonst stapelt sich sein Schadensbuff. Kick {SPELL:@calling_bolt}. Banne {SPELL:@coalescing_malediction}. Weich {SPELL:@crushing_rift} aus (4 Caller).",
 	["DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW"] = "Westen von Voidstorm gegen Ethereals. Calamitous / Wildlife / Stolen Mana. Boss: Chief-Arcanist Patram.",
-	["DELVE_CHAT_SHADOWGUARD_POINT_ROUTE"] = "Calamitous: Überlade die Stabilisatoren mit Arcane Charges (nicht in den Explosionen stehen). Wildlife: Mobs vorsichtig befreien. Mana: Behälter mit dem Gewehr aufbrechen.",
+	["DELVE_CHAT_SHADOWGUARD_POINT_ROUTE"] = "Calamitous: Überlade die Stabilisatoren mit Arcane Charges (nicht in den Explosionen stehen). Wildlife: Mobs vorsichtig befreien. Mana: Behälter mit Galvanic Blast zerstören, bis die Arcane Barrier fällt.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_TRASH"] = "Unterbrich die Ethereals. Plan die Wege mit den Charges sicher.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_BOSS"] = "Kick {SPELL:@void_bolt_patram}. Töte den Void Emissary vor {SPELL:@submit_to_the_void}, sonst bekommt Patram den Buff. Weich {SPELL:@discordant_hymn} aus.",
 	["DELVE_CHAT_TORMENTS_RISE_OVERVIEW"] = "Nemesis-Delve (Voidstorm). Regeln für Tier ? / ??. Boss Nullaeus – auf ?? Valeera als Heilerin empfohlen.",
@@ -584,7 +584,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	["DELVE_TIP_SUNKILLER_SANCTUM_TRASH"] = "• Tue vite les Voidcallers dans chaque pack — ils renforcent Esuritus plus tard.|n• Interromps l'Arcane Deluge partout où il apparaît.|n• Ramasse les orbes dans la variante Core pour survivre plus facilement.",
 	["DELVE_TIP_SUNKILLER_SANCTUM_BOSS"] = "• Tue tous les Voidcallers avant {SPELL:@gorge}, sinon il gagne des dégâts en plus pendant 30 s par dévoration.|n• Interromps {SPELL:@calling_bolt}.|n• Dissipe {SPELL:@coalescing_malediction} ou tue l'add qu'il fait apparaître.|n• Esquive {SPELL:@crushing_rift} (fait apparaître 4 Voidcallers).",
 	["DELVE_TIP_SHADOWGUARD_POINT_OVERVIEW"] = "• Ouest de Voidstorm (au nord d'Abundant Voidburrow).|n• Trois variantes contre les Shadowguard Ethereals.|n• Boss final dans tous les cas : Chief-Arcanist Patram.",
-	["DELVE_TIP_SHADOWGUARD_POINT_ROUTE"] = "• Calamitous : surcharge les Void Stabilizers avec des Arcane Charges (buff de vitesse ; les explosions tuent les mobs — ne reste pas dedans).|n• Captured Wildlife : libère les créatures du Vide (leur AoE peut quand même te toucher).|n• Stolen Mana : pille les conteneurs de mana pour les déstabiliser, jusqu'à ce que le boss s'ouvre.",
+	["DELVE_TIP_SHADOWGUARD_POINT_ROUTE"] = "• Calamitous : surcharge les Void Stabilizers avec des Arcane Charges (buff de vitesse ; les explosions tuent les mobs — ne reste pas dedans).|n• Captured Wildlife : libère les créatures du Vide (leur AoE peut quand même te toucher).|n• Stolen Mana : récupère le fusil et lance Galvanic Blast sur les conteneurs de mana jusqu'à ce que l'Arcane Barrier tombe.",
 	["DELVE_TIP_SHADOWGUARD_POINT_TRASH"] = "• Calamitous : prépare tes surcharges à l'avance pendant que tu portes les Arcane Charges.|n• Packs d'Ethereals : interromps leurs sorts.|n• Variante Wildlife : laisse de la place aux créatures libérées.",
 	["DELVE_TIP_SHADOWGUARD_POINT_BOSS"] = "• Interromps {SPELL:@void_bolt_patram}.|n• Tue le Void Emissary avant la fin de {SPELL:@submit_to_the_void} (tu gagnes Polyvalence + réduction de temps de recharge ; si tu échoues, c'est Patram qui prend le buff).|n• Décale-toi des zones du Vide de {SPELL:@discordant_hymn} (ralentissement + dégâts).",
 	["DELVE_TIP_TORMENTS_RISE_OVERVIEW"] = "• Voidstorm — le Nemesis Delve de la saison 1 (l'épreuve finale).|n• Tier ? après n'importe quel T7 fini avec au moins 1 vie ; Tier ?? après n'importe quel T10 fini avec au moins 1 vie.|n• Boss : Nullaeus.|n• Valeera en Healer très fortement conseillée en Tier ??.",
@@ -628,7 +628,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	["DELVE_CHAT_SUNKILLER_SANCTUM_TRASH"] = "Tue les Voidcallers dans chaque pack — ils renforcent Esuritus. Ramasse les orbes en Core.",
 	["DELVE_CHAT_SUNKILLER_SANCTUM_BOSS"] = "Tous les Voidcallers morts avant {SPELL:@gorge}, sinon les cumuls de dégâts montent. Kick {SPELL:@calling_bolt}. Dissipe {SPELL:@coalescing_malediction}. Esquive {SPELL:@crushing_rift} (4 Voidcallers).",
 	["DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW"] = "Ouest de Voidstorm, contre les ethereals. Calamitous / Wildlife / Stolen Mana. Boss : Chief-Arcanist Patram.",
-	["DELVE_CHAT_SHADOWGUARD_POINT_ROUTE"] = "Calamitous : surcharge les stabilisateurs avec des Arcane Charges (ne reste pas dans les explosions). Wildlife : libère les mobs prudemment. Mana : pille les conteneurs.",
+	["DELVE_CHAT_SHADOWGUARD_POINT_ROUTE"] = "Calamitous : surcharge les stabilisateurs avec des Arcane Charges (ne reste pas dans les explosions). Wildlife : libère les mobs prudemment. Mana : lance Galvanic Blast sur les conteneurs jusqu'à ce que l'Arcane Barrier tombe.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_TRASH"] = "Interromps les ethereals. Prévois ton trajet avant de porter une charge.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_BOSS"] = "Kick {SPELL:@void_bolt_patram}. Tue le Void Emissary avant {SPELL:@submit_to_the_void}, sinon c'est Patram qui prend le buff. Esquive {SPELL:@discordant_hymn}.",
 	["DELVE_CHAT_TORMENTS_RISE_OVERVIEW"] = "Nemesis delve (Voidstorm). Règles de Tier ? / ??. Boss Nullaeus — Valeera en Healer conseillée en ??.",
@@ -660,7 +660,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	["DELVE_CHAT_PARHELION_PLAZA_TRASH"] = "Corta el Void Bolt de los Voidcaller. Elimina las oleadas de Devouring Host antes del jefe.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_BOSS"] = "Corta {SPELL:@void_bolt_patram}. Mata al Void Emissary antes de {SPELL:@submit_to_the_void} o el beneficio se lo queda Patram. Esquiva {SPELL:@discordant_hymn}.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW"] = "Oeste de Voidstorm contra etéreos. Calamitous / Wildlife / Stolen Mana. Jefe: Chief-Arcanist Patram.",
-	["DELVE_CHAT_SHADOWGUARD_POINT_ROUTE"] = "Calamitous: sobrecarga los estabilizadores con Arcane Charges (no te quedes en las explosiones). Wildlife: libera a los mobs con cuidado. Mana: desestabiliza los contenedores.",
+	["DELVE_CHAT_SHADOWGUARD_POINT_ROUTE"] = "Calamitous: sobrecarga los estabilizadores con Arcane Charges (no te quedes en las explosiones). Wildlife: libera a los mobs con cuidado. Mana: usa Galvanic Blast en los contenedores hasta que caiga la Arcane Barrier.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_TRASH"] = "Interrumpe a los etéreos. Planifica con cuidado por dónde llevas las cargas.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_BOSS"] = "Corta {SPELL:@shadow_bolt}. El teletransporte deja un charco: mantenlo en el centro. {SPELL:@shadowveil_annihilation}: mata 3 orbes (solo el que no tiene escudo). Burst a los orbes.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO de Canción Eterna (Deatholme). Variantes: espejos, suministros, traidor. Jefe final: Lord Antenorian.",
@@ -715,7 +715,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	["DELVE_TIP_PARHELION_PLAZA_TRASH"] = "• Interrumpe el Void Bolt de los Sacrificial Voidcaller siempre que puedas.|n• Bombing Run: no pierdas portales por salirte en el momento equivocado.|n• Elimina las oleadas de Devouring Host antes de Slaurna.",
 	["DELVE_TIP_SHADOWGUARD_POINT_BOSS"] = "• Interrumpe {SPELL:@void_bolt_patram}.|n• Mata al Void Emissary antes de que acabe {SPELL:@submit_to_the_void} (te llevas Vers + CDR; si fallas, el beneficio se lo queda Patram).|n• Apártate de las zonas de Vacío de {SPELL:@discordant_hymn} (ralentiza y hace daño).",
 	["DELVE_TIP_SHADOWGUARD_POINT_OVERVIEW"] = "• Oeste de Voidstorm (al norte de Abundant Voidburrow).|n• Tres variantes contra los Shadowguard Ethereals.|n• Jefe final en todas: Chief-Arcanist Patram.",
-	["DELVE_TIP_SHADOWGUARD_POINT_ROUTE"] = "• Calamitous: sobrecarga los Void Stabilizers con Arcane Charges (dan velocidad; las explosiones matan a los mobs, así que no te quedes dentro).|n• Captured Wildlife: libera a las criaturas del Vacío (su AoE también te alcanza a ti).|n• Stolen Mana: desestabiliza los contenedores de maná hasta que abre el jefe.",
+	["DELVE_TIP_SHADOWGUARD_POINT_ROUTE"] = "• Calamitous: sobrecarga los Void Stabilizers con Arcane Charges (dan velocidad; las explosiones matan a los mobs, así que no te quedes dentro).|n• Captured Wildlife: libera a las criaturas del Vacío (su AoE también te alcanza a ti).|n• Stolen Mana: coge el rifle y usa Galvanic Blast en los contenedores de maná hasta que caiga la Arcane Barrier.",
 	["DELVE_TIP_SHADOWGUARD_POINT_TRASH"] = "• Calamitous: planifica bien dónde sobrecargas mientras llevas las Arcane Charges.|n• Grupos de etéreos: interrumpe sus lanzamientos.|n• Variante Wildlife: deja espacio a las criaturas liberadas.",
 	["DELVE_TIP_SHADOW_ENCLAVE_BOSS"] = "• Interrumpe {SPELL:@shadow_bolt} siempre que puedas.|n• Sus teletransportes dejan un charco que hace daño: mantenlo cerca del centro.|n• {SPELL:@shadowveil_annihilation}: canalización letal — destruye 3 Shadow Orbs (solo el orbe sin escudo recibe daño; cada muerte le quita el escudo al siguiente).|n• Con todos los orbes muertos se rompe su escudo, se corta la canalización y recibe daño extra durante unos segundos.|n• Guarda el burst para los orbes; Valeera ayuda a romperlos.",
 	["DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW"] = "• Suroeste de los Bosques de Canción Eterna (Ruins of Deatholme).|n• Tres variantes: Mirror Shine, Shadowy Supplies y Traitor's Due.|n• Traitor's Due: detén los rituales, los orbes del Vacío y los cultistas (mientras subes de nivel).|n• Jefe final en todas las runs: Lord Antenorian.",
@@ -762,7 +762,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	["DELVE_CHAT_PARHELION_PLAZA_TRASH"] = "Kick no Void Bolt dos Voidcallers. Limpe as ondas de Devouring Host antes do chefe.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_BOSS"] = "Kick em {SPELL:@void_bolt_patram}. Mate o Void Emissary antes de {SPELL:@submit_to_the_void} ou o buff vai para Patram. Desvie de {SPELL:@discordant_hymn}.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW"] = "Oeste da Tempestade do Caos contra os ethereals. Calamitous / Wildlife / Stolen Mana. Chefe: Chief-Arcanist Patram.",
-	["DELVE_CHAT_SHADOWGUARD_POINT_ROUTE"] = "Calamitous: sobrecarregue os stabilizers com as Arcane Charges (não fique dentro das explosões). Wildlife: liberte os mobs com cuidado. Mana: use o rifle nos recipientes.",
+	["DELVE_CHAT_SHADOWGUARD_POINT_ROUTE"] = "Calamitous: sobrecarregue os stabilizers com as Arcane Charges (não fique dentro das explosões). Wildlife: liberte os mobs com cuidado. Mana: use Galvanic Blast nos recipientes até a Arcane Barrier cair.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_TRASH"] = "Interrompa os ethereals. Planeje com segurança o trajeto carregando as charges.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_BOSS"] = "Kick em {SPELL:@shadow_bolt}. O teleporte deixa uma poça — mantenha-o no centro. {SPELL:@shadowveil_annihilation}: mate os 3 Orbs (só o orbe sem escudo). Mande burst nos orbes.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO da Floresta do Canto Eterno (Deatholme). Variantes: espelhos, suprimentos, traidor. Chefe final: Lord Antenorian.",
@@ -817,7 +817,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	["DELVE_TIP_PARHELION_PLAZA_TRASH"] = "• Interrompa o Void Bolt dos Sacrificial Voidcallers sempre que possível.|n• Bombing Run: não perca portais saindo da área na hora errada.|n• Limpe as ondas de Devouring Host antes de Slaurna.",
 	["DELVE_TIP_SHADOWGUARD_POINT_BOSS"] = "• Interrompa {SPELL:@void_bolt_patram}.|n• Mate o Void Emissary antes de {SPELL:@submit_to_the_void} terminar (você ganha Vers + CDR; se falhar, o buff vai para Patram).|n• Saia da linha das zonas do Caos de {SPELL:@discordant_hymn} (lentidão + dano).",
 	["DELVE_TIP_SHADOWGUARD_POINT_OVERVIEW"] = "• Oeste da Tempestade do Caos (ao norte da Toca do Caos Abundante).|n• Três variantes contra os Shadowguard Ethereals.|n• Chefe final em todas: Chief-Arcanist Patram.",
-	["DELVE_TIP_SHADOWGUARD_POINT_ROUTE"] = "• Calamitous: sobrecarregue os Void Stabilizers com as Arcane Charges (dá buff de velocidade; as explosões matam os mobs — não fique dentro delas).|n• Captured Wildlife: liberte as criaturas do Caos (a área de efeito delas ainda te acerta).|n• Stolen Mana: use o rifle para desestabilizar os recipientes de mana até o chefe abrir.",
+	["DELVE_TIP_SHADOWGUARD_POINT_ROUTE"] = "• Calamitous: sobrecarregue os Void Stabilizers com as Arcane Charges (dá buff de velocidade; as explosões matam os mobs — não fique dentro delas).|n• Captured Wildlife: liberte as criaturas do Caos (a área de efeito delas ainda te acerta).|n• Stolen Mana: pegue o rifle e use Galvanic Blast nos recipientes de mana até a Arcane Barrier cair.",
 	["DELVE_TIP_SHADOWGUARD_POINT_TRASH"] = "• Calamitous: planeje as sobrecargas com segurança enquanto carrega as Arcane Charges.|n• Packs de ethereals: interrompa as conjurações.|n• Variante Wildlife: dê espaço às criaturas libertadas.",
 	["DELVE_TIP_SHADOW_ENCLAVE_BOSS"] = "• Interrompa {SPELL:@shadow_bolt} sempre que puder.|n• Os teleportes deixam uma poça que causa dano — mantenha-o perto do centro.|n• {SPELL:@shadowveil_annihilation}: canalização letal — destrua os 3 Shadow Orbs (só o orbe sem escudo recebe dano; cada morte tira o escudo do seguinte).|n• Com todos os orbes mortos, o escudo dele quebra, a canalização para e ele recebe dano extra por um instante.|n• Guarde seu burst para os orbes; a Valira ajuda a quebrá-los.",
 	["DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW"] = "• Sudoeste da Floresta do Canto Eterno (Ruins of Deatholme).|n• Três variantes: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: pare os rituais, os orbes do Caos e os cultistas (nivelamento).|n• Chefe final em toda run: Lord Antenorian.",
