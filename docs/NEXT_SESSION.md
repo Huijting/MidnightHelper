@@ -1,5 +1,35 @@
 # Midnight Helper — waar we staan
 
+## ✅ 3.7.3 LIVE en approved op CurseForge — 31 aug 2026 (tag `v3.7.3` op `945e17d`)
+
+De adviseur zweeg voor hele beroepen (12 routestappen in 5 beroepen noemden een node alsof het een
+tabblad was), vier talen bleken machinaal vertaald, Valeera heet Valira in het Portugees, vijf
+spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier zijn.
+
+✅ **Vertalen is AF**: zeven talen, nul drift, alle 43 placeholders lossen op.
+
+### 🔴 Wat morgen als eerste telt
+
+1. **`cmd:req` voor het consumables-bord** — wacht op Cisca's reload-test.
+2. **De inhoud van de Engineering-, Jewelcrafting- en Inscription-routes.** Hun *structuur* is
+   geverifieerd (0 afwijkingen), maar of `Recycling` het juiste eerste punt is, is nooit tegen
+   gamedata gelegd. ⚠️ Dat verschil is echt en is vandaag één keer verward.
+3. **SPEC_31 B3 t/m B10b** — gemeten open op 31 aug: B3 (Discord-nudge vraagt om een gunst vanaf
+   de eerste login), B4 (lege changelog-voet), B5 (`/mh report` bestaat niet), B6 (het "vertel het
+   ons"-model staat één keer in de hele addon), B7 (alleen CF), B10 (herschreven CF-bovenkant
+   staat alleen in de spec), B10b (geen professie-scène in `/mh shots`).
+4. **Is `A Toxic Tour` verhaal of daily?** Zygor en de questline-data spreken elkaar tegen. Alleen
+   het spel beslist. Zie `docs/ATAL_UTEK_QUESTS.md`.
+
+### 📌 Twee dingen die vandaag als werkwijze zijn vastgelegd
+
+- **Niets aannemen, altijd meten** — óók voor "is dit al af?". Rob vroeg het twee keer en had
+  twee keer gelijk. Een doc citeren is geen controle; een lege grep bewijst niets zonder
+  positieve controle. Zie de nieuwe sectie in `CLAUDE.md`.
+- **Nieuw gereedschap via de voordeur**: `python "<repo>/tools/_probe.py" run <tool> [args]`.
+  Elk nieuw scriptpad kost Rob anders een prompt bij élke run.
+
+
 ## ✅ 31 aug — GEMETEN: geen enkele addon adviseert waar je Knowledge uitgeeft
 
 Agent-onderzoek, ~20 addons met datum en downloadaantal (CurseForge, 31 aug).

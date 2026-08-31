@@ -270,6 +270,13 @@ toestand niet te reproduceren is.
     | 2.14.0 | 40 | 1936 | 0 | ✅ clean |
     | 3.2.0 | 27 | 2341 | 0 | ✅ clean (twice) |
     | **3.3.0** | **58** | **4568** | **9** | ✅ **clean — the experiment** |
+    | **3.7.3** | **82** | **4709** | **8** | ✅ **clean — the biggest yet, unremarkably** |
+
+    ✅ **CONFIRMED AGAIN 31 Aug 2026, without it being an experiment.** 3.7.3 went up at **82
+    lines and 4709 characters** — larger than the settling case on both axes, with 8 bullets —
+    and Rob reported it clean and approved. 📌 The point is that nobody treated it as a risk:
+    the notes were written the length the release deserved. That is what a dead rule looks like
+    once it is properly dead.
 
     ✅ **SETTLED 20 Aug 2026, by deliberately breaking the rule.** 3.3.0 went up at **58 lines, 4568 characters and 9 bullet points** — larger on every axis than both mangled releases — and rendered perfectly. Rob confirmed it in two screenshots: the `# Midnight Helper 3.3.0` heading clean with no backslash, paragraphs intact, and the four-item list under "Three slots that could never get advice" rendering as a real bulleted list. **Length, character count and bullets are all cleared.** Write the release notes the length the release deserves.
 
