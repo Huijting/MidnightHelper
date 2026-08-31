@@ -99,5 +99,8 @@ for m in re.finditer(r'\n\t\t\[(\d+)\]\s*=\s*\{(.*?)\n\t\t\},', body, re.S):
             print("%-16s %-34s %-10s %s%s" % (
                 PROF[sid], nm[:33], kind, real, "" if ok else "   <-- MISMATCH"))
 
-print("\n%d mismatched step name(s) across the 8 captured professions." % bad)
+# ⚠️ Counted, not hardcoded. This line said "the 8 captured professions" while the list
+# above it showed 9 — a summary contradicting its own evidence, which is the exact fault
+# CLAUDE.md records about the CurseForge length table.
+print("\n%d mismatched step name(s) across the %d captured professions." % (bad, len(client)))
 print("missing from the dump: %s" % ", ".join(PROF[s] for s in sorted(PROF) if s not in client))
