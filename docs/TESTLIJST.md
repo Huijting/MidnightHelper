@@ -7,6 +7,26 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## ❓ 31 aug — twee vragen over ons EIGEN Engels die alleen in het spel te beslechten zijn
+
+Geen bug in de vertaling: twee dingen in de **enUS**-bron blijken onhoudbaar, gevonden doordat
+vier taalexperts los van elkaar over dezelfde regels struikelden.
+
+- [ ] **Shadowguard Point → Stolen Mana: krijg je daar een geweer?**
+      Onze regel is *"Stolen Mana: rifle destabilizes mana containers"*. De Spaanse vertaler las
+      `rifle` als **werkwoord** (doorzoeken), de Portugese als **zelfstandig naamwoord** (een
+      wapen dat je krijgt) — onafhankelijk van elkaar, tegengesteld. De grammatica wijst naar
+      het naamwoord (`rifle` stuurt een enkelvoudig werkwoord aan), maar **geen van beiden vond
+      een voorwerp met die naam in DB2**. Spaans heeft het woord daarom wéggelaten.
+      🔴 Twee moedertaalsprekers die één zin tegengesteld lezen = de zin is stuk. Kijk bij je
+      volgende Stolen Mana-run of je een voorwerp in je actiebalk krijgt, dan herschrijven we
+      het Engels en vertaalt de rest mee.
+
+- [ ] **"Ruins of Deathholme" bestaat niet.** Die string staat in 12.1 `AreaTable` in geen enkele
+      taal. Het dichtstbijzijnde echte gebied is **Deatholme** (één `h`, id 3500) en dat ligt in
+      **Ghostlands**, niet in zuidwest Eversong. Klopt onze plaatsbepaling van The Shadow Enclave
+      wel? Portugees liet het Engels staan in plaats van een gok vast te leggen.
+
 ## 🆕 31 aug — één ronde op Earthshammy, om herstelde data te bewijzen (ONGETEST)
 
 Rob draaide `/mh profids` over meer personages dan gevraagd en legde daarmee een ontwerpfout
