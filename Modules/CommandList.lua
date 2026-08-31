@@ -38,6 +38,42 @@ local function SF(name)
 	return (ns.MHScalableFont and ns.MHScalableFont(name)) or name
 end
 
+--- 🔴 EVERY ROUTED COMMAND THAT IS NOT IN THE LIST BELOW, AND WHY THAT IS FINE.
+---
+--- The comment inside `MH_COMMANDS` diagnosed this exactly on 18 Aug: check [10] asks
+--- whether every listed command is routed, "nobody asked the mirror question". Nine
+--- features were added by hand that day and the mirror check was never built — so it
+--- decayed again within two weeks. 149 routed names then, 171 now, five more players
+--- could not find. A manual fix to a recurring drift buys you one fortnight.
+---
+--- This set is what makes the mirror check possible (lint [16]): anything routed and
+--- neither listed nor named here is a NEW command nobody classified. Adding a command
+--- now forces the question "is a player meant to find this?", which is the forcing
+--- function that was missing.
+---
+--- ⚠️ It holds TWO kinds of thing, and the name says so rather than pretending they are
+--- one. Most are developer probes (`auradump`, `eventspy`, `tierscan`) that would only
+--- clutter a player's search. The rest are ALIASES of commands already listed under
+--- their primary name — `consready` is `/mh ready`, `groupbuffs` is `/mh gbuffs`,
+--- `poisons` is `/mh poison`. Calling those "dev-only" would have been untrue.
+ns.MH_UNLISTED_ON_PURPOSE = {
+	"anchor", "api12", "atal", "auradump", "aurainst", "auras", "bars", "boardall",
+	"bonusroll", "bossshare", "campaign", "capture", "chunklog", "chunks", "clearroute",
+	"codexkeys", "companion", "consready", "coord", "crest", "crestfind", "crestscan",
+	"curiodebug", "death", "debug", "delve", "delveexit", "delvescan", "dispellog",
+	"dispelprobe", "dispeltest", "editmode", "ej", "enchants", "encounters", "events",
+	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "guide",
+	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",
+	"livetips", "lock", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
+	"partytarget", "poison", "poisons", "portal", "portals", "potionkeys", "prey",
+	"profadvice", "profweekly", "questdiff", "questgate", "questscan", "range",
+	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
+	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
+	"roleset", "route", "sba", "setline", "shards", "shardtest", "shots", "showdown",
+	"socket", "spell", "stat", "stop", "survival", "tier", "tierread", "tierscan", "tips",
+	"toast", "twins", "unlearned", "vignettes", "wb", "wiki", "worldboss",
+}
+
 --- Grouped so it can be scanned, not alphabetical so it can be searched. Someone
 --- looking for "what can this thing do in a dungeon" reads a heading, not a C.
 ns.MH_COMMANDS = {
@@ -61,6 +97,12 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh apply", descKey = "CMDLIST_APPLY" },
 		{ cmd = "/mh changelog", descKey = "CMDLIST_CHANGELOG" },
 		{ cmd = "/mh lang", descKey = "CMDLIST_LANG" },
+		-- Both carry NavSearch keyword blocks ("community help support invite chat
+		-- server", "help translate localisation language") that could never match,
+		-- because NavSearch indexes this table and nothing else. Typing "discord" into
+		-- our own search box found nothing while the invite sat one command away.
+		{ cmd = "/mh discord", descKey = "CMDLIST_DISCORD" },
+		{ cmd = "/mh translate", descKey = "CMDLIST_TRANSLATE" },
 	} },
 	{ headKey = "CMDLIST_GRP_WEEK", items = {
 		{ cmd = "/mh milestones", descKey = "CMDLIST_MILESTONES" },
@@ -79,6 +121,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh loot", descKey = "CMDLIST_LOOT" },
 		{ cmd = "/mh enchant", descKey = "CMDLIST_ENCHANT" },
 		{ cmd = "/mh stats", descKey = "CMDLIST_STATS" },
+		{ cmd = "/mh pawn", descKey = "CMDLIST_PAWN" },
 		{ cmd = "/mh bagarrows", descKey = "CMDLIST_BAGARROWS" },
 	} },
 	{ headKey = "CMDLIST_GRP_GROUP", items = {
@@ -86,6 +129,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh mark", descKey = "CMDLIST_MARK" },
 		{ cmd = "/mh ready", descKey = "CMDLIST_READY" },
 		{ cmd = "/mh gbuffs", descKey = "CMDLIST_GBUFFS" },
+		{ cmd = "/mh pullsummary", descKey = "CMDLIST_PULLSUMMARY" },
 		{ cmd = "/mh kicks", descKey = "CMDLIST_KICKS" },
 		{ cmd = "/mh healcds", descKey = "CMDLIST_HEALCDS" },
 		{ cmd = "/mh dispel", descKey = "CMDLIST_DISPEL" },
@@ -129,6 +173,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh binds", descKey = "CMDLIST_BINDS" },
 		{ cmd = "/mh ach", descKey = "CMDLIST_ACH" },
 		{ cmd = "/mh mount", descKey = "CMDLIST_MOUNTLOOKUP" },
+		{ cmd = "/mh wishlist", descKey = "CMDLIST_WISHLIST" },
 	} },
 	--- ⚠️ MEASUREMENT, NOT FEATURES — and they were listed as features until 18 aug.
 	---

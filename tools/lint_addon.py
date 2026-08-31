@@ -1206,6 +1206,48 @@ def main() -> int:
         print(f"    HARD  {rel}:{ln}  {key}  is {got!r} — Blizzard's own name is {want!r}")
     hard += len(keepen)
 
+    # ------------------------------------------------------------------
+    # [16] The mirror of [10]: routed but neither listed nor classified.
+    #
+    # 🔴 Check [10] has always asked whether every LISTED command is routed, and the
+    # answer has always been yes. On 18 Aug 2026 the comment in CommandList.lua wrote
+    # down the mirror question — "nobody asked" — added nine missing features by hand,
+    # and stopped there. Two weeks later five more had slipped past, including
+    # `/mh discord`, which carried NavSearch keywords that could never match because
+    # NavSearch indexes MH_COMMANDS and nothing else. A manual fix to a recurring drift
+    # buys one fortnight; this is the check that was named and not built.
+    #
+    # ns.MH_UNLISTED_ON_PURPOSE holds the developer probes and the aliases of listed
+    # commands. Anything routed, unlisted and not in there is a command nobody
+    # classified — which is the only question this check asks.
+    # ⚠️ "\n".join, not "".join: read_lines() ends in splitlines(), so the endings are
+    # already gone and gluing with "" puts the whole file on one line — which made the
+    # exclusion set below look absent and this check scream about all 108. My own
+    # scanner reading something other than what I assumed, for the second time today.
+    core_src = "\n".join(read_lines(os.path.join(root, "Core.lua")))
+    cmdlist_src = "\n".join(read_lines(os.path.join(root, "Modules", "CommandList.lua")))
+    routed_names = set(re.findall(r'msg\s*==\s*"([a-z0-9_]+)"', core_src))
+    routed_names |= set(re.findall(r'msg:match\(\s*"\^([a-z0-9_]+)', core_src))
+    listed_names = set(re.findall(r'cmd\s*=\s*"/mh\s+([a-z0-9_]+)', cmdlist_src))
+    # `[\r\n]+\}` and not `\n\}`: this file is CRLF, which CLAUDE.md warns about and
+    # which silently made the set look absent on the first run.
+    m_excl = re.search(r'MH_UNLISTED_ON_PURPOSE\s*=\s*\{(.*?)[\r\n]+\}', cmdlist_src, re.S)
+    excluded = set(re.findall(r'"([a-z0-9_]+)"', m_excl.group(1))) if m_excl else set()
+    unclassified = sorted(routed_names - listed_names - excluded)
+    # The counts print every run on purpose. A "0" here is only meaningful if the three
+    # sets were actually read; on the first run the exclusion regex silently matched
+    # nothing and the check reported all 108 as broken. Numbers that add up are the
+    # positive control — a 0 beside "0 classified" would be the tell.
+    print(f"\n[16] Commands routed but neither listed nor classified: {len(unclassified)}"
+          f"\n     ({len(routed_names)} routed · {len(listed_names)} listed · "
+          f"{len(excluded)} classified as unlisted-on-purpose)")
+    for name in unclassified[:20]:
+        print(f"    HARD  /mh {name}  — add it to MH_COMMANDS, or to MH_UNLISTED_ON_PURPOSE")
+    if not m_excl:
+        print("    HARD  MH_UNLISTED_ON_PURPOSE not found — this check cannot mean anything")
+        hard += 1
+    hard += len(unclassified)
+
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)

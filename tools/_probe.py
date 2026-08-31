@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
-"""Read ns.db.auraSpellProbe: what did the out-of-combat pass record, and what came back
-in combat? The whole question is whether a spell we KNOW is on the player answers `false`
-(the API lying) or `nil` (the API refusing). Only the first is dangerous."""
+"""Which /mh commands are ROUTED but not LISTED?
+
+Linter check [10] asks the other direction -- everything listed must be routed -- and passes
+clean while `/mh discord` is invisible to our own search box. NavSearch builds its index
+solely from ns.MH_COMMANDS (NavSearch.lua), so a routed-but-unlisted command cannot be found
+by typing its own name.
+
+Routed = a `msg == "x"` or `msg:match("^x%s")` test in Core.lua's slash handler.
+Listed  = a cmd entry in Modules/CommandList.lua.
+"""
 import io
+import os
+import re
 import sys
 
 try:
@@ -10,34 +19,36 @@ try:
 except Exception:
     pass
 
-SV = r"E:\World of Warcraft\_retail_\WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua"
-text = io.open(SV, encoding="utf-8", errors="replace").read()
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+core = io.open(os.path.join(REPO, "Core.lua"), encoding="utf-8", errors="replace").read()
+clist = io.open(os.path.join(REPO, "Modules", "CommandList.lua"), encoding="utf-8", errors="replace").read()
 
-i = text.find("auraSpellProbe")
-if i < 0:
-    print("auraSpellProbe is NOT in the file.")
-    print("Either the probe has not run, or the reload that flushes SavedVariables")
-    print("has not happened since. The probe stores in memory; only /reload or logout writes it.")
-    sys.exit(0)
+routed = set()
+for m in re.finditer(r'msg\s*==\s*"([a-z0-9_]+)"', core):
+    routed.add(m.group(1))
+for m in re.finditer(r'msg:match\(\s*"\^([a-z0-9_]+)', core):
+    routed.add(m.group(1))
 
-start = text.find("{", i)
-depth, j, in_str = 0, start, False
-while j < len(text):
-    c = text[j]
-    if in_str:
-        if c == "\\":
-            j += 2
-            continue
-        if c == '"':
-            in_str = False
-    elif c == '"':
-        in_str = True
-    elif c == "{":
-        depth += 1
-    elif c == "}":
-        depth -= 1
-        if depth == 0:
-            break
-    j += 1
+listed = set()
+for m in re.finditer(r'cmd\s*=\s*"/mh\s+([a-z0-9_]+)', clist):
+    listed.add(m.group(1))
+for m in re.finditer(r'cmd\s*=\s*"([a-z0-9_]+)"', clist):
+    listed.add(m.group(1))
 
-print(text[start:j + 1])
+print("routed: %d   listed: %d\n" % (len(routed), len(listed)))
+missing = sorted(routed - listed)
+print("ROUTED BUT NOT LISTED (%d) — invisible to NavSearch:" % len(missing))
+for c in missing:
+    print("   /mh %s" % c)
+
+extra = sorted(listed - routed)
+print("\nLISTED BUT NOT ROUTED (%d) — what check [10] already covers:" % len(extra))
+for c in extra:
+    print("   /mh %s" % c)
+
+# The keyword blocks NavSearch carries for commands it can never reach.
+print("\nNavSearch keyword blocks:")
+nav = io.open(os.path.join(REPO, "Modules", "NavSearch.lua"), encoding="utf-8", errors="replace").read()
+for m in re.finditer(r'^\s*(\w+)\s*=\s*"([^"]{0,90})"', nav, re.M):
+    if any(w in m.group(2).lower() for w in ("discord", "community", "translate")):
+        print("   %s = %s" % (m.group(1), m.group(2)[:80]))
