@@ -7,6 +7,25 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 31 aug — de Vaults-keten is vier quests en zegt nu wat je eerst nodig hebt (ONGETEST)
+
+Home → het blok **"New: the Vaults of Atal'Utek"**. Alleen zichtbaar zolang je de keten níét
+begonnen bent.
+
+- [ ] Onder de gewone regel staat nu een grijze regel: *"First: level 90 and the Curse of
+      Ula'tek campaign, up to Lor'themar's Judgement…"*. 🔴 Dit blok kón altijd al verschijnen
+      bij iemand die er niet in kán — `GetTitleForQuestID` noemt een quest ook als je er niet
+      voor in aanmerking komt. Het zei "hier is content" en verder niets.
+- [ ] Twee beloningsregels: *"Opens the Vaults of Atal'Utek"* en *"Opens the Altar of
+      Corrosion…"*. XP en goud staan er bewust NIET bij.
+- [ ] ⚠️ Ben je de keten al begonnen of af? Dan hoort de grijze eis-regel **weg** te zijn en
+      zie je alleen de voortgang. Dat is de bedoeling — je bent aantoonbaar door de poort.
+- [ ] 🔴 **Wat ik niet kan controleren en jij wel:** de keten telt nu **vier** quests, met
+      `98515 A Toxic Tour` tussen *One Coin Too Many* en *The Altar of Corrosion*. Klopt die
+      volgorde met wat jij in je questlog ziet? Zygor zet die quest bij de **dailies**, de
+      questline-data zet hem als **verhaalstap**. Beide bronnen zijn echt; alleen jouw client
+      beslist.
+
 ## ✅ AF 31 aug — beide Engelse vragen beslecht in de gamedata, jij hoeft niets te testen
 
 Ik zei dat hier een run voor nodig was. **Dat was fout** — het stond allebei in Blizzards eigen

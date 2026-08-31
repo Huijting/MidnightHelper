@@ -139,12 +139,48 @@ local VAULTS = {
 		{ 43.28, 44.19 },
 		{ 31.88, 64.90 },
 	},
+	--- 🔴 SAY WHAT IT COSTS TO GET IN, because this block shows to people who cannot.
+	--- `GetTitleForQuestID` names a quest whether or not you are eligible for it, so the
+	--- honesty guard at the top of this file does NOT keep this nudge away from a level-80
+	--- character. It used to read "there is content here" and stop, which is the cruellest
+	--- possible version: a door with no key and no sign.
+	---
+	--- MEASURED 31 Aug 2026: level 90 on seven of these quests (tooltip API), and 98388 sits
+	--- at OrderIndex 4 of questline 6232 directly after 93420 "Lor'themar's Judgement" --
+	--- with the Altar of Fangs dungeon (93417) and the Venomous Abyss raid (93418) as steps
+	--- inside that same campaign. So the gate is real content, not a level number.
+	gateKey = "HOME_VAULTS_GATE",
 	chain = {
 		{ questID = 98388, nameKey = "CAMPAIGN_VAULTS_STARTQUEST" }, -- Into the Vaults of Atal'Utek
 		{ questID = 97640 }, -- Vaults of Atal'Utek: One Coin Too Many
+		--- ⚠️ ADDED 31 Aug: we shipped this chain as three quests for two weeks and it is
+		--- four. `QuestLineXQuest` row 52726 puts 98515 at OrderIndex 6, between the two
+		--- either side of it. Two overlapping questlines describe this zone -- 6352 holds
+		--- three quests, 6232 holds all eight -- and we had copied the short one, which is
+		--- also why Wowhead labels these "1st of 3".
+		---
+		--- 🔴 Its NATURE is unresolved and deliberately not asserted anywhere the player
+		--- reads: Zygor files it under dailies, the questline data has it as one-time story.
+		--- Its objectives (Temple Patrol, Strike, Incursion, an Ancient Foe) are repeatable
+		--- activities, which makes both readings explicable. Listing it in the chain is safe
+		--- either way -- it belongs in the sequence on both readings.
+		{ questID = 98515 }, -- Vaults of Atal'Utek: A Toxic Tour
 		{ questID = 98428 }, -- Vaults of Atal'Utek: The Altar of Corrosion
 	},
-	-- No rewards block: nobody has measured what the chain hands out.
+	--- Rewards MEASURED 31 Aug (wiki infoboxes; both unlock spells corroborated on Wowhead):
+	--- 41,100 XP, 103g 48s, 1000 Corrosive Coins, and two unlocks -- the zone itself
+	--- (spell 1310359) and the Altar of Corrosion (spell 1310218), where Spirit Corrosion is
+	--- spent on traits. Only the two unlocks are shown: XP and gold are not why anyone does
+	--- this, and a coin total we read off a wiki is not worth a line on the dashboard.
+	---
+	--- ⚠️ A THIRD reward list was discarded rather than shipped. An extraction returned items
+	--- and currencies for 98515 that came back IDENTICAL for an unrelated quest -- a shared
+	--- zone sidebar being scraped, not a reward box. That is exactly the shape of the mistake
+	--- that puts invented loot in front of a player.
+	rewards = {
+		{ kind = "unlock", nameKey = "CAMPAIGN_VAULTS_REWARD_ZONE" },
+		{ kind = "unlock", nameKey = "CAMPAIGN_VAULTS_REWARD_ALTAR" },
+	},
 }
 
 local CAMPAIGNS = { ULATEK, VAULTS }
@@ -265,6 +301,9 @@ local function StateFor(campaign)
 		availableKey = campaign.availableKey,
 		inprogressKey = campaign.inprogressKey,
 		routeBtnKey = campaign.routeBtnKey,
+		-- Only worth saying while you have not started: once you are on a chain quest you
+		-- are demonstrably past the gate, and repeating it then is noise.
+		gateKey = (status == "available") and campaign.gateKey or nil,
 		startMapID = campaign.startMapID,
 		startX = startX,
 		startY = startY,

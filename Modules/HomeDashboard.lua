@@ -552,6 +552,12 @@ local function BuildLayout()
 				and (c.inprogressKey or "HOME_CAMPAIGN_INPROGRESS")
 				or (c.availableKey or "HOME_CAMPAIGN_AVAILABLE")
 			line(rows, ns:L(msgKey), COLOR_SOFT)
+			-- What you need before this is even startable. Only set while the chain is
+			-- untouched; see CampaignLeadIn for why the block can reach someone who is
+			-- nowhere near eligible.
+			if c.gateKey then
+				line(rows, ns:L(c.gateKey), COLOR_DIM)
+			end
 			for _, r in ipairs(c.rewards or {}) do
 				if r.nameKey then
 					line(rows, ns:L("HOME_CAMPAIGN_REWARD_FMT"):format(ns:L(r.nameKey)), COLOR_DIM)
