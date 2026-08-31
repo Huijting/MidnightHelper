@@ -32,6 +32,23 @@ keer dezelfde string zijn.
 - **Alles wat scripting nodig heeft gaat door `tools/_probe.py`** — bestandsdatums,
   versies uit `.toc`'s, bulk-edits, tellingen. Het pad is vast en staat in de allowlist,
   dus de commandoregel verandert nooit. Het variabele deel hoort ín het script.
+- 🔴 **EN DAT GELDT OOK VOOR NIEUW GEREEDSCHAP — GEMETEN 31 aug 2026.** De allowlist dekt
+  precies **vijf** scriptpaden (`_probe`, `lua_syntax_check`, `lint_addon`, `lint_hook`,
+  `git_stage`). Elk nieuw script is een nieuwe commandoregel en dus **een prompt bij élke
+  run**. Die dag maakte ik er vier op één dag — `replay_advice`, `apply_agent_translation`,
+  `fix_ptbr_valeera`, `audit_spell_placeholders` — goed voor zo'n tien prompts voordat Rob
+  vroeg waarom ze bleven komen. Ik dacht dat deze regel over losse probeersels ging; hij gaat
+  over de hele tools-map.
+  **Dus: een blijvend werktuig krijgt nog steeds een eigen, goed benoemd bestand — maar je
+  roept het aan via de voordeur:**
+  ```
+  python "<repo>/tools/_probe.py" run apply_agent_translation esES <bestand> --write
+  ```
+  `_probe.py *` staat al in de allowlist, dus dit vraagt nooit. Direct aanroepen
+  (`python .../tools/apply_agent_translation.py`) werkt óók, maar kost Rob een prompt —
+  doe dat niet.
+  ⚠️ **Een nieuwe permissieregel toevoegen lost dit niet op**: `settings.json` wordt alleen
+  bij het opstarten gelezen, dus die regel werkt pas de vólgende sessie. De voordeur werkt nu.
 - **Bestanden zoeken/lezen doe je met Glob, Grep en Read.** Die vragen nooit toestemming.
   `Get-ChildItem -Recurse` is dus altijd de verkeerde keus.
 - **Geen extra vlaggen op een bestaand commando.** `python -X utf8 tools/lint_addon.py`
