@@ -1443,7 +1443,23 @@ function ns.PrintProfAdviceProbe()
 						local cap = isNode and (t.max or 0) or math.max((t.max or 0) - 1, 0)
 						hits[#hits + 1] = ("%s %d/%d"):format(n, got, cap)
 					else
-						hits[#hits + 1] = ("%s |cffff6666NOT FOUND|r"):format(n)
+						-- 🔴 "NOT FOUND" was only half the answer, and the half that
+						-- cannot be acted on. Rob ran this on his shaman 31 Aug: five of
+						-- Alchemy's nine steps and one of Herbalism's three came back
+						-- NOT FOUND, and the next question every time was "so what IS
+						-- it?" -- which the probe knew and did not say. A step written
+						-- as a tree that is really a node is the bug we fixed in
+						-- Enchanting yesterday; naming the layer turns this from a
+						-- symptom into a repair instruction.
+						local other = isNode and tabs[n:lower()] or (nodes and nodes[n:lower()])
+						if other then
+							local got = isNode and math.max((other.active or 0) - 1, 0) or (other.purchased or 0)
+							local cap = isNode and math.max((other.max or 0) - 1, 0) or (other.max or 0)
+							hits[#hits + 1] = ("%s |cffffd100is a %s, not a %s|r %d/%d"):format(
+								n, isNode and "TREE" or "NODE", isNode and "node" or "tree", got, cap)
+						else
+							hits[#hits + 1] = ("%s |cffff6666NOT FOUND (neither tree nor node)|r"):format(n)
+						end
 					end
 				end
 				local skip = (step.skipIfClass and step.skipIfClass == classToken)
