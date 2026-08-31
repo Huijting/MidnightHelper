@@ -32,7 +32,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DELVE_NAME_TORMENTS_RISE = "Torment's Rise",
 
 	-- The Shadow Enclave
-	DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW = "• Southwest Eversong Woods (Ruins of Deathholme).|n• Three variants: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: stop rituals, void orbs, cultists (leveling).|n• Final boss every run: Lord Antenorian.",
+	DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW = "• Southwest Eversong Woods (Ruins of Deatholme).|n• Three variants: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: stop rituals, void orbs, cultists (leveling).|n• Final boss every run: Lord Antenorian.",
 	DELVE_TIP_SHADOW_ENCLAVE_ROUTE = "• Mirror Shine: carry mirrors through dark halls; hit Shadow Nexuses to spread light (avoids grues).|n• Shadowy Supplies: loot Twilight's Blade valuables from mobs or the ground.|n• Traitor's Due: chase Antenorian through the delve to the boss room.",
 	DELVE_TIP_SHADOW_ENCLAVE_TRASH = "• In mirror light, you and enemies are Dazzled (higher crit chance).|n• Interrupt shadow casters.|n• Clear Twilight's Blade during Supplies.|n• Do not stack in hazardous ground; pull carefully in tight corridors.",
 	DELVE_TIP_SHADOW_ENCLAVE_BOSS = "• Interrupt {SPELL:@shadow_bolt} whenever you can.|n• Teleports leave a damaging puddle — keep him near the center.|n• {SPELL:@shadowveil_annihilation}: lethal channel — destroy 3 Shadow Orbs (only the unshielded orb takes damage; each kill unshields the next).|n• All orbs dead breaks his shield, stops the channel, and he takes extra damage briefly.|n• Save burst for orbs; Valeera helps break them.",
@@ -87,7 +87,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 
 	-- Shadowguard Point
 	DELVE_TIP_SHADOWGUARD_POINT_OVERVIEW = "• West Voidstorm (north of Abundant Voidburrow).|n• Three variants vs Shadowguard Ethereals.|n• Final boss on all: Chief-Arcanist Patram.",
-	DELVE_TIP_SHADOWGUARD_POINT_ROUTE = "• Calamitous: overload Void Stabilizers with Arcane Charges (speed buff; explosions kill mobs — do not stand in them).|n• Captured Wildlife: free void creatures (their AoE can still hit you).|n• Stolen Mana: rifle destabilizes mana containers until boss opens.",
+	DELVE_TIP_SHADOWGUARD_POINT_ROUTE = "• Calamitous: overload Void Stabilizers with Arcane Charges (speed buff; explosions kill mobs — do not stand in them).|n• Captured Wildlife: free void creatures (their AoE can still hit you).|n• Stolen Mana: pick up the rifle and use Galvanic Blast on the mana containers until the Arcane Barrier drops.",
 	DELVE_TIP_SHADOWGUARD_POINT_TRASH = "• Calamitous: plan overloads safely while carrying Arcane Charges.|n• Ethereal packs: interrupt casts.|n• Wildlife variant: give freed creatures space.",
 	DELVE_TIP_SHADOWGUARD_POINT_BOSS = "• Interrupt {SPELL:@void_bolt_patram}.|n• Kill Void Emissary before {SPELL:@submit_to_the_void} ends (you get Vers + CDR; Patram gets the buff if you fail).|n• Sidestep {SPELL:@discordant_hymn} void zones (slow + damage).",
 
@@ -98,7 +98,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DELVE_TIP_TORMENTS_RISE_BOSS = "• Interrupt {SPELL:@devouring_essence} every cast (DoT + feeds {SPELL:@umbral_rage} stacks).|n• {SPELL:@dread_portal}: 100% damage reduction until all adds die — full AoE burst on spawn.|n• {SPELL:@oblivion_shell} phase is a DPS check.|n• {SPELL:@umbral_rage}: +10% damage per stack if adds or DoTs linger — kill adds fast.",
 
 	-- Party chat (short; spell tokens expand to links for the whole group)
-	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "SW Eversong (Deathholme). Variants: mirrors, supplies, traitor. Final boss: Lord Antenorian.",
+	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "SW Eversong (Deatholme). Variants: mirrors, supplies, traitor. Final boss: Lord Antenorian.",
 	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Mirrors: hit Shadow Nexuses for light. Supplies: loot Twilight valuables. Traitor: stop rituals, chase to boss.",
 	DELVE_CHAT_SHADOW_ENCLAVE_TRASH = "Mirror light = Dazzled (more crits). Interrupt shadow casters. Don't stack on bad ground.",
 	DELVE_CHAT_SHADOW_ENCLAVE_BOSS = "Kick {SPELL:@shadow_bolt}. Teleport leaves a pool — keep him central. {SPELL:@shadowveil_annihilation}: kill 3 Orbs (only the unshielded orb). Burst orbs.",
@@ -149,7 +149,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DELVE_CHAT_SUNKILLER_SANCTUM_BOSS = "All Voidcallers dead before {SPELL:@gorge} or +damage stacks. Kick {SPELL:@calling_bolt}. Dispel {SPELL:@coalescing_malediction}. Dodge {SPELL:@crushing_rift} (4 callers).",
 
 	DELVE_CHAT_SHADOWGUARD_POINT_OVERVIEW = "West Voidstorm vs ethereals. Calamitous / Wildlife / Stolen Mana. Boss: Chief-Arcanist Patram.",
-	DELVE_CHAT_SHADOWGUARD_POINT_ROUTE = "Calamitous: overload stabilizers with Arcane Charges (don't stand in blasts). Wildlife: free mobs carefully. Mana: rifle containers.",
+	DELVE_CHAT_SHADOWGUARD_POINT_ROUTE = "Calamitous: overload stabilizers with Arcane Charges (don't stand in blasts). Wildlife: free mobs carefully. Mana: Galvanic Blast the containers until the Arcane Barrier drops.",
 	DELVE_CHAT_SHADOWGUARD_POINT_TRASH = "Interrupt ethereals. Plan charge carries safely.",
 	DELVE_CHAT_SHADOWGUARD_POINT_BOSS = "Kick {SPELL:@void_bolt_patram}. Kill Void Emissary before {SPELL:@submit_to_the_void} or Patram gets the buff. Dodge {SPELL:@discordant_hymn}.",
 
@@ -173,7 +173,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DELVE_NAME_TORMENTS_RISE = "Torment's Rise",
 
 	-- The Shadow Enclave
-	DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW = "• Eversong Woods sud-ovest (Ruins of Deathholme).|n• Tre varianti: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: ferma i rituali, void orb, cultisti (leveling).|n• Boss finale di ogni run: Lord Antenorian.",
+	DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW = "• Eversong Woods sud-ovest (Ruins of Deatholme).|n• Tre varianti: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: ferma i rituali, void orb, cultisti (leveling).|n• Boss finale di ogni run: Lord Antenorian.",
 	DELVE_TIP_SHADOW_ENCLAVE_ROUTE = "• Mirror Shine: porta gli specchi attraverso le sale buie; colpisci gli Shadow Nexus per diffondere la luce (evita i grue).|n• Shadowy Supplies: saccheggia gli oggetti di valore di Twilight's Blade dai mob o da terra.|n• Traitor's Due: insegui Antenorian attraverso il delve fino alla sala del boss.",
 	DELVE_TIP_SHADOW_ENCLAVE_TRASH = "• Nella luce dello specchio, tu e i nemici siete Dazzled (maggiore probabilità di crit).|n• Interrompi i caster shadow.|n• Elimina Twilight's Blade durante Supplies.|n• Non ammassarti su terreno pericoloso; pulla con cura nei corridoi stretti.",
 	DELVE_TIP_SHADOW_ENCLAVE_BOSS = "• Interrompi {SPELL:@shadow_bolt} ogni volta che puoi.|n• I teletrasporti lasciano una pozza dannosa — tienilo vicino al centro.|n• {SPELL:@shadowveil_annihilation}: channel letale — distruggi 3 Shadow Orb (solo l'orb senza scudo subisce danni; ogni kill toglie lo scudo al successivo).|n• Uccisi tutti gli orb si rompe il suo scudo, si ferma il channel e per poco subisce danni extra.|n• Conserva il burst per gli orb; Valeera aiuta a romperli.",
@@ -239,7 +239,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DELVE_TIP_TORMENTS_RISE_BOSS = "• Interrompi {SPELL:@devouring_essence} ogni cast (DoT + alimenta gli stack di {SPELL:@umbral_rage}).|n• {SPELL:@dread_portal}: 100% riduzione danni finché tutti gli add non muoiono — burst AoE pieno allo spawn.|n• La fase {SPELL:@oblivion_shell} è un DPS check.|n• {SPELL:@umbral_rage}: +10% danni per stack se add o DoT persistono — uccidi gli add in fretta.",
 
 	-- Party chat
-	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "Eversong SO (Deathholme). Varianti: specchi, supplies, traitor. Boss finale: Lord Antenorian.",
+	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "Eversong SO (Deatholme). Varianti: specchi, supplies, traitor. Boss finale: Lord Antenorian.",
 	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Specchi: colpisci gli Shadow Nexus per la luce. Supplies: saccheggia gli oggetti Twilight. Traitor: ferma i rituali, insegui fino al boss.",
 	DELVE_CHAT_SHADOW_ENCLAVE_TRASH = "Luce dello specchio = Dazzled (più crit). Interrompi i caster shadow. Non ammassarti su terreno pericoloso.",
 	DELVE_CHAT_SHADOW_ENCLAVE_BOSS = "Kicka {SPELL:@shadow_bolt}. Il teletrasporto lascia una pozza — tienilo centrale. {SPELL:@shadowveil_annihilation}: uccidi 3 Orb (solo quello senza scudo). Burst sugli orb.",
@@ -309,7 +309,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_NAME_TORMENTS_RISE = "Torment's Rise",
 
 	-- The Shadow Enclave
-	DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW = "• Zuidwest Eversong Woods (bij Ruins of Deathholme).|n• Drie varianten: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: stop rituals, void orbs en cultists (leveling).|n• Eindbaas in elke run: Lord Antenorian.",
+	DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW = "• Zuidwest Eversong Woods (bij Ruins of Deatholme).|n• Drie varianten: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: stop rituals, void orbs en cultists (leveling).|n• Eindbaas in elke run: Lord Antenorian.",
 	DELVE_TIP_SHADOW_ENCLAVE_ROUTE = "• Mirror Shine: draag spiegels door donkere gangen; raak Shadow Nexuses om licht te verspreiden (voorkomt grues).|n• Shadowy Supplies: pak buit van Twilight's Blade of van de grond.|n• Traitor's Due: achtervolg Antenorian door de delve tot de baaskamer.",
 	DELVE_TIP_SHADOW_ENCLAVE_TRASH = "• In spiegellicht zijn jij en vijanden Dazzled (hogere kans op crits).|n• Onderbreek shadow-casters.|n• Ruim Twilight's Blade op tijdens Supplies.|n• Sta niet gestapeld op gevaarlijke grond; pull rustig in smalle gangen.",
 	DELVE_TIP_SHADOW_ENCLAVE_BOSS = "• Onderbreek {SPELL:@shadow_bolt} zoveel mogelijk.|n• Bij teleport blijft een schadende plas achter — houd hem bij voorkeur centraal.|n• {SPELL:@shadowveil_annihilation}: dodelijke channel — vernietig 3 Shadow Orbs (alleen de orb zonder schild kan schade krijgen).|n• Alle orbs dood = schild weg, channel stopt, baas neemt kort extra schade.|n• Bewaar burst voor de orbs; Valeera helpt ze sneller te breken.",
@@ -374,7 +374,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DELVE_TIP_TORMENTS_RISE_TRASH = "• Pactsworn zit in normale delves, niet in Torment's Rise.|n• Verdeel cooldowns voor Nullaeus.",
 	DELVE_TIP_TORMENTS_RISE_BOSS = "• Onderbreek {SPELL:@devouring_essence} elke cast (DoT + {SPELL:@umbral_rage}-stacks).|n• {SPELL:@dread_portal}: baas 100% damage reduction tot alle adds dood — volle AoE op spawn.|n• {SPELL:@oblivion_shell}: DPS-check.|n• {SPELL:@umbral_rage}: +10% damage per stack — kill adds snel.",
 
-	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "ZW Eversong (Deathholme). Varianten: spiegels, supplies, traitor. Eindbaas: Lord Antenorian.",
+	DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW = "ZW Eversong (Deatholme). Varianten: spiegels, supplies, traitor. Eindbaas: Lord Antenorian.",
 	DELVE_CHAT_SHADOW_ENCLAVE_ROUTE = "Spiegels: Shadow Nexuses voor licht. Supplies: buit looten. Traitor: rituals stoppen, achtervolg naar baas.",
 	DELVE_CHAT_SHADOW_ENCLAVE_TRASH = "Spiegellicht = Dazzled (meer crits). Onderbreek casters. Niet stapelen op vuil.",
 	DELVE_CHAT_SHADOW_ENCLAVE_BOSS = "Kick {SPELL:@shadow_bolt}. Teleport = plas — houd hem centraal. {SPELL:@shadowveil_annihilation}: 3 Orbs (alleen onbeschermde). Burst orbs.",
@@ -445,7 +445,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	["DELVE_NAME_SUNKILLER_SANCTUM"] = "Sunkiller-Heiligtum",
 	["DELVE_NAME_SHADOWGUARD_POINT"] = "Schattenwächterpunkt",
 	["DELVE_NAME_TORMENTS_RISE"] = "Aufstieg der Torment",
-	["DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW"] = "• Südwesten von Eversong Woods (Ruins of Deathholme).|n• Drei Varianten: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: Rituale stoppen, Leerenkugeln, Kultisten (gut zum Leveln).|n• Endboss in jedem Durchlauf: Lord Antenorian.",
+	["DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW"] = "• Südwesten von Eversong Woods (Ruins of Deatholme).|n• Drei Varianten: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: Rituale stoppen, Leerenkugeln, Kultisten (gut zum Leveln).|n• Endboss in jedem Durchlauf: Lord Antenorian.",
 	["DELVE_TIP_SHADOW_ENCLAVE_ROUTE"] = "• Mirror Shine: Trag die Spiegel durch die dunklen Hallen; triff die Shadow Nexuses, um Licht zu verbreiten (hält Grues fern).|n• Shadowy Supplies: Sammel die Wertsachen von Twilight's Blade ein – von Mobs oder vom Boden.|n• Traitor's Due: Jag Antenorian durch den Delve bis zum Bossraum.",
 	["DELVE_TIP_SHADOW_ENCLAVE_TRASH"] = "• Im Spiegellicht bekommt ihr beide Dazzled, du und die Gegner (höhere Crit-Chance).|n• Unterbrich die Schattenzauberer.|n• Räum bei Shadowy Supplies die Twilight's Blade ab.|n• Stell dich nicht in gefährliche Flächen; pulle in engen Gängen vorsichtig.",
 	["DELVE_TIP_SHADOW_ENCLAVE_BOSS"] = "• Unterbrich {SPELL:@shadow_bolt}, wann immer du kannst.|n• Seine Teleports hinterlassen eine schädliche Pfütze – halt ihn nahe der Mitte.|n• {SPELL:@shadowveil_annihilation}: tödlicher Kanalzauber – zerstör 3 Shadow Orbs (nur die ungeschützte Kugel nimmt Schaden; jeder Kill nimmt der nächsten den Schild).|n• Sind alle Kugeln tot, bricht sein Schild, der Kanalzauber stoppt und er nimmt kurz mehr Schaden.|n• Heb deinen Burst für die Kugeln auf; Valeera hilft beim Zerlegen.",
@@ -489,7 +489,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	["DELVE_TIP_TORMENTS_RISE_ROUTE"] = "• Eigenes Instanzportal (kein rotierender Welt-Delve).|n• Nutz den Abenteuerführer (Umschalt-J) oder TomTom.|n• Wöchentliches Kopfgeld: Beacon of Hope kann Nullaeus stattdessen bei 50 % in einen normalen Delve holen.",
 	["DELVE_TIP_TORMENTS_RISE_TRASH"] = "• Pactsworn-Mobs findest du in normalen Delves, nicht in Torment's Rise.|n• Teil dir die Cooldowns ein – heb Defensives und Interrupts für Nullaeus auf.",
 	["DELVE_TIP_TORMENTS_RISE_BOSS"] = "• Unterbrich {SPELL:@devouring_essence} bei jedem Cast (DoT + füttert die Stacks von {SPELL:@umbral_rage}).|n• {SPELL:@dread_portal}: 100 % Schadensreduktion, bis alle Adds tot sind – beim Spawn voller AoE-Burst.|n• Die Phase mit {SPELL:@oblivion_shell} ist ein DPS-Check.|n• {SPELL:@umbral_rage}: +10 % Schaden pro Stack, wenn Adds oder DoTs stehen bleiben – töte die Adds schnell.",
-	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SW-Eversong (Deathholme). Varianten: Spiegel, Vorräte, Verräter. Endboss: Lord Antenorian.",
+	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SW-Eversong (Deatholme). Varianten: Spiegel, Vorräte, Verräter. Endboss: Lord Antenorian.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Spiegel: Triff die Shadow Nexuses für Licht. Vorräte: Plünder die Twilight-Wertsachen. Verräter: Rituale stoppen, bis zum Boss verfolgen.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Spiegellicht = Dazzled (mehr Crits). Unterbrich die Schattenzauberer. Stell dich nicht auf schlechten Boden.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_BOSS"] = "Kick {SPELL:@shadow_bolt}. Der Teleport hinterlässt eine Pfütze – halt ihn mittig. {SPELL:@shadowveil_annihilation}: Töte 3 Kugeln (nur die ohne Schild). Burst auf die Kugeln.",
@@ -547,7 +547,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	["DELVE_NAME_SUNKILLER_SANCTUM"] = "Sanctuaire Tue-Soleil",
 	["DELVE_NAME_SHADOWGUARD_POINT"] = "Point de la Garde de l'Ombre",
 	["DELVE_NAME_TORMENTS_RISE"] = "La montée du tourment",
-	["DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW"] = "• Sud-ouest d'Eversong Woods (Ruins of Deathholme).|n• Trois variantes : Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due : arrête les rituels, les orbes du Vide, les cultistes (variante de leveling).|n• Boss final à chaque run : Lord Antenorian.",
+	["DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW"] = "• Sud-ouest d'Eversong Woods (Ruins of Deatholme).|n• Trois variantes : Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due : arrête les rituels, les orbes du Vide, les cultistes (variante de leveling).|n• Boss final à chaque run : Lord Antenorian.",
 	["DELVE_TIP_SHADOW_ENCLAVE_ROUTE"] = "• Mirror Shine : porte les miroirs dans les couloirs sombres ; frappe les Shadow Nexuses pour répandre la lumière (sinon l'obscurité te dévore).|n• Shadowy Supplies : ramasse les objets de valeur des Twilight's Blade, sur les mobs ou au sol.|n• Traitor's Due : poursuis Antenorian à travers le delve jusqu'à la salle du boss.",
 	["DELVE_TIP_SHADOW_ENCLAVE_TRASH"] = "• Dans la lumière du miroir, toi et tes ennemis êtes Dazzled (plus de chances de critique).|n• Interromps les casters d'ombre.|n• Nettoie les Twilight's Blade pendant Shadowy Supplies.|n• Ne reste pas sur les zones au sol dangereuses ; pull prudemment dans les couloirs étroits.",
 	["DELVE_TIP_SHADOW_ENCLAVE_BOSS"] = "• Interromps {SPELL:@shadow_bolt} dès que tu peux.|n• Ses téléportations laissent une flaque qui inflige des dégâts — garde-le près du centre.|n• {SPELL:@shadowveil_annihilation} : canalisation mortelle — détruis 3 Shadow Orbs (seul l'orbe sans bouclier prend des dégâts ; chaque mort retire le bouclier du suivant).|n• Une fois tous les orbes morts, son bouclier tombe, la canalisation s'arrête et il prend des dégâts accrus pendant un court instant.|n• Garde ton burst pour les orbes ; Valeera aide à les casser.",
@@ -591,7 +591,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	["DELVE_TIP_TORMENTS_RISE_ROUTE"] = "• Portail d'instance dédié (ce n'est pas un delve de monde en rotation).|n• Passe par l'Adventure Guide (Maj-J) ou TomTom.|n• Contrat hebdomadaire : Beacon of Hope peut à la place attirer Nullaeus dans un delve normal, à 50 %.",
 	["DELVE_TIP_TORMENTS_RISE_TRASH"] = "• Les mobs Pactsworn se trouvent dans les delves normaux, pas à l'intérieur de Torment's Rise.|n• Gère le rythme de tes cooldowns — garde tes défensives et tes interruptions pour Nullaeus.",
 	["DELVE_TIP_TORMENTS_RISE_BOSS"] = "• Interromps {SPELL:@devouring_essence} à chaque incantation (DoT + alimente les cumuls d'{SPELL:@umbral_rage}).|n• {SPELL:@dread_portal} : 100 % de réduction des dégâts tant que tous les adds ne sont pas morts — lâche tout ton burst AoE dès qu'ils apparaissent.|n• La phase {SPELL:@oblivion_shell} est un DPS check.|n• {SPELL:@umbral_rage} : +10 % de dégâts par cumul si des adds ou des DoT traînent — tue les adds vite.",
-	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO Eversong (Deathholme). Variantes : miroirs, ravitaillement, traître. Boss final : Lord Antenorian.",
+	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO Eversong (Deatholme). Variantes : miroirs, ravitaillement, traître. Boss final : Lord Antenorian.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Miroirs : frappe les Shadow Nexuses pour avoir de la lumière. Supplies : ramasse les objets de valeur Twilight. Traître : arrête les rituels, poursuis-le jusqu'au boss.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Lumière du miroir = Dazzled (plus de crit). Interromps les casters d'ombre. Ne reste pas sur les zones au sol dangereuses.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_BOSS"] = "Kick {SPELL:@shadow_bolt}. La téléportation laisse une flaque — garde-le au centre. {SPELL:@shadowveil_annihilation} : tue 3 orbes (seulement celui sans bouclier). Burst les orbes.",
@@ -663,7 +663,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	["DELVE_CHAT_SHADOWGUARD_POINT_ROUTE"] = "Calamitous: sobrecarga los estabilizadores con Arcane Charges (no te quedes en las explosiones). Wildlife: libera a los mobs con cuidado. Mana: desestabiliza los contenedores.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_TRASH"] = "Interrumpe a los etéreos. Planifica con cuidado por dónde llevas las cargas.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_BOSS"] = "Corta {SPELL:@shadow_bolt}. El teletransporte deja un charco: mantenlo en el centro. {SPELL:@shadowveil_annihilation}: mata 3 orbes (solo el que no tiene escudo). Burst a los orbes.",
-	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO de Canción Eterna (Deathholme). Variantes: espejos, suministros, traidor. Jefe final: Lord Antenorian.",
+	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO de Canción Eterna (Deatholme). Variantes: espejos, suministros, traidor. Jefe final: Lord Antenorian.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Espejos: golpea los Shadow Nexuses para tener luz. Suministros: saquea los objetos de Twilight's Blade. Traidor: detén los rituales y persíguelo hasta el jefe.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Luz de espejo = Dazzled (más críticos). Interrumpe a los lanzadores de sombras. No te apiles en terreno malo.",
 	["DELVE_CHAT_SUNKILLER_SANCTUM_BOSS"] = "Todos los Voidcallers muertos antes de {SPELL:@gorge} o acumula +daño. Corta {SPELL:@calling_bolt}. Disipa {SPELL:@coalescing_malediction}. Esquiva {SPELL:@crushing_rift} (4 Voidcallers).",
@@ -718,7 +718,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	["DELVE_TIP_SHADOWGUARD_POINT_ROUTE"] = "• Calamitous: sobrecarga los Void Stabilizers con Arcane Charges (dan velocidad; las explosiones matan a los mobs, así que no te quedes dentro).|n• Captured Wildlife: libera a las criaturas del Vacío (su AoE también te alcanza a ti).|n• Stolen Mana: desestabiliza los contenedores de maná hasta que abre el jefe.",
 	["DELVE_TIP_SHADOWGUARD_POINT_TRASH"] = "• Calamitous: planifica bien dónde sobrecargas mientras llevas las Arcane Charges.|n• Grupos de etéreos: interrumpe sus lanzamientos.|n• Variante Wildlife: deja espacio a las criaturas liberadas.",
 	["DELVE_TIP_SHADOW_ENCLAVE_BOSS"] = "• Interrumpe {SPELL:@shadow_bolt} siempre que puedas.|n• Sus teletransportes dejan un charco que hace daño: mantenlo cerca del centro.|n• {SPELL:@shadowveil_annihilation}: canalización letal — destruye 3 Shadow Orbs (solo el orbe sin escudo recibe daño; cada muerte le quita el escudo al siguiente).|n• Con todos los orbes muertos se rompe su escudo, se corta la canalización y recibe daño extra durante unos segundos.|n• Guarda el burst para los orbes; Valeera ayuda a romperlos.",
-	["DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW"] = "• Suroeste de los Bosques de Canción Eterna (Ruins of Deathholme).|n• Tres variantes: Mirror Shine, Shadowy Supplies y Traitor's Due.|n• Traitor's Due: detén los rituales, los orbes del Vacío y los cultistas (mientras subes de nivel).|n• Jefe final en todas las runs: Lord Antenorian.",
+	["DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW"] = "• Suroeste de los Bosques de Canción Eterna (Ruins of Deatholme).|n• Tres variantes: Mirror Shine, Shadowy Supplies y Traitor's Due.|n• Traitor's Due: detén los rituales, los orbes del Vacío y los cultistas (mientras subes de nivel).|n• Jefe final en todas las runs: Lord Antenorian.",
 	["DELVE_TIP_SHADOW_ENCLAVE_ROUTE"] = "• Mirror Shine: lleva los espejos por los pasillos oscuros; golpea los Shadow Nexuses para extender la luz (así evitas a los grues).|n• Shadowy Supplies: saquea los objetos de valor de Twilight's Blade de los mobs o del suelo.|n• Traitor's Due: persigue a Antenorian por la Delve hasta la sala del jefe.",
 	["DELVE_TIP_SHADOW_ENCLAVE_TRASH"] = "• Con la luz del espejo, tanto tú como los enemigos quedáis Dazzled (más probabilidad de crítico).|n• Interrumpe a los lanzadores de sombras.|n• Elimina a los Twilight's Blade durante Shadowy Supplies.|n• No te apiles en terreno peligroso; haz los pulls con cuidado en los pasillos estrechos.",
 	["DELVE_TIP_SUNKILLER_SANCTUM_BOSS"] = "• Mata a todos los Voidcallers antes de {SPELL:@gorge} o ganará +daño durante 30 s por cada uno que devore.|n• Interrumpe {SPELL:@calling_bolt}.|n• Disipa {SPELL:@coalescing_malediction} o mata al add que genera.|n• Esquiva {SPELL:@crushing_rift} (genera 4 Voidcallers).",
@@ -765,7 +765,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	["DELVE_CHAT_SHADOWGUARD_POINT_ROUTE"] = "Calamitous: sobrecarregue os stabilizers com as Arcane Charges (não fique dentro das explosões). Wildlife: liberte os mobs com cuidado. Mana: use o rifle nos recipientes.",
 	["DELVE_CHAT_SHADOWGUARD_POINT_TRASH"] = "Interrompa os ethereals. Planeje com segurança o trajeto carregando as charges.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_BOSS"] = "Kick em {SPELL:@shadow_bolt}. O teleporte deixa uma poça — mantenha-o no centro. {SPELL:@shadowveil_annihilation}: mate os 3 Orbs (só o orbe sem escudo). Mande burst nos orbes.",
-	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO da Floresta do Canto Eterno (Deathholme). Variantes: espelhos, suprimentos, traidor. Chefe final: Lord Antenorian.",
+	["DELVE_CHAT_SHADOW_ENCLAVE_OVERVIEW"] = "SO da Floresta do Canto Eterno (Deatholme). Variantes: espelhos, suprimentos, traidor. Chefe final: Lord Antenorian.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_ROUTE"] = "Espelhos: acerte os Shadow Nexuses para ter luz. Suprimentos: saqueie os itens de valor dos Twilight. Traidor: pare os rituais e persiga até o chefe.",
 	["DELVE_CHAT_SHADOW_ENCLAVE_TRASH"] = "Luz do espelho = Dazzled (mais críticos). Interrompa os conjuradores de sombra. Não se amontoe em chão ruim.",
 	["DELVE_CHAT_SUNKILLER_SANCTUM_BOSS"] = "Todos os Voidcallers mortos antes de {SPELL:@gorge} ou ele acumula +dano. Kick em {SPELL:@calling_bolt}. Dissipe {SPELL:@coalescing_malediction}. Desvie de {SPELL:@crushing_rift} (4 callers).",
@@ -820,7 +820,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	["DELVE_TIP_SHADOWGUARD_POINT_ROUTE"] = "• Calamitous: sobrecarregue os Void Stabilizers com as Arcane Charges (dá buff de velocidade; as explosões matam os mobs — não fique dentro delas).|n• Captured Wildlife: liberte as criaturas do Caos (a área de efeito delas ainda te acerta).|n• Stolen Mana: use o rifle para desestabilizar os recipientes de mana até o chefe abrir.",
 	["DELVE_TIP_SHADOWGUARD_POINT_TRASH"] = "• Calamitous: planeje as sobrecargas com segurança enquanto carrega as Arcane Charges.|n• Packs de ethereals: interrompa as conjurações.|n• Variante Wildlife: dê espaço às criaturas libertadas.",
 	["DELVE_TIP_SHADOW_ENCLAVE_BOSS"] = "• Interrompa {SPELL:@shadow_bolt} sempre que puder.|n• Os teleportes deixam uma poça que causa dano — mantenha-o perto do centro.|n• {SPELL:@shadowveil_annihilation}: canalização letal — destrua os 3 Shadow Orbs (só o orbe sem escudo recebe dano; cada morte tira o escudo do seguinte).|n• Com todos os orbes mortos, o escudo dele quebra, a canalização para e ele recebe dano extra por um instante.|n• Guarde seu burst para os orbes; a Valira ajuda a quebrá-los.",
-	["DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW"] = "• Sudoeste da Floresta do Canto Eterno (Ruins of Deathholme).|n• Três variantes: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: pare os rituais, os orbes do Caos e os cultistas (nivelamento).|n• Chefe final em toda run: Lord Antenorian.",
+	["DELVE_TIP_SHADOW_ENCLAVE_OVERVIEW"] = "• Sudoeste da Floresta do Canto Eterno (Ruins of Deatholme).|n• Três variantes: Mirror Shine, Shadowy Supplies, Traitor's Due.|n• Traitor's Due: pare os rituais, os orbes do Caos e os cultistas (nivelamento).|n• Chefe final em toda run: Lord Antenorian.",
 	["DELVE_TIP_SHADOW_ENCLAVE_ROUTE"] = "• Mirror Shine: carregue os espelhos pelos corredores escuros; acerte os Shadow Nexuses para espalhar a luz (evita os Grues).|n• Shadowy Supplies: saqueie os itens de valor dos Twilight's Blade nos mobs ou no chão.|n• Traitor's Due: persiga Antenorian pelo delve até a sala do chefe.",
 	["DELVE_TIP_SHADOW_ENCLAVE_TRASH"] = "• Na luz do espelho, você e os inimigos ficam com Dazzled (mais chance de crítico).|n• Interrompa os conjuradores de sombra.|n• Limpe os Twilight's Blade durante Shadowy Supplies.|n• Não se amontoe em chão perigoso; puxe com cuidado nos corredores estreitos.",
 	["DELVE_TIP_SUNKILLER_SANCTUM_BOSS"] = "• Mate todos os Voidcallers antes de {SPELL:@gorge} ou ele ganha +dano por 30s a cada um que devorar.|n• Interrompa {SPELL:@calling_bolt}.|n• Dissipe {SPELL:@coalescing_malediction} ou mate o add que ele gera.|n• Desvie de {SPELL:@crushing_rift} (gera 4 Voidcallers).",

@@ -7,6 +7,27 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## ✅ AF 31 aug — beide Engelse vragen beslecht in de gamedata, jij hoeft niets te testen
+
+Ik zei dat hier een run voor nodig was. **Dat was fout** — het stond allebei in Blizzards eigen
+DB2, alleen niet op de plek waar de eerste agent keek.
+
+- ✅ **`rifle` is een GEWEER.** `CriteriaTree` 212485 is een echt scenario-doel: *"Galvanic Rifle
+  acquired"*, onder `Ethereals02` = Shadowguard Point. De ability is `Spell` 1246359
+  **Galvanic Blast**, en Blizzards eigen tooltip zegt *"Destroys mana containers"* — **"mana
+  containers" is dus Blizzards term, niet de onze**. Ons *"until boss opens"* is het doel
+  *"Arcane Barrier destroyed"* (`CriteriaTree` 212750).
+  ⚠️ Waaróm beide vertalers hem niet vonden: het is **geen voorwerp**. Ze zochten in `Item` en
+  `ItemSparse`; het is een action-bar-override-spell. Net als `Improvised Arcane Device` en
+  `Evasive Elixir`, die ook spells blijken te zijn.
+  → Engels herschreven, en de 6 vertalingen van die 2 keys staan nu als gedrift.
+- ✅ **Deatholme, met één `h`.** *"Ruins of Deatholme"* bestaat wél: `AreaTable` **16056**, een
+  direct kind van het vernieuwde **Eversong Woods** (15968). Onze zone was dus goed en alleen
+  de spelling fout — in 14 regels hersteld. Blizzards eigen interne token is
+  `12EversongDeathholme` **mét** dubbele h, wat vermoedelijk onze bron is.
+  📌 Ingang gemeten: `AreaPOI` 8437 → **Eversong Woods 45.5, 86.0**. Methode gecontroleerd op
+  Shadowguard Point, dat exact onze opgeslagen `37.18, 49.16` reproduceert.
+
 ## ❓ 31 aug — twee vragen over ons EIGEN Engels die alleen in het spel te beslechten zijn
 
 Geen bug in de vertaling: twee dingen in de **enUS**-bron blijken onhoudbaar, gevonden doordat
