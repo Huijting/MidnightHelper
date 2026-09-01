@@ -227,7 +227,12 @@ toestand niet te reproduceren is.
 - **What never gets translated.** The rules existed but were scattered across four file headers; collected here 14 aug 2026 because they are easy to break and nothing checks them.
   - **Proper nouns Blizzard owns:** zone, NPC, rare, mount, item and **currency names**, quest titles, and **achievement names**. Translating an achievement title invents a name Blizzard did not use, and the player's own Achievements pane will disagree with us (`Translations2026.lua:2289`). Same for `Corrosive Coin`/`Corrosive Soul`: the name is English in every pack, the sentence around it is not.
   - **Game terms:** Mythic+, PvP, Raid, Renown, Knowledge Points/KP, Delves, Vault, Bountiful, Tier, ilvl, Keys, Shards — WoW UI spelling, all packs (`nlNL.lua:5`, `Translations2026.lua:312`).
-  - **`CHANGELOG_*`** — English everywhere, on purpose.
+  - **`CHANGELOG_<version>_<n>`** — the changelog ENTRY lines, English everywhere, on purpose
+    (since 2.4.0). ⚠️ **Not the whole `CHANGELOG_*` namespace**, which is how this used to be
+    written and it misleads: the window's chrome has always been translated — `CHANGELOG_CB_NEVER`
+    and `CHANGELOG_CB_UNTIL_NEXT` exist in all seven packs, and `CHANGELOG_ASK` (Spec 31 B4)
+    follows them. A translation agent flagged the wording on 1 Sep 2026 as a convention being
+    broken; measuring the packs showed the convention was narrower than its own description.
   - **Markup:** `%s`/`%d`/`%%`, `|cff…|r` pairs around the same words, `|n` where the layout needs it, and the `->` arrow in menu paths (`docs/TRANSLATE_START_HERE.md`).
   - 🔴 **The test is "what does THIS player's client show", not "is this word translatable".**
     Rob, 28 aug 2026, after checking crests with Carola: she did not recognise "Kampioen

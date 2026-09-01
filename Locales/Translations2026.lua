@@ -7550,3 +7550,16 @@ fill("itIT", {
 	CODEX_STATS_TITLE = "Le stat, senza gergo",
 	CODEX_STATS_BODY = "Il tuo equipaggiamento porta due tipi di numeri.|n|n|cffffcc00La tua stat principale|r - Strength, Agility o Intellect, a seconda della specializzazione - è il motore. Non la scegli mai: arriva con l'item level, e il gioco mette solo quella giusta sull'armatura che puoi indossare.|n|n|cffffcc00Le quattro stat secondarie|r sono il sapore, e sono le stesse quattro per tutti:|n• |cffffffffCritical Strike|r - la probabilità che un colpo arrivi il doppio più forte.|n• |cffffffffHaste|r - tutto va più veloce, quindi premi più tasti.|n• |cffffffffMastery|r - un effetto diverso per ogni specializzazione. La tua è descritta nella scheda del personaggio.|n• |cffffffffVersatility|r - un po' più di danno e cura, un po' meno danno subito.|n|nOgni specializzazione le vuole in un ordine diverso, e quell'ordine è l'unico motivo per interessarsene. |cffffcc00La regola che pesa più dell'ordine: un item level più alto è quasi sempre l'oggetto migliore.|r Le stat decidono quando due pezzi sono vicini, non quando uno è chiaramente più grande.|n|nDigita |cffffffff/mh stats|r per la tua specializzazione: i tuoi quattro numeri, nel tuo ordine, con la tua Mastery spiegata con le parole del gioco stesso.",
 })
+
+
+--- Spec 31 B4 -- the line under the changelog window, which opens by itself on every update.
+--- 📌 CHANGELOG_* is documented as English-only, and that rule is about the ENTRY lines
+--- (CHANGELOG_<version>_<n>). The window's chrome has always been translated: CHANGELOG_CB_NEVER
+--- and CHANGELOG_CB_UNTIL_NEXT exist in all seven packs. This is chrome, so it follows chrome.
+--- ⚠️ Ours, not reviewed by native speakers. deDE is the weakest: German cannot carry the
+--- English verbless opener, so it reads more written than the other four.
+fill("deDE", { CHANGELOG_ASK = "Stimmt etwas in dieser Liste nicht, oder fehlt etwas für deine Klasse? Dieses Addon schreibt eine einzige Person — sag es auf Discord oder GitHub, dann wird es behoben." })
+fill("frFR", { CHANGELOG_ASK = "Quelque chose de faux dans cette liste, ou qui manque pour ta classe ? Cet addon est écrit par une seule personne — dis-le sur Discord ou GitHub, et ce sera corrigé." })
+fill("esES", { CHANGELOG_ASK = "¿Hay algo mal en esta lista, o falta algo para tu clase? Este addon lo escribe una sola persona — dilo en Discord o GitHub, y se arregla." })
+fill("ptBR", { CHANGELOG_ASK = "Tem alguma coisa errada nesta lista, ou faltando para a sua classe? Este addon é escrito por uma pessoa só — avise no Discord ou no GitHub, e será corrigido." })
+fill("itIT", { CHANGELOG_ASK = "C'è qualcosa di sbagliato in questa lista, o che manca per la tua classe? Questo addon lo scrive una persona sola — dillo su Discord o GitHub, e viene sistemato." })

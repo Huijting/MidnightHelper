@@ -156,9 +156,38 @@ end
 
 ns.RegisterNudge({
 	id = "discord",
-	-- No condition: everyone is welcome. The framework hides the card once
-	-- dismissed, and the Settings row keeps it findable after that.
-	when = function() return true end,
+	--- 🔴 ASK ONLY AFTER THE ADDON HAS DONE SOMETHING FOR YOU (Spec 31 B3, 1 Sep 2026).
+	---
+	--- This used to be `return true` with the note "everyone is welcome", which sounds
+	--- generous and behaves badly: the card sat on the dashboard from the very first login,
+	--- under the onboarding card. We were asking a favour before the addon had done one.
+	---
+	--- The signal is a milestone: MH only writes one when it has actually celebrated
+	--- something for this player. That is a FACT about what happened, not a guess about how
+	--- long they have been here.
+	---
+	--- ⚠️ Two candidates were rejected, and why matters more than the choice.
+	--- `lastSeenVersion ~= ""` looks like "been through an update" and is not: it is set the
+	--- first time anyone dismisses the changelog, which happens on day one. And an install
+	--- date would be an AGE heuristic -- the exact mistake SetupNudge.lua:31-47 makes in this
+	--- same codebase, where bound keys count "Blizzard ships defaults" as "this player
+	--- configured something". Old is not the same as helped.
+	---
+	--- ⚠️ O(1) on purpose: NudgeActive runs on EVERY Home render (Nudges.lua:45-51). `next`
+	--- stops at the first key, so this never walks the table. Bookkeeping keys start with
+	--- "_" and are not awarded milestones, so a lone "_" key must not open the door --
+	--- hence the second `next` rather than a bare emptiness test.
+	when = function()
+		local m = ns.db and ns.db.milestones
+		if not m then
+			return false
+		end
+		local k = next(m)
+		if k and tostring(k):sub(1, 1) == "_" then
+			k = next(m, k)
+		end
+		return k ~= nil
+	end,
 	title = "DISCORD_NUDGE_TITLE",
 	body = "DISCORD_NUDGE_BODY",
 	actionLabel = "DISCORD_NUDGE_BTN",

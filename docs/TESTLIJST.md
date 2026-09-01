@@ -7,6 +7,22 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 1 sep — Spec 31 B3 en B4 (ONGETEST)
+
+- [ ] **B4 — de regel onderaan het changelog-venster.** Open het met `/mh changelog` (of wacht
+      op de volgende versiewissel). Boven de twee vinkjes hoort te staan: *"Something in this
+      list wrong, or missing for your class? One person writes this addon…"*, in grijs.
+      ⚠️ Loopt hij over de vinkjes heen of valt hij buiten het venster? Dat is dezelfde
+      layoutfout als bij Professions → Overview: alles groeit naar beneden en niets begrenst het.
+- [ ] **B3 — de Discord-kaart mag pas verschijnen als MH iets voor je gedaan heeft.**
+      Op Robs eigen account staat er allang een milestone, dus hij hoort er gewoon te zijn.
+      🔴 **De echte test kan Rob niet doen**: een vers account zonder milestones. Wat hij wél
+      kan zien is dat de kaart NIET verdwenen is — verdwijnt hij, dan leest de check zijn
+      milestones niet en is de voorwaarde te streng.
+      📌 Wij kozen eerst "door minstens één update heen"; dat bleek onmeetbaar met wat we
+      opslaan (`lastSeenVersion` wordt al op dag één gezet). Zie het commentaar in
+      `DiscordNudge.lua` voor waarom een installatiedatum een leeftijdsgok zou zijn.
+
 ## 🆕 31 aug — de Vaults-keten is vier quests en zegt nu wat je eerst nodig hebt (ONGETEST)
 
 Home → het blok **"New: the Vaults of Atal'Utek"**. Alleen zichtbaar zolang je de keten níét

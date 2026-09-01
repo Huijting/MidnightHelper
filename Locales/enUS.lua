@@ -1619,6 +1619,7 @@ ns._mhLocales.enUS = {
 	CHANGELOG_CLOSE = "Close",
 	CHANGELOG_CB_UNTIL_NEXT = "Do not show again until next version",
 	CHANGELOG_CB_NEVER = "Permanently hide changelog",
+	CHANGELOG_ASK = "Something in this list wrong, or missing for your class? One person writes this addon — say so on Discord or GitHub, and it gets fixed.",
 	CHANGELOG_120_1 = "Added compact Leveling Advisor panel with per-level brackets and tabs (Rotation / Defensives / Talent focus).",
 	CHANGELOG_120_2 = "Improved consumables section: only shows usable items at your current level and explains next unlocks.",
 	CHANGELOG_120_3 = "Added Account Snapshot row management: delete stale characters safely (with confirmation) plus zebra-striping.",

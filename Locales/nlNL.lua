@@ -1575,6 +1575,7 @@ ns._mhLocales.nlNL = {
 	CHANGELOG_CLOSE = "Sluiten",
 	CHANGELOG_CB_UNTIL_NEXT = "Niet opnieuw tonen tot volgende versie",
 	CHANGELOG_CB_NEVER = "Changelog permanent verbergen",
+	CHANGELOG_ASK = "Klopt er iets niet in deze lijst, of mist er iets voor jouw klasse? Eén persoon schrijft deze addon — zeg het op Discord of GitHub, dan wordt het gerepareerd.",
 	CHANGELOG_120_1 = "Compact Leveling Advisor-paneel toegevoegd met level-brackets en tabbladen (Rotatie / Verdediging / Talentfocus).",
 	CHANGELOG_120_2 = "Consumables-sectie verbeterd: toont alleen bruikbare items op je huidige level en meldt volgende unlocks.",
 	CHANGELOG_120_3 = "Account Snapshot-beheer toegevoegd: oude characters veilig verwijderen (met bevestiging) plus zebra-strepen.",

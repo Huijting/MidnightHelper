@@ -781,8 +781,26 @@ local function EnsureChangelogFrame()
 	cbVersion.text:SetJustifyH("LEFT")
 	f._cbVersion = cbVersion
 
+	--- Spec 31 B4. This window opens by itself on every version change, so everyone who
+	--- updates reads it -- and until now it asked for nothing. It is the largest completely
+	--- unused surface in the addon.
+	---
+	--- 📌 Deliberately NOT "join our Discord". The moment is one where the player is looking
+	--- at a list of claims we just made, so the honest ask is whether any of it is wrong for
+	--- them. That also follows Spec 31 B6's finding: the strongest thing we can ask for is
+	--- the information we are missing, at the point where we admit we might be missing it.
+	---
+	--- ⚠️ It sits ABOVE the two checkboxes, which are already a permanent off switch, so
+	--- anyone who does not want to be asked has had a way to stop it since 2.4.0.
+	local ask = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	ask:SetWidth(FOOTER_TEXT_W)
+	ask:SetJustifyH("LEFT")
+	ask:SetText(ns:L("CHANGELOG_ASK"))
+	f._ask = ask
+
 	local cbNever = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate")
 	cbNever:SetPoint("BOTTOMLEFT", cbVersion, "TOPLEFT", 0, 10)
+	ask:SetPoint("BOTTOMLEFT", cbNever, "TOPLEFT", 4, 8)
 	cbNever.text:SetText(ns:L("CHANGELOG_CB_NEVER"))
 	cbNever.text:SetTextColor(1, 0.25, 0.21)
 	cbNever.text:SetWidth(FOOTER_TEXT_W)
