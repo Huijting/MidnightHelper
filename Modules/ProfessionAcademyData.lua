@@ -359,11 +359,19 @@ ns.PROF_ACADEMY = {
 		--- nine route errors, and the reason is that it does not merely give slow advice —
 		--- it sends the player somewhere nothing happens.
 		---
-		--- In Midnight you discover most Engineering recipes by recycling, and recycling
-		--- stays OFF until points go into the tree (threshold confirmed in Blizzard's own
-		--- gamedata, build 12.1.0.69382). We had it as the last step because we read it as
-		--- an efficiency branch. Anyone following that recycles, sees nothing, and concludes
-		--- the feature is broken — which is a worse outcome than no advice at all.
+	--- In Midnight you discover most Engineering recipes by recycling. We had this as the
+		--- last step because we read it as an efficiency branch, and that was wrong: it is
+		--- how the profession feeds itself.
+		---
+		--- 🔴 CORRECTED 1 Sep 2026 — the sentence here used to say recycling "stays OFF until
+		--- points go into the tree", and that is false. Recycling works from zero points:
+		--- Zygor's own guide has the player craft it 35 times and consume the result BEFORE
+		--- the step that learns the specialization, and Method writes that Recycle gives
+		--- skill-ups "all the way from 1 to 30". What the ten points buy is **recipe
+		--- discovery**, not the ability. Our own docs/SPEC_25 said this correctly
+		--- ("ontdekt pas recepten"); the drift was here, in the comment.
+		--- ⚠️ The advice is unchanged and still right. Only the reason we gave was wrong --
+		--- and a wrong reason is what a future session reasons FROM.
 		--- 📎 The 10-point threshold comes from Zygor's Midnight guide, which is an
 		--- independent source rather than an echo of Spec 24: "Put 10 points into the
 		--- Recycling specialization and pick the Resourcefulness sub-spec". The sub-spec
@@ -437,9 +445,22 @@ ns.PROF_ACADEMY = {
 			{ anyOf = { "Glamorous Gems", "Alluring Accessories" } },
 			{ tree = "Proficient Processor" },
 		},
-		-- Inscription. Steps 2 and 3 were swapped, and the old order was not merely
-		-- suboptimal but IMPOSSIBLE to follow: Blueprints opens at skill 50 and
-		-- Perfected Products only at 60.
+	-- Inscription. Steps 2 and 3 were swapped, and this order is the better one.
+		--
+		-- 🔴 CORRECTED 1 Sep 2026. This used to claim the old order was "not merely
+		-- suboptimal but IMPOSSIBLE to follow: Blueprints opens at skill 50 and Perfected
+		-- Products only at 60." That is false, and our OWN measurement had already said so
+		-- before the sentence was written. docs/SPEC_25 §8.1: `TraitCurrencySource` carries
+		-- four GENERIC unlock tokens (skill 25/50/60/75) and "the game does not prescribe
+		-- which tree belongs to which level -- the player chooses". The spec even dictates
+		-- the wording: "at skill 25/50/60/75 you may pick one each time", NEVER "at skill 50
+		-- you get X". Method and Icy Veins independently describe it as free choice.
+		--
+		-- So the gate is on the ORDINAL SLOT, not on the tree. Swapping 2 and 3 would be
+		-- perfectly legal. ⚠️ Keep the order as a recommendation; do not restore the
+		-- impossibility claim, and do not reason from it -- on 1 Sep it was quoted to a
+		-- research agent as this repo's model of good reasoning, which is what a false
+		-- comment costs.
 		--
 		-- ✅ The double spelling is gone. Gamedata settles it: trait 109660 is
 		-- `Perfected Products`. The confusion came from its SUB-branches, which really
