@@ -272,11 +272,24 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	-- move) are facts, the wording is ours. Rob measured bosses 1 and 2 in a follower
 	-- run the same evening; Zul'jan is unverified in play because a bug (four totems
 	-- down, one beam still lit) blocked the way to him.
+	--
+	-- ✅ RE-CHECKED against DBM 12.1.7 (1 Sep 2026), which is a real confirmation rather
+	-- than a re-read: a freshly shipped version still carries all four ids we quote, for
+	-- the one boss Rob has never reached.
+	-- ➕ It also has one ACTIVE ability we had missed -- 1301231 Bloodletting, registered
+	-- with DBM's own "watchfeet" cue, so a floor effect. Added as step 3.
+	-- ⚠️ Two more ids in that file are NOT taken: 1283247 (Reckless Leap) and 470966 are
+	-- commented out in DBM itself. If they disable it, that is a decision by people who
+	-- play the fight, and copying a line they switched off would be reading their file
+	-- rather than their judgement.
+	-- 📌 Rob's point, and he is right: DBM is not a random grep through another addon. Its
+	-- ids and alert types are maintained and tested. What it cannot give is what a player
+	-- should DO -- that sentence is ours, and for this boss still unconfirmed in play.
 	DGN_TIP_AF_RAVI_STEPS = "1. The hydra shields itself with {SPELL:1309522} - break it off quickly.|n2. If it gets to feed first, the stronger {SPELL:1307765} follows and hits much harder.|n3. Step out of {SPELL:1307894} and out of the wave from {SPELL:1296050}.|n4. {SPELL:1296219} is group damage you cannot dodge - just heal through it.",
 	DGN_TIP_AF_RAVI_HEALER = "Healer: {SPELL:1296219} hits the whole group; have something ready for it.",
 	DGN_TIP_AF_COIL_STEPS = "1. {SPELL:1300503} picks one player to chase. That player runs and keeps running; everyone else clears out of the way.|n2. Someone caught by {SPELL:1299053}? Free them straight away.|n3. {SPELL:1300686} - switch onto what appears and kill it before carrying on.|n4. Move out of {SPELL:1299940}, and watch the stacks from {SPELL:1299154}.",
 	DGN_TIP_AF_COIL_TANK = "Tank: defensive for {SPELL:1298949}.",
-	DGN_TIP_AF_ZULJAN_STEPS = "1. {SPELL:1300876} is the one that matters: the beams have to be soaked. Take yours and stay in it.|n2. Step out of {SPELL:1301413} and {SPELL:1301111} - both are ground damage you can simply walk out of.",
+	DGN_TIP_AF_ZULJAN_STEPS = "1. {SPELL:1300876} is the one that matters: the beams have to be soaked. Take yours and stay in it.|n2. Step out of {SPELL:1301413} and {SPELL:1301111} - both are ground damage you can simply walk out of.|n3. {SPELL:1301231} is a third thing on the floor - keep watching your feet.",
 	DGN_TIP_AF_ZULJAN_TANK = "Tank: defensive for {SPELL:1301350}.",
 })
 
@@ -698,7 +711,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_TIP_AF_RAVI_HEALER = "Healer: {SPELL:1296219} raakt de hele groep; houd daar iets voor achter.",
 	DGN_TIP_AF_COIL_STEPS = "1. {SPELL:1300503} kiest een speler om achterna te zitten. Die rent en blijft rennen; de rest gaat opzij.|n2. Zit iemand vast in {SPELL:1299053}? Sla 'm er meteen uit.|n3. {SPELL:1300686} - schakel over op wat er verschijnt en maak het dood voor je verder gaat.|n4. Loop uit {SPELL:1299940}, en let op de stacks van {SPELL:1299154}.",
 	DGN_TIP_AF_COIL_TANK = "Tank: defensive voor {SPELL:1298949}.",
-	DGN_TIP_AF_ZULJAN_STEPS = "1. {SPELL:1300876} is de belangrijke: die beams moeten gesoakt worden. Pak de jouwe en blijf erin staan.|n2. Stap uit {SPELL:1301413} en {SPELL:1301111} - allebei grondschade waar je gewoon uit kunt lopen.",
+	DGN_TIP_AF_ZULJAN_STEPS = "1. {SPELL:1300876} is de belangrijke: die beams moeten gesoakt worden. Pak de jouwe en blijf erin staan.|n2. Stap uit {SPELL:1301413} en {SPELL:1301111} - allebei grondschade waar je gewoon uit kunt lopen.|n3. {SPELL:1301231} is een derde ding op de vloer - blijf op je voeten letten.",
 	DGN_TIP_AF_ZULJAN_TANK = "Tank: defensive voor {SPELL:1301350}.",
 })
 
@@ -908,7 +921,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_TIP_AF_COIL_TANK = "Tank: Defensive für {SPELL:1298949}.",
 	DGN_TIP_AF_RAVI_STEPS = "1. Die Hydra schildet sich mit {SPELL:1309522} — brich das schnell ab.|n2. Kommt sie vorher zum Fressen, folgt das stärkere {SPELL:1307765} und schlägt deutlich härter zu.|n3. Tritt aus {SPELL:1307894} raus und aus der Welle von {SPELL:1296050}.|n4. {SPELL:1296219} ist Gruppenschaden, dem du nicht ausweichen kannst — einfach durchheilen.",
 	DGN_TIP_AF_RAVI_HEALER = "Heiler: {SPELL:1296219} trifft die ganze Gruppe; halt etwas dafür bereit.",
-	DGN_TIP_AF_ZULJAN_STEPS = "1. {SPELL:1300876} ist das Entscheidende: die Strahlen müssen gesoakt werden. Nimm deinen und bleib drin.|n2. Tritt aus {SPELL:1301413} und {SPELL:1301111} raus — beides ist Bodenschaden, aus dem du einfach herauslaufen kannst.",
+	DGN_TIP_AF_ZULJAN_STEPS = "1. {SPELL:1300876} ist das Entscheidende: die Strahlen müssen gesoakt werden. Nimm deinen und bleib drin.|n2. Tritt aus {SPELL:1301413} und {SPELL:1301111} raus — beides ist Bodenschaden, aus dem du einfach herauslaufen kannst.|n3. {SPELL:1301231} ist eine dritte Sache auf dem Boden — achte weiter auf deine Füße.",
 	DGN_TIP_AF_ZULJAN_TANK = "Tank: Defensive für {SPELL:1301350}.",
 
 	DGN_TIP_BV_IKUZZ_DPS = "DPS: Setz deine Wurzeln an den Rand. Fixiert? Dann lauf die vollen 10 Sekunden — dagegen ankämpfen geht nicht.",
