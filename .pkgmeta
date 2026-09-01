@@ -38,6 +38,9 @@ ignore:
   - .github
   - tools
   - docs
+  # The public web page (GitHub Pages). Belongs on the internet, not in a player's
+  # AddOns folder -- it would be dead weight in every download.
+  - site
   - data
   - dist
   - .cursor

@@ -18,7 +18,9 @@ $folder = Join-Path $stagingRoot "MidnightHelper"
 New-Item -ItemType Directory -Path $folder | Out-Null
 
 $robolog = Join-Path $stagingRoot "robocopy.log"
-$excludeDirs = @(".git", ".cursor", "tools", "docs", ".github", "dist", "data", "__pycache__")
+# ⚠️ Keep in step with the `ignore:` list in .pkgmeta -- two packagers, one intent. `site`
+# is the public GitHub Pages page and must never land in a player's AddOns folder.
+$excludeDirs = @(".git", ".cursor", "tools", "docs", ".github", "dist", "data", "site", "__pycache__")
 $xf = @(
 	".cursorrules", ".gitattributes", ".gitignore", ".luarc.json",
 	"CLAUDE.md", "README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md", "CURSEFORGE_DESCRIPTION.md",

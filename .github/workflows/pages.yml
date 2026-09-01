@@ -1,0 +1,57 @@
+# Publish the site/ folder to GitHub Pages.
+#
+# 🔴 WHY NOT THE /docs FOLDER, which is the usual choice: docs/ holds this project's INTERNAL
+# notes -- NEXT_SESSION.md, TESTLIJST.md, the Spec 31 reach analysis with its candid read of
+# other addons. Branch-based Pages can only serve the repo root or /docs, so either option
+# would publish all of that as a side effect of wanting one page. This workflow uploads
+# site/ and nothing else.
+#
+# One-time setup (Rob): GitHub > Settings > Pages > Build and deployment > Source:
+# "GitHub Actions". That is the only switch; there is nothing to configure after it.
+#
+# The page is GENERATED from the addon's own data by tools/build_site.py and must not be
+# hand-edited -- a public page that drifts from what the addon says is worse than no page.
+# Regenerate after changing profession routes, then commit site/index.html.
+
+name: Publish site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it; a half-published page is worse
+# than a slightly stale one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the site folder only
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
