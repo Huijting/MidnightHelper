@@ -171,6 +171,11 @@ if GSC_TOKEN:
 if not os.path.isdir(OUT_DIR):
     os.mkdir(OUT_DIR)
 
+# ⚠️ This generator WRITES its own files and never clears the folder, which matters:
+# site/google9f04431797b34db7.html was placed there by hand for Google Search Console and
+# is not generated. If this ever grows a "clean the output directory first" step, that file
+# has to survive it -- deleting it silently un-verifies the site.
+
 
 def write(path, text):
     io.open(path + ".tmp", "w", encoding="utf-8", newline="").write(text)
