@@ -112,6 +112,14 @@ HTML = """<!doctype html>
 <p class="lede">Profession specializations in World of Warcraft: Midnight, for all eleven
 professions &mdash; and what nobody can tell you from outside the game.</p>
 
+<!-- Rob came back from the delve page and could not find his way there again: the link sat
+     under a heading past the halfway mark, and nobody scrolls a page they have already read.
+     Moved to the top, where a reader who arrives or returns can see it without looking. -->
+<nav aria-label="Pages"><ul class="toc">
+<li><strong>Knowledge Points</strong> &mdash; you are here</li>
+<li><a href="delves.html">Every Midnight delve &rarr;</a></li>
+</ul></nav>
+
 <p>Knowledge Points are scarce and the reset is once only, so the order you spend them in
 matters more than most guides admit. Below is the tree each profession is worth filling
 <strong>first</strong>.</p>
@@ -131,10 +139,6 @@ five professions turned out to name the wrong kind of thing.</p></div>
 
 <h2>Four things worth knowing before you spend</h2>
 __FINDS__
-
-<h2>Also here</h2>
-<p><a href="delves.html">Every Midnight delve, and what to do in each</a> &mdash; route, trash and
-boss notes for all fourteen, with the abilities linked.</p>
 
 <h2>What we do not know</h2>
 <p>The <em>structure</em> above is measured for all eleven professions. The <em>content</em>
@@ -325,10 +329,15 @@ DELVE_HTML = """<!doctype html>
 <link rel="canonical" href="https://huijting.github.io/MidnightHelper/delves.html">
 <link rel="stylesheet" href="style.css">
 <main>
-<p class="back"><a href="./">&larr; Midnight Helper</a></p>
 <h1>Every Midnight delve, and what to do in each</h1>
 <p class="lede">__COUNT__ delves, with the route, the trash and the bosses &mdash; the same notes
 the addon shows you in game, in seven languages.</p>
+
+<nav aria-label="Pages"><ul class="toc">
+<li><a href="./">&larr; Knowledge Points</a></li>
+<li><strong>Delves</strong> &mdash; you are here</li>
+</ul></nav>
+
 <nav aria-label="Delves"><ul class="toc">__TOC__</ul></nav>
 __SECS__
 <footer>
