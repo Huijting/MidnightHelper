@@ -149,6 +149,17 @@ local VAULTS = {
 	--- at OrderIndex 4 of questline 6232 directly after 93420 "Lor'themar's Judgement" --
 	--- with the Altar of Fangs dungeon (93417) and the Venomous Abyss raid (93418) as steps
 	--- inside that same campaign. So the gate is real content, not a level number.
+	---
+	--- ✅ AND ONE GATE EARLIER, from Blizzard's own words. Hotfixes 13 Aug 2026, Quests:
+	--- "Fixed an issue where players could begin Curse of Ula'tek campaign quests without
+	--- first completing the main Midnight campaign", with the developer's note that it
+	--- "was intended to require ACCOUNT COMPLETION of the main Midnight campaign".
+	---
+	--- 📌 That is Rob's warbound observation in Blizzard's phrasing: he predicted the chain
+	--- was account-wide from being able to walk in on every alt, and this is the mechanism.
+	--- Our gate line named the second door and not the first; it now names both.
+	--- ⚠️ Found by the new content watch on its first run -- the hotfix sections the API
+	--- watch stamps as "not our concern" are where this lived for eighteen days.
 	gateKey = "HOME_VAULTS_GATE",
 	chain = {
 		{ questID = 98388, nameKey = "CAMPAIGN_VAULTS_STARTQUEST" }, -- Into the Vaults of Atal'Utek
