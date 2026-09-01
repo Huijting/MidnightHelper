@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://huijting.github.io/MidnightHelper/sitemap.xml

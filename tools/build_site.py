@@ -174,9 +174,45 @@ welcome.</p>
 """
 
 html = HTML.replace("__ROWS__", "\n".join(rows)).replace("__FINDS__", finds)
+
+# Google Search Console verification. Rob owns the Google side; this is the one line our
+# side needs. He pastes the token here, it deploys, Google reads it.
+# ⚠️ Empty means no tag is emitted at all -- an empty content="" would fail verification
+# while looking like it was set up, which is the worst of both.
+GSC_TOKEN = ""
+if GSC_TOKEN:
+    html = html.replace("<title>", '<meta name="google-site-verification" content="%s">\n<title>'
+                        % GSC_TOKEN, 1)
+
 if not os.path.isdir(OUT_DIR):
     os.mkdir(OUT_DIR)
-io.open(OUT + ".tmp", "w", encoding="utf-8", newline="").write(html)
-os.replace(OUT + ".tmp", OUT)
+
+
+def write(path, text):
+    io.open(path + ".tmp", "w", encoding="utf-8", newline="").write(text)
+    os.replace(path + ".tmp", path)
+
+
+write(OUT, html)
+
+# A sitemap is close to pointless for one page and is exactly what Search Console asks for
+# the moment there are several -- so it is generated from the same list the pages are, and
+# cannot fall behind them.
+PAGES = [("", "weekly")]  # (path under the site root, change frequency)
+today = __import__("datetime").date.today().isoformat()
+sitemap = ['<?xml version="1.0" encoding="UTF-8"?>',
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+for path, freq in PAGES:
+    sitemap.append("  <url><loc>https://huijting.github.io/MidnightHelper/%s</loc>"
+                   "<lastmod>%s</lastmod><changefreq>%s</changefreq></url>" % (path, today, freq))
+sitemap.append("</urlset>")
+write(os.path.join(OUT_DIR, "sitemap.xml"), "\n".join(sitemap) + "\n")
+
+write(os.path.join(OUT_DIR, "robots.txt"),
+      "User-agent: *\nAllow: /\nSitemap: https://huijting.github.io/MidnightHelper/sitemap.xml\n")
+
 print("wrote %s -- %d professions, %d findings, %d bytes"
       % (os.path.relpath(OUT, ROOT), len(routes), len(FINDINGS), len(html)))
+print("wrote site/sitemap.xml (%d page(s)) and site/robots.txt" % len(PAGES))
+print("google-site-verification: %s"
+      % ("set" if GSC_TOKEN else "NOT set -- paste the token into GSC_TOKEN in this file"))
