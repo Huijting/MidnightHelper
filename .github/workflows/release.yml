@@ -1,4 +1,4 @@
-# Auto-package + upload to CurseForge when a version tag is pushed.
+# Auto-package + upload when a version tag is pushed.
 #
 # One-time setup (Rob):
 #   1. Add `## X-Curse-Project-ID: <id>` to MidnightHelper.toc (the packager reads it).
@@ -8,7 +8,28 @@
 #
 # Releasing after that: bump the .toc version, commit, then push a tag, e.g.:
 #   git tag v2.5.0 && git push origin v2.5.0
-# The BigWigs packager builds the zip (per .pkgmeta) and uploads it to CurseForge.
+# The BigWigs packager builds the zip (per .pkgmeta) and uploads it.
+#
+# --- WAGO (Spec 31 B7), prepared 1 Sep 2026 -------------------------------------------
+# The SAME packager run uploads to several stores; this is one build going to more shops,
+# not a second copy to maintain. VERIFIED against BigWigsMods/packager's own README:
+# the token is WAGO_API_TOKEN and the .toc directive is `## X-Wago-ID: <id>`.
+#
+# 🔴 THE .toc LINE IS DELIBERATELY NOT ADDED YET, and that is the whole safety of this.
+# The packager uploads to Wago only when it finds an X-Wago-ID. Until that line exists,
+# the variable below is an empty string and nothing is attempted -- so this change cannot
+# break a release. Rob adds the id and the secret, and the line makes it live.
+#
+# Rob's half:
+#   1. addons.wago.io -> sign in -> create the project (name it Midnight Helper).
+#   2. addons.wago.io/account/apikeys -> new token.
+#   3. GitHub Settings > Secrets and variables > Actions > New repository secret
+#        Name: WAGO_API_TOKEN
+#   4. Tell me the project id, and I add `## X-Wago-ID: <id>` to the .toc.
+#
+# 📌 Also possible for free and not enabled: GITHUB_API_TOKEN publishes the zip as a
+# GitHub Release on this repo. Left off on purpose -- one new shop at a time, so if an
+# upload misbehaves we know which one.
 
 name: Release to CurseForge
 
@@ -31,3 +52,5 @@ jobs:
         uses: BigWigsMods/packager@v2
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          # Empty until Rob adds the secret; inert until the .toc carries X-Wago-ID.
+          WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
