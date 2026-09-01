@@ -105,3 +105,16 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/WeeklyHubProbe.lua`, `Modules/CurioExplain.lua` — allemaal vandaag gelezen.
   **[RAAKT ONS NIET]** — geen van de gevonden hotfixes spreekt een geshipte claim tegen. Geen open
   actiepunt.
+
+  🔴 **CORRECTIE op de "terzijde" hierboven, dezelfde avond nagetrokken.** The Ring of Glory en
+  Gnarldor Isle hebben **wél** tips, en niet zuinig: `DELVE_TIP_RINGOFGLORY_OVERVIEW`,
+  `_DANGER`, `_ROUTE` en `DELVE_TIP_GNARLDOR_OVERVIEW`, `_ROUTE` staan in
+  `Locales/enUS.lua:1521-1546`, plus `Modules/DelveTipsData.lua` en `Modules/DelveChestData.lua`.
+  Ring of Glory bevat een heel Tier 11-verslag met zeven encounters.
+
+  ⚠️ **De meting klopte, de conclusie niet** — er is gegrept in `Locales/DelveTips.lua` en daar
+  staan ze inderdaad niet. En de positieve controle redde het niet, want die stond **in hetzelfde
+  bestand**: dat bewijst dat het patroon werkt wáár je kijkt, niet dat je op de juiste plek kijkt.
+  📌 Bij een bewering over afwezigheid moet de controle dus **dezelfde reikwijdte** hebben als de
+  bewering. De opdracht van de wachter is diezelfde avond aangepast: grep over de hele
+  `Locales/`- en `Modules/`-boom, en de bestandenlijst is een startpunt en geen grens.
