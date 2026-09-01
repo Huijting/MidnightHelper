@@ -8,6 +8,25 @@ Guidance for Claude when working in this repository. Read this first every sessi
 
 The maintainer (**Rob**) is a non-developer but tests every change in-game. A second tester (**Cisca**) is used for big changes.
 
+## 🔴 Als Rob "goedemorgen" zegt: eerst ophalen, dan pas praten
+
+Vanaf 1 sep 2026 pusht een **cloud-routine** naar `main` terwijl niemand aan de pc zit
+(*Midnight Helper — content watch*, dagelijks 06:00 Robs tijd). Zonder ophalen werk je in een
+repo die achterloopt, en dat merk je pas bij de eerste push.
+
+Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgorde:
+
+1. `git -C "<repo>" pull --rebase origin main`
+2. Lees wat er nieuw in staat: `docs/CONTENT_WATCH.md` (inhoud — delves, beroepen, quests),
+   `docs/API_WATCH.md` (API/taint/secret values), `docs/PTR_12.1_WATCH.md` en
+   `docs/PTR_12.0.7_DATA.md`.
+3. Vertel hem alleen wat hém raakt. De meeste dagen is dat "niets" — zeg dat dan ook, mét wat er
+   gelezen is, zodat stilte te onderscheiden is van niet-kijken.
+
+⚠️ **Het is nu 06:00 en de wachten schrijven vroeg, maar niet allemaal even vroeg.** Staat er nog
+niets van vandaag, meld dat als *"heeft nog niet gedraaid"* en niet als *"niets gevonden"* —
+dat is precies het verschil dat dit project al drie keer verkeerd om heeft gelezen.
+
 ## How to work with Rob (important)
 
 - **Respond in Dutch, concise and direct.** Minimal fluff.
