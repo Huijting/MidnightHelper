@@ -132,6 +132,10 @@ five professions turned out to name the wrong kind of thing.</p></div>
 <h2>Four things worth knowing before you spend</h2>
 __FINDS__
 
+<h2>Also here</h2>
+<p><a href="delves.html">Every Midnight delve, and what to do in each</a> &mdash; route, trash and
+boss notes for all fourteen, with the abilities linked.</p>
+
 <h2>What we do not know</h2>
 <p>The <em>structure</em> above is measured for all eleven professions. The <em>content</em>
 &mdash; whether a given tree is the best first pick rather than merely a legal one &mdash; is
