@@ -1,15 +1,25 @@
 # Prompt: Midnight Helper — API-wachter
 
-Dagelijkse scheduled task. **Draait sinds 18 aug 2026 lokaal in Claude Code met de
-addon-map erbij**, niet meer op claude.ai.
+🔴 **BIJGEWERKT 2 sep 2026. Dit document liep achter en de wachter leest het élke run als
+eerste, dus het loog tegen hem.** Het zei dat hij lokaal in Claude Code draaide en niet kon
+committen. Beide zijn nu onwaar.
 
-⚠️ **Dat is geen verhuizing maar een andere baan.** Op claude.ai kon deze wachter alleen
-*melden* dat een API veranderde, en dan raden welke module dat raakte. Lokaal kan hij de
-code er zelf op naslaan. Het verschil is het verschil tussen "dit kan MH breken" en "MH
-roept dit 17 keer aan in 8 bestanden, en 4 daarvan zijn al gemigreerd".
+**Waar hij draait:** een dagelijkse **cloud-routine** (05:30 Robs tijd), met de repo als
+ingestelde bron. Hij is er één van vier; de andere drie draaien om 05:40, 05:50 en 06:00 en
+schrijven elk hun eigen logboek. Zie de tabel bovenaan `CLAUDE.md`.
 
-De handmatige controle van 18 aug — waarbij élke 12.1-bevinding al afgedekt bleek — is
-precies het werk dat hij nu zelf moet doen.
+**Wat hij mag:** `docs/API_WATCH.md` schrijven, committen en pushen — na `git pull --rebase`,
+want er pushen er drie vlak voor hem. Verder niets aanraken.
+
+⚠️ **De baan is nog steeds de baan die 18 aug bedacht is, en die verandert hier niet.** Een
+wachter die alleen *meldt* dat een API veranderde, moet raden welke module dat raakt. Deze heeft
+de code erbij en kan het naslaan. Het verschil is het verschil tussen "dit kan MH breken" en "MH
+roept dit 17 keer aan in 8 bestanden, en 4 daarvan zijn al gemigreerd". De handmatige controle van
+18 aug — waarbij élke 12.1-bevinding al afgedekt bleek — is precies dat werk.
+
+📌 De prompt hieronder is de **historische** versie. De opdracht die echt draait staat in de
+routine zelf; wijkt dit document daarvan af, dan wint de routine. Dat stond er tot vandaag niet
+bij, en daardoor las de wachter twee weken lang een instructie om níét te pushen.
 
 ---
 
