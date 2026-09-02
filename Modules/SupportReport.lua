@@ -68,18 +68,37 @@ local function LocaleLine()
 	return ("locale %s client / %s in MH"):format(client, mh)
 end
 
+--- UnitClass's second return is the uppercase locale-independent token, which is the right
+--- thing to read and the wrong thing to print: Rob's first test produced "MAGE Frost", which
+--- shouts and puts the words in the opposite order from how players say it. Two of them are
+--- two words, so a title-case helper alone would give "Deathknight".
+local CLASS_NAME = {
+	DEATHKNIGHT = "Death Knight",
+	DEMONHUNTER = "Demon Hunter",
+}
+
+local function PrettyClass(token)
+	if not token or token == "" then
+		return "?"
+	end
+	return CLASS_NAME[token] or (token:sub(1, 1) .. token:sub(2):lower())
+end
+
 local function CharacterLine()
 	local _, class = UnitClass("player")
-	local spec = "?"
+	local spec
 	if GetSpecialization then
 		local idx = GetSpecialization()
 		if idx and GetSpecializationInfo then
 			local _, name = GetSpecializationInfo(idx)
-			spec = Safe(name) or "?"
+			spec = Safe(name)
 		end
 	end
 	local level = UnitLevel and UnitLevel("player") or 0
-	return ("%s %s, level %s"):format(tostring(class or "?"), tostring(spec), tostring(level))
+	-- "Frost Mage", not "MAGE Frost" — spec first is how the game and its players name it.
+	local who = spec and spec ~= "" and ("%s %s"):format(spec, PrettyClass(class))
+		or PrettyClass(class)
+	return ("%s, level %s"):format(who, tostring(level))
 end
 
 local function GroupLine()
@@ -104,7 +123,19 @@ local function PlaceLine()
 	if not name or name == "" then
 		return "somewhere"
 	end
+	-- 🔴 In the open world GetInstanceInfo returns the CONTINENT, not the zone. Rob's first
+	-- test produced "Eastern Kingdoms (open world)", which is nearly useless for placing a
+	-- report — almost every bug we get is about a zone. So outdoors, ask for the zone and
+	-- keep the continent only as the fallback when the zone comes back empty or secret.
 	if instanceType == "none" then
+		local zone = Safe(GetRealZoneText and GetRealZoneText())
+		local sub = Safe(GetSubZoneText and GetSubZoneText())
+		if zone and zone ~= "" then
+			if sub and sub ~= "" and sub ~= zone then
+				return ("%s, %s"):format(tostring(zone), tostring(sub))
+			end
+			return tostring(zone)
+		end
 		return tostring(name) .. " (open world)"
 	end
 	if difficultyName and difficultyName ~= "" then
