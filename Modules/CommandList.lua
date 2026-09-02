@@ -59,12 +59,19 @@ end
 --- 🔴 AND THAT SECOND KIND CAN HIDE A REAL FEATURE, MEASURED 2 SEP 2026. This sentence used
 --- to end with "`poisons` is `/mh poison`" — but `poison` was in this set too, so it called a
 --- command an alias of something that was itself listed nowhere. Circular, and the effect was
---- that Valeera's poison advice (`PrintDelvePoisons`, a clean player-facing print with the
---- client's own descriptions and a marker on the equipped one) could not be found by anybody.
---- Rob asked "is there any Valeera advice for poisons and curios, anywhere?" — the honest
---- answer was that it existed and was invisible.
+--- that Valeera's poison advice could not be found by anybody. Rob asked "is there any Valeera
+--- advice for poisons and curios, anywhere?" — the honest answer was that it existed and was
+--- invisible.
 --- 📌 So when you park a name here as "just an alias", check that its primary is actually in
---- MH_COMMANDS. `/mh poisons` is listed now; `poison` stays here as its real alias.
+--- MH_COMMANDS.
+---
+--- ⚠️ THAT EVENING THE SAME LOOP TURNED UP A SECOND TIME, in the text rather than the list:
+--- the advisor's "no ranking this season" line told the player to run `/mh curios`, and
+--- `/mh curios` opened the advisor. Rob had it on screen. Both are fixed the same way — a
+--- name must lead somewhere that knows something — and it is worth expecting a third.
+---
+--- `/mh poisons` is an alias of `/mh curios` since 2 sep (Rob's call): the poison slot is
+--- simply one of the companion's choice slots, and one screen reads all of them from the tree.
 ns.MH_UNLISTED_ON_PURPOSE = {
 	"anchor", "api12", "atal", "auradump", "aurainst", "auras", "bars", "boardall",
 	"bonusroll", "bossshare", "campaign", "capture", "chunklog", "chunks", "clearroute",
@@ -74,7 +81,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "guide",
 	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",
 	"livetips", "lock", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
-	"partytarget", "poison", "portal", "portals", "potionkeys", "prey",
+	"partytarget", "poison", "poisons", "portal", "portals", "potionkeys", "prey",
 	"profadvice", "profids", "profweekly", "questdiff", "questgate", "questscan", "range",
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
@@ -167,7 +174,9 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh fp", descKey = "CMDLIST_FP" },
 		{ cmd = "/mh course", descKey = "CMDLIST_COURSE" },
 		{ cmd = "/mh valeera", descKey = "CMDLIST_VALEERA" },
-		{ cmd = "/mh poisons", descKey = "CMDLIST_POISONS" },
+		-- 2 sep: `/mh poisons` is een alias van `/mh curios` geworden en staat daarom
+		-- niet meer los in de lijst. Het stond hier bij de ROUTE-groep, wat het sowieso
+		-- niet was. Beide namen staan nu in MH_UNLISTED_ON_PURPOSE.
 		{ cmd = "/mh goto", descKey = "CMDLIST_GOTO" },
 		{ cmd = "/mh clear", descKey = "CMDLIST_CLEAR" },
 		{ cmd = "/mh skip", descKey = "CMDLIST_SKIP" },

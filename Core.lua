@@ -2455,10 +2455,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh valeera — benoem elke node in de trait-tree van je delve-companion.
-	-- /mh poisons — Valeera's poison-keuze met de omschrijving die de client geeft.
+	-- /mh poisons — alias van /mh curios sinds 2 sep 2026 (Robs keuze). Het gif is
+	-- gewoon één van de keuzeslots, en CurioExplain leest ze alle drie uit de tree
+	-- in plaats van uit een lijst die verouderde. Zie DelveCuriosAdvisor voor wat de
+	-- eigen gif-implementatie ons gekost heeft.
 	if msg == "poisons" or msg == "poison" then
-		if ns.PrintDelvePoisons then
-			ns.PrintDelvePoisons()
+		if ns.ShowCurioExplain then
+			ns.ShowCurioExplain()
 		end
 		return
 	end
@@ -2485,8 +2488,24 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	--- Beide namen, één ding: de adviseur. Zie de opmerking bij `/mh curioinfo` hierboven.
+	--- Beide namen, één ding. Zie de opmerking bij `/mh curioinfo` hierboven.
+	---
+	--- 🔴 EN SINDS 2 SEP KIEST HET COMMANDO ZELF, want anders was het een lus die Rob op
+	--- zijn scherm zag staan: de adviseur heeft geen seizoen-2-ranglijst, zegt dan
+	--- "gebruik /mh curios" — en dát commando opende de adviseur. Je werd teruggestuurd
+	--- naar het scherm dat je net verteld had niets te weten.
+	---
+	--- ⚠️ De adviseur is niet stuk en gaat er niet uit: op een 12.0.7-client heeft hij
+	--- wél data, en die speler moet hem houden. Hij kan alleen nooit seizoen-2-data
+	--- krijgen, want die curios zijn trait-entries en geen items — zie DelveCuriosData.
+	--- Dus: heeft de adviseur iets te zeggen, dan de adviseur; anders de uitlegger, die
+	--- live uit de tree leest en de sterren draagt.
 	if msg == "curio" or msg == "curios" then
+		local hasAdvice = ns.HasDelveCurioAdvice and (ns.HasDelveCurioAdvice()) or false
+		if not hasAdvice and ns.ShowCurioExplain then
+			ns.ShowCurioExplain()
+			return
+		end
 		if ns.ToggleDelveCuriosPopup then
 			ns:ToggleDelveCuriosPopup()
 		else

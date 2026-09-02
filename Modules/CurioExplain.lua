@@ -137,10 +137,20 @@ function ns.BuildCurioExplainText()
 		lines[#lines + 1] = ""
 	end
 	for _, node in ipairs(nodes) do
-		-- The game does not name these slots in a way we can read, so they are
-		-- numbered rather than guessed at. Calling one "Poisons" because it has three
-		-- options would be inventing a label the window may not agree with.
-		lines[#lines + 1] = ("== %s =="):format((L("CURIO_CHOICE_FMT")):format(#node.options))
+		-- ✅ THE SLOTS DO HAVE NAMES, and this used to say they did not. The old
+		-- comment read "the game does not name these slots in a way we can read", and
+		-- numbering them was right while that was believed — but Valeera's own window
+		-- lists them as Poisons, Combat Curio and Utility Curio, beside the pick that
+		-- is slotted in each. Nobody had looked. Measured 2 sep 2026, see
+		-- DelveCuriosData for the mapping and why it is keyed by nodeID.
+		--
+		-- An unknown node still falls back to the numbered label, so a slot we have
+		-- no name for is unnamed rather than mislabelled.
+		local labelKey = ns.GetDelveCurioSlotLabelKey
+			and ns.GetDelveCurioSlotLabelKey(node.nodeID) or nil
+		local heading = labelKey and L(labelKey)
+			or (L("CURIO_CHOICE_FMT")):format(#node.options)
+		lines[#lines + 1] = ("== %s =="):format(heading)
 		for _, o in ipairs(node.options) do
 			local mark = o.active and L("CURIO_ACTIVE") or "  "
 			local star = ""

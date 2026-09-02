@@ -702,12 +702,6 @@ function ns.RefreshDelveCurioAdvisor()
 			eventFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 		end
 	end
-	-- Kick the poison descriptions off here too, so they are usually in by the time
-	-- anyone reads them. Cheap, idempotent, and it is the difference between six
-	-- poisons with text and six names with nothing under four of them.
-	if ns.RequestDelvePoisonData then
-		ns.RequestDelvePoisonData(season)
-	end
 	local variant = (ns.IsPlayerInNemesisDelve and ns:IsPlayerInNemesisDelve()) and "nemesis" or "default"
 
 	if embeddedPanel then
@@ -1295,163 +1289,25 @@ function ns.SaveCompanionTreeProbe()
 end
 
 --------------------------------------------------------------------------------
--- Valeera's Poisons (12.1 / Season 2).
+-- Valeera's Poisons — REMOVED 2026-09-02, and worth saying why rather than just
+-- deleting, because the removed code was working.
 --
--- The advisor recommends a Combat and a Utility curio but says nothing about the
--- Poisons slot, which is the one 12.1 added. Rob's screenshot of 27 July showed
--- the result: a panel headed "Recommended curios for Valeera this Delve season"
--- with almost nothing under it.
+-- ~150 lines lived here: a hardcoded list of the poison node's options, a reader
+-- for the slotted one, a loader for the effect texts, and a chat printer. All of
+-- it duplicated `Modules/CurioExplain.lua`, which reads EVERY choice node out of
+-- the companion's own tree with nothing hardcoded at all — the poison node
+-- included, and always had.
 --
--- What this adds is information rather than a verdict: the three poisons the
--- client offers, each with the game's own description, and a mark on the one that
--- is currently slotted. No "best" is claimed -- see DelveCuriosData for why.
+-- 🔴 The duplicate was not merely redundant, it was the worse of the two, in a
+-- way that took a live patch to expose. Its hardcoded list went stale when 12.1
+-- added three poisons: it showed 3 of 6, and a player holding one of the missing
+-- three got no "equipped" marker at all. CurioExplain could not have that bug,
+-- because it never claims to know what the options are.
+--
+-- 📌 And the second half of the same lesson: this file then grew a "run it again"
+-- line for missing effect texts, while CurioExplain had already solved that with
+-- a retry loop — its comment even names the two exact spells that need it. The
+-- answer was in the repo both times.
+--
+-- `/mh poisons` is now an alias of `/mh curios` (Core.lua). Rob's call, 2 sep.
 --------------------------------------------------------------------------------
-
---- Name and description for one poison, read from the client.
---- @return string|nil name, string|nil description
-function ns.GetDelvePoisonInfo(spellID)
-	spellID = tonumber(spellID)
-	if not spellID or not C_Spell then
-		return nil, nil
-	end
-	local name, desc
-	if C_Spell.GetSpellName then
-		local ok, n = pcall(C_Spell.GetSpellName, spellID)
-		name = ok and n or nil
-	end
-	if C_Spell.GetSpellDescription then
-		local ok, d = pcall(C_Spell.GetSpellDescription, spellID)
-		-- An empty string is not a description. Blizzard returns "" while spell
-		-- data is still loading, and showing that reads as "this does nothing".
-		if ok and type(d) == "string" and d ~= "" then
-			desc = d
-		end
-	end
-	return name, desc
-end
-
---- Which poison is currently slotted, as a spellID.
---- @return number|nil spellID  nil when it cannot be read -- never a guess
-function ns.GetEquippedDelvePoison()
-	local pack = ns.GetDelvePoisonsForSeason(
-		ns.GetDelvesSeasonNumber and ns.GetDelvesSeasonNumber() or nil)
-	if not pack or not pack.nodeID or not (C_DelvesUI and C_Traits) then
-		return nil
-	end
-	local companionID = DelvesCompanionConfigurationFrame
-		and DelvesCompanionConfigurationFrame.playerCompanionID
-	if not companionID and C_DelvesUI.GetPlayerCompanionPDEID then
-		local okP, pde = pcall(C_DelvesUI.GetPlayerCompanionPDEID)
-		companionID = okP and pde or nil
-	end
-	if not companionID then
-		return nil
-	end
-	local okTree, treeID = pcall(C_DelvesUI.GetTraitTreeForCompanion, companionID)
-	-- 0 is truthy in Lua, and a 0 tree means "not readable yet" (2026-07-24).
-	if not okTree or not treeID or treeID == 0 then
-		return nil
-	end
-	local okCfg, configID = pcall(C_Traits.GetConfigIDByTreeID, treeID)
-	if not okCfg or not configID then
-		return nil
-	end
-	local okNode, node = pcall(C_Traits.GetNodeInfo, configID, pack.nodeID)
-	if not okNode or type(node) ~= "table" then
-		return nil
-	end
-	-- node.activeEntry.entryID is how a choice node reports its pick
-	-- (AskMrRobot/Core.lua:660 reads it the same way).
-	local activeID = type(node.activeEntry) == "table" and node.activeEntry.entryID or nil
-	if not activeID then
-		return nil
-	end
-	for _, choice in ipairs(pack.choices) do
-		if choice.entryID == activeID then
-			return choice.spellID
-		end
-	end
-	return nil
-end
-
---- The poison lines for the current season, ready to render.
---- @return table|nil rows  { { spellID, name, description, equipped } }, nil if none
-function ns.GetDelvePoisonRows()
-	local pack = ns.GetDelvePoisonsForSeason(
-		ns.GetDelvesSeasonNumber and ns.GetDelvesSeasonNumber() or nil)
-	if not pack or type(pack.choices) ~= "table" then
-		return nil
-	end
-	local equipped = ns.GetEquippedDelvePoison()
-	local rows = {}
-	for _, choice in ipairs(pack.choices) do
-		local name, desc = ns.GetDelvePoisonInfo(choice.spellID)
-		-- No name means the client has not loaded this spell. Skip it rather than
-		-- print a bare id at someone.
-		if name then
-			rows[#rows + 1] = {
-				spellID = choice.spellID,
-				name = name,
-				description = desc,
-				equipped = (equipped ~= nil and equipped == choice.spellID),
-			}
-		end
-	end
-	if #rows == 0 then
-		return nil
-	end
-	return rows
-end
-
---- Ask the client to load the poison spell texts.
----
---- 🔴 WHY THIS EXISTS. On 2026-09-02, with all six poisons finally listed, Rob's screenshot
---- showed four of them as a bare name and two with a description. Nothing was broken: names
---- come out of the client's static spell data, but DESCRIPTIONS have to be fetched, and
---- until they arrive `C_Spell.GetSpellDescription` returns "". `GetDelvePoisonInfo` already
---- refuses to print that empty string — the right call, and it turned an invisible loading
---- state into a visible lie, because a poison shown with no text reads as a poison that
---- does nothing. Silence is only honest when the reader can tell it apart from absence.
----
---- 📌 Mirrors RequestDelveCurioItemData, which does the same job for the item side.
-function ns.RequestDelvePoisonData(season)
-	local pack = ns.GetDelvePoisonsForSeason(
-		tonumber(season) or (ns.GetDelvesSeasonNumber and ns.GetDelvesSeasonNumber() or nil))
-	if not pack or type(pack.choices) ~= "table" then
-		return false
-	end
-	if not (C_Spell and C_Spell.RequestLoadSpellData) then
-		return false
-	end
-	for _, choice in ipairs(pack.choices) do
-		pcall(C_Spell.RequestLoadSpellData, choice.spellID)
-	end
-	return true
-end
-
---- /mh poisons — list them in chat, with whatever the client says they do.
-function ns.PrintDelvePoisons()
-	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
-	local rows = ns.GetDelvePoisonRows()
-	if not rows then
-		print(prefix .. " " .. ns:L("POISON_NONE"))
-		return
-	end
-	print(prefix .. " " .. ns:L("POISON_HEADER"))
-	local pending = 0
-	for _, r in ipairs(rows) do
-		print(("   %s|cffffffff%s|r"):format(r.equipped and "|cff40c040> |r" or "  ", r.name))
-		if r.description then
-			print("      |cff8a8f98" .. r.description .. "|r")
-		else
-			-- Say WHY there is no text under this one. Printing the name alone leaves
-			-- the player to conclude the poison has nothing to say for itself.
-			pending = pending + 1
-			print("      |cff6a6f78" .. ns:L("POISON_DESC_PENDING") .. "|r")
-		end
-	end
-	if pending > 0 then
-		ns.RequestDelvePoisonData()
-		print("   |cffffff78" .. ns:L("POISON_DESC_RETRY") .. "|r")
-	end
-end

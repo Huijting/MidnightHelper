@@ -72,7 +72,54 @@ artikelen oversloegen"*. Wat er nu staat:
 *"NOTHING IS HARDCODED"*. Allebei bijgewerkt in dezelfde wijziging — een bestand dat zichzelf
 verkeerd beschrijft is de volgende val.
 
-### ⚠️ En `/mh poisons` blijkt de zwakkere kopie van `/mh curios`
+### ✅ Robs screenshot van Valeera's venster maakte het AFGELEIDE punt hieronder GEMETEN
+
+Haar venster noemt vier rijen: **Combat Role** (Tank), **Poisons** (Bursting Toad Toxin),
+**Combat Curio** (Corrosive Bilespear), **Utility Curio** (Soul-Cracking Dreamcatcher). Daarmee
+staan de slot-namen vast — de geslote pick staat er telkens naast, en die drie spells zitten in
+precies die drie nodes:
+
+| node | slot |
+|---|---|
+| 110784 | Poisons |
+| 110786 | Combat Curio |
+| 110785 | Utility Curio |
+
+🔴 **En dat maakte een opmerking in `CurioExplain.lua` onwaar die er al maanden stond:** *"the game
+does not name these slots in a way we can read, so they are numbered rather than guessed at."*
+Nummeren was goed zolang dat gold. Het gold niet meer zodra iemand naar het venster keek — en
+niemand had gekeken. Sinds vanavond staat de naam boven elk blok, gekoppeld aan de **nodeID** (nooit
+aan de volgorde), en valt een onbekende node terug op het oude genummerde label: een slot zonder
+naam is dan naamloos, niet verkeerd benoemd.
+
+⚠️ De labels blijven **Engels**. Nederlands heeft geen client, dus dit is wat een Nederlandse
+speler écht ziet. De vijf echte clienttalen vertalen ze wél, maar wij hebben die vensters niet
+gelezen — "Kampf-Kuriosität" zou ónze bewoording zijn voor een label dat Blizzard al heeft.
+Vastgelegd in `KeepEnglish.lua` mét die reden.
+
+### 🔴 En dezelfde lus zat óók in de tekst: `/mh curios` stuurde je naar `/mh curios`
+
+Robs screenshot toonde: *"Valeera — no ranking for this season. Use /mh curios to see what each of
+her options does."* Maar `/mh curios` opende juist de **adviseur** die dat zei. Je werd
+teruggestuurd naar het scherm dat je net verteld had niets te weten.
+
+Dit is exact de vorm van de bug die op 2 sep 's middags in `CommandList.lua` gerepareerd is (een
+alias die naar een alias wees). **Twee keer dezelfde lus op één dag, één keer in de commandolijst
+en één keer in een zin.** Verwacht een derde.
+
+Opgelost: `/mh curio` en `/mh curios` kiezen nu zelf. Heeft de adviseur data — op een
+12.0.7-client is dat zo — dan de adviseur; anders de uitlegger, die live uit de tree leest en de
+sterren draagt. De adviseur gaat er dus **niet** uit; hij kan alleen nooit seizoen-2-data krijgen.
+
+### ⚠️ Wat hierna nog open staat: het scherm dát naast Valeera hoort
+
+Rob vroeg om een adviesscherm dat **naast haar venster** verschijnt. Dat is de adviseur-popup, en
+die heeft in seizoen 2 niets te zeggen — hij toont de "no ranking"-regel. De uitlegger heeft de
+inhoud maar is een kopieerbaar dialoogvenster, geen paneel. **Te doen:** de popup laten openen met
+de inhoud van de uitlegger zodra er geen ranglijst is. Dat is Robs eigenlijke feature-verzoek en is
+vanavond niet gebouwd.
+
+### ✅ `/mh poisons` was de zwakkere kopie van `/mh curios` — opgeruimd
 
 `GetCompanionChoices()` leest álle keuzenodes uit de boom, inclusief de gifnode, **zonder enige
 hardcoded lijst**. De statische `DELVE_POISONS_BY_SEASON` die vanavond verouderd bleek, was dus
@@ -81,9 +128,13 @@ ik vanavond opnieuw ontdekte, gemeten op 25 aug — Frostheart Venom (1305912) e
 Toxin (1305924) komen leeg terug na één seconde en hebben bij hoveren wél volledige tekst. Daar
 lost een retry-lus van 4× ~1s het op; in `/mh poisons` staat nu alleen een "probeer het nog eens".
 
-📌 **Derde keer deze week dat het antwoord al in de code stond.** Te doen: `/mh poisons` ofwel op
-`GetCompanionChoices()` zetten, ofwel opheffen als alias van `/mh curios`. Robs keuze — het is een
-commando dat hij gebruikt.
+📌 **Derde keer deze week dat het antwoord al in de code stond.**
+
+✅ **Rob koos: alias.** ~150 regels gif-apparaat zijn weg uit `DelveCuriosAdvisor.lua`
+(`GetDelvePoisonInfo`, `GetEquippedDelvePoison`, `GetDelvePoisonRows`, `RequestDelvePoisonData`,
+`PrintDelvePoisons`), plus `DELVE_POISONS_BY_SEASON` en elf locale-sleutels in zeven talen.
+`/mh poisons` en `/mh poison` staan nu in `MH_UNLISTED_ON_PURPOSE` en openen `/mh curios`.
+⚠️ `/mh poisons` stond in de commandolijst onder de **ROUTE**-groep, wat het nooit was.
 
 ### ⚠️ Het curio-plan van vanmiddag was op een verkeerde aanname gebouwd
 

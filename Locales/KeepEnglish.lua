@@ -37,6 +37,17 @@ ns.KEEP_ENGLISH = {
 	DAWNCREST_ACH_VETERAN = "achievement name (Blizzard's own title)",
 	DAWNCREST_ACH_CHAMPION = "achievement name (Blizzard's own title)",
 	DAWNCREST_ACH_HERO = "achievement name (Blizzard's own title)",
+
+	-- ⚠️ NOT SETTLED THE WAY THE THREE ABOVE ARE — listed here so the reason is on
+	-- record, not because English is provably right in every language. These are the
+	-- slot names off Valeera's window (2 sep 2026): Poisons, Combat Curio, Utility
+	-- Curio. For nlNL English IS correct, because there is no Dutch client. For the
+	-- five real client languages translating is probably right, and we have not read
+	-- one of those windows — so a translation would be OUR wording for a label
+	-- Blizzard already has. Read a de/fr/es/pt/it client, then move these out.
+	CURIO_SLOT_POISONS = "Blizzard's own slot name - unread in other clients",
+	CURIO_SLOT_COMBAT = "Blizzard's own slot name - unread in other clients",
+	CURIO_SLOT_UTILITY = "Blizzard's own slot name - unread in other clients",
 }
 
 --- 🔴 AND THE PER-LANGUAGE HALF, which the global table above deliberately cannot express.

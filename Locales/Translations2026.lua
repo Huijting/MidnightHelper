@@ -2423,38 +2423,18 @@ fill("itIT", {
 --------------------------------------------------------------------------------
 
 fill("deDE", {
-	POISON_HEADER = "Valeeras Gifte - was das Spiel dazu sagt:",
-	POISON_NONE = "Keine Giftauswahl auf diesem Client - Gifte kommen mit Saison 2.",
-	POISON_DESC_PENDING = "(das Spiel hat den Text dazu noch nicht geschickt - es ist kein Gift ohne Wirkung)",
-	POISON_DESC_RETRY = "Die fehlenden Texte wurden angefordert. Gib gleich noch einmal /mh poisons ein.",
 })
 
 fill("frFR", {
-	POISON_HEADER = "Les poisons de Valeera - ce que le jeu en dit :",
-	POISON_NONE = "Pas de choix de poison sur ce client - ils arrivent avec la saison 2.",
-	POISON_DESC_PENDING = "(le jeu n'a pas encore envoyé son texte - ce n'est pas un poison sans effet)",
-	POISON_DESC_RETRY = "Les textes manquants ont été demandés. Refais /mh poisons dans un instant.",
 })
 
 fill("esES", {
-	POISON_HEADER = "Los venenos de Valeera - lo que dice el juego:",
-	POISON_NONE = "No hay venenos en este cliente - llegan con la temporada 2.",
-	POISON_DESC_PENDING = "(el juego aún no ha enviado su texto - no es un veneno que no haga nada)",
-	POISON_DESC_RETRY = "Se han pedido los textos que faltan. Vuelve a escribir /mh poisons en un momento.",
 })
 
 fill("ptBR", {
-	POISON_HEADER = "Os venenos de Valira - o que o jogo diz:",
-	POISON_NONE = "Sem venenos neste cliente - eles chegam com a temporada 2.",
-	POISON_DESC_PENDING = "(o jogo ainda não enviou o texto deste - não é um veneno que não faz nada)",
-	POISON_DESC_RETRY = "Os textos em falta foram pedidos. Digite /mh poisons de novo daqui a pouco.",
 })
 
 fill("itIT", {
-	POISON_HEADER = "I veleni di Valeera - cosa dice il gioco:",
-	POISON_NONE = "Nessun veleno su questo client - arrivano con la stagione 2.",
-	POISON_DESC_PENDING = "(il gioco non ha ancora inviato il suo testo - non è un veleno che non fa nulla)",
-	POISON_DESC_RETRY = "I testi mancanti sono stati richiesti. Riprova con /mh poisons tra poco.",
 })
 
 ------------------------------------------------------------------------------
@@ -7625,23 +7605,18 @@ fill("ptBR", {
 --- boven MH_UNLISTED_ON_PURPOSE in Modules/CommandList.lua. ⚠️ "poisons" blijft Engels: het is
 --- de spelterm die op Valeera's eigen paneel staat.
 fill("deDE", {
-	CMDLIST_POISONS = "Valeeras Poisons, was jedes bewirkt und eine Markierung bei dem, das sie anhat.",
 	CMDLIST_CURIOINFO = "Was jedes von Valeeras Delve-Curios bewirkt, aus deinem eigenen Spiel gelesen.",
 })
 fill("frFR", {
-	CMDLIST_POISONS = "Les poisons de Valeera, ce que chacun fait, et une marque sur celui qu'elle porte.",
 	CMDLIST_CURIOINFO = "Ce que fait chaque curio de Valeera, lu dans ton propre jeu.",
 })
 fill("esES", {
-	CMDLIST_POISONS = "Los poisons de Valeera, qué hace cada uno y una marca en el que lleva puesto.",
 	CMDLIST_CURIOINFO = "Qué hace cada curio de Valeera, leído de tu propio juego.",
 })
 fill("ptBR", {
-	CMDLIST_POISONS = "Os poisons da Valeera, o que cada um faz e uma marca no que ela está usando.",
 	CMDLIST_CURIOINFO = "O que cada curio da Valeera faz, lido do seu próprio jogo.",
 })
 fill("itIT", {
-	CMDLIST_POISONS = "I poisons di Valeera, cosa fa ciascuno e un segno su quello che ha addosso.",
 	CMDLIST_CURIOINFO = "Cosa fa ogni curio di Valeera, letto dal tuo stesso gioco.",
 })
 

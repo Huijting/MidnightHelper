@@ -325,7 +325,6 @@ ns._mhLocales.enUS = {
 	CMDLIST_ARROWSIZE = "Resize the route arrow (28-160).",
 	CMDLIST_FP = "Arrow to the nearest flight master, wherever you are",
 	CMDLIST_VALEERA = "Show Valeera's delve progress (appears in delves by itself)",
-	CMDLIST_POISONS = "Valeera's poisons, with what each one does and a mark on the one she has on.",
 	VALEERA_LEVEL = "Level",
 	VALEERA_MAXED = "at maximum — nothing left to earn here.",
 	VALEERA_UNREADABLE = "Valeera's progress cannot be read right now.",
@@ -1485,6 +1484,12 @@ ns._mhLocales.enUS = {
 	CURIO_GUIDE_NOTE = "About the stars: that is what most guides agree on - we have NOT tested it ourselves. What we did check is that every starred option really is in your companion's window, because the popular \"best curios\" articles name curios that belong to Brann and are not there at all.",
 	CURIO_GUIDE_MISSING_FMT = "Recommended elsewhere but NOT in your companion's tree, so not starred: %s. Treat any guide naming these with care.",
 	CURIO_CHOICE_FMT = "A choice of %d",
+	-- Blizzard's own slot names, read off Valeera's window 2 sep 2026. Deliberately
+	-- not translated: a real client language shows its own wording and we have not
+	-- read those windows. See DelveCuriosData.
+	CURIO_SLOT_POISONS = "Poisons",
+	CURIO_SLOT_COMBAT = "Combat Curio",
+	CURIO_SLOT_UTILITY = "Utility Curio",
 	CURIO_ACTIVE = "> ",
 	CURIO_NO_TEXT = "(could not read the text for this one - hover it in game once, then run this again)",
 	CURIO_NO_API = "This client does not offer the companion trait API.",
@@ -2648,10 +2653,6 @@ ns._mhLocales.enUS = {
 	ST_CLOSE_JOURNEY_DONE = "Delver’s Journey: rank %d - complete, nothing left to unlock",
 	ST_CLOSE_DAWN = "“of the Dawn” achievements - 50% upgrade discount for your whole Warband",
 	ST_CLOSE_DAWN_AT = "%s - still earnable now (%d left, 50%% Warband upgrade discount)",
-	POISON_HEADER = "Valeera’s poisons - what the game says each one does:",
-	POISON_NONE = "No poison choice on this client - poisons arrive with Season 2.",
-	POISON_DESC_PENDING = "(the game has not sent this one's text yet - not a poison that does nothing)",
-	POISON_DESC_RETRY = "Asked the game for the missing texts. Run /mh poisons again in a moment.",
 	PREY_PROBE_HEADER = "Prey hunts - your progress, read from the game",
 	PREY_PROBE_FOOT = "Counts come from each achievement's own criteria, so they cannot go stale.",
 	DISPEL_ALERT_FMT = "%s - you can dispel this",

@@ -232,67 +232,35 @@ function ns.IsPlayerInNemesisDelve()
 end
 
 --------------------------------------------------------------------------------
--- Valeera's Poisons choice node — patch 12.1 / Season 2.
+-- What Blizzard calls each choice slot.
 --
--- MEASURED, not datamined. Re-captured 2026-09-02 from the LIVE client via
--- `/mh valeera save`: tree 1223, node 110784, **six** entries. The first capture
--- (PTR build 120100, 2026-07-27) found three; see the note above the ids for what
--- that cost. docs/PTR_VALEERA_TREE.md holds the full tree.
+-- ✅ MEASURED 2026-09-02 from Valeera's own window, which lists four rows:
+--     Combat Role    Tank
+--     Poisons        Bursting Toad Toxin      -> node 110784
+--     Combat Curio   Corrosive Bilespear      -> node 110786
+--     Utility Curio  Soul-Cracking Dreamcatcher -> node 110785
+-- Matching each name to its node is unambiguous because the slotted pick is
+-- printed beside it, and those three spells sit in exactly those three nodes.
 --
--- ⚠️ THE EARLIER IDS ON FILE WERE WRONG. Notes from 12 July carried
--- 1248517 / 1251113 / 1251862 from Wowhead; not one matches the client. Had this
--- shipped on those, the advisor would have named three spells that do not exist,
--- in a feature whose whole job is telling people what to pick.
+-- 🔴 THIS REPLACES A CLAIM THAT WAS SIMPLY FALSE. CurioExplain said "the game
+-- does not name these slots in a way we can read, so they are numbered rather
+-- than guessed at" — and numbering them was the right call while that held. It
+-- stopped holding the moment anyone looked at the window. Nobody had.
 --
--- ⚠️ NO RECOMMENDATION HERE, DELIBERATELY. Wowhead's effect descriptions came
--- paired with those wrong ids, so the name-to-effect mapping is unproven too. The
--- advisor therefore shows each poison's own description straight from the client
--- and lets the player choose. To add a recommendation later, read the three
--- descriptions in-game and write down what they actually do -- never restore the
--- Wowhead text from memory.
+-- ⚠️ Keyed by nodeID, never by order. An unknown node still renders, with the
+-- old numbered label; a label can therefore never hide an option.
 --
--- Poisons are SPELLS, not items: names resolve via C_Spell.GetSpellName, so no
--- name is stored here either.
+-- ⚠️ AND THE LABELS STAY ENGLISH. These are Blizzard's own UI strings. Dutch has
+-- no client, so English is what a Dutch player actually sees. German, French,
+-- Spanish, Portuguese and Italian clients DO translate them — but we have not
+-- read those windows, and inventing "Kampf-Kuriosität" would name something that
+-- may appear on no screen. Read a real client before translating these.
 --------------------------------------------------------------------------------
 
--- 🔴 THREE OF THESE SIX WERE MISSING UNTIL 2026-09-02, AND THE ADVISOR NEVER SAID SO.
--- The three above were captured on the PTR on 2026-07-27, when the node really did hold
--- three entries. Live build 120100 holds six: the 1305xxx ids below did not exist yet on
--- that PTR build and were added between the capture and the patch going live.
---
--- Two things went wrong at once, and only the first is obvious:
---   1. `GetDelvePoisonRows` walks `choices`, so the panel listed 3 of 6 — an advice screen
---      quietly hiding half the options it exists to compare.
---   2. `GetEquippedDelvePoison` matches the slotted entryID against `choices` and returns
---      nil when nothing matches. A player who had one of the missing three slotted saw NO
---      "equipped" marker at all — indistinguishable from "we cannot read your tree".
---
--- 📌 A hardcoded list of a choice node's options is a claim that the node has exactly
--- those options, and nothing re-checked it. `/mh valeera save` is what re-checks it; run
--- it after any patch that touches the companion, not just when something looks wrong.
-local POISON_SOULTHIRST_VENOM = 1250826
-local POISON_FORGOTTEN_MASTER = 1249934
-local POISON_BLOODCRYPT_TOXIN = 1251120
-local POISON_BURSTING_TOAD_TOXIN = 1305904
-local POISON_FROSTHEART_VENOM = 1305912
-local POISON_PHANTASMAL_SPORE_TOXIN = 1305924
-
-ns.DELVE_POISONS_BY_SEASON = {
-	[2] = {
-		-- The trait node the choice lives on, kept so the advisor can read which
-		-- one is currently slotted rather than asking the player.
-		nodeID = 110784,
-		-- Listed in the order the client returned them.
-		-- MEASURED 2026-09-02 from live build 120100, tree 1223, config 57650559.
-		choices = {
-			{ spellID = POISON_SOULTHIRST_VENOM, entryID = 137812 },
-			{ spellID = POISON_FORGOTTEN_MASTER, entryID = 137801 },
-			{ spellID = POISON_BLOODCRYPT_TOXIN, entryID = 137790 },
-			{ spellID = POISON_BURSTING_TOAD_TOXIN, entryID = 137779 },
-			{ spellID = POISON_FROSTHEART_VENOM, entryID = 137769 },
-			{ spellID = POISON_PHANTASMAL_SPORE_TOXIN, entryID = 137758 },
-		},
-	},
+ns.DELVE_CURIO_SLOT_LABEL_KEYS = {
+	[110784] = "CURIO_SLOT_POISONS",
+	[110785] = "CURIO_SLOT_UTILITY",
+	[110786] = "CURIO_SLOT_COMBAT",
 }
 
 --------------------------------------------------------------------------------
@@ -337,15 +305,8 @@ function ns.GetDelveCurioGuidePicks(season)
 	return ns.DELVE_CURIO_GUIDE_PICKS[season]
 end
 
---- Poisons for a season, or nil.
---- Same rule as the curios above: NO fallback to another season. Poisons do not
---- exist on 12.0.7, and offering season 2's data to a season 1 client would be
---- advising on something the player cannot see.
---- @param season number|nil
-function ns.GetDelvePoisonsForSeason(season)
-	season = tonumber(season)
-	if not season then
-		return nil
-	end
-	return ns.DELVE_POISONS_BY_SEASON[season]
+--- The label for one choice slot, or nil when we have no name for that node.
+--- nil means "fall back to the numbered label" — never a guessed name.
+function ns.GetDelveCurioSlotLabelKey(nodeID)
+	return ns.DELVE_CURIO_SLOT_LABEL_KEYS[tonumber(nodeID) or -1]
 end
