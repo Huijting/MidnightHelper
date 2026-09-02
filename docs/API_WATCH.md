@@ -210,3 +210,59 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
   Taint" (Avatar-encounter) zijn ability-/debuff-namen, geen Lua-`taint`. Bron:
   news.blizzard.com/article/24296142 (hotfixes 31 aug + 1 sep 2026). **[RAAKT ONS NIET]** niets te
   toetsen aan de addon-kant.
+
+- [2026-09-02] ✅ **Geen relevante API-wijzigingen (26 aug–2 sep).** Derde regel van vandaag: dit is
+  de eerste run van deze wachter *in de cloud* (05:30-schema), naast de twee regels die er vanochtend
+  al stonden. Wat er nieuw in zit, is de meetmethode en vier nooit eerder getoetste 12.1.0-items —
+  géén nieuws.
+  - **GEMETEN, revisiegeschiedenis i.p.v. paginatekst.** `warcraft.wiki.gg/api.php?action=query&`
+    `prop=revisions&titles=Patch 12.1.0/API changes` geeft als laatste bewerking
+    **2026-08-15T09:07:23Z** (Ketho, `/* Global API */`); daarvóór 13 aug 16:53 `/* Events */` en
+    13 aug 15:24 `/* Consolidated changes */ 12.1.0 (69283)`. Dat is **18 dagen oud**, ruim buiten
+    het venster. Dit is harder én goedkoper dan de tekstlezing van de vorige dagen: de pagina zégt
+    zelf wanneer ze voor het laatst veranderde. Aanbevolen voor volgende runs.
+  - **GEMETEN: geen nieuwere API-changes-pagina.** `list=allpages&apprefix=Patch 12.` geeft 19
+    pagina's; de nieuwste `/API changes` is nog steeds **Patch 12.1.0** (pageid 679840).
+    `Patch 12.1.5` (664848) en `Patch 12.1.7` (664849) bestaan wél als patch-stub, maar zónder
+    `/API changes`-subpagina. *AFGELEID, niet gemeten:* hun pageids liggen naast die van
+    `Patch 12.1.0` (664847), dus het zijn vermoedelijk oude stubs en geen nieuws — de inhoud van
+    12.1.7 is hoe dan ook PTR-wachter-terrein, niet het mijne.
+  - **Hotfixes:** artikel 24296142 draagt nog steeds **Hotfixes: September 1, 2026** en de nieuwste
+    dagsectie is 1 sep (volledig gelezen: Classes/Delves/Dungeons&Raids/Items/PvP). Géén 2-sep-lijst.
+    Al afgehandeld in de correctie-regel hierboven; niet herhaald.
+  - **Blizzard US UI-and-Macro-forum:** categorie-JSON (`/c/guides/ui-macro/35/l/latest.json`)
+    gelezen. Binnen 7 dagen enkel spelerstopics: *Flag Carrier Orb Carrier Frame* (2 sep),
+    *ATT and ToolTip Integration* (1 sep), *Macro that ignores Mouseover Cast setting* (1 sep),
+    *UI Feedback: … Hide Icon on the CDM* (1 sep), *I need a new unit frames addon* (gebumpt 1 sep),
+    *Is there already a WeakAuras replacement with the 12.1 API changes?* (gebumpt 31 aug).
+    **Geen blue post**: de enige topics met `community-manager`-flair zijn de vastgezette uit 2018,
+    en de laatste post in *UI Add-On Development Policy* (28 aug 19:54 UTC) is van een speler
+    (Atheren, trust_level 2), niet van Blizzard.
+  - 🔴 **Methodewaarschuwing — bijna in de RINGOFGLORY-val gelopen.** Mijn eerste forumzoekopdracht
+    (`search.json?q=#guides-ui-macro after:2026-08-25`) gaf **0 posts**. De positieve controle met
+    dezelfde slug over een venster van twee maanden gaf óók 0 → de slug was fout. Met `#ui-macro`
+    vindt precies dezelfde query wél posts. Was ik bij het eerste lege resultaat gestopt, dan had
+    hier "geen forumactiviteit" gestaan terwijl er zes topics liepen.
+  - ⚠️ **Egress:** WebFetch is vandaag geblokkeerd voor warcraft.wiki.gg, news.blizzard.com,
+    worldofwarcraft.blizzard.com, wowhead.com, us.forums.blizzard.com én danderbot.github.io. Alle
+    metingen hierboven liepen via de **Exa-connector** (`web_fetch_exa`), die deze domeinen wél
+    bereikt. Dus: gelezen op de bron zelf, niet "via search". Volgende run: meteen Exa gebruiken.
+  - **Vier 12.1.0-notities die dit logboek nooit had getoetst** (geen nieuws — een gat in de
+    dekking, vandaag gedicht):
+    - `CanAccessObject` → `FrameScriptObject:CanBeAccessedInContext` — **[RAAKT ONS NIET]**, 0 treffers.
+    - `VectorGraphics` / SVG-textures — **[RAAKT ONS NIET]**, 0 treffers (ook `.svg` niet).
+    - De `[Bootstrap]`-TOC-directive voor Load-on-Demand — **[RAAKT ONS NIET]**, 0 treffers in de `.toc`.
+    - `C_Roleset.ApplyRolesetFilters` + `Frame:SetOnUpdateMode` — **[AL AFGEDEKT]**: uitsluitend in
+      `Modules/ApiProbe.lua`, en daar achter `if type(C_Roleset) == "table"` (regel 41 en 177) met
+      `pcall` om elke aanroep (regel 180); `SetOnUpdateMode` wordt alleen op *bestaan* bevraagd
+      (`probe[m]`, regel 372/374) en nooit aangeroepen. Geen productiegebruik.
+    - *AFGELEID, niet gemeten:* onze 28 `OnUpdate`-handlers in 18 bestanden blijven werken omdat de
+      blue post `RunWhenVisible` de **default** noemt. Dat is een citaat uit die post, niet iets dat
+      ik in de client heb gemeten.
+  - **Positieve controle in dezelfde run:** dezelfde grep die 0 treffers gaf voor `CanAccessObject`
+    en `getglobal` vond wél `LoadAddOnWithErrorHandling` (`Core.lua:79`), en de tweede grep
+    (`C_UnitAuras|issecretvalue|GetNextWaypointForMap|C_Navigation|AuraContainer|AuraButton`) gaf
+    130 treffers in 44 bestanden. De lege uitkomsten zijn dus echt leeg en geen kapotte grep.
+  - **0 × [MOET GEFIKST].** Geen open actiepunt aan de addon-/API-kant; de staande 12.1.0-items
+    (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`, AuraContainer/AuraButton,
+    `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`) zijn ongewijzigd afgedekt.
