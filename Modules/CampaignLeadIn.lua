@@ -170,11 +170,24 @@ local VAULTS = {
 		--- three quests, 6232 holds all eight -- and we had copied the short one, which is
 		--- also why Wowhead labels these "1st of 3".
 		---
-		--- 🔴 Its NATURE is unresolved and deliberately not asserted anywhere the player
-		--- reads: Zygor files it under dailies, the questline data has it as one-time story.
-		--- Its objectives (Temple Patrol, Strike, Incursion, an Ancient Foe) are repeatable
-		--- activities, which makes both readings explicable. Listing it in the chain is safe
-		--- either way -- it belongs in the sequence on both readings.
+		--- ✅ ITS NATURE IS SETTLED, 2 Sep 2026: one-time STORY, not a daily. The questline
+		--- data was right and "Zygor files it under dailies" was a misreading of Zygor.
+		---
+		--- MEASURED in ZygorDailiesCommonMID.lua (guide updated to 9.6 that morning). The
+		--- guide's own end-of-day check names the eight quests it considers today's dailies:
+		---     |complete false or not completedq(96644,96640,96643,98420,98419,96641,96642,96639)
+		--- 98515 is NOT among them. It appears earlier in that same file only because the
+		--- dailies guide walks a new player through the intro chain before starting the loop,
+		--- and it appears again in ZygorLevelingCommonMID.lua inside the story sequence,
+		--- followed by picking up the flight path.
+		---
+		--- 📌 The lesson is about where we looked, not about Zygor. "It is in the dailies
+		--- file" was true and meant nothing; the file's own definition of a daily was eleven
+		--- lines further down. A guide's folder name is not its classification.
+		---
+		--- Its four objectives are repeatable activities, which is why both readings looked
+		--- explicable for two days -- and is exactly why the objectives being repeatable says
+		--- nothing about the quest that asks for them.
 		{ questID = 98515 }, -- Vaults of Atal'Utek: A Toxic Tour
 		{ questID = 98428 }, -- Vaults of Atal'Utek: The Altar of Corrosion
 	},
