@@ -190,6 +190,41 @@ de nieuwste op schijf, en het zégt welke het gebruikte.
 van iets dat beweegt, met niets dat hem hercontroleert.** Twee keer op één avond, in twee bestanden
 die niets met elkaar te maken hebben.
 
+## 🔴 OPEN: het adviespaneel zegt "Nothing slotted yet" terwijl alle drie gevuld zijn
+
+Robs screenshot van 2 sep zet de twee vensters naast elkaar: haar venster toont **Bursting Toad
+Toxin, Corrosive Bilespear én Soul-Cracking Dreamcatcher** geslote — ons paneel zegt drie keer
+"Nothing slotted yet". Beide lezen dezelfde boom.
+
+`GetCompanionChoices` bepaalt dat uit `node.activeEntry.entryID`. **Dat is niet uitgesloten dat het
+werkt:** het oude `GetEquippedDelvePoison` las hetzelfde veld en zette die avond wél een `>` bij
+Bursting Toad Toxin in `/mh poisons`. Dus óf het veld gedraagt zich anders per aanroep, óf er zit
+iets anders in de weg.
+
+⚠️ **NIET GAAN GOKKEN.** `/mh valeera save` legde `ranksPurchased` en `entries` vast maar **nooit
+`activeEntry`** — precies het veld dat nu verdacht is. Een diagnose die het verdachte veld weglaat
+stuurt je terug naar raden, en dat is het enige wat hij hoort te voorkomen. De probe schrijft het nu
+weg mét het `type()`, zodat een dump kan zeggen óf het nil is, óf een getal in plaats van een tabel,
+óf secret.
+
+**Volgende stap:** Rob doet `/mh valeera save` + `/reload` met haar venster open; dan de drie
+keuzenodes in het SV-bestand lezen.
+
+## ✅ Het adviespaneel: volgorde, scrollen, en slepen
+
+Robs twee opmerkingen zodra het naast haar frame stond, allebei terecht:
+
+1. **De volgorde klopte niet.** De boom geeft 110784, 110785, 110786 → Poisons, Utility, Combat;
+   haar venster leest Poisons, **Combat**, Utility. Twee lijstjes van dezelfde drie dingen in
+   verschillende volgorde, naast elkaar, en de lezer mag matchen. Nu via
+   `ns.DELVE_CURIO_SLOT_ORDER`; een node zonder bekende positie wordt **achteraan toegevoegd** in
+   boomvolgorde, niet weggelaten en niet vooraan geforceerd.
+2. **Te klein om te lezen.** Vaste 320px met het kleine lettertype is genoeg voor een blik, niet om
+   te lezen. Nu: sleepbaar aan de rechteronderhoek (240×160 tot 620×900), een echte ScrollFrame
+   eronder, groter lettertype, en de maat wordt onthouden in `ns.db.curioAdvicePanel`.
+   ⚠️ `StartSizing` laat het frame op eigen punten achter, dus na het slepen wordt opnieuw aan
+   haar venster geankerd — anders volgt het haar na één keer verslepen nooit meer.
+
 ## 🔴 2 sep (avond) — de weekroutine liet je vallen zodra je een quest oppakte
 
 Rob: *"ik heb een quest opgehaald en die moet ik weer inleveren, maar ik krijg nu geen pijl (als ik

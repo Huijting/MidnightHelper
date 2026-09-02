@@ -1271,10 +1271,27 @@ function ns.SaveCompanionTreeProbe()
 	for _, nodeID in ipairs(nodes) do
 		local okI, node = pcall(C_Traits.GetNodeInfo, configID, nodeID)
 		if okI and type(node) == "table" then
+			-- 🔴 activeEntry ADDED 2 sep 2026, because the capture could not answer the
+			-- question it was needed for. The new advice panel showed "Nothing slotted
+			-- yet" for all three slots while Valeera's window, four inches to its left,
+			-- listed all three picks. `GetCompanionChoices` decides that from
+			-- `node.activeEntry.entryID` -- and this probe recorded ranks and entries
+			-- but never activeEntry, so the SavedVariables dump could neither confirm
+			-- nor refute it. A diagnostic that omits the field under suspicion sends
+			-- you back to guessing, which is the one thing it exists to prevent.
+			--
+			-- ⚠️ Recorded as a whole sub-table (type included) rather than just the id:
+			-- if it turns out to be nil, or a number instead of a table, or secret, the
+			-- dump has to be able to SAY which.
+			local ae = node.activeEntry
 			local row = {
 				nodeID = nodeID,
 				ranksPurchased = node.ranksPurchased,
 				maxRanks = node.maxRanks,
+				activeEntryType = type(ae),
+				activeEntryID = (type(ae) == "table") and ae.entryID or nil,
+				activeRank = (type(ae) == "table") and ae.rank or nil,
+				activeEntryRaw = (type(ae) == "number") and ae or nil,
 				entries = {},
 			}
 			for _, entryID in ipairs(type(node.entryIDs) == "table" and node.entryIDs or {}) do

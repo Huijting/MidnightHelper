@@ -27,20 +27,40 @@ local _, ns = ...
 	The only thing we supply is the star, which is checked against that same tree by
 	the caller. A slot we have no recommendation for says so, rather than showing
 	nothing and letting the blank read as approval of whatever is slotted.
+
+	🔴 TWO THINGS ROB ASKED FOR THE MOMENT HE SAW IT BESIDE HER FRAME, 2 sep:
+
+	  1. The same order as her window. The tree hands back 110784, 110785, 110786 --
+	     Poisons, Utility, Combat -- while she reads Poisons, Combat, Utility. Two
+	     lists of the same three things in different orders, side by side, and the
+	     reader does the matching. Order now comes from DELVE_CURIO_SLOT_ORDER.
+	  2. Readable and resizable. It shipped at a fixed 300px with the small font,
+	     which is fine for a glance and not for reading. It is now drag-resizable
+	     from the bottom-right, scrolls when the content is taller than the frame,
+	     and remembers the size.
 ]]
 
 local panel
 
 local PAD = 14
-local TITLE_H = 24
-local SLOT_HEAD_H = 18
-local LINE_H = 15
+local TITLE_H = 26
+local SLOT_HEAD_H = 20
+local LINE_H = 17
 local SLOT_GAP = 10
-local FOOT_H = 30
-local WIDTH = 300
+local FOOT_H = 44
+local MIN_W, MIN_H = 240, 160
+local MAX_W, MAX_H = 620, 900
+local DEF_W, DEF_H = 320, 300
 
 local function L(key)
 	return (ns.L and ns:L(key)) or key
+end
+
+--- Remembered size lives in the addon db; position deliberately does not (see Anchor).
+local function SizeStore()
+	ns.db = ns.db or {}
+	ns.db.curioAdvicePanel = ns.db.curioAdvicePanel or {}
+	return ns.db.curioAdvicePanel
 end
 
 --- Anchor beside Valeera's window when it is up, otherwise centre-right of screen.
@@ -62,11 +82,18 @@ local function EnsurePanel()
 	end
 
 	local f = CreateFrame("Frame", "MidnightHelperCurioAdvicePanel", UIParent, "BackdropTemplate")
-	f:SetSize(WIDTH, 200)
+	local st = SizeStore()
+	f:SetSize(tonumber(st.width) or DEF_W, tonumber(st.height) or DEF_H)
 	f:SetFrameStrata("HIGH")
 	f:SetFrameLevel(220)
 	f:SetClampedToScreen(true)
-	f:EnableMouse(false)
+	f:EnableMouse(true)
+	f:SetResizable(true)
+	if f.SetResizeBounds then
+		-- 12.x name. SetMinResize/SetMaxResize were removed in 10.x, so calling them
+		-- would error rather than silently do nothing.
+		f:SetResizeBounds(MIN_W, MIN_H, MAX_W, MAX_H)
+	end
 	if f.SetBackdrop then
 		f:SetBackdrop({
 			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
@@ -94,12 +121,46 @@ local function EnsurePanel()
 	end)
 
 	local foot = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	foot:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", PAD, 12)
-	foot:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, 12)
+	foot:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", PAD, 14)
+	foot:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, 14)
 	foot:SetJustifyH("LEFT")
 	foot:SetWordWrap(true)
 	foot:SetTextColor(0.7, 0.68, 0.63)
 	f._foot = foot
+
+	-- Scrolling middle. The rows live on `content`, which grows as tall as it needs;
+	-- the scroll frame is whatever the player has dragged the window to.
+	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -(PAD + TITLE_H))
+	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD + 12), FOOT_H)
+	f._scroll = scroll
+
+	local content = CreateFrame("Frame", nil, scroll)
+	content:SetSize(10, 10)
+	scroll:SetScrollChild(content)
+	f._content = content
+
+	-- Drag the corner. A texture rather than a template so it matches the backdrop
+	-- and cannot pick up a template's own OnMouseDown.
+	local grip = CreateFrame("Button", nil, f)
+	grip:SetSize(16, 16)
+	grip:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -4, 4)
+	grip:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
+	grip:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight")
+	grip:SetPushedTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down")
+	grip:SetScript("OnMouseDown", function()
+		f:StartSizing("BOTTOMRIGHT")
+	end)
+	grip:SetScript("OnMouseUp", function()
+		f:StopMovingOrSizing()
+		local s = SizeStore()
+		s.width, s.height = math.floor(f:GetWidth() + 0.5), math.floor(f:GetHeight() + 0.5)
+		-- Re-anchor: StartSizing leaves the frame on its own points, and without this
+		-- it stops following her window the first time you resize it.
+		Anchor(f)
+		ns.RefreshCurioAdvicePanel()
+	end)
+	f._grip = grip
 
 	f._lines = {}
 	panel = f
@@ -107,16 +168,18 @@ local function EnsurePanel()
 end
 
 --- One reusable font string per row, grown on demand.
+--- ⚠️ Parented to the scroll content, not the frame: a row on the frame would sit
+--- still while the rest scrolled past it.
 local function LineAt(f, index)
 	local fs = f._lines[index]
 	if not fs then
-		fs = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		fs:SetPoint("LEFT", f, "LEFT", PAD, 0)
-		fs:SetPoint("RIGHT", f, "RIGHT", -PAD, 0)
+		fs = f._content:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 		fs:SetJustifyH("LEFT")
-		fs:SetWordWrap(false)
 		f._lines[index] = fs
 	end
+	fs:ClearAllPoints()
+	fs:SetPoint("LEFT", f._content, "LEFT", 0, 0)
+	fs:SetPoint("RIGHT", f._content, "RIGHT", 0, 0)
 	return fs
 end
 
@@ -126,11 +189,10 @@ function ns.RefreshCurioAdvicePanel()
 		return false
 	end
 	local f = panel
-	-- ⚠️ ONE call, both returns. Written first as
-	--     local nodes, why = ns.GetCompanionChoices and ns.GetCompanionChoices() or nil, nil
-	-- which silently drops the second return (an `and`/`or` chain yields one value) and
-	-- then asked the client a second time to get it back. That is lint check [12] in this
-	-- repo, and it caught nothing here only because it was caught while typing.
+
+	-- ⚠️ ONE call, both returns. Written first as an `and`/`or` chain, which yields a
+	-- single value and silently drops the reason, and then asked the client a second
+	-- time to get it back. That is lint check [12] in this repo.
 	local nodes, why
 	if ns.GetCompanionChoices then
 		nodes, why = ns.GetCompanionChoices()
@@ -141,32 +203,37 @@ function ns.RefreshCurioAdvicePanel()
 	end
 
 	f._title:SetText(L("CURIOPANEL_TITLE"))
+	f._content:SetWidth(math.max(10, f._scroll:GetWidth()))
 
-	local y = -(PAD + TITLE_H)
+	local y = 0
 	local n = 0
 
 	if not nodes then
 		n = n + 1
 		local fs = LineAt(f, n)
-		fs:SetPoint("TOP", f, "TOP", 0, y)
+		fs:SetPoint("TOP", f._content, "TOP", 0, y)
 		fs:SetWordWrap(true)
 		fs:SetTextColor(0.82, 0.8, 0.74)
 		fs:SetText(L(why or "CURIO_NO_CHOICES"))
 		fs:Show()
 		f._foot:SetText("")
-		f:SetHeight(PAD + TITLE_H + 44 + FOOT_H)
+		f._content:SetHeight(60)
 		return true
+	end
+
+	-- Her window's order, not the tree's. See DELVE_CURIO_SLOT_ORDER.
+	if ns.SortDelveCurioSlots then
+		nodes = ns.SortDelveCurioSlots(nodes)
 	end
 
 	local picks = ns.GetDelveCurioGuidePicks and ns.GetDelveCurioGuidePicks() or nil
 
 	for _, node in ipairs(nodes) do
-		-- Slot heading, named where we know the name (measured off her window).
 		local labelKey = ns.GetDelveCurioSlotLabelKey
 			and ns.GetDelveCurioSlotLabelKey(node.nodeID) or nil
 		n = n + 1
 		local head = LineAt(f, n)
-		head:SetPoint("TOP", f, "TOP", 0, y)
+		head:SetPoint("TOP", f._content, "TOP", 0, y)
 		head:SetWordWrap(false)
 		head:SetTextColor(1, 0.82, 0.2)
 		head:SetText(labelKey and L(labelKey)
@@ -174,8 +241,6 @@ function ns.RefreshCurioAdvicePanel()
 		head:Show()
 		y = y - SLOT_HEAD_H
 
-		-- What the guides pick, and what the player actually has. Both read from the
-		-- same list, so they can never disagree about which options exist.
 		local recommended, active
 		for _, o in ipairs(node.options) do
 			if o.active then
@@ -188,8 +253,8 @@ function ns.RefreshCurioAdvicePanel()
 
 		n = n + 1
 		local rec = LineAt(f, n)
-		rec:SetPoint("TOP", f, "TOP", 0, y)
-		rec:SetWordWrap(false)
+		rec:SetPoint("TOP", f._content, "TOP", 0, y)
+		rec:SetWordWrap(true)
 		if recommended then
 			rec:SetTextColor(0.55, 0.85, 1)
 			rec:SetText((L("CURIOPANEL_REC_FMT")):format(recommended.name or "?"))
@@ -200,12 +265,12 @@ function ns.RefreshCurioAdvicePanel()
 			rec:SetText(L("CURIOPANEL_NO_REC"))
 		end
 		rec:Show()
-		y = y - LINE_H
+		y = y - math.max(LINE_H, rec:GetStringHeight() + 2)
 
 		n = n + 1
 		local yours = LineAt(f, n)
-		yours:SetPoint("TOP", f, "TOP", 0, y)
-		yours:SetWordWrap(false)
+		yours:SetPoint("TOP", f._content, "TOP", 0, y)
+		yours:SetWordWrap(true)
 		if not active then
 			yours:SetTextColor(0.85, 0.7, 0.35)
 			yours:SetText(L("CURIOPANEL_NO_PICK"))
@@ -217,11 +282,11 @@ function ns.RefreshCurioAdvicePanel()
 			yours:SetText((L("CURIOPANEL_YOURS_OTHER_FMT")):format(active.name or "?"))
 		end
 		yours:Show()
-		y = y - LINE_H - SLOT_GAP
+		y = y - math.max(LINE_H, yours:GetStringHeight() + 2) - SLOT_GAP
 	end
 
 	f._foot:SetText(L("CURIOPANEL_FOOT"))
-	f:SetHeight(math.abs(y) + FOOT_H + 8)
+	f._content:SetHeight(math.max(10, math.abs(y)))
 	return true
 end
 

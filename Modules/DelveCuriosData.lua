@@ -263,6 +263,40 @@ ns.DELVE_CURIO_SLOT_LABEL_KEYS = {
 	[110786] = "CURIO_SLOT_COMBAT",
 }
 
+--- The order Valeera's own window uses, top to bottom.
+---
+--- ⚠️ NOT THE TREE ORDER. C_Traits.GetTreeNodes returns 110784, 110785, 110786, which
+--- renders as Poisons, Utility Curio, Combat Curio — while her window reads Poisons,
+--- Combat Curio, Utility Curio. Rob spotted it the minute the panel sat beside her
+--- frame on 2 sep: two lists of the same three things in different orders, side by
+--- side, and the reader has to do the matching.
+---
+--- 📌 A node we have no position for is appended in tree order rather than dropped or
+--- forced to the top. Unknown slots keep working; they just are not claimed to belong
+--- anywhere in particular.
+ns.DELVE_CURIO_SLOT_ORDER = { 110784, 110786, 110785 }
+
+--- Sort a list of {nodeID=...} into window order, stable for anything unlisted.
+function ns.SortDelveCurioSlots(nodes)
+	local rank = {}
+	for i, nodeID in ipairs(ns.DELVE_CURIO_SLOT_ORDER) do
+		rank[nodeID] = i
+	end
+	local out = {}
+	for i, node in ipairs(nodes) do
+		out[i] = node
+	end
+	local base = #ns.DELVE_CURIO_SLOT_ORDER
+	local seen = {}
+	for i, node in ipairs(out) do
+		seen[node] = rank[node.nodeID] or (base + i)
+	end
+	table.sort(out, function(a, b)
+		return seen[a] < seen[b]
+	end)
+	return out
+end
+
 --------------------------------------------------------------------------------
 -- What the guides recommend — the ONE thing /mh curios deliberately would not say.
 --
