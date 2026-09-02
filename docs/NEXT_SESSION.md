@@ -75,6 +75,22 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
 6. **B6** (het "vertel het ons"-model staat één keer in de hele addon) en **B10** (herschreven
    CF-bovenkant staat alleen in de spec; moet mét een release mee).
 
+**Nieuw, 2 sep — en dit is nu het dringendst:**
+
+0. 🔴 **`/mh worldboss` op live.** Stond al weken op de lijst; sinds vanochtend blokkeert het een
+   **openbare** pagina. Rob zag het S1-world-boss-artikel op de site staan als actueel advies,
+   binnen een uur na publiceren. In het spel toont de addon dat bewust niet
+   (`Modules/WorldBoss.lua:517` geeft `nil` zodra Season 2 zichtbaar is); de site publiceerde
+   dezelfde tekst zónder die poort. Het artikel is nu teruggetrokken
+   (`SKIP_ARTICLES` in `tools/build_site.py`) tot iemand meet.
+   Wat de meting moet uitwijzen: draaien de vier S1-bosses nog? Dan mag de poort weg. Zijn het
+   Lairs geworden? Dan moet de róster vervangen, niet de poort.
+   ⚠️ Secundaire bronnen (Icy Veins, een techsite) zeggen dat 12.1 world bosses vervangt door
+   **Lairs**, met Tidebound Grotto / Nymrissa Wavecaller. Wij hebben daar al een
+   `TideboundGrottoCoach.lua` voor. Maar dat is niet gemeten en gaat dus nergens in als feit.
+   📌 En daarna hoort die lege plek iets uit te leggen in plaats van te zwijgen — precies de
+   faalvorm uit `CLAUDE.md`: correct zwijgen en kapot zijn zien er van buiten identiek uit.
+
 **Nieuw, 2 sep:**
 
 7. **Delve-trinkets droppen minder sinds de hotfix van 1 sep.** Onze tips claimen geen droprate,

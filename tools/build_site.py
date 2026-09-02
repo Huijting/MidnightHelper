@@ -412,6 +412,26 @@ write(os.path.join(OUT_DIR, "delves.html"),
 #
 # ⚠️ Not every category is published. "delves" and "professions" are deliberately skipped --
 # they would compete with the two pages above and say it worse. Categories are opted IN.
+#
+# 🔴 AND THE GENERATOR COPIES THE TEXT BUT NOT THE CONDITIONS IT IS SHOWN UNDER. Found within
+# an hour of publishing, by Rob, on the live site: the Season 1 world boss article went up as
+# current advice. In game it does not -- Modules/WorldBoss.lua:517 returns nil the moment
+# Season 2 is visible, deliberately, because "four Season 1 bosses times a rotation anchor of
+# 18 March always produces a confident answer, including for weeks in which those bosses are
+# no longer what the game is running".
+#
+# That gate lives in Lua, not in the data this script reads, so the page cheerfully published
+# what the addon refuses to say. A reader arriving from a search engine cannot know that.
+#
+# 📌 The general rule, worth more than this one entry: an article is only safe to publish if
+# the addon would show it unconditionally. Anything the addon gates on season, patch or player
+# state must be gated here too -- or left out until someone measures it.
+SKIP_ARTICLES = {
+    # Until /mh worldboss is run on live and we know whether these four still rotate. The
+    # secondary sources say 12.1 replaced world bosses with Lairs; that is not measured, so
+    # neither the old claim nor the new one gets published.
+    "CODEX_WORLDBOSS_TITLE",
+}
 
 CODEX_DATA = os.path.join(ROOT, "Modules", "MidnightCodexData.lua")
 CODEX_LOC = os.path.join(ROOT, "Locales", "Codex.lua")
@@ -492,13 +512,16 @@ welcome.</p>
 </html>
 """
 
-codex_counts, skipped = [], []
+codex_counts, skipped, held = [], [], []
 for path, cat, title, lede in CODEX_PAGES:
     rows = sorted((e for e in entries if e[0] == cat), key=lambda e: e[1])
     # 🔴 A category that parses to nothing must not publish an empty page that looks finished.
     assert rows, "no codex entries for category %r" % cat
     csecs, ctoc = [], []
     for _cat, _sort, tkey, bkey in rows:
+        if tkey in SKIP_ARTICLES:
+            held.append((cat, tkey))
+            continue
         title_txt = CODEX_TEXT.get(tkey)
         body_txt = CODEX_TEXT.get(bkey)
         if not title_txt or not body_txt:
@@ -548,6 +571,8 @@ for path, n in codex_counts:
     print("wrote site/%-16s -- %d codex article(s)" % (path, n))
 for cat, key in skipped:
     print("  !! SKIPPED in %-12s no enUS text for %s" % (cat, key))
+for cat, key in held:
+    print("  .. HELD BACK in %-9s %s (in SKIP_ARTICLES, see the note above it)" % (cat, key))
 print("wrote site/sitemap.xml (%d page(s)) and site/robots.txt" % len(PAGES))
 print("google-site-verification: %s"
       % ("set" if GSC_TOKEN else "NOT set -- paste the token into GSC_TOKEN in this file"))
