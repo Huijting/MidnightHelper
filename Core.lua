@@ -1045,8 +1045,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	-- /mh curios — wat elke curio-keuze van je companion doet, in de taal van het spel.
-	if msg == "curios" or msg == "curio" then
+	--- /mh curios — wat elke curio-keuze van je companion doet, in de taal van het spel.
+	---
+	--- 🔴 SINGULAR ONLY SINCE 2 SEP, en dat was een echte onwaarheid tegen de speler. Dit blok
+	--- ving `curio` én `curios`, terwijl de commandolijst ze als twee dingen aanbiedt:
+	--- CMDLIST_CURIOS = "what each curio does", CMDLIST_CURIO = "the curios adviser". Wie
+	--- `/mh curio` typte kreeg de uitlegger, en het adviseur-blok op regel ~2479 kon nooit
+	--- uitvoeren — dode code achter een belofte.
+	--- 📌 Enkelvoud/meervoud is een beroerde scheidslijn tussen twee functies; niemand onthoudt
+	--- dat. Dit herstelt wat de lijst al beloofde, meer niet — of de twee moeten samensmelten
+	--- is Robs keuze en staat in docs/NEXT_SESSION.md.
+	if msg == "curios" then
 		if ns.ShowCurioExplain then
 			ns.ShowCurioExplain()
 		end
@@ -2476,7 +2485,9 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	if msg == "curio" or msg == "curios" then
+	--- `curio` alleen: `curios` hoort bij de uitlegger hierboven, die eerder in dit blok staat
+	--- en dus altijd won. Zie de opmerking daar.
+	if msg == "curio" then
 		if ns.ToggleDelveCuriosPopup then
 			ns:ToggleDelveCuriosPopup()
 		else

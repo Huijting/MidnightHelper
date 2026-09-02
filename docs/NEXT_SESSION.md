@@ -114,6 +114,28 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
    Alles wat de addon afhankelijk maakt van seizoen, patch of speler-toestand publiceert de site
    onvoorwaardelijk tenzij iemand het opmerkt. Staat als regel boven `SKIP_ARTICLES`.
 
+**Nieuw, 2 sep (middag) — Valeera-advies bestond al, maar was onvindbaar:**
+
+8. ✅ **`/mh poisons` is nu vermeld.** Rob vroeg onderweg of er ergens Valeera-advies over poisons
+   en curios te vinden was. Gemeten: `PrintDelvePoisons` bestaat al (`DelveCuriosAdvisor.lua:1401`,
+   een nette spelerprint met de omschrijvingen van de client en een markering op wat ze aan heeft)
+   maar stond in `MH_UNLISTED_ON_PURPOSE`. 🔴 De rechtvaardiging daar was circulair: de comment
+   noemde `poisons` een alias van `/mh poison` — en `poison` stond zelf óók in die lijst, dus er
+   was geen primaire naam. Nu vermeld, met `poison` als echte alias.
+9. ✅ **`/mh curio` opent eindelijk de adviseur.** De commandolijst beloofde twee dingen
+   (`CMDLIST_CURIOS` = uitlegger, `CMDLIST_CURIO` = adviseur) terwijl `Core.lua` beide naar de
+   uitlegger stuurde; het adviseur-blok was dode code. ⏳ Robs keuze open: enkelvoud/meervoud is
+   een slechte scheidslijn — samensmelten tot één commando is eerlijker maar groter.
+   Zie `docs/TESTLIJST.md` punt 12.
+10. 🔴 **Twee blinde vlekken in de linter, gevonden door één toeval.** De pariteitscontrole zag
+    `fill("deDE", { KEY = "..." })` op één regel niet: het contextpatroon zette de taal en
+    `KEY_BARE_RE` is verankerd met `^`, dus de sleutel achter de accolade werd nooit gelezen.
+    GEMETEN door alleen de opmaak te veranderen: zes vertalingen per taal doken op (deDE 3102 →
+    3108). ⚠️ **Dezelfde fout zat in `collect_locale_values`, en dáár is hij gevaarlijk:** die
+    voedt [13] markup en [15] must-stay-English, dus een eenregelige fill met een kapotte
+    `|cff…|r` gaf een **vals sein-veilig**. Beide gerepareerd; [13]/[15] blijven 0, nu voor het
+    eerst gemeten in plaats van ongezien.
+
 **Nieuw, 2 sep:**
 
 7. **Delve-trinkets droppen minder sinds de hotfix van 1 sep.** Onze tips claimen geen droprate,

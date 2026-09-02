@@ -7596,6 +7596,25 @@ fill("ptBR", {
 	REPORT_CHAT_HINT = "Copie a caixa e cole no Discord ou no GitHub. “Ele me disse algo errado” também conta — uma explicação desatualizada é aqui um defeito pior do que uma mensagem de erro.",
 	REPORT_NO_DIALOG = "A janela de cópia não carregou. Faça /reload e tente de novo.",
 })
+--- 2 sep — `/mh poisons` was gebouwd maar nergens vermeld, dus onvindbaar. Zie de opmerking
+--- boven MH_UNLISTED_ON_PURPOSE in Modules/CommandList.lua. ⚠️ "poisons" blijft Engels: het is
+--- de spelterm die op Valeera's eigen paneel staat.
+fill("deDE", {
+	CMDLIST_POISONS = "Valeeras Poisons, was jedes bewirkt und eine Markierung bei dem, das sie anhat.",
+})
+fill("frFR", {
+	CMDLIST_POISONS = "Les poisons de Valeera, ce que chacun fait, et une marque sur celui qu'elle porte.",
+})
+fill("esES", {
+	CMDLIST_POISONS = "Los poisons de Valeera, qué hace cada uno y una marca en el que lleva puesto.",
+})
+fill("ptBR", {
+	CMDLIST_POISONS = "Os poisons da Valeera, o que cada um faz e uma marca no que ela está usando.",
+})
+fill("itIT", {
+	CMDLIST_POISONS = "I poisons di Valeera, cosa fa ciascuno e un segno su quello che ha addosso.",
+})
+
 fill("itIT", {
 	CMDLIST_REPORT = "Prepara un rapporto da incollare — per un bug, o per qualcosa che l'addon ti ha detto di sbagliato.",
 	REPORT_TITLE = "Copia questo e raccontaci cos'è successo",

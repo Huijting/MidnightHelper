@@ -43,6 +43,11 @@ LOCALE_FILE_RE = re.compile(r"^(deDE|frFR|esES|ptBR|itIT|nlNL)\.lua$")
 
 # A defined key: `KEY =` or `["KEY"] =` at (mostly) top-level of a locale table.
 KEY_BARE_RE = re.compile(r'^\s*([A-Z][A-Z0-9_]+)\s*=')
+# Unanchored twins, for keys and values that sit behind a one-line fill("deDE", { ... }).
+# See the long note at the CTX_FILL_RE branches: the anchored versions above set the locale
+# context from such a line and then found nothing on it, because ^ had already been passed.
+KEY_ANY_RE = re.compile(r'\b([A-Z][A-Z0-9_]+)\s*=')
+VALUE_ANY_RE = re.compile(r'\b([A-Z][A-Z0-9_]+)\s*=\s*\x22((?:[^\x22\\]|\\.)*)\x22')
 KEY_BRACKET_RE = re.compile(r'^\s*\[\s*"([A-Z][A-Z0-9_]+)"\s*\]\s*=')
 # Inline batch style: `deDE.KEY = "..."` possibly several per line (semicolons).
 KEY_DOTTED_RE = re.compile(r'\b(?:deDE|frFR|esES|ptBR|itIT|nlNL|enUS)\.([A-Z][A-Z0-9_]+)\s*=')
@@ -129,6 +134,18 @@ def collect_locale_keys(paths: list[str]):
             cf = CTX_FILL_RE.search(line)
             if cf:
                 ctx = cf.group(1)
+                # 🔴 A ONE-LINE fill() CARRIES ITS KEYS ON THE SAME LINE, and this scanner
+                # missed every one until 2 Sep 2026. KEY_BARE_RE is anchored with ^ and used
+                # with match(), so `fill("deDE", { FOO = "bar" })` set the context and then
+                # found nothing -- the key sat behind the brace.
+                #
+                # MEASURED by changing nothing but the layout: writing the same five
+                # translations across multiple lines moved every language by exactly one
+                # (deDE 3101 -> 3102 translated, 419 -> 418 English). Same strings, different
+                # number. CHANGELOG_ASK, DISCORD_NUDGE_BTN, WAY_PORTAL_HINT, ST_SEASON_SOON
+                # and PROMPT_WORD_* are all written this way and were counted as English.
+                for km in KEY_ANY_RE.finditer(line[cf.end():]):
+                    add(ctx, km.group(1), rel, i)
             if CTX_ENUS_TABLE_RE.search(line):
                 ctx = "enUS"
             cl = CTX_DOTTED_LOCAL_RE.search(line)
@@ -594,6 +611,15 @@ def collect_locale_values(root: str) -> dict:
             cf = CTX_FILL_RE.search(line)
             if cf:
                 ctx = cf.group(1)
+                # 🔴 THE SAME BLIND SPOT AS collect_locale_keys, AND HERE IT FAILS THE OTHER
+                # WAY. This function feeds checks [13] (translations that break their own
+                # markup) and [15] (keys that must stay English). Missing a line there is not
+                # a miscount -- it is a FALSE ALL-CLEAR: a one-line fill with an unbalanced
+                # |cff…|r or a translated proper noun sailed straight through both.
+                # Found on 2 Sep while fixing the counting version three hundred lines up.
+                if ctx in values:
+                    for vm in VALUE_ANY_RE.finditer(line[cf.end():]):
+                        values[ctx].setdefault(vm.group(1), (vm.group(2), rel, i))
             if CTX_ENUS_TABLE_RE.search(line):
                 ctx = "enUS"
             cl = CTX_DOTTED_LOCAL_RE.search(line)

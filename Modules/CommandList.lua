@@ -54,8 +54,17 @@ end
 --- ⚠️ It holds TWO kinds of thing, and the name says so rather than pretending they are
 --- one. Most are developer probes (`auradump`, `eventspy`, `tierscan`) that would only
 --- clutter a player's search. The rest are ALIASES of commands already listed under
---- their primary name — `consready` is `/mh ready`, `groupbuffs` is `/mh gbuffs`,
---- `poisons` is `/mh poison`. Calling those "dev-only" would have been untrue.
+--- their primary name — `consready` is `/mh ready`, `groupbuffs` is `/mh gbuffs`.
+---
+--- 🔴 AND THAT SECOND KIND CAN HIDE A REAL FEATURE, MEASURED 2 SEP 2026. This sentence used
+--- to end with "`poisons` is `/mh poison`" — but `poison` was in this set too, so it called a
+--- command an alias of something that was itself listed nowhere. Circular, and the effect was
+--- that Valeera's poison advice (`PrintDelvePoisons`, a clean player-facing print with the
+--- client's own descriptions and a marker on the equipped one) could not be found by anybody.
+--- Rob asked "is there any Valeera advice for poisons and curios, anywhere?" — the honest
+--- answer was that it existed and was invisible.
+--- 📌 So when you park a name here as "just an alias", check that its primary is actually in
+--- MH_COMMANDS. `/mh poisons` is listed now; `poison` stays here as its real alias.
 ns.MH_UNLISTED_ON_PURPOSE = {
 	"anchor", "api12", "atal", "auradump", "aurainst", "auras", "bars", "boardall",
 	"bonusroll", "bossshare", "campaign", "capture", "chunklog", "chunks", "clearroute",
@@ -65,7 +74,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "guide",
 	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",
 	"livetips", "lock", "mech", "mechanics", "model", "moxie", "mplus", "padkeys",
-	"partytarget", "poison", "poisons", "portal", "portals", "potionkeys", "prey",
+	"partytarget", "poison", "portal", "portals", "potionkeys", "prey",
 	"profadvice", "profids", "profweekly", "questdiff", "questgate", "questscan", "range",
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
@@ -156,6 +165,7 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh fp", descKey = "CMDLIST_FP" },
 		{ cmd = "/mh course", descKey = "CMDLIST_COURSE" },
 		{ cmd = "/mh valeera", descKey = "CMDLIST_VALEERA" },
+		{ cmd = "/mh poisons", descKey = "CMDLIST_POISONS" },
 		{ cmd = "/mh goto", descKey = "CMDLIST_GOTO" },
 		{ cmd = "/mh clear", descKey = "CMDLIST_CLEAR" },
 		{ cmd = "/mh skip", descKey = "CMDLIST_SKIP" },

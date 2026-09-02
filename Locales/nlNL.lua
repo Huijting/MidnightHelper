@@ -323,6 +323,7 @@ ns._mhLocales.nlNL = {
 	CMDLIST_ARROWSIZE = "Verander de grootte van de routepijl (28-160).",
 	CMDLIST_FP = "Pijl naar de dichtstbijzijnde vliegmeester, waar je ook staat",
 	CMDLIST_VALEERA = "Toon Valeera's delve-voortgang (verschijnt vanzelf in een delve)",
+	CMDLIST_POISONS = "Valeera's poisons, met wat elke doet en een markering bij degene die ze op heeft.",
 	VALEERA_LEVEL = "Level",
 	VALEERA_MAXED = "op maximum — hier valt niets meer te halen.",
 	VALEERA_UNREADABLE = "Valeera's voortgang is nu niet te lezen.",

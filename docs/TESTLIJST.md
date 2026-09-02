@@ -686,3 +686,20 @@ wél vertaald zijn. Dat is een keuze: het rapport is aan de maker gericht, zoals
 Vind je dat verkeerd voelen, dan draaien we het om.
 
 </details>
+
+### 12. Valeera: `/mh poisons` en het verschil tussen `/mh curio` en `/mh curios`
+
+**Wat je moet zien, na `/reload`:**
+
+- `/mh poisons` — Valeera's poisons met per stuk de omschrijving die de client geeft, en een
+  groene `>` bij degene die ze aan heeft. **Dit bestond al maanden maar stond nergens vermeld**,
+  dus geen speler kon het vinden. Staat nu in `/mh` en in de zoekbalk.
+- `/mh curios` — de **uitlegger**: wat elke curio doet.
+- `/mh curio` (enkelvoud) — de **adviseur-popup**. ⚠️ Die deed het tot nu toe niet: beide namen
+  gingen naar de uitlegger, terwijl de commandolijst ze als twee dingen aanbood. De adviseur was
+  alleen via de Tools-lade en de zoekbalk te bereiken.
+
+🔴 **De vraag die ik aan jou teruggeef:** enkelvoud tegenover meervoud is een beroerde scheiding
+tussen twee functies — niemand onthoudt dat `/mh curio` iets anders doet dan `/mh curios`. Ik heb
+nu alleen hersteld wat de lijst al beloofde. Wil je liever dat ze samensmelten (één commando dat
+de adviseur opent, met de uitleg erin), zeg het dan — dat is een grotere maar eerlijkere ingreep.

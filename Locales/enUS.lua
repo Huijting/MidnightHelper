@@ -325,6 +325,7 @@ ns._mhLocales.enUS = {
 	CMDLIST_ARROWSIZE = "Resize the route arrow (28-160).",
 	CMDLIST_FP = "Arrow to the nearest flight master, wherever you are",
 	CMDLIST_VALEERA = "Show Valeera's delve progress (appears in delves by itself)",
+	CMDLIST_POISONS = "Valeera's poisons, with what each one does and a mark on the one she has on.",
 	VALEERA_LEVEL = "Level",
 	VALEERA_MAXED = "at maximum — nothing left to earn here.",
 	VALEERA_UNREADABLE = "Valeera's progress cannot be read right now.",
