@@ -136,6 +136,71 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
     `|cff…|r` gaf een **vals sein-veilig**. Beide gerepareerd; [13]/[15] blijven 0, nu voor het
     eerst gemeten in plaats van ongezien.
 
+## 🐍 Valeera-curio's Season 2 — onderzoek 2 sep, nog niet gebouwd
+
+Rob vroeg onderweg om "zo'n adviesscherm zoals we in seizoen 1 hadden". **Dat scherm bestaat nog**
+(`Modules/DelveCuriosAdvisor.lua`: paneel op de Delves-tab én popup bij de reparateur, per rol,
+combat + utility, met aparte Nemesis-set). 🔴 **Alleen: `ns.DELVE_CURIOS_BY_SEASON` heeft een `[1]`
+en geen `[2]`.** Sinds 18 aug heeft het niets te zeggen.
+
+### De zes S2-curio's — LIJST DRIEDUBBEL BEVESTIGD
+
+| Combat | Utility |
+|---|---|
+| Corrosive Bilespear | Soul-Cracking Dreamcatcher |
+| Essence Trap | Dundun's Favor |
+| Ouroboric Curse | Venom Infusion |
+
+Bronnen van drie verschillende soorten, onafhankelijk: warcraft.wiki.gg (scheidt S1 en S2
+expliciet), een datamining-blog van juni (PTR, geeft bewust géén advies), en de boost-sites.
+✅ **Twee ervan staan in Blizzards eigen hotfixnotities** — Corrosive Bilespear (17 aug,
+proc-fix) en Dundun's Favor (18 aug, lootbug). Beide staan al in `docs/PTR_12.1_WATCH.md`; de
+17-aug-regel schreef er zelfs bij "raakt onze Codex-tekst niet maar wel het advies", en daar is
+toen niets mee gedaan omdat er geen S2-tabel was om bij te werken.
+
+📌 Positieve controle: de wiki zet onze drie S1-items (Porcelain Blade Tip = combat, Mandate of
+Sacred Death + Overflowing Voidspire = utility) in precies de bakjes waar ons databestand ze heeft.
+
+### De AANBEVELING — veel dunner dan de lijst
+
+Iedereen zegt hetzelfde: **Corrosive Bilespear + Soul-Cracking Dreamcatcher voor alle drie de
+rollen**, alleen de poison verschilt (Bloodcrypt voor tank/heal, Forgotten Master voor dps).
+
+🔴 **Maar er is voor S2 GEEN eerstelijnsbron.** Wowhead schreef wél een "Best Valeera Curio
+Loadout" voor Season 1 — waarschijnlijk waar onze S1-data vandaan komt — en **niets voor Season 2**.
+Icy Veins evenmin. Alles komt van boost-/carry-sites die elkaar aantoonbaar overschrijven.
+⚠️ Dat het advies voor alle drie de rollen identiek is, is verdacht simpel: dat kan betekenen dat
+die twee domineren, of dat iedereen één build heeft gekopieerd. Niet vast te stellen.
+
+### De concurrentie doet dit al — en zegt er niets bij
+
+| addon | downloads | bijgewerkt | noemt zijn bron? |
+|---|---:|---|---|
+| Delve Companion | 516.500 | — | n.v.t. (geen advies) |
+| **DelveGuide** | 151.154 | 29 aug | 🔴 nee |
+| **Everything Delves** | 25.881 | 1 sep | 🔴 nee |
+
+Everything Delves noemt letterlijk "Corrosive Bilespear for Combat and Soul-Cracking Dreamcatcher
+for Utility, across all three companion roles" — een vierde stem, en een addon in plaats van een
+verkooppagina, wat de consensus echter maakt.
+⚠️ DelveGuide claimt "spec-by-spec curio recommendations for every class and specialization". Er
+bestaat geen gepubliceerde S2-bron die zo fijnmazig gaat, en de addon noemt er geen. Niet te
+controleren zonder hun data te lezen — dus **niet beweren dat het verzonnen is**, wel vaststellen
+dat niemand het kán onderbouwen.
+
+📌 **Dus: een kale "dit is de beste"-tabel maakt ons de vijfde stem die één build napraat.** Wat
+niemand doet is zeggen wáár het vandaan komt en hoe zeker het is. Dat is precies deze addons
+eigen stelregel, naar buiten gekeerd — en het is de enige hoek hier die van ons is.
+
+### Wat nog moet gebeuren
+
+1. ⏳ **Item-ID's meten, niet overschrijven.** Eén is hard: **Corrosive Bilespear = 249223** (wiki
+   + WoWDB, twee bronnen). De rest niet. Rob opent Valeera's paneel in het spel → `/mh valeera
+   save` → `/reload`, dan staan ze in `ns.db.companionProbe` en zijn ze GEMETEN uit zijn client.
+   ⚠️ De probe stopt als dat venster dicht is — daarom die eerste stap.
+2. **Robs keuze:** vullen met de consensus **mét herkomstregel**, of niets tonen tot er een betere
+   bron is. Nu toont het scherm niets, en dat is de slechtste van de drie.
+
 **Nieuw, 2 sep:**
 
 7. **Delve-trinkets droppen minder sinds de hotfix van 1 sep.** Onze tips claimen geen droprate,
