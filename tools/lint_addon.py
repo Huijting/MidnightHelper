@@ -1304,6 +1304,76 @@ def main() -> int:
         print("    SOFT  no templates found — check the path before believing this is clean")
         soft += 1
 
+    # ------------------------------------------------------------------
+    # [18] The mirror of [1]: DEFINED but never mentioned anywhere in code.
+    #
+    # 🔴 Check [1] has always asked "is every key we call actually defined?" and the answer
+    # has always been yes. Nobody asked the other way round until 2 Sep 2026, when B6 went
+    # looking for DELVE_TIP_UNMEASURED to add a line to it and found it in all seven language
+    # files and in no code path at all. Nobody has ever seen that string. It was translated
+    # seven times, counted as done by every audit, and shown to no one.
+    #
+    # That is the same shape as [16] versus [10], and as the fill() shadow measurement of
+    # 30 Jul: this repo keeps building the forward check and leaving the mirror unbuilt.
+    #
+    # ⚠️ SOFT, AND A CANDIDATE LIST RATHER THAN A VERDICT. Two reasons it cannot be hard:
+    #   1. Keys can be built at runtime ("DELVE_TIP_" .. slug). Check [1] counts those as a
+    #      blind spot every run, and every one of them would look dead here.
+    #   2. A key mentioned in a data table (descKey = "CMDLIST_REPORT") is live, so the scan
+    #      below looks for the bare string ANYWHERE outside the language packs rather than
+    #      only inside ns:L(). Coarse on purpose: it over-counts references, which means it
+    #      under-reports dead keys. Missing one costs nothing; calling a live key dead would
+    #      get a real string deleted.
+    code_paths = [os.path.join(root, "Core.lua"), os.path.join(root, "UI.lua"),
+                  os.path.join(root, "Locales", "Locale.lua")]
+    code_paths += sorted(glob.glob(os.path.join(root, "Modules", "*.lua")))
+    code_paths += sorted(glob.glob(os.path.join(root, "Addons", "*.lua")))
+    mentioned = set()
+    for p in code_paths:
+        if not os.path.isfile(p):
+            continue
+        for m in re.finditer(r'\b([A-Z][A-Z0-9_]{3,})\b',
+                             "\n".join(read_lines(p))):
+            mentioned.add(m.group(1))
+
+    # Prefixes that are constructed rather than written out, so absence proves nothing.
+    DYNAMIC_PREFIXES = ("CHANGELOG_", "LANG_LABEL_", "BINDING_")
+    unreachable = sorted(k for k in enus
+                         if k not in mentioned
+                         and not k.startswith(DYNAMIC_PREFIXES))
+
+    # 📌 GROUPED, BECAUSE A FLAT LIST OF 226 IS A LIST NOBODY READS. The first run printed
+    # exactly that, and it buried the one key this check was built for underneath a hundred
+    # DELVE_CHAT_<slug>_ROUTE siblings that are obviously assembled at runtime.
+    #
+    # The signal is the SHAPE of the group: a family of forty is a constructed name, while a
+    # LONE key nobody mentions is the suspicious one -- DELVE_TIP_UNMEASURED has no siblings,
+    # which is exactly why it was dead and they are not.
+    families: dict[str, list[str]] = {}
+    for k in unreachable:
+        parts = k.split("_")
+        families.setdefault("_".join(parts[:2]) if len(parts) > 2 else k, []).append(k)
+    singles = sorted(k for fam in families.values() if len(fam) == 1 for k in fam)
+    groups = sorted(((p, len(v)) for p, v in families.items() if len(v) > 1),
+                    key=lambda t: -t[1])
+
+    print(f"\n[18] enUS keys defined but never mentioned in code: {len(unreachable)}  (SOFT)")
+    print(f"     (scanned {len(code_paths)} code files; {len(mentioned)} distinct "
+          f"upper-case tokens seen. A key here is a CANDIDATE — runtime-built names look "
+          f"identical to dead ones.)")
+    if groups:
+        print(f"     families (almost certainly built at runtime — {len(groups)} of them):")
+        for p, n in groups[:8]:
+            print(f"       {p}_*  ×{n}")
+        if len(groups) > 8:
+            print(f"       ... and {len(groups) - 8} more families")
+    print(f"     🔴 LONE keys with no siblings — these are the ones worth reading: {len(singles)}")
+    for k in singles[:30]:
+        print(f"     SOFT  {k}")
+    if len(singles) > 30:
+        print(f"     ... and {len(singles) - 30} more")
+    soft += 1 if singles else 0
+
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)

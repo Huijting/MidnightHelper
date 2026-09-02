@@ -253,9 +253,17 @@ eigen stelregel, naar buiten gekeerd — en het is de enige hoek hier die van on
     de taalbestanden en in **geen enkel codepad**. Geen speler heeft hem ooit gezien. Vermoedelijk
     overbodig geworden toen alle veertien delves echte tips kregen. **Opruimen of aansluiten** —
     dat is een keuze, geen bug, en daarom hier en niet stilzwijgend weggehaald.
-    📌 Waarschijnlijk staat hij niet alleen: de linter meldt elke run **8 dynamische key-verwijzingen
-    als blinde vlek**. Een telling van "sleutels die nergens worden aangeroepen" zou meer van dit
-    soort dode vertalingen vinden — 7 talen per stuk aan werk dat nooit iemand bereikt.
+    ✅ **GEMETEN, 2 sep: hij staat inderdaad niet alleen.** Lintcheck **[18]** is gebouwd — de
+    spiegelvraag van [1], net zoals [16] de spiegel van [10] is. Uitkomst: **226 enUS-sleutels
+    worden nergens in code genoemd**, en na groeperen blijven er **34 eenlingen** over; de rest
+    zijn 40 families (`DELVE_CHAT_<slug>_ROUTE` ×46 enz.) die duidelijk uit een slug worden
+    opgebouwd. `DELVE_TIP_UNMEASURED` staat in die eenlingenlijst — precies waar hij hoort.
+    ⚠️ Het blijft een **kandidatenlijst**: een naam die tijdens het draaien wordt samengesteld
+    ziet er identiek uit als een dode. Daarom SOFT en daarom groepeert hij: een familie van 46 is
+    machinerie, een eenling is verdacht. De lijst nalopen is werk voor een keer; **34 × 7 talen**
+    is de omvang van wat er mogelijk nooit iemand bereikt.
+    📌 De eerste versie printte gewoon 226 namen op een rij. Dat is een lijst die niemand leest —
+    en hij begroef juist de sleutel waarvoor de check gebouwd was.
 11. ✅ **Crest-rangen es/pt/it — GEMETEN EN GESLOTEN, 2 sep. Uitkomst: afblijven.** Alle drie de
     clients vertalen de rang wél, dus onze packs hebben het goed. Uit Wowheads gelokaliseerde
     currency-pagina's: esES *"Blasón del alba de héroe"*, ptBR *"Brasão Auroral do Herói"*, itIT
