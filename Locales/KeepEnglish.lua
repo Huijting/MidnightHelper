@@ -47,9 +47,26 @@ ns.KEEP_ENGLISH = {
 --- client languages where translating may be exactly right, and both already keep "Champion"
 --- anyway. One global list cannot hold both answers, so this one is keyed by language.
 ---
---- ⚠️ Only languages whose answer is SETTLED belong here. esES, ptBR and itIT translate these
---- ranks today and nobody has checked what their clients show; that question is open and goes
---- to #translations, so they are absent rather than guessed at.
+--- ⚠️ Only languages whose answer is SETTLED belong here.
+---
+--- ✅ AND es/pt/it ARE SETTLED NOW — MEASURED 2 sep 2026, and the answer is "leave them alone".
+--- Their clients DO translate the rank, so translating is correct there and they must stay out
+--- of this table. From Wowhead's own localised currency pages, which mirror the client strings:
+---     esES  "Blasón del alba de héroe"       (héroe)
+---     ptBR  "Brasão Auroral do Herói"        (Herói)
+---     itIT  "Emblema dell'Alba del Campione" (Campione, currency 3343)
+--- Exactly what this comment predicted for real client languages, and the mirror image of nlNL.
+---
+--- 📌 itIT.lua says "Champion" for DAWNCREST_TIER_CHAMPION, which looks like a decision and is
+--- not one: the packs copy the English text for every key they have no override for, so that is
+--- a copy. The fill in Translations2026.lua replaces it with "Campione" precisely because it
+--- equals enUS — which lands on the client-correct word. Nothing to change.
+---
+--- 🔴 The old note here said this question "goes to #translations". That channel was retired on
+--- 30 aug ("er is nog helemaal niemand op Discord"), so the question sat pointing at a route
+--- that no longer existed. It never needed people with those clients either: es/pt/it are real
+--- client languages, so Blizzard's own data answers it — the same way Valira was settled for
+--- Portuguese. A question parked with the wrong owner stays parked.
 ns.KEEP_ENGLISH_FOR = {
 	nlNL = {
 		-- 📌 ADVENTURER CAN BE GUARDED NOW, and it could not this morning. It used to read

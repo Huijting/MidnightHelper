@@ -206,15 +206,27 @@ eigen stelregel, naar buiten gekeerd — en het is de enige hoek hier die van on
 7. **Delve-trinkets droppen minder sinds de hotfix van 1 sep.** Onze tips claimen geen droprate,
    dus er wordt niets onwaar — maar de PTR-wachter stelt voor het in het "wat farm ik hier"-advies
    te noemen. Robs keuze.
-11. 🔴 **Crest-rangen in esES / ptBR / itIT — en de route ernaartoe is dood.** Zij vertalen
-    *Champion* wél (`Campeón` / `Campeão` / `Campione`) terwijl de/fr/nl hem Engels houden.
-    `Locales/KeepEnglish.lua` laat die drie er bewust uit staan met de reden *"nobody has checked
-    what their clients show; that question is open and goes to #translations"*.
-    ⚠️ **Maar #translations is een dood spoor** — Rob, 30 aug: *"er is nog helemaal niemand op
-    Discord"*. De vraag ligt dus nergens, terwijl het bestand denkt dat hij ergens ligt.
-    📌 En hij is wél zelf te beantwoorden: es/pt/it zijn **echte clienttalen**, dus wat Blizzard
-    toont staat in de spel-data — dezelfde weg waarmee Valira in het Portugees gevonden is.
-    Geen gok nodig, wel werk. Uit de triage van 2 sep.
+11. ✅ **Crest-rangen es/pt/it — GEMETEN EN GESLOTEN, 2 sep. Uitkomst: afblijven.** Alle drie de
+    clients vertalen de rang wél, dus onze packs hebben het goed. Uit Wowheads gelokaliseerde
+    currency-pagina's: esES *"Blasón del alba de héroe"*, ptBR *"Brasão Auroral do Herói"*, itIT
+    *"Emblema dell'Alba del Campione"* (currency 3343). Spiegelbeeld van nlNL, precies zoals de
+    comment in `KeepEnglish.lua` al voorspelde voor echte clienttalen.
+    📌 `itIT.lua` zegt `"Champion"` en dat lijkt een besluit maar is er geen: de packs kopiëren
+    het Engels voor elke sleutel zonder eigen vertaling, en de fill vervangt die kopie door
+    `"Campione"` juist omdát hij gelijk is aan enUS. Deterministisch nagelopen in `fill()`.
+    🔴 De vraag stond stil sinds 28 aug omdat het bestand hem naar **#translations** stuurde — een
+    kanaal dat op 30 aug is opgeheven. Hij lag dus nergens. En hij had daar nooit hoeven liggen:
+    Blizzards eigen data beantwoordde hem in twintig minuten. **Een vraag die bij de verkeerde
+    eigenaar geparkeerd staat, blijft staan.**
+
+### 🔧 Robs drie beroepsbeslissingen — genomen 2 sep, nog niet verwerkt
+
+Hiermee kan de inhoud van de drie routes af. Alle drie zijn Robs keuze, niet af te leiden:
+
+12. **`points`-semantiek → de VOORWAARDE wint.** Recycling zei "mik op 10" terwijl de stap pas bij
+    30 voltooit. De stap bepaalt wat er staat, niet het advies.
+13. **Jewelcrafting stap 1 → 5 punten**, zoals de gidsen zeggen, niet een volle root.
+14. **Inscription → `Darkmoon Curiosity` erbij** als vierde boom.
 
 ✅ **AF op 2 sep — `A Toxic Tour` (98515) is verhaal, geen daily.** Gemeten in Zygor 9.6: zijn eigen
 dailies-gids noemt acht daily-ID's en 98515 zit er niet bij. De Codex zei nog "een keten van drie
