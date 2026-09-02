@@ -702,6 +702,12 @@ function ns.RefreshDelveCurioAdvisor()
 			eventFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 		end
 	end
+	-- Kick the poison descriptions off here too, so they are usually in by the time
+	-- anyone reads them. Cheap, idempotent, and it is the difference between six
+	-- poisons with text and six names with nothing under four of them.
+	if ns.RequestDelvePoisonData then
+		ns.RequestDelvePoisonData(season)
+	end
 	local variant = (ns.IsPlayerInNemesisDelve and ns:IsPlayerInNemesisDelve()) and "nemesis" or "default"
 
 	if embeddedPanel then
@@ -1397,6 +1403,32 @@ function ns.GetDelvePoisonRows()
 	return rows
 end
 
+--- Ask the client to load the poison spell texts.
+---
+--- 🔴 WHY THIS EXISTS. On 2026-09-02, with all six poisons finally listed, Rob's screenshot
+--- showed four of them as a bare name and two with a description. Nothing was broken: names
+--- come out of the client's static spell data, but DESCRIPTIONS have to be fetched, and
+--- until they arrive `C_Spell.GetSpellDescription` returns "". `GetDelvePoisonInfo` already
+--- refuses to print that empty string — the right call, and it turned an invisible loading
+--- state into a visible lie, because a poison shown with no text reads as a poison that
+--- does nothing. Silence is only honest when the reader can tell it apart from absence.
+---
+--- 📌 Mirrors RequestDelveCurioItemData, which does the same job for the item side.
+function ns.RequestDelvePoisonData(season)
+	local pack = ns.GetDelvePoisonsForSeason(
+		tonumber(season) or (ns.GetDelvesSeasonNumber and ns.GetDelvesSeasonNumber() or nil))
+	if not pack or type(pack.choices) ~= "table" then
+		return false
+	end
+	if not (C_Spell and C_Spell.RequestLoadSpellData) then
+		return false
+	end
+	for _, choice in ipairs(pack.choices) do
+		pcall(C_Spell.RequestLoadSpellData, choice.spellID)
+	end
+	return true
+end
+
 --- /mh poisons — list them in chat, with whatever the client says they do.
 function ns.PrintDelvePoisons()
 	local prefix = ("|cffffcc00%s|r"):format(ns.L and ns:L("PRINT_PREFIX") or "MH")
@@ -1406,10 +1438,20 @@ function ns.PrintDelvePoisons()
 		return
 	end
 	print(prefix .. " " .. ns:L("POISON_HEADER"))
+	local pending = 0
 	for _, r in ipairs(rows) do
 		print(("   %s|cffffffff%s|r"):format(r.equipped and "|cff40c040> |r" or "  ", r.name))
 		if r.description then
 			print("      |cff8a8f98" .. r.description .. "|r")
+		else
+			-- Say WHY there is no text under this one. Printing the name alone leaves
+			-- the player to conclude the poison has nothing to say for itself.
+			pending = pending + 1
+			print("      |cff6a6f78" .. ns:L("POISON_DESC_PENDING") .. "|r")
 		end
+	end
+	if pending > 0 then
+		ns.RequestDelvePoisonData()
+		print("   |cffffff78" .. ns:L("POISON_DESC_RETRY") .. "|r")
 	end
 end

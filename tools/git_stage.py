@@ -14,29 +14,58 @@ unknown, and rather than guess a fourth theory, this removes the variability its
 session's half-finished work. Naming files stays mandatory -- they just move from the
 command line into stage.txt.
 
-Usage: write one repo-relative path per line to
-  <scratchpad>/stage.txt
-then run this with no arguments. Blank lines and #-comments are ignored.
+Usage: write one repo-relative path per line to <scratchpad>/stage.txt, then run either
+  python tools/git_stage.py <path to that stage.txt>     (preferred -- explicit)
+  python tools/git_stage.py                              (finds the newest one)
+Blank lines and #-comments are ignored.
+
+🔴 THE FALLBACK USED TO BE A HARDCODED SESSION UUID, AND ON 2 SEP 2026 IT STAGED THE WRONG
+FILES. The comment called that path "stable for this project"; it is per SESSION, and that
+session had ended. A newer session wrote its stage.txt, passed the path on the command line
+-- which this script ignored -- and the script silently staged a list from a dead session
+instead. It did not fail. It reported success, printed the stale list, and the only reason
+it was caught is that the printed names were visibly wrong.
+
+📌 Which is the same shape as the poison bug it was committing: a hardcoded snapshot of
+something that moves, with nothing re-checking it. Resolution order below is explicit
+argument, then environment, then newest on disk -- and it says which one it used.
 """
 import io
+import glob
 import os
 import subprocess
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LIST = os.path.join(
-    os.environ.get("CLAUDE_SCRATCHPAD", ""), "stage.txt") if os.environ.get(
-    "CLAUDE_SCRATCHPAD") else None
 
-# Fixed fallback: the session scratchpad path is stable for this project.
+SCRATCH_ROOT = os.path.join(
+    os.path.expanduser("~"), "AppData", "Local", "Temp", "claude",
+    "E--World-of-Warcraft--retail--Interface-AddOns")
+
+
+def resolve_list():
+    """Return (path, how) for the stage.txt to use."""
+    if len(sys.argv) > 1:
+        return os.path.abspath(sys.argv[1]), "given on the command line"
+    env = os.environ.get("CLAUDE_SCRATCHPAD")
+    if env:
+        p = os.path.join(env, "stage.txt")
+        if os.path.isfile(p):
+            return p, "CLAUDE_SCRATCHPAD"
+    found = glob.glob(os.path.join(SCRATCH_ROOT, "*", "scratchpad", "stage.txt"))
+    if found:
+        newest = max(found, key=os.path.getmtime)
+        return newest, "newest of %d on disk" % len(found)
+    return None, "nothing found"
+
+
+LIST, HOW = resolve_list()
+
 if not LIST or not os.path.isfile(LIST):
-    LIST = os.path.join(
-        os.path.expanduser("~"), "AppData", "Local", "Temp", "claude",
-        "E--World-of-Warcraft--retail--Interface-AddOns",
-        "3d73686f-b8a5-478e-826d-74f066e950ea", "scratchpad", "stage.txt")
+    sys.exit("No stage.txt (%s):\n  %s\nWrite one repo-relative path per line first."
+             % (HOW, LIST))
 
-if not os.path.isfile(LIST):
-    sys.exit("No stage.txt at:\n  %s\nWrite one repo-relative path per line first." % LIST)
+print("reading stage.txt (%s):\n   %s\n" % (HOW, LIST))
 
 paths = []
 for line in io.open(LIST, encoding="utf-8"):

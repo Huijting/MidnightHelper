@@ -2425,26 +2425,36 @@ fill("itIT", {
 fill("deDE", {
 	POISON_HEADER = "Valeeras Gifte - was das Spiel dazu sagt:",
 	POISON_NONE = "Keine Giftauswahl auf diesem Client - Gifte kommen mit Saison 2.",
+	POISON_DESC_PENDING = "(das Spiel hat den Text dazu noch nicht geschickt - es ist kein Gift ohne Wirkung)",
+	POISON_DESC_RETRY = "Die fehlenden Texte wurden angefordert. Gib gleich noch einmal /mh poisons ein.",
 })
 
 fill("frFR", {
 	POISON_HEADER = "Les poisons de Valeera - ce que le jeu en dit :",
 	POISON_NONE = "Pas de choix de poison sur ce client - ils arrivent avec la saison 2.",
+	POISON_DESC_PENDING = "(le jeu n'a pas encore envoyé son texte - ce n'est pas un poison sans effet)",
+	POISON_DESC_RETRY = "Les textes manquants ont été demandés. Refais /mh poisons dans un instant.",
 })
 
 fill("esES", {
 	POISON_HEADER = "Los venenos de Valeera - lo que dice el juego:",
 	POISON_NONE = "No hay venenos en este cliente - llegan con la temporada 2.",
+	POISON_DESC_PENDING = "(el juego aún no ha enviado su texto - no es un veneno que no haga nada)",
+	POISON_DESC_RETRY = "Se han pedido los textos que faltan. Vuelve a escribir /mh poisons en un momento.",
 })
 
 fill("ptBR", {
 	POISON_HEADER = "Os venenos de Valira - o que o jogo diz:",
 	POISON_NONE = "Sem venenos neste cliente - eles chegam com a temporada 2.",
+	POISON_DESC_PENDING = "(o jogo ainda não enviou o texto deste - não é um veneno que não faz nada)",
+	POISON_DESC_RETRY = "Os textos em falta foram pedidos. Digite /mh poisons de novo daqui a pouco.",
 })
 
 fill("itIT", {
 	POISON_HEADER = "I veleni di Valeera - cosa dice il gioco:",
 	POISON_NONE = "Nessun veleno su questo client - arrivano con la stagione 2.",
+	POISON_DESC_PENDING = "(il gioco non ha ancora inviato il suo testo - non è un veleno che non fa nulla)",
+	POISON_DESC_RETRY = "I testi mancanti sono stati richiesti. Riprova con /mh poisons tra poco.",
 })
 
 ------------------------------------------------------------------------------

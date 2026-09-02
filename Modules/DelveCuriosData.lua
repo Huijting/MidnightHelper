@@ -234,9 +234,10 @@ end
 --------------------------------------------------------------------------------
 -- Valeera's Poisons choice node — patch 12.1 / Season 2.
 --
--- MEASURED, not datamined. Captured 2026-07-27 from PTR build 120100 via
--- `/mh valeera save`: tree 1223, node 110784, three entries. See
--- docs/PTR_VALEERA_TREE.md for the full tree.
+-- MEASURED, not datamined. Re-captured 2026-09-02 from the LIVE client via
+-- `/mh valeera save`: tree 1223, node 110784, **six** entries. The first capture
+-- (PTR build 120100, 2026-07-27) found three; see the note above the ids for what
+-- that cost. docs/PTR_VALEERA_TREE.md holds the full tree.
 --
 -- ⚠️ THE EARLIER IDS ON FILE WERE WRONG. Notes from 12 July carried
 -- 1248517 / 1251113 / 1251862 from Wowhead; not one matches the client. Had this
@@ -254,9 +255,27 @@ end
 -- name is stored here either.
 --------------------------------------------------------------------------------
 
+-- 🔴 THREE OF THESE SIX WERE MISSING UNTIL 2026-09-02, AND THE ADVISOR NEVER SAID SO.
+-- The three above were captured on the PTR on 2026-07-27, when the node really did hold
+-- three entries. Live build 120100 holds six: the 1305xxx ids below did not exist yet on
+-- that PTR build and were added between the capture and the patch going live.
+--
+-- Two things went wrong at once, and only the first is obvious:
+--   1. `GetDelvePoisonRows` walks `choices`, so the panel listed 3 of 6 — an advice screen
+--      quietly hiding half the options it exists to compare.
+--   2. `GetEquippedDelvePoison` matches the slotted entryID against `choices` and returns
+--      nil when nothing matches. A player who had one of the missing three slotted saw NO
+--      "equipped" marker at all — indistinguishable from "we cannot read your tree".
+--
+-- 📌 A hardcoded list of a choice node's options is a claim that the node has exactly
+-- those options, and nothing re-checked it. `/mh valeera save` is what re-checks it; run
+-- it after any patch that touches the companion, not just when something looks wrong.
 local POISON_SOULTHIRST_VENOM = 1250826
 local POISON_FORGOTTEN_MASTER = 1249934
 local POISON_BLOODCRYPT_TOXIN = 1251120
+local POISON_BURSTING_TOAD_TOXIN = 1305904
+local POISON_FROSTHEART_VENOM = 1305912
+local POISON_PHANTASMAL_SPORE_TOXIN = 1305924
 
 ns.DELVE_POISONS_BY_SEASON = {
 	[2] = {
@@ -264,10 +283,14 @@ ns.DELVE_POISONS_BY_SEASON = {
 		-- one is currently slotted rather than asking the player.
 		nodeID = 110784,
 		-- Listed in the order the client returned them.
+		-- MEASURED 2026-09-02 from live build 120100, tree 1223, config 57650559.
 		choices = {
 			{ spellID = POISON_SOULTHIRST_VENOM, entryID = 137812 },
 			{ spellID = POISON_FORGOTTEN_MASTER, entryID = 137801 },
 			{ spellID = POISON_BLOODCRYPT_TOXIN, entryID = 137790 },
+			{ spellID = POISON_BURSTING_TOAD_TOXIN, entryID = 137779 },
+			{ spellID = POISON_FROSTHEART_VENOM, entryID = 137769 },
+			{ spellID = POISON_PHANTASMAL_SPORE_TOXIN, entryID = 137758 },
 		},
 	},
 }

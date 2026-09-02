@@ -13,6 +13,69 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## 🔴 2 sep (avond) — de gifadviseur toonde 3 van de 6, en dat kwam door onze eigen meting
+
+Rob draaide `/mh valeera save` op de **live** client. Node 110784 heeft **zes** entries; wij hadden
+er drie, uit de PTR-meting van 27 juli. De drie nieuwe zitten in het 1305xxx-bereik — Bursting Toad
+Toxin (1305904), Frostheart Venom (1305912), Phantasmal Spore Toxin (1305924) — en bestonden op die
+PTR-build simpelweg nog niet.
+
+Er gingen **twee** dingen mis en alleen het eerste was zichtbaar:
+
+1. `GetDelvePoisonRows` loopt over `choices`, dus het adviesscherm liet de helft van de opties weg
+   die het bestaat om te vergelijken.
+2. `GetEquippedDelvePoison` matcht de geslote entry tegen `choices` en geeft `nil` bij geen match.
+   Wie één van de ontbrekende drie op had staan, zag **geen enkele "equipped"-markering** — niet te
+   onderscheiden van "we kunnen je tree niet lezen".
+
+📌 **De les is niet "we hadden beter moeten meten", want de meting was goed toen hij gedaan werd.**
+Een hardcoded lijst van de opties van een keuzenode is een bewering dát de node precies die opties
+heeft, en niets hercontroleerde die na de patch. `/mh valeera save` hoort dus bij elke patch die de
+companion aanraakt, niet pas als er iets raars opvalt.
+
+### En daarna: vier van de zes hadden geen beschrijving
+
+Robs screenshot van de reparatie liet zes namen zien, waarvan vier zonder tekst. Niets kapot: namen
+komen uit de statische spell-data, **beschrijvingen moeten opgehaald worden**, en tot ze binnen zijn
+geeft `C_Spell.GetSpellDescription` een lege string. `GetDelvePoisonInfo` weigerde die lege string te
+printen — precies goed — maar daarmee werd een onzichtbare laadtoestand een zichtbare leugen: een gif
+zonder tekst leest als een gif dat niets doet.
+
+Nu: `ns.RequestDelvePoisonData()` vraagt de teksten op (bij het verversen van de adviseur én bij
+`/mh poisons` zelf), en waar er nog geen is staat er wát er mist in plaats van niets.
+🔴 **Dit is de derde vorm van dezelfde regel uit `CLAUDE.md`: bouw je iets dat kan zwijgen, bouw dan
+een manier om te zien dát het zweeg.** Correct zwijgen en kapot zijn zien er van buiten identiek uit.
+
+### ⚠️ Het curio-plan van vanmiddag was op een verkeerde aanname gebouwd
+
+Het plan was `DELVE_CURIOS_BY_SEASON[2]` te vullen met Corrosive Bilespear en Soul-Cracking
+Dreamcatcher. **GEMETEN: dat zijn geen items.** Het zijn trait-entries in Valeera's boom, met
+spellIDs (1248877 en 1248896) in keuzenodes 110786 en 110785. Die tabel bevat itemIDs en tekent via
+`C_Item.GetItemInfo`, dus het scherm had `#1248877` getoond.
+
+**AFGELEID, niet gemeten:** dát deze twee nodes zijn wat men online "curios" noemt. In de hele boom
+van 49 nodes zijn er precies drie keuzenodes — de gifnode en deze twee. Sterk signaal, geen bewijs.
+Of er in seizoen 2 óók curio-*items* bestaan is van buiten de client niet te zien.
+
+Nog op te lossen: de curio-kant moet dus op de gif-structuur (spell-naam + clienttekst) in plaats van
+op het item-pad. En node **110817** staat op `ranksPurchased = 1` met een **lege** entries-lijst —
+één gekochte node waarvan de client ons de inhoud niet gaf; onbegrepen, laag geprioriteerd.
+
+### 🔴 En `tools/git_stage.py` maakte in dezelfde commit exact dezelfde fout
+
+Bij het committen van het bovenstaande stageerde het script **de verkeerde bestanden** — een lijst
+uit een sessie die al was afgelopen. De oorzaak: het negeerde het pad dat op de commandoregel stond
+en viel terug op een **hardcoded sessie-UUID**, met de opmerking erboven dat dat pad *"stabiel is
+voor dit project"*. Dat is het niet; een scratchpad-pad is per sessie.
+
+Het faalde niet. Het meldde succes en printte de verouderde lijst — de enige reden dat het opviel,
+is dat die namen zichtbaar niet klopten. Opgelost: eerst het argument, dan `CLAUDE_SCRATCHPAD`, dan
+de nieuwste op schijf, en het zégt welke het gebruikte.
+
+📌 Dat is dezelfde vorm als de gif-bug die het aan het committen was: **een vastgelegde momentopname
+van iets dat beweegt, met niets dat hem hercontroleert.** Twee keer op één avond, in twee bestanden
+die niets met elkaar te maken hebben.
+
 ## Stand 2 sep 2026 (ochtend)
 
 **Alle vier de wachters draaien nu in de cloud** en pushen zelf, tussen 05:30 en 06:00 Robs tijd —
