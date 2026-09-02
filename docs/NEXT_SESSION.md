@@ -85,9 +85,14 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
    én actieve world bosses: Lairs bestaan ernáást. Die claim kwam van Icy Veins en een techsite en
    was op weg naar onze publieke site. Twee secundaire bronnen die elkaar bevestigen zijn geen
    meting.
-   Gedaan: de S2-poort is uit `Modules/WorldBoss.lua` gehaald (hij verzweeg twee weken lang een
-   boss die er gewoon stond), het artikel staat weer op de site, en `SKIP_ARTICLES` in
-   `tools/build_site.py` is weer leeg — het mechanisme blijft.
+   Gedaan: de S2-poort is uit `Modules/WorldBoss.lua` gehaald, het artikel staat weer op de site,
+   en `SKIP_ARTICLES` in `tools/build_site.py` is weer leeg — het mechanisme blijft.
+   🔴 **Correctie op mezelf, dezelfde ochtend.** Hier stond eerst dat die poort "twee weken lang
+   een boss verzweeg die er gewoon stond". Rob weerlegde dat vanuit het spel binnen een kwartier:
+   Lu'ashal stond er **vóór** de reload al. `GetActiveWorldBoss` probeert eerst de client-scan, dan
+   de cache, en pas dán deze functie — de poort zat alleen op die laatste. De echte kosten zijn
+   dus smaller: in een week waarin de client niet antwoordt bleef het paneel leeg in plaats van de
+   boss te noemen. Nog steeds terecht weggehaald, maar niet wat ik beweerde.
    ⏳ **Rob moet nog bevestigen** dat de boss in-game terug is: `docs/TESTLIJST.md` punt 10.
    📌 Blijvende les die groter is dan dit item: **de sitegenerator kopieert teksten, maar niet de
    voorwaarden waaronder de addon ze toont.** Die poort stond in Lua, de generator leest data.
