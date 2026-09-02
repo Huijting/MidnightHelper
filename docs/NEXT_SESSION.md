@@ -264,6 +264,14 @@ eigen stelregel, naar buiten gekeerd — en het is de enige hoek hier die van on
     is de omvang van wat er mogelijk nooit iemand bereikt.
     📌 De eerste versie printte gewoon 226 namen op een rij. Dat is een lijst die niemand leest —
     en hij begroef juist de sleutel waarvoor de check gebouwd was.
+    🔴 **En de tweede les is scherper.** Ik had de dynamische prefixen met de hand geraden:
+    `CHANGELOG_`, `LANG_LABEL_`, `BINDING_`. `collect_references()` zag ze al bij het tellen van
+    de blinde vlek van [1] en gooide de literal weg; hij geeft ze nu terug. De **gemeten** lijst is
+    `ACH_KIND_`, `DISPEL_SCHOOL_`, `ENCHANT_STAT_`, `KEYBIND_TAG_`, `PLAN_KIND_`, `PROFACAD_GOAL_`
+    — **nul overlap met mijn gok.** Alle zes gemist, alle drie van mij zaten er niet bij. De meting
+    haalde 22 kandidaten weg (226 → 204); mijn gok haalde er nul weg.
+    📌 Het antwoord lag al in de code, in de functie die het weggooide. Dat is bij deze linter nu
+    drie keer gebeurd: [16], de fill-schaduw, en dit.
 11. ✅ **Crest-rangen es/pt/it — GEMETEN EN GESLOTEN, 2 sep. Uitkomst: afblijven.** Alle drie de
     clients vertalen de rang wél, dus onze packs hebben het goed. Uit Wowheads gelokaliseerde
     currency-pagina's: esES *"Blasón del alba de héroe"*, ptBR *"Brasão Auroral do Herói"*, itIT

@@ -173,9 +173,17 @@ def collect_locale_keys(paths: list[str]):
 
 
 def collect_references(root: str):
-    """Return (static_refs: {key: [(rel,line)]}, dynamic_count, ref_files)."""
+    """Return (static_refs: {key: [(rel,line)]}, dynamic_count, dynamic_prefixes).
+
+    📌 The prefixes are new on 2 Sep 2026 and they used to be thrown away. When a call reads
+    ns:L("DELVE_TIP_" .. slug) this function counted one dynamic reference and discarded the
+    literal — so check [1] knew a blind spot existed but not what was inside it, and check
+    [18] had no way to tell a runtime-built name from a dead one. The prefix is the answer to
+    both, and it was already in hand.
+    """
     static = {}
     dynamic = 0
+    dyn_prefixes = set()
     targets = []
     for name in ("UI.lua", "Core.lua"):
         p = os.path.join(root, name)
@@ -195,6 +203,7 @@ def collect_references(root: str):
                 # a literal followed by `..` is a dynamic key prefix, not a key
                 if line[m.end():].lstrip().startswith(".."):
                     dynamic += 1
+                    dyn_prefixes.add(m.group(2))
                     continue
                 static.setdefault(m.group(2), []).append((rel, i))
             if aliases:
@@ -203,9 +212,10 @@ def collect_references(root: str):
                         continue  # this file does not define that alias
                     if line[m.end():].lstrip().startswith(".."):
                         dynamic += 1
+                        dyn_prefixes.add(m.group(3))
                         continue
                     static.setdefault(m.group(3), []).append((rel, i))
-    return static, dynamic
+    return static, dynamic, dyn_prefixes
 
 
 def parse_toc(root: str) -> set[str]:
@@ -1008,7 +1018,7 @@ def main() -> int:
     lf = locale_files(root)
     defined = collect_locale_keys(lf)
     values = collect_locale_values(root)
-    static_refs, dynamic = collect_references(root)
+    static_refs, dynamic, dyn_prefixes = collect_references(root)
     toc_files = parse_toc(root)
     orphans, pending_toc = find_orphans(root, toc_files)
 
@@ -1336,8 +1346,13 @@ def main() -> int:
                              "\n".join(read_lines(p))):
             mentioned.add(m.group(1))
 
-    # Prefixes that are constructed rather than written out, so absence proves nothing.
-    DYNAMIC_PREFIXES = ("CHANGELOG_", "LANG_LABEL_", "BINDING_")
+    # ✅ THE PREFIXES ARE NOW MEASURED, NOT GUESSED. This used to hold a hand-written tuple
+    # ("CHANGELOG_", "LANG_LABEL_", "BINDING_") -- my guess at what gets built at runtime,
+    # which is precisely the kind of list that is wrong in ways nobody notices. collect_
+    # references() already saw every `ns:L("PREFIX_" .. x)` call while counting check [1]'s
+    # blind spot; it simply threw the literal away. It hands them over now, so this check
+    # excludes the prefixes the code ACTUALLY builds.
+    DYNAMIC_PREFIXES = tuple(sorted(dyn_prefixes)) + ("CHANGELOG_", "LANG_LABEL_", "BINDING_")
     unreachable = sorted(k for k in enus
                          if k not in mentioned
                          and not k.startswith(DYNAMIC_PREFIXES))
@@ -1359,8 +1374,9 @@ def main() -> int:
 
     print(f"\n[18] enUS keys defined but never mentioned in code: {len(unreachable)}  (SOFT)")
     print(f"     (scanned {len(code_paths)} code files; {len(mentioned)} distinct "
-          f"upper-case tokens seen. A key here is a CANDIDATE — runtime-built names look "
-          f"identical to dead ones.)")
+          f"upper-case tokens seen)")
+    print(f"     runtime-built prefixes excluded, read from the code rather than guessed: "
+          f"{', '.join(sorted(dyn_prefixes)) or '(none found)'}")
     if groups:
         print(f"     families (almost certainly built at runtime — {len(groups)} of them):")
         for p, n in groups[:8]:
