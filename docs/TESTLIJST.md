@@ -687,6 +687,27 @@ Vind je dat verkeerd voelen, dan draaien we het om.
 
 </details>
 
+### 13. De drie beroepsbeslissingen — `/mh profadvice`, na `/reload`
+
+**Waar te kijken:** Professions → Overview, of `/mh profadvice`.
+
+- **Jewelcrafting** — de eerste stap (*Thoughtful Throughput*) hoort nu een getal te noemen:
+  *"about 5 gets it working"*. Stond er eerst geen.
+- **Inscription** — na *Perfected Products* hoort er een vierde stap te komen:
+  **Darkmoon Curiosity**. ✅ De naam is al tegen jouw eigen client-capture gecontroleerd (0
+  afwijkingen), dus als hij er níét staat is er iets ánders mis dan de naam.
+- **Engineering / alle routes met een getal** — de adviesregel zegt er nu bij *"this step only
+  ticks off once the branch is full"*.
+
+🔴 **Wat ik onderweg vond en wat je moet weten:** jouw "de stap voltooit pas bij 30" was een
+symptoom. Er is geen drempel van 30 — de code vinkt af bij **tak vol**, en 30 is toevallig
+Recycling's maximum. Ik heb dus geen ander getal ingevuld maar de voorwaarde opgeschreven, want
+een verzonnen 30 was net zo fout geweest als de 10.
+
+📌 Zie je bij Inscription vier stappen maar staat *Darkmoon Curiosity* op een rare plek in de
+volgorde: dat klopt met wat we weten. De eerste drie zijn gemeten, waar de vierde hoort niet — ik
+heb hem achteraan gezet omdat dat niets kapotmaakt aan wat al klopte.
+
 ### 12. Valeera: `/mh poisons` en het verschil tussen `/mh curio` en `/mh curios`
 
 **Wat je moet zien, na `/reload`:**

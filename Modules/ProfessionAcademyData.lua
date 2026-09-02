@@ -440,8 +440,13 @@ ns.PROF_ACADEMY = {
 		-- 📌 Gems are no longer the automatic gold mine. Midnight has no item that adds
 		-- sockets any more (only the Great Vault), so demand for cut gems is structurally
 		-- lower than last expansion. Step two is a real choice, not a default.
+		--- 📌 `points = 5` ADDED 2 sep 2026, Robs beslissing. Elke gids noemt ~5 punten voor de
+		--- eerste stap; wij vroegen stilzwijgend een volle root, want zonder `points` toont de
+		--- adviesregel geen getal en vinkt de stap pas af als de tak vol is. Nu staat er wat de
+		--- gidsen zeggen, en de regel zegt er zelf bij wanneer hij afvinkt — zie
+		--- PROFACAD_ADVISE_NEXT_POINTS_FMT.
 		[755] = {
-			{ tree = "Thoughtful Throughput" },
+			{ tree = "Thoughtful Throughput", points = 5 },
 			{ anyOf = { "Glamorous Gems", "Alluring Accessories" } },
 			{ tree = "Proficient Processor" },
 		},
@@ -473,10 +478,22 @@ ns.PROF_ACADEMY = {
 		-- already grants the Treatise recipe; at 10 your Treatise yields an extra
 		-- Knowledge Point per week. That makes it the most important threshold in the
 		-- profession, because it accelerates every later point you earn.
+		--- 📌 `Darkmoon Curiosity` TOEGEVOEGD 2 sep 2026, Robs beslissing — het is Inscriptions
+		--- vierde boom en die stond hier niet, dus het advies hield op bij drie terwijl de speler
+		--- er vier ziet.
+		--- ⚠️ ACHTERAAN GEZET, EN DAT IS EEN KEUZE VAN VOORZICHTIGHEID, GEEN ONDERZOEK. De
+		--- volgorde van de eerste drie is gemeten en werkt; waar deze vierde thuishoort is niet
+		--- onderzocht. Achteraan verandert niets aan wat al klopte. Wie de prioriteit wél uitzoekt
+		--- mag hem verplaatsen.
+		--- 🔴 De naam moet exact de boomnaam uit de client zijn: een `tree` die nergens op matcht
+		--- wordt STIL overgeslagen — precies de fout die op 31 aug twaalf stappen onzichtbaar
+		--- maakte. Gecontroleerd met `_probe.py run audit_routes_vs_client` tegen Robs eigen
+		--- capture van de Warlock die deze drie beroepen tijdelijk had.
 		[773] = {
 			{ tree = "Calm Hands", points = 10 },
 			{ tree = "Blueprints" },
 			{ tree = "Perfected Products" },
+			{ tree = "Darkmoon Curiosity" },
 		},
 	},
 

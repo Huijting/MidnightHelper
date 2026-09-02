@@ -219,14 +219,24 @@ eigen stelregel, naar buiten gekeerd — en het is de enige hoek hier die van on
     Blizzards eigen data beantwoordde hem in twintig minuten. **Een vraag die bij de verkeerde
     eigenaar geparkeerd staat, blijft staan.**
 
-### 🔧 Robs drie beroepsbeslissingen — genomen 2 sep, nog niet verwerkt
+### ✅ Robs drie beroepsbeslissingen — genomen én verwerkt op 2 sep
 
-Hiermee kan de inhoud van de drie routes af. Alle drie zijn Robs keuze, niet af te leiden:
-
-12. **`points`-semantiek → de VOORWAARDE wint.** Recycling zei "mik op 10" terwijl de stap pas bij
-    30 voltooit. De stap bepaalt wat er staat, niet het advies.
-13. **Jewelcrafting stap 1 → 5 punten**, zoals de gidsen zeggen, niet een volle root.
-14. **Inscription → `Darkmoon Curiosity` erbij** als vierde boom.
+12. ✅ **`points`-semantiek → de VOORWAARDE wint.** 🔴 Bij het uitvoeren bleek Robs "30" een
+    symptoom en niet de regel: `ProfessionAcademy.lua:204` vinkt een stap af bij
+    `t.active >= t.max` — **tak vól**, met `max` uit de client. Er bestaat geen drempel van 30;
+    30 is Recycling's maximum. `points` wordt alleen getóónd en stuurt niets.
+    Dus niet een ander getal ingevuld, maar de voorwaarde uitgesproken:
+    `PROFACAD_ADVISE_NEXT_POINTS_FMT` zegt nu *"about %d gets it working; this step only ticks off
+    once the branch is full"*, in zeven talen, drift gemarkeerd.
+    📌 Zo blijft Zygors feit (10 punten = recepten ontdekken) staan zonder te liegen over wanneer
+    de stap afvinkt.
+13. ✅ **Jewelcrafting stap 1 → `points = 5`**, zoals de gidsen zeggen.
+14. ✅ **Inscription → `Darkmoon Curiosity`** toegevoegd als vierde boom, achteraan.
+    ⚠️ Achteraan is voorzichtigheid, geen onderzoek: de volgorde van de eerste drie is gemeten,
+    waar de vierde thuishoort niet. Wie dat uitzoekt mag hem verplaatsen.
+    ✅ Naam geverifieerd met `_probe.py run audit_routes_vs_client` tegen Robs eigen capture:
+    client zegt TAB, wij schrijven `tree`, **0 afwijkingen over alle 11 beroepen**. Een verkeerde
+    naam was stil overgeslagen — de fout die op 31 aug twaalf stappen onzichtbaar maakte.
 
 ✅ **AF op 2 sep — `A Toxic Tour` (98515) is verhaal, geen daily.** Gemeten in Zygor 9.6: zijn eigen
 dailies-gids noemt acht daily-ID's en 98515 zit er niet bij. De Codex zei nog "een keten van drie
