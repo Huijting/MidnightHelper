@@ -180,3 +180,33 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
   (hotfixes 26–27 aug); us.forums.blizzard.com UI-and-Macro. **[RAAKT ONS NIET]** niets nieuws te
   toetsen. Geen open actiepunt aan de addon-/API-kant; de staande 12.1.0-items hierboven zijn
   ongewijzigd afgedekt.
+
+- [2026-09-02] ✅ **Geen relevante API-wijzigingen deze week (26 aug–2 sep).** *Patch 12.1.0/API
+  changes* niet ververst binnen 7 dagen: laatste gedateerde PTR-sectie nog steeds **2026-08-04
+  (PTR 8, Build 69111)**, geconsolideerde diff nog "12.0.7 (68256) → 12.1.0 (69283) **Aug 11
+  2026**" — beide ruim buiten het venster (geverifieerd op de opgehaalde pagina, TOC t/m regel 154
+  + Consolidated-regel 531). `Category:API_patch_changes` opgehaald: nieuwste bestaande pagina is
+  nog steeds **Patch 12.1.0**; `12.1.1`/`12.1.2`/`12.1.5`/`12.2.0` bestaan niet. Blizzard US
+  UI-and-Macro-forum: geen nieuwe API-/taint-/secure-frame-thread binnen 7 dagen (websearch enkel
+  oude threads 2022–2024 + Wowpedia *Secure Execution and Tainting*, buiten venster). 12.1.5 PTR
+  nog altijd zónder client-build/datamining. Bron: warcraft.wiki.gg/Patch_12.1.0/API_changes +
+  Category:API_patch_changes; news.blizzard.com/article/24296142; us.forums.blizzard.com
+  UI-and-Macro. **[RAAKT ONS NIET]** niets nieuws te toetsen. Positieve controle van de grep in
+  dezelfde run: `C_UnitAuras` (8 bestanden), `issecretvalue` (41 bestanden),
+  `C_Navigation.GetNextWaypointForMap` (EventProbe.lua:120/133) vinden zoals verwacht treffers, dus
+  een leeg nieuw-item-resultaat is echt leeg en geen kapotte grep. Geen open actiepunt; de staande
+  12.1.0-items (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+  AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`) zijn
+  ongewijzigd afgedekt.
+
+- [2026-09-02] 📌 **CORRECTIE op de 1-sep-regel: er zijn wél nieuwe hotfixes (31 aug + 1 sep), maar
+  géén ervan raakt de API-/addon-kant.** De regel van 1 sep meldde "nieuwste gepubliceerde lijst is
+  27 aug" en "géén hotfixlijst van 28 aug–1 sep". Dat is inmiddels achterhaald: het rollende artikel
+  24296142 draagt nu **Hotfixes: September 1, 2026** met dagsecties voor 1 sep én 31 aug. Beide
+  volledig gelezen — enkel Classes/Delves/Dungeons&Raids/Items/PvP/Quests/Omnium Folio. De enige
+  "User Interface"-regel is de **31-aug**-content: "Groups for the Housewarming housing quest are now
+  found in the Questing section of the Premade Group Finder (was the Custom section)" — een
+  group-finder-categorie, geen Lua-API-, secure-frame- of taint-wijziging. "Tainted Strike"/"Defiling
+  Taint" (Avatar-encounter) zijn ability-/debuff-namen, geen Lua-`taint`. Bron:
+  news.blizzard.com/article/24296142 (hotfixes 31 aug + 1 sep 2026). **[RAAKT ONS NIET]** niets te
+  toetsen aan de addon-kant.
