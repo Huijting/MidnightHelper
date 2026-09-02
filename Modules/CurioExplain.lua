@@ -130,6 +130,9 @@ function ns.BuildCurioExplainText()
 	-- simply has no recommendation. See DelveCuriosData for why this check exists.
 	local picks = ns.GetDelveCurioGuidePicks and ns.GetDelveCurioGuidePicks() or nil
 	local seen = {}
+	-- Set when at least one of our own notes was printed, so the explanation of what
+	-- the mark means only appears when the mark does.
+	local noted = false
 
 	local lines = { L("CURIO_HEADER"), "" }
 	if picks then
@@ -169,6 +172,15 @@ function ns.BuildCurioExplainText()
 				local clean = o.desc:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
 					:gsub("|T[^|]*|t", ""):gsub("%s+", " "):gsub("^%s+", "")
 				lines[#lines + 1] = ("      %s"):format(clean)
+				-- Our own reading, directly under the text it was read from, so the
+				-- player can check it rather than take it. Marked differently from the
+				-- star because it is a different claim: see DelveCuriosData.
+				local noteKey = ns.GetDelveCurioOurNote
+					and ns.GetDelveCurioOurNote(o.spellID) or nil
+				if noteKey then
+					noted = true
+					lines[#lines + 1] = ("      %s%s"):format(L("CURIO_NOTE_MARK"), L(noteKey))
+				end
 			else
 				-- Unreadable, not absent. A blank line here would look like a curio
 				-- that does nothing.
@@ -198,6 +210,10 @@ function ns.BuildCurioExplainText()
 			lines[#lines + 1] = ""
 		end
 		lines[#lines + 1] = L("CURIO_GUIDE_NOTE")
+		lines[#lines + 1] = ""
+	end
+	if noted then
+		lines[#lines + 1] = L("CURIO_NOTE_DISCLAIMER")
 		lines[#lines + 1] = ""
 	end
 	lines[#lines + 1] = L("CURIO_FOOTER")

@@ -1483,6 +1483,18 @@ ns._mhLocales.enUS = {
 	CURIO_HEADER = "What each option does, in the game's own words. Which one suits you depends on your tier, your role and whether you run alone - so this explains first, and stars what most guides pick.",
 	CURIO_GUIDE_INTRO = "A star marks what most guides online recommend this season.",
 	CURIO_GUIDE_MARK = "* ",
+	-- Our own reading of the game text above it. A DIFFERENT mark from the star on
+	-- purpose: the star is what guides agree on, this is us. See DelveCuriosData.
+	CURIO_NOTE_MARK = ">> ",
+	CURIO_NOTE_DISCLAIMER = "Lines marked >> are our own reading of the game's text above them - read from the wording, not from a run, and not what guides say. Check them against the description yourself.",
+	CURIO_NOTE_SOULTHIRST = "Leech, Avoidance and Speed keep you alive rather than kill faster - the pick for a delve that keeps killing you.",
+	CURIO_NOTE_FORGOTTEN = "The biggest damage on paper, but every stack drops the moment the wielder is hit - it wants someone who does not get hit.",
+	CURIO_NOTE_BLOODCRYPT = "Blunts what enemies do to you. Frostheart Venom cuts more off their attack and cast speed, but this also cuts their damage.",
+	CURIO_NOTE_TOAD = "Extra area damage while several things are on you; nothing defensive.",
+	-- ⚠️ ONE percent sign, not two. These notes are never a format STRING - they are
+	-- passed as an argument to one, or concatenated - so "%%" would print literally.
+	CURIO_NOTE_FROSTHEART = "The strongest defensive one in words: melee, ranged AND casting speed all down 20%.",
+	CURIO_NOTE_SPORE = "The only one that interrupts. Worth a look if you run alone and a caster is what kills you.",
 	CURIO_GUIDE_NOTE = "About the stars: that is what most guides agree on - we have NOT tested it ourselves. What we did check is that every starred option really is in your companion's window, because the popular \"best curios\" articles name curios that belong to Brann and are not there at all.",
 	CURIO_GUIDE_MISSING_FMT = "Recommended elsewhere but NOT in your companion's tree, so not starred: %s. Treat any guide naming these with care.",
 	CURIO_CHOICE_FMT = "A choice of %d",

@@ -190,7 +190,38 @@ de nieuwste op schijf, en het zégt welke het gebruikte.
 van iets dat beweegt, met niets dat hem hercontroleert.** Twee keer op één avond, in twee bestanden
 die niets met elkaar te maken hebben.
 
-## 🔴 OPEN: waarom heeft de Poisons-slot geen aanbeveling?
+## ✅ Gif-advies: een TWEEDE soort markering, bewust los van de ster
+
+Rob koos (2 sep): niet de ster gebruiken, maar een eigen markering `>>` met per gif één regel over
+wanneer het nuttig is. Daarmee blijft de ster betekenen wat de voettekst belooft — *"hier zijn de
+guides het over eens"* — en staat er los van wat wíj eruit lezen.
+
+⚠️ **Alle zes regels zijn AFGELEID uit de speltekst die er drie regels boven staat.** Geen run, geen
+log, geen guide. Dat is precies waarom dit publiceerbaar is en een stil oordeel niet zou zijn: de
+lezer kan elke regel zelf tegen de beschrijving houden.
+
+Wat de zes teksten opleverden, nu alle zes gelezen zijn:
+
+| gif | wat het onderscheidt |
+|---|---|
+| Phantasmal Spore Toxin | **onderbreekt** (+1 sec fear) — de enige met een interrupt |
+| Frostheart Venom | -20% melee-, ranged- **én** cast-snelheid, -30% movement |
+| Bloodcrypt Toxin | -10% schade en -10% Haste |
+| Soulthirst Venom | +10% Leech/Avoidance/Speed voor jezelf |
+| Bursting Toad Toxin | AoE natuurschade |
+| Forgotten Master | tot +25% schade, **maar alle stacks weg zodra de drager schade krijgt** |
+
+📌 Die laatste voorwaarde is de enige echte in de set en de reden dat het "sterkste damage-gif"
+misleidend is. Robs Valeera staat op **Tank**.
+
+⚠️ Waar het paneel de notitie toont: **alleen bij een slot zonder ster**, en dan over wat de speler
+nú op heeft. Twee meningen op één regel is hoe een lezer niet meer kan zien welke van wie is. De
+voettekst draagt de disclaimer alleen wanneer de markering ook echt op het scherm staat.
+
+⚠️ Eén percent-teken in die notities, geen twee: ze zijn nooit een format-*string* (ze worden
+geconcateneerd of als argument doorgegeven), dus `%%` zou letterlijk verschijnen.
+
+## ~~OPEN~~ BEANTWOORD: waarom had de Poisons-slot geen aanbeveling?
 
 Rob, 2 sep, kijkend naar het werkende paneel: *"hebben we geen poisons??"* Nee, en dat is een
 **bewuste** keuze uit juli die nu aan haar houdbaarheidsdatum zit.

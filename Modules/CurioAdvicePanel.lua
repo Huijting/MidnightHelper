@@ -227,6 +227,7 @@ function ns.RefreshCurioAdvicePanel()
 	end
 
 	local picks = ns.GetDelveCurioGuidePicks and ns.GetDelveCurioGuidePicks() or nil
+	local anyNote = false
 
 	for _, node in ipairs(nodes) do
 		local labelKey = ns.GetDelveCurioSlotLabelKey
@@ -267,6 +268,25 @@ function ns.RefreshCurioAdvicePanel()
 		rec:Show()
 		y = y - math.max(LINE_H, rec:GetStringHeight() + 2)
 
+		-- Our own reading of what the player currently has, but only where there is no
+		-- guide star to speak for the slot. Two opinions stacked on one line is how a
+		-- reader stops being able to tell which is which.
+		local noteKey
+		if not recommended and active and ns.GetDelveCurioOurNote then
+			noteKey = ns.GetDelveCurioOurNote(active.spellID)
+		end
+		if noteKey then
+			anyNote = true
+			n = n + 1
+			local note = LineAt(f, n)
+			note:SetPoint("TOP", f._content, "TOP", 0, y)
+			note:SetWordWrap(true)
+			note:SetTextColor(0.62, 0.78, 0.62)
+			note:SetText(L("CURIO_NOTE_MARK") .. L(noteKey))
+			note:Show()
+			y = y - math.max(LINE_H, note:GetStringHeight() + 2)
+		end
+
 		n = n + 1
 		local yours = LineAt(f, n)
 		yours:SetPoint("TOP", f._content, "TOP", 0, y)
@@ -285,7 +305,13 @@ function ns.RefreshCurioAdvicePanel()
 		y = y - math.max(LINE_H, yours:GetStringHeight() + 2) - SLOT_GAP
 	end
 
-	f._foot:SetText(L("CURIOPANEL_FOOT"))
+	-- The foot carries whichever claims are actually on screen. A disclaimer for a
+	-- mark nobody can see is noise, and worse, it trains the reader to skip the foot.
+	local footText = L("CURIOPANEL_FOOT")
+	if anyNote then
+		footText = footText .. " " .. L("CURIO_NOTE_DISCLAIMER")
+	end
+	f._foot:SetText(footText)
 	f._content:SetHeight(math.max(10, math.abs(y)))
 	return true
 end

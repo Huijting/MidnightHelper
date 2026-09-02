@@ -328,6 +328,55 @@ ns.DELVE_CURIO_GUIDE_PICKS = {
 	},
 }
 
+--------------------------------------------------------------------------------
+-- OUR OWN READING — a second kind of mark, kept apart from the star on purpose.
+--
+-- Rob, 2 sep 2026, looking at the working panel: "hebben we geen poisons??" No,
+-- and the reason had expired. The Poisons slot was left blank in July because the
+-- three poison ids we had were all wrong, which made the effect descriptions that
+-- came with them unproven too. That blocker is gone: six ids measured, and the
+-- client hands over its own text.
+--
+-- 🔴 BUT THE STAR MEANS ONE SPECIFIC THING — "this is what most guides agree on" —
+-- and nobody checked what guides say about poisons. Starring one anyway would make
+-- the star mean something different from what the footer promises, on the one
+-- screen whose entire argument is that the popular articles are careless. Rob chose
+-- the other way out: a SEPARATE mark that says whose opinion it is.
+--
+-- ⚠️ SO THESE ARE AFGELEID, NOT MEASURED. Every line below is read off the spell
+-- description shown three lines above it in the same window — no run, no log, no
+-- guide. The reader can check every one of them against the text themselves, which
+-- is exactly why this is publishable and a silent verdict would not be.
+--
+-- 📌 They describe WHEN an option is useful; they do not rank. The one real
+-- conditional in the set is worth the ink: Forgotten Master reads as the strongest
+-- damage poison until you reach "all stacks are removed if the wielder takes
+-- damage", and Valeera stands in Tank role on Rob's own companion.
+--------------------------------------------------------------------------------
+
+ns.DELVE_CURIO_OUR_NOTES = {
+	[2] = {
+		[1250826] = "CURIO_NOTE_SOULTHIRST",   -- Soulthirst Venom
+		[1249934] = "CURIO_NOTE_FORGOTTEN",    -- Poison of the Forgotten Master
+		[1251120] = "CURIO_NOTE_BLOODCRYPT",   -- Bloodcrypt Toxin
+		[1305904] = "CURIO_NOTE_TOAD",         -- Bursting Toad Toxin
+		[1305912] = "CURIO_NOTE_FROSTHEART",   -- Frostheart Venom
+		[1305924] = "CURIO_NOTE_SPORE",        -- Phantasmal Spore Toxin
+	},
+}
+
+--- Our own one-line reading of an option, or nil when we have nothing to add.
+--- ⚠️ nil is the normal answer. Most options do not need a note, and inventing one
+--- to fill the column is how a screen stops being worth reading.
+function ns.GetDelveCurioOurNote(spellID, season)
+	season = tonumber(season) or (ns.GetDelvesSeasonNumber and ns.GetDelvesSeasonNumber() or nil)
+	if not season then
+		return nil
+	end
+	local pack = ns.DELVE_CURIO_OUR_NOTES[season]
+	return pack and pack[tonumber(spellID) or -1] or nil
+end
+
 --- Guide-recommended spellIDs for a season, or nil.
 --- Same no-fallback rule as everything else in this file: another season's picks
 --- are not a weaker answer, they are a wrong one.
