@@ -27,11 +27,31 @@
 #        Name: WAGO_API_TOKEN
 #   4. Tell me the project id, and I add `## X-Wago-ID: <id>` to the .toc.
 #
-# 📌 Also possible for free and not enabled: GITHUB_API_TOKEN publishes the zip as a
-# GitHub Release on this repo. Left off on purpose -- one new shop at a time, so if an
-# upload misbehaves we know which one.
+# --- GITHUB RELEASES, enabled 2 Sep 2026 ----------------------------------------------
+# This was deliberately left off with the note "one new shop at a time, so if an upload
+# misbehaves we know which one". That reason has now been served: CurseForge has worked for
+# months and Wago went up today. So the third one goes on.
+#
+# 📌 What made it visible: creating the Wago project, Rob's "Create from GitHub release"
+# dropdown offered only *Midnight Helper 2.8.1*. Our v* tags start the packager, but nothing
+# had created a GitHub Release object since then -- so every tag since 2.8.1 exists as a tag
+# and nothing else. That is also why today's first Wago upload had to be done by hand.
+#
+# ⚠️ NO NEW SECRET. `secrets.GITHUB_TOKEN` is provided by Actions itself; it only needs
+# `permissions: contents: write` below, which is why that block is new. VERIFIED against the
+# packager's own release.sh rather than its README: it reads
+#     [ -z "$github_token" ] && github_token=$GITHUB_OAUTH
+#     [ -z "$github_token" ] && github_token=$GITHUB_API_TOKEN
+# so GITHUB_API_TOKEN is the right name.
+#
+# 📌 The same check settled a scare worth recording: the README calls the CurseForge variable
+# CF_API_TOKEN while we pass CF_API_KEY. release.sh accepts BOTH, so our working setup was
+# never at risk and must not be "fixed".
 
-name: Release to CurseForge
+name: Release to CurseForge, Wago and GitHub
+
+permissions:
+  contents: write # create the GitHub Release; the default token is read-only without this
 
 on:
   push:
@@ -52,5 +72,7 @@ jobs:
         uses: BigWigsMods/packager@v2
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
-          # Empty until Rob adds the secret; inert until the .toc carries X-Wago-ID.
+          # Live since 2 Sep: the .toc now carries X-Wago-ID: rNky4wKa.
           WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+          # Built-in token, no setup. Publishes the same zip as a GitHub Release.
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}

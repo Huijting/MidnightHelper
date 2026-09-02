@@ -47,10 +47,15 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
    ⚠️ **Nog niet bewezen:** of het GitHub-secret `WAGO_API_TOKEN` er echt in staat en of de
    automatische upload werkt. Dat blijkt pas bij de eerste release ná vandaag — kijk dan of Wago
    de nieuwe versie krijgt zonder handwerk.
-   📌 **En één ding om uit te zoeken:** Wago's "Create from GitHub release" bood alleen *Midnight
-   Helper 2.8.1* aan. Onze `v*`-tags starten de packager wel, maar er lijkt sindsdien geen echt
-   GitHub *Release*-object meer gemaakt te worden. Als dat klopt is het een kleine instelling in
-   `release.yml` die voortaan handwerk scheelt.
+   ✅ **Uitgezocht dezelfde ochtend, en het was geen bug maar onze eigen keuze.** `release.yml`
+   zei het zelf: GitHub-releases waren bewust uit, *"one new shop at a time"*. Die reden is nu
+   vervallen (CF werkt al maanden, Wago staat er), dus aangezet met `GITHUB_API_TOKEN:
+   ${{ secrets.GITHUB_TOKEN }}` plus `permissions: contents: write`. **Geen nieuw secret nodig** —
+   Actions levert die token zelf.
+   ⚠️ Onbewezen tot de eerste release hierna: of het Release-object echt verschijnt.
+   📌 Bijvangst die een schrik bespaarde: de packager-README noemt `CF_API_TOKEN` terwijl wij
+   `CF_API_KEY` doorgeven. `release.sh` accepteert **allebei** (gemeten in de broncode, niet in de
+   README). Onze werkende opzet was dus nooit in gevaar en moet **niet** "gerepareerd" worden.
 
 **Gemeten open op 2 sep** (met positieve controle in dezelfde run):
 
