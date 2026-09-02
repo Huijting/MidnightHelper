@@ -4,6 +4,8 @@
 
 > 💬 **Join the community** — need help, found a bug, or want to help translate? Come say hi on [Discord](https://discord.gg/kBHaHcsASQ). Beginners very welcome, and the addon is always free. 🌙
 
+> 🌐 **Read it before you install it** — two of the addon's guides are also on the web, generated from the same data the addon uses: [where your Knowledge Points go](https://huijting.github.io/MidnightHelper/) for all eleven professions, and [what waits in each Delve](https://huijting.github.io/MidnightHelper/delves.html) for all fourteen.
+
 **Just hit 90 and nobody explained any of this?**
 
 Midnight Helper is the addon that tells you *why*, not just *what*. Your gear says "Champion 4/6" and the game never says what that means. Your vault has three empty slots and nothing says how to fill them. Midnight Helper answers those questions in plain language, in your own language — and then takes you there.
