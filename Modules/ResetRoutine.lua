@@ -463,7 +463,32 @@ local function GiverAllQuestIDs(def)
 	return ids
 end
 
--- "done" | "inlog" | "locked" | "pickup" | nil (no known IDs -> no claim)
+--- Is this quest finished and waiting to be handed in?
+---
+--- 🔴 THE WHOLE ROUTINE LOST ITS ARROW THE MOMENT YOU PICKED A QUEST UP, and Rob
+--- reported it on 2 sep 2026: "ik heb een quest opgehaald en die moet ik weer
+--- inleveren, maar ik krijg nu geen pijl (als ik de questgiver weer aanklik)."
+---
+--- The cause is one line below: "inlog" produced a step with no `pin`, no `open`
+--- and no `onClick`, so `ComputeOpenPins` dropped that stop and the line went dead
+--- to the click. Picking a quest up made the addon stop helping with it — at
+--- exactly the point the player has committed to it. Four lines in his screenshot
+--- were in that state at once.
+---
+--- ⚠️ BUT "IN MY LOG" IS NOT "READY TO HAND IN", and routing on the first would be
+--- the confident wrong answer this file already warns about twice: it would send
+--- you to stand in front of an NPC with nothing to say, while the objective is out
+--- in the world. So the giver is only routed to once the client says the quest is
+--- actually complete.
+local function ReadyToHandIn(qid)
+	if not (C_QuestLog and C_QuestLog.ReadyForTurnIn) then
+		return false
+	end
+	local ok, ready = pcall(C_QuestLog.ReadyForTurnIn, qid)
+	return (ok and ready) and true or false
+end
+
+-- "done" | "turnin" | "inlog" | "locked" | "pickup" | nil (no known IDs -> no claim)
 local function GiverState(def)
 	local ids = GiverAllQuestIDs(def)
 	if #ids == 0 then
@@ -472,6 +497,13 @@ local function GiverState(def)
 	for _, qid in ipairs(ids) do
 		if Flagged(qid) then
 			return "done"
+		end
+	end
+	-- Ready-to-hand-in beats merely-in-log: if any of this giver's quests is
+	-- finished, the giver is a stop again.
+	for _, qid in ipairs(ids) do
+		if OnQuest(qid) and ReadyToHandIn(qid) then
+			return "turnin"
 		end
 	end
 	for _, qid in ipairs(ids) do
@@ -586,10 +618,31 @@ function ns.GetResetRoutineSteps()
 		local gs = GiverState(def)
 		if gs == "done" then
 			steps[#steps + 1] = { text = ns:L("HOME_ROUTINE_GIVER_DONE_FMT"):format(def.name), color = "good" }
+		elseif gs == "turnin" then
+			-- Finished, waiting at the giver: a real stop again, with the same pin the
+			-- pickup used. The giver has not moved -- only our reason to walk there has.
+			anyGiverOpen = true
+			local pin = def.pin or { GIVERS_MAP, GIVERS_X, GIVERS_Y, "HOME_ROUTINE_PIN_GIVERS" }
+			steps[#steps + 1] = {
+				text = ns:L("HOME_ROUTINE_GIVER_TURNIN_FMT"):format(def.name),
+				color = "warn",
+				open = true,
+				pin = pin,
+				onClick = def.pin and function()
+					RouteSingle(pin[1], pin[2], pin[3], pin[4])
+				end or giversRoute,
+			}
 		elseif gs == "inlog" then
+			-- Deliberately not routed: the work is out in the world, not at the giver.
+			-- Clicking still routes you there, because a player who wants to look at the
+			-- quest giver should not be told no -- it just is not an open stop.
+			local pin = def.pin or { GIVERS_MAP, GIVERS_X, GIVERS_Y, "HOME_ROUTINE_PIN_GIVERS" }
 			steps[#steps + 1] = {
 				text = ns:L("HOME_ROUTINE_GIVER_INLOG_FMT"):format(def.name),
 				color = "prog",
+				onClick = def.pin and function()
+					RouteSingle(pin[1], pin[2], pin[3], pin[4])
+				end or giversRoute,
 			}
 		elseif gs == "locked" then
 			steps[#steps + 1] = {
@@ -736,26 +789,61 @@ function ns.GetResetRoutineSteps()
 				break
 			end
 		end
+		local readyToHandIn = false
 		if not done then
 			for _, qid in ipairs(prof.quests) do
 				if OnQuest(qid) then
 					inlog = true
+					if ReadyToHandIn(qid) then
+						readyToHandIn = true
+					end
 					break
 				end
 			end
 		end
+
+		-- Crafting profs (service quest) pick up at the Work Order station;
+		-- Enchanting + gatherers at their profession trainer. Hoisted out of the
+		-- pickup branch on 2 sep so the hand-in can route to the same place — the
+		-- trainer does not move between giving you the quest and taking it back.
+		local serviceProfs = ns.PROF_ACADEMY and ns.PROF_ACADEMY.weekly and ns.PROF_ACADEMY.weekly.serviceProfs
+		local isService = serviceProfs and serviceProfs[prof.skillLine] or false
+		local wx, wy, wPinKey, wPinArg
+		if isService then
+			wx, wy = stX, stY
+			wPinKey, wPinArg = "HOME_ROUTINE_PIN_STATION", nil
+		else
+			local tpin = TRAINER_PINS[prof.skillLine]
+			wx, wy = tpin and tpin[1] or stX, tpin and tpin[2] or stY
+			wPinKey, wPinArg = "HOME_ROUTINE_PIN_TRAINER_FMT", prof.name
+		end
+
 		if done then
 			steps[#steps + 1] = { text = ns:L("HOME_ROUTINE_TRAINER_DONE_FMT"):format(prof.name), color = "good" }
+		elseif readyToHandIn then
+			-- Same bug as the quest givers above: this used to become an unroutable
+			-- line the moment the quest entered the log, and stayed one after it was
+			-- finished. Rob had Blacksmithing sitting here on 2 sep.
+			steps[#steps + 1] = {
+				text = ns:L("HOME_ROUTINE_TRAINER_TURNIN_FMT"):format(prof.name),
+				color = "warn",
+				open = true,
+				pin = { stMap, wx, wy, wPinKey, wPinArg },
+				onClick = function()
+					RouteSingle(stMap, wx, wy, wPinKey, wPinArg)
+				end,
+			}
 		elseif inlog then
+			-- In the log but not finished: the crafting or gathering is the next step,
+			-- not the walk. Clickable, not an open stop.
 			steps[#steps + 1] = {
 				text = ns:L("HOME_ROUTINE_TRAINER_INLOG_FMT"):format(prof.name),
 				color = "prog",
+				onClick = function()
+					RouteSingle(stMap, wx, wy, wPinKey, wPinArg)
+				end,
 			}
 		else
-			-- Crafting profs (service quest) pick up at the Work Order
-			-- station; Enchanting + gatherers at their profession trainer.
-			local serviceProfs = ns.PROF_ACADEMY and ns.PROF_ACADEMY.weekly and ns.PROF_ACADEMY.weekly.serviceProfs
-			local isService = serviceProfs and serviceProfs[prof.skillLine] or false
 			-- Trainer-type weeklies are skill-gated: Enchanting verifiably
 			-- needs skill 25, and Rob's fresh skill-1 Herbalism got nothing at
 			-- the trainer (11 jun) while his leveled alt did. Below 25 we say
@@ -767,24 +855,18 @@ function ns.GetResetRoutineSteps()
 					color = "dim",
 				}
 			else
-			local px, py, textKey, pinKey, pinArg
-			if isService then
-				px, py = stX, stY
-				textKey = "HOME_ROUTINE_SERVICE_PICKUP_FMT"
-				pinKey, pinArg = "HOME_ROUTINE_PIN_STATION", nil
-			else
-				local pin = TRAINER_PINS[prof.skillLine]
-				px, py = pin and pin[1] or stX, pin and pin[2] or stY
-				textKey = "HOME_ROUTINE_TRAINER_PICKUP_FMT"
-				pinKey, pinArg = "HOME_ROUTINE_PIN_TRAINER_FMT", prof.name
-			end
+			-- Coordinates come from the hoisted block above; only the wording differs
+			-- between picking up at the station and at the trainer. Two copies of the
+			-- same isService branch is how they drift apart.
+			local textKey = isService and "HOME_ROUTINE_SERVICE_PICKUP_FMT"
+				or "HOME_ROUTINE_TRAINER_PICKUP_FMT"
 			steps[#steps + 1] = {
 				text = ns:L(textKey):format(prof.name),
 				color = "warn",
 				open = true,
-				pin = { stMap, px, py, pinKey, pinArg },
+				pin = { stMap, wx, wy, wPinKey, wPinArg },
 				onClick = function()
-					RouteSingle(stMap, px, py, pinKey, pinArg)
+					RouteSingle(stMap, wx, wy, wPinKey, wPinArg)
 				end,
 			}
 			end

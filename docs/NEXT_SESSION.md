@@ -190,6 +190,34 @@ de nieuwste op schijf, en het zégt welke het gebruikte.
 van iets dat beweegt, met niets dat hem hercontroleert.** Twee keer op één avond, in twee bestanden
 die niets met elkaar te maken hebben.
 
+## 🔴 2 sep (avond) — de weekroutine liet je vallen zodra je een quest oppakte
+
+Rob: *"ik heb een quest opgehaald en die moet ik weer inleveren, maar ik krijg nu geen pijl (als ik
+de questgiver weer aanklik)."* Gemeten in `ResetRoutine.lua` en het is precies dat.
+
+`GiverState` gaf `"inlog"` zodra een quest in je log stond, en die tak bouwde een stap **zonder
+`pin`, zonder `open` en zonder `onClick`**. `ComputeOpenPins` neemt alleen `step.open and step.pin`,
+dus de halte verdween uit de route en de regel was dood voor de klik. Hetzelfde gold voor de
+trainer-weeklies. In Robs screenshot stonden er **vier** tegelijk zo: Halduron, Aethas, Riftblade
+Maella en Blacksmithing.
+
+📌 **De vorm van de fout: het oppakken van een quest liet de addon ermee stoppen — precies op het
+moment dat de speler zich eraan gecommitteerd heeft.** De giver was nooit verplaatst; alleen onze
+reden om erheen te lopen was veranderd, en die hadden we niet ingevuld.
+
+⚠️ **Maar "in mijn log" is niet "klaar om in te leveren".** Routeren op het eerste zou de zelfverzekerd
+verkeerde antwoord zijn waar dit bestand al twee keer voor waarschuwt: je staat dan voor een NPC die
+niets voor je heeft, terwijl het werk buiten ligt. Er is dus een aparte staat `"turnin"`, die
+`C_QuestLog.ReadyForTurnIn` gebruikt — de client zegt het, wij raden niet.
+
+Nu: **af → echte halte met pijl** (`open`, `pin`, eigen tekst); **opgepakt maar niet af → wel
+klikbaar, geen halte**, want wie naar de giver wíl kijken hoort geen nee te krijgen. Bij de
+trainer-weeklies is de coördinaatberekening uit de pickup-tak omhoog gehaald zodat inleveren
+dezelfde plek gebruikt; dat haalde meteen een duplicaat van de `isService`-tak weg.
+
+Twee nieuwe sleutels (`HOME_ROUTINE_GIVER_TURNIN_FMT`, `HOME_ROUTINE_TRAINER_TURNIN_FMT`) in alle
+zeven talen, 0 drift.
+
 ## Stand 2 sep 2026 (ochtend)
 
 **Alle vier de wachters draaien nu in de cloud** en pushen zelf, tussen 05:30 en 06:00 Robs tijd —
