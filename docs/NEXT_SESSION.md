@@ -95,8 +95,26 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
 
 **Niet opnieuw gemeten, overgenomen uit de meting van 31 aug:**
 
-6. **B6** (het "vertel het ons"-model staat één keer in de hele addon) en **B10** (herschreven
-   CF-bovenkant staat alleen in de spec; moet mét een release mee).
+6. 🔴 **B6 — HERMETEN 2 sep, en écht nog open.** Het "vertel het ons"-model bestaat exact één keer:
+   `RITUAL_BOSS_MINDBREAKER_STEPS` (*"If you fight it, tell us what it did on Discord and it goes
+   in"*). Dat was tegelijk de positieve controle — mijn zoekvorm vindt een vraag waar er één is.
+   De vijf plekken waar de addon toegeeft iets níét te weten dragen er géén: `DELVE_TIP_UNMEASURED`
+   (enUS:1456), `DELVE_REWARDS_UNMEASURED` (enUS:1459), `MPLUS_AFFIX_UNMEASURED`
+   (`Locales/MythicPlus.lua:32`), `DELVE_CHEST_LEARNED` (enUS:547), `HAZARD_SOURCE_NOTE`
+   (enUS:1674).
+   ✅ **De blokkade is weg:** de spec zei *"waar het een tooltip is noemt de tekst `/mh report` —
+   daarom moet B5 eerst"*, en B5 bestaat sinds 2 sep.
+   ⚠️ De spec waarschuwt dat dit het voorstel is dat het snelst een zeurpiet wordt: alleen op
+   teksten die iemand bewust léést, nooit op een tooltip die de muis volgt, nooit met een knop die
+   terugkomt.
+6b. ✅ **B10 — CF-bovenkant HERSCHREVEN, 2 sep.** GEMETEN vóór en na: *"Just hit 90…"* stond op
+   regel 9 en staat nu op 3; **Professions 101 stond op regel 117 en staat nu op 15**.
+   🔴 En de meting legde bloot dat ik het die ochtend zélf erger had gemaakt: mijn site-blokcitaat
+   werd het derde bovenaan en duwde de pitch nog twee regels omlaag — precies het probleem dat de
+   spec beschrijft. De links staan er nog, nu ná "Start with these three".
+   📌 Het eenmansproject-briefje is samengevoegd met de Discord-regel en naar de voet van het
+   eerste scherm verhuisd: eerlijkheid die vertrouwen *sluit* hoort niet vóór de pitch te staan.
+   ⏳ Rob moet de omschrijving hiervoor opnieuw plakken (tweede keer op 2 sep).
 
 **Nieuw, 2 sep — en dit is nu het dringendst:**
 

@@ -1,20 +1,30 @@
 ## Midnight Helper
 
-> 🌙 **A one-man project.** Midnight Helper is written and maintained by one person. That is the honest reason updates arrive in bursts rather than on a schedule, and why a release sometimes spends itself going back over what the addon already said, instead of adding something new. Everything in here is checked against the live client before it ships.
+**The addon that explains *why*, not just *what*.**
 
-> 💬 **Join the community** — need help, found a bug, or want to help translate? Come say hi on [Discord](https://discord.gg/kBHaHcsASQ). Beginners very welcome, and the addon is always free. 🌙
+Your gear says "Champion 4/6" and the game never tells you what that means. Your Great Vault has three empty slots and nothing says how to fill them. Your profession window has six numbers on it and no one has ever explained a single one.
 
-> 🌐 **Read it before you install it.** A lot of what this addon explains is also [on the web](https://huijting.github.io/MidnightHelper/), generated from the same data the addon ships — so the two cannot disagree. [New at max level](https://huijting.github.io/MidnightHelper/start.html) · [your week and the Great Vault](https://huijting.github.io/MidnightHelper/weekly.html) · [currencies and crests](https://huijting.github.io/MidnightHelper/currencies.html) · [all fourteen Delves](https://huijting.github.io/MidnightHelper/delves.html) · [where your Knowledge Points go](https://huijting.github.io/MidnightHelper/) · [the Coiled Isle](https://huijting.github.io/MidnightHelper/coiled-isle.html).
+Midnight Helper answers those questions in plain language — in your own language — and then takes you there.
 
-**Just hit 90 and nobody explained any of this?**
+**It is for you if you have just hit 90, or if you are coming back after a few expansions away and half the game has been renamed.** One window for your whole week. Clean enough for a brand-new max-level player, deep enough for a min-maxer.
 
-Midnight Helper is the addon that tells you *why*, not just *what*. Your gear says "Champion 4/6" and the game never says what that means. Your vault has three empty slots and nothing says how to fill them. Midnight Helper answers those questions in plain language, in your own language — and then takes you there.
+**Free, open source (MIT), no dependencies, no ads, and seven languages built in — no second addon to install.**
 
-One window for the whole week. Clean enough for a brand-new max-level player, deep enough for a min-maxer. **Seven languages, no dependencies, always free.**
+### Start with these three
+
+- **Professions 101** — a fourteen-chapter beginner course, not a help page. Why the same recipe gives two players different results. What Multicraft, Resourcefulness, Ingenuity, Finesse, Perception and Deftness actually do. When Concentration is worth spending. How work orders really work, and why there are two counters rather than one. Where your Knowledge Points come from — and, live from your own game, exactly which node to spend the ones you have.
+- **"What should I do this week?"** — the This Week page opens with the single most useful thing you can do right now and a **Take me there** button that sets the route. While you are still levelling it never proposes endgame content you cannot do yet.
+- **Your class, on a keyboard** — your live spellbook drawn onto a clean keyboard layout, every ability on the key it belongs on, for all 13 classes and 40 specs. A new alt or a fresh spec becomes readable in about five seconds.
+
+There is a great deal more below — vault advice, delve and raid coaching, route guidance, achievement hunts, mounts. But those three are what the addon is *for*.
+
+🌐 **You can read a lot of it before installing anything.** [New at max level](https://huijting.github.io/MidnightHelper/start.html) · [your week and the Great Vault](https://huijting.github.io/MidnightHelper/weekly.html) · [currencies and crests](https://huijting.github.io/MidnightHelper/currencies.html) · [all fourteen Delves](https://huijting.github.io/MidnightHelper/delves.html) · [where your Knowledge Points go](https://huijting.github.io/MidnightHelper/) · [the Coiled Isle](https://huijting.github.io/MidnightHelper/coiled-isle.html). Those pages are generated from the same data the addon ships, so the two cannot disagree.
+
+> 🌙 **One person writes this, in their spare time.** That is the honest reason updates arrive in bursts rather than on a schedule. Everything in here is checked against the live client before it ships, and where the game will not tell us something, the addon says so instead of guessing convincingly. Need help, found a bug, or want to help translate? Come say hi on [Discord](https://discord.gg/kBHaHcsASQ) — beginners very welcome.
 
 ### See it in action
 
-Take a look at the screenshots for a feel of the addon in play — the **This Week** dashboard (your whole week at a glance), the **bar setup panel** that lays out your spells and keys for you, the **class keybind coach** (your live spellbook mapped onto a clean keyboard layout), the on-screen **route arrow**, the **Great Vault Advisor** ranking your loot choices, and the **Delve Coach** with per-boss tips.
+Take a look at the screenshots for a feel of the addon in play — the **This Week** dashboard (your whole week at a glance), the **professions adviser** naming the node to spend your next Knowledge Points on, the **class keybind coach** (your live spellbook mapped onto a clean keyboard layout), the on-screen **route arrow**, the **Great Vault Advisor** ranking your loot choices, and the **Delve Coach** with per-boss tips.
 
 ### Highlights
 
