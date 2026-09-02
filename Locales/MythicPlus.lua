@@ -29,7 +29,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	MPLUS_INTRO = "How keys work this season: the affixes, the 8-dungeon pool and the casts you must interrupt. Written against the Wowhead overview and method.gg — confirm in-game.",
 
 	MPLUS_AFFIX_HEADER = "What turns on at each key level",
-	MPLUS_AFFIX_UNMEASURED = "Season 2 changed the keystone affixes, and Midnight Helper has not measured the new ones yet. The list that used to stand here was Season 1’s, and showing it under a Season 2 heading would be worse than showing nothing. The dungeon pool below is current.",
+	MPLUS_AFFIX_UNMEASURED = "Season 2 changed the keystone affixes, and Midnight Helper has not measured the new ones yet. The list that used to stand here was Season 1’s, and showing it under a Season 2 heading would be worse than showing nothing. The dungeon pool below is current. Your own keystone shows the affixes before we can measure them: /mh report and they go in.",
 	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — marks and weakens certain enemies (Temporal Sands), and removes the death penalty. A leg-up while you learn the dungeons.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — one of four weekly \"kiss-curse\" variants is active (see below). Runs from +5 to +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance falls off — no more death-penalty grace from here up.",
@@ -69,7 +69,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	MPLUS_INTRO = "Come funzionano le key questa stagione: gli affix, il pool di 8 dungeon e i cast che devi interrompere. Scritto sulla base della panoramica di Wowhead e method.gg — confermare in-game.",
 
 	MPLUS_AFFIX_HEADER = "Cosa si attiva a ogni livello di key",
-	MPLUS_AFFIX_UNMEASURED = "La Stagione 2 ha cambiato gli affissi delle keystone e Midnight Helper non ha ancora misurato quelli nuovi. L’elenco che stava qui era della Stagione 1, e mostrarlo sotto un titolo di Stagione 2 sarebbe peggio che non mostrare nulla. Il pool di dungeon qui sotto è aggiornato.",
+	MPLUS_AFFIX_UNMEASURED = "La Stagione 2 ha cambiato gli affissi delle keystone e Midnight Helper non ha ancora misurato quelli nuovi. L’elenco che stava qui era della Stagione 1, e mostrarlo sotto un titolo di Stagione 2 sarebbe peggio che non mostrare nulla. Il pool di dungeon qui sotto è aggiornato. La tua keystone mostra gli affissi prima che possiamo misurarli: /mh report e ci finiscono.",
 	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — segna e indebolisce certi nemici (Temporal Sands), e rimuove la penalità di morte. Un aiuto mentre impari i dungeon.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — è attiva una delle quattro varianti settimanali \"bacio-maledizione\" (vedi sotto). Va da +5 a +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance decade — da qui in su niente più clemenza sulla penalità di morte.",
@@ -108,7 +108,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	MPLUS_INTRO = "Hoe keys dit seizoen werken: de affixes, de pool van 8 dungeons en de casts die je moet interrupten. Geschreven aan de hand van het Wowhead-overzicht en method.gg — in-game bevestigen.",
 
 	MPLUS_AFFIX_HEADER = "Wat er bij elk keyniveau aangaat",
-	MPLUS_AFFIX_UNMEASURED = "Season 2 heeft de keystone-affixen veranderd en Midnight Helper heeft de nieuwe nog niet gemeten. Het lijstje dat hier stond was dat van Season 1, en dat tonen onder een Season 2-kop is erger dan niets tonen. De dungeonpool hieronder klopt wel.",
+	MPLUS_AFFIX_UNMEASURED = "Season 2 heeft de keystone-affixen veranderd en Midnight Helper heeft de nieuwe nog niet gemeten. Het lijstje dat hier stond was dat van Season 1, en dat tonen onder een Season 2-kop is erger dan niets tonen. De dungeonpool hieronder klopt wel. Jouw eigen keystone toont de affixen eerder dan wij ze kunnen meten: /mh report en ze gaan erin.",
 	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — markeert en verzwakt bepaalde vijanden (Temporal Sands), en verwijdert de doodstraf. Een steuntje in de rug terwijl je de dungeons leert.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — een van de vier wekelijkse \"kus-vloek\"-varianten is actief (zie hieronder). Loopt van +5 tot +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance valt weg — vanaf hier geen genade meer van de doodstraf.",
@@ -148,7 +148,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	MPLUS_INTRO = "Wie Keys diese Saison funktionieren: die Affixe, der Pool aus 8 Dungeons und die Zauber, die du unterbrechen musst. Geschrieben anhand der Wowhead-Übersicht und method.gg — im Spiel bestätigen.",
 
 	MPLUS_AFFIX_HEADER = "Was bei jeder Keystufe aktiv wird",
-	MPLUS_AFFIX_UNMEASURED = "Season 2 hat die Keystone-Affixe geändert, und Midnight Helper hat die neuen noch nicht gemessen. Die Liste, die hier stand, war die von Season 1 — sie unter einer Season-2-Überschrift zu zeigen wäre schlimmer, als nichts zu zeigen. Der Dungeon-Pool unten ist aktuell.",
+	MPLUS_AFFIX_UNMEASURED = "Season 2 hat die Keystone-Affixe geändert, und Midnight Helper hat die neuen noch nicht gemessen. Die Liste, die hier stand, war die von Season 1 — sie unter einer Season-2-Überschrift zu zeigen wäre schlimmer, als nichts zu zeigen. Der Dungeon-Pool unten ist aktuell. Dein eigener Schlüsselstein zeigt die Affixe, bevor wir sie messen können: /mh report, und sie kommen rein.",
 	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — markiert und schwächt bestimmte Gegner (Temporal Sands) und entfernt die Todesstrafe. Eine Starthilfe, während du die Dungeons lernst.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — eine von vier wöchentlichen \"Kuss-Fluch\"-Varianten ist aktiv (siehe unten). Läuft von +5 bis +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance fällt weg — ab hier keine Gnade mehr bei der Todesstrafe.",
@@ -187,7 +187,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	MPLUS_INTRO = "Comment fonctionnent les clés cette saison : les affixes, le pool de 8 donjons et les incantations que vous devez interrompre. Rédigé d'après l'aperçu de Wowhead et method.gg — à confirmer en jeu.",
 
 	MPLUS_AFFIX_HEADER = "Ce qui s'active à chaque niveau de clé",
-	MPLUS_AFFIX_UNMEASURED = "La Saison 2 a changé les affixes de clé, et Midnight Helper n’a pas encore mesuré les nouveaux. La liste qui figurait ici était celle de la Saison 1, et l’afficher sous un titre Saison 2 serait pire que de ne rien afficher. Le pool de donjons ci-dessous est à jour.",
+	MPLUS_AFFIX_UNMEASURED = "La Saison 2 a changé les affixes de clé, et Midnight Helper n’a pas encore mesuré les nouveaux. La liste qui figurait ici était celle de la Saison 1, et l’afficher sous un titre Saison 2 serait pire que de ne rien afficher. Le pool de donjons ci-dessous est à jour. Ta propre clé montre les affixes avant qu'on puisse les mesurer : /mh report, et ils y entrent.",
 	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — marque et affaiblit certains ennemis (Temporal Sands), et supprime la pénalité de mort. Un coup de pouce pendant que vous apprenez les donjons.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — l'une des quatre variantes hebdomadaires \"baiser-malédiction\" est active (voir ci-dessous). Va de +5 à +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance disparaît — plus aucune grâce sur la pénalité de mort à partir d'ici.",
@@ -226,7 +226,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	MPLUS_INTRO = "Cómo funcionan las llaves esta temporada: los afijos, el pool de 8 mazmorras y los lanzamientos que debes interrumpir. Escrito a partir del resumen de Wowhead y method.gg — confirmar en el juego.",
 
 	MPLUS_AFFIX_HEADER = "Qué se activa en cada nivel de llave",
-	MPLUS_AFFIX_UNMEASURED = "La Temporada 2 cambió los afijos de las llaves y Midnight Helper todavía no ha medido los nuevos. La lista que había aquí era la de la Temporada 1, y mostrarla bajo un título de Temporada 2 sería peor que no mostrar nada. El grupo de mazmorras de abajo sí está al día.",
+	MPLUS_AFFIX_UNMEASURED = "La Temporada 2 cambió los afijos de las llaves y Midnight Helper todavía no ha medido los nuevos. La lista que había aquí era la de la Temporada 1, y mostrarla bajo un título de Temporada 2 sería peor que no mostrar nada. El grupo de mazmorras de abajo sí está al día. Tu propia llave enseña los afijos antes de que podamos medirlos: /mh report y entran.",
 	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — marca y debilita a ciertos enemigos (Temporal Sands), y elimina la penalización por muerte. Una ayuda mientras aprendes las mazmorras.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — una de las cuatro variantes semanales de \"beso-maldición\" está activa (ver abajo). Va de +5 a +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance desaparece — a partir de aquí no hay más indulgencia con la penalización por muerte.",
@@ -265,7 +265,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	MPLUS_INTRO = "Como as chaves funcionam nesta temporada: os afixos, o pool de 8 masmorras e as conjurações que você precisa interromper. Escrito com base na visão geral do Wowhead e no method.gg — confirmar no jogo.",
 
 	MPLUS_AFFIX_HEADER = "O que entra em ação em cada nível de chave",
-	MPLUS_AFFIX_UNMEASURED = "A Temporada 2 mudou os afixos das keystones e o Midnight Helper ainda não mediu os novos. A lista que estava aqui era a da Temporada 1, e mostrá-la sob um título de Temporada 2 seria pior do que não mostrar nada. O grupo de masmorras abaixo está atualizado.",
+	MPLUS_AFFIX_UNMEASURED = "A Temporada 2 mudou os afixos das keystones e o Midnight Helper ainda não mediu os novos. A lista que estava aqui era a da Temporada 1, e mostrá-la sob um título de Temporada 2 seria pior do que não mostrar nada. O grupo de masmorras abaixo está atualizado. A sua própria keystone mostra os afixos antes de podermos medi-los: /mh report e entram.",
 	MPLUS_AFFIX_LINDORMI = "Lindormi's Guidance — marca e enfraquece certos inimigos (Temporal Sands), e remove a penalidade de morte. Uma ajuda enquanto você aprende as masmorras.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — uma das quatro variantes semanais de \"beijo-maldição\" está ativa (veja abaixo). Vai de +5 a +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance cai — daqui para cima não há mais clemência na penalidade de morte.",

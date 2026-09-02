@@ -1415,7 +1415,7 @@ ns._mhLocales.nlNL = {
 	DELVE_TIP_UNMEASURED = "Nieuw in patch 12.1, op de Coiled Isle. Midnight Helper vond deze delve op je eigen client, maar niemand heeft hem gelopen — dus hier staat geen route, geen trash-lijst en geen bossplan, in plaats van een geleende. Hij vult zich zodra hij gedaan is.",
 	DELVE_REWARDS_VAULT_LEARNED = "Een vault-getal met een * komt niet uit een tabel — dat is wat jouw eigen Great Vault voor die tier daadwerkelijk aanbood. Het vult zich terwijl je speelt. De vault gebruikt de LAAGSTE van je beste twee activiteiten die week, dus behandel een geleerd getal als een ondergrens, niet als een belofte.",
 	DELVE_REWARDS_CAP_AT_8 ="|cffffffffDe gear is gelijk|r: tier 9, 10 en 11 geven precies wat tier 8 geeft, afgelezen bij de delve-ingang zelf en niet uit een gids.|n|cffffffffDe crests niet.|r Gemeten op deze client op 19 augustus: een tier 8-run gaf |cffffffffChampion|r Mistcrest, een tier 11-run gaf |cffffffffHero|r Mistcrest. Doorklimmen boven 8 levert dus wél iets op — alleen niet uit de kist.|nDe vault-getallen zijn nog niet gemeten; dat is een apart plafond dat de ingang niet toont.",
-	DELVE_REWARDS_UNMEASURED = "Season 2 heeft deze item levels veranderd en Midnight Helper heeft de nieuwe nog niet gemeten. In plaats van Season 1-getallen te tonen die nu te laag zijn, blijft deze lijst leeg tot een echte run hem vult. Je eindkist en je Great Vault zijn het eerlijke antwoord.",
+	DELVE_REWARDS_UNMEASURED = "Season 2 heeft deze item levels veranderd en Midnight Helper heeft de nieuwe nog niet gemeten. In plaats van Season 1-getallen te tonen die nu te laag zijn, blijft deze lijst leeg tot een echte run hem vult. Je eindkist en je Great Vault zijn het eerlijke antwoord. Een run gedaan? /mh report zet wat je kist gaf in één plakbaar blok.",
 	WAY_SET_HERE = "Waypoint gezet: %s.",
 	WAY_SET_ELSEWHERE = "Waypoint gezet: %s, in %s. Jij staat in %s — ga daar eerst heen, dan pakt de pijl je op.",
 	WAY_NO_PIN = "Deze kaart accepteert geen waypoint zonder TomTom, dus er komt geen pijl voor %s in %s. De coördinaten in de tekst kloppen wel gewoon.",
@@ -1463,7 +1463,7 @@ ns._mhLocales.nlNL = {
 	HAZARD_WORLD_COUNT = "hazards zijn bekend voor Midnights buitenwereld, maar niet bij welke zone elk hoort.",
 	HAZARD_NONE_KNOWN = "we weten nog niet wat je hier pijn doet.",
 	HAZARD_COUNT = "dingen om niet in te gaan staan",
-	HAZARD_SOURCE_NOTE = "De namen komen uit je eigen client. Dat ze bij deze plek horen is data van GTFO, niet gemeten.",
+	HAZARD_SOURCE_NOTE = "De namen komen uit je eigen client. Dat ze bij deze plek horen is data van GTFO, niet gemeten. Geraakt door iets dat hier niet staat? /mh report en het gaat erin.",
 
 	CURIO_NO_API = "Deze client biedt de companion-trait-API niet.",
 	CURIO_NO_TREE = "Geen companion-boom gevonden. Open het venster van je companion één keer en probeer het opnieuw - dat venster vertelt de addon welke companion je hebt.",

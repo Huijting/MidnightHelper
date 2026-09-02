@@ -95,7 +95,24 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
 
 **Niet opnieuw gemeten, overgenomen uit de meting van 31 aug:**
 
-6. 🔴 **B6 — HERMETEN 2 sep, en écht nog open.** Het "vertel het ons"-model bestaat exact één keer:
+6. ✅ **B6 — GEBOUWD 2 sep, op DRIE plekken en bewust niet op vijf.** De spec noemde vijf doelen;
+   de toets die ik erop legde is *heeft de speler de informatie die wij missen?*
+   - ✅ `MPLUS_AFFIX_UNMEASURED` — zijn keystone toont de affixen eerder dan wij ze meten.
+   - ✅ `HAZARD_SOURCE_NOTE` — hij wordt geraakt door iets dat niet in de lijst staat.
+   - ✅ `DELVE_REWARDS_UNMEASURED` — hij ziet zijn eigen kist. ⚠️ Dit is de **tooltip**, dus kort
+     en met `/mh report` in plaats van een uitnodiging — precies waarom B5 eerst moest.
+   - ❌ `DELVE_CHEST_LEARNED` — een API-beperking. De speler kan ons niets vertellen dat dit
+     oplost, dus een vraag daar is zuivere ruis.
+   - 🔴 `DELVE_TIP_UNMEASURED` — **dode tekst**: hij staat in zeven talen in de taalbestanden en in
+     géén enkel codepad. Geen speler heeft hem ooit gezien; waarschijnlijk overbodig geworden toen
+     alle veertien delves tips kregen. **Niet aangevuld — opruimen of aansluiten is een aparte
+     keuze.**
+   21 toevoegingen (3 sleutels × 7 talen) met een script dat weigert te schrijven bij een ander
+   aantal; drift gemarkeerd, lint 0/0.
+   📌 De spec waarschuwde dat dit het snelst een zeurpiet wordt. Drie vragen op drie schermen is
+   het antwoord daarop, en de toets hierboven is waarom het er drie zijn.
+
+6c. 🔍 **Hermeting van 2 sep, ter herinnering:** het "vertel het ons"-model bestond exact één keer:
    `RITUAL_BOSS_MINDBREAKER_STEPS` (*"If you fight it, tell us what it did on Discord and it goes
    in"*). Dat was tegelijk de positieve controle — mijn zoekvorm vindt een vraag waar er één is.
    De vijf plekken waar de addon toegeeft iets níét te weten dragen er géén: `DELVE_TIP_UNMEASURED`

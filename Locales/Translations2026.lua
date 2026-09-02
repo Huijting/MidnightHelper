@@ -1234,7 +1234,7 @@ fill("deDE", {
 	OPEN_TIP_HINT = "Linksklick: öffnen · Rechts-Ziehen: bewegen · Pfeil: Liste umschalten · Umschalt+Scrollen: skalieren",
 	OPEN_TIP_CAPPED = "Saisonsumme erreicht, das öffnet sich also nicht. Ausgeben hilft nicht — die Grenze zählt, was du verdient hast. Sie steigt beim wöchentlichen Reset.",
 	DELVE_TIP_UNMEASURED = "Neu in Patch 12.1, auf der Gewundenen Insel. Midnight Helper hat diesen Delve auf deinem eigenen Client gefunden, aber noch niemand ist ihn gelaufen — deshalb steht hier keine Route, keine Trash-Liste und kein Bossplan statt eines geliehenen. Er füllt sich, sobald er gelaufen wurde.",
-	DELVE_REWARDS_UNMEASURED = "Saison 2 hat diese Gegenstandsstufen geändert, und Midnight Helper hat die neuen noch nicht gemessen. Statt dir Saison-1-Zahlen zu zeigen, die jetzt zu niedrig sind, bleibt diese Liste leer, bis ein echter Durchlauf sie füllt. Deine Endtruhe und dein Great Vault sind die ehrliche Antwort.",
+	DELVE_REWARDS_UNMEASURED = "Saison 2 hat diese Gegenstandsstufen geändert, und Midnight Helper hat die neuen noch nicht gemessen. Statt dir Saison-1-Zahlen zu zeigen, die jetzt zu niedrig sind, bleibt diese Liste leer, bis ein echter Durchlauf sie füllt. Deine Endtruhe und dein Great Vault sind die ehrliche Antwort. Schon einen Durchlauf gemacht? /mh report macht daraus einen Block zum Einfügen.",
 	WAY_SET_HERE = "Wegpunkt gesetzt: %s.",
 	WAY_SET_ELSEWHERE = "Wegpunkt gesetzt: %s, in %s. Du bist in %s — reise erst dorthin, dann übernimmt der Pfeil.",
 	WAY_NO_PIN = "Diese Karte akzeptiert ohne TomTom keinen Wegpunkt, also gibt es keinen Pfeil für %s in %s. Die Koordinaten im Text stimmen trotzdem.",
@@ -1280,7 +1280,7 @@ fill("frFR", {
 	OPEN_TIP_HINT = "Clic gauche : ouvrir · clic droit+glisser : déplacer · flèche : afficher la liste · Maj+molette : redimensionner",
 	OPEN_TIP_CAPPED = "Total de saison atteint, donc ça ne s’ouvrira pas. Dépenser n’aide pas — le plafond compte ce que tu as gagné. Il monte à la réinitialisation hebdomadaire.",
 	DELVE_TIP_UNMEASURED = "Nouveau dans le patch 12.1, sur l’Île Annelée. Midnight Helper a trouvé ce delve sur ton propre client, mais personne ne l’a encore parcouru — donc pas de route, pas de liste de trash et pas de plan de boss ici, plutôt qu’un emprunté. Ça se remplira une fois fait.",
-	DELVE_REWARDS_UNMEASURED = "La Saison 2 a changé ces niveaux d’objet et Midnight Helper n’a pas encore mesuré les nouveaux. Plutôt que de t’afficher des chiffres de la Saison 1 désormais trop bas, cette liste reste vide jusqu’à ce qu’un vrai run la remplisse. Ton coffre de fin et ton Great Vault sont la réponse honnête.",
+	DELVE_REWARDS_UNMEASURED = "La Saison 2 a changé ces niveaux d’objet et Midnight Helper n’a pas encore mesuré les nouveaux. Plutôt que de t’afficher des chiffres de la Saison 1 désormais trop bas, cette liste reste vide jusqu’à ce qu’un vrai run la remplisse. Ton coffre de fin et ton Great Vault sont la réponse honnête. Déjà fait un run ? /mh report met ce que ton coffre a donné dans un seul bloc.",
 	WAY_SET_HERE = "Point de repère posé : %s.",
 	WAY_SET_ELSEWHERE = "Point de repère posé : %s, dans %s. Tu es dans %s — va d’abord là-bas et la flèche prendra le relais.",
 	WAY_NO_PIN = "Cette carte n’accepte pas de point de repère sans TomTom, donc pas de flèche pour %s dans %s. Les coordonnées du texte restent correctes.",
@@ -1326,7 +1326,7 @@ fill("esES", {
 	OPEN_TIP_HINT = "Clic izq.: abrir · arrastrar dcho.: mover · flecha: alternar lista · Mayús+rueda: redimensionar",
 	OPEN_TIP_CAPPED = "Total de temporada alcanzado, así que no se abrirá. Gastar no ayuda — el tope cuenta lo que has ganado. Sube en el reinicio semanal.",
 	DELVE_TIP_UNMEASURED = "Nuevo en el parche 12.1, en la Isla Serpenteante. Midnight Helper encontró este delve en tu propio cliente, pero nadie lo ha recorrido todavía — así que aquí no hay ruta, ni lista de trash, ni plan de jefe, en vez de uno prestado. Se rellenará cuando se haya hecho.",
-	DELVE_REWARDS_UNMEASURED = "La Season 2 cambió estos niveles de objeto y Midnight Helper aún no ha medido los nuevos. En lugar de enseñarte cifras de Season 1 que ahora se quedan cortas, esta lista permanece vacía hasta que una partida real la rellene. Tu cofre final y tu Great Vault son la respuesta honesta.",
+	DELVE_REWARDS_UNMEASURED = "La Season 2 cambió estos niveles de objeto y Midnight Helper aún no ha medido los nuevos. En lugar de enseñarte cifras de Season 1 que ahora se quedan cortas, esta lista permanece vacía hasta que una partida real la rellene. Tu cofre final y tu Great Vault son la respuesta honesta. ¿Ya has hecho una? /mh report convierte lo que te dio el cofre en un bloque.",
 	WAY_SET_HERE = "Punto marcado: %s.",
 	WAY_SET_ELSEWHERE = "Punto marcado: %s, en %s. Estás en %s — ve allí primero y la flecha te guiará.",
 	WAY_NO_PIN = "Este mapa no acepta un punto sin TomTom, así que no hay flecha para %s en %s. Las coordenadas del texto sí son correctas.",
@@ -1372,7 +1372,7 @@ fill("ptBR", {
 	OPEN_TIP_HINT = "Clique esquerdo: abrir · arraste com o direito: mover · seta: alternar lista · Shift+scroll: redimensionar",
 	OPEN_TIP_CAPPED = "Total da temporada atingido, por isso não vai abrir. Gastar não ajuda — o limite conta o que ganhaste. Sobe no reinício semanal.",
 	DELVE_TIP_UNMEASURED = "Novo no patch 12.1, na Ilha Enrolada. O Midnight Helper encontrou este delve no teu próprio cliente, mas ainda ninguém o percorreu — por isso aqui não há rota, nem lista de trash, nem plano de boss, em vez de um emprestado. Preenche-se assim que for feito.",
-	DELVE_REWARDS_UNMEASURED = "A Série 2 alterou estes níveis de item e o Midnight Helper ainda não mediu os novos. Em vez de te mostrar números da Série 1 que agora ficam aquém, esta lista fica vazia até que uma run a preencha. A tua arca final e o teu Great Vault são a resposta honesta.",
+	DELVE_REWARDS_UNMEASURED = "A Série 2 alterou estes níveis de item e o Midnight Helper ainda não mediu os novos. Em vez de te mostrar números da Série 1 que agora ficam aquém, esta lista fica vazia até que uma run a preencha. A tua arca final e o teu Great Vault são a resposta honesta. Já fez uma run? /mh report transforma o que a arca deu num bloco.",
 	WAY_SET_HERE = "Ponto marcado: %s.",
 	WAY_SET_ELSEWHERE = "Ponto marcado: %s, em %s. Estás em %s — vai lá primeiro e a seta trata do resto.",
 	WAY_NO_PIN = "Este mapa não aceita um ponto sem o TomTom, por isso não há seta para %s em %s. As coordenadas no texto continuam certas.",
@@ -1418,7 +1418,7 @@ fill("itIT", {
 	OPEN_TIP_HINT = "Clic sinistro: apri · trascina con destro: sposta · freccia: mostra/nascondi lista · Shift+rotellina: ridimensiona",
 	OPEN_TIP_CAPPED = "Totale stagionale raggiunto, quindi non si aprirà. Spendere non aiuta — il tetto conta quello che hai guadagnato. Sale al reset settimanale.",
 	DELVE_TIP_UNMEASURED = "Nuovo nella patch 12.1, sull’Isola Serpeggiante. Midnight Helper ha trovato questo delve sul tuo client, ma nessuno lo ha ancora percorso — quindi qui non c’è una rotta, né una lista di trash, né un piano per il boss, invece di uno preso in prestito. Si riempirà una volta fatto.",
-	DELVE_REWARDS_UNMEASURED = "La Season 2 ha cambiato questi livelli oggetto e Midnight Helper non ha ancora misurato i nuovi. Invece di mostrarti numeri della Season 1 ormai troppo bassi, questa lista resta vuota finché una run vera non la riempie. Il tuo forziere finale e il tuo Great Vault sono la risposta onesta.",
+	DELVE_REWARDS_UNMEASURED = "La Season 2 ha cambiato questi livelli oggetto e Midnight Helper non ha ancora misurato i nuovi. Invece di mostrarti numeri della Season 1 ormai troppo bassi, questa lista resta vuota finché una run vera non la riempie. Il tuo forziere finale e il tuo Great Vault sono la risposta onesta. Fatta una run? /mh report trasforma ciò che ti ha dato il forziere in un blocco.",
 	WAY_SET_HERE = "Waypoint impostato: %s.",
 	WAY_SET_ELSEWHERE = "Waypoint impostato: %s, in %s. Tu sei in %s — vacci prima, poi la freccia ti guida.",
 	WAY_NO_PIN = "Questa mappa non accetta un waypoint senza TomTom, quindi niente freccia per %s in %s. Le coordinate nel testo restano corrette.",
@@ -3553,7 +3553,7 @@ fill("deDE", {
 	HAZARD_WORLD_COUNT = "Gefahren sind für Midnights Außenwelt bekannt, aber nicht, zu welcher Zone jede gehört.",
 	HAZARD_NONE_KNOWN = "Was dir hier wehtut, ist noch nicht bekannt.",
 	HAZARD_COUNT = "Dinge, in denen du nicht stehen solltest",
-	HAZARD_SOURCE_NOTE = "Die Namen kommen aus deinem eigenen Client. Dass sie zu diesem Ort gehören, sind Daten von GTFO, nicht gemessen.",
+	HAZARD_SOURCE_NOTE = "Die Namen kommen aus deinem eigenen Client. Dass sie zu diesem Ort gehören, sind Daten von GTFO, nicht gemessen. Von etwas getroffen, das hier nicht steht? /mh report, und es kommt rein.",
 })
 
 fill("frFR", {
@@ -3580,7 +3580,7 @@ fill("frFR", {
 	HAZARD_WORLD_COUNT = "dangers sont connus pour le monde extérieur de Midnight, mais pas à quelle zone chacun appartient.",
 	HAZARD_NONE_KNOWN = "on ne sait pas encore ce qui fait mal ici.",
 	HAZARD_COUNT = "choses dans lesquelles il ne faut pas rester",
-	HAZARD_SOURCE_NOTE = "Les noms viennent de ton propre client. Qu'ils appartiennent à cet endroit vient des données de GTFO, ce n'est pas mesuré.",
+	HAZARD_SOURCE_NOTE = "Les noms viennent de ton propre client. Qu'ils appartiennent à cet endroit vient des données de GTFO, ce n'est pas mesuré. Touché par quelque chose qui ne figure pas ici ? /mh report, et ça y entre.",
 })
 
 fill("esES", {
@@ -3607,7 +3607,7 @@ fill("esES", {
 	HAZARD_WORLD_COUNT = "peligros se conocen para el mundo exterior de Midnight, pero no a qué zona pertenece cada uno.",
 	HAZARD_NONE_KNOWN = "todavía no se sabe qué te hace daño aquí.",
 	HAZARD_COUNT = "cosas en las que no debes quedarte",
-	HAZARD_SOURCE_NOTE = "Los nombres vienen de tu propio cliente. Que pertenezcan a este lugar son datos de GTFO, no medidos.",
+	HAZARD_SOURCE_NOTE = "Los nombres vienen de tu propio cliente. Que pertenezcan a este lugar son datos de GTFO, no medidos. ¿Te ha dado algo que no aparece aquí? /mh report y entra.",
 })
 
 fill("ptBR", {
@@ -3634,7 +3634,7 @@ fill("ptBR", {
 	HAZARD_WORLD_COUNT = "perigos são conhecidos para o mundo aberto de Midnight, mas não a qual zona cada um pertence.",
 	HAZARD_NONE_KNOWN = "ainda não se sabe o que te machuca aqui.",
 	HAZARD_COUNT = "coisas onde não vale a pena ficar parado",
-	HAZARD_SOURCE_NOTE = "Os nomes vêm do seu próprio cliente. Que pertençam a este lugar são dados do GTFO, não medidos.",
+	HAZARD_SOURCE_NOTE = "Os nomes vêm do seu próprio cliente. Que pertençam a este lugar são dados do GTFO, não medidos. Levou dano de algo que não está aqui? /mh report e entra.",
 })
 
 fill("itIT", {
@@ -3661,7 +3661,7 @@ fill("itIT", {
 	HAZARD_WORLD_COUNT = "pericoli sono noti per il mondo esterno di Midnight, ma non a quale zona appartenga ciascuno.",
 	HAZARD_NONE_KNOWN = "non si sa ancora cosa ti fa male qui.",
 	HAZARD_COUNT = "cose in cui non conviene restare",
-	HAZARD_SOURCE_NOTE = "I nomi vengono dal tuo client. Che appartengano a questo luogo sono dati di GTFO, non misurati.",
+	HAZARD_SOURCE_NOTE = "I nomi vengono dal tuo client. Che appartengano a questo luogo sono dati di GTFO, non misurati. Colpito da qualcosa che qui non c'è? /mh report e ci finisce.",
 })
 
 --========================================================================
