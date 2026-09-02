@@ -4,7 +4,7 @@
 
 > 💬 **Join the community** — need help, found a bug, or want to help translate? Come say hi on [Discord](https://discord.gg/kBHaHcsASQ). Beginners very welcome, and the addon is always free. 🌙
 
-> 🌐 **Read it before you install it** — two of the addon's guides are also on the web, generated from the same data the addon uses: [where your Knowledge Points go](https://huijting.github.io/MidnightHelper/) for all eleven professions, and [what waits in each Delve](https://huijting.github.io/MidnightHelper/delves.html) for all fourteen.
+> 🌐 **Read it before you install it.** A lot of what this addon explains is also [on the web](https://huijting.github.io/MidnightHelper/), generated from the same data the addon ships — so the two cannot disagree. [New at max level](https://huijting.github.io/MidnightHelper/start.html) · [your week and the Great Vault](https://huijting.github.io/MidnightHelper/weekly.html) · [currencies and crests](https://huijting.github.io/MidnightHelper/currencies.html) · [all fourteen Delves](https://huijting.github.io/MidnightHelper/delves.html) · [where your Knowledge Points go](https://huijting.github.io/MidnightHelper/) · [the Coiled Isle](https://huijting.github.io/MidnightHelper/coiled-isle.html).
 
 **Just hit 90 and nobody explained any of this?**
 

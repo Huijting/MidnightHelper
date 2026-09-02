@@ -186,7 +186,49 @@ def write(path, text):
     os.replace(path + ".tmp", path)
 
 
-write(OUT, html)
+# ── The navigation, in ONE place ──────────────────────────────────────────────────────
+#
+# 🔴 It used to be hand-written into each page, which was survivable at two pages and is a
+# trap at six: the failure is not a broken link but a page that quietly stops appearing in
+# the menu, and nothing reports that. Rob already lost the delve page once when the link
+# merely sat too far down.
+#
+# So: this list is the site. Adding a page here adds it to every menu AND to the sitemap,
+# because PAGES is derived from it further down rather than maintained beside it.
+NAV = [
+    ("", "Knowledge Points"),
+    ("delves.html", "Delves"),
+    ("start.html", "New at max level"),
+    ("weekly.html", "Your week"),
+    ("currencies.html", "Currencies"),
+    ("coiled-isle.html", "The Coiled Isle"),
+]
+
+
+def nav_html(current):
+    items = []
+    for path, label in NAV:
+        if path == current:
+            items.append("<li><strong>%s</strong> &mdash; you are here</li>" % esc(label))
+        else:
+            items.append('<li><a href="%s">%s</a></li>' % (path or "./", esc(label)))
+    return '<nav aria-label="Pages"><ul class="toc">%s</ul></nav>' % "".join(items)
+
+
+NAV_RE = re.compile(r'<nav aria-label="Pages">.*?</nav>', re.S)
+
+
+def inject_nav(page_html, current):
+    """Swap the placeholder nav for the generated one.
+
+    ⚠️ Asserts rather than silently doing nothing: a template that loses its nav marker would
+    otherwise publish a page with no way back, and look fine to the generator.
+    """
+    assert NAV_RE.search(page_html), "no <nav aria-label=\"Pages\"> block to replace"
+    return NAV_RE.sub(nav_html(current), page_html, count=1)
+
+
+write(OUT, inject_nav(html, ""))
 
 # One stylesheet for every page, so a second page cannot drift into looking like a different
 # site. Dark mode follows the reader's own setting rather than a toggle nobody would find.
@@ -355,13 +397,138 @@ welcome.</p>
 """
 
 write(os.path.join(OUT_DIR, "delves.html"),
-      DELVE_HTML.replace("__TOC__", "".join(toc)).replace("__SECS__", "".join(secs))
-      .replace("__COUNT__", str(len(delves))))
+      inject_nav(DELVE_HTML.replace("__TOC__", "".join(toc)).replace("__SECS__", "".join(secs))
+                 .replace("__COUNT__", str(len(delves))), "delves.html"))
+
+# ── The Codex pages ───────────────────────────────────────────────────────────────────
+#
+# The addon's Codex is ~44 short articles that were written for a player who just hit max
+# level and were checked against the client. They are the best prose this project has, and
+# until now they existed only inside the addon -- unreadable by anyone deciding whether to
+# install it, and invisible to search.
+#
+# One page per category, generated the same way as everything else here: if the addon's text
+# changes, the page changes with it, and neither can quietly contradict the other.
+#
+# ⚠️ Not every category is published. "delves" and "professions" are deliberately skipped --
+# they would compete with the two pages above and say it worse. Categories are opted IN.
+
+CODEX_DATA = os.path.join(ROOT, "Modules", "MidnightCodexData.lua")
+CODEX_LOC = os.path.join(ROOT, "Locales", "Codex.lua")
+
+codex_src = io.open(CODEX_DATA, encoding="utf-8", errors="replace").read()
+loc_src = io.open(CODEX_LOC, encoding="utf-8", errors="replace").read()
+
+# 🔴 TWO FILES, and finding that out cost a silent gap. Codex.lua holds most articles in
+# per-language blocks, but CODEX_STATS_*, CODEX_127_FOLIO_* and CODEX_127_TIMEWAYS_* live in
+# enUS.lua instead. Reading only the obvious file dropped three articles and the pages still
+# looked finished -- the same shape as the delve tips above, and the same shape as the content
+# watch's first mistake. Read both; let the dedicated file win where they overlap.
+KEY_RE = re.compile(r'([A-Z0-9_]+)\s*=\s*"((?:[^"\\]|\\.)*)"')
+
+loc_start = loc_src.find("merge(ns._mhLocales and ns._mhLocales.enUS, {")
+loc_end = loc_src.find("\nmerge(", loc_start + 1)
+assert loc_start >= 0 and loc_end > loc_start, "enUS block not found in Codex.lua"
+
+CODEX_TEXT = dict(KEY_RE.findall(io.open(ENUS_FILE, encoding="utf-8", errors="replace").read()))
+CODEX_TEXT.update(KEY_RE.findall(loc_src[loc_start:loc_end]))
+
+# Entries are table literals; split on the opening brace and read each one on its own.
+entries = []
+for chunk in codex_src.split("\n\t{"):
+    cat = re.search(r'category\s*=\s*"(\w+)"', chunk)
+    tk = re.search(r'titleKey\s*=\s*"([A-Z0-9_]+)"', chunk)
+    bk = re.search(r'bodyKey\s*=\s*"([A-Z0-9_]+)"', chunk)
+    if not (cat and tk and bk):
+        continue
+    sort = re.search(r'sort\s*=\s*(\d+)', chunk)
+    entries.append((cat.group(1), int(sort.group(1)) if sort else 999,
+                    tk.group(1), bk.group(1)))
+
+assert len(entries) >= 35, "only %d codex entries parsed -- refusing to publish" % len(entries)
+
+CODEX_PAGES = [
+    ("start.html", "start", "New to max level in WoW Midnight? Start here",
+     "The things the game never sits you down and explains &mdash; what to do first, what the "
+     "numbers on your gear mean, and which of the many blinking things actually matter."),
+    ("weekly.html", "weekly", "Your week in Midnight: the Great Vault and the rest",
+     "What resets, what is worth doing before it does, and how the Great Vault decides what it "
+     "offers you."),
+    ("currencies.html", "currencies", "Midnight currencies and crests, explained",
+     "Crests, coins, sparks and shards &mdash; what each one is for, where it comes from, and "
+     "which ones you are allowed to stop worrying about."),
+    ("coiled-isle.html", "coiledisle", "The Coiled Isle and the Vaults of Atal'Utek",
+     "A 12.1 zone with its own map, its own currency and very little explanation. What is in "
+     "there, and where."),
+]
+
+CODEX_HTML = """<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>__TITLE__</title>
+<meta name="description" content="__DESC__">
+<link rel="canonical" href="https://huijting.github.io/MidnightHelper/__PATH__">
+<link rel="stylesheet" href="style.css">
+<main>
+<h1>__TITLE__</h1>
+<p class="lede">__LEDE__</p>
+
+<nav aria-label="Pages"></nav>
+
+<nav aria-label="Sections"><ul class="toc">__TOC__</ul></nav>
+__SECS__
+<footer>
+<p>This is <strong>Midnight Helper</strong>'s own Codex, a free World of Warcraft addon that
+explains <em>why</em> rather than only <em>what</em>. In game these articles sit one click away
+while you play, in seven languages.</p>
+<p><a href="https://www.curseforge.com/wow/addons/midnight-helper">Get it on CurseForge</a>
+&middot; <a href="https://github.com/Huijting/MidnightHelper">Source on GitHub</a></p>
+<p>Some of this is measured in game and some comes from other guides; where we are unsure, the
+text says so rather than sounding certain. If something here is wrong, saying so is genuinely
+welcome.</p>
+</footer>
+</main>
+</html>
+"""
+
+codex_counts, skipped = [], []
+for path, cat, title, lede in CODEX_PAGES:
+    rows = sorted((e for e in entries if e[0] == cat), key=lambda e: e[1])
+    # 🔴 A category that parses to nothing must not publish an empty page that looks finished.
+    assert rows, "no codex entries for category %r" % cat
+    csecs, ctoc = [], []
+    for _cat, _sort, tkey, bkey in rows:
+        title_txt = CODEX_TEXT.get(tkey)
+        body_txt = CODEX_TEXT.get(bkey)
+        if not title_txt or not body_txt:
+            # A key with no English text is a data gap, and skipping it QUIETLY is the failure
+            # this project keeps paying for: the page would look complete while an article
+            # vanished. Name it instead -- the first run of this dropped one and only the
+            # article count gave it away.
+            skipped.append((cat, tkey if not title_txt else bkey))
+            continue
+        anchor = tkey.lower().replace("codex_", "").replace("_title", "").replace("_", "-")
+        ctoc.append('<li><a href="#%s">%s</a></li>' % (anchor, esc(title_txt)))
+        csecs.append('<section id="%s"><h2>%s</h2>%s</section>'
+                     % (anchor, esc(title_txt), bullets(body_txt)))
+    assert csecs, "category %r produced no sections -- locale keys missing?" % cat
+    page = (CODEX_HTML.replace("__TITLE__", esc(title)).replace("__LEDE__", lede)
+            .replace("__DESC__", esc(re.sub("<[^>]+>", "", lede)))
+            .replace("__PATH__", path)
+            .replace("__TOC__", "".join(ctoc)).replace("__SECS__", "".join(csecs)))
+    if GSC_TOKEN:
+        page = page.replace("<title>", '<meta name="google-site-verification" content="%s">\n<title>'
+                            % GSC_TOKEN, 1)
+    write(os.path.join(OUT_DIR, path), inject_nav(page, path))
+    codex_counts.append((path, len(csecs)))
 
 # A sitemap is close to pointless for one page and is exactly what Search Console asks for
 # the moment there are several -- so it is generated from the same list the pages are, and
 # cannot fall behind them.
-PAGES = [("", "weekly"), ("delves.html", "weekly")]  # (path under the root, change frequency)
+# 📌 Derived from NAV, never maintained beside it: a page that is in the menu is in the
+# sitemap, and one that is not in the menu cannot be silently left out of search either.
+PAGES = [(path, "weekly") for path, _label in NAV]
 today = __import__("datetime").date.today().isoformat()
 sitemap = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -376,6 +543,11 @@ write(os.path.join(OUT_DIR, "robots.txt"),
 
 print("wrote %s -- %d professions, %d findings, %d bytes"
       % (os.path.relpath(OUT, ROOT), len(routes), len(FINDINGS), len(html)))
+print("wrote site/delves.html -- %d delves" % len(delves))
+for path, n in codex_counts:
+    print("wrote site/%-16s -- %d codex article(s)" % (path, n))
+for cat, key in skipped:
+    print("  !! SKIPPED in %-12s no enUS text for %s" % (cat, key))
 print("wrote site/sitemap.xml (%d page(s)) and site/robots.txt" % len(PAGES))
 print("google-site-verification: %s"
       % ("set" if GSC_TOKEN else "NOT set -- paste the token into GSC_TOKEN in this file"))
