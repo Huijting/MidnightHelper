@@ -764,6 +764,13 @@ local hideTimer
 
 function ns.ShowConsumableBoard()
 	local f = EnsureBoard()
+	-- Ask the group to re-send before drawing. Until 2 sep 2026 nothing ever asked:
+	-- everyone broadcast of their own accord on roster/zone events, so a groupmate
+	-- who was in a loading screen at that moment was missing from this board for
+	-- good. The reply lands a moment later and Render() runs again on receipt.
+	if ns.RequestConsumableStatus then
+		ns.RequestConsumableStatus()
+	end
 	Render()
 	f:Show()
 	-- ⚠️ AFTER Show(), not before: an unshown frame has no GetLeft()/GetTop(), so placing

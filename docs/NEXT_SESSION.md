@@ -354,14 +354,33 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
 
 **Wacht op iemand anders:**
 
-1. **`cmd:req` voor het consumables-bord** — wacht op Cisca's reload-test.
-   ⚠️ **Cisca typt alleen `/reload`.** Deze regel las alsof zij "cmd:req" moest intypen; Rob vroeg
-   er op 2 sep naar. `cmd:req` is de naam van een protocolbericht dat we pas **bouwen** als de test
-   slaagt — het bestaat nog niet en niemand typt het ooit.
-   **De test:** Cisca zit in de groep, Rob opent het bord, haar regel ontbreekt, zij doet
-   `/reload`. Komt haar regel er dan bij, dan klopt de diagnose (iedereen zendt alleen uit
-   zichzelf bij `GROUP_ROSTER_UPDATE` / `PLAYER_ENTERING_WORLD`, en wie dan in een laadscherm zit
-   mist het voorgoed). Komt hij niet, dan is het iets anders en deugt het plan niet.
+1. ✅ **`cmd:req` GEBOUWD op de avond van 2 sep — de test is overgeslagen, met reden.**
+   Rob: *"het is niet meer voorgekomen dat ik de andere niet meer zie, dus dat heeft niet veel zin
+   meer om te testen."* Klopt, maar niet omdat het over is: **een symptoom dat wegblijft zegt
+   alleen dat de timing niet ongelukkig viel.** De code bewijst het gat wél, en dat is sterker dan
+   de test ooit had kunnen zijn — uitzenden gebeurt alleen op `GROUP_ROSTER_UPDATE` en
+   `PLAYER_ENTERING_WORLD`, en er bestond **geen enkel bericht dat om data vroeg**. Met
+   `STALE = 600` verdwijnt bovendien elke ontvangen rij na tien minuten zonder dat iets hem ophaalt.
+   ⚠️ Cisca hoefde dus nooit iets anders te typen dan `/reload`; `cmd:req` is een protocolbericht,
+   geen commando.
+
+   🔴 **En bij het bouwen bleek de helft van de reparatie al nodig zonder cmd:req:** de
+   ontvangst zette de rij in `received` en **hertekende het bord niet**. Een antwoord dat binnenkwam
+   terwijl het bord openstond was pas zichtbaar bij de volgende keer openen — hetzelfde symptoom als
+   de bug zelf. `ns.RefreshConsumableBoard` bestond al, deed precies het juiste, en werd daar nooit
+   aangeroepen. Derde keer deze week dat het antwoord al in de code lag.
+
+   📌 Wat het voor de ander betekent (Robs vraag): **niets zichtbaars.** Geen venster, geen geluid,
+   geen chatregel. Hun client krijgt een verborgen berichtje en stuurt dezelfde tellingen terug die
+   hij nu al ongevraagd rondstuurt. Geen nieuw gegeven, dus geen nieuwe privacyvraag; spelers zonder
+   MH negeren het prefix volledig.
+   ⚠️ Bewust **niet** achter `IsAutoPopupEnabled("consumables")`, anders dan `cmd:show`: die
+   instelling betekent "open geen venster bij mij", en dit opent niets. Hem hier toepassen zou
+   iemand die alleen de popup uitzette stil uit andermans bord laten verdwijnen.
+   ⚠️ Antwoorden worden **uitgesteld** in plaats van weggegooid als de 3s-throttle in de weg zit —
+   anders verliest een verzoek stilzwijgend zijn antwoord, precies de vorm van de bug die dit
+   repareert. Verzoekkant throttlet zelf op 5s.
+   **Nog niet in het spel bevestigd** — het vraagt twee mensen in een groep.
    Volledige analyse: `docs/NEXT_SESSION_ARCHIVE.md` regel 456 e.v.
 2. ✅ **Wago staat er — 2 sep.** Project aangemaakt, versie 3.7.3 handmatig geüpload (Wago's
    "Upload your Addon!" leidt naar *Create Version*, dus een zip is nodig om te beginnen), en

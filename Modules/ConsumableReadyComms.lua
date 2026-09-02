@@ -113,6 +113,74 @@ function ns.BroadcastConsumableStatus()
 	ns.MH_SendAddon(PREFIX, Encode(ns.GetOwnConsumableBagCounts()), ch)
 end
 
+--------------------------------------------------------------------------------
+-- cmd:req — vragen in plaats van hopen.
+--
+-- 🔴 HET ONTWERP LEUNDE VOLLEDIG OP TIMING. Iedereen zendt zijn tellingen alleen
+-- UIT ZICHZELF, op GROUP_ROSTER_UPDATE en PLAYER_ENTERING_WORLD. Wie op dat moment
+-- in een laadscherm zit, mist het bericht **voorgoed**: addon-berichten worden niet
+-- bewaard en niets vroeg er ooit opnieuw om. Met STALE = 600 verdwijnt bovendien
+-- alles wat je wél ontving na tien minuten, zonder dat iets het ophaalt.
+--
+-- ⚠️ GEBOUWD ZONDER DE GEPLANDE TEST, en dat is hier de sterkere weg. Rob, 2 sep:
+-- "het is niet meer voorgekomen dat ik de andere niet meer zie". Dat bewijst niets —
+-- het zegt dat de timing niet ongelukkig viel. De code bewijst het gat wél: er is
+-- geen enkel bericht dat om data vraagt. Een symptoom dat wegblijft is geen fix.
+--
+-- 📌 WAT DIT VOOR DE ANDER BETEKENT (Robs vraag, en het antwoord hoort hier):
+-- niets zichtbaars. Geen venster, geen geluid, geen chatregel. Hun client krijgt
+-- een verborgen berichtje en stuurt dezelfde tas-tellingen terug die hij nu al
+-- ongevraagd rondstuurt bij elke roster-wijziging. Geen nieuwe gegevens, dus ook
+-- geen nieuwe privacyvraag — en spelers zonder MH negeren het prefix volledig.
+--------------------------------------------------------------------------------
+
+local lastRequest = 0
+local replyPending = false
+
+--- Vraag de groep hun tellingen opnieuw te sturen. Aanroepen als het bord opengaat.
+function ns.RequestConsumableStatus()
+	local ch = GroupChannel()
+	if not ch then
+		return false
+	end
+	local now = (GetTime and GetTime()) or 0
+	-- Eigen throttle: het bord kan herhaald geopend worden, en één verzoek per vijf
+	-- seconden is ruim genoeg om een gemist bericht in te halen.
+	if now - lastRequest < 5 then
+		return false
+	end
+	lastRequest = now
+	ns.MH_SendAddon(PREFIX, PROTO .. "|cmd:req", ch)
+	return true
+end
+
+--- Antwoorden op andermans verzoek.
+---
+--- 🔴 NIET ZOMAAR BroadcastConsumableStatus() AANROEPEN. Die geeft binnen drie
+--- seconden na een eerdere zending stilzwijgend op — precies de vorm van de bug die
+--- dit repareert: een verzoek dat geen antwoord krijgt en niemand die het merkt.
+--- Vijf man die tegelijk hun bord openen zou zo vier antwoorden verliezen.
+---
+--- Dus: zit de throttle in de weg, dan wordt het antwoord **uitgesteld** tot hij
+--- afloopt, niet weggegooid. `replyPending` voorkomt dat tien verzoeken tien timers
+--- opstapelen; de throttle zelf blijft ongemoeid, zoals het plan voorschreef.
+local function RespondToStatusRequest()
+	local now = (GetTime and GetTime()) or 0
+	local wait = 3 - (now - lastSend)
+	if wait <= 0 then
+		ns.BroadcastConsumableStatus()
+		return
+	end
+	if replyPending or not (C_Timer and C_Timer.After) then
+		return
+	end
+	replyPending = true
+	C_Timer.After(wait + 0.1, function()
+		replyPending = false
+		ns.BroadcastConsumableStatus()
+	end)
+end
+
 -- Solo-test: whisper je eigen status naar jezelf en laat de ontvang-kant 'm
 -- verwerken (bewijst de hele send -> receive -> decode -> store-pijplijn).
 function ns.ConsumableReadyTest()
@@ -219,12 +287,38 @@ f:SetScript("OnEvent", function(_, event, prefix, msg, channel, sender)
 		return
 	end
 
+	-- "Stuur je tellingen nog eens" — het antwoord op een bord dat opengaat.
+	--
+	-- ⚠️ BEWUST NIET achter IsAutoPopupEnabled("consumables"), anders dan cmd:show
+	-- hierboven. Die instelling betekent "open geen venster bij mij"; dit opent
+	-- niets. Hem hier ook toepassen zou iemand die alleen de popup uitzette stil
+	-- uit andermans bord laten verdwijnen — een instelling die iets anders doet dan
+	-- hij zegt. De payload is bovendien exact wat deze client al ongevraagd
+	-- rondstuurt bij elke roster-wijziging, dus er komt geen gegeven bij.
+	if msg == PROTO .. "|cmd:req" then
+		RespondToStatusRequest()
+		return
+	end
+
 	local data = Decode(msg)
 	if not data then
 		return
 	end
 	data.when = (GetTime and GetTime()) or 0
 	received[short] = data
+
+	-- 🔴 DIT ONTBRAK, EN ZONDER DIT IS cmd:req ZINLOOS. De ontvangst zette de rij in
+	-- `received` en hertekende niets: een antwoord dat binnenkomt terwijl het bord
+	-- openstaat, was pas zichtbaar bij de vólgende keer openen. Precies hetzelfde
+	-- symptoom als de bug die dit repareert — een groepsgenoot die er niet staat.
+	--
+	-- 📌 `ns.RefreshConsumableBoard` bestond al en doet precies het juiste (hij
+	-- hertekent alleen als het bord getoond wordt; UNIT_AURA gebruikt hem ook).
+	-- Hij werd hier alleen nooit aangeroepen. Derde keer deze week dat het antwoord
+	-- al in de code stond.
+	if ns.RefreshConsumableBoard then
+		ns.RefreshConsumableBoard()
+	end
 
 	if isTest then
 		testExpect = false
