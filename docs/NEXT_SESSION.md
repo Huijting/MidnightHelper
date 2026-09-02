@@ -170,7 +170,7 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
    uitlegger stuurde; het adviseur-blok was dode code. ⏳ Robs keuze open: enkelvoud/meervoud is
    een slechte scheidslijn — samensmelten tot één commando is eerlijker maar groter.
    Zie `docs/TESTLIJST.md` punt 12.
-10. 🔴 **Twee blinde vlekken in de linter, gevonden door één toeval.** De pariteitscontrole zag
+10. ✅ **GEREPAREERD — twee blinde vlekken in de linter, gevonden door één toeval.** De pariteitscontrole zag
     `fill("deDE", { KEY = "..." })` op één regel niet: het contextpatroon zette de taal en
     `KEY_BARE_RE` is verankerd met `^`, dus de sleutel achter de accolade werd nooit gelezen.
     GEMETEN door alleen de opmaak te veranderen: zes vertalingen per taal doken op (deDE 3102 →
@@ -249,6 +249,13 @@ eigen stelregel, naar buiten gekeerd — en het is de enige hoek hier die van on
 7. **Delve-trinkets droppen minder sinds de hotfix van 1 sep.** Onze tips claimen geen droprate,
    dus er wordt niets onwaar — maar de PTR-wachter stelt voor het in het "wat farm ik hier"-advies
    te noemen. Robs keuze.
+15. 🔴 **`DELVE_TIP_UNMEASURED` is dode tekst.** Gemeten 2 sep bij B6: hij staat in zeven talen in
+    de taalbestanden en in **geen enkel codepad**. Geen speler heeft hem ooit gezien. Vermoedelijk
+    overbodig geworden toen alle veertien delves echte tips kregen. **Opruimen of aansluiten** —
+    dat is een keuze, geen bug, en daarom hier en niet stilzwijgend weggehaald.
+    📌 Waarschijnlijk staat hij niet alleen: de linter meldt elke run **8 dynamische key-verwijzingen
+    als blinde vlek**. Een telling van "sleutels die nergens worden aangeroepen" zou meer van dit
+    soort dode vertalingen vinden — 7 talen per stuk aan werk dat nooit iemand bereikt.
 11. ✅ **Crest-rangen es/pt/it — GEMETEN EN GESLOTEN, 2 sep. Uitkomst: afblijven.** Alle drie de
     clients vertalen de rang wél, dus onze packs hebben het goed. Uit Wowheads gelokaliseerde
     currency-pagina's: esES *"Blasón del alba de héroe"*, ptBR *"Brasão Auroral do Herói"*, itIT
