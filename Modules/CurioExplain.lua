@@ -3,20 +3,29 @@ local _, ns = ...
 --[[
 	Midnight Helper — what each curio actually does (/mh curios).
 
-	⚠️ EXPLAIN, DO NOT RANK. Rob, 16 aug, looking at Valeera's window: "ik mis hier ons
-	advies nog." The obvious reading is "tell me which is best", and that is the one
-	thing this deliberately does not do.
+	EXPLAIN FIRST, THEN STAR. Rob, 16 aug, looking at Valeera's window: "ik mis hier ons
+	advies nog." This used to refuse to answer that, and said so here in capitals.
 
-	`Everything Delves` already ships curio recommendations and is current (v1.25.0,
-	12.1). Copying their ranking would make MH a relay that goes quietly wrong the day
-	they change their mind, and we could never check it. Worse were the guides: the
-	"best Season 2 curios" articles name Sanctum's Edict and Time Lost Edict, which are
-	Brann curios from The War Within and appear nowhere in Valeera's window.
+	⚠️ THE REFUSAL'S REASONING WAS SOUND AND IS KEPT, because it is what makes the star
+	safe. `Everything Delves` already ships curio recommendations and is current
+	(v1.25.0, 12.1); copying their ranking would make MH a relay that goes quietly wrong
+	the day they change their mind. Worse were the guides: the "best Season 2 curios"
+	articles name Sanctum's Edict and Time Lost Edict, which are Brann curios from The
+	War Within and appear nowhere in Valeera's window.
 
-	So this answers the question underneath the question — what do these things do? —
-	and lets the player rank them. That is the line mh-market-position calls MH's edge.
+	🔴 So the fix was never "do not recommend" — it was "do not recommend without the
+	check those articles skipped". Rob asked a third time on 2 sep 2026 and the answer
+	is a star on the guides' picks, ALWAYS verified against the tree in front of the
+	player, with anything unverifiable named at the foot instead of quietly dropped.
+	The effect text still comes from the client, so the player can still overrule us.
 
-	⚠️ NOTHING IS HARDCODED, and that is the whole design.
+	The explaining is still the point — that is the line mh-market-position calls MH's
+	edge — and the footer keeps saying, in those words, that we have not tested these.
+
+	⚠️ THE OPTIONS ARE NEVER HARDCODED, and that is the whole design. (The star list in
+	DelveCuriosData is the one hardcoded thing, and it is the one thing that cannot come
+	from the client — the client knows what the curios do, not what strangers think of
+	them. That is exactly why it is verified against the tree on every render.)
 
 	  * the choice nodes come from the companion's own trait tree, so a curio Blizzard
 	    adds next season appears without anyone editing a file;
@@ -115,7 +124,18 @@ function ns.BuildCurioExplainText()
 		return L(why or "CURIO_NO_CHOICES")
 	end
 
+	-- The starred picks, and a positive control on them. `seen` proves the id is in the
+	-- tree we are looking at; anything left unseen is named at the foot rather than
+	-- silently missing, because an absent star is indistinguishable from a node that
+	-- simply has no recommendation. See DelveCuriosData for why this check exists.
+	local picks = ns.GetDelveCurioGuidePicks and ns.GetDelveCurioGuidePicks() or nil
+	local seen = {}
+
 	local lines = { L("CURIO_HEADER"), "" }
+	if picks then
+		lines[#lines + 1] = L("CURIO_GUIDE_INTRO")
+		lines[#lines + 1] = ""
+	end
 	for _, node in ipairs(nodes) do
 		-- The game does not name these slots in a way we can read, so they are
 		-- numbered rather than guessed at. Calling one "Poisons" because it has three
@@ -123,7 +143,12 @@ function ns.BuildCurioExplainText()
 		lines[#lines + 1] = ("== %s =="):format((L("CURIO_CHOICE_FMT")):format(#node.options))
 		for _, o in ipairs(node.options) do
 			local mark = o.active and L("CURIO_ACTIVE") or "  "
-			lines[#lines + 1] = ("%s %s"):format(mark, o.name or ("spell " .. o.spellID))
+			local star = ""
+			if picks and o.spellID and picks[o.spellID] then
+				seen[o.spellID] = true
+				star = L("CURIO_GUIDE_MARK")
+			end
+			lines[#lines + 1] = ("%s %s%s"):format(mark, star, o.name or ("spell " .. o.spellID))
 			if o.desc then
 				-- ⚠️ EXACTLY EIGHT hex digits. `|c%x+` is greedy and A-F are hex
 				-- digits, so it swallows the first letter of the coloured word —
@@ -141,6 +166,29 @@ function ns.BuildCurioExplainText()
 			end
 			lines[#lines + 1] = ""
 		end
+	end
+	if picks then
+		-- 🔴 The positive control, and the whole reason the star is safe to show.
+		-- A recommendation that names something the player cannot find is exactly the
+		-- failure the guides make; if ours ever does it, it says so out loud.
+		local lost = {}
+		for spellID in pairs(picks) do
+			if not seen[spellID] then
+				local nm
+				if C_Spell and C_Spell.GetSpellName then
+					local ok, v = pcall(C_Spell.GetSpellName, spellID)
+					nm = ok and v or nil
+				end
+				lost[#lost + 1] = nm or ("spell " .. spellID)
+			end
+		end
+		if #lost > 0 then
+			table.sort(lost)
+			lines[#lines + 1] = (L("CURIO_GUIDE_MISSING_FMT")):format(table.concat(lost, ", "))
+			lines[#lines + 1] = ""
+		end
+		lines[#lines + 1] = L("CURIO_GUIDE_NOTE")
+		lines[#lines + 1] = ""
 	end
 	lines[#lines + 1] = L("CURIO_FOOTER")
 	return table.concat(lines, "\n")

@@ -295,6 +295,48 @@ ns.DELVE_POISONS_BY_SEASON = {
 	},
 }
 
+--------------------------------------------------------------------------------
+-- What the guides recommend — the ONE thing /mh curios deliberately would not say.
+--
+-- Rob asked for this three times, most recently 2 sep 2026: an advice screen that
+-- says "wat volgens de meerderheid online het beste is". CurioExplain's header
+-- argues the opposite case and the argument is good, so read it before touching
+-- this: copying someone's ranking makes us a relay that goes wrong silently.
+--
+-- 🔴 AND THE GUIDES ARE MEASURABLY UNRELIABLE HERE. The "best Season 2 curios"
+-- articles name Sanctum's Edict and Time Lost Edict — Brann curios from The War
+-- Within that appear nowhere in Valeera's window. That is not a difference of
+-- opinion; it is an article about a thing the reader cannot find.
+--
+-- 📌 So this ships the recommendation WITH the check the articles skipped. Every
+-- id below was read out of Rob's own client on 2 sep 2026 (tree 1223, nodes
+-- 110786 and 110785), and the renderer verifies each one is still in the tree it
+-- is starring. A pick that is not there is reported, never quietly dropped —
+-- because "the star vanished" and "there is no star for this node" look the same.
+--
+-- ⚠️ NOT MEASURED: that these are the best. We have not tested them. The footer
+-- says so in those words, and it must keep saying so.
+--------------------------------------------------------------------------------
+
+ns.DELVE_CURIO_GUIDE_PICKS = {
+	[2] = {
+		-- MEASURED to exist: node 110786 entry 137797, node 110785 entry 137817.
+		[1248877] = true, -- Corrosive Bilespear
+		[1248896] = true, -- Soul-Cracking Dreamcatcher
+	},
+}
+
+--- Guide-recommended spellIDs for a season, or nil.
+--- Same no-fallback rule as everything else in this file: another season's picks
+--- are not a weaker answer, they are a wrong one.
+function ns.GetDelveCurioGuidePicks(season)
+	season = tonumber(season) or (ns.GetDelvesSeasonNumber and ns.GetDelvesSeasonNumber() or nil)
+	if not season then
+		return nil
+	end
+	return ns.DELVE_CURIO_GUIDE_PICKS[season]
+end
+
 --- Poisons for a season, or nil.
 --- Same rule as the curios above: NO fallback to another season. Poisons do not
 --- exist on 12.0.7, and offering season 2's data to a season 1 client would be

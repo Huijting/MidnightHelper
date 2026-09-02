@@ -1479,7 +1479,11 @@ ns._mhLocales.enUS = {
 	-- see the header of CurioExplain.lua for why.
 	CURIO_TITLE = "Your companion's choices",
 	CURIO_HINT = "Ctrl+C to copy. Marked with > is what you have selected right now.",
-	CURIO_HEADER = "What each option does, in the game's own words. Which one suits you depends on your tier, your role and whether you run alone - so this explains rather than picks.",
+	CURIO_HEADER = "What each option does, in the game's own words. Which one suits you depends on your tier, your role and whether you run alone - so this explains first, and stars what most guides pick.",
+	CURIO_GUIDE_INTRO = "A star marks what most guides online recommend this season.",
+	CURIO_GUIDE_MARK = "* ",
+	CURIO_GUIDE_NOTE = "About the stars: that is what most guides agree on - we have NOT tested it ourselves. What we did check is that every starred option really is in your companion's window, because the popular \"best curios\" articles name curios that belong to Brann and are not there at all.",
+	CURIO_GUIDE_MISSING_FMT = "Recommended elsewhere but NOT in your companion's tree, so not starred: %s. Treat any guide naming these with care.",
 	CURIO_CHOICE_FMT = "A choice of %d",
 	CURIO_ACTIVE = "> ",
 	CURIO_NO_TEXT = "(could not read the text for this one - hover it in game once, then run this again)",
@@ -1487,7 +1491,7 @@ ns._mhLocales.enUS = {
 	CURIO_NO_TREE = "No companion tree found. Open your companion's window once, then try again - that window is what tells the addon which companion you have.",
 	CURIO_NO_CHOICES = "No choice slots found on your companion. Either none are unlocked yet, or the tree has not loaded.",
 	CURIO_LOADING = "Asking the server for the effect texts...",
-	CURIO_FOOTER ="Read live from your own client, so it stays right when Blizzard changes something. If you want someone to pick for you, Everything Delves ranks them; this is here to tell you what you are choosing between.",
+	CURIO_FOOTER ="Read live from your own client, so it stays right when Blizzard changes something. Everything Delves ranks them too if you want a second opinion; this is here to tell you what you are choosing between.",
 	-- /mh stats — the four secondaries in plain words, in THIS spec's order. The
 	-- mastery sentence is the client's own, per spec; see StatCoach.lua for why none
 	-- of it is hardcoded and why the page opens by saying ilvl matters more.

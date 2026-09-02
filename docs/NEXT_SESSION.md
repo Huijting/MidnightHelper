@@ -46,6 +46,45 @@ Nu: `ns.RequestDelvePoisonData()` vraagt de teksten op (bij het verversen van de
 🔴 **Dit is de derde vorm van dezelfde regel uit `CLAUDE.md`: bouw je iets dat kan zwijgen, bouw dan
 een manier om te zien dát het zweeg.** Correct zwijgen en kapot zijn zien er van buiten identiek uit.
 
+### ✅ Het curio-scherm: sterren mét de controle die de gidsen overslaan
+
+`Modules/CurioExplain.lua` (`/mh curios`) bestond al en deed álles wat ik wilde bouwen — het leest
+elke keuzenode uit de boom, vraagt de teksten op mét retries, en niets is hardcoded. Het weigerde
+alleen bewust te ranken, en dát is wat Rob nu voor de derde keer vroeg.
+
+**De redenering achter die weigering was goed en is bewaard, want ze is precies wat de ster veilig
+maakt:** de populaire "beste Season 2 curios"-artikelen noemen Sanctum's Edict en Time Lost Edict —
+Brann-curios uit The War Within die **nergens in Valeera's venster staan**. Dat is geen
+meningsverschil, dat is een artikel over iets wat de lezer niet kan vinden.
+
+Dus de oplossing was nooit *"niet aanraden"*, maar *"niet aanraden zonder de controle die die
+artikelen oversloegen"*. Wat er nu staat:
+
+- een ster bij de twee picks waar de gidsen het over eens zijn (Corrosive Bilespear 1248877,
+  Soul-Cracking Dreamcatcher 1248896 — **beide gemeten in Robs eigen client**, 2 sep);
+- bij élke render een positieve controle dat de gesterde spell écht in de boom zit;
+- een pick die er niet in zit wordt **genoemd aan de voet**, nooit stilletjes weggelaten — want
+  "de ster is verdwenen" en "deze node heeft geen aanbeveling" zien er identiek uit;
+- een voettekst die in zoveel woorden zegt: dit is waar de gidsen het over eens zijn, **wij hebben
+  het niet getest**.
+
+⚠️ De koptekst van het bestand zei in hoofdletters *"EXPLAIN, DO NOT RANK"* en regel 19 zei
+*"NOTHING IS HARDCODED"*. Allebei bijgewerkt in dezelfde wijziging — een bestand dat zichzelf
+verkeerd beschrijft is de volgende val.
+
+### ⚠️ En `/mh poisons` blijkt de zwakkere kopie van `/mh curios`
+
+`GetCompanionChoices()` leest álle keuzenodes uit de boom, inclusief de gifnode, **zonder enige
+hardcoded lijst**. De statische `DELVE_POISONS_BY_SEASON` die vanavond verouderd bleek, was dus
+nooit nodig geweest. Sterker: `CurioExplain.lua` regel 157-166 beschrijft **exact** het probleem dat
+ik vanavond opnieuw ontdekte, gemeten op 25 aug — Frostheart Venom (1305912) en Phantasmal Spore
+Toxin (1305924) komen leeg terug na één seconde en hebben bij hoveren wél volledige tekst. Daar
+lost een retry-lus van 4× ~1s het op; in `/mh poisons` staat nu alleen een "probeer het nog eens".
+
+📌 **Derde keer deze week dat het antwoord al in de code stond.** Te doen: `/mh poisons` ofwel op
+`GetCompanionChoices()` zetten, ofwel opheffen als alias van `/mh curios`. Robs keuze — het is een
+commando dat hij gebruikt.
+
 ### ⚠️ Het curio-plan van vanmiddag was op een verkeerde aanname gebouwd
 
 Het plan was `DELVE_CURIOS_BY_SEASON[2]` te vullen met Corrosive Bilespear en Soul-Cracking
