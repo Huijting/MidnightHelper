@@ -495,7 +495,32 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
     `|cff…|r` gaf een **vals sein-veilig**. Beide gerepareerd; [13]/[15] blijven 0, nu voor het
     eerst gemeten in plaats van ongezien.
 
-## 🐍 Valeera-curio's Season 2 — onderzoek 2 sep, nog niet gebouwd
+## ✅ Valeera-curio's Season 2 — GEBOUWD op de avond van 2 sep
+
+⚠️ **Alles hieronder is het ONDERZOEK van die middag en blijft staan omdat de redenering klopt.
+Twee conclusies erin zijn 's avonds door meting in Robs client omvergegooid; die staan hier.**
+
+🔴 **"Corrosive Bilespear = 249223" IS FOUT.** Het is geen item. Het is een trait-entry in
+Valeera's boom: **spellID 1248877, entryID 137797, node 110786**. Hetzelfde geldt voor
+Soul-Cracking Dreamcatcher (**1248896**, entry 137817, node 110785). Punt 1 hieronder vroeg om
+"item-ID's meten"; het antwoord op die meting was dat het geen items zijn. Had `DELVE_CURIOS_BY_
+SEASON[2]` die ID's gekregen, dan had het scherm `#1248877` getoond — die tabel tekent via
+`C_Item.GetItemInfo`.
+
+✅ **De lijst van zes klopt exact.** Vierde en hardste bevestiging: de drie keuzenodes uit Robs
+eigen client geven precies de zes namen uit de tabel hieronder, in twee bakjes van drie —
+Combat = node 110786, Utility = node 110785. Het onderzoek van die middag had het goed.
+
+✅ **Punt 2 is beslist:** vullen mét herkomstregel. Uitgevoerd als een **ster** op de twee
+consensus-picks, die bij élke render tegen de boom van de speler wordt gecontroleerd, plus een
+voettekst die zegt dat wij het niet getest hebben. De gif-slot kreeg een **aparte** markering
+(`>>`) omdat we voor gif níét weten wat de guides zeggen — zie de sectie bovenaan.
+
+📌 De alinea hieronder over "de vijfde stem die één build napraat" is precies waarom het zo
+gebouwd is: de ster zegt wát de bron is, en de controle tegen de boom is wat geen van de vier
+andere stemmen doet.
+
+### Het onderzoek van 2 sep (middag) — ongewijzigd bewaard
 
 Rob vroeg onderweg om "zo'n adviesscherm zoals we in seizoen 1 hadden". **Dat scherm bestaat nog**
 (`Modules/DelveCuriosAdvisor.lua`: paneel op de Delves-tab én popup bij de reparateur, per rol,
@@ -551,14 +576,18 @@ dat niemand het kán onderbouwen.
 niemand doet is zeggen wáár het vandaan komt en hoe zeker het is. Dat is precies deze addons
 eigen stelregel, naar buiten gekeerd — en het is de enige hoek hier die van ons is.
 
-### Wat nog moet gebeuren
+### ~~Wat nog moet gebeuren~~ — beide punten afgehandeld op de avond van 2 sep
 
-1. ⏳ **Item-ID's meten, niet overschrijven.** Eén is hard: **Corrosive Bilespear = 249223** (wiki
-   + WoWDB, twee bronnen). De rest niet. Rob opent Valeera's paneel in het spel → `/mh valeera
-   save` → `/reload`, dan staan ze in `ns.db.companionProbe` en zijn ze GEMETEN uit zijn client.
-   ⚠️ De probe stopt als dat venster dicht is — daarom die eerste stap.
-2. **Robs keuze:** vullen met de consensus **mét herkomstregel**, of niets tonen tot er een betere
-   bron is. Nu toont het scherm niets, en dat is de slechtste van de drie.
+1. ✅ **Gemeten, en de meting weersprak de vraag.** Er zijn geen item-ID's: het zijn trait-entries
+   met spellIDs (zie de correctie bovenaan deze sectie). **249223 stond hier als "hard, twee
+   bronnen" en is onjuist** — een goed voorbeeld van twee bronnen die elkaar bevestigen en samen
+   naast de client zitten.
+   ⚠️ De probe stopt inderdaad als haar venster dicht is; dat gebeurde Rob die avond ook
+   (*"probe stopped: no trait tree"*) en de foutmelding zegt niet dát je het venster moet openen.
+   Nog te verbeteren.
+2. ✅ **Beslist: vullen mét herkomst.** Een ster op de twee consensus-picks, gecontroleerd tegen de
+   boom van de speler, plus een voettekst die zegt dat wij niets getest hebben. Voor gif een
+   aparte markering, omdat daar geen guide-consensus van bekend is.
 
 **Nieuw, 2 sep:**
 
