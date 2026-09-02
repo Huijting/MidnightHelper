@@ -1,20 +1,30 @@
 # Midnight Helper — waar we staan
 
-## 🔴 EERST, 1 sep: zeg Rob dat hij Claude Code moet HERSTARTEN
+## 🔴 DIT BESTAND BIJWERKEN HOORT BIJ DE WIJZIGING, NIET ERNA
 
-Rob werkt die dag onderweg vanaf zijn telefoon (Remote Control — die zet **hij** aan, dat kan de
-sessie niet zelf). Op 31 aug greep een subagent naar de **PowerShell-tool** en zette daarmee een
-toestemmingsprompt op zijn telefoon terwijl hij reed.
+Rob, 2 sep 2026: *"dit moet eigenlijk altijd gebeuren als er iets verandert, vind je niet?"*
 
-De reparatie staat klaar: de PreToolUse-hook matcht nu `Bash|PowerShell` en `bash_guard.py`
-weigert die tool botweg. ⚠️ **Maar `settings.json` wordt alleen bij het opstarten gelezen**, dus
-tot de eerste herstart is het slot niet actief en moet het met gedrag: **elke agent-opdracht
-draagt de shell-regels zelf mee.**
+Ja. En de reden dat het tóch misgaat is dat bijwerken aan het *eind* komt, als het werk al klaar
+voelt — dan is het optioneel geworden. **Verandert de status van iets dat hier staat, dan gaat de
+regel mee in dezelfde commit als de code.** Niet "straks even".
 
-📌 Werk dat onderweg gedaan kán worden: research in Blizzards eigen data (zoals de vijf spell-ID's
-en de Galvanic Rifle op 31 aug). Werk dat NIET moet: een stapel code die hij pas 's avonds kan
-testen — we hebben net gereleased, dus ongeteste voorraad opbouwen is verkeerd om. En houd
-antwoorden kort; hij leest ze op een telefoonscherm.
+⚠️ Wat het kost als je het niet doet, twee keer gemeten: op 31 aug somde ik zeven beroepen op als
+ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond `A Toxic Tour` hier
+nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
+aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
+
+## Stand 2 sep 2026 (ochtend)
+
+**Alle vier de wachters draaien nu in de cloud** en pushen zelf, tussen 05:30 en 06:00 Robs tijd —
+API, PTR/roadmap, blue post/data, content. Niets hangt meer aan Robs pc. Zie de tabel bovenaan
+`CLAUDE.md`. De drie oorzaken die dat blokkeerden (repo niet als bron ingesteld, twee logboeken in
+`.gitignore`, en een connector-toestemming waar een onbeheerde run op bleef wachten) staan in de
+commits van die ochtend.
+
+📌 En de regel die daaruit volgde en breder geldt dan wachters: **een onbeheerd proces mag nooit op
+een goedkeuring blijven wachten.** 4 van de 10 laatste API-runs waren zo stilgevallen. Kan iets niet,
+schrijf op wát niet kon en ga door — een halve meting die aankomt is meer waard dan een volledige
+die nooit komt.
 
 ## ✅ 3.7.3 LIVE en approved op CurseForge — 31 aug 2026 (tag `v3.7.3` op `945e17d`)
 
@@ -26,16 +36,44 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
 
 ### 🔴 Wat morgen als eerste telt
 
+**Wacht op iemand anders:**
+
 1. **`cmd:req` voor het consumables-bord** — wacht op Cisca's reload-test.
-2. **De inhoud van de Engineering-, Jewelcrafting- en Inscription-routes.** Hun *structuur* is
-   geverifieerd (0 afwijkingen), maar of `Recycling` het juiste eerste punt is, is nooit tegen
-   gamedata gelegd. ⚠️ Dat verschil is echt en is vandaag één keer verward.
-3. **SPEC_31 B3 t/m B10b** — gemeten open op 31 aug: B3 (Discord-nudge vraagt om een gunst vanaf
-   de eerste login), B4 (lege changelog-voet), B5 (`/mh report` bestaat niet), B6 (het "vertel het
-   ons"-model staat één keer in de hele addon), B7 (alleen CF), B10 (herschreven CF-bovenkant
-   staat alleen in de spec), B10b (geen professie-scène in `/mh shots`).
-4. **Is `A Toxic Tour` verhaal of daily?** Zygor en de questline-data spreken elkaar tegen. Alleen
-   het spel beslist. Zie `docs/ATAL_UTEK_QUESTS.md`.
+2. **Wago** — Rob logt in met GitHub (er is geen e-maillogin), maakt het project en een token op
+   `/account/apikeys`, zet GitHub-secret `WAGO_API_TOKEN`, en geeft het project-ID door voor
+   `## X-Wago-ID` in de `.toc`. Dit is tegelijk SPEC_31 B7.
+
+**Gemeten open op 2 sep** (met positieve controle in dezelfde run):
+
+3. **B5 — `/mh report` bestaat niet.** `msg == "report"` komt nergens voor; `folio`, `shots` en
+   `profadvice` worden met hetzelfde patroon wél gevonden, dus dit is gemeten afwezigheid.
+4. **B10b — geen beroepen-scène in `/mh shots`.** `Modules/DevShots.lua` bestaat en `scene` geeft
+   tientallen treffers, maar `prof` nul.
+5. **De INHOUD van de Engineering-, Jewelcrafting- en Inscription-routes.** Hun *structuur* is
+   geverifieerd (0 afwijkingen over alle 11 beroepen), maar of `Recycling` het juiste eerste punt
+   is, is nooit tegen gamedata gelegd. ⚠️ Dat verschil is echt en is op 31 aug één keer verward.
+   Drie beslissingen liggen bij Rob: de `points`-semantiek (Recycling zegt "mik op 10" maar de stap
+   voltooit pas bij 30), JC stap 1 (alle gidsen zeggen ~5, wij eisen een volle root), en of
+   Inscriptions vierde boom `Darkmoon Curiosity` erbij moet.
+
+**Niet opnieuw gemeten, overgenomen uit de meting van 31 aug:**
+
+6. **B6** (het "vertel het ons"-model staat één keer in de hele addon) en **B10** (herschreven
+   CF-bovenkant staat alleen in de spec; moet mét een release mee).
+
+**Nieuw, 2 sep:**
+
+7. **Delve-trinkets droppen minder sinds de hotfix van 1 sep.** Onze tips claimen geen droprate,
+   dus er wordt niets onwaar — maar de PTR-wachter stelt voor het in het "wat farm ik hier"-advies
+   te noemen. Robs keuze.
+
+✅ **AF op 2 sep — `A Toxic Tour` (98515) is verhaal, geen daily.** Gemeten in Zygor 9.6: zijn eigen
+dailies-gids noemt acht daily-ID's en 98515 zit er niet bij. De Codex zei nog "een keten van drie
+quests" terwijl `CampaignLeadIn.lua` er al vier had; in zeven talen rechtgezet.
+
+✅ **AF op 2 sep — B3 en B4.** Beide gemeten aanwezig: de milestone-poort in `DiscordNudge.lua:178`
+en `CHANGELOG_ASK` in vier bestanden. Dit lijstje noemde ze nog als open — precies de fout die de
+sectie bovenaan dit bestand beschrijft.
 
 ### 📌 Twee dingen die vandaag als werkwijze zijn vastgelegd
 

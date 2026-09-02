@@ -65,6 +65,17 @@ dat is precies het verschil dat dit project al drie keer verkeerd om heeft gelez
        uitzien is een tabel die liegt over zijn eigen betrouwbaarheid.
     4. **Kun je iets niet meten, zeg dat** in plaats van het weg te laten. Weglaten leest als
        "gecontroleerd en in orde".
+    5. 🔴 **EN WERK `docs/NEXT_SESSION.md` BIJ IN DEZELFDE COMMIT — Rob, 2 sep 2026:** *"dit moet
+       eigenlijk altijd gebeuren als er iets verandert, vind je niet?"* Ja. Verandert de status van
+       iets dat daar staat, dan gaat die regel mee met de code, niet "straks even".
+       ⚠️ **Waaróm dit steeds misgaat:** bijwerken komt aan het *eind*, als het werk al klaar
+       voelt, en dan is het optioneel geworden. Bind het aan de commit en het is dat niet meer.
+       📌 Dit is geen aparte regel maar punt 1 van deze lijst van de andere kant: als een
+       aantekening een claim mét een datum is, dan is een niet-bijgewerkte aantekening een claim
+       die je zélf onwaar hebt gemaakt en toch hebt laten staan. Twee keer gemeten wat dat kost —
+       zeven "ongecontroleerde" beroepen die Rob die ochtend had gemeten (31 aug), en `A Toxic
+       Tour` dat als open vraag bleef staan nadat hij beantwoord was (2 sep). Beide keren citeerde
+       ik mijn eigen verouderde aantekening als bewijs.
   - **Ask the client instead.** Write the answer to `ns.db.<something>`, have Rob `/reload`, then read the SavedVariables file. `scannedIds` in the automap dump and `/mh events` exist for exactly this. Wowhead (12.0.7) and the official API wiki are fine for candidates too — the client settles it.
 - **Rob's in-game `/reload` is the final syntax check.** Do a static check too where possible (see Build & verify), but assume Rob will reload and report errors.
 - **Git & CurseForge are Rob's job.** Provide the exact commands + checklist, but do not push releases or trigger uploads unless Rob explicitly says to run them. (In Claude Code you *can* run git with permission — still confirm with Rob before commit/push/tag on a release.)
