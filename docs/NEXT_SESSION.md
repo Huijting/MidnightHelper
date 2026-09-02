@@ -206,6 +206,15 @@ eigen stelregel, naar buiten gekeerd — en het is de enige hoek hier die van on
 7. **Delve-trinkets droppen minder sinds de hotfix van 1 sep.** Onze tips claimen geen droprate,
    dus er wordt niets onwaar — maar de PTR-wachter stelt voor het in het "wat farm ik hier"-advies
    te noemen. Robs keuze.
+11. 🔴 **Crest-rangen in esES / ptBR / itIT — en de route ernaartoe is dood.** Zij vertalen
+    *Champion* wél (`Campeón` / `Campeão` / `Campione`) terwijl de/fr/nl hem Engels houden.
+    `Locales/KeepEnglish.lua` laat die drie er bewust uit staan met de reden *"nobody has checked
+    what their clients show; that question is open and goes to #translations"*.
+    ⚠️ **Maar #translations is een dood spoor** — Rob, 30 aug: *"er is nog helemaal niemand op
+    Discord"*. De vraag ligt dus nergens, terwijl het bestand denkt dat hij ergens ligt.
+    📌 En hij is wél zelf te beantwoorden: es/pt/it zijn **echte clienttalen**, dus wat Blizzard
+    toont staat in de spel-data — dezelfde weg waarmee Valira in het Portugees gevonden is.
+    Geen gok nodig, wel werk. Uit de triage van 2 sep.
 
 ✅ **AF op 2 sep — `A Toxic Tour` (98515) is verhaal, geen daily.** Gemeten in Zygor 9.6: zijn eigen
 dailies-gids noemt acht daily-ID's en 98515 zit er niet bij. De Codex zei nog "een keten van drie
@@ -224,33 +233,30 @@ sectie bovenaan dit bestand beschrijft.
   Elk nieuw scriptpad kost Rob anders een prompt bij élke run.
 
 
-
-
 ## 📌 Ouder, maar nog niet af — staat in `docs/NEXT_SESSION_ARCHIVE.md`
 
-De historie is op 2 sep afgesplitst. Deze secties lazen daar nog als OPEN, dus ze staan
+De historie is op 2 sep afgesplitst. Deze secties lezen daar nog als OPEN, dus ze staan
 hier bij naam — een openstaand punt mag niet verdwijnen door oud te zijn.
 
+✅ **Alle negentien kandidaten zijn diezelfde middag één voor één nagelopen** (Rob: *"waarom niet
+nu nalopen, ik ben toch onderweg"*), en elf bleken af. Het oordeel staat per stuk mét reden in
+`KNOWN_DONE` in `tools/split_handoff.py`, zodat het na te lezen is in plaats van te geloven.
+Onder de opgeloste: de dispel-aankondiging (staat in `docs/CURSEFORGE_3.7.0.md`), `fill()` die
+eigennamen terugdraaide (nu `Locales/KeepEnglish.lua` + lintcheck [15]), de Season 1-tiersettabel
+(op 29 aug verwijderd, leest nu de tooltip van je gedragen stuk) en de gehardcodeerde S1-ilvl's in
+de delve-tooltip (weg uit `Modules/Delves.lua`).
+⚠️ Eén blijft er staan die ik **niet** heb kunnen verifiëren: *MORGEN 19 AUG* (quest 96466).
+Onverifieerd is niet hetzelfde als open, maar ook niet hetzelfde als af.
+📌 Herclassificeren gaat met `python "<repo>/tools/_probe.py" run split_handoff --reindex --write`.
+
 - 🆕 30 aug — waar komen onaangeleerde recepten vandaan? (OPEN)
-- 🔨 MORGEN BOUWEN — het consumables-bord moet kunnen VRAGEN, niet alleen ontvangen
 - 🔵 OPEN 29 aug — de SMC-pin zet TWEE waypoints, plus één die niemand vroeg
-- ⚠️ 29 aug — de "other continent"-chatregel is ONGEVERIFIEERD, en kleiner dan gedacht
-- 📢 MOET IN DE VOLGENDE CF-RELEASE — Rob heeft er expliciet om gevraagd
-- 🔵 VOLGENDE KEER — vertaalde spelnamen, en een fill() die de regel terugdraait
-- 🔵 EERST MORGEN: de dispel-gloed verifiëren bij Murojin
-- 🔴 24 aug — OPEN: "other continent" voor een zone waar je naartoe kunt lopen
-- 🟢 24 aug — THE RING OF GLORY VOLLEDIG GELOPEN, TIER 11: de hele gauntlet gemeten
-- 🔵 ROB VRAAGT — 24/25 aug (hij is twee dagen vrij)
-- 🔨 BOUWPLAN 20 AUG — de zes professie-lessen in de addon (bouwkant van Spec 27)
 - 💡 ROB-VERZOEK 19 AUG — "dit soort info moeten wij ook gaan bieden!!!"
 - 🎯 MORGEN 19 AUG — PRIORITEIT: de EU-seizoensstart
 - ⚠️ OPEN, en het raakt alle vertaalwerk
 - 🌅 MORGENVROEG — twee dingen, en Rob brengt data mee
-- 🎯 MORGEN ALS EERSTE — drie dingen, in deze volgorde (Rob, 15 aug laat)
-- 🔴 EERST MORGEN (15 aug) — Rob zag het zelf, avond 14 aug
 - 🔴 De grootste openstaande vraag (Rob, 11 aug)
 - ⏳ Wacht op Rob
-- ⏭️ MORGEN / VOLGENDE SESSIE — direct oppakken (sessie 4/5)
 
 📌 Al het afgeronde werk staat in het archief; daar wordt niets meer aan
 toegevoegd. Nieuwe regels horen bovenaan dit bestand.

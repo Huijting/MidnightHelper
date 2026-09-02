@@ -23,6 +23,7 @@ USAGE
 
 import io
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,8 +36,11 @@ CUT_HEADING = "## ✅ 31 aug — GEMETEN: geen enkele addon adviseert"
 # A heading that opens with one of these is finished, whatever else it says.
 RESOLVED_PREFIX = ("✅", "❌", "~~")
 # Otherwise these mark something still wanting attention.
-OPEN_WORDS = ("OPEN", "MORGEN", "VOLGENDE", "Wacht", "MOET", "ROB VRAAGT", "VRAAGT",
-              "NIET GEREPAREERD", "niet gerepareerd", "ONGEVERIFIEERD", "BOUWPLAN",
+# ⚠️ MORGENVROEG staat er apart bij. Toen de vergelijking van substring naar woordgrens ging
+# (om "GELOPEN" te stoppen) verdween MORGENVROEG uit de lijst — de fout sprong naar de andere
+# kant. Strakker is niet hetzelfde als beter; het verplaatst alleen wie je mist.
+OPEN_WORDS = ("OPEN", "MORGEN", "MORGENVROEG", "VOLGENDE", "Wacht", "MOET", "ROB VRAAGT",
+              "VRAAGT", "NIET GEREPAREERD", "niet gerepareerd", "ONGEVERIFIEERD", "BOUWPLAN",
               "VERZOEK", "grootste openstaande")
 
 
@@ -51,6 +55,35 @@ KNOWN_DONE = {
     "ROB-GOEDGEKEURD, VOLGENDE BOUWKLUS: dispel/purge",
     # A "tomorrow" note from 5 July, and the section below it is struck through.
     "MORGEN — HIER VERDER (Rob ging slapen",
+
+    # --- Triaged one by one on 2 Sep, at Rob's request, each verified rather than assumed.
+    # Rob asked on 28 aug that the dispel changes be announced. MEASURED: they are in
+    # docs/CURSEFORGE_3.7.0.md.
+    "MOET IN DE VOLGENDE CF-RELEASE",
+    # fill() overwriting deliberately-English keys is fixed: Locales/KeepEnglish.lua carries a
+    # reason per key, all seven packs keep "Veteran of the Dawn", and lint [15] guards it.
+    # ⚠️ The es/pt/it crest-rank half survives as a LIVE item -- see NEXT_SESSION.md.
+    "VOLGENDE KEER — vertaalde spelnamen",
+    # The section says of itself: do not go hunting for a case to prove it. Not a task.
+    'de "other continent"-chatregel is ONGEVERIFIEERD',
+    # Same subject, superseded by the 29 aug section above.
+    '24 aug — OPEN: "other continent"',
+    # Its one open point was TierSetData still holding Season 1 names. MEASURED: both tables
+    # were deleted on 29 aug and the data now comes from the worn piece's tooltip.
+    "ROB VRAAGT — 24/25 aug",
+    # The six profession lessons were built on 20 aug.
+    "BOUWPLAN 20 AUG",
+    # This is cmd:req, which is item 1 of the live list and waiting on Cisca. Duplicate.
+    "MORGEN BOUWEN — het consumables-bord",
+    # A verification for Rob to do in game, so it belongs in docs/TESTLIJST.md, not here.
+    "EERST MORGEN: de dispel-gloed verifiëren bij Murojin",
+    # Its headline item was Rob exporting his own keybind layout. `/mh binds` ships that.
+    "MORGEN ALS EERSTE — drie dingen",
+    # The hardcoded Season 1 delve ilvl table is gone from Modules/Delves.lua (grep: 0 hits
+    # for the numbers, 44 for Vault/ilvl in the same file, so the pattern works).
+    "EERST MORGEN (15 aug)",
+    # The keybind classifier rebuild the section describes; it marks itself done at the top.
+    "MORGEN / VOLGENDE SESSIE",
 }
 
 
@@ -72,13 +105,72 @@ def classify(heading):
     for p in RESOLVED_PREFIX:
         if body.startswith(p):
             return "resolved"
+    # 🔴 WORD BOUNDARIES, NOT SUBSTRINGS. The first version used `w in body` and flagged
+    # "THE RING OF GLORY VOLLEDIG GELOPEN" as open, because GELOPEN contains OPEN. A
+    # measurement filed as an open task -- the same shape as every other blind spot in this
+    # repo: a pattern that matches more than it means, and nobody checks what it matched.
     for w in OPEN_WORDS:
-        if w in body:
+        if re.search(r"(?<![A-Za-z])%s(?![A-Za-z])" % re.escape(w), body):
             return "open"
     return "resolved"
 
 
+INDEX_HEADING = "## \U0001f4cc Ouder, maar nog niet af"
+
+
+def build_index(still_open):
+    out = ["\n\n%s — staat in `docs/NEXT_SESSION_ARCHIVE.md`\n" % INDEX_HEADING, "\n",
+           "De historie is op 2 sep afgesplitst. Deze secties lezen daar nog als OPEN, dus ze staan\n",
+           "hier bij naam — een openstaand punt mag niet verdwijnen door oud te zijn.\n",
+           "\n"]
+    for h in still_open:
+        out.append("- %s\n" % h)
+    out.append("\n\U0001f4cc Al het afgeronde werk staat in het archief; daar wordt niets meer aan\n")
+    out.append("toegevoegd. Nieuwe regels horen bovenaan dit bestand.\n")
+    return out
+
+
+def reindex():
+    """Re-classify the ARCHIVE and rewrite the index block in the live file.
+
+    📌 This is the maintenance shape, and the reason the tool exists past one use: as items
+    are checked off, they move into KNOWN_DONE with a reason and this regenerates the list.
+    Editing the index by hand would make it drift from the archive within a week.
+    """
+    arch = io.open(ARCHIVE, "r", encoding="utf-8", newline="").read().splitlines(True)
+    still_open = [l.rstrip("\r\n")[3:].strip() for l in arch
+                  if l.startswith("## ") and classify(l) == "open"]
+
+    live = io.open(LIVE, "r", encoding="utf-8", newline="").read().splitlines(True)
+    cut = None
+    for i, l in enumerate(live):
+        if l.startswith(INDEX_HEADING):
+            cut = i
+            break
+    if cut is None:
+        sys.exit("index heading not found in the live file")
+    # Drop the blank lines the old index was preceded by, then re-append.
+    body = live[:cut]
+    while body and body[-1].strip() == "":
+        body.pop()
+
+    print("archive sections still reading as OPEN: %d" % len(still_open))
+    for h in still_open:
+        print("   OPEN  %s" % h[:96])
+    if "--write" not in sys.argv:
+        print("\n(dry run -- pass --write to rewrite the index)")
+        return 0
+
+    io.open(LIVE + ".tmp", "w", encoding="utf-8", newline="").write(
+        "".join(body) + "".join(build_index(still_open)))
+    os.replace(LIVE + ".tmp", LIVE)
+    print("\nrewrote the index in docs/NEXT_SESSION.md (%d entries)" % len(still_open))
+    return 0
+
+
 def main():
+    if "--reindex" in sys.argv:
+        return reindex()
     write = "--write" in sys.argv
 
     raw = io.open(LIVE, "r", encoding="utf-8", newline="").read()
