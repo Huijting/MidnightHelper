@@ -240,6 +240,14 @@ toestand niet te reproduceren is.
 - `Modules/` — one file per feature (e.g. `NativeArrow.lua`, `MissingBuff.lua`, `Openables.lua`, `FastMark.lua`, `KeyboardLayoutPrototype.lua`, `KeybindAutoMap.lua`, `KeybindRoles_*.lua`, `Achievements.lua`, `Delves.lua`, `Changelog.lua`, `SettingsPage.lua`).
 - `Locales/` — one pack per language + the resolver + a fill-file (see Localization).
 - `docs/` — dev notes, per-release CurseForge notes (`CURSEFORGE_<version>.md`), plans, handoffs. `docs/NEXT_SESSION.md` is the running state/handoff log — read it for current context.
+  - ⚠️ **Gesplitst op 2 sep 2026**, toen het 4445 regels was en alleen de bovenste 226 leefden.
+    De historie staat in `docs/NEXT_SESSION_ARCHIVE.md` en groeit niet meer; nieuwe regels horen
+    bovenaan `NEXT_SESSION.md`. 📌 De reden is niet netheid maar betrouwbaarheid: hoe langer dat
+    bestand werd, hoe vaker er iets van tweeduizend regels diep als actueel werd geciteerd — wat
+    op 31 aug en 2 sep allebei gebeurd is.
+  - 📌 Onderaan het levende bestand staat een index van oudere secties die **nog als open lezen**.
+    Die lijst is bewust te ruim (een verlopen regel kost tien seconden, een begraven openstaand
+    punt kost meer) en is één keer nalopen waard.
 
 ## Key systems & conventions
 
