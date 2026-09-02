@@ -290,20 +290,60 @@ function ns.RefreshCurioAdvicePanel()
 	return true
 end
 
+--- 🔴 IT SAID "Nothing slotted yet" FOR ALL THREE SLOTS ON ROB'S FIRST LOOK, and on the
+--- next reload it was right — with the active-detection code untouched. So the first
+--- version was not wrong, it was EARLY: `activeEntry` is empty until the trait config
+--- is loaded, and one retry at 1s was not always enough.
+---
+--- ⚠️ That is the worse kind of green. "It works now" after changing three unrelated
+--- things is not a fix, it is a coincidence that has not failed yet — and an advice
+--- panel that intermittently claims you have nothing equipped is worse than one that
+--- says nothing, because the player believes it and re-picks.
+---
+--- So the panel stops depending on when it is opened: it refreshes on the event that
+--- announces the config, and on her window appearing, as well as on a short ladder of
+--- retries. Any one of those arriving is enough.
+local eventFrame
+
+local function EnsureEvents()
+	if eventFrame then
+		return
+	end
+	eventFrame = CreateFrame("Frame")
+	eventFrame:RegisterEvent("TRAIT_CONFIG_UPDATED")
+	eventFrame:RegisterEvent("TRAIT_TREE_CHANGED")
+	eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	eventFrame:SetScript("OnEvent", function()
+		ns.RefreshCurioAdvicePanel()
+	end)
+
+	-- Her window carries the companion id the whole read depends on, so its OnShow is
+	-- the earliest moment the answer can exist.
+	local host = DelvesCompanionConfigurationFrame
+	if host and host.HookScript then
+		host:HookScript("OnShow", function()
+			ns.RefreshCurioAdvicePanel()
+		end)
+	end
+end
+
 function ns.ShowCurioAdvicePanel()
 	local f = EnsurePanel()
+	EnsureEvents()
 	Anchor(f)
 	f:Show()
 	-- ⚠️ Effect text is not shown here, but the NAMES still come from spell data, and
-	-- a cold cache gives nothing. GetCompanionChoices requests as it walks; one retry
-	-- covers the round-trip without making the panel feel late. Same lesson as
-	-- CurioExplain, which needed four -- this needs fewer because it prints names, not
-	-- descriptions, and names come back sooner.
+	-- a cold cache gives nothing. GetCompanionChoices requests as it walks.
 	ns.RefreshCurioAdvicePanel()
 	if C_Timer and C_Timer.After then
-		C_Timer.After(1, function()
-			ns.RefreshCurioAdvicePanel()
-		end)
+		-- A ladder rather than a single retry: 0.3s catches the common case without a
+		-- visible flicker, 3s covers a slow load. Cheap, and it is the difference
+		-- between "usually right" and "right".
+		for _, delay in ipairs({ 0.3, 1, 3 }) do
+			C_Timer.After(delay, function()
+				ns.RefreshCurioAdvicePanel()
+			end)
+		end
 	end
 end
 

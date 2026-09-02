@@ -190,7 +190,47 @@ de nieuwste op schijf, en het zégt welke het gebruikte.
 van iets dat beweegt, met niets dat hem hercontroleert.** Twee keer op één avond, in twee bestanden
 die niets met elkaar te maken hebben.
 
-## 🔴 OPEN: het adviespaneel zegt "Nothing slotted yet" terwijl alle drie gevuld zijn
+## 🔴 OPEN: waarom heeft de Poisons-slot geen aanbeveling?
+
+Rob, 2 sep, kijkend naar het werkende paneel: *"hebben we geen poisons??"* Nee, en dat is een
+**bewuste** keuze uit juli die nu aan haar houdbaarheidsdatum zit.
+
+De reden staat in `DelveCuriosData.lua`: de gif-ID's die we van Wowhead hadden waren **alle drie
+fout**, dus de effectbeschrijvingen die erbij hoorden waren net zo onbewezen. Geen aanbeveling doen
+was toen precies goed.
+
+✅ **Die blokkade is weg.** We hebben nu zes gemeten gif-ID's en de client geeft zijn eigen teksten.
+Wat er nog niet is, is een grond om er één aan te wijzen: de ster betekent *"hier zijn de guides het
+over eens"*, en voor gif heb ik dat **niet gecontroleerd**. Er nu zelf een kiezen zou de ster iets
+anders laten betekenen dan de voettekst belooft.
+
+Vier van de zes teksten staan al in Robs screenshots: Soulthirst (Leech/Avoidance/Speed +10%),
+Forgotten Master (+5% schade, stapelt tot 5, valt weg bij schade), Bloodcrypt (-10% schade en -10%
+Haste op de vijand), Bursting Toad (AoE natuurschade). **Frostheart Venom en Phantasmal Spore Toxin
+zijn nog ongelezen.** Volgende stap: `/mh curios` toont ze nu; daarna kiezen Rob en ik samen, en dan
+moet de voettekst zeggen dat dít onze keuze is en niet die van de guides.
+
+## ✅ De "Nothing slotted"-bug: het was timing, en dat is de gevaarlijkere uitkomst
+
+Na een reload klopte het paneel — mét **onaangeroerde** active-detectie. Het was dus niet fout maar
+**te vroeg**: `activeEntry` is leeg tot de trait-config geladen is, en één retry op 1s haalde dat
+niet altijd.
+
+⚠️ **Dat is de slechtste soort groen.** "Het werkt nu" na drie ongerelateerde wijzigingen is geen
+reparatie maar een toevalstreffer die nog niet gefaald heeft — en een adviespaneel dat af en toe
+beweert dat je niets op hebt is erger dan eentje die zwijgt, want de speler gelooft het en kiest
+opnieuw.
+
+Nu hangt het niet meer aan het moment van openen: het ververst op `TRAIT_CONFIG_UPDATED`,
+`TRAIT_TREE_CHANGED`, op de `OnShow` van haar venster, én op een laddertje van 0,3 / 1 / 3 seconden.
+Elk daarvan is genoeg.
+
+⚠️ **En `/mh valeera save` faalde in diezelfde run**: *"probe stopped: no trait tree"*. De probe
+hangt aan `DelvesCompanionConfigurationFrame.playerCompanionID` en heeft haar venster dus **open**
+nodig. Dat staat nergens in de foutmelding. Niet dringend meer — het paneel beantwoordde de vraag —
+maar de melding hoort te zeggen wát je moet doen.
+
+## ~~OPEN~~ OPGELOST: het adviespaneel zei "Nothing slotted yet"
 
 Robs screenshot van 2 sep zet de twee vensters naast elkaar: haar venster toont **Bursting Toad
 Toxin, Corrosive Bilespear én Soul-Cracking Dreamcatcher** geslote — ons paneel zegt drie keer
