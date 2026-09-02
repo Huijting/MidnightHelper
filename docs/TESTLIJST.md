@@ -741,3 +741,46 @@ waardeloze screenshot.
 tussen twee functies — niemand onthoudt dat `/mh curio` iets anders doet dan `/mh curios`. Ik heb
 nu alleen hersteld wat de lijst al beloofde. Wil je liever dat ze samensmelten (één commando dat
 de adviseur opent, met de uitleg erin), zeg het dan — dat is een grotere maar eerlijkere ingreep.
+
+✅ **AFGEHANDELD op de avond van 2 sep.** Rob koos samensmelten, en daarna nog een ronde: `/mh
+poisons` is nu een **alias van `/mh curios`** (het gif is gewoon één van de drie keuzeslots), en
+`/mh curio`/`/mh curios` kiezen zelf tussen adviseur en uitlegger. Alles hierboven is dus
+achterhaald behalve als geschiedenis. Getest en goedgekeurd door Rob dezelfde avond.
+
+---
+
+### 15. 🆕 SAMEN MET CISCA — het consumables-bord haalt nu zélf op (ONGETEST)
+
+**Waarom dit er is:** iedereen stuurde zijn tas-tellingen alleen **uit zichzelf** rond, bij een
+roster-wijziging of een zone-wissel. Zat je op dat moment in een laadscherm, dan miste je dat
+bericht **voorgoed** — er was geen enkel bericht dat er ooit opnieuw om vroeg. Nu vraagt het bord
+erom zodra het opengaat.
+
+⚠️ **Cisca hoeft niets te typen en ziet niets.** Geen venster, geen geluid, geen chatregel. Haar
+client krijgt een verborgen berichtje en stuurt dezelfde tellingen terug die hij nu al ongevraagd
+rondstuurt. Merkt zij er iets van, dan is dát de bug.
+
+**De schoonste proef is de kapotte situatie, en die heb jij zelf in de hand:**
+
+1. Jullie zitten samen in een groep, allebei op deze versie.
+2. **Jij** doet `/reload`. (Dat wist jouw ontvangen gegevens; ze worden niet bewaard.)
+3. Wacht rustig tien seconden — niet zonewisselen, niet uitnodigen. Er gebeurt nu niets dat
+   Cisca's client aan het praten krijgt. **Precies dit was de kapotte toestand.**
+4. Open het bord: `/mh board`.
+
+**Wat je moet zien:** Cisca's regel vult zich met echte tas-iconen (flask, rune, potions, food,
+hearthstone) in plaats van *"(bag unknown)"*. Dat mag een fractie later gebeuren — het verzoek gaat
+uit, haar antwoord komt terug, en het bord hertekent **terwijl het openstaat**.
+
+🔴 **Let juist op dat laatste**, want dat was een tweede bug die ik bij het bouwen vond: een
+antwoord dat binnenkwam terwijl het bord openstond werd wél opgeslagen maar **niet getekend** — je
+zag het pas als je het bord sloot en opnieuw opende. Moet je nog steeds sluiten-en-openen, dan
+werkt dat stuk niet.
+
+**Tegenproef (bewijst dat het niet toevallig was):** doe stap 2 t/m 4 nog eens, maar open het bord
+**niet**. Vraag Cisca iets uit haar tassen te gooien of bij te kopen. Zolang jouw bord dicht blijft
+verandert er niets — het verzoek gaat pas bij het openen.
+
+⚠️ **Niet in de war laten brengen:** ontvangen regels verlopen sowieso na tien minuten
+(`STALE = 600`). Duurt jullie sessie langer, open het bord dan opnieuw in plaats van te concluderen
+dat er iets stukging.
