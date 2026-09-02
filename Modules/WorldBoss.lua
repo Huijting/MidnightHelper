@@ -527,11 +527,23 @@ end
 --- site and was on its way onto our public site before this was run. Secondary sources
 --- agreeing with each other is not a measurement.
 ---
---- 📌 What the gate actually cost: from 18 Aug to 2 Sep the panel said nothing every week
---- while a boss was genuinely up all week. And the arithmetic it distrusted would have been
---- RIGHT — 18 March to 2 September is exactly 168 days, 24 weeks, 24 % 4 = 0, index 1,
---- Lu'ashal. The caution was reasonable when written and wrong for a fortnight; only the
---- measurement could tell those apart, which is why the note demanded one.
+--- 📌 WHAT THE GATE ACTUALLY COST — and the first version of this note overstated it. It said
+--- the panel "said nothing every week while a boss was genuinely up". Rob corrected that from
+--- the game within minutes: Lu'ashal was already showing BEFORE the reload that removed the
+--- gate. Of course it was — `GetActiveWorldBoss` tries the client scan first, then the cache,
+--- and only then this function. The gate sat on the fallback alone.
+---
+--- So the real cost is narrower: in a week where the client does not answer (zone never
+--- opened, data not loaded yet) the panel went blank instead of naming the boss. Worth
+--- removing, not the fortnight-long silence claimed here at first.
+---
+--- ⚠️ Kept as written rather than tidied away, because the mistake is the point: the gate was
+--- three lines above the fallback and I still described the whole feature as broken. A player
+--- who has the thing in front of him beats a reading of the code that never ran.
+---
+--- And the arithmetic the gate distrusted would have been RIGHT this week — 18 March to
+--- 2 September is exactly 168 days, 24 weeks, 24 % 4 = 0, index 1, Lu'ashal. One week of
+--- agreement is corroboration, not proof; TESTLIJST item 10 checks 9 Sep for Cragpine.
 local function GetScheduledWorldBoss()
 	local anchor = ROTATION_ANCHOR
 	if not anchor or anchor <= 0 then
