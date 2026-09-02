@@ -13,9 +13,12 @@ Modules/Broker.lua.bak
 dist/
 docs/*.tmp
 
-# Written daily by the claude.ai watchers; never part of a release.
-docs/PTR_12.1_WATCH.md
-docs/PTR_12.0.7_DATA.md
+# ⚠️ The two watcher logs that used to be ignored here are TRACKED as of 2 Sep 2026.
+# The stated reason was "never part of a release" -- but .pkgmeta already excludes the whole
+# docs/ folder from the zip, so ignoring them bought nothing and cost the thing that matters:
+# a watcher moved to the cloud cannot read or write a file that is not in the repo. The PTR
+# watch's first cloud run did all its research and then could not commit a word of it.
+# docs/CONTENT_WATCH.md and docs/API_WATCH.md have always been tracked; these two now match.
 docs/.writetest_*
 
 # Printable keybind sheets built by tools/keybind_mine.py from one character's
