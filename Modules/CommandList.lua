@@ -103,6 +103,9 @@ ns.MH_COMMANDS = {
 		-- our own search box found nothing while the invite sat one command away.
 		{ cmd = "/mh discord", descKey = "CMDLIST_DISCORD" },
 		{ cmd = "/mh translate", descKey = "CMDLIST_TRANSLATE" },
+		-- Sits with the other two on purpose: this is the third door out of the addon,
+		-- and the only one a player uses when something is WRONG rather than missing.
+		{ cmd = "/mh report", descKey = "CMDLIST_REPORT" },
 	} },
 	{ headKey = "CMDLIST_GRP_WEEK", items = {
 		{ cmd = "/mh milestones", descKey = "CMDLIST_MILESTONES" },

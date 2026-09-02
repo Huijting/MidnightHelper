@@ -7563,3 +7563,42 @@ fill("frFR", { CHANGELOG_ASK = "Quelque chose de faux dans cette liste, ou qui m
 fill("esES", { CHANGELOG_ASK = "¿Hay algo mal en esta lista, o falta algo para tu clase? Este addon lo escribe una sola persona — dilo en Discord o GitHub, y se arregla." })
 fill("ptBR", { CHANGELOG_ASK = "Tem alguma coisa errada nesta lista, ou faltando para a sua classe? Este addon é escrito por uma pessoa só — avise no Discord ou no GitHub, e será corrigido." })
 fill("itIT", { CHANGELOG_ASK = "C'è qualcosa di sbagliato in questa lista, o che manca per la tua classe? Questo addon lo scrive una persona sola — dillo su Discord o GitHub, e viene sistemato." })
+
+
+--- Spec 31 B5 -- /mh report. The chrome around the report; the report BODY stays English on
+--- purpose (see the header of Modules/SupportReport.lua: it is addressed to the one person who
+--- reads it, like a log file, and translating its labels would make it harder to act on).
+--- ⚠️ Ours, not reviewed by native speakers.
+--- 📌 The second sentence of REPORT_CHAT_HINT is the load-bearing one and must survive
+--- translation: this addon's worst fault is being out of date, and a player will not report
+--- that unless we say out loud that it counts.
+fill("deDE", {
+	CMDLIST_REPORT = "Erstellt einen Bericht zum Einfügen — für einen Fehler, oder für etwas, das dir das Addon falsch gesagt hat.",
+	REPORT_TITLE = "Kopiere das, und erzähl uns, was passiert ist",
+	REPORT_CHAT_HINT = "Kopiere den Kasten und füge ihn auf Discord oder GitHub ein. „Es hat mir etwas Falsches gesagt“ zählt auch — eine veraltete Erklärung ist hier ein schlimmerer Fehler als eine Fehlermeldung.",
+	REPORT_NO_DIALOG = "Das Kopierfenster wurde nicht geladen. Mach /reload und versuch es noch einmal.",
+})
+fill("frFR", {
+	CMDLIST_REPORT = "Prépare un rapport à coller — pour un bug, ou pour quelque chose que l'addon t'a dit de faux.",
+	REPORT_TITLE = "Copie ceci, et raconte-nous ce qui s'est passé",
+	REPORT_CHAT_HINT = "Copie le cadre et colle-le sur Discord ou GitHub. « Il m'a dit quelque chose de faux » compte aussi — une explication périmée est ici un défaut plus grave qu'un message d'erreur.",
+	REPORT_NO_DIALOG = "La fenêtre de copie ne s'est pas chargée. Fais /reload et réessaie.",
+})
+fill("esES", {
+	CMDLIST_REPORT = "Prepara un informe para pegar — para un fallo, o para algo que el addon te dijo mal.",
+	REPORT_TITLE = "Copia esto y cuéntanos qué pasó",
+	REPORT_CHAT_HINT = "Copia el cuadro y pégalo en Discord o GitHub. «Me dijo algo incorrecto» también cuenta — una explicación desfasada es aquí un fallo peor que un mensaje de error.",
+	REPORT_NO_DIALOG = "La ventana de copia no se cargó. Haz /reload e inténtalo otra vez.",
+})
+fill("ptBR", {
+	CMDLIST_REPORT = "Monta um relatório para colar — para um bug, ou para algo que o addon te disse errado.",
+	REPORT_TITLE = "Copie isto e conte o que aconteceu",
+	REPORT_CHAT_HINT = "Copie a caixa e cole no Discord ou no GitHub. “Ele me disse algo errado” também conta — uma explicação desatualizada é aqui um defeito pior do que uma mensagem de erro.",
+	REPORT_NO_DIALOG = "A janela de cópia não carregou. Faça /reload e tente de novo.",
+})
+fill("itIT", {
+	CMDLIST_REPORT = "Prepara un rapporto da incollare — per un bug, o per qualcosa che l'addon ti ha detto di sbagliato.",
+	REPORT_TITLE = "Copia questo e raccontaci cos'è successo",
+	REPORT_CHAT_HINT = "Copia il riquadro e incollalo su Discord o GitHub. «Mi ha detto una cosa sbagliata» vale eccome — una spiegazione superata qui è un difetto peggiore di un messaggio d'errore.",
+	REPORT_NO_DIALOG = "La finestra di copia non si è caricata. Fai /reload e riprova.",
+})

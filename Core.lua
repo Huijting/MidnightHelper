@@ -1469,6 +1469,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	--- /mh report [what you saw] — a pasteable report, both destinations in it (Spec 31 B5).
+	--- Everything after the word is the player's own description, so `/mh report the vault
+	--- said three slots` works in one go rather than making them find a text box first.
+	if msg:match("^report") then
+		local what = msg:match("^report%s+(.+)$")
+		if ns.ShowSupportReport then ns.ShowSupportReport(what) end
+		return
+	end
+
 	-- /mh mplus — Mythic+ gain advisor: this week's Great Vault M+ slots + rating (Spec 20).
 	if msg == "mplus" then
 		if ns.PrintMythicGain then

@@ -650,3 +650,26 @@ doet de rotatie het over een seizoensgrens heen.
 
 📌 Zie je vandaag niets? Dan is dat geen kleinigheid maar dezelfde bug opnieuw — stuur dan weer de
 uitvoer van `/mh worldboss`.
+
+### 11. `/mh report` — nieuw, na `/reload`
+
+**Wat je moet zien:** `/mh report` opent het bestaande kopieervenster met een blok dat begint met
+`Midnight Helper report`, en daaronder je versie, clientbuild, taal, klasse/spec/level, groep en
+waar je staat. In de chat komt één regel eronder.
+
+**Probeer ook:** `/mh report de vault zei 3 slots maar ik had er 4` — die zin hoort in het blok te
+staan onder *"What I saw:"*, in plaats van de standaardtekst.
+
+⚠️ **Waar ik het meest benieuwd naar ben:** de regel `locale ... client / ... in MH` en de plek
+waar je staat. Die twee lees ik uit het spel en dat is precies waar 12.x waarden geheim kan maken.
+Staat er `somewhere` of een `?` waar iets hoorde te staan, dan wil ik dat weten — dat is dan geen
+schoonheidsfoutje maar een `issecretvalue`-guard die aanslaat.
+
+📌 **Wat er bewust NIET in staat:** je personagenaam en realm. Die identificeren jou, ze helpen
+niet bij het reproduceren, en dit blok is bedoeld om ergens openbaar geplakt te worden. Klasse,
+spec, groep en locatie zijn genoeg. Als jij vindt dat je naam er wél in moet, zeg het — het is
+jouw addon — maar dit is de veiligere kant om op te beginnen.
+
+📌 Het blok zelf is **Engels**, ook op een Duitse client, terwijl de venstertitel en de chatregel
+wél vertaald zijn. Dat is een keuze: het rapport is aan de maker gericht, zoals een logbestand.
+Vind je dat verkeerd voelen, dan draaien we het om.

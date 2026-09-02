@@ -59,8 +59,16 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
 
 **Gemeten open op 2 sep** (met positieve controle in dezelfde run):
 
-3. **B5 — `/mh report` bestaat niet.** `msg == "report"` komt nergens voor; `folio`, `shots` en
-   `profadvice` worden met hetzelfde patroon wél gevonden, dus dit is gemeten afwezigheid.
+3. ✅ **B5 — `/mh report` GEBOUWD, 2 sep.** `Modules/SupportReport.lua`, via het bestaande
+   `ns.ShowShareCopyDialog` zoals de spec voorschreef — bedrading, geen nieuw scherm. Bevat
+   versie, clientbuild, taal (client én MH), klasse/spec/level, groepsgrootte en instantie, plus
+   wat de speler achter het commando typt. Beide bestemmingen erin, Discord én GitHub.
+   Lint: 173 gerouteerd / 65 vermeld (was 172/64), dus hij staat in de commandolijst én in
+   NavSearch. ⏳ `docs/TESTLIJST.md` punt 11.
+   📌 Twee keuzes die Rob mag terugdraaien: **geen personagenaam of realm** in het rapport (het is
+   bedoeld om openbaar geplakt te worden, en die twee helpen niet bij reproduceren), en het
+   **rapportblok blijft Engels** terwijl de chrome eromheen in zeven talen staat — het is aan de
+   maker gericht, zoals een logbestand.
 4. **B10b — geen beroepen-scène in `/mh shots`.** `Modules/DevShots.lua` bestaat en `scene` geeft
    tientallen treffers, maar `prof` nul.
 5. **De INHOUD van de Engineering-, Jewelcrafting- en Inscription-routes.** Hun *structuur* is
