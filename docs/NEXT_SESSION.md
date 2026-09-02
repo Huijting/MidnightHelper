@@ -296,7 +296,12 @@ Robs twee opmerkingen zodra het naast haar frame stond, allebei terecht:
    ⚠️ `StartSizing` laat het frame op eigen punten achter, dus na het slepen wordt opnieuw aan
    haar venster geankerd — anders volgt het haar na één keer verslepen nooit meer.
 
-## 🔴 2 sep (avond) — de weekroutine liet je vallen zodra je een quest oppakte
+## ✅ 2 sep (avond) — de weekroutine liet je vallen zodra je een quest oppakte — GEMETEN OPGELOST
+
+✅ **Rob in het spel, dezelfde avond: "DIE PIJL DEED HET NET."** Bevestigd op de echte trigger — een
+weekly die af was en nog ingeleverd moest worden — en niet op een nagebouwde toestand. Dat is het
+enige bewijs dat telt voor deze reparatie, want de bug bestond juist in de overgang tussen twee
+toestanden die je niet kunt forceren.
 
 Rob: *"ik heb een quest opgehaald en die moet ik weer inleveren, maar ik krijg nu geen pijl (als ik
 de questgiver weer aanklik)."* Gemeten in `ResetRoutine.lua` en het is precies dat.
