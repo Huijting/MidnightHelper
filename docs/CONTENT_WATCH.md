@@ -118,3 +118,87 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   📌 Bij een bewering over afwezigheid moet de controle dus **dezelfde reikwijdte** hebben als de
   bewering. De opdracht van de wachter is diezelfde avond aangepast: grep over de hele
   `Locales/`- en `Modules/`-boom, en de bestandenlijst is een startpunt en geen grens.
+
+---
+
+- [2026-09-02] ✅ **Geen tegenspraak gevonden — hotfixes 31 aug en 1 sep gelezen, niets geshipts
+  geraakt.** `news.blizzard.com` gaf vandaag weer `EGRESS_BLOCKED` op WebFetch (zelfde blokkade als
+  1 sep). Ditmaal wel **MEASURED, zelf gelezen**: Exa's `web_fetch_exa` haalde Wowhead's Blue
+  Tracker-spiegel van de Blizzard-hotfixartikelen **1 sep 2026** en **31 aug 2026** rechtstreeks op
+  (volledige tekst, geen samenvatting) — sterker dan de "via search"-bronvermelding van 1 sep.
+  WebSearch bevestigde daarnaast dat er nog geen lijst van 2 sep bestaat. De 31-aug-lijst stond al
+  in de bronvermelding van de vorige run, maar geen van de bevindingen hieronder kwam daar terug —
+  dus opnieuw gecontroleerd in plaats van als "al gedaan" overgeslagen.
+
+  📌 **Positieve controle, zelfde scope als de claims hieronder:** `grep -i crest`
+  in `Locales/enUS.lua` geeft 41 treffers, en `grep -i "Corrosive Coin"` (hele repo, eerdere run)
+  geeft tientallen treffers — dus de 0-treffers verderop op "Adventurer Crest" en "Er'iyne" zijn
+  gemeten afwezigheid, niet een kapot patroon.
+
+  **Bevindingen:**
+  - **31 aug — Gnarldor Isle, "Minchi's Osseous Adventure":** vereist nu 4 bone piles (was 6).
+    Onze enige tekst hierover, `DELVE_STORY_MINCHI_S_OSSEOUS_ADVENTURE`
+    (`Locales/enUS.lua`, `Modules/DelveStoryData.lua:51`, `Modules/DelveStoryData.lua` beschrijving
+    in `DelveStories.lua:49`), is pure flavourtekst ("Piles of gnawed bones might put most people
+    off...") zonder aantal — niets om tegen te spreken. MEASURED. **[RAAKT ONS NIET]**
+  - **31 aug + 1 sep — The Coiled Altar (Zul'jan-encounter):** meerdere fixes/tuning op Coalesced
+    Venom, Venom Rupture, Volatile Venom, Wail of Terror, Spiteful Soulcoiler, Defilement, en het
+    minimumaantal spelers voor Guillotine/Grim Guillotine (naar 3). Onze
+    `RAID_BOSS_COILEDALTAR_STEPS` (`Locales/RaidTips.lua:44`) noemt Guillotine alleen generiek
+    ("geef elkaar ruimte") en drie andere spell-ID's (1286918 schild, 1283832 ontwijk, 1289900
+    mind-control) — geen van de hierboven genoemde ability-namen of spelersaantallen staat erin.
+    MEASURED (0 treffers op alle vijf namen in de hele repo). **[RAAKT ONS NIET]**
+  - **1 sep — The Twin Fangs (Vexhul/Ithraz):** Eternal Venom-stackthreshold naar 10 op Mythic,
+    Ravenous Feast-minimumtargets naar 4, immuniteitsbug gefixed. `RAID_BOSS_TWINFANGS_STEPS`
+    (`Locales/RaidTips.lua:42`) beschrijft het stack-mechaniek generiek ("blijft stapelen... stun")
+    zonder zelf een getal te noemen — geen tegenspraak. MEASURED. **[RAAKT ONS NIET]**
+  - **31 aug — Ula'tek:** eieren-dragen-schade nu periodiek i.p.v. direct, Grasping Fangs-bereik
+    vergroot, Blight Vein/Toxic Burn-bugs gefixed, ze kon niet meer tijdens de intermission
+    re-emergen. **1 sep erbij:** Blightscale Wretch/Toxic Womb/Spectral Head-volgorde gefixed,
+    Revenge-nameplate-shift gefixed. `RAID_BOSS_ULATEK_STEPS` (`Locales/RaidTips.lua:46`) noemt
+    vier andere spell-ID's (1292403, 1287265, 1286860 Venomous Heart, 1290779) en geen van deze
+    zes genoemde ability-namen — en zegt er zelf al bij "ze is nooit op de PTR verschenen... reken
+    op verrassingen, deze pagina wordt gecorrigeerd uit echte pulls". Deze stroom aan Ula'tek-
+    hotfixes bevestigt dat die disclaimer terecht stond, maar spreekt niets concreets in onze tip
+    tegen. MEASURED (0 treffers op alle zes namen). **[RAAKT ONS NIET]**
+  - **1 sep — Tidebound Grotto (Nymrissa Wavecaller):** Frost Orb-duur 16→12s, schade/gezondheid
+    omlaag voor kleinere groepen. `RAID_BOSS_NYMRISSA_*` (`Locales/RitualTips.lua:114-116`) noemt
+    wél twee spell-ID's voor haar lijn-aanval (1282937, Mythic 1268562) en de murloc-add
+    (1257717), maar geen Frost Orb en geen duur-cijfer. MEASURED (0 treffers op "Frost Orb" in de
+    Nymrissa-tips specifiek — het spell-ID 1313448 in `Modules/HazardData.lua:234` is alleen een
+    glow-registratie, geen tekstclaim). **[RAAKT ONS NIET]**
+  - **1 sep — Murder Row, Xathuux the Annihilator:** Axe Toss deed soms te weinig schade, nu
+    gefixed. `DGN_TIP_MR_XATHUUX_STEPS` (`Locales/DungeonTips.lua:82`) noemt drie andere spell-
+    ID's (1214637, 474197, 473898 = Legion Strike) — "Axe Toss" komt nergens voor. MEASURED.
+    **[RAAKT ONS NIET]**
+  - **1 sep — Item: Satchel of Corrosive Coins (verkocht door Er'iyne) is niet meer uniek.** Geen
+    van beide namen staat ergens in de repo (0 treffers, tegen de Corrosive-Coin-positieve-
+    controle hierboven). MEASURED. **[RAAKT ONS NIET]**
+  - **1 sep — Quests: Midnight World Quests gaven geen Adventurer Crests; gefixed.** "Adventurer
+    Crest" staat nergens in de repo (0 treffers, tegen de crest-positieve-controle hierboven) —
+    we claimen nergens welke crest een world quest geeft. MEASURED. **[RAAKT ONS NIET]**
+  - **1 sep — Delves: "Trinkets no longer drop as abundantly."** Generieke drop-rate-uitspraak,
+    geen delve of tier genoemd. Alle "trinket"-treffers in de repo zijn keybind-uitrustingsslots
+    (`INVTYPE_TRINKET`) of cooldown-tracker-entries — geen enkele claimt een droprate. MEASURED.
+    **[RAAKT ONS NIET]**
+  - **Klassen- en PvP-balans (beide lijsten, tientallen % op schade/genezing/kosten, o.a. Frost
+    DK, Vengeance DH, Feral Druid, Mistweaver, Protection Paladin, Assassination Rogue, Farseer
+    Shaman):** Midnight Helper volgt geen rotatie- of balanscijfers — de klassemodules
+    (`HealerCooldowns.lua`, `TankToolkit.lua`, `KeybindRoles_*.lua`) registreren alleen spell-ID's
+    voor keybind-layout en cooldown-alerts (bv. Swiftmend 18562, Fel Devastation 212084), zonder
+    schade- of genezingspercentage te claimen. Steekproef MEASURED op vijf genoemde spells (Fel
+    Devastation, Swiftmend, Blaze of Glory, Preemptive Maneuver, Howling Blast) bevestigt dit;
+    voor de rest INFERRED uit de bekende scope van deze addon. **[RAAKT ONS NIET]**
+  - **Overig zonder addon-claim:** Den of Nalorakk (Food Offering-mount-bug), PvP Training
+    Grounds-interruptquest-credit-bug — geen van beide staat in onze data. **[RAAKT ONS NIET]**
+
+  Bron: Exa `web_fetch_exa` op de Wowhead Blue Tracker-spiegels van news.blizzard.com's
+  "Hotfixes: September 1, 2026" en "Hotfixes: August 31, 2026" (volledige artikeltekst gelezen,
+  niet alleen samenvatting); WebSearch ter bevestiging dat er nog geen lijst van 2 sep is.
+  Codebase-kant: `grep` (case-insensitive, hele repo, niet beperkt tot een bestandenlijst) op alle
+  hierboven genoemde ability-, item- en questnamen, plus gerichte reads van `Locales/RaidTips.lua`,
+  `Locales/RitualTips.lua`, `Locales/DungeonTips.lua`, `Locales/DelveStoryData.lua`,
+  `Modules/RaidCoachData.lua`, `Modules/HazardData.lua`, `Modules/Openables.lua`,
+  `Modules/VaultAdvisor.lua`, `Modules/HealerCooldowns.lua`, `Modules/TankToolkit.lua` — allemaal
+  vandaag gelezen. **[RAAKT ONS NIET]** — geen van de gevonden hotfixes spreekt een geshipte claim
+  tegen. Geen open actiepunt.
