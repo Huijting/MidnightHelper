@@ -10,17 +10,30 @@ The maintainer (**Rob**) is a non-developer but tests every change in-game. A se
 
 ## 🔴 Als Rob "goedemorgen" zegt: eerst ophalen, dan pas praten
 
-Vanaf 1 sep 2026 pusht een **cloud-routine** naar `main` terwijl niemand aan de pc zit
-(*Midnight Helper — content watch*, dagelijks 06:00 Robs tijd). Zonder ophalen werk je in een
-repo die achterloopt, en dat merk je pas bij de eerste push.
+Vanaf 2 sep 2026 pushen **vier cloud-wachters** naar `main` terwijl niemand aan de pc zit, elke
+ochtend tussen 05:30 en 06:00 Robs tijd. Zonder ophalen werk je in een repo die achterloopt, en
+dat merk je pas bij de eerste push.
+
+| tijd (Rob) | wachter | schrijft | bewaakt |
+|---|---|---|---|
+| 05:30 | API | `docs/API_WATCH.md` | wat de addon **breekt** |
+| 05:40 | PTR/roadmap | `docs/PTR_12.1_WATCH.md` | wat er nog **komt** |
+| 05:50 | blue post/data | `docs/PTR_12.0.7_DATA.md` | welk **feit** we missen |
+| 06:00 | content | `docs/CONTENT_WATCH.md` | waar de addon **liegt** |
+
+Ze rapporteren alleen; ze repareren nooit. Elk raakt precies één bestand aan.
 
 Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgorde:
 
 1. `git -C "<repo>" pull --rebase origin main`
-2. Lees wat er nieuw in staat: `docs/CONTENT_WATCH.md` (inhoud — delves, beroepen, quests),
-   `docs/API_WATCH.md` (API/taint/secret values), `docs/PTR_12.1_WATCH.md` en
-   `docs/PTR_12.0.7_DATA.md`.
-3. Vertel hem alleen wat hém raakt. De meeste dagen is dat "niets" — zeg dat dan ook, mét wat er
+2. ⚠️ **`git -C "<repo>" status` erachteraan.** Op 2 sep stond `docs/API_WATCH.md` gewijzigd-maar-
+   ongecommit in de working tree, met een `.git/index.lock` die de pull blokkeerde. Een lege pull
+   bewijst dus niet dat er niets gebeurd is — het werk kan op schijf staan zonder ooit in een
+   commit te belanden.
+3. Lees wat er nieuw in staat: de vier bestanden uit de tabel hierboven.
+4. Kijk op GitHub: `python "<repo>/tools/_probe.py" run gh_inbox`. Geen enkele wachter dekt mensen
+   die ons willen helpen — Andy's vijf PR's lagen daardoor 17 dagen ongelezen.
+5. Vertel hem alleen wat hém raakt. De meeste dagen is dat "niets" — zeg dat dan ook, mét wat er
    gelezen is, zodat stilte te onderscheiden is van niet-kijken.
 
 ⚠️ **Het is nu 06:00 en de wachten schrijven vroeg, maar niet allemaal even vroeg.** Staat er nog
