@@ -426,12 +426,15 @@ write(os.path.join(OUT_DIR, "delves.html"),
 # 📌 The general rule, worth more than this one entry: an article is only safe to publish if
 # the addon would show it unconditionally. Anything the addon gates on season, patch or player
 # state must be gated here too -- or left out until someone measures it.
-SKIP_ARTICLES = {
-    # Until /mh worldboss is run on live and we know whether these four still rotate. The
-    # secondary sources say 12.1 replaced world bosses with Lairs; that is not measured, so
-    # neither the old claim nor the new one gets published.
-    "CODEX_WORLDBOSS_TITLE",
-}
+# ✅ Empty again since 2 Sep. CODEX_WORLDBOSS_TITLE was held here for about an hour, until
+# `/mh worldboss` on live measured that the four Season 1 bosses ARE still rotating in Season
+# 2 (Lu'ashal active, the other three idle) and that Lairs exist alongside them rather than
+# instead of them. The article is true, so it is published again, and the gate it tripped over
+# has been removed from Modules/WorldBoss.lua as well.
+#
+# 📌 Keep the mechanism. An hour of a wrong public page was caught because a reader looked;
+# the next one might not be, and this is where it gets parked while someone measures.
+SKIP_ARTICLES = set()
 
 CODEX_DATA = os.path.join(ROOT, "Modules", "MidnightCodexData.lua")
 CODEX_LOC = os.path.join(ROOT, "Locales", "Codex.lua")

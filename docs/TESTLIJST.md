@@ -629,3 +629,24 @@ bij de andere zeven.
 Niets voor Rob om te testen — genoteerd zodat het niet als bugmelding terugkomt.
 
 </details>
+
+### 10. World boss weer zichtbaar in Season 2 — na `/reload`
+
+**Wat je moet zien:** op **This Week** (home) en bovenaan **Delves & Vault** staat weer een world
+boss, en deze week hoort dat **Lu'ashal** te zijn, in Eversong Woods, met routeknop.
+
+**Waarom dit er staat:** de addon verzweeg de world boss sinds 18 aug. Een poort in
+`Modules/WorldBoss.lua` zette hem uit zodra Season 2 zichtbaar werd, uit voorzorg — het vermoeden
+was dat 12.1 world bosses had vervangen door Lairs.
+
+✅ Dat vermoeden is op 2 sep weerlegd met `/mh worldboss` op Robs eigen client: **Lu'ashal
+`taskActive = true`, 9904 minuten resterend**, de andere drie idle. De vier bosses roteren gewoon
+door, en Lairs bestaan ernáást (`hasLairs = true`, `tieredEntranceType.Lairs = "4"`). Poort eruit.
+
+⚠️ **Wat de moeite van een tweede blik waard is:** de rekenkundige terugval is teruggezet, en die
+klopte deze week precies (18 maart + 24 weken → index 1 → Lu'ashal). Dat is corroboratie, geen
+bewijs dat hij volgende week ook klopt. Kijk op **9 sep** of er **Cragpine** staat; klopt dat, dan
+doet de rotatie het over een seizoensgrens heen.
+
+📌 Zie je vandaag niets? Dan is dat geen kleinigheid maar dezelfde bug opnieuw — stuur dan weer de
+uitvoer van `/mh worldboss`.

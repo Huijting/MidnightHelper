@@ -496,12 +496,15 @@ end
 
 --- ⚠️ NO ARITHMETIC GUESS FROM 12.1 ONWARDS. Read this before restoring the fallback.
 ---
---- `WORLD_BOSSES` is the Season 1 roster and `ROTATION_ANCHOR` is 18 March 2026. Multiply
---- one by the other and you always get a confident answer, including for weeks in which
---- these four bosses may no longer be what the game is running: 12.1 is understood to
---- have replaced them with Lairs, and `Modules/WorldBossProbe.lua:6` was written for
---- exactly that question — *"MH shows a list that means nothing … a gap where the panel
---- would be confidently wrong."* The probe was written; the answer was never brought back.
+--- `WORLD_BOSSES` is the roster and `ROTATION_ANCHOR` is 18 March 2026. Multiply one by the
+--- other and you always get a confident answer, including for weeks in which these four
+--- bosses may no longer be what the game is running. `Modules/WorldBossProbe.lua:6` was
+--- written for exactly that question — *"MH shows a list that means nothing … a gap where
+--- the panel would be confidently wrong."*
+---
+--- ⚠️ The reasoning stays even though the gate is gone: the client scan is the truth and the
+--- arithmetic is a fallback. If a future patch does change the roster, this comment is the
+--- thing that should make you run the probe again rather than trust the sum.
 ---
 --- So the guess stops at the patch boundary and the honest paths keep working. The client
 --- scan (`QueryLiveWorldBoss`) and the weekly cache both still answer, and every consumer
@@ -509,14 +512,27 @@ end
 --- hides itself, and `RouteToActiveWorldBoss` returns false. Losing a wrong boss name
 --- costs less than showing one.
 ---
---- ⚠️ REMOVING THIS GATE NEEDS A MEASUREMENT, NOT AN OPINION: `/mh worldboss` on live,
---- which is item 1 on the "morgen op live" list in docs/NEXT_SESSION.md. If the four
---- Season 1 bosses are still up and still rotating, this can go and the roster stays.
---- If they are Lairs, the roster itself needs replacing — not the gate.
+--- ✅ MEASURED 2 SEP 2026 ON LIVE, AND THE GATE IS GONE. `/mh worldboss` on Rob's own
+--- client, in Season 2, week of 2 September:
+---     Lu'ashal   questId 92560  taskActive TRUE   minutesLeft 9904  tagName "World Boss"
+---     Cragpine / Thorm'belan / Predaxas   taskActive FALSE
+--- One active, three idle — which is what a rotation looks like from inside. The four
+--- Season 1 bosses are still running in Season 2, so the condition written above ("if the
+--- four Season 1 bosses are still up and still rotating, this can go and the roster stays")
+--- is met.
+---
+--- 🔴 AND "12.1 REPLACED THEM WITH LAIRS" WAS WRONG. The same probe reports
+--- `hasLairs = true` with `tieredEntranceType.Lairs = "4"`: Lairs exist ALONGSIDE world
+--- bosses, they did not take their place. That claim came from Icy Veins and a tech news
+--- site and was on its way onto our public site before this was run. Secondary sources
+--- agreeing with each other is not a measurement.
+---
+--- 📌 What the gate actually cost: from 18 Aug to 2 Sep the panel said nothing every week
+--- while a boss was genuinely up all week. And the arithmetic it distrusted would have been
+--- RIGHT — 18 March to 2 September is exactly 168 days, 24 weeks, 24 % 4 = 0, index 1,
+--- Lu'ashal. The caution was reasonable when written and wrong for a fortnight; only the
+--- measurement could tell those apart, which is why the note demanded one.
 local function GetScheduledWorldBoss()
-	if ns.IsSeason2Visible and ns.IsSeason2Visible() then
-		return nil
-	end
 	local anchor = ROTATION_ANCHOR
 	if not anchor or anchor <= 0 then
 		return WORLD_BOSSES[1]

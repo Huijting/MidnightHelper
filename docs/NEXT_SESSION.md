@@ -77,19 +77,22 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
 
 **Nieuw, 2 sep — en dit is nu het dringendst:**
 
-0. 🔴 **`/mh worldboss` op live.** Stond al weken op de lijst; sinds vanochtend blokkeert het een
-   **openbare** pagina. Rob zag het S1-world-boss-artikel op de site staan als actueel advies,
-   binnen een uur na publiceren. In het spel toont de addon dat bewust niet
-   (`Modules/WorldBoss.lua:517` geeft `nil` zodra Season 2 zichtbaar is); de site publiceerde
-   dezelfde tekst zónder die poort. Het artikel is nu teruggetrokken
-   (`SKIP_ARTICLES` in `tools/build_site.py`) tot iemand meet.
-   Wat de meting moet uitwijzen: draaien de vier S1-bosses nog? Dan mag de poort weg. Zijn het
-   Lairs geworden? Dan moet de róster vervangen, niet de poort.
-   ⚠️ Secundaire bronnen (Icy Veins, een techsite) zeggen dat 12.1 world bosses vervangt door
-   **Lairs**, met Tidebound Grotto / Nymrissa Wavecaller. Wij hebben daar al een
-   `TideboundGrottoCoach.lua` voor. Maar dat is niet gemeten en gaat dus nergens in als feit.
-   📌 En daarna hoort die lege plek iets uit te leggen in plaats van te zwijgen — precies de
-   faalvorm uit `CLAUDE.md`: correct zwijgen en kapot zijn zien er van buiten identiek uit.
+0. ✅ **World boss — GEMETEN EN OPGELOST, 2 sep.** Rob zag het S1-world-boss-artikel binnen een
+   uur na publicatie op de site staan als actueel advies, draaide `/mh worldboss` op live, en dat
+   besliste alles in één keer: **Lu'ashal `taskActive = true`, 9904 min resterend**, de andere
+   drie idle. De vier bosses roteren gewoon door in Season 2.
+   🔴 **"12.1 verving world bosses door Lairs" was FOUT** — dezelfde probe geeft `hasLairs = true`
+   én actieve world bosses: Lairs bestaan ernáást. Die claim kwam van Icy Veins en een techsite en
+   was op weg naar onze publieke site. Twee secundaire bronnen die elkaar bevestigen zijn geen
+   meting.
+   Gedaan: de S2-poort is uit `Modules/WorldBoss.lua` gehaald (hij verzweeg twee weken lang een
+   boss die er gewoon stond), het artikel staat weer op de site, en `SKIP_ARTICLES` in
+   `tools/build_site.py` is weer leeg — het mechanisme blijft.
+   ⏳ **Rob moet nog bevestigen** dat de boss in-game terug is: `docs/TESTLIJST.md` punt 10.
+   📌 Blijvende les die groter is dan dit item: **de sitegenerator kopieert teksten, maar niet de
+   voorwaarden waaronder de addon ze toont.** Die poort stond in Lua, de generator leest data.
+   Alles wat de addon afhankelijk maakt van seizoen, patch of speler-toestand publiceert de site
+   onvoorwaardelijk tenzij iemand het opmerkt. Staat als regel boven `SKIP_ARTICLES`.
 
 **Nieuw, 2 sep:**
 
