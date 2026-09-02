@@ -44,9 +44,14 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
    `## X-Wago-ID: rNky4wKa` staat in de `.toc` onder het CurseForge-ID. `release.yml` gaf
    `WAGO_API_TOKEN` al door aan de packager, dus vanaf de volgende release gaat het vanzelf naar
    CurseForge **én** Wago. Dit was SPEC_31 B7.
-   ⚠️ **Nog niet bewezen:** of het GitHub-secret `WAGO_API_TOKEN` er echt in staat en of de
-   automatische upload werkt. Dat blijkt pas bij de eerste release ná vandaag — kijk dan of Wago
-   de nieuwe versie krijgt zonder handwerk.
+   ⚠️ **Nog niet bewezen:** of de automatische upload werkt. Het GitHub-secret `WAGO_API_TOKEN`
+   staat er wél in (Rob bevestigd, 2 sep), maar of de packager er daadwerkelijk mee uploadt blijkt
+   pas bij de eerste release ná vandaag — kijk dan of Wago de nieuwe versie krijgt zonder handwerk.
+   🔴 **DOODLOPEND SPOOR, niet opnieuw onderzoeken: Wago's downloadcijfers zitten achter Patreon.**
+   Rob wilde er een teller voor in Home Assistant, naast die voor CurseForge, en heeft daarvoor een
+   tweede API-token aangemaakt. Dat token is weer ingetrokken: de statistieken zijn betaald en dat
+   is geen plan. Er is dus **geen** Wago-downloadteller, en de reden is een prijskaartje en geen
+   ontbrekend eindpunt — zoeken naar de juiste API levert niets op.
    ✅ **Uitgezocht dezelfde ochtend, en het was geen bug maar onze eigen keuze.** `release.yml`
    zei het zelf: GitHub-releases waren bewust uit, *"one new shop at a time"*. Die reden is nu
    vervallen (CF werkt al maanden, Wago staat er), dus aangezet met `GITHUB_API_TOKEN:
@@ -64,7 +69,9 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
    versie, clientbuild, taal (client én MH), klasse/spec/level, groepsgrootte en instantie, plus
    wat de speler achter het commando typt. Beide bestemmingen erin, Discord én GitHub.
    Lint: 173 gerouteerd / 65 vermeld (was 172/64), dus hij staat in de commandolijst én in
-   NavSearch. ⏳ `docs/TESTLIJST.md` punt 11.
+   NavSearch. ✅ **Door Rob getest en afgetekend** (`docs/TESTLIJST.md` punt 11) — hij vond binnen
+   twintig minuten twee uitvoerfouten die geen controle kón zien omdat de wáárden klopten:
+   `MAGE Frost` en `Eastern Kingdoms (open world)` in plaats van de zone. Beide gerepareerd.
    📌 Twee keuzes die Rob mag terugdraaien: **geen personagenaam of realm** in het rapport (het is
    bedoeld om openbaar geplakt te worden, en die twee helpen niet bij reproduceren), en het
    **rapportblok blijft Engels** terwijl de chrome eromheen in zeven talen staat — het is aan de

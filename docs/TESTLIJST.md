@@ -651,7 +651,18 @@ doet de rotatie het over een seizoensgrens heen.
 📌 Zie je vandaag niets? Dan is dat geen kleinigheid maar dezelfde bug opnieuw — stuur dan weer de
 uitvoer van `/mh worldboss`.
 
-### 11. `/mh report` — nieuw, na `/reload`
+### 11. ✅ AFGETEKEND — `/mh report` werkt, 2 sep
+
+Rob testte het binnen twintig minuten na uitbrengen en vond twee dingen die geen enkele controle
+had kunnen zien, omdat de *waarden* klopten en alleen de **uitvoer** niet deugde:
+`MAGE Frost` (het ruwe klassetoken, en in omgekeerde volgorde) en `Eastern Kingdoms (open world)`
+— `GetInstanceInfo` geeft buiten de continent, niet de zone. Allebei gerepareerd; de tweede ronde
+gaf `Frost Mage, level 90 . solo . Silvermoon City, The Bazaar`.
+
+📌 De `issecretvalue`-guards zijn dus óók bevestigd: taal, spec, zone én subzone kwamen allemaal
+door zonder een `?` of `somewhere`.
+
+<details><summary>De oorspronkelijke testopdracht</summary>
 
 **Wat je moet zien:** `/mh report` opent het bestaande kopieervenster met een blok dat begint met
 `Midnight Helper report`, en daaronder je versie, clientbuild, taal, klasse/spec/level, groep en
@@ -673,3 +684,5 @@ jouw addon — maar dit is de veiligere kant om op te beginnen.
 📌 Het blok zelf is **Engels**, ook op een Duitse client, terwijl de venstertitel en de chatregel
 wél vertaald zijn. Dat is een keuze: het rapport is aan de maker gericht, zoals een logbestand.
 Vind je dat verkeerd voelen, dan draaien we het om.
+
+</details>
