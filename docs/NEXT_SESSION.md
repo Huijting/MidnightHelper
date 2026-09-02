@@ -111,13 +111,37 @@ Opgelost: `/mh curio` en `/mh curios` kiezen nu zelf. Heeft de adviseur data —
 12.0.7-client is dat zo — dan de adviseur; anders de uitlegger, die live uit de tree leest en de
 sterren draagt. De adviseur gaat er dus **niet** uit; hij kan alleen nooit seizoen-2-data krijgen.
 
-### ⚠️ Wat hierna nog open staat: het scherm dát naast Valeera hoort
+### ✅ Het scherm dát naast Valeera hoort — `Modules/CurioAdvicePanel.lua`
 
-Rob vroeg om een adviesscherm dat **naast haar venster** verschijnt. Dat is de adviseur-popup, en
-die heeft in seizoen 2 niets te zeggen — hij toont de "no ranking"-regel. De uitlegger heeft de
-inhoud maar is een kopieerbaar dialoogvenster, geen paneel. **Te doen:** de popup laten openen met
-de inhoud van de uitlegger zodra er geen ranglijst is. Dat is Robs eigenlijke feature-verzoek en is
-vanavond niet gebouwd.
+Rob vroeg dit in drie stukken over weken: een adviesscherm "zoals in serienummer 1", dat zegt "wat
+volgens de meerderheid online het beste is", en dat **naast haar venster** verschijnt. De eerste
+twee waren de sterren in `/mh curios`; dit is de derde, en de enige die hij kón zien ontbreken —
+hij opende haar venster en kreeg een chatregel.
+
+Wat het toont, per keuzeslot: de slotnaam, wat de guides kiezen, en of jij dat al op hebt.
+Geankerd aan `DelvesCompanionConfigurationFrame` (TOPLEFT aan haar TOPRIGHT), dus het verschuift mee
+als zij verschuift; valt terug op het scherm-midden als haar venster dicht is.
+
+⚠️ **Bewust géén effectteksten.** Naast haar venster ben je aan het kiezen, niet aan het studeren;
+drie slots vol tooltips is een muur. `/mh curios` blijft daarvoor.
+
+📌 **En de oude regel klopte, maar trok de verkeerde conclusie.** *"Deze popup heeft niets"* is
+nooit hetzelfde geweest als *"wij hebben niets"*. De item-popup kán seizoen 2 niet dragen (trait-
+entries, geen items) — maar antwoorden met het ding dát het weet is beter dan weigeren met het ding
+dat het niet weet. Alle drie de slots komen uit `GetCompanionChoices()`; het enige wat wij leveren
+is de ster, en die wordt tegen diezelfde boom gecontroleerd.
+
+### 🔴 De linter las commentaar als code en liet de build vallen op documentatie
+
+`CurioAdvicePanel.lua` legt de `and`-valstrik uit door de fóute regel boven de goede te citeren —
+het nuttigste wat je naast een reparatie kunt schrijven. Check **[12]** maakte daar een HARD failure
+van.
+
+📌 Dat is niet alleen een vals alarm maar een verkeerde prikkel: een checker die het documenteren
+van zijn eigen onderwerp bestraft, leert mensen de uitleg weg te halen. Commentaar wordt nu
+overgeslagen. ⚠️ De skip is een kale `--`-zoekactie, dus een `--` binnen een string eerder op de
+regel zou een echte treffer verbergen — een vals negatief op een regelvorm die hier niemand
+schrijft, geruild tegen een vals positief dat zojuist een build stopte.
 
 ### ✅ `/mh poisons` was de zwakkere kopie van `/mh curios` — opgeruimd
 

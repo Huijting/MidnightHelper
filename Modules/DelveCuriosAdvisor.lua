@@ -906,9 +906,20 @@ function ns:ShowDelveCuriosPopup(bypassGate)
 	if s and s.enabled == false then
 		return
 	end
-	-- No pack for this season: the manual command says so out loud (a command that
-	-- silently does nothing reads as broken), the automatic paths simply stay away.
+	-- ✅ NO PACK FOR THIS SEASON -> HAND OVER, DO NOT APOLOGISE. This used to print
+	-- "no ranking for this season" and stop, and the automatic paths stayed away
+	-- entirely. So Rob opened Valeera's window on 2 sep and got a chat line where he
+	-- had asked for a panel beside her.
+	--
+	-- 📌 The item-based popup genuinely cannot serve Season 2 (trait entries, not
+	-- items). But "this popup has nothing" was never the same statement as "we have
+	-- nothing" — CurioAdvicePanel reads her live tree and has plenty. Answering with
+	-- the thing that knows is better than declining with the thing that does not.
 	if not HaveAdvice() then
+		if ns.ShowCurioAdvicePanel then
+			ns.ShowCurioAdvicePanel()
+			return
+		end
 		if bypassGate then
 			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("DELVE_CURIO_NO_SEASON_DATA")))
 		end
@@ -927,12 +938,23 @@ function ns.HideDelveCuriosPopup()
 	if popupFrame then
 		popupFrame:Hide()
 	end
+	-- Whichever of the two we opened, the same close should put it away — otherwise
+	-- closing her window leaves our panel floating beside nothing.
+	if ns.HideCurioAdvicePanel then
+		ns.HideCurioAdvicePanel()
+	end
 	popupShownByGossip = false
 	popupShownByCompanion = false
 end
 
 --- Manual toggle (slash command): always allowed, ignores in-delve gate.
 function ns:ToggleDelveCuriosPopup()
+	local advicePanel = _G.MidnightHelperCurioAdvicePanel
+	if advicePanel and advicePanel:IsShown() then
+		popupAutoSuppressed = true
+		ns.HideDelveCuriosPopup()
+		return false
+	end
 	if popupFrame and popupFrame:IsShown() then
 		popupAutoSuppressed = true
 		ns.HideDelveCuriosPopup()

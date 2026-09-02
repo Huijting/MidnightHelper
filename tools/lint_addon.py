@@ -554,6 +554,19 @@ def check_and_guard_truncation(root):
     Only flags calls with NO arguments, where `X and X()` is a pure existence
     guard. `f and f(x)` on a multi-assignment is the same trap, but the pattern
     is rarer and this stays a check with no false positives.
+
+    🔴 IT READ COMMENTS AS CODE UNTIL 2 SEP 2026, and failed the build on a line
+    that was documentation. CurioAdvicePanel.lua explained the trap by quoting the
+    wrong version of the line above the right one -- the single most useful thing
+    to write next to a fix -- and this check turned that into a HARD failure.
+
+    📌 The incentive is what makes it worth fixing rather than reworded around: a
+    checker that punishes documenting its own subject teaches people to delete the
+    explanation. Comments are skipped now.
+
+    ⚠️ The skip is a plain `--` search, so a `--` inside a string earlier on the
+    line would hide a real hit. That is a false NEGATIVE on a line shape nobody in
+    this repo writes, traded against a false positive that just stopped a build.
     """
     hits = []
     pat = re.compile(
@@ -568,9 +581,13 @@ def check_and_guard_truncation(root):
             text = fh.read()
         for n, line in enumerate(text.splitlines(), 1):
             m = pat.search(line)
-            if m:
-                names = [v.strip() for v in m.group(1).split(",") if v.strip()]
-                hits.append((os.path.basename(path), n, m.group(2), len(names)))
+            if not m:
+                continue
+            comment = line.find("--")
+            if comment != -1 and m.start() > comment:
+                continue
+            names = [v.strip() for v in m.group(1).split(",") if v.strip()]
+            hits.append((os.path.basename(path), n, m.group(2), len(names)))
     return hits
 
 
