@@ -355,6 +355,14 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
 **Wacht op iemand anders:**
 
 1. **`cmd:req` voor het consumables-bord** — wacht op Cisca's reload-test.
+   ⚠️ **Cisca typt alleen `/reload`.** Deze regel las alsof zij "cmd:req" moest intypen; Rob vroeg
+   er op 2 sep naar. `cmd:req` is de naam van een protocolbericht dat we pas **bouwen** als de test
+   slaagt — het bestaat nog niet en niemand typt het ooit.
+   **De test:** Cisca zit in de groep, Rob opent het bord, haar regel ontbreekt, zij doet
+   `/reload`. Komt haar regel er dan bij, dan klopt de diagnose (iedereen zendt alleen uit
+   zichzelf bij `GROUP_ROSTER_UPDATE` / `PLAYER_ENTERING_WORLD`, en wie dan in een laadscherm zit
+   mist het voorgoed). Komt hij niet, dan is het iets anders en deugt het plan niet.
+   Volledige analyse: `docs/NEXT_SESSION_ARCHIVE.md` regel 456 e.v.
 2. ✅ **Wago staat er — 2 sep.** Project aangemaakt, versie 3.7.3 handmatig geüpload (Wago's
    "Upload your Addon!" leidt naar *Create Version*, dus een zip is nodig om te beginnen), en
    `## X-Wago-ID: rNky4wKa` staat in de `.toc` onder het CurseForge-ID. `release.yml` gaf
