@@ -4399,8 +4399,7 @@ fill("deDE", {
 	CMDLIST_COACH = "Der Delve-Coach.",
 	CMDLIST_CODEX = "Der Codex: alle Guide-Artikel an einem Ort.",
 	CMDLIST_CRESTS = "Gibt deine Wappenstände aus und die IDs dahinter.",
-	CMDLIST_CURIO = "Der Kuriositäten-Rat für Delves.",
-	CMDLIST_CURIOS = "Was jede von Valeeras Delve-Kuriositäten tut, aus deinem eigenen Spiel gelesen.",
+	CMDLIST_CURIOS = "Welche Curios du Valeera gibst, für deine Rolle.",
 	CMDLIST_DELVES = "Deine Delve-Historie: Tiers, Zeiten und Tode.",
 	CMDLIST_DISPEL = "Was du entfernen kannst, und was gerade auf dir liegt.",
 	CMDLIST_ENCHANT = "Welchen angelegten Gegenständen eine Verzauberung oder ein Edelstein fehlt.",
@@ -4549,8 +4548,7 @@ fill("frFR", {
 	CMDLIST_COACH = "Le Coach des gouffres.",
 	CMDLIST_CODEX = "Le Codex : tous les articles de guide au même endroit.",
 	CMDLIST_CRESTS = "Affiche tes quantités d'écus et les identifiants qui se cachent derrière.",
-	CMDLIST_CURIO = "Le conseiller en curios pour les gouffres.",
-	CMDLIST_CURIOS = "Ce que fait chacun des curios de gouffre de Valeera, lu depuis ton propre jeu.",
+	CMDLIST_CURIOS = "Quels curios donner à Valeera, pour ton rôle.",
 	CMDLIST_DELVES = "Ton historique de gouffres : Tiers, temps et morts.",
 	CMDLIST_DISPEL = "Ce que tu peux dissiper, et ce qui est sur toi en ce moment.",
 	CMDLIST_ENCHANT = "Quels objets équipés n'ont pas d'enchantement ou de gemme.",
@@ -4755,8 +4753,7 @@ fill("esES", {
 	CMDLIST_COACH = "El Entrenador de profundidades.",
 	CMDLIST_CODEX = "El Codex: todos los artículos de guía en un solo sitio.",
 	CMDLIST_CRESTS = "Imprime cuántos blasones tienes y los ids que hay detrás.",
-	CMDLIST_CURIO = "El asesor de curios para profundidades.",
-	CMDLIST_CURIOS = "Qué hace cada uno de los curios de profundidad de Valeera, leído de tu propio juego.",
+	CMDLIST_CURIOS = "Qué curios darle a Valeera, para tu rol.",
 	CMDLIST_DELVES = "Tu historial de profundidades: Tiers, tiempos y muertes.",
 	CMDLIST_DISPEL = "Qué puedes disipar y qué llevas encima ahora mismo.",
 	CMDLIST_ENCHANT = "A qué objetos equipados les falta un encantamiento o una gema.",
@@ -4952,8 +4949,7 @@ fill("ptBR", {
 	CMDLIST_COACH = "O Delve Coach.",
 	CMDLIST_CODEX = "O Codex: todos os artigos de guia num só lugar.",
 	CMDLIST_CRESTS = "Imprime a contagem dos seus crests e os ids por trás deles.",
-	CMDLIST_CURIO = "O conselheiro de curios para delves.",
-	CMDLIST_CURIOS = "O que faz cada curio de delve da Valira, lido do seu próprio jogo.",
+	CMDLIST_CURIOS = "Quais curios dar à Valira, para a sua função.",
 	CMDLIST_DELVES = "Seu histórico de delves: tiers, tempos e mortes.",
 	CMDLIST_DISPEL = "O que você consegue dissipar, e o que está em você agora.",
 	CMDLIST_ENCHANT = "Quais itens equipados estão sem encantamento ou sem gema.",
@@ -5153,8 +5149,7 @@ fill("itIT", {
 	CMDLIST_COACH = "Il Delve Coach.",
 	CMDLIST_CODEX = "Il Codex: ogni articolo delle guide in un unico posto.",
 	CMDLIST_CRESTS = "Stampa il conteggio dei tuoi crest e gli id che ci stanno dietro.",
-	CMDLIST_CURIO = "Il consigliere dei curio per le delve.",
-	CMDLIST_CURIOS = "Cosa fa ognuno dei curio da delve di Valeera, letto dal tuo stesso gioco.",
+	CMDLIST_CURIOS = "Quali curio dare a Valeera, per il tuo ruolo.",
 	CMDLIST_DELVES = "La tua cronologia delle delve: tier, tempi e morti.",
 	CMDLIST_DISPEL = "Cosa puoi dissolvere, e cosa hai addosso adesso.",
 	CMDLIST_ENCHANT = "Quali oggetti equipaggiati sono senza enchant o senza gemma.",
@@ -7601,18 +7596,23 @@ fill("ptBR", {
 --- de spelterm die op Valeera's eigen paneel staat.
 fill("deDE", {
 	CMDLIST_POISONS = "Valeeras Poisons, was jedes bewirkt und eine Markierung bei dem, das sie anhat.",
+	CMDLIST_CURIOINFO = "Was jedes von Valeeras Delve-Curios bewirkt, aus deinem eigenen Spiel gelesen.",
 })
 fill("frFR", {
 	CMDLIST_POISONS = "Les poisons de Valeera, ce que chacun fait, et une marque sur celui qu'elle porte.",
+	CMDLIST_CURIOINFO = "Ce que fait chaque curio de Valeera, lu dans ton propre jeu.",
 })
 fill("esES", {
 	CMDLIST_POISONS = "Los poisons de Valeera, qué hace cada uno y una marca en el que lleva puesto.",
+	CMDLIST_CURIOINFO = "Qué hace cada curio de Valeera, leído de tu propio juego.",
 })
 fill("ptBR", {
 	CMDLIST_POISONS = "Os poisons da Valeera, o que cada um faz e uma marca no que ela está usando.",
+	CMDLIST_CURIOINFO = "O que cada curio da Valeera faz, lido do seu próprio jogo.",
 })
 fill("itIT", {
 	CMDLIST_POISONS = "I poisons di Valeera, cosa fa ciascuno e un segno su quello che ha addosso.",
+	CMDLIST_CURIOINFO = "Cosa fa ogni curio di Valeera, letto dal tuo stesso gioco.",
 })
 
 fill("itIT", {

@@ -69,7 +69,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"anchor", "api12", "atal", "auradump", "aurainst", "auras", "bars", "boardall",
 	"bonusroll", "bossshare", "campaign", "capture", "chunklog", "chunks", "clearroute",
 	"codexkeys", "companion", "consready", "coord", "crest", "crestfind", "crestscan",
-	"curiodebug", "death", "debug", "delve", "delveexit", "delvescan", "dispellog",
+	"curio", "curiodebug", "death", "debug", "delve", "delveexit", "delvescan", "dispellog",
 	"dispelprobe", "dispeltest", "editmode", "ej", "enchants", "encounters", "events",
 	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "guide",
 	"handbook", "hazard", "here", "instance", "item", "keybinds", "kickprobe", "kp",
@@ -152,8 +152,10 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh coach", descKey = "CMDLIST_COACH" },
 		{ cmd = "/mh bosswin", descKey = "CMDLIST_BOSSWIN" },
 		{ cmd = "/mh ritualboss", descKey = "CMDLIST_RITUALBOSS" },
-		{ cmd = "/mh curio", descKey = "CMDLIST_CURIO" },
+		-- 2 sep: `/mh curio` en `/mh curios` doen nu hetzelfde (de adviseur). Alleen de
+		-- meervoudsvorm staat hier; `curio` is de alias en staat in de set hierboven.
 		{ cmd = "/mh curios", descKey = "CMDLIST_CURIOS" },
+		{ cmd = "/mh curioinfo", descKey = "CMDLIST_CURIOINFO" },
 		{ cmd = "/mh hazards", descKey = "CMDLIST_HAZARDS" },
 		{ cmd = "/mh keys", descKey = "CMDLIST_KEYS" },
 		{ cmd = "/mh board", descKey = "CMDLIST_BOARD" },

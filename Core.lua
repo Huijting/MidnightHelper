@@ -1045,17 +1045,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	--- /mh curios — wat elke curio-keuze van je companion doet, in de taal van het spel.
+	--- /mh curioinfo — wat elke curio-keuze van je companion doet, in de taal van het spel.
 	---
-	--- 🔴 SINGULAR ONLY SINCE 2 SEP, en dat was een echte onwaarheid tegen de speler. Dit blok
-	--- ving `curio` én `curios`, terwijl de commandolijst ze als twee dingen aanbiedt:
-	--- CMDLIST_CURIOS = "what each curio does", CMDLIST_CURIO = "the curios adviser". Wie
-	--- `/mh curio` typte kreeg de uitlegger, en het adviseur-blok op regel ~2479 kon nooit
-	--- uitvoeren — dode code achter een belofte.
-	--- 📌 Enkelvoud/meervoud is een beroerde scheidslijn tussen twee functies; niemand onthoudt
-	--- dat. Dit herstelt wat de lijst al beloofde, meer niet — of de twee moeten samensmelten
-	--- is Robs keuze en staat in docs/NEXT_SESSION.md.
-	if msg == "curios" then
+	--- 🔴 HERNOEMD 2 SEP, want enkelvoud tegen meervoud was een onmogelijke scheidslijn.
+	--- `/mh curio` en `/mh curios` waren twee verschillende functies: de adviseur en deze
+	--- uitlegger. Niemand onthoudt dat, en het was bovendien kapot — dit blok ving beide namen,
+	--- dus de adviseur was per commando onbereikbaar terwijl de commandolijst hem beloofde.
+	---
+	--- Rob koos samensmelten: **beide curio-namen openen nu de ADVISEUR** (het rijkere ding, en
+	--- wat hij zoekt), en de uitlegger krijgt een naam die zegt wat hij is. Twee namen die één
+	--- ding doen is te onthouden; twee namen die op één letter verschillen niet.
+	if msg == "curioinfo" then
 		if ns.ShowCurioExplain then
 			ns.ShowCurioExplain()
 		end
@@ -2485,9 +2485,8 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	--- `curio` alleen: `curios` hoort bij de uitlegger hierboven, die eerder in dit blok staat
-	--- en dus altijd won. Zie de opmerking daar.
-	if msg == "curio" then
+	--- Beide namen, één ding: de adviseur. Zie de opmerking bij `/mh curioinfo` hierboven.
+	if msg == "curio" or msg == "curios" then
 		if ns.ToggleDelveCuriosPopup then
 			ns:ToggleDelveCuriosPopup()
 		else
