@@ -39,9 +39,18 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
 **Wacht op iemand anders:**
 
 1. **`cmd:req` voor het consumables-bord** — wacht op Cisca's reload-test.
-2. **Wago** — Rob logt in met GitHub (er is geen e-maillogin), maakt het project en een token op
-   `/account/apikeys`, zet GitHub-secret `WAGO_API_TOKEN`, en geeft het project-ID door voor
-   `## X-Wago-ID` in de `.toc`. Dit is tegelijk SPEC_31 B7.
+2. ✅ **Wago staat er — 2 sep.** Project aangemaakt, versie 3.7.3 handmatig geüpload (Wago's
+   "Upload your Addon!" leidt naar *Create Version*, dus een zip is nodig om te beginnen), en
+   `## X-Wago-ID: rNky4wKa` staat in de `.toc` onder het CurseForge-ID. `release.yml` gaf
+   `WAGO_API_TOKEN` al door aan de packager, dus vanaf de volgende release gaat het vanzelf naar
+   CurseForge **én** Wago. Dit was SPEC_31 B7.
+   ⚠️ **Nog niet bewezen:** of het GitHub-secret `WAGO_API_TOKEN` er echt in staat en of de
+   automatische upload werkt. Dat blijkt pas bij de eerste release ná vandaag — kijk dan of Wago
+   de nieuwe versie krijgt zonder handwerk.
+   📌 **En één ding om uit te zoeken:** Wago's "Create from GitHub release" bood alleen *Midnight
+   Helper 2.8.1* aan. Onze `v*`-tags starten de packager wel, maar er lijkt sindsdien geen echt
+   GitHub *Release*-object meer gemaakt te worden. Als dat klopt is het een kleine instelling in
+   `release.yml` die voortaan handwerk scheelt.
 
 **Gemeten open op 2 sep** (met positieve controle in dezelfde run):
 
