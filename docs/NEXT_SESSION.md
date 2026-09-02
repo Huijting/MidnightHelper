@@ -76,8 +76,16 @@ spell-links werkten niet, en de Vaults-keten was drie quests terwijl het er vier
    bedoeld om openbaar geplakt te worden, en die twee helpen niet bij reproduceren), en het
    **rapportblok blijft Engels** terwijl de chrome eromheen in zeven talen staat — het is aan de
    maker gericht, zoals een logbestand.
-4. **B10b — geen beroepen-scène in `/mh shots`.** `Modules/DevShots.lua` bestaat en `scene` geeft
-   tientallen treffers, maar `prof` nul.
+4. ✅ **B10b — beroepen-scène TOEGEVOEGD, 2 sep.** `{ name = "10-professions-advice", tab =
+   "profoverview" }` in `Modules/DevShots.lua`. De meting van die ochtend is precies omgedraaid:
+   `prof` gaf nul treffers in dat bestand, nu vier.
+   📌 **Waarom juist deze scène en niet een willekeurige elfde:** op 31 aug is over ~20 addons
+   gemeten dat **geen enkele** vertelt wáár je Knowledge uitgeeft. Het enige dat deze addon doet
+   en niemand anders, was dus het enige dat een bezoeker van de CF-pagina niet kon zien.
+   ⚠️ `profoverview`, niet `professions` — die oude id landt op Treasures & Books, wat Rob op
+   22 juli kreeg toen hij op een Knowledge-regel klikte.
+   ⚠️ Deze scène hangt als enige aan het **ingelogde personage**: draai `/mh shots` op iemand met
+   Midnight-beroepen en punten te besteden, anders fotografeert hij een eerlijke lege pagina.
 5. **De INHOUD van de Engineering-, Jewelcrafting- en Inscription-routes.** Hun *structuur* is
    geverifieerd (0 afwijkingen over alle 11 beroepen), maar of `Recycling` het juiste eerste punt
    is, is nooit tegen gamedata gelegd. ⚠️ Dat verschil is echt en is op 31 aug één keer verward.

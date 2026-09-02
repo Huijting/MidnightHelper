@@ -177,6 +177,21 @@ local SHOTS = {
 			return ns.DevGetDelveCoachFrame and ns.DevGetDelveCoachFrame() or nil
 		end,
 	},
+	--- 🔴 ADDED 2 sep 2026 (Spec 31 B10b), and it was the most expensive omission on the
+	--- gallery. MEASURED 31 aug across ~20 delve/profession addons: not one of them tells a
+	--- player WHERE to spend Knowledge. CraftSim simulates a craft, Myu's counts points,
+	--- Profession Shopping List counts what is left to buy — the advice itself lives only on
+	--- Wowhead and Icy Veins and had never been in game. So the one thing this addon does that
+	--- nothing else does was the one thing a visitor to the CurseForge page could not see.
+	---
+	--- `profoverview` rather than `professions`: the legacy id lands on Treasures & Books,
+	--- which is what Rob got on 22 July when he clicked a Knowledge line and received a
+	--- treasure list. Overview is where the advice line lives.
+	---
+	--- ⚠️ THIS SCENE DEPENDS ON THE LOGGED-IN CHARACTER, which none of the others do. Run it
+	--- on someone with Midnight professions and points to spend, or it photographs an honest
+	--- empty page. Rob's Tailoring/Enchanting characters are the ones to use.
+	{ name = "10-professions-advice", tab = "profoverview" },
 }
 
 local function Say(msg)

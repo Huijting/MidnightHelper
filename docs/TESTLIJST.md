@@ -708,6 +708,23 @@ een verzonnen 30 was net zo fout geweest als de 10.
 volgorde: dat klopt met wat we weten. De eerste drie zijn gemeten, waar de vierde hoort niet — ik
 heb hem achteraan gezet omdat dat niets kapotmaakt aan wat al klopte.
 
+### 14. `/mh shots` — er is een tiende scène bij
+
+**Wat je moet doen:** log in op een personage **met Midnight-beroepen** (Iceicebaby of Umbrion —
+Tailoring/Enchanting), dan `/mh shots`, dan **`/reload`** (zonder reload worden de
+SavedVariables niet weggeschreven en snijdt `tools\Crop-Shots.bat` verkeerd), dan die bat.
+
+**Wat er nieuw is:** `10-professions-advice` — de Overview met de adviesregel erop.
+
+🔴 **Waarom deze scène er toe doet en de andere negen niet vervangt:** op 31 augustus is over
+zo'n twintig addons gemeten dat **geen enkele** je vertelt wáár je je Knowledge uitgeeft. Ze
+tellen punten, ze simuleren crafts, ze maken boodschappenlijstjes. Het enige dat deze addon doet
+en niemand anders, stond dus niet op je CurseForge-pagina.
+
+⚠️ **Deze scène hangt als enige aan het ingelogde personage.** Draai je hem op je Warlock die de
+beroepen weer heeft laten vallen, dan krijg je een eerlijke lege pagina — geen bug, wel een
+waardeloze screenshot.
+
 ### 12. Valeera: `/mh poisons` en het verschil tussen `/mh curio` en `/mh curios`
 
 **Wat je moet zien, na `/reload`:**
