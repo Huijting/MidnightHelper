@@ -288,6 +288,40 @@ local function PortalUsable(portal)
 end
 ns.MHPortalUsable = PortalUsable
 
+--- 🔴 DOES THE PLAYER'S HEARTHSTONE ACTUALLY GO WHERE WE ARE SENDING THEM?
+---
+--- Until 3 Sep 2026 nobody asked. The Travel Assistant showed the Hearthstone button on
+--- three conditions -- off cooldown, not in a hub, no portal nearby -- and never once
+--- checked its destination. Rob, on a level-68 Paladin routed to Silvermoon City, got the
+--- Hearthstone offered as the way there. His was bound to **Pinewood Post**. Pressing it
+--- would have taken him somewhere else entirely, on a 30-minute cooldown, and left him
+--- further from the target than when he started.
+---
+--- 📌 This is the same shape as the tip spell ids and the level-68 headline, three times
+--- in one day: a confident recommendation built from something we never measured. The
+--- Hearthstone is the worst of the three, because unlike a wrong arrow it CANNOT be
+--- walked back -- the cooldown is gone.
+---
+--- ⚠️ Deliberately conservative, and the trade is real. `GetBindLocation` returns an inn
+--- or subzone name ("Pinewood Post"), while the target is a zone name ("Silvermoon
+--- City"), so a player bound to an inn INSIDE the target zone under a different name gets
+--- no Hearthstone offered even though it would have worked. A missing shortcut costs a
+--- flight; a wrong one costs the cooldown and the trust. We take the first.
+--- 🔴 And it must fail CLOSED: no `GetBindLocation`, or an empty answer, means we do not
+--- know -- which is exactly the state that produced this bug, so it must not pass.
+local function HearthstoneGoesTo(targetZoneName)
+	if not GetBindLocation or not targetZoneName or targetZoneName == "" then
+		return false
+	end
+	local ok, bind = pcall(GetBindLocation)
+	if not ok or type(bind) ~= "string" or bind == "" then
+		return false
+	end
+	local b, t = bind:lower(), targetZoneName:lower()
+	return b == t or b:find(t, 1, true) ~= nil or t:find(b, 1, true) ~= nil
+end
+ns.MHHearthstoneGoesTo = HearthstoneGoesTo
+
 --- `/mh portals` — which portals do we think you may use, and on what grounds.
 ---
 --- Rob, 19 aug: "kunnen we nu ook zelf zien als we de portal mogelijkheid hebben??" The
@@ -332,6 +366,19 @@ function ns.PrintPortalAccess()
 			tostring(portal.name or "?"), why))
 	end
 	print("   |cff8a8f98A green tick here is what the travel plan offers before it ever suggests flying.|r")
+
+	--- 🔴 AND THE HEARTHSTONE, for the same reason portals are listed. From 3 Sep the
+	--- Travel Assistant only offers it when it actually lands at the target, so on most
+	--- trips there is now simply no Hearthstone button — and "correctly withheld" looks
+	--- exactly like "the button is broken" unless we say which it is.
+	local bind = GetBindLocation and select(2, pcall(GetBindLocation)) or nil
+	if type(bind) == "string" and bind ~= "" then
+		print(("   |TInterface/ICONS/INV_Misc_Rune_01:0|t Hearthstone -> |cffffd100%s|r"):format(bind))
+		print("   |cff8a8f98It is offered only for a target at that place. Anywhere else it would")
+		print("   spend a 30-minute cooldown taking you somewhere you did not ask for.|r")
+	else
+		print("   |TInterface/ICONS/INV_Misc_Rune_01:0|t |cff8a8f98Hearthstone destination unreadable — never offered.|r")
+	end
 end
 
 -- Verified Midnight currency IDs (Restored Coffer Key, Shards, Undercoin, Untainted Mana-Crystals).
@@ -1267,7 +1314,11 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		travelPopup.portalBtn:ClearAllPoints()
 		local isNearPortal = (bestDist < 300)
 		local isHub = (tonumber(currentMap) == 2393 or tonumber(currentMap) == 2576)
-		local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal)
+		-- ...and only if the Hearthstone actually lands at the target. Both copies of this
+		-- line get the gate: the comment thirty lines up already warns that a gate applied
+		-- to one of two identical loops shows the wrong answer half the time.
+		local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal
+			and HearthstoneGoesTo(targetZoneName))
 
 		if isHSVisible then
 			hsBtn:Show()
@@ -1415,7 +1466,11 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 		travelPopup.portalBtn:ClearAllPoints()
 		local isNearPortal = (bestDist < 300)
 		local isHub = (tonumber(currentMap) == 2393 or tonumber(currentMap) == 2576)
-		local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal)
+		-- ...and only if the Hearthstone actually lands at the target. Both copies of this
+		-- line get the gate: the comment thirty lines up already warns that a gate applied
+		-- to one of two identical loops shows the wrong answer half the time.
+		local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal
+			and HearthstoneGoesTo(targetZoneName))
 
 		if isHSVisible then
 			hsBtn:Show()

@@ -33,6 +33,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       en route horen er **exact hetzelfde** uit te zien als vanmorgen. Dit mag alleen onder max
       level iets doen.
 
+- [ ] 🔴 **De Hearthstone-knop mag niet meer verschijnen als je HS ergens anders heen gaat.** Rob
+      werd naar Silvermoon gestuurd terwijl zijn HS op **Pinewood Post** stond, en kreeg hem tóch
+      aangeboden. Nu wordt gecontroleerd waar hij landt.
+      **Wat je nu hoort te zien:** géén Hearthstone-knop in de reis-popup zolang je HS niet op het
+      doel staat. Staat er ook geen portaal in de buurt, dan verschijnt de popup **helemaal niet**
+      — dat is een geldige uitkomst, geen bug.
+      ⚠️ **De tegenproef:** zet je HS op een herberg in Silvermoon en laat je opnieuw daarheen
+      routeren. Dan hoort hij er wél te staan. Doet hij dat niet, dan is de naamvergelijking te
+      streng en wil ik het horen — `GetBindLocation` geeft een herbergnaam, geen zonenaam.
+      📌 `/mh portals` zegt nu onderaan waar jouw Hearthstone heen gaat en waarom hij wel of niet
+      wordt aangeboden.
+
 📌 Zie je iets raars: `/mh resetdebug`. Die print nu per stap `hero=yes / NO (out of reach)`, plus je
 level, de cap en de tally — dat is precies de toestand die ik hier niet kan bereiken.
 

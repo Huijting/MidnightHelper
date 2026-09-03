@@ -79,6 +79,40 @@ levend voorbeeld van gevonden (het Vaults-blok dat Rob op geen enkel character k
 - **Een ingeklapt blok** wilden beide agenten liever dan een kopregel. Bewust niet gedaan: dat vraagt
   de collapse-machinerie erbij en vandaag is er al één layout-bug geweest die precies daar zat.
 
+### 🔴 En meteen daarna: de Hearthstone werd aangeboden zonder te kijken waar hij heen gaat
+
+Robs eerste test van de nieuwe kop koos de profession-weekly — dat werkte. Maar de reis-popup bood
+hem een **Hearthstone naar Silvermoon City** aan, terwijl die van hem op **Pinewood Post** staat.
+
+`Delves.lua`, op **twee** identieke plekken:
+
+```lua
+local isHSVisible = (hsStartTime == 0 and not isHub and not isNearPortal)
+```
+
+Drie voorwaarden — niet op cooldown, niet in een hub, geen portaal dichtbij — en **nergens** de
+vraag waar die steen landt. Er is nooit iemand geweest die het vroeg.
+
+📌 **Derde keer op één dag dezelfde vorm**: een zelfverzekerde aanbeveling gebouwd op iets dat we
+nooit gemeten hebben (de tip-ID's, de level-68-kop, en nu dit). Deze is de ergste van de drie, want
+een verkeerde pijl loop je terug — een verbruikte Hearthstone-cooldown niet.
+
+`HearthstoneGoesTo(targetZoneName)` staat nu naast `PortalUsable`, en beide aanroepplekken hebben de
+gate (het commentaar dáár waarschuwt al dat een gate op één van twee identieke lussen het halve
+antwoord geeft).
+
+⚠️ **Bewust conservatief, en de ruil is echt.** `GetBindLocation` geeft een **herbergnaam**
+("Pinewood Post"), het doel een **zonenaam** ("Silvermoon City"). Wie in een herberg bínnen de
+doelzone gebonden is onder een andere naam, krijgt nu geen Hearthstone aangeboden terwijl die wél
+had gewerkt. Een gemiste sluiproute kost een vlucht; een verkeerde kost de cooldown én het
+vertrouwen. Robs tegenproef op de testlijst is precies deze: bind in Silvermoon en kijk of hij
+terugkomt.
+🔴 En hij faalt **dicht**: geen `GetBindLocation`, of een leeg antwoord, betekent *we weten het niet*
+— en dat is exact de toestand die deze bug maakte, dus die mag niet doorlaten.
+📌 `/mh portals` print nu ook je Hearthstone-bestemming en waarom hij wel of niet wordt aangeboden.
+Zonder popup is "terecht stil" niet te onderscheiden van "kapot", en dit onderdrukt vaker dan het
+toont.
+
 ### 📎 Wat de andere addons doen (gemeten, geen consensus geforceerd)
 
 Het splitst per soort UI, niet per smaak. **Inhoudslijsten tonen het in rood mét de eis** — Zygor
