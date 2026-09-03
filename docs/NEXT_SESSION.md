@@ -13,6 +13,39 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## 📌 3 sep (avond) — wat "Dundun" is, en het gat dat het blootlegt
+
+Rob, in The Gulf of Memory: *"in het begin zei die, zoek de verborgen DunDun, wat is dat en waar
+vonden we dat"*. Uiteindelijk **GEMETEN op zijn eigen entree-scherm** (Twilight Crypts, Tier 11):
+
+> **Dundun** — *"Dundun will hide within this Delve. Finding him will provide additional rewards at
+> the end of this Delve."* Spell ID **1299072**
+
+Het is dus een **delve-modifier**, geen vaste NPC op een coördinaat. Hij verstopt zich per run.
+
+🔴 **EN WIJ TELLEN ZIJN OPBRENGST AL, ZONDER TE ZEGGEN WAAR HIJ VANDAAN KOMT.**
+`Profession.lua` print *"Shards of Dundun: %d / 8 earned this week"* (item `258901`, `Config.lua:25`)
+en `AltOverview.lua` heeft er een filter voor (*Dundun incomplete*). Nergens in de addon staat
+waaróm je die shards krijgt. De speler ziet een teller zonder oorzaak.
+⚠️ Dat de vondst een Shard oplevert is **AFGELEID** — de tooltip zegt alleen "additional rewards".
+Rob meet het als hij Dundun vindt.
+
+⚠️ **En de handvatten verschillen tussen addons**: wij hangen het aan **item 258901**, Broker_MidnightEvents
+en Plumber gebruiken **currency 3376**. Beide noemen cap 8. Niet uitgezocht welke de juiste is; de
+opmerking boven `Config.lua:25` waarschuwt precies voor dit soort id-verwarring.
+
+### Het echte gat: wij lezen delve-modifiers helemaal niet
+
+GEMETEN met positieve controle (`grep C_DelvesUI` over `Modules/` geeft ~80 treffers, dus het patroon
+werkt): we roepen `GetActiveDelveTier`, `GetDelveEntranceTiers`, `GetTieredEntranceType`,
+`GetDelvesFactionForSeason` en de hele companion-traits-familie aan — **maar nergens iets dat de
+modifiers van de huidige delve uitleest**. `Knowledge.lua:383` probeert wel
+`GetTieredEntranceOptionalAffixTraitTreeID` in een sweep, puur als bestaanscontrole.
+
+📌 Dit is precies waar deze addon voor bestaat: DBM vertelt je wélke spell, Zygor wat je moet doen,
+maar niemand zegt *"deze delve heeft Dundun, ga hem zoeken want dat is extra loot"*. Kandidaat voor
+een volgende sessie, en het sluit aan op de teller die we al hebben.
+
 ## 🔴 3 sep (avond) — de routes: drie agenten, vier fouten, en één die geen datafout is
 
 Rob stond **in Harandar**, klikte een route naar Twilight Crypts, en kreeg in één handeling:
