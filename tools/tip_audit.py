@@ -131,6 +131,73 @@ WARN_LINE = "mod:new"
 KNOWS_ONLY = ("addaurasoundoption", "registeraltspellname", "addbooloption",
               "adddropdownoption", "addseticonoption", "addinfoframeoption")
 
+# 🔴 A FOURTH VERDICT, 3 Sep 2026, AND THE CLASSIFIER WAS WRONG A THIRD TIME.
+# All 13 remaining WEAK dungeon ids turned out to be CORRECT. Every one of them sits in
+# AddAuraSoundOption(id, true, id, ..., "<cue>", n) -- enabled by default, with a named
+# voice cue. In 12.x a private aura is unreadable, so this is not DBM declining to warn:
+# it is the ONLY way DBM *can* warn, and "only mentioned, never warned on" said the
+# opposite of the truth about them.
+#
+# The real discriminator is inside the call, not the call itself. Argument 1 is the aura,
+# argument 3 is the CAST it belongs to:
+#     AddAuraSoundOption(1246753, true, 1246753, 1, 2, "watchfeet", 8)  -- Lightsap
+#     AddAuraSoundOption(1292403, true, 1292188, 1, 3, "dotyou",   19)  -- Caustic Wave Dot
+# The first is the thing itself. The second is the DoT OF ANOTHER CAST -- Ula'tek's
+# 1292403, the id that started this whole audit, which our text told players to "dodge"
+# while DBM's cue says "dotyou". So: parent == id is the ability; parent != id means we
+# are quoting a side effect and naming it as the cast. That is the trap, and it is
+# machine-checkable, where "is it in AddAuraSoundOption" never was.
+#
+# ⚠️ WHAT THIS STILL CANNOT DO. It cannot tell whether OUR VERB matches DBM's cue --
+# "cone" against "watchfeet" stays a human read. The report prints the cue precisely so
+# that read is possible; it is not a check. (It caught Kystia's tank line that way:
+# our sentence says "aim the cone", which is the cast 1253811, not the ground 1253813.)
+# ⚠️ DO NOT try to reach the cue with one regex and an optional trailing group. Two
+# attempts failed the same way: a greedy filler consumes the arguments up to the quote,
+# the OPTIONAL cue group then matches empty, the overall match SUCCEEDS, and nothing
+# backtracks. The tool printed 'DBM cue "no cue"' for ids that have one -- inviting the
+# reader to conclude DBM said nothing. Grab the argument list and split it instead;
+# there are no nested parens or commas inside these calls.
+AURA_CALL_RE = re.compile(r"AddAuraSoundOption\(([^)]*)\)")
+CUE_RE = re.compile(r'^"([a-z]+)"$')
+
+
+def parse_aura(line):
+    """(aura_id, parent_id, cue, enabled) for one AddAuraSoundOption call, or None."""
+    m = AURA_CALL_RE.search(line)
+    if not m:
+        return None
+    args = [a.strip() for a in m.group(1).split(",")]
+    if len(args) < 3 or not args[0].isdigit() or not args[2].isdigit():
+        return None
+    cue = ""
+    for a in args[3:]:
+        cm = CUE_RE.match(a)
+        if cm:
+            cue = cm.group(1)
+            break
+    return args[0], args[2], cue, args[1] == "true"
+# DBM alerts through these too. EnableAlertOptions(1230304, 610, "targetchange", ...) is
+# a real text warning with a cue; it just has no timeline timer, which is why the mod
+# says so in a comment right above it.
+ACTS_TOO = ("enablealertoptions", "addcustomalertsoundoption")
+
+
+def _aura_self(rec):
+    """(label, (parent, cue, enabled, is_self)) where DBM's aura IS the ability itself."""
+    for lab, v in sorted((rec.get("aura") or {}).items()):
+        if v[2] and v[3]:
+            return lab, v
+    return None
+
+
+def _aura_other(rec):
+    """(label, (parent, cue, enabled, is_self)) where the aura belongs to another cast."""
+    for lab, v in sorted((rec.get("aura") or {}).items()):
+        if v[2] and not v[3]:
+            return lab, v
+    return None
+
 
 def _strip_comments(text):
     """Drop -- line comments so a TODO cannot count as an implementation."""
@@ -211,16 +278,28 @@ def scan_dbm():
                         # not act on it. That is a decision, not silence.
                         for m in NUM_RE.finditer(raw):
                             rec = where.setdefault(m.group(1), {
-                                "strong": set(), "weak": set(), "noted": set()})
+                                "strong": set(), "weak": set(), "noted": set(),
+                                "aura": {}})
+                            rec.setdefault("aura", {})
                             rec["noted"].add(label)
                         continue
                     low = line.lower()
-                    acts = (WARN_LINE in low)
+                    acts = (WARN_LINE in low) or any(k in low for k in ACTS_TOO)
                     knows = any(k in low for k in KNOWS_ONLY)
+                    am = parse_aura(line)
+                    if am:
+                        aura_id, parent, cue, enabled = am
+                        rec = where.setdefault(aura_id, {
+                            "strong": set(), "weak": set(), "noted": set(),
+                            "aura": {}})
+                        rec.setdefault("aura", {})[label] = (
+                            parent, cue, enabled, aura_id == parent)
                     for m in NUM_RE.finditer(line):
                         i = m.group(1)
                         rec = where.setdefault(i, {
-                            "strong": set(), "weak": set(), "noted": set()})
+                            "strong": set(), "weak": set(), "noted": set(),
+                            "aura": {}})
+                        rec.setdefault("aura", {})
                         if acts and not knows:
                             rec["strong"].add(label)
                         else:
@@ -229,7 +308,9 @@ def scan_dbm():
                     tail = raw[len(line):] if raw.startswith(line) else ""
                     for m in NUM_RE.finditer(tail):
                         rec = where.setdefault(m.group(1), {
-                            "strong": set(), "weak": set(), "noted": set()})
+                            "strong": set(), "weak": set(), "noted": set(),
+                            "aura": {}})
+                        rec.setdefault("aura", {})
                         rec["noted"].add(label)
     return where, files
 
@@ -314,6 +395,24 @@ def main():
     print("positive control ok: %s all found in DBM"
           % ", ".join("%s (%s)" % (i, n) for i, n in sorted(control.items())))
 
+    # 🔴 THIRD POSITIVE CONTROL — for the aura parser, because its whole value is the cue.
+    # A verdict that prints 'cue "no cue"' for an id that has one is worse than no verdict:
+    # it invites the reader to conclude DBM said nothing. The first regex did exactly that
+    # for 1300685 by swallowing the quoted cue as a positional argument.
+    # These two are the pair the AURA-OF distinction rests on:
+    #   1246753 Lightsap       parent == self, cue watchfeet  -> the ability itself
+    #   1292403 Caustic Wave   parent 1292188, cue dotyou     -> the aura of ANOTHER cast
+    aura_control = {"1246753": ("1246753", "watchfeet"),
+                    "1292403": ("1292188", "dotyou")}
+    for i, (want_parent, want_cue) in sorted(aura_control.items()):
+        got = (where.get(i) or {}).get("aura") or {}
+        hit = [v for v in got.values() if v[0] == want_parent and v[1] == want_cue]
+        if not hit:
+            sys.exit("AURA CONTROL FAILED: %s should parse as parent=%s cue=%s, got %r.\n"
+                     "The aura parser is broken; every cue printed below is unreliable."
+                     % (i, want_parent, want_cue, sorted(got.values())))
+    print("aura control ok: 1246753 = watchfeet (self), 1292403 = dotyou (aura of 1292188)")
+
     # 🔴 SECOND POSITIVE CONTROL, ADDED THE MOMENT THE DELVE NUMBERS LOOKED TOO BAD.
     # The first widened run reported 40 of 44 delve ids ABSENT, which reads as "our delve
     # tips are almost entirely wrong". Reading one mod by hand said otherwise:
@@ -363,6 +462,8 @@ def main():
     total_ids = 0
     n_absent = 0
     n_weak = 0
+    n_aura = 0
+    n_auraof = 0
     flagged = []
     per_type = {}
 
@@ -390,6 +491,17 @@ def main():
                 shown = sorted(rec["strong"])
                 more = "" if len(shown) <= 2 else "  (+%d)" % (len(shown) - 2)
                 rows.append((i, "warned", ", ".join(shown[:2]) + more))
+            elif _aura_self(rec):
+                lab, (_p, cue, _on, _s) = _aura_self(rec)
+                rows.append((i, "aura", "private aura, DBM cue \"%s\" — %s"
+                             % (cue or "no cue", lab)))
+                n_aura += 1
+            elif _aura_other(rec):
+                lab, (parent, cue, _on, _s) = _aura_other(rec)
+                rows.append((i, "AURA-OF", "side effect of cast %s, DBM cue \"%s\" — %s"
+                             % (parent, cue or "no cue", lab)))
+                n_auraof += 1
+                bad += 1
             else:
                 shown = sorted(rec["weak"])
                 rows.append((i, "WEAK", "only mentioned, never warned on — "
@@ -423,19 +535,23 @@ def main():
                   % (label, ids_n, bad_n, lines_n))
     print("-" * 70)
     print("%d spell ids across %d tip lines" % (total_ids, len([k for k in order if tips.get(k)])))
-    print("   %d ABSENT  — the number appears in no DBM mod at all" % n_absent)
-    print("   %d WEAK    — present, but only in a comment or a sound option;" % n_weak)
-    print("               DBM never warns on it, so it is probably not the cast")
-    print("               a player is reacting to.")
+    print("   %d ABSENT   — the number appears in no DBM mod at all" % n_absent)
+    print("   %d AURA-OF  — DBM has this id, but as the aura of a DIFFERENT cast." % n_auraof)
+    print("               If our sentence names it as the thing to react to, it")
+    print("               names the side effect and not the cast.")
+    print("   %d WEAK     — present, but only in a comment or an option with no cue." % n_weak)
+    print("   %d aura     — NOT a finding: a private aura DBM warns on by voice cue," % n_aura)
+    print("               which in 12.x is the only warning it can give. Printed with")
+    print("               its cue so the cue can be read against our verb.")
     if flagged:
-        print("tip lines carrying at least one of those: %d" % len(flagged))
+        print("tip lines carrying at least one finding: %d" % len(flagged))
         for k, n in flagged:
             print("   %-34s %d" % (k, n))
     print("=" * 70)
-    print("⚠️  Neither verdict is proof. DBM only warns on what it chooses to warn on,")
-    print("    and a WEAK hit can still be a real spell. What they DO prove is that the")
-    print("    id was never checked against the mod of the team that fights this boss")
-    print("    every week. Read the mod before rewriting the line.")
+    print("⚠️  No verdict here is proof. DBM only warns on what it chooses to warn on,")
+    print("    and the tool cannot tell whether OUR VERB matches DBM's cue — \"aim the")
+    print("    cone\" against \"watchfeet\" is a human read. That read is the point of")
+    print("    printing the cue. Read the mod before rewriting the line.")
 
 
 def classify():
@@ -463,6 +579,11 @@ def classify():
                 rows.append((key, i, "ABSENT"))
             elif rec["strong"]:
                 rows.append((key, i, "warned"))
+            elif _aura_self(rec):
+                # DBM's only possible warning for a private aura. Not a finding.
+                rows.append((key, i, "warned"))
+            elif _aura_other(rec):
+                rows.append((key, i, "AURA-OF"))
             else:
                 rows.append((key, i, "WEAK"))
     return rows, where

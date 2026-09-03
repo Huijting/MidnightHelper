@@ -71,13 +71,13 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_TIP_MC_RAKTUL_HEALER = "Healer: heavy group damage during Deathgorged Vessel and when totems shatter.",
 
 	-- Murder Row (batch 2 — geverifieerd via DBM-Party-Midnight + Wowhead) ------
-	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia clones herself ({SPELL:1264095}) — crowd-control or stun the copies; they all channel Felstorm.|n2. {SPELL:474240}: she teleports onto a player and explodes with a knockback — get out of the blast.|n3. Stay out of Nibbles' {SPELL:1253813} cone (ticking fire).|n4. When Nibbles turns to her light form she channels {SPELL:1230304} at Kystia — switch targets when it happens.",
-	DGN_TIP_MR_KYSTIA_TANK = "Tank: keep Nibbles' {SPELL:1253813} cone pointed away from the group.",
+	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia clones herself ({SPELL:1264095}) — crowd-control or stun the copies; they all channel Felstorm.|n2. {SPELL:474240}: she teleports onto a player and explodes with a knockback — get out of the blast.|n3. Stay out of Nibbles' {SPELL:1253811} cone (ticking fire).|n4. When Nibbles turns to her light form she channels {SPELL:1230304} at Kystia — switch targets when it happens.",
+	DGN_TIP_MR_KYSTIA_TANK = "Tank: keep Nibbles' {SPELL:1253811} cone pointed away from the group.",
 	DGN_TIP_MR_KYSTIA_HEALER = "Healer: spike damage when {SPELL:474240} lands; steady damage on anyone clipped by Felstorm copies.",
 
-	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:474545}: he shoots everyone in his LINE OF SIGHT — break it: hide behind the crates and pillars before the shot (it also leaves a 15s bleed).|n2. {SPELL:474765}: freight rains down on players and knocks you away — move out of the markers.|n3. {SPELL:474478}: 3 seconds of heavy fire on the whole group — be topped up, use a defensive.|n4. Dodge the Fire Bombs ({SPELL:1214352}).",
+	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:1218347}: he shoots everyone in his LINE OF SIGHT — break it: hide behind the crates and pillars before the shot (it also leaves a 15s bleed).|n2. {SPELL:474765}: freight rains down on players and knocks you away — move out of the markers.|n3. {SPELL:474478}: 3 seconds of heavy fire on the whole group — be topped up, use a defensive.|n4. Dodge the Fire Bombs ({SPELL:1214357}).",
 	DGN_TIP_MR_ZAEN_TANK = "Tank: defensive for {SPELL:1222795}.",
-	DGN_TIP_MR_ZAEN_HEALER = "Healer: have the group topped before {SPELL:474478}; bleeds tick on anyone caught by {SPELL:474545}.",
+	DGN_TIP_MR_ZAEN_HEALER = "Healer: have the group topped before {SPELL:474478}; bleeds tick on anyone caught by {SPELL:1218347}.",
 
 	DGN_TIP_MR_XATHUUX_STEPS = "1. {SPELL:1214637} is aimed at a player — move it away from the group and out of the impact.|n2. {SPELL:474197}: heavy damage on everyone — defensives and keep moving.|n3. Big tank hits ({SPELL:473898}) — give the healer a calm moment around them.",
 	DGN_TIP_MR_XATHUUX_TANK = "Tank: defensive for {SPELL:473898}.",
@@ -325,13 +325,13 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_TIP_MC_RAKTUL_HEALER = "Healer: forti danni al gruppo durante la Deathgorged Vessel e quando i totem si frantumano.",
 
 	-- Murder Row ----------------------------------------------------------------
-	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia si clona ({SPELL:1264095}) — CC o stunna le copie; tutte canalizzano Felstorm.|n2. {SPELL:474240}: si teletrasporta su un giocatore ed esplode con un knockback — esci dall'esplosione.|n3. Stai fuori dal cono {SPELL:1253813} di Nibbles (fuoco che ticchetta).|n4. Quando Nibbles passa alla sua forma di luce canalizza {SPELL:1230304} su Kystia — cambia bersaglio quando succede.",
-	DGN_TIP_MR_KYSTIA_TANK = "Tank: tieni il cono {SPELL:1253813} di Nibbles puntato lontano dal gruppo.",
+	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia si clona ({SPELL:1264095}) — CC o stunna le copie; tutte canalizzano Felstorm.|n2. {SPELL:474240}: si teletrasporta su un giocatore ed esplode con un knockback — esci dall'esplosione.|n3. Stai fuori dal cono {SPELL:1253811} di Nibbles (fuoco che ticchetta).|n4. Quando Nibbles passa alla sua forma di luce canalizza {SPELL:1230304} su Kystia — cambia bersaglio quando succede.",
+	DGN_TIP_MR_KYSTIA_TANK = "Tank: tieni il cono {SPELL:1253811} di Nibbles puntato lontano dal gruppo.",
 	DGN_TIP_MR_KYSTIA_HEALER = "Healer: picco di danni quando atterra {SPELL:474240}; danni costanti su chi viene colpito dalle copie di Felstorm.",
 
-	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:474545}: spara a tutti quelli nella sua LINEA DI VISTA — spezzala: nasconditi dietro le casse e i pilastri prima del colpo (lascia anche un bleed di 15s).|n2. {SPELL:474765}: il carico piove sui giocatori e ti respinge — esci dai segnalini.|n3. {SPELL:474478}: 3 secondi di forte fuoco su tutto il gruppo — sii al massimo, usa una difensiva.|n4. Schiva le Fire Bomb ({SPELL:1214352}).",
+	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:1218347}: spara a tutti quelli nella sua LINEA DI VISTA — spezzala: nasconditi dietro le casse e i pilastri prima del colpo (lascia anche un bleed di 15s).|n2. {SPELL:474765}: il carico piove sui giocatori e ti respinge — esci dai segnalini.|n3. {SPELL:474478}: 3 secondi di forte fuoco su tutto il gruppo — sii al massimo, usa una difensiva.|n4. Schiva le Fire Bomb ({SPELL:1214357}).",
 	DGN_TIP_MR_ZAEN_TANK = "Tank: difensiva per {SPELL:1222795}.",
-	DGN_TIP_MR_ZAEN_HEALER = "Healer: porta il gruppo al massimo prima di {SPELL:474478}; i bleed ticchettano su chi viene colpito da {SPELL:474545}.",
+	DGN_TIP_MR_ZAEN_HEALER = "Healer: porta il gruppo al massimo prima di {SPELL:474478}; i bleed ticchettano su chi viene colpito da {SPELL:1218347}.",
 
 	DGN_TIP_MR_XATHUUX_STEPS = "1. {SPELL:1214637} è puntato su un giocatore — portalo lontano dal gruppo e fuori dall'impatto.|n2. {SPELL:474197}: forti danni a tutti — difensive e continua a muoverti.|n3. Grandi colpi al tank ({SPELL:473898}) — concedi all'healer un momento di calma attorno ad essi.",
 	DGN_TIP_MR_XATHUUX_TANK = "Tank: difensiva per {SPELL:473898}.",
@@ -511,11 +511,11 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_TIP_MC_RAKTUL_HEALER = "Healer: zware groepsschade tijdens Deathgorged Vessel en wanneer totems breken.",
 
 	-- Murder Row (batch 2 — geverifieerd via DBM-Party-Midnight + Wowhead) ------
-	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia kloont zichzelf ({SPELL:1264095}) — CC of stun de kopieën; ze channelen allemaal Felstorm.|n2. {SPELL:474240}: ze teleporteert naar een speler en ontploft met een knockback — weg uit de knal.|n3. Blijf uit Nibbles' {SPELL:1253813}-kegel (tikkend vuur).|n4. Wisselt Nibbles naar haar lichtvorm, dan channelt ze {SPELL:1230304} op Kystia — wissel dan van doelwit.",
-	DGN_TIP_MR_KYSTIA_TANK = "Tank: houd Nibbles' {SPELL:1253813}-kegel van de groep af gericht.",
+	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia kloont zichzelf ({SPELL:1264095}) — CC of stun de kopieën; ze channelen allemaal Felstorm.|n2. {SPELL:474240}: ze teleporteert naar een speler en ontploft met een knockback — weg uit de knal.|n3. Blijf uit Nibbles' {SPELL:1253811}-kegel (tikkend vuur).|n4. Wisselt Nibbles naar haar lichtvorm, dan channelt ze {SPELL:1230304} op Kystia — wissel dan van doelwit.",
+	DGN_TIP_MR_KYSTIA_TANK = "Tank: houd Nibbles' {SPELL:1253811}-kegel van de groep af gericht.",
 	DGN_TIP_MR_KYSTIA_HEALER = "Healer: piekschade als {SPELL:474240} landt; gestage schade op wie door Felstorm-kopieën geraakt wordt.",
 
-	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:474545}: hij schiet iedereen in zijn ZICHTLIJN — verbreek die: duik achter de kratten en pilaren vóór het schot (laat ook een bleed van 15s achter).|n2. {SPELL:474765}: vracht regent op spelers en slingert je weg — stap uit de markers.|n3. {SPELL:474478}: 3 seconden zwaar vuur op de hele groep — sta vol, gebruik een defensive.|n4. Ontwijk de Fire Bombs ({SPELL:1214352}).",
+	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:1218347}: hij schiet iedereen in zijn ZICHTLIJN — verbreek die: duik achter de kratten en pilaren vóór het schot (laat ook een bleed van 15s achter).|n2. {SPELL:474765}: vracht regent op spelers en slingert je weg — stap uit de markers.|n3. {SPELL:474478}: 3 seconden zwaar vuur op de hele groep — sta vol, gebruik een defensive.|n4. Ontwijk de Fire Bombs ({SPELL:1214357}).",
 	DGN_TIP_MR_ZAEN_TANK = "Tank: defensive voor {SPELL:1222795}.",
 	DGN_TIP_MR_ZAEN_HEALER = "Healer: groep vol vóór {SPELL:474478}; bleeds tikken op iedereen die het schot ving.",
 
@@ -750,11 +750,11 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_TIP_MC_RAKTUL_HEALER = "Heiler: schwerer Gruppenschaden während Deathgorged Vessel und wenn Totems zerbrechen.",
 
 	-- Murder Row -----------------------------------------------------------------
-	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia klont sich selbst ({SPELL:1264095}) — CC oder stunne die Kopien; sie kanalisieren alle Felstorm.|n2. {SPELL:474240}: sie teleportiert zu einem Spieler und explodiert mit Rückstoß — raus aus dem Knall.|n3. Bleib aus Nibbles' {SPELL:1253813}-Kegel (tickendes Feuer).|n4. Wechselt Nibbles in ihre Lichtform, kanalisiert sie {SPELL:1230304} auf Kystia — dann Ziel wechseln.",
-	DGN_TIP_MR_KYSTIA_TANK = "Tank: halte Nibbles' {SPELL:1253813}-Kegel von der Gruppe weggedreht.",
+	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia klont sich selbst ({SPELL:1264095}) — CC oder stunne die Kopien; sie kanalisieren alle Felstorm.|n2. {SPELL:474240}: sie teleportiert zu einem Spieler und explodiert mit Rückstoß — raus aus dem Knall.|n3. Bleib aus Nibbles' {SPELL:1253811}-Kegel (tickendes Feuer).|n4. Wechselt Nibbles in ihre Lichtform, kanalisiert sie {SPELL:1230304} auf Kystia — dann Ziel wechseln.",
+	DGN_TIP_MR_KYSTIA_TANK = "Tank: halte Nibbles' {SPELL:1253811}-Kegel von der Gruppe weggedreht.",
 	DGN_TIP_MR_KYSTIA_HEALER = "Heiler: Spitzenschaden, wenn {SPELL:474240} einschlägt; stetiger Schaden auf alle, die Felstorm-Kopien erwischen.",
 
-	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:474545}: er schießt auf jeden in seiner SICHTLINIE — brich sie: duck dich vor dem Schuss hinter die Kisten und Säulen (hinterlässt auch eine 15s-Blutung).|n2. {SPELL:474765}: Fracht regnet auf Spieler und schleudert dich weg — raus aus den Markierungen.|n3. {SPELL:474478}: 3 Sekunden schweres Feuer auf die ganze Gruppe — voll sein, Defensive nutzen.|n4. Weiche den Fire Bombs aus ({SPELL:1214352}).",
+	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:1218347}: er schießt auf jeden in seiner SICHTLINIE — brich sie: duck dich vor dem Schuss hinter die Kisten und Säulen (hinterlässt auch eine 15s-Blutung).|n2. {SPELL:474765}: Fracht regnet auf Spieler und schleudert dich weg — raus aus den Markierungen.|n3. {SPELL:474478}: 3 Sekunden schweres Feuer auf die ganze Gruppe — voll sein, Defensive nutzen.|n4. Weiche den Fire Bombs aus ({SPELL:1214357}).",
 	DGN_TIP_MR_ZAEN_TANK = "Tank: Defensive für {SPELL:1222795}.",
 	DGN_TIP_MR_ZAEN_HEALER = "Heiler: Gruppe voll vor {SPELL:474478}; Blutungen ticken auf jedem, den der Schuss erwischt hat.",
 
@@ -1007,11 +1007,11 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_TIP_MC_RAKTUL_HEALER = "Heal : lourds dégâts de groupe pendant Deathgorged Vessel et quand les totems se brisent.",
 
 	-- Murder Row -----------------------------------------------------------------
-	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia se clone ({SPELL:1264095}) — contrôle ou étourdis les copies ; elles canalisent toutes Felstorm.|n2. {SPELL:474240} : elle se téléporte sur un joueur et explose avec projection — sors du souffle.|n3. Reste hors du cône {SPELL:1253813} de Nibbles (feu qui ronge).|n4. Quand Nibbles passe en forme de lumière, elle canalise {SPELL:1230304} sur Kystia — change alors de cible.",
-	DGN_TIP_MR_KYSTIA_TANK = "Tank : garde le cône {SPELL:1253813} de Nibbles orienté loin du groupe.",
+	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia se clone ({SPELL:1264095}) — contrôle ou étourdis les copies ; elles canalisent toutes Felstorm.|n2. {SPELL:474240} : elle se téléporte sur un joueur et explose avec projection — sors du souffle.|n3. Reste hors du cône {SPELL:1253811} de Nibbles (feu qui ronge).|n4. Quand Nibbles passe en forme de lumière, elle canalise {SPELL:1230304} sur Kystia — change alors de cible.",
+	DGN_TIP_MR_KYSTIA_TANK = "Tank : garde le cône {SPELL:1253811} de Nibbles orienté loin du groupe.",
 	DGN_TIP_MR_KYSTIA_HEALER = "Heal : pic de dégâts quand {SPELL:474240} tombe ; dégâts réguliers sur ceux que frôlent les copies Felstorm.",
 
-	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:474545} : il tire sur tous ceux dans sa LIGNE DE VUE — brise-la : planque-toi derrière les caisses et piliers avant le tir (laisse aussi un saignement de 15 s).|n2. {SPELL:474765} : du fret pleut sur les joueurs et te projette — sors des marqueurs.|n3. {SPELL:474478} : 3 secondes de feu nourri sur tout le groupe — sois plein, utilise un défensif.|n4. Esquive les Fire Bombs ({SPELL:1214352}).",
+	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:1218347} : il tire sur tous ceux dans sa LIGNE DE VUE — brise-la : planque-toi derrière les caisses et piliers avant le tir (laisse aussi un saignement de 15 s).|n2. {SPELL:474765} : du fret pleut sur les joueurs et te projette — sors des marqueurs.|n3. {SPELL:474478} : 3 secondes de feu nourri sur tout le groupe — sois plein, utilise un défensif.|n4. Esquive les Fire Bombs ({SPELL:1214357}).",
 	DGN_TIP_MR_ZAEN_TANK = "Tank : défensif pour {SPELL:1222795}.",
 	DGN_TIP_MR_ZAEN_HEALER = "Heal : groupe plein avant {SPELL:474478} ; les saignements rongent quiconque a pris le tir.",
 
@@ -1193,11 +1193,11 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_TIP_MC_RAKTUL_HEALER = "Sanador: daño de grupo pesado durante Deathgorged Vessel y cuando los tótems se rompen.",
 
 	-- Murder Row -----------------------------------------------------------------
-	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia se clona ({SPELL:1264095}) — controla o aturde a las copias; todas canalizan Felstorm.|n2. {SPELL:474240}: se teletransporta sobre un jugador y explota con empujón — sal del estallido.|n3. Quédate fuera del cono {SPELL:1253813} de Nibbles (fuego que hace tictac).|n4. Cuando Nibbles pase a su forma de luz, canaliza {SPELL:1230304} sobre Kystia — cambia de objetivo entonces.",
-	DGN_TIP_MR_KYSTIA_TANK = "Tanque: mantén el cono {SPELL:1253813} de Nibbles apuntando lejos del grupo.",
+	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia se clona ({SPELL:1264095}) — controla o aturde a las copias; todas canalizan Felstorm.|n2. {SPELL:474240}: se teletransporta sobre un jugador y explota con empujón — sal del estallido.|n3. Quédate fuera del cono {SPELL:1253811} de Nibbles (fuego que hace tictac).|n4. Cuando Nibbles pase a su forma de luz, canaliza {SPELL:1230304} sobre Kystia — cambia de objetivo entonces.",
+	DGN_TIP_MR_KYSTIA_TANK = "Tanque: mantén el cono {SPELL:1253811} de Nibbles apuntando lejos del grupo.",
 	DGN_TIP_MR_KYSTIA_HEALER = "Sanador: pico de daño cuando cae {SPELL:474240}; daño constante en quien rocen las copias de Felstorm.",
 
-	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:474545}: dispara a todos en su LÍNEA DE VISIÓN — rómpela: escóndete tras las cajas y pilares antes del disparo (también deja un sangrado de 15 s).|n2. {SPELL:474765}: llueve carga sobre los jugadores y te lanza — sal de las marcas.|n3. {SPELL:474478}: 3 segundos de fuego pesado sobre todo el grupo — ve lleno, usa un defensivo.|n4. Esquiva las Fire Bombs ({SPELL:1214352}).",
+	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:1218347}: dispara a todos en su LÍNEA DE VISIÓN — rómpela: escóndete tras las cajas y pilares antes del disparo (también deja un sangrado de 15 s).|n2. {SPELL:474765}: llueve carga sobre los jugadores y te lanza — sal de las marcas.|n3. {SPELL:474478}: 3 segundos de fuego pesado sobre todo el grupo — ve lleno, usa un defensivo.|n4. Esquiva las Fire Bombs ({SPELL:1214357}).",
 	DGN_TIP_MR_ZAEN_TANK = "Tanque: defensivo para {SPELL:1222795}.",
 	DGN_TIP_MR_ZAEN_HEALER = "Sanador: grupo lleno antes de {SPELL:474478}; los sangrados hacen tictac en quien recibió el disparo.",
 
@@ -1379,11 +1379,11 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_TIP_MC_RAKTUL_HEALER = "Curandeiro: dano de grupo pesado durante Deathgorged Vessel e quando os totens quebram.",
 
 	-- Murder Row -----------------------------------------------------------------
-	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia se clona ({SPELL:1264095}) — controle ou atordoe as cópias; todas canalizam Felstorm.|n2. {SPELL:474240}: ela teleporta para cima de um jogador e explode com empurrão — saia do estouro.|n3. Fique fora do cone {SPELL:1253813} da Nibbles (fogo contínuo).|n4. Quando Nibbles mudar para a forma de luz, ela canaliza {SPELL:1230304} na Kystia — troque de alvo então.",
-	DGN_TIP_MR_KYSTIA_TANK = "Tanque: mantenha o cone {SPELL:1253813} da Nibbles apontado para longe do grupo.",
+	DGN_TIP_MR_KYSTIA_STEPS = "1. Kystia se clona ({SPELL:1264095}) — controle ou atordoe as cópias; todas canalizam Felstorm.|n2. {SPELL:474240}: ela teleporta para cima de um jogador e explode com empurrão — saia do estouro.|n3. Fique fora do cone {SPELL:1253811} da Nibbles (fogo contínuo).|n4. Quando Nibbles mudar para a forma de luz, ela canaliza {SPELL:1230304} na Kystia — troque de alvo então.",
+	DGN_TIP_MR_KYSTIA_TANK = "Tanque: mantenha o cone {SPELL:1253811} da Nibbles apontado para longe do grupo.",
 	DGN_TIP_MR_KYSTIA_HEALER = "Curandeiro: pico de dano quando {SPELL:474240} cai; dano constante em quem as cópias de Felstorm rasparem.",
 
-	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:474545}: ele atira em todos na LINHA DE VISÃO dele — quebre-a: esconda-se atrás das caixas e pilares antes do tiro (também deixa um sangramento de 15 s).|n2. {SPELL:474765}: carga chove sobre os jogadores e te arremessa — saia das marcas.|n3. {SPELL:474478}: 3 segundos de fogo pesado no grupo todo — esteja cheio, use um defensivo.|n4. Desvie das Fire Bombs ({SPELL:1214352}).",
+	DGN_TIP_MR_ZAEN_STEPS = "1. {SPELL:1218347}: ele atira em todos na LINHA DE VISÃO dele — quebre-a: esconda-se atrás das caixas e pilares antes do tiro (também deixa um sangramento de 15 s).|n2. {SPELL:474765}: carga chove sobre os jogadores e te arremessa — saia das marcas.|n3. {SPELL:474478}: 3 segundos de fogo pesado no grupo todo — esteja cheio, use um defensivo.|n4. Desvie das Fire Bombs ({SPELL:1214357}).",
 	DGN_TIP_MR_ZAEN_TANK = "Tanque: defensivo para {SPELL:1222795}.",
 	DGN_TIP_MR_ZAEN_HEALER = "Curandeiro: grupo cheio antes de {SPELL:474478}; sangramentos batem em quem levou o tiro.",
 

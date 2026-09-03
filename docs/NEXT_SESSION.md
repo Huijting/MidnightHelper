@@ -230,9 +230,10 @@ correcte regels te "repareren". Er is nu een derde verdict: **`noted`**.
 
 **dungeons 23 → 19 · rituals 9 → 7 · delves 40 → 33**, puur door beter te kijken.
 
-📌 **Eindstand van de dag, na Rotmire + Taz'Rah + Nalorakk: 407 ID's over 160 tipregels — raids 1,
-dungeons 14, rituals 0, delves 33 (geen maatstaf).** De 410 in de kop hierboven is de meting op het
-moment van uitbreiden, niet de stand nu.
+📌 **Eindstand van de dag: 407 ID's over 160 tipregels — raids 1 (bewust), dungeons 0, rituals 0,
+delves 33 (geen maatstaf).** De 410 in de kop hierboven is de meting op het moment van uitbreiden,
+niet de stand nu. ⚠️ De dungeon-nul komt maar voor een klein deel uit herschrijven: 13 van de 19
+waren nooit fout, zie *"de laatste 14"* verderop.
 
 ### ✅ Rotmire herschreven — 6 van 8 ID's klopten met niets
 
@@ -296,18 +297,80 @@ uit check `[19]`).
 een map waar `_probe.py` aantoonbaar draait. Positieve controle ving het; zonder die controle had ik
 geconcludeerd dat het bestand niet bestond.
 
+### 🔴 De laatste 14 dungeon-ID's: **allemaal goed**, en de classifier was voor de dérde keer fout
+
+Rob: *"ga door met die laatste 14."* Elke mod met de hand opengeslagen, en dat was maar goed ook,
+want de uitkomst is het omgekeerde van wat de lijst beweerde: **dertien van de veertien waren
+correct.** Ze staan alle dertien in
+
+```lua
+mod:AddAuraSoundOption(1246753, true, 1246753, 1, 2, "watchfeet", 8)  -- Lightsap
+```
+
+— **aan by default, mét een benoemde stem-cue**. In 12.x is een private aura onleesbaar, dus dit is
+niet DBM die weigert te waarschuwen: het is de **enige manier waaróp DBM kan waarschuwen**. Ons
+verdict luidde *"only mentioned, never warned on"* en zei daarmee het tegenovergestelde van de
+waarheid over dertien regels.
+
+📌 **De echte scheidslijn zit ín de aanroep, niet in de aanroep zelf.** Argument 1 is de aura,
+argument 3 is de **cast waar hij bij hoort**:
+
+| | |
+|---|---|
+| `AddAuraSoundOption(1246753, true, **1246753**, …, "watchfeet")` | het ding zelf |
+| `AddAuraSoundOption(1292403, true, **1292188**, …, "dotyou")` | de DoT van een **ándere** cast |
+
+Die tweede is Ula'teks `1292403` — het ID waar deze hele audit mee begon, waar onze tekst *"dodge"*
+bij zei terwijl DBM's cue `dotyou` is. Dus: **parent == id is de ability; parent ≠ id betekent dat
+we een bijwerking citeren en hem als de cast presenteren.** Dat is machinaal te controleren, en
+"staat het in AddAuraSoundOption" was dat nooit. Nieuwe verdicts: `aura` (geen bevinding) en
+`AURA-OF` (wél).
+
+⚠️ **Wat het gereedschap nog steeds niet kan** — en dat staat nu ook onderaan het rapport: het kan
+niet zien of ons **werkwoord** bij DBM's cue past. Daarvoor wordt de cue voortaan uitgeprint.
+
+### ✅ Vier ID's die alleen mét de hand te vinden waren — en onze zinnen klopten al
+
+| regel | oud | nieuw | waarom |
+|---|---|---|---|
+| Zaen STEPS + HEALER | `474545` | `1218347` | DBM: `NewSpecialWarningCount(1218347, …, "breaklos")` + CD-timer. Onze tekst zegt al *"break line of sight, hide behind the crates"* — dat ís de cue, letterlijk. `474545` is een aura zónder cue. |
+| Zaen STEPS | `1214352` | `1214357` | DBM gebruikt overal `1214357` voor Fire Bomb (`bombyou`); onze `1214352` is de aura-variant, en DBM's regel dáárvoor staat uitgecommentarieerd. |
+| Kystia STEPS + TANK | `1253813` | `1253811` | DBM: `RegisterAltSpellName(1253811, FRONTAL)` + `specWarnFelSpray(…, "frontal")`. `1253813` is de grond die het achterlaat. Beide regels praten over de **kegel**, en de tank-regel zegt *"keep the cone pointed away"* — iets wat je richt, dus de cast. |
+
+🔴 **Die laatste kan het gereedschap nóóit vinden**: `1253813` parseert als een keurige
+zelf-verwijzende aura en is dus per geen enkele machineregel een bevinding. Alleen *"cone"* naast de
+cue *"watchfeet"* leggen brengt je er.
+
+📌 **Nul vertaalwerk**, met opzet: alle vier zijn zuivere nummerwissels omdat de zinnen al klopten.
+30 wissels over 28 regels in 7 talen, geen woord aangeraakt.
+⚠️ En het script ving een aanname: `DGN_TIP_MR_ZAEN_HEALER` linkt `474545` **alleen in enUS en
+itIT** — de andere vijf schrijven *"het schot"* als gewone tekst. Verwacht 7, gevonden 2, niets
+geschreven tot ik het per sleutel had gemeten (9 / 7 / 14 = 30).
+
+### ⚠️ Twee eigen fouten in dezelfde ronde, allebei van de stille soort
+
+1. **De cue kwam leeg terug.** Twee regex-pogingen faalden identiek: een gulzige filler eet de
+   argumenten tot vlak vóór het aanhalingsteken, de **optionele** cue-groep matcht dan leeg, de
+   match slaagt en er wordt niet teruggekrabbeld. Het rapport printte `cue "no cue"` voor ID's die
+   er één hebben — wat de lezer uitnodigt te concluderen dat DBM niets zei. Nu wordt de
+   argumentenlijst gesplitst, mét een **derde positieve controle** die faalt als `1246753` niet als
+   `watchfeet` en `1292403` niet als `dotyou`/parent `1292188` parseert.
+2. **De linter kende het nieuwe verdict niet.** `bad = [... if v in ("ABSENT", "WEAK")]` — `AURA-OF`
+   stond er niet bij, dus de énige bevinding waarvoor het verdict gebouwd was verdween uit de
+   lint-uitvoer terwijl het rapport hem nog printte. **Een nieuw verdict waar de consument niets van
+   weet, maakt de check stiller in plaats van strenger.**
+   ✅ Bewezen dat de HARD-tak nu vuurt: Ula'teks regel tijdelijk uit de baseline → `1 new`,
+   `HARD RAID_BOSS_ULATEK_STEPS 1300685 AURA-OF`, exit 1, daarna hersteld.
+
 ### Wat er wél te doen staat
 
-De **echte** bevindingen zijn nog **14 dungeon-ID's over 13 regels** (DBM dekt daar 31/36). Rituals
-staan op **0** en raids op 1 bewuste WEAK. `tools/tip_baseline.json` is van 53 naar **48** gekrompen
-en draagt de scheiding expliciet in `_delve_caveat` en `_real_findings`, zodat niemand de
-delve-kolom leest zoals ik hem bijna las.
+**Dungeons, rituals en raids staan op nul echte bevindingen.** `tools/tip_baseline.json` is van 53
+via 48 naar **34** gekrompen: 33 delve-regels (geen maatstaf — zie `_delve_caveat`) plus Ula'teks
+`1300685`, de bewuste keuze, nu correct als `AURA-OF` met cue `debuffyou`.
 
-⚠️ Van die 14 zijn er **13 WEAK en 1 `noted`** — geen enkele ABSENT meer. Dat is een wezenlijk
-zwakker signaal dan de reeks die we vandaag hebben opgeruimd: WEAK betekent dat DBM het nummer kent
-maar er niet op waarschuwt, en dat kan net zo goed een terechte keuze van DBM zijn als een fout van
-ons. Elk geval vraagt de mod openslaan, zoals bij `1214352` gebeurde — dat leek ABSENT en was een
-bewuste DBM-beslissing. **Niet in bulk herschrijven.**
+⚠️ Er is dus **geen open lijst meer** tegen DBM. Wat overblijft is precies wat DBM niet kan
+beantwoorden: de delves, waar 26 van de 30 mods stubs zijn. Daar is geen gereedschap voor — alleen
+iemand die ze speelt.
 
 ## ✅ 3 sep — de pijl stuurde je door een muur; nu eerst naar de deur
 

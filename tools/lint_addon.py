@@ -1445,7 +1445,13 @@ def main() -> int:
             for e in entries:
                 known_pairs.add((k, e[0]))
 
-        bad = [(k, i, v) for (k, i, v) in rows if v in ("ABSENT", "WEAK")]
+        # ⚠️ KEEP THIS TUPLE IN STEP WITH tip_audit's verdicts. On 3 Sep 2026 the audit
+        # gained "AURA-OF" (DBM has the id, but as the aura of a DIFFERENT cast — the
+        # Ula'tek trap that started the whole audit) and this list did not, so the one
+        # finding it was built to catch vanished from the lint output while the report
+        # still printed it. A new verdict that its consumer does not know about is a
+        # check that got quieter, not stricter.
+        bad = [(k, i, v) for (k, i, v) in rows if v in ("ABSENT", "WEAK", "AURA-OF")]
         fresh = [t for t in bad if (t[0], t[1]) not in known_pairs]
         stale = [p for p in known_pairs
                  if p not in {(k, i) for (k, i, _v) in bad}]
