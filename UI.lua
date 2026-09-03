@@ -1665,6 +1665,31 @@ local function BuildSMCCityGuidePanel(panel)
 	-- top-down Y so we can set a real content height for scrolling
 	local y = 0
 
+	--- 🔴 SAY IT WHERE HE CLICKED, NOT IN CHAT. Rob, 3 Sep 2026, on the level-69 Paladin,
+	--- after the click correctly stopped setting a route: *"dat ziet er goed uit, maar
+	--- niemand kijkt in de chat"*. He is right, and it sharpens a rule this file already
+	--- had rather than reversing it. Chat beat the route-arrow LABEL because the label is
+	--- hidden for everyone running TomTom — that still holds. But an answer to "why did
+	--- nothing happen when I pressed this" has to be visible at the thing you pressed,
+	--- ideally BEFORE you press it. Chat is a record; it is not an answer in place.
+	---
+	--- 📌 The pins stay live and clickable. This is a banner over a map, not a locked door
+	--- — the same line the whole day settled on: presence is reference, routing is advice.
+	if ns.MidnightFloorMet and not ns.MidnightFloorMet() then
+		local locked = scrollContent:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		locked:SetPoint("TOPLEFT", scrollContent, "TOPLEFT", 0, -y)
+		locked:SetWidth(availableW)
+		locked:SetJustifyH("LEFT")
+		locked:SetWordWrap(true)
+		locked:SetText((ns:L("SMC_LOCKED_BANNER_FMT")):format(ns.MidnightFloorLevel or 80))
+		-- Red for "not yet", not grey. Grey is what the other installed guides reserve for
+		-- content you are PAST (measured in Zygor and the HandyNotes handler family, 3 Sep);
+		-- using it for both makes the two states indistinguishable.
+		locked:SetTextColor(1, 0.45, 0.4)
+		y = y + math.max(18, math.ceil(locked:GetStringHeight() or 18)) + 10
+		panel._mhSMCLockedBanner = locked
+	end
+
 	-- Dynamic checklist (quest IDs from Modules/SMCChecklistData.lua — verify after patches)
 	do
 		local defs = ns.SMC_CHECKLIST_DEF

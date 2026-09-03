@@ -61,9 +61,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       gefilterd, de knop niet, dus zijn eigen label noemde precies wat je niet kunt bereiken. Nu
       verschijnt hij alleen als er echt iets te routeren valt.
 - [ ] 🆕 **Silvermoon-tabblad: de kaart blijft, de pijl niet.** Klik weer op *Cuzoth — Item
-      Upgrades*. Verwacht **geen pijl en geen "travel back"-regel** meer, maar in chat: *"Silvermoon
-      gaat open op level %d, dus er is geen route gezet. De kaart blijft staan voor als je er wel
-      kunt komen."*
+      Upgrades*. Verwacht **geen pijl en geen "travel back"-regel** meer.
+      🔴 **En nu bovenaan het tabblad zelf**, in rood, vóór je iets aanklikt: *"Silvermoon gaat open
+      op level 80. Alles hieronder is een kaart voor later — de pins werken nog, maar erop klikken
+      zet nog geen route."* De chatregel blijft er ook, maar die is niet meer waar het antwoord
+      hoort te staan.
       ⚠️ De pins zelf horen gewoon zichtbaar en klikbaar te blijven — opzoeken wáár Cuzoth staat is
       naslag, en dat halen we niet weg. Alleen de route stopt.
       📌 *"Nearest flight point"* is bewust **niet** gegate: die leest waar je staat en werkt overal.

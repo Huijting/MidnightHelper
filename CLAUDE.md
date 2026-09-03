@@ -324,6 +324,18 @@ toestand niet te reproduceren is.
   he runs TomTom and we stand down for it, and invisible to every other TomTom user with him. The
   arrow is a place we *sometimes* own; a sentence the player needs is not conditional on that.
   Say it in chat (`ns.StartRareArrivalWatch` in `Rares.lua`), where no other addon can take it away.
+- 🔴 **BUT CHAT IS A RECORD, NOT AN ANSWER IN PLACE — Rob, 3 sep 2026: *"dat ziet er goed uit, maar
+  niemand kijkt in de chat"*.** Dit scherpt de regel hierboven aan, het draait hem niet om. Chat won
+  van het pijl-label omdat dát label onzichtbaar is voor iedereen met TomTom; dat blijft waar. Maar
+  het onderscheid dat telt is een ander:
+  - **Een gebeurtenis die je mist** (een rare komt eraan, een route is gezet) → chat is prima; het
+    blijft staan en je kunt terugscrollen.
+  - **Het antwoord op "waarom gebeurt er niets als ik hierop druk"** → dat moet staan wáár je drukt,
+    en het liefst vóórdat je drukt. Een klik die stil niets doet plus een chatregel die niemand
+    leest, is van buiten precies hetzelfde als kapot.
+  📌 Gemeten die dag: de Silvermoon-pins zetten onder level 80 terecht geen route meer en zeiden dat
+  in chat. Rob zag het niet. Er staat nu een rode regel bovenaan het tabblad zelf. **Zet je iets uit,
+  zet de uitleg dan in dezelfde kamer als de knop.**
 - **`/mh arrow`** prints who is driving and whether a route ever published a target. Use it before debugging a "the arrow does not work" report: standing down on purpose and being genuinely broken look identical from outside.
 
 ### Secure frames (WoW 12.x — read before touching markers/casting UI)

@@ -747,6 +747,7 @@ ns._mhLocales.enUS = {
 	HOME_HERO_PROGRESS_LATER_FMT = "%d more open up as you level.",
 	HOME_HERO_NONE_YET_FMT = "This week's routine happens in Silvermoon — it opens up at level %d.",
 	SMC_LOCKED_FMT = "Silvermoon opens up at level %d, so no route was set. The map stays here for when you get there.",
+	SMC_LOCKED_BANNER_FMT = "Silvermoon opens up at level %d. Everything below is a map for later — the pins still work, but clicking one will not set a route yet.",
 	HOME_ROUTINE_LATER_HEADER = "Later, as you level:",
 	HOME_ROUTINE_VAULT_READY = "Great Vault: a reward is waiting — claim it at the bank (neutral wing).",
 	HOME_ROUTINE_VAULT_NONE = "Great Vault: nothing waiting to claim.",
