@@ -23,6 +23,18 @@ dat merk je pas bij de eerste push.
 
 Ze rapporteren alleen; ze repareren nooit. Elk raakt precies één bestand aan.
 
+🔴 **Exa kan een WEEK OUDE PAGINA teruggeven, en dat is aan niets te zien.** GEMETEN 3 sep 2026:
+`web_fetch_exa` op news.blizzard.com gaf een pagina met als titel *"Hotfixes: August 27, 2026"* —
+ouder dan wat de run van de dág ervoor al gelezen had. De API-wachter ving het alleen doordat hij
+tegen zijn eigen logboek vergeleek; de PTR-wachter liep er dezelfde ochtend tegenaan op
+bluetracker.gg en telde het terecht niet mee. Zonder die vangst had er gestaan *"niets sinds
+27 aug"*, terwijl er twee dagen aan hotfixes lagen.
+✅ Alle vier de routines dragen sinds 3 sep de regel *"hang een `?nocache=JJJJMMDD` achter elke
+Exa-URL"* — geverifieerd byte-voor-byte tegen wat de server opslaat, niet alleen op HTTP 200.
+📌 En de bredere vorm, want die geldt overal: **is het nieuwste dat je ziet ouder dan wat je eigen
+aantekening gisteren al noemde, dan kijk je naar een cache en niet naar de werkelijkheid.** Dat is
+dezelfde val als [[silence-is-not-absence]], maar met een tijdstempel erop die gezond oogt.
+
 Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgorde:
 
 1. `git -C "<repo>" pull --rebase origin main`

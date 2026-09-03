@@ -13,6 +13,28 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## ✅ 3 sep — de cache-busterregel staat in alle vier de cloud-routines
+
+De ochtendronde van 3 sep vond een methodefout die zwaarder weegt dan wat hij die dag opleverde:
+**Exa serveerde een week oude kopie van news.blizzard.com**, met een titel die er volstrekt normaal
+uitzag. De meting staat in `CLAUDE.md`, bovenaan bij de wachterstabel.
+
+De API-wachter schreef de les in zijn eigen logboek — een bestand dat geen enkele routine als
+instructie leest. Morgen had niemand hem gehad. Hij staat nu in de **prompts** van alle vier.
+
+⚠️ **Verificatie was hier het echte werk, niet het schrijven.** Vier prompts van 5-7K tekens gaan
+als één string door een API-aanroep; HTTP 200 bewijst alleen dát de aanroep geaccepteerd is, niet
+dat de tekst heel is aangekomen. Eén weggevallen regel in een wachter-prompt is onzichtbaar tot die
+wachter stilletjes een stap overslaat. Daarom: prompts eerst naar schijf, blok met een script
+ingevoegd op een anker dat er al stond, daarna teruggelezen en **byte-voor-byte vergeleken**. Alle
+vier identiek (7532 / 5748 / 5624 / 6918 tekens), alle vier `enabled`, crons ongemoeid.
+
+📌 Bijvangst: er bestaat een **vijfde** routine, *"Midnight Helper — API-wachter"*
+(`trig_017Y76mMzXq6oopFJPFpV9dX`), de oude die op 2 sep vervangen is. GEMETEN: `enabled = false`,
+laatst gevuurd 2 sep, status `ABANDONED`. Hij draait dus niet mee, en verklaart **niet** waarom er
+vanochtend twee verschillende API-rapporten waren — dat vermoeden van mij was fout. Waar de tweede
+vandaan kwam is nog onbekend; niet dringend, want origin had de betere.
+
 ## 🔴 2 sep (avond) — de gifadviseur toonde 3 van de 6, en dat kwam door onze eigen meting
 
 Rob draaide `/mh valeera save` op de **live** client. Node 110784 heeft **zes** entries; wij hadden
