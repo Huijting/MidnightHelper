@@ -266,3 +266,77 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
   - **0 × [MOET GEFIKST].** Geen open actiepunt aan de addon-/API-kant; de staande 12.1.0-items
     (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`, AuraContainer/AuraButton,
     `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`) zijn ongewijzigd afgedekt.
+
+- [2026-09-03] ✅ **Geen relevante API-wijzigingen (27 aug–3 sep).** Niets gevonden dat de code
+  raakt; **0 × [MOET GEFIKST]**. Wat er wél in zit is één methodefout die deze run bijna had
+  laten liegen — zie het rode punt onderaan.
+  - 🔴 **METHODE — Exa serveert een VEROUDERDE KOPIE, en dat is niet te zien aan de uitvoer.**
+    Mijn eerste `web_fetch_exa` op `news.blizzard.com/en-us/article/24296142` gaf een pagina met
+    als titel **"Hotfixes: August 27, 2026"** en als nieuwste dagsectie 27 aug. Diezelfde fetch op
+    de forum-JSON gaf een lijst waarvan het nieuwste niet-vastgezette topic op **27 aug** stond.
+    Beide zijn **ouder dan wat de run van gisteren al gelezen had** (die zag 1 sep-hotfixes en
+    topics van 1–2 sep) — dus geen "er is niets bijgekomen", maar een cache van ~een week oud.
+    **De oplossing: hang een uniek query-argument aan de URL** (`?nocache=20260903`). Dezelfde
+    twee URL's gaven daarmee onmiddellijk **"Hotfixes: September 2, 2026"** en forumtopics van
+    2 en 3 sep. ⚠️ Zonder dat had hier gestaan "niets sinds 27 aug", terwijl er 2-sep-hotfixes én
+    twee nieuwe forumtopics waren. Dit is dezelfde soort fout als de RINGOFGLORY-val: een leeg/oud
+    resultaat dat er gezond uitziet. **Volgende runs: ALTIJD een cache-buster achter elke Exa-URL.**
+    📌 `WebFetch` blijft geen alternatief — `us.forums.blizzard.com` gaf vandaag opnieuw
+    `EGRESS_BLOCKED`.
+  - **GEMETEN — wiki, revisiegeschiedenis.** `Patch 12.1.0/API changes` (pageid 679840) staat nog
+    steeds op **2026-08-15T09:07:23Z** (Ketho, `/* Global API */`), ongewijzigd t.o.v. gisteren en
+    **19 dagen oud**: ruim buiten het 7-dagenvenster.
+  - **GEMETEN — geen nieuwere API-changes-pagina.** `list=allpages&apprefix=Patch 12.` geeft
+    onveranderd **19 pagina's**; de nieuwste `/API changes` is nog altijd 12.1.0. `Patch 12.1.5`
+    en `Patch 12.1.7` bestaan als stub **zonder** `/API changes`-subpagina.
+  - **NIEUWE METING — `list=recentchanges` (ns 0, 27 aug → nu) i.p.v. alleen de patchpagina.**
+    Dit vangt API-documentatie die *buiten* de patchpagina wordt bijgewerkt. Binnen het venster
+    zijn precies **vijf** API-pagina's aangeraakt, alle door Ketho:
+    `Structure CalendarTime`, `Structure ConduitCollectionData`, `Structure AppearanceSourceInfo`,
+    `Structure TraitOutEdgeInfo` (3 sep) en `Enum.UIWidgetScale` (2 sep).
+    **Drie diffs zelf gelezen** (`action=compare&torelative=prev`): het is een
+    **sjabloonmigratie**, geen API-wijziging — `<font color="green">10.2.6</font>` wordt
+    `{{apiname.added|10.2.6}}`, en het enum-type verhuist van de typekolom naar de omschrijving
+    (`{{apitype|Enum.TraitEdgeType}}` → `{{apitype|number}}` + `[[Enum.TraitEdgeType]]`).
+    **[RAAKT ONS NIET]** — geen veldnaam, signature of gedrag veranderd.
+    *Niet gemeten:* de diffs van `CalendarTime` en `ConduitCollectionData` heb ik niet opgehaald;
+    ze passen in hetzelfde patroon maar dat is **afgeleid**. Wij gebruiken geen `C_Calendar` en
+    geen conduit-API (grep: 0 treffers).
+    ⚠️ Voor wie dit nadoet: de wiki-API weigert `rvlimit` bij meerdere `titles` tegelijk
+    (`invalidparammix`) — één titel per query.
+  - **[AL AFGEDEKT] voor de twee namespaces die deze wiki-pagina's beschrijven**, mocht daar ooit
+    wél iets veranderen: elke `C_Traits`-aanroep zit achter een bestaanscontrole *en* een `pcall`
+    — `Modules/DelveCuriosAdvisor.lua:137` en `:143` (`if not C_Traits.GetConfigIDByTreeID or not
+    C_Traits.GetNodeInfo ... then return`), `:1125`, en `Modules/ProfessionAcademy.lua:592`, `:607`,
+    `:615`, `:1037`, `:1187`. `C_UIWidgetManager` idem in `Modules/Knowledge.lua:401` en `:414`.
+  - **Hotfixes (na cache-buster gelezen): nieuwste sectie is 2 september 2026.** Volledig gelezen:
+    Classes (Druid/Warlock/Warrior), Dungeons and Raids (Ula'tek), Items (Catalyst),
+    Player versus Player. **Geen Lua-API-, secure-frame-, taint- of addon-sectie.**
+    Eén UI-nabije regel, letterlijk: *"Bladestorm now displays as an important aura on
+    nameplates."* Dat is een **vlag op spell-data**, geen API-wijziging. **[RAAKT ONS NIET]:**
+    onze enige nameplate-code is `C_NamePlate` in `Modules/Rares.lua:598`, `:601`, `:608`, `:611`,
+    `:619`, `:625`, allemaal achter `if ... and C_NamePlate and C_NamePlate.Get... then`; wij
+    lezen geen `nameplateShowAll`/`nameplateShowPersonal` (0 treffers).
+  - **`Patch 12.1.0 (undocumented changes)`** is 3 sep 00:35 bewerkt, commentaar `/* Items */` —
+    inhoud, geen API. Valt bovendien onder de contentwachter, niet onder mij.
+  - **Blizzard US UI-and-Macro-forum, vers opgehaald.** Nieuw binnen het venster en nog niet in dit
+    logboek: *Addons api restrictions* (2 sep, 9 posts) en *Details! issues since early this week*
+    (3 sep). Het eerste topic heb ik **helemaal gelezen**: een speler (Jazzmend, trust_level 0)
+    vraagt om live performance-tracking; de antwoorden komen van Elvenbane en Fizzlemizz, beide
+    trust_level 2. **Geen blue post, geen nieuw feit** — alleen de bekende speleruitleg dat
+    Blizzard live-aansturing niet meer wil. De overige topics binnen 7 dagen (*Flag Carrier Orb
+    Carrier Frame*, *ATT and ToolTip Integration*, *Macro that ignores Mouseover Cast setting*,
+    *UI Feedback: … CDM*, *WeakAuras replacement*, *Wrong colors for nameplates*, *Addon API:
+    Rendering Cached Offline Player Models*) stonden er gisteren al of zijn spelersvragen.
+    **Geen enkele `community-manager`-post in de categorie binnen 7 dagen**; de laatste post in
+    *UI Add-On Development Policy* is nog steeds 28 aug 19:54 UTC van Atheren (trust_level 2).
+  - **Positieve controle in dezelfde run.** De grep-alternatie
+    `nameplateShowAll|nameplateShowPersonal|isBossAura|isHarmful|C_NamePlate` gaf 0 treffers voor
+    de eerste vier maar **wél 6 voor `C_NamePlate`**; de tweede
+    (`TraitOutEdgeInfo|GetNodeInfo|C_Traits|AppearanceSourceInfo|C_Calendar|UIWidget|ConduitCollection`)
+    gaf 40+ treffers met `C_Traits`/`C_UIWidgetManager` erin en **0** voor `C_Calendar`,
+    `ConduitCollection` en `AppearanceSourceInfo`. De lege uitkomsten zijn dus echt leeg.
+  - **0 × [MOET GEFIKST].** De staande 12.1.0-items (C_UnitAuras secret-reads,
+    `GetNextWaypointForMap`→`C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution`
+    op AuraButtons, `GetWeaponEnchantInfo`) zijn niet opnieuw getoetst en blijven staan zoals op
+    2 sep gemeten — geen nieuwe informatie erover deze week.
