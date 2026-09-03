@@ -205,6 +205,43 @@ met de raids als ijkpunt omdat die inmiddels volledig DBM-gedekt zijn:
 **Delves zitten midden in het normale bereik — hóger dan de raid-ID's.** Er is dus geen enkele
 aanwijzing dat de delve-ID's kapot zijn, en zeven ervan zijn nu onafhankelijk bevestigd.
 
+### ✅ Robs tweede tegenvraag repareerde de checker zélf
+
+*"er zijn toch ook sites en addons op cf voor alles"* — ja, en het landde precies op de zwakste
+plek. **MythicDungeonTools** staat geïnstalleerd en heeft per-dungeon spell-tabellen voor Midnight:
+een **tweede lokale maatstaf**.
+
+⚠️ De eis is *lokaal en machinaal leesbaar*, niet gezag in het algemeen. Een website kan een linter
+niet elke run opnieuw controleren, en de gidsen waar dit project al op verbrand is waren juist
+zelfverzekerd fout. Een addon op schijf kun je morgen opnieuw parsen.
+
+🔴 **En het legde een echte fout in mijn eigen classifier bloot.** Commentaar strippen was twee keer
+goed en één keer fout: het houdt een `--TODO` tegen, maar DBM legt in commentaar óók **beslissingen
+over echte spells** vast — en die lazen als ABSENT:
+
+| onze ID | wat DBM's commentaar zegt |
+|---|---|
+| `1296219` | *"isn't in journal but has encounter event… Possibly not needed"* |
+| `1251813` | *"has a private aura but it doesn't need an alert"* |
+| `1214352` | *"ENCOUNTER_WARNING intercept is used instead"* |
+
+Alle drie echte spells, alle drie ook in MythicDungeonTools, en ik had Rob op pad gestuurd om drie
+correcte regels te "repareren". Er is nu een derde verdict: **`noted`**.
+
+**dungeons 23 → 19 · rituals 9 → 7 · delves 40 → 33**, puur door beter te kijken.
+
+### ✅ Rotmire herschreven — 6 van 8 ID's klopten met niets
+
+Zijn regel eindigde op *"(Datamined — confirm in-game at launch.)"*: dezelfde vorm als de
+EXBoss-staart bij de raids, vóór de launch gedumpt en daarna nooit gecontroleerd. DBM-Lairs dekt
+2/2, dus hier bewijst ABSENT wél iets.
+
+📌 En één correctie die de speler direct raakt: onze tekst noemde `1221637` **"de wipe"**. DBM's cue
+is `carefly` — het is een **knockback**. Wie op de rand stond en dat las, verwachtte het verkeerde.
+
+Nu uit DBM: knockback (1221637), adds (1221622), raid-damage (1221787), pool op jou (1222088) en
+de tank-klap (1221781).
+
 ### Wat er wél te doen staat
 
 De **echte** bevindingen zijn dungeons (23 over 19 regels; DBM dekt daar 31/36) en de

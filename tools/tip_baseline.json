@@ -65,15 +65,7 @@
         "ABSENT"
       ],
       [
-        "415404",
-        "ABSENT"
-      ],
-      [
         "415492",
-        "ABSENT"
-      ],
-      [
-        "425319",
         "ABSENT"
       ]
     ],
@@ -125,10 +117,6 @@
     ],
     "DELVE_TIP_SHADOW_ENCLAVE_BOSS": [
       [
-        "1256015",
-        "ABSENT"
-      ],
-      [
         "1256093",
         "ABSENT"
       ]
@@ -161,39 +149,9 @@
         "ABSENT"
       ]
     ],
-    "DELVE_TIP_TORMENTS_RISE_BOSS": [
-      [
-        "1255886",
-        "ABSENT"
-      ],
-      [
-        "1256180",
-        "ABSENT"
-      ],
-      [
-        "1256180",
-        "ABSENT"
-      ],
-      [
-        "1258147",
-        "ABSENT"
-      ]
-    ],
     "DELVE_TIP_TWILIGHT_CRYPTS_BOSS": [
       [
         "1267121",
-        "ABSENT"
-      ]
-    ],
-    "DGN_TIP_AF_RAVI_HEALER": [
-      [
-        "1296219",
-        "ABSENT"
-      ]
-    ],
-    "DGN_TIP_AF_RAVI_STEPS": [
-      [
-        "1296219",
         "ABSENT"
       ]
     ],
@@ -212,12 +170,6 @@
     "DGN_TIP_DN_NALORAKK_STEPS": [
       [
         "1255385",
-        "ABSENT"
-      ]
-    ],
-    "DGN_TIP_MC_VORDAZA_HEALER": [
-      [
-        "1251813",
         "ABSENT"
       ]
     ],
@@ -244,10 +196,6 @@
       ]
     ],
     "DGN_TIP_MR_ZAEN_STEPS": [
-      [
-        "1214352",
-        "ABSENT"
-      ],
       [
         "474545",
         "WEAK"
@@ -313,50 +261,6 @@
       [
         "1216042",
         "WEAK"
-      ]
-    ],
-    "RAID_BOSS_NYMRISSA_DPS": [
-      [
-        "1257717",
-        "ABSENT"
-      ]
-    ],
-    "RAID_BOSS_NYMRISSA_STEPS": [
-      [
-        "1257717",
-        "ABSENT"
-      ]
-    ],
-    "RAID_BOSS_ROTMIRE_HEALER": [
-      [
-        "1222176",
-        "ABSENT"
-      ]
-    ],
-    "RAID_BOSS_ROTMIRE_STEPS": [
-      [
-        "1221714",
-        "ABSENT"
-      ],
-      [
-        "1221717",
-        "ABSENT"
-      ],
-      [
-        "1221965",
-        "ABSENT"
-      ],
-      [
-        "1222129",
-        "WEAK"
-      ],
-      [
-        "1222495",
-        "ABSENT"
-      ],
-      [
-        "1222684",
-        "ABSENT"
       ]
     ],
     "RAID_BOSS_ULATEK_STEPS": [
