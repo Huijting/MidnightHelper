@@ -870,7 +870,13 @@ local SMC_CATEGORIES = {
 			--- waar het stáát. Rob, 19 aug, vanaf het eiland: "ik weet niet 1 2 3 waar die
 			--- portal is naar smc". Iets kennen en iemand het kunnen laten vinden zijn twee
 			--- verschillende dingen.
-			{ id = "portal_coiled_isle", label = "Portal to The Coiled Isle", descKey = "SMC_PIN_PORTAL_ISLE", atlas = "portal-horde-white", x = 56.74, y = 67.30, requiresQuest = 96004 },
+			--- ✅ 3 sep 2026 — DE OUDE COÖRDINAAT WAS DE DEUR, NIET EEN FOUT. Rob stond op
+			--- 94 yard van het portaal met de pijl dwars door een muur, en las de ingang af
+			--- op 54.99 / 63.30. Dat is op een tiende na het 55.00 / 63.40 dat hierboven als
+			--- "bijna vier punten mis" is weggeschreven. Twee onafhankelijke metingen van
+			--- dezelfde deur, vijf weken uit elkaar. Op 19 aug hebben we hem vervángen door
+			--- de bestemming; hij hoorde ernáást te staan.
+			{ id = "portal_coiled_isle", label = "Portal to The Coiled Isle", descKey = "SMC_PIN_PORTAL_ISLE", atlas = "portal-horde-white", x = 56.74, y = 67.30, entrance = { x = 54.99, y = 63.30 }, requiresQuest = 96004 },
 			{ id = "timeways", label = "Timeways (Lindormi)", atlas = "portal-horde-white", x = 42.30, y = 58.30 },
 			{ id = "mplus_teleports", label = "M+ Teleports", atlas = "flightmaster", x = 42.03, y = 58.30 },
 		},
@@ -1114,8 +1120,27 @@ local function SetSMCWaypoint(point)
 	local mapID = SMC_CITY_MAP_ID
 	point.mapID = mapID
 
-	local x = (tonumber(point.x) or 0) / 100
-	local y = (tonumber(point.y) or 0) / 100
+	--- 🔴 SOME PINS ARE INSIDE A BUILDING, AND A COORDINATE DOES NOT OPEN A DOOR.
+	--- Rob, 3 sep 2026, standing 94 yards from the Coiled Isle portal: the arrow
+	--- pointed straight at the portal, through a wall. "onze pijl stuurt ons naar de
+	--- plek op de kaart maar niet naar de ingang van het gebouw."
+	---
+	--- 📌 AND THE ENTRANCE WAS ALREADY IN THIS FILE, WRITTEN OFF AS A MISTAKE. The
+	--- comment above the portal pin says the Codex used to send people to 55.00/63.40
+	--- and calls it "bijna vier punten mis". Rob's own reading of the door today is
+	--- 54.99/63.30 — the same spot. That coordinate was never wrong; it was the
+	--- ENTRANCE, and on 19 aug we replaced it with the destination instead of keeping
+	--- both. Two independent readings of the same doorway, five weeks apart.
+	---
+	--- So a pin may carry `entrance = { x, y }`: route there first, then hand over to
+	--- the real target once the player is actually at the door.
+	local target = point
+	if type(point.entrance) == "table" and ns.StartSmcTwoStepRoute then
+		target = ns.StartSmcTwoStepRoute(point, mapID) or point
+	end
+
+	local x = (tonumber(target.x) or 0) / 100
+	local y = (tonumber(target.y) or 0) / 100
 	if x <= 0 or y <= 0 then
 		return
 	end
@@ -1138,19 +1163,44 @@ local function SetSMCWaypoint(point)
 	-- Drive MidnightHelper's own on-screen arrow too (SMC sets its waypoint directly,
 	-- so it wasn't engaging NativeArrow). Give it a lead + generic ownership, resetting
 	-- a stale single-dest route so the arrow points here.
-	ns.lastTarget = { mapID = mapID, x = tonumber(point.x) or 0, y = tonumber(point.y) or 0, name = point.label }
+	ns.lastTarget = { mapID = mapID, x = tonumber(target.x) or 0, y = tonumber(target.y) or 0, name = target.label }
 	local o = ns._mhRouteOwner
 	if o == nil or o == "waypoint" or o == "delve" then
 		ns._mhRouteOwner = "waypoint"
 	end
 
-	TriggerTomTomWaySlash(point)
+	TriggerTomTomWaySlash(target)
 	print(
 		("|cffffcc00%s|r %s"):format(
 			ns:L("PRINT_PREFIX"),
-			ns:L("WAYPOINT_SET"):format(point.label or "SMC", mapID, point.x or 0, point.y or 0)
+			ns:L("WAYPOINT_SET"):format(target.label or "SMC", mapID, target.x or 0, target.y or 0)
 		)
 	)
+	-- One extra line when we are sending you to a door rather than the thing itself,
+	-- because an arrow that stops at a building looks like an arrow that gave up.
+	if target ~= point then
+		print(("   |cffffff78%s|r"):format(
+			(ns:L("SMC_ENTRANCE_THEN_FMT")):format(point.label or "?", point.x or 0, point.y or 0)))
+	end
+end
+
+--- Route to a pin WITHOUT its two-step detour.
+---
+--- ⚠️ This exists so the second step cannot re-enter the first. TwoStepRoute calls it
+--- on arrival at the door; handing it the original pin would look at `entrance` again,
+--- decide you are not there yet (you are at the door, not at the portal) and send you
+--- back out. A shallow copy with `entrance` stripped is the whole trick.
+function ns.SetSMCWaypointDirect(point, mapID)
+	if type(point) ~= "table" then
+		return
+	end
+	local copy = {}
+	for k, v in pairs(point) do
+		copy[k] = v
+	end
+	copy.entrance = nil
+	copy.mapID = mapID or copy.mapID
+	SetSMCWaypoint(copy)
 end
 
 function ns.GetSMCCityPin(pinId)

@@ -143,6 +143,7 @@ Modules\DelveChestData.lua
 Modules\KeybindExport.lua
 Modules\CurioExplain.lua
 Modules\CurioAdvicePanel.lua
+Modules\TwoStepRoute.lua
 Modules\MechanicNameProbe.lua
 Modules\CorrosiveCodexHunts.lua
 Modules\TravelPlan.lua

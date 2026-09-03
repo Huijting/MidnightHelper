@@ -13,6 +13,34 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## ✅ 3 sep — de pijl stuurde je door een muur; nu eerst naar de deur
+
+Rob stond op 94 yard van het Coiled-Isle-portaal met de pijl er dwars doorheen: *"onze pijl stuurt
+ons naar de plek op de kaart maar niet naar de ingang van het gebouw."* Een kaartcoördinaat is geen
+route — binnen een stad zijn juist de laatste dertig meter het probleem, en dat is precies wat één
+waypoint niet kan oplossen.
+
+`Modules/TwoStepRoute.lua`: een pin mag nu een `entrance = { x, y }` dragen. De pijl gaat eerst
+daarheen, met een label *"Ingang — X staat binnen"* en een chatregel die het echte coördinaat noemt,
+en schakelt **vanzelf** door zodra je binnen 22 yard van de deur bent.
+
+📌 **En de deur stond al in het bestand, weggeschreven als fout.** De opmerking boven de portal-pin
+zegt dat de Codex mensen naar 55.00 / 63.40 stuurde en noemt dat *"bijna vier punten mis"*. Robs
+eigen aflezing van de ingang vandaag: **54.99 / 63.30** — op een tiende na hetzelfde punt, twee
+onafhankelijke metingen vijf weken uit elkaar. Dat coördinaat was nooit fout; het was de **deur**.
+Op 19 aug hebben we het *vervangen* door de bestemming in plaats van het ernaast te zetten.
+⚠️ Een coördinaat corrigeren is niet hetzelfde als begrijpen waar het naar wees.
+
+⚠️ Nog open: de pin **`astalor`** (`UI.lua`) staat óók op 55.00 / 63.40 — de deur dus, niet bij
+Astalor, die volgens diezelfde opmerking op 56.74 / 67.30 binnen staat. Niet aangeraakt; het is
+dezelfde deur-versus-binnen-vraag en verdient dezelfde behandeling, maar of Astalor werkelijk binnen
+staat is niet ópnieuw gemeten.
+
+⚠️ Ontwerpkeuzes die het waard zijn te kennen: de ticker draait alleen zolang er een tweestapsroute
+loopt (1×/s, stopt bij aankomst, na 5 minuten, of zodra een andere route de pijl claimt), en
+`ns.SetSMCWaypointDirect` bestaat zodat stap twee niet opnieuw in stap één kan vallen — met de
+originele pin zou hij `entrance` weer zien en je terug naar buiten sturen.
+
 ## ✅ 3 sep — de cache-busterregel staat in alle vier de cloud-routines
 
 De ochtendronde van 3 sep vond een methodefout die zwaarder weegt dan wat hij die dag opleverde:
