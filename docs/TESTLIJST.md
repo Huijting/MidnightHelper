@@ -20,6 +20,10 @@ Eén blik per boss is genoeg; je hoeft er niet heen te reizen.
       (bij Tank) Void Blast. Alle vier horen een spelnaam te tonen.
       ⚠️ Bullet 3 noemt de **Ethereal Shades** bewust zónder spell-link — dat is geen fout.
 - [ ] **Den of Nalorakk.** Nieuw: **Echoing Maul** in bullet 2.
+- [ ] **Murder Row → Zaen Bladesorrow.** Bullet 1 en 4 wijzen nu naar andere spells: **Murder in a
+      Row** en **Fire Bomb**. De tekst is niet veranderd, alleen waar de link heen gaat.
+- [ ] **Murder Row → Kystia Manaheart.** Bullet 3 en de Tank-regel noemen nu **Fel Spray** (de
+      kegel zelf) in plaats van de brandende grond die hij achterlaat.
 - [ ] **Sporefall → Rotmire** (ritual). Vijf ID's, allemaal nieuw.
       📌 Bullet 1 zei tot vandaag dat `1221637` *"de wipe"* was; het is een **knockback**. Als je
       hem ooit doet: klopt dat nu met wat er gebeurt?
