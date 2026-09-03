@@ -13,6 +13,30 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## ⏭️ VOOR MORGEN (4 sep) — delve-modifiers, in deze volgorde
+
+Rob, 3 sep laat: *"zet maar op de lijst voor morgen."* Na de ochtendronde met de vier wachters.
+
+1. 🔎 **Zoek de volledige lijst delve-modifiers van dit seizoen** — online én in de geïnstalleerde
+   addons. ⚠️ **Zoek op de MODIFIER, niet op een delve.** Dat is de fout die 3 sep een half uur
+   kostte: ik zocht "Gulf of Memory + dun…" terwijl Dundun seizoensbreed is en in élke delve kan
+   zitten, dus de gidsen over díé delve noemen hem nauwelijks. Robs eigen zoekopdracht, zonder
+   delve-naam, vond het meteen. ⚠️ En kijk ook op YouTube; daar stond de macro die het oploste.
+   Vragen die beantwoord moeten worden: welke modifiers bestaan er, **wat kosten ze**, en welke
+   hebben net als Dundun een verstopte vorm?
+2. 🔴 **Lees de modifiers van de ACTIEVE delve uit.** Dat doen we nergens (GEMETEN, positieve
+   controle: ~80 `C_DelvesUI`-aanroepen in `Modules/`, geen enkele voor modifiers).
+   `GetTieredEntranceOptionalAffixTraitTreeID` staat al in de sweep van `Knowledge.lua:383`.
+3. **De sleutelwaarschuwing** — de enige zin die niemand anders geeft:
+   *"Deze delve heeft Dundun. Vind hem voor een extra Bountiful Coffer — dat kost een tweede
+   Restored Coffer Key, en je hebt er één."* We tellen die sleutels al (currency `3028`).
+4. **De macro aanbieden** als kant-en-klare regel (`/cleartarget` → `/target dundun` → `/ping`),
+   want hij is per run een ánder decorstuk en dus niet met het oog te vinden. Sluit aan op het
+   gebankte *"handige snelacties"*-idee.
+
+⚠️ **Stap 3 niet zonder stap 2.** Een sleutelwaarschuwing voor een delve die Dundun niet heeft is
+precies het soort zelfverzekerde onzin waar 3 sep over ging.
+
 ## 📌 3 sep (avond) — wat "Dundun" is, en het gat dat het blootlegt
 
 Rob, in The Gulf of Memory: *"in het begin zei die, zoek de verborgen DunDun, wat is dat en waar
