@@ -14,10 +14,18 @@ Je stond in Harandar, klikte Twilight Crypts, en kreeg vier regels die elkaar te
 - [ ] **Zelfde klik, opnieuw.** Ga in Harandar staan en route naar **Twilight Crypts**. Verwacht:
       **géén** *"Head for Portal to Harandar first"* meer, en **géén** *"…is not on this continent"*
       over een flight master waar je naast staat.
-- [ ] ⚠️ **De vlucht zelf klopt nog steeds niet** en dat is met opzet nog niet gerepareerd. Zygors
-      taxidata zegt dat Harandar een gesloten netwerk is zonder uitgaande verbindingen, dus *"Fly
-      from Har'alnor to Torntusk Overlook"* is een vlucht die niet bestaat. Zie je die regel nog:
-      klopt, dat is punt 4 en dat doen we apart.
+- [ ] 🆕 **De onmogelijke vlucht hoort nu wég te zijn.** *"Fly from The Den to Torntusk Overlook"*
+      mag niet meer verschijnen: Zygors taxi-graaf zegt dat Harandar een gesloten eiland is
+      (component 35) en Torntusk Overlook op Eastern Kingdoms zit (component 1).
+      ⚠️ **Vanuit Silvermoon hóórt er wél een vlucht te komen** — *Sanctum of Light* zit in dezelfde
+      component als Torntusk Overlook. Krijg je daar géén vliegadvies, dan is de poort te streng en
+      wil ik het horen.
+      📌 Onze dekking is 129 van 649 punten, dus voor veel zones weten we het niet en zwijgt de
+      poort bewust. Onbekend blokkeert niets.
+- [ ] 🆕 **En de tegenproef op mijn eigen correctie:** vanuit Silvermoon hoort *"The Den is not on
+      this continent"* er wél te mogen staan als de route je daar nog heen stuurt — die zin was
+      dáár waar. Ik had hem eerst onvoorwaardelijk gesmoord; nu zwijgt hij alleen als de tussenstap
+      op je eigen kaart ligt.
 - [ ] 🔴 **De meting die het laatste stuk hard maakt:** typ **`/mh arrow`** terwijl je in Harandar
       staat. Die print welke map de client teruggeeft en welk continent hij eraan hangt. Mijn
       diagnose zegt dat je soms als map **2576** en soms als **2413** wordt gezien binnen één

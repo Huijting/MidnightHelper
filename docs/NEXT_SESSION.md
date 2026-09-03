@@ -58,6 +58,42 @@ onbereikbaar — het is een vliegpunt op je eigen kaart of een portaal waar je n
   flight master gestuurd. **Silverglade Refuge** stond op `"B"` en is **Alliance-only** → spiegelbeeld.
   Precies de fout die die factieletter hoort te voorkomen.
 
+### ✅ Punt 4 dezelfde avond gebouwd — en Robs `/mh arrow` corrigeerde twee dingen
+
+**`/mh arrow` in Harandar (GEMETEN):** `jij: map 2413 (continent 2694)` en `doel: map 2413
+(continent 2694)`, zelfde ouderketen, *"een ligt in de ander: ja"*. 🔴 **Mijn 2576-hypothese is dus
+niet bevestigd** — beide uitlezingen gaven 2413. ⚠️ En uit die meting is *niet* af te leiden of de
+melding wegbleef door mijn leg-label of doordat de kaart deze keer consistent was; die twee zien er
+van buiten identiek uit.
+
+🔴 **En zijn tweede screenshot ontkrachtte mijn eigen fix van een uur eerder.** Hij haardsteende naar
+Silvermoon en kreeg *"The Den is not on this continent. Head for Portal to Harandar first."* Daar was
+die zin **waar en nuttig** — en ik had hem net onvoorwaardelijk het zwijgen opgelegd. Mijn
+rechtvaardiging (*"een leg is per constructie nooit onbereikbaar"*) geldt op het **moment dat de leg
+gemaakt wordt** en geen seconde langer. De guard test nu of de leg nog op je huidige kaart ligt.
+📌 Dezelfde les als het Vaults-blok van vanochtend: een feit dat één keer gemeten is, is geen feit
+dat waar blíjft.
+
+**`Modules/FlightNetworkData.lua`** (gegenereerd door `tools/build_flight_network.py`) draagt nu
+verbonden-componentnummers uit Zygors taxi-graaf. GEMETEN: 804 knopen, **38 componenten**;
+Har'alnor / Har'athir / The Den = **35**, Torntusk Overlook / Sanctum of Light / Tokka's Landing =
+**1**. Dus `FlightPathExists("The Den", "Torntusk Overlook")` = **false**, bewijsbaar.
+
+📌 **Componenten, niet Zygors root-sleutels.** "Zelfde root = verbonden" was de verleidelijke
+aanname; niets belet een root twee losse clusters te bevatten. De graaf wordt globaal doorlopen en de
+componenten worden echt uitgerekend. Twee ingebouwde controles laten de generator falen als
+Har'alnor niet aan The Den grenst, óf als Har'alnor en Torntusk Overlook in dezelfde component
+belanden — dan zou de tabel juist de instructie zegenen waarvoor hij gebouwd is.
+
+📌 **En het levert een beter antwoord op**: vanuit Silvermoon zit *Sanctum of Light* in component 1,
+net als Torntusk Overlook. Er ís dus een vlucht — de hele Harandar-omweg was nergens voor nodig.
+
+⚠️ **Dekking is 129 van onze 649 punten.** Daarom is de poort zo geschreven dat alleen een harde
+`false` iets tegenhoudt; `nil` betekent *onbekend* en laat de hint gewoon door. Zou `nil` blokkeren,
+dan verdween het vliegadvies vrijwel overal en dat is van buiten niet te onderscheiden van kapot.
+⚠️ De poort zit op **beide** helften — de chatregel én de leg. Ze verschillend gaten geven is precies
+hoe Rob vier tegenstrijdige regels in één handeling kreeg.
+
 ### 🔴 Wat NIET gerepareerd is, en niet te repareren valt met een rij-correctie
 
 **Dat vliegadvies bestaat niet.** GEMETEN in Zygors `flightcost`: Harandars netwerk is een **gesloten

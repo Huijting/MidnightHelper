@@ -721,12 +721,23 @@ local function AnnounceUnreachable(t)
 	--- this function started asking "how do I travel to Har'alnor" about a stop that was
 	--- picked precisely because it is the nearest one to where the player already stands.
 	---
-	--- ⚠️ The fix is a label, not a suppression. The leg still owns the arrow; it is only
-	--- barred from the unreachable verdict, and a leg is unreachable-by-construction never:
-	--- it is either a flight point on the current map or a portal the planner just proved
-	--- the player can walk to. Any "you cannot get there" about it is false by definition.
+	--- ⚠️ NARROWED THE SAME EVENING, because the first version of this guard was too strong
+	--- and Rob's next screenshot proved it. I wrote that a leg is "unreachable-by-
+	--- construction never". That holds at the MOMENT THE LEG IS MADE and not one second
+	--- longer: he hearthstoned to Silvermoon, and the leg he had picked in Harandar became
+	--- genuinely unreachable. There the message — "The Den is not on this continent, head
+	--- for Portal to Harandar first" — was true, useful, and I had just silenced it.
+	---
+	--- 📌 So the test is not "is this a leg" but "is this leg still where I am". A leg on
+	--- the player's own map cannot be unreachable and must stay quiet; a leg he has walked
+	--- away from is an ordinary destination again and deserves the same honest answer as
+	--- any other. Same lesson as the Vaults gate this morning: a fact measured once is not
+	--- a fact that stays true.
 	if t.leg then
-		return
+		local pm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+		if pm and tonumber(pm) == tonumber(t.mapID) then
+			return
+		end
 	end
 	local key = TargetKey(t)
 	if key == announcedUnreachableKey then
