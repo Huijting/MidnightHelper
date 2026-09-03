@@ -778,7 +778,14 @@ achterhaald behalve als geschiedenis. Getest en goedgekeurd door Rob dezelfde av
 
 ---
 
-### 15. 🆕 SAMEN MET CISCA — het consumables-bord haalt nu zélf op (ONGETEST)
+### 15. ☑️ AFGEVINKT OP ROBS GEZAG 3 sep — het consumables-bord haalt nu zélf op
+
+⚠️ **Dit is NIET in het spel gezien.** Rob, 3 sep: *"de cisca consumable test mag je van mij
+afvinken, ik meld me als het later toch niet goed blijkt te zijn."* Dat is zijn keuze en die telt —
+maar de status is *"aanvaard zonder proef"*, niet *"werkt"*. Komt hier ooit een melding over
+`(bag unknown)` die blijft staan, begin dan hier en niet bij iets nieuws.
+
+De testinstructie hieronder blijft staan, want zij is de enige manier om het alsnog te bewijzen.
 
 **Waarom dit er is:** iedereen stuurde zijn tas-tellingen alleen **uit zichzelf** rond, bij een
 roster-wijziging of een zone-wissel. Zat je op dat moment in een laadscherm, dan miste je dat
