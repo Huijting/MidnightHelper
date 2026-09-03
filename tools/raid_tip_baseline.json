@@ -67,28 +67,6 @@
         "ABSENT"
       ]
     ],
-    "RAID_BOSS_ENTOMBEDSENT_STEPS": [
-      [
-        "1284485",
-        "ABSENT"
-      ],
-      [
-        "1284590",
-        "WEAK"
-      ]
-    ],
-    "RAID_BOSS_LOSTEXPLORERS_STEPS": [
-      [
-        "1295886",
-        "WEAK"
-      ]
-    ],
-    "RAID_BOSS_NEKZALI_STEPS": [
-      [
-        "1294933",
-        "WEAK"
-      ]
-    ],
     "RAID_BOSS_SALHADAAR_STEPS": [
       [
         "1247738",
@@ -99,23 +77,9 @@
         "ABSENT"
       ]
     ],
-    "RAID_BOSS_SSZORAK_TANK": [
-      [
-        "1285430",
-        "ABSENT"
-      ]
-    ],
     "RAID_BOSS_ULATEK_STEPS": [
       [
-        "1287265",
-        "ABSENT"
-      ],
-      [
-        "1290779",
-        "ABSENT"
-      ],
-      [
-        "1292403",
+        "1300685",
         "WEAK"
       ]
     ],
@@ -141,12 +105,6 @@
       [
         "1276831",
         "ABSENT"
-      ]
-    ],
-    "RAID_BOSS_VASHNIK_STEPS": [
-      [
-        "1294994",
-        "WEAK"
       ]
     ],
     "RAID_BOSS_VORASIUS_STEPS": [

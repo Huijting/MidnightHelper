@@ -75,7 +75,32 @@ de bedoeling.
 (`1290779`, het ID waar dit mee begon) → `1 new`, `HARD issues: 1`, exit-code 1, daarna hersteld.
 Een check die niemand ooit heeft zien falen, is een check waarvan niemand weet dat hij werkt.
 
-**Nog te doen:** de 15 regels herschrijven uit DBM's eigen mods.
+### ✅ The Venomous Abyss is herschreven uit DBM — 31 → 23, 15 → 10 regels
+
+Robs eigen raid eerst. Zes gevlagde regels daar, nu **nul**. Het werkwoord komt telkens uit DBM's
+eigen audio-cue in plaats van uit onze interpretatie: `justrun` = rennen, `helpsoak` = soaken,
+`watchstep` = ontwijken, `bigmob` = switchen. Waar DBM geen mening heeft, zegt de regel niets.
+
+| regel | wat er mis was |
+|---|---|
+| **Ula'tek** | 4 ID's → 12. `1292403` was de DoT van een ándere cast (wij: "dodge"), `1287265` stond in een `--TODO`, `1290779` bestond nergens. DBM waarschuwt op twaalf dingen; wij noemden er nul bij naam. |
+| **Nek'zali** | `1294933` werd nooit gewaarschuwd. Vervangen door de echte set, inclusief `1305421` (group soak) die wij als losse Engelse naam in de tekst hadden staan. |
+| **Entombed Sentinels** | `1284590` → `1284588` (Vitriolic Stasis, DBM's "MATHPUZZLE"). `1284485` is door DBM zélf uitgezet als *"Possibly unused"* — geschrapt, vervangen door `1288232` (group soak) en `1284251` (big adds). |
+| **Lost Explorers** | `1295886` → `1292104` Mushroom Toss. 📌 En DBM **beslecht onze eigen open vraag**: onze tekst zei *"onze twee bronnen zijn het oneens — run out of stack up"*; DBM's cue is `justrun`. |
+| **Vashnik** | `1294994` is een sub-ability die DBM bewust níét bewaakt; de ouder is `1282114`. Wij zeiden "dodge" tegen een debuff-fase. |
+| **Sszorak (tank)** | `1285430` bestond nergens; de tank-combo is `1277025`. Onze zin klopte al — alleen het ID niet. |
+
+⚠️ Eén bewuste WEAK toegevoegd: `1300685` (Soul Constrictor) bij Ula'tek. DBM waarschuwt er niet op,
+maar documenteert in een commentaar *"can't soak Spectral Coils"* — precies wat onze regel zegt.
+Staat als zodanig in de baseline; het is geen slordigheid maar een keuze.
+
+🔴 **En het herschrijfscript loog over zijn eigen garantie.** `rewrite_abyss.py` zei in zijn
+docstring dat het "weigert een gedeeltelijk resultaat te schrijven" en schreef het bestand vóór de
+telling: 17 van 21 toegepast, daarna exit 1. Er ging niets stuk, maar de garantie was decoratief.
+De vervolgscripts zoeken eerst alle vervangingen en raken het bestand pas daarna aan.
+
+**Nog te doen:** de 10 overgebleven regels in de oudere raids — Beloren (5), Vanguard (4), Averzian
+(3+1), Crown (3), Salhadaar (2), Chimaerus (2), Vorasius (1), Vaelgor (1).
 
 ## ✅ 3 sep — de pijl stuurde je door een muur; nu eerst naar de deur
 
