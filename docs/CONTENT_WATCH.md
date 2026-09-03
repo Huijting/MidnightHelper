@@ -202,3 +202,50 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/VaultAdvisor.lua`, `Modules/HealerCooldowns.lua`, `Modules/TankToolkit.lua` — allemaal
   vandaag gelezen. **[RAAKT ONS NIET]** — geen van de gevonden hotfixes spreekt een geshipte claim
   tegen. Geen open actiepunt.
+
+---
+
+- [2026-09-03] ✅ **Geen tegenspraak gevonden op de hotfixes van 2 sep; voor 3 sep is er nog
+  niets gepubliceerd** — dat laatste is "heeft nog niet gedraaid", niet "niets gevonden".
+  `news.blizzard.com` gaf op WebFetch weer `EGRESS_BLOCKED`; via Exa `web_fetch_exa` is
+  `https://news.blizzard.com/en-us/article/24296142/hotfixes-september-2-2026` **volledig zelf
+  gelezen** (niet alleen een samenvatting) — dit is Blizzard's doorlopende hotfix-artikel, sectie
+  "September 2, 2026". Een poging op een expliciete "...-september-3-2026"-URL gaf dezelfde 2-sep-
+  inhoud terug (geen 404 gezien, dus geen 100% bewijs dat 3 sep niet bestaat) en een gerichte
+  Exa-zoekopdracht op de exacte titel "Hotfixes: September 3, 2026" gaf nul resultaten. Beide
+  samen: MEASURED dat er voor 3 sep nog niets gevonden kán worden, niet een garantie dat het nooit
+  komt.
+
+  **Sectie "September 2, 2026" (Delves/Professions/Quests: leeg — Blizzard laat lege categorieën
+  gewoon weg; Dungeons and Raids en Items volledig gelezen):**
+  - **The Venomous Abyss → Ula'tek:** Soul Constrictor-duur naar 5s op Mythic; Blight Vein-schade
+    -25% op Mythic (een vervolg-tuning op de Blight Vein-*bug* die al op 31 aug gefixed was — dit
+    is een apart, nieuw balans-hotfix, geen duplicaat); een Doomscale Egg kon nog opgeraapt worden
+    nadat Ravenous Doomscale spawnt terwijl Doomscale Warden nog leeft, plus extra bescherming
+    tegen dubbel oprapen van één ei. Onze `RAID_BOSS_ULATEK_STEPS` (`Locales/RaidTips.lua:46`,
+    en de zes vertaalde varianten) noemt vier spell-ID's (1292403, 1287265, 1286860 "Venomous
+    Heart", 1290779) generiek zonder namen — "Soul Constrictor", "Blight Vein", "Doomscale Egg",
+    "Ravenous Doomscale" en "Doomscale Warden" komen er niet in voor. MEASURED (0 treffers op alle
+    vijf namen in `Locales/RaidTips.lua` en repo-breed; positieve controle: dezelfde repo-brede
+    zoekvorm vond "Doomscale Warden" wel terug als encounter-NPC-ID-lijst in
+    `docs/PTR_S2_ENCOUNTERS.md:79` en "Blight Vein" in deze eigen watch-historie — het patroon
+    werkt dus op deze schaal). **[RAAKT ONS NIET]**
+  - **Items:** resterende Great-Vault-items die niet met de Catalyst te converteren waren, gefixed;
+    een bug waarbij bepaalde non-armor-items ten onrechte als Catalyst-converteerbaar leken,
+    gefixed (relog kan nodig zijn). Onze Catalyst-tekst (`Locales/enUS.lua:1086-1095,1725-1726`,
+    `Modules/TierSet.lua` — o.a. `TIER_CATALYST_NAME`, `SetCatalystWaypoint`) legt alleen de
+    algemene mechaniek uit (stat-behoud, 8 charges per personage, waypoint naar de locatie) en
+    claimt nergens *welke* itemtypes of -bronnen wel/niet converteerbaar zijn. MEASURED: 0
+    treffers op "convert"/"vault"/"armor" (case-insensitive) in `Modules/TierSet.lua` en
+    `Modules/VaultAdvisor.lua`, tegen een in dezelfde bestanden geslaagde positieve controle
+    (`function`/`local`/`ns.` matcht daar gewoon). **[RAAKT ONS NIET]**
+
+  Bron: Exa `web_fetch_exa`, volledige artikeltekst van news.blizzard.com's "Hotfixes: September 2,
+  2026" (sectie 2 sep zelf gelezen; sectie 1 sep in hetzelfde artikel was al afgedekt in de vorige
+  entry en niet opnieuw volledig herlezen). Exa `web_search_exa` om het ontbreken van een 3-sep-
+  artikel te bevestigen. Codebase-kant: `grep` case-insensitive over de hele repo op alle hotfix-
+  termen hierboven, plus gerichte reads van `Locales/RaidTips.lua`, `Locales/enUS.lua`,
+  `Modules/TierSet.lua`, `Modules/VaultAdvisor.lua`, `Modules/HazardData.lua`,
+  `docs/PTR_S2_ENCOUNTERS.md` — allemaal vandaag gelezen. **[RAAKT ONS NIET]** — geen van de
+  gevonden hotfixes spreekt een geshipte claim tegen. Geen open actiepunt; 3-sep-hotfixes volgen
+  in een volgende run zodra ze gepubliceerd zijn.
