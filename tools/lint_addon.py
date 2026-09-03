@@ -1424,7 +1424,7 @@ def main() -> int:
     # 📌 BASELINE, NOT A WALL. 31 ids fail today. A check that fails the build on all of
     # them gets switched off within a week and then catches nothing; one that says
     # nothing is equally useless. So the measured backlog is SOFT and anything NOT in
-    # tools/raid_tip_baseline.json is NEW and HARD. It cannot fix the existing mess, but
+    # tools/tip_baseline.json is NEW and HARD. It cannot fix the existing mess, but
     # it stops the next id being written the way 1290779 was -- and the file shrinks as
     # lines are rewritten.
     #
@@ -1432,10 +1432,10 @@ def main() -> int:
     # on. What it does prove is that nobody held the id against that mod.
     try:
         import json as _json
-        import raid_tip_audit as _audit
+        import tip_audit as _audit
         rows, _ = _audit.classify()
         base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 "raid_tip_baseline.json")
+                                 "tip_baseline.json")
         known = {}
         if os.path.exists(base_path):
             with open(base_path, encoding="utf-8") as fh:
@@ -1458,13 +1458,13 @@ def main() -> int:
         hard += len(fresh)
         if bad and not fresh:
             print(f"     all {len(bad)} are the known backlog "
-                  f"(tools/raid_tip_baseline.json) — SOFT")
+                  f"(tools/tip_baseline.json) — SOFT")
             soft += 1
         if stale:
             # Not a failure: it means somebody fixed a line. Say so, and ask for the
             # baseline to shrink, or it slowly becomes a licence for anything.
             print(f"     ✅ {len(stale)} baseline entr{'y' if len(stale) == 1 else 'ies'} "
-                  f"no longer fail — remove them from raid_tip_baseline.json")
+                  f"no longer fail — remove them from tip_baseline.json")
     except Exception as exc:  # noqa: BLE001
         # A checker that dies quietly is worse than no checker. Say why.
         print(f"\n[19] Raid tip spell ids: NOT CHECKED — {type(exc).__name__}: {exc}")

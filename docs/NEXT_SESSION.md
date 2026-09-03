@@ -146,6 +146,72 @@ audio-cues (`justrun`, `helpsoak`, `watchstep`, `bigmob`, `colorchange`), wat st
 vervanging voor iemand die de boss echt doet. Rob komt naar eigen zeggen niet snel in een raid; de
 eerste die dit in een pull leest, leest het ongetest.
 
+## 🔴 3 sep — de audit uitgebreid naar dungeons, delves en rituals: 410 ID's, 160 tipregels
+
+Rob: *"kunnen we de dungeons en Delves ook met DBM data checken en dicht timmeren?"* Ja — en de
+raid-map bleek maar een derde van het geheel. `tools/tip_audit.py` (hernoemd van
+`raid_tip_audit`) dekt nu `RaidTips`, `DungeonTips`, `DelveTips` en `RitualTips`.
+
+| | ID's | twijfel | regels |
+|---|---:|---:|---:|
+| raids | 105 | 1 | 1 |
+| **dungeons** | 240 | **23** | **19** |
+| delves | 44 | 40 → zie hieronder | 11 |
+| **rituals** | 21 | **9** | **4** |
+
+### 🔴 Twee keer bijna een crisis verzonnen uit andermans TODO-lijst
+
+**Eén: delves gebruiken geen nummers.** `DelveTips.lua` schrijft `{SPELL:@shadow_bolt}`. Mijn
+numerieke patroon vond nul van de 154 placeholders, en de eerste uitvoer had **geen delve-regel** —
+een heel contenttype ontbrak en zag er precies uit als een contenttype zonder problemen. Gevangen
+doordat de telling zei dat er 154 te vinden waren. De tokens lossen op via
+`Modules/DelveSpellIds.lua` en zijn dus wél te controleren.
+
+**Twee: DBM is voor delves geen maatstaf.** Na het oplossen meldde de tool **40 van 44 delve-ID's
+ABSENT** — dat leest als "onze delve-tips zijn vrijwel helemaal fout". Eén mod met de hand
+opengeslagen zei het tegendeel: `DBM-Delves-Midnight/Encounters/Antenorian.lua` is een **stub** met
+alleen `SetEncounterID` en `RegisterCombat`, en `--mod:SetCreatureID(0)--TODO` er nog in. Hydrangea
+en Gladius Slaurna idem.
+
+**GEMETEN dekking**, nu vast onderdeel van het rapport:
+
+| DBM-pakket | mods mét waarschuwingen |
+|---|---|
+| DBM-Raids-Midnight | 17 / 17 |
+| DBM-Party-Midnight | 31 / 36 |
+| DBM-Lairs-Midnight | 2 / 2 |
+| **DBM-Delves-Midnight** | **4 / 30** |
+
+📌 Dus ABSENT op een delve-ID betekent **DBM heeft geen mening**, niet dat wij fout zitten. Zonder
+die controle had ik een ramp gerapporteerd die in werkelijkheid iemand anders' TODO-lijst was.
+
+### ✅ Robs tweede vraag gaf het antwoord: een onafhankelijke tegenmeting
+
+*"er zijn toch ook speciale delve addons en sites?"* Geen enkele geïnstalleerd (geen Delve
+Companion, DelveGuide of Everything Delves), maar **GTFO** wel — een spell-ID-database van
+grondeffecten, 7815 ID's.
+
+⚠️ *"Onze delve-ID's staan niet in GTFO"* bewijst op zichzelf niets: GTFO catalogiseert alleen waar
+je uit moet lopen, en wij noemen ook interrupts, buffs en fasewissels. Dus **vergelijkend** gemeten,
+met de raids als ijkpunt omdat die inmiddels volledig DBM-gedekt zijn:
+
+| content | in GTFO | totaal | overlap |
+|---|---:|---:|---:|
+| raids | 13 | 105 | 12,4% |
+| dungeons | 55 | 240 | 22,9% |
+| **delves** | 7 | 44 | **15,9%** |
+| rituals | 2 | 21 | 9,5% |
+
+**Delves zitten midden in het normale bereik — hóger dan de raid-ID's.** Er is dus geen enkele
+aanwijzing dat de delve-ID's kapot zijn, en zeven ervan zijn nu onafhankelijk bevestigd.
+
+### Wat er wél te doen staat
+
+De **echte** bevindingen zijn dungeons (23 over 19 regels; DBM dekt daar 31/36) en de
+ritual-regels (9 over 4; Lairs dekt 2/2 — Rotmire heeft er 6). `tools/tip_baseline.json` draagt die
+scheiding expliciet in `_delve_caveat` en `_real_findings`, zodat niemand de delve-kolom leest zoals
+ik hem bijna las.
+
 ## ✅ 3 sep — de pijl stuurde je door een muur; nu eerst naar de deur
 
 Rob stond op 94 yard van het Coiled-Isle-portaal met de pijl er dwars doorheen: *"onze pijl stuurt

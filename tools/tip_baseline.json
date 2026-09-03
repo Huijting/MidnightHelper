@@ -1,0 +1,370 @@
+{
+  "_delve_caveat": "DELVE_TIP_* entries are NOT findings. DBM-Delves-Midnight is 4/30 stubs (Antenorian, Hydrangea and Gladius Slaurna hold SetEncounterID and nothing else), so ABSENT there means DBM has no opinion, not that we are wrong. They are listed only so a genuinely new delve id still trips the HARD check. Do not 'fix' them against DBM; there is nothing to fix them against.",
+  "_real_findings": "The ones worth acting on are DGN_TIP_* (DBM-Party-Midnight covers 31/36) and the ritual lines (DBM-Lairs-Midnight covers 2/2), plus the single deliberate raid WEAK.",
+  "_why": "Tip spell ids that did not hold up against DBM on 2026-09-03. Reported SOFT by lint check [19]; anything NOT listed here is new and fails HARD. Remove entries as lines are fixed - this file is meant to shrink.",
+  "known": {
+    "DELVE_TIP_ATAL_AMAN_BOSS": [
+      [
+        "1264990",
+        "ABSENT"
+      ],
+      [
+        "1266023",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_COLLEGIATE_CALAMITY_BOSS": [
+      [
+        "1252107",
+        "ABSENT"
+      ],
+      [
+        "1256027",
+        "ABSENT"
+      ],
+      [
+        "1256547",
+        "ABSENT"
+      ],
+      [
+        "1257609",
+        "ABSENT"
+      ],
+      [
+        "1262709",
+        "ABSENT"
+      ],
+      [
+        "1263720",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_GRUDGE_PIT_BOSS": [
+      [
+        "1264111",
+        "ABSENT"
+      ],
+      [
+        "1264310",
+        "ABSENT"
+      ],
+      [
+        "1264553",
+        "ABSENT"
+      ],
+      [
+        "1265262",
+        "ABSENT"
+      ],
+      [
+        "1265320",
+        "ABSENT"
+      ],
+      [
+        "1265326",
+        "ABSENT"
+      ],
+      [
+        "415404",
+        "ABSENT"
+      ],
+      [
+        "415492",
+        "ABSENT"
+      ],
+      [
+        "425319",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_GULF_OF_MEMORY_BOSS": [
+      [
+        "1213700",
+        "ABSENT"
+      ],
+      [
+        "1213707",
+        "ABSENT"
+      ],
+      [
+        "1213776",
+        "ABSENT"
+      ],
+      [
+        "1264966",
+        "ABSENT"
+      ],
+      [
+        "1265769",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_PARHELION_PLAZA_BOSS": [
+      [
+        "1254856",
+        "ABSENT"
+      ],
+      [
+        "1286397",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_SHADOWGUARD_POINT_BOSS": [
+      [
+        "1260196",
+        "ABSENT"
+      ],
+      [
+        "1263615",
+        "ABSENT"
+      ],
+      [
+        "1263722",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_SHADOW_ENCLAVE_BOSS": [
+      [
+        "1256015",
+        "ABSENT"
+      ],
+      [
+        "1256093",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_SUNKILLER_SANCTUM_BOSS": [
+      [
+        "1261970",
+        "ABSENT"
+      ],
+      [
+        "1262075",
+        "ABSENT"
+      ],
+      [
+        "1262581",
+        "ABSENT"
+      ],
+      [
+        "1262702",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_THE_DARKWAY_BOSS": [
+      [
+        "1272820",
+        "ABSENT"
+      ],
+      [
+        "1272935",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_TORMENTS_RISE_BOSS": [
+      [
+        "1255886",
+        "ABSENT"
+      ],
+      [
+        "1256180",
+        "ABSENT"
+      ],
+      [
+        "1256180",
+        "ABSENT"
+      ],
+      [
+        "1258147",
+        "ABSENT"
+      ]
+    ],
+    "DELVE_TIP_TWILIGHT_CRYPTS_BOSS": [
+      [
+        "1267121",
+        "ABSENT"
+      ]
+    ],
+    "DGN_TIP_AF_RAVI_HEALER": [
+      [
+        "1296219",
+        "ABSENT"
+      ]
+    ],
+    "DGN_TIP_AF_RAVI_STEPS": [
+      [
+        "1296219",
+        "ABSENT"
+      ]
+    ],
+    "DGN_TIP_AF_ZULJAN_STEPS": [
+      [
+        "1301231",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_BV_ZIEKKET_STEPS": [
+      [
+        "1246753",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_DN_NALORAKK_STEPS": [
+      [
+        "1255385",
+        "ABSENT"
+      ]
+    ],
+    "DGN_TIP_MC_VORDAZA_HEALER": [
+      [
+        "1251813",
+        "ABSENT"
+      ]
+    ],
+    "DGN_TIP_MR_KYSTIA_STEPS": [
+      [
+        "1230304",
+        "WEAK"
+      ],
+      [
+        "1253813",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_MR_KYSTIA_TANK": [
+      [
+        "1253813",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_MR_ZAEN_HEALER": [
+      [
+        "474545",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_MR_ZAEN_STEPS": [
+      [
+        "1214352",
+        "ABSENT"
+      ],
+      [
+        "474545",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_NX_LOTHRAXION_STEPS": [
+      [
+        "1255310",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_PS_GARFROST_STEPS": [
+      [
+        "1261799",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_PS_KRICKICK_STEPS": [
+      [
+        "1264299",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_ST_NEZHAR_STEPS": [
+      [
+        "1263532",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_ST_ZURAAL_STEPS": [
+      [
+        "244588",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_VA_TAZRAH_STEPS": [
+      [
+        "1222274",
+        "ABSENT"
+      ],
+      [
+        "1225011",
+        "WEAK"
+      ],
+      [
+        "1262901",
+        "ABSENT"
+      ]
+    ],
+    "DGN_TIP_VA_TAZRAH_TANK": [
+      [
+        "1222085",
+        "ABSENT"
+      ]
+    ],
+    "DGN_TIP_WS_HEART_HEALER": [
+      [
+        "1216042",
+        "WEAK"
+      ]
+    ],
+    "DGN_TIP_WS_HEART_STEPS": [
+      [
+        "1216042",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_NYMRISSA_DPS": [
+      [
+        "1257717",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_NYMRISSA_STEPS": [
+      [
+        "1257717",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_ROTMIRE_HEALER": [
+      [
+        "1222176",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_ROTMIRE_STEPS": [
+      [
+        "1221714",
+        "ABSENT"
+      ],
+      [
+        "1221717",
+        "ABSENT"
+      ],
+      [
+        "1221965",
+        "ABSENT"
+      ],
+      [
+        "1222129",
+        "WEAK"
+      ],
+      [
+        "1222495",
+        "ABSENT"
+      ],
+      [
+        "1222684",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_ULATEK_STEPS": [
+      [
+        "1300685",
+        "WEAK"
+      ]
+    ]
+  },
+  "measured": "2026-09-03"
+}

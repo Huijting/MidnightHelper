@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
-"""Check every {SPELL:id} in our raid tips against DBM's own boss mods.
+"""Check every {SPELL:id} in our tips against DBM's own boss mods.
+
+🔴 READ THE COVERAGE TABLE BEFORE READING THE FINDINGS. DBM is only a yardstick where DBM
+has done the work. MEASURED 3 Sep 2026: DBM-Raids-Midnight 17/17 boss files carry
+warnings and DBM-Party-Midnight 31/36 -- those are real checks. DBM-Delves-Midnight is
+4/30: Antenorian, Hydrangea and Gladius Slaurna are stubs holding SetEncounterID and
+nothing else, one still carrying "--mod:SetCreatureID(0)--TODO".
+
+So an ABSENT verdict on a delve id means DBM HAS NO OPINION, not that we are wrong. The
+first widened run reported 40 of 44 delve ids absent, which reads as a catastrophe and is
+an artefact of somebody else's TODO list. It was caught by opening one mod by hand.
+
 
 WHY DBM IS THE YARDSTICK. Rob, 3 Sep 2026: "ik vind dat dbm best betrouwbaar is voor
 onze info, daar zit een groot en fanatiek team achter die dit soort dingen echt
@@ -31,11 +42,49 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ADDONS = os.path.dirname(ROOT)
 
-# Our tips live in enUS-shaped tables; one file holds the raid text.
-TIPS = os.path.join(ROOT, "Locales", "RaidTips.lua")
+# 📌 WIDENED 3 Sep 2026 FROM RAIDS TO EVERY TIP FILE WE SHIP, at Rob's request the same
+# afternoon the raid pass finished: "kunnen we de dungeons en Delves ook met DBM data
+# checken en dicht timmeren?" Yes -- and the counts say why it mattered. The raid file
+# carried 105 spell ids; DungeonTips carries several times that, and nothing had ever
+# held any of them against DBM either.
+#
+# ⚠️ Ritual tips are included even though DBM has no ritual mods. That is deliberate: the
+# report then says out loud that those ids have no yardstick, instead of leaving a whole
+# content type silently unchecked, which is how the raid problem survived for months.
+TIP_FILES = [
+    ("raids", os.path.join(ROOT, "Locales", "RaidTips.lua")),
+    ("dungeons", os.path.join(ROOT, "Locales", "DungeonTips.lua")),
+    ("delves", os.path.join(ROOT, "Locales", "DelveTips.lua")),
+    ("rituals", os.path.join(ROOT, "Locales", "RitualTips.lua")),
+]
 
 SPELL_RE = re.compile(r"\{SPELL:(\d+)\}")
-KEY_RE = re.compile(r"^\s*(RAID_BOSS_[A-Z0-9_]+)\s*=")
+
+# 🔴 DELVES USE NAMES, NOT NUMBERS, AND THE FIRST RUN OF THIS TOOL SILENTLY SKIPPED THEM.
+# DelveTips.lua writes {SPELL:@shadow_bolt}; the numeric pattern above matched none of its
+# 154 placeholders, so the report showed no "delves" row at all -- an entire content type
+# missing, looking exactly like a content type with nothing wrong. That is the mistake
+# this repo has been burned by repeatedly, committed by the very tool built to catch it.
+# It was caught only because the widened run printed no delve line and the counts had said
+# there were 154 placeholders to find.
+#
+# The tokens resolve through Modules/DelveSpellIds.lua, so they are checkable after all.
+NAMED_RE = re.compile(r"\{SPELL:@([a-z0-9_]+)\}")
+TOKEN_MAP_FILE = os.path.join(ROOT, "Modules", "DelveSpellIds.lua")
+TOKEN_RE = re.compile(r"^\s*([a-z0-9_]+)\s*=\s*(\d+)\s*,")
+
+
+def token_map():
+    """token -> spell id, from the addon's own table."""
+    out = {}
+    if not os.path.exists(TOKEN_MAP_FILE):
+        return out
+    for line in io.open(TOKEN_MAP_FILE, encoding="utf-8", errors="replace"):
+        m = TOKEN_RE.match(line)
+        if m:
+            out[m.group(1)] = m.group(2)
+    return out
+KEY_RE = re.compile(r"^\s*((?:RAID_BOSS|DGN_TIP|DELVE_TIP|RITUAL_TIP)_[A-Z0-9_]+)\s*=")
 # DBM ids are plain numbers in Lua source. Six digits or more keeps out timers,
 # priorities and the small option numbers that would otherwise match everything.
 NUM_RE = re.compile(r"\b(\d{6,})\b")
@@ -132,26 +181,47 @@ def scan_dbm():
 
 
 def our_tips():
-    """key -> [ids] for the FIRST (enUS) block only; later blocks are translations."""
-    text = io.open(TIPS, encoding="utf-8", errors="replace").read()
-    found = {}
-    order = []
-    for line in text.split("\n"):
-        km = KEY_RE.match(line)
-        if not km:
+    """key -> [ids] for the FIRST (enUS) block only; later blocks are translations.
+
+    Returns (order, found, origin) where origin maps key -> which content type it came
+    from, so the report can say "dungeons" rather than making the reader infer it.
+    """
+    found, order, origin = {}, [], {}
+    tokens = token_map()
+    unresolved = []
+    for label, path in TIP_FILES:
+        if not os.path.exists(path):
             continue
-        key = km.group(1)
-        if key in found:
-            continue  # translations repeat the same keys; keep the first
-        ids = SPELL_RE.findall(line)
-        found[key] = ids
-        order.append(key)
-    return order, found
+        text = io.open(path, encoding="utf-8", errors="replace").read()
+        for line in text.split("\n"):
+            km = KEY_RE.match(line)
+            if not km:
+                continue
+            key = km.group(1)
+            if key in found:
+                continue  # translations repeat the same keys; keep the first
+            ids = list(SPELL_RE.findall(line))
+            for tok in NAMED_RE.findall(line):
+                if tok in tokens:
+                    ids.append(tokens[tok])
+                else:
+                    # A token with no entry cannot render at all. Louder than an id DBM
+                    # does not know: this one shows the player nothing.
+                    unresolved.append((key, tok))
+            if not ids and not unresolved:
+                continue
+            if not ids:
+                continue
+            found[key] = ids
+            origin[key] = label
+            order.append(key)
+    return order, found, origin, unresolved
 
 
 def main():
-    if not os.path.exists(TIPS):
-        sys.exit("no %s" % TIPS)
+    missing_files = [p for _l, p in TIP_FILES if not os.path.exists(p)]
+    if missing_files:
+        sys.exit("missing tip file(s): %s" % ", ".join(missing_files))
     where, files = scan_dbm()
 
     print("=" * 70)
@@ -178,13 +248,54 @@ def main():
                  % ", ".join(missing_control))
     print("positive control ok: %s all found in DBM"
           % ", ".join("%s (%s)" % (i, n) for i, n in sorted(control.items())))
+
+    # 🔴 SECOND POSITIVE CONTROL, ADDED THE MOMENT THE DELVE NUMBERS LOOKED TOO BAD.
+    # The first widened run reported 40 of 44 delve ids ABSENT, which reads as "our delve
+    # tips are almost entirely wrong". Reading one mod by hand said otherwise:
+    # DBM-Delves-Midnight/Encounters/Antenorian.lua is a STUB -- SetEncounterID and
+    # RegisterCombat and nothing else, with "--mod:SetCreatureID(0)--TODO" still in it.
+    # Hydrangea and Gladius Slaurna are the same. Spiritflayer Jin'Ma has four warnings,
+    # the Nemesis mods have thirteen, so the coverage is partial rather than missing.
+    #
+    # ⚠️ So for a stubbed encounter ABSENT means "DBM HAS NO OPINION", not "we are wrong",
+    # and reporting it as a finding would have manufactured a crisis out of DBM's own TODO
+    # list. This prints the coverage so nobody reads the delve column the way I nearly did.
+    print()
+    print("DBM coverage (files with at least one warning / total boss files):")
+    for addon, path in dbm_sources():
+        if not any(k in addon for k in ("Delves", "Party-Midnight", "Raids-Midnight", "Lairs")):
+            continue
+        withw = total = 0
+        for dirpath, _d, names in os.walk(path):
+            for n in names:
+                if not n.endswith(".lua") or n.startswith("localization"):
+                    continue
+                total += 1
+                try:
+                    t = io.open(os.path.join(dirpath, n), encoding="utf-8",
+                                errors="replace").read()
+                except OSError:
+                    continue
+                if "mod:New" in _strip_comments(t):
+                    withw += 1
+        if total:
+            flag = "  <-- mostly stubs" if withw * 2 < total else ""
+            print("   %-28s %3d / %3d%s" % (addon, withw, total, flag))
     print()
 
-    order, tips = our_tips()
+    order, tips, origin, unresolved = our_tips()
+    if unresolved:
+        print("🔴 %d {SPELL:@token} placeholder(s) with no entry in DelveSpellIds.lua —"
+              % len(unresolved))
+        print("   these render as nothing at all, which is worse than a wrong id:")
+        for key, tok in unresolved[:20]:
+            print("    HARD  %-34s @%s" % (key, tok))
+        print()
     total_ids = 0
     n_absent = 0
     n_weak = 0
     flagged = []
+    per_type = {}
 
     for key in order:
         ids = tips.get(key) or []
@@ -209,15 +320,31 @@ def main():
                 n_weak += 1
                 bad += 1
         total_ids += len(ids)
-        mark = "  " if bad == 0 else "🔴"
-        print("%s %-34s %d id(s), %d questionable" % (mark, key, len(ids), bad))
-        for i, kind, note in rows:
-            print("       %-9s %-7s %s" % (i, kind, note))
+        per_type.setdefault(origin.get(key, "?"), [0, 0, 0])
+        per_type[origin.get(key, "?")][0] += len(ids)
+        per_type[origin.get(key, "?")][1] += bad
+        if bad:
+            per_type[origin.get(key, "?")][2] += 1
+        # ⚠️ ONLY THE FLAGGED LINES GET PRINTED. Widening this from one file to four took
+        # the tip count past a hundred; a full listing scrolls the findings off the top,
+        # and a report nobody reads to the end is a report that hides things.
         if bad:
             flagged.append((key, bad))
-        print()
+            print("🔴 %-34s %-9s %d id(s), %d questionable"
+                  % (key, origin.get(key, "?"), len(ids), bad))
+            for i, kind, note in rows:
+                if kind == "warned":
+                    continue
+                print("       %-9s %-7s %s" % (i, kind, note))
+            print()
 
     print("=" * 70)
+    for label, _p in TIP_FILES:
+        if label in per_type:
+            ids_n, bad_n, lines_n = per_type[label]
+            print("%-10s %4d ids · %3d questionable · %2d line(s) affected"
+                  % (label, ids_n, bad_n, lines_n))
+    print("-" * 70)
     print("%d spell ids across %d tip lines" % (total_ids, len([k for k in order if tips.get(k)])))
     print("   %d ABSENT  — the number appears in no DBM mod at all" % n_absent)
     print("   %d WEAK    — present, but only in a comment or a sound option;" % n_weak)
@@ -243,7 +370,7 @@ def classify():
     so the guard below still lets `python tools/_probe.py run raid_tip_audit` work.
     """
     where, _files = scan_dbm()
-    order, tips = our_tips()
+    order, tips, _origin, _unresolved = our_tips()
     rows = []
     for key in order:
         for i in (tips.get(key) or []):
