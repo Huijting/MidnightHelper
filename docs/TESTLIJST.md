@@ -12,13 +12,21 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 🔴 **Dit kun jij testen en ik niet**, want op max level vuurt de nieuwe filter nooit. Log in op de
 **level 68** en open This Week.
 
-- [ ] **"Next up" mag geen endgame meer aanbevelen.** Halduron Brightwing hoort daar wég te zijn.
-      Verwacht in plaats daarvan je **profession-weekly** (Herbalism of Mining) — die is
-      skill-gated, niet level-gated, en dus wél echt te doen.
-      ⚠️ Staat er *"Everything on this week's list is done"* terwijl je nog dingen ziet staan? Dan is
-      de filter te streng en wil ik het horen.
-- [ ] **De teller.** Stond op *"3 of 8"*. Hoort nu lager te zijn (ik reken op **3 of 5**) met daar
-      direct onder een regel *"Er komen er nog N bij naarmate je levelt."*
+- [ ] **"Next up" mag geen endgame meer aanbevelen.** 🔴 **Bijgesteld na Robs vraag van 15:xx** —
+      eerst stond hier dat de **profession-weekly** de nieuwe kop zou worden. Dat was fout: die
+      quest is skill-gated, maar de **trainer staat in Silvermoon**, net als élke andere stop in
+      deze routine. Op een 69 hoort er nu **helemaal geen kop** te staan, maar de regel *"De
+      weekroutine speelt zich af in Silvermoon — die gaat open op level 80."*
+      ⚠️ Staat er *"Everything on this week's list is done"*? Dán is het mis — dat is precies de
+      leugen die deze regel moet voorkomen.
+- [ ] **De teller.** Stond op *"3 of 8"*. Hoort nu veel lager te zijn — op een 69 blijft er
+      vrijwel niets over dat je kunt doen — met daaronder *"Er komen er nog N bij naarmate je
+      levelt."*
+- [ ] 🔴 **De vraag die alles bepaalt en die alleen jij kunt beantwoorden: kan je 69 überhaupt in
+      Silvermoon komen?** Ik heb gemeten dat Midnight van 80 tot 90 loopt en dat élke stop in deze
+      routine op map 2393 (Silvermoon) ligt. Wat ik **niet** kan meten is of een level 69 daar via
+      een portaal of vliegroute naartoe kán. Kan het wél, dan is level 80 de verkeerde grens en
+      moet die eruit. Kan het niet, dan klopt hij.
 - [ ] **De lijst is in tweeën.** Bovenaan genummerd 1, 2, 3… **zonder gaten** (hij sprong eerst van
       7 naar 10). Daaronder een grijze kop *"Later, als je verder levelt:"* met de rest, met
       streepjes in plaats van nummers. Alles blijft klikbaar.

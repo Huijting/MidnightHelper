@@ -293,6 +293,38 @@ local function CanActAt(minLevel)
 	return AtMaxLevel()
 end
 
+--- 🔴 CAN THIS CHARACTER EVEN GET TO WHERE THE WHOLE ROUTINE HAPPENS?
+---
+--- Added 3 Sep 2026, hours after the gate above, because that gate was not enough and the
+--- reason is worth keeping: I gated on whether the QUEST was available and forgot to ask
+--- where the step SENDS you. Rob's level-69 Paladin, standing in the Azure Span on the
+--- Dragon Isles, was handed the Herbalism trainer weekly as his headline -- correct on
+--- skill (profession weeklies are skill-gated, and that was measured) and useless in
+--- practice, because the flight hint then read "Take Sanctum of Light" and he asked the
+--- obvious question nobody had: *kan die daar al heen dan, en hoe dan?*
+---
+--- 📌 MEASURED, and it is the fact that settles the whole "This Week" design: EVERY stop
+--- in this file is on map 2393, Silvermoon City -- VAULT_MAP, STATION_MAP, GIVERS_MAP,
+--- HUB_MAP and every entry in TRAINER_PINS. The weekly routine is not a list that happens
+--- to contain some endgame; it IS Midnight endgame content, all of it, in one city.
+--- Midnight's own levelling range is 80-90 (`TAB_GUIDE = "Leveling (80-90)"`).
+---
+--- ⚠️ 80 is a CONTENT fact, not an API one, and there is no call that returns an
+--- expansion's floor -- only its cap. So it is written here once, next to the evidence,
+--- instead of being spread through the file as a literal. If Blizzard moves the floor this
+--- is the single line to change.
+--- 🔴 What this does NOT establish is whether a level-69 character can physically travel
+--- to Silvermoon; that is a question about portals and flight paths, not about levels, and
+--- only Rob can answer it in the client. Until he does, the honest position is the
+--- conservative one: do not make it the headline, do not route to it, keep showing it.
+local MIDNIGHT_FLOOR_LEVEL = 80
+
+local function MidnightFloorMet()
+	local ok, lvl = pcall(UnitLevel, "player")
+	return ((ok and tonumber(lvl)) or 0) >= MIDNIGHT_FLOOR_LEVEL
+end
+ns.MidnightFloorLevel = MIDNIGHT_FLOOR_LEVEL
+
 -- "done" | "inlog" | "pickup" | "intro" | nil (unknowable)
 local function RitualState()
 	if ns.IsRitualWeeklyDone and ns.IsRitualWeeklyDone() then
@@ -626,9 +658,9 @@ function ns.GetResetRoutineSteps()
 			text = ns:L("HOME_ROUTINE_VAULT_READY"),
 			color = "warn",
 			open = true,
-			-- Rewards are already sitting in the vault: whatever level this character is,
-			-- walking over and taking them is a real action.
-			heroEligible = true,
+			-- Rewards are already sitting in the vault -- but the vault is in Silvermoon,
+			-- so "walk over and take them" still assumes you can get to Silvermoon.
+			heroEligible = MidnightFloorMet(),
 			pin = { VAULT_MAP, VAULT_X, VAULT_Y, "HOME_ROUTINE_PIN_VAULT" },
 			onClick = function()
 				RouteSingle(VAULT_MAP, VAULT_X, VAULT_Y, "HOME_ROUTINE_PIN_VAULT")
@@ -905,12 +937,15 @@ function ns.GetResetRoutineSteps()
 			steps[#steps + 1] = {
 				text = ns:L(textKey):format(prof.name),
 				color = "warn",
-				-- Profession weeklies are gated by SKILL, not by character level -- the
-				-- skill-25 branch directly above is that gate, and it was measured (a
-				-- fresh skill-1 Herbalism got nothing, a levelled alt did). So this stays
-				-- a real action while levelling, and on Rob's level 68 it is the honest
-				-- headline the giver row was stealing.
-				heroEligible = true,
+				-- 🔴 THIS LINE WAS WRONG FOR HALF A DAY AND THE MISTAKE IS INSTRUCTIVE.
+				-- It said `true`, reasoning that profession weeklies are gated by SKILL and
+				-- not by level -- which is measured and still true. But availability of the
+				-- QUEST is not the same question as reachability of the TRAINER, and every
+				-- trainer in TRAINER_PINS stands in Silvermoon. So a level-69 character on
+				-- the Dragon Isles got this as his headline and a flight hint he could not
+				-- act on. Being right about the gate you checked is no defence when you
+				-- checked the wrong gate.
+				heroEligible = MidnightFloorMet(),
 				open = true,
 				pin = { stMap, wx, wy, wPinKey, wPinArg },
 				onClick = function()

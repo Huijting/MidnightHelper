@@ -745,6 +745,7 @@ ns._mhLocales.enUS = {
 	HOME_HERO_ALL_DONE = "You're all caught up this week. Nice.",
 	HOME_HERO_PROGRESS_FMT = "%d of %d weekly things done",
 	HOME_HERO_PROGRESS_LATER_FMT = "%d more open up as you level.",
+	HOME_HERO_NONE_YET_FMT = "This week's routine happens in Silvermoon — it opens up at level %d.",
 	HOME_ROUTINE_LATER_HEADER = "Later, as you level:",
 	HOME_ROUTINE_VAULT_READY = "Great Vault: a reward is waiting — claim it at the bank (neutral wing).",
 	HOME_ROUTINE_VAULT_NONE = "Great Vault: nothing waiting to claim.",

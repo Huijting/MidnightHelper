@@ -256,6 +256,15 @@ local function BuildLayout()
 						onClick = step.onClick,
 					}
 				end
+			elseif (later or 0) > 0 and (done or 0) >= (total or 0) then
+				-- 🔴 "All done" would be a lie here, and it is the exact failure the
+				-- gating change risks: nothing is actionable, so the headline falls
+				-- through to the congratulation. Rob's level 69 has every stop in
+				-- Silvermoon out of reach -- that is not an empty week, it is a week that
+				-- has not started. Say which, and name the level, or the player is left
+				-- reading "you're finished" over a list of things they have never done.
+				line(rows, ns:L("HOME_HERO_NONE_YET_FMT"):format(ns.MidnightFloorLevel or 80),
+					COLOR_SOFT)
 			else
 				line(rows, ns:L("HOME_HERO_ALL_DONE"), COLOR_GOOD)
 			end

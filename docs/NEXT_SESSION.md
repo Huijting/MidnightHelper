@@ -79,6 +79,33 @@ levend voorbeeld van gevonden (het Vaults-blok dat Rob op geen enkel character k
 - **Een ingeklapt blok** wilden beide agenten liever dan een kopregel. Bewust niet gedaan: dat vraagt
   de collapse-machinerie erbij en vandaag is er al één layout-bug geweest die precies daar zat.
 
+### 🔴 En de eerste gate was nog niet goed: ik keek naar de quest, niet naar de bestemming
+
+Robs volgende test, inmiddels level 69 in de Azure Span op de Dragon Isles: de kop koos de
+**Herbalism-weekly**, en de vlieghint zei *"Take Sanctum of Light"*. Zijn vraag: *"kan die daar al
+heen dan, en hoe dan??"*
+
+Ik had die stap `heroEligible = true` gegeven met de redenering dat profession-weeklies **skill**-gated
+zijn en niet level-gated. Dat klopt, en het is gemeten. **Maar de beschikbaarheid van de QUEST is een
+andere vraag dan de bereikbaarheid van de TRAINER**, en ik heb de verkeerde gecontroleerd.
+
+📌 **GEMETEN, en dit feit beslecht het hele "This Week"-ontwerp:** élke stop in `ResetRoutine.lua`
+ligt op map **2393, Silvermoon City** — `VAULT_MAP`, `STATION_MAP`, `GIVERS_MAP`, `HUB_MAP` en alle
+`TRAINER_PINS`. De weekroutine is geen lijst die toevallig wat endgame bevat; **hij ís Midnight-
+endgame, in zijn geheel, in één stad.** Midnight loopt van 80 tot 90 (`TAB_GUIDE = "Leveling (80-90)"`).
+
+`MidnightFloorMet()` gate nu de vault- en trainer-stappen. ⚠️ **80 is een content-feit, geen API-feit**
+— er bestaat geen aanroep die de ondergrens van een expansie geeft, alleen de bovengrens — dus het
+staat één keer opgeschreven naast het bewijs in plaats van als los getal door het bestand.
+
+⚠️ **En "all done" zou hier een leugen zijn geworden**, precies de faalvorm waar ik Rob 's ochtends
+voor waarschuwde: niets is actievoerbaar, dus de kop viel door naar de felicitatie.
+`HOME_HERO_NONE_YET_FMT` zegt nu wát er aan de hand is en op welk level het opengaat.
+
+🔴 **Wat hiermee NIET is vastgesteld:** of een level 69 fysiek in Silvermoon kán komen. Dat gaat over
+portalen en vliegroutes, niet over levels, en alleen Rob kan het in de client meten. Kan het wél, dan
+is 80 de verkeerde grens en moet hij eruit. Staat als open vraag op de testlijst.
+
 ### 🔴 En meteen daarna: de Hearthstone werd aangeboden zonder te kijken waar hij heen gaat
 
 Robs eerste test van de nieuwe kop koos de profession-weekly — dat werkte. Maar de reis-popup bood
