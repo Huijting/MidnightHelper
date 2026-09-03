@@ -1117,6 +1117,27 @@ local function SetSMCWaypoint(point)
 		return
 	end
 
+	--- 🔴 EVERY PIN BELOW THIS LINE IS IN SILVERMOON, AND SILVERMOON OPENS AT 80.
+	--- Rob, 3 Sep 2026 on a level-69 Paladin: *"eigenlijk zou dit soort adviezen niet
+	--- moeten kunnen, tenslotte kan ik nog niet naar dat gebied want ik ben <80. toch"*.
+	--- He is right, and the first answer he got from me was too quick: I said it was not a
+	--- bug because he had clicked the pin himself. That explains why the line appeared and
+	--- excuses nothing -- an arrow and "head for Portal to Silvermoon" is still advice he
+	--- cannot act on, and it is the same mistake as the weekly headline, one screen over.
+	---
+	--- 📌 The map STAYS. Looking up where Cuzoth stands is reference, and a city guide that
+	--- goes blank below 80 would be the hiding we rejected this morning. What stops is the
+	--- ROUTE: no waypoint, no arrow, no travel plan -- and a line saying why, so that
+	--- nothing-happened cannot be mistaken for something-broke.
+	--- ⚠️ `nearest_fp` and `world_tab` above are deliberately NOT gated: one reads where you
+	--- are standing and works everywhere, the other only opens a tab.
+	if ns.MidnightFloorMet and not ns.MidnightFloorMet() then
+		if ns.PrintChatKey then
+			ns:PrintChatKey("SMC_LOCKED_FMT", ns.MidnightFloorLevel or 80)
+		end
+		return
+	end
+
 	local mapID = SMC_CITY_MAP_ID
 	point.mapID = mapID
 

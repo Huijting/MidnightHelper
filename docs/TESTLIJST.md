@@ -56,6 +56,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
       📌 `/mh portals` zegt nu onderaan waar jouw Hearthstone heen gaat en waarom hij wel of niet
       wordt aangeboden.
 
+- [ ] 🆕 **De routeknop hoort weg te zijn.** Onder de lijst stond nog *"Set TomTom route along the
+      open stops (vault, hub, station)"* — die drie liggen allemaal in Silvermoon. De stops waren al
+      gefilterd, de knop niet, dus zijn eigen label noemde precies wat je niet kunt bereiken. Nu
+      verschijnt hij alleen als er echt iets te routeren valt.
+- [ ] 🆕 **Silvermoon-tabblad: de kaart blijft, de pijl niet.** Klik weer op *Cuzoth — Item
+      Upgrades*. Verwacht **geen pijl en geen "travel back"-regel** meer, maar in chat: *"Silvermoon
+      gaat open op level %d, dus er is geen route gezet. De kaart blijft staan voor als je er wel
+      kunt komen."*
+      ⚠️ De pins zelf horen gewoon zichtbaar en klikbaar te blijven — opzoeken wáár Cuzoth staat is
+      naslag, en dat halen we niet weg. Alleen de route stopt.
+      📌 *"Nearest flight point"* is bewust **niet** gegate: die leest waar je staat en werkt overal.
+
 📌 Zie je iets raars: `/mh resetdebug`. Die print nu per stap `hero=yes / NO (out of reach)`, plus je
 level, de cap en de tally — dat is precies de toestand die ik hier niet kan bereiken.
 

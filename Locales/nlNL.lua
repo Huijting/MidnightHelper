@@ -707,6 +707,7 @@ ns._mhLocales.nlNL = {
 	HOME_HERO_PROGRESS_FMT = "%d van %d weekly-dingen gedaan",
 	HOME_HERO_PROGRESS_LATER_FMT = "Er komen er nog %d bij naarmate je levelt.",
 	HOME_HERO_NONE_YET_FMT = "De weekroutine speelt zich af in Silvermoon — die gaat open op level %d.",
+	SMC_LOCKED_FMT = "Silvermoon gaat open op level %d, dus er is geen route gezet. De kaart blijft staan voor als je er wel kunt komen.",
 	HOME_ROUTINE_LATER_HEADER = "Later, als je verder levelt:",
 	HOME_ROUTINE_VAULT_READY = "Great Vault: er wacht een beloning — claim 'm bij de bank (neutrale vleugel).",
 	HOME_ROUTINE_VAULT_NONE = "Great Vault: niets te claimen.",

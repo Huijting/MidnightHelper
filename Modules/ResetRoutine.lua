@@ -324,6 +324,12 @@ local function MidnightFloorMet()
 	return ((ok and tonumber(lvl)) or 0) >= MIDNIGHT_FLOOR_LEVEL
 end
 ns.MidnightFloorLevel = MIDNIGHT_FLOOR_LEVEL
+--- Exported 3 Sep 2026 (evening) because the city guide needed the same answer. Rob, on
+--- the level-69 Paladin, clicked a Silvermoon pin and got an arrow plus "head for Portal
+--- to Silvermoon": *"eigenlijk zou dit soort adviezen niet moeten kunnen, tenslotte kan ik
+--- nog niet naar dat gebied want ik ben <80. toch"* -- yes. That he asked for the pin
+--- explains why it appeared; it does not make routing him somewhere he cannot go correct.
+ns.MidnightFloorMet = MidnightFloorMet
 
 -- "done" | "inlog" | "pickup" | "intro" | nil (unknowable)
 local function RitualState()
@@ -1047,6 +1053,16 @@ local function ComputeOpenPins()
 		end
 	end
 	return pins
+end
+
+--- How many stops a route would actually have. Exported 3 Sep 2026 so the button can stop
+--- promising a trip it cannot make: Rob's level-69 screenshot still showed "Set TomTom
+--- route along the open stops (vault, hub, station)" under a list where every one of those
+--- three was in the "Later, as you level" group. The pins were already filtered; the
+--- button was not, so its own label named the three places he could not reach.
+function ns.CountOpenResetPins()
+	local ok, pins = pcall(ComputeOpenPins)
+	return (ok and type(pins) == "table") and #pins or 0
 end
 
 local function PinsSignature(pins)

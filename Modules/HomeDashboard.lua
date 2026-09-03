@@ -438,7 +438,13 @@ local function BuildLayout()
 						line(rows, "- " .. (st.text or ""), COLOR_DIM, st.onClick)
 					end
 				end
-				if ns.StartResetRoute then
+			-- ⚠️ Only offer the route when there is somewhere to route to. The button's own
+				-- label names "vault, hub, station" -- all three in Silvermoon -- so on a
+				-- character below 80 it advertised exactly the stops that had just been moved
+				-- into "Later, as you level". Filtering the pins without filtering the button
+				-- left the promise standing over an empty route.
+				local openStops = ns.CountOpenResetPins and ns.CountOpenResetPins() or 1
+				if ns.StartResetRoute and openStops > 0 then
 					rows[#rows + 1] = {
 						button = true,
 						text = ns:L("HOME_ROUTINE_ROUTE_BTN"),

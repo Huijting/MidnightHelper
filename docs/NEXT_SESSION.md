@@ -153,11 +153,28 @@ tegenhoudt bij het portaal. 80 is de grens waarop de *content* begint; of de *de
 wat alleen iemand die er doorheen loopt kan zeggen. Voor onze gate maakt het niet uit — wij bevelen
 het hoe dan ook niet aan — maar schrijf het niet op als bewezen.
 
-📌 **En één ding dat als bug leek en er geen is.** Robs screenshot toonde *"Cuzoth — Item Upgrades
-(other continent — travel back) head for Portal to Silvermoon"*. Dat is een **pin uit het
-Silvermoon-tabblad** (`UI.lua:811`), waar hij zelf op klikte. De addon zei precies wat hij vroeg. Een
-stadsgids raadplegen is geen aanbeveling krijgen, en het verschil is dezelfde as als hierboven:
-aanwezigheid versus advies.
+🔴 **En dat "geen bug"-antwoord van mij was te snel — Rob had gelijk.** Zijn screenshot toonde
+*"Cuzoth — Item Upgrades (other continent — travel back) head for Portal to Silvermoon"*. Ik zei: dat
+is een pin uit het Silvermoon-tabblad (`UI.lua:811`) waar hij zelf op klikte, dus werkt het. Zijn
+weerwoord: *"eigenlijk zou dit soort adviezen niet moeten kunnen, tenslotte kan ik nog niet naar dat
+gebied want ik ben <80. toch"*
+
+Ja. Dat hij erop klikte **verklaart waarom de regel verschijnt en rechtvaardigt niet dat we een pijl
+zetten** naar een gebied waar hij niet in kan. Precies dezelfde fout als de weekly-kop, één scherm
+verderop: ik keek naar wat hij vroeg in plaats van naar wat hij kan.
+
+`SetSMCWaypoint` staat nu achter `ns.MidnightFloorMet()`. 📌 **De kaart blijft** — opzoeken waar
+Cuzoth staat is naslag, en een stadsgids die onder 80 leeg wordt is precies het verbergen dat we 's
+ochtends hebben afgewezen. Wat stopt is de **route**: geen waypoint, geen pijl, geen reisplan, plus
+een regel die zegt waarom. ⚠️ *Nearest flight point* en *world_tab* zijn bewust niet gegate: de
+eerste leest waar je staat en werkt overal, de tweede opent alleen een tabblad.
+
+⚠️ **En de routeknop stond er ook nog.** Robs screenshot toonde onder de lijst nog *"Set TomTom route
+along the open stops (vault, hub, station)"* — die drie liggen allemaal in Silvermoon en stonden op
+dat moment allemaal in de *"Later"*-groep. De **pins** waren gefilterd, de **knop** niet, dus zijn
+eigen label adverteerde exact wat onbereikbaar was. `ns.CountOpenResetPins()` gate hem nu.
+📌 Het patroon van de hele dag in één zin: **een filter is pas af als élke plek die eruit put hem
+kent.** Vier keer nu — de hero, de teller, de route-pins, en de knop erboven.
 
 ### 🔴 En meteen daarna: de Hearthstone werd aangeboden zonder te kijken waar hij heen gaat
 
