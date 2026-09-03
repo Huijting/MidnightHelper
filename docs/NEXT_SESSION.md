@@ -23,12 +23,35 @@ vonden we dat"*. Uiteindelijk **GEMETEN op zijn eigen entree-scherm** (Twilight 
 
 Het is dus een **delve-modifier**, geen vaste NPC op een coördinaat. Hij verstopt zich per run.
 
-🔴 **EN WIJ TELLEN ZIJN OPBRENGST AL, ZONDER TE ZEGGEN WAAR HIJ VANDAAN KOMT.**
-`Profession.lua` print *"Shards of Dundun: %d / 8 earned this week"* (item `258901`, `Config.lua:25`)
-en `AltOverview.lua` heeft er een filter voor (*Dundun incomplete*). Nergens in de addon staat
-waaróm je die shards krijgt. De speler ziet een teller zonder oorzaak.
-⚠️ Dat de vondst een Shard oplevert is **AFGELEID** — de tooltip zegt alleen "additional rewards".
-Rob meet het als hij Dundun vindt.
+### ✅ Rob heeft de hele keten gemeten — en mijn gok was fout
+
+Ik had geraden dat de vondst een **Shard of Dundun** oplevert, op grond van de naam en die weekcap
+van 8. **Dat is het niet.** Zijn vijf screenshots, van begin tot eind:
+
+1. Dundun **vermomt zich als een decorstuk** — een prop die er net iets te vreemd uitziet
+2. Aanspreken geeft gossip: *"Would you like to revel in abundance?"* → **"Make my delve Abundantly Bountiful!"**
+3. Melding: *"Additional Bountiful Rewards Will Manifest Upon Delve Completion"*
+4. De prop verandert in een gouden wezen
+5. Aan het eind staat er **een tweede Bountiful Coffer**
+
+🔴 **EN DE PRIJS STAAT NERGENS: die tweede koffer kost een tweede Restored Coffer Key.** Robs eigen
+tooltip: `Bountiful Coffer / Locked / Restored Coffer Key 2 / 1`. Hij had er één. Dundun's aanbod is
+dus **geen gratis loot maar een ruil**, en wie het aanneemt met één sleutel op zak houdt een kist
+over die niet open kan.
+
+📌 Hij is met het blote oog niet te vinden — hij staat er als prop. De macro die Rob via YouTube
+vond, en die het probleem oplost:
+```
+/cleartarget
+/target dundun
+/ping [@target] assist
+```
+
+⚠️ **De "Shard of Dundun" is dus vermoedelijk iets ANDERS dat toevallig naar dezelfde NPC heet** —
+`Profession.lua` telt hem als beroepen-weekly (item `258901`, cap 8) en `AltOverview.lua` filtert
+erop. Niet uitgezocht hoe die twee zich verhouden; wat nu vaststaat is alleen dat de delve-modifier
+een **koffer** geeft, geen shard. Nergens in de addon staat waar die shards vandaan komen — dat blijft
+een teller zonder oorzaak.
 
 ⚠️ **En de handvatten verschillen tussen addons**: wij hangen het aan **item 258901**, Broker_MidnightEvents
 en Plumber gebruiken **currency 3376**. Beide noemen cap 8. Niet uitgezocht welke de juiste is; de
@@ -43,8 +66,21 @@ modifiers van de huidige delve uitleest**. `Knowledge.lua:383` probeert wel
 `GetTieredEntranceOptionalAffixTraitTreeID` in een sweep, puur als bestaanscontrole.
 
 📌 Dit is precies waar deze addon voor bestaat: DBM vertelt je wélke spell, Zygor wat je moet doen,
-maar niemand zegt *"deze delve heeft Dundun, ga hem zoeken want dat is extra loot"*. Kandidaat voor
-een volgende sessie, en het sluit aan op de teller die we al hebben.
+maar niemand zegt *"deze delve heeft Dundun, ga hem zoeken"* — en vooral niemand zegt **wat het
+kost**. Wij tellen de Restored Coffer Keys al (`3028`, `Delves.lua`), dus we kunnen als enige de zin
+schrijven die er werkelijk toe doet:
+
+> *"Deze delve heeft Dundun. Vind hem voor een extra Bountiful Coffer — je hebt er dan **twee**
+> sleutels voor nodig en je hebt er **één**."*
+
+Voorstel voor een volgende sessie, in deze volgorde:
+1. **De modifiers van de actieve delve uitlezen** — dat doen we nu nergens; `GetTieredEntranceOptionalAffixTraitTreeID`
+   is de kandidaat en staat al in de sweep.
+2. **De sleutelwaarschuwing**, want die is het hele punt en niemand anders geeft hem.
+3. **De macro aanbieden** als kant-en-klare regel — sluit aan op het al gebankte
+   *"handige chat-regels / snelacties"*-idee.
+⚠️ Bouw 2 niet zonder 1: een sleutelwaarschuwing voor een delve die Dundun helemaal niet heeft, is
+precies het soort zelfverzekerde onzin waar deze dag over ging.
 
 ## 🔴 3 sep (avond) — de routes: drie agenten, vier fouten, en één die geen datafout is
 
