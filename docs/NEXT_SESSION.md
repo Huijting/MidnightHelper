@@ -71,12 +71,35 @@ nieuwe regels, dus het patroon matchte ook de **raid**-entries en zette vijf ins
 **élke Season 1-boss vallen** — die dragen `seedCreatureId` ertussen. **Een patroon aanscherpen is
 niet gratis.** v3 staat andere velden toe maar verbiedt een nieuwe regel.
 
-### Wat hier NIET mee gebouwd is
+### ✅ En daarna gevuld — Rob: *"ja doe die 13 gaten maar"*
 
-De 13 gaten zijn **niet gevuld**. Dat is opzettelijk: het zijn 13 nieuwe tekstregels in 7 talen over
-gevechten die niemand hier heeft gedaan, en de dag heeft drie keer laten zien wat dat kost. Het
-rapport ligt er; het vullen is een aparte beslissing van Rob, bij voorkeur met iemand die de tier
-gelopen heeft.
+91 nieuwe regels (13 keys × 7 talen). `zygor_tips` meldt nu **0 gaten**.
+
+📌 **Twee bronnen per regel waar het kon:** het WAT uit Zygors `|grouprole`-tips, het WELKE SPELL uit
+DBM. Een `{SPELL:}`-link staat er alleen waar DBM dezelfde ability kent — `1241836` Shadowclaw Slam,
+`1246175` Entropic Unraveling, `1297630` Restless Amani, `1301118` Grasping Fangs. **Blackening
+Wounds, Dig In en Venomous Heart kennen DBM noch enige ID-bron**, dus die staan als gewone Engelse
+naam zónder link, in plaats van een nummer dat er compleet uitziet.
+
+🔴 **En de linter ving meteen een fout in mijn eigen aura-parser van vanmiddag.** `1301118` kwam
+binnen als `1 new / HARD`. Oorzaak: DBM schrijft `AddAuraSoundOption(1301118, true, -36292, …)` en
+die parent is **negatief** — een encounter-journal-sectie die DBM leent voor de optienaam, geen
+andere cast. Mijn parser eiste cijfers, gaf op, en het ID viel terug op WEAK. Een negatieve parent
+telt nu als **self**: de AURA-OF-val heeft aan de andere kant een écht spell-ID nodig. Derde
+positieve controle toegevoegd zodat het niet stil terug kan komen.
+📌 Dit is de check die precies deed waarvoor hij bestaat: hij hield een nieuw geschreven regel tegen,
+en de fout zat niet in de regel maar in het gereedschap dat hem beoordeelde.
+
+⚠️ **En één stijlfout van mezelf:** ik schreef *"Tank: …"* in de nieuwe raid-tankregels, want zo doet
+`DungeonTips` het. `RaidTips` doet dat níét — daar komt de rol uit **kleur** (`DungeonBossWindow.lua:961`)
+of een **rol-icoon** (`DungeonGuide.lua:277`). 28 regels teruggedraaid. Volg de buren in het bestand
+dat je bewerkt, niet die je het laatst gelezen hebt.
+
+🔴 **WAT DIT NIET IS.** Niemand hier heeft deze gevechten gedaan — Rob zei het met zoveel woorden
+over Ula'tek. De tekst is een getrouwe weergave van een gids die spelers volgen, geen ervaring. Dat
+is een **zwakkere basis dan de DBM-gedekte spell-ID's ernaast**, en het staat als zodanig in
+`RaidCoachData.lua` boven de tabel. Komt er ooit een melding dat een van deze regels niet klopt:
+waarschijnlijk, niet verrassend.
 
 ## ✅ 3 sep (avond) — Zygor 9.6 opnieuw gelezen: onze conclusie klopte, onze volgorde niet
 

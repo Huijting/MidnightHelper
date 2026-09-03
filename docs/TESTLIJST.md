@@ -94,6 +94,17 @@ Eén blik per boss is genoeg; je hoeft er niet heen te reizen.
       📌 Bullet 1 zei tot vandaag dat `1221637` *"de wipe"* was; het is een **knockback**. Als je
       hem ooit doet: klopt dat nu met wat er gebeurt?
 - [ ] **Een raid-boss naar keuze** — alle 28 regels zijn aangeraakt.
+- [ ] 🆕 **Zeven raid-bosses hebben er 's avonds rol-regels bij gekregen** (Averzian, Vorasius,
+      Salhadaar, Nek'zali, Vashnik, Sszorak, Ula'tek). Codex → Raids. **Ula'tek is de interessantste:
+      die had alléén een stappenregel en heeft nu tank, healer én dps.**
+      Kijk of de vier nieuwe spell-links een naam tonen: Shadowclaw Slam (Vorasius, tank), Entropic
+      Unraveling (Salhadaar, tank+healer), Restless Amani (Nek'zali, dps), Grasping Fangs (Ula'tek,
+      healer).
+      ⚠️ *Blackening Wounds*, *Dig In* en *Venomous Heart* staan er **bewust zonder link** — die kent
+      DBM niet, en een verzonnen nummer is erger dan geen nummer.
+      🔴 **En lees ze als een gids, niet als ervaring.** Deze regels komen uit Zygor; niemand hier
+      heeft deze gevechten gedaan. Zie je er ooit een die niet klopt met wat er in de pull gebeurt,
+      dan is dat precies wat we willen horen.
 
 🔴 **Wat dit NIET test.** Dat een ID een naam krijgt bewijst dat het bestaat, niet dat onze zin
 eromheen klopt. De werkwoorden komen uit DBM's audio-cues; dat is sterk, maar niemand van ons heeft

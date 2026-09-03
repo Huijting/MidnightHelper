@@ -168,15 +168,27 @@ def parse_aura(line):
     if not m:
         return None
     args = [a.strip() for a in m.group(1).split(",")]
-    if len(args) < 3 or not args[0].isdigit() or not args[2].isdigit():
+    if len(args) < 3 or not args[0].isdigit():
         return None
+    parent = args[2]
+    # 🔴 A NEGATIVE PARENT IS A JOURNAL SECTION, NOT ANOTHER CAST. DBM writes
+    #     AddAuraSoundOption(1301118, true, -36292, 1, 1, "targetyou", 2, 0)--Grasping Fangs
+    # where -36292 is an encounter-journal section id it borrows for the option's name.
+    # The first parser required digits, gave up, and the id fell through to WEAK -- which
+    # is how lint [19] flagged a brand-new Ula'tek healer line as unbacked on 3 Sep. It is
+    # not a side effect of a different spell, so it must not read as AURA-OF either:
+    # negative parent counts as SELF. The trap this distinction exists for needs a real
+    # spell id on the other side of it.
+    if not (parent.isdigit() or (parent.startswith("-") and parent[1:].isdigit())):
+        return None
+    is_self = (parent == args[0]) or parent.startswith("-")
     cue = ""
     for a in args[3:]:
         cm = CUE_RE.match(a)
         if cm:
             cue = cm.group(1)
             break
-    return args[0], args[2], cue, args[1] == "true"
+    return args[0], parent, cue, args[1] == "true", is_self
 # DBM alerts through these too. EnableAlertOptions(1230304, 610, "targetchange", ...) is
 # a real text warning with a cue; it just has no timeline timer, which is why the mod
 # says so in a comment right above it.
@@ -288,12 +300,12 @@ def scan_dbm():
                     knows = any(k in low for k in KNOWS_ONLY)
                     am = parse_aura(line)
                     if am:
-                        aura_id, parent, cue, enabled = am
+                        aura_id, parent, cue, enabled, is_self = am
                         rec = where.setdefault(aura_id, {
                             "strong": set(), "weak": set(), "noted": set(),
                             "aura": {}})
                         rec.setdefault("aura", {})[label] = (
-                            parent, cue, enabled, aura_id == parent)
+                            parent, cue, enabled, is_self)
                     for m in NUM_RE.finditer(line):
                         i = m.group(1)
                         rec = where.setdefault(i, {
@@ -402,8 +414,12 @@ def main():
     # These two are the pair the AURA-OF distinction rests on:
     #   1246753 Lightsap       parent == self, cue watchfeet  -> the ability itself
     #   1292403 Caustic Wave   parent 1292188, cue dotyou     -> the aura of ANOTHER cast
+    #   1301118 Grasping Fangs parent -36292, cue targetyou -> a JOURNAL SECTION parent,
+    #           which must still count as self; getting this wrong flagged a new and
+    #           correctly-sourced Ula'tek healer line as unbacked.
     aura_control = {"1246753": ("1246753", "watchfeet"),
-                    "1292403": ("1292188", "dotyou")}
+                    "1292403": ("1292188", "dotyou"),
+                    "1301118": ("-36292", "targetyou")}
     for i, (want_parent, want_cue) in sorted(aura_control.items()):
         got = (where.get(i) or {}).get("aura") or {}
         hit = [v for v in got.values() if v[0] == want_parent and v[1] == want_cue]

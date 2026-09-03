@@ -102,9 +102,25 @@ local RAIDS = {
 -- toont tank/healer/dps alleen als de key bestaat). never-lie: geen lege rollen.
 local TIPS = {
 	chimaerus = { steps = "RAID_BOSS_CHIMAERUS_STEPS", tank = "RAID_BOSS_CHIMAERUS_TANK", healer = "RAID_BOSS_CHIMAERUS_HEALER" },
-	averzian  = { steps = "RAID_BOSS_AVERZIAN_STEPS",  healer = "RAID_BOSS_AVERZIAN_HEALER" },
-	vorasius  = { steps = "RAID_BOSS_VORASIUS_STEPS",  healer = "RAID_BOSS_VORASIUS_HEALER" },
-	salhadaar = { steps = "RAID_BOSS_SALHADAAR_STEPS", dps = "RAID_BOSS_SALHADAAR_DPS" },
+	--- 🔴 THE ROLE LINES BELOW CAME FROM A SECOND SOURCE, 3 Sep 2026. `tools/zygor_tips.py`
+	--- compares this table against Zygor's own raid guide and found 13 roles where Zygor
+	--- writes advice and we shipped nothing at all -- Ula'tek, the current tier's final
+	--- boss, had only a steps line while Zygor had tank, healer and dps.
+	---
+	--- 📌 Two sources per line where possible: WHAT TO DO from Zygor's `|grouprole` tips,
+	--- WHICH SPELL from DBM. A {SPELL:} link appears only where DBM names the same ability
+	--- (1241836 Shadowclaw Slam, 1246175 Entropic Unraveling, 1297630 Restless Amani,
+	--- 1301118 Grasping Fangs). Blackening Wounds, Dig In and Venomous Heart are in neither
+	--- DBM nor any id source, so they stay plain English names with NO link rather than a
+	--- number chosen to look complete.
+	---
+	--- ⚠️ NOBODY HERE HAS DONE THESE FIGHTS. Rob said so plainly about Ula'tek. The wording
+	--- is a faithful rendering of a guide players follow, not a claim of experience -- and
+	--- that is a weaker footing than the DBM-backed spell ids beside it. Treat a report
+	--- that one of these is wrong as likely, not as surprising.
+	averzian  = { steps = "RAID_BOSS_AVERZIAN_STEPS",  tank = "RAID_BOSS_AVERZIAN_TANK", healer = "RAID_BOSS_AVERZIAN_HEALER", dps = "RAID_BOSS_AVERZIAN_DPS" },
+	vorasius  = { steps = "RAID_BOSS_VORASIUS_STEPS",  tank = "RAID_BOSS_VORASIUS_TANK", healer = "RAID_BOSS_VORASIUS_HEALER" },
+	salhadaar = { steps = "RAID_BOSS_SALHADAAR_STEPS", tank = "RAID_BOSS_SALHADAAR_TANK", healer = "RAID_BOSS_SALHADAAR_HEALER", dps = "RAID_BOSS_SALHADAAR_DPS" },
 	vaelgor   = { steps = "RAID_BOSS_VAELGOR_STEPS",   tank = "RAID_BOSS_VAELGOR_TANK", healer = "RAID_BOSS_VAELGOR_HEALER" },
 	vanguard  = { steps = "RAID_BOSS_VANGUARD_STEPS",  tank = "RAID_BOSS_VANGUARD_TANK" },
 	crown     = { steps = "RAID_BOSS_CROWN_STEPS" },
@@ -127,14 +143,14 @@ local TIPS = {
 	--
 	-- BuildRaidBody toont boven elke season-2-raid RAID_PRERELEASE_NOTE tot iemand dit
 	-- na 18 aug live heeft nagelopen — haal die pas weg mét een meting.
-	nekzali       = { steps = "RAID_BOSS_NEKZALI_STEPS",       tank = "RAID_BOSS_NEKZALI_TANK" },
+	nekzali       = { steps = "RAID_BOSS_NEKZALI_STEPS",       tank = "RAID_BOSS_NEKZALI_TANK", healer = "RAID_BOSS_NEKZALI_HEALER", dps = "RAID_BOSS_NEKZALI_DPS" },
 	entombedsent  = { steps = "RAID_BOSS_ENTOMBEDSENT_STEPS",  tank = "RAID_BOSS_ENTOMBEDSENT_TANK", healer = "RAID_BOSS_ENTOMBEDSENT_HEALER" },
 	lostexplorers = { steps = "RAID_BOSS_LOSTEXPLORERS_STEPS" },
-	vashnik       = { steps = "RAID_BOSS_VASHNIK_STEPS",       tank = "RAID_BOSS_VASHNIK_TANK" },
-	sszorak       = { steps = "RAID_BOSS_SSZORAK_STEPS",       tank = "RAID_BOSS_SSZORAK_TANK" },
+	vashnik       = { steps = "RAID_BOSS_VASHNIK_STEPS",       tank = "RAID_BOSS_VASHNIK_TANK", healer = "RAID_BOSS_VASHNIK_HEALER", dps = "RAID_BOSS_VASHNIK_DPS" },
+	sszorak       = { steps = "RAID_BOSS_SSZORAK_STEPS",       tank = "RAID_BOSS_SSZORAK_TANK", dps = "RAID_BOSS_SSZORAK_DPS" },
 	twinfangs     = { steps = "RAID_BOSS_TWINFANGS_STEPS",     tank = "RAID_BOSS_TWINFANGS_TANK" },
 	coiledaltar   = { steps = "RAID_BOSS_COILEDALTAR_STEPS",   healer = "RAID_BOSS_COILEDALTAR_HEALER" },
-	ulatek        = { steps = "RAID_BOSS_ULATEK_STEPS" },
+	ulatek        = { steps = "RAID_BOSS_ULATEK_STEPS",        tank = "RAID_BOSS_ULATEK_TANK", healer = "RAID_BOSS_ULATEK_HEALER", dps = "RAID_BOSS_ULATEK_DPS" },
 }
 
 --- 3D-modellen voor de acht bosses: journal-displayIDs.
