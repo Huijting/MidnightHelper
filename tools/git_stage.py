@@ -14,9 +14,8 @@ unknown, and rather than guess a fourth theory, this removes the variability its
 session's half-finished work. Naming files stays mandatory -- they just move from the
 command line into stage.txt.
 
-Usage: write one repo-relative path per line to <scratchpad>/stage.txt, then run either
-  python tools/git_stage.py <path to that stage.txt>     (preferred -- explicit)
-  python tools/git_stage.py                              (finds the newest one)
+Usage: write one repo-relative path per line to <scratchpad>/stage.txt, then run
+  python tools/git_stage.py          -- NO ARGUMENTS, EVER. See resolve_list().
 Blank lines and #-comments are ignored.
 
 🔴 THE FALLBACK USED TO BE A HARDCODED SESSION UUID, AND ON 2 SEP 2026 IT STAGED THE WRONG
@@ -44,9 +43,24 @@ SCRATCH_ROOT = os.path.join(
 
 
 def resolve_list():
-    """Return (path, how) for the stage.txt to use."""
+    """Return (path, how) for the stage.txt to use.
+
+    🔴 THE COMMAND-LINE ARGUMENT IS GONE AGAIN, AND THAT IS THE WHOLE POINT OF THIS FILE.
+    On the morning of 3 Sep the hardcoded-session-id fallback was replaced by "pass the
+    path as argv[1]" -- which reads like an improvement and destroyed the one property
+    this tool exists for. The allowlist carries `Bash(python ".../git_stage.py")` with NO
+    trailing wildcard, so the moment an argument is added the command stops matching and
+    Rob is prompted on every single stage. He was, about ten times that day, and it was
+    the second thing on his list when he asked why the prompts were back.
+
+    ⚠️ So: never accept a path here. The newest stage.txt on disk is found instead, which
+    handles the multi-session case the hardcoded id got wrong without changing the
+    command string. If argv carries something anyway, say so loudly rather than using it.
+    """
     if len(sys.argv) > 1:
-        return os.path.abspath(sys.argv[1]), "given on the command line"
+        print("⚠️  ignoring the argument %r: this tool must stay argument-free or the\n"
+              "    allowlist stops matching and every run prompts. Using the newest\n"
+              "    stage.txt on disk instead." % sys.argv[1])
     env = os.environ.get("CLAUDE_SCRATCHPAD")
     if env:
         p = os.path.join(env, "stage.txt")

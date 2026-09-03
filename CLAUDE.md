@@ -168,7 +168,25 @@ De rest van dit hoofdstuk is geen stijladvies maar de enige werkende oplossing.
   `cd "<map>"` als een **los** commando (die staan exact in de allowlist), daarna kale
   commando's.
 - **Geen `python - <<'PY'` en geen `python -c "..."`.** Schrijf het script met de Write-tool
-  naar de scratchpad en draai het als `python <pad>`. Dat pad staat in de allowlist.
+  naar de scratchpad en draai het via de voordeur:
+  ```
+  python "<repo>/tools/_probe.py" scratch <naam>
+  ```
+  🔴 **DEZE REGEL ZEI TOT 3 SEP 2026 IETS ONWAARS**, namelijk *"draai het als `python <pad>`,
+  dat pad staat in de allowlist"*. **GEMETEN: dat pad staat er niet in.**
+  `.claude/settings.json` heeft voor de Temp-map alleen `Read()` en `Write()` en **geen enkele
+  `Bash`-regel** — dus elk los script vroeg toestemming, bij élke run. Op 3 sep kostte dat Rob
+  zo'n vijftien prompts in één dag, en de instructie die het veroorzaakte was juist degene die
+  zei dat het veilig was.
+  ⚠️ **Een onjuiste regel is erger dan een ontbrekende.** Een ontbrekende laat je kijken; een
+  onjuiste maakt je zeker.
+- 🔴 **GEEF `git_stage.py` NOOIT EEN ARGUMENT.** De regel is
+  `Bash(python ".../git_stage.py")` **zonder** ster, dus zodra er een pad achter staat matcht
+  hij niet meer. Op de ochtend van 3 sep is dat argument toegevoegd als "verbetering" van een
+  hardcoded sessie-id, en het brak precies de eigenschap waarvoor dit bestand bestaat: ~10
+  prompts diezelfde dag. Hij zoekt zelf de nieuwste `stage.txt`.
+- ⚠️ **En dat geldt voor élk allowlist-item zonder ster.** Kijk vóór je een tool uitbreidt of
+  zijn regel een `*` heeft; zo niet, dan is een extra argument een prompt.
 - **Geen `git commit -m` met een heredoc.** Schrijf de tekst naar `scratchpad/msg.txt` en
   gebruik `git commit -F <pad>`.
 - **Geen `&&` of `;` om stappen te koppelen** die ook los kunnen. Aparte tool-calls zijn
