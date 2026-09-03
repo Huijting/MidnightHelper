@@ -265,6 +265,34 @@ local function AtMaxLevel()
 	return ((UnitLevel and UnitLevel("player")) or 0) >= cap
 end
 
+--- 🔴 CAN THIS CHARACTER ACT ON A STEP WITH THIS LEVEL REQUIREMENT?
+---
+--- Rob, 3 Sep 2026, on a level-68 Paladin: "onze MH laat dingen zien die we nog helemaal
+--- niet kunnen doen". He was right, and the cause was one operator. `GetNextWeeklyAction`
+--- promoted the first step where `s.heroEligible ~= false` -- eligible unless it says no --
+--- and only two of the eleven step constructors in this file ever said no. So a weekly
+--- giver became the Home headline with a "Take me there" button on a level 68.
+---
+--- 📌 THE DISTINCTION THAT MATTERS, and it is the whole design: presence is a MAP, the
+--- headline and its route button are a RECOMMENDATION. Showing an endgame weekly in the
+--- list teaches a levelling player what the week looks like. Recommending it spends their
+--- actual flight time on a quest giver with nothing to offer -- and, per CLAUDE.md, leaves
+--- them unable to tell a wrong addon from their own mistake.
+---
+--- ⚠️ A nil minLevel does NOT mean "any level". It means NOBODY MEASURED IT. Halduron
+--- carries `minLevel = nil` deliberately (see the note at GIVER_WEEKLIES) because a
+--- level-80 warlock was offered his levelling variant 95468 on 11 Jun -- but level 68 was
+--- never tested, and two of his three quests are max-level dungeon weeklies. So at max
+--- level an unmeasured requirement is harmless, and below it costs the headline and keeps
+--- the row. Unknown should lose you the recommendation, never the information.
+local function CanActAt(minLevel)
+	if minLevel then
+		local ok, lvl = pcall(UnitLevel, "player")
+		return ((ok and tonumber(lvl)) or 0) >= minLevel
+	end
+	return AtMaxLevel()
+end
+
 -- "done" | "inlog" | "pickup" | "intro" | nil (unknowable)
 local function RitualState()
 	if ns.IsRitualWeeklyDone and ns.IsRitualWeeklyDone() then
@@ -598,6 +626,9 @@ function ns.GetResetRoutineSteps()
 			text = ns:L("HOME_ROUTINE_VAULT_READY"),
 			color = "warn",
 			open = true,
+			-- Rewards are already sitting in the vault: whatever level this character is,
+			-- walking over and taking them is a real action.
+			heroEligible = true,
 			pin = { VAULT_MAP, VAULT_X, VAULT_Y, "HOME_ROUTINE_PIN_VAULT" },
 			onClick = function()
 				RouteSingle(VAULT_MAP, VAULT_X, VAULT_Y, "HOME_ROUTINE_PIN_VAULT")
@@ -627,6 +658,9 @@ function ns.GetResetRoutineSteps()
 				text = ns:L("HOME_ROUTINE_GIVER_TURNIN_FMT"):format(def.name),
 				color = "warn",
 				open = true,
+				-- The quest is in this character's log and finished. Whatever the level
+				-- requirement was, they already met it -- handing in is always actionable.
+				heroEligible = true,
 				pin = pin,
 				onClick = def.pin and function()
 					RouteSingle(pin[1], pin[2], pin[3], pin[4])
@@ -660,6 +694,9 @@ function ns.GetResetRoutineSteps()
 				text = ns:L(def.pickupKey or "HOME_ROUTINE_GIVER_PICKUP_FMT"):format(def.name),
 				color = "warn",
 				open = true, -- routing exclusion after you've visited is handled generically
+				-- This is the line that put Halduron in a level 68's headline. A giver with
+				-- no measured minLevel is not "fine at any level", it is unmeasured.
+				heroEligible = CanActAt(def.minLevel),
 				pin = pin,
 				onClick = def.pin and function()
 					RouteSingle(pin[1], pin[2], pin[3], pin[4])
@@ -679,6 +716,9 @@ function ns.GetResetRoutineSteps()
 			color = "soft",
 			-- Only carry the route pin here when no tracked giver already does.
 			open = not anyGiverOpen or nil,
+			-- We do not know what these givers offer, let alone at what level. That is
+			-- exactly the case that must not become a recommendation while levelling.
+			heroEligible = AtMaxLevel(),
 			pin = { GIVERS_MAP, GIVERS_X, GIVERS_Y, "HOME_ROUTINE_PIN_GIVERS" },
 			onClick = giversRoute,
 		}
@@ -828,6 +868,8 @@ function ns.GetResetRoutineSteps()
 				text = ns:L("HOME_ROUTINE_TRAINER_TURNIN_FMT"):format(prof.name),
 				color = "warn",
 				open = true,
+				-- In the log and finished: already proven reachable by this character.
+				heroEligible = true,
 				pin = { stMap, wx, wy, wPinKey, wPinArg },
 				onClick = function()
 					RouteSingle(stMap, wx, wy, wPinKey, wPinArg)
@@ -863,6 +905,12 @@ function ns.GetResetRoutineSteps()
 			steps[#steps + 1] = {
 				text = ns:L(textKey):format(prof.name),
 				color = "warn",
+				-- Profession weeklies are gated by SKILL, not by character level -- the
+				-- skill-25 branch directly above is that gate, and it was measured (a
+				-- fresh skill-1 Herbalism got nothing, a levelled alt did). So this stays
+				-- a real action while levelling, and on Rob's level 68 it is the honest
+				-- headline the giver row was stealing.
+				heroEligible = true,
 				open = true,
 				pin = { stMap, wx, wy, wPinKey, wPinArg },
 				onClick = function()
@@ -894,25 +942,49 @@ end
 ---
 --- "dim" steps (level-locked givers, weeklies we cannot track yet) are left out of the
 --- tally: counting them would make "3 of 10" a total you can never reach.
---- @return step|nil, done(number), total(number)
+---
+--- 🔴 TWO FIXES, 3 Sep 2026, both from one level-68 screenshot.
+---
+--- 1. THE HERO NOW FAILS CLOSED. It was `s.heroEligible ~= false` -- eligible unless the
+---    step objected -- and only 2 of the 11 step constructors ever objected. Now a step
+---    must claim `== true`. The consequence is deliberate: a step nobody annotated loses
+---    the headline instead of silently claiming it, so the next weekly added to this file
+---    cannot repeat the bug by omission. It keeps its row either way.
+---
+--- 2. THE TALLY COUNTS WHAT YOU CAN DO. It excluded only `dim`, which meant Rob's "3 of 8"
+---    counted the Ritual Sites and Void Assaults steps -- the two this very file had just
+---    marked endgame-only for the headline. The knowledge existed and was applied to the
+---    headline but not to the number underneath it. A denominator you cannot reach is not
+---    progress, it is a standing accusation of being behind.
+---
+--- ⚠️ `done` still counts every finished step, including ones this character could not
+--- start today. That is on purpose: an account-wide weekly that reads done IS done, and
+--- subtracting it would make the number go backwards on an alt.
+--- @return step|nil, done(number), total(number), later(number)
 function ns.GetNextWeeklyAction()
 	local ok, steps = pcall(ns.GetResetRoutineSteps)
 	if not ok or type(steps) ~= "table" then
-		return nil, 0, 0
+		return nil, 0, 0, 0
 	end
-	local hero, done, total = nil, 0, 0
+	local hero, done, total, later = nil, 0, 0, 0
 	for _, s in ipairs(steps) do
-		if s.color ~= "dim" then
+		if s.color == "dim" or s.heroEligible == false then
+			-- Out of this character's reach today. Counted separately so the UI can say
+			-- how many are waiting rather than quietly shrinking the list.
+			if s.color ~= "good" then
+				later = later + 1
+			end
+		else
 			total = total + 1
 			if s.color == "good" then
 				done = done + 1
 			end
 		end
-		if not hero and s.open and s.heroEligible ~= false then
+		if not hero and s.open and s.heroEligible == true then
 			hero = s
 		end
 	end
-	return hero, done, total
+	return hero, done, total, later
 end
 
 -- Open stops, routine order, duplicate coordinates (ritual + void share the
@@ -924,7 +996,12 @@ local function ComputeOpenPins()
 		return pins
 	end
 	for _, step in ipairs(steps) do
-		if step.open and step.pin then
+		-- 🔴 The route is a recommendation too, and it was the biggest one. Until 3 Sep
+		-- this tested `step.open and step.pin` only, so "Start route" happily sent a
+		-- level-68 character through the endgame Bazaar hub and named the stops in chat.
+		-- Fixing the headline alone would have left the more expensive version of the same
+		-- wrong answer in place -- one that costs a whole flight path, not one hop.
+		if step.open and step.pin and step.heroEligible ~= false then
 			local key = table.concat({ step.pin[1], step.pin[2], step.pin[3] }, ":")
 			-- Skip stops you've already visited this route (dwelled at / accepted there)
 			-- so the arrow tours each stop once and never sticks on an unfinished one.
@@ -1253,13 +1330,29 @@ function ns.ResetRouteDebug()
 	for _, def in ipairs(GIVER_WEEKLIES) do
 		p(("giver %s -> %s"):format(tostring(def.name), tostring(GiverState(def))))
 	end
+	-- 🔴 PRINT WHY A STEP WAS PASSED OVER, not just that it was. Since 3 Sep a step can be
+	-- open, carry a pin, and still be skipped for the headline and the route because this
+	-- character cannot act on it. From outside, correct filtering and a broken data table
+	-- look identical -- and the person who signs this off plays at max level, where the
+	-- filter never fires. So the state he cannot reach has to be readable here.
+	p(("cap=%s playerLevel=%s atMax=%s"):format(
+		tostring(ns.GetDelveCapLevel and select(2, pcall(ns.GetDelveCapLevel))),
+		tostring(UnitLevel and UnitLevel("player")), tostring(AtMaxLevel())))
 	local okSteps, steps = pcall(ns.GetResetRoutineSteps)
 	if okSteps and type(steps) == "table" then
 		for i, s in ipairs(steps) do
 			local pin = s.pin and ("[%s %s,%s]"):format(tostring(s.pin[1]), tostring(s.pin[2]), tostring(s.pin[3])) or "-"
-			p(("step %d open=%s pin=%s | %s"):format(i, tostring(s.open and true or false), pin, tostring(s.text)))
+			local hero = (s.heroEligible == true and "yes")
+				or (s.heroEligible == false and "NO (out of reach)")
+				or "n/a"
+			p(("step %d open=%s hero=%s color=%s pin=%s | %s"):format(
+				i, tostring(s.open and true or false), hero, tostring(s.color), pin, tostring(s.text)))
 		end
 	end
+	local hero, done, total, later = ns.GetNextWeeklyAction()
+	p(("tally: %s of %s doable, %s waiting on level | headline = %s"):format(
+		tostring(done), tostring(total), tostring(later),
+		hero and tostring(hero.text) or "(none)"))
 	local pins = ComputeOpenPins()
 	local labels = {}
 	for _, pin in ipairs(pins) do

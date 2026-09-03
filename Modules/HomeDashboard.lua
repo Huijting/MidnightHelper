@@ -242,7 +242,7 @@ local function BuildLayout()
 	-- this character may act on. No section key => it can never be collapsed away.
 	if ns.GetNextWeeklyAction then
 		addFull(function(rows)
-			local ok, step, done, total = pcall(ns.GetNextWeeklyAction)
+			local ok, step, done, total, later = pcall(ns.GetNextWeeklyAction)
 			if not ok then
 				return
 			end
@@ -261,6 +261,13 @@ local function BuildLayout()
 			end
 			if (total or 0) > 0 then
 				line(rows, ns:L("HOME_HERO_PROGRESS_FMT"):format(done or 0, total), COLOR_DIM)
+			end
+			-- ⚠️ Say the number out loud rather than letting the denominator quietly shrink.
+			-- The tally now counts only what this character can do, which is right -- but a
+			-- number that silently changed meaning is its own small lie, and a levelling
+			-- player deserves to know the rest of the week exists and is waiting.
+			if (later or 0) > 0 then
+				line(rows, ns:L("HOME_HERO_PROGRESS_LATER_FMT"):format(later), COLOR_DIM)
 			end
 		end)
 	end
@@ -385,12 +392,42 @@ local function BuildLayout()
 			local colorMap = { good = COLOR_GOOD, warn = COLOR_WARN, soft = COLOR_SOFT, dim = COLOR_DIM, prog = COLOR_PROG }
 			addFull(function(rows)
 				header(rows, ns:L("HOME_ROUTINE_HEADER"))
-				for i, st in ipairs(steps) do
+				-- 🔴 TWO GROUPS, 3 Sep 2026. Rob's level-68 Paladin saw eleven numbered
+				-- lines of which six were endgame, and the numbering ran 1,2,3,4,5,6,7,10,11
+				-- because it used the raw array index while ticked rows showed a tick. So
+				-- the list looked both unreachable AND miscounted.
+				--
+				-- 📌 Demoted, NOT hidden -- this is the line the whole design turns on. A
+				-- levelling player who opens This Week to a near-empty panel concludes the
+				-- addon is broken, not that it filtered correctly; and a hidden row is
+				-- indistinguishable from a bug that nobody at max level can ever reproduce
+				-- (CLAUDE.md: standing down on purpose and being broken look identical from
+				-- outside). Seeing the endgame week laid out is also the thing this addon is
+				-- actually for. So: still there, still readable, just no longer pretending
+				-- to be your queue.
+				local now, later = {}, {}
+				for _, st in ipairs(steps) do
+					if st.color == "dim" or st.heroEligible == false then
+						later[#later + 1] = st
+					else
+						now[#now + 1] = st
+					end
+				end
+				for i, st in ipairs(now) do
 					-- A tick for what is finished, the running number for what is not, so
 					-- done-vs-todo is scannable and the list visibly shrinks as the week
 					-- fills up. (Unicode ticks render as boxes in the WoW fonts.)
 					local prefix = (st.color == "good") and (ICON_DONE .. " ") or ("%d. "):format(i)
 					line(rows, prefix .. (st.text or ""), colorMap[st.color] or COLOR_DIM, st.onClick)
+				end
+				if #later > 0 then
+					line(rows, ns:L("HOME_ROUTINE_LATER_HEADER"), COLOR_DIM)
+					for _, st in ipairs(later) do
+						-- Deliberately unnumbered: a number reads as a queue position, and
+						-- these are not in the queue. The click still works -- someone who
+						-- wants to go look at what is coming should not be told no.
+						line(rows, "- " .. (st.text or ""), COLOR_DIM, st.onClick)
+					end
 				end
 				if ns.StartResetRoute then
 					rows[#rows + 1] = {

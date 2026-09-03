@@ -7,6 +7,35 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 3 sep — This Week op je level-68 Paladin (ONGETEST)
+
+🔴 **Dit kun jij testen en ik niet**, want op max level vuurt de nieuwe filter nooit. Log in op de
+**level 68** en open This Week.
+
+- [ ] **"Next up" mag geen endgame meer aanbevelen.** Halduron Brightwing hoort daar wég te zijn.
+      Verwacht in plaats daarvan je **profession-weekly** (Herbalism of Mining) — die is
+      skill-gated, niet level-gated, en dus wél echt te doen.
+      ⚠️ Staat er *"Everything on this week's list is done"* terwijl je nog dingen ziet staan? Dan is
+      de filter te streng en wil ik het horen.
+- [ ] **De teller.** Stond op *"3 of 8"*. Hoort nu lager te zijn (ik reken op **3 of 5**) met daar
+      direct onder een regel *"Er komen er nog N bij naarmate je levelt."*
+- [ ] **De lijst is in tweeën.** Bovenaan genummerd 1, 2, 3… **zonder gaten** (hij sprong eerst van
+      7 naar 10). Daaronder een grijze kop *"Later, als je verder levelt:"* met de rest, met
+      streepjes in plaats van nummers. Alles blijft klikbaar.
+- [ ] **De "Start route"-knop.** Die stuurde je door de endgame Bazaar-hub. Nu hoort hij alleen
+      langs stops te gaan die je op level 68 echt kunt doen — en zegt hij *"Nothing open to route
+      to"* als er niets overblijft, wat een geldige uitkomst is.
+- [ ] 🔴 **De meting die alleen jij kunt doen:** loop naar **Halduron Brightwing** bij de vault en
+      kijk of hij je op level 68 **iets aanbiedt**. Wij weten alleen dat een level 80 zijn
+      level-variant kreeg (`95468`); 68 is nooit getest. Biedt hij iets aan → hij hoort geen
+      level-eis te krijgen. Biedt hij niets aan → dan weten we eindelijk zijn echte `minLevel`.
+- [ ] **Niets veranderd op level 90?** Log daarna op een max-level character in: kop, teller, lijst
+      en route horen er **exact hetzelfde** uit te zien als vanmorgen. Dit mag alleen onder max
+      level iets doen.
+
+📌 Zie je iets raars: `/mh resetdebug`. Die print nu per stap `hero=yes / NO (out of reach)`, plus je
+level, de cap en de tally — dat is precies de toestand die ik hier niet kan bereiken.
+
 ## 🆕 3 sep — de nieuwe spell-ID's uit DBM moeten in het spel een náám worden (ONGETEST)
 
 Vandaag zijn er tips herschreven met ID's die uit DBM komen in plaats van uit datamining: alle 28

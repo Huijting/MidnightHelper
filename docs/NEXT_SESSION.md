@@ -13,6 +13,82 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## 🔴 3 sep — de Home-kop beval endgame aan op een level 68, en het was één operator
+
+Rob, op een level-68 Paladin: *"onze MH laat dingen zien die we nog helemaal niet kunnen doen
+(toch??)"*. Ja. Vier agenten erop gezet — één die alleen mat, twee die het oneens moesten zijn, één
+die de andere ~50 addons afliep — en alle vier kwamen op dezelfde eerste prioriteit uit.
+
+**De oorzaak, gemeten:** `ResetRoutine.lua:911` koos de kop met `s.open and s.heroEligible ~= false`
+— hero-waardig **tenzij** een stap nee zegt. Van de elf stap-constructors in dat bestand zei er
+**twee** nee (Ritual Sites, Void Assaults). De rest was hero-waardig op elk level. Zo werd Halduron
+Brightwing de kop op level 68, mét een "Take me there"-knop.
+
+### 📌 De scheidslijn waar alles om draait
+
+> **Aanwezigheid is een kaart. De kop en elke routeknop zijn een aanbeveling.**
+
+Een endgame-weekly in de lijst *tónen* leert een levelende speler hoe de week eruitziet — precies
+waar deze addon voor bestaat. Hem *aanbevelen* kost die speler een echte vlucht naar een NPC zonder
+uitroepteken, waar hij niet kan zien of de addon fout zit of hijzelf.
+
+⚠️ **Daarom is verbergen afgewezen**, hoewel dat de eerste ingeving was. Een level 68 die This Week
+opent en een leeg paneel ziet concludeert niet "netjes gefilterd" maar "kapot" — en een verborgen
+regel is niet te onderscheiden van een bug die niemand op max level ooit kan reproduceren. Dat is
+letterlijk de regel uit `CLAUDE.md` waar `/mh arrow` voor bestaat, en we hebben er vanmorgen nog een
+levend voorbeeld van gevonden (het Vaults-blok dat Rob op geen enkel character kan bereiken).
+
+### ✅ Wat er gebouwd is
+
+1. **`heroEligible` faalt nu dicht.** `== true` in plaats van `~= false`, en elke open stap zegt
+   zelf wat hij weet. Een stap die niemand annoteert verliest voortaan de kop in plaats van hem
+   stilzwijgend op te eisen — de volgende weekly kan deze bug dus niet herhalen dóór vergeetachtigheid.
+2. **`CanActAt(minLevel)`** — en het addertje zit in `nil`. Dat betekent **niet** "op elk level goed"
+   maar "niemand heeft het gemeten". Halduron draagt `minLevel = nil` met opzet (een level-80 warlock
+   kreeg zijn level-variant `95468` op 11 jun) — maar **level 68 is nooit getest**, en twee van zijn
+   drie quests zijn max-level dungeon-weeklies. Op max level is een ongemeten eis onschadelijk;
+   daaronder kost hij de aanbeveling en behoudt hij de regel.
+3. **De teller telt wat je kunt doen.** Hij sloot alleen `dim` uit, waardoor Robs "3 of 8" de Ritual-
+   en Void-stappen meetelde — de twee die hetzelfde bestand tien regels eerder als endgame markeert.
+   De kennis was er, en werd toegepast op de kop maar niet op het getal eronder.
+   📌 `done` blijft álles tellen wat af is, ook wat dit character vandaag niet kon starten: een
+   account-wide weekly die af is, ís af, en aftrekken zou het getal op een alt laten dalen.
+4. **De "Start route"-knop deed het ook.** `ComputeOpenPins` testte alleen `open and pin`, dus die
+   stuurde een level 68 dwars door de endgame Bazaar-hub en noemde de stops in chat. Alleen de kop
+   repareren had de dúúrdere versie van dezelfde fout laten staan.
+5. **Twee groepen in de lijst** — het actievoerbare deel genummerd 1..n (de nummering liep eerst
+   1,2,3,4,5,6,7,10,11 omdat hij de rauwe array-index gebruikte), daaronder *"Later, als je verder
+   levelt:"* met de rest, klikbaar maar ongenummerd. Een nummer leest als een plek in de rij.
+6. **`/mh resetdebug` zegt nu waaróm** een stap is overgeslagen (`hero=NO (out of reach)`), plus cap,
+   level en de tally. Verplicht, want de filter vuurt nooit op Robs eigen max-level characters.
+
+### ⚠️ Wat hier NIET mee opgelost is
+
+- **`CHANGELOG_260_3` (`enUS.lua:1890`) belooft al sinds 2.6.0:** *"While you are levelling it never
+  points you at endgame content you cannot do yet."* Die zin was onwaar en is nu grotendeels waar
+  gemaakt — maar hij is nooit ingetrokken toen hij het níét was. Rob beslist of hij blijft staan.
+- 🔴 **Halduron op level 68 is nog steeds ongemeten.** Wij weten alleen dat een level 80 zijn
+  level-variant kreeg. Of een 68 daar iets krijgt kan alleen Rob vaststellen door erheen te lopen.
+  Zolang dat niet gemeten is, is `minLevel = nil` het eerlijkste dat we hebben — het kost hem nu de
+  kop, niet zijn regel.
+- **`ns.GetDelveCapLevel()` valt terug op een hardgecodeerde `80`** (`DelveWeeklyTrackers.lua:248`),
+  drie niveaus diep ná twee API's. ⚠️ Een agent meldde dit als *"dus elk character van 80-89 telt als
+  max level"* — **dat klopt niet zoals het er stond**: die val-terug vuurt alleen als beide API's
+  falen. Het is een verouderde valstrik die stil de verkeerde kant op faalt, geen bewezen actieve bug.
+  Niet aangeraakt; het waard om bij te werken naar 90 of te laten falen in plaats van te gokken.
+- **Een ingeklapt blok** wilden beide agenten liever dan een kopregel. Bewust niet gedaan: dat vraagt
+  de collapse-machinerie erbij en vandaag is er al één layout-bug geweest die precies daar zat.
+
+### 📎 Wat de andere addons doen (gemeten, geen consensus geforceerd)
+
+Het splitst per soort UI, niet per smaak. **Inhoudslijsten tonen het in rood mét de eis** — Zygor
+zet *"Required level: 90"* in rood en verbergt zo'n gids nóóit; de HandyNotes-familie zet "toon
+ontoegankelijk" zelfs **standaard aan**. **Score- en rostersystemen zwijgen** (RaiderIO, DBM
+Keystones). Eén addon verbergt een weekly-regel, en die is mogelijk van dezelfde schrijver als wij —
+dus geen onafhankelijke stem, en te weinig om een conventie op te bouwen.
+📌 Eén gewoonte is het overnemen waard en nu nog niet gedaan: **rood = nog niet, grijs = voorbij.**
+Wij gebruiken grijs voor allebei.
+
 ## 🔴 3 sep — 31 van onze 105 raid-spell-ID's houden geen stand tegen DBM
 
 Rob liep een encounter op de Coiled Isle en snapte niets van onze aanwijzingen. Ula'tek met de hand
