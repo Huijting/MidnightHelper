@@ -13,6 +13,47 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## ✅ 3 sep (avond) — Zygor 9.6 opnieuw gelezen: onze conclusie klopte, onze volgorde niet
+
+Rob vroeg de addon-updates na te lopen; Zygor had die middag een nieuwe build gezet (gidsbestanden
+gestempeld 18:59) en meldde iets over Ula'tek.
+
+**1. `A Toxic Tour` — classificatie bevestigd, met beter bewijs dan we hadden.** `98515` staat nu
+**zes keer** in `ZygorDailiesCommonMID.lua`, waar het op 2 sep nul keer stond. Dat lijkt een
+ommekeer en is het niet: de échte dailies beginnen in dat bestand pas bij `label
+"Begin_Daily_Quests"`, en die lijst noemt acht ID's — `96644, 96640, 96643, 98420, 98419, 96641,
+96642, 96639`. 98515 zit er niet bij. Het staat in de **intro-keten** die de gids ervóór doorloopt.
+📌 Precies de val van 2 sep, één laag dieper: *"het staat in het dailies-bestand"* was toen waar en
+betekende niets, en is nu opnieuw waar en betekent nog steeds niets.
+
+🔴 **2. Maar de SPEELVOLGORDE klopte niet, en dat is nu gerepareerd.** Zygors gids:
+98388 inleveren → **97640 én 98515 samen aannemen** → 97640 inleveren, 98428 aannemen → 98428
+inleveren → dan pas 98515 inleveren, na vier `stickystart`-objectives. Dus 98515 wordt **als tweede
+opgepakt en als laatste ingeleverd**; wij zetten hem op plek 3. Een speler die de keten juist volgt
+zag stap 4 groen worden terwijl stap 3 open bleef — een checklist die er kapot uitziet juist wanneer
+je hem goed doet. Chain is nu `98388 → 97640 → 98428 → 98515`.
+⚠️ Zygors eigen `QuestDBData.lua` draagt **beide** volgordes in verschillende rijen en kan het dus
+niet alleen beslechten. De gids is de speelvolgorde en is eenduidig. Spreekt een bron zichzelf tegen,
+neem dan het deel dat beschrijft hoe je het dóét.
+
+**3. Ula'tek: Zygor bevestigt onze bewuste WEAK.** Zijn raid-gids (`kill Ula'tek##268956`, patch
+120100) zegt *"Split into two groups for phase 2 to soak Spectral Coils"*. Onze regel zegt soak
+`1300530` maar niet met `1300685` erop, en DBM's commentaar bij `1300685` zegt *"can't soak Spectral
+Coils"*. **Twee onafhankelijke bronnen, hetzelfde antwoord** — dat ene twijfelgeval in de baseline is
+extern bevestigd.
+
+⚠️ **OPEN, en bewust niet gebouwd:** dezelfde gids zegt *"Run opposite of the wing that is pulled
+back for Caustic Waves"* (= `1292188`, dat wij alleen *"a raid-damage window"* noemen) en *"Grab the
+eggs on the pull and keep them away from anything green"*, wat wij helemaal niet noemen. Rob kent
+deze fight niet (*"ik weet niets meer van die fight sorry"*), dus niemand hier kan het verifiëren.
+Raid-strategie in 7 talen uitrollen op gezag van één gids is precies wat deze dag drie keer heeft
+afgestraft. Ligt klaar zodra er iemand is die het gedaan heeft.
+
+📌 **En de grotere vondst: Zygor heeft per-rol strategie voor élke raid-boss en wij gebruiken die
+niet.** `tip_audit` kijkt alleen naar DBM, en DBM geeft ID's en cues maar niet wat een speler moet
+DOEN. Zygor geeft precies dat, lokaal en machinaal leesbaar — dezelfde eis waaraan MythicDungeonTools
+voldeed. Kandidaat voor een tweede bron in de audit.
+
 ## 🔴 3 sep — de Home-kop beval endgame aan op een level 68, en het was één operator
 
 Rob, op een level-68 Paladin: *"onze MH laat dingen zien die we nog helemaal niet kunnen doen
@@ -102,9 +143,21 @@ staat één keer opgeschreven naast het bewijs in plaats van als los getal door 
 voor waarschuwde: niets is actievoerbaar, dus de kop viel door naar de felicitatie.
 `HOME_HERO_NONE_YET_FMT` zegt nu wát er aan de hand is en op welk level het opengaat.
 
-🔴 **Wat hiermee NIET is vastgesteld:** of een level 69 fysiek in Silvermoon kán komen. Dat gaat over
-portalen en vliegroutes, niet over levels, en alleen Rob kan het in de client meten. Kan het wél, dan
-is 80 de verkeerde grens en moet hij eruit. Staat als open vraag op de testlijst.
+✅ **De grens is diezelfde avond bevestigd, en niet door ons.** Rob: *"er staat vast ergens online
+vanaf wanneer je daar naartoe kan?!?"* Ja: Blizzards eigen aankondiging en twee gidsen zeggen dat
+**Eversong Woods opengaat op level 80** en dat Midnight van 80 tot 90 loopt met Silvermoon als hub.
+Dat is een derde bron naast onze eigen `TAB_GUIDE = "Leveling (80-90)"` en Robs scherm. `MIDNIGHT_FLOOR_LEVEL = 80` staat.
+
+⚠️ **Nog steeds niet gemeten, en het is een andere vraag:** of het spel een level 69 fysiek
+tegenhoudt bij het portaal. 80 is de grens waarop de *content* begint; of de *deur* dichtzit is iets
+wat alleen iemand die er doorheen loopt kan zeggen. Voor onze gate maakt het niet uit — wij bevelen
+het hoe dan ook niet aan — maar schrijf het niet op als bewezen.
+
+📌 **En één ding dat als bug leek en er geen is.** Robs screenshot toonde *"Cuzoth — Item Upgrades
+(other continent — travel back) head for Portal to Silvermoon"*. Dat is een **pin uit het
+Silvermoon-tabblad** (`UI.lua:811`), waar hij zelf op klikte. De addon zei precies wat hij vroeg. Een
+stadsgids raadplegen is geen aanbeveling krijgen, en het verschil is dezelfde as als hierboven:
+aanwezigheid versus advies.
 
 ### 🔴 En meteen daarna: de Hearthstone werd aangeboden zonder te kijken waar hij heen gaat
 

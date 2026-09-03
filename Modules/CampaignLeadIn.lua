@@ -188,8 +188,28 @@ local VAULTS = {
 		--- Its four objectives are repeatable activities, which is why both readings looked
 		--- explicable for two days -- and is exactly why the objectives being repeatable says
 		--- nothing about the quest that asks for them.
-		{ questID = 98515 }, -- Vaults of Atal'Utek: A Toxic Tour
+		--- 🔴 ORDER CORRECTED 3 Sep 2026 (evening), and the correction came from re-reading a
+		--- source that had just been updated. Zygor shipped a new 9.6 build that afternoon
+		--- (guide files stamped 18:59); Rob asked for a re-check. The classification above
+		--- held. The SEQUENCE did not.
+		---
+		--- MEASURED in ZygorDailiesCommonMID.lua, which is the play order:
+		---   turn in 98388  ->  accept 97640 AND 98515 together, from Warleader Abdumati
+		---   turn in 97640 at Er'inye  ->  accept 98428
+		---   turn in 98428
+		---   ...then the four sticky objectives of 98515, and turn it in LAST at Abdumati
+		---
+		--- So 98515 is picked up SECOND and handed in LAST -- it runs in parallel with the
+		--- rest, which is why Zygor marks its objectives `stickystart`. We listed it third, so
+		--- a player following the chain correctly would tick off step 4 while step 3 sat open:
+		--- a checklist that looks broken precisely when it is being followed properly.
+		---
+		--- ⚠️ Zygor's own QuestDBData.lua carries BOTH orders in different rows, so it cannot
+		--- settle this alone. The guide is the play order and is unambiguous; the DB rows are
+		--- groupings. When a source disagrees with itself, prefer the part of it that describes
+		--- doing the thing.
 		{ questID = 98428 }, -- Vaults of Atal'Utek: The Altar of Corrosion
+		{ questID = 98515 }, -- Vaults of Atal'Utek: A Toxic Tour (accepted 2nd, handed in last)
 	},
 	--- Rewards MEASURED 31 Aug (wiki infoboxes; both unlock spells corroborated on Wowhead):
 	--- 41,100 XP, 103g 48s, 1000 Corrosive Coins, and two unlocks -- the zone itself

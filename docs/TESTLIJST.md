@@ -22,11 +22,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 - [ ] **De teller.** Stond op *"3 of 8"*. Hoort nu veel lager te zijn — op een 69 blijft er
       vrijwel niets over dat je kunt doen — met daaronder *"Er komen er nog N bij naarmate je
       levelt."*
-- [ ] 🔴 **De vraag die alles bepaalt en die alleen jij kunt beantwoorden: kan je 69 überhaupt in
-      Silvermoon komen?** Ik heb gemeten dat Midnight van 80 tot 90 loopt en dat élke stop in deze
-      routine op map 2393 (Silvermoon) ligt. Wat ik **niet** kan meten is of een level 69 daar via
-      een portaal of vliegroute naartoe kán. Kan het wél, dan is level 80 de verkeerde grens en
-      moet die eruit. Kan het niet, dan klopt hij.
+- [x] ✅ **Kan je 69 in Silvermoon komen? — BEANTWOORD, online.** Blizzards eigen aankondiging plus
+      twee gidsen: **Eversong Woods gaat open op level 80**, Midnight loopt 80→90 met Silvermoon als
+      hub. Derde bron naast onze eigen tabtitel *"Leveling (80-90)"*. De grens van 80 staat.
+      ⚠️ Wat nog steeds niet gemeten is: of het spel je fysiek tegenhoudt bij het portaal. Voor onze
+      filter maakt dat niet uit — wij bevelen het toch niet aan — maar het is geen bewezen feit.
+      📌 De regel *"Cuzoth — Item Upgrades (other continent — travel back)"* die je zag is **geen
+      bug**: dat is een pin uit het Silvermoon-tabblad waar je zelf op klikte. Een stadsgids
+      raadplegen is iets anders dan advies krijgen.
 - [ ] **De lijst is in tweeën.** Bovenaan genummerd 1, 2, 3… **zonder gaten** (hij sprong eerst van
       7 naar 10). Daaronder een grijze kop *"Later, als je verder levelt:"* met de rest, met
       streepjes in plaats van nummers. Alles blijft klikbaar.
@@ -119,6 +122,12 @@ aantekening is een claim mét een datum, en deze was drie dagen onwaar.
       het spel maar in Zygor 9.6's eigen dailies-checklijst: die noemt acht ID's en 98515 zit er
       niet bij. Het is een **verhaalstap**, geen daily. De Codex sprak zichzelf tegen ("drie
       quests") en is in 7 talen gerepareerd.
+      ✅ **HERBEVESTIGD 3 sep** op een nieuwere Zygor-build, mét een correctie: de **volgorde** was
+      fout. 98515 wordt als **tweede** aangenomen (samen met 97640) en als **laatste** ingeleverd,
+      ná 98428. Keten staat nu als `98388 → 97640 → 98428 → 98515`.
+- [ ] 🆕 **Dit kun je onderweg zien:** loop je de Vaults-keten ooit, kijk dan of dat klopt — vier
+      objectives van A Toxic Tour lopen op de achtergrond mee terwijl je de andere quests doet, en
+      je levert hem als laatste in bij Warleader Abdumati.
 
 ## ✅ AF 31 aug — beide Engelse vragen beslecht in de gamedata, jij hoeft niets te testen
 
