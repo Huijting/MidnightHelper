@@ -7,6 +7,28 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 3 sep — de nieuwe spell-ID's uit DBM moeten in het spel een náám worden (ONGETEST)
+
+Vandaag zijn er tips herschreven met ID's die uit DBM komen in plaats van uit datamining: alle 28
+raid-regels, Rotmire, en Taz'Rah + Nalorakk. Statisch is alles gecontroleerd, maar `{SPELL:id}`
+wordt pas in de client een naam. **Een ID dat 12.1 niet kent, rendert als een kaal nummer of als
+niets** — en dat is precies wat geen enkele controle hier kan zien.
+
+Eén blik per boss is genoeg; je hoeft er niet heen te reizen.
+
+- [ ] **Voidscar Arena → Taz'Rah.** Vier nieuwe ID's: Black Hole, Umbral Rupture, Nether Dash en
+      (bij Tank) Void Blast. Alle vier horen een spelnaam te tonen.
+      ⚠️ Bullet 3 noemt de **Ethereal Shades** bewust zónder spell-link — dat is geen fout.
+- [ ] **Den of Nalorakk.** Nieuw: **Echoing Maul** in bullet 2.
+- [ ] **Sporefall → Rotmire** (ritual). Vijf ID's, allemaal nieuw.
+      📌 Bullet 1 zei tot vandaag dat `1221637` *"de wipe"* was; het is een **knockback**. Als je
+      hem ooit doet: klopt dat nu met wat er gebeurt?
+- [ ] **Een raid-boss naar keuze** — alle 28 regels zijn aangeraakt.
+
+🔴 **Wat dit NIET test.** Dat een ID een naam krijgt bewijst dat het bestaat, niet dat onze zin
+eromheen klopt. De werkwoorden komen uit DBM's audio-cues; dat is sterk, maar niemand van ons heeft
+deze gevechten gedaan.
+
 ## 🆕 1 sep — Spec 31 B3 en B4 (ONGETEST)
 
 - [ ] **B4 — de regel onderaan het changelog-venster.** Open het met `/mh changelog` (of wacht
