@@ -13,6 +13,55 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## 🔴 3 sep — 31 van onze 105 raid-spell-ID's houden geen stand tegen DBM
+
+Rob liep een encounter op de Coiled Isle en snapte niets van onze aanwijzingen. Ula'tek met de hand
+nagekeken: van onze vier ID's dreef er één een echte DBM-waarschuwing, één stond alleen in een
+aura-geluidsoptie (de DoT van een ándere cast, terwijl wij zeggen *"dodge"*), één stond alleen in
+een `--TODO`-commentaar, en één bestaat in geen enkele geïnstalleerde addon.
+
+Rob koos DBM als maatstaf en zijn argument is het juiste: **DBM's ID's worden elke week in echte
+pulls uitgeoefend door mensen die het meteen horen als een waarschuwing op het verkeerde ding
+afgaat.** De onze komen uit datamining, in dit geval van vóór de boss bestond — onze eigen tiptekst
+zegt dat zelfs, in de laatste bullet, ná vier regels die als feit lezen.
+
+`tools/raid_tip_audit.py` (via `_probe.py run raid_tip_audit`). **GEMETEN over alle raids:**
+
+| | |
+|---|---:|
+| spell-ID's in onze raid-tips | 105 |
+| **ABSENT** — staat in géén DBM-mod | **21** |
+| **WEAK** — staat er wel, maar DBM waarschuwt er nooit op | **10** |
+| tipregels met minstens één van beide | **15 van 28** |
+
+Ergste regels: `BELOREN_STEPS` (5), `VANGUARD_STEPS` (4), `ULATEK_STEPS` en `AVERZIAN_STEPS` en
+`CROWN_STEPS` (3). Volledig schoon: Twin Fangs, Coiled Altar, Lost Explorers (op één na), Vashnik,
+Lura, en beide Vaelgor-rolregels.
+
+### 🔴 En de checker zelf was twee keer fout, in tegengestelde richtingen
+
+Het waard om te bewaren, want beide versies zagen er overtuigend uit:
+
+- **v1** accepteerde elke `mod:Iets(id` als waarschuwing. `AddAuraSoundOption(1292403, …)` matchte,
+  dus precies het ID dat met de hand fout bleek kreeg een vinkje. **Te ruim.**
+- **v2** eiste dat het ID het *eerste* argument was van een zelf opgesomde lijst constructors.
+  Allebei die aannames zijn onwaar: DBM schrijft `NewCDCountTimer(20.5, 1284483, …)` mét de duur
+  vooraan, en `NewCountAnnounce` staat in geen enkele lijst die ik zou verzinnen. **Te streng** —
+  24 WEAK-meldingen waarvan er met de hand meteen drie onterecht bleken.
+- **v3** classificeert per **regel**: staat `mod:New` op de regel die het ID draagt, dan handelt DBM
+  erop; staat er `AddAuraSoundOption`/`RegisterAltSpellName`, of alleen een commentaar, dan kent hij
+  het nummer slechts. Geen namenlijst, geen aanname over argumentvolgorde.
+
+📌 De positieve controle draagt nu ook `1305959` en `1284483` — juist de twee waar v2 op stukliep.
+Een controle die alleen makkelijke gevallen bevat, bevestigt de bug die je erin hebt zitten.
+
+⚠️ **Nog steeds geen bewijs.** DBM waarschuwt alleen op wat het wíl bewaken, dus ABSENT is een sterk
+signaal en geen verdict. Wat het wél bewijst: dat ID is nooit tegen de mod gelegd van het team dat
+deze boss elke week doodt.
+
+**Nog te doen:** de 15 regels herschrijven uit DBM's eigen mods, en de check als lint-punt [19]
+opnemen zodat dit niet opnieuw kan binnenglippen.
+
 ## ✅ 3 sep — de pijl stuurde je door een muur; nu eerst naar de deur
 
 Rob stond op 94 yard van het Coiled-Isle-portaal met de pijl er dwars doorheen: *"onze pijl stuurt
