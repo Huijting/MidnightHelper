@@ -678,6 +678,49 @@ local function BuildChangelogBodyText()
 	return table.concat(blocks, "\n\n")
 end
 
+-- 🔴 THE FOOTER RESERVATION WAS A CONSTANT AND THE FOOTER IS NOT. Rob, 3 Sep 2026, from
+-- a screenshot: the changelog body ran past the bottom edge and the last line had two
+-- lines drawn on top of each other. The scroll frame reserved a hardcoded 100px --
+-- "BOTTOMRIGHT, -44, 100" -- which fitted the two checkboxes exactly, and then Spec 31 B4
+-- added a third element ABOVE them. At 480px wide that grey line wraps to two rows, the
+-- stack needs about 120px, and the overflow is drawn straight over the changelog text.
+--
+-- 📌 It is the same mistake as Professions -> Overview, named in the test list the day
+-- before as the thing to watch for -- and it still shipped, because the layout was only
+-- ever checked with the strings that existed when the constant was written. A reserved
+-- height is a promise about content nobody re-measures.
+--
+-- ⚠️ Measure the row, not the widget. A checkbox is a fixed 32px box, but its LABEL is a
+-- wrapped font string beside it and can be taller -- and the labels are longest in exactly
+-- the languages nobody here reads (deDE, nlNL). Take whichever is bigger per row.
+local FOOTER_BOTTOM_PAD = 12
+local FOOTER_GAP = 10
+
+local function LayoutChangelogFooter(f)
+	local scroll, cbVersion, cbNever, ask = f._scroll, f._cbVersion, f._cbNever, f._ask
+	if not (scroll and cbVersion and cbNever and ask) then
+		return
+	end
+	local function rowH(cb)
+		local box = cb:GetHeight() or 0
+		local label = (cb.text and cb.text:GetStringHeight()) or 0
+		return math.max(box, label)
+	end
+	local h = FOOTER_BOTTOM_PAD
+		+ rowH(cbVersion) + FOOTER_GAP
+		+ rowH(cbNever) + 8
+		+ (ask:GetStringHeight() or 0)
+		+ FOOTER_GAP
+	-- The close button shares the bottom row with the first checkbox; if it is ever the
+	-- taller of the two, the reservation has to follow it instead.
+	local btnH = (f._closeBtn and f._closeBtn:GetHeight()) or 0
+	h = math.max(h, FOOTER_BOTTOM_PAD + btnH + FOOTER_GAP)
+	f._footerH = h
+	scroll:ClearAllPoints()
+	scroll:SetPoint("TOPLEFT", f, "TOPLEFT", 20, -52)
+	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -44, h)
+end
+
 local function LayoutChangelogScroll(f)
 	local scroll = f._scroll
 	local content = f._content
@@ -698,6 +741,14 @@ local function LayoutChangelogScroll(f)
 	if scroll.SetVerticalScroll then
 		scroll:SetVerticalScroll(0)
 	end
+end
+
+-- Order matters: the footer decides where the scroll frame ends, and the body wraps to
+-- the scroll frame's width. Doing it the other way round measures the body against a
+-- height that is about to change.
+local function LayoutChangelogWindow(f)
+	LayoutChangelogFooter(f)
+	LayoutChangelogScroll(f)
 end
 
 local function EnsureChangelogFrame()
@@ -768,7 +819,7 @@ local function EnsureChangelogFrame()
 	body:SetSpacing(4)
 	f._body = body
 	f._content = content
-	LayoutChangelogScroll(f)
+	-- Laid out below, once the footer exists — it is what decides where this ends.
 
 	-- Labels wrap within left column so they never draw over the bottom-right close button.
 	local FOOTER_TEXT_W = 480
@@ -821,6 +872,8 @@ local function EnsureChangelogFrame()
 	okBtn:SetText(ns:L("CHANGELOG_CLOSE"))
 	f._closeBtn = okBtn
 
+	LayoutChangelogWindow(f)
+
 	cbVersion:SetScript("OnClick", function(self)
 		if self:GetChecked() then
 			cbNever:SetChecked(false)
@@ -848,7 +901,7 @@ local function EnsureChangelogFrame()
 		cbNever:SetChecked(false)
 	end)
 	f:SetScript("OnShow", function()
-		LayoutChangelogScroll(f)
+		LayoutChangelogWindow(f)
 	end)
 
 	changelogFrame = f
@@ -889,7 +942,7 @@ function ns:ShowChangelogWindow(force)
 	local f = EnsureChangelogFrame()
 	f._title:SetText(ns:L("CHANGELOG_TITLE"))
 	f._subtitle:SetText(ns:L("CHANGELOG_SUBTITLE"):format(version))
-	LayoutChangelogScroll(f)
+	LayoutChangelogWindow(f)
 	f:Show()
 end
 

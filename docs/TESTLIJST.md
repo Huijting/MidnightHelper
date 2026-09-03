@@ -49,24 +49,27 @@ deze gevechten gedaan.
       opslaan (`lastSeenVersion` wordt al op dag één gezet). Zie het commentaar in
       `DiscordNudge.lua` voor waarom een installatiedatum een leeftijdsgok zou zijn.
 
-## 🆕 31 aug — de Vaults-keten is vier quests en zegt nu wat je eerst nodig hebt (ONGETEST)
+## ⛔ 31 aug — de Vaults-keten (INGETROKKEN 3 sep, niet testbaar)
 
-Home → het blok **"New: the Vaults of Atal'Utek"**. Alleen zichtbaar zolang je de keten níét
-begonnen bent.
+🔴 **INGETROKKEN 3 sep — Rob kan dit niet testen, en dat was op 31 aug al gemeten.** Zijn eigen
+vraag: *"dit kon toch niet als je op 1 character het al gedaan hebt??"* Klopt, en het is erger dan
+per character: `/mh campaign` op **Warlockie, level 82** gaf `done=true` voor alle vier de
+ketenquests, en een level-82 character kán geen level-90 quest hebben afgerond. **De keten is
+account-wide.** Er bestaat dus geen character waarop dit blok nog verschijnt — een alt helpt niet.
 
-- [ ] Onder de gewone regel staat nu een grijze regel: *"First: level 90 and the Curse of
-      Ula'tek campaign, up to Lor'themar's Judgement…"*. 🔴 Dit blok kón altijd al verschijnen
-      bij iemand die er niet in kán — `GetTitleForQuestID` noemt een quest ook als je er niet
-      voor in aanmerking komt. Het zei "hier is content" en verder niets.
-- [ ] Twee beloningsregels: *"Opens the Vaults of Atal'Utek"* en *"Opens the Altar of
-      Corrosion…"*. XP en goud staan er bewust NIET bij.
-- [ ] ⚠️ Ben je de keten al begonnen of af? Dan hoort de grijze eis-regel **weg** te zijn en
-      zie je alleen de voortgang. Dat is de bedoeling — je bent aantoonbaar door de poort.
-- [ ] 🔴 **Wat ik niet kan controleren en jij wel:** de keten telt nu **vier** quests, met
-      `98515 A Toxic Tour` tussen *One Coin Too Many* en *The Altar of Corrosion*. Klopt die
-      volgorde met wat jij in je questlog ziet? Zygor zet die quest bij de **dailies**, de
-      questline-data zet hem als **verhaalstap**. Beide bronnen zijn echt; alleen jouw client
-      beslist.
+Die meting stond al in `CampaignLeadIn.lua` (bij `gateKey`), compleet met de opmerking dat de regel
+*"permanently unverifiable by the person who signs it off"* is. En tóch stond hij hier nog als
+afvinkbare testregel. ⚠️ Dat is precies de val waar dit project een regel over heeft: een
+aantekening is een claim mét een datum, en deze was drie dagen onwaar.
+
+- [x] ~~De grijze eis-regel, de twee beloningsregels, en of het blok verdwijnt zodra je begint.~~
+      **Niet te bereiken.** Wat Rob wél kan: `/mh campaign` print de zin uit én zegt erbij wie hem
+      zou zien. Zo is de tekst te lezen zonder de toestand te kunnen halen — dat is waarvoor die
+      diagnose gebouwd is.
+- [x] ~~Telt de keten vier quests, met `98515 A Toxic Tour` ertussen?~~ **BESLECHT 2 sep**, niet in
+      het spel maar in Zygor 9.6's eigen dailies-checklijst: die noemt acht ID's en 98515 zit er
+      niet bij. Het is een **verhaalstap**, geen daily. De Codex sprak zichzelf tegen ("drie
+      quests") en is in 7 talen gerepareerd.
 
 ## ✅ AF 31 aug — beide Engelse vragen beslecht in de gamedata, jij hoeft niets te testen
 
