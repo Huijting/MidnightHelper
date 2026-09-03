@@ -13,6 +13,71 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## ✅ 3 sep (avond) — Zygor is nu een tweede bron, maar NIET in `tip_audit`
+
+Rob: *"ja doe zygor als tweede bron voor raid tips."* Gebouwd als `tools/zygor_tips.py`
+(`_probe.py run zygor_tips`), en de meting die vooraf ging heeft het ontwerp bepaald.
+
+🔴 **Zygor draagt géén spell-ID's.** Grep op vier van onze raid-ID's (`1300530`, `1284483`,
+`1301510`, `1292188`) in `ZygorDungeonCommonMID.lua` geeft **nul**, terwijl datzelfde bestand
+**619** `|grouprole`-tips heeft. Positieve controle geslaagd, dus die nul is echt. Zygor kan dus
+geen enkel nummer bevestigen of ontkennen — precies de taak van `tip_audit`. Hem daar toevoegen
+had een bron opgeleverd die het met niets eens is.
+
+📌 **Wat hij wél heeft is wat DBM níét heeft.** DBM geeft ID's en een alarmsoort (`watchfeet`,
+`justrun`, `breaklos`) — dat zegt wat voor **soort** ding iets is. Zygor geeft zinnen voor een
+speler: *"Split into two groups for phase 2 to soak Spectral Coils."* Dat is de laag waarvoor deze
+addon bestaat, en we hadden hem nooit gelezen.
+
+### ✅ De harde bevinding: 13 rollen waar Zygor advies schrijft en wij niets leveren
+
+Dit is een **structurele** vergelijking (onze `TIPS`-tabel tegen Zygors `_TANK_`/`_HEALER_`/
+`_DAMAGE_`-secties) en vereist geen enkele tekstinterpretatie:
+
+| boss | rol |
+|---|---|
+| Imperator Averzian | TANK, DPS |
+| Vorasius | TANK |
+| Fallen-King Salhadaar | TANK, HEALER |
+| Nek'zali the Soulcoiler | HEALER, DPS |
+| Vashnik the Malignant | HEALER, DPS |
+| Sszorak | DPS |
+| **Ula'tek** | **TANK, HEALER, DPS** |
+
+Ula'tek heeft bij ons alléén een `steps`-regel en bij Zygor alle drie de rollen — de eindboss van de
+huidige tier is onze dunste.
+
+⚠️ **De tekst ernaast is om te LEZEN, geen verdict.** Bewust geen automatische "wij missen X": onze
+tips schrijven abilities als `{SPELL:id}` en Zygor als naam, dus een zin die in onze bron ontbreekt
+kan op het scherm van de speler wél staan. Een checker die dat niet kan zien zou vrijwel elke ability
+als ontbrekend melden en er vrijwel altijd naast zitten.
+
+### 📌 Twee koppelingen, en de tweede bevestigde iets
+
+Namen matchen exact (`RaidCoachData.lua` spelt ze zoals de client, geverifieerd met Robs `/mh ej
+save`). Daarnaast draagt Zygor `kill <Naam>##<npcID>` en wij `seedCreatureId`: **3 vergeleken, 3
+gelijk, 0 verschil.** Imperator Averzian is 240435 in beide bestanden — een onafhankelijke
+bevestiging van onze creature-ID's die we niet hadden.
+
+⚠️ Zygor heeft geen stap voor 12 van onze bosses (o.a. Entombed Sentinels, The Lost Explorers, The
+Twin Fangs, The Coiled Altar) — hij splitst sommige encounters anders op dan de journal. Geen
+bevinding, wel de reden dat de dekking geen 100% is.
+
+### ⚠️ En het gereedschap had zelf twee bugs in vijf minuten, de tweede door de eerste te repareren
+
+Het waard om te onthouden, want het is het patroon van de hele dag: v1 gebruikte `\s*` en `\s` dekt
+nieuwe regels, dus het patroon matchte ook de **raid**-entries en zette vijf instances in de lijst
+"bosses waar Zygor niets voor heeft". v2 eiste `encounterID` direct achter de naam en liet daarmee
+**élke Season 1-boss vallen** — die dragen `seedCreatureId` ertussen. **Een patroon aanscherpen is
+niet gratis.** v3 staat andere velden toe maar verbiedt een nieuwe regel.
+
+### Wat hier NIET mee gebouwd is
+
+De 13 gaten zijn **niet gevuld**. Dat is opzettelijk: het zijn 13 nieuwe tekstregels in 7 talen over
+gevechten die niemand hier heeft gedaan, en de dag heeft drie keer laten zien wat dat kost. Het
+rapport ligt er; het vullen is een aparte beslissing van Rob, bij voorkeur met iemand die de tier
+gelopen heeft.
+
 ## ✅ 3 sep (avond) — Zygor 9.6 opnieuw gelezen: onze conclusie klopte, onze volgorde niet
 
 Rob vroeg de addon-updates na te lopen; Zygor had die middag een nieuwe build gezet (gidsbestanden
