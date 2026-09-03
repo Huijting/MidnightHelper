@@ -96,7 +96,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_TIP_DN_SENTINEL_TANK = "Tank: hold the boss clear of the squalls.",
 	DGN_TIP_DN_SENTINEL_HEALER = "Healer: dispel/heal through {SPELL:1235548} (16s frost DoT); everyone ticks during {SPELL:1235656}.",
 
-	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk knocks Zul'jarra down and spirit bears charge at her — stand in their path to intercept them (every bear that reaches her triggers a nasty scream).|n2. {SPELL:1255385} pushes everyone back — mind your footing near hazards.|n3. {SPELL:1243569} shreds the tank for 4 seconds — help with externals if you have them.",
+	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk knocks Zul'jarra down and spirit bears charge at her — stand in their path to intercept them.|n2. {SPELL:1242860} spreads a debuff — get away from each other.|n3. {SPELL:1243569} is the tank combo — hold a defensive through all of it.",
 	DGN_TIP_DN_NALORAKK_TANK = "Tank: {SPELL:1243569} = stacking hits, +50% damage taken per hit — big defensive, every time.",
 	DGN_TIP_DN_NALORAKK_HEALER = "Healer: the tank spikes hard during {SPELL:1243569}; group heal after each roar.",
 
@@ -118,8 +118,8 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 	DGN_TIP_BV_ZIEKKET_HEALER = "Healer: steady group damage — expect a spike when an orb slips through.",
 
 	-- Voidscar Arena ----------------------------------------------------------------
-	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1222274} drags everyone toward it for 6 seconds — run against the pull; the center hurts badly.|n2. After each teleport ({SPELL:1262901}) Ethereal Shades attack — burn them down.|n3. Dodge the {SPELL:1225011}.",
-	DGN_TIP_VA_TAZRAH_TANK = "Tank: defensive for {SPELL:1222085}.",
+	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1300259} drags everyone toward it — run against the pull; the centre hurts badly.|n2. Dodge the {SPELL:1296963} pools, and step out of the {SPELL:1222098} line when it picks you.|n3. Burn the Ethereal Shades that appear after each teleport.",
+	DGN_TIP_VA_TAZRAH_TANK = "Tank: defensive for {SPELL:1297017}.",
 	DGN_TIP_VA_TAZRAH_HEALER = "Healer: the rift ticks on everyone while they run — keep the group stable.",
 
 	DGN_TIP_VA_ATROXUS_STEPS = "1. Toxic Creepers ({SPELL:1222371}) crawl out of the pools — kill them quickly.|n2. Stay out of the {SPELL:1263977} frontal and the {SPELL:1226120} circles.|n3. {SPELL:1262497} knocks you back — don't stand with a pool behind you.",
@@ -350,7 +350,7 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_TIP_DN_SENTINEL_TANK = "Tank: tieni il boss lontano dalle raffiche.",
 	DGN_TIP_DN_SENTINEL_HEALER = "Healer: dispella/cura attraverso {SPELL:1235548} (DoT di gelo da 16s); tutti ticchettano durante {SPELL:1235656}.",
 
-	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk butta a terra Zul'jarra e gli orsi spiritici caricano verso di lei — mettiti sul loro percorso per intercettarli (ogni orso che la raggiunge scatena un urlo brutale).|n2. {SPELL:1255385} respinge tutti — attento a dove metti i piedi vicino ai pericoli.|n3. {SPELL:1243569} dilania il tank per 4 secondi — aiuta con esterne se le hai.",
+	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk butta a terra Zul'jarra e gli orsi spiritici caricano verso di lei — mettiti sul loro percorso per intercettarli.|n2. {SPELL:1242860} distribuisce un debuff — allontanatevi tra voi.|n3. {SPELL:1243569} è la combo sul tank — tieni una difensiva per tutta la durata.",
 	DGN_TIP_DN_NALORAKK_TANK = "Tank: {SPELL:1243569} = colpi crescenti, +50% danni subiti per colpo — grande difensiva, ogni volta.",
 	DGN_TIP_DN_NALORAKK_HEALER = "Healer: il tank subisce picchi forti durante {SPELL:1243569}; cura di gruppo dopo ogni ruggito.",
 
@@ -372,8 +372,8 @@ merge(ns._mhLocales and ns._mhLocales.itIT, {
 	DGN_TIP_BV_ZIEKKET_HEALER = "Healer: danni al gruppo costanti — aspettati un picco quando un orb sfugge.",
 
 	-- Voidscar Arena ------------------------------------------------------------
-	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1222274} trascina tutti verso di sé per 6 secondi — corri contro l'attrazione; il centro fa molto male.|n2. Dopo ogni teletrasporto ({SPELL:1262901}) le Ethereal Shades attaccano — bruciale.|n3. Schiva {SPELL:1225011}.",
-	DGN_TIP_VA_TAZRAH_TANK = "Tank: difensiva per {SPELL:1222085}.",
+	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1300259} trascina tutti verso di sé — corri contro l'attrazione; il centro fa molto male.|n2. Schiva le pozze di {SPELL:1296963} ed esci dalla linea di {SPELL:1222098} quando tocca a te.|n3. Brucia le Ethereal Shades che compaiono dopo ogni teletrasporto.",
+	DGN_TIP_VA_TAZRAH_TANK = "Tank: difensiva per {SPELL:1297017}.",
 	DGN_TIP_VA_TAZRAH_HEALER = "Healer: la frattura ticchetta su tutti mentre corrono — tieni stabile il gruppo.",
 
 	DGN_TIP_VA_ATROXUS_STEPS = "1. I Toxic Creepers ({SPELL:1222371}) strisciano fuori dalle pozze — uccidili in fretta.|n2. Stai fuori dal frontale {SPELL:1263977} e dai cerchi {SPELL:1226120}.|n3. {SPELL:1262497} ti respinge — non stare con una pozza dietro di te.",
@@ -536,7 +536,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_TIP_DN_SENTINEL_TANK = "Tank: houd de boss weg van de squalls.",
 	DGN_TIP_DN_SENTINEL_HEALER = "Healer: dispel/heal door {SPELL:1235548} heen (16s frost-DoT); iedereen tikt tijdens {SPELL:1235656}.",
 
-	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk beukt Zul'jarra neer en geestberen stormen op haar af — ga in hun pad staan om ze te onderscheppen (elke beer die haar bereikt = een nare scream).|n2. {SPELL:1255385} duwt iedereen weg — let op je positie bij gevaar.|n3. {SPELL:1243569} versnippert de tank 4 seconden lang — help met externals als je ze hebt.",
+	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk beukt Zul'jarra neer en geestberen stormen op haar af — ga in hun pad staan om ze te onderscheppen.|n2. {SPELL:1242860} verspreidt een debuff — ga uit elkaar.|n3. {SPELL:1243569} is de tank-combo — houd er een defensive doorheen.",
 	DGN_TIP_DN_NALORAKK_TANK = "Tank: {SPELL:1243569} = stapelende klappen, +50% schade per hit — grote defensive, élke keer.",
 	DGN_TIP_DN_NALORAKK_HEALER = "Healer: de tank piekt hard tijdens {SPELL:1243569}; groepsheal na elke roar.",
 
@@ -558,8 +558,8 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	DGN_TIP_BV_ZIEKKET_HEALER = "Healer: gestage groepsschade — verwacht een piek als er een orb doorglipt.",
 
 	-- Voidscar Arena ----------------------------------------------------------------
-	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1222274} zuigt iedereen 6 seconden naar zich toe — ren tegen de trek in; het centrum doet vreselijk pijn.|n2. Na elke teleport ({SPELL:1262901}) vallen Ethereal Shades aan — brand ze weg.|n3. Ontwijk de {SPELL:1225011}.",
-	DGN_TIP_VA_TAZRAH_TANK = "Tank: defensive voor {SPELL:1222085}.",
+	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1300259} zuigt iedereen naar zich toe — ren tegen de trek in; het centrum doet vreselijk pijn.|n2. Ontwijk de {SPELL:1296963}-plassen en stap uit de {SPELL:1222098}-lijn als hij jou pakt.|n3. Brand de Ethereal Shades weg die na elke teleport verschijnen.",
+	DGN_TIP_VA_TAZRAH_TANK = "Tank: defensive voor {SPELL:1297017}.",
 	DGN_TIP_VA_TAZRAH_HEALER = "Healer: de rift tikt op iedereen terwijl ze rennen — houd de groep stabiel.",
 
 	DGN_TIP_VA_ATROXUS_STEPS = "1. Toxic Creepers ({SPELL:1222371}) kruipen uit de poelen — maak ze snel dood.|n2. Blijf uit de {SPELL:1263977}-frontal en de {SPELL:1226120}-cirkels.|n3. {SPELL:1262497} slingert je weg — sta niet met een poel achter je.",
@@ -775,7 +775,7 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_TIP_DN_SENTINEL_TANK = "Tank: halte den Boss von den Squalls fern.",
 	DGN_TIP_DN_SENTINEL_HEALER = "Heiler: banne/heile durch {SPELL:1235548} (16s-Frost-DoT); alle ticken während {SPELL:1235656}.",
 
-	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk schmettert Zul'jarra nieder und Geisterbären stürmen auf sie zu — stell dich in ihren Weg, um sie abzufangen (jeder Bär, der sie erreicht, löst einen üblen Schrei aus).|n2. {SPELL:1255385} stößt alle zurück — achte auf deine Position bei Gefahren.|n3. {SPELL:1243569} zerfetzt den Tank 4 Sekunden lang — hilf mit Externals, wenn du welche hast.",
+	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk schmettert Zul'jarra nieder und Geisterbären stürmen auf sie zu — stell dich in ihren Weg, um sie abzufangen.|n2. {SPELL:1242860} verteilt einen Debuff — geht auseinander.|n3. {SPELL:1243569} ist die Tank-Kombo — halt eine Defensive durch.",
 	DGN_TIP_DN_NALORAKK_TANK = "Tank: {SPELL:1243569} = stapelnde Schläge, +50% Schaden pro Treffer — große Defensive, JEDES Mal.",
 	DGN_TIP_DN_NALORAKK_HEALER = "Heiler: der Tank spikt hart während {SPELL:1243569}; Gruppenheilung nach jedem Brüllen.",
 
@@ -797,8 +797,8 @@ merge(ns._mhLocales and ns._mhLocales.deDE, {
 	DGN_TIP_BV_ZIEKKET_HEALER = "Heiler: stetiger Gruppenschaden — erwarte eine Spitze, wenn ein Orb durchrutscht.",
 
 	-- Voidscar Arena ----------------------------------------------------------------
-	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1222274} saugt alle 6 Sekunden lang heran — lauf gegen den Sog; das Zentrum tut höllisch weh.|n2. Nach jedem Teleport ({SPELL:1262901}) greifen Ethereal Shades an — brenn sie weg.|n3. Weiche den {SPELL:1225011} aus.",
-	DGN_TIP_VA_TAZRAH_TANK = "Tank: Defensive für {SPELL:1222085}.",
+	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1300259} zieht alle zu sich — lauf gegen den Sog; das Zentrum tut höllisch weh.|n2. Weiche den {SPELL:1296963}-Pfützen aus und tritt aus der {SPELL:1222098}-Linie, wenn sie dich trifft.|n3. Brenn die Ethereal Shades weg, die nach jedem Teleport erscheinen.",
+	DGN_TIP_VA_TAZRAH_TANK = "Tank: Defensive für {SPELL:1297017}.",
 	DGN_TIP_VA_TAZRAH_HEALER = "Heiler: der Riss tickt auf allen, während sie laufen — halte die Gruppe stabil.",
 
 	DGN_TIP_VA_ATROXUS_STEPS = "1. Toxic Creepers ({SPELL:1222371}) kriechen aus den Tümpeln — töte sie schnell.|n2. Bleib aus dem {SPELL:1263977}-Frontalkegel und den {SPELL:1226120}-Kreisen.|n3. {SPELL:1262497} schleudert dich zurück — steh nicht mit einem Tümpel im Rücken.",
@@ -1032,7 +1032,7 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_TIP_DN_SENTINEL_TANK = "Tank : garde le boss loin des squalls.",
 	DGN_TIP_DN_SENTINEL_HEALER = "Heal : dissipe/soigne à travers {SPELL:1235548} (DoT de givre 16 s) ; tout le monde tique pendant {SPELL:1235656}.",
 
-	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011} : Nalorakk terrasse Zul'jarra et des ours spirituels chargent vers elle — mets-toi sur leur chemin pour les intercepter (chaque ours qui l'atteint déclenche un cri redoutable).|n2. {SPELL:1255385} repousse tout le monde — attention où tu te trouves près des dangers.|n3. {SPELL:1243569} déchiquette le tank pendant 4 secondes — aide avec des externes si tu en as.",
+	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011} : Nalorakk terrasse Zul'jarra et des ours spirituels chargent vers elle — mets-toi sur leur chemin pour les intercepter.|n2. {SPELL:1242860} distribue un debuff — écartez-vous les uns des autres.|n3. {SPELL:1243569} est la combo sur le tank — garde une défensive pendant toute la durée.",
 	DGN_TIP_DN_NALORAKK_TANK = "Tank : {SPELL:1243569} = coups cumulés, +50% de dégâts par coup — gros défensif, À CHAQUE fois.",
 	DGN_TIP_DN_NALORAKK_HEALER = "Heal : le tank pique fort pendant {SPELL:1243569} ; soin de groupe après chaque rugissement.",
 
@@ -1054,8 +1054,8 @@ merge(ns._mhLocales and ns._mhLocales.frFR, {
 	DGN_TIP_BV_ZIEKKET_HEALER = "Heal : dégâts de groupe réguliers — attends-toi à un pic si un orbe passe.",
 
 	-- Voidscar Arena ----------------------------------------------------------------
-	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1222274} aspire tout le monde pendant 6 secondes — cours contre l'aspiration ; le centre fait très mal.|n2. Après chaque téléportation ({SPELL:1262901}), des Ethereal Shades attaquent — brûle-les.|n3. Esquive les {SPELL:1225011}.",
-	DGN_TIP_VA_TAZRAH_TANK = "Tank : défensif pour {SPELL:1222085}.",
+	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1300259} aspire tout le monde — cours contre l'aspiration ; le centre fait très mal.|n2. Esquive les flaques de {SPELL:1296963} et sors de la ligne {SPELL:1222098} quand elle te vise.|n3. Brûle les Ethereal Shades qui apparaissent après chaque téléportation.",
+	DGN_TIP_VA_TAZRAH_TANK = "Tank : défensif pour {SPELL:1297017}.",
 	DGN_TIP_VA_TAZRAH_HEALER = "Heal : la faille tique sur tout le monde pendant la course — garde le groupe stable.",
 
 	DGN_TIP_VA_ATROXUS_STEPS = "1. Des Toxic Creepers ({SPELL:1222371}) rampent hors des mares — tue-les vite.|n2. Reste hors du cône {SPELL:1263977} et des cercles {SPELL:1226120}.|n3. {SPELL:1262497} te projette en arrière — ne te tiens pas avec une mare dans le dos.",
@@ -1218,7 +1218,7 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_TIP_DN_SENTINEL_TANK = "Tanque: mantén al jefe lejos de los squalls.",
 	DGN_TIP_DN_SENTINEL_HEALER = "Sanador: disipa/cura a través de {SPELL:1235548} (DoT de escarcha de 16 s); todos hacen tictac durante {SPELL:1235656}.",
 
-	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk derriba a Zul'jarra y osos espirituales cargan hacia ella — ponte en su camino para interceptarlos (cada oso que la alcanza desata un grito horrible).|n2. {SPELL:1255385} empuja a todos — cuidado con tu posición cerca de peligros.|n3. {SPELL:1243569} tritura al tanque durante 4 segundos — ayuda con externos si los tienes.",
+	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk derriba a Zul'jarra y osos espirituales cargan hacia ella — ponte en su camino para interceptarlos.|n2. {SPELL:1242860} reparte un debuff — separaos.|n3. {SPELL:1243569} es la combo al tanque — mantén una defensiva durante toda ella.",
 	DGN_TIP_DN_NALORAKK_TANK = "Tanque: {SPELL:1243569} = golpes acumulados, +50% de daño por golpe — defensivo grande, CADA vez.",
 	DGN_TIP_DN_NALORAKK_HEALER = "Sanador: el tanque pica fuerte durante {SPELL:1243569}; curación de grupo tras cada rugido.",
 
@@ -1240,8 +1240,8 @@ merge(ns._mhLocales and ns._mhLocales.esES, {
 	DGN_TIP_BV_ZIEKKET_HEALER = "Sanador: daño de grupo constante — espera un pico si se cuela un orbe.",
 
 	-- Voidscar Arena ----------------------------------------------------------------
-	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1222274} arrastra a todos hacia sí durante 6 segundos — corre contra el tirón; el centro duele muchísimo.|n2. Tras cada teletransporte ({SPELL:1262901}) atacan Ethereal Shades — quémalos.|n3. Esquiva los {SPELL:1225011}.",
-	DGN_TIP_VA_TAZRAH_TANK = "Tanque: defensivo para {SPELL:1222085}.",
+	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1300259} arrastra a todos hacia sí — corre contra el tirón; el centro duele muchísimo.|n2. Esquiva los charcos de {SPELL:1296963} y sal de la línea de {SPELL:1222098} cuando te toque.|n3. Quema las Ethereal Shades que aparecen tras cada teletransporte.",
+	DGN_TIP_VA_TAZRAH_TANK = "Tanque: defensivo para {SPELL:1297017}.",
 	DGN_TIP_VA_TAZRAH_HEALER = "Sanador: la grieta hace tictac a todos mientras corren — mantén estable al grupo.",
 
 	DGN_TIP_VA_ATROXUS_STEPS = "1. Los Toxic Creepers ({SPELL:1222371}) salen de las charcas — mátalos rápido.|n2. Quédate fuera del cono {SPELL:1263977} y de los círculos {SPELL:1226120}.|n3. {SPELL:1262497} te lanza hacia atrás — no te pongas con una charca a la espalda.",
@@ -1404,7 +1404,7 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_TIP_DN_SENTINEL_TANK = "Tanque: mantenha o chefe longe dos squalls.",
 	DGN_TIP_DN_SENTINEL_HEALER = "Curandeiro: dissipe/cure através de {SPELL:1235548} (DoT de gelo de 16 s); todos sofrem durante {SPELL:1235656}.",
 
-	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk derruba Zul'jarra e ursos espirituais investem contra ela — fique no caminho deles para interceptá-los (cada urso que a alcança dispara um grito terrível).|n2. {SPELL:1255385} empurra todos — cuidado com sua posição perto de perigos.|n3. {SPELL:1243569} tritura o tanque por 4 segundos — ajude com externos se tiver.",
+	DGN_TIP_DN_NALORAKK_STEPS = "1. {SPELL:1243011}: Nalorakk derruba Zul'jarra e ursos espirituais investem contra ela — fique no caminho deles para interceptá-los.|n2. {SPELL:1242860} espalha um debuff — afastem-se uns dos outros.|n3. {SPELL:1243569} é a combo no tanque — segure uma defensiva o tempo todo.",
 	DGN_TIP_DN_NALORAKK_TANK = "Tanque: {SPELL:1243569} = golpes acumulados, +50% de dano por golpe — defensivo grande, TODA vez.",
 	DGN_TIP_DN_NALORAKK_HEALER = "Curandeiro: o tanque sofre picos durante {SPELL:1243569}; cura de grupo após cada rugido.",
 
@@ -1426,8 +1426,8 @@ merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	DGN_TIP_BV_ZIEKKET_HEALER = "Curandeiro: dano de grupo constante — espere um pico se um orbe passar.",
 
 	-- Voidscar Arena ----------------------------------------------------------------
-	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1222274} suga todos por 6 segundos — corra contra a sucção; o centro dói demais.|n2. Depois de cada teleporte ({SPELL:1262901}) Ethereal Shades atacam — queime-os.|n3. Desvie dos {SPELL:1225011}.",
-	DGN_TIP_VA_TAZRAH_TANK = "Tanque: defensivo para {SPELL:1222085}.",
+	DGN_TIP_VA_TAZRAH_STEPS = "1. {SPELL:1300259} puxa todos para si — corra contra a sucção; o centro dói demais.|n2. Desvie das poças de {SPELL:1296963} e saia da linha de {SPELL:1222098} quando ela te pegar.|n3. Queime as Ethereal Shades que aparecem depois de cada teleporte.",
+	DGN_TIP_VA_TAZRAH_TANK = "Tanque: defensivo para {SPELL:1297017}.",
 	DGN_TIP_VA_TAZRAH_HEALER = "Curandeiro: a fenda bate em todos enquanto correm — mantenha o grupo estável.",
 
 	DGN_TIP_VA_ATROXUS_STEPS = "1. Toxic Creepers ({SPELL:1222371}) rastejam das poças — mate-os rápido.|n2. Fique fora do cone {SPELL:1263977} e dos círculos {SPELL:1226120}.|n3. {SPELL:1262497} te arremessa para trás — não fique com uma poça às costas.",

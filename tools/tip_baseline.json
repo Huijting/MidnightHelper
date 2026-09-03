@@ -167,12 +167,6 @@
         "WEAK"
       ]
     ],
-    "DGN_TIP_DN_NALORAKK_STEPS": [
-      [
-        "1255385",
-        "ABSENT"
-      ]
-    ],
     "DGN_TIP_MR_KYSTIA_STEPS": [
       [
         "1230304",
@@ -229,26 +223,6 @@
       [
         "244588",
         "WEAK"
-      ]
-    ],
-    "DGN_TIP_VA_TAZRAH_STEPS": [
-      [
-        "1222274",
-        "ABSENT"
-      ],
-      [
-        "1225011",
-        "WEAK"
-      ],
-      [
-        "1262901",
-        "ABSENT"
-      ]
-    ],
-    "DGN_TIP_VA_TAZRAH_TANK": [
-      [
-        "1222085",
-        "ABSENT"
       ]
     ],
     "DGN_TIP_WS_HEART_HEALER": [

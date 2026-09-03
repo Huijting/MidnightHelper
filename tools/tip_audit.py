@@ -273,6 +273,17 @@ def our_tips():
 
 
 def main():
+    # 🔴 This tool has NO options, so it must say so instead of accepting them.
+    # On 3 Sep 2026 it was run as `--write-baseline`, printed a full clean report, and
+    # wrote nothing -- the flag was invented on the spot and silently swallowed. The
+    # report looked exactly like success. Same shape as the false CLAUDE.md line: an
+    # instruction that is wrong is worse than one that is missing, because it stops you
+    # looking. tip_baseline.json is maintained BY HAND from lint check [19]'s output.
+    if len(sys.argv) > 1:
+        sys.exit("tip_audit takes no arguments (got %s). It only prints the report;\n"
+                 "tools/tip_baseline.json is edited by hand from lint check [19]."
+                 % " ".join(sys.argv[1:]))
+
     missing_files = [p for _l, p in TIP_FILES if not os.path.exists(p)]
     if missing_files:
         sys.exit("missing tip file(s): %s" % ", ".join(missing_files))

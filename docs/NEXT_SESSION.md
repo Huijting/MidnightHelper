@@ -230,6 +230,10 @@ correcte regels te "repareren". Er is nu een derde verdict: **`noted`**.
 
 **dungeons 23 → 19 · rituals 9 → 7 · delves 40 → 33**, puur door beter te kijken.
 
+📌 **Eindstand van de dag, na Rotmire + Taz'Rah + Nalorakk: 407 ID's over 160 tipregels — raids 1,
+dungeons 14, rituals 0, delves 33 (geen maatstaf).** De 410 in de kop hierboven is de meting op het
+moment van uitbreiden, niet de stand nu.
+
 ### ✅ Rotmire herschreven — 6 van 8 ID's klopten met niets
 
 Zijn regel eindigde op *"(Datamined — confirm in-game at launch.)"*: dezelfde vorm als de
@@ -242,12 +246,68 @@ is `carefly` — het is een **knockback**. Wie op de rand stond en dat las, verw
 Nu uit DBM: knockback (1221637), adds (1221622), raid-damage (1221787), pool op jou (1222088) en
 de tank-klap (1221781).
 
+### ✅ Taz'Rah en Nalorakk herschreven — de ID's zaten er telkens náást
+
+Rob: *"ja doe Taz'Rah en Nalorakk ook nog."* Vijf gevlagde ID's over drie regels, nu **nul**.
+
+📌 **Het patroon is hier anders dan bij de raids, en interessanter: onze zínnen klopten.** Bij
+Taz'Rah beschreven alle drie de bullets een mechaniek die DBM ook kent — alleen droeg elke bullet
+het verkeerde nummer. "Sleurt iedereen naar zich toe" is echt, dat is `1300259` Black Hole (DBM-cue
+`watchorb`) en niet `1222274`. "Ontwijk dit" is echt, dat is `1296963` Umbral Rupture (`watchstep`).
+De tank-defensive is echt, dat is `1297017` Void Blast. Wie de tekst las kreeg goed advies; wie op
+de spell-link klikte kreeg iets anders te zien dan de zin beschreef.
+
+| onze regel | oud ID | wat DBM waarschuwt |
+|---|---|---|
+| Taz'Rah, "trekt je naar binnen" | `1222274` | `1300259` Black Hole — ORBS, `watchorb` |
+| Taz'Rah, "ontwijk" | `1225011` WEAK | `1296963` Umbral Rupture — POOLS, `watchstep` |
+| Taz'Rah, tank | `1222085` | `1297017` Void Blast — TANKBUSTER, `defensive` |
+| Taz'Rah, "na elke teleport" | `1262901` | *niets* — zie hieronder |
+| Nalorakk, "duwt iedereen weg" | `1255385` | *geen knockback op deze boss* |
+
+⚠️ **Eén bullet heeft nu géén ID, met opzet.** De Ethereal Shades na de teleport staan nergens in
+DBM — geen teleport, geen adds op deze boss. De zin staat er nog als prose, want hij kan waar zijn
+en hij staat op eigen benen; een nummer dat niemand kan bevestigen maakt hem niet beter, alleen
+klikbaar naar het verkeerde.
+
+🔴 **En Nalorakks knockback is er waarschijnlijk een van de buurman.** DBM kent op Nalorakk geen
+enkele pushback; de dichtstbijzijnde die het wél heeft is `1235656` op de **Sentinel of Winter**, een
+andere encounter in dezelfde dungeon. Zo komt een mechaniek van de boss ernaast in de verkeerde tip
+terecht — het waard om op te letten bij de resterende regels. Vervangen door `1242860` Echoing Maul
+(SPREAD DEBUFFS), dat DBM wél bewaakt en dat wij nooit noemden. Ook `1222098` Nether Dash (LINES,
+`lineyou`) is erbij gekomen bij Taz'Rah, om dezelfde reden.
+
+⚠️ Het herschrijfscript adresseerde op **locale-blok**, niet op vertaalde tekst: `esES` en `ptBR`
+hebben een byte-identieke TANK-regel, en een marker-tabel had ze stilzwijgend tot één sleutel
+samengevouwen — één taal zou onaangeraakt zijn gebleven en niets had dat gemeld. 21 regels, 7 talen,
+0 drift.
+
+### 🔴 `tools/tip_audit.py` slikte elk argument dat je verzon
+
+Bij het bijwerken van de baseline draaide ik `--write-baseline`. Het printte een compleet, schoon
+rapport en **schreef niets** — die vlag bestond niet en de tool negeerde hem. `--help` gaf exact
+hetzelfde rapport. Dat is dezelfde vorm als de onjuiste regel in `CLAUDE.md` van vanochtend: **een
+instructie die fout is, is erger dan een die ontbreekt, want hij laat je ophouden met kijken.**
+Gevangen doordat `git status` het bestand niet als gewijzigd toonde, niet doordat de uitvoer iets
+verried. De tool weigert nu argumenten en zegt waar de baseline dan wél vandaan komt (met de hand,
+uit check `[19]`).
+
+📌 Zelfde ochtend, derde keer: `Glob` met een absoluut `path` gaf **nul** treffers op `tools/*.py` in
+een map waar `_probe.py` aantoonbaar draait. Positieve controle ving het; zonder die controle had ik
+geconcludeerd dat het bestand niet bestond.
+
 ### Wat er wél te doen staat
 
-De **echte** bevindingen zijn dungeons (23 over 19 regels; DBM dekt daar 31/36) en de
-ritual-regels (9 over 4; Lairs dekt 2/2 — Rotmire heeft er 6). `tools/tip_baseline.json` draagt die
-scheiding expliciet in `_delve_caveat` en `_real_findings`, zodat niemand de delve-kolom leest zoals
-ik hem bijna las.
+De **echte** bevindingen zijn nog **14 dungeon-ID's over 13 regels** (DBM dekt daar 31/36). Rituals
+staan op **0** en raids op 1 bewuste WEAK. `tools/tip_baseline.json` is van 53 naar **48** gekrompen
+en draagt de scheiding expliciet in `_delve_caveat` en `_real_findings`, zodat niemand de
+delve-kolom leest zoals ik hem bijna las.
+
+⚠️ Van die 14 zijn er **13 WEAK en 1 `noted`** — geen enkele ABSENT meer. Dat is een wezenlijk
+zwakker signaal dan de reeks die we vandaag hebben opgeruimd: WEAK betekent dat DBM het nummer kent
+maar er niet op waarschuwt, en dat kan net zo goed een terechte keuze van DBM zijn als een fout van
+ons. Elk geval vraagt de mod openslaan, zoals bij `1214352` gebeurde — dat leek ABSENT en was een
+bewuste DBM-beslissing. **Niet in bulk herschrijven.**
 
 ## ✅ 3 sep — de pijl stuurde je door een muur; nu eerst naar de deur
 
