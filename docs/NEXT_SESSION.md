@@ -126,8 +126,25 @@ Beloren van 9 naar 1. De prose-bullets overleefden en de teksten lezen nog steed
 ze zijn **dunner**. Verkeerd advies weghalen weegt zwaarder dan goed advies bewaren — en de helft
 die goed was hoort terug als een geschreven bullet, niet als restant van een tijdlijn.
 
-**Volgende stap, en het is nu bouwen in plaats van repareren:** Vanguard, Crown, Beloren en
-Chimaerus opnieuw vullen uit DBM's eigen waarschuwingslijsten, zoals bij The Venomous Abyss.
+### ✅ En teruggevuld uit DBM — alle 28 tipregels staan nu op DBM
+
+De vier dunste regels zijn opnieuw gevuld uit DBM's eigen waarschuwingslijsten: **Chimaerus 1 → 8
+ID's, Vanguard 3 → 10, Crown 1 → 9, Beloren 1 → 8.** Execution Sentence (`1276368`) is terug als
+geschreven bullet in plaats van als tijdlijn-restant.
+
+📌 **Aangevuld, niet herschreven.** De overgebleven bullets waren met de hand geschreven en
+beschrijven het gevecht in woorden — dat is de goede helft. Aanvullen laat die ongemoeid en houdt
+de diff precies gelijk aan wat nieuw is, waardoor een fout hier geen tekst kan beschadigen die al
+klopte.
+
+**Eindstand van de dag: 105 spell-ID's over 28 tipregels, 0 ABSENT, 1 bewuste WEAK.**
+Begonnen bij 31 twijfelgevallen over 15 regels.
+
+⚠️ **Wat dit NIET is.** Dat elk ID nu door een DBM-waarschuwing gedekt wordt, zegt dat het bestaat
+en dat DBM erop reageert — **niet** dat onze zin eromheen klopt. De werkwoorden komen uit DBM's
+audio-cues (`justrun`, `helpsoak`, `watchstep`, `bigmob`, `colorchange`), wat sterk is maar geen
+vervanging voor iemand die de boss echt doet. Rob komt naar eigen zeggen niet snel in een raid; de
+eerste die dit in een pull leest, leest het ongetest.
 
 ## ✅ 3 sep — de pijl stuurde je door een muur; nu eerst naar de deur
 
