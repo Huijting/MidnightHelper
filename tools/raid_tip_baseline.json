@@ -1,0 +1,160 @@
+{
+  "_why": "Raid tip spell ids that did not hold up against DBM on 2026-09-03. Reported SOFT by lint check [19]; anything NOT listed here is new and fails HARD. Remove entries as lines are rewritten from DBM's own mods - this file is meant to shrink.",
+  "known": {
+    "RAID_BOSS_AVERZIAN_HEALER": [
+      [
+        "1249262",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_AVERZIAN_STEPS": [
+      [
+        "1249262",
+        "ABSENT"
+      ],
+      [
+        "1251583",
+        "ABSENT"
+      ],
+      [
+        "1283069",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_BELOREN_STEPS": [
+      [
+        "1241162",
+        "WEAK"
+      ],
+      [
+        "1241163",
+        "WEAK"
+      ],
+      [
+        "1241267",
+        "ABSENT"
+      ],
+      [
+        "1241292",
+        "WEAK"
+      ],
+      [
+        "1241339",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_CHIMAERUS_STEPS": [
+      [
+        "1268905",
+        "ABSENT"
+      ],
+      [
+        "1282856",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_CROWN_STEPS": [
+      [
+        "1233819",
+        "ABSENT"
+      ],
+      [
+        "1235622",
+        "ABSENT"
+      ],
+      [
+        "1239582",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_ENTOMBEDSENT_STEPS": [
+      [
+        "1284485",
+        "ABSENT"
+      ],
+      [
+        "1284590",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_LOSTEXPLORERS_STEPS": [
+      [
+        "1295886",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_NEKZALI_STEPS": [
+      [
+        "1294933",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_SALHADAAR_STEPS": [
+      [
+        "1247738",
+        "ABSENT"
+      ],
+      [
+        "1253911",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_SSZORAK_TANK": [
+      [
+        "1285430",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_ULATEK_STEPS": [
+      [
+        "1287265",
+        "ABSENT"
+      ],
+      [
+        "1290779",
+        "ABSENT"
+      ],
+      [
+        "1292403",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_VAELGOR_STEPS": [
+      [
+        "1270189",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_VANGUARD_STEPS": [
+      [
+        "1248644",
+        "ABSENT"
+      ],
+      [
+        "1248983",
+        "ABSENT"
+      ],
+      [
+        "1249130",
+        "ABSENT"
+      ],
+      [
+        "1276831",
+        "ABSENT"
+      ]
+    ],
+    "RAID_BOSS_VASHNIK_STEPS": [
+      [
+        "1294994",
+        "WEAK"
+      ]
+    ],
+    "RAID_BOSS_VORASIUS_STEPS": [
+      [
+        "1256855",
+        "ABSENT"
+      ]
+    ]
+  },
+  "measured": "2026-09-03"
+}

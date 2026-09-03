@@ -234,4 +234,28 @@ def main():
     print("    every week. Read the mod before rewriting the line.")
 
 
-main()
+def classify():
+    """(rows, where) for reuse by the linter.
+
+    rows: [ (key, id, 'warned'|'WEAK'|'ABSENT') ] in file order.
+    ⚠️ Kept separate from main() so lint_addon can import this module without printing
+    a 200-line report inside its own output. _probe runs tools with run_name="__main__",
+    so the guard below still lets `python tools/_probe.py run raid_tip_audit` work.
+    """
+    where, _files = scan_dbm()
+    order, tips = our_tips()
+    rows = []
+    for key in order:
+        for i in (tips.get(key) or []):
+            rec = where.get(i)
+            if not rec:
+                rows.append((key, i, "ABSENT"))
+            elif rec["strong"]:
+                rows.append((key, i, "warned"))
+            else:
+                rows.append((key, i, "WEAK"))
+    return rows, where
+
+
+if __name__ == "__main__":
+    main()

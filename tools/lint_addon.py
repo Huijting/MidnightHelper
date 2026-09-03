@@ -1407,6 +1407,70 @@ def main() -> int:
         print(f"     ... and {len(singles) - 30} more")
     soft += 1 if singles else 0
 
+    # ------------------------------------------------------------------
+    # [19] Raid tip spell ids, held against DBM's own boss mods.
+    #
+    # 🔴 WHY DBM AND NOT US. Rob ran a Coiled Isle encounter on 2 Sep 2026 and could not
+    # follow our advice. Ula'tek measured by hand: of four ids one drove a real DBM
+    # warning, one sat in an aura-sound option (the DoT of a DIFFERENT cast, under our
+    # line saying "dodge"), one only in a --TODO comment, and one existed in no
+    # installed addon. Our own tip text ends with "She never appeared on the PTR" --
+    # honest, and printed after four lines that read as fact.
+    #
+    # Rob picked the yardstick and the argument is right: DBM's ids are exercised every
+    # week in real pulls by people who hear about it the moment a warning fires on the
+    # wrong thing. Ours came from datamining, here from before the boss existed.
+    #
+    # 📌 BASELINE, NOT A WALL. 31 ids fail today. A check that fails the build on all of
+    # them gets switched off within a week and then catches nothing; one that says
+    # nothing is equally useless. So the measured backlog is SOFT and anything NOT in
+    # tools/raid_tip_baseline.json is NEW and HARD. It cannot fix the existing mess, but
+    # it stops the next id being written the way 1290779 was -- and the file shrinks as
+    # lines are rewritten.
+    #
+    # ⚠️ ABSENT is a strong flag, never proof: DBM warns only on what it chooses to warn
+    # on. What it does prove is that nobody held the id against that mod.
+    try:
+        import json as _json
+        import raid_tip_audit as _audit
+        rows, _ = _audit.classify()
+        base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                 "raid_tip_baseline.json")
+        known = {}
+        if os.path.exists(base_path):
+            with open(base_path, encoding="utf-8") as fh:
+                known = (_json.load(fh) or {}).get("known") or {}
+        known_pairs = set()
+        for k, entries in known.items():
+            for e in entries:
+                known_pairs.add((k, e[0]))
+
+        bad = [(k, i, v) for (k, i, v) in rows if v in ("ABSENT", "WEAK")]
+        fresh = [t for t in bad if (t[0], t[1]) not in known_pairs]
+        stale = [p for p in known_pairs
+                 if p not in {(k, i) for (k, i, _v) in bad}]
+
+        print(f"\n[19] Raid tip spell ids not backed by a DBM warning: "
+              f"{len(bad)} ({len(fresh)} new)")
+        for k, i, v in fresh[:20]:
+            print(f"    HARD  {k}  {i}  {v} — not in the measured baseline, so this is "
+                  f"newly written. Check DBM's mod before shipping it.")
+        hard += len(fresh)
+        if bad and not fresh:
+            print(f"     all {len(bad)} are the known backlog "
+                  f"(tools/raid_tip_baseline.json) — SOFT")
+            soft += 1
+        if stale:
+            # Not a failure: it means somebody fixed a line. Say so, and ask for the
+            # baseline to shrink, or it slowly becomes a licence for anything.
+            print(f"     ✅ {len(stale)} baseline entr{'y' if len(stale) == 1 else 'ies'} "
+                  f"no longer fail — remove them from raid_tip_baseline.json")
+    except Exception as exc:  # noqa: BLE001
+        # A checker that dies quietly is worse than no checker. Say why.
+        print(f"\n[19] Raid tip spell ids: NOT CHECKED — {type(exc).__name__}: {exc}")
+        print("     SOFT  this check proves nothing this run; do not read silence as clean")
+        soft += 1
+
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)

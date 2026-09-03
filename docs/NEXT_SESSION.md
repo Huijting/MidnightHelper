@@ -59,8 +59,23 @@ Een controle die alleen makkelijke gevallen bevat, bevestigt de bug die je erin 
 signaal en geen verdict. Wat het wél bewijst: dat ID is nooit tegen de mod gelegd van het team dat
 deze boss elke week doodt.
 
-**Nog te doen:** de 15 regels herschrijven uit DBM's eigen mods, en de check als lint-punt [19]
-opnemen zodat dit niet opnieuw kan binnenglippen.
+### ✅ Lint-check [19] staat erin, mét een baseline in plaats van een muur
+
+31 ID's falen vandaag. Een check die daar allemaal op stukloopt wordt binnen een week uitgezet en
+vangt daarna niets; een die zwijgt is even nutteloos. Dus: de gemeten achterstand staat in
+`tools/raid_tip_baseline.json` en is **SOFT**; alles wat er **niet** in staat is nieuw en **HARD**.
+Hij kan de bestaande rommel niet repareren, maar wel voorkomen dat het volgende ID zo geschreven
+wordt als `1290779` — en het bestand hoort te krimpen.
+
+⚠️ Verwijder je een regel uit de baseline zonder de tip te repareren, dan valt de build om. Dat is
+de bedoeling.
+✅ Repareer je een tip, dan meldt [19] zelf dat de baseline-regel weg mag.
+
+📌 **Bewezen dat de HARD-tak vuurt**, niet aangenomen: één baseline-regel tijdelijk weggehaald
+(`1290779`, het ID waar dit mee begon) → `1 new`, `HARD issues: 1`, exit-code 1, daarna hersteld.
+Een check die niemand ooit heeft zien falen, is een check waarvan niemand weet dat hij werkt.
+
+**Nog te doen:** de 15 regels herschrijven uit DBM's eigen mods.
 
 ## ✅ 3 sep — de pijl stuurde je door een muur; nu eerst naar de deur
 
