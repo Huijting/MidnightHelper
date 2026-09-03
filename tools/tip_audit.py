@@ -141,8 +141,49 @@ def _strip_comments(text):
     return "\n".join(out)
 
 
+def scan_extra_sources():
+    """id -> set of non-DBM addons that also know it.
+
+    🔴 ROB, 3 Sep: "er zijn toch ook sites en addons op cf voor alles". Right, and it
+    landed exactly where the audit was weakest. MythicDungeonTools ships per-dungeon
+    spell tables for Midnight and is installed here, which makes it a SECOND local
+    yardstick for dungeons -- and it immediately vindicated three ids this tool had
+    called ABSENT (1296219, 1251813, 1214352).
+    ⚠️ Local and machine-readable is the requirement, not authority in the abstract. A
+    website cannot be checked by a linter every run, and the guides this project already
+    burned itself on were confidently wrong. An addon on disk can be parsed and re-parsed.
+    """
+    out = {}
+    for name in ("MythicDungeonTools", "GTFO", "BossHelper", "JustAC"):
+        root = os.path.join(ADDONS, name)
+        if not os.path.isdir(root):
+            continue
+        for dirpath, _d, names in os.walk(root):
+            for n in names:
+                if not n.endswith(".lua"):
+                    continue
+                try:
+                    text = io.open(os.path.join(dirpath, n), encoding="utf-8",
+                                   errors="replace").read()
+                except OSError:
+                    continue
+                for m in NUM_RE.finditer(text):
+                    out.setdefault(m.group(1), set()).add(name)
+    return out
+
+
 def scan_dbm():
-    """id -> { 'strong': set(files), 'weak': set(files) }.
+    """id -> { 'strong': set(files), 'weak': set(files), 'noted': set(files) }.
+
+    🔴 'noted' EXISTS BECAUSE STRIPPING COMMENTS WAS RIGHT TWICE AND WRONG ONCE. Comments
+    had to be ignored so a "--TODO" mention could not pass as an implementation. But DBM
+    also uses comments to record a DECISION about a real spell, and those reads as ABSENT:
+      Ravi.lua      "--https://.../spell=1296219/fetid-roar isn't in journal but has
+                     encounter event" and a commented warning marked "Possibly not needed"
+      Vordaza.lua   "1251813 has a private aura but it doesn't need an alert"
+      Zaen.lua      "1214352 ... ENCOUNTER_WARNING intercept is used instead"
+    All three are real spells DBM deliberately does not warn on, and all three are in
+    MythicDungeonTools too. Calling them ABSENT told Rob to go fix three correct lines.
 
     strong = the id is an argument to a DBM warning/timer constructor, i.e. DBM
              actually acts on it.
@@ -166,17 +207,30 @@ def scan_dbm():
                 for raw in text.split("\n"):
                     line = _strip_comments(raw)
                     if not line.strip():
-                        continue  # a comment-only line teaches us nothing
+                        # Comment-only: DBM knows the number and wrote down why it does
+                        # not act on it. That is a decision, not silence.
+                        for m in NUM_RE.finditer(raw):
+                            rec = where.setdefault(m.group(1), {
+                                "strong": set(), "weak": set(), "noted": set()})
+                            rec["noted"].add(label)
+                        continue
                     low = line.lower()
                     acts = (WARN_LINE in low)
                     knows = any(k in low for k in KNOWS_ONLY)
                     for m in NUM_RE.finditer(line):
                         i = m.group(1)
-                        rec = where.setdefault(i, {"strong": set(), "weak": set()})
+                        rec = where.setdefault(i, {
+                            "strong": set(), "weak": set(), "noted": set()})
                         if acts and not knows:
                             rec["strong"].add(label)
                         else:
                             rec["weak"].add(label)
+                    # A trailing comment on a code line can also carry a decision.
+                    tail = raw[len(line):] if raw.startswith(line) else ""
+                    for m in NUM_RE.finditer(tail):
+                        rec = where.setdefault(m.group(1), {
+                            "strong": set(), "weak": set(), "noted": set()})
+                        rec["noted"].add(label)
     return where, files
 
 
@@ -283,6 +337,10 @@ def main():
             print("   %-28s %3d / %3d%s" % (addon, withw, total, flag))
     print()
 
+    extra = scan_extra_sources()
+    print("second sources on disk: %d ids known to MythicDungeonTools / GTFO / others"
+          % len(extra))
+    print()
     order, tips, origin, unresolved = our_tips()
     if unresolved:
         print("🔴 %d {SPELL:@token} placeholder(s) with no entry in DelveSpellIds.lua —"
@@ -305,14 +363,22 @@ def main():
         bad = 0
         for i in ids:
             rec = where.get(i)
-            if not rec:
+            others = extra.get(i)
+            if not rec and others:
+                # Not in DBM at all, but another installed addon carries it. Weaker than
+                # a DBM warning and much stronger than nothing.
+                rows.append((i, "2nd-src", "not in DBM, but known to " + ", ".join(sorted(others))))
+            elif rec and not rec["strong"] and not rec["weak"] and rec["noted"]:
+                rows.append((i, "noted", "DBM names it in a comment and chose not to warn — "
+                             + ", ".join(sorted(rec["noted"])[:2])))
+            elif not rec:
                 rows.append((i, "ABSENT", "in no DBM mod at all"))
                 n_absent += 1
                 bad += 1
             elif rec["strong"]:
                 shown = sorted(rec["strong"])
-                extra = "" if len(shown) <= 2 else "  (+%d)" % (len(shown) - 2)
-                rows.append((i, "warned", ", ".join(shown[:2]) + extra))
+                more = "" if len(shown) <= 2 else "  (+%d)" % (len(shown) - 2)
+                rows.append((i, "warned", ", ".join(shown[:2]) + more))
             else:
                 shown = sorted(rec["weak"])
                 rows.append((i, "WEAK", "only mentioned, never warned on — "
@@ -370,11 +436,18 @@ def classify():
     so the guard below still lets `python tools/_probe.py run raid_tip_audit` work.
     """
     where, _files = scan_dbm()
+    extra = scan_extra_sources()
     order, tips, _origin, _unresolved = our_tips()
     rows = []
     for key in order:
         for i in (tips.get(key) or []):
             rec = where.get(i)
+            # Same three-way widening as the report: an id another installed addon knows,
+            # or one DBM documents a decision about, is not a finding.
+            if (not rec and extra.get(i)) or (
+                    rec and not rec["strong"] and not rec["weak"] and rec["noted"]):
+                rows.append((key, i, "warned"))
+                continue
             if not rec:
                 rows.append((key, i, "ABSENT"))
             elif rec["strong"]:
