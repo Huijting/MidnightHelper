@@ -1142,7 +1142,16 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	local currentZoneName = GetZoneDisplayName(currentMap)
 	local targetZoneName = GetZoneDisplayName(targetMap)
 
-	ns.lastTarget = { mapID = targetMap, x = xPct, y = yPct, name = title }
+	--- `leg` marks an INTERMEDIATE hop -- the flight master you walk to first, or the
+	--- portal you step through -- as opposed to where you actually asked to go.
+	--- `_mhTravelLegBusy` is already set around both of those calls (DelveTipMarkup.lua:506
+	--- and :541); it existed to stop the travel assistant re-entering itself, and it turns
+	--- out to be exactly the fact the arrow needed too. See AnnounceUnreachable in
+	--- NativeArrow.lua for what went wrong without it.
+	ns.lastTarget = {
+		mapID = targetMap, x = xPct, y = yPct, name = title,
+		leg = ns._mhTravelLegBusy and true or nil,
+	}
 
 	-- 1. Waypoint: TomTom arrow when available, else Blizzard user waypoint + SuperTrack.
 	-- Skipped entirely for travelOnly refreshes, so the existing arrow is untouched.

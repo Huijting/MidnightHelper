@@ -7,6 +7,28 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 3 sep — de routes vanuit Harandar (ONGETEST)
+
+Je stond in Harandar, klikte Twilight Crypts, en kreeg vier regels die elkaar tegenspraken.
+
+- [ ] **Zelfde klik, opnieuw.** Ga in Harandar staan en route naar **Twilight Crypts**. Verwacht:
+      **géén** *"Head for Portal to Harandar first"* meer, en **géén** *"…is not on this continent"*
+      over een flight master waar je naast staat.
+- [ ] ⚠️ **De vlucht zelf klopt nog steeds niet** en dat is met opzet nog niet gerepareerd. Zygors
+      taxidata zegt dat Harandar een gesloten netwerk is zonder uitgaande verbindingen, dus *"Fly
+      from Har'alnor to Torntusk Overlook"* is een vlucht die niet bestaat. Zie je die regel nog:
+      klopt, dat is punt 4 en dat doen we apart.
+- [ ] 🔴 **De meting die het laatste stuk hard maakt:** typ **`/mh arrow`** terwijl je in Harandar
+      staat. Die print welke map de client teruggeeft en welk continent hij eraan hangt. Mijn
+      diagnose zegt dat je soms als map **2576** en soms als **2413** wordt gezien binnen één
+      seconde — dat is nu afgeleid uit jouw chat, niet gemeten.
+- [ ] **The Den.** Onze coördinaat stond 17 kaarteenheden ernaast (een aflezing van de verkeerde
+      verdieping). Route er eens heen: de pijl hoort nu naar de grot te wijzen, niet ernaast.
+- [ ] 📌 **Voor Cisca of een Alliance-alt, niet voor jou:** *The Royal Exchange* stond bij ons op
+      "beide facties" en is **Horde-only**, *Silverglade Refuge* andersom. Een Alliance-speler werd
+      dus naar een flight master gestuurd die hij niet mag gebruiken. Nu gecorrigeerd — maar
+      niemand hier kan dat op een Alliance-character controleren.
+
 ## 🆕 3 sep — This Week op je level-68 Paladin (ONGETEST)
 
 🔴 **Dit kun jij testen en ik niet**, want op max level vuurt de nieuwe filter nooit. Log in op de

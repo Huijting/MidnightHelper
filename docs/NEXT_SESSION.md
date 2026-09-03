@@ -13,6 +13,69 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## 🔴 3 sep (avond) — de routes: drie agenten, vier fouten, en één die geen datafout is
+
+Rob stond **in Harandar**, klikte een route naar Twilight Crypts, en kreeg in één handeling:
+
+```
+TomTom: Added a waypoint (Twilight Crypts …) in Zul'Aman
+MH:     Fly from Har'alnor to Torntusk Overlook.
+TomTom: Added a waypoint (Flight master: Har'alnor …) in Harandar
+MH:     Flight master: Har'alnor is not on this continent. Head for Portal to Harandar first.
+```
+
+Zijn pijl las tegelijk **"Har'alnor — 1km 180m"**. Drie agenten erop; ze corrigeerden elkaar op een
+belangrijk punt.
+
+⚠️ **EERST EEN CORRECTIE OP MIJN EIGEN TUSSENRAPPORT.** Ik gaf door dat het regiomodel de SMC-omweg
+verklaarde. **GEMETEN: onwaar.** Harandar (2413) én Har'alnor zitten allebei in regiogroep 2; geen
+enkele opzoeking geeft daar een verkeerde waarde. Ik had één agent geciteerd voordat de tweede hem
+weersprak — precies wat ik zelf een uur eerder had aangekondigd niet te doen.
+
+### ✅ Gerepareerd
+
+**1. De portaalzoeker vroeg nooit waar je staat.** `TravelPlan.lua` matchte alleen `p.toID ==
+outermost` en nam de eerste treffer; de eerste rij naar Harandar ligt in **Silvermoon**. Vandaar
+"neem het portaal naar Harandar" terwijl je in Harandar staat. Nu ook `p.mapID == here`.
+📌 Streng met opzet: een portaal op een dérde kaart is geen stap maar een stap die zelf een plan
+nodig heeft, en die bouwt deze planner niet. Het bestand zei het al twee regels verderop: *"Silence
+beats a guessed hop."*
+
+**2. `ns.lastTarget` deed twee banen tegelijk.** Het is waar de pijl naar wijst — dus het moet de
+tussenstap worden, anders is de leg niet te routeren — én het is wat `AnnounceUnreachable` als
+*de bestemming* behandelt. Toen de leg het overschreef, vroeg die functie "hoe reis ik naar
+Har'alnor" over een punt dat juist gekozen was omdat het het dichtstbij is. Legs dragen nu
+`leg = true` (`_mhTravelLegBusy` bestond al) en zijn uitgesloten van het onbereikbaar-verdict.
+⚠️ Een **label**, geen onderdrukking: de leg houdt de pijl. Een leg is per constructie nooit
+onbereikbaar — het is een vliegpunt op je eigen kaart of een portaal waar je naartoe kunt lopen.
+
+**3. Drie foute rijen in `FlightPointsData.lua`**, alle drie tegen Zygors LibTaxi gemeten:
+- **The Den** droeg x=70.74, een **verdieping-2-aflezing op de verdieping-0-kaart**. Op 2413 is het
+  54.10 (zelfde y). ✅ Zelf nagerekend in plaats van op rapport aangenomen: de andere vier
+  Harandar-punten komen exact overeen met LibTaxi, dus deze rij is de uitbijter.
+  ⚠️ En het bereikte de speler wél, wat de header van dat bestand ontkent.
+- **The Royal Exchange** stond op `"B"` en is **Horde-only** → Alliance werd naar een onbruikbare
+  flight master gestuurd. **Silverglade Refuge** stond op `"B"` en is **Alliance-only** → spiegelbeeld.
+  Precies de fout die die factieletter hoort te voorkomen.
+
+### 🔴 Wat NIET gerepareerd is, en niet te repareren valt met een rij-correctie
+
+**Dat vliegadvies bestaat niet.** GEMETEN in Zygors `flightcost`: Harandars netwerk is een **gesloten
+eiland van vijf punten met nul uitgaande verbindingen**; Torntusk Overlook hangt aan Eastern Kingdoms.
+Er is geen taxipad Har'alnor → Torntusk Overlook.
+
+📌 **En onze tabel kán dat niet weten**: 155 platte per-kaart-lijsten, **zonder één verbinding**. Wie
+"dichtstbijzijnde hier" aan "dichtstbijzijnde daar" plakt blijft onmogelijke vluchten produceren.
+Rob: *"kijken we daarna wel naar 4"* — de kandidaat is Zygors `flightcost`-graaf importeren.
+
+⚠️ Verder open uit de audit, niet aangeraakt: **Founder's Point** (2352, 8 Alliance-huisvestingspunten)
+ontbreekt volledig terwijl de Horde-tegenhanger compleet is; `FLIGHT_POINTS` heeft geen `[2576]`
+terwijl zes andere tabellen die map wél hebben; en `GetBaseZoneName(2395)` noemt Eversong "Zul'Aman".
+
+⚠️ **Nog steeds afgeleid, niet gemeten:** dat de client hem als 2576 én 2413 door elkaar teruggeeft.
+De twee chatregels zijn onder geen enkele waarde allebei waar, wat het sterk maakt — maar `/mh arrow`
+in Harandar zou het beslechten en dat is nog niet gedraaid.
+
 ## ✅ 3 sep (avond) — Zygor is nu een tweede bron, maar NIET in `tip_audit`
 
 Rob: *"ja doe zygor als tweede bron voor raid tips."* Gebouwd als `tools/zygor_tips.py`

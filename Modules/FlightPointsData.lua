@@ -950,11 +950,17 @@ ns.FLIGHT_POINTS = {
 	},
 	[2393] = {
 		{ "Sanctum of Light", 50.97, 71.25, "B" },
-		{ "The Royal Exchange", 69.36, 63.31, "B" },
+		--- 🔴 WAS "B", AND THAT IS THE FAILURE THE LETTER EXISTS TO PREVENT. Zygor files
+		--- this master under a `-- HORDE --` header (LibTaxi-1.0/data.lua:463-464), so on
+		--- "B" every Alliance player was routed to a flight master they cannot use.
+		{ "The Royal Exchange", 69.36, 63.31, "H" },
 	},
 	[2395] = {
 		{ "Fairbreeze Village", 44.70, 44.98, "B" },
-		{ "Silverglade Refuge", 31.01, 90.07, "B" },
+		--- 🔴 The mirror image of The Royal Exchange above: Zygor has it under `-- ALLIANCE --`
+		--- (LibTaxi-1.0/data.lua:469-470, npc Galendror Whitewing), and on "B" every Horde
+		--- player was sent to it. Two rows, two factions, same defect, found together.
+		{ "Silverglade Refuge", 31.01, 90.07, "A" },
 		{ "Tranquillien", 47.80, 67.13, "B" },
 	},
 	[2405] = {
@@ -967,7 +973,17 @@ ns.FLIGHT_POINTS = {
 		{ "Har'athir", 69.36, 52.60, "B" },
 		{ "Har'kuai", 64.59, 23.15, "B" },
 		{ "Har'mara", 35.53, 23.81, "B" },
-		{ "The Den", 70.74, 53.23, "B" },
+		--- 🔴 x WAS 70.74 — A FLOOR-2 READING FILED ON THE FLOOR-0 MAP. Zygor's guide writes
+		--- `fpath The Den |goto Harandar/2 70.74,53.23`, and we copied the number without the
+		--- `/2`. On map 2413 the same master sits at 54.10 (LibTaxi-1.0/data.lua:527, npc
+		--- Doecha 255056) — same y, ~17 map units of x error.
+		--- ✅ Verified by hand rather than taken on report: the other four Harandar rows match
+		--- LibTaxi exactly (Har'athir, Har'mara, Har'alnor, Har'kuai), so this row is the
+		--- outlier, not the source.
+		--- ⚠️ And it did reach the player, which this file's own header denies: the header
+		--- says the floor "never reaches the player", but RouteToNearestFlightPoint sets a
+		--- waypoint at these very coordinates on the player's map.
+		{ "The Den", 54.10, 53.23, "B" },
 	},
 	[2424] = {
 		{ "Terrace of the Sun", 57.55, 33.85, "B" },

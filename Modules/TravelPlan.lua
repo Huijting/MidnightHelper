@@ -190,9 +190,28 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		-- ns.MHPortalUsable, not a name I expected it to have: checked rather than
 		-- assumed, because a wrong function name here would silently drop every
 		-- portal from every plan and look like "there is no portal".
+		--- 🔴 A PORTAL YOU CANNOT WALK TO IS NOT A STEP. Rob, 3 Sep 2026, standing IN
+		--- Harandar and routing to the Twilight Crypts, was told to "head for Portal to
+		--- Harandar first" -- a portal that is physically in Silvermoon.
+		---
+		--- 📌 The bug was one missing condition. This loop asked only "does this portal go
+		--- where I want?" (`p.toID == outermost`) and took the first hit. It never asked
+		--- "and is it where I am?". `MIDNIGHT_PORTALS` is ordered by nothing in particular,
+		--- so the first row leading to Harandar happens to be the Silvermoon-side one, and
+		--- that is verbatim what he was sent to.
+		---
+		--- ⚠️ Strict on purpose: `p.mapID == here` only. A portal on some third map is not a
+		--- step, it is a step that needs its own plan first, and this planner does not build
+		--- those -- so offering it states a route we cannot justify. The file already argues
+		--- this a few lines down: "Silence beats a guessed hop." Falling through to the
+		--- flight fallback, or to nothing, is the honest outcome.
+		--- 📌 `MIDNIGHT_PORTALS` carries duplicate rows for the combined canvas 2576 beside
+		--- the 2393/2413 ones, so an exact match still lands whichever map id the client
+		--- reports. Where a row is missing for one of the pair we now say nothing instead of
+		--- naming the wrong side, which is the safe direction to fail in.
 		if ns.MIDNIGHT_PORTALS and ns.MHPortalUsable then
 			for _, p in ipairs(ns.MIDNIGHT_PORTALS) do
-				if p.toID == outermost and ns.MHPortalUsable(p) then
+				if p.toID == outermost and p.mapID == here and ns.MHPortalUsable(p) then
 					steps[#steps + 1] = {
 						kind = "portal",
 						mapID = p.mapID,

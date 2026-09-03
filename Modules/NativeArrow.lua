@@ -710,6 +710,24 @@ local function AnnounceUnreachable(t)
 	if IsInInstance and select(1, IsInInstance()) then
 		return
 	end
+	--- 🔴 NEVER ANNOUNCE A TRAVEL LEG AS UNREACHABLE. Rob, 3 Sep 2026, standing in
+	--- Harandar: chat said "Fly from Har'alnor to Torntusk Overlook", then one second
+	--- later "Flight master: Har'alnor is not on this continent. Head for Portal to
+	--- Harandar first." Two sentences about the same NPC, 1.2 km away, in his own zone.
+	---
+	--- 📌 The cause is that `ns.lastTarget` does two jobs. It is what the arrow POINTS at
+	--- -- which must become the intermediate flight master, or the leg cannot be routed --
+	--- and it is what this function treats as THE DESTINATION. When the leg overwrote it,
+	--- this function started asking "how do I travel to Har'alnor" about a stop that was
+	--- picked precisely because it is the nearest one to where the player already stands.
+	---
+	--- ⚠️ The fix is a label, not a suppression. The leg still owns the arrow; it is only
+	--- barred from the unreachable verdict, and a leg is unreachable-by-construction never:
+	--- it is either a flight point on the current map or a portal the planner just proved
+	--- the player can walk to. Any "you cannot get there" about it is false by definition.
+	if t.leg then
+		return
+	end
 	local key = TargetKey(t)
 	if key == announcedUnreachableKey then
 		return
