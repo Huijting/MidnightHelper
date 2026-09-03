@@ -99,8 +99,35 @@ docstring dat het "weigert een gedeeltelijk resultaat te schrijven" en schreef h
 telling: 17 van 21 toegepast, daarna exit 1. Er ging niets stuk, maar de garantie was decoratief.
 De vervolgscripts zoeken eerst alle vervangingen en raken het bestand pas daarna aan.
 
-**Nog te doen:** de 10 overgebleven regels in de oudere raids — Beloren (5), Vanguard (4), Averzian
-(3+1), Crown (3), Salhadaar (2), Chimaerus (2), Vorasius (1), Vaelgor (1).
+### ✅ De oudere raids: **0 ABSENT** — en het patroon dat alles verklaarde
+
+Pas toen alle 28 regels naast elkaar lagen viel het op: **elke gevlagde tip eindigde op een staart**
+`"• Key casts: … (EXBoss timeline — confirm in-game.)"`. Dat is een **tweede bron**, aangeniet aan
+een handgeschreven bullet-lijst, en daar zat vrijwel elk fout ID in. De staart zei het zelf —
+*"confirm in-game"* — en dat is nooit gebeurd.
+
+Dus geen prose herschreven op gevoel, maar weggehaald wat we niet kunnen onderbouwen: elke bullet
+met een ID waar DBM niet op waarschuwt, plus de geïmporteerde staart. **56 regels, 84 bullets weg**,
+in zeven talen tegelijk — een lijst-operatie, geen vertaalklus, dus er is in geen enkele taal een
+zin verzonnen.
+
+| | vóór | na |
+|---|---:|---:|
+| spell-ID's die nergens in DBM staan | 21 | **0** |
+| ID's die DBM kent maar nooit waarschuwt | 10 | **1** |
+| tipregels met minstens één | 15 | **1** |
+
+Die ene is Ula'teks Soul Constrictor, de bewuste keuze uit de vorige sectie.
+
+⚠️ **DAT KOSTTE OOK GOED ADVIES, en dat is een keuze geweest.** Vanguards staart droeg
+`1276368` (Execution Sentence, DBM's GROUP SOAKS) en `1246485` naast drie ID's die nergens bestaan;
+de bullet schrappen gooit alle vijf weg. Chimaerus ging van 6 ID's naar 1, Crown van 7 naar 1,
+Beloren van 9 naar 1. De prose-bullets overleefden en de teksten lezen nog steeds als advies, maar
+ze zijn **dunner**. Verkeerd advies weghalen weegt zwaarder dan goed advies bewaren — en de helft
+die goed was hoort terug als een geschreven bullet, niet als restant van een tijdlijn.
+
+**Volgende stap, en het is nu bouwen in plaats van repareren:** Vanguard, Crown, Beloren en
+Chimaerus opnieuw vullen uit DBM's eigen waarschuwingslijsten, zoals bij The Venomous Abyss.
 
 ## ✅ 3 sep — de pijl stuurde je door een muur; nu eerst naar de deur
 
