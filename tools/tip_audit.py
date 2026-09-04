@@ -90,6 +90,50 @@ KEY_RE = re.compile(r"^\s*((?:RAID_BOSS|DGN_TIP|DELVE_TIP|RITUAL_TIP)_[A-Z0-9_]+
 NUM_RE = re.compile(r"\b(\d{6,})\b")
 
 
+#: 🔴 The positive control, shared by both entry points.
+#
+# Ids read straight out of DBM's Ula'tek mod on 3 Sep 2026. If the scanner cannot find
+# these in DBM's own files it is broken, or DBM is not installed, and every "not in DBM"
+# verdict would be a lie.
+#
+# Two of them were misclassified by an earlier version of the scanner and are kept on
+# purpose: 1305959 sits in NewCDCountTimer with the duration first, 1284483 likewise. A
+# classifier that cannot see those is the classifier we already shipped once and threw
+# away.
+#
+# ⚠️ This lived inside main() until 4 Sep 2026, which meant `classify()` -- the function
+# the linter imports -- never ran it. See the note on classify().
+CONTROL_IDS = {
+    "1300530": "Spectral Coils",
+    "1301510": "Circling Prey",
+    "1302982": "Virulent Spit",
+    "1305959": "Venomous Surge",
+    "1284483": "Blighted Blood",
+}
+
+
+def assert_dbm_present(where, files):
+    """Raise unless DBM is installed and readable.
+
+    The caller decides what to do about it. The linter turns this into "NOT CHECKED",
+    which is the honest answer on a CI runner that has no addon folder beside the repo --
+    and a great deal better than 378 invented findings.
+    """
+    if not files:
+        raise RuntimeError(
+            "no DBM boss files found (%d addon folder(s) scanned). This check compares "
+            "our spell ids against DBM's own mods, so without DBM it can measure "
+            "nothing -- it must not report every id as ABSENT."
+            % len(dbm_sources()))
+    missing = [i for i in CONTROL_IDS
+               if i not in where or not where[i]["strong"]]
+    if missing:
+        raise RuntimeError(
+            "positive control failed: DBM's own ids %s were not found. The scanner is "
+            "broken or DBM is incomplete; no verdict would be trustworthy."
+            % ", ".join(sorted(missing)))
+
+
 def dbm_sources():
     """Every DBM mod folder that ships boss files."""
     out = []
@@ -395,9 +439,7 @@ def main():
     # here on purpose: 1305959 sits in NewCDCountTimer with the duration first, 1284483
     # likewise. A classifier that cannot see those is the classifier we already shipped
     # once and had to throw away.
-    control = {"1300530": "Spectral Coils", "1301510": "Circling Prey",
-               "1302982": "Virulent Spit", "1305959": "Venomous Surge",
-               "1284483": "Blighted Blood"}
+    control = dict(CONTROL_IDS)
     missing_control = [i for i in control
                        if i not in where or not where[i]["strong"]]
     if missing_control:
@@ -577,8 +619,20 @@ def classify():
     ⚠️ Kept separate from main() so lint_addon can import this module without printing
     a 200-line report inside its own output. _probe runs tools with run_name="__main__",
     so the guard below still lets `python tools/_probe.py run raid_tip_audit` work.
+
+    🔴 RAISES WHEN DBM IS NOT THERE, instead of reporting every id as ABSENT.
+    Measured 4 Sep 2026: the GitHub runner checks out the repo alone, so there are no
+    sibling addon folders and no DBM. `main()` has run a positive control since day one
+    and would have caught it — but `classify()`, which is what the linter imports, walked
+    straight past it. The build then failed every push with "378 HARD, newly written",
+    naming ids nobody had touched, and mailed Rob about it all day.
+
+    That is this repo's own rule about an empty search proving nothing, breaking the
+    thing built to enforce it. A tool with a positive control that only one of its two
+    entry points runs does not have a positive control.
     """
     where, _files = scan_dbm()
+    assert_dbm_present(where, _files)
     extra = scan_extra_sources()
     order, tips, _origin, _unresolved = our_tips()
     rows = []
