@@ -340,3 +340,107 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `GetNextWaypointForMap`→`C_Navigation`, AuraContainer/AuraButton, `UntrustedScriptExecution`
     op AuraButtons, `GetWeaponEnchantInfo`) zijn niet opnieuw getoetst en blijven staan zoals op
     2 sep gemeten — geen nieuwe informatie erover deze week.
+
+- [2026-09-04] 🔴 **`Patch 12.1.5/API changes` is vannacht aangemaakt — 118 toevoegingen, 16
+  verwijderingen, build 69594.** Voor het eerst sinds 15 aug is er een nieuwe API-changes-pagina.
+  📌 **CORRECTIE op de regel van gisteren.** Die zei: *"`Patch 12.1.5` en `Patch 12.1.7` bestaan als
+  stub **zonder** `/API changes`-subpagina."* Dat klopte op 3 sep en klopt vandaag niet meer:
+  pageid **705933**, aangemaakt **2026-09-04T02:41:48Z** door Ketho, bron een blue post van
+  **3 sep** ("Midnight 12.1.5 PTR Changes 1", build **69594**). 12.1.7 is nog wél een lege stub.
+  **GEMETEN:** de wikitext van de pagina zelf gelezen (`prop=revisions&rvprop=content`), geen
+  samenvatting en geen zoekresultaat.
+  ⚠️ **12.1.5 is PTR, niet live.** De addon draait op 12.1.0 (`## Interface: 120007, 120100`), dus
+  hieronder breekt vandaag niets bij Rob. **0 × [MOET GEFIKST].** Dit is de lijst om vóór
+  12.1.5-live langs te lopen, niet vanochtend.
+  - **Tellingen, GEMETEN uit de tabellen zelf:** Global API +75 / −1 · FrameXML +10 / −15 ·
+    ScriptObjects +30 · Widgets +2 · Events +1 (`WEATHER_CHANGED`) · CVars +6.
+  - **[RAAKT ONS NIET] — de 15 verwijderde FrameXML-globals.** `Clamp`, `CountTable`,
+    `GetKeysArray`, `GetValuesArray`, `Lerp`, `RoundToSignificantDigits`, `Round`, `Saturate`,
+    `Sign`, `StringContains`, `TableIsEmpty`, `tContains`, `tDeleteItem`, `tIndexOf`,
+    `tUnorderedRemove` verhuizen van Lua naar native code; op één na staan ze allemaal wéér in de
+    Global-API-Added-lijst, dus met alias. Grep over de addon: **0 treffers voor alle vijftien**, en
+    ook 0 voor `C_TableUtil` — dat is de énige verwijderde global (`C_TableUtil.FindIndexedMismatch`).
+    ⚠️ **De uitzondering is `StringContains`: die staat wél bij Removed en NIET bij Added**, terwijl
+    de blue post letterlijk zegt *"aliases for the existing names have been retained to prevent addon
+    breakage"*. Dat is een tegenspraak binnen dezelfde bron. Ik weet niet welke van de twee klopt en
+    verzin geen migratie; de nieuwe naam is `string.contains`. Voor ons maakt het niets uit (0
+    treffers), maar wie het elders leest moet dit weten.
+  - **[AL AFGEDEKT] — CustomAuraContainer / CustomAuraButton, mét een breaking signature-wijziging.**
+    `AddDispelTypeTexture` en `AddPandemicRegion` geven **geen index meer terug**, en
+    `RemoveDispelTypeTexture`/`RemovePandemicRegion` nemen nu een **region-referentie** in plaats van
+    een index; dezelfde region twee keer toevoegen gooit voortaan een error. **Wij gebruiken die vier
+    nergens** (0 treffers). Onze enige container staat op `Modules/PartyTargets.lua:326`
+    (`pcall(CreateFrame, "AuraContainer", nil, panel, "CustomAuraContainerTemplate")`) en gebruikt
+    alleen `SetUnit`/`AddAuraSlot`/`SetEnabled`/`UpdateAllAuras` — alle drie de eerste achter een
+    expliciete bestaanscontrole op `:347` en stuk voor stuk in een `pcall`. Nieuw en optioneel
+    (`SetCasterName`, `minApplications` in `SetApplicationBar`, `SetAuraGroupEnabled`,
+    `SetAuraSlotEnabled`, `SetItemEnchantmentEnabled`, `SetEditModePreviewEnabled`): 0 treffers.
+  - **[AL AFGEDEKT] — *"SetCooldown en Clear kunnen niet meer vanuit tainted code als het
+    cooldown-frame zelf protected is."*** Onze enige `SetCooldown` staat op
+    `Modules/CombatSafety.lua:701`, op `f._cd`, en dát frame maken we zelf:
+    `CreateFrame("Cooldown", nil, f, "CooldownFrameTemplate")` op `:184`. Een eigen frame is niet
+    protected, dus de nieuwe regel raakt het niet. `SetCooldownFromDurationObject` (`:598-601`) zit
+    bovendien in een `pcall`.
+  - **[AL AFGEDEKT] — castbar-ID's zijn nu uniek per unit-token.** Blizzard waarschuwt dat addons ze
+    niet meer kunnen gebruiken om units te vergelijken, én dat **hoofdletters meetellen**: een
+    `UnitCastingInfo`-query op `"PLAYER"` geeft een andere castbar-ID dan op `"player"`.
+    `Modules/ActionPrompt.lua:262` en `:270` lezen de ID uitsluitend als *aanwezigheidstest*
+    ("cast er iets?" — `:277`), op één enkel token, en dat token is `"target"` in kleine letters.
+    Grep op hoofdletter-tokens over de hele addon: **0 treffers**.
+  - **[RAAKT ONS NIET] — de nieuwe namespaces en helpers.** `C_Weather` (+ event `WEATHER_CHANGED`),
+    `C_Intl` (29 functies voor Unicode/i18n), `CreateFrameWithOptions`, `TimedSignalMap` +
+    `C_Timer.NewTimedSignalMap`, `ScriptRegion:SetRoundLayoutToNearestPixel`,
+    `PixelUtil.SetRoundLayoutToNearestPixelRecursively`, `C_UnitAuras.GetAuraCasterGUID`,
+    `GetScriptBucketThrottleLimits`: allemaal toevoegingen, geen ervan in gebruik (0 treffers op
+    `C_Weather`, `C_Intl`, `PixelUtil`, `EnumerateFrames`, `GetScriptBucketThrottleLimits`).
+  - **[RAAKT ONS NIET] — de tooltip-wijzigingen.** M+ enemy-forces-regels krijgen een eigen
+    lijntype `Enum.TooltipDataLineType.UnitCriteriaProgress`, en aura-tooltips kunnen de caster
+    tonen (nieuwe CVar `tooltipShowAuraCasterNames`, default 0). Onze ~30 `C_TooltipInfo`-aanroepen
+    zijn allemaal item/POI/hyperlink (`GetInventoryItem`, `GetItemByID`, `GetBagItem`,
+    `GetHyperlink`, `GetAreaPOIInfo`) — géén unit-aura's en géén scenario-criteria.
+    `TooltipDataLineType` en `UnitCriteriaProgress` komen nergens in de addon voor.
+  - ⚠️ **[AL AFGEDEKT, mét één open vraag] — tien `Blizzard_Deprecated*`-addons worden verwijderd:**
+    CurrencyScript, Glue, ItemScript, ItemSocketInfo, LFG, PetInfo, PvpScript, SoundScript,
+    TradeInfo, WorldElapsedTimerTypes. Wij hebben **0 treffers op `Blizzard_Deprecated`** in de Lua
+    én in de `.toc`, en geen `RequiredDeps`/`OptionalDeps`. Onze eigen aantekening
+    (`docs/SESSION_NOTES.md:3731`) zegt dat de oude global `SendChatMessage` op 12.x via
+    **Blizzard_DeprecatedChatInfo** loopt — die staat **niet** in de verwijderlijst, en we roepen
+    sowieso eerst `C_ChatInfo.SendChatMessage` aan met de global alleen als fallback
+    (`Modules/Comms.lua:72-75` en `:136-139`).
+    🔴 **NIET GEMETEN, en dit is het enige punt dat 12.1.5-live nog kan bijten:** wélke functies er
+    precies ín die tien addons zitten. Ik heb `wow-ui-source` niet gelezen en de consolidated-tabel
+    noemt maar één verwijderde global, dus de tabel dekt dit misschien niet. De kandidaat die
+    opvalt is de kale global **`SocketInventoryItem`** (`Modules/GearEnchantCheck.lua:886-891`, ook
+    genoemd op `:419`) — de naam lijkt op `Blizzard_DeprecatedItemSocketInfo`, maar dat is
+    **AFGELEID uit de naam, niet gecontroleerd**. Hij is wél afgedekt tegen een Lua-fout:
+    `if not slotId or not SocketInventoryItem then return end` gevolgd door `pcall`. Het gevolg zou
+    dus geen error zijn maar een **knop die stil niets doet** — precies het patroon dat Rob op 3 sep
+    aanwees ("zet de uitleg in dezelfde kamer als de knop"). Te settelen met één `/dump
+    SocketInventoryItem` in de 12.1.5-PTR-client; niet met een gok.
+  - **Positieve controle in dezelfde run.** De alternatie
+    `StringContains|CountTable|tContains|tIndexOf|C_TableUtil|CreateFrame|InCombatLockdown` gaf
+    **770 treffers in 134 bestanden** — allemaal van `CreateFrame`/`InCombatLockdown`, de vijf
+    andere termen nul. Idem bij de unit-tokens: de hoofdletter-variant gaf 0, dezelfde patroonvorm
+    met `"player"|"target"` erbij gaf **334 treffers in 84 bestanden**. De lege uitkomsten hierboven
+    zijn dus echt leeg en geen kapotte grep.
+
+- [2026-09-04] ✅ **Hotfixes en forum: niets voor de API-kant.**
+  - **Hotfixes, nieuwste sectie 3 september 2026** — één dag nieuwer dan wat hier gisteren stond,
+    dus geen cache. Volledig gelezen: Achievements, Classes (Priest/Shaman), Dungeons and Raids
+    (Ruby Life Pools, The Venomous Abyss), Items, Quests. **Geen Lua-API-, secure-frame-, taint- of
+    addon-sectie.** Niets erin raakt code; de inhoudelijke kant is voor de contentwachter.
+  - **Blizzard US UI-and-Macro-forum, vers opgehaald.** De nieuwste topics zijn *Details! issues
+    since early this week* (3 sep) en *Addons api restrictions* (2 sep) — **beide stonden gisteren al
+    in dit logboek**. Niets nieuws binnen het venster, en **geen enkele `community-manager`-post in
+    de categorie binnen 7 dagen**: de laatste post in *UI Add-On Development Policy* is onveranderd
+    28 aug 19:54 UTC van Atheren (trust_level 2).
+  - **De 12.1.0-pagina staat stil.** `Patch 12.1.0/API changes` (pageid 679840) nog altijd
+    `2026-08-15T09:07:23Z` (Ketho, `/* Global API */`) — 20 dagen oud, ruim buiten het venster.
+  - 📌 **METHODE, voor de volgende run: de cache-buster werkt, maar de wiki klaagt erover.** Elke
+    `nocache=`-URL levert er `{"warnings":{"main":{"*":"Unrecognized parameter: nocache."}}}` bij.
+    Dat is **geen fout**: MediaWiki negeert het argument en Exa ziet een andere URL. Niet
+    "repareren" door hem weg te laten — vandaag bewees hij zich meteen, want de recentchanges-query
+    mét buster gaf wijzigingen van 4 sep 03:23 UTC, nog geen half uur oud.
+  - **De staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`)
+    zijn deze run niet opnieuw getoetst en blijven staan zoals op 2 sep gemeten.
