@@ -13,6 +13,31 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## 🔴 VOOR MORGEN (5 sep) — MH stuurt lage levels naar dingen die ze niet kunnen doen
+
+Rob, 4 sep laat, expliciet gevraagd om te onthouden: *"ik kan met lagere levels in mh toch routes
+krijgen voor dingen die ik nog helemaal niet kan doen — dit onthouden, doe er nu niks mee."*
+
+**Dus: niet bouwen tot hij het zegt.** Wat er ligt is een keuze, geen taak.
+
+📊 **GEMETEN 4 sep:** 29 modules kunnen een route zetten, **2** kennen de level-gate
+(`ResetRoutine`, `UI`). Wat op 3 sep gebouwd is dekt This Week en het Silvermoon-tabblad; rares,
+delves, treasures, achievements, events en professies routeren ongefilterd.
+
+✅ **Goedkoper dan het lijkt:** `ns.AddSmartTomTomWay` is de gedeelde deur (Rares 9×, Achievements
+16×, Delves 8×, RitualSites 4×), met vrijwel geen directe `SetUserWaypoint`-omwegen. Eén functie,
+geen 29 bestanden.
+
+⚠️ **En het raakt een GESHIPTE belofte:** `CHANGELOG_260_3` zegt dat MH *"never points you at endgame
+content you cannot do yet"*. Dat staat in een uitgebrachte versie en is aantoonbaar onwaar. Dat
+moet hoe dan ook opgelost — repareren of intrekken — ook als de rest wacht.
+
+**De keuze die aan Rob voorligt (nog niet gemaakt):**
+- **A** — waarschuwen bij de klik, route wél zetten. Aanbevolen: bij een rare is de coördinaat nog
+  steeds nuttig, maar een route naar een zone waar je niet komt is verkeerd advies.
+- **B** — route weigeren met de reden op de knop, zoals de Silvermoon-pins nu.
+- **C** — niets doen en alleen de changelog-belofte intrekken (tien minuten).
+
 ## ⏭️ DUNDUN-WAARSCHUWING — stap 1 is af (4 sep), de rest staat open
 
 Rob, 3 sep laat: *"zet maar op de lijst voor morgen."*
