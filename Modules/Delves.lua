@@ -369,16 +369,44 @@ function ns.PrintPortalAccess()
 		--- offer (a portal you cannot walk to is not a step).
 		local where = ""
 		if portal.mapID then
+			--- ⚠️ SLICE 2576, do not name its default. Canvas 2576 carries Silvermoon,
+			--- Voidstorm and Harandar side by side, so GetBaseZoneName(2576) answers
+			--- "Silvermoon" for all of them. Rob's own list, 4 Sep, showed
+			---   Portal to Silvermoon  map 2413 Harandar    64.2, 70.8
+			---   Portal to Silvermoon  map 2576 Silvermoon  64.2, 70.8
+			--- — the same portal at the same coordinate, named as two different zones. The
+			--- column added to end this confusion was making a new one.
 			local zone = ns.GetBaseZoneName and ns.GetBaseZoneName(portal.mapID) or ""
+			if tonumber(portal.mapID) == 2576 and portal.x and ns.ResolveHubOnMap2576 then
+				zone = ns.ResolveHubOnMap2576(portal.x) or zone
+			end
 			where = ("map %s%s  %s, %s"):format(
 				tostring(portal.mapID),
 				zone ~= "" and (" " .. zone) or "",
 				portal.x and ("%.1f"):format(portal.x) or "?",
 				portal.y and ("%.1f"):format(portal.y) or "?")
+			--- ⚠️ AND MARK THE SLICE, NOT JUST THE CANVAS. Standing on 2576 marked all six
+			--- 2576 rows as "jouw kaart" while the player is in exactly one of the three
+			--- slices — so the mark said "the planner may pick any of these", which is not
+			--- what it does. Distance in map units is what the planner sorts on, so print
+			--- that: the smallest number is the one it will name.
 			local hereMap = C_Map and C_Map.GetBestMapForUnit
 				and C_Map.GetBestMapForUnit("player")
 			if hereMap and tonumber(hereMap) == tonumber(portal.mapID) then
-				where = where .. "  |cff44ff44<- jouw kaart|r"
+				local tag = "  |cff44ff44<- jouw kaart|r"
+				if C_Map.GetPlayerMapPosition and portal.x and portal.y then
+					local okPos, pos = pcall(C_Map.GetPlayerMapPosition, hereMap, "player")
+					if okPos and pos then
+						local okXY, mx, my = pcall(pos.GetXY, pos)
+						if okXY and mx then
+							local dx = (portal.x / 100) - mx
+							local dy = (portal.y / 100) - my
+							tag = ("  |cff44ff44<- jouw kaart, afstand %.3f|r")
+								:format(math.sqrt(dx * dx + dy * dy))
+						end
+					end
+				end
+				where = where .. tag
 			end
 		end
 		print(("   %s %-30s |cff8a8f98%-28s %s|r"):format(
