@@ -63,6 +63,49 @@ Je stond in Harandar, klikte Twilight Crypts, en kreeg vier regels die elkaar te
       dus naar een flight master gestuurd die hij niet mag gebruiken. Nu gecorrigeerd — maar
       niemand hier kan dat op een Alliance-character controleren.
 
+## 🔴 4 sep — RONDE 1 GEDAAN, en hij legde een veel groter gat bloot
+
+Rob liep de level-68-lijst af. Wat werkt, werkt. Wat niet werkt is groter dan de lijst.
+
+- [x] ✅ **Stap 1-3 werken.** De kop zegt *"This week's routine happens in Silvermoon — it opens
+      up at level 80"*, de teller staat op *3 of 3 · 8 more open up as you level*, en de lijst is
+      in tweeën met "Later, as you level:" eronder. Geen *"Everything is done"*.
+- [x] ✅ **Stap 5 werkt** — Silvermoon-tabblad met de rode regel bovenaan.
+- [x] 🔧 **GEREPAREERD tijdens de ronde:** "Get ready for Season 2" telde 1 → ✓ → ✓ → **4**.
+      Dezelfde raw-index-fout als de routinelijst, in het blok ernaast, en hij overleefde de fix
+      van 3 sep omdat toen maar één van de twee is bekeken. **Beide sites** nummeren nu alleen wat
+      nog open staat. ⚠️ De tweede site (`now`-lijst) telde afgevinkte regels óók mee, dus het
+      eerste openstaande item zou nummer 4 hebben gekregen zodra er eentje open stond.
+- [~] ⛔ **Punt 6 (Halduron Brightwing) INGETROKKEN — de test was onmogelijk.** Rob: *"kan ik
+      überhaupt wel daar naar toe al om te gaan kijken"*. Nee: Halduron staat bij de vault in
+      Silvermoon en Silvermoon opent op 80. Ik vroeg om een meting op een plek waar hij niet mag
+      komen. Zijn `minLevel` blijft dus onbekend tot iemand daar op een lage character komt.
+
+### 🔴 Het gat dat ronde 1 blootlegde — GEMETEN, en het raakt een geshipte belofte
+
+Rob: *"Ook dingen als rares en delves geven allemaal een route?!?"*
+
+| | aantal |
+|---|---|
+| modules die een route kunnen zetten | **29** |
+| modules die de level-gate kennen | **2** (`ResetRoutine`, `UI`) |
+
+Wat op 3 sep gebouwd is dekt **This Week** en het **Silvermoon-tabblad**. Rares, delves, treasures,
+achievements, events en professies zetten allemaal ongefilterd een route.
+
+⚠️ **En `CHANGELOG_260_3` belooft al dat we dit doen** — *"never points you at endgame content you
+cannot do yet"*. Die zin staat in een uitgebrachte versie en is aantoonbaar onwaar. Dat moet hoe dan
+ook opgelost worden: repareren of intrekken.
+
+✅ **Goedkoper dan het lijkt: er is één deur.** `ns.AddSmartTomTomWay` wordt overal gebruikt
+(Rares 9×, Achievements 16×, Delves 8×, RitualSites 4×) en er zijn vrijwel geen directe
+`SetUserWaypoint`-omwegen (alleen `Delves.lua` 4×). Eén functie dekt dus bijna alles.
+
+**Voorgelegd aan Rob, nog niet gekozen:** (A) waarschuwen bij de klik maar de route wel zetten,
+(B) route weigeren met de reden op de knop zoals de Silvermoon-pins, (C) niets nu en de
+changelog-belofte intrekken. Aanbeveling was A — bij een rare is de coördinaat nog steeds nuttig,
+maar een route naar een zone waar je niet komt is verkeerd advies.
+
 ## 🆕 3 sep — This Week op je level-68 Paladin (ONGETEST)
 
 🔴 **Dit kun jij testen en ik niet**, want op max level vuurt de nieuwe filter nooit. Log in op de

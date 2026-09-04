@@ -7736,3 +7736,127 @@ fill("itIT", {
 	REPORT_CHAT_HINT = "Copia il riquadro e incollalo su Discord o GitHub. «Mi ha detto una cosa sbagliata» vale eccome — una spiegazione superata qui è un difetto peggiore di un messaggio d'errore.",
 	REPORT_NO_DIALOG = "La finestra di copia non si è caricata. Fai /reload e riprova.",
 })
+
+--------------------------------------------------------------------------------
+-- Dundun, the Shrine of Abundance (4 Sep 2026)
+--------------------------------------------------------------------------------
+--
+-- ⚠️ WRITTEN BY THE ASSISTANT, NOT BY A NATIVE SPEAKER. Recorded here because a
+-- translation nobody has vetted should be findable by anyone who ever can vet it.
+--
+-- What stays English, measured against the packs rather than decided fresh:
+--   * `Restored Coffer Key` — English in all seven packs, without exception.
+--   * `Coffer Key Shards` / `shards` — English everywhere ("100 shards -> 1 key").
+--   * `Delver's Journey`, `Dundun` — Blizzard's own names.
+--   * `Bountiful` — English. ⚠️ NOT a clean habit: the older `Codex.lua` translates it
+--     in four packs (de "Großzügige", fr "généreux", es "pródigas", pt "fartas") while
+--     the newer Translations2026 keeps it English throughout ("Bountiful-Tiefe",
+--     "gouffres Bountiful", "Bountiful Delve de Tier 11"). The newer habit wins, because
+--     the entrance screen the player is looking at says "Bountiful" in every client.
+--     The Codex lines are inconsistent with this and are left alone for now.
+--
+-- The word for "delve" itself follows each pack's own habit, which differs on purpose:
+-- de "Tiefe", fr "gouffre", es "profundidad", it "delve", pt "delve".
+--
+-- `MACROS_TYPE_WORLD` IS translated — it is our own category name, not a game term, and
+-- the tooltip that names the button uses the same translated word in each language.
+
+fill("deDE", {
+	DUNDUN_CHAT_HEADER = "Diese Tiefe ist Bountiful, also versteckt sich |cff00ffffDundun|r darin.",
+	DUNDUN_CHAT_WHAT = "Er tarnt sich als Kulisse, die leicht falsch aussieht — die eine, die wir gesehen haben, war ein Baum. Ihn zu finden und anzusprechen kostet nichts und bringt am Ende eine Extra-Belohnung.",
+	DUNDUN_CHAT_RANK_UNKNOWN = "Nur wenn deine Delver's Journey Rang %d oder höher ist — ich konnte deinen Rang nicht lesen, sieh also selbst nach.",
+	DUNDUN_CHAT_COST_FMT = "|cffffff00Achtung:|r die zusätzliche Truhe kann einen |cffffff00zweiten|r Restored Coffer Key kosten. Du hast %d.",
+	DUNDUN_CHAT_COST_SHORT_FMT = "Achtung: die zusätzliche Truhe zu öffnen kann einen zweiten Restored Coffer Key kosten, und du hast %d. Ihn zu finden ist trotzdem gratis — du lässt die Truhe dann einfach zu.",
+	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Achtung:|r die zusätzliche Truhe kann einen |cffffff00zweiten|r Restored Coffer Key kosten. Ich konnte nicht lesen, wie viele du hast.",
+	DUNDUN_CHAT_MACRO = "Findest du ihn nicht? Mach ein Makro mit |cffffff00/cleartarget|r und dann |cffffff00/target Dundun|r.",
+	DUNDUN_CHAT_SHARDS_FMT = "Du hast %d Coffer Key Shards — noch %d, und das Spiel macht beim Betreten von selbst einen Key daraus.",
+	DUNDUN_PANEL_TITLE = "Bountiful-Tiefen — Dundun",
+	DUNDUN_PANEL_BODY = "In einer Bountiful-Tiefe versteckt sich Dundun als Kulisse, die leicht falsch aussieht. Ihn zu finden und anzusprechen kostet nichts und bringt am Ende eine Extra-Belohnung. Die zusätzliche Truhe zu öffnen kann einen zweiten Restored Coffer Key kosten.",
+	DUNDUN_PANEL_KEYS_OK_FMT = "Du hast %d Restored Coffer Keys und %d Shards — genug für die zusätzliche Truhe.",
+	DUNDUN_PANEL_KEYS_SHORT_FMT = "Du hast %d Restored Coffer Keys und %d Shards — noch %d Shards bis zum nächsten Key. Du kannst ihn trotzdem suchen; du lässt die zusätzliche Truhe dann einfach zu.",
+	DUNDUN_PANEL_KEYS_UNKNOWN = "Konnte deine Restored Coffer Keys gerade nicht lesen.",
+	DUNDUN_PANEL_MACRO_BTN = "Ziel-Makro öffnen",
+	DUNDUN_PANEL_MACRO_TT = "Öffnet den Makros-Tab. Wähle |cffffff00Welt|r für das Dundun-Makro.",
+	MACROS_TYPE_WORLD = "Welt",
+	MACROS_WORLD_SUBTITLE = "Makros, die für jede Klasse funktionieren — für Dinge, die die Welt versteckt, statt für Dinge, die deiner Spezialisierung fehlen.",
+})
+
+fill("frFR", {
+	DUNDUN_CHAT_HEADER = "Ce gouffre est Bountiful, donc |cff00ffffDundun|r s'y cache.",
+	DUNDUN_CHAT_WHAT = "Il se déguise en décor qui semble légèrement de travers — le seul que nous ayons vu était un arbre. Le trouver et lui parler est gratuit et donne une récompense en plus à la fin.",
+	DUNDUN_CHAT_RANK_UNKNOWN = "Seulement si ta Delver's Journey est au rang %d ou plus — je n'ai pas pu lire ton rang, alors vérifie toi-même.",
+	DUNDUN_CHAT_COST_FMT = "|cffffff00Attention :|r le coffre supplémentaire peut coûter une |cffffff00deuxième|r Restored Coffer Key. Tu en as %d.",
+	DUNDUN_CHAT_COST_SHORT_FMT = "Attention : ouvrir le coffre supplémentaire peut coûter une deuxième Restored Coffer Key, et tu en as %d. Le trouver reste gratuit — tu laisserais simplement ce coffre fermé.",
+	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Attention :|r le coffre supplémentaire peut coûter une |cffffff00deuxième|r Restored Coffer Key. Je n'ai pas pu lire combien tu en as.",
+	DUNDUN_CHAT_MACRO = "Tu ne le trouves pas ? Fais une macro avec |cffffff00/cleartarget|r puis |cffffff00/target Dundun|r.",
+	DUNDUN_CHAT_SHARDS_FMT = "Tu as %d Coffer Key Shards — encore %d et le jeu en fait une key tout seul à l'entrée.",
+	DUNDUN_PANEL_TITLE = "Gouffres Bountiful — Dundun",
+	DUNDUN_PANEL_BODY = "Dans un gouffre Bountiful, Dundun se cache en décor qui semble légèrement de travers. Le trouver et lui parler est gratuit et ajoute une récompense à la fin. Ouvrir le coffre supplémentaire peut coûter une deuxième Restored Coffer Key.",
+	DUNDUN_PANEL_KEYS_OK_FMT = "Tu as %d Restored Coffer Keys et %d shards — assez pour le coffre supplémentaire.",
+	DUNDUN_PANEL_KEYS_SHORT_FMT = "Tu as %d Restored Coffer Keys et %d shards — il te manque %d shards pour la prochaine key. Tu peux quand même le chercher ; tu laisserais juste le coffre supplémentaire fermé.",
+	DUNDUN_PANEL_KEYS_UNKNOWN = "Impossible de lire tes Restored Coffer Keys pour l'instant.",
+	DUNDUN_PANEL_MACRO_BTN = "Ouvrir la macro de ciblage",
+	DUNDUN_PANEL_MACRO_TT = "Ouvre l'onglet Macros. Choisis |cffffff00Monde|r pour la macro Find Dundun.",
+	MACROS_TYPE_WORLD = "Monde",
+	MACROS_WORLD_SUBTITLE = "Des macros qui marchent pour toutes les classes — pour ce que le monde cache, pas pour ce qui manque à ta spé.",
+})
+
+fill("esES", {
+	DUNDUN_CHAT_HEADER = "Esta profundidad es Bountiful, así que |cff00ffffDundun|r se esconde en ella.",
+	DUNDUN_CHAT_WHAT = "Se disfraza de decorado que parece ligeramente raro — el único que hemos visto era un árbol. Encontrarlo y hablar con él es gratis y da una recompensa extra al final.",
+	DUNDUN_CHAT_RANK_UNKNOWN = "Solo si tu Delver's Journey está en rango %d o superior — no pude leer tu rango, así que compruébalo tú mismo.",
+	DUNDUN_CHAT_COST_FMT = "|cffffff00Atención:|r el cofre extra puede costar una |cffffff00segunda|r Restored Coffer Key. Tienes %d.",
+	DUNDUN_CHAT_COST_SHORT_FMT = "Atención: abrir el cofre extra puede costar una segunda Restored Coffer Key, y tienes %d. Encontrarlo sigue siendo gratis — simplemente dejarías ese cofre cerrado.",
+	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Atención:|r el cofre extra puede costar una |cffffff00segunda|r Restored Coffer Key. No pude leer cuántas tienes.",
+	DUNDUN_CHAT_MACRO = "¿No lo encuentras? Haz una macro con |cffffff00/cleartarget|r y luego |cffffff00/target Dundun|r.",
+	DUNDUN_CHAT_SHARDS_FMT = "Tienes %d Coffer Key Shards — %d más y el juego los convierte solo en una key al entrar.",
+	DUNDUN_PANEL_TITLE = "Profundidades Bountiful — Dundun",
+	DUNDUN_PANEL_BODY = "En una profundidad Bountiful, Dundun se esconde como decorado que parece ligeramente raro. Encontrarlo y hablar con él es gratis y añade una recompensa extra al final. Abrir el cofre extra puede costar una segunda Restored Coffer Key.",
+	DUNDUN_PANEL_KEYS_OK_FMT = "Tienes %d Restored Coffer Keys y %d shards — suficiente para el cofre extra.",
+	DUNDUN_PANEL_KEYS_SHORT_FMT = "Tienes %d Restored Coffer Keys y %d shards — te faltan %d shards para la siguiente key. Puedes buscarlo igualmente; solo dejarías el cofre extra cerrado.",
+	DUNDUN_PANEL_KEYS_UNKNOWN = "No pude leer tus Restored Coffer Keys ahora mismo.",
+	DUNDUN_PANEL_MACRO_BTN = "Abrir la macro de objetivo",
+	DUNDUN_PANEL_MACRO_TT = "Abre la pestaña Macros. Elige |cffffff00Mundo|r para la macro Find Dundun.",
+	MACROS_TYPE_WORLD = "Mundo",
+	MACROS_WORLD_SUBTITLE = "Macros que funcionan para todas las clases — para lo que esconde el mundo, no para lo que le falta a tu especialización.",
+})
+
+fill("ptBR", {
+	DUNDUN_CHAT_HEADER = "Este delve é Bountiful, então |cff00ffffDundun|r está escondido nele.",
+	DUNDUN_CHAT_WHAT = "Ele se disfarça de cenário que parece um pouco errado — o único que vimos era uma árvore. Encontrá-lo e falar com ele é de graça e dá uma recompensa extra no final.",
+	DUNDUN_CHAT_RANK_UNKNOWN = "Só se a sua Delver's Journey estiver no rank %d ou acima — não consegui ler o seu rank, então confira você mesmo.",
+	DUNDUN_CHAT_COST_FMT = "|cffffff00Atenção:|r o baú extra pode custar uma |cffffff00segunda|r Restored Coffer Key. Você tem %d.",
+	DUNDUN_CHAT_COST_SHORT_FMT = "Atenção: abrir o baú extra pode custar uma segunda Restored Coffer Key, e você tem %d. Encontrá-lo continua de graça — você só deixaria esse baú fechado.",
+	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Atenção:|r o baú extra pode custar uma |cffffff00segunda|r Restored Coffer Key. Não consegui ler quantas você tem.",
+	DUNDUN_CHAT_MACRO = "Não está achando ele? Faça uma macro com |cffffff00/cleartarget|r e depois |cffffff00/target Dundun|r.",
+	DUNDUN_CHAT_SHARDS_FMT = "Você tem %d Coffer Key Shards — mais %d e o jogo transforma tudo em uma key sozinho quando você entra.",
+	DUNDUN_PANEL_TITLE = "Delves Bountiful — Dundun",
+	DUNDUN_PANEL_BODY = "Em um delve Bountiful, Dundun se esconde como cenário que parece um pouco errado. Encontrá-lo e falar com ele é de graça e adiciona uma recompensa extra no final. Abrir o baú extra pode custar uma segunda Restored Coffer Key.",
+	DUNDUN_PANEL_KEYS_OK_FMT = "Você tem %d Restored Coffer Keys e %d shards — o bastante para o baú extra.",
+	DUNDUN_PANEL_KEYS_SHORT_FMT = "Você tem %d Restored Coffer Keys e %d shards — faltam %d shards para a próxima key. Dá para procurá-lo mesmo assim; você só deixaria o baú extra fechado.",
+	DUNDUN_PANEL_KEYS_UNKNOWN = "Não consegui ler as suas Restored Coffer Keys agora.",
+	DUNDUN_PANEL_MACRO_BTN = "Abrir a macro de alvo",
+	DUNDUN_PANEL_MACRO_TT = "Abre a aba Macros. Escolha |cffffff00Mundo|r para a macro Find Dundun.",
+	MACROS_TYPE_WORLD = "Mundo",
+	MACROS_WORLD_SUBTITLE = "Macros que funcionam para todas as classes — para o que o mundo esconde, não para o que falta na sua spec.",
+})
+
+fill("itIT", {
+	DUNDUN_CHAT_HEADER = "Questa delve è Bountiful, quindi |cff00ffffDundun|r ci si nasconde dentro.",
+	DUNDUN_CHAT_WHAT = "Si traveste da scenografia che sembra leggermente sbagliata — l'unico che abbiamo visto era un albero. Trovarlo e parlargli è gratis e dà una ricompensa extra alla fine.",
+	DUNDUN_CHAT_RANK_UNKNOWN = "Solo se la tua Delver's Journey è di rango %d o superiore — non sono riuscito a leggere il tuo rango, quindi controlla tu.",
+	DUNDUN_CHAT_COST_FMT = "|cffffff00Attenzione:|r il forziere extra può costare una |cffffff00seconda|r Restored Coffer Key. Ne hai %d.",
+	DUNDUN_CHAT_COST_SHORT_FMT = "Attenzione: aprire il forziere extra può costare una seconda Restored Coffer Key, e ne hai %d. Trovarlo resta gratis — lasceresti solo quel forziere chiuso.",
+	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Attenzione:|r il forziere extra può costare una |cffffff00seconda|r Restored Coffer Key. Non sono riuscito a leggere quante ne hai.",
+	DUNDUN_CHAT_MACRO = "Non lo trovi? Fai una macro con |cffffff00/cleartarget|r e poi |cffffff00/target Dundun|r.",
+	DUNDUN_CHAT_SHARDS_FMT = "Hai %d Coffer Key Shards — ancora %d e il gioco ne fa una key da solo quando entri.",
+	DUNDUN_PANEL_TITLE = "Delve Bountiful — Dundun",
+	DUNDUN_PANEL_BODY = "In una delve Bountiful, Dundun si nasconde come scenografia che sembra leggermente sbagliata. Trovarlo e parlargli è gratis e aggiunge una ricompensa extra alla fine. Aprire il forziere extra può costare una seconda Restored Coffer Key.",
+	DUNDUN_PANEL_KEYS_OK_FMT = "Hai %d Restored Coffer Keys e %d shards — abbastanza per il forziere extra.",
+	DUNDUN_PANEL_KEYS_SHORT_FMT = "Hai %d Restored Coffer Keys e %d shards — ti mancano %d shards per la prossima key. Puoi comunque cercarlo; lasceresti solo il forziere extra chiuso.",
+	DUNDUN_PANEL_KEYS_UNKNOWN = "Non sono riuscito a leggere le tue Restored Coffer Keys in questo momento.",
+	DUNDUN_PANEL_MACRO_BTN = "Apri la macro di bersaglio",
+	DUNDUN_PANEL_MACRO_TT = "Apre la scheda Macros. Scegli |cffffff00Mondo|r per la macro Find Dundun.",
+	MACROS_TYPE_WORLD = "Mondo",
+	MACROS_WORLD_SUBTITLE = "Macro che funzionano per ogni classe — per le cose che nasconde il mondo, non per quelle che mancano alla tua spec.",
+})

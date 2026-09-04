@@ -346,8 +346,20 @@ local function BuildLayout()
 			local headerKey = (phase == "closing") and "ST_CLOSE_HEADER" or "ST_PREP_HEADER"
 			addFull(function(rows)
 				header(rows, ns:L(headerKey))
-				for i, st in ipairs(sSteps) do
-					local prefix = (st.color == "good") and (ICON_DONE .. " ") or ("%d. "):format(i)
+				-- 🔴 THE SAME NUMBERING BUG AS THE ROUTINE LIST BELOW, in the block
+					-- right next to it, and it survived the 3 Sep fix because only one of the
+					-- two was ever looked at. Numbering by raw array index while finished rows
+					-- render a tick makes the list count what it never numbers: Rob's level-68
+					-- screen read "1. / ✓ / ✓ / 4." on 4 Sep. Number only what is still open.
+				local shown = 0
+					for _, st in ipairs(sSteps) do
+					local prefix
+					if st.color == "good" then
+						prefix = ICON_DONE .. " "
+					else
+						shown = shown + 1
+						prefix = ("%d. "):format(shown)
+					end
 					line(rows, prefix .. (st.text or ""), colorMap[st.color] or COLOR_DIM, st.onClick)
 				end
 				if ns.DismissSeasonCard then
@@ -422,11 +434,18 @@ local function BuildLayout()
 						now[#now + 1] = st
 					end
 				end
-				for i, st in ipairs(now) do
+				local shown = 0
+				for _, st in ipairs(now) do
 					-- A tick for what is finished, the running number for what is not, so
 					-- done-vs-todo is scannable and the list visibly shrinks as the week
 					-- fills up. (Unicode ticks render as boxes in the WoW fonts.)
-					local prefix = (st.color == "good") and (ICON_DONE .. " ") or ("%d. "):format(i)
+					local prefix
+					if st.color == "good" then
+						prefix = ICON_DONE .. " "
+					else
+						shown = shown + 1
+						prefix = ("%d. "):format(shown)
+					end
 					line(rows, prefix .. (st.text or ""), colorMap[st.color] or COLOR_DIM, st.onClick)
 				end
 				if #later > 0 then
