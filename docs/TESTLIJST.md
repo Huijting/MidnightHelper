@@ -231,24 +231,37 @@ niets** — en dat is precies wat geen enkele controle hier kan zien.
 
 Eén blik per boss is genoeg; je hoeft er niet heen te reizen.
 
-- [ ] **Voidscar Arena → Taz'Rah.** Vier nieuwe ID's: Black Hole, Umbral Rupture, Nether Dash en
+- [x] ✅ **Voidscar Arena → Taz'Rah.** Vier nieuwe ID's: Black Hole, Umbral Rupture, Nether Dash en
       (bij Tank) Void Blast. Alle vier horen een spelnaam te tonen.
       ⚠️ Bullet 3 noemt de **Ethereal Shades** bewust zónder spell-link — dat is geen fout.
-- [ ] **Den of Nalorakk.** Nieuw: **Echoing Maul** in bullet 2.
-- [ ] **Murder Row → Zaen Bladesorrow.** Bullet 1 en 4 wijzen nu naar andere spells: **Murder in a
+- [x] ✅ **Den of Nalorakk.** Nieuw: **Echoing Maul** in bullet 2.
+- [x] ✅ **Murder Row → Zaen Bladesorrow.** Bullet 1 en 4 wijzen nu naar andere spells: **Murder in a
       Row** en **Fire Bomb**. De tekst is niet veranderd, alleen waar de link heen gaat.
-- [ ] **Murder Row → Kystia Manaheart.** Bullet 3 en de Tank-regel noemen nu **Fel Spray** (de
+- [x] ✅ **Murder Row → Kystia Manaheart.** Bullet 3 en de Tank-regel noemen nu **Fel Spray** (de
       kegel zelf) in plaats van de brandende grond die hij achterlaat.
-- [ ] **Sporefall → Rotmire** (ritual). Vijf ID's, allemaal nieuw.
+- [x] ✅ **Sporefall → Rotmire** (ritual). Vijf ID's, allemaal nieuw.
       📌 Bullet 1 zei tot vandaag dat `1221637` *"de wipe"* was; het is een **knockback**. Als je
       hem ooit doet: klopt dat nu met wat er gebeurt?
-- [ ] **Een raid-boss naar keuze** — alle 28 regels zijn aangeraakt.
+- [x] ✅ **Een raid-boss naar keuze** — alle 28 regels zijn aangeraakt.
 - [ ] 🆕 **Zeven raid-bosses hebben er 's avonds rol-regels bij gekregen** (Averzian, Vorasius,
       Salhadaar, Nek'zali, Vashnik, Sszorak, Ula'tek). Codex → Raids. **Ula'tek is de interessantste:
       die had alléén een stappenregel en heeft nu tank, healer én dps.**
-      Kijk of de vier nieuwe spell-links een naam tonen: Shadowclaw Slam (Vorasius, tank), Entropic
-      Unraveling (Salhadaar, tank+healer), Restless Amani (Nek'zali, dps), Grasping Fangs (Ula'tek,
-      healer).
+      ✅ **GETEST 4 sep — The Venomous Abyss volledig, alle links tonen namen, geen kale nummers.**
+      Ula'tek heeft nu tank, healer én dps, met *Grasping Fangs* in de healer-regel.
+      🔴 **DE OPDRACHT DIE HIER STOND WAS FOUT EN KOSTTE ROB EEN ZOEKTOCHT.** Er stonden vier namen
+      in om op te letten — *Shadowclaw Slam* (Vorasius), *Entropic Unraveling* (Salhadaar),
+      *Restless Amani* (Nek'zali), *Grasping Fangs* (Ula'tek) — en **alleen de laatste bestaat**.
+      Onze data heeft daar alleen ID's: `NEKZALI_DPS` gebruikt `1297630`, dat in de client
+      **Vessel of Awakening** heet; `VORASIUS_TANK` gebruikt `1241836`, `SALHADAAR_TANK` `1246175`.
+      De drie andere namen zijn nergens gemeten.
+      📌 Dat is de nooit-liegen-regel, toegepast op een TESTINSTRUCTIE in plaats van op de addon.
+      **Noem geen spreuknaam die je niet gemeten hebt.** Wij bewaren ID's; de naam komt uit de
+      client van de speler. Beschrijf dus de regel en laat de naam aan het spel — of meet hem eerst.
+      ⚠️ **En zeg in welke raid iets staat.** Averzian, Vorasius en Salhadaar zitten in **March on
+      Quel'Danas**, niet in The Venomous Abyss. Rob klapte de Abyss open; die drie stonden een raid
+      hoger. Dat leest als "ontbreekt" terwijl het "verkeerd doorverwezen" is.
+- [ ] **Nog te doen: March on Quel'Danas** — Averzian, Vorasius en Salhadaar, dezelfde vraag
+      (toont elke link een naam of een kaal nummer?).
       ⚠️ *Blackening Wounds*, *Dig In* en *Venomous Heart* staan er **bewust zonder link** — die kent
       DBM niet, en een verzonnen nummer is erger dan geen nummer.
       🔴 **En lees ze als een gids, niet als ervaring.** Deze regels komen uit Zygor; niemand hier
