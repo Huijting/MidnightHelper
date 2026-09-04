@@ -209,19 +209,62 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		--- the 2393/2413 ones, so an exact match still lands whichever map id the client
 		--- reports. Where a row is missing for one of the pair we now say nothing instead of
 		--- naming the wrong side, which is the safe direction to fail in.
+		--- 🔴 THE NEAREST MATCH, NOT THE FIRST — 4 Sep 2026.
+		---
+		--- The 3 Sep fix added `p.mapID == here`, which stopped MH naming a portal on
+		--- another map. It did not stop it naming the WRONG ONE on this map: `break` on the
+		--- first hit, and the comment above already says the table "is ordered by nothing in
+		--- particular". `/mh portals` on Rob's character lists six rows called "Portal to
+		--- Silvermoon" and five called "Portal to Harandar"; on canvas 2576 several share a
+		--- mapID, so several match and the first won.
+		---
+		--- What he saw: standing beside a portal, told "Use: Portal to Silvermoon (882yd)"
+		--- with the arrow pointing at one a kilometre away. The right portal was under his
+		--- feet and the plan named a different one with the same name.
+		---
+		--- ⚠️ Compared in MAP coordinates, not yards. Every candidate is on `here` by the
+		--- condition above, so map units order them correctly, and squared distance avoids a
+		--- square root we have no use for. Yards would need a world-position call per
+		--- candidate that can fail, to sort a list we can already sort.
+		--- 📌 With no player position we keep the old behaviour — first match — because a
+		--- portal on the right map is still a better answer than none.
 		if ns.MIDNIGHT_PORTALS and ns.MHPortalUsable then
+			local pxp, pyp
+			if C_Map and C_Map.GetPlayerMapPosition then
+				local okPos, pos = pcall(C_Map.GetPlayerMapPosition, here, "player")
+				if okPos and pos then
+					local okXY, mx, my = pcall(pos.GetXY, pos)
+					if okXY and mx then
+						pxp, pyp = mx, my
+					end
+				end
+			end
+			local best, bestDist
 			for _, p in ipairs(ns.MIDNIGHT_PORTALS) do
 				if p.toID == outermost and p.mapID == here and ns.MHPortalUsable(p) then
-					steps[#steps + 1] = {
-						kind = "portal",
-						mapID = p.mapID,
-						x = p.x,
-						y = p.y,
-						label = p.name,
-						source = "MIDNIGHT_PORTALS",
-					}
-					break
+					local d
+					if pxp and p.x and p.y then
+						-- Portal coords are 0-100, the player position 0-1.
+						local dx = (p.x / 100) - pxp
+						local dy = (p.y / 100) - pyp
+						d = dx * dx + dy * dy
+					end
+					if not best then
+						best, bestDist = p, d
+					elseif d and (not bestDist or d < bestDist) then
+						best, bestDist = p, d
+					end
 				end
+			end
+			if best then
+				steps[#steps + 1] = {
+					kind = "portal",
+					mapID = best.mapID,
+					x = best.x,
+					y = best.y,
+					label = best.name,
+					source = "MIDNIGHT_PORTALS",
+				}
 			end
 		end
 		-- Failing a portal, the flight network is the honest fallback, and it can

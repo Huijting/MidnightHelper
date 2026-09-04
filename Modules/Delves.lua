@@ -360,12 +360,34 @@ function ns.PrintPortalAccess()
 		--- the one column that carried the answer rendered as nothing at all. This addon
 		--- already solved that in ConsumableReadyCheck.lua — ready-check icons, which ship
 		--- with the game and cannot go missing.
-		print(("   %s %-32s |cff8a8f98%s|r"):format(
+		--- 🔴 SAY WHERE IT IS. Rob's list, 4 Sep 2026, showed "Portal to Silvermoon" six
+		--- times and "Portal to Harandar" five times, with nothing to tell them apart — so
+		--- when the travel plan named one and pointed a kilometre away, the diagnostic
+		--- could not show which of the six it meant. A list of identical names cannot
+		--- answer a question about the wrong one being picked.
+		--- ⚠️ The row on YOUR map is marked, because that is the only one the planner may
+		--- offer (a portal you cannot walk to is not a step).
+		local where = ""
+		if portal.mapID then
+			local zone = ns.GetBaseZoneName and ns.GetBaseZoneName(portal.mapID) or ""
+			where = ("map %s%s  %s, %s"):format(
+				tostring(portal.mapID),
+				zone ~= "" and (" " .. zone) or "",
+				portal.x and ("%.1f"):format(portal.x) or "?",
+				portal.y and ("%.1f"):format(portal.y) or "?")
+			local hereMap = C_Map and C_Map.GetBestMapForUnit
+				and C_Map.GetBestMapForUnit("player")
+			if hereMap and tonumber(hereMap) == tonumber(portal.mapID) then
+				where = where .. "  |cff44ff44<- jouw kaart|r"
+			end
+		end
+		print(("   %s %-30s |cff8a8f98%-28s %s|r"):format(
 			usable and "|TInterface/RAIDFRAME/ReadyCheck-Ready:0|t"
 				or "|TInterface/RAIDFRAME/ReadyCheck-NotReady:0|t",
-			tostring(portal.name or "?"), why))
+			tostring(portal.name or "?"), why, where))
 	end
 	print("   |cff8a8f98A green tick here is what the travel plan offers before it ever suggests flying.|r")
+	print("   |cff8a8f98Several portals share a name; the plan now picks the nearest one on your own map.|r")
 
 	--- 🔴 AND THE HEARTHSTONE, for the same reason portals are listed. From 3 Sep the
 	--- Travel Assistant only offers it when it actually lands at the target, so on most
