@@ -1696,6 +1696,19 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh dundun show — fire the on-screen toast without waiting to walk into a delve.
+	-- The real trigger is entering a Bountiful delve, which is not available on demand,
+	-- so per CLAUDE.md this gets a way to see it. Same door as the real path: it calls
+	-- AnnounceDundunIfRelevant, so a build where the toast is broken fails here too.
+	if msg == "dundun show" then
+		if ns.AnnounceDundunIfRelevant then
+			local spoke = ns.AnnounceDundunIfRelevant()
+			if not spoke then
+				print("|cffffcc00Midnight Helper|r said nothing — run /mh dundun for the reason.")
+			end
+		end
+		return
+	end
 	-- /mh dundun scan — enumerate what could answer "is this Bountiful" from INSIDE a
 	-- delve, since the map-POI route fails there. Run it while standing in one.
 	if msg == "dundun scan" then

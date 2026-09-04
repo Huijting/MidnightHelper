@@ -204,6 +204,42 @@ function ns.AnnounceDundunIfRelevant()
 		return false
 	end
 
+	--- 🔴 ON SCREEN, NOT ONLY IN CHAT — Rob, 4 Sep, standing in The Shadow Enclave:
+	--- "ik zag de 2 regels bij het inlopen dus die werkt, maar die valt niet op, niemand
+	--- kijkt daar." Third time in two days he has said it, and he is right each time.
+	---
+	--- 📌 The rule this addon wrote down on 3 Sep splits the cases: chat is fine for an
+	--- EVENT you might miss and can scroll back to, but the answer to "what should I do
+	--- here" belongs where you are looking. Walking into a Bountiful delve is both — so it
+	--- gets both, and the toast carries the part that changes what you do.
+	---
+	--- ⚠️ The toast is deliberately short. The key arithmetic stays in chat: a toast that
+	--- has to be read carefully is a toast nobody finishes. Clicking it opens the macro,
+	--- which is the one action this whole feature exists to enable.
+	if ns.QueueMidnightToast then
+		local sub
+		if s.keys ~= nil and (s.effectiveKeys or s.keys) < 2 then
+			sub = ns:L("DUNDUN_CHAT_COST_SHORT_FMT"):format(s.effectiveKeys or s.keys)
+		else
+			sub = ns:L("DUNDUN_CHAT_WHAT")
+		end
+		pcall(ns.QueueMidnightToast, {
+			id = "dundun_shrine",
+			title = ns:L("DUNDUN_PANEL_TITLE"),
+			body = sub,
+			icon = 136071, -- Polymorph's icon stands in: a prop that is not what it seems.
+			clickHintKey = "DUNDUN_PANEL_MACRO_BTN",
+			onClick = function()
+				if ns.SelectTab then
+					ns.SelectTab("macros")
+				end
+				if ns.MH_OpenMacroType then
+					ns.MH_OpenMacroType("world")
+				end
+			end,
+		})
+	end
+
 	print(PREFIX .. " " .. ns:L("DUNDUN_CHAT_HEADER"))
 	print("  " .. ns:L("DUNDUN_CHAT_WHAT"))
 	if s.verdict == "speak-with-caveat" then
