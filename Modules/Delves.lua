@@ -276,9 +276,34 @@ ns.MIDNIGHT_PORTALS = MIDNIGHT_PORTALS
 --- you never find; here, showing a portal that is not there sends you to a blank wall
 --- and makes every other direction we give look untrustworthy. The cheap failure is a
 --- portal we forget to offer, not one we invent.
+--- 🔴 ASK THE ACCOUNT FIRST — Rob, 4 Sep 2026: "die hebben we ontlocked met de prey 2
+--- seizoen questlijn, en die is account wijd".
+---
+--- This gate only ever asked `IsQuestFlaggedCompleted`, which is per CHARACTER. An alt
+--- that never ran the Season 2 Prey questline reads false, so MH hid the Coiled Isle
+--- portal from a character that can walk straight through it — and then offered a flight
+--- instead, confidently, to somewhere slower.
+---
+--- 📌 We already knew this and had already fixed it elsewhere. `WorldBoss.lua:240` carries
+--- the same helper with the same reasoning ("the per-char flag is false on an alt that
+--- didn't loot, the account flag is true"), from the Omnium Folio alt bug in June, and
+--- `CampaignLeadIn.lua:156` records Blizzard's own words that the Ula'tek campaign
+--- "was intended to require ACCOUNT COMPLETION". Three places had the answer; this one was
+--- never revisited.
+---
+--- ⚠️ Account first, then character — not the other way round. A quest can be flagged for
+--- the warband and not for this character; the reverse would be odd but costs nothing to
+--- allow. Both behind pcall: read-only and taint-safe, as everywhere else.
 local function PortalUsable(portal)
 	if not portal or not portal.requiresQuest then
 		return true
+	end
+	if C_QuestLog and C_QuestLog.IsQuestFlaggedCompletedOnAccount then
+		local okA, doneA = pcall(C_QuestLog.IsQuestFlaggedCompletedOnAccount,
+			portal.requiresQuest)
+		if okA and doneA == true then
+			return true
+		end
 	end
 	if not (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
 		return false
@@ -348,8 +373,20 @@ function ns.PrintPortalAccess()
 		elseif not (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) then
 			why = "quest API unavailable — withheld on purpose"
 		else
+			--- ⚠️ SAY WHICH FLAG ANSWERED. Since the gate asks the ACCOUNT first, "completed"
+			--- alone would hide the interesting case: a warband-wide unlock on a character
+			--- that never ran the quest. That is exactly the case Rob named on 4 Sep, and it
+			--- is the one an alt-tester needs to see spelled out.
+			local acct
+			if C_QuestLog.IsQuestFlaggedCompletedOnAccount then
+				local okA, doneA = pcall(C_QuestLog.IsQuestFlaggedCompletedOnAccount,
+					portal.requiresQuest)
+				acct = okA and doneA == true
+			end
 			local ok, done = pcall(C_QuestLog.IsQuestFlaggedCompleted, portal.requiresQuest)
-			if not ok then
+			if acct and not (ok and done) then
+				why = ("quest %d completed (warband)"):format(portal.requiresQuest)
+			elseif not ok then
 				why = ("quest %d unreadable — withheld on purpose"):format(portal.requiresQuest)
 			else
 				why = ("quest %d %s"):format(portal.requiresQuest, done and "completed" or "NOT completed")
