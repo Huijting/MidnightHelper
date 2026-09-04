@@ -40,23 +40,57 @@ Marl / Valeera-XP / housing decor); Robs eigen meting en masterofwarcraft.net ze
 vondst de **tweede koffer** geeft en dat latere vondsten de keuze geven. Wat de as is — eerste ooit
 of eerste per week — is niet vastgesteld. De zin mag dus nog niet beweren wélke van de twee je krijgt.
 
-## ⏭️ 12.1.5-PTR — de aura-muur is HALF gemeten, en dat is het openstaande punt
+## 🔑 4 sep — de aura-regel op 12.1.5 is GEMETEN: opsommen mag niet, gericht vragen wel
 
-4 sep, drie runs van `/mh ptr` op **12.1.5.69594**. Wat af is staat in de sectie erna; dit is wat
-nog moet:
+Zeven runs op **12.1.5.69594**, de beslissende gevangen door `/mh ptr watch` (sweep 8, 10:26:18, in
+gevecht met Dame Bloodshed, speler in leven). **In één en dezelfde tick**, op `player` én `target`:
 
-🔴 **Meet een unit die écht een aura draagt.** Twee runs gaven "could not measure" (geen target, en
-daarna een Silvermoon Resident met nul auras). Een lege lijst komt terug als een **gewone table** —
-maar dat bewijst niets, want het secret kan pas verschijnen zodra er inhoud in zit. De test: een mob
-in gevecht met een debuff die je er zelf op zet, dan `/mh ptr`. `pet` en `targettarget` staan er
-inmiddels bij als tweede kans.
+| aanroep | uitkomst |
+|---|---|
+| `GetUnitAuraInstanceIDs` | 🔴 REFUSED |
+| `GetAuraDataByIndex` | 🔴 REFUSED |
+| `GetAuraSlots(… "HARMFUL\|DISPELLABLE" …)` | 🔴 REFUSED |
+| `GetAuraSlots(… "HARMFUL" …)` | 🔴 REFUSED |
+| `GetAuraDispelTypeColor` | 🔴 REFUSED |
+| **`GetUnitAuraBySpellID`** | ✅ **ok** |
+| **`GetPlayerAuraBySpellID`** | ✅ **ok — gaf een table** |
 
-⚠️ En de cast-muur (aantekening 18 aug: alles secret behalve `castBarID`) is nog steeds niet
-hermeten, om dezelfde reden: er stond nooit iets te casten. Dezelfde run kan beide beantwoorden.
+Elke weigering luidt: *"Auras cannot be accessed when secret while tainted by 'MidnightHelper'"*.
+Geen secret value meer dus, maar een **harde fout**.
+
+🔴 **`ns.AllyHasRemovableAura` (`DispelHelper.lua:379`) overleeft dit NIET.** Die was juist zo
+geschreven dat hij geen aura-data leest — alleen of er een dispelbaar slot is. Dat helpt niet; ook
+`GetAuraSlots` weigert. De geshipte dispel-helper is geblokkeerd in precies de toestand waarvoor hij
+bedoeld is.
+
+✅ **Maar de regel is coherent en gunstig voor ons.** Alles wat **opsomt** wordt geweigerd; de twee
+aanroepen die vragen naar een **spell-ID die je al kent** komen door. Blizzard blokkeert ontdekken,
+niet verifiëren. En deze addon bestáát uit lijsten: een dispel-helper kan vragen *"zit een van deze
+twaalf bekende debuffs van deze encounter erop"* in plaats van *"wat staat er op mijn maat"*. Meer
+werk in de data, minder in de code — en de data hebben we grotendeels al.
+
+⚠️ **De toestand is CONTEXTUEEL, niet permanent.** Vijf eerdere runs lazen alles gewoon, inclusief
+een Polymorph op een ándere unit met `dispelName`, `spellId` en caster-GUID alle drie leesbaar. Wat
+de omschakeling aanzet is **niet vastgesteld**; gevecht met deze elite is de enige waarneming. De
+sweep legt combat/dood/targetnaam vast, dus de volgende waarneming versmalt het.
+
+❓ **NIET gemeten:** of de velden **binnenin** die table leesbaar zijn of secret. Een table vol
+secrets ziet er van hieraf identiek uit. Dat is de volgende vraag, en een kleinere.
+
+📌 Weegt mee: `Auras.lua:128` noteert dat dezelfde `GetPlayerAuraBySpellID` op **live 12.1** in
+gevecht zeven van acht buffs als `nil` gaf — het kalme verkeerde antwoord. Hier gaf hij een table.
+Mogelijk beter in 12.1.5; één meting is geen patroon.
+
+✅ **Geen crashrisico.** Alle 14 aura-aanroepen in 6 bestanden zitten in een `pcall` — gemeten met
+positieve controle. Het faalt dus stil, en dat is precies waarom `/mh ptr watch` moest bestaan.
+
+⚠️ **De cast-muur is nog steeds niet hermeten** (aantekening 18 aug: alles secret behalve
+`castBarID`). Geen van de zeven runs ving een unit die stond te casten. `/mh ptr watch` kan daarvoor
+uitgebreid worden — hij loopt toch al elke seconde.
 
 📌 `C_UnitAuras.GetAuraDispelTypeColor` neemt **`(auraInstance, curve)`** — gemeten uit de
-foutmelding van een verkeerde aanroep, niet uit documentatie. Dat is het secret-veilige patroon
-(engine rekent, wij lezen niet), en waarschijnlijk de route voor de dispel-helper.
+foutmelding van een verkeerde aanroep, niet uit documentatie. Buiten de secret-toestand is dat het
+"engine rekent, wij lezen niet"-patroon; erbinnen weigert ook deze.
 
 ## ✅ 4 sep — wat 12.1.5 wél heeft beslecht
 

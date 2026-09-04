@@ -338,6 +338,34 @@ local function ProbeAuraCaster()
 			if type(C_UnitAuras.GetAuraDispelTypeColor) == "function" then
 				entry.dispelTypeColor = CallAndDescribe(C_UnitAuras.GetAuraDispelTypeColor, unit, 1)
 			end
+
+			--- 🔴 THE CALL OUR SHIPPED DISPEL HELPER ACTUALLY USES, and the reason this
+			--- block exists. Measured 10:12 on 12.1.5: once auras go secret, every read
+			--- route above stops returning a secret and instead throws
+			---   "Auras cannot be accessed when secret while tainted by 'MidnightHelper'"
+			--- on player, target AND targettarget alike. `ns.AllyHasRemovableAura`
+			--- (DispelHelper.lua:379) does not read aura DATA — it asks GetAuraSlots
+			--- whether a HARMFUL|DISPELLABLE slot exists and looks only at whether a slot
+			--- came back. If that survives the secret state, the dispel helper works
+			--- exactly where it is needed and the whole data wall is beside the point.
+			--- If it throws too, the feature is blocked and we should stop planning
+			--- around it. Nothing else in this file answers that question.
+			if type(C_UnitAuras.GetAuraSlots) == "function" then
+				entry.slots = {
+					harmfulDispellable =
+						CallAndDescribe(C_UnitAuras.GetAuraSlots, unit, "HARMFUL|DISPELLABLE", 1),
+					harmfulPlain =
+						CallAndDescribe(C_UnitAuras.GetAuraSlots, unit, "HARMFUL", 1),
+					helpfulDispellable =
+						CallAndDescribe(C_UnitAuras.GetAuraSlots, unit, "HELPFUL|DISPELLABLE", 1),
+				}
+			end
+			-- Same question for the two "does this exist" calls that take a spell id
+			-- rather than handing back a data table.
+			if type(C_UnitAuras.GetPlayerAuraBySpellID) == "function" and unit == "player" then
+				-- 1459 = Arcane Intellect, present on this character in earlier runs.
+				entry.bySpellID = CallAndDescribe(C_UnitAuras.GetPlayerAuraBySpellID, 1459)
+			end
 		end
 		out.units[#out.units + 1] = entry
 	end
@@ -368,6 +396,140 @@ local function ProbeAuraContainer()
 	out.methods = methods
 	pcall(frame.Hide, frame)
 	return out
+end
+
+--------------------------------------------------------------------------------
+-- /mh ptr watch — catch the secret state instead of timing it by hand
+--------------------------------------------------------------------------------
+--
+-- 🔴 WHY THIS EXISTS. Six runs on 4 Sep produced exactly one sighting of the state we
+-- care about: at 10:12, mid-fight with Dame Bloodshed, every aura read stopped returning
+-- data and started THROWING
+--     "Auras cannot be accessed when secret while tainted by 'MidnightHelper'"
+-- The other five runs were all in the ordinary state, where the same code reads
+-- everything plainly. The state is real, rare and short, and asking a human to press a
+-- macro during the two seconds it lasts -- while being killed -- is not a measurement
+-- method. So the addon watches for it.
+--
+-- The question it must answer is narrow: when the data routes refuse, does
+-- `GetAuraSlots(unit, "HARMFUL|DISPELLABLE", 1)` refuse TOO? That call is what our
+-- shipped dispel helper uses (DispelHelper.lua:379) and it asks whether a slot exists
+-- rather than reading the aura. If it survives, the dispel helper works exactly where it
+-- is needed. Both calls are made in the SAME tick, because a difference between them
+-- measured seconds apart would prove nothing.
+
+local watchTicker, watchTicks, watchDeadline
+
+--- One call, described by outcome rather than by value. Returns true when the client
+--- refused because of the secret/taint rule specifically -- not for any other error,
+--- which would make an unrelated bug look like the finding.
+--- @return boolean refused
+local function Try(into, label, fn, ...)
+	if type(fn) ~= "function" then
+		into[label] = "no such function"
+		return false
+	end
+	local ok, err = pcall(fn, ...)
+	if ok then
+		into[label] = "ok"
+		return false
+	end
+	local s = tostring(err)
+	into[label] = "REFUSED: " .. s
+	local low = s:lower()
+	return (low:find("secret", 1, true) or low:find("taint", 1, true)) and true or false
+end
+
+--- @return table sweep, boolean sawRefusal
+local function SweepOnce()
+	local sweep = { units = {} }
+	local sawRefusal = false
+	if not C_UnitAuras then
+		return sweep, false
+	end
+	for _, unit in ipairs({ "player", "target", "targettarget" }) do
+		if UnitExists(unit) then
+			local u = { unit = unit }
+			local r1 = Try(u, "instanceIDs", C_UnitAuras.GetUnitAuraInstanceIDs, unit, "HARMFUL")
+			local r2 = Try(u, "byIndex", C_UnitAuras.GetAuraDataByIndex, unit, 1, "HARMFUL")
+			-- The two that matter for the dispel helper, in the same tick as the above.
+			local r3 = Try(u, "slotsDispellable", C_UnitAuras.GetAuraSlots,
+				unit, "HARMFUL|DISPELLABLE", 1)
+			local r4 = Try(u, "slotsPlain", C_UnitAuras.GetAuraSlots, unit, "HARMFUL", 1)
+			local r5 = Try(u, "bySpellID", C_UnitAuras.GetUnitAuraBySpellID, unit, 118)
+			u.refused = (r1 or r2 or r3 or r4 or r5) and true or false
+			sweep.units[#sweep.units + 1] = u
+			sawRefusal = sawRefusal or u.refused
+		end
+	end
+	sweep.inCombat = InCombatLockdown and InCombatLockdown() or false
+	sweep.isDead = UnitIsDeadOrGhost and UnitIsDeadOrGhost("player") or false
+	sweep.targetName = UnitExists("target") and UnitName("target") or nil
+	sweep.at = (_G.date and _G.date("%H:%M:%S")) or "?"
+	return sweep, sawRefusal
+end
+
+local function StopWatch(reason)
+	if watchTicker then
+		pcall(watchTicker.Cancel, watchTicker)
+		watchTicker = nil
+	end
+	print(("%s PTR watch stopped after %d sweeps — %s"):format(
+		PREFIX, watchTicks or 0, reason))
+end
+
+--- `/mh ptr watch` — sweep every second until the secret state appears, then keep it.
+function ns.MH_PtrWatch(action)
+	if action == "stop" then
+		if not watchTicker then
+			print(PREFIX .. " PTR watch was not running.")
+			return
+		end
+		StopWatch("stopped by hand")
+		return
+	end
+
+	if watchTicker then
+		print(PREFIX .. " PTR watch is already running. `/mh ptr watch stop` to end it.")
+		return
+	end
+
+	ns.db = ns.db or {}
+	watchTicks = 0
+	watchDeadline = GetTime() + 300
+	print(PREFIX .. " PTR watch armed: sweeping every second for 5 minutes. Go fight"
+		.. " something. It stops by itself the moment the refusal appears.")
+
+	watchTicker = C_Timer.NewTicker(1, function()
+		watchTicks = watchTicks + 1
+		local okSweep, sweep, sawRefusal = pcall(SweepOnce)
+		if not okSweep then
+			StopWatch("the sweep itself errored: " .. tostring(sweep))
+			return
+		end
+		if sawRefusal then
+			sweep.sweepNumber = watchTicks
+			ns.db.ptrProbeSecret = sweep
+			-- Take the full picture too, in the same state, while it lasts.
+			if ns.MH_PtrProbe then
+				pcall(ns.MH_PtrProbe)
+			end
+			if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then
+				pcall(PlaySound, SOUNDKIT.RAID_WARNING)
+			end
+			StopWatch("|cff44ff44CAUGHT IT|r — saved. Now /reload and tell Rob's assistant.")
+			return
+		end
+		if GetTime() > watchDeadline then
+			ns.db.ptrProbeSecret = {
+				status = "never seen",
+				sweeps = watchTicks,
+				note = "5 minutes of sweeps, the refusal never appeared. Not proof it"
+					.. " cannot happen -- proof it did not happen here.",
+			}
+			StopWatch("never saw the refusal (that result is saved too)")
+		end
+	end)
 end
 
 --- `/mh ptr` — everything 12.1.5 changed that the other four probes do not cover.

@@ -1689,9 +1689,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh ptr — what 12.1.5 changed on top of what api12/auras already cover, plus a
 	-- re-measure of the cast wall. Writes ns.db.ptrProbe; run it, then /reload.
+	-- /mh ptr watch — sweep until the secret/taint refusal appears and keep that moment,
+	-- because it lasts seconds and cannot be hit by hand mid-fight.
 	if msg == "ptr" then
 		if ns.MH_PtrProbe then
 			ns.MH_PtrProbe()
+		end
+		return
+	end
+	if msg == "ptr watch" or msg == "ptr watch stop" then
+		if ns.MH_PtrWatch then
+			ns.MH_PtrWatch(msg == "ptr watch stop" and "stop" or nil)
 		end
 		return
 	end
