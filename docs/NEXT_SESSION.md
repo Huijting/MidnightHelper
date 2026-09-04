@@ -84,9 +84,34 @@ Mogelijk beter in 12.1.5; één meting is geen patroon.
 ✅ **Geen crashrisico.** Alle 14 aura-aanroepen in 6 bestanden zitten in een `pcall` — gemeten met
 positieve controle. Het faalt dus stil, en dat is precies waarom `/mh ptr watch` moest bestaan.
 
-⚠️ **De cast-muur is nog steeds niet hermeten** (aantekening 18 aug: alles secret behalve
-`castBarID`). Geen van de zeven runs ving een unit die stond te casten. `/mh ptr watch` kan daarvoor
-uitgebreid worden — hij loopt toch al elke seconde.
+## 🔴 4 sep — de CAST-muur is hermeten op 12.1.5 en is ONVERANDERD dicht
+
+De aantekening van 18 aug zei "bouw hier niets meer op; hermeet bij 12.2". Hermeten op **12.1.5
+build 69594**, gevangen door `/mh ptr watch` op het `UNIT_SPELLCAST_START`-event zelf (peilen mist
+de helft van de casts; langer peilen mist alleen vaker). Doelwit `Lightbloom Monstrosity`,
+`UnitCastingInfo` gaf **11 slots**:
+
+```
+[1] SECRET  [2] SECRET  [3] SECRET  [4] SECRET  [5] SECRET
+[6] boolean false   [7] SECRET  [8] SECRET  [9] SECRET
+[10] "CastBar-803752C3BCEB3D2A"   [11] number 0
+```
+
+Negen van de elf secret. Naam, tekst, icoon, begin- en eindtijd, castID en spell-ID: allemaal dicht.
+Alleen `castBarID` (slot 10) is leesbaar, en die bewijst enkel **dát** er gecast wordt.
+
+🔴 **NIEUW en beslissend: `notInterruptible` (slot 8) is óók secret.** We kunnen dus niet eens
+vaststellen of een cast te onderbreken is. Dat sluit interrupt-assistentie af op een niveau onder
+"welke spell is het" — de vraag "valt hier iets mee te doen" is zelf niet te beantwoorden.
+
+⚠️ **NIET geclaimd:** er kwamen twee verschillende castBarID's langs (via `nameplate1` en via
+`target`), wat mooi zou passen bij Blizzards mededeling dat castbar-ID's per unit-token uniek zijn.
+Er zaten vijf seconden tussen, dus het kunnen twee casts zijn geweest. Geen bewijs.
+
+📌 **Wat de schakelaar omzet:** alle drie de aura-vangsten (10:26, 10:37, 10:40) hebben
+`inCombat = true`; één ervan had geen target en weigerde toch. De cast van de mob kwam binnen op
+`inCombat = false`, vijf seconden vóór de weigering. **Het gevecht zet het om — niet de
+tegenstander, niet het hebben van een target.** Drie waarnemingen, geen bewijs van het mechanisme.
 
 📌 `C_UnitAuras.GetAuraDispelTypeColor` neemt **`(auraInstance, curve)`** — gemeten uit de
 foutmelding van een verkeerde aanroep, niet uit documentatie. Buiten de secret-toestand is dat het

@@ -418,7 +418,36 @@ end
 -- is needed. Both calls are made in the SAME tick, because a difference between them
 -- measured seconds apart would prove nothing.
 
-local watchTicker, watchTicks, watchDeadline
+local watchTicker, watchTicks, watchDeadline, watchCastFrame
+local caughtAura, caughtEnemyCast
+
+--- ⚠️ THE CAST WALL IS NOT A POLLING PROBLEM, and treating it as one is why seven runs
+--- never measured it. A cast lasts one to three seconds; sweeping once a second misses
+--- roughly half of them, and sweeping for longer does not fix that — it just misses more
+--- casts more times. `UNIT_SPELLCAST_START` fires exactly when there is something to
+--- read, so the event is the measurement point and polling is not.
+---
+--- Both an ENEMY cast and one of our OWN are kept. The player's own cast is the positive
+--- control: if the enemy's returns nothing but secrets, our own proves in the same run
+--- that the reading method works, rather than leaving "all secret" and "probe broken"
+--- indistinguishable — which is the mistake this repo keeps a rule about.
+local function CaptureCast(unit, kind)
+	local rec = {
+		unit = unit,
+		kind = kind,
+		at = (_G.date and _G.date("%H:%M:%S")) or "?",
+		inCombat = InCombatLockdown and InCombatLockdown() or false,
+	}
+	local okName, name = pcall(UnitName, unit)
+	rec.name = okName and Describe(name) or "?"
+	rec.isPlayer = UnitIsUnit and UnitIsUnit(unit, "player") or false
+	for _, call in ipairs({ "UnitCastingInfo", "UnitChannelInfo" }) do
+		if type(_G[call]) == "function" then
+			rec[call] = CallAndDescribe(_G[call], unit)
+		end
+	end
+	return rec
+end
 
 --- One call, described by outcome rather than by value. Returns true when the client
 --- refused because of the secret/taint rule specifically -- not for any other error,
@@ -474,8 +503,25 @@ local function StopWatch(reason)
 		pcall(watchTicker.Cancel, watchTicker)
 		watchTicker = nil
 	end
+	if watchCastFrame then
+		pcall(watchCastFrame.UnregisterAllEvents, watchCastFrame)
+		pcall(watchCastFrame.SetScript, watchCastFrame, "OnEvent", nil)
+	end
 	print(("%s PTR watch stopped after %d sweeps — %s"):format(
 		PREFIX, watchTicks or 0, reason))
+	print(("  aura refusal: %s · enemy cast: %s"):format(
+		caughtAura and "|cff44ff44caught|r" or "|cffff8844not seen|r",
+		caughtEnemyCast and "|cff44ff44caught|r" or "|cffff8844not seen|r"))
+end
+
+--- Stop only once BOTH questions are answered. Stopping at the first catch is what the
+--- single-goal version did, and with two goals that would throw away the second.
+local function MaybeFinish()
+	if caughtAura and caughtEnemyCast then
+		StopWatch("both questions answered — |cff44ff44/reload now|r")
+		return true
+	end
+	return false
 end
 
 --- `/mh ptr watch` — sweep every second until the secret state appears, then keep it.
@@ -496,9 +542,46 @@ function ns.MH_PtrWatch(action)
 
 	ns.db = ns.db or {}
 	watchTicks = 0
+	caughtAura, caughtEnemyCast = false, false
 	watchDeadline = GetTime() + 300
-	print(PREFIX .. " PTR watch armed: sweeping every second for 5 minutes. Go fight"
-		.. " something. It stops by itself the moment the refusal appears.")
+	ns.db.ptrProbeCast = { seen = 0 }
+	print(PREFIX .. " PTR watch armed for 5 minutes: aura refusal (swept every second)"
+		.. " and the cast wall (on the cast event itself). Go fight something.")
+
+	-- The cast half. Event-driven on purpose — see CaptureCast above.
+	watchCastFrame = watchCastFrame or CreateFrame("Frame")
+	watchCastFrame:UnregisterAllEvents()
+	watchCastFrame:RegisterEvent("UNIT_SPELLCAST_START")
+	watchCastFrame:RegisterEvent("UNIT_SPELLCAST_CHANNEL_START")
+	watchCastFrame:SetScript("OnEvent", function(_, event, unit)
+		if type(unit) ~= "string" then
+			return
+		end
+		local store = ns.db.ptrProbeCast
+		store.seen = (store.seen or 0) + 1
+		local okRec, rec = pcall(CaptureCast, unit,
+			event == "UNIT_SPELLCAST_CHANNEL_START" and "channel" or "cast")
+		if not okRec then
+			store.error = tostring(rec)
+			return
+		end
+		if rec.isPlayer then
+			-- Positive control: keep the first one only, it never changes.
+			if not store.self then
+				store.self = rec
+			end
+			return
+		end
+		if not store.enemy then
+			store.enemy = rec
+			caughtEnemyCast = true
+			print(("%s cast wall CAUGHT on %s (%s)."):format(PREFIX, unit, rec.kind))
+			if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then
+				pcall(PlaySound, SOUNDKIT.RAID_WARNING)
+			end
+			MaybeFinish()
+		end
+	end)
 
 	watchTicker = C_Timer.NewTicker(1, function()
 		watchTicks = watchTicks + 1
@@ -507,7 +590,7 @@ function ns.MH_PtrWatch(action)
 			StopWatch("the sweep itself errored: " .. tostring(sweep))
 			return
 		end
-		if sawRefusal then
+		if sawRefusal and not caughtAura then
 			sweep.sweepNumber = watchTicks
 			ns.db.ptrProbeSecret = sweep
 			-- Take the full picture too, in the same state, while it lasts.
@@ -517,17 +600,33 @@ function ns.MH_PtrWatch(action)
 			if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then
 				pcall(PlaySound, SOUNDKIT.RAID_WARNING)
 			end
-			StopWatch("|cff44ff44CAUGHT IT|r — saved. Now /reload and tell Rob's assistant.")
-			return
+			caughtAura = true
+			print(PREFIX .. " aura refusal CAUGHT and saved.")
+			if MaybeFinish() then
+				return
+			end
 		end
 		if GetTime() > watchDeadline then
-			ns.db.ptrProbeSecret = {
-				status = "never seen",
-				sweeps = watchTicks,
-				note = "5 minutes of sweeps, the refusal never appeared. Not proof it"
-					.. " cannot happen -- proof it did not happen here.",
-			}
-			StopWatch("never saw the refusal (that result is saved too)")
+			-- 🔴 Record what was NOT seen just as explicitly as what was. A missing key
+			-- reads as "we never looked"; this says "we looked and it did not happen",
+			-- which is a different claim and the only honest one.
+			if not caughtAura then
+				ns.db.ptrProbeSecret = {
+					status = "never seen",
+					sweeps = watchTicks,
+					note = "5 minutes of sweeps, the aura refusal never appeared. Not"
+						.. " proof it cannot happen -- proof it did not happen here.",
+				}
+			end
+			local store = ns.db.ptrProbeCast
+			if store and not store.enemy then
+				store.status = "no enemy cast seen"
+				store.note = ("5 minutes on UNIT_SPELLCAST_START; %d cast events arrived"
+					.. " in total, none from a unit other than the player. Nothing was"
+					.. " casting at us -- not a measurement of secrecy."):format(
+					store.seen or 0)
+			end
+			StopWatch("time is up")
 		end
 	end)
 end
