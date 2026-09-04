@@ -413,9 +413,23 @@ function ns.PrintPortalAccess()
 			---   Portal to Silvermoon  map 2576 Silvermoon  64.2, 70.8
 			--- — the same portal at the same coordinate, named as two different zones. The
 			--- column added to end this confusion was making a new one.
-			local zone = ns.GetBaseZoneName and ns.GetBaseZoneName(portal.mapID) or ""
-			if tonumber(portal.mapID) == 2576 and portal.x and ns.ResolveHubOnMap2576 then
-				zone = ns.ResolveHubOnMap2576(portal.x) or zone
+			--- 🔴 THE ROW'S OWN `zone` WINS. Eleven rows carry one, and the Coiled Isle row
+			--- says `zone = "Silvermoon"` outright — while slicing its x (56.83) by hub
+			--- lands in the Voidstorm band and prints Voidstorm. Rob spotted it and named
+			--- the reason: that coordinate is the portal INSIDE a building, and a point
+			--- indoors need not fall in the slice its door belongs to. The route already
+			--- knows this and sends you to the entrance at 55.0, 63.3 instead
+			--- (TwoStepRoute.lua:158, "a coordinate does not open a building").
+			---
+			--- ⚠️ So: measured datum first, derivation only where there is none. Overriding
+			--- an explicit field with a formula is how a diagnostic invents a fault -- which
+			--- is exactly what this column did for a third of the list.
+			local zone = portal.zone
+			if not zone or zone == "" then
+				zone = ns.GetBaseZoneName and ns.GetBaseZoneName(portal.mapID) or ""
+				if tonumber(portal.mapID) == 2576 and portal.x and ns.ResolveHubOnMap2576 then
+					zone = ns.ResolveHubOnMap2576(portal.x) or zone
+				end
 			end
 			where = ("map %s%s  %s, %s"):format(
 				tostring(portal.mapID),
