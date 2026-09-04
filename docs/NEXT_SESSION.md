@@ -13,29 +13,82 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
-## ⏭️ VOOR MORGEN (4 sep) — delve-modifiers, in deze volgorde
+## ⏭️ DUNDUN-WAARSCHUWING — stap 1 is af (4 sep), de rest staat open
 
-Rob, 3 sep laat: *"zet maar op de lijst voor morgen."* Na de ochtendronde met de vier wachters.
+Rob, 3 sep laat: *"zet maar op de lijst voor morgen."*
 
-1. 🔎 **Zoek de volledige lijst delve-modifiers van dit seizoen** — online én in de geïnstalleerde
-   addons. ⚠️ **Zoek op de MODIFIER, niet op een delve.** Dat is de fout die 3 sep een half uur
-   kostte: ik zocht "Gulf of Memory + dun…" terwijl Dundun seizoensbreed is en in élke delve kan
-   zitten, dus de gidsen over díé delve noemen hem nauwelijks. Robs eigen zoekopdracht, zonder
-   delve-naam, vond het meteen. ⚠️ En kijk ook op YouTube; daar stond de macro die het oploste.
-   Vragen die beantwoord moeten worden: welke modifiers bestaan er, **wat kosten ze**, en welke
-   hebben net als Dundun een verstopte vorm?
-2. 🔴 **Lees de modifiers van de ACTIEVE delve uit.** Dat doen we nergens (GEMETEN, positieve
-   controle: ~80 `C_DelvesUI`-aanroepen in `Modules/`, geen enkele voor modifiers).
-   `GetTieredEntranceOptionalAffixTraitTreeID` staat al in de sweep van `Knowledge.lua:383`.
+1. ✅ **AF, 4 sep.** De lijst is gevonden en het antwoord was een correctie: Dundun is geen
+   modifier maar de Shrine of Abundance in Bountiful delves. Zie de sectie hieronder.
+2. 🟢 **KLEINER GEWORDEN, en grotendeels al gebouwd.** We hoeven geen affixen uit te lezen. De
+   waarschuwing hangt op drie dingen: (a) is deze delve **Bountiful** — dat leest `Delves.lua` al
+   uit de client (`isBountiful` / atlas-check, `:1583-1595`), (b) heeft de speler **Delver's
+   Journey rank 3**, (c) heeft hij **twee Restored Coffer Keys** — currency `3028`, tellen we al.
+   Alleen (b) is nog niet opgezocht.
 3. **De sleutelwaarschuwing** — de enige zin die niemand anders geeft:
-   *"Deze delve heeft Dundun. Vind hem voor een extra Bountiful Coffer — dat kost een tweede
-   Restored Coffer Key, en je hebt er één."* We tellen die sleutels al (currency `3028`).
-4. **De macro aanbieden** als kant-en-klare regel (`/cleartarget` → `/target dundun` → `/ping`),
-   want hij is per run een ánder decorstuk en dus niet met het oog te vinden. Sluit aan op het
-   gebankte *"handige snelacties"*-idee.
+   *"Deze delve is Bountiful, dus Dundun zit erin. Vind hem voor een extra Bountiful Coffer — dat
+   kost een tweede Restored Coffer Key, en je hebt er één."*
+4. **De macro aanbieden** (`/cleartarget` → `/target dundun` → `/ping`), want hij is per run een
+   ánder decorstuk en niet met het oog te vinden. `/tar Dundun` is extern bevestigd. Sluit aan op
+   het gebankte *"handige snelacties"*-idee.
 
-⚠️ **Stap 3 niet zonder stap 2.** Een sleutelwaarschuwing voor een delve die Dundun niet heeft is
-precies het soort zelfverzekerde onzin waar 3 sep over ging.
+⚠️ **Stap 3 niet zonder stap 2.** Een sleutelwaarschuwing in een delve zonder Dundun is precies het
+soort zelfverzekerde onzin waar 3 sep over ging.
+
+❓ **Nog onbeslist, en het raakt de tekst van de waarschuwing.** De wiki zegt dat de eerste vondst
+van de wéék een *Abundantly Bountiful Heavy Trunk* met keuze-opties geeft (Undercoin / Voidlight
+Marl / Valeera-XP / housing decor); Robs eigen meting en masterofwarcraft.net zeggen dat de eerste
+vondst de **tweede koffer** geeft en dat latere vondsten de keuze geven. Wat de as is — eerste ooit
+of eerste per week — is niet vastgesteld. De zin mag dus nog niet beweren wélke van de twee je krijgt.
+
+## ⏭️ 12.1.5-PTR — de aura-muur is HALF gemeten, en dat is het openstaande punt
+
+4 sep, drie runs van `/mh ptr` op **12.1.5.69594**. Wat af is staat in de sectie erna; dit is wat
+nog moet:
+
+🔴 **Meet een unit die écht een aura draagt.** Twee runs gaven "could not measure" (geen target, en
+daarna een Silvermoon Resident met nul auras). Een lege lijst komt terug als een **gewone table** —
+maar dat bewijst niets, want het secret kan pas verschijnen zodra er inhoud in zit. De test: een mob
+in gevecht met een debuff die je er zelf op zet, dan `/mh ptr`. `pet` en `targettarget` staan er
+inmiddels bij als tweede kans.
+
+⚠️ En de cast-muur (aantekening 18 aug: alles secret behalve `castBarID`) is nog steeds niet
+hermeten, om dezelfde reden: er stond nooit iets te casten. Dezelfde run kan beide beantwoorden.
+
+📌 `C_UnitAuras.GetAuraDispelTypeColor` neemt **`(auraInstance, curve)`** — gemeten uit de
+foutmelding van een verkeerde aanroep, niet uit documentatie. Dat is het secret-veilige patroon
+(engine rekent, wij lezen niet), en waarschijnlijk de route voor de dispel-helper.
+
+## ✅ 4 sep — wat 12.1.5 wél heeft beslecht
+
+Alles hieronder is GEMETEN op **12.1.5 build 69594, interface 120105**, met MH 3.7.3, via
+`/mh ptr` (`Modules/PtrProbe.lua` → `ns.db.ptrProbe`). Elke meting draagt sindsdien zijn eigen
+client, omdat er die ochtend twee `/dump`-uitkomsten binnenkwamen en niemand kon zeggen uit wélke
+van de twee geïnstalleerde PTR's ze kwamen.
+
+- ✅ **`SocketInventoryItem` bestaat** — de gem-knop in `GearEnchantCheck.lua` overleeft 12.1.5.
+  🔴 En de redenering van de API-wachter was fout, niet alleen de conclusie: **alle tien
+  `Blizzard_Deprecated*`-addons zijn écht verdwenen**, `ItemSocketInfo` incluis, en de functie is
+  tóch aanwezig. "Addon weg, dus functie weg" gaat niet op. `Blizzard_DeprecatedChatInfo` — waar
+  onze `SendChatMessage`-fallback op leunt — staat er nog wel.
+- ✅ **De tegenspraak in Blizzards eigen bron is beslecht.** `StringContains` = **absent**,
+  `string.contains` = **function**. De blue post beweert dat er aliassen behouden zijn "to prevent
+  addon breakage"; voor deze ene naam is dat onwaar en had de wiki-tabel gelijk. De andere veertien
+  verplaatste globals zijn er allemaal nog. Raakt ons niet (0 treffers).
+- 🔴 **INTREKKING: `UIModeUtil.IsModeActive` is NIET verwijderd.** Dat beweerde ik 4 sep 's ochtends
+  na het lezen van Zygors crash (`PetBattle.lua:27`); de client zegt dat de functie er is, met vier
+  buren. Wat er wél weg is, is **`IsFrameLockActive`** — de andere naam op diezelfde regel, en die
+  staat **niet** in Blizzards verwijderlijst. ⚠️ Dat verklaart hun crash nog steeds niet, want hun
+  `and`-guard hoort een ontbrekende functie juist op te vangen. Oorzaak blijft open; het is hun bug.
+  Wij gebruiken geen van beide namen (0 treffers, positieve controle in dezelfde run).
+- ✅ **Op de speler is elk aura-veld leesbaar** — `spellId` 1459, `name`, `dispelName "Magic"`,
+  `sourceUnit`, `expirationTime`, `icon`. Niets secret. Maar eigen auras waren nooit de vraag.
+- 📌 `C_UnitAuras` heeft **39 functies**, waaronder `GetAuraDispelTypeColor`, `GetUnitAuraBySpellID`,
+  `AuraIsPrivate` en `IsAuraFilteredOutByInstanceID`. Nieuw en aanwezig: `C_Weather`, `C_Intl`,
+  `CreateFrameWithOptions`, `GetScriptBucketThrottleLimits`. Afwezig: `TimedSignalMap`, `C_TableUtil`.
+- 🔧 **`tools/copy_to_ptr.bat` voedde alleen `_ptr_`** (12.1.0.69587) terwijl de nieuwe build in
+  **`_xptr_`** zit (12.1.5.69594) — alles wat voor 12.1.5 bedoeld was landde stil op de verkeerde
+  client. Doet nu elke geïnstalleerde PTR, slaat over wat er niet is, en blijft één vaste
+  commandoregel zonder argumenten.
 
 ## 📌 3 sep (avond) — wat "Dundun" is, en het gat dat het blootlegt
 
@@ -45,7 +98,24 @@ vonden we dat"*. Uiteindelijk **GEMETEN op zijn eigen entree-scherm** (Twilight 
 > **Dundun** — *"Dundun will hide within this Delve. Finding him will provide additional rewards at
 > the end of this Delve."* Spell ID **1299072**
 
-Het is dus een **delve-modifier**, geen vaste NPC op een coördinaat. Hij verstopt zich per run.
+🔴 **CORRECTIE 4 sep: hij is GEEN delve-modifier.** Deze regel stond hier een dag als feit en klopte
+niet. De Warcraft Wiki heeft een categorie `Delve affixes` met 17 leden (Aquatic Hex, Artillery Fire,
+Explosive Spores, Goblin Problems, Grasping Shadows, Haunted, Mole Machine, Nemesis Strongbox,
+Nerubian Webs, Reactive/Smothering/Suffocating…, Strange Creatures, Web Spreaders, Zekvir's
+Influence) — **Dundun staat er niet bij**, en die lijst is bovendien nog grotendeels The War Within.
+Hij is de **Shrine of Abundance**: een NPC (wiki-NPC-ID **266751**) vermomd als een **nepboom**.
+
+Dat hij op het entree-scherm verschijnt maakt hem geen affix. 📌 De les is dezelfde als die van
+gisteren, één laag dieper: ik zocht eerst op de délve in plaats van op de modifier, corrigeerde dat,
+en nam vervolgens klakkeloos aan dat het ding dat ik zocht wél een modifier wás.
+
+⚠️ En hij zit **niet in élke delve**: alleen in **Bountiful** delves, elke tier, en pas na
+**Delver's Journey rank 3 ("Treasure Hunter")**. Dat maakt het bouwwerk veel kleiner — zie hieronder.
+
+⚠️ **Het spell-ID hierboven is NIET bevestigd.** Wowheads Dundun-spell is **1299672**, het getal
+hierboven is **1299072** en dat heb ik overgetypt van een screenshot. Eén cijfer verschil, geen van
+beide gecontroleerd in de client. Niet hardcoden vóór dat gebeurd is — en het hoeft ook niet, want
+de waarschuwing kan op Bountiful + rank 3 + sleutelvoorraad hangen.
 
 ### ✅ Rob heeft de hele keten gemeten — en mijn gok was fout
 

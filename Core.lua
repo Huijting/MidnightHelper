@@ -1687,6 +1687,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh ptr — what 12.1.5 changed on top of what api12/auras already cover, plus a
+	-- re-measure of the cast wall. Writes ns.db.ptrProbe; run it, then /reload.
+	if msg == "ptr" then
+		if ns.MH_PtrProbe then
+			ns.MH_PtrProbe()
+		end
+		return
+	end
+
 	-- /mh delveexit — what could leave a delve? Ask from inside one.
 	if msg == "delveexit" then
 		if ns.MH_DelveExitScan then

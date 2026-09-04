@@ -259,6 +259,7 @@ Modules\WeeklyHubProbe.lua
 Modules\AtalUtekProbe.lua
 Modules\AchievementFind.lua
 Modules\ApiProbe.lua
+Modules\PtrProbe.lua
 Modules\PartyTargetProbe.lua
 Modules\TierProbe.lua
 Modules\PartyTargets.lua
