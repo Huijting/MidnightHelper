@@ -75,6 +75,7 @@ end
 ns.MH_UNLISTED_ON_PURPOSE = {
 	"anchor", "api12", "atal", "auradump", "aurainst", "auras", "bars", "boardall",
 	"bonusroll", "bossshare", "campaign", "capture", "chunklog", "chunks", "clearroute",
+	"dundun",
 	"codexkeys", "companion", "consready", "coord", "crest", "crestfind", "crestscan",
 	"curio", "curiodebug", "death", "debug", "delve", "delveexit", "delvescan", "dispellog",
 	"dispelprobe", "dispeltest", "editmode", "ej", "enchants", "encounters", "events",

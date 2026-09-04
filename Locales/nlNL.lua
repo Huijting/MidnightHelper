@@ -2097,6 +2097,17 @@ ns._mhLocales.nlNL = {
 	DELVES_TITLE = "Midnight Delves",
 	DELVES_JOURNEY_RANK = "Delver's Journey: Rank %d (%d / %d)",
 	DELVES_HINT_SHIFT_J = "Druk |cffffff00SHIFT-J|r — Adventure Guide (Vault, |cff00ffffDelver's Journey|r, Delves, Prey).",
+
+	-- Dundun, de Shrine of Abundance. "Bountiful", "Restored Coffer Key" en
+	-- "Delver's Journey" zijn Blizzards eigen namen: er is geen Nederlandse client,
+	-- dus een speler ziet die woorden altijd in het Engels op zijn scherm.
+	DUNDUN_CHAT_HEADER = "Deze delve is Bountiful, dus |cff00ffffDundun|r zit hier verstopt.",
+	DUNDUN_CHAT_WHAT = "Hij vermomt zich als een decorstuk — een boom die er net iets vreemd uitziet. Aanspreken geeft extra beloning aan het eind.",
+	DUNDUN_CHAT_RANK_UNKNOWN = "Alleen als je Delver's Journey rank %d of hoger is — ik kon je rank niet lezen, dus kijk zelf even.",
+	DUNDUN_CHAT_COST_FMT = "|cffffff00Let op:|r die extra kist kan een |cffffff00tweede|r Restored Coffer Key kosten. Je hebt er %d.",
+	DUNDUN_CHAT_COST_SHORT_FMT = "Let op: die extra kist kan een tweede Restored Coffer Key kosten, en je hebt er %d. Je houdt dan mogelijk een kist over die je niet open krijgt.",
+	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Let op:|r die extra kist kan een |cffffff00tweede|r Restored Coffer Key kosten. Ik kon niet lezen hoeveel je er hebt.",
+	DUNDUN_CHAT_MACRO = "Kun je hem niet vinden? Maak een macro met |cffffff00/cleartarget|r en dan |cffffff00/target Dundun|r.",
 	DELVES_CURRENCY_LINE = "Keys: %d | Shards: %d (Weekly: %d / %d) | Undercoins: %d | Untainted Mana-Crystals: %d%s",
 	DELVES_CURRENCY_BOUNTIES = "Bounties: %d",
 	DELVES_CURRENCY_RAID_MINIS = "RAID-R Minis: %d",

@@ -19,20 +19,26 @@ Rob, 3 sep laat: *"zet maar op de lijst voor morgen."*
 
 1. ✅ **AF, 4 sep.** De lijst is gevonden en het antwoord was een correctie: Dundun is geen
    modifier maar de Shrine of Abundance in Bountiful delves. Zie de sectie hieronder.
-2. 🟢 **KLEINER GEWORDEN, en grotendeels al gebouwd.** We hoeven geen affixen uit te lezen. De
-   waarschuwing hangt op drie dingen: (a) is deze delve **Bountiful** — dat leest `Delves.lua` al
-   uit de client (`isBountiful` / atlas-check, `:1583-1595`), (b) heeft de speler **Delver's
-   Journey rank 3**, (c) heeft hij **twee Restored Coffer Keys** — currency `3028`, tellen we al.
-   Alleen (b) is nog niet opgezocht.
-3. **De sleutelwaarschuwing** — de enige zin die niemand anders geeft:
-   *"Deze delve is Bountiful, dus Dundun zit erin. Vind hem voor een extra Bountiful Coffer — dat
-   kost een tweede Restored Coffer Key, en je hebt er één."*
-4. **De macro aanbieden** (`/cleartarget` → `/target dundun` → `/ping`), want hij is per run een
-   ánder decorstuk en niet met het oog te vinden. `/tar Dundun` is extern bevestigd. Sluit aan op
-   het gebankte *"handige snelacties"*-idee.
+2. ✅ **GEBOUWD 4 sep** — `Modules/DundunShrine.lua`. Geen affixen nodig: (a) Bountiful komt uit
+   `ns.IsDelveBountiful`, (b) rank uit `ns.GetDelverJourneyStatus` (drempel 3), (c) sleutels uit
+   currency `3028`. `ns.GetDundunStatus()` levert één oordeel mét reden, zodat de chatregel en de
+   diagnose niet uit elkaar kunnen lopen.
+3. ✅ **GEBOUWD** — de chatregels haken aan `DelveCoach`'s `inDelve and not wasInDelve`, met 2
+   seconden vertraging omdat de kaart-POI op de entree-tick nog niet altijd rond is.
+4. ✅ **GEBOUWD** — de macro-tip staat in dezelfde regelgroep.
 
 ⚠️ **Stap 3 niet zonder stap 2.** Een sleutelwaarschuwing in een delve zonder Dundun is precies het
-soort zelfverzekerde onzin waar 3 sep over ging.
+soort zelfverzekerde onzin waar 3 sep over ging. Daarom zwijgt hij bij `bountiful ~= true` én bij
+een leesbare rank onder 3, en zegt hij bij een ONleesbare rank de voorwaarde hardop in plaats van
+te doen alsof hij hem gecontroleerd heeft.
+
+🔴 **HET RISICO DAT DE HELE FUNCTIE KAN SLOPEN, en dat nog niet gemeten is:** `ns.IsDelveBountiful`
+leest de **kaart-POI**. Of die van bínnen de delve nog leesbaar is, weet niemand. Is hij weg, dan
+komt er `could not read` uit en zwijgt de functie altijd — precies wanneer hij zou moeten praten.
+`/mh dundun` maakt dat zichtbaar; het staat bovenaan `docs/TESTLIJST.md`.
+
+❓ **Nog te vertalen:** de zeven `DUNDUN_*`-keys staan in enUS en nlNL. de/fr/es/pt/it vallen nu
+terug op Engels (dat is geen fout, wel onaf) — hoort via `Locales/Translations2026.lua`.
 
 ❓ **Nog onbeslist, en het raakt de tekst van de waarschuwing.** De wiki zegt dat de eerste vondst
 van de wéék een *Abundantly Bountiful Heavy Trunk* met keuze-opties geeft (Undercoin / Voidlight

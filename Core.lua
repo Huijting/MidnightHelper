@@ -1687,6 +1687,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh dundun — is the Shrine of Abundance in this delve, and what would it cost?
+	-- Prints the reason even when the answer is "nothing to say", because saying
+	-- nothing is the normal outcome and correct silence must be visible.
+	if msg == "dundun" then
+		if ns.PrintDundunStatus then
+			ns.PrintDundunStatus()
+		end
+		return
+	end
+
 	-- /mh ptr — what 12.1.5 changed on top of what api12/auras already cover, plus a
 	-- re-measure of the cast wall. Writes ns.db.ptrProbe; run it, then /reload.
 	-- /mh ptr watch — sweep until the secret/taint refusal appears and keep that moment,

@@ -2422,6 +2422,16 @@ ns._mhLocales.enUS = {
 	DELVES_TITLE = "Midnight Delves",
 	DELVES_JOURNEY_RANK = "Delver's Journey: Rank %d (%d / %d)",
 	DELVES_HINT_SHIFT_J = "Press |cffffff00SHIFT-J|r — Adventure Guide (Vault, |cff00ffffDelver's Journey|r, Delves, Prey).",
+
+	-- Dundun, the Shrine of Abundance. "Bountiful", "Restored Coffer Key" and
+	-- "Delver's Journey" are Blizzard's own names and stay English everywhere.
+	DUNDUN_CHAT_HEADER = "This delve is Bountiful, so |cff00ffffDundun|r is hiding in it.",
+	DUNDUN_CHAT_WHAT = "He disguises himself as a prop — a tree that looks slightly wrong. Talking to him gives extra rewards at the end.",
+	DUNDUN_CHAT_RANK_UNKNOWN = "Only if your Delver's Journey is rank %d or higher — I could not read your rank, so check it yourself.",
+	DUNDUN_CHAT_COST_FMT = "|cffffff00Watch out:|r the extra chest can cost a |cffffff00second|r Restored Coffer Key. You have %d.",
+	DUNDUN_CHAT_COST_SHORT_FMT = "Watch out: the extra chest can cost a second Restored Coffer Key, and you have %d. You may end up with a chest you cannot open.",
+	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Watch out:|r the extra chest can cost a |cffffff00second|r Restored Coffer Key. I could not read how many you have.",
+	DUNDUN_CHAT_MACRO = "Can't find him? Make a macro with |cffffff00/cleartarget|r then |cffffff00/target Dundun|r.",
 	DELVES_CURRENCY_LINE = "Keys: %d | Shards: %d (Weekly: %d / %d) | Undercoins: %d | Untainted Mana-Crystals: %d%s",
 	DELVES_CURRENCY_BOUNTIES = "Bounties: %d",
 	DELVES_CURRENCY_RAID_MINIS = "RAID-R Minis: %d",

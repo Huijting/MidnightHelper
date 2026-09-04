@@ -7,6 +7,33 @@ gezien is, komt hier te staan tot hij het afvinkt.
 ⚠️ **Bouwen is niet testen.** Een module die laadt zonder foutmelding heeft alleen bewezen dat
 hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 
+## 🆕 4 sep — Dundun, de Shrine of Abundance (ONGETEST, op LIVE)
+
+De enige zin die niemand anders geeft: deze delve is Bountiful, dus Dundun zit erin, en zijn
+aanbod kan een **tweede** Restored Coffer Key kosten.
+
+- [ ] 🔴 **`/mh dundun` buiten een delve.** Verwacht een tabel met `in a delve: could not read` of
+      `false`, en een **verdict `quiet`** met de reden erbij. Dit is de belangrijkste test: zwijgen
+      is hier de normale uitkomst, en het moet te zíén zijn dát hij zweeg en waarom.
+- [ ] **`/mh dundun` in een gewone (niet-Bountiful) delve.** Verwacht `Bountiful: false` en
+      `verdict: quiet — this delve is not Bountiful`.
+- [ ] 🔴 **`/mh dundun` in een BOUNTIFUL delve.** Dit is de meting die telt. Verwacht
+      `Bountiful: true`. ⚠️ **Komt hier `could not read` uit, dan is de hele functie waardeloos** —
+      de Bountiful-vlag komt van de kaart-POI en het is niet gemeten of die van bínnen de delve nog
+      leesbaar is. Meld dat dus, ook al lijkt het een detail.
+- [ ] **Loop een Bountiful delve in en wacht 2 seconden.** Er hoort vanzelf een blok van drie of
+      vier regels in de chat te komen: dat hij er is, dat hij zich als een boom vermomt, de
+      sleutelwaarschuwing met **jouw** aantal keys, en de macro-tip.
+      📌 Heb je minder dan 2 keys, dan hoort die regel **oranje** te zijn en anders te klinken.
+- [ ] **Klopt het aantal keys** dat hij noemt met wat je Currency-tab zegt?
+- [ ] Werkt de macro (`/cleartarget` + `/target Dundun`) als hij er is?
+
+⚠️ **Wat ik NIET weet en wat de tekst daarom niet belooft:** of de eerste vondst van de week een
+tweede Coffer geeft (jouw eigen meting) of een keuze-trunk (de wiki). De regel zegt daarom "kan
+kosten", nooit "kost". Zie je in het spel welke van de twee het is, dan kan die zin scherper.
+⚠️ Ook niet gemeten: dat rank 3 de drempel is. Dat komt van webbronnen. Zit je onder rank 3 en zegt
+MH tóch iets, dan klopt de drempel niet.
+
 ## 🆕 3 sep — de routes vanuit Harandar (ONGETEST)
 
 Je stond in Harandar, klikte Twilight Crypts, en kreeg vier regels die elkaar tegenspraken.

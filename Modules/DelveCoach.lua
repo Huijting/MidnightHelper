@@ -1818,6 +1818,16 @@ end
 local function OnDelveStateTick()
 	local inDelve = ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress() or IsDelveInProgress()
 	if inDelve and not wasInDelve then
+		-- Dundun (Shrine of Abundance): only speaks when this delve is Bountiful and the
+		-- Journey rank allows it. Deliberately slightly delayed — on the entry tick the
+		-- map POI the Bountiful flag comes from is not always resolved yet, and a wrong
+		-- "not Bountiful" would silently drop the one line nobody else gives the player.
+		-- `/mh dundun` shows the decision either way.
+		if ns.AnnounceDundunIfRelevant and C_Timer and C_Timer.After then
+			C_Timer.After(2, function()
+				pcall(ns.AnnounceDundunIfRelevant)
+			end)
+		end
 		if coachFrame then
 			coachFrame._userDismissed = false
 		end
