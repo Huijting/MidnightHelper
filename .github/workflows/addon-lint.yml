@@ -12,7 +12,11 @@ on:
       - "Modules/**"
       - "*.lua"
       - "*.toc"
-      - "tools/lint_addon.py"
+      # ⚠️ Every python tool, not just lint_addon.py. The linter IMPORTS tip_audit for
+      # check [19], so a change there changes what the build does — and on 4 Sep 2026 a
+      # fix to exactly that file triggered no run at all, because it was not on this
+      # list. A trigger that misses the file the job depends on tests the wrong thing.
+      - "tools/*.py"
       - ".github/workflows/**"
   pull_request:
     paths:
@@ -20,7 +24,11 @@ on:
       - "Modules/**"
       - "*.lua"
       - "*.toc"
-      - "tools/lint_addon.py"
+      # ⚠️ Every python tool, not just lint_addon.py. The linter IMPORTS tip_audit for
+      # check [19], so a change there changes what the build does — and on 4 Sep 2026 a
+      # fix to exactly that file triggered no run at all, because it was not on this
+      # list. A trigger that misses the file the job depends on tests the wrong thing.
+      - "tools/*.py"
       - ".github/workflows/**"
 
 jobs:
