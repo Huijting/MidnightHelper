@@ -2426,7 +2426,7 @@ ns._mhLocales.enUS = {
 	-- Dundun, the Shrine of Abundance. "Bountiful", "Restored Coffer Key" and
 	-- "Delver's Journey" are Blizzard's own names and stay English everywhere.
 	DUNDUN_CHAT_HEADER = "This delve is Bountiful, so |cff00ffffDundun|r is hiding in it.",
-	DUNDUN_CHAT_WHAT = "He disguises himself as scenery that looks slightly wrong — the one we have seen was a tree. Finding and talking to him is free; it gives extra rewards at the end.",
+	DUNDUN_CHAT_WHAT = "Look for a wooden fake tree — planks and screws, painted leaves, clearly built rather than grown. Finding and talking to him is free; it gives extra rewards at the end.",
 	DUNDUN_CHAT_RANK_UNKNOWN = "Only if your Delver's Journey is rank %d or higher — I could not read your rank, so check it yourself.",
 	DUNDUN_CHAT_COST_FMT = "|cffffff00Watch out:|r the extra chest can cost a |cffffff00second|r Restored Coffer Key. You have %d.",
 	DUNDUN_CHAT_COST_SHORT_FMT = "Watch out: opening the extra chest can cost a second Restored Coffer Key, and you have %d. Finding him is still free — you would just leave that chest shut.",
@@ -2435,7 +2435,7 @@ ns._mhLocales.enUS = {
 	DUNDUN_CHAT_SHARDS_FMT = "You have %d Coffer Key Shards — %d more and the game turns them into a key by itself when you enter.",
 
 	DUNDUN_PANEL_TITLE = "Bountiful delves — Dundun",
-	DUNDUN_PANEL_BODY = "In a Bountiful delve, Dundun hides as scenery that looks slightly wrong. Finding him and talking to him is free and adds an extra reward at the end. Opening the extra chest can cost a second Restored Coffer Key.",
+	DUNDUN_PANEL_BODY = "In a Bountiful delve, Dundun hides as a wooden fake tree — planks and screws, painted leaves, built rather than grown. Finding him and talking to him is free and adds an extra reward at the end. Opening the extra chest can cost a second Restored Coffer Key.",
 	DUNDUN_PANEL_KEYS_OK_FMT = "You have %d Restored Coffer Keys and %d shards — enough for the extra chest.",
 	DUNDUN_PANEL_KEYS_SHORT_FMT = "You have %d Restored Coffer Keys and %d shards — %d shards short of the next key. You can still find him; you would just leave the extra chest shut.",
 	DUNDUN_PANEL_KEYS_UNKNOWN = "Could not read your Restored Coffer Keys right now.",

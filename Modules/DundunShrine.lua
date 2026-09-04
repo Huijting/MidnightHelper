@@ -17,13 +17,21 @@ local _, ns = ...
 	(we never could): Bountiful already comes from the client, the Journey rank already
 	has a reader, and Restored Coffer Keys are already counted.
 
-	⚠️ WHAT IS STILL UNSETTLED, and why the wording below is careful. Sources disagree on
-	what the FIRST find of a week gives. Rob measured a second Bountiful Coffer that
-	needed a second key (his own tooltip read `Restored Coffer Key 2 / 1`), and
-	masterofwarcraft.net says the same; the Warcraft Wiki instead describes an "Abundantly
-	Bountiful Heavy Trunk" with a choice of Undercoin / Voidlight Marl / Valeera XP /
-	housing decor. Whether the axis is "first ever" or "first this week" is not
-	established. So we say the extra chest CAN cost a second key -- never that it will.
+	✅ SETTLED 4 Sep 2026, by Dundun himself. Rob met him a second time and the gossip
+	said it outright: "Found me AGAIN, have you? To weave a veil of Abundant Bounty over
+	every delve is a feat beyond even my abundance. I shall grant you a LESSER BOON for
+	now. At least UNTIL MY STRENGTH RETURNS." Then four free options -- Undercoin,
+	Voidlight Marl, Valeera experience, housing decor.
+
+	So the axis was never "first ever" versus "first this week": he simply cannot do the
+	big one twice in a row. Both earlier sources were right about different moments, which
+	is why they looked contradictory. Rob had taken the extra Coffer the day before on
+	this same character.
+
+	⚠️ HOW LONG "until my strength returns" LASTS IS NOT MEASURED. Weekly is the obvious
+	guess and the wiki's "first shrine of the week" points that way, but a guess is what
+	it stays until someone watches it flip. So the wording names both outcomes and does
+	not promise which one this run will be.
 
 	⚠️ And rank 3 itself is from those same web sources, not measured in the client. If
 	the rank cannot be read we still speak, but say the condition out loud instead of
@@ -227,6 +235,12 @@ function ns.AnnounceDundunIfRelevant()
 			id = "dundun_shrine",
 			title = ns:L("DUNDUN_PANEL_TITLE"),
 			body = sub,
+			--- ⚠️ Longer than the default, and dismissable (the card has a close button
+			--- since 4 Sep). Rob: "die moet langer in beeld zijn, minstens 20 seconden en
+			--- sluitbaar." This one is read at the START of a delve and then acted on --
+			--- find a prop, maybe make a macro -- rather than glanced at like a loot
+			--- notice, so it needs time that a bounty toast does not.
+			displaySec = 25,
 			icon = 136071, -- Polymorph's icon stands in: a prop that is not what it seems.
 			clickHintKey = "DUNDUN_PANEL_MACRO_BTN",
 			onClick = function()
@@ -716,6 +730,8 @@ function ns.PrintDundunStatus()
 	end
 	print(("  verdict         : |cff88ccff%s|r — %s"):format(
 		tostring(s.verdict), tostring(s.reason)))
-	print("  What he is: an NPC disguised as a prop (a fake tree), not a delve affix.")
-	print("  Unsettled: whether the first find gives a second Coffer or a choice trunk.")
+	print("  What he is: an NPC disguised as a wooden fake tree, not a delve affix.")
+	print("  First find after his strength returns: the extra Bountiful Coffer (costs a key).")
+	print("  Finding him again before then: a free choice of Undercoin / Voidlight Marl /")
+	print("    Valeera XP / housing decor. No key, no cost.")
 end
