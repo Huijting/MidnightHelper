@@ -304,6 +304,37 @@ local function SelectMacroType(panel, typeId)
 	end
 end
 
+--- Ask the Macros panel to open on a given kind.
+---
+--- 🔴 EXISTS BECAUSE A BUTTON THAT ALMOST GETS YOU THERE IS THE BUG. The Delves tab's
+--- Dundun block first opened the Macros tab and told the player, in a tooltip, to click
+--- "World" themselves. Rob, 4 Sep: "als ik naar de macro klik in de delve scherm doet ie
+--- de interupts open ipv gelijk naar de juiste te gaan." He is right, and it is the same
+--- rule as the SMC banner from the day before: the answer belongs where the click is,
+--- not one step past it.
+---
+--- Deferred by a frame because the panel may not be built yet at the moment the caller
+--- switches tabs; the retry is cheap and one attempt is enough in practice.
+--- @param typeId string
+function ns.MH_OpenMacroType(typeId)
+	local function Apply()
+		local panel = ns.MH_MacrosPanel
+		if not panel then
+			return false
+		end
+		SelectMacroType(panel, typeId)
+		return true
+	end
+	if Apply() then
+		return
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.05, function()
+			pcall(Apply)
+		end)
+	end
+end
+
 local function LayoutSubtitleAnchor(panel, typeId)
 	local subtitle = panel._mhMacrosSubtitle
 	if not subtitle then
@@ -384,7 +415,14 @@ local function RefreshMacrosPanel(panel)
 
 	if specLine then
 		local previewMark = isPreview and ns:L("GUIDE_PREVIEW_MARK") or ""
-		if classLocalized and specName and specName ~= "" then
+		-- ⚠️ Some kinds of macro are not class-bound at all. The World list is the same
+		-- two or three lines for everyone, so heading it "Mage - Frost" says something
+		-- untrue about who it is for — spotted by Rob on the very first screenshot of it.
+		-- The class line is a property of the KIND, not of the panel.
+		local def = GetMacroTypeDef(typeId)
+		if def and def.classless then
+			specLine:Hide()
+		elseif classLocalized and specName and specName ~= "" then
 			specLine:SetText(ns:L("MACROS_SPEC_LINE_FMT"):format(classLocalized, specName) .. previewMark)
 			specLine:Show()
 		elseif classLocalized then
@@ -461,6 +499,9 @@ function ns.BuildInterruptMacrosPanel(panel)
 	panel._mhMacrosBuilt = true
 	panel._mhMacrosSelectedType = "interrupt"
 	panel._mhMacrosPickIndex = {}
+	-- Published so another tab can open this panel on a specific kind; see
+	-- ns.MH_OpenMacroType. There is only ever one Macros panel.
+	ns.MH_MacrosPanel = panel
 	if panel._body then
 		panel._body:Hide()
 	end

@@ -2512,6 +2512,23 @@ local function PaintDelvesPanel(fullRefresh)
 			curioAnchor = curioPanel
 		end
 	end
+	-- Dundun block. Sits between the curio advisor and the delve columns because it is
+	-- read BEFORE picking a delve — "do I have the keys for the extra chest" is part of
+	-- choosing, not part of running. Anchored like the curio panel so this stays one
+	-- more block rather than a special case.
+	if ns.EnsureDundunPanel then
+		local dundunPanel = ns.EnsureDundunPanel(scrollHost)
+		if dundunPanel then
+			dundunPanel:ClearAllPoints()
+			dundunPanel:SetPoint("TOPLEFT", curioAnchor, "BOTTOMLEFT", 0, -10)
+			dundunPanel:SetPoint("RIGHT", scrollHost, "RIGHT", 0, 0)
+			if ns.RefreshDundunPanel then
+				ns.RefreshDundunPanel(scrollHost)
+			end
+			curioAnchor = dundunPanel
+		end
+	end
+
 	if leftColumn then
 		leftColumn:ClearAllPoints()
 		leftColumn:SetPoint("TOPLEFT", curioAnchor, "BOTTOMLEFT", 0, -10)
@@ -2534,7 +2551,11 @@ local function PaintDelvesPanel(fullRefresh)
 	rightColumn.rows = rightColumn.rows or {}
 
 	local mapDelveAtlasFallback = {}
+	-- Which roster names occur more than once? Counted from the roster itself rather
+	-- than hardcoded, so a second duplicate added later disambiguates on its own.
+	local rosterNameCounts = {}
 	for _, packed in ipairs(roster) do
+		rosterNameCounts[packed[5]] = (rosterNameCounts[packed[5]] or 0) + 1
 		local _, _, _, da, dtk = GetDelvePoiStateCached(packed[5], packed[2], packed[1])
 		if da and not mapDelveAtlasFallback[packed[2]] then
 			mapDelveAtlasFallback[packed[2]] = { atlas = da, kit = dtk }
@@ -2556,6 +2577,18 @@ local function PaintDelvesPanel(fullRefresh)
 		local displayName = packed[5]
 		if tipEntry and ns.GetDelveTipDisplayName then
 			displayName = ns:GetDelveTipDisplayName(tipEntry)
+		end
+		-- ⚠️ A roster name can appear on TWO maps and then the list shows the same words
+		-- twice with nothing to tell them apart. Rob, 4 Sep: "ik zie 2 dezelfde delves
+		-- rechts onder in." Venomfall Deeps is poiID 8779 on both 2512 and 2437, and both
+		-- rows are shipped on purpose (see the roster comment) -- dropping either hides
+		-- the delve on a map where the client says it is. So name the zone instead of
+		-- removing a row: the duplicate was correct, its presentation was not.
+		if rosterNameCounts and rosterNameCounts[packed[5]] and rosterNameCounts[packed[5]] > 1 then
+			local zone = GetZoneDisplayName and GetZoneDisplayName(packed[2])
+			if zone and zone ~= "" then
+				displayName = ("%s |cff9d9d9d(%s)|r"):format(displayName, zone)
+			end
 		end
 		local item = {
 			questID = packed[1],

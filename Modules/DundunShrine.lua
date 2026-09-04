@@ -230,6 +230,81 @@ function ns.AnnounceDundunIfRelevant()
 	return true
 end
 
+--------------------------------------------------------------------------------
+-- A macro that belongs to the world, not to a class
+--------------------------------------------------------------------------------
+--
+-- The Macros tab had two kinds, `interrupt` and `utility`, and both are keyed by class
+-- and spec (ns.TeamMacrosByClassSpec). Dundun's targeting macro is neither: every class
+-- needs the same two lines, because the problem is that he is scenery and not that your
+-- spec lacks a button. So a third kind is registered here.
+--
+-- 📌 This is also the first tenant of the banked "handy quick actions" idea (15 Jul).
+-- Anything else that is one line, useful, and class-independent goes in this list.
+--
+-- ⚠️ Registered by appending rather than by editing InterruptMacros.lua's own table, so
+-- the panel keeps working unchanged if this module is ever removed. DundunShrine loads
+-- after InterruptMacros in the .toc, which is what makes the append safe.
+ns.WORLD_MACROS = {
+	{
+		id = "dundun_target",
+		name = "Find Dundun",
+		-- ⚠️ The ping line is the half that makes it usable, and the first version dropped
+		-- it. Targeting alone tells you he exists somewhere; the ping puts a marker in the
+		-- world so you can walk to him. Rob found this macro himself and specifically
+		-- asked for the line back: "ik mis in de macro de ping lijn die ik erg makkelijk
+		-- vond." Keep all three lines together.
+		descEn = "Target the Shrine of Abundance in a Bountiful delve and ping where he is."
+			.. " He is disguised as scenery, so the eye will not find him — the targeting"
+			.. " will, and the ping shows you where to walk.",
+		descNl = "Target de Shrine of Abundance in een Bountiful delve en pingt waar hij"
+			.. " staat. Hij is vermomd als decor, dus met het oog vind je hem niet — met"
+			.. " targeten wel, en de ping laat zien waar je heen moet.",
+		macro = [=[/cleartarget
+/target Dundun
+/ping [@target] assist]=],
+	},
+}
+
+if type(ns.MacroPanelTypes) == "table" then
+	table.insert(ns.MacroPanelTypes, {
+		id = "world",
+		labelKey = "MACROS_TYPE_WORLD",
+		subtitleKey = "MACROS_WORLD_SUBTITLE",
+		-- These macros are the same for every class, so the panel must not head them with
+		-- the player's class and spec. See the specLine branch in InterruptMacros.
+		classless = true,
+		getList = function()
+			local list = ns.WORLD_MACROS
+			if type(list) ~= "table" or #list < 1 then
+				return nil
+			end
+			-- The other two kinds return (list, classToken, specIndex); these macros have
+			-- no class, so the panel is handed nils it already knows how to render.
+			return list, nil, nil
+		end,
+		getContext = function(panel)
+			local list = ns.WORLD_MACROS
+			if type(list) ~= "table" or #list < 1 then
+				return nil, "empty", nil, 0, nil, nil, nil
+			end
+			local idx = 1
+			if panel and panel._mhMacrosPickIndex and panel._mhMacrosPickIndex.world then
+				idx = panel._mhMacrosPickIndex.world
+			end
+			if idx < 1 or idx > #list then
+				idx = 1
+			end
+			local e = list[idx]
+			local desc = e.descEn
+			if GetLocale and GetLocale() == "nlNL" and e.descNl then
+				desc = e.descNl
+			end
+			return e.macro, nil, nil, 0, nil, e.name, desc
+		end,
+	})
+end
+
 --- `/mh dundun scan` — where can "is this delve Bountiful" come from while INSIDE it?
 ---
 --- 🔴 THE PROBLEM THIS EXISTS FOR, measured 4 Sep in The Darkway (tier 11, Bountiful).
@@ -467,6 +542,117 @@ function ns.ScanDundunSources()
 		.. " zone '%s', delve name %s."):format(
 		PREFIX, n, tostring(out.zoneText), tostring(out.activeDelveName)))
 	print("  |cffffff00/reload|r now, then it can be read from the file.")
+end
+
+--------------------------------------------------------------------------------
+-- The Delves tab block
+--------------------------------------------------------------------------------
+--
+-- 🔴 WHY THIS EXISTS ALONGSIDE THE CHAT LINE. Rob, 4 Sep: "dit is best groot voor solo
+-- players" — and asked whether MH mentions it anywhere. It did not, beyond a chat line
+-- fired on entry and a dev command. That is the gap he named the day before: chat is
+-- fine for an event you might miss, but this is also a DECISION taken before the delve
+-- ("do I have the keys, is it worth going for"), and the answer to a decision belongs
+-- where the decision is made. The Delves tab is that room.
+--
+-- Built the way the curio advisor is (ns.EnsureDelveCurioPanel), so the Delves panel
+-- anchors it like any other block rather than growing a special case.
+
+--- @param parent Frame
+--- @return Frame|nil
+function ns.EnsureDundunPanel(parent)
+	if not parent then
+		return nil
+	end
+	local f = parent._mhDundunPanel
+	if f then
+		return f
+	end
+
+	f = CreateFrame("Frame", nil, parent)
+	f:SetHeight(1)
+
+	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	if ns.MHScalableFont then
+		f.title:SetFontObject(ns.MHScalableFont("GameFontNormal"))
+	end
+	f.title:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
+	f.title:SetJustifyH("LEFT")
+
+	f.body = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	if ns.MHScalableFont then
+		f.body:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	end
+	f.body:SetPoint("TOPLEFT", f.title, "BOTTOMLEFT", 0, -4)
+	f.body:SetPoint("RIGHT", f, "RIGHT", 0, 0)
+	f.body:SetJustifyH("LEFT")
+	f.body:SetWordWrap(true)
+
+	f.stand = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	if ns.MHScalableFont then
+		f.stand:SetFontObject(ns.MHScalableFont("GameFontNormalSmall"))
+	end
+	f.stand:SetPoint("TOPLEFT", f.body, "BOTTOMLEFT", 0, -6)
+	f.stand:SetPoint("RIGHT", f, "RIGHT", 0, 0)
+	f.stand:SetJustifyH("LEFT")
+	f.stand:SetWordWrap(true)
+
+	f.macroBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.macroBtn:SetSize(190, 22)
+	f.macroBtn:SetPoint("TOPLEFT", f.stand, "BOTTOMLEFT", 0, -8)
+	f.macroBtn:SetText(ns:L("DUNDUN_PANEL_MACRO_BTN"))
+	f.macroBtn:SetScript("OnClick", function()
+		if ns.SelectTab then
+			ns.SelectTab("macros")
+		end
+		-- Land on the World kind, not on whatever the panel last showed. Opening the tab
+		-- and asking the player to find the right sub-tab is the thing this button exists
+		-- to avoid.
+		if ns.MH_OpenMacroType then
+			ns.MH_OpenMacroType("world")
+		end
+	end)
+	f.macroBtn:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:AddLine(ns:L("DUNDUN_PANEL_MACRO_TT"), 1, 1, 1, true)
+		GameTooltip:Show()
+	end)
+	f.macroBtn:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+
+	parent._mhDundunPanel = f
+	return f
+end
+
+--- Fill the block with the player's current standing. Safe to call whenever the Delves
+--- panel repaints.
+function ns.RefreshDundunPanel(parent)
+	local f = parent and parent._mhDundunPanel
+	if not f then
+		return
+	end
+	local s = ns.GetDundunStatus()
+
+	f.title:SetText("|cff00ffff" .. ns:L("DUNDUN_PANEL_TITLE") .. "|r")
+	f.body:SetText(ns:L("DUNDUN_PANEL_BODY"))
+
+	-- The player's own numbers, which is the half no guide can give them.
+	local line
+	if s.keys == nil then
+		line = "|cffff8844" .. ns:L("DUNDUN_PANEL_KEYS_UNKNOWN") .. "|r"
+	elseif (s.effectiveKeys or s.keys) >= 2 then
+		line = "|cff44ff44" .. ns:L("DUNDUN_PANEL_KEYS_OK_FMT"):format(
+			s.keys, s.shards or 0) .. "|r"
+	else
+		line = "|cffffcc00" .. ns:L("DUNDUN_PANEL_KEYS_SHORT_FMT"):format(
+			s.keys, s.shards or 0, s.shardsToNextKey or SHARDS_PER_KEY) .. "|r"
+	end
+	f.stand:SetText(line)
+
+	local h = f.title:GetStringHeight() + f.body:GetStringHeight()
+		+ f.stand:GetStringHeight() + 22 + 22
+	f:SetHeight(math.max(h, 1))
 end
 
 --- `/mh dundun` — the whole decision, including why it said nothing.
