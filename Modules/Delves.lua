@@ -810,6 +810,42 @@ function ns.GetBaseZoneName(mapID)
 	if mid == 2395 or mid == 2437 then
 		return "Zul'Aman"
 	end
+
+	--- Same parent climb as GetRegionGroupID, and for the same reason: a cave or delve
+	--- sub-map has its own uiMapID and would otherwise be nameless, which reads to the
+	--- player as "we do not know where you are" in the middle of a zone they can see.
+	if C_Map and C_Map.GetMapInfo then
+		local seen, cur = {}, mid
+		for _ = 1, 6 do
+			if not cur or seen[cur] then
+				break
+			end
+			seen[cur] = true
+			local ok, info = pcall(C_Map.GetMapInfo, cur)
+			if not ok or type(info) ~= "table" then
+				break
+			end
+			local parent = tonumber(info.parentMapID)
+			if not parent or parent == 0 then
+				break
+			end
+			-- ⚠️ Compared directly rather than by calling GetBaseZoneName(parent): that
+			-- would recurse into this same climb on every step, so a long or looping
+			-- chain would nest six deep per level instead of walking it once.
+			if parent == 2393 or parent == 2576 then
+				return "Silvermoon"
+			elseif parent == 2413 then
+				return "Harandar"
+			elseif parent == 2405 then
+				return "Voidstorm"
+			elseif parent == 2424 then
+				return "Quel'Danas"
+			elseif parent == 2395 or parent == 2437 then
+				return "Zul'Aman"
+			end
+			cur = parent
+		end
+	end
 	return ""
 end
 
@@ -832,6 +868,53 @@ function ns.GetRegionGroupID(mapID)
 	end
 	if mid == 2405 then
 		return 3
+	end
+
+	--- 🔴 CLIMB TO THE PARENT BEFORE GIVING UP — 4 Sep 2026, Rob inside the cave in
+	--- Harandar. A cave, a delve and any other sub-map carry their OWN uiMapID, which is
+	--- not in the list above, so the player fell through to group 0 and the caller then
+	--- did exactly what the warning above describes: it announced "other continent —
+	--- travel back" and offered a portal, while he was standing in Harandar. Flying out of
+	--- the cave fixed it, which is the signature of a map change rather than a data error.
+	---
+	--- Listing more ids cannot fix this — Blizzard adds sub-maps faster than we measure
+	--- them, and every one of them would break the same way until someone noticed. The
+	--- parent chain answers it structurally: MEASURED in the Dundun scan the same day,
+	--- The Darkway is uiMapID 2525 with parentMapID 2393 (Silvermoon), so the client
+	--- already knows where a sub-map belongs.
+	---
+	--- ⚠️ Bounded and guarded: a malformed chain must not loop, and an unreadable
+	--- GetMapInfo must return 0 (unknown) rather than a wrong group. Unknown is still a
+	--- bad answer here — see the warning above — but a WRONG region silently suppresses
+	--- travel advice that the player needs, which is worse.
+	if not (C_Map and C_Map.GetMapInfo) then
+		return 0
+	end
+	local seen, cur = {}, mid
+	for _ = 1, 6 do
+		if not cur or seen[cur] then
+			break
+		end
+		seen[cur] = true
+		local ok, info = pcall(C_Map.GetMapInfo, cur)
+		if not ok or type(info) ~= "table" then
+			break
+		end
+		local parent = tonumber(info.parentMapID)
+		if not parent or parent == 0 then
+			break
+		end
+		if parent == 2393 or parent == 2576 or parent == 2424 or parent == 2395
+			or parent == 2437 or parent == 2512 then
+			return 1
+		end
+		if parent == 2413 then
+			return 2
+		end
+		if parent == 2405 then
+			return 3
+		end
+		cur = parent
 	end
 	return 0
 end
@@ -861,6 +944,29 @@ function ns.ResolveHubOnMap2576(pxPercent)
 		return "Harandar"
 	end
 	return "Voidstorm"
+end
+
+--- 🔴 THE SAME SLICE LOGIC, BUT FOR THE TARGET — 4 Sep 2026.
+---
+--- `GetEffectiveRegionGroupID` existed and worked, and both travel checks used it for the
+--- PLAYER while asking the bare `GetRegionGroupID` about the TARGET. On canvas 2576 the
+--- bare call returns 1 (Silvermoon is the default slice), so a delve in the Harandar slice
+--- of that same canvas came back as "a different region" and the travel popup fired at a
+--- player standing next to it. Rob, in Harandar beside the portal: "als ik weer de Grudge
+--- Pit vraag wil ie me naar een andere locatie in de grot sturen."
+---
+--- The target's x is already a parameter of both callers; nothing new has to be measured,
+--- it simply was never passed through. Slicing by x is only meaningful ON 2576 — anywhere
+--- else the hub is nil and this is exactly the old behaviour.
+--- @param mapID number|nil
+--- @param xPct number|nil target x in 0-100
+--- @return number regionGroupID
+function ns.GetTargetRegionGroupID(mapID, xPct)
+	local hub = nil
+	if tonumber(mapID) == 2576 and xPct ~= nil then
+		hub = ns.ResolveHubOnMap2576(xPct)
+	end
+	return ns.GetEffectiveRegionGroupID(mapID, hub)
 end
 
 -- Map 2576 is one canvas; hub slice drives region (fixes Harandar delves while still on 2576).
@@ -1245,7 +1351,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 	-- Phase 60: Same continent region — silence travel assistant (no portals, no HS nag).
 	local currentHub, px = ns.GetPlayerHubContext(currentMap)
 	local currentRegion = ns.GetEffectiveRegionGroupID(currentMap, currentHub)
-	local targetRegion = ns.GetRegionGroupID(targetMap)
+	local targetRegion = ns.GetTargetRegionGroupID(targetMap, targetX)
 	if currentMap and targetMap and currentRegion == targetRegion and currentRegion ~= 0 then
 		SafeHideTravelPopup()
 		return true
@@ -1421,7 +1527,7 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 
 	local currentHub, px = ns.GetPlayerHubContext(currentMap)
 	local currentRegion = ns.GetEffectiveRegionGroupID(currentMap, currentHub)
-	local targetRegion = ns.GetRegionGroupID(targetMap)
+	local targetRegion = ns.GetTargetRegionGroupID(targetMap, targetX)
 	if currentMap and currentRegion == targetRegion and currentRegion ~= 0 then
 		SafeHideTravelPopup()
 		return

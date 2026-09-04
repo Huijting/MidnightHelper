@@ -1101,6 +1101,39 @@ function ns.PrintArrowStatus()
 		print(("  doel: map %s (continent %s)   keten: %s"):format(
 			tostring(tmap or "?"), tostring(MapContinent(tmap) or "?"), chain(tmap)))
 		print(("  een ligt in de ander: %s"):format(yn(OneContainsTheOther(pmap, tmap))))
+
+		--- 🔴 THE VALUE THAT ACTUALLY DRIVES THE TRAVEL POPUP, and it was invisible until
+		--- 4 Sep. Rob stood inside the cave in Harandar and got "other continent — travel
+		--- back" plus a portal offer for a zone on his own continent; flying out of the
+		--- cave fixed it. The cause was `GetRegionGroupID` returning 0 for the cave's own
+		--- uiMapID, and 0 is the one value the caller treats as "different region". The
+		--- chain above already showed the parent, but nothing printed the verdict drawn
+		--- from it, so the two could not be compared. Both are printed now — a region of
+		--- 0 on a map whose chain reaches a known zone is the signature of that bug.
+		--- ⚠️ PRINT THE EFFECTIVE VALUE, NOT THE BARE ONE. The first version of this block
+		--- called `GetRegionGroupID` directly and printed "jij 1" for a player standing in
+		--- Harandar — because map 2576 is ONE canvas carrying Silvermoon, Voidstorm and
+		--- Harandar side by side, and the bare call returns the Silvermoon default. The
+		--- routing code has always resolved that by x-slice; only this diagnostic did not,
+		--- so it accused the routing of a fault that was its own. A diagnostic that does
+		--- not ask the question the way the code asks it is worse than none.
+		if ns.GetEffectiveRegionGroupID and ns.GetPlayerHubContext then
+			local okH, hub, px = pcall(ns.GetPlayerHubContext, pmap)
+			local okP, pg = pcall(ns.GetEffectiveRegionGroupID, pmap, okH and hub or nil)
+			local tx = activeLead and activeLead.x
+			local okT, tg = pcall(ns.GetTargetRegionGroupID, tmap, tx)
+			print(("  regiogroep: jij %s · doel %s   (0 = onbekend, en dat TRIGGERT de reispopup)")
+				:format(okP and tostring(pg) or "?", okT and tostring(tg) or "?"))
+			print(("  hub-slice op canvas 2576: jij %s (x %s) · doel %s"):format(
+				(okH and hub) or "n.v.t.",
+				okH and px and ("%.1f"):format(px) or "?",
+				(tonumber(tmap) == 2576 and tx and ns.ResolveHubOnMap2576(tx)) or "n.v.t."))
+			if ns.GetBaseZoneName then
+				local okB, bn = pcall(ns.GetBaseZoneName, pmap)
+				print(("  basiszone volgens ons: %s"):format(
+					(okB and bn ~= "" and bn) or "|cffff8844onbekend|r"))
+			end
+		end
 	end
 
 	local tomtom = ns.IsTomTomReady and ns.IsTomTomReady() or false
