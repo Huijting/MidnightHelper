@@ -195,10 +195,12 @@ en nam vervolgens klakkeloos aan dat het ding dat ik zocht wél een modifier wá
 ⚠️ En hij zit **niet in élke delve**: alleen in **Bountiful** delves, elke tier, en pas na
 **Delver's Journey rank 3 ("Treasure Hunter")**. Dat maakt het bouwwerk veel kleiner — zie hieronder.
 
-⚠️ **Het spell-ID hierboven is NIET bevestigd.** Wowheads Dundun-spell is **1299672**, het getal
-hierboven is **1299072** en dat heb ik overgetypt van een screenshot. Eén cijfer verschil, geen van
-beide gecontroleerd in de client. Niet hardcoden vóór dat gebeurd is — en het hoeft ook niet, want
-de waarschuwing kan op Bountiful + rank 3 + sleutelvoorraad hangen.
+✅ **HET SPELL-ID IS BESLECHT — 4 sep, GEMETEN op Robs eigen entree-scherm** (The Darkway, Tier 11):
+de tooltip van de Dundun-eigenschap zegt letterlijk **`Spell ID: 1299672 (CDPulse)`**. Wowhead had
+gelijk; de **1299072** die hier stond was mijn overtypfout van een screenshot. Verschil van één
+cijfer, en precies daarom stond het als onbevestigd genoteerd in plaats van als feit.
+📌 We gebruiken het nergens — de waarschuwing hangt op Bountiful + rank 3 + sleutelvoorraad — maar
+een getal dat in een aantekening staat moet kloppen, want de volgende lezer neemt het over.
 
 ### ✅ Rob heeft de hele keten gemeten — en mijn gok was fout
 
