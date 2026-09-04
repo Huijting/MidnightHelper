@@ -178,6 +178,28 @@ local function EnsureToastFrame()
 	-- offset t.o.v. het midden van UIParent (schaal-onafhankelijk, zodat een
 	-- 2×-rare-toast en een 1×-shard-toast op dezelfde plek verschijnen).
 	-- Klik = waypoint blijft werken: drag start pas na de drag-drempel.
+	--- 🔴 A CLOSE BUTTON — Rob, 4 Sep, on the Dundun toast: "die moet langer in beeld zijn,
+	--- minstens 20 seconden en sluitbaar."
+	---
+	--- A toast you can only wait out has one setting for two opposite needs: long enough to
+	--- read is long enough to be in the way. Being able to dismiss it is what lets the
+	--- duration be generous, so the two changes belong together rather than one instead of
+	--- the other.
+	---
+	--- ⚠️ Its own button, not "click anywhere to close": the body click is the ACTION
+	--- (open the macro, set a waypoint), and a card where closing and acting share a target
+	--- makes you act by accident when you meant to get rid of it.
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetSize(24, 24)
+	close:SetPoint("TOPRIGHT", f, "TOPRIGHT", 2, 2)
+	close:SetFrameLevel(f:GetFrameLevel() + 5)
+	close:SetScript("OnClick", function()
+		if ns.DismissMidnightToast then
+			ns.DismissMidnightToast()
+		end
+	end)
+	f.closeBtn = close
+
 	f:SetMovable(true)
 	f:SetClampedToScreen(true)
 	f:RegisterForDrag("LeftButton")
@@ -369,6 +391,16 @@ local function FinishToast()
 			end
 		end)
 	end
+end
+
+--- Close the card now, and move on to whatever is queued behind it.
+---
+--- Exported because the close button lives on the frame, which is built before FinishToast
+--- exists in this file's scope -- and because a future caller ("stop showing this") should
+--- go through the same door rather than hiding the frame behind the queue's back.
+function ns.DismissMidnightToast()
+	fadeGen = fadeGen + 1
+	FinishToast()
 end
 
 local function StartHideTimer()
