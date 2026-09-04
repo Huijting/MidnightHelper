@@ -1696,6 +1696,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh dundun scan — enumerate what could answer "is this Bountiful" from INSIDE a
+	-- delve, since the map-POI route fails there. Run it while standing in one.
+	if msg == "dundun scan" then
+		if ns.ScanDundunSources then
+			ns.ScanDundunSources()
+		end
+		return
+	end
 
 	-- /mh ptr — what 12.1.5 changed on top of what api12/auras already cover, plus a
 	-- re-measure of the cast wall. Writes ns.db.ptrProbe; run it, then /reload.

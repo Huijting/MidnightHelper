@@ -40,13 +40,24 @@ local PREFIX = "|cffffcc00Midnight Helper|r"
 --- NOT measured in the client -- see the header.
 local DUNDUN_MIN_JOURNEY_RANK = 3
 local CURRENCY_COFFER_KEY = 3028
+local CURRENCY_COFFER_SHARDS = 3310
 
---- @return number|nil quantity, nil when the currency cannot be read
-local function CofferKeyCount()
+--- 🔴 SHARDS CHANGE THE ADVICE, and leaving them out made the first version misleading.
+--- Rob's own entrance tooltip (4 Sep, The Darkway tier 11) spells out the rule Blizzard
+--- never puts in the currency pane: "100 Coffer Key Shards are automatically combined
+--- into a Restored Coffer Key ON ENTRY." So "you have 0 keys" was true and useless — he
+--- had 84 shards, sixteen short of a key that would have appeared by itself. Telling
+--- someone they cannot afford something when they are one outdoor activity away from
+--- affording it is the same kind of confidently-wrong this addon exists not to be.
+local SHARDS_PER_KEY = 100
+
+--- @param currencyID number
+--- @return number|nil quantity, nil when it cannot be read
+local function CurrencyCount(currencyID)
 	if not (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) then
 		return nil
 	end
-	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, CURRENCY_COFFER_KEY)
+	local ok, info = pcall(C_CurrencyInfo.GetCurrencyInfo, currencyID)
 	if not ok or type(info) ~= "table" then
 		return nil
 	end
@@ -60,15 +71,44 @@ end
 --- Name of the delve the player is standing in, as far as the addon can tell.
 --- @return string|nil
 local function ActiveDelveName()
+	-- Declared with a dot and taking no arguments (DelveTipsData.lua:432) -- call it that
+	-- way rather than passing ns, which only happened to work because it is ignored.
 	local entry
 	if ns.GetActiveDelveTipEntryForPlayer then
-		local ok, e = pcall(ns.GetActiveDelveTipEntryForPlayer, ns)
+		local ok, e = pcall(ns.GetActiveDelveTipEntryForPlayer)
 		if ok then
 			entry = e
 		end
 	end
+	-- 🔴 `return entry.name or entry.title` WAS A BUG: when the entry exists but carries
+	-- neither field it returns nil and SKIPS the fallback below, so the fallback added to
+	-- fix the nil never ran. Measured 4 Sep: activeDelveName stayed nil even though
+	-- IsKnownDelveName said true for the same zone in the same run. Only return a name
+	-- when there is one.
 	if type(entry) == "table" then
-		return entry.name or entry.title
+		local n = entry.name or entry.title
+		if type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+
+	-- 🔴 FALLBACK, and it is the one that actually fires inside a delve. Measured 4 Sep in
+	-- The Darkway: `GetActiveDelveTipEntryForPlayer()` returned nil while
+	-- `IsKnownDelveName(GetZoneText())` returned TRUE for the same zone, and
+	-- `the_darkway` was sitting in the roster all along. So the entry matcher fails in
+	-- here for its own reasons; the zone name does not.
+	--
+	-- 📌 The theory this replaces was wrong twice over: I guessed The Darkway was a Legion
+	-- delve (it is in our Midnight roster) and I guessed the roster lacked it (it does
+	-- not). Both were reasoning about a list I had not printed. The scan printed it.
+	if GetZoneText and ns.IsKnownDelveName then
+		local zone = GetZoneText()
+		if zone and zone ~= "" then
+			local ok, known = pcall(ns.IsKnownDelveName, zone)
+			if ok and known then
+				return zone
+			end
+		end
 	end
 	return nil
 end
@@ -80,11 +120,26 @@ function ns.GetDundunStatus()
 	local s = {}
 
 	s.delveName = ActiveDelveName()
-	s.inDelve = (ns.IsDelveInstanceInProgress and ns:IsDelveInstanceInProgress()) or nil
+
+	-- 🔴 `or nil` HERE WAS A BUG, and it is the exact mistake this file lectures about.
+	-- The first version wrote `... and ns:IsDelveInstanceInProgress() or nil`, which
+	-- collapses a perfectly good `false` into `nil` — so standing in Silvermoon printed
+	-- "in a delve: could not read" instead of "no". Rob's first run showed three of those
+	-- in a row (4 Sep). A diagnostic that cries "unreadable" when the answer is simply
+	-- "no" trains you to ignore it, and then hides the one real read failure it exists to
+	-- catch. Keep false false.
+	if ns.IsDelveInstanceInProgress then
+		local ok, v = pcall(ns.IsDelveInstanceInProgress, ns)
+		if ok then
+			s.inDelve = v and true or false
+		end
+	end
 
 	-- Bountiful. ⚠️ This reads the map POI, and inside the delve that POI may be gone --
 	-- measured behaviour unknown, which is exactly why nil is kept distinct from false.
-	if ns.IsDelveBountiful and s.delveName then
+	-- Only asked when we are actually in a delve: outside one there is nothing to be
+	-- Bountiful, so asking would manufacture an "unreadable" out of thin air.
+	if s.inDelve ~= false and ns.IsDelveBountiful and s.delveName then
 		local ok, b = pcall(ns.IsDelveBountiful, s.delveName, nil)
 		if ok then
 			s.bountiful = b and true or false
@@ -103,10 +158,26 @@ function ns.GetDundunStatus()
 		s.rankOk = s.rank >= DUNDUN_MIN_JOURNEY_RANK
 	end
 
-	s.keys = CofferKeyCount()
+	s.keys = CurrencyCount(CURRENCY_COFFER_KEY)
+	s.shards = CurrencyCount(CURRENCY_COFFER_SHARDS)
+	-- How many keys the player can actually field, shards included. Kept separate from
+	-- `keys` so the diagnostic can show both and nobody has to trust this arithmetic.
+	if s.keys ~= nil then
+		s.effectiveKeys = s.keys + math.floor((s.shards or 0) / SHARDS_PER_KEY)
+		if s.shards ~= nil and s.effectiveKeys < 2 then
+			s.shardsToNextKey = SHARDS_PER_KEY - (s.shards % SHARDS_PER_KEY)
+		end
+	end
 
 	-- The verdict, with the reason attached. A caller must never re-derive this.
-	if s.bountiful == nil then
+	-- Order matters: "you are not in a delve" must be reported as itself, never as a
+	-- failure to read the Bountiful flag. Those two look identical downstream and only
+	-- one of them is a problem.
+	if s.inDelve == false then
+		s.verdict, s.reason = "quiet", "you are not in a delve"
+	elseif s.delveName == nil and s.bountiful == nil then
+		s.verdict, s.reason = "quiet", "no active delve could be identified"
+	elseif s.bountiful == nil then
 		s.verdict, s.reason = "quiet", "could not read whether this delve is Bountiful"
 	elseif s.bountiful == false then
 		s.verdict, s.reason = "quiet", "this delve is not Bountiful, so Dundun is not in it"
@@ -139,13 +210,19 @@ function ns.AnnounceDundunIfRelevant()
 		print("  " .. ns:L("DUNDUN_CHAT_RANK_UNKNOWN"):format(DUNDUN_MIN_JOURNEY_RANK))
 	end
 
-	-- The key line, and the only number here that is Rob's own measurement.
+	-- The key line. Judged on effectiveKeys, not keys, because shards turn into a key on
+	-- entry all by themselves -- see SHARDS_PER_KEY above.
 	if s.keys == nil then
 		print("  " .. ns:L("DUNDUN_CHAT_COST_UNKNOWN"))
-	elseif s.keys >= 2 then
-		print("  " .. ns:L("DUNDUN_CHAT_COST_FMT"):format(s.keys))
+	elseif (s.effectiveKeys or s.keys) >= 2 then
+		print("  " .. ns:L("DUNDUN_CHAT_COST_FMT"):format(s.effectiveKeys or s.keys))
 	else
-		print("  |cffff8844" .. ns:L("DUNDUN_CHAT_COST_SHORT_FMT"):format(s.keys) .. "|r")
+		print("  |cffff8844"
+			.. ns:L("DUNDUN_CHAT_COST_SHORT_FMT"):format(s.effectiveKeys or s.keys) .. "|r")
+		if s.shardsToNextKey then
+			print("  " .. ns:L("DUNDUN_CHAT_SHARDS_FMT"):format(
+				s.shards or 0, s.shardsToNextKey))
+		end
 	end
 
 	print("  " .. ns:L("DUNDUN_CHAT_MACRO"))
@@ -153,21 +230,268 @@ function ns.AnnounceDundunIfRelevant()
 	return true
 end
 
+--- `/mh dundun scan` — where can "is this delve Bountiful" come from while INSIDE it?
+---
+--- 🔴 THE PROBLEM THIS EXISTS FOR, measured 4 Sep in The Darkway (tier 11, Bountiful).
+--- `in a delve` read true, but the delve NAME could not be resolved, so the Bountiful
+--- check — which needs a name to look up a map POI — was never even asked. The whole
+--- feature is therefore inert inside exactly the delves it is meant for.
+---
+--- The entrance tooltip Rob screenshotted says the state is knowable: "This delve has an
+--- abundance of treasures and WILL REMAIN BOUNTIFUL WHILE INSIDE", with spell 430253 on
+--- it. So the information exists in the client; we are asking the wrong thing for it.
+---
+--- ⚠️ This enumerates rather than guesses. Calling a plausible-sounding
+--- `C_DelvesUI.GetDelveModifiers()` would produce "nothing found" for two different
+--- reasons — no such function, or no such data — and those are not the same answer. The
+--- same mistake registered a non-existent event on 8 Aug because four other addons
+--- mentioned its name.
+--- ⚠️ WRITES TO `ns.db.dundunScan`, it does not just print. This project settled on
+--- SavedVariables for long diagnostics on 27 Jul 2026 precisely so nobody has to
+--- screenshot a thirty-line list — and the first version of this function ignored that
+--- and printed only, which cost Rob a wasted run inside a delve on 4 Sep.
+function ns.ScanDundunSources()
+	ns.db = ns.db or {}
+	local out = { at = (_G.date and _G.date("%Y-%m-%d %H:%M:%S")) or "?" }
+
+	-- 1. Everything C_DelvesUI exposes. Enumerated, never guessed by name.
+	if type(C_DelvesUI) ~= "table" then
+		out.delvesUI = "absent"
+	else
+		local names = {}
+		pcall(function()
+			for k, v in pairs(C_DelvesUI) do
+				names[#names + 1] = tostring(k) .. " (" .. type(v) .. ")"
+			end
+		end)
+		table.sort(names)
+		out.delvesUI = names
+	end
+
+	-- 2. The scenario side. A delve runs as a scenario, and the entrance screen's
+	-- "Map Properties" row has to be rendered from something.
+	if C_ScenarioInfo and C_ScenarioInfo.GetScenarioInfo then
+		local ok, info = pcall(C_ScenarioInfo.GetScenarioInfo)
+		if ok and type(info) == "table" then
+			local scen = {}
+			for k, v in pairs(info) do
+				scen[tostring(k)] = tostring(v)
+			end
+			out.scenario = scen
+		else
+			out.scenario = "no scenario info"
+		end
+	end
+
+	-- 3. Our own two readers, side by side, so the failure is located rather than felt.
+	local name = ActiveDelveName()
+	out.activeDelveName = tostring(name)
+	if ns.IsDelveBountiful then
+		-- Ask it three ways, because last run it was asked with a nil name and answered
+		-- "false" -- an answer that looked like a measurement and was not one.
+		local ok, b = pcall(ns.IsDelveBountiful, name, nil)
+		out.isDelveBountiful = ("name=%s → ok=%s value=%s"):format(
+			tostring(name), tostring(ok), tostring(b))
+		local zone = GetZoneText and GetZoneText() or nil
+		local okZ, bz = pcall(ns.IsDelveBountiful, zone, nil)
+		out.isDelveBountifulByZone = ("zone=%s → ok=%s value=%s"):format(
+			tostring(zone), tostring(okZ), tostring(bz))
+		local okM, bm = pcall(ns.IsDelveBountiful, zone,
+			C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player") or nil)
+		out.isDelveBountifulByZoneMap = ("zone+map → ok=%s value=%s"):format(
+			tostring(okM), tostring(bm))
+	end
+
+	-- 4. The zone the client thinks we are in. If the delve has its own map, the outdoor
+	-- POI is gone and that alone explains the failure.
+	if C_Map and C_Map.GetBestMapForUnit then
+		local ok, mid = pcall(C_Map.GetBestMapForUnit, "player")
+		out.playerMapID = tostring(ok and mid)
+		if ok and mid and C_Map.GetMapInfo then
+			local okI, mi = pcall(C_Map.GetMapInfo, mid)
+			if okI and type(mi) == "table" then
+				out.playerMapName = tostring(mi.name)
+				out.playerMapParent = tostring(mi.parentMapID)
+				out.playerMapType = tostring(mi.mapType)
+			end
+		end
+	end
+	out.zoneText = tostring(GetZoneText and GetZoneText())
+	out.subZoneText = tostring(GetSubZoneText and GetSubZoneText())
+	out.instanceName = tostring(GetInstanceInfo and GetInstanceInfo())
+
+	-- 5. 🔴 THE LIKELY WHOLE ANSWER, and it is not a missing API.
+	-- `ns.GetActiveDelveTipEntryForPlayer` matches the player's zone strings against
+	-- `ns.DELVE_TIP_ENTRIES` — our own hand-written roster of MIDNIGHT delves. Rob's run
+	-- was "The Darkway", under Suramar: a Legion delve. If it is simply not in the list,
+	-- nothing in the client is hiding anything and the fix is a different source, not a
+	-- better call. Listing the roster settles that in one look instead of a theory.
+	if type(ns.DELVE_TIP_ENTRIES) == "table" then
+		local rn = {}
+		for _, e in ipairs(ns.DELVE_TIP_ENTRIES) do
+			if type(e) == "table" then
+				rn[#rn + 1] = tostring(e.name or e.title or e.id or "?")
+			end
+		end
+		table.sort(rn)
+		out.rosterCount = #rn
+		out.rosterNames = rn
+		-- ⚠️ The roster keys are ids ("the_darkway"), the zone is a display name
+		-- ("The Darkway"). Comparing them raw answered "no" while the entry was sitting
+		-- right there -- normalise both sides before deciding anything.
+		local function Norm(s)
+			return tostring(s or ""):lower():gsub("[^%a%d]", "")
+		end
+		local zone = Norm(out.zoneText)
+		out.rosterHasThisZone = "no"
+		for _, n in ipairs(rn) do
+			if zone ~= "" and Norm(n) == zone then
+				out.rosterHasThisZone = "yes: " .. n
+				break
+			end
+		end
+	else
+		out.rosterNames = "ns.DELVE_TIP_ENTRIES is not a table"
+	end
+	if ns.IsKnownDelveName then
+		local ok, known = pcall(ns.IsKnownDelveName, out.zoneText)
+		out.knownDelveName = ("ok=%s value=%s"):format(tostring(ok), tostring(known))
+	end
+
+	-- 6. 🔑 THE FUNCTIONS THAT MIGHT ACTUALLY ANSWER IT, called rather than admired.
+	-- The first scan listed 40 C_DelvesUI members; several of them read like exactly what
+	-- we need — GetDelvesAffixSpellsForSeason, GetActiveDelveTier, HasActiveDelve,
+	-- GetTieredEntranceOptionalAffixTraitTreeID. Reading a name is not knowing what it
+	-- returns, so each is invoked and its result described.
+	--
+	-- ⚠️ Only calls that are safe to make blind: no arguments, or an argument we already
+	-- hold (the season number, the player's map id). Anything needing an id we would have
+	-- to invent is left alone -- a made-up argument produces a made-up answer.
+	local season
+	if C_DelvesUI and C_DelvesUI.GetCurrentDelvesSeasonNumber then
+		local okS, sn = pcall(C_DelvesUI.GetCurrentDelvesSeasonNumber)
+		season = okS and tonumber(sn) or nil
+	end
+	out.season = tostring(season)
+
+	local calls = {}
+	local function TryCall(label, fn, ...)
+		if type(fn) ~= "function" then
+			calls[label] = "no such function"
+			return
+		end
+		local packed = { pcall(fn, ...) }
+		if not packed[1] then
+			calls[label] = "errored: " .. tostring(packed[2])
+			return
+		end
+		local parts = {}
+		for i = 2, #packed do
+			local v = packed[i]
+			if issecretvalue and issecretvalue(v) then
+				parts[#parts + 1] = "SECRET"
+			elseif type(v) == "table" then
+				-- ⚠️ `ipairs` alone printed "table(9) []" for GetActiveDelveTier: nine
+				-- entries, none of them array-indexed, so the interesting half was
+				-- invisible. Walk pairs and show key=value.
+				local flat = {}
+				pcall(function()
+					for k, e in pairs(v) do
+						local ev = e
+						if issecretvalue and issecretvalue(ev) then
+							ev = "SECRET"
+						elseif type(ev) == "table" then
+							ev = "{table}"
+						end
+						flat[#flat + 1] = tostring(k) .. "=" .. tostring(ev)
+					end
+				end)
+				table.sort(flat)
+				parts[#parts + 1] = ("table(%d) [%s]"):format(
+					#flat, table.concat(flat, ", "))
+			else
+				parts[#parts + 1] = tostring(v)
+			end
+		end
+		calls[label] = #parts > 0 and table.concat(parts, " · ") or "(no return)"
+	end
+
+	if type(C_DelvesUI) == "table" then
+		TryCall("HasActiveDelve", C_DelvesUI.HasActiveDelve)
+		TryCall("GetActiveDelveTier", C_DelvesUI.GetActiveDelveTier)
+		TryCall("IsEligibleForActiveDelveRewards", C_DelvesUI.IsEligibleForActiveDelveRewards)
+		TryCall("GetWorldTierDifficultyForActivePlayer",
+			C_DelvesUI.GetWorldTierDifficultyForActivePlayer)
+		TryCall("IsInLair", C_DelvesUI.IsInLair)
+		TryCall("HasActiveLair", C_DelvesUI.HasActiveLair)
+		-- The season affix list: the closest thing to "which modifiers exist right now".
+		TryCall("GetDelvesAffixSpellsForSeason(season)",
+			C_DelvesUI.GetDelvesAffixSpellsForSeason, season)
+		TryCall("GetDelvesMinRequiredLevel", C_DelvesUI.GetDelvesMinRequiredLevel)
+		-- Entrance strings, asked about the map we are standing on.
+		local mid = tonumber(out.playerMapID)
+		TryCall("GetDelveEntranceTitleString(map)", C_DelvesUI.GetDelveEntranceTitleString, mid)
+		TryCall("GetDelveEntranceDescriptionString(map)",
+			C_DelvesUI.GetDelveEntranceDescriptionString, mid)
+		TryCall("GetDelveEntranceMapID(map)", C_DelvesUI.GetDelveEntranceMapID, mid)
+		TryCall("GetTieredEntrancePDEID(map)", C_DelvesUI.GetTieredEntrancePDEID, mid)
+		TryCall("GetTieredEntranceType(map)", C_DelvesUI.GetTieredEntranceType, mid)
+		TryCall("GetTieredEntranceOptionalAffixTraitTreeID(map)",
+			C_DelvesUI.GetTieredEntranceOptionalAffixTraitTreeID, mid)
+		TryCall("GetDelveEntranceBackgroundWidgetSetID(map)",
+			C_DelvesUI.GetDelveEntranceBackgroundWidgetSetID, mid)
+	end
+	out.calls = calls
+
+	-- 7. Does the player currently carry the Bountiful aura? Rob's entrance tooltip named
+	-- spell 430253 for it, and the same tooltip says the delve "will remain bountiful
+	-- while inside" -- which would make an aura the obvious carrier. Asking by spell id
+	-- is also the one aura route that survives combat (see aura-facade notes).
+	if C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
+		local okA, aura = pcall(C_UnitAuras.GetPlayerAuraBySpellID, 430253)
+		if not okA then
+			out.bountifulAura = "errored: " .. tostring(aura)
+		elseif aura == nil then
+			out.bountifulAura = "absent"
+		elseif type(aura) == "table" then
+			out.bountifulAura = "PRESENT: " .. tostring(aura.name)
+		else
+			out.bountifulAura = tostring(aura)
+		end
+	end
+
+	ns.db.dundunScan = out
+
+	local n = type(out.delvesUI) == "table" and #out.delvesUI or 0
+	print(("%s Dundun scan saved to ns.db.dundunScan — C_DelvesUI members: %d,"
+		.. " zone '%s', delve name %s."):format(
+		PREFIX, n, tostring(out.zoneText), tostring(out.activeDelveName)))
+	print("  |cffffff00/reload|r now, then it can be read from the file.")
+end
+
 --- `/mh dundun` — the whole decision, including why it said nothing.
 function ns.PrintDundunStatus()
 	local s = ns.GetDundunStatus()
-	local function Show(v)
+	--- `notAsked` distinguishes the third state the first version lacked: a question that
+	--- was never put, because an earlier answer made it meaningless. Printing that as
+	--- "could not read" is what made Rob's first run misleading.
+	local function Show(v, notAsked)
 		if v == nil then
-			return "|cffff8844could not read|r"
+			return notAsked and "|cff888888not asked|r" or "|cffff8844could not read|r"
 		end
 		return tostring(v)
 	end
+	local outside = (s.inDelve == false)
 	print(PREFIX .. " Dundun (Shrine of Abundance)")
 	print("  in a delve      : " .. Show(s.inDelve))
-	print("  delve name      : " .. Show(s.delveName))
-	print("  Bountiful       : " .. Show(s.bountiful))
+	print("  delve name      : " .. Show(s.delveName, outside))
+	print("  Bountiful       : " .. Show(s.bountiful, outside))
 	print(("  Journey rank    : %s (need %d)"):format(Show(s.rank), DUNDUN_MIN_JOURNEY_RANK))
-	print("  Restored Coffer Keys: " .. Show(s.keys))
+	print(("  Restored Coffer Keys: %s · shards %s (%d = 1 key on entry)"):format(
+		Show(s.keys), Show(s.shards), SHARDS_PER_KEY))
+	if s.effectiveKeys then
+		print("  keys you can actually field: " .. tostring(s.effectiveKeys))
+	end
 	print(("  verdict         : |cff88ccff%s|r — %s"):format(
 		tostring(s.verdict), tostring(s.reason)))
 	print("  What he is: an NPC disguised as a prop (a fake tree), not a delve affix.")

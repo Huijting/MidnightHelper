@@ -32,10 +32,28 @@ soort zelfverzekerde onzin waar 3 sep over ging. Daarom zwijgt hij bij `bountifu
 een leesbare rank onder 3, en zegt hij bij een ONleesbare rank de voorwaarde hardop in plaats van
 te doen alsof hij hem gecontroleerd heeft.
 
-🔴 **HET RISICO DAT DE HELE FUNCTIE KAN SLOPEN, en dat nog niet gemeten is:** `ns.IsDelveBountiful`
-leest de **kaart-POI**. Of die van bínnen de delve nog leesbaar is, weet niemand. Is hij weg, dan
-komt er `could not read` uit en zwijgt de functie altijd — precies wanneer hij zou moeten praten.
-`/mh dundun` maakt dat zichtbaar; het staat bovenaan `docs/TESTLIJST.md`.
+✅ **HET RISICO IS WEG — GEMETEN 4 sep in The Darkway (tier 11, Bountiful, live 12.1).**
+`ns.IsDelveBountiful` antwoordt van **binnen** de delve `true`, op naam, op zone én op zone+map. De
+kaart-POI blijft dus leesbaar; die zorg was ongegrond.
+
+🔴 **Wat er wél mis was, waren twee fouten van mij, en ze kostten Rob vier runs in een delve.**
+1. `ActiveDelveName` deed `return entry.name or entry.title`, dus als de roster-entry bestond maar
+   geen van beide velden had, gaf hij `nil` **en sloeg de fallback over** die daar juist voor was
+   toegevoegd. In diezelfde run zei `IsKnownDelveName("The Darkway")` gewoon `true`.
+2. De roster is gesleuteld op id's (`the_darkway`), de zone is een weergavenaam (`The Darkway`);
+   die rauw vergelijken gaf "nee" terwijl het item er stond.
+📌 Eén keer de roster printen had beide getoond. Zelfde les als het werkende voorbeeld hélemaal
+lezen, maar dan toegepast op een lijst die we zélf bezitten.
+
+📌 **Nevenmetingen, zodat niemand ze opnieuw hoeft af te leiden:** `HasActiveDelve` = true is een
+schoon in-delve-signaal · `GetActiveDelveTier` geeft binnen alleen nullen (entrance-side) ·
+`GetDelvesAffixSpellsForSeason(2)` is **leeg**, dus dat is níét de route naar een modifierlijst ·
+spell **430253** (Bountiful, uit het entree-scherm) is **geen speler-aura** ·
+`GetTieredEntranceOptionalAffixTraitTreeID` en de entrance-strings geven binnen niets.
+
+✅ **Shards zitten er nu in.** Het entree-scherm zegt dat 100 Coffer Key Shards bij binnenkomst
+automatisch een Restored Coffer Key worden. "Je hebt 0 keys" was dus waar én nutteloos toen Rob er
+84 had — de regel oordeelt op keys plus shards en zegt hoeveel shards er nog nodig zijn.
 
 ❓ **Nog te vertalen:** de zeven `DUNDUN_*`-keys staan in enUS en nlNL. de/fr/es/pt/it vallen nu
 terug op Engels (dat is geen fout, wel onaf) — hoort via `Locales/Translations2026.lua`.

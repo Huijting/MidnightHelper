@@ -2108,6 +2108,7 @@ ns._mhLocales.nlNL = {
 	DUNDUN_CHAT_COST_SHORT_FMT = "Let op: die extra kist kan een tweede Restored Coffer Key kosten, en je hebt er %d. Je houdt dan mogelijk een kist over die je niet open krijgt.",
 	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Let op:|r die extra kist kan een |cffffff00tweede|r Restored Coffer Key kosten. Ik kon niet lezen hoeveel je er hebt.",
 	DUNDUN_CHAT_MACRO = "Kun je hem niet vinden? Maak een macro met |cffffff00/cleartarget|r en dan |cffffff00/target Dundun|r.",
+	DUNDUN_CHAT_SHARDS_FMT = "Je hebt %d Coffer Key Shards — nog %d en het spel maakt er bij binnenkomst vanzelf een key van.",
 	DELVES_CURRENCY_LINE = "Keys: %d | Shards: %d (Weekly: %d / %d) | Undercoins: %d | Untainted Mana-Crystals: %d%s",
 	DELVES_CURRENCY_BOUNTIES = "Bounties: %d",
 	DELVES_CURRENCY_RAID_MINIS = "RAID-R Minis: %d",

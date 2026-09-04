@@ -17,10 +17,9 @@ aanbod kan een **tweede** Restored Coffer Key kosten.
       is hier de normale uitkomst, en het moet te zíén zijn dát hij zweeg en waarom.
 - [ ] **`/mh dundun` in een gewone (niet-Bountiful) delve.** Verwacht `Bountiful: false` en
       `verdict: quiet — this delve is not Bountiful`.
-- [ ] 🔴 **`/mh dundun` in een BOUNTIFUL delve.** Dit is de meting die telt. Verwacht
-      `Bountiful: true`. ⚠️ **Komt hier `could not read` uit, dan is de hele functie waardeloos** —
-      de Bountiful-vlag komt van de kaart-POI en het is niet gemeten of die van bínnen de delve nog
-      leesbaar is. Meld dat dus, ook al lijkt het een detail.
+- [x] ✅ **`/mh dundun` in een BOUNTIFUL delve — GEMETEN 4 sep, The Darkway tier 11.**
+      `Bountiful: true` van binnenuit, op naam/zone/zone+map. De zorg dat de kaart-POI binnen
+      onleesbaar zou zijn was ongegrond; het waren twee bugs in `DundunShrine.lua` zelf.
 - [ ] **Loop een Bountiful delve in en wacht 2 seconden.** Er hoort vanzelf een blok van drie of
       vier regels in de chat te komen: dat hij er is, dat hij zich als een boom vermomt, de
       sleutelwaarschuwing met **jouw** aantal keys, en de macro-tip.

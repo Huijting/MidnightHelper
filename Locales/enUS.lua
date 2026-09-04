@@ -2432,6 +2432,7 @@ ns._mhLocales.enUS = {
 	DUNDUN_CHAT_COST_SHORT_FMT = "Watch out: the extra chest can cost a second Restored Coffer Key, and you have %d. You may end up with a chest you cannot open.",
 	DUNDUN_CHAT_COST_UNKNOWN = "|cffffff00Watch out:|r the extra chest can cost a |cffffff00second|r Restored Coffer Key. I could not read how many you have.",
 	DUNDUN_CHAT_MACRO = "Can't find him? Make a macro with |cffffff00/cleartarget|r then |cffffff00/target Dundun|r.",
+	DUNDUN_CHAT_SHARDS_FMT = "You have %d Coffer Key Shards — %d more and the game turns them into a key by itself when you enter.",
 	DELVES_CURRENCY_LINE = "Keys: %d | Shards: %d (Weekly: %d / %d) | Undercoins: %d | Untainted Mana-Crystals: %d%s",
 	DELVES_CURRENCY_BOUNTIES = "Bounties: %d",
 	DELVES_CURRENCY_RAID_MINIS = "RAID-R Minis: %d",
