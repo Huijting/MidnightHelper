@@ -33,6 +33,56 @@ kosten", nooit "kost". Zie je in het spel welke van de twee het is, dan kan die 
 ⚠️ Ook niet gemeten: dat rank 3 de drempel is. Dat komt van webbronnen. Zit je onder rank 3 en zegt
 MH tóch iets, dan klopt de drempel niet.
 
+## ✅ 4 sep — RONDE 2 GEDAAN: vier echte bugs, en drie ervan zaten in mijn eigen diagnose
+
+Rob testte de routes vanuit The Den (de grot in Harandar) en vanuit SMC. Alles hieronder is
+GEMETEN op zijn scherm, niet afgeleid.
+
+**Wat er kapot was, in volgorde van vinden:**
+
+1. 🔧 **Sub-kaarten vielen door naar regiogroep 0** — en 0 is precies de waarde die "ander
+   continent" betekent. In de grot verdween de route; buiten kwam hij terug. `GetRegionGroupID` en
+   `GetBaseZoneName` klimmen nu naar de ouderkaart (max 6 stappen, guarded). Meer ID's toevoegen
+   was de verkeerde reflex: Blizzard maakt sub-kaarten sneller dan wij ze meten.
+2. 🔧 **Het DOEL werd niet door de hub-slice gehaald, de speler wel.** Canvas 2576 draagt
+   Silvermoon, Voidstorm én Harandar naast elkaar; kaal geeft `GetRegionGroupID(2576)` altijd 1
+   (Silvermoon-default). Een delve in de Harandar-sliver las dus als "andere regio" terwijl Rob
+   ernaast stond. `ns.GetTargetRegionGroupID` slicet nu beide kanten. De doel-x zat al ín beide
+   aanroepen — hij werd nooit doorgegeven.
+3. 🔧 **"Ben ik er al?" was drie keer verschillend beantwoord.** `ReportTravelHintForWaypoint`
+   vergeleek kale kaart-ID's, dus 2576-met-doel-2413 las als twee plekken, en MH bood een portaal
+   aan naar de zone waar Rob stond. Eén helper nu: `ns.SameTravelRegion`. ⚠️ Eerlijk: de twee
+   reispopup-checks hebben de vergelijking nog inline (ze hergebruiken hub en x verderop) — ze
+   rekenen wél met dezelfde functies eronder.
+4. 🔧 **De reisplanner nam de EERSTE passende portaalrij, niet de dichtstbijzijnde.** `/mh portals`
+   toont zes rijen "Portal to Silvermoon" en vijf "Portal to Harandar"; op 2576 delen er meerdere
+   een mapID. Rob stond naast een portaal en kreeg "Use: Portal to Silvermoon (882yd)" met een pijl
+   naar eentje een kilometer verderop. Nu wint de kleinste afstand in kaart-eenheden.
+5. 🔴 **De portaal-poort vroeg het CHARACTER; de Prey-unlock is WARBAND-WIDE.** Rob: *"die is
+   account wijd"*. Op een alt die de Season 2 Prey-questlijn niet zelf deed verborg MH het Coiled
+   Isle-portaal en bood een tragere vlucht aan. `PortalUsable` vraagt nu eerst
+   `IsQuestFlaggedCompletedOnAccount`. 📌 Drie plekken in deze addon wisten dit al —
+   `WorldBoss.lua:240` heeft dezelfde helper sinds de Omnium-Folio-altbug in juni, en
+   `CampaignLeadIn.lua:156` bewaart Blizzards eigen "ACCOUNT COMPLETION"-zin sinds 31 aug.
+
+**Wat er nu klopt (GEMETEN in SMC op 54.95, 62.81):** het Coiled Isle-portaal op afstand 0.048,
+de andere twee op 0.181 en 0.190 — de dichtstbijzijnde wint, en de zone-kolom leest het `zone`-veld.
+
+⚠️ **De les die drie keer terugkwam: een diagnose ontsnapt niet aan de bug die hij diagnosticeert.**
+De regiogroep-regel in `/mh arrow` riep de KALE functie aan en beschuldigde daarmee de routing van
+een fout die van hemzelf was. De zonekolom in `/mh portals` leidde de zone af uit de x en overreed
+daarmee het expliciete `zone`-veld — voor een coördinaat die binnen een gebouw ligt en dus niet in
+de sliver van zijn eigen voordeur hoeft te vallen. Rob wees dat laatste aan met één vraag:
+*"hadden wij niet juist de coordinaten op de ingang gezet ipv precies op de portal?"*
+
+**Nog te testen in deze hoek:**
+- [ ] Vanuit The Den naar The Grudge Pit: er hoort **geen** portaal-omleiding meer te komen.
+- [ ] Vanuit The Den naar een delve in Eversong: daar mag wél een reisadvies komen.
+- [ ] Op een alt die de Prey-lijn niet deed: `/mh portals` hoort `quest 96004 completed (warband)`
+      te tonen in plaats van het portaal te verbergen.
+- [ ] ⚠️ Nog onverklaard: de suggestie *"head for Tranquillien"* vanuit de grot. Komt die terug,
+      dan is dat een aparte fout in de hub-keuze.
+
 ## 🆕 3 sep — de routes vanuit Harandar (ONGETEST)
 
 Je stond in Harandar, klikte Twilight Crypts, en kreeg vier regels die elkaar tegenspraken.
