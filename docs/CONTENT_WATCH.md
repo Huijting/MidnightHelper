@@ -249,3 +249,77 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `docs/PTR_S2_ENCOUNTERS.md` — allemaal vandaag gelezen. **[RAAKT ONS NIET]** — geen van de
   gevonden hotfixes spreekt een geshipte claim tegen. Geen open actiepunt; 3-sep-hotfixes volgen
   in een volgende run zodra ze gepubliceerd zijn.
+
+---
+
+- [2026-09-04] ✅ **Hotfixes van 3 sep gelezen (nieuw sinds gisteren) — één zachte match met een
+  al bekende open vraag, verder geen tegenspraak.** `news.blizzard.com` gaf op WebFetch niet
+  geprobeerd; direct via Exa `web_fetch_exa` met `?nocache=20260904` op de doorlopende
+  hotfix-URL — **volledige artikeltekst zelf gelezen**, sectie "September 3, 2026" bovenaan (dus
+  nieuwer dan de "September 2, 2026"-sectie die gisteren als nieuwste gold — geen cache-probleem).
+  Delves en Professions: **leeg** in de 3-sep-sectie (Blizzard laat lege categorieën gewoon weg,
+  net als eerdere dagen) — niets om te vergelijken. Achievements, Classes, Dungeons and Raids,
+  Items, Quests: volledig gelezen.
+
+  📌 **Positieve controle, zelfde repo-brede scope als de claims hieronder:** `grep -ri "Ruby Life
+  Pools"` geeft treffers in `Modules/DungeonRosterData.lua:280`, `Modules/FlightNetworkData.lua:95`,
+  `Modules/FlightPointsData.lua:844` en meerdere docs; `grep -ri Guillotine` geeft treffers in
+  `Locales/RaidTips.lua` (7×, alle taalvarianten), `Modules/RaidCoachData.lua:139` en
+  `Modules/TeamMacrosData.lua:600-605`. Beide patronen werken dus op deze schaal — de 0-treffers
+  verderop zijn gemeten afwezigheid.
+
+  **Bevindingen:**
+  - **Achievements — Spark in the Night gaf geen credit voor de Sparks-of-War-quest bij afronding
+    in Coiled Isle, Val of Naigtal; nu gefixed.** Dit is al gelogd als kandidaat-feit door de
+    data-wachter (`docs/PTR_12.0.7_DATA.md`, entry [2026-09-04], achievementID 61465 via Wowhead)
+    — dat is zijn lane, niet de mijne, dus ik herhaal het feit niet. Wat wél mijn lane is: raakt dit
+    een geshipte claim? **Bijna.** `Modules/Showdowns.lua:24-41` citeert zelf al een oudere hotfix
+    (13 aug, verbatim: "The Naigtal and Val Sparks of War quests will no longer be offered when
+    Season 2 begins") en zet er zelf een vraagteken bij: "WHICH QUESTS ARE MEANT IS NOT SETTLED" —
+    wij shippen Showdown on Naigtal/Val (96717/96718/96713) als vermoedelijke match, expliciet als
+    "likely, not measured". De 3-sep-hotfix noemt nu een **derde zone, Coiled Isle**, die in onze
+    eigen 13-aug-quote niet voorkwam. Dat spreekt onze tekst niet tegen (we claimen zelf al niet
+    meer dan "likely"), maar het is wel een nieuw gegeven dat relevant is voor precies de vraag die
+    daar openstaat. MEASURED (citaat hierboven uit `Modules/Showdowns.lua:24-27,39-41` gelezen).
+    **[RAAKT ONS]** — geen actie nodig, maar Rob/wie
+    `Showdowns.lua`'s open vraag oppakt kan deze derde zone meenemen.
+  - **Classes — Priest Holy (Renew/Renewed Vigor 2-set) en Shaman Restoration Totemic (Oversurge)
+    fixes.** Pure spec-balans/mechaniek-fixes op class-kant; Midnight Helper volgt geen rotatie- of
+    setbonus-gedrag (gevestigd patroon, zie eerdere entries). **[RAAKT ONS NIET]**
+  - **Dungeons and Raids — Ruby Life Pools:** de Radiant Drake entrance-return-NPC verscheen niet
+    in Mythic+ na de eindbaas; nu gefixed. Onze drie treffers op "Ruby Life Pools" zijn een
+    dungeon-roster-naam, een flight-network-node en flightpoint-coördinaten — geen enkele claimt
+    iets over NPC-gedrag na de eindbaas. MEASURED (0 treffers op "Radiant Drake" repo-breed).
+    **[RAAKT ONS NIET]**
+  - **Dungeons and Raids — The Venomous Abyss → Ula'tek:** Caustic Waves kunnen niet meer ontweken
+    worden door eronderdoor te zwemmen; een fout in de Blight Vein-spellbeschrijving (verkeerde
+    schadewaarde in de tooltip) gecorrigeerd. `RAID_BOSS_ULATEK_STEPS` (`Locales/RaidTips.lua:46`,
+    zes taalvarianten) noemt vier andere spell-ID's zonder namen en zegt niets over zwemmen of een
+    schadewaarde. MEASURED (0 treffers op "Caustic Waves" repo-breed). **[RAAKT ONS NIET]**
+  - **Items — Zul'jin's Guillotine Technique (trinket), effect Perfected Guillotine:** target niet
+    langer vijanden buiten combat voor het tweede doelwit. ⚠️ Naamcollision gecontroleerd: onze
+    "Guillotine"-treffers zijn allemaal de Coiled-Altar-boss-mechaniek (Zul'jan-encounter,
+    `RAID_BOSS_COILEDALTAR_STEPS`) of een macro-template (`Modules/TeamMacrosData.lua:600-605`,
+    generieke `/cast [@cursor] Guillotine` voor eigen class-abilities) — geen ervan is deze trinket.
+    MEASURED. **[RAAKT ONS NIET]**
+  - **Quests — The Darkwell blijft nu staan voor characters die "War of Light and Shadow" niet
+    hebben afgerond maar wel de Arator-quests van "Curse of Ula'tek" hebben voltooid.** Ook al
+    gelogd als kandidaat-feit door de data-wachter (`docs/PTR_12.0.7_DATA.md`, entry [2026-09-04]).
+    Voor mijn lane: ⚠️ naamcollision gecontroleerd en bevestigd geen overlap — de enige "Darkwell"
+    in de repo is `RAID_BOSS_LURA_STEPS` (`Locales/RaidTips.lua:91`, zeven taalvarianten): "The
+    Darkwell in the center is instant death" tijdens de L'ura-fight in March on Quel'Danas. Andere
+    content, andere betekenis van dezelfde naam. `Modules/CampaignLeadIn.lua` kent "War of Light
+    and Shadow" en de Arator-keten wel bij naam maar claimt nergens iets over een wereldobject dat
+    wel/niet blijft staan — dus geen tegenspraak, wel dezelfde open kandidaat die de data-wachter al
+    noemde. MEASURED. **[RAAKT ONS NIET]**
+
+  Bron: Exa `web_fetch_exa` met cache-buster op news.blizzard.com's doorlopende hotfix-artikel,
+  sectie "September 3, 2026" volledig gelezen. Codebase-kant: `grep` case-insensitive over de hele
+  repo op alle hierboven genoemde namen, plus gerichte reads van `Modules/Showdowns.lua`,
+  `Modules/ResetRoutine.lua`, `Locales/RaidTips.lua`, `Modules/RaidCoachData.lua`,
+  `Modules/TeamMacrosData.lua`, `Modules/GearEnchantCheck.lua`, `Modules/CampaignLeadIn.lua`,
+  `Modules/DungeonRosterData.lua`, `Modules/FlightNetworkData.lua`,
+  `Modules/FlightPointsData.lua` — allemaal vandaag gelezen. **[RAAKT ONS NIET]**, op één zachte
+  [RAAKT ONS] na (Sparks-of-War/Coiled-Isle, hierboven) die geen bestaande claim tegenspreekt maar
+  wel een al openstaande vraag in `Showdowns.lua` raakt. Geen actiepunt dat ík kan oppakken — ik
+  rapporteer, een mens beslist.
