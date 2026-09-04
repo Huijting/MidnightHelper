@@ -969,6 +969,44 @@ function ns.GetTargetRegionGroupID(mapID, xPct)
 	return ns.GetEffectiveRegionGroupID(mapID, hub)
 end
 
+--- 🔴 ONE QUESTION, NOT THREE. "Am I already where this is?" was implemented three times
+--- and got three different answers, each wrong in its own way:
+---   * ShouldSuppressTravelPopup and IsMidnightTravelComplete sliced the player by hub and
+---     the target not at all (fixed earlier today);
+---   * ReportTravelHintForWaypoint compared bare map ids, so standing in Harandar on
+---     canvas 2576 with a target whose map is 2413 read as "a different place" and it
+---     offered a portal to the zone Rob was standing in.
+---
+--- The comment inside that third one already names the pattern -- "two implementations of
+--- one question, with the shorter one shipping the worse answer" -- so this is the same
+--- lesson arriving a second time.
+---
+--- ⚠️ Honest scope: the waypoint hint calls this directly. The two travel-popup checks
+--- still inline the comparison, because they reuse the hub and the x they computed for
+--- other purposes further down; they call the same two functions underneath, so the ANSWER
+--- is shared even though the call is not. Collapsing those two is worth doing when someone
+--- is next in that code with a reason to be there.
+---
+--- ⚠️ Answers FALSE when either side is unknown (group 0). Unknown must not silence travel
+--- advice: a player who really does need a portal and is told nothing is worse off than
+--- one who gets an unnecessary hint.
+--- @param currentMap number|nil
+--- @param targetMap number|nil
+--- @param targetX number|nil target x in 0-100, used to slice canvas 2576
+--- @return boolean
+function ns.SameTravelRegion(currentMap, targetMap, targetX)
+	if not currentMap or not targetMap then
+		return false
+	end
+	if tonumber(currentMap) == tonumber(targetMap) then
+		return true
+	end
+	local hub = ns.GetPlayerHubContext and select(1, ns.GetPlayerHubContext(currentMap)) or nil
+	local cur = ns.GetEffectiveRegionGroupID(currentMap, hub)
+	local tgt = ns.GetTargetRegionGroupID(targetMap, targetX)
+	return cur ~= 0 and cur == tgt
+end
+
 -- Map 2576 is one canvas; hub slice drives region (fixes Harandar delves while still on 2576).
 function ns.GetEffectiveRegionGroupID(mapID, hubName)
 	local mid = tonumber(mapID)

@@ -259,6 +259,15 @@ function ns.ReportTravelHintForWaypoint(mapID, label, x, y, currentMap)
 	if not mapID or not ns.GetNearestFlightPoint then
 		return
 	end
+	--- 🔴 REGION, NOT MAP ID — 4 Sep 2026. This compared bare ids, and map 2576 is one
+	--- canvas carrying Silvermoon, Voidstorm and Harandar side by side. Rob stood in The
+	--- Den (in Harandar, canvas 2576) and asked for The Grudge Pit (map 2413, also
+	--- Harandar): different numbers, same place, so the guard did not fire and the line
+	--- below told him to "take the Portal to Harandar" — a portal that is in Silvermoon,
+	--- to the zone he was standing in. TomTom then dutifully pointed him at it.
+	if ns.SameTravelRegion and ns.SameTravelRegion(currentMap, mapID, x) then
+		return
+	end
 	if currentMap and tonumber(currentMap) == mapID then
 		return
 	end
