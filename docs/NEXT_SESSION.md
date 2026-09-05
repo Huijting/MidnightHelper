@@ -469,6 +469,31 @@ een etappe daartussen zou "aangekomen" heten vóór je een stap zet). De test vr
 ik op de canvas, in het derde dat de bestemmingskaart ís?* Nieuwe gedeelde tabel
 `ns.MIDNIGHT_HUB_MAP_BY_NAME` — de inverse van `ResolveHubOnMap2576`.
 
+### 🔴 OPEN — geen reispopup vanuit Harandar naar het Coiled Isle-portaal, en ik weet niet waarom
+
+Rob, vanuit Harandar op zijn mage: pijl **en** chatregel (*"…is not on this continent. Head for
+Portal to Silvermoon first"*), maar **geen popup**, dus ook geen portaalknop en geen mage-teleport.
+
+🔴 **INGETROKKEN, mijn eigen verklaring van tien minuten eerder.** Ik zei dat de twee-staps-route
+"door een andere deur" gaat. Onwaar: `ns:SetMapWaypoint` (`DelveTipMarkup:685`) roept gewoon
+`ns.AddSmartTomTomWay` aan, net als alles. Daarna elke poort met de hand nagelopen —
+`IsMidnightTravelComplete`, `ShouldSuppressTravelPopup`, `MHSameZoneOrSub`, de regio-vergelijking
+(Harandar 2 vs Silvermoon 1), de kaart-ongelijkheid en de portaal-lus (2413 hééft een rij naar
+2393) — en **allemaal zeggen ze dat de popup eruit had moeten komen.** Ik kan het uit de bron niet
+verklaren.
+
+✅ **Dus geen reparatie op een verkeerde diagnose, maar het instrument gebouwd: `/mh travelwhy`.**
+Print per poort of hij de popup tegenhoudt, plus de portalen op je huidige kaart mét hun
+bruikbaarheidsvlag. Zes poorten beslisten dit en geen enkele zei ooit iets — precies het geval
+waarvoor CLAUDE.md die regel heeft.
+⚠️ Het vraagt de **echte** functies, geen nagebouwde logica. Een diagnose die zijn eigen versie van
+de code meet is het eens met zichzelf en liegt over de code — de fout die `/mh arrow` op 4 sep
+maakte toen hij de kale regiofunctie aanriep en de routering de schuld gaf.
+
+📌 **Volgende stap:** Rob draait `/mh travelwhy` op precies die plek. Staat er één rood kruis, dan is
+dat het antwoord; staat alles groen en is er tóch geen venster, dan is het een bug in het tonen zelf
+en niet in het besluit.
+
 #### 💡 BANK — "eerst The Den uit" als eerste etappe (gemeten, niet gebouwd)
 
 Rob: *"je moet eerst de den uitvliegen, kunnen we de route dan in 2 dingen opsplitsen?"* Kan, en het

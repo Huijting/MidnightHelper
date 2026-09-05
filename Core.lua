@@ -1696,6 +1696,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh travelwhy — which gate withheld the Travel Assistant popup. Its normal outcome
+	-- is silence, so without this "correctly quiet" and "broken" look identical.
+	if msg == "travelwhy" then
+		if ns.PrintTravelPopupDecision then
+			ns.PrintTravelPopupDecision()
+		end
+		return
+	end
+
 	-- /mh zonegate test — fire the warning on demand and measure whether the sound was
 	-- even asked for. Rob heard nothing on 5 Sep and three different faults look alike.
 	if msg == "zonegate test" then

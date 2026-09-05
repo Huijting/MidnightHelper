@@ -1147,6 +1147,77 @@ end
 
 local TRAVEL_ARRIVAL_YARDS = 400
 
+--- `/mh travelwhy` — why is there no Travel Assistant popup right now?
+---
+--- 🔴 BUILT 5 Sep 2026 BECAUSE I GUESSED WRONG AGAIN. Rob, routing from Harandar to the
+--- Coiled Isle portal, got an arrow and a chat line but no popup and no mage button. I told
+--- him the two-step entrance route "goes through a different door" -- it does not;
+--- `ns:SetMapWaypoint` calls `ns.AddSmartTomTomWay` like everything else. Reading the gates
+--- one by one afterwards, every single one of them says the popup SHOULD have appeared, so
+--- the honest position is that I cannot explain it from the source.
+---
+--- 📌 That is exactly the case CLAUDE.md legislates for: this popup's normal outcome is to
+--- withhold itself, and correct silence is indistinguishable from broken unless something
+--- prints the decision. Six gates decide it and not one of them said anything. Now they do.
+---
+--- ⚠️ Asks the REAL functions, not a copy of their logic. A diagnostic that reimplements
+--- what it measures agrees with itself and lies about the code — the mistake `/mh arrow`
+--- made on 4 Sep when it called the bare region function and blamed the routing.
+function ns.PrintTravelPopupDecision()
+	local P = "|cffffcc00Midnight Helper|r travel popup:"
+	local t = ns.lastTarget
+	if not (t and t.mapID) then
+		print(P .. " |cffff8844no target|r — set a route first, then run this again.")
+		return
+	end
+	local here = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	print(("%s doel %s (map %s %.1f, %.1f)%s"):format(P, tostring(t.name), tostring(t.mapID),
+		tonumber(t.x) or 0, tonumber(t.y) or 0, t.leg and "  |cff8a8f98[tussenstap]|r" or ""))
+	print(("   jij: map %s"):format(tostring(here)))
+	if not here then
+		print("   |cffff8844kaart onleesbaar — de popup slaat deze ronde over|r")
+		return
+	end
+
+	local function gate(label, blocked, detail)
+		print(("   %s %-34s %s"):format(
+			blocked and "|cffff4444X|r" or "|cff44ff44v|r", label, detail or ""))
+	end
+
+	local done = ns.IsMidnightTravelComplete(here, t.mapID, t.x, t.y, t.name)
+	gate("aangekomen?", done, done and "ja -> popup weg, route klaar" or "nee")
+	local supp = ns.ShouldSuppressTravelPopup(here, t.mapID, t.x, t.y, t.name)
+	gate("onderdrukt (zelfde zone)?", supp, supp and "ja -> popup weg" or "nee")
+	local sub = ns.MHSameZoneOrSub and ns.MHSameZoneOrSub(here, t.mapID)
+	gate("sub-zone van het doel?", sub and true or false, sub and "ja -> popup weg" or "nee")
+
+	local hub = ns.GetPlayerHubContext and ns.GetPlayerHubContext(here) or nil
+	local rHere = ns.GetEffectiveRegionGroupID and ns.GetEffectiveRegionGroupID(here, hub) or 0
+	local rThere = ns.GetTargetRegionGroupID and ns.GetTargetRegionGroupID(t.mapID, t.x) or 0
+	local sameRegion = (rHere == rThere and rHere ~= 0)
+	gate("zelfde regio?", sameRegion, ("jij %s · doel %s"):format(tostring(rHere), tostring(rThere)))
+
+	local sameMap = (tonumber(here) == tonumber(t.mapID))
+	gate("zelfde kaart?", sameMap, sameMap and "ja -> geen reishulp nodig" or "nee")
+
+	--- The portal shortlist, asked of the same table and the same gate the popup uses.
+	local shown = 0
+	for _, p in ipairs(MIDNIGHT_PORTALS) do
+		if tonumber(p.mapID) == tonumber(here) then
+			shown = shown + 1
+			print(("      %s %-26s -> %s%s"):format(
+				PortalUsable(p) and "|cff44ff44v|r" or "|cffff4444X|r",
+				p.name, tostring(p.toID),
+				p.zone and ("  (" .. p.zone .. ")") or ""))
+		end
+	end
+	if shown == 0 then
+		print("      |cffff8844geen enkel portaal op jouw kaart|r — dan heeft de popup niets te tonen")
+	end
+	print("   |cff8a8f98Een rood kruis hierboven is een reden om te zwijgen. Allemaal groen en|r")
+	print("   |cff8a8f98toch geen venster: dat is een bug, en dan wil ik deze uitvoer zien.|r")
+end
+
 --- The real zone map behind each slice of canvas 2576 — the inverse of the function below.
 ---
 --- 🔴 Shared rather than re-derived, because the 5 Sep sweep found place after place that
