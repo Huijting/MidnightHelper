@@ -330,6 +330,19 @@ weer onderuit, en leest voor de speler als "naar het noorden".
 identieke broertjes geeft een deel van de tijd het verkeerde antwoord. Komt er ooit een vierde
 textuur bij deze pijl, dan moet die hier óók verborgen worden — dat staat nu bij de code.
 
+#### ✅ 5 sep — de hele keten bevestigd in het spel (Horde)
+
+Rob liep hem af en meldde per stap:
+
+1. **Dornogal**, delve-route → geen pijl meer, alleen *"The Gulf of Memory (ander continent — reis
+   terug) head for Orgrimmar"*. De zwarte omhoog-pijl is weg.
+2. **Orgrimmar**, zelfde route → reis-popup mét portaalknop, en de pijl naar het portaal
+   (56.25/88.57). *"En die werkt :)"*
+
+📌 Daarmee is de vraag waar de dag mee begon — *"ik krijg routes voor dingen die ik nog niet kan
+doen"* — van klacht naar werkende keten gegaan: waarschuwen, niet blokkeren, en zeggen hóé je er
+komt. Alle drie zonder één extra tabelrij behalve het gemeten Orgrimmar-portaal.
+
 #### 🔴 OPEN — Alliance komt één stap tekort, en dat is te meten
 
 Robs vraag: *"en wat als ik een alliance ben?"* Eerlijk antwoord, per stap:
