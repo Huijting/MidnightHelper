@@ -140,6 +140,12 @@ function ns.WarnZoneLevelIfNeeded(mapID, xPct, targetName)
 			body = body,
 			icon = 134400, -- the padlock; this is a "not yet", not an error
 			displaySec = 20,
+			-- Rob, 5 Sep, after seeing it fire: "kan de toast ook een duidelijk geluid
+			-- spelen??" READY_CHECK rather than a new pick -- ShardCapAlert already uses
+			-- it, so it is measured to be audible on the Master channel even at low SFX
+			-- volume, and reusing it keeps "Midnight Helper wants you" one sound instead
+			-- of a zoo. The 120s throttle above is what keeps it from becoming noise.
+			soundKit = SOUNDKIT and SOUNDKIT.READY_CHECK or nil,
 		})
 	end
 	print(("%s |cffff8844%s|r"):format(PREFIX, body))
