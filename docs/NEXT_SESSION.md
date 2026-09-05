@@ -141,6 +141,50 @@ uit twee gidsen plus Robs eigen lezing. Twee claims van verschillende sterkte, d
 hoger." Of het spel een level-70 fysiek tegenhoudt is nog steeds ongemeten, en deze zin hangt daar
 niet van af. Er wordt niets verborgen of uitgezet.
 
+### ✅ GEMETEN 5 sep — de ontbrekende TomTom-pijl was géén bug, en ik zei twee keer het tegendeel
+
+Rob, vanuit **The Azure Span** (Dragon Isles), klikte de Catalyst aan en meldde *"geen tomtom
+pijlen !!"*. `/mh arrow` gaf het antwoord in vier regels:
+
+```
+jij:  map 2024 (continent 2444)
+doel: map 2393 (continent 0)      een ligt in de ander: nee
+TomTom actief: ja   zijn pijl zichtbaar: nee
+wij sturen: ja      onze pijl getekend: ja      zichtbaar: ja
+```
+
+**TomTom weigert een pijl naar een ander continent**; onze eigen pijl neemt het dan over, precies
+zoals bedoeld, en Rob bevestigde met een screenshot dat die er stond. Continent `0` is trouwens
+gewoon Eastern Kingdoms' instance-id, geen leesfout.
+
+🔴 **Twee keer op rij een verkeerde diagnose, met dezelfde vorm.** Eerst *"echte bug, gevonden"*
+over Omnium Folio/TierSet — het ontbreken van de pijl had niets met die knoppen te maken. Daarna
+*"volgens de meting hoort er een reispopup te zijn"* — de diagnoseregel zegt alleen dat regiogroep
+0 de popup niet ONDERDRUKT; hij heeft nog steeds een portaal- of Hearthstone-knop nodig om iets te
+tónen, en die zijn er hier geen van beide. **Een regel die zegt "dit blokkeert het niet" is geen
+regel die zegt "dit gebeurt".**
+📌 Beide keren stond het bewijs al in Robs eerdere screens: *"is not on this continent"* verscheen
+vanochtend al bij The Darkway, mét een werkende route.
+
+⚠️ **De verhuizing naar `ns.AddSmartTomTomWay` blijft goed** (één routepad in plaats van drie, en
+ze krijgen de reishulp mee) — maar hij heeft niets gerepareerd, en zo hoort hij ook beschreven te
+worden.
+
+### 🔴 OPEN — hoe kom je überhaupt IN Midnight als je er niet bent?
+
+`MIDNIGHT_PORTALS` bevat **uitsluitend** portalen ín Midnight (2393/2405/2413/2576). Sta je op de
+Dragon Isles, dan is er dus geen enkel antwoord: geen popup, geen knop, en een chatregel *"head for
+Sanctum of Light first"* die niet vertelt hóé. Dat is correct gedrag van code die de weg niet kent
+— en het is precies de situatie van elke levelende speler, dus van iedereen die de nieuwe rode balk
+te zien krijgt.
+
+📌 **Rob stelde deze vraag al op 3 sep, vanaf dezelfde plek**: *"kan die daar al heen dan, en hoe
+dan?"* (zie `ResetRoutine.lua:304`). Toen is de weekly-kop gerepareerd, niet de reisvraag.
+
+⚠️ **NIET GEMETEN en dus niet verzinnen:** waar het portaal/de questlijn naar Quel'Thalas begint in
+Stormwind/Orgrimmar/Dornogal. Dat moet uit de client of uit Zygors questketen komen vóór er ook maar
+één coördinaat in de tabel gaat.
+
 ## 🗄️ AFGEHANDELD 5 sep — MH stuurt lage levels naar dingen die ze niet kunnen doen
 
 Rob, 4 sep laat, expliciet gevraagd om te onthouden: *"ik kan met lagere levels in mh toch routes
