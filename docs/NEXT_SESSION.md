@@ -540,6 +540,8 @@ gevoel dat we hier al mee bezig waren klopte wel — Orgrimmar, de Coiled Isle-i
 alle drie deze week gemeten — maar juist deze was overgeslagen. **Vier portalen aangeraakt, de
 vijfde vergeten**, en hij viel pas op nu dit pad een uur geleden zijn reishulp kreeg.
 
+✅ **BEVESTIGD in het spel** door Rob, direct na de reload: route vanuit open Harandar werkt.
+
 ⚠️ **De andere duplicaten in `MIDNIGHT_PORTALS` zijn NIET nagemeten.** Silvermoon (2393 ↔ 2576) en
 Voidstorm (2405 ↔ 2576) dragen dezelfde verdachte vorm: identieke x/y op twee kaarten. Bij Silvermoon
 werkt het in de praktijk, dus daar is 2393 vermoedelijk wél de goede — maar vermoedelijk is niet
