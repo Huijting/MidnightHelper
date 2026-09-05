@@ -444,3 +444,94 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
   - **De staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
     AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`)
     zijn deze run niet opnieuw getoetst en blijven staan zoals op 2 sep gemeten.
+
+- [2026-09-05] 🔴 **[MOET GEFIKST] — `GetItemCooldown` verdwijnt in 12.1.5 en wij roepen hem drie
+  keer KAAL aan.** De 12.1.5-pagina heeft vannacht een sectie **Deprecated API** gekregen (8 edits
+  van Ketho tussen **2026-09-05T00:55:48Z** en **01:16:17Z**, revids 6860171→6860177) en die
+  beantwoordt precies de open vraag die hier gisteren stond: *wélke functies zitten er ín de tien
+  `Blizzard_Deprecated*`-addons die 12.1.5 verwijdert.* **GEMETEN:** de diff zelf gelezen via
+  `action=compare&fromrev=6859839&torev=6860177`, geen samenvatting en geen zoekresultaat.
+  ⚠️ **12.1.5 is PTR, niet live.** De addon draait op 12.1.0, dus dit breekt vandaag niets bij Rob.
+  Het is het enige punt uit deze hele wachterreeks dat op 12.1.5-live wél een Lua-fout geeft.
+  - 🔴 **De drie kale aanroepen.** `Modules/Delves.lua:1518`, `Modules/Delves.lua:1686` (beide
+    `local hsStartTime = GetItemCooldown(6948)` — hearthstone-cooldown in het reis-popup) en
+    `Modules/DelveItemsPopup.lua:275` (`local start, duration, enabled = GetItemCooldown(itemID)`).
+    Geen van de drie heeft een `if`-guard, een `or`-fallback of een `pcall`. Verdwijnt de global,
+    dan is dit "attempt to call a nil value", niet stil-niets-doen.
+    📌 **De migratie is GECITEERD, niet verzonnen:** de bron schrijft letterlijk
+    `GetItemCooldown = C_Item.GetItemCooldown`. Ik heb `C_Item.GetItemCooldown` niet in een client
+    geverifieerd; dat is één `/dump` waard voor er iets verandert.
+    ⚠️ `DelveItemsPopup.lua:270-302` heeft ná die regel wél een complete `C_Container`-terugval,
+    maar die wordt nooit bereikt omdat de fout op `:275` valt. Een fallback achter de crash is geen
+    fallback.
+  - **[AL AFGEDEKT] — de andere zeven ItemScript-globals die we gebruiken.** Allemaal `C_Item`
+    eerst, kale global alleen als tweede tak: `GetItemInfo`/`GetItemQualityColor`/`GetItemIcon` in
+    `Modules/GuideConsumables.lua:42-53`, `:59-70`, `:85-92`; `GetItemInfo`/`GetItemIcon` in
+    `Modules/DelveCuriosData.lua:172-183` en `:192-203`; `GetItemCount` in
+    `Modules/DelveItemsPopup.lua:589-608` (via `rawget(_G,…)` + `pcall`) en
+    `Modules/DelveItemBrokers.lua:42-59`; `IsUsableItem` achter
+    `if type(IsUsableItem) ~= "function"` op `Modules/DelveItemsPopup.lua:324`; `GetItemGem` achter
+    `if not (link and GetItemGem)` op `Modules/GearEnchantCheck.lua:502`; `PickupItem` achter
+    `C_Item.PickupItem` met `elseif PickupItem then` op `Modules/ApplyLayout.lua:1293-1297` en
+    `:1588-1591`.
+  - ⚠️ **Eén afdekking is schijn, GEMETEN maar géén API-bevinding.**
+    `Modules/DelveItemBrokers.lua:42` is `local function GetItemCount(...)`, en de "global fallback"
+    op `:52-53` roept daardoor **zichzelf** aan (Lua bindt de naam vóór de body). Hij zit in een
+    `pcall`, dus het is geen crash maar een stack overflow die stil `0` teruggeeft. Raakt ons pas
+    als `C_Item.GetItemCount` ooit wegvalt — die blijft. Melden, niet repareren.
+  - ✅ **CORRECTIE/afgesloten: `SocketInventoryItem` zit NIET in `Blizzard_DeprecatedItemSocketInfo`.**
+    Gisteren stond hier dat de naamgelijkenis verdacht was maar **AFGELEID uit de naam, niet
+    gecontroleerd**. De nu gepubliceerde lijst voor dat addon telt dertien functies —
+    `CloseSocketInfo`, `GetSocketItemInfo`, `GetNumSockets`, `GetExistingSocketInfo`,
+    `GetExistingSocketLink`, `GetNewSocketInfo`, `GetNewSocketLink`, `ClickSocketButton`,
+    `AcceptSockets`, `GetSocketTypes`, `GetSocketItemRefundable`, `GetSocketItemBoundTradeable`,
+    `HasBoundGemProposed` — en `SocketInventoryItem` staat er niet tussen. Onze aanroep
+    (`Modules/GearEnchantCheck.lua:886` + `pcall` op `:891`) en de probe in
+    `Modules/PtrProbe.lua:111/138/673` blijven zoals ze zijn. **Wat deze bron niet zegt:** of de
+    global ergens ánders vandaan komt; hij zegt alleen dát dit addon hem niet bevat.
+  - **[RAAKT ONS NIET] — de overige acht deprecated addons, 0 treffers.** CurrencyScript
+    (`GetCoinIcon`, `GetCoinText`, `GetCoinTextureString`), Glue (`IsOnGlueScreen`), ItemSocketInfo
+    (13 namen, zie boven), LFG (`C_LFGInfo.IsPremadeGroupEnabled`,
+    `C_LFGList.GetSearchResultMemberInfo`), PetInfo (`PetAssistMode`, `GetPetTalentTree`),
+    PvpScript (`IsSubZonePVPPOI`, `GetZonePVPInfo`, `TogglePVP`, `SetPVP`), SoundScript
+    (`PlayVocalErrorSoundID`), TradeInfo (`PickupTradeMoney`). Ons enige `C_LFGInfo`-gebruik is
+    `IsInLFGFollowerDungeon`, achter een guard + `pcall` op `Modules/DungeonBossWindow.lua:1588` en
+    `Modules/Retrospective.lua:220`.
+    ⚠️ **De sectie dekt negen van de tien addons.** `Blizzard_DeprecatedWorldElapsedTimerTypes`
+    heeft géén functielijst gekregen. Ik weet niet of dat betekent "bevat geen globals" of "nog niet
+    ingevuld"; niet aannemen dat het leeg is.
+  - **Positieve controle in dezelfde run.** De patroonvorm `(^|[^.\w])(…)\s*\(` gaf voor de 25
+    namen van de acht andere addons **0** treffers; dezelfde alternatie mét `InCombatLockdown`
+    erbij gaf **118 treffers in 38 bestanden**. De lege uitkomst is dus echt leeg. En de
+    ItemScript-alternatie (45 namen) gaf 35 treffers in 8 bestanden — dat patroon vindt wél wat er
+    is. ⚠️ Let op: `SocketInventoryItem` gaf 0 op dít patroon omdat wij hem via `pcall` aanroepen
+    en niet met een haakje erachter; een losse grep vond hem wél op vijf plaatsen.
+
+- [2026-09-05] ⚠️ **`Patch 12.1.0/API changes` is voor het eerst sinds 15 aug bijgewerkt — build
+  69283 → 69587.** Revid 6860164, **2026-09-05T00:39:06Z**, Ketho, samenvatting `12.1.0 (69587)`.
+  De consolidated-regel luidt nu `12.0.7 (68256) → 12.1.0 (69587) Aug 27 2026` (was `69283 Aug 11
+  2026`). **GEMETEN uit de diff:** de hele wijziging is **twee toegevoegde** Global API-regels en
+  **niets verwijderds of gewijzigds**: `C_LFGInfo.IsInMatchmadeRaidWithoutRoleRequirements` en
+  `UnitIsPlayerControlledOrGroupMember`. **[RAAKT ONS NIET]** — 0 treffers op beide (positieve
+  controle: `C_LFGInfo` zelf geeft wél 4 treffers, zie hierboven).
+  📌 Dit is de pagina van de patch waarop Rob nú speelt. Dat hij na drie weken stilstand beweegt is
+  het opmerkelijke; de inhoud van deze ene bewerking is dat niet.
+
+- [2026-09-05] ✅ **Hotfixes en forum: niets voor de API-kant.**
+  - **Hotfixes, nieuwste sectie 4 september 2026** — één dag nieuwer dan wat hier gisteren stond,
+    dus geen cache. Volledig gelezen: Classes (Druid Balance, Shaman Enhancement), Dungeons and
+    Raid (The Venomous Abyss), Housing (Vacation Season), Items. **Geen Lua-API-, secure-frame-,
+    taint- of addon-sectie.** De enige regel die een addon-woord bevat — *"Stellar Amplification can
+    now be tracked in the Cooldown Manager"* — is spell-data, geen API; die hoort bij de
+    contentwachter.
+  - **Blizzard US UI-and-Macro-forum, vers opgehaald.** Nieuwste topics: *Cast bar addon?* (4 sep,
+    spelersvraag) en *Details! issues since early this week* (3 sep, stond hier gisteren al). Niets
+    binnen het venster dat over de API gaat, en **geen enkele `community-manager`-post in de
+    categorie binnen 7 dagen**: de laatste post in *UI Add-On Development Policy* is onveranderd
+    **2026-08-28T19:54:53Z** van Atheren (trust_level 2).
+  - **NIET GEMETEN:** `bluetracker.gg` gaf `CRAWL_LIVECRAWL_TIMEOUT` en `wowhead.com/blue-tracker`
+    kwam leeg terug. De hotfixes zijn daarom rechtstreeks van `news.blizzard.com` gelezen (mét
+    `?nocache=20260905`), niet via een spiegel.
+  - **De staande 12.1.0-items** (C_UnitAuras secret-reads, `GetNextWaypointForMap`→`C_Navigation`,
+    AuraContainer/AuraButton, `UntrustedScriptExecution` op AuraButtons, `GetWeaponEnchantInfo`)
+    zijn deze run niet opnieuw getoetst en blijven staan zoals op 2 sep gemeten.
