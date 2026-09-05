@@ -1091,6 +1091,15 @@ function ns.PrintArrowStatus()
 		print(("  doel: %s  (map %s  %.1f, %.1f)"):format(
 			tostring(activeLead.name or "?"), tostring(activeLead.mapID),
 			tonumber(activeLead.x) or 0, tonumber(activeLead.y) or 0))
+		--- 🔎 WHO SET IT — 5 Sep 2026. An arrow appeared on the Coiled Isle aimed at a
+		--- coordinate that exists only inside a Codex sentence, and Rob had not clicked the
+		--- Codex. Seven places assign `ns.lastTarget` and their results look identical from
+		--- here, so "where did this route come from" could not be answered by reading the
+		--- source. Each of the seven now stamps a `via`; an empty one is itself a finding.
+		local lt = ns.lastTarget
+		local via = (lt and lt.mapID == activeLead.mapID and lt.via) or nil
+		print(("  gezet door: %s"):format(
+			via or "|cffff8844onbekend — geen enkele route heeft zich gemeld|r"))
 	else
 		print("  doel: |cffff8080GEEN — geen enkele route heeft een doel doorgegeven|r")
 	end

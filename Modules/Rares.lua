@@ -1928,7 +1928,7 @@ function ns.GenerateRaresRoute(zoneKey)
 		local lead = routeRares[1]
 		if lead then
 			ns.lastTarget = { mapID = lead[2], x = lead[3], y = lead[4], name = GetRareDisplayName(lead),
-				hintKey = ns.RareArrivalHintKey(lead) }
+				hintKey = ns.RareArrivalHintKey(lead), via = "rare route" }
 		end
 	end
 

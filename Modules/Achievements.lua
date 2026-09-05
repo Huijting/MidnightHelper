@@ -907,7 +907,7 @@ local function IssueRoute(entry, firstTime, silent)
 	-- The arrow reads ns.lastTarget for the name it draws under the distance, so this
 	-- one matters as much as the chat line: lead.name nil made it say "Waypoint".
 	ns.lastTarget = { mapID = lead.mapID, x = lead.x, y = lead.y,
-		name = ns.AchievementNodeName(entry, lead) }
+		name = ns.AchievementNodeName(entry, lead), via = "achievement route" }
 	routeSig = RouteFingerprint(entry)
 	DBG(
 		"issue: lead=%s leadMap=%s incomplete=%d firstTime=%s playerMap=%s",

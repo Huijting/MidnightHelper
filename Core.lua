@@ -1569,7 +1569,7 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 			end
 			label = label or ("%.1f, %.1f"):format(x, y)
 
-			ns.lastTarget = { mapID = mapID, x = x, y = y, name = label }
+			ns.lastTarget = { mapID = mapID, x = x, y = y, name = label, via = "/mh arrow set" }
 			ns._mhRouteOwner = "waypoint"
 			print(("%s arrow set to %s."):format(prefix, label))
 			return

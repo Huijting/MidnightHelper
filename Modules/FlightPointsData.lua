@@ -1168,7 +1168,7 @@ function ns.RouteToNearestFlightPoint()
 		print(prefix .. " " .. ns:L("FP_NEAREST_NO_WAYPOINT"))
 		return false
 	end
-	ns.lastTarget = { mapID = mapID, x = x, y = y, name = name }
+	ns.lastTarget = { mapID = mapID, x = x, y = y, name = name, via = "flight point" }
 	ns._mhRouteOwner = "waypoint"
 	print(("%s %s"):format(prefix, ns:L("FP_NEAREST_SET_FMT"):format(name)))
 	return true, name

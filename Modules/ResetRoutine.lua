@@ -1092,7 +1092,8 @@ local function IssueRoute(pins)
 	local first = pins[1]
 	if first then
 		ns.AddSmartTomTomWay(first[1], first[2], first[3], PinLabel(first[4], first[5]))
-		ns.lastTarget = { mapID = first[1], x = first[2], y = first[3], name = PinLabel(first[4], first[5]) }
+		ns.lastTarget = { mapID = first[1], x = first[2], y = first[3],
+			name = PinLabel(first[4], first[5]), via = "weekly routine" }
 	end
 	routeSig = PinsSignature(pins)
 end

@@ -622,9 +622,22 @@ waarnemingen (Rob, Carola) is geen patroon. De tekst claimt daarom niets over wa
 Rob vroeg de route naar het Coiled Isle-portaal, kreeg hem netjes, en bij aankomst óp het eiland
 sprong de pijl naar *"Portal to Silvermoon, 2 m away"* — het portaal terug, waar hij naast stond.
 
-⚠️ **Niet gediagnosticeerd.** Onze `MIDNIGHT_PORTALS` heeft geen rij op 2512, dus waar die naam
-vandaan komt is nog onbekend. Eén `/mh arrow` op dat eiland geeft de eigenaar en het doel en zou het
-in één regel beslechten — precies zoals dat vandaag zes keer werkte. Cosmetisch: je staat er al.
+📊 **`/mh arrow` op het eiland:** `route-eigenaar: waypoint`, `doel: Portal to Silvermoon (map 2512
+58.2, 48.5)`. Die coördinaat komt **exact** overeen met `{WAY:2512:58.12:48.48:Portal to Silvermoon}`
+— een klikbare link in ons **Codex-artikel** over de Coiled Isle (`Codex.lua:75`, en dezelfde tekst
+in `SMC_PIN_PORTAL_ISLE`).
+
+🔴 **Maar Rob heeft de Codex niet aangeklikt.** En de enige code die zo'n link omzet in een route is
+`OnHyperlinkClick` (`DelveTipMarkup:784`), die een klik nodig heeft. De pin zelf
+(`UI.lua:879`) draagt geen enkele 2512-coördinaat. **Ik kan de dader niet vinden door te lezen.**
+
+✅ **Dus geen vijfde verhaal maar een instrument.** Zeven plekken in de addon zetten `ns.lastTarget`
+en hun resultaat is van buiten identiek. Elk van de zeven stempelt nu een `via`, en `/mh arrow`
+print een regel **`gezet door:`**. Blijft die op *onbekend* staan, dán is dat zelf de vondst: er is
+een achtste plek, of iets zet het doel buiten die zeven om.
+
+📌 Zelfde patroon als `/mh travelwhy` een half uur eerder: als lezen het niet oplost, meet dan wie
+het deed. Dat kostte vandaag drie keer minder dan de gok.
 
 📌 **De sweep kostte minder dan de vier losse meldingen samen.** Waard om te onthouden voor de
 volgende keer dat één fout zich drie keer herhaalt.

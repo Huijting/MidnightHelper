@@ -1184,7 +1184,8 @@ local function SetSMCWaypoint(point)
 	-- Drive MidnightHelper's own on-screen arrow too (SMC sets its waypoint directly,
 	-- so it wasn't engaging NativeArrow). Give it a lead + generic ownership, resetting
 	-- a stale single-dest route so the arrow points here.
-	ns.lastTarget = { mapID = mapID, x = tonumber(target.x) or 0, y = tonumber(target.y) or 0, name = target.label }
+	ns.lastTarget = { mapID = mapID, x = tonumber(target.x) or 0, y = tonumber(target.y) or 0,
+		name = target.label, via = "Silvermoon pin" }
 	local o = ns._mhRouteOwner
 	if o == nil or o == "waypoint" or o == "delve" then
 		ns._mhRouteOwner = "waypoint"

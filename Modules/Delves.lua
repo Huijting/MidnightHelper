@@ -1635,9 +1635,16 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		end
 	end
 
+	--- ⚠️ `via` — WHO SET THIS ROUTE. Added 5 Sep 2026 after an arrow appeared on the Coiled
+	--- Isle pointing at a waypoint that exists only inside a Codex sentence, and Rob had not
+	--- clicked the Codex. Seven places in this addon assign `ns.lastTarget`, and from the
+	--- outside their results are identical, so "where did this come from" was unanswerable
+	--- by reading. `/mh arrow` prints it now. Same rule as the rest of today: build the
+	--- instrument instead of telling a fifth story.
 	ns.lastTarget = {
 		mapID = targetMap, x = xPct, y = yPct, name = title,
 		leg = ns._mhTravelLegBusy and true or nil,
+		via = "AddSmartTomTomWay",
 	}
 
 	-- 1. Waypoint: TomTom arrow when available, else Blizzard user waypoint + SuperTrack.
