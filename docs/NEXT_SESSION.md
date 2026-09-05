@@ -372,7 +372,38 @@ werd gestuurd.
 aanroeper de naam terug en laat de stap vallen als die leeg is. Een fout id kost dan een ontbrekende
 hint, nooit een verkeerde bestemming. Neutrale pandaren krijgen niets.
 
-### 🔴 OPEN — The Den: de pijl raakt van slag zolang je binnen bent
+### ✅ 5 sep — The Den: gevonden, en het was NIET de sub-map-hypothese
+
+Rob deed `/mh arrow` in The Den. Twee regels naast elkaar spraken elkaar tegen:
+
+```
+hub-slice op canvas 2576: jij Harandar (x 62.1)
+basiszone volgens ons: Silvermoon
+```
+
+🔴 **`ns.GetBaseZoneName` gaf voor héél canvas 2576 "Silvermoon".** Regel 959: `if mid == 2393 or
+mid == 2576 then return "Silvermoon"`. Terwijl 2576 juist de gedeelde kaart is die Silvermoon,
+Voidstorm én Harandar naast elkaar draagt, `ResolveHubOnMap2576` bestaat om hem te snijden, en
+`GetRegionGroupID` dat op 4 sep al geleerd heeft. Deze functie is toen overgeslagen.
+
+📌 **Dat is de drift achter "The Den is een drama":** alles wat vroeg waar de speler is, kreeg
+"Silvermoon" te horen terwijl hij in Harandar stond — inclusief de onderdrukking van de reispopup
+(`ShouldSuppressTravelPopup`) en de zin in de levelwaarschuwing zelf.
+
+⚠️ **Mijn hypothese van vanmiddag was fout** en het is goed dat we niet gebouwd hebben: ik dacht aan
+een sub-map (Harandar verdieping 2) en aan `MHResolveWaypointMap`. De client meldt in The Den
+gewoon **2576**. Eén meting was genoeg om een dag bouwen op de verkeerde plek te voorkomen.
+
+✅ **Gerepareerd:** `ns.GetBaseZoneName(mapID, xPct)`. Zonder x op 2576 komt er **""** terug en geen
+gok — elke aanroeper in deze repo heeft een coördinaat, en "" betekent daar al "onbekend".
+Bijgewerkt op drie plekken: `ShouldSuppressTravelPopup` (heeft `targetX` in zijn eigen signatuur),
+`ZoneLevelGate` (heeft `xPct`) en de `/mh arrow`-diagnose zelf, zodat die zichzelf niet meer kan
+tegenspreken.
+
+⚠️ **Nog te bevestigen door Rob:** de eigenlijke klacht — route vanuit The Den naar een SMC-delve.
+Dit verklaart hem, maar dat is niet hetzelfde als hem gemeten hebben.
+
+### 🗄️ De oude hypothese (5 sep, ingetrokken) — The Den als sub-map
 
 Rob, 5 sep, opnieuw: *"The Den is nog een drama, alleen als ik eruit vlieg gaat de pijl weer terug
 komen, en als ik in The Den een delve in SMC wil doen raakt ie weer van slag."*

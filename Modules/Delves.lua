@@ -954,9 +954,37 @@ local function GetZoneDisplayName(uiMapID)
 end
 
 -- Maps map IDs to base zone names for hub / arrival detection (Phase 49 + 59).
-function ns.GetBaseZoneName(mapID)
+--- 🔴 CANVAS 2576 NEEDS AN X, AND FOR TWO YEARS IT DID NOT GET ONE — 5 Sep 2026.
+---
+--- Rob ran `/mh arrow` standing in The Den, and the output contradicted itself in two
+--- neighbouring lines:
+---     hub-slice op canvas 2576: jij Harandar (x 62.1)
+---     basiszone volgens ons: Silvermoon
+--- Both about the same player on the same map in the same breath. 2576 is the shared canvas
+--- that carries Silvermoon, Voidstorm and Harandar side by side; `ResolveHubOnMap2576`
+--- exists precisely to slice it, `GetRegionGroupID` was taught to use it on 4 Sep, and this
+--- function was left answering "Silvermoon" for the whole canvas.
+---
+--- 📌 That is the drift behind "The Den is een drama". Anything asking this function where
+--- the player is, while they stand in Harandar, was told Silvermoon -- including the travel
+--- popup's suppression check and the level warning's own sentence.
+---
+--- ⚠️ WITHOUT AN X ON 2576 WE RETURN "" AND NOT A GUESS. Every caller in this repo has a
+--- coordinate to hand; a caller that does not genuinely cannot know which third of the
+--- canvas is meant, and "Silvermoon" was the confident wrong answer rather than the safe
+--- empty one. `""` already means "unknown" to every caller — they all test for it.
+--- @param mapID number
+--- @param xPct number|nil position on the canvas, 0-100; required for 2576
+function ns.GetBaseZoneName(mapID, xPct)
 	local mid = tonumber(mapID)
-	if mid == 2393 or mid == 2576 then
+	if mid == 2576 then
+		local x = tonumber(xPct)
+		if not x then
+			return ""
+		end
+		return (ns.ResolveHubOnMap2576 and ns.ResolveHubOnMap2576(x)) or ""
+	end
+	if mid == 2393 then
 		return "Silvermoon"
 	end
 	if mid == 2413 then
@@ -1323,7 +1351,9 @@ function ns.ShouldSuppressTravelPopup(currentMap, targetMap, targetX, targetY, t
 	end
 
 	local currentHub = ns.GetPlayerHubContext(currentMap)
-	local targetBase = ns.GetBaseZoneName(targetMap)
+	-- targetX passed through: on canvas 2576 the name depends on WHERE on it, and this
+	-- function has the coordinate right there in its own signature.
+	local targetBase = ns.GetBaseZoneName(targetMap, targetX)
 
 	if currentHub and targetBase ~= "" and currentHub == targetBase then
 		return true

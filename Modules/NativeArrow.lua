@@ -1147,7 +1147,10 @@ function ns.PrintArrowStatus()
 				okH and px and ("%.1f"):format(px) or "?",
 				(tonumber(tmap) == 2576 and tx and ns.ResolveHubOnMap2576(tx)) or "n.v.t."))
 			if ns.GetBaseZoneName then
-				local okB, bn = pcall(ns.GetBaseZoneName, pmap)
+				-- The player's own x, so this line cannot contradict the hub-slice line
+				-- printed directly above it. That contradiction is what Rob's Den reading
+				-- caught, and a diagnostic that disagrees with itself is worse than none.
+				local okB, bn = pcall(ns.GetBaseZoneName, pmap, okH and px or nil)
 				print(("  basiszone volgens ons: %s"):format(
 					(okB and bn ~= "" and bn) or "|cffff8844onbekend|r"))
 			end

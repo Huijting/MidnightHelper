@@ -183,7 +183,10 @@ function ns.WarnZoneLevelIfNeeded(mapID, xPct, targetName)
 		warnedFor[key] = now
 	end
 
-	local zone = (ns.GetBaseZoneName and ns.GetBaseZoneName(mapID)) or ""
+	-- xPct matters on canvas 2576: without it the name is "" rather than a guessed slice,
+	-- and the targetName fallback below takes over. Never name the wrong zone in a warning
+	-- whose whole job is telling the player where they are going.
+	local zone = (ns.GetBaseZoneName and ns.GetBaseZoneName(mapID, xPct)) or ""
 	if zone == "" then
 		zone = targetName and tostring(targetName) or "?"
 	end
