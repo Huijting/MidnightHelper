@@ -3346,20 +3346,56 @@ local function CreateEventBridge()
 		end
 		if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
 			-- Wait 1 second for the Map API to settle before checking location
+			--- 🔴 A RARE OR TREASURE ROUTE HAS NO `ns.lastTarget`, AND THIS BLOCK ONLY KNEW
+			--- ABOUT `ns.lastTarget` — 5 Sep 2026.
+			---
+			--- Rob, on a rare route in Harandar: he hearthstoned to Silvermoon, was correctly
+			--- sent to the Portal to Harandar, stepped through, and arrived in The Den with
+			--- OUR arrow on screen and no TomTom one. *"Is dat daar anders geregeld????"* Not
+			--- in The Den -- differently for rares.
+			---
+			--- 📌 Rares and treasures deliberately nil `ns.lastTarget` in their zone handlers
+			--- (CLAUDE.md says so, and NativeArrow:896 keeps its own `activeLead` for exactly
+			--- that reason, pulling `GetNearestIncompleteRareLead` each tick). So our arrow
+			--- survives a portal on its own memory and TomTom's is never restored, because
+			--- the restore below reads the one field those routes just cleared.
+			---
+			--- ⚠️ Everyone running TomTom sees only TomTom's arrow -- we stand down for it --
+			--- so for them the route simply ENDED at the portal. Same shape as the rare
+			--- arrival hints on 19 Aug: a feature that works fine for whoever the author
+			--- tested with and is invisible to most of the users.
+			local function RouteLead()
+				if ns.lastTarget and ns.lastTarget.mapID then
+					return ns.lastTarget
+				end
+				local getter = (ns._mhRouteOwner == "rare" and ns.GetNearestIncompleteRareLead)
+					or (ns._mhRouteOwner == "treasure" and ns.GetNearestIncompleteTreasureLead)
+					or nil
+				if getter then
+					local ok, lead = pcall(getter)
+					if ok and type(lead) == "table" and lead.mapID then
+						return lead
+					end
+				end
+				return nil
+			end
 			local function runZoneNavCheck()
 				local currentMap = C_Map.GetBestMapForUnit("player")
-				if ns.lastTarget and currentMap then
-					local lt = ns.lastTarget
+				local lt = RouteLead()
+				if lt and currentMap then
 					if ns.IsMidnightTravelComplete(currentMap, lt.mapID, lt.x, lt.y, lt.name) then
 						SafeHideTravelPopup()
 						ns.lastTarget = nil
 					else
 						-- After portal / zone: restore delve arrow (TomTom only, no travel popup).
 						local function restoreDelveArrow()
-							if not ns.lastTarget then
+							-- Re-asked rather than captured: the second call runs half a
+							-- second later, by which time a rare route may already have
+							-- advanced to the next lead.
+							local t = RouteLead()
+							if not t then
 								return
 							end
-							local t = ns.lastTarget
 							if ns.IsTomTomReady() then
 								local uid = _G.TomTom:AddWaypoint(t.mapID, t.x / 100, t.y / 100, {
 									title = t.name,
