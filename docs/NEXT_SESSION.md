@@ -13,6 +13,31 @@ ongecontroleerd terwijl Rob ze diezelfde ochtend had gemeten, en op 2 sep stond 
 nog als open vraag terwijl hij al beantwoord was. Beide keren citeerde ik mijn eigen verouderde
 aantekening als bewijs. Een aantekening is een claim mét een datum, geen meting.
 
+## ✅ 5 sep — `GetItemCooldown` afgedekt vóór 12.1.5 live gaat
+
+De API-wachter vond het enige punt uit de hele 12.1.5-reeks dat op live een **echte Lua-fout**
+geeft: `GetItemCooldown` zit in `Blizzard_DeprecatedItemScript` en wij riepen hem **drie keer kaal**
+aan — `Delves.lua` 2× (hearthstone-cooldown in de reis-popup) en `DelveItemsPopup.lua:275`. Geen
+guard, geen `pcall`, geen terugval.
+
+⚠️ En `DelveItemsPopup` hád al een complete `C_Container`-terugval, direct ónder die regel — die
+zou dus nooit bereikt zijn, want de fout valt erboven. **Een fallback achter de crash is geen
+fallback.** Nu wel bereikbaar.
+
+`ns.GetItemCooldownSafe(itemID)` probeert **`C_Item.GetItemCooldown` eerst**, dan de kale global,
+allebei in een `pcall`, en geeft `nil` als geen van beide bestaat — wat elke caller als "onbekend"
+moet lezen, nooit als "geen cooldown". Zelfde vorm als de zeven andere ItemScript-globals die al
+afgedekt waren. Op 12.1.0 verandert er niets.
+
+🔴 **NIET GEMETEN: bestaat `C_Item.GetItemCooldown`?** De migratie is letterlijk geciteerd uit
+Blizzards eigen bron, maar niemand heeft hem in een client gezien. `C_Item` staat nu in de
+`WATCH_TABLES` van `/mh ptr`, dus één run op de 12.1.5-PTR settelt het — en zegt tegelijk of de
+kale global daar al weg is.
+
+✅ **En één vermoeden ingetrokken:** `SocketInventoryItem` zit **niet** in
+`Blizzard_DeprecatedItemSocketInfo` (de nu gepubliceerde lijst telt dertien functies en hij staat er
+niet bij). Dat bevestigt wat we 4 sep op de PTR maten; het "verdacht op grond van de naam" mag weg.
+
 ## 🔴 VOOR MORGEN (5 sep) — MH stuurt lage levels naar dingen die ze niet kunnen doen
 
 Rob, 4 sep laat, expliciet gevraagd om te onthouden: *"ik kan met lagere levels in mh toch routes

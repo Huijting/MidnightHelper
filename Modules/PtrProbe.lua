@@ -128,6 +128,13 @@ local DEPRECATED_ADDONS = {
 local ADDED_GLOBALS = {
 	"C_Weather", "C_Intl", "CreateFrameWithOptions", "TimedSignalMap",
 	"GetScriptBucketThrottleLimits", "C_TableUtil",
+	--- 🔴 THE ONE THE 5 SEP WATCH FLAGGED. `GetItemCooldown` is listed as removed in
+	--- 12.1.5, and the wiki quotes the migration as `GetItemCooldown =
+	--- C_Item.GetItemCooldown`. We now call the C_Item form first with the bare global as
+	--- fallback, but NOBODY HAS SEEN either of them on a 12.1.5 client. One /mh ptr on the
+	--- PTR settles both at once: if the bare one is present the removal has not landed in
+	--- this build, and if the C_Item one is absent our migration target is wrong.
+	"GetItemCooldown",
 	-- Not additions: the two names on the line where Zygor 9.6 dies on 12.1.5
 	-- (PetBattle.lua:27). I claimed that morning that `UIModeUtil.IsModeActive` had been
 	-- removed; the first run measured it present, so that claim was wrong and something
@@ -145,7 +152,11 @@ local ADDED_GLOBALS = {
 --- survives and a member of it did not. MH uses neither name (0 hits, positive control
 --- in the same run), but "which members does it still have" is the shape of question
 --- this probe should answer for any table, and this is a live example of why.
-local WATCH_TABLES = { "UIModeUtil", "C_UnitAuras", "PixelUtil" }
+--- ⚠️ `C_Item` added 5 Sep 2026: it is the migration target for every ItemScript global
+--- 12.1.5 removes, and enumerating it answers "is GetItemCooldown really there" without
+--- having to ask about a name we picked ourselves. Listing beats guessing — the whole
+--- reason this table exists.
+local WATCH_TABLES = { "UIModeUtil", "C_UnitAuras", "PixelUtil", "C_Item" }
 
 --- @return table
 local function ProbeGlobals()

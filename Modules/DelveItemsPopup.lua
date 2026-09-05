@@ -272,8 +272,11 @@ local function GetDelveItemCooldownRemaining(itemID)
 	if not itemID then
 		return 0
 	end
-	local start, duration, enabled = GetItemCooldown(itemID)
-	if enabled ~= 0 and start and start > 0 and duration and duration > 1.5 then
+	--- ⚠️ Through ns.GetItemCooldownSafe since 5 Sep 2026: the bare global is removed in
+	--- 12.1.5, and calling it here would throw one line ABOVE the C_Container fallback
+	--- written below — so that fallback could never have run. It can now.
+	local start, duration, enabled = ns.GetItemCooldownSafe(itemID)
+	if enabled ~= nil and enabled ~= 0 and start and start > 0 and duration and duration > 1.5 then
 		local remaining = duration - (GetTime() - start)
 		if remaining > 0.5 then
 			return remaining

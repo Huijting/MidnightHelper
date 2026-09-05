@@ -276,6 +276,49 @@ ns.MIDNIGHT_PORTALS = MIDNIGHT_PORTALS
 --- you never find; here, showing a portal that is not there sends you to a blank wall
 --- and makes every other direction we give look untrustworthy. The cheap failure is a
 --- portal we forget to offer, not one we invent.
+--- 🔴 `GetItemCooldown` IS REMOVED IN 12.1.5 — API watch, 5 Sep 2026.
+---
+--- The 12.1.5 wiki page gained a "Deprecated API" section overnight listing what the ten
+--- `Blizzard_Deprecated*` addons contain, and `GetItemCooldown` is in ItemScript's. We
+--- called it BARE in three places: `Delves.lua` twice for the hearthstone cooldown in the
+--- travel popup, and `DelveItemsPopup.lua:275`. No guard, no pcall, no fallback — so on
+--- 12.1.5 that is "attempt to call a nil value", a real error rather than a quiet nothing.
+---
+--- ⚠️ `DelveItemsPopup` has a complete C_Container fallback directly BELOW its call, which
+--- would never have been reached: the error lands on the line above it. A fallback behind
+--- the crash is not a fallback.
+---
+--- 📌 The migration is QUOTED, not invented: the source writes `GetItemCooldown =
+--- C_Item.GetItemCooldown`. But `C_Item.GetItemCooldown` has NOT been verified in a client
+--- yet, so this tries it FIRST and keeps the bare global as the second branch — the same
+--- shape the other seven ItemScript globals in this addon already use, and the reason 12.1.0
+--- keeps working unchanged today.
+---
+--- Returns nil when neither exists, which every caller must treat as "unknown", never as
+--- "no cooldown".
+--- @param itemID number
+--- @return number|nil start, number|nil duration, number|nil enabled
+function ns.GetItemCooldownSafe(itemID)
+	itemID = tonumber(itemID)
+	if not itemID then
+		return nil
+	end
+	if C_Item and C_Item.GetItemCooldown then
+		local ok, a, b, c = pcall(C_Item.GetItemCooldown, itemID)
+		if ok then
+			return a, b, c
+		end
+	end
+	local bare = rawget(_G, "GetItemCooldown")
+	if type(bare) == "function" then
+		local ok, a, b, c = pcall(bare, itemID)
+		if ok then
+			return a, b, c
+		end
+	end
+	return nil
+end
+
 --- 🔴 ASK THE ACCOUNT FIRST — Rob, 4 Sep 2026: "die hebben we ontlocked met de prey 2
 --- seizoen questlijn, en die is account wijd".
 ---
@@ -1515,7 +1558,7 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		end
 
 		travelPopup.portalBtn:Hide()
-		local hsStartTime = GetItemCooldown(6948)
+		local hsStartTime = ns.GetItemCooldownSafe(6948)
 		local portalAdvice, bestDist = "", 9999
 		local hubMapID = 2393
 		local directPortal, hubPortal = nil, nil
@@ -1683,7 +1726,7 @@ function ns.ShowTravelAssistFor(targetMap, xPct, yPct, title)
 		local py = select(2, playerPos:GetXY()) * 100
 
 		travelPopup.portalBtn:Hide()
-		local hsStartTime = GetItemCooldown(6948)
+		local hsStartTime = ns.GetItemCooldownSafe(6948)
 		local portalAdvice, bestDist = "", 9999
 		local hubMapID = 2393
 		local directPortal, hubPortal = nil, nil
