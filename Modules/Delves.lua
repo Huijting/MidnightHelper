@@ -3858,7 +3858,17 @@ function ns:ShowTravelPopup(targetMapName, extraInfo)
 	local showTele, showPortal = false, false
 	if select(2, UnitClass("player")) == "MAGE" then
 		local cm = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
-		local reg = (cm and ns.GetRegionGroupID and ns.GetRegionGroupID(cm)) or 0
+		--- 🔴 THE EFFECTIVE REGION, NOT THE BARE ONE — 5 Sep 2026, found while answering
+		--- Rob's question about the mage buttons. This asked `GetRegionGroupID(cm)`, which
+		--- returns 1 for the WHOLE of canvas 2576 because Silvermoon is its default slice. So
+		--- a mage standing in The Den — Harandar, on that same canvas — was read as "already
+		--- in the hub region" and offered neither spell, at the one moment they are most
+		--- useful.
+		---
+		--- 📌 Third time this exact mistake has surfaced: `GetTargetRegionGroupID` on 4 Sep,
+		--- `GetBaseZoneName` an hour ago, and now here. Anything on 2576 needs the x.
+		local cmHub = ns.GetPlayerHubContext and select(1, ns.GetPlayerHubContext(cm)) or nil
+		local reg = (cm and ns.GetEffectiveRegionGroupID and ns.GetEffectiveRegionGroupID(cm, cmHub)) or 0
 		if reg ~= 1 and type(IsPlayerSpell) == "function" then
 			if IsPlayerSpell(MAGE_TELEPORT_SMC) then
 				local n = MageSpellName(MAGE_TELEPORT_SMC)
