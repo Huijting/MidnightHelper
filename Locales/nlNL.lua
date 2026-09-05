@@ -571,6 +571,7 @@ ns._mhLocales.nlNL = {
 	PLAN_KIND_WALK = "Ga naar:",
 	PLAN_KIND_ARRIVE = "Aankomst:",
 	PLAN_DETAIL_FLY_TO = "de dichtstbijzijnde flight point daar",
+	PLAN_DETAIL_CAPITAL_PORTAL = "de portaalkamer daar gaat naar Silvermoon",
 	PLAN_OPT_NORTHERN_BULWARK = "kies \"Fly me to the Northern Amani Bulwark\"",
 	PLAN_OPT_EASTERN_OUTPOST = "kies \"Fly me to the Eastern Amani Outpost\"",
 	PLAN_NOTE_WINDCALLER = "De Windcallers zijn een gesprek, geen flight master - er is geen speld op de kaart om aan te klikken, je praat met ze.",

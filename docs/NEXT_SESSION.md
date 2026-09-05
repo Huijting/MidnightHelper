@@ -289,6 +289,34 @@ zelf (`Delves.lua`, boven `portalBtn:SetScript("OnClick", …)`).
 niet bij de knop. Wil je het zuiver zien, wacht dan >2 minuten (de throttle) na die klik en druk
 dán pas op de portaalknop — er hoort niets te komen.
 
+### ✅ 5 sep — Dornogal, en Robs ontwerpvraag beantwoord zonder één nieuwe coördinaat
+
+Rob liep *"even eigenwijs"* met zijn 70 naar **Dornogal** en vroeg een delve-route. Zelfde
+doodlopende antwoord als in The Azure Span: *"head for Sanctum of Light"*. En hij stelde meteen de
+goede vraag: *"kunnen we dit soort problemen niet afhandelen zonder allerlei testen te doen voor
+coords ed, of wordt de addon dan wel heel erg belast?"*
+
+**Nee, dat kost niets, en meer coördinaten was ook het verkeerde antwoord.** Twee reparaties, allebei
+zonder nieuwe data:
+
+1. 🔴 **De vlieg-terugval vroeg nooit of je er wel héén kunt vliegen.** Sanctum of Light is een echte
+   flight point en volstrekt onbruikbaar vanuit Dornogal of de Dragon Isles. `ns.IsCrossContinentTarget`
+   bestond al en was al gemeten; de terugval riep hem simpelweg niet aan. Nu wel — en dit is de
+   werkelijke oorzaak van *beide* meldingen van vandaag.
+2. ✅ **"Ga naar je hoofdstad" is het enige antwoord dat géén kaartdata nodig heeft.** Elke weg naar
+   Midnight loopt via een hoofdstad, iedereen kan zijn eigen hoofdstad al bereiken, en zodra je er
+   staat neemt `MIDNIGHT_PORTALS` het over. De stap is dus een **naam**, geen plek: geen rij per
+   expansie-hub, niets te hermeten als Blizzard een portaal verplaatst.
+
+📌 **De naam komt uit `C_Map.GetMapInfo`**, dus hij klopt in alle zeven talen zonder eigen vertaling.
+Faliekant misgaan kan niet: lukt de lookup niet, dan komt er **geen** stap — zwijgen is wat dit
+bestand sowieso verkiest boven een geraden hop.
+
+⚠️ **Alleen 84 en 85 staan in `FactionCapitalMap()`.** 85 (Orgrimmar) is gemeten uit Robs eigen
+`/mh coord`; 84 (Stormwind City) is het bekende partner-id en **niet** los gemeten — daarom leest de
+aanroeper de naam terug en laat de stap vallen als die leeg is. Een fout id kost dan een ontbrekende
+hint, nooit een verkeerde bestemming. Neutrale pandaren krijgen niets.
+
 ### 🔴 OPEN — The Den: de pijl raakt van slag zolang je binnen bent
 
 Rob, 5 sep, opnieuw: *"The Den is nog een drama, alleen als ik eruit vlieg gaat de pijl weer terug

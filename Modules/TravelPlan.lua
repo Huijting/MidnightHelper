@@ -131,6 +131,30 @@ local INSIDE = {
 --- means something different from the other map ids in this file.
 local MIDNIGHT_HUB_MAP = 2393
 
+--- The player's own capital, as a map id.
+---
+--- ⚠️ TWO IDS AND NOTHING ELSE, on purpose. 85 is Orgrimmar -- measured 5 Sep 2026 from
+--- Rob's own `/mh coord`, which reported map 85 while he stood in it. 84 is Stormwind City,
+--- the long-standing partner id and NOT independently measured; that is why the caller reads
+--- the NAME back from `C_Map.GetMapInfo` and drops the whole step when the lookup comes back
+--- empty. A wrong id then costs a missing hint, never a wrong destination.
+--- @return number|nil
+local function FactionCapitalMap()
+	if not UnitFactionGroup then
+		return nil
+	end
+	local ok, f = pcall(UnitFactionGroup, "player")
+	if not ok then
+		return nil
+	end
+	if f == "Horde" then
+		return 85
+	elseif f == "Alliance" then
+		return 84
+	end
+	return nil -- Neutral pandaren, or a read we could not make: say nothing.
+end
+
 local function PlayerMap()
 	if C_Map and C_Map.GetBestMapForUnit then
 		local ok, m = pcall(C_Map.GetBestMapForUnit, "player")
@@ -317,7 +341,21 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 		--- coordinates describe a point on it; one map further out they would be numbers
 		--- from the wrong space, and a confidently wrong stop is worse than an arbitrary
 		--- one. So the guess stays where it cannot be improved.
-		if #steps == 0 and ns.GetNearestFlightPoint then
+		--- 🔴 YOU CANNOT FLY TO ANOTHER CONTINENT, AND THIS STEP KEPT SAYING YOU COULD.
+		--- Rob, 5 Sep 2026, twice from two different places: standing in The Azure Span and
+		--- then in Dornogal, routing to a Midnight delve, and being told "head for Sanctum of
+		--- Light" -- a flight master in Silvermoon, on a continent no taxi from either place
+		--- reaches. The advice was a real flight point and completely unusable.
+		---
+		--- 📌 The fix costs no new data. `ns.IsCrossContinentTarget` already exists and is
+		--- already measured; the flight fallback simply never asked it. Nothing about
+		--- "which capital, which portal, what coordinate" enters into it.
+		local crossContinent = false
+		if ns.IsCrossContinentTarget then
+			local okC, v = pcall(ns.IsCrossContinentTarget, here, outermost, x, y)
+			crossContinent = (okC and v) and true or false
+		end
+		if #steps == 0 and not crossContinent and ns.GetNearestFlightPoint then
 			local fx, fy
 			if outermost == targetMap then
 				fx, fy = x, y
@@ -330,6 +368,42 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 					detail = "PLAN_DETAIL_FLY_TO",
 					source = "FLIGHT_POINTS",
 				}
+			end
+		end
+
+		--- 🔴 "GO TO YOUR CAPITAL" — THE ONE ANSWER THAT NEEDS NO MAP DATA AT ALL.
+		---
+		--- Rob asked the design question outright after the Dornogal case: *"kunnen we dit
+		--- soort problemen niet afhandelen zonder allerlei testen te doen voor coords ed?"*
+		--- Yes. Every road into Midnight runs through a capital, every player can already
+		--- reach their own capital from anywhere, and MIDNIGHT_PORTALS takes over the moment
+		--- they are standing in it. So the step that closes the hole is a NAME, not a place:
+		--- no per-capital coordinate, no table that grows by one row per expansion hub, and
+		--- nothing to re-measure when Blizzard moves a portal.
+		---
+		--- ⚠️ The capital's name is read from the client (`C_Map.GetMapInfo`), so it is
+		--- correct in all seven languages without a translation of its own. If that lookup
+		--- fails we add NOTHING -- an unnamed "go to your capital" is worse than the silence
+		--- this file already prefers to a guessed hop.
+		---
+		--- 📌 Only for a target inside Midnight, asked of `ns.GetTargetRegionGroupID` like the
+		--- hub-portal rule above. Region 0 is "we do not know", and a player routing to some
+		--- old-world rare must not be sent to Orgrimmar.
+		if #steps == 0 and crossContinent and ns.GetTargetRegionGroupID then
+			local okR, region = pcall(ns.GetTargetRegionGroupID, targetMap, x)
+			if okR and region and region ~= 0 then
+				local capitalMap = FactionCapitalMap()
+				local info = capitalMap and C_Map and C_Map.GetMapInfo
+					and C_Map.GetMapInfo(capitalMap) or nil
+				if info and info.name and info.name ~= "" then
+					steps[#steps + 1] = {
+						kind = "walk",
+						mapID = capitalMap,
+						label = info.name,
+						detail = "PLAN_DETAIL_CAPITAL_PORTAL",
+						source = "faction",
+					}
+				end
 			end
 		end
 		startAt = #chain
