@@ -232,6 +232,27 @@ Midnight-doel — als hub-portaal ook naar Harandar en Voidstorm.
 tot iemand hem meet; het paar "netjes" maken door de Alliance-kant te raden is precies de fout waar
 dit bestand vol commentaar over staat.
 
+#### ✅ 5 sep, direct erna: de reisplanner kende het hub-portaal niet, de popup wél
+
+Rob stond in Orgrimmar, klikte een delve in **Eversong Woods** aan. De popup had gelijk (*"Use:
+Portal to Silvermoon (105yd)"*) — **de pijl stuurde hem 354 m naar de flight master van
+Orgrimmar**. Vanuit Orgrimmar kun je niet naar Eversong vliegen.
+
+📌 **Twee antwoorden op één vraag op één scherm, en de verkeerde tekende de pijl.** Oorzaak: de
+popup in `Delves.lua` accepteert al een portaal naar de **hub** als er geen portaal recht naar het
+doel gaat (`hubPortal`); `BuildTravelPlan` deed dat niet — die eist `p.toID == outermost`, en niets
+gaat naar Eversong. Plan leeg → `RouteFirstToFlightPoint` zag geen eerste stap om voor te wijken →
+vlieg-heuristiek won.
+
+✅ **Gerepareerd in `TravelPlan.lua`**: als geen portaal rechtstreeks naar het doel gaat, telt een
+portaal op je huidige kaart naar **Silvermoon (2393)** ook als stap — maar alleen als het doel écht
+in Midnight ligt, gevraagd aan `ns.GetTargetRegionGroupID` (regio 0 = onbekend = geen portaal).
+Dezelfde functie die de levelwaarschuwing en de reisonderdrukking al gebruiken, geen tweede idee
+van waar Midnight ligt.
+
+⚠️ **Dit is dezelfde vorm als de fout van vanmiddag**: twee implementaties van één vraag, waarvan de
+kortste het slechtere antwoord uitstuurt. Staat als waarschuwing al in `DelveTipMarkup.lua:274`.
+
 ### 🔴 OPEN — The Den: de pijl raakt van slag zolang je binnen bent
 
 Rob, 5 sep, opnieuw: *"The Den is nog een drama, alleen als ik eruit vlieg gaat de pijl weer terug

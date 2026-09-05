@@ -126,6 +126,11 @@ local INSIDE = {
 	[2509] = 2512, -- the Vaults sit on the Coiled Isle
 }
 
+--- Silvermoon City: where every road into Midnight arrives, and the only map the
+--- portals from outside lead to. Named rather than repeated as a bare 2393, because it
+--- means something different from the other map ids in this file.
+local MIDNIGHT_HUB_MAP = 2393
+
 local function PlayerMap()
 	if C_Map and C_Map.GetBestMapForUnit then
 		local ok, m = pcall(C_Map.GetBestMapForUnit, "player")
@@ -240,19 +245,49 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 				end
 			end
 			local best, bestDist
+			local function Consider(p)
+				local d
+				if pxp and p.x and p.y then
+					-- Portal coords are 0-100, the player position 0-1.
+					local dx = (p.x / 100) - pxp
+					local dy = (p.y / 100) - pyp
+					d = dx * dx + dy * dy
+				end
+				if not best then
+					best, bestDist = p, d
+				elseif d and (not bestDist or d < bestDist) then
+					best, bestDist = p, d
+				end
+			end
 			for _, p in ipairs(ns.MIDNIGHT_PORTALS) do
 				if p.toID == outermost and p.mapID == here and ns.MHPortalUsable(p) then
-					local d
-					if pxp and p.x and p.y then
-						-- Portal coords are 0-100, the player position 0-1.
-						local dx = (p.x / 100) - pxp
-						local dy = (p.y / 100) - pyp
-						d = dx * dx + dy * dy
-					end
-					if not best then
-						best, bestDist = p, d
-					elseif d and (not bestDist or d < bestDist) then
-						best, bestDist = p, d
+					Consider(p)
+				end
+			end
+			--- 🔴 A PORTAL TO THE HUB IS STILL A STEP — 5 Sep 2026, and this is the half the
+			--- travel popup already had and the planner did not.
+			---
+			--- Rob, standing in Orgrimmar, routed to a delve in Eversong Woods. The popup got
+			--- it right ("Use: Portal to Silvermoon, 105yd") because it accepts a portal to the
+			--- HUB when no portal goes straight to the target. This loop only accepts
+			--- `toID == outermost`, and nothing goes to Eversong -- so the plan came back
+			--- empty, RouteFirstToFlightPoint saw no first step to defer to, and pointed him
+			--- 354 m at the Orgrimmar flight master. You cannot fly from Orgrimmar to
+			--- Eversong. Two answers to one question on one screen, and the wrong one was the
+			--- one drawing the arrow.
+			---
+			--- 📌 Gated on the target actually being IN Midnight, asked of
+			--- `ns.GetTargetRegionGroupID` -- the same function the level warning and the
+			--- travel suppression already use, rather than a second idea of where Midnight is.
+			--- Region 0 means "we do not know", and an unknown target must not be handed a
+			--- portal to Silvermoon.
+			if not best and ns.GetTargetRegionGroupID and targetMap ~= MIDNIGHT_HUB_MAP then
+				local okR, region = pcall(ns.GetTargetRegionGroupID, targetMap, x)
+				if okR and region and region ~= 0 then
+					for _, p in ipairs(ns.MIDNIGHT_PORTALS) do
+						if p.toID == MIDNIGHT_HUB_MAP and p.mapID == here and ns.MHPortalUsable(p) then
+							Consider(p)
+						end
 					end
 				end
 			end
