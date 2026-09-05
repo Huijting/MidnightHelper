@@ -134,6 +134,14 @@ local function SetQMWaypoint(qm)
 	if C_AddOns and C_AddOns.LoadAddOn and C_AddOns.IsAddOnLoaded and not C_AddOns.IsAddOnLoaded("TomTom") then
 		pcall(C_AddOns.LoadAddOn, "TomTom")
 	end
+	--- ⚠️ This route does NOT go through ns.AddSmartTomTomWay, so the level warning that
+	--- lives there would never fire for a quartermaster. Measured 5 Sep: six places set
+	--- their own waypoint and skip that door. Warning here keeps "route to something you
+	--- cannot use yet" consistent across the addon instead of covering 24 modules and
+	--- quietly missing these.
+	if ns.WarnZoneLevelIfNeeded then
+		pcall(ns.WarnZoneLevelIfNeeded, qm.map, qm.x, qm.who)
+	end
 	local slashWay = SlashCmdList and SlashCmdList["TOMTOM_WAY"]
 	if type(slashWay) == "function" then
 		pcall(slashWay, ("#%d %.2f %.2f %s"):format(qm.map, qm.x, qm.y, qm.who or "Quartermaster"))

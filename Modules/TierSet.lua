@@ -249,6 +249,11 @@ local function SetCatalystWaypoint()
 	if C_AddOns and C_AddOns.LoadAddOn and C_AddOns.IsAddOnLoaded and not C_AddOns.IsAddOnLoaded("TomTom") then
 		pcall(C_AddOns.LoadAddOn, "TomTom")
 	end
+	-- ⚠️ Own waypoint, so ns.AddSmartTomTomWay's level warning never sees this one. See
+	-- the note in CurrencyGuide: six places bypass that door and each needs the call.
+	if ns.WarnZoneLevelIfNeeded then
+		pcall(ns.WarnZoneLevelIfNeeded, CATALYST.map, CATALYST.x, name)
+	end
 	local slashWay = SlashCmdList and SlashCmdList["TOMTOM_WAY"]
 	if type(slashWay) == "function" then
 		pcall(slashWay, ("#%d %.2f %.2f %s"):format(CATALYST.map, CATALYST.x, CATALYST.y, name))
