@@ -38,7 +38,49 @@ kale global daar al weg is.
 `Blizzard_DeprecatedItemSocketInfo` (de nu gepubliceerde lijst telt dertien functies en hij staat er
 niet bij). Dat bevestigt wat we 4 sep op de PTR maten; het "verdacht op grond van de naam" mag weg.
 
-## 🔴 VOOR MORGEN (5 sep) — MH stuurt lage levels naar dingen die ze niet kunnen doen
+## ✅ 5 sep — de level-waarschuwing is er, optie A, en opvallend
+
+Rob koos **A** (waarschuwen, route wél zetten) met één aanvulling: *"maar opvallend waarschuwen!!"*
+en *"een soort overal MH check, van hé je bent nog niet hoog genoeg om daarheen te gaan"*.
+
+`Modules/ZoneLevelGate.lua` haakt in op **`ns.AddSmartTomTomWay`** — de deur waar vrijwel elke
+route doorheen gaat, dus één plek in plaats van 29. De route wordt gewoon gezet; er komt een
+**toast van 20 seconden** bij plus een chatregel om terug te vinden.
+
+📌 **De drempel komt uit `ns.GetTargetRegionGroupID`**, dezelfde functie die 4 sep gerepareerd is —
+inclusief de x-slice op canvas 2576. Geen tweede kaarttabel die van de eerste kan afdrijven.
+
+**Wat online gemeten is (Rob vroeg erom):**
+| | level |
+|---|---|
+| Midnight intro-questlijn | **78** (twee onafhankelijke bronnen) |
+| Eversong Woods | 80-82 |
+| Zul'Aman · Harandar | 82-88 |
+| Voidstorm | 88-90 |
+| eindlevel | 90 |
+
+⚠️ **De drempel is per REGIO en bewust de laagste van die regio** (Quel'Thalas 80, Harandar 82,
+Voidstorm 88). Een per-zone tabel zou map-ID's vereisen die we NIET rond hebben —
+`GetBaseZoneName(2395)` antwoordt nog altijd "Zul'Aman" voor wat op Eversong lijkt, open sinds
+augustus.
+
+🔴 **NIET GEMETEN: houdt het spel je fysiek tegen?** Dat staat sinds 3 sep als open vraag in
+`TESTLIJST.md`. Daarom zegt de tekst *"dit gebied is afgestemd op level X en jij bent Y"* en nooit
+*"je kunt daar niet heen"* — dat laatste kan de speler ter plekke weerleggen door binnen te lopen.
+
+⚠️ **Throttled per doelzone (120 s)**, want een bulk-route publiceert een dozijn waypoints tegelijk
+en een dozijn identieke toasts leert je ze weg te klikken zonder te lezen.
+
+📌 **INTREKKING van mijn eigen advies van 4 sep.** Ik noemde `CHANGELOG_260_3` "aantoonbaar onwaar"
+en zei dat hij hoe dan ook opgelost moest. Bij herlezing gaat die zin over **Home / Next up** ("Home
+now leads with 'Next up' … **it** never points you at endgame content"), en dáár klopt hij sinds
+3 sep. Ik las er een addon-brede belofte in die er niet staat. Bovendien is het een changelog-regel
+van 2.6.0 — een historisch verslag, geen lopende garantie. **Niet aanpassen.**
+
+`/mh zonegate` toont per regio wat deze character zou krijgen, ook op max level waar hij nooit
+vuurt.
+
+## 🗄️ AFGEHANDELD 5 sep — MH stuurt lage levels naar dingen die ze niet kunnen doen
 
 Rob, 4 sep laat, expliciet gevraagd om te onthouden: *"ik kan met lagere levels in mh toch routes
 krijgen voor dingen die ik nog helemaal niet kan doen — dit onthouden, doe er nu niks mee."*

@@ -2110,6 +2110,11 @@ ns._mhLocales.nlNL = {
 	DUNDUN_CHAT_MACRO = "Kun je hem niet vinden? Maak een macro met |cffffff00/cleartarget|r en dan |cffffff00/target Dundun|r.",
 	DUNDUN_CHAT_SHARDS_FMT = "Je hebt %d Coffer Key Shards — nog %d en het spel maakt er bij binnenkomst vanzelf een key van.",
 
+	-- Zone level gate. "Midnight" is Blizzards uitbreidingsnaam en blijft Engels.
+	ZONEGATE_TITLE_FMT = "Dat gebied begint op level %d",
+	ZONEGATE_BODY_FMT = "%s is afgestemd op level %s en jij bent %d. Kijken kan gewoon, maar de vijanden daar zijn ver boven je.",
+	ZONEGATE_STILL_ROUTED = "De route staat er toch — de plek opzoeken is op elk level nuttig.",
+
 	DUNDUN_PANEL_TITLE = "Bountiful delves — Dundun",
 	DUNDUN_PANEL_BODY = "In een Bountiful delve verstopt Dundun zich als een houten nepboom — planken en schroeven, geschilderde bladeren, getimmerd in plaats van gegroeid. Hem vinden en aanspreken is gratis en levert extra beloning op aan het eind. Die extra kist ópenen kan een tweede Restored Coffer Key kosten.",
 	DUNDUN_PANEL_KEYS_OK_FMT = "Je hebt %d Restored Coffer Keys en %d shards — genoeg voor de extra kist.",

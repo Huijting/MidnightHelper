@@ -258,6 +258,7 @@ Modules\DailyTip.lua
 Modules\WeeklyHubProbe.lua
 Modules\AtalUtekProbe.lua
 Modules\AchievementFind.lua
+Modules\ZoneLevelGate.lua
 Modules\DundunShrine.lua
 Modules\ApiProbe.lua
 Modules\PtrProbe.lua

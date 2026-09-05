@@ -2434,6 +2434,11 @@ ns._mhLocales.enUS = {
 	DUNDUN_CHAT_MACRO = "Can't find him? Make a macro with |cffffff00/cleartarget|r then |cffffff00/target Dundun|r.",
 	DUNDUN_CHAT_SHARDS_FMT = "You have %d Coffer Key Shards — %d more and the game turns them into a key by itself when you enter.",
 
+	-- Zone level gate. "Midnight" is Blizzard's expansion name and stays English.
+	ZONEGATE_TITLE_FMT = "That area starts at level %d",
+	ZONEGATE_BODY_FMT = "%s is tuned for level %s and you are %d. You can still go and look, but the enemies there are well above you.",
+	ZONEGATE_STILL_ROUTED = "The route is set anyway — finding the spot is useful at any level.",
+
 	DUNDUN_PANEL_TITLE = "Bountiful delves — Dundun",
 	DUNDUN_PANEL_BODY = "In a Bountiful delve, Dundun hides as a wooden fake tree — planks and screws, painted leaves, built rather than grown. Finding him and talking to him is free and adds an extra reward at the end. Opening the extra chest can cost a second Restored Coffer Key.",
 	DUNDUN_PANEL_KEYS_OK_FMT = "You have %d Restored Coffer Keys and %d shards — enough for the extra chest.",

@@ -1687,6 +1687,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh zonegate — which regions would warn this character, and why. Silent at max
+	-- level, so it needs a way to show the silence is deliberate.
+	if msg == "zonegate" then
+		if ns.PrintZoneLevelGate then
+			ns.PrintZoneLevelGate()
+		end
+		return
+	end
+
 	-- /mh dundun — is the Shrine of Abundance in this delve, and what would it cost?
 	-- Prints the reason even when the answer is "nothing to say", because saying
 	-- nothing is the normal outcome and correct silence must be visible.

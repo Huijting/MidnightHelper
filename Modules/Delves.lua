@@ -1441,6 +1441,19 @@ function ns.AddSmartTomTomWay(mapID, x, y, name, skipTravelUI, skipCrazyArrow, t
 		leg = ns._mhTravelLegBusy and true or nil,
 	}
 
+	--- 🔴 THE ONE DOOR EVERY ROUTE GOES THROUGH — 5 Sep 2026. Rob, on his level-68
+	--- Paladin: "ik kan met lagere levels in mh toch routes krijgen voor dingen die ik nog
+	--- helemaal niet kan doen." 29 modules can set a route and 2 knew about the level gate;
+	--- they nearly all arrive here, so this is where the check belongs rather than in 29
+	--- places that would drift apart.
+	---
+	--- Option A, his choice: warn but STILL ROUTE. Looking up where something stands is
+	--- useful at any level. ⚠️ Not for an intermediate hop -- warning about the flight
+	--- master you were sent to on the way is noise about a step the player did not ask for.
+	if not ns._mhTravelLegBusy and ns.WarnZoneLevelIfNeeded then
+		pcall(ns.WarnZoneLevelIfNeeded, targetMap, xPct, title)
+	end
+
 	-- 1. Waypoint: TomTom arrow when available, else Blizzard user waypoint + SuperTrack.
 	-- Skipped entirely for travelOnly refreshes, so the existing arrow is untouched.
 	if not travelOnly then
