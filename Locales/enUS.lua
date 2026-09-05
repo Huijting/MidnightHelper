@@ -2438,7 +2438,8 @@ ns._mhLocales.enUS = {
 	ZONEGATE_TITLE_FMT = "That area starts at level %d",
 	ZONEGATE_BODY_FMT = "%s is tuned for level %s and you are %d. You can still go and look, but the enemies there are well above you.",
 	ZONEGATE_STILL_ROUTED = "The route is set anyway — finding the spot is useful at any level.",
-	ZONEGATE_BLOCKED = "No route set — you asked Midnight Helper to hold you back below the level. Settings -> Route arrow to change it.",
+	LEVELBAR_BELOW_ENTRY_FMT = "Midnight Helper is built for level %d and up — you are %d. Everything still opens; most of it is a map for later.",
+	ZONEGATE_BLOCKED ="No route set — you asked Midnight Helper to hold you back below the level. Settings -> Route arrow to change it.",
 	SET_ZONEGATE_BLOCK_TITLE = "Don't route into zones above my level",
 	SET_ZONEGATE_BLOCK_DESC = "Off by default: you get the warning and the route. Turn on and Midnight Helper refuses the route as well, and says so. The warning itself is always shown.",
 

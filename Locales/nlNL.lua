@@ -2114,7 +2114,8 @@ ns._mhLocales.nlNL = {
 	ZONEGATE_TITLE_FMT = "Dat gebied begint op level %d",
 	ZONEGATE_BODY_FMT = "%s is afgestemd op level %s en jij bent %d. Kijken kan gewoon, maar de vijanden daar zijn ver boven je.",
 	ZONEGATE_STILL_ROUTED = "De route staat er toch — de plek opzoeken is op elk level nuttig.",
-	ZONEGATE_BLOCKED = "Geen route gezet — je hebt Midnight Helper gevraagd je onder dit level tegen te houden. Instellingen -> Route-pijl om dat te wijzigen.",
+	LEVELBAR_BELOW_ENTRY_FMT = "Midnight Helper is gemaakt voor level %d en hoger — jij bent %d. Alles blijft open; het meeste is een kaart voor later.",
+	ZONEGATE_BLOCKED ="Geen route gezet — je hebt Midnight Helper gevraagd je onder dit level tegen te houden. Instellingen -> Route-pijl om dat te wijzigen.",
 	SET_ZONEGATE_BLOCK_TITLE = "Geen route naar gebieden boven mijn level",
 	SET_ZONEGATE_BLOCK_DESC = "Standaard uit: je krijgt de waarschuwing én de route. Zet je hem aan, dan weigert Midnight Helper de route ook, en zegt dat erbij. De waarschuwing zelf zie je altijd.",
 

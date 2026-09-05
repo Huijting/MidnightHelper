@@ -134,14 +134,14 @@ local function SetQMWaypoint(qm)
 	if C_AddOns and C_AddOns.LoadAddOn and C_AddOns.IsAddOnLoaded and not C_AddOns.IsAddOnLoaded("TomTom") then
 		pcall(C_AddOns.LoadAddOn, "TomTom")
 	end
-	--- ⚠️ This route does NOT go through ns.AddSmartTomTomWay, so the level warning that
-	--- lives there would never fire for a quartermaster. Measured 5 Sep: six places set
-	--- their own waypoint and skip that door. Warning here keeps "route to something you
-	--- cannot use yet" consistent across the addon instead of covering 24 modules and
-	--- quietly missing these.
-	if ns.WarnZoneLevelIfNeeded then
-		local okGate, blocked = pcall(ns.WarnZoneLevelIfNeeded, qm.map, qm.x, qm.who)
-		if okGate and blocked then
+	--- Through the shared door rather than a second route path of its own — see the note in
+	--- OmniumFolio. This one carried the level warning correctly from 5 Sep, but it was
+	--- still a private copy of the routing that had to be taught each thing separately;
+	--- ns.AddSmartTomTomWay brings the warning, the travel plan and the arrow with it. The
+	--- slash/native path below stays as a fallback for when Delves.lua is absent.
+	if ns.AddSmartTomTomWay then
+		local okWay = pcall(ns.AddSmartTomTomWay, qm.map, qm.x, qm.y, qm.who or "Quartermaster")
+		if okWay then
 			return
 		end
 	end

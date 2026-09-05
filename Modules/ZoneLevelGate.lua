@@ -60,6 +60,15 @@ local REGION_BAND = {
 	[3] = "88-90",
 }
 
+--- Where Midnight itself starts, as opposed to where a region is tuned.
+---
+--- ⚠️ DELIBERATELY NOT THE SAME NUMBER as REGION_MIN_LEVEL[1] above, and the difference is
+--- the point: 80 is Blizzard's own announcement for when Eversong/Silvermoon are tuned, and
+--- 78 is where the intro questline opens, from two guide sources read in full plus Rob's own
+--- reading ("volgens mij klopt dat ook"). Flattening them to one number would either warn
+--- too early about zones or claim the intro is closed when it is not.
+ns.MidnightEntryLevel = 78
+
 --- @return number|nil level, nil when it cannot be read
 local function PlayerLevel()
 	if not UnitLevel then
@@ -186,6 +195,90 @@ function ns.WarnZoneLevelIfNeeded(mapID, xPct, targetName)
 	print(("%s |cffff8844%s|r"):format(PREFIX, body))
 	print("  " .. ns:L(blocking and "ZONEGATE_BLOCKED" or "ZONEGATE_STILL_ROUTED"))
 	return blocking
+end
+
+--- `/mh zonegate test` — fire the real warning on demand, and MEASURE the sound.
+---
+--- 🔴 Rob, 5 Sep: *"ik hoor geen geluid als er de toast komt."* The toast asks for
+--- SOUNDKIT.READY_CHECK, and at least three different faults produce that same silence: the
+--- constant not existing on this client, PlaySound refusing to queue it, or it playing and
+--- being inaudible. Each guess costs a reload, so this prints what every step actually
+--- returned instead of what it was supposed to.
+---
+--- ⚠️ Goes through ns.WarnZoneLevelIfNeeded like the game does -- no test-only branch, or
+--- the test would pass on exactly the build where the real path is broken.
+function ns.TestZoneLevelToast()
+	local id = SOUNDKIT and SOUNDKIT.READY_CHECK
+	print(("%s sound test — SOUNDKIT.READY_CHECK = %s"):format(
+		PREFIX, id and tostring(id) or "|cffff4444missing|r"))
+	if PlaySound and id then
+		local ok, willPlay, handle = pcall(PlaySound, id, "Master")
+		print(("   PlaySound → %s  willPlay=%s  handle=%s"):format(
+			ok and "ran" or "|cffff4444errored|r", tostring(willPlay), tostring(handle)))
+	else
+		print("   |cffff4444PlaySound or the sound id is missing — nothing was even asked for|r")
+	end
+
+	local map = 2393 -- Silvermoon City: region 1, so it warns below level 80
+	if not ns.GetZoneLevelWarning(map, 50) then
+		print("   no toast: this character is at or above level for that region, so there is")
+		print("   nothing to hear. Try it on the low one.")
+		return
+	end
+	-- Clearing the throttle first: a test that silently lands inside the 120-second window
+	-- would look exactly like the bug it is checking for.
+	wipe(warnedFor)
+	ns.WarnZoneLevelIfNeeded(map, 50, "sound test")
+end
+
+--------------------------------------------------------------------------------
+-- The red strip across the top of the window
+--------------------------------------------------------------------------------
+
+--- 🔴 Rob, 5 Sep: *"wanneer iemand onder lvl 78 is een soort rode balk boven aan de addon,
+--- deze addon werkt vooral voor lvl 78 en hoger."* The per-route warning answers "this ONE
+--- destination is above you"; nothing answered "most of this addon is about content you
+--- have not reached". That is a whole-window fact and it belongs in the window.
+---
+--- 📌 What the bar claims is about US, not about the game: "Midnight Helper is built for 78
+--- and up." Whether the game lets a level-70 walk into Silvermoon is still unmeasured (see
+--- the header), and this sentence does not depend on the answer.
+---
+--- ⚠️ Nothing is hidden or disabled. Every tab still opens, every pin still shows. The bar
+--- is a label on the room, not a lock on the door -- the same line the 3 Sep Silvermoon
+--- banner settled on.
+function ns.RefreshMidnightLevelBar()
+	local bar = ns.mhLevelBar
+	if not bar then
+		return
+	end
+	local lvl = PlayerLevel()
+	local need = ns.MidnightEntryLevel or 78
+	-- An unreadable level shows NOTHING. A red bar is a claim about this character, and
+	-- "we could not read your level" is not grounds for one.
+	if not lvl or lvl >= need then
+		bar:Hide()
+		bar:SetHeight(0.01)
+		return
+	end
+	if ns.mhLevelBarText then
+		ns.mhLevelBarText:SetText(ns:L("LEVELBAR_BELOW_ENTRY_FMT"):format(need, lvl))
+	end
+	bar:SetHeight(26)
+	bar:Show()
+end
+
+do
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("PLAYER_ENTERING_WORLD")
+	f:RegisterEvent("PLAYER_LEVEL_UP")
+	f:SetScript("OnEvent", function()
+		-- The bar only exists once the window has been built at least once; before that
+		-- there is nothing to refresh and EnsureMainUI calls this itself.
+		if ns.RefreshMidnightLevelBar then
+			pcall(ns.RefreshMidnightLevelBar)
+		end
+	end)
 end
 
 --- `/mh zonegate` — what would this character be warned about, and why?

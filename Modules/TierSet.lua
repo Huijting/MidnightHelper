@@ -249,11 +249,13 @@ local function SetCatalystWaypoint()
 	if C_AddOns and C_AddOns.LoadAddOn and C_AddOns.IsAddOnLoaded and not C_AddOns.IsAddOnLoaded("TomTom") then
 		pcall(C_AddOns.LoadAddOn, "TomTom")
 	end
-	-- ⚠️ Own waypoint, so ns.AddSmartTomTomWay's level warning never sees this one. See
-	-- the note in CurrencyGuide: six places bypass that door and each needs the call.
-	if ns.WarnZoneLevelIfNeeded then
-		local okGate, blocked = pcall(ns.WarnZoneLevelIfNeeded, CATALYST.map, CATALYST.x, name)
-		if okGate and blocked then
+	-- Through the shared door rather than a second route path of its own — see the note in
+	-- OmniumFolio: the level warning arrived on Rob's screen but TomTom's waypoint did not,
+	-- while ns.AddSmartTomTomWay produced one in the same city in the same session. The
+	-- slash/native path below stays as a fallback for when Delves.lua is absent.
+	if ns.AddSmartTomTomWay then
+		local okWay = pcall(ns.AddSmartTomTomWay, CATALYST.map, CATALYST.x, CATALYST.y, name)
+		if okWay then
 			return
 		end
 	end

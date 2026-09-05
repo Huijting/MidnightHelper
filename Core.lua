@@ -1696,6 +1696,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh zonegate test — fire the warning on demand and measure whether the sound was
+	-- even asked for. Rob heard nothing on 5 Sep and three different faults look alike.
+	if msg == "zonegate test" then
+		if ns.TestZoneLevelToast then
+			ns.TestZoneLevelToast()
+		end
+		return
+	end
+
 	-- /mh dundun — is the Shrine of Abundance in this delve, and what would it cost?
 	-- Prints the reason even when the answer is "nothing to say", because saying
 	-- nothing is the normal outcome and correct silence must be visible.

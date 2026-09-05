@@ -611,7 +611,7 @@ function ns:ApplyCompactMode()
 	end
 	if refs.content then
 		refs.content:ClearAllPoints()
-		refs.content:SetPoint("TOPLEFT", refs.favRow or refs.searchBar, "BOTTOMLEFT", m.sidebarWidth, 0)
+		refs.content:SetPoint("TOPLEFT", refs.levelBar or refs.favRow or refs.searchBar, "BOTTOMLEFT", m.sidebarWidth, 0)
 		refs.content:SetPoint("BOTTOMRIGHT", refs.main, "BOTTOMRIGHT", -MH_MAIN_EDGE.R, MH_MAIN_EDGE.B)
 	end
 	if refs.searchResetBtn and refs.searchResetBtn.SetWidth then
@@ -2455,10 +2455,58 @@ function ns:EnsureMainUI()
 	ns.MHRenderFavRow = MHRenderFavRow
 	MHRenderFavRow()
 
+	--- 🔴 A RED STRIP ACROSS THE WHOLE WINDOW WHILE THE CHARACTER IS TOO LOW.
+	--- Rob, 5 Sep 2026: *"Is het een idee om wanneer iemand onder lvl 78 is standaard een
+	--- soort rode balk boven aan de addon te plakken en zeggen dat deze addon vooral werkt
+	--- voor lvl 78 en hoger?"*
+	---
+	--- 📌 It is the same rule as the Silvermoon banner two days earlier, one level up: an
+	--- answer to "why does so little of this apply to me" belongs in the room where the
+	--- player is standing, not in chat and not one toast at a time. Per-route warnings tell
+	--- you about ONE destination; this tells you about the whole addon, once, without being
+	--- asked. Nothing is hidden or disabled -- every tab still opens.
+	---
+	--- ⚠️ 78 is the MIDNIGHT INTRO level and it is NOT the same number as the level-80 floor
+	--- the Silvermoon banner uses. 80 is Blizzard's own announcement for when Eversong and
+	--- Silvermoon are tuned; 78 is where the intro questline starts, from two guide sources
+	--- read in full, and Rob's own reading agrees. Two different claims with two different
+	--- strengths, so deliberately two numbers rather than one flattened one.
+	---
+	--- ⚠️ Fixed height, always created, hidden with a near-zero height rather than removed:
+	--- the sidebar and content anchor to it, so a bar that appears and disappears must not
+	--- be able to re-lay out the window on a level-up.
+	local levelBar = CreateFrame("Frame", "MidnightHelperLevelBar", main)
+	levelBar:SetPoint("TOPLEFT", favRow, "BOTTOMLEFT", 0, 0)
+	levelBar:SetPoint("TOPRIGHT", favRow, "BOTTOMRIGHT", 0, 0)
+	levelBar:SetHeight(0.01)
+	local levelBarBg = levelBar:CreateTexture(nil, "BACKGROUND")
+	levelBarBg:SetAllPoints()
+	-- Red for "not yet", matching the Silvermoon banner. Grey is what the other installed
+	-- guides reserve for content you are PAST; using it for both makes the two states
+	-- indistinguishable (measured in Zygor and the HandyNotes handlers, 3 Sep).
+	levelBarBg:SetColorTexture(0.42, 0.10, 0.09, 0.92)
+	local levelBarEdge = levelBar:CreateTexture(nil, "BORDER")
+	levelBarEdge:SetHeight(1)
+	levelBarEdge:SetPoint("BOTTOMLEFT", levelBar, "BOTTOMLEFT", 0, 0)
+	levelBarEdge:SetPoint("BOTTOMRIGHT", levelBar, "BOTTOMRIGHT", 0, 0)
+	levelBarEdge:SetColorTexture(0.85, 0.35, 0.3, 0.7)
+	local levelBarText = levelBar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	levelBarText:SetPoint("LEFT", levelBar, "LEFT", 10, 0)
+	levelBarText:SetPoint("RIGHT", levelBar, "RIGHT", -10, 0)
+	levelBarText:SetJustifyH("LEFT")
+	levelBarText:SetWordWrap(false)
+	levelBarText:SetTextColor(1, 0.88, 0.84)
+	levelBar:Hide()
+	ns.mhLevelBar = levelBar
+	ns.mhLevelBarText = levelBarText
+	if ns.RefreshMidnightLevelBar then
+		ns.RefreshMidnightLevelBar()
+	end
+
 	-- Sidebar column for module tabs (left, below the favourites row).
 	local sidebar = CreateFrame("Frame", nil, main)
 	sidebar:SetWidth(MHGetLayoutMetrics().sidebarWidth)
-	sidebar:SetPoint("TOPLEFT", ns.mhFavRow or searchBar, "BOTTOMLEFT", 0, 0)
+	sidebar:SetPoint("TOPLEFT", levelBar, "BOTTOMLEFT", 0, 0)
 	-- Inner shell uses only the gold-border inset; resize grip sits in the corner on top.
 	sidebar:SetPoint("BOTTOMLEFT", main, "BOTTOMLEFT", MH_MAIN_EDGE.L, MH_MAIN_EDGE.B)
 
@@ -2486,7 +2534,7 @@ function ns:EnsureMainUI()
 
 	-- Content region: hosts one visible module panel at a time.
 	local content = CreateFrame("Frame", nil, main)
-	content:SetPoint("TOPLEFT", ns.mhFavRow or searchBar, "BOTTOMLEFT", MHGetLayoutMetrics().sidebarWidth, 0)
+	content:SetPoint("TOPLEFT", levelBar, "BOTTOMLEFT", MHGetLayoutMetrics().sidebarWidth, 0)
 	content:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -MH_MAIN_EDGE.R, MH_MAIN_EDGE.B)
 
 	local contentBg = content:CreateTexture(nil, "BACKGROUND")
@@ -3290,6 +3338,7 @@ function ns:EnsureMainUI()
 		content = content,
 		searchBar = searchBar,
 		favRow = favRow,
+		levelBar = levelBar,
 		searchResetBtn = searchResetBtn,
 		searchGoBtn = searchGoBtn,
 		aboutBtn = aboutBtn,

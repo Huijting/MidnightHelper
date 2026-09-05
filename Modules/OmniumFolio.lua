@@ -277,11 +277,19 @@ local function SetFolioStartWaypoint()
 	if C_AddOns and C_AddOns.LoadAddOn and C_AddOns.IsAddOnLoaded and not C_AddOns.IsAddOnLoaded("TomTom") then
 		pcall(C_AddOns.LoadAddOn, "TomTom")
 	end
-	-- ⚠️ Own waypoint, so ns.AddSmartTomTomWay's level warning never sees this one. See
-	-- the note in CurrencyGuide: six places bypass that door and each needs the call.
-	if ns.WarnZoneLevelIfNeeded then
-		local okGate, blocked = pcall(ns.WarnZoneLevelIfNeeded, FOLIO_START.map, FOLIO_START.x, name)
-		if okGate and blocked then
+	--- 🔴 GO THROUGH THE SHARED DOOR — Rob, 5 Sep: *"bij de omnium folio enz geen tomtom
+	--- added a waypoint"*. The level warning fired, so this function ran; what did not
+	--- happen is the waypoint. The route below never printed TomTom's own confirmation on
+	--- his client, while the arrow set through ns.AddSmartTomTomWay did, in the same
+	--- session, for a target in the same city.
+	---
+	--- 📌 So rather than debug a second route path, use the one that is measured working.
+	--- It also carries the level check, the travel plan and the arrow ownership, which is
+	--- three things this copy had to be taught separately and one of which it never got.
+	--- The slash/native path stays as a fallback for the case where Delves.lua is absent.
+	if ns.AddSmartTomTomWay then
+		local okWay = pcall(ns.AddSmartTomTomWay, FOLIO_START.map, FOLIO_START.x, FOLIO_START.y, name)
+		if okWay then
 			return
 		end
 	end

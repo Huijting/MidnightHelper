@@ -103,9 +103,43 @@ Twee dingen kwamen terug uit de test, en allebei zijn ze gebouwd:
 📌 **De waarschuwing zelf is niet uit te zetten.** Die is er juist gekomen omdat ze ontbrak; alleen
 wat erna gebeurt is een keuze.
 
-⚠️ **Nog te doen:** `ZONEGATE_BLOCKED`, `SET_ZONEGATE_BLOCK_TITLE` en `_DESC` staan alleen in enUS +
-nlNL. Samen met de drie oudere `ZONEGATE_*`-sleutels wachten ze op de/fr/es/pt/it via
-`Translations2026.lua`. Tot dan valt `ns:L` terug op Engels — zichtbaar, niet kapot.
+⚠️ **Nog te doen:** `ZONEGATE_BLOCKED`, `SET_ZONEGATE_BLOCK_TITLE`, `_DESC` en
+`LEVELBAR_BELOW_ENTRY_FMT` staan alleen in enUS + nlNL. Samen met de drie oudere
+`ZONEGATE_*`-sleutels wachten ze op de/fr/es/pt/it via `Translations2026.lua`. Tot dan valt `ns:L`
+terug op Engels — zichtbaar, niet kapot.
+
+### 🔴 5 sep, tweede testronde: één echte bug, één open meting, één nieuwe balk
+
+**1. De eigen waypoints zetten geen route.** Rob: *"bij de omnium folio enz geen tomtom added a
+waypoint"*. De level-waarschuwing kwám wél, dus de functie liep — wat níét gebeurde was het
+waypoint. Diezelfde sessie zette `ns.AddSmartTomTomWay` wél een pijl naar The Darkway, in
+diezelfde stad.
+
+📌 **Niet het tweede routepad gaan repareren, maar weghalen.** `CurrencyGuide`, `OmniumFolio` en
+`TierSet` gaan nu door `ns.AddSmartTomTomWay`, met hun oude `SlashCmdList["TOMTOM_WAY"]`-pad als
+terugval voor als `Delves.lua` ontbreekt. Dat is precies de conclusie die de vorige commit al
+opschreef en toen niet doortrok: drie privé-kopieën van de routering die elk apart alles moesten
+leren, en er is er minstens één die iets nooit geleerd heeft.
+⚠️ `DelveTipMarkup:668` gebruikt hetzelfde slash-pad, maar alleen als terugval wanneer
+`AddSmartTomTomWay` er niet is — daar hoeft niets aan.
+
+**2. Geen geluid, en drie mogelijke oorzaken die er identiek uitzien.** `SOUNDKIT.READY_CHECK`
+bestaat niet op deze client / `PlaySound` weigert / het speelt en is onhoorbaar. **NIET GOKKEN** —
+`/mh zonegate test` print nu wat elke stap teruggaf (`willPlay`, `handle`) en vuurt daarna de echte
+toast door dezelfde deur, met de throttle geleegd. Antwoord verwacht van Rob.
+
+**3. De rode balk boven in het venster.** Robs idee: *"wanneer iemand onder lvl 78 is standaard een
+soort rode balk boven aan de addon."* Gebouwd in `UI.lua` (`ns.mhLevelBar`), tussen de
+favorietenrij en de inhoud, ververst op `PLAYER_ENTERING_WORLD` en `PLAYER_LEVEL_UP`.
+
+⚠️ **78 is bewust een ánder getal dan de 80 van de Silvermoon-banner.** 80 is Blizzards eigen
+aankondiging (waar Eversong/Silvermoon op afgestemd zijn); 78 is waar de intro-questlijn opengaat,
+uit twee gidsen plus Robs eigen lezing. Twee claims van verschillende sterkte, dus twee getallen —
+`ns.MidnightEntryLevel` naast `REGION_MIN_LEVEL`.
+
+📌 **En de balk claimt iets over ONS, niet over het spel:** "Midnight Helper is gemaakt voor 78 en
+hoger." Of het spel een level-70 fysiek tegenhoudt is nog steeds ongemeten, en deze zin hangt daar
+niet van af. Er wordt niets verborgen of uitgezet.
 
 ## 🗄️ AFGEHANDELD 5 sep — MH stuurt lage levels naar dingen die ze niet kunnen doen
 
