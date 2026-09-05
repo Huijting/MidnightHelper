@@ -578,6 +578,36 @@ onzichtbaar zijn, en dat is precies de fout uit de rare-hints van 19 aug in een 
 bonus voor wie geen TomTom draait. Niet andersom. Rob zei zelf "niet noodzakelijk hoor" — dit staat
 hier als afgemeten voorstel, niet als taak.
 
+#### ✅ 5 sep — Coiled Isle rare-alerts: gemeten, en ze wérken
+
+Robs melding *"op de coiled island krijg ik ook geen rare alerts"* is met `/mh rarescan` ter plekke
+nagegaan:
+
+```
+playerMap=2512  zoneKey=coiled_isle  zone=ok   vignettes nearby = 4
+ [1] Vul'zahn's Smuggled Treasure   atlas=VignetteLootElite  -> match=NONE
+ [2] Malformed Leviathan            atlas=VignetteKillElite  -> match=Malformed Leviathan
+ [3] Zul'jarra's Forces Decor Specialist  atlas=housing-decor-vendor -> match=NONE
+ [4] Zul'jarra's Forces Renown Quartermaster  atlas=Quartermaster -> match=NONE
+```
+
+📌 **De zone komt door de Season 2-poort, en de enige échte rare in de buurt matchte.** De drie
+NONE's horen NONE te zijn: een schatkist en twee vendors. Er is dus niets kapot aan de dekking.
+
+⚠️ **Wat dan wél bepaalt of je hem hoort:** `RARE_ALERT_MAX_YARDS = 500` en 15 minuten stilte per
+spawn (`RARE_ALERT_TTL`). "Er toevallig overheen vliegen" op hoogte kan makkelijk buiten die 500
+yard vallen. Dat is een afweging, geen bug — maar als Rob vaker meldt dat hij er langs vloog zonder
+ping, is die 500 het getal om te bespreken en niet de matcher.
+
+#### 🟡 OPEN, klein — de pijl draait om bij aankomst op de Coiled Isle
+
+Rob vroeg de route naar het Coiled Isle-portaal, kreeg hem netjes, en bij aankomst óp het eiland
+sprong de pijl naar *"Portal to Silvermoon, 2 m away"* — het portaal terug, waar hij naast stond.
+
+⚠️ **Niet gediagnosticeerd.** Onze `MIDNIGHT_PORTALS` heeft geen rij op 2512, dus waar die naam
+vandaan komt is nog onbekend. Eén `/mh arrow` op dat eiland geeft de eigenaar en het doel en zou het
+in één regel beslechten — precies zoals dat vandaag zes keer werkte. Cosmetisch: je staat er al.
+
 📌 **De sweep kostte minder dan de vier losse meldingen samen.** Waard om te onthouden voor de
 volgende keer dat één fout zich drie keer herhaalt.
 
